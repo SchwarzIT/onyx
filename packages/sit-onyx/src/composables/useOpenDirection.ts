@@ -1,9 +1,9 @@
-import { ref, unref, type MaybeRef } from "vue";
+import { ref, unref, type ShallowRef } from "vue";
 
 export type OpenDirection = "top" | "bottom";
 
 export const useOpenDirection = (
-  element: MaybeRef<Element | undefined>,
+  element: Readonly<ShallowRef<Element | null | undefined>>,
   defaultDirection: OpenDirection = "bottom",
 ) => {
   const openDirection = ref<OpenDirection>(defaultDirection);

@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import { ref, type ComponentInstance } from "vue";
+import { useTemplateRef } from "vue";
 import OnyxRipple from "./OnyxRipple.vue";
 
-const rippleRef = ref<ComponentInstance<typeof OnyxRipple>>();
+const ripple = useTemplateRef("rippleRef");
 </script>
 
 <template>
-  <button class="onyx-component" type="button" v-on="rippleRef?.events">
+  <button class="onyx-component" type="button" v-on="ripple?.events">
     Test button
     <OnyxRipple ref="rippleRef" />
   </button>

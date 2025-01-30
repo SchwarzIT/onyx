@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+import { useTemplateRef } from "vue";
 import { useRipple } from "../../composables/useRipple";
 
-const rippleTrigger = ref<HTMLElement>();
+const rippleTrigger = useTemplateRef("rippleTriggerRef");
 const { ripples, hideRipple, events } = useRipple(rippleTrigger);
 
 defineExpose({
@@ -11,7 +11,7 @@ defineExpose({
 </script>
 
 <template>
-  <span ref="rippleTrigger" class="onyx-component onyx-ripple" aria-hidden="true">
+  <span ref="rippleTriggerRef" class="onyx-component onyx-ripple" aria-hidden="true">
     <span
       v-for="[key, ripple] in ripples"
       :key="key"

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref, type ComponentInstance } from "vue";
+import { computed, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
@@ -22,8 +22,8 @@ const { densityClass } = useDensity(props);
 const { disabled } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
 
-const rippleRef = ref<ComponentInstance<typeof OnyxRipple>>();
-const rippleEvents = computed(() => rippleRef.value?.events ?? {});
+const ripple = useTemplateRef("rippleRef");
+const rippleEvents = computed(() => ripple.value?.events ?? {});
 </script>
 
 <template>

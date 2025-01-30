@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import search from "@sit-onyx/icons/search.svg?raw";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
-import { computed, ref } from "vue";
+import { computed, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density";
 import { injectI18n } from "../../i18n";
 import { useRootAttrs } from "../../utils/attrs";
@@ -27,7 +27,7 @@ const modelValue = defineModel<string>({ default: "" });
 const { rootAttrs, restAttrs } = useRootAttrs();
 const { densityClass } = useDensity(props);
 const { t } = injectI18n();
-const input = ref<HTMLInputElement>();
+const input = useTemplateRef("inputRef");
 
 const placeholder = computed(() => t.value("select.searchPlaceholder"));
 
@@ -46,7 +46,7 @@ defineExpose({
     :style="{ '--onyx-placeholder-character-count': placeholder.length }"
   >
     <input
-      ref="input"
+      ref="inputRef"
       v-model="modelValue"
       class="onyx-mini-search__input onyx-text"
       :placeholder="placeholder"

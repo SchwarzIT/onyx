@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { provide, ref, watch } from "vue";
+import { provide, ref, useTemplateRef, watch } from "vue";
 import { useMoreList } from "../../composables/useMoreList";
 import type { VueTemplateRefElement } from "../../composables/useResizeObserver";
 import type { MoreListSlotBindings, OnyxMoreListProps } from "./types";
@@ -24,7 +24,7 @@ defineSlots<{
   more(props: MoreListSlotBindings & { attributes: object }): unknown;
 }>();
 
-const parentRef = ref<VueTemplateRefElement>();
+const parentRef = useTemplateRef("parentRef");
 const listRef = ref<VueTemplateRefElement>();
 const moreIndicatorRef = ref<VueTemplateRefElement>();
 

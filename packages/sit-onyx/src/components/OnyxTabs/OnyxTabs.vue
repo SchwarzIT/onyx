@@ -1,6 +1,6 @@
 <script lang="ts" setup generic="TValue extends PropertyKey = PropertyKey">
 import { createTabs } from "@sit-onyx/headless";
-import { provide, ref, toRef } from "vue";
+import { provide, toRef, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density";
 import { provideSkeletonContext } from "../../composables/useSkeletonState";
 import { TABS_INJECTION_KEY, type OnyxTabsProps, type TabsInjectionKey } from "./types";
@@ -31,12 +31,12 @@ defineSlots<{
   default(): unknown;
 }>();
 
-const panelRef = ref<HTMLElement>();
+const panel = useTemplateRef("panelRef");
 provideSkeletonContext(props);
 
 provide(TABS_INJECTION_KEY as TabsInjectionKey<TValue>, {
   headless,
-  panelRef,
+  panel,
   size: toRef(props, "size"),
 });
 </script>

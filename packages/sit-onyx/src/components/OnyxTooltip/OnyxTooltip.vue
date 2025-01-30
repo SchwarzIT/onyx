@@ -1,7 +1,19 @@
 <script lang="ts" setup>
 import { createToggletip, createTooltip, useGlobalEventListener } from "@sit-onyx/headless";
-import type { AriaAttributes, MaybeRefOrGetter, Ref, VNode } from "vue";
-import { computed, nextTick, onMounted, ref, shallowRef, toValue, watch } from "vue";
+import {
+  computed,
+  nextTick,
+  onMounted,
+  ref,
+  shallowRef,
+  toValue,
+  useTemplateRef,
+  watch,
+  type AriaAttributes,
+  type MaybeRefOrGetter,
+  type Ref,
+  type VNode,
+} from "vue";
 import { useDensity } from "../../composables/density";
 import { useOpenDirection } from "../../composables/useOpenDirection";
 import { useWedgePosition } from "../../composables/useWedgePosition";
@@ -62,6 +74,7 @@ const tooltipOptions = computed<CreateTooltipOptions>(() => ({
   ...((typeof props.open === "object" && props.open.type === "hover" && props.open) || {}),
   isVisible,
 }));
+
 const toggletipOptions = computed<CreateToggletipOptions>(() => ({
   toggleLabel: t.value(`tooltip.${props.color}`),
   ...((typeof props.open === "object" && props.open.type === "click" && props.open) || {}),
@@ -99,8 +112,8 @@ watch(type, () => (ariaPattern.value = createPattern()));
 const tooltip = computed(() => ariaPattern.value?.elements.tooltip);
 const trigger = computed(() => toValue<object>(ariaPattern.value?.elements.trigger));
 
-const tooltipWrapperRef = ref<HTMLElement>();
-const tooltipRef = ref<HTMLElement>();
+const tooltipWrapperRef = useTemplateRef("tooltipWrapperRefEl");
+const tooltipRef = useTemplateRef("tooltipRefEl");
 const { openDirection, updateOpenDirection } = useOpenDirection(tooltipWrapperRef, "top");
 const { wedgePosition, updateWedgePosition } = useWedgePosition(tooltipWrapperRef, tooltipRef);
 
@@ -126,9 +139,9 @@ watch(isVisible, async () => {
 </script>
 
 <template>
-  <div ref="tooltipWrapperRef" :class="['onyx-component', 'onyx-tooltip-wrapper', densityClass]">
+  <div ref="tooltipWrapperRefEl" :class="['onyx-component', 'onyx-tooltip-wrapper', densityClass]">
     <div
-      ref="tooltipRef"
+      ref="tooltipRefEl"
       v-bind="tooltip"
       :class="['onyx-tooltip', 'onyx-text--small', 'onyx-truncation-multiline', tooltipClasses]"
     >

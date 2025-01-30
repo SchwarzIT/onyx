@@ -3,13 +3,13 @@ import { Repl } from "@vue/repl";
 import Monaco from "@vue/repl/monaco-editor";
 import { useDark } from "@vueuse/core";
 import { OnyxAppLayout } from "sit-onyx";
-import { computed, ref, type ComponentInstance } from "vue";
+import { computed, useTemplateRef, type ComponentInstance } from "vue";
 import TheHeader from "./components/TheHeader.vue";
 import { useStore } from "./composables/useStore";
 
 const { store, onyxVersion, isLoadingOnyxVersions } = useStore();
 
-const replRef = ref<ComponentInstance<typeof Repl>>();
+const replRef = useTemplateRef("replRef");
 const reloadPage = () => {
   replRef.value?.reload();
   store.reloadLanguageTools?.();

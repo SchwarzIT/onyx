@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, watch } from "vue";
+import { useTemplateRef, watch } from "vue";
 import { useDensity } from "../../composables/density";
 import type { OnyxDialogProps } from "./types";
 
@@ -25,30 +25,30 @@ defineSlots<{
   default(): unknown;
 }>();
 
-const dialogRef = ref<HTMLDialogElement>();
+const dialog = useTemplateRef("dialogRef");
 const { densityClass } = useDensity(props);
 
 /**
  * Shows the dialog either as default dialog or modal.
  */
 const openDialog = () => {
-  if (props.modal) dialogRef.value?.showModal();
-  else dialogRef.value?.show();
+  if (props.modal) dialog.value?.showModal();
+  else dialog.value?.show();
 };
 
 // sync open state
-watch([dialogRef, () => props.open], () => {
+watch([dialog, () => props.open], () => {
   if (props.open) openDialog();
-  else dialogRef.value?.close();
+  else dialog.value?.close();
 });
 
 watch(
   () => props.modal,
   () => {
-    if (dialogRef.value?.open) {
+    if (dialog.value?.open) {
       // when the modal prop is changed while the dialog is already open, an error would
       // be thrown so we need to close it first
-      dialogRef.value.close();
+      dialog.value.close();
       openDialog();
     }
   },

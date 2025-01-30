@@ -13,7 +13,7 @@ import {
   useThemeTransition,
   type OnyxNavButtonProps,
 } from "sit-onyx";
-import { ref, watch, type ComponentInstance } from "vue";
+import { useTemplateRef, watch } from "vue";
 import { RouterView, useRoute, useRouter } from "vue-router";
 import onyxLogo from "./assets/onyx-logo.svg";
 import { useGridStore } from "./stores/grid-store";
@@ -33,12 +33,12 @@ const navItems = [
 const { store: colorScheme } = useColorMode({ disableTransition: false });
 useThemeTransition(colorScheme);
 
-const navBarRef = ref<ComponentInstance<typeof OnyxNavBar>>();
+const navBar = useTemplateRef("navBarRef");
 
 watch(
   () => route.path,
   () => {
-    navBarRef.value?.closeMobileMenus();
+    navBar.value?.closeMobileMenus();
   },
 );
 </script>

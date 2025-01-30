@@ -1,4 +1,4 @@
-import { onBeforeMount, reactive, ref, type Ref } from "vue";
+import { onBeforeMount, reactive, ref, type ShallowRef } from "vue";
 
 export type RippleInstance = {
   id: string;
@@ -8,7 +8,7 @@ export type RippleInstance = {
 };
 
 export const useRipple = (
-  container: Ref<Pick<HTMLElement, "getBoundingClientRect"> | undefined>,
+  container: Readonly<ShallowRef<Pick<HTMLElement, "getBoundingClientRect"> | null>>,
 ) => {
   /** Whether the mouse/pointer is currently hold down. */
   const isPointerDown = ref(false);
