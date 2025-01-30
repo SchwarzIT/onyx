@@ -4,8 +4,8 @@ import { findParentWithHiddenOverflow } from "./useOpenDirection";
 export type WedgePosition = "center" | "left" | "right";
 
 export const useWedgePosition = (
-  element: Readonly<ShallowRef<HTMLDivElement | null>>,
-  tooltipElement: Readonly<ShallowRef<HTMLDivElement | null>>,
+  element: Readonly<ShallowRef<Element | null>>,
+  tooltipElement: Readonly<ShallowRef<Element | null>>,
 ) => {
   const minMargin = 16;
   const wedgePosition = ref<WedgePosition>("center");
