@@ -85,11 +85,8 @@ for (const modifier of ["Alt", "ControlOrMeta", "Shift"] as const) {
     mount,
     browserName,
   }) => {
-    // eslint-disable-next-line playwright/no-conditional-in-test -- Alt does not work in safari
-    if (browserName === "webkit" && modifier === "Alt") {
-      // eslint-disable-next-line playwright/no-skipped-test -- Alt does not work in safari
-      return test.skip();
-    }
+    // eslint-disable-next-line playwright/no-skipped-test
+    test.skip(browserName === "webkit" && modifier === "Alt", "Alt does not work in safari");
 
     // ARRANGE
     const component = await mount(<TestWrapper href="/test-page">Test link</TestWrapper>);
