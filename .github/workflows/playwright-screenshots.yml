@@ -8,6 +8,7 @@ env:
 jobs:
   screenshots:
     uses: ./.github/workflows/playwright.yml
+    continue-on-error: true
     secrets: inherit
     continue-on-error: true
     with:
