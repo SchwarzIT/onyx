@@ -1,9 +1,11 @@
 <script lang="ts" setup>
+import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState";
 import OnyxSelectPagination from "./OnyxSelectPagination.vue";
 import type { OnyxPaginationProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxPaginationProps>(), {
   disabled: false,
+  skeleton: SKELETON_INJECTED_SYMBOL,
 });
 
 const emit = defineEmits<{
