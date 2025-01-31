@@ -149,7 +149,7 @@ const handleApply = () => {
       }
 
       &:hover {
-        background: var(--onyx-color-base-background-tinted);
+        background: var(--onyx-color-base-neutral-200);
       }
 
       &:has(input:checked) {
