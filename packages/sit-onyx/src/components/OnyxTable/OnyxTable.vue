@@ -45,7 +45,7 @@ const slots = defineSlots<{
    * Optional slot for displaying additional information below the table (bottom left).
    * Useful for showing a legend, page size selection etc.
    */
-  bottomRight?(): unknown;
+  bottomLeft?(): unknown;
 }>();
 
 const { t } = injectI18n();
@@ -124,9 +124,9 @@ const isEmptyMessage = computed(() => t.value("table.empty"));
       </table>
     </div>
 
-    <div v-if="!!slots.bottomRight || !!slots.pagination" class="onyx-table-wrapper__bottom">
+    <div v-if="!!slots.bottomLeft || !!slots.pagination" class="onyx-table-wrapper__bottom">
       <div>
-        <slot name="bottomRight"></slot>
+        <slot name="bottomLeft"></slot>
       </div>
 
       <div>
