@@ -1,9 +1,13 @@
 <script lang="ts" setup>
 import { computed } from "vue";
 import { injectI18n } from "../../i18n";
+import { extractLinkProps } from "../../utils/router";
+import OnyxRouterLink from "../OnyxRouterLink/OnyxRouterLink.vue";
 import type { OnyxNavAppAreaProps } from "./types";
 
-const props = defineProps<OnyxNavAppAreaProps>();
+const props = withDefaults(defineProps<OnyxNavAppAreaProps>(), {
+  link: "/",
+});
 
 defineSlots<{
   /**
@@ -15,10 +19,15 @@ defineSlots<{
 const { t } = injectI18n();
 
 const buttonLabel = computed(() => props.label ?? t.value("navigation.goToHome"));
+const linkProps = computed(() => extractLinkProps(props.link));
 </script>
 
 <template>
-  <button type="button" class="onyx-component onyx-nav-app-area" :aria-label="buttonLabel">
+  <OnyxRouterLink
+    v-bind="linkProps"
+    class="onyx-component onyx-nav-app-area"
+    :aria-label="buttonLabel"
+  >
     <slot>
       <!--
         the width/height here is only to prevent layout shifts on initial load.
@@ -37,7 +46,7 @@ const buttonLabel = computed(() => props.label ?? t.value("navigation.goToHome")
         {{ props.appName }}
       </span>
     </slot>
-  </button>
+  </OnyxRouterLink>
 </template>
 
 <style lang="scss">
@@ -45,16 +54,14 @@ const buttonLabel = computed(() => props.label ?? t.value("navigation.goToHome")
 
 .onyx-nav-app-area {
   @include layers.component() {
-    // reset button styles
-    background: none;
-    border: none;
-
     display: flex;
     align-items: center;
     gap: var(--onyx-spacing-md);
     padding: var(--onyx-spacing-md);
     font-weight: 600;
     white-space: pre-line;
+    width: max-content;
+    max-width: 100%;
     // Full container height as maximum
     max-height: 100cqh;
     cursor: pointer;
