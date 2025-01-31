@@ -14,6 +14,7 @@ jobs:
 
   # Download screenshots from all shards and create a pull request
   pr:
+    if: always()
     name: Create pull request
     runs-on: ubuntu-latest
     needs: screenshots

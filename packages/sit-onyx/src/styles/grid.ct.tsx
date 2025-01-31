@@ -11,12 +11,12 @@ const GRID_COLUMNS = {
   xs: 8,
   sm: 8,
   md: 12,
-  lg: 16,
-  xl: 16,
+  lg: 12,
+  xl: 12,
 } satisfies Record<OnyxBreakpoint, number>;
 
 const createGridElement = (
-  cols: number,
+  cols: number | "full",
   className = `onyx-grid-span-${cols}`,
   name = `${cols}`,
 ) => (
@@ -33,10 +33,24 @@ const createGridElement = (
   </div>
 );
 
-const expectActualGridSpan = async (element: Locator, toBe: number) => {
-  const jsValue = await element.evaluateHandle((e) => window.getComputedStyle(e).gridColumnEnd);
-  const value = await jsValue.jsonValue();
-  return expect(value).toBe(`span ${toBe}`);
+const expectComputedGridSpan = async (element: Locator, toBe: number) => {
+  await expect(element).toBeAttached();
+  const value = await element.evaluate((e) => window.getComputedStyle(e).gridColumnEnd);
+  return expect(value, "must span the given columns").toBe(`span ${toBe}`);
+};
+
+const expectComputedColumnCount = async (page: Page, count: number) => {
+  const value = await page
+    .locator(".onyx-grid")
+    .evaluate((grid) => window.getComputedStyle(grid).gridTemplateColumns);
+  const columns = value.split(" ");
+  return expect(columns, "must have expected column count").toHaveLength(count);
+};
+
+const getAllGridElements = async (page: Page) => {
+  const allGridElements = await page.locator(".onyx-grid > div").all();
+  expect(allGridElements).not.toHaveLength(0);
+  return allGridElements;
 };
 
 const fullPageScreenshot = (page: Page, name: string) => {
@@ -45,7 +59,7 @@ const fullPageScreenshot = (page: Page, name: string) => {
 
 test.beforeEach(({ page }) => page.addStyleTag({ content: "body { margin: 0; }" }));
 
-Object.entries(GRID_COLUMNS).forEach(([name, columns], i) => {
+Object.entries(GRID_COLUMNS).forEach(([name, columns]) => {
   test(`all 'onyx-grid-span-*' should have correct column count for ${name} breakpoint`, async ({
     mount,
     page,
@@ -57,19 +71,55 @@ Object.entries(GRID_COLUMNS).forEach(([name, columns], i) => {
     });
     await mount(
       <main class="onyx-grid onyx-grid-container" style={{ outline: "1px solid red" }}>
-        {new Array(16).fill(null).map((_, i) => createGridElement(i + 1))}
+        {Array.from({ length: 16 }, (_, i) => createGridElement(i + 1))}
+        {createGridElement("full")}
       </main>,
     );
 
     // ASSERT
     await fullPageScreenshot(page, `grid-${name}.png`);
-    for (const loc of await page.locator("onyx-grid > div").all()) {
-      await expectActualGridSpan(loc, Math.min(i, columns));
+    const allGridElements = await getAllGridElements(page);
+
+    for (let i = 0; i < allGridElements.length; i++) {
+      const element = allGridElements[i];
+      await expectComputedGridSpan(element, Math.min(i + 1, columns));
+      await expectComputedColumnCount(page, columns);
     }
   });
 });
 
-Object.entries(GRID_COLUMNS).forEach(([name, columns], i) => {
+const XL_VARIANTS = [
+  { className: "", breakpoint: "xl", expectedColumns: 12 },
+  { className: "onyx-grid-lg-16", breakpoint: "lg", expectedColumns: 16 },
+  { className: "onyx-grid-lg-16", breakpoint: "xl", expectedColumns: 16 },
+  { className: "onyx-grid-xl-20", breakpoint: "lg", expectedColumns: 16 },
+  { className: "onyx-grid-xl-20", breakpoint: "xl", expectedColumns: 20 },
+] as const;
+
+XL_VARIANTS.forEach(({ className, expectedColumns, breakpoint }) => {
+  test(`xl grid variant ${className} with breakpoint ${breakpoint} should have ${expectedColumns} columns`, async ({
+    mount,
+    page,
+  }) => {
+    await page.setViewportSize({ width: ONYX_BREAKPOINTS[breakpoint] + 1, height: 400 });
+
+    await mount(
+      <main
+        class={`onyx-grid onyx-grid-container ${className}`}
+        style={{ outline: "1px solid red" }}
+      >
+        {createGridElement(20)}
+        {createGridElement("full")}
+      </main>,
+    );
+
+    await expectComputedColumnCount(page, expectedColumns);
+    await expectComputedGridSpan(page.locator(".onyx-grid-span-full"), expectedColumns);
+    await fullPageScreenshot(page, `grid-${breakpoint}-variant-${className}.png`);
+  });
+});
+
+Object.entries(GRID_COLUMNS).forEach(([name, columns]) => {
   test(`all 'onyx-grid-span-*' should have correct column count for ${name} breakpoint in max grid md`, async ({
     mount,
     page,
@@ -84,18 +134,20 @@ Object.entries(GRID_COLUMNS).forEach(([name, columns], i) => {
         class="onyx-grid onyx-grid-container onyx-grid-max-md"
         style={{ outline: "1px solid red" }}
       >
-        {new Array(16).fill(null).map((_, i) => createGridElement(i + 1))}
+        {Array.from({ length: 16 }, (_, i) => createGridElement(i + 1))}
       </main>,
     );
 
     // ASSERT
-    for (const loc of await page.locator("onyx-grid > div").all()) {
-      await expectActualGridSpan(loc, Math.min(i, columns, GRID_COLUMNS.md));
+    const allGridElements = await getAllGridElements(page);
+    for (let i = 0; i < allGridElements.length; i++) {
+      const element = allGridElements[i];
+      await expectComputedGridSpan(element, Math.min(i + 1, columns, GRID_COLUMNS.md));
     }
   });
 });
 
-Object.entries(GRID_COLUMNS).forEach(([name, columns], i) => {
+Object.entries(GRID_COLUMNS).forEach(([name, columns]) => {
   test(`all 'onyx-grid-span-*' should have correct column count for ${name} breakpoint in max grid lg`, async ({
     mount,
     page,
@@ -110,13 +162,15 @@ Object.entries(GRID_COLUMNS).forEach(([name, columns], i) => {
         class="onyx-grid onyx-grid-container onyx-grid-max-lg"
         style={{ outline: "1px solid red" }}
       >
-        {new Array(16).fill(null).map((_, i) => createGridElement(i + 1))}
+        {Array.from({ length: 16 }, (_, i) => createGridElement(i + 1))}
       </main>,
     );
 
     // ASSERT
-    for (const loc of await page.locator("onyx-grid > div").all()) {
-      await expectActualGridSpan(loc, Math.min(i, columns, GRID_COLUMNS.lg));
+    const allGridElements = await getAllGridElements(page);
+    for (let i = 0; i < allGridElements.length; i++) {
+      const element = allGridElements[i];
+      await expectComputedGridSpan(element, Math.min(i + 1, columns, GRID_COLUMNS.lg));
     }
   });
 });
@@ -143,7 +197,7 @@ Object.entries(GRID_COLUMNS).forEach(([name], i) => {
     const element = page.getByText("dynamic element");
 
     // ASSERT
-    await expectActualGridSpan(element, i + 1);
+    await expectComputedGridSpan(element, i + 1);
   });
 });
 
@@ -165,7 +219,7 @@ test(`default span should apply when no breakpoint span is active`, async ({ mou
   const element = page.getByText("dynamic element");
 
   // ASSERT
-  await expectActualGridSpan(element, 4);
+  await expectComputedGridSpan(element, 4);
 });
 
 const MAX_WIDTH_TEST_SETUP = [
