@@ -13,7 +13,6 @@ import {
   useThemeTransition,
   type OnyxNavButtonProps,
 } from "sit-onyx";
-import { useTemplateRef, watch } from "vue";
 import { RouterView, useRoute, useRouter } from "vue-router";
 import onyxLogo from "./assets/onyx-logo.svg";
 import { useGridStore } from "./stores/grid-store";
@@ -32,15 +31,6 @@ const navItems = [
 
 const { store: colorScheme } = useColorMode({ disableTransition: false });
 useThemeTransition(colorScheme);
-
-const navBar = useTemplateRef("navBarRef");
-
-watch(
-  () => route.path,
-  () => {
-    navBar.value?.closeMobileMenus();
-  },
-);
 </script>
 
 <template>
@@ -60,7 +50,6 @@ watch(
       #navBar
     >
       <OnyxNavBar
-        ref="navBarRef"
         app-name="Demo App"
         :logo-url="onyxLogo"
         show-back-button
