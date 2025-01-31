@@ -61,7 +61,6 @@ useThemeTransition(colorScheme);
           :key="item.link"
           v-bind="item"
           :active="item.link === router.currentRoute.value.path"
-          @navigate="router.push"
         />
 
         <template #contextArea>
