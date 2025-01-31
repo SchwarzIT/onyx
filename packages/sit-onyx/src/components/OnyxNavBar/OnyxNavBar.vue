@@ -19,11 +19,6 @@ const props = withDefaults(defineProps<OnyxNavBarProps>(), {
 
 const emit = defineEmits<{
   /**
-   * Emitted when the app area (where logo and app name are placed) is clicked.
-   * Usually the user should be redirected to the home page then.
-   */
-  navigateToStart: [event: MouseEvent];
-  /**
    * Emitted when the back button is clicked.
    */
   navigateBack: [event: MouseEvent];
@@ -123,11 +118,7 @@ defineExpose({
         class="onyx-nav-bar__app"
         :app-name="props.appName"
         :logo-url="props.logoUrl"
-        :label="props.appAreaLabel"
-        @click="
-          emit('navigateToStart', $event);
-          isBurgerOpen = false;
-        "
+        v-bind="props.appArea"
       >
         <slot name="appArea"></slot>
       </OnyxNavAppArea>

@@ -54,7 +54,6 @@ useThemeTransition(colorScheme);
         :logo-url="onyxLogo"
         show-back-button
         @back-button-click="router.back"
-        @app-area-click="router.push('/')"
       >
         <OnyxNavButton
           v-for="item in navItems"
