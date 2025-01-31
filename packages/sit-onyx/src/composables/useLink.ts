@@ -1,4 +1,4 @@
-import { inject, type InjectionKey } from "vue";
+import { computed, inject, unref, type InjectionKey, type Ref } from "vue";
 import { isExternalLink } from "../utils";
 
 /**
@@ -6,6 +6,15 @@ import { isExternalLink } from "../utils";
  */
 export const useLink = () => {
   const router = inject(ROUTER_INJECTION_KEY, undefined);
+
+  /**
+   * Currently active route (if router is provided).
+   */
+  const currentRoute = computed(() => {
+    if (!router) return;
+    const route = unref(router.currentRoute);
+    return typeof route === "string" ? { fullPath: route } : route;
+  });
 
   /**
    * Handles the navigation with the user provided router if available and the link is internal.
@@ -37,7 +46,7 @@ export const useLink = () => {
     }
   };
 
-  return { navigate };
+  return { navigate, currentRoute };
 };
 
 /**
@@ -68,6 +77,11 @@ export type ProvideRouterOptions = {
    * @see https://router.vuejs.org/api/interfaces/Router.html#push-
    */
   push: (to: string) => void;
+  /**
+   * Currently active route.
+   * @see https://router.vuejs.org/api/interfaces/Router.html#currentRoute
+   */
+  currentRoute: Ref<string | { fullPath: string }>;
 };
 
 export const ROUTER_INJECTION_KEY = Symbol() as InjectionKey<ProvideRouterOptions>;

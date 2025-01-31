@@ -4,7 +4,8 @@ import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import menu from "@sit-onyx/icons/menu.svg?raw";
 import moreVertical from "@sit-onyx/icons/more-vertical.svg?raw";
 import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
-import { computed, provide, ref, toRef, useTemplateRef } from "vue";
+import { computed, provide, ref, toRef, useTemplateRef, watch } from "vue";
+import { useLink } from "../../composables/useLink";
 import { useResizeObserver } from "../../composables/useResizeObserver";
 import { injectI18n } from "../../i18n";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
@@ -58,6 +59,7 @@ const slots = defineSlots<{
 const navBar = useTemplateRef("navBarRef");
 const { width } = useResizeObserver(navBar);
 const { t } = injectI18n();
+const { currentRoute } = useLink();
 
 const {
   elements: { nav },
@@ -76,10 +78,18 @@ const isMobile = computed(() => {
 
 provide(MOBILE_NAV_BAR_INJECTION_KEY, isMobile);
 
+const closeMobileMenus = () => {
+  isBurgerOpen.value = false;
+  isContextOpen.value = false;
+};
+
+watch(currentRoute, () => closeMobileMenus(), { deep: true });
+
 defineExpose({
   /**
    * Closes the mobile burger and context menu.
    * Useful if you want to e.g. close them when a nav item is clicked.
+   * Will be automatically done if a router is provided.
    *
    * Example usage:
    *
@@ -90,10 +100,7 @@ defineExpose({
    * watch(() => route.path, () => navBar.value?.closeMobileMenus());
    * ```
    */
-  closeMobileMenus: () => {
-    isBurgerOpen.value = false;
-    isContextOpen.value = false;
-  },
+  closeMobileMenus,
 });
 </script>
 
