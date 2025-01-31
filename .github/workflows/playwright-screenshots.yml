@@ -9,6 +9,7 @@ jobs:
   screenshots:
     uses: ./.github/workflows/playwright.yml
     secrets: inherit
+    continue-on-error: true
     with:
       update-snapshots: true
 
