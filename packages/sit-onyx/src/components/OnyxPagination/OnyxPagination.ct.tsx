@@ -8,7 +8,7 @@ test.describe("screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Pagination",
     columns: DENSITIES,
-    rows: ["default", "min", "max", "large", "disabled", "open"],
+    rows: ["default", "skeleton", "min", "max", "large", "disabled", "open"],
     component: (column, row) => {
       let currentPage = 2;
       let pages = 6;
@@ -26,6 +26,7 @@ test.describe("screenshot tests", () => {
           modelValue={currentPage}
           density={column}
           disabled={row === "disabled"}
+          skeleton={row === "skeleton"}
         />
       );
     },
