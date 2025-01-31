@@ -20,7 +20,7 @@ export type LinkTarget = (typeof LINK_TARGETS)[number];
 
 export type WithLinkProp<TExternalLink extends boolean = false> = {
   /**
-   * If set, the component will be rendered as link instead of a button.
+   * If set, the component will be rendered as link.
    */
   link?:
     | string
