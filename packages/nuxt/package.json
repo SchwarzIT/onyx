@@ -47,7 +47,7 @@
     "nuxt": "^3.15.4",
     "sit-onyx": "workspace:^",
     "typescript": "catalog:",
-    "vue-i18n": "^11.0.1"
+    "vue-i18n": "^11.1.0"
   },
   "peerDependencies": {
     "sit-onyx": "workspace:^"
