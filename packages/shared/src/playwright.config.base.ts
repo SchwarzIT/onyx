@@ -30,6 +30,7 @@ export const PLAYWRIGHT_BASE_CONFIG = {
   // https://github.com/SchwarzIT/onyx/actions/workflows/playwright-screenshots.yml
   ignoreSnapshots: !process.env.CI,
   updateSnapshots: process.env.PW_UPDATE_SNAPSHOTS === "true" ? "all" : "none",
+  updateSourceMethod: "overwrite",
 
   /**
    * SHARDING
