@@ -61,6 +61,7 @@ const handleParentClick = () => {
       <NavButtonTrigger
         :aria-label="props.label"
         v-bind="{ ...props, ...trigger }"
+        :force-button="isMobile && hasChildren && !mobileChildrenOpen"
         @click="handleParentClick"
       >
         <slot>
