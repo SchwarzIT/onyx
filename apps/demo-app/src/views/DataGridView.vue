@@ -13,6 +13,7 @@ import {
 import { computed, h, ref } from "vue";
 
 const sortingEnabled = ref(false);
+const filteringEnabled = ref(false);
 const moreActions = ref(false);
 
 const data = [
@@ -50,10 +51,12 @@ const dummyFeature = createFeature(() => ({
 
 const dataFeatures = computed(() => {
   const enabled = [];
+  if (filteringEnabled.value) {
+    enabled.push(DataGridFeatures.useFiltering());
+  }
   if (sortingEnabled.value) {
     enabled.push(DataGridFeatures.useSorting());
   }
-
   if (moreActions.value) {
     enabled.push(dummyFeature());
   }
@@ -67,6 +70,7 @@ const dataFeatures = computed(() => {
       <OnyxHeadline is="h1">Data-Grid example</OnyxHeadline>
       <section class="data-grid-settings">
         <OnyxSwitch v-model="sortingEnabled" label="Enable sorting" />
+        <OnyxSwitch v-model="filteringEnabled" label="Enable filtering" />
         <OnyxSwitch v-model="moreActions" label="Enable more actions" />
       </section>
       <OnyxDataGrid :features="dataFeatures" :data :columns="['name', 'age']" />
