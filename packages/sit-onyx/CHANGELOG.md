@@ -59,7 +59,7 @@
 
   - OnyxAvatar: The `label` property has been removed in favor of `fullName` which now als supports passing a locale for determining the initials (will use the i18n locale by default).
   - OnyxAvatar: The default slot has been removed in favor of the `initials` property to set custom initials.
-  - OnyxUsername: The `username` property has been renamed to `fullName` to align with the OnyxAvatar
+  - OnyxUserMenu: The `username` property has been renamed to `fullName` to align with the OnyxAvatar
 
 ## 1.0.0-beta.134
 
@@ -162,7 +162,7 @@
 ### Patch Changes
 
 - 808e638: fix(OnyxInput, OnyxTextarea): `maxlength` doesn't restrict the user from typing more than the allowed characters.
-  The previous behavior, which restricts the user from typing more than the allowed characters, can be achieved by setting `strictMaxlength`.
+  The previous behavior, which restricts the user from typing more than the allowed characters, can be achieved by setting `<OnyxInput :maxlength="{ max: 42, strict: true }" />`.
 
 ## 1.0.0-beta.119
 
