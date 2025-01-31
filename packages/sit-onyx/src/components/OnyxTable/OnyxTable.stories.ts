@@ -19,7 +19,7 @@ const meta: Meta<typeof OnyxTable> = {
     headline: { control: { disable: true } },
     actions: { control: { disable: true } },
     pagination: { control: { disable: true } },
-    bottomRight: { control: { disable: true } },
+    bottomLeft: { control: { disable: true } },
   },
 };
 
@@ -87,7 +87,7 @@ export const WithSlots = {
       h(OnyxIconButton, { icon: placeholder, label: "Example action" }),
     ],
     pagination: h(OnyxPagination, { modelValue: 1, pages: 42 }),
-    bottomRight: h(
+    bottomLeft: h(
       "span",
       { style: "color: var(--onyx-color-text-icons-neutral-soft)" },
       "Custom content...",
