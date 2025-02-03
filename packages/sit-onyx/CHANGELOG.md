@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.141
+
+### Patch Changes
+
+- cf03735: style(OnyxColorSchemeDialog): update hover color
+
 ## 1.0.0-beta.140
 
 ### Minor Changes
