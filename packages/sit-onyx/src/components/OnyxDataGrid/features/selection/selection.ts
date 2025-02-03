@@ -72,17 +72,22 @@ export const useSelection = createFeature(
           },
           cell: {
             tdAttributes: { class: "onyx-data-grid-selection-cell" },
-            component: ({ row }) =>
-              h(OnyxCheckbox, {
-                label:
-                  selectionState.value.selectMode === "include"
-                    ? t.value("dataGrid.head.selection.select", { id: String(row.id) })
-                    : t.value("dataGrid.head.selection.deselect", { id: String(row.id) }),
-                value: `selection-${String(row.id)}`,
+            component: ({ row }) => {
+              const modelValue = getCheckState(row.id);
+              const idAsString = String(row.id);
+              const label =
+                selectionState.value.selectMode === "include"
+                  ? t.value("dataGrid.head.selection.select", { id: idAsString })
+                  : t.value("dataGrid.head.selection.deselect", { id: idAsString });
+              return h(OnyxCheckbox, {
+                class: { ["onyx-data-grid-selection-cell__checkbox--checked"]: modelValue },
+                value: `selection-${idAsString}`,
                 hideLabel: true,
                 "onUpdate:modelValue": (checked) => updateToggleState(checked, row.id),
-                modelValue: getCheckState(row.id),
-              }),
+                label,
+                modelValue,
+              });
+            },
           },
         },
       },

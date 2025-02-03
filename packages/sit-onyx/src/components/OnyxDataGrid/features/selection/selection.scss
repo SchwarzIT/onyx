@@ -2,3 +2,7 @@
   width: min-content;
   padding: 0;
 }
+
+tr:has(.onyx-data-grid-selection-cell__checkbox--checked) td {
+  background-color: var(--onyx-color-base-primary-100);
+}
