@@ -133,6 +133,7 @@ export const CONFIG = {
           items: [
             { text: "Getting Started", link: "/" },
             { text: "Theming", link: "/theming" },
+            { text: "Vue Router integration", link: "/router" },
             { text: "i18n", link: "/i18n" },
             { text: "Grid", link: "/grid" },
             { text: "Breakpoints", link: "/breakpoints" },
