@@ -1,8 +1,17 @@
+tr:has(.onyx-data-grid-selection-cell__checkbox--checked) td {
+  background-color: var(--onyx-color-base-primary-100);
+}
+
 .onyx-data-grid-selection-cell {
   width: min-content;
   padding: 0;
-}
 
-tr:has(.onyx-data-grid-selection-cell__checkbox--checked) td {
-  background-color: var(--onyx-color-base-primary-100);
+  &--hover &__checkbox {
+    visibility: hidden;
+  }
+
+  tr:hover &__checkbox,
+  .onyx-data-grid-selection-cell__checkbox--checked {
+    visibility: visible;
+  }
 }

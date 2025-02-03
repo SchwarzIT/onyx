@@ -29,7 +29,7 @@ const data = [
   { id: 5, name: "John", rank: 42, birthday: new Date("1997-04-18") },
 ] satisfies DataGridEntry[];
 
-const withSelection = DataGridFeatures.useSelection<TEntry>({ selectionState });
+const withSelection = DataGridFeatures.useSelection<TEntry>({ selectionState, hover: true });
 </script>
 
 <template>

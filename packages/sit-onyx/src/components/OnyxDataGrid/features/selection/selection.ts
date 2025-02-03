@@ -1,4 +1,4 @@
-import { h, toRef, type Ref } from "vue";
+import { computed, h, toRef, type Ref } from "vue";
 import { createFeature, type ModifyColumns } from "..";
 import { injectI18n } from "../../../../i18n";
 import OnyxCheckbox from "../../../OnyxCheckbox/OnyxCheckbox.vue";
@@ -18,6 +18,8 @@ export const useSelection = createFeature(
           contingent: new Set<TEntry["id"]>(),
         } as const),
     );
+    const enabled = computed(() => options?.enabled !== false);
+    const hover = options?.hover ?? false;
 
     const getCheckState = (id: PropertyKey) =>
       selectionState.value.selectMode === "include"
@@ -48,10 +50,10 @@ export const useSelection = createFeature(
       name: SELECTION_FEATURE,
       watch: [selectionState],
       modifyColumns: {
-        func: (columnConfig) => [
-          { key: SELECTION_COLUMN, type: SELECTION_COLUMN },
-          ...columnConfig,
-        ],
+        func: (columnConfig) =>
+          enabled.value
+            ? [{ key: SELECTION_COLUMN, type: SELECTION_COLUMN }, ...columnConfig]
+            : [...columnConfig],
       } satisfies ModifyColumns<TEntry>,
       typeRenderer: {
         [SELECTION_COLUMN]: {
@@ -71,7 +73,12 @@ export const useSelection = createFeature(
               }),
           },
           cell: {
-            tdAttributes: { class: "onyx-data-grid-selection-cell" },
+            tdAttributes: {
+              class: {
+                "onyx-data-grid-selection-cell": true,
+                "onyx-data-grid-selection-cell--hover": hover,
+              },
+            },
             component: ({ row }) => {
               const modelValue = getCheckState(row.id);
               const idAsString = String(row.id);
@@ -80,7 +87,10 @@ export const useSelection = createFeature(
                   ? t.value("dataGrid.head.selection.select", { id: idAsString })
                   : t.value("dataGrid.head.selection.deselect", { id: idAsString });
               return h(OnyxCheckbox, {
-                class: { ["onyx-data-grid-selection-cell__checkbox--checked"]: modelValue },
+                class: {
+                  "onyx-data-grid-selection-cell__checkbox": true,
+                  ["onyx-data-grid-selection-cell__checkbox--checked"]: modelValue,
+                },
                 value: `selection-${idAsString}`,
                 hideLabel: true,
                 "onUpdate:modelValue": (checked) => updateToggleState(checked, row.id),

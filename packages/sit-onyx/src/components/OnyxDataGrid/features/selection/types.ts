@@ -34,11 +34,11 @@ export type SelectionOptions = {
    */
   selectionState?: MaybeRef<SelectionState>;
   /**
-   * TODO: If the row selection column is shown or not.
+   * If the row selection column is shown or not.
    */
-  hidden?: MaybeRefOrGetter<boolean>;
+  enabled?: MaybeRefOrGetter<boolean>;
   /**
-   * TODO: If `true` the selection checkbox of a row will only be shown if the row is hovered or selected.
+   * If `true` the selection checkbox of a row will only be shown if the row is hovered or selected.
    */
   hover?: boolean;
 };
