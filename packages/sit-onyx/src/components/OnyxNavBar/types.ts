@@ -3,16 +3,16 @@ import type { ComputedRef, InjectionKey } from "vue";
 import type { MoreListInjectionKey } from "../../composables/useMoreList";
 import type { OnyxNavAppAreaProps } from "../OnyxNavAppArea/types";
 
-export type OnyxNavBarProps = Omit<OnyxNavAppAreaProps, "label"> & {
+export type OnyxNavBarProps = Pick<OnyxNavAppAreaProps, "appName" | "logoUrl"> & {
   /**
    * Whether to show a back button.
    */
   withBackButton?: boolean;
   /**
-   * Custom (aria) label for the app click area.
-   * @default Translated "Go to home" depending on the current locale.
+   * Override app area.
+   * @default Link to "/" route with a translated "Go to home" aria-label depending on the current locale.
    */
-  appAreaLabel?: string;
+  appArea?: Omit<OnyxNavAppAreaProps, "appName" | "logoUrl">;
   /**
    * Breakpoint name when the nav bar should switch into mobile mode.
    * Will switch if **smaller** than the given breakpoint.

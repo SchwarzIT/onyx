@@ -4,7 +4,8 @@ import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import menu from "@sit-onyx/icons/menu.svg?raw";
 import moreVertical from "@sit-onyx/icons/more-vertical.svg?raw";
 import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
-import { computed, provide, ref, toRef, useTemplateRef } from "vue";
+import { computed, provide, ref, toRef, useTemplateRef, watch } from "vue";
+import { useLink } from "../../composables/useLink";
 import { useResizeObserver } from "../../composables/useResizeObserver";
 import { injectI18n } from "../../i18n";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
@@ -17,11 +18,6 @@ const props = withDefaults(defineProps<OnyxNavBarProps>(), {
 });
 
 const emit = defineEmits<{
-  /**
-   * Emitted when the app area (where logo and app name are placed) is clicked.
-   * Usually the user should be redirected to the home page then.
-   */
-  navigateToStart: [event: MouseEvent];
   /**
    * Emitted when the back button is clicked.
    */
@@ -58,6 +54,7 @@ const slots = defineSlots<{
 const navBar = useTemplateRef("navBarRef");
 const { width } = useResizeObserver(navBar);
 const { t } = injectI18n();
+const { currentRoute } = useLink();
 
 const {
   elements: { nav },
@@ -76,10 +73,18 @@ const isMobile = computed(() => {
 
 provide(MOBILE_NAV_BAR_INJECTION_KEY, isMobile);
 
+const closeMobileMenus = () => {
+  isBurgerOpen.value = false;
+  isContextOpen.value = false;
+};
+
+watch(currentRoute, () => closeMobileMenus(), { deep: true });
+
 defineExpose({
   /**
    * Closes the mobile burger and context menu.
    * Useful if you want to e.g. close them when a nav item is clicked.
+   * Will be automatically done if a router is provided.
    *
    * Example usage:
    *
@@ -90,10 +95,7 @@ defineExpose({
    * watch(() => route.path, () => navBar.value?.closeMobileMenus());
    * ```
    */
-  closeMobileMenus: () => {
-    isBurgerOpen.value = false;
-    isContextOpen.value = false;
-  },
+  closeMobileMenus,
 });
 </script>
 
@@ -116,11 +118,7 @@ defineExpose({
         class="onyx-nav-bar__app"
         :app-name="props.appName"
         :logo-url="props.logoUrl"
-        :label="props.appAreaLabel"
-        @click="
-          emit('navigateToStart', $event);
-          isBurgerOpen = false;
-        "
+        v-bind="props.appArea"
       >
         <slot name="appArea"></slot>
       </OnyxNavAppArea>

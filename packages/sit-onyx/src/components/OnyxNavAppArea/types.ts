@@ -1,4 +1,6 @@
-export type OnyxNavAppAreaProps = {
+import type { WithLinkProp } from "../OnyxRouterLink/types";
+
+export type OnyxNavAppAreaProps = WithLinkProp & {
   /**
    * Logo / app icon URl to display. Slot `logo` can be used to place custom content.
    */

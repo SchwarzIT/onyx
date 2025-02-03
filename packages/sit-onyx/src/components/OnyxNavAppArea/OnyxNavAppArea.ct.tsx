@@ -47,11 +47,34 @@ test.describe("Screenshot tests", () => {
   });
 });
 
-test("should behave correctly", async ({ mount }) => {
-  let appAreaClickEvents = 0;
+test("should behave correctly", async ({ mount, page }) => {
+  // ARRANGE
+  let component = await mount(
+    <div>
+      <OnyxNavAppArea>Test app name</OnyxNavAppArea>
+    </div>,
+  );
 
-  const component = await mount(<OnyxNavAppArea onClick={() => appAreaClickEvents++} />);
+  const link = component.getByRole("link", { name: "Go to home page" });
 
-  await component.click();
-  expect(appAreaClickEvents).toBe(1);
+  // ASSERT
+  await expect(link).toBeVisible();
+  await expect(link).toHaveAttribute("href", "/");
+
+  // ACT
+  component = await mount(
+    <div>
+      <OnyxNavAppArea link={{ href: "/test" }}>Test app name</OnyxNavAppArea>
+    </div>,
+  );
+
+  // ASSERT
+  await expect(link).toHaveAttribute("href", "/test");
+
+  // ACT
+  await page.route("**/test", (route) => route.fulfill({ body: "Test page" }));
+  await link.click();
+
+  // ASSERT
+  await expect(page).toHaveURL(/^http:\/\/localhost:\d*\/test$/);
 });

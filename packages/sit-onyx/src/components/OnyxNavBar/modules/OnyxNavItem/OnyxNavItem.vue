@@ -7,13 +7,6 @@ import type { OnyxNavItemProps } from "./types";
 
 const props = defineProps<OnyxNavItemProps>();
 
-const emit = defineEmits<{
-  /**
-   * Emitted when the nav item is clicked.
-   */
-  navigate: [href: string, event: MouseEvent];
-}>();
-
 defineSlots<{
   /**
    * Content of the nav item.
@@ -27,12 +20,7 @@ const extractedLinkProps = computed(() => {
 </script>
 
 <template>
-  <OnyxMenuItem
-    class="onyx-component onyx-nav-item"
-    :active="props.active"
-    :link="props.link"
-    @click="extractedLinkProps && emit('navigate', extractedLinkProps.href, $event)"
-  >
+  <OnyxMenuItem class="onyx-component onyx-nav-item" :active="props.active" :link="props.link">
     <slot>
       <span>{{ props.label }}</span>
       <OnyxExternalLinkIcon v-bind="extractedLinkProps" />

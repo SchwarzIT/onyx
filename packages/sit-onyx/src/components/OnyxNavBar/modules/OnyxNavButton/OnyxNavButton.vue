@@ -14,13 +14,6 @@ const props = withDefaults(defineProps<OnyxNavButtonProps>(), {
   active: false,
 });
 
-const emit = defineEmits<{
-  /**
-   * Emitted when the nav button is clicked (via click or keyboard).
-   */
-  navigate: [href: string, event: MouseEvent];
-}>();
-
 const slots = defineSlots<{
   /**
    * An optional slot to override the label content.
@@ -44,12 +37,9 @@ const isMobile = inject(
 const hasChildren = computed(() => !!slots.children);
 const { componentRef, isVisible } = useMoreListChild(NAV_BAR_MORE_LIST_INJECTION_KEY);
 
-const handleParentClick = (event: MouseEvent) => {
+const handleParentClick = () => {
   if (isMobile?.value && hasChildren.value && !mobileChildrenOpen.value) {
     mobileChildrenOpen.value = true;
-  } else if (props.link) {
-    const href = extractLinkProps(props.link).href;
-    emit("navigate", href, event);
   }
 };
 </script>
@@ -71,6 +61,7 @@ const handleParentClick = (event: MouseEvent) => {
       <NavButtonTrigger
         :aria-label="props.label"
         v-bind="{ ...props, ...trigger }"
+        :force-button="isMobile && hasChildren && !mobileChildrenOpen"
         @click="handleParentClick"
       >
         <slot>
