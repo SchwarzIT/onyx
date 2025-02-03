@@ -147,7 +147,9 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
 
   // ASSERT
   await expect(page).toHaveScreenshot("burger-children.png");
-  await expect(page).toHaveURL(/^http:\/\/localhost:\d*\/#1$/);
+  await expect(page, "should not open parent link if it has children").toHaveURL(
+    /^http:\/\/localhost:\d*\/#1$/,
+  );
 
   // ACT
   await component.getByLabel("Item 2", { exact: true }).click();
