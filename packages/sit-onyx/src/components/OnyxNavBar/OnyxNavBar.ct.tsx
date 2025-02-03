@@ -23,7 +23,7 @@ test.beforeEach(async ({ page }) => {
   await defineLogoMockRoutes(page);
 });
 
-test("Behaviour test", async ({ mount }) => {
+test("accessibility test", async ({ mount }) => {
   const component = await mount(
     <OnyxNavBar appName="App name" logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}>
       <OnyxNavButton label="Main One">
@@ -87,38 +87,19 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
   await page.addStyleTag({ content: "body { margin: 0 }" });
   await page.setViewportSize({ height: 512, width: ONYX_BREAKPOINTS.sm - 1 });
 
-  const clickEvents: string[] = [];
-
   const component = await mount(
     <OnyxNavBar appName="App name" logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}>
-      <OnyxNavButton link="#1" label="Item 1" onNavigate={(href) => clickEvents.push(href)} />
-      <OnyxNavButton link="#2" label="Item 2" onNavigate={(href) => clickEvents.push(href)}>
+      <OnyxNavButton link="#1" label="Item 1" />
+      <OnyxNavButton link="#2" label="Item 2">
         Item 2
         <OnyxBadge color="warning" dot />
         <template v-slot:children>
-          <OnyxNavItem
-            label="Nested item 1"
-            link="#2-1"
-            onNavigate={(href) => clickEvents.push(href)}
-          />
-          <OnyxNavItem
-            label="Nested item 2"
-            link="#2-2"
-            active
-            onNavigate={(href) => clickEvents.push(href)}
-          />
-          <OnyxNavItem
-            label="Nested item 3"
-            link="#2-3"
-            onNavigate={(href) => clickEvents.push(href)}
-          />
+          <OnyxNavItem label="Nested item 1" link="#2-1" />
+          <OnyxNavItem label="Nested item 2" link="#2-2" active />
+          <OnyxNavItem label="Nested item 3" link="#2-3" />
         </template>
       </OnyxNavButton>
-      <OnyxNavButton
-        link="https://onyx.schwarz"
-        label="Item 3"
-        onNavigate={(href) => clickEvents.push(href)}
-      />
+      <OnyxNavButton link="https://onyx.schwarz" label="Item 3" />
 
       <template v-slot:mobileActivePage>Nested item 2</template>
 
@@ -158,7 +139,7 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
 
   // ACT
   await component.getByLabel("Item 1").click();
-  expect(clickEvents).toStrictEqual(["#1"]);
+  await expect(page).toHaveURL(/^http:\/\/localhost:\d*\/#1$/);
 
   // ACT
   await component.getByLabel("Item 2").click();
@@ -166,19 +147,19 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
 
   // ASSERT
   await expect(page).toHaveScreenshot("burger-children.png");
-  expect(clickEvents).toStrictEqual(["#1"]);
+  await expect(page).toHaveURL(/^http:\/\/localhost:\d*\/#1$/);
 
   // ACT
   await component.getByLabel("Item 2", { exact: true }).click();
 
   // ASSERT
-  expect(clickEvents).toStrictEqual(["#1", "#2"]);
+  await expect(page).toHaveURL(/^http:\/\/localhost:\d*\/#2$/);
 
   // ACT
   await component.getByText("Nested item 1").click();
 
   // ASSERT
-  expect(clickEvents).toStrictEqual(["#1", "#2", "#2-1"]);
+  await expect(page).toHaveURL(/^http:\/\/localhost:\d*\/#2-1$/);
 
   // ACT
   await component.getByRole("button", { name: "Back" }).click();
@@ -233,8 +214,8 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
   });
 });
 
-test("should behave correctly", async ({ mount }) => {
-  let appAreaClickEvents = 0;
+test("should behave correctly", async ({ mount, page }) => {
+  // ARRANGE
   let backButtonClickEvents = 0;
 
   let component = await mount(
@@ -242,30 +223,66 @@ test("should behave correctly", async ({ mount }) => {
       style={{ width: `${ONYX_BREAKPOINTS.md}px` }}
       appName="App name"
       logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}
+      appArea={{ link: "#app-area" }}
       withBackButton
-      onNavigateToStart={() => appAreaClickEvents++}
       onNavigateBack={() => backButtonClickEvents++}
-    />,
+    >
+      <OnyxNavButton link="#1" label="Item 1" />
+      <OnyxNavButton link="#2" label="Item 2">
+        Item 2
+        <template v-slot:children>
+          <OnyxNavItem label="Nested item 1" link="#2-1" />
+        </template>
+      </OnyxNavButton>
+    </OnyxNavBar>,
   );
 
-  await component.getByRole("button", { name: "Go to Home" }).click();
-  expect(appAreaClickEvents).toBe(1);
+  // ACT
+  await component.getByRole("link", { name: "Go to Home" }).click();
 
+  // ASSERT
+  await expect(page).toHaveURL(/^http:\/\/localhost:\d*\/#app-area$/);
+
+  // ACT
   await component.getByRole("button", { name: "Go back" }).click();
+
+  // ASSERT
   expect(backButtonClickEvents).toBe(1);
 
+  // ACT
+  await component.getByRole("menuitem", { name: "Item 1" }).click();
+
+  // ASSERT
+  await expect(page).toHaveURL(/^http:\/\/localhost:\d*\/#1$/);
+
+  // ACT
+  await component.getByRole("menuitem", { name: "Item 2" }).click();
+
+  // ASSERT
+  await expect(page).toHaveURL(/^http:\/\/localhost:\d*\/#2$/);
+
+  // ACT
+  await component.getByRole("menuitem", { name: "Item 2" }).hover();
+  await component.getByRole("menuitem", { name: "Nested item 1" }).click();
+
+  // ASSERT
+  await expect(page).toHaveURL(/^http:\/\/localhost:\d*\/#2-1$/);
+
+  // ARRANGE
   component = await mount(
     <OnyxNavBar
       style={{ width: `${ONYX_BREAKPOINTS.md}px` }}
-      appAreaLabel="custom action"
+      appArea={{ label: "custom action" }}
       withBackButton
     >
       <template v-slot:appArea>Custom app area</template>
     </OnyxNavBar>,
   );
 
-  await expect(component.getByRole("button", { name: "custom action" })).toBeVisible();
-  await expect(component.getByText("Custom app area")).toBeVisible();
+  // ASSERT
+  await expect(component.getByRole("link", { name: "custom action" })).toContainText(
+    "Custom app area",
+  );
 });
 
 Object.entries(ONYX_BREAKPOINTS).forEach(([breakpoint, width]) => {
