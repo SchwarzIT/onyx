@@ -25,3 +25,14 @@ test.describe("Screenshot tests", () => {
     },
   });
 });
+
+test("should behave correctly", async ({ mount, page }) => {
+  // ARRANGE
+  const component = await mount(<OnyxNavItem label="Label" link="#link" />);
+
+  // ACT
+  await component.getByRole("menuitem", { name: "Label" }).click();
+
+  // ASSERT
+  await expect(page).toHaveURL(/^http:\/\/localhost:\d*\/#link$/);
+});
