@@ -87,23 +87,28 @@ The number of columns depends on the current breakpoint.
 
 For components inside the grid, you can set the `onyx-grid-span-<number>` class to specify how many columns the component should span where `<number>` is between `1` and `20`.
 
-**Note**: Columns 17-20 are only available if you set the `onyx-grid-xl-20` on the root of your application and the breakpoint is `xl` (`1920px`) or larger (useful for 4k screens).
+**Note**: Columns 13-20 are only available if you set the `onyx-grid-lg-16` or `onyx-grid-xl-20` on the grid and their respective breakpoint is reached (useful for 4k screens).
 
-#### Different column spans per breakpoint
+#### Full-width grid elements
+
+To reserve a complete row for a single grid element, the `onyx-grid-span-full` class can be used.
+An element with this class will always span from the first to the last column.
+
+#### Responsive grid elements
 
 You can also set the column span depending on a minimum breakpoint width by setting the `onyx-grid-<breakpoint>-span-<number>` class where `<breakpoint>` and `<number>` are taken from the following table:
 
 ::: details Columns per breakpoint
 
-| breakpoint | max columns |
-| ---------- | ----------- |
-| 2xs        | 4           |
-| xs         | 8           |
-| sm         | 8           |
-| md         | 12          |
-| lg         | 16          |
-| xl         | 16 or 20    |
+| breakpoint | max columns            |
+| ---------- | ---------------------- |
+| 2xs        | 4                      |
+| xs         | 8                      |
+| sm         | 8                      |
+| md         | 12                     |
+| lg         | 12 (optional 16)       |
+| xl         | 12 (optional 16 or 20) |
 
 :::
 
-Multiple `onyx-grid-span` classes can be combined as necessary.
+Multiple classes can be combined as necessary.
