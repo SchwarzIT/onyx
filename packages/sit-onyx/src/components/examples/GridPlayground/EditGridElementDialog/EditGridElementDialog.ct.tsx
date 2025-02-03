@@ -6,7 +6,7 @@ test("should behave correctly", async ({ mount, makeAxeBuilder, page }) => {
   let closeEvents = 0;
 
   // ARRANGE
-  await page.setViewportSize({ width: 512, height: 768 });
+  await page.setViewportSize({ width: 512, height: 800 });
   await mount(
     <EditGridElementDialog
       open
