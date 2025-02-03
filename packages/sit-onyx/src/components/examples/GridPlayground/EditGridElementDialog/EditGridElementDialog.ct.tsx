@@ -6,7 +6,6 @@ test("should behave correctly", async ({ mount, makeAxeBuilder, page }) => {
   let closeEvents = 0;
 
   // ARRANGE
-  await page.setViewportSize({ width: 512, height: 768 });
   await mount(
     <EditGridElementDialog
       open
@@ -21,7 +20,7 @@ test("should behave correctly", async ({ mount, makeAxeBuilder, page }) => {
 
   // ASSERT
   expect(accessibilityScanResults.violations).toEqual([]);
-  await expect(page).toHaveScreenshot("default.png");
+  await expect(dialog).toHaveScreenshot("default.png");
   await expect(dialog).toBeVisible();
 
   const columnCountStepper = dialog.getByLabel("Default number of columns");
@@ -87,5 +86,5 @@ test("should behave correctly", async ({ mount, makeAxeBuilder, page }) => {
   await page.getByRole("document").hover(); // reset hover
 
   // ASSERT
-  await expect(page).toHaveScreenshot("filled.png");
+  await expect(dialog).toHaveScreenshot("filled.png");
 });
