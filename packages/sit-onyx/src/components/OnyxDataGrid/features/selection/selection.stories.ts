@@ -1,3 +1,4 @@
+import { action } from "@storybook/addon-actions";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import SelectionDataGrid from "../../../examples/DataGrid/SelectionDataGrid.vue";
 import SelectionDataGridExampleCode from "../../../examples/DataGrid/SelectionDataGrid.vue?raw";
@@ -14,6 +15,9 @@ type Story = StoryObj<typeof SelectionDataGrid>;
 export const Selection = {
   args: {
     selectionState: { selectMode: "include", contingent: new Set() },
+    // `Set` is not displayed nicely by storybook, therefore we pass it along as an array
+    ["onUpdate:selectionState"]: (update) =>
+      action("onUpdate:selectionState")({ ...update, contingent: [...update.contingent] }),
   },
   parameters: {
     docs: {
