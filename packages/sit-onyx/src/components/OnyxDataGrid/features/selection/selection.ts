@@ -40,6 +40,8 @@ export const useSelection = createFeature(
       }
     };
 
+    const isIndeterminate = () => selectionState.value.contingent.size !== 0;
+
     const { t } = injectI18n();
 
     return {
@@ -63,6 +65,7 @@ export const useSelection = createFeature(
                     : t.value("dataGrid.head.selection.deselectAll"),
                 value: `selection-all-rows`,
                 hideLabel: true,
+                indeterminate: isIndeterminate(),
                 "onUpdate:modelValue": (checked) => updateSelectMode(checked),
                 modelValue: selectionState.value.selectMode === "exclude",
               }),
