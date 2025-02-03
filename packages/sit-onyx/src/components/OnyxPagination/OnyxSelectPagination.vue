@@ -3,13 +3,17 @@ import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
 import { computed } from "vue";
 import { useDensity } from "../../composables/density";
+import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { injectI18n } from "../../i18n";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
 import type { SelectOption } from "../OnyxSelect/types";
+import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxPaginationProps } from "./types";
 
-const props = defineProps<OnyxPaginationProps>();
+const props = withDefaults(defineProps<OnyxPaginationProps>(), {
+  skeleton: SKELETON_INJECTED_SYMBOL,
+});
 
 const emit = defineEmits<{
   /**
@@ -20,6 +24,7 @@ const emit = defineEmits<{
 
 const { t } = injectI18n();
 const { densityClass } = useDensity(props);
+const skeleton = useSkeletonContext(props);
 
 const selectOptions = computed(() => {
   return Array.from({ length: props.pages }, (_, index) => {
@@ -36,7 +41,10 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
 </script>
 
 <template>
+  <OnyxSkeleton v-if="skeleton" :class="['onyx-pagination-skeleton', 'onyx-text', densityClass]" />
+
   <div
+    v-else
     :class="['onyx-component', 'onyx-pagination', 'onyx-text', densityClass]"
     role="group"
     :aria-label="t('pagination.label')"
@@ -88,11 +96,24 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
 
-.onyx-pagination {
+.onyx-pagination,
+.onyx-pagination-skeleton {
   @include layers.component() {
     --onyx-pagination-padding-vertical: var(--onyx-density-xs);
-    --onyx-pagination-border-size: var(--onyx-1px-in-rem);
     --onyx-pagination-height: calc(1lh + 2 * var(--onyx-pagination-padding-vertical));
+  }
+}
+
+.onyx-pagination-skeleton {
+  @include layers.component() {
+    height: var(--onyx-pagination-height);
+    width: 16rem;
+  }
+}
+
+.onyx-pagination {
+  @include layers.component() {
+    --onyx-pagination-border-size: var(--onyx-1px-in-rem);
     --onyx-pagination-character-count: 1;
 
     display: flex;
@@ -100,6 +121,8 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
     color: var(--onyx-color-text-icons-neutral-intense);
     font-family: var(--onyx-font-family);
     height: var(--onyx-pagination-height);
+    width: max-content;
+    max-width: 100%;
 
     &__select {
       min-width: 5rem;
