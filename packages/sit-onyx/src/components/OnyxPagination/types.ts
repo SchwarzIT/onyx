@@ -1,4 +1,5 @@
 import type { DensityProp } from "../../composables/density";
+import type { SkeletonInjected } from "../../composables/useSkeletonState";
 
 export type OnyxPaginationProps = DensityProp & {
   /**
@@ -13,4 +14,8 @@ export type OnyxPaginationProps = DensityProp & {
    * Whether the pagination should be disabled (e.g. while loading data).
    */
   disabled?: boolean;
+  /**
+   * Whether to show a skeleton pagination.
+   */
+  skeleton?: SkeletonInjected;
 };

@@ -29,7 +29,7 @@ export const PLAYWRIGHT_BASE_CONFIG = {
   // if you want to update snapshots for your branch, use the corresponding GitHub action:
   // https://github.com/SchwarzIT/onyx/actions/workflows/playwright-screenshots.yml
   ignoreSnapshots: !process.env.CI,
-  updateSnapshots: process.env.PW_UPDATE_SNAPSHOTS === "true" ? "all" : "none",
+  updateSnapshots: process.env.PW_UPDATE_SNAPSHOTS === "true" ? "changed" : "none",
 
   /**
    * SHARDING
