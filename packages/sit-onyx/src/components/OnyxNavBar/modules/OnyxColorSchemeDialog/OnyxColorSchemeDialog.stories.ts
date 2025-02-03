@@ -9,6 +9,12 @@ import type { OnyxColorSchemeDialogProps } from "./types";
  * Pre-built dialog where the user can select which color scheme (light/dark mode or auto) to use for the application.
  *
  * For recommended usage, please visit our [theming docs](https://onyx.schwarz/development/theming.html).
+ *
+ * ### Keyboard support
+ *
+ * - Arrow up/down: Select previous/next option
+ * - Enter: Confirm selected color scheme
+ * - Tab: Shift focus between options and cancel/apply button
  */
 const meta: Meta<typeof OnyxColorSchemeDialog> = {
   title: "Navigation/modules/ColorSchemeDialog",

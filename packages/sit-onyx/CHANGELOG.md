@@ -1,5 +1,32 @@
 # sit-onyx
 
+## 1.0.0-beta.141
+
+### Patch Changes
+
+- cf03735: style(OnyxColorSchemeDialog): update hover color
+
+## 1.0.0-beta.140
+
+### Minor Changes
+
+- a754cdf: feat(OnyxPagination): support new `skeleton` property
+
+## 1.0.0-beta.139
+
+### Major Changes
+
+- f03482f: ### feat(OnyxDataGrid)!: Implemented support for column types and custom renderers into the feature API
+
+  - The new feature property `typeRenderer` can be used to define custom renderers for column types. TypeRenderer keys of type `symbol` are intended for internal usage.
+  - These types can now be specified in the `column` configuration with the new `ColumnConfig` type.
+  - `watch` is not a required property anymore.
+  - Features can now define `modifyColumns` to add, drop or change the normalized column configuration.
+
+  ### feat(DataGridRenderer)!: Removed `prop` from `DataGridRendererColumn`.
+
+  - The `component` has no need for this abstraction. Any props can be directly used in the passed component.
+
 ## 1.0.0-beta.138
 
 ### Major Changes
@@ -59,7 +86,7 @@
 
   - OnyxAvatar: The `label` property has been removed in favor of `fullName` which now als supports passing a locale for determining the initials (will use the i18n locale by default).
   - OnyxAvatar: The default slot has been removed in favor of the `initials` property to set custom initials.
-  - OnyxUsername: The `username` property has been renamed to `fullName` to align with the OnyxAvatar
+  - OnyxUserMenu: The `username` property has been renamed to `fullName` to align with the OnyxAvatar
 
 ## 1.0.0-beta.134
 
@@ -162,7 +189,7 @@
 ### Patch Changes
 
 - 808e638: fix(OnyxInput, OnyxTextarea): `maxlength` doesn't restrict the user from typing more than the allowed characters.
-  The previous behavior, which restricts the user from typing more than the allowed characters, can be achieved by setting `strictMaxlength`.
+  The previous behavior, which restricts the user from typing more than the allowed characters, can be achieved by setting `<OnyxInput :maxlength="{ max: 42, strict: true }" />`.
 
 ## 1.0.0-beta.119
 
