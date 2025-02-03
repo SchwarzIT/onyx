@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { areObjectsFlatEqual, groupByKey } from "./objects";
+import { allObjectEntries, areObjectsFlatEqual, groupByKey } from "./objects";
 
 const referenceObj = { a: 42, b: "foo", c: null, d: true };
 
@@ -53,5 +53,65 @@ describe("groupByKey", () => {
 
     // ASSERT
     expect(result).toMatchObject(output);
+  });
+});
+
+describe("allObjectEntries", () => {
+  const TEST_SYMBOL = Symbol();
+
+  test.each([
+    // ARRANGE
+    { label: "empty object", target: {}, expected: [] },
+    { label: "object with one property", target: { a: 1 }, expected: [["a", 1]] },
+    {
+      label: "object with multiple properties",
+      target: { a: 1, b: "foo", c: null },
+      expected: [
+        ["a", 1],
+        ["b", "foo"],
+        ["c", null],
+      ],
+    },
+    {
+      label: "object with nested objects",
+      target: { a: { x: 1 }, b: { y: "foo" } },
+      expected: [
+        ["a", { x: 1 }],
+        ["b", { y: "foo" }],
+      ],
+    },
+    {
+      label: "object with nested arrays",
+      target: { a: [1, 2, 3], b: ["foo", "bar"] },
+      expected: [
+        ["a", [1, 2, 3]],
+        ["b", ["foo", "bar"]],
+      ],
+    },
+    {
+      label: "object with symbol entries",
+      target: { [TEST_SYMBOL]: "a" },
+      expected: [[TEST_SYMBOL, "a"]],
+    },
+    {
+      label: "object with number entries",
+      target: { 1: "a" },
+      expected: [["1", "a"]],
+    },
+  ])("should return correct entries for $label", ({ target, expected }) => {
+    // ACT
+    const result = allObjectEntries(target);
+
+    // ASSERT
+    expect(result).toMatchObject(expected);
+  });
+
+  test("should not copy and keep references", () => {
+    // ACT
+    const [result] = allObjectEntries({ a: referenceObj });
+
+    // ASSERT
+    expect(result).toMatchObject(["a", referenceObj]);
+    expect(result[1]).toBe(referenceObj);
   });
 });

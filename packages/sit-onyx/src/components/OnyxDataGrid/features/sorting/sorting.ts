@@ -23,7 +23,6 @@ export const nextSortDirection = (current?: SortDirection): SortDirection => {
 };
 
 export const SORTING_FEATURE = Symbol("Sorting");
-
 export const useSorting = createFeature(
   <TEntry extends DataGridEntry>(options?: SortOptions<TEntry>) => {
     const sortState: Ref<SortState<TEntry>> = toRef(
@@ -106,7 +105,7 @@ export const useSorting = createFeature(
         func: sortData,
       },
       header: {
-        actions: (column) => {
+        actions: ({ key: column }) => {
           if (!getSortEnabled.value(column)) return [];
           return [
             {

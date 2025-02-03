@@ -30,7 +30,7 @@ defineSlots<{
           v-bind="column.thAttributes"
           scope="col"
         >
-          <component :is="column.component" v-bind="column.props" />
+          <component :is="column.component" />
         </th>
       </tr>
     </template>

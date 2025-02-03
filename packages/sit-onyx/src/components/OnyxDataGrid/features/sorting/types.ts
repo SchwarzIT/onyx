@@ -14,7 +14,7 @@ export type Compare<T> = (a: T, b: T) => number;
  * The values by which the data is currently sorted.
  * A `undefined` column or a direction of "none" means no sorting is applied.
  */
-export type SortState<TEntry extends DataGridEntry = DataGridEntry> = {
+export type SortState<TEntry extends DataGridEntry> = {
   /**
    * The column which is used to sort by.
    * `undefined` means no sorting is applied.
