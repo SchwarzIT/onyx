@@ -60,7 +60,6 @@ const linkProps = computed(() => extractLinkProps(props.link));
     padding: var(--onyx-spacing-md);
     font-weight: 600;
     white-space: pre-line;
-    width: max-content;
     max-width: 100%;
     // Full container height as maximum
     max-height: 100cqh;
