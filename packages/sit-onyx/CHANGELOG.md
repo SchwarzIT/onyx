@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.140
+
+### Minor Changes
+
+- a754cdf: feat(OnyxPagination): support new `skeleton` property
+
 ## 1.0.0-beta.139
 
 ### Major Changes
