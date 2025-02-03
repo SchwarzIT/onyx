@@ -3,7 +3,8 @@ tr:has(.onyx-data-grid-selection-cell__checkbox--checked) td {
 }
 
 .onyx-data-grid-selection-cell {
-  width: min-content;
+  box-sizing: content-box;
+  width: 2.5rem;
   padding: 0;
 
   &--hover &__checkbox {
