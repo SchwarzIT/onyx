@@ -61,7 +61,7 @@ export type NormalizedColumnConfig<TEntry extends DataGridEntry, TTypes = Proper
    * The `type` of the column. It defines how the header and cells of a column is rendered.
    * If not defined the values are displayed as plain strings.
    */
-  type?: TTypes;
+  type?: TTypes | "string" | "number";
 };
 
 /**
@@ -221,7 +221,7 @@ export const useDataGridFeatures = <
   /**
    * Maps type names to their respective component.
    */
-  const typeRendererMap = new Map(
+  const typeRendererMap = new Map<PropertyKey, TypeRenderer<TEntry>>(
     features
       .flatMap(({ typeRenderer }) => typeRenderer! && allObjectEntries(typeRenderer))
       .filter(Boolean),
@@ -231,6 +231,30 @@ export const useDataGridFeatures = <
     header: { component: HeaderCell },
     cell: { component: (props) => String(props.modelValue) },
   };
+
+  const numberFormatter = (value: TEntry[keyof TEntry] | undefined) => {
+    if (typeof value !== "number") {
+      return;
+    }
+    const locale = injectI18n().locale;
+    const formatter = new Intl.NumberFormat(locale.value);
+
+    return formatter.format(value);
+  };
+
+  const setRenderer = (type: PropertyKey | undefined) => {
+    if (type === "string") {
+      typeRendererMap.set("string", fallbackRenderer);
+    } else if (type === "number") {
+      typeRendererMap.set("number", {
+        cell: {
+          component: (props) => numberFormatter(props.modelValue),
+          tdAttributes: { class: "onyx-text--monospace" },
+        },
+      });
+    }
+  };
+
   /**
    * Returns a renderer for any given component and type.
    * Uses the fallbackRenderer if necessary.
@@ -238,8 +262,10 @@ export const useDataGridFeatures = <
   const getRendererFor = <TComponent extends "cell" | "header">(
     component: TComponent,
     type?: PropertyKey,
-  ): NonNullable<TypeRenderer<TEntry>[TComponent]> =>
-    typeRendererMap.get(type!)?.[component] ?? fallbackRenderer[component]; // Map returns undefined if `type` is undefined, so it's safe to use the Non-Null assertion.
+  ): NonNullable<TypeRenderer<TEntry>[TComponent]> => {
+    setRenderer(type);
+    return typeRendererMap.get(type!)?.[component] ?? fallbackRenderer[component]; // Map returns undefined if `type` is undefined, so it's safe to use the Non-Null assertion.
+  };
 
   const createRendererColumns = (): DataGridRendererColumn<TEntry>[] => {
     const headerFeatures = features.map((feature) => feature.header).filter((header) => !!header);
