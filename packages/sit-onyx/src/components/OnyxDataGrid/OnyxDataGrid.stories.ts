@@ -23,7 +23,11 @@ type Story = StoryObj<typeof OnyxDataGrid>;
 
 export const Default = {
   args: {
-    columns: ["name", "age", "birthday"],
+    columns: [
+      { key: "name", label: "Firstname" },
+      { key: "age", label: "Age" },
+      { key: "birthday", label: "Day of Birth" },
+    ],
     data: [
       { id: 1, name: "Alice", age: 30, birthday: new Date("1990-01-01") },
       { id: 2, name: "Charlie", age: 35, birthday: new Date("1998-02-11") },
@@ -34,7 +38,11 @@ export const Default = {
 
 export const HeaderInteractions = {
   args: {
-    columns: ["name", "age", "birthday"],
+    columns: [
+      { key: "name", label: "Firstname" },
+      { key: "age", label: "Age" },
+      { key: "birthday", label: "Day of Birth" },
+    ],
     features: [
       {
         name: Symbol("More actions"),
@@ -76,7 +84,11 @@ export const HeaderInteractions = {
 
 export const CustomEmptyState = {
   args: {
-    columns: ["name", "age", "birthday"],
+    columns: [
+      { key: "name", label: "Firstname" },
+      { key: "age", label: "Age" },
+      { key: "birthday", label: "Day of Birth" },
+    ],
     empty: () => h(OnyxEmpty, null, { default: "DataGrid is empty" }),
   },
 } satisfies Story;

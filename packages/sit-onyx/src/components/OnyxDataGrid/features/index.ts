@@ -49,6 +49,7 @@ export type ColumnConfig<TEntry extends DataGridEntry, TTypes> =
  */
 export type NormalizedColumnConfig<TEntry extends DataGridEntry, TTypes = PropertyKey> = {
   key: keyof TEntry;
+  label?: string;
   type?: TTypes;
 };
 
@@ -236,9 +237,9 @@ export const useDataGridFeatures = <
       .filter((actions) => !!actions);
 
     return columns.value.map<DataGridRendererColumn<TEntry>>((column) => {
-      const key = column.key;
       const actions = headerActions.flatMap((actionFactory) => actionFactory(column));
       const header = getRendererFor("header", column.type);
+      const label = column.label?.trim() ?? String(column.key);
 
       if (actions.length > 1) {
         const menuItems = actions.map(({ menuItems }) => menuItems).filter((item) => !!item);
@@ -246,7 +247,7 @@ export const useDataGridFeatures = <
         const flyoutMenu = h(
           OnyxFlyoutMenu,
           {
-            label: t.value("navigation.moreActionsFlyout", { column: String(key) }),
+            label: t.value("navigation.moreActionsFlyout", { column: label }),
             trigger: "click",
           },
           {
@@ -263,18 +264,16 @@ export const useDataGridFeatures = <
 
         return {
           ...header,
-          key,
-          component: () =>
-            h(header.component, { label: String(key) }, { actions: () => flyoutMenu }),
+          key: column.key,
+          component: () => h(header.component, { label }, { actions: () => flyoutMenu }),
         };
       }
       const iconComponent = actions.map(({ iconComponent }) => iconComponent);
 
       return {
         ...header,
-        key,
-        component: () =>
-          h(header.component, { label: String(key) }, { actions: () => iconComponent }),
+        key: column.key,
+        component: () => h(header.component, { label }, { actions: () => iconComponent }),
       };
     });
   };
