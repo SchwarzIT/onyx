@@ -26,11 +26,11 @@ const viewportSize = useResizeObserver(shallowRef(document.body));
 const gridSettings = ref<{
   alignment: "left" | "center";
   maxWidth: OnyxBreakpoint | "none";
-  maxColumns: 16 | 20;
+  maxColumns: 12 | 16 | 20;
 }>({
   alignment: "left",
   maxWidth: "none",
-  maxColumns: 16,
+  maxColumns: 12,
 });
 
 const gridElements = ref<GridElementConfig[]>([]);
@@ -90,8 +90,9 @@ const maxWidthOptions: SelectOption[] = [
 ];
 
 const maxColumnsOptions: SelectOption[] = [
-  { label: "16", value: 16 },
-  { label: "20", value: 20 },
+  { label: "12 (default)", value: 12 },
+  { label: "16 (>= LG)", value: 16 },
+  { label: "20 (>= XL)", value: 20 },
 ];
 
 const currentBreakpoint = computed(() => {
@@ -144,15 +145,16 @@ const currentBreakpoint = computed(() => {
         <OnyxRadioGroup
           v-model="gridSettings.alignment"
           label="Alignment"
+          label-tooltip="In case of a grid with a max content width of 'none', this determines the alignment of the grid elements as a whole."
           :options="alignmentOptions"
           direction="horizontal"
           :disabled="gridSettings.maxWidth === 'none'"
         />
 
         <OnyxRadioGroup
-          v-if="viewportSize.width.value >= ONYX_BREAKPOINTS.xl"
           v-model="gridSettings.maxColumns"
           label="Max columns"
+          label-tooltip="Defines the maximum number of columns the grid can have on the 'LG' and 'XL' breakpoints. Per default the grid is restricted to 12 columns. "
           :options="maxColumnsOptions"
           direction="horizontal"
         />
@@ -169,7 +171,7 @@ const currentBreakpoint = computed(() => {
       :class="{
         'onyx-grid-center': gridSettings.alignment === 'center',
         [`onyx-grid-max-${gridSettings.maxWidth}`]: gridSettings.maxWidth !== 'none',
-        'onyx-grid-xl-20': gridSettings.maxColumns === 20,
+        [`onyx-grid-xl-${gridSettings.maxColumns}`]: gridSettings.maxColumns !== 12,
       }"
     >
       <GridOverlay :columns="gridValues?.columnCount" />
