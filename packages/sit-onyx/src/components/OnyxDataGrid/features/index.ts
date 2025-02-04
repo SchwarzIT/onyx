@@ -48,8 +48,19 @@ export type ColumnConfig<TEntry extends DataGridEntry, TTypes> =
  * Normalized column config for internal usage.
  */
 export type NormalizedColumnConfig<TEntry extends DataGridEntry, TTypes = PropertyKey> = {
+  /**
+   * The `key` identifies which property of an `data` entry is used as a value.
+   */
   key: keyof TEntry;
+  /**
+   * The `label` is displayed in the data grid as column header.
+   * If not defined, the key is used instead.
+   */
   label?: string;
+  /**
+   * The `type` of the column. It defines how the header and cells of a column is rendered.
+   * If not defined the values are displayed as plain strings.
+   */
   type?: TTypes;
 };
 
