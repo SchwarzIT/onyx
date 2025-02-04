@@ -5,7 +5,7 @@ export type OnyxRouterLinkProps = SharedLinkProps;
 export type SharedLinkProps = {
   /**
    * The URL/link to point to.
-   * Will use the projects router for internal links if provided, see [OnyxRouterLink](https://storybook.onyx.schwarz/?path=/docs/support-routerlink--docs) for further details.
+   * Will use the router for internal links if provided, see [our documentation](https://onyx.schwarz/development/router.html) for further details.
    */
   href: string;
   /**
@@ -20,7 +20,7 @@ export type LinkTarget = (typeof LINK_TARGETS)[number];
 
 export type WithLinkProp<TExternalLink extends boolean = false> = {
   /**
-   * If set, the component will be rendered as link instead of a button.
+   * If set, the component will be rendered as link.
    */
   link?:
     | string

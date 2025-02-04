@@ -1,9 +1,7 @@
 import browserTerminal from "@sit-onyx/icons/browser-terminal.svg?raw";
-import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
 import search from "@sit-onyx/icons/search.svg?raw";
 import settings from "@sit-onyx/icons/settings.svg?raw";
 import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
-import { createActionLoggerWrapper } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
@@ -11,8 +9,8 @@ import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
 import OnyxMenuItem from "./modules/OnyxMenuItem/OnyxMenuItem.vue";
-import _OnyxNavButton from "./modules/OnyxNavButton/OnyxNavButton.vue";
-import _OnyxNavItem from "./modules/OnyxNavItem/OnyxNavItem.vue";
+import OnyxNavButton from "./modules/OnyxNavButton/OnyxNavButton.vue";
+import OnyxNavItem from "./modules/OnyxNavItem/OnyxNavItem.vue";
 import OnyxNavSeparator from "./modules/OnyxNavSeparator/OnyxNavSeparator.vue";
 import OnyxTimer from "./modules/OnyxTimer/OnyxTimer.vue";
 import { Default as OnyxUserMenuDefault } from "./modules/OnyxUserMenu/OnyxUserMenu.stories";
@@ -50,15 +48,17 @@ const meta: Meta<typeof OnyxNavBar> = {
       components: { story },
       template: `<div style="padding-bottom: 20rem;"> <story /> </div>`,
     }),
+    (story) => ({
+      components: { story },
+      // to prevent opening links in Storybook which would lead to another Storybook be opened inside the
+      // iframe, we prevent click events here so clicking links just does "nothing"
+      template: `<story @click.prevent />`,
+    }),
   ],
 };
 
 export default meta;
 type Story = StoryObj<typeof OnyxNavBar>;
-
-// Add logging for the child components
-const OnyxNavButton = createActionLoggerWrapper(_OnyxNavButton, ["onNavigate"]);
-const OnyxNavItem = createActionLoggerWrapper(_OnyxNavItem, ["onNavigate"]);
 
 export const Default = {
   args: {
@@ -139,16 +139,6 @@ export const WithLogoutTimer = {
         footer: OnyxUserMenuDefault.args.footer,
       }),
     ],
-  },
-} satisfies Story;
-
-/**
- * This example shows a navigation bar with custom app area content.
- */
-export const WithCustomAppArea = {
-  args: {
-    ...Default.args,
-    appArea: () => [h(OnyxIcon, { icon: placeholder, color: "primary" }), "Custom name"],
   },
 } satisfies Story;
 

@@ -138,3 +138,42 @@ test.describe("Screenshot tests (mobile children)", () => {
     },
   });
 });
+
+test("should behave correctly without link", async ({ mount }) => {
+  // ARRANGE
+  let clickEventCount = 0;
+  const component = await mount(<OnyxNavButton label="Label" onClick={() => clickEventCount++} />);
+
+  // ACT
+  await component.getByRole("menuitem", { name: "Label" }).click();
+
+  // ASSERT
+  expect(clickEventCount).toBe(1);
+});
+
+test("should behave correctly with link", async ({ mount, page }) => {
+  // ARRANGE
+  const component = await mount(<OnyxNavButton label="Label" link="#link" />);
+
+  // ACT
+  await component.getByRole("menuitem", { name: "Label" }).click();
+
+  // ASSERT
+  await expect(page).toHaveURL(/^http:\/\/localhost:\d*\/#link$/);
+});
+
+test("should behave correctly with nested children", async ({ mount, page }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxNavButton label="Label">
+      <OnyxNavItem label="Nested item 1" link="#nested-1" />
+    </OnyxNavButton>,
+  );
+
+  // ACT
+  await component.getByRole("menuitem", { name: "Label" }).hover();
+  await component.getByRole("menuitem", { name: "Nested item 1" }).click();
+
+  // ASSERT
+  await expect(page).toHaveURL(/^http:\/\/localhost:\d*\/#nested-1$/);
+});
