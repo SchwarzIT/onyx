@@ -7,13 +7,7 @@ vi.mock("vue", async (importOriginal) => {
 
   return {
     ...module,
-    inject: vi.fn((key) => {
-      if (key !== ROUTER_INJECTION_KEY) return;
-      return {
-        currentRoute: vue.ref("/"),
-        push: vi.fn(),
-      } satisfies ProvideRouterOptions;
-    }) satisfies typeof vue.inject,
+    inject: vi.fn(),
   };
 });
 
@@ -32,7 +26,7 @@ describe("useLink", () => {
     { current: "/parent/child", link: "/parent/child", active: true },
     { current: "/parent/child", link: "/parent", active: true },
     { current: "/parent", link: "/parent/child", active: false },
-  ])("should mark as active", ({ current, link, active }) => {
+  ])("should mark $link with current $current as active: $active", ({ current, link, active }) => {
     vi.spyOn(vue, "inject").mockImplementation((key) => {
       if (key !== ROUTER_INJECTION_KEY) return;
       return {
