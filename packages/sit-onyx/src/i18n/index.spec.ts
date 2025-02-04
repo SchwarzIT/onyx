@@ -7,7 +7,7 @@ import type { FlattenedKeysOf, OnyxTranslations } from "..";
 let provided = new Map();
 
 vi.mock("vue", async (importOriginal) => {
-  const module: typeof vue = await importOriginal();
+  const module = await importOriginal<typeof import("vue")>();
 
   return {
     ...module,

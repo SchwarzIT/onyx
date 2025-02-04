@@ -13,12 +13,16 @@ defineSlots<{
 }>();
 
 const { t } = injectI18n();
-const { navigate } = useLink();
+const { navigate, isActive } = useLink();
 </script>
 
 <template>
   <a
-    class="onyx-component onyx-router-link"
+    :class="[
+      'onyx-component',
+      'onyx-router-link',
+      isActive(props.href) ? 'onyx-router-link--active' : '',
+    ]"
     :href="props.href"
     :target="props.target"
     :rel="props.target === '_blank' ? 'noreferrer' : undefined"

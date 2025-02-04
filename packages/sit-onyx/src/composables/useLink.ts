@@ -1,5 +1,7 @@
 import { computed, inject, unref, type InjectionKey, type Ref } from "vue";
+import type { SharedLinkProps } from "../components/OnyxRouterLink/types";
 import { isExternalLink } from "../utils";
+import { extractLinkProps } from "../utils/router";
 
 /**
  * Internal behavior of the `OnyxRouterLink`. Should be used for navigation. Considers the user provided [router](https://onyx.schwarz/development/router.html).
@@ -46,7 +48,22 @@ export const useLink = () => {
     }
   };
 
-  return { navigate, currentRoute };
+  /**
+   * Checks whether the given path is currently active based on the currently active route.
+   */
+  const isActive = computed(() => {
+    return (link?: string | SharedLinkProps) => {
+      if (!currentRoute.value || link == undefined) return false;
+
+      const href = normalizeHref(extractLinkProps(link).href);
+      const fullPath = normalizeHref(currentRoute.value.fullPath);
+
+      if (href === "/") return fullPath === href;
+      return fullPath.startsWith(href);
+    };
+  });
+
+  return { navigate, currentRoute, isActive };
 };
 
 /**
@@ -69,6 +86,19 @@ const shouldHandleNavigation = (e: MouseEvent) => {
   }
 
   return true;
+};
+
+/**
+ * Normalized the given href by:
+ * - convert "" to "/"
+ * - remove trailing slashes (only if href is not "/" itself)
+ * - trim whitespaces
+ */
+const normalizeHref = (href: string) => {
+  const value = href.trim();
+  if (value === "") return "/";
+  if (value === "/") return value;
+  return value.replace(/\/+$/, "");
 };
 
 export type ProvideRouterOptions = {

@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
 import { computed, inject } from "vue";
+import { useLink } from "../../../../composables/useLink";
 import { useMoreListChild } from "../../../../composables/useMoreList";
 import { extractLinkProps } from "../../../../utils/router";
 import OnyxExternalLinkIcon from "../../../OnyxExternalLinkIcon/OnyxExternalLinkIcon.vue";
@@ -11,7 +12,7 @@ import NavButtonTrigger from "./NavButtonTrigger.vue";
 import type { OnyxNavButtonProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxNavButtonProps>(), {
-  active: false,
+  active: "auto",
 });
 
 const slots = defineSlots<{
@@ -37,6 +38,12 @@ const isMobile = inject(
 const hasChildren = computed(() => !!slots.children);
 const { componentRef, isVisible } = useMoreListChild(NAV_BAR_MORE_LIST_INJECTION_KEY);
 
+const { isActive: isPathActive } = useLink();
+const isActive = computed(() => {
+  if (props.active !== "auto") return props.active;
+  return isPathActive.value(props.link);
+});
+
 const handleParentClick = () => {
   if (isMobile?.value && hasChildren.value && !mobileChildrenOpen.value) {
     mobileChildrenOpen.value = true;
@@ -53,7 +60,7 @@ const handleParentClick = () => {
     class="onyx-component onyx-nav-button"
     :class="{
       'onyx-nav-button--mobile': isMobile,
-      'onyx-nav-button--active': props.active,
+      'onyx-nav-button--active': isActive,
     }"
     :is-mobile="isMobile ?? false"
   >
