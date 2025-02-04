@@ -1,5 +1,15 @@
 # sit-onyx
 
+## 1.0.0-beta.144
+
+### Minor Changes
+
+- 471deaf: implement auto active state for OnyxNavButton, OnyxNavItem and OnyxMenuItem
+
+  By default, the OnyxNavButton, OnyxNavItem and OnyxMenuitem will now manage they active state automatically based on the current route if a [router](https://onyx.schwarz/development/router.html) is provided.
+
+  You can manually set the active state (`true` or `false`) to override/disable this behavior.
+
 ## 1.0.0-beta.143
 
 ### Major Changes
