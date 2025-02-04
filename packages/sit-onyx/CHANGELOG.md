@@ -1,5 +1,12 @@
 # sit-onyx
 
+## 1.0.0-beta.145
+
+### Minor Changes
+
+- a886471: feat(OnyxDataGrid): add support for header labels
+  Use the `label` property of the `column` configuration to set it.
+
 ## 1.0.0-beta.144
 
 ### Minor Changes
