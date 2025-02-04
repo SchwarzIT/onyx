@@ -20,9 +20,11 @@ describe("useLink", () => {
     { current: "", link: undefined, active: false },
     { current: "/", link: undefined, active: false },
     { current: "/test", link: "/test", active: true },
+    // trailing slashes and whitespaces should be ignored
     { current: "/test/", link: "/test", active: true },
     { current: "/test", link: "/test/", active: true },
     { current: "/test   ", link: "   /test", active: true },
+    // nested links: parent should be active if child page is currently active
     { current: "/parent/child", link: "/parent/child", active: true },
     { current: "/parent/child", link: "/parent", active: true },
     { current: "/parent", link: "/parent/child", active: false },
