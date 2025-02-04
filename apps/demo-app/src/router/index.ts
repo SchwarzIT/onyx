@@ -9,23 +9,28 @@ export const routes: RouteRecordRaw[] = [
     component: HomeView,
   },
   {
-    path: "/form-demo",
-    name: "formDemo",
-    component: () => import("../views/FormDemoView.vue"),
-  },
-  {
-    path: "/data-grid",
-    name: "dataGrid",
-    component: () => import("../views/DataGridView.vue"),
-  },
-  {
-    path: "/layout-demo",
-    name: "layoutDemo",
-    component: () => import("../views/LayoutDemoView.vue"),
-  },
-  {
-    path: "/grid",
-    name: "gridDemo",
-    component: () => import("../views/GridDemo.vue"),
+    path: "/demos",
+    children: [
+      {
+        path: "form",
+        name: "formDemo",
+        component: () => import("../views/FormDemoView.vue"),
+      },
+      {
+        path: "data-grid",
+        name: "dataGrid",
+        component: () => import("../views/DataGridView.vue"),
+      },
+      {
+        path: "layout",
+        name: "layoutDemo",
+        component: () => import("../views/LayoutDemoView.vue"),
+      },
+      {
+        path: "grid",
+        name: "gridDemo",
+        component: () => import("../views/GridDemo.vue"),
+      },
+    ],
   },
 ];

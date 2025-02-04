@@ -5,7 +5,9 @@ import OnyxExternalLinkIcon from "../../../OnyxExternalLinkIcon/OnyxExternalLink
 import OnyxMenuItem from "../OnyxMenuItem/OnyxMenuItem.vue";
 import type { OnyxNavItemProps } from "./types";
 
-const props = defineProps<OnyxNavItemProps>();
+const props = withDefaults(defineProps<OnyxNavItemProps>(), {
+  active: "auto",
+});
 
 defineSlots<{
   /**

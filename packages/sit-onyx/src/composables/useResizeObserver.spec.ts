@@ -4,7 +4,7 @@ import { useResizeObserver } from "./useResizeObserver";
 
 vi.mock("vue", async (importOriginal) => {
   return {
-    ...(await importOriginal()),
+    ...(await importOriginal<typeof import("vue")>()),
     // this will only affect "foo" outside of the original module
     onMounted: (callback) => callback(),
     onBeforeUnmount: vi.fn(),
