@@ -11,12 +11,13 @@
     padding: 0;
 
     &--hover &__checkbox {
-      visibility: hidden;
+      opacity: 0;
     }
 
+    tr:focus-within &__checkbox,
     tr:hover &__checkbox,
     .onyx-data-grid-selection-cell__checkbox--checked {
-      visibility: visible;
+      opacity: 1;
     }
   }
 }
