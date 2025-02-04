@@ -33,3 +33,10 @@ test("should render different types of columns", async ({ mount }) => {
 
   await expect(component).toHaveScreenshot("with-different-column-types.png");
 });
+
+test("should render different types of columns", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(<TestWrapperWithColumnTypesCt />);
+
+  await expect(component).toHaveScreenshot("with-different-column-types.png");
+});
