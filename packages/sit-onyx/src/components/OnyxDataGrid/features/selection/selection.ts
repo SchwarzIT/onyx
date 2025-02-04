@@ -89,7 +89,7 @@ export const useSelection = createFeature(
               return h(OnyxCheckbox, {
                 class: {
                   "onyx-data-grid-selection-cell__checkbox": true,
-                  ["onyx-data-grid-selection-cell__checkbox--checked"]: modelValue,
+                  "onyx-data-grid-selection-cell__checkbox--checked": modelValue,
                 },
                 value: `selection-${idAsString}`,
                 hideLabel: true,
