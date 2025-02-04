@@ -38,5 +38,13 @@ const data = [
 </script>
 
 <template>
-  <OnyxDataGrid :data="data" :columns="['name', 'age', 'birthday']" :features="[features()]" />
+  <OnyxDataGrid
+    :data="data"
+    :columns="[
+      'name',
+      { key: 'age', label: undefined },
+      { key: 'birthday', label: 'Day of Birth' },
+    ]"
+    :features="[features()]"
+  />
 </template>
