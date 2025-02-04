@@ -2,4 +2,6 @@
 "sit-onyx": minor
 ---
 
-feat(OnyxDataGrid): implement row selection
+feat(OnyxDataGrid): added row selection feature
+
+The new `DataGridFeatures.useSelection` can be used to enable and configure the selection.
