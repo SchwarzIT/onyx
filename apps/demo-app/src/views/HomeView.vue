@@ -224,9 +224,9 @@ const selectedDate = ref<DateValue>();
 
         <template v-if="show('OnyxLink')">
           <OnyxLink href="https://onyx.schwarz">External link</OnyxLink>
-          <OnyxLink href="/demos/form"
-            >Internal link (should be navigated with Vue Router)</OnyxLink
-          >
+          <OnyxLink href="/demos/form">
+            Internal link (should be navigated with Vue Router)
+          </OnyxLink>
         </template>
 
         <SelectDemo
