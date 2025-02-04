@@ -1,18 +1,22 @@
-tr:has(.onyx-data-grid-selection-cell__checkbox--checked) td {
-  background-color: var(--onyx-color-base-primary-100);
-}
+@use "../../../../styles/mixins/layers.scss";
 
-.onyx-data-grid-selection-cell {
-  box-sizing: content-box;
-  width: 2.5rem;
-  padding: 0;
-
-  &--hover &__checkbox {
-    visibility: hidden;
+@include layers.component {
+  tr:has(.onyx-data-grid-selection-cell__checkbox--checked) td {
+    background-color: var(--onyx-color-base-primary-100);
   }
 
-  tr:hover &__checkbox,
-  .onyx-data-grid-selection-cell__checkbox--checked {
-    visibility: visible;
+  .onyx-data-grid-selection-cell {
+    box-sizing: content-box;
+    width: 2.5rem;
+    padding: 0;
+
+    &--hover &__checkbox {
+      visibility: hidden;
+    }
+
+    tr:hover &__checkbox,
+    .onyx-data-grid-selection-cell__checkbox--checked {
+      visibility: visible;
+    }
   }
 }
