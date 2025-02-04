@@ -14,8 +14,8 @@ test("OnyxDataGrid", async ({ mount }) => {
 
   await test.step("should support header actions", async () => {
     // ARRANGE
-    const moreActionsBtn = component.getByLabel("Toggle column actions").first();
-    const flyout = component.getByLabel('Choose an action for the column "name"');
+    const moreActionsBtn = component.getByLabel("Toggle column actions").last();
+    const flyout = component.getByLabel('Choose an action for the column "Day of Birth"');
 
     // ACT
     await moreActionsBtn.click();
