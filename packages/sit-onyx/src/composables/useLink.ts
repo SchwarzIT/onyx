@@ -15,7 +15,7 @@ export const useLink = () => {
   const currentRoute = computed(() => {
     if (!router) return;
     const route = unref(router.currentRoute);
-    return typeof route === "string" ? { fullPath: route } : route;
+    return typeof route === "string" ? { path: route } : route;
   });
 
   /**
@@ -56,10 +56,10 @@ export const useLink = () => {
       if (!currentRoute.value || link == undefined) return false;
 
       const href = normalizeHref(extractLinkProps(link).href);
-      const fullPath = normalizeHref(currentRoute.value.fullPath);
+      const path = normalizeHref(currentRoute.value.path);
 
-      if (href === "/") return fullPath === href;
-      return fullPath.startsWith(href);
+      if (href === "/") return path === href;
+      return path.startsWith(href);
     };
   });
 
@@ -111,7 +111,7 @@ export type ProvideRouterOptions = {
    * Currently active route.
    * @see https://router.vuejs.org/api/interfaces/Router.html#currentRoute
    */
-  currentRoute: Ref<string | { fullPath: string }>;
+  currentRoute: Ref<string | { path: string }>;
 };
 
 export const ROUTER_INJECTION_KEY = Symbol() as InjectionKey<ProvideRouterOptions>;
