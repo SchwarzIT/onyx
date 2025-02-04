@@ -2,7 +2,7 @@ import { computed, inject, unref, type InjectionKey, type Ref } from "vue";
 import { isExternalLink } from "../utils";
 
 /**
- * Internal behavior of the `OnyxRouterLink`. Should be used for navigation. Considers the user provided router.
+ * Internal behavior of the `OnyxRouterLink`. Should be used for navigation. Considers the user provided [router](https://onyx.schwarz/development/router.html).
  */
 export const useLink = () => {
   const router = inject(ROUTER_INJECTION_KEY, undefined);

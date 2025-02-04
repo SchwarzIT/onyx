@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { provide } from "vue";
+import { provide, ref } from "vue";
 import { ROUTER_INJECTION_KEY } from "../../composables/useLink";
 import OnyxRouterLink from "./OnyxRouterLink.vue";
 
 /**
  * The router link is a unstyled support component that should be used instead of `<a>` elements.
  * It will behave identical to `<a>` but integrates the [Vue Router](https://router.vuejs.org/) if passed
- * to `createOnyx()`, see our [getting started guide](https://onyx.schwarz/development/).
+ * to `createOnyx()`, see our [documentation](https://onyx.schwarz/development/router.html).
  *
  * You can also use this behavior without the router link component by using the `useLink()` composable.
  *
@@ -32,6 +32,7 @@ const meta: Meta<typeof OnyxRouterLink> = {
       components: { story },
       setup: () => {
         provide(ROUTER_INJECTION_KEY, {
+          currentRoute: ref("/"),
           push: (to) => {
             alert(`This navigation to "${to}" will be done by the projects router.`);
           },
