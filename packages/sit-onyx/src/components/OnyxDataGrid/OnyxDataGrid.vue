@@ -76,13 +76,3 @@ watch(
     </template>
   </OnyxDataGridRenderer>
 </template>
-
-<style lang="scss">
-@use "../../styles/mixins/layers.scss";
-
-@include layers.component {
-  .onyx-data-grid .onyx-table {
-    table-layout: fixed;
-  }
-}
-</style>

@@ -14,7 +14,7 @@ export type SelectionState = {
    * |------------|:-------------:|:----------------:|-------------------------|
    * | "include"  |      == 0     | nothing selected | unchecked               |
    * | "include"  |       > 0     |   some selected  | indeterminate           |
-   * | "exclude"  |       > 0     |   all selected   | checked                 |
+   * | "exclude"  |      == 0     |   all selected   | checked                 |
    * | "exclude"  |       > 0     |   some selected  | indeterminate           |
    *
    */
