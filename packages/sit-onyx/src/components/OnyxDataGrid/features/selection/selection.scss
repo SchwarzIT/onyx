@@ -2,8 +2,8 @@
 
 @include layers.component {
   .onyx-data-grid {
-    tr:has(.onyx-data-grid-selection-cell__checkbox--checked) td {
-      background-color: var(--onyx-color-base-primary-100);
+    tr:has(.onyx-data-grid-selection-cell__checkbox--checked) {
+      --onyx-table-row-background-color: var(--onyx-color-base-primary-100);
     }
 
     .onyx-data-grid-selection-cell {

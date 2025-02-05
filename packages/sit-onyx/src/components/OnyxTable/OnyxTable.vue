@@ -260,7 +260,10 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
     // so the column hover effects works correctly with plain CSS
     td::before {
       content: "";
-      background-color: var(--onyx-color-base-background-blank);
+      background-color: var(
+        --onyx-table-row-background-color,
+        var(--onyx-color-base-background-blank)
+      );
       position: absolute;
       top: 0;
       left: 0;
@@ -272,7 +275,10 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
     &--striped {
       tbody {
         tr:nth-child(even) td::before {
-          background-color: var(--onyx-color-base-background-tinted);
+          background-color: var(
+            --onyx-table-row-background-color,
+            var(--onyx-color-base-background-tinted)
+          );
         }
       }
     }
