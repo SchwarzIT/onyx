@@ -12,8 +12,11 @@ import {
 } from "sit-onyx";
 import { computed, h, ref } from "vue";
 
-const sortingEnabled = ref(false);
-const moreActions = ref(false);
+const enabledFeatures = ref({
+  sorting: false,
+  moreActions: false,
+  selection: false,
+});
 
 const data = [
   { id: 1, name: "John Doe", age: 30 },
@@ -52,12 +55,14 @@ const dummyFeature = createFeature(() => ({
 
 const dataFeatures = computed(() => {
   const enabled = [];
-  if (sortingEnabled.value) {
+  if (enabledFeatures.value.sorting) {
     enabled.push(DataGridFeatures.useSorting<Entry>());
   }
-
-  if (moreActions.value) {
+  if (enabledFeatures.value.moreActions) {
     enabled.push(dummyFeature());
+  }
+  if (enabledFeatures.value.selection) {
+    enabled.push(DataGridFeatures.useSelection());
   }
   return enabled;
 });
@@ -67,9 +72,10 @@ const dataFeatures = computed(() => {
   <OnyxPageLayout>
     <div class="onyx-grid-container">
       <OnyxHeadline is="h1">Data-Grid example</OnyxHeadline>
-      <section class="data-grid-settings">
-        <OnyxSwitch v-model="sortingEnabled" label="Enable sorting" />
-        <OnyxSwitch v-model="moreActions" label="Enable more actions" />
+      <section class="settings">
+        <OnyxSwitch v-model="enabledFeatures.sorting" label="Enable sorting" />
+        <OnyxSwitch v-model="enabledFeatures.moreActions" label="Enable more actions" />
+        <OnyxSwitch v-model="enabledFeatures.selection" label="Enable selection" />
       </section>
       <OnyxDataGrid :features="dataFeatures" :data :columns="['name', 'age']" />
     </div>
@@ -77,8 +83,10 @@ const dataFeatures = computed(() => {
 </template>
 
 <style lang="scss" scoped>
-.data-grid-settings {
-  margin: 1rem 0;
+.settings {
+  margin: var(--onyx-density-sm) 0;
   display: flex;
+  flex-wrap: wrap;
+  gap: var(--onyx-grid-gutter);
 }
 </style>
