@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.146
+
+### Minor Changes
+
+- 6347d45: feat(OnyxDataGrid): added row selection feature
+
+  The new `DataGridFeatures.useSelection` can be used to enable and configure the selection.
+
 ## 1.0.0-beta.145
 
 ### Minor Changes
