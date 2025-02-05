@@ -40,5 +40,5 @@ export type SelectionOptions = {
   /**
    * If `true` the selection checkbox of a row will only be shown if the row is hovered or selected.
    */
-  hover?: boolean;
+  hover?: MaybeRefOrGetter<boolean>;
 };

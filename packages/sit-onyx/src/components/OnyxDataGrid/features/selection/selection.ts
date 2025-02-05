@@ -1,4 +1,4 @@
-import { computed, h, toRef, type Ref } from "vue";
+import { h, toRef, type Ref } from "vue";
 import { createFeature, type ModifyColumns } from "..";
 import { injectI18n } from "../../../../i18n";
 import OnyxCheckbox from "../../../OnyxCheckbox/OnyxCheckbox.vue";
@@ -18,8 +18,8 @@ export const useSelection = createFeature(
           contingent: new Set<TEntry["id"]>(),
         } as const),
     );
-    const enabled = computed(() => options?.enabled !== false);
-    const hover = options?.hover ?? false;
+    const enabled = toRef(options?.enabled ?? true);
+    const hover = toRef(options?.hover ?? false);
 
     const getCheckState = (id: PropertyKey) =>
       selectionState.value.selectMode === "include"
@@ -48,7 +48,7 @@ export const useSelection = createFeature(
 
     return {
       name: SELECTION_FEATURE,
-      watch: [selectionState],
+      watch: [selectionState, hover, enabled],
       modifyColumns: {
         func: (columnConfig) =>
           enabled.value
@@ -76,7 +76,6 @@ export const useSelection = createFeature(
             tdAttributes: {
               class: {
                 "onyx-data-grid-selection-cell": true,
-                "onyx-data-grid-selection-cell--hover": hover,
               },
             },
             component: ({ row }) => {
@@ -89,6 +88,7 @@ export const useSelection = createFeature(
               return h(OnyxCheckbox, {
                 class: {
                   "onyx-data-grid-selection-cell__checkbox": true,
+                  "onyx-data-grid-selection-cell__checkbox--hover": hover.value,
                   "onyx-data-grid-selection-cell__checkbox--checked": modelValue,
                 },
                 value: `selection-${idAsString}`,

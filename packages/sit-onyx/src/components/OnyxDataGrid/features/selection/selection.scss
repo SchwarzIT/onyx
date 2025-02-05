@@ -10,16 +10,16 @@
       box-sizing: content-box;
       width: 2.5rem;
       padding: 0;
+    }
 
-      &--hover &__checkbox {
-        opacity: 0;
-      }
+    .onyx-data-grid-selection-cell__checkbox--hover {
+      opacity: 0;
+    }
 
-      tr:focus-within &__checkbox,
-      tr:hover &__checkbox,
-      .onyx-data-grid-selection-cell__checkbox--checked {
-        opacity: 1;
-      }
+    tr:focus-within .onyx-data-grid-selection-cell__checkbox,
+    tr:hover .onyx-data-grid-selection-cell__checkbox,
+    .onyx-data-grid-selection-cell__checkbox--checked {
+      opacity: 1;
     }
   }
 }

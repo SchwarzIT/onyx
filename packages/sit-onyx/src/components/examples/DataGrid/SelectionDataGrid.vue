@@ -1,22 +1,28 @@
 <script setup lang="ts">
 import type { DataGridEntry } from "../../..";
 import { DataGridFeatures, OnyxDataGrid } from "../../..";
-import type { SelectionOptions, SelectionState } from "../../OnyxDataGrid/features/selection/types";
+import type { SelectionState } from "../../OnyxDataGrid/features/selection/types";
 
 // STORY SETUP START
 // This section will be removed from the Storybook code example, because it's to complex
-import { toRef, toValue, watch } from "vue";
+import { ref, toRef, watch } from "vue";
 type TEntry = (typeof data)[number];
 
-const props = defineProps<SelectionOptions>();
+const props = defineProps<{
+  hover: boolean;
+  enabled: boolean;
+  selectionState?: SelectionState;
+}>();
 
 const emit = defineEmits<{
   "update:selectionState": [data: SelectionState];
 }>();
 
-const selectionState = toRef(
-  () => toValue(props.selectionState) ?? { selectMode: "include", contingent: new Set() },
-);
+const hover = toRef(() => props.hover);
+const enabled = toRef(() => props.enabled);
+// There seems to be a false-positive here:
+// eslint-disable-next-line vue/no-dupe-keys
+const selectionState = ref<SelectionState>({ selectMode: "include", contingent: new Set() });
 
 watch(selectionState, () => emit("update:selectionState", selectionState.value), { deep: true });
 // STORY SETUP END
@@ -29,7 +35,11 @@ const data = [
   { id: 5, name: "John", rank: 42, birthday: new Date("1997-04-18") },
 ] satisfies DataGridEntry[];
 
-const withSelection = DataGridFeatures.useSelection<TEntry>({ selectionState, hover: true });
+const withSelection = DataGridFeatures.useSelection<TEntry>({
+  selectionState,
+  enabled,
+  hover,
+});
 </script>
 
 <template>
