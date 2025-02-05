@@ -3,9 +3,10 @@ import type { SkeletonInjected } from "../../composables/useSkeletonState";
 
 export type OnyxAccordionItemProps = DensityProp & {
   /**
-   * Whether the accordion is open
+   * Value that is used inside the `OnyxAccordion` when the item is open.
+   * Must be unique across one accordion.
    */
-  open?: boolean;
+  value: string;
   /**
    * Whether the accordion is disabled
    */

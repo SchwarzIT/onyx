@@ -16,11 +16,12 @@ export type OnyxAccordionProps = DensityProp & {
    */
   skeleton?: SkeletonInjected;
 };
+
 export type AccordionInjectionKey = InjectionKey<{
   /**
-   * A reactive set containing the IDs of currently open AccordionItems.
+   * IDs of currently open AccordionItems.
    */
-  openItems: Ref<Set<string>>;
+  openItems: Readonly<Ref<string[]>>;
   /**
    * Function to update the open state of an AccordionItem.
    * @param id - The unique ID of the AccordionItem.
@@ -30,4 +31,5 @@ export type AccordionInjectionKey = InjectionKey<{
   disabled: Ref<boolean>;
   skeleton: Ref<SkeletonInjected>;
 }>;
+
 export const ACCORDION_INJECTION_KEY = Symbol() as AccordionInjectionKey;

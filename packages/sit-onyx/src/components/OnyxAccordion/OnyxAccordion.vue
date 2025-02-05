@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { provide, ref, toRefs, watch } from "vue";
+import { provide, toRef, toRefs, watch } from "vue";
 import { useDensity } from "../../";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import {
@@ -13,6 +13,7 @@ const props = withDefaults(defineProps<OnyxAccordionProps>(), {
   disabled: false,
   skeleton: SKELETON_INJECTED_SYMBOL,
 });
+
 defineSlots<{
   /**
    * Displays OnyxAccordionItem components.
@@ -20,33 +21,43 @@ defineSlots<{
   default(): unknown;
 }>();
 
-const openItems = ref(new Set<string>());
+/**
+ * Currently opened items. Will include the `value` property of the nested `OnyxAccordionItems`.
+ */
+const openItems = defineModel<string[]>({ default: () => [] });
 
 const { disabled, exclusive } = toRefs(props);
 const skeleton = useSkeletonContext(props);
 const { densityClass } = useDensity(props);
 
-const updateOpen = (id: string, isOpen: boolean) => {
+const updateOpen = (value: string, isOpen: boolean) => {
   if (!isOpen) {
-    openItems.value.delete(id);
+    if (!openItems.value.includes(value)) return;
+    openItems.value = openItems.value.filter((i) => i !== value);
     return;
   }
-  if (exclusive.value) openItems.value.clear();
-  openItems.value.add(id);
+  if (exclusive.value) {
+    openItems.value = [value];
+    return;
+  }
+  if (!openItems.value.includes(value)) {
+    openItems.value = openItems.value.concat(value);
+  }
 };
 
-watch(exclusive, (newExclusive) => {
-  if (newExclusive && openItems.value.size > 1) {
-    const lastOpenedItem = [...openItems.value].pop();
-    openItems.value.clear();
-    if (lastOpenedItem) {
-      openItems.value.add(lastOpenedItem);
+watch(
+  exclusive,
+  (newExclusive) => {
+    if (newExclusive && openItems.value.length > 1) {
+      const lastOpenedItem = openItems.value.at(-1);
+      openItems.value = lastOpenedItem != undefined ? [lastOpenedItem] : [];
     }
-  }
-});
+  },
+  { immediate: true },
+);
 
 provide(ACCORDION_INJECTION_KEY as AccordionInjectionKey, {
-  openItems,
+  openItems: toRef(() => openItems.value),
   updateOpen,
   disabled,
   skeleton,

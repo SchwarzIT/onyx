@@ -17,11 +17,11 @@ test.describe("ScreenshotTest", () => {
         skeleton={row === "skeleton"}
         disabled={row === "disabled"}
       >
-        <OnyxAccordionItem>
+        <OnyxAccordionItem value="item-1">
           <template v-slot:header>Accordion Header 1</template>
           Accordion Panel 1
         </OnyxAccordionItem>
-        <OnyxAccordionItem>
+        <OnyxAccordionItem value="item-2">
           <template v-slot:header>Accordion Header 2</template>
           Accordion Panel 2
         </OnyxAccordionItem>
@@ -45,13 +45,17 @@ test.describe("ScreenshotTest", () => {
     name: "Accordion (disabled)",
     columns: ["closed", "open"],
     rows: ["default", "hover", "focus-visible"],
-    component: (columns) => (
-      <OnyxAccordion style="width: 16rem;" disabled>
-        <OnyxAccordionItem open={columns === "open"}>
+    component: (column) => (
+      <OnyxAccordion
+        style="width: 16rem;"
+        modelValue={column === "open" ? ["item-1"] : undefined}
+        disabled
+      >
+        <OnyxAccordionItem value="item-1">
           <template v-slot:header>Accordion Header 1</template>
           Accordion Panel 1
         </OnyxAccordionItem>
-        <OnyxAccordionItem>
+        <OnyxAccordionItem value="item-2">
           <template v-slot:header>Accordion Header 2</template>
           Accordion Panel 2
         </OnyxAccordionItem>
@@ -69,11 +73,11 @@ test.describe("ScreenshotTest", () => {
 test("should open only one item at a time in exclusive mode", async ({ mount, makeAxeBuilder }) => {
   const component = await mount(
     <OnyxAccordion exclusive>
-      <OnyxAccordionItem>
+      <OnyxAccordionItem value="item-1">
         <template v-slot:header>Accordion Header 1</template>
         Accordion Panel 1
       </OnyxAccordionItem>
-      <OnyxAccordionItem>
+      <OnyxAccordionItem value="item-2">
         <template v-slot:header>Accordion Header 2</template>
         Accordion Panel 2
       </OnyxAccordionItem>

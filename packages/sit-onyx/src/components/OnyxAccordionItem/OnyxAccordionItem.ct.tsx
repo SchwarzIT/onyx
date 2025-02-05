@@ -11,6 +11,7 @@ test.describe("ScreenshotTest", () => {
     component: (column, row) => (
       <OnyxAccordionItem
         style="width: 20rem"
+        value="item"
         density={column}
         skeleton={row === "skeleton"}
         disabled={row === "disabled"}
@@ -34,7 +35,7 @@ test.describe("ScreenshotTest", () => {
 test("should toggle open state on click", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(
-    <OnyxAccordionItem>
+    <OnyxAccordionItem value="item">
       <template v-slot:header>Accordion Header</template>
       Accordion Panel
     </OnyxAccordionItem>,
@@ -56,20 +57,22 @@ test("should toggle open state on click", async ({ mount, makeAxeBuilder }) => {
   // ASSERT
   expect(accessibilityScanResults.violations).toEqual([]);
 });
-test("should apply the disabled state", async ({ mount, makeAxeBuilder, page }) => {
+
+test("should apply the disabled state", async ({ mount, page }) => {
+  // ARRANGE
   const component = await mount(
-    <OnyxAccordionItem disabled>
+    <OnyxAccordionItem value="item" disabled>
       <template v-slot:header>Accordion Header</template>
       Accordion Panel
     </OnyxAccordionItem>,
   );
 
-  //Locators
   const header = component.getByRole("button", { name: "Accordion Header" });
 
+  // ACT
   await page.keyboard.press("Tab");
-  await expect(header).not.toBeFocused();
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
 
-  expect(accessibilityScanResults.violations).toEqual([]);
+  // ASSERT
+  await expect(header).not.toBeFocused();
+  await expect(header).toBeDisabled();
 });

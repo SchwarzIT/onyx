@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import chevronDownSmall from "@sit-onyx/icons/chevron-down-small.svg?raw";
-import { computed, inject, useId } from "vue";
+import { computed, inject, watch } from "vue";
 import { ACCORDION_INJECTION_KEY, useDensity } from "../../";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -10,7 +10,6 @@ import type { OnyxAccordionItemProps } from "./types";
 const props = withDefaults(defineProps<OnyxAccordionItemProps>(), {
   disabled: false,
   skeleton: SKELETON_INJECTED_SYMBOL,
-  open: false,
 });
 
 defineSlots<{
@@ -24,27 +23,28 @@ defineSlots<{
    */
   default?(): unknown;
 }>();
-const itemId = useId();
+
 const accordionContext = inject(ACCORDION_INJECTION_KEY);
 
-const emit = defineEmits<{
-  /**
-   * Emitted when the open state is changed.
-   */
-  "update:open": [isOpen: boolean];
-}>();
-
 const isOpen = computed({
-  get: () => accordionContext?.openItems.value.has(itemId) || props.open,
-  set: (value: boolean) => {
-    accordionContext?.updateOpen(itemId, value);
-    emit("update:open", value);
-  },
+  get: () => accordionContext?.openItems.value.includes(props.value),
+  set: (open: boolean) => accordionContext?.updateOpen(props.value, open),
 });
+
+watch(
+  () => props.value,
+  (newValue, oldValue) => {
+    accordionContext?.updateOpen(newValue, accordionContext?.openItems.value.includes(newValue));
+    accordionContext?.updateOpen(oldValue, false);
+  },
+);
 
 const skeleton = useSkeletonContext(props);
 const { densityClass } = useDensity(props);
 const isDisabled = computed(() => accordionContext?.disabled.value || props.disabled);
+
+const headerId = computed(() => `header-${props.value}`);
+const panelId = computed(() => `panel-${props.value}`);
 </script>
 
 <template>
@@ -64,12 +64,12 @@ const isDisabled = computed(() => accordionContext?.disabled.value || props.disa
     @toggle="isOpen = ($event.target as HTMLDetailsElement).open"
   >
     <summary
-      :id="'header-' + itemId"
+      :id="headerId"
       class="onyx-accordion-item__header"
       role="button"
       :tabindex="isDisabled ? -1 : 0"
       :aria-expanded="isOpen"
-      :aria-controls="'panel-' + itemId"
+      :aria-controls="panelId"
       :aria-disabled="isDisabled"
     >
       <div class="onyx-accordion-item__header-content">
@@ -78,12 +78,8 @@ const isDisabled = computed(() => accordionContext?.disabled.value || props.disa
 
       <OnyxIcon :icon="chevronDownSmall" class="onyx-accordion-item__header-icon" />
     </summary>
-    <div
-      :id="'panel-' + itemId"
-      class="onyx-accordion-item__panel"
-      role="region"
-      :aria-labelledby="'header-' + itemId"
-    >
+
+    <div :id="panelId" class="onyx-accordion-item__panel" role="region" :aria-labelledby="headerId">
       <slot></slot>
     </div>
   </details>
