@@ -1,0 +1,25 @@
+@use "../../../../styles/mixins/layers.scss";
+
+@include layers.component {
+  .onyx-data-grid {
+    tr:has(.onyx-data-grid-selection-cell__checkbox--checked) td {
+      background-color: var(--onyx-color-base-primary-100);
+    }
+
+    .onyx-data-grid-selection-cell {
+      box-sizing: content-box;
+      width: 2.5rem;
+      padding: 0;
+
+      &--hover &__checkbox {
+        opacity: 0;
+      }
+
+      tr:focus-within &__checkbox,
+      tr:hover &__checkbox,
+      .onyx-data-grid-selection-cell__checkbox--checked {
+        opacity: 1;
+      }
+    }
+  }
+}

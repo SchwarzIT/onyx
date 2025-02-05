@@ -6,6 +6,12 @@
   "close": "Close",
   "dataGrid": {
     "head": {
+      "selection": {
+        "selectAll": "Select all rows",
+        "deselectAll": "Deselect all rows",
+        "select": "Add row with ID '{id}' to the selection.",
+        "deselect": "Remove row with ID '{id}' from the selection."
+      },
       "sorting": {
         "action": {
           "asc": "Sort the table ascending by the {field} column.",
