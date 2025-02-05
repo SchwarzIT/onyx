@@ -21,7 +21,7 @@ export type FilterColumnOptions<TEntry extends DataGridEntry> = {
     /**
      * Configuration for how filtering should behave for this column.
      */
-    filterConfig?: filterConfig;
+    filterConfig?: FilterConfig;
     /**
      * A custom filtering function for this column.
      * This function is used to filter the column data, instead of using the default filtering behavior.
@@ -32,7 +32,7 @@ export type FilterColumnOptions<TEntry extends DataGridEntry> = {
 /**
  * Configuration for how filtering should behave.
  */
-type filterConfig = {
+export type FilterConfig = {
   /**
    * If true, filtering will be case-sensitive.
    * If false, filtering will be case-insensitive.
@@ -74,5 +74,5 @@ export type FilterOptions<TEntry extends DataGridEntry> = {
   /**
    * Configuration for how the filtering should behave across all columns.
    */
-  filterConfig?: filterConfig;
+  filterConfig?: FilterConfig;
 };

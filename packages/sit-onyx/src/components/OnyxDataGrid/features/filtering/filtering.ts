@@ -1,29 +1,29 @@
 import searchX from "@sit-onyx/icons/search-x.svg?raw";
-import { computed, h, ref, toValue, watch } from "vue";
+import { computed, h, ref, toValue, watchEffect } from "vue";
 import { createFeature } from "..";
 import { injectI18n } from "../../../../i18n";
 import OnyxMiniSearch from "../../../OnyxMiniSearch/OnyxMiniSearch.vue";
 import type { OnyxMiniSearchProps } from "../../../OnyxMiniSearch/types";
 import OnyxSystemButton from "../../../OnyxSystemButton/OnyxSystemButton.vue";
 import type { DataGridEntry } from "../../types";
-import type { FilterColumnOptions, FilterOptions } from "./types";
+import type { FilterOptions } from "./types";
 
 export const FILTERING_FEATURE = Symbol("Filtering");
 
 export const useFiltering = createFeature(
   <TEntry extends DataGridEntry>(options?: FilterOptions<TEntry>) => {
-    const filters = ref<Record<keyof TEntry, string>>({} as Record<keyof TEntry, string>);
+    const filters = ref<Partial<Record<keyof TEntry, string>>>({});
     const { t } = injectI18n();
-    const config = toValue(options?.columns);
+    const config = computed(() => toValue(options?.columns));
 
-    const getFilterEnabled = computed(() => (col: keyof TEntry) => {
-      return !config || config?.[col]?.enabled === true;
+    const isFilterEnabled = computed(() => (col: keyof TEntry) => {
+      return !config.value || config.value?.[col]?.enabled === true;
     });
 
     const filterData = (data: Readonly<TEntry>[]) => {
       const filteredData = data.filter((entry) =>
         Object.entries(filters.value).every(([col, value]) => {
-          const columnOptions = config?.[col as keyof TEntry];
+          const columnOptions = config.value?.[col as keyof TEntry];
           const filterOpts = {
             ...options?.filterConfig,
             ...columnOptions?.filterConfig,
@@ -59,26 +59,19 @@ export const useFiltering = createFeature(
       return filteredData;
     };
 
-    const handleClick = (column: keyof DataGridEntry) => {
+    const clearFilter = (column: keyof DataGridEntry) => {
       filters.value[column] = "";
     };
 
-    const updateFilter = (config: FilterColumnOptions<TEntry> | undefined) => {
-      if (config) {
-        Object.entries(config).forEach(([col, columnOptions]) => {
-          if (columnOptions?.filter) {
-            filters.value[col as keyof TEntry] = columnOptions.filter;
-          }
-        });
-      }
-    };
-    updateFilter(config);
-    watch(
-      () => toValue(options?.columns),
-      (newConfig) => {
-        updateFilter(toValue(newConfig));
-      },
-    );
+    // sync filters with user provided config
+    watchEffect(() => {
+      if (!config.value) return;
+      Object.entries(config.value).forEach(([column, columnOptions]) => {
+        if (columnOptions?.filter) {
+          filters.value[column] = columnOptions.filter;
+        }
+      });
+    });
 
     const getMenuItem = (column: keyof DataGridEntry) => {
       const updateMode = ref(options?.updateMode || "onEnter");
@@ -126,7 +119,7 @@ export const useFiltering = createFeature(
       },
       header: {
         actions: (column) => {
-          if (!getFilterEnabled.value(column)) return [];
+          if (!isFilterEnabled.value(column)) return [];
           return [
             {
               menuItems: [getMenuItem(column)],
@@ -134,14 +127,14 @@ export const useFiltering = createFeature(
           ];
         },
         removeActions: (column) => {
-          if (!getFilterEnabled.value(column) || !filters.value[column]) return [];
+          if (!isFilterEnabled.value(column) || !filters.value[column]) return [];
           return [
             {
               iconComponent: h(OnyxSystemButton, {
                 label: String(column),
                 icon: searchX,
                 color: "medium",
-                onClick: () => handleClick(column),
+                onClick: () => clearFilter(column),
               }),
             },
           ];
