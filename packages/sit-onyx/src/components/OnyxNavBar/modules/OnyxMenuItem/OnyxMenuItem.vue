@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { createMenuItems } from "@sit-onyx/headless";
 import { computed } from "vue";
+import { useLink } from "../../../../composables/useLink";
 import { extractLinkProps } from "../../../../utils/router";
 import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
 import OnyxRouterLink from "../../../OnyxRouterLink/OnyxRouterLink.vue";
@@ -13,15 +14,23 @@ defineSlots<{
   default: () => unknown;
 }>();
 
-const props = defineProps<OnyxMenuItemProps>();
+const props = withDefaults(defineProps<OnyxMenuItemProps>(), {
+  active: "auto",
+});
 
 const {
   elements: { listItem, menuItem },
 } = createMenuItems();
 
+const { isActive: isPathActive } = useLink();
+const isActive = computed(() => {
+  if (props.active !== "auto") return props.active;
+  return isPathActive.value(props.link);
+});
+
 const headlessProps = computed(() =>
   menuItem({
-    active: props.active,
+    active: isActive.value,
     disabled: props.disabled,
   }),
 );
@@ -29,8 +38,8 @@ const headlessProps = computed(() =>
 
 <template>
   <OnyxListItem
-    :selected="props.active"
-    :active="props.active"
+    :selected="isActive"
+    :active="isActive"
     :color="props.color"
     :disabled="props.disabled"
     class="onyx-component onyx-menu-item"

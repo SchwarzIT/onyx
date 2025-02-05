@@ -1,5 +1,42 @@
 # sit-onyx
 
+## 1.0.0-beta.145
+
+### Minor Changes
+
+- a886471: feat(OnyxDataGrid): add support for header labels
+  Use the `label` property of the `column` configuration to set it.
+
+## 1.0.0-beta.144
+
+### Minor Changes
+
+- 471deaf: implement auto active state for OnyxNavButton, OnyxNavItem and OnyxMenuItem
+
+  By default, the OnyxNavButton, OnyxNavItem and OnyxMenuitem will now manage they active state automatically based on the current route if a [router](https://onyx.schwarz/development/router.html) is provided.
+
+  You can manually set the active state (`true` or `false`) to override/disable this behavior.
+
+## 1.0.0-beta.143
+
+### Major Changes
+
+- 1ac3b2a: integrate nav bar, nav button and nav item with router
+
+  The Vue Router integration has been further improved in this version.
+
+  #### Improvements
+
+  - nav bar app area is now a link instead of a button which supports browser-native features like copy link address, open in a new tab etc.
+  - the nav bar automatically closes mobile fly outs (like burger or context menu) when the current route changes, e.g. because the user clicked a nav item
+  - fix bug that mobile nav item with children does not open child view but instead directly opens link
+
+  #### Breaking changes
+
+  - OnyxNavBar: remove `navigateToStart` event. App area link will be opened directly (integrated with router). The link defaults to `/` and can be changed by the new `appArea` property
+  - OnyxNavBar: remove `appAreaLabel` property in favor of new `appArea` property
+  - OnyxNavButton and OnyxNavItem: remove event `navigate` which is no longer needed. The links will be opened directly. External links via the browser, internal links via the provided router (or browser if no router is provided)
+
 ## 1.0.0-beta.142
 
 ### Major Changes

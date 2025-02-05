@@ -5,14 +5,9 @@ import OnyxExternalLinkIcon from "../../../OnyxExternalLinkIcon/OnyxExternalLink
 import OnyxMenuItem from "../OnyxMenuItem/OnyxMenuItem.vue";
 import type { OnyxNavItemProps } from "./types";
 
-const props = defineProps<OnyxNavItemProps>();
-
-const emit = defineEmits<{
-  /**
-   * Emitted when the nav item is clicked.
-   */
-  navigate: [href: string, event: MouseEvent];
-}>();
+const props = withDefaults(defineProps<OnyxNavItemProps>(), {
+  active: "auto",
+});
 
 defineSlots<{
   /**
@@ -27,12 +22,7 @@ const extractedLinkProps = computed(() => {
 </script>
 
 <template>
-  <OnyxMenuItem
-    class="onyx-component onyx-nav-item"
-    :active="props.active"
-    :link="props.link"
-    @click="extractedLinkProps && emit('navigate', extractedLinkProps.href, $event)"
-  >
+  <OnyxMenuItem class="onyx-component onyx-nav-item" :active="props.active" :link="props.link">
     <slot>
       <span>{{ props.label }}</span>
       <OnyxExternalLinkIcon v-bind="extractedLinkProps" />
