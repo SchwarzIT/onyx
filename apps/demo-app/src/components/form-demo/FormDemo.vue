@@ -1,7 +1,9 @@
 <script lang="ts" setup>
+import type { OnyxFormProps } from "sit-onyx";
 import {
   OnyxButton,
   OnyxCheckboxGroup,
+  OnyxForm,
   OnyxHeadline,
   OnyxInput,
   OnyxRadioGroup,
@@ -33,6 +35,8 @@ export type FormData = Partial<{
   radioGroup: OnyxRadioGroupProps["modelValue"];
 }>;
 
+const props = defineProps<OnyxFormProps>();
+
 const formState = defineModel<FormData>({ required: true });
 
 const selectOptions = [
@@ -63,7 +67,12 @@ const radioOptions: RadioButtonOption[] = [
 </script>
 
 <template>
-  <form class="demo onyx-grid" @submit.prevent="handleSubmit" @reset="formState = {}">
+  <OnyxForm
+    class="demo onyx-grid"
+    v-bind="props"
+    @submit.prevent="handleSubmit"
+    @reset="formState = {}"
+  >
     <OnyxHeadline is="h3" class="onyx-grid-span-20"
       >This form is currently <span class="demo__invalid">in</span>valid.</OnyxHeadline
     >
@@ -165,7 +174,7 @@ const radioOptions: RadioButtonOption[] = [
       <OnyxButton label="Reset" color="neutral" type="reset" />
       <OnyxButton class="demo__submit" label="Submit" type="submit" />
     </div>
-  </form>
+  </OnyxForm>
 </template>
 
 <style lang="scss" scoped>
