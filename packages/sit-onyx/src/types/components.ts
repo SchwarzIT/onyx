@@ -1,6 +1,6 @@
 import type { FormInjected } from "../components/OnyxForm/OnyxForm.core";
 import type { DensityProp } from "../composables/density";
-import type { RequiredMarkerProp } from "../composables/required";
+import type { RequiredMarkerType, RequiredProp } from "../composables/required";
 import type { CustomValidityProp } from "../composables/useCustomValidity";
 import type { SkeletonInjected } from "../composables/useSkeletonState";
 import type { TruncationType } from "./fonts";
@@ -16,7 +16,7 @@ import type { TruncationType } from "./fonts";
  * Base select option that is e.g. used inside the select, radio / checkbox group.
  */
 export type BaseSelectOption<TValue extends SelectOptionValue = SelectOptionValue> = AutofocusProp &
-  RequiredMarkerProp &
+  RequiredProp &
   DensityProp &
   CustomValidityProp & {
     /**
@@ -38,6 +38,13 @@ export type BaseSelectOption<TValue extends SelectOptionValue = SelectOptionValu
      * Whether to disable the component and prevent user interaction.
      */
     disabled?: FormInjected<boolean>;
+    /**
+     * Required mode: `optional` will show an `(optional)` text after the label for optional inputs.
+     * `required` will show an `*` indicator for required inputs after the label instead.
+     * No marker will be visible if the label is hidden.
+     * @default undefined By default the parents setting is used, if none is defined on any `required` is the default.
+     */
+    requiredMarker?: FormInjected<RequiredMarkerType>;
     /**
      * Shows a loading indicator.
      */

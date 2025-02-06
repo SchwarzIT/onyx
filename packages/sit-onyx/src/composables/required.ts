@@ -1,28 +1,24 @@
-import { computed } from "vue";
+import { computed, type Ref } from "vue";
 
 export const RequiredMarkerTypes = ["optional", "required"] as const;
 export type RequiredMarkerType = (typeof RequiredMarkerTypes)[number];
 
-export type RequiredMarkerProp = {
+export type RequiredProp = {
   /**
    * Whether the a value for this form element is required.
    */
   required?: boolean;
-  /**
-   * Required mode: `optional` will show an `(optional)` text after the label for optional inputs.
-   * `required` will show an `*` indicator for required inputs after the label instead.
-   * No marker will be visible if the label is hidden.
-   * @default undefined By default the parents setting is used, if none is defined on any `required` is the default.
-   */
-  requiredMarker?: RequiredMarkerType;
 };
 
-export const useRequired = (props: RequiredMarkerProp) => ({
+export const useRequired = (
+  props: RequiredProp,
+  requiredMarker: Readonly<Ref<RequiredMarkerType>>,
+) => ({
   /**
    * Class that configures which type of required marker is used.
    */
   requiredTypeClass: computed(() => ({
-    [`onyx-use-${props.requiredMarker}`]: props.requiredMarker,
+    [`onyx-use-${requiredMarker.value}`]: true,
   })),
   requiredMarkerClass: computed(() => ({
     "onyx-required-marker": props.required,

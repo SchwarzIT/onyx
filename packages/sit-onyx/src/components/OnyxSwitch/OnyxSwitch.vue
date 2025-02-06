@@ -20,6 +20,7 @@ const props = withDefaults(defineProps<OnyxSwitchProps>(), {
   disabled: FORM_INJECTED_SYMBOL,
   loading: false,
   truncation: "ellipsis",
+  requiredMarker: FORM_INJECTED_SYMBOL,
   skeleton: SKELETON_INJECTED_SYMBOL,
 });
 
@@ -35,10 +36,10 @@ const emit = defineEmits<{
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
 
-const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
 const { densityClass } = useDensity(props);
 
-const { disabled, showError } = useFormContext(props);
+const { disabled, showError, requiredMarker } = useFormContext(props);
+const { requiredMarkerClass, requiredTypeClass } = useRequired(props, requiredMarker);
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 const shownErrorMessages = computed(() =>
   showError.value !== false ? errorMessages.value : undefined,

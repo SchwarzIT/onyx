@@ -1,4 +1,5 @@
 import { computed, inject, provide, toRef, type InjectionKey, type Reactive, type Ref } from "vue";
+import type { RequiredMarkerType } from "../../composables/required";
 import type { ShowErrorMode } from "../../composables/useErrorClass";
 
 const FORM_INJECTION_KEY = Symbol() as InjectionKey<ReturnType<typeof createFormInjectionContext>>;
@@ -25,6 +26,13 @@ export type FormProps = {
    * See [:user-invalid](https://drafts.csswg.org/selectors/#user-invalid-pseudo).
    */
   showError?: ShowErrorMode;
+  /**
+   * Required mode: `optional` will show an `(optional)` text after the label for optional inputs.
+   * `required` will show an `*` indicator for required inputs after the label instead.
+   * No marker will be visible if the label is hidden.
+   * @default undefined By default the parents setting is used, if none is defined on any `required` is the default.
+   */
+  requiredMarker?: RequiredMarkerType;
 };
 
 /**
@@ -38,11 +46,11 @@ export type FormComputedProps = {
  * ❗️ DO NOT USE THIS TYPE ❗️
  *
  * Manual replication of the `keyof FormProps` type.
- * Unfortunately this is necessary because Vue can only supports simple index types.
+ * Unfortunately this is necessary because Vue can only support simple index types.
  *
  * See discussion in https://github.com/vuejs/core/issues/8286
  */
-export type __DONT_USE_VUE_FIX_KeyOfFormProps = "disabled" | "showError";
+export type __DONT_USE_VUE_FIX_KeyOfFormProps = "disabled" | "showError" | "requiredMarker";
 
 /**
  * Props that may be used by the form child components.
@@ -108,6 +116,7 @@ const createFormInjectionContext =
   } => ({
     disabled: createCompute(formProps, props, "disabled", false),
     showError: createCompute(formProps, props, "showError", "touched"),
+    requiredMarker: createCompute(formProps, props, "requiredMarker", "required"),
   });
 
 export const provideFormContext = (formProps: Reactive<FormProps> | undefined) =>

@@ -14,14 +14,15 @@ const props = withDefaults(defineProps<OnyxRadioGroupProps<TValue>>(), {
   name: () => useId(), // the name must be globally unique
   direction: "vertical",
   required: false,
+  requiredMarker: FORM_INJECTED_SYMBOL,
   disabled: FORM_INJECTED_SYMBOL,
   skeleton: SKELETON_INJECTED_SYMBOL,
   truncation: "ellipsis",
 });
 
 const { densityClass } = useDensity(props);
-const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
-const { disabled } = useFormContext(props);
+const { disabled, requiredMarker } = useFormContext(props);
+const { requiredMarkerClass, requiredTypeClass } = useRequired(props, requiredMarker);
 const skeleton = useSkeletonContext(props);
 
 const emit = defineEmits<{

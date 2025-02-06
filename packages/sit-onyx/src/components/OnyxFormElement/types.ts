@@ -1,5 +1,5 @@
 import type { DensityProp } from "../../composables/density";
-import type { RequiredMarkerProp } from "../../composables/required";
+import type { RequiredProp } from "../../composables/required";
 import type {
   CustomMessageType,
   CustomValidityProp,
@@ -17,7 +17,7 @@ export type OnyxFormElementProps = Omit<SharedFormElementProps, "error" | "messa
     successMessages?: FormMessages;
   };
 
-export type SharedFormElementProps = RequiredMarkerProp &
+export type SharedFormElementProps = RequiredProp &
   FormInjectedProps &
   DensityProp &
   CustomValidityProp &

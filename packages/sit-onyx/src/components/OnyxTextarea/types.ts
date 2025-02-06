@@ -1,41 +1,21 @@
-import type { DensityProp } from "../../composables/density";
-import type { RequiredMarkerProp } from "../../composables/required";
-import type { CustomValidityProp } from "../../composables/useCustomValidity";
 import type { OnyxInputProps } from "../OnyxInput/types";
 
-export type OnyxTextareaProps = DensityProp &
-  RequiredMarkerProp &
-  CustomValidityProp &
-  Pick<
-    OnyxInputProps,
-    | "label"
-    | "labelTooltip"
-    | "hideLabel"
-    | "placeholder"
-    | "autocapitalize"
-    | "autofocus"
-    | "name"
-    | "readonly"
-    | "disabled"
-    | "minlength"
-    | "maxlength"
-    | "withCounter"
-    | "message"
-    | "success"
-    | "skeleton"
-  > & {
-    /**
-     * Override the default autosize behavior (height adjusts based on the current value).
-     * By default, the textarea will autosize while maintaining at least 3 and at most 10 rows.
-     * If the user resizes the textarea manually, the autosize will no longer work and the height
-     * set by the user is used.
-     */
-    autosize?: TextareaAutosize;
-    /**
-     * If `true`, the user will not be able to manually resize the textarea by dragging the bottom right corner.
-     */
-    disableManualResize?: boolean;
-  };
+export type OnyxTextareaProps = Omit<
+  OnyxInputProps,
+  "autocomplete" | "hideClearIcon" | "hideSuccessIcon" | "loading" | "pattern" | "type"
+> & {
+  /**
+   * Override the default autosize behavior (height adjusts based on the current value).
+   * By default, the textarea will autosize while maintaining at least 3 and at most 10 rows.
+   * If the user resizes the textarea manually, the autosize will no longer work and the height
+   * set by the user is used.
+   */
+  autosize?: TextareaAutosize;
+  /**
+   * If `true`, the user will not be able to manually resize the textarea by dragging the bottom right corner.
+   */
+  disableManualResize?: boolean;
+};
 
 export type TextareaAutosize = {
   /**

@@ -1,5 +1,5 @@
 import { expect, it, vi } from "vitest";
-import { reactive, toValue } from "vue";
+import { reactive } from "vue";
 import {
   FORM_INJECTED_SYMBOL,
   provideFormContext,
@@ -21,40 +21,42 @@ vi.mock("vue", async (importOriginal) => {
 
 it.for([
   {
-    formProps: { disabled: true, showError: true },
-    localProps: { disabled: true, showError: true },
-    expected: { disabled: true, showError: true },
+    formProps: { disabled: true, showError: true, requiredMarker: "optional" },
+    localProps: { disabled: true, showError: true, requiredMarker: "optional" },
+    expected: { disabled: true, showError: true, requiredMarker: "optional" },
   },
   {
-    formProps: { disabled: false, showError: false },
-    localProps: { disabled: true, showError: true },
-    expected: { disabled: true, showError: true },
+    formProps: { disabled: false, showError: false, requiredMarker: "optional" },
+    localProps: { disabled: true, showError: true, requiredMarker: "required" },
+    expected: { disabled: true, showError: true, requiredMarker: "required" },
   },
   {
-    formProps: { disabled: true, showError: true },
-    localProps: { disabled: false, showError: false },
-    expected: { disabled: false, showError: false },
+    formProps: { disabled: true, showError: true, requiredMarker: "required" },
+    localProps: { disabled: false, showError: false, requiredMarker: "optional" },
+    expected: { disabled: false, showError: false, requiredMarker: "optional" },
   },
   {
-    formProps: { disabled: false, showError: true },
-    localProps: { disabled: false, showError: false },
-    expected: { disabled: false, showError: false },
+    formProps: { disabled: false, showError: true, requiredMarker: "required" },
+    localProps: { disabled: false, showError: false, requiredMarker: "required" },
+    expected: { disabled: false, showError: false, requiredMarker: "required" },
   },
   {
-    formProps: { disabled: true, showError: true },
+    formProps: { disabled: true, showError: true, requiredMarker: "optional" },
     localProps: {
       disabled: FORM_INJECTED_SYMBOL,
       showError: FORM_INJECTED_SYMBOL,
+      requiredMarker: FORM_INJECTED_SYMBOL,
     },
-    expected: { disabled: true, showError: true },
+    expected: { disabled: true, showError: true, requiredMarker: "optional" },
   },
   {
-    formProps: { disabled: false, showError: false },
+    formProps: { disabled: false, showError: false, requiredMarker: "required" },
     localProps: {
       disabled: FORM_INJECTED_SYMBOL,
       showError: FORM_INJECTED_SYMBOL,
+      requiredMarker: FORM_INJECTED_SYMBOL,
     },
-    expected: { disabled: false, showError: false },
+    expected: { disabled: false, showError: false, requiredMarker: "required" },
   },
   {
     formProps: undefined,
@@ -62,17 +64,17 @@ it.for([
       disabled: FORM_INJECTED_SYMBOL,
       showError: FORM_INJECTED_SYMBOL,
     },
-    expected: { disabled: false, showError: "touched" },
+    expected: { disabled: false, showError: "touched", requiredMarker: "required" },
   },
   {
     formProps: undefined,
-    localProps: { disabled: true, showError: "touched" },
-    expected: { disabled: true, showError: "touched" },
+    localProps: { disabled: true, showError: "touched", requiredMarker: "optional" },
+    expected: { disabled: true, showError: "touched", requiredMarker: "optional" },
   },
   {
     formProps: undefined,
-    localProps: { disabled: false, showError: false },
-    expected: { disabled: false, showError: false },
+    localProps: { disabled: false, showError: false, requiredMarker: "required" },
+    expected: { disabled: false, showError: false, requiredMarker: "required" },
   },
 ] as const)(
   "it should derive expected state when correctly",
@@ -80,7 +82,7 @@ it.for([
     provideFormContext(formProps);
     const result = useFormContext(localProps);
     Object.entries(expected).forEach(([key, value]) => {
-      const resultValue = toValue(result[key as keyof FormProps]);
+      const resultValue = result[key as keyof FormProps].value;
 
       expect(
         resultValue,
