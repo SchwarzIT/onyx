@@ -5,6 +5,7 @@
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
   "scripts": {
+    "dev": "./scripts/dev.sh",
     "build:all": "turbo run build build:storybook",
     "test:all": "turbo run test:coverage",
     "test:playwright:all": "turbo run test:playwright --concurrency 1",

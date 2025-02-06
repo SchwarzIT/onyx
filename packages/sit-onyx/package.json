@@ -34,8 +34,7 @@
     "url": "https://github.com/SchwarzIT/onyx/issues"
   },
   "scripts": {
-    "dev": "turbo run turbo:dev --filter=.",
-    "turbo:dev": "storybook dev -p 6006 --no-open",
+    "dev": "storybook dev -p 6006 --no-open",
     "build": "vite build && vue-tsc -p tsconfig.app.json --composite false && vue-tsc -p tsconfig.locales.json --composite false",
     "build:storybook": "storybook build",
     "preview": "vite serve storybook-static",
