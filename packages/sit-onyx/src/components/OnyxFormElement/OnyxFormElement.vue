@@ -1,16 +1,19 @@
 <script lang="ts" setup generic="T">
 import { computed, useId } from "vue";
 import { useRequired } from "../../composables/required";
+import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxInfoTooltip from "../OnyxInfoTooltip/OnyxInfoTooltip.vue";
 import FormMessage from "./FormMessage.vue";
 import type { OnyxFormElementProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxFormElementProps>(), {
   required: false,
+  requiredMarker: FORM_INJECTED_SYMBOL,
   id: () => useId(),
 });
 
-const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
+const { requiredMarker } = useFormContext(props);
+const { requiredMarkerClass, requiredTypeClass } = useRequired(props, requiredMarker);
 
 /**
  * Current value of the input.

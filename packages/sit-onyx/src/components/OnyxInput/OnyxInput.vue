@@ -28,6 +28,7 @@ const props = withDefaults(defineProps<OnyxInputProps>(), {
   skeleton: SKELETON_INJECTED_SYMBOL,
   disabled: FORM_INJECTED_SYMBOL,
   showError: FORM_INJECTED_SYMBOL,
+  requiredMarker: FORM_INJECTED_SYMBOL,
 });
 
 const emit = defineEmits<{
