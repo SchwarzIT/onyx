@@ -4,8 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "turbo run turbo:dev --filter=.",
-    "turbo:dev": "vitepress dev src",
+    "dev": "vitepress dev src",
     "build": "pnpm run '/type-check|build-only/'",
     "build-only": "vitepress build src",
     "type-check": "vue-tsc --noEmit",

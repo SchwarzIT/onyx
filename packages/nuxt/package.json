@@ -26,8 +26,7 @@
     "dist"
   ],
   "scripts": {
-    "dev": "turbo run turbo:dev --filter=.",
-    "turbo:dev": "nuxi dev playground",
+    "dev": "nuxi dev playground",
     "dev:build": "nuxi build playground",
     "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
     "build": "pnpm run dev:prepare && nuxt-module-build build",

@@ -42,6 +42,7 @@ Here is a list of the most commonly used scripts.
 pnpm install # install all dependencies
 pnpm lint:fix:all # lint and fix all packages
 pnpm format:all # format all files
+pnpm dev <package-name> # run dev mode for the given `<package-name>`
 ```
 
 ```sh [packages/sit-onyx]

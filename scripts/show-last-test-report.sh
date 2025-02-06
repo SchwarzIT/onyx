@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
+set -ex
 
 # check if gh cli is installed
 if ! command -v gh &>/dev/null; then
