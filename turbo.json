@@ -25,7 +25,7 @@
       "outputs": ["playwright-report", "test-results", "blob-reports"],
       "cache": false
     },
-    "turbo:dev": {
+    "dev": {
       "dependsOn": ["^build"],
       "cache": false,
       "persistent": true
