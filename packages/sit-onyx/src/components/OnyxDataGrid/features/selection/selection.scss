@@ -16,9 +16,10 @@
       opacity: 0;
     }
 
-    tr:focus-within .onyx-data-grid-selection-cell__checkbox,
-    tr:hover .onyx-data-grid-selection-cell__checkbox,
-    .onyx-data-grid-selection-cell__checkbox--checked {
+    // We want to display the checkbox on hover, when
+    tr .onyx-data-grid-selection-cell__checkbox:has(input:focus-visible) /* it's focused through the keyboard */,
+    tr:hover .onyx-data-grid-selection-cell__checkbox /* it's hovered */,
+    .onyx-data-grid-selection-cell__checkbox--checked /* it's checked */ {
       opacity: 1;
     }
   }
