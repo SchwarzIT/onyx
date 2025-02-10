@@ -100,3 +100,28 @@ test("useSelection with hover", async ({ page, mount }) => {
     await expect(component).toHaveScreenshot("data-grid-selection-one-selected-one-hovered.png");
   });
 });
+
+test("useSelection with disabled", async ({ mount }) => {
+  // ARRANGE
+  const props = {
+    dataGrid: { data: getTestData(), columns: ["a", "b"] },
+    selectionOption: { disabled: true, hover: true },
+  };
+  const component = await mount(<TestCase {...props} />);
+
+  await test.step("initial rendering", async () => {
+    // ASSERT
+    const columns = component.locator("th");
+    await expect(columns).toHaveCount(2);
+  });
+
+  await test.step("set enabled", async () => {
+    // ARRANGE
+    props.selectionOption.disabled = false;
+    await component.update({ props });
+
+    // ASSERT
+    const columns = component.locator("th");
+    await expect(columns).toHaveCount(3);
+  });
+});

@@ -18,7 +18,7 @@ export const useSelection = createFeature(
           contingent: new Set<TEntry["id"]>(),
         } as const),
     );
-    const enabled = toRef(options?.enabled ?? true);
+    const disabled = toRef(options?.disabled ?? false);
     const hover = toRef(options?.hover ?? false);
 
     const getCheckState = (id: PropertyKey) =>
@@ -48,12 +48,12 @@ export const useSelection = createFeature(
 
     return {
       name: SELECTION_FEATURE,
-      watch: [selectionState, hover, enabled],
+      watch: [selectionState, hover, disabled],
       modifyColumns: {
         func: (columnConfig) =>
-          enabled.value
-            ? [{ key: SELECTION_COLUMN, type: SELECTION_COLUMN }, ...columnConfig]
-            : [...columnConfig],
+          disabled.value
+            ? [...columnConfig]
+            : [{ key: SELECTION_COLUMN, type: SELECTION_COLUMN }, ...columnConfig],
       } satisfies ModifyColumns<TEntry>,
       typeRenderer: {
         [SELECTION_COLUMN]: {

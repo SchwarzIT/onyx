@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable vue/no-setup-props-reactivity-loss */
-import { ref, watch } from "vue";
+ 
+import { computed, ref, toValue, watch } from "vue";
 import type { OnyxDataGridProps } from "../../../..";
 import { DataGridFeatures, OnyxDataGrid } from "../../../..";
 
@@ -42,8 +42,8 @@ watch(
 
 const withSelection = DataGridFeatures.useSelection({
   selectionState,
-  hover: selectionOption.hover,
-  enabled: selectionOption.enabled,
+  hover: computed(() => toValue(selectionOption.hover ?? false)),
+  disabled: computed(() => toValue(selectionOption.disabled ?? false)),
 });
 const features = [withSelection];
 </script>

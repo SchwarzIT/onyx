@@ -9,8 +9,8 @@ import { ref, toRef, watch } from "vue";
 type TEntry = (typeof data)[number];
 
 const props = defineProps<{
-  hover: boolean;
-  enabled: boolean;
+  hover?: boolean;
+  disabled?: boolean;
   selectionState?: SelectionState;
 }>();
 
@@ -19,7 +19,7 @@ const emit = defineEmits<{
 }>();
 
 const hover = toRef(() => props.hover);
-const enabled = toRef(() => props.enabled);
+const disabled = toRef(() => props.disabled);
 // There seems to be a false-positive here:
 // eslint-disable-next-line vue/no-dupe-keys
 const selectionState = ref<SelectionState>({ selectMode: "include", contingent: new Set() });
@@ -37,7 +37,7 @@ const data = [
 
 const withSelection = DataGridFeatures.useSelection<TEntry>({
   selectionState,
-  enabled,
+  disabled,
   hover,
 });
 </script>
