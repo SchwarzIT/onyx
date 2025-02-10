@@ -20,11 +20,9 @@ const emit = defineEmits<{
 
 const hover = toRef(() => props.hover);
 const disabled = toRef(() => props.disabled);
-// There seems to be a false-positive here:
-// eslint-disable-next-line vue/no-dupe-keys
-const selectionState = ref<SelectionState>({ selectMode: "include", contingent: new Set() });
+const selection = ref<SelectionState>({ selectMode: "include", contingent: new Set() });
 
-watch(selectionState, () => emit("update:selectionState", selectionState.value), { deep: true });
+watch(selection, () => emit("update:selectionState", selection.value), { deep: true });
 // STORY SETUP END
 
 const data = [
@@ -36,7 +34,7 @@ const data = [
 ] satisfies DataGridEntry[];
 
 const withSelection = DataGridFeatures.useSelection<TEntry>({
-  selectionState,
+  selectionState: selection,
   disabled,
   hover,
 });
