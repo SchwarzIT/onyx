@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.147
+
+### Patch Changes
+
+- 9cb65e2: fix(OnyxDataGrid): fix missing hover effect for selected rows
+
 ## 1.0.0-beta.146
 
 ### Minor Changes
