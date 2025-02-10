@@ -1,6 +1,6 @@
 <script lang="ts" setup generic="TValue extends PropertyKey">
 import { provide, toRef, toRefs, watch } from "vue";
-import { useDensity } from "../../";
+import { useDensity } from "../../composables/density";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import {
   ACCORDION_INJECTION_KEY,
