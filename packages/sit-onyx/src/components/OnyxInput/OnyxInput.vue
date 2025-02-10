@@ -6,7 +6,6 @@ import { useDensity } from "../../composables/density";
 import { useAutofocus } from "../../composables/useAutoFocus";
 import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
-import { useInputFilter } from "../../composables/useInputFilter";
 import { useLenientMaxLengthValidation } from "../../composables/useLenientMaxLengthValidation";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { injectI18n } from "../../i18n";
@@ -80,8 +79,6 @@ const { disabled, showError } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
 const errorClass = useErrorClass(showError);
 useAutofocus(input, props);
-
-const { onBeforeinput } = useInputFilter({ filter: (str) => !str.includes("a") });
 </script>
 
 <template>
@@ -131,7 +128,6 @@ const { onBeforeinput } = useInputFilter({ filter: (str) => !str.includes("a") }
             :aria-label="props.hideLabel ? props.label : undefined"
             :title="props.hideLabel ? props.label : undefined"
             v-bind="restAttrs"
-            @beforeinput="onBeforeinput"
           />
 
           <button
