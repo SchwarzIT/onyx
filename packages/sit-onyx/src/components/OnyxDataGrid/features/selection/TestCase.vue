@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /* eslint-disable @typescript-eslint/no-explicit-any */
- 
+
 import { computed, ref, toValue, watch } from "vue";
 import type { OnyxDataGridProps } from "../../../..";
 import { DataGridFeatures, OnyxDataGrid } from "../../../..";
