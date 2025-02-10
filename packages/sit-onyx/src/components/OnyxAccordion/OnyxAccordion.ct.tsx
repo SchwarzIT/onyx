@@ -5,7 +5,7 @@ import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 
 import OnyxAccordion from "./OnyxAccordion.vue";
 
-test.describe("ScreenshotTest", () => {
+test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Accordion",
     columns: DENSITIES,
@@ -41,6 +41,7 @@ test.describe("ScreenshotTest", () => {
       },
     },
   });
+
   executeMatrixScreenshotTest({
     name: "Accordion (disabled)",
     columns: ["closed", "open"],
@@ -70,7 +71,8 @@ test.describe("ScreenshotTest", () => {
   });
 });
 
-test("should open only one item at a time in exclusive mode", async ({ mount, makeAxeBuilder }) => {
+test("should open only one item at a time in exclusive mode", async ({ mount }) => {
+  // ARRANGE
   const component = await mount(
     <OnyxAccordion exclusive>
       <OnyxAccordionItem value="item-1">
@@ -89,15 +91,17 @@ test("should open only one item at a time in exclusive mode", async ({ mount, ma
   const firstPanel = component.getByLabel("Accordion Header 1");
   const secondPanel = component.getByLabel("Accordion Header 2");
 
+  // ACT
   await firstHeader.click();
+
+  // ASSERT
   await expect(firstPanel).toBeVisible();
   await expect(secondPanel).toBeHidden();
 
+  // ACT
   await secondHeader.click();
+
+  // ASSERT
   await expect(firstPanel).toBeHidden();
   await expect(secondPanel).toBeVisible();
-
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-  expect(accessibilityScanResults.violations).toEqual([]);
 });

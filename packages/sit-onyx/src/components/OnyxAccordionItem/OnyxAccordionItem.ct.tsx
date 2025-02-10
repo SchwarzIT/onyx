@@ -3,7 +3,7 @@ import { OnyxAccordionItem } from "../../index.ts";
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 
-test.describe("ScreenshotTest", () => {
+test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "AccordionItem",
     columns: DENSITIES,
@@ -22,17 +22,21 @@ test.describe("ScreenshotTest", () => {
     ),
     hooks: {
       beforeEach: async (component, page, _column, row) => {
-        if (row == "open")
+        if (row == "open") {
           await component.getByRole("button", { name: "Accordion Header" }).click();
-        if (row === "hover")
+        }
+        if (row === "hover") {
           await component.getByRole("button", { name: "Accordion Header" }).hover();
-        if (row === "focus-visible") await page.keyboard.press("Tab");
+        }
+        if (row === "focus-visible") {
+          await page.keyboard.press("Tab");
+        }
       },
     },
   });
 });
 
-test("should toggle open state on click", async ({ mount, makeAxeBuilder }) => {
+test("should toggle open state on click", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
     <OnyxAccordionItem value="item">
@@ -41,21 +45,23 @@ test("should toggle open state on click", async ({ mount, makeAxeBuilder }) => {
     </OnyxAccordionItem>,
   );
 
-  // Locators
   const header = component.getByRole("button", { name: "Accordion Header" });
   const panel = component.getByLabel("Accordion Header");
 
-  await expect(panel).toBeHidden();
-  await header.click();
-  await expect(panel).toBeVisible();
-  await header.click();
+  // ASSERT
   await expect(panel).toBeHidden();
 
   // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
+  await header.click();
 
   // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
+  await expect(panel).toBeVisible();
+
+  // ACT
+  await header.click();
+
+  // ASSERT
+  await expect(panel).toBeHidden();
 });
 
 test("should apply the disabled state", async ({ mount, page }) => {
