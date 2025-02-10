@@ -1,22 +1,14 @@
 <script lang="ts" setup>
+import { ref } from "vue";
 import OnyxAccordionItem from "../OnyxAccordionItem/OnyxAccordionItem.vue";
 import OnyxAccordion from "./OnyxAccordion.vue";
-import type { OnyxAccordionProps } from "./types";
 
-const props = defineProps<
-  OnyxAccordionProps & {
-    /** Currently opened items */
-    modelValue?: string[];
-  }
->();
-
-const emit = defineEmits<{
-  "update:modelValue": [value: string[]];
-}>();
+// we force item-1 to be open here so even when interacting with the component, item-2 should never be open
+const openItems = ref(["item-1"]);
 </script>
 
 <template>
-  <OnyxAccordion v-bind="props" @update:model-value="emit('update:modelValue', $event)">
+  <OnyxAccordion :model-value="openItems">
     <OnyxAccordionItem value="item-1">
       <template #header>Accordion Header 1</template>
       Accordion Panel 1

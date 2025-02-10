@@ -146,16 +146,16 @@ test("should manage open state of nested items", async ({ mount }) => {
 
 test("should manage open state of nested items if modelValue is forced", async ({ mount }) => {
   // ARRANGE
-  const component = await mount(
-    // we force item-1 to be open here so even when interacting with the component, item-2 should never be open
-    <VModelTestWrapper modelValue={["item-1"]} />,
-  );
+  const component = await mount(<VModelTestWrapper />);
 
   const firstHeader = component.getByRole("button", { name: "Accordion Header 1" });
   const firstPanel = component.getByLabel("Accordion Header 1");
 
   const secondHeader = component.getByRole("button", { name: "Accordion Header 2" });
   const secondPanel = component.getByLabel("Accordion Header 2");
+
+  // ASSERT
+  await expect(firstPanel).toBeVisible();
 
   // ACT
   await firstHeader.click();
