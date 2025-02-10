@@ -17,6 +17,7 @@ const props = withDefaults(defineProps<OnyxCheckboxGroupProps<TValue>>(), {
   withCheckAll: false,
   disabled: FORM_INJECTED_SYMBOL,
   skeleton: SKELETON_INJECTED_SYMBOL,
+  requiredMarker: FORM_INJECTED_SYMBOL,
   truncation: "ellipsis",
 });
 
@@ -42,7 +43,7 @@ const enabledOptionValues = computed(() =>
   props.options.filter((i) => !i.disabled && !i.skeleton).map(({ value }) => value),
 );
 
-const { disabled } = useFormContext(props);
+const { disabled, requiredMarker } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
 
 const checkAll = useCheckAll(
@@ -88,6 +89,7 @@ defineExpose({
       <template v-if="!skeleton">
         <OnyxCheckbox
           v-if="props.withCheckAll"
+          :required-marker
           v-bind="checkAll.state.value"
           :label="checkAllLabel"
           value="all"
@@ -100,6 +102,7 @@ defineExpose({
           :key="option.value.toString()"
           v-bind="option"
           ref="checkboxesRef"
+          :required-marker
           :truncation="option.truncation ?? props.truncation"
           :model-value="props.modelValue.includes(option.value)"
           class="onyx-checkbox-group__option"

@@ -9,7 +9,7 @@ export type OnyxCheckboxGroupProps<TValue extends SelectOptionValue = SelectOpti
 > &
   Pick<
     SharedFormElementProps,
-    "label" | "labelTooltip" | "hideLabel" | "density" | "skeleton" | "disabled"
+    "label" | "labelTooltip" | "hideLabel" | "density" | "skeleton" | "disabled" | "requiredMarker"
   > & {
     /**
      * Checkbox options.
