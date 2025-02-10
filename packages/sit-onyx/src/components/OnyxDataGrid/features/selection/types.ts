@@ -36,9 +36,9 @@ export type SelectionOptions = {
   /**
    * If the row selection column is shown or not.
    */
-  enabled?: MaybeRefOrGetter<boolean>;
+  disabled?: MaybeRefOrGetter<boolean>;
   /**
    * If `true` the selection checkbox of a row will only be shown if the row is hovered or selected.
    */
-  hover?: boolean;
+  hover?: MaybeRefOrGetter<boolean>;
 };

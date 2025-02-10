@@ -2,24 +2,25 @@
 
 @include layers.component {
   .onyx-data-grid {
-    tr:has(.onyx-data-grid-selection-cell__checkbox--checked) td {
-      background-color: var(--onyx-color-base-primary-100);
+    tr:has(.onyx-data-grid-selection-cell__checkbox--checked) {
+      --onyx-table-row-background-color: var(--onyx-color-base-primary-100);
     }
 
     .onyx-data-grid-selection-cell {
       box-sizing: content-box;
       width: 2.5rem;
       padding: 0;
+    }
 
-      &--hover &__checkbox {
-        opacity: 0;
-      }
+    .onyx-data-grid-selection-cell__checkbox--hover {
+      opacity: 0;
+    }
 
-      tr:focus-within &__checkbox,
-      tr:hover &__checkbox,
-      .onyx-data-grid-selection-cell__checkbox--checked {
-        opacity: 1;
-      }
+    // We want to display the checkbox on hover, when
+    tr .onyx-data-grid-selection-cell__checkbox:has(input:focus-visible) /* it's focused through the keyboard */,
+    tr:hover .onyx-data-grid-selection-cell__checkbox /* it's hovered */,
+    .onyx-data-grid-selection-cell__checkbox--checked /* it's checked */ {
+      opacity: 1;
     }
   }
 }

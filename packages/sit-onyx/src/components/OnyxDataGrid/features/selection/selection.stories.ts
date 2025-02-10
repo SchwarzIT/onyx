@@ -7,6 +7,13 @@ const meta: Meta<typeof SelectionDataGrid> = {
   title: "Data/DataGrid/Features", // new features can add their story under the same title
   component: SelectionDataGrid,
   tags: ["!autodocs"],
+  argTypes: {
+    selectionState: {
+      table: {
+        readonly: true,
+      },
+    },
+  },
 };
 
 export default meta;
@@ -14,7 +21,6 @@ type Story = StoryObj<typeof SelectionDataGrid>;
 
 export const Selection = {
   args: {
-    selectionState: { selectMode: "include", contingent: new Set() },
     // `Set` is not displayed nicely by storybook, therefore we pass it along as an array
     ["onUpdate:selectionState"]: (update) =>
       action("onUpdate:selectionState")({ ...update, contingent: [...update.contingent] }),
