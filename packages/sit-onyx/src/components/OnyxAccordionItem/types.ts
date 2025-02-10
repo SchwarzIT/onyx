@@ -6,7 +6,7 @@ export type OnyxAccordionItemProps = DensityProp & {
    * Value that is used inside the `OnyxAccordion` when the item is open.
    * Must be unique across one accordion.
    */
-  value: string;
+  value: PropertyKey;
   /**
    * Whether the accordion is disabled
    */

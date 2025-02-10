@@ -17,19 +17,19 @@ export type OnyxAccordionProps = DensityProp & {
   skeleton?: SkeletonInjected;
 };
 
-export type AccordionInjectionKey = InjectionKey<{
+export type AccordionInjectionKey<TValue extends PropertyKey> = InjectionKey<{
   /**
    * IDs of currently open AccordionItems.
    */
-  openItems: Readonly<Ref<string[]>>;
+  openItems: Readonly<Ref<PropertyKey[]>>;
   /**
    * Function to update the open state of an AccordionItem.
    * @param id - The unique ID of the AccordionItem.
    * @param value - Whether the AccordionItem should be open (true) or closed (false).
    */
-  updateOpen: (id: string, value: boolean) => void;
+  updateOpen: (id: TValue, value: boolean) => void;
   disabled: Ref<boolean>;
   skeleton: Ref<SkeletonInjected>;
 }>;
 
-export const ACCORDION_INJECTION_KEY = Symbol() as AccordionInjectionKey;
+export const ACCORDION_INJECTION_KEY = Symbol() as AccordionInjectionKey<PropertyKey>;

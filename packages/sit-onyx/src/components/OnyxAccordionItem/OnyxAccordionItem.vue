@@ -43,8 +43,8 @@ const skeleton = useSkeletonContext(props);
 const { densityClass } = useDensity(props);
 const isDisabled = computed(() => accordionContext?.disabled.value || props.disabled);
 
-const headerId = computed(() => `header-${props.value}`);
-const panelId = computed(() => `panel-${props.value}`);
+const headerId = computed(() => `header-${props.value.toString()}`);
+const panelId = computed(() => `panel-${props.value.toString()}`);
 </script>
 
 <template>

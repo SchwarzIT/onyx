@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script lang="ts" setup generic="TValue extends PropertyKey">
 import { provide, toRef, toRefs, watch } from "vue";
 import { useDensity } from "../../";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
@@ -24,13 +24,13 @@ defineSlots<{
 /**
  * Currently opened items. Will include the `value` property of the nested `OnyxAccordionItems`.
  */
-const openItems = defineModel<string[]>({ default: () => [] });
+const openItems = defineModel<TValue[]>({ default: () => [] });
 
 const { disabled, exclusive } = toRefs(props);
 const skeleton = useSkeletonContext(props);
 const { densityClass } = useDensity(props);
 
-const updateOpen = (value: string, isOpen: boolean) => {
+const updateOpen = (value: TValue, isOpen: boolean) => {
   if (!isOpen) {
     if (!openItems.value.includes(value)) return;
     openItems.value = openItems.value.filter((i) => i !== value);
@@ -56,7 +56,7 @@ watch(
   { immediate: true },
 );
 
-provide(ACCORDION_INJECTION_KEY as AccordionInjectionKey, {
+provide(ACCORDION_INJECTION_KEY as AccordionInjectionKey<TValue>, {
   openItems: toRef(() => openItems.value),
   updateOpen,
   disabled,
@@ -72,6 +72,7 @@ provide(ACCORDION_INJECTION_KEY as AccordionInjectionKey, {
 
 <style lang="scss">
 @use "../../styles/mixins/layers";
+
 .onyx-accordion {
   @include layers.component() {
     width: 100%;
