@@ -100,6 +100,7 @@ const isDisabled = computed(() => accordionContext?.disabled.value || props.disa
     --onyx-accordion-item-border: var(--onyx-1px-in-rem) solid
       var(--onyx-color-component-border-neutral);
     --onyx-accordion-border-radius: var(--onyx-radius-md);
+    --onyx-accordion-toggle-duration: 250ms;
   }
 }
 
@@ -109,6 +110,23 @@ const isDisabled = computed(() => accordionContext?.disabled.value || props.disa
     color: var(--onyx-color-text-icons-neutral-intense);
     font-family: var(--onyx-font-family);
     width: 100%;
+
+    @supports selector(::details-content) {
+      interpolate-size: allow-keywords;
+
+      &::details-content {
+        height: 0;
+        overflow: clip;
+        transition:
+          content-visibility var(--onyx-accordion-toggle-duration) ease,
+          height var(--onyx-accordion-toggle-duration) ease;
+        transition-behavior: allow-discrete;
+      }
+
+      &[open]::details-content {
+        height: auto;
+      }
+    }
 
     &__header {
       width: 100%;
