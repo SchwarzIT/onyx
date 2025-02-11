@@ -1,5 +1,6 @@
+import type { Arrayable } from "vitest"; // For an unknown reason removing this import will break the build of "demo-app" and "playground"
 import { toValue, type MaybeRefOrGetter, type Ref } from "vue";
-import type { Arrayable, Nullable } from "../../utils/types";
+import type { Nullable } from "../../utils/types";
 import { useGlobalEventListener } from "./useGlobalListener";
 
 export type UseOutsideClickOptions = {

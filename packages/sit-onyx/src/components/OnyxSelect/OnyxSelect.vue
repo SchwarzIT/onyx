@@ -337,7 +337,7 @@ defineExpose({ input: computed(() => selectInput.value?.input) });
 </script>
 
 <template>
-  <div ref="select" class="onyx-component onyx-select-wrapper">
+  <div ref="selectRef" class="onyx-component onyx-select-wrapper">
     <OnyxSelectInput
       ref="selectInputRef"
       v-bind="selectInputProps"
