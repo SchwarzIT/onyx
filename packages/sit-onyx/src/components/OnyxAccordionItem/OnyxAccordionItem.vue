@@ -100,7 +100,7 @@ const isDisabled = computed(() => accordionContext?.disabled.value || props.disa
     --onyx-accordion-item-border: var(--onyx-1px-in-rem) solid
       var(--onyx-color-component-border-neutral);
     --onyx-accordion-border-radius: var(--onyx-radius-md);
-    --onyx-accordion-toggle-duration: 250ms;
+    --onyx-accordion-toggle-duration: var(--onyx-duration-sm);
   }
 }
 
@@ -153,6 +153,10 @@ const isDisabled = computed(() => accordionContext?.disabled.value || props.disa
       border-radius: var(--onyx-accordion-border-radius);
       border-bottom: none;
       outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
+    }
+
+    &__header-icon {
+      transition: transform var(--onyx-accordion-toggle-duration) ease;
     }
 
     &[open] &__header-icon {
