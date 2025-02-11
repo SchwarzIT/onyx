@@ -39,7 +39,7 @@ export type BaseSelectOption<TValue extends SelectOptionValue = SelectOptionValu
      */
     disabled?: FormInjected<boolean>;
     /**
-     * Required mode: `optional` will show an `(optional)` text after the label for optional inputs.
+     * Required mode: `optional` will show an `(optional)` text after the label for optional form elements.
      * `required` will show an `*` indicator for required inputs after the label instead.
      * No marker will be visible if the label is hidden.
      * @default undefined By default the parents setting is used, if none is defined on any `required` is the default.
