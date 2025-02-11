@@ -1,6 +1,7 @@
 import { computed, unref, useId, type MaybeRef, type Ref } from "vue";
 import { createBuilder } from "../../utils/builder";
 import { isPrintableCharacter, wasKeyPressed, type PressedKey } from "../../utils/keyboard";
+import type { Nullable } from "../../utils/types";
 import { useOutsideClick } from "../helpers/useOutsideClick";
 import { useTypeAhead } from "../helpers/useTypeAhead";
 import {
@@ -48,7 +49,7 @@ export type CreateComboboxOptions<
   /**
    * Provides additional description for the listbox which displays the available options.
    */
-  listDescription?: MaybeRef<string | undefined>;
+  listDescription?: MaybeRef<Nullable<string>>;
   /**
    * Controls the opened/visible state of the associated pop-up. When expanded the activeOption can be controlled via the keyboard.
    */
@@ -56,11 +57,11 @@ export type CreateComboboxOptions<
   /**
    * If expanded, the active option is the currently highlighted option of the controlled listbox.
    */
-  activeOption: Ref<TValue | undefined>;
+  activeOption: Ref<Nullable<TValue>>;
   /**
    * Template ref to the component root (required to close combobox on outside click).
    */
-  templateRef: Ref<HTMLElement | undefined>;
+  templateRef: Ref<Nullable<HTMLElement>>;
   /**
    * Hook when the popover should toggle.
    *

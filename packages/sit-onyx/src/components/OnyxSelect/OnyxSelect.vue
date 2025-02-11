@@ -102,7 +102,7 @@ const searchTerm = defineModel<string>("searchTerm", { default: "" });
  */
 const open = defineModel<boolean>("open", { default: false });
 
-const select = useTemplateRef<HTMLElement>("selectRef") as Ref<HTMLElement | undefined>;
+const select = useTemplateRef<HTMLElement>("selectRef");
 const { openDirection, updateOpenDirection } = useOpenDirection(select);
 
 /**
