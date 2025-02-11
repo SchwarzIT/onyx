@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.148
+
+### Patch Changes
+
+- 2113cae: feat(OnyxAccordionItem): transition between open and close state
+
 ## 1.0.0-beta.147
 
 ### Patch Changes
