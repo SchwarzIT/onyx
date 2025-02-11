@@ -17,8 +17,8 @@ export type OnyxFormElementProps = Omit<SharedFormElementProps, "error" | "messa
     successMessages?: FormMessages;
   };
 
-export type SharedFormElementProps = RequiredProp &
-  FormInjectedProps &
+export type SharedFormElementProps = FormInjectedProps &
+  RequiredProp &
   DensityProp &
   CustomValidityProp &
   AutofocusProp & {

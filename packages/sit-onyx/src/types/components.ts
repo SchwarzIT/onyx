@@ -1,6 +1,6 @@
-import type { FormInjected } from "../components/OnyxForm/OnyxForm.core";
+import type { FormInjectedProps } from "../components/OnyxForm/OnyxForm.core";
 import type { DensityProp } from "../composables/density";
-import type { RequiredMarkerType, RequiredProp } from "../composables/required";
+import type { RequiredProp } from "../composables/required";
 import type { CustomValidityProp } from "../composables/useCustomValidity";
 import type { SkeletonInjected } from "../composables/useSkeletonState";
 import type { TruncationType } from "./fonts";
@@ -15,49 +15,40 @@ import type { TruncationType } from "./fonts";
 /**
  * Base select option that is e.g. used inside the select, radio / checkbox group.
  */
-export type BaseSelectOption<TValue extends SelectOptionValue = SelectOptionValue> = AutofocusProp &
-  RequiredProp &
-  DensityProp &
-  CustomValidityProp & {
-    /**
-     * Value of the option when it is selected.
-     * Must be unique in the current list of options.
-     */
-    value: TValue;
-    /**
-     * Label to show. Required due to accessibility / screen readers.
-     * If you want to visually hide the label, use the `hideLabel` property.
-     */
-    label: string;
-    /**
-     * If `true`, the label will be visually hidden and the `title` attribute will be set.
-     * For accessibility / screen readers, the aria-label will still be set.
-     */
-    hideLabel?: boolean;
-    /**
-     * Whether to disable the component and prevent user interaction.
-     */
-    disabled?: FormInjected<boolean>;
-    /**
-     * Required mode: `optional` will show an `(optional)` text after the label for optional form elements.
-     * `required` will show an `*` indicator for required inputs after the label instead.
-     * No marker will be visible if the label is hidden.
-     * @default undefined By default the parents setting is used, if none is defined on any `required` is the default.
-     */
-    requiredMarker?: FormInjected<RequiredMarkerType>;
-    /**
-     * Shows a loading indicator.
-     */
-    loading?: boolean;
-    /**
-     * Whether to show a skeleton.
-     */
-    skeleton?: SkeletonInjected;
-    /**
-     * How to truncate the label if it exceeds the max width.
-     */
-    truncation?: TruncationType;
-  };
+export type BaseSelectOption<TValue extends SelectOptionValue = SelectOptionValue> =
+  FormInjectedProps &
+    AutofocusProp &
+    RequiredProp &
+    DensityProp &
+    CustomValidityProp & {
+      /**
+       * Value of the option when it is selected.
+       * Must be unique in the current list of options.
+       */
+      value: TValue;
+      /**
+       * Label to show. Required due to accessibility / screen readers.
+       * If you want to visually hide the label, use the `hideLabel` property.
+       */
+      label: string;
+      /**
+       * If `true`, the label will be visually hidden and the `title` attribute will be set.
+       * For accessibility / screen readers, the aria-label will still be set.
+       */
+      hideLabel?: boolean;
+      /**
+       * Shows a loading indicator.
+       */
+      loading?: boolean;
+      /**
+       * Whether to show a skeleton.
+       */
+      skeleton?: SkeletonInjected;
+      /**
+       * How to truncate the label if it exceeds the max width.
+       */
+      truncation?: TruncationType;
+    };
 
 export type SelectOptionValue = string | number | boolean;
 
