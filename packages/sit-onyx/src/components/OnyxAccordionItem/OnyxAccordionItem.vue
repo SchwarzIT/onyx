@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
+import chevronDownSmall from "@sit-onyx/icons/chevron-down-small.svg?raw";
 import { computed, inject, useId } from "vue";
 import { ACCORDION_INJECTION_KEY, useDensity } from "../../";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
@@ -76,7 +76,7 @@ const isDisabled = computed(() => accordionContext?.disabled.value || props.disa
         <slot name="header"></slot>
       </div>
 
-      <OnyxIcon :icon="chevronLeftSmall" class="onyx-accordion-item__header-icon" />
+      <OnyxIcon :icon="chevronDownSmall" class="onyx-accordion-item__header-icon" />
     </summary>
     <div
       :id="'panel-' + itemId"
@@ -156,7 +156,7 @@ const isDisabled = computed(() => accordionContext?.disabled.value || props.disa
     }
 
     &[open] &__header-icon {
-      transform: rotate(-90deg);
+      transform: rotate(180deg);
     }
 
     &[open] &__header:focus-visible {
