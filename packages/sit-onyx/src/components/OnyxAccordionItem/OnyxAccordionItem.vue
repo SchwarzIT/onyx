@@ -111,7 +111,7 @@ const isDisabled = computed(() => accordionContext?.disabled.value || props.disa
     font-family: var(--onyx-font-family);
     width: 100%;
 
-    @supports selector(::details-content) {
+    @supports selector(::details-content) and (interpolate-size: allow-keywords) {
       interpolate-size: allow-keywords;
 
       &::details-content {
