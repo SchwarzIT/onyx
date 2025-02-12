@@ -1,5 +1,6 @@
 import { computed, nextTick, ref, unref, useId, watchEffect, type MaybeRef, type Ref } from "vue";
 import { createBuilder, type VBindAttributes } from "../../utils/builder";
+import type { Nullable } from "../../utils/types";
 import { useTypeAhead } from "../helpers/useTypeAhead";
 
 export type ListboxValue = string | number | boolean;
@@ -12,11 +13,11 @@ export type CreateListboxOptions<TValue extends ListboxValue, TMultiple extends 
   /**
    * Aria description for the listbox.
    */
-  description?: MaybeRef<string | undefined>;
+  description?: MaybeRef<Nullable<string>>;
   /**
    * Value of currently (visually) active option.
    */
-  activeOption: Ref<TValue | undefined>;
+  activeOption: Ref<Nullable<TValue>>;
   /**
    * Wether the listbox is controlled from the outside, e.g. by a combobox.
    * This disables keyboard events and makes the listbox not focusable.
@@ -29,7 +30,7 @@ export type CreateListboxOptions<TValue extends ListboxValue, TMultiple extends 
   /**
    * Whether the listbox is multiselect.
    */
-  multiple?: MaybeRef<TMultiple | undefined>;
+  multiple?: MaybeRef<Nullable<TMultiple>>;
   /**
    * Hook when an option is selected.
    */

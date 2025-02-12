@@ -20,7 +20,7 @@ export type CustomMessageType = string | FormMessages;
 
 export type CustomValidityProp = {
   /**
-   * Custom error message to show. Will only show up after the user has interacted with the input.
+   * Custom error message to show. Takes precedence over intrinsic error messages.
    */
   customError?: CustomMessageType;
 };

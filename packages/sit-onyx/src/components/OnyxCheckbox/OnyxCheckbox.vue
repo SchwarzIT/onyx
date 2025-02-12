@@ -19,6 +19,7 @@ const props = withDefaults(defineProps<OnyxCheckboxProps<TValue>>(), {
   disabled: FORM_INJECTED_SYMBOL,
   loading: false,
   required: false,
+  requiredMarker: FORM_INJECTED_SYMBOL,
   skeleton: SKELETON_INJECTED_SYMBOL,
   truncation: "ellipsis",
 });
@@ -40,12 +41,11 @@ const isChecked = computed({
   set: (value) => emit("update:modelValue", value),
 });
 
-const { requiredMarkerClass, requiredTypeClass } = useRequired(props);
-const { densityClass } = useDensity(props);
-
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
-const { disabled } = useFormContext(props);
+const { densityClass } = useDensity(props);
+const { disabled, requiredMarker } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
+const { requiredMarkerClass, requiredTypeClass } = useRequired(props, requiredMarker);
 
 const title = computed(() => {
   return props.hideLabel ? props.label : undefined;

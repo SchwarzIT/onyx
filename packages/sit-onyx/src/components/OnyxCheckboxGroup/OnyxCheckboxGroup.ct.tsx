@@ -172,7 +172,7 @@ test.describe("Screenshot tests", () => {
           },
         ]}
         label="Truncated group headline"
-        class={{ "onyx-use-optional": column === "optional" }}
+        requiredMarker={column}
         style={{ maxWidth: "16rem" }}
       />
     ),

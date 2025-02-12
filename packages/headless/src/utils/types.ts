@@ -26,3 +26,8 @@ export type IsArray<TValue, TMultiple extends boolean = false> = TMultiple exten
  * A type that can be wrapped in an array.
  */
 export type Arrayable<T> = T | Array<T>;
+
+/**
+ * Either the actual value or a nullish one.
+ */
+export type Nullable<T> = T | null | undefined;

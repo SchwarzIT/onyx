@@ -1,4 +1,4 @@
-import type { RequiredMarkerProp } from "../../composables/required";
+import type { RequiredProp } from "../../composables/required";
 import type { CustomValidityProp } from "../../composables/useCustomValidity";
 import type { AutofocusProp, BaseSelectOption, Direction, SelectOptionValue } from "../../types";
 import type { SharedFormElementProps } from "../OnyxFormElement/types";
@@ -9,7 +9,7 @@ export type OnyxCheckboxGroupProps<TValue extends SelectOptionValue = SelectOpti
 > &
   Pick<
     SharedFormElementProps,
-    "label" | "labelTooltip" | "hideLabel" | "density" | "skeleton" | "disabled"
+    "label" | "labelTooltip" | "hideLabel" | "density" | "skeleton" | "disabled" | "requiredMarker"
   > & {
     /**
      * Checkbox options.
@@ -39,4 +39,4 @@ export type OnyxCheckboxGroupProps<TValue extends SelectOptionValue = SelectOpti
   };
 
 export type CheckboxGroupOption<TValue extends SelectOptionValue = SelectOptionValue> =
-  BaseSelectOption<TValue> & RequiredMarkerProp & CustomValidityProp & AutofocusProp;
+  BaseSelectOption<TValue> & RequiredProp & CustomValidityProp & AutofocusProp;

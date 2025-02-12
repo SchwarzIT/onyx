@@ -1,12 +1,13 @@
 import type { Arrayable } from "vitest"; // For an unknown reason removing this import will break the build of "demo-app" and "playground"
 import { toValue, type MaybeRefOrGetter, type Ref } from "vue";
+import type { Nullable } from "../../utils/types";
 import { useGlobalEventListener } from "./useGlobalListener";
 
 export type UseOutsideClickOptions = {
   /**
    * HTML element of the component where clicks should be ignored
    */
-  inside: MaybeRefOrGetter<Arrayable<HTMLElement | undefined>>;
+  inside: MaybeRefOrGetter<Arrayable<Nullable<HTMLElement>>>;
   /**
    * Callback when an outside click occurred.
    */

@@ -23,6 +23,7 @@ import { useCheckAll } from "../../composables/checkAll";
 import { useDensity } from "../../composables/density";
 import { useScrollEnd } from "../../composables/scrollEnd";
 import { useOpenDirection } from "../../composables/useOpenDirection";
+import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState";
 import { injectI18n } from "../../i18n";
 import type { SelectOptionValue } from "../../types";
 import { groupByKey } from "../../utils/objects";
@@ -39,6 +40,9 @@ import type { OnyxSelectProps, SelectOption } from "./types";
 const props = withDefaults(defineProps<OnyxSelectProps<TMultiple, TValue>>(), {
   loading: false,
   noFilter: false,
+  skeleton: SKELETON_INJECTED_SYMBOL,
+  showError: FORM_INJECTED_SYMBOL,
+  requiredMarker: FORM_INJECTED_SYMBOL,
   disabled: FORM_INJECTED_SYMBOL,
   readonly: false,
   truncation: "ellipsis",
@@ -98,8 +102,8 @@ const searchTerm = defineModel<string>("searchTerm", { default: "" });
  */
 const open = defineModel<boolean>("open", { default: false });
 
-const selectRef = ref<HTMLElement>();
-const { openDirection, updateOpenDirection } = useOpenDirection(selectRef);
+const select = useTemplateRef<HTMLElement>("selectRef");
+const { openDirection, updateOpenDirection } = useOpenDirection(select);
 
 /**
  * Currently (visually) active value.
@@ -262,7 +266,7 @@ const {
   multiple,
   activeOption: computed(() => activeValue.value),
   isExpanded: open,
-  templateRef: selectRef,
+  templateRef: select,
   onToggle,
   onActivateFirst,
   onActivateLast,
