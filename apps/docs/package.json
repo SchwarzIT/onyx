@@ -20,7 +20,7 @@
     "@sit-onyx/storybook-utils": "workspace:^",
     "@sit-onyx/vitepress-theme": "workspace:^",
     "chart.js": "catalog:",
-    "postcss": "^8.5.1",
+    "postcss": "^8.5.2",
     "sass-embedded": "catalog:",
     "sit-onyx": "workspace:^",
     "vite": "catalog:",

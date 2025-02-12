@@ -38,15 +38,15 @@
     "@nuxt/kit": "^3.15.4"
   },
   "devDependencies": {
-    "@nuxt/devtools": "^1.7.0",
+    "@nuxt/devtools": "^2.0.0",
     "@nuxt/module-builder": "~0.8.4",
     "@nuxt/schema": "^3.15.4",
     "@nuxt/test-utils": "^3.15.4",
-    "@nuxtjs/i18n": "^9.1.5",
+    "@nuxtjs/i18n": "^9.2.0",
     "nuxt": "^3.15.4",
     "sit-onyx": "workspace:^",
     "typescript": "catalog:",
-    "vue-i18n": "^11.1.0"
+    "vue-i18n": "^11.1.1"
   },
   "peerDependencies": {
     "sit-onyx": "workspace:^"
