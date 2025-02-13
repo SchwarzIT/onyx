@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
+import chevronDownSmall from "@sit-onyx/icons/chevron-down-small.svg?raw";
 import { computed, inject, useId } from "vue";
 import { ACCORDION_INJECTION_KEY, useDensity } from "../../";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
@@ -76,7 +76,7 @@ const isDisabled = computed(() => accordionContext?.disabled.value || props.disa
         <slot name="header"></slot>
       </div>
 
-      <OnyxIcon :icon="chevronLeftSmall" class="onyx-accordion-item__header-icon" />
+      <OnyxIcon :icon="chevronDownSmall" class="onyx-accordion-item__header-icon" />
     </summary>
     <div
       :id="'panel-' + itemId"
@@ -100,7 +100,7 @@ const isDisabled = computed(() => accordionContext?.disabled.value || props.disa
     --onyx-accordion-item-border: var(--onyx-1px-in-rem) solid
       var(--onyx-color-component-border-neutral);
     --onyx-accordion-border-radius: var(--onyx-radius-md);
-    --onyx-accordion-toggle-duration: 250ms;
+    --onyx-accordion-toggle-duration: var(--onyx-duration-sm);
   }
 }
 
@@ -111,7 +111,7 @@ const isDisabled = computed(() => accordionContext?.disabled.value || props.disa
     font-family: var(--onyx-font-family);
     width: 100%;
 
-    @supports selector(::details-content) {
+    @supports selector(::details-content) and (interpolate-size: allow-keywords) {
       interpolate-size: allow-keywords;
 
       &::details-content {
@@ -155,8 +155,12 @@ const isDisabled = computed(() => accordionContext?.disabled.value || props.disa
       outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
     }
 
+    &__header-icon {
+      transition: transform var(--onyx-accordion-toggle-duration) ease;
+    }
+
     &[open] &__header-icon {
-      transform: rotate(-90deg);
+      transform: rotate(180deg);
     }
 
     &[open] &__header:focus-visible {
