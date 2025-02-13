@@ -55,6 +55,19 @@ export const Danger = {
 } satisfies Story;
 
 /**
+ * This example shows the button that opens a link.
+ */
+export const WithLink = {
+  args: {
+    label: "Click to open link",
+    link: {
+      href: "https://onyx.schwarz",
+      target: "_blank",
+    },
+  },
+} satisfies Story;
+
+/**
  * This example shows the button in loading state
  */
 export const Loading = {
