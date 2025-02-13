@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import chevronDownSmall from "@sit-onyx/icons/chevron-down-small.svg?raw";
-import { computed, inject, nextTick, watch } from "vue";
+import { computed, inject, watch } from "vue";
 import { useDensity } from "../../composables/density";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { ACCORDION_INJECTION_KEY } from "../OnyxAccordion/types";
@@ -46,17 +46,6 @@ const isDisabled = computed(() => accordionContext?.disabled.value || props.disa
 
 const headerId = computed(() => `header-${props.value.toString()}`);
 const panelId = computed(() => `panel-${props.value.toString()}`);
-
-const handleToggle = async (event: ToggleEvent) => {
-  const detailsElement = event.target as HTMLDetailsElement;
-  isOpen.value = detailsElement.open;
-
-  // to support/fix use cases where the open state is forced (e.g. by setting `:model-value="['item-1']"` on OnyxAccordion)
-  // we need to re-sync the open state of the details element with the "isOpen" state.
-  // otherwise, the details might be closed in this examples although its forced to be always open
-  await nextTick();
-  detailsElement.open = isOpen.value;
-};
 </script>
 
 <template>
@@ -68,13 +57,8 @@ const handleToggle = async (event: ToggleEvent) => {
     <OnyxSkeleton class="onyx-accordion-item-skeleton__icon" />
   </div>
 
-  <details
-    v-else
-    class="onyx-component onyx-accordion-item"
-    :class="[densityClass]"
-    :open="isOpen"
-    @toggle="handleToggle"
-  >
+  <details v-else class="onyx-component onyx-accordion-item" :class="[densityClass]" :open="isOpen">
+    <!-- eslint-disable-next-line vuejs-accessibility/click-events-have-key-events, vuejs-accessibility/interactive-supports-focus -- false positives -->
     <summary
       :id="headerId"
       class="onyx-accordion-item__header"
@@ -83,6 +67,7 @@ const handleToggle = async (event: ToggleEvent) => {
       :aria-expanded="isOpen"
       :aria-controls="panelId"
       :aria-disabled="isDisabled"
+      @click.prevent="isOpen = !isOpen"
     >
       <div class="onyx-accordion-item__header-content">
         <slot name="header"></slot>

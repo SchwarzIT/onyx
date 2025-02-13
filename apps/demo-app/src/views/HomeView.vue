@@ -141,6 +141,8 @@ const tableData = [
 const currentPage = ref(1);
 const selectedTab = ref("tab-1");
 const selectedDate = ref<DateValue>();
+
+const openAccordionItems = ref<string[]>([]);
 </script>
 
 <template>
@@ -172,7 +174,7 @@ const selectedDate = ref<DateValue>();
       </section>
 
       <div class="page__examples">
-        <OnyxAccordion v-if="show('OnyxAccordion')">
+        <OnyxAccordion v-if="show('OnyxAccordion')" v-model="openAccordionItems">
           <OnyxAccordionItem value="item-1">
             <template #header> Header 1 </template>
             <p>Hidden Content 1</p>

@@ -1,5 +1,5 @@
 <script lang="ts" setup generic="TValue extends PropertyKey">
-import { provide, toRef, toRefs, watch } from "vue";
+import { computed, provide, ref, toRef, toRefs, watch, watchEffect, type Ref } from "vue";
 import { useDensity } from "../../composables/density";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import {
@@ -8,11 +8,15 @@ import {
   type OnyxAccordionProps,
 } from "./types";
 
-const props = withDefaults(defineProps<OnyxAccordionProps>(), {
+const props = withDefaults(defineProps<OnyxAccordionProps<TValue>>(), {
   exclusive: false,
   disabled: false,
   skeleton: SKELETON_INJECTED_SYMBOL,
 });
+
+const emit = defineEmits<{
+  "update:modelValue": [value: TValue[]];
+}>();
 
 defineSlots<{
   /**
@@ -22,9 +26,19 @@ defineSlots<{
 }>();
 
 /**
- * Currently opened items. Will include the `value` property of the nested `OnyxAccordionItems`.
+ * Internally managed open items in case no modelValue is set by the user.
  */
-const openItems = defineModel<TValue[]>({ default: () => [] });
+const _openItems = ref<TValue[]>([]) as Ref<TValue[]>;
+watchEffect(() => (_openItems.value = props.modelValue ?? []));
+
+const openItems = computed({
+  // if modelValue is set by the user, it should be used instead of the internally managed open items
+  get: () => (props.modelValue != undefined ? props.modelValue : _openItems.value),
+  set: (newValue) => {
+    emit("update:modelValue", newValue);
+    _openItems.value = newValue;
+  },
+});
 
 const { disabled, exclusive } = toRefs(props);
 const skeleton = useSkeletonContext(props);

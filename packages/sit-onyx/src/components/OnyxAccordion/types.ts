@@ -2,7 +2,11 @@ import type { SkeletonInjected } from "src/composables/useSkeletonState";
 import type { InjectionKey, Ref } from "vue";
 import type { DensityProp } from "../../composables/density";
 
-export type OnyxAccordionProps = DensityProp & {
+export type OnyxAccordionProps<TValue extends PropertyKey> = DensityProp & {
+  /**
+   * Currently opened items. Will include the `value` property of the nested `OnyxAccordionItems`.
+   */
+  modelValue?: TValue[];
   /**
    *  if `true`, only one accordion item can be open at the same time.
    */
