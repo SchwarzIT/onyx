@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.150
+
+### Patch Changes
+
+- 1fe4a98: fix(OnyxAccordion): update chevron icon to show down for closed, up for opened
+
 ## 1.0.0-beta.149
 
 ### Minor Changes
