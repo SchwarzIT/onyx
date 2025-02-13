@@ -101,4 +101,14 @@ test.describe("Screenshot tests", () => {
       ),
     });
   }
+
+  executeMatrixScreenshotTest({
+    name: "Icon button (link)",
+    columns: BUTTON_COLORS,
+    rows: ["default", "hover", "active", "focus-visible"],
+    hooks,
+    component: (column) => (
+      <OnyxIconButton label="Test label" icon={mockPlaywrightIcon} color={column} link="#test" />
+    ),
+  });
 });

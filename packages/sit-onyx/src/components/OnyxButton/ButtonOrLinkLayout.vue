@@ -2,10 +2,11 @@
 import { computed } from "vue";
 import { extractLinkProps } from "../../utils/router";
 import { useFormContext } from "../OnyxForm/OnyxForm.core";
+import type { OnyxIconButtonProps } from "../OnyxIconButton/types";
 import OnyxRouterLink from "../OnyxRouterLink/OnyxRouterLink.vue";
 import type { OnyxButtonProps } from "./types";
 
-const props = defineProps<OnyxButtonProps>();
+const props = defineProps<OnyxButtonProps | OnyxIconButtonProps>();
 
 defineSlots<{
   /**

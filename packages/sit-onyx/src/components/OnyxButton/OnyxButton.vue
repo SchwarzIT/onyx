@@ -7,7 +7,7 @@ import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxRipple from "../OnyxRipple/OnyxRipple.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import ButtonLayout from "./ButtonLayout.vue";
+import ButtonOrLinkLayout from "./ButtonOrLinkLayout.vue";
 import type { OnyxButtonProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxButtonProps>(), {
@@ -29,7 +29,7 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
 
 <template>
   <OnyxSkeleton v-if="skeleton" :class="['onyx-button-skeleton', densityClass]" />
-  <ButtonLayout
+  <ButtonOrLinkLayout
     v-else
     v-bind="props"
     :class="[
@@ -46,7 +46,7 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
     <OnyxIcon v-if="props.icon && !props.loading" class="onyx-button__icon" :icon="props.icon" />
     <OnyxLoadingIndicator v-if="props.loading" class="onyx-button__loading" />
     <span class="onyx-button__label onyx-truncation-ellipsis">{{ props.label }}</span>
-  </ButtonLayout>
+  </ButtonOrLinkLayout>
 </template>
 
 <style lang="scss">
