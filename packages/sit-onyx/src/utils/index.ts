@@ -1,6 +1,6 @@
 /**
- * Checks whether the given link is external (starts with http:// or https://).
+ * Checks whether the given link is internal / a relative link of the current application.
  */
-export const isExternalLink = (href: string): href is `http${"s" | ""}://${string}` => {
-  return /^http(s?):\/\//.test(href);
+export const isInternalLink = (href: string) => {
+  return href.startsWith("/") || href.startsWith("#");
 };
