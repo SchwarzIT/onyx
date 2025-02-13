@@ -1,5 +1,14 @@
 import searchX from "@sit-onyx/icons/search-x.svg?raw";
-import { computed, h, ref, toValue, watchEffect } from "vue";
+import {
+  computed,
+  h,
+  ref,
+  toValue,
+  watchEffect,
+  type Component,
+  type VNode,
+  type WatchSource,
+} from "vue";
 import { createFeature } from "..";
 import { injectI18n } from "../../../../i18n";
 import OnyxMiniSearch from "../../../OnyxMiniSearch/OnyxMiniSearch.vue";
@@ -8,10 +17,26 @@ import OnyxSystemButton from "../../../OnyxSystemButton/OnyxSystemButton.vue";
 import type { DataGridEntry } from "../../types";
 import type { FilterOptions } from "./types";
 
+interface FilteringFeature<TEntry extends DataGridEntry> {
+  name: symbol;
+  watch: WatchSource<unknown>[];
+  mutation: {
+    func: (data: Readonly<TEntry>[]) => TEntry[];
+  };
+  header: {
+    actions: (params: { key: keyof TEntry }) => Array<{
+      menuItems: (Component | VNode)[];
+    }>;
+    removeActions: (params: {
+      key: keyof TEntry;
+    }) => Array<{ iconComponent: ReturnType<typeof h> }>;
+  };
+}
+
 export const FILTERING_FEATURE = Symbol("Filtering");
 
 export const useFiltering = createFeature(
-  <TEntry extends DataGridEntry>(options?: FilterOptions<TEntry>) => {
+  <TEntry extends DataGridEntry>(options?: FilterOptions<TEntry>): FilteringFeature<TEntry> => {
     const filters = ref<Partial<Record<keyof TEntry, string>>>({});
     const { t } = injectI18n();
     const config = computed(() => toValue(options?.columns));
@@ -74,20 +99,10 @@ export const useFiltering = createFeature(
     });
 
     const getMenuItem = (column: keyof DataGridEntry) => {
-      const updateMode = ref(options?.updateMode || "onEnter");
-
       let inputValue = filters.value[column] || "";
 
-      const handleUpdate = (value: string) => {
-        if (updateMode.value === "onInput") {
-          filters.value[column] = value;
-        } else if (updateMode.value === "onEnter") {
-          inputValue = value;
-        }
-      };
-
       const handleKeyDown = (e: KeyboardEvent) => {
-        if (updateMode.value === "onEnter" && e.key === "Enter") {
+        if (e.key === "Enter") {
           filters.value[column] = inputValue;
         }
       };
@@ -102,7 +117,9 @@ export const useFiltering = createFeature(
         placeholder: t.value(`dataGrid.head.filtering.menu.placeholder`),
         modelValue: inputValue,
         autofocus: true,
-        "onUpdate:modelValue": handleUpdate,
+        "onUpdate:modelValue": (value: string) => {
+          inputValue = value;
+        },
         onKeydown: handleKeyDown,
         onClick: (e: MouseEvent) => {
           e.preventDefault();
@@ -118,7 +135,7 @@ export const useFiltering = createFeature(
         func: filterData,
       },
       header: {
-        actions: (column) => {
+        actions: ({ key: column }) => {
           if (!isFilterEnabled.value(column)) return [];
           return [
             {
@@ -126,7 +143,7 @@ export const useFiltering = createFeature(
             },
           ];
         },
-        removeActions: (column) => {
+        removeActions: ({ key: column }) => {
           if (!isFilterEnabled.value(column) || !filters.value[column]) return [];
           return [
             {

@@ -1,4 +1,4 @@
-import type { MaybeRef, MaybeRefOrGetter } from "vue";
+import type { MaybeRefOrGetter } from "vue";
 import type { DataGridEntry } from "../../types";
 import type { Compare } from "../all";
 
@@ -64,13 +64,6 @@ export type FilterOptions<TEntry extends DataGridEntry> = {
    * If undefined, filtering will be enabled for all columns by default.
    */
   columns?: MaybeRefOrGetter<FilterColumnOptions<TEntry> | undefined>;
-  /**
-   * Specifies how the filter updates:
-   * - "onInput" will update the filter as the user types.
-   * - "onEnter" will update the filter only after the user presses Enter.
-   * @default onEnter
-   */
-  updateMode?: MaybeRef<"onInput" | "onEnter" | undefined>;
   /**
    * Configuration for how the filtering should behave across all columns.
    */

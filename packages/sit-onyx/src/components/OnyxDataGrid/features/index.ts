@@ -86,7 +86,7 @@ export type DataGridFeature<
    * Allows modifying the datagrid state as a whole.
    */
   mutation?: {
-    func: (state: Readonly<TEntry>[]) => unknown;
+    func: (state: Readonly<TEntry>[]) => Readonly<TEntry>[] | void;
   };
 
   /**
@@ -125,7 +125,7 @@ export type DataGridFeature<
      * Adds header icon button(s)
      * `iconComponent` of an removeAction is shown after the header label and before the actions. There are always visible in the header
      */
-    removeActions?: (column: keyof TEntry) => {
+    removeActions?: (column: NormalizedColumnConfig<TEntry, keyof TTypeRenderer>) => {
       iconComponent: Component;
     }[];
   };
@@ -257,9 +257,9 @@ export const useDataGridFeatures = <
       .map((feature) => feature.removeActions)
       .filter((removeActions) => !!removeActions);
     return columns.value.map<DataGridRendererColumn<TEntry>>((column) => {
-      const actions = headerActions.flatMap((actionFactory) => actionFactory(column));
       const header = getRendererFor("header", column.type);
       const label = column.label?.trim() ?? String(column.key);
+      const actions = headerActions.flatMap((actionFactory) => actionFactory(column));
       const removeActions = headerRemoveActions.flatMap((actionFactory) => actionFactory(column));
       const removeActionIconComponet = removeActions.map(({ iconComponent }) => iconComponent);
 
@@ -318,9 +318,14 @@ export const useDataGridFeatures = <
     entries: TEntry[],
   ): DataGridRendererRow<TEntry, DataGridMetadata>[] => {
     const mutations = features.map((f) => f.mutation).filter((m) => !!m);
-    const shallowCopy = [...entries];
-    mutations.forEach(({ func }) => func(shallowCopy));
 
+    let shallowCopy = [...entries];
+    mutations.forEach(({ func }) => {
+      const result = func(shallowCopy);
+      if (result) {
+        shallowCopy = result as TEntry[];
+      }
+    });
     return shallowCopy.map((entry) => {
       const cells = columns.value.reduce<DataGridRendererRow<TEntry, DataGridMetadata>["cells"]>(
         (cells, { key, type }) => {

@@ -98,31 +98,6 @@ test("remove filter", async ({ mount, page }) => {
   expect(rows).toHaveLength(6);
 });
 
-test("filterOptions updateMode(onInput)", async ({ mount }) => {
-  // ARRANGE
-  const data = getTestData();
-  const component = await mount(
-    <TestCase data={data} columns={["a", "b"]} filterOptions={{ updateMode: "onInput" }} />,
-  );
-
-  const getFirstColumn = () => component.locator("tbody tr td:first-of-type");
-
-  // ASSERT
-  let rows = await getFirstColumn().all();
-  expect(rows).toHaveLength(data.length);
-
-  // ACT
-  await component
-    .getByRole("columnheader", { name: "a Toggle column actions" })
-    .getByLabel("Toggle column actions")
-    .click();
-  await component.getByLabel("a", { exact: true }).fill("3");
-
-  // ASSERT
-  rows = await getFirstColumn().all();
-  expect(rows).toHaveLength(1);
-});
-
 const filterConfigs = [
   { caseSensitive: true },
   { exactMatch: true },

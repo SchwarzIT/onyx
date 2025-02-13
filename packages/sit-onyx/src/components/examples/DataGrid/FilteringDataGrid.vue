@@ -28,7 +28,7 @@ const someOtherFeature = createFeature(() => ({
   watch: [],
   header: {
     actions: (column) => {
-      if (column !== "name") return [];
+      if (column.key !== "name") return [];
       return [
         {
           iconComponent: h(OnyxSystemButton, {
