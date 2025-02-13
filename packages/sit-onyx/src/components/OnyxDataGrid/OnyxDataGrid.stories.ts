@@ -75,11 +75,7 @@ export const HeaderInteractions = {
 
 export const WithDifferentColTypes = {
   args: {
-    columns: [
-      { key: "name", type: "string" },
-      { key: "age", type: "number" },
-      { key: "birthday", type: "string" },
-    ],
+    columns: ["name", { key: "age", type: "number" }, { key: "birthday", type: "string" }],
     data: [
       { id: 1, name: "Alice", age: 30, birthday: new Date("1990-01-01") },
       { id: 2, name: "Charlie", age: 35, birthday: new Date("1998-02-11") },
