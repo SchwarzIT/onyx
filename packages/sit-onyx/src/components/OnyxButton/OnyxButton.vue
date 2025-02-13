@@ -40,6 +40,7 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
       { 'onyx-button--loading': props.loading },
       densityClass,
     ]"
+    :aria-label="props.loading ? props.label : undefined"
     v-on="rippleEvents"
   >
     <OnyxRipple v-if="!disabled && !props.loading" ref="rippleRef" />
