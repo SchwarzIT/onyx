@@ -3,23 +3,23 @@ import { allObjectEntries } from "../../../utils/objects";
 import type { DataGridEntry } from "../types";
 import HeaderCell from "./HeaderCell.vue";
 import type { DataGridFeature, TypeRenderer, TypeRenderMap } from "./index";
+import "./renderer.scss";
 
 export type DefaultSupportedTypes = "string" | "number";
 
 const numberFormatter = <TEntry extends DataGridEntry>(value: TEntry[keyof TEntry] | undefined) => {
-  if (typeof value !== "number") {
-    return;
-  }
   const locale = injectI18n().locale;
   const formatter = new Intl.NumberFormat(locale.value);
 
-  return formatter.format(value);
+  // We format the given value as Number. In case it renders as NaN, we replace it with `-`.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- The typing is incorrect, the `format` method accepts any value
+  return formatter.format(value as any).replace("NaN", "-");
 };
 
 const NUMBER_RENDERER = Object.freeze({
   cell: {
     component: (props) => numberFormatter(props.modelValue),
-    tdAttributes: { class: "onyx-text--monospace" },
+    tdAttributes: { class: "onyx-data-grid-number-cell" },
   },
 }) satisfies TypeRenderer<DataGridEntry>;
 
