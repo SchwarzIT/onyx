@@ -8,6 +8,7 @@ describe("isInternalLink", () => {
     { href: "/some/internal/page", internal: true },
     { href: "./some/path", internal: true },
     { href: "../some/path", internal: true },
+    { href: "", internal: true },
     // external links
     { href: "http://example.com", internal: false },
     { href: "https://example.com", internal: false },
