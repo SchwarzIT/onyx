@@ -141,6 +141,8 @@ const tableData = [
 const currentPage = ref(1);
 const selectedTab = ref("tab-1");
 const selectedDate = ref<DateValue>();
+
+const openAccordionItems = ref<string[]>([]);
 </script>
 
 <template>
@@ -172,16 +174,16 @@ const selectedDate = ref<DateValue>();
       </section>
 
       <div class="page__examples">
-        <OnyxAccordion v-if="show('OnyxAccordion')">
-          <OnyxAccordionItem>
+        <OnyxAccordion v-if="show('OnyxAccordion')" v-model="openAccordionItems">
+          <OnyxAccordionItem value="item-1">
             <template #header> Header 1 </template>
             <p>Hidden Content 1</p>
           </OnyxAccordionItem>
-          <OnyxAccordionItem>
+          <OnyxAccordionItem value="item-2">
             <template #header> Header 2 </template>
             <p>Hidden Content 2</p>
           </OnyxAccordionItem>
-          <OnyxAccordionItem>
+          <OnyxAccordionItem value="item-3">
             <template #header> Header 3 </template>
             <p>Hidden Content 3</p>
           </OnyxAccordionItem>
@@ -322,30 +324,33 @@ const selectedDate = ref<DateValue>();
           label="Show toast"
           @click="toast.show({ headline: 'Example toast', color: 'success' })"
         />
-        <OnyxHeadline is="h2">Tooltip (auto alignment)</OnyxHeadline>
 
-        <div v-if="show('OnyxTooltip')" class="tooltip-container">
-          <OnyxTooltip text="Example tooltip text">
-            <template #default="{ trigger }">
-              <OnyxButton label="Left" v-bind="trigger" />
-            </template>
-          </OnyxTooltip>
-          <OnyxTooltip text="Example tooltip text">
-            <template #default="{ trigger }">
-              <OnyxButton label="Center" v-bind="trigger" />
-            </template>
-          </OnyxTooltip>
-          <OnyxTooltip text="Example tooltip text">
-            <template #default="{ trigger }">
-              <OnyxButton label="Center" v-bind="trigger" />
-            </template>
-          </OnyxTooltip>
-          <OnyxTooltip text="Example tooltip text">
-            <template #default="{ trigger }">
-              <OnyxButton label="Right" v-bind="trigger" />
-            </template>
-          </OnyxTooltip>
-        </div>
+        <template v-if="show('OnyxTooltip')">
+          <OnyxHeadline is="h2">Tooltip (auto alignment)</OnyxHeadline>
+
+          <div class="tooltip-container">
+            <OnyxTooltip text="Example tooltip text">
+              <template #default="{ trigger }">
+                <OnyxButton label="Left" v-bind="trigger" />
+              </template>
+            </OnyxTooltip>
+            <OnyxTooltip text="Example tooltip text">
+              <template #default="{ trigger }">
+                <OnyxButton label="Center" v-bind="trigger" />
+              </template>
+            </OnyxTooltip>
+            <OnyxTooltip text="Example tooltip text">
+              <template #default="{ trigger }">
+                <OnyxButton label="Center" v-bind="trigger" />
+              </template>
+            </OnyxTooltip>
+            <OnyxTooltip text="Example tooltip text">
+              <template #default="{ trigger }">
+                <OnyxButton label="Right" v-bind="trigger" />
+              </template>
+            </OnyxTooltip>
+          </div>
+        </template>
 
         <!-- Add new components alphabetically. -->
       </div>
