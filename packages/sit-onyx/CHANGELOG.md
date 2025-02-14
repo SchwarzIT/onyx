@@ -1,5 +1,22 @@
 # sit-onyx
 
+## 1.0.0-beta.152
+
+### Minor Changes
+
+- f2a13f6: feat(OnyxDataGrid): new 'type' property is added to the ColumnConfig type. With this property a column can be of type 'string' or 'number'. Different styles will be applied depending on the type of the column.
+
+## 1.0.0-beta.151
+
+### Patch Changes
+
+- eae5bd9: fix: correctly detect links as external
+
+  Previously only links starting with `http://` or `https://` we detected as external links, meaning all other links we treated as internal and navigated using the [provided Vue Router](https://onyx.schwarz/development/router.html).
+
+  Since this is incorrect for links like `mailto:`, `tel:` etc. this behavior has been fixed.
+  Now only links starting with `/`, `#`, `./` and `../` are treated as **internal**. All other links are treated as **external**.
+
 ## 1.0.0-beta.150
 
 ### Patch Changes

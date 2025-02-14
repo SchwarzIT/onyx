@@ -1,6 +1,6 @@
 import { computed, inject, unref, type InjectionKey, type Ref } from "vue";
 import type { SharedLinkProps } from "../components/OnyxRouterLink/types";
-import { isExternalLink } from "../utils";
+import { isInternalLink } from "../utils";
 import { extractLinkProps } from "../utils/router";
 
 /**
@@ -41,7 +41,7 @@ export const useLink = () => {
    * ```
    */
   const navigate = (e: MouseEvent, href: string) => {
-    if (router && !isExternalLink(href) && shouldHandleNavigation(e)) {
+    if (router && isInternalLink(href) && shouldHandleNavigation(e)) {
       // prevent actual navigation so we can handle this with the user provided router
       e.preventDefault();
       router.push(href);

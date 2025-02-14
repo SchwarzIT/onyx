@@ -22,7 +22,7 @@ const props = withDefaults(
   },
 );
 
-const { t } = injectI18n();
+const i18n = injectI18n();
 
 defineSlots<{
   /**
@@ -49,7 +49,7 @@ const createFeatureBuilderWatcher = ({
   watchSources,
 }: ReturnType<typeof useDataGridFeatures<TEntry, TFeatureName, TTypeRenderer, TFeatures>>) => {
   return watch(
-    [data, t, ...watchSources],
+    [data, i18n.locale, i18n.t, ...watchSources],
     () => {
       renderColumns.value = createRendererColumns();
       renderRows.value = createRendererRows(data.value);
@@ -61,7 +61,7 @@ const createFeatureBuilderWatcher = ({
 watch(
   features,
   () => {
-    const featureBuilder = useDataGridFeatures(features.value, { t, columnConfig: columns });
+    const featureBuilder = useDataGridFeatures(features.value, { i18n, columnConfig: columns });
     disposeWatcher?.();
     disposeWatcher = createFeatureBuilderWatcher(featureBuilder);
   },
