@@ -1,11 +1,12 @@
 import type { DensityProp } from "../../composables/density";
 import type { SkeletonInjected } from "../../composables/useSkeletonState";
 import type { AutofocusProp } from "../../types";
-import type { ButtonColor, ButtonType } from "../OnyxButton/types";
+import type { ButtonColor, ButtonType, OnyxButtonProps } from "../OnyxButton/types";
 import type { FormInjected } from "../OnyxForm/OnyxForm.core";
 
 export type OnyxIconButtonProps = DensityProp &
-  AutofocusProp & {
+  AutofocusProp &
+  Pick<OnyxButtonProps, "link"> & {
     /**
      * The aria-label of the button.
      */

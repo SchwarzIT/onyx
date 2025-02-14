@@ -47,7 +47,6 @@ const { navigate, isActive } = useLink();
     outline-offset: inherit;
     text-decoration: inherit;
     color: inherit;
-    font: inherit;
   }
 }
 </style>

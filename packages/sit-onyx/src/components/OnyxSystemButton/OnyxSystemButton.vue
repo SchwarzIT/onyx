@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
-import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
+import ButtonOrLinkLayout from "../OnyxButton/ButtonOrLinkLayout.vue";
+import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxSystemButtonProps } from "./types";
@@ -12,7 +13,6 @@ const props = withDefaults(defineProps<OnyxSystemButtonProps>(), {
   color: "intense",
 });
 
-const { disabled } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
 </script>
 
@@ -21,18 +21,18 @@ const skeleton = useSkeletonContext(props);
     v-if="skeleton"
     :class="['onyx-system-button-skeleton', props.icon ? '' : 'onyx-system-button-skeleton--text']"
   />
-  <button
+
+  <ButtonOrLinkLayout
     v-else
+    v-bind="props"
+    type="button"
     :class="['onyx-system-button', 'onyx-text--small', `onyx-system-button--${props.color}`]"
     :aria-label="props.label"
     :title="props.label"
-    type="button"
-    :disabled="disabled"
-    :autofocus="props.autofocus"
   >
     <OnyxIcon v-if="props.icon" :icon="props.icon" />
     <template v-else>{{ props.label }}</template>
-  </button>
+  </ButtonOrLinkLayout>
 </template>
 
 <style lang="scss">
@@ -73,7 +73,8 @@ const skeleton = useSkeletonContext(props);
     align-items: center;
     justify-content: center;
 
-    &:enabled {
+    &:enabled,
+    &:is(a) {
       cursor: pointer;
 
       &:hover,
