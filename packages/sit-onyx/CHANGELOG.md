@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.153
+
+### Minor Changes
+
+- 47cbc94: feat: support `link` property for OnyxButton, OnyxIconButton and OnyxSystemButton
+
 ## 1.0.0-beta.152
 
 ### Minor Changes
