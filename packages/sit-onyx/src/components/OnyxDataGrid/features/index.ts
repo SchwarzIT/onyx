@@ -237,24 +237,25 @@ export const useDataGridFeatures = <
       .map((feature) => feature.removeActions)
       .filter((removeActions) => !!removeActions);
     return columns.value.map<DataGridRendererColumn<TEntry>>((column) => {
-      const header = getRendererFor("header", column.type);
+      const header = renderer.value.getFor("header", column.type);
       const label = column.label?.trim() ?? String(column.key);
       const actions = headerActions.flatMap((actionFactory) => actionFactory(column));
       const removeActions = headerRemoveActions.flatMap((actionFactory) => actionFactory(column));
       const removeActionIconComponet = removeActions.map(({ iconComponent }) => iconComponent);
+
       const menuItems = actions.map(({ menuItems }) => menuItems).filter((item) => !!item);
 
       const flyoutMenu = h(
         OnyxFlyoutMenu,
         {
-          label: t.value("navigation.moreActionsFlyout", { column: label }),
+          label: i18n.t.value("navigation.moreActionsFlyout", { column: label }),
           trigger: "click",
         },
         {
           button: ({ trigger }) =>
             h(OnyxSystemButton, {
               class: actions.length > 1 ? "onyx-system-button--multiple-actions" : "",
-              label: t.value("navigation.moreActionsTrigger"),
+              label: i18n.t.value("navigation.moreActionsTrigger"),
               color: "medium",
               icon: moreHorizontal,
               ...trigger,
