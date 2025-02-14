@@ -73,6 +73,17 @@ export const HeaderInteractions = {
   },
 } satisfies Story;
 
+export const WithDifferentColTypes = {
+  args: {
+    columns: ["name", { key: "age", type: "number" }, { key: "birthday", type: "string" }],
+    data: [
+      { id: 1, name: "Alice", age: 30, birthday: new Date("1990-01-01") },
+      { id: 2, name: "Charlie", age: 35, birthday: new Date("1998-02-11") },
+      { id: 3, name: "Bob", age: 25, birthday: new Date("1995-06-15") },
+    ],
+  },
+} satisfies Story;
+
 export const CustomEmptyState = {
   args: {
     ...Default.args,

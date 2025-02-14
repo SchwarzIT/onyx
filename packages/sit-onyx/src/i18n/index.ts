@@ -69,7 +69,9 @@ export type TranslationFunction = (
   placeholders?: Record<string, string | number | undefined> & { n?: number },
 ) => string;
 
-export const I18N_INJECTION_KEY = Symbol() as InjectionKey<ReturnType<typeof createI18n>>;
+export const I18N_INJECTION_KEY = Symbol() as InjectionKey<OnyxI18n>;
+
+export type OnyxI18n = ReturnType<typeof createI18n>;
 
 /**
  * Creates a new i18n instance.
