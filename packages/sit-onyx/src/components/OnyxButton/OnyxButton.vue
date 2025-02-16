@@ -7,6 +7,7 @@ import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxRipple from "../OnyxRipple/OnyxRipple.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
+import ButtonOrLinkLayout from "./ButtonOrLinkLayout.vue";
 import type { OnyxButtonProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxButtonProps>(), {
@@ -28,8 +29,9 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
 
 <template>
   <OnyxSkeleton v-if="skeleton" :class="['onyx-button-skeleton', densityClass]" />
-  <button
+  <ButtonOrLinkLayout
     v-else
+    v-bind="props"
     :class="[
       'onyx-component',
       'onyx-button',
@@ -38,17 +40,14 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
       { 'onyx-button--loading': props.loading },
       densityClass,
     ]"
-    :disabled="disabled || props.loading"
-    :type="props.type"
     :aria-label="props.loading ? props.label : undefined"
-    :autofocus="props.autofocus"
     v-on="rippleEvents"
   >
     <OnyxRipple v-if="!disabled && !props.loading" ref="rippleRef" />
     <OnyxIcon v-if="props.icon && !props.loading" class="onyx-button__icon" :icon="props.icon" />
     <OnyxLoadingIndicator v-if="props.loading" class="onyx-button__loading" />
     <span class="onyx-button__label onyx-truncation-ellipsis">{{ props.label }}</span>
-  </button>
+  </ButtonOrLinkLayout>
 </template>
 
 <style lang="scss">
@@ -165,7 +164,8 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
       &.onyx-button--outline {
         --onyx-button-border-color: var(--onyx-color-base-danger-500);
 
-        &:enabled {
+        &:enabled,
+        &:is(a) {
           --onyx-button-text-color: var(--onyx-color-text-icons-danger-intense);
 
           &:hover {
@@ -179,7 +179,8 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
       }
 
       &.onyx-button--plain {
-        &:enabled {
+        &:enabled,
+        &:is(a) {
           --onyx-button-text-color: var(--onyx-color-text-icons-danger-intense);
 
           &:hover {
@@ -189,8 +190,11 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
       }
     }
 
-    &:hover:enabled:not(:has(.onyx-ripple__element)) {
-      --onyx-button-background-color: var(--onyx-button-background-hover-color);
+    &:enabled,
+    &:is(a) {
+      &:hover:not(:has(.onyx-ripple__element)) {
+        --onyx-button-background-color: var(--onyx-button-background-hover-color);
+      }
     }
 
     &:disabled {

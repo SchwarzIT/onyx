@@ -2,6 +2,7 @@ import type { DensityProp } from "../../composables/density";
 import type { SkeletonInjected } from "../../composables/useSkeletonState";
 import type { AutofocusProp } from "../../types";
 import type { FormInjected } from "../OnyxForm/OnyxForm.core";
+import type { WithLinkProp } from "../OnyxRouterLink/types";
 
 export type OnyxButtonProps = DensityProp &
   AutofocusProp & {
@@ -37,6 +38,11 @@ export type OnyxButtonProps = DensityProp &
      * Whether to show a skeleton button.
      */
     skeleton?: SkeletonInjected;
+    /**
+     * If set, the button will be rendered as link.
+     * Note that not all button properties are supported when used as link, e.g. `disabled`, `type` and `autofocus` are not supported.
+     */
+    link?: WithLinkProp["link"];
   };
 
 export const BUTTON_TYPES = ["button", "submit", "reset"] as const;
