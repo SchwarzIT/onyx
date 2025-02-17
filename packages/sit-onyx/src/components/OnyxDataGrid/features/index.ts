@@ -195,10 +195,11 @@ export type UseDataGridFeaturesOptions<
 };
 
 export const createTableColumnGroups = <TEntry extends DataGridEntry>(
-  columns: NormalizedColumnConfig<TEntry>[],
-  columnGroups: ColumnGroupConfig | undefined,
+  columns?: NormalizedColumnConfig<TEntry>[],
+  columnGroups?: ColumnGroupConfig,
 ) => {
-  if (!columnGroups) {
+  // Only if there is at least a single column group defined.
+  if (!columns?.some((c) => c.columnGroupKey)) {
     return undefined;
   }
 
