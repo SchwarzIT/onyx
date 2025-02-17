@@ -119,8 +119,9 @@ export type DataGridFeature<
      * The components must be ARIA-conform buttons.
      */
     actions?: (column: NormalizedColumnConfig<TEntry, keyof TTypeRenderer>) => {
-      iconComponent?: Component;
+      iconComponent?: Component | { iconComponent: Component; position?: string };
       menuItems: Component<typeof OnyxMenuItem>[];
+      showFlyoutMenu?: boolean;
     }[];
   };
 };
@@ -226,11 +227,14 @@ export const useDataGridFeatures = <
     const headerActions = headerFeatures
       .map((feature) => feature.actions)
       .filter((actions) => !!actions);
+
     return columns.value.map<DataGridRendererColumn<TEntry>>((column) => {
+      const actions = headerActions.flatMap((actionFactory) => actionFactory(column));
       const header = renderer.value.getFor("header", column.type);
       const label = column.label?.trim() ?? String(column.key);
-      const actions = headerActions.flatMap((actionFactory) => actionFactory(column));
+
       const menuItems = actions.map(({ menuItems }) => menuItems).filter((item) => !!item);
+      const iconComponent = actions.map(({ iconComponent }) => iconComponent);
 
       const flyoutMenu = h(
         OnyxFlyoutMenu,
@@ -250,15 +254,6 @@ export const useDataGridFeatures = <
           options: () => menuItems,
         } satisfies ComponentSlots<typeof OnyxFlyoutMenu>,
       );
-      if (actions.length > 1) {
-        return {
-          ...header,
-          key: column.key,
-          component: () => h(header.component, { label }),
-        };
-      }
-      const iconComponent = actions.map(({ iconComponent }) => iconComponent);
-
       return {
         ...header,
         key: column.key,
@@ -267,8 +262,34 @@ export const useDataGridFeatures = <
             header.component,
             { label },
             {
-              actions: () =>
-                !iconComponent[0] && menuItems.length > 0 ? flyoutMenu : iconComponent,
+              actions: () => {
+                // normalizing the iconComponents from Component to {iconComponet: Component}
+                const iconsArray = Array.isArray(iconComponent)
+                  ? iconComponent
+                  : iconComponent
+                    ? [iconComponent]
+                    : [];
+                const normalizedIcons = iconsArray.map((ic) => {
+                  if (typeof ic === "object" && "iconComponent" in ic) {
+                    return ic;
+                  }
+                  return { iconComponent: ic };
+                });
+
+                const headerIcons = normalizedIcons
+                  .filter((ic) => ic?.position === "header")
+                  .map((ic) => ic.iconComponent);
+
+                const nonHeaderIcon =
+                  normalizedIcons.find((ic) => !ic.position)?.iconComponent ?? null;
+
+                const shouldShowFlyout =
+                  actions.length > 1 || actions.some((action) => action.showFlyoutMenu);
+
+                return [...headerIcons, shouldShowFlyout ? flyoutMenu : nonHeaderIcon].filter(
+                  Boolean,
+                );
+              },
             },
           ),
       };

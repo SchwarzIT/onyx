@@ -1,9 +1,11 @@
+import searchX from "@sit-onyx/icons/search-x.svg?raw";
 import { computed, h, ref, toValue, watchEffect, type Ref } from "vue";
 import { createFeature } from "..";
 import { injectI18n } from "../../../../i18n";
 import { normalizedIncludes } from "../../../../utils/strings";
 import OnyxMiniSearch from "../../../OnyxMiniSearch/OnyxMiniSearch.vue";
 import type { OnyxMiniSearchProps } from "../../../OnyxMiniSearch/types";
+import OnyxSystemButton from "../../../OnyxSystemButton/OnyxSystemButton.vue";
 import type { DataGridEntry } from "../../types";
 import "./filtering.scss";
 import type { FilterOptions } from "./types";
@@ -46,6 +48,10 @@ export const useFiltering = createFeature(
             : normalizedIncludes(entryValue, searchTerm, !filterOptions.caseSensitive);
         }),
       );
+    };
+
+    const clearFilter = (column: keyof DataGridEntry) => {
+      filters.value[column] = "";
     };
 
     // sync filters with user provided config
@@ -99,7 +105,19 @@ export const useFiltering = createFeature(
           if (!isFilterEnabled.value(column)) return [];
           return [
             {
+              iconComponent: filters.value[column]
+                ? {
+                    iconComponent: h(OnyxSystemButton, {
+                      label: String(column),
+                      icon: searchX,
+                      color: "medium",
+                      onClick: () => clearFilter(column),
+                    }),
+                    position: "header",
+                  }
+                : undefined,
               menuItems: [getMenuItem(column)],
+              showFlyoutMenu: true,
             },
           ];
         },
