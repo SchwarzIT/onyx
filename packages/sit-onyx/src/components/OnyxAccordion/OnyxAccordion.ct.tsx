@@ -1,11 +1,11 @@
 import { DENSITIES } from "../../composables/density";
-import { OnyxAccordionItem } from "../../index.ts";
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
-
+import OnyxAccordionItem from "../OnyxAccordionItem/OnyxAccordionItem.vue";
 import OnyxAccordion from "./OnyxAccordion.vue";
+import VModelTestWrapper from "./VModelTestWrapper.ct.vue";
 
-test.describe("ScreenshotTest", () => {
+test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Accordion",
     columns: DENSITIES,
@@ -17,11 +17,11 @@ test.describe("ScreenshotTest", () => {
         skeleton={row === "skeleton"}
         disabled={row === "disabled"}
       >
-        <OnyxAccordionItem>
+        <OnyxAccordionItem value="item-1">
           <template v-slot:header>Accordion Header 1</template>
           Accordion Panel 1
         </OnyxAccordionItem>
-        <OnyxAccordionItem>
+        <OnyxAccordionItem value="item-2">
           <template v-slot:header>Accordion Header 2</template>
           Accordion Panel 2
         </OnyxAccordionItem>
@@ -41,17 +41,22 @@ test.describe("ScreenshotTest", () => {
       },
     },
   });
+
   executeMatrixScreenshotTest({
     name: "Accordion (disabled)",
     columns: ["closed", "open"],
     rows: ["default", "hover", "focus-visible"],
-    component: (columns) => (
-      <OnyxAccordion style="width: 16rem;" disabled>
-        <OnyxAccordionItem open={columns === "open"}>
+    component: (column) => (
+      <OnyxAccordion
+        style="width: 16rem;"
+        modelValue={column === "open" ? ["item-1"] : undefined}
+        disabled
+      >
+        <OnyxAccordionItem value="item-1">
           <template v-slot:header>Accordion Header 1</template>
           Accordion Panel 1
         </OnyxAccordionItem>
-        <OnyxAccordionItem>
+        <OnyxAccordionItem value="item-2">
           <template v-slot:header>Accordion Header 2</template>
           Accordion Panel 2
         </OnyxAccordionItem>
@@ -66,14 +71,15 @@ test.describe("ScreenshotTest", () => {
   });
 });
 
-test("should open only one item at a time in exclusive mode", async ({ mount, makeAxeBuilder }) => {
+test("should open only one item at a time in exclusive mode", async ({ mount }) => {
+  // ARRANGE
   const component = await mount(
     <OnyxAccordion exclusive>
-      <OnyxAccordionItem>
+      <OnyxAccordionItem value="item-1">
         <template v-slot:header>Accordion Header 1</template>
         Accordion Panel 1
       </OnyxAccordionItem>
-      <OnyxAccordionItem>
+      <OnyxAccordionItem value="item-2">
         <template v-slot:header>Accordion Header 2</template>
         Accordion Panel 2
       </OnyxAccordionItem>
@@ -85,15 +91,82 @@ test("should open only one item at a time in exclusive mode", async ({ mount, ma
   const firstPanel = component.getByLabel("Accordion Header 1");
   const secondPanel = component.getByLabel("Accordion Header 2");
 
+  // ACT
   await firstHeader.click();
+
+  // ASSERT
   await expect(firstPanel).toBeVisible();
   await expect(secondPanel).toBeHidden();
 
+  // ACT
   await secondHeader.click();
+
+  // ASSERT
   await expect(firstPanel).toBeHidden();
   await expect(secondPanel).toBeVisible();
+});
 
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
+test("should manage open state of nested items", async ({ mount }) => {
+  // ARRANGE
+  const modelValueUpdates: string[][] = [];
 
-  expect(accessibilityScanResults.violations).toEqual([]);
+  const component = await mount(
+    <OnyxAccordion onUpdate:modelValue={(value: string[]) => modelValueUpdates.push(value)}>
+      <OnyxAccordionItem value="item-1">
+        <template v-slot:header>Accordion Header 1</template>
+        Accordion Panel 1
+      </OnyxAccordionItem>
+      <OnyxAccordionItem value="item-2">
+        <template v-slot:header>Accordion Header 2</template>
+        Accordion Panel 2
+      </OnyxAccordionItem>
+    </OnyxAccordion>,
+  );
+
+  const firstHeader = component.getByRole("button", { name: "Accordion Header 1" });
+  const firstPanel = component.getByLabel("Accordion Header 1");
+
+  const secondHeader = component.getByRole("button", { name: "Accordion Header 2" });
+  const secondPanel = component.getByLabel("Accordion Header 2");
+
+  // ACT
+  await firstHeader.click();
+
+  // ASSERT
+  await expect(firstPanel).toBeVisible();
+  expect(modelValueUpdates).toStrictEqual([["item-1"]]);
+
+  // ACT
+  await secondHeader.click();
+
+  // ASSERT
+  await expect(secondPanel).toBeVisible();
+  expect(modelValueUpdates).toStrictEqual([["item-1"], ["item-1", "item-2"]]);
+});
+
+test("should manage open state of nested items if modelValue is forced", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(<VModelTestWrapper />);
+
+  const firstHeader = component.getByRole("button", { name: "Accordion Header 1" });
+  const firstPanel = component.getByLabel("Accordion Header 1");
+
+  const secondHeader = component.getByRole("button", { name: "Accordion Header 2" });
+  const secondPanel = component.getByLabel("Accordion Header 2");
+
+  // ASSERT
+  await expect(firstPanel).toBeVisible();
+
+  // ACT
+  await firstHeader.click();
+
+  // ASSERT
+  await expect(firstPanel).toBeVisible();
+
+  // ACT
+  await secondHeader.click();
+
+  // ASSERT
+  await expect(firstPanel).toBeVisible();
+  await expect(secondPanel).toBeHidden();
 });

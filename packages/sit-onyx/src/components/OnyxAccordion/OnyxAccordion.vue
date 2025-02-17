@@ -1,6 +1,6 @@
-<script lang="ts" setup>
-import { provide, ref, toRefs, watch } from "vue";
-import { useDensity } from "../../";
+<script lang="ts" setup generic="TValue extends PropertyKey">
+import { computed, provide, ref, toRef, toRefs, watch, watchEffect, type Ref } from "vue";
+import { useDensity } from "../../composables/density";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import {
   ACCORDION_INJECTION_KEY,
@@ -8,11 +8,16 @@ import {
   type OnyxAccordionProps,
 } from "./types";
 
-const props = withDefaults(defineProps<OnyxAccordionProps>(), {
+const props = withDefaults(defineProps<OnyxAccordionProps<TValue>>(), {
   exclusive: false,
   disabled: false,
   skeleton: SKELETON_INJECTED_SYMBOL,
 });
+
+const emit = defineEmits<{
+  "update:modelValue": [value: TValue[]];
+}>();
+
 defineSlots<{
   /**
    * Displays OnyxAccordionItem components.
@@ -20,33 +25,53 @@ defineSlots<{
   default(): unknown;
 }>();
 
-const openItems = ref(new Set<string>());
+/**
+ * Internally managed open items in case no modelValue is set by the user.
+ */
+const _openItems = ref<TValue[]>([]) as Ref<TValue[]>;
+watchEffect(() => (_openItems.value = props.modelValue ?? []));
+
+const openItems = computed({
+  // if modelValue is set by the user, it should be used instead of the internally managed open items
+  get: () => (props.modelValue != undefined ? props.modelValue : _openItems.value),
+  set: (newValue) => {
+    emit("update:modelValue", newValue);
+    _openItems.value = newValue;
+  },
+});
 
 const { disabled, exclusive } = toRefs(props);
 const skeleton = useSkeletonContext(props);
 const { densityClass } = useDensity(props);
 
-const updateOpen = (id: string, isOpen: boolean) => {
+const updateOpen = (value: TValue, isOpen: boolean) => {
   if (!isOpen) {
-    openItems.value.delete(id);
+    if (!openItems.value.includes(value)) return;
+    openItems.value = openItems.value.filter((i) => i !== value);
     return;
   }
-  if (exclusive.value) openItems.value.clear();
-  openItems.value.add(id);
+  if (exclusive.value) {
+    openItems.value = [value];
+    return;
+  }
+  if (!openItems.value.includes(value)) {
+    openItems.value = openItems.value.concat(value);
+  }
 };
 
-watch(exclusive, (newExclusive) => {
-  if (newExclusive && openItems.value.size > 1) {
-    const lastOpenedItem = [...openItems.value].pop();
-    openItems.value.clear();
-    if (lastOpenedItem) {
-      openItems.value.add(lastOpenedItem);
+watch(
+  exclusive,
+  (newExclusive) => {
+    if (newExclusive && openItems.value.length > 1) {
+      const lastOpenedItem = openItems.value.at(-1);
+      openItems.value = lastOpenedItem != undefined ? [lastOpenedItem] : [];
     }
-  }
-});
+  },
+  { immediate: true },
+);
 
-provide(ACCORDION_INJECTION_KEY as AccordionInjectionKey, {
-  openItems,
+provide(ACCORDION_INJECTION_KEY as AccordionInjectionKey<TValue>, {
+  openItems: toRef(() => openItems.value),
   updateOpen,
   disabled,
   skeleton,
@@ -61,6 +86,7 @@ provide(ACCORDION_INJECTION_KEY as AccordionInjectionKey, {
 
 <style lang="scss">
 @use "../../styles/mixins/layers";
+
 .onyx-accordion {
   @include layers.component() {
     width: 100%;
