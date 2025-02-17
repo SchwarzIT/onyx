@@ -4,7 +4,7 @@ export type OnyxImageProps = {
    */
   src: string;
   /**
-   * Text that can replace the image, e.g. if it can not be loaded.
+   * (Descriptive) Text that can replace the image, e.g. if it can not be loaded.
    * Can be set to an empty string if the image is only used for decoration and NOT a key part of the content.
    */
   alt: string;
