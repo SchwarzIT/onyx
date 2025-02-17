@@ -202,18 +202,25 @@ export const createTableColumnGroups = <TEntry extends DataGridEntry>(
     return undefined;
   }
 
+  /** Remember start of the current group */
   let currentStart = 0;
-  const res: TableColumnGroup[] = [];
+  const result: TableColumnGroup[] = [];
 
   for (let i = 1; i <= columns.length; i++) {
     const element = columns[i];
-    const key = columns[currentStart].columnGroupKey ?? "";
-    if (i === columns.length || element?.columnGroupKey !== key) {
-      res.push({ key, span: i - currentStart, header: columnGroups?.[key as string]?.label });
+    const currentKey = columns[currentStart].columnGroupKey ?? "";
+    // When it's the last iteration or the current group key changed:
+    if (i === columns.length || element?.columnGroupKey !== currentKey) {
+      // add a new TableColumnGroup
+      result.push({
+        key: currentKey,
+        span: i - currentStart,
+        header: columnGroups?.[currentKey as string]?.label ?? String(currentKey),
+      });
       currentStart = i;
     }
   }
-  return res;
+  return result;
 };
 
 /**
@@ -351,6 +358,7 @@ export const useDataGridFeatures = <
   const watchSources: WatchSource[] = features.flatMap((f) => f.watch ?? []);
 
   return {
+    /** Uses the column definition and available column group config to generate the column groups for the underlying OnyxTable */
     createRendererColumnGroups,
     /** Takes the column definition and maps all, calls mutation func and maps at the end to RendererCell */
     createRendererRows,

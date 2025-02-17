@@ -70,12 +70,12 @@ describe("createTableColumnGroups", () => {
         {
           key: "",
           span: 1,
-          header: undefined,
+          header: "",
         },
         {
           key: "3rd",
           span: 1,
-          header: undefined,
+          header: "3rd",
         },
         {
           key: "1st",
@@ -85,7 +85,7 @@ describe("createTableColumnGroups", () => {
         {
           key: "",
           span: 1,
-          header: undefined,
+          header: "",
         },
       ],
     },
