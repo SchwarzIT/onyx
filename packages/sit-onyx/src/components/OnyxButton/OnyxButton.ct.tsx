@@ -120,3 +120,18 @@ test("should trigger some ripples", async ({ mount, page }) => {
   // ASSERT
   await expect(component.locator(".onyx-ripple__element")).toHaveCount(3);
 });
+
+test("should behave as link", async ({ mount, page }) => {
+  // ARRANGE
+  const component = await mount(<OnyxButton label="Test label" link="#test-section" />);
+
+  // ASSERT
+  await expect(component).toHaveRole("link");
+  await expect(component).toHaveAccessibleName("Test label");
+
+  // ACT
+  await component.click();
+
+  // ASSERT
+  await expect(page).toHaveURL(/^http:\/\/localhost:\d*\/#test-section$/);
+});
