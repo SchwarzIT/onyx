@@ -9,7 +9,13 @@ import {
 
 describe("createTableColumnGroups", () => {
   test.each([
-    { title: "no columns", columns: [], columnGroups: { a: { label: "a" } }, expected: [] },
+    { title: "no columns", columns: [], columnGroups: { a: { label: "a" } }, expected: undefined },
+    {
+      title: "columns not using column groups",
+      columns: [{ key: "a" }, { key: "b" }],
+      columnGroups: { a: { label: "a" } },
+      expected: undefined,
+    },
     {
       title: "no columnGroups",
       columns: [{ key: "a" }, { key: "b" }],
@@ -26,7 +32,7 @@ describe("createTableColumnGroups", () => {
       title: "empty columnGroups and columns",
       columns: [],
       columnGroups: {},
-      expected: [],
+      expected: undefined,
     },
     {
       title: "basic example",
