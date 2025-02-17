@@ -94,6 +94,7 @@ body:
           - [ ] Storybook can show the feature
           - [ ] Storybook code snippet of new/changed examples are checked that they are generated correctly
           - [ ] Namings are aligned with Figma
+          - [ ] Storybook sidebar badge for "New" is added on component or story level if needed. See: https://github.com/Sidnioulz/storybook-addon-tag-badges/?tab=readme-ov-file
 
 
         #### Approval

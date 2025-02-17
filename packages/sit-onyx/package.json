@@ -60,6 +60,7 @@
     "axe-core": "^4.10.2",
     "eslint-plugin-vue-scoped-css": "^2.9.0",
     "sass-embedded": "catalog:",
+    "storybook-addon-tag-badges": "^1.4.0",
     "storybook-dark-mode": "^4.0.2",
     "vue": "catalog:",
     "vue-component-type-helpers": "^2.2.2",
