@@ -56,3 +56,13 @@ export const Error = {
     src: "#some-invalid-image-src",
   },
 } satisfies Story;
+
+export const LightAndDarkImage = {
+  args: {
+    ...Default.args,
+    src: {
+      light: "https://picsum.photos/256?v=light",
+      dark: "https://picsum.photos/256?v=dark",
+    },
+  },
+} satisfies Story;

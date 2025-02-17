@@ -1,8 +1,9 @@
 export type OnyxImageProps = {
   /**
    * Image URL to show.
+   * You can pass different images for light and dark mode.
    */
-  src: string;
+  src: string | { light: string; dark: string };
   /**
    * (Descriptive) Text that can replace the image, e.g. if it can not be loaded.
    * Can be set to an empty string if the image is only used for decoration and NOT a key part of the content.
