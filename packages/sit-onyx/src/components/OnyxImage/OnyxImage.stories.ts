@@ -16,8 +16,43 @@ type Story = StoryObj<typeof OnyxImage>;
 export const Default = {
   args: {
     src: "https://picsum.photos/256",
-    alt: "Example image",
+    alt: "Alt text here...",
     height: 256,
     width: 256,
+  },
+} satisfies Story;
+
+export const Rounded = {
+  args: {
+    ...Default.args,
+    shape: "rounded",
+  },
+} satisfies Story;
+
+export const Circle = {
+  args: {
+    ...Default.args,
+    shape: "circle",
+  },
+} satisfies Story;
+
+export const Clipped = {
+  args: {
+    ...Default.args,
+    shape: "clip",
+  },
+} satisfies Story;
+
+export const ClippedInverted = {
+  args: {
+    ...Default.args,
+    shape: "clip-inverted",
+  },
+} satisfies Story;
+
+export const Error = {
+  args: {
+    ...Default.args,
+    src: "#some-invalid-image-src",
   },
 } satisfies Story;

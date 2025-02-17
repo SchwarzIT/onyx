@@ -1,14 +1,37 @@
 <script lang="ts" setup>
+import picture from "@sit-onyx/icons/picture.svg?raw";
+import { ref, watch } from "vue";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxImageProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxImageProps>(), {
   loading: "lazy",
 });
+
+const isError = ref(false);
+watch(
+  () => props.src,
+  () => (isError.value = false),
+);
 </script>
 
 <template>
-  <figure :class="['onyx-component', 'onyx-image', `onyx-image--${props.shape}`]">
-    <img class="onyx-image__content" v-bind="props" :alt="props.alt" />
+  <figure
+    :class="[
+      'onyx-component',
+      'onyx-image',
+      `onyx-image--${props.shape}`,
+      isError ? 'onyx-image--error' : undefined,
+    ]"
+    :style="isError ? { height: `${props.height}px`, width: `${props.width}px` } : undefined"
+    :title="isError ? props.alt : undefined"
+  >
+    <img class="onyx-image__content" v-bind="props" :alt="props.alt" @error="isError = true" />
+
+    <div v-if="isError" class="onyx-image__error">
+      <OnyxIcon :icon="picture" size="48px" />
+      <div>{{ props.alt }}</div>
+    </div>
   </figure>
 </template>
 
@@ -19,7 +42,12 @@ const props = withDefaults(defineProps<OnyxImageProps>(), {
   @include layers.component() {
     --onyx-image-clip-size: min(var(--onyx-spacing-3xl), 25%);
     display: inline-flex;
-    background-color: var(--onyx-color-base-neutral-200);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: var(--onyx-color-base-neutral-300);
+    font-family: var(--onyx-font-family);
 
     &--rounded {
       border-radius: var(--onyx-radius-sm);
@@ -53,12 +81,25 @@ const props = withDefaults(defineProps<OnyxImageProps>(), {
       );
     }
 
+    &--error {
+      .onyx-image__content {
+        display: none;
+      }
+    }
+
     &__content {
       display: inline-block;
+      width: 100%;
       max-width: 100%;
+      height: 100%;
       max-height: 100%;
       object-fit: cover;
       border-radius: inherit;
+    }
+
+    &__error {
+      color: var(--onyx-color-text-icons-neutral-medium);
+      padding: var(--onyx-density-sm);
     }
   }
 }
