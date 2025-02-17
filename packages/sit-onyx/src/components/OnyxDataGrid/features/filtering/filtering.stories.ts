@@ -16,15 +16,15 @@ export const Filtering = {
     columns: {
       name: {
         enabled: true,
-        filter: "",
-        filterConfig: {
+        searchTerm: "",
+        config: {
           caseSensitive: true,
         },
       },
       rank: { enabled: false },
       birthday: {
         enabled: true,
-        filterConfig: {},
+        config: {},
       },
     },
     filterConfig: {
@@ -33,7 +33,6 @@ export const Filtering = {
       searchFromStart: false,
       trimWhitespace: true,
     },
-    updateMode: "onEnter",
   },
   parameters: {
     docs: {

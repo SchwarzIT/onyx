@@ -17,11 +17,11 @@ export type FilterColumnOptions<TEntry extends DataGridEntry> = {
      * The filter value for this column.
      * This value will be used to filter the data in this column.
      */
-    filter?: string;
+    searchTerm?: string;
     /**
      * Configuration for how filtering should behave for this column.
      */
-    filterConfig?: FilterConfig;
+    config?: FilterConfig;
     /**
      * A custom filtering function for this column.
      * This function is used to filter the column data, instead of using the default filtering behavior.

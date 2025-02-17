@@ -28,12 +28,6 @@ const data = [
 ];
 
 type Entry = (typeof data)[number];
-const columns = {
-  columns: {
-    name: { enabled: true },
-    age: { enabled: true },
-  },
-};
 
 const dummyFeature = createFeature(() => ({
   name: Symbol("More actions"),
@@ -64,7 +58,7 @@ const dataFeatures = computed(() => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const enabled: DataGridFeature<any, TypeRenderMap<any>, any>[] = [];
   if (filteringEnabled.value) {
-    enabled.push(DataGridFeatures.useFiltering(columns));
+    enabled.push(DataGridFeatures.useFiltering());
   }
   if (sortingEnabled.value) {
     enabled.push(DataGridFeatures.useSorting<Entry>());

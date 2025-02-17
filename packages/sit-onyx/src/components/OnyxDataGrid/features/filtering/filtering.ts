@@ -1,99 +1,59 @@
-import searchX from "@sit-onyx/icons/search-x.svg?raw";
-import {
-  computed,
-  h,
-  ref,
-  toValue,
-  watchEffect,
-  type Component,
-  type VNode,
-  type WatchSource,
-} from "vue";
+import { computed, h, ref, toValue, watchEffect, type Ref } from "vue";
 import { createFeature } from "..";
 import { injectI18n } from "../../../../i18n";
+import { normalizedIncludes } from "../../../../utils/strings";
 import OnyxMiniSearch from "../../../OnyxMiniSearch/OnyxMiniSearch.vue";
 import type { OnyxMiniSearchProps } from "../../../OnyxMiniSearch/types";
-import OnyxSystemButton from "../../../OnyxSystemButton/OnyxSystemButton.vue";
 import type { DataGridEntry } from "../../types";
+import "./filtering.scss";
 import type { FilterOptions } from "./types";
 
-interface FilteringFeature<TEntry extends DataGridEntry> {
-  name: symbol;
-  watch: WatchSource<unknown>[];
-  mutation: {
-    func: (data: Readonly<TEntry>[]) => TEntry[];
-  };
-  header: {
-    actions: (params: { key: keyof TEntry }) => Array<{
-      menuItems: (Component | VNode)[];
-    }>;
-    removeActions: (params: {
-      key: keyof TEntry;
-    }) => Array<{ iconComponent: ReturnType<typeof h> }>;
-  };
-}
-
 export const FILTERING_FEATURE = Symbol("Filtering");
-
+export type FilterState<TEntry> = Partial<Record<keyof TEntry, string | undefined>>;
 export const useFiltering = createFeature(
-  <TEntry extends DataGridEntry>(options?: FilterOptions<TEntry>): FilteringFeature<TEntry> => {
-    const filters = ref<Partial<Record<keyof TEntry, string>>>({});
+  <TEntry extends DataGridEntry>(options?: FilterOptions<TEntry>) => {
+    const filters = ref({}) as Ref<FilterState<DataGridEntry>>;
     const { t } = injectI18n();
     const config = computed(() => toValue(options?.columns));
 
     const isFilterEnabled = computed(() => (col: keyof TEntry) => {
-      return !config.value || config.value?.[col]?.enabled === true;
+      return config.value?.[col]?.enabled !== false;
     });
 
-    const filterData = (data: Readonly<TEntry>[]) => {
-      const filteredData = data.filter((entry) =>
-        Object.entries(filters.value).every(([col, value]) => {
-          const columnOptions = config.value?.[col as keyof TEntry];
-          const filterOpts = {
-            ...options?.filterConfig,
-            ...columnOptions?.filterConfig,
-          };
+    const filterData = (entries: Readonly<TEntry>[]) => {
+      return entries.filter((entry) =>
+        Object.entries(filters.value).every(([column, value]: [keyof TEntry, unknown]) => {
+          const columnOptions = config.value?.[column];
+          const filterOptions = { ...options?.filterConfig, ...columnOptions?.config };
 
           if (columnOptions?.filterFunc) {
-            return columnOptions.filterFunc(
-              entry[col as keyof TEntry],
-              value as TEntry[keyof TEntry],
-            );
+            return columnOptions.filterFunc(entry[column], value as TEntry[keyof TEntry]);
           }
-          let filterValue = value as string;
-          let entryValue = entry[col as keyof TEntry]?.toString() || "";
+          if (value == null) return true;
+          const searchTerm = value.toString();
+          let entryValue = entry[column]?.toString() ?? "";
 
-          if (filterOpts?.trimWhitespace) {
+          if (filterOptions.trimWhitespace) {
             entryValue = entryValue.replace(/\s+/g, "");
           }
 
-          if (!filterOpts?.caseSensitive) {
-            entryValue = entryValue.toLowerCase();
-            filterValue = filterValue.toLowerCase();
+          if (filterOptions.exactMatch) {
+            return entryValue === searchTerm;
           }
 
-          if (filterOpts?.exactMatch) {
-            return entryValue === filterValue;
-          }
-
-          return filterOpts?.searchFromStart
-            ? entryValue.startsWith(filterValue)
-            : entryValue.includes(filterValue);
+          return filterOptions.searchFromStart
+            ? entryValue.startsWith(searchTerm)
+            : normalizedIncludes(entryValue, searchTerm, !filterOptions.caseSensitive);
         }),
       );
-      return filteredData;
-    };
-
-    const clearFilter = (column: keyof DataGridEntry) => {
-      filters.value[column] = "";
     };
 
     // sync filters with user provided config
     watchEffect(() => {
       if (!config.value) return;
       Object.entries(config.value).forEach(([column, columnOptions]) => {
-        if (columnOptions?.filter) {
-          filters.value[column] = columnOptions.filter;
+        if (columnOptions?.searchTerm) {
+          filters.value[column] = columnOptions.searchTerm;
         }
       });
     });
@@ -108,29 +68,29 @@ export const useFiltering = createFeature(
       };
 
       return h(OnyxMiniSearch, {
-        label: column as string,
+        label: column.toString(),
         class: "onyx-filter-search",
-        style: {
-          minWidth: "11rem",
-        },
-        hideLabel: true,
         placeholder: t.value(`dataGrid.head.filtering.menu.placeholder`),
         modelValue: inputValue,
         autofocus: true,
         "onUpdate:modelValue": (value: string) => {
           inputValue = value;
         },
+        onClear: () => {
+          filters.value[column] = "";
+          inputValue = "";
+        },
         onKeydown: handleKeyDown,
         onClick: (e: MouseEvent) => {
           e.preventDefault();
           e.stopPropagation();
         },
-      } as OnyxMiniSearchProps);
+      } satisfies OnyxMiniSearchProps & Record<string, unknown>);
     };
 
     return {
       name: FILTERING_FEATURE,
-      watch: [filters],
+      watch: [filters, config],
       mutation: {
         func: filterData,
       },
@@ -140,19 +100,6 @@ export const useFiltering = createFeature(
           return [
             {
               menuItems: [getMenuItem(column)],
-            },
-          ];
-        },
-        removeActions: ({ key: column }) => {
-          if (!isFilterEnabled.value(column) || !filters.value[column]) return [];
-          return [
-            {
-              iconComponent: h(OnyxSystemButton, {
-                label: String(column),
-                icon: searchX,
-                color: "medium",
-                onClick: () => clearFilter(column),
-              }),
             },
           ];
         },

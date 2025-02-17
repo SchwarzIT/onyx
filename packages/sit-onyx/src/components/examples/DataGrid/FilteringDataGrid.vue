@@ -1,12 +1,9 @@
 <script setup lang="ts">
-import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
 import type { DataGridEntry } from "../../..";
-import { DataGridFeatures, OnyxDataGrid, OnyxIcon, OnyxMenuItem, OnyxSystemButton } from "../../..";
-import { createFeature } from "../../OnyxDataGrid/features";
+import { DataGridFeatures, OnyxDataGrid } from "../../..";
 
 // STORY SETUP START
 // This section will be removed from the Storybook code example, because it's to complex
-import { h } from "vue";
 import type { FilterOptions } from "../../OnyxDataGrid/features/filtering/types";
 type TEntry = (typeof data)[number];
 
@@ -21,35 +18,8 @@ const data = [
 ] satisfies DataGridEntry[];
 
 const withFiltering = DataGridFeatures.useFiltering<TEntry>(props);
-
-// this is just an example feature to demonstrate the menu items of the filtering feature if multiple features with menu items exist
-const someOtherFeature = createFeature(() => ({
-  name: Symbol("Example feature"),
-  watch: [],
-  header: {
-    actions: (column) => {
-      if (column.key !== "name") return [];
-      return [
-        {
-          iconComponent: h(OnyxSystemButton, {
-            label: "Example feature",
-            icon: placeholder,
-            color: "medium",
-          }),
-          menuItems: [
-            h(OnyxMenuItem, () => [h(OnyxIcon, { icon: placeholder }), "Example feature"]),
-          ],
-        },
-      ];
-    },
-  },
-}));
 </script>
 
 <template>
-  <OnyxDataGrid
-    :columns="['name', 'rank', 'birthday']"
-    :data="data"
-    :features="[withFiltering, someOtherFeature()]"
-  />
+  <OnyxDataGrid :columns="['name', 'rank', 'birthday']" :data="data" :features="[withFiltering]" />
 </template>

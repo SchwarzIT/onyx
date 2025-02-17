@@ -2,9 +2,18 @@
  * Returns true if searchString appears as a substring without considering capitalization or diacritics.
  * E.g. `ñ` and `n` are considered to be the same glyph.
  */
-export const normalizedIncludes = (haystack: string, needle: string): boolean => {
-  const haystackNormalized = removeDiacritics(haystack.toLowerCase());
-  const needleNormalized = removeDiacritics(needle.toLowerCase());
+export const normalizedIncludes = (
+  haystack: string,
+  needle: string,
+  toLowerCase: boolean = true,
+): boolean => {
+  let haystackNormalized = removeDiacritics(haystack);
+  let needleNormalized = removeDiacritics(needle);
+
+  if (toLowerCase) {
+    haystackNormalized = haystackNormalized.toLowerCase();
+    needleNormalized = needleNormalized.toLowerCase();
+  }
 
   return haystackNormalized.includes(needleNormalized);
 };
