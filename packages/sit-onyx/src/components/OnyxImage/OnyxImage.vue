@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import picture from "@sit-onyx/icons/picture.svg?raw";
-import { ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxImageProps } from "./types";
 
@@ -13,6 +13,11 @@ watch(
   () => props.src,
   () => (isError.value = false),
 );
+
+const imageSrc = computed(() => {
+  if (typeof props.src === "string") return { light: props.src, dark: undefined };
+  return props.src;
+});
 </script>
 
 <template>
@@ -26,7 +31,22 @@ watch(
     :style="isError ? { height: `${props.height}px`, width: `${props.width}px` } : undefined"
     :title="isError ? props.alt : undefined"
   >
-    <img class="onyx-image__content" v-bind="props" :alt="props.alt" @error="isError = true" />
+    <img
+      class="onyx-image__content"
+      :class="{ 'onyx-image__content--light': imageSrc.dark }"
+      v-bind="props"
+      :src="imageSrc.light"
+      :alt="props.alt"
+      @error="isError = true"
+    />
+    <img
+      v-if="imageSrc.dark"
+      class="onyx-image__content onyx-image__content--dark"
+      v-bind="props"
+      :src="imageSrc.dark"
+      :alt="props.alt"
+      @error="isError = true"
+    />
 
     <div v-if="isError" class="onyx-image__error">
       <OnyxIcon :icon="picture" size="48px" />
@@ -95,6 +115,20 @@ watch(
       max-height: 100%;
       object-fit: cover;
       border-radius: inherit;
+
+      &--dark {
+        display: none;
+      }
+
+      .dark & {
+        &--dark {
+          display: inline-block;
+        }
+
+        &--light {
+          display: none;
+        }
+      }
     }
 
     &__error {
