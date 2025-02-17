@@ -3,6 +3,7 @@ import pin from "@sit-onyx/icons/pin.svg?raw";
 import trash from "@sit-onyx/icons/trash.svg?raw";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
+import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxMenuItem from "../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
@@ -10,6 +11,7 @@ import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import OnyxDataGrid from "./OnyxDataGrid.vue";
 
 /**
+ * @experimental
  * For straightforward data presentation without the need for extensive interaction, the [OnyxTable](/docs/data-table--docs) is ideal. It offers a basic overview of the information without overwhelming users with complex features and is read only all the time.
  * On the other hand, if your dataset requires advanced functionalities such as advanced sorting, filtering, and editing, the `OnyxDataGrid` is the way to go. It provides robust tools for managing complex datasets.
  */
@@ -25,7 +27,7 @@ export const Default = {
   args: {
     columns: [
       { key: "name", label: "First Name" },
-      { key: "age", label: "Age" },
+      { key: "age", label: "Age", type: "number" },
       { key: "birthday", label: "Day of Birth" },
     ],
     data: [
@@ -73,13 +75,39 @@ export const HeaderInteractions = {
   },
 } satisfies Story;
 
-export const WithDifferentColTypes = {
+export const WithCustomColumns = {
   args: {
-    columns: ["name", { key: "age", type: "number" }, { key: "birthday", type: "string" }],
+    features: [
+      {
+        name: Symbol("Custom Features"),
+        modifyColumns: { func: (cols) => [...cols, { key: "", type: "alertBtn" }] },
+        typeRenderer: {
+          ageIcon: {
+            cell: {
+              component: (props) => {
+                const number = Number(props.modelValue);
+                return number < 15 ? "🐣" : number > 60 ? "🐉" : "🐍";
+              },
+            },
+          },
+          alertBtn: {
+            cell: {
+              component: (props) =>
+                h(OnyxButton, {
+                  label: "Alert me!",
+                  onClick: () => alert(JSON.stringify(props)),
+                  density: "compact",
+                }),
+            },
+          },
+        },
+      },
+    ],
+    columns: ["name", { key: "age", type: "ageIcon" }],
     data: [
-      { id: 1, name: "Alice", age: 30, birthday: new Date("1990-01-01") },
-      { id: 2, name: "Charlie", age: 35, birthday: new Date("1998-02-11") },
-      { id: 3, name: "Bob", age: 25, birthday: new Date("1995-06-15") },
+      { id: 1, name: "Alice", age: 10 },
+      { id: 2, name: "Charlie", age: 35 },
+      { id: 3, name: "Bob", age: 71 },
     ],
   },
 } satisfies Story;
