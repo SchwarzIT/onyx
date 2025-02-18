@@ -1,6 +1,5 @@
 import type { MaybeRefOrGetter } from "vue";
 import type { DataGridEntry } from "../../types";
-import type { Compare } from "../all";
 
 /**
  * Configuration for filtering on a per-column basis.
@@ -22,17 +21,17 @@ export type FilterColumnOptions<TEntry extends DataGridEntry> = {
      * Configuration for how filtering should behave for this column.
      */
     config?: FilterConfig;
-    /**
-     * A custom filtering function for this column.
-     * This function is used to filter the column data, instead of using the default filtering behavior.
-     */
-    filterFunc?: Compare<TEntry[TKey]>;
   };
 };
 /**
  * Configuration for how filtering should behave.
  */
 export type FilterConfig = {
+  /**
+   * A custom filtering function for this column.
+   * This function is used to filter the column data, instead of using the default filtering behavior.
+   */
+  filterFunc?: (entryValue: string, searchTerm: string) => boolean;
   /**
    * If true, filtering will be case-sensitive.
    * If false, filtering will be case-insensitive.

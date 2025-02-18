@@ -24,32 +24,34 @@ export const useFiltering = createFeature(
 
     const filterData = (entries: Readonly<TEntry>[]) => {
       return entries.filter((entry) =>
-        Object.entries(filters.value).every(([column, value]: [keyof TEntry, unknown]) => {
-          const columnOptions = config.value?.[column];
-          const filterOptions = { ...options?.filterConfig, ...columnOptions?.config };
+        Object.entries(filters.value).every(
+          ([column, value]: [keyof TEntry, string | undefined]) => {
+            const columnOptions = config.value?.[column];
+            const filterOptions = { ...options?.filterConfig, ...columnOptions?.config };
 
-          if (columnOptions?.filterFunc) {
-            return columnOptions.filterFunc(entry[column], value as TEntry[keyof TEntry]);
-          }
-          if (value == null) return true;
-          const searchTerm = value.toString();
-          let entryValue = entry[column]?.toString() ?? "";
+            if (value == null || value === "") return true;
+            const searchTerm = value.toString();
+            let entryValue = entry[column]?.toString() ?? "";
 
-          if (filterOptions.trimWhitespace) {
-            entryValue = entryValue.replace(/\s+/g, "");
-          }
+            if (filterOptions.trimWhitespace) {
+              entryValue = entryValue.replace(/\s+/g, "");
+            }
+            if (filterOptions?.filterFunc) {
+              return filterOptions.filterFunc(entryValue, searchTerm);
+            }
 
-          if (filterOptions.exactMatch && searchTerm) {
-            return entryValue === searchTerm;
-          }
+            if (filterOptions.exactMatch) {
+              return entryValue === searchTerm;
+            }
 
-          return normalizedIncludes(
-            entryValue,
-            searchTerm,
-            !filterOptions.caseSensitive,
-            filterOptions.searchFromStart,
-          );
-        }),
+            return normalizedIncludes(
+              entryValue,
+              searchTerm,
+              !filterOptions.caseSensitive,
+              filterOptions.searchFromStart,
+            );
+          },
+        ),
       );
     };
 
