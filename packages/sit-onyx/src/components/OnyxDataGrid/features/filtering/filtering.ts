@@ -79,8 +79,8 @@ export const useFiltering = createFeature(
         placeholder: t.value(`dataGrid.head.filtering.menu.placeholder`),
         modelValue: inputValue,
         autofocus: true,
-        "onUpdate:modelValue": (value: string) => {
-          inputValue = value;
+        "onUpdate:modelValue": (value?: string) => {
+          inputValue = value || "";
         },
         onClear: () => {
           filters.value[column] = "";
