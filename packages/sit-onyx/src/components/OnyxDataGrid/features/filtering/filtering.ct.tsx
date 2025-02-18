@@ -19,6 +19,17 @@ const expectRowCount = (dataGrid: Locator, count: number) => {
   return expect(dataGrid.getByRole("row")).toHaveCount(count + 1);
 };
 
+const fillSearchValue = async (dataGrid: Locator, columnName: string, searchTerm: string) => {
+  await dataGrid
+    .getByRole("columnheader", { name: `${columnName} Toggle column actions` })
+    .getByLabel("Toggle column actions")
+    .click();
+
+  const searchInput = dataGrid.getByLabel(`Search column ${columnName}`);
+  await searchInput.fill(searchTerm);
+  await searchInput.press("Enter");
+};
+
 test("should filter by single column", async ({ mount }) => {
   // ARRANGE
   const data = getTestData();
@@ -28,11 +39,7 @@ test("should filter by single column", async ({ mount }) => {
   await expectRowCount(component, data.length);
 
   // ACT
-  await component.getByRole("columnheader").first().getByLabel("Toggle column actions").click();
-
-  const searchInput = component.getByLabel("Search column a");
-  await searchInput.fill("3");
-  await searchInput.press("Enter");
+  await fillSearchValue(component, "a", "3");
 
   // ASSERT
   await expectRowCount(component, 1);
@@ -53,21 +60,13 @@ test("should filter by two columns", async ({ mount }) => {
   await expectRowCount(component, data.length);
 
   // ACT
-  await component.getByRole("columnheader").first().getByLabel("Toggle column actions").click();
-
-  const searchInputA = component.getByLabel("Search column a");
-  await searchInputA.fill("1");
-  await searchInputA.press("Enter");
+  await fillSearchValue(component, "a", "1");
 
   // ASSERT
   await expectRowCount(component, 3);
 
   // ACT
-  await component.getByRole("columnheader").nth(1).getByLabel("Toggle column actions").click();
-
-  const searchInputB = component.getByLabel("Search column b");
-  await searchInputB.fill("A");
-  await searchInputB.press("Enter");
+  await fillSearchValue(component, "b", "A");
 
   await expectRowCount(component, 2);
 
@@ -85,6 +84,7 @@ test("should filter by two columns", async ({ mount }) => {
 });
 
 const FILTER_CONFIG_TEST_CASES = {
+  // key = filter config, value = expected number of rows after filtering
   caseSensitive: 1,
   exactMatch: 1,
   searchFromStart: 2,
@@ -107,11 +107,7 @@ for (const configName in FILTER_CONFIG_TEST_CASES) {
     await expectRowCount(component, data.length);
 
     // ACT
-    await component.getByRole("columnheader").nth(1).getByLabel("Toggle column actions").click();
-
-    const searchInputB = component.getByLabel("Search column b");
-    await searchInputB.fill("ab");
-    await searchInputB.press("Enter");
+    await fillSearchValue(component, "b", "ab");
 
     // Assert filtered rows
     await expectRowCount(
