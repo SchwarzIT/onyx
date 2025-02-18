@@ -15,10 +15,11 @@ import OnyxImage from "../../OnyxImage/OnyxImage.vue";
 <template>
   <OnyxCard class="card">
     <OnyxImage
+      class="card__image"
       alt="Example image"
-      src="https://picsum.photos/256/128"
+      src="https://picsum.photos/320/128"
       :height="128"
-      :width="256"
+      :width="320"
       shape="rounded"
     />
 
@@ -59,6 +60,10 @@ import OnyxImage from "../../OnyxImage/OnyxImage.vue";
 .card {
   --onyx-card-gap: var(--onyx-density-md);
   width: 20rem;
+
+  &__image {
+    width: 100%;
+  }
 
   &__category {
     color: var(--onyx-color-text-icons-neutral-medium);

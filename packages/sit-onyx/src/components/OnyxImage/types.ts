@@ -10,12 +10,12 @@ export type OnyxImageProps = {
    */
   alt: string;
   /**
-   * Width of the image in pixels.
+   * Width of the image in pixels. Can be customized via CSS to e.g. use 100% of the available width.
    * Will be used by the browser to reserve space while the image is loading and is recommended to prevent a layout shift.
    */
   width: number;
   /**
-   * Height of the image in pixels.
+   * Height of the image in pixels. Can be customized via CSS to e.g. use 100% of the available height.
    * Will be used by the browser to reserve space while the image is loading and is recommended to prevent a layout shift.
    */
   height: number;
