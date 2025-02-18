@@ -60,7 +60,7 @@ const createFeatureBuilderWatcher = ({
   typeof useDataGridFeatures<TEntry, TFeatureName, TTypeRenderer, TColumnGroup, TFeatures>
 >) => {
   return watch(
-    [data, i18n.locale, i18n.t, ...watchSources],
+    [data, columns, columnGroups, i18n.locale, i18n.t, ...watchSources],
     () => {
       renderColumns.value = createRendererColumns();
       renderRows.value = createRendererRows(data.value);
