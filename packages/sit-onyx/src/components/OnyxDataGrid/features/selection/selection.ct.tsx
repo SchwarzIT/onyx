@@ -77,7 +77,7 @@ test("useSelection with hover", async ({ page, mount }) => {
     // ASSERT
     const columns = component.locator("th");
     await expect(columns).toHaveCount(3);
-    await expect(component).toHaveScreenshot("data-grid-selection-initial.png");
+    await expect(component).toHaveScreenshot("data-grid-selection-initial-hover-mode.png");
   });
 
   await test.step("hover an row", async () => {
