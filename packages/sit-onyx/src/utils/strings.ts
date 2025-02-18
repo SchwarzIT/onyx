@@ -6,6 +6,7 @@ export const normalizedIncludes = (
   haystack: string,
   needle: string,
   toLowerCase: boolean = true,
+  searchFromStart: boolean = false,
 ): boolean => {
   let haystackNormalized = removeDiacritics(haystack);
   let needleNormalized = removeDiacritics(needle);
@@ -15,6 +16,9 @@ export const normalizedIncludes = (
     needleNormalized = needleNormalized.toLowerCase();
   }
 
+  if (searchFromStart) {
+    return haystackNormalized.startsWith(needleNormalized);
+  }
   return haystackNormalized.includes(needleNormalized);
 };
 

@@ -107,7 +107,7 @@ const filterConfigs = [
 const assertRowCount = (rows: Locator[], configName: string) => {
   const rowCountByConfig: { [key: string]: number } = {
     caseSensitive: 1,
-    exactMatch: 2,
+    exactMatch: 1,
     searchFromStart: 2,
     trimWhitespace: 3,
   };

@@ -39,13 +39,16 @@ export const useFiltering = createFeature(
             entryValue = entryValue.replace(/\s+/g, "");
           }
 
-          if (filterOptions.exactMatch) {
+          if (filterOptions.exactMatch && searchTerm) {
             return entryValue === searchTerm;
           }
 
-          return filterOptions.searchFromStart
-            ? entryValue.startsWith(searchTerm)
-            : normalizedIncludes(entryValue, searchTerm, !filterOptions.caseSensitive);
+          return normalizedIncludes(
+            entryValue,
+            searchTerm,
+            !filterOptions.caseSensitive,
+            filterOptions.searchFromStart,
+          );
         }),
       );
     };
