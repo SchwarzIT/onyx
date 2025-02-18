@@ -25,6 +25,7 @@ export const Default = {
   args: {
     header: "Title",
     default: "Content",
+    value: "item-1",
   },
 } satisfies Story;
 
@@ -34,6 +35,7 @@ export const Disabled = {
     disabled: true,
   },
 } satisfies Story;
+
 export const Skeleton = {
   args: {
     ...Default.args,
