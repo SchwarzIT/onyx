@@ -5,7 +5,7 @@ export type StickyColumnsOptions = {
   /**
    * The stickyColumn options for each column, including whether stickyColumn is enabled, the custom filter function, and the column-specific filter configuration.
    */
-  columns: [string];
+  columns: string[];
   /**
    * Determs the position the columns are sticked.
    */

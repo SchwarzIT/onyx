@@ -13,8 +13,8 @@ type Story = StoryObj<typeof StickyColumnDataGrid>;
 
 export const StickyColumn = {
   args: {
-    columns: ["name"],
-    direction: "left",
+    columns: ["moreContent9", "moreContent10"],
+    direction: "right",
   },
   parameters: {
     docs: {

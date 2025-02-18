@@ -12,52 +12,61 @@ import {
 import type { StickyColumnsOptions } from "../../OnyxDataGrid/features/stickyColumns/types";
 
 // STORY SETUP START
-// This section will be removed from the Storybook code example, because it's to complex
 import { h } from "vue";
 
 const props = defineProps<StickyColumnsOptions>();
 
 // STORY SETUP END
-// Add your feature configuration here, e.g.:
-// const sortState = ref<SortState<TEntry>>({ column: undefined, direction: "none" });
-// const columns = ref<SortColumnOptions<TEntry> | undefined>({ name: { enabled: true }, birthday: { enabled: true, sortFunc: (a, b) => a.getTime() - b.getTime() } });
+// Dynamically generate the column names, ensuring 'moreContent' is numbered
+const columns = ["name", "rank", ...Array.from({ length: 10 }, (_, i) => `moreContent${i + 1}`)];
 
+// Generate data dynamically for the `moreContent` columns
 const data = [
   {
     id: 1,
     name: "Alice",
     rank: 30,
-    moreContent: "Content",
+    ...Object.fromEntries(
+      Array.from({ length: 10 }, (_, i) => [`moreContent${i + 1}`, `Content ${i + 1}`]),
+    ),
   },
   {
     id: 2,
     name: "Charlie",
     rank: 35,
-    moreContent: "Content",
+    ...Object.fromEntries(
+      Array.from({ length: 10 }, (_, i) => [`moreContent${i + 1}`, `Content ${i + 1}`]),
+    ),
   },
   {
     id: 3,
     name: "Bob",
     rank: 25,
-    moreContent: "Content",
+    ...Object.fromEntries(
+      Array.from({ length: 10 }, (_, i) => [`moreContent${i + 1}`, `Content ${i + 1}`]),
+    ),
   },
   {
     id: 4,
     name: "Robin",
     rank: 28,
-    moreContent: "Content",
+    ...Object.fromEntries(
+      Array.from({ length: 10 }, (_, i) => [`moreContent${i + 1}`, `Content ${i + 1}`]),
+    ),
   },
   {
     id: 5,
     name: "John",
     rank: 42,
-    moreContent: "Content",
+    ...Object.fromEntries(
+      Array.from({ length: 10 }, (_, i) => [`moreContent${i + 1}`, `Content ${i + 1}`]),
+    ),
   },
 ] satisfies DataGridEntry[];
 
 const withStickyColumns = DataGridFeatures.useStickyColumns(props);
 
-// this is just an example feature to demonstrate the menu items of the sorting feature if multiple features with menu items exist
+// Example feature to demonstrate menu items
 const someOtherFeature = createFeature(() => ({
   name: Symbol("Example feature"),
   header: {
@@ -82,24 +91,7 @@ const someOtherFeature = createFeature(() => ({
 
 <template>
   <OnyxDataGrid
-    :columns="[
-      'name',
-      'rank',
-      'moreContent',
-      'moreContent',
-      'moreContent',
-      'moreContent',
-      'moreContent',
-      'moreContent',
-      'moreContent',
-      'moreContent',
-      'moreContent',
-      'moreContent',
-      'moreContent',
-      'moreContent',
-      'moreContent',
-      'moreContent',
-    ]"
+    :columns="columns"
     :data="data"
     :features="[withStickyColumns, someOtherFeature()]"
   />

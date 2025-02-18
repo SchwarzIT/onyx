@@ -1,13 +1,28 @@
 .sticky {
-  z-index: 25;
   position: sticky;
-  left: -1px; // to make it work to observe if the el sticks
 }
-.right {
-  left: 100%;
-  transform: translateX(-100%);
+td.sticky {
+  z-index: 19;
+  left: 0;
+  &.right {
+    right: 0px;
+    left: auto;
+  }
 }
+th.sticky {
+  z-index: 21;
+  left: -0.01px; // to make it work to observe if the el sticks
+  &.right {
+    right: -0.5px;
+    left: auto;
+  }
+}
+
 .is-sticky {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding-left: calc(var(--onyx-density-md) + 1px);
+  .sticky {
+    box-shadow: 4px 0px 4px -1px rgba(0, 0, 0, 0.1);
+    &.right {
+      box-shadow: -4px 0px 4px -1px rgba(0, 0, 0, 0.1);
+    }
+  }
 }
