@@ -10,6 +10,7 @@ import OnyxAccordion from "./OnyxAccordion.vue";
 const meta: Meta<typeof OnyxAccordion> = {
   title: "Basic/Accordion",
   component: OnyxAccordion,
+  tags: ["new:component"],
   argTypes: {
     default: {
       control: { disable: true },

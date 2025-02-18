@@ -73,7 +73,8 @@ export const HeaderInteractions = {
   },
 } satisfies Story;
 
-export const WithDifferentColTypes = {
+export const ColumnTypes = {
+  tags: ["new:feature"],
   args: {
     columns: ["name", { key: "age", type: "number" }, { key: "birthday", type: "string" }],
     data: [
@@ -88,6 +89,6 @@ export const CustomEmptyState = {
   args: {
     ...Default.args,
     data: [],
-    empty: () => h(OnyxEmpty, null, { default: "DataGrid is empty" }),
+    empty: () => h(OnyxEmpty, null, () => "Data grid is empty"),
   },
 } satisfies Story;

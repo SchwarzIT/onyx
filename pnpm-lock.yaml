@@ -4,15 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-catalogs:
-  default:
-    chart.js:
-      specifier: ^4.4.7
-      version: 4.4.7
-    typescript:
-      specifier: 5.6.3
-      version: 5.6.3
-
 overrides:
   '@vue/compiler-core': 3.5.13
   '@vue/compiler-dom': 3.5.13
@@ -437,6 +428,9 @@ importers:
       sass-embedded:
         specifier: 1.85.0
         version: 1.85.0
+      storybook-addon-tag-badges:
+        specifier: ^1.4.0
+        version: 1.4.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(storybook@8.5.6(prettier@3.5.1))
       storybook-dark-mode:
         specifier: ^4.0.2
         version: 4.0.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(storybook@8.5.6(prettier@3.5.1))
@@ -2208,11 +2202,6 @@ packages:
 
   '@storybook/manager-api@8.5.3':
     resolution: {integrity: sha512-JtfuMgQpKIPU0ARn1jNPce8FmknpM0Ap0mppWl+KGAWWGadJPDaX/nrY/19dT1kRgIhyOnbX6tgJxII4E9dE5w==}
-    peerDependencies:
-      storybook: ^8.2.0 || ^8.3.0-0 || ^8.4.0-0 || ^8.5.0-0 || ^8.6.0-0
-
-  '@storybook/manager-api@8.5.4':
-    resolution: {integrity: sha512-kFK5DM+4YPob0qdiXN5DJh33fDyQvNJb7IAobDS/rPo2L+t6M+DAgqEsXLQXT9nUbnUD9IcCjwEnjKa+EHU2RA==}
     peerDependencies:
       storybook: ^8.2.0 || ^8.3.0-0 || ^8.4.0-0 || ^8.5.0-0 || ^8.6.0-0
 
@@ -6009,6 +5998,12 @@ packages:
   std-env@3.8.0:
     resolution: {integrity: sha512-Bc3YwwCB+OzldMxOXJIIvC6cPRWr/LxOp48CdQTOkPyk/t4JWWJbrilwBd7RJzKV8QW7tJkcgAmeuLLJugl5/w==}
 
+  storybook-addon-tag-badges@1.4.0:
+    resolution: {integrity: sha512-ecVwNVT4zIpnB14ltXCTHsWqykW2lgiHrDJW1VeblI3+aU9uMaSZG0zuey+r3vehMeODADnRNrcdk6sN9MAmBA==}
+    engines: {node: '>=20'}
+    peerDependencies:
+      storybook: ^8.4.0
+
   storybook-dark-mode@4.0.2:
     resolution: {integrity: sha512-zjcwwQ01R5t1VsakA6alc2JDIRVtavryW8J3E3eKLDIlAMcvsgtpxlelWkZs2cuNspk6Z10XzhQVrUWtYc3F0w==}
 
@@ -7869,7 +7864,7 @@ snapshots:
   '@eslint/config-array@0.19.2':
     dependencies:
       '@eslint/object-schema': 2.1.6
-      debug: 4.4.0(supports-color@9.4.0)
+      debug: 4.4.0
       minimatch: 3.1.2
     transitivePeerDependencies:
       - supports-color
@@ -7899,7 +7894,7 @@ snapshots:
   '@eslint/eslintrc@3.2.0':
     dependencies:
       ajv: 6.12.6
-      debug: 4.4.0(supports-color@9.4.0)
+      debug: 4.4.0
       espree: 10.3.0
       globals: 14.0.0
       ignore: 5.3.2
@@ -9073,10 +9068,6 @@ snapshots:
       storybook: 8.5.6(prettier@3.5.1)
 
   '@storybook/manager-api@8.5.3(storybook@8.5.6(prettier@3.5.1))':
-    dependencies:
-      storybook: 8.5.6(prettier@3.5.1)
-
-  '@storybook/manager-api@8.5.4(storybook@8.5.6(prettier@3.5.1))':
     dependencies:
       storybook: 8.5.6(prettier@3.5.1)
 
@@ -10417,6 +10408,10 @@ snapshots:
     dependencies:
       ms: 2.0.0
 
+  debug@4.4.0:
+    dependencies:
+      ms: 2.1.3
+
   debug@4.4.0(supports-color@9.4.0):
     dependencies:
       ms: 2.1.3
@@ -10609,7 +10604,7 @@ snapshots:
 
   esbuild-register@3.6.0(esbuild@0.24.2):
     dependencies:
-      debug: 4.4.0(supports-color@9.4.0)
+      debug: 4.4.0
       esbuild: 0.24.2
     transitivePeerDependencies:
       - supports-color
@@ -10900,7 +10895,7 @@ snapshots:
       ajv: 6.12.6
       chalk: 4.1.2
       cross-spawn: 7.0.6
-      debug: 4.4.0(supports-color@9.4.0)
+      debug: 4.4.0
       escape-string-regexp: 4.0.0
       eslint-scope: 8.2.0
       eslint-visitor-keys: 4.2.0
@@ -12765,7 +12760,7 @@ snapshots:
 
   postcss-styl@0.12.3:
     dependencies:
-      debug: 4.4.0(supports-color@9.4.0)
+      debug: 4.4.0
       fast-diff: 1.3.0
       lodash.sortedlastindex: 4.1.0
       postcss: 8.5.2
@@ -13414,13 +13409,21 @@ snapshots:
 
   std-env@3.8.0: {}
 
+  storybook-addon-tag-badges@1.4.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(storybook@8.5.6(prettier@3.5.1)):
+    dependencies:
+      '@storybook/icons': 1.3.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      storybook: 8.5.6(prettier@3.5.1)
+    transitivePeerDependencies:
+      - react
+      - react-dom
+
   storybook-dark-mode@4.0.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(storybook@8.5.6(prettier@3.5.1)):
     dependencies:
       '@storybook/components': 8.5.4(storybook@8.5.6(prettier@3.5.1))
       '@storybook/core-events': 8.5.4(storybook@8.5.6(prettier@3.5.1))
       '@storybook/global': 5.0.0
       '@storybook/icons': 1.3.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@storybook/manager-api': 8.5.4(storybook@8.5.6(prettier@3.5.1))
+      '@storybook/manager-api': 8.5.6(storybook@8.5.6(prettier@3.5.1))
       '@storybook/theming': 8.5.4(storybook@8.5.6(prettier@3.5.1))
       fast-deep-equal: 3.1.3
       memoizerific: 1.11.3
@@ -13572,7 +13575,7 @@ snapshots:
   stylus@0.57.0:
     dependencies:
       css: 3.0.0
-      debug: 4.4.0(supports-color@9.4.0)
+      debug: 4.4.0
       glob: 7.2.3
       safer-buffer: 2.1.2
       sax: 1.2.4
@@ -14411,7 +14414,7 @@ snapshots:
 
   vue-eslint-parser@9.4.3(eslint@9.20.1(jiti@2.4.2)):
     dependencies:
-      debug: 4.4.0(supports-color@9.4.0)
+      debug: 4.4.0
       eslint: 9.20.1(jiti@2.4.2)
       eslint-scope: 7.2.2
       eslint-visitor-keys: 3.4.3

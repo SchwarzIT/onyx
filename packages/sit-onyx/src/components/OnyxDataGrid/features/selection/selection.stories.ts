@@ -6,7 +6,7 @@ import SelectionDataGridExampleCode from "../../../examples/DataGrid/SelectionDa
 const meta: Meta<typeof SelectionDataGrid> = {
   title: "Data/DataGrid/Features", // new features can add their story under the same title
   component: SelectionDataGrid,
-  tags: ["!autodocs"],
+  tags: ["!autodocs", "new:feature"],
   argTypes: {
     selectionState: {
       table: {
