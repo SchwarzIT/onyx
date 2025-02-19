@@ -27,7 +27,7 @@ test("set a filter", async ({ mount, page }) => {
     .getByRole("columnheader", { name: "a Toggle column actions" })
     .getByLabel("Toggle column actions")
     .click();
-  await component.getByLabel("a", { exact: true }).fill("3");
+  await component.getByRole("textbox", { name: "filter-input-a" }).fill("3");
   await page.keyboard.press("Enter");
 
   // ASSERT
@@ -51,7 +51,7 @@ test("combine two filter", async ({ mount, page }) => {
     .getByRole("columnheader", { name: "a Toggle column actions" })
     .getByLabel("Toggle column actions")
     .click();
-  await component.getByLabel("a", { exact: true }).fill("1");
+  await component.getByRole("textbox", { name: "filter-input-a" }).fill("1");
   await page.keyboard.press("Enter");
 
   // ASSERT
@@ -62,7 +62,7 @@ test("combine two filter", async ({ mount, page }) => {
     .getByRole("columnheader", { name: "b Toggle column actions" })
     .getByLabel("Toggle column actions")
     .click();
-  await component.getByLabel("b", { exact: true }).fill("A");
+  await component.getByRole("textbox", { name: "filter-input-b" }).fill("A");
   await page.keyboard.press("Enter");
 
   rows = await getFirstColumn().all();
@@ -85,7 +85,7 @@ test("remove filter", async ({ mount, page }) => {
     .getByRole("columnheader", { name: "a Toggle column actions" })
     .getByLabel("Toggle column actions")
     .click();
-  await component.getByLabel("a", { exact: true }).fill("3");
+  await component.getByRole("textbox", { name: "filter-input-a" }).fill("3");
   await page.keyboard.press("Enter");
 
   // ASSERT
@@ -107,7 +107,7 @@ const filterConfigs = [
 const assertRowCount = (rows: Locator[], configName: string) => {
   const rowCountByConfig: { [key: string]: number } = {
     caseSensitive: 1,
-    exactMatch: 1,
+    exactMatch: 2,
     searchFromStart: 2,
     trimWhitespace: 3,
   };
@@ -134,7 +134,7 @@ for (const filterConfig of filterConfigs) {
       .getByRole("columnheader", { name: "b Toggle column actions" })
       .getByLabel("Toggle column actions")
       .click();
-    await component.getByLabel("b", { exact: true }).fill("ab");
+    await component.getByRole("textbox", { name: "filter-input-b" }).fill("ab");
     await page.keyboard.press("Enter");
 
     // Assert filtered rows

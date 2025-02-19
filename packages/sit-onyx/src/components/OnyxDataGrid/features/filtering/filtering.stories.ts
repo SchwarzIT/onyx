@@ -22,15 +22,8 @@ export const Filtering = {
         },
       },
       rank: { enabled: false },
-      birthday: {
-        enabled: true,
-        config: {},
-      },
     },
     filterConfig: {
-      caseSensitive: false,
-      exactMatch: false,
-      searchFromStart: false,
       trimWhitespace: true,
     },
   },

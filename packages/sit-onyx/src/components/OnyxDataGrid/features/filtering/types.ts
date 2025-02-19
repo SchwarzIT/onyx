@@ -20,18 +20,36 @@ export type FilterColumnOptions<TEntry extends DataGridEntry> = {
     /**
      * Configuration for how filtering should behave for this column.
      */
-    config?: FilterConfig;
+    config?: FilterConfig<TEntry>;
   };
 };
+
 /**
  * Configuration for how filtering should behave.
  */
-export type FilterConfig = {
+export type FilterConfig<TEntry extends DataGridEntry> = {
   /**
    * A custom filtering function for this column.
    * This function is used to filter the column data, instead of using the default filtering behavior.
    */
-  filterFunc?: (entryValue: string, searchTerm: string) => boolean;
+  filterFunc?: (
+    /**
+     * The searchTerm as entered by the user.
+     */
+    searchTerm: string,
+    /**
+     * The current row value to be checked.
+     */
+    value: TEntry[keyof TEntry],
+    /**
+     * The column that is filtered by.
+     */
+    column: keyof TEntry,
+    /**
+     * The complete row data.
+     */
+    entry: TEntry,
+  ) => boolean;
   /**
    * If true, filtering will be case-sensitive.
    * If false, filtering will be case-insensitive.
@@ -66,5 +84,5 @@ export type FilterOptions<TEntry extends DataGridEntry> = {
   /**
    * Configuration for how the filtering should behave across all columns.
    */
-  filterConfig?: FilterConfig;
+  filterConfig?: FilterConfig<TEntry>;
 };

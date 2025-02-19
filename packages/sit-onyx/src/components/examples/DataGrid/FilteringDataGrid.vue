@@ -9,6 +9,8 @@ type TEntry = (typeof data)[number];
 
 const props = defineProps<FilterOptions<TEntry>>();
 
+// STORY SETUP END
+
 const data = [
   { id: 1, name: "Alice", rank: 30, birthday: new Date("1990-01-01") },
   { id: 2, name: "Charlie", rank: 35, birthday: new Date("1998-02-11") },

@@ -26,8 +26,7 @@ const slots = defineSlots<{
   align-items: center;
   gap: var(--onyx-spacing-2xs);
 
-  &__actions,
-  &__remove-actions {
+  &__actions {
     display: inline-flex;
   }
 }

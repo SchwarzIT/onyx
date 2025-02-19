@@ -2,27 +2,18 @@
  * Returns true if searchString appears as a substring without considering capitalization or diacritics.
  * E.g. `ñ` and `n` are considered to be the same glyph.
  */
-export const normalizedIncludes = (
-  haystack: string,
-  needle: string,
-  toLowerCase: boolean = true,
-  searchFromStart: boolean = false,
-): boolean => {
+export const normalizedIncludes = (haystack: string, needle: string): boolean => {
   let haystackNormalized = removeDiacritics(haystack);
   let needleNormalized = removeDiacritics(needle);
 
-  if (toLowerCase) {
-    haystackNormalized = haystackNormalized.toLowerCase();
-    needleNormalized = needleNormalized.toLowerCase();
-  }
+  haystackNormalized = haystackNormalized.toLowerCase();
+  needleNormalized = needleNormalized.toLowerCase();
 
-  if (searchFromStart) {
-    return haystackNormalized.startsWith(needleNormalized);
-  }
   return haystackNormalized.includes(needleNormalized);
 };
 
-const removeDiacritics = (str: string) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+export const removeDiacritics = (str: string) =>
+  str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
 /**
  * Normalizes the given text (e.g. from a headline) to a URL-safe string that can be used as URL hash.
