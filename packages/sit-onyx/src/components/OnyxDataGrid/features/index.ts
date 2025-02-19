@@ -5,6 +5,7 @@ import { type OnyxI18n } from "../../../i18n";
 import type { OnyxMenuItem } from "../../OnyxNavBar/modules";
 import OnyxFlyoutMenu from "../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxSystemButton from "../../OnyxSystemButton/OnyxSystemButton.vue";
+import type { TableColumnGroup } from "../../OnyxTable/types";
 import type {
   DataGridRendererCell,
   DataGridRendererColumn,
@@ -17,9 +18,7 @@ import { createRenderer } from "./renderer";
  * Function type for modifying the normalized column configuration.
  */
 export type ModifyColumns<TEntry extends DataGridEntry> = {
-  func: (
-    columns: Readonly<NormalizedColumnConfig<TEntry, PropertyKey>[]>,
-  ) => NormalizedColumnConfig<TEntry, PropertyKey>[];
+  func: (columns: Readonly<NormalizedColumnConfig<TEntry>[]>) => NormalizedColumnConfig<TEntry>[];
 };
 
 /**
@@ -39,18 +38,35 @@ export type TypeRenderMap<TEntry extends DataGridEntry> = Record<PropertyKey, Ty
 /**
  * ColumnConfig as it can be defined by the user.
  */
-export type ColumnConfig<TEntry extends DataGridEntry, TTypes> =
-  | keyof TEntry
-  | NormalizedColumnConfig<TEntry, TTypes>;
+export type ColumnConfig<
+  TEntry extends DataGridEntry,
+  TColumnGroup extends ColumnGroupConfig,
+  TTypes,
+> = keyof TEntry | NormalizedColumnConfig<TEntry, TColumnGroup, TTypes>;
 
 export type DefaultSupportedTypes = "string" | "number";
 
 /**
+ * Configuration for the column groupings.
+ */
+export type ColumnGroupConfig = Record<
+  string,
+  {
+    label: string;
+  }
+>;
+
+/**
  * Normalized column config for internal usage.
  */
-export type NormalizedColumnConfig<TEntry extends DataGridEntry, TTypes = PropertyKey> = {
+export type NormalizedColumnConfig<
+  TEntry extends DataGridEntry,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  TColumnGroup extends ColumnGroupConfig = any,
+  TTypes = PropertyKey,
+> = {
   /**
-   * The `key` identifies which property of an `data` entry is used as a value.
+   * The `key` identifies which property of an `data` entry is used as `modelValue` for a cell.
    */
   key: keyof TEntry;
   /**
@@ -63,6 +79,14 @@ export type NormalizedColumnConfig<TEntry extends DataGridEntry, TTypes = Proper
    * If not defined the values are displayed as plain strings.
    */
   type?: TTypes | DefaultSupportedTypes;
+  /**
+   * Key of the ColumnGroup that this column should be visually grouped in.
+   * The columns have to be defined in the correct order.
+   * So columns that should be grouped together have to actually be defined after eachother.
+   *
+   * The label for the column group can be configured via the `columnGroups` prop.
+   */
+  columnGroupKey?: keyof TColumnGroup;
 };
 
 /**
@@ -162,9 +186,43 @@ type CheckDataGridFeature<T> =
     ? DataGridFeature<A, TypeRenderMap<A>, C>
     : never;
 
-export type UseDataGridFeaturesOptions<TEntry extends DataGridEntry> = {
-  columnConfig: MaybeRefOrGetter<ColumnConfig<TEntry, PropertyKey>[]>;
+export type UseDataGridFeaturesOptions<
+  TEntry extends DataGridEntry,
+  TColumnGroup extends ColumnGroupConfig,
+> = {
+  columnConfig: MaybeRefOrGetter<ColumnConfig<TEntry, TColumnGroup, PropertyKey>[]>;
   i18n: OnyxI18n;
+  columnGroups: MaybeRefOrGetter<TColumnGroup>;
+};
+
+export const createTableColumnGroups = <TEntry extends DataGridEntry>(
+  columns?: NormalizedColumnConfig<TEntry>[],
+  columnGroups?: ColumnGroupConfig,
+) => {
+  // Only if there is at least a single column group defined.
+  if (!columns?.some((c) => c.columnGroupKey)) {
+    return undefined;
+  }
+
+  /** Remember start of the current group */
+  let currentStart = 0;
+  const result: TableColumnGroup[] = [];
+
+  for (let i = 1; i <= columns.length; i++) {
+    const element = columns[i];
+    const currentKey = columns[currentStart].columnGroupKey ?? "";
+    // When it's the last iteration or the current group key changed:
+    if (i === columns.length || element?.columnGroupKey !== currentKey) {
+      // add a new TableColumnGroup
+      result.push({
+        key: currentKey,
+        span: i - currentStart,
+        header: columnGroups?.[currentKey as string]?.label ?? String(currentKey),
+      });
+      currentStart = i;
+    }
+  }
+  return result;
 };
 
 /**
@@ -205,13 +263,14 @@ export const useDataGridFeatures = <
   TEntry extends DataGridEntry,
   TFeatureName extends symbol,
   TTypeRenderer extends TypeRenderMap<TEntry>,
+  TColumnGroup extends ColumnGroupConfig,
   // Intersection with the empty array is necessary for TypeScript to infer the array entries as tuple values instead of an array
   // e.g. (Feature1 | Feature2)[] vs. [Feature1, Feature2]
   // The inference of tuple values allows us to create types that are more precise
   T extends DataGridFeature<TEntry, TTypeRenderer, TFeatureName>[] | [],
 >(
   features: T,
-  { i18n, columnConfig }: UseDataGridFeaturesOptions<TEntry>,
+  { i18n, columnConfig, columnGroups }: UseDataGridFeaturesOptions<TEntry, TColumnGroup>,
 ) => {
   const columns = computed(() => {
     const normalized = toValue(columnConfig).map((c) => (typeof c !== "object" ? { key: c } : c));
@@ -221,6 +280,9 @@ export const useDataGridFeatures = <
   });
 
   const renderer = computed(() => createRenderer(features));
+
+  const createRendererColumnGroups = () =>
+    createTableColumnGroups(columns.value, toValue(columnGroups));
 
   const createRendererColumns = (): DataGridRendererColumn<TEntry>[] => {
     const headerFeatures = features.map((feature) => feature.header).filter((header) => !!header);
@@ -329,6 +391,8 @@ export const useDataGridFeatures = <
   const watchSources: WatchSource[] = features.flatMap((f) => f.watch ?? []);
 
   return {
+    /** Uses the column definition and available column group config to generate the column groups for the underlying OnyxTable */
+    createRendererColumnGroups,
     /** Takes the column definition and maps all, calls mutation func and maps at the end to RendererCell */
     createRendererRows,
     /** Takes the column definition and creates a RenderHeader for each, adds actions from features */
