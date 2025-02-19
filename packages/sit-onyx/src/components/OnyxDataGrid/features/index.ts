@@ -142,7 +142,7 @@ export type DataGridFeature<
      * `iconComponent` of an action is shown after the header label.
      * The components must be ARIA-conform buttons.
      */
-    actions?: (column: NormalizedColumnConfig<TEntry, keyof TTypeRenderer>) => {
+    actions?: (column: NormalizedColumnConfig<TEntry>) => {
       iconComponent?: Component | { iconComponent: Component; position?: string };
       menuItems: Component<typeof OnyxMenuItem>[];
       showFlyoutMenu?: boolean;
