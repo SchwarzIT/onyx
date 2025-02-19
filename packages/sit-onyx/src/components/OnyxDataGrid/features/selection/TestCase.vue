@@ -14,7 +14,7 @@ const { dataGrid, selectionOption } = defineProps<{
   /**
    * props passed through to DataGrid
    */
-  dataGrid: Pick<OnyxDataGridProps<any, any, any, any>, "columns" | "data">;
+  dataGrid: Pick<OnyxDataGridProps<any, any, any, any, any>, "columns" | "data">;
   /**
    * props passed through to the feature
    */

@@ -1,5 +1,5 @@
 import type { KeysOfUnion, MaybePick, UnionByKey } from "../../types";
-import type { ColumnConfig, DataGridFeature, TypeRenderMap } from "./features";
+import type { ColumnConfig, ColumnGroupConfig, DataGridFeature, TypeRenderMap } from "./features";
 
 export type DataGridMetadata = Record<string, unknown>;
 
@@ -30,6 +30,7 @@ export type RenderTypesFromFeature<TFeatures extends DataGridFeature<any, any, a
  */
 export type OnyxDataGridProps<
   TEntry extends DataGridEntry,
+  TColumnGroup extends ColumnGroupConfig,
   TTypeRenderer extends TypeRenderMap<TEntry>,
   TFeatureName extends symbol,
   TFeatures extends DataGridFeature<TEntry, TTypeRenderer, TFeatureName>[] = DataGridFeature<
@@ -49,7 +50,11 @@ export type OnyxDataGridProps<
   /**
    * The order of and which columns should be rendered.
    */
-  columns: ColumnConfig<TEntry, TTypes>[];
+  columns: ColumnConfig<TEntry, TColumnGroup, TTypes>[];
+  /**
+   * Configuration for the column groups defined via the `columns` configuration.
+   */
+  columnGroups?: TColumnGroup;
   /**
    * The data that should be used to fill the datagrid.
    */
