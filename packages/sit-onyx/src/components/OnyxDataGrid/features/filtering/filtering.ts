@@ -2,7 +2,7 @@ import searchX from "@sit-onyx/icons/search-x.svg?raw";
 import { computed, h, ref, toValue, watchEffect, type Ref } from "vue";
 import { createFeature } from "..";
 import { injectI18n } from "../../../../i18n";
-import { normalizedIncludes } from "../../../../utils/strings";
+import { removeDiacritics } from "../../../../utils/strings";
 import OnyxMiniSearch from "../../../OnyxMiniSearch/OnyxMiniSearch.vue";
 import type { OnyxMiniSearchProps } from "../../../OnyxMiniSearch/types";
 import OnyxSystemButton from "../../../OnyxSystemButton/OnyxSystemButton.vue";
@@ -30,26 +30,33 @@ export const useFiltering = createFeature(
             const filterOptions = { ...options?.filterConfig, ...columnOptions?.config };
 
             if (value == null || value === "") return true;
-            const searchTerm = value.toString();
+            let searchTerm = value.toString();
             let entryValue = entry[column]?.toString() ?? "";
-
+            if (filterOptions?.filterFunc) {
+              return filterOptions.filterFunc(
+                searchTerm,
+                entryValue as TEntry[keyof TEntry],
+                column,
+                entry,
+              );
+            }
+            entryValue = removeDiacritics(entryValue);
+            searchTerm = removeDiacritics(searchTerm);
+            if (!filterOptions.caseSensitive) {
+              entryValue = entryValue.toLowerCase();
+              searchTerm = searchTerm.toLowerCase();
+            }
             if (filterOptions.trimWhitespace) {
               entryValue = entryValue.replace(/\s+/g, "");
             }
-            if (filterOptions?.filterFunc) {
-              return filterOptions.filterFunc(entryValue, searchTerm);
+            if (filterOptions.searchFromStart) {
+              return entryValue.startsWith(searchTerm);
             }
-
             if (filterOptions.exactMatch) {
               return entryValue === searchTerm;
             }
 
-            return normalizedIncludes(
-              entryValue,
-              searchTerm,
-              !filterOptions.caseSensitive,
-              filterOptions.searchFromStart,
-            );
+            return entryValue.includes(searchTerm);
           },
         ),
       );
@@ -79,7 +86,7 @@ export const useFiltering = createFeature(
       };
 
       return h(OnyxMiniSearch, {
-        label: column.toString(),
+        label: `filter-input-${String(column)}`,
         class: "onyx-filter-search",
         placeholder: t.value(`dataGrid.head.filtering.menu.placeholder`),
         modelValue: inputValue,
