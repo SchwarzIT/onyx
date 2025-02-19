@@ -86,7 +86,7 @@ export const useFiltering = createFeature(
       };
 
       return h(OnyxMiniSearch, {
-        label: `filter-input-${String(column)}`,
+        label: t.value("dataGrid.head.filtering.menu.label", { column: column.toString() }),
         class: "onyx-filter-search",
         placeholder: t.value(`dataGrid.head.filtering.menu.placeholder`),
         modelValue: inputValue,
@@ -120,7 +120,9 @@ export const useFiltering = createFeature(
               iconComponent: filters.value[column]
                 ? {
                     iconComponent: h(OnyxSystemButton, {
-                      label: String(column),
+                      label: t.value("dataGrid.head.filtering.removeLabel", {
+                        column: column.toString(),
+                      }),
                       icon: searchX,
                       color: "medium",
                       onClick: () => clearFilter(column),

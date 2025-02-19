@@ -1,144 +1,113 @@
+/* eslint-disable playwright/expect-expect -- expect is done by "expectRowCount" utility */
 import type { Locator } from "@playwright/test";
 import { expect, test } from "../../../../playwright/a11y";
+import type { DataGridEntry } from "../../types";
 import TestCase from "./TestCase.vue";
-
+import type { FilterConfig } from "./types";
 const getTestData = () => [
   { id: 1, a: "1", b: "a" },
   { id: 2, a: "1", b: "A" },
-  { id: 3, a: "2", b: "A" },
-  { id: 4, a: "2", b: "ab" },
-  { id: 5, a: "3", b: "ca B" },
-  { id: 6, a: "4", b: "Ab" },
+  { id: 3, a: "1", b: "B" },
+  { id: 4, a: "2", b: "A" },
+  { id: 5, a: "2", b: "ab" },
+  { id: 6, a: "3", b: "ca B" },
+  { id: 7, a: "4", b: "Ab" },
 ];
 
-test("set a filter", async ({ mount, page }) => {
-  // ARRANGE
-  const data = getTestData();
-  const component = await mount(<TestCase data={data} columns={["a", "b"]} />);
-
-  const getFirstColumn = () => component.locator("tbody tr td:first-of-type");
-
-  // ASSERT
-  let rows = await getFirstColumn().all();
-  expect(rows).toHaveLength(data.length);
-
-  // ACT
-  await component
-    .getByRole("columnheader", { name: "a Toggle column actions" })
-    .getByLabel("Toggle column actions")
-    .click();
-  await component.getByRole("textbox", { name: "filter-input-a" }).fill("3");
-  await page.keyboard.press("Enter");
-
-  // ASSERT
-  rows = await getFirstColumn().all();
-  expect(rows).toHaveLength(1);
-});
-
-test("combine two filter", async ({ mount, page }) => {
-  // ARRANGE
-  const data = getTestData();
-  const component = await mount(<TestCase data={data} columns={["a", "b"]} />);
-
-  const getFirstColumn = () => component.locator("tbody tr td:first-of-type");
-
-  // ASSERT
-  let rows = await getFirstColumn().all();
-  expect(rows).toHaveLength(data.length);
-
-  // ACT
-  await component
-    .getByRole("columnheader", { name: "a Toggle column actions" })
-    .getByLabel("Toggle column actions")
-    .click();
-  await component.getByRole("textbox", { name: "filter-input-a" }).fill("1");
-  await page.keyboard.press("Enter");
-
-  // ASSERT
-  rows = await getFirstColumn().all();
-  expect(rows).toHaveLength(2);
-
-  await component
-    .getByRole("columnheader", { name: "b Toggle column actions" })
-    .getByLabel("Toggle column actions")
-    .click();
-  await component.getByRole("textbox", { name: "filter-input-b" }).fill("A");
-  await page.keyboard.press("Enter");
-
-  rows = await getFirstColumn().all();
-  expect(rows).toHaveLength(2);
-});
-
-test("remove filter", async ({ mount, page }) => {
-  // ARRANGE
-  const data = getTestData();
-  const component = await mount(<TestCase data={data} columns={["a", "b"]} />);
-
-  const getFirstColumn = () => component.locator("tbody tr td:first-of-type");
-
-  // ASSERT
-  let rows = await getFirstColumn().all();
-  expect(rows).toHaveLength(data.length);
-
-  // ACT
-  await component
-    .getByRole("columnheader", { name: "a Toggle column actions" })
-    .getByLabel("Toggle column actions")
-    .click();
-  await component.getByRole("textbox", { name: "filter-input-a" }).fill("3");
-  await page.keyboard.press("Enter");
-
-  // ASSERT
-  rows = await getFirstColumn().all();
-  expect(rows).toHaveLength(1);
-
-  await component.getByRole("button", { name: "a", exact: true }).click();
-
-  rows = await getFirstColumn().all();
-  expect(rows).toHaveLength(6);
-});
-
-const filterConfigs = [
-  { caseSensitive: true },
-  { exactMatch: true },
-  { searchFromStart: true },
-  { trimWhitespace: true },
-];
-const assertRowCount = (rows: Locator[], configName: string) => {
-  const rowCountByConfig: { [key: string]: number } = {
-    caseSensitive: 1,
-    exactMatch: 2,
-    searchFromStart: 2,
-    trimWhitespace: 3,
-  };
-  const expectedCount = rowCountByConfig[configName];
-  expect(rows).toHaveLength(expectedCount);
+const expectRowCount = (dataGrid: Locator, count: number) => {
+  // +1 = header row
+  return expect(dataGrid.getByRole("row")).toHaveCount(count + 1);
 };
+test("should filter by single column", async ({ mount }) => {
+  // ARRANGE
+  const data = getTestData();
+  const component = await mount(<TestCase data={data} columns={["a", "b"]} />);
 
-for (const filterConfig of filterConfigs) {
-  const configName = Object.keys(filterConfig)[0];
+  // ASSERT
+  await expectRowCount(component, data.length);
+  // ACT
+  await component.getByRole("columnheader").first().getByLabel("Toggle column actions").click();
+  const searchInput = component.getByLabel("Search column a");
+  await searchInput.fill("3");
+  await searchInput.press("Enter");
 
-  test(`should apply filterConfig: ${configName}`, async ({ mount, page }) => {
+  // ASSERT
+  await expectRowCount(component, 1);
+
+  // ACT
+
+  await component.getByLabel("Remove search term for column a").click();
+
+  // ASSERT
+  await expectRowCount(component, data.length);
+});
+
+test("should filter by two columns", async ({ mount }) => {
+  // ARRANGE
+  const data = getTestData();
+  const component = await mount(<TestCase data={data} columns={["a", "b"]} />);
+
+  // ASSERT
+  await expectRowCount(component, data.length);
+
+  // ACT
+  await component.getByRole("columnheader").first().getByLabel("Toggle column actions").click();
+  const searchInputA = component.getByLabel("Search column a");
+  await searchInputA.fill("1");
+  await searchInputA.press("Enter");
+
+  // ASSERT
+  await expectRowCount(component, 3);
+
+  // ACT
+  await component.getByRole("columnheader").nth(1).getByLabel("Toggle column actions").click();
+  const searchInputB = component.getByLabel("Search column b");
+  await searchInputB.fill("A");
+  await searchInputB.press("Enter");
+  await expectRowCount(component, 2);
+
+  // ACT
+  await component.getByLabel("Remove search term for column a").click();
+
+  // ASSERT
+  await expectRowCount(component, 6);
+
+  // ACT
+  await component.getByLabel("Remove search term for column b").click();
+
+  // ASSERT
+  await expectRowCount(component, data.length);
+});
+
+const FILTER_CONFIG_TEST_CASES = {
+  caseSensitive: 1,
+  exactMatch: 2,
+  searchFromStart: 2,
+  trimWhitespace: 3,
+} satisfies Partial<Record<keyof FilterConfig<DataGridEntry>, number>>;
+for (const configName in FILTER_CONFIG_TEST_CASES) {
+  test(`should apply filterConfig: ${configName}`, async ({ mount }) => {
+    // ARRANGE
     const data = getTestData();
     const component = await mount(
-      <TestCase data={data} columns={["a", "b"]} filterOptions={{ filterConfig }} />,
+      <TestCase
+        data={data}
+        columns={["a", "b"]}
+        filterOptions={{ filterConfig: { [configName]: true } }}
+      />,
     );
-    const getFirstColumn = () => component.locator("tbody tr td:first-of-type");
 
-    // Initial assertion
-    let rows = await getFirstColumn().all();
-    expect(rows).toHaveLength(data.length);
+    // ASSERT
+    await expectRowCount(component, data.length);
 
-    // Apply filter
-    await component
-      .getByRole("columnheader", { name: "b Toggle column actions" })
-      .getByLabel("Toggle column actions")
-      .click();
-    await component.getByRole("textbox", { name: "filter-input-b" }).fill("ab");
-    await page.keyboard.press("Enter");
-
-    // Assert filtered rows
-    rows = await getFirstColumn().all();
-    assertRowCount(rows, configName);
+    // ACT
+    await component.getByRole("columnheader").nth(1).getByLabel("Toggle column actions").click();
+    const searchInputB = component.getByLabel("Search column b");
+    await searchInputB.fill("ab");
+    await searchInputB.press("Enter");
+    await expectRowCount(
+      component,
+      FILTER_CONFIG_TEST_CASES[configName as keyof typeof FILTER_CONFIG_TEST_CASES],
+    );
   });
 }
