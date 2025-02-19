@@ -149,17 +149,10 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
   th,
   td {
     border-bottom: $border;
-
-    &:first-child {
-      border-left: $border;
-    }
-    &:last-child {
-      border-right: $border;
-    }
   }
 
-  tr:first-of-type th {
-    border-top: $border;
+  tr:last-of-type td {
+    border-bottom: none;
   }
 
   // border radius
@@ -181,10 +174,6 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
 
   // special styles if no header exists
   &:not(:has(thead)) {
-    tr:first-child td {
-      border-top: $border;
-    }
-
     tr:first-child td:first-child {
       border-top-left-radius: $border-radius;
     }
@@ -219,24 +208,10 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
       max-height: inherit;
       max-width: inherit;
       overscroll-behavior: none; // fix bouncy scroll behavior in safari
-      position: relative;
+      border: $border;
 
       &:focus-visible {
         outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
-      }
-
-      // we place a frame on top so the table has visible boundaries
-      // when it is overflowing in the scroll container
-      &::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        border: $border;
-        border-radius: $border-radius;
-        pointer-events: none;
       }
     }
 
@@ -246,7 +221,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: var(--onyx-density-xl);
+      gap: var(--onyx-density-xs) var(--onyx-density-xl);
     }
 
     &__actions {
