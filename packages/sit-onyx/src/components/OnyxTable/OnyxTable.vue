@@ -132,7 +132,6 @@ const isEmptyMessage = computed(() => t.value("table.empty"));
 <style lang="scss">
 @use "../../styles/mixins/layers";
 
-$border-radius: var(--onyx-radius-sm);
 $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
 
 /**
@@ -143,7 +142,6 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
 @mixin define-borders() {
   border-spacing: 0;
   border-collapse: separate;
-  border-radius: $border-radius;
 
   // border styles
   th,
@@ -153,34 +151,6 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
 
   tr:last-of-type td {
     border-bottom: none;
-  }
-
-  // border radius
-  tr:first-child th:first-child {
-    border-top-left-radius: $border-radius;
-  }
-
-  tr:first-child th:last-child {
-    border-top-right-radius: $border-radius;
-  }
-
-  tr:last-child td:first-child {
-    border-bottom-left-radius: $border-radius;
-  }
-
-  tr:last-child td:last-child {
-    border-bottom-right-radius: $border-radius;
-  }
-
-  // special styles if no header exists
-  &:not(:has(thead)) {
-    tr:first-child td:first-child {
-      border-top-left-radius: $border-radius;
-    }
-
-    tr:first-child td:last-child {
-      border-top-right-radius: $border-radius;
-    }
   }
 
   &--vertical-borders {
@@ -202,7 +172,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
     color: var(--onyx-color-text-icons-neutral-intense);
 
     &__scroll-container {
-      border-radius: $border-radius;
+      border-radius: var(--onyx-radius-sm);
       overflow: auto;
       box-sizing: border-box;
       max-height: inherit;
