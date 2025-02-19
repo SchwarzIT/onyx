@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.155
+
+### Minor Changes
+
+- c335df7: feat(OnyxDataGrid): Implement column categorization
+
 ## 1.0.0-beta.154
 
 ### Major Changes
