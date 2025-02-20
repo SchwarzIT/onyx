@@ -88,11 +88,7 @@ export const WithSlots = {
       h(OnyxIconButton, { icon: placeholder, label: "Example action" }),
     ],
     pagination: h(OnyxPagination, { modelValue: 1, pages: 42 }),
-    bottomLeft: h(
-      "span",
-      { style: "color: var(--onyx-color-text-icons-neutral-soft)" },
-      "Custom content...",
-    ),
+    bottomLeft: "Custom content...",
   },
 } satisfies Story;
 
