@@ -90,7 +90,6 @@ export const useFiltering = createFeature(
         class: "onyx-filter-search",
         placeholder: t.value(`dataGrid.head.filtering.menu.placeholder`),
         modelValue: inputValue,
-        autofocus: true,
         "onUpdate:modelValue": (value?: string) => {
           inputValue = value || "";
         },
