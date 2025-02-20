@@ -15,6 +15,7 @@ const isError = ref(false);
 watch(
   () => props.src,
   () => (isError.value = false),
+  { deep: true },
 );
 
 const imageSrc = computed(() => {
@@ -22,10 +23,11 @@ const imageSrc = computed(() => {
   return props.src;
 });
 
-const emptySize = computed(() => ({
-  width: typeof props.width === "number" ? `${props.width}px` : props.width,
-  height: typeof props.height === "number" ? `${props.height}px` : props.height,
-}));
+const emptySize = computed(() => {
+  const width = props.shape === "circle" ? Math.min(props.width, props.height) : props.width;
+  const height = props.shape === "circle" ? Math.min(props.width, props.height) : props.height;
+  return { width: `${width}px`, height: `${height}px` };
+});
 
 const { restAttrs, rootAttrs } = useRootAttrs();
 </script>
@@ -42,8 +44,8 @@ const { restAttrs, rootAttrs } = useRootAttrs();
     :title="isError ? props.alt : undefined"
   >
     <img
-      class="onyx-image__content"
-      :class="{ 'onyx-image__content--light': imageSrc.dark }"
+      class="onyx-image__source"
+      :class="{ 'onyx-image__source--light': imageSrc.dark }"
       v-bind="{ ...restAttrs, ...props }"
       :src="imageSrc.light"
       :alt="props.alt"
@@ -51,7 +53,7 @@ const { restAttrs, rootAttrs } = useRootAttrs();
     />
     <img
       v-if="imageSrc.dark"
-      class="onyx-image__content onyx-image__content--dark"
+      class="onyx-image__source onyx-image__source--dark"
       v-bind="{ ...restAttrs, ...props }"
       :src="imageSrc.dark"
       :alt="props.alt"
@@ -70,7 +72,7 @@ const { restAttrs, rootAttrs } = useRootAttrs();
 
 .onyx-image {
   @include layers.component() {
-    --onyx-image-clip-size: min(var(--onyx-spacing-3xl), 25%);
+    --onyx-image-clip-size: var(--onyx-density-2xl);
     display: contents;
     background-color: var(--onyx-color-base-neutral-300);
 
@@ -80,6 +82,7 @@ const { restAttrs, rootAttrs } = useRootAttrs();
 
     &--circle {
       border-radius: var(--onyx-radius-full);
+      aspect-ratio: 1;
     }
 
     &--clip {
@@ -107,12 +110,12 @@ const { restAttrs, rootAttrs } = useRootAttrs();
     }
 
     &--error {
-      .onyx-image__content {
+      .onyx-image__source {
         display: none;
       }
     }
 
-    &__content {
+    &__source {
       display: inline-block;
       object-fit: cover;
       border-radius: inherit;
@@ -121,6 +124,7 @@ const { restAttrs, rootAttrs } = useRootAttrs();
       max-width: 100%;
       max-height: 100%;
       width: inherit;
+      aspect-ratio: inherit;
 
       &--dark {
         display: none;
@@ -150,8 +154,9 @@ const { restAttrs, rootAttrs } = useRootAttrs();
       justify-content: center;
       align-items: center;
       text-align: center;
-      gap: var(--onyx-density-xs);
+      gap: var(--onyx-density-2xs);
       width: max-content;
+      aspect-ratio: inherit;
     }
 
     &__alt {
