@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.156
+
+### Minor Changes
+
+- 52d74fe: feat(OnyxDataGrid): add filter feature
+
 ## 1.0.0-beta.155
 
 ### Minor Changes
