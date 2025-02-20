@@ -211,7 +211,9 @@ test.describe("Screenshot tests (slots)", () => {
         {row.includes("headline") && (
           <template v-slot:headline>
             <OnyxHeadline is="h3">
-              {"Headline ".repeat(column === "long-content" ? 8 : 1)}
+              {column === "long-content"
+                ? "This is a very very extremely ultra long table headline"
+                : "Headline"}
             </OnyxHeadline>
           </template>
         )}
@@ -220,12 +222,15 @@ test.describe("Screenshot tests (slots)", () => {
           <template v-slot:actions>
             <OnyxIconButton icon={mockPlaywrightIcon} label="Icon 1" />
             <OnyxIconButton icon={mockPlaywrightIcon} label="Icon 2" />
+            <OnyxIconButton icon={mockPlaywrightIcon} label="Icon 3" />
           </template>
         )}
 
         {row.includes("bottomLeft") && (
           <template v-slot:bottomLeft>
-            {"Test slot content ".repeat(column === "long-content" ? 4 : 1)}
+            {column === "long-content"
+              ? "Very very extremely long test slot content goes here"
+              : "Test slot content"}
           </template>
         )}
 
