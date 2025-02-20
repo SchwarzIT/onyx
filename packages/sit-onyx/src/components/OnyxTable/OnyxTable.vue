@@ -291,21 +291,19 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
 
     // column hover styles
     th:not(&__colgroup):hover::before {
-      background-color: color-mix(in srgb, var(--onyx-color-base-neutral-500), transparent 85%);
-      content: "";
-      height: 100vh;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      bottom: 0;
-      // needed in order for other components like buttons etc. to be clickable and to prevent showing the column hover effect when hovering down over a row
-      pointer-events: none;
-    }
-
-    // hover styles are disabled when the table is empty.
-    &:has(&__empty) th {
-      pointer-events: none;
+      .onyx-table:not(:has(.onyx-table__empty)) & {
+        background-color: color-mix(in srgb, var(--onyx-color-base-neutral-500), transparent 85%);
+        content: "";
+        height: 100vh;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        bottom: 0;
+        z-index: -1;
+        // needed in order for other components like buttons etc. to be clickable and to prevent showing the column hover effect when hovering down over a row
+        pointer-events: none;
+      }
     }
 
     &__colgroup {

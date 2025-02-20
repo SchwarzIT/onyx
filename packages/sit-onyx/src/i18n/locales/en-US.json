@@ -23,6 +23,13 @@
           "desc": "Sort descending",
           "none": "No sorting"
         }
+      },
+      "filtering": {
+        "removeLabel": "Remove search term for column {column}",
+        "menu": {
+          "label": "Search column {column}",
+          "placeholder": "Search column"
+        }
       }
     }
   },

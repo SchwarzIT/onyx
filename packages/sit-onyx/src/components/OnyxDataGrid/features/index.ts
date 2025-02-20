@@ -111,7 +111,7 @@ export type DataGridFeature<
    * Allows modifying the datagrid state as a whole.
    */
   mutation?: {
-    func: (state: Readonly<TEntry>[]) => void;
+    func: (state: Readonly<TEntry>[]) => Readonly<TEntry>[] | void;
   };
 
   /**
@@ -143,8 +143,9 @@ export type DataGridFeature<
      * The components must be ARIA-conform buttons.
      */
     actions?: (column: NormalizedColumnConfig<TEntry>) => {
-      iconComponent: Component;
+      iconComponent?: Component | { iconComponent: Component; position?: string };
       menuItems: Component<typeof OnyxMenuItem>[];
+      showFlyoutMenu?: boolean;
     }[];
   };
 };
@@ -294,39 +295,65 @@ export const useDataGridFeatures = <
       const header = renderer.value.getFor("header", column.type);
       const label = column.label?.trim() ?? String(column.key);
 
-      if (actions.length > 1) {
-        const menuItems = actions.map(({ menuItems }) => menuItems).filter((item) => !!item);
-
-        const flyoutMenu = h(
-          OnyxFlyoutMenu,
-          {
-            label: i18n.t.value("navigation.moreActionsFlyout", { column: label }),
-            trigger: "click",
-          },
-          {
-            button: ({ trigger }) =>
-              h(OnyxSystemButton, {
-                label: i18n.t.value("navigation.moreActionsTrigger"),
-                color: "medium",
-                icon: moreHorizontal,
-                ...trigger,
-              }),
-            options: () => menuItems,
-          } satisfies ComponentSlots<typeof OnyxFlyoutMenu>,
-        );
-
-        return {
-          ...header,
-          key: column.key,
-          component: () => h(header.component, { label }, { actions: () => flyoutMenu }),
-        };
-      }
+      const menuItems = actions.map(({ menuItems }) => menuItems).filter((item) => !!item);
       const iconComponent = actions.map(({ iconComponent }) => iconComponent);
 
+      const flyoutMenu = h(
+        OnyxFlyoutMenu,
+        {
+          label: i18n.t.value("navigation.moreActionsFlyout", { column: label }),
+          trigger: "click",
+        },
+        {
+          button: ({ trigger }) =>
+            h(OnyxSystemButton, {
+              class: actions.length > 1 ? "onyx-system-button--multiple-actions" : "",
+              label: i18n.t.value("navigation.moreActionsTrigger"),
+              color: "medium",
+              icon: moreHorizontal,
+              ...trigger,
+            }),
+          options: () => menuItems,
+        } satisfies ComponentSlots<typeof OnyxFlyoutMenu>,
+      );
       return {
         ...header,
         key: column.key,
-        component: () => h(header.component, { label }, { actions: () => iconComponent }),
+        component: () =>
+          h(
+            header.component,
+            { label },
+            {
+              actions: () => {
+                // normalizing the iconComponents from Component to {iconComponent: Component}
+                const iconsArray = Array.isArray(iconComponent)
+                  ? iconComponent
+                  : iconComponent
+                    ? [iconComponent]
+                    : [];
+                const normalizedIcons = iconsArray.map((ic) => {
+                  if (typeof ic === "object" && "iconComponent" in ic) {
+                    return ic;
+                  }
+                  return { iconComponent: ic };
+                });
+
+                const headerIcons = normalizedIcons
+                  .filter((ic) => ic?.position === "header")
+                  .map((ic) => ic.iconComponent);
+
+                const nonHeaderIcon =
+                  normalizedIcons.find((ic) => !ic.position)?.iconComponent ?? null;
+
+                const shouldShowFlyout =
+                  actions.length > 1 || actions.some((action) => action.showFlyoutMenu);
+
+                return [...headerIcons, shouldShowFlyout ? flyoutMenu : nonHeaderIcon].filter(
+                  Boolean,
+                );
+              },
+            },
+          ),
       };
     });
   };
@@ -335,9 +362,14 @@ export const useDataGridFeatures = <
     entries: TEntry[],
   ): DataGridRendererRow<TEntry, DataGridMetadata>[] => {
     const mutations = features.map((f) => f.mutation).filter((m) => !!m);
-    const shallowCopy = [...entries];
-    mutations.forEach(({ func }) => func(shallowCopy));
 
+    let shallowCopy = [...entries];
+    mutations.forEach(({ func }) => {
+      const result = func(shallowCopy);
+      if (result) {
+        shallowCopy = result as TEntry[];
+      }
+    });
     return shallowCopy.map((entry) => {
       const cells = columns.value.reduce<DataGridRendererRow<TEntry, DataGridMetadata>["cells"]>(
         (cells, { key, type }) => {
