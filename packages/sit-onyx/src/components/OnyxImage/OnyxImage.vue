@@ -62,7 +62,7 @@ const { restAttrs, rootAttrs } = useRootAttrs();
 
     <div v-if="isError" class="onyx-image__error" :style="emptySize">
       <OnyxIcon :icon="picture" size="32px" />
-      <div class="onyx-image__alt">{{ props.alt }}</div>
+      <div class="onyx-image__alt onyx-text--small">{{ props.alt }}</div>
     </div>
   </figure>
 </template>

@@ -12,7 +12,7 @@ test.describe("Screenshot tests", () => {
     component: (column, row) => (
       <OnyxImage
         src={column === "error" ? "#does-not-exist" : TEST_IMAGE}
-        alt="Example alt text"
+        alt="Example alt text that describes the image"
         width={256}
         height={128}
         shape={row === "default" ? undefined : row}
