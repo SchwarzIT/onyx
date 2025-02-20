@@ -3,6 +3,7 @@ import search from "@sit-onyx/icons/search.svg?raw";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { computed, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density";
+import { useAutofocus } from "../../composables/useAutoFocus";
 import { injectI18n } from "../../i18n";
 import { useRootAttrs } from "../../utils/attrs";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -30,6 +31,7 @@ const { t } = injectI18n();
 const input = useTemplateRef("inputRef");
 
 const placeholder = computed(() => t.value("select.searchPlaceholder"));
+useAutofocus(input, props);
 
 defineExpose({
   /**
@@ -48,6 +50,7 @@ defineExpose({
     <input
       ref="inputRef"
       v-model="modelValue"
+      :autofocus="props.autofocus"
       class="onyx-mini-search__input onyx-text"
       :placeholder="placeholder"
       type="text"

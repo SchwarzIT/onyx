@@ -50,9 +50,9 @@ const {
   <div class="onyx-component onyx-flyout-menu" v-bind="root">
     <slot name="button" :trigger="button"></slot>
 
+    <!-- isExpanded is in v-if to ensure autofocus is working -->
     <div
-      v-if="slots.options || slots.header || slots.footer"
-      v-show="isExpanded"
+      v-if="(slots.options || slots.header || slots.footer) && isExpanded"
       :aria-label="props.label"
       :class="{
         'onyx-flyout-menu__list--with-header': !!slots.header,
