@@ -72,7 +72,7 @@ const { restAttrs, rootAttrs } = useRootAttrs();
 
 .onyx-image {
   @include layers.component() {
-    --onyx-image-clip-size: var(--onyx-density-2xl);
+    --onyx-image-clip-size: var(--onyx-spacing-2xl);
     display: contents;
     background-color: var(--onyx-color-base-neutral-300);
 
