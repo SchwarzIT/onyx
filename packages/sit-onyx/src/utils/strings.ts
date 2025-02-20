@@ -3,11 +3,8 @@
  * E.g. `ñ` and `n` are considered to be the same glyph.
  */
 export const normalizedIncludes = (haystack: string, needle: string): boolean => {
-  let haystackNormalized = removeDiacritics(haystack);
-  let needleNormalized = removeDiacritics(needle);
-
-  haystackNormalized = haystackNormalized.toLowerCase();
-  needleNormalized = needleNormalized.toLowerCase();
+  const haystackNormalized = removeDiacritics(haystack.toLowerCase());
+  const needleNormalized = removeDiacritics(needle.toLowerCase());
 
   return haystackNormalized.includes(needleNormalized);
 };

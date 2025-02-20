@@ -5,7 +5,7 @@ import FilteringDataGridExampleCode from "../../../examples/DataGrid/FilteringDa
 const meta: Meta<typeof FilteringDataGrid> = {
   title: "Data/DataGrid/Features", // new features can add their story under the same title
   component: FilteringDataGrid,
-  tags: ["!autodocs"],
+  tags: ["!autodocs", "new:feature"],
 };
 
 export default meta;
