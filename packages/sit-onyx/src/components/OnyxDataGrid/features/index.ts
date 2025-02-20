@@ -326,11 +326,17 @@ export const useDataGridFeatures = <
             {
               actions: () => {
                 // normalizing the iconComponents from Component to {iconComponent: Component}
-                const normalizedIcons = iconComponent
-                  .filter((iconComponent) => iconComponent != undefined)
-                  .map((iconComponent) => {
-                    return typeof iconComponent === "object" ? iconComponent : { iconComponent };
-                  });
+                const iconsArray = Array.isArray(iconComponent)
+                  ? iconComponent
+                  : iconComponent
+                    ? [iconComponent]
+                    : [];
+                const normalizedIcons = iconsArray.map((ic) => {
+                  if (typeof ic === "object" && "iconComponent" in ic) {
+                    return ic;
+                  }
+                  return { iconComponent: ic };
+                });
 
                 const headerIcons = normalizedIcons
                   .filter((ic) => ic?.position === "header")
