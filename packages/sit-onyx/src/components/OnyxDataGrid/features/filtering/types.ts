@@ -65,10 +65,6 @@ export type FilterConfig<TEntry extends DataGridEntry> = {
    * If false, partial matches will be allowed.
    */
   exactMatch?: boolean;
-  /**
-   * If true, whitespace at the beginning and end of the value will be trimmed before filtering.
-   */
-  trimWhitespace?: boolean;
 };
 
 /**

@@ -24,7 +24,7 @@ export const Filtering = {
       rank: { enabled: false },
     },
     filterConfig: {
-      trimWhitespace: true,
+      searchFromStart: true,
     },
   },
   parameters: {

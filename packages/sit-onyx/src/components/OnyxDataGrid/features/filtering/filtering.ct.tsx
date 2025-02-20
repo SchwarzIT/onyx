@@ -83,7 +83,6 @@ const FILTER_CONFIG_TEST_CASES = {
   caseSensitive: 1,
   exactMatch: 2,
   searchFromStart: 2,
-  trimWhitespace: 3,
 } satisfies Partial<Record<keyof FilterConfig<DataGridEntry>, number>>;
 for (const configName in FILTER_CONFIG_TEST_CASES) {
   test(`should apply filterConfig: ${configName}`, async ({ mount }) => {

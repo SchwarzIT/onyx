@@ -46,9 +46,6 @@ export const useFiltering = createFeature(
               entryValue = entryValue.toLowerCase();
               searchTerm = searchTerm.toLowerCase();
             }
-            if (filterOptions.trimWhitespace) {
-              entryValue = entryValue.replace(/\s+/g, "");
-            }
             if (filterOptions.searchFromStart) {
               return entryValue.startsWith(searchTerm);
             }
