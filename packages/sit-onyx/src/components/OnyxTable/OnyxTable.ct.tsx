@@ -203,7 +203,10 @@ test.describe("Screenshot tests (slots)", () => {
     component: (column, row) => (
       <OnyxTable style={{ width: column === "small" ? "18rem" : "28rem" }}>
         {tableHead}
-        {tableBody}
+
+        <tr>
+          <td>Strawberry</td> <td>4.50</td> <td>200</td>
+        </tr>
 
         {row.includes("headline") && (
           <template v-slot:headline>
