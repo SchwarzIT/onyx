@@ -1,10 +1,8 @@
 <script lang="ts" setup>
-import graphSearch from "@sit-onyx/icons/graph-search.svg?raw";
 import { computed, type VNode } from "vue";
 import { useDensity } from "../../composables/density";
 import { injectI18n } from "../../i18n";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
-import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxTableProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxTableProps>(), {
@@ -82,12 +80,7 @@ const isEmptyMessage = computed(() => t.value("table.empty"));
               <td colspan="100%">
                 <div class="onyx-table__empty-content">
                   <slot name="empty" :default-message="isEmptyMessage">
-                    <OnyxEmpty>
-                      <template #icon>
-                        <OnyxIcon :icon="graphSearch" size="48px" />
-                      </template>
-                      {{ isEmptyMessage }}
-                    </OnyxEmpty>
+                    <OnyxEmpty> {{ isEmptyMessage }} </OnyxEmpty>
                   </slot>
                 </div>
               </td>
