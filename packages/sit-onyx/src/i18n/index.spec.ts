@@ -255,7 +255,7 @@ test.each(LOCALES.map((locale) => ({ locale })))(
     });
 
     const keys = Object.entries(localeMessages).flatMap(([key, value]) =>
-      getObjectKeys(key, value),
+      getFlattenedTranslationKeys(key, value),
     );
 
     for (const key of keys) {
@@ -266,9 +266,14 @@ test.each(LOCALES.map((locale) => ({ locale })))(
   },
 );
 
-function getObjectKeys(key: string, value: TranslationValue): string[] {
+/**
+ * Gets all nested keys of the given translation entry as a flattened array.
+ *
+ * @example ["key", "key.nested.child"]
+ */
+function getFlattenedTranslationKeys(key: string, value: TranslationValue): string[] {
   if (typeof value === "string") return [key];
   return Object.entries(value).flatMap(([nestedKey, nestedValue]) =>
-    getObjectKeys(`${key}.${nestedKey}`, nestedValue),
+    getFlattenedTranslationKeys(`${key}.${nestedKey}`, nestedValue),
   );
 }
