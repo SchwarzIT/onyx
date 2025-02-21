@@ -143,7 +143,7 @@ const { restAttrs, rootAttrs } = useRootAttrs();
 
     &__error {
       color: var(--onyx-color-text-icons-neutral-medium);
-      padding: var(--onyx-density-sm);
+      padding: var(--onyx-density-xs);
       font-family: var(--onyx-font-family);
       background-color: inherit;
       border-radius: inherit;
@@ -161,6 +161,7 @@ const { restAttrs, rootAttrs } = useRootAttrs();
 
     &__alt {
       overflow: auto;
+      color: var(--onyx-color-text-icons-neutral-soft);
     }
   }
 }
