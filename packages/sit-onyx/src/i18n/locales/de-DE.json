@@ -73,7 +73,7 @@
       },
       "email": {
         "preview": "Ungültige E-Mail",
-        "fullError": "Die Eingabe \"{value}\" ist keine gültige E-Mail Adresse. Sie sollte ähnlich zu \"maxmustermann@beispiel.de\" sein (muss ein @-Symbol und einen Punkt enthalten)."
+        "fullError": "Die Eingabe \"{value}\" ist keine gültige E-Mail Adresse. Sie sollte ähnlich zu \"maxmustermann{'@'}beispiel.de\" sein (muss ein {'@'}-Symbol und einen Punkt enthalten)."
       },
       "number": {
         "preview": "Ungültige Zahl",

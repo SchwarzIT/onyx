@@ -449,6 +449,9 @@ importers:
       vue-component-type-helpers:
         specifier: ^2.2.2
         version: 2.2.2
+      vue-i18n:
+        specifier: ^11.1.1
+        version: 11.1.1(vue@3.5.13(typescript@5.7.3))
       vue-router:
         specifier: ^4.5.0
         version: 4.5.0(vue@3.5.13(typescript@5.7.3))
@@ -9166,9 +9169,9 @@ snapshots:
       find-package-json: 1.2.0
       magic-string: 0.30.17
       storybook: 8.5.8(prettier@3.5.1)
-      typescript: 5.6.3
+      typescript: 5.7.3
       vite: 6.1.1(@types/node@22.13.4)(jiti@2.4.2)(sass-embedded@1.85.0)(sass@1.83.4)(stylus@0.57.0)(terser@5.38.2)(tsx@4.19.3)(yaml@2.7.0)
-      vue-component-meta: 2.2.2(typescript@5.6.3)
+      vue-component-meta: 2.2.2(typescript@5.7.3)
       vue-docgen-api: 4.79.2(vue@3.5.13(typescript@5.6.3))
     transitivePeerDependencies:
       - vue
@@ -9788,6 +9791,19 @@ snapshots:
       path-browserify: 1.0.1
     optionalDependencies:
       typescript: 5.6.3
+
+  '@vue/language-core@2.2.2(typescript@5.7.3)':
+    dependencies:
+      '@volar/language-core': 2.4.11
+      '@vue/compiler-dom': 3.5.13
+      '@vue/compiler-vue2': 2.7.16
+      '@vue/shared': 3.5.13
+      alien-signals: 1.0.3
+      minimatch: 9.0.5
+      muggle-string: 0.4.1
+      path-browserify: 1.0.1
+    optionalDependencies:
+      typescript: 5.7.3
 
   '@vue/reactivity@3.5.13':
     dependencies:
@@ -14464,14 +14480,14 @@ snapshots:
       chart.js: 4.4.8
       vue: 3.5.13(typescript@5.7.3)
 
-  vue-component-meta@2.2.2(typescript@5.6.3):
+  vue-component-meta@2.2.2(typescript@5.7.3):
     dependencies:
       '@volar/typescript': 2.4.11
-      '@vue/language-core': 2.2.2(typescript@5.6.3)
+      '@vue/language-core': 2.2.2(typescript@5.7.3)
       path-browserify: 1.0.1
       vue-component-type-helpers: 2.2.2
     optionalDependencies:
-      typescript: 5.6.3
+      typescript: 5.7.3
 
   vue-component-type-helpers@2.2.2: {}
 
