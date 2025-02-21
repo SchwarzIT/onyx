@@ -77,7 +77,7 @@ const { restAttrs, rootAttrs } = useRootAttrs();
     background-color: var(--onyx-color-base-neutral-300);
 
     &--rounded {
-      border-radius: var(--onyx-radius-sm);
+      border-radius: var(--onyx-radius-md);
     }
 
     &--circle {
