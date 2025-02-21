@@ -30,7 +30,7 @@
     "generate:changeset": "tsx ./scripts/changeset.ts"
   },
   "devDependencies": {
-    "@changesets/write": "~0.3.2",
-    "tsx": "^4.19.2"
+    "@changesets/write": "~0.4.0",
+    "tsx": "^4.19.3"
   }
 }
