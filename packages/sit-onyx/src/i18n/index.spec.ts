@@ -1,7 +1,10 @@
+import { readdir, readFile } from "node:fs/promises";
+import path from "node:path";
 import { beforeEach, expect, test, vi } from "vitest";
 import * as vue from "vue";
-import { injectI18n, provideI18n, type ProvideI18nOptions } from ".";
-import type { FlattenedKeysOf, OnyxTranslations } from "..";
+import { createI18n as createVueI18n } from "vue-i18n";
+import { injectI18n, provideI18n, type OnyxTranslations, type ProvideI18nOptions } from ".";
+import type { FlattenedKeysOf, TranslationValue } from "../types";
 
 // keep track of provide/inject because they need to be mocked
 let provided = new Map();
@@ -29,6 +32,7 @@ const app = {
 
 beforeEach(() => {
   provided = new Map();
+  vi.clearAllMocks();
 });
 
 /**
@@ -77,7 +81,7 @@ test("should translate with/without placeholders", () => {
     messages: {
       "en-US": {
         plain: "Hello World",
-        placeholder: "Hello {firstName} {lastName}",
+        placeholder: "Hello {firstName} {lastName} with {'interpolated'} {'@'}",
       },
     } as TestMessages,
   });
@@ -95,7 +99,7 @@ test("should translate with/without placeholders", () => {
     lastName: "Doe",
   });
   // ASSERT #2
-  expect(message).toBe("Hello John Doe");
+  expect(message).toBe("Hello John Doe with interpolated @");
 
   // ACT #3
   // should return empty string for missing translation
@@ -110,7 +114,7 @@ test("should translate with/without placeholders", () => {
     lastName: undefined,
   });
   // ASSERT #4
-  expect(message).toBe("Hello");
+  expect(message).toBe("Hello with interpolated @");
 });
 
 test("should translate with pluralization", () => {
@@ -230,3 +234,41 @@ test("should use English fallback if translation is missing", () => {
   // see mock of module "./locales/en-US.json" at the top of the file
   expect(message).toBe("Hello World");
 });
+
+const LOCALES_PATH = path.join(import.meta.dirname, "locales");
+const LOCALES = await readdir(LOCALES_PATH, "utf-8");
+
+test.each(LOCALES.map((locale) => ({ locale })))(
+  "should be able to compile all messages with vue-i18n for locale $locale",
+  async ({ locale }) => {
+    const consoleErrorSpy = vi.spyOn(console, "error");
+
+    const localeMessages: OnyxTranslations = JSON.parse(
+      await readFile(path.join(LOCALES_PATH, locale), "utf-8"),
+    );
+
+    const localeName = locale.replace(".json", "");
+
+    const vueI18n = createVueI18n({
+      locale: localeName,
+      messages: { [localeName]: localeMessages },
+    });
+
+    const keys = Object.entries(localeMessages).flatMap(([key, value]) =>
+      getObjectKeys(key, value),
+    );
+
+    for (const key of keys) {
+      expect(() => vueI18n.global.t(key)).not.toThrow();
+    }
+
+    expect(consoleErrorSpy).not.toHaveBeenCalled();
+  },
+);
+
+function getObjectKeys(key: string, value: TranslationValue): string[] {
+  if (typeof value === "string") return [key];
+  return Object.entries(value).flatMap(([nestedKey, nestedValue]) =>
+    getObjectKeys(`${key}.${nestedKey}`, nestedValue),
+  );
+}

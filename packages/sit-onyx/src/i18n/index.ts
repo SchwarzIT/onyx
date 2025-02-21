@@ -181,13 +181,17 @@ const replacePlaceholders = (
 ): string => {
   if (!placeholders) return message;
 
-  const replacedMessage = Object.entries(placeholders).reduce((replacedMessage, [key, value]) => {
+  let replacedMessage = Object.entries(placeholders).reduce((replacedMessage, [key, value]) => {
     if (value === undefined) return replacedMessage;
     // "gi" is used to replace all occurrences because String.replaceAll() is not available
     // in our specified EcmaScript target
     return replacedMessage.replace(new RegExp(`{${key}}`, "gi"), value.toString());
   }, message);
 
+  // replace string literals, e.g. replace {'@'} with @
+  // see: https://vue-i18n.intlify.dev/guide/essentials/syntax#special-characters
+  replacedMessage = replacedMessage.replace(/{'(.*?)'}/g, "$1");
+
   // remove all left-over placeholders that have no provided value to align with "vue-i18n"
-  return replacedMessage.replace(/\s?{.*}\s?/gi, "");
+  return replacedMessage.replace(/{.*}\s?/gi, "");
 };
