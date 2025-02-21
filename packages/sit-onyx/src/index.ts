@@ -65,6 +65,9 @@ export * from "./components/OnyxIcon/types";
 export { default as OnyxIconButton } from "./components/OnyxIconButton/OnyxIconButton.vue";
 export * from "./components/OnyxIconButton/types";
 
+export { default as OnyxImage } from "./components/OnyxImage/OnyxImage.vue";
+export * from "./components/OnyxImage/types";
+
 export { default as OnyxInfoTooltip } from "./components/OnyxInfoTooltip/OnyxInfoTooltip.vue";
 export * from "./components/OnyxInfoTooltip/types";
 
