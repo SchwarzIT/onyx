@@ -1,4 +1,4 @@
-import { nextTick } from "vue";
+import { computed, nextTick, ref } from "vue";
 import { createFeature } from "..";
 
 import "./stickyColumns.scss";
@@ -6,23 +6,20 @@ import type { StickyColumnsOptions } from "./types";
 
 export const STICKY_COLUMNS_FEATURE = Symbol("StickyColumns");
 
-export const useStickyColumns = createFeature((options?: StickyColumnsOptions) => {
-  const columns = options?.columns || [];
-  const direction = options?.direction || "left";
+export const useStickyColumns = createFeature((options: StickyColumnsOptions) => {
+  const columns = computed(() => options.columns);
+  const direction = computed(() => options.direction || "left");
 
-  let firstStickyElement: HTMLElement | null = null; // Hier speichern wir das erste Sticky-Element
+  const firstStickyElement = ref();
 
-  const applyElementStyles = (el: HTMLElement, index: number) => {
-    if (index !== 0) nextTick(() => setElementStyles(el));
-  };
   const setElementStyles = (el: HTMLElement) => {
-    if (!el || !firstStickyElement) return;
-
-    const refWidth = firstStickyElement.getBoundingClientRect().width;
-    if (direction === "left") {
+    const refWidth = firstStickyElement.value.getBoundingClientRect().width;
+    if (direction.value === "left") {
       el.style.left = `${refWidth}px`;
     } else {
-      el.style.right = `${refWidth}px`;
+      //needs a highter z-Index so that the shadow is working
+      el.style.zIndex = "22";
+      el.style.right = `${refWidth - 0.5}px`;
     }
   };
 
@@ -33,42 +30,50 @@ export const useStickyColumns = createFeature((options?: StickyColumnsOptions) =
     const updateStickyState = () => {
       const parentRect = parent.getBoundingClientRect();
       const elRect = el.getBoundingClientRect();
-      if (direction === "left") {
+
+      if (direction.value === "left") {
         parent.classList.toggle("is-sticky", elRect.left < parentRect.left);
-      } else if (direction === "right") {
+      } else if (direction.value === "right") {
+        // needs 0.5 px to detect movements because parentRect is not 0 like in left
         parent.classList.toggle("is-sticky", !(elRect.right < parentRect.right + 0.5));
       }
     };
+
     parent.addEventListener("scroll", updateStickyState);
-    updateStickyState(); // Initial check
+    updateStickyState();
   };
 
   return {
     name: STICKY_COLUMNS_FEATURE,
-    watch: [options],
+    watch: [direction, columns],
     modifyColumns: {
       func: (columnConfig) => {
         return columnConfig.map((column) =>
-          columns.includes(column.key as string) ? { key: column.key, type: column.key } : column,
+          columns.value.includes(column.key as string)
+            ? { key: column.key, type: column.key }
+            : column,
         );
       },
     },
 
     typeRenderer: Object.fromEntries(
-      columns.map((col, index) => {
+      // eslint-disable-next-line vue/no-ref-object-reactivity-loss
+      columns.value.map((col, index) => {
         return [
           col,
           {
             header: {
               thAttributes: {
-                class: `sticky ${direction}`,
+                class: `sticky ${direction.value}`,
                 ref: (el: HTMLElement) => {
                   nextTick(() => {
                     if (index === 0) {
-                      firstStickyElement = el;
+                      firstStickyElement.value = el;
                       observeStickyState(el);
                     } else {
-                      setElementStyles(el);
+                      nextTick(() => {
+                        setElementStyles(el);
+                      });
                     }
                   });
                 },
@@ -77,10 +82,10 @@ export const useStickyColumns = createFeature((options?: StickyColumnsOptions) =
             },
             cell: {
               tdAttributes: {
-                class: `sticky ${direction}`,
+                class: `sticky ${direction.value}`,
                 ref: (el: HTMLElement) => {
                   nextTick(() => {
-                    applyElementStyles(el, index);
+                    if (index !== 0) setElementStyles(el);
                   });
                 },
               },
