@@ -38,7 +38,7 @@
     "vue-component-type-helpers": ">= 2"
   },
   "dependencies": {
-    "deepmerge-ts": "^7.1.4"
+    "deepmerge-ts": "^7.1.5"
   },
   "devDependencies": {
     "@sit-onyx/icons": "workspace:^",
@@ -46,6 +46,6 @@
     "@storybook/addon-actions": "^8.5.8",
     "storybook": "^8.5.8",
     "vue": "catalog:",
-    "vue-component-type-helpers": "^2.2.2"
+    "vue-component-type-helpers": "^2.2.4"
   }
 }
