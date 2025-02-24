@@ -2,14 +2,16 @@ import moreHorizontal from "@sit-onyx/icons/more-horizontal.svg?raw";
 import {
   computed,
   h,
-  mergeProps,
   toValue,
   type Component,
   type MaybeRefOrGetter,
+  type TdHTMLAttributes,
+  type ThHTMLAttributes,
   type WatchSource,
 } from "vue";
 import type { ComponentSlots } from "vue-component-type-helpers";
 import { type OnyxI18n } from "../../../i18n";
+import { mergeVueProps } from "../../../utils/attrs";
 import type { OnyxMenuItem } from "../../OnyxNavBar/modules";
 import OnyxFlyoutMenu from "../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxSystemButton from "../../OnyxSystemButton/OnyxSystemButton.vue";
@@ -18,8 +20,6 @@ import type {
   DataGridRendererCell,
   DataGridRendererColumn,
   DataGridRendererRow,
-  TdAttributes,
-  ThAttributes,
 } from "../OnyxDataGridRenderer/types";
 import type { DataGridEntry, DataGridMetadata } from "../types";
 import { createRenderer } from "./renderer";
@@ -78,11 +78,11 @@ export type InternalColumnConfig<
   /**
    * Attributes that should be set on all `td` elements
    */
-  tdAttributes?: TdAttributes;
+  tdAttributes?: TdHTMLAttributes;
   /**
    * Attributes that should be set on all `th` elements
    */
-  thAttributes?: ThAttributes;
+  thAttributes?: ThHTMLAttributes;
 } & PublicNormalizedColumnConfig<TEntry, TColumnGroup, TTypes>;
 
 /**
@@ -348,7 +348,7 @@ export const useDataGridFeatures = <
         } satisfies ComponentSlots<typeof OnyxFlyoutMenu>,
       );
       return {
-        thAttributes: mergeProps(header.thAttributes ?? {}, column.thAttributes ?? {}),
+        thAttributes: mergeVueProps(header.thAttributes, column.thAttributes),
         key: column.key,
         component: () =>
           h(
@@ -408,7 +408,7 @@ export const useDataGridFeatures = <
           cells[key] = {
             component: cellRenderer.component,
             props: { row: entry, modelValue: entry[key] },
-            tdAttributes: mergeProps(tdAttributes ?? {}, cellRenderer.tdAttributes ?? {}),
+            tdAttributes: mergeVueProps(tdAttributes, cellRenderer.tdAttributes),
           };
           return cells;
         },
