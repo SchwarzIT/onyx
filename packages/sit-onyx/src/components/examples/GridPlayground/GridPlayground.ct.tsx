@@ -126,12 +126,7 @@ test("should support to configure the grid", async ({ mount, page }) => {
   await expect(alignmentInput).toHaveValue("left");
   await expect(columnCountInput).toHaveValue("12 columns");
 
-  // await page.getByRole('button', { name: 'Toggle selection popover' }).nth(1).click();
-  // await page.getByRole('option', { name: '1920px' }).click();
-  // await page.getByRole('combobox', { name: 'Max overall width' }).click();
-  // await page.getByRole('option', { name: '1920px' }).click();
   // ACT
-
   await maxWidthInput.click();
   await page.getByRole("option", { name: "1920px" }).click();
   await alignmentInput.click();
@@ -140,5 +135,5 @@ test("should support to configure the grid", async ({ mount, page }) => {
   await page.getByRole("option", { name: "8 columns" }).click();
 
   // ASSERT
-  await expect(page.locator(".onyx-grid-center.onyx-grid-max-xl.onyx-grid-xl-8")).toBeAttached();
+  await expect(page.locator(".onyx-grid-center.onyx-grid-max-lg.onyx-grid-xl-8")).toBeAttached();
 });

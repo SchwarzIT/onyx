@@ -28,10 +28,14 @@ import GridOverlay from "./GridOverlay/GridOverlay.vue";
 
 const viewportSize = useResizeObserver(shallowRef(document.body));
 
+type maxWidth = OnyxBreakpoint | "Filled";
+type maxColumns = 4 | 8 | 12 | 16 | 20;
+type alignment = "left" | "center" | "Filled";
+
 const gridSettings = ref<{
-  alignment: "left" | "center";
-  maxWidth: OnyxBreakpoint | "Filled";
-  maxColumns: 4 | 8 | 12 | 16 | 20;
+  alignment: alignment;
+  maxWidth: maxWidth;
+  maxColumns: maxColumns;
 }>({
   alignment: "left",
   maxWidth: "md",
@@ -84,31 +88,31 @@ const updateElement = (index: number, newElement: GridElementConfig) => {
   closeEdit();
 };
 
-const alignmentOptions: SelectOption[] = [
+const alignmentOptions = [
   {
-    label: "Filled",
-    value: "Filled (automatically used for all breakpoints, that are smaller than 1440px)",
+    label: "Filled (automatically used for all breakpoints, that are smaller than 1440px)",
+    value: "Filled",
   },
   { label: "left", value: "left" },
   { label: "center", value: "center" },
-];
+] satisfies SelectOption<alignment>[];
 
-const maxWidthOptions: SelectOption[] = [
+const maxWidthOptions = [
   {
-    label: "Filled",
-    value: "Filled (automatically used for all breakpoints, that are smaller than 1440px)",
+    value: "Filled",
+    label: "Filled (automatically used for all breakpoints, that are smaller than 1440px)",
   },
   { label: `${ONYX_BREAKPOINTS.lg}px`, value: "md" },
   { label: `${ONYX_BREAKPOINTS.xl}px`, value: "lg" },
-];
+] satisfies SelectOption<maxWidth>[];
 
-const maxColumnsOptions: SelectOption[] = [
+const maxColumnsOptions = [
   { label: "4 columns", value: 4 },
   { label: "8 columns", value: 8 },
   { label: "12 columns", value: 12 },
   { label: "16 columns", value: 16 },
   { label: "20 columns", value: 20 },
-];
+] satisfies SelectOption<maxColumns>[];
 
 const currentBreakpoint = computed(() => {
   const breakpoint = Object.entries(ONYX_BREAKPOINTS).reduce((prev, [name, width]) => {
@@ -146,26 +150,26 @@ const largeBreakpoint = computed(() => {
 
       <div class="playground__options">
         <OnyxSelect
-          :v-model="gridSettings.alignment"
-          :model-value="gridSettings.alignment"
+          v-model="gridSettings.alignment"
           label="Grid alignment"
+          list-label="List of alignment options"
           label-tooltip="You can adjust the overall alignment of the grid here."
           :options="alignmentOptions"
         />
 
         <OnyxSelect
-          :v-model="gridSettings.maxWidth"
-          :model-value="gridSettings.maxWidth"
+          v-model="gridSettings.maxWidth"
           label="Max overall width"
+          list-label="List of max width options"
           label-tooltip="With this setting, you can adjust the maximum width of the container that includes the content. This is only relevant for large breakpoints."
           :options="maxWidthOptions"
           :readonly="!largeBreakpoint"
         />
 
         <OnyxSelect
-          :v-model="gridSettings.maxColumns"
-          :model-value="gridSettings.maxColumns"
+          v-model="gridSettings.maxColumns"
           label="Column quantity"
+          list-label="List of max columns options"
           label-tooltip="With large breakpoints you can optionally extend the default 12 column grid to 16 or even 20 columns."
           :options="maxColumnsOptions"
           :readonly="!largeBreakpoint"
