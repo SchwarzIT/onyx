@@ -147,6 +147,7 @@ const largeBreakpoint = computed(() => {
       <div class="playground__options">
         <OnyxSelect
           :v-model="gridSettings.alignment"
+          :model-value="gridSettings.alignment"
           label="Grid alignment"
           label-tooltip="You can adjust the overall alignment of the grid here."
           :options="alignmentOptions"
@@ -154,6 +155,7 @@ const largeBreakpoint = computed(() => {
 
         <OnyxSelect
           :v-model="gridSettings.maxWidth"
+          :model-value="gridSettings.maxWidth"
           label="Max overall width"
           label-tooltip="With this setting, you can adjust the maximum width of the container that includes the content. This is only relevant for large breakpoints."
           :options="maxWidthOptions"
