@@ -5,9 +5,13 @@ import type {
   TdHTMLAttributes,
   ThHTMLAttributes,
 } from "vue";
-import type { WithHTMLAttributes } from "../../../types";
+import type { Data, WithHTMLAttributes } from "../../../types";
 import type { OnyxTableProps } from "../../OnyxTable/types";
 import type { DataGridEntry, DataGridMetadata } from "../types";
+
+export type TdAttributes = WithHTMLAttributes<Data, TdHTMLAttributes>;
+export type ThAttributes = WithHTMLAttributes<Data, ThHTMLAttributes>;
+export type TrAttributes = WithHTMLAttributes<Data, HTMLAttributes>;
 
 export type OnyxDataGridRendererProps<
   TEntry extends DataGridEntry = DataGridEntry,
@@ -36,7 +40,7 @@ export type DataGridRendererColumn<TEntry extends DataGridEntry> = {
   /**
    * Attributes that are bound directly to the `<th>` element of the column.
    */
-  thAttributes?: ThHTMLAttributes;
+  thAttributes?: ThAttributes;
 };
 
 /**
@@ -58,7 +62,7 @@ export type DataGridRendererRow<
   /**
    * Attributes that are bound directly to the `<tr>` element of the row.
    */
-  trAttributes?: HTMLAttributes;
+  trAttributes?: TrAttributes;
 };
 
 /**
@@ -79,7 +83,7 @@ export type DataGridRendererCell<
   /**
    * Attributes that are bound directly to the `<td>` element of the cell.
    */
-  tdAttributes?: TdHTMLAttributes;
+  tdAttributes?: TdAttributes;
 };
 
 /**
