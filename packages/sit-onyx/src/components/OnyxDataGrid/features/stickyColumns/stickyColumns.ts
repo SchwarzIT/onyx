@@ -6,9 +6,9 @@ import type { StickyColumnsOptions } from "./types";
 
 export const STICKY_COLUMNS_FEATURE = Symbol("StickyColumns");
 
-export const useStickyColumns = createFeature((options: StickyColumnsOptions) => {
-  const columns = computed(() => options.columns);
-  const direction = computed(() => options.direction || "left");
+export const useStickyColumns = createFeature((options?: StickyColumnsOptions) => {
+  const columns = computed(() => options?.columns ?? []);
+  const direction = computed(() => options?.direction ?? "left");
 
   const firstStickyElement = ref();
 
