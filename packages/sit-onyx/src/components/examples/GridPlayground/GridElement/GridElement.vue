@@ -74,7 +74,7 @@ const size = useResizeObserver(button);
 
   &:hover,
   &:focus-visible {
-    background-color: var(--onyx-color-base-neutral-200);
+    background-color: var(--onyx-color-base-neutral-300);
     color: var(--onyx-color-text-icons-neutral-intense);
   }
 
@@ -84,7 +84,7 @@ const size = useResizeObserver(button);
 
   &:focus-visible {
     border-color: var(--onyx-color-component-primary);
-    outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
+    outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-neutral);
   }
 
   &:active {
