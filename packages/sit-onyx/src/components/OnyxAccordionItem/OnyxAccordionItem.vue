@@ -1,8 +1,9 @@
 <script lang="ts" setup>
 import chevronDownSmall from "@sit-onyx/icons/chevron-down-small.svg?raw";
-import { computed, inject, useId } from "vue";
-import { ACCORDION_INJECTION_KEY, useDensity } from "../../";
+import { computed, inject, watch } from "vue";
+import { useDensity } from "../../composables/density";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
+import { ACCORDION_INJECTION_KEY } from "../OnyxAccordion/types";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxAccordionItemProps } from "./types";
@@ -10,7 +11,6 @@ import type { OnyxAccordionItemProps } from "./types";
 const props = withDefaults(defineProps<OnyxAccordionItemProps>(), {
   disabled: false,
   skeleton: SKELETON_INJECTED_SYMBOL,
-  open: false,
 });
 
 defineSlots<{
@@ -24,27 +24,28 @@ defineSlots<{
    */
   default?(): unknown;
 }>();
-const itemId = useId();
+
 const accordionContext = inject(ACCORDION_INJECTION_KEY);
 
-const emit = defineEmits<{
-  /**
-   * Emitted when the open state is changed.
-   */
-  "update:open": [isOpen: boolean];
-}>();
-
 const isOpen = computed({
-  get: () => accordionContext?.openItems.value.has(itemId) || props.open,
-  set: (value: boolean) => {
-    accordionContext?.updateOpen(itemId, value);
-    emit("update:open", value);
-  },
+  get: () => accordionContext?.openItems.value.includes(props.value),
+  set: (open: boolean) => accordionContext?.updateOpen(props.value, open),
 });
+
+watch(
+  () => props.value,
+  (newValue, oldValue) => {
+    accordionContext?.updateOpen(newValue, accordionContext?.openItems.value.includes(newValue));
+    accordionContext?.updateOpen(oldValue, false);
+  },
+);
 
 const skeleton = useSkeletonContext(props);
 const { densityClass } = useDensity(props);
 const isDisabled = computed(() => accordionContext?.disabled.value || props.disabled);
+
+const headerId = computed(() => `header-${props.value.toString()}`);
+const panelId = computed(() => `panel-${props.value.toString()}`);
 </script>
 
 <template>
@@ -56,21 +57,17 @@ const isDisabled = computed(() => accordionContext?.disabled.value || props.disa
     <OnyxSkeleton class="onyx-accordion-item-skeleton__icon" />
   </div>
 
-  <details
-    v-else
-    class="onyx-component onyx-accordion-item"
-    :class="[densityClass]"
-    :open="isOpen"
-    @toggle="isOpen = ($event.target as HTMLDetailsElement).open"
-  >
+  <details v-else class="onyx-component onyx-accordion-item" :class="[densityClass]" :open="isOpen">
+    <!-- eslint-disable-next-line vuejs-accessibility/click-events-have-key-events, vuejs-accessibility/interactive-supports-focus -- false positives -->
     <summary
-      :id="'header-' + itemId"
+      :id="headerId"
       class="onyx-accordion-item__header"
       role="button"
       :tabindex="isDisabled ? -1 : 0"
       :aria-expanded="isOpen"
-      :aria-controls="'panel-' + itemId"
+      :aria-controls="panelId"
       :aria-disabled="isDisabled"
+      @click.prevent="isOpen = !isOpen"
     >
       <div class="onyx-accordion-item__header-content">
         <slot name="header"></slot>
@@ -78,12 +75,8 @@ const isDisabled = computed(() => accordionContext?.disabled.value || props.disa
 
       <OnyxIcon :icon="chevronDownSmall" class="onyx-accordion-item__header-icon" />
     </summary>
-    <div
-      :id="'panel-' + itemId"
-      class="onyx-accordion-item__panel"
-      role="region"
-      :aria-labelledby="'header-' + itemId"
-    >
+
+    <div :id="panelId" class="onyx-accordion-item__panel" role="region" :aria-labelledby="headerId">
       <slot></slot>
     </div>
   </details>

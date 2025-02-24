@@ -1,3 +1,4 @@
+import expandWindow from "@sit-onyx/icons/expand-window.svg?raw";
 import trash from "@sit-onyx/icons/trash.svg?raw";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
@@ -50,6 +51,21 @@ export const Danger = {
     label: "Button",
     color: "danger",
     icon: trash,
+  },
+} satisfies Story;
+
+/**
+ * This example shows the button in danger color.
+ */
+export const WithLink = {
+  tags: ["new:feature"],
+  args: {
+    icon: expandWindow,
+    label: "Open documentation",
+    link: {
+      href: "https://onyx.schwarz",
+      target: "_blank",
+    },
   },
 } satisfies Story;
 

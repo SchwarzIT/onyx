@@ -5,4 +5,5 @@ export type OnyxMiniSearchProps = DensityProp & {
    * (Aria) label of the input.
    */
   label: string;
+  autofocus?: boolean;
 };

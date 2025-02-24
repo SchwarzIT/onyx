@@ -1,5 +1,54 @@
 # demo-app
 
+## 1.0.0-beta.157
+
+### Patch Changes
+
+- Updated dependencies [52bef90]
+  - sit-onyx@1.0.0-beta.157
+
+## 1.0.0-beta.156
+
+### Patch Changes
+
+- Updated dependencies [52d74fe]
+  - sit-onyx@1.0.0-beta.156
+
+## 1.0.0-beta.155
+
+### Patch Changes
+
+- Updated dependencies [c335df7]
+  - sit-onyx@1.0.0-beta.155
+
+## 1.0.0-beta.154
+
+### Patch Changes
+
+- Updated dependencies [a5e72f4]
+  - sit-onyx@1.0.0-beta.154
+
+## 1.0.0-beta.153
+
+### Patch Changes
+
+- Updated dependencies [47cbc94]
+  - sit-onyx@1.0.0-beta.153
+
+## 1.0.0-beta.152
+
+### Patch Changes
+
+- Updated dependencies [f2a13f6]
+  - sit-onyx@1.0.0-beta.152
+
+## 1.0.0-beta.151
+
+### Patch Changes
+
+- Updated dependencies [eae5bd9]
+  - sit-onyx@1.0.0-beta.151
+
 ## 1.0.0-beta.150
 
 ### Patch Changes

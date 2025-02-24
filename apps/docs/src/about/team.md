@@ -14,7 +14,6 @@ import {
 const sortByContributions = (a, b) =>   b.contributions - a.contributions;
 const sortByOverride = (a, b) => overrides.findIndex(o => o.login === a.login) - overrides.findIndex(o => o.login === b.login);
 
-    
 // https://vitepress.dev/reference/default-theme-team-page#show-team-members-in-a-page
 // Add your full name here, if you want it to be shown
 const overrides = [
@@ -37,6 +36,14 @@ const overrides = [
   {
     login: "flubnau",
     name: 'Florian Lubnau',
+    core: true,
+    title: 'Designer',
+    org: "Schwarz IT",
+    orgLink: "https://it.schwarz/",
+  },
+  {
+    login: "Guergchen",
+    name: 'Nadine Baranzew',
     core: true,
     title: 'Designer',
     org: "Schwarz IT",
@@ -109,6 +116,13 @@ const mapped = data.contributors.map((c) => ({
   ],
   ...overrides.find(n => c.login === n.login)
 }));
+
+// add overrides if they do not exist in the contributors
+overrides.forEach(override => {
+  if (!mapped.find(contributor => contributor.login === override.login)) {
+    mapped.push({ avatar: `https://github.com/${override.login}.png`, ...override});
+  }
+})
 
 const coreMembers = mapped.filter(m => m.core).sort(sortByOverride);
 const bots = mapped.filter(m => m.type === "Bot").sort(sortByContributions);

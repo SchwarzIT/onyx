@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import { useDensity } from "../../composables/density";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
-import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
+import ButtonOrLinkLayout from "../OnyxButton/ButtonOrLinkLayout.vue";
+import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
@@ -15,7 +16,6 @@ const props = withDefaults(defineProps<OnyxIconButtonProps>(), {
 });
 
 const { densityClass } = useDensity(props);
-const { disabled } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
 
 defineSlots<{
@@ -27,24 +27,23 @@ defineSlots<{
 <template>
   <OnyxSkeleton v-if="skeleton" :class="['onyx-icon-button-skeleton', densityClass]" />
 
-  <button
+  <ButtonOrLinkLayout
     v-else
-    class="onyx-component onyx-icon-button"
+    v-bind="props"
     :aria-label="props.label"
     :title="props.label"
-    :type="props.type"
     :class="[
+      'onyx-component',
+      'onyx-icon-button',
       `onyx-icon-button--${props.color}`,
       { 'onyx-icon-button--loading': props.loading },
       densityClass,
     ]"
-    :disabled="disabled || props.loading"
-    :autofocus="props.autofocus"
   >
     <OnyxLoadingIndicator v-if="props.loading" type="circle" />
     <OnyxIcon v-else-if="props.icon" :icon="props.icon" />
     <slot v-else></slot>
-  </button>
+  </ButtonOrLinkLayout>
 </template>
 
 <style lang="scss">

@@ -1,6 +1,9 @@
 import type { OnyxButtonProps } from "../OnyxButton/types";
 
-export type OnyxSystemButtonProps = Pick<OnyxButtonProps, "disabled" | "autofocus" | "skeleton"> & {
+export type OnyxSystemButtonProps = Pick<
+  OnyxButtonProps,
+  "disabled" | "autofocus" | "skeleton" | "link"
+> & {
   /**
    * Button label / text to show. Is always required (even if `icon` is set) for screen readers / accessibility.
    */

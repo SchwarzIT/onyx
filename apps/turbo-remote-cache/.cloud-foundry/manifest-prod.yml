@@ -1,7 +1,7 @@
 applications:
   - name: turbo-remote-cache
     instances: 2
-    memory: 256MB
+    memory: 128MB
     disk_quota: 1GB
     docker:
       image: ducktors/turborepo-remote-cache

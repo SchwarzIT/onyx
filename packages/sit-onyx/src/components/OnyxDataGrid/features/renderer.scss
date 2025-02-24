@@ -1,0 +1,10 @@
+@use "../../../styles/mixins/layers.scss";
+
+@include layers.component {
+  .onyx-data-grid {
+    .onyx-data-grid-number-cell {
+      font-family: var(--onyx-font-family-mono);
+      text-align: end;
+    }
+  }
+}

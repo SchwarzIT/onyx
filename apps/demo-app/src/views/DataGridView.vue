@@ -9,11 +9,14 @@ import {
   OnyxSwitch,
   OnyxSystemButton,
   createFeature,
+  type DataGridFeature,
+  type TypeRenderMap,
 } from "sit-onyx";
 import { computed, h, ref } from "vue";
 
 const sortingEnabled = ref(false);
 const selectionEnabled = ref(false);
+const filteringEnabled = ref(false);
 const moreActions = ref(false);
 
 const data = [
@@ -52,14 +55,17 @@ const dummyFeature = createFeature(() => ({
 }));
 
 const dataFeatures = computed(() => {
-  const enabled = [];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const enabled: DataGridFeature<any, TypeRenderMap<any>, any>[] = [];
+  if (filteringEnabled.value) {
+    enabled.push(DataGridFeatures.useFiltering());
+  }
   if (sortingEnabled.value) {
     enabled.push(DataGridFeatures.useSorting<Entry>());
   }
   if (selectionEnabled.value) {
     enabled.push(DataGridFeatures.useSelection<Entry>());
   }
-
   if (moreActions.value) {
     enabled.push(dummyFeature());
   }
@@ -72,6 +78,7 @@ const dataFeatures = computed(() => {
     <div class="onyx-grid-container">
       <OnyxHeadline is="h1">Data-Grid example</OnyxHeadline>
       <section class="data-grid-settings">
+        <OnyxSwitch v-model="filteringEnabled" label="Enable filtering" />
         <OnyxSwitch v-model="sortingEnabled" label="Enable sorting" />
         <OnyxSwitch v-model="selectionEnabled" label="Enable selection" />
         <OnyxSwitch v-model="moreActions" label="Enable more actions" />

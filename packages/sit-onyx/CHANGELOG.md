@@ -1,5 +1,65 @@
 # sit-onyx
 
+## 1.0.0-beta.157
+
+### Minor Changes
+
+- 52bef90: feat(OnyxEmpty): add buttons slot and update colors
+
+  You can now pass custom action buttons via the `<template #buttons>` slot.
+  Also the default icon and text color has changed to neutral (soft) instead of primary.
+
+  The default empty icon for the table has also been changed to be aligned with the default of the OnyxEmpty component.
+
+## 1.0.0-beta.156
+
+### Minor Changes
+
+- 52d74fe: feat(OnyxDataGrid): add filter feature
+
+## 1.0.0-beta.155
+
+### Minor Changes
+
+- c335df7: feat(OnyxDataGrid): Implement column categorization
+
+## 1.0.0-beta.154
+
+### Major Changes
+
+- a5e72f4: refactor(OnyxAccordion): move management of items open state to parent component
+
+  The open state of all nested OnyxAccordionItem components is now fully moved to the OnyxAccordion to prevent recursive state logic.
+  The OnyxAccordion now also supports a `v-model` for the currently opened items.
+
+  #### Breaking changes
+
+  - OnyxAccordionItem: remove `open` property. Use the new `v-model` / `modelValue` on the OnyxAccordion
+  - OnyxAccordionItem: require new `value` property
+
+## 1.0.0-beta.153
+
+### Minor Changes
+
+- 47cbc94: feat: support `link` property for OnyxButton, OnyxIconButton and OnyxSystemButton
+
+## 1.0.0-beta.152
+
+### Minor Changes
+
+- f2a13f6: feat(OnyxDataGrid): new 'type' property is added to the ColumnConfig type. With this property a column can be of type 'string' or 'number'. Different styles will be applied depending on the type of the column.
+
+## 1.0.0-beta.151
+
+### Patch Changes
+
+- eae5bd9: fix: correctly detect links as external
+
+  Previously only links starting with `http://` or `https://` we detected as external links, meaning all other links we treated as internal and navigated using the [provided Vue Router](https://onyx.schwarz/development/router.html).
+
+  Since this is incorrect for links like `mailto:`, `tel:` etc. this behavior has been fixed.
+  Now only links starting with `/`, `#`, `./` and `../` are treated as **internal**. All other links are treated as **external**.
+
 ## 1.0.0-beta.150
 
 ### Patch Changes

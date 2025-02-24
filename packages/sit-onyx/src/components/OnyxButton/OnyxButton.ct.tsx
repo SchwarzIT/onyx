@@ -5,18 +5,18 @@ import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwrigh
 import OnyxButton from "./OnyxButton.vue";
 import { BUTTON_COLORS, BUTTON_MODES } from "./types";
 
-test.describe("Screenshot tests", () => {
-  const screenshotOptions = {
-    rows: ["default", "hover", "active", "focus-visible"] as const,
-    hooks: {
-      beforeEach: async (component, page, column, row) => {
-        if (row === "hover") await component.hover();
-        if (row === "focus-visible") await page.keyboard.press("Tab");
-        if (row === "active") await page.mouse.down();
-      },
+const screenshotOptions = {
+  rows: ["default", "hover", "active", "focus-visible"] as const,
+  hooks: {
+    beforeEach: async (component, page, column, row) => {
+      if (row === "hover") await component.hover();
+      if (row === "focus-visible") await page.keyboard.press("Tab");
+      if (row === "active") await page.mouse.down();
     },
-  } satisfies Partial<MatrixScreenshotTestOptions>;
+  },
+} satisfies Partial<MatrixScreenshotTestOptions>;
 
+test.describe("Screenshot tests", () => {
   for (const mode of BUTTON_MODES) {
     executeMatrixScreenshotTest({
       ...screenshotOptions,
@@ -46,6 +46,13 @@ test.describe("Screenshot tests", () => {
       columns: BUTTON_COLORS,
       name: `Button (${mode}, loading)`,
       component: (column) => <OnyxButton label="Button" mode={mode} color={column} loading />,
+    });
+
+    executeMatrixScreenshotTest({
+      ...screenshotOptions,
+      columns: BUTTON_COLORS,
+      name: `Button (${mode}, with link)`,
+      component: (column) => <OnyxButton label="Button" mode={mode} color={column} link="#test" />,
     });
   }
 
@@ -112,4 +119,19 @@ test("should trigger some ripples", async ({ mount, page }) => {
 
   // ASSERT
   await expect(component.locator(".onyx-ripple__element")).toHaveCount(3);
+});
+
+test("should behave as link", async ({ mount, page }) => {
+  // ARRANGE
+  const component = await mount(<OnyxButton label="Test label" link="#test-section" />);
+
+  // ASSERT
+  await expect(component).toHaveRole("link");
+  await expect(component).toHaveAccessibleName("Test label");
+
+  // ACT
+  await component.click();
+
+  // ASSERT
+  await expect(page).toHaveURL(/^http:\/\/localhost:\d*\/#test-section$/);
 });

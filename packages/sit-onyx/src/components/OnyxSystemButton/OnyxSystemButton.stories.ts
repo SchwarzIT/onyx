@@ -1,3 +1,4 @@
+import expandWindow from "@sit-onyx/icons/expand-window.svg?raw";
 import moreVertical from "@sit-onyx/icons/more-vertical.svg?raw";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
@@ -26,6 +27,18 @@ export const Default = {
 export const WithText = {
   args: {
     label: "Example button",
+  },
+} satisfies Story;
+
+export const WithLink = {
+  tags: ["new:feature"],
+  args: {
+    label: "Open documentation",
+    icon: expandWindow,
+    link: {
+      href: "https://onyx.schwarz",
+      target: "_blank",
+    },
   },
 } satisfies Story;
 

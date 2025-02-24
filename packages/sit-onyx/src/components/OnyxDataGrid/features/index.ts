@@ -1,26 +1,24 @@
 import moreHorizontal from "@sit-onyx/icons/more-horizontal.svg?raw";
 import { computed, h, toValue, type Component, type MaybeRefOrGetter, type WatchSource } from "vue";
 import type { ComponentSlots } from "vue-component-type-helpers";
-import { injectI18n } from "../../../i18n";
-import { allObjectEntries } from "../../../utils/objects";
+import { type OnyxI18n } from "../../../i18n";
 import type { OnyxMenuItem } from "../../OnyxNavBar/modules";
 import OnyxFlyoutMenu from "../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxSystemButton from "../../OnyxSystemButton/OnyxSystemButton.vue";
+import type { TableColumnGroup } from "../../OnyxTable/types";
 import type {
   DataGridRendererCell,
   DataGridRendererColumn,
   DataGridRendererRow,
 } from "../OnyxDataGridRenderer/types";
 import type { DataGridEntry, DataGridMetadata } from "../types";
-import HeaderCell from "./HeaderCell.vue";
+import { createRenderer } from "./renderer";
 
 /**
  * Function type for modifying the normalized column configuration.
  */
 export type ModifyColumns<TEntry extends DataGridEntry> = {
-  func: (
-    columns: Readonly<NormalizedColumnConfig<TEntry, PropertyKey>[]>,
-  ) => NormalizedColumnConfig<TEntry, PropertyKey>[];
+  func: (columns: Readonly<NormalizedColumnConfig<TEntry>[]>) => NormalizedColumnConfig<TEntry>[];
 };
 
 /**
@@ -40,16 +38,35 @@ export type TypeRenderMap<TEntry extends DataGridEntry> = Record<PropertyKey, Ty
 /**
  * ColumnConfig as it can be defined by the user.
  */
-export type ColumnConfig<TEntry extends DataGridEntry, TTypes> =
-  | keyof TEntry
-  | NormalizedColumnConfig<TEntry, TTypes>;
+export type ColumnConfig<
+  TEntry extends DataGridEntry,
+  TColumnGroup extends ColumnGroupConfig,
+  TTypes,
+> = keyof TEntry | NormalizedColumnConfig<TEntry, TColumnGroup, TTypes>;
+
+export type DefaultSupportedTypes = "string" | "number";
+
+/**
+ * Configuration for the column groupings.
+ */
+export type ColumnGroupConfig = Record<
+  string,
+  {
+    label: string;
+  }
+>;
 
 /**
  * Normalized column config for internal usage.
  */
-export type NormalizedColumnConfig<TEntry extends DataGridEntry, TTypes = PropertyKey> = {
+export type NormalizedColumnConfig<
+  TEntry extends DataGridEntry,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  TColumnGroup extends ColumnGroupConfig = any,
+  TTypes = PropertyKey,
+> = {
   /**
-   * The `key` identifies which property of an `data` entry is used as a value.
+   * The `key` identifies which property of an `data` entry is used as `modelValue` for a cell.
    */
   key: keyof TEntry;
   /**
@@ -61,7 +78,15 @@ export type NormalizedColumnConfig<TEntry extends DataGridEntry, TTypes = Proper
    * The `type` of the column. It defines how the header and cells of a column is rendered.
    * If not defined the values are displayed as plain strings.
    */
-  type?: TTypes;
+  type?: TTypes | DefaultSupportedTypes;
+  /**
+   * Key of the ColumnGroup that this column should be visually grouped in.
+   * The columns have to be defined in the correct order.
+   * So columns that should be grouped together have to actually be defined after eachother.
+   *
+   * The label for the column group can be configured via the `columnGroups` prop.
+   */
+  columnGroupKey?: keyof TColumnGroup;
 };
 
 /**
@@ -86,7 +111,7 @@ export type DataGridFeature<
    * Allows modifying the datagrid state as a whole.
    */
   mutation?: {
-    func: (state: Readonly<TEntry>[]) => void;
+    func: (state: Readonly<TEntry>[]) => Readonly<TEntry>[] | void;
   };
 
   /**
@@ -117,9 +142,10 @@ export type DataGridFeature<
      * `iconComponent` of an action is shown after the header label.
      * The components must be ARIA-conform buttons.
      */
-    actions?: (column: NormalizedColumnConfig<TEntry, keyof TTypeRenderer>) => {
-      iconComponent: Component;
+    actions?: (column: NormalizedColumnConfig<TEntry>) => {
+      iconComponent?: Component | { iconComponent: Component; position?: string };
       menuItems: Component<typeof OnyxMenuItem>[];
+      showFlyoutMenu?: boolean;
     }[];
   };
 };
@@ -160,9 +186,43 @@ type CheckDataGridFeature<T> =
     ? DataGridFeature<A, TypeRenderMap<A>, C>
     : never;
 
-export type UseDataGridFeaturesOptions<TEntry extends DataGridEntry> = {
-  columnConfig: MaybeRefOrGetter<ColumnConfig<TEntry, PropertyKey>[]>;
-  t: ReturnType<typeof injectI18n>["t"];
+export type UseDataGridFeaturesOptions<
+  TEntry extends DataGridEntry,
+  TColumnGroup extends ColumnGroupConfig,
+> = {
+  columnConfig: MaybeRefOrGetter<ColumnConfig<TEntry, TColumnGroup, PropertyKey>[]>;
+  i18n: OnyxI18n;
+  columnGroups: MaybeRefOrGetter<TColumnGroup>;
+};
+
+export const createTableColumnGroups = <TEntry extends DataGridEntry>(
+  columns?: NormalizedColumnConfig<TEntry>[],
+  columnGroups?: ColumnGroupConfig,
+) => {
+  // Only if there is at least a single column group defined.
+  if (!columns?.some((c) => c.columnGroupKey)) {
+    return undefined;
+  }
+
+  /** Remember start of the current group */
+  let currentStart = 0;
+  const result: TableColumnGroup[] = [];
+
+  for (let i = 1; i <= columns.length; i++) {
+    const element = columns[i];
+    const currentKey = columns[currentStart].columnGroupKey ?? "";
+    // When it's the last iteration or the current group key changed:
+    if (i === columns.length || element?.columnGroupKey !== currentKey) {
+      // add a new TableColumnGroup
+      result.push({
+        key: currentKey,
+        span: i - currentStart,
+        header: columnGroups?.[currentKey as string]?.label ?? String(currentKey),
+      });
+      currentStart = i;
+    }
+  }
+  return result;
 };
 
 /**
@@ -203,13 +263,14 @@ export const useDataGridFeatures = <
   TEntry extends DataGridEntry,
   TFeatureName extends symbol,
   TTypeRenderer extends TypeRenderMap<TEntry>,
+  TColumnGroup extends ColumnGroupConfig,
   // Intersection with the empty array is necessary for TypeScript to infer the array entries as tuple values instead of an array
   // e.g. (Feature1 | Feature2)[] vs. [Feature1, Feature2]
   // The inference of tuple values allows us to create types that are more precise
   T extends DataGridFeature<TEntry, TTypeRenderer, TFeatureName>[] | [],
 >(
   features: T,
-  { t, columnConfig }: UseDataGridFeaturesOptions<TEntry>,
+  { i18n, columnConfig, columnGroups }: UseDataGridFeaturesOptions<TEntry, TColumnGroup>,
 ) => {
   const columns = computed(() => {
     const normalized = toValue(columnConfig).map((c) => (typeof c !== "object" ? { key: c } : c));
@@ -218,28 +279,10 @@ export const useDataGridFeatures = <
       .reduce((last, m) => (m?.func ? m.func(last) : last), normalized);
   });
 
-  /**
-   * Maps type names to their respective component.
-   */
-  const typeRendererMap = new Map(
-    features
-      .flatMap(({ typeRenderer }) => typeRenderer! && allObjectEntries(typeRenderer))
-      .filter(Boolean),
-  );
+  const renderer = computed(() => createRenderer(features));
 
-  const fallbackRenderer: Required<TypeRenderer<TEntry>> = {
-    header: { component: HeaderCell },
-    cell: { component: (props) => String(props.modelValue) },
-  };
-  /**
-   * Returns a renderer for any given component and type.
-   * Uses the fallbackRenderer if necessary.
-   */
-  const getRendererFor = <TComponent extends "cell" | "header">(
-    component: TComponent,
-    type?: PropertyKey,
-  ): NonNullable<TypeRenderer<TEntry>[TComponent]> =>
-    typeRendererMap.get(type!)?.[component] ?? fallbackRenderer[component]; // Map returns undefined if `type` is undefined, so it's safe to use the Non-Null assertion.
+  const createRendererColumnGroups = () =>
+    createTableColumnGroups(columns.value, toValue(columnGroups));
 
   const createRendererColumns = (): DataGridRendererColumn<TEntry>[] => {
     const headerFeatures = features.map((feature) => feature.header).filter((header) => !!header);
@@ -249,42 +292,68 @@ export const useDataGridFeatures = <
 
     return columns.value.map<DataGridRendererColumn<TEntry>>((column) => {
       const actions = headerActions.flatMap((actionFactory) => actionFactory(column));
-      const header = getRendererFor("header", column.type);
+      const header = renderer.value.getFor("header", column.type);
       const label = column.label?.trim() ?? String(column.key);
 
-      if (actions.length > 1) {
-        const menuItems = actions.map(({ menuItems }) => menuItems).filter((item) => !!item);
-
-        const flyoutMenu = h(
-          OnyxFlyoutMenu,
-          {
-            label: t.value("navigation.moreActionsFlyout", { column: label }),
-            trigger: "click",
-          },
-          {
-            button: ({ trigger }) =>
-              h(OnyxSystemButton, {
-                label: t.value("navigation.moreActionsTrigger"),
-                color: "medium",
-                icon: moreHorizontal,
-                ...trigger,
-              }),
-            options: () => menuItems,
-          } satisfies ComponentSlots<typeof OnyxFlyoutMenu>,
-        );
-
-        return {
-          ...header,
-          key: column.key,
-          component: () => h(header.component, { label }, { actions: () => flyoutMenu }),
-        };
-      }
+      const menuItems = actions.map(({ menuItems }) => menuItems).filter((item) => !!item);
       const iconComponent = actions.map(({ iconComponent }) => iconComponent);
 
+      const flyoutMenu = h(
+        OnyxFlyoutMenu,
+        {
+          label: i18n.t.value("navigation.moreActionsFlyout", { column: label }),
+          trigger: "click",
+        },
+        {
+          button: ({ trigger }) =>
+            h(OnyxSystemButton, {
+              class: actions.length > 1 ? "onyx-system-button--multiple-actions" : "",
+              label: i18n.t.value("navigation.moreActionsTrigger"),
+              color: "medium",
+              icon: moreHorizontal,
+              ...trigger,
+            }),
+          options: () => menuItems,
+        } satisfies ComponentSlots<typeof OnyxFlyoutMenu>,
+      );
       return {
         ...header,
         key: column.key,
-        component: () => h(header.component, { label }, { actions: () => iconComponent }),
+        component: () =>
+          h(
+            header.component,
+            { label },
+            {
+              actions: () => {
+                // normalizing the iconComponents from Component to {iconComponent: Component}
+                const iconsArray = Array.isArray(iconComponent)
+                  ? iconComponent
+                  : iconComponent
+                    ? [iconComponent]
+                    : [];
+                const normalizedIcons = iconsArray.map((ic) => {
+                  if (typeof ic === "object" && "iconComponent" in ic) {
+                    return ic;
+                  }
+                  return { iconComponent: ic };
+                });
+
+                const headerIcons = normalizedIcons
+                  .filter((ic) => ic?.position === "header")
+                  .map((ic) => ic.iconComponent);
+
+                const nonHeaderIcon =
+                  normalizedIcons.find((ic) => !ic.position)?.iconComponent ?? null;
+
+                const shouldShowFlyout =
+                  actions.length > 1 || actions.some((action) => action.showFlyoutMenu);
+
+                return [...headerIcons, shouldShowFlyout ? flyoutMenu : nonHeaderIcon].filter(
+                  Boolean,
+                );
+              },
+            },
+          ),
       };
     });
   };
@@ -293,14 +362,19 @@ export const useDataGridFeatures = <
     entries: TEntry[],
   ): DataGridRendererRow<TEntry, DataGridMetadata>[] => {
     const mutations = features.map((f) => f.mutation).filter((m) => !!m);
-    const shallowCopy = [...entries];
-    mutations.forEach(({ func }) => func(shallowCopy));
 
+    let shallowCopy = [...entries];
+    mutations.forEach(({ func }) => {
+      const result = func(shallowCopy);
+      if (result) {
+        shallowCopy = result as TEntry[];
+      }
+    });
     return shallowCopy.map((entry) => {
       const cells = columns.value.reduce<DataGridRendererRow<TEntry, DataGridMetadata>["cells"]>(
         (cells, { key, type }) => {
           cells[key] = {
-            ...getRendererFor("cell", type),
+            ...renderer.value.getFor("cell", type),
             props: { row: entry, modelValue: entry[key] },
           };
           return cells;
@@ -317,6 +391,8 @@ export const useDataGridFeatures = <
   const watchSources: WatchSource[] = features.flatMap((f) => f.watch ?? []);
 
   return {
+    /** Uses the column definition and available column group config to generate the column groups for the underlying OnyxTable */
+    createRendererColumnGroups,
     /** Takes the column definition and maps all, calls mutation func and maps at the end to RendererCell */
     createRendererRows,
     /** Takes the column definition and creates a RenderHeader for each, adds actions from features */

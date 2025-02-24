@@ -9,7 +9,8 @@ export const normalizedIncludes = (haystack: string, needle: string): boolean =>
   return haystackNormalized.includes(needleNormalized);
 };
 
-const removeDiacritics = (str: string) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+export const removeDiacritics = (str: string) =>
+  str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
 /**
  * Normalizes the given text (e.g. from a headline) to a URL-safe string that can be used as URL hash.

@@ -101,4 +101,31 @@ test.describe("Screenshot tests", () => {
       ),
     });
   }
+
+  executeMatrixScreenshotTest({
+    name: "Icon button (link)",
+    columns: BUTTON_COLORS,
+    rows: ["default", "hover", "active", "focus-visible"],
+    hooks,
+    component: (column) => (
+      <OnyxIconButton label="Test label" icon={mockPlaywrightIcon} color={column} link="#test" />
+    ),
+  });
+});
+
+test("should behave as link", async ({ mount, page }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxIconButton label="Test label" icon={mockPlaywrightIcon} link="#test-section" />,
+  );
+
+  // ASSERT
+  await expect(component).toHaveRole("link");
+  await expect(component).toHaveAccessibleName("Test label");
+
+  // ACT
+  await component.click();
+
+  // ASSERT
+  await expect(page).toHaveURL(/^http:\/\/localhost:\d*\/#test-section$/);
 });

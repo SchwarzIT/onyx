@@ -1,5 +1,5 @@
 import type { ScreenshotTestHooks } from "@sit-onyx/playwright-utils";
-import { test } from "../../playwright/a11y";
+import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots";
 import OnyxSystemButton from "./OnyxSystemButton.vue";
 import { SYSTEM_BUTTON_COLORS } from "./types";
@@ -28,7 +28,7 @@ for (const color of SYSTEM_BUTTON_COLORS) {
   test.describe(`Screenshot tests (${color})`, () => {
     executeMatrixScreenshotTest({
       name: `System button (${color})`,
-      columns: ["text", "icon"],
+      columns: ["text", "icon", "link"],
       rows: ["default", "hover", "active", "focus-visible", "skeleton"],
       hooks,
       component: (column, row) => (
@@ -37,6 +37,7 @@ for (const color of SYSTEM_BUTTON_COLORS) {
           icon={column === "icon" ? mockPlaywrightIcon : undefined}
           skeleton={row === "skeleton"}
           color={color}
+          link={column === "link" ? "#test" : undefined}
         />
       ),
     });
@@ -57,3 +58,20 @@ for (const color of SYSTEM_BUTTON_COLORS) {
     });
   });
 }
+
+test("should behave as link", async ({ mount, page }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxSystemButton label="Test label" icon={mockPlaywrightIcon} link="#test-section" />,
+  );
+
+  // ASSERT
+  await expect(component).toHaveRole("link");
+  await expect(component).toHaveAccessibleName("Test label");
+
+  // ACT
+  await component.click();
+
+  // ASSERT
+  await expect(page).toHaveURL(/^http:\/\/localhost:\d*\/#test-section$/);
+});

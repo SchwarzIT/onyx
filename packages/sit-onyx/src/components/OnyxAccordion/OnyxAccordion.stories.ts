@@ -10,6 +10,7 @@ import OnyxAccordion from "./OnyxAccordion.vue";
 const meta: Meta<typeof OnyxAccordion> = {
   title: "Basic/Accordion",
   component: OnyxAccordion,
+  tags: ["new:component"],
   argTypes: {
     default: {
       control: { disable: true },
@@ -23,19 +24,38 @@ type Story = StoryObj<typeof OnyxAccordion>;
 export const Default = {
   args: {
     default: () => [
-      h(OnyxAccordionItem, null, {
-        header: () => "First Accordion Header",
-        default: () => "This is the content inside the first panel.",
-      }),
-      h(OnyxAccordionItem, null, {
-        header: () => "Second Accordion Header",
-        default: () => "This is the content inside the second panel.",
-      }),
-      h(OnyxAccordionItem, null, {
-        header: () => "Third Accordion Header",
-        default: () => "This is the content inside the third panel.",
-      }),
+      h(
+        OnyxAccordionItem,
+        { value: "item-1" },
+        {
+          header: () => "First Accordion Header",
+          default: () => "This is the content inside the first panel.",
+        },
+      ),
+      h(
+        OnyxAccordionItem,
+        { value: "item-2" },
+        {
+          header: () => "Second Accordion Header",
+          default: () => "This is the content inside the second panel.",
+        },
+      ),
+      h(
+        OnyxAccordionItem,
+        { value: "item-3" },
+        {
+          header: () => "Third Accordion Header",
+          default: () => "This is the content inside the third panel.",
+        },
+      ),
     ],
+  },
+} satisfies Story;
+
+export const InitialOpen = {
+  args: {
+    ...Default.args,
+    modelValue: ["item-1"],
   },
 } satisfies Story;
 

@@ -23,6 +23,13 @@
           "desc": "Absteigend sortieren",
           "none": "Keine Sortierung"
         }
+      },
+      "filtering": {
+        "removeLabel": "Suche für Spalte {column} löschen",
+        "menu": {
+          "label": "Search column {column}",
+          "placeholder": "Spalte durchsuchen"
+        }
       }
     }
   },
