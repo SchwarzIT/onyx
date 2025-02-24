@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.158
+
+### Patch Changes
+
+- ac16768: fix(i18n): prevent message compilation error in Nuxt
+
 ## 1.0.0-beta.157
 
 ### Minor Changes
