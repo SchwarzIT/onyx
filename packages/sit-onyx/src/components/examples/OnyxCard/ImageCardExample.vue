@@ -9,15 +9,18 @@ import {
   OnyxSystemButton,
   OnyxTag,
 } from "../../..";
+import OnyxImage from "../../OnyxImage/OnyxImage.vue";
 </script>
 
 <template>
   <OnyxCard class="card">
-    <img
+    <OnyxImage
       class="card__image"
       alt="Example image"
+      src="https://picsum.photos/320/128"
       :height="128"
-      src="https://picsum.photos/256/128"
+      :width="320"
+      shape="rounded"
     />
 
     <div class="card__header">
@@ -59,8 +62,7 @@ import {
   width: 20rem;
 
   &__image {
-    border-radius: var(--onyx-radius-sm);
-    background-color: var(--onyx-color-base-neutral-200);
+    width: 100%;
   }
 
   &__category {
