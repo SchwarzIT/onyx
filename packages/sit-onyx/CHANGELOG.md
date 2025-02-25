@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.159
+
+### Minor Changes
+
+- a498578: feat: implement new OnyxImage component
+
 ## 1.0.0-beta.158
 
 ### Patch Changes
