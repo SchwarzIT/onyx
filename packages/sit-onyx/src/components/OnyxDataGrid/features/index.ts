@@ -1,7 +1,17 @@
 import moreHorizontal from "@sit-onyx/icons/more-horizontal.svg?raw";
-import { computed, h, toValue, type Component, type MaybeRefOrGetter, type WatchSource } from "vue";
+import {
+  computed,
+  h,
+  toValue,
+  type Component,
+  type MaybeRefOrGetter,
+  type TdHTMLAttributes,
+  type ThHTMLAttributes,
+  type WatchSource,
+} from "vue";
 import type { ComponentSlots } from "vue-component-type-helpers";
 import { type OnyxI18n } from "../../../i18n";
+import { mergeVueProps } from "../../../utils/attrs";
 import type { OnyxMenuItem } from "../../OnyxNavBar/modules";
 import OnyxFlyoutMenu from "../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxSystemButton from "../../OnyxSystemButton/OnyxSystemButton.vue";
@@ -18,7 +28,7 @@ import { createRenderer } from "./renderer";
  * Function type for modifying the normalized column configuration.
  */
 export type ModifyColumns<TEntry extends DataGridEntry> = {
-  func: (columns: Readonly<NormalizedColumnConfig<TEntry>[]>) => NormalizedColumnConfig<TEntry>[];
+  func: (columns: Readonly<InternalColumnConfig<TEntry>[]>) => InternalColumnConfig<TEntry>[];
 };
 
 /**
@@ -42,7 +52,7 @@ export type ColumnConfig<
   TEntry extends DataGridEntry,
   TColumnGroup extends ColumnGroupConfig,
   TTypes,
-> = keyof TEntry | NormalizedColumnConfig<TEntry, TColumnGroup, TTypes>;
+> = keyof TEntry | PublicNormalizedColumnConfig<TEntry, TColumnGroup, TTypes>;
 
 export type DefaultSupportedTypes = "string" | "number";
 
@@ -57,9 +67,28 @@ export type ColumnGroupConfig = Record<
 >;
 
 /**
+ * Column config used internally and by the `modifyColumns` functions.
+ */
+export type InternalColumnConfig<
+  TEntry extends DataGridEntry,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  TColumnGroup extends ColumnGroupConfig = any,
+  TTypes = PropertyKey,
+> = {
+  /**
+   * Attributes that should be set on all `td` elements
+   */
+  tdAttributes?: TdHTMLAttributes;
+  /**
+   * Attributes that should be set on all `th` elements
+   */
+  thAttributes?: ThHTMLAttributes;
+} & PublicNormalizedColumnConfig<TEntry, TColumnGroup, TTypes>;
+
+/**
  * Normalized column config for internal usage.
  */
-export type NormalizedColumnConfig<
+export type PublicNormalizedColumnConfig<
   TEntry extends DataGridEntry,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   TColumnGroup extends ColumnGroupConfig = any,
@@ -142,7 +171,7 @@ export type DataGridFeature<
      * `iconComponent` of an action is shown after the header label.
      * The components must be ARIA-conform buttons.
      */
-    actions?: (column: NormalizedColumnConfig<TEntry>) => {
+    actions?: (column: PublicNormalizedColumnConfig<TEntry>) => {
       iconComponent?: Component | { iconComponent: Component; position?: string };
       menuItems: Component<typeof OnyxMenuItem>[];
       showFlyoutMenu?: boolean;
@@ -196,7 +225,7 @@ export type UseDataGridFeaturesOptions<
 };
 
 export const createTableColumnGroups = <TEntry extends DataGridEntry>(
-  columns?: NormalizedColumnConfig<TEntry>[],
+  columns?: PublicNormalizedColumnConfig<TEntry>[],
   columnGroups?: ColumnGroupConfig,
 ) => {
   // Only if there is at least a single column group defined.
@@ -273,7 +302,9 @@ export const useDataGridFeatures = <
   { i18n, columnConfig, columnGroups }: UseDataGridFeaturesOptions<TEntry, TColumnGroup>,
 ) => {
   const columns = computed(() => {
-    const normalized = toValue(columnConfig).map((c) => (typeof c !== "object" ? { key: c } : c));
+    const normalized = toValue(columnConfig).map<InternalColumnConfig<TEntry>>((c) =>
+      typeof c !== "object" ? { key: c } : c,
+    );
     return features
       .flatMap(({ modifyColumns }) => modifyColumns)
       .reduce((last, m) => (m?.func ? m.func(last) : last), normalized);
@@ -317,7 +348,7 @@ export const useDataGridFeatures = <
         } satisfies ComponentSlots<typeof OnyxFlyoutMenu>,
       );
       return {
-        ...header,
+        thAttributes: mergeVueProps(header.thAttributes, column.thAttributes),
         key: column.key,
         component: () =>
           h(
@@ -372,10 +403,12 @@ export const useDataGridFeatures = <
     });
     return shallowCopy.map((entry) => {
       const cells = columns.value.reduce<DataGridRendererRow<TEntry, DataGridMetadata>["cells"]>(
-        (cells, { key, type }) => {
+        (cells, { key, type, tdAttributes }) => {
+          const cellRenderer = renderer.value.getFor("cell", type);
           cells[key] = {
-            ...renderer.value.getFor("cell", type),
+            component: cellRenderer.component,
             props: { row: entry, modelValue: entry[key] },
+            tdAttributes: mergeVueProps(tdAttributes, cellRenderer.tdAttributes),
           };
           return cells;
         },
