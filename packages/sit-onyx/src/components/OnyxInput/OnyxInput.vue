@@ -1,12 +1,13 @@
 <script lang="ts" setup>
 import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
-import { computed, useTemplateRef } from "vue";
+import { computed, mergeProps, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density";
 import { useAutofocus } from "../../composables/useAutoFocus";
 import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
 import { useLenientMaxLengthValidation } from "../../composables/useLenientMaxLengthValidation";
+import { useLenientPatternValidation } from "../../composables/useLenientPatternValidation";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { injectI18n } from "../../i18n";
 import { useRootAttrs } from "../../utils/attrs";
@@ -61,6 +62,7 @@ const { rootAttrs, restAttrs } = useRootAttrs();
 
 const { t } = injectI18n();
 const { maxLength, maxLengthError } = useLenientMaxLengthValidation({ modelValue, props });
+const lenientPatternAttrs = useLenientPatternValidation({ modelValue, props });
 const customError = computed(() => props.customError ?? maxLengthError.value);
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit, customError });
 const successMessages = computed(() => getFormMessages(props.success));
@@ -68,10 +70,6 @@ const messages = computed(() => getFormMessages(props.message));
 
 const { densityClass } = useDensity(props);
 
-const patternSource = computed(() => {
-  if (props.pattern instanceof RegExp) return props.pattern.source;
-  return props.pattern;
-});
 
 const input = useTemplateRef("inputRef");
 defineExpose({ input });
@@ -121,14 +119,13 @@ useAutofocus(input, props);
             :autocomplete="props.autocomplete"
             :autofocus="props.autofocus"
             :name="props.name"
-            :pattern="patternSource"
             :readonly="props.readonly"
             :disabled="disabled || props.loading"
             :maxlength="maxLength"
             :minlength="props.minlength"
             :aria-label="props.hideLabel ? props.label : undefined"
             :title="props.hideLabel ? props.label : undefined"
-            v-bind="restAttrs"
+            v-bind="mergeProps(lenientPatternAttrs, restAttrs)"
           />
 
           <button

@@ -30,6 +30,10 @@ type Story = StoryObj<typeof OnyxInput>;
 export const Default = {
   args: {
     label: "Label",
+    pattern: {
+      strict: true,
+      pattern: /^\d*$/g,
+    }
   },
 } satisfies Story;
 

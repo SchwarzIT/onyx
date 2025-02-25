@@ -4,6 +4,8 @@ import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import { TRUNCATION_TYPES } from "../../types";
 import OnyxCheckbox from "./OnyxCheckbox.vue";
 
+
+
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Checkbox",
@@ -21,6 +23,8 @@ test.describe("Screenshot tests", () => {
     ),
     hooks: {
       beforeEach: async (component, page, column, row) => {
+        
+
         const checkbox = component.getByLabel("Test label");
 
         if (column === "unchecked") await expect(checkbox).not.toBeChecked();

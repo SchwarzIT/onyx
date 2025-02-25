@@ -175,7 +175,7 @@ const resolvePluralization = (message: string, value?: number) => {
  * If a value is provided, it will be replaced accordingly. Otherwise the placeholder
  * will be removed from the message (same behavior as "vue-i18n").
  */
-const replacePlaceholders = (
+export const replacePlaceholders = (
   message: string,
   placeholders: Record<string, string | number | undefined>,
 ): string => {

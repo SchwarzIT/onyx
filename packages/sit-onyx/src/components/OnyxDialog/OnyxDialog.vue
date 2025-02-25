@@ -67,6 +67,7 @@ watch(
     :aria-label="props.label"
     :role="props.alert ? 'alertdialog' : undefined"
     @cancel.prevent="emit('close')"
+    @keydown.esc.prevent="emit('close')"
   >
     <slot></slot>
   </dialog>

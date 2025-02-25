@@ -52,7 +52,7 @@
     },
     "patternMismatch": {
       "preview": "Invalid format",
-      "fullError": "Please match the format requested."
+      "fullError": "This input requires the input to be in a specific pattern, which is currently not matched."
     },
     "valueMissing": {
       "preview": "Required",
