@@ -18,7 +18,7 @@ export const useSelection = createFeature(
           contingent: new Set<TEntry["id"]>(),
         } as const),
     );
-    const rowsCount = ref(5);
+    const rowsCount = ref();
     const disabled = toRef(options?.disabled ?? false);
     const hover = toRef(options?.hover ?? false);
 
@@ -43,12 +43,9 @@ export const useSelection = createFeature(
       }
     };
 
-    const isIndeterminate = () => {
-      return (
-        selectionState.value.contingent.size !== 0 &&
-        selectionState.value.contingent.size !== rowsCount.value
-      );
-    };
+    const isIndeterminate = () =>
+      selectionState.value.contingent.size !== 0 &&
+      selectionState.value.contingent.size !== rowsCount.value;
 
     const { t } = injectI18n();
 
