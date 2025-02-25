@@ -23,6 +23,14 @@ export const Default = {
   },
 } satisfies Story;
 
+export const DynamicSize = {
+  args: {
+    ...Default.args,
+    src: "https://picsum.photos/1080",
+    style: "width: 100%;",
+  },
+} satisfies Story;
+
 export const Rounded = {
   args: {
     ...Default.args,

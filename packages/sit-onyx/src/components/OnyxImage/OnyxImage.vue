@@ -38,10 +38,9 @@ const { restAttrs, rootAttrs } = useRootAttrs();
     :class="[
       'onyx-component',
       'onyx-image',
-      `onyx-image--${props.shape}`,
+      props.shape ? `onyx-image--${props.shape}` : '',
       isError ? 'onyx-image--error' : undefined,
     ]"
-    :title="isError ? props.alt : undefined"
   >
     <img
       class="onyx-image__source"
