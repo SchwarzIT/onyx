@@ -10,6 +10,10 @@ export type OnyxIconProps = IconSizeProp & {
    * Icon color.
    */
   color?: OnyxColor | "currentColor";
+  /**
+   * In inline mode the icon will adapt to size of the font and align itself according to the text-height.
+   */
+  inline?: boolean;
 };
 
 export const ICON_SIZES = ["12px", "16px", "24px", "32px", "48px", "64px", "96px"] as const;

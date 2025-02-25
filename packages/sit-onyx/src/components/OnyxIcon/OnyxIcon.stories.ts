@@ -51,5 +51,22 @@ export const WithColor = {
   args: {
     ...Default.args,
     color: "success",
+    style: "--icon-size: 1em; vertical-align: middle;",
   },
+} satisfies Story;
+
+/**
+ * This example shows an icon with a different color.
+ */
+export const Inline = {
+  args: {
+    ...Default.args,
+    inline: true,
+  },
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `<p class="onyx-text" style="font-family: var(--onyx-font-family);" ><story /> Icons can also be used in combination with text. But don't forget, that they are not accessible <story /> and invisible to screen-readers. Your text must be comprehensible and work without them.</p>`,
+    }),
+  ],
 } satisfies Story;
