@@ -112,6 +112,7 @@ export type DataGridFeature<
    */
   mutation?: {
     func: (state: Readonly<TEntry>[]) => Readonly<TEntry>[] | void;
+    order?: number;
   };
 
   /**
@@ -361,7 +362,10 @@ export const useDataGridFeatures = <
   const createRendererRows = (
     entries: TEntry[],
   ): DataGridRendererRow<TEntry, DataGridMetadata>[] => {
-    const mutations = features.map((f) => f.mutation).filter((m) => !!m);
+    const mutations = features
+      .map((f) => f.mutation)
+      .filter((m) => !!m)
+      .sort((a, b) => (b.order ?? 0) - (a.order ?? 0));
 
     let shallowCopy = [...entries];
     mutations.forEach(({ func }) => {
