@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.160
+
+### Minor Changes
+
+- de81676: feat(OnyxTable): support slots headline, actions, bottomLeft and pagination
+
 ## 1.0.0-beta.159
 
 ### Minor Changes
