@@ -56,7 +56,7 @@ export const WithColor = {
 } satisfies Story;
 
 /**
- * This example shows an icon with a different color.
+ * This example shows that and how the OnyxIcon can be used with text.
  */
 export const Inline = {
   args: {

@@ -11,7 +11,7 @@ export type OnyxIconProps = IconSizeProp & {
    */
   color?: OnyxColor | "currentColor";
   /**
-   * In inline mode the icon will adapt to size of the font and align itself according to the text-height.
+   * In inline mode the icon will adapt to the font-size and align itself according to the line-height.
    */
   inline?: boolean;
 };
