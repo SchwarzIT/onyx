@@ -1,4 +1,4 @@
-import { computed, useAttrs, type HTMLAttributes } from "vue";
+import { computed, mergeProps, useAttrs, type HTMLAttributes } from "vue";
 
 // region docs
 /**
@@ -50,3 +50,9 @@ export const useRootAttrs = <T extends HTMLAttributes = HTMLAttributes>() => {
     restAttrs,
   };
 };
+
+/**
+ * Extends the Vue's `mergeProp` functionality and typing to be easier to work with.
+ */
+export const mergeVueProps = <T extends object | null | undefined>(...args: T[]) =>
+  mergeProps(...args.map((e) => e ?? {})) as NonNullable<T>;

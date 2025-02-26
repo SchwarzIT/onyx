@@ -56,7 +56,7 @@ const dummyFeature = createFeature(() => ({
 
 const dataFeatures = computed(() => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const enabled: DataGridFeature<any, TypeRenderMap<any>, any>[] = [];
+  const enabled: DataGridFeature<Entry, TypeRenderMap<any>, any>[] = [];
   if (filteringEnabled.value) {
     enabled.push(DataGridFeatures.useFiltering());
   }
