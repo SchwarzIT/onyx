@@ -53,3 +53,20 @@ export const WithColor = {
     color: "success",
   },
 } satisfies Story;
+
+/**
+ * This example shows that and how the OnyxIcon can be used with text.
+ */
+export const Inline = {
+  tags: ["new:feature"],
+  args: {
+    ...Default.args,
+    inline: true,
+  },
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `<p class="onyx-text" style="font-family: var(--onyx-font-family);" ><story /> Icons can also be used in combination with text. But don't forget, that they are not accessible <story /> and invisible to screen-readers. Your text must be comprehensible and work without them.</p>`,
+    }),
+  ],
+} satisfies Story;
