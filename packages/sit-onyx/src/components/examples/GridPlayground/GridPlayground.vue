@@ -28,14 +28,14 @@ import GridOverlay from "./GridOverlay/GridOverlay.vue";
 
 const viewportSize = useResizeObserver(shallowRef(document.body));
 
-type maxWidth = OnyxBreakpoint | "Filled";
-type maxColumns = 4 | 8 | 12 | 16 | 20;
-type alignment = "left" | "center" | "Filled";
+type MaxWidth = OnyxBreakpoint | "Filled";
+type MaxColumns = 4 | 8 | 12 | 16 | 20;
+type Alignment = "left" | "center" | "Filled";
 
 const gridSettings = ref<{
-  alignment: alignment;
-  maxWidth: maxWidth;
-  maxColumns: maxColumns;
+  alignment: Alignment;
+  maxWidth: MaxWidth;
+  maxColumns: MaxColumns;
 }>({
   alignment: "left",
   maxWidth: "md",
@@ -95,7 +95,7 @@ const alignmentOptions = [
   },
   { label: "left", value: "left" },
   { label: "center", value: "center" },
-] satisfies SelectOption<alignment>[];
+] satisfies SelectOption<Alignment>[];
 
 const maxWidthOptions = [
   {
@@ -104,7 +104,7 @@ const maxWidthOptions = [
   },
   { label: `${ONYX_BREAKPOINTS.lg}px`, value: "md" },
   { label: `${ONYX_BREAKPOINTS.xl}px`, value: "lg" },
-] satisfies SelectOption<maxWidth>[];
+] satisfies SelectOption<MaxWidth>[];
 
 const maxColumnsOptions = [
   { label: "4 columns", value: 4 },
@@ -112,7 +112,7 @@ const maxColumnsOptions = [
   { label: "12 columns", value: 12 },
   { label: "16 columns", value: 16 },
   { label: "20 columns", value: 20 },
-] satisfies SelectOption<maxColumns>[];
+] satisfies SelectOption<MaxColumns>[];
 
 const currentBreakpoint = computed(() => {
   const breakpoint = Object.entries(ONYX_BREAKPOINTS).reduce((prev, [name, width]) => {
@@ -326,7 +326,6 @@ const largeBreakpoint = computed(() => {
     gap: var(--onyx-spacing-xl);
     align-items: center;
     justify-content: space-between;
-    flex-wrap: wrap;
   }
 
   &__badges {
