@@ -141,6 +141,10 @@ export type DataGridFeature<
    */
   mutation?: {
     func: (state: Readonly<TEntry>[]) => Readonly<TEntry>[] | void;
+    /**
+     * Defines the order in which the mutation is handled.
+     * This can be used to control the sequence of operations when multiple mutations are applied.
+     */
     order?: number;
   };
 

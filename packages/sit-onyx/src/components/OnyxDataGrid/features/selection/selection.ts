@@ -18,7 +18,7 @@ export const useSelection = createFeature(
           contingent: new Set<TEntry["id"]>(),
         } as const),
     );
-    const rowsCount = ref();
+    const rowsCount = ref(0);
     const disabled = toRef(options?.disabled ?? false);
     const hover = toRef(options?.hover ?? false);
 
@@ -46,6 +46,12 @@ export const useSelection = createFeature(
     const isIndeterminate = () =>
       selectionState.value.contingent.size !== 0 &&
       selectionState.value.contingent.size !== rowsCount.value;
+
+    const isChecked = () =>
+      (selectionState.value.selectMode === "exclude" &&
+        selectionState.value.contingent.size !== rowsCount.value) ||
+      (selectionState.value.selectMode === "include" &&
+        selectionState.value.contingent.size === rowsCount.value);
 
     const { t } = injectI18n();
 
@@ -79,11 +85,7 @@ export const useSelection = createFeature(
                 hideLabel: true,
                 indeterminate: isIndeterminate(),
                 "onUpdate:modelValue": (checked) => updateSelectMode(checked),
-                modelValue:
-                  (selectionState.value.selectMode === "exclude" &&
-                    selectionState.value.contingent.size !== rowsCount.value) ||
-                  (selectionState.value.selectMode === "include" &&
-                    selectionState.value.contingent.size === rowsCount.value),
+                modelValue: isChecked(),
               }),
           },
           cell: {
