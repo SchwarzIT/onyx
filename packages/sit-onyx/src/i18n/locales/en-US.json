@@ -73,7 +73,7 @@
       },
       "email": {
         "preview": "Invalid mail",
-        "fullError": "\"{value}\" is not a valid email address. It should be similar to \"johndoe@example.com\" (Must contain one @ symbol and a period)."
+        "fullError": "\"{value}\" is not a valid email address. It should be similar to \"johndoe{'@'}example.com\" (Must contain one {'@'} symbol and a period)."
       },
       "number": {
         "preview": "Invalid number",

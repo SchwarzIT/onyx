@@ -1,5 +1,23 @@
 # sit-onyx
 
+## 1.0.0-beta.160
+
+### Minor Changes
+
+- de81676: feat(OnyxTable): support slots headline, actions, bottomLeft and pagination
+
+## 1.0.0-beta.159
+
+### Minor Changes
+
+- a498578: feat: implement new OnyxImage component
+
+## 1.0.0-beta.158
+
+### Patch Changes
+
+- ac16768: fix(i18n): prevent message compilation error in Nuxt
+
 ## 1.0.0-beta.157
 
 ### Minor Changes
