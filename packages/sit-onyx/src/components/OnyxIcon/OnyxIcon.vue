@@ -34,6 +34,7 @@ const props = defineProps<OnyxIconProps>();
     min-width: var(--icon-size);
     height: var(--icon-size);
     fill: var(--icon-color);
+    vertical-align: middle;
 
     & > svg {
       // display svg as block instead of default inline, to remove vertical alignment
@@ -42,7 +43,6 @@ const props = defineProps<OnyxIconProps>();
 
     &--inline {
       --icon-size: 1em;
-      vertical-align: middle;
     }
 
     @include sizes.define-rem-sizes using ($name, $size) {
