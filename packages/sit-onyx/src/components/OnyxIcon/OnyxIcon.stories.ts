@@ -51,7 +51,6 @@ export const WithColor = {
   args: {
     ...Default.args,
     color: "success",
-    style: "--icon-size: 1em; vertical-align: middle;",
   },
 } satisfies Story;
 
