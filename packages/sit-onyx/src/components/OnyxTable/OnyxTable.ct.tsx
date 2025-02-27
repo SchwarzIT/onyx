@@ -34,11 +34,12 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Table",
     columns: ["with-header", "without-header"],
-    rows: ["default", "striped", "vertical-borders", "striped-vertical-borders"],
+    rows: ["default", "striped", "vertical-borders", "striped-vertical-borders", "page-scrolling"],
     component: (column, row) => (
       <OnyxTable
         striped={row.includes("striped")}
         withVerticalBorders={row.includes("vertical-borders")}
+        withPageScrolling={row === "page-scrolling"}
       >
         {column === "with-header" ? tableHead : undefined}
         {tableBody}

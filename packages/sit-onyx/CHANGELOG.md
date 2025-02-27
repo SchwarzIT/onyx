@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.161
+
+### Patch Changes
+
+- f1b7110: fix(OnyxTable): add missing border when withPageScrolling is set
+
 ## 1.0.0-beta.160
 
 ### Minor Changes
