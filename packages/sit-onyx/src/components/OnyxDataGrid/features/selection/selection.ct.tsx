@@ -59,6 +59,19 @@ test("useSelection", async ({ page, mount }) => {
     expect(selectionEvents.at(-1)?.selectMode).toBe("include");
     expect(selectionEvents.at(-1)?.contingent).toMatchObject([]);
   });
+  await test.step("select all manually", async () => {
+    const selectAllCheckbox = page.getByRole("checkbox", { name: "Select all rows" });
+
+    await page.getByRole("checkbox", { name: "Add row with ID '1' to the" }).click();
+    await page.getByRole("checkbox", { name: "Add row with ID '2' to the" }).click();
+    await page.getByRole("checkbox", { name: "Add row with ID '3' to the" }).click();
+    await page.getByRole("checkbox", { name: "Add row with ID '4' to the" }).click();
+    await page.getByRole("checkbox", { name: "Add row with ID '5' to the" }).click();
+    await expect(selectAllCheckbox).not.toBeChecked();
+    await page.getByRole("checkbox", { name: "Add row with ID '6' to the" }).click();
+
+    await expect(selectAllCheckbox).toBeChecked();
+  });
 });
 
 test("useSelection with hover", async ({ page, mount }) => {

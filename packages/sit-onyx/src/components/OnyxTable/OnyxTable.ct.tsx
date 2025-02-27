@@ -1,8 +1,11 @@
 import { DENSITIES } from "../../composables/density";
 import { expect, test } from "../../playwright/a11y";
-import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
+import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
+import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
+import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
+import OnyxPagination from "../OnyxPagination/OnyxPagination.vue";
 import OnyxTable from "./OnyxTable.vue";
 
 const tableHead = (
@@ -31,11 +34,12 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Table",
     columns: ["with-header", "without-header"],
-    rows: ["default", "striped", "vertical-borders", "striped-vertical-borders"],
+    rows: ["default", "striped", "vertical-borders", "striped-vertical-borders", "page-scrolling"],
     component: (column, row) => (
       <OnyxTable
         striped={row.includes("striped")}
         withVerticalBorders={row.includes("vertical-borders")}
+        withPageScrolling={row === "page-scrolling"}
       >
         {column === "with-header" ? tableHead : undefined}
         {tableBody}
@@ -44,7 +48,7 @@ test.describe("Screenshot tests", () => {
   });
 });
 
-test.describe("SCreenshot tests (densities)", () => {
+test.describe("Screenshot tests (densities)", () => {
   executeMatrixScreenshotTest({
     name: "Table (densities)",
     columns: DENSITIES,
@@ -182,6 +186,62 @@ test.describe("Screenshot tests (hover)", () => {
         }
       },
     },
+  });
+});
+
+test.describe("Screenshot tests (slots)", () => {
+  executeMatrixScreenshotTest({
+    name: "Table (slots)",
+    columns: ["default", "long-content", "small"],
+    rows: [
+      "headline",
+      "actions",
+      "bottomLeft",
+      "pagination",
+      "headline-actions",
+      "bottomLeft-pagination",
+    ],
+    component: (column, row) => (
+      <OnyxTable style={{ width: column === "small" ? "18rem" : "28rem" }}>
+        {tableHead}
+
+        <tr>
+          <td>Strawberry</td> <td>4.50</td> <td>200</td>
+        </tr>
+
+        {row.includes("headline") && (
+          <template v-slot:headline>
+            <OnyxHeadline is="h3">
+              {column === "long-content"
+                ? "This is a very very extremely ultra long table headline"
+                : "Headline"}
+            </OnyxHeadline>
+          </template>
+        )}
+
+        {row.includes("actions") && (
+          <template v-slot:actions>
+            <OnyxIconButton icon={mockPlaywrightIcon} label="Icon 1" />
+            <OnyxIconButton icon={mockPlaywrightIcon} label="Icon 2" />
+            <OnyxIconButton icon={mockPlaywrightIcon} label="Icon 3" />
+          </template>
+        )}
+
+        {row.includes("bottomLeft") && (
+          <template v-slot:bottomLeft>
+            {column === "long-content"
+              ? "Very very extremely long test slot content goes here"
+              : "Test slot content"}
+          </template>
+        )}
+
+        {row.includes("pagination") && (
+          <template v-slot:pagination>
+            <OnyxPagination modelValue={1} pages={42} />
+          </template>
+        )}
+      </OnyxTable>
+    ),
   });
 });
 
