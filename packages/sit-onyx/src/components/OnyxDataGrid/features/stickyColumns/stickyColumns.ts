@@ -1,4 +1,4 @@
-import { computed, nextTick, ref } from "vue";
+import { computed, nextTick, onBeforeUnmount, ref, watchEffect } from "vue";
 import { createFeature } from "..";
 
 import "./stickyColumns.scss";
@@ -9,17 +9,25 @@ export const STICKY_COLUMNS_FEATURE = Symbol("StickyColumns");
 export const useStickyColumns = createFeature((options?: StickyColumnsOptions) => {
   const columns = computed(() => options?.columns ?? []);
   const direction = computed(() => options?.direction ?? "left");
+  const elementWidths = ref<number[]>([]);
+  const elementsToStyle = ref<{ el: HTMLElement; index: number }[]>([]);
 
-  const firstStickyElement = ref();
+  const setElementStyles = (el: HTMLElement, index: number) => {
+    if (index === 0) return;
+    const width = elementWidths.value.reduce((acc, currentWidth, i) => {
+      if (i < index) {
+        return acc + currentWidth;
+      }
+      return acc;
+    }, 0);
 
-  const setElementStyles = (el: HTMLElement) => {
-    const refWidth = firstStickyElement.value.getBoundingClientRect().width;
     if (direction.value === "left") {
-      el.style.left = `${refWidth}px`;
+      el.style.right = "auto";
+      el.style.left = `${width}px`;
     } else {
-      //needs a highter z-Index so that the shadow is working
       el.style.zIndex = "22";
-      el.style.right = `${refWidth - 0.5}px`;
+      el.style.left = "auto";
+      el.style.right = `${width - 0.5}px`;
     }
   };
 
@@ -34,68 +42,59 @@ export const useStickyColumns = createFeature((options?: StickyColumnsOptions) =
       if (direction.value === "left") {
         parent.classList.toggle("is-sticky", elRect.left < parentRect.left);
       } else if (direction.value === "right") {
-        // needs 0.5 px to detect movements because parentRect is not 0 like in left
         parent.classList.toggle("is-sticky", !(elRect.right < parentRect.right + 0.5));
       }
     };
 
     parent.addEventListener("scroll", updateStickyState);
     updateStickyState();
+    onBeforeUnmount(() => {
+      parent.removeEventListener("scroll", updateStickyState);
+    });
   };
+  watchEffect(() => {
+    if (elementWidths.value.length > 0) {
+      elementsToStyle.value.forEach(({ el, index }) => {
+        setElementStyles(el, index);
+      });
+    }
+  });
 
   return {
     name: STICKY_COLUMNS_FEATURE,
     watch: [direction, columns],
     modifyColumns: {
       func: (columnConfig) => {
-        return columnConfig.map((column) =>
-          columns.value.includes(column.key as string)
-            ? { key: column.key, type: column.key }
-            : column,
-        );
+        return columnConfig.map((column) => {
+          const columnIndex = columns.value.findIndex((col) => col === column.key);
+
+          return columns.value.includes(column.key as string)
+            ? {
+                key: column.key,
+                type: column.key,
+                thAttributes: {
+                  class: `sticky ${direction.value}`,
+                  ref: (el: HTMLElement) => {
+                    elementsToStyle.value.push({ el, index: columnIndex });
+                    nextTick(() => {
+                      elementWidths.value[columnIndex] = el.getBoundingClientRect().width;
+                      if (columnIndex === 0) {
+                        observeStickyState(el);
+                      }
+                    });
+                  },
+                },
+                tdAttributes: {
+                  class: `sticky ${direction.value}`,
+                  ref: (el: HTMLElement) => {
+                    elementsToStyle.value.push({ el, index: columnIndex });
+                    nextTick(() => {});
+                  },
+                },
+              }
+            : column;
+        });
       },
     },
-
-    typeRenderer: Object.fromEntries(
-      // eslint-disable-next-line vue/no-ref-object-reactivity-loss
-      columns.value.map((col, index) => {
-        return [
-          col,
-          {
-            header: {
-              thAttributes: {
-                class: `sticky ${direction.value}`,
-                ref: (el: HTMLElement) => {
-                  nextTick(() => {
-                    if (index === 0) {
-                      firstStickyElement.value = el;
-                      observeStickyState(el);
-                    } else {
-                      nextTick(() => {
-                        setElementStyles(el);
-                      });
-                    }
-                  });
-                },
-              },
-              component: (component) => component.label,
-            },
-            cell: {
-              tdAttributes: {
-                class: `sticky ${direction.value}`,
-                ref: (el: HTMLElement) => {
-                  nextTick(() => {
-                    if (index !== 0) setElementStyles(el);
-                  });
-                },
-              },
-              component: (component) => {
-                return component.modelValue;
-              },
-            },
-          },
-        ];
-      }),
-    ),
   };
 });
