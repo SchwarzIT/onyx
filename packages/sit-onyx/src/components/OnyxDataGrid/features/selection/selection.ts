@@ -1,4 +1,4 @@
-import { h, toRef, type Ref } from "vue";
+import { h, ref, toRef, type Ref } from "vue";
 import { createFeature, type ModifyColumns } from "..";
 import { injectI18n } from "../../../../i18n";
 import OnyxCheckbox from "../../../OnyxCheckbox/OnyxCheckbox.vue";
@@ -18,6 +18,7 @@ export const useSelection = createFeature(
           contingent: new Set<TEntry["id"]>(),
         } as const),
     );
+    const rowsCount = ref(0);
     const disabled = toRef(options?.disabled ?? false);
     const hover = toRef(options?.hover ?? false);
 
@@ -42,7 +43,15 @@ export const useSelection = createFeature(
       }
     };
 
-    const isIndeterminate = () => selectionState.value.contingent.size !== 0;
+    const isIndeterminate = () =>
+      selectionState.value.contingent.size !== 0 &&
+      selectionState.value.contingent.size !== rowsCount.value;
+
+    const isChecked = () =>
+      (selectionState.value.selectMode === "exclude" &&
+        selectionState.value.contingent.size !== rowsCount.value) ||
+      (selectionState.value.selectMode === "include" &&
+        selectionState.value.contingent.size === rowsCount.value);
 
     const { t } = injectI18n();
 
@@ -55,6 +64,13 @@ export const useSelection = createFeature(
             ? [...columnConfig]
             : [{ key: SELECTION_COLUMN, type: SELECTION_COLUMN }, ...columnConfig],
       } satisfies ModifyColumns<TEntry>,
+      mutation: {
+        func: (rows) => {
+          rowsCount.value = rows.length;
+          return rows;
+        },
+        order: Infinity,
+      },
       typeRenderer: {
         [SELECTION_COLUMN]: {
           header: {
@@ -69,7 +85,7 @@ export const useSelection = createFeature(
                 hideLabel: true,
                 indeterminate: isIndeterminate(),
                 "onUpdate:modelValue": (checked) => updateSelectMode(checked),
-                modelValue: selectionState.value.selectMode === "exclude",
+                modelValue: isChecked(),
               }),
           },
           cell: {
