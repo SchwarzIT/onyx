@@ -66,7 +66,10 @@ const isEmptyMessage = computed(() => t.value("table.empty"));
     </div>
 
     <div
-      :class="{ 'onyx-table-wrapper__scroll-container': !props.withPageScrolling }"
+      :class="[
+        'onyx-table-wrapper__container',
+        props.withPageScrolling ? 'onyx-table-wrapper__container--no-scroll' : '',
+      ]"
       :tabindex="props.withPageScrolling ? undefined : 0"
     >
       <table
@@ -171,7 +174,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
 
-    &__scroll-container {
+    &__container {
       border-radius: var(--onyx-radius-sm);
       overflow: auto;
       box-sizing: border-box;
@@ -182,6 +185,10 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
 
       &:focus-visible {
         outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
+      }
+
+      &--no-scroll {
+        overflow: initial;
       }
     }
 
