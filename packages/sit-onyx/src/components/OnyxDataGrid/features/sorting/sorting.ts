@@ -1,6 +1,6 @@
-import arrowSmallDown from "@sit-onyx/icons/arrow-small-down.svg?raw";
-import arrowSmallUp from "@sit-onyx/icons/arrow-small-up.svg?raw";
 import circleBlock from "@sit-onyx/icons/circle-block.svg?raw";
+import listArrowDown from "@sit-onyx/icons/list-arrow-down.svg?raw";
+import listArrowUp from "@sit-onyx/icons/list-arrow-up.svg?raw";
 import { computed, h, toRef, toValue, type Ref } from "vue";
 import { createFeature } from "..";
 import { injectI18n } from "../../../../i18n";
@@ -81,8 +81,8 @@ export const useSorting = createFeature(
     const getMenuItem = (column: keyof DataGridEntry, direction: SortDirection) => {
       const iconMap = {
         none: circleBlock,
-        asc: arrowSmallUp,
-        desc: arrowSmallDown,
+        asc: listArrowUp,
+        desc: listArrowDown,
       } satisfies Record<SortDirection, string>;
 
       return h(

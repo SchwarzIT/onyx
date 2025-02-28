@@ -1,5 +1,5 @@
 import expandWindow from "@sit-onyx/icons/expand-window.svg?raw";
-import moreVertical from "@sit-onyx/icons/more-vertical.svg?raw";
+import moreVerticalSmall from "@sit-onyx/icons/more-vertical-small.svg?raw";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { defineIconSelectArgType } from "../../utils/storybook";
@@ -20,7 +20,7 @@ type Story = StoryObj<typeof OnyxSystemButton>;
 export const Default = {
   args: {
     label: "More options",
-    icon: moreVertical,
+    icon: moreVerticalSmall,
   },
 } satisfies Story;
 
