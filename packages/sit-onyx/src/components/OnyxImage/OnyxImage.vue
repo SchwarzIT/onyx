@@ -27,10 +27,10 @@ const imageSrc = computed(() => {
   return props.src;
 });
 
-const minSize = computed(() => {
+const size = computed(() => {
   const width = props.shape === "circle" ? Math.min(props.width, props.height) : props.width;
   const height = props.shape === "circle" ? Math.min(props.width, props.height) : props.height;
-  return { minWidth: `${width}px`, minHeight: `${height}px` };
+  return { width: `${width}px`, height: `${height}px` };
 });
 
 const { restAttrs, rootAttrs } = useRootAttrs();
@@ -46,7 +46,7 @@ const { restAttrs, rootAttrs } = useRootAttrs();
       isError ? 'onyx-image--error' : undefined,
     ]"
   >
-    <OnyxSkeleton v-if="skeleton" class="onyx-image__source" :style="minSize" v-bind="restAttrs" />
+    <OnyxSkeleton v-if="skeleton" class="onyx-image__source" :style="size" v-bind="restAttrs" />
 
     <template v-else>
       <img
@@ -66,7 +66,7 @@ const { restAttrs, rootAttrs } = useRootAttrs();
         @error="isError = true"
       />
 
-      <div v-if="isError" class="onyx-image__error" :style="minSize" v-bind="restAttrs">
+      <div v-if="isError" class="onyx-image__error" :style="size" v-bind="restAttrs">
         <OnyxIcon :icon="fileDisabled" size="32px" />
         <div class="onyx-image__alt onyx-text--small">{{ props.alt }}</div>
       </div>
@@ -162,16 +162,13 @@ const { restAttrs, rootAttrs } = useRootAttrs();
       align-items: center;
       text-align: center;
       gap: var(--onyx-density-2xs);
-      width: inherit;
+      width: max-content;
       aspect-ratio: inherit;
     }
 
     &__alt {
       overflow: auto;
       color: var(--onyx-color-text-icons-neutral-soft);
-    }
-
-    &__skeleton {
     }
   }
 }
