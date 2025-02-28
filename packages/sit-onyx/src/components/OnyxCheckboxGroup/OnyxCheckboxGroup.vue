@@ -63,7 +63,7 @@ const checkboxes = useTemplateRef("checkboxesRef");
 defineExpose({
   inputs: computed<HTMLInputElement[]>(() => {
     const array = Array.isArray(checkboxes.value) ? checkboxes.value : [checkboxes.value];
-    return array.filter(Boolean).flatMap((checkbox) => checkbox.input);
+    return array.flatMap((checkbox) => checkbox?.input).filter((checkbox) => !!checkbox);
   }),
 });
 </script>
