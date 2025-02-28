@@ -7,7 +7,7 @@ import { IMAGE_SHAPES } from "./types";
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Image",
-    columns: ["default", "error"],
+    columns: ["default", "error", "skeleton"],
     rows: ["default", ...IMAGE_SHAPES],
     component: (column, row) => (
       <OnyxImage
@@ -16,6 +16,7 @@ test.describe("Screenshot tests", () => {
         width={256}
         height={128}
         shape={row === "default" ? undefined : row}
+        skeleton={column === "skeleton"}
       />
     ),
   });
