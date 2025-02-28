@@ -66,7 +66,7 @@ test("should consider reactive sortState", () => {
   expect(withSorting.header!.actions!({ key: "non-existent" })).toHaveLength(0);
   expect(withSorting.header!.actions!({ key: "id" })).toHaveLength(0);
   expect(withSorting.header!.actions!({ key: "a" })).toHaveLength(1);
-  expect(withSorting.header!.actions!({ key: "b" })).toHaveLength(1);
+  expect(withSorting.header!.actions!({ key: "b" })).toHaveLength(2);
 
   const array = getTestData();
   withSorting.mutation!.func(array);
@@ -122,7 +122,7 @@ test("should consider reactive columns", () => {
   // ASSERT
   expect(withSorting.header!.actions!({ key: "id" })).toHaveLength(0);
   expect(withSorting.header!.actions!({ key: "a" })).toHaveLength(1);
-  expect(withSorting.header!.actions!({ key: "b" })).toHaveLength(1);
+  expect(withSorting.header!.actions!({ key: "b" })).toHaveLength(2);
 
   // ACT
   columns.value!.id = { enabled: true };
@@ -140,5 +140,5 @@ test("should consider reactive columns", () => {
   // ASSERT
   expect(withSorting.header!.actions!({ key: "id" })).toHaveLength(1);
   expect(withSorting.header!.actions!({ key: "a" })).toHaveLength(1);
-  expect(withSorting.header!.actions!({ key: "b" })).toHaveLength(1);
+  expect(withSorting.header!.actions!({ key: "b" })).toHaveLength(2);
 });
