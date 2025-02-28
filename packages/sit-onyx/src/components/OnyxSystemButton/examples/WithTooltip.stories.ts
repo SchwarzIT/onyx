@@ -3,8 +3,9 @@ import WithTooltip from "./WithTooltip.vue";
 import WithTooltipSourceCode from "./WithTooltip.vue?raw";
 
 const meta: Meta<typeof WithTooltip> = {
-  title: "Buttons/SystemButton/Examples/Tooltip",
+  title: "Buttons/SystemButton/Examples",
   component: WithTooltip,
+  tags: ["!autodocs"],
   parameters: {
     docs: {
       source: {
@@ -17,4 +18,4 @@ const meta: Meta<typeof WithTooltip> = {
 export default meta;
 type Story = StoryObj<typeof WithTooltip>;
 
-export const Default = { args: {} } satisfies Story;
+export const Tooltip = { args: {} } satisfies Story;
