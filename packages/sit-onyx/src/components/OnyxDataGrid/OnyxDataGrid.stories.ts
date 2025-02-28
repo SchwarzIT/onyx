@@ -1,13 +1,5 @@
-import pinDisabled from "@sit-onyx/icons/pin-disabled.svg?raw";
-import pin from "@sit-onyx/icons/pin.svg?raw";
-import trash from "@sit-onyx/icons/trash.svg?raw";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { h } from "vue";
-import OnyxButton from "../OnyxButton/OnyxButton.vue";
-import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
-import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import OnyxMenuItem from "../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
-import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
+import { createAdvancedStoryExample } from "../../utils/storybook";
 import OnyxDataGrid from "./OnyxDataGrid.vue";
 
 /**
@@ -23,100 +15,14 @@ const meta: Meta<typeof OnyxDataGrid> = {
 export default meta;
 type Story = StoryObj<typeof OnyxDataGrid>;
 
-export const Default = {
-  args: {
-    columns: [
-      { key: "name", label: "First Name" },
-      { key: "age", label: "Age", type: "number" },
-      { key: "birthday", label: "Day of Birth" },
-    ],
-    data: [
-      { id: 1, name: "Alice", age: 30, birthday: new Date("1990-01-01") },
-      { id: 2, name: "Charlie", age: 35, birthday: new Date("1998-02-11") },
-      { id: 3, name: "Bob", age: 25, birthday: new Date("1995-06-15") },
-      { id: 4, name: "John", age: 28, birthday: new Date("2003-04-10") },
-      { id: 5, name: "Charlotte", age: 28, birthday: new Date("2000-11-08") },
-    ],
-  },
-} satisfies Story;
+export const Default = await createAdvancedStoryExample("OnyxDataGrid", "DefaultExample");
 
-export const HeaderInteractions = {
-  args: {
-    ...Default.args,
-    features: [
-      {
-        name: Symbol("More actions"),
-        watch: [],
-        header: {
-          actions: () => [
-            {
-              iconComponent: h(OnyxSystemButton, {
-                label: "Column options",
-                icon: pin,
-                color: "medium",
-              }),
-              menuItems: [
-                h(OnyxMenuItem, () => [h(OnyxIcon, { icon: pin }), "Pin column"]),
-                h(OnyxMenuItem, () => [h(OnyxIcon, { icon: pinDisabled }), "Unpin column"]),
-              ],
-            },
-            {
-              iconComponent: h(OnyxSystemButton, {
-                label: "Column options",
-                icon: trash,
-                color: "medium",
-              }),
-              menuItems: [h(OnyxMenuItem, () => [h(OnyxIcon, { icon: trash }), "Remove column"])],
-            },
-          ],
-        },
-      },
-    ],
-  },
-} satisfies Story;
-
-export const WithCustomColumns = {
+export const CustomFeature = {
   tags: ["new:feature"],
-  args: {
-    features: [
-      {
-        name: Symbol("Custom Features"),
-        modifyColumns: { func: (cols) => [...cols, { key: "", type: "alertBtn" }] },
-        typeRenderer: {
-          ageIcon: {
-            cell: {
-              component: (props) => {
-                const number = Number(props.modelValue);
-                return number < 15 ? "🐣" : number > 60 ? "🐉" : "🐍";
-              },
-            },
-          },
-          alertBtn: {
-            cell: {
-              component: (props) =>
-                h(OnyxButton, {
-                  label: "Alert me!",
-                  onClick: () => alert(JSON.stringify(props)),
-                  density: "compact",
-                }),
-            },
-          },
-        },
-      },
-    ],
-    columns: ["name", { key: "age", type: "ageIcon" }],
-    data: [
-      { id: 1, name: "Alice", age: 10 },
-      { id: 2, name: "Charlie", age: 35 },
-      { id: 3, name: "Bob", age: 71 },
-    ],
-  },
+  ...(await createAdvancedStoryExample("OnyxDataGrid", "CustomFeatureExample")),
 } satisfies Story;
 
-export const CustomEmptyState = {
-  args: {
-    ...Default.args,
-    data: [],
-    empty: () => h(OnyxEmpty, null, () => "Data grid is empty"),
-  },
+export const CustomColumnTypes = {
+  tags: ["new:feature"],
+  ...(await createAdvancedStoryExample("OnyxDataGrid", "CustomColumnTypes")),
 } satisfies Story;
