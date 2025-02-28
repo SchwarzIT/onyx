@@ -63,7 +63,11 @@ export const textColorDecorator: Decorator = (story) => ({
  * Make sure to import all onyx components, types etc. from the index file "../../../" so its replaced correctly in the code snippet.
  * Will also make the OnyxToast available to be used inside the example.
  */
-export async function createAdvancedStoryExample(componentName: string, exampleName: string) {
+export async function createAdvancedStoryExample(
+  componentName: string,
+  exampleName: string,
+  bindArgs = true,
+) {
   const Component: DefineComponent = (
     await import(`../components/${componentName}/examples/${exampleName}.vue`)
   ).default;
@@ -77,7 +81,7 @@ export async function createAdvancedStoryExample(componentName: string, exampleN
       components: { Component, OnyxToast },
       setup: () => ({ args }),
       template: `<OnyxToast />
-      <Component v-bind="args" />`,
+      <Component ${bindArgs ? 'v-bind="args"' : ""} />`,
     }),
     parameters: {
       docs: {
