@@ -29,16 +29,12 @@ const data: TEntry[] = [
 const columns: ColumnConfig<TEntry, ColumnGroupConfig, CustomType>[] = [
   { key: "name", label: "Name" },
   { key: "age", label: "Age", type: "ageIcon" },
+  { key: "id", label: "", type: "detailsButton" },
 ];
 
 // create a custom reusable data grid feature for custom types that you can also e.g. share / re-use in your project to be used in multiple data grids
 const withCustomType = createFeature(() => ({
   name: Symbol("example feature name"),
-  modifyColumns: {
-    func: (columns) => {
-      return columns.concat([{ key: "actions", label: "", type: "detailsButton" }]);
-    },
-  },
   typeRenderer: {
     ageIcon: {
       cell: {
