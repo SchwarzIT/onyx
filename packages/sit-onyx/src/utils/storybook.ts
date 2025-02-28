@@ -1,4 +1,6 @@
-import type { ArgTypes, Decorator } from "@storybook/vue3";
+import type { ArgTypes, Decorator, StoryObj } from "@storybook/vue3";
+import type { DefineComponent } from "vue";
+import OnyxToast from "../components/OnyxToast/OnyxToast.vue";
 
 /**
  * Defines the control for a Storybook argType to be a select/dropdown of
@@ -53,3 +55,36 @@ export const textColorDecorator: Decorator = (story) => ({
     <story />
   </div>`,
 });
+
+/**
+ * Utility for creating a Storybook example/story where the example uses a dedicated .vue file (useful for advanced examples).
+ * The example must be put inside e.g. "src/components/{componentName}/examples/{exampleName}".
+ *
+ * Make sure to import all onyx components, types etc. from the index file "../../../" so its replaced correctly in the code snippet.
+ * Will also make the OnyxToast available to be used inside the example.
+ */
+export async function createAdvancedStoryExample(componentName: string, exampleName: string) {
+  const Component: DefineComponent = (
+    await import(`../components/${componentName}/examples/${exampleName}.vue`)
+  ).default;
+  const sourceCode: string = (
+    await import(`../components/${componentName}/examples/${exampleName}.vue?raw`)
+  ).default;
+
+  // TODO: disable controls
+  return {
+    render: (args) => ({
+      components: { Component, OnyxToast },
+      setup: () => ({ args }),
+      template: `<OnyxToast />
+      <Component v-bind="args" />`,
+    }),
+    parameters: {
+      docs: {
+        source: {
+          code: sourceCode.replace('from "../../.."', 'from "sit-onyx"'),
+        },
+      },
+    },
+  } satisfies StoryObj;
+}
