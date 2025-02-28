@@ -16,7 +16,7 @@ const isLazyLoading = ref(false);
 
 const handleLoadMore = async () => {
   isLazyLoading.value = true;
-  await new Promise<void>((resolve) => setTimeout(resolve, 750));
+  await new Promise((resolve) => setTimeout(resolve, 750));
   options.value = options.value.concat(generateDummyOptions(25, options.value.length));
   isLazyLoading.value = false;
 };
