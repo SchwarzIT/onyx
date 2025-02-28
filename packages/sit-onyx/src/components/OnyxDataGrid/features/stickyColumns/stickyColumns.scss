@@ -1,0 +1,28 @@
+.sticky {
+  position: sticky;
+}
+td.sticky {
+  z-index: 19;
+  left: 0;
+  &.right {
+    right: 0px;
+    left: auto;
+  }
+}
+th.sticky {
+  z-index: 21;
+  left: -0.01px; // to make it work to observe if the el sticks
+  &.right {
+    right: -0.5px;
+    left: auto;
+  }
+}
+
+.is-sticky {
+  .sticky {
+    box-shadow: 4px 0px 4px -1px rgba(0, 0, 0, 0.1);
+    &.right {
+      box-shadow: -4px 0px 4px -1px rgba(0, 0, 0, 0.1);
+    }
+  }
+}
