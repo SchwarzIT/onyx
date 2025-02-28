@@ -1,0 +1,34 @@
+<script lang="ts" setup>
+import { ref } from "vue";
+import { OnyxButton, OnyxModalDialog } from "../../..";
+
+const isOpen = ref(false);
+</script>
+
+<template>
+  <div>
+    <OnyxButton label="Show modal" @click="isOpen = true" />
+
+    <OnyxModalDialog label="Example modal dialog" :open="isOpen" @close="isOpen = false">
+      <template #description> This is an example description about the dialog. </template>
+
+      <div class="modal">
+        <span class="modal__description">
+          Note: The modal dialog component is fully flexible. It can be adjusted with every content
+          the project needs.
+        </span>
+      </div>
+    </OnyxModalDialog>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+.modal {
+  padding: var(--onyx-density-xl) var(--onyx-modal-dialog-padding-inline);
+
+  &__description {
+    color: var(--onyx-color-text-icons-info-intense);
+    white-space: pre-line;
+  }
+}
+</style>
