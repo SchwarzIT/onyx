@@ -135,8 +135,8 @@ export const useSorting = createFeature(
                     position: "header",
                   },
                 }
-              : undefined,
-          ].filter(Boolean);
+              : null,
+          ].filter((item) => item !== null);
         },
       },
     };
