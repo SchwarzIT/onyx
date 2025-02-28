@@ -74,21 +74,21 @@ const size = useResizeObserver(button);
 
   &:hover,
   &:focus-visible {
-    background-color: var(--onyx-color-base-primary-100);
-    color: var(--onyx-color-text-icons-primary-intense);
+    background-color: var(--onyx-color-base-neutral-300);
+    color: var(--onyx-color-text-icons-neutral-intense);
   }
 
   &:hover {
-    border-color: var(--onyx-color-component-border-primary-hover);
+    border-color: var(--onyx-color-component-border-neutral);
   }
 
   &:focus-visible {
     border-color: var(--onyx-color-component-primary);
-    outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
+    outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-neutral);
   }
 
   &:active {
-    background-color: var(--onyx-color-base-neutral-200);
+    background-color: var(--onyx-color-base-neutral-300);
   }
 
   &--outline {
