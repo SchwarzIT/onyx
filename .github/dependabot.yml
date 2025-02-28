@@ -26,6 +26,10 @@ updates:
       - dependency-name: "@vue/repl"
         update-types: [version-update:semver-minor]
 
+      # minor typescript updates often lead to incompatible dependencies / build type errors so we ignore the auto-update here
+      - dependency-name: "typescript"
+        update-types: [version-update:semver-minor]
+
   - package-ecosystem: github-actions
     directory: /
     schedule:
