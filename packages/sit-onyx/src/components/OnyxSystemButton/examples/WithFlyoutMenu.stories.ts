@@ -3,8 +3,9 @@ import WithFlyoutMenu from "./WithFlyoutMenu.vue";
 import WithFlyoutMenuSourceCode from "./WithFlyoutMenu.vue?raw";
 
 const meta: Meta<typeof WithFlyoutMenu> = {
-  title: "Buttons/SystemButton/Examples/FlyoutMenu",
+  title: "Buttons/SystemButton/Examples",
   component: WithFlyoutMenu,
+  tags: ["!autodocs"],
   parameters: {
     docs: {
       source: {
@@ -26,4 +27,4 @@ const meta: Meta<typeof WithFlyoutMenu> = {
 export default meta;
 type Story = StoryObj<typeof WithFlyoutMenu>;
 
-export const Default = { args: {} } satisfies Story;
+export const FlyoutMenu = { args: {} } satisfies Story;
