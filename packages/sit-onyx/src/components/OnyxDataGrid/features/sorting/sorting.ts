@@ -10,12 +10,12 @@ import type { DataGridEntry } from "../../types";
 import SortAction from "./SortAction.vue";
 import type { SortDirection, SortOptions, SortState } from "./types";
 
-export const nextSortDirection = (current?: SortDirection): SortDirection => {
+export const nextSortDirection = (current?: SortDirection, skipNone?: boolean): SortDirection => {
   switch (current) {
     case "asc":
       return "desc";
     case "desc":
-      return "none";
+      return skipNone ? "asc" : "none";
     case "none":
     default:
       return "asc";
@@ -49,11 +49,11 @@ export const useSorting = createFeature(
         new Intl.Collator(locale.value).compare(String(a), String(b)),
     );
 
-    const handleClick = (clickedColumn: keyof TEntry) => {
+    const handleClick = (clickedColumn: keyof TEntry, skipNone = false) => {
       const direction =
         sortState.value.column === clickedColumn
-          ? nextSortDirection(sortState.value.direction)
-          : nextSortDirection();
+          ? nextSortDirection(sortState.value.direction, skipNone)
+          : nextSortDirection(undefined, skipNone);
       const column = direction !== "none" ? clickedColumn : undefined;
 
       sortState.value = {
@@ -121,7 +121,22 @@ export const useSorting = createFeature(
                 getMenuItem(column, "desc"),
               ],
             },
-          ];
+            sortState.value.column === column &&
+            sortState.value.direction &&
+            sortState.value.direction !== "none"
+              ? {
+                  iconComponent: {
+                    iconComponent: h(SortAction, {
+                      columnLabel: String(column),
+                      sortDirection:
+                        sortState.value.column === column ? sortState.value.direction : undefined,
+                      onClick: () => handleClick(column, true),
+                    }),
+                    position: "header",
+                  },
+                }
+              : undefined,
+          ].filter(Boolean);
         },
       },
     };
