@@ -3,6 +3,7 @@ import {
   OnyxBottomBar,
   OnyxButton,
   OnyxHeadline,
+  OnyxImage,
   OnyxInput,
   OnyxPageLayout,
   OnyxSwitch,
@@ -14,7 +15,14 @@ const gridStore = useGridStore();
 
 <template>
   <OnyxPageLayout>
-    <img src="https://picsum.photos/1920" alt="Hero image" class="page__hero" />
+    <OnyxImage
+      class="page__hero"
+      src="https://picsum.photos/1920"
+      alt="Hero image"
+      :width="1920"
+      :height="256"
+      loading="eager"
+    />
 
     <div class="onyx-grid-container">
       <OnyxHeadline is="h1">Grid demo page</OnyxHeadline>
@@ -54,14 +62,8 @@ const gridStore = useGridStore();
 <style lang="scss" scoped>
 .page {
   &__hero {
-    height: 16rem;
     width: 100%;
-    object-fit: cover;
-    object-position: center;
-    background-color: var(--onyx-color-base-neutral-200);
-    display: block;
   }
-
   &__text {
     margin: var(--onyx-spacing-md) 0;
   }

@@ -1,6 +1,9 @@
+import fileDisabled from "@sit-onyx/icons/file-disabled.svg?raw";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import { OnyxLink } from "../../index";
+import OnyxButton from "../OnyxButton/OnyxButton.vue";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxEmpty from "./OnyxEmpty.vue";
 
 /**
@@ -10,9 +13,8 @@ const meta: Meta<typeof OnyxEmpty> = {
   title: "Data/Empty",
   component: OnyxEmpty,
   argTypes: {
-    icon: {
-      control: { disable: true },
-    },
+    icon: { control: { disable: true } },
+    buttons: { control: { disable: true } },
     default: { control: { type: "text" } },
   },
 };
@@ -33,11 +35,17 @@ export const Default = {
  * This example shows an empty component with custom text and icon with a different color and size.
  */
 export const CustomContent = {
+  tags: ["new:feature"],
   args: {
+    icon: () => h(OnyxIcon, { icon: fileDisabled, size: "48px", color: "danger" }),
     default: () => [
       "No data found. Go to ",
       h(OnyxLink, { href: "#" }, () => "this page"),
       " to add some data.",
+    ],
+    buttons: () => [
+      h(OnyxButton, { label: "Button", color: "neutral" }),
+      h(OnyxButton, { label: "Button" }),
     ],
   },
 } satisfies Story;

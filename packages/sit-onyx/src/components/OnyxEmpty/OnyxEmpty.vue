@@ -5,7 +5,7 @@ import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 
 const props = defineProps<DensityProp>();
 
-defineSlots<{
+const slots = defineSlots<{
   /**
    * Label / text to display.
    */
@@ -14,6 +14,10 @@ defineSlots<{
    * Optional slot to override the default icon.
    */
   icon?(): unknown;
+  /**
+   * Optional slot to place custom buttons.
+   */
+  buttons?(): unknown;
 }>();
 
 const { densityClass } = useDensity(props);
@@ -28,6 +32,10 @@ const { densityClass } = useDensity(props);
     <div class="onyx-empty__label onyx-text onyx-truncation-multiline">
       <slot></slot>
     </div>
+
+    <div v-if="!!slots.buttons" class="onyx-empty__buttons">
+      <slot name="buttons"></slot>
+    </div>
   </div>
 </template>
 
@@ -40,6 +48,7 @@ const { densityClass } = useDensity(props);
     max-width: max-content;
     font-family: var(--onyx-font-family);
     text-align: center;
+    color: var(--onyx-color-text-icons-neutral-soft);
 
     display: flex;
     flex-direction: column;
@@ -48,13 +57,16 @@ const { densityClass } = useDensity(props);
     gap: var(--onyx-density-md);
 
     &__label {
-      color: var(--onyx-color-text-icons-neutral-soft);
       font-weight: 600;
       white-space: pre-line;
     }
 
-    .onyx-icon {
-      color: var(--onyx-color-text-icons-primary-medium);
+    &__buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: var(--onyx-density-xs);
     }
   }
 }

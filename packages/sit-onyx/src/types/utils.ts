@@ -33,3 +33,8 @@ export type WithHTMLAttributes<
   T,
   TAttributes extends HTMLAttributes = HTMLAttributes,
 > = TAttributes & T;
+
+/**
+ * Generic data object.
+ */
+export type Data = Record<string, unknown>;

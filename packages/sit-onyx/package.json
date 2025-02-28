@@ -1,7 +1,7 @@
 {
   "name": "sit-onyx",
   "description": "A design system and Vue.js component library created by Schwarz IT",
-  "version": "1.0.0-beta.156",
+  "version": "1.0.0-beta.161",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
@@ -54,8 +54,8 @@
     "@sit-onyx/headless": "workspace:^",
     "@sit-onyx/playwright-utils": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",
-    "@storybook/addon-a11y": "^8.5.6",
-    "@storybook/addon-actions": "^8.5.6",
+    "@storybook/addon-a11y": "^8.6.2",
+    "@storybook/addon-actions": "^8.6.2",
     "@vue/compiler-dom": "catalog:",
     "axe-core": "^4.10.2",
     "eslint-plugin-vue-scoped-css": "^2.9.0",
@@ -63,7 +63,8 @@
     "storybook-addon-tag-badges": "^1.4.0",
     "storybook-dark-mode": "^4.0.2",
     "vue": "catalog:",
-    "vue-component-type-helpers": "^2.2.2",
+    "vue-component-type-helpers": "^2.2.4",
+    "vue-i18n": "^11.1.1",
     "vue-router": "^4.5.0"
   }
 }

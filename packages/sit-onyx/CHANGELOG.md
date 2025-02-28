@@ -1,5 +1,40 @@
 # sit-onyx
 
+## 1.0.0-beta.161
+
+### Patch Changes
+
+- f1b7110: fix(OnyxTable): add missing border when withPageScrolling is set
+
+## 1.0.0-beta.160
+
+### Minor Changes
+
+- de81676: feat(OnyxTable): support slots headline, actions, bottomLeft and pagination
+
+## 1.0.0-beta.159
+
+### Minor Changes
+
+- a498578: feat: implement new OnyxImage component
+
+## 1.0.0-beta.158
+
+### Patch Changes
+
+- ac16768: fix(i18n): prevent message compilation error in Nuxt
+
+## 1.0.0-beta.157
+
+### Minor Changes
+
+- 52bef90: feat(OnyxEmpty): add buttons slot and update colors
+
+  You can now pass custom action buttons via the `<template #buttons>` slot.
+  Also the default icon and text color has changed to neutral (soft) instead of primary.
+
+  The default empty icon for the table has also been changed to be aligned with the default of the OnyxEmpty component.
+
 ## 1.0.0-beta.156
 
 ### Minor Changes
