@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import picture from "@sit-onyx/icons/picture.svg?raw";
+import fileDisabled from "@sit-onyx/icons/file-disabled.svg?raw";
 import { computed, ref, watch } from "vue";
 import { useRootAttrs } from "../../utils/attrs";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -60,7 +60,7 @@ const { restAttrs, rootAttrs } = useRootAttrs();
     />
 
     <div v-if="isError" class="onyx-image__error" :style="emptySize">
-      <OnyxIcon :icon="picture" size="32px" />
+      <OnyxIcon :icon="fileDisabled" size="32px" />
       <div class="onyx-image__alt onyx-text--small">{{ props.alt }}</div>
     </div>
   </figure>
