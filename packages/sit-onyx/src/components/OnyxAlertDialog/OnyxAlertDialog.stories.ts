@@ -1,10 +1,6 @@
-import circleAttention from "@sit-onyx/icons/circle-attention.svg?raw";
-import type { Meta, StoryObj } from "@storybook/vue3";
-import { useArgs } from "storybook/internal/preview-api";
-import { h, ref, watch, watchEffect } from "vue";
-import OnyxButton from "../OnyxButton/OnyxButton.vue";
+import type { Meta } from "@storybook/vue3";
+import { createAdvancedStoryExample } from "../../utils/storybook";
 import OnyxAlertDialog from "./OnyxAlertDialog.vue";
-import type { OnyxAlertDialogProps } from "./types";
 
 /**
  * The alert dialog is used to provide important information to the user.
@@ -23,45 +19,5 @@ const meta: Meta<typeof OnyxAlertDialog> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof OnyxAlertDialog>;
 
-export const Default = {
-  args: {
-    label: "Confirm deletion",
-    default:
-      "Are you sure that you want to delete the selected item? This action can not be reverted.",
-    icon: {
-      icon: circleAttention,
-      color: "danger",
-    },
-    actions: () => [
-      h(OnyxButton, { label: "Cancel", color: "neutral", mode: "plain", autofocus: true }),
-      h(OnyxButton, { label: "Delete", color: "danger" }),
-    ],
-  },
-  decorators: [
-    (story) => {
-      const [args, updateArgs] = useArgs<OnyxAlertDialogProps>();
-
-      return {
-        components: { story, OnyxButton },
-        setup: () => {
-          const isOpen = ref(false);
-
-          watch(
-            () => args.open,
-            (newOpen) => (isOpen.value = !!newOpen),
-            { immediate: true },
-          );
-
-          watchEffect(() => updateArgs({ open: isOpen.value }));
-          return { isOpen };
-        },
-        template: `<div>
-          <OnyxButton label="Show alert modal" @click="isOpen = true" />
-          <story :open="isOpen" @close="isOpen = false;" />
-        </div>`,
-      };
-    },
-  ],
-} satisfies Story;
+export const Default = await createAdvancedStoryExample("OnyxAlertDialog", "DefaultExample");
