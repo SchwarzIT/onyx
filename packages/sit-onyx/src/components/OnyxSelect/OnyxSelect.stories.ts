@@ -1,13 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-import bag from "@sit-onyx/icons/bag.svg?raw";
-import plusSmall from "@sit-onyx/icons/plus-small.svg?raw";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { computed, h, ref, watchEffect } from "vue";
-import { normalizedIncludes } from "../../utils/strings";
-import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
-import OnyxButton from "../OnyxButton/OnyxButton.vue";
-import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import OnyxTag from "../OnyxTag/OnyxTag.vue";
+import { createAdvancedStoryExample } from "../../utils/storybook";
 import OnyxSelect from "./OnyxSelect.vue";
 import type { SelectOption } from "./types";
 
@@ -64,15 +56,6 @@ const GROUPED_DEMO_OPTIONS = [
   { value: "owl", label: "Owl", group: "Air" },
 ];
 
-const OPTIONS_WITH_ADDITIONAL_DATA = [
-  "Selected items",
-  "Price tag",
-  "Shopping bag",
-].map<SelectOption>((option) => ({
-  value: option.toLowerCase(),
-  label: option,
-}));
-
 /**
  * The select is a fundamental element utilized across various components such as
  * dropdowns, navigation bars, pagination, tables, etc.
@@ -104,7 +87,6 @@ const meta: Meta<typeof OnyxSelect> = {
       control: { type: "boolean" },
     },
   },
-
   decorators: [
     /**
      * Decorator that simulates the load more functionality so we can show it in the stories.
@@ -112,17 +94,7 @@ const meta: Meta<typeof OnyxSelect> = {
     (story, ctx) => {
       return {
         components: { story },
-        setup: () => {
-          const { isLazyLoading, handleLoadMore, options } = useLazyLoading(ctx.args.options);
-
-          watchEffect(() => {
-            ctx.args.lazyLoading = { ...ctx.args.lazyLoading, loading: isLazyLoading.value };
-            ctx.args.options = options.value;
-          });
-
-          return { handleLoadMore, isLazyLoading, options };
-        },
-        template: `<story style="max-width: 24rem; margin-${ctx.id === "form-select--with-top-open-direction" ? "top" : "bottom"}: 22rem;" @lazy-load="handleLoadMore" />`,
+        template: `<story style="max-width: 24rem; margin-${ctx.id === "form-select--with-top-open-direction" ? "top" : "bottom"}: 22rem;" />`,
       };
     },
   ],
@@ -278,66 +250,17 @@ export const WithSearch: Story = {
   },
 };
 
-const optionsForCustomSearch = [
-  { value: "0", label: "Option Zero" },
-  { value: "1", label: "Option One" },
-  { value: "2", label: "Option Two" },
-  { value: "3", label: "Option Three" },
-  { value: "4", label: "Option Four" },
-  { value: "5", label: "Option Five" },
-];
 /**
  * This example shows a custom search functionality that disables the integrated filtering by onyx by using `v-model:searchTerm`.
  * The custom search accepts either numbers or option labels as search input to show the matching options.
  * Note that `valueLabel` needs to be kept up to date as onyx can't find the label if the options are filtered manually.
  * **Tip**: You can use our `normalizedIncludes()` utility function for this use case.
  */
-export const WithCustomSearch: Story = {
-  args: {
-    ...Default.args,
-    withSearch: true,
-    options: optionsForCustomSearch,
-    searchTerm: "2",
-    valueLabel: "Option One",
-    modelValue: 1,
-  },
-  argTypes: {
-    modelValue: {
-      control: { type: "select" },
-      options: optionsForCustomSearch.map((option) => option.value),
-    },
-  },
-  decorators: [
-    /**
-     * Decorator to simulate search
-     */
-    (story, ctx) => ({
-      components: { story },
-      setup: () => {
-        const filterValueLabel = computed(
-          () => optionsForCustomSearch[ctx.args.modelValue as number].label,
-        );
-        const filteredOptions = computed<SelectOption[]>(() => {
-          const { searchTerm } = ctx.args;
-          return optionsForCustomSearch.filter(({ value, label }) =>
-            searchTerm
-              ? normalizedIncludes(label, searchTerm) || value === searchTerm
-              : optionsForCustomSearch,
-          );
-        });
-
-        watchEffect(() => {
-          ctx.args.options = filteredOptions.value;
-          ctx.args.valueLabel = filterValueLabel.value;
-          // the following lines are needed to keep the reactivity, although it's not clear why
-          ctx.args.valueLabel;
-          ctx.args.options;
-        });
-      },
-      template: `<story />`,
-    }),
-  ],
-};
+export const WithCustomSearch = await createAdvancedStoryExample(
+  "OnyxSelect",
+  "CustomSearchExample",
+  false,
+);
 
 /**
  * This example shows a select with list description.
@@ -364,36 +287,12 @@ export const Loading = {
  * This example shows a select with lazy loading. The `lazyLoad` event will be emitted if the user scrolls
  * to the end of the options.
  */
-export const LazyLoading = {
-  args: {
-    ...Default.args,
-    lazyLoading: {
-      enabled: true,
-    },
-  },
-} satisfies Story;
+export const LazyLoading = await createAdvancedStoryExample("OnyxSelect", "LazyLoadingExample");
 
 /**
  * This example shows a select with custom button for loading.
  */
-export const ButtonLoading = {
-  args: {
-    ...Default.args,
-  },
-  render: (args) => ({
-    setup: () => {
-      return { args, ...useLazyLoading(args.options) };
-    },
-    components: { OnyxSelect, OnyxButton },
-    template: `
-      <OnyxSelect v-bind="args" :options="options">
-        <template #optionsEnd>
-          <OnyxButton label="Load more" mode="plain" :loading="isLazyLoading" style="width: 100%" icon='${plusSmall}' @click="handleLoadMore" />
-        </template>
-      </OnyxSelect>
-`,
-  }),
-} satisfies Story;
+export const LoadMore = await createAdvancedStoryExample("OnyxSelect", "LoadMoreExample");
 
 /**
  * This example shows a readonly select that can not be edited.
@@ -428,45 +327,10 @@ export const Skeleton = {
  * This example shows a single select with fully custom option content that can be
  * passed as slot.
  */
-export const WithCustomOptions = {
-  args: {
-    ...Default.args,
-    options: OPTIONS_WITH_ADDITIONAL_DATA,
-    option: ({ label }: SelectOption) => {
-      const style = { display: "flex", "align-items": "center", gap: "0.5rem" };
-
-      switch (label) {
-        case "Selected items":
-          return [h("div", { style }, [label, h(OnyxBadge, { color: "danger" }, "Sale!")])];
-        case "Price tag":
-          return h(OnyxTag, { label });
-        case "Shopping bag":
-          return [h("div", { style }, [h(OnyxIcon, { icon: bag }), label])];
-      }
-    },
-  },
-} satisfies Story;
-
-const useLazyLoading = (initialOptions: SelectOption[]) => {
-  const isLazyLoading = ref(false);
-  const options = ref(initialOptions);
-
-  const handleLoadMore = async () => {
-    isLazyLoading.value = true;
-    await new Promise<void>((resolve) => setTimeout(resolve, 750));
-
-    options.value = options.value.concat(
-      Array.from({ length: 25 }, (_, index) => {
-        const value = options.value.length - initialOptions.length + index + 1;
-        return { value, label: `Loaded option ${value}` };
-      }),
-    );
-
-    isLazyLoading.value = false;
-  };
-
-  return { isLazyLoading, handleLoadMore, options };
-};
+export const WithCustomOptions = await createAdvancedStoryExample(
+  "OnyxSelect",
+  "CustomOptionsExample",
+);
 
 /**
  * This example shows single select with multiline options.
