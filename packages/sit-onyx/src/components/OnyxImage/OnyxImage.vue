@@ -1,15 +1,19 @@
 <script lang="ts" setup>
 import fileDisabled from "@sit-onyx/icons/file-disabled.svg?raw";
 import { computed, ref, watch } from "vue";
+import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { useRootAttrs } from "../../utils/attrs";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxImageProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxImageProps>(), {
   loading: "lazy",
+  skeleton: SKELETON_INJECTED_SYMBOL,
 });
 
 defineOptions({ inheritAttrs: false });
+const skeleton = useSkeletonContext(props);
 
 const isError = ref(false);
 watch(
@@ -23,10 +27,10 @@ const imageSrc = computed(() => {
   return props.src;
 });
 
-const emptySize = computed(() => {
+const minSize = computed(() => {
   const width = props.shape === "circle" ? Math.min(props.width, props.height) : props.width;
   const height = props.shape === "circle" ? Math.min(props.width, props.height) : props.height;
-  return { width: `${width}px`, height: `${height}px` };
+  return { minWidth: `${width}px`, minHeight: `${height}px` };
 });
 
 const { restAttrs, rootAttrs } = useRootAttrs();
@@ -42,27 +46,31 @@ const { restAttrs, rootAttrs } = useRootAttrs();
       isError ? 'onyx-image--error' : undefined,
     ]"
   >
-    <img
-      class="onyx-image__source"
-      :class="{ 'onyx-image__source--light': imageSrc.dark }"
-      v-bind="{ ...restAttrs, ...props }"
-      :src="imageSrc.light"
-      :alt="props.alt"
-      @error="isError = true"
-    />
-    <img
-      v-if="imageSrc.dark"
-      class="onyx-image__source onyx-image__source--dark"
-      v-bind="{ ...restAttrs, ...props }"
-      :src="imageSrc.dark"
-      :alt="props.alt"
-      @error="isError = true"
-    />
+    <OnyxSkeleton v-if="skeleton" class="onyx-image__source" :style="minSize" v-bind="restAttrs" />
 
-    <div v-if="isError" class="onyx-image__error" :style="emptySize">
-      <OnyxIcon :icon="fileDisabled" size="32px" />
-      <div class="onyx-image__alt onyx-text--small">{{ props.alt }}</div>
-    </div>
+    <template v-else>
+      <img
+        class="onyx-image__source"
+        :class="{ 'onyx-image__source--light': imageSrc.dark }"
+        v-bind="{ ...restAttrs, ...props }"
+        :src="imageSrc.light"
+        :alt="props.alt"
+        @error="isError = true"
+      />
+      <img
+        v-if="imageSrc.dark"
+        class="onyx-image__source onyx-image__source--dark"
+        v-bind="{ ...restAttrs, ...props }"
+        :src="imageSrc.dark"
+        :alt="props.alt"
+        @error="isError = true"
+      />
+
+      <div v-if="isError" class="onyx-image__error" :style="minSize" v-bind="restAttrs">
+        <OnyxIcon :icon="fileDisabled" size="32px" />
+        <div class="onyx-image__alt onyx-text--small">{{ props.alt }}</div>
+      </div>
+    </template>
   </figure>
 </template>
 
@@ -148,19 +156,22 @@ const { restAttrs, rootAttrs } = useRootAttrs();
       border-radius: inherit;
       clip-path: inherit;
 
-      display: flex;
+      display: inline-flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
       gap: var(--onyx-density-2xs);
-      width: max-content;
+      width: inherit;
       aspect-ratio: inherit;
     }
 
     &__alt {
       overflow: auto;
       color: var(--onyx-color-text-icons-neutral-soft);
+    }
+
+    &__skeleton {
     }
   }
 }
