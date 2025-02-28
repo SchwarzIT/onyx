@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import type { OnyxFormProps } from "src/components/OnyxForm/types";
 import { ref } from "vue";
 import {
   OnyxButton,
@@ -11,6 +10,7 @@ import {
   OnyxTextarea,
   useToast,
   type CheckboxGroupOption,
+  type OnyxFormProps,
 } from "../../..";
 
 type LegalTerm = "general-terms" | "optional-terms";
@@ -75,75 +75,74 @@ const legalTerms: CheckboxGroupOption<LegalTerm>[] = [
 </script>
 
 <template>
-  <div>
-    <OnyxForm
-      class="onyx-grid"
-      :density="props.density"
-      :disabled="props.disabled"
-      @submit.prevent="handleSubmit"
-      @reset="state = {}"
-    >
-      <OnyxInput
-        v-model="state.username"
-        class="onyx-grid-span-4"
-        label="Username"
-        autocomplete="username"
-        :minlength="3"
-        :maxlength="16"
-        with-counter
-        required
-      />
-      <OnyxInput
-        v-model="state.email"
-        class="onyx-grid-span-4"
-        label="Email"
-        type="email"
-        autocomplete="email"
-        required
-      />
+  <OnyxForm
+    class="onyx-grid"
+    :density="props.density"
+    :disabled="props.disabled"
+    @submit.prevent="handleSubmit"
+    @reset="state = {}"
+  >
+    <OnyxInput
+      v-model="state.username"
+      class="onyx-grid-span-4"
+      label="Username"
+      autocomplete="username"
+      :minlength="3"
+      :maxlength="16"
+      with-counter
+      required
+    />
+    <OnyxInput
+      v-model="state.email"
+      class="onyx-grid-span-4"
+      label="Email"
+      type="email"
+      autocomplete="email"
+      required
+    />
 
-      <OnyxSelect
-        v-model="state.favoriteFruits"
-        class="onyx-grid-span-4"
-        label="Favorite fruits"
-        list-label="List of fruits"
-        multiple
-        with-search
-        required
-        :options="fruitOptions"
-      />
+    <OnyxSelect
+      v-model="state.favoriteFruits"
+      class="onyx-grid-span-4"
+      label="Favorite fruits"
+      list-label="List of fruits"
+      multiple
+      with-search
+      required
+      :options="fruitOptions"
+    />
 
-      <OnyxStepper v-model="state.age" class="onyx-grid-span-4" label="Age" :min="0" :max="100" />
+    <OnyxStepper v-model="state.age" class="onyx-grid-span-4" label="Age" :min="0" :max="100" />
 
-      <OnyxTextarea
-        v-model="state.description"
-        class="onyx-grid-span-16"
-        label="Description"
-        :maxlength="512"
-        with-counter
-      />
+    <OnyxTextarea
+      v-model="state.description"
+      class="onyx-grid-span-full"
+      label="Description"
+      :maxlength="512"
+      with-counter
+    />
 
-      <OnyxCheckboxGroup
-        v-model="state.terms"
-        class="onyx-grid-span-16"
-        label="Legal terms"
-        :options="legalTerms"
-      />
+    <OnyxCheckboxGroup
+      v-model="state.terms"
+      class="onyx-grid-span-full"
+      label="Legal terms"
+      :options="legalTerms"
+    />
 
-      <div class="onyx-grid-span-16 actions">
-        <OnyxButton label="Reset" type="reset" color="neutral" />
-        <OnyxButton label="Submit" type="submit" />
-      </div>
-    </OnyxForm>
+    <div class="onyx-grid-span-full actions">
+      <OnyxButton label="Reset" type="reset" color="neutral" />
+      <OnyxButton label="Submit" type="submit" />
+    </div>
 
     <pre>Form state: {{ state }}</pre>
-  </div>
+  </OnyxForm>
 </template>
 
 <style lang="scss" scoped>
 .actions {
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-end;
-  gap: 0.5rem;
+  gap: var(--onyx-density-xs);
 }
 </style>

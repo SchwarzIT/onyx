@@ -1,12 +1,7 @@
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { h } from "vue";
-import { OnyxInput, OnyxToast } from "../..";
 import { ShowErrorModes } from "../../composables/useErrorClass";
-import FormExample from "../examples/FormExample/FormExample.vue";
-import FormExampleSourceCode from "../examples/FormExample/FormExample.vue?raw";
-import OnyxButton from "../OnyxButton/OnyxButton.vue";
-import OnyxStepper from "../OnyxStepper/OnyxStepper.vue";
+import { createAdvancedStoryExample } from "../../utils/storybook";
 import OnyxForm from "./OnyxForm.vue";
 
 /**
@@ -17,10 +12,13 @@ const meta: Meta<typeof OnyxForm> = {
   title: "Form Elements/Form",
   component: OnyxForm,
   argTypes: {
+    ...withNativeEventLogging(["onSubmit", "onReset"]),
     showError: {
       control: "select",
       options: ShowErrorModes,
     },
+    default: { control: { disable: true } },
+    ["$slots" as string]: { table: { disable: true } },
   },
 };
 
@@ -30,51 +28,14 @@ type Story = StoryObj<typeof OnyxForm>;
 /**
  * This example shows a default form element.
  */
-export const Default = {
-  args: {
-    style: { maxWidth: "10rem", display: "flex", flexDirection: "column", gap: "1rem" },
-    default: () => [
-      h(OnyxInput, { label: "Favorite band", modelValue: "Que2en", pattern: "[A-Za-z ]+" }),
-      h(OnyxInput, { label: "Favorite password", type: "password", modelValue: "incorrect" }),
-      h(OnyxStepper, { label: "Number of hairs", min: 0, modelValue: 23 }),
-      h(
-        "div",
-        {
-          style: { display: "flex", gap: "0.5rem" },
-        },
-        [
-          h(OnyxButton, { label: "Reset", type: "reset", mode: "outline" }),
-          h(OnyxButton, { label: "Submit", type: "submit", formmethod: "dialog" }), // we use formmethod `dialog` to avoid a page load on submit
-        ],
-      ),
-    ],
-  },
-  argTypes: {
-    ...withNativeEventLogging(["onSubmit", "onReset"]),
-  },
-} satisfies Story;
+export const Default = await createAdvancedStoryExample("OnyxForm", "DefaultExample");
 
 /**
  * This example show a form that displays all errors immediately.
  */
 export const ShowError = {
+  ...Default,
   args: {
-    ...Default.args,
-    default: () => [
-      h(OnyxInput, { label: "Favorite band", modelValue: "2. Queen", pattern: "[A-Za-z ]+" }),
-      h(OnyxInput, { label: "Favorite password", type: "password", modelValue: "incorrect" }),
-      h(OnyxStepper, { label: "Number of hairs", min: 0, modelValue: 23 }),
-      h(
-        "div",
-        {
-          style: { display: "flex", gap: "0.5rem" },
-        },
-        [
-          h(OnyxButton, { label: "Reset", type: "reset", mode: "outline" }),
-          h(OnyxButton, { label: "Submit", type: "submit", formmethod: "dialog" }), // we use formmethod `dialog` to avoid a page load on submit
-        ],
-      ),
-    ],
     showError: true,
   },
 } satisfies Story;
@@ -83,30 +44,10 @@ export const ShowError = {
  * This example show a form that is disabled as a whole.
  */
 export const Disabled = {
+  ...Default,
   args: {
-    ...Default.args,
     disabled: true,
   },
 } satisfies Story;
 
-export const Example = {
-  render(args: StoryObj<typeof FormExample>["args"]) {
-    return {
-      components: { FormExample, OnyxToast },
-      setup() {
-        return { args };
-      },
-      template: `
-        <OnyxToast />
-        <FormExample v-bind="args"  />
-      `,
-    };
-  },
-  parameters: {
-    docs: {
-      source: {
-        code: FormExampleSourceCode.replace('from "../../.."', 'from "sit-onyx"'),
-      },
-    },
-  },
-} satisfies Story;
+export const AdvancedExample = await createAdvancedStoryExample("OnyxForm", "AdvancedExample");
