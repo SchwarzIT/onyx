@@ -3,9 +3,11 @@
  */
 export type StickyColumnsOptions = {
   /**
-   * The stickyColumn options for each column, including whether stickyColumn is enabled, the custom filter function, and the column-specific filter configuration.
+   * Defines the columns that should remain sticky.
+   * @remarks
+   * The order should start with the column closest to the border.
    */
-  columns: string[];
+  columns: PropertyKey[];
   /**
    * Determs the position the columns are sticked.
    */

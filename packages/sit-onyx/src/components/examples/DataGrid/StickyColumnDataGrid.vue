@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { DataGridEntry } from "../../..";
 import { DataGridFeatures, OnyxDataGrid } from "../../..";
 import type { StickyColumnsOptions } from "../../OnyxDataGrid/features/stickyColumns/types";
 
@@ -9,7 +8,13 @@ const props = defineProps<StickyColumnsOptions>();
 
 // STORY SETUP END
 // Dynamically generate the column names, ensuring 'moreContent' is numbered
-const columns = ["name", "rank", ...Array.from({ length: 10 }, (_, i) => `moreContent${i + 1}`)];
+const columns = [
+  "name",
+  "rank",
+  ...Array.from({ length: 10 }, (_, i) => `moreContent${i + 1}`),
+] as (keyof (typeof data)[number])[];
+
+type TableData = { id: number; name: string; rank: number; [key: string]: string | number };
 
 // Generate data dynamically for the `moreContent` columns
 const data = [
@@ -53,9 +58,9 @@ const data = [
       Array.from({ length: 10 }, (_, i) => [`moreContent${i + 1}`, `Content ${i + 1}`]),
     ),
   },
-] satisfies DataGridEntry[];
+] satisfies TableData[];
 
-const withStickyColumns = DataGridFeatures.useStickyColumns(props);
+const withStickyColumns = DataGridFeatures.useStickyColumns<TableData>(props);
 </script>
 
 <template>

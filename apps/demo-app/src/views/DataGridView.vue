@@ -21,11 +21,56 @@ const stickyColumnsEnabled = ref(false);
 const moreActions = ref(false);
 
 const data = [
-  { id: 1, name: "John Doe", age: 30 },
-  { id: 2, name: "Jane Smith", age: 28 },
-  { id: 3, name: "Mike Johnson", age: 35 },
-  { id: 4, name: "Emily Davis", age: 25 },
-  { id: 5, name: "Asperiks Kafelon", age: 99 },
+  {
+    id: 1,
+    name: "John Doe",
+    age: 30,
+    country: "USA",
+    city: "New York",
+    street: "5th Avenue",
+    houseNumber: "10A",
+    job: "Software Engineer",
+  },
+  {
+    id: 2,
+    name: "Jane Smith",
+    age: 28,
+    country: "UK",
+    city: "London",
+    street: "Baker Street",
+    houseNumber: "221B",
+    job: "Doctor",
+  },
+  {
+    id: 3,
+    name: "Mike Johnson",
+    age: 35,
+    country: "Canada",
+    city: "Toronto",
+    street: "Queen Street",
+    houseNumber: "15",
+    job: "Architect",
+  },
+  {
+    id: 4,
+    name: "Emily Davis",
+    age: 25,
+    country: "Australia",
+    city: "Sydney",
+    street: "George Street",
+    houseNumber: "42",
+    job: "Graphic Designer",
+  },
+  {
+    id: 5,
+    name: "Asperiks Kafelon",
+    age: 99,
+    country: "USA",
+    city: "San Francisco",
+    street: "Fulton Street",
+    houseNumber: "7C",
+    job: "Dentist",
+  },
 ];
 
 type Entry = (typeof data)[number];
@@ -88,7 +133,11 @@ const dataFeatures = computed(() => {
         <OnyxSwitch v-model="stickyColumnsEnabled" label="Enable stickyColumns" />
         <OnyxSwitch v-model="moreActions" label="Enable more actions" />
       </section>
-      <OnyxDataGrid :features="dataFeatures" :data :columns="['name', 'age']" />
+      <OnyxDataGrid
+        :features="dataFeatures"
+        :data
+        :columns="['name', 'age', 'country', 'city', 'street', 'houseNumber', 'job']"
+      />
     </div>
   </OnyxPageLayout>
 </template>
