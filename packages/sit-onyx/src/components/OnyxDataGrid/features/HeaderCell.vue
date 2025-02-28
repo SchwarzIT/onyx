@@ -28,7 +28,7 @@ const slots = defineSlots<{
 
   &__actions {
     display: inline-flex;
-    gap: 0.25rem;
+    gap: inherit;
   }
 }
 </style>
