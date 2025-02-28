@@ -43,7 +43,9 @@ const radiobuttons = useTemplateRef("radiobuttonsRef");
 defineExpose({
   inputs: computed<HTMLInputElement[]>(() => {
     const array = Array.isArray(radiobuttons.value) ? radiobuttons.value : [radiobuttons.value];
-    return array.filter(Boolean).flatMap((radiobutton) => radiobutton.input);
+    return array
+      .flatMap((radiobutton) => radiobutton?.input)
+      .filter((radiobutton) => !!radiobutton);
   }),
 });
 </script>
