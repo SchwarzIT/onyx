@@ -28,7 +28,7 @@ type Story = StoryObj<typeof OnyxForm>;
 /**
  * This example shows a default form element.
  */
-export const Default = await createAdvancedStoryExample("OnyxForm", "DefaultExample");
+export const Default = createAdvancedStoryExample("OnyxForm", "DefaultExample");
 
 /**
  * This example show a form that displays all errors immediately.
@@ -50,4 +50,4 @@ export const Disabled = {
   },
 } satisfies Story;
 
-export const AdvancedExample = await createAdvancedStoryExample("OnyxForm", "AdvancedExample");
+export const AdvancedExample = createAdvancedStoryExample("OnyxForm", "AdvancedExample");

@@ -63,17 +63,26 @@ export const textColorDecorator: Decorator = (story) => ({
  * Make sure to import all onyx components, types etc. from the index file "../../../" so its replaced correctly in the code snippet.
  * Will also make the OnyxToast available to be used inside the example.
  */
-export async function createAdvancedStoryExample(
+export function createAdvancedStoryExample(
   componentName: string,
   exampleName: string,
   bindArgs = true,
 ) {
-  const Component: DefineComponent = (
-    await import(`../components/${componentName}/examples/${exampleName}.vue`)
-  ).default;
-  const sourceCode: string = (
-    await import(`../components/${componentName}/examples/${exampleName}.vue?raw`)
-  ).default;
+  const examples: Record<string, DefineComponent> = import.meta.glob(
+    "../components/*/examples/*.vue",
+    {
+      eager: true,
+      import: "default",
+    },
+  );
+  const codeSnippets: Record<string, string> = import.meta.glob("../components/*/examples/*.vue", {
+    eager: true,
+    query: "?raw",
+    import: "default",
+  });
+
+  const Component = examples[`../components/${componentName}/examples/${exampleName}.vue`];
+  const sourceCode = codeSnippets[`../components/${componentName}/examples/${exampleName}.vue`];
 
   // TODO: disable controls
   return {

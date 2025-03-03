@@ -15,14 +15,14 @@ const meta: Meta<typeof OnyxDataGrid> = {
 export default meta;
 type Story = StoryObj<typeof OnyxDataGrid>;
 
-export const Default = await createAdvancedStoryExample("OnyxDataGrid", "DefaultExample");
+export const Default = createAdvancedStoryExample("OnyxDataGrid", "DefaultExample");
 
 export const CustomFeature = {
   tags: ["new:feature"],
-  ...(await createAdvancedStoryExample("OnyxDataGrid", "CustomFeatureExample")),
+  ...createAdvancedStoryExample("OnyxDataGrid", "CustomFeatureExample"),
 } satisfies Story;
 
 export const CustomColumnTypes = {
   tags: ["new:feature"],
-  ...(await createAdvancedStoryExample("OnyxDataGrid", "CustomColumnTypes")),
+  ...createAdvancedStoryExample("OnyxDataGrid", "CustomColumnTypes"),
 } satisfies Story;

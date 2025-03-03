@@ -20,4 +20,4 @@ const meta: Meta<typeof OnyxAlertDialog> = {
 
 export default meta;
 
-export const Default = await createAdvancedStoryExample("OnyxAlertDialog", "DefaultExample");
+export const Default = createAdvancedStoryExample("OnyxAlertDialog", "DefaultExample");

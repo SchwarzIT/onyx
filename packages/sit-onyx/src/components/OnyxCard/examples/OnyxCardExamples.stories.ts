@@ -14,12 +14,12 @@ const meta: Meta<typeof OnyxCard> = {
 
 export default meta;
 
-export const HeadlineAndText = await createAdvancedStoryExample("OnyxCard", "HeadlineCardExample");
+export const HeadlineAndText = createAdvancedStoryExample("OnyxCard", "HeadlineCardExample");
 
-export const ImageCard = await createAdvancedStoryExample("OnyxCard", "ImageCardExample");
+export const ImageCard = createAdvancedStoryExample("OnyxCard", "ImageCardExample");
 
-export const IconCard = await createAdvancedStoryExample("OnyxCard", "IconCardExample");
+export const IconCard = createAdvancedStoryExample("OnyxCard", "IconCardExample");
 
-export const DetailsCard = await createAdvancedStoryExample("OnyxCard", "DetailsCardExample");
+export const DetailsCard = createAdvancedStoryExample("OnyxCard", "DetailsCardExample");
 
-export const KPICard = await createAdvancedStoryExample("OnyxCard", "KPICardExample");
+export const KPICard = createAdvancedStoryExample("OnyxCard", "KPICardExample");

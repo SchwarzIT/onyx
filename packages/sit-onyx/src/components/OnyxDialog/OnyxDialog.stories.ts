@@ -35,4 +35,4 @@ export const Default = {
  * This example shows a modal dialog which will block the primary page content and show a backdrop.
  * **Hint**: In this example, you can close the dialog by pressing "Escape".
  */
-export const Modal = await createAdvancedStoryExample("OnyxDialog", "ModalExample");
+export const Modal = createAdvancedStoryExample("OnyxDialog", "ModalExample");

@@ -10,6 +10,6 @@ const meta: Meta<typeof OnyxSystemButton> = {
 
 export default meta;
 
-export const FlyoutMenu = await createAdvancedStoryExample("OnyxSystemButton", "FlyoutMenuExample");
+export const FlyoutMenu = createAdvancedStoryExample("OnyxSystemButton", "FlyoutMenuExample");
 
-export const Tooltip = await createAdvancedStoryExample("OnyxSystemButton", "TooltipExample");
+export const Tooltip = createAdvancedStoryExample("OnyxSystemButton", "TooltipExample");
