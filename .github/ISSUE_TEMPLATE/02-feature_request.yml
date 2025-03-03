@@ -3,6 +3,7 @@ description: >-
   Do you want to request a new feature to be added to onyx? You can request it
   with the form below.
 title: "[Feature request]: "
+type: Feature
 labels:
   - enhancement
 
