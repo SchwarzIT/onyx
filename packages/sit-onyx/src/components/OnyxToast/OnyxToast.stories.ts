@@ -37,4 +37,4 @@ const meta: Meta<typeof OnyxToast> = {
 
 export default meta;
 
-export const Default = await createAdvancedStoryExample("OnyxToast", "ToastExample");
+export const Default = createAdvancedStoryExample("OnyxToast", "ToastExample");

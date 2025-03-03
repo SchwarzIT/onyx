@@ -256,7 +256,7 @@ export const WithSearch: Story = {
  * Note that `valueLabel` needs to be kept up to date as onyx can't find the label if the options are filtered manually.
  * **Tip**: You can use our `normalizedIncludes()` utility function for this use case.
  */
-export const WithCustomSearch = await createAdvancedStoryExample(
+export const WithCustomSearch = createAdvancedStoryExample(
   "OnyxSelect",
   "CustomSearchExample",
   false,
@@ -287,12 +287,12 @@ export const Loading = {
  * This example shows a select with lazy loading. The `lazyLoad` event will be emitted if the user scrolls
  * to the end of the options.
  */
-export const LazyLoading = await createAdvancedStoryExample("OnyxSelect", "LazyLoadingExample");
+export const LazyLoading = createAdvancedStoryExample("OnyxSelect", "LazyLoadingExample");
 
 /**
  * This example shows a select with custom button for loading.
  */
-export const LoadMore = await createAdvancedStoryExample("OnyxSelect", "LoadMoreExample");
+export const LoadMore = createAdvancedStoryExample("OnyxSelect", "LoadMoreExample");
 
 /**
  * This example shows a readonly select that can not be edited.
@@ -327,10 +327,7 @@ export const Skeleton = {
  * This example shows a single select with fully custom option content that can be
  * passed as slot.
  */
-export const WithCustomOptions = await createAdvancedStoryExample(
-  "OnyxSelect",
-  "CustomOptionsExample",
-);
+export const WithCustomOptions = createAdvancedStoryExample("OnyxSelect", "CustomOptionsExample");
 
 /**
  * This example shows single select with multiline options.

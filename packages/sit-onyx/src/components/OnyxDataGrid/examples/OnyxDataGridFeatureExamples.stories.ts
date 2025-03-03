@@ -13,15 +13,12 @@ type Story = StoryObj<typeof meta>;
 
 export const Sorting: Story = {
   tags: ["new:feature"],
-  ...(await createAdvancedStoryExample("OnyxDataGrid", "SortingExample")),
+  ...createAdvancedStoryExample("OnyxDataGrid", "SortingExample"),
 };
 
 export const Filtering: Story = {
   tags: ["new:feature"],
-  ...(await createAdvancedStoryExample("OnyxDataGrid", "FilteringExample")),
+  ...createAdvancedStoryExample("OnyxDataGrid", "FilteringExample"),
 };
 
-export const Selection: Story = await createAdvancedStoryExample(
-  "OnyxDataGrid",
-  "SelectionExample",
-);
+export const Selection: Story = createAdvancedStoryExample("OnyxDataGrid", "SelectionExample");
