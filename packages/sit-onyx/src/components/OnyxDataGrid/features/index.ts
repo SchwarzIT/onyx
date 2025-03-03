@@ -178,7 +178,7 @@ export type DataGridFeature<
      */
     actions?: (column: PublicNormalizedColumnConfig<TEntry>) => {
       iconComponent?: Component | { iconComponent: Component; position?: string };
-      menuItems: Component<typeof OnyxMenuItem>[];
+      menuItems?: Component<typeof OnyxMenuItem>[];
       showFlyoutMenu?: boolean;
     }[];
   };
@@ -380,13 +380,18 @@ export const useDataGridFeatures = <
 
                 const nonHeaderIcon =
                   normalizedIcons.find((ic) => !ic.position)?.iconComponent ?? null;
+                const filteredActions = actions.filter(
+                  (action) =>
+                    (action.iconComponent as { position?: string })?.position !== "header",
+                );
 
                 const shouldShowFlyout =
-                  actions.length > 1 || actions.some((action) => action.showFlyoutMenu);
+                  filteredActions.length > 1 || actions.some((action) => action.showFlyoutMenu);
 
-                return [...headerIcons, shouldShowFlyout ? flyoutMenu : nonHeaderIcon].filter(
-                  Boolean,
-                );
+                return [
+                  ...(shouldShowFlyout ? headerIcons : []),
+                  shouldShowFlyout ? flyoutMenu : nonHeaderIcon,
+                ].filter(Boolean);
               },
             },
           ),
