@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/vue3";
-import StorybookExample from "./StorybookExample.vue";
-import StorybookExampleSourceCode from "./StorybookExample.vue?raw";
+import type { Meta } from "@storybook/vue3";
+import { createAdvancedStoryExample } from "../../utils/storybook";
+import OnyxToast from "./OnyxToast.vue";
 
 /**
  * The toast is used to display toast messages to the user.
@@ -30,26 +30,11 @@ import StorybookExampleSourceCode from "./StorybookExample.vue?raw";
  *
  * Afterwards, toasts can be shown using the `useToast()` composable as shown in the example below.
  */
-const meta: Meta<typeof StorybookExample> = {
+const meta: Meta<typeof OnyxToast> = {
   title: "Feedback/Toast",
-  component: StorybookExample,
-  decorators: [
-    (story) => ({
-      components: { story },
-      template: `<div style="height: 24rem;"> <story /> </div>`,
-    }),
-  ],
-
-  parameters: {
-    docs: {
-      source: {
-        code: StorybookExampleSourceCode.replace('from "../.."', 'from "sit-onyx"'),
-      },
-    },
-  },
+  component: OnyxToast,
 };
 
 export default meta;
-type Story = StoryObj<typeof StorybookExample>;
 
-export const Default = { args: {} } satisfies Story;
+export const Default = createAdvancedStoryExample("OnyxToast", "ToastExample");
