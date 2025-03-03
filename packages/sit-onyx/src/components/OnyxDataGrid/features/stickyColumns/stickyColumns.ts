@@ -1,4 +1,4 @@
-import { computed, nextTick, onBeforeUnmount, ref, watchEffect } from "vue";
+import { computed, ref, useId, watch } from "vue";
 import { createFeature, type ModifyColumns } from "..";
 
 import type { DataGridEntry } from "../../types";
@@ -9,88 +9,78 @@ export const STICKY_COLUMNS_FEATURE = Symbol("StickyColumns");
 
 export const useStickyColumns = createFeature(
   <TEntry extends DataGridEntry>(options?: StickyColumnsOptions) => {
-    const columns = computed(() => options?.columns ?? []);
+    // TODO: only enables/disables sticky behavior, does not effect order
+    const stickyColumns = computed(() => options?.columns ?? []);
     const direction = computed(() => options?.direction ?? "left");
-    const elementWidths = ref<number[]>([]);
-    const elementsToStyle = ref<{ el: HTMLElement; index: number }[]>([]);
+    const elementWidths = ref<Record<PropertyKey, number>>({});
+    const elementsToStyle = ref<Record<PropertyKey, HTMLElement>>({});
+    const stickyId = useId();
 
-    const setElementStyles = (el: HTMLElement, index: number) => {
-      if (index === 0) return;
-      const width = elementWidths.value.reduce((acc, currentWidth, i) => {
-        if (i < index) {
-          return acc + currentWidth;
-        }
-        return acc;
-      }, 0);
+    const createStickyPositionCssVar = (key: PropertyKey) =>
+      `--onyx-data-grid-sticky-column-position-${stickyId}-${String(key)}`;
 
-      if (direction.value === "left") {
-        el.style.right = "auto";
-        el.style.left = `${width}px`;
-      } else {
-        el.style.zIndex = "22";
-        el.style.left = "auto";
-        el.style.right = `${width - 0.5}px`;
-      }
-    };
+    const resizeObserver = new ResizeObserver(() => {
+      Object.entries(elementsToStyle.value).forEach(
+        ([column, el]: [PropertyKey, HTMLElement]) =>
+          (elementWidths.value[column] = el.getBoundingClientRect().width),
+      );
 
-    const observeStickyState = (el: HTMLElement) => {
-      const parent = el.closest(".onyx-table-wrapper__container");
-      if (!parent) return;
-
-      const updateStickyState = () => {
-        const parentRect = parent.getBoundingClientRect();
-        const elRect = el.getBoundingClientRect();
-
-        if (direction.value === "left") {
-          parent.classList.toggle("is-sticky", elRect.left < parentRect.left + 1);
-        } else if (direction.value === "right") {
-          parent.classList.toggle("is-sticky", !(elRect.right < parentRect.right - 0.5));
-        }
-      };
-
-      parent.addEventListener("scroll", updateStickyState);
-      updateStickyState();
-      onBeforeUnmount(() => {
-        parent.removeEventListener("scroll", updateStickyState);
-      });
-    };
-    watchEffect(() => {
-      if (elementWidths.value.length > 0) {
-        elementsToStyle.value.forEach(({ el, index }) => {
-          setElementStyles(el, index);
-        });
-      }
+      options?.columns.forEach((columnKey, i) => setElementStyles(columnKey, i));
     });
+
+    watch(
+      elementsToStyle,
+      () =>
+        Object.values(elementsToStyle.value).forEach((el) => {
+          resizeObserver.observe(el);
+        }),
+      { deep: true },
+    );
+
+    const setElementStyles = (key: PropertyKey, index: number) => {
+      if (!options) return;
+      const width = options.columns
+        .map((key) => elementWidths.value[key])
+        .reduce((acc, currentWidth, i) => {
+          if (i < index) {
+            return acc + currentWidth;
+          }
+          return acc;
+        }, 0);
+
+      // TODO, when feature API is extended: Do not set globally
+      document.body.style.setProperty(createStickyPositionCssVar(key), `${width}px`);
+    };
 
     return {
       name: STICKY_COLUMNS_FEATURE,
-      watch: [direction, columns],
+      watch: [direction, stickyColumns],
       modifyColumns: {
+        // TODO: reorder and move sticky columns to start or end of array
         func: (columnConfig) => {
           return columnConfig.map((column) => {
-            const columnIndex = columns.value.findIndex((col) => col === column.key);
-            return columns.value.includes(column.key as string)
+            const style =
+              direction.value === "left"
+                ? {
+                    right: "auto",
+                    left: `var(${createStickyPositionCssVar(column.key)})`,
+                  }
+                : {
+                    left: "auto",
+                    right: `var(${createStickyPositionCssVar(column.key)})`,
+                  };
+
+            return stickyColumns.value.includes(column.key)
               ? {
-                  key: column.key,
-                  type: column.key,
+                  ...column,
                   thAttributes: {
+                    style,
                     class: `sticky ${direction.value}`,
-                    ref: (el: HTMLElement) => {
-                      elementsToStyle.value.push({ el, index: columnIndex });
-                      nextTick(() => {
-                        elementWidths.value[columnIndex] = el.getBoundingClientRect().width;
-                        if (columnIndex === 0) {
-                          observeStickyState(el);
-                        }
-                      });
-                    },
+                    ref: (el: HTMLElement) => (elementsToStyle.value[column.key] = el),
                   },
                   tdAttributes: {
+                    style,
                     class: `sticky ${direction.value}`,
-                    ref: (el: HTMLElement) => {
-                      elementsToStyle.value.push({ el, index: columnIndex });
-                      nextTick(() => {});
-                    },
                   },
                 }
               : column;

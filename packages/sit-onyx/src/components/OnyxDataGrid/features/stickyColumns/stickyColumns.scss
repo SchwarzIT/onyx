@@ -1,3 +1,4 @@
+// TODO: scope to datagrid and use specific prefix
 .sticky {
   position: sticky;
 }
@@ -20,6 +21,7 @@ th.sticky {
 
 .is-sticky {
   .sticky {
+    // TODO: use rem values
     box-shadow: 4px 0px 4px -1px rgba(0, 0, 0, 0.1);
     &.right {
       box-shadow: -4px 0px 4px -1px rgba(0, 0, 0, 0.1);
