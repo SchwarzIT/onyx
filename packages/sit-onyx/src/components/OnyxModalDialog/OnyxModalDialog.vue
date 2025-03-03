@@ -8,7 +8,9 @@ import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import type { OnyxModalDialogProps } from "./types";
 
-const props = defineProps<OnyxModalDialogProps>();
+const props = withDefaults(defineProps<OnyxModalDialogProps>(), {
+  alignment: "center",
+});
 
 const emit = defineEmits<{
   /**
@@ -31,6 +33,10 @@ const slots = defineSlots<{
    * Optional slot to add custom content, e.g. a description to the dialog header (below the headline).
    */
   description?(): unknown;
+  /**
+   * Optional footer slot to e.g. show action buttons (see OnyxBottomBar component).
+   */
+  footer?(): unknown;
 }>();
 
 const { t } = injectI18n();
@@ -43,16 +49,22 @@ const hasDescription = computed(() => !!slots.description);
 <template>
   <OnyxDialog
     v-bind="props"
-    :class="['onyx-modal-dialog', densityClass]"
+    :class="[
+      'onyx-modal-dialog',
+      densityClass,
+      props.alignment !== 'center' ? `onyx-modal-dialog--${props.alignment}` : '',
+    ]"
     :aria-describedby="hasDescription ? descriptionId : undefined"
     modal
     @close="emit('close')"
   >
     <div class="onyx-modal-dialog__header">
       <div class="onyx-modal-dialog__headline">
-        <slot name="headline" :label="props.label">
-          <OnyxHeadline is="h2">{{ props.label }}</OnyxHeadline>
-        </slot>
+        <div class="onyx-modal-dialog__headline-content">
+          <slot name="headline" :label="props.label">
+            <OnyxHeadline is="h2">{{ props.label }}</OnyxHeadline>
+          </slot>
+        </div>
 
         <OnyxSystemButton
           class="onyx-alert-dialog__close"
@@ -71,7 +83,13 @@ const hasDescription = computed(() => !!slots.description);
       </div>
     </div>
 
-    <slot></slot>
+    <div class="onyx-modal-dialog__body">
+      <slot></slot>
+    </div>
+
+    <div v-if="!!slots.footer" class="onyx-modal-dialog__footer">
+      <slot name="footer"></slot>
+    </div>
   </OnyxDialog>
 </template>
 
@@ -83,6 +101,25 @@ const hasDescription = computed(() => !!slots.description);
     --onyx-modal-dialog-padding-inline: var(--onyx-density-lg);
 
     padding: 0;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+
+    &--left,
+    &--right {
+      --onyx-dialog-screen-gap: var(--onyx-density-xs);
+      transform: none;
+      top: var(--onyx-dialog-screen-gap);
+      height: 100%;
+    }
+
+    &--left {
+      left: var(--onyx-dialog-screen-gap);
+    }
+
+    &--right {
+      left: unset;
+      right: var(--onyx-dialog-screen-gap);
+    }
 
     &__header {
       display: flex;
@@ -96,7 +133,18 @@ const hasDescription = computed(() => !!slots.description);
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      gap: var(--onyx-density-xs);
+      gap: var(--onyx-density-sm);
+    }
+
+    &__headline-content {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: inherit;
+    }
+
+    &__body {
+      overflow: auto;
     }
 
     &__description {
