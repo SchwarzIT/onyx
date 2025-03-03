@@ -62,12 +62,10 @@ export const textColorDecorator: Decorator = (story) => ({
  *
  * Make sure to import all onyx components, types etc. from the index file "../../../" so its replaced correctly in the code snippet.
  * Will also make the OnyxToast available to be used inside the example.
+ *
+ * **Note** The "Controls" and "Actions" panel/tab will be disable for this story since they will probably be mostly unusable due to the custom example.
  */
-export function createAdvancedStoryExample(
-  componentName: string,
-  exampleName: string,
-  bindArgs = true,
-) {
+export function createAdvancedStoryExample(componentName: string, exampleName: string) {
   const allExamples: Record<string, DefineComponent> = import.meta.glob(
     "../components/*/examples/*.vue",
     {
@@ -88,19 +86,23 @@ export function createAdvancedStoryExample(
   const Component = allExamples[path];
   const codeSnippet = allCodeSnippets[path];
 
-  // TODO: disable controls
   return {
     render: (args) => ({
       components: { Component, OnyxToast },
       setup: () => ({ args }),
-      template: `<OnyxToast />
-      <Component ${bindArgs ? 'v-bind="args"' : ""} />`,
+      template: `<OnyxToast /> <Component />`,
     }),
     parameters: {
       docs: {
         source: {
           code: codeSnippet.replace('from "../../.."', 'from "sit-onyx"'),
         },
+      },
+      controls: {
+        disable: true,
+      },
+      actions: {
+        disable: true,
       },
     },
   } satisfies StoryObj;
