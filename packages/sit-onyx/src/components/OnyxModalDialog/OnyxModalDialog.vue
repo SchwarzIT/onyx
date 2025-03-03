@@ -145,6 +145,7 @@ const hasDescription = computed(() => !!slots.description);
 
     &__body {
       overflow: auto;
+      flex-grow: 1;
     }
 
     &__description {
