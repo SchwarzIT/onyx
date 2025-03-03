@@ -84,14 +84,21 @@ export const RightAligned = {
     label: "Notifications",
     alignment: "right",
     headline: ({ label }) => [
-      h(OnyxHeadline, { is: "h2" }, label),
-      h(OnyxBadge, { color: "neutral", density: "compact" }, "42"),
+      h(OnyxHeadline, { is: "h2" }, () => label),
+      h(OnyxBadge, { color: "neutral", density: "compact" }, () => "42"),
     ],
     description: "See all notifications from all touchpoints here.",
     default: h(
       "div",
       { style: "padding: var(--onyx-density-xl) var(--onyx-modal-dialog-padding-inline)" },
-      "Body content...",
+
+      h(
+        "span",
+        {
+          style: "color: var(--onyx-color-text-icons-info-intense); white-space: pre-line;",
+        },
+        "Note: The modal dialog component is fully flexible.\nIt can be adjusted with every content the project needs.",
+      ),
     ),
     footer: () =>
       h(OnyxBottomBar, { density: "compact" }, () => [
