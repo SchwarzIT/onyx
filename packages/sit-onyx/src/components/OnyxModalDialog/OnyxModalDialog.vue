@@ -101,8 +101,8 @@ const hasDescription = computed(() => !!slots.description);
     --onyx-modal-dialog-padding-inline: var(--onyx-density-lg);
 
     padding: 0;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
+    display: flex;
+    flex-direction: column;
 
     &--left,
     &--right {
