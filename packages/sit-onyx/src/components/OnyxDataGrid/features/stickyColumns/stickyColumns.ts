@@ -1,4 +1,4 @@
-import { computed, ref, useId, watch } from "vue";
+import { computed, onUnmounted, ref, useId, watch } from "vue";
 import { createFeature, type ModifyColumns } from "..";
 
 import type { DataGridEntry } from "../../types";
@@ -9,7 +9,6 @@ export const STICKY_COLUMNS_FEATURE = Symbol("StickyColumns");
 
 export const useStickyColumns = createFeature(
   <TEntry extends DataGridEntry>(options?: StickyColumnsOptions) => {
-    // TODO: only enables/disables sticky behavior, does not effect order
     const stickyColumns = computed(() => options?.columns ?? []);
     const direction = computed(() => options?.direction ?? "left");
     const elementWidths = ref<Record<PropertyKey, number>>({});
@@ -36,6 +35,9 @@ export const useStickyColumns = createFeature(
         }),
       { deep: true },
     );
+    onUnmounted(() => {
+      resizeObserver.disconnect();
+    });
 
     const setElementStyles = (key: PropertyKey, index: number) => {
       if (!options) return;
@@ -48,7 +50,7 @@ export const useStickyColumns = createFeature(
           return acc;
         }, 0);
 
-      // TODO, when feature API is extended: Do not set globally
+      // TODO: when feature API is extended: Do not set globally
       document.body.style.setProperty(createStickyPositionCssVar(key), `${width}px`);
     };
 
@@ -56,9 +58,15 @@ export const useStickyColumns = createFeature(
       name: STICKY_COLUMNS_FEATURE,
       watch: [direction, stickyColumns],
       modifyColumns: {
-        // TODO: reorder and move sticky columns to start or end of array
         func: (columnConfig) => {
-          return columnConfig.map((column) => {
+          const sticky = columnConfig.filter((col) => stickyColumns.value.includes(col.key));
+          const nonSticky = columnConfig.filter((col) => !stickyColumns.value.includes(col.key));
+          const orderedColumns =
+            direction.value === "left"
+              ? [...sticky, ...nonSticky]
+              : [...nonSticky, ...sticky.slice().reverse()];
+          return orderedColumns.map((column) => {
+            if (!stickyColumns.value.includes(column.key)) return column;
             const style =
               direction.value === "left"
                 ? {
@@ -69,21 +77,18 @@ export const useStickyColumns = createFeature(
                     left: "auto",
                     right: `var(${createStickyPositionCssVar(column.key)})`,
                   };
-
-            return stickyColumns.value.includes(column.key)
-              ? {
-                  ...column,
-                  thAttributes: {
-                    style,
-                    class: `sticky ${direction.value}`,
-                    ref: (el: HTMLElement) => (elementsToStyle.value[column.key] = el),
-                  },
-                  tdAttributes: {
-                    style,
-                    class: `sticky ${direction.value}`,
-                  },
-                }
-              : column;
+            return {
+              ...column,
+              thAttributes: {
+                style,
+                class: `onyx-data-grid-sticky-columns--sticky ${direction.value}`,
+                ref: (el: HTMLElement) => (elementsToStyle.value[column.key] = el),
+              },
+              tdAttributes: {
+                style,
+                class: `onyx-data-grid-sticky-columns--sticky ${direction.value}`,
+              },
+            };
           });
         },
         // TODO: Check why it isn't working without type assertion
