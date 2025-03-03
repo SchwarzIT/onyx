@@ -68,21 +68,25 @@ export function createAdvancedStoryExample(
   exampleName: string,
   bindArgs = true,
 ) {
-  const examples: Record<string, DefineComponent> = import.meta.glob(
+  const allExamples: Record<string, DefineComponent> = import.meta.glob(
     "../components/*/examples/*.vue",
     {
       eager: true,
       import: "default",
     },
   );
-  const codeSnippets: Record<string, string> = import.meta.glob("../components/*/examples/*.vue", {
-    eager: true,
-    query: "?raw",
-    import: "default",
-  });
+  const allCodeSnippets: Record<string, string> = import.meta.glob(
+    "../components/*/examples/*.vue",
+    {
+      eager: true,
+      query: "?raw",
+      import: "default",
+    },
+  );
 
-  const Component = examples[`../components/${componentName}/examples/${exampleName}.vue`];
-  const sourceCode = codeSnippets[`../components/${componentName}/examples/${exampleName}.vue`];
+  const path = `../components/${componentName}/examples/${exampleName}.vue`;
+  const Component = allExamples[path];
+  const codeSnippet = allCodeSnippets[path];
 
   // TODO: disable controls
   return {
@@ -95,7 +99,7 @@ export function createAdvancedStoryExample(
     parameters: {
       docs: {
         source: {
-          code: sourceCode.replace('from "../../.."', 'from "sit-onyx"'),
+          code: codeSnippet.replace('from "../../.."', 'from "sit-onyx"'),
         },
       },
     },
