@@ -77,6 +77,7 @@ watch(
 
 .onyx-dialog {
   @include layers.component() {
+    --onyx-dialog-screen-gap: var(--onyx-grid-margin);
     outline: none;
     border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
     border-radius: var(--onyx-radius-md);
@@ -87,7 +88,7 @@ watch(
     overflow: auto;
     z-index: var(--onyx-z-index-page-overlay);
 
-    $max-size: calc(100% - 2 * var(--onyx-grid-margin));
+    $max-size: calc(100% - 2 * var(--onyx-dialog-screen-gap));
     max-width: $max-size;
     max-height: $max-size;
     height: max-content;
