@@ -256,11 +256,7 @@ export const WithSearch: Story = {
  * Note that `valueLabel` needs to be kept up to date as onyx can't find the label if the options are filtered manually.
  * **Tip**: You can use our `normalizedIncludes()` utility function for this use case.
  */
-export const WithCustomSearch = createAdvancedStoryExample(
-  "OnyxSelect",
-  "CustomSearchExample",
-  false,
-);
+export const WithCustomSearch = createAdvancedStoryExample("OnyxSelect", "CustomSearchExample");
 
 /**
  * This example shows a select with list description.
