@@ -85,6 +85,10 @@ const hasDescription = computed(() => !!slots.description);
     padding: 0;
 
     &__header {
+      position: sticky;
+      top: 0;
+      background-color: var(--onyx-color-base-background-blank);
+
       display: flex;
       flex-direction: column;
       gap: var(--onyx-density-2xs);

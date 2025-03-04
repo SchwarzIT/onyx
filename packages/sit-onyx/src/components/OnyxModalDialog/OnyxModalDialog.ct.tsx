@@ -11,18 +11,34 @@ test("should behave correctly", async ({ mount, makeAxeBuilder, page }) => {
   const component = await mount(<TestWrapperCt onClose={() => closeEventCount++} />);
   const closeButton = component.getByRole("button", { name: "Close dialog" });
 
-  // ASSERT
-  await expect(page).toHaveScreenshot("default.png");
+  await test.step("default screenshot", async () => {
+    // ASSERT
+    await expect(page).toHaveScreenshot("default.png");
+    // ACT
+    await page.getByText("end of content").scrollIntoViewIfNeeded();
+    // ASSERT
+    await expect(page).toHaveScreenshot("scrolled.png");
+  });
 
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
+  await test.step("accessiblity test", async () => {
+    // ACT
+    const accessibilityScanResults = await makeAxeBuilder().analyze();
 
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
+    // ASSERT
+    expect(accessibilityScanResults.violations).toEqual([]);
+  });
 
-  // ACT
-  await closeButton.click();
+  await test.step("trigger and handle close event", async () => {
+    // ACT
+    await closeButton.click();
 
-  // ASSERT
-  expect(closeEventCount).toBe(1);
+    // ASSERT
+    expect(closeEventCount).toBe(1);
+
+    // ACT
+    await page.keyboard.press("Escape");
+
+    // ASSERT
+    expect(closeEventCount).toBe(2);
+  });
 });
