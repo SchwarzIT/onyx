@@ -1,3 +1,5 @@
+import type { SkeletonInjected } from "../../composables/useSkeletonState";
+
 export type OnyxImageProps = {
   /**
    * Image URL to show.
@@ -29,6 +31,10 @@ export type OnyxImageProps = {
    * Image border shape. If unset, the original image shape will be used.
    */
   shape?: ImageShape;
+  /**
+   * Whether to show a skeleton image.
+   */
+  skeleton?: SkeletonInjected;
 };
 
 export type ImageLoading = "eager" | "lazy";
