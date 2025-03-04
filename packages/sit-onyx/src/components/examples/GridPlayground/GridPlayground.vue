@@ -29,7 +29,7 @@ import GridOverlay from "./GridOverlay/GridOverlay.vue";
 const viewportSize = useResizeObserver(shallowRef(document.body));
 
 type MaxWidth = OnyxBreakpoint | "Filled";
-type MaxColumns = 4 | 8 | 12 | 16 | 20;
+type MaxColumns = 12 | 16 | 20;
 type Alignment = "left" | "center" | "Filled";
 
 const gridSettings = ref<{
@@ -89,26 +89,16 @@ const updateElement = (index: number, newElement: GridElementConfig) => {
 };
 
 const alignmentOptions = [
-  {
-    label: "Filled (automatically used for all breakpoints, that are smaller than 1440px)",
-    value: "Filled",
-  },
   { label: "left", value: "left" },
   { label: "center", value: "center" },
 ] satisfies SelectOption<Alignment>[];
 
 const maxWidthOptions = [
-  {
-    value: "Filled",
-    label: "Filled (automatically used for all breakpoints, that are smaller than 1440px)",
-  },
   { label: `${ONYX_BREAKPOINTS.lg}px`, value: "md" },
   { label: `${ONYX_BREAKPOINTS.xl}px`, value: "lg" },
 ] satisfies SelectOption<MaxWidth>[];
 
 const maxColumnsOptions = [
-  { label: "4 columns", value: 4 },
-  { label: "8 columns", value: 8 },
   { label: "12 columns", value: 12 },
   { label: "16 columns", value: 16 },
   { label: "20 columns", value: 20 },
