@@ -45,7 +45,7 @@ export const Default = {
         {
           style: "color: var(--onyx-color-text-icons-info-intense); white-space: pre-line;",
         },
-        "Note: The modal dialog component is fully flexible.\nIt can be adjusted with every content the project needs.",
+        "Note: The drawer component is fully flexible.\nIt can be adjusted with every content the project needs.",
       ),
     ),
     footer: () =>
