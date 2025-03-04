@@ -51,6 +51,9 @@ export * from "./components/OnyxDatePicker/types";
 export { default as OnyxDialog } from "./components/OnyxDialog/OnyxDialog.vue";
 export * from "./components/OnyxDialog/types";
 
+export { default as OnyxDrawer } from "./components/OnyxDrawer/OnyxDrawer.vue";
+export * from "./components/OnyxDrawer/types";
+
 export { default as OnyxEmpty } from "./components/OnyxEmpty/OnyxEmpty.vue";
 
 export { default as OnyxExternalLinkIcon } from "./components/OnyxExternalLinkIcon/OnyxExternalLinkIcon.vue";
