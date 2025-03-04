@@ -16,6 +16,7 @@ import {
   OnyxHeadline,
   OnyxIcon,
   OnyxIconButton,
+  OnyxImage,
   OnyxInput,
   OnyxLink,
   OnyxLoadingIndicator,
@@ -56,6 +57,7 @@ const COMPONENTS = [
   "OnyxHeadline",
   "OnyxIcon",
   "OnyxIconButton",
+  "OnyxImage",
   "OnyxInput",
   "OnyxLink",
   "OnyxSelect",
@@ -217,6 +219,15 @@ const openAccordionItems = ref<string[]>([]);
         <OnyxIcon v-if="show('OnyxIcon')" :icon="emojiHappy2" />
 
         <OnyxIconButton v-if="show('OnyxIconButton')" label="Happy Emoji" :icon="emojiHappy2" />
+
+        <OnyxImage
+          v-if="show('OnyxImage')"
+          src="https://picsum.photos/512/256"
+          :width="512"
+          :height="256"
+          alt="Example image"
+          shape="rounded"
+        />
 
         <OnyxInput
           v-if="show('OnyxInput')"

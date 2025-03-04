@@ -1,5 +1,30 @@
 # sit-onyx
 
+## 1.0.0-beta.164
+
+### Minor Changes
+
+- 164381e: - feat(OnyxBottomBar): automatically adapt horizontal padding if used inside OnyxModalDialog (`var(--onyx-modal-dialog-padding-inline)`)
+  - feat(OnyxModalDialog): add new `footer` slot
+  - feat(OnyxDialog): add new `alignment` property to align the dialog left, center or right
+  - feat: add new `OnyxDrawer` component
+  - fix(OnyxModalDialog): fix styles when placing multiple components into the custom `headline` slot
+  - fix(OnyxModalDialog): the header and footer will now be always be visible if the body has large content. The content will get scrollable if its too large
+
+## 1.0.0-beta.163
+
+### Minor Changes
+
+- 0b8a142: feat(OnyxIcon): added inline mode for use with text
+
+## 1.0.0-beta.162
+
+### Minor Changes
+
+- 360dc49: feat(OnyxImage): support skeleton
+
+  Also update the error icon
+
 ## 1.0.0-beta.161
 
 ### Patch Changes
