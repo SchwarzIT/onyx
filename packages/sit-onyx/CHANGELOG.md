@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.162
+
+### Minor Changes
+
+- 360dc49: feat(OnyxImage): support skeleton
+
+  Also update the error icon
+
 ## 1.0.0-beta.161
 
 ### Patch Changes
