@@ -22,4 +22,11 @@ export type OnyxDialogProps = DensityProp & {
    * e.g. a delete confirmation.
    */
   alert?: boolean;
+  /**
+   * How to align the dialog horizontally. If "left" or "right", the modal will also be made full height.
+   */
+  alignment?: DialogAlignment;
 };
+
+export const DIALOG_ALIGNMENTS = ["left", "center", "right"] as const;
+export type DialogAlignment = (typeof DIALOG_ALIGNMENTS)[number];

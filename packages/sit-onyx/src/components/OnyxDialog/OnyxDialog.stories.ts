@@ -59,3 +59,17 @@ export const Modal: Story = {
     }),
   ],
 };
+
+export const LeftAligned = {
+  args: {
+    ...Default.args,
+    alignment: "left",
+  },
+} satisfies Story;
+
+export const RightAligned = {
+  args: {
+    ...Default.args,
+    alignment: "right",
+  },
+} satisfies Story;

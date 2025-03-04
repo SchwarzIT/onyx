@@ -177,8 +177,16 @@ export type DataGridFeature<
      * The components must be ARIA-conform buttons.
      */
     actions?: (column: PublicNormalizedColumnConfig<TEntry>) => {
-      iconComponent?: Component | { iconComponent: Component; position?: string };
-      menuItems: Component<typeof OnyxMenuItem>[];
+      iconComponent?:
+        | Component
+        | {
+            iconComponent: Component;
+            /**
+             * Will force the iconcomponent to be always shown in the header and not be put into the menu
+             */
+            alwaysShowInHeader?: boolean;
+          };
+      menuItems?: Component<typeof OnyxMenuItem>[];
       showFlyoutMenu?: boolean;
     }[];
   };
@@ -375,18 +383,24 @@ export const useDataGridFeatures = <
                 });
 
                 const headerIcons = normalizedIcons
-                  .filter((ic) => ic?.position === "header")
+                  .filter((ic) => ic?.alwaysShowInHeader)
                   .map((ic) => ic.iconComponent);
 
                 const nonHeaderIcon =
-                  normalizedIcons.find((ic) => !ic.position)?.iconComponent ?? null;
+                  normalizedIcons.find((ic) => !ic.alwaysShowInHeader)?.iconComponent ?? null;
+
+                const filteredActions = actions.filter(
+                  (action) =>
+                    !(action.iconComponent as { alwaysShowInHeader?: boolean })?.alwaysShowInHeader,
+                );
 
                 const shouldShowFlyout =
-                  actions.length > 1 || actions.some((action) => action.showFlyoutMenu);
+                  filteredActions.length > 1 || actions.some((action) => action.showFlyoutMenu);
 
-                return [...headerIcons, shouldShowFlyout ? flyoutMenu : nonHeaderIcon].filter(
-                  Boolean,
-                );
+                return [
+                  ...(shouldShowFlyout ? headerIcons : []),
+                  shouldShowFlyout ? flyoutMenu : nonHeaderIcon,
+                ].filter(Boolean);
               },
             },
           ),
