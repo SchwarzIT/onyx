@@ -77,7 +77,7 @@ test("should stick left/right", async ({ page, mount }) => {
     await expect(component).toHaveScreenshot(`data-grid-sticky-columns-${direction}.png`);
   }
 });
-test("multible stickyColumns", async ({ page, mount }) => {
+test("multiple stickyColumns", async ({ page, mount }) => {
   await page.setViewportSize({ width: 400, height: 1000 });
   const data = getTestData();
 

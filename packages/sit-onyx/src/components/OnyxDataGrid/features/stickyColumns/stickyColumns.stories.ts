@@ -14,7 +14,7 @@ type Story = StoryObj<typeof StickyColumnDataGrid>;
 export const StickyColumn = {
   args: {
     columns: ["name", "rank"],
-    direction: "left",
+    position: "left",
   },
   parameters: {
     docs: {

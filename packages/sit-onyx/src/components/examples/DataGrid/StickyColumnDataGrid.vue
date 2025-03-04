@@ -3,8 +3,8 @@ import { DataGridFeatures, OnyxDataGrid } from "../../..";
 import type { StickyColumnsOptions } from "../../OnyxDataGrid/features/stickyColumns/types";
 
 // STORY SETUP START
-
-const props = defineProps<StickyColumnsOptions>();
+type TEntry = (typeof data)[number];
+const props = defineProps<StickyColumnsOptions<TEntry>>();
 
 // STORY SETUP END
 // Dynamically generate the column names, ensuring 'moreContent' is numbered
