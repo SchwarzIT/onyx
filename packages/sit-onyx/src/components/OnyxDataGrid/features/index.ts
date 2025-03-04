@@ -177,7 +177,15 @@ export type DataGridFeature<
      * The components must be ARIA-conform buttons.
      */
     actions?: (column: PublicNormalizedColumnConfig<TEntry>) => {
-      iconComponent?: Component | { iconComponent: Component; position?: string };
+      iconComponent?:
+        | Component
+        | {
+            iconComponent: Component;
+            /**
+             * Will force the iconcomponent to be always shown in the header and not be put into the menu
+             */
+            alwaysShowInHeader?: boolean;
+          };
       menuItems?: Component<typeof OnyxMenuItem>[];
       showFlyoutMenu?: boolean;
     }[];
@@ -375,14 +383,15 @@ export const useDataGridFeatures = <
                 });
 
                 const headerIcons = normalizedIcons
-                  .filter((ic) => ic?.position === "header")
+                  .filter((ic) => ic?.alwaysShowInHeader)
                   .map((ic) => ic.iconComponent);
 
                 const nonHeaderIcon =
-                  normalizedIcons.find((ic) => !ic.position)?.iconComponent ?? null;
+                  normalizedIcons.find((ic) => !ic.alwaysShowInHeader)?.iconComponent ?? null;
+
                 const filteredActions = actions.filter(
                   (action) =>
-                    (action.iconComponent as { position?: string })?.position !== "header",
+                    !(action.iconComponent as { alwaysShowInHeader?: boolean })?.alwaysShowInHeader,
                 );
 
                 const shouldShowFlyout =

@@ -132,7 +132,7 @@ export const useSorting = createFeature(
                         sortState.value.column === column ? sortState.value.direction : undefined,
                       onClick: () => handleClick(column, true),
                     }),
-                    position: "header",
+                    alwaysShowInHeader: true,
                   },
                 }
               : null,
