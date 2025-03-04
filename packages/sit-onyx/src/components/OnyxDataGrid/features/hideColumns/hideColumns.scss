@@ -1,0 +1,11 @@
+@use "../../../../styles/mixins/layers.scss";
+
+@include layers.component {
+  .onyx-data-grid {
+    .onyx-data-grid-hide-columns-cell {
+      text-align: center;
+      padding: var(--onyx-density-xs);
+      width: 0;
+    }
+  }
+}

@@ -30,6 +30,13 @@
           "label": "Search column {column}",
           "placeholder": "Search column"
         }
+      },
+      "hideColumns": {
+        "revealFlyout": "Display Hidden Columns",
+        "revealTrigger": "change reveal",
+        "menu": {
+          "hideButton": "Hide column"
+        }
       }
     }
   },
