@@ -112,10 +112,6 @@ const currentBreakpoint = computed(() => {
 
   return breakpoint;
 });
-
-const largeBreakpoint = computed(() => {
-  return currentBreakpoint.value === "lg" || currentBreakpoint.value === "xl";
-});
 </script>
 
 <template>
@@ -153,7 +149,6 @@ const largeBreakpoint = computed(() => {
           list-label="List of max width options"
           label-tooltip="With this setting, you can adjust the maximum width of the container that includes the content. This is only relevant for large breakpoints."
           :options="maxWidthOptions"
-          :readonly="!largeBreakpoint"
         />
 
         <OnyxSelect
@@ -162,7 +157,6 @@ const largeBreakpoint = computed(() => {
           list-label="List of max columns options"
           label-tooltip="With large breakpoints you can optionally extend the default 12 column grid to 16 or even 20 columns."
           :options="maxColumnsOptions"
-          :readonly="!largeBreakpoint"
         />
       </div>
     </div>
@@ -219,7 +213,6 @@ const largeBreakpoint = computed(() => {
             :key="index"
             class="element"
             v-bind="element"
-            :is-full-width="!largeBreakpoint"
             :label="`Edit grid element ${index + 1}`"
             @click="gridElementIndexToEdit = index"
           >
