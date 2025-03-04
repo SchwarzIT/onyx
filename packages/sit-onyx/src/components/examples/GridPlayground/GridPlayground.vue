@@ -281,6 +281,7 @@ const currentBreakpoint = computed(() => {
     color: var(--onyx-color-text-icons-warning-intense);
     gap: var(--onyx-density-xs);
     margin: 0;
+    align-items: center;
   }
 
   &__options {
