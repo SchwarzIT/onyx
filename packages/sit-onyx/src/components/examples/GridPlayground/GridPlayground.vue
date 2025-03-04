@@ -272,7 +272,7 @@ const largeBreakpoint = computed(() => {
   background-color: var(--onyx-color-base-background-tinted);
 
   &__container {
-    box-shadow: 0px 2px 8px 0px #0000001a;
+    box-shadow: var(--onyx-shadow-medium-bottom);
     display: inline-block;
   }
 
@@ -282,8 +282,8 @@ const largeBreakpoint = computed(() => {
 
   &__info-text {
     display: inline-flex;
-    font-size: 13px;
-    line-height: 20px;
+    font-size: 0.813rem;
+    line-height: 1.25rem;
     color: var(--onyx-color-text-icons-warning-intense);
     gap: var(--onyx-density-xs);
     margin: 0;
@@ -296,14 +296,14 @@ const largeBreakpoint = computed(() => {
   }
 
   &__breakpoint {
-    font-size: 13px;
-    line-height: 20px;
+    font-size: 0.813rem;
+    line-height: 1.25rem;
     margin: 0;
     color: var(--onyx-color-text-icons-neutral-medium);
 
     > span {
-      font-size: 16px;
-      line-height: 24px;
+      font-size: 1rem;
+      line-height: 1.5rem;
       color: var(--onyx-color-text-icons-neutral-intense);
     }
   }

@@ -132,8 +132,8 @@ test("should support to configure the grid", async ({ mount, page }) => {
   await alignmentInput.click();
   await page.getByRole("option", { name: "center" }).click();
   await columnCountInput.click();
-  await page.getByRole("option", { name: "8 columns" }).click();
+  await page.getByRole("option", { name: "16 columns" }).click();
 
   // ASSERT
-  await expect(page.locator(".onyx-grid-center.onyx-grid-max-lg.onyx-grid-xl-8")).toBeAttached();
+  await expect(page.locator(".onyx-grid-center.onyx-grid-max-lg.onyx-grid-xl-16")).toBeAttached();
 });
