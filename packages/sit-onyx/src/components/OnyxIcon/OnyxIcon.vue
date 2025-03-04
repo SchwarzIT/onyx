@@ -10,6 +10,7 @@ const props = defineProps<OnyxIconProps>();
     :class="{
       'onyx-component': true,
       'onyx-icon': true,
+      'onyx-icon--inline': props.inline,
       [`onyx-icon--${props.size}`]: props.size,
       [`onyx-icon--${props.color}`]: props.color,
     }"
@@ -33,10 +34,15 @@ const props = defineProps<OnyxIconProps>();
     min-width: var(--icon-size);
     height: var(--icon-size);
     fill: var(--icon-color);
+    vertical-align: middle;
 
     & > svg {
       // display svg as block instead of default inline, to remove vertical alignment
       display: block;
+    }
+
+    &--inline {
+      --icon-size: 1em;
     }
 
     @include sizes.define-rem-sizes using ($name, $size) {
