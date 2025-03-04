@@ -1,19 +1,22 @@
+import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
+import settings from "@sit-onyx/icons/settings.svg?raw";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { useArgs } from "storybook/internal/preview-api";
 import { h, ref, watch, watchEffect } from "vue";
-import OnyxBottomBar from "../OnyxBottomBar/OnyxBottomBar.vue";
-import OnyxButton from "../OnyxButton/OnyxButton.vue";
-import OnyxModalDialog from "./OnyxModalDialog.vue";
-import type { OnyxModalDialogProps } from "./types";
+import {
+  OnyxBadge,
+  OnyxBottomBar,
+  OnyxButton,
+  OnyxHeadline,
+  OnyxIconButton,
+  type OnyxDrawerProps,
+} from "../..";
+import OnyxDrawer from "./OnyxDrawer.vue";
 
-/**
- * The modal dialog is used to provide information to the user while interaction with the rest of the page is prevented and a backdrop is displayed.
- *
- * You can also implement a custom dialog using the [OnyxDialog](/docs/support-dialog--docs) component.
- */
-const meta: Meta<typeof OnyxModalDialog> = {
-  title: "Feedback/ModalDialog",
-  component: OnyxModalDialog,
+const meta: Meta<typeof OnyxDrawer> = {
+  title: "Feedback/Drawer",
+  tags: ["new:component"],
+  component: OnyxDrawer,
   argTypes: {
     default: { control: { disable: true } },
     headline: { control: { disable: true } },
@@ -23,15 +26,20 @@ const meta: Meta<typeof OnyxModalDialog> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof OnyxModalDialog>;
+type Story = StoryObj<typeof OnyxDrawer>;
 
 export const Default = {
   args: {
-    label: "Example modal dialog",
-    description: "This is an example description about the dialog.",
+    label: "Notifications",
+    headline: ({ label }) => [
+      h(OnyxHeadline, { is: "h2" }, () => label),
+      h(OnyxBadge, { color: "neutral", density: "compact" }, () => "42"),
+    ],
+    description: "See all notifications from all touchpoints here.",
     default: h(
       "div",
       { style: "padding: var(--onyx-density-xl) var(--onyx-modal-dialog-padding-inline)" },
+
       h(
         "span",
         {
@@ -41,14 +49,17 @@ export const Default = {
       ),
     ),
     footer: () =>
-      h(OnyxBottomBar, () => [
-        h(OnyxButton, { label: "Close", color: "neutral", mode: "plain" }),
-        h(OnyxButton, { label: "Save" }),
+      h(OnyxBottomBar, { density: "compact" }, () => [
+        h(OnyxIconButton, { label: "Settings", color: "neutral", icon: settings }),
+        h(OnyxButton, { label: "Mark as all read", icon: checkSmall, color: "neutral" }),
       ]),
+    style: {
+      width: "30rem",
+    },
   },
   decorators: [
     (story) => {
-      const [args, updateArgs] = useArgs<OnyxModalDialogProps>();
+      const [args, updateArgs] = useArgs<OnyxDrawerProps>();
 
       return {
         components: { story, OnyxButton },
@@ -65,10 +76,18 @@ export const Default = {
           return { isOpen };
         },
         template: `<div>
-          <OnyxButton label="Show modal" @click="isOpen = true" />
+          <OnyxButton label="Open drawer" @click="isOpen = true" />
           <story :open="isOpen" @close="isOpen = false;" />
         </div>`,
       };
     },
   ],
+} satisfies Story;
+
+export const RightAligned = {
+  ...Default,
+  args: {
+    ...Default.args,
+    alignment: "right",
+  },
 } satisfies Story;

@@ -8,9 +8,7 @@ import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import type { OnyxModalDialogProps } from "./types";
 
-const props = withDefaults(defineProps<OnyxModalDialogProps>(), {
-  alignment: "center",
-});
+const props = defineProps<OnyxModalDialogProps>();
 
 const emit = defineEmits<{
   /**
@@ -49,11 +47,7 @@ const hasDescription = computed(() => !!slots.description);
 <template>
   <OnyxDialog
     v-bind="props"
-    :class="[
-      'onyx-modal-dialog',
-      densityClass,
-      props.alignment !== 'center' ? `onyx-modal-dialog--${props.alignment}` : '',
-    ]"
+    :class="['onyx-modal-dialog', densityClass]"
     :aria-describedby="hasDescription ? descriptionId : undefined"
     modal
     @close="emit('close')"
@@ -103,23 +97,6 @@ const hasDescription = computed(() => !!slots.description);
     padding: 0;
     display: flex;
     flex-direction: column;
-
-    &--left,
-    &--right {
-      --onyx-dialog-screen-gap: var(--onyx-density-xs);
-      transform: none;
-      top: var(--onyx-dialog-screen-gap);
-      height: 100%;
-    }
-
-    &--left {
-      left: var(--onyx-dialog-screen-gap);
-    }
-
-    &--right {
-      left: unset;
-      right: var(--onyx-dialog-screen-gap);
-    }
 
     &__header {
       display: flex;

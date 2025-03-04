@@ -7,6 +7,7 @@ const props = withDefaults(defineProps<OnyxDialogProps>(), {
   open: false,
   modal: false,
   alert: false,
+  alignment: "center",
 });
 
 const emit = defineEmits<{
@@ -62,7 +63,13 @@ watch(
   <dialog
     v-if="props.open"
     ref="dialogRef"
-    :class="['onyx-component', 'onyx-dialog', densityClass, 'onyx-truncation-multiline']"
+    :class="[
+      'onyx-component',
+      'onyx-dialog',
+      densityClass,
+      'onyx-truncation-multiline',
+      props.alignment !== 'center' ? `onyx-dialog--${props.alignment}` : '',
+    ]"
     :aria-modal="props.modal"
     :aria-label="props.label"
     :role="props.alert ? 'alertdialog' : undefined"
@@ -106,6 +113,23 @@ watch(
     &:modal {
       z-index: var(--onyx-z-index-app-overlay);
       border: none;
+    }
+
+    &--left,
+    &--right {
+      --onyx-dialog-screen-gap: var(--onyx-density-xs);
+      transform: none;
+      top: var(--onyx-dialog-screen-gap);
+      height: 100%;
+    }
+
+    &--left {
+      left: var(--onyx-dialog-screen-gap);
+    }
+
+    &--right {
+      left: unset;
+      right: var(--onyx-dialog-screen-gap);
     }
   }
 }
