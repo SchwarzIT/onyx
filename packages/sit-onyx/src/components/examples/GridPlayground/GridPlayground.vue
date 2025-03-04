@@ -154,7 +154,7 @@ const currentBreakpoint = computed(() => {
 
         <OnyxSelect
           v-model="gridSettings.maxColumns"
-          label="Column quantity"
+          label="Column quantity for large breakpoints only"
           list-label="List of max columns options"
           label-tooltip="With large breakpoints you can optionally extend the default 12 column grid to 16 or even 20 columns."
           :options="maxColumnsOptions"
