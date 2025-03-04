@@ -28,9 +28,9 @@ import GridOverlay from "./GridOverlay/GridOverlay.vue";
 
 const viewportSize = useResizeObserver(shallowRef(document.body));
 
-type MaxWidth = OnyxBreakpoint | "Filled";
+type MaxWidth = OnyxBreakpoint | "none";
 type MaxColumns = 12 | 16 | 20;
-type Alignment = "left" | "center" | "Filled";
+type Alignment = "left" | "center";
 
 const gridSettings = ref<{
   alignment: Alignment;
@@ -94,6 +94,7 @@ const alignmentOptions = [
 ] satisfies SelectOption<Alignment>[];
 
 const maxWidthOptions = [
+  { label: "none", value: "none" },
   { label: `${ONYX_BREAKPOINTS.lg}px`, value: "md" },
   { label: `${ONYX_BREAKPOINTS.xl}px`, value: "lg" },
 ] satisfies SelectOption<MaxWidth>[];
@@ -182,7 +183,7 @@ const currentBreakpoint = computed(() => {
     <div
       :class="{
         'onyx-grid-center': gridSettings.alignment === 'center',
-        [`onyx-grid-max-${gridSettings.maxWidth}`]: gridSettings.maxWidth !== 'Filled',
+        [`onyx-grid-max-${gridSettings.maxWidth}`]: gridSettings.maxWidth !== 'none',
         [`onyx-grid-xl-${gridSettings.maxColumns}`]: gridSettings.maxColumns !== 12,
       }"
     >
