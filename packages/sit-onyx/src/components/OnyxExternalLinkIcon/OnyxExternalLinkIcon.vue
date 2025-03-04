@@ -32,6 +32,7 @@ const isVisible = computed(() => {
 .onyx-external-link-icon {
   @include layers.component() {
     vertical-align: text-top;
+    place-self: baseline;
   }
 }
 </style>
