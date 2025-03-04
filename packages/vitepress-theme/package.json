@@ -1,7 +1,7 @@
 {
   "name": "@sit-onyx/vitepress-theme",
   "description": "VitePress theme that uses the onyx design system",
-  "version": "1.0.0-beta.162",
+  "version": "1.0.0-beta.164",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
@@ -32,8 +32,8 @@
     "vitepress": ">= 1.0.0"
   },
   "dependencies": {
-    "@fontsource-variable/source-code-pro": "^5.1.1",
-    "@fontsource-variable/source-sans-3": "^5.1.1"
+    "@fontsource-variable/source-code-pro": "^5.2.5",
+    "@fontsource-variable/source-sans-3": "^5.2.5"
   },
   "devDependencies": {
     "sit-onyx": "workspace:^"

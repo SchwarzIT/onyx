@@ -1,5 +1,19 @@
 # sit-onyx
 
+## 1.0.0-beta.163
+
+### Minor Changes
+
+- 0b8a142: feat(OnyxIcon): added inline mode for use with text
+
+## 1.0.0-beta.162
+
+### Minor Changes
+
+- 360dc49: feat(OnyxImage): support skeleton
+
+  Also update the error icon
+
 ## 1.0.0-beta.161
 
 ### Patch Changes
