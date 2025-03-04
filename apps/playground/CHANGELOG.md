@@ -1,5 +1,12 @@
 # playground
 
+## 1.0.0-beta.162
+
+### Patch Changes
+
+- Updated dependencies [360dc49]
+  - sit-onyx@1.0.0-beta.162
+
 ## 1.0.0-beta.161
 
 ### Patch Changes
