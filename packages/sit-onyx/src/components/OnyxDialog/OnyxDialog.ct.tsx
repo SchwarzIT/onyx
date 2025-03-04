@@ -64,3 +64,25 @@ Object.entries(ONYX_BREAKPOINTS).forEach(([breakpoint, width]) => {
     await expect(page).toHaveScreenshot(`breakpoint-${breakpoint}.png`);
   });
 });
+
+for (const alignment of ["left", "right"] as const) {
+  test(`should align ${alignment}`, async ({ mount, page, makeAxeBuilder }) => {
+    await page.setViewportSize({ width: 256, height: 512 });
+
+    // ARRANGE
+    await mount(
+      <OnyxDialog label="Label" alignment={alignment} open modal>
+        Content
+      </OnyxDialog>,
+    );
+
+    // ASSERT
+    await expect(page).toHaveScreenshot(`alignment-${alignment}.png`);
+
+    // ACT
+    const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+    // ASSERT
+    expect(accessibilityScanResults.violations).toEqual([]);
+  });
+}
