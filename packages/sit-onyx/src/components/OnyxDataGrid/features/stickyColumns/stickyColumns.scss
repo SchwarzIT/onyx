@@ -13,7 +13,7 @@
         }
       }
       position: sticky;
-      &.right:has(+ .right)::after {
+      &.right:after {
         position: absolute;
         left: calc(-1 * var(--onyx-1px-in-rem));
         top: 0px;
@@ -28,7 +28,7 @@
       z-index: 21;
     }
     td.onyx-data-grid-sticky-columns--sticky {
-      z-index: 19;
+      z-index: 20;
     }
   }
 }
