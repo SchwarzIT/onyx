@@ -40,7 +40,7 @@ test("should hide and show columns", async ({ mount }) => {
     await expect(component).toHaveScreenshot("data-grid-hide-columns-initial.png");
   });
 
-  await test.step("Hide multible columns", async () => {
+  await test.step("Hide multiple columns", async () => {
     // ARRANGE
     await moreActionA.click();
     await expect(component).toHaveScreenshot("data-grid-hide-columns-hide-button.png");
