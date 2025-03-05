@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { useArgs } from "storybook/internal/preview-api";
 import { h, ref, watch, watchEffect } from "vue";
+import OnyxBottomBar from "../OnyxBottomBar/OnyxBottomBar.vue";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxModalDialog from "./OnyxModalDialog.vue";
 import type { OnyxModalDialogProps } from "./types";
@@ -16,6 +17,7 @@ const meta: Meta<typeof OnyxModalDialog> = {
   argTypes: {
     default: { control: { disable: true } },
     headline: { control: { disable: true } },
+    footer: { control: { disable: true } },
     description: { control: { type: "text" } },
   },
 };
@@ -38,6 +40,11 @@ export const Default = {
         "Note: The modal dialog component is fully flexible.\nIt can be adjusted with every content the project needs.",
       ),
     ),
+    footer: () =>
+      h(OnyxBottomBar, () => [
+        h(OnyxButton, { label: "Close", color: "neutral", mode: "plain" }),
+        h(OnyxButton, { label: "Save" }),
+      ]),
   },
   decorators: [
     (story) => {
