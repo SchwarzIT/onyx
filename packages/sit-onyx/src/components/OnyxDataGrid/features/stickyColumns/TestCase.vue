@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import type { OnyxDataGridProps } from "../../../..";
+import type { DataGridEntry, OnyxDataGridProps } from "../../../..";
 import { DataGridFeatures, OnyxDataGrid } from "../../../..";
 import type { StickyColumnsOptions } from "./types";
 
@@ -10,7 +10,7 @@ const { columns, data, stickyColumnsOptions } = defineProps<
     /**
      * config
      */
-    stickyColumnsOptions?: StickyColumnsOptions;
+    stickyColumnsOptions?: StickyColumnsOptions<DataGridEntry>;
   }
 >();
 const withStickyColumns = computed(() => DataGridFeatures.useStickyColumns(stickyColumnsOptions));
