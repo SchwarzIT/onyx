@@ -5,6 +5,10 @@ const props = withDefaults(
      * The number of grid columns.
      */
     columns?: number;
+    /**
+     * The visibility of grid lines.
+     */
+    showGridLines: boolean;
   }>(),
   {
     columns: 16,
@@ -16,7 +20,12 @@ const props = withDefaults(
   <div class="overlay">
     <div class="overlay__container onyx-grid-container">
       <div class="onyx-grid overlay__grid">
-        <div v-for="i in props.columns" :key="i" class="overlay__column onyx-grid-span-1"></div>
+        <div
+          v-for="i in props.columns"
+          :key="i"
+          class="overlay__column onyx-grid-span-1"
+          :class="{ 'overlay__grid-lines': props.showGridLines }"
+        ></div>
       </div>
     </div>
   </div>
@@ -40,6 +49,37 @@ const props = withDefaults(
 
   &__column {
     background-color: var(--onyx-color-text-icons-warning-soft);
+    position: relative;
+  }
+
+  &__grid-lines {
+    &::before {
+      content: " ";
+      display: inline-block;
+      position: absolute;
+      // I've set a precise height, because the 100% was getting the height of the
+      // overlay and was not overflowing till the bottom.
+      // I would like to hear suggestions for a more optimized value for the height
+      height: 31.25rem;
+      z-index: 60;
+      border: var(--onyx-1px-in-rem) dashed var(--onyx-color-component-border-danger-hover);
+    }
+
+    &::after {
+      content: " ";
+      display: inline-block;
+      position: absolute;
+      height: 31.25rem;
+      z-index: 60;
+      right: -1px;
+      border: var(--onyx-1px-in-rem) dashed var(--onyx-color-component-border-danger-hover);
+    }
+  }
+
+  &:has(.overlay__grid-lines) {
+    .overlay__container {
+      border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-danger-hover);
+    }
   }
 }
 </style>

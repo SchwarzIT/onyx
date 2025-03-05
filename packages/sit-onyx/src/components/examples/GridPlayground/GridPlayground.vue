@@ -187,7 +187,7 @@ const currentBreakpoint = computed(() => {
         [`onyx-grid-xl-${gridSettings.maxColumns}`]: gridSettings.maxColumns !== 12,
       }"
     >
-      <GridOverlay :columns="gridValues?.columnCount" />
+      <GridOverlay :columns="gridValues?.columnCount" :show-grid-lines="showGridLines" />
 
       <div>
         <OnyxNavBar app-name="Demo App">
