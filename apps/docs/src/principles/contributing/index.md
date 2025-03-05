@@ -17,7 +17,7 @@ It gives tips and guidelines on what should or must be considered when working w
 1. Install [Node.js](https://nodejs.org/en) version **{{ nodeVersion }}**. <br />
    We recommend using [fnm](https://github.com/Schniz/fnm) for managing your node versions which will automatically use the correct node version when working in the onyx repo.
 
-::: tip Recommended fnm setup
+::: tip Tip: Let _fnm_ automatically choose the right version
 
 - Run `corepack enable` once
 - Add `eval $(fnm env --use-on-cd --version-file-strategy=recursive --corepack-enabled --resolve-engines)` to your _shell startup file_ (e.g. `~/.bash_profile`, `~/.zshrc` )
