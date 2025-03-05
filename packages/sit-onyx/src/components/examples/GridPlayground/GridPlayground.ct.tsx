@@ -19,6 +19,9 @@ test("screenshot and accessibility test", async ({ mount, makeAxeBuilder, page }
   // ASSERT
   await expect(page).toHaveScreenshot("default.png");
 
+  await page.getByLabel("Grid lines visibility", { exact: true }).click();
+  await expect(page).toHaveScreenshot("grid-lines.png");
+
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
 
