@@ -29,7 +29,7 @@ const gridClasses = computed(() => {
   return props.isFullWidth
     ? ["onyx-grid-span-full"]
     : [
-        props.columnCount ?? `onyx-grid-span-${props.columnCount}`,
+        props.columnCount ? `onyx-grid-span-${props.columnCount}` : "",
         ...Object.entries(props.breakpoints ?? {}).map(([breakpoint, columns]) => {
           return `onyx-grid-${breakpoint}-span-${columns}`;
         }),
