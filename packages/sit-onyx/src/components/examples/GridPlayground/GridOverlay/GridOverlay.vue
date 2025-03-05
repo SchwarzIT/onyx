@@ -19,13 +19,8 @@ const props = withDefaults(
 <template>
   <div class="overlay">
     <div class="overlay__container onyx-grid-container">
-      <div class="onyx-grid overlay__grid">
-        <div
-          v-for="i in props.columns"
-          :key="i"
-          class="overlay__column onyx-grid-span-1"
-          :class="{ 'overlay__grid-lines': props.showGridLines }"
-        ></div>
+      <div class="onyx-grid overlay__grid" :class="{ 'overlay__grid-lines': props.showGridLines }">
+        <div v-for="i in props.columns" :key="i" class="overlay__column onyx-grid-span-1"></div>
       </div>
     </div>
   </div>
@@ -53,21 +48,23 @@ const props = withDefaults(
   }
 
   &__grid-lines {
-    &::before {
-      content: " ";
-      position: absolute;
-      height: 10000px;
-      z-index: 60;
-      border: var(--onyx-1px-in-rem) dashed var(--onyx-color-component-border-danger-hover);
-    }
+    .overlay__column {
+      &::before {
+        content: " ";
+        position: absolute;
+        height: 10000px;
+        z-index: 60;
+        border: var(--onyx-1px-in-rem) dashed var(--onyx-color-component-border-danger-hover);
+      }
 
-    &::after {
-      content: " ";
-      position: absolute;
-      height: 10000px;
-      z-index: 60;
-      right: -1px;
-      border: var(--onyx-1px-in-rem) dashed var(--onyx-color-component-border-danger-hover);
+      &::after {
+        content: " ";
+        position: absolute;
+        height: 10000px;
+        z-index: 60;
+        right: -1px;
+        border: var(--onyx-1px-in-rem) dashed var(--onyx-color-component-border-danger-hover);
+      }
     }
   }
 
