@@ -160,8 +160,8 @@ export * from "./components/OnyxToastMessage/types";
 export { default as OnyxToast } from "./components/OnyxToast/OnyxToast.vue";
 export * from "./components/OnyxToast/useToast";
 
-export { default as OnyxInfoBanner } from "./components/OnyxInfoBanner/OnyxInfoBanner.vue";
-export * from "./components/OnyxInfoBanner/types";
+export { default as OnyxInfoCard } from "./components/OnyxInfoCard/OnyxInfoCard.vue";
+export * from "./components/OnyxInfoCard/types";
 
 export { default as OnyxTooltip } from "./components/OnyxTooltip/OnyxTooltip.vue";
 export * from "./components/OnyxTooltip/types";
