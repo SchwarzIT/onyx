@@ -68,7 +68,7 @@ const dataFeatures = computed(() => {
     enabled.push(DataGridFeatures.useSelection<Entry>());
   }
   if (hideColumnsEnabled.value) {
-    enabled.push(DataGridFeatures.useHideColumns({ columns: [{ name: "name" }] }));
+    enabled.push(DataGridFeatures.useHideColumns());
   }
   if (moreActions.value) {
     enabled.push(dummyFeature());

@@ -23,7 +23,7 @@ test("should hide and show columns", async ({ mount }) => {
     />,
   );
 
-  const revealButton = component.getByRole("button", { name: "change reveal" });
+  const revealButton = component.getByRole("button", { name: "Show hidden columns" });
   const revealA = component.getByRole("menuitem", { name: "a" });
   const revealB = component.getByRole("menuitem", { name: "b" });
   const moreActionA = component

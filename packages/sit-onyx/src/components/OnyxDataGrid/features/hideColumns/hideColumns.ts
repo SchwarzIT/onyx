@@ -1,6 +1,6 @@
 import eyeDisabled from "@sit-onyx/icons/eye-disabled.svg?raw";
 import plusSmall from "@sit-onyx/icons/plus-small.svg?raw";
-import { h, toRef } from "vue";
+import { h, ref } from "vue";
 import type { ComponentSlots } from "vue-component-type-helpers";
 import { createFeature, type ModifyColumns } from "..";
 import { injectI18n } from "../../../../i18n";
@@ -18,42 +18,43 @@ export const HIDDEN_COLUMN = Symbol("HiddenColumn");
 export const useHideColumns = createFeature(
   <TEntry extends DataGridEntry>(options?: HideColumnsOptions) => {
     const { t } = injectI18n();
-    const hiddenColumns = toRef(options?.columns ?? []);
+    const hiddenColumns = ref(options?.columns ?? []);
 
-    const flyoutMenu = h(
-      OnyxFlyoutMenu,
-      {
-        label: t.value("dataGrid.head.hideColumns.revealFlyout"),
-        trigger: "click",
-      },
-      {
-        button: ({ trigger }) =>
-          h(OnyxSystemButton, {
-            class: "",
-            label: t.value("dataGrid.head.hideColumns.revealTrigger"),
-            color: "medium",
-            icon: plusSmall,
-            ...trigger,
-          }),
-        options: () => {
-          return hiddenColumns.value
-            .filter((col) => col.hidden)
-            .map((column) =>
-              h(
-                OnyxMenuItem,
-                {
-                  onClick: () => {
-                    hiddenColumns.value = hiddenColumns.value.map((col) =>
-                      col.name === column.name ? { ...col, hidden: false } : col,
-                    );
-                  },
-                },
-                () => [column.name],
-              ),
-            );
+    const flyoutMenu = () =>
+      h(
+        OnyxFlyoutMenu,
+        {
+          label: t.value("dataGrid.head.hideColumns.revealFlyout"),
+          trigger: "click",
         },
-      } satisfies ComponentSlots<typeof OnyxFlyoutMenu>,
-    );
+        {
+          button: ({ trigger }) =>
+            h(OnyxSystemButton, {
+              class: "",
+              label: t.value("dataGrid.head.hideColumns.revealTrigger"),
+              color: "medium",
+              icon: plusSmall,
+              ...trigger,
+            }),
+          options: () => {
+            return hiddenColumns.value
+              ?.filter((col) => col.hidden)
+              .map((column) =>
+                h(
+                  OnyxMenuItem,
+                  {
+                    onClick: () => {
+                      hiddenColumns.value = hiddenColumns.value.map((col) =>
+                        col.name === column.name ? { ...col, hidden: false } : col,
+                      );
+                    },
+                  },
+                  () => [column.name],
+                ),
+              );
+          },
+        } satisfies ComponentSlots<typeof OnyxFlyoutMenu>,
+      );
 
     const getMenuItem = (column: keyof DataGridEntry) =>
       h(
@@ -76,6 +77,12 @@ export const useHideColumns = createFeature(
       watch: [hiddenColumns],
       modifyColumns: {
         func: (columnConfig) => {
+          if (hiddenColumns.value.length === 0) {
+            hiddenColumns.value = columnConfig.map((col) => ({
+              name: String(col.key),
+              hidden: false,
+            }));
+          }
           const filteredColumns = columnConfig.filter(
             (col) =>
               !hiddenColumns.value.some(
@@ -92,7 +99,7 @@ export const useHideColumns = createFeature(
         [HIDDEN_COLUMN]: {
           header: {
             thAttributes: { class: "onyx-data-grid-hide-columns-cell" },
-            component: () => flyoutMenu,
+            component: flyoutMenu,
           },
           cell: {
             component: () => null,
