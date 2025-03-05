@@ -53,28 +53,28 @@ test("sticky Column should stay in View", async ({ page, mount }) => {
 test("should stick left/right", async ({ page, mount }) => {
   await page.setViewportSize({ width: 400, height: 1000 });
   const data = getTestData();
-  const directions = ["left", "right"] as const;
+  const positions = ["left", "right"] as const;
 
-  for (const direction of directions) {
+  for (const position of positions) {
     const component = await mount(
       <TestCase
         data={data}
         columns={["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k"]}
-        stickyColumnsOptions={{ columns: direction === "left" ? ["a"] : ["k"], direction }}
+        stickyColumnsOptions={{ columns: position === "left" ? ["a"] : ["k"], position }}
       />,
     );
 
     // ACT
     await component
-      .getByRole("columnheader", { name: direction === "left" ? "a" : "k" })
+      .getByRole("columnheader", { name: position === "left" ? "a" : "k" })
       .scrollIntoViewIfNeeded();
     // ASSERT
     const stickyColumn = component.getByRole("columnheader", {
-      name: direction === "left" ? "a" : "k",
+      name: position === "left" ? "a" : "k",
     });
-    await expect(stickyColumn).toHaveClass(`onyx-data-grid-sticky-columns--sticky ${direction}`);
-    await expect(stickyColumn).toHaveCSS(direction, /[0-9]+px/);
-    await expect(component).toHaveScreenshot(`data-grid-sticky-columns-${direction}.png`);
+    await expect(stickyColumn).toHaveClass(`onyx-data-grid-sticky-columns--sticky ${position}`);
+    await expect(stickyColumn).toHaveCSS(position, /[0-9]+px/);
+    await expect(component).toHaveScreenshot(`data-grid-sticky-columns-${position}.png`);
   }
 });
 test("multiple stickyColumns", async ({ page, mount }) => {
