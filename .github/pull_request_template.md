@@ -6,6 +6,8 @@ Relates to #
 
 ## Checklist
 
+<!-- If bullet points below do not apply to your changes (e.g. no documentation needed), just remove it. -->
+
 - [ ] The added / edited code has been documented with [JSDoc](https://jsdoc.app/about-getting-started)
 - [ ] If a new component is added, at least one [Playwright screenshot test](https://github.com/SchwarzIT/onyx/actions/workflows/playwright-screenshots.yml) or functional test is added
 - [ ] A changeset is added with `npx changeset add` if your changes should be released as npm package (because they affect the library usage)
