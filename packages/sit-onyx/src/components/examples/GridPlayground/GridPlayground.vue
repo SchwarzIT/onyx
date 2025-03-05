@@ -264,6 +264,7 @@ const currentBreakpoint = computed(() => {
   font-family: var(--onyx-font-family);
   color: var(--onyx-color-text-icons-neutral-intense);
   background-color: var(--onyx-color-base-background-tinted);
+  overflow: hidden;
 
   &__container {
     box-shadow: var(--onyx-shadow-medium-bottom);

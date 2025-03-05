@@ -55,21 +55,16 @@ const props = withDefaults(
   &__grid-lines {
     &::before {
       content: " ";
-      display: inline-block;
       position: absolute;
-      // I've set a precise height, because the 100% was getting the height of the
-      // overlay and was not overflowing till the bottom.
-      // I would like to hear suggestions for a more optimized value for the height
-      height: 31.25rem;
+      height: 10000px;
       z-index: 60;
       border: var(--onyx-1px-in-rem) dashed var(--onyx-color-component-border-danger-hover);
     }
 
     &::after {
       content: " ";
-      display: inline-block;
       position: absolute;
-      height: 31.25rem;
+      height: 10000px;
       z-index: 60;
       right: -1px;
       border: var(--onyx-1px-in-rem) dashed var(--onyx-color-component-border-danger-hover);
