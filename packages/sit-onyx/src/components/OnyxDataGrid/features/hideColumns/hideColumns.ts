@@ -60,9 +60,9 @@ export const useHideColumns = createFeature(
         OnyxMenuItem,
         {
           onClick: () => {
-            hiddenColumns.value = hiddenColumns.value.map((col) =>
-              col.name === column.toString() ? { ...col, hidden: true } : col,
-            );
+            const index = hiddenColumns.value.findIndex((col) => col.name === column.toString());
+            if (index === -1) return;
+            hiddenColumns.value[index].hidden = true;
           },
         },
         () => [
@@ -76,12 +76,6 @@ export const useHideColumns = createFeature(
       watch: [hiddenColumns],
       modifyColumns: {
         func: (columnConfig) => {
-          if (hiddenColumns.value.length === 0) {
-            hiddenColumns.value = columnConfig.map((col) => ({
-              name: String(col.key),
-              hidden: false,
-            }));
-          }
           const filteredColumns = columnConfig.filter(
             (col) =>
               !hiddenColumns.value.some(

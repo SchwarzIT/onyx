@@ -32,8 +32,8 @@
         }
       },
       "hideColumns": {
-        "revealFlyout": "Versteckte Spalten anzeigen",
-        "revealTrigger": " Reveal umschalten",
+        "revealFlyout": "Liste von versteckten Spalten",
+        "revealTrigger": "Versteckte Spalten anzeigen",
         "menu": {
           "hideButton": "Spalte verstecken"
         }

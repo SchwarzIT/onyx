@@ -32,8 +32,8 @@
         }
       },
       "hideColumns": {
-        "revealFlyout": "Display Hidden Columns",
-        "revealTrigger": "change reveal",
+        "revealFlyout": "List of hidden columns",
+        "revealTrigger": "Show hidden columns",
         "menu": {
           "hideButton": "Hide column"
         }

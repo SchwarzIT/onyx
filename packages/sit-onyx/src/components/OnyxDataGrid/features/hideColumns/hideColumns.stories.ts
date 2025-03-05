@@ -13,7 +13,7 @@ type Story = StoryObj<typeof HideColumnsDataGrid>;
 
 export const HideColumns = {
   args: {
-    // columns: [{ name: "name" }, { name: "rank", hidden: true }],
+    columns: [{ name: "name" }, { name: "rank", hidden: true }],
   },
   parameters: {
     docs: {

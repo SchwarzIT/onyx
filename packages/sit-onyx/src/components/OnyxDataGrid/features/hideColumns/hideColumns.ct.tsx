@@ -9,8 +9,7 @@ const getTestData = () => [
 ];
 
 const expectColumnCount = async (dataGrid: Locator, count: number) => {
-  const headers = await dataGrid.getByRole("columnheader").count();
-  return expect(headers).toBe(count);
+  await expect(dataGrid.getByRole("columnheader")).toHaveCount(count);
 };
 
 test("should hide and show columns", async ({ mount }) => {
