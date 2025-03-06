@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed } from "vue";
-import { OnyxNotificationDotProps } from "./types";
+import type { OnyxNotificationDotProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxNotificationDotProps>(), {
   color: "warning",
