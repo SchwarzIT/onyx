@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.165
+
+### Minor Changes
+
+- c60b3bf: feat: implement new OnyxInfoCard component
+
 ## 1.0.0-beta.164
 
 ### Minor Changes
