@@ -181,6 +181,7 @@ const currentBreakpoint = computed(() => {
     </div>
 
     <div
+      class="playground__grid-wrapper"
       :class="{
         'onyx-grid-center': gridSettings.alignment === 'center',
         [`onyx-grid-max-${gridSettings.maxWidth}`]: gridSettings.maxWidth !== 'none',
@@ -264,7 +265,7 @@ const currentBreakpoint = computed(() => {
   font-family: var(--onyx-font-family);
   color: var(--onyx-color-text-icons-neutral-intense);
   background-color: var(--onyx-color-base-background-tinted);
-  overflow: hidden;
+  overflow: scroll;
   height: 100vh;
 
   &__container {
@@ -313,6 +314,10 @@ const currentBreakpoint = computed(() => {
     gap: var(--onyx-spacing-xl);
     align-items: center;
     justify-content: space-between;
+  }
+
+  &__grid-wrapper {
+    overflow: hidden;
   }
 
   &__badges {
