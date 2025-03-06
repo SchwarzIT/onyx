@@ -7,7 +7,7 @@ interface Position {
   bottom?: string;
 }
 
-export interface OnyxNotificationIndicatorProps {
+export interface OnyxNotificationDotProps {
   /**
    * Use this property to set a specific position of the indicator (working with position: "absolute")
    */

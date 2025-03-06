@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { computed } from "vue";
-import { OnyxNotificationIndicatorProps } from "./types";
+import { OnyxNotificationDotProps } from "./types";
 
-const props = withDefaults(defineProps<OnyxNotificationIndicatorProps>(), {
+const props = withDefaults(defineProps<OnyxNotificationDotProps>(), {
   color: "warning",
   pulsing: false,
   bouncing: false,

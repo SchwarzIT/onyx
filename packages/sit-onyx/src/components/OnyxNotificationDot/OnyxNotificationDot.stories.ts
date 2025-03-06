@@ -3,11 +3,11 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
-import OnyxNotificationIndicator from "./OnyxNotificationIndicator.vue";
+import OnyxNotificationDot from "./OnyxNotificationDot.vue";
 
-const meta: Meta<typeof OnyxNotificationIndicator> = {
-  title: "Support/OnyxNotificationIndicator",
-  component: OnyxNotificationIndicator,
+const meta: Meta<typeof OnyxNotificationDot> = {
+  title: "Support/NotificationDot",
+  component: OnyxNotificationDot,
   argTypes: {
     visible: {
       control: { type: "boolean" },
@@ -40,14 +40,14 @@ const meta: Meta<typeof OnyxNotificationIndicator> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof OnyxNotificationIndicator>;
+type Story = StoryObj<typeof OnyxNotificationDot>;
 
 export const StaticWithIconButton = () =>
   ({
     args: {},
     render() {
       return h(
-        OnyxNotificationIndicator,
+        OnyxNotificationDot,
         { visible: true, position: { top: "0.1875rem", right: "0.3125rem" }, color: "success" },
         {
           default: () => h(OnyxIconButton, { icon: bell, label: "" }, []),
@@ -61,7 +61,7 @@ export const PulsingWithIconButton = () =>
     args: {},
     render() {
       return h(
-        OnyxNotificationIndicator,
+        OnyxNotificationDot,
         {
           visible: true,
           pulsing: true,
@@ -80,7 +80,7 @@ export const BouncingWithIconButton = () =>
     args: {},
     render() {
       return h(
-        OnyxNotificationIndicator,
+        OnyxNotificationDot,
         {
           visible: true,
           bouncing: true,
@@ -99,7 +99,7 @@ export const ExampleWithContainer = () =>
     args: {},
     render() {
       return h(
-        OnyxNotificationIndicator,
+        OnyxNotificationDot,
         { visible: true, pulsing: true, position: { top: "1.25rem", right: "0.625rem" } },
         {
           default: () =>
