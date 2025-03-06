@@ -21,7 +21,7 @@ const onClose = () => {
 </script>
 
 <template>
-  <div class="onyx-component onyx-notification" :class="[`onyx-notification--${props.color}`]">
+  <div class="onyx-component onyx-notification">
     <div class="onyx-notification__header">
       <div>
         <OnyxIcon v-if="props.icon" :icon="props.icon" data-testid="priority-icon" />
@@ -52,7 +52,7 @@ const onClose = () => {
 
 .onyx-notification {
   @include layers.component() {
-    background-color: var(--notification-message-background-color);
+    background-color: var(--onyx-color-base-neutral-900);
     position: absolute;
     top: 1rem;
     right: 1rem;
@@ -83,14 +83,6 @@ const onClose = () => {
         100% {
           width: 0%;
         }
-      }
-    }
-
-    $colors: primary, secondary, neutral, danger, warning, success, info;
-
-    @each $color in $colors {
-      &--#{$color} {
-        --notification-message-background-color: var(--onyx-color-base-#{$color}-900);
       }
     }
 
