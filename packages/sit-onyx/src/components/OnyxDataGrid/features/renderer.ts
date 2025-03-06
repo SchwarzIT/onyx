@@ -26,8 +26,10 @@ const numberFormatter = <TEntry extends DataGridEntry>(
   const formatter = new Intl.NumberFormat(locale.value);
 
   // We format the given value as Number. In case it renders as NaN, we replace it with `-`.
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- The typing is incorrect, the `format` method accepts any value
-  return formatter.format(value as any).replace("NaN", FALLBACK_RENDER_VALUE);
+  // The typing is incorrect, the `format` method accepts any value
+  return formatter
+    .format(value as Parameters<typeof formatter.format>[0])
+    .replace("NaN", FALLBACK_RENDER_VALUE);
 };
 
 const stringFormatter = <TEntry extends DataGridEntry>(
