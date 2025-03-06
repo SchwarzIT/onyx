@@ -11,7 +11,7 @@ const isAlreadyTriggered = new Set<string>();
 const IDLE_TIMEOUT = 200;
 
 /**
- * `requestIdleCallback` is not available in Safari, so we use `setTimeout` with a timeout of 0 as a fallback.
+ * `requestIdleCallback` is not available in Safari, so we use `setTimeout` with a timeout of 0 as a primitive polyfill.
  */
 const onIdleCallback =
   "requestIdleCallback" in window
