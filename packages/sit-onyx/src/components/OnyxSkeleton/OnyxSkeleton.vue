@@ -1,3 +1,12 @@
+<script setup lang="ts">
+import { onMounted } from "vue";
+import { useAnimationSync } from "../../composables/animation";
+
+const { requestAnimationSync } = useAnimationSync("onyx-skeleton");
+
+onMounted(() => requestAnimationSync());
+</script>
+
 <template>
   <figure aria-hidden="true" class="onyx-component onyx-skeleton"></figure>
 </template>
