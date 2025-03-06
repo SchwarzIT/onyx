@@ -43,7 +43,10 @@ export type TypeRenderer<TEntry extends DataGridEntry> = {
  * Maps a "type" key to a column renderer.
  * `symbol` keys are intended for internal/helper columns.
  */
-export type TypeRenderMap<TEntry extends DataGridEntry> = Record<PropertyKey, TypeRenderer<TEntry>>;
+export type TypeRenderMap<
+  TEntry extends DataGridEntry,
+  TKey extends PropertyKey = PropertyKey,
+> = Partial<Record<TKey, TypeRenderer<TEntry>>>;
 
 /**
  * ColumnConfig as it can be defined by the user.
@@ -86,7 +89,7 @@ export type InternalColumnConfig<
 } & PublicNormalizedColumnConfig<TEntry, TColumnGroup, TTypes>;
 
 /**
- * Normalized column config for internal usage.
+ * Normalized column config for public/external usage.
  */
 export type PublicNormalizedColumnConfig<
   TEntry extends DataGridEntry,
