@@ -61,6 +61,8 @@ test("should hide and show columns", async ({ mount }) => {
     // ACT
     await expectColumnCount(component, 3); // 3 Visible
     await expect(revealButton).toBeHidden();
-    await expect(component).toHaveScreenshot("data-grid-hide-columns-no-hidden-columns.png");
+    await expect(component).toHaveScreenshot(
+      "data-grid-hide-columns-revealed-columns-should-be-last.png",
+    );
   });
 });
