@@ -26,6 +26,7 @@ describe("renderers", () => {
   ])(
     "should format cell value $value to $expected with string and fallback renderer",
     ({ value, expected }) => {
+      // ARRANGE
       const { getFor } = createRenderer([]);
 
       const props = [
@@ -33,10 +34,12 @@ describe("renderers", () => {
         { attrs: {}, slots: {}, emit: () => ({}) },
       ] satisfies Parameters<FunctionalComponent>;
 
+      // ACT
       const fallbackActual = getFor("cell").component(...props);
-      expect(fallbackActual).toBe(expected);
-
       const stringActual = getFor("cell", "string").component(...props);
+
+      // ASSERT
+      expect(fallbackActual).toBe(expected);
       expect(stringActual).toBe(expected);
     },
   );
@@ -48,13 +51,16 @@ describe("renderers", () => {
     { value: 42, expected: "42" },
     { value: 42.123, expected: "42.123" },
   ])("should format cell value $value to $expected with number renderer", ({ value, expected }) => {
+    // ARRANGE
     const { getFor } = createRenderer([]);
 
+    // ACT
     const actual = getFor("cell", "number").component(
       { modelValue: value, row: { id: 1 } },
       { attrs: {}, slots: {}, emit: () => ({}) },
     );
 
+    // ASSERT
     expect(actual).toBe(expected);
   });
 });
