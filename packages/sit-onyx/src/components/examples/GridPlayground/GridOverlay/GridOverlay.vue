@@ -70,11 +70,5 @@ const props = withDefaults(
     background-color: var(--onyx-color-text-icons-warning-soft);
     position: relative;
   }
-
-  &:has(.overlay__grid--lines-visible) {
-    .overlay__container {
-      border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-danger-hover);
-    }
-  }
 }
 </style>
