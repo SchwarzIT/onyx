@@ -109,3 +109,14 @@ export const Skeleton = {
     skeleton: true,
   },
 } satisfies Story;
+
+/**
+ * This example shows a stepper with hidden buttons.
+ */
+export const HiddenButtons = {
+  tags: ["new:feature"],
+  args: {
+    ...Default.args,
+    hideButtons: true,
+  },
+} satisfies Story;
