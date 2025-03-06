@@ -1,115 +1,49 @@
 <script lang="ts" setup>
-import { computed } from "vue";
+import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import type { OnyxNotificationDotProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxNotificationDotProps>(), {
   color: "warning",
-  pulsing: false,
-  bouncing: false,
-  visible: false,
+  hidden: false,
 });
 
 defineSlots<{
   /**
-   * Host component.
+   * Main content where the dot will be positioned in relation to.
    */
   default(): unknown;
 }>();
-
-const positionCss = computed(() => {
-  const styles: Record<string, string> = {};
-  if (props.position) {
-    if (props.position.top) styles.top = props.position.top;
-    if (props.position.right) styles.right = props.position.right;
-    if (props.position.left) styles.left = props.position.left;
-    if (props.position.bottom) styles.bottom = props.position.bottom;
-  }
-
-  return styles;
-});
 </script>
 
 <template>
-  <div
-    class="onyx-component onyx-notification-indicator__container"
-    data-testid="indicator-container"
-  >
+  <div class="onyx-component onyx-notification-dot">
     <slot></slot>
-    <div
-      v-if="props.visible"
-      class="onyx-notification-indicator__dot"
-      :class="[
-        `onyx-notification-indicator__dot--${props.color}`,
-        { 'onyx-notification-indicator__dot--pulsing': props.pulsing },
-        { 'onyx-notification-indicator__dot--bouncing': props.bouncing },
-      ]"
-      :style="positionCss"
-      data-testid="indicator-dot"
-    ></div>
+    <OnyxBadge class="onyx-notification-dot__badge" :color="props.color" dot />
   </div>
 </template>
 
 <style lang="scss">
-@use "../../styles/mixins/layers";
-@use "../../styles/mixins/sizes";
+@use "../../styles/mixins/layers.scss";
 
-.onyx-notification-indicator {
-  &__container {
-    display: flex;
+.onyx-notification-dot {
+  @include layers.component() {
+    --onyx-notification-dot-position: calc(
+      var(--onyx-notification-dot-offset, 0rem) - var(--onyx-density-3xs)
+    );
     position: relative;
-    width: fit-content;
-  }
+    width: max-content;
+    max-width: 100%;
 
-  &__dot {
-    width: 0.5rem;
-    height: 0.5rem;
-    background-color: var(--notification-dot);
-    border-radius: var(--onyx-radius-sm);
-    position: absolute;
-
-    $colors: primary, secondary, neutral, danger, warning, success, info;
-
-    @each $color in $colors {
-      &--#{$color} {
-        --notification-dot: var(--onyx-color-base-#{$color}-600);
-      }
+    &__badge {
+      position: absolute;
+      top: var(--onyx-notification-dot-position);
+      right: var(--onyx-notification-dot-position);
     }
-  }
 
-  &__dot--pulsing {
-    animation: pulse 1s infinite;
-  }
-
-  &__dot--bouncing {
-    animation: bounce 1s infinite;
-  }
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-
-  50% {
-    transform: scale(1.3);
-    opacity: 0.5;
-  }
-
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-@keyframes bounce {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(0.3125rem);
+    &:has(> .onyx-icon-button) {
+      // density-xs = icon button padding
+      --onyx-notification-dot-offset: var(--onyx-density-xs);
+    }
   }
 }
 </style>
