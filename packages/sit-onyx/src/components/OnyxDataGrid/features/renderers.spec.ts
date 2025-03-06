@@ -45,11 +45,19 @@ describe("renderers", () => {
   );
 
   test.each([
+    { value: 42, expected: "42" },
+    { value: 42.123, expected: "42.123" },
+    { value: BigInt(42), expected: "42" },
+    { value: NaN, expected: FALLBACK_RENDER_VALUE },
     { value: undefined, expected: FALLBACK_RENDER_VALUE },
     { value: null, expected: FALLBACK_RENDER_VALUE },
     { value: "definitely-no-number", expected: FALLBACK_RENDER_VALUE },
-    { value: 42, expected: "42" },
-    { value: 42.123, expected: "42.123" },
+    { value: true, expected: FALLBACK_RENDER_VALUE },
+    { value: false, expected: FALLBACK_RENDER_VALUE },
+    { value: { foo: 42 }, expected: FALLBACK_RENDER_VALUE },
+    { value: ["foo", "bar"], expected: FALLBACK_RENDER_VALUE },
+    { value: new Date(), expected: FALLBACK_RENDER_VALUE },
+    { value: Symbol("test-symbol"), expected: FALLBACK_RENDER_VALUE },
   ])("should format cell value $value to $expected with number renderer", ({ value, expected }) => {
     // ARRANGE
     const { getFor } = createRenderer([]);

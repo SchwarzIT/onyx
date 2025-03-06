@@ -13,7 +13,14 @@ const numberFormatter = <TEntry extends DataGridEntry>(
   value: TEntry[keyof TEntry] | undefined,
 ): string => {
   // using loose "==" here to catch both undefined and null
-  if (value == undefined) return FALLBACK_RENDER_VALUE;
+  if (
+    value == undefined ||
+    value instanceof Date ||
+    typeof value === "boolean" ||
+    typeof value === "symbol"
+  ) {
+    return FALLBACK_RENDER_VALUE;
+  }
 
   const locale = injectI18n().locale;
   const formatter = new Intl.NumberFormat(locale.value);
