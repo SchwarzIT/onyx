@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
-import { useAnimationSync } from "../../composables/animation";
+import { requestAnimationSync } from "../../composables/animation";
 
-const { requestAnimationSync } = useAnimationSync("onyx-skeleton");
-
-onMounted(() => requestAnimationSync());
+onMounted(() => requestAnimationSync("onyx-skeleton"));
 </script>
 
 <template>

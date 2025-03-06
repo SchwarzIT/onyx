@@ -29,18 +29,14 @@ const syncAnimations = (animationName: string) => {
 };
 
 /**
- * This composables allows to synchronizes CSS animations with the same name across the entire document.
+ * This function allows to synchronizes CSS animations with the same name across the entire document.
  * The sync will not be executed immediately and is deemed "low-priority".
  */
-export const useAnimationSync = (animationName: string) => {
-  const requestAnimationSync = () => {
-    if (isAlreadyTriggered.has(animationName)) {
-      return;
-    }
+export const requestAnimationSync = (animationName: string) => {
+  if (isAlreadyTriggered.has(animationName)) {
+    return;
+  }
 
-    isAlreadyTriggered.add(animationName);
-    onIdleCallback(() => syncAnimations(animationName), { timeout: IDLE_TIMEOUT });
-  };
-
-  return { requestAnimationSync };
+  isAlreadyTriggered.add(animationName);
+  onIdleCallback(() => syncAnimations(animationName), { timeout: IDLE_TIMEOUT });
 };
