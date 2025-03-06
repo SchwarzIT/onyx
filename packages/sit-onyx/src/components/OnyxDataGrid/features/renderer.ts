@@ -7,13 +7,36 @@ import "./renderer.scss";
 
 export type DefaultSupportedTypes = "string" | "number";
 
-const numberFormatter = <TEntry extends DataGridEntry>(value: TEntry[keyof TEntry] | undefined) => {
+export const FALLBACK_RENDER_VALUE = "-" as const;
+
+const numberFormatter = <TEntry extends DataGridEntry>(
+  value: TEntry[keyof TEntry] | undefined,
+): string => {
+  // using loose "==" here to catch both undefined and null
+  if (value == undefined) return FALLBACK_RENDER_VALUE;
+
   const locale = injectI18n().locale;
   const formatter = new Intl.NumberFormat(locale.value);
 
   // We format the given value as Number. In case it renders as NaN, we replace it with `-`.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- The typing is incorrect, the `format` method accepts any value
-  return formatter.format(value as any).replace("NaN", "-");
+  return formatter.format(value as any).replace("NaN", FALLBACK_RENDER_VALUE);
+};
+
+const stringFormatter = <TEntry extends DataGridEntry>(
+  value: TEntry[keyof TEntry] | undefined,
+): string => {
+  // using loose "==" here to catch both undefined and null
+  if (value == undefined) return FALLBACK_RENDER_VALUE;
+  if (Array.isArray(value)) {
+    return value
+      .map((entry) => stringFormatter(entry))
+      .filter((i) => i != FALLBACK_RENDER_VALUE)
+      .join(", ");
+  }
+  if (value instanceof Date) return value.toString();
+  if (typeof value === "object") return JSON.stringify(value);
+  return String(value);
 };
 
 const NUMBER_RENDERER = Object.freeze({
@@ -25,7 +48,7 @@ const NUMBER_RENDERER = Object.freeze({
 
 const STRING_RENDERER = Object.freeze({
   header: { component: HeaderCell },
-  cell: { component: (props) => String(props.modelValue) },
+  cell: { component: (props) => stringFormatter(props.modelValue) },
 }) satisfies TypeRenderer<DataGridEntry>;
 
 const BASE_RENDERER_MAP = Object.freeze({
