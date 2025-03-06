@@ -5,7 +5,7 @@ import StickyColumnExampleCode from "../../../examples/DataGrid/StickyColumnData
 const meta: Meta<typeof StickyColumnDataGrid> = {
   title: "Data/DataGrid/Features",
   component: StickyColumnDataGrid,
-  tags: ["!autodocs"],
+  tags: ["!autodocs", "new:feature"],
 };
 
 export default meta;

@@ -56,37 +56,36 @@ export const useStickyColumns = createFeature(
       watch: [position, stickyColumns],
       modifyColumns: {
         func: (columnConfig) => {
-          const sticky = columnConfig.filter((col) => stickyColumns.value.includes(col.key));
+          const sticky = columnConfig
+            .filter((col) => stickyColumns.value.includes(col.key))
+            .map((column) => {
+              const style =
+                position.value === "left"
+                  ? {
+                      right: "auto",
+                      left: `var(${createStickyPositionCssVar(column.key)})`,
+                    }
+                  : {
+                      left: "auto",
+                      right: `var(${createStickyPositionCssVar(column.key)})`,
+                    };
+              return {
+                ...column,
+                thAttributes: {
+                  style,
+                  class: `onyx-data-grid-sticky-columns--sticky ${position.value}`,
+                  ref: (el: HTMLElement) => (elementsToStyle.value[column.key] = el),
+                },
+                tdAttributes: {
+                  style,
+                  class: `onyx-data-grid-sticky-columns--sticky ${position.value}`,
+                },
+              };
+            });
           const nonSticky = columnConfig.filter((col) => !stickyColumns.value.includes(col.key));
-          return (
-            position.value === "left"
-              ? [...sticky, ...nonSticky]
-              : [...nonSticky, ...sticky.slice().reverse()]
-          ).map((column) => {
-            if (!stickyColumns.value.includes(column.key)) return column;
-            const style =
-              position.value === "left"
-                ? {
-                    right: "auto",
-                    left: `var(${createStickyPositionCssVar(column.key)})`,
-                  }
-                : {
-                    left: "auto",
-                    right: `var(${createStickyPositionCssVar(column.key)})`,
-                  };
-            return {
-              ...column,
-              thAttributes: {
-                style,
-                class: `onyx-data-grid-sticky-columns--sticky ${position.value}`,
-                ref: (el: HTMLElement) => (elementsToStyle.value[column.key] = el),
-              },
-              tdAttributes: {
-                style,
-                class: `onyx-data-grid-sticky-columns--sticky ${position.value}`,
-              },
-            };
-          });
+          return position.value === "left"
+            ? [...sticky, ...nonSticky]
+            : [...nonSticky, ...sticky.slice().reverse()];
         },
       } satisfies ModifyColumns<TEntry> as ModifyColumns<TEntry>,
     };
