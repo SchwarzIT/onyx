@@ -96,9 +96,7 @@ test("should show current grid values", async ({ mount, page }) => {
   await mount(<GridPlayground />);
 
   // ASSERT
-  await expect(
-    page.getByRole("heading", { name: "Your current breakpoint: xl (1920px)" }),
-  ).toBeVisible();
+  await expect(page.getByText("Current breakpoint: xl")).toBeVisible();
 
   await expect(page.getByLabel("Margin", { exact: true })).toContainText("4rem");
   await expect(page.getByLabel("Columns", { exact: true })).toContainText("12");
@@ -108,9 +106,7 @@ test("should show current grid values", async ({ mount, page }) => {
   await page.setViewportSize({ width: 800, height: 1080 });
 
   // ASSERT
-  await expect(
-    page.getByRole("heading", { name: "Your current breakpoint: sm (800px)" }),
-  ).toBeVisible();
+  await expect(page.getByText("Current breakpoint: sm")).toBeVisible();
 
   await expect(page.getByLabel("Margin", { exact: true })).toContainText("2rem");
   await expect(page.getByLabel("Columns", { exact: true })).toContainText("8");
@@ -121,24 +117,23 @@ test("should support to configure the grid", async ({ mount, page }) => {
   // ARRANGE
   await mount(<GridPlayground />);
 
-  const maxWidthGroup = page.getByRole("radiogroup", { name: "Max content width" });
-  const alignmentGroup = page.getByRole("radiogroup", { name: "Alignment" });
-  const columnCountGroup = page.getByRole("radiogroup", { name: "Max columns" });
+  const maxWidthInput = page.getByRole("combobox", { name: "Max overall width" });
+  const alignmentInput = page.getByRole("combobox", { name: "Grid alignment" });
+  const columnCountInput = page.getByRole("combobox", { name: "Column quantity" });
 
   // ASSERT
-  await expect(maxWidthGroup.getByLabel("none")).toBeChecked();
-  await expect(alignmentGroup.getByLabel("left")).toBeChecked();
-  await expect(
-    alignmentGroup.getByLabel("left"),
-    "should disable alignment when max width is none",
-  ).toBeDisabled();
-  await expect(columnCountGroup.getByLabel("12")).toBeChecked();
+  await expect(maxWidthInput).toHaveValue("1440px");
+  await expect(alignmentInput).toHaveValue("left");
+  await expect(columnCountInput).toHaveValue("12 columns");
 
   // ACT
-  await maxWidthGroup.getByLabel("1440px").check();
-  await alignmentGroup.getByLabel("center").check();
-  await columnCountGroup.getByLabel("20").check();
+  await maxWidthInput.click();
+  await page.getByRole("option", { name: "1920px" }).click();
+  await alignmentInput.click();
+  await page.getByRole("option", { name: "center" }).click();
+  await columnCountInput.click();
+  await page.getByRole("option", { name: "16 columns" }).click();
 
   // ASSERT
-  await expect(page.locator(".onyx-grid-center.onyx-grid-max-md.onyx-grid-xl-20")).toBeAttached();
+  await expect(page.locator(".onyx-grid-center.onyx-grid-max-lg.onyx-grid-xl-16")).toBeAttached();
 });
