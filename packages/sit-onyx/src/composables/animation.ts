@@ -14,8 +14,8 @@ const IDLE_TIMEOUT = 200;
  * `requestIdleCallback` is not available in Safari, so we use `setTimeout` with a timeout of 0 as a primitive polyfill.
  */
 const onIdleCallback =
-  "requestIdleCallback" in window
-    ? window.requestIdleCallback // eslint-disable-line compat/compat
+  globalThis.window && "requestIdleCallback" in globalThis.window
+    ? globalThis.window.requestIdleCallback // eslint-disable-line compat/compat
     : (cb: () => void, _: IdleRequestOptions) => setTimeout(cb, 0);
 
 const syncAnimations = (animationName: string) => {
