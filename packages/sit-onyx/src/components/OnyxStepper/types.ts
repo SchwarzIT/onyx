@@ -41,4 +41,8 @@ export type OnyxStepperProps = Omit<
    * @see [MDN autocomplete](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete)
    */
   autocomplete?: Autocomplete;
+  /**
+   * If true, the +/- button will be hidden.
+   */
+  hideButtons?: boolean;
 };

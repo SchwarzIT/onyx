@@ -238,7 +238,7 @@ test.describe("Screenshot tests", () => {
 
 test("should emit events", async ({ mount }) => {
   const events = {
-    updateModelValue: [] as number[],
+    updateModelValue: [] as (number | undefined)[],
   };
 
   // ARRANGE
@@ -502,4 +502,27 @@ test("Should display an error if the value is not a multiple of validStepSize", 
   await expect(errorMessage).toContainText(
     "Please enter a valid number, that is a multiple of 0.5.",
   );
+});
+
+test("should hide buttons", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(OnyxStepper, {
+    props: {
+      label: "Label",
+    },
+  });
+
+  const decrementButton = component.getByRole("button", { name: "Decrement" });
+  const incrementButton = component.getByRole("button", { name: "Increment" });
+
+  // ASSERT
+  await expect(decrementButton).toBeVisible();
+  await expect(incrementButton).toBeVisible();
+
+  // ACT
+  await component.update({ props: { hideButtons: true } });
+
+  // ASSERT
+  await expect(decrementButton).toBeHidden();
+  await expect(incrementButton).toBeHidden();
 });
