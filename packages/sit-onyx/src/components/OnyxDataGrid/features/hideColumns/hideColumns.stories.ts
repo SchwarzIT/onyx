@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
+import HideColumnsDataGrid from "../../../examples/DataGrid/hideColumnsDataGrid.vue";
 import HideColumnsDataGridExampleCode from "../../../examples/DataGrid/hideColumnsDataGrid.vue?raw";
-import HideColumnsDataGrid from "../../../examples/DataGrid/test.vue";
 
 const meta: Meta<typeof HideColumnsDataGrid> = {
   title: "Data/DataGrid/Features", // new features can add their story under the same title
