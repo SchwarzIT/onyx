@@ -20,7 +20,7 @@ describe("renderers", () => {
     { value: ["foo", "bar", null, undefined, { foo: 42 }], expected: 'foo, bar, {"foo":42}' },
     {
       value: new Date(2025, 2, 6, 12, 42, 31),
-      expected: "Thu Mar 06 2025 12:42:31 GMT+0100 (Central European Standard Time)",
+      expected: "Thu Mar 06 2025 12:42:31 GMT+0000 (Coordinated Universal Time)",
     },
     { value: Symbol("test-symbol"), expected: "Symbol(test-symbol)" },
   ])(
