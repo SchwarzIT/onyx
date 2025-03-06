@@ -1,24 +1,21 @@
-import type { OnyxColor } from "../../types";
-
 export interface OnyxNotificationProps {
   /**
-   * Use this property to set the title of the notification
+   * Notification headline/title.
    */
   headline: string;
   /**
-   * Use this property to set the text in the notification pop-up body
+   * Description/preview of the notification content.
    */
   description: string;
   /**
-   * Use this property to set the color
-   */
-  color?: Extract<OnyxColor, "neutral" | "danger" | "warning" | "success">;
-  /**
-   * Use this property to set the duration time. Default value: 5000 ms
+   * Duration in milliseconds for the notification to close automatically.
+   * Timer will be paused when hovering the toast.
+   *
+   * Can be set to `0` to disable the auto closing.
    */
   duration?: number;
   /**
-   * Use this property to add icon to the notification pop-up headline.
+   * Optional icon to show next to the headline.
    */
   icon?: string;
 }
