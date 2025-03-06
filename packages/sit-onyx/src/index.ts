@@ -169,8 +169,8 @@ export * from "./components/OnyxVisuallyHidden/types";
 export { default as OnyxForm } from "./components/OnyxForm/OnyxForm.vue";
 export * from "./components/OnyxForm/types";
 
-export { default as OnyxNotificationIndicator } from "./components/OnyxNotificationIndicator/OnyxNotificationIndicator.vue";
-export * from "./components/OnyxNotificationIndicator/types";
+export { default as OnyxNotificationDot } from "./components/OnyxNotificationDot/OnyxNotificationDot.vue";
+export * from "./components/OnyxNotificationDot/types";
 
 export * from "./composables/density";
 export * from "./composables/scrollEnd";
