@@ -46,7 +46,7 @@
     "eslint": "^9.21.0",
     "eslint-plugin-compat": "^6.0.2",
     "eslint-plugin-playwright": "^2.2.0",
-    "eslint-plugin-vue": "^9.32.0",
+    "eslint-plugin-vue": "^10.0.0",
     "eslint-plugin-vue-scoped-css": "^2.9.0",
     "eslint-plugin-vuejs-accessibility": "^2.4.1",
     "jsdom": "^26.0.0",
