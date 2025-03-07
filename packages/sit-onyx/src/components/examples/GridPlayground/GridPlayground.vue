@@ -293,7 +293,7 @@ const currentBreakpoint = computed(() => {
 
   &__options {
     margin-top: var(--onyx-spacing-lg);
-    --onyx-grid-columns: 3;
+    --onyx-grid-columns: 5;
   }
 
   &__breakpoint {
