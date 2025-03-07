@@ -76,7 +76,7 @@ export type InternalColumnConfig<
   TEntry extends DataGridEntry,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   TColumnGroup extends ColumnGroupConfig = any,
-  TTypes = PropertyKey,
+  TTypes extends PropertyKey = PropertyKey,
 > = {
   /**
    * Attributes that should be set on all `td` elements
