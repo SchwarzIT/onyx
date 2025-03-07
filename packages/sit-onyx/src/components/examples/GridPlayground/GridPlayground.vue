@@ -125,7 +125,7 @@ const currentBreakpoint = computed(() => {
         For the best experience, please press the "Fullscreen" button in the upper right corner.
       </p>
 
-      <p>
+      <p class="playground__description-text">
         This is the playground for grid and breakpoint usage. Feel free to create placeholder
         objects play around with them. To see the responsiveness of the onyx grid in action, just
         use the window resizer to adjust the width of your browser. You can globally adjust the grid
@@ -135,7 +135,7 @@ const currentBreakpoint = computed(() => {
 
       <OnyxHeadline is="h2" class="playground__headline">Grid customization</OnyxHeadline>
 
-      <div class="playground__options">
+      <div class="playground__options onyx-grid">
         <OnyxSelect
           v-model="gridSettings.alignment"
           label="Grid alignment"
@@ -287,10 +287,13 @@ const currentBreakpoint = computed(() => {
     align-items: center;
   }
 
+  &__description-text {
+    margin: var(--onyx-density-lg) 0 var(--onyx-density-3xl) 0;
+  }
+
   &__options {
-    display: inline-flex;
-    gap: var(--onyx-spacing-md);
     margin-top: var(--onyx-spacing-lg);
+    --onyx-grid-columns: 3;
   }
 
   &__breakpoint {
