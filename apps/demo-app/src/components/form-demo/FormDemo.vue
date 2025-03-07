@@ -67,6 +67,7 @@ const radioOptions: RadioButtonOption[] = [
 </script>
 
 <template>
+  <OnyxInput label="some label" skeleton />
   <OnyxForm
     class="demo onyx-grid"
     v-bind="props"
