@@ -3,7 +3,9 @@ import type { TableColumnGroup } from "../../../components/OnyxTable/types";
 import type { DataGridEntry } from "../types";
 import {
   createTableColumnGroups,
+  useIsFeatureEnabled,
   type ColumnGroupConfig,
+  type DataGridFeatureOptions,
   type PublicNormalizedColumnConfig,
 } from "./index";
 
@@ -101,5 +103,22 @@ describe("createTableColumnGroups", () => {
       columnGroups as ColumnGroupConfig | undefined,
     );
     expect(result).toMatchObject(expected as TableColumnGroup[]);
+  });
+});
+
+describe("useIsFeatureEnabled", () => {
+  test.each<{ options?: DataGridFeatureOptions<DataGridEntry, object, object>; enabled: boolean }>([
+    { options: undefined, enabled: true },
+    { options: {}, enabled: true },
+    { options: { enabled: true }, enabled: true },
+    { options: { enabled: undefined }, enabled: true },
+    { options: { enabled: false }, enabled: false },
+    { options: { columns: { id: { enabled: undefined } } }, enabled: true },
+    { options: { enabled: false, columns: { id: { enabled: undefined } } }, enabled: false },
+    { options: { enabled: true, columns: { id: { enabled: false } } }, enabled: false },
+    { options: { enabled: true, columns: { id: { enabled: true } } }, enabled: true },
+  ])("should be enabled $enabled for options $options", ({ options, enabled }) => {
+    const { isEnabled } = useIsFeatureEnabled(options);
+    expect(isEnabled.value("id")).toBe(enabled);
   });
 });

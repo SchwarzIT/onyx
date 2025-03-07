@@ -1,6 +1,6 @@
 import searchX from "@sit-onyx/icons/search-x.svg?raw";
 import { computed, h, ref, toValue, watchEffect, type Ref } from "vue";
-import { createFeature } from "..";
+import { createFeature, useIsFeatureEnabled } from "..";
 import { injectI18n } from "../../../../i18n";
 import { removeDiacritics } from "../../../../utils/strings";
 import OnyxMiniSearch from "../../../OnyxMiniSearch/OnyxMiniSearch.vue";
@@ -17,10 +17,7 @@ export const useFiltering = createFeature(
     const filters = ref({}) as Ref<FilterState<DataGridEntry>>;
     const { t } = injectI18n();
     const config = computed(() => toValue(options?.columns));
-
-    const isFilterEnabled = computed(() => (col: keyof TEntry) => {
-      return config.value?.[col]?.enabled !== false;
-    });
+    const { isEnabled } = useIsFeatureEnabled(options);
 
     const filterData = (entries: Readonly<TEntry>[]) => {
       return entries.filter((entry) =>
@@ -112,7 +109,7 @@ export const useFiltering = createFeature(
       },
       header: {
         actions: ({ key: column }) => {
-          if (!isFilterEnabled.value(column)) return [];
+          if (!isEnabled.value(column)) return [];
           return [
             {
               iconComponent: filters.value[column]
