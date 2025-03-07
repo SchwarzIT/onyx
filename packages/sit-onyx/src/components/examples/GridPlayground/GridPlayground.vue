@@ -127,6 +127,8 @@ const currentBreakpoint = computed(() => {
 
 const isFullscreen = ref(false);
 const updateIsFullscreen = () =>
+  // `window.parent` is either a reference to the iframe parent window or the own window.
+  // So when the width is equal for both, we know that this Story is in fullscreen mode.
   (isFullscreen.value = window.innerWidth === window.parent.innerWidth);
 
 onMounted(() => {
