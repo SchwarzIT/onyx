@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.168
+
+### Minor Changes
+
+- d244b9e: feat(OnyxDataGrid): add stickyColumns-feature
+
 ## 1.0.0-beta.167
 
 ### Patch Changes
