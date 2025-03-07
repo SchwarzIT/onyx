@@ -1,0 +1,7 @@
+/* Fix the issue where the tags have ugly word breaks when there isn't enough space */
+#storybook-explorer-tree .sidebar-item {
+  a,
+  button {
+    word-break: normal;
+  }
+}
