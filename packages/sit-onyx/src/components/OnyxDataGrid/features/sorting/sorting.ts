@@ -2,7 +2,7 @@ import circleBlock from "@sit-onyx/icons/circle-block.svg?raw";
 import listArrowDown from "@sit-onyx/icons/list-arrow-down.svg?raw";
 import listArrowUp from "@sit-onyx/icons/list-arrow-up.svg?raw";
 import { computed, h, toRef, toValue, type Ref } from "vue";
-import { createFeature } from "..";
+import { createFeature, useIsFeatureEnabled } from "..";
 import { injectI18n } from "../../../../i18n";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxMenuItem from "../../../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
@@ -33,14 +33,11 @@ export const useSorting = createFeature(
         } as const),
     );
 
+    const { isEnabled } = useIsFeatureEnabled(options);
+
     const getSortFunc = computed(() => (col: keyof TEntry) => {
       const config = toValue(options?.columns);
       return config?.[col]?.sortFunc ?? intlCompare.value;
-    });
-
-    const getSortEnabled = computed(() => (col: keyof TEntry) => {
-      const config = toValue(options?.columns);
-      return !config || config?.[col]?.enabled === true;
     });
 
     const { locale, t } = injectI18n();
@@ -106,7 +103,7 @@ export const useSorting = createFeature(
       },
       header: {
         actions: ({ key: column }) => {
-          if (!getSortEnabled.value(column)) return [];
+          if (!isEnabled.value(column)) return [];
           return [
             {
               iconComponent: h(SortAction, {
