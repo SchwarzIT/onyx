@@ -1,5 +1,20 @@
 # sit-onyx
 
+## 1.0.0-beta.167
+
+### Patch Changes
+
+- 2b9cbb7: fix(OnyxDataGrid): improve string, number and fallback formatters
+
+  - string/fallback formatter now renders "-" if undefined/null is passed. Also arrays are separated with comma and the array values are recursively formatted (undefined/null values are filtered out). Objects are formatted with `JSON.stringify()` instead of showing "[object Object]"
+  - number formatter: null, true and false are not correctly formatted as fallback value "-".
+
+## 1.0.0-beta.166
+
+### Patch Changes
+
+- 9ca7eec: fix(OnyxSkeleton): fix animation de-synced in some cases
+
 ## 1.0.0-beta.165
 
 ### Minor Changes
