@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.166
+
+### Patch Changes
+
+- 9ca7eec: fix(OnyxSkeleton): fix animation de-synced in some cases
+
 ## 1.0.0-beta.165
 
 ### Minor Changes
