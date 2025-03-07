@@ -1,0 +1,7 @@
+/* Fix the issue where the tags  */
+#storybook-explorer-tree .sidebar-item {
+  a,
+  button {
+    word-break: normal;
+  }
+}
