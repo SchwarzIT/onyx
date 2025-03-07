@@ -181,13 +181,14 @@ const currentBreakpoint = computed(() => {
     </div>
 
     <div
+      class="playground__grid-wrapper"
       :class="{
         'onyx-grid-center': gridSettings.alignment === 'center',
         [`onyx-grid-max-${gridSettings.maxWidth}`]: gridSettings.maxWidth !== 'none',
         [`onyx-grid-xl-${gridSettings.maxColumns}`]: gridSettings.maxColumns !== 12,
       }"
     >
-      <GridOverlay :columns="gridValues?.columnCount" />
+      <GridOverlay :columns="gridValues?.columnCount" :show-grid-lines="showGridLines" />
 
       <div>
         <OnyxNavBar app-name="Demo App">
@@ -264,6 +265,8 @@ const currentBreakpoint = computed(() => {
   font-family: var(--onyx-font-family);
   color: var(--onyx-color-text-icons-neutral-intense);
   background-color: var(--onyx-color-base-background-tinted);
+  overflow: scroll;
+  height: 100vh;
 
   &__container {
     box-shadow: var(--onyx-shadow-medium-bottom);
@@ -311,6 +314,10 @@ const currentBreakpoint = computed(() => {
     gap: var(--onyx-spacing-xl);
     align-items: center;
     justify-content: space-between;
+  }
+
+  &__grid-wrapper {
+    overflow: hidden;
   }
 
   &__badges {

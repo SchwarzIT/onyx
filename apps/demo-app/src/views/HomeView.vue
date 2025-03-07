@@ -17,6 +17,7 @@ import {
   OnyxIcon,
   OnyxIconButton,
   OnyxImage,
+  OnyxInfoCard,
   OnyxInput,
   OnyxLink,
   OnyxLoadingIndicator,
@@ -58,6 +59,7 @@ const COMPONENTS = [
   "OnyxIcon",
   "OnyxIconButton",
   "OnyxImage",
+  "OnyxInfoCard",
   "OnyxInput",
   "OnyxLink",
   "OnyxSelect",
@@ -228,6 +230,16 @@ const openAccordionItems = ref<string[]>([]);
           alt="Example image"
           shape="rounded"
         />
+
+        <OnyxInfoCard v-if="show('OnyxInfoCard')" headline="Example headline" closable>
+          Lorem ipsum dolor sit amet consectetur. Felis euismod sit amet nulla nulla amet libero
+          sed.
+
+          <template #buttons>
+            <OnyxButton label="Button" color="neutral" />
+            <OnyxButton label="Button" color="neutral" />
+          </template>
+        </OnyxInfoCard>
 
         <OnyxInput
           v-if="show('OnyxInput')"
