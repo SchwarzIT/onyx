@@ -19,7 +19,7 @@ export const useHideColumns = createFeature(
   <TEntry extends DataGridEntry>(options?: HideColumnsOptions) => {
     const { t } = injectI18n();
     const hiddenColumns = ref(options?.columns ?? []);
-    const revealedColumns = ref<string[]>([]);
+    const revealedHiddenColumns = ref<string[]>([]);
 
     const flyoutMenu = () =>
       h(
@@ -45,8 +45,8 @@ export const useHideColumns = createFeature(
                   OnyxMenuItem,
                   {
                     onClick: () => {
-                      if (!revealedColumns.value.includes(column.name)) {
-                        revealedColumns.value.push(column.name);
+                      if (!revealedHiddenColumns.value.includes(column.name)) {
+                        revealedHiddenColumns.value.push(column.name);
                       }
                       hiddenColumns.value = hiddenColumns.value.map((col) =>
                         col.name === column.name ? { ...col, hidden: false } : col,
@@ -68,7 +68,7 @@ export const useHideColumns = createFeature(
             const index = hiddenColumns.value.findIndex((col) => col.name === column.toString());
             if (index === -1) return;
             hiddenColumns.value[index].hidden = true;
-            revealedColumns.value = revealedColumns.value.filter(
+            revealedHiddenColumns.value = revealedHiddenColumns.value.filter(
               (name) => name !== column.toString(),
             );
           },
@@ -98,8 +98,8 @@ export const useHideColumns = createFeature(
           );
 
           filteredColumns.sort((a, b) => {
-            const indexA = revealedColumns.value.indexOf(a.key as string);
-            const indexB = revealedColumns.value.indexOf(b.key as string);
+            const indexA = revealedHiddenColumns.value.indexOf(a.key as string);
+            const indexB = revealedHiddenColumns.value.indexOf(b.key as string);
             if (indexA === -1 && indexB === -1) return 0;
             if (indexA === -1) return -1;
             if (indexB === -1) return 1;

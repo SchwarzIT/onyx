@@ -1,23 +1,22 @@
 <script setup lang="ts">
-import { computed, toValue } from "vue";
 import type { DataGridEntry } from "../../..";
 import { DataGridFeatures, OnyxDataGrid } from "../../..";
 
 // STORY SETUP START
 // This section will be removed from the Storybook code example, because it's to complex
-import type { HideColumn, HideColumnsOptions } from "../../OnyxDataGrid/features/hideColumns/types";
+// import type { HideColumn, HideColumnsOptions } from "../../OnyxDataGrid/features/hideColumns/types";
 
-const emit = defineEmits<{
-  "update:columns": [columns: HideColumn[]];
-}>();
+// const emit = defineEmits<{
+//   "update:columns": [columns: HideColumn[]];
+// }>();
 
-const props = defineProps<HideColumnsOptions>();
+// const props = defineProps<HideColumnsOptions>();
 
-const columns = computed({
-  set: (columns: HideColumn[]) => emit("update:columns", columns),
-  get: () => toValue(props.columns) ?? [],
-});
-// STORY SETUP END
+// const columns = computed({
+//   set: (columns: HideColumn[]) => emit("update:columns", columns),
+//   get: () => toValue(props.columns) ?? [],
+// });
+// // STORY SETUP END
 
 const data = [
   { id: 1, name: "Alice", rank: 30, birthday: new Date("1990-01-01") },
@@ -27,7 +26,9 @@ const data = [
   { id: 5, name: "John", rank: 42, birthday: new Date("1997-04-18") },
 ] satisfies DataGridEntry[];
 
-const withHiddenColumns = DataGridFeatures.useHideColumns({ columns: columns });
+const withHiddenColumns = DataGridFeatures.useHideColumns({
+  columns: [{ name: "name" }, { name: "rank", hidden: true }],
+});
 </script>
 
 <template>
