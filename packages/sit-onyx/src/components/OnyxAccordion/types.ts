@@ -19,6 +19,11 @@ export type OnyxAccordionProps<TValue extends PropertyKey> = DensityProp & {
    * If set, the specified number of skeleton accordions will be shown.
    */
   skeleton?: SkeletonInjected;
+  /**
+   * Accordion type. Will have different visual representations.
+   * Please note that "nested-large" and "nested-small" should only be used inside other components like e.g. the [OnyxDrawer](https://storybook.onyx.schwarz/?path=/docs/feedback-drawer--docs).
+   */
+  type?: AccordionType;
 };
 
 export type AccordionInjectionKey<TValue extends PropertyKey> = InjectionKey<{
@@ -34,6 +39,10 @@ export type AccordionInjectionKey<TValue extends PropertyKey> = InjectionKey<{
   updateOpen: (id: TValue, value: boolean) => void;
   disabled: Ref<boolean>;
   skeleton: Ref<SkeletonInjected>;
+  type: Ref<AccordionType>;
 }>;
 
 export const ACCORDION_INJECTION_KEY = Symbol() as AccordionInjectionKey<PropertyKey>;
+
+export const ACCORDION_TYPES = ["default", "nested-large", "nested-small"] as const;
+export type AccordionType = (typeof ACCORDION_TYPES)[number];
