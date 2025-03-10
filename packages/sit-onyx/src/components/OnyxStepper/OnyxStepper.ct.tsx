@@ -238,12 +238,13 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Stepper (hidden buttons)",
     columns: ["default"],
-    rows: ["default", "placeholder"],
+    rows: ["default", "placeholder", "value"],
     component: (column, row) => (
       <OnyxStepper
         style="width: 12rem"
         label="Test label"
         placeholder={row === "placeholder" ? "0" : undefined}
+        modelValue={row === "value" ? 42 : undefined}
         hideButtons
       />
     ),
