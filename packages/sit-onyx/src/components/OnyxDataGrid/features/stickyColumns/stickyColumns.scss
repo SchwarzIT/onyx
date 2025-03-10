@@ -1,0 +1,34 @@
+@use "../../../../styles/mixins/layers.scss";
+
+@include layers.component {
+  .onyx-data-grid {
+    .onyx-data-grid-sticky-columns--sticky {
+      //TODO: set --show-shadow if the container is scrolled
+      &.onyx-data-grid-sticky-columns--show-shadow {
+        box-shadow: var(--onyx-spacing-4xs) 0rem var(--onyx-spacing-4xs) -var(--onyx-1px-in-rem)
+          rgba(0, 0, 0, 0.1);
+        &.right {
+          box-shadow: -var(--onyx-spacing-4xs) 0rem var(--onyx-spacing-4xs) -var(--onyx-1px-in-rem)
+            rgba(0, 0, 0, 0.1);
+        }
+      }
+      position: sticky;
+      &.right:after {
+        position: absolute;
+        left: calc(-1 * var(--onyx-1px-in-rem));
+        top: 0px;
+        content: "";
+        height: 100%;
+        width: var(--onyx-1px-in-rem);
+        background-color: var(--onyx-color-component-border-neutral);
+      }
+    }
+
+    th.onyx-data-grid-sticky-columns--sticky {
+      z-index: 21;
+    }
+    td.onyx-data-grid-sticky-columns--sticky {
+      z-index: 20;
+    }
+  }
+}
