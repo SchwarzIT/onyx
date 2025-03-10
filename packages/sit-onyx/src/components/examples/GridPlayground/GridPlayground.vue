@@ -125,7 +125,7 @@ const currentBreakpoint = computed(() => {
         For the best experience, please press the "Fullscreen" button in the upper right corner.
       </p>
 
-      <p>
+      <p class="playground__description-text">
         This is the playground for grid and breakpoint usage. Feel free to create placeholder
         objects play around with them. To see the responsiveness of the onyx grid in action, just
         use the window resizer to adjust the width of your browser. You can globally adjust the grid
@@ -135,9 +135,10 @@ const currentBreakpoint = computed(() => {
 
       <OnyxHeadline is="h2" class="playground__headline">Grid customization</OnyxHeadline>
 
-      <div class="playground__options">
+      <div class="playground__options onyx-grid">
         <OnyxSelect
           v-model="gridSettings.alignment"
+          class="onyx-grid-span-4 onyx-grid-lg-span-3"
           label="Grid alignment"
           list-label="List of alignment options"
           label-tooltip="You can adjust the overall alignment of the grid here."
@@ -146,6 +147,7 @@ const currentBreakpoint = computed(() => {
 
         <OnyxSelect
           v-model="gridSettings.maxWidth"
+          class="onyx-grid-span-4 onyx-grid-lg-span-3"
           label="Max overall width"
           list-label="List of max width options"
           label-tooltip="With this setting, you can adjust the maximum width of the container that includes the content. This is only relevant for large breakpoints."
@@ -154,6 +156,7 @@ const currentBreakpoint = computed(() => {
 
         <OnyxSelect
           v-model="gridSettings.maxColumns"
+          class="onyx-grid-span-4 onyx-grid-lg-span-3"
           label="Column quantity for large breakpoints only"
           list-label="List of max columns options"
           label-tooltip="With large breakpoints you can optionally extend the default 12 column grid to 16 or even 20 columns."
@@ -287,9 +290,11 @@ const currentBreakpoint = computed(() => {
     align-items: center;
   }
 
+  &__description-text {
+    margin: var(--onyx-density-lg) 0 var(--onyx-density-3xl) 0;
+  }
+
   &__options {
-    display: inline-flex;
-    gap: var(--onyx-spacing-md);
     margin-top: var(--onyx-spacing-lg);
   }
 
@@ -307,10 +312,11 @@ const currentBreakpoint = computed(() => {
   }
 
   &__grid-values {
-    padding: var(--onyx-density-2xl) var(--onyx-density-3xl) var(--onyx-density-xs)
-      var(--onyx-density-3xl);
+    padding: var(--onyx-grid-margin);
+    padding-bottom: var(--onyx-density-xs);
     background: var(--onyx-color-base-background-blank);
     display: flex;
+    flex-wrap: wrap;
     gap: var(--onyx-spacing-xl);
     align-items: center;
     justify-content: space-between;
