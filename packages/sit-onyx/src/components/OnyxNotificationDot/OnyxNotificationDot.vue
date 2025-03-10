@@ -18,7 +18,7 @@ defineSlots<{
 <template>
   <div class="onyx-component onyx-notification-dot">
     <slot></slot>
-    <OnyxBadge class="onyx-notification-dot__badge" :color="props.color" dot />
+    <OnyxBadge v-if="!props.hidden" class="onyx-notification-dot__badge" :color="props.color" dot />
   </div>
 </template>
 
