@@ -234,6 +234,30 @@ test.describe("Screenshot tests", () => {
       />
     ),
   });
+
+  executeMatrixScreenshotTest({
+    name: "Stepper (hidden buttons)",
+    columns: ["default"],
+    rows: ["default", "placeholder"],
+    component: (column, row) => (
+      <OnyxStepper
+        style="width: 12rem"
+        label="Test label"
+        placeholder={row === "placeholder" ? "0" : undefined}
+        hideButtons
+      />
+    ),
+    hooks: {
+      beforeEach: async (component) => {
+        const decrementButton = component.getByRole("button", { name: "Decrement" });
+        const incrementButton = component.getByRole("button", { name: "Increment" });
+
+        // ASSERT
+        await expect(decrementButton).toBeHidden();
+        await expect(incrementButton).toBeHidden();
+      },
+    },
+  });
 });
 
 test("should emit events", async ({ mount }) => {
@@ -502,27 +526,4 @@ test("Should display an error if the value is not a multiple of validStepSize", 
   await expect(errorMessage).toContainText(
     "Please enter a valid number, that is a multiple of 0.5.",
   );
-});
-
-test("should hide buttons", async ({ mount }) => {
-  // ARRANGE
-  const component = await mount(OnyxStepper, {
-    props: {
-      label: "Label",
-    },
-  });
-
-  const decrementButton = component.getByRole("button", { name: "Decrement" });
-  const incrementButton = component.getByRole("button", { name: "Increment" });
-
-  // ASSERT
-  await expect(decrementButton).toBeVisible();
-  await expect(incrementButton).toBeVisible();
-
-  // ACT
-  await component.update({ props: { hideButtons: true } });
-
-  // ASSERT
-  await expect(decrementButton).toBeHidden();
-  await expect(incrementButton).toBeHidden();
 });
