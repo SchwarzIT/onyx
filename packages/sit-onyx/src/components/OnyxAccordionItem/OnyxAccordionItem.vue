@@ -43,6 +43,7 @@ watch(
 const skeleton = useSkeletonContext(props);
 const { densityClass } = useDensity(props);
 const isDisabled = computed(() => accordionContext?.disabled.value || props.disabled);
+const type = computed(() => accordionContext?.type.value ?? "default");
 
 const headerId = computed(() => `header-${props.value.toString()}`);
 const panelId = computed(() => `panel-${props.value.toString()}`);
@@ -51,13 +52,27 @@ const panelId = computed(() => `panel-${props.value.toString()}`);
 <template>
   <div
     v-if="skeleton || accordionContext?.skeleton.value"
-    :class="['onyx-component', 'onyx-accordion-item-skeleton', densityClass]"
+    :class="[
+      'onyx-component',
+      'onyx-accordion-item-skeleton',
+      densityClass,
+      type !== 'default' ? `onyx-accordion-item-skeleton--${type}` : '',
+    ]"
   >
     <OnyxSkeleton class="onyx-accordion-item-skeleton__main" />
     <OnyxSkeleton class="onyx-accordion-item-skeleton__icon" />
   </div>
 
-  <details v-else class="onyx-component onyx-accordion-item" :class="[densityClass]" :open="isOpen">
+  <details
+    v-else
+    :class="[
+      'onyx-component',
+      'onyx-accordion-item',
+      densityClass,
+      type !== 'default' ? `onyx-accordion-item--${type}` : '',
+    ]"
+    :open="isOpen"
+  >
     <!-- eslint-disable-next-line vuejs-accessibility/click-events-have-key-events, vuejs-accessibility/interactive-supports-focus -- false positives -->
     <summary
       :id="headerId"
@@ -92,15 +107,62 @@ const panelId = computed(() => `panel-${props.value.toString()}`);
     --onyx-accordion-item-gap: var(--onyx-density-md);
     --onyx-accordion-item-border: var(--onyx-1px-in-rem) solid
       var(--onyx-color-component-border-neutral);
-    --onyx-accordion-border-radius: var(--onyx-radius-md);
-    --onyx-accordion-toggle-duration: var(--onyx-duration-sm);
+    --onyx-accordion-item-border-focus: none;
+    --onyx-accordion-item-border-radius: var(--onyx-radius-md);
+    --onyx-accordion-item-font-size: 1rem;
+    --onyx-accordion-item-line-height: 1.5rem;
+    --onyx-accordion-item-font-weight: 400;
+    --onyx-accordion-item-justify: space-between;
+    --onyx-accordion-item-chevron-rotation: 0deg;
+    --onyx-accordion-item-chevron-rotation-open: 180deg;
+
+    // colors
+    --onyx-accordion-item-color: var(--onyx-color-text-icons-neutral-medium);
+    --onyx-accordion-item-color-hover: var(--onyx-color-text-icons-neutral-intense);
+    --onyx-accordion-item-color-open: var(--onyx-accordion-item-color-hover);
+    --onyx-accordion-item-background: transparent;
+    --onyx-accordion-item-background-hover: var(--onyx-color-base-neutral-200);
+    --onyx-accordion-item-background-focus: var(--onyx-accordion-item-background-hover);
+    --onyx-accordion-item-outline: var(--onyx-outline-width) solid
+      var(--onyx-color-component-focus-primary);
+
+    &--nested-large,
+    &--nested-small {
+      --onyx-accordion-item-font-weight: 600;
+      --onyx-accordion-item-gap: var(--onyx-density-xs);
+      --onyx-accordion-item-justify: flex-start;
+      --onyx-accordion-item-chevron-rotation: 90deg;
+      --onyx-accordion-item-chevron-rotation-open: 0deg;
+      --onyx-accordion-item-color-open: var(--onyx-accordion-item-color);
+      --onyx-accordion-item-outline: none;
+      --onyx-accordion-item-border-radius: 0;
+      --onyx-accordion-item-border-focus: var(--onyx-accordion-item-border);
+    }
+
+    &--nested-large {
+      --onyx-accordion-item-color: var(--onyx-color-text-icons-neutral-intense);
+      --onyx-accordion-item-background: var(--onyx-color-base-background-blank);
+      --onyx-accordion-item-background-hover: var(--onyx-color-base-background-tinted);
+      --onyx-accordion-item-background-focus: var(--onyx-color-base-neutral-200);
+    }
+
+    &--nested-small {
+      --onyx-accordion-item-padding: var(--onyx-density-2xs) var(--onyx-density-md);
+      --onyx-accordion-item-font-size: 0.8125rem;
+      --onyx-accordion-item-line-height: 1.25rem;
+      --onyx-accordion-item-color: var(--onyx-color-text-icons-neutral-medium);
+      --onyx-accordion-item-background: var(--onyx-color-base-background-tinted);
+      --onyx-accordion-item-background-hover: var(--onyx-color-base-neutral-200);
+      --onyx-accordion-item-background-focus: var(--onyx-color-base-neutral-300);
+    }
   }
 }
 
 .onyx-accordion-item {
   @include layers.component() {
+    --onyx-accordion-toggle-duration: var(--onyx-duration-sm);
+
     border-bottom: var(--onyx-accordion-item-border);
-    color: var(--onyx-color-text-icons-neutral-intense);
     font-family: var(--onyx-font-family);
     width: 100%;
 
@@ -122,13 +184,18 @@ const panelId = computed(() => `panel-${props.value.toString()}`);
     }
 
     &__header {
+      color: var(--onyx-accordion-item-color);
       width: 100%;
       display: flex;
-      justify-content: space-between;
+      justify-content: var(--onyx-accordion-item-justify);
       align-items: center;
       gap: var(--onyx-accordion-item-gap);
       padding: var(--onyx-accordion-item-padding);
       cursor: pointer;
+      font-size: var(--onyx-accordion-item-font-size);
+      line-height: var(--onyx-accordion-item-line-height);
+      font-weight: var(--onyx-accordion-item-font-weight);
+      background-color: var(--onyx-accordion-item-background);
 
       list-style: none;
       &::-webkit-details-marker {
@@ -137,35 +204,40 @@ const panelId = computed(() => `panel-${props.value.toString()}`);
 
       &:hover,
       &:focus-visible {
-        background-color: var(--onyx-color-base-neutral-200);
         outline: none;
+        color: var(--onyx-accordion-item-color-hover);
+      }
+
+      &:hover {
+        background-color: var(--onyx-accordion-item-background-hover);
+      }
+
+      &:focus-visible {
+        background-color: var(--onyx-accordion-item-background-focus);
       }
     }
 
     &:has(&__header:focus-visible) {
-      border-radius: var(--onyx-accordion-border-radius);
-      border-bottom: none;
-      outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
+      border-radius: var(--onyx-accordion-item-border-radius);
+      border-bottom: var(--onyx-accordion-item-border-focus);
+      outline: var(--onyx-accordion-item-outline);
     }
 
     &__header-icon {
       transition: transform var(--onyx-accordion-toggle-duration) ease;
+      transform: rotate(var(--onyx-accordion-item-chevron-rotation));
     }
 
     &[open] &__header-icon {
-      transform: rotate(180deg);
+      transform: rotate(var(--onyx-accordion-item-chevron-rotation-open));
     }
 
-    &[open] &__header:focus-visible {
-      border-radius: var(--onyx-accordion-border-radius) var(--onyx-accordion-border-radius) 0 0;
-    }
+    &[open] &__header {
+      color: var(--onyx-accordion-item-color-open);
 
-    &:not([open]) &__header {
-      color: var(--onyx-color-text-icons-neutral-medium);
-
-      &:hover,
       &:focus-visible {
-        color: var(--onyx-color-text-icons-neutral-intense);
+        border-radius: var(--onyx-accordion-item-border-radius)
+          var(--onyx-accordion-item-border-radius) 0 0;
       }
     }
 
@@ -198,6 +270,7 @@ const panelId = computed(() => `panel-${props.value.toString()}`);
     &__icon {
       height: $icon-size;
       width: $icon-size;
+      flex-shrink: 0;
     }
   }
 }
