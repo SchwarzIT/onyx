@@ -17,6 +17,7 @@ import { computed, h, ref } from "vue";
 const sortingEnabled = ref(false);
 const selectionEnabled = ref(false);
 const filteringEnabled = ref(false);
+const hideColumnsEnabled = ref(false);
 const stickyColumnsEnabled = ref(false);
 const moreActions = ref(false);
 
@@ -112,6 +113,9 @@ const dataFeatures = computed(() => {
   if (selectionEnabled.value) {
     enabled.push(DataGridFeatures.useSelection<Entry>());
   }
+  if (hideColumnsEnabled.value) {
+    enabled.push(DataGridFeatures.useHideColumns());
+  }
   if (stickyColumnsEnabled.value) {
     enabled.push(DataGridFeatures.useStickyColumns({ columns: ["name"] }));
   }
@@ -130,6 +134,7 @@ const dataFeatures = computed(() => {
         <OnyxSwitch v-model="filteringEnabled" label="Enable filtering" />
         <OnyxSwitch v-model="sortingEnabled" label="Enable sorting" />
         <OnyxSwitch v-model="selectionEnabled" label="Enable selection" />
+        <OnyxSwitch v-model="hideColumnsEnabled" label="Enable hide Columns" />
         <OnyxSwitch v-model="stickyColumnsEnabled" label="Enable stickyColumns" />
         <OnyxSwitch v-model="moreActions" label="Enable more actions" />
       </section>
