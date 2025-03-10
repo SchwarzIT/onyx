@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
+import { createAdvancedStoryExample } from "../../utils/storybook";
 import OnyxAccordionItem from "../OnyxAccordionItem/OnyxAccordionItem.vue";
 import OnyxAccordion from "./OnyxAccordion.vue";
 
@@ -50,6 +51,16 @@ export const Default = {
       ),
     ],
   },
+} satisfies Story;
+
+export const NestedLarge = {
+  tags: ["new:feature"],
+  ...createAdvancedStoryExample("OnyxAccordion", "NestedLargeExample"),
+} satisfies Story;
+
+export const NestedSmall = {
+  tags: ["new:feature"],
+  ...createAdvancedStoryExample("OnyxAccordion", "NestedSmallExample"),
 } satisfies Story;
 
 export const InitialOpen = {
