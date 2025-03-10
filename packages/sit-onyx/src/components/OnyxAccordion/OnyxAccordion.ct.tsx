@@ -3,72 +3,76 @@ import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxAccordionItem from "../OnyxAccordionItem/OnyxAccordionItem.vue";
 import OnyxAccordion from "./OnyxAccordion.vue";
+import { ACCORDION_TYPES } from "./types";
 import VModelTestWrapper from "./VModelTestWrapper.ct.vue";
 
 test.describe("Screenshot tests", () => {
-  executeMatrixScreenshotTest({
-    name: "Accordion",
-    columns: DENSITIES,
-    rows: ["default", "open", "hover", "focus-visible", "disabled", "skeleton"],
-    component: (column, row) => (
-      <OnyxAccordion
-        style="width: 20rem"
-        density={column}
-        skeleton={row === "skeleton"}
-        disabled={row === "disabled"}
-      >
-        <OnyxAccordionItem value="item-1">
-          <template v-slot:header>Accordion Header 1</template>
-          Accordion Panel 1
-        </OnyxAccordionItem>
-        <OnyxAccordionItem value="item-2">
-          <template v-slot:header>Accordion Header 2</template>
-          Accordion Panel 2
-        </OnyxAccordionItem>
-      </OnyxAccordion>
-    ),
-    hooks: {
-      beforeEach: async (component, page, _column, row) => {
-        if (row === "open") {
-          await component.evaluate((element) => {
-            element.style.padding = `auto 5rem`;
-          });
-          await component.getByRole("button", { name: "Accordion Header 1" }).click();
-        }
-        if (row === "hover")
-          await component.getByRole("button", { name: "Accordion Header 1" }).hover();
-        if (row === "focus-visible") await page.keyboard.press("Tab");
+  for (const type of ACCORDION_TYPES) {
+    executeMatrixScreenshotTest({
+      name: `Accordion (${type})`,
+      columns: DENSITIES,
+      rows: ["default", "open", "hover", "focus-visible", "disabled", "skeleton"],
+      component: (column, row) => (
+        <OnyxAccordion
+          style="width: 20rem"
+          density={column}
+          skeleton={row === "skeleton"}
+          disabled={row === "disabled"}
+          type={type}
+        >
+          <OnyxAccordionItem value="item-1">
+            <template v-slot:header>Header 1</template>
+            Content 1...
+          </OnyxAccordionItem>
+          <OnyxAccordionItem value="item-2">
+            <template v-slot:header>Header 2</template>
+            Content 2...
+          </OnyxAccordionItem>
+        </OnyxAccordion>
+      ),
+      hooks: {
+        beforeEach: async (component, page, _column, row) => {
+          if (row === "open") {
+            await component.evaluate((element) => {
+              element.style.padding = `auto 5rem`;
+            });
+            await component.getByRole("button", { name: "Header 1" }).click();
+          }
+          if (row === "hover") await component.getByRole("button", { name: "Header 1" }).hover();
+          if (row === "focus-visible") await page.keyboard.press("Tab");
+        },
       },
-    },
-  });
+    });
 
-  executeMatrixScreenshotTest({
-    name: "Accordion (disabled)",
-    columns: ["closed", "open"],
-    rows: ["default", "hover", "focus-visible"],
-    component: (column) => (
-      <OnyxAccordion
-        style="width: 16rem;"
-        modelValue={column === "open" ? ["item-1"] : undefined}
-        disabled
-      >
-        <OnyxAccordionItem value="item-1">
-          <template v-slot:header>Accordion Header 1</template>
-          Accordion Panel 1
-        </OnyxAccordionItem>
-        <OnyxAccordionItem value="item-2">
-          <template v-slot:header>Accordion Header 2</template>
-          Accordion Panel 2
-        </OnyxAccordionItem>
-      </OnyxAccordion>
-    ),
-    hooks: {
-      beforeEach: async (component, page, _column, row) => {
-        if (row === "hover") await component.hover();
-        if (row === "focus-visible") await page.keyboard.press("Tab");
+    executeMatrixScreenshotTest({
+      name: `Accordion (${type}, disabled)`,
+      columns: ["closed", "open"],
+      rows: ["default", "hover", "focus-visible"],
+      component: (column) => (
+        <OnyxAccordion
+          style="width: 16rem;"
+          modelValue={column === "open" ? ["item-1"] : undefined}
+          type={type}
+          disabled
+        >
+          <OnyxAccordionItem value="item-1">
+            <template v-slot:header>Header 1</template>
+            Content 1...
+          </OnyxAccordionItem>
+          <OnyxAccordionItem value="item-2">
+            <template v-slot:header>Header 2</template>
+            Content 2...
+          </OnyxAccordionItem>
+        </OnyxAccordion>
+      ),
+      hooks: {
+        beforeEach: async (component, page, _column, row) => {
+          if (row === "hover") await component.hover();
+          if (row === "focus-visible") await page.keyboard.press("Tab");
+        },
       },
-    },
-  });
+    });
+  }
 });
 
 test("should open only one item at a time in exclusive mode", async ({ mount }) => {
