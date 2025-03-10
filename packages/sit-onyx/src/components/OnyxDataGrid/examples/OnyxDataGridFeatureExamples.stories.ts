@@ -22,3 +22,8 @@ export const Filtering: Story = {
 };
 
 export const Selection: Story = createAdvancedStoryExample("OnyxDataGrid", "SelectionExample");
+
+export const StickyColumns: Story = {
+  tags: ["new:feature"],
+  ...createAdvancedStoryExample("OnyxDataGrid", "StickyColumnsExample"),
+};
