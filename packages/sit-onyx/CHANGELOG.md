@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.169
+
+### Minor Changes
+
+- 12f73c3: feat(OnyxStepper): support new `hideButtons` property to hide the +/- buttons
+
 ## 1.0.0-beta.168
 
 ### Minor Changes
