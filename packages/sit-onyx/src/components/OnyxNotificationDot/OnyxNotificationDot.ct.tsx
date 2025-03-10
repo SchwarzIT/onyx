@@ -7,10 +7,10 @@ import OnyxNotificationDot from "./OnyxNotificationDot.vue";
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Notification dot",
-    columns: ["default", "icon-button"],
+    columns: ["default", "icon-button", "hidden"],
     rows: ONYX_COLORS,
     component: (column, row) => (
-      <OnyxNotificationDot color={row}>
+      <OnyxNotificationDot color={row} hidden={column === "hidden"}>
         {column === "icon-button" ? (
           <OnyxIconButton icon={mockPlaywrightIcon} label="Label" color="neutral" />
         ) : (
