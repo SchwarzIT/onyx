@@ -5,6 +5,8 @@ export type OnyxInputProps = SharedFormElementProps &
   SharedTextInputProps & {
     /**
      * Input type.
+     * For numeric inputs, we recommend using the [OnyxStepper](https://storybook.onyx.schwarz/?path=/docs/form-elements-stepper--docs).
+     * For date inputs, refer to the [OnyxDatePicker](https://storybook.onyx.schwarz/?path=/docs/form-elements-datepicker--docs).
      */
     type?: InputType;
     /**
