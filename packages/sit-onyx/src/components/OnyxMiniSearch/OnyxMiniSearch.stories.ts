@@ -12,10 +12,15 @@ const meta: Meta<typeof OnyxMiniSearch> = {
 export default meta;
 type Story = StoryObj<typeof OnyxMiniSearch>;
 
-export const Default = { args: {} } satisfies Story;
+export const Default = {
+  args: {
+    label: "Search",
+  },
+} satisfies Story;
 
 export const WithValue = {
   args: {
+    ...Default.args,
     modelValue: "Test value",
   },
 } satisfies Story;
