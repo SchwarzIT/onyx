@@ -6,7 +6,16 @@ import eye from "@sit-onyx/icons/eye.svg?raw";
 import plus from "@sit-onyx/icons/plus.svg?raw";
 import settings from "@sit-onyx/icons/settings.svg?raw";
 import { ONYX_BREAKPOINTS, type OnyxBreakpoint } from "@sit-onyx/shared/breakpoints";
-import { computed, nextTick, ref, shallowRef, useTemplateRef, watch } from "vue";
+import {
+  computed,
+  nextTick,
+  onMounted,
+  onUnmounted,
+  ref,
+  shallowRef,
+  useTemplateRef,
+  watch,
+} from "vue";
 import { useResizeObserver } from "../../../composables/useResizeObserver";
 import OnyxHeadline from "../../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIcon from "../../OnyxIcon/OnyxIcon.vue";
@@ -25,6 +34,8 @@ import EditGridElementDialog, {
 import GridBadge from "./GridBadge/GridBadge.vue";
 import GridElement from "./GridElement/GridElement.vue";
 import GridOverlay from "./GridOverlay/GridOverlay.vue";
+import StorybookExpand from "./storybook/expand.svg?raw";
+import StorybookNewTab from "./storybook/new-tab.svg?raw";
 
 const viewportSize = useResizeObserver(shallowRef(document.body));
 
@@ -113,6 +124,18 @@ const currentBreakpoint = computed(() => {
 
   return breakpoint;
 });
+
+const isFullscreen = ref(false);
+const updateIsFullscreen = () =>
+  // `window.parent` is either a reference to the iframe parent window or the own window.
+  // So when the width is equal for both, we know that this Story is in fullscreen mode.
+  (isFullscreen.value = window.innerWidth === window.parent.innerWidth);
+
+onMounted(() => {
+  updateIsFullscreen();
+  window.addEventListener("resize", updateIsFullscreen);
+});
+onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
 </script>
 
 <template>
@@ -120,9 +143,11 @@ const currentBreakpoint = computed(() => {
     <div class="onyx-grid-container playground__container">
       <OnyxHeadline is="h1" class="playground__headline">Grid and breakpoint demo</OnyxHeadline>
 
-      <p class="playground__info-text">
-        <OnyxIcon :icon="circleAttention" size="16px" color="warning"></OnyxIcon>
-        For the best experience, please press the "Fullscreen" button in the upper right corner.
+      <p v-if="!isFullscreen" class="playground__info-text">
+        <OnyxIcon :icon="circleAttention" size="16px" />
+        For the best experience, please press the "Fullscreen"
+        <OnyxIcon :icon="StorybookExpand" inline /> or "New Tab"
+        <OnyxIcon :icon="StorybookNewTab" inline /> button in the upper right corner.
       </p>
 
       <p class="playground__description-text">
@@ -131,6 +156,11 @@ const currentBreakpoint = computed(() => {
         use the window resizer to adjust the width of your browser. You can globally adjust the grid
         the way that fit your needs. Details about the technical implementation can be found
         <OnyxLink href="https://onyx.schwarz/development/grid.html" target="_blank">here</OnyxLink>
+      </p>
+
+      <p>
+        Use the "Toggle Grid Lines Visibility" <OnyxIcon :icon="eye" inline /> button on the right
+        to see how the grid elements align with the grid columns.
       </p>
 
       <OnyxHeadline is="h2" class="playground__headline">Grid customization</OnyxHeadline>
