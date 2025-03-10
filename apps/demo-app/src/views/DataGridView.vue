@@ -115,6 +115,7 @@ const dataFeatures = computed(() => {
   }
   if (hideColumnsEnabled.value) {
     enabled.push(DataGridFeatures.useHideColumns());
+  }
   if (stickyColumnsEnabled.value) {
     enabled.push(DataGridFeatures.useStickyColumns({ columns: ["name"] }));
   }
