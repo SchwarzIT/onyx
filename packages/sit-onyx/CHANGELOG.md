@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.171
+
+### Minor Changes
+
+- 18bd03a: feat: add new `OnyxNotificationDot` component
+
 ## 1.0.0-beta.170
 
 ### Patch Changes
