@@ -47,12 +47,10 @@ const stringFormatter = <TEntry extends DataGridEntry>(
 
 const dateFormatter = <TEntry extends DataGridEntry>(
   value: TEntry[keyof TEntry] | undefined,
-  type: "date" | "datetime-local" | "time" | "timestamp",
+  type: Extract<DefaultSupportedTypes, "date" | "datetime-local" | "time" | "timestamp">,
 ): string => {
   // using loose "==" here to catch both undefined and null
   if (value == undefined || typeof value === "boolean") return FALLBACK_RENDER_VALUE;
-
-  const locale = injectI18n().locale;
 
   const formatterOptions = {
     date: { dateStyle: "medium" },
@@ -68,6 +66,8 @@ const dateFormatter = <TEntry extends DataGridEntry>(
       timeZoneName: "shortOffset",
     },
   } satisfies Record<typeof type, Intl.DateTimeFormatOptions>;
+
+  const locale = injectI18n().locale;
   const formatter = new Intl.DateTimeFormat(locale.value, formatterOptions[type]);
 
   try {
