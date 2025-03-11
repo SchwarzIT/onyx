@@ -43,7 +43,10 @@ export type TypeRenderer<TEntry extends DataGridEntry> = {
  * Maps a "type" key to a column renderer.
  * `symbol` keys are intended for internal/helper columns.
  */
-export type TypeRenderMap<TEntry extends DataGridEntry> = Record<PropertyKey, TypeRenderer<TEntry>>;
+export type TypeRenderMap<
+  TEntry extends DataGridEntry,
+  TKey extends PropertyKey = PropertyKey,
+> = Partial<Record<TKey, TypeRenderer<TEntry>>>;
 
 /**
  * ColumnConfig as it can be defined by the user.
@@ -73,7 +76,7 @@ export type InternalColumnConfig<
   TEntry extends DataGridEntry,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   TColumnGroup extends ColumnGroupConfig = any,
-  TTypes = PropertyKey,
+  TTypes extends PropertyKey = PropertyKey,
 > = {
   /**
    * Attributes that should be set on all `td` elements
@@ -86,7 +89,7 @@ export type InternalColumnConfig<
 } & PublicNormalizedColumnConfig<TEntry, TColumnGroup, TTypes>;
 
 /**
- * Normalized column config for internal usage.
+ * Normalized column config for public/external usage.
  */
 export type PublicNormalizedColumnConfig<
   TEntry extends DataGridEntry,
@@ -177,8 +180,16 @@ export type DataGridFeature<
      * The components must be ARIA-conform buttons.
      */
     actions?: (column: PublicNormalizedColumnConfig<TEntry>) => {
-      iconComponent?: Component | { iconComponent: Component; position?: string };
-      menuItems: Component<typeof OnyxMenuItem>[];
+      iconComponent?:
+        | Component
+        | {
+            iconComponent: Component;
+            /**
+             * Will force the iconcomponent to be always shown in the header and not be put into the menu
+             */
+            alwaysShowInHeader?: boolean;
+          };
+      menuItems?: Component<typeof OnyxMenuItem>[];
       showFlyoutMenu?: boolean;
     }[];
   };
@@ -375,18 +386,24 @@ export const useDataGridFeatures = <
                 });
 
                 const headerIcons = normalizedIcons
-                  .filter((ic) => ic?.position === "header")
+                  .filter((ic) => ic?.alwaysShowInHeader)
                   .map((ic) => ic.iconComponent);
 
                 const nonHeaderIcon =
-                  normalizedIcons.find((ic) => !ic.position)?.iconComponent ?? null;
+                  normalizedIcons.find((ic) => !ic.alwaysShowInHeader)?.iconComponent ?? null;
+
+                const filteredActions = actions.filter(
+                  (action) =>
+                    !(action.iconComponent as { alwaysShowInHeader?: boolean })?.alwaysShowInHeader,
+                );
 
                 const shouldShowFlyout =
-                  actions.length > 1 || actions.some((action) => action.showFlyoutMenu);
+                  filteredActions.length > 1 || actions.some((action) => action.showFlyoutMenu);
 
-                return [...headerIcons, shouldShowFlyout ? flyoutMenu : nonHeaderIcon].filter(
-                  Boolean,
-                );
+                return [
+                  ...(shouldShowFlyout ? headerIcons : []),
+                  shouldShowFlyout ? flyoutMenu : nonHeaderIcon,
+                ].filter(Boolean);
               },
             },
           ),

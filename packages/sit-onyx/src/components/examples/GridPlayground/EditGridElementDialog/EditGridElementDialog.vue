@@ -73,29 +73,22 @@ const handleCheckboxChange = (isChecked: boolean, breakpoint: OnyxBreakpoint) =>
         <template v-if="!state.isFullWidth">
           <p class="dialog__description onyx-text--small">
             Define the responsive behavior of the component by setting the number of columns.
-            Optionally, you can set different configs for each breakpoint.
           </p>
 
           <OnyxStepper
             v-model="state.columnCount"
             label="Default number of columns"
-            placeholder="Default number of columns"
+            placeholder="Default column count"
             v-bind="STEPPER_VALIDATIONS"
             :precision="0"
             autofocus
-            required
+            hide-label
           />
         </template>
       </div>
 
       <div class="dialog__body">
         <template v-if="!state.isFullWidth">
-          <p class="dialog__description onyx-text--small">
-            The breakpoint configs follow a "greater or equal than" logic. Example: For default
-            column 4 and breakpoint "md" with 8 columns, the component will span 4 columns for
-            breakpoints smaller than md and 8 columns for md and larger.
-          </p>
-
           <div class="dialog__grid">
             <div
               v-for="(_, breakpoint) in ONYX_BREAKPOINTS"
@@ -121,6 +114,7 @@ const handleCheckboxChange = (isChecked: boolean, breakpoint: OnyxBreakpoint) =>
             </div>
           </div>
         </template>
+
         <p v-else class="dialog__description onyx-text--small">
           The grid element will always span a full row and not share any space with other elements.
         </p>
@@ -177,13 +171,13 @@ const handleCheckboxChange = (isChecked: boolean, breakpoint: OnyxBreakpoint) =>
       padding: var(--onyx-density-sm);
     }
 
+    &:has(input:enabled) {
+      background-color: var(--onyx-color-base-neutral-200);
+    }
+
     &:has(input:checked) {
       border-color: var(--onyx-color-component-border-primary);
       background-color: var(--onyx-color-base-primary-100);
-    }
-
-    &:has(input:enabled) {
-      background-color: var(--onyx-color-base-neutral-200);
     }
 
     &:has(input:disabled) {

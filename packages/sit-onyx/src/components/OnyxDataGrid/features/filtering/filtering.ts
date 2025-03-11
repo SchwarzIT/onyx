@@ -125,7 +125,7 @@ export const useFiltering = createFeature(
                       color: "medium",
                       onClick: () => clearFilter(column),
                     }),
-                    position: "header",
+                    alwaysShowInHeader: true,
                   }
                 : undefined,
               menuItems: [getMenuItem(column)],

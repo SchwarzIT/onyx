@@ -1,17 +1,31 @@
 <script lang="ts" setup>
+import circleAttention from "@sit-onyx/icons/circle-attention.svg?raw";
 import edit from "@sit-onyx/icons/edit.svg?raw";
+import eyeDisabled from "@sit-onyx/icons/eye-disabled.svg?raw";
+import eye from "@sit-onyx/icons/eye.svg?raw";
 import plus from "@sit-onyx/icons/plus.svg?raw";
 import settings from "@sit-onyx/icons/settings.svg?raw";
 import { ONYX_BREAKPOINTS, type OnyxBreakpoint } from "@sit-onyx/shared/breakpoints";
-import { computed, nextTick, ref, shallowRef, useTemplateRef, watch } from "vue";
+import {
+  computed,
+  nextTick,
+  onMounted,
+  onUnmounted,
+  ref,
+  shallowRef,
+  useTemplateRef,
+  watch,
+} from "vue";
 import { useResizeObserver } from "../../../composables/useResizeObserver";
 import OnyxHeadline from "../../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIcon from "../../OnyxIcon/OnyxIcon.vue";
+import OnyxIconButton from "../../OnyxIconButton/OnyxIconButton.vue";
 import OnyxLink from "../../OnyxLink/OnyxLink.vue";
 import OnyxNavBar from "../../OnyxNavBar/OnyxNavBar.vue";
 import OnyxMenuItem from "../../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
+import OnyxNavSeparator from "../../OnyxNavBar/modules/OnyxNavSeparator/OnyxNavSeparator.vue";
 import OnyxUserMenu from "../../OnyxNavBar/modules/OnyxUserMenu/OnyxUserMenu.vue";
-import OnyxRadioGroup from "../../OnyxRadioGroup/OnyxRadioGroup.vue";
+import OnyxSelect from "../../OnyxSelect/OnyxSelect.vue";
 import type { SelectOption } from "../../OnyxSelect/types";
 import OnyxVisuallyHidden from "../../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import EditGridElementDialog, {
@@ -20,22 +34,29 @@ import EditGridElementDialog, {
 import GridBadge from "./GridBadge/GridBadge.vue";
 import GridElement from "./GridElement/GridElement.vue";
 import GridOverlay from "./GridOverlay/GridOverlay.vue";
+import StorybookExpand from "./storybook/expand.svg?raw";
+import StorybookNewTab from "./storybook/new-tab.svg?raw";
 
 const viewportSize = useResizeObserver(shallowRef(document.body));
 
+type MaxWidth = OnyxBreakpoint | "none";
+type MaxColumns = 12 | 16 | 20;
+type Alignment = "left" | "center";
+
 const gridSettings = ref<{
-  alignment: "left" | "center";
-  maxWidth: OnyxBreakpoint | "none";
-  maxColumns: 12 | 16 | 20;
+  alignment: Alignment;
+  maxWidth: MaxWidth;
+  maxColumns: MaxColumns;
 }>({
   alignment: "left",
-  maxWidth: "none",
+  maxWidth: "md",
   maxColumns: 12,
 });
 
 const gridElements = ref<GridElementConfig[]>([]);
 const isAddDialogOpen = ref(false);
 const gridElementIndexToEdit = ref<number>();
+const showGridLines = ref(false);
 
 const grid = useTemplateRef("gridRef");
 
@@ -78,103 +99,129 @@ const updateElement = (index: number, newElement: GridElementConfig) => {
   closeEdit();
 };
 
-const alignmentOptions: SelectOption[] = [
+const alignmentOptions = [
   { label: "left", value: "left" },
   { label: "center", value: "center" },
-];
+] satisfies SelectOption<Alignment>[];
 
-const maxWidthOptions: SelectOption[] = [
+const maxWidthOptions = [
   { label: "none", value: "none" },
   { label: `${ONYX_BREAKPOINTS.lg}px`, value: "md" },
   { label: `${ONYX_BREAKPOINTS.xl}px`, value: "lg" },
-];
+] satisfies SelectOption<MaxWidth>[];
 
-const maxColumnsOptions: SelectOption[] = [
-  { label: "12 (default)", value: 12 },
-  { label: "16 (>= LG)", value: 16 },
-  { label: "20 (>= XL)", value: 20 },
-];
+const maxColumnsOptions = [
+  { label: "12 columns", value: 12 },
+  { label: "16 columns", value: 16 },
+  { label: "20 columns", value: 20 },
+] satisfies SelectOption<MaxColumns>[];
 
 const currentBreakpoint = computed(() => {
   const breakpoint = Object.entries(ONYX_BREAKPOINTS).reduce((prev, [name, width]) => {
-    if (viewportSize.width.value >= width) return name.toUpperCase();
+    if (viewportSize.width.value >= width) return name;
     return prev;
   }, "2xs");
 
-  return `${breakpoint} (${Math.round(viewportSize.width.value)}px)`;
+  return breakpoint;
 });
+
+const isFullscreen = ref(false);
+const updateIsFullscreen = () =>
+  // `window.parent` is either a reference to the iframe parent window or the own window.
+  // So when the width is equal for both, we know that this Story is in fullscreen mode.
+  (isFullscreen.value = window.innerWidth === window.parent.innerWidth);
+
+onMounted(() => {
+  updateIsFullscreen();
+  window.addEventListener("resize", updateIsFullscreen);
+});
+onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
 </script>
 
 <template>
   <div class="onyx-text playground">
-    <div class="onyx-grid-container">
+    <div class="onyx-grid-container playground__container">
       <OnyxHeadline is="h1" class="playground__headline">Grid and breakpoint demo</OnyxHeadline>
-      <OnyxHeadline is="h2">
-        Your current breakpoint:
-        <span class="playground__breakpoint">{{ currentBreakpoint }}</span>
-      </OnyxHeadline>
 
-      <p>
-        Add placeholder components below and link them to the grid properties to get an
-        understanding on how components will behave inside the grid. To see the responsiveness of
-        the onyx grid in action, just use the window resizer to adjust your browser width.
+      <p v-if="!isFullscreen" class="playground__info-text">
+        <OnyxIcon :icon="circleAttention" size="16px" />
+        For the best experience, please press the "Fullscreen"
+        <OnyxIcon :icon="StorybookExpand" inline /> or "New Tab"
+        <OnyxIcon :icon="StorybookNewTab" inline /> button in the upper right corner.
+      </p>
+
+      <p class="playground__description-text">
+        This is the playground for grid and breakpoint usage. Feel free to create placeholder
+        objects play around with them. To see the responsiveness of the onyx grid in action, just
+        use the window resizer to adjust the width of your browser. You can globally adjust the grid
+        the way that fit your needs. Details about the technical implementation can be found
+        <OnyxLink href="https://onyx.schwarz/development/grid.html" target="_blank">here</OnyxLink>
       </p>
 
       <p>
-        For further details on the grid, please refer to our
-        <OnyxLink href="https://onyx.schwarz/development/grid.html" target="_blank"
-          >grid docs</OnyxLink
-        >
+        Use the "Toggle Grid Lines Visibility" <OnyxIcon :icon="eye" inline /> button on the right
+        to see how the grid elements align with the grid columns.
       </p>
 
-      <p>
-        <strong
-          >For the best experience, please press the "Go full screen" button in the upper right
-          corner.</strong
-        >
-      </p>
+      <OnyxHeadline is="h2" class="playground__headline">Grid customization</OnyxHeadline>
 
-      <div class="playground__options">
-        <OnyxRadioGroup
-          v-model="gridSettings.maxWidth"
-          label="Max content width"
-          :options="maxWidthOptions"
-          direction="horizontal"
-        />
-
-        <OnyxRadioGroup
+      <div class="playground__options onyx-grid">
+        <OnyxSelect
           v-model="gridSettings.alignment"
-          label="Alignment"
-          label-tooltip="In case of a grid with a max content width of 'none', this determines the alignment of the grid elements as a whole."
+          class="onyx-grid-span-4 onyx-grid-lg-span-3"
+          label="Grid alignment"
+          list-label="List of alignment options"
+          label-tooltip="You can adjust the overall alignment of the grid here."
           :options="alignmentOptions"
-          direction="horizontal"
-          :disabled="gridSettings.maxWidth === 'none'"
         />
 
-        <OnyxRadioGroup
+        <OnyxSelect
+          v-model="gridSettings.maxWidth"
+          class="onyx-grid-span-4 onyx-grid-lg-span-3"
+          label="Max overall width"
+          list-label="List of max width options"
+          label-tooltip="With this setting, you can adjust the maximum width of the container that includes the content. This is only relevant for large breakpoints."
+          :options="maxWidthOptions"
+        />
+
+        <OnyxSelect
           v-model="gridSettings.maxColumns"
-          label="Max columns"
-          label-tooltip="Defines the maximum number of columns the grid can have on the 'LG' and 'XL' breakpoints. Per default the grid is restricted to 12 columns. "
+          class="onyx-grid-span-4 onyx-grid-lg-span-3"
+          label="Column quantity for large breakpoints only"
+          list-label="List of max columns options"
+          label-tooltip="With large breakpoints you can optionally extend the default 12 column grid to 16 or even 20 columns."
           :options="maxColumnsOptions"
-          direction="horizontal"
         />
       </div>
+    </div>
 
-      <div v-if="gridValues" class="playground__badges">
+    <div v-if="gridValues" class="playground__grid-values">
+      <p class="playground__breakpoint">
+        Current breakpoint: <span>{{ currentBreakpoint }}</span>
+      </p>
+
+      <div class="playground__badges">
         <GridBadge :value="gridValues.margin" label="Margin" color="danger" />
         <GridBadge :value="gridValues.columnCount" label="Columns" color="warning" />
         <GridBadge :value="gridValues.gutter" label="Gutter" color="info" />
+        <OnyxNavSeparator />
+        <OnyxIconButton
+          label="Grid lines visibility"
+          :icon="showGridLines ? eye : eyeDisabled"
+          @click="showGridLines = !showGridLines"
+        ></OnyxIconButton>
       </div>
     </div>
 
     <div
+      class="playground__grid-wrapper"
       :class="{
         'onyx-grid-center': gridSettings.alignment === 'center',
         [`onyx-grid-max-${gridSettings.maxWidth}`]: gridSettings.maxWidth !== 'none',
         [`onyx-grid-xl-${gridSettings.maxColumns}`]: gridSettings.maxColumns !== 12,
       }"
     >
-      <GridOverlay :columns="gridValues?.columnCount" />
+      <GridOverlay :columns="gridValues?.columnCount" :show-grid-lines="showGridLines" />
 
       <div>
         <OnyxNavBar app-name="Demo App">
@@ -251,24 +298,65 @@ const currentBreakpoint = computed(() => {
   font-family: var(--onyx-font-family);
   color: var(--onyx-color-text-icons-neutral-intense);
   background-color: var(--onyx-color-base-background-tinted);
+  overflow: scroll;
+  height: 100vh;
+
+  &__container {
+    box-shadow: var(--onyx-shadow-medium-bottom);
+    display: inline-block;
+  }
 
   &__headline {
     margin-bottom: var(--onyx-spacing-2xs);
   }
 
+  &__info-text {
+    display: inline-flex;
+    font-size: 0.813rem;
+    line-height: 1.25rem;
+    color: var(--onyx-color-text-icons-warning-intense);
+    gap: var(--onyx-density-xs);
+    margin: 0;
+    align-items: center;
+  }
+
+  &__description-text {
+    margin: var(--onyx-density-lg) 0 var(--onyx-density-3xl) 0;
+  }
+
   &__options {
-    display: flex;
-    flex-direction: column;
-    gap: var(--onyx-spacing-md);
     margin-top: var(--onyx-spacing-lg);
   }
 
   &__breakpoint {
-    color: var(--onyx-color-text-icons-neutral-soft);
+    font-size: 0.813rem;
+    line-height: 1.25rem;
+    margin: 0;
+    color: var(--onyx-color-text-icons-neutral-medium);
+
+    > span {
+      font-size: 1rem;
+      line-height: 1.5rem;
+      color: var(--onyx-color-text-icons-neutral-intense);
+    }
+  }
+
+  &__grid-values {
+    padding: var(--onyx-grid-margin);
+    padding-bottom: var(--onyx-density-xs);
+    background: var(--onyx-color-base-background-blank);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--onyx-spacing-xl);
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__grid-wrapper {
+    overflow: hidden;
   }
 
   &__badges {
-    margin-top: var(--onyx-grid-gutter);
     display: flex;
     gap: var(--onyx-spacing-xl);
     align-items: center;
@@ -287,6 +375,9 @@ const currentBreakpoint = computed(() => {
 
   &:hover,
   &:focus-visible {
+    background: var(--onyx-color-base-neutral-300);
+    border-color: var(--onyx-color-component-border-neutral-hover);
+
     .element__icon {
       display: revert-layer;
     }
