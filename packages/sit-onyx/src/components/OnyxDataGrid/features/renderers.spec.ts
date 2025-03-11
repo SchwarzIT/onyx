@@ -60,16 +60,16 @@ describe("renderers", () => {
    * Test cases for date type renderers. Key = type, value = expected output.
    */
   const DATE_TEST_CASES = {
-    date: "Apr 11, 2025",
-    datetime: "Apr 11, 2025, 3:42 PM",
-    time: "3:42 PM",
-    timestamp: "04/11/2025, 03:42:27 PM GMT",
+    date: "Mar 11, 2025",
+    datetime: "Mar 11, 2025, 9:51 AM",
+    time: "9:51 AM",
+    timestamp: "03/11/2025, 09:51:27 AM GMT",
   } as const satisfies Partial<Record<DefaultSupportedTypes, string>>;
 
   for (const type in DATE_TEST_CASES) {
     const rendererType = type as keyof typeof DATE_TEST_CASES;
     const expected = DATE_TEST_CASES[rendererType];
-    const value = new Date(2025, 3, 11, 15, 42, 27);
+    const value = new Date(2025, 2, 11, 9, 51, 27);
 
     test.each([
       // positive cases:
