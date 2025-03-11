@@ -61,7 +61,7 @@ describe("renderers", () => {
    */
   const DATE_TEST_CASES = {
     date: "Mar 11, 2025",
-    datetime: "Mar 11, 2025, 9:51 AM",
+    "datetime-local": "Mar 11, 2025, 9:51 AM",
     time: "9:51 AM",
     timestamp: "03/11/2025, 09:51:27 AM GMT",
   } as const satisfies Partial<Record<DefaultSupportedTypes, string>>;

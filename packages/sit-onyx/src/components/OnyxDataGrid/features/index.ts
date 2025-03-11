@@ -61,7 +61,7 @@ export type DefaultSupportedTypes =
   | "string"
   | "number"
   | "date"
-  | "datetime"
+  | "datetime-local"
   | "time"
   | "timestamp";
 

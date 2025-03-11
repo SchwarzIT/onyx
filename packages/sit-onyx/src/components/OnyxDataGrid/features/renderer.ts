@@ -47,7 +47,7 @@ const stringFormatter = <TEntry extends DataGridEntry>(
 
 const dateFormatter = <TEntry extends DataGridEntry>(
   value: TEntry[keyof TEntry] | undefined,
-  type: "date" | "datetime" | "time" | "timestamp",
+  type: "date" | "datetime-local" | "time" | "timestamp",
 ): string => {
   // using loose "==" here to catch both undefined and null
   if (value == undefined || typeof value === "boolean") return FALLBACK_RENDER_VALUE;
@@ -56,7 +56,7 @@ const dateFormatter = <TEntry extends DataGridEntry>(
 
   const formatterOptions = {
     date: { dateStyle: "medium" },
-    datetime: { dateStyle: "medium", timeStyle: "short" },
+    "datetime-local": { dateStyle: "medium", timeStyle: "short" },
     time: { timeStyle: "short" },
     timestamp: {
       year: "numeric",
@@ -97,7 +97,7 @@ const DATE_RENDERER = Object.freeze({
 
 const DATETIME_RENDERER = Object.freeze({
   header: { component: HeaderCell },
-  cell: { component: (props) => dateFormatter(props.modelValue, "datetime") },
+  cell: { component: (props) => dateFormatter(props.modelValue, "datetime-local") },
 }) satisfies TypeRenderer<DataGridEntry>;
 
 const TIME_RENDERER = Object.freeze({
@@ -114,7 +114,7 @@ const BASE_RENDERER_MAP = Object.freeze({
   number: NUMBER_RENDERER,
   string: STRING_RENDERER,
   date: DATE_RENDERER,
-  datetime: DATETIME_RENDERER,
+  "datetime-local": DATETIME_RENDERER,
   time: TIME_RENDERER,
   timestamp: TIMESTAMP_RENDERER,
 }) satisfies Record<DefaultSupportedTypes, TypeRenderer<DataGridEntry>>;
