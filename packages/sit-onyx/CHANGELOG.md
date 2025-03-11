@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.170
+
+### Patch Changes
+
+- d48db41: fix(OnyxAccordionItem): fix open indicator displaying parent state instead of their own
+
 ## 1.0.0-beta.169
 
 ### Minor Changes
