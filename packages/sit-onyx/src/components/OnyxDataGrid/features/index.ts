@@ -57,7 +57,13 @@ export type ColumnConfig<
   TTypes,
 > = keyof TEntry | PublicNormalizedColumnConfig<TEntry, TColumnGroup, TTypes>;
 
-export type DefaultSupportedTypes = "string" | "number";
+export type DefaultSupportedTypes =
+  | "string"
+  | "number"
+  | "date"
+  | "datetime"
+  | "time"
+  | "timestamp";
 
 /**
  * Configuration for the column groupings.
