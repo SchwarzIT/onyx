@@ -234,11 +234,36 @@ test.describe("Screenshot tests", () => {
       />
     ),
   });
+
+  executeMatrixScreenshotTest({
+    name: "Stepper (hidden buttons)",
+    columns: ["default"],
+    rows: ["default", "placeholder", "value"],
+    component: (column, row) => (
+      <OnyxStepper
+        style="width: 12rem"
+        label="Test label"
+        placeholder={row === "placeholder" ? "0" : undefined}
+        modelValue={row === "value" ? 42 : undefined}
+        hideButtons
+      />
+    ),
+    hooks: {
+      beforeEach: async (component) => {
+        const decrementButton = component.getByRole("button", { name: "Decrement" });
+        const incrementButton = component.getByRole("button", { name: "Increment" });
+
+        // ASSERT
+        await expect(decrementButton).toBeHidden();
+        await expect(incrementButton).toBeHidden();
+      },
+    },
+  });
 });
 
 test("should emit events", async ({ mount }) => {
   const events = {
-    updateModelValue: [] as number[],
+    updateModelValue: [] as (number | undefined)[],
   };
 
   // ARRANGE
