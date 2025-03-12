@@ -1,0 +1,24 @@
+.resize-handle {
+  position: absolute;
+  top: 0;
+  right: -1px;
+  bottom: 0;
+  background: var(--onyx-color-base-neutral-600);
+  opacity: 0;
+  width: var(--onyx-1px-in-rem);
+  cursor: col-resize;
+}
+
+.resize-handle:hover,
+.header--being-resized .resize-handle {
+  opacity: 0.5;
+  background: var(--onyx-color-base-primary-500);
+}
+
+th:hover .resize-handle {
+  opacity: 0.3;
+}
+
+.resize-border {
+  border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-600);
+}
