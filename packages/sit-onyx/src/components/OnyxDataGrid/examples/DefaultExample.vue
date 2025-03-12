@@ -19,7 +19,7 @@ const data: TEntry[] = [
 const columns: ColumnConfig<TEntry, ColumnGroupConfig, never>[] = [
   { key: "name", label: "Name" },
   { key: "age", label: "Age", type: "number" },
-  { key: "birthday", label: "Birthday" },
+  { key: "birthday", label: "Birthday", type: "date" },
 ];
 </script>
 

@@ -1,5 +1,6 @@
 import { describe, expect, test, vi } from "vitest";
-import { ref, type FunctionalComponent } from "vue";
+import { ref } from "vue";
+import type { DefaultSupportedTypes } from ".";
 import { createRenderer, FALLBACK_RENDER_VALUE } from "./renderer";
 
 vi.mock("../../../i18n", () => ({
@@ -23,26 +24,15 @@ describe("renderers", () => {
       expected: "Thu Mar 06 2025 12:42:31 GMT+0000 (Coordinated Universal Time)",
     },
     { value: Symbol("test-symbol"), expected: "Symbol(test-symbol)" },
-  ])(
-    "should format cell value $value to $expected with string and fallback renderer",
-    ({ value, expected }) => {
-      // ARRANGE
-      const { getFor } = createRenderer([]);
+  ])("string/fallback: should render $expected for input $value", ({ value, expected }) => {
+    // ACT
+    const fallbackActual = getRendererCellValue(value);
+    const stringActual = getRendererCellValue(value, "string");
 
-      const props = [
-        { modelValue: value, row: { id: 1 } },
-        { attrs: {}, slots: {}, emit: () => ({}) },
-      ] satisfies Parameters<FunctionalComponent>;
-
-      // ACT
-      const fallbackActual = getFor("cell").component(...props);
-      const stringActual = getFor("cell", "string").component(...props);
-
-      // ASSERT
-      expect(fallbackActual).toBe(expected);
-      expect(stringActual).toBe(expected);
-    },
-  );
+    // ASSERT
+    expect(fallbackActual).toBe(expected);
+    expect(stringActual).toBe(expected);
+  });
 
   test.each([
     { value: 42, expected: "42" },
@@ -58,17 +48,59 @@ describe("renderers", () => {
     { value: ["foo", "bar"], expected: FALLBACK_RENDER_VALUE },
     { value: new Date(), expected: FALLBACK_RENDER_VALUE },
     { value: Symbol("test-symbol"), expected: FALLBACK_RENDER_VALUE },
-  ])("should format cell value $value to $expected with number renderer", ({ value, expected }) => {
-    // ARRANGE
-    const { getFor } = createRenderer([]);
-
+  ])("number: should render $expected for input $value", ({ value, expected }) => {
     // ACT
-    const actual = getFor("cell", "number").component(
-      { modelValue: value, row: { id: 1 } },
-      { attrs: {}, slots: {}, emit: () => ({}) },
-    );
+    const actual = getRendererCellValue(value, "number");
 
     // ASSERT
     expect(actual).toBe(expected);
   });
+
+  /**
+   * Test cases for date type renderers. Key = type, value = expected output.
+   */
+  const DATE_TEST_CASES = {
+    date: "Mar 11, 2025",
+    "datetime-local": "Mar 11, 2025, 9:51 AM",
+    time: "9:51 AM",
+    timestamp: "03/11/2025, 09:51:27 AM GMT",
+  } as const satisfies Partial<Record<DefaultSupportedTypes, string>>;
+
+  for (const type in DATE_TEST_CASES) {
+    const rendererType = type as keyof typeof DATE_TEST_CASES;
+    const expected = DATE_TEST_CASES[rendererType];
+    const value = new Date(2025, 2, 11, 9, 51, 27);
+
+    test.each([
+      // positive cases:
+      { value, expected },
+      { value: value.toISOString(), expected },
+      { value: value.getTime(), expected },
+      { value: BigInt(value.getTime()), expected },
+      // negative/invalid cases:
+      { value: new Date("invalid-date"), expected: FALLBACK_RENDER_VALUE },
+      { value: NaN, expected: FALLBACK_RENDER_VALUE },
+      { value: undefined, expected: FALLBACK_RENDER_VALUE },
+      { value: null, expected: FALLBACK_RENDER_VALUE },
+      { value: "definitely-no-number", expected: FALLBACK_RENDER_VALUE },
+      { value: true, expected: FALLBACK_RENDER_VALUE },
+      { value: false, expected: FALLBACK_RENDER_VALUE },
+      { value: { foo: 42 }, expected: FALLBACK_RENDER_VALUE },
+      { value: ["foo", "bar"], expected: FALLBACK_RENDER_VALUE },
+      { value: Symbol("test-symbol"), expected: FALLBACK_RENDER_VALUE },
+    ])(`${rendererType}: should render $expected for input $value`, ({ value, expected }) => {
+      // ACT
+      const actual = getRendererCellValue(value, rendererType);
+
+      // ASSERT
+      expect(actual).toBe(expected);
+    });
+  }
 });
+
+function getRendererCellValue(value: unknown, type?: DefaultSupportedTypes) {
+  const renderer = createRenderer([]);
+  return renderer
+    .getFor("cell", type)
+    .component({ modelValue: value, row: { id: 1 } }, { attrs: {}, slots: {}, emit: () => ({}) });
+}
