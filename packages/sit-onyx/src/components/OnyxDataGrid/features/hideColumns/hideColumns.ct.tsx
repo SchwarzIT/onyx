@@ -12,7 +12,7 @@ const expectColumnCount = async (dataGrid: Locator, count: number) => {
   await expect(dataGrid.getByRole("columnheader")).toHaveCount(count);
 };
 
-test("should hide and show columns", async ({ page, mount }) => {
+test("should hide and show columns", async ({ mount }) => {
   // ARRANGE
   const data = getTestData();
   const component = await mount(
@@ -61,7 +61,6 @@ test("should hide and show columns", async ({ page, mount }) => {
     // ACT
     await expectColumnCount(component, 3); // 3 Visible
     await expect(revealButton).toBeHidden();
-    await page.mouse.up();
     await expect(component).toHaveScreenshot(
       "data-grid-hide-columns-revealed-columns-should-be-last.png",
     );
