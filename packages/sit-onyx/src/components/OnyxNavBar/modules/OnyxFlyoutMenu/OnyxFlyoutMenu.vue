@@ -120,8 +120,14 @@ const {
 
     &__wrapper {
       padding: 0;
-      /** 8 * OnyxListItem, where OnyxListItem => 2 * padding + line-height of OnyxListItem */
-      max-height: calc(8 * (2 * var(--onyx-density-xs) + 1.5rem));
+      /**
+       * The last option should only be half visible:
+       * 7.5 * OnyxListItem, where OnyxListItem => 2 * padding + line-height of OnyxListItem 
+       */
+      max-height: calc(
+        (var(--onyx-flyout-menu-visible-item-count, 7) + 0.5) *
+          (2 * var(--onyx-density-xs) + 1.5rem)
+      );
       overflow: scroll;
     }
   }
