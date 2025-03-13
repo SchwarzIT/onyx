@@ -4,6 +4,7 @@ import {
   h,
   toValue,
   type Component,
+  type HTMLAttributes,
   type MaybeRefOrGetter,
   type TdHTMLAttributes,
   type ThHTMLAttributes,
@@ -193,6 +194,7 @@ export type DataGridFeature<
       showFlyoutMenu?: boolean;
     }[];
   };
+  attributes?: () => HTMLAttributes;
 };
 
 /**
@@ -331,6 +333,9 @@ export const useDataGridFeatures = <
   const createRendererColumnGroups = () =>
     createTableColumnGroups(columns.value, toValue(columnGroups));
 
+  const createRendererTableAttributes = () =>
+    mergeVueProps(...features.map(({ attributes }) => attributes?.()));
+
   const createRendererColumns = (): DataGridRendererColumn<TEntry>[] => {
     const headerFeatures = features.map((feature) => feature.header).filter((header) => !!header);
     const headerActions = headerFeatures
@@ -449,6 +454,10 @@ export const useDataGridFeatures = <
   const watchSources: WatchSource[] = features.flatMap((f) => f.watch ?? []);
 
   return {
+    /**
+     * Takes the table attributes and maps all
+     */
+    createRendererTableAttributes,
     /** Uses the column definition and available column group config to generate the column groups for the underlying OnyxTable */
     createRendererColumnGroups,
     /** Takes the column definition and maps all, calls mutation func and maps at the end to RendererCell */
