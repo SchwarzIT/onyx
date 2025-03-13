@@ -52,7 +52,7 @@ export const useResizing = createFeature(
             class:
               headerBeingResized.value !== null &&
               Object.keys(headerBeingResized.value).includes(column.key as string)
-                ? "resize-border"
+                ? "onyx-data-grid--resize-border"
                 : "",
           },
         };
@@ -72,7 +72,7 @@ export const useResizing = createFeature(
         : [
             h("div", {
               ...props,
-              class: "resize-handle",
+              class: "onyx-data-grid--resize-handle",
               onmousedown: (ev: MouseEvent) => initResize(ev, cols),
             }),
             slots.default?.(),

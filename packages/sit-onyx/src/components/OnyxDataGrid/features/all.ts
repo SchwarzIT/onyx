@@ -1,3 +1,4 @@
+export * from "./resizing/types";
 export * from "./selection/types";
 export * from "./sorting/types";
 export * from "./stickyColumns/types";
