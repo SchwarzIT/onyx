@@ -24,7 +24,7 @@ const slots = defineSlots<{
 .onyx-data-grid-header-cell {
   display: flex;
   align-items: center;
-  gap: var(--onyx-density-2xs);
+  gap: var(--onyx-density-xs);
 
   &__actions {
     display: inline-flex;
