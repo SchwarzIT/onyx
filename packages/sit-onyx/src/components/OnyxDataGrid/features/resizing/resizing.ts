@@ -1,5 +1,6 @@
-import { h, ref, type Slot } from "vue";
+import { h, ref, type Slot, type TdHTMLAttributes } from "vue";
 import { createFeature, type InternalColumnConfig } from "..";
+import { mergeVueProps } from "../../../../utils/attrs";
 import type { DataGridEntry } from "../../types";
 import "./resizing.scss";
 import type { ResizingOptions } from "./types";
@@ -11,15 +12,14 @@ export const useResizing = createFeature(
     const min = 70;
     const headerBeingResized = ref<Record<PropertyKey, HTMLElement>>({});
 
-    const onMouseMove = (ev: { clientX: number }) =>
-      requestAnimationFrame(() => {
-        // Calculate the desired width
-        const horizontalScrollOffset = document.documentElement.scrollLeft;
-        const width =
-          horizontalScrollOffset + ev.clientX - headerBeingResized.value[column.key].offsetLeft;
+    const onMouseMove = (ev: { clientX: number }) => {
+      // Calculate the desired width
+      const horizontalScrollOffset = document.documentElement.scrollLeft;
+      const width =
+        horizontalScrollOffset + ev.clientX - headerBeingResized.value[column.key].offsetLeft;
 
-        headerBeingResized.value[column.key].style.width = Math.max(min, width) + "px";
-      });
+      headerBeingResized.value[column.key].style.width = Math.max(min, width) + "px";
+    };
 
     // Clean up event listeners, classes, etc.
     const onMouseUp = () => {
@@ -45,16 +45,17 @@ export const useResizing = createFeature(
       }
 
       return cols.map((column) => {
+        const tdAttributes: TdHTMLAttributes | undefined = {
+          class:
+            headerBeingResized.value !== null &&
+            Object.keys(headerBeingResized.value).includes(column.key as string)
+              ? "onyx-data-grid--resize-border"
+              : "",
+        };
+
         return {
-          key: column.key,
-          type: column.key,
-          tdAttributes: {
-            class:
-              headerBeingResized.value !== null &&
-              Object.keys(headerBeingResized.value).includes(column.key as string)
-                ? "onyx-data-grid--resize-border"
-                : "",
-          },
+          ...column,
+          tdAttributes: mergeVueProps(tdAttributes, column.tdAttributes),
         };
       });
     };
