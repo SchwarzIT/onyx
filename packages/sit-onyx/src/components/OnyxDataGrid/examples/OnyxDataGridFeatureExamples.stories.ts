@@ -31,3 +31,8 @@ export const StickyColumns: Story = {
   tags: ["new:feature"],
   ...createAdvancedStoryExample("OnyxDataGrid", "StickyColumnsExample"),
 };
+
+export const Resizing: Story = {
+  tags: ["new:feature"],
+  ...createAdvancedStoryExample("OnyxDataGrid", "ResizingExample"),
+};
