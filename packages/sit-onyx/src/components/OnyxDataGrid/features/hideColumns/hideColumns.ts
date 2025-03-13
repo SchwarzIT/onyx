@@ -12,7 +12,7 @@ import type { DataGridEntry } from "../../types";
 import "./hideColumns.scss";
 import type { HideColumnsOptions } from "./types";
 
-export const HIDECOLUMNS_FEATURE = Symbol("HideColumnsFeature");
+export const HIDE_COLUMNS_FEATURE = Symbol("HideColumnsFeature");
 export const HIDDEN_COLUMN = Symbol("HiddenColumn");
 
 export const useHideColumns = createFeature(
@@ -80,7 +80,7 @@ export const useHideColumns = createFeature(
       );
 
     return {
-      name: HIDECOLUMNS_FEATURE,
+      name: HIDE_COLUMNS_FEATURE,
       watch: [hiddenColumns],
       modifyColumns: {
         func: (columnConfig) => {

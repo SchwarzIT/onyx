@@ -3,7 +3,7 @@ import type { MaybeRef } from "vue";
 export type HideColumnsOptions = {
   /**
    * Defines which columns can be hidden
-   * If omitted, all columns are hideable
+   * If omitted, all columns are hidable
    */
   columns?: MaybeRef<HideColumn[]>;
 };
