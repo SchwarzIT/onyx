@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.172
+
+### Minor Changes
+
+- a0717b8: feat(OnyxDataGrid): add hideColumns feature
+
 ## 1.0.0-beta.171
 
 ### Minor Changes
