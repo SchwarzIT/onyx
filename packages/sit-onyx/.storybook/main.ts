@@ -38,6 +38,7 @@ const config: StorybookConfig = {
     <meta property="og:image:width" content="600" />
     <meta property="og:image:height" content="600" />
     <meta property="og:url" content="https://storybook.onyx.schwarz">
+    <link href="/manager-overrides.css" rel="stylesheet" />
   `,
   // somehow Storybook does not parse the CSS in the correct order so the CSS layers are messed up.
   // to fix this, we add them manually before all other styles here

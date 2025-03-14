@@ -152,7 +152,7 @@ const panelId = computed(() => `panel-${props.value.toString()}`);
       transition: transform var(--onyx-accordion-toggle-duration) ease;
     }
 
-    &[open] &__header-icon {
+    &[open] > &__header &__header-icon {
       transform: rotate(180deg);
     }
 

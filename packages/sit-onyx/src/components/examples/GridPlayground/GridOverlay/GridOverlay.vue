@@ -52,6 +52,7 @@ const props = withDefaults(
           height: 10000px;
           z-index: 60;
           border: var(--onyx-1px-in-rem) dashed var(--onyx-color-component-border-danger-hover);
+          pointer-events: none;
         }
 
         &::after {
@@ -61,6 +62,7 @@ const props = withDefaults(
           z-index: 60;
           right: -1px;
           border: var(--onyx-1px-in-rem) dashed var(--onyx-color-component-border-danger-hover);
+          pointer-events: none;
         }
       }
     }

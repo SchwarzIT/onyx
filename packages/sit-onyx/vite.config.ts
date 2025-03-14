@@ -37,6 +37,9 @@ export default defineConfig({
       ignoreSourceErrors: true,
       tsconfig: "tsconfig.app.json",
     },
+    env: {
+      TZ: "UTC",
+    },
   },
 });
 

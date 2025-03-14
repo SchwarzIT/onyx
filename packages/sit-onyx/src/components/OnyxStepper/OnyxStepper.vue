@@ -25,6 +25,7 @@ const props = withDefaults(defineProps<OnyxStepperProps>(), {
   skeleton: SKELETON_INJECTED_SYMBOL,
   disabled: FORM_INJECTED_SYMBOL,
   showError: FORM_INJECTED_SYMBOL,
+  hideButtons: false,
 });
 
 const emit = defineEmits<{
@@ -53,8 +54,7 @@ defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
 
 /**
- * Used to detect user interaction to simulate the behimport { useRootAttrs } from "../../utils/attrs";
-avior of :user-invalid for the native input
+ * Used to detect user interaction to simulate the behavior of :user-invalid for the native input
  * because the native browser :user-invalid does not trigger when the value is changed via Arrow up/down or increase/decrease buttons
  */
 const wasTouched = ref(false);
@@ -133,6 +133,7 @@ useAutofocus(input, props);
     >
       <div class="onyx-stepper__wrapper">
         <button
+          v-if="!props.hideButtons"
           type="button"
           class="onyx-stepper__counter"
           :disabled="
@@ -176,6 +177,7 @@ useAutofocus(input, props);
           @keydown.down.prevent="handleClick('stepDown')"
         />
         <button
+          v-if="!props.hideButtons"
           type="button"
           class="onyx-stepper__counter"
           :disabled="

@@ -30,6 +30,13 @@
           "label": "Search column {column}",
           "placeholder": "Spalte durchsuchen"
         }
+      },
+      "hideColumns": {
+        "revealFlyout": "Liste von versteckten Spalten",
+        "revealTrigger": "Versteckte Spalten anzeigen",
+        "menu": {
+          "hideButton": "Spalte verstecken"
+        }
       }
     }
   },

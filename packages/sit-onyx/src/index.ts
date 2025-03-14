@@ -104,6 +104,9 @@ export * from "./components/OnyxNavBar/modules";
 export { default as OnyxNavBar } from "./components/OnyxNavBar/OnyxNavBar.vue";
 export * from "./components/OnyxNavBar/types";
 
+export { default as OnyxNotificationDot } from "./components/OnyxNotificationDot/OnyxNotificationDot.vue";
+export * from "./components/OnyxNotificationDot/types";
+
 export { default as OnyxPageLayout } from "./components/OnyxPageLayout/OnyxPageLayout.vue";
 export * from "./components/OnyxPageLayout/types";
 

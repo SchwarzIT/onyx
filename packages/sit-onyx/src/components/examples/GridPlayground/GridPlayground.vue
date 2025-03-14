@@ -6,7 +6,16 @@ import eye from "@sit-onyx/icons/eye.svg?raw";
 import plus from "@sit-onyx/icons/plus.svg?raw";
 import settings from "@sit-onyx/icons/settings.svg?raw";
 import { ONYX_BREAKPOINTS, type OnyxBreakpoint } from "@sit-onyx/shared/breakpoints";
-import { computed, nextTick, ref, shallowRef, useTemplateRef, watch } from "vue";
+import {
+  computed,
+  nextTick,
+  onMounted,
+  onUnmounted,
+  ref,
+  shallowRef,
+  useTemplateRef,
+  watch,
+} from "vue";
 import { useResizeObserver } from "../../../composables/useResizeObserver";
 import OnyxHeadline from "../../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIcon from "../../OnyxIcon/OnyxIcon.vue";
@@ -25,6 +34,8 @@ import EditGridElementDialog, {
 import GridBadge from "./GridBadge/GridBadge.vue";
 import GridElement from "./GridElement/GridElement.vue";
 import GridOverlay from "./GridOverlay/GridOverlay.vue";
+import StorybookExpand from "./storybook/expand.svg?raw";
+import StorybookNewTab from "./storybook/new-tab.svg?raw";
 
 const viewportSize = useResizeObserver(shallowRef(document.body));
 
@@ -113,6 +124,18 @@ const currentBreakpoint = computed(() => {
 
   return breakpoint;
 });
+
+const isFullscreen = ref(false);
+const updateIsFullscreen = () =>
+  // `window.parent` is either a reference to the iframe parent window or the own window.
+  // So when the width is equal for both, we know that this Story is in fullscreen mode.
+  (isFullscreen.value = window.innerWidth === window.parent.innerWidth);
+
+onMounted(() => {
+  updateIsFullscreen();
+  window.addEventListener("resize", updateIsFullscreen);
+});
+onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
 </script>
 
 <template>
@@ -120,12 +143,14 @@ const currentBreakpoint = computed(() => {
     <div class="onyx-grid-container playground__container">
       <OnyxHeadline is="h1" class="playground__headline">Grid and breakpoint demo</OnyxHeadline>
 
-      <p class="playground__info-text">
-        <OnyxIcon :icon="circleAttention" size="16px" color="warning"></OnyxIcon>
-        For the best experience, please press the "Fullscreen" button in the upper right corner.
+      <p v-if="!isFullscreen" class="playground__info-text">
+        <OnyxIcon :icon="circleAttention" size="16px" />
+        For the best experience, please press the "Fullscreen"
+        <OnyxIcon :icon="StorybookExpand" inline /> or "New Tab"
+        <OnyxIcon :icon="StorybookNewTab" inline /> button in the upper right corner.
       </p>
 
-      <p>
+      <p class="playground__description-text">
         This is the playground for grid and breakpoint usage. Feel free to create placeholder
         objects play around with them. To see the responsiveness of the onyx grid in action, just
         use the window resizer to adjust the width of your browser. You can globally adjust the grid
@@ -133,11 +158,17 @@ const currentBreakpoint = computed(() => {
         <OnyxLink href="https://onyx.schwarz/development/grid.html" target="_blank">here</OnyxLink>
       </p>
 
+      <p>
+        Use the "Toggle Grid Lines Visibility" <OnyxIcon :icon="eye" inline /> button on the right
+        to see how the grid elements align with the grid columns.
+      </p>
+
       <OnyxHeadline is="h2" class="playground__headline">Grid customization</OnyxHeadline>
 
-      <div class="playground__options">
+      <div class="playground__options onyx-grid">
         <OnyxSelect
           v-model="gridSettings.alignment"
+          class="onyx-grid-span-4 onyx-grid-lg-span-3"
           label="Grid alignment"
           list-label="List of alignment options"
           label-tooltip="You can adjust the overall alignment of the grid here."
@@ -146,6 +177,7 @@ const currentBreakpoint = computed(() => {
 
         <OnyxSelect
           v-model="gridSettings.maxWidth"
+          class="onyx-grid-span-4 onyx-grid-lg-span-3"
           label="Max overall width"
           list-label="List of max width options"
           label-tooltip="With this setting, you can adjust the maximum width of the container that includes the content. This is only relevant for large breakpoints."
@@ -154,6 +186,7 @@ const currentBreakpoint = computed(() => {
 
         <OnyxSelect
           v-model="gridSettings.maxColumns"
+          class="onyx-grid-span-4 onyx-grid-lg-span-3"
           label="Column quantity for large breakpoints only"
           list-label="List of max columns options"
           label-tooltip="With large breakpoints you can optionally extend the default 12 column grid to 16 or even 20 columns."
@@ -287,9 +320,11 @@ const currentBreakpoint = computed(() => {
     align-items: center;
   }
 
+  &__description-text {
+    margin: var(--onyx-density-lg) 0 var(--onyx-density-3xl) 0;
+  }
+
   &__options {
-    display: inline-flex;
-    gap: var(--onyx-spacing-md);
     margin-top: var(--onyx-spacing-lg);
   }
 
@@ -307,10 +342,11 @@ const currentBreakpoint = computed(() => {
   }
 
   &__grid-values {
-    padding: var(--onyx-density-2xl) var(--onyx-density-3xl) var(--onyx-density-xs)
-      var(--onyx-density-3xl);
+    padding: var(--onyx-grid-margin);
+    padding-bottom: var(--onyx-density-xs);
     background: var(--onyx-color-base-background-blank);
     display: flex;
+    flex-wrap: wrap;
     gap: var(--onyx-spacing-xl);
     align-items: center;
     justify-content: space-between;

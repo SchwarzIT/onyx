@@ -46,4 +46,8 @@ export type OnyxStepperProps = Omit<
    * current number input
    */
   modelValue?: Nullable<number>;
+  /**
+   * If true, the +/- button will be hidden.
+   */
+  hideButtons?: boolean;
 };

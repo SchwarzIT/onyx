@@ -1,5 +1,50 @@
 # sit-onyx
 
+## 1.0.0-beta.172
+
+### Minor Changes
+
+- a0717b8: feat(OnyxDataGrid): add hideColumns feature
+
+## 1.0.0-beta.171
+
+### Minor Changes
+
+- 18bd03a: feat: add new `OnyxNotificationDot` component
+
+## 1.0.0-beta.170
+
+### Patch Changes
+
+- d48db41: fix(OnyxAccordionItem): fix open indicator displaying parent state instead of their own
+
+## 1.0.0-beta.169
+
+### Minor Changes
+
+- 12f73c3: feat(OnyxStepper): support new `hideButtons` property to hide the +/- buttons
+
+## 1.0.0-beta.168
+
+### Minor Changes
+
+- d244b9e: feat(OnyxDataGrid): add stickyColumns-feature
+
+## 1.0.0-beta.167
+
+### Patch Changes
+
+- 2b9cbb7: fix(OnyxDataGrid): improve string, number and fallback formatters
+
+  - string/fallback formatter now renders "-" if undefined/null is passed. Also arrays are separated with comma and the array values are recursively formatted (undefined/null values are filtered out). Objects are formatted with `JSON.stringify()` instead of showing "[object Object]"
+  - number formatter: null, true and false are not correctly formatted as fallback value "-".
+
+## 1.0.0-beta.166
+
+### Patch Changes
+
+- 9ca7eec: fix(OnyxSkeleton): fix animation de-synced in some cases
+
 ## 1.0.0-beta.165
 
 ### Minor Changes
