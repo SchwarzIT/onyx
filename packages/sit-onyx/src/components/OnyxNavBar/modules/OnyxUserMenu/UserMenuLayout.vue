@@ -15,7 +15,7 @@ const props = defineProps<{
   /**
    * Controls whether the flyout menu is open.
    */
-  flyoutOpen?: Nullable<boolean>;
+  modelValue?: Nullable<boolean>;
 }>();
 
 const emit = defineEmits<{
