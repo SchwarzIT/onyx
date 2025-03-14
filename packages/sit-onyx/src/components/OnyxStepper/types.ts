@@ -1,4 +1,5 @@
 import type { Autocomplete } from "../../composables/useLenientMaxLengthValidation";
+import type { Nullable } from "../../composables/useVModel";
 import type { SharedFormElementProps } from "../OnyxFormElement/types";
 
 export type OnyxStepperProps = Omit<
@@ -41,4 +42,8 @@ export type OnyxStepperProps = Omit<
    * @see [MDN autocomplete](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete)
    */
   autocomplete?: Autocomplete;
+  /**
+   * current number input
+   */
+  modelValue?: Nullable<number>;
 };

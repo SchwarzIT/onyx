@@ -8,6 +8,7 @@ import { getFormMessages, useCustomValidity } from "../../composables/useCustomV
 import { useErrorClass } from "../../composables/useErrorClass";
 import { useLenientMaxLengthValidation } from "../../composables/useLenientMaxLengthValidation";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
+import { useVModel } from "../../composables/useVModel";
 import { injectI18n } from "../../i18n";
 import { useRootAttrs } from "../../utils/attrs";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
@@ -36,6 +37,10 @@ const emit = defineEmits<{
    * Emitted when the validity state of the input changes.
    */
   validityChange: [validity: ValidityState];
+  /**
+   * Emitted when the input changes
+   */
+  "update:modelValue": [value: string];
 }>();
 
 const slots = defineSlots<{
@@ -54,7 +59,11 @@ const slots = defineSlots<{
 /**
  * Current value of the input.
  */
-const modelValue = defineModel<string>({ default: "" });
+const modelValue = useVModel<"modelValue", string, string>({
+  key: "modelValue",
+  props,
+  emit,
+});
 
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();

@@ -5,6 +5,7 @@ import { useAutofocus } from "../../composables/useAutoFocus";
 import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
+import { useVModel } from "../../composables/useVModel";
 import { useRootAttrs } from "../../utils/attrs";
 import { isValidDate } from "../../utils/date";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
@@ -27,7 +28,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the current value changes. Will be a ISO timestamp created by `new Date().toISOString()`.
    */
-  "update:modelValue": [value?: string];
+  "update:modelValue": [value: DateValue];
   /**
    * Emitted when the validity state of the input changes.
    */
@@ -70,12 +71,11 @@ const getNormalizedDate = computed(() => {
 /**
  * Current value (with getter and setter) that can be used as "v-model" for the native input.
  */
-const value = computed({
-  get: () => getNormalizedDate.value(props.modelValue),
-  set: (value) => {
-    const newDate = new Date(value ?? "");
-    emit("update:modelValue", isValidDate(newDate) ? newDate.toISOString() : undefined);
-  },
+const value = useVModel<"modelValue", DateValue, DateValue>({
+  props,
+  emit,
+  key: "modelValue",
+  defaultValue: "",
 });
 const input = useTemplateRef("inputRef");
 useAutofocus(input, props);
