@@ -26,8 +26,7 @@ export const useVModel = <
     get: () => (options.props[options.key] ?? options.defaultValue) as TValue | TDefaultValue,
     set: (newValue) => {
       if (options.defaultValue == undefined) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        options.emit(`update:${options.key}`, newValue as any);
+        options.emit(`update:${options.key}`, newValue as TValue);
       } else {
         options.emit(`update:${options.key}`, newValue ?? options.defaultValue);
       }
