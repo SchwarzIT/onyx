@@ -1,4 +1,4 @@
-import { computed, onUnmounted, ref, useId, watch } from "vue";
+import { computed, onUnmounted, ref, useId, watch, type HTMLAttributes } from "vue";
 import { createFeature, type ModifyColumns } from "..";
 
 import type { DataGridEntry } from "../../types";
@@ -105,10 +105,11 @@ export const useStickyColumns = createFeature(
             : [...nonSticky, ...sticky.slice().reverse()];
         },
       } satisfies ModifyColumns<TEntry> as ModifyColumns<TEntry>,
-      attributes: () => ({
-        //TODO: should be called onMount
-        onScrollCapturePassive: (e: Event) => handleScroll(e),
-      }),
+      attributes: () =>
+        ({
+          //TODO: should be called onMount
+          onScrollCapturePassive: (e: Event) => handleScroll(e),
+        }) as HTMLAttributes,
     };
   },
 );
