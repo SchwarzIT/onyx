@@ -1,7 +1,8 @@
 <script lang="ts" setup generic="TValue extends PropertyKey">
-import { computed, provide, ref, toRef, toRefs, watch, watchEffect, type Ref } from "vue";
+import { provide, ref, toRef, toRefs, watch, watchEffect, type Ref } from "vue";
 import { useDensity } from "../../composables/density";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
+import { useVModel } from "../../composables/useVModel";
 import {
   ACCORDION_INJECTION_KEY,
   type AccordionInjectionKey,
@@ -16,6 +17,9 @@ const props = withDefaults(defineProps<OnyxAccordionProps<TValue>>(), {
 });
 
 const emit = defineEmits<{
+  /**
+   * Emitted when the list of open items changes.
+   */
   "update:modelValue": [value: TValue[]];
 }>();
 
@@ -32,13 +36,12 @@ defineSlots<{
 const _openItems = ref<TValue[]>([]) as Ref<TValue[]>;
 watchEffect(() => (_openItems.value = props.modelValue ?? []));
 
-const openItems = computed({
+const openItems = useVModel<"modelValue", TValue[], TValue[]>({
   // if modelValue is set by the user, it should be used instead of the internally managed open items
-  get: () => (props.modelValue != undefined ? props.modelValue : _openItems.value),
-  set: (newValue) => {
-    emit("update:modelValue", newValue);
-    _openItems.value = newValue;
-  },
+  props,
+  emit,
+  key: "modelValue",
+  defaultValue: [],
 });
 
 const { disabled, exclusive } = toRefs(props);

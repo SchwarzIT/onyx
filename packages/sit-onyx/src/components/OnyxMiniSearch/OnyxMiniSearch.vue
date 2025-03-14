@@ -4,6 +4,7 @@ import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { computed, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density";
 import { useAutofocus } from "../../composables/useAutoFocus";
+import { useVModel } from "../../composables/useVModel";
 import { injectI18n } from "../../i18n";
 import { useRootAttrs } from "../../utils/attrs";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -18,12 +19,21 @@ const emit = defineEmits<{
    * Emitted when the clear button is clicked.
    */
   clear: [];
+  /**
+   * Updates the current value
+   */
+  "update:modelValue": [value: string];
 }>();
 
 /**
  * Current input/search value.
  */
-const modelValue = defineModel<string>({ default: "" });
+const modelValue = useVModel({
+  props,
+  emit,
+  key: "modelValue",
+  defaultValue: "",
+});
 
 const { rootAttrs, restAttrs } = useRootAttrs();
 const { densityClass } = useDensity(props);

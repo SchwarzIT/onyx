@@ -1,3 +1,4 @@
+import type { Nullable } from "../../../../composables/useVModel";
 import type { WithLinkProp } from "../../../OnyxRouterLink/types";
 
 export type OnyxNavButtonProps = WithLinkProp<true> & {
@@ -12,4 +13,8 @@ export type OnyxNavButtonProps = WithLinkProp<true> & {
    * If "auto" and a [router](https://onyx.schwarz/development/router.html) is provided, the active state will be determined automatically based on the current route.
    */
   active?: boolean | "auto";
+  /**
+   * Controls whether child elements are open on mobile devices.
+   */
+  modelValue?: Nullable<boolean>;
 };

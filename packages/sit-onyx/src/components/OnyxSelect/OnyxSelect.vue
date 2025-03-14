@@ -24,6 +24,7 @@ import { useDensity } from "../../composables/density";
 import { useScrollEnd } from "../../composables/scrollEnd";
 import { useOpenDirection } from "../../composables/useOpenDirection";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState";
+import { useVModel, type Nullable } from "../../composables/useVModel";
 import { injectI18n } from "../../i18n";
 import type { SelectOptionValue } from "../../types";
 import { groupByKey } from "../../utils/objects";
@@ -37,7 +38,7 @@ import type { OnyxSelectInputProps } from "../OnyxSelectInput/types";
 import OnyxSelectOption from "../OnyxSelectOption/OnyxSelectOption.vue";
 import type { OnyxSelectProps, SelectOption } from "./types";
 
-const props = withDefaults(defineProps<OnyxSelectProps<TMultiple, TValue>>(), {
+const props = withDefaults(defineProps<OnyxSelectProps<TModelValue, TMultiple, TValue>>(), {
   loading: false,
   noFilter: false,
   skeleton: SKELETON_INJECTED_SYMBOL,
@@ -60,6 +61,20 @@ const emit = defineEmits<{
    * Emitted when the validity state of the input changes.
    */
   validityChange: [validity: ValidityState];
+  /**
+   * Emitted when a search term is inputted
+   */
+  "update:searchTerm": [value: string];
+
+  /**
+   * Emitted when an option is selected
+   */
+  "update:modelValue": [value?: Nullable<TModelValue>];
+
+  /**
+   * Emitted when the open state changes
+   */
+  "update:open": [value: boolean];
 }>();
 
 const { densityClass } = useDensity(props);
@@ -88,19 +103,33 @@ const { t } = injectI18n();
 /**
  * Value of the currently selected option or an array of values when the `multiple` prop is `true`.
  */
-const modelValue = defineModel<TModelValue>();
+const modelValue = useVModel<"modelValue", TModelValue>({
+  props,
+  emit,
+  key: "modelValue",
+});
 
 /**
  * Value of the search input, when `withSearch` is `true`.
  *
  * Hint: Cover `valueLabel` to prevent the disappearance of the current selections label
  */
-const searchTerm = defineModel<string>("searchTerm", { default: "" });
+const searchTerm = useVModel<"searchTerm", string, string>({
+  props,
+  emit,
+  key: "searchTerm",
+  defaultValue: "",
+});
 
 /**
  * If true, the select popover is expanded and visible.
  */
-const open = defineModel<boolean>("open", { default: false });
+const open = useVModel<"open", boolean, boolean>({
+  props,
+  emit,
+  key: "open",
+  defaultValue: false,
+});
 
 const select = useTemplateRef<HTMLElement>("selectRef");
 const { openDirection, updateOpenDirection } = useOpenDirection(select);

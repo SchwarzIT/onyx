@@ -1,3 +1,4 @@
+import type { Nullable } from "../../composables/useVModel";
 import type { OnyxInputProps } from "../OnyxInput/types";
 
 export type OnyxDatePickerProps = Omit<
@@ -15,7 +16,7 @@ export type OnyxDatePickerProps = Omit<
   /**
    * Current date value. Supports all data types that are parsable by `new Date()`.
    */
-  modelValue?: DateValue;
+  modelValue?: Nullable<DateValue>;
   /**
    * Whether the user should be able to select only date or date + time.
    */

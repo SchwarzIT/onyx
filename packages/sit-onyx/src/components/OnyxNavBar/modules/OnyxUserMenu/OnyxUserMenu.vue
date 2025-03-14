@@ -1,11 +1,19 @@
 <script lang="ts" setup>
 import { computed, inject } from "vue";
+import { useVModel } from "../../../../composables/useVModel";
 import OnyxAvatar from "../../../OnyxAvatar/OnyxAvatar.vue";
 import { MOBILE_NAV_BAR_INJECTION_KEY } from "../../types";
 import type { OnyxUserMenuProps } from "./types";
 import UserMenuLayout from "./UserMenuLayout.vue";
 
 const props = defineProps<OnyxUserMenuProps>();
+
+const emit = defineEmits<{
+  /**
+   * Emitted when the state of flyoutOpen changes.
+   */
+  "update:modelValue": [value: boolean];
+}>();
 
 const slots = defineSlots<{
   /**
@@ -21,7 +29,12 @@ const slots = defineSlots<{
 /**
  * If the flyout is expanded or not. Only has an effect in desktop (non-mobile) mode.
  */
-const flyoutOpen = defineModel<boolean>("flyoutOpen", { default: false });
+const flyoutOpen = useVModel({
+  props,
+  emit,
+  key: "modelValue",
+  defaultValue: false,
+});
 
 const avatar = computed(() => {
   if (typeof props.avatar === "object") return props.avatar;

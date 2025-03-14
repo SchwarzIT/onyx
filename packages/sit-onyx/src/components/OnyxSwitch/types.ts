@@ -1,3 +1,4 @@
+import type { Nullable } from "../../composables/useVModel";
 import type { BaseSelectOption, SelectOptionValue } from "../../types";
 
 export type OnyxSwitchProps<TValue extends SelectOptionValue = SelectOptionValue> = Omit<
@@ -7,5 +8,5 @@ export type OnyxSwitchProps<TValue extends SelectOptionValue = SelectOptionValue
   /**
    * Whether the switch should be checked or not.
    */
-  modelValue?: boolean;
+  modelValue?: Nullable<boolean>;
 };
