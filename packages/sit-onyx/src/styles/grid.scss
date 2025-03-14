@@ -51,14 +51,21 @@ $screenOffset: 1;
   * Grid container classes for "xl" and "lg" breakpoint variants with 16 or 20 columns
   */
   @include screen(min, lg, $screenOffset) {
-    .onyx-grid-xl-20,
     .onyx-grid-lg-16 {
       --onyx-grid-columns: 16;
+    }
+
+    .onyx-grid-lg-20 {
+      --onyx-grid-columns: 20;
     }
   }
   @include screen(min, xl, $screenOffset) {
     .onyx-grid-xl-20 {
       --onyx-grid-columns: 20;
+    }
+
+    .onyx-grid-xl-16 {
+      --onyx-grid-columns: 16;
     }
   }
 

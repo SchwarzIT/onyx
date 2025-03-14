@@ -64,7 +64,7 @@ test("should add/edit grid elements", async ({ mount, page }) => {
    * Should edit grid element
    */
   // ACT
-  await page.getByLabel("Edit grid element 2").click();
+  await page.getByLabel("Edit grid element 5").click();
 
   // ASSERT
   await expect(dialog).toBeVisible();
@@ -86,12 +86,12 @@ test("should add/edit grid elements", async ({ mount, page }) => {
    * Should delete grid element
    */
   // ACT
-  await page.getByLabel("Edit grid element 2").click();
+  await page.getByLabel("Edit grid element 5").click();
   await dialog.getByRole("button", { name: "Delete" }).click();
 
   // ASSERT
   await expect(dialog).toBeHidden();
-  await expect(page.getByLabel("Edit grid element 2")).toBeHidden();
+  await expect(page.getByLabel("Edit grid element 5")).toBeHidden();
 });
 
 test("should show current grid values", async ({ mount, page }) => {
@@ -125,8 +125,8 @@ test("should support to configure the grid", async ({ mount, page }) => {
   const columnCountInput = page.getByRole("combobox", { name: "Column quantity" });
 
   // ASSERT
-  await expect(maxWidthInput).toHaveValue("1440px");
-  await expect(alignmentInput).toHaveValue("left");
+  await expect(maxWidthInput).toHaveValue("Filled");
+  await expect(alignmentInput).toHaveValue("Filled");
   await expect(columnCountInput).toHaveValue("12 columns");
 
   // ACT

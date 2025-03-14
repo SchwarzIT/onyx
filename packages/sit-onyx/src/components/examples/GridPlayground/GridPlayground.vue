@@ -39,32 +39,32 @@ import StorybookNewTab from "./storybook/new-tab.svg?raw";
 
 const viewportSize = useResizeObserver(shallowRef(document.body));
 
-type MaxWidth = OnyxBreakpoint | "none";
-type MaxColumns = 12 | 16 | 20;
-type Alignment = "left" | "center";
-
-const gridSettings = ref<{
-  alignment: Alignment;
-  maxWidth: MaxWidth;
-  maxColumns: MaxColumns;
-}>({
-  alignment: "left",
-  maxWidth: "md",
-  maxColumns: 12,
-});
-
-const gridElements = ref<GridElementConfig[]>([]);
-const isAddDialogOpen = ref(false);
-const gridElementIndexToEdit = ref<number>();
-const showGridLines = ref(false);
-
-const grid = useTemplateRef("gridRef");
+type MaxWidth = OnyxBreakpoint | "Filled";
+type MaxColumns = 4 | 8 | 12 | 16 | 20;
+type Alignment = "left" | "center" | "Filled";
 
 const gridValues = ref<{
   margin: string;
   gutter: string;
   columnCount: number;
 }>();
+
+const gridSettings = ref<{
+  alignment: Alignment;
+  maxWidth: MaxWidth;
+  maxColumns: MaxColumns;
+}>({
+  alignment: "Filled",
+  maxWidth: "Filled",
+  maxColumns: 12,
+});
+
+const gridElements = ref<GridElementConfig[]>(new Array(3).fill({ columnCount: 4 }));
+const isAddDialogOpen = ref(false);
+const gridElementIndexToEdit = ref<number>();
+const showGridLines = ref(false);
+
+const grid = useTemplateRef("gridRef");
 
 watch(
   [viewportSize.width, grid, gridSettings],
@@ -73,14 +73,17 @@ watch(
 
     await nextTick();
     const style = getComputedStyle(grid.value);
+    const columnCount = +style.getPropertyValue("--onyx-grid-columns");
 
     gridValues.value = {
       margin:
         style.getPropertyValue("--onyx-grid-margin-inline") ||
         style.getPropertyValue("--onyx-grid-margin"),
       gutter: style.getPropertyValue("--onyx-grid-gutter"),
-      columnCount: +style.getPropertyValue("--onyx-grid-columns"),
+      columnCount: columnCount,
     };
+
+    gridSettings.value.maxColumns = columnCount as MaxColumns;
   },
   { immediate: true, deep: true },
 );
@@ -100,12 +103,13 @@ const updateElement = (index: number, newElement: GridElementConfig) => {
 };
 
 const alignmentOptions = [
+  { label: "Filled", value: "Filled" },
   { label: "left", value: "left" },
   { label: "center", value: "center" },
 ] satisfies SelectOption<Alignment>[];
 
 const maxWidthOptions = [
-  { label: "none", value: "none" },
+  { label: "Filled", value: "Filled" },
   { label: `${ONYX_BREAKPOINTS.lg}px`, value: "md" },
   { label: `${ONYX_BREAKPOINTS.xl}px`, value: "lg" },
 ] satisfies SelectOption<MaxWidth>[];
@@ -116,6 +120,12 @@ const maxColumnsOptions = [
   { label: "20 columns", value: 20 },
 ] satisfies SelectOption<MaxColumns>[];
 
+const readonlyMaxColumnsOptions = [
+  { label: "4 columns", value: 4 },
+  { label: "8 columns", value: 8 },
+  { label: "12 columns", value: 12 },
+] satisfies SelectOption<MaxColumns>[];
+
 const currentBreakpoint = computed(() => {
   const breakpoint = Object.entries(ONYX_BREAKPOINTS).reduce((prev, [name, width]) => {
     if (viewportSize.width.value >= width) return name;
@@ -123,6 +133,10 @@ const currentBreakpoint = computed(() => {
   }, "2xs");
 
   return breakpoint;
+});
+
+const isLargeBreakpoint = computed(() => {
+  return currentBreakpoint.value === "lg" || currentBreakpoint.value === "xl";
 });
 
 const isFullscreen = ref(false);
@@ -167,15 +181,6 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
 
       <div class="playground__options onyx-grid">
         <OnyxSelect
-          v-model="gridSettings.alignment"
-          class="onyx-grid-span-4 onyx-grid-lg-span-3"
-          label="Grid alignment"
-          list-label="List of alignment options"
-          label-tooltip="You can adjust the overall alignment of the grid here."
-          :options="alignmentOptions"
-        />
-
-        <OnyxSelect
           v-model="gridSettings.maxWidth"
           class="onyx-grid-span-4 onyx-grid-lg-span-3"
           label="Max overall width"
@@ -187,10 +192,20 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
         <OnyxSelect
           v-model="gridSettings.maxColumns"
           class="onyx-grid-span-4 onyx-grid-lg-span-3"
-          label="Column quantity for large breakpoints only"
+          label="Column quantity"
           list-label="List of max columns options"
           label-tooltip="With large breakpoints you can optionally extend the default 12 column grid to 16 or even 20 columns."
-          :options="maxColumnsOptions"
+          :options="!isLargeBreakpoint ? readonlyMaxColumnsOptions : maxColumnsOptions"
+          :readonly="!isLargeBreakpoint"
+        />
+
+        <OnyxSelect
+          v-model="gridSettings.alignment"
+          class="onyx-grid-span-4 onyx-grid-lg-span-3"
+          label="Grid alignment"
+          list-label="List of alignment options"
+          label-tooltip="You can adjust the overall alignment of the grid here."
+          :options="alignmentOptions"
         />
       </div>
     </div>
@@ -217,8 +232,9 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
       class="playground__grid-wrapper"
       :class="{
         'onyx-grid-center': gridSettings.alignment === 'center',
-        [`onyx-grid-max-${gridSettings.maxWidth}`]: gridSettings.maxWidth !== 'none',
-        [`onyx-grid-xl-${gridSettings.maxColumns}`]: gridSettings.maxColumns !== 12,
+        [`onyx-grid-max-${gridSettings.maxWidth}`]: gridSettings.maxWidth !== 'Filled',
+        [`onyx-grid-${currentBreakpoint}-${gridSettings.maxColumns}`]:
+          gridSettings.maxColumns !== 12,
       }"
     >
       <GridOverlay :columns="gridValues?.columnCount" :show-grid-lines="showGridLines" />

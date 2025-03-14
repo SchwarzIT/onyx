@@ -32,6 +32,7 @@ const props = withDefaults(
 <style lang="scss" scoped>
 .overlay {
   height: 1.5rem;
+  border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
 
   &__container {
     padding-top: 0;
@@ -71,6 +72,10 @@ const props = withDefaults(
   &__column {
     background-color: var(--onyx-color-text-icons-warning-soft);
     position: relative;
+  }
+
+  &:has(.overlay__grid--lines-visible) {
+    border-color: var(--onyx-color-component-border-danger-hover);
   }
 }
 </style>
