@@ -1,10 +1,12 @@
 import type { DensityProp } from "../../composables/density";
+import type { Nullable } from "../../composables/useVModel";
 import type { AutofocusProp, BaseSelectOption, SelectOptionValue } from "../../types";
 import type { FormInjected } from "../OnyxForm/OnyxForm.core";
 import type { OnyxSelectInputProps } from "../OnyxSelectInput/types";
 import type { OnyxSelectOptionProps } from "../OnyxSelectOption/types";
 
 export type OnyxSelectProps<
+  TModelValue,
   TMultiple extends boolean | undefined,
   TValue extends SelectOptionValue = SelectOptionValue,
 > = DensityProp &
@@ -78,6 +80,13 @@ export type OnyxSelectProps<
      * If you want to use a button instead, use the `optionsEnd` slot.
      */
     lazyLoading?: SelectLazyLoading;
+  } & {
+    /**
+     * Currently selected options. Can be either a single value or an array of values.
+     */
+    modelValue?: Nullable<TModelValue>;
+    open?: Nullable<boolean>;
+    searchTerm?: Nullable<string>;
   };
 
 export type SelectOption<TValue extends SelectOptionValue = SelectOptionValue> = Pick<

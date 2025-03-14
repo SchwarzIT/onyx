@@ -1,8 +1,15 @@
+import type { Nullable } from "../../composables/useVModel";
 import type { OnyxInputProps } from "../OnyxInput/types";
 
 export type OnyxTextareaProps = Omit<
   OnyxInputProps,
-  "autocomplete" | "hideClearIcon" | "hideSuccessIcon" | "loading" | "pattern" | "type"
+  | "modelValue"
+  | "autocomplete"
+  | "hideClearIcon"
+  | "hideSuccessIcon"
+  | "loading"
+  | "pattern"
+  | "type"
 > & {
   /**
    * Override the default autosize behavior (height adjusts based on the current value).
@@ -15,6 +22,10 @@ export type OnyxTextareaProps = Omit<
    * If `true`, the user will not be able to manually resize the textarea by dragging the bottom right corner.
    */
   disableManualResize?: boolean;
+  /**
+   * current text entered in the textarea.
+   */
+  modelValue?: Nullable<string>;
 };
 
 export type TextareaAutosize = {

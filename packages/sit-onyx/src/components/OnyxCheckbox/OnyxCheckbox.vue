@@ -5,6 +5,7 @@ import { useRequired } from "../../composables/required";
 import { useAutofocus } from "../../composables/useAutoFocus";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
+import { useVModel } from "../../composables/useVModel";
 import type { SelectOptionValue } from "../../types";
 import { useRootAttrs } from "../../utils/attrs";
 import OnyxErrorTooltip from "../OnyxErrorTooltip/OnyxErrorTooltip.vue";
@@ -14,7 +15,6 @@ import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxCheckboxProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxCheckboxProps<TValue>>(), {
-  modelValue: false,
   indeterminate: false,
   disabled: FORM_INJECTED_SYMBOL,
   loading: false,
@@ -36,9 +36,11 @@ const emit = defineEmits<{
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
 
-const isChecked = computed({
-  get: () => props.modelValue,
-  set: (value) => emit("update:modelValue", value),
+const isChecked = useVModel<"modelValue", boolean, boolean>({
+  props,
+  emit,
+  key: "modelValue",
+  defaultValue: false,
 });
 
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });

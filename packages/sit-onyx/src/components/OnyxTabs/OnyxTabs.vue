@@ -3,6 +3,7 @@ import { createTabs } from "@sit-onyx/headless";
 import { provide, toRef, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density";
 import { provideSkeletonContext } from "../../composables/useSkeletonState";
+import { useVModel, type Nullable } from "../../composables/useVModel";
 import { TABS_INJECTION_KEY, type OnyxTabsProps, type TabsInjectionKey } from "./types";
 
 const props = withDefaults(defineProps<OnyxTabsProps<TValue>>(), {
@@ -13,15 +14,21 @@ const emit = defineEmits<{
   /**
    * Emitted when the currently active tab changes.
    */
-  "update:modelValue": [value: TValue];
+  "update:modelValue": [value: Nullable<TValue>];
 }>();
 
 const { densityClass } = useDensity(props);
 
+const modelValue = useVModel<"modelValue", TValue, TValue>({
+  props,
+  emit,
+  key: "modelValue",
+});
+
 const headless = createTabs({
   label: toRef(props, "label"),
-  selectedTab: toRef(() => props.modelValue),
-  onSelect: (tab) => emit("update:modelValue", tab),
+  selectedTab: toRef(() => modelValue.value),
+  onSelect: (tab) => (modelValue.value = tab),
 });
 
 defineSlots<{
