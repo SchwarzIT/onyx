@@ -66,4 +66,19 @@ describe("mergeVueProps", () => {
     const result = mergeVueProps(...args);
     expect(result).toMatchObject(expected);
   });
+
+  test("should be able to merge refs", async () => {
+    const newValue = "new-value";
+    const ref1 = vue.ref();
+    const ref2 = vue.ref();
+    const fnRef = vi.fn();
+    const result = mergeVueProps({}, { ref: ref1 }, { ref: ref2 }, {}, { ref: fnRef }, {});
+
+    const targetRef = result.ref as vue.Ref;
+    targetRef.value = newValue;
+    expect(targetRef.value).toBe(newValue);
+    expect(ref1.value).toBe(newValue);
+    expect(ref2.value).toBe(newValue);
+    expect(fnRef).toHaveBeenCalledWith(newValue, []);
+  });
 });
