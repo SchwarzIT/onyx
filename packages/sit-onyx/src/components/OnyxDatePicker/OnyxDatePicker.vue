@@ -71,11 +71,18 @@ const getNormalizedDate = computed(() => {
 /**
  * Current value (with getter and setter) that can be used as "v-model" for the native input.
  */
-const value = useVModel<"modelValue", DateValue, DateValue>({
+const modelValue = useVModel<"modelValue", DateValue, DateValue>({
   props,
   emit,
   key: "modelValue",
   defaultValue: "",
+});
+const value = computed({
+  get: () => getNormalizedDate.value(modelValue.value),
+  set: (value) => {
+    const newDate = new Date(value ?? "");
+    modelValue.value = isValidDate(newDate) ? newDate.toISOString() : undefined;
+  },
 });
 const input = useTemplateRef("inputRef");
 useAutofocus(input, props);
