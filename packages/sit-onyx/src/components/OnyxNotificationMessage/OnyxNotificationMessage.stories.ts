@@ -1,17 +1,17 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { defineIconSelectArgType } from "../../utils/storybook";
-import OnyxNotification from "./OnyxNotification.vue";
+import OnyxNotificationMessage from "./OnyxNotificationMessage.vue";
 
-const meta: Meta<typeof OnyxNotification> = {
-  title: "Support/Notification",
-  component: OnyxNotification,
+const meta: Meta<typeof OnyxNotificationMessage> = {
+  title: "Support/OnyxNotificationMessage",
+  component: OnyxNotificationMessage,
   argTypes: {
     icon: defineIconSelectArgType(),
   },
 };
 
 export default meta;
-type Story = StoryObj<typeof OnyxNotification>;
+type Story = StoryObj<typeof OnyxNotificationMessage>;
 
 export const Default = {
   args: {
