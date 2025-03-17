@@ -12,7 +12,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the isExpanded state changes.
    */
-  "update:modelValue": [value: boolean];
+  "update:open": [value: boolean];
 }>();
 /**
  * If the flyout is expanded or not.
@@ -20,7 +20,7 @@ const emit = defineEmits<{
 const isExpanded = useVModel({
   props,
   emit,
-  key: "modelValue",
+  key: "open",
   defaultValue: false,
 });
 
