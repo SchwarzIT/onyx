@@ -46,23 +46,26 @@ export const useHideColumns = createFeature(
               ...trigger,
             }),
           options: () => {
-            return hiddenColumns.value.map((column) =>
-              h(
-                OnyxMenuItem,
-                {
-                  onClick: () => {
-                    if (!revealedHiddenColumns.value.includes(column)) {
-                      revealedHiddenColumns.value.push(column);
-                    }
+            return hiddenColumns.value
+              .slice()
+              .sort()
+              .map((column) =>
+                h(
+                  OnyxMenuItem,
+                  {
+                    onClick: () => {
+                      if (!revealedHiddenColumns.value.includes(column)) {
+                        revealedHiddenColumns.value.push(column);
+                      }
 
-                    hiddenColumns.value = hiddenColumns.value.filter(
-                      (hiddenColumn) => hiddenColumn !== column,
-                    );
+                      hiddenColumns.value = hiddenColumns.value.filter(
+                        (hiddenColumn) => hiddenColumn !== column,
+                      );
+                    },
                   },
-                },
-                () => [column],
-              ),
-            );
+                  () => [column],
+                ),
+              );
           },
         } satisfies ComponentSlots<typeof OnyxFlyoutMenu>,
       );
