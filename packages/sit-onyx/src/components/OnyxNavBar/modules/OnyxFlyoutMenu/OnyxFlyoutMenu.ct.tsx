@@ -72,7 +72,7 @@ test("should open on hover", async ({ page, mount }) => {
   const component = await mount(TestWrapperCt, {
     props: { label: "Choose application language", trigger: "hover" },
   });
-  const menu = page.locator("ul");
+  const menu = page.getByLabel("Choose application language");
 
   // ASSERT
   await expect(menu).toBeHidden();

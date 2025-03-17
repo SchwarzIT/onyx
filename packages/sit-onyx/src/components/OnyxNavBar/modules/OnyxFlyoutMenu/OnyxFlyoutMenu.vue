@@ -56,6 +56,7 @@ const {
       :aria-label="props.label"
       class="onyx-flyout-menu__list"
     >
+      <!-- We always want to render the header so that we can render the padding here -->
       <div class="onyx-flyout-menu__list-header">
         <slot name="header"></slot>
       </div>
@@ -68,6 +69,7 @@ const {
         <slot name="options"></slot>
       </ul>
 
+      <!-- We always want to render the footer so that we can render the padding here -->
       <div class="onyx-flyout-menu__list-footer">
         <slot name="footer"></slot>
       </div>
@@ -102,19 +104,13 @@ const {
       &-header {
         position: sticky;
         top: 0;
-
-        &:empty {
-          padding-top: var(--onyx-spacing-2xs);
-        }
+        min-height: var(--onyx-spacing-2xs);
       }
 
       &-footer {
         position: sticky;
         bottom: 0;
-
-        &:empty {
-          padding-bottom: var(--onyx-spacing-2xs);
-        }
+        min-height: var(--onyx-spacing-2xs);
       }
     }
 
@@ -125,8 +121,7 @@ const {
        * 7.5 * OnyxListItem, where OnyxListItem => 2 * padding + line-height of OnyxListItem 
        */
       max-height: calc(
-        (var(--onyx-flyout-menu-visible-item-count, 7) + 0.5) *
-          (2 * var(--onyx-density-xs) + 1.5rem)
+        (var(--onyx-flyout-menu-visible-item-count, 7) + 0.5) * (2 * var(--onyx-density-xs) + 1lh)
       );
       overflow: scroll;
     }
