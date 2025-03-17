@@ -199,6 +199,7 @@ export type DataGridFeature<
       menuItems?: Component<typeof OnyxMenuItem>[];
       showFlyoutMenu?: boolean;
     }[];
+    wrapper?: (column: PublicNormalizedColumnConfig<TEntry>) => Component;
   };
 };
 
@@ -370,6 +371,9 @@ export const useDataGridFeatures = <
     const headerActions = headerFeatures
       .map((feature) => feature.actions)
       .filter((actions) => !!actions);
+    const headerWrappers = headerFeatures
+      .map((feature) => feature.wrapper)
+      .filter((wrapper) => !!wrapper);
 
     return columns.value.map<DataGridRendererColumn<TEntry>>((column) => {
       const actions = headerActions.flatMap((actionFactory) => actionFactory(column));
@@ -397,50 +401,54 @@ export const useDataGridFeatures = <
           options: () => menuItems,
         } satisfies ComponentSlots<typeof OnyxFlyoutMenu>,
       );
+
+      const actionsSlot = {
+        actions: () => {
+          // normalizing the iconComponents from Component to {iconComponent: Component}
+          const iconsArray = Array.isArray(iconComponent)
+            ? iconComponent
+            : iconComponent
+              ? [iconComponent]
+              : [];
+          const normalizedIcons = iconsArray.map((ic) => {
+            if (typeof ic === "object" && "iconComponent" in ic) {
+              return ic;
+            }
+            return { iconComponent: ic };
+          });
+
+          const headerIcons = normalizedIcons
+            .filter((ic) => ic?.alwaysShowInHeader)
+            .map((ic) => ic.iconComponent);
+
+          const nonHeaderIcon =
+            normalizedIcons.find((ic) => !ic.alwaysShowInHeader)?.iconComponent ?? null;
+
+          const filteredActions = actions.filter(
+            (action) =>
+              !(action.iconComponent as { alwaysShowInHeader?: boolean })?.alwaysShowInHeader,
+          );
+
+          const shouldShowFlyout =
+            filteredActions.length > 1 || actions.some((action) => action.showFlyoutMenu);
+
+          return [
+            ...(shouldShowFlyout ? headerIcons : []),
+            shouldShowFlyout ? flyoutMenu : nonHeaderIcon,
+          ].filter(Boolean);
+        },
+      };
+
+      const wrapper = headerWrappers.reduce<Component>(
+        (acc, component) => {
+          return h(component(column), acc);
+        },
+        (props) => h(header.component, { label, ...props }, actionsSlot),
+      );
       return {
         thAttributes: mergeVueProps(header.thAttributes, column.thAttributes),
         key: column.key,
-        component: () =>
-          h(
-            header.component,
-            { label },
-            {
-              actions: () => {
-                // normalizing the iconComponents from Component to {iconComponent: Component}
-                const iconsArray = Array.isArray(iconComponent)
-                  ? iconComponent
-                  : iconComponent
-                    ? [iconComponent]
-                    : [];
-                const normalizedIcons = iconsArray.map((ic) => {
-                  if (typeof ic === "object" && "iconComponent" in ic) {
-                    return ic;
-                  }
-                  return { iconComponent: ic };
-                });
-
-                const headerIcons = normalizedIcons
-                  .filter((ic) => ic?.alwaysShowInHeader)
-                  .map((ic) => ic.iconComponent);
-
-                const nonHeaderIcon =
-                  normalizedIcons.find((ic) => !ic.alwaysShowInHeader)?.iconComponent ?? null;
-
-                const filteredActions = actions.filter(
-                  (action) =>
-                    !(action.iconComponent as { alwaysShowInHeader?: boolean })?.alwaysShowInHeader,
-                );
-
-                const shouldShowFlyout =
-                  filteredActions.length > 1 || actions.some((action) => action.showFlyoutMenu);
-
-                return [
-                  ...(shouldShowFlyout ? headerIcons : []),
-                  shouldShowFlyout ? flyoutMenu : nonHeaderIcon,
-                ].filter(Boolean);
-              },
-            },
-          ),
+        component: () => h(wrapper),
       };
     });
   };
