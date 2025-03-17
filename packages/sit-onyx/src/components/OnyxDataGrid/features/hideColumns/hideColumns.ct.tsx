@@ -22,6 +22,7 @@ test("should hide and show columns", async ({ mount }) => {
       hideColumnsOptions={{
         columns: {
           b: { hidden: true },
+          c: { enabled: false },
         },
       }}
     />,
