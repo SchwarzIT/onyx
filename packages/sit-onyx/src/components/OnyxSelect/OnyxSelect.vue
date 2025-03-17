@@ -3,7 +3,7 @@
   setup
   generic="
     TModelValue extends SelectOptionValue | SelectOptionValue[],
-    TMultiple extends TModelValue extends any[] ? true : undefined,
+    TMultiple extends TModelValue extends any[] ? true : false | undefined,
     TValue extends TModelValue extends (infer TInner)[] ? TInner : TModelValue
   "
 >

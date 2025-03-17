@@ -13,6 +13,7 @@ const props = withDefaults(defineProps<OnyxAccordionProps<TValue>>(), {
   exclusive: false,
   disabled: false,
   skeleton: SKELETON_INJECTED_SYMBOL,
+  type: "default",
 });
 
 const emit = defineEmits<{
@@ -75,6 +76,7 @@ watch(
 
 provide(ACCORDION_INJECTION_KEY as AccordionInjectionKey<TValue>, {
   openItems: toRef(() => openItems.value),
+  type: toRef(() => props.type),
   updateOpen,
   disabled,
   skeleton,

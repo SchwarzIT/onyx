@@ -1,5 +1,39 @@
 # @sit-onyx/nuxt
 
+## 1.0.0-beta.179
+
+### Patch Changes
+
+- Updated dependencies [142d651]
+  - sit-onyx@1.0.0-beta.177
+
+## 1.0.0-beta.178
+
+### Patch Changes
+
+- Updated dependencies [cfd6ab1]
+  - sit-onyx@1.0.0-beta.176
+
+## 1.0.0-beta.177
+
+### Patch Changes
+
+- 0426ecd: Re-enable cssnano extension "calc" to optimize css calc expressions during build. This had to be disabled until now because of a bug in the extension. (See: https://github.com/postcss/postcss-calc/issues/210)
+
+## 1.0.0-beta.176
+
+### Patch Changes
+
+- Updated dependencies [d9fedd6]
+  - sit-onyx@1.0.0-beta.175
+
+## 1.0.0-beta.175
+
+### Patch Changes
+
+- Updated dependencies [da169bb]
+  - sit-onyx@1.0.0-beta.174
+
 ## 1.0.0-beta.174
 
 ### Patch Changes
