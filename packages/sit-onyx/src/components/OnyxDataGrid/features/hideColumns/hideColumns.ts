@@ -97,9 +97,6 @@ export const useHideColumns = createFeature(
           filteredColumns.sort((a, b) => {
             const indexA = revealedHiddenColumns.value.indexOf(a.key);
             const indexB = revealedHiddenColumns.value.indexOf(b.key);
-            if (indexA === -1 && indexB === -1) return 0;
-            if (indexA === -1) return -1;
-            if (indexB === -1) return 1;
             return indexA - indexB;
           });
 
