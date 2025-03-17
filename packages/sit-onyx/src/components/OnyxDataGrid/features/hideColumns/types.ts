@@ -1,21 +1,20 @@
-import type { MaybeRef } from "vue";
+import type { DataGridFeatureOptions } from "..";
+import type { DataGridEntry } from "../../types";
 
-export type HideColumnsOptions = {
-  /**
-   * Defines which columns can be hidden. If omitted, all columns are hidable.
-   */
-  columns?: MaybeRef<HideColumn[]>;
-};
-
-export type HideColumn = {
-  /**
-   * The name of the column.
-   */
-  name: string;
-  /**
-   * Whether the column is hidden.
-   *
-   * @default false
-   */
-  hidden?: boolean;
-};
+/**
+ * The options of the sorting feature for the OnyxDataGrid component.
+ */
+export type HideColumnsOptions<TEntry extends DataGridEntry> = DataGridFeatureOptions<
+  TEntry,
+  object,
+  {
+    [TKey in keyof TEntry]?: {
+      /**
+       * Whether the column is hidden.
+       *
+       * @default false
+       */
+      hidden?: boolean;
+    };
+  }
+>;

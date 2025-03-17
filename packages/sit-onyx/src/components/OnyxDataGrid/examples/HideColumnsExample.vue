@@ -28,7 +28,9 @@ const columns: ColumnConfig<TEntry, ColumnGroupConfig, never>[] = [
 ];
 
 const withHiddenColumns = DataGridFeatures.useHideColumns<TEntry>({
-  columns: [{ name: "age", hidden: true }],
+  columns: {
+    age: { hidden: true },
+  },
 });
 
 const features = [withHiddenColumns];

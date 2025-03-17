@@ -19,7 +19,11 @@ test("should hide and show columns", async ({ mount }) => {
     <TestCase
       data={data}
       columns={["a", "b", "c"]}
-      hideColumnsOptions={{ columns: [{ name: "a" }, { name: "b", hidden: true }] }}
+      hideColumnsOptions={{
+        columns: {
+          b: { hidden: true },
+        },
+      }}
     />,
   );
 
