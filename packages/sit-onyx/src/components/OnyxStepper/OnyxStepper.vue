@@ -82,7 +82,7 @@ const getFormattedValue = computed(() => {
 });
 
 watchEffect(() => {
-  inputValue.value = getFormattedValue.value(modelValue.value ? modelValue.value : undefined);
+  inputValue.value = getFormattedValue.value(modelValue.value);
 });
 
 const handleClick = (direction: "stepUp" | "stepDown") => {

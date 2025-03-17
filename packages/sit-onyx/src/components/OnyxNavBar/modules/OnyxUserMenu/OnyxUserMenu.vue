@@ -12,7 +12,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the state of flyoutOpen changes.
    */
-  "update:modelValue": [value: boolean];
+  "update:flyoutOpen": [value: boolean];
 }>();
 
 const slots = defineSlots<{
@@ -32,7 +32,7 @@ const slots = defineSlots<{
 const flyoutOpen = useVModel({
   props,
   emit,
-  key: "modelValue",
+  key: "flyoutOpen",
   defaultValue: false,
 });
 
