@@ -13,5 +13,5 @@ export type OnyxFlyoutMenuProps = {
   /**
    * Indicates whether the element is expanded or collapsed.
    */
-  modelValue?: Nullable<boolean>;
+  open?: Nullable<boolean>;
 };
