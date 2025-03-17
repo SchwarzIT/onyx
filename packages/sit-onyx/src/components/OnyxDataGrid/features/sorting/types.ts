@@ -1,4 +1,5 @@
-import { type MaybeRef, type MaybeRefOrGetter } from "vue";
+import { type MaybeRef } from "vue";
+import type { DataGridFeatureOptions } from "..";
 import type { DataGridEntry } from "../../types";
 
 export type SortDirection = "asc" | "desc" | "none";
@@ -28,33 +29,23 @@ export type SortState<TEntry extends DataGridEntry> = {
 };
 
 /**
- * Per column sorting configuration.
- * If at least one column has configuration, sorting must be explicitly enabled for all columns.
- */
-export type SortColumnOptions<TEntry extends DataGridEntry> = {
-  [TKey in keyof TEntry]?: {
-    /**
-     * If sorting is enabled for this column.
-     */
-    enabled: boolean;
-    /**
-     * A custom sorting function for this column.
-     * By default the `Intl.Collator` with the current locale is used.
-     */
-    sortFunc?: Compare<TEntry[TKey]>;
-  };
-};
-
-/**
  * The options of the sorting feature for the OnyxDataGrid component.
  */
-export type SortOptions<TEntry extends DataGridEntry> = {
-  /**
-   * The currently applied sorting. Will be updated by the data grid, can be used for reading, updating and watching the applied sorting.
-   */
-  sortState?: MaybeRef<SortState<TEntry>>;
-  /**
-   * The options for each column, including whether sorting is enabled and a custom sorting function. If undefined, sorting is enabled for all columns (default).
-   */
-  columns?: MaybeRefOrGetter<SortColumnOptions<TEntry> | undefined>;
-};
+export type SortOptions<TEntry extends DataGridEntry> = DataGridFeatureOptions<
+  TEntry,
+  {
+    /**
+     * The currently applied sorting. Will be updated by the data grid, can be used for reading, updating and watching the applied sorting.
+     */
+    sortState?: MaybeRef<SortState<TEntry>>;
+  },
+  {
+    [TKey in keyof TEntry]?: {
+      /**
+       * A custom sorting function for this column.
+       * By default the `Intl.Collator` with the current locale is used.
+       */
+      sortFunc?: Compare<TEntry[TKey]>;
+    };
+  }
+>;
