@@ -180,6 +180,9 @@ export * from "./components/OnyxToast/useToast";
 export { default as OnyxInfoCard } from "./components/OnyxInfoCard/OnyxInfoCard.vue";
 export * from "./components/OnyxInfoCard/types";
 
+export { default as OnyxNotificationCard } from "./components/OnyxNotificationCard/OnyxNotificationCard.vue";
+export * from "./components/OnyxNotificationCard/types";
+
 export { default as OnyxTooltip } from "./components/OnyxTooltip/OnyxTooltip.vue";
 export * from "./components/OnyxTooltip/types";
 
