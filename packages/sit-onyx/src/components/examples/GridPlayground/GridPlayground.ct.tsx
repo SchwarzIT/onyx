@@ -119,6 +119,7 @@ test("should show current grid values", async ({ mount, page }) => {
 test("should support to configure the grid", async ({ mount, page }) => {
   // ARRANGE
   await mount(<GridPlayground />);
+  await page.setViewportSize({ width: ONYX_BREAKPOINTS.xl, height: 900 });
 
   const maxWidthInput = page.getByRole("combobox", { name: "Max overall width" });
   const alignmentInput = page.getByRole("combobox", { name: "Grid alignment" });
@@ -132,10 +133,14 @@ test("should support to configure the grid", async ({ mount, page }) => {
   // ACT
   await maxWidthInput.click();
   await page.getByRole("option", { name: "1920px" }).click();
-  await alignmentInput.click();
-  await page.getByRole("option", { name: "center" }).click();
   await columnCountInput.click();
   await page.getByRole("option", { name: "16 columns" }).click();
+  await alignmentInput.click();
+  await page.getByRole("option", { name: "center" }).click();
+
+  await expect(maxWidthInput).toHaveValue("1920px");
+  await expect(alignmentInput).toHaveValue("center");
+  await expect(columnCountInput).toHaveValue("16 columns");
 
   // ASSERT
   await expect(page.locator(".onyx-grid-center.onyx-grid-max-lg.onyx-grid-xl-16")).toBeAttached();

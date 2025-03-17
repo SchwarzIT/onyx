@@ -83,7 +83,9 @@ watch(
       columnCount: columnCount,
     };
 
-    gridSettings.value.maxColumns = columnCount as MaxColumns;
+    if (!isLargeBreakpoint.value) {
+      gridSettings.value.maxColumns = columnCount as MaxColumns;
+    }
   },
   { immediate: true, deep: true },
 );
