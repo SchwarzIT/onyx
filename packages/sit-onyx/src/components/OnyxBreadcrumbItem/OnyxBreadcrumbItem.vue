@@ -51,7 +51,7 @@ const { densityClass } = useDensity(props);
         border-radius: var(--onyx-radius-sm);
       }
 
-      &--label {
+      &--active {
         cursor: pointer;
         background: #bbeaed;
         border: 1px solid #c9d6e0;
