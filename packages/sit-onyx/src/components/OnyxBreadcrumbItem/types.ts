@@ -16,10 +16,6 @@ export type OnyxBreadcrumbItem = DensityProp & {
    * If "auto" and a [router](https://onyx.schwarz/development/router.html) is provided, the active state will be determined automatically based on the current route.
    */
   active?: boolean | "auto";
-
   first?: boolean;
-
   last?: boolean;
-
-  homeIcon?: boolean;
 };

@@ -1,13 +1,20 @@
 <script lang="ts" setup>
-import home from "@sit-onyx/icons/home.svg?raw";
+import homeIcon from "@sit-onyx/icons/home.svg?raw";
 import { useDensity } from "../../composables/density";
 import OnyxBreadcrumbItem from "../OnyxBreadcrumbItem/OnyxBreadcrumbItem.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxRouterLink from "../OnyxRouterLink/OnyxRouterLink.vue";
+import type { OnyxBreadcrumbProps } from "./types";
 
-import type { BreadcrumbHomeItem, OnyxBreadcrumbProps } from "./types";
-const props = defineProps<OnyxBreadcrumbProps & BreadcrumbHomeItem>();
+const props = withDefaults(defineProps<OnyxBreadcrumbProps>(), {
+  container: false,
+  home: () => ({ link: "/" }),
+});
 
-const slots = defineSlots<{
+defineSlots<{
+  /**
+   * Breadcrumb items (see `OnyxBreadcrumbItem` component).
+   */
   default(): unknown;
 }>();
 
@@ -16,22 +23,19 @@ const { densityClass } = useDensity(props);
 
 <template>
   <div :class="['onyx-component', 'onyx-breadcrumb', densityClass]">
-    <!-- component HTML -->
-    <div class="onyx-breadcrumb">
-      <OnyxRouterLink v-if="!props.home" class="crumb" :href="props.link">
-        <div class="label homeIcon">
-          <OnyxIcon :icon="home" size="16px" />
-        </div>
-      </OnyxRouterLink>
-      <OnyxBreadcrumbItem
-        v-if="props.home"
-        :label="props.home?.label ?? 'Home'"
-        :link="props.home?.link ?? '/'"
-        :first="false"
-        :last="true"
-      />
-      <slot></slot>
-    </div>
+    <OnyxRouterLink v-if="!props.home?.label" class="crumb" :href="props.home.link">
+      <OnyxIcon :icon="homeIcon" size="16px" />
+    </OnyxRouterLink>
+
+    <OnyxBreadcrumbItem
+      v-else
+      :label="props.home.label"
+      :link="props.home.link"
+      :first="false"
+      last
+    />
+
+    <slot></slot>
   </div>
 </template>
 
@@ -40,10 +44,8 @@ const { densityClass } = useDensity(props);
 
 .onyx-breadcrumb {
   @include layers.component() {
-    .onyx-breadcrumb {
-      display: flex;
-      gap: 3px;
-    }
+    display: flex;
+    gap: 3px;
   }
 }
 </style>
