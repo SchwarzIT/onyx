@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.176
+
+### Patch Changes
+
+- cfd6ab1: fix(OnyxSelect): accept `:multiple="false"` without type errors
+
 ## 1.0.0-beta.175
 
 ### Major Changes
