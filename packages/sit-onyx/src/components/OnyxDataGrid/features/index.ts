@@ -4,6 +4,7 @@ import {
   h,
   toValue,
   type Component,
+  type MaybeRef,
   type MaybeRefOrGetter,
   type TdHTMLAttributes,
   type ThHTMLAttributes,
@@ -200,6 +201,33 @@ export type DataGridFeature<
     }[];
     wrapper?: (column: PublicNormalizedColumnConfig<TEntry>) => Component;
   };
+};
+
+export type DataGridFeatureOptions<
+  TEntry extends DataGridEntry,
+  TOptions extends object,
+  TColumnOptions extends Partial<Record<keyof TEntry, object>>,
+> = TOptions & {
+  /**
+   * Whether the feature is enabled by default. Can be overridden per column.
+   *
+   * @default true
+   */
+  enabled?: boolean;
+  /**
+   * Options for each column. Will override default/global options of the feature.
+   */
+  columns?: MaybeRef<
+    | {
+        [TKey in keyof TEntry]?: TColumnOptions[TKey] & {
+          /**
+           * Whether the feature is enabled for this column. If unset, the default/global `enabled` option of this feature will be used.
+           */
+          enabled?: boolean;
+        };
+      }
+    | undefined
+  >;
 };
 
 /**
@@ -471,5 +499,28 @@ export const useDataGridFeatures = <
     createRendererColumns,
     // the combined `watch` for all features
     watchSources,
+  };
+};
+
+export const useIsFeatureEnabled = (
+  options?: DataGridFeatureOptions<DataGridEntry, object, object>,
+) => {
+  const isEnabled = computed(() => {
+    return (column: PropertyKey) => {
+      const columns = toValue(options?.columns);
+      const defaultEnabled = options?.enabled ?? true;
+      const isColumnEnabled = columns?.[column]?.enabled;
+      return isColumnEnabled ?? defaultEnabled;
+    };
+  });
+
+  return {
+    /**
+     * Checks whether a data grid feature is enabled for a given column.
+     * Considers the feature defaults as well as column-specific overrides.
+     *
+     * @default true
+     */
+    isEnabled,
   };
 };

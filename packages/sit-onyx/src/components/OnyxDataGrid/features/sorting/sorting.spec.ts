@@ -4,7 +4,7 @@ import { ref, toRef } from "vue";
 import { I18N_INJECTION_KEY } from "../../../../i18n";
 import type { DataGridEntry } from "../../types";
 import { useSorting } from "./sorting";
-import type { SortColumnOptions, SortState } from "./types";
+import type { SortOptions, SortState } from "./types";
 
 vi.mock("vue", async (importOriginal) => {
   const module = await importOriginal<typeof import("vue")>();
@@ -48,6 +48,7 @@ test("should consider reactive sortState", () => {
   });
   const withSorting = useSorting<TestEntry>({
     sortState,
+    enabled: false,
     columns: ref({
       id: { enabled: false },
       a: { enabled: true },
@@ -99,12 +100,12 @@ test("should consider reactive sortState", () => {
 
 test("should consider reactive columns", () => {
   // ARRANGE
-  const columns = ref<SortColumnOptions<DataGridEntry> | undefined>({
+  const columns = ref<vue.UnwrapRef<SortOptions<DataGridEntry>["columns"]>>({
     id: { enabled: false },
     a: { enabled: true },
     b: {
       enabled: true,
-      sortFunc: (a: unknown, b: unknown) => {
+      sortFunc: (a, b) => {
         const aStart = String(a).endsWith("Start");
         const bStart = String(b).endsWith("Start");
         return aStart && bStart ? 0 : aStart ? 1 : -1;
@@ -132,7 +133,7 @@ test("should consider reactive columns", () => {
   // ASSERT
   expect(withSorting.header!.actions!({ key: "id" })).toHaveLength(1);
   expect(withSorting.header!.actions!({ key: "a" })).toHaveLength(0);
-  expect(withSorting.header!.actions!({ key: "b" })).toHaveLength(0);
+  expect(withSorting.header!.actions!({ key: "b" })).toHaveLength(2);
 
   // ACT
   columns.value = undefined;

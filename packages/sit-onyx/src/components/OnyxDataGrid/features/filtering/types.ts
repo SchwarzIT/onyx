@@ -1,28 +1,5 @@
-import type { MaybeRefOrGetter } from "vue";
+import type { DataGridFeatureOptions } from "..";
 import type { DataGridEntry } from "../../types";
-
-/**
- * Configuration for filtering on a per-column basis.
- * If at least one column has a filtering configuration, filtering must be explicitly enabled for all columns.
- */
-export type FilterColumnOptions<TEntry extends DataGridEntry> = {
-  [TKey in keyof TEntry]?: {
-    /**
-     * Determines if filtering is enabled for this column.
-     * If set to true, the column will be filterable.
-     */
-    enabled: boolean;
-    /**
-     * The filter value for this column.
-     * This value will be used to filter the data in this column.
-     */
-    searchTerm?: string;
-    /**
-     * Configuration for how filtering should behave for this column.
-     */
-    config?: FilterConfig<TEntry>;
-  };
-};
 
 /**
  * Configuration for how filtering should behave.
@@ -71,14 +48,25 @@ export type FilterConfig<TEntry extends DataGridEntry> = {
  * The configuration options for the filtering feature in the OnyxDataGrid component.
  * Includes settings for the individual columns and general filter behavior.
  */
-export type FilterOptions<TEntry extends DataGridEntry> = {
-  /**
-   * The filter options for each column, including whether filtering is enabled, the custom filter function, and the column-specific filter configuration.
-   * If undefined, filtering will be enabled for all columns by default.
-   */
-  columns?: MaybeRefOrGetter<FilterColumnOptions<TEntry> | undefined>;
-  /**
-   * Configuration for how the filtering should behave across all columns.
-   */
-  filterConfig?: FilterConfig<TEntry>;
-};
+export type FilterOptions<TEntry extends DataGridEntry> = DataGridFeatureOptions<
+  TEntry,
+  {
+    /**
+     * Configuration for how the filtering should behave across all columns.
+     */
+    filterConfig?: FilterConfig<TEntry>;
+  },
+  {
+    [TKey in keyof TEntry]?: {
+      /**
+       * The filter value for this column.
+       * This value will be used to filter the data in this column.
+       */
+      searchTerm?: string;
+      /**
+       * Configuration for how filtering should behave for this column.
+       */
+      config?: FilterConfig<TEntry>;
+    };
+  }
+>;

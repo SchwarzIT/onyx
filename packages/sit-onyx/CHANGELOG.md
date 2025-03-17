@@ -1,5 +1,52 @@
 # sit-onyx
 
+## 1.0.0-beta.176
+
+### Patch Changes
+
+- cfd6ab1: fix(OnyxSelect): accept `:multiple="false"` without type errors
+
+## 1.0.0-beta.175
+
+### Major Changes
+
+- d9fedd6: feat(OnyxDataGrid): support changing default enabled/disabled state of sorting, filtering and hide columns feature
+
+  Previously, the default enabled behavior of data grid features was inconsistent when passing options without explicitly specifying the enabled property.
+
+  The default enabled/disabled state can now also be configured (and overridden per column if needed):
+
+  ```ts
+  DataGridFeatures.useSorting<Entry>({
+    enabled: false,
+  });
+  ```
+
+  #### Breaking changes
+
+  - sorting feature: all columns will be enabled now by default (previously they were disabled)
+  - hide columns feature: API / options for passing columns has changed to align with the other features
+    - Old:
+    ```ts
+    DataGridFeatures.useHideColumns({
+    columns: [{ name: "a" }, { name: "b", hidden: true }];
+    });
+    ```
+    - New:
+    ```ts
+    DataGridFeatures.useHideColumns<Entry>({
+      columns: {
+        b: { hidden: true },
+      },
+    });
+    ```
+
+## 1.0.0-beta.174
+
+### Minor Changes
+
+- da169bb: feat(OnyxAccordion): add new property `type` with additional `nested-large` and `nested-small` option
+
 ## 1.0.0-beta.173
 
 ### Minor Changes
