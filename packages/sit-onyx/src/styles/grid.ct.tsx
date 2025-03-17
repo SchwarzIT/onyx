@@ -92,7 +92,7 @@ const XL_VARIANTS = [
   { className: "", breakpoint: "xl", expectedColumns: 12 },
   { className: "onyx-grid-lg-16", breakpoint: "lg", expectedColumns: 16 },
   { className: "onyx-grid-lg-16", breakpoint: "xl", expectedColumns: 16 },
-  { className: "onyx-grid-xl-20", breakpoint: "lg", expectedColumns: 16 },
+  { className: "onyx-grid-xl-20", breakpoint: "lg", expectedColumns: 20 },
   { className: "onyx-grid-xl-20", breakpoint: "xl", expectedColumns: 20 },
 ] as const;
 
