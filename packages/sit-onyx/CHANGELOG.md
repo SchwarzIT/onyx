@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.174
+
+### Minor Changes
+
+- da169bb: feat(OnyxAccordion): add new property `type` with additional `nested-large` and `nested-small` option
+
 ## 1.0.0-beta.173
 
 ### Minor Changes
