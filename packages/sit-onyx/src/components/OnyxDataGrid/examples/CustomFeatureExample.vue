@@ -31,7 +31,7 @@ const data: TEntry[] = [
 const columns: ColumnConfig<TEntry, ColumnGroupConfig, never>[] = [
   { key: "name", label: "Name" },
   { key: "age", label: "Age", type: "number" },
-  { key: "birthday", label: "Birthday" },
+  { key: "birthday", label: "Birthday", type: "date" },
 ];
 
 // create a custom reusable data grid feature that you can also e.g. share / re-use in your project
