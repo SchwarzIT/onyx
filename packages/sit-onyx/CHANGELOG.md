@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.177
+
+### Minor Changes
+
+- 142d651: feat(OnyxDataGrid): Add new resizing feature
+
 ## 1.0.0-beta.176
 
 ### Patch Changes
