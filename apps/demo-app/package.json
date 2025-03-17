@@ -1,7 +1,7 @@
 {
   "name": "demo-app",
   "private": true,
-  "version": "1.0.0-beta.171",
+  "version": "1.0.0-beta.173",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -13,7 +13,7 @@
     "@vueuse/core": "^12.8.2",
     "pinia": "^3.0.1",
     "sit-onyx": "workspace:^",
-    "vue-i18n": "^11.1.1",
+    "vue-i18n": "^11.1.2",
     "vue-router": "^4.5.0"
   },
   "devDependencies": {

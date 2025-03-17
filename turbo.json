@@ -10,7 +10,7 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", "src/.vitepress/dist/**"]
+      "outputs": ["dist/**", "src/.vitepress/dist/**", ".nuxt/**"]
     },
     "build:storybook": {
       "dependsOn": ["build"],
