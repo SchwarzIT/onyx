@@ -1,4 +1,4 @@
-export interface OnyxNotificationProps {
+export interface OnyxNotificationMessageProps {
   /**
    * Notification headline/title.
    */
