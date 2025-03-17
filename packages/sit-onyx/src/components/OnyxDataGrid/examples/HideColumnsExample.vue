@@ -1,40 +1,39 @@
 <script setup lang="ts">
-import type { DataGridEntry } from "../../..";
-import { DataGridFeatures, OnyxDataGrid } from "../../..";
+import {
+  DataGridFeatures,
+  OnyxDataGrid,
+  type ColumnConfig,
+  type ColumnGroupConfig,
+} from "../../..";
 
-// STORY SETUP START
-// This section will be removed from the Storybook code example, because it's to complex
-// import type { HideColumn, HideColumnsOptions } from "../../OnyxDataGrid/features/hideColumns/types";
+type TEntry = {
+  id: number;
+  name: string;
+  age: number;
+  birthday: Date;
+};
 
-// const emit = defineEmits<{
-//   "update:columns": [columns: HideColumn[]];
-// }>();
+const data: TEntry[] = [
+  { id: 1, name: "Alice", age: 30, birthday: new Date("1990-01-01") },
+  { id: 2, name: "Charlie", age: 35, birthday: new Date("1998-02-11") },
+  { id: 3, name: "Bob", age: 25, birthday: new Date("1995-06-15") },
+  { id: 4, name: "Robin", age: 28, birthday: new Date("2001-02-22") },
+  { id: 5, name: "John", age: 42, birthday: new Date("1997-04-18") },
+];
 
-// const props = defineProps<HideColumnsOptions>();
+const columns: ColumnConfig<TEntry, ColumnGroupConfig, never>[] = [
+  { key: "name", label: "Name" },
+  { key: "age", label: "Age", type: "number" },
+  { key: "birthday", label: "Birthday", type: "date" },
+];
 
-// const columns = computed({
-//   set: (columns: HideColumn[]) => emit("update:columns", columns),
-//   get: () => toValue(props.columns) ?? [],
-// });
-// // STORY SETUP END
-
-const data = [
-  { id: 1, name: "Alice", rank: 30, birthday: new Date("1990-01-01") },
-  { id: 2, name: "Charlie", rank: 35, birthday: new Date("1998-02-11") },
-  { id: 3, name: "Bob", rank: 25, birthday: new Date("1995-06-15") },
-  { id: 4, name: "Robin", rank: 28, birthday: new Date("2001-02-22") },
-  { id: 5, name: "John", rank: 42, birthday: new Date("1997-04-18") },
-] satisfies DataGridEntry[];
-
-const withHiddenColumns = DataGridFeatures.useHideColumns({
-  columns: [{ name: "name" }, { name: "rank", hidden: true }],
+const withHiddenColumns = DataGridFeatures.useHideColumns<TEntry>({
+  columns: [{ name: "age", hidden: true }],
 });
+
+const features = [withHiddenColumns];
 </script>
 
 <template>
-  <OnyxDataGrid
-    :columns="['name', 'rank', 'birthday']"
-    :data="data"
-    :features="[withHiddenColumns as any]"
-  />
+  <OnyxDataGrid :columns :data :features />
 </template>
