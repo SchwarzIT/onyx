@@ -9,6 +9,8 @@ import {
   OnyxSwitch,
   OnyxSystemButton,
   createFeature,
+  type ColumnConfig,
+  type ColumnGroupConfig,
   type DataGridFeature,
   type TypeRenderMap,
 } from "sit-onyx";
@@ -87,6 +89,16 @@ const data: Entry[] = [
   },
 ];
 
+const columns: ColumnConfig<Entry, ColumnGroupConfig, never>[] = [
+  "name",
+  "age",
+  "country",
+  "city",
+  "street",
+  "houseNumber",
+  "job",
+];
+
 const dummyFeature = createFeature(() => ({
   name: Symbol("More actions"),
   watch: [],
@@ -151,7 +163,7 @@ const dataFeatures = computed(() => {
         />
       </section>
 
-      <OnyxDataGrid :features="dataFeatures" :data :columns="['name', 'age']" />
+      <OnyxDataGrid :features="dataFeatures" :data :columns />
     </div>
   </OnyxPageLayout>
 </template>
