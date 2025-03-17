@@ -113,6 +113,12 @@ export * from "./components/OnyxNavBar/types";
 export { default as OnyxNotificationDot } from "./components/OnyxNotificationDot/OnyxNotificationDot.vue";
 export * from "./components/OnyxNotificationDot/types";
 
+export { default as OnyxNotificationMessage } from "./components/OnyxNotificationMessage/OnyxNotificationMessage.vue";
+export * from "./components/OnyxNotificationMessage/types";
+
+export { default as OnyxNotifications } from "./components/OnyxNotifications/OnyxNotifications.vue";
+export * from "./components/OnyxNotifications/useNotification";
+
 export { default as OnyxPageLayout } from "./components/OnyxPageLayout/OnyxPageLayout.vue";
 export * from "./components/OnyxPageLayout/types";
 
@@ -182,10 +188,6 @@ export * from "./components/OnyxVisuallyHidden/types";
 
 export { default as OnyxForm } from "./components/OnyxForm/OnyxForm.vue";
 export * from "./components/OnyxForm/types";
-
-export { default as OnyxNotification } from "./components/OnyxNotification/OnyxNotification.vue";
-export { default as OnyxNotificationContainer } from "./components/OnyxNotification/OnyxNotificationContainer.vue";
-export * from "./components/OnyxNotification/types";
 
 export * from "./composables/density";
 export * from "./composables/scrollEnd";

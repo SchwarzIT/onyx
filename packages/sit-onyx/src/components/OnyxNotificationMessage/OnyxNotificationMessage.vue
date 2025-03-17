@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { ref } from "vue";
-import type { OnyxNotificationProps } from "./types";
+import type { OnyxNotificationMessageProps } from "./types";
 
-const props = withDefaults(defineProps<OnyxNotificationProps>(), {
+const props = withDefaults(defineProps<OnyxNotificationMessageProps>(), {
   color: "neutral",
   duration: 5000,
 });
