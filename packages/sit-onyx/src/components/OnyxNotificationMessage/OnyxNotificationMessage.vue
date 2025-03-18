@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { ref } from "vue";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxNotificationMessageProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxNotificationMessageProps>(), {
@@ -43,7 +44,6 @@ const onClose = () => {
       :style="{ animationDuration: `${props.duration}ms` }"
       @animationend="onClose"
     ></time>
-    <template v-else></template>
   </div>
 </template>
 
