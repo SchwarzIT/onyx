@@ -78,7 +78,7 @@ export type SharedTextInputProps = {
 export type HtmlTextInputElements = HTMLInputElement | HTMLTextAreaElement;
 
 export type UseTextInputOptions = {
-  modelValue: MaybeRefOrGetter<string | undefined>;
+  modelValue: MaybeRefOrGetter<string | undefined | null>;
   props: SharedTextInputProps;
 };
 

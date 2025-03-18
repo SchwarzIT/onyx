@@ -1,7 +1,7 @@
 <script setup lang="ts" generic="TValue extends SelectOptionValue = SelectOptionValue">
 import { createMenuButton } from "@sit-onyx/headless";
 import { computed } from "vue";
-import { useVModel } from "../../../../composables/useVModel";
+import { useVModel, type Nullable } from "../../../../composables/useVModel";
 import type { SelectOptionValue } from "../../../../types";
 import type { OnyxFlyoutMenuProps } from "./types";
 
@@ -12,7 +12,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the isExpanded state changes.
    */
-  "update:open": [value: boolean];
+  "update:open": [value?: Nullable<boolean>];
 }>();
 /**
  * If the flyout is expanded or not.

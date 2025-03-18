@@ -3,7 +3,7 @@ import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
 import { computed, inject } from "vue";
 import { useLink } from "../../../../composables/useLink";
 import { useMoreListChild } from "../../../../composables/useMoreList";
-import { useVModel } from "../../../../composables/useVModel";
+import { useVModel, type Nullable } from "../../../../composables/useVModel";
 import { extractLinkProps } from "../../../../utils/router";
 import OnyxExternalLinkIcon from "../../../OnyxExternalLinkIcon/OnyxExternalLinkIcon.vue";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
@@ -20,7 +20,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the state of mobile children visibility changes.
    */
-  "update:mobileChildrenOpen": [value: boolean];
+  "update:mobileChildrenOpen": [value: Nullable<boolean>];
 }>();
 
 const slots = defineSlots<{

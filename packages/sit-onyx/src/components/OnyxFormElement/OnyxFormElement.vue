@@ -13,7 +13,7 @@ const props = withDefaults(defineProps<OnyxFormElementProps<T>>(), {
   id: () => useId(),
 });
 const emit = defineEmits<{
-  "update:modelValue": [value: Nullable<T>];
+  "update:modelValue": [value?: Nullable<T>];
 }>();
 
 const { requiredMarker } = useFormContext(props);
@@ -22,7 +22,7 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props, requiredMa
 /**
  * Current value of the input.
  */
-const modelValue = useVModel<"modelValue", T>({
+const modelValue = useVModel({
   props,
   emit,
   key: "modelValue",

@@ -59,7 +59,7 @@ const slots = defineSlots<{
 /**
  * Current value of the input.
  */
-const modelValue = useVModel<"modelValue", string, string>({
+const modelValue = useVModel({
   key: "modelValue",
   props,
   emit,

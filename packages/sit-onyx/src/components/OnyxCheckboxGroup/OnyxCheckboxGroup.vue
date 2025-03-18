@@ -31,7 +31,7 @@ const emit = defineEmits<{
 }>();
 
 const { t } = injectI18n();
-const modelValue = useVModel<"modelValue", TValue[], TValue[]>({
+const modelValue = useVModel({
   props,
   emit,
   key: "modelValue",
