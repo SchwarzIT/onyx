@@ -104,7 +104,7 @@ export const useStickyColumns = createFeature(
             : [...nonSticky, ...sticky.slice().reverse()];
         },
       } satisfies ModifyColumns<TEntry> as ModifyColumns<TEntry>,
-      attributes: () =>
+      scrollContainerAttributes: () =>
         ({
           ref: (el: HTMLElement) => {
             nextTick(() => handleScroll(el));

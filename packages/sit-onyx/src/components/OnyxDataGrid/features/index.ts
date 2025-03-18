@@ -202,7 +202,7 @@ export type DataGridFeature<
     }[];
     wrapper?: (column: PublicNormalizedColumnConfig<TEntry>) => Component;
   };
-  attributes?: () => HTMLAttributes;
+  scrollContainerAttributes?: () => HTMLAttributes;
 };
 
 export type DataGridFeatureOptions<
@@ -369,7 +369,9 @@ export const useDataGridFeatures = <
     createTableColumnGroups(columns.value, toValue(columnGroups));
 
   const createScrollContainerAttributes = () =>
-    mergeVueProps(...features.map(({ attributes }) => attributes?.()));
+    mergeVueProps(
+      ...features.map(({ scrollContainerAttributes }) => scrollContainerAttributes?.()),
+    );
 
   const createRendererColumns = (): DataGridRendererColumn<TEntry>[] => {
     const headerFeatures = features.map((feature) => feature.header).filter((header) => !!header);
