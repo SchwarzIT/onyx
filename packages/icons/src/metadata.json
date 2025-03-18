@@ -581,6 +581,10 @@
     "category": "Network & Infrastructure",
     "aliases": ["join-cloud", "cloud-link", "Cloud-Verbindung", "Cloud-Link", "Wolke"]
   },
+  "cloud-edge": {
+    "category": "Software & Services",
+    "aliases": []
+  },
   "cloud-files": {
     "category": "Software & Services",
     "aliases": []
@@ -744,6 +748,10 @@
     "category": "Devices & Electronics",
     "aliases": ["Suche", "PC finden"]
   },
+  "computer-security-warning": {
+    "category": "Devices & Electronics",
+    "aliases": []
+  },
   "computer-settings": {
     "category": "Devices & Electronics",
     "aliases": ["Computer-Einstellungen", "PC-Optionen"]
@@ -779,6 +787,10 @@
   "controller": {
     "category": "Gamification",
     "aliases": ["play", "joystick", "Spiel", "game", "gamification"]
+  },
+  "cookie": {
+    "category": "Kitchen & Food",
+    "aliases": []
   },
   "copy": {
     "category": "Action & Interface",
@@ -1989,6 +2001,10 @@
     "category": "People & Users",
     "aliases": ["biography", "user-info", "Profil", "Benutzerinfo"]
   },
+  "profile-hook": {
+    "category": "People & Users",
+    "aliases": []
+  },
   "puzzle-1": {
     "category": "Objects",
     "aliases": ["jigsaw", "conundrum", "Puzzle", "Rätsel"]
@@ -2112,6 +2128,10 @@
   "server-lock": {
     "category": "Network & Infrastructure",
     "aliases": ["secure", "Schloss", "geschützt", "Schutz", "gesichert", "Sicherheit", "safe"]
+  },
+  "server-search": {
+    "category": "Software & Services",
+    "aliases": []
   },
   "server-settings": {
     "category": "Network & Infrastructure",

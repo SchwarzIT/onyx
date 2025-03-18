@@ -1,5 +1,19 @@
 # @sit-onyx/icons
 
+## 1.0.0-beta.14
+
+### Minor Changes
+
+- 41eb73c: feat: update icons
+
+  #### New icons
+
+  - cloud-edge
+  - computer-security-warning
+  - cookie
+  - profile-hook
+  - server-search
+
 ## 1.0.0-beta.13
 
 ### Minor Changes

@@ -9,19 +9,34 @@ import {
   OnyxSwitch,
   OnyxSystemButton,
   createFeature,
+  type ColumnConfig,
+  type ColumnGroupConfig,
   type DataGridFeature,
   type TypeRenderMap,
 } from "sit-onyx";
 import { computed, h, ref } from "vue";
 
-const sortingEnabled = ref(false);
-const selectionEnabled = ref(false);
-const filteringEnabled = ref(false);
-const hideColumnsEnabled = ref(false);
-const stickyColumnsEnabled = ref(false);
-const moreActions = ref(false);
+type Entry = {
+  id: number;
+  name: string;
+  age: number;
+  country: string;
+  city: string;
+  street: string;
+  houseNumber: string;
+  job: string;
+};
 
-const data = [
+const enabledFeatures = ref({
+  sorting: false,
+  selection: false,
+  filtering: false,
+  moreActions: false,
+  hideColumns: false,
+  stickyColumns: false,
+});
+
+const data: Entry[] = [
   {
     id: 1,
     name: "John Doe",
@@ -74,7 +89,15 @@ const data = [
   },
 ];
 
-type Entry = (typeof data)[number];
+const columns: ColumnConfig<Entry, ColumnGroupConfig, never>[] = [
+  "name",
+  "age",
+  "country",
+  "city",
+  "street",
+  "houseNumber",
+  "job",
+];
 
 const dummyFeature = createFeature(() => ({
   name: Symbol("More actions"),
@@ -104,22 +127,22 @@ const dummyFeature = createFeature(() => ({
 const dataFeatures = computed(() => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const enabled: DataGridFeature<Entry, TypeRenderMap<any>, any>[] = [];
-  if (filteringEnabled.value) {
+  if (enabledFeatures.value.filtering) {
     enabled.push(DataGridFeatures.useFiltering());
   }
-  if (sortingEnabled.value) {
+  if (enabledFeatures.value.sorting) {
     enabled.push(DataGridFeatures.useSorting<Entry>());
   }
-  if (selectionEnabled.value) {
+  if (enabledFeatures.value.selection) {
     enabled.push(DataGridFeatures.useSelection<Entry>());
   }
-  if (hideColumnsEnabled.value) {
-    enabled.push(DataGridFeatures.useHideColumns());
+  if (enabledFeatures.value.hideColumns) {
+    enabled.push(DataGridFeatures.useHideColumns<Entry>());
   }
-  if (stickyColumnsEnabled.value) {
-    enabled.push(DataGridFeatures.useStickyColumns({ columns: ["name"] }));
+  if (enabledFeatures.value.stickyColumns) {
+    enabled.push(DataGridFeatures.useStickyColumns<Entry>({ columns: ["name"] }));
   }
-  if (moreActions.value) {
+  if (enabledFeatures.value.moreActions) {
     enabled.push(dummyFeature());
   }
   return enabled;
@@ -130,26 +153,24 @@ const dataFeatures = computed(() => {
   <OnyxPageLayout>
     <div class="onyx-grid-container">
       <OnyxHeadline is="h1">Data-Grid example</OnyxHeadline>
+
       <section class="data-grid-settings">
-        <OnyxSwitch v-model="filteringEnabled" label="Enable filtering" />
-        <OnyxSwitch v-model="sortingEnabled" label="Enable sorting" />
-        <OnyxSwitch v-model="selectionEnabled" label="Enable selection" />
-        <OnyxSwitch v-model="hideColumnsEnabled" label="Enable hide Columns" />
-        <OnyxSwitch v-model="stickyColumnsEnabled" label="Enable stickyColumns" />
-        <OnyxSwitch v-model="moreActions" label="Enable more actions" />
+        <OnyxSwitch
+          v-for="(_, feature) in enabledFeatures"
+          :key="feature"
+          v-model="enabledFeatures[feature]"
+          :label="`Enable ${feature}`"
+        />
       </section>
-      <OnyxDataGrid
-        :features="dataFeatures"
-        :data
-        :columns="['name', 'age', 'country', 'city', 'street', 'houseNumber', 'job']"
-      />
+
+      <OnyxDataGrid :features="dataFeatures" :data :columns />
     </div>
   </OnyxPageLayout>
 </template>
 
 <style lang="scss" scoped>
 .data-grid-settings {
-  margin: 1rem 0;
+  margin: var(--onyx-grid-gutter) 0;
   display: flex;
 }
 </style>
