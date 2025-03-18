@@ -1,4 +1,5 @@
 import { computed, inject, ref, type ComputedRef, type InjectionKey } from "vue";
+import type { OnyxButtonProps } from "../OnyxButton/types";
 import type { OnyxNotificationMessageProps } from "../OnyxNotificationMessage/types";
 
 export type NotificationsProvider = {
@@ -30,9 +31,18 @@ export type ProvidedNotification = ShowNotificationOptions & {
 
 export type ShowNotificationOptions = OnyxNotificationMessageProps & {
   /**
-   * Callback when the notification is clicked. Requires `clickable` to be enabled.
+   * Description/preview of the notification content.
    */
-  onClick?: () => void;
+  description: string;
+  /**
+   * Slot to provide optional buttons/actions.
+   */
+  buttons?: (OnyxButtonProps & {
+    /**
+     * Callback that is called when the button is clicked.
+     */
+    onClick?: () => void;
+  })[];
 };
 
 export const NOTIFICATIONS_PROVIDER_INJECTION_KEY = Symbol() as InjectionKey<NotificationsProvider>;
