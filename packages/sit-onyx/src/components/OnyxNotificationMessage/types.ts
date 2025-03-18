@@ -1,12 +1,8 @@
-export interface OnyxNotificationMessageProps {
+export type OnyxNotificationMessageProps = {
   /**
    * Notification headline/title.
    */
   headline: string;
-  /**
-   * Description/preview of the notification content.
-   */
-  description: string;
   /**
    * Duration in milliseconds for the notification to close automatically.
    * Timer will be paused when hovering the toast.
@@ -15,7 +11,7 @@ export interface OnyxNotificationMessageProps {
    */
   duration?: number;
   /**
-   * Optional icon to show next to the headline.
+   * Optional icon to display.
    */
   icon?: string;
-}
+};
