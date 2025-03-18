@@ -43,8 +43,8 @@
   "devDependencies": {
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
-    "@storybook/addon-actions": "^8.6.4",
-    "storybook": "^8.6.4",
+    "@storybook/addon-actions": "^8.6.7",
+    "storybook": "^8.6.7",
     "vue": "catalog:",
     "vue-component-type-helpers": "^2.2.8"
   }
