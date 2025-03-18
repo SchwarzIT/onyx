@@ -29,12 +29,19 @@ const slots = defineSlots<{
 <template>
   <OnyxInfoCard
     class="onyx-component onyx-notification-message"
+    :class="[
+      'onyx-component',
+      'onyx-notification-message',
+      !props.duration ? 'onyx-notification-message--permanent' : '',
+    ]"
     :headline="props.headline"
     color="neutral"
     :icon="props.icon ?? false"
     closable
     tabindex="0"
-    :style="{ animationDuration: `${props.duration}ms` }"
+    :style="{ animationDuration: props.duration ? `${props.duration}ms` : undefined }"
+    role="status"
+    :aria-label="props.headline"
     @close="emit('close')"
     @animationend="emit('close')"
   >
@@ -88,6 +95,10 @@ const slots = defineSlots<{
     &:hover,
     &:focus-within {
       animation-play-state: paused;
+    }
+
+    &--permanent {
+      animation: none;
     }
   }
 }
