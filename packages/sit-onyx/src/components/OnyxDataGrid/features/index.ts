@@ -339,7 +339,7 @@ export const useDataGridFeatures = <
   const createRendererColumnGroups = () =>
     createTableColumnGroups(columns.value, toValue(columnGroups));
 
-  const createRendererTableAttributes = () =>
+  const createScrollContainerAttributes = () =>
     mergeVueProps(...features.map(({ attributes }) => attributes?.()));
 
   const createRendererColumns = (): DataGridRendererColumn<TEntry>[] => {
@@ -463,7 +463,7 @@ export const useDataGridFeatures = <
     /**
      * Takes the table attributes and maps all
      */
-    createRendererTableAttributes,
+    createScrollContainerAttributes,
     /** Uses the column definition and available column group config to generate the column groups for the underlying OnyxTable */
     createRendererColumnGroups,
     /** Takes the column definition and maps all, calls mutation func and maps at the end to RendererCell */

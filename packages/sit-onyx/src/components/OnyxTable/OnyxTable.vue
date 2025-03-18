@@ -71,6 +71,7 @@ const isEmptyMessage = computed(() => t.value("table.empty"));
         props.withPageScrolling ? 'onyx-table-wrapper__container--no-scroll' : '',
       ]"
       :tabindex="props.withPageScrolling ? undefined : 0"
+      v-bind="scrollContainerAttrs"
     >
       <table
         class="onyx-table onyx-text"

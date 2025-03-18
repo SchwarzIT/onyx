@@ -44,7 +44,7 @@ defineSlots<{
 const renderColumns: Ref<DataGridRendererColumn<TEntry>[]> = ref([]);
 const renderRows: Ref<DataGridRendererRow<TEntry, DataGridMetadata>[]> = ref([]);
 const rendererColumnGroups: Ref<TableColumnGroup[] | undefined> = ref();
-const rendererTableAttributes: Ref<HTMLAttributes | undefined> = ref();
+const rendererScrollContainerAttributes: Ref<HTMLAttributes | undefined> = ref();
 
 const { columns, data, features, columnGroups } = toRefs(props);
 
@@ -57,7 +57,7 @@ const createFeatureBuilderWatcher = ({
   createRendererRows,
   watchSources,
   createRendererColumnGroups,
-  createRendererTableAttributes,
+  createScrollContainerAttributes,
 }: ReturnType<
   typeof useDataGridFeatures<TEntry, TFeatureName, TTypeRenderer, TColumnGroup, TFeatures>
 >) => {
@@ -67,7 +67,7 @@ const createFeatureBuilderWatcher = ({
       renderColumns.value = createRendererColumns();
       renderRows.value = createRendererRows(data.value);
       rendererColumnGroups.value = createRendererColumnGroups();
-      rendererTableAttributes.value = createRendererTableAttributes();
+      rendererScrollContainerAttributes.value = createScrollContainerAttributes();
     },
     { immediate: true, deep: true },
   );
@@ -93,7 +93,7 @@ watch(
     :column-groups="rendererColumnGroups"
     :columns="renderColumns"
     :rows="renderRows"
-    v-bind="rendererTableAttributes"
+    :scroll-container-attrs="rendererScrollContainerAttributes"
   >
     <template #empty>
       <slot name="empty" />
