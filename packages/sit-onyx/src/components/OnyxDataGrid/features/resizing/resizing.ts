@@ -1,5 +1,5 @@
 import { h, ref, type Slot, type TdHTMLAttributes } from "vue";
-import { createFeature, type InternalColumnConfig } from "..";
+import { createFeature, useIsFeatureEnabled, type InternalColumnConfig } from "..";
 import { mergeVueProps } from "../../../../utils/attrs";
 import type { DataGridEntry } from "../../types";
 import "./resizing.scss";
@@ -11,6 +11,7 @@ export const useResizing = createFeature(
     let column: Readonly<InternalColumnConfig<TEntry>>;
     const min = 70;
     const headerBeingResized = ref<Record<PropertyKey, HTMLElement>>({});
+    const { isEnabled } = useIsFeatureEnabled(options);
 
     const onMouseMove = (ev: { clientX: number }) => {
       // Calculate the desired width
@@ -40,17 +41,13 @@ export const useResizing = createFeature(
     };
 
     const modifyColumns = (cols: Readonly<InternalColumnConfig<TEntry>[]>) => {
-      if (!options?.columnResizing) {
-        return [...cols];
-      }
-
       return cols.map((column) => {
+        if (!isEnabled.value(column.key)) return column;
+
         const tdAttributes: TdHTMLAttributes | undefined = {
-          class:
-            headerBeingResized.value !== null &&
-            Object.keys(headerBeingResized.value).includes(column.key as string)
-              ? "onyx-data-grid--resize-border"
-              : "",
+          class: Object.keys(headerBeingResized.value).includes(column.key as string)
+            ? "onyx-data-grid--resize-border"
+            : "",
         };
 
         return {
@@ -65,10 +62,7 @@ export const useResizing = createFeature(
       slots: Readonly<{ [name: string]: Slot | undefined }>,
       cols: Readonly<InternalColumnConfig<TEntry>>,
     ) => {
-      const resizingDisabled =
-        options?.disabledColumns?.includes(cols.key) || !options?.columnResizing;
-
-      const wrapper = resizingDisabled
+      const wrapper = !isEnabled.value(cols.key)
         ? [slots.default?.()]
         : [
             h("div", {
