@@ -1,43 +1,43 @@
 import { describe, expect, test } from "vitest";
-import { createNotificationProvider } from "./useNotification";
+import { createNotificationsProvider } from "./useNotification";
 
 describe("useNotification", () => {
-  test("should create notification provider", () => {
-    const provider = createNotificationProvider();
+  test("should create notifications provider", () => {
+    const provider = createNotificationsProvider();
 
-    expect(provider.notificationsQueue.value).toStrictEqual([]);
+    expect(provider.notifications.value).toStrictEqual([]);
 
-    provider.add({ headline: "Test 1", description: "Test 1" });
-    provider.add({ headline: "Test 2", description: "Test 2" });
+    provider.show({ headline: "Test 1", description: "Description 1" });
+    provider.show({ headline: "Test 2", description: "Description 2" });
 
-    expect(provider.notificationsQueue.value).toStrictEqual([
+    expect(provider.notifications.value).toStrictEqual([
       {
         id: 2,
-        headline: "Test 1",
-        description: "Test 1",
+        headline: "Test 2",
+        description: "Description 2",
         onClose: expect.any(Function),
       },
       {
-        id: 3,
-        headline: "Test 2",
-        description: "Test 2",
+        id: 1,
+        headline: "Test 1",
+        description: "Description 1",
         onClose: expect.any(Function),
       },
     ]);
 
     provider.remove(2);
 
-    expect(provider.notificationsQueue.value).toStrictEqual([
+    expect(provider.notifications.value).toStrictEqual([
       {
-        id: 3,
-        headline: "Test 2",
-        description: "Test 2",
+        id: 1,
+        headline: "Test 1",
+        description: "Description 1",
         onClose: expect.any(Function),
       },
     ]);
 
-    provider.notificationsQueue.value[0].onClose();
+    provider.notifications.value[0].onClose();
 
-    expect(provider.notificationsQueue.value).toStrictEqual([]);
+    expect(provider.notifications.value).toStrictEqual([]);
   });
 });
