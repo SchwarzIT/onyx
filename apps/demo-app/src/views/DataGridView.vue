@@ -34,6 +34,7 @@ const enabledFeatures = ref({
   moreActions: false,
   hideColumns: false,
   stickyColumns: false,
+  resize: false,
 });
 
 const data: Entry[] = [
@@ -141,6 +142,9 @@ const dataFeatures = computed(() => {
   }
   if (enabledFeatures.value.stickyColumns) {
     enabled.push(DataGridFeatures.useStickyColumns<Entry>({ columns: ["name"] }));
+  }
+  if (enabledFeatures.value.resize) {
+    enabled.push(DataGridFeatures.useResizing<Entry>());
   }
   if (enabledFeatures.value.moreActions) {
     enabled.push(dummyFeature());
