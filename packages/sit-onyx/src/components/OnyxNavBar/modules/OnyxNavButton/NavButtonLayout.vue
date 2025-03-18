@@ -21,7 +21,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the state of mobile children visibility changes.
    */
-  "update:modelValue": [value: boolean];
+  "update:mobileChildrenOpen": [value: boolean];
 }>();
 
 const slots = defineSlots<{
@@ -41,7 +41,7 @@ const { t } = injectI18n();
 const mobileChildrenOpen = useVModel({
   props,
   emit,
-  key: "modelValue",
+  key: "mobileChildrenOpen",
   defaultValue: false,
 });
 </script>
