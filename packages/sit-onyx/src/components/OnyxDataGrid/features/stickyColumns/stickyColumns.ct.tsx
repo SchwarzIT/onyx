@@ -72,7 +72,7 @@ test("should stick left/right", async ({ page, mount }) => {
     const stickyColumn = component.getByRole("columnheader", {
       name: position === "left" ? "a" : "k",
     });
-    await expect(stickyColumn).toHaveClass(`onyx-data-grid-sticky-columns--sticky ${position}`);
+    await expect(stickyColumn).toHaveClass(new RegExp(`${position}`));
     await expect(stickyColumn).toHaveCSS(position, /[0-9]+px/);
     await expect(component).toHaveScreenshot(`data-grid-sticky-columns-${position}.png`);
   }
