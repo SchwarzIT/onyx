@@ -5,6 +5,7 @@ import {
   type ColumnConfig,
   type ColumnGroupConfig,
 } from "../../..";
+import OnyxHeadline from "../../../components/OnyxHeadline/OnyxHeadline.vue";
 
 type TEntry = {
   id: number;
@@ -23,8 +24,8 @@ const data: TEntry[] = [
 
 const columns: ColumnConfig<TEntry, ColumnGroupConfig, never>[] = [
   { key: "name", label: "Name" },
-  { key: "age", label: "Age" },
-  { key: "birthday", label: "Birthday" },
+  { key: "age", label: "Age", type: "number" },
+  { key: "birthday", label: "Birthday", type: "date" },
 ];
 
 const withResizing = DataGridFeatures.useResizing<TEntry>({
@@ -35,5 +36,6 @@ const features = [withResizing];
 </script>
 
 <template>
+  <OnyxHeadline is="h3">Resizable table columns with drag and slide</OnyxHeadline>
   <OnyxDataGrid :columns :data :features />
 </template>
