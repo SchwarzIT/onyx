@@ -102,8 +102,7 @@ const { t } = injectI18n();
 
 /**
  * Value of the currently selected option or an array of values when the `multiple` prop is `true`.
- */
-const modelValue = useVModel<"modelValue", TModelValue>({
+ */ const modelValue = useVModel({
   props,
   emit,
   key: "modelValue",
@@ -114,7 +113,7 @@ const modelValue = useVModel<"modelValue", TModelValue>({
  *
  * Hint: Cover `valueLabel` to prevent the disappearance of the current selections label
  */
-const searchTerm = useVModel<"searchTerm", string, string>({
+const searchTerm = useVModel({
   props,
   emit,
   key: "searchTerm",
@@ -124,7 +123,7 @@ const searchTerm = useVModel<"searchTerm", string, string>({
 /**
  * If true, the select popover is expanded and visible.
  */
-const open = useVModel<"open", boolean, boolean>({
+const open = useVModel({
   props,
   emit,
   key: "open",

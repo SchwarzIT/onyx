@@ -25,18 +25,18 @@ const props = withDefaults(defineProps<OnyxCheckboxProps<TValue>>(), {
 });
 
 const emit = defineEmits<{
-  /** Emitted when the checked state changes. */
-  "update:modelValue": [value: boolean];
   /**
    * Emitted when the validity state of the input changes.
    */
   validityChange: [validity: ValidityState];
+  /** Emitted when the checked state changes. */
+  "update:modelValue": [value: boolean];
 }>();
 
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
 
-const isChecked = useVModel<"modelValue", boolean, boolean>({
+const isChecked = useVModel({
   props,
   emit,
   key: "modelValue",

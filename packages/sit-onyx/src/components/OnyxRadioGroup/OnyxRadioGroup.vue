@@ -37,7 +37,7 @@ const emit = defineEmits<{
   "update:modelValue": [selected?: Nullable<TValue>];
 }>();
 
-const modelValue = useVModel<"modelValue", TValue, TValue>({
+const modelValue = useVModel({
   props,
   emit,
   key: "modelValue",

@@ -36,12 +36,12 @@ defineSlots<{
 const _openItems = ref<TValue[]>([]) as Ref<TValue[]>;
 watchEffect(() => (_openItems.value = props.modelValue ?? []));
 
-const openItems = useVModel<"modelValue", TValue[], TValue[]>({
+const openItems = useVModel({
   // if modelValue is set by the user, it should be used instead of the internally managed open items
   props,
   emit,
   key: "modelValue",
-  defaultValue: [],
+  defaultValue: [] as TValue[],
 });
 
 const { disabled, exclusive } = toRefs(props);

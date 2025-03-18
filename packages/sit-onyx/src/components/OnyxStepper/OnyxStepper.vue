@@ -59,7 +59,7 @@ const { rootAttrs, restAttrs } = useRootAttrs();
  */
 const wasTouched = ref(false);
 
-const modelValue = useVModel<"modelValue", number>({
+const modelValue = useVModel({
   props,
   emit,
   key: "modelValue",
@@ -72,8 +72,8 @@ const modelValue = useVModel<"modelValue", number>({
 const inputValue = ref<string>();
 
 const getFormattedValue = computed(() => {
-  return (value?: number) => {
-    if (props.precision !== undefined && value !== undefined) {
+  return (value?: number | null) => {
+    if (props.precision !== undefined && value !== undefined && value !== null) {
       return roundToPrecision(value, props.precision);
     } else {
       return value?.toString() ?? "";
