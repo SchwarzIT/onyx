@@ -10,7 +10,10 @@ Also if no options are passed, the feature is now enabled for all columns instea
 **Old**:
 
 ```ts
-
+const withResizing = DataGridFeatures.useResizing<TEntry>({
+  columnResizing: true,
+  disabledColumns: ["age"],
+});
 ```
 
 **New**:
