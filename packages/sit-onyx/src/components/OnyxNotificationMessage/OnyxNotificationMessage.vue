@@ -1,125 +1,94 @@
 <script lang="ts" setup>
-import xSmall from "@sit-onyx/icons/x-small.svg?raw";
-import { ref } from "vue";
-import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxInfoCard from "../OnyxInfoCard/OnyxInfoCard.vue";
 import type { OnyxNotificationMessageProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxNotificationMessageProps>(), {
   color: "neutral",
-  duration: 5000,
+  duration: 8000,
 });
 
-const durationKey = ref(0);
-
 const emit = defineEmits<{
+  /**
+   * Emitted when the notification should be closed, e.g. when the duration has elapsed or the close "x" icon has been clicked.
+   */
   close: [];
 }>();
 
-const onClose = () => {
-  durationKey.value += 1;
-  emit("close");
-};
+const slots = defineSlots<{
+  /**
+   * Description/preview of the notification content.
+   */
+  default(): unknown;
+  /**
+   * Slot to provide optional buttons/actions.
+   */
+  buttons?(): unknown;
+}>();
 </script>
 
 <template>
-  <div class="onyx-component onyx-notification">
-    <div class="onyx-notification__header">
-      <div>
-        <OnyxIcon v-if="props.icon" :icon="props.icon" data-testid="priority-icon" />
-        <span data-testid="headline">{{ props.headline }}</span>
-      </div>
-      <div>
-        <OnyxIcon data-testid="close-icon-button" :icon="xSmall" @click="onClose" />
-      </div>
-    </div>
+  <OnyxInfoCard
+    class="onyx-component onyx-notification-message"
+    :headline="props.headline"
+    color="neutral"
+    :icon="props.icon ?? false"
+    closable
+    tabindex="0"
+    :style="{ animationDuration: `${props.duration}ms` }"
+    @close="emit('close')"
+    @animationend="emit('close')"
+  >
+    <slot></slot>
 
-    <div class="onyx-notification__content">
-      <span data-testid="description">{{ props.description }}</span>
-    </div>
-    <time
-      v-if="props.duration"
-      :key="durationKey"
-      aria-hidden="true"
-      class="hidden-progress-bar"
-      :style="{ animationDuration: `${props.duration}ms` }"
-      @animationend="onClose"
-    ></time>
-  </div>
+    <template v-if="!!slots.buttons" #buttons>
+      <slot name="buttons"></slot>
+    </template>
+  </OnyxInfoCard>
 </template>
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
 
-.onyx-notification {
+.onyx-notification-message {
   @include layers.component() {
-    background-color: var(--onyx-color-base-neutral-900);
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    margin-left: 1rem;
-    width: 25.5625rem;
-    border-radius: 0.5rem;
-    font-family: var(--onyx-font-family);
+    --onyx-info-card-background: var(--onyx-color-base-neutral-900);
+    --onyx-info-card-border-color: var(--onyx-info-card-background);
+    --onyx-info-card-headline-color: var(--onyx-color-text-icons-neutral-inverted);
+    color: var(--onyx-info-card-headline-color);
+    width: 24rem;
 
-    &:hover > .header > :nth-child(2) {
-      display: flex;
+    &:focus-visible {
+      outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
+    }
+
+    &:not(:hover, :focus-within) {
+      .onyx-info-card__close {
+        display: none;
+      }
+    }
+
+    .onyx-info-card__close {
+      --color: var(--onyx-info-card-headline-color);
+    }
+
+    .onyx-info-card__description {
+      line-clamp: 2;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      display: -webkit-box;
+      overflow: hidden;
+    }
+
+    // timer/duration: we use a no-op empty animation here so we can listen for the "animationend" event to close the notification
+    // and pause it on hover via plain CSS
+    animation: onyx-notification-message-animation linear;
+    @keyframes onyx-notification-message-animation {
     }
 
     &:hover,
-    &:focus {
-      .hidden-progress-bar {
-        animation-play-state: paused;
-      }
+    &:focus-within {
+      animation-play-state: paused;
     }
-
-    .hidden-progress-bar {
-      animation: notification-progress-bar linear;
-
-      @keyframes notification-progress-bar {
-        0% {
-          width: 100%;
-        }
-
-        100% {
-          width: 0%;
-        }
-      }
-    }
-
-    &__header {
-      display: flex;
-      padding: 1rem 1rem 0.5rem 1rem;
-      justify-content: space-between;
-      color: var(--onyx-color-base-grayscale-white);
-      font-weight: 600;
-
-      div {
-        display: flex;
-        gap: 0.5rem;
-      }
-
-      div:nth-child(2) {
-        display: none;
-        color: var(--onyx-color-base-grayscale-white);
-        cursor: pointer;
-      }
-    }
-
-    &__content {
-      padding: 0 1rem 1rem 1rem;
-      font-size: 1rem;
-      line-height: 1.5rem;
-      color: var(--onyx-color-base-grayscale-white);
-    }
-  }
-}
-
-@media screen and (max-width: 767px) {
-  .onyx-notification {
-    width: -moz-available;
-    /* WebKit-based browsers will ignore this. */
-    width: -webkit-fill-available;
-    /* Mozilla-based browsers will ignore this. */
   }
 }
 </style>

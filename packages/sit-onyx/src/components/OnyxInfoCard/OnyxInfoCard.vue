@@ -60,7 +60,7 @@ const { densityClass } = useDensity(props);
         @click="emit('close')"
       />
 
-      <p v-if="!!slots.default" class="onyx-text--small">
+      <p v-if="!!slots.default" class="onyx-info-card__description onyx-text--small">
         <slot></slot>
       </p>
 

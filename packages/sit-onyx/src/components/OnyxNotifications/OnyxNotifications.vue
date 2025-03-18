@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxNotificationMessage from "../OnyxNotificationMessage/OnyxNotificationMessage.vue";
 import { useNotification } from "./useNotification";
 
@@ -18,7 +19,13 @@ const notificationProvider = useNotification();
       v-for="{ id, ...notification } in notificationProvider.notifications.value"
       :key="id"
       v-bind="notification"
-    />
+    >
+      {{ notification.description }}
+
+      <template v-if="notification.buttons?.length" #buttons>
+        <OnyxButton v-for="button in notification.buttons" :key="button.label" v-bind="button" />
+      </template>
+    </OnyxNotificationMessage>
   </dialog>
 </template>
 
@@ -27,34 +34,33 @@ const notificationProvider = useNotification();
 
 .onyx-notifications {
   @include layers.component() {
-    $margin-bottom: var(--onyx-spacing-xl);
-
+    --onyx-notifications-viewport-distance: var(--onyx-spacing-md);
+    --onyx-notifications-gap: var(--onyx-spacing-2xs);
     padding: 0;
     border: none;
     background: none;
     z-index: var(--onyx-z-index-notification);
 
     position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 0;
+    left: 100%;
+    transform: translateX(-100%);
     overflow: auto;
 
     width: max-content;
     max-width: 100%;
-    max-height: calc(100% - $margin-bottom);
+    max-height: calc(100% - var(--onyx-notifications-viewport-distance));
 
-    // we are using margin on the individual toasts instead of gap/margin on the parent
-    // so the box shadows of the toasts are not cut off
-    // .onyx-toast-message {
-    //   $margin-inline: var(--onyx-grid-margin);
-    //   margin: var(--onyx-spacing-2xs) $margin-inline;
-    //   max-width: calc(100% - 2 * $margin-inline);
+    // we are using margin on the individual notifications instead of gap/margin on the parent
+    // so the box shadows of the notifications are not cut off
+    .onyx-notification-message {
+      margin: var(--onyx-notifications-gap) var(--onyx-notifications-viewport-distance);
+      max-width: calc(100% - 2 * var(--onyx-notifications-viewport-distance));
 
-    //   &:last-child {
-    //     margin-bottom: $margin-bottom;
-    //   }
-    // }
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
   }
 }
 </style>
