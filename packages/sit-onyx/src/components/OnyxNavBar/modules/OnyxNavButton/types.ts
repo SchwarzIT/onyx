@@ -16,5 +16,5 @@ export type OnyxNavButtonProps = WithLinkProp<true> & {
   /**
    * Controls whether child elements are open on mobile devices.
    */
-  modelValue?: Nullable<boolean>;
+  mobileChildrenOpen?: Nullable<boolean>;
 };
