@@ -49,13 +49,13 @@ test("sticky Column should stay in View", async ({ page, mount }) => {
 
   await expect(component).toHaveScreenshot("data-grid-one-sticky-column.png");
 });
+const positions = ["left", "right"] as const;
 
-test("should stick left/right", async ({ page, mount }) => {
-  await page.setViewportSize({ width: 400, height: 1000 });
-  const data = getTestData();
-  const positions = ["left", "right"] as const;
+positions.forEach((position) => {
+  test(`should stick on ${position}`, async ({ page, mount }) => {
+    await page.setViewportSize({ width: 400, height: 1000 });
+    const data = getTestData();
 
-  for (const position of positions) {
     const component = await mount(
       <TestCase
         data={data}
@@ -75,7 +75,7 @@ test("should stick left/right", async ({ page, mount }) => {
     await expect(stickyColumn).toHaveClass(new RegExp(`${position}`));
     await expect(stickyColumn).toHaveCSS(position, /[0-9]+px/);
     await expect(component).toHaveScreenshot(`data-grid-sticky-columns-${position}.png`);
-  }
+  });
 });
 test("multiple stickyColumns", async ({ page, mount }) => {
   await page.setViewportSize({ width: 400, height: 1000 });
