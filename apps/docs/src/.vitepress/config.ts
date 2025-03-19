@@ -34,6 +34,7 @@ export const CONFIG = {
     ["meta", { property: "og:image:height", content: "600" }],
     ["meta", { property: "og:url", content: "https://onyx.schwarz" }],
   ],
+  ignoreDeadLinks: [/^http:\/\/localhost:6006/],
   themeConfig: {
     externalLinkIcon: true,
     logo: "/images/logo.svg",
