@@ -3,13 +3,15 @@
 @include layers.component {
   .onyx-data-grid {
     .onyx-data-grid-sticky-columns--sticky {
-      //TODO: set --show-shadow if the container is scrolled
-      &.onyx-data-grid-sticky-columns--show-shadow {
-        box-shadow: var(--onyx-spacing-4xs) 0rem var(--onyx-spacing-4xs) -var(--onyx-1px-in-rem)
-          rgba(0, 0, 0, 0.1);
+      &.isScrolled {
+        box-shadow: var(--onyx-spacing-4xs) 0rem var(--onyx-spacing-4xs)
+          calc(-1 * var(--onyx-1px-in-rem)) rgba(0, 0, 0, 0.1);
         &.right {
-          box-shadow: -var(--onyx-spacing-4xs) 0rem var(--onyx-spacing-4xs) -var(--onyx-1px-in-rem)
-            rgba(0, 0, 0, 0.1);
+          box-shadow: calc(-1 * var(--onyx-spacing-4xs)) 0rem var(--onyx-spacing-4xs)
+            calc(-1 * var(--onyx-1px-in-rem)) rgba(0, 0, 0, 0.1);
+          & ~ .right {
+            box-shadow: none;
+          }
         }
       }
       position: sticky;

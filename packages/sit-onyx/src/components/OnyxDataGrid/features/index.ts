@@ -4,6 +4,7 @@ import {
   h,
   toValue,
   type Component,
+  type HTMLAttributes,
   type MaybeRef,
   type MaybeRefOrGetter,
   type TdHTMLAttributes,
@@ -201,6 +202,7 @@ export type DataGridFeature<
     }[];
     wrapper?: (column: PublicNormalizedColumnConfig<TEntry>) => Component;
   };
+  scrollContainerAttributes?: () => HTMLAttributes;
 };
 
 export type DataGridFeatureOptions<
@@ -366,6 +368,11 @@ export const useDataGridFeatures = <
   const createRendererColumnGroups = () =>
     createTableColumnGroups(columns.value, toValue(columnGroups));
 
+  const createScrollContainerAttributes = () =>
+    mergeVueProps(
+      ...features.map(({ scrollContainerAttributes }) => scrollContainerAttributes?.()),
+    );
+
   const createRendererColumns = (): DataGridRendererColumn<TEntry>[] => {
     const headerFeatures = features.map((feature) => feature.header).filter((header) => !!header);
     const headerActions = headerFeatures
@@ -491,6 +498,10 @@ export const useDataGridFeatures = <
   const watchSources: WatchSource[] = features.flatMap((f) => f.watch ?? []);
 
   return {
+    /**
+     * Takes the table attributes and maps all
+     */
+    createScrollContainerAttributes,
     /** Uses the column definition and available column group config to generate the column groups for the underlying OnyxTable */
     createRendererColumnGroups,
     /** Takes the column definition and maps all, calls mutation func and maps at the end to RendererCell */
