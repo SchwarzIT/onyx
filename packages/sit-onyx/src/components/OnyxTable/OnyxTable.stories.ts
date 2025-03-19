@@ -72,7 +72,7 @@ export const VerticalBorders = {
 } satisfies Story;
 
 export const WithSlots = {
-  tags: ["new:feature"],
+  tags: [],
   args: {
     ...Default.args,
     headline: h(OnyxHeadline, { is: "h3" }, [

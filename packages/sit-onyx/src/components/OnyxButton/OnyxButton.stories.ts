@@ -58,7 +58,7 @@ export const Danger = {
  * This example shows the button that opens a link.
  */
 export const WithLink = {
-  tags: ["new:feature"],
+  tags: [],
   args: {
     label: "Click to open link",
     link: {

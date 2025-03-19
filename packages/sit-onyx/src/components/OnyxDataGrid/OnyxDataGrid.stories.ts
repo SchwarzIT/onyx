@@ -18,7 +18,7 @@ type Story = StoryObj<typeof OnyxDataGrid>;
 export const Default = createAdvancedStoryExample("OnyxDataGrid", "DefaultExample");
 
 export const CustomFeature = {
-  tags: ["new:feature"],
+  tags: [],
   ...createAdvancedStoryExample("OnyxDataGrid", "CustomFeatureExample"),
 } satisfies Story;
 
