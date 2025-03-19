@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxBreadcrumbItem from "./OnyxBreadcrumbItem.vue";
 
 const meta: Meta<typeof OnyxBreadcrumbItem> = {
-  title: "Navigation/BreadcrumbItem",
+  title: "Support/BreadcrumbItem",
   component: OnyxBreadcrumbItem,
   tags: ["new:component"],
 };
