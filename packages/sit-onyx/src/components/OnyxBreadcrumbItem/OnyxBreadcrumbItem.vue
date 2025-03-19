@@ -2,6 +2,7 @@
 import { computed } from "vue";
 import { useDensity } from "../../composables/density";
 import { useLink } from "../../composables/useLink";
+import { useRootAttrs } from "../../utils/attrs";
 import OnyxRouterLink from "../OnyxRouterLink/OnyxRouterLink.vue";
 import type { OnyxBreadcrumbItemProps } from "./types";
 
@@ -18,6 +19,7 @@ defineSlots<{
 
 const { densityClass } = useDensity(props);
 const { currentRoute } = useLink();
+const { restAttrs, rootAttrs } = useRootAttrs();
 
 const isActive = computed(() => {
   return props.active === "auto" ? props.href === currentRoute.value?.path : props.active;
@@ -33,11 +35,13 @@ const isActive = computed(() => {
       densityClass,
       isActive ? 'onyx-breadcrumb-item--active' : '',
     ]"
+    v-bind="rootAttrs"
   >
     <OnyxRouterLink
       class="onyx-breadcrumb-item__link"
       :href="props.href"
       :aria-current="isActive ? 'page' : undefined"
+      v-bind="restAttrs"
     >
       <slot></slot>
     </OnyxRouterLink>
