@@ -28,9 +28,7 @@ const columns: ColumnConfig<TEntry, ColumnGroupConfig, never>[] = [
   { key: "birthday", label: "Birthday", type: "date" },
 ];
 
-const withResizing = DataGridFeatures.useResizing<TEntry>({
-  columnResizing: true,
-});
+const withResizing = DataGridFeatures.useResizing<TEntry>();
 
 const features = [withResizing];
 </script>
