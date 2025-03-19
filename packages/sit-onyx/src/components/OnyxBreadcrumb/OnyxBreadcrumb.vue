@@ -62,14 +62,7 @@ const { densityClass } = useDensity(props);
       font-family: var(--onyx-font-family);
       display: flex;
       align-items: center;
-
-      .onyx-breadcrumb-item:not(:first-child) {
-        &::before {
-          content: "/";
-          margin-inline: var(--onyx-density-xs);
-          color: var(--onyx-color-text-icons-neutral-medium);
-        }
-      }
+      gap: var(--onyx-density-xs);
     }
   }
 }

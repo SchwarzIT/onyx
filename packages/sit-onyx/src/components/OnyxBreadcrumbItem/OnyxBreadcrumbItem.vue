@@ -88,8 +88,18 @@ const isActive = computed(() => {
       --onyx-breadcrumb-item-outline-color: var(--onyx-color-component-focus-primary);
     }
 
+    &::before {
+      content: "/";
+      margin-right: var(--onyx-density-xs);
+      color: var(--onyx-color-text-icons-neutral-medium);
+    }
+
     &:has(.onyx-icon:only-child) {
       --onyx-breadcrumb-item-padding: var(--onyx-density-2xs);
+
+      &::before {
+        display: none;
+      }
     }
   }
 }
