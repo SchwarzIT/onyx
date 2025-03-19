@@ -100,7 +100,9 @@ const isActive = computed(() => {
 
     &:has(.onyx-icon:only-child) {
       --onyx-breadcrumb-item-padding: var(--onyx-density-2xs);
+    }
 
+    &:first-of-type {
       &::before {
         display: none;
       }
