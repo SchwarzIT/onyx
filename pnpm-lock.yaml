@@ -360,16 +360,16 @@ importers:
         specifier: ^11.1.2
         version: 11.1.2(vue@3.5.13(typescript@5.6.3))
 
-  packages/nuxt-layer:
+  packages/nuxt-docs:
     dependencies:
       '@fontsource-variable/source-code-pro':
-        specifier: ^5.1.1
+        specifier: ^5.2.5
         version: 5.2.5
       '@fontsource-variable/source-sans-3':
-        specifier: ^5.1.1
+        specifier: ^5.2.6
         version: 5.2.6
       '@nuxt/content':
-        specifier: ^3.0.0
+        specifier: ^3.3.0
         version: 3.3.0(@libsql/client@0.14.0)(magicast@0.3.5)(typescript@5.6.3)
       '@nuxtjs/color-mode':
         specifier: ^3.5.2
@@ -381,14 +381,14 @@ importers:
         specifier: workspace:^
         version: link:../nuxt
       sass-embedded:
-        specifier: 1.86.0
-        version: 1.86.0
+        specifier: 1.86.2
+        version: 1.86.2
       sit-onyx:
         specifier: workspace:^
         version: link:../sit-onyx
     devDependencies:
       nuxt:
-        specifier: ^3.15.2
+        specifier: ^3.16.1
         version: 3.16.2(@libsql/client@0.14.0)(@parcel/watcher@2.5.1)(@types/node@22.14.0)(better-sqlite3@11.9.1)(db0@0.3.1(@libsql/client@0.14.0)(better-sqlite3@11.9.1))(encoding@0.1.13)(eslint@9.23.0(jiti@2.4.2))(ioredis@5.6.0)(magicast@0.3.5)(meow@13.2.0)(optionator@0.9.4)(rollup@4.39.0)(sass-embedded@1.86.2)(sass@1.86.0)(stylelint@16.17.0(typescript@5.6.3))(stylus@0.57.0)(terser@5.39.0)(tsx@4.19.3)(typescript@5.6.3)(vite@6.2.5(@types/node@22.14.0)(jiti@2.4.2)(sass-embedded@1.86.2)(sass@1.86.0)(stylus@0.57.0)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.1))(vue-tsc@2.2.8(typescript@5.6.3))(yaml@2.7.1)
       typescript:
         specifier: 'catalog:'
@@ -759,8 +759,8 @@ packages:
     resolution: {integrity: sha512-6zABk/ECA/QYSCQ1NGiVwwbQerUCZ+TQbp64Q3AgmfNvurHH0j8TtXa1qbShXA6qqkpAj4V5W8pP6mLe1mcMqA==}
     engines: {node: '>=18'}
 
-  '@bufbuild/protobuf@2.2.4':
-    resolution: {integrity: sha512-P9xQgtMh71TA7tHTnbDe68zcI+TPnkyyfBIhGaUr4iUEIXN7yI01DyjmmdEwXTk5OlISBJYkoxCVj2dwmHqIkA==}
+  '@bufbuild/protobuf@2.2.5':
+    resolution: {integrity: sha512-/g5EzJifw5GF8aren8wZ/G5oMuPoGeS6MQD3ca8ddcvdXR5UELUfdTZITCGNhNXynY/AYl3Z4plmxdj/tRl/hQ==}
 
   '@changesets/apply-release-plan@7.0.10':
     resolution: {integrity: sha512-wNyeIJ3yDsVspYvHnEz1xQDq18D9ifed3lI+wxRQRK4pArUcuHgCTrHv0QRnnwjhVCQACxZ+CBih3wgOct6UXw==}
@@ -7810,7 +7810,7 @@ snapshots:
 
   '@bcoe/v8-coverage@1.0.2': {}
 
-  '@bufbuild/protobuf@2.2.4': {}
+  '@bufbuild/protobuf@2.2.5': {}
 
   '@changesets/apply-release-plan@7.0.10':
     dependencies:
@@ -14361,7 +14361,7 @@ snapshots:
 
   sass-embedded@1.86.2:
     dependencies:
-      '@bufbuild/protobuf': 2.2.4
+      '@bufbuild/protobuf': 2.2.5
       buffer-builder: 0.2.0
       colorjs.io: 0.5.2
       immutable: 5.1.1
