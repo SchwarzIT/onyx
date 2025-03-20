@@ -1,3 +1,4 @@
+import type { HTMLAttributes } from "vue";
 import type { DensityProp } from "../../composables/density";
 
 export type OnyxTableProps = DensityProp & {
@@ -21,6 +22,11 @@ export type OnyxTableProps = DensityProp & {
    * Slot `head` must be filled for this to work and `withVerticalBorders` property should be set.
    */
   columnGroups?: TableColumnGroup[];
+  /**
+   * Additional HTML attributes for the scroll container.
+   * Supports attributes like id, class, style, and events.
+   */
+  scrollContainerAttrs?: HTMLAttributes;
 };
 
 /**

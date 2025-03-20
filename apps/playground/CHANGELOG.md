@@ -1,5 +1,48 @@
 # playground
 
+## 1.0.0-beta.180
+
+### Patch Changes
+
+- Updated dependencies [bcfb916]
+  - sit-onyx@1.0.0-beta.180
+
+## 1.0.0-beta.179
+
+### Patch Changes
+
+- Updated dependencies [e3a7e82]
+  - sit-onyx@1.0.0-beta.179
+
+## 1.0.0-beta.178
+
+### Patch Changes
+
+- Updated dependencies [41eb73c]
+  - @sit-onyx/icons@1.0.0-beta.14
+  - sit-onyx@1.0.0-beta.178
+
+## 1.0.0-beta.177
+
+### Patch Changes
+
+- Updated dependencies [142d651]
+  - sit-onyx@1.0.0-beta.177
+
+## 1.0.0-beta.176
+
+### Patch Changes
+
+- Updated dependencies [cfd6ab1]
+  - sit-onyx@1.0.0-beta.176
+
+## 1.0.0-beta.175
+
+### Patch Changes
+
+- Updated dependencies [d9fedd6]
+  - sit-onyx@1.0.0-beta.175
+
 ## 1.0.0-beta.174
 
 ### Patch Changes

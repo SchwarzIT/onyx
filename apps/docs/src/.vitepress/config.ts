@@ -34,6 +34,7 @@ export const CONFIG = {
     ["meta", { property: "og:image:height", content: "600" }],
     ["meta", { property: "og:url", content: "https://onyx.schwarz" }],
   ],
+  ignoreDeadLinks: [/^http:\/\/localhost:6006/],
   themeConfig: {
     externalLinkIcon: true,
     logo: "/images/logo.svg",
@@ -167,17 +168,21 @@ export const CONFIG = {
       ],
       "/principles": [
         {
-          text: "Principles and contribution",
+          text: "Principles",
           base: "/principles",
           items: [
+            { text: "Introduction", link: "/" },
+            { text: "Technical vision & guidelines", link: "/technical-vision" },
+            { text: "Component quality stages", link: "/component-quality-stages" },
+          ],
+        },
+        {
+          text: "Contributions",
+          base: "/principles/contributing",
+          items: [
+            { text: "Contribution guide", link: "/" },
             {
-              text: "Introduction",
-              link: "/",
-            },
-            {
-              text: "Contribution guide",
-              link: "/",
-              base: "/principles/contributing",
+              text: "Further reading",
               collapsed: true,
               items: [
                 { text: "Stories", link: "/stories" },
@@ -185,14 +190,6 @@ export const CONFIG = {
                 { text: "Testing", link: "/testing" },
                 { text: "Patterns", link: "/patterns" },
               ],
-            },
-            {
-              text: "Technical vision & guidelines",
-              link: "/technical-vision",
-            },
-            {
-              text: "Component quality stages",
-              link: "/component-quality-stages",
             },
           ],
         },

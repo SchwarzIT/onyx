@@ -9,7 +9,7 @@
     TFeatures extends DataGridFeature<TEntry, TTypeRenderer, TFeatureName>[] | []
   "
 >
-import { ref, toRefs, watch, type Ref, type WatchHandle } from "vue";
+import { ref, toRefs, watch, type HTMLAttributes, type Ref, type WatchHandle } from "vue";
 import { injectI18n } from "../../i18n";
 import type { TableColumnGroup } from "../OnyxTable/types";
 import {
@@ -44,6 +44,7 @@ defineSlots<{
 const renderColumns: Ref<DataGridRendererColumn<TEntry>[]> = ref([]);
 const renderRows: Ref<DataGridRendererRow<TEntry, DataGridMetadata>[]> = ref([]);
 const rendererColumnGroups: Ref<TableColumnGroup[] | undefined> = ref();
+const rendererScrollContainerAttributes: Ref<HTMLAttributes | undefined> = ref();
 
 const { columns, data, features, columnGroups } = toRefs(props);
 
@@ -56,6 +57,7 @@ const createFeatureBuilderWatcher = ({
   createRendererRows,
   watchSources,
   createRendererColumnGroups,
+  createScrollContainerAttributes,
 }: ReturnType<
   typeof useDataGridFeatures<TEntry, TFeatureName, TTypeRenderer, TColumnGroup, TFeatures>
 >) => {
@@ -65,6 +67,7 @@ const createFeatureBuilderWatcher = ({
       renderColumns.value = createRendererColumns();
       renderRows.value = createRendererRows(data.value);
       rendererColumnGroups.value = createRendererColumnGroups();
+      rendererScrollContainerAttributes.value = createScrollContainerAttributes();
     },
     { immediate: true, deep: true },
   );
@@ -90,6 +93,7 @@ watch(
     :column-groups="rendererColumnGroups"
     :columns="renderColumns"
     :rows="renderRows"
+    :scroll-container-attrs="rendererScrollContainerAttributes"
   >
     <template #empty>
       <slot name="empty" />

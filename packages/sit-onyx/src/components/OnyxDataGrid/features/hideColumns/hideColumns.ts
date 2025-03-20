@@ -1,8 +1,8 @@
 import eyeDisabled from "@sit-onyx/icons/eye-disabled.svg?raw";
 import plusSmall from "@sit-onyx/icons/plus-small.svg?raw";
-import { h, ref } from "vue";
+import { h, ref, unref, watchEffect, type Ref } from "vue";
 import type { ComponentSlots } from "vue-component-type-helpers";
-import { createFeature, type ModifyColumns } from "..";
+import { createFeature, useIsFeatureEnabled, type ModifyColumns } from "..";
 import { injectI18n } from "../../../../i18n";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxFlyoutMenu from "../../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
@@ -16,10 +16,18 @@ export const HIDE_COLUMNS_FEATURE = Symbol("HideColumnsFeature");
 export const HIDDEN_COLUMN = Symbol("HiddenColumn");
 
 export const useHideColumns = createFeature(
-  <TEntry extends DataGridEntry>(options?: HideColumnsOptions) => {
+  <TEntry extends DataGridEntry>(options?: HideColumnsOptions<TEntry>) => {
     const { t } = injectI18n();
-    const hiddenColumns = ref(options?.columns ?? []);
-    const revealedHiddenColumns = ref<string[]>([]);
+    const { isEnabled } = useIsFeatureEnabled(options);
+
+    const hiddenColumns = ref([]) as Ref<(keyof TEntry)[]>;
+    const revealedHiddenColumns = ref([]) as Ref<(keyof TEntry)[]>;
+    watchEffect(() => {
+      // sync hidden columns with user provided options
+      hiddenColumns.value = Object.entries(unref(options?.columns) ?? {})
+        .filter(([_, value]) => value?.hidden)
+        .map(([key]) => key);
+    });
 
     const flyoutMenu = () =>
       h(
@@ -39,37 +47,38 @@ export const useHideColumns = createFeature(
             }),
           options: () => {
             return hiddenColumns.value
-              ?.filter((col) => col.hidden)
+              .slice()
+              .sort()
               .map((column) =>
                 h(
                   OnyxMenuItem,
                   {
                     onClick: () => {
-                      if (!revealedHiddenColumns.value.includes(column.name)) {
-                        revealedHiddenColumns.value.push(column.name);
+                      if (!revealedHiddenColumns.value.includes(column)) {
+                        revealedHiddenColumns.value.push(column);
                       }
-                      hiddenColumns.value = hiddenColumns.value.map((col) =>
-                        col.name === column.name ? { ...col, hidden: false } : col,
+
+                      hiddenColumns.value = hiddenColumns.value.filter(
+                        (hiddenColumn) => hiddenColumn !== column,
                       );
                     },
                   },
-                  () => [column.name],
+                  () => [column],
                 ),
               );
           },
         } satisfies ComponentSlots<typeof OnyxFlyoutMenu>,
       );
 
-    const getMenuItem = (column: keyof DataGridEntry) =>
+    const getMenuItem = (column: keyof TEntry) =>
       h(
         OnyxMenuItem,
         {
           onClick: () => {
-            const index = hiddenColumns.value.findIndex((col) => col.name === column.toString());
-            if (index === -1) return;
-            hiddenColumns.value[index].hidden = true;
+            if (hiddenColumns.value.includes(column)) return;
+            hiddenColumns.value.push(column);
             revealedHiddenColumns.value = revealedHiddenColumns.value.filter(
-              (name) => name !== column.toString(),
+              (revealColumn) => revealColumn !== column,
             );
           },
         },
@@ -84,29 +93,17 @@ export const useHideColumns = createFeature(
       watch: [hiddenColumns],
       modifyColumns: {
         func: (columnConfig) => {
-          if (hiddenColumns.value.length === 0) {
-            hiddenColumns.value = columnConfig.map((col) => ({
-              name: String(col.key),
-              hidden: false,
-            }));
-          }
           const filteredColumns = columnConfig.filter(
-            (col) =>
-              !hiddenColumns.value.some(
-                (hiddenCol) => hiddenCol.hidden && hiddenCol.name === col.key,
-              ),
+            (column) => !hiddenColumns.value.includes(column.key),
           );
 
           filteredColumns.sort((a, b) => {
-            const indexA = revealedHiddenColumns.value.indexOf(a.key as string);
-            const indexB = revealedHiddenColumns.value.indexOf(b.key as string);
-            if (indexA === -1 && indexB === -1) return 0;
-            if (indexA === -1) return -1;
-            if (indexB === -1) return 1;
+            const indexA = revealedHiddenColumns.value.indexOf(a.key);
+            const indexB = revealedHiddenColumns.value.indexOf(b.key);
             return indexA - indexB;
           });
 
-          return hiddenColumns.value.some((col) => col.hidden)
+          return hiddenColumns.value.length > 0
             ? [...filteredColumns, { key: HIDDEN_COLUMN, type: HIDDEN_COLUMN }]
             : filteredColumns;
         },
@@ -126,7 +123,7 @@ export const useHideColumns = createFeature(
       },
       header: {
         actions: ({ key: column }) => {
-          if (!hiddenColumns.value.some((col) => col.name === String(column))) return [];
+          if (!isEnabled.value(column)) return [];
           return [
             {
               menuItems: [getMenuItem(column)],

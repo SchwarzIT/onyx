@@ -1,4 +1,4 @@
-import { computed, onUnmounted, ref, useId, watch } from "vue";
+import { computed, nextTick, onUnmounted, ref, useId, watch, type HTMLAttributes } from "vue";
 import { createFeature, type ModifyColumns } from "..";
 
 import type { DataGridEntry } from "../../types";
@@ -14,6 +14,7 @@ export const useStickyColumns = createFeature(
     const elementWidths = ref<Record<PropertyKey, number>>({});
     const elementsToStyle = ref<Record<PropertyKey, HTMLElement>>({});
     const stickyId = useId();
+    const isScrolled = ref(false);
 
     const createStickyPositionCssVar = (key: PropertyKey) =>
       `--onyx-data-grid-sticky-column-position-${stickyId}-${String(key)}`;
@@ -50,10 +51,17 @@ export const useStickyColumns = createFeature(
 
       document.body.style.setProperty(createStickyPositionCssVar(key), `${width}px`);
     };
+    const handleScroll = (el: HTMLElement) => {
+      const width = el.scrollWidth - el.clientWidth;
+      const scrollLeft = Math.round(el.scrollLeft);
+      isScrolled.value =
+        (position.value === "left" && scrollLeft > 0) ||
+        (position.value === "right" && scrollLeft < width);
+    };
 
     return {
       name: STICKY_COLUMNS_FEATURE,
-      watch: [position, stickyColumns],
+      watch: [position, stickyColumns, isScrolled],
       modifyColumns: {
         func: (columnConfig) => {
           const sticky = columnConfig
@@ -73,12 +81,20 @@ export const useStickyColumns = createFeature(
                 ...column,
                 thAttributes: {
                   style,
-                  class: `onyx-data-grid-sticky-columns--sticky ${position.value}`,
+                  class: {
+                    "onyx-data-grid-sticky-columns--sticky": true,
+                    [position.value]: true,
+                    isScrolled: isScrolled.value,
+                  },
                   ref: (el: HTMLElement) => (elementsToStyle.value[column.key] = el),
                 },
                 tdAttributes: {
                   style,
-                  class: `onyx-data-grid-sticky-columns--sticky ${position.value}`,
+                  class: {
+                    "onyx-data-grid-sticky-columns--sticky": true,
+                    [position.value]: true,
+                    isScrolled: isScrolled.value,
+                  },
                 },
               };
             });
@@ -88,6 +104,13 @@ export const useStickyColumns = createFeature(
             : [...nonSticky, ...sticky.slice().reverse()];
         },
       } satisfies ModifyColumns<TEntry> as ModifyColumns<TEntry>,
+      scrollContainerAttributes: () =>
+        ({
+          ref: (el: HTMLElement) => {
+            nextTick(() => handleScroll(el));
+          },
+          onScrollCapturePassive: (e: Event) => handleScroll(e.target as HTMLElement),
+        }) as HTMLAttributes,
     };
   },
 );

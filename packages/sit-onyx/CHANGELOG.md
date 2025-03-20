@@ -1,5 +1,95 @@
 # sit-onyx
 
+## 1.0.0-beta.180
+
+### Patch Changes
+
+- bcfb916: fix(OnyxFlyoutMenu, OnyxUserMenu): fix unlimited height and scroll-behavior
+
+## 1.0.0-beta.179
+
+### Major Changes
+
+- e3a7e82: refactor(OnyxDataGrid): align enabled options for useResizing
+
+  The options for enabling the `useResizing` feature of the OnyxDataGrid has been changed to be aligned with all other features.
+  Also if no options are passed, the feature is now enabled for all columns instead of being disabled.
+
+  **Old**:
+
+  ```ts
+  const withResizing = DataGridFeatures.useResizing<TEntry>({
+    columnResizing: true,
+    disabledColumns: ["age"],
+  });
+  ```
+
+  **New**:
+
+  ```ts
+  const withResizing = DataGridFeatures.useResizing<TEntry>({
+    columns: {
+      age: {
+        enabled: false,
+      },
+    },
+  });
+  ```
+
+## 1.0.0-beta.178
+
+### Patch Changes
+
+- Updated dependencies [41eb73c]
+  - @sit-onyx/icons@1.0.0-beta.14
+
+## 1.0.0-beta.177
+
+### Minor Changes
+
+- 142d651: feat(OnyxDataGrid): Add new resizing feature
+
+## 1.0.0-beta.176
+
+### Patch Changes
+
+- cfd6ab1: fix(OnyxSelect): accept `:multiple="false"` without type errors
+
+## 1.0.0-beta.175
+
+### Major Changes
+
+- d9fedd6: feat(OnyxDataGrid): support changing default enabled/disabled state of sorting, filtering and hide columns feature
+
+  Previously, the default enabled behavior of data grid features was inconsistent when passing options without explicitly specifying the enabled property.
+
+  The default enabled/disabled state can now also be configured (and overridden per column if needed):
+
+  ```ts
+  DataGridFeatures.useSorting<Entry>({
+    enabled: false,
+  });
+  ```
+
+  #### Breaking changes
+
+  - sorting feature: all columns will be enabled now by default (previously they were disabled)
+  - hide columns feature: API / options for passing columns has changed to align with the other features
+    - Old:
+    ```ts
+    DataGridFeatures.useHideColumns({
+    columns: [{ name: "a" }, { name: "b", hidden: true }];
+    });
+    ```
+    - New:
+    ```ts
+    DataGridFeatures.useHideColumns<Entry>({
+      columns: {
+        b: { hidden: true },
+      },
+    });
+    ```
+
 ## 1.0.0-beta.174
 
 ### Minor Changes

@@ -15,6 +15,7 @@ export default {
           "css-resize",
           "css-scrollbar",
           "css-touch-action",
+          "css3-cursors",
         ],
         ignorePartialSupport: true,
       },

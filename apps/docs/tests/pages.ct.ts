@@ -25,7 +25,7 @@ const mapToLinks = (
   }
   if ("items" in navItem && Array.isArray(navItem.items)) {
     navItem.items.forEach((item) =>
-      links.push(...mapToLinks(item, "base" in navItem ? navItem["base"] : "")),
+      links.push(...mapToLinks(item, "base" in navItem ? navItem.base : base)),
     );
   }
   return links;
@@ -36,11 +36,11 @@ const sidebarItems = Object.values(CONFIG.themeConfig.sidebar).flat(1);
 
 const items = [...navItems, ...sidebarItems].map((item) => mapToLinks(item)).flat(1);
 const uniqueItems = new Set(items);
-const pathsTotTest = Array.from(uniqueItems).filter(
+const pathsToTest = Array.from(uniqueItems).filter(
   (p) => !BLACKLIST_PATHS.some((bl) => p.match(bl)),
 );
 
-pathsTotTest.forEach((path) => {
+pathsToTest.forEach((path) => {
   test(`screenshot content of ${path}`, async ({ page }) => {
     const name = path
       .replace(/^\//, "")
@@ -48,7 +48,8 @@ pathsTotTest.forEach((path) => {
       .replace(/[_/ ]/g, "_");
     await page.goto(path);
     const main = page.getByRole("main");
-    await expect(main).toHaveScreenshot(`${name}.png`, {
+
+    await expect(main, `should capture screenshot of ${path}`).toHaveScreenshot(`${name}.png`, {
       stylePath: join(import.meta.dirname, "hide-non-main.css"),
     });
   });

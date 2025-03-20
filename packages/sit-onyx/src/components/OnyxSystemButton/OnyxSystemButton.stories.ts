@@ -31,7 +31,6 @@ export const WithText = {
 } satisfies Story;
 
 export const WithLink = {
-  tags: ["new:feature"],
   args: {
     label: "Open documentation",
     icon: expandWindow,

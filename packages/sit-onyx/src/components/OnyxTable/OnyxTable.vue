@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, type VNode } from "vue";
+import { computed } from "vue";
 import { useDensity } from "../../composables/density";
 import { injectI18n } from "../../i18n";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
@@ -15,7 +15,7 @@ const slots = defineSlots<{
   /**
    * Table content. Must only contain valid HTML `<tbody>` children like `<tr>` and `<td>`.
    */
-  default(): VNode[];
+  default(): unknown[];
   /**
    * Table header. Must only contain valid HTML `<thead>` children like `<tr>` and `<th>`.
    */
@@ -71,6 +71,7 @@ const isEmptyMessage = computed(() => t.value("table.empty"));
         props.withPageScrolling ? 'onyx-table-wrapper__container--no-scroll' : '',
       ]"
       :tabindex="props.withPageScrolling ? undefined : 0"
+      v-bind="scrollContainerAttrs"
     >
       <table
         class="onyx-table onyx-text"
@@ -225,8 +226,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
       }
     }
 
-    &__header,
-    &__header th {
+    &__header {
       position: sticky;
       top: 0;
       z-index: var(--onyx-z-index-sticky-content);

@@ -58,7 +58,6 @@ export const Danger = {
  * This example shows the button in danger color.
  */
 export const WithLink = {
-  tags: ["new:feature"],
   args: {
     icon: expandWindow,
     label: "Open documentation",
