@@ -1,4 +1,7 @@
 import check from "@sit-onyx/icons/check.svg?raw";
+import xSmall from "@sit-onyx/icons/x-small.svg?raw";
+
+import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { defineIconSelectArgType } from "../../utils/storybook";
 import OnyxTag from "./OnyxTag.vue";
@@ -11,6 +14,7 @@ const meta: Meta<typeof OnyxTag> = {
   component: OnyxTag,
   argTypes: {
     icon: defineIconSelectArgType(),
+    interactiveIcon: defineIconSelectArgType(),
   },
 };
 
@@ -23,6 +27,7 @@ type Story = StoryObj<typeof OnyxTag>;
 export const Primary = {
   args: {
     label: "Tag",
+    color: "primary",
   },
 } satisfies Story;
 
@@ -44,5 +49,44 @@ export const WithTruncation = {
   args: {
     label: "Tag with a very long text that gets truncated",
     style: "max-width: 10rem",
+  },
+} satisfies Story;
+
+/**
+ * This example shows the interactive tag.
+ */
+export const Interactive = {
+  argTypes: {
+    ...withNativeEventLogging(["onClick"]),
+  },
+  args: {
+    label: "Tag",
+  },
+} satisfies Story;
+
+/**
+ * This example shows the dismissable tag.
+ */
+export const Dismissable = {
+  argTypes: {
+    ...withNativeEventLogging(["onClick"]),
+  },
+  args: {
+    label: "Tag",
+    interactiveIcon: xSmall,
+  },
+} satisfies Story;
+
+/**
+ * This example shows an filter tag.
+ */
+export const Filter = {
+  argTypes: {
+    ...withNativeEventLogging(["onClick"]),
+  },
+  args: {
+    label: "Tag",
+    color: "filter",
+    interactiveIcon: xSmall,
   },
 } satisfies Story;
