@@ -49,10 +49,10 @@ const {
 <template>
   <div class="onyx-component onyx-flyout-menu" v-bind="root">
     <slot name="button" :trigger="button"></slot>
-
-    <!-- isExpanded is in v-if to ensure autofocus is working -->
+    <!-- `v-show` instead of `v-if` is necessary, so that we can allow (teleported) dialogs to be shown -->
     <div
-      v-if="(slots.options || slots.header || slots.footer) && isExpanded"
+      v-if="slots.options || slots.header || slots.footer"
+      v-show="isExpanded"
       :aria-label="props.label"
       class="onyx-flyout-menu__list"
     >
