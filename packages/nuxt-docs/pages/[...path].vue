@@ -1,8 +1,4 @@
 <script setup lang="ts">
-definePageMeta({
-  layout: "docs",
-});
-
 const route = useRoute();
 const { data } = await useAsyncData(() => queryCollection("content").path(route.path).first());
 
