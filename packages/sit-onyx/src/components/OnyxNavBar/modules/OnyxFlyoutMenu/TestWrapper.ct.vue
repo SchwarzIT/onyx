@@ -1,5 +1,6 @@
 <!-- Currently slot props are not supported by Playwright, so we need to provide a custom wrapper. See issue: https://github.com/microsoft/playwright/issues/18758 -->
 <script lang="ts" setup>
+import OnyxColorSchemeMenuItem from "../OnyxColorSchemeMenuItem/OnyxColorSchemeMenuItem.vue";
 import OnyxMenuItem from "../OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxFlyoutMenu from "./OnyxFlyoutMenu.vue";
 import type { OnyxFlyoutMenuProps } from "./types";
@@ -20,6 +21,7 @@ defineSlots<{
       <OnyxMenuItem active>English</OnyxMenuItem>
       <OnyxMenuItem>German</OnyxMenuItem>
       <OnyxMenuItem>Spanish</OnyxMenuItem>
+      <OnyxColorSchemeMenuItem model-value="auto" />
     </template>
   </OnyxFlyoutMenu>
 </template>
