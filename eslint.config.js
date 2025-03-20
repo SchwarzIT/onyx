@@ -206,7 +206,6 @@ export default tsEslint.config(
   sitOnyxConfig,
   nuxtConfig,
   noConsoleConfig,
-  nuxtConfig,
   skipFormattingConfig,
   gitignoreConfig,
   specificIgnoreConfig,

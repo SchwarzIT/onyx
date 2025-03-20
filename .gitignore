@@ -37,6 +37,7 @@ playwright-report/
 blob-report/
 eslint-results.sarif
 .nuxt
+nuxt.d.ts
 .output
 coverage
 
@@ -51,3 +52,6 @@ dist
 packages/figma-utils/variables*.css
 packages/figma-utils/variables*.scss
 packages/figma-utils/variables*.json
+
+# Local History
+.history
