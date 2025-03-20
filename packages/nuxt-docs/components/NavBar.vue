@@ -1,32 +1,36 @@
 <script setup lang="ts">
-import type { ColorSchemeValue } from "sit-onyx";
+import { extractLinkProps, type ColorSchemeValue } from "sit-onyx";
 
 const { onyxDocs } = useAppConfig();
-const route = useRoute();
 const router = useRouter();
+const colorMode = useColorMode();
 
-const handleNavigation = (href: string) => navigateTo(href);
+const colorScheme = computed({
+  get: () => {
+    return colorMode.preference === "system" ? "auto" : (colorMode.preference as ColorSchemeValue);
+  },
+  set: (newValue) => {
+    colorMode.preference = newValue === "auto" ? "system" : newValue;
+  },
+});
 </script>
 
 <template>
   <OnyxNavBar
-    :app-name="onyxDocs.app?.name"
+    :app-name="onyxDocs.app.name"
     :logo-url="onyxDocs.app?.logo"
     with-back-button
-    @navigate-to-start="router.push('/')"
     @navigate-back="router.back"
   >
     <OnyxNavButton
       v-for="item in onyxDocs.nav?.items"
-      :key="item.href"
+      :key="extractLinkProps(item.link ?? '').href"
       v-bind="item"
-      :active="item.href === route.path"
-      @navigate="handleNavigation"
     />
 
     <template #contextArea>
       <OnyxUserMenu full-name="Jane Doe">
-        <OnyxColorSchemeMenuItem v-model="$colorMode.preference as ColorSchemeValue" />
+        <OnyxColorSchemeMenuItem v-model="colorScheme" />
       </OnyxUserMenu>
     </template>
   </OnyxNavBar>
