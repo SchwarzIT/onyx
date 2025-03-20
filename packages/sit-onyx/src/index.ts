@@ -160,6 +160,8 @@ export * from "./components/OnyxTabs/types";
 export { default as OnyxTag } from "./components/OnyxTag/OnyxTag.vue";
 export * from "./components/OnyxTag/types";
 
+export { default as OnyxFilterTag } from "./components/OnyxFilterTag/OnyxFilterTag.vue";
+
 export { default as OnyxTextarea } from "./components/OnyxTextarea/OnyxTextarea.vue";
 export * from "./components/OnyxTextarea/types";
 
