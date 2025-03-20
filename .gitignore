@@ -52,6 +52,4 @@ dist
 packages/figma-utils/variables*.css
 packages/figma-utils/variables*.scss
 packages/figma-utils/variables*.json
-
-# Local History
-.history
+*.sqlite
