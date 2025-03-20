@@ -38,6 +38,12 @@ test("check custom interactivity", async ({ page, mount }) => {
   for (const item of await menuItems.all()) {
     await expect(item).toBeEnabled();
   }
+
+  // ACT
+  await page.getByRole("menuitem", { name: "Appearance" }).click();
+
+  // ASSERT
+  await expect(page.getByRole("dialog", { name: "Change appearance" })).toBeVisible();
 });
 
 test("should open on click", async ({ page, mount }) => {
