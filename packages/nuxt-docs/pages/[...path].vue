@@ -1,13 +1,7 @@
 <script setup lang="ts">
-const route = useRoute();
-const { data } = await useAsyncData(() => queryCollection("content").path(route.path).first());
-
-useSeoMeta({
-  ...data.value?.seo,
-});
+const { data } = await useCollection({ collection: "content" });
 </script>
 
 <template>
-  <ContentRenderer v-if="data" :value="data" />
-  <OnyxEmpty v-else> Page not found. </OnyxEmpty>
+  <ContentRenderer :value="data" />
 </template>
