@@ -3,7 +3,6 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxImage from "./OnyxImage.vue";
 
 const meta: Meta<typeof OnyxImage> = {
-  tags: [],
   title: "Basic/Image",
   component: OnyxImage,
   argTypes: {

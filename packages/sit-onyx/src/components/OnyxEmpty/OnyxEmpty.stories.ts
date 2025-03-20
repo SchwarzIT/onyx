@@ -35,7 +35,6 @@ export const Default = {
  * This example shows an empty component with custom text and icon with a different color and size.
  */
 export const CustomContent = {
-  tags: [],
   args: {
     icon: () => h(OnyxIcon, { icon: fileDisabled, size: "48px", color: "danger" }),
     default: () => [
