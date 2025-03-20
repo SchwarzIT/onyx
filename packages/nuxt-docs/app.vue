@@ -7,7 +7,11 @@
     <NuxtRouteAnnouncer />
 
     <NuxtLayout>
-      <NuxtPage />
+      <slot>
+        <NuxtPage />
+      </slot>
     </NuxtLayout>
+
+    <OnyxToast />
   </OnyxAppLayout>
 </template>
