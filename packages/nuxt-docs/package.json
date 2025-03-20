@@ -1,7 +1,17 @@
 {
   "name": "@sit-onyx/nuxt-docs",
   "type": "module",
-  "version": "1.0.0-alpha.0",
+  "version": "0.0.0",
+  "description": "Nuxt layer/template for creating documentations with the onyx design system",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/schwarzit/onyx",
+    "directory": "packages/nuxt-docs"
+  },
+  "bugs": {
+    "url": "https://github.com/schwarzit/onyx/issues"
+  },
   "main": "./nuxt.config.ts",
   "scripts": {
     "dev": "nuxi dev .playground",
