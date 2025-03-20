@@ -1,5 +1,5 @@
 {
-  "name": "@sit-onyx/nuxt-layer-docs",
+  "name": "@sit-onyx/nuxt-docs",
   "type": "module",
   "version": "1.0.0-alpha.0",
   "main": "./nuxt.config.ts",
@@ -11,18 +11,18 @@
     "preview": "nuxt preview .playground"
   },
   "dependencies": {
-    "@fontsource-variable/source-code-pro": "^5.1.1",
-    "@fontsource-variable/source-sans-3": "^5.1.1",
-    "@nuxt/content": "^3.0.0",
+    "@fontsource-variable/source-code-pro": "^5.2.5",
+    "@fontsource-variable/source-sans-3": "^5.2.6",
+    "@nuxt/content": "^3.3.0",
     "@nuxtjs/color-mode": "^3.5.2",
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/nuxt": "workspace:^",
-    "sass-embedded": "catalog:",
+    "sass-embedded": "1.86.0",
     "sit-onyx": "workspace:^"
   },
   "devDependencies": {
-    "nuxt": "^3.15.2",
+    "nuxt": "^3.16.1",
     "typescript": "catalog:",
-    "vue": "catalog:"
+    "vue": "3.5.13"
   }
 }
