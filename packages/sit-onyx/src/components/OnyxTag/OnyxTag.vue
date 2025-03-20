@@ -24,7 +24,13 @@ const isInteractive = Object.keys(attrs).some((key) => key.startsWith("on"));
   <component
     :is="isInteractive ? 'button' : 'div'"
     v-else
-    :class="['onyx-component', 'onyx-tag', `onyx-tag--${props.color}`, densityClass]"
+    :class="[
+      'onyx-component',
+      'onyx-tag',
+      `onyx-tag--${props.color}`,
+      { 'onyx-tag--interactive': isInteractive },
+      densityClass,
+    ]"
   >
     <OnyxIcon v-if="props.icon" :icon="props.icon" size="16px" />
     <span class="onyx-text onyx-truncation-ellipsis">{{ props.label }}</span>
@@ -50,14 +56,12 @@ const isInteractive = Object.keys(attrs).some((key) => key.startsWith("on"));
     border: var(--onyx-1px-in-rem) solid var(--onyx-tag-border-color);
     background-color: var(--onyx-tag-background-color);
 
-    $colors: primary, neutral, danger, warning, success, info, filter;
+    $colors: primary, neutral, danger, warning, success, info;
 
     @each $color in $colors {
       &--#{$color} {
         @if $color == "neutral" {
           --onyx-tag-background-color: var(--onyx-color-base-background-blank);
-        } @else if $color == "filter" {
-          --onyx-tag-background-color: var(--onyx-color-base-neutral-600);
         } @else {
           --onyx-tag-background-color: var(--onyx-color-base-#{$color}-100);
         }
@@ -66,8 +70,6 @@ const isInteractive = Object.keys(attrs).some((key) => key.startsWith("on"));
           --onyx-tag-border-color: var(--onyx-color-component-border-primary);
         } @else if $color == "neutral" or $color == "success" {
           --onyx-tag-border-color: var(--onyx-color-base-#{$color}-500);
-        } @else if $color == "filter" {
-          border: none;
         } @else {
           --onyx-tag-border-color: var(--onyx-color-base-#{$color}-600);
         }
@@ -75,55 +77,36 @@ const isInteractive = Object.keys(attrs).some((key) => key.startsWith("on"));
         @if $color == "neutral" {
           // neutral does not have a bold color so we need to use medium here
           --onyx-tag-color: var(--onyx-color-text-icons-neutral-medium);
-        } @else if $color == "filter" {
-          --onyx-tag-color: var(--onyx-color-text-icons-neutral-inverted);
         } @else {
           --onyx-tag-color: var(--onyx-color-text-icons-#{$color}-bold);
         }
+
+        --onyx-tag-hover-background-color: var(--onyx-color-base-#{$color}-200);
+        @if $color == "info" {
+          --onyx-tag-focus-color: var(--onyx-color-base-info-200);
+        } @else {
+          --onyx-tag-focus-color: var(--onyx-color-component-focus-#{$color});
+        }
+        --onyx-tag-focus-background-color: var(--onyx-color-base-#{$color}-200);
+      }
+    }
+    &--interactive {
+      cursor: pointer;
+      &:hover {
+        background-color: var(--onyx-tag-hover-background-color);
+      }
+      &:focus-visible {
+        background-color: var(--onyx-tag-focus-background-color);
+        outline: var(--onyx-outline-width) solid var(--onyx-tag-focus-color);
       }
     }
   }
+
   &-skeleton {
     width: var(--onyx-density-2xl);
     height: calc(1.5rem + 2 * var(--onyx-density-3xs));
     display: inline-block;
     vertical-align: middle;
-  }
-}
-button.onyx-tag {
-  cursor: pointer;
-  &:hover {
-    background-color: var(--onyx-tag-hover-background-color);
-  }
-  &:focus-visible {
-    background-color: var(--onyx-tag-focus-background-color);
-    outline: var(--onyx-outline-width) solid var(--onyx-tag-focus-color);
-  }
-
-  $colors: primary, neutral, danger, warning, success, info, filter;
-
-  @each $color in $colors {
-    &--#{$color} {
-      @if $color == "filter" {
-        --onyx-tag-hover-background-color: var(--onyx-color-base-neutral-900);
-      } @else {
-        --onyx-tag-hover-background-color: var(--onyx-color-base-#{$color}-200);
-      }
-
-      @if $color == "info" {
-        --onyx-tag-focus-color: var(--onyx-color-base-info-200);
-      } @else if $color == "filter" {
-        --onyx-tag-focus-color: var(--onyx-color-component-focus-neutral);
-      } @else {
-        --onyx-tag-focus-color: var(--onyx-color-component-focus-#{$color});
-      }
-
-      @if $color == "filter" {
-        --onyx-tag-focus-background-color: var(--onyx-color-base-neutral-600);
-      } @else {
-        --onyx-tag-focus-background-color: var(--onyx-color-base-#{$color}-200);
-      }
-    }
   }
 }
 </style>

@@ -10,7 +10,7 @@ export type OnyxTagProps = DensityProp & {
   /**
    * The color of the tag.
    */
-  color?: OnyxColor | "filter";
+  color?: OnyxColor;
   /**
    * An icon which will be displayed on the left side of the label.
    */

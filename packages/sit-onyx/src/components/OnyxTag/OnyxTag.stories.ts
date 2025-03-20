@@ -76,17 +76,3 @@ export const Dismissable = {
     interactiveIcon: xSmall,
   },
 } satisfies Story;
-
-/**
- * This example shows an filter tag.
- */
-export const Filter = {
-  argTypes: {
-    ...withNativeEventLogging(["onClick"]),
-  },
-  args: {
-    label: "Tag",
-    color: "filter",
-    interactiveIcon: xSmall,
-  },
-} satisfies Story;
