@@ -110,6 +110,10 @@ test("should display correctly and allow scrolling for many options", async ({ p
 
   // ACT
   await component.click();
+  // Only in Firefox and in the test: There is a weird bug where the menu doesn't initially have the correct height
+  // TODO: check if this "fix" is still necessary in later versions
+  await component.click();
+  await component.click();
 
   // ASSERT
   await expect(menu).toBeInViewport();
