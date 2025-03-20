@@ -14,6 +14,7 @@
     "@fontsource-variable/source-code-pro": "^5.2.5",
     "@fontsource-variable/source-sans-3": "^5.2.6",
     "@nuxt/content": "^3.3.0",
+    "@nuxt/image": "^1.10.0",
     "@nuxtjs/color-mode": "^3.5.2",
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/nuxt": "workspace:^",
