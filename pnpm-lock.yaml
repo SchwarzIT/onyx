@@ -363,19 +363,19 @@ importers:
   packages/nuxt-docs:
     dependencies:
       '@fontsource-variable/source-code-pro':
-        specifier: ^5.2.5
+        specifier: '>= 5'
         version: 5.2.5
       '@fontsource-variable/source-sans-3':
-        specifier: ^5.2.6
+        specifier: '>= 5'
         version: 5.2.6
       '@nuxt/content':
-        specifier: ^3.3.0
+        specifier: '>= 3'
         version: 3.3.0(@libsql/client@0.14.0)(magicast@0.3.5)(typescript@5.6.3)
       '@nuxt/image':
-        specifier: ^1.10.0
+        specifier: '>= 1'
         version: 1.10.0(db0@0.3.1(@libsql/client@0.14.0)(better-sqlite3@11.9.1))(ioredis@5.6.0)(magicast@0.3.5)
       '@nuxtjs/color-mode':
-        specifier: ^3.5.2
+        specifier: '>= 3'
         version: 3.5.2(magicast@0.3.5)
       '@sit-onyx/icons':
         specifier: workspace:^
