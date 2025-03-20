@@ -4,6 +4,10 @@
   "apply": "Apply",
   "back": "Back",
   "close": "Close",
+  "breadcrumb": {
+    "label": "Breadcrumb navigation",
+    "home": "Home"
+  },
   "dataGrid": {
     "head": {
       "selection": {
