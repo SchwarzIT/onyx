@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed, inject } from "vue";
-import { useVModel } from "../../../../composables/useVModel";
+import { useVModel, type Nullable } from "../../../../composables/useVModel";
 import OnyxAvatar from "../../../OnyxAvatar/OnyxAvatar.vue";
 import { MOBILE_NAV_BAR_INJECTION_KEY } from "../../types";
 import type { OnyxUserMenuProps } from "./types";
@@ -12,7 +12,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the state of flyoutOpen changes.
    */
-  "update:flyoutOpen": [value: boolean];
+  "update:flyoutOpen": [value: Nullable<boolean>];
 }>();
 
 const slots = defineSlots<{
@@ -33,7 +33,7 @@ const flyoutOpen = useVModel({
   props,
   emit,
   key: "flyoutOpen",
-  defaultValue: false,
+  initialValue: false,
 });
 
 const avatar = computed(() => {

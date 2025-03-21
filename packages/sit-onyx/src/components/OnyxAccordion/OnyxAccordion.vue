@@ -2,7 +2,7 @@
 import { provide, ref, toRef, toRefs, watch, watchEffect, type Ref } from "vue";
 import { useDensity } from "../../composables/density";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
-import { useVModel } from "../../composables/useVModel";
+import { useVModel, type Nullable } from "../../composables/useVModel";
 import {
   ACCORDION_INJECTION_KEY,
   type AccordionInjectionKey,
@@ -20,7 +20,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the list of open items changes.
    */
-  "update:modelValue": [value: TValue[]];
+  "update:modelValue": [value: Nullable<TValue[]>];
 }>();
 
 defineSlots<{
@@ -41,7 +41,7 @@ const openItems = useVModel({
   props,
   emit,
   key: "modelValue",
-  defaultValue: [] as TValue[],
+  initialValue: [] as TValue[],
 });
 
 const { disabled, exclusive } = toRefs(props);

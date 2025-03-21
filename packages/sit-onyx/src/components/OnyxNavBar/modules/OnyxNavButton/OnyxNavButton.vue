@@ -41,7 +41,7 @@ const mobileChildrenOpen = useVModel({
   props,
   emit,
   key: "mobileChildrenOpen",
-  defaultValue: false,
+  initialValue: false,
 });
 const isMobile = inject(
   MOBILE_NAV_BAR_INJECTION_KEY,

@@ -32,7 +32,7 @@ const flyoutOpen = useVModel({
   props,
   emit,
   key: "flyoutOpen",
-  defaultValue: false,
+  initialValue: false,
 });
 const slots = defineSlots<{
   /**

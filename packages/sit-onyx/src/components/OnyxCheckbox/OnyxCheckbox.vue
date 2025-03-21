@@ -14,7 +14,9 @@ import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.v
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxCheckboxProps } from "./types";
 
-const props = withDefaults(defineProps<OnyxCheckboxProps<TValue>>(), {
+type Props = OnyxCheckboxProps<TValue>;
+
+const props = withDefaults(defineProps<Props>(), {
   indeterminate: false,
   disabled: FORM_INJECTED_SYMBOL,
   loading: false,
@@ -36,11 +38,11 @@ const emit = defineEmits<{
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
 
-const isChecked = useVModel({
+const isChecked = useVModel<"modelValue", Props, boolean, false>({
   props,
   emit,
   key: "modelValue",
-  defaultValue: false,
+  initialValue: false,
 });
 
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
