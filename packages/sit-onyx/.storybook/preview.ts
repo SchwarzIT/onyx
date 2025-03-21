@@ -1,6 +1,6 @@
 import { createPreview, withVModelDecorator } from "@sit-onyx/storybook-utils";
 import { setup, type Preview } from "@storybook/vue3";
-import { createToastProvider, TOAST_PROVIDER_INJECTION_KEY } from "../src";
+import { createOnyx } from "../src";
 import docsTemplate from "./docs-template.mdx";
 import { onyxThemeGlobalType, withOnyxTheme } from "./theme-switch";
 
@@ -78,6 +78,6 @@ const preview: Preview = {
 export default preview;
 
 setup((app) => {
-  // provide toasts so they can be used in all Storybook examples
-  app.provide(TOAST_PROVIDER_INJECTION_KEY, createToastProvider());
+  // provide onyx plugin so e.g. toast, notifications etc. can be used in all Storybook examples
+  app.use(createOnyx());
 });
