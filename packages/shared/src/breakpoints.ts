@@ -4,11 +4,11 @@
  */
 export const ONYX_BREAKPOINTS = {
   "2xs": 320,
-  xs: 576,
-  sm: 768,
-  md: 992,
-  lg: 1440,
-  xl: 1920,
+  xs: 577,
+  sm: 769,
+  md: 993,
+  lg: 1441,
+  xl: 1921,
 } as const;
 
 export type OnyxBreakpoint = keyof typeof ONYX_BREAKPOINTS;
