@@ -556,6 +556,10 @@ defineExpose({ input: computed(() => selectInput.value?.input) });
       color: var(--onyx-color-text-icons-neutral-soft);
     }
 
+    &:has(.onyx-select__description) {
+      padding-bottom: 0;
+    }
+
     .onyx-empty {
       max-width: 100%;
     }
