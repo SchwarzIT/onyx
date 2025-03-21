@@ -20,6 +20,33 @@ test.describe("Screenshot tests", () => {
       <OnyxTag label="Tag" density={column} color={row} icon={mockPlaywrightIcon} />
     ),
   });
+
+  const states = ["with interactiveIcon", "hover", "focus"];
+
+  states.forEach((state) => {
+    executeMatrixScreenshotTest({
+      name: `Tag (${state})`,
+      columns: DENSITIES,
+      rows: ONYX_COLORS,
+      component: (column, row) => (
+        <OnyxTag
+          label="Tag"
+          density={column}
+          color={row}
+          {...(state === "with interactiveIcon" ? { interactiveIcon: mockPlaywrightIcon } : {})}
+          // needs an Event to have a hover/focus
+          onClick={() => {}}
+        />
+      ),
+      hooks: {
+        beforeEach: async (component) => {
+          const tag = component.getByRole("button", { name: "Tag" });
+          if (state === "hover") await tag.hover();
+          if (state === "focus") await tag.focus();
+        },
+      },
+    });
+  });
 });
 
 test("should truncate text", async ({ mount }) => {
@@ -33,4 +60,13 @@ test("should truncate text", async ({ mount }) => {
 
   // ASSERT
   await expect(component).toHaveScreenshot("truncation.png");
+});
+test("should render non-interactive tag without event", async ({ mount }) => {
+  const component = await mount(<OnyxTag label="Tag" />);
+  await expect(component).not.toHaveClass(/onyx-tag--interactive/);
+});
+
+test("should render interactive tag with event", async ({ mount }) => {
+  const component = await mount(<OnyxTag label="Tag" onClick={() => {}} />);
+  await expect(component).toHaveClass(/onyx-tag--interactive/);
 });
