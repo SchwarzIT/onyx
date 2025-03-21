@@ -49,18 +49,17 @@ const {
 <template>
   <div class="onyx-component onyx-flyout-menu" v-bind="root">
     <slot name="button" :trigger="button"></slot>
-
-    <!-- isExpanded is in v-if to ensure autofocus is working -->
+    <!-- `v-show` instead of `v-if` is necessary, so that we can allow (teleported) dialogs to be shown -->
     <div
-      v-if="(slots.options || slots.header || slots.footer) && isExpanded"
+      v-if="slots.options || slots.header || slots.footer"
+      v-show="isExpanded"
       :aria-label="props.label"
-      :class="{
-        'onyx-flyout-menu__list--with-header': !!slots.header,
-        'onyx-flyout-menu__list--with-footer': !!slots.footer,
-        'onyx-flyout-menu__list': true,
-      }"
+      class="onyx-flyout-menu__list"
     >
-      <slot name="header"></slot>
+      <!-- We always want to render the header so that we can render the padding here -->
+      <div class="onyx-flyout-menu__list-header">
+        <slot name="header"></slot>
+      </div>
 
       <ul
         v-if="slots.options"
@@ -70,7 +69,10 @@ const {
         <slot name="options"></slot>
       </ul>
 
-      <slot name="footer"></slot>
+      <!-- We always want to render the footer so that we can render the padding here -->
+      <div class="onyx-flyout-menu__list-footer">
+        <slot name="footer"></slot>
+      </div>
     </div>
   </div>
 </template>
@@ -90,7 +92,7 @@ const {
       top: calc(100% + var(--onyx-flyout-menu-gap));
       border-radius: var(--onyx-radius-md);
       background-color: var(--onyx-color-base-background-blank);
-      padding: var(--onyx-spacing-2xs) 0;
+      padding: 0;
       box-shadow: var(--onyx-shadow-medium-bottom);
       box-sizing: border-box;
       width: max-content;
@@ -99,17 +101,29 @@ const {
       font-family: var(--onyx-font-family);
       z-index: var(--onyx-z-index-flyout);
 
-      &--with-header {
-        padding-top: 0;
+      &-header {
+        position: sticky;
+        top: 0;
+        min-height: var(--onyx-spacing-2xs);
       }
 
-      &--with-footer {
-        padding-bottom: 0;
+      &-footer {
+        position: sticky;
+        bottom: 0;
+        min-height: var(--onyx-spacing-2xs);
       }
     }
 
     &__wrapper {
       padding: 0;
+      /**
+       * The last option should only be half visible:
+       * 7.5 * OnyxListItem, where OnyxListItem => 2 * padding + line-height of OnyxListItem 
+       */
+      max-height: calc(
+        (var(--onyx-flyout-menu-visible-item-count, 7) + 0.5) * (2 * var(--onyx-density-xs) + 1lh)
+      );
+      overflow: scroll;
     }
   }
 }

@@ -1,5 +1,17 @@
 # sit-onyx
 
+## 1.0.0-beta.181
+
+### Patch Changes
+
+- a0a9847: fix(OnyxColorSchemeMenuItem): fix not opening OnyxColorSchemeDialog on click
+
+## 1.0.0-beta.180
+
+### Patch Changes
+
+- bcfb916: fix(OnyxFlyoutMenu, OnyxUserMenu): fix unlimited height and scroll-behavior
+
 ## 1.0.0-beta.179
 
 ### Major Changes

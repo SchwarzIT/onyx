@@ -84,6 +84,7 @@ export const useFiltering = createFeature(
         class: "onyx-filter-search",
         placeholder: t.value(`dataGrid.head.filtering.menu.placeholder`),
         modelValue: inputValue,
+        // TODO: check after https://github.com/SchwarzIT/onyx/issues/2982 is closed -- `autofocus` doesn't have an effect currently
         autofocus: true,
         "onUpdate:modelValue": (value?: string) => {
           inputValue = value || "";
