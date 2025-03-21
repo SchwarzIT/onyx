@@ -35,7 +35,7 @@ const modelValue = useVModel({
   props,
   emit,
   key: "modelValue",
-  defaultValue: [],
+  initialValue: [],
 });
 const handleUpdate = (value: TValue, isChecked: boolean) => {
   modelValue.value = isChecked

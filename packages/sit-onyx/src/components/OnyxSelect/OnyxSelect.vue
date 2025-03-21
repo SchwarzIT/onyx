@@ -117,7 +117,7 @@ const searchTerm = useVModel({
   props,
   emit,
   key: "searchTerm",
-  defaultValue: "",
+  initialValue: "",
 });
 
 /**
@@ -127,7 +127,7 @@ const open = useVModel({
   props,
   emit,
   key: "open",
-  defaultValue: false,
+  initialValue: false,
 });
 
 const select = useTemplateRef<HTMLElement>("selectRef");
