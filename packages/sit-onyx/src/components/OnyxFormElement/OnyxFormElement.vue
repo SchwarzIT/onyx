@@ -1,16 +1,20 @@
 <script lang="ts" setup generic="T">
 import { computed, useId } from "vue";
 import { useRequired } from "../../composables/required";
+import { useVModel, type Nullable } from "../../composables/useVModel";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxInfoTooltip from "../OnyxInfoTooltip/OnyxInfoTooltip.vue";
 import FormMessage from "./FormMessage.vue";
 import type { OnyxFormElementProps } from "./types";
 
-const props = withDefaults(defineProps<OnyxFormElementProps>(), {
+const props = withDefaults(defineProps<OnyxFormElementProps<T>>(), {
   required: false,
   requiredMarker: FORM_INJECTED_SYMBOL,
   id: () => useId(),
 });
+const emit = defineEmits<{
+  "update:modelValue": [value?: Nullable<T>];
+}>();
 
 const { requiredMarker } = useFormContext(props);
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props, requiredMarker);
@@ -18,7 +22,11 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props, requiredMa
 /**
  * Current value of the input.
  */
-const modelValue = defineModel<T>();
+const modelValue = useVModel({
+  props,
+  emit,
+  key: "modelValue",
+});
 
 const counter = computed(() => {
   if (props.withCounter && props.maxlength) {

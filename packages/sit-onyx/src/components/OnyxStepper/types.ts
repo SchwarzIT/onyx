@@ -1,4 +1,5 @@
 import type { Autocomplete } from "../../composables/useLenientMaxLengthValidation";
+import type { Nullable } from "../../composables/useVModel";
 import type { SharedFormElementProps } from "../OnyxFormElement/types";
 
 export type OnyxStepperProps = Omit<
@@ -45,4 +46,8 @@ export type OnyxStepperProps = Omit<
    * If true, the +/- button will be hidden.
    */
   hideButtons?: boolean;
+  /**
+   * current number input
+   */
+  modelValue?: Nullable<number>;
 };

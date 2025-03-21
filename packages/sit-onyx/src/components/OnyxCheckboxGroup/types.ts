@@ -1,5 +1,6 @@
 import type { RequiredProp } from "../../composables/required";
 import type { CustomValidityProp } from "../../composables/useCustomValidity";
+import type { Nullable } from "../../composables/useVModel";
 import type { AutofocusProp, BaseSelectOption, Direction, SelectOptionValue } from "../../types";
 import type { SharedFormElementProps } from "../OnyxFormElement/types";
 
@@ -18,7 +19,7 @@ export type OnyxCheckboxGroupProps<TValue extends SelectOptionValue = SelectOpti
     /**
      * Currently checked checkboxes.
      */
-    modelValue?: TValue[];
+    modelValue?: Nullable<TValue[]>;
     /**
      * Direction of the checkboxes.
      */

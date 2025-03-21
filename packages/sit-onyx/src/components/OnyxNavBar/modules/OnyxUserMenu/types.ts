@@ -1,3 +1,4 @@
+import type { Nullable } from "../../../../composables/useVModel";
 import type { OnyxAvatarProps } from "../../../OnyxAvatar/types";
 
 export type OnyxUserMenuProps = {
@@ -15,4 +16,8 @@ export type OnyxUserMenuProps = {
    * Optional user description that is displayed when the menu is opened.
    */
   description?: string;
+  /**
+   * Controls whether the flyout menu is open.
+   */
+  flyoutOpen?: Nullable<boolean>;
 };

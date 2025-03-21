@@ -7,14 +7,19 @@ import type {
 } from "../../composables/useCustomValidity";
 import type { SharedTextInputProps } from "../../composables/useLenientMaxLengthValidation";
 import type { SkeletonInjected } from "../../composables/useSkeletonState";
+import type { Nullable } from "../../composables/useVModel";
 import type { AutofocusProp } from "../../types";
 import type { FormInjectedProps } from "../OnyxForm/OnyxForm.core";
 
-export type OnyxFormElementProps = Omit<SharedFormElementProps, "error" | "message" | "success"> &
-  SharedTextInputProps & {
+export type OnyxFormElementProps<T> = Omit<
+  SharedFormElementProps,
+  "error" | "message" | "success"
+> &
+  Omit<SharedTextInputProps, "modelValue"> & {
     errorMessages?: FormMessages;
     message?: FormMessages;
     successMessages?: FormMessages;
+    modelValue?: Nullable<T>;
   };
 
 export type SharedFormElementProps = FormInjectedProps &
