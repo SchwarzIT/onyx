@@ -4,6 +4,10 @@
   "apply": "Anwenden",
   "back": "Zurück",
   "close": "Schließen",
+  "breadcrumb": {
+    "label": "Brotkrümelnavigation",
+    "home": "Startseite"
+  },
   "dataGrid": {
     "head": {
       "selection": {

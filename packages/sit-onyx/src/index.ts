@@ -24,6 +24,12 @@ export * from "./components/OnyxBadge/types";
 export { default as OnyxBottomBar } from "./components/OnyxBottomBar/OnyxBottomBar.vue";
 export * from "./components/OnyxBottomBar/types";
 
+export { default as OnyxBreadcrumb } from "./components/OnyxBreadcrumb/OnyxBreadcrumb.vue";
+export * from "./components/OnyxBreadcrumb/types";
+
+export { default as OnyxBreadcrumbItem } from "./components/OnyxBreadcrumbItem/OnyxBreadcrumbItem.vue";
+export * from "./components/OnyxBreadcrumbItem/types";
+
 export { default as OnyxButton } from "./components/OnyxButton/OnyxButton.vue";
 export * from "./components/OnyxButton/types";
 
