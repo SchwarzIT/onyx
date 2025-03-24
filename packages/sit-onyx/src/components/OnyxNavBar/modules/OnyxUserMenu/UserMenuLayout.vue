@@ -22,7 +22,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the state of flyoutOpen changes.
    */
-  "update:flyoutOpen": [value: boolean];
+  "update:flyoutOpen": [value?: Nullable<boolean>];
 }>();
 
 /**

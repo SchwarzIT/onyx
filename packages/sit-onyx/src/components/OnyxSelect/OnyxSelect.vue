@@ -38,7 +38,9 @@ import type { OnyxSelectInputProps } from "../OnyxSelectInput/types";
 import OnyxSelectOption from "../OnyxSelectOption/OnyxSelectOption.vue";
 import type { OnyxSelectProps, SelectOption } from "./types";
 
-const props = withDefaults(defineProps<OnyxSelectProps<TModelValue, TMultiple, TValue>>(), {
+type Props = OnyxSelectProps<TModelValue, TMultiple, TValue>;
+
+const props = withDefaults(defineProps<Props>(), {
   loading: false,
   noFilter: false,
   skeleton: SKELETON_INJECTED_SYMBOL,
@@ -102,7 +104,7 @@ const { t } = injectI18n();
 
 /**
  * Value of the currently selected option or an array of values when the `multiple` prop is `true`.
- */ const modelValue = useVModel({
+ */ const modelValue = useVModel<"modelValue", Props, TModelValue, TModelValue>({
   props,
   emit,
   key: "modelValue",
@@ -113,7 +115,7 @@ const { t } = injectI18n();
  *
  * Hint: Cover `valueLabel` to prevent the disappearance of the current selections label
  */
-const searchTerm = useVModel({
+const searchTerm = useVModel<"searchTerm", Props, string, string>({
   props,
   emit,
   key: "searchTerm",
@@ -123,7 +125,7 @@ const searchTerm = useVModel({
 /**
  * If true, the select popover is expanded and visible.
  */
-const open = useVModel({
+const open = useVModel<"open", Props, boolean, false>({
   props,
   emit,
   key: "open",

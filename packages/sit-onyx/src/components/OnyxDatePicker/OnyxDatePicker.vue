@@ -81,7 +81,7 @@ const value = computed({
   get: () => getNormalizedDate.value(modelValue.value),
   set: (value) => {
     const newDate = new Date(value ?? "");
-    modelValue.value = isValidDate(newDate) ? newDate.toISOString() : undefined;
+    modelValue.value = isValidDate(newDate) ? newDate.toISOString() : "";
   },
 });
 const input = useTemplateRef("inputRef");

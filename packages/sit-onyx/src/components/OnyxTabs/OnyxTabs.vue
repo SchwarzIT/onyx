@@ -6,7 +6,8 @@ import { provideSkeletonContext } from "../../composables/useSkeletonState";
 import { useVModel } from "../../composables/useVModel";
 import { TABS_INJECTION_KEY, type OnyxTabsProps, type TabsInjectionKey } from "./types";
 
-const props = withDefaults(defineProps<OnyxTabsProps<TValue>>(), {
+type Props = OnyxTabsProps<TValue>;
+const props = withDefaults(defineProps<Props>(), {
   size: "h2",
 });
 
@@ -19,7 +20,7 @@ const emit = defineEmits<{
 
 const { densityClass } = useDensity(props);
 
-const modelValue = useVModel({
+const modelValue = useVModel<"modelValue", Props, TValue, TValue>({
   props,
   emit,
   key: "modelValue",

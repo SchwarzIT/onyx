@@ -11,7 +11,8 @@ import OnyxInfoTooltip from "../OnyxInfoTooltip/OnyxInfoTooltip.vue";
 import OnyxRadioButton from "../OnyxRadioButton/OnyxRadioButton.vue";
 import type { OnyxRadioGroupProps } from "./types";
 
-const props = withDefaults(defineProps<OnyxRadioGroupProps<TValue>>(), {
+type Props = OnyxRadioGroupProps<TValue>;
+const props = withDefaults(defineProps<Props>(), {
   name: () => useId(), // the name must be globally unique
   direction: "vertical",
   required: false,
@@ -36,8 +37,7 @@ const emit = defineEmits<{
    */
   "update:modelValue": [selected?: Nullable<TValue>];
 }>();
-
-const modelValue = useVModel({
+const modelValue = useVModel<"modelValue", Props, TValue, TValue>({
   props,
   emit,
   key: "modelValue",
