@@ -104,6 +104,15 @@ const updateElement = (index: number, newElement: GridElementConfig) => {
   closeEdit();
 };
 
+const currentBreakpoint = computed(() => {
+  const breakpoint = Object.entries(ONYX_BREAKPOINTS).reduce((prev, [name, width]) => {
+    if (viewportSize.width.value >= width) return name;
+    return prev;
+  }, "2xs");
+
+  return breakpoint;
+});
+
 const alignmentOptions = [
   { label: "Filled", value: "Filled" },
   { label: "left", value: "left" },
@@ -116,26 +125,19 @@ const maxWidthOptions = [
   { label: `${ONYX_BREAKPOINTS.xl}px`, value: "lg" },
 ] satisfies SelectOption<MaxWidth>[];
 
-const maxColumnsOptions = [
-  { label: "12 columns", value: 12 },
-  { label: "16 columns", value: 16 },
-  { label: "20 columns", value: 20 },
-] satisfies SelectOption<MaxColumns>[];
+const maxColumnsOptions = computed(() => {
+  return [
+    { label: "12 columns", value: 12 },
+    { label: "16 columns", value: 16 },
+    { label: "20 columns", value: 20, disabled: currentBreakpoint.value === "lg" },
+  ] satisfies SelectOption<MaxColumns>[];
+});
 
 const readonlyMaxColumnsOptions = [
   { label: "4 columns", value: 4 },
   { label: "8 columns", value: 8 },
   { label: "12 columns", value: 12 },
 ] satisfies SelectOption<MaxColumns>[];
-
-const currentBreakpoint = computed(() => {
-  const breakpoint = Object.entries(ONYX_BREAKPOINTS).reduce((prev, [name, width]) => {
-    if (viewportSize.width.value >= width) return name;
-    return prev;
-  }, "2xs");
-
-  return breakpoint;
-});
 
 const isLargeBreakpoint = computed(() => {
   return currentBreakpoint.value === "lg" || currentBreakpoint.value === "xl";
