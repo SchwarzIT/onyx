@@ -11,4 +11,9 @@ export const ONYX_BREAKPOINTS = {
   xl: 1921,
 } as const;
 
+export const ONYX_MAX_WIDTHS = {
+  md: ONYX_BREAKPOINTS.lg - 1,
+  lg: ONYX_BREAKPOINTS.xl - 1,
+} as const;
+
 export type OnyxBreakpoint = keyof typeof ONYX_BREAKPOINTS;

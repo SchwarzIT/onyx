@@ -102,7 +102,7 @@ $gridVariants: (
   */
   @mixin generate-grid-max($name, $maxVariant, $margin) {
     .onyx-grid-max-#{$maxVariant} {
-      --onyx-grid-max-width: #{map.get($breakpoints, $name)};
+      --onyx-grid-max-width: #{map.get($breakpoints, $name) - 1};
     }
   }
 

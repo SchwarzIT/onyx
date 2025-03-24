@@ -5,7 +5,7 @@ import eyeDisabled from "@sit-onyx/icons/eye-disabled.svg?raw";
 import eye from "@sit-onyx/icons/eye.svg?raw";
 import plus from "@sit-onyx/icons/plus.svg?raw";
 import settings from "@sit-onyx/icons/settings.svg?raw";
-import { ONYX_BREAKPOINTS, type OnyxBreakpoint } from "@sit-onyx/shared/breakpoints";
+import { ONYX_MAX_WIDTHS, type OnyxBreakpoint } from "@sit-onyx/shared/breakpoints";
 import {
   computed,
   nextTick,
@@ -121,8 +121,8 @@ const alignmentOptions = [
 
 const maxWidthOptions = [
   { label: "Filled", value: "Filled" },
-  { label: `${ONYX_BREAKPOINTS.lg}px`, value: "md" },
-  { label: `${ONYX_BREAKPOINTS.xl}px`, value: "lg" },
+  { label: `${ONYX_MAX_WIDTHS.md}px`, value: "md" },
+  { label: `${ONYX_MAX_WIDTHS.lg}px`, value: "lg" },
 ] satisfies SelectOption<MaxWidth>[];
 
 const maxColumnsOptions = computed(() => {
