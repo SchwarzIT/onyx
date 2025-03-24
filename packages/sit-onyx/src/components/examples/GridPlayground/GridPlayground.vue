@@ -5,7 +5,11 @@ import eyeDisabled from "@sit-onyx/icons/eye-disabled.svg?raw";
 import eye from "@sit-onyx/icons/eye.svg?raw";
 import plus from "@sit-onyx/icons/plus.svg?raw";
 import settings from "@sit-onyx/icons/settings.svg?raw";
-import { ONYX_MAX_WIDTHS, type OnyxBreakpoint } from "@sit-onyx/shared/breakpoints";
+import {
+  ONYX_BREAKPOINTS,
+  ONYX_MAX_WIDTHS,
+  type OnyxBreakpoint,
+} from "@sit-onyx/shared/breakpoints";
 import {
   computed,
   nextTick,
