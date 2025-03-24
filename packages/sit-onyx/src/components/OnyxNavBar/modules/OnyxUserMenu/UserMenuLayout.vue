@@ -7,16 +7,20 @@ import type { SelectOptionValue } from "../../../../types";
 import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
 import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 
-const props = defineProps<{
-  /**
-   * If the mobile layout should be used instead of the desktop layout.
-   */
-  isMobile: boolean;
-  /**
-   * Controls whether the flyout menu is open.
-   */
-  flyoutOpen?: Nullable<boolean>;
-}>();
+const props = withDefaults(
+  defineProps<{
+    /**
+     * If the mobile layout should be used instead of the desktop layout.
+     */
+    isMobile: boolean;
+    /**
+     * Controls whether the flyout menu is open.
+     */
+    flyoutOpen?: Nullable<boolean>;
+  }>(),
+  // eslint-disable-next-line vue/no-boolean-default
+  { flyoutOpen: undefined },
+);
 
 const emit = defineEmits<{
   /**
