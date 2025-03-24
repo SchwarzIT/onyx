@@ -92,7 +92,7 @@ const XL_VARIANTS = [
   { className: "", breakpoint: "xl", expectedColumns: 12 },
   { className: "onyx-grid-lg-16", breakpoint: "lg", expectedColumns: 16 },
   { className: "onyx-grid-lg-16", breakpoint: "xl", expectedColumns: 16 },
-  { className: "onyx-grid-xl-20", breakpoint: "lg", expectedColumns: 20 },
+  { className: "onyx-grid-xl-20", breakpoint: "lg", expectedColumns: 16 },
   { className: "onyx-grid-xl-20", breakpoint: "xl", expectedColumns: 20 },
 ] as const;
 
@@ -233,7 +233,7 @@ MAX_WIDTH_TEST_SETUP.forEach(({ breakpoint, className }) => {
     page,
   }) => {
     // ARRANGE
-    const VIEWPORT_WIDTH = ONYX_BREAKPOINTS[breakpoint] + 1001;
+    const VIEWPORT_WIDTH = ONYX_BREAKPOINTS[breakpoint];
     await page.setViewportSize({ width: VIEWPORT_WIDTH, height: 400 });
 
     await mount(
@@ -255,7 +255,7 @@ MAX_WIDTH_TEST_SETUP.forEach(({ breakpoint, className }) => {
     page,
   }) => {
     // ARRANGE
-    const VIEWPORT_WIDTH = ONYX_BREAKPOINTS[breakpoint] + 1001;
+    const VIEWPORT_WIDTH = ONYX_BREAKPOINTS[breakpoint];
     await page.setViewportSize({ width: VIEWPORT_WIDTH, height: 400 });
 
     await mount(
