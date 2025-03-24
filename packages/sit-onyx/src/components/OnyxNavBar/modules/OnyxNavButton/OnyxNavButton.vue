@@ -14,6 +14,7 @@ import type { OnyxNavButtonProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxNavButtonProps>(), {
   active: "auto",
+  mobileChildrenOpen: undefined,
 });
 
 const emit = defineEmits<{

@@ -6,7 +6,9 @@ import { MOBILE_NAV_BAR_INJECTION_KEY } from "../../types";
 import type { OnyxUserMenuProps } from "./types";
 import UserMenuLayout from "./UserMenuLayout.vue";
 
-const props = defineProps<OnyxUserMenuProps>();
+const props = withDefaults(defineProps<OnyxUserMenuProps>(), {
+  flyoutOpen: undefined,
+});
 
 const emit = defineEmits<{
   /**

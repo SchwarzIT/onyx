@@ -9,14 +9,17 @@ import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxNavSeparator from "../OnyxNavSeparator/OnyxNavSeparator.vue";
 import type { OnyxNavButtonProps } from "./types";
 
-const props = defineProps<
-  OnyxNavButtonProps & {
-    /**
-     * If the mobile layout should be used.
-     */
-    isMobile: boolean;
-  }
->();
+const props = withDefaults(
+  defineProps<
+    OnyxNavButtonProps & {
+      /**
+       * If the mobile layout should be used.
+       */
+      isMobile: boolean;
+    }
+  >(),
+  { mobileChildrenOpen: undefined },
+);
 const emit = defineEmits<{
   /**
    * Emitted when the state of mobile children visibility changes.

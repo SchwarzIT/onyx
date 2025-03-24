@@ -24,6 +24,7 @@ const props = withDefaults(defineProps<Props>(), {
   requiredMarker: FORM_INJECTED_SYMBOL,
   skeleton: SKELETON_INJECTED_SYMBOL,
   truncation: "ellipsis",
+  modelValue: undefined,
 });
 
 const emit = defineEmits<{

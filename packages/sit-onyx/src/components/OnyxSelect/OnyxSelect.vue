@@ -51,6 +51,7 @@ const props = withDefaults(defineProps<Props>(), {
   truncation: "ellipsis",
   valueLabel: undefined,
   alignment: "full",
+  open: undefined,
 });
 
 const emit = defineEmits<{
