@@ -12,10 +12,6 @@ $gridVariants: (
     "xl"    "lg"         12       2rem    4rem,
 );
 
-// offset 1 is used so the styles only apply to "greater than breakpoint"
-// so it does not jump around when the browser windows is resized by a few pixels
-$screenOffset: 1;
-
 @layer onyx.utility {
   /**
   * Grid container base class
@@ -50,15 +46,19 @@ $screenOffset: 1;
   /**
   * Grid container classes for "xl" and "lg" breakpoint variants with 16 or 20 columns
   */
-  @include screen(min, lg, $screenOffset) {
+  @include screen(min, lg) {
     .onyx-grid-xl-20,
     .onyx-grid-lg-16 {
       --onyx-grid-columns: 16;
     }
   }
-  @include screen(min, xl, $screenOffset) {
+  @include screen(min, xl) {
     .onyx-grid-xl-20 {
       --onyx-grid-columns: 20;
+    }
+
+    .onyx-grid-xl-16 {
+      --onyx-grid-columns: 16;
     }
   }
 
@@ -102,7 +102,7 @@ $screenOffset: 1;
   */
   @mixin generate-grid-max($name, $maxVariant, $margin) {
     .onyx-grid-max-#{$maxVariant} {
-      --onyx-grid-max-width: #{map.get($breakpoints, $name)};
+      --onyx-grid-max-width: #{map.get($breakpoints, $name) - 1};
     }
   }
 
@@ -111,7 +111,7 @@ $screenOffset: 1;
       @include generate-grid-properties($columns, $gutter, $margin);
       @include generate-spans(1, $columns, $name);
     } @else {
-      @include screen(min, $name, $screenOffset) {
+      @include screen(min, $name) {
         @include generate-grid-properties($columns, $gutter, $margin);
         @include generate-spans(1, $columns, $name);
 

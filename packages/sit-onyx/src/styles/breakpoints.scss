@@ -3,11 +3,11 @@
 /*#region breakpoints*/
 $breakpoints: (
   "2xs": 320px,
-  xs: 576px,
-  sm: 768px,
-  md: 992px,
-  lg: 1440px,
-  xl: 1920px,
+  xs: 577px,
+  sm: 769px,
+  md: 993px,
+  lg: 1441px,
+  xl: 1921px,
 );
 /*#endregion breakpoints*/
 
@@ -15,13 +15,17 @@ $breakpoints: (
  * Applies CSS only if the screen width satisfies the given onyx breakpoint.
  * @param {string} $min-max - Whether the breakpoint should be considered as min or max width.
  * @param {string} $name - name of the onyx breakpoint. One of: 2xs, xs, sm, md, lg or xl
- * @param {number} $offset - optional offset to add to the min/max width. Useful if both min and max are used for the same breakpoint
  *
  * @example screen(min, sm)
  * @example screen(max, sm)
  */
-@mixin screen($min-max, $name, $offset: 0) {
-  @media screen and (#{$min-max}-width: #{map.get($breakpoints, $name) + $offset}) {
+@mixin screen($min-max, $name) {
+  $offset: 0;
+  @if ($min-max == "max") {
+    $offset: 1;
+  }
+
+  @media screen and (#{$min-max}-width: #{map.get($breakpoints, $name) - $offset}) {
     @content;
   }
 }

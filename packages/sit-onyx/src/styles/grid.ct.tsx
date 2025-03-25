@@ -1,6 +1,10 @@
 /* eslint-disable playwright/expect-expect */
 import type { Locator, Page } from "@playwright/test";
-import { ONYX_BREAKPOINTS, type OnyxBreakpoint } from "@sit-onyx/shared/breakpoints";
+import {
+  ONYX_BREAKPOINTS,
+  ONYX_MAX_WIDTHS,
+  type OnyxBreakpoint,
+} from "@sit-onyx/shared/breakpoints";
 import { expect, test } from "../playwright/a11y";
 
 /**
@@ -222,19 +226,14 @@ test(`default span should apply when no breakpoint span is active`, async ({ mou
   await expectComputedGridSpan(element, 4);
 });
 
-const MAX_WIDTH_TEST_SETUP = [
-  { breakpoint: "lg", className: "onyx-grid-max-md" },
-  { breakpoint: "xl", className: "onyx-grid-max-lg" },
-] satisfies { breakpoint: OnyxBreakpoint; className: string }[];
-
-MAX_WIDTH_TEST_SETUP.forEach(({ breakpoint, className }) => {
+Object.entries(ONYX_MAX_WIDTHS).forEach(([breakpoint, size]) => {
   test(`page content with max width should be left aligned for ${breakpoint}`, async ({
     mount,
     page,
   }) => {
     // ARRANGE
-    const VIEWPORT_WIDTH = ONYX_BREAKPOINTS[breakpoint] + 1001;
-    await page.setViewportSize({ width: VIEWPORT_WIDTH, height: 400 });
+    const className = `onyx-grid-max-${breakpoint}`;
+    await page.setViewportSize({ width: ONYX_BREAKPOINTS.xl, height: 400 });
 
     await mount(
       <main class={`onyx-grid-container ${className}`} style={{ outline: "1px solid red" }}>
@@ -245,17 +244,18 @@ MAX_WIDTH_TEST_SETUP.forEach(({ breakpoint, className }) => {
     const box = await page.locator("main").evaluate((el) => el.getBoundingClientRect());
 
     expect(box.left).toBe(0);
-    expect(box.right).toBe(ONYX_BREAKPOINTS[breakpoint]);
+    expect(box.right).toBe(size);
   });
 });
 
-MAX_WIDTH_TEST_SETUP.forEach(({ breakpoint, className }) => {
+Object.entries(ONYX_MAX_WIDTHS).forEach(([breakpoint, size]) => {
+  const className = `onyx-grid-max-${breakpoint}`;
   test(`page content with max width and centering should be positioned correctly for ${className}`, async ({
     mount,
     page,
   }) => {
     // ARRANGE
-    const VIEWPORT_WIDTH = ONYX_BREAKPOINTS[breakpoint] + 1001;
+    const VIEWPORT_WIDTH = ONYX_BREAKPOINTS.xl;
     await page.setViewportSize({ width: VIEWPORT_WIDTH, height: 400 });
 
     await mount(
@@ -269,9 +269,8 @@ MAX_WIDTH_TEST_SETUP.forEach(({ breakpoint, className }) => {
 
     const box = await page.locator("main").evaluate((el) => el.getBoundingClientRect());
 
-    const BOX_MAX_WIDTH = ONYX_BREAKPOINTS[breakpoint];
-    const EXPECTED_LEFT = (VIEWPORT_WIDTH - BOX_MAX_WIDTH) / 2;
-    const EXPECTED_RIGHT = EXPECTED_LEFT + BOX_MAX_WIDTH;
+    const EXPECTED_LEFT = (VIEWPORT_WIDTH - size) / 2;
+    const EXPECTED_RIGHT = EXPECTED_LEFT + size;
 
     expect(box.left).toBe(EXPECTED_LEFT);
     expect(box.right).toBe(EXPECTED_RIGHT);

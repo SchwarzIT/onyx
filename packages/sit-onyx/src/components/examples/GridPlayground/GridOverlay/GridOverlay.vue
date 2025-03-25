@@ -32,7 +32,8 @@ const props = withDefaults(
 <style lang="scss" scoped>
 .overlay {
   height: 1.5rem;
-  border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+  border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+  border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
 
   &__container {
     padding-top: 0;

@@ -5,7 +5,11 @@ import eyeDisabled from "@sit-onyx/icons/eye-disabled.svg?raw";
 import eye from "@sit-onyx/icons/eye.svg?raw";
 import plus from "@sit-onyx/icons/plus.svg?raw";
 import settings from "@sit-onyx/icons/settings.svg?raw";
-import { ONYX_BREAKPOINTS, type OnyxBreakpoint } from "@sit-onyx/shared/breakpoints";
+import {
+  ONYX_BREAKPOINTS,
+  ONYX_MAX_WIDTHS,
+  type OnyxBreakpoint,
+} from "@sit-onyx/shared/breakpoints";
 import {
   computed,
   nextTick,
@@ -40,7 +44,7 @@ import StorybookNewTab from "./storybook/new-tab.svg?raw";
 const viewportSize = useResizeObserver(shallowRef(document.body));
 
 type MaxWidth = OnyxBreakpoint | "Filled";
-type MaxColumns = 12 | 16 | 20;
+type MaxColumns = 4 | 8 | 12 | 16 | 20;
 type Alignment = "left" | "center" | "Filled";
 
 const gridValues = ref<{
@@ -73,14 +77,19 @@ watch(
 
     await nextTick();
     const style = getComputedStyle(grid.value);
+    const columnCount = +style.getPropertyValue("--onyx-grid-columns");
 
     gridValues.value = {
       margin:
         style.getPropertyValue("--onyx-grid-margin-inline") ||
         style.getPropertyValue("--onyx-grid-margin"),
       gutter: style.getPropertyValue("--onyx-grid-gutter"),
-      columnCount: +style.getPropertyValue("--onyx-grid-columns"),
+      columnCount: columnCount,
     };
+
+    if (!isLargeBreakpoint.value) {
+      gridSettings.value.maxColumns = columnCount as MaxColumns;
+    }
   },
   { immediate: true, deep: true },
 );
@@ -99,24 +108,6 @@ const updateElement = (index: number, newElement: GridElementConfig) => {
   closeEdit();
 };
 
-const alignmentOptions = [
-  { label: "Filled", value: "Filled" },
-  { label: "left", value: "left" },
-  { label: "center", value: "center" },
-] satisfies SelectOption<Alignment>[];
-
-const maxWidthOptions = [
-  { label: "Filled", value: "Filled" },
-  { label: `${ONYX_BREAKPOINTS.lg}px`, value: "md" },
-  { label: `${ONYX_BREAKPOINTS.xl}px`, value: "lg" },
-] satisfies SelectOption<MaxWidth>[];
-
-const maxColumnsOptions = [
-  { label: "12 columns", value: 12 },
-  { label: "16 columns", value: 16 },
-  { label: "20 columns", value: 20 },
-] satisfies SelectOption<MaxColumns>[];
-
 const currentBreakpoint = computed(() => {
   const breakpoint = Object.entries(ONYX_BREAKPOINTS).reduce((prev, [name, width]) => {
     if (viewportSize.width.value >= width) return name;
@@ -125,6 +116,32 @@ const currentBreakpoint = computed(() => {
 
   return breakpoint;
 });
+
+const alignmentOptions = [
+  { label: "Filled", value: "Filled" },
+  { label: "left", value: "left" },
+  { label: "center", value: "center" },
+] satisfies SelectOption<Alignment>[];
+
+const maxWidthOptions = [
+  { label: "Filled", value: "Filled" },
+  { label: `${ONYX_MAX_WIDTHS.md}px`, value: "md" },
+  { label: `${ONYX_MAX_WIDTHS.lg}px`, value: "lg" },
+] satisfies SelectOption<MaxWidth>[];
+
+const maxColumnsOptions = computed(() => {
+  return [
+    { label: "12 columns", value: 12 },
+    { label: "16 columns", value: 16 },
+    { label: "20 columns", value: 20, disabled: currentBreakpoint.value === "lg" },
+  ] satisfies SelectOption<MaxColumns>[];
+});
+
+const readonlyMaxColumnsOptions = [
+  { label: "4 columns", value: 4 },
+  { label: "8 columns", value: 8 },
+  { label: "12 columns", value: 12 },
+] satisfies SelectOption<MaxColumns>[];
 
 const isLargeBreakpoint = computed(() => {
   return currentBreakpoint.value === "lg" || currentBreakpoint.value === "xl";
@@ -186,7 +203,7 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
           label="Column quantity"
           list-label="List of max columns options"
           label-tooltip="With large breakpoints you can optionally extend the default 12 column grid to 16 or even 20 columns."
-          :options="maxColumnsOptions"
+          :options="!isLargeBreakpoint ? readonlyMaxColumnsOptions : maxColumnsOptions"
           :readonly="!isLargeBreakpoint"
         />
 
@@ -224,7 +241,8 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
       :class="{
         'onyx-grid-center': gridSettings.alignment === 'center',
         [`onyx-grid-max-${gridSettings.maxWidth}`]: gridSettings.maxWidth !== 'Filled',
-        [`onyx-grid-xl-${gridSettings.maxColumns}`]: gridSettings.maxColumns !== 12,
+        [`onyx-grid-${currentBreakpoint}-${gridSettings.maxColumns}`]:
+          gridSettings.maxColumns !== 12,
       }"
     >
       <GridOverlay :columns="gridValues?.columnCount" :show-grid-lines="showGridLines" />

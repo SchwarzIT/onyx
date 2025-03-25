@@ -21,17 +21,6 @@ The following breakpoints are supported:
   @include breakpoints.screen(min, md) {
     // your styles for md screens and larger
   }
-
-  // the breakpoint is inclusive so if you e.g. want to use
-  // min and max for the same breakpoint you should
-  // define an offset for either min or max
-  @include breakpoints.screen(max, xl) {
-    // your styles for smaller and equal xl screens
-  }
-
-  @include breakpoints.screen(min, xl, $offset: 1) {
-    // your styles for greater than xl screens (exclusive)
-  }
 }
 ```
 
