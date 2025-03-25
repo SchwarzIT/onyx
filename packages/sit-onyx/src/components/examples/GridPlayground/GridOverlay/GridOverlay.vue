@@ -51,7 +51,7 @@ const props = withDefaults(
         &::before {
           content: " ";
           position: absolute;
-          height: 10000px;
+          height: 70vh;
           z-index: 60;
           border: var(--onyx-1px-in-rem) dashed var(--onyx-color-component-border-danger-hover);
           pointer-events: none;
@@ -60,7 +60,7 @@ const props = withDefaults(
         &::after {
           content: " ";
           position: absolute;
-          height: 10000px;
+          height: 70vh;
           z-index: 60;
           right: -1px;
           border: var(--onyx-1px-in-rem) dashed var(--onyx-color-component-border-danger-hover);
