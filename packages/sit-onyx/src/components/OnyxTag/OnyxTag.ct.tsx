@@ -33,9 +33,11 @@ test.describe("Screenshot tests", () => {
           label="Tag"
           density={column}
           color={row}
-          {...(state === "with interactiveIcon" ? { interactiveIcon: mockPlaywrightIcon } : {})}
-          // needs an Event to have a hover/focus
-          onClick={() => {}}
+          clickable={
+            state === "with interactiveIcon"
+              ? { label: "clickable", actionIcon: mockPlaywrightIcon }
+              : "clickable"
+          }
         />
       ),
       hooks: {
@@ -66,7 +68,7 @@ test("should render non-interactive tag without event", async ({ mount }) => {
   await expect(component).not.toHaveClass(/onyx-tag--interactive/);
 });
 
-test("should render interactive tag with event", async ({ mount }) => {
-  const component = await mount(<OnyxTag label="Tag" onClick={() => {}} />);
+test("should render interactive tag with clickable prop", async ({ mount }) => {
+  const component = await mount(<OnyxTag label="Tag" clickable="clickable" />);
   await expect(component).toHaveClass(/onyx-tag--interactive/);
 });

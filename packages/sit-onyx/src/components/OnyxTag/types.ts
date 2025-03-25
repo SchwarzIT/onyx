@@ -16,10 +16,24 @@ export type OnyxTagProps = DensityProp & {
    */
   icon?: string;
   /**
-   * An icon displayed on the right side of the label.
-   * Should be used to indicate an action (e.g., dismissing).
+   * Deermines whether the Tag is clickalbe or not.
+   * If a string is provided,it represnts a tooltip label
+   * If an object is provided, it contains a tooltip label and ann optional action icon.
    */
-  interactiveIcon?: string;
+  clickable?:
+    | string
+    | {
+        /**
+         * The label displayed on the Tooltip
+         */
+        label: string;
+        /**
+         * An icon displayed on the right side of the label.
+         * Should be used to indicate an action (e.g., dismissing).
+         */
+        actionIcon?: string;
+      };
+
   /**
    * Whether to show a skeleton tag.
    */

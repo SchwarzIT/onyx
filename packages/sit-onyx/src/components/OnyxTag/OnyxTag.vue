@@ -1,9 +1,10 @@
 <script lang="ts" setup>
-import { useAttrs } from "vue";
+import { computed } from "vue";
 import { useDensity } from "../../composables/density";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
+import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 import type { OnyxTagProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxTagProps>(), {
@@ -13,29 +14,38 @@ const props = withDefaults(defineProps<OnyxTagProps>(), {
 
 const { densityClass } = useDensity(props);
 const skeleton = useSkeletonContext(props);
-
-const attrs = useAttrs();
-const isInteractive = Object.keys(attrs).some((key) => key.startsWith("on"));
+const tagClasses = computed(() => [
+  "onyx-component",
+  "onyx-tag",
+  `onyx-tag--${props.color}`,
+  { "onyx-tag--interactive": props.clickable },
+  densityClass.value,
+]);
 </script>
 
 <template>
   <OnyxSkeleton v-if="skeleton" :class="['onyx-tag-skeleton', densityClass]" />
 
-  <component
-    :is="isInteractive ? 'button' : 'div'"
-    v-else
-    :class="[
-      'onyx-component',
-      'onyx-tag',
-      `onyx-tag--${props.color}`,
-      { 'onyx-tag--interactive': isInteractive },
-      densityClass,
-    ]"
+  <OnyxTooltip
+    v-else-if="props.clickable"
+    :text="typeof props.clickable === 'object' ? props.clickable.label : props.clickable"
   >
-    <OnyxIcon v-if="props.icon" :icon="props.icon" size="16px" />
+    <template #default="{ trigger }">
+      <button v-bind="trigger" :class="tagClasses" type="button">
+        <OnyxIcon v-if="props.icon" :icon="props.icon" inline />
+        <span class="onyx-text onyx-truncation-ellipsis">{{ props.label }}</span>
+        <OnyxIcon
+          v-if="typeof props.clickable === 'object' && props.clickable.actionIcon"
+          :icon="props.clickable.actionIcon"
+          inline
+        />
+      </button>
+    </template>
+  </OnyxTooltip>
+  <div v-else :class="tagClasses">
+    <OnyxIcon v-if="props.icon" :icon="props.icon" inline />
     <span class="onyx-text onyx-truncation-ellipsis">{{ props.label }}</span>
-    <OnyxIcon v-if="props.interactiveIcon" :icon="props.interactiveIcon" size="16px" />
-  </component>
+  </div>
 </template>
 
 <style lang="scss">

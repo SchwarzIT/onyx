@@ -14,7 +14,6 @@ const meta: Meta<typeof OnyxTag> = {
   component: OnyxTag,
   argTypes: {
     icon: defineIconSelectArgType(),
-    interactiveIcon: defineIconSelectArgType(),
   },
 };
 
@@ -61,6 +60,7 @@ export const Interactive = {
   },
   args: {
     label: "Tag",
+    clickable: "clickable",
   },
 } satisfies Story;
 
@@ -73,6 +73,6 @@ export const Dismissable = {
   },
   args: {
     label: "Tag",
-    interactiveIcon: xSmall,
+    clickable: { label: "clickable", actionIcon: xSmall },
   },
 } satisfies Story;
