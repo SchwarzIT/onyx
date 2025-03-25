@@ -24,7 +24,9 @@ defineSlots<{
     v-bind="props"
     role="menuitem"
   >
-    <span class="onyx-truncation-ellipsis">{{ props.label }}</span>
+    <span class="onyx-truncation-ellipsis"
+      ><slot>{{ props.label }}</slot></span
+    >
     <OnyxExternalLinkIcon v-bind="props.link ? extractLinkProps(props.link) : undefined" />
   </ButtonOrLinkLayout>
 </template>
@@ -50,6 +52,10 @@ defineSlots<{
     color: var(--onyx-color-text-icons-neutral-intense);
     border: none;
     outline: none;
+
+    .onyx-external-link-icon {
+      margin-left: calc(-1 * var(--onyx-spacing-2xs));
+    }
 
     &:hover {
       background: var(--onyx-color-base-neutral-200, #e3eaf0);
