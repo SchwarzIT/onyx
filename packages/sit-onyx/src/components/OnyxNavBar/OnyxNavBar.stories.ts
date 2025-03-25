@@ -48,12 +48,6 @@ const meta: Meta<typeof OnyxNavBar> = {
       components: { story },
       template: `<div style="padding-bottom: 20rem;"> <story /> </div>`,
     }),
-    (story) => ({
-      components: { story },
-      // to prevent opening links in Storybook which would lead to another Storybook be opened inside the
-      // iframe, we prevent click events here so clicking links just does "nothing"
-      template: `<story @click.prevent />`,
-    }),
   ],
 };
 
@@ -68,13 +62,36 @@ export const Default = {
       h(OnyxNavButton, { label: "Item 1", link: "/" }),
       h(
         OnyxNavButton,
-        { label: "Item 2", link: "/test" },
+        { label: "Item 2" },
         {
           default: () => ["Item 2", h(OnyxBadge, { dot: true, color: "warning" })],
           children: () => [
-            h(OnyxNavItem, { label: "Nested item 2.1", link: "#" }),
-            h(OnyxNavItem, { label: "Nested item 2.2", link: "#", active: true }),
-            h(OnyxNavItem, { label: "Nested item 2.3", link: "https://onyx.schwarz" }),
+            h(
+              OnyxNavButton,
+              { label: "Nested item 2.1" },
+              {
+                children: () => [
+                  h(
+                    OnyxNavButton,
+                    { label: "Nested item 2.1.1" },
+                    {
+                      children: () => [
+                        h(OnyxNavButton, { label: "Nested item 2.1.1.1", link: "#" }),
+                        h(OnyxNavButton, { label: "Nested item 2.1.1.2", link: "#", active: true }),
+                        h(OnyxNavButton, {
+                          label: "Nested item 2.1.1.3",
+                          link: "https://onyx.schwarz",
+                        }),
+                      ],
+                    },
+                  ),
+                  h(OnyxNavButton, { label: "Nested item 2.1.2", link: "#", active: true }),
+                  h(OnyxNavButton, { label: "Nested item 2.1.3", link: "https://onyx.schwarz" }),
+                ],
+              },
+            ),
+            h(OnyxNavButton, { label: "Nested item 2.2", link: "#", active: true }),
+            h(OnyxNavButton, { label: "Nested item 2.3", link: "https://onyx.schwarz" }),
           ],
         },
       ),
@@ -83,8 +100,8 @@ export const Default = {
         { label: "Item 3" },
         {
           children: () => [
-            h(OnyxNavItem, { label: "Nested item 3.1", link: "#" }),
-            h(OnyxNavItem, { label: "Nested item 3.2", link: "#" }),
+            h(OnyxNavButton, { label: "Nested item 3.1", link: "#" }),
+            h(OnyxNavButton, { label: "Nested item 3.2", link: "#" }),
           ],
         },
       ),
