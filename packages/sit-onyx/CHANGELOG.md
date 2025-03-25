@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.182
+
+### Minor Changes
+
+- 74f5c74: feat: implement OnyxBreadcrumb and OnyxBreadcrumbItem component
+
 ## 1.0.0-beta.181
 
 ### Patch Changes
