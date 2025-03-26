@@ -7,7 +7,6 @@ import {
   OnyxIcon,
   OnyxMenuItem,
   OnyxNavBar,
-  OnyxNavButton,
   OnyxNavItem,
   OnyxToast,
   OnyxUserMenu,
@@ -47,16 +46,16 @@ useThemeTransition(colorScheme);
         show-back-button
         @back-button-click="router.back"
       >
-        <OnyxNavButton label="Home" link="/" />
+        <OnyxNavItem label="Home" link="/" />
 
-        <OnyxNavButton label="Demos">
+        <OnyxNavItem label="Demos">
           <template #children>
             <OnyxNavItem label="Form" link="/demos/form" />
             <OnyxNavItem label="Layout" link="/demos/layout" />
             <OnyxNavItem label="Grid" link="/demos/grid" />
             <OnyxNavItem label="Data grid" link="/demos/data-grid" />
           </template>
-        </OnyxNavButton>
+        </OnyxNavItem>
 
         <template #contextArea>
           <OnyxUserMenu full-name="John Doe">

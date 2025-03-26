@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { computed, provide } from "vue";
 import { MOBILE_NAV_BAR_INJECTION_KEY } from "../../types";
-import OnyxNavButton from "./OnyxNavButton.vue";
-import type { OnyxNavButtonProps } from "./types";
+import OnyxNavItem from "./OnyxNavItem.vue";
+import type { OnyxNavItemProps } from "./types";
 
-const props = defineProps<OnyxNavButtonProps>();
+const props = defineProps<OnyxNavItemProps>();
 
 const slots = defineSlots<{
   /**
@@ -25,11 +25,11 @@ provide(
 
 <!-- eslint-disable vue/no-static-inline-styles -->
 <template>
-  <OnyxNavButton style="width: 24rem" v-bind="props">
+  <OnyxNavItem style="width: 24rem" v-bind="props">
     <slot></slot>
 
     <template v-if="slots.children" #children>
       <slot name="children"></slot>
     </template>
-  </OnyxNavButton>
+  </OnyxNavItem>
 </template>

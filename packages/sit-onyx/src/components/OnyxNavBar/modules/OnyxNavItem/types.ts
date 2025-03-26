@@ -1,7 +1,7 @@
 import type { Nullable } from "../../../../composables/useVModel";
 import type { WithLinkProp } from "../../../OnyxRouterLink/types";
 
-export type OnyxNavButtonProps = WithLinkProp<true> & {
+export type OnyxNavItemProps = WithLinkProp<true> & {
   /**
    * Label to show inside the Nav item.
    * You can use the `default` slot to display custom content.

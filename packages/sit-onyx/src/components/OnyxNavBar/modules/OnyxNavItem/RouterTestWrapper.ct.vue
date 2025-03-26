@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import { provide, toRef } from "vue";
 import { ROUTER_INJECTION_KEY } from "../../../../composables/useLink";
-import OnyxNavButton from "./OnyxNavButton.vue";
-import type { OnyxNavButtonProps } from "./types";
+import OnyxNavItem from "./OnyxNavItem.vue";
+import type { OnyxNavItemProps } from "./types";
 
 const props = withDefaults(
   defineProps<
-    OnyxNavButtonProps & {
+    OnyxNavItemProps & {
       /** Current route */
       currentRoute: string;
     }
@@ -24,5 +24,5 @@ provide(ROUTER_INJECTION_KEY, {
 </script>
 
 <template>
-  <OnyxNavButton v-bind="props" />
+  <OnyxNavItem v-bind="props" />
 </template>
