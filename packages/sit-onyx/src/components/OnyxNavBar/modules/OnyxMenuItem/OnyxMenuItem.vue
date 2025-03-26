@@ -2,9 +2,8 @@
 import { createMenuItems } from "@sit-onyx/headless";
 import { computed } from "vue";
 import { useLink } from "../../../../composables/useLink";
-import { extractLinkProps } from "../../../../utils/router";
+import ButtonOrLinkLayout from "../../../OnyxButton/ButtonOrLinkLayout.vue";
 import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
-import OnyxRouterLink from "../../../OnyxRouterLink/OnyxRouterLink.vue";
 import { type OnyxMenuItemProps } from "./types";
 
 defineSlots<{
@@ -28,7 +27,7 @@ const isActive = computed(() => {
   return isPathActive.value(props.link);
 });
 
-const headlessProps = computed(() =>
+const menuItemProps = computed(() =>
   menuItem({
     active: isActive.value,
     disabled: props.disabled,
@@ -45,23 +44,14 @@ const headlessProps = computed(() =>
     class="onyx-component onyx-menu-item"
     v-bind="listItem"
   >
-    <OnyxRouterLink
-      v-if="props.link"
+    <ButtonOrLinkLayout
       class="onyx-menu-item__trigger"
-      v-bind="{ ...headlessProps, ...extractLinkProps(props.link) }"
-    >
-      <slot></slot>
-    </OnyxRouterLink>
-
-    <button
-      v-else
-      class="onyx-menu-item__trigger"
-      type="button"
       :disabled="props.disabled"
-      v-bind="headlessProps"
+      :link="props.link"
+      v-bind="menuItemProps"
     >
       <slot></slot>
-    </button>
+    </ButtonOrLinkLayout>
   </OnyxListItem>
 </template>
 
