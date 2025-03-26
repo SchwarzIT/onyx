@@ -20,7 +20,10 @@ test.describe("Screenshot tests", () => {
     hooks: {
       beforeEach: async (component, page, column, row) => {
         const tag = component.getByRole("button", { name: "Tag" });
-        if (row === "hover") await tag.hover();
+        if (row === "hover") {
+          await tag.hover();
+          await new Promise((resolve) => setTimeout(resolve, 200));
+        }
         if (row === "focus") await tag.focus();
       },
     },
