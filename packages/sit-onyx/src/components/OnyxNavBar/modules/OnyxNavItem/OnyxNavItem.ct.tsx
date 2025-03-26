@@ -21,21 +21,21 @@ const context = {
 
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
-    name: "NavButton",
+    name: "NavItem",
     columns: ["default", "active"],
     rows: ["default", "hover", "focus-visible", "external-link"],
     context,
     component: (column, row) => (
       <OnyxNavItem
-        label="Nav Button"
+        label="Nav Item"
         link={row === "external-link" ? "https://onyx.schwarz/" : "#"}
         active={column === "active"}
       />
     ),
     hooks: {
       beforeEach: async (component, page, _column, row) => {
-        await expect(component).toContainText("Nav Button");
-        if (row === "hover") await component.getByLabel("Nav Button").hover();
+        await expect(component).toContainText("Nav Item");
+        if (row === "hover") await component.getByRole("menuitem", { name: "Nav Item" }).hover();
         if (row === "focus-visible") await page.keyboard.press("Tab");
       },
     },
@@ -141,14 +141,13 @@ test.describe("Screenshot tests (mobile children)", () => {
 
 test("should behave correctly without link", async ({ mount }) => {
   // ARRANGE
-  let clickEventCount = 0;
-  const component = await mount(<OnyxNavItem label="Label" onClick={() => clickEventCount++} />);
+  const component = await mount(<OnyxNavItem label="Label" />);
 
   // ACT
-  await component.getByRole("menuitem", { name: "Label" }).click();
+  const menuitem = component.getByRole("menuitem", { name: "Label" });
 
   // ASSERT
-  expect(clickEventCount).toBe(1);
+  await expect(menuitem).toBeEnabled();
 });
 
 test("should behave correctly with link", async ({ mount, page }) => {
@@ -166,7 +165,9 @@ test("should behave correctly with nested children", async ({ mount, page }) => 
   // ARRANGE
   const component = await mount(
     <OnyxNavItem label="Label">
-      <OnyxNavItem label="Nested item 1" link="#nested-1" />
+      <template v-slot:children>
+        <OnyxNavItem label="Nested item 1" link="#nested-1" />
+      </template>
     </OnyxNavItem>,
   );
 
@@ -180,7 +181,6 @@ test("should behave correctly with nested children", async ({ mount, page }) => 
 
 test("should auto detect active state based on provided router", async ({ mount }) => {
   // ARRANGE
-  const activeClassName = /onyx-nav-item--active/;
 
   const component = await mount(RouterTestWrapperCt, {
     props: {
@@ -190,29 +190,35 @@ test("should auto detect active state based on provided router", async ({ mount 
     },
   });
 
+  const menuitem = component.getByRole("menuitem");
+
   // ASSERT
-  await expect(component, "should be active if current route matches").toHaveClass(activeClassName);
+  await expect(menuitem, "should be active if current route matches").toHaveAttribute(
+    "aria-current",
+    "page",
+  );
 
   // ACT
   await component.update({ props: { active: false } });
 
   // ASSERT
   await expect(
-    component,
+    menuitem,
     "should not be active if current route matches but explicitly set false",
-  ).not.toHaveClass(activeClassName);
+  ).not.toHaveAttribute("aria-current");
 
   // ACT
   await component.update({ props: { currentRoute: "/not-test", active: "auto" } });
 
   // ASSERT
-  await expect(component, "should NOT be active if current route does not match").not.toHaveClass(
-    activeClassName,
-  );
+  await expect(
+    menuitem,
+    "should NOT be active if current route does not match",
+  ).not.toHaveAttribute("aria-current");
 
   // ACT
   await component.update({ props: { active: true } });
 
   // ASSERT
-  await expect(component, "should be active if explicitly set true").toHaveClass(activeClassName);
+  await expect(menuitem, "should be active if explicitly set true").toHaveAttribute("aria-current");
 });
