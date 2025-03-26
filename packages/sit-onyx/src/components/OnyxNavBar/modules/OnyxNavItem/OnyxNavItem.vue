@@ -85,10 +85,10 @@ provide(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, false);
       'onyx-nav-item--mobile': isMobile,
       'onyx-nav-item--open': open,
     }"
-    role="presentation"
+    role="none"
   >
     <template v-if="open">
-      <div class="onyx-nav-item__controls" role="presentation">
+      <div class="onyx-nav-item__controls">
         <OnyxButton
           :label="t('back')"
           mode="plain"
@@ -114,7 +114,7 @@ provide(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, false);
     />
   </li>
   <template v-else>
-    <li v-if="isTopLevel" v-show="isVisible" class="onyx-component onyx-nav-item">
+    <li v-if="isTopLevel" v-show="isVisible" role="none" class="onyx-component onyx-nav-item">
       <OnyxFlyoutMenu v-if="hasChildren" :label="t('navItemOptionsLabel', { label: props.label })">
         <template #button="{ trigger }">
           <OnyxNavItemFacade

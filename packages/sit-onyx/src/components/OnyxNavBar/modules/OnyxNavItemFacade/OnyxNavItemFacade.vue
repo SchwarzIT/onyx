@@ -1,11 +1,16 @@
 <script lang="ts" setup>
 import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
+import { useRootAttrs } from "../../../../utils/attrs";
 import { extractLinkProps } from "../../../../utils/router";
 import ButtonOrLinkLayout from "../../../OnyxButton/ButtonOrLinkLayout.vue";
 import OnyxExternalLinkIcon from "../../../OnyxExternalLinkIcon/OnyxExternalLinkIcon.vue";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
 import type { OnyxNavItemProps } from "../OnyxNavItem/types";
+
+defineOptions({ inheritAttrs: false });
+
+const { rootAttrs, restAttrs } = useRootAttrs();
 
 const props = defineProps<
   OnyxNavItemProps & {
@@ -38,9 +43,10 @@ defineSlots<{
     :class="{ 'onyx-component': true, 'onyx-nav-item-facade-wrapper': true }"
     role="presentation"
     :active="props.active"
+    v-bind="rootAttrs"
   >
     <ButtonOrLinkLayout
-      :link="props.link"
+      :link="props.hasChildren ? undefined : props.link"
       :class="{
         'onyx-component': true,
         'onyx-text': true,
@@ -48,6 +54,8 @@ defineSlots<{
         [`onyx-nav-item-facade--${props.context}`]: true,
         'onyx-nav-item-facade--active': props.active,
       }"
+      v-bind="restAttrs"
+      :aria-current="active ? 'page' : undefined"
       role="menuitem"
     >
       <span>
