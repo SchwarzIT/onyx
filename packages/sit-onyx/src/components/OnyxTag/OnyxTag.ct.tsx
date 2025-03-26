@@ -38,12 +38,20 @@ test.describe("Screenshot tests", () => {
               ? { label: "clickable", actionIcon: mockPlaywrightIcon }
               : "clickable"
           }
+          style={
+            state === "hover" || state === "focus"
+              ? { marginBottom: "2rem", marginRight: "2rem" }
+              : {}
+          }
         />
       ),
       hooks: {
         beforeEach: async (component) => {
           const tag = component.getByRole("button", { name: "Tag" });
-          if (state === "hover") await tag.hover();
+          if (state === "hover") {
+            await tag.hover();
+            await new Promise((resolve) => setTimeout(resolve, 200));
+          }
           if (state === "focus") await tag.focus();
         },
       },
@@ -70,5 +78,6 @@ test("should render non-interactive tag without event", async ({ mount }) => {
 
 test("should render interactive tag with clickable prop", async ({ mount }) => {
   const component = await mount(<OnyxTag label="Tag" clickable="clickable" />);
-  await expect(component).toHaveClass(/onyx-tag--interactive/);
+  const interactiveTag = component.getByRole("button", { name: "Tag" });
+  await expect(interactiveTag).toHaveClass(/onyx-tag--interactive/);
 });

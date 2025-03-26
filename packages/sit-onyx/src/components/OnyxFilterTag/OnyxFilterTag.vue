@@ -16,6 +16,7 @@ const skeleton = useSkeletonContext(props);
 <template>
   <OnyxTag
     v-bind="props"
+    :clickable="{ label: 'remove Filter', actionIcon: xSmall }"
     :interactive-icon="xSmall"
     class="onyx-tag--filter"
     :skeleton="skeleton"
@@ -25,7 +26,7 @@ const skeleton = useSkeletonContext(props);
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
 
-.onyx-tag--filter {
+.onyx-tag--filter .onyx-tag {
   @include layers.component() {
     --onyx-tag-background-color: var(--onyx-color-base-neutral-600);
     border: none;
