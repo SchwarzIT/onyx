@@ -335,7 +335,11 @@ const openAccordionItems = ref<string[]>([]);
 
         <OnyxTag v-if="show('OnyxTag')" label="Example tag" :icon="emojiHappy2" color="primary" />
         <OnyxTag v-if="show('OnyxTag')" label="Example interactive tag" clickable="clickable" />
-        <OnyxFilterTag v-if="show('OnyxTag')" label="Example filter tag" @click="() => {}" />
+        <OnyxFilterTag
+          v-if="show('OnyxTag')"
+          label="Example filter tag"
+          clickable="remove Filter"
+        />
 
         <OnyxTextarea
           v-if="show('OnyxTextarea')"
