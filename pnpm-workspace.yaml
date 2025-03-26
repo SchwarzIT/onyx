@@ -11,7 +11,7 @@ catalog:
   vue: 3.5.13
   sass-embedded: 1.86.0
   typescript: 5.6.3
-  vite: 6.2.2
+  vite: 6.2.3
 onlyBuiltDependencies:
   - "@parcel/watcher"
   - esbuild
