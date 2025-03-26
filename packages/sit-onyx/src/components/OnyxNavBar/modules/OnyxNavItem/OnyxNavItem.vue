@@ -17,11 +17,11 @@ import {
 import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxNavItemFacade from "../OnyxNavItemFacade/OnyxNavItemFacade.vue";
 import OnyxNavSeparator from "../OnyxNavSeparator/OnyxNavSeparator.vue";
-import type { OnyxNavButtonProps } from "./types";
+import type { OnyxNavItemProps } from "./types";
 
-const props = withDefaults(defineProps<OnyxNavButtonProps>(), {
-  open: undefined,
+const props = withDefaults(defineProps<OnyxNavItemProps>(), {
   active: "auto",
+  open: undefined,
 });
 
 const emit = defineEmits<{
@@ -41,11 +41,14 @@ const slots = defineSlots<{
      */
     trigger: object;
   }): unknown;
-  options?(): unknown;
+  children?(): unknown;
 }>();
 
 const { t } = injectI18n();
 
+/**
+ * Controls the open state for the mobile children.
+ */
 const open = useVModel({
   props,
   emit,
@@ -53,7 +56,7 @@ const open = useVModel({
   initialValue: false,
 });
 
-const hasChildren = computed(() => !!slots.options);
+const hasChildren = computed(() => !!slots.children);
 
 const { isActive } = useLink();
 const active = computed(() => {
@@ -77,14 +80,15 @@ provide(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, false);
     v-if="isMobile"
     :class="{
       'onyx-component': true,
-      'onyx-nav-button-layout': true,
-      'onyx-nav-button-layout--mobile': isMobile,
-      'onyx-nav-button-layout--open': open,
+      'onyx-nav-item': true,
+      'onyx-nav-item--active': active,
+      'onyx-nav-item--mobile': isMobile,
+      'onyx-nav-item--open': open,
     }"
     role="presentation"
   >
     <template v-if="open">
-      <div class="onyx-nav-button-layout__controls" role="presentation">
+      <div class="onyx-nav-item__controls" role="presentation">
         <OnyxButton
           :label="t('back')"
           mode="plain"
@@ -96,8 +100,8 @@ provide(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, false);
         <OnyxNavItemFacade v-bind="props" :active :has-children="false" context="mobile" />
         <OnyxNavSeparator orientation="horizontal" />
       </div>
-      <ul role="menu" class="onyx-nav-button-layout__mobile-children">
-        <slot name="options"></slot>
+      <ul role="menu" class="onyx-nav-item__mobile-children">
+        <slot name="children"></slot>
       </ul>
     </template>
     <OnyxNavItemFacade
@@ -110,7 +114,7 @@ provide(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, false);
     />
   </li>
   <template v-else>
-    <li v-if="isTopLevel" v-show="isVisible" class="onyx-component onyx-nav-button-layout">
+    <li v-if="isTopLevel" v-show="isVisible" class="onyx-component onyx-nav-item">
       <OnyxFlyoutMenu v-if="hasChildren" :label="t('navItemOptionsLabel', { label: props.label })">
         <template #button="{ trigger }">
           <OnyxNavItemFacade
@@ -122,7 +126,7 @@ provide(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, false);
         </template>
 
         <template #options>
-          <slot name="options"></slot>
+          <slot name="children"></slot>
         </template>
       </OnyxFlyoutMenu>
       <OnyxNavItemFacade v-else v-bind="props" ref="componentRef" :active context="navbar" />
@@ -132,7 +136,7 @@ provide(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, false);
 </template>
 
 <style lang="scss">
-.onyx-nav-button-layout {
+.onyx-nav-item {
   list-style: none;
   display: flex;
   flex-direction: column;
@@ -152,12 +156,12 @@ provide(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, false);
     display: contents;
   }
 
-  &:has(~ .onyx-nav-button-layout--open),
-  &--open ~ .onyx-nav-button-layout {
+  &:has(~ .onyx-nav-item--open),
+  &--open ~ .onyx-nav-item {
     display: none;
   }
 
-  &--open:has(.onyx-nav-button-layout--open) > &__controls {
+  &--open:has(.onyx-nav-item--open) > &__controls {
     display: none;
   }
 }
