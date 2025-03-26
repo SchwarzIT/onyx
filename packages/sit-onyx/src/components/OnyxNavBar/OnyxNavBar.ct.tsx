@@ -137,11 +137,11 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
   await expect(page).toHaveScreenshot("burger.png");
 
   // ACT
-  await component.getByLabel("Item 1").click();
+  await component.getByRole("menuitem", { name: "Item 1" }).click();
   await expect(page).toHaveURL(/^http:\/\/localhost:\d*\/#1$/);
 
   // ACT
-  await component.getByLabel("Item 2").click();
+  await component.getByRole("menuitem", { name: "Item 2" }).click();
   await component.hover({ position: { x: 0, y: 0 } }); // reset mouse
 
   // ASSERT
@@ -151,7 +151,7 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
   );
 
   // ACT
-  await component.getByLabel("Item 2", { exact: true }).click();
+  await component.getByRole("menuitem", { name: "Item 2", exact: true }).click();
 
   // ASSERT
   await expect(page).toHaveURL(/^http:\/\/localhost:\d*\/#2$/);
@@ -166,12 +166,12 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
   await component.getByRole("button", { name: "Back" }).click();
 
   // ASSERT
-  await expect(component.getByLabel("Nested item 1")).toBeHidden();
-  await expect(component.getByLabel("Nested item 2")).toBeHidden();
-  await expect(component.getByLabel("Nested item 3")).toBeHidden();
-  await expect(component.getByLabel("Item 1")).toBeVisible();
-  await expect(component.getByLabel("Item 2")).toBeVisible();
-  await expect(component.getByLabel("Item 3")).toBeVisible();
+  await expect(component.getByRole("menuitem", { name: "Nested item 1" })).toBeHidden();
+  await expect(component.getByRole("menuitem", { name: "Nested item 2" })).toBeHidden();
+  await expect(component.getByRole("menuitem", { name: "Nested item 3" })).toBeHidden();
+  await expect(component.getByRole("menuitem", { name: "Item 1" })).toBeVisible();
+  await expect(component.getByRole("menuitem", { name: "Item 2" })).toBeVisible();
+  await expect(component.getByRole("menuitem", { name: "Item 3" })).toBeVisible();
 
   // ACT
   await component.getByLabel("Toggle context menu").click();
