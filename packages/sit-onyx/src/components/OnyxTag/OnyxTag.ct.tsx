@@ -38,11 +38,7 @@ test.describe("Screenshot tests", () => {
               ? { label: "clickable", actionIcon: mockPlaywrightIcon }
               : "clickable"
           }
-          style={
-            state === "hover" || state === "focus"
-              ? { marginBottom: "2rem", marginRight: "2rem" }
-              : {}
-          }
+          style={state === "hover" || state === "focus" ? { margin: "0 2rem 2rem 0" } : {}}
         />
       ),
       hooks: {

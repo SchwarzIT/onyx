@@ -5,7 +5,14 @@ import OnyxTag from "../OnyxTag/OnyxTag.vue";
 import type { OnyxTagProps } from "../OnyxTag/types";
 
 const props = withDefaults(
-  defineProps<Omit<OnyxTagProps, "color" | "icon" | "interactiveIcon">>(),
+  defineProps<
+    Omit<OnyxTagProps, "color" | "icon" | "clickable"> & {
+      /**
+       * The label displayed on the Tooltip
+       */
+      clickable: string;
+    }
+  >(),
   {
     skeleton: SKELETON_INJECTED_SYMBOL,
   },
@@ -16,8 +23,7 @@ const skeleton = useSkeletonContext(props);
 <template>
   <OnyxTag
     v-bind="props"
-    :clickable="{ label: 'remove Filter', actionIcon: xSmall }"
-    :interactive-icon="xSmall"
+    :clickable="{ label: clickable, actionIcon: xSmall }"
     class="onyx-tag--filter"
     :skeleton="skeleton"
   />

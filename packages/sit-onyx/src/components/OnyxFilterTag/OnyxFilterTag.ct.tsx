@@ -9,7 +9,14 @@ test.describe("Screenshot tests", () => {
     name: "Tag",
     columns: DENSITIES,
     rows: state,
-    component: (column) => <OnyxFilterTag label="Tag" density={column} onClick={() => {}} />,
+    component: (column) => (
+      <OnyxFilterTag
+        label="Tag"
+        clickable="clickable"
+        density={column}
+        style={{ margin: "0 2rem 2rem 0" }}
+      />
+    ),
     hooks: {
       beforeEach: async (component, page, column, row) => {
         const tag = component.getByRole("button", { name: "Tag" });
