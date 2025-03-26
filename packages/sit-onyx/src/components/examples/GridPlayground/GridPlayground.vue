@@ -237,6 +237,7 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
     </div>
 
     <div
+      class="playground__grid-wrapper"
       :class="{
         'onyx-grid-center': gridSettings.alignment === 'center',
         [`onyx-grid-max-${gridSettings.maxWidth}`]: gridSettings.maxWidth !== 'Filled',
@@ -373,6 +374,11 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
     gap: var(--onyx-spacing-xl);
     align-items: center;
     justify-content: space-between;
+  }
+
+  &__grid-wrapper {
+    overflow: hidden;
+    min-height: 70vh;
   }
 
   &__badges {
