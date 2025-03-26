@@ -5,8 +5,10 @@ import { useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxRouterLink from "../OnyxRouterLink/OnyxRouterLink.vue";
 import type { OnyxButtonProps } from "./types";
 
-const props =
-  defineProps<Pick<OnyxButtonProps, "disabled" | "link" | "loading" | "type" | "autofocus">>();
+const props = withDefaults(
+  defineProps<Pick<OnyxButtonProps, "disabled" | "link" | "loading" | "type" | "autofocus">>(),
+  { type: "button" },
+);
 
 defineSlots<{
   /**
