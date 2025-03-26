@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import OnyxNavButton from "../OnyxNavBar/modules/OnyxNavButton/OnyxNavButton.vue";
+import OnyxNavItem from "../OnyxNavBar/modules/OnyxNavItem/OnyxNavItem.vue";
 import { NAV_BAR_MORE_LIST_INJECTION_KEY } from "../OnyxNavBar/types";
 import OnyxMoreList from "./OnyxMoreList.vue";
 import type { MoreListSlotBindings } from "./types";
@@ -29,7 +29,7 @@ const COMPONENT_WIDTH = "8rem";
   >
     <template #default="{ attributes }">
       <ul v-bind="attributes" role="menu">
-        <OnyxNavButton
+        <OnyxNavItem
           v-for="i in 24"
           :key="i"
           :label="`Element ${i}`"
