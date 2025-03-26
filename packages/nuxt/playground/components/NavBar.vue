@@ -7,8 +7,8 @@ const localePath = useLocalePath();
 
 <template>
   <OnyxNavBar app-name="Nuxt module Playground">
-    <OnyxNavButton label="Page 1" :link="localePath('/')" />
-    <OnyxNavButton label="Page 2" :link="localePath('/test')" />
+    <OnyxNavItem label="Page 1" :link="localePath('/')" />
+    <OnyxNavItem label="Page 2" :link="localePath('/test')" />
 
     <template #contextArea>
       <OnyxUserMenu description="Company Name" full-name="Jane Doe">

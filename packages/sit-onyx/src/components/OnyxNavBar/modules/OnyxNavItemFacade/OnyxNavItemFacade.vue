@@ -5,10 +5,10 @@ import ButtonOrLinkLayout from "../../../OnyxButton/ButtonOrLinkLayout.vue";
 import OnyxExternalLinkIcon from "../../../OnyxExternalLinkIcon/OnyxExternalLinkIcon.vue";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
-import type { OnyxNavButtonProps } from "../OnyxNavButton/types";
+import type { OnyxNavItemProps } from "../OnyxNavItem/types";
 
 const props = defineProps<
-  OnyxNavButtonProps & {
+  OnyxNavItemProps & {
     /**
      * displays an arrow
      */

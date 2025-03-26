@@ -6,9 +6,8 @@ import {
   type OnyxMatrixScreenshotHookContext,
 } from "../../../../playwright/screenshots";
 import OnyxBadge from "../../../OnyxBadge/OnyxBadge.vue";
-import OnyxNavItem from "../OnyxNavItem/OnyxNavItem.vue";
 import MobileComponentTestWrapper from "./MobileComponentTestWrapper.ct.vue";
-import OnyxNavButton from "./OnyxNavButton.vue";
+import OnyxNavItem from "./OnyxNavItem.vue";
 import RouterTestWrapperCt from "./RouterTestWrapper.ct.vue";
 
 const context = {
@@ -27,7 +26,7 @@ test.describe("Screenshot tests", () => {
     rows: ["default", "hover", "focus-visible", "external-link"],
     context,
     component: (column, row) => (
-      <OnyxNavButton
+      <OnyxNavItem
         label="Nav Button"
         link={row === "external-link" ? "https://onyx.schwarz/" : "#"}
         active={column === "active"}
@@ -59,13 +58,13 @@ test.describe("Screenshot tests with nested children", () => {
       ],
     },
     component: (column) => (
-      <OnyxNavButton label="Item" link="#" active={column === "active"}>
+      <OnyxNavItem label="Item" link="#" active={column === "active"}>
         <template v-slot:children>
           <OnyxNavItem label="Nested Item 1" />
           <OnyxNavItem label="Nested Item 2" />
           <OnyxNavItem label="Nested Item 3" />
         </template>
-      </OnyxNavButton>
+      </OnyxNavItem>
     ),
     hooks: {
       beforeEach: async (component, page, _column, row) => {
@@ -143,7 +142,7 @@ test.describe("Screenshot tests (mobile children)", () => {
 test("should behave correctly without link", async ({ mount }) => {
   // ARRANGE
   let clickEventCount = 0;
-  const component = await mount(<OnyxNavButton label="Label" onClick={() => clickEventCount++} />);
+  const component = await mount(<OnyxNavItem label="Label" onClick={() => clickEventCount++} />);
 
   // ACT
   await component.getByRole("menuitem", { name: "Label" }).click();
@@ -154,7 +153,7 @@ test("should behave correctly without link", async ({ mount }) => {
 
 test("should behave correctly with link", async ({ mount, page }) => {
   // ARRANGE
-  const component = await mount(<OnyxNavButton label="Label" link="#link" />);
+  const component = await mount(<OnyxNavItem label="Label" link="#link" />);
 
   // ACT
   await component.getByRole("menuitem", { name: "Label" }).click();
@@ -166,9 +165,9 @@ test("should behave correctly with link", async ({ mount, page }) => {
 test("should behave correctly with nested children", async ({ mount, page }) => {
   // ARRANGE
   const component = await mount(
-    <OnyxNavButton label="Label">
+    <OnyxNavItem label="Label">
       <OnyxNavItem label="Nested item 1" link="#nested-1" />
-    </OnyxNavButton>,
+    </OnyxNavItem>,
   );
 
   // ACT
@@ -181,7 +180,7 @@ test("should behave correctly with nested children", async ({ mount, page }) => 
 
 test("should auto detect active state based on provided router", async ({ mount }) => {
   // ARRANGE
-  const activeClassName = /onyx-nav-button--active/;
+  const activeClassName = /onyx-nav-item--active/;
 
   const component = await mount(RouterTestWrapperCt, {
     props: {
