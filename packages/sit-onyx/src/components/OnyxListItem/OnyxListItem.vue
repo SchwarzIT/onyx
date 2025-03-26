@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
 import { useDensity } from "../../composables/density";
-import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxListItemProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxListItemProps>(), {
@@ -11,12 +9,11 @@ const props = withDefaults(defineProps<OnyxListItemProps>(), {
   checked: false,
 });
 
-const slots = defineSlots<{
+defineSlots<{
   /**
    * Option content.
    */
   default(): unknown;
-  children(): unknown;
 }>();
 
 const { densityClass } = useDensity(props);
@@ -36,13 +33,6 @@ const { densityClass } = useDensity(props);
     }"
   >
     <slot></slot>
-    <!-- TODO: Implement drilldown mode internal for OnyxFlyoutMenu https://github.com/SchwarzIT/onyx/issues/2996 -->
-    <OnyxIcon
-      v-if="!!slots.children"
-      class="onyx-nav-item-mobile__mobile-chevron"
-      :icon="chevronRightSmall"
-      size="24px"
-    />
   </li>
 </template>
 
