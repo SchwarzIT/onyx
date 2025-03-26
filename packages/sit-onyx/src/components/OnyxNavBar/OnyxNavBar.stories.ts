@@ -9,7 +9,6 @@ import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
 import OnyxMenuItem from "./modules/OnyxMenuItem/OnyxMenuItem.vue";
-import OnyxNavButton from "./modules/OnyxNavButton/OnyxNavButton.vue";
 import OnyxNavItem from "./modules/OnyxNavItem/OnyxNavItem.vue";
 import OnyxNavSeparator from "./modules/OnyxNavSeparator/OnyxNavSeparator.vue";
 import OnyxTimer from "./modules/OnyxTimer/OnyxTimer.vue";
@@ -59,53 +58,53 @@ export const Default = {
     logoUrl: "/onyx-logo.svg",
     appName: "App name",
     default: () => [
-      h(OnyxNavButton, { label: "Item 1", link: "/" }),
+      h(OnyxNavItem, { label: "Item 1", link: "/" }),
       h(
-        OnyxNavButton,
+        OnyxNavItem,
         { label: "Item 2" },
         {
           default: () => ["Item 2", h(OnyxBadge, { dot: true, color: "warning" })],
           children: () => [
             h(
-              OnyxNavButton,
+              OnyxNavItem,
               { label: "Nested item 2.1" },
               {
                 children: () => [
                   h(
-                    OnyxNavButton,
+                    OnyxNavItem,
                     { label: "Nested item 2.1.1" },
                     {
                       children: () => [
-                        h(OnyxNavButton, { label: "Nested item 2.1.1.1", link: "#" }),
-                        h(OnyxNavButton, { label: "Nested item 2.1.1.2", link: "#", active: true }),
-                        h(OnyxNavButton, {
+                        h(OnyxNavItem, { label: "Nested item 2.1.1.1", link: "#" }),
+                        h(OnyxNavItem, { label: "Nested item 2.1.1.2", link: "#", active: true }),
+                        h(OnyxNavItem, {
                           label: "Nested item 2.1.1.3",
                           link: "https://onyx.schwarz",
                         }),
                       ],
                     },
                   ),
-                  h(OnyxNavButton, { label: "Nested item 2.1.2", link: "#", active: true }),
-                  h(OnyxNavButton, { label: "Nested item 2.1.3", link: "https://onyx.schwarz" }),
+                  h(OnyxNavItem, { label: "Nested item 2.1.2", link: "#", active: true }),
+                  h(OnyxNavItem, { label: "Nested item 2.1.3", link: "https://onyx.schwarz" }),
                 ],
               },
             ),
-            h(OnyxNavButton, { label: "Nested item 2.2", link: "#", active: true }),
-            h(OnyxNavButton, { label: "Nested item 2.3", link: "https://onyx.schwarz" }),
+            h(OnyxNavItem, { label: "Nested item 2.2", link: "#", active: true }),
+            h(OnyxNavItem, { label: "Nested item 2.3", link: "https://onyx.schwarz" }),
           ],
         },
       ),
       h(
-        OnyxNavButton,
+        OnyxNavItem,
         { label: "Item 3" },
         {
           children: () => [
-            h(OnyxNavButton, { label: "Nested item 3.1", link: "#" }),
-            h(OnyxNavButton, { label: "Nested item 3.2", link: "#" }),
+            h(OnyxNavItem, { label: "Nested item 3.1", link: "#" }),
+            h(OnyxNavItem, { label: "Nested item 3.2", link: "#" }),
           ],
         },
       ),
-      h(OnyxNavButton, { label: "Item 4", link: "https://onyx.schwarz" }),
+      h(OnyxNavItem, { label: "Item 4", link: "https://onyx.schwarz" }),
     ],
     mobileActivePage: "Nested item 2.2",
   },
@@ -168,9 +167,9 @@ export const WithOverflowingMobileContent = {
     ...WithContextArea.args,
     mobileBreakpoint: "xl",
     default: () => [
-      h(OnyxNavButton, { label: "Item 1", link: "/" }),
+      h(OnyxNavItem, { label: "Item 1", link: "/" }),
       h(
-        OnyxNavButton,
+        OnyxNavItem,
         { label: "Item 2", link: "/test" },
         {
           default: () => ["Item 2", h(OnyxBadge, { dot: true, color: "warning" })],
@@ -181,7 +180,7 @@ export const WithOverflowingMobileContent = {
         },
       ),
       Array.from({ length: 20 }, (_, index) =>
-        h(OnyxNavButton, { label: `Item ${index + 3}`, link: "/" }),
+        h(OnyxNavItem, { label: `Item ${index + 3}`, link: "/" }),
       ),
     ],
     contextArea: () => [

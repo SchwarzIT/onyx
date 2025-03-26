@@ -1,15 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxBadge from "../../../OnyxBadge/OnyxBadge.vue";
-import OnyxNavItem from "../OnyxNavItem/OnyxNavItem.vue";
-import OnyxNavButton from "./OnyxNavButton.vue";
+import OnyxNavItem from "./OnyxNavItem.vue";
 
 /**
  * The nav button is used internally to build the main navigation bar component and is not intended to be used individually.
  */
-const meta: Meta<typeof OnyxNavButton> = {
+const meta: Meta<typeof OnyxNavItem> = {
   title: "Navigation/modules/NavButton",
-  component: OnyxNavButton,
+  component: OnyxNavItem,
   argTypes: {
     default: {
       control: { type: "text" },
@@ -26,7 +25,7 @@ const nestedChildren = [
 ];
 
 export default meta;
-type Story = StoryObj<typeof OnyxNavButton>;
+type Story = StoryObj<typeof OnyxNavItem>;
 
 /**
  * This example shows a default nav button.
