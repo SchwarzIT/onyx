@@ -30,6 +30,7 @@ defineSlots<{
 <template>
   <OnyxMenuItem
     v-bind="props"
+    :link="props.hasChildren ? undefined : props.link"
     :class="{
       'onyx-nav-item': true,
       'onyx-nav-item--active': props.active,

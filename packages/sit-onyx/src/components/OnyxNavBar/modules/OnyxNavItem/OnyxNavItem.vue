@@ -107,7 +107,7 @@ provide(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, false);
   <OnyxNavItemFacade
     v-else-if="isMobile"
     class="onyx-nav-item"
-    v-bind="{ ...props, link: undefined }"
+    v-bind="props"
     :active
     :has-children
     context="mobile"
