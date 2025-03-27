@@ -848,8 +848,8 @@
     "aliases": ["bypass", "alternative-route", "Umleitung", "alternative Strecke"]
   },
   "dinosaur": {
-    "category": "Software & Services",
-    "aliases": ["Dinosaurier", "animal", "Tier"]
+    "category": "Various",
+    "aliases": ["animal", "Dinosaurier"]
   },
   "disc": {
     "category": "Hardware",
