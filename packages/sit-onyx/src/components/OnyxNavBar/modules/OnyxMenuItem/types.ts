@@ -1,12 +1,9 @@
+import type { Nullable } from "../../../../composables/useVModel";
 import type { OnyxColor } from "../../../../types";
 import type { WithLinkProp } from "../../../OnyxRouterLink/types";
 
 export type OnyxMenuItemProps = WithLinkProp & {
-  /**
-   * Whether the menu item has children. If true, the item will display a chevron icon.
-   * Currently, only has a visual effect.
-   */
-  hasChildren?: boolean;
+  open?: Nullable<boolean>;
   /**
    * Label text for the menu item.
    */

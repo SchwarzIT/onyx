@@ -12,25 +12,30 @@ const props = defineProps<
   }
 >();
 
-defineSlots<{
+const slots = defineSlots<{
   /**
    * Button text and additional inline content
    */
   default(): unknown;
+  /**
+   * Button text and additional inline content
+   */
+  children(): unknown;
 }>();
 </script>
 
 <template>
   <OnyxMenuItem
     v-bind="props"
-    :link="props.hasChildren ? undefined : props.link"
     :class="{
       'onyx-nav-item': true,
       'onyx-nav-item--active': props.active,
       [`onyx-nav-item--${props.context}`]: true,
+      'onyx-nav-item--open': props.open,
     }"
   >
     <slot></slot>
+    <template v-if="slots.children" #children><slot name="children"></slot></template>
   </OnyxMenuItem>
 </template>
 
@@ -55,15 +60,24 @@ defineSlots<{
       outline: 0.25rem solid var(--onyx-color-component-focus-primary, #bbeaed);
     }
 
-    &.onyx-nav-item--active::after {
-      content: " ";
-      position: absolute;
-      width: 100%;
-      height: 0.125rem;
-      bottom: calc(-1 * var(--onyx-spacing-2xs));
-      border-radius: var(--onyx-radius-full, 100rem) var(--onyx-radius-full, 100rem) 0 0;
-      background: var(--onyx-color-component-cta-default, #00c3cd);
-      z-index: 1;
+    & .onyx-menu-item__chevron {
+      display: none;
+    }
+
+    &:has(.onyx-nav-item--active),
+    &.onyx-nav-item--active {
+      font-weight: 600;
+
+      &::after {
+        content: " ";
+        position: absolute;
+        width: 100%;
+        height: 0.125rem;
+        bottom: calc(-1 * var(--onyx-spacing-2xs));
+        border-radius: var(--onyx-radius-full, 100rem) var(--onyx-radius-full, 100rem) 0 0;
+        background: var(--onyx-color-component-cta-default, #00c3cd);
+        z-index: 1;
+      }
     }
   }
 
@@ -82,6 +96,7 @@ defineSlots<{
       background-color: var(--onyx-color-base-background-tinted);
     }
 
+    &:has(.onyx-nav-item--active),
     &.onyx-nav-item--active {
       --onyx-list-item-background-selected: var(--onyx-color-base-primary-100);
       --onyx-list-item-color-selected: var(--onyx-color-text-icons-primary-intense);
@@ -89,11 +104,10 @@ defineSlots<{
       border-color: var(--onyx-color-base-primary-200);
       color: var(--onyx-color-text-icons-primary-bold);
       font-weight: 600;
-      cursor: default;
     }
 
     &.onyx-nav-item--open {
-      border: none;
+      all: unset;
     }
   }
 }

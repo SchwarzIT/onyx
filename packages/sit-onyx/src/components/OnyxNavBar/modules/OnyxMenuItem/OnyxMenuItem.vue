@@ -3,6 +3,7 @@ import { createMenuItems } from "@sit-onyx/headless";
 import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
 import { computed } from "vue";
 import { useLink } from "../../../../composables/useLink";
+import { useVModel, type Nullable } from "../../../../composables/useVModel";
 import { mergeVueProps, useRootAttrs } from "../../../../utils/attrs";
 import { extractLinkProps } from "../../../../utils/router";
 import ButtonOrLinkLayout from "../../../OnyxButton/ButtonOrLinkLayout.vue";
@@ -13,15 +14,36 @@ import { type OnyxMenuItemProps } from "./types";
 
 const { rootAttrs, restAttrs } = useRootAttrs();
 
-defineSlots<{
+const slots = defineSlots<{
   /**
    * Text content of the menu item.
    */
   default: () => unknown;
+  /**
+   * Button text and additional inline content
+   */
+  children(): unknown;
 }>();
 
 const props = withDefaults(defineProps<OnyxMenuItemProps>(), {
   active: "auto",
+});
+
+const emit = defineEmits<{
+  /**
+   * Emitted when the state of mobile children visibility changes.
+   */
+  "update:open": [value: Nullable<boolean>];
+}>();
+
+/**
+ * Controls the open state.
+ */
+const open = useVModel({
+  props,
+  emit,
+  key: "open",
+  initialValue: false,
 });
 
 const {
@@ -40,6 +62,8 @@ const menuItemProps = computed(() =>
     disabled: props.disabled,
   }),
 );
+
+const hasChildren = computed(() => !!slots.children);
 </script>
 
 <template>
@@ -66,10 +90,13 @@ const menuItemProps = computed(() =>
         </span>
       </slot>
 
-      <div v-if="props.hasChildren" class="onyx-menu-item__chevron">
+      <div v-if="hasChildren" class="onyx-menu-item__chevron">
         <OnyxIcon :icon="chevronRightSmall" size="24px" />
       </div>
     </ButtonOrLinkLayout>
+    <ul v-if="hasChildren" v-show="open" role="menu" class="onyx-menu-item__children">
+      <slot name="children"></slot>
+    </ul>
   </OnyxListItem>
 </template>
 
@@ -113,6 +140,15 @@ const menuItemProps = computed(() =>
         background-color: inherit;
         border: none;
       }
+    }
+
+    &__children {
+      padding: 0;
+      width: 100%;
+
+      display: flex;
+      flex-direction: column;
+      gap: var(--onyx-spacing-2xs);
     }
 
     &__chevron {
