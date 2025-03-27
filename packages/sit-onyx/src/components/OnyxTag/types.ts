@@ -16,9 +16,11 @@ export type OnyxTagProps = DensityProp & {
    */
   icon?: string;
   /**
-   * Deermines whether the Tag is clickalbe or not.
-   * If a string is provided,it represnts a tooltip label
-   * If an object is provided, it contains a tooltip label and ann optional action icon.
+   * Determines whether the Tag is clickable or not.
+   * If a string is provided, it is used as tooltip label.
+   * If an object is provided, it contains the tooltip label and an optional action icon.
+   *
+   * The label must describe the on-click action, e.g. "Click to remove the tag."
    */
   clickable?:
     | string

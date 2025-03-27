@@ -1,5 +1,6 @@
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
+import { defineIconSelectArgType } from "../../utils/storybook";
 import OnyxFilterTag from "./OnyxFilterTag.vue";
 
 /**
@@ -11,6 +12,7 @@ const meta: Meta<typeof OnyxFilterTag> = {
   component: OnyxFilterTag,
   argTypes: {
     ...withNativeEventLogging(["onClick"]),
+    icon: defineIconSelectArgType(),
   },
 };
 

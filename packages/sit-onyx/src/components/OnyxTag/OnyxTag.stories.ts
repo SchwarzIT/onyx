@@ -60,7 +60,7 @@ export const Interactive = {
   },
   args: {
     label: "Tag",
-    clickable: "clickable",
+    clickable: "Click to add 'Tag' to the selection.",
   },
 } satisfies Story;
 
@@ -73,6 +73,6 @@ export const Dismissable = {
   },
   args: {
     label: "Tag",
-    clickable: { label: "clickable", actionIcon: xSmall },
+    clickable: { label: "Click to remove 'Tag' from the selection.", actionIcon: xSmall },
   },
 } satisfies Story;

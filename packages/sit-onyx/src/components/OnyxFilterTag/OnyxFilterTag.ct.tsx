@@ -4,21 +4,21 @@ import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxFilterTag from "./OnyxFilterTag.vue";
 
 test.describe("Screenshot tests", () => {
-  const state = ["default", "hover", "focus"];
+  const state = ["default", "hover", "focus", "active"];
   executeMatrixScreenshotTest({
     name: "Tag",
     columns: DENSITIES,
     rows: state,
-    component: (column) => (
+    component: (column, row) => (
       <OnyxFilterTag
         label="Tag"
-        clickable="clickable"
         density={column}
+        active={row === "active"}
         style={{ margin: "0 2rem 2rem 0" }}
       />
     ),
     hooks: {
-      beforeEach: async (component, page, column, row) => {
+      beforeEach: async (component, _page, _column, row) => {
         const tag = component.getByRole("button", { name: "Tag" });
         if (row === "hover") {
           await tag.hover();
