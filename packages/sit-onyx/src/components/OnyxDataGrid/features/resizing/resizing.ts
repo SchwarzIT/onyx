@@ -95,16 +95,22 @@ export const useResizing = createFeature(
       slots: Readonly<{ [name: string]: Slot | undefined }>,
       cols: Readonly<InternalColumnConfig<TEntry>>,
     ) => {
-      const wrapper = !isEnabled.value(cols.key)
-        ? [slots.default?.()]
-        : [
-            h("div", {
-              ...props,
-              class: "onyx-data-grid--resize-handle",
-              onmousedown: (ev: MouseEvent) => initResize(ev, cols),
-            }),
-            slots.default?.(),
-          ];
+      const lastColumn = Object.entries(headerBeingResized.value)[
+        Object.entries(headerBeingResized.value).length - 1
+      ];
+      const isLastColumn = lastColumn !== undefined && lastColumn[0] === cols.key;
+
+      const wrapper =
+        !isEnabled.value(cols.key) || isLastColumn
+          ? [slots.default?.()]
+          : [
+              h("div", {
+                ...props,
+                class: "onyx-data-grid--resize-handle",
+                onmousedown: (ev: MouseEvent) => initResize(ev, cols),
+              }),
+              slots.default?.(),
+            ];
       return wrapper;
     };
 
