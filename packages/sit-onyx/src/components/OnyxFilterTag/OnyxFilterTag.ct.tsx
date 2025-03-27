@@ -14,7 +14,7 @@ test.describe("Screenshot tests", () => {
         label="Tag"
         density={column}
         active={row === "active"}
-        style={{ margin: "0 2rem 2rem 0" }}
+        style={{ margin: "0 3rem 2rem 0" }}
       />
     ),
     hooks: {
