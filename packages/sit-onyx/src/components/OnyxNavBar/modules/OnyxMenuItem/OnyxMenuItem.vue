@@ -3,12 +3,15 @@ import { createMenuItems } from "@sit-onyx/headless";
 import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
 import { computed } from "vue";
 import { useLink } from "../../../../composables/useLink";
+import { mergeVueProps, useRootAttrs } from "../../../../utils/attrs";
 import { extractLinkProps } from "../../../../utils/router";
 import ButtonOrLinkLayout from "../../../OnyxButton/ButtonOrLinkLayout.vue";
 import OnyxExternalLinkIcon from "../../../OnyxExternalLinkIcon/OnyxExternalLinkIcon.vue";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
 import { type OnyxMenuItemProps } from "./types";
+
+const { rootAttrs, restAttrs } = useRootAttrs();
 
 defineSlots<{
   /**
@@ -46,13 +49,13 @@ const menuItemProps = computed(() =>
     :color="props.color"
     :disabled="props.disabled"
     :class="{ 'onyx-menu-item': true }"
-    v-bind="listItem"
+    v-bind="mergeVueProps(listItem, rootAttrs)"
   >
     <ButtonOrLinkLayout
       class="onyx-menu-item__trigger onyx-text"
       :disabled="props.disabled"
       :link="props.link"
-      v-bind="menuItemProps"
+      v-bind="mergeVueProps(menuItemProps, restAttrs)"
     >
       <slot>
         <span>
