@@ -33,14 +33,12 @@ const emit = defineEmits<{
 
 const slots = defineSlots<{
   /**
-   * The trigger for the flyout menu. Should be an interactive component like a button or link.
+   * You can replace the label of the menuitem with your custom content.
    */
-  button?(params: {
-    /**
-     * Attributes and event listeners that must be bound to an interactive element (button or link), that should act as the flyout trigger.
-     */
-    trigger: object;
-  }): unknown;
+  default?(): unknown;
+  /**
+   * OnyxNavItem Children can be nested here.
+   */
   children?(): unknown;
 }>();
 
@@ -76,8 +74,8 @@ provide(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, false);
 </script>
 
 <template>
-  <li
-    v-if="isMobile"
+  <div
+    v-if="isMobile && open"
     :class="{
       'onyx-component': true,
       'onyx-nav-item': true,
@@ -85,63 +83,83 @@ provide(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, false);
       'onyx-nav-item--mobile': isMobile,
       'onyx-nav-item--open': open,
     }"
-    role="none"
   >
-    <template v-if="open">
-      <div class="onyx-nav-item__controls">
-        <OnyxButton
-          :label="t('back')"
-          mode="plain"
-          color="neutral"
-          :icon="arrowSmallLeft"
-          @click="open = false"
-        />
+    <div class="onyx-nav-item__controls">
+      <OnyxButton
+        :label="t('back')"
+        mode="plain"
+        color="neutral"
+        :icon="arrowSmallLeft"
+        @click="open = false"
+      />
 
-        <OnyxNavItemFacade v-bind="props" :active :has-children="false" context="mobile" />
+      <template v-if="props.link">
+        <OnyxNavItemFacade v-bind="props" :active :has-children="false" context="mobile">
+          <slot></slot>
+        </OnyxNavItemFacade>
         <OnyxNavSeparator orientation="horizontal" />
-      </div>
-      <ul role="menu" class="onyx-nav-item__mobile-children">
-        <slot name="children"></slot>
-      </ul>
-    </template>
-    <OnyxNavItemFacade
-      v-else
-      v-bind="props"
-      :active
-      :has-children
-      context="mobile"
-      @click="hasChildren && (open = true)"
-    />
-  </li>
+      </template>
+    </div>
+    <ul v-if="hasChildren" role="menu" class="onyx-nav-item__mobile-children">
+      <slot name="children"></slot>
+    </ul>
+  </div>
+  <OnyxNavItemFacade
+    v-else-if="isMobile"
+    class="onyx-nav-item"
+    v-bind="{ ...props, link: undefined }"
+    :active
+    :has-children
+    context="mobile"
+    @click="hasChildren && (open = true)"
+  >
+    <slot></slot>
+  </OnyxNavItemFacade>
   <template v-else>
-    <li v-if="isTopLevel" v-show="isVisible" role="none" class="onyx-component onyx-nav-item">
-      <OnyxFlyoutMenu v-if="hasChildren" :label="t('navItemOptionsLabel', { label: props.label })">
-        <template #button="{ trigger }">
-          <OnyxNavItemFacade
-            v-bind="mergeVueProps<any>(props, trigger)"
-            ref="componentRef"
-            :active
-            context="navbar"
-          />
-        </template>
+    <OnyxFlyoutMenu
+      v-if="isTopLevel && hasChildren"
+      v-show="isVisible"
+      class="onyx-nav-item"
+      :label="t('navItemOptionsLabel', { label: props.label })"
+    >
+      <template #button="{ trigger }">
+        <OnyxNavItemFacade
+          v-bind="mergeVueProps<any>(props, trigger)"
+          ref="componentRef"
+          :active
+          context="navbar"
+        >
+          <slot></slot>
+        </OnyxNavItemFacade>
+      </template>
 
-        <template #options>
-          <slot name="children"></slot>
-        </template>
-      </OnyxFlyoutMenu>
-      <OnyxNavItemFacade v-else v-bind="props" ref="componentRef" :active context="navbar" />
-    </li>
-    <OnyxNavItemFacade v-else v-bind="props" :active context="list" />
+      <template #options>
+        <slot name="children"></slot>
+      </template>
+    </OnyxFlyoutMenu>
+    <OnyxNavItemFacade
+      v-else-if="isTopLevel"
+      v-bind="props"
+      ref="componentRef"
+      :active
+      context="navbar"
+    >
+      <slot></slot>
+    </OnyxNavItemFacade>
+    <OnyxNavItemFacade v-else v-bind="props" :active context="list">
+      <slot></slot>
+    </OnyxNavItemFacade>
   </template>
 </template>
 
 <style lang="scss">
 .onyx-nav-item {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--onyx-spacing-xs);
+  &--open {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--onyx-spacing-2xs);
+  }
 
   &__mobile-children {
     padding: 0;
