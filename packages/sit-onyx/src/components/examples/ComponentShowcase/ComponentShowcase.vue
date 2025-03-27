@@ -182,7 +182,7 @@ const teamMembers = [
         <OnyxBadge>Badge</OnyxBadge>
 
         <OnyxTag label="Tag" />
-        <OnyxTag label="Tag" color="neutral" />
+        <OnyxTag label="Tag" color="primary" />
         <OnyxTag label="Tag" color="danger" />
         <OnyxTag label="Tag" color="warning" />
         <OnyxTag label="Tag" color="success" />

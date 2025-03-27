@@ -178,5 +178,9 @@
   },
   "avatar": {
     "ariaLabel": "Avatar von {fullName}"
+  },
+  "filterTag": {
+    "clickToAdd": "{label} Filter hinzufügen",
+    "clickToRemove": "{label} Filter entfernen"
   }
 }
