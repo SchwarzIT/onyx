@@ -123,7 +123,7 @@ const {
       max-height: calc(
         (var(--onyx-flyout-menu-visible-item-count, 7) + 0.5) * (2 * var(--onyx-density-xs) + 1lh)
       );
-      overflow: scroll;
+      overflow: auto;
     }
   }
 }

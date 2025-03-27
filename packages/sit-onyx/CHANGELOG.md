@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.183
+
+### Patch Changes
+
+- 4be2eda: fix(OnyxFlyoutMenu): fix scrollbars being always displayed in flyout menu
+
 ## 1.0.0-beta.182
 
 ### Minor Changes

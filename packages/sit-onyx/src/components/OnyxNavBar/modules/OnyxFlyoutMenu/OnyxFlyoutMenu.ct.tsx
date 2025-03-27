@@ -71,6 +71,7 @@ test("should open on click", async ({ page, mount }) => {
   for (const item of await menuItems.all()) {
     await expect(item).toBeEnabled();
   }
+  await expect(menu).toHaveScreenshot("flyout-menu.png");
 });
 
 test("should open on hover", async ({ page, mount }) => {
@@ -135,4 +136,5 @@ test("should display correctly and allow scrolling for many options", async ({ p
   await expect(menu.getByRole("menuitem", { name: "Option 10" })).toBeInViewport();
   await expect(footer).toBeInViewport();
   await expect(header).toBeInViewport();
+  await expect(menu).toHaveScreenshot("flyout-menu-scrolled-many.png");
 });
