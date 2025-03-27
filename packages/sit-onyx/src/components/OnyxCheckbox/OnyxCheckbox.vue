@@ -5,6 +5,7 @@ import { useRequired } from "../../composables/required";
 import { useAutofocus } from "../../composables/useAutoFocus";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
+import { useVModel } from "../../composables/useVModel";
 import type { SelectOptionValue } from "../../types";
 import { useRootAttrs } from "../../utils/attrs";
 import OnyxErrorTooltip from "../OnyxErrorTooltip/OnyxErrorTooltip.vue";
@@ -13,8 +14,9 @@ import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.v
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxCheckboxProps } from "./types";
 
-const props = withDefaults(defineProps<OnyxCheckboxProps<TValue>>(), {
-  modelValue: false,
+type Props = OnyxCheckboxProps<TValue>;
+
+const props = withDefaults(defineProps<Props>(), {
   indeterminate: false,
   disabled: FORM_INJECTED_SYMBOL,
   loading: false,
@@ -22,23 +24,26 @@ const props = withDefaults(defineProps<OnyxCheckboxProps<TValue>>(), {
   requiredMarker: FORM_INJECTED_SYMBOL,
   skeleton: SKELETON_INJECTED_SYMBOL,
   truncation: "ellipsis",
+  modelValue: undefined,
 });
 
 const emit = defineEmits<{
-  /** Emitted when the checked state changes. */
-  "update:modelValue": [value: boolean];
   /**
    * Emitted when the validity state of the input changes.
    */
   validityChange: [validity: ValidityState];
+  /** Emitted when the checked state changes. */
+  "update:modelValue": [value: boolean];
 }>();
 
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
 
-const isChecked = computed({
-  get: () => props.modelValue,
-  set: (value) => emit("update:modelValue", value),
+const isChecked = useVModel<"modelValue", Props, boolean, false>({
+  props,
+  emit,
+  key: "modelValue",
+  initialValue: false,
 });
 
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });

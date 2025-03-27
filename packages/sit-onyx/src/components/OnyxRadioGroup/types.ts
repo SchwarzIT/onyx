@@ -1,3 +1,4 @@
+import type { Nullable } from "../../composables/useVModel";
 import type { AutofocusProp, BaseSelectOption, Direction, SelectOptionValue } from "../../types";
 import type { SharedFormElementProps } from "../OnyxFormElement/types";
 
@@ -25,7 +26,7 @@ export type OnyxRadioGroupProps<TValue extends SelectOptionValue = SelectOptionV
     /**
      * The selected radio button option.
      */
-    modelValue?: TValue;
+    modelValue?: Nullable<TValue>;
     /**
      * Direction of the checkboxes. Can be vertical (default) or horizontal.
      */

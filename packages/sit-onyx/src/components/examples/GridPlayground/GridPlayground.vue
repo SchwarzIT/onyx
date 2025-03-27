@@ -378,6 +378,7 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
 
   &__grid-wrapper {
     overflow: hidden;
+    min-height: 70vh;
   }
 
   &__badges {

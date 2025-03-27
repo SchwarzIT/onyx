@@ -6,6 +6,7 @@ import { getFormMessages, useCustomValidity } from "../../composables/useCustomV
 import { useErrorClass } from "../../composables/useErrorClass";
 import { useLenientMaxLengthValidation } from "../../composables/useLenientMaxLengthValidation";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
+import { useVModel, type Nullable } from "../../composables/useVModel";
 import { useRootAttrs } from "../../utils/attrs";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
@@ -28,12 +29,21 @@ const emit = defineEmits<{
    * Emitted when the validity state of the input changes.
    */
   validityChange: [validity: ValidityState];
+  /**
+   * Emitted when the input value changes.
+   */
+  "update:modelValue": [value: Nullable<string>];
 }>();
 
 /**
  * Current value of the textarea.
  */
-const modelValue = defineModel<string>({ default: "" });
+const modelValue = useVModel({
+  props,
+  emit,
+  key: "modelValue",
+  initialValue: "",
+});
 
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();

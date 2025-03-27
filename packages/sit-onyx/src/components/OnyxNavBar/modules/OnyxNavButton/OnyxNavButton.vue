@@ -3,6 +3,7 @@ import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
 import { computed, inject } from "vue";
 import { useLink } from "../../../../composables/useLink";
 import { useMoreListChild } from "../../../../composables/useMoreList";
+import { useVModel, type Nullable } from "../../../../composables/useVModel";
 import { extractLinkProps } from "../../../../utils/router";
 import OnyxExternalLinkIcon from "../../../OnyxExternalLinkIcon/OnyxExternalLinkIcon.vue";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
@@ -13,7 +14,15 @@ import type { OnyxNavButtonProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxNavButtonProps>(), {
   active: "auto",
+  mobileChildrenOpen: undefined,
 });
+
+const emit = defineEmits<{
+  /**
+   * Emitted when the state of mobile children visibility changes.
+   */
+  "update:mobileChildrenOpen": [value: Nullable<boolean>];
+}>();
 
 const slots = defineSlots<{
   /**
@@ -29,8 +38,12 @@ const slots = defineSlots<{
 /**
  * Controls the open state for the mobile children.
  */
-const mobileChildrenOpen = defineModel<boolean>("mobileChildrenOpen", { default: false });
-
+const mobileChildrenOpen = useVModel({
+  props,
+  emit,
+  key: "mobileChildrenOpen",
+  initialValue: false,
+});
 const isMobile = inject(
   MOBILE_NAV_BAR_INJECTION_KEY,
   computed(() => false),
