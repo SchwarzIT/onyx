@@ -1,19 +1,12 @@
 <script lang="ts" setup>
 import OnyxMenuItem from "../OnyxMenuItem/OnyxMenuItem.vue";
-import type { OnyxNavItemProps } from "../OnyxNavItem/types";
+import type { OnyxMenuItemProps } from "../OnyxMenuItem/types";
 
 const props = defineProps<
-  OnyxNavItemProps & {
+  OnyxMenuItemProps & {
     /**
-     * displays an arrow
-     */
-    hasChildren?: boolean;
-    /**
-     *
-     */
-    active?: boolean;
-    /**
-     *
+     * The render context of the nav item.
+     * Styling is changed based on the context prop.
      */
     context: "mobile" | "list" | "navbar";
   }
