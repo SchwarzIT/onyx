@@ -3,4 +3,5 @@
 "@sit-onyx/nuxt": major
 ---
 
-feat(OnyxNavItem): Made OnyxNavItem universal usable and nestable
+- feat(OnyxNavItem): OnyxNavItem is universal usable and nestable.
+- feat!(OnyxNavButton): deprecated `OnyxNavButton`, Use `OnyxNavItem` instead.
