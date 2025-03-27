@@ -48,7 +48,7 @@ const menuItemProps = computed(() =>
     :active="isActive"
     :color="props.color"
     :disabled="props.disabled"
-    :class="{ 'onyx-menu-item': true }"
+    class="onyx-menu-item"
     v-bind="mergeVueProps(listItem, rootAttrs)"
   >
     <ButtonOrLinkLayout
