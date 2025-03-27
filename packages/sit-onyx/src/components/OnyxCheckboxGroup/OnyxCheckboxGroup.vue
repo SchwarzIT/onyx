@@ -3,6 +3,7 @@ import { computed, useTemplateRef } from "vue";
 import { useCheckAll } from "../../composables/checkAll";
 import { useDensity } from "../../composables/density";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
+import { useVModel, type Nullable } from "../../composables/useVModel";
 import { injectI18n } from "../../i18n";
 import type { SelectOptionValue } from "../../types";
 import OnyxCheckbox from "../OnyxCheckbox/OnyxCheckbox.vue";
@@ -12,7 +13,6 @@ import OnyxInfoTooltip from "../OnyxInfoTooltip/OnyxInfoTooltip.vue";
 import type { OnyxCheckboxGroupProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxCheckboxGroupProps<TValue>>(), {
-  modelValue: () => [],
   direction: "vertical",
   withCheckAll: false,
   disabled: FORM_INJECTED_SYMBOL,
@@ -27,16 +27,20 @@ const emit = defineEmits<{
   /**
    * Emitted when the checked checkboxes change.
    */
-  "update:modelValue": [value: TValue[]];
+  "update:modelValue": [value?: Nullable<TValue[]>];
 }>();
 
 const { t } = injectI18n();
-
+const modelValue = useVModel({
+  props,
+  emit,
+  key: "modelValue",
+  initialValue: [],
+});
 const handleUpdate = (value: TValue, isChecked: boolean) => {
-  const newValue = isChecked
-    ? [...props.modelValue, value]
-    : props.modelValue.filter((i) => i !== value);
-  emit("update:modelValue", newValue);
+  modelValue.value = isChecked
+    ? [...modelValue.value, value]
+    : modelValue.value.filter((i) => i !== value);
 };
 
 const enabledOptionValues = computed(() =>
@@ -48,8 +52,8 @@ const skeleton = useSkeletonContext(props);
 
 const checkAll = useCheckAll(
   enabledOptionValues,
-  computed(() => props.modelValue),
-  (newValue) => emit("update:modelValue", newValue),
+  computed(() => modelValue.value),
+  (newValue) => (modelValue.value = newValue),
 );
 
 const checkAllLabel = computed(() => {
@@ -104,7 +108,7 @@ defineExpose({
           ref="checkboxesRef"
           :required-marker
           :truncation="option.truncation ?? props.truncation"
-          :model-value="props.modelValue.includes(option.value)"
+          :model-value="modelValue.includes(option.value)"
           class="onyx-checkbox-group__option"
           @update:model-value="handleUpdate(option.value, $event)"
         />

@@ -1,6 +1,7 @@
 import searchX from "@sit-onyx/icons/search-x.svg?raw";
 import { computed, h, ref, toValue, watchEffect, type Ref } from "vue";
 import { createFeature, useIsFeatureEnabled } from "..";
+import type { Nullable } from "../../../../composables/useVModel";
 import { injectI18n } from "../../../../i18n";
 import { removeDiacritics } from "../../../../utils/strings";
 import OnyxMiniSearch from "../../../OnyxMiniSearch/OnyxMiniSearch.vue";
@@ -86,7 +87,7 @@ export const useFiltering = createFeature(
         modelValue: inputValue,
         // TODO: check after https://github.com/SchwarzIT/onyx/issues/2982 is closed -- `autofocus` doesn't have an effect currently
         autofocus: true,
-        "onUpdate:modelValue": (value?: string) => {
+        "onUpdate:modelValue": (value?: Nullable<string>) => {
           inputValue = value || "";
         },
         onClear: () => {

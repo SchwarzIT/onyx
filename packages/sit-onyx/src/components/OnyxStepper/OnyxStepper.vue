@@ -7,6 +7,7 @@ import { useAutofocus } from "../../composables/useAutoFocus";
 import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
+import { useVModel, type Nullable } from "../../composables/useVModel";
 import { injectI18n } from "../../i18n";
 import { useRootAttrs } from "../../utils/attrs";
 import { applyLimits, roundToPrecision } from "../../utils/numbers";
@@ -32,6 +33,10 @@ const emit = defineEmits<{
    * Emitted when the validity state of the input changes.
    */
   validityChange: [validity: ValidityState];
+  /**
+   * update modeValue
+   */
+  "update:modelValue": [value?: Nullable<number>];
 }>();
 
 const { t } = injectI18n();
@@ -53,7 +58,12 @@ const { rootAttrs, restAttrs } = useRootAttrs();
  * because the native browser :user-invalid does not trigger when the value is changed via Arrow up/down or increase/decrease buttons
  */
 const wasTouched = ref(false);
-const modelValue = defineModel<number>();
+
+const modelValue = useVModel({
+  props,
+  emit,
+  key: "modelValue",
+});
 
 /**
  * Used for syncing the actual input value.
@@ -62,8 +72,8 @@ const modelValue = defineModel<number>();
 const inputValue = ref<string>();
 
 const getFormattedValue = computed(() => {
-  return (value?: number) => {
-    if (props.precision !== undefined && value !== undefined) {
+  return (value?: number | null) => {
+    if (props.precision !== undefined && value !== undefined && value !== null) {
       return roundToPrecision(value, props.precision);
     } else {
       return value?.toString() ?? "";
@@ -130,7 +140,10 @@ useAutofocus(input, props);
             disabled ||
             readonly ||
             props.loading ||
-            (props.min !== undefined && modelValue !== undefined && modelValue <= props.min)
+            (props.min !== undefined &&
+              modelValue !== undefined &&
+              modelValue !== null &&
+              modelValue <= props.min)
           "
           :aria-label="decrementLabel"
           tabindex="-1"
@@ -171,7 +184,10 @@ useAutofocus(input, props);
             disabled ||
             readonly ||
             props.loading ||
-            (props.max !== undefined && modelValue !== undefined && modelValue >= props.max)
+            (props.max !== undefined &&
+              modelValue !== undefined &&
+              modelValue !== null &&
+              modelValue >= props.max)
           "
           :aria-label="incrementLabel"
           tabindex="-1"

@@ -7,6 +7,7 @@ import { useRequired } from "../../composables/required";
 import { useAutofocus } from "../../composables/useAutoFocus";
 import { useCustomValidity } from "../../composables/useCustomValidity";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
+import { useVModel, type Nullable } from "../../composables/useVModel";
 import { useRootAttrs } from "../../utils/attrs";
 import OnyxErrorTooltip from "../OnyxErrorTooltip/OnyxErrorTooltip.vue";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
@@ -16,17 +17,17 @@ import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxSwitchProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxSwitchProps>(), {
-  modelValue: false,
   disabled: FORM_INJECTED_SYMBOL,
   loading: false,
   truncation: "ellipsis",
   requiredMarker: FORM_INJECTED_SYMBOL,
   skeleton: SKELETON_INJECTED_SYMBOL,
+  modelValue: undefined,
 });
 
 const emit = defineEmits<{
   /** Emitted when the checked state changes. */
-  "update:modelValue": [value: boolean];
+  "update:modelValue": [value?: Nullable<boolean>];
   /**
    * Emitted when the validity state of the input changes.
    */
@@ -47,12 +48,11 @@ const shownErrorMessages = computed(() =>
 
 const title = computed(() => (props.hideLabel && props.label) || undefined);
 const skeleton = useSkeletonContext(props);
-
-const isChecked = computed({
-  get: () => props.modelValue,
-  set: (value) => {
-    emit("update:modelValue", value);
-  },
+const isChecked = useVModel({
+  props,
+  emit,
+  key: "modelValue",
+  initialValue: false,
 });
 
 const input = useTemplateRef("inputRef");

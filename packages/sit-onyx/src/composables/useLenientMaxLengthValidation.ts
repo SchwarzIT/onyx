@@ -1,6 +1,7 @@
 import { computed, toValue, type MaybeRefOrGetter } from "vue";
 import { injectI18n } from "../i18n";
 import type { FormMessages } from "./useCustomValidity";
+import type { Nullable } from "./useVModel";
 
 /**
  * @see [MDN autocapitalize](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autocapitalize)
@@ -68,12 +69,16 @@ export type SharedTextInputProps = {
    * @see [MDN autocomplete](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete)
    */
   autocomplete?: Autocomplete;
+  /**
+   * Current input value.
+   */
+  modelValue?: Nullable<string>;
 };
 
 export type HtmlTextInputElements = HTMLInputElement | HTMLTextAreaElement;
 
 export type UseTextInputOptions = {
-  modelValue: MaybeRefOrGetter<string | undefined>;
+  modelValue: MaybeRefOrGetter<string | undefined | null>;
   props: SharedTextInputProps;
 };
 
