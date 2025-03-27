@@ -61,7 +61,7 @@ defineSlots<{
   @include layers.component() {
     // should be adjusted to the height of the control button
     --top-position: 3.5rem;
-    $mobile-children-selector: ":has(.onyx-nav-item--mobile.onyx-nav-item--open)";
+    $mobile-children-selector: ":has(.onyx-nav-item-wrapper.onyx-nav-item-wrapper--open)";
 
     &__trigger {
       display: flex;
