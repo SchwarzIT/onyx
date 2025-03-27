@@ -116,7 +116,7 @@ type VProps = object & VNodeProps;
  *   - doesn't complain about nullish parameters
  *   - is also able to merge `ref` properties
  */
-export const mergeVueProps = <T extends VProps | null | undefined>(...args: T[]) =>
+export const mergeVueProps = <T extends VProps | null | undefined>(...args: T[] | []) =>
   args.reduce((prev, curr) => {
     const merged = mergeProps(prev, (curr ?? {}) as VProps);
 
