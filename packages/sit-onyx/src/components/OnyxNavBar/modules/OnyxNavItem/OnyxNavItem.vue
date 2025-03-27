@@ -45,7 +45,7 @@ const slots = defineSlots<{
 const { t } = injectI18n();
 
 /**
- * Controls the open state for the mobile children.
+ * Controls the open state.
  */
 const open = useVModel({
   props,
@@ -78,13 +78,11 @@ provide(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, false);
     v-if="isMobile && open"
     :class="{
       'onyx-component': true,
-      'onyx-nav-item': true,
-      'onyx-nav-item--active': active,
-      'onyx-nav-item--mobile': isMobile,
-      'onyx-nav-item--open': open,
+      'onyx-nav-item-wrapper': true,
+      'onyx-nav-item-wrapper--open': open,
     }"
   >
-    <div class="onyx-nav-item__controls">
+    <div class="onyx-nav-item-wrapper__controls">
       <OnyxButton
         :label="t('back')"
         mode="plain"
@@ -94,32 +92,30 @@ provide(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, false);
       />
 
       <template v-if="props.link">
-        <OnyxNavItemFacade v-bind="props" :active :has-children="false" context="mobile">
+        <OnyxNavItemFacade v-bind="props" :active context="mobile">
           <slot></slot>
         </OnyxNavItemFacade>
         <OnyxNavSeparator orientation="horizontal" />
       </template>
     </div>
-    <ul v-if="hasChildren" role="menu" class="onyx-nav-item__mobile-children">
+    <ul role="menu" class="onyx-nav-item-wrapper__mobile-children">
       <slot name="children"></slot>
     </ul>
   </div>
   <OnyxNavItemFacade
     v-else-if="isMobile"
-    class="onyx-nav-item"
     v-bind="props"
     :active
-    :has-children
     context="mobile"
     @click="hasChildren && (open = true)"
   >
     <slot></slot>
+    <template v-if="slots.children" #children><slot name="children"></slot></template>
   </OnyxNavItemFacade>
   <template v-else>
     <OnyxFlyoutMenu
       v-if="isTopLevel && hasChildren"
       v-show="isVisible"
-      class="onyx-nav-item"
       :label="t('navItemOptionsLabel', { label: props.label })"
     >
       <template #button="{ trigger }">
@@ -130,6 +126,7 @@ provide(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, false);
           context="navbar"
         >
           <slot></slot>
+          <template v-if="slots.children" #children><slot name="children"></slot></template>
         </OnyxNavItemFacade>
       </template>
 
@@ -153,34 +150,36 @@ provide(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, false);
 </template>
 
 <style lang="scss">
+@use "../../../../styles/mixins/layers";
+
+.onyx-nav-item-wrapper {
+  @include layers.component() {
+    &__mobile-children,
+    &--open {
+      padding: 0;
+      width: 100%;
+
+      display: flex;
+      flex-direction: column;
+      gap: var(--onyx-spacing-2xs);
+    }
+
+    &__controls {
+      display: contents;
+    }
+
+    &--open:has(&--open) > &__controls {
+      display: none;
+    }
+  }
+}
+
 .onyx-nav-item {
-  &--open {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--onyx-spacing-2xs);
-  }
-
-  &__mobile-children {
-    padding: 0;
-    width: 100%;
-
-    display: flex;
-    flex-direction: column;
-    gap: var(--onyx-spacing-2xs);
-  }
-
-  &__controls {
-    display: contents;
-  }
-
-  &:has(~ .onyx-nav-item--open),
-  &--open ~ .onyx-nav-item {
-    display: none;
-  }
-
-  &--open:has(.onyx-nav-item--open) > &__controls {
-    display: none;
+  @include layers.component() {
+    &:has(~ .onyx-nav-item-wrapper--open),
+    .onyx-nav-item-wrapper--open ~ & {
+      display: none;
+    }
   }
 }
 </style>
