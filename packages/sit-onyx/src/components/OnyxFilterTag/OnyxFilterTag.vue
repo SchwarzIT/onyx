@@ -2,19 +2,38 @@
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { computed } from "vue";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
+import { useVModel, type Nullable } from "../../composables/useVModel";
 import { injectI18n } from "../../i18n";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
 import type { OnyxTagProps } from "../OnyxTag/types";
 
-const props = withDefaults(defineProps<Omit<OnyxTagProps, "" | "color" | "clickable"> & {}>(), {
-  skeleton: SKELETON_INJECTED_SYMBOL,
-});
-const { t } = injectI18n();
-/**
- * If `true` the filter is selected, shows an 'x' icon and can be removed on click.
- */
-const active = defineModel<boolean>("active", { default: false });
+const props = withDefaults(
+  defineProps<
+    Omit<OnyxTagProps, "color" | "clickable"> & {
+      /**
+       * If `true` the filter is selected, shows an 'x' icon and can be removed on click.
+       */
+      active?: Nullable<boolean>;
+    }
+  >(),
+  {
+    skeleton: SKELETON_INJECTED_SYMBOL,
+  },
+);
 
+const emit = defineEmits<{
+  /** Emitted when the active state changes. */
+  "update:active": [value: Nullable<boolean>];
+}>();
+
+const { t } = injectI18n();
+
+const active = useVModel({
+  props,
+  emit,
+  key: "active",
+  initialValue: false,
+});
 const tooltipLabel = computed(() =>
   active.value
     ? t.value("filterTag.clickToRemove", { label: props.label })
