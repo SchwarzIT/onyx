@@ -3,11 +3,12 @@ import type { WithLinkProp } from "../../../OnyxRouterLink/types";
 
 export type OnyxMenuItemProps = WithLinkProp & {
   /**
-   *
+   * Whether the menu item has children. If true, the item will display a chevron icon.
+   * Currently, only has a visual effect.
    */
   hasChildren?: boolean;
   /**
-   *
+   * Label text for the menu item.
    */
   label?: string;
   /**
