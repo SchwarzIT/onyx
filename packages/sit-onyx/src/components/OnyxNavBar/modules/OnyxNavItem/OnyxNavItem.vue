@@ -112,41 +112,40 @@ provide(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, false);
     <slot></slot>
     <template v-if="slots.children" #children><slot name="children"></slot></template>
   </OnyxNavItemFacade>
-  <template v-else>
-    <OnyxFlyoutMenu
-      v-if="isTopLevel && hasChildren"
-      v-show="isVisible"
-      :label="t('navItemOptionsLabel', { label: props.label })"
-    >
-      <template #button="{ trigger }">
-        <OnyxNavItemFacade
-          v-bind="mergeVueProps<any>(props, trigger)"
-          ref="componentRef"
-          :active
-          context="navbar"
-        >
-          <slot></slot>
-          <template v-if="slots.children" #children><slot name="children"></slot></template>
-        </OnyxNavItemFacade>
-      </template>
+  <OnyxFlyoutMenu
+    v-else-if="isTopLevel && hasChildren"
+    v-show="isVisible"
+    :label="t('navItemOptionsLabel', { label: props.label })"
+  >
+    <template #button="{ trigger }">
+      <OnyxNavItemFacade
+        v-bind="mergeVueProps<any>(props, trigger)"
+        ref="componentRef"
+        :active
+        context="navbar"
+      >
+        <slot></slot>
+        <template v-if="slots.children" #children><slot name="children"></slot></template>
+      </OnyxNavItemFacade>
+    </template>
 
-      <template #options>
-        <slot name="children"></slot>
-      </template>
-    </OnyxFlyoutMenu>
-    <OnyxNavItemFacade
-      v-else-if="isTopLevel"
-      v-bind="props"
-      ref="componentRef"
-      :active
-      context="navbar"
-    >
-      <slot></slot>
-    </OnyxNavItemFacade>
-    <OnyxNavItemFacade v-else v-bind="props" :active context="list">
-      <slot></slot>
-    </OnyxNavItemFacade>
-  </template>
+    <template #options>
+      <slot name="children"></slot>
+    </template>
+  </OnyxFlyoutMenu>
+  <OnyxNavItemFacade
+    v-else-if="isTopLevel"
+    v-show="isVisible"
+    v-bind="props"
+    ref="componentRef"
+    :active
+    context="navbar"
+  >
+    <slot></slot>
+  </OnyxNavItemFacade>
+  <OnyxNavItemFacade v-else v-bind="props" :active context="list">
+    <slot></slot>
+  </OnyxNavItemFacade>
 </template>
 
 <style lang="scss">
