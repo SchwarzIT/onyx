@@ -12,6 +12,8 @@ import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
 import { type OnyxMenuItemProps } from "./types";
 
+defineOptions({ inheritAttrs: false });
+
 const { rootAttrs, restAttrs } = useRootAttrs();
 
 const slots = defineSlots<{
