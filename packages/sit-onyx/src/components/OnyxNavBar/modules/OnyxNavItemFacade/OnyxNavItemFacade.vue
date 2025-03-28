@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { computed } from "vue";
 import OnyxMenuItem from "../OnyxMenuItem/OnyxMenuItem.vue";
 import type { OnyxMenuItemProps } from "../OnyxMenuItem/types";
 
@@ -22,11 +23,14 @@ const slots = defineSlots<{
    */
   children(): unknown;
 }>();
+
+const hasChildren = computed(() => !!slots.children);
 </script>
 
 <template>
   <OnyxMenuItem
     v-bind="props"
+    :link="hasChildren && props.context !== 'navbar' ? undefined : props.link"
     :class="{
       'onyx-nav-item': true,
       'onyx-nav-item--active': props.active,
@@ -35,7 +39,7 @@ const slots = defineSlots<{
     }"
   >
     <slot></slot>
-    <template v-if="slots.children" #children><slot name="children"></slot></template>
+    <template v-if="hasChildren" #children><slot name="children"></slot></template>
   </OnyxMenuItem>
 </template>
 
