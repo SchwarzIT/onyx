@@ -1,10 +1,21 @@
 <script lang="ts" setup>
 import { computed, provide } from "vue";
-import { MOBILE_NAV_BAR_INJECTION_KEY } from "../../types";
+import { MOBILE_NAV_BAR_INJECTION_KEY, NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY } from "../../types";
 import OnyxNavItem from "./OnyxNavItem.vue";
 import type { OnyxNavItemProps } from "./types";
 
-const props = defineProps<OnyxNavItemProps>();
+const props = defineProps<
+  OnyxNavItemProps & {
+    /**
+     *
+     */
+    mobile: boolean;
+    /**
+     *
+     */
+    topLeveL: boolean;
+  }
+>();
 
 const slots = defineSlots<{
   /**
@@ -19,8 +30,11 @@ const slots = defineSlots<{
 
 provide(
   MOBILE_NAV_BAR_INJECTION_KEY,
-  computed(() => true),
+  computed(() => props.mobile),
 );
+
+// eslint-disable-next-line vue/no-setup-props-reactivity-loss
+provide(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, props.topLeveL);
 </script>
 
 <!-- eslint-disable vue/no-static-inline-styles -->
