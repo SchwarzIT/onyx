@@ -30,9 +30,10 @@ $gridVariants: (
     // Note: The --onyx-grid-margin is implemented as padding here so that is also included in e.g. custom background colors
     // but the term "margin" comes from UX/Figma so we decided to keep naming it margin to be aligned
     padding: var(--onyx-grid-margin);
-    max-width: var(--onyx-grid-max-width, none);
+    max-width: var(--onyx-grid-max-width, 100%);
     margin-inline: var(--onyx-grid-margin-inline);
     box-sizing: border-box; // max-width should include the padding
+    transition: max-width 1s;
   }
 
   /**
