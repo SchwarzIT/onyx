@@ -33,4 +33,17 @@
       z-index: 20;
     }
   }
+  .dark .onyx-data-grid .onyx-data-grid-sticky-columns--sticky {
+    &.isScrolled {
+      & ~ .left {
+        border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-component-focus-neutral);
+      }
+      &.right:after {
+        background-color: var(--onyx-color-component-focus-neutral);
+      }
+      & ~ .right:after {
+        background-color: initial;
+      }
+    }
+  }
 }
