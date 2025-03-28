@@ -139,4 +139,9 @@ const {
     }
   }
 }
+.dark .onyx-flyout-menu__list {
+  @include layers.component() {
+    outline: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+  }
+}
 </style>
