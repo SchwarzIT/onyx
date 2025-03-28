@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
-import OnyxNavButton from "../OnyxNavBar/modules/OnyxNavButton/OnyxNavButton.vue";
+import OnyxNavItem from "../OnyxNavBar/modules/OnyxNavItem/OnyxNavItem.vue";
 import { NAV_BAR_MORE_LIST_INJECTION_KEY } from "../OnyxNavBar/types";
 import OnyxMoreList from "./OnyxMoreList.vue";
 
@@ -27,9 +27,7 @@ export const Default = {
       h(
         "ul",
         { style: "padding: 0", role: "menu", ...attributes },
-        Array.from({ length: 16 }, (_, index) =>
-          h(OnyxNavButton, { label: `Element ${index + 1}` }),
-        ),
+        Array.from({ length: 16 }, (_, index) => h(OnyxNavItem, { label: `Element ${index + 1}` })),
       ),
     more: ({ hiddenElements, attributes }) =>
       h(

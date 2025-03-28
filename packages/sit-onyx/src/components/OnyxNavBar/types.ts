@@ -30,5 +30,12 @@ export type OnyxNavBarProps = Pick<OnyxNavAppAreaProps, "appName" | "logoUrl"> &
  * @returns `true` if mobile, `false` otherwise
  */
 export const MOBILE_NAV_BAR_INJECTION_KEY = Symbol() as InjectionKey<ComputedRef<boolean>>;
+/**
+ * [Vue injection key](https://vuejs.org/guide/components/provide-inject) that is provided by the nav items
+ * to communicate child nav items whether they should render as flyout or list item.
+ *
+ * @returns `true` if outermost parent, `false` otherwise
+ */
+export const NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY = Symbol() as InjectionKey<boolean>;
 
 export const NAV_BAR_MORE_LIST_INJECTION_KEY = Symbol() as MoreListInjectionKey;

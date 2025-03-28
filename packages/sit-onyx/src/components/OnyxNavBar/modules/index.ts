@@ -9,11 +9,14 @@ export { default as OnyxFlyoutMenu } from "./OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 export { default as OnyxMenuItem } from "./OnyxMenuItem/OnyxMenuItem.vue";
 export * from "./OnyxMenuItem/types";
 
-export { default as OnyxNavButton } from "./OnyxNavButton/OnyxNavButton.vue";
-export * from "./OnyxNavButton/types";
-
 export { default as OnyxNavItem } from "./OnyxNavItem/OnyxNavItem.vue";
 export * from "./OnyxNavItem/types";
+
+import OnyxNavItem from "./OnyxNavItem/OnyxNavItem.vue";
+/**
+ * @deprecated Use `OnyxNavItem` instead.
+ */
+export const OnyxNavButton = OnyxNavItem;
 
 export { default as OnyxNavSeparator } from "./OnyxNavSeparator/OnyxNavSeparator.vue";
 export * from "./OnyxNavSeparator/types";

@@ -26,7 +26,7 @@ const emit = defineEmits<{
 
 const slots = defineSlots<{
   /**
-   * Nav buttons, only `OnyxNavButton` components should be placed here.
+   * Nav buttons, only `OnyxNavItem` components should be placed here.
    */
   default?: () => unknown;
   /**

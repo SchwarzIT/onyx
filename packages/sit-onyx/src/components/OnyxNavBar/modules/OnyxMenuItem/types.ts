@@ -1,7 +1,13 @@
+import type { Nullable } from "../../../../composables/useVModel";
 import type { OnyxColor } from "../../../../types";
 import type { WithLinkProp } from "../../../OnyxRouterLink/types";
 
 export type OnyxMenuItemProps = WithLinkProp & {
+  open?: Nullable<boolean>;
+  /**
+   * Label text for the menu item.
+   */
+  label?: string;
   /**
    * Whether the item is currently active.
    * This is the case if the page of the given link is currently open.

@@ -4,7 +4,7 @@ import OnyxExternalLinkIcon from "./OnyxExternalLinkIcon.vue";
 
 /**
  * Icon for external links. Will be hidden if the link is not external or icon is disabled.
- * Mainly used internally inside other components like the OnyxLink, OnyxNavButton etc.
+ * Mainly used internally inside other components like the OnyxLink, OnyxNavItem etc.
  */
 const meta: Meta<typeof OnyxExternalLinkIcon> = {
   title: "Support/ExternalLinkIcon",

@@ -17,7 +17,6 @@ import {
   OnyxInput,
   OnyxMenuItem,
   OnyxNavBar,
-  OnyxNavButton,
   OnyxNavItem,
   OnyxPagination,
   OnyxRadioGroup,
@@ -239,14 +238,14 @@ const teamMembers = [
       </div>
 
       <OnyxNavBar class="grid--nav" app-name="Nav bar" logo-url="/onyx-logo.svg">
-        <OnyxNavButton label="Page 1" active />
-        <OnyxNavButton label="Page 2">
+        <OnyxNavItem label="Page 1" active />
+        <OnyxNavItem label="Page 2">
           <template #children>
             <OnyxNavItem label="Subpage 1" />
             <OnyxNavItem label="Subpage 2" />
           </template>
-        </OnyxNavButton>
-        <OnyxNavButton label="Page 3" :link="{ href: 'https://onyx.schwarz', target: '_blank' }" />
+        </OnyxNavItem>
+        <OnyxNavItem label="Page 3" :link="{ href: 'https://onyx.schwarz', target: '_blank' }" />
 
         <template #contextArea>
           <OnyxUserMenu description="Company Name" full-name="Jane Doe">

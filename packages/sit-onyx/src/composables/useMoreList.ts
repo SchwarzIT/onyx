@@ -59,7 +59,7 @@ export type UseMoreListOptions = {
  * <template>
  *   <div ref="parentRef" class="more-list">
  *     <div ref="listRef" class="more-list__elements">
- *        <OnyxNavButton v-for="i in 16" ref="componentRefs" :key="i" :label="`Nav button ${i}`" />
+ *        <OnyxNavItem v-for="i in 16" ref="componentRefs" :key="i" :label="`Nav button ${i}`" />
  *     </div>
  *
  *     <div ref="moreIndicatorRef" class="more-list__indicator">
