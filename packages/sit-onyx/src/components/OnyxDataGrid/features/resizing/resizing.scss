@@ -10,6 +10,18 @@
       background: var(--onyx-color-base-neutral-600);
       opacity: 0;
       width: 0.125rem;
+    }
+
+    &--resize-handle::after {
+      content: "";
+      position: absolute;
+      right: -8px;
+      width: 1rem;
+      height: 100%;
+      cursor: col-resize;
+    }
+
+    .header--being-resized {
       cursor: col-resize;
     }
 
