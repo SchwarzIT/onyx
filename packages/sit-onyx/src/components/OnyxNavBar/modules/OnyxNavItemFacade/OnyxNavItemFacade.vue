@@ -60,7 +60,7 @@ const hasChildren = computed(() => !!slots.children);
       --onyx-list-item-background-selected: var(--onyx-color-base-neutral-200);
     }
 
-    &:focus-visible {
+    &:focus-within {
       outline: 0.25rem solid var(--onyx-color-component-focus-primary, #bbeaed);
     }
 
@@ -71,6 +71,8 @@ const hasChildren = computed(() => !!slots.children);
     &:has(.onyx-nav-item--active),
     &.onyx-nav-item--active {
       font-weight: 600;
+      color: var(--onyx-color-text-icons-primary-intense);
+      --onyx-list-item-color-selected: var(--onyx-color-text-icons-primary-intense);
 
       &::after {
         content: " ";
@@ -106,7 +108,7 @@ const hasChildren = computed(() => !!slots.children);
       --onyx-list-item-color-selected: var(--onyx-color-text-icons-primary-intense);
       background-color: var(--onyx-list-item-background-selected);
       border-color: var(--onyx-color-base-primary-200);
-      color: var(--onyx-color-text-icons-primary-bold);
+      color: var(--onyx-color-text-icons-primary-intense);
       font-weight: 600;
     }
 
