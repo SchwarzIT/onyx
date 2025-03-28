@@ -76,7 +76,7 @@ const hasChildren = computed(() => !!slots.children);
     v-bind="mergeVueProps(listItem, rootAttrs)"
   >
     <ButtonOrLinkLayout
-      class="onyx-menu-item__trigger onyx-text"
+      class="onyx-menu-item__trigger"
       :disabled="props.disabled"
       :link="props.link"
       v-bind="mergeVueProps(menuItemProps, restAttrs)"
