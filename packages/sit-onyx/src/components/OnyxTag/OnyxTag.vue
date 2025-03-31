@@ -78,15 +78,13 @@ const tagClasses = computed(() => [
 
         @if $color == "primary" {
           --onyx-tag-border-color: var(--onyx-color-component-border-primary);
-        } @else if $color == "neutral" or $color == "success" {
-          --onyx-tag-border-color: var(--onyx-color-base-#{$color}-500);
         } @else {
-          --onyx-tag-border-color: var(--onyx-color-base-#{$color}-600);
+          --onyx-tag-border-color: var(--onyx-color-base-#{$color}-400);
         }
 
         @if $color == "neutral" {
           // neutral does not have a bold color so we need to use medium here
-          --onyx-tag-color: var(--onyx-color-text-icons-neutral-medium);
+          --onyx-tag-color: var(--onyx-color-text-icons-neutral-intense);
         } @else {
           --onyx-tag-color: var(--onyx-color-text-icons-#{$color}-bold);
         }
