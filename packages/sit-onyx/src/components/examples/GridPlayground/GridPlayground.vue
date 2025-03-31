@@ -66,7 +66,7 @@ const gridSettings = ref<{
 const gridElements = ref<GridElementConfig[]>(new Array(3).fill({ columnCount: 4 }));
 const isAddDialogOpen = ref(false);
 const gridElementIndexToEdit = ref<number>();
-const showGridLines = ref(false);
+const showGridLines = ref(true);
 
 const grid = useTemplateRef("gridRef");
 
@@ -115,6 +115,10 @@ const currentBreakpoint = computed(() => {
   }, "2xs");
 
   return breakpoint;
+});
+
+const alignmentOptionsEnabled = computed(() => {
+  return gridSettings.value.maxWidth !== "Filled" && isLargeBreakpoint.value;
 });
 
 const alignmentOptions = [
@@ -214,6 +218,7 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
           list-label="List of alignment options"
           label-tooltip="You can adjust the overall alignment of the grid here."
           :options="alignmentOptions"
+          :readonly="!alignmentOptionsEnabled"
         />
       </div>
     </div>

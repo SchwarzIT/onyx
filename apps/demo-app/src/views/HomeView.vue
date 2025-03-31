@@ -13,6 +13,7 @@ import {
   OnyxCheckboxGroup,
   OnyxDatePicker,
   OnyxEmpty,
+  OnyxFilterTag,
   OnyxHeadline,
   OnyxIcon,
   OnyxIconButton,
@@ -332,7 +333,13 @@ const openAccordionItems = ref<string[]>([]);
           <OnyxTab label="Tab 3" value="tab-3">Tab panel content 3...</OnyxTab>
         </OnyxTabs>
 
-        <OnyxTag v-if="show('OnyxTag')" label="Example tag" :icon="emojiHappy2" />
+        <OnyxTag v-if="show('OnyxTag')" label="Example tag" :icon="emojiHappy2" color="primary" />
+        <OnyxTag v-if="show('OnyxTag')" label="Example interactive tag" clickable="clickable" />
+        <OnyxFilterTag
+          v-if="show('OnyxTag')"
+          label="Example filter tag"
+          clickable="remove Filter"
+        />
 
         <OnyxTextarea
           v-if="show('OnyxTextarea')"

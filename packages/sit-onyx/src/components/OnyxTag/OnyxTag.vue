@@ -1,18 +1,49 @@
 <script lang="ts" setup>
+import { computed } from "vue";
 import { useDensity } from "../../composables/density";
+import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
+import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 import type { OnyxTagProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxTagProps>(), {
-  color: "primary",
+  color: "neutral",
+  skeleton: SKELETON_INJECTED_SYMBOL,
 });
 
 const { densityClass } = useDensity(props);
+const skeleton = useSkeletonContext(props);
+const tagClasses = computed(() => [
+  "onyx-component",
+  "onyx-tag",
+  `onyx-tag--${props.color}`,
+  { "onyx-tag--interactive": props.clickable },
+  densityClass.value,
+]);
 </script>
 
 <template>
-  <div :class="['onyx-component', 'onyx-tag', `onyx-tag--${props.color}`, densityClass]">
-    <OnyxIcon v-if="props.icon" :icon="props.icon" size="16px" />
+  <OnyxSkeleton v-if="skeleton" :class="['onyx-tag-skeleton', densityClass]" />
+
+  <OnyxTooltip
+    v-else-if="props.clickable"
+    :text="typeof props.clickable === 'object' ? props.clickable.label : props.clickable"
+  >
+    <template #default="{ trigger }">
+      <button v-bind="trigger" :class="tagClasses" type="button">
+        <OnyxIcon v-if="props.icon" :icon="props.icon" inline />
+        <span class="onyx-text onyx-truncation-ellipsis">{{ props.label }}</span>
+        <OnyxIcon
+          v-if="typeof props.clickable === 'object' && props.clickable.actionIcon"
+          :icon="props.clickable.actionIcon"
+          inline
+        />
+      </button>
+    </template>
+  </OnyxTooltip>
+  <div v-else :class="tagClasses">
+    <OnyxIcon v-if="props.icon" :icon="props.icon" inline />
     <span class="onyx-text onyx-truncation-ellipsis">{{ props.label }}</span>
   </div>
 </template>
@@ -39,7 +70,11 @@ const { densityClass } = useDensity(props);
 
     @each $color in $colors {
       &--#{$color} {
-        --onyx-tag-background-color: var(--onyx-color-base-#{$color}-200);
+        @if $color == "neutral" {
+          --onyx-tag-background-color: var(--onyx-color-base-background-blank);
+        } @else {
+          --onyx-tag-background-color: var(--onyx-color-base-#{$color}-100);
+        }
 
         @if $color == "primary" {
           --onyx-tag-border-color: var(--onyx-color-component-border-primary);
@@ -55,8 +90,33 @@ const { densityClass } = useDensity(props);
         } @else {
           --onyx-tag-color: var(--onyx-color-text-icons-#{$color}-bold);
         }
+
+        --onyx-tag-hover-background-color: var(--onyx-color-base-#{$color}-200);
+        @if $color == "info" {
+          --onyx-tag-focus-color: var(--onyx-color-base-info-200);
+        } @else {
+          --onyx-tag-focus-color: var(--onyx-color-component-focus-#{$color});
+        }
+        --onyx-tag-focus-background-color: var(--onyx-color-base-#{$color}-200);
       }
     }
+    &--interactive {
+      cursor: pointer;
+      &:hover {
+        background-color: var(--onyx-tag-hover-background-color);
+      }
+      &:focus-visible {
+        background-color: var(--onyx-tag-focus-background-color);
+        outline: var(--onyx-outline-width) solid var(--onyx-tag-focus-color);
+      }
+    }
+  }
+
+  &-skeleton {
+    width: var(--onyx-density-2xl);
+    height: calc(1.5rem + 2 * var(--onyx-density-3xs));
+    display: inline-block;
+    vertical-align: middle;
   }
 }
 </style>

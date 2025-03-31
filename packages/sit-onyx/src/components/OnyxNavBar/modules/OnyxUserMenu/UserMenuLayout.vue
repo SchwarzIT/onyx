@@ -1,23 +1,43 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
 // this layout component is only used internally for the user menu component
 // to easily switch between mobile and desktop layout
+import { useVModel, type Nullable } from "../../../../composables/useVModel";
 import { injectI18n } from "../../../../i18n";
 import type { SelectOptionValue } from "../../../../types";
 import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
 import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 
-const props = defineProps<{
+const props = withDefaults(
+  defineProps<{
+    /**
+     * If the mobile layout should be used instead of the desktop layout.
+     */
+    isMobile: boolean;
+    /**
+     * Controls whether the flyout menu is open.
+     */
+    flyoutOpen?: Nullable<boolean>;
+  }>(),
+  // eslint-disable-next-line vue/no-boolean-default
+  { flyoutOpen: undefined },
+);
+
+const emit = defineEmits<{
   /**
-   * If the mobile layout should be used instead of the desktop layout.
+   * Emitted when the state of flyoutOpen changes.
    */
-  isMobile: boolean;
+  "update:flyoutOpen": [value?: Nullable<boolean>];
 }>();
 
 /**
  * Controls the open state of the user menu flyout.
  */
-const flyoutOpen = defineModel<boolean>("flyoutOpen", { default: false });
-
+const flyoutOpen = useVModel({
+  props,
+  emit,
+  key: "flyoutOpen",
+  initialValue: false,
+});
 const slots = defineSlots<{
   /**
    * The trigger for the flyout menu. Must be an interactive component like a button or link.

@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.184
+
+### Minor Changes
+
+- 0679f49: feat(OnyxTag): add interactive Tag & support component OnyxFilterTag
+
 ## 1.0.0-beta.183
 
 ### Patch Changes

@@ -1,4 +1,5 @@
 import type { DensityProp } from "../../composables/density";
+import type { Nullable } from "../../composables/useVModel";
 
 export type OnyxMiniSearchProps = DensityProp & {
   /**
@@ -6,4 +7,8 @@ export type OnyxMiniSearchProps = DensityProp & {
    */
   label: string;
   autofocus?: boolean;
+  /**
+   * Current search input.
+   */
+  modelValue?: Nullable<string>;
 };

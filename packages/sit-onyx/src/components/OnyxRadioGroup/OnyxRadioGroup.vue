@@ -3,6 +3,7 @@ import { computed, useId, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density";
 import { useRequired } from "../../composables/required";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
+import { useVModel, type Nullable } from "../../composables/useVModel";
 import type { SelectOptionValue } from "../../types";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
@@ -10,7 +11,8 @@ import OnyxInfoTooltip from "../OnyxInfoTooltip/OnyxInfoTooltip.vue";
 import OnyxRadioButton from "../OnyxRadioButton/OnyxRadioButton.vue";
 import type { OnyxRadioGroupProps } from "./types";
 
-const props = withDefaults(defineProps<OnyxRadioGroupProps<TValue>>(), {
+type Props = OnyxRadioGroupProps<TValue>;
+const props = withDefaults(defineProps<Props>(), {
   name: () => useId(), // the name must be globally unique
   direction: "vertical",
   required: false,
@@ -26,18 +28,25 @@ const { requiredMarkerClass, requiredTypeClass } = useRequired(props, requiredMa
 const skeleton = useSkeletonContext(props);
 
 const emit = defineEmits<{
-  "update:modelValue": [selected: TValue];
   /**
    * Emitted when the validity state changes.
    */
   validityChange: [validity: ValidityState];
+  /**
+   * Emitted when the selected radio button changes.
+   */
+  "update:modelValue": [selected?: Nullable<TValue>];
 }>();
+const modelValue = useVModel<"modelValue", Props, TValue, TValue>({
+  props,
+  emit,
+  key: "modelValue",
+});
 
 const handleChange = (selected: boolean, value: TValue) => {
   if (!selected) return;
-  emit("update:modelValue", value);
+  modelValue.value = value;
 };
-
 const radiobuttons = useTemplateRef("radiobuttonsRef");
 
 defineExpose({
@@ -76,7 +85,7 @@ defineExpose({
           ref="radiobuttonsRef"
           :name="props.name"
           :custom-error="props.customError"
-          :checked="option.value === props.modelValue"
+          :checked="option.value === modelValue"
           :required="props.required"
           :truncation="option.truncation ?? props.truncation"
           @validity-change="index === 0 && emit('validityChange', $event)"

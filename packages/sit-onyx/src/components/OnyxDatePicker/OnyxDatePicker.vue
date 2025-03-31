@@ -5,6 +5,7 @@ import { useAutofocus } from "../../composables/useAutoFocus";
 import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
 import { useErrorClass } from "../../composables/useErrorClass";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
+import { useVModel, type Nullable } from "../../composables/useVModel";
 import { useRootAttrs } from "../../utils/attrs";
 import { isValidDate } from "../../utils/date";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
@@ -27,7 +28,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the current value changes. Will be a ISO timestamp created by `new Date().toISOString()`.
    */
-  "update:modelValue": [value?: string];
+  "update:modelValue": [value?: Nullable<DateValue>];
   /**
    * Emitted when the validity state of the input changes.
    */
@@ -52,8 +53,8 @@ const errorClass = useErrorClass(showError);
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Date_and_time_formats#local_date_and_time_strings
  */
 const getNormalizedDate = computed(() => {
-  return (value?: DateValue) => {
-    const date = value != undefined ? new Date(value) : undefined;
+  return (value?: DateValue | null) => {
+    const date = value != undefined && value != null ? new Date(value) : undefined;
     if (!isValidDate(date)) return;
 
     const dateString = date.toISOString().split("T")[0];
@@ -70,11 +71,17 @@ const getNormalizedDate = computed(() => {
 /**
  * Current value (with getter and setter) that can be used as "v-model" for the native input.
  */
+const modelValue = useVModel({
+  props,
+  emit,
+  key: "modelValue",
+  initialValue: "",
+});
 const value = computed({
-  get: () => getNormalizedDate.value(props.modelValue),
+  get: () => getNormalizedDate.value(modelValue.value),
   set: (value) => {
     const newDate = new Date(value ?? "");
-    emit("update:modelValue", isValidDate(newDate) ? newDate.toISOString() : undefined);
+    modelValue.value = isValidDate(newDate) ? newDate.toISOString() : "";
   },
 });
 const input = useTemplateRef("inputRef");

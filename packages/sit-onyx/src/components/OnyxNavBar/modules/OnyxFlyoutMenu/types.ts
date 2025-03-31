@@ -1,3 +1,5 @@
+import type { Nullable } from "../../../../composables/useVModel";
+
 export type OnyxFlyoutMenuProps = {
   /**
    * If the flyout is expanded on click or hover.
@@ -8,4 +10,8 @@ export type OnyxFlyoutMenuProps = {
    * Aria label for the flyout.
    */
   label: string;
+  /**
+   * Indicates whether the element is expanded or collapsed.
+   */
+  open?: Nullable<boolean>;
 };
