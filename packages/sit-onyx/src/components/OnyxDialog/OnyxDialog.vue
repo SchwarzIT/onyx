@@ -133,4 +133,7 @@ watch(
     }
   }
 }
+.dark .onyx-dialog:modal {
+  outline: var(--onyx-spacing-5xs) solid var(--onyx-color-component-border-neutral);
+}
 </style>
