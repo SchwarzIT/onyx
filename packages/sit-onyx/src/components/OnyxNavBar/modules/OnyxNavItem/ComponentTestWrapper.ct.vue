@@ -7,11 +7,11 @@ import type { OnyxNavItemProps } from "./types";
 const props = defineProps<
   OnyxNavItemProps & {
     /**
-     *
+     * set injected value for MOBILE_NAV_BAR_INJECTION_KEY
      */
     mobile: boolean;
     /**
-     *
+     * set injected value for NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY
      */
     topLeveL: boolean;
   }
