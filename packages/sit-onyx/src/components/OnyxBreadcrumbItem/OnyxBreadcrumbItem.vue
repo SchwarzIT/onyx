@@ -2,12 +2,14 @@
 import { computed } from "vue";
 import { useDensity } from "../../composables/density";
 import { useLink } from "../../composables/useLink";
+import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState";
 import { useRootAttrs } from "../../utils/attrs";
 import OnyxRouterLink from "../OnyxRouterLink/OnyxRouterLink.vue";
 import type { OnyxBreadcrumbItemProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxBreadcrumbItemProps>(), {
   active: "auto",
+  skeleton: SKELETON_INJECTED_SYMBOL,
 });
 
 defineSlots<{
@@ -20,6 +22,7 @@ defineSlots<{
 const { densityClass } = useDensity(props);
 const { currentRoute } = useLink();
 const { restAttrs, rootAttrs } = useRootAttrs();
+// const skeleton = useSkeletonContext(props);
 
 const isActive = computed(() => {
   return props.active === "auto" ? props.href === currentRoute.value?.path : props.active;
