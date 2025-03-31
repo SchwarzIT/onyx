@@ -39,6 +39,7 @@ export const useResizing = createFeature(
 
     const initResize = (ev: Event, cols: Readonly<InternalColumnConfig<TEntry>>) => {
       const target = ev.target as HTMLElement;
+      const tableEl = target.closest("table");
       resizingCol = cols;
 
       Object.entries(headerBeingResized.value).forEach(([key, headerRef]) => {
@@ -52,6 +53,7 @@ export const useResizing = createFeature(
       window.addEventListener("mouseup", onMouseUp);
       headerBeingResized.value[resizingCol.key].classList.add("header--being-resized");
       rowsBeingResized.value.forEach((row) => row.classList.add("onyx-data-grid--resize-border"));
+      tableEl!.style.tableLayout = "fixed";
     };
 
     const modifyColumns = (cols: Readonly<InternalColumnConfig<TEntry>[]>) => {

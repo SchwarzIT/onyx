@@ -55,9 +55,6 @@ defineSlots<{
 
 .onyx-data-grid {
   @include layers.component() {
-    table {
-      table-layout: fixed;
-    }
   }
 }
 </style>
