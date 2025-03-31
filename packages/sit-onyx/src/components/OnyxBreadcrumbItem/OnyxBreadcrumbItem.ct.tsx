@@ -44,4 +44,23 @@ test.describe("Screenshot tests", () => {
       },
     });
   }
+
+  executeMatrixScreenshotTest({
+    name: "Breadcrumb item (skeleton)",
+    columns: DENSITIES,
+    rows: ["default", "hover", "focus-visible"],
+    component: (column) => (
+      <ul style={{ display: "contents" }}>
+        <OnyxBreadcrumbItem href="#" density={column} aria-label="Item" skeleton>
+          Item
+        </OnyxBreadcrumbItem>
+      </ul>
+    ),
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        if (row === "hover") await component.hover();
+        if (row === "focus-visible") await page.keyboard.press("Tab");
+      },
+    },
+  });
 });
