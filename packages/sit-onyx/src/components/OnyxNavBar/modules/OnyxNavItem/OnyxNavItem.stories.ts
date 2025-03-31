@@ -4,7 +4,7 @@ import OnyxBadge from "../../../OnyxBadge/OnyxBadge.vue";
 import OnyxNavItem from "./OnyxNavItem.vue";
 
 /**
- * The nav button is used internally to build the main navigation bar component and is not intended to be used individually.
+ * The nav item is used to build the navigation bar component and not intended to be used standalone.
  */
 const meta: Meta<typeof OnyxNavItem> = {
   title: "Navigation/modules/NavButton",
@@ -28,7 +28,7 @@ export default meta;
 type Story = StoryObj<typeof OnyxNavItem>;
 
 /**
- * This example shows a default nav button.
+ * This example shows a default nav item.
  */
 export const Default = {
   args: {
@@ -50,7 +50,7 @@ export const WithLink = {
 } satisfies Story;
 
 /**
- * This example shows an active nav button.
+ * This example shows an active nav item.
  */
 export const Active = {
   args: {
@@ -60,7 +60,7 @@ export const Active = {
 } satisfies Story;
 
 /**
- * This example shows the nav button with nested children.
+ * This example shows the nav item with nested children.
  */
 export const WithChildren: Story = {
   args: {

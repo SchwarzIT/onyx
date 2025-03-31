@@ -163,10 +163,16 @@ provide(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, false);
       gap: var(--onyx-spacing-2xs);
     }
 
+    /**
+     * control items should act as flex items
+     */
     &__controls {
       display: contents;
     }
 
+    /**
+     * Don't display controls when a child element is opened.
+     */
     &--open:has(&--open) > &__controls {
       display: none;
     }
@@ -175,6 +181,9 @@ provide(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, false);
 
 .onyx-nav-item {
   @include layers.component() {
+    /**
+     * Hide siblings of an opened item.
+     */
     &:has(~ .onyx-nav-item-wrapper--open),
     .onyx-nav-item-wrapper--open ~ & {
       display: none;

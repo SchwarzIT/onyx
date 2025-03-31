@@ -75,8 +75,12 @@ export const Default = {
                     { label: "Nested item 2.1.1" },
                     {
                       children: () => [
-                        h(OnyxNavItem, { label: "Nested item 2.1.1.1", link: "#" }),
-                        h(OnyxNavItem, { label: "Nested item 2.1.1.2", link: "#", active: true }),
+                        h(OnyxNavItem, { label: "Nested item 2.1.1.1", link: "#2.1.1.1" }),
+                        h(OnyxNavItem, {
+                          label: "Nested item 2.1.1.2",
+                          link: "#2.1.1.2",
+                          active: true,
+                        }),
                         h(OnyxNavItem, {
                           label: "Nested item 2.1.1.3",
                           link: "https://onyx.schwarz",
@@ -84,13 +88,13 @@ export const Default = {
                       ],
                     },
                   ),
-                  h(OnyxNavItem, { label: "Nested item 2.1.2", link: "#", active: true }),
-                  h(OnyxNavItem, { label: "Nested item 2.1.3", link: "https://onyx.schwarz" }),
+                  h(OnyxNavItem, { label: "Nested item 2.1.2", link: "#2.1.2" }),
+                  h(OnyxNavItem, { label: "Nested item 2.1.3", link: "#2.1.3" }),
                 ],
               },
             ),
-            h(OnyxNavItem, { label: "Nested item 2.2", link: "#", active: true }),
-            h(OnyxNavItem, { label: "Nested item 2.3", link: "https://onyx.schwarz" }),
+            h(OnyxNavItem, { label: "Nested item 2.2", link: "#2.2" }),
+            h(OnyxNavItem, { label: "Nested item 2.3", link: "#2.3" }),
           ],
         },
       ),
@@ -99,8 +103,8 @@ export const Default = {
         { label: "Item 3" },
         {
           children: () => [
-            h(OnyxNavItem, { label: "Nested item 3.1", link: "#" }),
-            h(OnyxNavItem, { label: "Nested item 3.2", link: "#" }),
+            h(OnyxNavItem, { label: "Nested item 3.1", link: "#3.1" }),
+            h(OnyxNavItem, { label: "Nested item 3.2", link: "#3.2" }),
           ],
         },
       ),
