@@ -134,6 +134,6 @@ watch(
   }
 }
 .dark .onyx-dialog:modal {
-  outline: calc(2 * var(--onyx-1px-in-rem)) solid var(--onyx-color-component-border-neutral);
+  outline: var(--onyx-spacing-5xs) solid var(--onyx-color-component-border-neutral);
 }
 </style>
