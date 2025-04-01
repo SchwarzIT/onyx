@@ -18,7 +18,9 @@
     "dev:prepare": "nuxt prepare .playground",
     "build": "nuxt build .playground",
     "generate": "nuxt generate .playground",
-    "preview": "nuxt preview .playground"
+    "preview": "nuxt preview .playground",
+    "test": "cd .playground && pnpm test",
+    "test:playwright": "cd .playground && pnpm test:playwright"
   },
   "dependencies": {
     "@fontsource-variable/source-code-pro": ">= 5",
