@@ -1,4 +1,4 @@
-import type { OnyxNavButtonProps } from "sit-onyx";
+import type { OnyxNavBarProps, OnyxNavButtonProps, OnyxNavItemProps } from "sit-onyx";
 
 declare module "@nuxt/schema" {
   interface AppConfigInput {
@@ -11,18 +11,15 @@ declare module "@nuxt/schema" {
 }
 
 export type OnyxAppConfig = {
-  app?: {
-    name?: string;
-    logo?: string;
-  };
-  nav?: {
-    items?: OnyxNavButtonProps[];
+  nav?: Partial<OnyxNavBarProps> & {
+    items?: (OnyxNavButtonProps & { children?: OnyxNavItemProps[] })[];
   };
 };
 
 const defaultAppConfig = {
-  app: {
-    name: "Documentation",
+  nav: {
+    appName: "Documentation",
+    withBackButton: true,
   },
 } satisfies OnyxAppConfig;
 
