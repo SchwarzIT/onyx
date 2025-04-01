@@ -58,7 +58,10 @@ provideSkeletonContext(props);
     &--container {
       border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
       background-color: var(--onyx-color-base-background-blank);
-      padding: var(--onyx-density-xs) var(--onyx-density-xl);
+
+      .onyx-breadcrumb__list {
+        padding: var(--onyx-density-xs) var(--onyx-grid-margin);
+      }
     }
 
     &__list {
@@ -68,6 +71,8 @@ provideSkeletonContext(props);
       display: flex;
       align-items: center;
       gap: var(--onyx-density-xs);
+      margin-inline: var(--onyx-grid-margin-inline);
+      max-width: var(--onyx-grid-max-width);
     }
 
     &__home {
