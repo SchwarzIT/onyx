@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.187
+
+### Minor Changes
+
+- 0d8fef8: feat(OnyxBreadcrumb): consider grid padding, max-width and alignment when in container mode
+
 ## 1.0.0-beta.186
 
 ### Minor Changes
