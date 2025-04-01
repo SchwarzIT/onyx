@@ -31,6 +31,7 @@ test.describe("Screenshot tests", () => {
           label="Parent item"
           link={row === "external-link" ? "https://onyx.schwarz" : "#"}
           active={column === "active"}
+          style={{ ["max-width"]: "200px" }}
         >
           {row === "badge" && ["Parent item", <OnyxBadge dot color="warning" />]}
 
