@@ -46,7 +46,7 @@ const hasChildren = computed(() => !!slots.children);
 <style lang="scss">
 @use "../../../../styles/mixins/layers";
 
-@include layers.component() {
+@include layers.override() {
   .onyx-nav-item--navbar {
     position: relative;
     height: 2.5rem;
@@ -110,6 +110,11 @@ const hasChildren = computed(() => !!slots.children);
       border-color: var(--onyx-color-base-primary-200);
       color: var(--onyx-color-text-icons-primary-intense);
       font-weight: 600;
+    }
+
+    &:has(.onyx-nav-item--active):hover,
+    &.onyx-nav-item--active:hover {
+      border-color: var(--onyx-component-border-primary);
     }
 
     &.onyx-nav-item--open {

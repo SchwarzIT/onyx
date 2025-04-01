@@ -2,4 +2,4 @@
  * Define the layer cascade layer priorities: Will apply from left-to-right.
  * We have to keep the layers in sync with global.css.
  */
-@layer onyx.reset, onyx.utility, onyx.component, onyx.density;
+@layer onyx.reset, onyx.utility, onyx.component, onyx.density, onyx.override;
