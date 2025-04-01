@@ -2,7 +2,8 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxNavItemFacade from "./OnyxNavItemFacade.vue";
 
 /**
- * The nav button is used internally to build the main navigation bar component and is not intended to be used individually.
+ * This support component wraps the `OnyxMenuItem` and styles it according to the given context.
+ * It allows us to use the same API and HTML structure in all possible contexts.
  */
 const meta: Meta<typeof OnyxNavItemFacade> = {
   title: "Support/NavItemFacade",

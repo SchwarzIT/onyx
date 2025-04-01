@@ -74,6 +74,7 @@ provide(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, false);
 </script>
 
 <template>
+  <!-- Mobile Parent is open -->
   <div
     v-if="isMobile && open"
     :class="{
@@ -102,6 +103,7 @@ provide(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, false);
       <slot name="children"></slot>
     </ul>
   </div>
+  <!-- Mobile item displayed in list -->
   <OnyxNavItemFacade
     v-else-if="isMobile"
     v-bind="props"
@@ -112,6 +114,7 @@ provide(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, false);
     <slot></slot>
     <template v-if="slots.children" #children><slot name="children"></slot></template>
   </OnyxNavItemFacade>
+  <!-- Desktop parent item in navbar with children in a flyout -->
   <OnyxFlyoutMenu
     v-else-if="isTopLevel && hasChildren"
     v-show="isVisible"
@@ -133,6 +136,7 @@ provide(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, false);
       <slot name="children"></slot>
     </template>
   </OnyxFlyoutMenu>
+  <!-- Desktop nav button directly in navbar  -->
   <OnyxNavItemFacade
     v-else-if="isTopLevel"
     v-show="isVisible"
@@ -143,6 +147,7 @@ provide(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, false);
   >
     <slot></slot>
   </OnyxNavItemFacade>
+  <!-- Desktop nav item nested in a list flyout -->
   <OnyxNavItemFacade v-else v-bind="props" :active context="list">
     <slot></slot>
   </OnyxNavItemFacade>
@@ -182,7 +187,7 @@ provide(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, false);
 .onyx-nav-item {
   @include layers.component() {
     /**
-     * Hide siblings of an opened item.
+     * Hide siblings before and after an opened item.
      */
     &:has(~ .onyx-nav-item-wrapper--open),
     .onyx-nav-item-wrapper--open ~ & {
