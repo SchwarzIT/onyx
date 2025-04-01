@@ -2,6 +2,7 @@ import browserTerminal from "@sit-onyx/icons/browser-terminal.svg?raw";
 import search from "@sit-onyx/icons/search.svg?raw";
 import settings from "@sit-onyx/icons/settings.svg?raw";
 import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
+import { action } from "@storybook/addon-actions";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
@@ -43,10 +44,22 @@ const meta: Meta<typeof OnyxNavBar> = {
   },
   decorators: [
     // add padding to the story so the nav button and user menu flyouts are shown
-    (story) => ({
-      components: { story },
-      template: `<div style="padding-bottom: 20rem;"> <story /> </div>`,
-    }),
+    (story) => {
+      return {
+        methods: {
+          handleAnchorClick: (e: MouseEvent & { target: Element }) => {
+            const a = e.target.closest("a") as HTMLAnchorElement | null;
+            if (a) {
+              // prevent navigate to the link when clicked as it would navigate away from the storybook iframe
+              e.preventDefault();
+              action("link clicked")(a.href);
+            }
+          },
+        },
+        components: { story },
+        template: `<div style="padding-bottom: 20rem;"> <story @click="handleAnchorClick" /> </div>`,
+      };
+    },
   ],
 };
 
@@ -58,7 +71,7 @@ export const Default = {
     logoUrl: "/onyx-logo.svg",
     appName: "App name",
     default: () => [
-      h(OnyxNavItem, { label: "Item 1", link: "/" }),
+      h(OnyxNavItem, { label: "Item 1", link: "https://it.schwarz/" }),
       h(
         OnyxNavItem,
         { label: "Item 2" },
@@ -70,24 +83,6 @@ export const Default = {
               { label: "Nested item 2.1" },
               {
                 children: () => [
-                  h(
-                    OnyxNavItem,
-                    { label: "Nested item 2.1.1" },
-                    {
-                      children: () => [
-                        h(OnyxNavItem, { label: "Nested item 2.1.1.1", link: "#2.1.1.1" }),
-                        h(OnyxNavItem, {
-                          label: "Nested item 2.1.1.2",
-                          link: "#2.1.1.2",
-                          active: true,
-                        }),
-                        h(OnyxNavItem, {
-                          label: "Nested item 2.1.1.3",
-                          link: "https://onyx.schwarz",
-                        }),
-                      ],
-                    },
-                  ),
                   h(OnyxNavItem, { label: "Nested item 2.1.2", link: "#2.1.2" }),
                   h(OnyxNavItem, { label: "Nested item 2.1.3", link: "#2.1.3" }),
                 ],
