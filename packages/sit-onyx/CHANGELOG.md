@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.185
+
+### Minor Changes
+
+- 5d223c3: feat(OnyxBreadcrumb): support `skeleton` prop
+
 ## 1.0.0-beta.184
 
 ### Minor Changes
