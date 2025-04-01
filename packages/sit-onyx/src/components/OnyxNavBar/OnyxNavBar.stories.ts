@@ -72,6 +72,29 @@ export const Default = {
     appName: "App name",
     default: () => [
       h(OnyxNavItem, { label: "Item 1", link: "https://it.schwarz/" }),
+      h(OnyxNavItem, { label: "Item 2", onClick: action("button clicked") }),
+      h(
+        OnyxNavItem,
+        { label: "Item 3" },
+        {
+          children: () => [
+            h(OnyxNavItem, { label: "Nested item 3.1", link: "#3.1" }),
+            h(OnyxNavItem, { label: "Nested item 3.2", link: "#3.2" }),
+          ],
+        },
+      ),
+      h(OnyxNavItem, { label: "Item 4", link: "https://onyx.schwarz" }),
+    ],
+    mobileActivePage: "Nested item 2.2",
+  },
+} satisfies Story;
+
+export const Nested = {
+  args: {
+    logoUrl: "/onyx-logo.svg",
+    appName: "App name",
+    default: () => [
+      h(OnyxNavItem, { label: "Item 1", link: "https://it.schwarz/" }),
       h(
         OnyxNavItem,
         { label: "Item 2" },
