@@ -12,12 +12,6 @@ export * from "./OnyxMenuItem/types";
 export { default as OnyxNavItem } from "./OnyxNavItem/OnyxNavItem.vue";
 export * from "./OnyxNavItem/types";
 
-import OnyxNavItem from "./OnyxNavItem/OnyxNavItem.vue";
-/**
- * @deprecated Use `OnyxNavItem` instead.
- */
-export const OnyxNavButton = OnyxNavItem;
-
 export { default as OnyxNavSeparator } from "./OnyxNavSeparator/OnyxNavSeparator.vue";
 export * from "./OnyxNavSeparator/types";
 
