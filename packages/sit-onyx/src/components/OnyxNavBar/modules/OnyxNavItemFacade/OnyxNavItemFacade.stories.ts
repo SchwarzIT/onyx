@@ -5,7 +5,7 @@ import OnyxNavItemFacade from "./OnyxNavItemFacade.vue";
  * The nav button is used internally to build the main navigation bar component and is not intended to be used individually.
  */
 const meta: Meta<typeof OnyxNavItemFacade> = {
-  title: "Navigation/modules/OnyxNavItemFacade",
+  title: "Support/NavItemFacade",
   component: OnyxNavItemFacade,
   argTypes: {},
 };
