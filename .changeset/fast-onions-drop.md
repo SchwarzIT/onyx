@@ -4,4 +4,4 @@
 ---
 
 - feat(OnyxNavItem): OnyxNavItem is universal usable and nestable.
-- feat!(OnyxNavButton): deprecated `OnyxNavButton`, Use `OnyxNavItem` instead.
+- feat!(OnyxNavButton): removed `OnyxNavButton`, use `OnyxNavItem` instead.
