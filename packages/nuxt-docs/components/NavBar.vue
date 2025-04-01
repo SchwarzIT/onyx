@@ -19,17 +19,16 @@ const colorScheme = computed({
 </script>
 
 <template>
-  <OnyxNavBar
-    :app-name="onyxDocs.app.name"
-    :logo-url="onyxDocs.app?.logo"
-    with-back-button
-    @navigate-back="router.back"
-  >
+  <OnyxNavBar v-bind="onyxDocs.nav" @navigate-back="router.back">
     <OnyxNavButton
       v-for="item in onyxDocs.nav?.items"
       :key="extractLinkProps(item.link ?? '').href"
       v-bind="item"
-    />
+    >
+      <template v-if="item.children?.length" #children>
+        <OnyxNavItem v-for="child in item.children" :key="child.label" v-bind="child" />
+      </template>
+    </OnyxNavButton>
 
     <template #contextArea>
       <OnyxIconButton
