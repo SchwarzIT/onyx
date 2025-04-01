@@ -32,7 +32,7 @@ type Story = StoryObj<typeof OnyxNavItem>;
  */
 export const Default = {
   args: {
-    label: "Nav Button",
+    label: "Nav Item",
   },
 } satisfies Story;
 

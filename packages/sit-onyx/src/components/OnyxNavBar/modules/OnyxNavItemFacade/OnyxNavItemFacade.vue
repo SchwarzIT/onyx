@@ -15,11 +15,11 @@ const props = defineProps<
 
 const slots = defineSlots<{
   /**
-   * Button text and additional inline content
+   * Button/link text and additional inline content.
    */
   default(): unknown;
   /**
-   * Button text and additional inline content
+   * Children items of the nav item.
    */
   children(): unknown;
 }>();
@@ -61,7 +61,7 @@ const hasChildren = computed(() => !!slots.children);
     }
 
     &:focus-within {
-      outline: 0.25rem solid var(--onyx-color-component-focus-primary, #bbeaed);
+      outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
     }
 
     & .onyx-menu-item__chevron {
@@ -80,8 +80,8 @@ const hasChildren = computed(() => !!slots.children);
         width: 100%;
         height: 0.125rem;
         bottom: calc(-1 * var(--onyx-spacing-2xs));
-        border-radius: var(--onyx-radius-full, 100rem) var(--onyx-radius-full, 100rem) 0 0;
-        background: var(--onyx-color-component-cta-default, #00c3cd);
+        border-radius: var(--onyx-radius-full) var(--onyx-radius-full) 0 0;
+        background: var(--onyx-color-component-cta-default);
         z-index: 1;
       }
     }
@@ -95,8 +95,8 @@ const hasChildren = computed(() => !!slots.children);
     text-align: start;
     font-size: 1rem;
     font-weight: 400;
-    border-radius: var(--onyx-radius-sm, 4px);
-    border: 1px solid var(--onyx-color-component-border-neutral);
+    border-radius: var(--onyx-radius-sm);
+    border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
 
     &:hover {
       background-color: var(--onyx-color-base-background-tinted);

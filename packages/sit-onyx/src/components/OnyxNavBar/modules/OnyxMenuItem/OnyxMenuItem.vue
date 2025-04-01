@@ -18,11 +18,11 @@ const { rootAttrs, restAttrs } = useRootAttrs();
 
 const slots = defineSlots<{
   /**
-   * Text content of the menu item.
+   * Button/link text and additional inline content.
    */
-  default: () => unknown;
+  default(): unknown;
   /**
-   * Button text and additional inline content
+   * Children menuitems.
    */
   children(): unknown;
 }>();
@@ -33,7 +33,7 @@ const props = withDefaults(defineProps<OnyxMenuItemProps>(), {
 
 const emit = defineEmits<{
   /**
-   * Emitted when the state of mobile children visibility changes.
+   * Emitted when the open state should update.
    */
   "update:open": [value: Nullable<boolean>];
 }>();

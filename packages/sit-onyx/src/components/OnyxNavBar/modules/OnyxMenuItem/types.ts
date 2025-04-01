@@ -3,6 +3,9 @@ import type { OnyxColor } from "../../../../types";
 import type { WithLinkProp } from "../../../OnyxRouterLink/types";
 
 export type OnyxMenuItemProps = WithLinkProp & {
+  /**
+   * If the children of the menu item are visible.
+   */
   open?: Nullable<boolean>;
   /**
    * Label text for the menu item.
