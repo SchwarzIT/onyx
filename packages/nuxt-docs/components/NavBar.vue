@@ -1,9 +1,12 @@
 <script setup lang="ts">
+import circleContrast from "@sit-onyx/icons/circle-contrast.svg?raw";
 import { extractLinkProps, type ColorSchemeValue } from "sit-onyx";
 
 const { onyxDocs } = useAppConfig();
 const router = useRouter();
 const colorMode = useColorMode();
+
+const isColorSchemeDialogOpen = ref(false);
 
 const colorScheme = computed({
   get: () => {
@@ -29,9 +32,18 @@ const colorScheme = computed({
     />
 
     <template #contextArea>
-      <OnyxUserMenu full-name="Jane Doe">
-        <OnyxColorSchemeMenuItem v-model="colorScheme" />
-      </OnyxUserMenu>
+      <OnyxIconButton
+        label="Toggle color scheme"
+        :icon="circleContrast"
+        color="neutral"
+        @click="isColorSchemeDialogOpen = true"
+      />
     </template>
+
+    <OnyxColorSchemeDialog
+      v-model="colorScheme"
+      :open="isColorSchemeDialogOpen"
+      @close="isColorSchemeDialogOpen = false"
+    />
   </OnyxNavBar>
 </template>
