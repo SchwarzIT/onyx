@@ -7,7 +7,7 @@ import OnyxNavItem from "./OnyxNavItem.vue";
  * The nav item is used to build the navigation bar component and not intended to be used standalone.
  */
 const meta: Meta<typeof OnyxNavItem> = {
-  title: "Navigation/modules/NavButton",
+  title: "Navigation/modules/NavItem",
   component: OnyxNavItem,
   argTypes: {
     default: {
