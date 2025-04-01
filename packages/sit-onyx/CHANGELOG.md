@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.186
+
+### Minor Changes
+
+- cdc7bae: feat: implement OnyxNotifications and useNotification
+
+  See our [documentation](https://onyx.schwarz/?path=/docs/feedback-notifications--docs) for further information.
+
 ## 1.0.0-beta.185
 
 ### Minor Changes
