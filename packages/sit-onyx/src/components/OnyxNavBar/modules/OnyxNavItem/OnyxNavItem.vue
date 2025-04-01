@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-// this layout component is only used internally for the nav button component
-// to easily switch between mobile and desktop layout
 import arrowSmallLeft from "@sit-onyx/icons/arrow-small-left.svg?raw";
 import { computed, inject, provide } from "vue";
 import { useLink } from "../../../../composables/useLink";

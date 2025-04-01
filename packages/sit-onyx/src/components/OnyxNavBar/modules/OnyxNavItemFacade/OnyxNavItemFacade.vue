@@ -89,6 +89,7 @@ const hasChildren = computed(() => !!slots.children);
 
   .onyx-nav-item--mobile {
     --onyx-list-item-padding: var(--onyx-spacing-sm);
+    color: var(--onyx-color-text-icons-neutral-intense);
     width: 100%;
     align-self: stretch;
     line-height: 1.5rem;
@@ -97,6 +98,10 @@ const hasChildren = computed(() => !!slots.children);
     font-weight: 400;
     border-radius: var(--onyx-radius-sm);
     border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+
+    &:focus-within {
+      background-color: var(--onyx-color-base-background-blank);
+    }
 
     &:hover {
       background-color: var(--onyx-color-base-background-tinted);
@@ -108,7 +113,7 @@ const hasChildren = computed(() => !!slots.children);
       --onyx-list-item-color-selected: var(--onyx-color-text-icons-primary-intense);
       background-color: var(--onyx-list-item-background-selected);
       border-color: var(--onyx-color-base-primary-200);
-      color: var(--onyx-color-text-icons-primary-intense);
+      color: var(--onyx-color-text-icons-primary-bold);
       font-weight: 600;
     }
 
