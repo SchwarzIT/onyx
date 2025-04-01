@@ -7,7 +7,7 @@ export type OnyxInfoCardProps = DensityProp & {
    */
   headline?: string;
   /**
-   * Toast color.
+   * Card color.
    */
   color?: OnyxColor;
   /**
