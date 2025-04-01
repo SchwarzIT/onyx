@@ -19,7 +19,6 @@
     "build": "nuxt build .playground",
     "generate": "nuxt generate .playground",
     "preview": "nuxt preview .playground",
-    "test": "pnpm build && cd .playground && pnpm test",
     "test:playwright": "pnpm build && cd .playground && pnpm test:playwright"
   },
   "dependencies": {
