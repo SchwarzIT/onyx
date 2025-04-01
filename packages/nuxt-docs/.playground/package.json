@@ -2,7 +2,6 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "test": "vitest",
     "test:playwright": "playwright install && playwright test"
   },
   "devDependencies": {
