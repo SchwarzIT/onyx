@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import homeIcon from "@sit-onyx/icons/home.svg?raw";
 import { useDensity } from "../../composables/density";
+import { provideSkeletonContext } from "../../composables/useSkeletonState";
 import { injectI18n } from "../../i18n";
 import OnyxBreadcrumbItem from "../OnyxBreadcrumbItem/OnyxBreadcrumbItem.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -19,6 +20,8 @@ defineSlots<{
 
 const { t } = injectI18n();
 const { densityClass } = useDensity(props);
+
+provideSkeletonContext(props);
 </script>
 
 <template>
@@ -33,8 +36,10 @@ const { densityClass } = useDensity(props);
   >
     <ol class="onyx-breadcrumb__list">
       <OnyxBreadcrumbItem
+        class="onyx-breadcrumb__home"
         :href="props.home?.link ?? '/'"
         :aria-label="props.home?.label ?? t('breadcrumb.home')"
+        :skeleton="skeleton"
       >
         <OnyxIcon v-if="!props.home?.label" :icon="homeIcon" size="16px" />
         <template v-else>{{ props.home.label }}</template>
@@ -63,6 +68,12 @@ const { densityClass } = useDensity(props);
       display: flex;
       align-items: center;
       gap: var(--onyx-density-xs);
+    }
+
+    &__home {
+      .onyx-breadcrumb-item__skeleton {
+        width: 1.5rem;
+      }
     }
   }
 }

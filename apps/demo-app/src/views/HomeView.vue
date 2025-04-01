@@ -8,6 +8,8 @@ import {
   OnyxAvatar,
   OnyxBadge,
   OnyxBottomBar,
+  OnyxBreadcrumb,
+  OnyxBreadcrumbItem,
   OnyxButton,
   OnyxCard,
   OnyxCheckboxGroup,
@@ -51,6 +53,7 @@ const COMPONENTS = [
   "OnyxAccordion",
   "OnyxAvatar",
   "OnyxBadge",
+  "OnyxBreadcrumb",
   "OnyxButton",
   "OnyxCard",
   "OnyxCheckboxGroup",
@@ -197,6 +200,13 @@ const openAccordionItems = ref<string[]>([]);
         <OnyxAvatar v-if="show('OnyxAvatar')" full-name="John Doe" />
 
         <OnyxBadge v-if="show('OnyxBadge')">Badge</OnyxBadge>
+
+        <OnyxBreadcrumb v-if="show('OnyxBreadcrumb')">
+          <OnyxBreadcrumbItem href="/foo">Foo</OnyxBreadcrumbItem>
+          <OnyxBreadcrumbItem href="/foo/bar">Bar</OnyxBreadcrumbItem>
+          <OnyxBreadcrumbItem href="/foo/bar/baz">Baz</OnyxBreadcrumbItem>
+        </OnyxBreadcrumb>
+
         <OnyxButton v-if="show('OnyxButton')" label="Button" />
 
         <OnyxCard v-if="show('OnyxCard')"> Card content... </OnyxCard>

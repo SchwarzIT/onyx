@@ -55,3 +55,10 @@ export const CustomHome = {
     },
   },
 } satisfies Story;
+
+export const Skeleton = {
+  args: {
+    ...Default.args,
+    skeleton: true,
+  },
+} satisfies Story;
