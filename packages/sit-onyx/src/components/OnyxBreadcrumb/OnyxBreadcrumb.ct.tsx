@@ -6,7 +6,7 @@ import OnyxBreadcrumb from "./OnyxBreadcrumb.vue";
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Breadcrumb",
-    columns: ["default", "custom-home", "container"],
+    columns: ["default", "custom-home", "container", "skeleton"],
     rows: ["0", "1", "2"],
     component: (column, row) => {
       const itemCount = Number.parseInt(row);
@@ -15,6 +15,7 @@ test.describe("Screenshot tests", () => {
         <OnyxBreadcrumb
           container={column === "container"}
           home={column === "custom-home" ? { label: "Custom home" } : undefined}
+          skeleton={column === "skeleton"}
         >
           {Array.from({ length: itemCount }, (_, index) => (
             <OnyxBreadcrumbItem href="#" active={index === itemCount - 1}>

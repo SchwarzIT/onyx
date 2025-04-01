@@ -10,6 +10,10 @@ export type OnyxBreadcrumbProps = DensityProp & {
    * Custom home item.
    */
   home?: BreadcrumbHomeItem;
+  /**
+   * Whether to show all nested breadcrumb items as skeleton.
+   */
+  skeleton?: boolean;
 };
 
 export type BreadcrumbHomeItem = {
