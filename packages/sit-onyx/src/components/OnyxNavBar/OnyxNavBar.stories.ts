@@ -85,7 +85,6 @@ export const Default = {
     appName: "App name",
     default: () => [
       h(OnyxNavItem, { label: "Router Link", link: "#router-link" }),
-      h(OnyxNavItem, { label: "Button", onClick: action("button clicked") }),
       h(
         OnyxNavItem,
         { label: "Nesting" },
