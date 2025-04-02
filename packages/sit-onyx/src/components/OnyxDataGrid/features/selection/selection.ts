@@ -1,4 +1,4 @@
-import { h, ref, toRef, type Ref } from "vue";
+import { h, ref, toRef, useId, type Ref } from "vue";
 import { createFeature, type ModifyColumns } from "..";
 import { injectI18n } from "../../../../i18n";
 import OnyxCheckbox from "../../../OnyxCheckbox/OnyxCheckbox.vue";
@@ -7,10 +7,10 @@ import "./selection.scss";
 import type { SelectionOptions, SelectionState } from "./types";
 
 export const SELECTION_FEATURE = Symbol("Selection");
-export const SELECTION_COLUMN = Symbol("SelectionColumn");
 
 export const useSelection = createFeature(
   <TEntry extends DataGridEntry>(options?: SelectionOptions) => {
+    const SELECTION_COLUMN = `selection-column-${useId()}`;
     const selectionState: Ref<SelectionState> = toRef(
       options?.selectionState ??
         ({
@@ -62,7 +62,7 @@ export const useSelection = createFeature(
         func: (columnConfig) =>
           disabled.value
             ? [...columnConfig]
-            : [{ key: SELECTION_COLUMN, type: SELECTION_COLUMN, label: "" }, ...columnConfig],
+            : [{ key: SELECTION_COLUMN, type: SELECTION_COLUMN, label: "", width: "2.5rem" }, ...columnConfig],
       } satisfies ModifyColumns<TEntry>,
       mutation: {
         func: (rows) => {

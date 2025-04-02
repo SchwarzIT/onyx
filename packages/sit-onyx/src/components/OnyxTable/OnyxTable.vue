@@ -214,7 +214,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
 .onyx-table {
   @include layers.component() {
     text-align: left;
-    contain: paint;
+    overflow: hidden;
     width: 100%;
 
     @include define-borders();

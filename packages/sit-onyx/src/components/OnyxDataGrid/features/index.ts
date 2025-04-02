@@ -103,11 +103,7 @@ export type PublicNormalizedColumnConfig<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   TColumnGroup extends ColumnGroupConfig = any,
   TTypes = PropertyKey,
-> = {
-  /**
-   * The `key` identifies which property of an `data` entry is used as `modelValue` for a cell.
-   */
-  key: keyof TEntry;
+> = Pick<DataGridRendererColumn<TEntry>, "width" | "key"> & {
   /**
    * The `label` is displayed in the data grid as column header.
    * If not defined, the key is used instead.
@@ -455,6 +451,7 @@ export const useDataGridFeatures = <
       return {
         thAttributes: mergeVueProps(header.thAttributes, column.thAttributes),
         key: column.key,
+        width: column.width,
         component: () => h(wrapper),
       };
     });
