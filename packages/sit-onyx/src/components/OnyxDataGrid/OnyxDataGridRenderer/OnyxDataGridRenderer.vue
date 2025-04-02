@@ -23,9 +23,10 @@ defineSlots<{
 
 const columnStyle = computed(() => ({
   "--onyx-data-grid-template-columns": props.columns
-    .map(
-      ({ key, width }) =>
-        `var(--onyx-data-grid-column-${String(key)}, ${width ?? "minmax(4rem, 1fr)"})`,
+    .map(({ key, width }, index, { length }) =>
+      index !== length - 1
+        ? `var(--onyx-data-grid-column-${String(key)}, ${width ?? "auto"})`
+        : "1fr",
     )
     .join(" "),
 }));
