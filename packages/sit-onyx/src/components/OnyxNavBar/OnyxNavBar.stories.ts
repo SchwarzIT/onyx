@@ -17,6 +17,19 @@ import { Default as OnyxUserMenuDefault } from "./modules/OnyxUserMenu/OnyxUserM
 import OnyxUserMenu from "./modules/OnyxUserMenu/OnyxUserMenu.vue";
 import OnyxNavBar from "./OnyxNavBar.vue";
 
+/**
+ * ## Structure
+ *
+ * ### Desktop
+ * The NavBar is a modular component that can be used very individually, based on the requirements of the application. The left area always shows the app icon and its application name and also serves as the home button. To the right, the top bar offers optional space for a back button. This button works in the same way as its browser equivalent. The largest part of the top bar is used as the navigation area. All navigation items of the application are accessible here. The right-hand area of the top bar supports global and application-specific functions, such as user options or language selection. Due to the modular structure of the component, all building blocks can be used individually. This ensures that each application has its own customised global main navigation and function. There are six available slots on the right side context area, that can be filled with modules (module description below).
+ *
+ * ### Mobile
+ * In the mobile breakpoint, the NavBar works much more space-efficiently. The app icon gives way to a burger menu button that opens the burger menu from top to bottom. This contains all the main navigation points of the application (compare with Navigation Area Desktop Breakpoint). In addition, the mobile NavBar always shows the currently selected tab when closed. On the right side, a "More Icon" is displayed, which the user can use to open the context menu. All options and functions that are used individually for the application can be found here (compare with context area desktop breakpoint). There is also a clearly arranged User Area here. All features used in the mobile version are derived from the modules used in the desktop version.
+ *
+ * ## Behavior
+ * The component automatically adapts responsively to the screen size. The breakpoints are defined by the **onyx** by default. The flexible width of the navigation area may be too small for all navigation items on small screens. All "hidden" items are then automatically merged under the tab "x more items". The items can be accessed here via a flyout. In the event that the "hidden" items themselves have a flyout, this is displayed by a drilldown.
+ * As soon as the mobile breakpoint is reached, the context area automatically changes into a "more icon". In addition, the burger menu appears automatically (description in the structure paragraph). The open burger menu and Contect menu can both be closed via a x-icon that appears.
+ */
 const meta: Meta<typeof OnyxNavBar> = {
   title: "Navigation/NavBar",
   component: OnyxNavBar,
@@ -71,19 +84,18 @@ export const Default = {
     logoUrl: "/onyx-logo.svg",
     appName: "App name",
     default: () => [
-      h(OnyxNavItem, { label: "Item 1", link: "https://it.schwarz/" }),
-      h(OnyxNavItem, { label: "Item 2", onClick: action("button clicked") }),
+      h(OnyxNavItem, { label: "Router Link", link: "#router-link" }),
       h(
         OnyxNavItem,
-        { label: "Item 3" },
+        { label: "Nesting" },
         {
           children: () => [
-            h(OnyxNavItem, { label: "Nested item 3.1", link: "#3.1" }),
-            h(OnyxNavItem, { label: "Nested item 3.2", link: "#3.2" }),
+            h(OnyxNavItem, { label: "Nested Router Link", link: "#nested-router-link" }),
+            h(OnyxNavItem, { label: "Nested Button", onClick: action("button clicked") }),
           ],
         },
       ),
-      h(OnyxNavItem, { label: "Item 4", link: "https://onyx.schwarz" }),
+      h(OnyxNavItem, { label: "External Link", link: "https://onyx.schwarz" }),
     ],
     mobileActivePage: "Nested item 2.2",
   },

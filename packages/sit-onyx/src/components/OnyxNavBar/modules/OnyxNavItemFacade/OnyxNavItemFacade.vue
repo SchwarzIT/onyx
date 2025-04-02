@@ -52,16 +52,17 @@ const hasChildren = computed(() => !!slots.children);
     height: 2.5rem;
     width: max-content;
     border-radius: var(--onyx-radius-sm);
-    --onyx-list-item-background-hover: var(--onyx-color-base-neutral-200);
+    --onyx-list-item-background-hover: transparent;
     --onyx-list-item-background-selected: var(--onyx-color-base-background-blank);
     --onyx-list-item-padding: var(--onyx-spacing-2xs) var(--onyx-spacing-md);
 
-    &:hover {
-      --onyx-list-item-background-selected: var(--onyx-color-base-neutral-200);
+    &:has(:focus-visible) {
+      outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
     }
 
-    &:focus-within {
-      outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
+    &:hover {
+      --onyx-list-item-background-selected: var(--onyx-color-base-neutral-200);
+      --onyx-list-item-background-hover: var(--onyx-color-base-neutral-200);
     }
 
     & .onyx-menu-item__chevron {
