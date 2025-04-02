@@ -1,4 +1,5 @@
 import { injectI18n } from "../../../i18n";
+import type { DatetimeFormat } from "../../../i18n/datetime-formats";
 import { allObjectEntries } from "../../../utils/objects";
 import type { DateValue } from "../../OnyxDatePicker/types";
 import type { DataGridEntry } from "../types";
@@ -21,12 +22,11 @@ const numberFormatter = <TEntry extends DataGridEntry>(
     return FALLBACK_RENDER_VALUE;
   }
 
-  const locale = injectI18n().locale;
-  const formatter = new Intl.NumberFormat(locale.value);
+  const { n } = injectI18n();
 
   // We format the given value as Number. In case it renders as NaN, we replace it with `-`.
   // The typing is incorrect, the `format` method accepts any value
-  return formatter.format(value as number).replace("NaN", FALLBACK_RENDER_VALUE);
+  return n.value(value as number, "decimal").replace("NaN", FALLBACK_RENDER_VALUE);
 };
 
 const stringFormatter = <TEntry extends DataGridEntry>(
@@ -47,32 +47,16 @@ const stringFormatter = <TEntry extends DataGridEntry>(
 
 const dateFormatter = <TEntry extends DataGridEntry>(
   value: TEntry[keyof TEntry] | undefined,
-  type: Extract<DefaultSupportedTypes, "date" | "datetime-local" | "time" | "timestamp">,
+  type: DatetimeFormat,
 ): string => {
   // using loose "==" here to catch both undefined and null
   if (value == undefined || typeof value === "boolean") return FALLBACK_RENDER_VALUE;
 
-  const formatterOptions = {
-    date: { dateStyle: "medium" },
-    "datetime-local": { dateStyle: "medium", timeStyle: "short" },
-    time: { timeStyle: "short" },
-    timestamp: {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      timeZoneName: "shortOffset",
-    },
-  } satisfies Record<typeof type, Intl.DateTimeFormatOptions>;
-
-  const locale = injectI18n().locale;
-  const formatter = new Intl.DateTimeFormat(locale.value, formatterOptions[type]);
+  const { d } = injectI18n();
 
   try {
     const date = new Date(typeof value === "bigint" ? Number(value) : (value as DateValue));
-    return formatter.format(date);
+    return d.value(date, type);
   } catch {
     return FALLBACK_RENDER_VALUE;
   }

@@ -1,7 +1,10 @@
 import { computed, inject, readonly, toRef, type App, type InjectionKey, type MaybeRef } from "vue";
+import type { DateValue } from "../components/OnyxDatePicker/types";
 import type { FlattenedKeysOf, TranslationValue } from "../types/i18n";
 import type { DeepPartial } from "../types/utils";
+import { DATETIME_FORMATS, type DatetimeFormat } from "./datetime-formats";
 import enUS from "./locales/en-US.json";
+import { NUMBER_FORMATS, type NumberFormat } from "./number-formats";
 
 /**
  * The type of the imported `enUS` above is a concrete type so the value type of each message
@@ -82,13 +85,6 @@ const createI18n = (options: ProvideI18nOptions = {}) => {
    * @default "en-US"
    */
   const locale = readonly(toRef(options?.locale ?? "en-US"));
-  const userT = options.t ? readonly(toRef(options.t)) : undefined;
-
-  // If the user provided a custom `t` function, it is used instead of the default.
-  // Then we also skip the loading and applying of messages.
-  if (userT) {
-    return { t: userT, locale };
-  }
 
   const messages = computed(() => {
     if (options?.messages && locale.value in options.messages) {
@@ -112,7 +108,33 @@ const createI18n = (options: ProvideI18nOptions = {}) => {
     };
   });
 
-  return { locale, t };
+  /**
+   * Gets the formatted date/time string for the given date and format depending on the current locale.
+   */
+  const d = computed(() => {
+    return (date: DateValue, format: DatetimeFormat) => {
+      const formatter = new Intl.DateTimeFormat(locale.value, DATETIME_FORMATS[format]);
+      return formatter.format(new Date(date));
+    };
+  });
+
+  /**
+   * Gets the formatted number string for the given number and format depending on the current locale.
+   */
+  const n = computed(() => {
+    return (value: number, format: NumberFormat) => {
+      const formatter = new Intl.NumberFormat(locale.value, NUMBER_FORMATS[format]);
+      return formatter.format(value);
+    };
+  });
+
+  return {
+    // If the user provided a custom `t` function, it is used instead of the default.
+    t: options.t ? readonly(toRef(options.t)) : t,
+    locale,
+    d,
+    n,
+  };
 };
 
 /**
