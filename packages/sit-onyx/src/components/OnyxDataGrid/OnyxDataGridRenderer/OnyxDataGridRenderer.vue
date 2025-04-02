@@ -1,4 +1,6 @@
 <script lang="ts" setup generic="TEntry extends DataGridEntry, TMetadata extends DataGridMetadata">
+import { computed } from "vue";
+import { mergeVueProps } from "../../../utils/attrs";
 import OnyxTable from "../../OnyxTable/OnyxTable.vue";
 import type { DataGridEntry, DataGridMetadata } from "../types";
 import type { OnyxDataGridRendererProps } from "./types";
@@ -18,10 +20,23 @@ defineSlots<{
    */
   empty?(): unknown;
 }>();
+
+const columnStyle = computed(() => ({
+  "--onyx-data-grid-template-columns": props.columns
+    .map(
+      ({ key, width }) =>
+        `var(--onyx-data-grid-column-${String(key)}, ${width ?? "minmax(4rem, 1fr)"})`,
+    )
+    .join(" "),
+}));
 </script>
 
 <template>
-  <OnyxTable class="onyx-data-grid" v-bind="props">
+  <OnyxTable
+    class="onyx-data-grid"
+    v-bind="props"
+    :scroll-container-attrs="mergeVueProps(props.scrollContainerAttrs, { style: columnStyle })"
+  >
     <template #head>
       <tr>
         <th
@@ -53,8 +68,45 @@ defineSlots<{
 <style lang="scss">
 @use "../../../styles/mixins/layers.scss";
 
-.onyx-data-grid {
-  @include layers.component() {
+@include layers.override() {
+  .onyx-data-grid {
+    --onyx-data-grid-column-count: v-bind(props.columns.length);
+    --onyx-data-grid-row-count: v-bind(props.rows.length + 1);
+
+    .onyx-table-wrapper__container {
+      display: grid;
+      grid-template-columns: var(--onyx-data-grid-template-columns);
+      grid-template-rows: repeat(var(--onyx-data-grid-row-count), auto);
+
+      table {
+        display: grid;
+        grid-template-columns: subgrid;
+        grid-template-rows: subgrid;
+        grid-column: 1 / span var(--onyx-data-grid-column-count);
+        grid-row: 1 / span var(--onyx-data-grid-row-count);
+      }
+
+      thead,
+      thead > tr {
+        display: grid;
+        grid-template-columns: subgrid;
+        grid-column: 1 / span var(--onyx-data-grid-column-count);
+      }
+
+      tbody {
+        display: grid;
+        grid-column: 1 / span var(--onyx-data-grid-column-count);
+        grid-row: 2 / span var(--onyx-data-grid-row-count);
+        grid-template-columns: subgrid;
+        grid-template-rows: subgrid;
+      }
+
+      tr {
+        display: grid;
+        grid-column: 1 / -1;
+        grid-template-columns: subgrid;
+      }
+    }
   }
 }
 </style>
