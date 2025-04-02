@@ -3,3 +3,9 @@
     @content;
   }
 }
+
+@mixin override() {
+  @layer onyx.override {
+    @content;
+  }
+}

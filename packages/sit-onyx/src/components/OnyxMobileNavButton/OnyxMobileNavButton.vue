@@ -61,7 +61,7 @@ defineSlots<{
   @include layers.component() {
     // should be adjusted to the height of the control button
     --top-position: 3.5rem;
-    $mobile-children-selector: ":has(.onyx-nav-button__mobile-children--open)";
+    $mobile-children-selector: ":has(.onyx-nav-item-wrapper.onyx-nav-item-wrapper--open)";
 
     &__trigger {
       display: flex;
@@ -137,13 +137,6 @@ defineSlots<{
       &:has(.onyx-nav-bar__mobile-context-content) {
         // context menu needs extra padding on top since there is no headline
         padding-top: var(--onyx-spacing-xl);
-      }
-
-      // hide all other nav items when nav item with children is open
-      #{$mobile-children-selector} {
-        > .onyx-nav-button:not(#{$mobile-children-selector}) {
-          display: none;
-        }
       }
     }
 

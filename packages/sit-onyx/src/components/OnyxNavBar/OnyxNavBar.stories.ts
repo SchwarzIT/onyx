@@ -2,6 +2,7 @@ import browserTerminal from "@sit-onyx/icons/browser-terminal.svg?raw";
 import search from "@sit-onyx/icons/search.svg?raw";
 import settings from "@sit-onyx/icons/settings.svg?raw";
 import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
+import { action } from "@storybook/addon-actions";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
@@ -9,7 +10,6 @@ import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
 import OnyxMenuItem from "./modules/OnyxMenuItem/OnyxMenuItem.vue";
-import OnyxNavButton from "./modules/OnyxNavButton/OnyxNavButton.vue";
 import OnyxNavItem from "./modules/OnyxNavItem/OnyxNavItem.vue";
 import OnyxNavSeparator from "./modules/OnyxNavSeparator/OnyxNavSeparator.vue";
 import OnyxTimer from "./modules/OnyxTimer/OnyxTimer.vue";
@@ -44,16 +44,22 @@ const meta: Meta<typeof OnyxNavBar> = {
   },
   decorators: [
     // add padding to the story so the nav button and user menu flyouts are shown
-    (story) => ({
-      components: { story },
-      template: `<div style="padding-bottom: 20rem;"> <story /> </div>`,
-    }),
-    (story) => ({
-      components: { story },
-      // to prevent opening links in Storybook which would lead to another Storybook be opened inside the
-      // iframe, we prevent click events here so clicking links just does "nothing"
-      template: `<story @click.prevent />`,
-    }),
+    (story) => {
+      return {
+        methods: {
+          handleAnchorClick: (e: MouseEvent & { target: Element }) => {
+            const a = e.target.closest("a") as HTMLAnchorElement | null;
+            if (a) {
+              // prevent navigate to the link when clicked as it would navigate away from the storybook iframe
+              e.preventDefault();
+              action("link clicked")(a.href);
+            }
+          },
+        },
+        components: { story },
+        template: `<div style="padding-bottom: 20rem;"> <story @click="handleAnchorClick" /> </div>`,
+      };
+    },
   ],
 };
 
@@ -65,30 +71,62 @@ export const Default = {
     logoUrl: "/onyx-logo.svg",
     appName: "App name",
     default: () => [
-      h(OnyxNavButton, { label: "Item 1", link: "/" }),
+      h(OnyxNavItem, { label: "Item 1", link: "https://it.schwarz/" }),
+      h(OnyxNavItem, { label: "Item 2", onClick: action("button clicked") }),
       h(
-        OnyxNavButton,
-        { label: "Item 2", link: "/test" },
-        {
-          default: () => ["Item 2", h(OnyxBadge, { dot: true, color: "warning" })],
-          children: () => [
-            h(OnyxNavItem, { label: "Nested item 2.1", link: "#" }),
-            h(OnyxNavItem, { label: "Nested item 2.2", link: "#", active: true }),
-            h(OnyxNavItem, { label: "Nested item 2.3", link: "https://onyx.schwarz" }),
-          ],
-        },
-      ),
-      h(
-        OnyxNavButton,
+        OnyxNavItem,
         { label: "Item 3" },
         {
           children: () => [
-            h(OnyxNavItem, { label: "Nested item 3.1", link: "#" }),
-            h(OnyxNavItem, { label: "Nested item 3.2", link: "#" }),
+            h(OnyxNavItem, { label: "Nested item 3.1", link: "#3.1" }),
+            h(OnyxNavItem, { label: "Nested item 3.2", link: "#3.2" }),
           ],
         },
       ),
-      h(OnyxNavButton, { label: "Item 4", link: "https://onyx.schwarz" }),
+      h(OnyxNavItem, { label: "Item 4", link: "https://onyx.schwarz" }),
+    ],
+    mobileActivePage: "Nested item 2.2",
+  },
+} satisfies Story;
+
+export const Nested = {
+  args: {
+    logoUrl: "/onyx-logo.svg",
+    appName: "App name",
+    default: () => [
+      h(OnyxNavItem, { label: "Item 1", link: "https://it.schwarz/" }),
+      h(
+        OnyxNavItem,
+        { label: "Item 2" },
+        {
+          default: () => ["Item 2", h(OnyxBadge, { dot: true, color: "warning" })],
+          children: () => [
+            h(
+              OnyxNavItem,
+              { label: "Nested item 2.1" },
+              {
+                children: () => [
+                  h(OnyxNavItem, { label: "Nested item 2.1.2", link: "#2.1.2" }),
+                  h(OnyxNavItem, { label: "Nested item 2.1.3", link: "#2.1.3" }),
+                ],
+              },
+            ),
+            h(OnyxNavItem, { label: "Nested item 2.2", link: "#2.2" }),
+            h(OnyxNavItem, { label: "Nested item 2.3", link: "#2.3" }),
+          ],
+        },
+      ),
+      h(
+        OnyxNavItem,
+        { label: "Item 3" },
+        {
+          children: () => [
+            h(OnyxNavItem, { label: "Nested item 3.1", link: "#3.1" }),
+            h(OnyxNavItem, { label: "Nested item 3.2", link: "#3.2" }),
+          ],
+        },
+      ),
+      h(OnyxNavItem, { label: "Item 4", link: "https://onyx.schwarz" }),
     ],
     mobileActivePage: "Nested item 2.2",
   },
@@ -151,9 +189,9 @@ export const WithOverflowingMobileContent = {
     ...WithContextArea.args,
     mobileBreakpoint: "xl",
     default: () => [
-      h(OnyxNavButton, { label: "Item 1", link: "/" }),
+      h(OnyxNavItem, { label: "Item 1", link: "/" }),
       h(
-        OnyxNavButton,
+        OnyxNavItem,
         { label: "Item 2", link: "/test" },
         {
           default: () => ["Item 2", h(OnyxBadge, { dot: true, color: "warning" })],
@@ -164,7 +202,7 @@ export const WithOverflowingMobileContent = {
         },
       ),
       Array.from({ length: 20 }, (_, index) =>
-        h(OnyxNavButton, { label: `Item ${index + 3}`, link: "/" }),
+        h(OnyxNavItem, { label: `Item ${index + 3}`, link: "/" }),
       ),
     ],
     contextArea: () => [

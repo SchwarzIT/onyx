@@ -1,21 +1,51 @@
 <script setup lang="ts">
 import { createMenuItems } from "@sit-onyx/headless";
+import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
 import { computed } from "vue";
 import { useLink } from "../../../../composables/useLink";
+import { useVModel, type Nullable } from "../../../../composables/useVModel";
+import { mergeVueProps, useRootAttrs } from "../../../../utils/attrs";
 import { extractLinkProps } from "../../../../utils/router";
+import ButtonOrLinkLayout from "../../../OnyxButton/ButtonOrLinkLayout.vue";
+import OnyxExternalLinkIcon from "../../../OnyxExternalLinkIcon/OnyxExternalLinkIcon.vue";
+import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
-import OnyxRouterLink from "../../../OnyxRouterLink/OnyxRouterLink.vue";
 import { type OnyxMenuItemProps } from "./types";
 
-defineSlots<{
+defineOptions({ inheritAttrs: false });
+
+const { rootAttrs, restAttrs } = useRootAttrs();
+
+const slots = defineSlots<{
   /**
-   * Text content of the menu item.
+   * Button/link text and additional inline content.
    */
-  default: () => unknown;
+  default(): unknown;
+  /**
+   * Children menuitems.
+   */
+  children(): unknown;
 }>();
 
 const props = withDefaults(defineProps<OnyxMenuItemProps>(), {
   active: "auto",
+});
+
+const emit = defineEmits<{
+  /**
+   * Emitted when the open state should update.
+   */
+  "update:open": [value: Nullable<boolean>];
+}>();
+
+/**
+ * Controls the open state.
+ */
+const open = useVModel({
+  props,
+  emit,
+  key: "open",
+  initialValue: false,
 });
 
 const {
@@ -28,12 +58,14 @@ const isActive = computed(() => {
   return isPathActive.value(props.link);
 });
 
-const headlessProps = computed(() =>
+const menuItemProps = computed(() =>
   menuItem({
     active: isActive.value,
     disabled: props.disabled,
   }),
 );
+
+const hasChildren = computed(() => !!slots.children);
 </script>
 
 <template>
@@ -42,31 +74,43 @@ const headlessProps = computed(() =>
     :active="isActive"
     :color="props.color"
     :disabled="props.disabled"
-    class="onyx-component onyx-menu-item"
-    v-bind="listItem"
+    class="onyx-menu-item"
+    v-bind="mergeVueProps(listItem, rootAttrs)"
   >
-    <OnyxRouterLink
-      v-if="props.link"
+    <ButtonOrLinkLayout
       class="onyx-menu-item__trigger"
-      v-bind="{ ...headlessProps, ...extractLinkProps(props.link) }"
-    >
-      <slot></slot>
-    </OnyxRouterLink>
-
-    <button
-      v-else
-      class="onyx-menu-item__trigger"
-      type="button"
       :disabled="props.disabled"
-      v-bind="headlessProps"
+      :link="props.link"
+      v-bind="mergeVueProps(menuItemProps, restAttrs)"
     >
-      <slot></slot>
-    </button>
+      <slot>
+        <span>
+          <span class="onyx-truncation-ellipsis">
+            {{ props.label }}
+          </span>
+          <OnyxExternalLinkIcon v-bind="props.link ? extractLinkProps(props.link) : undefined" />
+        </span>
+      </slot>
+
+      <div v-if="hasChildren" class="onyx-menu-item__chevron">
+        <OnyxIcon :icon="chevronRightSmall" size="24px" />
+      </div>
+    </ButtonOrLinkLayout>
+    <ul v-if="hasChildren" v-show="open" role="menu" class="onyx-menu-item__children">
+      <slot name="children"></slot>
+    </ul>
   </OnyxListItem>
 </template>
 
 <style lang="scss">
 @use "../../../../styles/mixins/layers";
+
+@layer onyx.reset {
+  button.onyx-menu-item__trigger,
+  a.onyx-menu-item__trigger {
+    all: unset;
+  }
+}
 
 .onyx-menu-item {
   @include layers.component() {
@@ -84,9 +128,11 @@ const headlessProps = computed(() =>
       text-decoration: none;
       padding: var(--onyx-list-item-padding);
       width: 100%;
-      height: 100%;
       border-radius: inherit;
-      cursor: pointer;
+
+      &:enabled {
+        cursor: pointer;
+      }
 
       &:focus {
         outline: none;
@@ -96,6 +142,21 @@ const headlessProps = computed(() =>
         background-color: inherit;
         border: none;
       }
+    }
+
+    &__children {
+      padding: 0;
+      width: 100%;
+
+      display: flex;
+      flex-direction: column;
+      gap: var(--onyx-spacing-2xs);
+    }
+
+    &__chevron {
+      flex: 1 0 1.5rem;
+      display: flex;
+      justify-content: end;
     }
   }
 }

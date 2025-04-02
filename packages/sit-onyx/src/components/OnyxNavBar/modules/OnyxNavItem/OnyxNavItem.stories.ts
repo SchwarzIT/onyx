@@ -4,21 +4,25 @@ import OnyxBadge from "../../../OnyxBadge/OnyxBadge.vue";
 import OnyxNavItem from "./OnyxNavItem.vue";
 
 /**
- * The nav item is used internally to build the main navigation bar component and is not intended to be used individually.
+ * The nav item is used to build the navigation bar component and not intended to be used standalone.
  */
 const meta: Meta<typeof OnyxNavItem> = {
   title: "Navigation/modules/NavItem",
   component: OnyxNavItem,
   argTypes: {
-    default: { control: { type: "text" } },
+    default: {
+      control: { type: "text" },
+    },
   },
-  decorators: [
-    (story) => ({
-      components: { story },
-      template: `<div style="max-width: 16rem;"> <story /> </div>`,
-    }),
-  ],
 };
+
+const nestedChildren = [
+  { label: "Nested Item 1" },
+  { label: "Nested Item 2", active: true },
+  { label: "Nested Item 3" },
+  { label: "Nested Item 4" },
+  { label: "Nested Item 5" },
+];
 
 export default meta;
 type Story = StoryObj<typeof OnyxNavItem>;
@@ -28,12 +32,12 @@ type Story = StoryObj<typeof OnyxNavItem>;
  */
 export const Default = {
   args: {
-    label: "Item",
+    label: "Nav Item",
   },
 } satisfies Story;
 
 /**
- * This example shows the nav item with an external link.
+ * This example shows the nav item with external link.
  */
 export const WithLink = {
   args: {
@@ -56,11 +60,29 @@ export const Active = {
 } satisfies Story;
 
 /**
- * This example shows the nav item with additional content (a dot badge in this case).
+ * This example shows the nav item with nested children.
+ */
+export const WithChildren: Story = {
+  args: {
+    ...Default.args,
+    active: true,
+    children: () =>
+      nestedChildren.map(({ label, active }) => h(OnyxNavItem, { link: "#", active, label })),
+  },
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `<div style="height: 16rem"> <story /> </div>`,
+    }),
+  ],
+};
+
+/**
+ * This example shows the nav button with additional content (a dot badge in this case).
  */
 export const WithCustomContent = {
   args: {
     ...Default.args,
-    default: () => ["Custom label", h(OnyxBadge, { dot: true, color: "warning" })],
+    default: ["Custom label", h(OnyxBadge, { dot: true, color: "warning" })],
   },
 } satisfies Story;
