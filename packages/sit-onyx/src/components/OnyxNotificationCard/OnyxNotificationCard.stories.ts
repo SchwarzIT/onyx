@@ -1,41 +1,43 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
+import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxNotificationCard from "./OnyxNotificationCard.vue";
-import { type NotificationCardMoleculeProps } from "./types";
 
 const meta: Meta<typeof OnyxNotificationCard> = {
-  title: "Support/NotificationCard",
+  title: "Basic/NotificationCard",
   component: OnyxNotificationCard,
+  tags: ["new:component"],
   argTypes: {
-    subject: { type: "string", control: "text", description: "Notification subject" },
-    createdAt: {
-      type: "number",
-      control: "number",
-      description: "The timestamp indicating when the notification was created.",
-    },
+    actions: { control: { disable: true } },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof OnyxNotificationCard>;
 
-export const Default = (args: NotificationCardMoleculeProps) =>
-  ({
-    render() {
-      return h("div", { style: "width: 400px;" }, [
-        h(
-          OnyxNotificationCard,
-          { ...args },
-          {
-            default:
-              () => `Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, similique dicta quod in amet perferendis vero facilis 
-        ratione a labore mollitia maiores ipsam quia at? Aliquid, iste quo. Nostrum, voluptate. Lorem ipsum dolor sit amet consectetur 
-        adipisicing elit. Sit, similique dicta quod in amet perferendis vero facilis 
-        ratione a labore mollitia maiores ipsam quia at? Aliquid, iste quo. Nostrum, voluptate.`,
-          },
-        ),
-      ]);
-    },
-  }) satisfies Story;
+export const Default = {
+  args: {
+    style: "width: 32rem",
+    headline: "Example notification",
+    createdAt: new Date(),
+    default:
+      "Lorem ipsum dolor sit amet consectetur. Dui purus quisque est varius vulputate. Ut odio dui diam pulvinar velit mollis cursus eu ut. Lorem ipsum dolor sit amet consectetur. Dui purus quisque est varius vulputate. Ut odio dui diam pulvinar velit mollis cursus eu ut. Lorem ipsum dolor sit amet consectetur. Dui purus quisque est varius vulputate. Ut odio dui diam pulvinar velit mollis cursus eu ut.",
+  },
+} satisfies Story;
 
-Default.args = { subject: "Example subject", createdAt: 1636377600000 };
+export const Unread = {
+  args: {
+    ...Default.args,
+    unread: true,
+  },
+} satisfies Story;
+
+export const Actions = {
+  args: {
+    ...Default.args,
+    actions: [
+      h(OnyxButton, { label: "Button", color: "neutral" }),
+      h(OnyxButton, { label: "Button" }),
+    ],
+  },
+} satisfies Story;
