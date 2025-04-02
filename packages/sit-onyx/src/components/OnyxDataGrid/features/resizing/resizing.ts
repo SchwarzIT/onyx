@@ -1,4 +1,4 @@
-import { h, ref, type Slot, type TdHTMLAttributes, type ThHTMLAttributes } from "vue";
+import { h, ref, type Slot, type ThHTMLAttributes } from "vue";
 import { createFeature, useIsFeatureEnabled, type InternalColumnConfig } from "..";
 import { mergeVueProps } from "../../../../utils/attrs";
 import type { DataGridEntry } from "../../types";
@@ -11,20 +11,23 @@ export const useResizing = createFeature(
     let resizingCol: Readonly<InternalColumnConfig<TEntry>>;
     const min = 70;
     const headerBeingResized = ref<Record<PropertyKey, HTMLElement>>({});
-    const rowsBeingResized = ref<HTMLElement[]>([]); //ref<HTMLElement>(HTMLElement[]);
     const { isEnabled } = useIsFeatureEnabled(options);
-    const columnWidths = ref<Record<PropertyKey, number>>({});
+    const columnWidths = new Map<keyof TEntry, number>();
 
     const onMouseMove = (ev: { clientX: number }) => {
       // Calculate the desired width
-      const horizontalScrollOffset = document.documentElement.scrollLeft;
       const width =
-        horizontalScrollOffset + ev.clientX - headerBeingResized.value[resizingCol.key].offsetLeft;
+        ev.clientX - headerBeingResized.value[resizingCol.key].getBoundingClientRect().left;
 
-      columnWidths.value[resizingCol.key as PropertyKey] = width;
+      columnWidths.set(resizingCol.key, width);
 
       // Changing the width directly is needed to avoid re-rendering the table too often.
-      headerBeingResized.value[resizingCol.key].style.width = Math.max(min, width) + "px";
+      headerBeingResized.value[resizingCol.key]
+        .closest<HTMLElement>(".onyx-table-wrapper__container")
+        ?.style.setProperty(
+          `--onyx-data-grid-column-${String(resizingCol.key)}`,
+          Math.max(min, width) + "px",
+        );
     };
 
     // Clean up event listeners, classes, etc.
@@ -32,48 +35,21 @@ export const useResizing = createFeature(
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseup", onMouseUp);
       headerBeingResized.value[resizingCol.key].classList.remove("header--being-resized");
-      rowsBeingResized.value.forEach((row) =>
-        row.classList.remove("onyx-data-grid--resize-border"),
-      );
     };
 
     const initResize = (ev: Event, cols: Readonly<InternalColumnConfig<TEntry>>) => {
       const target = ev.target as HTMLElement;
-      const tableEl = target.closest("table");
       resizingCol = cols;
 
-      Object.entries(headerBeingResized.value).forEach(([key, headerRef]) => {
-        const width = headerRef.getBoundingClientRect().width;
-        headerRef.style.width = width + "px";
-        columnWidths.value[key] = width;
-      });
-
       headerBeingResized.value[resizingCol.key] = target.closest("th")!;
-      window.addEventListener("mousemove", onMouseMove);
+      window.addEventListener("mousemove", onMouseMove, { passive: true });
       window.addEventListener("mouseup", onMouseUp);
       headerBeingResized.value[resizingCol.key].classList.add("header--being-resized");
-      rowsBeingResized.value.forEach((row) => row.classList.add("onyx-data-grid--resize-border"));
-      tableEl!.style.tableLayout = "fixed";
     };
 
     const modifyColumns = (cols: Readonly<InternalColumnConfig<TEntry>[]>) => {
       return cols.map((column) => {
         if (!isEnabled.value(column.key)) return column;
-
-        const style = {
-          width: Math.max(min, columnWidths.value[column.key]) + "px",
-        };
-
-        const tdAttributes: TdHTMLAttributes = {
-          ref: (el: HTMLElement) =>
-            resizingCol?.key !== null &&
-            resizingCol?.key === column.key &&
-            rowsBeingResized.value.push(el),
-          class:
-            resizingCol?.key !== null && resizingCol?.key === column.key
-              ? "onyx-data-grid--resize-border"
-              : "",
-        } as TdHTMLAttributes;
 
         const thAttributes = {
           ref: (el: HTMLElement) => (headerBeingResized.value[column.key] = el),
@@ -81,13 +57,14 @@ export const useResizing = createFeature(
             resizingCol?.key !== null && resizingCol?.key === column.key
               ? "header--being-resized"
               : "",
-          style,
         } as ThHTMLAttributes;
+
+        const resizedWidth = columnWidths.get(column.key);
 
         return {
           ...column,
+          width: resizedWidth ? `${Math.max(min, resizedWidth)}px` : column.width,
           thAttributes: mergeVueProps(thAttributes, column.thAttributes),
-          tdAttributes: mergeVueProps(tdAttributes, column.tdAttributes),
         };
       });
     };
@@ -118,7 +95,7 @@ export const useResizing = createFeature(
 
     return {
       name: RESIZING_FEATURE,
-      watch: [headerBeingResized, columnWidths],
+      watch: [headerBeingResized],
       modifyColumns: {
         func: modifyColumns,
       },
