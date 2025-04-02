@@ -110,6 +110,9 @@ export * from "./components/OnyxNavBar/modules";
 export { default as OnyxNavBar } from "./components/OnyxNavBar/OnyxNavBar.vue";
 export * from "./components/OnyxNavBar/types";
 
+export { default as OnyxNotificationCard } from "./components/OnyxNotificationCard/OnyxNotificationCard.vue";
+export * from "./components/OnyxNotificationCard/types";
+
 export { default as OnyxNotificationDot } from "./components/OnyxNotificationDot/OnyxNotificationDot.vue";
 export * from "./components/OnyxNotificationDot/types";
 
@@ -179,9 +182,6 @@ export * from "./components/OnyxToast/useToast";
 
 export { default as OnyxInfoCard } from "./components/OnyxInfoCard/OnyxInfoCard.vue";
 export * from "./components/OnyxInfoCard/types";
-
-export { default as OnyxNotificationCard } from "./components/OnyxNotificationCard/OnyxNotificationCard.vue";
-export * from "./components/OnyxNotificationCard/types";
 
 export { default as OnyxTooltip } from "./components/OnyxTooltip/OnyxTooltip.vue";
 export * from "./components/OnyxTooltip/types";

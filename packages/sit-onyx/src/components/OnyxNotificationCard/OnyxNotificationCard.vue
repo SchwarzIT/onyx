@@ -1,153 +1,118 @@
 <script lang="ts" setup>
-import moreVertical from "@sit-onyx/icons/more-vertical.svg?raw";
-import { ref } from "vue";
-import { useI18n } from "vue-i18n";
-import OnyxFlyoutMenu from "../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
-import OnyxMenuItem from "../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
-import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
-import type { NotificationCardMoleculeProps } from "./types";
+import { toRef } from "vue";
+import { useDensity } from "../../composables/density";
+import { useRelativeTimeFormat } from "../../composables/useRelativeTimeFormat";
+import { injectI18n } from "../../i18n";
+import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
+import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
+import type { OnyxNotificationCardProps } from "./types";
 
-const { t } = useI18n();
+const props = defineProps<OnyxNotificationCardProps>();
 
-defineSlots<{
+const slots = defineSlots<{
+  /**
+   * Notification content/description.
+   */
   default(): unknown;
+  /**
+   * Optional custom actions/buttons.
+   */
+  actions?(): unknown;
 }>();
 
-const emit = defineEmits<{
-  markedAsRead: [];
-  delete: [];
-}>();
-
-const props = defineProps<NotificationCardMoleculeProps>();
-
-// eslint-disable-next-line vue/no-setup-props-reactivity-loss
-const isRead = ref(props.isRead);
-
-const markAsRead = () => {
-  emit("markedAsRead");
-  isRead.value = true;
-};
+const { densityClass } = useDensity(props);
+const { d } = injectI18n();
+const { timeAgo } = useRelativeTimeFormat({
+  time: toRef(props, "createdAt"),
+  options: { numeric: "auto" },
+});
 </script>
 
 <template>
-  <div
-    class="onyx-component notification-card"
-    role="button"
-    tabindex="0"
-    :class="{ 'is-read': isRead }"
-    @keydown.enter="markAsRead()"
-    @click="markAsRead()"
-  >
-    <div class="headline">
-      <div>{{ props.subject }}</div>
-      <div class="headline-notification">
-        <div class="notification-indicator"></div>
-        <OnyxFlyoutMenu label="Actions">
-          <template #button="{ trigger }">
-            <OnyxSystemButton v-bind="trigger" label="Toggle actions" :icon="moreVertical" />
-          </template>
+  <div :class="['onyx-component', 'onyx-notification-card', densityClass]">
+    <div class="onyx-notification-card__content">
+      <div class="onyx-notification-card__header">
+        <div class="onyx-notification-card__headline">
+          <OnyxHeadline is="h3">{{ props.headline }}</OnyxHeadline>
+          <OnyxBadge v-if="props.unread" dot />
+        </div>
 
-          <template #options>
-            <OnyxMenuItem @click="emit('delete')">{{ t("delete") }}</OnyxMenuItem>
-          </template>
-        </OnyxFlyoutMenu>
+        <div class="onyx-notification-card__created-at onyx-text--small">
+          <span>{{ d(props.createdAt, "datetime-local") }}</span>
+          <span>{{ timeAgo }}</span>
+        </div>
+      </div>
+
+      <p class="onyx-notification-card__description onyx-text onyx-truncation-multiline">
+        <slot></slot>
+      </p>
+
+      <div v-if="!!slots.actions" class="onyx-notification-card__actions onyx-density-compact">
+        <slot name="actions"></slot>
       </div>
     </div>
-    <div class="sub-headline">
-      <div>{{ props.createdAtFormatted }}</div>
-      <div>{{ props.createdTimeAgoFormatted }}</div>
-    </div>
-    <slot></slot>
-    <div class="divider"></div>
   </div>
 </template>
 
 <style lang="scss">
-.notification-card {
-  width: 100%;
+@use "../../styles/mixins/layers.scss";
 
-  &:hover {
-    .headline {
-      .headline-notification {
-        .notification-indicator {
-          margin-right: 0.5rem;
-        }
+.onyx-notification-card {
+  @include layers.component() {
+    --onyx-notification-card-padding: var(--onyx-density-md);
+    font-family: var(--onyx-font-family);
+    padding: var(--onyx-notification-card-padding);
+    background-color: var(--onyx-color-base-background-blank);
+    max-width: 100%;
 
-        :nth-child(2) {
-          display: block;
-          flex-direction: column;
-        }
+    &__content {
+      display: flex;
+      flex-direction: column;
+      gap: var(--onyx-density-md);
+    }
+
+    &:not(:first-of-type) {
+      padding-top: 0;
+
+      .onyx-notification-card__content {
+        border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+        padding-top: var(--onyx-notification-card-padding);
       }
     }
-  }
-}
 
-.notification-card:not(:last-child) > .divider {
-  height: 1px;
-  width: 100%;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  background-color: var(--onyx-color-base-neutral-200);
-}
-
-.notification-card.is-read {
-  .headline-notification {
-    .notification-indicator {
-      display: none;
-    }
-  }
-}
-
-.headline {
-  display: flex;
-  justify-content: space-between;
-
-  div {
-    font-weight: 600;
-    font-size: 1rem;
-    line-height: 1.5rem;
-    color: var(--onyx-color-text-icons-neutral-intense);
-  }
-
-  .headline-notification {
-    display: flex;
-    align-items: center;
-
-    .notification-indicator {
-      border-radius: var(--onyx-radius-full);
-      background-color: var(--onyx-color-base-primary-500);
-      width: 0.5rem;
-      height: 0.5rem;
+    &__header {
+      display: flex;
+      flex-direction: column;
+      gap: var(--onyx-density-2xs);
     }
 
-    :nth-child(2) {
-      display: none;
+    &__description {
+      color: var(--onyx-color-text-icons-neutral-medium);
+      white-space: pre-line;
+    }
+
+    &__actions {
+      display: flex;
+      align-items: center;
+      gap: var(--onyx-density-xs);
+      flex-wrap: wrap;
+    }
+
+    &__created-at {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--onyx-density-md);
+      flex-wrap: wrap;
+      color: var(--onyx-color-text-icons-neutral-soft);
+    }
+
+    &__headline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--onyx-density-md);
     }
   }
-}
-
-.sub-headline {
-  color: var(--onyx-color-text-icons-neutral-soft);
-  padding: 0.25rem 0 1rem 0;
-  display: flex;
-  font-size: 0.8125rem;
-  line-height: 1.25rem;
-  justify-content: space-between;
-}
-
-.notification-actions {
-  display: flex;
-  margin-top: 1rem;
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "delete": "Delete"
-  },
-  "de": {
-    "delete": "Löschen"
-  }
-}
-</i18n>
