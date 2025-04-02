@@ -6,7 +6,7 @@ import OnyxNavItem from "./OnyxNavItem.vue";
 /**
  * The `OnyxNavItem` is used to build the navigation bar component and not intended to be used standalone.
  * Based on the context and if the `link` property is provided, it will either be rendered as a button or anchor element.
- * For rendering links, the [`OnyxRouterLink`](/docs/support-routerlink--docs) support component is used, which integrates with the provided router.
+ * Links are integrated with the provided router.
  */
 const meta: Meta<typeof OnyxNavItem> = {
   title: "Navigation/modules/NavItem",
