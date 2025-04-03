@@ -25,7 +25,11 @@ export const useRelativeTimeFormat = (options: UseRelativeTimeFormatOptions) => 
 
   onMounted(() => {
     // only calling setInterval onMounted to support SSR
-    nowInterval = setInterval(() => (now.value = Date.now()), 1000 * 60);
+    nowInterval = setInterval(
+      () => (now.value = Date.now()),
+      // run interval only every 10 seconds to not run too many intervals
+      1000 * 10,
+    );
   });
   onUnmounted(() => clearInterval(nowInterval));
 
