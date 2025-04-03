@@ -122,12 +122,6 @@ const markAllAsRead = () => {
   :deep(.onyx-accordion-item__panel) {
     padding: 0;
   }
-
-  :deep(.onyx-accordion-item__header) {
-    position: sticky;
-    top: 0;
-    z-index: var(--onyx-z-index-sticky-content);
-  }
 }
 
 .empty {
