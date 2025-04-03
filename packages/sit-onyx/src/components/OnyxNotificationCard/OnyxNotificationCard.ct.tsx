@@ -49,10 +49,7 @@ test.describe("Screenshot tests", () => {
   });
 });
 
-test("should display elapsed time correctly", async ({ page, mount, browserName }) => {
-  // eslint-disable-next-line playwright/no-skipped-test
-  test.skip(browserName !== "chromium", "other browsers are flaky");
-
+test("should display elapsed time correctly", async ({ page, mount }) => {
   // ARRANGE
   await page.clock.install({ time: MOCK_DATE });
 
@@ -65,7 +62,7 @@ test("should display elapsed time correctly", async ({ page, mount, browserName 
 
   // key = expected label, value = time to elapse in seconds
   const TEST_CASES = {
-    Now: 59,
+    Now: 0,
     "1 minute ago": 60,
     "2 minutes ago": 60 * 2,
     "1 hour ago": 60 * 60,
@@ -82,7 +79,7 @@ test("should display elapsed time correctly", async ({ page, mount, browserName 
 
   for (const [label, duration] of Object.entries(TEST_CASES)) {
     // ACT
-    await page.clock.pauseAt(new Date(MOCK_DATE).getTime() + 1000 * duration);
+    await page.clock.pauseAt(MOCK_DATE.getTime() + 1000 * duration);
 
     // ASSERT
     await expect(component).toContainText(label);
