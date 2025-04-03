@@ -107,10 +107,10 @@ useAutofocus(input, props);
       :success-messages="successMessages"
       :error-messages="errorMessages"
     >
-      <template #default="{ id }">
+      <template #default="{ id: textareaId }">
         <div class="onyx-textarea__wrapper" :data-autosize-value="modelValue">
           <textarea
-            :id="id"
+            :id="textareaId"
             ref="inputRef"
             v-model="modelValue"
             v-custom-validity
