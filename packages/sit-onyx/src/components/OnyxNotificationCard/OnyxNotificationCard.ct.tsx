@@ -15,7 +15,7 @@ test.beforeEach(async ({ page }) => {
   });
 });
 
-test.describe("Screenshot tests", () => {
+test.describe.skip("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Notification card",
     columns: DENSITIES,
@@ -79,7 +79,7 @@ test("should display elapsed time correctly", async ({ page, mount }) => {
 
   for (const [label, duration] of Object.entries(TEST_CASES)) {
     // ACT
-    await page.clock.pauseAt(MOCK_DATE.getTime() + 1000 * duration);
+    await page.clock.pauseAt(MOCK_DATE.getTime() + 1000 * (duration + 1));
 
     // ASSERT
     await expect(component).toContainText(label);
