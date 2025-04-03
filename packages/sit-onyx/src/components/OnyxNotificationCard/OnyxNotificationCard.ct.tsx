@@ -79,7 +79,8 @@ test("should display elapsed time correctly", async ({ page, mount }) => {
 
   for (const [label, duration] of Object.entries(TEST_CASES)) {
     // ACT
-    await page.clock.pauseAt(new Date(MOCK_DATE).getTime() + 1000 * duration + 1);
+    await page.clock.pauseAt(new Date(MOCK_DATE).getTime() + 1000 * duration);
+    await page.clock.runFor(1); // ensure all timers have triggered
 
     // ASSERT
     await expect(component).toContainText(label);
