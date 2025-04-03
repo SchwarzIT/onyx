@@ -1,4 +1,4 @@
-import { computed, onUnmounted, ref, unref, type MaybeRef } from "vue";
+import { computed, onMounted, onUnmounted, ref, unref, type MaybeRef } from "vue";
 import type { DateValue } from "../components/OnyxDatePicker/types";
 import { injectI18n } from "../i18n";
 
@@ -21,7 +21,11 @@ export const useRelativeTimeFormat = (options: UseRelativeTimeFormatOptions) => 
   const format = computed(() => new Intl.RelativeTimeFormat(locale.value, unref(options.options)));
 
   const now = ref(Date.now());
-  const nowInterval = setInterval(() => (now.value = Date.now()), 1000 * 60);
+  let nowInterval: ReturnType<typeof setInterval> | undefined;
+
+  onMounted(() => {
+    nowInterval = setInterval(() => (now.value = Date.now()), 1000 * 60);
+  });
   onUnmounted(() => clearInterval(nowInterval));
 
   /**
