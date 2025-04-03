@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "value" theme.
- * Imported from Figma API on Mon, 16 Dec 2024 14:51:03 GMT
+ * Imported from Figma API on Thu, 03 Apr 2025 08:40:40 GMT
  */
 :where(:root),
 .onyx-theme-default {
@@ -37,7 +37,7 @@
   --onyx-color-kl-400: #b7bec4;
   --onyx-color-kl-500: #96a1ab;
   --onyx-color-kl-600: #657682;
-  --onyx-color-kl-700: #42515c;
+  --onyx-color-kl-700: #42505c;
   --onyx-color-kl-800: #42515c;
   --onyx-color-kl-900: #31414b;
   --onyx-color-kl-1000: #212e3a;
