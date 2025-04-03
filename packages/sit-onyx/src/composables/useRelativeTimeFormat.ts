@@ -24,6 +24,7 @@ export const useRelativeTimeFormat = (options: UseRelativeTimeFormatOptions) => 
   let nowInterval: ReturnType<typeof setInterval> | undefined;
 
   onMounted(() => {
+    // only calling setInterval onMounted to support SSR
     nowInterval = setInterval(() => (now.value = Date.now()), 1000 * 60);
   });
   onUnmounted(() => clearInterval(nowInterval));
