@@ -1,4 +1,5 @@
 {
+  "name": "nuxt-docs-playground",
   "type": "module",
   "private": true,
   "scripts": {
