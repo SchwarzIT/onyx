@@ -10,7 +10,7 @@ import packageJson from "../../../../../packages/nuxt-docs/package.json";
 
 <div class="hide-external-link">
 
-[![npm version](https://badge.fury.io/js/@sit-onyx%2Fnuxt-docs.svg)](https://www.npmjs.com/package/@sit-onyx/nuxt-docs)
+Nuxt layer/template for creating documentations with the onyx design system. You can easily write markdown files and they will be rendered with pre-defined layouts and onyx components. Fully flexible and customizable.
 
 </div>
 
@@ -34,6 +34,14 @@ The theme includes the following features:
 
 ## Installation
 
+### Step 1: Create a basic Nuxt project
+
+To get started, you need a basic Nuxt project. You can check out the [Nuxt documentation](https://nuxt.com/docs/getting-started/installation) for this.
+
+### Step 2: Install the onyx documentation template
+
+Install the onyx documentation layer by running
+
 ::: code-group
 
 ```sh [pnpm]
@@ -50,9 +58,9 @@ yarn install -D @sit-onyx/nuxt-docs@beta
 
 :::
 
-## Usage
+### Step 3: Enable the Nuxt layer
 
-You can check the [Nuxt documentation](https://nuxt.com/docs/getting-started/layers#usage) for further information.
+Now, just extend your application with the onyx layer. You can check the [Nuxt documentation](https://nuxt.com/docs/getting-started/layers#usage) for further information.
 
 ::: code-group
 
@@ -62,4 +70,55 @@ export default defineNuxtConfig({
 });
 ```
 
+:::
+
+Done. You can now start to write markdown files and see the renderer output in your application.
+
+## Configuration
+
+To configure the documentation layer, simply define a `app.config.ts`. There you can configure global options like the nav bar etc.
+
+::: code-group
+
+```ts [app.config.ts]
+export default defineAppConfig({
+  onyxDocs: {
+    // your options here
+    nav: {
+      appName: "My documentation",
+    },
+  },
+});
+```
+
+:::
+
+## Write markdown
+
+This documentation layer uses the official [Nuxt content](https://content.nuxt.com/) module. So to create pages/content with markdown, simply create a file inside the `content` folder of your application.
+
+::: code-group
+
+```md [content/index.md]
+# Hello World
+
+This is an example page using the [onyx documentation template](https://onyx.schwarz/development/packages/nuxt-docs.html) for Nuxt.
+```
+
+:::
+
+## Layouts
+
+This documentation layer supports several pre-build [layouts](https://nuxt.com/docs/guide/directory-structure/layouts) that are used by default. You can change the layout per page or add your own layouts if the existing ones do not fit your needs.
+
+::: info Coming soon
+This package is work in progress. More features will be added in the future.
+:::
+
+## Components
+
+There are also several components included in the documentation layer that you can optionally use to easily build e.g. team pages.
+
+::: info Coming soon
+This package is work in progress. More features will be added in the future.
 :::
