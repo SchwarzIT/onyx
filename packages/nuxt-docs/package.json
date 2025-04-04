@@ -29,7 +29,7 @@
     "build": "nuxt build .playground",
     "generate": "nuxt generate .playground",
     "preview": "nuxt preview .playground",
-    "test:playwright": "playwright install && playwright test"
+    "test:playwright": "pnpm dev:prepare && playwright install && playwright test"
   },
   "dependencies": {
     "@fontsource-variable/source-code-pro": ">= 5",
