@@ -1,7 +1,6 @@
 packages:
   - apps/*
   - packages/*
-  - packages/nuxt-docs/.playground
 catalog:
   "@vue/compiler-core": 3.5.13
   "@vue/compiler-dom": 3.5.13
