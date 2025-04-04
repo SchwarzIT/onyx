@@ -390,6 +390,12 @@ importers:
         specifier: workspace:^
         version: link:../sit-onyx
     devDependencies:
+      '@nuxt/test-utils':
+        specifier: ^3.17.2
+        version: 3.17.2(@playwright/test@1.51.1)(@types/node@22.14.0)(jiti@2.4.2)(jsdom@26.0.0)(magicast@0.3.5)(playwright-core@1.51.1)(sass-embedded@1.86.2)(sass@1.86.0)(stylus@0.57.0)(terser@5.39.0)(tsx@4.19.3)(typescript@5.6.3)(vitest@3.1.1(@types/debug@4.1.12)(@types/node@22.14.0)(jiti@2.4.2)(jsdom@26.0.0)(sass-embedded@1.86.2)(sass@1.86.0)(stylus@0.57.0)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.1))(yaml@2.7.1)
+      '@sit-onyx/shared':
+        specifier: workspace:^
+        version: link:../shared
       nuxt:
         specifier: ^3.16.1
         version: 3.16.2(@parcel/watcher@2.5.1)(@types/node@22.14.0)(better-sqlite3@11.9.1)(db0@0.3.1(better-sqlite3@11.9.1))(encoding@0.1.13)(eslint@9.23.0(jiti@2.4.2))(ioredis@5.6.0)(magicast@0.3.5)(meow@13.2.0)(optionator@0.9.4)(rollup@4.39.0)(sass-embedded@1.86.2)(sass@1.86.0)(stylelint@16.17.0(typescript@5.6.3))(stylus@0.57.0)(terser@5.39.0)(tsx@4.19.3)(typescript@5.6.3)(vite@6.2.4(@types/node@22.14.0)(jiti@2.4.2)(sass-embedded@1.86.2)(sass@1.86.0)(stylus@0.57.0)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.1))(vue-tsc@2.2.8(typescript@5.6.3))(yaml@2.7.1)
@@ -399,25 +405,6 @@ importers:
       vue:
         specifier: 3.5.13
         version: 3.5.13(typescript@5.6.3)
-
-  packages/nuxt-docs/.playground:
-    dependencies:
-      '@sit-onyx/icons':
-        specifier: workspace:^
-        version: link:../../icons
-      '@sit-onyx/nuxt':
-        specifier: workspace:^
-        version: link:../../nuxt
-      sit-onyx:
-        specifier: workspace:^
-        version: link:../../sit-onyx
-    devDependencies:
-      '@nuxt/test-utils':
-        specifier: ^3.17.2
-        version: 3.17.2(@playwright/test@1.51.1)(@types/node@22.14.0)(jiti@2.4.2)(jsdom@26.0.0)(magicast@0.3.5)(playwright-core@1.51.1)(sass-embedded@1.86.2)(sass@1.86.0)(stylus@0.57.0)(terser@5.39.0)(tsx@4.19.3)(typescript@5.8.2)(vitest@3.1.1(@types/debug@4.1.12)(@types/node@22.14.0)(jiti@2.4.2)(jsdom@26.0.0)(sass-embedded@1.86.2)(sass@1.86.0)(stylus@0.57.0)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.1))(yaml@2.7.1)
-      '@sit-onyx/shared':
-        specifier: workspace:^
-        version: link:../../shared
 
   packages/playwright-utils:
     dependencies:
@@ -8809,54 +8796,6 @@ snapshots:
       - typescript
       - yaml
 
-  '@nuxt/test-utils@3.17.2(@playwright/test@1.51.1)(@types/node@22.14.0)(jiti@2.4.2)(jsdom@26.0.0)(magicast@0.3.5)(playwright-core@1.51.1)(sass-embedded@1.86.2)(sass@1.86.0)(stylus@0.57.0)(terser@5.39.0)(tsx@4.19.3)(typescript@5.8.2)(vitest@3.1.1(@types/debug@4.1.12)(@types/node@22.14.0)(jiti@2.4.2)(jsdom@26.0.0)(sass-embedded@1.86.2)(sass@1.86.0)(stylus@0.57.0)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.1))(yaml@2.7.1)':
-    dependencies:
-      '@nuxt/kit': 3.16.2(magicast@0.3.5)
-      '@nuxt/schema': 3.16.2
-      c12: 3.0.2(magicast@0.3.5)
-      consola: 3.4.2
-      defu: 6.1.4
-      destr: 2.0.3
-      estree-walker: 3.0.3
-      fake-indexeddb: 6.0.0
-      get-port-please: 3.1.2
-      h3: 1.15.1
-      local-pkg: 1.1.1
-      magic-string: 0.30.17
-      node-fetch-native: 1.6.6
-      node-mock-http: 1.0.0
-      ofetch: 1.4.1
-      pathe: 2.0.3
-      perfect-debounce: 1.0.0
-      radix3: 1.1.2
-      scule: 1.3.0
-      std-env: 3.8.1
-      tinyexec: 0.3.2
-      ufo: 1.5.4
-      unplugin: 2.2.2
-      vite: 6.2.4(@types/node@22.14.0)(jiti@2.4.2)(sass-embedded@1.86.2)(sass@1.86.0)(stylus@0.57.0)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.1)
-      vitest-environment-nuxt: 1.0.1(@playwright/test@1.51.1)(@types/node@22.14.0)(jiti@2.4.2)(jsdom@26.0.0)(magicast@0.3.5)(playwright-core@1.51.1)(sass-embedded@1.86.2)(sass@1.86.0)(stylus@0.57.0)(terser@5.39.0)(tsx@4.19.3)(typescript@5.8.2)(vitest@3.1.1(@types/debug@4.1.12)(@types/node@22.14.0)(jiti@2.4.2)(jsdom@26.0.0)(sass-embedded@1.86.2)(sass@1.86.0)(stylus@0.57.0)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.1))(yaml@2.7.1)
-      vue: 3.5.13(typescript@5.8.2)
-    optionalDependencies:
-      '@playwright/test': 1.51.1
-      jsdom: 26.0.0
-      playwright-core: 1.51.1
-      vitest: 3.1.1(@types/debug@4.1.12)(@types/node@22.14.0)(jiti@2.4.2)(jsdom@26.0.0)(sass-embedded@1.86.2)(sass@1.86.0)(stylus@0.57.0)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.1)
-    transitivePeerDependencies:
-      - '@types/node'
-      - jiti
-      - less
-      - lightningcss
-      - magicast
-      - sass
-      - sass-embedded
-      - stylus
-      - sugarss
-      - terser
-      - tsx
-      - typescript
-      - yaml
-
   '@nuxt/vite-builder@3.16.2(@types/node@22.14.0)(eslint@9.23.0(jiti@2.4.2))(magicast@0.3.5)(meow@13.2.0)(optionator@0.9.4)(rollup@3.29.5)(sass-embedded@1.86.2)(sass@1.86.0)(stylelint@16.17.0(typescript@5.6.3))(stylus@0.57.0)(terser@5.39.0)(tsx@4.19.3)(typescript@5.6.3)(vue-tsc@2.2.8(typescript@5.6.3))(vue@3.5.13(typescript@5.6.3))(yaml@2.7.1)':
     dependencies:
       '@nuxt/kit': 3.16.2(magicast@0.3.5)
@@ -15598,34 +15537,6 @@ snapshots:
   vitest-environment-nuxt@1.0.1(@playwright/test@1.51.1)(@types/node@22.14.0)(jiti@2.4.2)(jsdom@26.0.0)(magicast@0.3.5)(playwright-core@1.51.1)(sass-embedded@1.86.2)(sass@1.86.0)(stylus@0.57.0)(terser@5.39.0)(tsx@4.19.3)(typescript@5.6.3)(vitest@3.1.1(@types/debug@4.1.12)(@types/node@22.14.0)(jiti@2.4.2)(jsdom@26.0.0)(sass-embedded@1.86.2)(sass@1.86.0)(stylus@0.57.0)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.1))(yaml@2.7.1):
     dependencies:
       '@nuxt/test-utils': 3.17.2(@playwright/test@1.51.1)(@types/node@22.14.0)(jiti@2.4.2)(jsdom@26.0.0)(magicast@0.3.5)(playwright-core@1.51.1)(sass-embedded@1.86.2)(sass@1.86.0)(stylus@0.57.0)(terser@5.39.0)(tsx@4.19.3)(typescript@5.6.3)(vitest@3.1.1(@types/debug@4.1.12)(@types/node@22.14.0)(jiti@2.4.2)(jsdom@26.0.0)(sass-embedded@1.86.2)(sass@1.86.0)(stylus@0.57.0)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.1))(yaml@2.7.1)
-    transitivePeerDependencies:
-      - '@cucumber/cucumber'
-      - '@jest/globals'
-      - '@playwright/test'
-      - '@testing-library/vue'
-      - '@types/node'
-      - '@vitest/ui'
-      - '@vue/test-utils'
-      - happy-dom
-      - jiti
-      - jsdom
-      - less
-      - lightningcss
-      - magicast
-      - playwright-core
-      - sass
-      - sass-embedded
-      - stylus
-      - sugarss
-      - terser
-      - tsx
-      - typescript
-      - vitest
-      - yaml
-
-  vitest-environment-nuxt@1.0.1(@playwright/test@1.51.1)(@types/node@22.14.0)(jiti@2.4.2)(jsdom@26.0.0)(magicast@0.3.5)(playwright-core@1.51.1)(sass-embedded@1.86.2)(sass@1.86.0)(stylus@0.57.0)(terser@5.39.0)(tsx@4.19.3)(typescript@5.8.2)(vitest@3.1.1(@types/debug@4.1.12)(@types/node@22.14.0)(jiti@2.4.2)(jsdom@26.0.0)(sass-embedded@1.86.2)(sass@1.86.0)(stylus@0.57.0)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.1))(yaml@2.7.1):
-    dependencies:
-      '@nuxt/test-utils': 3.17.2(@playwright/test@1.51.1)(@types/node@22.14.0)(jiti@2.4.2)(jsdom@26.0.0)(magicast@0.3.5)(playwright-core@1.51.1)(sass-embedded@1.86.2)(sass@1.86.0)(stylus@0.57.0)(terser@5.39.0)(tsx@4.19.3)(typescript@5.8.2)(vitest@3.1.1(@types/debug@4.1.12)(@types/node@22.14.0)(jiti@2.4.2)(jsdom@26.0.0)(sass-embedded@1.86.2)(sass@1.86.0)(stylus@0.57.0)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.1))(yaml@2.7.1)
     transitivePeerDependencies:
       - '@cucumber/cucumber'
       - '@jest/globals'

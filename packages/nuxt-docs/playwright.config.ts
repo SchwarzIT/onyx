@@ -15,7 +15,7 @@ export default defineConfig<ConfigOptions>({
   use: {
     ...PLAYWRIGHT_BASE_CONFIG.use,
     nuxt: {
-      rootDir: fileURLToPath(new URL(".", import.meta.url)),
+      rootDir: fileURLToPath(new URL("./.playground", import.meta.url)),
     },
   },
   projects: [{ name: "edge", use: { ...devices["Desktop Edge"], channel: "msedge" } }],

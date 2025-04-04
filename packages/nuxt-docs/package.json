@@ -19,7 +19,7 @@
     "build": "nuxt build .playground",
     "generate": "nuxt generate .playground",
     "preview": "nuxt preview .playground",
-    "test:playwright": "pnpm build && cd .playground && pnpm test:playwright"
+    "test:playwright": "playwright install && playwright test"
   },
   "dependencies": {
     "@fontsource-variable/source-code-pro": ">= 5",
@@ -33,6 +33,8 @@
     "sit-onyx": "workspace:^"
   },
   "devDependencies": {
+    "@nuxt/test-utils": "^3.17.2",
+    "@sit-onyx/shared": "workspace:^",
     "nuxt": "^3.16.1",
     "typescript": "catalog:",
     "vue": "3.5.13"
