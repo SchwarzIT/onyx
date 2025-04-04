@@ -5,6 +5,11 @@
   "scripts": {
     "test:playwright": "playwright install && playwright test"
   },
+  "dependencies": {
+    "@sit-onyx/icons": "workspace:^",
+    "@sit-onyx/nuxt": "workspace:^",
+    "sit-onyx": "workspace:^"
+  },
   "devDependencies": {
     "@nuxt/test-utils": "^3.17.2",
     "@sit-onyx/shared": "workspace:^"
