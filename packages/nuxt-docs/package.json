@@ -13,6 +13,16 @@
     "url": "https://github.com/schwarzit/onyx/issues"
   },
   "main": "./nuxt.config.ts",
+  "files": [
+    "components",
+    "composables",
+    "layouts",
+    "pages",
+    "*.ts",
+    "!playwright.config.ts",
+    "*.vue",
+    "*.json"
+  ],
   "scripts": {
     "dev": "nuxi dev .playground",
     "dev:prepare": "nuxt prepare .playground",
