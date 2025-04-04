@@ -11,6 +11,7 @@ import {
   useId,
   useTemplateRef,
   watch,
+  watchEffect,
   type AriaAttributes,
   type MaybeRefOrGetter,
   type Ref,
@@ -61,7 +62,6 @@ defineSlots<{
    */
   tooltip?(): unknown;
 }>();
-//TODO: fit parent
 //TODO: auto alignment / positioning
 //TODO: closing click needs to update isVisible
 
@@ -108,6 +108,21 @@ const tooltipClasses = computed(() => {
 const toolTipPosition = computed(() =>
   props.position === "auto" ? openDirection : props.position,
 );
+const positionAndAlignment = computed(() => {
+  let returnPosition = toolTipPosition.value;
+  if (
+    (toolTipPosition.value === "top" || toolTipPosition.value === "bottom") &&
+    props.alignsWithEdge
+  ) {
+    if (props.alignment === "left") {
+      returnPosition = toolTipPosition.value + " " + "x-end";
+    }
+    if (props.alignment === "right") {
+      returnPosition = toolTipPosition.value + " " + "x-start";
+    }
+  }
+  return returnPosition;
+});
 
 const createPattern = () =>
   type.value === "hover"
@@ -143,10 +158,28 @@ const handleOpening = (open: boolean) => {
     unref(tooltipRef)?.hidePopover();
   }
 };
+
+const tooltipWidth = ref("auto");
+watchEffect(() => {
+  tooltipWidth.value =
+    props.fitParent && tooltipWrapperRef.value
+      ? `${tooltipWrapperRef.value.clientWidth}px`
+      : "max-content";
+});
+
 // initial update
 onMounted(() => {
   updateDirections();
   handleOpening(isVisible.value);
+  if (tooltipWrapperRef.value) {
+    const resizeObserver = new ResizeObserver(() => {
+      if (props.fitParent && tooltipWrapperRef.value) {
+        tooltipWidth.value = `${tooltipWrapperRef.value.clientWidth}px`;
+      }
+    });
+
+    resizeObserver.observe(tooltipWrapperRef.value);
+  }
 });
 // update open direction when visibility changes to ensure the tooltip is always visible
 watch(isVisible, async (newVal) => {
@@ -169,7 +202,11 @@ const anchorName = computed(() => `--anchor-${id}`);
       ref="tooltipRefEl"
       v-bind="tooltip"
       :class="['onyx-tooltip', 'onyx-text--small', 'onyx-truncation-multiline', tooltipClasses]"
-      :style="`position-area: ${toolTipPosition}; position-anchor: ${anchorName}`"
+      :style="{
+        positionArea: positionAndAlignment,
+        positionAnchor: anchorName,
+        width: tooltipWidth,
+      }"
     >
       <div class="onyx-tooltip--content">
         <OnyxIcon v-if="props.icon" :icon="props.icon" size="16px" />
@@ -193,6 +230,8 @@ $wedge-size: 0.5rem;
     width: max-content;
     max-width: 19rem;
     height: max-content;
+    overflow: hidden;
+    padding: 0;
 
     --background-color: var(--onyx-color-base-neutral-900);
     --color: var(--onyx-color-text-icons-neutral-inverted);
@@ -209,6 +248,7 @@ $wedge-size: 0.5rem;
 
     &:popover-open {
       border: none;
+      outline: none;
       background: none;
     }
     &--content {
@@ -231,7 +271,6 @@ $wedge-size: 0.5rem;
       font-family: var(--onyx-font-family);
       text-align: center;
       white-space: pre-line;
-      width: 100%;
 
       &::after {
         content: " ";
@@ -308,9 +347,9 @@ $wedge-size: 0.5rem;
       // only apply for top and bottom positions
       &.onyx-tooltip--position-top,
       &.onyx-tooltip--position-bottom {
-        transform: translateX(calc(50% - 2 * $wedge-size - 2 * $wedge-size / 5));
+        transform: translateX(calc(50% - 2 * $wedge-size));
         &.onyx-tooltip--aligns-with-edge {
-          transform: translateX(calc(-50% + 2 * $wedge-size));
+          transform: translateX(100%);
         }
         .onyx-tooltip--content {
           &::after {
@@ -323,10 +362,10 @@ $wedge-size: 0.5rem;
       // only apply for top and bottom positions
       &.onyx-tooltip--position-top,
       &.onyx-tooltip--position-bottom {
-        transform: translateX(calc(-50% + 2 * $wedge-size + 2 * $wedge-size / 5));
+        transform: translateX(calc(-50% + 2 * $wedge-size));
 
         &.onyx-tooltip--aligns-with-edge {
-          transform: translateX(calc(50% - 2 * $wedge-size));
+          transform: translateX(-100%);
         }
         .onyx-tooltip--content {
           &::after {
