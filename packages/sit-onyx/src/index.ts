@@ -110,6 +110,9 @@ export * from "./components/OnyxNavBar/modules";
 export { default as OnyxNavBar } from "./components/OnyxNavBar/OnyxNavBar.vue";
 export * from "./components/OnyxNavBar/types";
 
+export { default as OnyxNotificationCard } from "./components/OnyxNotificationCard/OnyxNotificationCard.vue";
+export * from "./components/OnyxNotificationCard/types";
+
 export { default as OnyxNotificationDot } from "./components/OnyxNotificationDot/OnyxNotificationDot.vue";
 export * from "./components/OnyxNotificationDot/types";
 

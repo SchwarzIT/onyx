@@ -57,6 +57,7 @@ const slots = defineSlots<{
 
 .onyx-drawer {
   @include layers.component() {
+    --onyx-modal-dialog-padding-inline: var(--onyx-density-md);
     width: 30rem;
   }
 }
