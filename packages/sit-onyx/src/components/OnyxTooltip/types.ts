@@ -55,8 +55,16 @@ export type OnyxTooltipProps = DensityProp & {
 };
 
 export const TOOLTIP_POSITIONS = ["top", "bottom", "auto"] as const;
-export type TooltipPosition = (typeof TOOLTIP_POSITIONS)[number];
-
+export type TooltipPosition =
+  | "auto"
+  | "top"
+  | "top right"
+  | "top left"
+  | "right"
+  | "bottom"
+  | "bottom right"
+  | "bottom left"
+  | "left";
 export type TooltipOpen =
   | "hover"
   | "click"

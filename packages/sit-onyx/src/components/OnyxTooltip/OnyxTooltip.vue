@@ -7,6 +7,8 @@ import {
   ref,
   shallowRef,
   toValue,
+  unref,
+  useId,
   useTemplateRef,
   watch,
   type AriaAttributes,
@@ -20,6 +22,7 @@ import { useWedgePosition } from "../../composables/useWedgePosition";
 import { injectI18n } from "../../i18n";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxTooltipProps } from "./types";
+
 type CreateToggletipOptions = {
   toggleLabel: MaybeRefOrGetter<string>;
   isVisible?: Ref<boolean>;
@@ -35,7 +38,7 @@ type CreateTooltipOptions = {
 
 const props = withDefaults(defineProps<OnyxTooltipProps>(), {
   color: "neutral",
-  position: "auto",
+  position: "top",
   fitParent: false,
   open: "hover",
   alignment: "auto",
@@ -58,6 +61,9 @@ defineSlots<{
    */
   tooltip?(): unknown;
 }>();
+//TODO: fit parent
+//TODO: auto alignment / positioning
+//TODO: closing click needs to update isVisible
 
 const { densityClass } = useDensity(props);
 
@@ -94,12 +100,14 @@ const tooltipClasses = computed(() => {
     "onyx-tooltip--fit-parent": props.fitParent,
     "onyx-tooltip--aligns-with-edge": props.alignsWithEdge,
     "onyx-tooltip--hidden": !isVisible.value,
-    [`onyx-tooltip--${openDirection.value}`]: props.position === "auto",
-    [`onyx-tooltip--${props.position}`]: props.position !== "auto",
-    [`onyx-tooltip--${wedgePosition.value}`]: props.alignment === "auto",
-    [`onyx-tooltip--${props.alignment}`]: props.alignment !== "auto",
+    [`onyx-tooltip--position-${toolTipPosition.value.replace(" ", "-")}`]: true,
+    [`onyx-tooltip--alignment-${wedgePosition.value}`]: props.alignment === "auto",
+    [`onyx-tooltip--alignment-${props.alignment}`]: props.alignment !== "auto",
   };
 });
+const toolTipPosition = computed(() =>
+  props.position === "auto" ? openDirection : props.position,
+);
 
 const createPattern = () =>
   type.value === "hover"
@@ -128,26 +136,46 @@ useGlobalEventListener({
   listener: () => updateDirections(),
 });
 
+const handleOpening = (open: boolean) => {
+  if (open) {
+    unref(tooltipRef)?.showPopover();
+  } else {
+    unref(tooltipRef)?.hidePopover();
+  }
+};
 // initial update
-onMounted(() => updateDirections());
+onMounted(() => {
+  updateDirections();
+  handleOpening(isVisible.value);
+});
 // update open direction when visibility changes to ensure the tooltip is always visible
-watch(isVisible, async () => {
+watch(isVisible, async (newVal) => {
   await nextTick();
+  handleOpening(newVal);
   updateOpenDirection();
   updateWedgePosition();
 });
+const id = useId();
+const anchorName = computed(() => `--anchor-${id}`);
 </script>
 
 <template>
-  <div ref="tooltipWrapperRefEl" :class="['onyx-component', 'onyx-tooltip-wrapper', densityClass]">
-    <div
+  <div
+    ref="tooltipWrapperRefEl"
+    :class="['onyx-component', 'onyx-tooltip-wrapper', densityClass]"
+    :style="`anchor-name: ${anchorName}`"
+  >
+    <dialog
       ref="tooltipRefEl"
       v-bind="tooltip"
       :class="['onyx-tooltip', 'onyx-text--small', 'onyx-truncation-multiline', tooltipClasses]"
+      :style="`position-area: ${toolTipPosition}; position-anchor: ${anchorName}`"
     >
-      <OnyxIcon v-if="props.icon" :icon="props.icon" size="16px" />
-      <slot name="tooltip">{{ props.text }}</slot>
-    </div>
+      <div class="onyx-tooltip--content">
+        <OnyxIcon v-if="props.icon" :icon="props.icon" size="16px" />
+        <slot name="tooltip">{{ props.text }}</slot>
+      </div>
+    </dialog>
 
     <slot :trigger="trigger"></slot>
   </div>
@@ -160,44 +188,14 @@ $wedge-size: 0.5rem;
 
 .onyx-tooltip {
   @include layers.component() {
-    --background-color: var(--onyx-color-base-neutral-900);
-    --color: var(--onyx-color-text-icons-neutral-inverted);
-
-    border-radius: var(--onyx-radius-sm);
-    padding: var(--onyx-density-2xs) var(--onyx-density-sm);
-    box-shadow: var(--onyx-shadow-medium-bottom);
-    z-index: var(--onyx-z-index-flyout);
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: var(--onyx-density-2xs);
-    height: max-content;
-    margin-bottom: $wedge-size;
-
-    background-color: var(--background-color);
-    color: var(--color);
-    font-family: var(--onyx-font-family);
-    text-align: center;
-    white-space: pre-line;
-
+    position: absolute;
     min-width: var(--onyx-spacing-3xl);
     width: max-content;
     max-width: 19rem;
+    height: max-content;
 
-    // positioning
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 100%;
-
-    &--hidden {
-      display: none;
-    }
-
-    &--fit-parent {
-      width: 100%;
-    }
+    --background-color: var(--onyx-color-base-neutral-900);
+    --color: var(--onyx-color-text-icons-neutral-inverted);
 
     &--danger {
       --background-color: var(--onyx-color-base-danger-200);
@@ -209,52 +207,132 @@ $wedge-size: 0.5rem;
       --color: var(--onyx-color-text-icons-success-bold);
     }
 
-    &::after {
-      content: " ";
-      position: absolute;
-      /* At the bottom of the tooltip */
-      top: 100%;
-      left: 50%;
-      margin-left: -$wedge-size;
-      border-width: $wedge-size;
-      border-style: solid;
-      border-color: var(--background-color) transparent transparent;
-      white-space: normal;
+    &:popover-open {
+      border: none;
+      background: none;
     }
+    &--content {
+      position: relative;
+      width: 100%;
+      height: 100%;
 
-    &--bottom {
-      margin-bottom: 0;
-      margin-top: $wedge-size;
-      bottom: 0;
-      top: 100%;
+      border-radius: var(--onyx-radius-sm);
+      padding: var(--onyx-density-2xs) var(--onyx-density-sm);
+      box-shadow: var(--onyx-shadow-medium-bottom);
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: var(--onyx-density-2xs);
+      margin: 0 0 $wedge-size 0;
+
+      background-color: var(--background-color);
+      color: var(--color);
+      font-family: var(--onyx-font-family);
+      text-align: center;
+      white-space: pre-line;
+      width: 100%;
 
       &::after {
-        top: -2 * $wedge-size;
-        border-color: transparent transparent var(--background-color);
+        content: " ";
+        position: absolute;
+        /* At the bottom of the tooltip */
+        top: 100%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        margin-left: -$wedge-size;
+        border-width: $wedge-size;
+        border-style: solid;
+        border-color: var(--background-color) transparent transparent;
+        white-space: normal;
+      }
+    }
+    &--position-bottom {
+      .onyx-tooltip--content {
+        margin: $wedge-size 0 0 0;
+        bottom: 0;
+        top: 100%;
+
+        &::after {
+          top: -2 * $wedge-size;
+          border-color: transparent transparent var(--background-color);
+        }
       }
     }
 
-    &--left {
-      left: 50%;
-      transform: translateX(-2 * $wedge-size);
-      &.onyx-tooltip--aligns-with-edge {
-        left: 0%;
-        transform: none;
-      }
-      &::after {
-        left: 2 * $wedge-size;
+    &--position-left {
+      .onyx-tooltip--content {
+        margin: 0 $wedge-size 0 0;
+
+        &::after {
+          right: 0;
+          left: 100%;
+          transform: translateX($wedge-size);
+          top: 50%;
+          margin-top: -$wedge-size;
+          border-color: transparent transparent transparent var(--background-color);
+        }
       }
     }
 
-    &--right {
-      left: 50%;
-      transform: translateX(calc(-100% + 2 * $wedge-size));
-      &.onyx-tooltip--aligns-with-edge {
-        left: 100%;
-        transform: translateX(-100%);
+    &--position-right {
+      .onyx-tooltip--content {
+        margin: 0 0 0 $wedge-size;
+        left: 0;
+        right: 100%;
+
+        &::after {
+          left: 0;
+          right: 100%;
+          transform: translateX(-$wedge-size);
+
+          top: 50%;
+          margin-top: -$wedge-size;
+          border-color: transparent var(--background-color) transparent transparent;
+        }
       }
-      &::after {
-        left: calc(100% - 2 * $wedge-size);
+    }
+    &--position-top-left,
+    &--position-top-right,
+    &--position-bottom-left,
+    &--position-bottom-right {
+      .onyx-tooltip--content {
+        &::after {
+          // TODO: add wedge
+          display: none;
+        }
+      }
+    }
+    &--alignment-right {
+      // only apply for top and bottom positions
+      &.onyx-tooltip--position-top,
+      &.onyx-tooltip--position-bottom {
+        transform: translateX(calc(50% - 2 * $wedge-size - 2 * $wedge-size / 5));
+        &.onyx-tooltip--aligns-with-edge {
+          transform: translateX(calc(-50% + 2 * $wedge-size));
+        }
+        .onyx-tooltip--content {
+          &::after {
+            left: 2 * $wedge-size;
+          }
+        }
+      }
+    }
+    &--alignment-left {
+      // only apply for top and bottom positions
+      &.onyx-tooltip--position-top,
+      &.onyx-tooltip--position-bottom {
+        transform: translateX(calc(-50% + 2 * $wedge-size + 2 * $wedge-size / 5));
+
+        &.onyx-tooltip--aligns-with-edge {
+          transform: translateX(calc(50% - 2 * $wedge-size));
+        }
+        .onyx-tooltip--content {
+          &::after {
+            left: calc(100% - 2 * $wedge-size);
+          }
+        }
       }
     }
   }
@@ -264,6 +342,7 @@ $wedge-size: 0.5rem;
   @include layers.component() {
     position: relative;
     width: max-content;
+    place-content: center;
   }
 }
 </style>
