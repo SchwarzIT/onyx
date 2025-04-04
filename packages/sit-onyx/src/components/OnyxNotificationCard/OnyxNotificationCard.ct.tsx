@@ -15,7 +15,7 @@ test.beforeEach(async ({ page }) => {
   });
 });
 
-test.describe.skip("Screenshot tests", () => {
+test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Notification card",
     columns: DENSITIES,
