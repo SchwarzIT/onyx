@@ -15,7 +15,8 @@
     "playground": "0.0.0",
     "@sit-onyx/nuxt": "0.0.0",
     "@sit-onyx/playwright-utils": "0.0.0",
-    "@sit-onyx/shared": "1.0.0"
+    "@sit-onyx/shared": "1.0.0",
+    "@sit-onyx/nuxt-docs": "0.0.0"
   },
   "changesets": [
     "afraid-avocados-hear",
@@ -46,6 +47,7 @@
     "chilled-gorillas-march",
     "chilly-cycles-speak",
     "chilly-dodos-yawn",
+    "chilly-grapes-mix",
     "chilly-phones-impress",
     "chilly-scissors-whisper",
     "chilly-suns-pull",
