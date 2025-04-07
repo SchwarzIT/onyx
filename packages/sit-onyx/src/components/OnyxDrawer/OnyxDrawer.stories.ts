@@ -4,7 +4,7 @@ import OnyxDrawer from "./OnyxDrawer.vue";
 
 /**
  * The drawer is used to temporarily display information as overlay over the application.
- * For example to build a [notification center](/story/examples-notificationcenter--default).
+ * For example to build a [notification center](/story/notifications-examples-notificationcenter--default).
  */
 const meta: Meta<typeof OnyxDrawer> = {
   title: "Feedback/Drawer",

@@ -7,6 +7,7 @@ const meta: Meta<typeof NotificationCenter> = {
   component: NotificationCenter,
   tags: ["!autodocs", "new:component"],
   parameters: {
+    layout: "fullscreen",
     docs: {
       source: {
         code: NotificationCenterCode.replace('from "../../.."', 'from "sit-onyx"'),
