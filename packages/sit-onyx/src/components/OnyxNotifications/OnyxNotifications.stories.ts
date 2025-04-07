@@ -5,7 +5,7 @@ import OnyxNotifications from "./OnyxNotifications.vue";
 /**
  * The notifications are used to display notification messages to the user.
  * For a full list of notification examples, you can check out the [OnyxNotificationMessage](/docs/support-notificationmessage--docs) component.
- * The notifications can be used to build a [notification center](/story/examples-notificationcenter--default).
+ * The notifications can be used to build a [notification center](/story/notifications-examples-notificationcenter--default).
  *
  * For a good user experience, make sure to not display too many notifications at the same time (we recommend a limit of 5 notifications).
  *
@@ -32,7 +32,7 @@ import OnyxNotifications from "./OnyxNotifications.vue";
  * Afterwards, notifications can be shown using the `useNotification()` composable as shown in the example below.
  */
 const meta: Meta<typeof OnyxNotifications> = {
-  title: "Feedback/Notifications",
+  title: "Notifications/Notifications",
   component: OnyxNotifications,
   tags: ["new:component"],
 };
