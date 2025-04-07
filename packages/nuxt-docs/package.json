@@ -1,0 +1,52 @@
+{
+  "name": "@sit-onyx/nuxt-docs",
+  "type": "module",
+  "version": "0.0.0",
+  "description": "Nuxt layer/template for creating documentations with the onyx design system",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/schwarzit/onyx",
+    "directory": "packages/nuxt-docs"
+  },
+  "bugs": {
+    "url": "https://github.com/schwarzit/onyx/issues"
+  },
+  "main": "./nuxt.config.ts",
+  "files": [
+    "components",
+    "composables",
+    "layouts",
+    "pages",
+    "*.ts",
+    "!playwright.config.ts",
+    "*.vue",
+    "*.json"
+  ],
+  "scripts": {
+    "dev": "nuxi dev .playground",
+    "dev:prepare": "nuxt prepare .playground",
+    "build": "nuxt build .playground",
+    "generate": "nuxt generate .playground",
+    "preview": "nuxt preview .playground",
+    "test:playwright": "pnpm dev:prepare && playwright install && playwright test"
+  },
+  "dependencies": {
+    "@fontsource-variable/source-code-pro": ">= 5",
+    "@fontsource-variable/source-sans-3": ">= 5",
+    "@nuxt/content": ">= 3",
+    "@nuxt/image": ">= 1",
+    "@nuxtjs/color-mode": ">= 3",
+    "@sit-onyx/icons": "workspace:^",
+    "@sit-onyx/nuxt": "workspace:^",
+    "sass-embedded": ">= 1",
+    "sit-onyx": "workspace:^"
+  },
+  "devDependencies": {
+    "@nuxt/test-utils": "^3.17.2",
+    "@sit-onyx/shared": "workspace:^",
+    "nuxt": "^3.16.1",
+    "typescript": "catalog:",
+    "vue": "3.5.13"
+  }
+}

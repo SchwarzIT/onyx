@@ -14,5 +14,7 @@ catalog:
   vite: 6.2.5
 onlyBuiltDependencies:
   - "@parcel/watcher"
+  - better-sqlite3
   - esbuild
+  - sharp
   - simple-git-hooks
