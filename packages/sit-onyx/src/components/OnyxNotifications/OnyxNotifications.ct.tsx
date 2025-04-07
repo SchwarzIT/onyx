@@ -48,5 +48,5 @@ test("should consider nav bar height for positioning", async ({ page, mount }) =
   );
 
   // ASSERT
-  await expect(page).toHaveScreenshot("nav-bar-png");
+  await expect(page).toHaveScreenshot("nav-bar.png");
 });
