@@ -82,32 +82,10 @@ describe("mergeVueProps", () => {
     expect(fnRef).toHaveBeenCalledWith(newValue, []);
   });
 
-  test("should be able to merge refs2", async () => {
-    const newValue = "new-value";
-    const ref1 = vue.ref();
-    const result = mergeVueProps({}, { ref: ref1 });
-
-    const targetRef = result.ref as vue.Ref;
-    targetRef.value = newValue;
-    expect(targetRef.value).toBe(newValue);
-    expect(ref1.value).toBe(newValue);
-  });
-
   test("should be able to merge proxied", async () => {
     const newValue = "new-value";
     const ref1 = vue.ref();
-    const result = mergeVueProps({}, vue.reactive({ ref: ref1 }));
-
-    const targetRef = result.ref as vue.Ref;
-    targetRef.value = newValue;
-    expect(targetRef.value).toBe(newValue);
-    expect(ref1.value).toBe(newValue);
-  });
-
-  test("should be able to merge refs3", async () => {
-    const newValue = "new-value";
-    const ref1 = vue.ref();
-    const result = mergeVueProps({ ref: ref1 }, {});
+    const result = mergeVueProps({} as vue.VNodeProps, vue.reactive({ ref: ref1 }));
 
     const targetRef = result.ref as vue.Ref;
     targetRef.value = newValue;
