@@ -68,6 +68,93 @@ const { densityClass } = useDensity(props);
 
 const { t } = injectI18n();
 
+//TODO: can be removed after anchor is implemented in all common browers
+const supportsAnchor = ref(false);
+const handlePositioningWithoutAnchorSupport = () => {
+  const wedgeSize = 8;
+  if (!supportsAnchor.value && tooltipRef.value && tooltipWrapperRef.value) {
+    const tooltip = tooltipRef.value;
+    const wrapper = tooltipWrapperRef.value;
+
+    const wrapperRect = wrapper.getBoundingClientRect();
+    const tooltipRect = tooltip.getBoundingClientRect();
+    let top = 0;
+    let left = 0;
+    if (alignment.value !== "center" && props.alignsWithEdge) {
+      tooltipRef.value.style.transform = "none";
+    } else {
+      tooltipRef.value.style.transform = "";
+    }
+
+    const alignmentPositioning =
+      props.alignsWithEdge && alignment.value !== "center"
+        ? alignment.value === "left" || props.fitParent
+          ? wrapperRect.left
+          : wrapperRect.right - tooltipRect.width
+        : wrapperRect.left + wrapperRect.width / 2 - tooltipRect.width / 2;
+    switch (toolTipPosition.value) {
+      case "top":
+        top = wrapperRect.top - tooltipRect.height;
+        left = alignmentPositioning;
+        break;
+
+      case "top right":
+        top = wrapperRect.top - tooltipRect.height;
+        left = wrapperRect.right;
+        break;
+
+      case "top left":
+        top = wrapperRect.top - tooltipRect.height;
+        left = wrapperRect.left - tooltipRect.width;
+        break;
+
+      case "right":
+        top = wrapperRect.top + wrapperRect.height / 2 - tooltipRect.height / 2;
+        left = wrapperRect.right;
+        break;
+
+      case "bottom":
+        top = wrapperRect.bottom;
+        left = alignmentPositioning;
+        break;
+
+      case "bottom right":
+        top = wrapperRect.bottom + wedgeSize;
+        left = wrapperRect.right + wedgeSize;
+        break;
+
+      case "bottom left":
+        top = wrapperRect.bottom + wedgeSize;
+        left = wrapperRect.left - tooltipRect.width - wedgeSize;
+        break;
+
+      case "left":
+        top = wrapperRect.top + wrapperRect.height / 2 - tooltipRect.height / 2;
+        left = wrapperRect.left - tooltipRect.width;
+        break;
+    }
+
+    tooltip.style.position = "absolute"; // wichtig
+    tooltip.style.top = `${top}px`;
+    tooltip.style.left = `${left}px`;
+  }
+};
+const checkAnchorSupport = () => {
+  supportsAnchor.value = CSS.supports("anchor-name: --test");
+
+  if (!supportsAnchor.value && tooltipRef.value) {
+    handlePositioningWithoutAnchorSupport();
+  }
+};
+watch(
+  () => [props.alignment, props.alignsWithEdge, props.fitParent, props.position],
+  () => {
+    if (!supportsAnchor.value) {
+      nextTick(() => handlePositioningWithoutAnchorSupport());
+    }
+  },
+);
+
 const _isVisible = ref(false);
 const isVisible = computed({
   set: (newVal) => (_isVisible.value = newVal),
@@ -94,6 +181,9 @@ const type = computed(() => {
 const toolTipPosition = computed(() =>
   props.position === "auto" ? openDirection.value : props.position,
 );
+const alignment = computed(() =>
+  props.alignment === "auto" ? wedgePosition.value : props.alignment,
+);
 
 // classes for the tooltip | computed to prevent bugs
 const tooltipClasses = computed(() => {
@@ -104,8 +194,7 @@ const tooltipClasses = computed(() => {
     "onyx-tooltip--aligns-with-edge": props.alignsWithEdge,
     "onyx-tooltip--hidden": !isVisible.value,
     [`onyx-tooltip--position-${toolTipPosition.value.replace(" ", "-")}`]: true,
-    [`onyx-tooltip--alignment-${wedgePosition.value}`]: props.alignment === "auto",
-    [`onyx-tooltip--alignment-${props.alignment}`]: props.alignment !== "auto",
+    [`onyx-tooltip--alignment-${alignment.value}`]: true,
   };
 });
 
@@ -116,10 +205,10 @@ const positionAndAlignment = computed(() => {
     props.alignsWithEdge
   ) {
     if (props.alignment === "left") {
-      returnPosition = toolTipPosition.value + " " + "x-end";
+      returnPosition = toolTipPosition.value + " " + "x-start";
     }
     if (props.alignment === "right") {
-      returnPosition = toolTipPosition.value + " " + "x-start";
+      returnPosition = toolTipPosition.value + " " + "x-end";
     }
   }
   return returnPosition;
@@ -180,6 +269,7 @@ onMounted(() => {
     resizeObserver.observe(tooltipWrapperRef.value);
   }
   updateDirections();
+  checkAnchorSupport();
 });
 // update open direction when visibility changes to ensure the tooltip is always visible
 watch(isVisible, async (newVal) => {
