@@ -62,8 +62,7 @@ defineSlots<{
    */
   tooltip?(): unknown;
 }>();
-//TODO: auto alignment / positioning
-//TODO: closing click needs to update isVisible
+//TODO: make it work without anchor
 
 const { densityClass } = useDensity(props);
 
@@ -92,6 +91,10 @@ const type = computed(() => {
   if (typeof props.open === "string") return props.open;
   return "hover";
 });
+const toolTipPosition = computed(() =>
+  props.position === "auto" ? openDirection.value : props.position,
+);
+
 // classes for the tooltip | computed to prevent bugs
 const tooltipClasses = computed(() => {
   return {
@@ -105,9 +108,7 @@ const tooltipClasses = computed(() => {
     [`onyx-tooltip--alignment-${props.alignment}`]: props.alignment !== "auto",
   };
 });
-const toolTipPosition = computed(() =>
-  props.position === "auto" ? openDirection : props.position,
-);
+
 const positionAndAlignment = computed(() => {
   let returnPosition = toolTipPosition.value;
   if (
@@ -169,7 +170,6 @@ watchEffect(() => {
 
 // initial update
 onMounted(() => {
-  updateDirections();
   handleOpening(isVisible.value);
   if (tooltipWrapperRef.value) {
     const resizeObserver = new ResizeObserver(() => {
@@ -177,9 +177,9 @@ onMounted(() => {
         tooltipWidth.value = `${tooltipWrapperRef.value.clientWidth}px`;
       }
     });
-
     resizeObserver.observe(tooltipWrapperRef.value);
   }
+  updateDirections();
 });
 // update open direction when visibility changes to ensure the tooltip is always visible
 watch(isVisible, async (newVal) => {
@@ -188,6 +188,7 @@ watch(isVisible, async (newVal) => {
   updateOpenDirection();
   updateWedgePosition();
 });
+
 const id = useId();
 const anchorName = computed(() => `--anchor-${id}`);
 </script>
@@ -202,11 +203,9 @@ const anchorName = computed(() => `--anchor-${id}`);
       ref="tooltipRefEl"
       v-bind="tooltip"
       :class="['onyx-tooltip', 'onyx-text--small', 'onyx-truncation-multiline', tooltipClasses]"
-      :style="{
-        positionArea: positionAndAlignment,
-        positionAnchor: anchorName,
-        width: tooltipWidth,
-      }"
+      :style="`positionArea: ${positionAndAlignment};
+        positionAnchor: ${anchorName};
+        width: ${tooltipWidth};`"
     >
       <div class="onyx-tooltip--content">
         <OnyxIcon v-if="props.icon" :icon="props.icon" size="16px" />
@@ -253,7 +252,6 @@ $wedge-size: 0.5rem;
     }
     &--content {
       position: relative;
-      width: 100%;
       height: 100%;
 
       border-radius: var(--onyx-radius-sm);
@@ -343,7 +341,7 @@ $wedge-size: 0.5rem;
         }
       }
     }
-    &--alignment-right {
+    &--alignment-left {
       // only apply for top and bottom positions
       &.onyx-tooltip--position-top,
       &.onyx-tooltip--position-bottom {
@@ -358,7 +356,7 @@ $wedge-size: 0.5rem;
         }
       }
     }
-    &--alignment-left {
+    &--alignment-right {
       // only apply for top and bottom positions
       &.onyx-tooltip--position-top,
       &.onyx-tooltip--position-bottom {

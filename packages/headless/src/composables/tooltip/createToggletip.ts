@@ -41,6 +41,10 @@ export const createToggletip = createBuilder(
          * Only simple, textual content is allowed.
          */
         tooltip: {
+          onToggle: (e: Event) => {
+            const tooltip = e.target as HTMLDialogElement;
+            _isVisible.value = tooltip.matches(":popover-open");
+          },
           anchor: triggerId,
           popover: "auto",
           role: "status",

@@ -30,7 +30,8 @@ export type OnyxTooltipProps = DensityProp & {
    */
   position?: TooltipPosition;
   /**
-   * How to align the tooltip relative to the parent element.
+   * Specifies how to align the tooltip relative to the parent element.
+   * This is applicable only for top and bottom positioning.
    */
   alignment?: WedgePosition | "auto";
   /**
@@ -54,7 +55,6 @@ export type OnyxTooltipProps = DensityProp & {
   alignsWithEdge?: boolean;
 };
 
-export const TOOLTIP_POSITIONS = ["top", "bottom", "auto"] as const;
 export type TooltipPosition =
   | "auto"
   | "top"
