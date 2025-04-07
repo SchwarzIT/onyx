@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.189
+
+### Minor Changes
+
+- 124be5e: feat: implement OnyxNotificationCard component
+
+  Also made the header of `nested-large` and `nested-small` OnyxAccordions sticky by default.
+
 ## 1.0.0-beta.188
 
 ### Major Changes
