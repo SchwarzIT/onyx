@@ -183,7 +183,11 @@ export type DataGridFeature<
      * `iconComponent` of an action is shown after the header label.
      * The components must be ARIA-conform buttons.
      */
-    actions?: (column: PublicNormalizedColumnConfig<TEntry>) => {
+    actions?: (
+      column: PublicNormalizedColumnConfig<TEntry>,
+      index: number,
+      all: PublicNormalizedColumnConfig<TEntry>[],
+    ) => {
       iconComponent?:
         | Component
         | {
@@ -196,7 +200,11 @@ export type DataGridFeature<
       menuItems?: Component<typeof OnyxMenuItem>[];
       showFlyoutMenu?: boolean;
     }[];
-    wrapper?: (column: PublicNormalizedColumnConfig<TEntry>) => Component;
+    wrapper?: (
+      column: PublicNormalizedColumnConfig<TEntry>,
+      index: number,
+      all: PublicNormalizedColumnConfig<TEntry>[],
+    ) => Component;
   };
   scrollContainerAttributes?: () => HTMLAttributes;
 };
@@ -378,8 +386,8 @@ export const useDataGridFeatures = <
       .map((feature) => feature.wrapper)
       .filter((wrapper) => !!wrapper);
 
-    return columns.value.map<DataGridRendererColumn<TEntry>>((column) => {
-      const actions = headerActions.flatMap((actionFactory) => actionFactory(column));
+    return columns.value.map<DataGridRendererColumn<TEntry>>((column, i, all) => {
+      const actions = headerActions.flatMap((actionFactory) => actionFactory(column, i, all));
       const header = renderer.value.getFor("header", column.type);
       const label = column.label?.trim() ?? String(column.key);
 
@@ -444,7 +452,7 @@ export const useDataGridFeatures = <
 
       const wrapper = headerWrappers.reduce<Component>(
         (acc, component) => {
-          return h(component(column), acc);
+          return h(component(column, i, all), acc);
         },
         (props) => h(header.component, { label, ...props }, actionsSlot),
       );
