@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.190
+
+### Major Changes
+
+- 4b9f366: feat(OnyxNotifications): consider nav bar height for top positioning
+
+  Removed CSS variable `--nav-bar-height` from OnyxNavBar in favor of the new global `--onyx-nav-bar-height` variable.
+
 ## 1.0.0-beta.189
 
 ### Minor Changes

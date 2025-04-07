@@ -1,7 +1,7 @@
 {
   "name": "demo-app",
   "private": true,
-  "version": "1.0.0-beta.189",
+  "version": "1.0.0-beta.190",
   "type": "module",
   "scripts": {
     "dev": "vite",
