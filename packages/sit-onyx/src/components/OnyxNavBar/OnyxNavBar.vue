@@ -191,8 +191,6 @@ $gap: var(--onyx-spacing-md);
 
 .onyx-nav-bar {
   @include layers.component() {
-    --nav-bar-height: 3.5rem;
-
     .onyx-flyout-menu {
       --onyx-flyout-menu-gap: var(--onyx-spacing-md);
     }
@@ -200,7 +198,7 @@ $gap: var(--onyx-spacing-md);
     background-color: var(--onyx-color-base-background-blank);
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
-    height: var(--nav-bar-height);
+    height: var(--onyx-nav-bar-height);
     z-index: var(--onyx-z-index-navigation);
     position: relative;
     container-type: size;
@@ -335,7 +333,7 @@ $gap: var(--onyx-spacing-md);
     }
 
     .onyx-mobile-nav-button {
-      --top-position: var(--nav-bar-height);
+      --top-position: var(--onyx-nav-bar-height);
     }
   }
 }

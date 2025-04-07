@@ -36,20 +36,23 @@ const notificationProvider = useNotification();
   @include layers.component() {
     --onyx-notifications-viewport-distance: var(--onyx-spacing-md);
     --onyx-notifications-gap: var(--onyx-spacing-2xs);
+    --onyx-notifications-top: 0;
     padding: 0;
     border: none;
     background: none;
     z-index: var(--onyx-z-index-notification);
 
     position: fixed;
-    top: 0;
+    top: var(--onyx-notifications-top);
     left: 100%;
     transform: translateX(-100%);
     overflow: auto;
 
     width: max-content;
     max-width: 100%;
-    max-height: calc(100% - var(--onyx-notifications-viewport-distance));
+    max-height: calc(
+      100% - var(--onyx-notifications-viewport-distance) - var(--onyx-notifications-top)
+    );
 
     // we are using margin on the individual notifications instead of gap/margin on the parent
     // so the box shadows of the notifications are not cut off
@@ -60,6 +63,10 @@ const notificationProvider = useNotification();
       &:last-child {
         margin-bottom: 0;
       }
+    }
+
+    .onyx-component:has(.onyx-nav-bar):has(.onyx-notifications) & {
+      --onyx-notifications-top: var(--onyx-nav-bar-height);
     }
   }
 }

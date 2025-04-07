@@ -4,7 +4,7 @@ import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxNotificationCard from "./OnyxNotificationCard.vue";
 
 /**
- * Card component to display (user) notifications. For example to build a [notification center](/story/examples-notificationcenter--default).
+ * Card component to display (user) notifications. For example to build a [notification center](/story/notifications-examples-notificationcenter--default).
  */
 const meta: Meta<typeof OnyxNotificationCard> = {
   title: "Notifications/NotificationCard",

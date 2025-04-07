@@ -38,6 +38,7 @@ defineSlots<{
       position: absolute;
       top: var(--onyx-notification-dot-position);
       right: var(--onyx-notification-dot-position);
+      pointer-events: none;
     }
 
     &:has(> .onyx-icon-button) {
