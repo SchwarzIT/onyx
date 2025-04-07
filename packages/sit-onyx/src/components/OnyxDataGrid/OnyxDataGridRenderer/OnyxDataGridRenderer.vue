@@ -21,15 +21,17 @@ defineSlots<{
   empty?(): unknown;
 }>();
 
-const columnStyle = computed(() => ({
-  "--onyx-data-grid-template-columns": props.columns
-    .map(({ key, width }, index, { length }) =>
-      index !== length - 1
-        ? `var(--onyx-data-grid-column-${String(key)}, ${width ?? "auto"})`
-        : "1fr",
-    )
-    .join(" "),
-}));
+const columnStyle = computed(() => {
+  return {
+    "--onyx-data-grid-template-columns": props.columns
+      .map(({ key, width }) => {
+        const name = `--onyx-data-grid-column-${CSS.escape(String(key))}`;
+        const value = width ?? "minmax(min-content, 1fr)";
+        return `var(${name}, ${value})`;
+      })
+      .join(" "),
+  };
+});
 </script>
 
 <template>
@@ -71,6 +73,8 @@ const columnStyle = computed(() => ({
 
 @include layers.override() {
   .onyx-data-grid {
+    width: max-content;
+    max-width: 100%;
     --onyx-data-grid-column-count: v-bind(props.columns.length);
     --onyx-data-grid-row-count: v-bind(props.rows.length + 1);
 

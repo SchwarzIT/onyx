@@ -153,6 +153,11 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
     border-bottom: $border;
   }
 
+  td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   tr:last-of-type td {
     border-bottom: none;
   }
@@ -214,7 +219,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
 .onyx-table {
   @include layers.component() {
     text-align: left;
-    overflow: hidden;
+    container-type: size;
     width: 100%;
 
     @include define-borders();
@@ -296,7 +301,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
       .onyx-table:not(:has(.onyx-table__empty)) & {
         background-color: color-mix(in srgb, var(--onyx-color-base-neutral-500), transparent 85%);
         content: "";
-        height: 100vh;
+        height: 100cqh;
         position: absolute;
         top: 0;
         left: 0;
