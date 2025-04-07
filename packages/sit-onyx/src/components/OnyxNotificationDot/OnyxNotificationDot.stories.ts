@@ -9,7 +9,7 @@ import OnyxNotificationDot from "./OnyxNotificationDot.vue";
  * Displays a dot indicator for an arbitrary component. Useful to e.g. build a [notification center](/story/examples-notificationcenter--default).
  */
 const meta: Meta<typeof OnyxNotificationDot> = {
-  title: "Support/NotificationDot",
+  title: "Notifications/NotificationDot",
   component: OnyxNotificationDot,
   tags: ["new:component"],
   argTypes: {
