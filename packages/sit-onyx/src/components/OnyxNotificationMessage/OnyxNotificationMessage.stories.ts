@@ -5,6 +5,9 @@ import { defineIconSelectArgType } from "../../utils/storybook";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxNotificationMessage from "./OnyxNotificationMessage.vue";
 
+/**
+ * Single notification message component. Is mainly intended to be used with the [OnyxNotifications](/docs/feedback-notifications--docs).
+ */
 const meta: Meta<typeof OnyxNotificationMessage> = {
   title: "Support/NotificationMessage",
   component: OnyxNotificationMessage,
