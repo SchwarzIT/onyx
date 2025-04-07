@@ -39,7 +39,7 @@ export type DataGridRendererColumn<TEntry extends DataGridEntry> = {
    * The width can also be defined using a fractional flex value like `1fr` or `0.5fr`.
    * To define min and max widths, use the [`minmax`](https://developer.mozilla.org/en-US/docs/Web/CSS/minmax) function, e.g. `minmax(4rem, 10rem)`.
    *
-   * @default "minmax(4rem, 1fr)"
+   * @default "minmax(min-content, 1fr)"
    */
   width?: string;
   /**
