@@ -32,7 +32,7 @@ import OnyxNotifications from "./OnyxNotifications.vue";
  * Afterwards, notifications can be shown using the `useNotification()` composable as shown in the example below.
  */
 const meta: Meta<typeof OnyxNotifications> = {
-  title: "Feedback/Notifications",
+  title: "Notifications/Notifications",
   component: OnyxNotifications,
   tags: ["new:component"],
 };
