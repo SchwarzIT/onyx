@@ -2,6 +2,7 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   compatibilityDate: "2025-01-20",
+  typescript: { typeCheck: "build" },
   modules: [
     "@sit-onyx/nuxt",
     "@nuxt/content",

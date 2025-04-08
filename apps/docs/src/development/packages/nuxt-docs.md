@@ -38,27 +38,54 @@ The theme includes the following features:
 
 To get started, you need a basic Nuxt project. You can check out the [Nuxt documentation](https://nuxt.com/docs/getting-started/installation) for this.
 
-### Step 2: Install the onyx documentation template
+::: warning app.vue
+**Important!**
+If your Nuxt project has a `app.vue` file, delete it. Otherwise the whole documentation template will be overridden and not work correctly.
+:::
+
+### Step 2: Configure pnpm
+
+If you are using pnpm, make sure to create the following `pnpm-workspace-yaml` and `.npmrc` file. Otherwise the Nuxt layer will not work correctly.
+When using another package manager, you can skip this step.
+
+::: code-group
+
+```yml [pnpm-workspace.yaml]
+# needed to correctly install the Nuxt content and Nuxt image module
+onlyBuiltDependencies:
+  - better-sqlite3
+  - sharp
+```
+
+```properties [.npmrc]
+# "shamefully-hoist" is the default config from Nuxt for layers
+# It is currently needed to correctly install the peerDependencies from Nuxt layers
+shamefully-hoist=true
+```
+
+:::
+
+### Step 3: Install the onyx documentation template
 
 Install the onyx documentation layer by running
 
 ::: code-group
 
 ```sh [pnpm]
-pnpm add -D @sit-onyx/nuxt-docs@beta
+pnpm add @sit-onyx/nuxt-docs@beta
 ```
 
 ```sh [npm]
-npm install -D @sit-onyx/nuxt-docs@beta
+npm install @sit-onyx/nuxt-docs@beta
 ```
 
 ```sh [yarn]
-yarn install -D @sit-onyx/nuxt-docs@beta
+yarn install @sit-onyx/nuxt-docs@beta
 ```
 
 :::
 
-### Step 3: Enable the Nuxt layer
+### Step 4: Enable the Nuxt layer
 
 Now, just extend your application with the onyx layer. You can check the [Nuxt documentation](https://nuxt.com/docs/getting-started/layers#usage) for further information.
 
@@ -72,7 +99,22 @@ export default defineNuxtConfig({
 
 :::
 
-Done. You can now start to write markdown files and see the renderer output in your application.
+Done! You can now start to write markdown files and see the renderer output in your application.
+
+### Step 5: Create your first page
+
+Finally create your first content page by creating a `content/index.md` file which will be the home/landing page of your documentation.
+For more information about writing markdown/content, see the [Write markdown](#write-markdown) section.
+
+::: code-group
+
+```md [content/index.md]
+# Hello World
+
+This is an example page using the [onyx documentation template](https://onyx.schwarz/development/packages/nuxt-docs.html) for Nuxt.
+```
+
+:::
 
 ## Configuration
 
@@ -99,13 +141,15 @@ This documentation layer uses the official [Nuxt content](https://content.nuxt.c
 
 ::: code-group
 
-```md [content/index.md]
+```md [content/hello-world.md]
 # Hello World
 
 This is an example page using the [onyx documentation template](https://onyx.schwarz/development/packages/nuxt-docs.html) for Nuxt.
 ```
 
 :::
+
+Nuxt content will automatically create a route for every markdown file. In this example, the page will be available on `/hello-world`.
 
 ## Layouts
 

@@ -31,7 +31,7 @@
     "preview": "nuxt preview .playground",
     "test:playwright": "pnpm dev:prepare && playwright install && playwright test"
   },
-  "dependencies": {
+  "peerDependencies": {
     "@fontsource-variable/source-code-pro": ">= 5",
     "@fontsource-variable/source-sans-3": ">= 5",
     "@nuxt/content": ">= 3",
@@ -43,10 +43,19 @@
     "sit-onyx": "workspace:^"
   },
   "devDependencies": {
+    "@fontsource-variable/source-code-pro": ">= 5",
+    "@fontsource-variable/source-sans-3": ">= 5",
+    "@nuxt/content": ">= 3",
+    "@nuxt/image": ">= 1",
     "@nuxt/test-utils": "^3.17.2",
+    "@nuxtjs/color-mode": ">= 3",
+    "@sit-onyx/icons": "workspace:^",
+    "@sit-onyx/nuxt": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
-    "nuxt": "^3.16.1",
+    "nuxt": "^3.16.2",
+    "sass-embedded": "catalog:",
+    "sit-onyx": "workspace:^",
     "typescript": "catalog:",
-    "vue": "3.5.13"
+    "vue": "catalog:"
   }
 }
