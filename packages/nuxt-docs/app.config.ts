@@ -1,5 +1,6 @@
 import type { OnyxNavBarProps, OnyxNavItemProps } from "sit-onyx";
 
+// TYPES
 declare module "@nuxt/schema" {
   interface AppConfigInput {
     onyxDocs?: OnyxAppConfig;
@@ -12,10 +13,13 @@ declare module "@nuxt/schema" {
 
 export type OnyxAppConfig = {
   nav?: Partial<OnyxNavBarProps> & {
-    items?: (OnyxNavItemProps & { children?: OnyxNavItemProps[] })[];
+    items?: NavItem[];
   };
 };
 
+export type NavItem = OnyxNavItemProps & { children?: NavItem[] };
+
+// CONFIG
 const defaultAppConfig = {
   nav: {
     appName: "Documentation",
