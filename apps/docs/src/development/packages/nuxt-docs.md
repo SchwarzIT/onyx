@@ -65,7 +65,7 @@ shamefully-hoist=true
 
 :::
 
-### Step 2: Install the onyx documentation template
+### Step 3: Install the onyx documentation template
 
 Install the onyx documentation layer by running
 
@@ -85,7 +85,7 @@ yarn install @sit-onyx/nuxt-docs@beta
 
 :::
 
-### Step 3: Enable the Nuxt layer
+### Step 4: Enable the Nuxt layer
 
 Now, just extend your application with the onyx layer. You can check the [Nuxt documentation](https://nuxt.com/docs/getting-started/layers#usage) for further information.
 
