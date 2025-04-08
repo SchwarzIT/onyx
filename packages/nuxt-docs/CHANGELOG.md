@@ -1,5 +1,13 @@
 # @sit-onyx/nuxt-docs
 
+## 1.0.0-beta.3
+
+### Patch Changes
+
+- f3c6bef: fix(@sit-onyx/nuxt-docs): prevent missing test module on startup
+
+  Prevent `Cannot find module "@nuxt/test-utils"` error on app start.
+
 ## 1.0.0-beta.2
 
 ### Patch Changes
