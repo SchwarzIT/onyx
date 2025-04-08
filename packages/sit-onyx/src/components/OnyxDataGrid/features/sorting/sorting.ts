@@ -107,7 +107,7 @@ export const useSorting = createFeature(
           return [
             {
               iconComponent: h(SortAction, {
-                columnLabel: String(column),
+                columnLabel: label,
                 sortDirection:
                   sortState.value.column === column ? sortState.value.direction : undefined,
                 onClick: () => handleClick(column),
