@@ -38,6 +38,26 @@ The theme includes the following features:
 
 To get started, you need a basic Nuxt project. You can check out the [Nuxt documentation](https://nuxt.com/docs/getting-started/installation) for this.
 
+::: warning app.vue
+**Important!**
+If your Nuxt project has a `app.vue` file, delete it. Otherwise the whole documentation template will be overridden and not work correctly.
+:::
+
+### Step 2: Configure pnpm
+
+If you are using pnpm, make sure to create the following file. Otherwise the Nuxt content and Nuxt image module will not work correctly.
+When using another package manager, you can skip this step.
+
+::: code-group
+
+```yml [pnpm-workspace.yaml]
+onlyBuiltDependencies:
+  - better-sqlite3
+  - sharp
+```
+
+:::
+
 ### Step 2: Install the onyx documentation template
 
 Install the onyx documentation layer by running
@@ -45,15 +65,15 @@ Install the onyx documentation layer by running
 ::: code-group
 
 ```sh [pnpm]
-pnpm add -D @sit-onyx/nuxt-docs@beta
+pnpm add @sit-onyx/nuxt-docs@beta
 ```
 
 ```sh [npm]
-npm install -D @sit-onyx/nuxt-docs@beta
+npm install @sit-onyx/nuxt-docs@beta
 ```
 
 ```sh [yarn]
-yarn install -D @sit-onyx/nuxt-docs@beta
+yarn install @sit-onyx/nuxt-docs@beta
 ```
 
 :::
@@ -72,7 +92,7 @@ export default defineNuxtConfig({
 
 :::
 
-Done. You can now start to write markdown files and see the renderer output in your application.
+Done! You can now start to write markdown files and see the renderer output in your application.
 
 ## Configuration
 

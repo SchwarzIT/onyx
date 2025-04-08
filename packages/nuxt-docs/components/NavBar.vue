@@ -20,7 +20,7 @@ const colorScheme = computed({
 
 <template>
   <OnyxNavBar v-bind="onyxDocs.nav" @navigate-back="router.back">
-    <OnyxNavButton
+    <OnyxNavItem
       v-for="item in onyxDocs.nav?.items"
       :key="extractLinkProps(item.link ?? '').href"
       v-bind="item"
@@ -28,7 +28,7 @@ const colorScheme = computed({
       <template v-if="item.children?.length" #children>
         <OnyxNavItem v-for="child in item.children" :key="child.label" v-bind="child" />
       </template>
-    </OnyxNavButton>
+    </OnyxNavItem>
 
     <template #contextArea>
       <OnyxIconButton

@@ -1,4 +1,4 @@
-import type { OnyxNavBarProps, OnyxNavButtonProps, OnyxNavItemProps } from "sit-onyx";
+import type { OnyxNavBarProps, OnyxNavItemProps } from "sit-onyx";
 
 declare module "@nuxt/schema" {
   interface AppConfigInput {
@@ -12,7 +12,7 @@ declare module "@nuxt/schema" {
 
 export type OnyxAppConfig = {
   nav?: Partial<OnyxNavBarProps> & {
-    items?: (OnyxNavButtonProps & { children?: OnyxNavItemProps[] })[];
+    items?: (OnyxNavItemProps & { children?: OnyxNavItemProps[] })[];
   };
 };
 
