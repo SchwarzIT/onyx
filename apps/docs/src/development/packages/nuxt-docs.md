@@ -101,6 +101,17 @@ export default defineNuxtConfig({
 
 Done! You can now start to write markdown files and see the renderer output in your application.
 
+### Step 5: Create your first page
+
+Finally create your first content page by creating a `content/index.md` file which will be the home/landing page of your documentation.
+For more information about writing markdown/content, see the [Write markdown](#write-markdown) section.
+
+```md [content/index.md]
+# Hello World
+
+This is an example page using the [onyx documentation template](https://onyx.schwarz/development/packages/nuxt-docs.html) for Nuxt.
+```
+
 ## Configuration
 
 To configure the documentation layer, simply define a `app.config.ts`. There you can configure global options like the nav bar etc.
@@ -126,13 +137,15 @@ This documentation layer uses the official [Nuxt content](https://content.nuxt.c
 
 ::: code-group
 
-```md [content/index.md]
+```md [content/hello-world.md]
 # Hello World
 
 This is an example page using the [onyx documentation template](https://onyx.schwarz/development/packages/nuxt-docs.html) for Nuxt.
 ```
 
 :::
+
+Nuxt content will automatically create a route for every markdown file. In this example, the page will be available on `/hello-world`.
 
 ## Layouts
 
