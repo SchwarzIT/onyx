@@ -45,15 +45,22 @@ If your Nuxt project has a `app.vue` file, delete it. Otherwise the whole docume
 
 ### Step 2: Configure pnpm
 
-If you are using pnpm, make sure to create the following file. Otherwise the Nuxt content and Nuxt image module will not work correctly.
+If you are using pnpm, make sure to create the following `pnpm-workspace-yaml` and `.npmrc` file. Otherwise the Nuxt layer will not work correctly.
 When using another package manager, you can skip this step.
 
 ::: code-group
 
 ```yml [pnpm-workspace.yaml]
+# needed to correctly install the Nuxt content and Nuxt image module
 onlyBuiltDependencies:
   - better-sqlite3
   - sharp
+```
+
+```properties [.npmrc]
+# "shamefully-hoist" is the default config from Nuxt for layers
+# It is currently needed to correctly install the peerDependencies from Nuxt layers
+shamefully-hoist=true
 ```
 
 :::

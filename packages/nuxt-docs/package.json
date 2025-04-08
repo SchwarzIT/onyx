@@ -31,7 +31,7 @@
     "preview": "nuxt preview .playground",
     "test:playwright": "pnpm dev:prepare && playwright install && playwright test"
   },
-  "dependencies": {
+  "peerDependencies": {
     "@fontsource-variable/source-code-pro": ">= 5",
     "@fontsource-variable/source-sans-3": ">= 5",
     "@nuxt/content": ">= 3",
