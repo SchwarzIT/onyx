@@ -152,6 +152,7 @@ export const CONFIG = {
             { text: "Figma utilities", link: "/figma-utils" },
             { text: "Headless composables", link: "/headless" },
             { text: "Icons", link: "/icons" },
+            { text: "Nuxt documentation template", link: "/nuxt-docs" },
             { text: "Nuxt", link: "/nuxt" },
             { text: "Playwright utilities", link: "/playwright-utils" },
             { text: "Storybook utilities", link: "/storybook-utils" },

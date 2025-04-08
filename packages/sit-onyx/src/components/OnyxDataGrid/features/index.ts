@@ -13,6 +13,7 @@ import {
 } from "vue";
 import type { ComponentSlots } from "vue-component-type-helpers";
 import { type OnyxI18n } from "../../../i18n";
+import type { DatetimeFormat } from "../../../i18n/datetime-formats";
 import { mergeVueProps } from "../../../utils/attrs";
 import type { OnyxMenuItem } from "../../OnyxNavBar/modules";
 import OnyxFlyoutMenu from "../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
@@ -59,13 +60,7 @@ export type ColumnConfig<
   TTypes,
 > = keyof TEntry | PublicNormalizedColumnConfig<TEntry, TColumnGroup, TTypes>;
 
-export type DefaultSupportedTypes =
-  | "string"
-  | "number"
-  | "date"
-  | "datetime-local"
-  | "time"
-  | "timestamp";
+export type DefaultSupportedTypes = "string" | "number" | DatetimeFormat;
 
 /**
  * Configuration for the column groupings.

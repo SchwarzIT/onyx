@@ -1,4 +1,5 @@
-import { test } from "../../playwright/a11y";
+import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
+import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxBreadcrumbItem from "../OnyxBreadcrumbItem/OnyxBreadcrumbItem.vue";
 import OnyxBreadcrumb from "./OnyxBreadcrumb.vue";
@@ -6,7 +7,7 @@ import OnyxBreadcrumb from "./OnyxBreadcrumb.vue";
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Breadcrumb",
-    columns: ["default", "custom-home", "container"],
+    columns: ["default", "custom-home", "container", "skeleton"],
     rows: ["0", "1", "2"],
     component: (column, row) => {
       const itemCount = Number.parseInt(row);
@@ -15,6 +16,7 @@ test.describe("Screenshot tests", () => {
         <OnyxBreadcrumb
           container={column === "container"}
           home={column === "custom-home" ? { label: "Custom home" } : undefined}
+          skeleton={column === "skeleton"}
         >
           {Array.from({ length: itemCount }, (_, index) => (
             <OnyxBreadcrumbItem href="#" active={index === itemCount - 1}>
@@ -32,4 +34,42 @@ test.describe("Screenshot tests", () => {
       },
     },
   });
+});
+
+test("should be aligned with the grid when in container mode", async ({ page, mount }) => {
+  await page.addStyleTag({
+    content: `body { margin: 0; }`,
+  });
+
+  await page.setViewportSize({ width: ONYX_BREAKPOINTS.xl, height: 256 });
+
+  const component = await mount(
+    <div>
+      <OnyxBreadcrumb container>
+        <OnyxBreadcrumbItem href="#">Item 1</OnyxBreadcrumbItem>
+        <OnyxBreadcrumbItem href="#">Item 2</OnyxBreadcrumbItem>
+        <OnyxBreadcrumbItem href="#" active>
+          Item 3
+        </OnyxBreadcrumbItem>
+      </OnyxBreadcrumb>
+      <div class="onyx-grid-container">
+        <div
+          style={{
+            backgroundColor: "var(--onyx-color-base-info-300)",
+            fontFamily: "var(--onyx-font-family)",
+          }}
+        >
+          Page content...
+        </div>
+      </div>
+    </div>,
+  );
+
+  await expect(page).toHaveScreenshot("grid.png");
+
+  await component.evaluate((element) => {
+    element.classList.add("onyx-grid-max-md", "onyx-grid-center");
+  });
+
+  await expect(page).toHaveScreenshot("grid-max-width.png");
 });

@@ -1,5 +1,5 @@
-import { devices, PlaywrightTestConfig } from "@playwright/experimental-ct-vue";
-import vue, { Options } from "@vitejs/plugin-vue";
+import { devices, type PlaywrightTestConfig } from "@playwright/experimental-ct-vue";
+import vue, { type Options } from "@vitejs/plugin-vue";
 
 export const vuePluginOptions: Options = {
   template: {

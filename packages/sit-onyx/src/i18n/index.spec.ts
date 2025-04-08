@@ -5,6 +5,8 @@ import * as vue from "vue";
 import { createI18n as createVueI18n } from "vue-i18n";
 import { injectI18n, provideI18n, type OnyxTranslations, type ProvideI18nOptions } from ".";
 import type { FlattenedKeysOf, TranslationValue } from "../types";
+import type { DatetimeFormat } from "./datetime-formats";
+import type { NumberFormat } from "./number-formats";
 
 // keep track of provide/inject because they need to be mocked
 let provided = new Map();
@@ -265,6 +267,39 @@ test.each(LOCALES.map((locale) => ({ locale })))(
     expect(consoleErrorSpy).not.toHaveBeenCalled();
   },
 );
+
+test.each<{ format: DatetimeFormat; expected: string }>([
+  { format: "date", expected: "Mar 11, 2025" },
+  { format: "datetime-local", expected: "Mar 11, 2025, 9:51 AM" },
+  { format: "time", expected: "9:51 AM" },
+  { format: "timestamp", expected: "03/11/2025, 09:51:27 AM GMT" },
+])("should format date with format $format as $expected", ({ format, expected }) => {
+  // ARRANGE
+  provideI18n(app, { locale: "en-US" });
+
+  const { d } = injectI18n();
+
+  const date = new Date(2025, 2, 11, 9, 51, 27);
+
+  // ASSERT
+  expect(d.value(date, format)).toBe(expected);
+});
+
+test.each<{ format: NumberFormat; value: number; expected: string }>([
+  { format: "decimal", value: 42, expected: "42" },
+  { format: "decimal", value: -42, expected: "-42" },
+  { format: "decimal", value: 42.123, expected: "42.123" },
+  { format: "decimal", value: 42.1238, expected: "42.124" },
+  { format: "decimal", value: 0.123, expected: "0.123" },
+])("should format date with format $format as $expected", ({ format, value, expected }) => {
+  // ARRANGE
+  provideI18n(app, { locale: "en-US" });
+
+  const { n } = injectI18n();
+
+  // ASSERT
+  expect(n.value(value, format)).toBe(expected);
+});
 
 /**
  * Gets all nested keys of the given translation entry as a flattened array.

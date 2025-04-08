@@ -1,5 +1,9 @@
 import { watchEffect, type Plugin } from "vue";
 import {
+  createNotificationsProvider,
+  NOTIFICATIONS_PROVIDER_INJECTION_KEY,
+} from "../components/OnyxNotifications/useNotification";
+import {
   createToastProvider,
   TOAST_PROVIDER_INJECTION_KEY,
 } from "../components/OnyxToast/useToast";
@@ -26,7 +30,9 @@ export const createOnyx = (options: OnyxPluginOptions = {}): Plugin => ({
   install: (app) => {
     provideI18n(app, options.i18n);
     const i18n = app.runWithContext(() => injectI18n());
+
     app.provide(TOAST_PROVIDER_INJECTION_KEY, createToastProvider());
+    app.provide(NOTIFICATIONS_PROVIDER_INJECTION_KEY, createNotificationsProvider());
 
     if (options.router) app.provide(ROUTER_INJECTION_KEY, options.router);
 

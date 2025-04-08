@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed, ref, useTemplateRef } from "vue";
 import { createComboBox } from "./createComboBox";
 
 const options = ["a", "b", "c", "d"];
 const isExpanded = ref(false);
 const searchTerm = ref("");
-const comboboxRef = ref<HTMLElement>();
+const comboboxRef = useTemplateRef("combobox");
 const activeOption = ref("");
 const filteredOptions = computed(() => options.filter((v) => v.includes(searchTerm.value)));
 const selectedIndex = computed<number | undefined>(() => {
@@ -53,7 +53,7 @@ defineExpose({ comboBox });
 </script>
 
 <template>
-  <div ref="comboboxRef">
+  <div ref="combobox">
     <input v-bind="input" v-model="searchTerm" @keydown.arrow-down="isExpanded = true" />
 
     <button v-bind="button" type="button">

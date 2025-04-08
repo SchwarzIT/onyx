@@ -9,9 +9,6 @@ export { default as OnyxFlyoutMenu } from "./OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 export { default as OnyxMenuItem } from "./OnyxMenuItem/OnyxMenuItem.vue";
 export * from "./OnyxMenuItem/types";
 
-export { default as OnyxNavButton } from "./OnyxNavButton/OnyxNavButton.vue";
-export * from "./OnyxNavButton/types";
-
 export { default as OnyxNavItem } from "./OnyxNavItem/OnyxNavItem.vue";
 export * from "./OnyxNavItem/types";
 

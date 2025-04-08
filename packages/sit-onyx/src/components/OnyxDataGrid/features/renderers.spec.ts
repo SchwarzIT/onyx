@@ -1,13 +1,30 @@
-import { describe, expect, test, vi } from "vitest";
-import { ref } from "vue";
+import { beforeEach, describe, expect, test, vi } from "vitest";
+import * as vue from "vue";
 import type { DefaultSupportedTypes } from ".";
+import { provideI18n } from "../../../i18n";
 import { createRenderer, FALLBACK_RENDER_VALUE } from "./renderer";
 
-vi.mock("../../../i18n", () => ({
-  injectI18n: () => ({
-    locale: ref("en-US"),
-  }),
-}));
+// keep track of provide/inject because they need to be mocked
+let provided = new Map();
+
+vi.mock("vue", async (importOriginal) => {
+  const module = await importOriginal<typeof import("vue")>();
+
+  return {
+    ...module,
+    inject: vi.fn((key) => provided.get(key)) satisfies (typeof vue)["inject"],
+  };
+});
+
+const app = {
+  provide: vi.fn((key, value) => provided.set(key, value)) satisfies (typeof vue)["provide"],
+} as unknown as vue.App;
+
+beforeEach(() => {
+  provided = new Map();
+  vi.clearAllMocks();
+  provideI18n(app, { locale: "en-US" });
+});
 
 describe("renderers", () => {
   test.each([

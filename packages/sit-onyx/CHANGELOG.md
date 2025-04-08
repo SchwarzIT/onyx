@@ -1,5 +1,48 @@
 # sit-onyx
 
+## 1.0.0-beta.190
+
+### Major Changes
+
+- 4b9f366: feat(OnyxNotifications): consider nav bar height for top positioning
+
+  Removed CSS variable `--nav-bar-height` from OnyxNavBar in favor of the new global `--onyx-nav-bar-height` variable.
+
+## 1.0.0-beta.189
+
+### Minor Changes
+
+- 124be5e: feat: implement OnyxNotificationCard component
+
+  Also made the header of `nested-large` and `nested-small` OnyxAccordions sticky by default.
+
+## 1.0.0-beta.188
+
+### Major Changes
+
+- 7d52457: - feat(OnyxNavItem): OnyxNavItem is universal usable and nestable.
+  - feat!(OnyxNavButton): removed `OnyxNavButton`, use `OnyxNavItem` instead.
+
+## 1.0.0-beta.187
+
+### Minor Changes
+
+- 0d8fef8: feat(OnyxBreadcrumb): consider grid padding, max-width and alignment when in container mode
+
+## 1.0.0-beta.186
+
+### Minor Changes
+
+- cdc7bae: feat: implement OnyxNotifications and useNotification
+
+  See our [documentation](https://onyx.schwarz/?path=/docs/notifications-notifications--docs) for further information.
+
+## 1.0.0-beta.185
+
+### Minor Changes
+
+- 5d223c3: feat(OnyxBreadcrumb): support `skeleton` prop
+
 ## 1.0.0-beta.184
 
 ### Minor Changes

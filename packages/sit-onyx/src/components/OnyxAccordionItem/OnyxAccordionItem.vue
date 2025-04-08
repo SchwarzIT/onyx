@@ -217,6 +217,15 @@ const panelId = computed(() => `panel-${props.value.toString()}`);
       }
     }
 
+    &--nested-large,
+    &--nested-small {
+      .onyx-accordion-item__header {
+        position: sticky;
+        top: 0;
+        z-index: var(--onyx-z-index-sticky-content);
+      }
+    }
+
     &:has(&__header:focus-visible) {
       border-radius: var(--onyx-accordion-item-border-radius);
       border-bottom: var(--onyx-accordion-item-border-focus);

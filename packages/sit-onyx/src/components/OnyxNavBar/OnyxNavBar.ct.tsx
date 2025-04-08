@@ -14,7 +14,6 @@ import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxPageLayout from "../OnyxPageLayout/OnyxPageLayout.vue";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
 import OnyxMenuItem from "./modules/OnyxMenuItem/OnyxMenuItem.vue";
-import OnyxNavButton from "./modules/OnyxNavButton/OnyxNavButton.vue";
 import OnyxNavItem from "./modules/OnyxNavItem/OnyxNavItem.vue";
 import OnyxUserMenu from "./modules/OnyxUserMenu/OnyxUserMenu.vue";
 import OnyxNavBar from "./OnyxNavBar.vue";
@@ -26,18 +25,18 @@ test.beforeEach(async ({ page }) => {
 test("accessibility test", async ({ mount }) => {
   const component = await mount(
     <OnyxNavBar appName="App name" logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}>
-      <OnyxNavButton label="Main One">
+      <OnyxNavItem label="Main One">
         <template v-slot:children>
           <OnyxNavItem label="First" />
           <OnyxNavItem label="Second" />
         </template>
-      </OnyxNavButton>
-      <OnyxNavButton label="Main Two">
+      </OnyxNavItem>
+      <OnyxNavItem label="Main Two">
         <template v-slot:children>
           <OnyxNavItem label="Third" />
           <OnyxNavItem label="Fourth" />
         </template>
-      </OnyxNavButton>
+      </OnyxNavItem>
     </OnyxNavBar>,
   );
   const nav = component.getByRole("navigation");
@@ -62,8 +61,8 @@ test.describe("Screenshot tests", () => {
           style={{ width: `${breakpointWidth}px` }}
           withBackButton={row.includes("back")}
         >
-          <OnyxNavButton label="Item" active />
-          <OnyxNavButton label="Item" />
+          <OnyxNavItem label="Item" active />
+          <OnyxNavItem label="Item" />
 
           <template v-slot:mobileActivePage>Item</template>
 
@@ -89,8 +88,8 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
 
   const component = await mount(
     <OnyxNavBar appName="App name" logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}>
-      <OnyxNavButton link="#1" label="Item 1" />
-      <OnyxNavButton link="#2" label="Item 2">
+      <OnyxNavItem link="#1" label="Item 1" />
+      <OnyxNavItem link="#2" label="Item 2">
         Item 2
         <OnyxBadge color="warning" dot />
         <template v-slot:children>
@@ -98,8 +97,8 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
           <OnyxNavItem label="Nested item 2" link="#2-2" active />
           <OnyxNavItem label="Nested item 3" link="#2-3" />
         </template>
-      </OnyxNavButton>
-      <OnyxNavButton link="https://onyx.schwarz" label="Item 3" />
+      </OnyxNavItem>
+      <OnyxNavItem link="https://onyx.schwarz" label="Item 3" />
 
       <template v-slot:mobileActivePage>Nested item 2</template>
 
@@ -138,11 +137,11 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
   await expect(page).toHaveScreenshot("burger.png");
 
   // ACT
-  await component.getByLabel("Item 1").click();
+  await component.getByRole("menuitem", { name: "Item 1" }).click();
   await expect(page).toHaveURL(/^http:\/\/localhost:\d*\/#1$/);
 
   // ACT
-  await component.getByLabel("Item 2").click();
+  await component.getByRole("menuitem", { name: "Item 2" }).click();
   await component.hover({ position: { x: 0, y: 0 } }); // reset mouse
 
   // ASSERT
@@ -152,7 +151,7 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
   );
 
   // ACT
-  await component.getByLabel("Item 2", { exact: true }).click();
+  await component.getByRole("menuitem", { name: "Item 2", exact: true }).click();
 
   // ASSERT
   await expect(page).toHaveURL(/^http:\/\/localhost:\d*\/#2$/);
@@ -167,12 +166,12 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
   await component.getByRole("button", { name: "Back" }).click();
 
   // ASSERT
-  await expect(component.getByLabel("Nested item 1")).toBeHidden();
-  await expect(component.getByLabel("Nested item 2")).toBeHidden();
-  await expect(component.getByLabel("Nested item 3")).toBeHidden();
-  await expect(component.getByLabel("Item 1")).toBeVisible();
-  await expect(component.getByLabel("Item 2")).toBeVisible();
-  await expect(component.getByLabel("Item 3")).toBeVisible();
+  await expect(component.getByRole("menuitem", { name: "Nested item 1" })).toBeHidden();
+  await expect(component.getByRole("menuitem", { name: "Nested item 2" })).toBeHidden();
+  await expect(component.getByRole("menuitem", { name: "Nested item 3" })).toBeHidden();
+  await expect(component.getByRole("menuitem", { name: "Item 1" })).toBeVisible();
+  await expect(component.getByRole("menuitem", { name: "Item 2" })).toBeVisible();
+  await expect(component.getByRole("menuitem", { name: "Item 3" })).toBeVisible();
 
   // ACT
   await component.getByLabel("Toggle context menu").click();
@@ -189,8 +188,8 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
 
     const component = await mount(
       <OnyxNavBar appName="App with a very long truncated name" logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}>
-        <OnyxNavButton link="#1" label={longLabel} active />
-        <OnyxNavButton link="#2" label="Other item" />
+        <OnyxNavItem link="#1" label={longLabel} active />
+        <OnyxNavItem link="#2" label="Other item" />
         <template v-slot:mobileActivePage>{longLabel}</template>
 
         {showContext && (
@@ -229,13 +228,13 @@ test("should behave correctly", async ({ mount, page }) => {
       withBackButton
       onNavigateBack={() => backButtonClickEvents++}
     >
-      <OnyxNavButton link="#1" label="Item 1" />
-      <OnyxNavButton link="#2" label="Item 2">
+      <OnyxNavItem link="#1" label="Item 1" />
+      <OnyxNavItem link="#2" label="Item 2">
         Item 2
         <template v-slot:children>
           <OnyxNavItem label="Nested item 1" link="#2-1" />
         </template>
-      </OnyxNavButton>
+      </OnyxNavItem>
     </OnyxNavBar>,
   );
 
@@ -302,8 +301,8 @@ Object.entries(ONYX_BREAKPOINTS).forEach(([breakpoint, width]) => {
     await mount(
       <OnyxAppLayout>
         <OnyxNavBar appName="App name" logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}>
-          <OnyxNavButton label="Item" active />
-          <OnyxNavButton label="Item" />
+          <OnyxNavItem label="Item" active />
+          <OnyxNavItem label="Item" />
 
           <template v-slot:mobileActivePage>Item</template>
 

@@ -17,14 +17,14 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
     on: eventHandlers,
   });
 
-  const expectVisible = (label: string) => {
-    return expect(component.getByLabel(label, { exact: true })).toBeInViewport({
+  const expectVisible = (name: string) => {
+    return expect(component.getByRole("menuitem", { name, exact: true })).toBeInViewport({
       ratio: 1,
     });
   };
 
-  const expectHidden = (label: string) => {
-    return expect(component.getByLabel(label, { exact: true })).toBeHidden();
+  const expectHidden = (name: string) => {
+    return expect(component.getByRole("menuitem", { name, exact: true })).toBeHidden();
   };
 
   // ACT

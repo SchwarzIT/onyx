@@ -1,5 +1,52 @@
 # @sit-onyx/nuxt
 
+## 1.0.0-beta.192
+
+### Patch Changes
+
+- Updated dependencies [4b9f366]
+  - sit-onyx@1.0.0-beta.190
+
+## 1.0.0-beta.191
+
+### Patch Changes
+
+- Updated dependencies [124be5e]
+  - sit-onyx@1.0.0-beta.189
+
+## 1.0.0-beta.190
+
+### Major Changes
+
+- 7d52457: - feat(OnyxNavItem): OnyxNavItem is universal usable and nestable.
+  - feat!(OnyxNavButton): removed `OnyxNavButton`, use `OnyxNavItem` instead.
+
+### Patch Changes
+
+- Updated dependencies [7d52457]
+  - sit-onyx@1.0.0-beta.188
+
+## 1.0.0-beta.189
+
+### Patch Changes
+
+- Updated dependencies [0d8fef8]
+  - sit-onyx@1.0.0-beta.187
+
+## 1.0.0-beta.188
+
+### Patch Changes
+
+- Updated dependencies [cdc7bae]
+  - sit-onyx@1.0.0-beta.186
+
+## 1.0.0-beta.187
+
+### Patch Changes
+
+- Updated dependencies [5d223c3]
+  - sit-onyx@1.0.0-beta.185
+
 ## 1.0.0-beta.186
 
 ### Patch Changes
