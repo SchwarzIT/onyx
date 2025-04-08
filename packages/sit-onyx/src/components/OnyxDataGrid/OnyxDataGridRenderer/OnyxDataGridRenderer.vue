@@ -1,4 +1,6 @@
 <script lang="ts" setup generic="TEntry extends DataGridEntry, TMetadata extends DataGridMetadata">
+import { computed, toRaw } from "vue";
+import { mergeVueProps } from "../../../utils/attrs";
 import OnyxTable from "../../OnyxTable/OnyxTable.vue";
 import type { DataGridEntry, DataGridMetadata } from "../types";
 import type { OnyxDataGridRendererProps } from "./types";
@@ -18,16 +20,33 @@ defineSlots<{
    */
   empty?(): unknown;
 }>();
+
+const columnStyle = computed(() => {
+  return {
+    "--onyx-data-grid-template-columns": props.columns
+      .map(({ key, width }) => {
+        const name = `--onyx-data-grid-column-${CSS.escape(String(key))}`;
+        const value = width ?? "minmax(min-content, 1fr)";
+        return `var(${name}, ${value})`;
+      })
+      .join(" "),
+  };
+});
 </script>
 
 <template>
-  <OnyxTable class="onyx-data-grid" v-bind="props">
+  <OnyxTable
+    class="onyx-data-grid"
+    v-bind="props"
+    :scroll-container-attrs="mergeVueProps(props.scrollContainerAttrs, { style: columnStyle })"
+  >
     <template #head>
       <tr>
         <th
           v-for="column in props.columns"
           :key="column.key"
-          v-bind="column.thAttributes"
+          v-bind="column.thAttributes && toRaw(column.thAttributes)"
+          :ref_for="false"
           scope="col"
         >
           <component :is="column.component" />
@@ -53,8 +72,47 @@ defineSlots<{
 <style lang="scss">
 @use "../../../styles/mixins/layers.scss";
 
-.onyx-data-grid {
-  @include layers.component() {
+@include layers.override() {
+  .onyx-data-grid {
+    width: max-content;
+    max-width: 100%;
+    --onyx-data-grid-column-count: v-bind(props.columns.length);
+    --onyx-data-grid-row-count: v-bind(props.rows.length + 1);
+
+    .onyx-table-wrapper__container {
+      display: grid;
+      grid-template-columns: var(--onyx-data-grid-template-columns);
+      grid-template-rows: repeat(var(--onyx-data-grid-row-count), auto);
+
+      table {
+        display: grid;
+        grid-template-columns: subgrid;
+        grid-template-rows: subgrid;
+        grid-column: 1 / span var(--onyx-data-grid-column-count);
+        grid-row: 1 / span var(--onyx-data-grid-row-count);
+      }
+
+      thead,
+      thead > tr {
+        display: grid;
+        grid-template-columns: subgrid;
+        grid-column: 1 / span var(--onyx-data-grid-column-count);
+      }
+
+      tbody {
+        display: grid;
+        grid-column: 1 / span var(--onyx-data-grid-column-count);
+        grid-row: 2 / span var(--onyx-data-grid-row-count);
+        grid-template-columns: subgrid;
+        grid-template-rows: subgrid;
+      }
+
+      tr {
+        display: grid;
+        grid-column: 1 / -1;
+        grid-template-columns: subgrid;
+      }
+    }
   }
 }
 </style>

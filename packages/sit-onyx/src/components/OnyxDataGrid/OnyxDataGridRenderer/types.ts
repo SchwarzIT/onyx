@@ -34,6 +34,15 @@ export type DataGridRendererColumn<TEntry extends DataGridEntry> = {
    */
   component: Component;
   /**
+   * Width of the column. Any track-list value that can be used by [`grid-template-columns`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns) is possible.
+   * So the column can have a fixed width using a static value like `100px` or `2rem`.
+   * The width can also be defined using a fractional flex value like `1fr` or `0.5fr`.
+   * To define min and max widths, use the [`minmax`](https://developer.mozilla.org/en-US/docs/Web/CSS/minmax) function, e.g. `minmax(4rem, 10rem)`.
+   *
+   * @default "minmax(min-content, 1fr)"
+   */
+  width?: string;
+  /**
    * Attributes that are bound directly to the `<th>` element of the column.
    */
   thAttributes?: ThHTMLAttributes;
