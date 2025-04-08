@@ -17,7 +17,7 @@ export const useStickyColumns = createFeature(
     const isScrolled = ref(false);
 
     const createStickyPositionCssVar = (key: PropertyKey) =>
-      `--onyx-data-grid-sticky-column-position-${stickyId}-${String(key)}`;
+      `--onyx-data-grid-sticky-column-position-${stickyId}-${CSS.escape(String(key))}`;
 
     const resizeObserver = new ResizeObserver(() => {
       Object.entries(elementsToStyle.value).forEach(
