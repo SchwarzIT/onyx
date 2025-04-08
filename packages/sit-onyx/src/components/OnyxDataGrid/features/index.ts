@@ -196,7 +196,7 @@ export type DataGridFeature<
       menuItems?: Component<typeof OnyxMenuItem>[];
       showFlyoutMenu?: boolean;
     }[];
-    wrapper?: (column: PublicNormalizedColumnConfig<TEntry>) => Component;
+    wrapper?: (column: InternalColumnConfig<TEntry>) => Component;
   };
   scrollContainerAttributes?: () => HTMLAttributes;
 };

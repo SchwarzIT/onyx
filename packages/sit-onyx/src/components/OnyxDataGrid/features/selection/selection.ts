@@ -62,7 +62,7 @@ export const useSelection = createFeature(
         func: (columnConfig) =>
           disabled.value
             ? [...columnConfig]
-            : [{ key: SELECTION_COLUMN, type: SELECTION_COLUMN }, ...columnConfig],
+            : [{ key: SELECTION_COLUMN, type: SELECTION_COLUMN, label: "" }, ...columnConfig],
       } satisfies ModifyColumns<TEntry>,
       mutation: {
         func: (rows) => {
