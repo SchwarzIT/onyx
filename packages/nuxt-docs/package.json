@@ -19,7 +19,6 @@
     "layouts",
     "pages",
     "*.ts",
-    "!playwright.config.ts",
     "*.vue",
     "*.json"
   ],
@@ -29,7 +28,7 @@
     "build": "nuxt build .playground",
     "generate": "nuxt generate .playground",
     "preview": "nuxt preview .playground",
-    "test:playwright": "pnpm dev:prepare && playwright install && playwright test"
+    "test:playwright": "pnpm dev:prepare && cd .playground && pnpm test:playwright"
   },
   "peerDependencies": {
     "@fontsource-variable/source-code-pro": ">= 5",
