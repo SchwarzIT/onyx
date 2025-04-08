@@ -3,6 +3,8 @@ import { expect, test } from "@nuxt/test-utils/playwright";
 test("should render prose components with onyx", async ({ page, goto }) => {
   await goto("/", { waitUntil: "hydration" });
 
+  await expect(page).toHaveScreenshot("prose.png");
+
   // HEADLINES
   for (const headlineLevel of [1, 2, 3, 4, 5, 6] as const) {
     const headline = page.getByRole("heading", { level: headlineLevel });
@@ -25,4 +27,8 @@ test("should render prose components with onyx", async ({ page, goto }) => {
   // IMAGE
   const image = page.getByRole("img", { name: "Image alt" });
   await expect(image, "should replace images with <NuxtImg>").toHaveAttribute("data-nuxt-img", "");
+
+  // TABLE
+  const table = page.getByRole("table");
+  await expect(table, "should replace tables with <OnyxTable>").toHaveClass(/onyx-table/);
 });
