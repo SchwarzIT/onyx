@@ -106,11 +106,15 @@ Done! You can now start to write markdown files and see the renderer output in y
 Finally create your first content page by creating a `content/index.md` file which will be the home/landing page of your documentation.
 For more information about writing markdown/content, see the [Write markdown](#write-markdown) section.
 
+::: code-group
+
 ```md [content/index.md]
 # Hello World
 
 This is an example page using the [onyx documentation template](https://onyx.schwarz/development/packages/nuxt-docs.html) for Nuxt.
 ```
+
+:::
 
 ## Configuration
 
