@@ -37,4 +37,4 @@ export type WithHTMLAttributes<
 /**
  * Generic data object.
  */
-export type Data = Record<string, unknown>;
+export type Data<T = unknown> = Record<string, T>;

@@ -10,6 +10,7 @@ import {
   type VNodeProps,
   type VNodeRef,
 } from "vue";
+import type { Data } from "../types";
 
 // region docs
 /**
@@ -64,7 +65,6 @@ export const useRootAttrs = <T extends HTMLAttributes = HTMLAttributes>() => {
 
 const MERGED_REFS_SYMBOL = Symbol("MERGED_REFS");
 
- 
 type MergedRef = Ref & {
   /**
    * In this array we store the refs that we want to keep in sync.
@@ -86,7 +86,7 @@ const createMergedRef = <T>(...toMerge: VNodeRef[]) => {
         return value;
       },
       set(newValue) {
-        value = Array.isArray(newValue) && newValue.length === 1 ? newValue.at(0) : newValue;
+        value = newValue;
         _ref[MERGED_REFS_SYMBOL].forEach((r) => {
           switch (typeof r) {
             case "function":
@@ -109,14 +109,14 @@ const createMergedRef = <T>(...toMerge: VNodeRef[]) => {
     };
   }) as MergedRef;
   _ref[MERGED_REFS_SYMBOL] = toMerge ?? [];
-
   return _ref;
 };
 
 const isMergedRef = (_ref: unknown): _ref is MergedRef =>
-  !!_ref && typeof _ref === "function" && MERGED_REFS_SYMBOL in _ref;
+  !!_ref && typeof _ref === "object" && MERGED_REFS_SYMBOL in _ref;
 
-type VProps = object & VNodeProps;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type VProps = Data<any> & VNodeProps;
 
 /**
  * Extends the Vue's `mergeProp` function, so that it
@@ -125,6 +125,8 @@ type VProps = object & VNodeProps;
  */
 export const mergeVueProps = <T extends VProps | null | undefined>(...args: T[] | []) =>
   args.reduce((prev, curr) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions -- Make sure to trigger a read access in case we need to access it using `toRaw`
+    curr?.ref;
     const currRef = curr && isProxy(curr) && "ref" in curr ? toRaw(curr).ref : curr?.ref;
     const prevRef = prev?.ref;
     const merged = mergeProps(prev, (curr ?? {}) as VProps);

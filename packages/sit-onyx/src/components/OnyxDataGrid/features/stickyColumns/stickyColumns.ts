@@ -1,6 +1,7 @@
 import { computed, nextTick, onUnmounted, ref, useId, watch, type HTMLAttributes } from "vue";
 import { createFeature, type ModifyColumns } from "..";
 
+import { mergeVueProps } from "../../../../utils/attrs";
 import type { DataGridEntry } from "../../types";
 import "./stickyColumns.scss";
 import type { StickyColumnsOptions } from "./types";
@@ -79,15 +80,24 @@ export const useStickyColumns = createFeature(
                     };
               return {
                 ...column,
-                thAttributes: {
-                  style,
-                  class: {
-                    "onyx-data-grid-sticky-columns--sticky": true,
-                    [position.value]: true,
-                    isScrolled: isScrolled.value,
+                thAttributes: mergeVueProps(
+                  {
+                    style,
+                    class: {
+                      "onyx-data-grid-sticky-columns--sticky": true,
+                      [position.value]: true,
+                      isScrolled: isScrolled.value,
+                    },
+                    ref: (el) => {
+                      if (el) {
+                        elementsToStyle.value[column.key] = el as HTMLElement;
+                      } else {
+                        delete elementsToStyle.value[column.key];
+                      }
+                    },
                   },
-                  ref: (el: HTMLElement) => (elementsToStyle.value[column.key] = el),
-                },
+                  column.thAttributes,
+                ),
                 tdAttributes: {
                   style,
                   class: {
@@ -106,8 +116,10 @@ export const useStickyColumns = createFeature(
       } satisfies ModifyColumns<TEntry> as ModifyColumns<TEntry>,
       scrollContainerAttributes: () =>
         ({
-          ref: (el: HTMLElement) => {
-            nextTick(() => handleScroll(el));
+          ref: (el?: HTMLElement) => {
+            if (el) {
+              nextTick(() => handleScroll(el));
+            }
           },
           onScrollCapturePassive: (e: Event) => handleScroll(e.target as HTMLElement),
         }) as HTMLAttributes,
