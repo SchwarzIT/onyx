@@ -39,6 +39,9 @@ jobs:
           PW_SHARD: "${{ matrix.shard }}"
           PW_TOTAL_SHARDS: "${{ strategy.job-total }}"
 
+      - name: Debug pipeline
+        run: pwd
+
       # we only want to include actual changed screenshots in the artifact to prevent that old/unchanged screenshots
       # override changed screenshots from other shards when creating the pull request
       - name: Copy changed files
