@@ -24,11 +24,12 @@ export const useHandleTooltipPositioningWithoutAnchorSupport = (
       let left = 0;
 
       const alignmentPositioning =
-        alignsWithEdge && alignment.value !== "center"
+        alignsWithEdge.value && alignment.value !== "center"
           ? alignment.value === "left" || fitParent.value
             ? wrapperRect.left
             : wrapperRect.right - tooltipRect.width
           : wrapperRect.left + wrapperRect.width / 2 - tooltipRect.width / 2;
+
       switch (toolTipPosition.value) {
         case "top":
           top = wrapperRect.top - tooltipRect.height;

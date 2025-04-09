@@ -268,7 +268,6 @@ $wedge-size: 0.5rem;
 
       border-radius: var(--onyx-radius-sm);
       padding: var(--onyx-density-2xs) var(--onyx-density-sm);
-      box-shadow: var(--onyx-shadow-medium-bottom);
 
       display: flex;
       justify-content: center;
