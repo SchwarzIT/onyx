@@ -39,7 +39,7 @@ type CreateTooltipOptions = {
 
 const props = withDefaults(defineProps<OnyxTooltipProps>(), {
   color: "neutral",
-  position: "top",
+  position: "auto",
   fitParent: false,
   open: "hover",
   alignment: "auto",
@@ -62,7 +62,6 @@ defineSlots<{
    */
   tooltip?(): unknown;
 }>();
-//TODO: make it work without anchor
 
 const { densityClass } = useDensity(props);
 
@@ -275,8 +274,7 @@ onMounted(() => {
 watch(isVisible, async (newVal) => {
   await nextTick();
   handleOpening(newVal);
-  updateOpenDirection();
-  updateWedgePosition();
+  updateDirections();
 });
 
 const id = useId();

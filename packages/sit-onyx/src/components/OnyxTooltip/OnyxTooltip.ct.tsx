@@ -220,3 +220,40 @@ test.describe("Alignment screenshot tests", () => {
     },
   });
 });
+
+test.describe("Positioning Screenshot tests", () => {
+  executeMatrixScreenshotTest({
+    name: "Tooltip",
+    columns: ["default"],
+    rows: [
+      "top",
+      "top right",
+      "right",
+      "bottom right",
+      "bottom",
+      "bottom left",
+      "left",
+      "top left",
+    ],
+    component: (column, row) => {
+      return (
+        <OnyxTooltip
+          text={"Test "}
+          position={row}
+          open={true}
+          alignment="center"
+          style={{ margin: "2rem 3rem" }}
+        >
+          <span
+            style={{
+              fontFamily: "var(--onyx-font-family)",
+              color: "var(--onyx-color-text-icons-neutral-intense)",
+            }}
+          >
+            Slot
+          </span>
+        </OnyxTooltip>
+      );
+    },
+  });
+});
