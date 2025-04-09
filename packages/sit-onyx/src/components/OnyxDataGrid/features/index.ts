@@ -89,6 +89,9 @@ export type InternalColumnConfig<
    * Attributes that should be set on all `th` elements
    */
   thAttributes?: ThHTMLAttributes;
+  /**
+   * After normalization the label is always defined.
+   */
   label: string;
 };
 
