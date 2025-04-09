@@ -3,7 +3,7 @@ import { ref, type ComputedRef, type ShallowRef } from "vue";
 import type { WedgePosition } from "./useWedgePosition";
 
 export const useHandleTooltipPositioningWithoutAnchorSupport = (
-  tooltipRef: Readonly<ShallowRef<HTMLDialogElement | null>>,
+  tooltipRef: Readonly<ShallowRef<HTMLElement | null>>,
   wrapperRef: Readonly<ShallowRef<HTMLElement | null>>,
   toolTipPosition: ComputedRef<TooltipPosition>,
   alignment: ComputedRef<WedgePosition>,
