@@ -7,11 +7,9 @@ import {
   ref,
   shallowRef,
   toValue,
-  unref,
   useId,
   useTemplateRef,
   watch,
-  watchEffect,
   type AriaAttributes,
   type MaybeRefOrGetter,
   type Ref,
@@ -19,6 +17,8 @@ import {
 } from "vue";
 import { useDensity } from "../../composables/density";
 import { useOpenDirection } from "../../composables/useOpenDirection";
+import { useResizeObserver } from "../../composables/useResizeObserver";
+import { useHandleTooltipPositioningWithoutAnchorSupport } from "../../composables/useTooltipPositioningWithoutAnchorSupport";
 import { useWedgePosition } from "../../composables/useWedgePosition";
 import { injectI18n } from "../../i18n";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -68,91 +68,8 @@ const { densityClass } = useDensity(props);
 const { t } = injectI18n();
 
 //TODO: can be removed after anchor is implemented in all common browers
-const supportsAnchor = ref(false);
-const handlePositioningWithoutAnchorSupport = () => {
-  const wedgeSize = 8;
-  if (!supportsAnchor.value && tooltipRef.value && tooltipWrapperRef.value) {
-    const tooltip = tooltipRef.value;
-    const wrapper = tooltipWrapperRef.value;
 
-    const wrapperRect = wrapper.getBoundingClientRect();
-    const tooltipRect = tooltip.getBoundingClientRect();
-    let top = 0;
-    let left = 0;
-    if (alignment.value !== "center" && props.alignsWithEdge) {
-      tooltipRef.value.style.transform = "none";
-    } else {
-      tooltipRef.value.style.transform = "";
-    }
-
-    const alignmentPositioning =
-      props.alignsWithEdge && alignment.value !== "center"
-        ? alignment.value === "left" || props.fitParent
-          ? wrapperRect.left
-          : wrapperRect.right - tooltipRect.width
-        : wrapperRect.left + wrapperRect.width / 2 - tooltipRect.width / 2;
-    switch (toolTipPosition.value) {
-      case "top":
-        top = wrapperRect.top - tooltipRect.height;
-        left = alignmentPositioning;
-        break;
-
-      case "top right":
-        top = wrapperRect.top - tooltipRect.height;
-        left = wrapperRect.right;
-        break;
-
-      case "top left":
-        top = wrapperRect.top - tooltipRect.height;
-        left = wrapperRect.left - tooltipRect.width;
-        break;
-
-      case "right":
-        top = wrapperRect.top + wrapperRect.height / 2 - tooltipRect.height / 2;
-        left = wrapperRect.right;
-        break;
-
-      case "bottom":
-        top = wrapperRect.bottom;
-        left = alignmentPositioning;
-        break;
-
-      case "bottom right":
-        top = wrapperRect.bottom + wedgeSize;
-        left = wrapperRect.right + wedgeSize;
-        break;
-
-      case "bottom left":
-        top = wrapperRect.bottom + wedgeSize;
-        left = wrapperRect.left - tooltipRect.width - wedgeSize;
-        break;
-
-      case "left":
-        top = wrapperRect.top + wrapperRect.height / 2 - tooltipRect.height / 2;
-        left = wrapperRect.left - tooltipRect.width;
-        break;
-    }
-
-    tooltip.style.position = "absolute"; // wichtig
-    tooltip.style.top = `${top}px`;
-    tooltip.style.left = `${left}px`;
-  }
-};
-const checkAnchorSupport = () => {
-  supportsAnchor.value = CSS.supports("anchor-name: --test");
-
-  if (!supportsAnchor.value && tooltipRef.value) {
-    handlePositioningWithoutAnchorSupport();
-  }
-};
-watch(
-  () => [props.alignment, props.alignsWithEdge, props.fitParent, props.position],
-  () => {
-    if (!supportsAnchor.value) {
-      nextTick(() => handlePositioningWithoutAnchorSupport());
-    }
-  },
-);
+const supportsAnchor = CSS.supports("anchor-name: --test");
 
 const _isVisible = ref(false);
 const isVisible = computed({
@@ -194,6 +111,7 @@ const tooltipClasses = computed(() => {
     "onyx-tooltip--hidden": !isVisible.value,
     [`onyx-tooltip--position-${toolTipPosition.value.replace(" ", "-")}`]: true,
     [`onyx-tooltip--alignment-${alignment.value}`]: true,
+    "onyx-tooltip--dont-support-anchor": !supportsAnchor,
   };
 });
 
@@ -223,11 +141,22 @@ watch(type, () => (ariaPattern.value = createPattern()));
 
 const tooltip = computed(() => ariaPattern.value?.elements.tooltip);
 const trigger = computed(() => toValue<object>(ariaPattern.value?.elements.trigger));
+const alignsWithEdge = computed(() => props.alignsWithEdge);
+const fitParent = computed(() => props.fitParent);
 
 const tooltipWrapperRef = useTemplateRef("tooltipWrapperRefEl");
 const tooltipRef = useTemplateRef("tooltipRefEl");
 const { openDirection, updateOpenDirection } = useOpenDirection(tooltipWrapperRef, "top");
 const { wedgePosition, updateWedgePosition } = useWedgePosition(tooltipWrapperRef, tooltipRef);
+const { leftPosition, topPosition, updateTooltipPositioningWithoutAnchorSupport } =
+  useHandleTooltipPositioningWithoutAnchorSupport(
+    tooltipRef,
+    tooltipWrapperRef,
+    toolTipPosition,
+    alignment,
+    alignsWithEdge,
+    fitParent,
+  );
 
 // update open direction on resize to ensure the tooltip is always visible
 const updateDirections = () => {
@@ -242,39 +171,29 @@ useGlobalEventListener({
 
 const handleOpening = (open: boolean) => {
   if (open) {
-    unref(tooltipRef)?.showPopover();
+    tooltipRef.value?.showPopover();
   } else {
-    unref(tooltipRef)?.hidePopover();
+    tooltipRef.value?.hidePopover();
   }
 };
 
-const tooltipWidth = ref("auto");
-watchEffect(() => {
-  tooltipWidth.value =
-    props.fitParent && tooltipWrapperRef.value
-      ? `${tooltipWrapperRef.value.clientWidth}px`
-      : "max-content";
-});
+const { width } = useResizeObserver(tooltipWrapperRef);
+const tooltipWidth = computed(() =>
+  props.fitParent && tooltipWrapperRef.value ? `${width.value}px` : "max-content",
+);
 
 // initial update
 onMounted(() => {
   handleOpening(isVisible.value);
-  if (tooltipWrapperRef.value) {
-    const resizeObserver = new ResizeObserver(() => {
-      if (props.fitParent && tooltipWrapperRef.value) {
-        tooltipWidth.value = `${tooltipWrapperRef.value.clientWidth}px`;
-      }
-    });
-    resizeObserver.observe(tooltipWrapperRef.value);
-  }
   updateDirections();
-  checkAnchorSupport();
+  if (!supportsAnchor) updateTooltipPositioningWithoutAnchorSupport();
 });
 // update open direction when visibility changes to ensure the tooltip is always visible
 watch(isVisible, async (newVal) => {
   await nextTick();
   handleOpening(newVal);
   updateDirections();
+  if (!supportsAnchor) updateTooltipPositioningWithoutAnchorSupport();
 });
 
 const id = useId();
@@ -291,9 +210,6 @@ const anchorName = computed(() => `--anchor-${id}`);
       ref="tooltipRefEl"
       v-bind="tooltip"
       :class="['onyx-tooltip', 'onyx-text--small', 'onyx-truncation-multiline', tooltipClasses]"
-      :style="`positionArea: ${positionAndAlignment};
-        positionAnchor: ${anchorName};
-        width: ${tooltipWidth};`"
     >
       <div class="onyx-tooltip--content">
         <OnyxIcon v-if="props.icon" :icon="props.icon" size="16px" />
@@ -319,6 +235,9 @@ $wedge-size: 0.5rem;
     height: max-content;
     overflow: hidden;
     padding: 0;
+    width: v-bind("tooltipWidth");
+    position-anchor: v-bind("anchorName");
+    position-area: v-bind("positionAndAlignment");
 
     --background-color: var(--onyx-color-base-neutral-900);
     --color: var(--onyx-color-text-icons-neutral-inverted);
@@ -331,6 +250,11 @@ $wedge-size: 0.5rem;
     &--success {
       --background-color: var(--onyx-color-base-success-200);
       --color: var(--onyx-color-text-icons-success-bold);
+    }
+
+    &--dont-support-anchor {
+      left: v-bind(leftPosition);
+      top: v-bind(topPosition);
     }
 
     &:popover-open {
@@ -436,6 +360,9 @@ $wedge-size: 0.5rem;
         transform: translateX(calc(50% - 2 * $wedge-size));
         &.onyx-tooltip--aligns-with-edge {
           transform: translateX(100%);
+          &.onyx-tooltip--dont-support-anchor {
+            transform: none;
+          }
         }
         .onyx-tooltip--content {
           &::after {
@@ -452,6 +379,9 @@ $wedge-size: 0.5rem;
 
         &.onyx-tooltip--aligns-with-edge {
           transform: translateX(-100%);
+          &.onyx-tooltip--dont-support-anchor {
+            transform: none;
+          }
         }
         .onyx-tooltip--content {
           &::after {
