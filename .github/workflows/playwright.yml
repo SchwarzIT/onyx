@@ -44,7 +44,7 @@ jobs:
       - name: Copy changed files
         if: ${{ inputs.update-snapshots == true }}
         run: |
-          mkdir ./changed-screenshots
+          mkdir ${{ github.workspace }}/changed-screenshots
           rsync -R $(git ls-files --others --modified --exclude-standard) ${{ github.workspace }}/changed-screenshots/ || echo "no changed files found"
 
       - name: Upload screenshots artifact
