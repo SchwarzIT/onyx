@@ -107,7 +107,7 @@ test.describe("Screenshot tests", () => {
           await page.keyboard.press("Space");
 
           if (row !== "focus-visible") {
-            await page.keyboard.press("Escape"); // reset focus
+            await checkbox.blur(); // reset focus
           }
 
           if (column === "indeterminate") {

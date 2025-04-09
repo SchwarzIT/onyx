@@ -76,7 +76,7 @@ test.describe("Screenshot tests", () => {
         await page.keyboard.press("Space");
 
         if (row !== "focus-visible") {
-          await page.keyboard.press("Escape"); // reset focus
+          await switchRef.blur(); // reset focus
         }
 
         if (row === "hover") {

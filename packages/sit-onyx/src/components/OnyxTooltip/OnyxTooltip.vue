@@ -206,7 +206,7 @@ const anchorName = computed(() => `--anchor-${id}`);
     :class="['onyx-component', 'onyx-tooltip-wrapper', densityClass]"
     :style="`anchor-name: ${anchorName}`"
   >
-    <dialog
+    <div
       ref="tooltipRefEl"
       v-bind="tooltip"
       :class="['onyx-tooltip', 'onyx-text--small', 'onyx-truncation-multiline', tooltipClasses]"
@@ -215,7 +215,7 @@ const anchorName = computed(() => `--anchor-${id}`);
         <OnyxIcon v-if="props.icon" :icon="props.icon" size="16px" />
         <slot name="tooltip">{{ props.text }}</slot>
       </div>
-    </dialog>
+    </div>
 
     <slot :trigger="trigger"></slot>
   </div>
