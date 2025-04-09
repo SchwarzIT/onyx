@@ -45,14 +45,14 @@ jobs:
         if: ${{ inputs.update-snapshots == true }}
         run: |
           mkdir ./changed-screenshots
-          rsync -R $(git ls-files --others --modified --exclude-standard) ./changed-screenshots/ || echo "no changed files found"
+          rsync -R $(git ls-files --others --modified --exclude-standard) ${{ github.workspace }}/changed-screenshots/ || echo "no changed files found"
 
       - name: Upload screenshots artifact
         uses: actions/upload-artifact@v4
         if: ${{ inputs.update-snapshots == true }}
         with:
           name: screenshots-${{ matrix.shard }}
-          path: changed-screenshots
+          path: ${{ github.workspace }}/changed-screenshots
           # prevent warnings if shard does not update any screenshots
           if-no-files-found: ignore
 
