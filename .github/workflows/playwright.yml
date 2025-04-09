@@ -42,6 +42,9 @@ jobs:
       - name: Debug pipeline
         run: ls -la packages/nuxt-docs/.playground/playwright/snapshots
 
+      - name: Debug pipeline
+        run: git ls-files --others --modified --exclude-standard
+
       # we only want to include actual changed screenshots in the artifact to prevent that old/unchanged screenshots
       # override changed screenshots from other shards when creating the pull request
       - name: Copy changed files
@@ -49,6 +52,12 @@ jobs:
         run: |
           mkdir ./changed-screenshots
           rsync -R $(git ls-files --others --modified --exclude-standard) ./changed-screenshots/ || echo "no changed files found"
+
+      - name: Debug pipeline
+        run: ls -la changed-screenshots
+
+      - name: Debug pipeline
+        run: ls -la ./changed-screenshots
 
       - name: Upload screenshots artifact
         uses: actions/upload-artifact@v4
