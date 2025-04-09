@@ -104,7 +104,7 @@ export const useHideColumns = createFeature(
           });
 
           return hiddenColumns.value.length > 0
-            ? [...filteredColumns, { key: HIDDEN_COLUMN, type: HIDDEN_COLUMN }]
+            ? [...filteredColumns, { key: HIDDEN_COLUMN, type: HIDDEN_COLUMN, label: "" }]
             : filteredColumns;
         },
       } satisfies ModifyColumns<TEntry>,

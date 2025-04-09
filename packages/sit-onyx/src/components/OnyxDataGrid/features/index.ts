@@ -80,7 +80,7 @@ export type InternalColumnConfig<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   TColumnGroup extends ColumnGroupConfig = any,
   TTypes extends PropertyKey = PropertyKey,
-> = {
+> = PublicNormalizedColumnConfig<TEntry, TColumnGroup, TTypes> & {
   /**
    * Attributes that should be set on all `td` elements
    */
@@ -89,7 +89,11 @@ export type InternalColumnConfig<
    * Attributes that should be set on all `th` elements
    */
   thAttributes?: ThHTMLAttributes;
-} & PublicNormalizedColumnConfig<TEntry, TColumnGroup, TTypes>;
+  /**
+   * After normalization the label is always defined.
+   */
+  label: string;
+};
 
 /**
  * Normalized column config for public/external usage.
@@ -182,7 +186,7 @@ export type DataGridFeature<
      * `iconComponent` of an action is shown after the header label.
      * The components must be ARIA-conform buttons.
      */
-    actions?: (column: PublicNormalizedColumnConfig<TEntry>) => {
+    actions?: (column: InternalColumnConfig<TEntry>) => {
       iconComponent?:
         | Component
         | {
@@ -195,7 +199,7 @@ export type DataGridFeature<
       menuItems?: Component<typeof OnyxMenuItem>[];
       showFlyoutMenu?: boolean;
     }[];
-    wrapper?: (column: PublicNormalizedColumnConfig<TEntry>) => Component;
+    wrapper?: (column: InternalColumnConfig<TEntry>) => Component;
   };
   scrollContainerAttributes?: () => HTMLAttributes;
 };
@@ -350,9 +354,11 @@ export const useDataGridFeatures = <
   { i18n, columnConfig, columnGroups }: UseDataGridFeaturesOptions<TEntry, TColumnGroup>,
 ) => {
   const columns = computed(() => {
-    const normalized = toValue(columnConfig).map<InternalColumnConfig<TEntry>>((c) =>
-      typeof c !== "object" ? { key: c } : c,
-    );
+    const normalized = toValue(columnConfig).map((c) => {
+      const obj = typeof c !== "object" ? { key: c } : c;
+      obj.label ??= String(obj.key);
+      return obj as InternalColumnConfig<TEntry>;
+    });
     return features
       .flatMap(({ modifyColumns }) => modifyColumns)
       .reduce((last, m) => (m?.func ? m.func(last) : last), normalized);
@@ -380,7 +386,6 @@ export const useDataGridFeatures = <
     return columns.value.map<DataGridRendererColumn<TEntry>>((column) => {
       const actions = headerActions.flatMap((actionFactory) => actionFactory(column));
       const header = renderer.value.getFor("header", column.type);
-      const label = column.label?.trim() ?? String(column.key);
 
       const menuItems = actions.map(({ menuItems }) => menuItems).filter((item) => !!item);
       const iconComponent = actions.map(({ iconComponent }) => iconComponent);
@@ -388,7 +393,7 @@ export const useDataGridFeatures = <
       const flyoutMenu = h(
         OnyxFlyoutMenu,
         {
-          label: i18n.t.value("navigation.moreActionsFlyout", { column: label }),
+          label: i18n.t.value("navigation.moreActionsFlyout", { column: column.label }),
           trigger: "click",
         },
         {
@@ -445,7 +450,7 @@ export const useDataGridFeatures = <
         (acc, component) => {
           return h(component(column), acc);
         },
-        (props) => h(header.component, { label, ...props }, actionsSlot),
+        (props) => h(header.component, { label: column.label, ...props }, actionsSlot),
       );
       return {
         thAttributes: mergeVueProps(header.thAttributes, column.thAttributes),

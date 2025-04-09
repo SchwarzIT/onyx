@@ -102,12 +102,12 @@ export const useSorting = createFeature(
         func: sortData,
       },
       header: {
-        actions: ({ key: column }) => {
+        actions: ({ key: column, label }) => {
           if (!isEnabled.value(column)) return [];
           return [
             {
               iconComponent: h(SortAction, {
-                columnLabel: String(column),
+                columnLabel: label,
                 sortDirection:
                   sortState.value.column === column ? sortState.value.direction : undefined,
                 onClick: () => handleClick(column),
@@ -124,7 +124,7 @@ export const useSorting = createFeature(
               ? {
                   iconComponent: {
                     iconComponent: h(SortAction, {
-                      columnLabel: String(column),
+                      columnLabel: label,
                       sortDirection:
                         sortState.value.column === column ? sortState.value.direction : undefined,
                       onClick: () => handleClick(column, true),
