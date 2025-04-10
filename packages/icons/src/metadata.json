@@ -971,6 +971,10 @@
     "category": "Action & Interface",
     "aliases": ["view", "look", "Auge", "Anblick"]
   },
+  "eye-closed": {
+    "category": "Action & Interface",
+    "aliases": []
+  },
   "eye-disabled": {
     "category": "Action & Interface",
     "aliases": ["view-off", "hidden-view", "Auge deaktiviert", "Verborgene-Ansicht"]
