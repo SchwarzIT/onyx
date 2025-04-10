@@ -57,7 +57,8 @@ test.describe("screenshot tests (buttons)", () => {
 
         if (row === "hover") await button.hover();
         if (row === "focus-visible") {
-          await page.keyboard.press("Tab");
+          // await page.keyboard.press("Tab");
+          await component.getByLabel("Page selection").focus();
           if (column !== "select") await page.keyboard.press("Tab");
           if (column === "next") await page.keyboard.press("Tab");
         }
