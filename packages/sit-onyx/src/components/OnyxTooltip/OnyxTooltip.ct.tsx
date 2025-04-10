@@ -223,7 +223,7 @@ test.describe("Alignment screenshot tests", () => {
 
 test.describe("Positioning Screenshot tests", () => {
   executeMatrixScreenshotTest({
-    name: "Tooltip",
+    name: "Positioned Tooltip",
     columns: ["default"],
     rows: [
       "top",

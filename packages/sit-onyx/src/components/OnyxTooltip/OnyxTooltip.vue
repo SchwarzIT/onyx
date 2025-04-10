@@ -264,7 +264,6 @@ $wedge-size: 0.5rem;
     }
     &--content {
       position: relative;
-      height: 100%;
 
       border-radius: var(--onyx-radius-sm);
       padding: var(--onyx-density-2xs) var(--onyx-density-sm);
@@ -299,8 +298,6 @@ $wedge-size: 0.5rem;
     &--position-bottom {
       .onyx-tooltip--content {
         margin: $wedge-size 0 0 0;
-        bottom: 0;
-        top: 100%;
 
         &::after {
           top: -2 * $wedge-size;
@@ -327,8 +324,6 @@ $wedge-size: 0.5rem;
     &--position-right {
       .onyx-tooltip--content {
         margin: 0 0 0 $wedge-size;
-        left: 0;
-        right: 100%;
 
         &::after {
           left: 0;
