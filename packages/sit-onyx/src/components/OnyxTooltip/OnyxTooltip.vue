@@ -16,9 +16,9 @@ import {
   type VNode,
 } from "vue";
 import { useDensity } from "../../composables/density";
+import { useAnchorPositionPolyfill } from "../../composables/useAnchorPositionPolyfill";
 import { useOpenDirection } from "../../composables/useOpenDirection";
 import { useResizeObserver } from "../../composables/useResizeObserver";
-import { useHandleTooltipPositioningWithoutAnchorSupport } from "../../composables/useTooltipPositioningWithoutAnchorSupport";
 import { useWedgePosition } from "../../composables/useWedgePosition";
 import { injectI18n } from "../../i18n";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -148,15 +148,15 @@ const tooltipWrapperRef = useTemplateRef("tooltipWrapperRefEl");
 const tooltipRef = useTemplateRef("tooltipRefEl");
 const { openDirection, updateOpenDirection } = useOpenDirection(tooltipWrapperRef, "top");
 const { wedgePosition, updateWedgePosition } = useWedgePosition(tooltipWrapperRef, tooltipRef);
-const { leftPosition, topPosition, updateTooltipPositioningWithoutAnchorSupport } =
-  useHandleTooltipPositioningWithoutAnchorSupport(
-    tooltipRef,
-    tooltipWrapperRef,
-    toolTipPosition,
-    alignment,
-    alignsWithEdge,
-    fitParent,
-  );
+const { leftPosition, topPosition, updateAnchorPositionPolyfill } = useAnchorPositionPolyfill(
+  tooltipRef,
+  tooltipWrapperRef,
+  toolTipPosition,
+  alignment,
+  alignsWithEdge,
+  fitParent,
+  8,
+);
 
 // update open direction on resize to ensure the tooltip is always visible
 const updateDirections = () => {
@@ -186,14 +186,14 @@ const tooltipWidth = computed(() =>
 onMounted(() => {
   handleOpening(isVisible.value);
   updateDirections();
-  if (!supportsAnchor) updateTooltipPositioningWithoutAnchorSupport();
+  if (!supportsAnchor) updateAnchorPositionPolyfill();
 });
 // update open direction when visibility changes to ensure the tooltip is always visible
 watch(isVisible, async (newVal) => {
   await nextTick();
   handleOpening(newVal);
   updateDirections();
-  if (!supportsAnchor) updateTooltipPositioningWithoutAnchorSupport();
+  if (!supportsAnchor) updateAnchorPositionPolyfill();
 });
 
 const id = useId();
