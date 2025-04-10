@@ -58,8 +58,12 @@ test.describe("screenshot tests (buttons)", () => {
         if (row === "hover") await button.hover();
         if (row === "focus-visible") {
           await page.keyboard.press("Tab");
-          if (column !== "select") await page.keyboard.press("Tab");
-          if (column === "next") await page.keyboard.press("Tab");
+          if (column !== "select") {
+            await page.getByRole("button", { name: "previous page" }).focus();
+          }
+          if (column === "next") {
+            await page.getByRole("button", { name: "next page" }).focus();
+          }
         }
         if (row === "active") {
           const box = (await button.boundingBox())!;
