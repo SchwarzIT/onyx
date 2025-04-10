@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.191
+
+### Minor Changes
+
+- d556f85: feat: Export `OnyxFormElement` and `OnyxNavItemFacade` components
+
 ## 1.0.0-beta.190
 
 ### Major Changes
