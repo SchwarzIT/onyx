@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.192
+
+### Minor Changes
+
+- e587be7: feat(OnyxTooltip): added popover-API
+
 ## 1.0.0-beta.191
 
 ### Minor Changes
