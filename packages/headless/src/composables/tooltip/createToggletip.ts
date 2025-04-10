@@ -1,7 +1,6 @@
-import { computed, toRef, toValue, type MaybeRefOrGetter, type Ref } from "vue";
-import { createBuilder, createElRef } from "../../utils/builder";
+import { computed, toRef, toValue, useId, type MaybeRefOrGetter, type Ref } from "vue";
+import { createBuilder } from "../../utils/builder";
 import { useDismissible } from "../helpers/useDismissible";
-import { useOutsideClick } from "../helpers/useOutsideClick";
 
 export type CreateToggletipOptions = {
   toggleLabel: MaybeRefOrGetter<string>;
@@ -17,16 +16,9 @@ export type CreateToggletipOptions = {
  */
 export const createToggletip = createBuilder(
   ({ toggleLabel, isVisible }: CreateToggletipOptions) => {
-    const triggerRef = createElRef<HTMLButtonElement>();
-    const tooltipRef = createElRef<HTMLElement>();
-    const _isVisible = toRef(isVisible ?? false);
+    const triggerId = useId();
 
-    // close tooltip on outside click
-    useOutsideClick({
-      inside: computed(() => [triggerRef.value, tooltipRef.value]),
-      onOutsideClick: () => (_isVisible.value = false),
-      disabled: computed(() => !_isVisible.value),
-    });
+    const _isVisible = toRef(isVisible ?? false);
 
     useDismissible({ isExpanded: _isVisible });
 
@@ -39,7 +31,7 @@ export const createToggletip = createBuilder(
          * Preferably a `button` element.
          */
         trigger: computed(() => ({
-          ref: triggerRef,
+          id: triggerId,
           onClick: toggle,
           "aria-label": toValue(toggleLabel),
         })),
@@ -48,7 +40,12 @@ export const createToggletip = createBuilder(
          * Only simple, textual content is allowed.
          */
         tooltip: {
-          ref: tooltipRef,
+          onToggle: (e: Event) => {
+            const tooltip = e.target as HTMLDialogElement;
+            _isVisible.value = tooltip.matches(":popover-open");
+          },
+          anchor: triggerId,
+          popover: "auto",
           role: "status",
           tabindex: "-1",
         },

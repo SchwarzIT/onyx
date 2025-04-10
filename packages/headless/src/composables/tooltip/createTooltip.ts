@@ -57,6 +57,7 @@ export const createTooltip = createBuilder(({ debounce, isVisible }: CreateToolt
        * Only simple, textual and non-focusable content is allowed.
        */
       tooltip: {
+        popover: "manual",
         role: "tooltip",
         id: tooltipId,
         tabindex: "-1",
