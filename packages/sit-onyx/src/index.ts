@@ -65,6 +65,12 @@ export { default as OnyxEmpty } from "./components/OnyxEmpty/OnyxEmpty.vue";
 export { default as OnyxExternalLinkIcon } from "./components/OnyxExternalLinkIcon/OnyxExternalLinkIcon.vue";
 export * from "./components/OnyxExternalLinkIcon/types";
 
+export { default as OnyxForm } from "./components/OnyxForm/OnyxForm.vue";
+export * from "./components/OnyxForm/types";
+
+export { default as OnyxFormElement } from "./components/OnyxFormElement/OnyxFormElement.vue";
+export * from "./components/OnyxFormElement/types";
+
 export { default as OnyxHeadline } from "./components/OnyxHeadline/OnyxHeadline.vue";
 export * from "./components/OnyxHeadline/types";
 
@@ -188,9 +194,6 @@ export * from "./components/OnyxTooltip/types";
 
 export { default as OnyxVisuallyHidden } from "./components/OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 export * from "./components/OnyxVisuallyHidden/types";
-
-export { default as OnyxForm } from "./components/OnyxForm/OnyxForm.vue";
-export * from "./components/OnyxForm/types";
 
 export * from "./composables/density";
 export * from "./composables/scrollEnd";
