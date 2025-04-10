@@ -12,6 +12,9 @@ export * from "./OnyxMenuItem/types";
 export { default as OnyxNavItem } from "./OnyxNavItem/OnyxNavItem.vue";
 export * from "./OnyxNavItem/types";
 
+export * from "./OnyxNavItem/types";
+export { default as OnyxNavItemFacade } from "./OnyxNavItemFacade/OnyxNavItemFacade.vue";
+
 export { default as OnyxNavSeparator } from "./OnyxNavSeparator/OnyxNavSeparator.vue";
 export * from "./OnyxNavSeparator/types";
 
