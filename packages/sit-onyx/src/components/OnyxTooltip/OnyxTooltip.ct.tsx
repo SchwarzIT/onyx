@@ -122,51 +122,35 @@ test.describe("Screenshot tests", () => {
     rows: ["default", "bottom", "icon", "danger"],
     component: (column, row) => {
       return (
-        <OnyxTooltip
-          text={column === "long-text" ? "Lorem ipsum dolor sit amet ".repeat(3) : "Test tooltip"}
-          color={row === "danger" ? "danger" : undefined}
-          position={row === "bottom" ? "bottom" : "top"}
-          icon={row === "icon" ? mockPlaywrightIcon : undefined}
-          fitParent={column === "fit-parent"}
-          open={true}
-          alignment="center"
+        <div
+          class="container"
+          style={{
+            marginTop: row !== "bottom" ? "5rem" : undefined,
+            marginBottom: row === "bottom" ? "5rem" : undefined,
+            marginLeft: column === "long-text" ? "5rem" : undefined,
+            marginRight: column === "long-text" ? "5rem" : undefined,
+          }}
         >
-          <span
-            style={{
-              fontFamily: "var(--onyx-font-family)",
-              color: "var(--onyx-color-text-icons-neutral-intense)",
-            }}
+          <OnyxTooltip
+            text={column === "long-text" ? "Lorem ipsum dolor sit amet ".repeat(3) : "Test tooltip"}
+            color={row === "danger" ? "danger" : undefined}
+            position={row === "bottom" ? "bottom" : "top"}
+            icon={row === "icon" ? mockPlaywrightIcon : undefined}
+            fitParent={column === "fit-parent"}
+            open={true}
+            alignment="center"
           >
-            Here goes the slot content
-          </span>
-        </OnyxTooltip>
+            <span
+              style={{
+                fontFamily: "var(--onyx-font-family)",
+                color: "var(--onyx-color-text-icons-neutral-intense)",
+              }}
+            >
+              Here goes the slot content
+            </span>
+          </OnyxTooltip>
+        </div>
       );
-    },
-    hooks: {
-      // set component size to fully include the tooltip
-      beforeEach: async (component, page, column, row) => {
-        const tooltipSize = await component
-          .getByRole("tooltip")
-          .evaluate((element) => [element.clientHeight, element.clientWidth]);
-
-        // set paddings to fit the full tooltip in the screenshot
-        await component.evaluate(
-          (element, { tooltipSize: [height, width], row }) => {
-            const verticalPadding = `${height + 12}px`;
-
-            if (row === "bottom") element.style.paddingBottom = verticalPadding;
-            else element.style.paddingTop = verticalPadding;
-
-            const widthDiff = width - element.clientWidth;
-            if (widthDiff > 0) {
-              const padding = `${widthDiff / 2 + 20}px`;
-              element.style.paddingLeft = padding;
-              element.style.paddingRight = padding;
-            }
-          },
-          { tooltipSize, row },
-        );
-      },
     },
   });
 });
@@ -178,45 +162,31 @@ test.describe("Alignment screenshot tests", () => {
     rows: ["top", "bottom"],
     component: (column, row) => {
       return (
-        <OnyxTooltip text="Test tooltip" position={row} open={true} alignment={column}>
-          <span
-            style={{
-              fontFamily: "var(--onyx-font-family)",
-              color: "var(--onyx-color-text-icons-neutral-intense)",
-            }}
+        <div
+          class="container"
+          style={{
+            marginTop: row === "top" ? "2rem" : undefined,
+            marginBottom: row === "bottom" ? "2rem" : undefined,
+          }}
+        >
+          <OnyxTooltip
+            text="Test tooltip"
+            position={row}
+            open={true}
+            alignment={column}
+            style={{ marginTop: "1rem" }}
           >
-            Here goes the slot content
-          </span>
-        </OnyxTooltip>
+            <span
+              style={{
+                fontFamily: "var(--onyx-font-family)",
+                color: "var(--onyx-color-text-icons-neutral-intense)",
+              }}
+            >
+              Here goes the slot content
+            </span>
+          </OnyxTooltip>
+        </div>
       );
-    },
-    hooks: {
-      // set component size to fully include the tooltip
-      beforeEach: async (component, page, column, row) => {
-        const tooltipSize = await component
-          .getByRole("tooltip")
-          .evaluate((element) => [element.clientHeight, element.clientWidth]);
-
-        // set paddings to fit the full tooltip in the screenshot
-        await component.evaluate(
-          (element, { tooltipSize: [height, width], row }) => {
-            const verticalPadding = `${height + 12}px`;
-
-            if (row === "bottom") {
-              element.style.paddingBottom = verticalPadding;
-              element.style.marginTop = "0px";
-            } else element.style.paddingTop = verticalPadding;
-
-            const widthDiff = width - element.clientWidth;
-            if (widthDiff > 0) {
-              const padding = `${widthDiff / 2 + 20}px`;
-              element.style.paddingLeft = padding;
-              element.style.paddingRight = padding;
-            }
-          },
-          { tooltipSize, row },
-        );
-      },
     },
   });
 });

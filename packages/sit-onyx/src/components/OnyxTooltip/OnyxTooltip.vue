@@ -107,7 +107,7 @@ const tooltipClasses = computed(() => {
     "onyx-tooltip--danger": props.color === "danger",
     "onyx-tooltip--success": props.color === "success",
     "onyx-tooltip--fit-parent": props.fitParent,
-    "onyx-tooltip--aligns-with-edge": props.alignsWithEdge,
+    "onyx-tooltip--aligns-with-edge": alignsWithEdge.value,
     "onyx-tooltip--hidden": !isVisible.value,
     [`onyx-tooltip--position-${toolTipPosition.value.replace(" ", "-")}`]: true,
     [`onyx-tooltip--alignment-${alignment.value}`]: true,
@@ -119,12 +119,12 @@ const positionAndAlignment = computed(() => {
   let returnPosition = toolTipPosition.value;
   if (
     (toolTipPosition.value === "top" || toolTipPosition.value === "bottom") &&
-    props.alignsWithEdge
+    alignsWithEdge.value
   ) {
-    if (props.alignment === "left") {
+    if (alignment.value === "left") {
       returnPosition = toolTipPosition.value + " " + "x-start";
     }
-    if (props.alignment === "right") {
+    if (alignment.value === "right") {
       returnPosition = toolTipPosition.value + " " + "x-end";
     }
   }
@@ -194,6 +194,12 @@ watch(isVisible, async (newVal) => {
   handleOpening(newVal);
   updateDirections();
   if (!supportsAnchor) updateAnchorPositionPolyfill();
+});
+watch([tooltipWidth, toolTipPosition, alignment, alignsWithEdge], async () => {
+  if (!supportsAnchor) {
+    await nextTick();
+    updateAnchorPositionPolyfill();
+  }
 });
 
 const id = useId();
