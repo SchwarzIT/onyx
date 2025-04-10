@@ -63,7 +63,7 @@ export const textColorDecorator: Decorator = (story) => ({
  * Make sure to import all onyx components, types etc. from the index file "../../../" so its replaced correctly in the code snippet.
  * Will also make the OnyxToast available to be used inside the example.
  *
- * **Note** The "Controls" and "Actions" panel/tab will be disable for this story since they will probably be mostly unusable due to the custom example.
+ * **Note** The "Controls" and "Actions" panel/tab will be disabled for this story since they will probably be mostly unusable due to the custom example.
  */
 export function createAdvancedStoryExample(componentName: string, exampleName: string) {
   const allExamples: Record<string, DefineComponent> = import.meta.glob(
