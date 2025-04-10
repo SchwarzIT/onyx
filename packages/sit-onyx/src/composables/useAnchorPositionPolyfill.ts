@@ -1,22 +1,46 @@
 import type { TooltipPosition } from "src/components/OnyxTooltip/types";
-import { ref, type ComputedRef, type ShallowRef } from "vue";
+import { ref, unref, type MaybeRefOrGetter } from "vue";
 import type { WedgePosition } from "./useWedgePosition";
 
-export const useAnchorPositionPolyfill = (
-  positionedRef: Readonly<ShallowRef<HTMLElement | null>>,
-  targetRef: Readonly<ShallowRef<HTMLElement | null>>,
-  positionArea: ComputedRef<TooltipPosition>,
-  alignment: ComputedRef<WedgePosition>,
-  alignsWithEdge: ComputedRef<boolean>,
-  fitParent: ComputedRef<boolean>,
-  offset: number,
-) => {
+//TODO: can be removed after anchor is implemented in all common browers
+
+export const USERAGENT_SUPPORTS_ANCHOR_API = CSS.supports("anchor-name: --test");
+
+type UseAnchorPositionPolyfillOptions = {
+  positionedRef: MaybeRefOrGetter<HTMLElement | null>;
+  targetRef: MaybeRefOrGetter<HTMLElement | null>;
+  positionArea: MaybeRefOrGetter<TooltipPosition>;
+  alignment: MaybeRefOrGetter<WedgePosition>;
+  alignsWithEdge: MaybeRefOrGetter<boolean>;
+  fitParent: MaybeRefOrGetter<boolean>;
+  offset: MaybeRefOrGetter<number>;
+};
+
+export const useAnchorPositionPolyfill = ({
+  positionedRef,
+  targetRef,
+  positionArea,
+  alignment,
+  alignsWithEdge,
+  fitParent,
+  offset,
+}: UseAnchorPositionPolyfillOptions) => {
   const leftPosition = ref("-1000px");
   const topPosition = ref("-1000px");
 
+  const getElement = (refOrGetter: MaybeRefOrGetter<HTMLElement | null>): HTMLElement | null => {
+    const element = unref(refOrGetter);
+    return typeof element === "function" ? element() : element;
+  };
+
+  const getNumber = (refOrGetter: MaybeRefOrGetter<number>): number => {
+    const value = unref(refOrGetter);
+    return typeof value === "function" ? value() : value;
+  };
+
   const updateAnchorPositionPolyfill = () => {
-    const positionedEl = positionedRef.value;
-    const target = targetRef.value;
+    const positionedEl = getElement(positionedRef);
+    const target = getElement(targetRef);
     if (!positionedEl || !target) {
       return;
     }
@@ -26,13 +50,15 @@ export const useAnchorPositionPolyfill = (
     let left = 0;
 
     const alignmentPositioning =
-      alignsWithEdge.value && alignment.value !== "center"
-        ? alignment.value === "left" || fitParent.value
+      unref(alignsWithEdge) && unref(alignment) !== "center"
+        ? unref(alignment) === "left" || unref(fitParent)
           ? targetRect.left
           : targetRect.right - positionedElRect.width
         : targetRect.left + targetRect.width / 2 - positionedElRect.width / 2;
 
-    switch (positionArea.value) {
+    const offsetValue = getNumber(offset);
+
+    switch (unref(positionArea)) {
       case "top":
         top = targetRect.top - positionedElRect.height;
         left = alignmentPositioning;
@@ -59,13 +85,13 @@ export const useAnchorPositionPolyfill = (
         break;
 
       case "bottom right":
-        top = targetRect.bottom + offset;
-        left = targetRect.right + offset;
+        top = targetRect.bottom + offsetValue;
+        left = targetRect.right + offsetValue;
         break;
 
       case "bottom left":
-        top = targetRect.bottom + offset;
-        left = targetRect.left - positionedElRect.width - offset;
+        top = targetRect.bottom + offsetValue;
+        left = targetRect.left - positionedElRect.width - offsetValue;
         break;
 
       case "left":
@@ -77,6 +103,7 @@ export const useAnchorPositionPolyfill = (
     leftPosition.value = `${left}px`;
     topPosition.value = `${top}px`;
   };
+
   return {
     leftPosition,
     topPosition,

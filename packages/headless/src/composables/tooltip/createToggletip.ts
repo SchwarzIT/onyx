@@ -33,7 +33,6 @@ export const createToggletip = createBuilder(
         trigger: computed(() => ({
           id: triggerId,
           onClick: toggle,
-          style: `--anchor-${triggerId}`,
           "aria-label": toValue(toggleLabel),
         })),
         /**

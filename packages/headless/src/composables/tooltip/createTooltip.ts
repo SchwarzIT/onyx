@@ -18,7 +18,6 @@ export type CreateTooltipOptions = {
  */
 export const createTooltip = createBuilder(({ debounce, isVisible }: CreateTooltipOptions) => {
   const tooltipId = useId();
-  const triggerId = useId();
   const _isVisible = toRef(isVisible ?? false);
   let timeout: ReturnType<typeof setTimeout> | undefined;
 
@@ -52,7 +51,6 @@ export const createTooltip = createBuilder(({ debounce, isVisible }: CreateToolt
       trigger: {
         "aria-describedby": tooltipId,
         ...hoverEvents,
-        style: `--anchor-${triggerId}`,
       },
       /**
        * The element describing the tooltip.

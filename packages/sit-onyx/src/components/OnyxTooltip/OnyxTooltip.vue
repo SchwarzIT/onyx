@@ -16,7 +16,10 @@ import {
   type VNode,
 } from "vue";
 import { useDensity } from "../../composables/density";
-import { useAnchorPositionPolyfill } from "../../composables/useAnchorPositionPolyfill";
+import {
+  useAnchorPositionPolyfill,
+  USERAGENT_SUPPORTS_ANCHOR_API,
+} from "../../composables/useAnchorPositionPolyfill";
 import { useOpenDirection } from "../../composables/useOpenDirection";
 import { useResizeObserver } from "../../composables/useResizeObserver";
 import { useWedgePosition } from "../../composables/useWedgePosition";
@@ -67,10 +70,6 @@ const { densityClass } = useDensity(props);
 
 const { t } = injectI18n();
 
-//TODO: can be removed after anchor is implemented in all common browers
-
-const supportsAnchor = CSS.supports("anchor-name: --test");
-
 const _isVisible = ref(false);
 const isVisible = computed({
   set: (newVal) => (_isVisible.value = newVal),
@@ -111,7 +110,7 @@ const tooltipClasses = computed(() => {
     "onyx-tooltip--hidden": !isVisible.value,
     [`onyx-tooltip--position-${toolTipPosition.value.replace(" ", "-")}`]: true,
     [`onyx-tooltip--alignment-${alignment.value}`]: true,
-    "onyx-tooltip--dont-support-anchor": !supportsAnchor,
+    "onyx-tooltip--dont-support-anchor": !USERAGENT_SUPPORTS_ANCHOR_API,
   };
 });
 
@@ -148,15 +147,15 @@ const tooltipWrapperRef = useTemplateRef("tooltipWrapperRefEl");
 const tooltipRef = useTemplateRef("tooltipRefEl");
 const { openDirection, updateOpenDirection } = useOpenDirection(tooltipWrapperRef, "top");
 const { wedgePosition, updateWedgePosition } = useWedgePosition(tooltipWrapperRef, tooltipRef);
-const { leftPosition, topPosition, updateAnchorPositionPolyfill } = useAnchorPositionPolyfill(
-  tooltipRef,
-  tooltipWrapperRef,
-  toolTipPosition,
-  alignment,
-  alignsWithEdge,
-  fitParent,
-  8,
-);
+const { leftPosition, topPosition, updateAnchorPositionPolyfill } = useAnchorPositionPolyfill({
+  positionedRef: tooltipRef,
+  targetRef: tooltipWrapperRef,
+  positionArea: toolTipPosition,
+  alignment: alignment,
+  alignsWithEdge: alignsWithEdge,
+  fitParent: fitParent,
+  offset: 8,
+});
 
 // update open direction on resize to ensure the tooltip is always visible
 const updateDirections = () => {
@@ -186,17 +185,17 @@ const tooltipWidth = computed(() =>
 onMounted(() => {
   handleOpening(isVisible.value);
   updateDirections();
-  if (!supportsAnchor) updateAnchorPositionPolyfill();
+  if (!USERAGENT_SUPPORTS_ANCHOR_API) updateAnchorPositionPolyfill();
 });
 // update open direction when visibility changes to ensure the tooltip is always visible
 watch(isVisible, async (newVal) => {
   await nextTick();
   handleOpening(newVal);
   updateDirections();
-  if (!supportsAnchor) updateAnchorPositionPolyfill();
+  if (!USERAGENT_SUPPORTS_ANCHOR_API) updateAnchorPositionPolyfill();
 });
 watch([tooltipWidth, toolTipPosition, alignment, alignsWithEdge], async () => {
-  if (!supportsAnchor) {
+  if (!USERAGENT_SUPPORTS_ANCHOR_API) {
     await nextTick();
     updateAnchorPositionPolyfill();
   }
