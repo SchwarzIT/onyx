@@ -1,11 +1,10 @@
-import { defineConfig, devices } from "@playwright/experimental-ct-vue";
-import { PLAYWRIGHT_BASE_CONFIG } from "@sit-onyx/shared/playwright.config.base";
+import { devices } from "@playwright/experimental-ct-vue";
+import { defineOnyxPlaywrightConfig } from "@sit-onyx/shared/playwright.config.base";
 
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
-export default defineConfig({
-  ...PLAYWRIGHT_BASE_CONFIG,
+export default defineOnyxPlaywrightConfig({
   testDir: "./src",
   testMatch: `**/*.ct.tsx`,
   expect: { toHaveScreenshot: { maxDiffPixelRatio: 0.01 } },

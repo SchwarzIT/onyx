@@ -1,10 +1,10 @@
 /// <reference types="vitest" />
+import { vuePluginOptions } from "@sit-onyx/shared/playwright.config.base";
 import { VITE_BASE_CONFIG } from "@sit-onyx/shared/vite.config.base";
 import vue from "@vitejs/plugin-vue";
 import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vite";
 import packageJson from "./package.json";
-import { vuePluginOptions } from "./playwright.config";
 
 // https://vitejs.dev/config
 export default defineConfig({

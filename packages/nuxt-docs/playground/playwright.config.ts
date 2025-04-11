@@ -1,6 +1,6 @@
 import type { ConfigOptions } from "@nuxt/test-utils/playwright";
-import { defineConfig, devices } from "@playwright/test";
-import { PLAYWRIGHT_BASE_CONFIG } from "@sit-onyx/shared/playwright.config.base";
+import { devices } from "@playwright/test";
+import { defineOnyxPlaywrightConfig } from "@sit-onyx/shared/playwright.config.base";
 import { fileURLToPath } from "node:url";
 
 /**
@@ -8,12 +8,10 @@ import { fileURLToPath } from "node:url";
  *
  * @see https://playwright.dev/docs/test-configuration.
  */
-export default defineConfig<ConfigOptions>({
-  ...PLAYWRIGHT_BASE_CONFIG,
+export default defineOnyxPlaywrightConfig<ConfigOptions>({
   testDir: "./tests/playwright",
   timeout: 30 * 1000,
   use: {
-    ...PLAYWRIGHT_BASE_CONFIG.use,
     nuxt: {
       rootDir: fileURLToPath(new URL(".", import.meta.url)),
     },

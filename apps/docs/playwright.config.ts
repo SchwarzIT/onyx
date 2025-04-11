@@ -1,13 +1,11 @@
-import { defineConfig } from "@playwright/test";
-import { PLAYWRIGHT_BASE_CONFIG } from "@sit-onyx/shared/playwright.config.base";
+import { defineOnyxPlaywrightConfig } from "@sit-onyx/shared/playwright.config.base";
 
 // NOTE: You need to run "pnpm build" before running the tests
 
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
-export default defineConfig({
-  ...PLAYWRIGHT_BASE_CONFIG,
+export default defineOnyxPlaywrightConfig({
   testDir: "./tests",
   testMatch: `**/*.ct.{ts,tsx}`,
   expect: { toHaveScreenshot: { maxDiffPixelRatio: 0.01 } },
