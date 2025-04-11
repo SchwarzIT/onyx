@@ -154,7 +154,6 @@ const { leftPosition, topPosition, updateAnchorPositionPolyfill } = useAnchorPos
   alignment: alignment,
   alignsWithEdge: alignsWithEdge,
   fitParent: fitParent,
-  offset: 8,
 });
 
 // update open direction on resize to ensure the tooltip is always visible
@@ -347,7 +346,6 @@ $wedge-size: 0.5rem;
     &--position-bottom-right {
       .onyx-tooltip--content {
         &::after {
-          // TODO: add wedge
           display: none;
         }
       }
