@@ -352,6 +352,18 @@ $wedge-size: 0.5rem;
         }
       }
     }
+    &--position-top-left .onyx-tooltip--content {
+      margin: 0 $wedge-size $wedge-size 0;
+    }
+    &--position-top-right .onyx-tooltip--content {
+      margin: 0 0 $wedge-size $wedge-size;
+    }
+    &--position-bottom-left .onyx-tooltip--content {
+      margin: $wedge-size $wedge-size 0 0;
+    }
+    &--position-bottom-right .onyx-tooltip--content {
+      margin: $wedge-size 0 0 $wedge-size;
+    }
     &--alignment-left {
       // only apply for top and bottom positions
       &.onyx-tooltip--position-top,
