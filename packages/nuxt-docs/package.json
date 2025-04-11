@@ -23,12 +23,12 @@
     "*.json"
   ],
   "scripts": {
-    "dev": "nuxi dev .playground",
-    "dev:prepare": "nuxt prepare .playground",
-    "build": "nuxt build .playground",
-    "generate": "nuxt generate .playground",
-    "preview": "nuxt preview .playground",
-    "test:playwright": "pnpm dev:prepare && cd .playground && pnpm test:playwright"
+    "dev": "nuxi dev playground",
+    "dev:prepare": "nuxt prepare playground",
+    "build": "nuxt build playground",
+    "generate": "nuxt generate playground",
+    "preview": "nuxt preview playground",
+    "test:playwright": "pnpm dev:prepare && (cd playground && pnpm test:playwright)"
   },
   "peerDependencies": {
     "@fontsource-variable/source-code-pro": ">= 5",
