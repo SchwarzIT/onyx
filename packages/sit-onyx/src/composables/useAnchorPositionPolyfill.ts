@@ -67,12 +67,12 @@ export const useAnchorPositionPolyfill = ({
 
       case "top right":
         top = targetRect.top - positionedElRect.height;
-        left = targetRect.right;
+        left = targetRect.right + offsetValue;
         break;
 
       case "top left":
         top = targetRect.top - positionedElRect.height;
-        left = targetRect.left - positionedElRect.width;
+        left = targetRect.left - positionedElRect.width - offsetValue;
         break;
 
       case "right":
