@@ -102,14 +102,14 @@ const handleApply = () => {
 .onyx-select-dialog {
   @include layers.component() {
     --onyx-select-dialog-icon-size: 1.5rem;
-    --onyx-select-dialog-gap: var(--onyx-density-xs);
+    --onyx-select-dialog-gap: var(--onyx-density-md);
     width: 32rem;
     background-color: var(--onyx-color-base-background-tinted);
 
     &__form {
       display: flex;
       flex-direction: column;
-      gap: var(--onyx-select-dialog-gap);
+      gap: var(--onyx-density-xs);
       padding: var(--onyx-select-dialog-gap) var(--onyx-modal-dialog-padding-inline);
     }
 
