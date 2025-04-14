@@ -75,6 +75,8 @@ const options = computed<SelectDialogOption<ColorSchemeValue>[]>(() => {
       }
 
       &__option {
+        align-items: flex-start;
+
         @container (max-width: 24rem) {
           --onyx-select-dialog-icon-size: 6rem;
           flex-direction: column;
