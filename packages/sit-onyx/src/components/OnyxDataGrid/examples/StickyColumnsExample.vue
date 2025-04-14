@@ -33,6 +33,7 @@ const columns: ColumnConfig<TEntry, ColumnGroupConfig, never>[] = Array.from(
     return {
       key: `column-${id}`,
       label: `Column ${id}`,
+      width: "8rem",
     };
   },
 );
@@ -45,14 +46,5 @@ const features = [withStickyColumns];
 </script>
 
 <template>
-  <OnyxDataGrid class="data-grid" :columns :data :features />
+  <OnyxDataGrid :columns :data :features />
 </template>
-
-<style lang="scss" scoped>
-.data-grid {
-  :deep(td),
-  :deep(th) {
-    min-width: 8rem;
-  }
-}
-</style>
