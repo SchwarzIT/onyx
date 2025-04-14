@@ -1,5 +1,18 @@
 # @sit-onyx/nuxt-docs
 
+## 1.0.0-beta.6
+
+### Minor Changes
+
+- 2440ab5: feat: use OnyxTable for rendering markdown tables
+
+### Patch Changes
+
+- Updated dependencies [e9ef809]
+  - @sit-onyx/icons@1.0.0-beta.15
+  - sit-onyx@1.0.0-beta.193
+  - @sit-onyx/nuxt@1.0.0-beta.195
+
 ## 1.0.0-beta.5
 
 ### Patch Changes
