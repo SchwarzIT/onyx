@@ -125,8 +125,8 @@ type VProps = Data<any> & VNodeProps;
  */
 export const mergeVueProps = <T extends VProps | null | undefined>(...args: T[] | []) =>
   args.reduce((prev, curr) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions -- Make sure to trigger a read access in case we need to access it using `toRaw`
-    curr?.ref;
+    // Make sure to always trigger a read access in case we need to access it using `toRaw`
+    const _ = curr?.ref;
     const currRef = curr && isProxy(curr) && "ref" in curr ? toRaw(curr).ref : curr?.ref;
     const prevRef = prev?.ref;
     const merged = mergeProps(prev, (curr ?? {}) as VProps);
