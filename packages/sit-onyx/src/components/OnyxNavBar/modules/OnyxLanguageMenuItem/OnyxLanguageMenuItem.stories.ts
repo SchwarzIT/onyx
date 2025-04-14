@@ -6,6 +6,12 @@ import enFlag from "./en-US.svg?raw";
 /**
  * Pre-built menu item for the `OnyxUserMenu` that can be used inside the nav bar to
  * display the current application language to the user and allow changing it by displaying a [OnyxSelectDialog](/docs/support-selectdialog--docs).
+ *
+ * ### Keyboard support
+ *
+ * - Arrow up/down: Select previous/next option
+ * - Enter: Confirm selected option
+ * - Tab: Shift focus between options and cancel/apply button
  */
 const meta: Meta<typeof OnyxLanguageMenuItem> = {
   title: "Navigation/modules/LanguageMenuItem",
