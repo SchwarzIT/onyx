@@ -146,6 +146,9 @@ export * from "./components/OnyxRouterLink/types";
 export { default as OnyxSelect } from "./components/OnyxSelect/OnyxSelect.vue";
 export * from "./components/OnyxSelect/types";
 
+export { default as OnyxSelectDialog } from "./components/OnyxSelectDialog/OnyxSelectDialog.vue";
+export * from "./components/OnyxSelectDialog/types";
+
 export { default as OnyxSelectInput } from "./components/OnyxSelectInput/OnyxSelectInput.vue";
 export * from "./components/OnyxSelectInput/types";
 
