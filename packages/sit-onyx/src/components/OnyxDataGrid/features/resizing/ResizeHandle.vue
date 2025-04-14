@@ -56,7 +56,7 @@ defineSlots<{
 
       left: calc(50% - var(--onyx-1px-in-rem) * 0.5);
       top: 100%;
-      height: calc(100cqh - 100%);
+      height: calc(var(--onyx-table-observed-height) - 100%);
       width: var(--onyx-1px-in-rem);
       background-color: var(--onyx-color-base-neutral-600);
     }
