@@ -88,21 +88,21 @@ const columnStyle = computed(() => {
         display: grid;
         grid-template-columns: subgrid;
         grid-template-rows: subgrid;
-        grid-column: 1 / span var(--onyx-data-grid-column-count);
-        grid-row: 1 / span var(--onyx-data-grid-row-count);
+        grid-column: 1 / -1;
+        grid-row: 1 / -1;
       }
 
       thead,
       thead > tr {
         display: grid;
         grid-template-columns: subgrid;
-        grid-column: 1 / span var(--onyx-data-grid-column-count);
+        grid-column: 1 / -1;
       }
 
       tbody {
         display: grid;
-        grid-column: 1 / span var(--onyx-data-grid-column-count);
-        grid-row: 2 / span var(--onyx-data-grid-row-count);
+        grid-column: 1 / -1;
+        grid-row: 2 / -1;
         grid-template-columns: subgrid;
         grid-template-rows: subgrid;
       }
