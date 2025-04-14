@@ -131,10 +131,11 @@ export const mergeVueProps = <T extends VProps | null | undefined>(...args: T[] 
     const prevRef = prev?.ref;
     const merged = mergeProps(prev, (curr ?? {}) as VProps);
 
-    // when there is only a single or no ref defined, we can rely on the default merge logic
     if (!prevRef && !currRef) {
       return merged;
     }
+
+    // when there is only one ref defined, we can just use that one
     if (!prevRef || !currRef) {
       merged.ref = currRef ?? prevRef;
       return merged;
