@@ -5,7 +5,7 @@ import type { WedgePosition } from "./useWedgePosition";
 //TODO: can be removed after anchor is implemented in all common browers
 
 export const USERAGENT_SUPPORTS_ANCHOR_API =
-  "CSS" in globalThis && CSS.supports("anchor-name: --test");
+  "CSS" in globalThis && typeof CSS !== "undefined" && CSS.supports("anchor-name: --test");
 
 type UseAnchorPositionPolyfillOptions = {
   positionedRef: MaybeRefOrGetter<HTMLElement | null>;
@@ -14,7 +14,6 @@ type UseAnchorPositionPolyfillOptions = {
   alignment: MaybeRefOrGetter<WedgePosition>;
   alignsWithEdge: MaybeRefOrGetter<boolean>;
   fitParent: MaybeRefOrGetter<boolean>;
-  offset: MaybeRefOrGetter<number>;
 };
 
 export const useAnchorPositionPolyfill = ({
@@ -24,7 +23,6 @@ export const useAnchorPositionPolyfill = ({
   alignment,
   alignsWithEdge,
   fitParent,
-  offset,
 }: UseAnchorPositionPolyfillOptions) => {
   const leftPosition = ref("-1000px");
   const topPosition = ref("-1000px");
@@ -32,11 +30,6 @@ export const useAnchorPositionPolyfill = ({
   const getElement = (refOrGetter: MaybeRefOrGetter<HTMLElement | null>): HTMLElement | null => {
     const element = unref(refOrGetter);
     return typeof element === "function" ? element() : element;
-  };
-
-  const getNumber = (refOrGetter: MaybeRefOrGetter<number>): number => {
-    const value = unref(refOrGetter);
-    return typeof value === "function" ? value() : value;
   };
 
   const updateAnchorPositionPolyfill = () => {
@@ -56,8 +49,6 @@ export const useAnchorPositionPolyfill = ({
           ? targetRect.left
           : targetRect.right - positionedElRect.width
         : targetRect.left + targetRect.width / 2 - positionedElRect.width / 2;
-
-    const offsetValue = getNumber(offset);
 
     switch (unref(positionArea)) {
       case "top":
@@ -86,13 +77,13 @@ export const useAnchorPositionPolyfill = ({
         break;
 
       case "bottom right":
-        top = targetRect.bottom + offsetValue;
-        left = targetRect.right + offsetValue;
+        top = targetRect.bottom;
+        left = targetRect.right;
         break;
 
       case "bottom left":
-        top = targetRect.bottom + offsetValue;
-        left = targetRect.left - positionedElRect.width - offsetValue;
+        top = targetRect.bottom;
+        left = targetRect.left - positionedElRect.width;
         break;
 
       case "left":
