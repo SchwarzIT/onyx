@@ -6,6 +6,9 @@ export * from "./OnyxColorSchemeMenuItem/types";
 
 export { default as OnyxFlyoutMenu } from "./OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 
+export { default as OnyxLanguageMenuItem } from "./OnyxLanguageMenuItem/OnyxLanguageMenuItem.vue";
+export * from "./OnyxLanguageMenuItem/types";
+
 export { default as OnyxMenuItem } from "./OnyxMenuItem/OnyxMenuItem.vue";
 export * from "./OnyxMenuItem/types";
 

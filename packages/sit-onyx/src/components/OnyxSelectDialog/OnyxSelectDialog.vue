@@ -4,6 +4,7 @@ import { injectI18n } from "../../i18n";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxCard from "../OnyxCard/OnyxCard.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxModalDialog from "../OnyxModalDialog/OnyxModalDialog.vue";
 import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import type { OnyxSelectDialogProps } from "./types";
@@ -62,12 +63,7 @@ const handleApply = () => {
       <fieldset class="onyx-select-dialog__list" @change="handleChange">
         <label v-for="option in props.options" :key="option.value">
           <OnyxCard class="onyx-select-dialog__option">
-            <!-- eslint-disable-next-line vue/no-v-html -->
-            <figure
-              v-if="option.image"
-              class="onyx-select-dialog__image"
-              v-html="option.image"
-            ></figure>
+            <OnyxIcon v-if="option.icon" :icon="option.icon" class="onyx-select-dialog__icon" />
 
             <div>
               <OnyxVisuallyHidden is="div">
@@ -105,36 +101,30 @@ const handleApply = () => {
 
 .onyx-select-dialog {
   @include layers.component() {
-    --image-size: 10rem;
-    --gap: var(--onyx-density-md);
+    --onyx-select-dialog-icon-size: 1.5rem;
+    --onyx-select-dialog-gap: var(--onyx-density-xs);
     width: 32rem;
     background-color: var(--onyx-color-base-background-tinted);
 
     &__form {
       display: flex;
       flex-direction: column;
-      gap: var(--gap);
-      padding: var(--gap) var(--onyx-modal-dialog-padding-inline);
-      container-type: inline-size;
+      gap: var(--onyx-select-dialog-gap);
+      padding: var(--onyx-select-dialog-gap) var(--onyx-modal-dialog-padding-inline);
     }
 
     &__list {
       list-style: none;
       padding: 0;
-
       display: contents;
     }
 
     &__option {
-      --onyx-card-gap: var(--gap);
+      --onyx-card-gap: var(--onyx-select-dialog-gap);
       flex-direction: row;
+      align-items: center;
       color: var(--onyx-color-text-icons-neutral-medium);
       cursor: pointer;
-
-      @container (max-width: 24rem) {
-        flex-direction: column;
-        --image-size: 6rem;
-      }
 
       &:hover {
         background: var(--onyx-color-base-neutral-200);
@@ -148,7 +138,8 @@ const handleApply = () => {
           border-color: var(--onyx-color-component-border-primary);
         }
 
-        .onyx-select-dialog__label {
+        .onyx-select-dialog__label,
+        .onyx-select-dialog__icon {
           color: var(--onyx-color-text-icons-primary-intense);
         }
       }
@@ -158,16 +149,13 @@ const handleApply = () => {
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      gap: var(--gap);
+      gap: var(--onyx-select-dialog-gap);
     }
 
-    &__image {
+    &__icon {
+      --icon-size: var(--onyx-select-dialog-icon-size);
       display: inline-flex;
-
-      svg {
-        width: var(--image-size);
-        height: auto;
-      }
+      height: auto;
     }
   }
 }

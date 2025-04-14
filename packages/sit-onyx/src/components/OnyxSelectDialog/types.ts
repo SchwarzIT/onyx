@@ -24,9 +24,10 @@ export type SelectDialogOption<TValue extends string = string> = {
    */
   label: string;
   /**
-   * Image to display next to the label.
+   * Icon to display next to the label. Must be a valid SVG string.
+   * **Will be render using `v-html` so make sure to trust or sanitize the content!**
    */
-  image?: string;
+  icon?: string;
   /**
    * Optional option description.
    */

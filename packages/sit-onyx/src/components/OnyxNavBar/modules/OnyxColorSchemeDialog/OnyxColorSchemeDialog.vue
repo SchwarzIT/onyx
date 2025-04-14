@@ -29,19 +29,19 @@ const options = computed<SelectDialogOption<ColorSchemeValue>[]>(() => {
   return [
     {
       value: "auto",
-      image: autoImage,
+      icon: autoImage,
       label: t.value("colorScheme.auto.label"),
       description: t.value("colorScheme.auto.description"),
     },
     {
       value: "light",
-      image: lightImage,
+      icon: lightImage,
       label: t.value("colorScheme.light.label"),
       description: t.value("colorScheme.light.description"),
     },
     {
       value: "dark",
-      image: darkImage,
+      icon: darkImage,
       label: t.value("colorScheme.dark.label"),
       description: t.value("colorScheme.dark.description"),
     },
@@ -61,3 +61,27 @@ const options = computed<SelectDialogOption<ColorSchemeValue>[]>(() => {
     <template #description> {{ t("colorScheme.subtitle") }} </template>
   </OnyxSelectDialog>
 </template>
+
+<style lang="scss">
+@use "../../../../styles/mixins/layers.scss";
+
+.onyx-color-scheme-dialog {
+  @include layers.component() {
+    --onyx-select-dialog-icon-size: 10rem;
+
+    .onyx-select-dialog {
+      &__form {
+        container-type: inline-size;
+      }
+
+      &__option {
+        @container (max-width: 24rem) {
+          --onyx-select-dialog-icon-size: 6rem;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+    }
+  }
+}
+</style>

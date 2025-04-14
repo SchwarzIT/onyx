@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
 import { ref } from "vue";
 import { OnyxButton, OnyxSelectDialog } from "../../..";
 import type { SelectDialogOption } from "../types";
@@ -8,8 +9,8 @@ const selectedValue = ref<string>();
 
 const options: SelectDialogOption[] = [
   { label: "Option 1", value: "option-1" },
-  { label: "Option 2", value: "option-2" },
-  { label: "Option 3", value: "option-3" },
+  { label: "Option 2", value: "option-2", icon: placeholder },
+  { label: "Option 3", value: "option-3", description: "Example description for this option." },
 ];
 </script>
 
