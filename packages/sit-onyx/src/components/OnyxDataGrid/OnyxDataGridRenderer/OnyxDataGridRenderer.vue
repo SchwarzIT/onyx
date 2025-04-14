@@ -1,5 +1,5 @@
 <script lang="ts" setup generic="TEntry extends DataGridEntry, TMetadata extends DataGridMetadata">
-import { computed, toRaw } from "vue";
+import { computed } from "vue";
 import { mergeVueProps } from "../../../utils/attrs";
 import OnyxTable from "../../OnyxTable/OnyxTable.vue";
 import type { DataGridEntry, DataGridMetadata } from "../types";
@@ -42,10 +42,11 @@ const columnStyle = computed(() => {
   >
     <template #head>
       <tr>
+        <!-- We set `ref_for` to false, so the refs are not passed as an array  -->
         <th
           v-for="column in props.columns"
           :key="column.key"
-          v-bind="column.thAttributes && toRaw(column.thAttributes)"
+          v-bind="column.thAttributes"
           :ref_for="false"
           scope="col"
         >
