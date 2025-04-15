@@ -58,7 +58,7 @@ test("should behave correctly", async ({ mount, page }) => {
   );
 
   const clickOption = (label: string) => {
-    return component.getByText(label).click();
+    return component.getByText(label, { exact: true }).click();
   };
 
   // ASSERT (should be focussed initially)

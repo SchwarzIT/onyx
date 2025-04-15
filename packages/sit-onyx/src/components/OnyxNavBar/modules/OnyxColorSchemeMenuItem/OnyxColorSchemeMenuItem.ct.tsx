@@ -45,7 +45,7 @@ test("should behave correctly", async ({ page, mount }) => {
   await expect(dialog).toBeVisible();
 
   // ACT
-  await dialog.getByText("Light").click();
+  await dialog.getByText("Light", { exact: true }).click();
   await dialog.getByRole("button", { name: "Apply" }).click();
   await component.update({ props: { modelValue: "light" } });
 
