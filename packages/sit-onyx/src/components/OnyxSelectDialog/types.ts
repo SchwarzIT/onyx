@@ -11,7 +11,7 @@ export type OnyxSelectDialogProps<TValue extends string = string> = Pick<
   /**
    * Value of the currently selected option.
    */
-  modelValue?: TValue;
+  modelValue: TValue;
 };
 
 export type SelectDialogOption<TValue extends string = string> = {

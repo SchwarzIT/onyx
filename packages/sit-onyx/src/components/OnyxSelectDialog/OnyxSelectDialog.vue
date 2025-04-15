@@ -3,7 +3,6 @@ import { ref, watchEffect } from "vue";
 import { injectI18n } from "../../i18n";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxCard from "../OnyxCard/OnyxCard.vue";
-import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxModalDialog from "../OnyxModalDialog/OnyxModalDialog.vue";
 import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
@@ -78,9 +77,7 @@ const handleApply = () => {
                 />
               </OnyxVisuallyHidden>
 
-              <OnyxHeadline is="h3" class="onyx-select-dialog__label">
-                {{ option.label }}
-              </OnyxHeadline>
+              <span class="onyx-select-dialog__label"> {{ option.label }} </span>
 
               <p v-if="option.description" class="onyx-text--small">{{ option.description }}</p>
             </div>
@@ -117,6 +114,13 @@ const handleApply = () => {
       list-style: none;
       padding: 0;
       display: contents;
+    }
+
+    &__label {
+      font-weight: 600;
+      font-size: 1rem;
+      line-height: 1.5rem;
+      color: var(--onyx-color-text-icons-neutral-intense);
     }
 
     &__option {

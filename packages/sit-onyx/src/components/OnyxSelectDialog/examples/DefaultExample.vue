@@ -5,13 +5,14 @@ import { OnyxButton, OnyxSelectDialog } from "../../..";
 import type { SelectDialogOption } from "../types";
 
 const isOpen = ref(false);
-const selectedValue = ref<string>();
 
 const options: SelectDialogOption[] = [
   { label: "Option 1", value: "option-1" },
   { label: "Option 2", value: "option-2", icon: placeholder },
   { label: "Option 3", value: "option-3", description: "Example description for this option." },
 ];
+
+const selectedValue = ref(options[0].value);
 </script>
 
 <template>
