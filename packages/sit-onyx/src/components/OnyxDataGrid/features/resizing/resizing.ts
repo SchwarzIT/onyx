@@ -21,7 +21,7 @@ export const useResizing = createFeature(
       () => {
         // Changing the width directly is needed to avoid re-rendering the table too often.
         headers.value.forEach((th, columnKey) => {
-          const property = `--onyx-data-grid-column-${String(columnKey)}`;
+          const property = `--onyx-data-grid-column-${CSS.escape(String(columnKey))}`;
           const container = th.closest<HTMLElement>(".onyx-table-wrapper__container");
           const width = colWidths.value.get(columnKey);
           if (width) {

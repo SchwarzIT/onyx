@@ -78,7 +78,7 @@ const columnStyle = computed(() => {
     width: max-content;
     max-width: 100%;
     --onyx-data-grid-column-count: v-bind(props.columns.length);
-    --onyx-data-grid-row-count: v-bind(props.rows.length + 1);
+    --onyx-data-grid-row-count: v-bind(props.rows.length + 2);
 
     .onyx-table-wrapper__container {
       display: grid;
@@ -93,17 +93,17 @@ const columnStyle = computed(() => {
         grid-row: 1 / -1;
       }
 
-      thead,
-      thead > tr {
+      thead {
         display: grid;
         grid-template-columns: subgrid;
         grid-column: 1 / -1;
+        grid-row: 1 / 3;
       }
 
       tbody {
         display: grid;
         grid-column: 1 / -1;
-        grid-row: 2 / -1;
+        grid-row: 3 / -1;
         grid-template-columns: subgrid;
         grid-template-rows: subgrid;
       }
@@ -112,6 +112,13 @@ const columnStyle = computed(() => {
         display: grid;
         grid-column: 1 / -1;
         grid-template-columns: subgrid;
+      }
+
+      // Waiting for :attr support https://developer.mozilla.org/en-US/docs/Web/CSS/attr
+      @for $i from 1 through 99 {
+        :is(th, td)[colspan="#{$i}"] {
+          grid-column: span $i;
+        }
       }
     }
   }
