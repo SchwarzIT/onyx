@@ -45,7 +45,7 @@ export const GroupedData = {
       {
         id: "row-1",
         cells: {
-          "column-1": getDummyCell(`Row 1 and 2, cell 1`, { rowspan: 2 }),
+          "column-1": getDummyCell(`Row 1, cell 1`),
           "column-2": getDummyCell(`Row 1, cell 2`),
           "column-3": getDummyCell(`Row 1, cell 3`),
           "column-4": getDummyCell(`Row 1, cell 4`),
@@ -54,11 +54,8 @@ export const GroupedData = {
       {
         id: "row-2",
         cells: {
-          "column-2": getDummyCell(`Row 2, cell 2`, {
-            style: {
-              borderLeftStyle: "none",
-            },
-          }),
+          "column-1": getDummyCell(`Row 2, cell 1`),
+          "column-2": getDummyCell(`Row 2, cell 2`),
           "column-3": getDummyCell(`Row 2, cell 3`),
           "column-4": getDummyCell(`Row 2, cell 4`),
         },
@@ -76,7 +73,7 @@ export const GroupedData = {
         id: "row-4",
         cells: {
           "column-1": getDummyCell(`Row 4, cell 1`),
-          "column-2": getDummyCell(`Row 4, cell 2 and 3`, {
+          "column-2": getDummyCell(`Row 4, cell 2, 3 and 4`, {
             colspan: 3,
           }),
         },
