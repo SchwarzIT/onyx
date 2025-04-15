@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.194
+
+### Major Changes
+
+- e470108: feat: support new OnyxLanguageMenuItem and OnyxSelectDialog components
+
+  The `modelValue` property of the OnyxColorSchemeDialog is now required. Also the CSS variables `--image-size` and `--gap` have been renamed to `--onyx-select-dialog-icon-size` and `--onyx-select-dialog-gap`.
+
 ## 1.0.0-beta.193
 
 ### Patch Changes
