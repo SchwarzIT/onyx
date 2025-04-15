@@ -12,15 +12,10 @@ const OPTIONS: SelectDialogOption[] = [
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Select dialog",
-    columns: ["default", "active"],
+    columns: ["default"],
     rows: ["default", "hover"],
-    component: (column) => (
-      <OnyxSelectDialog
-        label="Example label"
-        options={OPTIONS}
-        modelValue={column === "active" ? "option-1" : undefined}
-        open
-      >
+    component: () => (
+      <OnyxSelectDialog label="Example label" options={OPTIONS} modelValue={"option-1"} open>
         <template v-slot:description>Lorem ipsum dolor sit amet</template>
       </OnyxSelectDialog>
     ),

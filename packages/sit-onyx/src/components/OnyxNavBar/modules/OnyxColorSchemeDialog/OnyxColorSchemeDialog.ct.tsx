@@ -6,11 +6,9 @@ import type { ColorSchemeValue } from "./types";
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Color scheme dialog",
-    columns: ["default", "active"],
+    columns: ["default"],
     rows: ["default", "hover", "mobile"],
-    component: (column) => (
-      <OnyxColorSchemeDialog modelValue={column === "active" ? "auto" : undefined} open />
-    ),
+    component: () => <OnyxColorSchemeDialog modelValue={"auto"} open />,
     hooks: {
       // set component size to fully include the tooltip
       beforeEach: async (component, page, column, row) => {
@@ -33,7 +31,7 @@ test.describe("Screenshot tests", () => {
         );
 
         if (row === "hover") {
-          await component.getByText("Auto").hover();
+          await component.getByText("Auto", { exact: true }).hover();
         }
       },
     },
