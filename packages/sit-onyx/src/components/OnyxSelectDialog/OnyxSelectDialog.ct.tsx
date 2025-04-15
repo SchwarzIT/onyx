@@ -1,14 +1,24 @@
-import { expect, test } from "../../../../playwright/a11y";
-import { executeMatrixScreenshotTest } from "../../../../playwright/screenshots";
-import OnyxColorSchemeDialog from "./OnyxColorSchemeDialog.vue";
-import type { ColorSchemeValue } from "./types";
+import { expect, test } from "../../playwright/a11y";
+import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots";
+import OnyxSelectDialog from "./OnyxSelectDialog.vue";
+import type { SelectDialogOption } from "./types";
+
+const OPTIONS: SelectDialogOption[] = [
+  { label: "Option 1", value: "option-1" },
+  { label: "Option 2", value: "option-2", icon: mockPlaywrightIcon },
+  { label: "Option 3", value: "option-3", description: "Example description" },
+];
 
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
-    name: "Color scheme dialog",
+    name: "Select dialog",
     columns: ["default"],
-    rows: ["default", "hover", "mobile"],
-    component: () => <OnyxColorSchemeDialog modelValue={"auto"} open />,
+    rows: ["default", "hover"],
+    component: () => (
+      <OnyxSelectDialog label="Example label" options={OPTIONS} modelValue={"option-1"} open>
+        <template v-slot:description>Lorem ipsum dolor sit amet</template>
+      </OnyxSelectDialog>
+    ),
     hooks: {
       // set component size to fully include the tooltip
       beforeEach: async (component, page, column, row) => {
@@ -16,8 +26,8 @@ test.describe("Screenshot tests", () => {
           .getByRole("dialog")
           .evaluate((element: HTMLElement) => [element.offsetHeight, element.offsetWidth]);
 
-        const height = row === "mobile" ? 832 : size[0] + 48;
-        const width = row === "mobile" ? 384 : size[1] + 16;
+        const height = size[0] + 48;
+        const width = size[1] + 16;
 
         await page.setViewportSize({ height, width });
 
@@ -31,7 +41,7 @@ test.describe("Screenshot tests", () => {
         );
 
         if (row === "hover") {
-          await component.getByText("Auto", { exact: true }).hover();
+          await component.getByText("Option 1").hover();
         }
       },
     },
@@ -41,13 +51,15 @@ test.describe("Screenshot tests", () => {
 test("should behave correctly", async ({ mount, page }) => {
   await page.setViewportSize({ width: 512, height: 640 });
 
-  const updateModelValueEvents: ColorSchemeValue[] = [];
+  const updateModelValueEvents: string[] = [];
   let closeEventCount = 0;
 
   // ARRANGE
   const component = await mount(
-    <OnyxColorSchemeDialog
-      modelValue="light"
+    <OnyxSelectDialog
+      label="Example label"
+      options={OPTIONS}
+      modelValue="option-2"
       open
       style={{ width: "48rem" }}
       onUpdate:modelValue={(value) => updateModelValueEvents.push(value)}
@@ -56,43 +68,43 @@ test("should behave correctly", async ({ mount, page }) => {
   );
 
   const clickOption = (label: string) => {
-    return component.getByText(label, { exact: true }).click();
+    return component.getByText(label).click();
   };
 
   // ASSERT (should be focussed initially)
-  await expect(component.getByLabel("Light")).toBeFocused();
+  await expect(component.getByLabel("Option 2")).toBeFocused();
 
   // ACT
   await page.keyboard.press("ArrowDown");
 
   // ASSERT
-  await expect(component.getByLabel("Dark")).toBeFocused();
+  await expect(component.getByLabel("Option 3")).toBeFocused();
 
   // ACT
   await page.keyboard.press("Enter");
 
   // ASSERT
-  expect(updateModelValueEvents).toStrictEqual(["dark"]);
+  expect(updateModelValueEvents).toStrictEqual(["option-3"]);
   expect(closeEventCount).toBe(1);
 
   // ACT
-  await clickOption("Auto");
+  await clickOption("Option 1");
 
   // ASSERT
-  expect(updateModelValueEvents).toStrictEqual(["dark"]);
+  expect(updateModelValueEvents).toStrictEqual(["option-3"]);
 
   await component.getByRole("button", { name: "Apply" }).click();
 
   // ASSERT
-  expect(updateModelValueEvents).toStrictEqual(["dark", "auto"]);
+  expect(updateModelValueEvents).toStrictEqual(["option-3", "option-1"]);
   expect(closeEventCount).toBe(2);
 
   // ACT
-  await clickOption("Light");
+  await clickOption("Option 2");
   await component.getByRole("button", { name: "Apply" }).click();
 
   // ASSERT
-  expect(updateModelValueEvents).toStrictEqual(["dark", "auto", "light"]);
+  expect(updateModelValueEvents).toStrictEqual(["option-3", "option-1", "option-2"]);
   expect(closeEventCount).toBe(3);
 
   // ACT

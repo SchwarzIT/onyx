@@ -1,0 +1,165 @@
+<script lang="ts" setup generic="TValue extends string">
+import { ref, watchEffect } from "vue";
+import { injectI18n } from "../../i18n";
+import OnyxButton from "../OnyxButton/OnyxButton.vue";
+import OnyxCard from "../OnyxCard/OnyxCard.vue";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxModalDialog from "../OnyxModalDialog/OnyxModalDialog.vue";
+import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
+import type { OnyxSelectDialogProps } from "./types";
+
+const props = withDefaults(defineProps<OnyxSelectDialogProps<TValue>>(), {
+  open: false,
+});
+
+const emit = defineEmits<{
+  /**
+   * Emitted when the color scheme should be changed.
+   */
+  "update:modelValue": [value: TValue];
+  /**
+   * Emitted when the dialog should be closed.
+   */
+  close: [];
+}>();
+
+const slots = defineSlots<{
+  /**
+   * Optional slot to add custom content, e.g. a description to the dialog header (below the headline).
+   */
+  description?(): unknown;
+}>();
+
+const currentValue = ref<TValue>();
+watchEffect(() => (currentValue.value = props.modelValue));
+
+const { t } = injectI18n();
+
+const handleChange = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  currentValue.value = target.value as TValue;
+};
+
+const handleApply = () => {
+  if (!currentValue.value) return;
+  emit("update:modelValue", currentValue.value);
+  emit("close");
+};
+</script>
+
+<template>
+  <OnyxModalDialog
+    v-bind="props"
+    class="onyx-select-dialog"
+    :label="props.label"
+    @close="emit('close')"
+  >
+    <template v-if="!!slots.description" #description>
+      <slot name="description"></slot>
+    </template>
+
+    <form class="onyx-select-dialog__form" @submit.prevent="handleApply">
+      <fieldset class="onyx-select-dialog__list" @change="handleChange">
+        <label v-for="option in props.options" :key="option.value">
+          <OnyxCard class="onyx-select-dialog__option">
+            <OnyxIcon v-if="option.icon" :icon="option.icon" class="onyx-select-dialog__icon" />
+
+            <div>
+              <OnyxVisuallyHidden is="div">
+                <input
+                  type="radio"
+                  name="color-scheme"
+                  :autofocus="props.modelValue === option.value"
+                  :value="option.value"
+                  :checked="props.modelValue === option.value"
+                  :aria-label="option.label"
+                  required
+                />
+              </OnyxVisuallyHidden>
+
+              <span class="onyx-select-dialog__label"> {{ option.label }} </span>
+              <p v-if="option.description" class="onyx-text--small">{{ option.description }}</p>
+            </div>
+          </OnyxCard>
+        </label>
+      </fieldset>
+
+      <div class="onyx-select-dialog__actions">
+        <OnyxButton :label="t('cancel')" mode="plain" color="neutral" @click="emit('close')" />
+        <OnyxButton :label="t('apply')" type="submit" />
+      </div>
+    </form>
+  </OnyxModalDialog>
+</template>
+
+<style lang="scss">
+@use "../../styles/mixins/layers.scss";
+
+.onyx-select-dialog {
+  @include layers.component() {
+    --onyx-select-dialog-icon-size: 1.5rem;
+    --onyx-select-dialog-gap: var(--onyx-density-md);
+    width: 32rem;
+    background-color: var(--onyx-color-base-background-tinted);
+
+    &__form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--onyx-density-xs);
+      padding: var(--onyx-select-dialog-gap) var(--onyx-modal-dialog-padding-inline);
+    }
+
+    &__list {
+      list-style: none;
+      padding: 0;
+      display: contents;
+    }
+
+    &__label {
+      font-weight: 600;
+      font-size: 1rem;
+      line-height: 1.5rem;
+      color: var(--onyx-color-text-icons-neutral-intense);
+    }
+
+    &__option {
+      --onyx-card-gap: var(--onyx-select-dialog-gap);
+      flex-direction: row;
+      align-items: center;
+      color: var(--onyx-color-text-icons-neutral-medium);
+      cursor: pointer;
+
+      &:hover {
+        background: var(--onyx-color-base-neutral-200);
+      }
+
+      &:has(input:checked) {
+        border-color: var(--onyx-color-base-primary-200);
+        background-color: var(--onyx-color-base-primary-100);
+
+        &:hover {
+          border-color: var(--onyx-color-component-border-primary);
+        }
+
+        .onyx-select-dialog__label,
+        .onyx-select-dialog__icon {
+          color: var(--onyx-color-text-icons-primary-intense);
+        }
+      }
+    }
+
+    &__actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: var(--onyx-select-dialog-gap);
+    }
+
+    &__icon {
+      --icon-size: var(--onyx-select-dialog-icon-size);
+      display: inline-flex;
+      height: auto;
+    }
+  }
+}
+</style>

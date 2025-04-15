@@ -1,10 +1,13 @@
-import type { OnyxModalDialogProps } from "../../../OnyxModalDialog/types";
+import type { OnyxSelectDialogProps } from "../../../OnyxSelectDialog/types";
 
-export type OnyxColorSchemeDialogProps = Pick<OnyxModalDialogProps, "open" | "density"> & {
+export type OnyxColorSchemeDialogProps = Omit<
+  OnyxSelectDialogProps,
+  "label" | "modelValue" | "options"
+> & {
   /**
    * Currently active color scheme.
    */
-  modelValue?: ColorSchemeValue;
+  modelValue: ColorSchemeValue;
 };
 
 export type ColorSchemeValue = "light" | "dark" | "auto";

@@ -5,6 +5,7 @@ import {
   OnyxAppLayout,
   OnyxColorSchemeMenuItem,
   OnyxIcon,
+  OnyxLanguageMenuItem,
   OnyxMenuItem,
   OnyxNavBar,
   OnyxNavItem,
@@ -12,6 +13,7 @@ import {
   OnyxUserMenu,
   useThemeTransition,
 } from "sit-onyx";
+import { useI18n } from "vue-i18n";
 import { RouterView, useRoute, useRouter } from "vue-router";
 import onyxLogo from "./assets/onyx-logo.svg";
 import { useGridStore } from "./stores/grid-store";
@@ -19,6 +21,7 @@ import { useGridStore } from "./stores/grid-store";
 const router = useRouter();
 const route = useRoute();
 const gridStore = useGridStore();
+const { locale, availableLocales } = useI18n();
 
 const { store: colorScheme } = useColorMode({ disableTransition: false });
 useThemeTransition(colorScheme);
@@ -59,6 +62,11 @@ useThemeTransition(colorScheme);
 
         <template #contextArea>
           <OnyxUserMenu full-name="John Doe">
+            <OnyxLanguageMenuItem
+              v-model="locale"
+              :options="availableLocales.map((locale) => ({ value: locale, label: locale }))"
+            />
+
             <OnyxColorSchemeMenuItem v-model="colorScheme" />
 
             <OnyxMenuItem color="danger">

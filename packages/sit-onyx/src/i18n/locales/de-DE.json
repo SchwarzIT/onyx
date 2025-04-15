@@ -183,5 +183,10 @@
   "filterTag": {
     "clickToAdd": "{label} Filter hinzufügen",
     "clickToRemove": "{label} Filter entfernen"
+  },
+  "languageSelect": {
+    "label": "Sprache",
+    "headline": "Sprache ändern",
+    "subtitle": "Wähle die Sprache der Anwendung:"
   }
 }
