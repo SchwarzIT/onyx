@@ -33,7 +33,7 @@ test.describe("Screenshot tests", () => {
         );
 
         if (row === "hover") {
-          await component.getByRole("heading", { name: "Auto" }).hover();
+          await component.getByText("Auto").hover();
         }
       },
     },
@@ -58,7 +58,7 @@ test("should behave correctly", async ({ mount, page }) => {
   );
 
   const clickOption = (label: string) => {
-    return component.getByRole("heading", { name: label }).click();
+    return component.getByText(label).click();
   };
 
   // ASSERT (should be focussed initially)

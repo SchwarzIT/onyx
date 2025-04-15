@@ -78,7 +78,6 @@ const handleApply = () => {
               </OnyxVisuallyHidden>
 
               <span class="onyx-select-dialog__label"> {{ option.label }} </span>
-
               <p v-if="option.description" class="onyx-text--small">{{ option.description }}</p>
             </div>
           </OnyxCard>

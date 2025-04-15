@@ -50,7 +50,7 @@ test("should behave correctly", async ({ page, mount }) => {
   await expect(dialog).toBeVisible();
 
   // ACT
-  await dialog.getByRole("heading", { name: "Deutsch" }).click();
+  await dialog.getByText("Deutsch").click();
   await dialog.getByRole("button", { name: "Apply" }).click();
   await component.update({ props: { modelValue: "de-DE" } });
 
