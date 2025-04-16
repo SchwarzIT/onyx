@@ -23,6 +23,8 @@ defineSlots<{
 
 const columnStyle = computed(() => {
   return {
+    "--onyx-data-grid-column-count": props.columns.length,
+    "--onyx-data-grid-row-count": props.rows.length + 2,
     "--onyx-data-grid-template-columns": props.columns
       .map(({ key, width }) => {
         const name = `--onyx-data-grid-column-${CSS.escape(String(key))}`;
@@ -77,8 +79,6 @@ const columnStyle = computed(() => {
   .onyx-data-grid {
     width: max-content;
     max-width: 100%;
-    --onyx-data-grid-column-count: v-bind(props.columns.length);
-    --onyx-data-grid-row-count: v-bind(props.rows.length + 2);
 
     .onyx-table-wrapper__container {
       display: grid;
