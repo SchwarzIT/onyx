@@ -7,7 +7,7 @@ catalog:
   "@vue/compiler-sfc": 3.5.13
   "@vue/compiler-ssr": 3.5.13
   "@vue/shared": 3.5.13
-  chart.js: ^4.4.8
+  chart.js: ^4.4.9
   vue: 3.5.13
   sass-embedded: 1.86.3
   typescript: 5.8.3
