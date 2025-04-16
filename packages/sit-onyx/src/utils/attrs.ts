@@ -1,14 +1,16 @@
 import {
   computed,
+  customRef,
+  isProxy,
   mergeProps,
-  ref,
+  toRaw,
   useAttrs,
-  watch,
   type HTMLAttributes,
   type Ref,
   type VNodeProps,
   type VNodeRef,
 } from "vue";
+import type { Data } from "../types";
 
 // region docs
 /**
@@ -74,42 +76,47 @@ type MergedRef = Ref & {
  * Creates a new `ref` that syncs the `toMerge` refs uni-directional.
  * Only intended to be used for template/vnode refs.
  */
-const createMergedRef = (...toMerge: VNodeRef[]) => {
-  const _ref = ref() as MergedRef;
+const createMergedRef = <T>(...toMerge: VNodeRef[]) => {
+  let value: T;
+  const _ref = customRef((track, trigger) => {
+    return {
+      [MERGED_REFS_SYMBOL]: toMerge ?? [],
+      get() {
+        track();
+        return value;
+      },
+      set(newValue) {
+        value = newValue;
+        _ref[MERGED_REFS_SYMBOL].forEach((r) => {
+          switch (typeof r) {
+            case "function":
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              r(value as any, []);
+              break;
+            case "object":
+              r.value = value;
+              break;
+            default:
+              import.meta.env.DEV &&
+                // eslint-disable-next-line no-console -- show console error in dev mode
+                console.error(
+                  `Template Ref of type "${typeof r}" is not supported and cannot be merged!`,
+                );
+          }
+        });
+        trigger();
+      },
+    };
+  }) as MergedRef;
   _ref[MERGED_REFS_SYMBOL] = toMerge ?? [];
-
-  watch(
-    _ref,
-    (newValue) =>
-      _ref[MERGED_REFS_SYMBOL].forEach((r) => {
-        switch (typeof r) {
-          case "function":
-            r(newValue, []);
-            break;
-          case "object":
-            r.value = newValue;
-            break;
-          default:
-            import.meta.env.DEV &&
-              // eslint-disable-next-line no-console -- show console error in dev mode
-              console.error(
-                `Template Ref of type "${typeof r}" is not supported and cannot be merged!`,
-              );
-        }
-      }),
-    {
-      // we want to update the merged refs immediately when the proxy ref is updated
-      // so that their effect can be applied in the current tick
-      flush: "sync",
-    },
-  );
   return _ref;
 };
 
 const isMergedRef = (_ref: unknown): _ref is MergedRef =>
   !!_ref && typeof _ref === "object" && MERGED_REFS_SYMBOL in _ref;
 
-type VProps = object & VNodeProps;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type VProps = Data<any> & VNodeProps;
 
 /**
  * Extends the Vue's `mergeProp` function, so that it
@@ -118,23 +125,32 @@ type VProps = object & VNodeProps;
  */
 export const mergeVueProps = <T extends VProps | null | undefined>(...args: T[] | []) =>
   args.reduce((prev, curr) => {
+    // Make sure to always trigger a read access in case we need to access it using `toRaw`
+    const _ = curr?.ref;
+    const currRef = curr && isProxy(curr) && "ref" in curr ? toRaw(curr).ref : curr?.ref;
+    const prevRef = prev?.ref;
     const merged = mergeProps(prev, (curr ?? {}) as VProps);
 
-    // when there is only a single or no ref defined, we can rely on the default merge logic
-    if (!prev?.ref || !curr?.ref) {
+    if (!prevRef && !currRef) {
+      return merged;
+    }
+
+    // when there is only one ref defined, we can just use that one
+    if (!prevRef || !currRef) {
+      merged.ref = currRef ?? prevRef;
       return merged;
     }
 
     let mergedRef: MergedRef;
     // use existing merged ref, otherwise create a new one
-    if (isMergedRef(prev?.ref)) {
-      prev.ref[MERGED_REFS_SYMBOL].push(curr?.ref);
-      mergedRef = prev.ref;
-    } else if (isMergedRef(curr?.ref)) {
-      curr.ref[MERGED_REFS_SYMBOL].push(prev?.ref);
-      mergedRef = curr.ref;
+    if (isMergedRef(prevRef)) {
+      prevRef[MERGED_REFS_SYMBOL].push(currRef);
+      mergedRef = prevRef;
+    } else if (isMergedRef(currRef)) {
+      currRef[MERGED_REFS_SYMBOL].push(prevRef);
+      mergedRef = currRef;
     } else {
-      mergedRef = createMergedRef(prev.ref, curr?.ref);
+      mergedRef = createMergedRef(prevRef, currRef);
     }
     merged.ref = mergedRef;
     return merged;

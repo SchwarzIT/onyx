@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { computed } from "vue";
+import { computed, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density";
+import { useResizeObserver } from "../../composables/useResizeObserver";
 import { injectI18n } from "../../i18n";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import type { OnyxTableProps } from "./types";
@@ -51,10 +52,19 @@ const { t } = injectI18n();
 const { densityClass } = useDensity(props);
 
 const isEmptyMessage = computed(() => t.value("table.empty"));
+
+const table = useTemplateRef("tableRef");
+
+const { height, width } = useResizeObserver(table);
+
+const style = computed(() => ({
+  "--onyx-table-observed-height": `${height.value}px`,
+  "--onyx-table-observed-width": `${width.value}px`,
+}));
 </script>
 
 <template>
-  <div class="onyx-table-wrapper onyx-component">
+  <div class="onyx-table-wrapper onyx-component" :style>
     <div v-if="!!slots.headline || !!slots.actions" class="onyx-table-wrapper__top">
       <div>
         <slot name="headline"></slot>
@@ -74,6 +84,7 @@ const isEmptyMessage = computed(() => t.value("table.empty"));
       v-bind="scrollContainerAttrs"
     >
       <table
+        ref="tableRef"
         class="onyx-table onyx-text"
         :class="[
           props.striped ? 'onyx-table--striped' : '',
@@ -153,6 +164,11 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
     border-bottom: $border;
   }
 
+  td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   tr:last-of-type td {
     border-bottom: none;
   }
@@ -214,7 +230,6 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
 .onyx-table {
   @include layers.component() {
     text-align: left;
-    contain: paint;
     width: 100%;
 
     @include define-borders();
@@ -296,7 +311,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
       .onyx-table:not(:has(.onyx-table__empty)) & {
         background-color: color-mix(in srgb, var(--onyx-color-base-neutral-500), transparent 85%);
         content: "";
-        height: 100vh;
+        height: var(--onyx-table-observed-height);
         position: absolute;
         top: 0;
         left: 0;

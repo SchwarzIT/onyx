@@ -27,10 +27,11 @@
     }
 
     th.onyx-data-grid-sticky-columns--sticky {
-      z-index: 21;
+      z-index: var(--onyx-z-index-sticky-content);
     }
+
     td.onyx-data-grid-sticky-columns--sticky {
-      z-index: 20;
+      z-index: calc(var(--onyx-z-index-sticky-content) - 1);
     }
   }
   .dark .onyx-data-grid .onyx-data-grid-sticky-columns--sticky {
