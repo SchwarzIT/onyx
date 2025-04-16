@@ -13,9 +13,6 @@ type TEntry = {
   age: number;
   birthday: Date;
   balance: number;
-  /**
-   * Car from the early 2000s
-   */
   car: string;
   favoriteColor: string;
   email: string;
