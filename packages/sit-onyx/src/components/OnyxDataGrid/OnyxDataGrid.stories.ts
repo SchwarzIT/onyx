@@ -23,6 +23,5 @@ export const CustomFeature = createAdvancedStoryExample(
 ) satisfies Story;
 
 export const CustomColumnTypes = {
-  tags: ["new:feature"],
   ...createAdvancedStoryExample("OnyxDataGrid", "CustomColumnTypes"),
 } satisfies Story;

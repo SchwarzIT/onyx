@@ -11,7 +11,6 @@ import OnyxNotificationDot from "./OnyxNotificationDot.vue";
 const meta: Meta<typeof OnyxNotificationDot> = {
   title: "Notifications/NotificationDot",
   component: OnyxNotificationDot,
-  tags: ["new:component"],
   argTypes: {
     default: { control: { disable: true } },
   },

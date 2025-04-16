@@ -4,7 +4,6 @@ import OnyxBreadcrumbItem from "./OnyxBreadcrumbItem.vue";
 const meta: Meta<typeof OnyxBreadcrumbItem> = {
   title: "Support/BreadcrumbItem",
   component: OnyxBreadcrumbItem,
-  tags: ["new:component"],
 };
 
 export default meta;

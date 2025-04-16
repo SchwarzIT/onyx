@@ -58,7 +58,6 @@ export const WithColor = {
  * This example shows that and how the OnyxIcon can be used with text.
  */
 export const Inline = {
-  tags: ["new:feature"],
   args: {
     ...Default.args,
     inline: true,

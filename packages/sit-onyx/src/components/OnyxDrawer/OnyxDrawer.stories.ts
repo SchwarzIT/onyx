@@ -8,7 +8,6 @@ import OnyxDrawer from "./OnyxDrawer.vue";
  */
 const meta: Meta<typeof OnyxDrawer> = {
   title: "Feedback/Drawer",
-  tags: ["new:component"],
   component: OnyxDrawer,
 };
 

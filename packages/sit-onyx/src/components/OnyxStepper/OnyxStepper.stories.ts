@@ -114,7 +114,6 @@ export const Skeleton = {
  * This example shows a stepper with hidden buttons.
  */
 export const HiddenButtons = {
-  tags: ["new:feature"],
   args: {
     ...Default.args,
     hideButtons: true,
