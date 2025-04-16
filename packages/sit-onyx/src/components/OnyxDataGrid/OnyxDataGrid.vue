@@ -9,7 +9,7 @@
     TFeatures extends DataGridFeature<TEntry, TTypeRenderer, TFeatureName>[] | []
   "
 >
-import { shallowRef, toRefs, watch, type HTMLAttributes, type Ref, type WatchHandle } from "vue";
+import { shallowRef, toRefs, watch, type HTMLAttributes, type WatchHandle } from "vue";
 import { injectI18n } from "../../i18n";
 import type { TableColumnGroup } from "../OnyxTable/types";
 import {
@@ -41,10 +41,10 @@ defineSlots<{
 }>();
 
 // Using Ref types to avoid `UnwrapRef` issues
-const renderColumns: Ref<DataGridRendererColumn<TEntry>[]> = shallowRef([]);
-const renderRows: Ref<DataGridRendererRow<TEntry, DataGridMetadata>[]> = shallowRef([]);
-const rendererColumnGroups: Ref<TableColumnGroup[] | undefined> = shallowRef();
-const rendererScrollContainerAttributes: Ref<HTMLAttributes | undefined> = shallowRef();
+const renderColumns = shallowRef<DataGridRendererColumn<TEntry>[]>([]);
+const renderRows = shallowRef<DataGridRendererRow<TEntry, DataGridMetadata>[]>([]);
+const rendererColumnGroups = shallowRef<TableColumnGroup[]>();
+const rendererScrollContainerAttributes = shallowRef<HTMLAttributes | undefined>();
 
 const { columns, data, features, columnGroups } = toRefs(props);
 
