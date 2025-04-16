@@ -77,7 +77,7 @@ const columnStyle = computed(() => {
 
 @include layers.override() {
   .onyx-data-grid {
-    width: max-content;
+    width: 100%;
     max-width: 100%;
 
     .onyx-table-wrapper__container {
