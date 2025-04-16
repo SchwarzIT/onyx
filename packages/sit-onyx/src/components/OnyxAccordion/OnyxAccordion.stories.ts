@@ -53,12 +53,10 @@ export const Default = {
 } satisfies Story;
 
 export const NestedLarge = {
-  tags: ["new:feature"],
   ...createAdvancedStoryExample("OnyxAccordion", "NestedLargeExample"),
 } satisfies Story;
 
 export const NestedSmall = {
-  tags: ["new:feature"],
   ...createAdvancedStoryExample("OnyxAccordion", "NestedSmallExample"),
 } satisfies Story;
 

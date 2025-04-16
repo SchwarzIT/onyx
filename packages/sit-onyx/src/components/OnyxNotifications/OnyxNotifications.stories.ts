@@ -34,7 +34,6 @@ import OnyxNotifications from "./OnyxNotifications.vue";
 const meta: Meta<typeof OnyxNotifications> = {
   title: "Notifications/Notifications",
   component: OnyxNotifications,
-  tags: ["new:component"],
 };
 
 export default meta;

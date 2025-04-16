@@ -6,7 +6,6 @@ import OnyxInfoCard from "./OnyxInfoCard.vue";
 
 const meta: Meta<typeof OnyxInfoCard> = {
   title: "Basic/InfoCard",
-  tags: ["new:component"],
   component: OnyxInfoCard,
   argTypes: {
     icon: defineIconSelectArgType(),

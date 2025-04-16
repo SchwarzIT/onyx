@@ -7,7 +7,6 @@ import OnyxBreadcrumb from "./OnyxBreadcrumb.vue";
 const meta: Meta<typeof OnyxBreadcrumb> = {
   title: "Navigation/Breadcrumb",
   component: OnyxBreadcrumb,
-  tags: ["new:component"],
   argTypes: {
     default: { control: { disable: true } },
   },
