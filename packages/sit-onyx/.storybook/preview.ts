@@ -13,6 +13,7 @@ import "../src/styles/index.scss";
 import "./docs-template.scss";
 import { enhanceFormInjectedSymbol } from "./formInjected";
 import brandImage from "./public/onyx-logo-long.svg";
+import { enhanceSkeletonInjectedSymbol } from "./skeletonInjected";
 
 const enabledRules = getRules(a11yTags).map((ruleMetadata) => ({
   id: ruleMetadata.ruleId,
@@ -23,7 +24,7 @@ const axeConfig: Spec = { rules: enabledRules };
 
 const basePreview = createPreview(
   {
-    argTypesEnhancers: [enhanceFormInjectedSymbol],
+    argTypesEnhancers: [enhanceSkeletonInjectedSymbol, enhanceFormInjectedSymbol],
     parameters: {
       docs: {
         page: docsTemplate,
