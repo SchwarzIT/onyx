@@ -166,7 +166,7 @@ const { componentRef, isVisible } = isTopLevel
   </OnyxNavItemFacade>
   <!-- Desktop top-level nav item in more list -->
   <template v-else>
-    <Teleport :disabled="!moreListTargetId" :to="moreListTargetId">
+    <Teleport defer :disabled="!moreListTargetId" :to="moreListTargetId">
       <OnyxNavItemFacade v-bind="mergeVueProps(props, $attrs)" :active context="list">
         <slot></slot>
       </OnyxNavItemFacade>
