@@ -159,11 +159,11 @@ defineExpose({
         </OnyxMobileNavButton>
 
         <nav v-else class="onyx-nav-bar__nav" v-bind="nav">
-          <OnyxMoreList :injection-key="NAV_BAR_MORE_LIST_INJECTION_KEY">
+          <OnyxMoreList is="ul" role="menubar" :injection-key="NAV_BAR_MORE_LIST_INJECTION_KEY">
             <template #default="{ attributes }">
-              <ul role="menubar" v-bind="attributes">
+              <div v-bind="attributes">
                 <slot></slot>
-              </ul>
+              </div>
             </template>
             <template #more="{ attributes }">
               <OnyxFlyoutMenu :label="t('navigation.moreNavItems')" v-bind="attributes">
@@ -261,8 +261,6 @@ $gap: var(--onyx-spacing-md);
     }
 
     &__nav {
-      contain: inline-size;
-      overflow-x: clip;
       grid-area: nav;
 
       > ul {
@@ -281,6 +279,11 @@ $gap: var(--onyx-spacing-md);
           display: contents;
         }
       }
+    }
+
+    // fix outline being cut-off by the clipping
+    .onyx-more-list__elements {
+      padding-inline: 0.25rem;
     }
 
     &__context {
