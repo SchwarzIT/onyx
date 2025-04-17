@@ -375,7 +375,7 @@ test("should display More Items correctly", async ({ mount, page }) => {
     </OnyxNavBar>,
   );
 
-  const moreMenuItem = component.getByRole("menuitem", { name: "More" });
+  const moreMenuItem = component.getByRole("menuitem", { name: /\+\d More/ });
   const firstMenuItem = component.getByRole("menuitem", { name: "Menuitem 0" });
   const lastMenuItem = component.getByRole("menuitem", { name: "Menuitem 5" });
 
