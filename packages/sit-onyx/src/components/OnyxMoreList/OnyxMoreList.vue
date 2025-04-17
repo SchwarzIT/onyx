@@ -24,7 +24,7 @@ defineSlots<{
   more(props: MoreListSlotBindings & { attributes: object }): unknown;
 }>();
 
-const parentRef = useTemplateRef("parentRef");
+const parentRef = useTemplateRef<HTMLElement>("parentRef");
 const listRef = ref<VueTemplateRefElement>();
 const moreIndicatorRef = ref<VueTemplateRefElement>();
 
@@ -42,7 +42,7 @@ watch(
 </script>
 
 <template>
-  <div ref="parentRef" class="onyx-component onyx-more-list">
+  <component :is="props.is ?? 'div'" ref="parentRef" class="onyx-component onyx-more-list">
     <slot
       :attributes="{
         ref: (el?: VueTemplateRefElement) => (listRef = el),
@@ -60,7 +60,7 @@ watch(
       :hidden-elements="more.hiddenElements.value?.length"
       :visible-elements="more.visibleElements.value?.length"
     ></slot>
-  </div>
+  </component>
 </template>
 
 <style lang="scss">
@@ -71,6 +71,8 @@ watch(
     display: flex;
     align-items: center;
     gap: var(--onyx-spacing-4xs);
+    contain: inline-size;
+    width: 100%;
 
     &__elements {
       display: inherit;

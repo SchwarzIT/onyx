@@ -1,3 +1,4 @@
+import type { Component } from "vue";
 import type { MoreListInjectionKey } from "../../composables/useMoreList";
 
 export type OnyxMoreListProps = {
@@ -6,6 +7,10 @@ export type OnyxMoreListProps = {
    * Will not be reactive so it must not be changed.
    */
   injectionKey: MoreListInjectionKey;
+  /**
+   * What the component should render as.
+   */
+  is?: Component | string;
 };
 
 export type MoreListSlotBindings = {
