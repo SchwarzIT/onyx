@@ -4,7 +4,7 @@ import { useMoreList } from "../../composables/useMoreList";
 import type { VueTemplateRefElement } from "../../composables/useResizeObserver";
 import type { MoreListSlotBindings, OnyxMoreListProps } from "./types";
 
-const props = defineProps<OnyxMoreListProps>();
+const props = withDefaults(defineProps<OnyxMoreListProps>(), { is: "div" });
 
 const emit = defineEmits<{
   /**
@@ -42,7 +42,7 @@ watch(
 </script>
 
 <template>
-  <component :is="props.is ?? 'div'" ref="parentRef" class="onyx-component onyx-more-list">
+  <component :is="props.is" ref="parentRef" class="onyx-component onyx-more-list">
     <slot
       :attributes="{
         ref: (el?: VueTemplateRefElement) => (listRef = el),

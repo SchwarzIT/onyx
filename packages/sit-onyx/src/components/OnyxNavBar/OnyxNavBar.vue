@@ -168,7 +168,11 @@ defineExpose({
             <template #more="{ attributes }">
               <OnyxFlyoutMenu :label="t('navigation.moreNavItems')" v-bind="attributes">
                 <template #button="{ trigger }">
-                  <OnyxNavItemFacade v-bind="trigger" label="more" context="navbar" />
+                  <OnyxNavItemFacade
+                    v-bind="trigger"
+                    :label="t('navigation.moreNavItems')"
+                    context="navbar"
+                  />
                 </template>
 
                 <template #options>

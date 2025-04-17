@@ -8,7 +8,7 @@ export type OnyxMoreListProps = {
    */
   injectionKey: MoreListInjectionKey;
   /**
-   * What the component should render as.
+   * What the component should render as. Defaults to `div`.
    */
   is?: Component | string;
 };
