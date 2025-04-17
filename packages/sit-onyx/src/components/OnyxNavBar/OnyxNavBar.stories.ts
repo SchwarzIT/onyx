@@ -95,7 +95,12 @@ export const Default = {
           ],
         },
       ),
-      h(OnyxNavItem, { label: "External Link", link: "https://onyx.schwarz" }),
+      h(OnyxNavItem, { label: "External Link 1", link: "https://onyx.schwarz" }),
+      h(OnyxNavItem, { label: "External Link 2", link: "https://onyx.schwarz" }),
+      h(OnyxNavItem, { label: "External Link 3", link: "https://onyx.schwarz" }),
+      h(OnyxNavItem, { label: "External Link 4", link: "https://onyx.schwarz" }),
+      h(OnyxNavItem, { label: "External Link 5", link: "https://onyx.schwarz" }),
+      h(OnyxNavItem, { label: "External Link 6", link: "https://onyx.schwarz" }),
     ],
     mobileActivePage: "Nested item 2.2",
   },
@@ -125,6 +130,46 @@ export const Nested = {
             ),
             h(OnyxNavItem, { label: "Nested item 2.2", link: "#2.2" }),
             h(OnyxNavItem, { label: "Nested item 2.3", link: "#2.3" }),
+          ],
+        },
+      ),
+      h(
+        OnyxNavItem,
+        { label: "Item 3" },
+        {
+          children: () => [
+            h(OnyxNavItem, { label: "Nested item 3.1", link: "#3.1" }),
+            h(OnyxNavItem, { label: "Nested item 3.2", link: "#3.2" }),
+          ],
+        },
+      ),
+      h(
+        OnyxNavItem,
+        { label: "Item 3" },
+        {
+          children: () => [
+            h(OnyxNavItem, { label: "Nested item 3.1", link: "#3.1" }),
+            h(OnyxNavItem, { label: "Nested item 3.2", link: "#3.2" }),
+          ],
+        },
+      ),
+      h(
+        OnyxNavItem,
+        { label: "Item 3" },
+        {
+          children: () => [
+            h(OnyxNavItem, { label: "Nested item 3.1", link: "#3.1" }),
+            h(OnyxNavItem, { label: "Nested item 3.2", link: "#3.2" }),
+          ],
+        },
+      ),
+      h(
+        OnyxNavItem,
+        { label: "Item 3" },
+        {
+          children: () => [
+            h(OnyxNavItem, { label: "Nested item 3.1", link: "#3.1" }),
+            h(OnyxNavItem, { label: "Nested item 3.2", link: "#3.2" }),
           ],
         },
       ),

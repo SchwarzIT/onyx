@@ -12,9 +12,9 @@ export type MoreListSlotBindings = {
   /**
    * Number of currently fully visible elements.
    */
-  visibleElements: number;
+  visibleElements?: number;
   /**
    * Number of currently completely or partially hidden elements.
    */
-  hiddenElements: number;
+  hiddenElements?: number;
 };

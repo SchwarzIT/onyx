@@ -128,6 +128,7 @@
     "appLogo": "App logo of {appName}",
     "goToHome": "Go to home page",
     "goBack": "Go back",
+    "moreNavItems": "More",
     "userMenuLabel": "User options",
     "toggleBurgerMenu": "Toggle burger menu",
     "toggleContextMenu": "Toggle context menu",
