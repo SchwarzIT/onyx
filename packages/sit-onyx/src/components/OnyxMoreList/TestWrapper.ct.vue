@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { ref } from "vue";
 import OnyxNavItem from "../OnyxNavBar/modules/OnyxNavItem/OnyxNavItem.vue";
 import { NAV_BAR_MORE_LIST_INJECTION_KEY } from "../OnyxNavBar/types";
 import OnyxMoreList from "./OnyxMoreList.vue";
@@ -15,6 +16,13 @@ const emit = defineEmits<{
   visibilityChange: [value: MoreListSlotBindings];
 }>();
 
+const visible = ref(Infinity);
+
+const handleVisibilityChange = (event: MoreListSlotBindings) => {
+  visible.value = event.visibleElements ?? Infinity;
+  emit("visibilityChange", event);
+};
+
 const COMPONENT_WIDTH = "8rem";
 </script>
 
@@ -25,7 +33,7 @@ const COMPONENT_WIDTH = "8rem";
     :style="{
       width: props.count ? `calc(${props.count} * ${COMPONENT_WIDTH})` : undefined,
     }"
-    @visibility-change="emit('visibilityChange', $event)"
+    @visibility-change="handleVisibilityChange"
   >
     <template #default="{ attributes }">
       <ul v-bind="attributes" role="menu">
@@ -33,7 +41,7 @@ const COMPONENT_WIDTH = "8rem";
           v-for="i in 24"
           :key="i"
           :label="`Element ${i}`"
-          :style="{ minWidth: COMPONENT_WIDTH }"
+          :style="{ minWidth: COMPONENT_WIDTH, display: i <= visible ? 'block' : 'none' }"
         />
       </ul>
     </template>
