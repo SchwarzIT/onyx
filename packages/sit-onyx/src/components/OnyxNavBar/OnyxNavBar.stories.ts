@@ -143,10 +143,8 @@ export const Nested = {
   },
 } satisfies Story;
 
-/**
- * for many
- */
 export const WithMoreListItem = {
+  tags: ["new:feature"],
   parameters: {
     viewport: { defaultViewport: "sm" },
   },
@@ -181,7 +179,6 @@ export const WithMoreListItem = {
         },
       ),
     ],
-    mobileActivePage: "Nested item 2.2",
   },
 } satisfies Story;
 
