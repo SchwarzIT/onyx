@@ -36,7 +36,7 @@ import type { Data } from "../types";
  *   </div>
  * </template>
  */
-export const useRootAttrs = <T extends HTMLAttributes = HTMLAttributes>() => {
+export const useRootAttrs = <T extends Pick<HTMLAttributes, "class" | "style">>() => {
   // endregion docs
   const attrs = useAttrs();
 
