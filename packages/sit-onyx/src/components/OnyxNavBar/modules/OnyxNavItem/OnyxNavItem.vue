@@ -75,6 +75,7 @@ const moreListTargetId = inject(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY);
 const isTopLevel = inject(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, true);
 provide(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, false);
 
+// only top-level nav-items are relevant for the "more list"
 const { componentRef, isVisible } = isTopLevel
   ? useMoreListChild(NAV_BAR_MORE_LIST_INJECTION_KEY)
   : { isVisible: toRef(true) };
@@ -163,6 +164,7 @@ const { componentRef, isVisible } = isTopLevel
   >
     <slot></slot>
   </OnyxNavItemFacade>
+  <!-- Desktop top-level nav item in more list -->
   <template v-else>
     <Teleport :disabled="!moreListTargetId" :to="moreListTargetId">
       <OnyxNavItemFacade v-bind="mergeVueProps(props, $attrs)" :active context="list">
