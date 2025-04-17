@@ -138,10 +138,12 @@ export const useMoreList = (options: UseMoreListOptions) => {
   return {
     /**
      * IDs of currently completely visible components in the list.
+     * Initially `undefined`, in that case treat all components as visible.
      */
     visibleElements,
     /**
      * IDs of currently fully or partially hidden components in the list.
+     * Initially `undefined`, in that case treat all components as visible.
      */
     hiddenElements,
     /**
