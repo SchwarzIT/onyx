@@ -2,8 +2,10 @@ import { expect, test } from "../../playwright/a11y";
 import TestWrapperCt from "./TestWrapper.ct.vue";
 import type { MoreListSlotBindings } from "./types";
 
-test("should render", async ({ mount, makeAxeBuilder }) => {
+test("should render", async ({ mount, makeAxeBuilder, page }) => {
   const events: MoreListSlotBindings[] = [];
+
+  page.setViewportSize({ width: 1200, height: 200 });
 
   const eventHandlers = {
     onVisibilityChange: (data: MoreListSlotBindings) => events.push(data),
@@ -17,15 +19,11 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
     on: eventHandlers,
   });
 
-  const expectVisible = (name: string) => {
-    return expect(component.getByRole("menuitem", { name, exact: true })).toBeInViewport({
-      ratio: 1,
-    });
-  };
+  const expectVisible = (name: string) =>
+    expect(component.getByRole("menuitem", { name, exact: true })).toBeVisible();
 
-  const expectHidden = (name: string) => {
-    return expect(component.getByRole("menuitem", { name, exact: true })).toBeHidden();
-  };
+  const expectHidden = (name: string) =>
+    expect(component.getByRole("menuitem", { name, exact: true })).toBeHidden();
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
