@@ -52,6 +52,7 @@ const hasChildren = computed(() => !!slots.children);
     height: 2.5rem;
     width: max-content;
     border-radius: var(--onyx-radius-sm);
+    white-space: nowrap;
     --onyx-list-item-background-hover: transparent;
     --onyx-list-item-background-selected: var(--onyx-color-base-background-blank);
     --onyx-list-item-padding: var(--onyx-spacing-2xs) var(--onyx-spacing-md);

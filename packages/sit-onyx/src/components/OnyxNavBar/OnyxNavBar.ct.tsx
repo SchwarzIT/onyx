@@ -1,3 +1,4 @@
+import type { Page } from "@playwright/test";
 import { navigationTesting } from "@sit-onyx/headless/playwright";
 import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
 import { expect, test } from "../../playwright/a11y";
@@ -62,6 +63,12 @@ test.describe("Screenshot tests", () => {
           withBackButton={row.includes("back")}
         >
           <OnyxNavItem label="Item" active />
+          <OnyxNavItem label="Item" />
+          <OnyxNavItem label="Item" />
+          <OnyxNavItem label="Item" />
+          <OnyxNavItem label="Item" />
+          <OnyxNavItem label="Item" />
+          <OnyxNavItem label="Item" />
           <OnyxNavItem label="Item" />
 
           <template v-slot:mobileActivePage>Item</template>
@@ -338,5 +345,104 @@ Object.entries(ONYX_BREAKPOINTS).forEach(([breakpoint, width]) => {
       // eslint-disable-next-line playwright/no-conditional-expect
       await expect(page).toHaveScreenshot(`grid-max-center-${breakpoint}.png`);
     }
+  });
+});
+
+const expectNMenuItemsToBeVisible = async (n: number, page: Page) => {
+  for (let i = 1; i < n; i++) {
+    await expect(page.getByRole("menuitem", { name: `Menuitem ${i}` })).toBeVisible();
+  }
+};
+
+test("should display More Items correctly", async ({ mount, page }) => {
+  // ARRANGE
+  let navItemClickEvents = 0;
+
+  await page.setViewportSize({ width: ONYX_BREAKPOINTS.lg, height: 400 });
+
+  const component = await mount(
+    <OnyxNavBar
+      appName="App name"
+      logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}
+      appArea={{ link: "#app-area" }}
+    >
+      <OnyxNavItem link="#1" label="Menuitem 0" />
+      <OnyxNavItem link="#1" label="Menuitem 1" />
+      <OnyxNavItem link="#2" label="Menuitem 2" />
+      <OnyxNavItem link="#3" label="Menuitem 3" />
+      <OnyxNavItem link="#4" label="Menuitem 4" />
+      <OnyxNavItem link="#5" onClick={() => navItemClickEvents++} label="Menuitem 5" />
+    </OnyxNavBar>,
+  );
+
+  const moreMenuItem = component.getByRole("menuitem", { name: /\+\d More/ });
+  const firstMenuItem = component.getByRole("menuitem", { name: "Menuitem 0" });
+  const lastMenuItem = component.getByRole("menuitem", { name: "Menuitem 5" });
+
+  await test.step("on a wide screen all menuitems should visible", async () => {
+    // ACT
+    await lastMenuItem.click();
+
+    // ASSERT
+    expect(navItemClickEvents).toBe(1);
+    await expect(moreMenuItem).toBeHidden();
+    await expectNMenuItemsToBeVisible(5, page);
+  });
+
+  await test.step("smaller screen should move menuitem into nested menu", async () => {
+    // ACT
+    await firstMenuItem.hover();
+    await page.setViewportSize({ width: ONYX_BREAKPOINTS.md, height: 400 });
+
+    // ASSERT
+    expect(navItemClickEvents).toBe(1);
+    await expect(moreMenuItem).toBeVisible();
+    await expect(lastMenuItem).toBeHidden();
+    await expectNMenuItemsToBeVisible(4, page);
+
+    // ACT
+    await moreMenuItem.hover();
+
+    // ASSERT
+    await expect(moreMenuItem).toBeVisible();
+    await expect(moreMenuItem).toHaveAttribute("aria-expanded", "true");
+    await expect(moreMenuItem).toHaveAttribute("aria-haspopup", "true");
+    await expect(lastMenuItem).toBeVisible();
+
+    // ACT
+    await lastMenuItem.click();
+
+    // ASSERT
+    await expect(moreMenuItem).toBeVisible();
+    await expect(moreMenuItem).toHaveAttribute("aria-expanded", "false");
+    await expect(moreMenuItem).toHaveAttribute("aria-haspopup", "true");
+    await expect(lastMenuItem).toBeHidden();
+    expect(navItemClickEvents).toBe(2);
+  });
+
+  await test.step("on mobile breakpoint the mobile menu should work as expected", async () => {
+    // ACT
+    await page.setViewportSize({ width: ONYX_BREAKPOINTS.sm, height: 800 });
+    await component.getByLabel("Toggle burger menu").click();
+
+    // ASSERT
+    await expect(moreMenuItem).toBeHidden();
+    await expectNMenuItemsToBeVisible(5, page);
+
+    // ACT
+    await lastMenuItem.click();
+
+    // ASSERT
+    expect(navItemClickEvents).toBe(3);
+  });
+
+  await test.step("on desktop breakpoint everything should work as expected again", async () => {
+    // ACT
+    await page.setViewportSize({ width: ONYX_BREAKPOINTS.lg, height: 400 });
+    await lastMenuItem.click();
+
+    // ASSERT
+    await expectNMenuItemsToBeVisible(5, page);
+    expect(navItemClickEvents).toBe(4);
   });
 });

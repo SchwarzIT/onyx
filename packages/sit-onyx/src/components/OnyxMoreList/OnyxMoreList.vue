@@ -4,7 +4,7 @@ import { useMoreList } from "../../composables/useMoreList";
 import type { VueTemplateRefElement } from "../../composables/useResizeObserver";
 import type { MoreListSlotBindings, OnyxMoreListProps } from "./types";
 
-const props = defineProps<OnyxMoreListProps>();
+const props = withDefaults(defineProps<OnyxMoreListProps>(), { is: "div" });
 
 const emit = defineEmits<{
   /**
@@ -24,7 +24,7 @@ defineSlots<{
   more(props: MoreListSlotBindings & { attributes: object }): unknown;
 }>();
 
-const parentRef = useTemplateRef("parentRef");
+const parentRef = useTemplateRef<HTMLElement>("parentRef");
 const listRef = ref<VueTemplateRefElement>();
 const moreIndicatorRef = ref<VueTemplateRefElement>();
 
@@ -34,7 +34,7 @@ const more = useMoreList({ parentRef, listRef, moreIndicatorRef });
 provide(props.injectionKey, more);
 
 watch(
-  [() => more.visibleElements.value.length, () => more.hiddenElements.value.length],
+  [() => more.visibleElements.value?.length, () => more.hiddenElements.value?.length],
   ([visibleElements, hiddenElements]) => {
     emit("visibilityChange", { visibleElements, hiddenElements });
   },
@@ -42,7 +42,7 @@ watch(
 </script>
 
 <template>
-  <div ref="parentRef" class="onyx-component onyx-more-list">
+  <component :is="props.is" ref="parentRef" class="onyx-component onyx-more-list">
     <slot
       :attributes="{
         ref: (el?: VueTemplateRefElement) => (listRef = el),
@@ -51,16 +51,16 @@ watch(
     ></slot>
 
     <slot
-      v-if="more.hiddenElements.value.length > 0"
+      v-if="more.hiddenElements.value?.length"
       name="more"
       :attributes="{
         ref: (el?: VueTemplateRefElement) => (moreIndicatorRef = el),
         class: 'onyx-more-list__indicator',
       }"
-      :hidden-elements="more.hiddenElements.value.length"
-      :visible-elements="more.visibleElements.value.length"
+      :hidden-elements="more.hiddenElements.value?.length"
+      :visible-elements="more.visibleElements.value?.length"
     ></slot>
-  </div>
+  </component>
 </template>
 
 <style lang="scss">
@@ -71,6 +71,8 @@ watch(
     display: flex;
     align-items: center;
     gap: var(--onyx-spacing-4xs);
+    contain: inline-size;
+    width: 100%;
 
     &__elements {
       display: inherit;
