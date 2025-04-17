@@ -1,5 +1,5 @@
 import type { TooltipPosition } from "src/components/OnyxTooltip/types";
-import { ref, unref, type MaybeRefOrGetter } from "vue";
+import { nextTick, ref, unref, type MaybeRefOrGetter } from "vue";
 import type { WedgePosition } from "./useWedgePosition";
 
 //TODO: can be removed after anchor is implemented in all common browers
@@ -31,6 +31,23 @@ export const useAnchorPositionPolyfill = ({
     const element = unref(refOrGetter);
     return typeof element === "function" ? element() : element;
   };
+
+  const intersectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      updateAnchorPositionPolyfill();
+      if (entry.isIntersecting) {
+        //  check if positionedRef is in view and if it is updateding every AnimationFrame
+      } else {
+        leftPosition.value = "-1000px";
+        topPosition.value = "-1000px";
+      }
+    });
+  });
+
+  nextTick(() => {
+    const observerTarget = getElement(targetRef);
+    if (observerTarget) intersectionObserver.observe(observerTarget);
+  });
 
   const updateAnchorPositionPolyfill = () => {
     const positionedEl = getElement(positionedRef);
