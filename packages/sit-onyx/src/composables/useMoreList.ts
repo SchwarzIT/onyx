@@ -90,8 +90,8 @@ export type UseMoreListOptions = {
  * ```
  */
 export const useMoreList = (options: UseMoreListOptions) => {
-  const visibleElements = ref<string[]>([]);
-  const hiddenElements = ref<string[]>([]);
+  const visibleElements = ref<string[]>();
+  const hiddenElements = ref<string[]>();
 
   const { width: parentWidth } = useResizeObserver(options.parentRef);
   const { width: moreIndicatorWidth } = useResizeObserver(options.moreIndicatorRef);
@@ -127,9 +127,9 @@ export const useMoreList = (options: UseMoreListOptions) => {
           // check if last element fits if more indicator would be hidden
           (index === componentMap.size - 1 && availableWidth + moreIndicatorWidth.value >= 0)
         ) {
-          visibleElements.value.push(id);
+          visibleElements.value!.push(id);
         } else {
-          hiddenElements.value.push(id);
+          hiddenElements.value!.push(id);
         }
       });
     });
@@ -199,7 +199,7 @@ export const useMoreListChild = (injectionKey: MoreListInjectionKey) => {
 
   onBeforeUnmount(() => moreContext?.componentMap.delete(id));
 
-  const isVisible = computed(() => moreContext?.visibleElements.value.includes(id) ?? true);
+  const isVisible = computed(() => moreContext?.visibleElements.value?.includes(id) ?? true);
 
   return {
     /**

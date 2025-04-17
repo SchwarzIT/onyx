@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import arrowSmallLeft from "@sit-onyx/icons/arrow-small-left.svg?raw";
-import { computed, inject, provide } from "vue";
+import { computed, inject, provide, toRef } from "vue";
 import { useLink } from "../../../../composables/useLink";
 import { useMoreListChild } from "../../../../composables/useMoreList";
 import { useVModel, type Nullable } from "../../../../composables/useVModel";
@@ -11,6 +11,7 @@ import {
   MOBILE_NAV_BAR_INJECTION_KEY,
   NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY,
   NAV_BAR_MORE_LIST_INJECTION_KEY,
+  NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY,
 } from "../../types";
 import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxNavItemFacade from "../OnyxNavItemFacade/OnyxNavItemFacade.vue";
@@ -60,15 +61,19 @@ const active = computed(() => {
   return isActive.value(props.link);
 });
 
-const { componentRef, isVisible } = useMoreListChild(NAV_BAR_MORE_LIST_INJECTION_KEY);
-
 const isMobile = inject(
   MOBILE_NAV_BAR_INJECTION_KEY,
   computed(() => false),
 );
 
+const moreListTargetId = inject(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY);
+
 const isTopLevel = inject(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, true);
 provide(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, false);
+
+const { componentRef, isVisible } = isTopLevel
+  ? useMoreListChild(NAV_BAR_MORE_LIST_INJECTION_KEY)
+  : { isVisible: toRef(true) };
 </script>
 
 <template>
@@ -114,8 +119,7 @@ provide(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, false);
   </OnyxNavItemFacade>
   <!-- Desktop parent item in navbar with children in a flyout -->
   <OnyxFlyoutMenu
-    v-else-if="isTopLevel && hasChildren"
-    v-show="isVisible"
+    v-else-if="isTopLevel && hasChildren && isVisible"
     :label="t('navItemOptionsLabel', { label: props.label })"
   >
     <template #button="{ trigger }">
@@ -136,8 +140,7 @@ provide(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, false);
   </OnyxFlyoutMenu>
   <!-- Desktop nav button directly in navbar  -->
   <OnyxNavItemFacade
-    v-else-if="isTopLevel"
-    v-show="isVisible"
+    v-else-if="isTopLevel && isVisible"
     v-bind="props"
     ref="componentRef"
     :active
@@ -146,9 +149,16 @@ provide(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, false);
     <slot></slot>
   </OnyxNavItemFacade>
   <!-- Desktop nav item nested in a list flyout -->
-  <OnyxNavItemFacade v-else v-bind="props" :active context="list">
+  <OnyxNavItemFacade v-else-if="isVisible" v-bind="props" :active context="list">
     <slot></slot>
   </OnyxNavItemFacade>
+  <template v-else>
+    <Teleport :disabled="!moreListTargetId" :to="moreListTargetId">
+      <OnyxNavItemFacade v-bind="props" :active context="list">
+        <slot></slot>
+      </OnyxNavItemFacade>
+    </Teleport>
+  </template>
 </template>
 
 <style lang="scss">

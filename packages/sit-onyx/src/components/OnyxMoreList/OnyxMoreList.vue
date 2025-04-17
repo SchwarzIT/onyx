@@ -34,7 +34,7 @@ const more = useMoreList({ parentRef, listRef, moreIndicatorRef });
 provide(props.injectionKey, more);
 
 watch(
-  [() => more.visibleElements.value.length, () => more.hiddenElements.value.length],
+  [() => more.visibleElements.value?.length, () => more.hiddenElements.value?.length],
   ([visibleElements, hiddenElements]) => {
     emit("visibilityChange", { visibleElements, hiddenElements });
   },
@@ -51,14 +51,14 @@ watch(
     ></slot>
 
     <slot
-      v-if="more.hiddenElements.value.length > 0"
+      v-if="more.hiddenElements.value?.length"
       name="more"
       :attributes="{
         ref: (el?: VueTemplateRefElement) => (moreIndicatorRef = el),
         class: 'onyx-more-list__indicator',
       }"
-      :hidden-elements="more.hiddenElements.value.length"
-      :visible-elements="more.visibleElements.value.length"
+      :hidden-elements="more.hiddenElements.value?.length"
+      :visible-elements="more.visibleElements.value?.length"
     ></slot>
   </div>
 </template>
