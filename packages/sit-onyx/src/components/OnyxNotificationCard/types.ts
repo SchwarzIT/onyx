@@ -14,4 +14,8 @@ export type OnyxNotificationCardProps = DensityProp & {
    * Whether the notification is unread / not acknowledged by the user yet.
    */
   unread?: boolean;
+  /**
+   *  Notifification options. Use it to add options in the notification header menu on hover.
+   */
+  options?: { label: string; key: string }[];
 };

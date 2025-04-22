@@ -23,6 +23,10 @@ export const Default = {
     style: "width: 32rem",
     headline: "Example notification",
     createdAt: new Date(),
+    options: [
+      { key: "mark-as-read-key", label: "Mark as read" },
+      { key: "delete-key", label: "Delete" },
+    ],
     default:
       "Lorem ipsum dolor sit amet consectetur. Dui purus quisque est varius vulputate. Ut odio dui diam pulvinar velit mollis cursus eu ut. Lorem ipsum dolor sit amet consectetur. Dui purus quisque est varius vulputate. Ut odio dui diam pulvinar velit mollis cursus eu ut. Lorem ipsum dolor sit amet consectetur. Dui purus quisque est varius vulputate. Ut odio dui diam pulvinar velit mollis cursus eu ut.",
   },

@@ -1,13 +1,24 @@
 <script lang="ts" setup>
+import moreVerticalSmall from "@sit-onyx/icons/more-vertical-small.svg?raw";
 import { toRef } from "vue";
 import { useDensity } from "../../composables/density";
 import { useRelativeTimeFormat } from "../../composables/useRelativeTimeFormat";
 import { injectI18n } from "../../i18n";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
+import OnyxFlyoutMenu from "../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
+import OnyxMenuItem from "../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
+import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import type { OnyxNotificationCardProps } from "./types";
 
 const props = defineProps<OnyxNotificationCardProps>();
+
+const emit = defineEmits<{
+  /**
+   * Emitted when the dialog should be closed.
+   */
+  option: [string];
+}>();
 
 const slots = defineSlots<{
   /**
@@ -34,7 +45,23 @@ const { timeAgo } = useRelativeTimeFormat({
       <div class="onyx-notification-card__header">
         <div class="onyx-notification-card__headline">
           <OnyxHeadline is="h3">{{ props.headline }}</OnyxHeadline>
-          <OnyxBadge v-if="props.unread" dot />
+          <div class="onyx-notification-card__system-button">
+            <OnyxBadge v-if="props.unread" dot />
+            <OnyxFlyoutMenu v-if="!!props.options" label="">
+              <template #button="{ trigger }">
+                <OnyxSystemButton v-bind="trigger" :icon="moreVerticalSmall" label="" />
+              </template>
+
+              <template #options>
+                <OnyxMenuItem
+                  v-for="menuItem in props.options"
+                  :key="menuItem.key"
+                  @click="emit('option', menuItem.key)"
+                  >{{ menuItem.label }}</OnyxMenuItem
+                > </template
+              >4
+            </OnyxFlyoutMenu>
+          </div>
         </div>
 
         <div class="onyx-notification-card__created-at onyx-text--small">
@@ -56,6 +83,19 @@ const { timeAgo } = useRelativeTimeFormat({
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
+
+.onyx-notification-card:hover {
+  .onyx-notification-card__system-button {
+    > .onyx-flyout-menu {
+      display: block;
+      height: 1.4375rem;
+
+      .onyx-flyout-menu__list {
+        right: 0;
+      }
+    }
+  }
+}
 
 .onyx-notification-card {
   @include layers.component() {
@@ -112,6 +152,15 @@ const { timeAgo } = useRelativeTimeFormat({
       align-items: center;
       justify-content: space-between;
       gap: var(--onyx-density-md);
+    }
+  }
+
+  &__system-button {
+    display: flex;
+    align-items: center;
+
+    .onyx-flyout-menu {
+      display: none;
     }
   }
 }
