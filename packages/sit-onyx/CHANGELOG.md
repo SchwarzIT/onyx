@@ -1,5 +1,15 @@
 # sit-onyx
 
+## 1.0.0-beta.196
+
+### Major Changes
+
+- 053db89: feat(useMoreList)!: while not yet mounted elements are considered visible
+
+### Minor Changes
+
+- 053db89: feat(OnyxNavBar): implement "+n More" grouping for overflowing menu items
+
 ## 1.0.0-beta.195
 
 ### Major Changes
