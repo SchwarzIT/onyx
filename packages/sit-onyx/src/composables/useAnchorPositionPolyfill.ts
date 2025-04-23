@@ -1,5 +1,5 @@
 import type { TooltipPosition } from "src/components/OnyxTooltip/types";
-import { nextTick, ref, unref, type MaybeRefOrGetter } from "vue";
+import { computed, nextTick, ref, unref, type MaybeRefOrGetter } from "vue";
 import type { WedgePosition } from "./useWedgePosition";
 
 //TODO: can be removed after anchor is implemented in all common browers
@@ -27,26 +27,60 @@ export const useAnchorPositionPolyfill = ({
   const leftPosition = ref("-1000px");
   const topPosition = ref("-1000px");
 
-  const getElement = (refOrGetter: MaybeRefOrGetter<HTMLElement | null>): HTMLElement | null => {
-    const element = unref(refOrGetter);
-    return typeof element === "function" ? element() : element;
-  };
+  let targetVisible = false;
+  const scrollParent = computed(() => getScrollParent(getElement(targetRef)));
 
-  const intersectionObserver = new IntersectionObserver((entries) => {
+  const targetObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
+      targetVisible = entry.isIntersecting;
       updateAnchorPositionPolyfill();
-      if (entry.isIntersecting) {
-        //  check if positionedRef is in view and if it is updateding every AnimationFrame
+      if (targetVisible) {
+        const positionedElement = getElement(positionedRef);
+        if (positionedElement) {
+          positionedObserver.observe(positionedElement);
+        }
       } else {
+        positionedObserver.disconnect();
+        scrollParent.value?.removeEventListener("scroll", updateAnchorPositionPolyfill);
+
         leftPosition.value = "-1000px";
         topPosition.value = "-1000px";
       }
     });
   });
 
+  const positionedObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        scrollParent.value?.addEventListener("scroll", updateAnchorPositionPolyfill);
+      } else {
+        scrollParent.value?.removeEventListener("scroll", updateAnchorPositionPolyfill);
+        leftPosition.value = "-1000px";
+        topPosition.value = "-1000px";
+      }
+    });
+  });
+
+  const getElement = (refOrGetter: MaybeRefOrGetter<HTMLElement | null>): HTMLElement | null => {
+    const element = unref(refOrGetter);
+    return typeof element === "function" ? element() : element;
+  };
+
+  const getScrollParent = (node: HTMLElement | null): HTMLElement | null => {
+    if (node == null) {
+      return null;
+    }
+
+    if (node.scrollHeight > node.clientHeight) {
+      return node;
+    } else {
+      return getScrollParent(node.parentElement);
+    }
+  };
+
   nextTick(() => {
     const observerTarget = getElement(targetRef);
-    if (observerTarget) intersectionObserver.observe(observerTarget);
+    if (observerTarget) targetObserver.observe(observerTarget);
   });
 
   const updateAnchorPositionPolyfill = () => {
