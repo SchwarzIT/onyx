@@ -5,7 +5,10 @@ import type { WedgePosition } from "./useWedgePosition";
 //TODO: can be removed after anchor is implemented in all common browers
 
 export const USERAGENT_SUPPORTS_ANCHOR_API =
-  "CSS" in globalThis && typeof CSS !== "undefined" && CSS.supports("anchor-name: --test");
+  "CSS" in globalThis &&
+  typeof CSS !== "undefined" &&
+  CSS.supports("anchor-name: --test") &&
+  CSS.supports("position-area: top");
 
 type UseAnchorPositionPolyfillOptions = {
   positionedRef: MaybeRefOrGetter<HTMLElement | null>;
