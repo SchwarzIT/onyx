@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.197
+
+### Patch Changes
+
+- 1274d2c: fix(OnyxDataGrid): fix empty data grid showing large header instead of "empty" content
+
 ## 1.0.0-beta.196
 
 ### Major Changes
