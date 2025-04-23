@@ -119,7 +119,7 @@ const style = computed(() => ({
             <!-- fallback content showing an "empty" state
               that will be displayed if no body content is provided -->
             <tr class="onyx-table__empty">
-              <td colspan="100%">
+              <td colspan="99">
                 <div class="onyx-table__empty-content">
                   <slot name="empty" :default-message="isEmptyMessage">
                     <OnyxEmpty> {{ isEmptyMessage }} </OnyxEmpty>
