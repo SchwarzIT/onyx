@@ -101,6 +101,8 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
     }
 
     &--neutral {
+      --onyx-button-outline-color: var(--onyx-color-component-focus-neutral);
+
       &.onyx-button--default {
         --onyx-button-background-color: var(--onyx-color-base-background-blank);
         --onyx-button-background-color-hover: var(--onyx-color-base-neutral-200);
@@ -127,6 +129,8 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
     }
 
     &--danger {
+      --onyx-button-outline-color: var(--onyx-color-component-focus-danger);
+
       &.onyx-button--default {
         --onyx-button-background-color: var(--onyx-color-base-danger-200);
         --onyx-button-background-color-hover: var(--onyx-color-base-danger-100);
