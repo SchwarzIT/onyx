@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import { ref } from "vue";
 import { TooltipPosition } from "../components/OnyxTooltip/types";
 import { useAnchorPositionPolyfill } from "./useAnchorPositionPolyfill";
@@ -11,7 +11,21 @@ describe("useAnchorPositionPolyfill", () => {
   const alignment = ref<WedgePosition>("center");
   const alignsWithEdge = ref(false);
   const fitParent = ref(false);
-  const offset = ref(10);
+
+  beforeEach(() => {
+    global.IntersectionObserver = class {
+      root: Element | null = null;
+      rootMargin: string = "";
+      thresholds: ReadonlyArray<number> = [];
+      constructor(_callback: IntersectionObserverCallback, _options?: IntersectionObserverInit) {}
+      observe() {}
+      unobserve() {}
+      disconnect() {}
+      takeRecords(): IntersectionObserverEntry[] {
+        return [];
+      }
+    };
+  });
 
   it("should initialize positions to -1000px", () => {
     const { leftPosition, topPosition } = useAnchorPositionPolyfill({
@@ -21,7 +35,6 @@ describe("useAnchorPositionPolyfill", () => {
       alignment,
       alignsWithEdge,
       fitParent,
-      offset,
     });
 
     expect(leftPosition.value).toBe("-1000px");
@@ -36,7 +49,6 @@ describe("useAnchorPositionPolyfill", () => {
       alignment,
       alignsWithEdge,
       fitParent,
-      offset,
     });
 
     // Mock elements
@@ -50,8 +62,9 @@ describe("useAnchorPositionPolyfill", () => {
     targetEl.style.width = "200px";
     targetEl.style.height = "100px";
     document.body.appendChild(targetEl);
-    targetRef.value = targetEl; // Mock getBoundingClientRect
+    targetRef.value = targetEl;
 
+    // Mock getBoundingClientRect
     targetEl.getBoundingClientRect = (): DOMRect => ({
       top: 100,
       left: 100,
