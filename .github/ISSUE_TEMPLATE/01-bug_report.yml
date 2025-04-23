@@ -2,6 +2,8 @@ name: Report a bug 🐞
 description: You found a bug in onyx? You can report it with the form below.
 title: "[Bug]: "
 type: Bug
+labels: "needs-triage"
+projects: ["SchwarzIT/5"]
 
 body:
   - type: input
