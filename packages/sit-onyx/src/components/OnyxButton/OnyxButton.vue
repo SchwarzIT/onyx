@@ -55,24 +55,114 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
 
 .onyx-button,
 .onyx-button-skeleton {
-  --onyx-button-padding-vertical: var(--onyx-density-xs);
+  @include layers.component() {
+    --onyx-button-padding-vertical: var(--onyx-density-xs);
+    --onyx-button-padding-inline: var(--onyx-density-sm);
+  }
 }
 
 .onyx-button {
   @include layers.component() {
+    // list of all available button CSS variables
     --onyx-button-background-color: transparent;
-    --onyx-button-background-hover-color: var(--onyx-color-base-primary-100);
+    --onyx-button-background-color-hover: transparent;
+    --onyx-button-background-color-disabled: transparent;
+    --onyx-button-text-color: transparent;
+    --onyx-button-text-color-hover: var(--onyx-button-text-color);
+    --onyx-button-text-color-disabled: transparent;
     --onyx-button-border-color: transparent;
-    --onyx-button-text-color: var(--onyx-color-text-icons-primary-intense);
+    --onyx-button-border-color-hover: var(--onyx-button-border-color);
+    --onyx-button-border-color-disabled: transparent;
     --onyx-button-outline-color: var(--onyx-color-component-focus-primary);
     --onyx-button-border-width: var(--onyx-1px-in-rem);
 
+    &--primary {
+      &.onyx-button--default {
+        --onyx-button-background-color: var(--onyx-color-component-cta-default);
+        --onyx-button-background-color-hover: var(--onyx-color-component-cta-default-hover);
+        --onyx-button-background-color-disabled: var(--onyx-color-base-primary-200);
+        --onyx-button-text-color: var(--onyx-color-text-icons-neutral-button);
+        --onyx-button-text-color-disabled: var(--onyx-color-text-icons-neutral-inverted);
+      }
+
+      &.onyx-button--outline {
+        --onyx-button-background-color-hover: var(--onyx-color-base-primary-100);
+        --onyx-button-text-color: var(--onyx-color-text-icons-primary-intense);
+        --onyx-button-text-color-disabled: var(--onyx-color-text-icons-primary-soft);
+        --onyx-button-border-color: var(--onyx-color-base-primary-400);
+        --onyx-button-border-color-disabled: var(--onyx-color-base-primary-200);
+      }
+
+      &.onyx-button--plain {
+        --onyx-button-background-color-hover: var(--onyx-color-base-primary-100);
+        --onyx-button-text-color: var(--onyx-color-text-icons-primary-intense);
+        --onyx-button-text-color-disabled: var(--onyx-color-text-icons-primary-soft);
+      }
+    }
+
+    &--neutral {
+      &.onyx-button--default {
+        --onyx-button-background-color: var(--onyx-color-base-background-blank);
+        --onyx-button-background-color-hover: var(--onyx-color-base-neutral-200);
+        --onyx-button-background-color-disabled: var(--onyx-color-base-background-blank);
+        --onyx-button-text-color: var(--onyx-color-text-icons-neutral-intense);
+        --onyx-button-text-color-disabled: var(--onyx-color-text-icons-neutral-soft);
+        --onyx-button-border-color: var(--onyx-color-base-neutral-400);
+        --onyx-button-border-color-disabled: var(--onyx-color-base-neutral-200);
+      }
+
+      &.onyx-button--outline {
+        --onyx-button-background-color-hover: var(--onyx-color-base-neutral-200);
+        --onyx-button-text-color: var(--onyx-color-text-icons-neutral-intense);
+        --onyx-button-text-color-disabled: var(--onyx-color-text-icons-neutral-soft);
+        --onyx-button-border-color: var(--onyx-color-base-neutral-400);
+        --onyx-button-border-color-disabled: var(--onyx-color-base-neutral-200);
+      }
+
+      &.onyx-button--plain {
+        --onyx-button-background-color-hover: var(--onyx-color-base-neutral-200);
+        --onyx-button-text-color: var(--onyx-color-text-icons-neutral-intense);
+        --onyx-button-text-color-disabled: var(--onyx-color-text-icons-neutral-soft);
+      }
+    }
+
+    &--danger {
+      &.onyx-button--default {
+        --onyx-button-background-color: var(--onyx-color-base-danger-200);
+        --onyx-button-background-color-hover: var(--onyx-color-base-danger-100);
+        --onyx-button-background-color-disabled: var(--onyx-color-base-danger-100);
+        --onyx-button-text-color: var(--onyx-color-text-icons-danger-bold);
+        --onyx-button-text-color-disabled: var(--onyx-color-text-icons-danger-medium);
+        --onyx-button-border-color: var(--onyx-color-base-danger-500);
+        --onyx-button-border-color-disabled: var(--onyx-color-base-danger-200);
+      }
+
+      &.onyx-button--outline {
+        --onyx-button-background-color-hover: var(--onyx-color-base-danger-100);
+        --onyx-button-text-color: var(--onyx-color-text-icons-danger-intense);
+        --onyx-button-text-color-hover: var(--onyx-color-text-icons-danger-bold);
+        --onyx-button-text-color-disabled: var(--onyx-color-text-icons-danger-medium);
+        --onyx-button-border-color: var(--onyx-color-base-danger-500);
+        --onyx-button-border-color-disabled: var(--onyx-color-base-danger-200);
+      }
+
+      &.onyx-button--plain {
+        --onyx-button-background-color-hover: var(--onyx-color-base-danger-100);
+        --onyx-button-text-color: var(--onyx-color-text-icons-danger-intense);
+        --onyx-button-text-color-disabled: var(--onyx-color-text-icons-danger-medium);
+      }
+    }
+  }
+}
+
+.onyx-button {
+  @include layers.component() {
     position: relative;
     display: inline-flex;
     max-width: 100%;
     width: max-content;
     padding: calc(var(--onyx-button-padding-vertical) - var(--onyx-button-border-width))
-      var(--onyx-density-sm);
+      var(--onyx-button-padding-inline);
     justify-content: center;
     align-items: center;
     gap: var(--onyx-density-2xs);
@@ -87,118 +177,23 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
       outline: var(--onyx-outline-width) solid var(--onyx-button-outline-color);
     }
 
-    &--primary {
-      &:disabled:not(.onyx-button--loading) {
-        --onyx-button-text-color: var(--onyx-color-text-icons-primary-soft);
-      }
-
-      &.onyx-button--default {
-        --onyx-button-background-color: var(--onyx-color-component-cta-default);
-        --onyx-button-background-hover-color: var(--onyx-color-component-cta-default-hover);
-        --onyx-button-text-color: var(--onyx-color-text-icons-neutral-button);
-        --onyx-button-border-color: var(--onyx-button-background-color);
-
-        &:disabled:not(.onyx-button--loading) {
-          --onyx-button-background-color: var(--onyx-color-base-primary-200);
-          --onyx-button-text-color: var(--onyx-color-text-icons-neutral-inverted);
-        }
-      }
-
-      &.onyx-button--outline {
-        --onyx-button-border-color: var(--onyx-color-base-primary-400);
-
-        &:disabled:not(.onyx-button--loading) {
-          --onyx-button-border-color: var(--onyx-color-base-primary-200);
-        }
-      }
-    }
-
-    &--neutral {
-      --onyx-button-background-hover-color: var(--onyx-color-base-neutral-200);
-      --onyx-button-outline-color: var(--onyx-color-component-focus-neutral);
-      --onyx-button-text-color: var(--onyx-color-text-icons-neutral-intense);
-
-      &:disabled:not(.onyx-button--loading) {
-        --onyx-button-text-color: var(--onyx-color-text-icons-neutral-soft);
-      }
-
-      &.onyx-button--default {
-        --onyx-button-background-color: var(--onyx-color-base-background-blank);
-        --onyx-button-background-hover-color: var(--onyx-color-base-neutral-200);
-        --onyx-button-border-color: var(--onyx-color-base-neutral-400);
-
-        &:disabled:not(.onyx-button--loading) {
-          --onyx-button-background-color: var(--onyx-color-base-background-blank);
-          --onyx-button-border-color: var(--onyx-color-base-neutral-200);
-        }
-      }
-
-      &.onyx-button--outline {
-        --onyx-button-border-color: var(--onyx-color-base-neutral-400);
-
-        &:disabled:not(.onyx-button--loading) {
-          --onyx-button-border-color: var(--onyx-color-base-neutral-200);
-        }
-      }
-    }
-
-    &--danger {
-      --onyx-button-background-hover-color: var(--onyx-color-base-danger-100);
-      --onyx-button-outline-color: var(--onyx-color-component-focus-danger);
-      --onyx-button-text-color: var(--onyx-color-text-icons-danger-bold);
-
-      &:disabled:not(.onyx-button--loading) {
-        --onyx-button-text-color: var(--onyx-color-text-icons-danger-medium);
-      }
-
-      &.onyx-button--default {
-        --onyx-button-background-color: var(--onyx-color-base-danger-200);
-        --onyx-button-border-color: var(--onyx-color-base-danger-500);
-
-        &:disabled:not(.onyx-button--loading) {
-          --onyx-button-background-color: var(--onyx-color-base-danger-100);
-          --onyx-button-border-color: var(--onyx-color-base-danger-200);
-        }
-      }
-
-      &.onyx-button--outline {
-        --onyx-button-border-color: var(--onyx-color-base-danger-500);
-
-        &:enabled,
-        &:is(a) {
-          --onyx-button-text-color: var(--onyx-color-text-icons-danger-intense);
-
-          &:hover {
-            --onyx-button-text-color: var(--onyx-color-text-icons-danger-bold);
-          }
-        }
-
-        &:disabled:not(.onyx-button--loading) {
-          --onyx-button-border-color: var(--onyx-color-base-danger-200);
-        }
-      }
-
-      &.onyx-button--plain {
-        &:enabled,
-        &:is(a) {
-          --onyx-button-text-color: var(--onyx-color-text-icons-danger-intense);
-
-          &:hover {
-            --onyx-button-text-color: var(--onyx-color-text-icons-danger-bold);
-          }
-        }
-      }
-    }
-
     &:enabled,
     &:is(a) {
       &:hover:not(:has(.onyx-ripple__element)) {
-        --onyx-button-background-color: var(--onyx-button-background-hover-color);
+        background-color: var(--onyx-button-background-color-hover);
+        border-color: var(--onyx-button-border-color-hover);
+        color: var(--onyx-button-text-color-hover);
       }
     }
 
     &:disabled {
       cursor: default;
+
+      &:not(.onyx-button--loading) {
+        background-color: var(--onyx-button-background-color-disabled);
+        border-color: var(--onyx-button-border-color-disabled);
+        color: var(--onyx-button-text-color-disabled);
+      }
     }
 
     &__label {
@@ -231,7 +226,7 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
   }
 
   .onyx-ripple {
-    --onyx-ripple-color: var(--onyx-button-background-hover-color);
+    --onyx-ripple-color: var(--onyx-button-background-color-hover);
   }
 }
 </style>
