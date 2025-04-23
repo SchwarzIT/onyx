@@ -4,14 +4,22 @@ import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import menu from "@sit-onyx/icons/menu.svg?raw";
 import moreVertical from "@sit-onyx/icons/more-vertical.svg?raw";
 import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
-import { computed, provide, ref, toRef, useTemplateRef, watch } from "vue";
+import { computed, provide, ref, toRef, useId, useTemplateRef, watch } from "vue";
 import { useLink } from "../../composables/useLink";
 import { useResizeObserver } from "../../composables/useResizeObserver";
 import { injectI18n } from "../../i18n";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxMobileNavButton from "../OnyxMobileNavButton/OnyxMobileNavButton.vue";
+import OnyxMoreList from "../OnyxMoreList/OnyxMoreList.vue";
 import OnyxNavAppArea from "../OnyxNavAppArea/OnyxNavAppArea.vue";
-import { MOBILE_NAV_BAR_INJECTION_KEY, type OnyxNavBarProps } from "./types";
+import OnyxFlyoutMenu from "./modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
+import OnyxNavItemFacade from "./modules/OnyxNavItemFacade/OnyxNavItemFacade.vue";
+import {
+  MOBILE_NAV_BAR_INJECTION_KEY,
+  NAV_BAR_MORE_LIST_INJECTION_KEY,
+  NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY,
+  type OnyxNavBarProps,
+} from "./types";
 
 const props = withDefaults(defineProps<OnyxNavBarProps>(), {
   mobileBreakpoint: "sm",
@@ -70,8 +78,9 @@ const isMobile = computed(() => {
       : ONYX_BREAKPOINTS[props.mobileBreakpoint];
   return width.value !== 0 && width.value < mobileWidth;
 });
-
+const moreListTargetId = useId();
 provide(MOBILE_NAV_BAR_INJECTION_KEY, isMobile);
+provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, `#${moreListTargetId}`);
 
 const closeMobileMenus = () => {
   isBurgerOpen.value = false;
@@ -150,9 +159,28 @@ defineExpose({
         </OnyxMobileNavButton>
 
         <nav v-else class="onyx-nav-bar__nav" v-bind="nav">
-          <ul role="menubar">
-            <slot></slot>
-          </ul>
+          <OnyxMoreList is="ul" role="menubar" :injection-key="NAV_BAR_MORE_LIST_INJECTION_KEY">
+            <template #default="{ attributes }">
+              <div v-bind="attributes">
+                <slot></slot>
+              </div>
+            </template>
+            <template #more="{ attributes, hiddenElements }">
+              <OnyxFlyoutMenu :label="t('navigation.showMoreNavItemsLabel')" v-bind="attributes">
+                <template #button="{ trigger }">
+                  <OnyxNavItemFacade
+                    v-bind="trigger"
+                    :label="t('navigation.moreNavItems', { n: hiddenElements })"
+                    context="navbar"
+                  />
+                </template>
+
+                <template #options>
+                  <div :id="moreListTargetId"></div>
+                </template>
+              </OnyxFlyoutMenu>
+            </template>
+          </OnyxMoreList>
         </nav>
       </template>
 
@@ -255,6 +283,11 @@ $gap: var(--onyx-spacing-md);
           display: contents;
         }
       }
+    }
+
+    // fix outline being cut-off by the clipping
+    .onyx-more-list__elements {
+      padding-inline: 0.25rem;
     }
 
     &__context {

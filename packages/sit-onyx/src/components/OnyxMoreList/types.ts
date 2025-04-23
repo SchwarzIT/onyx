@@ -1,3 +1,4 @@
+import type { Component } from "vue";
 import type { MoreListInjectionKey } from "../../composables/useMoreList";
 
 export type OnyxMoreListProps = {
@@ -6,15 +7,19 @@ export type OnyxMoreListProps = {
    * Will not be reactive so it must not be changed.
    */
   injectionKey: MoreListInjectionKey;
+  /**
+   * What the component should render as. Defaults to `div`.
+   */
+  is?: Component | string;
 };
 
 export type MoreListSlotBindings = {
   /**
    * Number of currently fully visible elements.
    */
-  visibleElements: number;
+  visibleElements?: number;
   /**
    * Number of currently completely or partially hidden elements.
    */
-  hiddenElements: number;
+  hiddenElements?: number;
 };
