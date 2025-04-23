@@ -161,8 +161,7 @@ test("should show header actions on hover", async ({ mount, page }) => {
   await expect(flyoutMenu).toBeHidden();
 
   // ACT
-  await page.keyboard.press("Tab");
-  await page.keyboard.press("Tab");
+  await component.press("Tab");
 
   // ASSERT
   await expect(flyoutTrigger, "should focus trigger with keyboard").toBeFocused();
