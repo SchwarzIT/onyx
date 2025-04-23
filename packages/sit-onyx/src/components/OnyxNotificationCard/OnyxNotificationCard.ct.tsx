@@ -121,10 +121,14 @@ test("should display elapsed time correctly", async ({ page, mount }) => {
   }
 });
 
-test("should show header actions on hover", async ({ mount }) => {
+test("should show header actions on hover", async ({ mount, page }) => {
   // ARRANGE
   const component = await mount(
-    <OnyxNotificationCard headline="Example headline" createdAt={MOCK_DATE}>
+    <OnyxNotificationCard
+      headline="Example headline"
+      createdAt={MOCK_DATE}
+      style={{ margin: "3rem" }}
+    >
       <template v-slot:headerActions>
         <OnyxMenuItem>Action 1</OnyxMenuItem>
         <OnyxMenuItem>Action 2</OnyxMenuItem>
@@ -148,4 +152,19 @@ test("should show header actions on hover", async ({ mount }) => {
   // ASSERT
   await expect(flyoutMenu.getByRole("menuitem", { name: "Action 1" })).toBeVisible();
   await expect(flyoutMenu.getByRole("menuitem", { name: "Action 2" })).toBeVisible();
+
+  // ACT (reset mouse)
+  await page.getByRole("document").click();
+  await page.getByRole("document").hover({ position: { x: 0, y: 0 } });
+
+  // ASSERT
+  await expect(flyoutMenu).toBeHidden();
+
+  // ACT
+  await page.keyboard.press("Tab");
+  await page.keyboard.press("Tab");
+
+  // ASSERT
+  await expect(flyoutTrigger, "should focus trigger with keyboard").toBeFocused();
+  await expect(flyoutMenu, "should show menu on keyboard focus").toBeVisible();
 });
