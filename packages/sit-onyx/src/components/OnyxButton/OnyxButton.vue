@@ -83,6 +83,9 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
         --onyx-button-background-color-disabled: var(--onyx-color-base-primary-200);
         --onyx-button-text-color: var(--onyx-color-text-icons-neutral-button);
         --onyx-button-text-color-disabled: var(--onyx-color-text-icons-neutral-inverted);
+        --onyx-button-border-color: var(--onyx-button-background-color);
+        --onyx-button-border-color-hover: var(--onyx-button-background-color-hover);
+        --onyx-button-border-color-disabled: var(--onyx-button-background-color-disabled);
       }
 
       &.onyx-button--outline {
