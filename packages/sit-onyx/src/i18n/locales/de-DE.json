@@ -188,5 +188,9 @@
     "label": "Sprache",
     "headline": "Sprache ändern",
     "subtitle": "Wähle die Sprache der Anwendung:"
+  },
+  "notificationCard": {
+    "moreActions": "Weitere Aktionen",
+    "toggleActions": "Aktionen umschalten"
   }
 }

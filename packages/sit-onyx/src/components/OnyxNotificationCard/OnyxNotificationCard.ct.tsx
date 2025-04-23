@@ -2,6 +2,7 @@ import { DENSITIES } from "../../composables/density";
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
+import OnyxMenuItem from "../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxNotificationCard from "./OnyxNotificationCard.vue";
 
 const MOCK_DATE = new Date(2025, 3, 2, 13, 45);
@@ -49,6 +50,40 @@ test.describe("Screenshot tests", () => {
   });
 });
 
+test.describe("Screenshot tests (header actions)", () => {
+  executeMatrixScreenshotTest({
+    name: "Notification card (header actions)",
+    columns: ["default", "unread"],
+    rows: ["default", "hover", "open"],
+    component: (column) => {
+      return (
+        <OnyxNotificationCard
+          headline="Example notification"
+          createdAt={MOCK_DATE}
+          unread={column === "unread"}
+          style={{ width: "24rem" }}
+        >
+          Lorem ipsum dolor sit amet consectetur. Dui purus quisque est varius vulputate.
+          <template v-slot:headerActions>
+            <OnyxMenuItem>Action 1</OnyxMenuItem>
+            <OnyxMenuItem>Action 2</OnyxMenuItem>
+          </template>
+        </OnyxNotificationCard>
+      );
+    },
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        if (row === "hover" || row == "open") {
+          await component.hover();
+        }
+        if (row == "open") {
+          await component.getByLabel("Toggle actions").click();
+        }
+      },
+    },
+  });
+});
+
 test("should display elapsed time correctly", async ({ page, mount }) => {
   // ARRANGE
   await page.clock.install({ time: MOCK_DATE });
@@ -84,4 +119,33 @@ test("should display elapsed time correctly", async ({ page, mount }) => {
     // ASSERT
     await expect(component).toContainText(label);
   }
+});
+
+test("should show header actions on hover", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxNotificationCard headline="Example headline" createdAt={MOCK_DATE}>
+      <template v-slot:headerActions>
+        <OnyxMenuItem>Action 1</OnyxMenuItem>
+        <OnyxMenuItem>Action 2</OnyxMenuItem>
+      </template>
+    </OnyxNotificationCard>,
+  );
+
+  const flyoutTrigger = component.getByLabel("Toggle actions");
+  const flyoutMenu = component.getByLabel("More actions");
+
+  // ACT
+  await component.hover();
+
+  // ASSERT
+  await expect(flyoutTrigger, "should show flyout system button on hover").toBeVisible();
+  await expect(flyoutMenu, "should not show menu on hover").toBeHidden();
+
+  // ACT
+  await flyoutTrigger.click();
+
+  // ASSERT
+  await expect(flyoutMenu.getByRole("menuitem", { name: "Action 1" })).toBeVisible();
+  await expect(flyoutMenu.getByRole("menuitem", { name: "Action 2" })).toBeVisible();
 });

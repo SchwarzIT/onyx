@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import moreVerticalSmall from "@sit-onyx/icons/more-vertical-small.svg?raw";
+import moreVertical from "@sit-onyx/icons/more-vertical.svg?raw";
 import { toRef } from "vue";
 import { useDensity } from "../../composables/density";
 import { useRelativeTimeFormat } from "../../composables/useRelativeTimeFormat";
@@ -7,18 +7,10 @@ import { injectI18n } from "../../i18n";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxFlyoutMenu from "../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
-import OnyxMenuItem from "../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import type { OnyxNotificationCardProps } from "./types";
 
 const props = defineProps<OnyxNotificationCardProps>();
-
-const emit = defineEmits<{
-  /**
-   * Emitted when the dialog should be closed.
-   */
-  option: [string];
-}>();
 
 const slots = defineSlots<{
   /**
@@ -26,13 +18,19 @@ const slots = defineSlots<{
    */
   default(): unknown;
   /**
-   * Optional custom actions/buttons.
+   * Optional custom footer actions/buttons.
    */
   actions?(): unknown;
+  /**
+   * Optional custom header actions to display inside a flyout menu.
+   * Will only be shown when hovering the notification card or focussing via keyboard.
+   * You must only put [OnyxMenuItem](http://localhost:6006/?path=/docs/navigation-modules-menuitem--docs) components here.
+   */
+  headerActions?: unknown;
 }>();
 
 const { densityClass } = useDensity(props);
-const { d } = injectI18n();
+const { d, t } = injectI18n();
 const { timeAgo } = useRelativeTimeFormat({
   time: toRef(props, "createdAt"),
   options: { numeric: "auto" },
@@ -45,21 +43,27 @@ const { timeAgo } = useRelativeTimeFormat({
       <div class="onyx-notification-card__header">
         <div class="onyx-notification-card__headline">
           <OnyxHeadline is="h3">{{ props.headline }}</OnyxHeadline>
-          <div class="onyx-notification-card__system-button">
+
+          <div class="onyx-notification-card__more-actions-wrapper">
             <OnyxBadge v-if="props.unread" dot />
-            <OnyxFlyoutMenu v-if="!!props.options" label="">
+
+            <OnyxFlyoutMenu
+              v-if="!!slots.headerActions"
+              class="onyx-notification-card__more-actions"
+              :label="t('notificationCard.moreActions')"
+              trigger="click"
+            >
               <template #button="{ trigger }">
-                <OnyxSystemButton v-bind="trigger" :icon="moreVerticalSmall" label="" />
+                <OnyxSystemButton
+                  v-bind="trigger"
+                  :label="t('notificationCard.toggleActions')"
+                  :icon="moreVertical"
+                />
               </template>
 
               <template #options>
-                <OnyxMenuItem
-                  v-for="menuItem in props.options"
-                  :key="menuItem.key"
-                  @click="emit('option', menuItem.key)"
-                  >{{ menuItem.label }}</OnyxMenuItem
-                > </template
-              >4
+                <slot name="headerActions"></slot>
+              </template>
             </OnyxFlyoutMenu>
           </div>
         </div>
@@ -83,19 +87,7 @@ const { timeAgo } = useRelativeTimeFormat({
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
-
-.onyx-notification-card:hover {
-  .onyx-notification-card__system-button {
-    > .onyx-flyout-menu {
-      display: block;
-      height: 1.4375rem;
-
-      .onyx-flyout-menu__list {
-        right: 0;
-      }
-    }
-  }
-}
+@use "../../styles/mixins/visibility.scss";
 
 .onyx-notification-card {
   @include layers.component() {
@@ -126,6 +118,25 @@ const { timeAgo } = useRelativeTimeFormat({
       gap: var(--onyx-density-2xs);
     }
 
+    &__more-actions-wrapper {
+      display: flex;
+      gap: var(--onyx-density-xs);
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    &__more-actions {
+      .onyx-flyout-menu__list {
+        right: 0;
+      }
+    }
+
+    &:not(&:hover, &:focus-within) {
+      .onyx-notification-card__more-actions {
+        @include visibility.visually-hidden();
+      }
+    }
+
     &__description {
       color: var(--onyx-color-text-icons-neutral-medium);
       white-space: pre-line;
@@ -152,15 +163,6 @@ const { timeAgo } = useRelativeTimeFormat({
       align-items: center;
       justify-content: space-between;
       gap: var(--onyx-density-md);
-    }
-  }
-
-  &__system-button {
-    display: flex;
-    align-items: center;
-
-    .onyx-flyout-menu {
-      display: none;
     }
   }
 }
