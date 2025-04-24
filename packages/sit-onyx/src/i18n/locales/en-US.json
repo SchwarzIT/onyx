@@ -190,5 +190,9 @@
     "label": "Language",
     "headline": "Change language",
     "subtitle": "Select the language of the application:"
+  },
+  "notificationCard": {
+    "moreActions": "More actions",
+    "toggleActions": "Toggle actions"
   }
 }
