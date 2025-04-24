@@ -33,7 +33,7 @@ provide(
   computed(() => props.mobile),
 );
 
-// eslint-disable-next-line vue/no-setup-props-reactivity-loss
+// eslint-disable-next-line vue/no-setup-props-reactivity-loss -- wont change at runtime
 provide(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, props.topLeveL);
 </script>
 

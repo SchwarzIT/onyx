@@ -79,7 +79,7 @@ export const createToastProvider = (): ToastProvider => {
  */
 export const useToast = () => {
   const logWarning = () => {
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console -- we want to inform devs about incorrect usage
     console.warn(
       'Trying to use "useToast()" before the toast provider has been provided. Make sure to "provide" it first.',
     );

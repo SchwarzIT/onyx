@@ -29,7 +29,7 @@ export type IteratedHeadlessElementFunc<
 
 export type HeadlessElementAttributes<A extends HTMLAttributes> =
   | VBindAttributes<A>
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- the specific type doesn't matter here
   | IteratedHeadlessElementFunc<A, any>;
 
 export type HeadlessElements = Record<string, MaybeRef<HeadlessElementAttributes<HTMLAttributes>>>;

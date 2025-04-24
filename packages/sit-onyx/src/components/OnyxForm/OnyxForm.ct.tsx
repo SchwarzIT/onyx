@@ -52,7 +52,7 @@ test("OnyxForm should inject disabled state", async ({ mount, page }) => {
   const expectForAll = async (expectation: (locator: Locator) => Promise<unknown>) => {
     for (const { props, delegate } of allFormElements) {
       const getInputByLabel = page.getByLabel(props.label, { exact: true });
-      // eslint-disable-next-line playwright/no-conditional-in-test
+      // eslint-disable-next-line playwright/no-conditional-in-test -- its easier to have some simple dynamic checks in the test
       const element = delegate || getInputByLabel;
       expect(element).toBeDefined();
       await expectation(element);
@@ -68,10 +68,6 @@ test("OnyxForm should inject disabled state", async ({ mount, page }) => {
 
   // ASSERT
   await expectForAll(async (element) => {
-    if ((await element.textContent())?.includes("OnyxButton")) {
-      // eslint-disable-next-line playwright/no-conditional-expect
-      return expect(element).toBeEnabled();
-    }
     return Promise.all([expect(element).toBeEnabled(), expect(element).toBeEditable()]);
   });
 

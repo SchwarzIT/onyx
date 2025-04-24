@@ -123,7 +123,7 @@ test.describe("Screenshot tests", () => {
 
         // wait for the tooltip to show up reliably
         if (["focus-visible", "hover"].includes(row) && column !== "disabled") {
-          // eslint-disable-next-line playwright/no-standalone-expect
+          // eslint-disable-next-line playwright/no-standalone-expect -- is called by the test in executeMatrixScreenshotTest
           await expect(
             component.getByRole("tooltip"),
             `should show error tooltip for ${row} and ${column}`,
