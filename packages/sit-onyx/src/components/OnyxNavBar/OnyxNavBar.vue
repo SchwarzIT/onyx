@@ -22,7 +22,7 @@ import {
 } from "./types";
 
 const props = withDefaults(defineProps<OnyxNavBarProps>(), {
-  mobileBreakpoint: "sm",
+  isMobile: "sm",
 });
 
 const emit = defineEmits<{
@@ -71,15 +71,20 @@ const {
 const isBurgerOpen = ref(false);
 const isContextOpen = ref(false);
 
-const isMobile = computed(() => {
-  const mobileWidth =
-    typeof props.mobileBreakpoint === "number"
-      ? props.mobileBreakpoint
-      : ONYX_BREAKPOINTS[props.mobileBreakpoint];
-  return width.value !== 0 && width.value < mobileWidth;
+const isMobileWidth = (mobileWidth: number) => width.value !== 0 && width.value < mobileWidth;
+
+const actualIsMobile = computed(() => {
+  if (typeof props.isMobile === "number") {
+    return isMobileWidth(props.isMobile);
+  }
+  if (typeof props.isMobile === "string") {
+    return isMobileWidth(ONYX_BREAKPOINTS[props.isMobile]);
+  }
+  return props.isMobile;
 });
+
 const moreListTargetId = useId();
-provide(MOBILE_NAV_BAR_INJECTION_KEY, isMobile);
+provide(MOBILE_NAV_BAR_INJECTION_KEY, actualIsMobile);
 provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, `#${moreListTargetId}`);
 
 const closeMobileMenus = () => {
@@ -112,11 +117,11 @@ defineExpose({
   <header
     ref="navBarRef"
     class="onyx-component onyx-nav-bar"
-    :class="{ 'onyx-nav-bar--mobile': isMobile }"
+    :class="{ 'onyx-nav-bar--mobile': actualIsMobile }"
   >
     <div class="onyx-nav-bar__content">
       <span
-        v-if="isMobile && slots.mobileActivePage && !isBurgerOpen && !isContextOpen"
+        v-if="actualIsMobile && slots.mobileActivePage && !isBurgerOpen && !isContextOpen"
         class="onyx-nav-bar__mobile-page onyx-truncation-ellipsis"
       >
         <slot name="mobileActivePage"></slot>
@@ -143,7 +148,7 @@ defineExpose({
 
       <template v-if="slots.default">
         <OnyxMobileNavButton
-          v-if="isMobile"
+          v-if="actualIsMobile"
           v-model:open="isBurgerOpen"
           class="onyx-nav-bar__burger"
           :icon="menu"
@@ -185,7 +190,7 @@ defineExpose({
       </template>
 
       <template v-if="slots.contextArea || slots.globalContextArea">
-        <div v-if="isMobile" class="onyx-nav-bar__mobile-context">
+        <div v-if="actualIsMobile" class="onyx-nav-bar__mobile-context">
           <div v-if="slots.globalContextArea" class="onyx-nav-bar__mobile-global-context">
             <slot name="globalContextArea"></slot>
           </div>
