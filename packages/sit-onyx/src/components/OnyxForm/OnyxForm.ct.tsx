@@ -68,6 +68,10 @@ test("OnyxForm should inject disabled state", async ({ mount, page }) => {
 
   // ASSERT
   await expectForAll(async (element) => {
+    if ((await element.textContent())?.includes("OnyxButton")) {
+      // eslint-disable-next-line playwright/no-conditional-expect -- its easier to have some simple dynamic checks in the test
+      return expect(element).toBeEnabled();
+    }
     return Promise.all([expect(element).toBeEnabled(), expect(element).toBeEditable()]);
   });
 
