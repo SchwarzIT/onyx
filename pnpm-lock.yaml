@@ -6,9 +6,6 @@ settings:
 
 catalogs:
   default:
-    chart.js:
-      specifier: ^4.4.9
-      version: 4.4.9
     typescript:
       specifier: 5.8.3
       version: 5.8.3
@@ -30,6 +27,9 @@ importers:
       '@changesets/cli':
         specifier: ^2.29.1
         version: 2.29.1
+      '@eslint-community/eslint-plugin-eslint-comments':
+        specifier: ^4.5.0
+        version: 4.5.0(eslint@9.24.0(jiti@2.4.2))
       '@eslint-community/eslint-utils':
         specifier: ^4.6.0
         version: 4.6.0(eslint@9.24.0(jiti@2.4.2))
@@ -1050,6 +1050,12 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@eslint-community/eslint-plugin-eslint-comments@4.5.0':
+    resolution: {integrity: sha512-MAhuTKlr4y/CE3WYX26raZjy+I/kS2PLKSzvfmDCGrBLTFHOYwqROZdr4XwPgXwX3K9rjzMr4pSmUWGnzsUyMg==}
+    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+    peerDependencies:
+      eslint: ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0
 
   '@eslint-community/eslint-utils@4.6.0':
     resolution: {integrity: sha512-WhCn7Z7TauhBtmzhvKpoQs0Wwb/kBcy4CwpuI0/eEIr2Lx2auxmulAzLr91wVZJaz47iUZdkXOK7WlAfxGKCnA==}
@@ -6956,6 +6962,9 @@ packages:
       typescript:
         optional: true
 
+  vue-component-type-helpers@2.2.10:
+    resolution: {integrity: sha512-iDUO7uQK+Sab2tYuiP9D1oLujCWlhHELHMgV/cB13cuGbG4qwkLHvtfWb6FzvxrIOPDnU0oHsz2MlQjhYDeaHA==}
+
   vue-component-type-helpers@2.2.8:
     resolution: {integrity: sha512-4bjIsC284coDO9om4HPA62M7wfsTvcmZyzdfR0aUlFXqq4tXxM1APyXpNVxPC8QazKw9OhmZNHBVDA6ODaZsrA==}
 
@@ -7803,6 +7812,12 @@ snapshots:
 
   '@esbuild/win32-x64@0.25.2':
     optional: true
+
+  '@eslint-community/eslint-plugin-eslint-comments@4.5.0(eslint@9.24.0(jiti@2.4.2))':
+    dependencies:
+      escape-string-regexp: 4.0.0
+      eslint: 9.24.0(jiti@2.4.2)
+      ignore: 5.3.2
 
   '@eslint-community/eslint-utils@4.6.0(eslint@8.57.1)':
     dependencies:
@@ -9393,7 +9408,7 @@ snapshots:
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       vue: 3.5.13(typescript@5.8.3)
-      vue-component-type-helpers: 2.2.8
+      vue-component-type-helpers: 2.2.10
 
   '@testing-library/dom@10.4.0':
     dependencies:
@@ -15283,6 +15298,8 @@ snapshots:
       vue-component-type-helpers: 2.2.8
     optionalDependencies:
       typescript: 5.8.3
+
+  vue-component-type-helpers@2.2.10: {}
 
   vue-component-type-helpers@2.2.8: {}
 

@@ -15,7 +15,7 @@ const IDLE_TIMEOUT = 200;
  */
 const onIdleCallback =
   globalThis.window && "requestIdleCallback" in globalThis.window
-    ? globalThis.window.requestIdleCallback // eslint-disable-line compat/compat
+    ? globalThis.window.requestIdleCallback // eslint-disable-line compat/compat -- we monkey patch requestIdleCallback for compatibility using `setTimeout`
     : (cb: () => void, _: IdleRequestOptions) => setTimeout(cb, 0);
 
 const syncAnimations = (animationName: string) => {

@@ -1,4 +1,4 @@
-/* eslint-disable playwright/expect-expect */
+/* eslint playwright/expect-expect: ["error", { "assertFunctionNames": ["expectComputedGridSpan", "expectComputedColumnCount"] }] -- We have some assertions in extra functions */
 import type { Locator, Page } from "@playwright/test";
 import {
   ONYX_BREAKPOINTS,

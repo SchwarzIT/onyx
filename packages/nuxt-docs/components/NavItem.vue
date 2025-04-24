@@ -7,8 +7,7 @@ const props = defineProps<NavItem>();
  * Same as `props` but without the `children` property to prevent console warnings when using `v-bind`.
  */
 const navItemProps = computed(() => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { children, ...rest } = props;
+  const { children: _, ...rest } = props;
   return rest;
 });
 </script>

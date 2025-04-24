@@ -6,7 +6,7 @@ export type DataGridMetadata = Record<string, unknown>;
 /**
  * Unwraps the defined typeRenderers
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- we use any for simplicity
 export type RenderTypesFromFeature<TFeatures extends DataGridFeature<any, any, any>[]> =
   // Only expose named types, symbols are intended for internal types
   Exclude<

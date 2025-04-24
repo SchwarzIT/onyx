@@ -18,7 +18,7 @@ const props = withDefaults(
      */
     flyoutOpen?: Nullable<boolean>;
   }>(),
-  // eslint-disable-next-line vue/no-boolean-default
+  // eslint-disable-next-line vue/no-boolean-default -- to support 'useVModel' we need to know if a value was set or not
   { flyoutOpen: undefined },
 );
 
