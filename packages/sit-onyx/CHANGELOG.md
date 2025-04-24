@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.199
+
+### Minor Changes
+
+- 60d3920: feat(OnyxNotificationCard): support new `headerActions` slot
+
 ## 1.0.0-beta.198
 
 ### Major Changes
