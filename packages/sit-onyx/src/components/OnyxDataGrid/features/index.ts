@@ -129,8 +129,8 @@ export type PublicNormalizedColumnConfig<
  */
 export type DataGridFeature<
   TEntry extends DataGridEntry,
-  TTypeRenderer extends TypeRenderMap<TEntry>,
-  TFeatureName extends symbol,
+  TTypeRenderer extends TypeRenderMap<TEntry> = TypeRenderMap<TEntry>,
+  TFeatureName extends symbol = symbol,
 > = {
   /**
    * Unique name and identifier of the datagrid feature
