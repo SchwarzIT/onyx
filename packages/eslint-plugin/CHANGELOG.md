@@ -1,5 +1,11 @@
 # @sit-onyx/eslint-plugin
 
+## 1.0.0-beta.2
+
+### Minor Changes
+
+- 0455a31: feat(no-shadow-template-ref): new rule to address Vue runtime warning about "failing set operations on readonly target"
+
 ## 1.0.0-beta.1
 
 ### Minor Changes

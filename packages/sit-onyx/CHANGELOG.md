@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.200
+
+### Patch Changes
+
+- 0455a31: fix(OnyxMoreList): fix runtime warning about "failing set operations on readonly target"
+
 ## 1.0.0-beta.199
 
 ### Minor Changes
