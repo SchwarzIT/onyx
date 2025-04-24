@@ -163,6 +163,7 @@ const sitOnyxConfig = {
   plugins: { sitOnyx },
   rules: {
     "sitOnyx/import-playwright-a11y": "error",
+    "sitOnyx/no-shadow-template-ref": "error",
     "sitOnyx/no-shadow-native": "error",
     "sitOnyx/require-root-class": "error",
     "vue/require-prop-comment": "error",
