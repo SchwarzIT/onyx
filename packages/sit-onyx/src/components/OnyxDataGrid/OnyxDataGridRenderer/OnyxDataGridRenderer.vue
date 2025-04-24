@@ -24,7 +24,7 @@ defineSlots<{
 const columnStyle = computed(() => {
   return {
     "--onyx-data-grid-column-count": props.columns.length,
-    "--onyx-data-grid-row-count": props.rows.length + 2,
+    "--onyx-data-grid-row-count": Math.max(props.rows.length + 2, 3),
     "--onyx-data-grid-template-columns": props.columns
       .map(({ key, width }) => {
         const name = `--onyx-data-grid-column-${CSS.escape(String(key))}`;

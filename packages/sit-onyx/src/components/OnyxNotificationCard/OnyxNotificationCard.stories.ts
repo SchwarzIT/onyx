@@ -1,6 +1,10 @@
+import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
+import trash from "@sit-onyx/icons/trash.svg?raw";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxMenuItem from "../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxNotificationCard from "./OnyxNotificationCard.vue";
 
 /**
@@ -12,6 +16,7 @@ const meta: Meta<typeof OnyxNotificationCard> = {
   tags: ["new:component"],
   argTypes: {
     actions: { control: { disable: true } },
+    headerActions: { control: { disable: true } },
   },
 };
 
@@ -41,6 +46,10 @@ export const Actions = {
     actions: [
       h(OnyxButton, { label: "Button", color: "neutral" }),
       h(OnyxButton, { label: "Button" }),
+    ],
+    headerActions: () => [
+      h(OnyxMenuItem, () => [h(OnyxIcon, { icon: checkSmall }), "Mark as read"]),
+      h(OnyxMenuItem, { color: "danger" }, () => [h(OnyxIcon, { icon: trash }), "Delete"]),
     ],
   },
 } satisfies Story;

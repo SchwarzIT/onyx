@@ -119,7 +119,9 @@ const style = computed(() => ({
             <!-- fallback content showing an "empty" state
               that will be displayed if no body content is provided -->
             <tr class="onyx-table__empty">
-              <td colspan="100%">
+              <!-- We chose 99 as a sufficiently large colspan number, which should always be able to span all columns of the table.
+               Additionally the data grid only supports colspan up to 99, see: https://github.com/SchwarzIT/onyx/blob/joca96/fix-3176-empty-data-grid-broken/packages/sit-onyx/src/components/OnyxDataGrid/OnyxDataGridRenderer/OnyxDataGridRenderer.vue#L118 -->
+              <td colspan="99">
                 <div class="onyx-table__empty-content">
                   <slot name="empty" :default-message="isEmptyMessage">
                     <OnyxEmpty> {{ isEmptyMessage }} </OnyxEmpty>

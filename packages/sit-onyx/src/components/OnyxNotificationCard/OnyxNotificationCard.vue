@@ -1,10 +1,13 @@
 <script lang="ts" setup>
+import moreVertical from "@sit-onyx/icons/more-vertical.svg?raw";
 import { toRef } from "vue";
 import { useDensity } from "../../composables/density";
 import { useRelativeTimeFormat } from "../../composables/useRelativeTimeFormat";
 import { injectI18n } from "../../i18n";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
+import OnyxFlyoutMenu from "../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
+import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import type { OnyxNotificationCardProps } from "./types";
 
 const props = defineProps<OnyxNotificationCardProps>();
@@ -15,13 +18,19 @@ const slots = defineSlots<{
    */
   default(): unknown;
   /**
-   * Optional custom actions/buttons.
+   * Optional custom footer actions/buttons.
    */
   actions?(): unknown;
+  /**
+   * Optional custom header actions to display inside a flyout menu.
+   * Will only be shown when hovering the notification card or focussing via keyboard.
+   * You must only put [OnyxMenuItem](http://localhost:6006/?path=/docs/navigation-modules-menuitem--docs) components here.
+   */
+  headerActions?: unknown;
 }>();
 
 const { densityClass } = useDensity(props);
-const { d } = injectI18n();
+const { d, t } = injectI18n();
 const { timeAgo } = useRelativeTimeFormat({
   time: toRef(props, "createdAt"),
   options: { numeric: "auto" },
@@ -34,7 +43,29 @@ const { timeAgo } = useRelativeTimeFormat({
       <div class="onyx-notification-card__header">
         <div class="onyx-notification-card__headline">
           <OnyxHeadline is="h3">{{ props.headline }}</OnyxHeadline>
-          <OnyxBadge v-if="props.unread" dot />
+
+          <div class="onyx-notification-card__more-actions-wrapper">
+            <OnyxBadge v-if="props.unread" dot />
+
+            <OnyxFlyoutMenu
+              v-if="!!slots.headerActions"
+              class="onyx-notification-card__more-actions"
+              :label="t('notificationCard.moreActions')"
+              trigger="click"
+            >
+              <template #button="{ trigger }">
+                <OnyxSystemButton
+                  v-bind="trigger"
+                  :label="t('notificationCard.toggleActions')"
+                  :icon="moreVertical"
+                />
+              </template>
+
+              <template #options>
+                <slot name="headerActions"></slot>
+              </template>
+            </OnyxFlyoutMenu>
+          </div>
         </div>
 
         <div class="onyx-notification-card__created-at onyx-text--small">
@@ -56,6 +87,7 @@ const { timeAgo } = useRelativeTimeFormat({
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
+@use "../../styles/mixins/visibility.scss";
 
 .onyx-notification-card {
   @include layers.component() {
@@ -84,6 +116,25 @@ const { timeAgo } = useRelativeTimeFormat({
       display: flex;
       flex-direction: column;
       gap: var(--onyx-density-2xs);
+    }
+
+    &__more-actions-wrapper {
+      display: flex;
+      gap: var(--onyx-density-xs);
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    &__more-actions {
+      .onyx-flyout-menu__list {
+        right: 0;
+      }
+    }
+
+    &:not(&:hover, &:focus-within) {
+      .onyx-notification-card__more-actions {
+        @include visibility.visually-hidden();
+      }
     }
 
     &__description {

@@ -1,5 +1,48 @@
 # sit-onyx
 
+## 1.0.0-beta.199
+
+### Minor Changes
+
+- 60d3920: feat(OnyxNotificationCard): support new `headerActions` slot
+
+## 1.0.0-beta.198
+
+### Major Changes
+
+- 68139e0: refactor(OnyxButton): restructure CSS variables
+
+  Allow easier color overrides via CSS by using a updated CSS variables structure so you don't need to copy advanced selectors to override colors.
+
+  #### Renamed variables
+
+  - renamed `--onyx-button-background-hover-color` to `--onyx-button-background-color-hover`
+
+  #### New variables
+
+  - `--onyx-button-padding-inline`
+  - `--onyx-button-background-color-disabled`
+  - `--onyx-button-text-color-hover`
+  - `--onyx-button-text-color-disabled`
+  - `--onyx-button-border-color-hover`
+  - `--onyx-button-border-color-disabled`
+
+## 1.0.0-beta.197
+
+### Patch Changes
+
+- 1274d2c: fix(OnyxDataGrid): fix empty data grid showing large header instead of "empty" content
+
+## 1.0.0-beta.196
+
+### Major Changes
+
+- 053db89: feat(useMoreList)!: while not yet mounted elements are considered visible
+
+### Minor Changes
+
+- 053db89: feat(OnyxNavBar): implement "+n More" grouping for overflowing menu items
+
 ## 1.0.0-beta.195
 
 ### Major Changes
