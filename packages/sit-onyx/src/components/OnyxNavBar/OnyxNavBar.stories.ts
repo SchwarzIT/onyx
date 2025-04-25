@@ -234,10 +234,10 @@ export const WithLogoutTimer = {
  * This nav bar has a lot of menu and context area items.
  * Both the nav area as well as the context area will overflow when opened.
  */
-export const WithOverflowingMobileContent = {
+export const Mobile = {
   args: {
     ...WithContextArea.args,
-    mobile: "xl",
+    mobile: true,
     default: () => [
       h(OnyxNavItem, { label: "Item 1", link: "/" }),
       h(
