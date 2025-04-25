@@ -18,6 +18,8 @@ import OnyxMenuItem from "./modules/OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxNavItem from "./modules/OnyxNavItem/OnyxNavItem.vue";
 import OnyxUserMenu from "./modules/OnyxUserMenu/OnyxUserMenu.vue";
 import OnyxNavBar from "./OnyxNavBar.vue";
+import TestCase from "./TestCase.vue";
+import type { OnyxNavBarProps } from "./types";
 
 test.beforeEach(async ({ page }) => {
   await defineLogoMockRoutes(page);
@@ -444,4 +446,60 @@ test("should display More Items correctly", async ({ mount, page }) => {
     await expectNMenuItemsToBeVisible(5, page);
     expect(navItemClickEvents).toBe(4);
   });
+});
+
+test("should switch to mobile correctly", async ({ mount, page }) => {
+  const component = await mount(TestCase);
+
+  type TestCase = {
+    setting: OnyxNavBarProps["mobile"];
+    viewportWidth: number;
+    expectedMobile: boolean;
+  };
+
+  const testCases = [
+    {
+      setting: true,
+      expectedMobile: true,
+      viewportWidth: ONYX_BREAKPOINTS.xl,
+    },
+    {
+      setting: false,
+      expectedMobile: false,
+      viewportWidth: ONYX_BREAKPOINTS.xs,
+    },
+    {
+      setting: 1001,
+      expectedMobile: true,
+      viewportWidth: 1000,
+    },
+    {
+      setting: 999,
+      expectedMobile: false,
+      viewportWidth: 1000,
+    },
+    {
+      setting: "md",
+      expectedMobile: true,
+      viewportWidth: ONYX_BREAKPOINTS.sm,
+    },
+    {
+      setting: "sm",
+      expectedMobile: false,
+      viewportWidth: ONYX_BREAKPOINTS.md,
+    },
+  ] as TestCase[];
+
+  for (const { setting, expectedMobile, viewportWidth } of testCases) {
+    // eslint-disable-next-line playwright/no-conditional-in-test -- conditional is only used in test title
+    await test.step(`should${expectedMobile ? "" : " not"} render in mobile for mobile prop "${setting}" and a viewport width of ${viewportWidth}px`, async () => {
+      await page.setViewportSize({ width: viewportWidth, height: 400 });
+      await component.update({
+        props: { mobile: setting },
+      });
+      await expect(component.getByLabel("Toggle burger menu")).toBeAttached({
+        attached: expectedMobile,
+      });
+    });
+  }
 });
