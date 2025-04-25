@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.202
+
+### Minor Changes
+
+- a780fa0: feat(OnyxNotificationCard): support `icon` property
+
 ## 1.0.0-beta.201
 
 ### Patch Changes

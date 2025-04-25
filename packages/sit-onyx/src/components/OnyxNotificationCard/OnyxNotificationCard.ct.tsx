@@ -1,6 +1,6 @@
 import { DENSITIES } from "../../composables/density";
 import { expect, test } from "../../playwright/a11y";
-import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
+import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxMenuItem from "../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxNotificationCard from "./OnyxNotificationCard.vue";
@@ -20,7 +20,7 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Notification card",
     columns: DENSITIES,
-    rows: ["default", "unread", "actions", "separator"],
+    rows: ["default", "unread", "actions", "separator", "icon"],
     component: (column, row) => {
       const card = (
         <OnyxNotificationCard
@@ -29,6 +29,7 @@ test.describe("Screenshot tests", () => {
           unread={row === "unread"}
           density={column}
           style={{ width: "24rem" }}
+          icon={row === "icon" ? mockPlaywrightIcon : undefined}
         >
           Lorem ipsum dolor sit amet consectetur. Dui purus quisque est varius vulputate.
           {row === "actions" && (

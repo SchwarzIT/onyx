@@ -6,6 +6,7 @@ import { useRelativeTimeFormat } from "../../composables/useRelativeTimeFormat";
 import { injectI18n } from "../../i18n";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxFlyoutMenu from "../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import type { OnyxNotificationCardProps } from "./types";
@@ -40,11 +41,14 @@ const { timeAgo } = useRelativeTimeFormat({
 <template>
   <div :class="['onyx-component', 'onyx-notification-card', densityClass]">
     <div class="onyx-notification-card__content">
-      <div class="onyx-notification-card__header">
-        <div class="onyx-notification-card__headline">
-          <OnyxHeadline is="h3">{{ props.headline }}</OnyxHeadline>
+      <div>
+        <div class="onyx-notification-card__header">
+          <div class="onyx-notification-card__header-container">
+            <OnyxIcon v-if="props.icon" class="onyx-notification-card__icon" :icon="props.icon" />
+            <OnyxHeadline is="h3">{{ props.headline }}</OnyxHeadline>
+          </div>
 
-          <div class="onyx-notification-card__more-actions-wrapper">
+          <div class="onyx-notification-card__header-container">
             <OnyxBadge v-if="props.unread" dot />
 
             <OnyxFlyoutMenu
@@ -114,15 +118,21 @@ const { timeAgo } = useRelativeTimeFormat({
 
     &__header {
       display: flex;
-      flex-direction: column;
-      gap: var(--onyx-density-2xs);
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--onyx-density-md);
+      margin-bottom: var(--onyx-density-2xs);
     }
 
-    &__more-actions-wrapper {
+    &__header-container {
       display: flex;
       gap: var(--onyx-density-xs);
       align-items: center;
       flex-wrap: wrap;
+    }
+
+    &__icon {
+      color: var(--onyx-color-text-icons-neutral-medium);
     }
 
     &__more-actions {
@@ -156,13 +166,6 @@ const { timeAgo } = useRelativeTimeFormat({
       gap: var(--onyx-density-md);
       flex-wrap: wrap;
       color: var(--onyx-color-text-icons-neutral-soft);
-    }
-
-    &__headline {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: var(--onyx-density-md);
     }
   }
 }

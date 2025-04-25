@@ -84,9 +84,12 @@ const isDrawerOpen = ref(false);
  * Adds a new example notifications. Usually this should be provided by your backend / API
  */
 const addExampleNotification = () => {
+  const icon = Math.random() < 0.5 ? circleAttention : undefined;
+
   const notification: MyNotification = {
     headline: `Example notification ${store.notifications.value.length + 1}`,
     createdAt: Date.now(),
+    icon,
     description:
       "Lorem ipsum dolor sit amet consectetur. Dui purus quisque est varius vulputate. Ut odio dui diam pulvinar velit mollis cursus eu ut.",
   };
@@ -95,7 +98,7 @@ const addExampleNotification = () => {
   store.add(notification);
 
   // temporarily show a notification message to the user in the top right of the page to grab the users attention
-  show({ ...notification, icon: circleAttention });
+  show({ ...notification, icon });
 };
 </script>
 
