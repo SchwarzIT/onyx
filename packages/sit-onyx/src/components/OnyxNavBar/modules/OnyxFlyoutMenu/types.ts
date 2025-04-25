@@ -1,11 +1,6 @@
-import type { Nullable } from "../../../../composables/useVModel";
+import type { FlyoutOpen, FlyoutPosition } from "../../../../components/OnyxFlyout/types";
 
 export type OnyxFlyoutMenuProps = {
-  /**
-   * If the flyout is expanded on click or hover.
-   * The default value is 'hover' which will expand the flyout on hover.
-   */
-  trigger?: "hover" | "click";
   /**
    * Aria label for the flyout.
    */
@@ -13,5 +8,6 @@ export type OnyxFlyoutMenuProps = {
   /**
    * Indicates whether the element is expanded or collapsed.
    */
-  open?: Nullable<boolean>;
+  open?: FlyoutOpen;
+  position?: FlyoutPosition;
 };
