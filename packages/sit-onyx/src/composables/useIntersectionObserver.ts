@@ -1,6 +1,6 @@
 import { onBeforeUnmount, onMounted, ref, watch, type Ref } from "vue";
 
-import type { VueTemplateRefElement } from "./useResizeObserver";
+import { getTemplateRefElement, type VueTemplateRefElement } from "./useResizeObserver";
 export type UseIntersectionObserverOptions = {
   /**
    * Sets the root element to use for intersection checking.
@@ -51,7 +51,6 @@ export const useIntersectionObserver = (
       (newTargetRef, oldTargetRef) => {
         const newTarget = getTemplateRefElement(newTargetRef);
         const oldTarget = getTemplateRefElement(oldTargetRef);
-
         if (oldTarget) observer.unobserve(oldTarget);
         if (newTarget) observer.observe(newTarget);
       },
@@ -62,11 +61,4 @@ export const useIntersectionObserver = (
   });
 
   return { isIntersecting };
-};
-
-/**
- * Gets the native HTML element of a template ref.
- */
-export const getTemplateRefElement = (ref: VueTemplateRefElement) => {
-  return ref instanceof Element ? ref : ref?.$el;
 };

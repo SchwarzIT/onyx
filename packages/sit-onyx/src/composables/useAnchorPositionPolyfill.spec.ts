@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { ref } from "vue";
-import { TooltipPosition } from "../components/OnyxTooltip/types";
+import type { TooltipPosition } from "../components/OnyxTooltip/types";
 import { useAnchorPositionPolyfill } from "./useAnchorPositionPolyfill";
 import type { WedgePosition } from "./useWedgePosition";
 
