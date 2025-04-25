@@ -77,7 +77,7 @@ export type ColumnGroupConfig = Record<
  */
 export type InternalColumnConfig<
   TEntry extends DataGridEntry,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- we use any for type inference
   TColumnGroup extends ColumnGroupConfig = any,
   TTypes extends PropertyKey = PropertyKey,
 > = PublicNormalizedColumnConfig<TEntry, TColumnGroup, TTypes> & {
@@ -100,7 +100,7 @@ export type InternalColumnConfig<
  */
 export type PublicNormalizedColumnConfig<
   TEntry extends DataGridEntry,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- we use any for type inference
   TColumnGroup extends ColumnGroupConfig = any,
   TTypes = PropertyKey,
 > = Pick<DataGridRendererColumn<TEntry>, "width" | "key"> & {
@@ -129,8 +129,8 @@ export type PublicNormalizedColumnConfig<
  */
 export type DataGridFeature<
   TEntry extends DataGridEntry,
-  TTypeRenderer extends TypeRenderMap<TEntry>,
-  TFeatureName extends symbol,
+  TTypeRenderer extends TypeRenderMap<TEntry> = TypeRenderMap<TEntry>,
+  TFeatureName extends symbol = symbol,
 > = {
   /**
    * Unique name and identifier of the datagrid feature
@@ -256,10 +256,9 @@ export type DataGridFeatureOptions<
  * ```
  */
 export function createFeature<
-  // any must be used here, otherwise the type inference breaks
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- any must be used here, otherwise the type inference breaks
   TArgs extends any[],
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- we use any for simplicity
   TFeature extends DataGridFeature<any, any, any>,
   T extends (...args: TArgs) => CheckDataGridFeature<TFeature>,
 >(featureDefinition: T) {

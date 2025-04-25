@@ -89,7 +89,7 @@ export const createNotificationsProvider = (): NotificationsProvider => {
  */
 export const useNotification = () => {
   const logWarning = () => {
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console -- we want to inform devs about incorrect usage
     console.warn(
       'Trying to use "useNotification()" before the notifications provider has been provided. Make sure to "provide" it first.',
     );

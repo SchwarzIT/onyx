@@ -5,7 +5,7 @@ import { DataGridFeatures, OnyxDataGrid } from "../../../..";
 import type { ResizingOptions } from "./types";
 
 const { columns, data, resizingOptions } = defineProps<
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- for simplicity we use any here
   Pick<OnyxDataGridProps<any, any, any, any, any>, "columns" | "data"> & {
     /**
      * config

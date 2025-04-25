@@ -1,8 +1,9 @@
+import comments from "@eslint-community/eslint-plugin-eslint-comments/configs";
 import { includeIgnoreFile } from "@eslint/compat";
 import eslint from "@eslint/js";
 import pluginVitest from "@vitest/eslint-plugin";
 import skipFormattingConfig from "@vue/eslint-config-prettier/skip-formatting";
-import vueTsEslintConfig from "@vue/eslint-config-typescript";
+import { defineConfigWithVueTs, vueTsConfigs } from "@vue/eslint-config-typescript";
 import compat from "eslint-plugin-compat";
 import playwrightEslintConfig from "eslint-plugin-playwright";
 import vue from "eslint-plugin-vue";
@@ -21,9 +22,8 @@ const generalVueTsConfig = {
   name: "general-vue-ts",
   files: ["**/*.{js,jsx,ts,tsx,vue}"],
   extends: [
-    ...vue.configs["flat/recommended"],
+    ...defineConfigWithVueTs(vue.configs["flat/recommended"], vueTsConfigs.recommended),
     ...vueA11y.configs["flat/recommended"],
-    ...vueTsEslintConfig({ extends: ["recommended"] }),
   ],
   rules: {
     "vue/html-self-closing": [
@@ -114,6 +114,7 @@ const playwrightConfig = {
           "menuButtonTesting",
           "navigationTesting",
           "listboxTesting",
+          "tabsTesting",
           "comboboxTesting",
           "comboboxSelectOnlyTesting",
         ],
@@ -151,7 +152,7 @@ const sitOnyxConfig = {
   files: ["**/packages/sit-onyx/**/*"],
   extends: [
     compat.configs["flat/recommended"],
-    ...vueTsEslintConfig({ extends: ["recommendedTypeChecked"] }),
+    ...defineConfigWithVueTs(vue.configs["flat/recommended"], vueTsConfigs.recommendedTypeChecked),
     ...vueScopedCss.configs["flat/recommended"],
   ],
   languageOptions: {
@@ -162,6 +163,7 @@ const sitOnyxConfig = {
   plugins: { sitOnyx },
   rules: {
     "sitOnyx/import-playwright-a11y": "error",
+    "sitOnyx/no-shadow-template-ref": "error",
     "sitOnyx/no-shadow-native": "error",
     "sitOnyx/require-root-class": "error",
     "vue/require-prop-comment": "error",
@@ -198,8 +200,20 @@ const nuxtConfig = {
   },
 };
 
+const eslintCommentsConfig = {
+  name: "onyx-eslint-comments",
+  extends: [comments.recommended],
+  rules: {
+    "@eslint-community/eslint-comments/require-description": [
+      "error",
+      { ignore: ["eslint-enable"] },
+    ],
+  },
+};
+
 export default tsEslint.config(
   eslint.configs.recommended,
+  eslintCommentsConfig,
   generalVueTsConfig,
   playwrightConfig,
   vitestConfig,

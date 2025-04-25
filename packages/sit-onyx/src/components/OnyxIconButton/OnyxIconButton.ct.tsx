@@ -33,7 +33,7 @@ test("should behave correctly", async ({ page, mount }) => {
     // ARRANGE
     await component.update({ ...setup, props: { disabled: true } }); // ACT
     // ACT
-    // eslint-disable-next-line playwright/no-force-option
+    // eslint-disable-next-line playwright/no-force-option -- we want to check that a disabled button behaves as expected
     await buttonElement.click({ force: true });
     // ASSERT
     await expect(buttonElement).toBeDisabled();

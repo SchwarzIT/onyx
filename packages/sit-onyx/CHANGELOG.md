@@ -1,5 +1,17 @@
 # sit-onyx
 
+## 1.0.0-beta.201
+
+### Patch Changes
+
+- 68ec3e2: fix(OnyxTab): prevent call stack size exceed error in Nuxt
+
+## 1.0.0-beta.200
+
+### Patch Changes
+
+- 0455a31: fix(OnyxMoreList): fix runtime warning about "failing set operations on readonly target"
+
 ## 1.0.0-beta.199
 
 ### Minor Changes

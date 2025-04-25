@@ -49,7 +49,7 @@ test.describe("Screenshot tests (hash)", () => {
 });
 
 test("should copy hash", async ({ mount, page, context, browserName }) => {
-  // eslint-disable-next-line playwright/no-skipped-test
+  // eslint-disable-next-line playwright/no-skipped-test -- clipboard permission granting is only supported in chromium
   test.skip(
     browserName !== "chromium",
     "clipboard permission granting is only supported in chromium",

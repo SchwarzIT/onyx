@@ -43,9 +43,7 @@ type Story = StoryObj<typeof OnyxTooltip>;
 export const Default = {
   args: {
     text: "Tooltip text",
-    default: ({ trigger }) =>
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      h(OnyxButton, { label: "Slot content goes here", ...(trigger as any) }),
+    default: ({ trigger }) => h(OnyxButton, { label: "Slot content goes here", ...trigger }),
     icon: circleInformation,
     open: true,
   },
@@ -86,8 +84,7 @@ export const Click = {
   args: {
     ...Default.args,
     text: "Storybook is a frontend workshop for building UI components and pages in isolation.",
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    default: ({ trigger }) => h(OnyxButton, { label: "Info", ...(trigger as any) }),
+    default: ({ trigger }) => h(OnyxButton, { label: "Info", ...trigger }),
     open: "click",
   },
 } satisfies Story;
@@ -110,8 +107,7 @@ export const Danger = {
     ...Default.args,
     open: "hover",
     text: "Clicking this button will delete the internet!",
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    default: ({ trigger }) => h(OnyxButton, { label: "Delete", ...(trigger as any) }),
+    default: ({ trigger }) => h(OnyxButton, { label: "Delete", ...trigger }),
     color: "danger",
   },
 } satisfies Story;

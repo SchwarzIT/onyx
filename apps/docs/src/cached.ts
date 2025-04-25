@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console -- we want to be able to log output to the console */
 import { mkdir, readFile, writeFile } from "fs/promises";
 import { resolve } from "path";
 
@@ -72,3 +72,5 @@ export const cached = async <T>(url: URL, fetch: () => Promise<T>): Promise<T> =
   }
   throw new Error(`Failed to fetch and load from cache for ${url}!`);
 };
+
+/* eslint-enable */
