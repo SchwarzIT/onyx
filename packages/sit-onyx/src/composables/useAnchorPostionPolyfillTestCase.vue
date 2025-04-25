@@ -6,8 +6,8 @@ import { onMounted, ref, useTemplateRef } from "vue";
 import { useAnchorPositionPolyfill } from "./useAnchorPositionPolyfill";
 import type { WedgePosition } from "./useWedgePosition";
 
-const positionedRef = useTemplateRef("positionedRef");
-const targetRef = useTemplateRef("targetRef");
+const positionedRef = useTemplateRef("positioned");
+const targetRef = useTemplateRef("target");
 const positionArea = ref<TooltipPosition>("top");
 const alignment = ref<WedgePosition>("center");
 const alignsWithEdge = ref(false);
@@ -31,9 +31,9 @@ onMounted(() => {
 
 <template>
   <div class="wrapper onyx-component">
-    <div ref="targetRef" class="target">Target</div>
+    <div ref="target" class="target">Target</div>
     <div
-      ref="positionedRef"
+      ref="positioned"
       class="positioned"
       :style="{
         left: leftPosition,
