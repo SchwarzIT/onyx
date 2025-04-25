@@ -1,6 +1,7 @@
 import type { TooltipPosition } from "src/components/OnyxTooltip/types";
-import { onUnmounted, ref, toValue, unref, watchEffect, type MaybeRefOrGetter } from "vue";
+import { onUnmounted, ref, toValue, watchEffect, type MaybeRefOrGetter, type Ref } from "vue";
 import { useIntersectionObserver } from "./useIntersectionObserver";
+import { getTemplateRefElement, type VueTemplateRefElement } from "./useResizeObserver";
 import type { WedgePosition } from "./useWedgePosition";
 
 // TODO: can be removed after anchor is implemented in all common browsers
@@ -11,8 +12,8 @@ export const USERAGENT_SUPPORTS_ANCHOR_API =
   CSS.supports("position-area: top");
 
 type UseAnchorPositionPolyfillOptions = {
-  positionedRef: MaybeRefOrGetter<HTMLElement | null>;
-  targetRef: MaybeRefOrGetter<HTMLElement | null>;
+  positionedRef: Ref<VueTemplateRefElement>;
+  targetRef: Ref<VueTemplateRefElement>;
   positionArea: MaybeRefOrGetter<TooltipPosition>;
   alignment: MaybeRefOrGetter<WedgePosition>;
   alignsWithEdge: MaybeRefOrGetter<boolean>;
@@ -30,20 +31,12 @@ export const useAnchorPositionPolyfill = ({
   const leftPosition = ref("-1000px");
   const topPosition = ref("-1000px");
 
-  const getElement = (refOrGetter: MaybeRefOrGetter<HTMLElement | null>): HTMLElement | null => {
-    const element = unref(refOrGetter);
-    return typeof element === "function" ? element() : element;
-  };
-
-  const targetElement = ref(getElement(targetRef));
-  const positionedElement = ref(getElement(positionedRef));
-
-  const { isIntersecting: targetVisible } = useIntersectionObserver(targetElement);
-  const { isIntersecting: positionedVisible } = useIntersectionObserver(positionedElement);
+  const { isIntersecting: targetVisible } = useIntersectionObserver(targetRef);
+  const { isIntersecting: positionedVisible } = useIntersectionObserver(positionedRef);
 
   const updateAnchorPositionPolyfill = () => {
-    const positionedEl = getElement(positionedRef);
-    const target = getElement(targetRef);
+    const positionedEl = getTemplateRefElement(positionedRef.value);
+    const target = getTemplateRefElement(targetRef.value);
     if (!positionedEl || !target) {
       return;
     }
@@ -107,7 +100,7 @@ export const useAnchorPositionPolyfill = ({
 
   watchEffect(() => {
     if (targetVisible.value) {
-      const positionedEl = getElement(positionedRef);
+      const positionedEl = positionedRef.value;
       if (positionedEl) {
         window.addEventListener("scroll", updateAnchorPositionPolyfill, true);
       }
