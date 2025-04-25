@@ -24,7 +24,7 @@ export type OnyxNavBarProps = Pick<OnyxNavAppAreaProps, "appName" | "logoUrl"> &
    *
    * @see [onyx docs](https://onyx.schwarz/development/breakpoints.html) for more information.
    */
-  isMobile?: boolean | OnyxBreakpoint | number;
+  mobile?: boolean | OnyxBreakpoint | number;
 };
 
 /**

@@ -39,7 +39,7 @@ const meta: Meta<typeof OnyxNavBar> = {
     appArea: { control: { type: "text" } },
     mobileActivePage: { control: { type: "text" } },
     globalContextArea: { control: { disable: true } },
-    mobileBreakpoint: {
+    mobile: {
       options: Object.keys(ONYX_BREAKPOINTS),
       control: {
         labels: Object.entries(ONYX_BREAKPOINTS).reduce<Record<string, string>>(
@@ -237,7 +237,7 @@ export const WithLogoutTimer = {
 export const WithOverflowingMobileContent = {
   args: {
     ...WithContextArea.args,
-    mobileBreakpoint: "xl",
+    mobile: "xl",
     default: () => [
       h(OnyxNavItem, { label: "Item 1", link: "/" }),
       h(

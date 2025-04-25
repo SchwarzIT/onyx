@@ -22,7 +22,7 @@ import {
 } from "./types";
 
 const props = withDefaults(defineProps<OnyxNavBarProps>(), {
-  isMobile: "sm",
+  mobile: "sm",
 });
 
 const emit = defineEmits<{
@@ -71,16 +71,17 @@ const {
 const isBurgerOpen = ref(false);
 const isContextOpen = ref(false);
 
-const isMobileWidth = (mobileWidth: number) => width.value !== 0 && width.value < mobileWidth;
+const isMobileWidth = (breakpoint: number, currentWidth: number) =>
+  currentWidth !== 0 && currentWidth < breakpoint;
 
 const actualIsMobile = computed(() => {
-  if (typeof props.isMobile === "number") {
-    return isMobileWidth(props.isMobile);
+  if (typeof props.mobile === "number") {
+    return isMobileWidth(props.mobile, width.value);
   }
-  if (typeof props.isMobile === "string") {
-    return isMobileWidth(ONYX_BREAKPOINTS[props.isMobile]);
+  if (typeof props.mobile === "string") {
+    return isMobileWidth(ONYX_BREAKPOINTS[props.mobile], width.value);
   }
-  return props.isMobile;
+  return props.mobile;
 });
 
 const moreListTargetId = useId();
