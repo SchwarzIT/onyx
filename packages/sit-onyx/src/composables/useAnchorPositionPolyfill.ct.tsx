@@ -11,14 +11,15 @@ test("should position tooltip correctly after scrolling", async ({ mount, page }
   let positionedBoundingBox = await positionedElement.boundingBox();
   let targetBoundingBox = await targetElement.boundingBox();
 
-  expect(positionedBoundingBox!.y + 100).toBe(targetBoundingBox!.y);
+  expect(positionedBoundingBox!.y + targetBoundingBox!.height).toBe(targetBoundingBox!.y);
 
-  await page.evaluate(() => {
+  const scrollY = await page.evaluate(() => {
     window.scrollBy(0, 50);
+    return window.scrollY;
   });
 
   positionedBoundingBox = await positionedElement.boundingBox();
   targetBoundingBox = await targetElement.boundingBox();
 
-  expect(positionedBoundingBox!.y + 100).toBe(targetBoundingBox!.y);
+  expect(positionedBoundingBox!.y + targetBoundingBox!.height + scrollY).toBe(targetBoundingBox!.y);
 });
