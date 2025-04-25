@@ -17,7 +17,7 @@ export type OnyxNavBarProps = Pick<OnyxNavAppAreaProps, "appName" | "logoUrl"> &
    *
    * Determines if and when the `OnyxNavBar` should render in mobile mode.
    *
-   * `isMobile` prop can be one of the following;
+   * `mobile` prop can be one of the following;
    *  - a `boolean`: The NavBar renders in mobile mode, when `true`.
    *  - a `OnyxBreakpoint`: The NavBar renders in mobile mode, when the current breakpoint matches or is smaller.
    *  - a `number`: The NavBar renders in mobile when the viewport width is smaller than the provided value.
