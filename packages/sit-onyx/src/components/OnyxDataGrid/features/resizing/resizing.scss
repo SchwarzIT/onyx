@@ -1,0 +1,8 @@
+@use "../../../../styles/mixins/layers.scss";
+
+@include layers.component {
+  .onyx-table th:last-child,
+  .onyx-table td:last-child {
+    width: 100%;
+  }
+}

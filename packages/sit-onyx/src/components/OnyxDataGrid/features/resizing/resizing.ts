@@ -3,9 +3,11 @@ import { createFeature, useIsFeatureEnabled, type InternalColumnConfig } from ".
 import { mergeVueProps } from "../../../../utils/attrs";
 import type { DataGridEntry } from "../../types";
 import ResizeHandle from "./ResizeHandle.vue";
+import "./resizing.scss";
 import type { ResizingOptions } from "./types";
 
 export const RESIZING_FEATURE = Symbol("Resizing");
+export const EMPTY_COLUMN = Symbol("EmptyColumn");
 export const useResizing = createFeature(
   <TEntry extends DataGridEntry>(options?: ResizingOptions<TEntry>) => {
     const resizingCol = ref<Readonly<InternalColumnConfig<TEntry>>>();
@@ -13,6 +15,9 @@ export const useResizing = createFeature(
     const headers = ref(new Map<keyof TEntry, HTMLElement>());
     const { isEnabled } = useIsFeatureEnabled(options);
     const colWidths = ref(new Map<keyof TEntry, string>());
+    const showLastCol = ref(false);
+    let tableWidth: number;
+    let tableWrapperWidth: number;
     let previousWidth: string | undefined = undefined;
     let abortController: AbortController | undefined = undefined;
 
@@ -44,6 +49,12 @@ export const useResizing = createFeature(
       // Calculate the desired width
       const width = ev.clientX - header.getBoundingClientRect().left;
       colWidths.value.set(colKey, `${Math.max(min, width)}px`);
+
+      tableWidth = header.closest(".onyx-table")?.getBoundingClientRect().width ?? 0;
+      tableWrapperWidth =
+        header.closest(".onyx-table-wrapper__container")?.getBoundingClientRect().width ?? 0;
+
+      showLastCol.value = tableWrapperWidth > tableWidth;
     };
 
     // Clean up event listeners, classes, etc.
@@ -84,7 +95,7 @@ export const useResizing = createFeature(
     };
 
     const modifyColumns = (cols: Readonly<InternalColumnConfig<TEntry>[]>) => {
-      return cols.map((column) => {
+      const columns = cols.map((column) => {
         if (!isEnabled.value(column.key)) return column;
 
         const thAttributes = {
@@ -99,6 +110,10 @@ export const useResizing = createFeature(
           thAttributes: mergeVueProps(thAttributes, column.thAttributes),
         };
       });
+
+      return showLastCol.value
+        ? [...columns, { key: EMPTY_COLUMN, type: EMPTY_COLUMN, label: "" }]
+        : [...columns];
     };
 
     const renderWrapper = (
@@ -119,9 +134,21 @@ export const useResizing = createFeature(
 
     return {
       name: RESIZING_FEATURE,
-      watch: [],
+      watch: [showLastCol],
       modifyColumns: {
         func: modifyColumns,
+      },
+      typeRenderer: {
+        [EMPTY_COLUMN]: {
+          header: {
+            thAttributes: { class: "onyx-data-grid-empty-columns-cell" },
+            component: () => null,
+          },
+          cell: {
+            tdAttributes: { class: "onyx-data-grid-empty-columns-cell" },
+            component: () => null,
+          },
+        },
       },
       header: {
         wrapper:
