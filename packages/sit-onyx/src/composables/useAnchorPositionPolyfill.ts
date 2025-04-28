@@ -32,7 +32,6 @@ export const useAnchorPositionPolyfill = ({
   const topPosition = ref("-1000px");
 
   const { isIntersecting: targetVisible } = useIntersectionObserver(targetRef);
-  const { isIntersecting: positionedVisible } = useIntersectionObserver(positionedRef);
 
   const updateAnchorPositionPolyfill = () => {
     const positionedEl = getTemplateRefElement(positionedRef.value);
@@ -99,20 +98,9 @@ export const useAnchorPositionPolyfill = ({
   };
 
   watchEffect(() => {
-    if (targetVisible.value) {
-      const positionedEl = positionedRef.value;
-      if (positionedEl) {
-        window.addEventListener("scroll", updateAnchorPositionPolyfill, true);
-      }
+    if (targetVisible.value && positionedRef.value) {
+      window.addEventListener("scroll", updateAnchorPositionPolyfill, true);
     } else {
-      window.removeEventListener("scroll", updateAnchorPositionPolyfill, true);
-      leftPosition.value = "-1000px";
-      topPosition.value = "-1000px";
-    }
-  });
-
-  watchEffect(() => {
-    if (!positionedVisible.value) {
       window.removeEventListener("scroll", updateAnchorPositionPolyfill, true);
       leftPosition.value = "-1000px";
       topPosition.value = "-1000px";
