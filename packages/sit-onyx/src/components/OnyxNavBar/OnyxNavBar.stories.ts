@@ -39,7 +39,7 @@ const meta: Meta<typeof OnyxNavBar> = {
     appArea: { control: { type: "text" } },
     mobileActivePage: { control: { type: "text" } },
     globalContextArea: { control: { disable: true } },
-    mobileBreakpoint: {
+    mobile: {
       options: Object.keys(ONYX_BREAKPOINTS),
       control: {
         labels: Object.entries(ONYX_BREAKPOINTS).reduce<Record<string, string>>(
@@ -234,10 +234,10 @@ export const WithLogoutTimer = {
  * This nav bar has a lot of menu and context area items.
  * Both the nav area as well as the context area will overflow when opened.
  */
-export const WithOverflowingMobileContent = {
+export const Mobile = {
   args: {
     ...WithContextArea.args,
-    mobileBreakpoint: "xl",
+    mobile: true,
     default: () => [
       h(OnyxNavItem, { label: "Item 1", link: "/" }),
       h(
