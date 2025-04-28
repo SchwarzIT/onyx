@@ -62,7 +62,6 @@ const { timeAgo } = useRelativeTimeFormat({
                   v-bind="trigger"
                   :label="t('notificationCard.toggleActions')"
                   :icon="moreVertical"
-                  color="medium"
                 />
               </template>
 
@@ -101,6 +100,11 @@ const { timeAgo } = useRelativeTimeFormat({
     padding: var(--onyx-notification-card-padding);
     background-color: var(--onyx-color-base-background-blank);
     max-width: 100%;
+
+    &:hover,
+    &:focus-within {
+      background-color: var(--onyx-color-base-background-tinted);
+    }
 
     &__content {
       display: flex;
