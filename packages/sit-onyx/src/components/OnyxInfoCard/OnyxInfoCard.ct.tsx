@@ -95,5 +95,5 @@ test("should have compact density for buttons by default", async ({ mount }) => 
   const buttons = component.locator(".onyx-info-card__buttons");
 
   // ASSERT
-  await expect(buttons).toHaveClass(/onyx-density-compact/);
+  await expect(buttons).toHaveClass("onyx-density-compact");
 });

@@ -40,10 +40,10 @@ test("sticky Column should stay in View", async ({ page, mount }) => {
   // ASSERT
   const stickyColumn = component.getByRole("columnheader", { name: "a" });
   const notStickyColumn = component.getByRole("columnheader", { name: "b" });
-  await expect(notStickyColumn).not.toHaveClass(/onyx-data-grid-sticky-columns--sticky/);
+  await expect(notStickyColumn).not.toHaveClass("onyx-data-grid-sticky-columns--sticky");
   await expect(notStickyColumn).not.toHaveCSS("position", "sticky");
 
-  await expect(stickyColumn).toHaveClass(/onyx-data-grid-sticky-columns--sticky/);
+  await expect(stickyColumn).toHaveClass("onyx-data-grid-sticky-columns--sticky");
   await expect(stickyColumn).toHaveCSS("position", "sticky");
   await expect(stickyColumn).toBeVisible();
 
@@ -72,7 +72,7 @@ positions.forEach((position) => {
     const stickyColumn = component.getByRole("columnheader", {
       name: position === "left" ? "a" : "k",
     });
-    await expect(stickyColumn).toHaveClass(new RegExp(`${position}`));
+    await expect(stickyColumn).toHaveClass(position);
     await expect(stickyColumn).toHaveCSS(position, /[0-9]+px/);
     await expect(component).toHaveScreenshot(`data-grid-sticky-columns-${position}.png`);
   });
@@ -95,9 +95,9 @@ test("multiple stickyColumns", async ({ page, mount }) => {
   // ASSERT
   const fistStickyColumn = component.getByRole("columnheader", { name: "a" });
   const secondStickyColumn = component.getByRole("columnheader", { name: "b" });
-  await expect(fistStickyColumn).toHaveClass(/onyx-data-grid-sticky-columns--sticky/);
+  await expect(fistStickyColumn).toHaveClass("onyx-data-grid-sticky-columns--sticky");
   await expect(fistStickyColumn).toHaveCSS("left", /[0-9]+px/);
-  await expect(secondStickyColumn).toHaveClass(/onyx-data-grid-sticky-columns--sticky/);
+  await expect(secondStickyColumn).toHaveClass("onyx-data-grid-sticky-columns--sticky");
   await expect(secondStickyColumn).toHaveCSS("left", /[0-9]+px/);
   await expect(component).toHaveScreenshot("data-grid-two-sticky-columns.png");
 });
