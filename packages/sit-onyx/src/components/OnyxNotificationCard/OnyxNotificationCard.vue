@@ -141,9 +141,13 @@ const { timeAgo } = useRelativeTimeFormat({
       }
     }
 
-    &:not(&:hover, &:focus-within) {
-      .onyx-notification-card__more-actions {
-        @include visibility.visually-hidden();
+    // for devices that support hover, we are only showing the more actions on hover
+    // for all other devices (like mobile devices), they are always shown
+    @media (hover: hover) {
+      &:not(&:hover, &:focus-within) {
+        .onyx-notification-card__more-actions {
+          @include visibility.visually-hidden();
+        }
       }
     }
 
