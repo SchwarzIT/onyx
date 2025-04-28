@@ -1,7 +1,7 @@
 {
   "name": "onyx-monorepo",
   "type": "module",
-  "packageManager": "pnpm@10.7.1",
+  "packageManager": "pnpm@10.10.0",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
   "scripts": {
@@ -29,8 +29,8 @@
     "@fontsource-variable/source-code-pro": "^5.2.5",
     "@fontsource-variable/source-sans-3": "^5.2.6",
     "@microsoft/eslint-formatter-sarif": "^3.1.0",
-    "@playwright/experimental-ct-vue": "^1.52.0",
-    "@playwright/test": "^1.52.0",
+    "@playwright/experimental-ct-vue": "^1.51.1",
+    "@playwright/test": "^1.51.1",
     "@storybook/addon-essentials": "^8.6.12",
     "@storybook/blocks": "^8.6.12",
     "@storybook/vue3": "^8.6.12",
