@@ -46,7 +46,7 @@ test("should behave correctly", async ({ mount }) => {
   await component.click();
 
   // ASSERT
-  await expect(component).toHaveClass("onyx-grid-span-2");
+  await expect(component).toContainClass("onyx-grid-span-2");
   await expect(component).toHaveAccessibleName("Label");
   await expect(component).toBeEnabled();
 
@@ -61,5 +61,7 @@ test("should behave correctly", async ({ mount }) => {
   });
 
   // ASSERT
-  await expect(component).toHaveClass("onyx-grid-span-2 onyx-grid-md-span-1 onyx-grid-lg-span-4");
+  await expect(component).toContainClass(
+    "onyx-grid-span-2 onyx-grid-md-span-1 onyx-grid-lg-span-4",
+  );
 });

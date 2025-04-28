@@ -12,7 +12,7 @@ test("should render prose components with onyx", async ({ page, goto }) => {
     await expect(
       headline,
       `should replace h${headlineLevel} heading with <OnyxHeadline>`,
-    ).toHaveClass("onyx-headline");
+    ).toContainClass("onyx-headline");
 
     await expect(
       headline.getByRole("link", { name: "Copy link to headline" }),
@@ -22,7 +22,7 @@ test("should render prose components with onyx", async ({ page, goto }) => {
 
   // LINK
   const link = page.getByRole("link", { name: "This is a link" });
-  await expect(link, "should replace links with <OnyxLink>").toHaveClass("onyx-link");
+  await expect(link, "should replace links with <OnyxLink>").toContainClass("onyx-link");
 
   // IMAGE
   const image = page.getByRole("img", { name: "Image alt" });
@@ -30,5 +30,5 @@ test("should render prose components with onyx", async ({ page, goto }) => {
 
   // TABLE
   const table = page.getByRole("table");
-  await expect(table, "should replace tables with <OnyxTable>").toHaveClass("onyx-table");
+  await expect(table, "should replace tables with <OnyxTable>").toContainClass("onyx-table");
 });
