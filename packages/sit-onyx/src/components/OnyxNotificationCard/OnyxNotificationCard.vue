@@ -62,6 +62,7 @@ const { timeAgo } = useRelativeTimeFormat({
                   v-bind="trigger"
                   :label="t('notificationCard.toggleActions')"
                   :icon="moreVertical"
+                  color="medium"
                 />
               </template>
 
