@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.203
+
+### Major Changes
+
+- 5fbc8b3: feat(OnyxNavBar)!: rename prop `mobileBreakpoint` to `mobile` - behaves as before, but also supports boolean type
+
 ## 1.0.0-beta.202
 
 ### Minor Changes
