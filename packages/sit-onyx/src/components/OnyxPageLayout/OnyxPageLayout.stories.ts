@@ -6,7 +6,7 @@ import OnyxPageLayout from "./OnyxPageLayout.vue";
  * Layout component that structures a single page of the application.
  * Supports slots for common page elements like sidebar, page content and footer.
  *
- * Recommended to be used as root component on every page/view.
+ * Recommended to be used as root component on every page/view. Also see the [OnyxAppLayout](/docs/layout-applayout--docs).
  */
 const meta: Meta<typeof OnyxPageLayout> = {
   title: "Layout/PageLayout",
