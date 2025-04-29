@@ -12,7 +12,6 @@ import {
   type ColumnConfig,
   type ColumnGroupConfig,
   type DataGridFeature,
-  type TypeRenderMap,
 } from "sit-onyx";
 import { computed, h, ref } from "vue";
 
@@ -126,8 +125,7 @@ const dummyFeature = createFeature(() => ({
 }));
 
 const dataFeatures = computed(() => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const enabled: DataGridFeature<Entry, TypeRenderMap<any>, any>[] = [];
+  const enabled: DataGridFeature<Entry>[] = [];
   if (enabledFeatures.value.filtering) {
     enabled.push(DataGridFeatures.useFiltering());
   }

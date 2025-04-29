@@ -4,17 +4,25 @@ import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import menu from "@sit-onyx/icons/menu.svg?raw";
 import moreVertical from "@sit-onyx/icons/more-vertical.svg?raw";
 import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
-import { computed, provide, ref, toRef, useTemplateRef, watch } from "vue";
+import { computed, provide, ref, toRef, useId, useTemplateRef, watch } from "vue";
 import { useLink } from "../../composables/useLink";
 import { useResizeObserver } from "../../composables/useResizeObserver";
 import { injectI18n } from "../../i18n";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxMobileNavButton from "../OnyxMobileNavButton/OnyxMobileNavButton.vue";
+import OnyxMoreList from "../OnyxMoreList/OnyxMoreList.vue";
 import OnyxNavAppArea from "../OnyxNavAppArea/OnyxNavAppArea.vue";
-import { MOBILE_NAV_BAR_INJECTION_KEY, type OnyxNavBarProps } from "./types";
+import OnyxFlyoutMenu from "./modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
+import OnyxNavItemFacade from "./modules/OnyxNavItemFacade/OnyxNavItemFacade.vue";
+import {
+  MOBILE_NAV_BAR_INJECTION_KEY,
+  NAV_BAR_MORE_LIST_INJECTION_KEY,
+  NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY,
+  type OnyxNavBarProps,
+} from "./types";
 
 const props = withDefaults(defineProps<OnyxNavBarProps>(), {
-  mobileBreakpoint: "sm",
+  mobile: "sm",
 });
 
 const emit = defineEmits<{
@@ -63,15 +71,22 @@ const {
 const isBurgerOpen = ref(false);
 const isContextOpen = ref(false);
 
-const isMobile = computed(() => {
-  const mobileWidth =
-    typeof props.mobileBreakpoint === "number"
-      ? props.mobileBreakpoint
-      : ONYX_BREAKPOINTS[props.mobileBreakpoint];
-  return width.value !== 0 && width.value < mobileWidth;
+const isMobileWidth = (breakpoint: number, currentWidth: number) =>
+  currentWidth !== 0 && currentWidth < breakpoint;
+
+const actualIsMobile = computed(() => {
+  if (typeof props.mobile === "number") {
+    return isMobileWidth(props.mobile, width.value);
+  }
+  if (typeof props.mobile === "string") {
+    return isMobileWidth(ONYX_BREAKPOINTS[props.mobile], width.value);
+  }
+  return props.mobile;
 });
 
-provide(MOBILE_NAV_BAR_INJECTION_KEY, isMobile);
+const moreListTargetId = useId();
+provide(MOBILE_NAV_BAR_INJECTION_KEY, actualIsMobile);
+provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, `#${moreListTargetId}`);
 
 const closeMobileMenus = () => {
   isBurgerOpen.value = false;
@@ -103,11 +118,11 @@ defineExpose({
   <header
     ref="navBarRef"
     class="onyx-component onyx-nav-bar"
-    :class="{ 'onyx-nav-bar--mobile': isMobile }"
+    :class="{ 'onyx-nav-bar--mobile': actualIsMobile }"
   >
     <div class="onyx-nav-bar__content">
       <span
-        v-if="isMobile && slots.mobileActivePage && !isBurgerOpen && !isContextOpen"
+        v-if="actualIsMobile && slots.mobileActivePage && !isBurgerOpen && !isContextOpen"
         class="onyx-nav-bar__mobile-page onyx-truncation-ellipsis"
       >
         <slot name="mobileActivePage"></slot>
@@ -134,7 +149,7 @@ defineExpose({
 
       <template v-if="slots.default">
         <OnyxMobileNavButton
-          v-if="isMobile"
+          v-if="actualIsMobile"
           v-model:open="isBurgerOpen"
           class="onyx-nav-bar__burger"
           :icon="menu"
@@ -150,14 +165,33 @@ defineExpose({
         </OnyxMobileNavButton>
 
         <nav v-else class="onyx-nav-bar__nav" v-bind="nav">
-          <ul role="menubar">
-            <slot></slot>
-          </ul>
+          <OnyxMoreList is="ul" role="menubar" :injection-key="NAV_BAR_MORE_LIST_INJECTION_KEY">
+            <template #default="{ attributes }">
+              <div v-bind="attributes">
+                <slot></slot>
+              </div>
+            </template>
+            <template #more="{ attributes, hiddenElements }">
+              <OnyxFlyoutMenu :label="t('navigation.showMoreNavItemsLabel')" v-bind="attributes">
+                <template #button="{ trigger }">
+                  <OnyxNavItemFacade
+                    v-bind="trigger"
+                    :label="t('navigation.moreNavItems', { n: hiddenElements })"
+                    context="navbar"
+                  />
+                </template>
+
+                <template #options>
+                  <div :id="moreListTargetId"></div>
+                </template>
+              </OnyxFlyoutMenu>
+            </template>
+          </OnyxMoreList>
         </nav>
       </template>
 
       <template v-if="slots.contextArea || slots.globalContextArea">
-        <div v-if="isMobile" class="onyx-nav-bar__mobile-context">
+        <div v-if="actualIsMobile" class="onyx-nav-bar__mobile-context">
           <div v-if="slots.globalContextArea" class="onyx-nav-bar__mobile-global-context">
             <slot name="globalContextArea"></slot>
           </div>
@@ -255,6 +289,11 @@ $gap: var(--onyx-spacing-md);
           display: contents;
         }
       }
+    }
+
+    // fix outline being cut-off by the clipping
+    .onyx-more-list__elements {
+      padding-inline: 0.25rem;
     }
 
     &__context {

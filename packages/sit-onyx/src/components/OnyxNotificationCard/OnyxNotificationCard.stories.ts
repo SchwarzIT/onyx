@@ -1,6 +1,12 @@
+import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
+import circleAttention from "@sit-onyx/icons/circle-attention.svg?raw";
+import trash from "@sit-onyx/icons/trash.svg?raw";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
+import { defineIconSelectArgType } from "../../utils/storybook";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxMenuItem from "../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxNotificationCard from "./OnyxNotificationCard.vue";
 
 /**
@@ -12,6 +18,8 @@ const meta: Meta<typeof OnyxNotificationCard> = {
   tags: ["new:component"],
   argTypes: {
     actions: { control: { disable: true } },
+    headerActions: { control: { disable: true } },
+    icon: defineIconSelectArgType(),
   },
 };
 
@@ -23,6 +31,7 @@ export const Default = {
     style: "width: 32rem",
     headline: "Example notification",
     createdAt: new Date(),
+    icon: circleAttention,
     default:
       "Lorem ipsum dolor sit amet consectetur. Dui purus quisque est varius vulputate. Ut odio dui diam pulvinar velit mollis cursus eu ut. Lorem ipsum dolor sit amet consectetur. Dui purus quisque est varius vulputate. Ut odio dui diam pulvinar velit mollis cursus eu ut. Lorem ipsum dolor sit amet consectetur. Dui purus quisque est varius vulputate. Ut odio dui diam pulvinar velit mollis cursus eu ut.",
   },
@@ -41,6 +50,10 @@ export const Actions = {
     actions: [
       h(OnyxButton, { label: "Button", color: "neutral" }),
       h(OnyxButton, { label: "Button" }),
+    ],
+    headerActions: () => [
+      h(OnyxMenuItem, () => [h(OnyxIcon, { icon: checkSmall }), "Mark as read"]),
+      h(OnyxMenuItem, { color: "danger" }, () => [h(OnyxIcon, { icon: trash }), "Delete"]),
     ],
   },
 } satisfies Story;

@@ -5,6 +5,7 @@ import {
   mergeProps,
   toRaw,
   useAttrs,
+  type ComponentPublicInstance,
   type HTMLAttributes,
   type Ref,
   type VNodeProps,
@@ -36,7 +37,7 @@ import type { Data } from "../types";
  *   </div>
  * </template>
  */
-export const useRootAttrs = <T extends HTMLAttributes = HTMLAttributes>() => {
+export const useRootAttrs = <T extends Pick<HTMLAttributes, "class" | "style">>() => {
   // endregion docs
   const attrs = useAttrs();
 
@@ -90,8 +91,7 @@ const createMergedRef = <T>(...toMerge: VNodeRef[]) => {
         _ref[MERGED_REFS_SYMBOL].forEach((r) => {
           switch (typeof r) {
             case "function":
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              r(value as any, []);
+              r(value as VRef, []);
               break;
             case "object":
               r.value = value;
@@ -115,8 +115,9 @@ const createMergedRef = <T>(...toMerge: VNodeRef[]) => {
 const isMergedRef = (_ref: unknown): _ref is MergedRef =>
   !!_ref && typeof _ref === "object" && MERGED_REFS_SYMBOL in _ref;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- we want to allow any kind of props
 type VProps = Data<any> & VNodeProps;
+type VRef = Element | ComponentPublicInstance | null;
 
 /**
  * Extends the Vue's `mergeProp` function, so that it

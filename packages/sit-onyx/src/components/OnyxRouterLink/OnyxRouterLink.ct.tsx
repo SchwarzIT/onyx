@@ -85,7 +85,7 @@ for (const modifier of ["Alt", "ControlOrMeta", "Shift"] as const) {
     mount,
     browserName,
   }) => {
-    // eslint-disable-next-line playwright/no-skipped-test
+    // eslint-disable-next-line playwright/no-skipped-test -- Alt does not work in safari
     test.skip(browserName === "webkit" && modifier === "Alt", "Alt does not work in safari");
 
     // ARRANGE

@@ -4,8 +4,10 @@ description: >-
   with the form below.
 title: "[Feature request]: "
 type: Feature
+projects: "SchwarzIT/5"
 labels:
   - enhancement
+  - "needs-triage"
 
 body:
   - type: textarea

@@ -1,3 +1,4 @@
+import type { Page } from "@playwright/test";
 import { navigationTesting } from "@sit-onyx/headless/playwright";
 import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
 import { expect, test } from "../../playwright/a11y";
@@ -17,6 +18,8 @@ import OnyxMenuItem from "./modules/OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxNavItem from "./modules/OnyxNavItem/OnyxNavItem.vue";
 import OnyxUserMenu from "./modules/OnyxUserMenu/OnyxUserMenu.vue";
 import OnyxNavBar from "./OnyxNavBar.vue";
+import TestCase from "./TestCase.vue";
+import type { OnyxNavBarProps } from "./types";
 
 test.beforeEach(async ({ page }) => {
   await defineLogoMockRoutes(page);
@@ -62,6 +65,12 @@ test.describe("Screenshot tests", () => {
           withBackButton={row.includes("back")}
         >
           <OnyxNavItem label="Item" active />
+          <OnyxNavItem label="Item" />
+          <OnyxNavItem label="Item" />
+          <OnyxNavItem label="Item" />
+          <OnyxNavItem label="Item" />
+          <OnyxNavItem label="Item" />
+          <OnyxNavItem label="Item" />
           <OnyxNavItem label="Item" />
 
           <template v-slot:mobileActivePage>Item</template>
@@ -326,17 +335,171 @@ Object.entries(ONYX_BREAKPOINTS).forEach(([breakpoint, width]) => {
 
     await expect(page).toHaveScreenshot(`grid-default-${breakpoint}.png`);
 
-    // eslint-disable-next-line playwright/no-conditional-in-test -- prevent useless screenshots for breakpoints that don't have a max width
+    /* eslint-disable playwright/no-conditional-in-test, playwright/no-conditional-expect -- prevent useless screenshots for breakpoints that don't have a max width */
     if (width > ONYX_BREAKPOINTS.md) {
       const app = page.locator(".onyx-app");
 
       await app.evaluate((element) => element.classList.add("onyx-grid-max-md"));
-      // eslint-disable-next-line playwright/no-conditional-expect
       await expect(page).toHaveScreenshot(`grid-max-width-${breakpoint}.png`);
 
       await app.evaluate((element) => element.classList.add("onyx-grid-center"));
-      // eslint-disable-next-line playwright/no-conditional-expect
       await expect(page).toHaveScreenshot(`grid-max-center-${breakpoint}.png`);
     }
+    /* eslint-enable */
   });
+});
+
+const expectNMenuItemsToBeVisible = async (n: number, page: Page) => {
+  for (let i = 1; i < n; i++) {
+    await expect(page.getByRole("menuitem", { name: `Menuitem ${i}` })).toBeVisible();
+  }
+};
+
+test("should display More Items correctly", async ({ mount, page }) => {
+  // ARRANGE
+  let navItemClickEvents = 0;
+
+  await page.setViewportSize({ width: ONYX_BREAKPOINTS.lg, height: 400 });
+
+  const component = await mount(
+    <OnyxNavBar
+      appName="App name"
+      logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}
+      appArea={{ link: "#app-area" }}
+    >
+      <OnyxNavItem link="#1" label="Menuitem 0" />
+      <OnyxNavItem link="#1" label="Menuitem 1" />
+      <OnyxNavItem link="#2" label="Menuitem 2" />
+      <OnyxNavItem link="#3" label="Menuitem 3" />
+      <OnyxNavItem link="#4" label="Menuitem 4" />
+      <OnyxNavItem link="#5" onClick={() => navItemClickEvents++} label="Menuitem 5" />
+    </OnyxNavBar>,
+  );
+
+  const moreMenuItem = component.getByRole("menuitem", { name: /\+\d More/ });
+  const firstMenuItem = component.getByRole("menuitem", { name: "Menuitem 0" });
+  const lastMenuItem = component.getByRole("menuitem", { name: "Menuitem 5" });
+
+  await test.step("on a wide screen all menuitems should visible", async () => {
+    // ACT
+    await lastMenuItem.click();
+
+    // ASSERT
+    expect(navItemClickEvents).toBe(1);
+    await expect(moreMenuItem).toBeHidden();
+    await expectNMenuItemsToBeVisible(5, page);
+  });
+
+  await test.step("smaller screen should move menuitem into nested menu", async () => {
+    // ACT
+    await firstMenuItem.hover();
+    await page.setViewportSize({ width: ONYX_BREAKPOINTS.md, height: 400 });
+
+    // ASSERT
+    expect(navItemClickEvents).toBe(1);
+    await expect(moreMenuItem).toBeVisible();
+    await expect(lastMenuItem).toBeHidden();
+    await expectNMenuItemsToBeVisible(4, page);
+
+    // ACT
+    await moreMenuItem.hover();
+
+    // ASSERT
+    await expect(moreMenuItem).toBeVisible();
+    await expect(moreMenuItem).toHaveAttribute("aria-expanded", "true");
+    await expect(moreMenuItem).toHaveAttribute("aria-haspopup", "true");
+    await expect(lastMenuItem).toBeVisible();
+
+    // ACT
+    await lastMenuItem.click();
+
+    // ASSERT
+    await expect(moreMenuItem).toBeVisible();
+    await expect(moreMenuItem).toHaveAttribute("aria-expanded", "false");
+    await expect(moreMenuItem).toHaveAttribute("aria-haspopup", "true");
+    await expect(lastMenuItem).toBeHidden();
+    expect(navItemClickEvents).toBe(2);
+  });
+
+  await test.step("on mobile breakpoint the mobile menu should work as expected", async () => {
+    // ACT
+    await page.setViewportSize({ width: ONYX_BREAKPOINTS.sm, height: 800 });
+    await component.getByLabel("Toggle burger menu").click();
+
+    // ASSERT
+    await expect(moreMenuItem).toBeHidden();
+    await expectNMenuItemsToBeVisible(5, page);
+
+    // ACT
+    await lastMenuItem.click();
+
+    // ASSERT
+    expect(navItemClickEvents).toBe(3);
+  });
+
+  await test.step("on desktop breakpoint everything should work as expected again", async () => {
+    // ACT
+    await page.setViewportSize({ width: ONYX_BREAKPOINTS.lg, height: 400 });
+    await lastMenuItem.click();
+
+    // ASSERT
+    await expectNMenuItemsToBeVisible(5, page);
+    expect(navItemClickEvents).toBe(4);
+  });
+});
+
+test("should switch to mobile correctly", async ({ mount, page }) => {
+  const component = await mount(TestCase);
+
+  type TestCase = {
+    setting: OnyxNavBarProps["mobile"];
+    viewportWidth: number;
+    expectedMobile: boolean;
+  };
+
+  const testCases = [
+    {
+      setting: true,
+      expectedMobile: true,
+      viewportWidth: ONYX_BREAKPOINTS.xl,
+    },
+    {
+      setting: false,
+      expectedMobile: false,
+      viewportWidth: ONYX_BREAKPOINTS.xs,
+    },
+    {
+      setting: 1001,
+      expectedMobile: true,
+      viewportWidth: 1000,
+    },
+    {
+      setting: 999,
+      expectedMobile: false,
+      viewportWidth: 1000,
+    },
+    {
+      setting: "md",
+      expectedMobile: true,
+      viewportWidth: ONYX_BREAKPOINTS.sm,
+    },
+    {
+      setting: "sm",
+      expectedMobile: false,
+      viewportWidth: ONYX_BREAKPOINTS.md,
+    },
+  ] as TestCase[];
+
+  for (const { setting, expectedMobile, viewportWidth } of testCases) {
+    // eslint-disable-next-line playwright/no-conditional-in-test -- conditional is only used in test title
+    await test.step(`should${expectedMobile ? "" : " not"} render in mobile for mobile prop "${setting}" and a viewport width of ${viewportWidth}px`, async () => {
+      await page.setViewportSize({ width: viewportWidth, height: 400 });
+      await component.update({
+        props: { mobile: setting },
+      });
+      await expect(component.getByLabel("Toggle burger menu")).toBeAttached({
+        attached: expectedMobile,
+      });
+    });
+  }
 });

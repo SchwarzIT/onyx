@@ -1,5 +1,80 @@
 # sit-onyx
 
+## 1.0.0-beta.204
+
+### Patch Changes
+
+- 0788fb3: fix(OnyxNotificationCard): always show more actions if device does not support hover
+
+  Also added a slight background hover/focus color
+
+## 1.0.0-beta.203
+
+### Major Changes
+
+- 5fbc8b3: feat(OnyxNavBar)!: rename prop `mobileBreakpoint` to `mobile` - behaves as before, but also supports boolean type
+
+## 1.0.0-beta.202
+
+### Minor Changes
+
+- a780fa0: feat(OnyxNotificationCard): support `icon` property
+
+## 1.0.0-beta.201
+
+### Patch Changes
+
+- 68ec3e2: fix(OnyxTab): prevent call stack size exceed error in Nuxt
+
+## 1.0.0-beta.200
+
+### Patch Changes
+
+- 0455a31: fix(OnyxMoreList): fix runtime warning about "failing set operations on readonly target"
+
+## 1.0.0-beta.199
+
+### Minor Changes
+
+- 60d3920: feat(OnyxNotificationCard): support new `headerActions` slot
+
+## 1.0.0-beta.198
+
+### Major Changes
+
+- 68139e0: refactor(OnyxButton): restructure CSS variables
+
+  Allow easier color overrides via CSS by using a updated CSS variables structure so you don't need to copy advanced selectors to override colors.
+
+  #### Renamed variables
+
+  - renamed `--onyx-button-background-hover-color` to `--onyx-button-background-color-hover`
+
+  #### New variables
+
+  - `--onyx-button-padding-inline`
+  - `--onyx-button-background-color-disabled`
+  - `--onyx-button-text-color-hover`
+  - `--onyx-button-text-color-disabled`
+  - `--onyx-button-border-color-hover`
+  - `--onyx-button-border-color-disabled`
+
+## 1.0.0-beta.197
+
+### Patch Changes
+
+- 1274d2c: fix(OnyxDataGrid): fix empty data grid showing large header instead of "empty" content
+
+## 1.0.0-beta.196
+
+### Major Changes
+
+- 053db89: feat(useMoreList)!: while not yet mounted elements are considered visible
+
+### Minor Changes
+
+- 053db89: feat(OnyxNavBar): implement "+n More" grouping for overflowing menu items
+
 ## 1.0.0-beta.195
 
 ### Major Changes

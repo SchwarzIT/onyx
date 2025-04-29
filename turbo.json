@@ -20,6 +20,9 @@
       "outputs": ["coverage"],
       "cache": false
     },
+    "test:eslint-plugins": {
+      "cache": false
+    },
     "test:playwright": {
       "dependsOn": ["build"],
       "outputs": ["playwright-report", "test-results", "blob-reports"],

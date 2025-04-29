@@ -4,7 +4,7 @@ import { defineIconSelectArgType, textColorDecorator } from "../../utils/storybo
 import OnyxIcon from "./OnyxIcon.vue";
 
 /**
- * Component to display icons. Supports all inline SVG icon libraries.
+ * Icons allow developers to integrate library icons directly into a project, enhancing visual communication and accessibility within the interface.
  * We recommend using the official icons from `@sit-onyx/icons`.
  *
  * When importing SVG icon files, make sure to add `?raw` after the file name as shown in the examples to import the SVG content

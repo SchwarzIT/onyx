@@ -17,18 +17,11 @@ const props = withDefaults(defineProps<OnyxVisuallyHiddenProps>(), { is: "span" 
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
+@use "../../styles/mixins/visibility.scss";
 
 .onyx-visually-hidden {
   @include layers.component() {
-    border: 0;
-    clip: rect(0, 0, 0, 0);
-    height: 0;
-    margin: 0;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
-    white-space: nowrap;
+    @include visibility.visually-hidden();
   }
 }
 </style>

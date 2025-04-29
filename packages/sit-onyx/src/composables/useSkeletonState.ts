@@ -59,7 +59,7 @@ const createSkeletonInjectionContext =
         return parentElementProps?.skeleton === true ? 3 : false;
       }
       if (import.meta.env.DEV) {
-        // eslint-disable-next-line no-console
+        // eslint-disable-next-line no-console -- we only log the error in dev mode
         console.error(
           `skeleton prop is an recognized symbol: %o which is not identical to the symbol %o.`,
           props.skeleton,

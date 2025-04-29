@@ -1,4 +1,4 @@
-/* eslint-disable playwright/expect-expect -- expect is done by "expectRowCount" utility */
+/* eslint playwright/expect-expect: ["error", { "assertFunctionNames": ["expectRowCount"] }] -- We have some assertions in extra functions */
 import type { Locator } from "@playwright/test";
 import { expect, test } from "../../../../playwright/a11y";
 import type { DataGridEntry } from "../../types";

@@ -14,13 +14,17 @@ export type OnyxNavBarProps = Pick<OnyxNavAppAreaProps, "appName" | "logoUrl"> &
    */
   appArea?: Omit<OnyxNavAppAreaProps, "appName" | "logoUrl">;
   /**
-   * Breakpoint name when the nav bar should switch into mobile mode.
-   * Will switch if **smaller** than the given breakpoint.
-   * Can be either a pre-defined onyx breakpoint or custom width in pixels.
+   *
+   * Determines if and when the `OnyxNavBar` should render in mobile mode.
+   *
+   * `mobile` prop can be one of the following;
+   *  - a `boolean`: The NavBar renders in mobile mode, when `true`.
+   *  - a `OnyxBreakpoint`: The NavBar renders in mobile mode, when the current breakpoint matches or is smaller.
+   *  - a `number`: The NavBar renders in mobile when the viewport width is smaller than the provided value.
    *
    * @see [onyx docs](https://onyx.schwarz/development/breakpoints.html) for more information.
    */
-  mobileBreakpoint?: OnyxBreakpoint | number;
+  mobile?: boolean | OnyxBreakpoint | number;
 };
 
 /**
@@ -39,3 +43,8 @@ export const MOBILE_NAV_BAR_INJECTION_KEY = Symbol() as InjectionKey<ComputedRef
 export const NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY = Symbol() as InjectionKey<boolean>;
 
 export const NAV_BAR_MORE_LIST_INJECTION_KEY = Symbol() as MoreListInjectionKey;
+
+/**
+ * [Vue injection key](https://vuejs.org/guide/components/provide-inject) that is provided by the nav bar to communicate the teleport target id for navitems that should be put into the more list.
+ */
+export const NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY = Symbol() as InjectionKey<string>;

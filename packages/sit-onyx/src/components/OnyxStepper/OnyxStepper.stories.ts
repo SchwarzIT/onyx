@@ -2,6 +2,10 @@ import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxStepper from "./OnyxStepper.vue";
 
+/**
+ * The stepper component lets users input numerical values and adjust them incrementally via plus and minus buttons, making it ideal for setting quantities or values in small, controlled steps.
+ */
+
 const meta: Meta<typeof OnyxStepper> = {
   title: "Form Elements/Stepper",
   component: OnyxStepper,

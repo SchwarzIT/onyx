@@ -14,4 +14,8 @@ export type OnyxNotificationCardProps = DensityProp & {
    * Whether the notification is unread / not acknowledged by the user yet.
    */
   unread?: boolean;
+  /**
+   * Optional icon to show.
+   */
+  icon?: string;
 };

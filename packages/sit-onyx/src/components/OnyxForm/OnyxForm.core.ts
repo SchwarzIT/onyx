@@ -96,7 +96,7 @@ const createCompute = <TKey extends keyof FormProps>(
       return formProps?.value[key] ?? defaultValue;
     }
     if (import.meta.env.DEV && prop != undefined) {
-      // eslint-disable-next-line no-console
+      // eslint-disable-next-line no-console -- we only log the error in dev mode
       console.error(
         `The %s prop is an unrecognized symbol: %o which is not identical to the expected symbol %o.`,
         key,

@@ -128,6 +128,8 @@
     "appLogo": "App logo von {appName}",
     "goToHome": "Gehe zur Startseite",
     "goBack": "Zurück",
+    "moreNavItems": "+{n} Mehr",
+    "showMoreNavItemsLabel": "Zeige mehr Items",
     "userMenuLabel": "Benutzeroptionen",
     "toggleBurgerMenu": "Burger-Menü umschalten",
     "toggleContextMenu": "Kontext-Menü umschalten",
@@ -188,5 +190,9 @@
     "label": "Sprache",
     "headline": "Sprache ändern",
     "subtitle": "Wähle die Sprache der Anwendung:"
+  },
+  "notificationCard": {
+    "moreActions": "Weitere Aktionen",
+    "toggleActions": "Aktionen umschalten"
   }
 }
