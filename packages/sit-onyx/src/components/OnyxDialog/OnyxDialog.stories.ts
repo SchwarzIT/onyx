@@ -3,8 +3,7 @@ import { createAdvancedStoryExample } from "../../utils/storybook";
 import OnyxDialog from "./OnyxDialog.vue";
 
 /**
- * Dialogs can be used to overlay the primary page content (or other dialogs).
- * If using the `modal` mode, the primary page content will not be interactive.
+ * Dialog components display popup modals that allow users to interact at an overlay level, letting them perform tasks without leaving the current page. It can either be modal or non-modal. Modal dialogs interrupt interaction with the rest of the page, while non-modal dialogs allow interaction with the rest of the page
  */
 const meta: Meta<typeof OnyxDialog> = {
   title: "Support/Dialog",

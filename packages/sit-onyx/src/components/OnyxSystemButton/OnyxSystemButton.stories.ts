@@ -5,6 +5,9 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import { defineIconSelectArgType } from "../../utils/storybook";
 import OnyxSystemButton from "./OnyxSystemButton.vue";
 
+/**
+ * The SystemButton is a component, that triggers interactions related not to the content but to the system. It can be used exclusively as a child object embedded into a parent container - never as a standalone object.
+ */
 const meta: Meta<typeof OnyxSystemButton> = {
   title: "Buttons/SystemButton",
   component: OnyxSystemButton,
