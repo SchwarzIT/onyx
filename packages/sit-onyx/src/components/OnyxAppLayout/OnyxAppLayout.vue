@@ -15,7 +15,7 @@ const slots = defineSlots<{
   /**
    * Navigation area of the application. Recommended components:
    * - for top alignment: [OnyxNavBar](https://storybook.onyx.schwarz/?path=/docs/navigation-navbar--docs)
-   * - for left alignment: TODO: check OnyxSidebar (coming soon)
+   * - for left alignment: no onyx component yet, create your own custom one
    *
    * For implementing page-level sidebars, please use the [OnyxPageLayout](https://onyx.schwarz/?path=/story/layout-pagelayout--sidebar).
    * For semantic HTML, it is recommended to use HTML elements like `<header>` and `<nav>` here, which is already the case when using the above recommended components.
