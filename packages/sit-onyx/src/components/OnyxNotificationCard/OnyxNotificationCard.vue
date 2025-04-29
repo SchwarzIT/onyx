@@ -101,6 +101,11 @@ const { timeAgo } = useRelativeTimeFormat({
     background-color: var(--onyx-color-base-background-blank);
     max-width: 100%;
 
+    &:hover,
+    &:focus-within {
+      background-color: var(--onyx-color-base-background-tinted);
+    }
+
     &__content {
       display: flex;
       flex-direction: column;
@@ -141,9 +146,13 @@ const { timeAgo } = useRelativeTimeFormat({
       }
     }
 
-    &:not(&:hover, &:focus-within) {
-      .onyx-notification-card__more-actions {
-        @include visibility.visually-hidden();
+    // for devices that support hover, we are only showing the more actions on hover
+    // for all other devices (like mobile devices), they are always shown
+    @media (hover: hover) {
+      &:not(&:hover, &:focus-within) {
+        .onyx-notification-card__more-actions {
+          @include visibility.visually-hidden();
+        }
       }
     }
 

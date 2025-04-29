@@ -1,5 +1,19 @@
 # sit-onyx
 
+## 1.0.0-beta.204
+
+### Patch Changes
+
+- 0788fb3: fix(OnyxNotificationCard): always show more actions if device does not support hover
+
+  Also added a slight background hover/focus color
+
+## 1.0.0-beta.203
+
+### Major Changes
+
+- 5fbc8b3: feat(OnyxNavBar)!: rename prop `mobileBreakpoint` to `mobile` - behaves as before, but also supports boolean type
+
 ## 1.0.0-beta.202
 
 ### Minor Changes

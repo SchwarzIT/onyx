@@ -14,13 +14,17 @@ export type OnyxNavBarProps = Pick<OnyxNavAppAreaProps, "appName" | "logoUrl"> &
    */
   appArea?: Omit<OnyxNavAppAreaProps, "appName" | "logoUrl">;
   /**
-   * Breakpoint name when the nav bar should switch into mobile mode.
-   * Will switch if **smaller** than the given breakpoint.
-   * Can be either a pre-defined onyx breakpoint or custom width in pixels.
+   *
+   * Determines if and when the `OnyxNavBar` should render in mobile mode.
+   *
+   * `mobile` prop can be one of the following;
+   *  - a `boolean`: The NavBar renders in mobile mode, when `true`.
+   *  - a `OnyxBreakpoint`: The NavBar renders in mobile mode, when the current breakpoint matches or is smaller.
+   *  - a `number`: The NavBar renders in mobile when the viewport width is smaller than the provided value.
    *
    * @see [onyx docs](https://onyx.schwarz/development/breakpoints.html) for more information.
    */
-  mobileBreakpoint?: OnyxBreakpoint | number;
+  mobile?: boolean | OnyxBreakpoint | number;
 };
 
 /**
