@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.204
+
+### Patch Changes
+
+- 0788fb3: fix(OnyxNotificationCard): always show more actions if device does not support hover
+
+  Also added a slight background hover/focus color
+
 ## 1.0.0-beta.203
 
 ### Major Changes
