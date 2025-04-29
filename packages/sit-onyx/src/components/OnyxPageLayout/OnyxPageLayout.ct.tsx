@@ -1,28 +1,30 @@
 import { expect, test } from "../../playwright/a11y";
 import OnyxPageLayout from "./OnyxPageLayout.vue";
 
-const demoSidebar = `<div style="min-width: 10rem;"></div>`;
-const demoDefault = `<div style="height: 100%; width: 100%;"></div>`;
-const demoFooter = `<div style="min-height: 4rem;"></div>`;
-const defaultProps = {
-  style: `
-  --background-color-sidebar: peachpuff;
-  --background-color-main: ivory;
-  --background-color-footer: olivedrab;
-  height: 100vh;
-  width: 100vw;
-  `,
-};
-const defaultConfig = {
-  props: defaultProps,
-  slots: { default: demoDefault },
-};
+const SIDEBAR_ELEMENT = (
+  <aside style={{ width: "10rem", height: "100%", background: "peachpuff" }}></aside>
+);
+const FOOTER_ELEMENT = <footer style={{ height: "4rem", background: "olivedrab" }}></footer>;
 
-test("should render standard page", async ({ mount, makeAxeBuilder }) => {
-  // ARRANGE
-  const component = await mount(OnyxPageLayout, {
-    ...defaultConfig,
+test.beforeEach(async ({ page }) => {
+  await page.addStyleTag({
+    content: `body {
+      margin: 0;
+      font-family: var(--onyx-font-family);
+      color: var(--onyx-color-text-icons-neutral-intense);
+     }
+
+     .onyx-page {
+        height: 100vh;
+        width: 100vw;
+     }
+     `,
   });
+});
+
+test("should render with content only", async ({ mount, makeAxeBuilder }) => {
+  // ARRANGE
+  const component = await mount(<OnyxPageLayout>Page content</OnyxPageLayout>);
 
   // ASSERT
   await expect(component).toHaveScreenshot("default.png");
@@ -34,12 +36,28 @@ test("should render standard page", async ({ mount, makeAxeBuilder }) => {
   expect(accessibilityScanResults.violations).toEqual([]);
 });
 
+test("should render with content and no padding", async ({ mount, makeAxeBuilder }) => {
+  // ARRANGE
+  const component = await mount(<OnyxPageLayout noPadding>Page content</OnyxPageLayout>);
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("no-padding.png");
+
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
+});
+
 test("should render with sidebar", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
-  const component = await mount(OnyxPageLayout, {
-    props: defaultProps,
-    slots: { default: demoDefault, sidebar: demoSidebar },
-  });
+  const component = await mount(
+    <OnyxPageLayout>
+      Page content
+      <template v-slot:sidebar>{SIDEBAR_ELEMENT}</template>
+    </OnyxPageLayout>,
+  );
 
   // ASSERT
   await expect(component).toHaveScreenshot("sidebar.png");
@@ -53,10 +71,12 @@ test("should render with sidebar", async ({ mount, makeAxeBuilder }) => {
 
 test("should render with footer", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
-  const component = await mount(OnyxPageLayout, {
-    props: defaultProps,
-    slots: { default: demoDefault, footer: demoFooter },
-  });
+  const component = await mount(
+    <OnyxPageLayout>
+      Page content
+      <template v-slot:footer>{FOOTER_ELEMENT}</template>
+    </OnyxPageLayout>,
+  );
 
   // ASSERT
   await expect(component).toHaveScreenshot("footer.png");
@@ -68,15 +88,18 @@ test("should render with footer", async ({ mount, makeAxeBuilder }) => {
   expect(accessibilityScanResults.violations).toEqual([]);
 });
 
-test("should render with footer below sidebar", async ({ mount, makeAxeBuilder }) => {
+test("should render with footer and sidebar", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
-  const component = await mount(OnyxPageLayout, {
-    props: defaultProps,
-    slots: { default: demoDefault, sidebar: demoSidebar, footer: demoFooter },
-  });
+  const component = await mount(
+    <OnyxPageLayout>
+      Page content
+      <template v-slot:sidebar>{SIDEBAR_ELEMENT}</template>
+      <template v-slot:footer>{FOOTER_ELEMENT}</template>
+    </OnyxPageLayout>,
+  );
 
   // ASSERT
-  await expect(component).toHaveScreenshot("footer-below-sidebar.png");
+  await expect(component).toHaveScreenshot("footer-and-sidebar.png");
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
@@ -87,10 +110,13 @@ test("should render with footer below sidebar", async ({ mount, makeAxeBuilder }
 
 test("should render with footer aside sidebar", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
-  const component = await mount(OnyxPageLayout, {
-    props: { ...defaultProps, footerAsideSidebar: true },
-    slots: { default: demoDefault, sidebar: demoSidebar, footer: demoFooter },
-  });
+  const component = await mount(
+    <OnyxPageLayout footerAlignment="page">
+      Page content
+      <template v-slot:sidebar>{SIDEBAR_ELEMENT}</template>
+      <template v-slot:footer>{FOOTER_ELEMENT}</template>
+    </OnyxPageLayout>,
+  );
 
   // ASSERT
   await expect(component).toHaveScreenshot("footer-aside-sidebar.png");
