@@ -104,7 +104,7 @@ const addExampleNotification = () => {
 
 <template>
   <OnyxAppLayout>
-    <template #navBar>
+    <template #nav>
       <!-- NAV BAR -->
       <OnyxNavBar app-name="Notification center" logo-url="/onyx-logo.svg">
         <OnyxNavItem label="Page 1" />

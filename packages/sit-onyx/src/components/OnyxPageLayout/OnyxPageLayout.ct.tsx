@@ -1,3 +1,4 @@
+import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
 import { expect, test } from "../../playwright/a11y";
 import OnyxPageLayout from "./OnyxPageLayout.vue";
 
@@ -126,4 +127,26 @@ test("should render with footer aside sidebar", async ({ mount, makeAxeBuilder }
 
   // ASSERT
   expect(accessibilityScanResults.violations).toEqual([]);
+});
+
+test("should not have inline margin onyx grid container when sidebar exists", async ({
+  page,
+  mount,
+}) => {
+  await page.setViewportSize({ height: 512, width: ONYX_BREAKPOINTS.xl });
+
+  // ARRANGE
+  const component = await mount(
+    <OnyxPageLayout class="onyx-grid-max-md onyx-grid-center">
+      Page content
+      <template v-slot:sidebar>{SIDEBAR_ELEMENT}</template>
+    </OnyxPageLayout>,
+  );
+
+  // ASSERT
+  const marginInline = await component
+    .locator(".onyx-grid-container")
+    .evaluate((element) => getComputedStyle(element).marginInline);
+
+  expect(marginInline).toBe("0px");
 });

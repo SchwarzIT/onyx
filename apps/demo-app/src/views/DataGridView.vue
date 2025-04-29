@@ -153,20 +153,18 @@ const dataFeatures = computed(() => {
 
 <template>
   <OnyxPageLayout>
-    <div class="onyx-grid-container">
-      <OnyxHeadline is="h1">Data-Grid example</OnyxHeadline>
+    <OnyxHeadline is="h1">Data-Grid example</OnyxHeadline>
 
-      <section class="data-grid-settings">
-        <OnyxSwitch
-          v-for="(_, feature) in enabledFeatures"
-          :key="feature"
-          v-model="enabledFeatures[feature]"
-          :label="`Enable ${feature}`"
-        />
-      </section>
+    <section class="data-grid-settings">
+      <OnyxSwitch
+        v-for="(_, feature) in enabledFeatures"
+        :key="feature"
+        v-model="enabledFeatures[feature]"
+        :label="`Enable ${feature}`"
+      />
+    </section>
 
-      <OnyxDataGrid :features="dataFeatures" :data :columns />
-    </div>
+    <OnyxDataGrid :features="dataFeatures" :data :columns />
   </OnyxPageLayout>
 </template>
 

@@ -321,7 +321,7 @@ Object.entries(ONYX_BREAKPOINTS).forEach(([breakpoint, width]) => {
         </OnyxNavBar>
 
         <OnyxPageLayout>
-          <div class="onyx-grid-container onyx-grid">
+          <div class="onyx-grid">
             <div
               class="onyx-grid-span-16"
               style={{ backgroundColor: "var(--onyx-color-base-info-200)" }}

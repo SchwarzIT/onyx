@@ -22,7 +22,6 @@ const radioOptions: RadioButtonOption[] = [
 
 <template>
   <OnyxPageLayout skeleton>
-    <!-- TODO: fix bug that when using OnyxForm, the skeleton inheritance does not work -->
     <form class="form" @submit.prevent="handleSubmit">
       <OnyxInput label="Favorite band" />
 
