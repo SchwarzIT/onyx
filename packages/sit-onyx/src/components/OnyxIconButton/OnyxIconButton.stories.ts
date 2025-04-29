@@ -7,7 +7,7 @@ import { defineIconSelectArgType } from "../../utils/storybook";
 import OnyxIconButton from "./OnyxIconButton.vue";
 
 /**
- * The icon button is a special button which has no visual label.
+ * An icon button serves as a compact, label-free version of a traditional button, used to trigger both primary and secondary actions. It’s a key interactive element, letting users engage quickly with content.
  */
 const meta: Meta<typeof OnyxIconButton> = {
   title: "Buttons/IconButton",

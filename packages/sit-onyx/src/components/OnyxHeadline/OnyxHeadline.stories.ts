@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxHeadline from "./OnyxHeadline.vue";
 
 /**
- * Headline that can e.g. be used to structure the page content.
+ * Headlines organize and structure content, guiding the user through different sections and conveying the hierarchy of information.
  */
 const meta: Meta<typeof OnyxHeadline> = {
   title: "Navigation/Headline",

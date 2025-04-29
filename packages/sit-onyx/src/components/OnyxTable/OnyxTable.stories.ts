@@ -7,7 +7,7 @@ import OnyxPagination from "../OnyxPagination/OnyxPagination.vue";
 import OnyxTable from "./OnyxTable.vue";
 
 /**
- * OnyxTable is used for presenting data in a table structure.
+ * A streamlined way to display smaller data sets, the Table component focuses on simplicity, making it easy for users to view and interact with data without overwhelming them.
  */
 const meta: Meta<typeof OnyxTable> = {
   title: "Data/Table",

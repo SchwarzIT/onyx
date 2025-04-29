@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxAvatar from "./OnyxAvatar.vue";
 
 /**
- * Avatars are used to display a user profile picture or initials.
+ * Avatars visually represent users with profile images or initials, adding a personal touch to applications by displaying the user’s identity in a compact form.
  */
 const meta: Meta<typeof OnyxAvatar> = {
   title: "Basic/Avatar",

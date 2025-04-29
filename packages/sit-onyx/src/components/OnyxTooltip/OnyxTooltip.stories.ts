@@ -6,7 +6,7 @@ import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxTooltip from "./OnyxTooltip.vue";
 
 /**
- * Tooltips offer contextual information or additional details to a parent element.
+ * Tooltips offer additional, contextual information for a parent element, appearing subtly to aid understanding without diverting the user’s focus. The component supports text and icons only.
  */
 const meta: Meta<typeof OnyxTooltip> = {
   title: "Feedback/Tooltip",
