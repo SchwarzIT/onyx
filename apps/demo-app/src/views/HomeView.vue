@@ -28,6 +28,7 @@ import {
   OnyxPagination,
   OnyxRadioGroup,
   OnyxSelect,
+  OnyxSidebar,
   OnyxSkeleton,
   OnyxStepper,
   OnyxSwitch,
@@ -154,25 +155,27 @@ const openAccordionItems = ref<string[]>([]);
 </script>
 
 <template>
-  <OnyxPageLayout :skeleton="useSkeleton">
+  <OnyxPageLayout :skeleton="useSkeleton" footer-alignment="page">
     <template #sidebar>
-      <div class="sidebar">
-        <OnyxRadioGroup v-model="activeDensityOption" label="Density" :options="densityOptions" />
-        <LanguageSelection v-model="locale" />
+      <OnyxSidebar class="sidebar">
+        <div class="sidebar__content">
+          <OnyxRadioGroup v-model="activeDensityOption" label="Density" :options="densityOptions" />
+          <LanguageSelection v-model="locale" />
 
-        <OnyxSwitch v-model="useSkeleton" label="All as Skeleton" :skeleton="false" />
+          <OnyxSwitch v-model="useSkeleton" label="All as Skeleton" :skeleton="false" />
 
-        <OnyxSelect
-          v-model="componentsToShow"
-          :options="configOptions"
-          label="Visible examples"
-          list-label="Available components"
-          text-mode="preview"
-          multiple
-          with-check-all
-          with-search
-        />
-      </div>
+          <OnyxSelect
+            v-model="componentsToShow"
+            :options="configOptions"
+            label="Visible examples"
+            list-label="Available components"
+            text-mode="preview"
+            multiple
+            with-check-all
+            with-search
+          />
+        </div>
+      </OnyxSidebar>
     </template>
 
     <div :class="`onyx-density-${activeDensityOption}`">
@@ -416,10 +419,12 @@ const openAccordionItems = ref<string[]>([]);
   width: 16rem;
   background-color: var(--onyx-color-base-background-blank);
 }
+
 .page {
   &__intro {
     margin-bottom: var(--onyx-spacing-lg);
   }
+
   &__examples {
     display: flex;
     flex-direction: column;
@@ -427,13 +432,16 @@ const openAccordionItems = ref<string[]>([]);
     align-items: flex-start;
   }
 }
+
 .skeleton {
   height: 2rem;
   width: 8rem;
 }
+
 .state-info {
   color: var(--onyx-color-text-icons-neutral-soft);
 }
+
 .tooltip-container {
   display: flex;
   justify-content: space-between;

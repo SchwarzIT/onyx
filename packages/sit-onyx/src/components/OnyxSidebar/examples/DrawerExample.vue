@@ -26,11 +26,8 @@ const isSidebarOpen = ref(false);
     </template>
 
     <!-- page content -->
-    <div class="onyx-grid-container">
-      <OnyxHeadline is="h1">Page content</OnyxHeadline>
-
-      <OnyxButton label="Open sidebar" @click="isSidebarOpen = true" />
-    </div>
+    <OnyxHeadline is="h1">Page content</OnyxHeadline>
+    <OnyxButton label="Open sidebar" @click="isSidebarOpen = true" />
   </OnyxPageLayout>
 </template>
 

@@ -110,7 +110,7 @@ import { OnyxAppLayout, OnyxPageLayout, OnyxNavBar } from "sit-onyx";
 
 <template>
   <OnyxAppLayout>
-    <template #navBar>
+    <template #nav>
       <OnyxNavBar app-name="My app" />
     </template>
 
