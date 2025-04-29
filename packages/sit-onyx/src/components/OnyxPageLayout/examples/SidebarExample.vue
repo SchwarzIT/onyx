@@ -16,7 +16,7 @@ import { OnyxHeadline, OnyxPageLayout } from "../../..";
 <style lang="scss" scoped>
 .page {
   // only needed for this example. Can be removed if used together with the OnyxAppLayout
-  height: 100dvh;
+  height: 100vh;
 }
 
 .sidebar {
