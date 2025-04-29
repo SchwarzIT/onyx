@@ -1,14 +1,18 @@
+import type { Nullable } from "../../composables/useVModel";
+
 export type OnyxFlyoutProps = {
-  open?: FlyoutOpen;
-  position?: FlyoutPosition;
   /**
    * Aria label for the flyout.
    */
   label: string;
+  /**
+   * Indicates whether the element is expanded or collapsed.
+   */
+  expanded?: Nullable<boolean>;
+  position?: FlyoutPosition;
 };
 
 export type FlyoutPosition =
-  | "auto"
   | "top"
   | "top right"
   | "top left"
@@ -17,14 +21,3 @@ export type FlyoutPosition =
   | "bottom right"
   | "bottom left"
   | "left";
-
-export type FlyoutOpen =
-  | "hover"
-  | "click"
-  | boolean
-  | ({
-      type: "hover";
-    } & Partial<OnyxFlyoutProps>)
-  | ({
-      type: "click";
-    } & Partial<OnyxFlyoutProps>);

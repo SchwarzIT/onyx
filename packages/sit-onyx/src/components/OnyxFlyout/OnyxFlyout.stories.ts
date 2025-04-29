@@ -1,4 +1,3 @@
-import globe from "@sit-onyx/icons/globe.svg?raw";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
@@ -6,11 +5,11 @@ import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxFlyout from "./OnyxFlyout.vue";
 
 /**
- * The flyout menu is mainly used internally for e.g. the [nav button](/docs/navigation-modules-navbutton--docs) or [user menu](/docs/navigation-modules-usermenu--docs).
- *
- * But you can also use it to e.g. build custom nav modules like language selections for your application. The flyout menu will then take care of basic styles and keyboard navigation.
+ * The Flyout component is a supportive element for Menus, designed to display a popover above the main page content.
+ * It remains anchored to the default content, providing additional options or information.
  */
-const meta: Meta<typeof OnyxFlyoutMenu> = {
+
+const meta: Meta<typeof OnyxFlyout> = {
   title: "Support/Flyout",
   component: OnyxFlyout,
   decorators: [
@@ -40,9 +39,9 @@ type Story = StoryObj<typeof OnyxFlyout>;
 export const Default = {
   args: {
     label: "Choose application language",
-    button: ({ trigger }) => [
-      h(OnyxButton, { label: "English", mode: "plain", color: "neutral", icon: globe, ...trigger }),
+    default: ({ trigger }) => [
+      h(OnyxButton, { label: "Trigger", mode: "plain", color: "neutral", ...trigger }),
     ],
-    default: () => "Content",
+    content: () => "Content",
   },
 } satisfies Story;

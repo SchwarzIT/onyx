@@ -1,11 +1,28 @@
 <script setup lang="ts" generic="TValue extends SelectOptionValue = SelectOptionValue">
+import { createMenuButton } from "@sit-onyx/headless";
+import { computed } from "vue";
 import OnyxFlyout from "../../../../components/OnyxFlyout/OnyxFlyout.vue";
+import { useVModel, type Nullable } from "../../../../composables/useVModel";
 import type { SelectOptionValue } from "../../../../types";
 import type { OnyxFlyoutMenuProps } from "./types";
-
 const props = withDefaults(defineProps<OnyxFlyoutMenuProps>(), {
-  open: "hover",
-  position: "auto",
+  trigger: "hover",
+  open: undefined,
+});
+const emit = defineEmits<{
+  /**
+   * Emitted when the isExpanded state changes.
+   */
+  "update:open": [value?: Nullable<boolean>];
+}>();
+/**
+ * If the flyout is expanded or not.
+ */
+const isExpanded = useVModel({
+  props,
+  emit,
+  key: "open",
+  initialValue: false,
 });
 
 const slots = defineSlots<{
@@ -31,24 +48,42 @@ const slots = defineSlots<{
    */
   footer?(): unknown;
 }>();
+
+const {
+  elements: { root, button, menu },
+} = createMenuButton({
+  isExpanded: computed(() => !!isExpanded.value),
+  onToggle: () => (isExpanded.value = !isExpanded.value),
+  trigger: computed(() => props.trigger),
+});
 </script>
 
 <template>
-  <OnyxFlyout v-bind="props">
-    <!--  <template #default> Content </template> -->
-
-    <template #button="{ trigger }">
-      <slot name="button" v-bind="{ trigger }"></slot>
+  <OnyxFlyout
+    class="onyx-component onyx-flyout-menu"
+    v-bind="root"
+    :expanded="isExpanded"
+    :label="props.label"
+  >
+    <template v-if="slots.options || slots.header || slots.footer" #default>
+      <slot name="button" :trigger="button"></slot>
     </template>
-    <template #default>
+    <!-- `v-show` instead of `v-if` is necessary, so that we can allow (teleported) dialogs to be shown -->
+    <template #content>
+      <!-- We always want to render the header so that we can render the padding here -->
       <div class="onyx-flyout-menu__list-header">
         <slot name="header"></slot>
       </div>
 
-      <ul v-if="slots.options" class="onyx-flyout-menu__wrapper onyx-flyout-menu__group">
+      <ul
+        v-if="slots.options"
+        v-bind="menu"
+        class="onyx-flyout-menu__wrapper onyx-flyout-menu__group"
+      >
         <slot name="options"></slot>
       </ul>
 
+      <!-- We always want to render the footer so that we can render the padding here -->
       <div class="onyx-flyout-menu__list-footer">
         <slot name="footer"></slot>
       </div>
