@@ -38,7 +38,7 @@ test("should render nav left", async ({ mount, makeAxeBuilder }) => {
   const component = await mount(OnyxAppLayout, {
     props: {
       ...defaultProps,
-      navBarAlignment: "left",
+      navAlignment: "left",
     },
     slots: defaultSlots,
   });
