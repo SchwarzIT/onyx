@@ -61,7 +61,7 @@ watch(
 
 <template>
   <OnyxAppLayout :nav-bar-alignment="navBarLeft ? 'left' : 'top'">
-    <template #navBar>
+    <template #nav>
       <NavBarDemo v-model="navBarLeft">
         <FlyoutDemo v-model="settings.content.showFlyout" :small="navBarLeft">
           <LayoutSettings v-model="settings" :show="['content']" />

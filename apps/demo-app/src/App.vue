@@ -41,7 +41,7 @@ useThemeTransition(colorScheme);
         so it currently has its own demo nav bar placed. */
         route.path !== '/demos/layout'
       "
-      #navBar
+      #nav
     >
       <OnyxNavBar
         app-name="Demo App"

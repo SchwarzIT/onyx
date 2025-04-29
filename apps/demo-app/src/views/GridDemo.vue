@@ -14,7 +14,7 @@ const gridStore = useGridStore();
 </script>
 
 <template>
-  <OnyxPageLayout>
+  <OnyxPageLayout no-padding>
     <OnyxImage
       class="page__hero"
       src="https://picsum.photos/1920"
