@@ -453,11 +453,11 @@ test("should interact with single select", async ({ mount }) => {
   await component.click();
 
   // ASSERT
-  await expect(component.getByText("Disabled")).toBeDisabled();
+  await expect(component.getByRole("option", { name: "Disabled" })).toBeDisabled();
   expect(modelValue).toStrictEqual(MOCK_VARIED_OPTIONS_VALUES[1]);
 
   // ACT
-  await component.getByText("Selected").click();
+  await component.getByRole("option", { name: "Selected" }).click();
   // ASSERT
   expect(modelValue).toStrictEqual(MOCK_VARIED_OPTIONS_VALUES[1]);
   await expect(comboboxInput).toBeFocused();
@@ -507,7 +507,7 @@ test("should interact with multiselect and search", async ({ mount }) => {
   await component.click();
 
   // ASSERT
-  await expect(component.getByText("Disabled")).toBeDisabled();
+  await expect(component.getByRole("option", { name: "Disabled" })).toBeDisabled();
   expect(modelValue).toStrictEqual([MOCK_VARIED_OPTIONS_VALUES[1]]);
   await expect(miniSearchInput).toBeFocused();
 
@@ -571,11 +571,11 @@ test("should interact with multiselect", async ({ mount }) => {
   await component.click();
 
   // ASSERT
-  await expect(component.getByText("Disabled")).toBeDisabled();
+  await expect(component.getByRole("option", { name: "Disabled" })).toBeDisabled();
   expect(modelValue).toStrictEqual([MOCK_VARIED_OPTIONS_VALUES[1]]);
 
   // ACT (should de-select current value)
-  await component.getByText("Selected").click();
+  await component.getByRole("option", { name: "Selected" }).click();
   // ASSERT
   expect(modelValue).toEqual([]);
 
