@@ -23,6 +23,7 @@ test("should resize columns", async ({ mount }) => {
   await expectColumnCount(component, 3); // 3 Visible
 
   await resizeHandle.dragTo(resizeHandle, {
+    // eslint-disable-next-line playwright/no-force-option -- it's required for the test
     force: true,
     targetPosition: {
       x: firstColumn!.width * -0.4,
