@@ -129,7 +129,7 @@ test("should render with footer aside sidebar", async ({ mount, makeAxeBuilder }
   expect(accessibilityScanResults.violations).toEqual([]);
 });
 
-test("should not have inline margin onyx grid container when sidebar exists", async ({
+test("should not have inline margin for onyx grid container when sidebar exists", async ({
   page,
   mount,
 }) => {
@@ -137,16 +137,26 @@ test("should not have inline margin onyx grid container when sidebar exists", as
 
   // ARRANGE
   const component = await mount(
-    <OnyxPageLayout class="onyx-grid-max-md onyx-grid-center">
+    <OnyxPageLayout class="onyx-grid-max-md onyx-grid-center" footerAlignment="page">
       Page content
       <template v-slot:sidebar>{SIDEBAR_ELEMENT}</template>
+      <template v-slot:footer>
+        <footer style={{ height: "4rem", background: "olivedrab" }}>
+          <div class="onyx-grid-container">Footer</div>
+        </footer>
+      </template>
     </OnyxPageLayout>,
   );
 
   // ASSERT
-  const marginInline = await component
-    .locator(".onyx-grid-container")
+  const pageMarginInline = await component
+    .locator(".onyx-page__main > .onyx-grid-container")
     .evaluate((element) => getComputedStyle(element).marginInline);
 
-  expect(marginInline).toBe("0px");
+  const footerMarginInline = await component
+    .locator("footer > .onyx-grid-container")
+    .evaluate((element) => getComputedStyle(element).marginInline);
+
+  expect(pageMarginInline).toBe("0px");
+  expect(footerMarginInline).toBe("0px");
 });
