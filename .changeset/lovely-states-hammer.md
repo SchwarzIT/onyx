@@ -10,8 +10,6 @@ The breaking changes in this version are:
 
 #### OnyxAppLayout
 
-- renamed property `navBarAlignment` to `navAlignment`
-- renamed slot `navBar` to `nav`
 - removed slot `pageOverlay` and `appOverlay`. Use the OnyxModalDialog, OnyxDialog or OnyxAlertDialog component instead
 - removed default colors for slots. The layout will now no longer define any default colors so they correct colors are taken from the passed slot content
 

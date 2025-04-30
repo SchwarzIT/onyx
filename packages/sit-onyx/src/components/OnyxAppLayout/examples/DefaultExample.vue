@@ -4,7 +4,7 @@ import { OnyxAppLayout, OnyxNavBar, OnyxNavItem, OnyxPageLayout } from "../../..
 
 <template>
   <OnyxAppLayout>
-    <template #nav>
+    <template #navBar>
       <OnyxNavBar app-name="Nav bar" logo-url="/onyx-logo.svg">
         <OnyxNavItem label="Page 1" />
         <OnyxNavItem label="Page 2" />

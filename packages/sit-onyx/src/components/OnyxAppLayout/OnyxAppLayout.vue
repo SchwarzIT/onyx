@@ -2,7 +2,7 @@
 import type { OnyxAppLayoutProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxAppLayoutProps>(), {
-  navAlignment: "top",
+  navBarAlignment: "top",
 });
 
 const slots = defineSlots<{
@@ -20,17 +20,17 @@ const slots = defineSlots<{
    * For implementing page-level sidebars, please use the [OnyxPageLayout](https://onyx.schwarz/?path=/story/layout-pagelayout--sidebar).
    * For semantic HTML, it is recommended to use HTML elements like `<header>` and `<nav>` here, which is already the case when using the above recommended components.
    */
-  nav?(): unknown;
+  navBar?(): unknown;
 }>();
 </script>
 
 <template>
   <div
     class="onyx-component onyx-app"
-    :class="{ 'onyx-app--horizontal': props.navAlignment === 'left' }"
+    :class="{ 'onyx-app--horizontal': props.navBarAlignment === 'left' }"
   >
-    <div v-if="slots.nav" class="onyx-app__nav">
-      <slot name="nav"></slot>
+    <div v-if="slots.navBar" class="onyx-app__nav">
+      <slot name="navBar"></slot>
     </div>
 
     <div class="onyx-app__page">

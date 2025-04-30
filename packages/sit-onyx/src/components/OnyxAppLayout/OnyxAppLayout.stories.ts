@@ -12,7 +12,7 @@ const meta: Meta<typeof OnyxAppLayout> = {
   component: OnyxAppLayout,
   argTypes: {
     default: { control: { disable: true } },
-    nav: { control: { disable: true } },
+    navBar: { control: { disable: true } },
   },
   parameters: {
     layout: "fullscreen",
