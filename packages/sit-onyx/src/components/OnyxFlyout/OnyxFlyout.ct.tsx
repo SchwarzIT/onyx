@@ -30,6 +30,7 @@ test.describe("OnyxFlyout", () => {
     const component = await mount(OnyxFlyoutTestCase, {
       props: {
         label: "Flyout for testing",
+        expanded: true,
       },
     });
 
