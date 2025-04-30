@@ -59,13 +59,11 @@ const handleOpening = (open: boolean) => {
   }
 };
 
-// initial update
 onMounted(() => {
   handleOpening(isVisible.value);
   if (!USERAGENT_SUPPORTS_ANCHOR_API) updateAnchorPositionPolyfill();
 });
 
-// update open direction when visibility changes to ensure the tooltip is always visible
 watch(isVisible, async (newVal) => {
   await nextTick();
   handleOpening(newVal);
