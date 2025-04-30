@@ -16,7 +16,7 @@ const isExpanded = ref(false);
   >
     Change Expanded
   </button>
-  <OnyxFlyout v-bind="props" :expanded="isExpanded">
+  <OnyxFlyout :label="props.label" :expanded="props.expanded ? isExpanded : undefined">
     <template #default="{ trigger }">
       <button v-bind="trigger" label="button" type="button">Open</button>
     </template>
