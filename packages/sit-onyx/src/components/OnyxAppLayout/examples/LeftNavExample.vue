@@ -3,8 +3,8 @@ import { OnyxAppLayout, OnyxPageLayout } from "../../..";
 </script>
 
 <template>
-  <OnyxAppLayout nav-alignment="left">
-    <template #nav>
+  <OnyxAppLayout nav-bar-alignment="left">
+    <template #navBar>
       <aside class="navigation">Your custom left navigation here</aside>
     </template>
 

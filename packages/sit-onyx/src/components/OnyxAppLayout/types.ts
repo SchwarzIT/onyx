@@ -1,6 +1,6 @@
 export type OnyxAppLayoutProps = {
   /**
-   * Alignment/position of the `nav` slot.
+   * Alignment/position of the `navBar` slot.
    */
-  navAlignment?: "top" | "left";
+  navBarAlignment?: "top" | "left";
 };

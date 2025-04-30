@@ -1,6 +1,6 @@
 <template>
   <OnyxAppLayout>
-    <template #nav>
+    <template #navBar>
       <NavBar />
     </template>
 

@@ -31,7 +31,7 @@ const previewOptions = computed<ComponentInstance<typeof Repl>["previewOptions"]
 
 <template>
   <OnyxAppLayout>
-    <template #nav>
+    <template #navBar>
       <TheHeader
         v-model:onyx-version="onyxVersion"
         v-model:vue-version="store.vueVersion"

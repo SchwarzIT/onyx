@@ -14,7 +14,7 @@ test("should render with nav", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(
     <OnyxAppLayout>
-      <template v-slot:nav>
+      <template v-slot:navBar>
         <header style={{ height: "4rem", background: "peachpuff" }}></header>
       </template>
     </OnyxAppLayout>,
@@ -33,8 +33,8 @@ test("should render with nav", async ({ mount, makeAxeBuilder }) => {
 test("should render with left nav", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(
-    <OnyxAppLayout navAlignment="left">
-      <template v-slot:nav>
+    <OnyxAppLayout navBarAlignment="left">
+      <template v-slot:navBar>
         <aside style={{ height: "100%", width: "4rem", background: "peachpuff" }}></aside>
       </template>
     </OnyxAppLayout>,
