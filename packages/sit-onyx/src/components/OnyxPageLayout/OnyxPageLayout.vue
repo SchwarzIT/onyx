@@ -94,7 +94,8 @@ provideSkeletonContext(props);
     &:has(&__sidebar) {
       // disable centering of the onyx-grid-container when a sidebar exists
       // because centering does not work here / is not aligned with the nav bar
-      .onyx-page__main > .onyx-grid-container {
+      .onyx-page__main > .onyx-grid-container,
+      &.onyx-page--footer-page {
         --onyx-grid-margin-inline: 0;
       }
     }
