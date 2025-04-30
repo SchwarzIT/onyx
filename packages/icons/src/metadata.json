@@ -396,6 +396,10 @@
     "category": "Essentials",
     "aliases": ["checkmark", "Hacken", "bestätigen", "confirmation"]
   },
+  "check-read": {
+    "category": "Essentials",
+    "aliases": []
+  },
   "check-small": {
     "category": "Essentials",
     "aliases": ["checkmark", "Hacken", "bestätigen", "confirmation"]
