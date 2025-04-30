@@ -9,7 +9,7 @@ import OnyxBottomBar from "./OnyxBottomBar.vue";
 
 /**
  * A bottom bar is a navigation bar at the bottom of an app or webpage.
- * Preferably used together with [OnyxPageLayout](/docs/layout-pagelayout--docs)
+ * Preferably used together with [OnyxPageLayout](/docs/layout-pagelayout--docs).
  */
 const meta: Meta<typeof OnyxBottomBar> = {
   title: "Navigation/BottomBar",

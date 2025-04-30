@@ -3,6 +3,11 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxCard from "./OnyxCard.vue";
 
+/**
+ * Cards serve as versatile containers for a few short, related pieces of content.
+ * Their primary purpose is to present information in a visually appealing and organized manner,
+ * enhancing user experience and content discoverability.
+ */
 const meta: Meta<typeof OnyxCard> = {
   title: "Basic/Card",
   component: OnyxCard,
