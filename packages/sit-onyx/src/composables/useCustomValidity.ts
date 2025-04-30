@@ -160,7 +160,8 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
 
           validityState.value = newValidityState;
         },
-        { immediate: true, deep: true },
+        // We use "post" flush timing, to ensure the DOM is up-to-date and the elements validity state is in sync.
+        { immediate: true, deep: true, flush: "post" },
       );
 
       /**
