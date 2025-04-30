@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import bell from "@sit-onyx/icons/bell.svg?raw";
-import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
+import checkRead from "@sit-onyx/icons/check-read.svg?raw";
 import circleAttention from "@sit-onyx/icons/circle-attention.svg?raw";
 import inbox from "@sit-onyx/icons/inbox.svg?raw";
 import settings from "@sit-onyx/icons/settings.svg?raw";
@@ -222,7 +222,7 @@ const addExampleNotification = () => {
         <OnyxBottomBar density="compact">
           <OnyxButton
             label="Mark as all read"
-            :icon="checkSmall"
+            :icon="checkRead"
             color="neutral"
             :disabled="!store.unreadNotifications.value.length"
             @click="store.markAllAsRead"
