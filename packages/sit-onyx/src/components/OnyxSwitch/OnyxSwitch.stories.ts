@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxSwitch from "./OnyxSwitch.vue";
 
 /**
- * Switches are a common ui element used to control binary states, such as on/off, enable/disable/, or active/inactive.
+ * Switches are a common UI element used to control binary states, such as on/off, enable/disable/, or active/inactive.
  * They consist of a toggle mechanism that allow users to switch between two distinct states with a simple interaction.
  */
 const meta: Meta<typeof OnyxSwitch> = {
