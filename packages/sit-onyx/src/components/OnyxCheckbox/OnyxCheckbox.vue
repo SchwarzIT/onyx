@@ -92,6 +92,7 @@ useAutofocus(input, props);
           :required="props.required"
           :value="props.value"
           :autofocus="props.autofocus"
+          tabindex="0"
           v-bind="restAttrs"
         />
       </div>
