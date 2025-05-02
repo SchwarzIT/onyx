@@ -67,6 +67,7 @@ useAutofocus(input, props);
         :checked="props.checked"
         :disabled="disabled"
         :autofocus="props.autofocus"
+        tabindex="0"
         v-bind="restAttrs"
       />
       <span class="onyx-radio-button__label" :class="[`onyx-truncation-${props.truncation}`]">

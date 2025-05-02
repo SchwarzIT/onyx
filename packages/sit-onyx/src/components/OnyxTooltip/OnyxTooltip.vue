@@ -211,6 +211,7 @@ const anchorName = computed(() => `--anchor-${id}`);
     :style="`anchor-name: ${anchorName}`"
   >
     <div
+      v-if="isVisible"
       ref="tooltipRefEl"
       v-bind="tooltip"
       :class="['onyx-tooltip', 'onyx-text--small', 'onyx-truncation-multiline', tooltipClasses]"
