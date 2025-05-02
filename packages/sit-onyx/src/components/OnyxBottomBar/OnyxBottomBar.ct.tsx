@@ -58,10 +58,12 @@ Object.entries(ONYX_BREAKPOINTS).forEach(([breakpoint, width]) => {
             </div>
           </div>
 
-          <OnyxBottomBar v-slot:footer>
-            <OnyxButton label="Cancel" mode="plain" color="neutral"></OnyxButton>
-            <OnyxButton label="Approve"></OnyxButton>
-          </OnyxBottomBar>
+          <template v-slot:footer>
+            <OnyxBottomBar>
+              <OnyxButton label="Cancel" mode="plain" color="neutral"></OnyxButton>
+              <OnyxButton label="Approve"></OnyxButton>
+            </OnyxBottomBar>
+          </template>
         </OnyxPageLayout>
       </OnyxAppLayout>,
     );
