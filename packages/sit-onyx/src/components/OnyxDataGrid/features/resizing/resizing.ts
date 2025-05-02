@@ -16,6 +16,7 @@ export const useResizing = createFeature(
     const { isEnabled } = useIsFeatureEnabled(options);
     const colWidths = ref(new Map<keyof TEntry, string>());
     const showLastCol = ref(false);
+    let header: HTMLElement | undefined;
     let tableWidth: number;
     let tableWrapperWidth: number;
     let previousWidth: string | undefined = undefined;
@@ -39,9 +40,23 @@ export const useResizing = createFeature(
       { flush: "post", deep: true },
     );
 
+    window.addEventListener("resize", () => {
+      updateLastCol();
+    });
+
+    const updateLastCol = () => {
+      if (!header) return;
+
+      tableWidth = header.closest(".onyx-table")?.getBoundingClientRect().width ?? 0;
+      tableWrapperWidth =
+        header.closest(".onyx-table-wrapper__container")?.getBoundingClientRect().width ?? 0;
+
+      showLastCol.value = tableWrapperWidth > tableWidth;
+    };
+
     const onMouseMove = (ev: MouseEvent) => {
       const colKey = resizingCol.value?.key;
-      const header = headers.value.get(colKey!);
+      header = headers.value.get(colKey!);
       if (!header || !colKey) {
         return;
       }
@@ -50,11 +65,7 @@ export const useResizing = createFeature(
       const width = ev.clientX - header.getBoundingClientRect().left;
       colWidths.value.set(colKey, `${Math.max(min, width)}px`);
 
-      tableWidth = header.closest(".onyx-table")?.getBoundingClientRect().width ?? 0;
-      tableWrapperWidth =
-        header.closest(".onyx-table-wrapper__container")?.getBoundingClientRect().width ?? 0;
-
-      showLastCol.value = tableWrapperWidth > tableWidth;
+      updateLastCol();
     };
 
     // Clean up event listeners, classes, etc.
