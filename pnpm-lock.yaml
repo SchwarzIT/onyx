@@ -37,7 +37,7 @@ importers:
         specifier: ^4.6.1
         version: 4.7.0(eslint@9.27.0(jiti@2.4.2))
       '@eslint/compat':
-        specifier: ^1.2.8
+        specifier: ^1.2.9
         version: 1.2.9(eslint@9.27.0(jiti@2.4.2))
       '@eslint/js':
         specifier: ^9.25.1
@@ -88,7 +88,7 @@ importers:
         specifier: ^3.1.2
         version: 3.1.4(vitest@3.1.4(@types/debug@4.1.12)(@types/node@22.15.21)(jiti@2.4.2)(jsdom@26.1.0)(sass-embedded@1.87.0)(sass@1.89.0)(stylus@0.57.0)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0))
       '@vitest/eslint-plugin':
-        specifier: ^1.1.43
+        specifier: ^1.1.44
         version: 1.2.0(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)(vitest@3.1.4(@types/debug@4.1.12)(@types/node@22.15.21)(jiti@2.4.2)(jsdom@26.1.0)(sass-embedded@1.87.0)(sass@1.89.0)(stylus@0.57.0)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0))
       '@vue/eslint-config-prettier':
         specifier: ^10.2.0
@@ -109,7 +109,7 @@ importers:
         specifier: ^2.2.0
         version: 2.2.0(eslint@9.27.0(jiti@2.4.2))
       eslint-plugin-vue:
-        specifier: ^10.0.1
+        specifier: ^10.1.0
         version: 10.1.0(eslint@9.27.0(jiti@2.4.2))(vue-eslint-parser@10.1.3(eslint@9.27.0(jiti@2.4.2)))
       eslint-plugin-vue-scoped-css:
         specifier: ^2.9.0
@@ -348,7 +348,7 @@ importers:
         specifier: ~0.4.0
         version: 0.4.0
       tsx:
-        specifier: ^4.19.3
+        specifier: ^4.19.4
         version: 4.19.4
 
   packages/nuxt:
@@ -369,7 +369,7 @@ importers:
         specifier: ^3.17.2
         version: 3.19.0(@playwright/test@1.52.0)(@types/node@22.15.21)(@vue/test-utils@2.4.6)(jiti@2.4.2)(jsdom@26.1.0)(magicast@0.3.5)(playwright-core@1.52.0)(sass-embedded@1.87.0)(sass@1.89.0)(stylus@0.57.0)(terser@5.39.2)(tsx@4.19.4)(typescript@5.8.3)(vitest@3.1.4(@types/debug@4.1.12)(@types/node@22.15.21)(jiti@2.4.2)(jsdom@26.1.0)(sass-embedded@1.87.0)(sass@1.89.0)(stylus@0.57.0)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0))(yaml@2.8.0)
       '@nuxtjs/i18n':
-        specifier: ^9.5.3
+        specifier: ^9.5.4
         version: 9.5.4(@vue/compiler-dom@3.5.13)(eslint@9.27.0(jiti@2.4.2))(magicast@0.3.5)(rollup@4.41.0)(vue@3.5.13(typescript@5.8.3))
       nuxt:
         specifier: ^3.17.1
