@@ -5,7 +5,7 @@ import TestWrapper from "./TestWrapper.ct.vue";
 
 test("should trigger with boolean", async ({ mount }) => {
   // ARRANGE
-  const component = await mount(OnyxTooltip, {
+  const component = await mount(TestWrapper, {
     props: {
       text: "Test tooltip",
       open: false,
