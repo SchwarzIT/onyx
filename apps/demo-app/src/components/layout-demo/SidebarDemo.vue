@@ -39,6 +39,7 @@ defineSlots<{
   flex-direction: column;
   justify-content: space-between;
   border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+  background-color: var(--onyx-color-base-background-blank);
 
   &__close {
     justify-self: flex-end;
