@@ -1,10 +1,7 @@
 @use "../../../../styles/mixins/layers.scss";
 
 @include layers.component {
-  .onyx-table:has(.onyx-data-grid-resize-handle) {
-    th:last-child,
-    td:last-child {
-      width: 100%;
-    }
+  .onyx-data-grid-empty-columns-cell {
+    width: 100%;
   }
 }
