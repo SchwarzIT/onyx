@@ -19,9 +19,6 @@ export type Settings = Partial<{
   showFullFooter: boolean;
   showModal: boolean;
   showPopover: boolean;
-  showMobileFlyIn: boolean;
-  showPageLoader: boolean;
-  showTopBarFlyout: boolean;
 }>;
 
 export type SettingsSection = "content" | "sidebar" | "footer" | "overlay";
@@ -56,11 +53,6 @@ const overlayOptions: SelectOption[] = [
   noneOption,
   { value: "showModal", label: "Modal dialog" },
   { value: "showPopover", label: "Non-modal popup" },
-  // the mobile fly in should not be promoted for now,
-  // but we should keep it to re-enable it if needed.
-  // { value: "showMobileFlyIn", label: "Mobile Fly-in" },
-  { value: "showPageLoader", label: "Busy indicator" },
-  { value: "showTopBarFlyout", label: "Top bar flyout" },
 ];
 
 const sidebarOptions: SelectOption[] = [
