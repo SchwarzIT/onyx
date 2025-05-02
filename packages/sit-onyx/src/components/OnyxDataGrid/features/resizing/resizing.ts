@@ -111,9 +111,9 @@ export const useResizing = createFeature(
         };
       });
 
-      return showLastCol.value
-        ? [...columns, { key: EMPTY_COLUMN, type: EMPTY_COLUMN, label: "" }]
-        : [...columns];
+      if (showLastCol.value) columns.push({ key: EMPTY_COLUMN, type: EMPTY_COLUMN, label: "" });
+
+      return columns;
     };
 
     const renderWrapper = (
