@@ -4,15 +4,7 @@ import { defineIconSelectArgType } from "../../utils/storybook";
 import OnyxBadge from "./OnyxBadge.vue";
 
 /**
- * Info badges in UI design serve as valuable tools for conveying various types of information to users.
- * They provide additional context regarding status updates,
- * changes in content or states, quantities of related content, hints, and highlights.
- * These badges come in multiple types, including text, number and icon,
- * each serving distinct purposes in different scenarios.
- * Available in styles such as primary, secondary, danger, warning, success and info,
- * they offer versatility in visual presentation while maintaining consistency across the interface.
- * Info badges are commonly utilized in navigation structures, tabs, combo boxes and other UI components
- * to alert users to important details and enhance overall user experience.
+ * Badges provide concise, prominent additional information associated with a parent object, displayed as text, icons, or numbers to highlight key details.
  */
 const meta: Meta<typeof OnyxBadge> = {
   title: "Basic/Badge",

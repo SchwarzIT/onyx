@@ -3,7 +3,7 @@ import { createAdvancedStoryExample } from "../../utils/storybook";
 import OnyxToast from "./OnyxToast.vue";
 
 /**
- * The toast is used to display toast messages to the user.
+ * Toasts provide immediate feedback to users after actions, offering concise, time-limited messages to confirm or notify without interrupting their workflow.
  * For a full list of toast examples, you can check out the [OnyxToastMessage](/docs/support-toastmessage--docs) component.
  *
  * For a good user experience, make sure to not display too many toasts at the same time (we recommend a limit of 5 toasts).

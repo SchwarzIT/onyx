@@ -5,8 +5,7 @@ import { createAdvancedStoryExample } from "../../utils/storybook";
 import OnyxForm from "./OnyxForm.vue";
 
 /**
- * This component can be used in to wrap form components like OnyxInput/OnyxTextarea/OnyxStepper.
- * It allows for controlling the disabled state of all child form components.
+ * Forms are comprehensive components designed for collecting user inputs, including fields like text inputs, dropdowns, steppers, and more. With built-in validation and error handling, this flexible component adapts well to different input needs.
  */
 const meta: Meta<typeof OnyxForm> = {
   title: "Form Elements/Form",

@@ -2,6 +2,10 @@ import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxTextarea from "./OnyxTextarea.vue";
 
+/**
+ * Textarea components support large text entries, giving users a spacious area to input or format continuous text, making them ideal for comments, descriptions, or other longer texts.
+ */
+
 const meta: Meta<typeof OnyxTextarea> = {
   title: "Form Elements/Textarea",
   component: OnyxTextarea,
