@@ -8,6 +8,7 @@ import type { OnyxFlyoutMenuProps } from "./types";
 const props = withDefaults(defineProps<OnyxFlyoutMenuProps>(), {
   trigger: "hover",
   open: undefined,
+  alignment: "left",
 });
 const emit = defineEmits<{
   /**
@@ -64,6 +65,7 @@ const {
     v-bind="root"
     :expanded="isExpanded"
     :label="props.label"
+    :alignment="props.alignment"
   >
     <template v-if="slots.options || slots.header || slots.footer" #default>
       <slot name="button" :trigger="button"></slot>

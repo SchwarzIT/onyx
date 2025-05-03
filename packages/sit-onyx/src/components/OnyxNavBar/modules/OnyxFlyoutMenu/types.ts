@@ -1,3 +1,4 @@
+import type { WedgePosition } from "src/composables/useWedgePosition";
 import type { Nullable } from "../../../../composables/useVModel";
 
 export type OnyxFlyoutMenuProps = {
@@ -14,4 +15,5 @@ export type OnyxFlyoutMenuProps = {
    * Indicates whether the element is expanded or collapsed.
    */
   open?: Nullable<boolean>;
+  alignment?: WedgePosition;
 };

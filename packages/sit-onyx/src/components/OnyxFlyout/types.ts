@@ -1,3 +1,4 @@
+import type { WedgePosition } from "src/composables/useWedgePosition";
 import type { Nullable } from "../../composables/useVModel";
 
 export type OnyxFlyoutProps = {
@@ -10,6 +11,8 @@ export type OnyxFlyoutProps = {
    */
   expanded?: Nullable<boolean>;
   position?: FlyoutPosition;
+  alignment?: WedgePosition;
+  fitParent?: boolean;
 };
 
 export type FlyoutPosition =

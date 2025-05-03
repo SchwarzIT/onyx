@@ -68,7 +68,11 @@ const { t } = injectI18n();
     </template>
 
     <template v-else>
-      <OnyxFlyoutMenu v-model:open="flyoutOpen" :label="t('navigation.userMenuLabel')">
+      <OnyxFlyoutMenu
+        v-model:open="flyoutOpen"
+        :label="t('navigation.userMenuLabel')"
+        alignment="right"
+      >
         <template #button="{ trigger }">
           <slot name="button" :trigger="trigger"></slot>
         </template>
@@ -91,6 +95,7 @@ const { t } = injectI18n();
   </div>
 </template>
 
+p
 <style lang="scss">
 @use "../../../../styles/mixins/layers.scss";
 

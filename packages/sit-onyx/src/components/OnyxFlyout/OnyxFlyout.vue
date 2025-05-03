@@ -13,11 +13,13 @@ import {
   useAnchorPositionPolyfill,
   USERAGENT_SUPPORTS_ANCHOR_API,
 } from "../../composables/useAnchorPositionPolyfill";
+import { useResizeObserver } from "../../composables/useResizeObserver";
 import type { SelectOptionValue } from "../../types";
 import type { OnyxFlyoutProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxFlyoutProps>(), {
   position: "bottom",
+  alignment: "left",
 });
 
 defineSlots<{
@@ -39,6 +41,20 @@ const isVisible = computed({
 });
 
 const flyoutPosition = computed(() => props.position);
+const flyoutAlignment = computed(() => props.alignment);
+
+const positionAndAlignment = computed(() => {
+  let returnPosition = flyoutPosition.value;
+  if (flyoutPosition.value === "top" || flyoutPosition.value === "bottom") {
+    if (flyoutAlignment.value === "left") {
+      returnPosition = flyoutPosition.value + " " + "x-start";
+    }
+    if (flyoutAlignment.value === "right") {
+      returnPosition = flyoutPosition.value + " " + "x-end";
+    }
+  }
+  return returnPosition;
+});
 
 const flyoutRef = useTemplateRef("flyout");
 const flyoutWrapperRef = useTemplateRef("flyoutWrapper");
@@ -46,10 +62,16 @@ const { leftPosition, topPosition, updateAnchorPositionPolyfill } = useAnchorPos
   positionedRef: flyoutRef,
   targetRef: flyoutWrapperRef,
   positionArea: flyoutPosition,
-  alignment: "center",
-  alignsWithEdge: false,
+  alignment: flyoutAlignment,
+  alignsWithEdge: true,
   fitParent: false,
 });
+
+const { width } = useResizeObserver(flyoutWrapperRef);
+
+const flyoutWidth = computed(() =>
+  props.fitParent && flyoutWrapperRef.value ? `${width.value}px` : "max-content",
+);
 
 const handleOpening = (open: boolean) => {
   if (open) {
@@ -86,11 +108,13 @@ const anchorName = computed(() => `--anchor-${id}`);
 const flyoutClasses = computed(() => {
   return {
     [`onyx-flyout__modal--position-${flyoutPosition.value.replace(" ", "-")}`]: true,
+    [`onyx-flyout__modal--alignment-${flyoutAlignment.value}`]: true,
+    "onyx-flyout__modal--fitparent": props.fitParent,
     "onyx-flyout__modal--dont-support-anchor": !USERAGENT_SUPPORTS_ANCHOR_API,
   };
 });
 
-watch([flyoutPosition], async () => {
+watch([flyoutPosition, flyoutAlignment, flyoutWidth], async () => {
   if (!USERAGENT_SUPPORTS_ANCHOR_API) {
     await nextTick();
     updateAnchorPositionPolyfill();
@@ -122,21 +146,20 @@ watch([flyoutPosition], async () => {
     --onyx-flyout-gap: var(--onyx-spacing-2xs);
     display: inline-flex;
     position: relative;
-    width: min-content;
-
+    width: "min-content";
     &__modal {
       position: fixed;
       position-anchor: v-bind("anchorName");
-      position-area: v-bind("flyoutPosition");
+      position-area: v-bind("positionAndAlignment");
 
       border-radius: var(--onyx-radius-md);
       background-color: var(--onyx-color-base-background-blank);
       padding: 0;
       box-shadow: var(--onyx-shadow-medium-bottom);
       box-sizing: border-box;
-      width: max-content;
       min-width: var(--onyx-spacing-4xl);
       max-width: 20rem;
+      width: max-content;
       font-family: var(--onyx-font-family);
 
       &--dont-support-anchor {
@@ -180,6 +203,24 @@ watch([flyoutPosition], async () => {
       &--position-top-left {
         margin-bottom: var(--onyx-flyout-gap);
         margin-right: var(--onyx-flyout-gap);
+      }
+
+      &--alignment-left {
+        transform: translateX(100%);
+        &.onyx-flyout__modal--dont-support-anchor {
+          transform: none;
+        }
+      }
+      &--alignment-right {
+        transform: translateX(-100%);
+        &.onyx-flyout__modal--dont-support-anchor {
+          transform: none;
+        }
+      }
+      &--fitparent {
+        min-width: auto;
+        max-width: auto;
+        width: v-bind(flyoutWidth);
       }
     }
   }
