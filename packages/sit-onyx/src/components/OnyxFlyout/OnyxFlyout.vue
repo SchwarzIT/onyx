@@ -146,7 +146,6 @@ watch([flyoutPosition, flyoutAlignment, flyoutWidth], async () => {
     --onyx-flyout-gap: var(--onyx-spacing-2xs);
     display: inline-flex;
     position: relative;
-    width: "min-content";
     &__modal {
       position: fixed;
       position-anchor: v-bind("anchorName");
@@ -218,8 +217,8 @@ watch([flyoutPosition, flyoutAlignment, flyoutWidth], async () => {
         }
       }
       &--fitparent {
-        min-width: auto;
-        max-width: auto;
+        min-width: inherit;
+        max-width: inherit;
         width: v-bind(flyoutWidth);
       }
     }
