@@ -1,4 +1,3 @@
-import { adjustSizeToAbsolutePosition } from "@sit-onyx/playwright-utils";
 import { expect, test } from "../../../../playwright/a11y";
 import {
   executeMatrixScreenshotTest,
@@ -24,8 +23,9 @@ test.describe("Screenshot tests", () => {
     name: "User menu",
     columns: ["default", "description", "footer"],
     rows: ["default", "hover", "focus-visible"],
-    component: (column) => (
+    component: (column, row) => (
       <OnyxUserMenu
+        style={{ marginBottom: row === "default" ? "0rem" : "12rem", marginLeft: "5rem" }}
         fullName="Jane Doe"
         description={column === "description" ? "Company name" : undefined}
       >
@@ -46,8 +46,8 @@ test.describe("Screenshot tests", () => {
 
         await expect(component.getByLabel("User options")).toBeVisible();
 
-        await adjustSizeToAbsolutePosition(component);
-        await component.evaluate((element) => (element.style.paddingLeft = "64px"));
+        // await adjustSizeToAbsolutePosition(component);
+        // await component.evaluate((element) => (element.style.paddingLeft = "64px"));
       },
     },
   });

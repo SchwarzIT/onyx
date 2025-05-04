@@ -44,7 +44,9 @@ export const useAnchorPositionPolyfill = ({
     let left = 0;
 
     const alignmentPositioning =
-      unref(alignsWithEdge) && unref(alignment) !== "center"
+      unref(alignsWithEdge) &&
+      unref(alignment) !== "center" &&
+      (unref(positionArea) === "top" || unref(positionArea) === "bottom")
         ? unref(alignment) === "left" || unref(fitParent)
           ? targetRect.left
           : targetRect.right - positionedElRect.width
