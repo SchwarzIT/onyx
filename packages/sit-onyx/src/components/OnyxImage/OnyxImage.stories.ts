@@ -2,6 +2,10 @@ import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxImage from "./OnyxImage.vue";
 
+/**
+ * Image components are essential elements in web design, serving multiple purposes to enhance the visual appeal,
+ * user experience, and functionality of an application.
+ */
 const meta: Meta<typeof OnyxImage> = {
   title: "Basic/Image",
   component: OnyxImage,

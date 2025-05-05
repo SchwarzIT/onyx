@@ -5,7 +5,7 @@ import OnyxTab from "../OnyxTab/OnyxTab.vue";
 import OnyxTabs from "./OnyxTabs.vue";
 
 /**
- * Tabs organize content into separate viewports within the same page, helping users navigate and manage large sets of information without page reloads, improving accessibility and flow. They are perfect for single page web applications, or for web pages capable of displaying different subjects
+ * Tabs organize content into separate viewports within the same page, helping users navigate and manage large sets of information without page reloads, improving accessibility and flow. They are perfect for single page web applications, or for web pages capable of displaying different subjects.
  * ### Keyboard shortcuts
  * The following keyboard shortcuts are available:
  * - **Tab**: Focuses / blurs the currently selected tab
