@@ -155,6 +155,9 @@ export * from "./components/OnyxSelectInput/types";
 export { default as OnyxSelectOption } from "./components/OnyxSelectOption/OnyxSelectOption.vue";
 export * from "./components/OnyxSelectOption/types";
 
+export { default as OnyxSidebar } from "./components/OnyxSidebar/OnyxSidebar.vue";
+export * from "./components/OnyxSidebar/types";
+
 export { default as OnyxSkeleton } from "./components/OnyxSkeleton/OnyxSkeleton.vue";
 
 export { default as OnyxStepper } from "./components/OnyxStepper/OnyxStepper.vue";
