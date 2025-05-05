@@ -1,6 +1,7 @@
+import type { AnchorPosition } from "src/composables/useAnchorPositionPolyfill";
 import type { MaybeRefOrGetter } from "vue";
 import type { DensityProp } from "../../composables/density";
-import type { WedgePosition } from "../../composables/useWedgePosition";
+import type { OpenAlignment } from "../../composables/useOpenAlignment";
 import type { OnyxColor } from "../../types";
 
 export type TooltipOptions = {
@@ -28,12 +29,12 @@ export type OnyxTooltipProps = DensityProp & {
   /**
    * How to position the tooltip relative to the parent element.
    */
-  position?: TooltipPosition;
+  position?: AnchorPosition | "auto";
   /**
    * Specifies how to align the tooltip relative to the parent element.
    * This is applicable only for top and bottom positioning.
    */
-  alignment?: WedgePosition | "auto";
+  alignment?: OpenAlignment | "auto";
   /**
    * If `true`, the tooltip will match the width of the parent/slot element.
    */
@@ -54,17 +55,6 @@ export type OnyxTooltipProps = DensityProp & {
    */
   alignsWithEdge?: boolean;
 };
-
-export type TooltipPosition =
-  | "auto"
-  | "top"
-  | "top right"
-  | "top left"
-  | "right"
-  | "bottom"
-  | "bottom right"
-  | "bottom left"
-  | "left";
 export type TooltipOpen =
   | "hover"
   | "click"

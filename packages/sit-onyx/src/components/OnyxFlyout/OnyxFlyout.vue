@@ -1,4 +1,5 @@
 <script setup lang="ts" generic="TValue extends SelectOptionValue = SelectOptionValue">
+import { useGlobalEventListener } from "@sit-onyx/headless";
 import {
   computed,
   nextTick,
@@ -13,13 +14,15 @@ import {
   useAnchorPositionPolyfill,
   USERAGENT_SUPPORTS_ANCHOR_API,
 } from "../../composables/useAnchorPositionPolyfill";
+import { useOpenAlignment } from "../../composables/useOpenAlignment";
+import { useOpenDirection } from "../../composables/useOpenDirection";
 import { useResizeObserver } from "../../composables/useResizeObserver";
 import type { SelectOptionValue } from "../../types";
 import type { OnyxFlyoutProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxFlyoutProps>(), {
-  position: "bottom",
-  alignment: "left",
+  position: "auto",
+  alignment: "auto",
 });
 
 defineSlots<{
@@ -40,8 +43,12 @@ const isVisible = computed({
   get: () => (typeof props.expanded === "boolean" ? props.expanded : _isVisible.value),
 });
 
-const flyoutPosition = computed(() => props.position);
-const flyoutAlignment = computed(() => props.alignment);
+const flyoutPosition = computed(() =>
+  props.position === "auto" ? openDirection.value : props.position,
+);
+const flyoutAlignment = computed(() =>
+  props.alignment === "auto" ? openAlignment.value : props.alignment,
+);
 
 const positionAndAlignment = computed(() => {
   let returnPosition = flyoutPosition.value;
@@ -58,6 +65,13 @@ const positionAndAlignment = computed(() => {
 
 const flyoutRef = useTemplateRef("flyout");
 const flyoutWrapperRef = useTemplateRef("flyoutWrapper");
+const { openDirection, updateOpenDirection } = useOpenDirection(flyoutWrapperRef, "bottom");
+
+const { openAlignment, updateOpenAlignment } = useOpenAlignment(
+  flyoutWrapperRef,
+  flyoutRef,
+  "left",
+);
 const { leftPosition, topPosition, updateAnchorPositionPolyfill } = useAnchorPositionPolyfill({
   positionedRef: flyoutRef,
   targetRef: flyoutWrapperRef,
@@ -80,15 +94,26 @@ const handleOpening = (open: boolean) => {
     flyoutRef.value?.hidePopover();
   }
 };
+const updateDirections = () => {
+  updateOpenDirection();
+  updateOpenAlignment();
+};
+
+useGlobalEventListener({
+  type: "resize",
+  listener: () => updateDirections(),
+});
 
 onMounted(() => {
   handleOpening(isVisible.value);
+  updateDirections();
   if (!USERAGENT_SUPPORTS_ANCHOR_API) updateAnchorPositionPolyfill();
 });
 
 watch(isVisible, async (newVal) => {
   await nextTick();
   handleOpening(newVal);
+  updateDirections();
   if (!USERAGENT_SUPPORTS_ANCHOR_API) updateAnchorPositionPolyfill();
 });
 
@@ -117,6 +142,7 @@ const flyoutClasses = computed(() => {
 watch([flyoutPosition, flyoutAlignment, flyoutWidth], async () => {
   if (!USERAGENT_SUPPORTS_ANCHOR_API) {
     await nextTick();
+    updateDirections();
     updateAnchorPositionPolyfill();
   }
 });
@@ -152,14 +178,25 @@ watch([flyoutPosition, flyoutAlignment, flyoutWidth], async () => {
       position-area: v-bind("positionAndAlignment");
 
       border-radius: var(--onyx-radius-md);
-      background-color: var(--onyx-color-base-background-blank);
-      padding: 0;
+      border: none;
+      outline: none;
       box-shadow: var(--onyx-shadow-medium-bottom);
+
+      background-color: var(--onyx-color-base-background-blank);
+
+      opacity: 0;
+      padding: 0;
       box-sizing: border-box;
+
       min-width: var(--onyx-spacing-4xl);
       max-width: 20rem;
       width: max-content;
       font-family: var(--onyx-font-family);
+
+      transition:
+        display 0.2s,
+        opacity 0.2s;
+      transition-behavior: allow-discrete;
 
       &--dont-support-anchor {
         left: v-bind(leftPosition);
@@ -167,12 +204,13 @@ watch([flyoutPosition, flyoutAlignment, flyoutWidth], async () => {
       }
 
       &:popover-open {
-        border: none;
-        outline: none;
-        background-color: var(--onyx-color-base-background-blank);
         display: flex;
         flex-direction: column;
         align-items: center;
+        opacity: 1;
+        @starting-style {
+          opacity: 0;
+        }
       }
 
       &--position-right {

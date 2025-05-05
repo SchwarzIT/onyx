@@ -1,17 +1,26 @@
-import type { TooltipPosition } from "src/components/OnyxTooltip/types";
 import { ref, unref, type MaybeRefOrGetter } from "vue";
-import type { WedgePosition } from "./useWedgePosition";
+import type { OpenAlignment } from "./useOpenAlignment";
 
 //TODO: can be removed after anchor is implemented in all common browers
 
 export const USERAGENT_SUPPORTS_ANCHOR_API =
   "CSS" in globalThis && typeof CSS !== "undefined" && CSS.supports("anchor-name: --test");
 
+export type AnchorPosition =
+  | "top"
+  | "top right"
+  | "top left"
+  | "right"
+  | "bottom"
+  | "bottom right"
+  | "bottom left"
+  | "left";
+
 type UseAnchorPositionPolyfillOptions = {
   positionedRef: MaybeRefOrGetter<HTMLElement | null>;
   targetRef: MaybeRefOrGetter<HTMLElement | null>;
-  positionArea: MaybeRefOrGetter<TooltipPosition>;
-  alignment: MaybeRefOrGetter<WedgePosition>;
+  positionArea: MaybeRefOrGetter<AnchorPosition>;
+  alignment: MaybeRefOrGetter<OpenAlignment>;
   alignsWithEdge: MaybeRefOrGetter<boolean>;
   fitParent: MaybeRefOrGetter<boolean>;
 };

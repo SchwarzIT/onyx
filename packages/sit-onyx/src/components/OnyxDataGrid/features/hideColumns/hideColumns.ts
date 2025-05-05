@@ -35,7 +35,6 @@ export const useHideColumns = createFeature(
         {
           label: t.value("dataGrid.head.hideColumns.revealFlyout"),
           trigger: "click",
-          alignment: "right",
         },
         {
           button: ({ trigger }) =>

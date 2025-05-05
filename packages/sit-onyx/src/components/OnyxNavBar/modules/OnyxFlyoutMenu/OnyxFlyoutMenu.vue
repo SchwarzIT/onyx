@@ -8,7 +8,7 @@ import type { OnyxFlyoutMenuProps } from "./types";
 const props = withDefaults(defineProps<OnyxFlyoutMenuProps>(), {
   trigger: "hover",
   open: undefined,
-  alignment: "left",
+  alignment: "auto",
 });
 const emit = defineEmits<{
   /**
