@@ -1,5 +1,6 @@
-import { h, ref, watch, type Slot, type ThHTMLAttributes } from "vue";
+import { h, ref, watch, type HTMLAttributes, type Slot, type ThHTMLAttributes } from "vue";
 import { createFeature, useIsFeatureEnabled, type InternalColumnConfig } from "..";
+import { useResizeObserver } from "../../../../composables/useResizeObserver";
 import { mergeVueProps } from "../../../../utils/attrs";
 import type { DataGridEntry } from "../../types";
 import ResizeHandle from "./ResizeHandle.vue";
@@ -16,7 +17,8 @@ export const useResizing = createFeature(
     const { isEnabled } = useIsFeatureEnabled(options);
     const colWidths = ref(new Map<keyof TEntry, string>());
     const showLastCol = ref(false);
-    let header: HTMLElement | undefined;
+    const scrollContainer = ref<HTMLElement | undefined>();
+    const header = ref<HTMLElement | undefined>();
     let tableWidth: number;
     let tableWrapperWidth: number;
     let previousWidth: string | undefined = undefined;
@@ -40,29 +42,31 @@ export const useResizing = createFeature(
       { flush: "post", deep: true },
     );
 
-    window.addEventListener("resize", () => {
+    const { width } = useResizeObserver(scrollContainer);
+
+    watch(width, () => {
       updateLastCol();
     });
 
     const updateLastCol = () => {
-      if (!header) return;
+      if (!header.value) return;
 
-      tableWidth = header.closest(".onyx-table")?.getBoundingClientRect().width ?? 0;
+      tableWidth = header.value.closest(".onyx-table")?.getBoundingClientRect().width ?? 0;
       tableWrapperWidth =
-        header.closest(".onyx-table-wrapper__container")?.getBoundingClientRect().width ?? 0;
+        header.value.closest(".onyx-table-wrapper__container")?.getBoundingClientRect().width ?? 0;
 
       showLastCol.value = tableWrapperWidth > tableWidth;
     };
 
     const onMouseMove = (ev: MouseEvent) => {
       const colKey = resizingCol.value?.key;
-      header = headers.value.get(colKey!);
-      if (!header || !colKey) {
+      header.value = headers.value.get(colKey!);
+      if (!header.value || !colKey) {
         return;
       }
 
       // Calculate the desired width
-      const width = ev.clientX - header.getBoundingClientRect().left;
+      const width = ev.clientX - header.value.getBoundingClientRect().left;
       colWidths.value.set(colKey, `${Math.max(min, width)}px`);
 
       updateLastCol();
@@ -149,6 +153,12 @@ export const useResizing = createFeature(
       modifyColumns: {
         func: modifyColumns,
       },
+      scrollContainerAttributes: () =>
+        ({
+          ref: (el?: HTMLElement) => {
+            scrollContainer.value = el;
+          },
+        }) as HTMLAttributes,
       typeRenderer: {
         [EMPTY_COLUMN]: {
           header: {
