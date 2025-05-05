@@ -183,8 +183,6 @@ watch([flyoutPosition, flyoutAlignment, flyoutWidth], async () => {
       box-shadow: var(--onyx-shadow-medium-bottom);
 
       background-color: var(--onyx-color-base-background-blank);
-
-      opacity: 0;
       padding: 0;
       box-sizing: border-box;
 
@@ -192,11 +190,6 @@ watch([flyoutPosition, flyoutAlignment, flyoutWidth], async () => {
       max-width: 20rem;
       width: max-content;
       font-family: var(--onyx-font-family);
-
-      transition:
-        display 0.2s,
-        opacity 0.2s;
-      transition-behavior: allow-discrete;
 
       &--dont-support-anchor {
         left: v-bind(leftPosition);
@@ -207,10 +200,6 @@ watch([flyoutPosition, flyoutAlignment, flyoutWidth], async () => {
         display: flex;
         flex-direction: column;
         align-items: center;
-        opacity: 1;
-        @starting-style {
-          opacity: 0;
-        }
       }
 
       &--position-right {
