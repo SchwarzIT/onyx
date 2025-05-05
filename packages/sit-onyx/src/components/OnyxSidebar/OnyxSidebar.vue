@@ -1,6 +1,8 @@
 <script lang="ts" setup>
+import { ref, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density";
 import OnyxDrawer from "../OnyxDrawer/OnyxDrawer.vue";
+import OnyxResizeHandle from "../OnyxResizeHandle/OnyxResizeHandle.vue";
 import type { OnyxSidebarProps } from "./types";
 
 const props = defineProps<OnyxSidebarProps>();
@@ -33,13 +35,18 @@ const slots = defineSlots<{
 }>();
 
 const { densityClass } = useDensity(props);
+const sidebarElement = useTemplateRef("sidebarRef");
+const drawerElement = useTemplateRef("drawerRef");
+const width = ref<number>();
 </script>
 
 <template>
   <aside
     v-if="!props.drawer"
+    ref="sidebarRef"
     :class="['onyx-component', 'onyx-sidebar', densityClass]"
     :aria-label="props.label"
+    :style="{ '--onyx-sidebar-width': width ? `${width}px` : undefined }"
   >
     <header v-if="!!slots.header" class="onyx-sidebar__header">
       <slot name="header"></slot>
@@ -52,14 +59,23 @@ const { densityClass } = useDensity(props);
     <footer v-if="!!slots.footer" class="onyx-sidebar__footer">
       <slot name="footer"></slot>
     </footer>
+
+    <OnyxResizeHandle
+      v-if="props.resizable"
+      :element="sidebarElement"
+      @update-width="width = $event"
+      @auto-size="width = undefined"
+    />
   </aside>
 
   <OnyxDrawer
     v-else
-    class="onyx-sidebar"
     v-bind="props.drawer"
     :label="props.label"
     :density="props.density"
+    ref="drawerRef"
+    class="onyx-sidebar"
+    :style="{ '--onyx-sidebar-width': width ? `${width}px` : undefined }"
     @close="emit('close')"
   >
     <template v-if="!!slots.header" #headline>
@@ -77,6 +93,13 @@ const { densityClass } = useDensity(props);
         <slot name="footer"></slot>
       </div>
     </template>
+
+    <OnyxResizeHandle
+      v-if="props.resizable"
+      :element="drawerElement"
+      @update-width="width = $event"
+      @auto-size="width = undefined"
+    />
   </OnyxDrawer>
 </template>
 
@@ -91,6 +114,7 @@ const { densityClass } = useDensity(props);
     --onyx-sidebar-header-gap: var(--onyx-density-md);
     --onyx-sidebar-footer-gap: var(--onyx-density-xs);
     width: var(--onyx-sidebar-width);
+    min-width: 4rem;
 
     &:not(:is(.onyx-drawer)) {
       font-family: var(--onyx-font-family);
@@ -102,6 +126,14 @@ const { densityClass } = useDensity(props);
       max-height: 100%;
       display: flex;
       flex-direction: column;
+
+      &:has(.onyx-resize-handle) {
+        max-width: calc(100vw - var(--onyx-grid-margin));
+      }
+    }
+
+    &:has(.onyx-resize-handle) {
+      position: relative;
     }
 
     &:is(.onyx-drawer) {
