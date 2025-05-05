@@ -11,8 +11,6 @@ export const RESIZING_FEATURE = Symbol("Resizing");
 export const EMPTY_COLUMN = Symbol("EmptyColumn");
 export const useResizing = createFeature(
   <TEntry extends DataGridEntry>(options?: ResizingOptions<TEntry>) => {
-    const resizingCol = ref<Readonly<InternalColumnConfig<TEntry>>>();
-    const min = 3 * 16;
     const headers = ref(new Map<keyof TEntry, HTMLElement>());
     const { isEnabled } = useIsFeatureEnabled(options);
     const colWidths = ref(new Map<keyof TEntry, string>());
@@ -21,8 +19,6 @@ export const useResizing = createFeature(
     const header = ref<HTMLElement>();
     let tableWidth: number;
     let tableWrapperWidth: number;
-    let previousWidth: string | undefined;
-    let abortController: AbortController | undefined;
 
     watch(
       [headers, colWidths],
@@ -43,10 +39,7 @@ export const useResizing = createFeature(
     );
 
     const { width } = useResizeObserver(scrollContainer);
-
-    watch(width, () => {
-      updateLastCol();
-    });
+    watch(width, () => updateLastCol());
 
     const updateLastCol = () => {
       if (!header.value) return;
@@ -56,57 +49,6 @@ export const useResizing = createFeature(
         header.value.closest(".onyx-table-wrapper__container")?.getBoundingClientRect().width ?? 0;
 
       showLastCol.value = tableWrapperWidth > tableWidth;
-    };
-
-    const onMouseMove = (ev: MouseEvent) => {
-      const colKey = resizingCol.value?.key;
-      header.value = headers.value.get(colKey!);
-      if (!header.value || !colKey) {
-        return;
-      }
-
-      // Calculate the desired width
-      const width = ev.clientX - header.value.getBoundingClientRect().left;
-      colWidths.value.set(colKey, `${Math.max(min, width)}px`);
-
-      updateLastCol();
-    };
-
-    // Clean up event listeners, classes, etc.
-    const onMouseUp = () => {
-      abortController?.abort();
-      previousWidth = undefined;
-      resizingCol.value = undefined;
-    };
-
-    const onKeydown = (event: KeyboardEvent) => {
-      if (event.key !== "Escape") {
-        return;
-      }
-      if (previousWidth && resizingCol.value) {
-        colWidths.value.set(resizingCol.value.key, previousWidth);
-      }
-      onMouseUp();
-    };
-
-    const initResize = (ev: Event, col: Readonly<InternalColumnConfig<TEntry>>) => {
-      const target = ev.target as HTMLElement;
-      resizingCol.value = col;
-      previousWidth = colWidths.value.get(resizingCol.value.key);
-
-      Array.from(headers.value.entries()).forEach(([col, el]) => {
-        const { width } = el.getBoundingClientRect();
-        colWidths.value.set(col, `${Math.max(min, width)}px`);
-      });
-
-      const th = target.closest("th")!;
-      headers.value.set(resizingCol.value.key, th);
-
-      abortController = new AbortController();
-      const options = { signal: abortController.signal, passive: true };
-      window.addEventListener("mousemove", onMouseMove, options);
-      window.addEventListener("mouseup", onMouseUp, options);
-      window.addEventListener("keydown", onKeydown, options);
     };
 
     const modifyColumns = (cols: Readonly<InternalColumnConfig<TEntry>[]>) => {
@@ -141,8 +83,13 @@ export const useResizing = createFeature(
         ? slots.default?.()
         : [
             h(OnyxResizeHandle, {
-              onResize: (ev: MouseEvent) => initResize(ev, cols),
+              element: (event) => (event.target as HTMLElement).closest("th"),
               onAutoSize: () => colWidths.value.set(cols.key, "max-content"),
+              onUpdateWidth: (newWidth) => {
+                colWidths.value.set(cols.key, `${newWidth}px`);
+                updateLastCol();
+              },
+              min: 3 * 16,
             }),
             slots.default?.(),
           ];
