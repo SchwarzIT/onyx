@@ -232,7 +232,7 @@ $wedge-size: 0.5rem;
 
 .onyx-tooltip {
   @include layers.component() {
-    position: absolute;
+    position: fixed;
     min-width: var(--onyx-spacing-3xl);
     width: max-content;
     max-width: 19rem;

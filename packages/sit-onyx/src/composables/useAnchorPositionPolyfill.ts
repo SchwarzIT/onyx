@@ -1,15 +1,19 @@
 import type { TooltipPosition } from "src/components/OnyxTooltip/types";
-import { ref, unref, type MaybeRefOrGetter } from "vue";
+import { onUnmounted, ref, toValue, watchEffect, type MaybeRefOrGetter, type Ref } from "vue";
+import { useIntersectionObserver } from "./useIntersectionObserver";
+import { getTemplateRefElement, type VueTemplateRefElement } from "./useResizeObserver";
 import type { WedgePosition } from "./useWedgePosition";
 
-//TODO: can be removed after anchor is implemented in all common browers
-
+// TODO: can be removed after anchor is implemented in all common browsers
 export const USERAGENT_SUPPORTS_ANCHOR_API =
-  "CSS" in globalThis && typeof CSS !== "undefined" && CSS.supports("anchor-name: --test");
+  "CSS" in globalThis &&
+  typeof CSS !== "undefined" &&
+  CSS.supports("anchor-name: --test") &&
+  CSS.supports("position-area: top");
 
 type UseAnchorPositionPolyfillOptions = {
-  positionedRef: MaybeRefOrGetter<HTMLElement | null>;
-  targetRef: MaybeRefOrGetter<HTMLElement | null>;
+  positionedRef: Ref<VueTemplateRefElement>;
+  targetRef: Ref<VueTemplateRefElement>;
   positionArea: MaybeRefOrGetter<TooltipPosition>;
   alignment: MaybeRefOrGetter<WedgePosition>;
   alignsWithEdge: MaybeRefOrGetter<boolean>;
@@ -27,14 +31,11 @@ export const useAnchorPositionPolyfill = ({
   const leftPosition = ref("-1000px");
   const topPosition = ref("-1000px");
 
-  const getElement = (refOrGetter: MaybeRefOrGetter<HTMLElement | null>): HTMLElement | null => {
-    const element = unref(refOrGetter);
-    return typeof element === "function" ? element() : element;
-  };
+  const { isIntersecting: targetVisible } = useIntersectionObserver(targetRef);
 
   const updateAnchorPositionPolyfill = () => {
-    const positionedEl = getElement(positionedRef);
-    const target = getElement(targetRef);
+    const positionedEl = getTemplateRefElement(positionedRef.value);
+    const target = getTemplateRefElement(targetRef.value);
     if (!positionedEl || !target) {
       return;
     }
@@ -44,13 +45,13 @@ export const useAnchorPositionPolyfill = ({
     let left = 0;
 
     const alignmentPositioning =
-      unref(alignsWithEdge) && unref(alignment) !== "center"
-        ? unref(alignment) === "left" || unref(fitParent)
+      toValue(alignsWithEdge) && toValue(alignment) !== "center"
+        ? toValue(alignment) === "left" || toValue(fitParent)
           ? targetRect.left
           : targetRect.right - positionedElRect.width
         : targetRect.left + targetRect.width / 2 - positionedElRect.width / 2;
 
-    switch (unref(positionArea)) {
+    switch (toValue(positionArea)) {
       case "top":
         top = targetRect.top - positionedElRect.height;
         left = alignmentPositioning;
@@ -95,6 +96,20 @@ export const useAnchorPositionPolyfill = ({
     leftPosition.value = `${left}px`;
     topPosition.value = `${top}px`;
   };
+
+  watchEffect(() => {
+    if (targetVisible.value && positionedRef.value) {
+      window.addEventListener("scroll", updateAnchorPositionPolyfill, true);
+    } else {
+      window.removeEventListener("scroll", updateAnchorPositionPolyfill, true);
+      leftPosition.value = "-1000px";
+      topPosition.value = "-1000px";
+    }
+  });
+
+  onUnmounted(() => {
+    window.removeEventListener("scroll", updateAnchorPositionPolyfill, true);
+  });
 
   return {
     leftPosition,
