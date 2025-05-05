@@ -1,8 +1,9 @@
 import { h, ref, watch, type Slot, type ThHTMLAttributes } from "vue";
 import { createFeature, useIsFeatureEnabled, type InternalColumnConfig } from "..";
 import { mergeVueProps } from "../../../../utils/attrs";
+import OnyxResizeHandle from "../../../OnyxResizeHandle/OnyxResizeHandle.vue";
 import type { DataGridEntry } from "../../types";
-import ResizeHandle from "./ResizeHandle.vue";
+import "./resizing.scss";
 import type { ResizingOptions } from "./types";
 
 export const RESIZING_FEATURE = Symbol("Resizing");
@@ -89,6 +90,7 @@ export const useResizing = createFeature(
 
         const thAttributes = {
           ref: (el: HTMLElement) => headers.value.set(column.key, el),
+          class: "onyx-data-grid-resize-cell",
         } as ThHTMLAttributes;
 
         const resizedWidth = colWidths.value.get(column.key);
@@ -109,9 +111,8 @@ export const useResizing = createFeature(
       !isEnabled.value(cols.key) || isLastColumn
         ? slots.default?.()
         : [
-            h(ResizeHandle, {
-              beingResized: resizingCol.value?.key === cols.key,
-              onStartResize: (ev: MouseEvent) => initResize(ev, cols),
+            h(OnyxResizeHandle, {
+              onResize: (ev: MouseEvent) => initResize(ev, cols),
               onAutoSize: () => colWidths.value.set(cols.key, "max-content"),
             }),
             slots.default?.(),
