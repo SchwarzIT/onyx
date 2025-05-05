@@ -1,12 +1,4 @@
-import {
-  computed,
-  ref,
-  toValue,
-  watch,
-  watchEffect,
-  type Directive,
-  type MaybeRefOrGetter,
-} from "vue";
+import { computed, ref, toValue, watch, type Directive, type MaybeRefOrGetter } from "vue";
 import type { DateValue, OnyxDatePickerProps } from "../components/OnyxDatePicker/types";
 import type { InputType } from "../components/OnyxInput/types";
 import { injectI18n } from "../i18n";
@@ -136,7 +128,7 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
   const validityState = ref<Record<keyof ValidityState, boolean>>();
   const isDirty = ref(false);
 
-  const customError = computed(() => options.props.customError ?? toValue(options.customError));
+  const customError = computed(() => options.props.customError || toValue(options.customError));
 
   /**
    * Sync isDirty state. The component is "dirty" when the value was modified at least once.
@@ -149,16 +141,13 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
 
   const vCustomValidity = {
     mounted: (el) => {
-      /**
-       * Sync custom error with the native input validity.
-       */
-      watchEffect(() => el.setCustomValidity(getFormMessageText(customError.value) ?? ""));
-
       watch(
         // we need to watch all props instead of only modelValue so the validity is re-checked
         // when the validation rules change
         [() => options.props, customError],
         () => {
+          // Sync custom error with the native input validity.
+          el.setCustomValidity(getFormMessageText(customError.value) ?? "");
           const newValidityState = transformValidityStateToObject(el.validity);
 
           // do not emit update if input is valid and has never been invalid
@@ -171,7 +160,8 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
 
           validityState.value = newValidityState;
         },
-        { immediate: true, deep: true },
+        // We use "post" flush timing, to ensure the DOM is up-to-date and the elements validity state is in sync.
+        { immediate: true, deep: true, flush: "post" },
       );
 
       /**
