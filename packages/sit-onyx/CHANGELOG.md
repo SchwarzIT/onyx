@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.206
+
+### Patch Changes
+
+- 24d3589: fix(useCustomValidity, OnyxFormElement): fix missing error message in some cases
+
 ## 1.0.0-beta.205
 
 ### Patch Changes
