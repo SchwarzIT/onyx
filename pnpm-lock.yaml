@@ -34,19 +34,19 @@ importers:
         specifier: ^4.5.0
         version: 4.5.0(eslint@9.27.0(jiti@2.4.2))
       '@eslint-community/eslint-utils':
-        specifier: ^4.6.1
+        specifier: ^4.7.0
         version: 4.7.0(eslint@9.27.0(jiti@2.4.2))
       '@eslint/compat':
         specifier: ^1.2.9
         version: 1.2.9(eslint@9.27.0(jiti@2.4.2))
       '@eslint/js':
-        specifier: ^9.25.1
+        specifier: ^9.26.0
         version: 9.27.0
       '@fontsource-variable/source-code-pro':
         specifier: ^5.2.5
         version: 5.2.5
       '@fontsource-variable/source-sans-3':
-        specifier: ^5.2.6
+        specifier: ^5.2.7
         version: 5.2.7
       '@microsoft/eslint-formatter-sarif':
         specifier: ^3.1.0
@@ -100,7 +100,7 @@ importers:
         specifier: ~0.7.0
         version: 0.7.0(typescript@5.8.3)(vue@3.5.14(typescript@5.8.3))
       eslint:
-        specifier: ^9.25.1
+        specifier: ^9.26.0
         version: 9.27.0(jiti@2.4.2)
       eslint-plugin-compat:
         specifier: ^6.0.2
@@ -366,7 +366,7 @@ importers:
         specifier: ^3.17.1
         version: 3.17.4
       '@nuxt/test-utils':
-        specifier: ^3.17.2
+        specifier: ^3.18.0
         version: 3.19.0(@playwright/test@1.52.0)(@types/node@22.15.21)(@vue/test-utils@2.4.6)(jiti@2.4.2)(jsdom@26.1.0)(magicast@0.3.5)(playwright-core@1.52.0)(sass-embedded@1.87.0)(sass@1.89.0)(stylus@0.57.0)(terser@5.39.2)(tsx@4.19.4)(typescript@5.8.3)(vitest@3.1.4(@types/debug@4.1.12)(@types/node@22.15.21)(jiti@2.4.2)(jsdom@26.1.0)(sass-embedded@1.87.0)(sass@1.89.0)(stylus@0.57.0)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0))(yaml@2.8.0)
       '@nuxtjs/i18n':
         specifier: ^9.5.4
@@ -399,7 +399,7 @@ importers:
         specifier: '>= 1'
         version: 1.10.0(db0@0.3.2(better-sqlite3@11.10.0))(ioredis@5.6.1)(magicast@0.3.5)
       '@nuxt/test-utils':
-        specifier: ^3.17.2
+        specifier: ^3.18.0
         version: 3.19.0(@playwright/test@1.52.0)(@types/node@22.15.21)(@vue/test-utils@2.4.6)(jiti@2.4.2)(jsdom@26.1.0)(magicast@0.3.5)(playwright-core@1.52.0)(sass-embedded@1.87.0)(sass@1.89.0)(stylus@0.57.0)(terser@5.39.2)(tsx@4.19.4)(typescript@5.8.3)(vitest@3.1.4(@types/debug@4.1.12)(@types/node@22.15.21)(jiti@2.4.2)(jsdom@26.1.0)(sass-embedded@1.87.0)(sass@1.89.0)(stylus@0.57.0)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0))(yaml@2.8.0)
       '@nuxtjs/color-mode':
         specifier: '>= 3'
@@ -570,7 +570,7 @@ importers:
         specifier: ^5.2.5
         version: 5.2.5
       '@fontsource-variable/source-sans-3':
-        specifier: ^5.2.6
+        specifier: ^5.2.7
         version: 5.2.7
       sass:
         specifier: '>= 1'
