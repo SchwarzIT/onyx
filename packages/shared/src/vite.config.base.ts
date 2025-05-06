@@ -14,4 +14,7 @@ export const VITE_BASE_CONFIG = {
       },
     },
   },
+  /**
+   * ⚠️ Global test config should be defined in the root "vitest.config.ts, instead of here!" ⚠️
+   */
 } as const satisfies UserConfig;

@@ -18,5 +18,5 @@ export const vuePluginOptions: Options = {
 export default defineConfig({
   ...PLAYWRIGHT_BASE_CONFIG,
   testDir: "./src",
-  testMatch: `**/*.ct.tsx`,
+  testMatch: "**\/*.@(ct|e2e).?(c|m)[jt]s?(x)",
 });
