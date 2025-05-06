@@ -160,9 +160,7 @@ watch([flyoutPosition, flyoutAlignment, flyoutWidth], async () => {
       class="onyx-flyout__dialog"
       :class="flyoutClasses"
     >
-      <div class="onyx-flyout__dialog-content">
-        <slot name="content"></slot>
-      </div>
+      <slot name="content"></slot>
     </div>
   </div>
 </template>
