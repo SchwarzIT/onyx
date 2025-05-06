@@ -26,7 +26,7 @@ test.beforeEach(async ({ page }) => {
 
 test("should render", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
-  const component = await mount(<OnyxSidebar>{CONTENT}</OnyxSidebar>);
+  const component = await mount(<OnyxSidebar label="Label">{CONTENT}</OnyxSidebar>);
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
@@ -43,10 +43,7 @@ test("should render as drawer", async ({ mount, page, makeAxeBuilder }) => {
 
   // ARRANGE
   await mount(
-    <OnyxSidebar
-      drawer={{ label: "Example headline", open: true }}
-      onClose={() => closeEventCount++}
-    >
+    <OnyxSidebar label="Example headline" drawer={{ open: true }} onClose={() => closeEventCount++}>
       {CONTENT}
     </OnyxSidebar>,
   );

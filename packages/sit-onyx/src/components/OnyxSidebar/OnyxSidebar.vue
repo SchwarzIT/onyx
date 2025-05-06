@@ -36,7 +36,11 @@ const { densityClass } = useDensity(props);
 </script>
 
 <template>
-  <aside v-if="!props.drawer" :class="['onyx-component', 'onyx-sidebar', densityClass]">
+  <aside
+    v-if="!props.drawer"
+    :class="['onyx-component', 'onyx-sidebar', densityClass]"
+    :aria-label="props.label"
+  >
     <header v-if="!!slots.header" class="onyx-sidebar__header">
       <slot name="header"></slot>
     </header>
@@ -50,7 +54,14 @@ const { densityClass } = useDensity(props);
     </footer>
   </aside>
 
-  <OnyxDrawer v-else class="onyx-sidebar" v-bind="props.drawer" @close="emit('close')">
+  <OnyxDrawer
+    v-else
+    class="onyx-sidebar"
+    v-bind="props.drawer"
+    :label="props.label"
+    :density="props.density"
+    @close="emit('close')"
+  >
     <template v-if="!!slots.header" #headline>
       <slot name="header"></slot>
     </template>
