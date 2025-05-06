@@ -3,13 +3,22 @@ import { VITE_BASE_CONFIG } from "@sit-onyx/shared/vite.config.base";
 import vue from "@vitejs/plugin-vue";
 import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vite";
+import dts from "vite-plugin-dts";
 import packageJson from "./package.json";
 import { vuePluginOptions } from "./playwright.config";
 
 // https://vitejs.dev/config
 export default defineConfig({
   ...VITE_BASE_CONFIG,
-  plugins: [vue(vuePluginOptions)],
+  plugins: [
+    vue(vuePluginOptions),
+    dts({
+      tsconfigPath: "./tsconfig.app.json",
+      compilerOptions: {
+        composite: false,
+      },
+    }),
+  ],
   build: {
     lib: {
       entry: getFilePath("./src/index.ts"),
@@ -21,6 +30,10 @@ export default defineConfig({
       // make sure to externalize dependencies that shouldn't be bundled into the library
       external: Object.keys(packageJson.peerDependencies),
     },
+  },
+  experimental: {
+    // see: https://vite.dev/guide/rolldown#enabling-native-plugins
+    enableNativePlugin: true,
   },
   test: {
     root: getFilePath("./"),
