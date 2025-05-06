@@ -104,6 +104,11 @@ const { densityClass } = useDensity(props);
       flex-direction: column;
     }
 
+    &:is(.onyx-drawer) {
+      --onyx-dialog-screen-gap: 0;
+      border-radius: 0;
+    }
+
     &__header {
       display: flex;
       flex-direction: column;
