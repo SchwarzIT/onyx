@@ -124,7 +124,6 @@ const toggle = () => {
 
 const trigger = computed(() => ({
   onClick: toggle,
-  onFocusIn: toggle,
   "aria-expanded": isVisible.value,
   "aria-controls": flyoutRef.value?.id,
 }));
