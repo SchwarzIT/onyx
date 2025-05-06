@@ -19,4 +19,9 @@ export default defineConfig({
   ...PLAYWRIGHT_BASE_CONFIG,
   testDir: "./src",
   testMatch: `**/*.ct.tsx`,
+  expect: {
+    toHaveScreenshot: {
+      threshold: 0,
+    },
+  },
 });
