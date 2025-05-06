@@ -1,4 +1,12 @@
-import { onUnmounted, ref, toValue, watchEffect, type MaybeRefOrGetter, type Ref } from "vue";
+import {
+  onBeforeMount,
+  onUnmounted,
+  ref,
+  toValue,
+  watchEffect,
+  type MaybeRefOrGetter,
+  type Ref,
+} from "vue";
 import { useIntersectionObserver } from "./useIntersectionObserver";
 import type { OpenAlignment } from "./useOpenAlignment";
 import { getTemplateRefElement, type VueTemplateRefElement } from "./useResizeObserver";
@@ -110,14 +118,17 @@ export const useAnchorPositionPolyfill = ({
     topPosition.value = `${top}px`;
   };
 
-  watchEffect(() => {
-    if (targetVisible.value && positionedRef.value) {
-      window.addEventListener("scroll", updateAnchorPositionPolyfill, true);
-    } else {
-      window.removeEventListener("scroll", updateAnchorPositionPolyfill, true);
-      leftPosition.value = "-1000px";
-      topPosition.value = "-1000px";
-    }
+  // using onBeforeMount here to support server-side-rendering because window is not available in SSR
+  onBeforeMount(() => {
+    watchEffect(() => {
+      if (targetVisible.value && positionedRef.value) {
+        window.addEventListener("scroll", updateAnchorPositionPolyfill, true);
+      } else {
+        window.removeEventListener("scroll", updateAnchorPositionPolyfill, true);
+        leftPosition.value = "-1000px";
+        topPosition.value = "-1000px";
+      }
+    });
   });
 
   onUnmounted(() => {
