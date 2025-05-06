@@ -50,12 +50,6 @@ jobs:
           sarif_file: eslint-results.sarif
           wait-for-processing: true
 
-      - uses: SonarSource/sonarqube-scan-action@v5
-        name: 📈 Run SonarQube Analysis
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-
       - name: 🔎 Check formatting
         run: pnpm run format:check:all
 
@@ -64,6 +58,12 @@ jobs:
 
       - name: 🚨 Run unit tests
         run: pnpm run test:all
+
+      - uses: SonarSource/sonarqube-scan-action@v5
+        name: 📈 Run SonarQube Analysis
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
       # make sure that publint is only run after all packages have been built
       - name: Run publint
