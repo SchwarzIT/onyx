@@ -39,13 +39,17 @@ Object.entries(ONYX_BREAKPOINTS).forEach(([breakpoint, width]) => {
     await page.setViewportSize({ width, height: 400 });
 
     await page.addStyleTag({
-      content: "body { margin: 0; }",
+      content: `body {
+        margin: 0;
+        font-family: var(--onyx-font-family);
+        color: var(--onyx-color-text-icons-neutral-intense);
+      }`,
     });
 
     await mount(
       <OnyxAppLayout>
         <OnyxPageLayout>
-          <div class="onyx-grid-container onyx-grid">
+          <div class="onyx-grid">
             <div
               class="onyx-grid-span-16"
               style={{ backgroundColor: "var(--onyx-color-base-info-200)" }}
@@ -54,10 +58,12 @@ Object.entries(ONYX_BREAKPOINTS).forEach(([breakpoint, width]) => {
             </div>
           </div>
 
-          <OnyxBottomBar v-slot:footer>
-            <OnyxButton label="Cancel" mode="plain" color="neutral"></OnyxButton>
-            <OnyxButton label="Approve"></OnyxButton>
-          </OnyxBottomBar>
+          <template v-slot:footer>
+            <OnyxBottomBar>
+              <OnyxButton label="Cancel" mode="plain" color="neutral"></OnyxButton>
+              <OnyxButton label="Approve"></OnyxButton>
+            </OnyxBottomBar>
+          </template>
         </OnyxPageLayout>
       </OnyxAppLayout>,
     );

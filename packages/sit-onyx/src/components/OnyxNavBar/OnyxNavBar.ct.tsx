@@ -304,7 +304,11 @@ Object.entries(ONYX_BREAKPOINTS).forEach(([breakpoint, width]) => {
     await page.setViewportSize({ width, height: 400 });
 
     await page.addStyleTag({
-      content: "body { margin: 0; }",
+      content: `body {
+        margin: 0;
+        font-family: var(--onyx-font-family);
+        color: var(--onyx-color-text-icons-neutral-intense);
+      }`,
     });
 
     await mount(
@@ -321,7 +325,7 @@ Object.entries(ONYX_BREAKPOINTS).forEach(([breakpoint, width]) => {
         </OnyxNavBar>
 
         <OnyxPageLayout>
-          <div class="onyx-grid-container onyx-grid">
+          <div class="onyx-grid">
             <div
               class="onyx-grid-span-16"
               style={{ backgroundColor: "var(--onyx-color-base-info-200)" }}

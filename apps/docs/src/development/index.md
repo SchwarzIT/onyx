@@ -114,9 +114,7 @@ import { OnyxAppLayout, OnyxPageLayout, OnyxNavBar } from "sit-onyx";
       <OnyxNavBar app-name="My app" />
     </template>
 
-    <OnyxPageLayout>
-      <div class="onyx-grid-container">Your page content here...</div>
-    </OnyxPageLayout>
+    <OnyxPageLayout> Your page content here... </OnyxPageLayout>
   </OnyxAppLayout>
 </template>
 ```

@@ -1,46 +1,56 @@
 <script lang="ts" setup>
-import { computed } from "vue";
 import { provideSkeletonContext } from "../../composables/useSkeletonState";
 import type { OnyxPageLayoutProps } from "./types";
 
-const props = defineProps<OnyxPageLayoutProps>();
+const props = withDefaults(defineProps<OnyxPageLayoutProps>(), {
+  footerAlignment: "full",
+});
 
 const slots = defineSlots<{
-  /** Main content area of the page */
+  /**
+   * Main content area of the page.
+   */
   default(): unknown;
-  /** Optional sidebar of the page */
+  /**
+   * Optional (left) sidebar.
+   *
+   * For semantic HTML, it is recommended to use HTML elements like `<aside>` here.
+   */
   sidebar?(): unknown;
-  /** Optional footer of the page*/
+  /**
+   * Optional page footer.
+   * For semantic HTML, it is recommended to use HTML elements like `<footer>` here.
+   */
   footer?(): unknown;
 }>();
 
 provideSkeletonContext(props);
-
-/**
- * Determines whether the footer should be below or next to the sidebar.
- * Does not make a difference when a sidebar is hidden/not filled.
- */
-const pageModifier = computed(() => {
-  if (props.footerAsideSidebar) {
-    return "onyx-page--footer-partial";
-  }
-  return "onyx-page--footer-full";
-});
 </script>
 
 <template>
-  <div class="onyx-component onyx-page" :class="pageModifier">
-    <aside v-if="slots.sidebar && !props.hideSidebar" class="onyx-page__sidebar">
+  <div
+    class="onyx-component onyx-page"
+    :class="[
+      'onyx-component',
+      'onyx-page',
+      props.footerAlignment === 'page' ? 'onyx-page--footer-page' : '',
+    ]"
+  >
+    <div v-if="slots.sidebar" class="onyx-page__sidebar">
       <slot name="sidebar"></slot>
-    </aside>
+    </div>
 
     <main class="onyx-page__main">
-      <slot></slot>
+      <slot v-if="props.noPadding"></slot>
+
+      <div v-else class="onyx-grid-container">
+        <slot></slot>
+      </div>
     </main>
 
-    <footer v-if="slots.footer" class="onyx-page__footer">
+    <div v-if="slots.footer" class="onyx-page__footer">
       <slot name="footer"></slot>
-    </footer>
+    </div>
   </div>
 </template>
 
@@ -49,25 +59,16 @@ const pageModifier = computed(() => {
 
 .onyx-page {
   @include layers.component() {
-    --background-color-sidebar: var(--onyx-color-base-background-blank);
-    --background-color-main: var(--onyx-color-base-background-tinted);
-    --background-color-footer: var(--onyx-color-base-background-blank);
-
     height: 100%;
     width: 100%;
     display: grid;
-    grid-template-rows: auto;
-    grid-template-columns: auto;
-    grid-template-areas: "main";
+    grid-template-rows: 1fr max-content;
+    grid-template-columns: max-content 1fr;
+    grid-template-areas:
+      "side main"
+      "footer footer";
 
-    &--footer-full {
-      grid-template-columns: max-content 1fr;
-      grid-template-rows: 1fr max-content;
-      grid-template-areas:
-        "side main"
-        "footer footer";
-    }
-    &--footer-partial {
+    &--footer-page {
       grid-template-columns: max-content 1fr;
       grid-template-rows: 1fr max-content;
       grid-template-areas:
@@ -78,17 +79,25 @@ const pageModifier = computed(() => {
     &__sidebar {
       grid-area: side;
       overflow: hidden auto;
-      background-color: var(--background-color-sidebar);
     }
+
     &__main {
       grid-area: main;
       overflow: hidden auto;
       position: relative;
-      background-color: var(--background-color-main);
     }
+
     &__footer {
       grid-area: footer;
-      background-color: var(--background-color-footer);
+    }
+
+    &:has(&__sidebar) {
+      // disable centering of the onyx-grid-container when a sidebar exists
+      // because centering does not work here / is not aligned with the nav bar
+      .onyx-page__main > .onyx-grid-container,
+      &.onyx-page--footer-page {
+        --onyx-grid-margin-inline: 0;
+      }
     }
   }
 }
