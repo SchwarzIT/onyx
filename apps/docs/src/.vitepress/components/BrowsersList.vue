@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { data as browsersData } from "#src/.vitepress/browser-loader.data";
+import { OnyxEmpty } from "sit-onyx";
 
 const browsers = browsersData.browsers.filter((b) => b.coverage > 0);
 
@@ -19,7 +20,7 @@ const filteredBrowsers = popularBrowsers
 </script>
 
 <template>
-  <ul class="browsersList">
+  <ul v-if="filteredBrowsers.length" class="browsersList">
     <li v-for="browser in filteredBrowsers" :key="browser.name" class="browser">
       <img
         :src="browser.image"
@@ -32,6 +33,8 @@ const filteredBrowsers = popularBrowsers
       <p>Version ≥ {{ browser.minVersion }}</p>
     </li>
   </ul>
+
+  <OnyxEmpty v-else> No data available </OnyxEmpty>
 </template>
 
 <style lang="scss" scoped>

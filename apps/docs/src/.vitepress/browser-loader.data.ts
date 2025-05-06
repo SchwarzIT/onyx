@@ -49,6 +49,14 @@ export default defineLoader({
       return { browserRules, ...data };
     };
 
-    return cached(url, fetchBrowserslistData);
+    try {
+      return cached(url, fetchBrowserslistData);
+    } catch (e) {
+      // eslint-disable-next-line no-console -- only logged during build time
+      console.error(e);
+      return {
+        browsers: [],
+      };
+    }
   },
 });
