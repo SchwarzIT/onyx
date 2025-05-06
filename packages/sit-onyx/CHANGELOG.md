@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.207
+
+### Minor Changes
+
+- 911a6ea: feat(createOnyxFlyout): implement support component "OnyxFlyout"
+
 ## 1.0.0-beta.206
 
 ### Patch Changes
