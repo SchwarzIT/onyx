@@ -41,12 +41,10 @@ test.describe("OnyxFlyout", () => {
 
     // ASSERT
     await expect(flyout).toBeVisible();
-    await expect(flyout).toHaveScreenshot("flyout-opened.png");
     // ACT
     await changeButton.click();
     // ASSERT
     await expect(flyout).toBeHidden();
-    await expect(flyout).toHaveScreenshot("flyout-closed.png");
   });
 });
 test.describe("OnyxFlyout Screenshot Tests", () => {
