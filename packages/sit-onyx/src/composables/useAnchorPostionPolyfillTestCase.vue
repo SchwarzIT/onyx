@@ -1,15 +1,14 @@
 <!-- eslint-disable sitOnyx/require-root-class -->
 <!-- eslint-disable vue/no-static-inline-styles -->
 <script setup lang="ts">
-import type { TooltipPosition } from "src/components/OnyxTooltip/types";
 import { onMounted, ref, useTemplateRef } from "vue";
-import { useAnchorPositionPolyfill } from "./useAnchorPositionPolyfill";
-import type { WedgePosition } from "./useWedgePosition";
+import { useAnchorPositionPolyfill, type AnchorPosition } from "./useAnchorPositionPolyfill";
+import type { OpenAlignment } from "./useOpenAlignment";
 
 const positionedRef = useTemplateRef("positioned");
 const targetRef = useTemplateRef("target");
-const positionArea = ref<TooltipPosition>("top");
-const alignment = ref<WedgePosition>("center");
+const positionArea = ref<AnchorPosition>("top");
+const alignment = ref<OpenAlignment>("center");
 const alignsWithEdge = ref(false);
 const fitParent = ref(false);
 

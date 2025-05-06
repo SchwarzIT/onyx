@@ -1,7 +1,6 @@
-
-import type { OpenAlignment } from "./useOpenAlignment";
 import { onUnmounted, ref, toValue, watchEffect, type MaybeRefOrGetter, type Ref } from "vue";
 import { useIntersectionObserver } from "./useIntersectionObserver";
+import type { OpenAlignment } from "./useOpenAlignment";
 import { getTemplateRefElement, type VueTemplateRefElement } from "./useResizeObserver";
 
 // TODO: can be removed after anchor is implemented in all common browsers
@@ -24,8 +23,8 @@ export type AnchorPosition =
 type UseAnchorPositionPolyfillOptions = {
   positionedRef: Ref<VueTemplateRefElement>;
   targetRef: Ref<VueTemplateRefElement>;
-  positionArea: MaybeRefOrGetter<TooltipPosition>;
-  alignment: MaybeRefOrGetter<WedgePosition>;
+  positionArea: MaybeRefOrGetter<AnchorPosition>;
+  alignment: MaybeRefOrGetter<OpenAlignment>;
   alignsWithEdge: MaybeRefOrGetter<boolean>;
   fitParent: MaybeRefOrGetter<boolean>;
 };
@@ -55,8 +54,9 @@ export const useAnchorPositionPolyfill = ({
     let left = 0;
 
     const alignmentPositioning =
-      toValue(alignsWithEdge) && toValue(alignment) !== "center" &&
-        (toValue(positionArea) === "top" || toValue(positionArea) === "bottom")
+      toValue(alignsWithEdge) &&
+      toValue(alignment) !== "center" &&
+      (toValue(positionArea) === "top" || toValue(positionArea) === "bottom")
         ? toValue(alignment) === "left" || toValue(fitParent)
           ? targetRect.left
           : targetRect.right - positionedElRect.width
