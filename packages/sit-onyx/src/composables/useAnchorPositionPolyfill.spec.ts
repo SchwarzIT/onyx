@@ -3,7 +3,6 @@ import { ref } from "vue";
 import { useAnchorPositionPolyfill, type AnchorPosition } from "./useAnchorPositionPolyfill";
 import type { OpenAlignment } from "./useOpenAlignment";
 
-
 describe("useAnchorPositionPolyfill", () => {
   const positionedRef = ref<HTMLElement | null>(null);
   const targetRef = ref<HTMLElement | null>(null);
@@ -11,7 +10,6 @@ describe("useAnchorPositionPolyfill", () => {
   const alignment = ref<OpenAlignment>("center");
   const alignsWithEdge = ref(false);
   const fitParent = ref(false);
-
 
   beforeEach(() => {
     global.IntersectionObserver = class {
