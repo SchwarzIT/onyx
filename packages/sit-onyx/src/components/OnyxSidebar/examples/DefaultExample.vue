@@ -19,9 +19,7 @@ import { OnyxAppLayout, OnyxButton, OnyxHeadline, OnyxPageLayout, OnyxSidebar } 
       </template>
 
       <!-- page content -->
-      <div class="onyx-grid-container">
-        <OnyxHeadline is="h1">Page content</OnyxHeadline>
-      </div>
+      <OnyxHeadline is="h1">Page content</OnyxHeadline>
     </OnyxPageLayout>
   </OnyxAppLayout>
 </template>

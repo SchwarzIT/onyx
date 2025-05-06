@@ -1,11 +1,18 @@
 <script setup lang="ts">
-import { OnyxHeadline, OnyxPageLayout } from "../../..";
+import { OnyxHeadline, OnyxLink, OnyxPageLayout, OnyxSidebar } from "../../..";
 </script>
 
 <template>
   <OnyxPageLayout class="page">
     <template #sidebar>
-      <aside class="sidebar">OnyxSidebar component coming soon! Stay tuned.</aside>
+      <OnyxSidebar label="Example sidebar">
+        <template #header>
+          For sidebar examples, see:
+          <OnyxLink href="/?path=/docs/navigation-sidebar--docs" target="_parent">
+            OnyxSidebar
+          </OnyxLink>
+        </template>
+      </OnyxSidebar>
     </template>
 
     <!-- page content -->
@@ -29,12 +36,5 @@ import { OnyxHeadline, OnyxPageLayout } from "../../..";
   background-color: var(--onyx-color-base-background-blank);
   padding-top: var(--onyx-density-md);
   padding-bottom: var(--onyx-density-md);
-}
-
-.sidebar {
-  border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
-  background-color: var(--onyx-color-base-background-blank);
-  height: 100%;
-  padding: var(--onyx-density-md);
 }
 </style>
