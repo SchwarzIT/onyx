@@ -106,7 +106,7 @@ const { densityClass } = useDensity(props);
 
     &:is(.onyx-drawer) {
       --onyx-dialog-screen-gap: 0;
-      border-radius: 0;
+      --onyx-dialog-border-radius: 0;
     }
 
     &__header {

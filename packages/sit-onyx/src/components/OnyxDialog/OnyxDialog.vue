@@ -85,9 +85,10 @@ watch(
 .onyx-dialog {
   @include layers.component() {
     --onyx-dialog-screen-gap: var(--onyx-grid-margin);
+    --onyx-dialog-border-radius: var(--onyx-radius-md);
     outline: none;
     border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
-    border-radius: var(--onyx-radius-md);
+    border-radius: var(--onyx-dialog-border-radius);
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
     padding: var(--onyx-density-md) var(--onyx-density-lg);
