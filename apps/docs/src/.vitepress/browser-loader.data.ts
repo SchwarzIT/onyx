@@ -50,7 +50,7 @@ export default defineLoader({
     };
 
     try {
-      return cached(url, fetchBrowserslistData);
+      return await cached(url, fetchBrowserslistData);
     } catch (e) {
       // eslint-disable-next-line no-console -- only logged during build time
       console.error(e);
