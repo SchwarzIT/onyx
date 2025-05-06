@@ -95,7 +95,6 @@ const { t } = injectI18n();
   </div>
 </template>
 
-p
 <style lang="scss">
 @use "../../../../styles/mixins/layers.scss";
 

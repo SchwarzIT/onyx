@@ -1,4 +1,5 @@
 import { expect, test } from "../../playwright/a11y";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxFlyoutTestCase from "./OnyxFlyoutTestCase.vue";
 
 test.describe("OnyxFlyout", () => {
@@ -8,7 +9,7 @@ test.describe("OnyxFlyout", () => {
     });
 
     const flyout = component.getByText("Flyout Content");
-    const button = component.getByRole("button", { name: "Open" });
+    const button = component.getByRole("button", { name: "button" });
 
     // ASSERT
     await expect(flyout).toBeHidden();
@@ -30,20 +31,68 @@ test.describe("OnyxFlyout", () => {
     const component = await mount(OnyxFlyoutTestCase, {
       props: {
         label: "Flyout for testing",
-        expanded: true,
+        open: true,
+        showExpandedButton: true,
       },
     });
 
     const flyout = component.getByText("Flyout Content");
-    const changeButton = component.getByRole("button", { name: "Change Expanded" });
-
-    // ASSERT
-    await expect(flyout).toBeHidden();
-
-    // ACT
-    await changeButton.click();
+    const changeButton = component.getByRole("button", { name: "changeExpandedButton" });
 
     // ASSERT
     await expect(flyout).toBeVisible();
+    await expect(flyout).toHaveScreenshot("flyout-opened.png");
+    // ACT
+    await changeButton.click();
+    // ASSERT
+    await expect(flyout).toBeHidden();
+    await expect(flyout).toHaveScreenshot("flyout-closed.png");
+  });
+});
+test.describe("OnyxFlyout Screenshot Tests", () => {
+  test.describe("Alignment screenshot tests", () => {
+    executeMatrixScreenshotTest({
+      name: "Aligned tooltip",
+      columns: ["left", "center", "right"],
+      rows: ["top", "bottom"],
+      component: (column, row) => {
+        return (
+          <div
+            class="container"
+            style={{
+              margin: "0 1rem",
+              marginTop: row === "top" ? "2rem" : undefined,
+              marginBottom: row === "bottom" ? "2rem" : undefined,
+            }}
+          >
+            <OnyxFlyoutTestCase label="test" open={true} alignment={column} position={row} />
+          </div>
+        );
+      },
+    });
+  });
+
+  test.describe("Positioning Screenshot tests", () => {
+    executeMatrixScreenshotTest({
+      name: "Positioned Tooltip",
+      columns: ["default"],
+      rows: [
+        "top",
+        "top right",
+        "right",
+        "bottom right",
+        "bottom",
+        "bottom left",
+        "left",
+        "top left",
+      ],
+      component: (column, row) => {
+        return (
+          <div class="container" style={{ margin: "2rem 6rem" }}>
+            <OnyxFlyoutTestCase label="test" open={true} position={row} alignment="center" />
+          </div>
+        );
+      },
+    });
   });
 });

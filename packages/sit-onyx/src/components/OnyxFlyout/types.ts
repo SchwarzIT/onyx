@@ -10,7 +10,7 @@ export type OnyxFlyoutProps = {
   /**
    * Indicates whether the element is expanded or collapsed.
    */
-  expanded?: Nullable<boolean>;
+  open?: Nullable<boolean>;
   /**
    * How to position the flyout relative to the parent element.
    */

@@ -1,24 +1,38 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxFlyout from "./OnyxFlyout.vue";
 import type { OnyxFlyoutProps } from "./types";
 
-const props = defineProps<OnyxFlyoutProps>();
-const isExpanded = ref(false);
+const props = defineProps<
+  OnyxFlyoutProps & {
+    /**
+     * If Button is shown
+     */
+    showExpandedButton?: boolean;
+  }
+>();
+const isExpanded = ref(true);
 </script>
 
 <template>
-  <button
+  <OnyxButton
+    v-if="showExpandedButton"
     class="onyx-component"
     type="button"
     label="changeExpandedButton"
     @click="isExpanded = !isExpanded"
   >
     Change Expanded
-  </button>
-  <OnyxFlyout :label="props.label" :expanded="props.expanded ? isExpanded : undefined">
+  </OnyxButton>
+  <OnyxFlyout
+    :label="props.label"
+    :open="props.open ? isExpanded : undefined"
+    :alignment="props.alignment"
+    :position="props.position"
+  >
     <template #default="{ trigger }">
-      <button v-bind="trigger" label="button" type="button">Open</button>
+      <OnyxButton v-bind="trigger" label="button" type="button"> Open</OnyxButton>
     </template>
     <template #content>
       <div label="content">Flyout Content</div>

@@ -63,7 +63,7 @@ const {
   <OnyxFlyout
     class="onyx-component onyx-flyout-menu"
     v-bind="root"
-    :expanded="isExpanded"
+    :open="isExpanded"
     :label="props.label"
     :alignment="props.alignment"
   >

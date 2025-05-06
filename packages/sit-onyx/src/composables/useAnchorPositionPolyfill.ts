@@ -27,6 +27,7 @@ type UseAnchorPositionPolyfillOptions = {
   alignment: MaybeRefOrGetter<OpenAlignment>;
   alignsWithEdge: MaybeRefOrGetter<boolean>;
   fitParent: MaybeRefOrGetter<boolean>;
+  offset: number;
 };
 
 export const useAnchorPositionPolyfill = ({
@@ -36,6 +37,7 @@ export const useAnchorPositionPolyfill = ({
   alignment,
   alignsWithEdge,
   fitParent,
+  offset = 0,
 }: UseAnchorPositionPolyfillOptions) => {
   const leftPosition = ref("-1000px");
   const topPosition = ref("-1000px");
@@ -64,43 +66,43 @@ export const useAnchorPositionPolyfill = ({
 
     switch (toValue(positionArea)) {
       case "top":
-        top = targetRect.top - positionedElRect.height;
+        top = targetRect.top - positionedElRect.height - offset;
         left = alignmentPositioning;
         break;
 
       case "top right":
-        top = targetRect.top - positionedElRect.height;
-        left = targetRect.right;
+        top = targetRect.top - positionedElRect.height - offset;
+        left = targetRect.right + offset;
         break;
 
       case "top left":
-        top = targetRect.top - positionedElRect.height;
-        left = targetRect.left - positionedElRect.width;
+        top = targetRect.top - positionedElRect.height - offset;
+        left = targetRect.left - positionedElRect.width - offset;
         break;
 
       case "right":
         top = targetRect.top + targetRect.height / 2 - positionedElRect.height / 2;
-        left = targetRect.right;
+        left = targetRect.right + offset;
         break;
 
       case "bottom":
-        top = targetRect.bottom;
+        top = targetRect.bottom + offset;
         left = alignmentPositioning;
         break;
 
       case "bottom right":
-        top = targetRect.bottom;
-        left = targetRect.right;
+        top = targetRect.bottom + offset;
+        left = targetRect.right + offset;
         break;
 
       case "bottom left":
-        top = targetRect.bottom;
-        left = targetRect.left - positionedElRect.width;
+        top = targetRect.bottom + offset;
+        left = targetRect.left - positionedElRect.width - offset;
         break;
 
       case "left":
         top = targetRect.top + targetRect.height / 2 - positionedElRect.height / 2;
-        left = targetRect.left - positionedElRect.width;
+        left = targetRect.left - positionedElRect.width - offset;
         break;
     }
 

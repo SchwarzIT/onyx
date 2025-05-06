@@ -40,7 +40,7 @@ defineSlots<{
 const _isVisible = ref(false);
 const isVisible = computed({
   set: (newVal) => (_isVisible.value = newVal),
-  get: () => (typeof props.expanded === "boolean" ? props.expanded : _isVisible.value),
+  get: () => (typeof props.open === "boolean" ? props.open : _isVisible.value),
 });
 
 const flyoutPosition = computed(() =>
@@ -79,6 +79,7 @@ const { leftPosition, topPosition, updateAnchorPositionPolyfill } = useAnchorPos
   alignment: flyoutAlignment,
   alignsWithEdge: true,
   fitParent: false,
+  offset: 8,
 });
 
 const { width } = useResizeObserver(flyoutWrapperRef);
@@ -123,6 +124,7 @@ const toggle = () => {
 
 const trigger = computed(() => ({
   onClick: toggle,
+  onFocusIn: toggle,
   "aria-expanded": isVisible.value,
   "aria-controls": flyoutRef.value?.id,
 }));
@@ -132,10 +134,10 @@ const anchorName = computed(() => `--anchor-${id}`);
 
 const flyoutClasses = computed(() => {
   return {
-    [`onyx-flyout__modal--position-${flyoutPosition.value.replace(" ", "-")}`]: true,
-    [`onyx-flyout__modal--alignment-${flyoutAlignment.value}`]: true,
-    "onyx-flyout__modal--fitparent": props.fitParent,
-    "onyx-flyout__modal--dont-support-anchor": !USERAGENT_SUPPORTS_ANCHOR_API,
+    [`onyx-flyout__dialog--position-${flyoutPosition.value.replace(" ", "-")}`]: true,
+    [`onyx-flyout__dialog--alignment-${flyoutAlignment.value}`]: true,
+    "onyx-flyout__dialog--fitparent": props.fitParent,
+    "onyx-flyout__dialog--dont-support-anchor": !USERAGENT_SUPPORTS_ANCHOR_API,
   };
 });
 
@@ -156,10 +158,12 @@ watch([flyoutPosition, flyoutAlignment, flyoutWidth], async () => {
       role="dialog"
       :aria-label="props.label"
       popover="manual"
-      class="onyx-flyout__modal"
+      class="onyx-flyout__dialog"
       :class="flyoutClasses"
     >
-      <slot name="content"></slot>
+      <div class="onyx-flyout__dialog-content">
+        <slot name="content"></slot>
+      </div>
     </div>
   </div>
 </template>
@@ -168,11 +172,13 @@ watch([flyoutPosition, flyoutAlignment, flyoutWidth], async () => {
 @use "../../styles/mixins/layers";
 
 .onyx-flyout {
+  --onyx-flyout-min-width: var(--onyx-spacing-4xl);
+  --onyx-flyoput-max-width: 20rem;
   @include layers.component() {
     --onyx-flyout-gap: var(--onyx-spacing-2xs);
     display: inline-flex;
     position: relative;
-    &__modal {
+    &__dialog {
       position: fixed;
       position-anchor: v-bind("anchorName");
       position-area: v-bind("positionAndAlignment");
@@ -186,15 +192,10 @@ watch([flyoutPosition, flyoutAlignment, flyoutWidth], async () => {
       padding: 0;
       box-sizing: border-box;
 
-      min-width: var(--onyx-spacing-4xl);
-      max-width: 20rem;
+      min-width: var(--onyx-flyout-min-width);
+      max-width: var(--onyx-flyout-max-width);
       width: max-content;
       font-family: var(--onyx-font-family);
-
-      &--dont-support-anchor {
-        left: v-bind(leftPosition);
-        top: v-bind(topPosition);
-      }
 
       &:popover-open {
         display: flex;
@@ -221,10 +222,10 @@ watch([flyoutPosition, flyoutAlignment, flyoutWidth], async () => {
       }
       &--position-top {
         margin-bottom: var(--onyx-flyout-gap);
-        margin-left: var(--onyx-flyout-gap);
       }
       &--position-top-right {
         margin-bottom: var(--onyx-flyout-gap);
+        margin-left: var(--onyx-flyout-gap);
       }
       &--position-top-left {
         margin-bottom: var(--onyx-flyout-gap);
@@ -232,15 +233,21 @@ watch([flyoutPosition, flyoutAlignment, flyoutWidth], async () => {
       }
 
       &--alignment-left {
-        transform: translateX(100%);
-        &.onyx-flyout__modal--dont-support-anchor {
-          transform: none;
+        &.onyx-flyout__dialog--position-top,
+        &.onyx-flyout__dialog--position-bottom {
+          transform: translateX(100%);
+          &.onyx-flyout__dialog--dont-support-anchor {
+            transform: none;
+          }
         }
       }
       &--alignment-right {
-        transform: translateX(-100%);
-        &.onyx-flyout__modal--dont-support-anchor {
-          transform: none;
+        &.onyx-flyout__dialog--position-top,
+        &.onyx-flyout__dialog--position-bottom {
+          transform: translateX(-100%);
+          &.onyx-flyout__dialog--dont-support-anchor {
+            transform: none;
+          }
         }
       }
       &--fitparent {
@@ -248,10 +255,16 @@ watch([flyoutPosition, flyoutAlignment, flyoutWidth], async () => {
         max-width: inherit;
         width: v-bind(flyoutWidth);
       }
+
+      &--dont-support-anchor {
+        margin: 0;
+        left: v-bind(leftPosition);
+        top: v-bind(topPosition);
+      }
     }
   }
 }
-.dark .onyx-flyout-menu__list {
+.dark .onyx-flyout__dialog {
   @include layers.component() {
     outline: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
   }
