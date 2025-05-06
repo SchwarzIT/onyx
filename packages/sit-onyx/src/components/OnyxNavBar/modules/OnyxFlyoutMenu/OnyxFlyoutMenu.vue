@@ -1,13 +1,14 @@
 <script setup lang="ts" generic="TValue extends SelectOptionValue = SelectOptionValue">
 import { createMenuButton } from "@sit-onyx/headless";
 import { computed } from "vue";
+import OnyxFlyout from "../../../../components/OnyxFlyout/OnyxFlyout.vue";
 import { useVModel, type Nullable } from "../../../../composables/useVModel";
 import type { SelectOptionValue } from "../../../../types";
 import type { OnyxFlyoutMenuProps } from "./types";
-
 const props = withDefaults(defineProps<OnyxFlyoutMenuProps>(), {
   trigger: "hover",
   open: undefined,
+  alignment: "auto",
 });
 const emit = defineEmits<{
   /**
@@ -59,15 +60,18 @@ const {
 </script>
 
 <template>
-  <div class="onyx-component onyx-flyout-menu" v-bind="root">
-    <slot name="button" :trigger="button"></slot>
+  <OnyxFlyout
+    class="onyx-component onyx-flyout-menu"
+    v-bind="root"
+    :open="isExpanded"
+    :label="props.label"
+    :alignment="props.alignment"
+  >
+    <template v-if="slots.options || slots.header || slots.footer" #default>
+      <slot name="button" :trigger="button"></slot>
+    </template>
     <!-- `v-show` instead of `v-if` is necessary, so that we can allow (teleported) dialogs to be shown -->
-    <div
-      v-if="slots.options || slots.header || slots.footer"
-      v-show="isExpanded"
-      :aria-label="props.label"
-      class="onyx-flyout-menu__list"
-    >
+    <template #content>
       <!-- We always want to render the header so that we can render the padding here -->
       <div class="onyx-flyout-menu__list-header">
         <slot name="header"></slot>
@@ -85,8 +89,8 @@ const {
       <div class="onyx-flyout-menu__list-footer">
         <slot name="footer"></slot>
       </div>
-    </div>
-  </div>
+    </template>
+  </OnyxFlyout>
 </template>
 
 <style lang="scss">
@@ -100,33 +104,23 @@ const {
     position: relative;
 
     &__list {
-      position: absolute;
-      top: calc(100% + var(--onyx-flyout-menu-gap));
-      border-radius: var(--onyx-radius-md);
-      background-color: var(--onyx-color-base-background-blank);
-      padding: 0;
-      box-shadow: var(--onyx-shadow-medium-bottom);
-      box-sizing: border-box;
-      width: max-content;
-      min-width: var(--onyx-spacing-4xl);
-      max-width: 20rem;
-      font-family: var(--onyx-font-family);
-      z-index: var(--onyx-z-index-flyout);
-
       &-header {
         position: sticky;
         top: 0;
         min-height: var(--onyx-spacing-2xs);
+        width: 100%;
       }
 
       &-footer {
         position: sticky;
         bottom: 0;
         min-height: var(--onyx-spacing-2xs);
+        width: 100%;
       }
     }
 
     &__wrapper {
+      width: 100%;
       padding: 0;
       /**
        * The last option should only be half visible:
