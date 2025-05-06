@@ -27,10 +27,10 @@ const slots = defineSlots<{
 <template>
   <div
     class="onyx-component onyx-app"
-    :class="{ 'onyx-app--horizontal': props.navAlignment === 'left' }"
+    :class="{ 'onyx-app--horizontal': props.navBarAlignment === 'left' }"
   >
-    <div v-if="slots.nav" class="onyx-app__nav">
-      <slot name="nav"></slot>
+    <div v-if="slots.navBar" class="onyx-app__nav">
+      <slot name="navBar"></slot>
     </div>
 
     <div class="onyx-app__page">
