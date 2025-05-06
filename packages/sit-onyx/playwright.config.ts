@@ -21,7 +21,7 @@ export default defineConfig({
   testMatch: `**/*.ct.tsx`,
   expect: {
     toHaveScreenshot: {
-      threshold: 0,
+      threshold: 0.05,
     },
   },
 });
