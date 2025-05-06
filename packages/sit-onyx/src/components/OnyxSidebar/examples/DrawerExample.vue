@@ -9,7 +9,7 @@ const isOpen = ref(false);
   <OnyxAppLayout>
     <OnyxPageLayout>
       <template #sidebar>
-        <OnyxSidebar :drawer="{ label: 'Example sidebar', open: isOpen }" @close="isOpen = false">
+        <OnyxSidebar label="Example sidebar" :drawer="{ open: isOpen }" @close="isOpen = false">
           <template #description>
             Lorem ipsum dolor sit amet consectetur. Dui purus quisque est.
           </template>
