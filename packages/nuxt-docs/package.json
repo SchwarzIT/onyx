@@ -51,7 +51,7 @@
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/nuxt": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
-    "nuxt": "^3.17.1",
+    "nuxt": "^3.17.2",
     "sass-embedded": "catalog:",
     "sit-onyx": "workspace:^",
     "typescript": "catalog:",
