@@ -27,7 +27,7 @@ type UseAnchorPositionPolyfillOptions = {
   alignment: MaybeRefOrGetter<OpenAlignment>;
   alignsWithEdge: MaybeRefOrGetter<boolean>;
   fitParent: MaybeRefOrGetter<boolean>;
-  offset: number;
+  offset?: number;
 };
 
 export const useAnchorPositionPolyfill = ({
