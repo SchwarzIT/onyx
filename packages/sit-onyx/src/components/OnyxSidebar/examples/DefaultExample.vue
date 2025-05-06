@@ -6,7 +6,7 @@ import { OnyxAppLayout, OnyxButton, OnyxHeadline, OnyxPageLayout, OnyxSidebar } 
   <OnyxAppLayout>
     <OnyxPageLayout>
       <template #sidebar>
-        <OnyxSidebar>
+        <OnyxSidebar label="Example sidebar">
           <template #header> Header content </template>
 
           <div class="sidebar__content">Body content</div>
