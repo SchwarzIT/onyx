@@ -7,5 +7,4 @@ import { PLAYWRIGHT_BASE_CONFIG } from "@sit-onyx/shared/playwright.config.base"
 export default defineConfig({
   ...PLAYWRIGHT_BASE_CONFIG,
   testDir: "./",
-  testMatch: `**/*.ct.tsx`,
 });
