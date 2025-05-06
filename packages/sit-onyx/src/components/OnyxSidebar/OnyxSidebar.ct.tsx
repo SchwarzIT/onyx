@@ -26,7 +26,7 @@ test.beforeEach(async ({ page }) => {
 
 test("should render", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
-  const component = await mount(<OnyxSidebar>{CONTENT}</OnyxSidebar>);
+  const component = await mount(<OnyxSidebar style={{ margin: "1rem" }}>{CONTENT}</OnyxSidebar>);
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
