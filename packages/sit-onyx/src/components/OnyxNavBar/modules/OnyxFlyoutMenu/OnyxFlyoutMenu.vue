@@ -108,12 +108,14 @@ const {
         position: sticky;
         top: 0;
         min-height: var(--onyx-spacing-2xs);
+        width: 100%;
       }
 
       &-footer {
         position: sticky;
         bottom: 0;
         min-height: var(--onyx-spacing-2xs);
+        width: 100%;
       }
     }
 
