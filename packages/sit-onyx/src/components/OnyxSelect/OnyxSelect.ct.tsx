@@ -231,7 +231,7 @@ test.describe("Multiple screenshots", () => {
             withSearch={row === "search"}
             withCheckAll={row === "check-all"}
             textMode={row === "preview" ? "preview" : undefined}
-            style={{ marginBottom: "12rem" }}
+            style={{ marginBottom: row !== "preview" ? "15rem" : undefined }}
           />
         </div>
       );
@@ -361,7 +361,7 @@ test.describe("Invalidity handling screenshots", () => {
 
       return (
         <OnyxSelect
-          style="width: 12rem"
+          style={{ width: "12rem", marginRight: column === "long-text" ? "6rem" : undefined }}
           label={label}
           message={message}
           customError={row !== "messageTooltip" ? errorMessages : undefined}
