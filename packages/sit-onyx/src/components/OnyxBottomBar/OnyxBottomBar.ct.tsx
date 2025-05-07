@@ -43,6 +43,7 @@ Object.entries(ONYX_BREAKPOINTS).forEach(([breakpoint, width]) => {
         margin: 0;
         font-family: var(--onyx-font-family);
         color: var(--onyx-color-text-icons-neutral-intense);
+        background-color: var(--onyx-color-base-background-tinted);
       }`,
     });
 
