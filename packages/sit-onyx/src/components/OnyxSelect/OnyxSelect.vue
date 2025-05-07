@@ -20,7 +20,6 @@ import {
   type Ref,
 } from "vue";
 import { useCheckAll } from "../../composables/checkAll";
-import { useDensity } from "../../composables/density";
 import { useScrollEnd } from "../../composables/scrollEnd";
 import { useOpenDirection } from "../../composables/useOpenDirection";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState";
@@ -30,6 +29,7 @@ import type { SelectOptionValue } from "../../types";
 import { groupByKey } from "../../utils/objects";
 import { normalizedIncludes } from "../../utils/strings";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
+import OnyxFlyout from "../OnyxFlyout/OnyxFlyout.vue";
 import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxMiniSearch from "../OnyxMiniSearch/OnyxMiniSearch.vue";
@@ -79,8 +79,6 @@ const emit = defineEmits<{
    */
   "update:open": [value: boolean];
 }>();
-
-const { densityClass } = useDensity(props);
 
 const slots = defineSlots<{
   /**
@@ -369,125 +367,126 @@ defineExpose({ input: computed(() => selectInput.value?.input) });
 
 <template>
   <div ref="selectRef" class="onyx-component onyx-select-wrapper">
-    <OnyxSelectInput
-      ref="selectInputRef"
-      v-bind="selectInputProps"
-      :show-focus="open"
-      :autofocus="props.autofocus"
-      @input-click="onToggle"
-      @validity-change="emit('validityChange', $event)"
-    />
-
-    <div
-      :class="[
-        'onyx-select',
-        densityClass,
-        open ? 'onyx-select--open' : '',
-        `onyx-select--${openDirection}`,
-        `onyx-select--${props.alignment}`,
-      ]"
-      :inert="!open"
+    <OnyxFlyout
+      :label="props.listLabel"
+      :position="openDirection"
+      :alignment="props.alignment === 'full' ? 'center' : props.alignment"
+      :fit-parent="props.alignment === 'full'"
+      :open="open"
     >
-      <div v-scroll-end class="onyx-select__wrapper" tabindex="-1">
-        <!-- model-value is set here, as it is written by the onAutocomplete callback -->
-        <OnyxMiniSearch
-          v-if="props.withSearch"
-          ref="miniSearchRef"
-          :model-value="searchTerm"
-          v-bind="input"
-          :label="t('select.searchInputLabel')"
-          class="onyx-select__search"
-          @clear="searchTerm = ''"
+      <template #default>
+        <OnyxSelectInput
+          ref="selectInputRef"
+          v-bind="selectInputProps"
+          :show-focus="open"
+          :autofocus="props.autofocus"
+          @input-click="onToggle"
+          @validity-change="emit('validityChange', $event)"
         />
+      </template>
+      <template #content>
+        <div v-scroll-end class="onyx-select__wrapper" tabindex="-1">
+          <!-- model-value is set here, as it is written by the onAutocomplete callback -->
+          <OnyxMiniSearch
+            v-if="props.withSearch"
+            ref="miniSearchRef"
+            autofocus
+            :model-value="searchTerm"
+            v-bind="input"
+            :label="t('select.searchInputLabel')"
+            class="onyx-select__search"
+            @clear="searchTerm = ''"
+          />
 
-        <div v-bind="listbox">
-          <ul v-if="isEmptyMessage" role="group" class="onyx-select__group">
-            <li role="option" aria-selected="false">
-              <slot name="empty" :default-message="isEmptyMessage">
-                <OnyxEmpty>{{ isEmptyMessage }}</OnyxEmpty>
-              </slot>
-            </li>
-          </ul>
-
-          <template v-else>
-            <!-- select-all option for "multiple" -->
-            <ul
-              v-if="props.multiple && props.withCheckAll && !searchTerm"
-              class="onyx-select__check-all"
-              v-bind="headlessGroup({ label: checkAllLabel })"
-            >
-              <OnyxSelectOption
-                v-bind="
-                  headlessOption({
-                    value: CHECK_ALL_ID as TValue,
-                    label: checkAllLabel,
-                    // TODO: remove type cast once its fixed in Vue / vue-tsc version
-                    selected: checkAll?.state.value.modelValue,
-                  })
-                "
-                multiple
-                :active="CHECK_ALL_ID === activeValue"
-                :indeterminate="checkAll?.state.value.indeterminate"
-                :density="props.density"
-              >
-                {{ checkAllLabel }}
-              </OnyxSelectOption>
-            </ul>
-
-            <!-- TODO: remove type cast once its fixed in Vue / vue-tsc version -->
-            <ul
-              v-for="(groupOptions, group) in groupedOptions as Record<
-                string,
-                SelectOption<TValue>[]
-              >"
-              :key="group"
-              class="onyx-select__group"
-              v-bind="headlessGroup({ label: group })"
-            >
-              <li
-                v-if="group != ''"
-                role="presentation"
-                class="onyx-select__group-name onyx-text--small"
-              >
-                {{ group }}
-              </li>
-              <OnyxSelectOption
-                v-for="option in groupOptions"
-                :key="option.value.toString()"
-                v-bind="
-                  headlessOption({
-                    value: option.value,
-                    label: option.label,
-                    disabled: option.disabled,
-                    selected: arrayValue.some((value: TValue) => value === option.value),
-                  })
-                "
-                :multiple="props.multiple"
-                :active="option.value === activeValue"
-                :icon="option.icon"
-                :density="props.density"
-                :truncation="option.truncation ?? props.truncation"
-              >
-                <slot name="option" v-bind="option">
-                  {{ option.label }}
+          <div v-bind="listbox">
+            <ul v-if="isEmptyMessage" role="group" class="onyx-select__group">
+              <li role="option" aria-selected="false">
+                <slot name="empty" :default-message="isEmptyMessage">
+                  <OnyxEmpty>{{ isEmptyMessage }}</OnyxEmpty>
                 </slot>
-              </OnyxSelectOption>
+              </li>
             </ul>
-          </template>
-        </div>
 
-        <div v-if="props.lazyLoading?.loading" class="onyx-select__slot">
-          <OnyxLoadingIndicator class="onyx-select__loading" />
-        </div>
+            <template v-else>
+              <!-- select-all option for "multiple" -->
+              <ul
+                v-if="props.multiple && props.withCheckAll && !searchTerm"
+                class="onyx-select__check-all"
+                v-bind="headlessGroup({ label: checkAllLabel })"
+              >
+                <OnyxSelectOption
+                  v-bind="
+                    headlessOption({
+                      value: CHECK_ALL_ID as TValue,
+                      label: checkAllLabel,
+                      // TODO: remove type cast once its fixed in Vue / vue-tsc version
+                      selected: checkAll?.state.value.modelValue,
+                    })
+                  "
+                  multiple
+                  :active="CHECK_ALL_ID === activeValue"
+                  :indeterminate="checkAll?.state.value.indeterminate"
+                  :density="props.density"
+                >
+                  {{ checkAllLabel }}
+                </OnyxSelectOption>
+              </ul>
 
-        <div v-if="slots.optionsEnd" class="onyx-select__slot">
-          <slot name="optionsEnd"></slot>
+              <!-- TODO: remove type cast once its fixed in Vue / vue-tsc version -->
+              <ul
+                v-for="(groupOptions, group) in groupedOptions as Record<
+                  string,
+                  SelectOption<TValue>[]
+                >"
+                :key="group"
+                class="onyx-select__group"
+                v-bind="headlessGroup({ label: group })"
+              >
+                <li
+                  v-if="group != ''"
+                  role="presentation"
+                  class="onyx-select__group-name onyx-text--small"
+                >
+                  {{ group }}
+                </li>
+                <OnyxSelectOption
+                  v-for="option in groupOptions"
+                  :key="option.value.toString()"
+                  v-bind="
+                    headlessOption({
+                      value: option.value,
+                      label: option.label,
+                      disabled: option.disabled,
+                      selected: arrayValue.some((value: TValue) => value === option.value),
+                    })
+                  "
+                  :multiple="props.multiple"
+                  :active="option.value === activeValue"
+                  :icon="option.icon"
+                  :density="props.density"
+                  :truncation="option.truncation ?? props.truncation"
+                >
+                  <slot name="option" v-bind="option">
+                    {{ option.label }}
+                  </slot>
+                </OnyxSelectOption>
+              </ul>
+            </template>
+          </div>
+
+          <div v-if="props.lazyLoading?.loading" class="onyx-select__slot">
+            <OnyxLoadingIndicator class="onyx-select__loading" />
+          </div>
+
+          <div v-if="slots.optionsEnd" class="onyx-select__slot">
+            <slot name="optionsEnd"></slot>
+          </div>
         </div>
-      </div>
-      <div v-if="props.listDescription" class="onyx-select__description onyx-text--small">
-        {{ props.listDescription }}
-      </div>
-    </div>
+        <div v-if="props.listDescription" class="onyx-select__description onyx-text--small">
+          {{ props.listDescription }}
+        </div>
+      </template>
+    </OnyxFlyout>
   </div>
 </template>
 
@@ -519,24 +518,6 @@ defineExpose({ input: computed(() => selectInput.value?.input) });
       opacity: 1;
     }
 
-    &--top {
-      bottom: calc(100% + var(--onyx-outline-width));
-    }
-
-    &--bottom {
-      top: calc(100% + var(--onyx-outline-width));
-    }
-
-    &--full {
-      width: 100%;
-      max-width: unset;
-      left: 0;
-    }
-
-    &--right {
-      right: 0;
-    }
-
     &__search {
       position: sticky;
       top: 0;
@@ -546,6 +527,9 @@ defineExpose({ input: computed(() => selectInput.value?.input) });
       border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
     }
 
+    &__wrapper {
+      width: 100%;
+    }
     &:has(&__wrapper:focus-visible) {
       outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
     }
