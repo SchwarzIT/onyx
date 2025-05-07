@@ -17,12 +17,12 @@ export const useResizing = createFeature(
     const { isEnabled } = useIsFeatureEnabled(options);
     const colWidths = ref(new Map<keyof TEntry, string>());
     const showLastCol = ref(false);
-    const scrollContainer = ref<HTMLElement | undefined>();
-    const header = ref<HTMLElement | undefined>();
+    const scrollContainer = ref<HTMLElement>();
+    const header = ref<HTMLElement>();
     let tableWidth: number;
     let tableWrapperWidth: number;
-    let previousWidth: string | undefined = undefined;
-    let abortController: AbortController | undefined = undefined;
+    let previousWidth: string | undefined;
+    let abortController: AbortController | undefined;
 
     watch(
       [headers, colWidths],
