@@ -7,12 +7,12 @@ import { OnyxAppLayout, OnyxHeadline, OnyxLink, OnyxPageLayout, OnyxSidebar } fr
     <OnyxPageLayout footer-alignment="page">
       <template #sidebar>
         <OnyxSidebar label="Example sidebar">
-          <template #header>
+          <div class="sidebar__content">
             For sidebar examples, see:
             <OnyxLink href="/?path=/docs/navigation-sidebar--docs" target="_parent">
               OnyxSidebar
             </OnyxLink>
-          </template>
+          </div>
         </OnyxSidebar>
       </template>
 
@@ -28,6 +28,12 @@ import { OnyxAppLayout, OnyxHeadline, OnyxLink, OnyxPageLayout, OnyxSidebar } fr
 </template>
 
 <style lang="scss" scoped>
+.sidebar {
+  &__content {
+    padding: var(--onyx-sidebar-padding);
+  }
+}
+
 .footer {
   border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
   background-color: var(--onyx-color-base-background-blank);
