@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.209
+
+### Patch Changes
+
+- bd34fb4: fix(anchor): prevent "window is not defined" error in SSR
+
 ## 1.0.0-beta.208
 
 ### Major Changes
