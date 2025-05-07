@@ -3,10 +3,10 @@ import OnyxAppLayout from "./OnyxAppLayout.vue";
 
 test.beforeEach(async ({ page }) => {
   await page.addStyleTag({
-    content: `body {
-      margin: 0;
-      background: lightgrey;
-    }`,
+    content: `
+      body { margin: 0; }
+      .onyx-app__page { background: lightgrey; }
+      `,
   });
 });
 
@@ -42,6 +42,20 @@ test("should render with left nav", async ({ mount, makeAxeBuilder }) => {
 
   // ASSERT
   await expect(component).toHaveScreenshot("nav-left.png");
+
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
+});
+
+test("should render without nav", async ({ mount, makeAxeBuilder }) => {
+  // ARRANGE
+  const component = await mount(<OnyxAppLayout />);
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("without-nav.png");
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
