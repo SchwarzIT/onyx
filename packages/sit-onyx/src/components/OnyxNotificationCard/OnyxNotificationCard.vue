@@ -56,6 +56,7 @@ const { timeAgo } = useRelativeTimeFormat({
               class="onyx-notification-card__more-actions"
               :label="t('notificationCard.moreActions')"
               trigger="click"
+              alignment="right"
             >
               <template #button="{ trigger }">
                 <OnyxSystemButton

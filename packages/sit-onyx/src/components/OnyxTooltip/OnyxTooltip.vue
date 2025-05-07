@@ -20,9 +20,9 @@ import {
   useAnchorPositionPolyfill,
   USERAGENT_SUPPORTS_ANCHOR_API,
 } from "../../composables/useAnchorPositionPolyfill";
+import { useOpenAlignment } from "../../composables/useOpenAlignment";
 import { useOpenDirection } from "../../composables/useOpenDirection";
 import { useResizeObserver } from "../../composables/useResizeObserver";
-import { useWedgePosition } from "../../composables/useWedgePosition";
 import { injectI18n } from "../../i18n";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxTooltipProps } from "./types";
@@ -97,7 +97,7 @@ const toolTipPosition = computed(() =>
   props.position === "auto" ? openDirection.value : props.position,
 );
 const alignment = computed(() =>
-  props.alignment === "auto" ? wedgePosition.value : props.alignment,
+  props.alignment === "auto" ? openAlignment.value : props.alignment,
 );
 
 // classes for the tooltip | computed to prevent bugs
@@ -146,7 +146,7 @@ const fitParent = computed(() => props.fitParent);
 const tooltipWrapperRef = useTemplateRef("tooltipWrapperRefEl");
 const tooltipRef = useTemplateRef("tooltipRefEl");
 const { openDirection, updateOpenDirection } = useOpenDirection(tooltipWrapperRef, "top");
-const { wedgePosition, updateWedgePosition } = useWedgePosition(tooltipWrapperRef, tooltipRef);
+const { openAlignment, updateOpenAlignment } = useOpenAlignment(tooltipWrapperRef, tooltipRef);
 const { leftPosition, topPosition, updateAnchorPositionPolyfill } = useAnchorPositionPolyfill({
   positionedRef: tooltipRef,
   targetRef: tooltipWrapperRef,
@@ -159,7 +159,7 @@ const { leftPosition, topPosition, updateAnchorPositionPolyfill } = useAnchorPos
 // update open direction on resize to ensure the tooltip is always visible
 const updateDirections = () => {
   updateOpenDirection();
-  updateWedgePosition();
+  updateOpenAlignment();
 };
 
 useGlobalEventListener({
@@ -232,7 +232,7 @@ $wedge-size: 0.5rem;
 
 .onyx-tooltip {
   @include layers.component() {
-    position: absolute;
+    position: fixed;
     min-width: var(--onyx-spacing-3xl);
     width: max-content;
     max-width: 19rem;

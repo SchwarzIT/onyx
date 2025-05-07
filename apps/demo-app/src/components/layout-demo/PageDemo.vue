@@ -22,7 +22,7 @@ const showSidebarOpenButton = computed<boolean>(() => {
 </script>
 
 <template>
-  <div class="page">
+  <div>
     <OnyxHeadline is="h1">Scrollable page content</OnyxHeadline>
 
     <LayoutSettings v-model="settings" horizontal />
@@ -50,10 +50,3 @@ const showSidebarOpenButton = computed<boolean>(() => {
     />
   </div>
 </template>
-
-<style lang="scss" scoped>
-.page {
-  padding: var(--onyx-spacing-xl);
-  box-sizing: border-box;
-}
-</style>

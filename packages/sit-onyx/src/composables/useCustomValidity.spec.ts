@@ -102,6 +102,47 @@ describe("useCustomValidity", () => {
     expect(tFunctionMock).toHaveBeenCalledTimes(0);
   });
 
+  test("should set custom error immediately, so that element validity and errorMessages are in sync", async () => {
+    // ARRANGE
+    const initialValidity: ValidityState = getDefaultValidityState();
+    let currentValidity: ValidityState | undefined;
+
+    const mockInput = {
+      validity: initialValidity,
+      setCustomValidity: vi.fn(),
+    } satisfies InputValidationElement;
+
+    const props = reactive<UseCustomValidityOptions["props"]>({
+      customError: "",
+    });
+
+    const customError = ref<CustomMessageType>();
+    const { vCustomValidity, errorMessages } = useCustomValidity({
+      customError,
+      props,
+      emit: (_, validity) => (currentValidity = validity),
+    });
+
+    // ACT
+    vCustomValidity.mounted(mockInput);
+    await nextTick();
+
+    // ASSERT initial conditions
+    expect(currentValidity).toBeUndefined();
+    expect(errorMessages.value).toBeUndefined();
+
+    // ACT set custom error
+    mockInput.validity = { ...getDefaultValidityState(), customError: true, valid: false };
+    props.modelValue = "Test";
+    customError.value = "custom error";
+    await nextTick();
+
+    // ASSERT everything is updated as expected
+    expect(errorMessages.value).toBeDefined();
+    expect(mockInput.setCustomValidity).toBeCalledWith("custom error");
+    expect(currentValidity).toStrictEqual(mockInput.validity);
+  });
+
   test.each([
     { cause: "badInput", key: "validations.badInput" },
     { cause: "patternMismatch", key: "validations.patternMismatch" },

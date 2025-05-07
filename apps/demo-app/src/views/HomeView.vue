@@ -175,7 +175,7 @@ const openAccordionItems = ref<string[]>([]);
       </div>
     </template>
 
-    <div class="page" :class="[`onyx-density-${activeDensityOption}`]">
+    <div :class="`onyx-density-${activeDensityOption}`">
       <section class="page__intro">
         <OnyxHeadline is="h1" :skeleton="false">Component usages</OnyxHeadline>
         <p>Each onyx component should be used at least once in this page.</p>
@@ -395,6 +395,7 @@ const openAccordionItems = ref<string[]>([]);
         <!-- Add new components alphabetically. -->
       </div>
     </div>
+
     <template #footer>
       <OnyxBottomBar>
         <OnyxButton label="Button" mode="plain" color="neutral"></OnyxButton>
@@ -413,10 +414,9 @@ const openAccordionItems = ref<string[]>([]);
   border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
   height: calc(100%);
   width: 16rem;
+  background-color: var(--onyx-color-base-background-blank);
 }
 .page {
-  padding: var(--onyx-spacing-xl);
-
   &__intro {
     margin-bottom: var(--onyx-spacing-lg);
   }

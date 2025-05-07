@@ -41,61 +41,59 @@ const formSettings = ref<OnyxFormProps>({
 
 <template>
   <OnyxPageLayout>
-    <div class="onyx-grid-container">
-      <OnyxHeadline is="h1" element="h1">Form Demos</OnyxHeadline>
-      <section class="header onyx-grid">
-        <OnyxHeadline is="h2" class="onyx-grid-span-full"> Settings</OnyxHeadline>
+    <OnyxHeadline is="h1" element="h1">Form Demos</OnyxHeadline>
+    <section class="header onyx-grid">
+      <OnyxHeadline is="h2" class="onyx-grid-span-full"> Settings</OnyxHeadline>
 
-        <LanguageSelection v-model="locale" class="onyx-grid-span-2" />
-        <div class="onyx-grid-span-2">
-          <OnyxHeadline is="h5" element="h3">Toggles</OnyxHeadline>
-          <OnyxCheckbox v-model="formSettings.disabled" label="Disabled" value="disabled-form" />
-          <OnyxCheckbox v-model="formSettings.skeleton" label="Skeleton" value="skeleton-form" />
-        </div>
-        <OnyxSelect
-          v-model="formSettings.showError"
-          label="Show Errors"
-          value="error-mode-form"
-          class="onyx-grid-span-2"
-          :options="[
-            { label: 'touched', value: 'touched' },
-            { label: 'true', value: true },
-            { label: 'false', value: false },
-          ]"
-        />
-        <OnyxSelect
-          v-model="formSettings.requiredMarker"
-          label="Required Marker"
-          value="required-mode-form"
-          class="onyx-grid-span-2"
-          :options="[
-            { label: 'required', value: 'required' },
-            { label: 'optional', value: 'optional' },
-          ]"
-        />
-        <OnyxSelect
-          v-model="formSettings.density"
-          label="Density"
-          value="required-mode-form"
-          class="onyx-grid-span-2"
-          :options="[
-            { label: 'compact', value: 'compact' },
-            { label: 'default', value: 'default' },
-            { label: 'cozy', value: 'cozy' },
-          ]"
-        />
-      </section>
+      <LanguageSelection v-model="locale" class="onyx-grid-span-2" />
+      <div class="onyx-grid-span-2">
+        <OnyxHeadline is="h5" element="h3">Toggles</OnyxHeadline>
+        <OnyxCheckbox v-model="formSettings.disabled" label="Disabled" value="disabled-form" />
+        <OnyxCheckbox v-model="formSettings.skeleton" label="Skeleton" value="skeleton-form" />
+      </div>
+      <OnyxSelect
+        v-model="formSettings.showError"
+        label="Show Errors"
+        value="error-mode-form"
+        class="onyx-grid-span-2"
+        :options="[
+          { label: 'touched', value: 'touched' },
+          { label: 'true', value: true },
+          { label: 'false', value: false },
+        ]"
+      />
+      <OnyxSelect
+        v-model="formSettings.requiredMarker"
+        label="Required Marker"
+        value="required-mode-form"
+        class="onyx-grid-span-2"
+        :options="[
+          { label: 'required', value: 'required' },
+          { label: 'optional', value: 'optional' },
+        ]"
+      />
+      <OnyxSelect
+        v-model="formSettings.density"
+        label="Density"
+        value="required-mode-form"
+        class="onyx-grid-span-2"
+        :options="[
+          { label: 'compact', value: 'compact' },
+          { label: 'default', value: 'default' },
+          { label: 'cozy', value: 'cozy' },
+        ]"
+      />
+    </section>
 
-      <OnyxHeadline is="h2" element="h1">Initially Invalid example</OnyxHeadline>
-      <FormDemo v-bind="formSettings" v-model="invalidFormData" />
-      <pre class="state">State: {{ invalidFormData }}</pre>
+    <OnyxHeadline is="h2" element="h1">Initially Invalid example</OnyxHeadline>
+    <FormDemo v-bind="formSettings" v-model="invalidFormData" />
+    <pre class="state">State: {{ invalidFormData }}</pre>
 
-      <hr />
+    <hr />
 
-      <OnyxHeadline is="h2" element="h1">Initially Valid example</OnyxHeadline>
-      <FormDemo v-bind="formSettings" v-model="validFormData" />
-      <pre class="state">State: {{ validFormData }}</pre>
-    </div>
+    <OnyxHeadline is="h2" element="h1">Initially Valid example</OnyxHeadline>
+    <FormDemo v-bind="formSettings" v-model="validFormData" />
+    <pre class="state">State: {{ validFormData }}</pre>
   </OnyxPageLayout>
 </template>
 

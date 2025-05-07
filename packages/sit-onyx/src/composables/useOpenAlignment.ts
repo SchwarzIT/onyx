@@ -1,21 +1,22 @@
 import { ref, unref, type ShallowRef } from "vue";
 import { findParentWithHiddenOverflow } from "./useOpenDirection";
 
-export type WedgePosition = "center" | "left" | "right";
+export type OpenAlignment = "center" | "left" | "right";
 
-export const useWedgePosition = (
+export const useOpenAlignment = (
   element: Readonly<ShallowRef<Element | null>>,
   tooltipElement: Readonly<ShallowRef<Element | null>>,
+  defaultPosition: "center" | "left" | "right" = "center",
 ) => {
   const minMargin = 16;
-  const wedgePosition = ref<WedgePosition>("center");
+  const openAlignment = ref<OpenAlignment>(defaultPosition);
 
-  const updateWedgePosition = () => {
+  const updateOpenAlignment = () => {
     const wrapperEl = unref(element);
     const tooltipEl = unref(tooltipElement);
 
     if (!wrapperEl || !tooltipEl) {
-      wedgePosition.value = "center";
+      openAlignment.value = defaultPosition;
       return;
     }
 
@@ -24,7 +25,7 @@ export const useWedgePosition = (
     const tooltipElementRect = tooltipEl.getBoundingClientRect();
 
     if (tooltipElementRect.width < wrapperRect.width) {
-      wedgePosition.value = "center";
+      openAlignment.value = defaultPosition;
       return;
     }
 
@@ -42,9 +43,9 @@ export const useWedgePosition = (
     const enoughSpaceLeft = freeSpaceLeft >= minSpace;
     const enoughSpaceRight = freeSpaceRight >= minSpace;
 
-    wedgePosition.value =
+    openAlignment.value =
       enoughSpaceLeft === enoughSpaceRight
-        ? "center"
+        ? defaultPosition
         : freeSpaceLeft > freeSpaceRight
           ? "right"
           : "left";
@@ -54,11 +55,11 @@ export const useWedgePosition = (
     /**
      * Direction in which the flyout etc. should open to.
      */
-    wedgePosition,
+    openAlignment,
     /**
      * Detects in which direction a flyout etc. should be opened, depending on the available space in each direction.
      * Should only be called onBeforeMount or later to support server side rendering.
      */
-    updateWedgePosition,
+    updateOpenAlignment,
   };
 };
