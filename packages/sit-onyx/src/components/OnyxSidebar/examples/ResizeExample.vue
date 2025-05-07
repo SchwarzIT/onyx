@@ -6,7 +6,7 @@ import { OnyxAppLayout, OnyxButton, OnyxHeadline, OnyxPageLayout, OnyxSidebar } 
   <OnyxAppLayout>
     <OnyxPageLayout>
       <template #sidebar>
-        <OnyxSidebar resizable>
+        <OnyxSidebar label="Example sidebar" resizable>
           <template #header> Header content </template>
 
           <div class="sidebar__content">
