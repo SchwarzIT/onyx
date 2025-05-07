@@ -11,4 +11,5 @@ applications:
       STORAGE_PATH: turbo-remote-cache
       AWS_ACCESS_KEY_ID: ((AWS_ACCESS_KEY_ID))
       AWS_SECRET_ACCESS_KEY: ((AWS_SECRET_ACCESS_KEY))
+      AWS_REGION: eu01
       S3_ENDPOINT: https://object.storage.eu01.onstackit.cloud
