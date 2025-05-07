@@ -3,7 +3,7 @@ import { OnyxHeadline, OnyxPageLayout } from "../../..";
 </script>
 
 <template>
-  <OnyxPageLayout>
+  <OnyxPageLayout class="page">
     <!-- page content -->
     <OnyxHeadline is="h1">Page content</OnyxHeadline>
 
@@ -15,6 +15,11 @@ import { OnyxHeadline, OnyxPageLayout } from "../../..";
 </template>
 
 <style lang="scss" scoped>
+.page {
+  // only needed for this example. Can be removed if used together with the OnyxAppLayout
+  height: 100vh;
+}
+
 .footer {
   border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
   background-color: var(--onyx-color-base-background-blank);
