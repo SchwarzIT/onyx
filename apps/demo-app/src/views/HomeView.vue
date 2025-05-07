@@ -28,6 +28,7 @@ import {
   OnyxPagination,
   OnyxRadioGroup,
   OnyxSelect,
+  OnyxSidebar,
   OnyxSkeleton,
   OnyxStepper,
   OnyxSwitch,
@@ -156,23 +157,25 @@ const openAccordionItems = ref<string[]>([]);
 <template>
   <OnyxPageLayout :skeleton="useSkeleton">
     <template #sidebar>
-      <div class="sidebar">
-        <OnyxRadioGroup v-model="activeDensityOption" label="Density" :options="densityOptions" />
-        <LanguageSelection v-model="locale" />
+      <OnyxSidebar label="Settings">
+        <div class="sidebar__content">
+          <OnyxRadioGroup v-model="activeDensityOption" label="Density" :options="densityOptions" />
+          <LanguageSelection v-model="locale" />
 
-        <OnyxSwitch v-model="useSkeleton" label="All as Skeleton" :skeleton="false" />
+          <OnyxSwitch v-model="useSkeleton" label="All as Skeleton" :skeleton="false" />
 
-        <OnyxSelect
-          v-model="componentsToShow"
-          :options="configOptions"
-          label="Visible examples"
-          list-label="Available components"
-          text-mode="preview"
-          multiple
-          with-check-all
-          with-search
-        />
-      </div>
+          <OnyxSelect
+            v-model="componentsToShow"
+            :options="configOptions"
+            label="Visible examples"
+            list-label="Available components"
+            text-mode="preview"
+            multiple
+            with-check-all
+            with-search
+          />
+        </div>
+      </OnyxSidebar>
     </template>
 
     <div :class="`onyx-density-${activeDensityOption}`">
@@ -407,15 +410,14 @@ const openAccordionItems = ref<string[]>([]);
 
 <style lang="scss" scoped>
 .sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: var(--onyx-spacing-md);
-  padding: var(--onyx-spacing-md);
-  border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
-  height: calc(100%);
-  width: 16rem;
-  background-color: var(--onyx-color-base-background-blank);
+  &__content {
+    padding: var(--onyx-sidebar-padding);
+    display: flex;
+    flex-direction: column;
+    gap: var(--onyx-spacing-md);
+  }
 }
+
 .page {
   &__intro {
     margin-bottom: var(--onyx-spacing-lg);
@@ -427,13 +429,16 @@ const openAccordionItems = ref<string[]>([]);
     align-items: flex-start;
   }
 }
+
 .skeleton {
   height: 2rem;
   width: 8rem;
 }
+
 .state-info {
   color: var(--onyx-color-text-icons-neutral-soft);
 }
+
 .tooltip-container {
   display: flex;
   justify-content: space-between;
