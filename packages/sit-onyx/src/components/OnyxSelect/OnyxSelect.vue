@@ -402,7 +402,7 @@ defineExpose({ input: computed(() => selectInput.value?.input) });
             <ul v-if="isEmptyMessage" role="group" class="onyx-select__group">
               <li role="option" aria-selected="false">
                 <slot name="empty" :default-message="isEmptyMessage">
-                  <OnyxEmpty>{{ isEmptyMessage }}</OnyxEmpty>
+                  <OnyxEmpty :density="props.density">{{ isEmptyMessage }}</OnyxEmpty>
                 </slot>
               </li>
             </ul>
@@ -504,13 +504,6 @@ defineExpose({ input: computed(() => selectInput.value?.input) });
 
 .onyx-select {
   @include layers.component() {
-    position: absolute;
-    visibility: hidden;
-    opacity: 0;
-    transition:
-      visibility var(--onyx-duration-sm),
-      opacity var(--onyx-duration-sm);
-
     @include list.styles();
 
     &--open {
@@ -529,6 +522,9 @@ defineExpose({ input: computed(() => selectInput.value?.input) });
 
     &__wrapper {
       width: 100%;
+      .onyx-empty {
+        max-width: 100%;
+      }
     }
     &:has(&__wrapper:focus-visible) {
       outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
@@ -573,10 +569,6 @@ defineExpose({ input: computed(() => selectInput.value?.input) });
 
     &:has(.onyx-select__description) {
       padding-bottom: 0;
-    }
-
-    .onyx-empty {
-      max-width: 100%;
     }
   }
 }
