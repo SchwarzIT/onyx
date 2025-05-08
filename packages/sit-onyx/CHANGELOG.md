@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.211
+
+### Minor Changes
+
+- e2f1083: feat(OnyxDataGrid): Add extra empty column which fills in the space between the last column and the end of the table
+
 ## 1.0.0-beta.210
 
 ### Minor Changes
