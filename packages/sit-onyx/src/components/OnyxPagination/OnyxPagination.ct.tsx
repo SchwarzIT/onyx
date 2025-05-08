@@ -27,6 +27,7 @@ test.describe("screenshot tests", () => {
           density={column}
           disabled={row === "disabled"}
           skeleton={row === "skeleton"}
+          style={{ marginBottom: row === "open" ? "20rem" : undefined }}
         />
       );
     },
