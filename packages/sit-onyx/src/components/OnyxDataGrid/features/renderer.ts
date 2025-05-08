@@ -1,3 +1,4 @@
+import { createTypeRenderer, type DataGridFeature, type TypeRenderer, type TypeRenderMap } from ".";
 import {
   injectI18n,
   type OnyxDateFormatOptions,
@@ -8,12 +9,6 @@ import { allObjectEntries } from "../../../utils/objects";
 import type { DateValue } from "../../OnyxDatePicker/types";
 import type { DataGridEntry } from "../types";
 import HeaderCell from "./HeaderCell.vue";
-import {
-  createTypeRenderer,
-  type DataGridFeature,
-  type TypeRenderer,
-  type TypeRenderMap,
-} from "./index";
 import "./renderer.scss";
 
 export const FALLBACK_RENDER_VALUE = "-" as const;
@@ -144,10 +139,11 @@ export const createRenderer = <TEntry extends DataGridEntry>(
     getFor: <
       TComponent extends "cell" | "header",
       // eslint-disable-next-line @typescript-eslint/no-explicit-any -- We don't care about the specific renderer type
-      TRet extends NonNullable<TypeRenderer<TEntry, any>[TComponent]>,
+      TRenderer extends NonNullable<TypeRenderer<TEntry, any>[TComponent]>,
     >(
       component: TComponent,
       type?: PropertyKey,
-    ): TRet => (typeRendererMap.get(type!)?.[component] ?? STRING_RENDERER[component]) as TRet, // Map returns undefined if `type` is undefined, so it's safe to use the Non-Null assertion.
+    ): TRenderer =>
+      (typeRendererMap.get(type!)?.[component] ?? STRING_RENDERER[component]) as TRenderer, // Map returns undefined if `type` is undefined, so it's safe to use the Non-Null assertion.
   };
 };

@@ -4,6 +4,7 @@ import type { DataGridEntry } from "../types";
 import {
   createTableColumnGroups,
   useIsFeatureEnabled,
+  type ColumnConfigTypeOption,
   type ColumnGroupConfig,
   type DataGridFeatureOptions,
   type PublicNormalizedColumnConfig,
@@ -97,12 +98,18 @@ describe("createTableColumnGroups", () => {
         },
       ],
     },
-  ])("should create correct columnGroups for $title", ({ columns, columnGroups, expected }) => {
-    const result = createTableColumnGroups(
-      columns as PublicNormalizedColumnConfig<DataGridEntry>[],
-      columnGroups as ColumnGroupConfig | undefined,
-    );
-    expect(result).toMatchObject(expected as TableColumnGroup[]);
+  ] as {
+    title: string;
+    columns?: PublicNormalizedColumnConfig<
+      DataGridEntry,
+      never,
+      ColumnConfigTypeOption<PropertyKey, unknown>
+    >[];
+    columnGroups?: ColumnGroupConfig;
+    expected: TableColumnGroup[] | undefined;
+  }[])("should create correct columnGroups for $title", ({ columns, columnGroups, expected }) => {
+    const result = createTableColumnGroups(columns, columnGroups);
+    expect(result).toMatchObject(expected!);
   });
 });
 
