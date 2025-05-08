@@ -16,10 +16,6 @@
       "dependsOn": ["build"],
       "outputs": ["storybook-static"]
     },
-    "test:coverage": {
-      "outputs": ["coverage"],
-      "cache": false
-    },
     "test:eslint-plugins": {
       "cache": false
     },

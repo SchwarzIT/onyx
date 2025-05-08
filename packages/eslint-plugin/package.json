@@ -8,7 +8,7 @@
   "license": "Apache-2.0",
   "main": "./src/index.cjs",
   "scripts": {
-    "test:eslint-plugins": " node ./src/tests/index.cjs "
+    "test": "vitest"
   },
   "peerDependencies": {
     "eslint": ">= 8"
@@ -16,6 +16,7 @@
   "devDependencies": {
     "@eslint/core": "^0.13.0",
     "@types/eslint": "^9.6.1",
+    "eslint-vitest-rule-tester": "^2.2.0",
     "vue-eslint-parser": "^10.1.3"
   }
 }
