@@ -1,5 +1,10 @@
 import { h, ref, watch, type HTMLAttributes, type Slots, type ThHTMLAttributes } from "vue";
-import { createFeature, useIsFeatureEnabled, type InternalColumnConfig } from "..";
+import {
+  createFeature,
+  createTypeRenderer,
+  useIsFeatureEnabled,
+  type InternalColumnConfig,
+} from "..";
 import { useResizeObserver } from "../../../../composables/useResizeObserver";
 import { mergeVueProps } from "../../../../utils/attrs";
 import OnyxResizeHandle from "../../../OnyxResizeHandle/OnyxResizeHandle.vue";
@@ -77,7 +82,8 @@ export const useResizing = createFeature(
         };
       });
 
-      if (showLastCol.value) columns.push({ key: EMPTY_COLUMN, type: EMPTY_COLUMN, label: "" });
+      if (showLastCol.value)
+        columns.push({ key: EMPTY_COLUMN, type: { name: EMPTY_COLUMN }, label: "" });
 
       return columns;
     };
@@ -131,7 +137,7 @@ export const useResizing = createFeature(
           },
         }) as HTMLAttributes,
       typeRenderer: {
-        [EMPTY_COLUMN]: {
+        [EMPTY_COLUMN]: createTypeRenderer({
           header: {
             thAttributes: { class: "onyx-data-grid-empty-columns-cell" },
             component: () => null,
@@ -140,7 +146,7 @@ export const useResizing = createFeature(
             tdAttributes: { class: "onyx-data-grid-empty-columns-cell" },
             component: () => null,
           },
-        },
+        }),
       },
       header: {
         wrapper:
