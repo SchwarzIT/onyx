@@ -1,17 +1,19 @@
 <script setup lang="ts">
-import { OnyxHeadline, OnyxPageLayout } from "../../..";
+import { OnyxAppLayout, OnyxHeadline, OnyxPageLayout } from "../../..";
 </script>
 
 <template>
-  <OnyxPageLayout>
-    <!-- page content -->
-    <OnyxHeadline is="h1">Page content</OnyxHeadline>
+  <OnyxAppLayout>
+    <OnyxPageLayout class="page">
+      <!-- page content -->
+      <OnyxHeadline is="h1">Page content</OnyxHeadline>
 
-    <template #footer>
-      <!-- we are using the "onyx-grid-container" class here to sync the footer with the global application max-width, alignment and horizontal padding -->
-      <footer class="footer onyx-grid-container">Footer content</footer>
-    </template>
-  </OnyxPageLayout>
+      <template #footer>
+        <!-- we are using the "onyx-grid-container" class here to sync the footer with the global application max-width, alignment and horizontal padding -->
+        <footer class="footer onyx-grid-container">Footer content</footer>
+      </template>
+    </OnyxPageLayout>
+  </OnyxAppLayout>
 </template>
 
 <style lang="scss" scoped>

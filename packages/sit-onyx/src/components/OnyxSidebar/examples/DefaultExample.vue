@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { OnyxAppLayout, OnyxHeadline, OnyxLink, OnyxPageLayout, OnyxSidebar } from "../../..";
+import { OnyxAppLayout, OnyxButton, OnyxHeadline, OnyxPageLayout, OnyxSidebar } from "../../..";
 </script>
 
 <template>
@@ -7,12 +7,14 @@ import { OnyxAppLayout, OnyxHeadline, OnyxLink, OnyxPageLayout, OnyxSidebar } fr
     <OnyxPageLayout>
       <template #sidebar>
         <OnyxSidebar label="Example sidebar">
-          <div class="sidebar__content">
-            For sidebar examples, see:
-            <OnyxLink href="/?path=/docs/navigation-sidebar--docs" target="_parent">
-              OnyxSidebar
-            </OnyxLink>
-          </div>
+          <template #header> Header content </template>
+
+          <div class="sidebar__content">Body content</div>
+
+          <template #footer>
+            <OnyxButton color="neutral" label="Button" />
+            <OnyxButton label="Button" />
+          </template>
         </OnyxSidebar>
       </template>
 
