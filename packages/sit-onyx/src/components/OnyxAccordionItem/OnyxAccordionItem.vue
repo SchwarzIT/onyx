@@ -147,7 +147,7 @@ const panelId = computed(() => `panel-${props.value.toString()}`);
     }
 
     &--nested-small {
-      --onyx-accordion-item-padding: var(--onyx-density-2xs) var(--onyx-density-md);
+      --onyx-accordion-item-padding: var(--onyx-density-xs) var(--onyx-density-md);
       --onyx-accordion-item-font-size: 0.8125rem;
       --onyx-accordion-item-line-height: 1.25rem;
       --onyx-accordion-item-color: var(--onyx-color-text-icons-neutral-medium);
