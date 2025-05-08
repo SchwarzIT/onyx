@@ -1,5 +1,6 @@
 import type { Locator } from "@playwright/test";
 import { expect, test } from "../../playwright/a11y";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import TestWrapperCt from "./TestWrapper.ct.vue";
 
 const expectWidth = async (component: Locator, width: number, message?: string) => {
@@ -11,6 +12,21 @@ const expectWidth = async (component: Locator, width: number, message?: string) 
 test.beforeEach(async ({ page }) => {
   await page.addStyleTag({
     content: "body { margin: 0; }",
+  });
+});
+
+test.describe("Screenshot tests", () => {
+  executeMatrixScreenshotTest({
+    name: "Resize handle",
+    columns: ["default"],
+    rows: ["default", "hover"],
+    component: () => <TestWrapperCt />,
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        const button = component.getByRole("button", { name: "Drag to change width" });
+        if (row === "hover") await button.hover();
+      },
+    },
   });
 });
 
