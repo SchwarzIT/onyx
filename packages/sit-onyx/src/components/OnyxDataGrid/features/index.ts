@@ -299,9 +299,11 @@ export type UseDataGridFeaturesOptions<
   columnGroups: MaybeRefOrGetter<TColumnGroup>;
 };
 
-export const createTableColumnGroups = <TEntry extends DataGridEntry>(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- asdfg
-  columns?: PublicNormalizedColumnConfig<TEntry, any, any>[],
+export const createTableColumnGroups = <
+  TEntry extends DataGridEntry,
+  TColumnGroup extends ColumnGroupConfig,
+>(
+  columns?: InternalColumnConfig<TEntry, TColumnGroup>[],
   columnGroups?: ColumnGroupConfig,
 ) => {
   // Only if there is at least a single column group defined.
