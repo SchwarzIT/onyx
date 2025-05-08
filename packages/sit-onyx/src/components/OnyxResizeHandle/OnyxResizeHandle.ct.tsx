@@ -1,4 +1,4 @@
-import type { Locator } from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import TestWrapperCt from "./TestWrapper.ct.vue";
@@ -7,6 +7,26 @@ const expectWidth = async (component: Locator, width: number, message?: string) 
   const box = (await component.boundingBox())!;
   expect(box.width, message).toBe(width);
   return box;
+};
+
+/**
+ * Drags the resize handle / mouse to a given position.
+ */
+const dragMouse = async ({
+  page,
+  to,
+  preventUp,
+}: {
+  page: Page;
+  to: number;
+  preventUp?: boolean;
+}) => {
+  const button = page.getByRole("button", { name: "Drag to change width" });
+  await button.hover();
+
+  await page.mouse.down();
+  await page.mouse.move(to, 0);
+  if (!preventUp) await page.mouse.up();
 };
 
 test.beforeEach(async ({ page }) => {
@@ -33,7 +53,6 @@ test.describe("Screenshot tests", () => {
 test("should resize", async ({ page, mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(<TestWrapperCt />);
-  const button = component.getByRole("button", { name: "Drag to change width" });
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
@@ -43,26 +62,23 @@ test("should resize", async ({ page, mount, makeAxeBuilder }) => {
   await expectWidth(component, 32);
 
   // ACT
-  await button.hover();
-  await page.mouse.down();
-  await page.mouse.move(64, 0);
+  await dragMouse({ page, to: 64 });
 
   // ASSERT
   await expectWidth(component, 64, "should resize by dragging");
 
   // ACT
-  await page.mouse.move(200, 0);
+  await dragMouse({ page, to: 200 });
   await expectWidth(component, 128, "should consider max-width");
 
   // ACT
-  await page.mouse.move(0, 0);
+  await dragMouse({ page, to: 0, preventUp: true });
   await expectWidth(component, 16, "should consider min-width");
 });
 
 test("should reset size with double click", async ({ page, mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(<TestWrapperCt />);
-  const button = component.getByRole("button", { name: "Drag to change width" });
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
@@ -72,14 +88,13 @@ test("should reset size with double click", async ({ page, mount, makeAxeBuilder
   await expectWidth(component, 32);
 
   // ACT
-  await button.hover();
-  await page.mouse.down();
-  await page.mouse.move(64, 0);
+  await dragMouse({ page, to: 64 });
 
   // ASSERT
   await expectWidth(component, 64, "should resize by dragging");
 
   // ACT
+  const button = component.getByRole("button", { name: "Drag to change width" });
   await button.dblclick();
 
   // ASSERT
@@ -89,7 +104,6 @@ test("should reset size with double click", async ({ page, mount, makeAxeBuilder
 test("should cancel current resizing with Escape", async ({ page, mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(<TestWrapperCt />);
-  const button = component.getByRole("button", { name: "Drag to change width" });
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
@@ -99,17 +113,13 @@ test("should cancel current resizing with Escape", async ({ page, mount, makeAxe
   await expectWidth(component, 32);
 
   // ACT
-  await button.hover();
-  await page.mouse.down();
-  await page.mouse.move(64, 0);
-  await page.mouse.up();
+  await dragMouse({ page, to: 64 });
 
   // ASSERT
   await expectWidth(component, 64, "should resize by dragging");
 
   // ACT
-  await page.mouse.down();
-  await page.mouse.move(100, 0);
+  await dragMouse({ page, to: 100, preventUp: true });
 
   // ASSERT
   await expectWidth(component, 100, "should resize by dragging");
