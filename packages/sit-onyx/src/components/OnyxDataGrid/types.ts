@@ -11,6 +11,10 @@ import type { BASE_FEATURE } from "./features/base/base";
 
 export type DataGridMetadata = Record<string, unknown>;
 
+/**
+ * Makes registered types of typeRenderers available for use in the column configuration.
+ * Extracts all registered `Keys` and their `TOptions` types and maps them to the `ColumnConfigurationTypeOption`.
+ */
 export type MapTypeRenderOptions<T> = {
   [Key in keyof T]: T[Key] extends TypeRenderer<infer _, infer TOptions>
     ? ColumnConfigTypeOption<Key, TOptions>
@@ -21,25 +25,29 @@ export type MapTypeRenderOptions<T> = {
  * Unwraps the defined typeRenderers
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- we use any for simplicity
-export type RenderTypesFromFeature<TFeatures extends DataGridFeature<any, any, any>[]> = IfExtends<
-  RecordValues<
-    // map all values `typeRenderer`s to their column option types
-    MapTypeRenderOptions<
-      IfNotEmpty<
-        // Take the merged `typeRenderer` type
-        MaybePick<
-          // Merge the values together
-          UnionByKey<
-            // For each feature
-            TFeatures[number]
-          >,
-          "typeRenderer"
+export type RenderTypesFromFeature<TFeatures extends DataGridFeature<any, any, any>[]> =
+  // Safeguard against invalid types
+  IfExtends<
+    // Union type of all column types
+    RecordValues<
+      // Map all `typeRenderer`s to their appropriate column option types
+      MapTypeRenderOptions<
+        // Drop all empty records to avoid ending up with `unknown` type
+        IfNotEmpty<
+          // If defined, take the type of the `typeRenderer` key from the feature
+          MaybePick<
+            // Merge the values together
+            UnionByKey<
+              // For each feature
+              TFeatures[number]
+            >,
+            "typeRenderer"
+          >
         >
       >
-    >
-  >,
-  ColumnConfigTypeOption<PropertyKey, unknown>
->;
+    >,
+    ColumnConfigTypeOption<PropertyKey, unknown>
+  >;
 
 /**
  * @experimental The DataGrid is still working in progress and the props will change in the future.
