@@ -121,21 +121,17 @@ const widthStyle = computed(() => {
     --onyx-sidebar-footer-gap: var(--onyx-density-xs);
     width: var(--onyx-sidebar-width);
     min-width: var(--onyx-sidebar-min-width);
+    max-width: calc(100vw - var(--onyx-grid-margin));
 
     &:not(:is(.onyx-drawer)) {
       font-family: var(--onyx-font-family);
       color: var(--onyx-color-text-icons-neutral-intense);
       background-color: var(--onyx-color-base-background-blank);
       border-right: var(--onyx-sidebar-border);
-      max-width: 100%;
       height: 100%;
       max-height: 100%;
       display: flex;
       flex-direction: column;
-
-      &:has(.onyx-resize-handle) {
-        max-width: calc(100vw - var(--onyx-grid-margin));
-      }
     }
 
     &:has(.onyx-resize-handle) {

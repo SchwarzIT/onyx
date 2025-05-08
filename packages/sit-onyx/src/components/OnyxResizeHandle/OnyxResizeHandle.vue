@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { getTemplateRefElement } from "../../composables/useResizeObserver";
+import { injectI18n } from "../../i18n";
 import type { OnyxResizeHandleProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxResizeHandleProps>(), {
@@ -18,6 +19,8 @@ const emit = defineEmits<{
    */
   autoSize: [];
 }>();
+
+const { t } = injectI18n();
 
 const previousWidth = ref<number>();
 const currentElement = ref<Element>();
@@ -75,7 +78,7 @@ const onKeydown = (event: KeyboardEvent) => {
     type="button"
     role="presentation"
     class="onyx-component onyx-resize-handle"
-    aria-hidden="true"
+    :aria-label="t('resizeHandle.label')"
     @mousedown="handleResize"
     @dblclick="emit('autoSize')"
   ></button>

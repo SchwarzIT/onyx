@@ -64,3 +64,58 @@ test("should render as drawer", async ({ mount, page, makeAxeBuilder }) => {
   // ASSERT
   expect(closeEventCount).toBe(1);
 });
+
+["default", "drawer"].forEach((type) => {
+  test(`should support resizing (${type})`, async ({ page, mount, makeAxeBuilder }) => {
+    const viewportWidth = 512;
+
+    await page.setViewportSize({ height: 256, width: viewportWidth });
+
+    // ARRANGE
+    const component = await mount(
+      <OnyxSidebar label="Label" drawer={type === "drawer" ? { open: true } : undefined} resizable>
+        {CONTENT}
+      </OnyxSidebar>,
+    );
+
+    // ACT
+    const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+    // ASSERT
+    expect(accessibilityScanResults.violations).toEqual([]);
+
+    let box = (await component.boundingBox())!;
+    expect(box.width).toBe(320);
+
+    // ACT
+    const resizeButton = component.getByRole("button", { name: "Drag to change width" });
+
+    // ASSERT
+    await expect(resizeButton).toBeVisible();
+
+    // ACT
+    await resizeButton.hover({ position: { x: box.x, y: box.y } });
+
+    // ACT
+    await page.mouse.down();
+    await page.mouse.move(box.x + box.width + 100, box.y);
+
+    // ASSERT
+    box = (await component.boundingBox())!;
+    expect(box.width).toBe(420);
+
+    // ACT
+    await page.mouse.move(viewportWidth + 100, box.y);
+
+    // ASSERT
+    box = (await component.boundingBox())!;
+    expect(box.width, "should have max width when resizing").toBe(viewportWidth - 16);
+
+    // ACT
+    await page.mouse.move(0, box.y);
+
+    // ASSERT
+    box = (await component.boundingBox())!;
+    expect(box.width, "should have min width when resizing").toBe(64);
+  });
+});
