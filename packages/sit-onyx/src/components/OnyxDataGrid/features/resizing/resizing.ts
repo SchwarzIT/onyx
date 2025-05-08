@@ -133,7 +133,7 @@ export const useResizing = createFeature(
           },
         }) as HTMLAttributes,
       typeRenderer: {
-        [EMPTY_COLUMN]: createTypeRenderer({
+        [EMPTY_COLUMN]: {
           header: {
             thAttributes: { class: "onyx-data-grid-empty-columns-cell" },
             component: () => null,
@@ -142,7 +142,7 @@ export const useResizing = createFeature(
             tdAttributes: { class: "onyx-data-grid-empty-columns-cell" },
             component: () => null,
           },
-        }),
+        },
       },
       header: {
         wrapper:
