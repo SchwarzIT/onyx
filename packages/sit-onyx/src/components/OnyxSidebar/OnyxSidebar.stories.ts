@@ -22,4 +22,7 @@ export const Default = createAdvancedStoryExample("OnyxSidebar", "DefaultExample
 
 export const Drawer = createAdvancedStoryExample("OnyxSidebar", "DrawerExample") satisfies Story;
 
-export const Resizable = createAdvancedStoryExample("OnyxSidebar", "ResizeExample") satisfies Story;
+export const Resizable = {
+  ...createAdvancedStoryExample("OnyxSidebar", "ResizeExample"),
+  tags: ["new:feature"],
+} satisfies Story;

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, useTemplateRef } from "vue";
+import { computed, ref, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density";
 import OnyxDrawer from "../OnyxDrawer/OnyxDrawer.vue";
 import OnyxResizeHandle from "../OnyxResizeHandle/OnyxResizeHandle.vue";
@@ -35,9 +35,14 @@ const slots = defineSlots<{
 }>();
 
 const { densityClass } = useDensity(props);
+
 const sidebarElement = useTemplateRef("sidebarRef");
 const drawerElement = useTemplateRef("drawerRef");
 const width = ref<number>();
+const widthStyle = computed(() => {
+  if (!width.value) return;
+  return { "--onyx-sidebar-width": `${width.value}px` };
+});
 </script>
 
 <template>
@@ -46,7 +51,7 @@ const width = ref<number>();
     ref="sidebarRef"
     :class="['onyx-component', 'onyx-sidebar', densityClass]"
     :aria-label="props.label"
-    :style="{ '--onyx-sidebar-width': width ? `${width}px` : undefined }"
+    :style="widthStyle"
   >
     <header v-if="!!slots.header" class="onyx-sidebar__header">
       <slot name="header"></slot>
@@ -71,11 +76,11 @@ const width = ref<number>();
   <OnyxDrawer
     v-else
     v-bind="props.drawer"
+    ref="drawerRef"
     :label="props.label"
     :density="props.density"
-    ref="drawerRef"
     class="onyx-sidebar"
-    :style="{ '--onyx-sidebar-width': width ? `${width}px` : undefined }"
+    :style="widthStyle"
     @close="emit('close')"
   >
     <template v-if="!!slots.header" #headline>
@@ -111,10 +116,11 @@ const width = ref<number>();
     --onyx-sidebar-border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
     --onyx-sidebar-padding: var(--onyx-density-md);
     --onyx-sidebar-width: 20rem;
+    --onyx-sidebar-min-width: 4rem;
     --onyx-sidebar-header-gap: var(--onyx-density-md);
     --onyx-sidebar-footer-gap: var(--onyx-density-xs);
     width: var(--onyx-sidebar-width);
-    min-width: 4rem;
+    min-width: var(--onyx-sidebar-min-width);
 
     &:not(:is(.onyx-drawer)) {
       font-family: var(--onyx-font-family);
