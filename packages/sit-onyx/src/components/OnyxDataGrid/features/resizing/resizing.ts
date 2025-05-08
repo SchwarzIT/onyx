@@ -1,10 +1,5 @@
 import { h, ref, watch, type HTMLAttributes, type Slot, type ThHTMLAttributes } from "vue";
-import {
-  createFeature,
-  createTypeRenderer,
-  useIsFeatureEnabled,
-  type InternalColumnConfig,
-} from "..";
+import { createFeature, useIsFeatureEnabled, type InternalColumnConfig } from "..";
 import { useResizeObserver } from "../../../../composables/useResizeObserver";
 import { mergeVueProps } from "../../../../utils/attrs";
 import type { DataGridEntry } from "../../types";
@@ -166,7 +161,7 @@ export const useResizing = createFeature(
           },
         }) as HTMLAttributes,
       typeRenderer: {
-        [EMPTY_COLUMN]: createTypeRenderer({
+        [EMPTY_COLUMN]: {
           header: {
             thAttributes: { class: "onyx-data-grid-empty-columns-cell" },
             component: () => null,
@@ -175,7 +170,7 @@ export const useResizing = createFeature(
             tdAttributes: { class: "onyx-data-grid-empty-columns-cell" },
             component: () => null,
           },
-        }),
+        },
       },
       header: {
         wrapper:
