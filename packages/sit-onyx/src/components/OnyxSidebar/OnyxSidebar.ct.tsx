@@ -1,3 +1,4 @@
+import { dragResizeHandle } from "../../playwright";
 import { expect, test } from "../../playwright/a11y";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxSidebar from "./OnyxSidebar.vue";
@@ -94,25 +95,21 @@ test("should render as drawer", async ({ mount, page, makeAxeBuilder }) => {
     await expect(resizeButton).toBeVisible();
 
     // ACT
-    await resizeButton.hover({ position: { x: box.x, y: box.y } });
-
-    // ACT
-    await page.mouse.down();
-    await page.mouse.move(box.x + box.width + 100, box.y);
+    await dragResizeHandle({ page, to: box.x + box.width + 100 });
 
     // ASSERT
     box = (await component.boundingBox())!;
     expect(box.width).toBe(420);
 
     // ACT
-    await page.mouse.move(viewportWidth + 100, box.y);
+    await dragResizeHandle({ page, to: viewportWidth });
 
     // ASSERT
     box = (await component.boundingBox())!;
     expect(box.width, "should have max width when resizing").toBe(viewportWidth - 16);
 
     // ACT
-    await page.mouse.move(0, box.y);
+    await dragResizeHandle({ page, to: 0, preventUp: true });
 
     // ASSERT
     box = (await component.boundingBox())!;

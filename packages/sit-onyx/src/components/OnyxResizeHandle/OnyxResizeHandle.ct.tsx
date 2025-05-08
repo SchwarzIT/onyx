@@ -1,4 +1,5 @@
-import type { Locator, Page } from "@playwright/test";
+import type { Locator } from "@playwright/test";
+import { dragResizeHandle } from "../../playwright";
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import TestWrapperCt from "./TestWrapper.ct.vue";
@@ -7,26 +8,6 @@ const expectWidth = async (component: Locator, width: number, message?: string) 
   const box = (await component.boundingBox())!;
   expect(box.width, message).toBe(width);
   return box;
-};
-
-/**
- * Drags the resize handle / mouse to a given position.
- */
-const dragMouse = async ({
-  page,
-  to,
-  preventUp,
-}: {
-  page: Page;
-  to: number;
-  preventUp?: boolean;
-}) => {
-  const button = page.getByRole("button", { name: "Drag to change width" });
-  await button.hover();
-
-  await page.mouse.down();
-  await page.mouse.move(to, 0);
-  if (!preventUp) await page.mouse.up();
 };
 
 test.beforeEach(async ({ page }) => {
@@ -67,17 +48,17 @@ test("should resize", async ({ page, mount, makeAxeBuilder }) => {
   await expectWidth(component, 32);
 
   // ACT
-  await dragMouse({ page, to: 64 });
+  await dragResizeHandle({ page, to: 64 });
 
   // ASSERT
   await expectWidth(component, 64, "should resize by dragging");
 
   // ACT
-  await dragMouse({ page, to: 200 });
+  await dragResizeHandle({ page, to: 200 });
   await expectWidth(component, 128, "should consider max-width");
 
   // ACT
-  await dragMouse({ page, to: 0, preventUp: true });
+  await dragResizeHandle({ page, to: 0, preventUp: true });
   await expectWidth(component, 16, "should consider min-width");
 });
 
@@ -93,7 +74,7 @@ test("should reset size with double click", async ({ page, mount, makeAxeBuilder
   await expectWidth(component, 32);
 
   // ACT
-  await dragMouse({ page, to: 64 });
+  await dragResizeHandle({ page, to: 64 });
 
   // ASSERT
   await expectWidth(component, 64, "should resize by dragging");
@@ -118,13 +99,13 @@ test("should cancel current resizing with Escape", async ({ page, mount, makeAxe
   await expectWidth(component, 32);
 
   // ACT
-  await dragMouse({ page, to: 64 });
+  await dragResizeHandle({ page, to: 64 });
 
   // ASSERT
   await expectWidth(component, 64, "should resize by dragging");
 
   // ACT
-  await dragMouse({ page, to: 100, preventUp: true });
+  await dragResizeHandle({ page, to: 100, preventUp: true });
 
   // ASSERT
   await expectWidth(component, 100, "should resize by dragging");
