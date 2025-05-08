@@ -42,10 +42,10 @@ export type TypeRendererHeaderDef<TEntry extends DataGridEntry, TOptions = undef
   "key" | "props"
 >;
 
-export type CellMetadata<TOptions = unknown> = { qtypeOptions?: TOptions };
+export type CellMetadata<TOptions = unknown> = { typeOptions?: TOptions };
 
 export type TypeRendererCell<TEntry extends DataGridEntry, TOptions = undefined> = Omit<
-  DataGridRendererCell<TEntry, { typeOptions?: TOptions }>,
+  DataGridRendererCell<TEntry, CellMetadata<TOptions>>,
   "props"
 >;
 

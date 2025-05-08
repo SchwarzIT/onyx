@@ -106,8 +106,7 @@ it("should be ensured that RenderTypesFromFeature unwraps correctly", async () =
     },
   ];
 
-  type RES = RenderTypesFromFeature<MultipleFeatures>;
-  expectTypeOf<RES>().toEqualTypeOf<
+  expectTypeOf<RenderTypesFromFeature<MultipleFeatures>>().toEqualTypeOf<
     | ColumnConfigTypeOption<"a", number>
     | ColumnConfigTypeOption<"b", undefined>
     | ColumnConfigTypeOption<"c", undefined>

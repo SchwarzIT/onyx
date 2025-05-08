@@ -13,17 +13,27 @@ import "./renderer.scss";
 
 export const FALLBACK_RENDER_VALUE = "-" as const;
 
-export type NumberCellOptions = {
-  format?: OnyxNumberFormatOptions;
-  fallback?: string;
-};
-
+/**
+ * Allows for creating `TypeRenderer` with typed options.
+ * These options are then made available via the column configuration.
+ *
+ * While typeRenderer can be defined without this helper, they cannot define any options.
+ */
 export const createTypeRenderer = <
   TOptions = undefined,
   TEntry extends DataGridEntry = DataGridEntry,
 >(
   typeRenderer: TypeRenderer<TEntry, TOptions>,
 ) => Object.freeze(typeRenderer);
+
+export type NumberCellOptions = {
+  format?: OnyxNumberFormatOptions;
+  /**
+   * Fallback value to display when the value is undefined or invalid.
+   * Defaults to "-" if not provided.
+   */
+  fallback?: string;
+};
 
 export const numberFormatter = <TEntry extends DataGridEntry>(
   value: TEntry[keyof TEntry] | undefined,
@@ -55,6 +65,10 @@ export const NUMBER_RENDERER = createTypeRenderer<NumberCellOptions>({
 });
 
 export type StringCellOptions = {
+  /**
+   * Fallback value to display when the value is undefined.
+   * Defaults to "-" if not provided.
+   */
   fallback?: string;
 };
 
@@ -84,6 +98,10 @@ export const STRING_RENDERER = createTypeRenderer<StringCellOptions>({
 
 export type DateCellOptions = {
   format?: OnyxDateFormatOptions;
+  /**
+   * Fallback value to display when the value is undefined or invalid.
+   * Defaults to "-" if not provided.
+   */
   fallback?: string;
 };
 
