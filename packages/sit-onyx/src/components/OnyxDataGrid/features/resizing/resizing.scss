@@ -6,6 +6,10 @@
       .onyx-resize-handle {
         --onyx-resize-handle--active-indicator-height: var(--onyx-table-observed-height);
       }
+
+      &:hover .onyx-resize-handle::after {
+        opacity: 0.3;
+      }
     }
   }
 }
