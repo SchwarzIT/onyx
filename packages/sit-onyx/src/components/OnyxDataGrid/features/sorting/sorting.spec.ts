@@ -28,12 +28,14 @@ const getTestData = () => [
 
 type TestEntry = ReturnType<typeof getTestData>[number];
 
+const createConfig = (key: string) => ({ key, label: key, type: { name: "string" } });
+
 test("per default should enable show sort symbols and not sort initially", () => {
   // ARRANGE
   const withSorting = useSorting();
 
   //ASSERT
-  expect(withSorting.header!.actions!({ key: "col1" })).toHaveLength(1);
+  expect(withSorting.header!.actions!(createConfig("col1"))).toHaveLength(1);
 
   const array = getTestData();
   withSorting.mutation!.func(array);
@@ -64,10 +66,10 @@ test("should consider reactive sortState", () => {
   });
 
   // ASSERT
-  expect(withSorting.header!.actions!({ key: "non-existent" })).toHaveLength(0);
-  expect(withSorting.header!.actions!({ key: "id" })).toHaveLength(0);
-  expect(withSorting.header!.actions!({ key: "a" })).toHaveLength(1);
-  expect(withSorting.header!.actions!({ key: "b" })).toHaveLength(2);
+  expect(withSorting.header!.actions!(createConfig("non-existent"))).toHaveLength(0);
+  expect(withSorting.header!.actions!(createConfig("id"))).toHaveLength(0);
+  expect(withSorting.header!.actions!(createConfig("a"))).toHaveLength(1);
+  expect(withSorting.header!.actions!(createConfig("b"))).toHaveLength(2);
 
   const array = getTestData();
   withSorting.mutation!.func(array);
@@ -121,9 +123,9 @@ test("should consider reactive columns", () => {
   });
 
   // ASSERT
-  expect(withSorting.header!.actions!({ key: "id" })).toHaveLength(0);
-  expect(withSorting.header!.actions!({ key: "a" })).toHaveLength(1);
-  expect(withSorting.header!.actions!({ key: "b" })).toHaveLength(2);
+  expect(withSorting.header!.actions!(createConfig("id"))).toHaveLength(0);
+  expect(withSorting.header!.actions!(createConfig("a"))).toHaveLength(1);
+  expect(withSorting.header!.actions!(createConfig("b"))).toHaveLength(2);
 
   // ACT
   columns.value!.id = { enabled: true };
@@ -131,15 +133,15 @@ test("should consider reactive columns", () => {
   delete columns.value!.b;
 
   // ASSERT
-  expect(withSorting.header!.actions!({ key: "id" })).toHaveLength(1);
-  expect(withSorting.header!.actions!({ key: "a" })).toHaveLength(0);
-  expect(withSorting.header!.actions!({ key: "b" })).toHaveLength(2);
+  expect(withSorting.header!.actions!(createConfig("id"))).toHaveLength(1);
+  expect(withSorting.header!.actions!(createConfig("a"))).toHaveLength(0);
+  expect(withSorting.header!.actions!(createConfig("b"))).toHaveLength(2);
 
   // ACT
   columns.value = undefined;
 
   // ASSERT
-  expect(withSorting.header!.actions!({ key: "id" })).toHaveLength(1);
-  expect(withSorting.header!.actions!({ key: "a" })).toHaveLength(1);
-  expect(withSorting.header!.actions!({ key: "b" })).toHaveLength(2);
+  expect(withSorting.header!.actions!(createConfig("id"))).toHaveLength(1);
+  expect(withSorting.header!.actions!(createConfig("a"))).toHaveLength(1);
+  expect(withSorting.header!.actions!(createConfig("b"))).toHaveLength(2);
 });

@@ -284,13 +284,6 @@ export function createFeature<
   return featureDefinition;
 }
 
-export function createTypeRenderer<
-  TOptions = undefined,
-  TEntry extends DataGridEntry = DataGridEntry,
->(typeRenderer: TypeRenderer<TEntry, TOptions>) {
-  return Object.freeze(typeRenderer);
-}
-
 type CheckDataGridFeature<T> =
   T extends DataGridFeature<infer A, TypeRenderMap<infer A>, infer C>
     ? DataGridFeature<A, TypeRenderMap<A>, C>
