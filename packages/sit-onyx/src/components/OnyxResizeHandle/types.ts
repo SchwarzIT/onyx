@@ -6,7 +6,7 @@ export type OnyxResizeHandleProps = {
    */
   element: VueTemplateRefElement | ((event: MouseEvent) => VueTemplateRefElement);
   /**
-   * Minimum width that should not be fallen below while resizing.
+   * Minimum width (in pixels) that should not be fallen below while resizing.
    */
   min?: number;
 };

@@ -10,12 +10,14 @@ import { OnyxAppLayout, OnyxButton, OnyxHeadline, OnyxPageLayout, OnyxSidebar } 
           <template #header> Header content </template>
 
           <div class="sidebar__content">
-            <b>Drag the right border</b> the resize the sidebar.
-
-            <b>Double click</b> it to reset the width back to the original size.
-
-            <b>Press escape</b> while dragging to cancel the current resizing and revert to the
-            previous width.
+            <ul>
+              <li><b>Drag the right border</b> the resize the sidebar</li>
+              <li><b>Double click</b> it to reset the width back to the original size</li>
+              <li>
+                <b>Press escape</b> while dragging to cancel the current resizing and revert to the
+                previous width
+              </li>
+            </ul>
           </div>
 
           <template #footer>
@@ -26,9 +28,7 @@ import { OnyxAppLayout, OnyxButton, OnyxHeadline, OnyxPageLayout, OnyxSidebar } 
       </template>
 
       <!-- page content -->
-      <div class="onyx-grid-container">
-        <OnyxHeadline is="h1">Page content</OnyxHeadline>
-      </div>
+      <OnyxHeadline is="h1">Page content</OnyxHeadline>
     </OnyxPageLayout>
   </OnyxAppLayout>
 </template>
