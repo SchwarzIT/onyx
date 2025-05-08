@@ -4,6 +4,7 @@ import { useResizeObserver } from "../../../../composables/useResizeObserver";
 import { mergeVueProps } from "../../../../utils/attrs";
 import OnyxResizeHandle from "../../../OnyxResizeHandle/OnyxResizeHandle.vue";
 import type { DataGridEntry } from "../../types";
+import { createTypeRenderer } from "../renderer";
 import "./resizing.scss";
 import type { ResizingOptions } from "./types";
 
@@ -132,7 +133,7 @@ export const useResizing = createFeature(
           },
         }) as HTMLAttributes,
       typeRenderer: {
-        [EMPTY_COLUMN]: {
+        [EMPTY_COLUMN]: createTypeRenderer({
           header: {
             thAttributes: { class: "onyx-data-grid-empty-columns-cell" },
             component: () => null,
@@ -141,7 +142,7 @@ export const useResizing = createFeature(
             tdAttributes: { class: "onyx-data-grid-empty-columns-cell" },
             component: () => null,
           },
-        },
+        }),
       },
       header: {
         wrapper:

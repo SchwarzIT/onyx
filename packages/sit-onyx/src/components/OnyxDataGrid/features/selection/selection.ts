@@ -3,6 +3,7 @@ import { createFeature, type ModifyColumns } from "..";
 import { injectI18n } from "../../../../i18n";
 import OnyxCheckbox from "../../../OnyxCheckbox/OnyxCheckbox.vue";
 import type { DataGridEntry } from "../../types";
+import { createTypeRenderer } from "../renderer";
 import "./selection.scss";
 import type { SelectionOptions, SelectionState } from "./types";
 
@@ -81,7 +82,7 @@ export const useSelection = createFeature(
         order: Infinity,
       },
       typeRenderer: {
-        [SELECTION_COLUMN]: {
+        [SELECTION_COLUMN]: createTypeRenderer({
           header: {
             thAttributes: { class: "onyx-data-grid-selection-cell" },
             component: () =>
@@ -124,7 +125,7 @@ export const useSelection = createFeature(
               });
             },
           },
-        },
+        }),
       },
     };
   },

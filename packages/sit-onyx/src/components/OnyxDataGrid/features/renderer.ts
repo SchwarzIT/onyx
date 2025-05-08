@@ -1,3 +1,4 @@
+import { type DataGridFeature, type TypeRenderer, type TypeRenderMap } from ".";
 import {
   injectI18n,
   type OnyxDateFormatOptions,
@@ -7,10 +8,9 @@ import { allObjectEntries } from "../../../utils/objects";
 import type { DateValue } from "../../OnyxDatePicker/types";
 import type { DataGridEntry } from "../types";
 import HeaderCell from "./HeaderCell.vue";
-import { type DataGridFeature, type TypeRenderer, type TypeRenderMap } from "./index";
 import "./renderer.scss";
 
-export const FALLBACK_RENDER_VALUE = "-" as const;
+export const FALLBACK_RENDER_VALUE = "-";
 
 /**
  * Allows for creating `TypeRenderer` with typed options.
