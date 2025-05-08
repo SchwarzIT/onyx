@@ -1,16 +1,31 @@
-import { injectI18n } from "../../../i18n";
+import {
+  injectI18n,
+  type OnyxDateFormatOptions,
+  type OnyxNumberFormatOptions,
+} from "../../../i18n";
 import type { DatetimeFormat } from "../../../i18n/datetime-formats";
 import { allObjectEntries } from "../../../utils/objects";
 import type { DateValue } from "../../OnyxDatePicker/types";
 import type { DataGridEntry } from "../types";
 import HeaderCell from "./HeaderCell.vue";
-import type { DataGridFeature, DefaultSupportedTypes, TypeRenderer, TypeRenderMap } from "./index";
+import {
+  createTypeRenderer,
+  type DataGridFeature,
+  type TypeRenderer,
+  type TypeRenderMap,
+} from "./index";
 import "./renderer.scss";
 
 export const FALLBACK_RENDER_VALUE = "-" as const;
 
-const numberFormatter = <TEntry extends DataGridEntry>(
+export type NumberCellOptions = {
+  format?: OnyxNumberFormatOptions;
+  fallback?: string;
+};
+
+export const numberFormatter = <TEntry extends DataGridEntry>(
   value: TEntry[keyof TEntry] | undefined,
+  opts?: NumberCellOptions,
 ): string => {
   // using loose "==" here to catch both undefined and null
   if (
@@ -19,25 +34,38 @@ const numberFormatter = <TEntry extends DataGridEntry>(
     typeof value === "boolean" ||
     typeof value === "symbol"
   ) {
-    return FALLBACK_RENDER_VALUE;
+    return opts?.fallback ?? FALLBACK_RENDER_VALUE;
   }
 
   const { n } = injectI18n();
 
   // We format the given value as Number. In case it renders as NaN, we replace it with `-`.
   // The typing is incorrect, the `format` method accepts any value
-  return n.value(value as number, "decimal").replace("NaN", FALLBACK_RENDER_VALUE);
+  return n.value(value as number, opts?.format ?? "decimal").replace("NaN", FALLBACK_RENDER_VALUE);
 };
 
-const stringFormatter = <TEntry extends DataGridEntry>(
+export const NUMBER_RENDERER = createTypeRenderer<NumberCellOptions>({
+  header: { component: HeaderCell },
+  cell: {
+    component: ({ metadata, modelValue }) => numberFormatter(modelValue, metadata?.typeOptions),
+    tdAttributes: { class: "onyx-data-grid-number-cell" },
+  },
+});
+
+export type StringCellOptions = {
+  fallback?: string;
+};
+
+export const stringFormatter = <TEntry extends DataGridEntry>(
   value: TEntry[keyof TEntry] | undefined,
+  opts?: StringCellOptions,
 ): string => {
   // using loose "==" here to catch both undefined and null
-  if (value == undefined) return FALLBACK_RENDER_VALUE;
+  if (value == undefined) return opts?.fallback ?? FALLBACK_RENDER_VALUE;
   if (Array.isArray(value)) {
     return value
       .map((entry) => stringFormatter(entry))
-      .filter((i) => i != FALLBACK_RENDER_VALUE)
+      .filter((i) => i != (opts?.fallback ?? FALLBACK_RENDER_VALUE))
       .join(", ");
   }
   if (value instanceof Date) return value.toString();
@@ -45,7 +73,19 @@ const stringFormatter = <TEntry extends DataGridEntry>(
   return String(value);
 };
 
-const dateFormatter = <TEntry extends DataGridEntry>(
+export const STRING_RENDERER = createTypeRenderer<StringCellOptions>({
+  header: { component: HeaderCell },
+  cell: {
+    component: (props) => stringFormatter(props.modelValue, props.metadata?.typeOptions),
+  },
+});
+
+export type DateCellOptions = {
+  format?: OnyxDateFormatOptions;
+  fallback?: string;
+};
+
+export const dateFormatter = <TEntry extends DataGridEntry>(
   value: TEntry[keyof TEntry] | undefined,
   type: DatetimeFormat,
 ): string => {
@@ -62,52 +102,30 @@ const dateFormatter = <TEntry extends DataGridEntry>(
   }
 };
 
-const NUMBER_RENDERER = Object.freeze({
-  cell: {
-    component: (props) => numberFormatter(props.modelValue),
-    tdAttributes: { class: "onyx-data-grid-number-cell" },
-  },
-}) satisfies TypeRenderer<DataGridEntry>;
-
-const STRING_RENDERER = Object.freeze({
-  header: { component: HeaderCell },
-  cell: { component: (props) => stringFormatter(props.modelValue) },
-}) satisfies TypeRenderer<DataGridEntry>;
-
-const DATE_RENDERER = Object.freeze({
+export const DATE_RENDERER = createTypeRenderer<DateCellOptions>({
   header: { component: HeaderCell },
   cell: { component: (props) => dateFormatter(props.modelValue, "date") },
-}) satisfies TypeRenderer<DataGridEntry>;
+});
 
-const DATETIME_RENDERER = Object.freeze({
+export const DATETIME_RENDERER = createTypeRenderer<DateCellOptions>({
   header: { component: HeaderCell },
   cell: { component: (props) => dateFormatter(props.modelValue, "datetime-local") },
-}) satisfies TypeRenderer<DataGridEntry>;
+});
 
-const TIME_RENDERER = Object.freeze({
+export const TIME_RENDERER = createTypeRenderer<DateCellOptions>({
   header: { component: HeaderCell },
   cell: { component: (props) => dateFormatter(props.modelValue, "time") },
-}) satisfies TypeRenderer<DataGridEntry>;
+});
 
-const TIMESTAMP_RENDERER = Object.freeze({
+export const TIMESTAMP_RENDERER = createTypeRenderer<DateCellOptions>({
   header: { component: HeaderCell },
   cell: { component: (props) => dateFormatter(props.modelValue, "timestamp") },
-}) satisfies TypeRenderer<DataGridEntry>;
-
-const BASE_RENDERER_MAP = Object.freeze({
-  number: NUMBER_RENDERER,
-  string: STRING_RENDERER,
-  date: DATE_RENDERER,
-  "datetime-local": DATETIME_RENDERER,
-  time: TIME_RENDERER,
-  timestamp: TIMESTAMP_RENDERER,
-}) satisfies Record<DefaultSupportedTypes, TypeRenderer<DataGridEntry>>;
+});
 
 export const createRenderer = <TEntry extends DataGridEntry>(
   features: DataGridFeature<TEntry, TypeRenderMap<TEntry>, symbol>[],
 ) => {
   const init = [
-    ...Object.entries(BASE_RENDERER_MAP),
     ...features
       .flatMap(({ typeRenderer }) => typeRenderer! && allObjectEntries(typeRenderer))
       .filter(Boolean),
@@ -123,10 +141,13 @@ export const createRenderer = <TEntry extends DataGridEntry>(
      * Returns a renderer for any given component and type.
      * Uses the fallbackRenderer if necessary.
      */
-    getFor: <TComponent extends "cell" | "header">(
+    getFor: <
+      TComponent extends "cell" | "header",
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- We don't care about the specific renderer type
+      TRet extends NonNullable<TypeRenderer<TEntry, any>[TComponent]>,
+    >(
       component: TComponent,
       type?: PropertyKey,
-    ): NonNullable<TypeRenderer<TEntry>[TComponent]> =>
-      typeRendererMap.get(type!)?.[component] ?? STRING_RENDERER[component], // Map returns undefined if `type` is undefined, so it's safe to use the Non-Null assertion.
+    ): TRet => (typeRendererMap.get(type!)?.[component] ?? STRING_RENDERER[component]) as TRet, // Map returns undefined if `type` is undefined, so it's safe to use the Non-Null assertion.
   };
 };
