@@ -123,10 +123,6 @@ const onKeydown = (event: KeyboardEvent) => {
       opacity: 0.5;
       background-color: var(--onyx-color-base-primary-500);
     }
-
-    th:hover &::after {
-      opacity: 0.3;
-    }
   }
 }
 </style>
