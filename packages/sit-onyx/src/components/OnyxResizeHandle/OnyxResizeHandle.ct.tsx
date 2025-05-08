@@ -39,12 +39,17 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Resize handle",
     columns: ["default"],
-    rows: ["default", "hover"],
+    rows: ["default", "hover", "active"],
     component: () => <TestWrapperCt />,
     hooks: {
       beforeEach: async (component, page, column, row) => {
         const button = component.getByRole("button", { name: "Drag to change width" });
         if (row === "hover") await button.hover();
+        if (row === "active") {
+          const box = (await button.boundingBox())!;
+          await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+          await page.mouse.down();
+        }
       },
     },
   });
