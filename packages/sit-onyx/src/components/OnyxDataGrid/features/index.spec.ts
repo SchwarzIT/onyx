@@ -1,13 +1,12 @@
 import { describe, expect, test } from "vitest";
-import type { TableColumnGroup } from "../../../components/OnyxTable/types";
+import type { TableColumnGroup } from "../../OnyxTable/types";
 import type { DataGridEntry } from "../types";
 import {
   createTableColumnGroups,
   useIsFeatureEnabled,
-  type ColumnConfigTypeOption,
   type ColumnGroupConfig,
   type DataGridFeatureOptions,
-  type PublicNormalizedColumnConfig,
+  type InternalColumnConfig,
 } from "./index";
 
 describe("createTableColumnGroups", () => {
@@ -100,11 +99,7 @@ describe("createTableColumnGroups", () => {
     },
   ] as {
     title: string;
-    columns?: PublicNormalizedColumnConfig<
-      DataGridEntry,
-      never,
-      ColumnConfigTypeOption<PropertyKey, unknown>
-    >[];
+    columns?: InternalColumnConfig<DataGridEntry, ColumnGroupConfig>[];
     columnGroups?: ColumnGroupConfig;
     expected: TableColumnGroup[] | undefined;
   }[])("should create correct columnGroups for $title", ({ columns, columnGroups, expected }) => {
