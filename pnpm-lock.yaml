@@ -79,7 +79,7 @@ importers:
         specifier: ^21.1.7
         version: 21.1.7
       '@types/node':
-        specifier: ^22.15.12
+        specifier: ^22.15.17
         version: 22.15.21
       '@vitejs/plugin-vue':
         specifier: ^5.2.3
@@ -121,7 +121,7 @@ importers:
         specifier: ^26.1.0
         version: 26.1.0
       lint-staged:
-        specifier: ^15.5.1
+        specifier: ^15.5.2
         version: 15.5.2
       prettier:
         specifier: ^3.5.3
@@ -148,7 +148,7 @@ importers:
         specifier: ^8.0.4
         version: 8.0.4(stylelint@16.19.1(typescript@5.8.3))
       turbo:
-        specifier: ^2.5.2
+        specifier: ^2.5.3
         version: 2.5.3
       typescript:
         specifier: 'catalog:'
