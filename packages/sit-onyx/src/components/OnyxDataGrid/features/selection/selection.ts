@@ -55,18 +55,24 @@ export const useSelection = createFeature(
 
     const { t } = injectI18n();
 
+    const modifyColumns: ModifyColumns<TEntry> = {
+      func: (cols) =>
+        disabled.value
+          ? [...cols]
+          : [
+              {
+                key: SELECTION_COLUMN,
+                type: { name: SELECTION_COLUMN },
+                label: "",
+                width: "2.5rem",
+              },
+              ...cols,
+            ],
+    };
     return {
       name: SELECTION_FEATURE,
       watch: [selectionState, hover, disabled],
-      modifyColumns: {
-        func: (columnConfig) =>
-          disabled.value
-            ? [...columnConfig]
-            : [
-                { key: SELECTION_COLUMN, type: SELECTION_COLUMN, label: "", width: "2.5rem" },
-                ...columnConfig,
-              ],
-      } satisfies ModifyColumns<TEntry>,
+      modifyColumns,
       mutation: {
         func: (rows) => {
           rowsCount.value = rows.length;

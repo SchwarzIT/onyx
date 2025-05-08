@@ -6,7 +6,7 @@ import type { HideColumnsOptions } from "./types";
 
 const { columns, data, hideColumnsOptions } = defineProps<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- for simplicity we use any here
-  Pick<OnyxDataGridProps<TEntry, any, any, any, any>, "columns" | "data"> & {
+  Pick<OnyxDataGridProps<TEntry, any, any, any, any, any>, "columns" | "data"> & {
     /**
      * config
      */

@@ -24,7 +24,8 @@ import type {
   DataGridRendererColumn,
   DataGridRendererRow,
 } from "../OnyxDataGridRenderer/types";
-import type { DataGridEntry, DataGridMetadata } from "../types";
+import type { DataGridEntry, DataGridMetadata, RenderTypesFromFeature } from "../types";
+import type { BASE_FEATURE } from "./base/base";
 import { createRenderer } from "./renderer";
 
 /**
@@ -34,12 +35,26 @@ export type ModifyColumns<TEntry extends DataGridEntry> = {
   func: (columns: Readonly<InternalColumnConfig<TEntry>[]>) => InternalColumnConfig<TEntry>[];
 };
 
+export type HeaderCellProps<TOptions = unknown> = { label: string; typeOptions?: TOptions };
+
+export type TypeRendererHeaderDef<TEntry extends DataGridEntry, TOptions = undefined> = Omit<
+  DataGridRendererColumn<TEntry, HeaderCellProps<TOptions>>,
+  "key" | "props"
+>;
+
+export type CellMetadata<TOptions = unknown> = { qtypeOptions?: TOptions };
+
+export type TypeRendererCell<TEntry extends DataGridEntry, TOptions = undefined> = Omit<
+  DataGridRendererCell<TEntry, { typeOptions?: TOptions }>,
+  "props"
+>;
+
 /**
  * Defines how a specific column type should be rendered.
  */
-export type TypeRenderer<TEntry extends DataGridEntry> = {
-  header?: Omit<DataGridRendererColumn<TEntry>, "key">;
-  cell: Omit<DataGridRendererCell<TEntry>, "props">;
+export type TypeRenderer<TEntry extends DataGridEntry, TOptions = undefined> = {
+  header?: TypeRendererHeaderDef<TEntry, TOptions>;
+  cell: TypeRendererCell<TEntry, TOptions>;
 };
 
 /**
@@ -49,15 +64,17 @@ export type TypeRenderer<TEntry extends DataGridEntry> = {
 export type TypeRenderMap<
   TEntry extends DataGridEntry,
   TKey extends PropertyKey = PropertyKey,
-> = Partial<Record<TKey, TypeRenderer<TEntry>>>;
+> = Partial<Record<TKey, Readonly<TypeRenderer<TEntry, object>>>>;
 
 /**
  * ColumnConfig as it can be defined by the user.
  */
 export type ColumnConfig<
   TEntry extends DataGridEntry,
-  TColumnGroup extends ColumnGroupConfig,
-  TTypes,
+  TColumnGroup extends ColumnGroupConfig = Record<string, never>,
+  TTypes extends ColumnConfigTypeOption<PropertyKey, unknown> = RenderTypesFromFeature<
+    [typeof BASE_FEATURE]
+  >,
 > = keyof TEntry | PublicNormalizedColumnConfig<TEntry, TColumnGroup, TTypes>;
 
 export type DefaultSupportedTypes = "string" | "number" | DatetimeFormat;
@@ -79,8 +96,8 @@ export type InternalColumnConfig<
   TEntry extends DataGridEntry,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- we use any for type inference
   TColumnGroup extends ColumnGroupConfig = any,
-  TTypes extends PropertyKey = PropertyKey,
-> = PublicNormalizedColumnConfig<TEntry, TColumnGroup, TTypes> & {
+> = Omit<PublicNormalizedColumnConfig<TEntry, TColumnGroup, never>, "label" | "type"> & {
+  type: ColumnTypeNormalized<PropertyKey, unknown>;
   /**
    * Attributes that should be set on all `td` elements
    */
@@ -95,14 +112,16 @@ export type InternalColumnConfig<
   label: string;
 };
 
+export type ColumnTypeNormalized<TKey, TOptions> = { name: TKey; options?: TOptions };
+export type ColumnConfigTypeOption<TKey, TOptions> = TKey | ColumnTypeNormalized<TKey, TOptions>;
+
 /**
  * Normalized column config for public/external usage.
  */
 export type PublicNormalizedColumnConfig<
   TEntry extends DataGridEntry,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- we use any for type inference
-  TColumnGroup extends ColumnGroupConfig = any,
-  TTypes = PropertyKey,
+  TColumnGroup extends ColumnGroupConfig,
+  TTypes extends ColumnConfigTypeOption<PropertyKey, unknown>,
 > = Pick<DataGridRendererColumn<TEntry>, "width" | "key"> & {
   /**
    * The `label` is displayed in the data grid as column header.
@@ -113,7 +132,7 @@ export type PublicNormalizedColumnConfig<
    * The `type` of the column. It defines how the header and cells of a column is rendered.
    * If not defined the values are displayed as plain strings.
    */
-  type?: TTypes | DefaultSupportedTypes;
+  type?: TTypes;
   /**
    * Key of the ColumnGroup that this column should be visually grouped in.
    * The columns have to be defined in the correct order.
@@ -265,6 +284,13 @@ export function createFeature<
   return featureDefinition;
 }
 
+export function createTypeRenderer<
+  TOptions = undefined,
+  TEntry extends DataGridEntry = DataGridEntry,
+>(typeRenderer: TypeRenderer<TEntry, TOptions>) {
+  return Object.freeze(typeRenderer);
+}
+
 type CheckDataGridFeature<T> =
   T extends DataGridFeature<infer A, TypeRenderMap<infer A>, infer C>
     ? DataGridFeature<A, TypeRenderMap<A>, C>
@@ -273,14 +299,16 @@ type CheckDataGridFeature<T> =
 export type UseDataGridFeaturesOptions<
   TEntry extends DataGridEntry,
   TColumnGroup extends ColumnGroupConfig,
+  TTypes extends ColumnConfigTypeOption<PropertyKey, unknown>,
 > = {
-  columnConfig: MaybeRefOrGetter<ColumnConfig<TEntry, TColumnGroup, PropertyKey>[]>;
+  columnConfig: MaybeRefOrGetter<ColumnConfig<TEntry, TColumnGroup, TTypes>[]>;
   i18n: OnyxI18n;
   columnGroups: MaybeRefOrGetter<TColumnGroup>;
 };
 
 export const createTableColumnGroups = <TEntry extends DataGridEntry>(
-  columns?: PublicNormalizedColumnConfig<TEntry>[],
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- asdfg
+  columns?: PublicNormalizedColumnConfig<TEntry, any, any>[],
   columnGroups?: ColumnGroupConfig,
 ) => {
   // Only if there is at least a single column group defined.
@@ -348,19 +376,23 @@ export const useDataGridFeatures = <
   TFeatureName extends symbol,
   TTypeRenderer extends TypeRenderMap<TEntry>,
   TColumnGroup extends ColumnGroupConfig,
+  TTypes extends ColumnConfigTypeOption<PropertyKey, unknown>,
   // Intersection with the empty array is necessary for TypeScript to infer the array entries as tuple values instead of an array
   // e.g. (Feature1 | Feature2)[] vs. [Feature1, Feature2]
   // The inference of tuple values allows us to create types that are more precise
   T extends DataGridFeature<TEntry, TTypeRenderer, TFeatureName>[] | [],
 >(
   features: T,
-  { i18n, columnConfig, columnGroups }: UseDataGridFeaturesOptions<TEntry, TColumnGroup>,
+  { i18n, columnConfig, columnGroups }: UseDataGridFeaturesOptions<TEntry, TColumnGroup, TTypes>,
 ) => {
   const columns = computed(() => {
-    const normalized = toValue(columnConfig).map((c) => {
+    const normalized = toValue(columnConfig).map<InternalColumnConfig<TEntry>>((c) => {
       const obj = typeof c !== "object" ? { key: c } : c;
-      obj.label ??= String(obj.key);
-      return obj as InternalColumnConfig<TEntry>;
+      return {
+        ...obj,
+        label: obj.label ?? String(obj.key),
+        type: typeof obj.type === "object" ? obj.type : { name: obj.type ?? "string" },
+      };
     });
     return features
       .flatMap(({ modifyColumns }) => modifyColumns)
@@ -388,7 +420,7 @@ export const useDataGridFeatures = <
 
     return columns.value.map<DataGridRendererColumn<TEntry>>((column, i, all) => {
       const actions = headerActions.flatMap((actionFactory) => actionFactory(column, i, all));
-      const header = renderer.value.getFor("header", column.type);
+      const header = renderer.value.getFor("header", column.type.name);
 
       const menuItems = actions.map(({ menuItems }) => menuItems).filter((item) => !!item);
       const iconComponent = actions.map(({ iconComponent }) => iconComponent);
@@ -482,10 +514,10 @@ export const useDataGridFeatures = <
     return shallowCopy.map((entry) => {
       const cells = columns.value.reduce<DataGridRendererRow<TEntry, DataGridMetadata>["cells"]>(
         (cells, { key, type, tdAttributes }) => {
-          const cellRenderer = renderer.value.getFor("cell", type);
+          const cellRenderer = renderer.value.getFor("cell", type.name);
           cells[key] = {
             component: cellRenderer.component,
-            props: { row: entry, modelValue: entry[key] },
+            props: { row: entry, modelValue: entry[key], metadata: { typeOptions: type.options } },
             tdAttributes: mergeVueProps(tdAttributes, cellRenderer.tdAttributes),
           };
           return cells;
