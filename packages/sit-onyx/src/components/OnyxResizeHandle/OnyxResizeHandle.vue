@@ -75,6 +75,7 @@ const onKeydown = (event: KeyboardEvent) => {
     type="button"
     role="presentation"
     class="onyx-component onyx-resize-handle"
+    aria-hidden="true"
     @mousedown="handleResize"
     @dblclick="emit('autoSize')"
   ></button>
