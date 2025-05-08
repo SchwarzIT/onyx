@@ -1,11 +1,14 @@
-import { h, ref, watch, type Slot, type ThHTMLAttributes } from "vue";
+import { h, ref, watch, type HTMLAttributes, type Slot, type ThHTMLAttributes } from "vue";
 import { createFeature, useIsFeatureEnabled, type InternalColumnConfig } from "..";
+import { useResizeObserver } from "../../../../composables/useResizeObserver";
 import { mergeVueProps } from "../../../../utils/attrs";
 import type { DataGridEntry } from "../../types";
 import ResizeHandle from "./ResizeHandle.vue";
+import "./resizing.scss";
 import type { ResizingOptions } from "./types";
 
 export const RESIZING_FEATURE = Symbol("Resizing");
+export const EMPTY_COLUMN = Symbol("EmptyColumn");
 export const useResizing = createFeature(
   <TEntry extends DataGridEntry>(options?: ResizingOptions<TEntry>) => {
     const resizingCol = ref<Readonly<InternalColumnConfig<TEntry>>>();
@@ -13,8 +16,13 @@ export const useResizing = createFeature(
     const headers = ref(new Map<keyof TEntry, HTMLElement>());
     const { isEnabled } = useIsFeatureEnabled(options);
     const colWidths = ref(new Map<keyof TEntry, string>());
-    let previousWidth: string | undefined = undefined;
-    let abortController: AbortController | undefined = undefined;
+    const showLastCol = ref(false);
+    const scrollContainer = ref<HTMLElement>();
+    const header = ref<HTMLElement>();
+    let tableWidth: number;
+    let tableWrapperWidth: number;
+    let previousWidth: string | undefined;
+    let abortController: AbortController | undefined;
 
     watch(
       [headers, colWidths],
@@ -34,16 +42,34 @@ export const useResizing = createFeature(
       { flush: "post", deep: true },
     );
 
+    const { width } = useResizeObserver(scrollContainer);
+
+    watch(width, () => {
+      updateLastCol();
+    });
+
+    const updateLastCol = () => {
+      if (!header.value) return;
+
+      tableWidth = header.value.closest(".onyx-table")?.getBoundingClientRect().width ?? 0;
+      tableWrapperWidth =
+        header.value.closest(".onyx-table-wrapper__container")?.getBoundingClientRect().width ?? 0;
+
+      showLastCol.value = tableWrapperWidth > tableWidth;
+    };
+
     const onMouseMove = (ev: MouseEvent) => {
       const colKey = resizingCol.value?.key;
-      const header = headers.value.get(colKey!);
-      if (!header || !colKey) {
+      header.value = headers.value.get(colKey!);
+      if (!header.value || !colKey) {
         return;
       }
 
       // Calculate the desired width
-      const width = ev.clientX - header.getBoundingClientRect().left;
+      const width = ev.clientX - header.value.getBoundingClientRect().left;
       colWidths.value.set(colKey, `${Math.max(min, width)}px`);
+
+      updateLastCol();
     };
 
     // Clean up event listeners, classes, etc.
@@ -84,7 +110,7 @@ export const useResizing = createFeature(
     };
 
     const modifyColumns = (cols: Readonly<InternalColumnConfig<TEntry>[]>) => {
-      return cols.map((column) => {
+      const columns = cols.map((column) => {
         if (!isEnabled.value(column.key)) return column;
 
         const thAttributes = {
@@ -99,6 +125,10 @@ export const useResizing = createFeature(
           thAttributes: mergeVueProps(thAttributes, column.thAttributes),
         };
       });
+
+      if (showLastCol.value) columns.push({ key: EMPTY_COLUMN, type: EMPTY_COLUMN, label: "" });
+
+      return columns;
     };
 
     const renderWrapper = (
@@ -119,9 +149,27 @@ export const useResizing = createFeature(
 
     return {
       name: RESIZING_FEATURE,
-      watch: [],
+      watch: [showLastCol],
       modifyColumns: {
         func: modifyColumns,
+      },
+      scrollContainerAttributes: () =>
+        ({
+          ref: (el?: HTMLElement) => {
+            scrollContainer.value = el;
+          },
+        }) as HTMLAttributes,
+      typeRenderer: {
+        [EMPTY_COLUMN]: {
+          header: {
+            thAttributes: { class: "onyx-data-grid-empty-columns-cell" },
+            component: () => null,
+          },
+          cell: {
+            tdAttributes: { class: "onyx-data-grid-empty-columns-cell" },
+            component: () => null,
+          },
+        },
       },
       header: {
         wrapper:

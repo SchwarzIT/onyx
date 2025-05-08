@@ -1,0 +1,7 @@
+@use "../../../../styles/mixins/layers.scss";
+
+@include layers.component {
+  .onyx-data-grid-empty-columns-cell {
+    width: 100%;
+  }
+}
