@@ -1,12 +1,12 @@
 import { describe, expect, test } from "vitest";
-import type { TableColumnGroup } from "../../../components/OnyxTable/types";
+import type { TableColumnGroup } from "../../OnyxTable/types";
 import type { DataGridEntry } from "../types";
 import {
   createTableColumnGroups,
   useIsFeatureEnabled,
   type ColumnGroupConfig,
   type DataGridFeatureOptions,
-  type PublicNormalizedColumnConfig,
+  type InternalColumnConfig,
 } from "./index";
 
 describe("createTableColumnGroups", () => {
@@ -97,12 +97,14 @@ describe("createTableColumnGroups", () => {
         },
       ],
     },
-  ])("should create correct columnGroups for $title", ({ columns, columnGroups, expected }) => {
-    const result = createTableColumnGroups(
-      columns as PublicNormalizedColumnConfig<DataGridEntry>[],
-      columnGroups as ColumnGroupConfig | undefined,
-    );
-    expect(result).toMatchObject(expected as TableColumnGroup[]);
+  ] as {
+    title: string;
+    columns?: InternalColumnConfig<DataGridEntry, ColumnGroupConfig>[];
+    columnGroups?: ColumnGroupConfig;
+    expected: TableColumnGroup[] | undefined;
+  }[])("should create correct columnGroups for $title", ({ columns, columnGroups, expected }) => {
+    const result = createTableColumnGroups(columns, columnGroups);
+    expect(result).toMatchObject(expected!);
   });
 });
 

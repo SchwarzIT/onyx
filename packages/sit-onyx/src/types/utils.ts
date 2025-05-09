@@ -6,6 +6,11 @@ import type { HTMLAttributes } from "vue";
 export type KeysOfUnion<T> = T extends T ? keyof T : never;
 
 /**
+ * Infer the value types of a record type
+ */
+export type RecordValues<T> = T extends Record<PropertyKey, infer V> ? V : never;
+
+/**
  * Merge the values for all entries by key.
  */
 export type UnionByKey<T> = {
@@ -17,9 +22,9 @@ export type UnionByKey<T> = {
 };
 
 /**
- * Pick a value form `T` for the key `K`, if it exists.
+ * Pick a value from `T` for the key `K`, if it exists.
  */
-export type MaybePick<T, K> = K extends keyof T ? T[K] : never;
+export type MaybePick<T, Key, Fallback = never> = Key extends keyof T ? T[Key] : Fallback;
 
 /**
  * Recursive / deep implementation of TypeScript's built-in `Partial<T>` type.
@@ -38,3 +43,14 @@ export type WithHTMLAttributes<
  * Generic data object.
  */
 export type Data<T = unknown> = Record<string, T>;
+
+/**
+ * Simple Wrapper for extends type checking.
+ * Returns the passed type if it extends the specified `Extends` type, and `Else` type otherwise.
+ */
+export type IfExtends<T, Extends, Else = never> = T extends Extends ? T : Else;
+
+/**
+ * Returns the passed type if not empty, and `Else` type otherwise.
+ */
+export type IfNotEmpty<T, Else = never> = T extends Record<PropertyKey, never> ? Else : T;

@@ -1,10 +1,5 @@
 <script setup lang="ts">
-import {
-  DataGridFeatures,
-  OnyxDataGrid,
-  type ColumnConfig,
-  type ColumnGroupConfig,
-} from "../../..";
+import { DataGridFeatures, OnyxDataGrid, type ColumnConfig } from "../../..";
 import OnyxHeadline from "../../../components/OnyxHeadline/OnyxHeadline.vue";
 
 type TEntry = {
@@ -77,7 +72,7 @@ const data: TEntry[] = [
   },
 ];
 
-const columns: ColumnConfig<TEntry, ColumnGroupConfig, never>[] = [
+const columns: ColumnConfig<TEntry>[] = [
   { key: "name", label: "Name" },
   { key: "age", label: "Age", type: "number" },
   { key: "birthday", label: "Birthday", type: "date" },
