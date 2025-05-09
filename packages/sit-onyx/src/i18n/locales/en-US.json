@@ -194,5 +194,8 @@
   "notificationCard": {
     "moreActions": "More actions",
     "toggleActions": "Toggle actions"
+  },
+  "resizeHandle": {
+    "label": "Drag to change width"
   }
 }

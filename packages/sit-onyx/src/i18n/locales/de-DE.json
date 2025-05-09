@@ -194,5 +194,8 @@
   "notificationCard": {
     "moreActions": "Weitere Aktionen",
     "toggleActions": "Aktionen umschalten"
+  },
+  "resizeHandle": {
+    "label": "Ziehen, um die Breite zu ändern"
   }
 }
