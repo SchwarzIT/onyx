@@ -34,12 +34,12 @@ test("OnyxDataGrid custom type renderer options", async ({ mount }) => {
   const component = await mount(<TestWrapperColumnTypeOptionsCt />);
 
   // ASSERT
-  await expect(component.getByRole("cell").nth(1)).toHaveText("01/01/1990, 01:00:00 AM GMT+1");
-  await expect(component.getByRole("cell").nth(2)).toHaveText("Monday, January 1, 1990");
-  await expect(component.getByRole("cell").nth(3)).toHaveText("---");
-  await expect(component.getByRole("cell").nth(4)).toHaveText("12.34");
-  await expect(component.getByRole("cell").nth(5)).toHaveText("+€1.234E1");
-  await expect(component.getByRole("cell").nth(6)).toHaveText("NaN");
+  await expect(component.getByRole("cell").nth(0)).toHaveText("01/01/1990, 01:00:00 AM GMT+1");
+  await expect(component.getByRole("cell").nth(1)).toHaveText("Monday, January 1, 1990");
+  await expect(component.getByRole("cell").nth(2)).toHaveText("---");
+  await expect(component.getByRole("cell").nth(3)).toHaveText("12.34");
+  await expect(component.getByRole("cell").nth(4)).toHaveText("+€1.234E1");
+  await expect(component.getByRole("cell").nth(5)).toHaveText("NaN");
 });
 
 test.describe("Screenshot tests", () => {
