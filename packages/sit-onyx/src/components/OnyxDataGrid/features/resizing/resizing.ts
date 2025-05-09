@@ -19,6 +19,7 @@ export const useResizing = createFeature(
     const showLastCol = ref(false);
     const scrollContainer = ref<HTMLElement>();
     const header = ref<HTMLElement>();
+    let colKey: keyof TEntry | undefined;
     let tableWidth: number;
     let tableWrapperWidth: number;
     let previousWidth: string | undefined;
@@ -45,22 +46,19 @@ export const useResizing = createFeature(
     const { width } = useResizeObserver(scrollContainer);
 
     watch(width, () => {
-      updateLastCol();
+      updateTableWidths();
     });
 
-    const updateLastCol = () => {
+    const updateTableWidths = () => {
       if (!header.value) return;
 
       tableWidth = header.value.closest(".onyx-table")?.getBoundingClientRect().width ?? 0;
       tableWrapperWidth =
         header.value.closest(".onyx-table-wrapper__container")?.getBoundingClientRect().width ?? 0;
-
       showLastCol.value = tableWrapperWidth > tableWidth;
     };
 
     const onMouseMove = (ev: MouseEvent) => {
-      const colKey = resizingCol.value?.key;
-      header.value = headers.value.get(colKey!);
       if (!header.value || !colKey) {
         return;
       }
@@ -68,15 +66,23 @@ export const useResizing = createFeature(
       // Calculate the desired width
       const width = ev.clientX - header.value.getBoundingClientRect().left;
       colWidths.value.set(colKey, `${Math.max(min, width)}px`);
-
-      updateLastCol();
     };
 
-    // Clean up event listeners, classes, etc.
+    const onMouseDown = () => {
+      colKey = resizingCol.value?.key;
+      header.value = headers.value.get(colKey!);
+      if (!header.value || !colKey) {
+        return;
+      }
+
+      showLastCol.value = true;
+    };
+
     const onMouseUp = () => {
       abortController?.abort();
       previousWidth = undefined;
       resizingCol.value = undefined;
+      updateTableWidths();
     };
 
     const onKeydown = (event: KeyboardEvent) => {
@@ -106,6 +112,7 @@ export const useResizing = createFeature(
       const options = { signal: abortController.signal, passive: true };
       window.addEventListener("mousemove", onMouseMove, options);
       window.addEventListener("mouseup", onMouseUp, options);
+      window.addEventListener("mousedown", onMouseDown, options);
       window.addEventListener("keydown", onKeydown, options);
     };
 
