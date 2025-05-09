@@ -3,7 +3,6 @@ import {
   type OnyxDateFormatOptions,
   type OnyxNumberFormatOptions,
 } from "../../../i18n";
-import type { DatetimeFormat } from "../../../i18n/datetime-formats";
 import { allObjectEntries } from "../../../utils/objects";
 import type { DateValue } from "../../OnyxDatePicker/types";
 import type { DataGridEntry } from "../types";
@@ -107,39 +106,52 @@ export type DateCellOptions = {
 
 export const dateFormatter = <TEntry extends DataGridEntry>(
   value: TEntry[keyof TEntry] | undefined,
-  type: DatetimeFormat,
+  options: DateCellOptions,
 ): string => {
   // using loose "==" here to catch both undefined and null
-  if (value == undefined || typeof value === "boolean") return FALLBACK_RENDER_VALUE;
+  if (value == undefined || typeof value === "boolean")
+    return options.fallback ?? FALLBACK_RENDER_VALUE;
 
   const { d } = injectI18n();
 
   try {
     const date = new Date(typeof value === "bigint" ? Number(value) : (value as DateValue));
-    return d.value(date, type);
+    return d.value(date, options.format);
   } catch {
-    return FALLBACK_RENDER_VALUE;
+    return options.fallback ?? FALLBACK_RENDER_VALUE;
   }
 };
 
 export const DATE_RENDERER = createTypeRenderer<DateCellOptions>({
   header: { component: HeaderCell },
-  cell: { component: (props) => dateFormatter(props.modelValue, "date") },
+  cell: {
+    component: (props) =>
+      dateFormatter(props.modelValue, { format: "date", ...props.metadata?.typeOptions }),
+  },
 });
 
 export const DATETIME_RENDERER = createTypeRenderer<DateCellOptions>({
   header: { component: HeaderCell },
-  cell: { component: (props) => dateFormatter(props.modelValue, "datetime-local") },
+  cell: {
+    component: (props) =>
+      dateFormatter(props.modelValue, { format: "datetime-local", ...props.metadata?.typeOptions }),
+  },
 });
 
 export const TIME_RENDERER = createTypeRenderer<DateCellOptions>({
   header: { component: HeaderCell },
-  cell: { component: (props) => dateFormatter(props.modelValue, "time") },
+  cell: {
+    component: (props) =>
+      dateFormatter(props.modelValue, { format: "time", ...props.metadata?.typeOptions }),
+  },
 });
 
 export const TIMESTAMP_RENDERER = createTypeRenderer<DateCellOptions>({
   header: { component: HeaderCell },
-  cell: { component: (props) => dateFormatter(props.modelValue, "timestamp") },
+  cell: {
+    component: (props) =>
+      dateFormatter(props.modelValue, { format: "timestamp", ...props.metadata?.typeOptions }),
+  },
 });
 
 export const createRenderer = <TEntry extends DataGridEntry>(
