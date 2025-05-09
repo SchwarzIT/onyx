@@ -7,7 +7,7 @@ settings:
 catalogs:
   default:
     chart.js:
-      specifier: ^4.4.9
+      specifier: 4.4.9
       version: 4.4.9
     typescript:
       specifier: 5.8.3
