@@ -78,21 +78,29 @@ export const useResizing = createFeature(
       slots: Readonly<{ [name: string]: Slot | undefined }>,
       cols: Readonly<InternalColumnConfig<TEntry>>,
       isLastColumn: boolean,
-    ) =>
-      !isEnabled.value(cols.key) || isLastColumn
-        ? slots.default?.()
-        : [
-            h(OnyxResizeHandle, {
-              element: (event) => (event.target as HTMLElement).closest("th"),
-              onAutoSize: () => colWidths.value.set(cols.key, "max-content"),
-              onUpdateWidth: (newWidth) => {
-                colWidths.value.set(cols.key, `${newWidth}px`);
-                updateLastCol();
-              },
-              min: 3 * 16,
-            }),
-            slots.default?.(),
-          ];
+    ) => {
+      if (!isEnabled.value(cols.key) || isLastColumn) return slots.default?.();
+      const minWidth = 3 * 16;
+
+      return [
+        h(OnyxResizeHandle, {
+          min: minWidth,
+          element: (event) => (event.target as HTMLElement).closest("th"),
+          onInit: () => {
+            Array.from(headers.value.entries()).forEach(([col, el]) => {
+              const { width } = el.getBoundingClientRect();
+              colWidths.value.set(col, `${Math.max(minWidth, width)}px`);
+            });
+          },
+          onUpdateWidth: (newWidth) => {
+            colWidths.value.set(cols.key, `${newWidth}px`);
+            updateLastCol();
+          },
+          onAutoSize: () => colWidths.value.set(cols.key, "max-content"),
+        }),
+        slots.default?.(),
+      ];
+    };
 
     return {
       name: RESIZING_FEATURE,

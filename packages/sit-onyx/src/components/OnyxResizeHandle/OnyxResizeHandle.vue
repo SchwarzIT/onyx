@@ -18,6 +18,10 @@ const emit = defineEmits<{
    * Emitted when the size should be set automatically (by double clicking).
    */
   autoSize: [];
+  /**
+   * Emitted when the resizing has been initialized (by putting the mouse down on the resize handle).
+   */
+  init: [];
 }>();
 
 const { t } = injectI18n();
@@ -33,6 +37,7 @@ const handleResize = (event: MouseEvent) => {
 
   if (!currentElement.value) return;
 
+  emit("init");
   previousWidth.value = currentElement.value.getBoundingClientRect().width;
 
   abortController = new AbortController();
