@@ -94,7 +94,6 @@ export const useResizing = createFeature(
           },
           onUpdateWidth: (newWidth) => {
             colWidths.value.set(cols.key, `${newWidth}px`);
-            updateLastCol();
           },
           onAutoSize: () => colWidths.value.set(cols.key, "max-content"),
         }),

@@ -21,7 +21,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the resizing has been initialized (by putting the mouse down on the resize handle).
    */
-  init: [];
+  init: [event: MouseEvent];
 }>();
 
 const { t } = injectI18n();
@@ -37,7 +37,7 @@ const handleResize = (event: MouseEvent) => {
 
   if (!currentElement.value) return;
 
-  emit("init");
+  emit("init", event);
   previousWidth.value = currentElement.value.getBoundingClientRect().width;
 
   abortController = new AbortController();
