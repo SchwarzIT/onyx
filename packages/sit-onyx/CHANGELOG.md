@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.212
+
+### Patch Changes
+
+- fe38f20: fix(OnyxAccordionItem): increase vertical padding for `nested-small` type
+
 ## 1.0.0-beta.211
 
 ### Minor Changes
