@@ -20,7 +20,9 @@ button {
   width: 16rem;
 
   :deep(.onyx-ripple__element) {
-    animation-duration: 5s;
+    // choose hight duration here to not hide the ripples automatically
+    // so we can expect the count in the Playwright tests
+    animation-duration: 999999s;
   }
 }
 </style>
