@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.214
+
+### Patch Changes
+
+- 9e12bcf: fix(OnyxFlyoutMenu): fix `alignment` property type and make it optional
+
 ## 1.0.0-beta.213
 
 ### Patch Changes
