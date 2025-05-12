@@ -1,7 +1,7 @@
-import type { OnyxFlyoutProps } from "src/components/OnyxFlyout/types";
+import type { OnyxFlyoutProps } from "../../../../components/OnyxFlyout/types";
 import type { Nullable } from "../../../../composables/useVModel";
 
-export type OnyxFlyoutMenuProps = Partial<Pick<OnyxFlyoutProps, "alignment">> & {
+export type OnyxFlyoutMenuProps = Pick<OnyxFlyoutProps, "alignment"> & {
   /**
    * Aria label for the flyout.
    */
