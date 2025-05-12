@@ -52,6 +52,7 @@ test.each([
   { username: "", expected: undefined },
   { username: "    ", expected: undefined },
   { username: "  john doe  ", expected: "JD" },
+  { username: "  john doe  (Joehn Doe)", expected: "JD" },
 ])("should get initials $expected from user name $username", ({ username, expected }) => {
   // ACT
   const initials = getInitials(username, "en-US");
