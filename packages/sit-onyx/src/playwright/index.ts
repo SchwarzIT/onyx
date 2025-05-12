@@ -1,4 +1,4 @@
-import type { Page } from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
 
 /**
  * Drags the resize handle / mouse to a given position.
@@ -7,12 +7,14 @@ export const dragResizeHandle = async ({
   page,
   to,
   preventUp,
+  component,
 }: {
   page: Page;
   to: number;
   preventUp?: boolean;
+  component?: Locator;
 }) => {
-  const button = page.getByRole("button", { name: "Drag to change width" });
+  const button = (component ?? page).getByRole("button", { name: "Drag to change width" });
   await button.hover();
 
   await page.mouse.down();

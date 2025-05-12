@@ -1,4 +1,5 @@
 import type { Locator } from "@playwright/test";
+import { dragResizeHandle } from "../../../../playwright";
 import { expect, test } from "../../../../playwright/a11y";
 import TestCase from "./TestCase.vue";
 
@@ -8,36 +9,36 @@ const getTestData = () => [
   { id: 3, a: "3", b: "C", c: "cc" },
 ];
 
-const expectColumnCount = async (dataGrid: Locator, count: number) => {
-  await expect(dataGrid.getByRole("columnheader")).toHaveCount(count);
+const expectColumnCount = async (dataGrid: Locator, count: number, message?: string) => {
+  await expect(dataGrid.getByRole("columnheader"), message).toHaveCount(count);
 };
 
-test("should resize columns", async ({ mount }) => {
+test.beforeEach(async ({ page }) => {
+  await page.addStyleTag({
+    content: `body { margin: 0; }`,
+  });
+});
+
+test("should resize columns", async ({ page, mount }) => {
   // ARRANGE
   const data = getTestData();
-  const component = await mount(<TestCase data={data} columns={["a", "b", "c"]} />);
+  const component = await mount(
+    <TestCase data={data} columns={[{ key: "a", width: "200px" }, "b", "c"]} />,
+  );
 
-  const firstColumn = await component.getByRole("columnheader", { name: "a" }).boundingBox();
-  const resizeHandle = component.getByRole("columnheader", { name: "a" }).getByRole("button");
+  const aColumn = component.getByRole("columnheader", { name: "Drag to change width a" });
 
-  await expectColumnCount(component, 3); // 3 Visible
-
-  await resizeHandle.dragTo(resizeHandle, {
-    // eslint-disable-next-line playwright/no-force-option -- it's required for the test
-    force: true,
-    targetPosition: {
-      x: firstColumn!.width * -0.4,
-      y: 0,
-    },
-  });
-
-  const resizedColumn = await component.getByRole("columnheader", { name: "a" }).boundingBox();
-  const emptyColumn = component.getByRole("columnheader").filter({ hasText: /^$/ });
+  // ASSERT
+  let box = (await aColumn.boundingBox())!;
+  expect(box.width).toBe(200);
+  await expectColumnCount(component, 3, "should show all 3 columns without empty column");
 
   // ACT
-  expect(resizedColumn!.width).toBeLessThan(firstColumn!.width);
-  await expect(emptyColumn).toBeVisible();
-  await expectColumnCount(component, 4); // 4 Visible
+  await dragResizeHandle({ page, component: aColumn, to: 100 });
+  box = (await aColumn.boundingBox())!;
 
+  // ASSERT
+  expect(box.width).toBe(99);
+  await expectColumnCount(component, 4, "should show empty column when resizing smaller");
   await expect(component).toHaveScreenshot("data-grid-resized-columns-with-extra-empty-column.png");
 });
