@@ -4,6 +4,10 @@ on:
   workflow_dispatch:
   # see: https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue#configuring-continuous-integration-ci-workflows-for-merge-queues
   merge_group:
+  # we want to keep sonarqube up-to-date for the main branch
+  push:
+    branches:
+      - main
 
 # cancel previous runs if new changes are pushed to the branch/PR
 # see: https://stackoverflow.com/a/72408109
@@ -59,8 +63,8 @@ jobs:
       - name: 🚨 Run unit tests
         run: pnpm run test:all
 
-      - uses: SonarSource/sonarqube-scan-action@v5
-        name: 📈 Run SonarQube Analysis
+      - name: 📈 SonarQube Analysis
+        uses: SonarSource/sonarqube-scan-action@v5
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
@@ -70,8 +74,15 @@ jobs:
         run: pnpm run publint:all
 
       # scan CSS build for browser compatibility issues
-      - name: Run stylelint 💅
+      - name: 💅 Run stylelint
         run: pnpm run stylelint
+
+      - name: 👮 SonarQube Quality Gate check
+        uses: sonarsource/sonarqube-quality-gate-action@master
+        if: ${{ github.event_name == 'pull_request' }} # dont block anything except pull-requests
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
       - name: Upload code coverage artifact
         uses: actions/upload-artifact@v4
@@ -93,6 +104,7 @@ jobs:
           path: apps/docs/src/.vitepress/dist
 
   screenshots:
+    if: github.event_name == 'push' # avoid running screenshot tests on main again after a merge
     needs: build
     name: Component tests
     uses: ./.github/workflows/playwright.yml
