@@ -22,10 +22,6 @@ const emit = defineEmits<{
    * Emitted when the size should be set automatically (by double clicking).
    */
   autoSize: [];
-  /**
-   * Emitted when the mouse moves while resizing.
-   */
-  move: [element: Element];
 }>();
 
 const { t } = injectI18n();
@@ -66,7 +62,6 @@ const onMouseMove = (event: MouseEvent) => {
   if (!currentElement.value) return;
   const width = event.clientX - currentElement.value.getBoundingClientRect().left;
   emit("updateWidth", Math.max(props.min, width));
-  emit("move", currentElement.value);
 };
 
 const onMouseUp = () => {

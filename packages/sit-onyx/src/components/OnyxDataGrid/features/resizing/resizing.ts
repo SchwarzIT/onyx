@@ -40,9 +40,9 @@ export const useResizing = createFeature(
     );
 
     const { width } = useResizeObserver(scrollContainer);
-    watch(width, () => updateLastCol());
+    watch(width, () => updateTableWidths());
 
-    const updateLastCol = () => {
+    const updateTableWidths = () => {
       const header = resizingCol.value ? headers.value.get(resizingCol.value.key) : undefined;
       if (!header) return;
 
@@ -96,12 +96,12 @@ export const useResizing = createFeature(
               const { width } = el.getBoundingClientRect();
               colWidths.value.set(col, `${Math.max(MIN_COLUMN_WIDTH, width)}px`);
             });
+
+            showLastCol.value = true;
           },
           onMouseup: () => {
+            updateTableWidths();
             resizingCol.value = undefined;
-          },
-          onMove: () => {
-            updateLastCol();
           },
           onUpdateWidth: (width) => {
             colWidths.value.set(cols.key, `${width}px`);
