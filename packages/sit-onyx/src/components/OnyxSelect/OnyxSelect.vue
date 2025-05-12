@@ -20,6 +20,7 @@ import {
   type Ref,
 } from "vue";
 import { useCheckAll } from "../../composables/checkAll";
+import { useDensity } from "../../composables/density";
 import { useScrollEnd } from "../../composables/scrollEnd";
 import { useOpenDirection } from "../../composables/useOpenDirection";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState";
@@ -100,6 +101,7 @@ const slots = defineSlots<{
 }>();
 
 const { t } = injectI18n();
+const { densityClass } = useDensity(props);
 
 /**
  * Value of the currently selected option or an array of values when the `multiple` prop is `true`.
@@ -368,6 +370,7 @@ defineExpose({ input: computed(() => selectInput.value?.input) });
 <template>
   <div ref="selectRef" class="onyx-component onyx-select-wrapper">
     <OnyxFlyout
+      :class="densityClass"
       :label="props.listLabel"
       :position="openDirection"
       :alignment="props.alignment === 'full' ? 'center' : props.alignment"
@@ -527,6 +530,7 @@ defineExpose({ input: computed(() => selectInput.value?.input) });
     }
 
     &__wrapper {
+      margin: var(--onyx-spacing-2xs) 0;
       width: 100%;
       .onyx-empty {
         max-width: 100%;
