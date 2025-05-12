@@ -81,4 +81,5 @@ export const PLAYWRIGHT_BASE_CONFIG = {
     { name: "firefox", use: { ...devices["Desktop Firefox"] } },
     { name: "webkit", use: { ...devices["Desktop Safari"] } },
   ],
+  testMatch: "**/*.@(ct|e2e).?(c|m)[jt]s?(x)",
 } as const satisfies PlaywrightTestConfig;

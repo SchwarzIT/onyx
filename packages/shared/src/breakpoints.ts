@@ -16,4 +16,7 @@ export const ONYX_MAX_WIDTHS = {
   lg: ONYX_BREAKPOINTS.xl - 1,
 } as const;
 
-export type OnyxBreakpoint = keyof typeof ONYX_BREAKPOINTS;
+// "string &" is needed to fix a current Vue issue where a warning is logged for invalid property types
+// when this types is used in a union, see:
+// https://github.com/SchwarzIT/onyx/issues/3290
+export type OnyxBreakpoint = string & keyof typeof ONYX_BREAKPOINTS;

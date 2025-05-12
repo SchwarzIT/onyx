@@ -89,7 +89,6 @@ const columns: ColumnConfig<TEntry, ColumnGroupConfig, never>[] = [
 ];
 
 const withResizing = DataGridFeatures.useResizing<TEntry>();
-
 const features = [withResizing];
 </script>
 

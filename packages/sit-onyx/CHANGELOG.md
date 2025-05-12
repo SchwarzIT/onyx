@@ -1,5 +1,31 @@
 # sit-onyx
 
+## 1.0.0-beta.213
+
+### Patch Changes
+
+- 3288513: fix(OnyxNavBar): prevent console warning for invalid `mobile` property
+- Updated dependencies [3288513]
+  - @sit-onyx/shared@1.0.0-beta.3
+
+## 1.0.0-beta.212
+
+### Patch Changes
+
+- fe38f20: fix(OnyxAccordionItem): increase vertical padding for `nested-small` type
+
+## 1.0.0-beta.211
+
+### Minor Changes
+
+- e2f1083: feat(OnyxDataGrid): Add extra empty column which fills in the space between the last column and the end of the table
+
+## 1.0.0-beta.210
+
+### Minor Changes
+
+- a39d444: feat: implement basic OnyxSidebar component
+
 ## 1.0.0-beta.209
 
 ### Patch Changes

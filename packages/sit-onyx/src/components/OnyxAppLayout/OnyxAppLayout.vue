@@ -54,6 +54,10 @@ const slots = defineSlots<{
       grid-template-columns: max-content 1fr;
     }
 
+    &:not(:has(> &__nav)) {
+      grid-template-rows: 1fr;
+    }
+
     &__nav {
       z-index: var(--onyx-z-index-navigation);
     }

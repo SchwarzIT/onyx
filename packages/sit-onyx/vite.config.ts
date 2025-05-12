@@ -27,10 +27,6 @@ export default defineConfig({
     environment: "jsdom",
     passWithNoTests: true,
     include: ["src/**/*.spec.(ts|tsx)"],
-    coverage: {
-      include: ["src"],
-      exclude: ["src/**/*.stories.ts"],
-    },
     typecheck: {
       enabled: true,
       checker: "vue-tsc",

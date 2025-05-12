@@ -9,7 +9,6 @@ import { PLAYWRIGHT_BASE_CONFIG } from "@sit-onyx/shared/playwright.config.base"
 export default defineConfig({
   ...PLAYWRIGHT_BASE_CONFIG,
   testDir: "./tests",
-  testMatch: `**/*.ct.{ts,tsx}`,
   expect: { toHaveScreenshot: { maxDiffPixelRatio: 0.01 } },
   /* Run your local dev server before starting the tests */
   webServer: {

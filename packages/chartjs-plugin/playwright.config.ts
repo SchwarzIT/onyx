@@ -7,7 +7,6 @@ import { PLAYWRIGHT_BASE_CONFIG } from "@sit-onyx/shared/playwright.config.base"
 export default defineConfig({
   ...PLAYWRIGHT_BASE_CONFIG,
   testDir: "./src",
-  testMatch: `**/*.ct.tsx`,
   expect: { toHaveScreenshot: { maxDiffPixelRatio: 0.01 } },
   /* Configure projects for major browsers */
   projects: [

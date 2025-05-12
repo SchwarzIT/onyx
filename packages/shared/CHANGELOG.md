@@ -1,5 +1,11 @@
 # @sit-onyx/shared
 
+## 1.0.0-beta.3
+
+### Patch Changes
+
+- 3288513: fix(OnyxNavBar): prevent console warning for invalid `mobile` property
+
 ## 1.0.0-beta.2
 
 ### Patch Changes
