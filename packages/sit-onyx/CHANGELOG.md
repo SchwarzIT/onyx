@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.213
+
+### Patch Changes
+
+- 3288513: fix(OnyxNavBar): prevent console warning for invalid `mobile` property
+- Updated dependencies [3288513]
+  - @sit-onyx/shared@1.0.0-beta.3
+
 ## 1.0.0-beta.212
 
 ### Patch Changes
