@@ -22,7 +22,7 @@
   "homepage": "https://onyx.schwarz/development/packages/figma-utils.html",
   "repository": {
     "type": "git",
-    "url": "https://github.com/SchwarzIT/onyx",
+    "url": "git+https://github.com/schwarzit/onyx.git",
     "directory": "packages/figma-utils"
   },
   "bugs": {

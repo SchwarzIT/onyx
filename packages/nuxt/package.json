@@ -7,7 +7,7 @@
   "homepage": "https://onyx.schwarz",
   "repository": {
     "type": "git",
-    "url": "https://github.com/SchwarzIT/onyx",
+    "url": "git+https://github.com/schwarzit/onyx.git",
     "directory": "packages/nuxt"
   },
   "bugs": {

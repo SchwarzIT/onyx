@@ -6,7 +6,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/schwarzit/onyx",
+    "url": "git+https://github.com/schwarzit/onyx.git",
     "directory": "packages/playwright-utils"
   },
   "bugs": {

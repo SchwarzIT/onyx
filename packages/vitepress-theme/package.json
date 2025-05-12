@@ -17,7 +17,7 @@
   "homepage": "https://onyx.schwarz/development/packages/vitepress-theme.html",
   "repository": {
     "type": "git",
-    "url": "https://github.com/SchwarzIT/onyx",
+    "url": "git+https://github.com/schwarzit/onyx.git",
     "directory": "packages/vitepress-theme"
   },
   "bugs": {

@@ -16,7 +16,7 @@
   "homepage": "https://onyx.schwarz/development/packages/headless.html",
   "repository": {
     "type": "git",
-    "url": "https://github.com/SchwarzIT/onyx",
+    "url": "git+https://github.com/schwarzit/onyx.git",
     "directory": "packages/headless"
   },
   "bugs": {
