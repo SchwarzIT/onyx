@@ -5,17 +5,20 @@ import OnyxFlyout from "../../../../components/OnyxFlyout/OnyxFlyout.vue";
 import { useVModel, type Nullable } from "../../../../composables/useVModel";
 import type { SelectOptionValue } from "../../../../types";
 import type { OnyxFlyoutMenuProps } from "./types";
+
 const props = withDefaults(defineProps<OnyxFlyoutMenuProps>(), {
   trigger: "hover",
   open: undefined,
   alignment: "auto",
 });
+
 const emit = defineEmits<{
   /**
    * Emitted when the isExpanded state changes.
    */
   "update:open": [value?: Nullable<boolean>];
 }>();
+
 /**
  * If the flyout is expanded or not.
  */
@@ -124,7 +127,7 @@ const {
       padding: 0;
       /**
        * The last option should only be half visible:
-       * 7.5 * OnyxListItem, where OnyxListItem => 2 * padding + line-height of OnyxListItem 
+       * 7.5 * OnyxListItem, where OnyxListItem => 2 * padding + line-height of OnyxListItem
        */
       max-height: calc(
         (var(--onyx-flyout-menu-visible-item-count, 7) + 0.5) * (2 * var(--onyx-density-xs) + 1lh)
