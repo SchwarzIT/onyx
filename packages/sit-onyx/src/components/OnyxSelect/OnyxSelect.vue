@@ -500,6 +500,12 @@ defineExpose({ input: computed(() => selectInput.value?.input) });
     position: relative;
     height: max-content;
   }
+  .onyx-select-input {
+    width: 100%;
+  }
+  .onyx-flyout {
+    width: 100%;
+  }
 }
 
 .onyx-select {
@@ -559,6 +565,7 @@ defineExpose({ input: computed(() => selectInput.value?.input) });
 
     &__description {
       display: flex;
+      width: 100%;
       padding: var(--onyx-density-3xs) var(--onyx-density-sm);
       justify-content: flex-end;
       text-align: right;
