@@ -23,10 +23,19 @@ test("should resize columns", async ({ page, mount }) => {
   // ARRANGE
   const data = getTestData();
   const component = await mount(
-    <TestCase data={data} columns={[{ key: "a", width: "200px" }, "b", "c"]} />,
+    <TestCase
+      data={data}
+      columns={[
+        { key: "a", width: "200px" },
+        { key: "b", width: "100px" },
+        { key: "c", width: "300px" },
+      ]}
+    />,
   );
 
   const aColumn = component.getByRole("columnheader", { name: "Drag to change width a" });
+  const bColumn = component.getByRole("columnheader", { name: "Drag to change width b" });
+  const cColumn = component.getByRole("columnheader", { name: "Drag to change width c" });
 
   // ASSERT
   let box = (await aColumn.boundingBox())!;
@@ -41,4 +50,9 @@ test("should resize columns", async ({ page, mount }) => {
   expect(box.width).toBe(99);
   await expectColumnCount(component, 4, "should show empty column when resizing smaller");
   await expect(component).toHaveScreenshot("data-grid-resized-columns-with-extra-empty-column.png");
+
+  const bBox = (await bColumn.boundingBox())!;
+  const cBox = (await cColumn.boundingBox())!;
+  expect(bBox.width, "should keep width of other columns when resizing").toBe(100);
+  expect(cBox.width, "should keep width of other columns when resizing").toBe(300);
 });
