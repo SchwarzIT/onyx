@@ -78,19 +78,19 @@ export const useResizing = createFeature(
 
     const renderWrapper = (
       slots: Slots,
-      cols: Readonly<InternalColumnConfig<TEntry>>,
+      column: Readonly<InternalColumnConfig<TEntry>>,
       isLastColumn: boolean,
     ) => {
       const slotContent = slots.default?.();
-      if (!isEnabled.value(cols.key) || isLastColumn) return slotContent;
+      if (!isEnabled.value(column.key) || isLastColumn) return slotContent;
 
       return [
         h(OnyxResizeHandle, {
           min: MIN_COLUMN_WIDTH,
-          element: headers.value.get(cols.key),
-          active: resizingCol.value?.key === cols.key,
-          onMousedown: () => {
-            resizingCol.value = cols;
+          element: headers.value.get(column.key),
+          active: resizingCol.value?.key === column.key,
+          onStart: () => {
+            resizingCol.value = column;
 
             Array.from(headers.value.entries()).forEach(([col, el]) => {
               const { width } = el.getBoundingClientRect();
@@ -99,14 +99,14 @@ export const useResizing = createFeature(
 
             showLastCol.value = true;
           },
-          onMouseup: () => {
+          onEnd: () => {
             updateTableWidths();
             resizingCol.value = undefined;
           },
           onUpdateWidth: (width) => {
-            colWidths.value.set(cols.key, `${width}px`);
+            colWidths.value.set(column.key, `${width}px`);
           },
-          onAutoSize: () => colWidths.value.set(cols.key, "max-content"),
+          onAutoSize: () => colWidths.value.set(column.key, "max-content"),
         }),
         slotContent,
       ];

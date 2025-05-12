@@ -10,10 +10,6 @@ const props = withDefaults(defineProps<OnyxResizeHandleProps>(), {
 
 const emit = defineEmits<{
   /**
-   * Emitted when the resizing is started (by pressing the mouse down).
-   */
-  startResize: [event: MouseEvent];
-  /**
    * Emitted when the width should be updated while resizing.
    * Note: You must take care of actually applied the desired CSS to apply the width.
    */
@@ -22,6 +18,14 @@ const emit = defineEmits<{
    * Emitted when the size should be set automatically (by double clicking).
    */
   autoSize: [];
+  /**
+   * Emitted when the resizing has started (onMousedown).
+   */
+  start: [];
+  /**
+   * Emitted when the resizing has ended (onMouseup).
+   */
+  end: [];
 }>();
 
 const { t } = injectI18n();
@@ -30,16 +34,21 @@ const previousWidth = ref<number>();
 const currentElement = computed(() => getTemplateRefElement(props.element));
 let abortController: AbortController | undefined;
 
+const isActive = ref(false);
+
 const handleMousedown = () => {
   if (!currentElement.value) return;
 
   previousWidth.value = currentElement.value.getBoundingClientRect().width;
+  isActive.value = true;
 
   abortController = new AbortController();
   const options: AddEventListenerOptions = { signal: abortController.signal, passive: true };
   window.addEventListener("mousemove", onMouseMove, options);
-  window.addEventListener("mouseup", onMouseUp, options);
+  window.addEventListener("mouseup", abort, options);
   window.addEventListener("keydown", onKeydown, options);
+
+  emit("start");
 };
 
 onMounted(() => {
@@ -47,8 +56,8 @@ onMounted(() => {
     () => props.active,
     (newActive) => {
       if (newActive == undefined) return;
-      if (newActive) handleMousedown();
-      else onMouseUp();
+      if (newActive && !isActive.value) handleMousedown();
+      else if (!newActive && isActive.value) abort();
     },
     { immediate: true },
   );
@@ -59,20 +68,22 @@ const handleDoubleClick = () => {
 };
 
 const onMouseMove = (event: MouseEvent) => {
-  if (!currentElement.value) return;
+  if (!currentElement.value || !isActive.value) return;
   const width = event.clientX - currentElement.value.getBoundingClientRect().left;
   emit("updateWidth", Math.max(props.min, width));
 };
 
-const onMouseUp = () => {
+const abort = () => {
   abortController?.abort();
   previousWidth.value = undefined;
+  isActive.value = false;
+  emit("end");
 };
 
 const onKeydown = (event: KeyboardEvent) => {
   if (event.key !== "Escape") return;
   if (previousWidth.value) emit("updateWidth", previousWidth.value);
-  onMouseUp();
+  abort();
 };
 </script>
 
@@ -81,7 +92,7 @@ const onKeydown = (event: KeyboardEvent) => {
     tabindex="-1"
     type="button"
     role="presentation"
-    class="onyx-component onyx-resize-handle"
+    :class="['onyx-component', 'onyx-resize-handle', isActive ? 'onyx-resize-handle--active' : '']"
     :aria-label="t('resizeHandle.label')"
     @mousedown="handleMousedown"
     @dblclick="handleDoubleClick"
@@ -116,7 +127,7 @@ const onKeydown = (event: KeyboardEvent) => {
       background-color: var(--onyx-color-base-neutral-600);
     }
 
-    &:active::before {
+    &--active::before {
       content: "";
       height: calc(var(--onyx-resize-handle--active-indicator-height) - 100%);
       width: var(--onyx-resize-handle-border-width);
@@ -126,10 +137,12 @@ const onKeydown = (event: KeyboardEvent) => {
       background-color: var(--onyx-color-base-neutral-600);
     }
 
-    &:hover::after,
-    &:active::after {
-      opacity: 0.5;
-      background-color: var(--onyx-color-base-primary-500);
+    &:hover,
+    &--active {
+      &::after {
+        opacity: 0.5;
+        background-color: var(--onyx-color-base-primary-500);
+      }
     }
   }
 }
