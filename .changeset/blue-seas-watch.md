@@ -2,4 +2,4 @@
 "sit-onyx": patch
 ---
 
-fix(OnyxFlyoutMenu): make `alignment` property optional
+fix(OnyxFlyoutMenu): fix `alignment` property type and make it optional
