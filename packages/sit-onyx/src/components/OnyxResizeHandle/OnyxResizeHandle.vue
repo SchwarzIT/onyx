@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { getTemplateRefElement } from "../../composables/useResizeObserver";
 import { injectI18n } from "../../i18n";
 import type { OnyxResizeHandleProps } from "./types";
@@ -10,6 +10,10 @@ const props = withDefaults(defineProps<OnyxResizeHandleProps>(), {
 
 const emit = defineEmits<{
   /**
+   * Emitted when the resizing is started (by pressing the mouse down).
+   */
+  startResize: [event: MouseEvent];
+  /**
    * Emitted when the width should be updated while resizing.
    * Note: You must take care of actually applied the desired CSS to apply the width.
    */
@@ -19,61 +23,61 @@ const emit = defineEmits<{
    */
   autoSize: [];
   /**
-   * Emitted when the resizing has been initialized (by putting the mouse down on the resize handle).
+   * Emitted when the mouse moves while resizing.
    */
-  init: [event: MouseEvent];
+  move: [element: Element];
 }>();
 
 const { t } = injectI18n();
 
 const previousWidth = ref<number>();
-const currentElement = ref<Element>();
+const currentElement = computed(() => getTemplateRefElement(props.element));
 let abortController: AbortController | undefined;
 
-const handleResize = (event: MouseEvent) => {
-  currentElement.value = getTemplateRefElement(
-    typeof props.element === "function" ? props.element(event) : props.element,
-  );
-
+const handleMousedown = () => {
   if (!currentElement.value) return;
 
-  emit("init", event);
   previousWidth.value = currentElement.value.getBoundingClientRect().width;
 
   abortController = new AbortController();
-  const options = { signal: abortController.signal, passive: true };
+  const options: AddEventListenerOptions = { signal: abortController.signal, passive: true };
   window.addEventListener("mousemove", onMouseMove, options);
-  window.addEventListener("mouseup", abort, options);
+  window.addEventListener("mouseup", onMouseUp, options);
   window.addEventListener("keydown", onKeydown, options);
+};
+
+onMounted(() => {
+  watch(
+    () => props.active,
+    (newActive) => {
+      if (newActive == undefined) return;
+      if (newActive) handleMousedown();
+      else onMouseUp();
+    },
+    { immediate: true },
+  );
+});
+
+const handleDoubleClick = () => {
+  emit("autoSize");
 };
 
 const onMouseMove = (event: MouseEvent) => {
   if (!currentElement.value) return;
-
-  // calculate the desired width
-  const newWidth = Math.max(
-    props.min,
-    event.clientX - currentElement.value.getBoundingClientRect().left,
-  );
-  emit("updateWidth", newWidth);
+  const width = event.clientX - currentElement.value.getBoundingClientRect().left;
+  emit("updateWidth", Math.max(props.min, width));
+  emit("move", currentElement.value);
 };
 
-/**
- * Cleans up event listeners etc.
- */
-const abort = () => {
+const onMouseUp = () => {
   abortController?.abort();
   previousWidth.value = undefined;
-  currentElement.value = undefined;
 };
 
-/**
- * Resets the width to the previous width (before resizing) if "Escape" key is pressed.
- */
 const onKeydown = (event: KeyboardEvent) => {
   if (event.key !== "Escape") return;
   if (previousWidth.value) emit("updateWidth", previousWidth.value);
-  abort();
+  onMouseUp();
 };
 </script>
 
@@ -84,8 +88,8 @@ const onKeydown = (event: KeyboardEvent) => {
     role="presentation"
     class="onyx-component onyx-resize-handle"
     :aria-label="t('resizeHandle.label')"
-    @mousedown="handleResize"
-    @dblclick="emit('autoSize')"
+    @mousedown="handleMousedown"
+    @dblclick="handleDoubleClick"
   ></button>
 </template>
 

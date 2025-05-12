@@ -1,4 +1,4 @@
-import { h, ref, watch, type HTMLAttributes, type Slot, type ThHTMLAttributes } from "vue";
+import { h, ref, watch, type HTMLAttributes, type Slots, type ThHTMLAttributes } from "vue";
 import { createFeature, useIsFeatureEnabled, type InternalColumnConfig } from "..";
 import { useResizeObserver } from "../../../../composables/useResizeObserver";
 import { mergeVueProps } from "../../../../utils/attrs";
@@ -11,12 +11,13 @@ export const RESIZING_FEATURE = Symbol("Resizing");
 export const EMPTY_COLUMN = Symbol("EmptyColumn");
 export const useResizing = createFeature(
   <TEntry extends DataGridEntry>(options?: ResizingOptions<TEntry>) => {
+    const resizingCol = ref<Readonly<InternalColumnConfig<TEntry>>>();
+    const MIN_COLUMN_WIDTH = 3 * 16;
     const headers = ref(new Map<keyof TEntry, HTMLElement>());
     const { isEnabled } = useIsFeatureEnabled(options);
     const colWidths = ref(new Map<keyof TEntry, string>());
     const showLastCol = ref(false);
     const scrollContainer = ref<HTMLElement>();
-    const header = ref<HTMLElement>();
     let tableWidth: number;
     let tableWrapperWidth: number;
 
@@ -42,11 +43,12 @@ export const useResizing = createFeature(
     watch(width, () => updateLastCol());
 
     const updateLastCol = () => {
-      if (!header.value) return;
+      const header = resizingCol.value ? headers.value.get(resizingCol.value.key) : undefined;
+      if (!header) return;
 
-      tableWidth = header.value.closest(".onyx-table")?.getBoundingClientRect().width ?? 0;
+      tableWidth = header.closest(".onyx-table")?.getBoundingClientRect().width ?? 0;
       tableWrapperWidth =
-        header.value.closest(".onyx-table-wrapper__container")?.getBoundingClientRect().width ?? 0;
+        header.closest(".onyx-table-wrapper__container")?.getBoundingClientRect().width ?? 0;
 
       showLastCol.value = tableWrapperWidth > tableWidth;
     };
@@ -75,29 +77,38 @@ export const useResizing = createFeature(
     };
 
     const renderWrapper = (
-      slots: Readonly<{ [name: string]: Slot | undefined }>,
+      slots: Slots,
       cols: Readonly<InternalColumnConfig<TEntry>>,
       isLastColumn: boolean,
     ) => {
-      if (!isEnabled.value(cols.key) || isLastColumn) return slots.default?.();
-      const minWidth = 3 * 16;
+      const slotContent = slots.default?.();
+      if (!isEnabled.value(cols.key) || isLastColumn) return slotContent;
 
       return [
         h(OnyxResizeHandle, {
-          min: minWidth,
-          element: (event) => (event.target as HTMLElement).closest("th"),
-          onInit: () => {
+          min: MIN_COLUMN_WIDTH,
+          element: headers.value.get(cols.key),
+          active: resizingCol.value?.key === cols.key,
+          onMousedown: () => {
+            resizingCol.value = cols;
+
             Array.from(headers.value.entries()).forEach(([col, el]) => {
               const { width } = el.getBoundingClientRect();
-              colWidths.value.set(col, `${Math.max(minWidth, width)}px`);
+              colWidths.value.set(col, `${Math.max(MIN_COLUMN_WIDTH, width)}px`);
             });
           },
-          onUpdateWidth: (newWidth) => {
-            colWidths.value.set(cols.key, `${newWidth}px`);
+          onMouseup: () => {
+            resizingCol.value = undefined;
+          },
+          onMove: () => {
+            updateLastCol();
+          },
+          onUpdateWidth: (width) => {
+            colWidths.value.set(cols.key, `${width}px`);
           },
           onAutoSize: () => colWidths.value.set(cols.key, "max-content"),
         }),
-        slots.default?.(),
+        slotContent,
       ];
     };
 
