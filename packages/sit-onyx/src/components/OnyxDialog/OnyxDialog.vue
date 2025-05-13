@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { useTemplateRef, watch } from "vue";
 import { useDensity } from "../../composables/density";
+import { USERAGENT_SUPPORTS_ANCHOR_API } from "../../composables/useAnchorPositionPolyfill";
 import type { OnyxDialogProps } from "./types";
-
 const props = withDefaults(defineProps<OnyxDialogProps>(), {
   open: false,
   modal: false,
@@ -69,6 +69,7 @@ watch(
       densityClass,
       'onyx-truncation-multiline',
       props.alignment !== 'center' ? `onyx-dialog--${props.alignment}` : '',
+      !USERAGENT_SUPPORTS_ANCHOR_API ? 'onyx-dialog--dont-support-anchor' : '',
     ]"
     :aria-modal="props.modal"
     :aria-label="props.label"
@@ -103,12 +104,17 @@ watch(
     width: max-content;
 
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 
     &::backdrop {
       background-color: var(--onyx-color-component-opacity-backdrop);
+    }
+    margin: auto;
+    align-self: anchor-center;
+    &--dont-support-anchor {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      margin: 0;
     }
 
     &:modal {
@@ -126,6 +132,7 @@ watch(
 
     &--left {
       left: var(--onyx-dialog-screen-gap);
+      margin-left: 0;
     }
 
     &--right {
