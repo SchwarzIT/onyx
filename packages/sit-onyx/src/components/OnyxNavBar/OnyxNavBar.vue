@@ -85,8 +85,12 @@ const actualIsMobile = computed(() => {
 });
 
 const moreListTargetId = useId();
+const isMoreFlyoutOpen = ref(false);
 provide(MOBILE_NAV_BAR_INJECTION_KEY, actualIsMobile);
-provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, `#${moreListTargetId}`);
+provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, {
+  teleportTarget: `#${moreListTargetId}`,
+  open: isMoreFlyoutOpen,
+});
 
 const closeMobileMenus = () => {
   isBurgerOpen.value = false;
@@ -172,7 +176,11 @@ defineExpose({
               </div>
             </template>
             <template #more="{ attributes, hiddenElements }">
-              <OnyxFlyoutMenu :label="t('navigation.showMoreNavItemsLabel')" v-bind="attributes">
+              <OnyxFlyoutMenu
+                v-model:open="isMoreFlyoutOpen"
+                :label="t('navigation.showMoreNavItemsLabel')"
+                v-bind="attributes"
+              >
                 <template #button="{ trigger }">
                   <OnyxNavItemFacade
                     v-bind="trigger"
