@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.216
+
+### Patch Changes
+
+- bb12cdf: fix(OnyxAvatar): fix initials using non-word elements
+
 ## 1.0.0-beta.215
 
 ### Minor Changes
