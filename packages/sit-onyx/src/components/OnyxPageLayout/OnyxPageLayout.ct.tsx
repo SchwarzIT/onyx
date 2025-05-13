@@ -70,6 +70,45 @@ test("should render with sidebar", async ({ mount, makeAxeBuilder }) => {
   expect(accessibilityScanResults.violations).toEqual([]);
 });
 
+test("should render with right sidebar", async ({ mount, makeAxeBuilder }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxPageLayout>
+      Page content
+      <template v-slot:sidebarRight>{SIDEBAR_ELEMENT}</template>
+    </OnyxPageLayout>,
+  );
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("sidebar-right.png");
+
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
+});
+
+test("should render with left and right sidebar", async ({ mount, makeAxeBuilder }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxPageLayout>
+      Page content
+      <template v-slot:sidebar>{SIDEBAR_ELEMENT}</template>
+      <template v-slot:sidebarRight>{SIDEBAR_ELEMENT}</template>
+    </OnyxPageLayout>,
+  );
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("sidebar-left-and-right.png");
+
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
+});
+
 test("should render with footer", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(
@@ -109,6 +148,47 @@ test("should render with footer and sidebar", async ({ mount, makeAxeBuilder }) 
   expect(accessibilityScanResults.violations).toEqual([]);
 });
 
+test("should render with footer and right sidebar", async ({ mount, makeAxeBuilder }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxPageLayout>
+      Page content
+      <template v-slot:sidebarRight>{SIDEBAR_ELEMENT}</template>
+      <template v-slot:footer>{FOOTER_ELEMENT}</template>
+    </OnyxPageLayout>,
+  );
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("footer-and-sidebar-right.png");
+
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
+});
+
+test("should render with footer and left and right sidebar", async ({ mount, makeAxeBuilder }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxPageLayout>
+      Page content
+      <template v-slot:sidebar>{SIDEBAR_ELEMENT}</template>
+      <template v-slot:sidebarRight>{SIDEBAR_ELEMENT}</template>
+      <template v-slot:footer>{FOOTER_ELEMENT}</template>
+    </OnyxPageLayout>,
+  );
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("footer-and-sidebar-left-and-right.png");
+
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
+});
+
 test("should render with footer aside sidebar", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(
@@ -121,6 +201,50 @@ test("should render with footer aside sidebar", async ({ mount, makeAxeBuilder }
 
   // ASSERT
   await expect(component).toHaveScreenshot("footer-aside-sidebar.png");
+
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
+});
+
+test("should render with footer aside right sidebar", async ({ mount, makeAxeBuilder }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxPageLayout footerAlignment="page">
+      Page content
+      <template v-slot:sidebarRight>{SIDEBAR_ELEMENT}</template>
+      <template v-slot:footer>{FOOTER_ELEMENT}</template>
+    </OnyxPageLayout>,
+  );
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("footer-aside-sidebar-right.png");
+
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
+});
+
+test("should render with footer aside left and right sidebar", async ({
+  mount,
+  makeAxeBuilder,
+}) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxPageLayout footerAlignment="page">
+      Page content
+      <template v-slot:sidebar>{SIDEBAR_ELEMENT}</template>
+      <template v-slot:sidebarRight>{SIDEBAR_ELEMENT}</template>
+      <template v-slot:footer>{FOOTER_ELEMENT}</template>
+    </OnyxPageLayout>,
+  );
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("footer-aside-sidebar-left-and-right.png");
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();

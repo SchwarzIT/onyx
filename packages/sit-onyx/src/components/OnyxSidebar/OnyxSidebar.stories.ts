@@ -26,3 +26,8 @@ export const Resizable = {
   ...createAdvancedStoryExample("OnyxSidebar", "ResizeExample"),
   tags: ["new:feature"],
 } satisfies Story;
+
+export const Right = {
+  ...createAdvancedStoryExample("OnyxSidebar", "RightExample"),
+  tags: ["new:feature"],
+} satisfies Story;
