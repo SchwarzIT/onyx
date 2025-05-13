@@ -12,6 +12,8 @@ import "./renderer.scss";
 
 export const FALLBACK_RENDER_VALUE = "-";
 
+const fallback = (opts?: { fallback?: string }) => opts?.fallback ?? FALLBACK_RENDER_VALUE;
+
 /**
  * Allows for creating `TypeRenderer` with typed options.
  * These options are then made available via the column configuration.
@@ -45,7 +47,7 @@ export const numberFormatter = <TEntry extends DataGridEntry>(
     typeof value === "boolean" ||
     typeof value === "symbol"
   ) {
-    return opts?.fallback ?? FALLBACK_RENDER_VALUE;
+    return fallback(opts);
   }
 
   const { n } = injectI18n();
@@ -76,11 +78,11 @@ export const stringFormatter = <TEntry extends DataGridEntry>(
   opts?: StringCellOptions,
 ): string => {
   // using loose "==" here to catch both undefined and null
-  if (value == undefined) return opts?.fallback ?? FALLBACK_RENDER_VALUE;
+  if (value == undefined) return fallback(opts);
   if (Array.isArray(value)) {
     return value
       .map((entry) => stringFormatter(entry))
-      .filter((i) => i != (opts?.fallback ?? FALLBACK_RENDER_VALUE))
+      .filter((i) => i != fallback(opts))
       .join(", ");
   }
   if (value instanceof Date) return value.toString();
@@ -106,19 +108,18 @@ export type DateCellOptions = {
 
 export const dateFormatter = <TEntry extends DataGridEntry>(
   value: TEntry[keyof TEntry] | undefined,
-  options: DateCellOptions,
+  opts?: DateCellOptions,
 ): string => {
   // using loose "==" here to catch both undefined and null
-  if (value == undefined || typeof value === "boolean")
-    return options.fallback ?? FALLBACK_RENDER_VALUE;
+  if (value == undefined || typeof value === "boolean") return fallback(opts);
 
   const { d } = injectI18n();
 
   try {
     const date = new Date(typeof value === "bigint" ? Number(value) : (value as DateValue));
-    return d.value(date, options.format);
+    return d.value(date, opts?.format);
   } catch {
-    return options.fallback ?? FALLBACK_RENDER_VALUE;
+    return fallback(opts);
   }
 };
 
