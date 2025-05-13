@@ -19,6 +19,7 @@ import { useDensity } from "../../composables/density";
 import {
   useAnchorPositionPolyfill,
   USERAGENT_SUPPORTS_ANCHOR_API,
+  useWebkitPopoverKeyFix,
 } from "../../composables/useAnchorPositionPolyfill";
 import { useOpenAlignment } from "../../composables/useOpenAlignment";
 import { useOpenDirection } from "../../composables/useOpenDirection";
@@ -203,18 +204,7 @@ watch([tooltipWidth, toolTipPosition, alignment, alignsWithEdge], async () => {
 const id = useId();
 const anchorName = computed(() => `--anchor-${id}`);
 
-/**
- * For a current bug in safari/webkit (using Playwright) that leads to the popover not opening correctly,
- * we need to set a key that changes when the popover opens so its correctly rendered
- */
-const popoverKey = ref();
-watch(
-  isVisible,
-  (visible) => {
-    if (visible) popoverKey.value = Date.now();
-  },
-  { immediate: true },
-);
+const { popoverKey } = useWebkitPopoverKeyFix(isVisible);
 </script>
 
 <template>
