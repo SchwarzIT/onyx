@@ -1,5 +1,5 @@
 import type { OnyxBreakpoint } from "@sit-onyx/shared/breakpoints";
-import type { ComputedRef, InjectionKey } from "vue";
+import type { ComputedRef, InjectionKey, Ref } from "vue";
 import type { MoreListInjectionKey } from "../../composables/useMoreList";
 import type { OnyxNavAppAreaProps } from "../OnyxNavAppArea/types";
 
@@ -47,4 +47,13 @@ export const NAV_BAR_MORE_LIST_INJECTION_KEY = Symbol() as MoreListInjectionKey;
 /**
  * [Vue injection key](https://vuejs.org/guide/components/provide-inject) that is provided by the nav bar to communicate the teleport target id for navitems that should be put into the more list.
  */
-export const NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY = Symbol() as InjectionKey<string>;
+export const NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY = Symbol() as InjectionKey<{
+  /**
+   * Target (flyout) that the more nav items should be teleport to.
+   */
+  teleportTarget: string;
+  /**
+   * Whether the more flyout is currently open.
+   */
+  open: Ref<boolean>;
+}>;
