@@ -16,7 +16,7 @@
   "homepage": "https://onyx.schwarz/development/packages/chartjs-plugin.html",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/schwarzit/onyx.git",
+    "url": "https://github.com/SchwarzIT/onyx",
     "directory": "packages/chartjs-plugin"
   },
   "bugs": {

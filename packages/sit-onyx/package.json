@@ -27,7 +27,7 @@
   "homepage": "https://onyx.schwarz",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/schwarzit/onyx.git",
+    "url": "https://github.com/SchwarzIT/onyx",
     "directory": "packages/sit-onyx"
   },
   "bugs": {
