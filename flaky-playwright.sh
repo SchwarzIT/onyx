@@ -59,11 +59,11 @@ pnpm test:playwright src/components/OnyxStepper -x --repeat-each 100 --project e
 pnpm test:playwright src/components/OnyxSwitch -x --repeat-each 100 --project edge
 pnpm test:playwright src/components/OnyxSystemButton -x --repeat-each 100 --project edge
 pnpm test:playwright src/components/OnyxTab/ -x --repeat-each 100 --project edge
-pnpm test:playwright src/components/OnyxTable -x --repeat-each 100 --project edge
-pnpm test:playwright src/components/OnyxTabs -x --repeat-each 100 --project edge
-pnpm test:playwright src/components/OnyxTag -x --repeat-each 100 --project edge
-pnpm test:playwright src/components/OnyxTextarea -x --repeat-each 100 --project edge
-pnpm test:playwright src/components/OnyxToast/ -x --repeat-each 100 --project edge
-pnpm test:playwright src/components/OnyxToastMessage -x --repeat-each 100 --project edge
-pnpm test:playwright src/components/OnyxTooltip -x --repeat-each 100 --project edge
-pnpm test:playwright src/components/OnyxVisuallyHidden -x --repeat-each 100 --project edge
+✅ pnpm test:playwright src/components/OnyxTable -x --repeat-each 100 --project edge
+✅ pnpm test:playwright src/components/OnyxTabs -x --repeat-each 100 --project edge
+✅ pnpm test:playwright src/components/OnyxTag -x --repeat-each 100 --project edge
+❌ pnpm test:playwright src/components/OnyxTextarea -x --repeat-each 100 --project edge
+✅ pnpm test:playwright src/components/OnyxToast/ -x --repeat-each 100 --project edge
+✅ pnpm test:playwright src/components/OnyxToastMessage -x --repeat-each 100 --project edge
+✅ pnpm test:playwright src/components/OnyxTooltip -x --repeat-each 100 --project edge
+✅ pnpm test:playwright src/components/OnyxVisuallyHidden -x --repeat-each 100 --project edge
