@@ -202,6 +202,19 @@ watch([tooltipWidth, toolTipPosition, alignment, alignsWithEdge], async () => {
 
 const id = useId();
 const anchorName = computed(() => `--anchor-${id}`);
+
+/**
+ * For a current bug in safari/webkit (using Playwright) that leads to the popover not opening correctly,
+ * we need to set a key that changes when the popover opens so its correctly rendered
+ */
+const popoverKey = ref();
+watch(
+  isVisible,
+  (visible) => {
+    if (visible) popoverKey.value = Date.now();
+  },
+  { immediate: true },
+);
 </script>
 
 <template>
@@ -212,6 +225,7 @@ const anchorName = computed(() => `--anchor-${id}`);
   >
     <div
       v-if="isVisible"
+      :key="popoverKey"
       ref="tooltipRefEl"
       v-bind="tooltip"
       :class="['onyx-tooltip', 'onyx-text--small', 'onyx-truncation-multiline', tooltipClasses]"

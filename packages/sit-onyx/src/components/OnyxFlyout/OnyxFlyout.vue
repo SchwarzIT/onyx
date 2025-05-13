@@ -147,12 +147,26 @@ watch([flyoutPosition, flyoutAlignment, flyoutWidth], async () => {
     updateAnchorPositionPolyfill();
   }
 });
+
+/**
+ * For a current bug in safari/webkit (using Playwright) that leads to the popover not opening correctly,
+ * we need to set a key that changes when the popover opens so its correctly rendered
+ */
+const popoverKey = ref();
+watch(
+  isVisible,
+  (visible) => {
+    if (visible) popoverKey.value = Date.now();
+  },
+  { immediate: true },
+);
 </script>
 
 <template>
   <div ref="flyoutWrapper" class="onyx-component onyx-flyout" :style="`anchor-name: ${anchorName}`">
     <slot :trigger="trigger"></slot>
     <div
+      :key="popoverKey"
       ref="flyout"
       role="dialog"
       :aria-label="props.label"
