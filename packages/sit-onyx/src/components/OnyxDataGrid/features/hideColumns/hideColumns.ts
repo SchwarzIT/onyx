@@ -20,14 +20,20 @@ export const useHideColumns = createFeature(
     const { t } = injectI18n();
     const { isEnabled } = useIsFeatureEnabled(options);
 
-    const hiddenColumns = ref([]) as Ref<(keyof TEntry)[]>;
-    const revealedHiddenColumns = ref([]) as Ref<(keyof TEntry)[]>;
+    const hiddenColumns = ref(new Set()) as Ref<Set<keyof TEntry>>;
+
     watchEffect(() => {
       // sync hidden columns with user provided options
-      hiddenColumns.value = Object.entries(unref(options?.columns) ?? {})
-        .filter(([_, value]) => value?.hidden)
-        .map(([key]) => key);
+      Object.entries(unref(options?.columns) ?? {}).forEach(([key, value]) => {
+        if (value?.hidden) {
+          hiddenColumns.value.add(key);
+        } else {
+          hiddenColumns.value.delete(key);
+        }
+      });
     });
+
+    const locale = injectI18n().locale;
 
     const flyoutMenu = () =>
       h(
@@ -46,24 +52,19 @@ export const useHideColumns = createFeature(
               ...trigger,
             }),
           options: () => {
-            return hiddenColumns.value
-              .slice()
-              .sort()
+            return Array.from(hiddenColumns.value)
+              .sort(
+                Intl.Collator(locale.value).compare as (a: keyof TEntry, b: keyof TEntry) => number,
+              )
               .map((column) =>
                 h(
                   OnyxMenuItem,
                   {
                     onClick: () => {
-                      if (!revealedHiddenColumns.value.includes(column)) {
-                        revealedHiddenColumns.value.push(column);
-                      }
-
-                      hiddenColumns.value = hiddenColumns.value.filter(
-                        (hiddenColumn) => hiddenColumn !== column,
-                      );
+                      hiddenColumns.value.delete(column);
                     },
                   },
-                  () => [column],
+                  () => column,
                 ),
               );
           },
@@ -74,13 +75,7 @@ export const useHideColumns = createFeature(
       h(
         OnyxMenuItem,
         {
-          onClick: () => {
-            if (hiddenColumns.value.includes(column)) return;
-            hiddenColumns.value.push(column);
-            revealedHiddenColumns.value = revealedHiddenColumns.value.filter(
-              (revealColumn) => revealColumn !== column,
-            );
-          },
+          onClick: () => hiddenColumns.value.add(column),
         },
         () => [
           h(OnyxIcon, { icon: eyeDisabled }),
@@ -94,16 +89,10 @@ export const useHideColumns = createFeature(
       modifyColumns: {
         func: (columnConfig) => {
           const filteredColumns = columnConfig.filter(
-            (column) => !hiddenColumns.value.includes(column.key),
+            (column) => !hiddenColumns.value.has(column.key),
           );
 
-          filteredColumns.sort((a, b) => {
-            const indexA = revealedHiddenColumns.value.indexOf(a.key);
-            const indexB = revealedHiddenColumns.value.indexOf(b.key);
-            return indexA - indexB;
-          });
-
-          return hiddenColumns.value.length > 0
+          return hiddenColumns.value.size > 0
             ? [
                 ...filteredColumns,
                 { key: HIDDEN_COLUMN, type: HIDDEN_COLUMN, width: "2.5rem", label: "" },
