@@ -18,6 +18,10 @@ export const vuePluginOptions: Options = {
  */
 export const PLAYWRIGHT_BASE_CONFIG = {
   /**
+   * General
+   */
+  testMatch: "**/*.@(ct|e2e).?(c|m)[jt]s?(x)",
+  /**
    * SCREENSHOTS
    *
    * See: https://playwright.dev/docs/screenshots
@@ -28,8 +32,9 @@ export const PLAYWRIGHT_BASE_CONFIG = {
   // we don't want to update snapshots on the local machine of each developer.
   // if you want to update snapshots for your branch, use the corresponding GitHub action:
   // https://github.com/SchwarzIT/onyx/actions/workflows/playwright-screenshots.yml
-  ignoreSnapshots: !process.env.CI,
-  updateSnapshots: process.env.PW_UPDATE_SNAPSHOTS === "true" ? "changed" : "none",
+  // ignoreSnapshots: !process.env.CI,
+  ignoreSnapshots: false,
+  updateSnapshots: "changed",
 
   /**
    * SHARDING
@@ -83,5 +88,4 @@ export const PLAYWRIGHT_BASE_CONFIG = {
     { name: "firefox", use: { ...devices["Desktop Firefox"] } },
     { name: "webkit", use: { ...devices["Desktop Safari"] } },
   ],
-  testMatch: "**/*.@(ct|e2e).?(c|m)[jt]s?(x)",
 } as const satisfies PlaywrightTestConfig;
