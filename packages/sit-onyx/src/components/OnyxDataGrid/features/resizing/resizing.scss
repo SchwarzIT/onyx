@@ -4,4 +4,15 @@
   .onyx-data-grid-empty-columns-cell {
     width: 100%;
   }
+
+  .onyx-data-grid-resize-cell {
+    .onyx-resize-handle {
+      --onyx-resize-handle--active-indicator-height: var(--onyx-table-observed-height);
+      --onyx-resize-handle-border-width: 0.125rem;
+
+      &:hover .onyx-resize-handle::after {
+        opacity: 0.3;
+      }
+    }
+  }
 }

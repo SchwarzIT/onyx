@@ -1,3 +1,4 @@
+import { dragResizeHandle } from "../../playwright";
 import { expect, test } from "../../playwright/a11y";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxSidebar from "./OnyxSidebar.vue";
@@ -63,4 +64,55 @@ test("should render as drawer", async ({ mount, page, makeAxeBuilder }) => {
 
   // ASSERT
   expect(closeEventCount).toBe(1);
+});
+
+["default", "drawer"].forEach((type) => {
+  test(`should support resizing (${type})`, async ({ page, mount, makeAxeBuilder }) => {
+    const viewportWidth = 512;
+
+    await page.setViewportSize({ height: 256, width: viewportWidth });
+
+    // ARRANGE
+    const component = await mount(
+      <OnyxSidebar label="Label" drawer={type === "drawer" ? { open: true } : undefined} resizable>
+        {CONTENT}
+      </OnyxSidebar>,
+    );
+
+    // ACT
+    const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+    // ASSERT
+    expect(accessibilityScanResults.violations).toEqual([]);
+
+    let box = (await component.boundingBox())!;
+    expect(box.width).toBe(320);
+
+    // ACT
+    const resizeButton = component.getByRole("button", { name: "Drag to change width" });
+
+    // ASSERT
+    await expect(resizeButton).toBeVisible();
+
+    // ACT
+    await dragResizeHandle({ page, to: box.x + box.width + 100 });
+
+    // ASSERT
+    box = (await component.boundingBox())!;
+    expect(box.width).toBe(420);
+
+    // ACT
+    await dragResizeHandle({ page, to: viewportWidth });
+
+    // ASSERT
+    box = (await component.boundingBox())!;
+    expect(box.width, "should have max width when resizing").toBe(viewportWidth - 16);
+
+    // ACT
+    await dragResizeHandle({ page, to: 0, preventUp: true });
+
+    // ASSERT
+    box = (await component.boundingBox())!;
+    expect(box.width, "should have min width when resizing").toBe(64);
+  });
 });
