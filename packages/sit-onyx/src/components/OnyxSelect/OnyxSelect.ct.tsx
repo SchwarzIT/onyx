@@ -1,6 +1,5 @@
 import type { MountResultJsx } from "@playwright/experimental-ct-vue";
 import { comboboxSelectOnlyTesting, comboboxTesting } from "@sit-onyx/headless/playwright";
-import { adjustSizeToAbsolutePosition } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density";
 import type { FormMessages } from "../../composables/useCustomValidity";
 import { expect, test } from "../../playwright/a11y";
@@ -58,7 +57,6 @@ const openFlyout = async (component: MountResultJsx) => {
   const toggleButton = component.getByLabel("Toggle selection popover");
 
   if (await toggleButton.isEnabled()) await toggleButton.click();
-  await adjustSizeToAbsolutePosition(component);
 };
 
 test.describe("Default screenshots", () => {
@@ -78,7 +76,7 @@ test.describe("Default screenshots", () => {
           required={row === "required"}
           hideLabel={row === "hideLabel"}
           style={{
-            marginBottom: row === "open" ? "10rem" : undefined,
+            marginBottom: row === "open" ? "15rem" : undefined,
           }}
         />
       </div>
@@ -105,7 +103,7 @@ test.describe("Empty screenshots", () => {
             listLabel="List label"
             options={[]}
             density={column}
-            style={{ marginBottom: "10rem" }}
+            style={{ marginBottom: "15rem" }}
           />
         ) : (
           <OnyxSelect
@@ -115,7 +113,7 @@ test.describe("Empty screenshots", () => {
             density={column}
             withSearch={true}
             searchTerm="search term"
-            style={{ marginBottom: "15rem" }}
+            style={{ marginBottom: "18rem" }}
           />
         )}
       </div>
@@ -142,7 +140,7 @@ test.describe("Truncated options screenshots", () => {
           row === "ellipsis" ? MOCK_LONG_LABELED_OPTIONS : MOCK_MULTILINE_LONG_LABELED_OPTIONS
         }
         density={column}
-        style={{ marginBottom: "18rem" }}
+        style={{ marginBottom: "22rem" }}
       />
     ),
     hooks: {
@@ -258,7 +256,7 @@ test.describe("List description screenshots", () => {
           options={MOCK_MANY_OPTIONS}
           density={column}
           listDescription="List description"
-          style={{ marginBottom: "20rem" }}
+          style={{ marginBottom: "25rem" }}
         />
       </div>
     ),
