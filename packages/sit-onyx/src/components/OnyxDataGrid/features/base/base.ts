@@ -10,6 +10,9 @@ import {
 
 export const BASE_FEATURE_SYMBOL = Symbol("Base");
 
+/**
+ * The Base feature includes everything that should be provided as built-in functionality of the `OnyxDataGrid` component.
+ */
 export const BASE_FEATURE = createFeature(
   () =>
     ({
