@@ -71,7 +71,7 @@ const isMobile = inject(
   computed(() => false),
 );
 
-const moreListTargetId = inject(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY);
+const moreList = inject(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY);
 
 const isTopLevel = inject(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, true);
 provide(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, false);
@@ -167,7 +167,12 @@ const { componentRef, isVisible } = isTopLevel
   </OnyxNavItemFacade>
   <!-- Desktop top-level nav item in more list -->
   <template v-else>
-    <Teleport defer :disabled="!moreListTargetId" :to="moreListTargetId">
+    <Teleport
+      v-if="moreList?.open.value"
+      defer
+      :disabled="!moreList?.teleportTarget"
+      :to="moreList?.teleportTarget"
+    >
       <OnyxNavItemFacade v-bind="mergeVueProps(props, $attrs)" :active context="list">
         <slot></slot>
       </OnyxNavItemFacade>
