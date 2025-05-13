@@ -179,7 +179,7 @@ test.describe("Grouped screenshots", () => {
             density={row}
             multiple={true}
             withCheckAll={true}
-            style={{ marginBottom: "18rem" }}
+            style={{ marginBottom: "20rem" }}
           />
         </div>
       ) : (
@@ -192,7 +192,7 @@ test.describe("Grouped screenshots", () => {
             density={row}
             multiple={false}
             withSearch={column === "with-search"}
-            style={{ marginBottom: "18rem" }}
+            style={{ marginBottom: "20rem" }}
           />
         </div>
       );
@@ -229,7 +229,7 @@ test.describe("Multiple screenshots", () => {
             withSearch={row === "search"}
             withCheckAll={row === "check-all"}
             textMode={row === "preview" ? "preview" : undefined}
-            style={{ marginBottom: row !== "preview" ? "15rem" : undefined }}
+            style={{ marginBottom: row !== "preview" ? "20rem" : undefined }}
           />
         </div>
       );
@@ -311,7 +311,7 @@ test.describe("Loading screenshots", () => {
           options={MOCK_MANY_OPTIONS}
           loading={column === "loading"}
           lazyLoading={column === "lazy-loading" ? { enabled: true, loading: true } : undefined}
-          style={{ marginBottom: "20rem" }}
+          style={{ marginBottom: "25rem" }}
         >
           {column === "custom-button" && (
             <template v-slot:optionsEnd>
