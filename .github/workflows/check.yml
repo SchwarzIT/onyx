@@ -78,11 +78,28 @@ jobs:
         run: pnpm run stylelint
 
       - name: 👮 SonarQube Quality Gate check
+        id: sonarqube-quality-gate
         uses: sonarsource/sonarqube-quality-gate-action@master
         if: ${{ github.event_name == 'pull_request' }} # dont block anything except pull-requests
+        continue-on-error: true
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+      - run: echo "::warning title=Sonarqube-Quality-Gate::Failed"
+        if: steps.sonarqube-quality-gate.outcome != 'success'
+
+      - uses: actions/github-script@v7
+        if: steps.sonarqube-quality-gate.outcome != 'success'
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '⚠️ Sonarqube Quality Gate Failed!'
+            })
 
       - name: Upload code coverage artifact
         uses: actions/upload-artifact@v4
