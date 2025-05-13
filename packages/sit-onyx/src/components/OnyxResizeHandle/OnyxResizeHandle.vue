@@ -2,6 +2,7 @@
 import { computed, onMounted, ref, watch } from "vue";
 import { getTemplateRefElement } from "../../composables/useResizeObserver";
 import { injectI18n } from "../../i18n";
+import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import type { OnyxResizeHandleProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxResizeHandleProps>(), {
@@ -91,12 +92,12 @@ const onKeydown = (event: KeyboardEvent) => {
   <button
     tabindex="-1"
     type="button"
-    role="presentation"
     :class="['onyx-component', 'onyx-resize-handle', isActive ? 'onyx-resize-handle--active' : '']"
-    :aria-label="t('resizeHandle.label')"
     @mousedown="handleMousedown"
     @dblclick="handleDoubleClick"
-  ></button>
+  >
+    <OnyxVisuallyHidden>{{ t("resizeHandle.label") }}</OnyxVisuallyHidden>
+  </button>
 </template>
 
 <style lang="scss">
