@@ -33,8 +33,8 @@ export const getInitials = (username: string, locale: string) => {
 
   const wordSegmenter = new Intl.Segmenter(locale, { granularity: "word" });
 
-  const name = username.trim().toUpperCase();
-  const wordSegments = Array.from(wordSegmenter.segment(name));
+  const name = username.trim().toLocaleUpperCase(locale);
+  const wordSegments = Array.from(wordSegmenter.segment(name)).filter((s) => s.isWordLike);
   if (wordSegments.length === 0) return;
 
   const firstWord = wordSegments[0].segment;

@@ -69,7 +69,6 @@ watch(
     min-width: var(--onyx-avatar-size);
     border-radius: var(--onyx-radius-full);
     background-color: var(--onyx-color-base-primary-200);
-    display: block;
 
     color: var(--onyx-color-text-icons-primary-bold);
     font-family: var(--onyx-font-family);
