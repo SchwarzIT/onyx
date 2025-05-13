@@ -1,6 +1,12 @@
 <script lang="ts" setup>
 import { ref, useTemplateRef } from "vue";
 import OnyxResizeHandle from "./OnyxResizeHandle.vue";
+import type { ResizeHandleAlignment } from "./types";
+
+const props = defineProps<{
+  /** Alignment of the resize handle */
+  alignment?: ResizeHandleAlignment;
+}>();
 
 const container = useTemplateRef("containerRef");
 const width = ref<number>();
@@ -14,6 +20,7 @@ const width = ref<number>();
   >
     <OnyxResizeHandle
       :element="container"
+      :alignment="props.alignment"
       @update-width="width = $event"
       @auto-size="width = undefined"
     />

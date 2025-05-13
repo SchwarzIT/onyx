@@ -5,7 +5,9 @@ import OnyxDrawer from "../OnyxDrawer/OnyxDrawer.vue";
 import OnyxResizeHandle from "../OnyxResizeHandle/OnyxResizeHandle.vue";
 import type { OnyxSidebarProps } from "./types";
 
-const props = defineProps<OnyxSidebarProps>();
+const props = withDefaults(defineProps<OnyxSidebarProps>(), {
+  alignment: "left",
+});
 
 const emit = defineEmits<{
   /**
@@ -43,13 +45,27 @@ const widthStyle = computed(() => {
   if (!width.value) return;
   return { "--onyx-sidebar-width": `${width.value}px` };
 });
+
+const resizeHandleProps = computed(
+  () =>
+    ({
+      onUpdateWidth: (newWidth: number) => (width.value = newWidth),
+      onAutoSize: () => (width.value = undefined),
+      alignment: props.alignment == "left" ? "right" : "left",
+    }) as const,
+);
 </script>
 
 <template>
   <aside
     v-if="!props.drawer"
     ref="sidebarRef"
-    :class="['onyx-component', 'onyx-sidebar', densityClass]"
+    :class="[
+      'onyx-component',
+      'onyx-sidebar',
+      densityClass,
+      props.alignment === 'right' ? 'onyx-sidebar--right' : '',
+    ]"
     :aria-label="props.label"
     :style="widthStyle"
   >
@@ -65,12 +81,7 @@ const widthStyle = computed(() => {
       <slot name="footer"></slot>
     </footer>
 
-    <OnyxResizeHandle
-      v-if="props.resizable"
-      :element="sidebarElement"
-      @update-width="width = $event"
-      @auto-size="width = undefined"
-    />
+    <OnyxResizeHandle v-if="props.resizable" :element="sidebarElement" v-bind="resizeHandleProps" />
   </aside>
 
   <OnyxDrawer
@@ -81,6 +92,7 @@ const widthStyle = computed(() => {
     :density="props.density"
     class="onyx-sidebar"
     :style="widthStyle"
+    :alignment="props.alignment"
     @close="emit('close')"
   >
     <template v-if="!!slots.header" #headline>
@@ -99,12 +111,7 @@ const widthStyle = computed(() => {
       </div>
     </template>
 
-    <OnyxResizeHandle
-      v-if="props.resizable"
-      :element="drawerElement"
-      @update-width="width = $event"
-      @auto-size="width = undefined"
-    />
+    <OnyxResizeHandle v-if="props.resizable" :element="drawerElement" v-bind="resizeHandleProps" />
   </OnyxDrawer>
 </template>
 
@@ -132,6 +139,11 @@ const widthStyle = computed(() => {
       max-height: 100%;
       display: flex;
       flex-direction: column;
+
+      &.onyx-sidebar--right {
+        border-left: var(--onyx-sidebar-border);
+        border-right: none;
+      }
     }
 
     &:has(.onyx-resize-handle) {
