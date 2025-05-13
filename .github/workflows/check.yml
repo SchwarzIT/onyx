@@ -87,10 +87,10 @@ jobs:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
       - run: echo "::warning title=Sonarqube-Quality-Gate::Failed"
-        if: steps.sonarqube-quality-gate.outcome != 'success'
+        if: ${{ github.event_name == 'pull_request' && steps.sonarqube-quality-gate.outcome != 'success' }}
 
       - uses: actions/github-script@v7
-        if: steps.sonarqube-quality-gate.outcome != 'success'
+        if: ${{ github.event_name == 'pull_request' && steps.sonarqube-quality-gate.outcome != 'success' }}
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
