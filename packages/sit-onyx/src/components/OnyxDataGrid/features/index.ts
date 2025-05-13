@@ -72,10 +72,17 @@ export type TypeRenderMap<
 export type ColumnConfig<
   TEntry extends DataGridEntry,
   TColumnGroup extends ColumnGroupConfig = Record<string, never>,
-  TTypes extends ColumnConfigTypeOption<PropertyKey, unknown> = RenderTypesFromFeature<
-    [typeof BASE_FEATURE]
+  TTypes extends ColumnConfigTypeOption<PropertyKey, unknown> = ColumnConfigTypeOption<
+    PropertyKey,
+    unknown
   >,
-> = keyof TEntry | PublicNormalizedColumnConfig<TEntry, TColumnGroup, TTypes>;
+> =
+  | keyof TEntry
+  | PublicNormalizedColumnConfig<
+      TEntry,
+      TColumnGroup,
+      TTypes | RenderTypesFromFeature<[typeof BASE_FEATURE]>
+    >;
 
 export type DefaultSupportedTypes = "string" | "number" | DatetimeFormat;
 
