@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.215
+
+### Minor Changes
+
+- e747463: feat(OnyxSidebar): support `resizable` property
+
 ## 1.0.0-beta.214
 
 ### Patch Changes

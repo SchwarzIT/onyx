@@ -12,4 +12,8 @@ export type OnyxSidebarProps = DensityProp & {
    * Will use the [OnyxDrawer](https://storybook.onyx.schwarz/?path=/docs/feedback-drawer--docs) under the hood.
    */
   drawer?: Omit<OnyxDrawerProps, "label" | "density">;
+  /**
+   * Whether the sidebar should be manually resizable by the user by dragging the right border.
+   */
+  resizable?: boolean;
 };
