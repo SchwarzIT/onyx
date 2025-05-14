@@ -27,11 +27,11 @@ export const parseComponentsToIcons = (options: ParseIconComponentsOptions): Par
       return {
         id: component.node_id,
         name: component.name,
+        category: component.containing_frame.name.trim(),
         aliases: component.description
           .split(options.aliasSeparator ?? ",")
           .map((alias) => alias.trim())
           .filter((i) => i !== ""),
-        category: component.containing_frame.name.trim(),
       };
     })
     .sort((a, b) => a.name.localeCompare(b.name));
