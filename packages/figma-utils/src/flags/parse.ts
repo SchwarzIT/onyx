@@ -16,14 +16,18 @@ export const parseComponentsToFlags = (options: ParseFlagComponentsOptions): Par
     ({ containing_frame }) => containing_frame.pageId === options.pageId,
   );
 
-  return pageComponents
-    .map<ParsedFlag>((component) => {
-      return {
-        id: component.node_id,
-        code: component.description.trim(),
-        continent: component.containing_frame.name.trim(),
-        internationalName: component.name.trim(),
-      };
-    })
-    .sort((a, b) => a.code.localeCompare(b.code));
+  return (
+    pageComponents
+      .map<ParsedFlag>((component) => {
+        return {
+          id: component.node_id,
+          code: component.description.trim(),
+          continent: component.containing_frame.name.trim(),
+          internationalName: component.name.trim(),
+        };
+      })
+      // remove invalid flags without a country code
+      .filter(({ code }) => code)
+      .sort((a, b) => a.code.localeCompare(b.code))
+  );
 };
