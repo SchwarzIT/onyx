@@ -1,11 +1,13 @@
 <script lang="ts" setup>
 import x from "@sit-onyx/icons/x.svg?raw";
+import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxMobileNavButtonProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxMobileNavButtonProps>(), {
   open: false,
+  disabled: FORM_INJECTED_SYMBOL,
 });
 
 const emit = defineEmits<{
@@ -21,6 +23,7 @@ defineSlots<{
    */
   default(): unknown;
 }>();
+const { disabled } = useFormContext(props);
 </script>
 
 <template>
@@ -30,6 +33,7 @@ defineSlots<{
       class="onyx-mobile-nav-button__trigger"
       :class="{ 'onyx-mobile-nav-button__trigger--active': props.open }"
       :aria-label="props.label"
+      :disabled="disabled"
       @click="emit('update:open', !props.open)"
     >
       <OnyxIcon :icon="props.open ? x : props.icon" />
@@ -48,7 +52,7 @@ defineSlots<{
       <div
         class="onyx-mobile-nav-button__backdrop"
         role="presentation"
-        @click="emit('update:open', false)"
+        @click="!disabled ? emit('update:open', false) : null"
       ></div
     ></template>
   </div>
@@ -74,7 +78,7 @@ defineSlots<{
         border: none;
       }
 
-      &:hover:not(&--active) {
+      &:hover:not(&--active):not(&:disabled) {
         background-color: var(--onyx-color-base-background-tinted);
       }
 
@@ -87,6 +91,13 @@ defineSlots<{
       &--active {
         background-color: var(--onyx-color-base-primary-100);
         color: var(--onyx-color-text-icons-primary-intense);
+      }
+
+      &:disabled {
+        cursor: default;
+
+        background-color: var(--onyx-color-base-background-blank);
+        color: var(--onyx-color-text-icons-neutral-soft);
       }
     }
 

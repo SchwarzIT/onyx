@@ -18,11 +18,13 @@ import { useOpenAlignment } from "../../composables/useOpenAlignment";
 import { useOpenDirection } from "../../composables/useOpenDirection";
 import { useResizeObserver } from "../../composables/useResizeObserver";
 import type { SelectOptionValue } from "../../types";
+import { FORM_INJECTED_SYMBOL, useFormContext, type FormInjected } from "../OnyxForm/OnyxForm.core";
 import type { OnyxFlyoutProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxFlyoutProps>(), {
   position: "auto",
   alignment: "auto",
+  disabled: FORM_INJECTED_SYMBOL,
 });
 
 defineSlots<{
@@ -30,13 +32,14 @@ defineSlots<{
    * The always visible parent to which the flyout is aligned.
    * `trigger` can optionally set to a button to explicitly connect the the button and popover.
    */
-  default(params: { trigger: AriaAttributes }): unknown;
+  default(params: { trigger: AriaAttributes; disabled: FormInjected<boolean> }): unknown;
   /**
    * Content shown in the flyout when it is expanded.
    */
   content: unknown;
 }>();
 
+const { disabled } = useFormContext(props);
 const _isVisible = ref(false);
 const isVisible = computed({
   set: (newVal) => (_isVisible.value = newVal),
@@ -151,7 +154,7 @@ watch([flyoutPosition, flyoutAlignment, flyoutWidth], async () => {
 
 <template>
   <div ref="flyoutWrapper" class="onyx-component onyx-flyout" :style="`anchor-name: ${anchorName}`">
-    <slot :trigger="trigger"></slot>
+    <slot :trigger="trigger" :disabled="disabled"></slot>
     <div
       ref="flyout"
       role="dialog"

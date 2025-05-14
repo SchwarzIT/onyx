@@ -1,6 +1,7 @@
 import type { AnchorPosition } from "../../composables/useAnchorPositionPolyfill";
 import type { OpenAlignment } from "../../composables/useOpenAlignment";
 import type { Nullable } from "../../composables/useVModel";
+import type { FormInjected } from "../OnyxForm/OnyxForm.core";
 
 export type OnyxFlyoutProps = {
   /**
@@ -24,4 +25,8 @@ export type OnyxFlyoutProps = {
    * If `true`, the flyout will match the width of the parent/slot element.
    */
   fitParent?: boolean;
+  /**
+   * If the flyout should be disabled or not.
+   */
+  disabled?: FormInjected<boolean>;
 };
