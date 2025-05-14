@@ -58,8 +58,14 @@ export const useResizing = createFeature(
         if (!isEnabled.value(column.key)) return column;
 
         const thAttributes = {
-          ref: (el: HTMLElement) => headers.value.set(column.key, el),
           class: "onyx-data-grid-resize-cell",
+          ref: (el?: HTMLElement) => {
+            if (el) {
+              headers.value.set(column.key, el);
+            } else {
+              headers.value.delete(column.key);
+            }
+          },
         } as ThHTMLAttributes;
 
         const resizedWidth = colWidths.value.get(column.key);
