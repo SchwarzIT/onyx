@@ -49,7 +49,7 @@ jobs:
           body: |
             This is an auto-generated pull request.
             All icons have been imported from the [Figma file](https://www.figma.com/design/${{ vars.FIGMA_FILE_KEY_ICONS }}?node-id=${{ vars.FIGMA_ICON_PAGE_ID }}).
-          branch-suffix: short-commit-hash # needed to not override other pull requests created via workflows
+          branch-suffix: random # needed to not override other pull requests created via workflows
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH_NAME: ${{ github.ref_name }}
@@ -95,7 +95,7 @@ jobs:
           body: |
             This is an auto-generated pull request.
             All flags have been imported from the [Figma file](https://www.figma.com/design/${{ vars.FIGMA_FILE_KEY }}?node-id=${{ vars.FIGMA_FLAG_PAGE_ID }}).
-          branch-suffix: short-commit-hash # needed to not override other pull requests created via workflows
+          branch-suffix: random # needed to not override other pull requests created via workflows
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH_NAME: ${{ github.ref_name }}
