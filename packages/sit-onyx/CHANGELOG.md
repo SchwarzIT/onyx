@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.217
+
+### Patch Changes
+
+- 30b580e: fix(OnyxDataGrid): fix can't access property "closest" error when using hiding columns with resizing feature
+
 ## 1.0.0-beta.216
 
 ### Patch Changes
