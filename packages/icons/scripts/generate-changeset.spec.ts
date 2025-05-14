@@ -1,7 +1,7 @@
 import writeChangeset from "@changesets/write";
 import { exec } from "node:child_process";
 import { beforeEach, describe, expect, test, vi } from "vitest";
-import { generateChangeset } from "./changeset";
+import { generateChangeset } from "./generate-changeset";
 
 vi.mock("node:child_process");
 vi.mock("node:fs/promises");
@@ -21,12 +21,12 @@ const mockExec = (output: string[]) => {
   return spy;
 };
 
-describe("changeset.ts", () => {
+describe("generate-changeset.ts", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
-  test("should generate changeset based on changed .svg icons", async () => {
+  test("should generate changeset based on changed files", async () => {
     // ARRANGE
     const writeChangesetSpy = vi.mocked(writeChangeset);
 
@@ -40,28 +40,31 @@ describe("changeset.ts", () => {
     ]);
 
     // ACT
-    await generateChangeset();
+    await generateChangeset({
+      title: "Example title",
+      packageName: "@sit-onyx/test",
+    });
 
     // ASSERT
     expect(writeChangesetSpy).toHaveBeenCalledWith(
       {
-        releases: [{ name: "@sit-onyx/icons", type: "major" }],
-        summary: `feat: update icons
+        releases: [{ name: "@sit-onyx/test", type: "major" }],
+        summary: `Example title
 
-#### Deleted icons
+#### Deleted
 
 - deletedIcon
 
-#### Renamed icons
+#### Renamed
 
 - oldPath => newPath
 
-#### New icons
+#### New
 
 - newIcon1
 - newIcon2
 
-#### Modified icons
+#### Modified
 
 - modifiedIcon1
 - modifiedIcon2`,
@@ -92,12 +95,15 @@ describe("changeset.ts", () => {
     mockExec(files);
 
     // ACT
-    await generateChangeset();
+    await generateChangeset({
+      title: "Example title",
+      packageName: "@sit-onyx/test",
+    });
 
     // ASSERT
     expect(writeChangesetSpy).toHaveBeenCalledWith(
       {
-        releases: [{ name: "@sit-onyx/icons", type: releaseType }],
+        releases: [{ name: "@sit-onyx/test", type: releaseType }],
         summary: expect.any(String),
       },
       expect.any(String), // file path,
@@ -111,15 +117,18 @@ describe("changeset.ts", () => {
     mockExec(["?? testIcon.svg"]);
 
     // ACT
-    await generateChangeset();
+    await generateChangeset({
+      title: "Example title",
+      packageName: "@sit-onyx/test",
+    });
 
     // ASSERT
     expect(writeChangesetSpy).toHaveBeenCalledWith(
       {
-        releases: [{ name: "@sit-onyx/icons", type: "minor" }],
-        summary: `feat: update icons
+        releases: [{ name: "@sit-onyx/test", type: "minor" }],
+        summary: `Example title
 
-#### New icons
+#### New
 
 - testIcon`,
       },
