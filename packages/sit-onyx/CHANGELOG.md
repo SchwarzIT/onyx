@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.218
+
+### Minor Changes
+
+- bd2f733: - feat(OnyxPageLayout): support new `sidebarRight` slot
+  - feat(OnyxSidebar): support new `alignment` property and resizability when positioned right
+  - feat(OnyxResizeHandle): support new `alignment` property with resizability left
+
 ## 1.0.0-beta.217
 
 ### Patch Changes

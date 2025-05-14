@@ -4,7 +4,6 @@ import OnyxResizeHandle from "./OnyxResizeHandle.vue";
 
 /**
  * Support component to implement user resizable borders/components.
- * Currently this component is limited to only allow resizing the right border.
  *
  * Usage:
  * - drag border: resizes the component accordingly
@@ -31,3 +30,8 @@ export const Default = createAdvancedStoryExample(
   "OnyxResizeHandle",
   "DefaultExample",
 ) satisfies Story;
+
+export const Left = {
+  ...createAdvancedStoryExample("OnyxResizeHandle", "LeftExample"),
+  tags: ["new:feature"],
+} satisfies Story;

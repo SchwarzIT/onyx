@@ -14,4 +14,12 @@ export type OnyxResizeHandleProps = {
    * Useful if the resize handle is rerendered based on some conditions but the dragging state should be kept.
    */
   active?: boolean;
+  /**
+   * How the resize handle is aligned to the parent element.
+   * Will determine whether the left or right border is resizable.
+   */
+  alignment?: ResizeHandleAlignment;
 };
+
+export const RESIZE_HANDLE_ALIGNMENT = ["left", "right"] as const;
+export type ResizeHandleAlignment = (typeof RESIZE_HANDLE_ALIGNMENT)[number];

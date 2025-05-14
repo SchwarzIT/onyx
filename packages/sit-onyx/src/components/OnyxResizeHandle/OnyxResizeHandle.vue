@@ -7,6 +7,7 @@ import type { OnyxResizeHandleProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxResizeHandleProps>(), {
   min: 1,
+  alignment: "right",
 });
 
 const emit = defineEmits<{
@@ -70,7 +71,13 @@ const handleDoubleClick = () => {
 
 const onMouseMove = (event: MouseEvent) => {
   if (!currentElement.value || !isActive.value) return;
-  const width = event.clientX - currentElement.value.getBoundingClientRect().left;
+  const boundingRect = currentElement.value.getBoundingClientRect();
+  let width: number;
+  if (props.alignment === "right") {
+    width = event.clientX - boundingRect.left;
+  } else {
+    width = boundingRect.right - event.clientX;
+  }
   emit("updateWidth", Math.max(props.min, width));
 };
 
@@ -92,7 +99,12 @@ const onKeydown = (event: KeyboardEvent) => {
   <button
     tabindex="-1"
     type="button"
-    :class="['onyx-component', 'onyx-resize-handle', isActive ? 'onyx-resize-handle--active' : '']"
+    :class="[
+      'onyx-component',
+      'onyx-resize-handle',
+      isActive ? 'onyx-resize-handle--active' : '',
+      props.alignment === 'left' ? 'onyx-resize-handle--left' : '',
+    ]"
     @mousedown="handleMousedown"
     @dblclick="handleDoubleClick"
   >
@@ -116,6 +128,11 @@ const onKeydown = (event: KeyboardEvent) => {
     height: 100%;
     z-index: 1;
     cursor: col-resize;
+
+    &--left {
+      left: calc(-0.5 * var(--onyx-resize-handle-width));
+      right: unset;
+    }
 
     &::after {
       content: "";
