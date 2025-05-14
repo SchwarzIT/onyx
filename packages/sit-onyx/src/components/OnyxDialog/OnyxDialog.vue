@@ -126,8 +126,13 @@ watch(
     &--right {
       --onyx-dialog-screen-gap: var(--onyx-density-xs);
       transform: none;
-      top: var(--onyx-dialog-screen-gap);
+
       height: 100%;
+    }
+
+    &--right.onyx-dialog--dont-support-anchor,
+    &--left.onyx-dialog--dont-support-anchor {
+      top: var(--onyx-dialog-screen-gap);
     }
 
     &--left {
