@@ -13,5 +13,4 @@ SVG icons for the onyx design system created by [Schwarz IT](https://it.schwarz)
 If you want to contribute a new icon, please follow the steps below:
 
 1. place the SVG file inside the [`src/assets`](./src/assets/) folder.
-2. run the script `pnpm optimize` to optimize the SVG content
-3. Add an entry inside [`src/metadata.ts`](./src/metadata.ts) to specify the icon category and other metadata
+2. Add an entry inside [`src/metadata.ts`](./src/metadata.ts) to specify the icon category and other metadata
