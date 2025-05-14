@@ -16,14 +16,25 @@ export const parseComponentsToFlags = (options: ParseFlagComponentsOptions): Par
     ({ containing_frame }) => containing_frame.pageId === options.pageId,
   );
 
+  const countryCodeFormatter = new Intl.DisplayNames("en", { type: "region" });
+
   return (
     pageComponents
       .map<ParsedFlag>((component) => {
+        const code = component.description.trim();
+        let internationalName = "";
+
+        try {
+          internationalName = countryCodeFormatter.of(code) ?? internationalName;
+        } catch {
+          // noop
+        }
+
         return {
           id: component.node_id,
-          code: component.description.trim(),
+          code,
           continent: component.containing_frame.name.trim(),
-          internationalName: component.name.trim(),
+          internationalName,
         };
       })
       // remove invalid flags without a country code
