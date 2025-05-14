@@ -104,10 +104,10 @@ const teamMembers = [
       <OnyxTable class="grid--table" striped>
         <template #head>
           <tr>
-            <th>User</th>
-            <th>Status</th>
-            <th>Date</th>
-            <th>Time</th>
+            <th scope="col">User</th>
+            <th scope="col">Status</th>
+            <th scope="col">Date</th>
+            <th scope="col">Time</th>
           </tr>
         </template>
 
@@ -205,7 +205,7 @@ const teamMembers = [
             :src="member.avatar"
             size="32px"
           />
-          <OnyxAvatar full-name="+3" size="32px" />
+          <OnyxAvatar full-name="Three others" initials="+3" size="32px" />
         </OnyxAvatarStack>
 
         <OnyxRadioGroup
