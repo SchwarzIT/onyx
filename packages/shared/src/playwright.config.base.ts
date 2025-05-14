@@ -34,7 +34,7 @@ export const PLAYWRIGHT_BASE_CONFIG = {
   // https://github.com/SchwarzIT/onyx/actions/workflows/playwright-screenshots.yml
   // ignoreSnapshots: !process.env.CI,
   ignoreSnapshots: false,
-  updateSnapshots: "changed",
+  updateSnapshots: "missing",
 
   /**
    * SHARDING

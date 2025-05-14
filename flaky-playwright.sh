@@ -1,7 +1,7 @@
-pnpm test:playwright src/components/OnyxAccordion/ -x --repeat-each 100 --project edge
+✅ pnpm test:playwright src/components/OnyxAccordion/ -x --repeat-each 100 --project edge
 ✅ pnpm test:playwright src/components/OnyxAccordionItem -x --repeat-each 100 --project edge
 ✅ pnpm test:playwright src/components/OnyxAlertDialog -x --repeat-each 100 --project edge
-pnpm test:playwright src/components/OnyxAppLayout -x --repeat-each 100 --project edge
+✅ pnpm test:playwright src/components/OnyxAppLayout -x --repeat-each 100 --project edge
 ✅ pnpm test:playwright src/components/OnyxAvatar/ -x --repeat-each 100 --project edge
 ✅ pnpm test:playwright src/components/OnyxAvatarStack -x --repeat-each 100 --project edge
 ✅ pnpm test:playwright src/components/OnyxBadge -x --repeat-each 100 --project edge
@@ -54,11 +54,11 @@ pnpm test:playwright src/components/OnyxAppLayout -x --repeat-each 100 --project
 ✅ pnpm test:playwright src/components/OnyxSelectInput -x --repeat-each 100 --project edge
 ✅ pnpm test:playwright src/components/OnyxSelectOption -x --repeat-each 100 --project edge
 ✅ pnpm test:playwright src/components/OnyxSidebar -x --repeat-each 100 --project edge
-pnpm test:playwright src/components/OnyxSkeleton -x --repeat-each 100 --project edge
-pnpm test:playwright src/components/OnyxStepper -x --repeat-each 100 --project edge
-pnpm test:playwright src/components/OnyxSwitch -x --repeat-each 100 --project edge
-pnpm test:playwright src/components/OnyxSystemButton -x --repeat-each 100 --project edge
-pnpm test:playwright src/components/OnyxTab/ -x --repeat-each 100 --project edge
+✅ pnpm test:playwright src/components/OnyxSkeleton -x --repeat-each 100 --project edge
+✅ pnpm test:playwright src/components/OnyxStepper -x --repeat-each 100 --project edge
+✅ pnpm test:playwright src/components/OnyxSwitch -x --repeat-each 100 --project edge
+✅ pnpm test:playwright src/components/OnyxSystemButton -x --repeat-each 100 --project edge
+# pnpm test:playwright src/components/OnyxTab/ -x --repeat-each 100 --project edge
 ✅ pnpm test:playwright src/components/OnyxTable -x --repeat-each 100 --project edge
 ✅ pnpm test:playwright src/components/OnyxTabs -x --repeat-each 100 --project edge
 ✅ pnpm test:playwright src/components/OnyxTag -x --repeat-each 100 --project edge
