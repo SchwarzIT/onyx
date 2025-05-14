@@ -478,6 +478,9 @@ importers:
       '@axe-core/playwright':
         specifier: ^4.10.1
         version: 4.10.1(playwright-core@1.51.1)
+      '@sit-onyx/flags':
+        specifier: workspace:^
+        version: link:../flags
       '@sit-onyx/headless':
         specifier: workspace:^
         version: link:../headless
