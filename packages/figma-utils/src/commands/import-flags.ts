@@ -63,7 +63,7 @@ export async function importFlagsCommandAction(options: ImportFlagsCommandOption
 
   await Promise.all(
     parsedFlags.map((flag) => {
-      const content = optimizeSvg(svgContents[flag.id]);
+      const content = optimizeSvg(svgContents[flag.id], "image");
       const fullPath = path.join(outputDirectory, `${flag.code}.svg`);
       return writeFile(fullPath, content, "utf-8");
     }),
