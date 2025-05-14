@@ -98,5 +98,5 @@ test("tooltip inside dialog", async ({ mount, makeAxeBuilder, page }) => {
   const accessibilityScanResults = await makeAxeBuilder().analyze();
   expect(accessibilityScanResults.violations, "should pass accessibility checks").toEqual([]);
 
-  await expect(page).toHaveScreenshot("default.png");
+  await expect(page).toHaveScreenshot("with-tooltip.png");
 });
