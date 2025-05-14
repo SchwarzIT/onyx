@@ -51,7 +51,7 @@ const resizeHandleProps = computed(
     ({
       onUpdateWidth: (newWidth: number) => (width.value = newWidth),
       onAutoSize: () => (width.value = undefined),
-      alignment: props.alignment == "left" ? "right" : "left",
+      alignment: props.alignment === "left" ? "right" : "left",
     }) as const,
 );
 </script>
