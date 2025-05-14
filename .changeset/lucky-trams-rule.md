@@ -1,5 +1,5 @@
 ---
-"@sit-onyx/flags": minor
+"@sit-onyx/flags": major
 ---
 
 feat: update flags
