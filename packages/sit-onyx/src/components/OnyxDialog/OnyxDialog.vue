@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { useTemplateRef, watch } from "vue";
 import { useDensity } from "../../composables/density";
-import { USERAGENT_SUPPORTS_ANCHOR_API } from "../../composables/useAnchorPositionPolyfill";
 import type { OnyxDialogProps } from "./types";
 const props = withDefaults(defineProps<OnyxDialogProps>(), {
   open: false,
@@ -69,7 +68,6 @@ watch(
       densityClass,
       'onyx-truncation-multiline',
       props.alignment !== 'center' ? `onyx-dialog--${props.alignment}` : '',
-      !USERAGENT_SUPPORTS_ANCHOR_API ? 'onyx-dialog--dont-support-anchor' : '',
     ]"
     :aria-modal="props.modal"
     :aria-label="props.label"
@@ -100,22 +98,19 @@ watch(
     $max-size: calc(100% - 2 * var(--onyx-dialog-screen-gap));
     max-width: $max-size;
     max-height: $max-size;
-    height: max-content;
-    width: max-content;
-
-    position: fixed;
 
     &::backdrop {
       background-color: var(--onyx-color-component-opacity-backdrop);
     }
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     margin: auto;
-    align-self: anchor-center;
-    &--dont-support-anchor {
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      margin: 0;
-    }
+    width: fit-content;
+    height: fit-content;
 
     &:modal {
       z-index: var(--onyx-z-index-app-overlay);
@@ -128,11 +123,6 @@ watch(
       transform: none;
 
       height: 100%;
-    }
-
-    &--right.onyx-dialog--dont-support-anchor,
-    &--left.onyx-dialog--dont-support-anchor {
-      top: var(--onyx-dialog-screen-gap);
     }
 
     &--left {
