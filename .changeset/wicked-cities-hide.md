@@ -1,0 +1,77 @@
+---
+"@sit-onyx/flags": minor
+---
+
+feat: update flags
+
+#### New
+
+- Orkney
+- AD
+- AL
+- AM
+- AT
+- AZ
+- BA
+- BE
+- BG
+- BY
+- Ceuta
+- CH
+- CY
+- CZ
+- DE
+- DK
+- EE
+- England
+- ES
+- EU
+- FI
+- FO
+- FR
+- GB
+- GE
+- GG
+- GI
+- GL
+- GR
+- HR
+- HU
+- IE
+- IM
+- IS
+- IT
+- JE
+- Korsika
+- Kosovo
+- LI
+- LT
+- LU
+- LV
+- Madeira
+- MC
+- MD
+- ME
+- Melilla
+- MK
+- MT
+- MU
+- NL
+- NO
+- Nordzypern
+- PL
+- PT
+- RO
+- RS
+- RU
+- Sardinien
+- Schottland
+- SE
+- SI
+- SK
+- SM
+- TR
+- Transnistrien
+- UA
+- Vatikanstadt
+- Walrs

@@ -1,5 +1,278 @@
 {
+  "AD": {
+    "continent": "Europe",
+    "internationalName": "Andorra"
+  },
+  "AL": {
+    "continent": "Europe",
+    "internationalName": "Albania"
+  },
+  "AM": {
+    "continent": "Europe",
+    "internationalName": "Armenia"
+  },
+  "AT": {
+    "continent": "Europe",
+    "internationalName": "Austria"
+  },
+  "AZ": {
+    "continent": "Europe",
+    "internationalName": "Azerbaijan"
+  },
+  "BA": {
+    "continent": "Europe",
+    "internationalName": "Bosnia & Herzegovina"
+  },
+  "BE": {
+    "continent": "Europe",
+    "internationalName": "Belgium"
+  },
+  "BG": {
+    "continent": "Europe",
+    "internationalName": "Bulgaria"
+  },
+  "BY": {
+    "continent": "Europe",
+    "internationalName": "Belarus"
+  },
+  "Ceuta": {
+    "continent": "Unknown-1",
+    "internationalName": ""
+  },
+  "CH": {
+    "continent": "Europe",
+    "internationalName": "Switzerland"
+  },
+  "CY": {
+    "continent": "Europe",
+    "internationalName": "Cyprus"
+  },
+  "CZ": {
+    "continent": "Europe",
+    "internationalName": "Czechia"
+  },
   "DE": {
+    "continent": "Europe",
     "internationalName": "Germany"
+  },
+  "DK": {
+    "continent": "Europe",
+    "internationalName": "Denmark"
+  },
+  "EE": {
+    "continent": "Europe",
+    "internationalName": "Estonia"
+  },
+  "England": {
+    "continent": "Unknown-1",
+    "internationalName": ""
+  },
+  "ES": {
+    "continent": "Europe",
+    "internationalName": "Spain"
+  },
+  "EU": {
+    "continent": "Europe",
+    "internationalName": "European Union"
+  },
+  "FI": {
+    "continent": "Europe",
+    "internationalName": "Finland"
+  },
+  "FO": {
+    "continent": "Europe",
+    "internationalName": "Faroe Islands"
+  },
+  "FR": {
+    "continent": "Europe",
+    "internationalName": "France"
+  },
+  "GB": {
+    "continent": "Europe",
+    "internationalName": "United Kingdom"
+  },
+  "GE": {
+    "continent": "Europe",
+    "internationalName": "Georgia"
+  },
+  "GG": {
+    "continent": "Europe",
+    "internationalName": "Guernsey"
+  },
+  "GI": {
+    "continent": "Europe",
+    "internationalName": "Gibraltar"
+  },
+  "GL": {
+    "continent": "Europe",
+    "internationalName": "Greenland"
+  },
+  "GR": {
+    "continent": "Europe",
+    "internationalName": "Greece"
+  },
+  "HR": {
+    "continent": "Europe",
+    "internationalName": "Croatia"
+  },
+  "HU": {
+    "continent": "Europe",
+    "internationalName": "Hungary"
+  },
+  "IE": {
+    "continent": "Europe",
+    "internationalName": "Ireland"
+  },
+  "IM": {
+    "continent": "Europe",
+    "internationalName": "Isle of Man"
+  },
+  "IS": {
+    "continent": "Europe",
+    "internationalName": "Iceland"
+  },
+  "IT": {
+    "continent": "Europe",
+    "internationalName": "Italy"
+  },
+  "JE": {
+    "continent": "Europe",
+    "internationalName": "Jersey"
+  },
+  "Korsika": {
+    "continent": "Unknown-1",
+    "internationalName": ""
+  },
+  "Kosovo": {
+    "continent": "Unknown-1",
+    "internationalName": ""
+  },
+  "LI": {
+    "continent": "Europe",
+    "internationalName": "Liechtenstein"
+  },
+  "LT": {
+    "continent": "Europe",
+    "internationalName": "Lithuania"
+  },
+  "LU": {
+    "continent": "Europe",
+    "internationalName": "Luxembourg"
+  },
+  "LV": {
+    "continent": "Europe",
+    "internationalName": "Latvia"
+  },
+  "Madeira": {
+    "continent": "Unknown-1",
+    "internationalName": ""
+  },
+  "MC": {
+    "continent": "Europe",
+    "internationalName": "Monaco"
+  },
+  "MD": {
+    "continent": "Europe",
+    "internationalName": "Moldova"
+  },
+  "ME": {
+    "continent": "Europe",
+    "internationalName": "Montenegro"
+  },
+  "Melilla": {
+    "continent": "Unknown-1",
+    "internationalName": ""
+  },
+  "MK": {
+    "continent": "Europe",
+    "internationalName": "North Macedonia"
+  },
+  "MT": {
+    "continent": "Europe",
+    "internationalName": "Malta"
+  },
+  "MU": {
+    "continent": "Europe",
+    "internationalName": "Mauritius"
+  },
+  "NL": {
+    "continent": "Europe",
+    "internationalName": "Netherlands"
+  },
+  "NO": {
+    "continent": "Europe",
+    "internationalName": "Norway"
+  },
+  "Nordzypern": {
+    "continent": "Unknown-1",
+    "internationalName": ""
+  },
+  "Orkney Inseln": {
+    "continent": "Unknown-1",
+    "internationalName": ""
+  },
+  "PL": {
+    "continent": "Europe",
+    "internationalName": "Poland"
+  },
+  "PT": {
+    "continent": "Europe",
+    "internationalName": "Portugal"
+  },
+  "RO": {
+    "continent": "Europe",
+    "internationalName": "Romania"
+  },
+  "RS": {
+    "continent": "Europe",
+    "internationalName": "Serbia"
+  },
+  "RU": {
+    "continent": "Europe",
+    "internationalName": "Russia"
+  },
+  "Sardinien": {
+    "continent": "Unknown-1",
+    "internationalName": ""
+  },
+  "Schottland": {
+    "continent": "Unknown-1",
+    "internationalName": ""
+  },
+  "SE": {
+    "continent": "Europe",
+    "internationalName": "Sweden"
+  },
+  "SI": {
+    "continent": "Europe",
+    "internationalName": "Slovenia"
+  },
+  "SK": {
+    "continent": "Europe",
+    "internationalName": "Slovakia"
+  },
+  "SM": {
+    "continent": "Europe",
+    "internationalName": "San Marino"
+  },
+  "TR": {
+    "continent": "Europe",
+    "internationalName": "Türkiye"
+  },
+  "Transnistrien": {
+    "continent": "Unknown-1",
+    "internationalName": ""
+  },
+  "UA": {
+    "continent": "Europe",
+    "internationalName": "Ukraine"
+  },
+  "Vatikanstadt": {
+    "continent": "Unknown-1",
+    "internationalName": ""
+  },
+  "Walrs": {
+    "continent": "Unknown-1",
+    "internationalName": ""
   }
 }
