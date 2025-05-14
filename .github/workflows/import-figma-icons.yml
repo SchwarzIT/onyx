@@ -8,7 +8,7 @@ env:
   TURBO_TOKEN: ${{ secrets.TURBO_REMOTE_CACHE__TURBO_TOKEN }}
 
 jobs:
-  import:
+  import_icons:
     name: Import Figma icons
     runs-on: ubuntu-latest
     steps:
@@ -49,6 +49,52 @@ jobs:
           body: |
             This is an auto-generated pull request.
             All icons have been imported from the [Figma file](https://www.figma.com/design/${{ vars.FIGMA_FILE_KEY_ICONS }}?node-id=${{ vars.FIGMA_ICON_PAGE_ID }}).
+          branch-suffix: short-commit-hash # needed to not override other pull requests created via workflows
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH_NAME: ${{ github.ref_name }}
+
+  import_flags:
+    name: Import Figma flags
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/templates/node-setup
+
+      - name: 🛠️ Build Figma utils
+        run: pnpm run build
+        working-directory: packages/figma-utils
+
+      # delete all flags before importing them so no longer existing or renamed flags are removed
+      - name: Clear flags
+        run: rm -rfv src/assets/*
+        working-directory: packages/flags
+
+      - name: Import flags
+        run: |
+          pnpm run @sit-onyx/figma-utils import-flags -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -p "${{ vars.FIGMA_FLAG_PAGE_ID }}" -d "../flags/src/assets" -m "../flags/src/metadata.json"
+        working-directory: packages/figma-utils
+
+      - name: Generate changeset
+        run: |
+          git add .
+          pnpm run generate:changeset
+        working-directory: packages/flags
+
+      # needed to prevent creating empty PR when nothing but the formatting changed
+      - name: Format with prettier
+        run: pnpm prettier --write src/metadata.json
+        working-directory: packages/flags
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "feat: update Figma flags"
+          title: "feat: update Figma flags"
+          body: |
+            This is an auto-generated pull request.
+            All flags have been imported from the [Figma file](https://www.figma.com/design/${{ vars.FIGMA_FILE_KEY }}?node-id=${{ vars.FIGMA_FLAG_PAGE_ID }}).
           branch-suffix: short-commit-hash # needed to not override other pull requests created via workflows
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

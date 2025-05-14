@@ -15,12 +15,10 @@ export const writeIconMetadata = async (path: string, icons: ParsedIcon[]) => {
     await mkdir(metaDirname, { recursive: true });
   }
 
-  const iconMetadata = icons.reduce<Record<string, Pick<ParsedIcon, "category" | "aliases">>>(
+  const iconMetadata = icons.reduce<Record<string, Omit<ParsedIcon, "id" | "name">>>(
     (meta, icon) => {
-      meta[icon.name] = {
-        category: icon.category,
-        aliases: icon.aliases,
-      };
+      const { id: _id, name, ...rest } = icon;
+      meta[name] = rest;
       return meta;
     },
     {},
