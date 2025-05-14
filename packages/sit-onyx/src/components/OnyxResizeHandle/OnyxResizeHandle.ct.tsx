@@ -62,6 +62,41 @@ test("should resize", async ({ page, mount, makeAxeBuilder }) => {
   await expectWidth(component, 16, "should consider min-width");
 });
 
+test("should resize left", async ({ page, mount, makeAxeBuilder }) => {
+  await page.setViewportSize({ height: 128, width: 256 });
+
+  await page.addStyleTag({
+    content: `body {
+        display: flex;
+        justify-content: flex-end;
+      }`,
+  });
+
+  // ARRANGE
+  const component = await mount(<TestWrapperCt alignment="left" />);
+
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
+  await expectWidth(component, 32);
+
+  // ACT
+  await dragResizeHandle({ page, to: 192 });
+
+  // ASSERT
+  await expectWidth(component, 64, "should resize by dragging");
+
+  // ACT
+  await dragResizeHandle({ page, to: 32 });
+  await expectWidth(component, 128, "should consider max-width");
+
+  // ACT
+  await dragResizeHandle({ page, to: 256, preventUp: true });
+  await expectWidth(component, 16, "should consider min-width");
+});
+
 test("should reset size with double click", async ({ page, mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(<TestWrapperCt />);

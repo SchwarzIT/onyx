@@ -19,6 +19,13 @@ const slots = defineSlots<{
    */
   sidebar?(): unknown;
   /**
+   * Optional (right) sidebar.
+   * Recommended component: [OnyxSidebar](https://storybook.onyx.schwarz/?path=/docs/navigation-sidebar--docs)
+   *
+   * For semantic HTML, it is recommended to use HTML elements like `<aside>` here, which is already the case when using the [OnyxSidebar](https://storybook.onyx.schwarz/?path=/docs/navigation-sidebar--docs).
+   */
+  sidebarRight?(): unknown;
+  /**
    * Optional page footer.
    * For semantic HTML, it is recommended to use HTML elements like `<footer>` here.
    */
@@ -49,6 +56,10 @@ provideSkeletonContext(props);
       </div>
     </main>
 
+    <div v-if="slots.sidebarRight" class="onyx-page__sidebar onyx-page__sidebar--right">
+      <slot name="sidebarRight"></slot>
+    </div>
+
     <div v-if="slots.footer" class="onyx-page__footer">
       <slot name="footer"></slot>
     </div>
@@ -64,22 +75,24 @@ provideSkeletonContext(props);
     width: 100%;
     display: grid;
     grid-template-rows: 1fr max-content;
-    grid-template-columns: max-content 1fr;
+    grid-template-columns: max-content 1fr max-content;
     grid-template-areas:
-      "side main"
-      "footer footer";
+      "side main side-right"
+      "footer footer footer";
 
     &--footer-page {
-      grid-template-columns: max-content 1fr;
-      grid-template-rows: 1fr max-content;
       grid-template-areas:
-        "side main"
-        "side footer";
+        "side main side-right"
+        "side footer side-right";
     }
 
     &__sidebar {
       grid-area: side;
       overflow: hidden auto;
+
+      &--right {
+        grid-area: side-right;
+      }
     }
 
     &__main {
