@@ -13,12 +13,22 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Select dialog",
     columns: ["default"],
-    rows: ["default", "hover"],
-    component: () => (
-      <OnyxSelectDialog label="Example label" options={OPTIONS} modelValue={"option-1"} open>
-        <template v-slot:description>Lorem ipsum dolor sit amet</template>
-      </OnyxSelectDialog>
-    ),
+    rows: ["default", "hover", "many-options"],
+    component: (column, row) => {
+      const options =
+        row === "many-options"
+          ? Array.from({ length: 8 }, (_, index) => ({
+              label: `Option ${index + 1}`,
+              value: `option-${index + 1}`,
+            }))
+          : OPTIONS;
+
+      return (
+        <OnyxSelectDialog label="Example label" options={options} modelValue={"option-1"} open>
+          <template v-slot:description>Lorem ipsum dolor sit amet</template>
+        </OnyxSelectDialog>
+      );
+    },
     hooks: {
       // set component size to fully include the tooltip
       beforeEach: async (component, page, column, row) => {
@@ -42,6 +52,10 @@ test.describe("Screenshot tests", () => {
 
         if (row === "hover") {
           await component.getByText("Option 1").hover();
+        }
+
+        if (row === "many-options") {
+          await component.getByText("Option 8").scrollIntoViewIfNeeded();
         }
       },
     },
