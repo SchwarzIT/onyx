@@ -121,7 +121,7 @@ jobs:
           path: apps/docs/src/.vitepress/dist
 
   screenshots:
-    if: github.event_name == 'push' # avoid running screenshot tests on main again after a merge
+    if: github.event_name != 'push' # avoid running screenshot tests on main again after a merge
     needs: build
     name: Component tests
     uses: ./.github/workflows/playwright.yml
