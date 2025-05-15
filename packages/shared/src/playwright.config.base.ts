@@ -65,6 +65,8 @@ export const PLAYWRIGHT_BASE_CONFIG = {
   use: {
     trace: process.env.CI ? "retain-on-failure" : "off",
     video: process.env.CI ? "retain-on-failure" : "off",
+    locale: "en-US",
+    timezoneId: "Europe/Berlin",
     ctPort: 3100,
     ctViteConfig: {
       plugins: [vue(vuePluginOptions)],

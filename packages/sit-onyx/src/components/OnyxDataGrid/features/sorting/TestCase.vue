@@ -5,7 +5,7 @@ import { DataGridFeatures, OnyxDataGrid } from "../../../..";
 
 const { columns, data } =
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- for simplicity we use any here
-  defineProps<Pick<OnyxDataGridProps<any, any, any, any, any>, "columns" | "data">>();
+  defineProps<Pick<OnyxDataGridProps<any, any, any, any, any, any>, "columns" | "data">>();
 
 const emit = defineEmits<{
   sortChange: [sortState: DataGridFeatures.SortState<DataGridEntry>];

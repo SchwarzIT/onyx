@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { OnyxDataGrid, type ColumnConfig, type ColumnGroupConfig } from "../../..";
+import { OnyxDataGrid, type ColumnConfig } from "../../..";
 
 type TEntry = {
   id: number;
@@ -16,7 +16,7 @@ const data: TEntry[] = [
   { id: 5, name: "John", age: 42, birthday: new Date("1997-04-18") },
 ];
 
-const columns: ColumnConfig<TEntry, ColumnGroupConfig, never>[] = [
+const columns: ColumnConfig<TEntry>[] = [
   { key: "name", label: "Name" },
   { key: "age", label: "Age", type: "number" },
   { key: "birthday", label: "Birthday", type: "date" },
