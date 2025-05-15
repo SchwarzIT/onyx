@@ -152,13 +152,6 @@ const handleApply = () => {
       }
     }
 
-    &__actions {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: var(--onyx-select-dialog-gap);
-    }
-
     &__icon {
       --icon-size: var(--onyx-select-dialog-icon-size);
       display: inline-flex;
