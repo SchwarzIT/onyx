@@ -4,7 +4,6 @@ import { useResizeObserver } from "../../../../composables/useResizeObserver";
 import { mergeVueProps } from "../../../../utils/attrs";
 import OnyxResizeHandle from "../../../OnyxResizeHandle/OnyxResizeHandle.vue";
 import type { DataGridEntry } from "../../types";
-import { createTypeRenderer } from "../renderer";
 import "./resizing.scss";
 import type { ResizingOptions } from "./types";
 
