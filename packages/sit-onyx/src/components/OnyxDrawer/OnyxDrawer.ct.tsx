@@ -68,7 +68,7 @@ test("should render without backdrop", async ({ mount, page, makeAxeBuilder }) =
 
   // ARRANGE
   await mount(
-    <OnyxDrawer label="Example headline" open no-backdrop>
+    <OnyxDrawer label="Example headline" modal={false} open>
       <template v-slot:headline>
         <OnyxHeadline is="h2">Headline</OnyxHeadline>
         <OnyxBadge density="compact">Badge</OnyxBadge>

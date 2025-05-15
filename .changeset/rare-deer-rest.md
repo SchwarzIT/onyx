@@ -2,4 +2,4 @@
 "sit-onyx": minor
 ---
 
-feat(OnyxDrawer): support `noBackdrop` property
+feat(OnyxDrawer): add new `modal` property

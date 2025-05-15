@@ -4,7 +4,7 @@ import type { OnyxDrawerProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxDrawerProps>(), {
   alignment: "left",
-  noBackdrop: false,
+  modal: true,
 });
 
 const emit = defineEmits<{
@@ -36,12 +36,7 @@ const slots = defineSlots<{
 </script>
 
 <template>
-  <OnyxModalDialog
-    class="onyx-drawer"
-    v-bind="props"
-    :modal="!props.noBackdrop"
-    @close="emit('close')"
-  >
+  <OnyxModalDialog class="onyx-drawer" v-bind="props" @close="emit('close')">
     <template v-if="!!slots.headline" #headline>
       <slot name="headline" :label="props.label"></slot>
     </template>

@@ -7,7 +7,9 @@ export type OnyxDrawerProps = OnyxModalDialogProps & {
    */
   alignment?: Exclude<DialogAlignment, "center">;
   /**
-   * Whether to hide the backdrop.
+   * Whether the drawer is a modal (with backdrop). If set to `false`, the backdrop will be hidden.
+   *
+   * @default true
    */
-  noBackdrop?: boolean;
+  modal?: boolean;
 };
