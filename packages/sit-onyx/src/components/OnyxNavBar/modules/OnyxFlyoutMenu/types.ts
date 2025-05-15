@@ -1,5 +1,6 @@
 import type { OnyxFlyoutProps } from "../../../../components/OnyxFlyout/types";
 import type { Nullable } from "../../../../composables/useVModel";
+import type { FormInjected } from "../../../OnyxForm/OnyxForm.core";
 
 export type OnyxFlyoutMenuProps = Pick<OnyxFlyoutProps, "alignment"> & {
   /**
@@ -15,4 +16,8 @@ export type OnyxFlyoutMenuProps = Pick<OnyxFlyoutProps, "alignment"> & {
    * Indicates whether the element is expanded or collapsed.
    */
   open?: Nullable<boolean>;
+  /**
+   * If the flyout should be disabled or not.
+   */
+  disabled?: FormInjected<boolean>;
 };

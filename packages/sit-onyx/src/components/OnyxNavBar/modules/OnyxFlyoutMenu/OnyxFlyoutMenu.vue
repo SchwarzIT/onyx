@@ -4,12 +4,18 @@ import { computed } from "vue";
 import OnyxFlyout from "../../../../components/OnyxFlyout/OnyxFlyout.vue";
 import { useVModel, type Nullable } from "../../../../composables/useVModel";
 import type { SelectOptionValue } from "../../../../types";
+import {
+  FORM_INJECTED_SYMBOL,
+  useFormContext,
+  type FormInjected,
+} from "../../../OnyxForm/OnyxForm.core";
 import type { OnyxFlyoutMenuProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxFlyoutMenuProps>(), {
   trigger: "hover",
   open: undefined,
   alignment: "auto",
+  disabled: FORM_INJECTED_SYMBOL,
 });
 
 const emit = defineEmits<{
@@ -38,20 +44,38 @@ const slots = defineSlots<{
      * Attributes and event listeners that must be bound to an interactive element (button or link), that should act as the flyout trigger.
      */
     trigger: object;
+    disabled?: FormInjected<boolean>;
   }): unknown;
   /**
    * OnyxMenuItem's to show
    */
-  options?(): unknown;
+  options?(params: {
+    /**
+     * Attributes and event listeners that must be bound to an interactive element (button or link), that should act as the flyout trigger.
+     */
+    disabled?: FormInjected<boolean>;
+  }): unknown;
   /**
    * Optional header content to display above the options.
    */
-  header?(): unknown;
+  header?(params: {
+    /**
+     * Attributes and event listeners that must be bound to an interactive element (button or link), that should act as the flyout trigger.
+     */
+    disabled?: FormInjected<boolean>;
+  }): unknown;
   /**
    * Optional footer content to display below the options.
    */
-  footer?(): unknown;
+  footer?(params: {
+    /**
+     * Attributes and event listeners that must be bound to an interactive element (button or link), that should act as the flyout trigger.
+     */
+    disabled: FormInjected<boolean>;
+  }): unknown;
 }>();
+
+const { disabled } = useFormContext(props);
 
 const {
   elements: { root, button, menu },
@@ -59,6 +83,7 @@ const {
   isExpanded: computed(() => !!isExpanded.value),
   onToggle: () => (isExpanded.value = !isExpanded.value),
   trigger: computed(() => props.trigger),
+  disabled: disabled,
 });
 </script>
 
@@ -69,15 +94,16 @@ const {
     :open="isExpanded"
     :label="props.label"
     :alignment="props.alignment"
+    :disabled="disabled"
   >
     <template v-if="slots.options || slots.header || slots.footer" #default>
-      <slot name="button" :trigger="button"></slot>
+      <slot name="button" :trigger="button" :disabled="disabled"></slot>
     </template>
     <!-- `v-show` instead of `v-if` is necessary, so that we can allow (teleported) dialogs to be shown -->
     <template #content>
       <!-- We always want to render the header so that we can render the padding here -->
       <div class="onyx-flyout-menu__list-header">
-        <slot name="header"></slot>
+        <slot name="header" :disabled="disabled"></slot>
       </div>
 
       <ul
@@ -85,12 +111,12 @@ const {
         v-bind="menu"
         class="onyx-flyout-menu__wrapper onyx-flyout-menu__group"
       >
-        <slot name="options"></slot>
+        <slot name="options" :disabled="disabled"></slot>
       </ul>
 
       <!-- We always want to render the footer so that we can render the padding here -->
       <div class="onyx-flyout-menu__list-footer">
-        <slot name="footer"></slot>
+        <slot name="footer" :disabled="disabled"></slot>
       </div>
     </template>
   </OnyxFlyout>

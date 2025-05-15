@@ -40,7 +40,10 @@ const { disabled } = useFormContext(props);
     </button>
 
     <template v-if="props.open">
-      <div class="onyx-mobile-nav-button__flyout">
+      <div
+        class="onyx-mobile-nav-button__flyout"
+        :class="{ 'onyx-mobile-nav-button__flyout--disabled': disabled }"
+      >
         <div class="onyx-mobile-nav-button__menu">
           <OnyxHeadline is="h2" v-if="props.headline" class="onyx-mobile-nav-button__headline">
             {{ props.headline }}
@@ -124,6 +127,11 @@ const { disabled } = useFormContext(props);
       top: var(--top-position);
       left: 0;
       z-index: var(--onyx-z-index-navigation);
+
+      &--disabled {
+        background-color: var(--onyx-color-base-background-blank);
+        color: var(--onyx-color-text-icons-neutral-soft);
+      }
     }
 
     &__backdrop {

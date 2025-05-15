@@ -2,12 +2,18 @@
 import { computed, inject } from "vue";
 import { useVModel, type Nullable } from "../../../../composables/useVModel";
 import OnyxAvatar from "../../../OnyxAvatar/OnyxAvatar.vue";
+import {
+  FORM_INJECTED_SYMBOL,
+  useFormContext,
+  type FormInjected,
+} from "../../../OnyxForm/OnyxForm.core";
 import { MOBILE_NAV_BAR_INJECTION_KEY } from "../../types";
 import type { OnyxUserMenuProps } from "./types";
 import UserMenuLayout from "./UserMenuLayout.vue";
 
 const props = withDefaults(defineProps<OnyxUserMenuProps>(), {
   flyoutOpen: undefined,
+  disabled: FORM_INJECTED_SYMBOL,
 });
 
 const emit = defineEmits<{
@@ -21,11 +27,11 @@ const slots = defineSlots<{
   /**
    * Slot for the menu options. Its recommended to use the `OnyxMenuItem` component here.
    */
-  default?(): unknown;
+  default?(params: { disabled: FormInjected<boolean> }): unknown;
   /**
    * Optional footer content to display at the bottom.
    */
-  footer?(): unknown;
+  footer?(params: { disabled: FormInjected<boolean> }): unknown;
 }>();
 
 /**
@@ -37,6 +43,7 @@ const flyoutOpen = useVModel({
   key: "flyoutOpen",
   initialValue: false,
 });
+const { disabled } = useFormContext(props);
 
 const avatar = computed(() => {
   if (typeof props.avatar === "object") return props.avatar;
@@ -55,16 +62,22 @@ const isMobile = inject(
     class="onyx-component onyx-user-menu"
     :class="{ 'onyx-user-menu--mobile': isMobile }"
     :is-mobile="isMobile"
+    :disabled="disabled"
   >
     <template #button="{ trigger }">
-      <button class="onyx-user-menu__trigger onyx-text" type="button" v-bind="trigger">
+      <button
+        class="onyx-user-menu__trigger onyx-text"
+        type="button"
+        v-bind="trigger"
+        :disabled="disabled"
+      >
         <OnyxAvatar v-bind="avatar" size="24px" />
         <span class="onyx-truncation-ellipsis"> {{ props.fullName }}</span>
       </button>
     </template>
 
     <template #header>
-      <div class="onyx-user-menu__header">
+      <div class="onyx-user-menu__header" :class="{ 'onyx-user-menu__header--disabled': disabled }">
         <OnyxAvatar v-bind="avatar" size="48px" />
 
         <div class="onyx-truncation-ellipsis">
@@ -83,12 +96,12 @@ const isMobile = inject(
 
     <template #options>
       <div class="onyx-user-menu__options">
-        <slot></slot>
+        <slot :disabled="disabled"></slot>
       </div>
     </template>
 
     <template v-if="slots.footer" #footer>
-      <slot name="footer"></slot>
+      <slot name="footer" :disabled="disabled"></slot>
     </template>
   </UserMenuLayout>
 </template>
@@ -127,7 +140,19 @@ const isMobile = inject(
       margin-left: auto;
       font-weight: 600;
 
+      &:disabled {
+        color: var(--onyx-color-text-icons-neutral-soft);
+        .onyx-avatar {
+          background-color: var(--onyx-color-base-background-blank);
+          color: var(--onyx-color-text-icons-neutral-soft);
+          border: var(--onyx-1px-in-rem) solid var(--onyx-color-text-icons-neutral-soft);
+        }
+      }
       &:hover {
+        &:disabled {
+          background-color: var(--onyx-color-base-background-blank);
+          outline: 0;
+        }
         background-color: var(--onyx-color-base-neutral-200);
       }
 
@@ -149,6 +174,15 @@ const isMobile = inject(
       align-items: center;
       gap: var(--onyx-spacing-md);
       text-align: left;
+      &--disabled {
+        background-color: var(--onyx-color-base-background-blank);
+        color: var(--onyx-color-text-icons-neutral-soft);
+        .onyx-avatar {
+          background-color: var(--onyx-color-base-background-blank);
+          color: var(--onyx-color-text-icons-neutral-soft);
+          border: var(--onyx-1px-in-rem) solid var(--onyx-color-text-icons-neutral-soft);
+        }
+      }
     }
 
     &__username {

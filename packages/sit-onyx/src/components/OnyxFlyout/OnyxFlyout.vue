@@ -36,7 +36,7 @@ defineSlots<{
   /**
    * Content shown in the flyout when it is expanded.
    */
-  content: unknown;
+  content(params: { disabled: FormInjected<boolean> }): unknown;
 }>();
 
 const { disabled } = useFormContext(props);
@@ -139,6 +139,7 @@ const flyoutClasses = computed(() => {
     [`onyx-flyout__dialog--position-${flyoutPosition.value.replace(" ", "-")}`]: true,
     [`onyx-flyout__dialog--alignment-${flyoutAlignment.value}`]: true,
     "onyx-flyout__dialog--fitparent": props.fitParent,
+    "onyx-flyout__dialog--disabled": disabled.value,
     "onyx-flyout__dialog--dont-support-anchor": !USERAGENT_SUPPORTS_ANCHOR_API,
   };
 });
@@ -163,7 +164,7 @@ watch([flyoutPosition, flyoutAlignment, flyoutWidth], async () => {
       class="onyx-flyout__dialog"
       :class="flyoutClasses"
     >
-      <slot name="content"></slot>
+      <slot name="content" :disabled="disabled"></slot>
     </div>
   </div>
 </template>
@@ -196,6 +197,11 @@ watch([flyoutPosition, flyoutAlignment, flyoutWidth], async () => {
       max-width: var(--onyx-flyout-max-width);
       width: max-content;
       font-family: var(--onyx-font-family);
+
+      &--disabled {
+        background-color: var(--onyx-color-base-background-blank);
+        color: var(--onyx-color-text-icons-neutral-soft);
+      }
 
       &:popover-open {
         display: flex;

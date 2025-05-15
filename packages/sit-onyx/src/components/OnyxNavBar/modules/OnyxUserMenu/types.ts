@@ -1,5 +1,6 @@
 import type { Nullable } from "../../../../composables/useVModel";
 import type { OnyxAvatarProps } from "../../../OnyxAvatar/types";
+import type { FormInjected } from "../../../OnyxForm/OnyxForm.core";
 
 export type OnyxUserMenuProps = {
   /**
@@ -20,4 +21,8 @@ export type OnyxUserMenuProps = {
    * Controls whether the flyout menu is open.
    */
   flyoutOpen?: Nullable<boolean>;
+  /**
+   * If the flyout should be disabled or not.
+   */
+  disabled?: FormInjected<boolean>;
 };
