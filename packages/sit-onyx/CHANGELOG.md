@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.221
+
+### Minor Changes
+
+- 1bb49b5: fixed(OnyxTooltip in OnyxDialog): removed translate attribute from dialog to not disturb the anchor attribute in OnyxTooltip
+
 ## 1.0.0-beta.220
 
 ### Minor Changes
