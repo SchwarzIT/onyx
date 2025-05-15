@@ -1,6 +1,7 @@
 <script lang="ts" setup generic="TValue extends string">
-import { ref, watchEffect } from "vue";
+import { ref, useId, watchEffect } from "vue";
 import { injectI18n } from "../../i18n";
+import OnyxBottomBar from "../OnyxBottomBar/OnyxBottomBar.vue";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxCard from "../OnyxCard/OnyxCard.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -34,6 +35,7 @@ const currentValue = ref<TValue>();
 watchEffect(() => (currentValue.value = props.modelValue));
 
 const { t } = injectI18n();
+const formId = useId();
 
 const handleChange = (event: Event) => {
   const target = event.target as HTMLInputElement;
@@ -58,7 +60,7 @@ const handleApply = () => {
       <slot name="description"></slot>
     </template>
 
-    <form class="onyx-select-dialog__form" @submit.prevent="handleApply">
+    <form :id="formId" class="onyx-select-dialog__form" @submit.prevent="handleApply">
       <fieldset class="onyx-select-dialog__list" @change="handleChange">
         <label v-for="option in props.options" :key="option.value">
           <OnyxCard class="onyx-select-dialog__option">
@@ -83,12 +85,14 @@ const handleApply = () => {
           </OnyxCard>
         </label>
       </fieldset>
-
-      <div class="onyx-select-dialog__actions">
-        <OnyxButton :label="t('cancel')" mode="plain" color="neutral" @click="emit('close')" />
-        <OnyxButton :label="t('apply')" type="submit" />
-      </div>
     </form>
+
+    <template #footer>
+      <OnyxBottomBar>
+        <OnyxButton :label="t('cancel')" mode="plain" color="neutral" @click="emit('close')" />
+        <OnyxButton :label="t('apply')" type="submit" :form="formId" />
+      </OnyxBottomBar>
+    </template>
   </OnyxModalDialog>
 </template>
 
@@ -146,13 +150,6 @@ const handleApply = () => {
           color: var(--onyx-color-text-icons-primary-intense);
         }
       }
-    }
-
-    &__actions {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: var(--onyx-select-dialog-gap);
     }
 
     &__icon {
