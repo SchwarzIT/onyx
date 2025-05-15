@@ -3,9 +3,9 @@ import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { writeFlagMetadata } from "../flags/generate.js";
 import { parseComponentsToFlags } from "../flags/parse.js";
-import { optimizeSvg } from "../icons/optimize.js";
 import { fetchFigmaComponents, fetchFigmaSVGs } from "../index.js";
 import { isDirectory } from "../utils/fs.js";
+import { optimizeSvg } from "../utils/optimize.js";
 
 export type ImportFlagsCommandOptions = {
   fileKey: string;
