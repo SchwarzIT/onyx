@@ -44,6 +44,8 @@ const data = [
             format: {
               notation: 'scientific',
               signDisplay: 'always',
+              minimumFractionDigits: 3,
+              maximumFractionDigits: 3,
               style: 'currency',
               currency: 'EUR',
             },
