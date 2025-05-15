@@ -1,0 +1,39 @@
+name: Quality Gate
+on:
+  pull_request:
+  # see: https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue#configuring-continuous-integration-ci-workflows-for-merge-queues
+  merge_group:
+
+# cancel previous runs if new changes are pushed to the branch/PR
+# see: https://stackoverflow.com/a/72408109
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  TURBO_TOKEN: ${{ secrets.TURBO_REMOTE_CACHE__TURBO_TOKEN }}
+
+jobs:
+  # We run the build first standalone to ensure everything is cached for all other jobs
+  build:
+    name: Build and Cache
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/templates/node-setup
+
+      - name: 🛠️ Build packages
+        run: pnpm run build:all
+
+  check:
+    needs: build
+    name: Check
+    uses: ./.github/workflows/check.yml
+    secrets: inherit
+
+  screenshots:
+    needs: build
+    name: Component tests
+    uses: ./.github/workflows/playwright.yml
+    secrets: inherit

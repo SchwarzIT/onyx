@@ -1,40 +1,18 @@
 name: Check code quality
 on:
-  pull_request:
+  workflow_call:
   workflow_dispatch:
-  # see: https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue#configuring-continuous-integration-ci-workflows-for-merge-queues
-  merge_group:
-  # we want to keep sonarqube up-to-date for the main branch
   push:
     branches:
       - main
-
-# cancel previous runs if new changes are pushed to the branch/PR
-# see: https://stackoverflow.com/a/72408109
-concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
 
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_REMOTE_CACHE__TURBO_TOKEN }}
 
 jobs:
-  # We run the build first standalone to ensure everything is cached for all other jobs
-  build:
-    name: Build and Cache
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: ./.github/templates/node-setup
-
-      - name: 🛠️ Build packages
-        run: pnpm run build:all
-
   check:
     name: Check code quality
     runs-on: ubuntu-latest
-    needs: build
     steps:
       - uses: actions/checkout@v4
         with:
@@ -80,7 +58,6 @@ jobs:
       - name: 👮 SonarQube Quality Gate check
         id: sonarqube-quality-gate
         uses: sonarsource/sonarqube-quality-gate-action@master
-        if: ${{ github.event_name == 'pull_request' }} # dont block anything except pull-requests
         continue-on-error: true
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -119,10 +96,3 @@ jobs:
         with:
           name: documentation
           path: apps/docs/src/.vitepress/dist
-
-  screenshots:
-    if: github.event_name != 'push' # avoid running screenshot tests on main again after a merge
-    needs: build
-    name: Component tests
-    uses: ./.github/workflows/playwright.yml
-    secrets: inherit
