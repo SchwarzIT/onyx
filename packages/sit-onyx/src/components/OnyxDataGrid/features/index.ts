@@ -72,10 +72,7 @@ export type TypeRenderMap<
 export type ColumnConfig<
   TEntry extends DataGridEntry,
   TColumnGroup extends ColumnGroupConfig = Record<string, never>,
-  TTypes extends ColumnConfigTypeOption<PropertyKey, unknown> = ColumnConfigTypeOption<
-    PropertyKey,
-    unknown
-  >,
+  TTypes extends ColumnConfigTypeOption<PropertyKey, unknown> = never,
 > =
   | keyof TEntry
   | PublicNormalizedColumnConfig<
