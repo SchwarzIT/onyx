@@ -6,4 +6,8 @@ export type OnyxDrawerProps = OnyxModalDialogProps & {
    * How to align the drawer horizontally.
    */
   alignment?: Exclude<DialogAlignment, "center">;
+  /**
+   * Whether to hide the backdrop.
+   */
+  noBackdrop?: boolean;
 };

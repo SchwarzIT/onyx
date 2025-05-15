@@ -62,3 +62,38 @@ test("should render with custom slots", async ({ mount, page, makeAxeBuilder }) 
   // ASSERT
   expect(accessibilityScanResults.violations).toEqual([]);
 });
+
+test("should render without backdrop", async ({ mount, page, makeAxeBuilder }) => {
+  await page.setViewportSize({ width: ONYX_BREAKPOINTS.sm + 1, height: 320 });
+
+  // ARRANGE
+  await mount(
+    <OnyxDrawer label="Example headline" open no-backdrop>
+      <template v-slot:headline>
+        <OnyxHeadline is="h2">Headline</OnyxHeadline>
+        <OnyxBadge density="compact">Badge</OnyxBadge>
+        <OnyxBadge density="compact">Badge</OnyxBadge>
+      </template>
+
+      <template v-slot:description> This is an example description about the dialog. </template>
+
+      <div>Content</div>
+
+      <template v-slot:footer>
+        <OnyxBottomBar>
+          <OnyxButton label="Button" color="neutral" mode="plain" />
+          <OnyxButton label="Button" />
+        </OnyxBottomBar>
+      </template>
+    </OnyxDrawer>,
+  );
+
+  // ASSERT
+  await expect(page).toHaveScreenshot("no-backdrop.png");
+
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
+});
