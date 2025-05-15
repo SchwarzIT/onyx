@@ -22,6 +22,7 @@ export const useResizing = createFeature(
     let colKey: keyof TEntry | undefined;
     let tableWidth: number;
     let tableWrapperWidth: number;
+    let rows: NodeListOf<HTMLTableRowElement> | undefined;
     let previousWidth: string | undefined;
     let abortController: AbortController | undefined;
 
@@ -75,6 +76,11 @@ export const useResizing = createFeature(
         return;
       }
 
+      header.value.classList.add("onyx-table__resizing");
+      rows = header.value.closest(".onyx-table")?.querySelectorAll("tr");
+      rows!.forEach((element) => {
+        element.classList.add("onyx-table__resizing");
+      });
       showLastCol.value = true;
     };
 
@@ -82,6 +88,11 @@ export const useResizing = createFeature(
       abortController?.abort();
       previousWidth = undefined;
       resizingCol.value = undefined;
+      rows!.forEach((element) => {
+        element.classList.remove("onyx-table__resizing");
+      });
+
+      header.value!.classList.remove("onyx-table__resizing");
       updateTableWidths();
     };
 

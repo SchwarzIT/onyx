@@ -303,8 +303,8 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
     }
 
     // row hover styles
-    // hover styles are disabled when the table is empty.
-    tr:hover:not(.onyx-table__empty) td::before {
+    // hover styles are disabled when the table is empty or is being resized.
+    tr:hover:not(.onyx-table__empty, .onyx-table__resizing) td::before {
       background-color: var(--onyx-color-base-neutral-200);
     }
 
@@ -323,6 +323,20 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
         // needed in order for other components like buttons etc. to be clickable and to prevent showing the column hover effect when hovering down over a row
         pointer-events: none;
       }
+    }
+
+    th:has(.onyx-table__resizing)::before {
+      background-color: color-mix(in srgb, var(--onyx-color-base-neutral-500), transparent 85%);
+      content: "";
+      height: var(--onyx-table-observed-height);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      bottom: 0;
+      z-index: -1;
+      // needed in order for other components like buttons etc. to be clickable and to prevent showing the column hover effect when hovering down over a row
+      pointer-events: none;
     }
 
     &__colgroup {
