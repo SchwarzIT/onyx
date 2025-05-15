@@ -5,8 +5,9 @@
     TEntry extends DataGridEntry,
     TTypeRenderer extends TypeRenderMap<TEntry>,
     TColumnGroup extends ColumnGroupConfig,
+    TTypes extends ColumnConfigTypeOption<PropertyKey, unknown>,
     TFeatureName extends symbol,
-    TFeatures extends DataGridFeature<TEntry, TTypeRenderer, TFeatureName>[] | []
+    TFeatures extends DataGridFeature<TEntry, TTypeRenderer, TFeatureName>[] | [] = []
   "
 >
 import { shallowRef, toRefs, watch, type HTMLAttributes, type WatchHandle } from "vue";
@@ -14,10 +15,12 @@ import { injectI18n } from "../../i18n";
 import type { TableColumnGroup } from "../OnyxTable/types";
 import {
   useDataGridFeatures,
+  type ColumnConfigTypeOption,
   type ColumnGroupConfig,
   type DataGridFeature,
   type TypeRenderMap,
 } from "./features";
+import { BASE_FEATURE } from "./features/base/base";
 import OnyxDataGridRenderer from "./OnyxDataGridRenderer/OnyxDataGridRenderer.vue";
 import type { DataGridRendererColumn, DataGridRendererRow } from "./OnyxDataGridRenderer/types";
 import type { DataGridEntry, DataGridMetadata, OnyxDataGridProps } from "./types";
@@ -59,7 +62,7 @@ const createFeatureBuilderWatcher = ({
   createRendererColumnGroups,
   createScrollContainerAttributes,
 }: ReturnType<
-  typeof useDataGridFeatures<TEntry, TFeatureName, TTypeRenderer, TColumnGroup, TFeatures>
+  typeof useDataGridFeatures<TEntry, TFeatureName, TTypeRenderer, TColumnGroup, TTypes, TFeatures>
 >) => {
   return watch(
     [data, columns, columnGroups, i18n.locale, i18n.t, ...watchSources],
@@ -76,7 +79,7 @@ const createFeatureBuilderWatcher = ({
 watch(
   features,
   () => {
-    const featureBuilder = useDataGridFeatures(features.value, {
+    const featureBuilder = useDataGridFeatures([BASE_FEATURE, ...features.value], {
       i18n,
       columnConfig: columns,
       columnGroups,

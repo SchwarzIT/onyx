@@ -27,7 +27,7 @@ const data: TEntry[] = [
 ];
 
 const columns: ColumnConfig<TEntry, ColumnGroupConfig, CustomType>[] = [
-  { key: "name", label: "Name" },
+  { key: "name", label: "Name", type: "string" },
   { key: "age", label: "Age", type: "ageIcon" },
   { key: "id", label: "", type: "detailsButton" },
 ];

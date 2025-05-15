@@ -5,13 +5,16 @@ import type {
   TdHTMLAttributes,
   ThHTMLAttributes,
 } from "vue";
+import type { Nullable } from "../../../composables/useVModel";
 import type { WithHTMLAttributes } from "../../../types";
 import type { OnyxTableProps } from "../../OnyxTable/types";
-import type { DataGridEntry, DataGridMetadata } from "../types";
+import type { DataGridEntry } from "../types";
+
+export type DataGridRendererCellMetadata = Record<string, unknown>;
 
 export type OnyxDataGridRendererProps<
   TEntry extends DataGridEntry = DataGridEntry,
-  TMetadata extends DataGridMetadata = DataGridMetadata,
+  TMetadata extends DataGridRendererCellMetadata = DataGridRendererCellMetadata,
 > = OnyxTableProps & {
   /**
    * Will define which columns and their headers are rendered in which order.
@@ -23,7 +26,8 @@ export type OnyxDataGridRendererProps<
 /**
  * Describes how a column header is rendered in the data grid.
  */
-export type DataGridRendererColumn<TEntry extends DataGridEntry> = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- for simplicity we use any here
+export type DataGridRendererColumn<TEntry extends DataGridEntry, TProps = any> = {
   /**
    * (Unique) Key of the column - usually a key of the table data.
    * But can also be used for custom columns.
@@ -32,7 +36,11 @@ export type DataGridRendererColumn<TEntry extends DataGridEntry> = {
   /**
    * The component that renders the header content and is placed into the `<th>` element.
    */
-  component: Component;
+  component: Component<Nullable<TProps>>;
+  /**
+   * Props that are passed to the component that renders the header content.
+   */
+  props?: TProps;
   /**
    * Width of the column. Any track-list value that can be used by [`grid-template-columns`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns) is possible.
    * So the column can have a fixed width using a static value like `100px` or `2rem`.
@@ -53,7 +61,7 @@ export type DataGridRendererColumn<TEntry extends DataGridEntry> = {
  */
 export type DataGridRendererRow<
   TEntry extends DataGridEntry,
-  TMetadata extends DataGridMetadata = DataGridMetadata,
+  TMetadata extends DataGridRendererCellMetadata = DataGridRendererCellMetadata,
 > = {
   /**
    * Unique id of the row.
@@ -75,7 +83,7 @@ export type DataGridRendererRow<
  */
 export type DataGridRendererCell<
   TEntry extends DataGridEntry,
-  TMetadata extends DataGridMetadata = DataGridMetadata,
+  TMetadata extends DataGridRendererCellMetadata = DataGridRendererCellMetadata,
 > = {
   /**
    * The component that renders the actual cell content and is placed into the `<td>` element.
@@ -96,14 +104,14 @@ export type DataGridRendererCell<
  */
 export type DataGridRendererCellComponent<
   TEntry extends DataGridEntry,
-  TMetadata extends DataGridMetadata = DataGridMetadata,
+  TMetadata extends DataGridRendererCellMetadata = DataGridRendererCellMetadata,
 > = FunctionalComponent<
   WithHTMLAttributes<DataGridRendererCellComponentProps<TEntry, TMetadata>, TdHTMLAttributes>
 >;
 
 export type DataGridRendererCellComponentProps<
   TEntry extends DataGridEntry,
-  TMetadata extends DataGridMetadata,
+  TMetadata extends DataGridRendererCellMetadata,
 > = {
   /**
    * Complete row data.

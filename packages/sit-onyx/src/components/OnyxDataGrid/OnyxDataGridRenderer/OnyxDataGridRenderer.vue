@@ -52,7 +52,7 @@ const columnStyle = computed(() => {
           :ref_for="false"
           scope="col"
         >
-          <component :is="column.component" />
+          <component :is="column.component" v-bind="column.props" />
         </th>
       </tr>
     </template>

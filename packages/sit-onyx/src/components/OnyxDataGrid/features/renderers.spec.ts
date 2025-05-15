@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, test, vi } from "vitest";
 import * as vue from "vue";
 import type { DefaultSupportedTypes } from ".";
 import { provideI18n } from "../../../i18n";
+import { BASE_FEATURE } from "./base/base";
 import { createRenderer, FALLBACK_RENDER_VALUE } from "./renderer";
 
 // keep track of provide/inject because they need to be mocked
@@ -116,7 +117,7 @@ describe("renderers", () => {
 });
 
 function getRendererCellValue(value: unknown, type?: DefaultSupportedTypes) {
-  const renderer = createRenderer([]);
+  const renderer = createRenderer([BASE_FEATURE]);
   return renderer
     .getFor("cell", type)
     .component({ modelValue: value, row: { id: 1 } }, { attrs: {}, slots: {}, emit: () => ({}) });
