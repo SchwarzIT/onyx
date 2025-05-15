@@ -2,10 +2,10 @@ import { Command } from "commander";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { writeIconMetadata } from "../icons/generate.js";
-import { optimizeSvg } from "../icons/optimize.js";
 import { parseComponentsToIcons } from "../icons/parse.js";
 import { fetchFigmaComponents, fetchFigmaSVGs } from "../index.js";
 import { isDirectory } from "../utils/fs.js";
+import { optimizeSvg } from "../utils/optimize.js";
 
 export type ImportIconsCommandOptions = {
   fileKey: string;
