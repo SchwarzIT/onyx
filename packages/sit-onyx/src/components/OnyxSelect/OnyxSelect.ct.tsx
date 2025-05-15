@@ -1,6 +1,5 @@
 import type { MountResultJsx } from "@playwright/experimental-ct-vue";
 import { comboboxSelectOnlyTesting, comboboxTesting } from "@sit-onyx/headless/playwright";
-import { adjustSizeToAbsolutePosition } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density";
 import type { FormMessages } from "../../composables/useCustomValidity";
 import { expect, test } from "../../playwright/a11y";
@@ -58,7 +57,6 @@ const openFlyout = async (component: MountResultJsx) => {
   const toggleButton = component.getByLabel("Toggle selection popover");
 
   if (await toggleButton.isEnabled()) await toggleButton.click();
-  await adjustSizeToAbsolutePosition(component);
 };
 
 test.describe("Default screenshots", () => {
@@ -77,6 +75,9 @@ test.describe("Default screenshots", () => {
           density={column}
           required={row === "required"}
           hideLabel={row === "hideLabel"}
+          style={{
+            marginBottom: row === "open" ? "15rem" : undefined,
+          }}
         />
       </div>
     ),
@@ -97,7 +98,13 @@ test.describe("Empty screenshots", () => {
     component: (column, row) => (
       <div>
         {row === "empty" ? (
-          <OnyxSelect label="Label" listLabel="List label" options={[]} density={column} />
+          <OnyxSelect
+            label="Label"
+            listLabel="List label"
+            options={[]}
+            density={column}
+            style={{ marginBottom: "15rem" }}
+          />
         ) : (
           <OnyxSelect
             label="Label"
@@ -106,6 +113,7 @@ test.describe("Empty screenshots", () => {
             density={column}
             withSearch={true}
             searchTerm="search term"
+            style={{ marginBottom: "18rem" }}
           />
         )}
       </div>
@@ -132,6 +140,7 @@ test.describe("Truncated options screenshots", () => {
           row === "ellipsis" ? MOCK_LONG_LABELED_OPTIONS : MOCK_MULTILINE_LONG_LABELED_OPTIONS
         }
         density={column}
+        style={{ marginBottom: "22rem" }}
       />
     ),
     hooks: {
@@ -170,6 +179,7 @@ test.describe("Grouped screenshots", () => {
             density={row}
             multiple={true}
             withCheckAll={true}
+            style={{ marginBottom: "20rem" }}
           />
         </div>
       ) : (
@@ -182,6 +192,7 @@ test.describe("Grouped screenshots", () => {
             density={row}
             multiple={false}
             withSearch={column === "with-search"}
+            style={{ marginBottom: "20rem" }}
           />
         </div>
       );
@@ -218,6 +229,7 @@ test.describe("Multiple screenshots", () => {
             withSearch={row === "search"}
             withCheckAll={row === "check-all"}
             textMode={row === "preview" ? "preview" : undefined}
+            style={{ marginBottom: row !== "preview" ? "20rem" : undefined }}
           />
         </div>
       );
@@ -244,6 +256,7 @@ test.describe("List description screenshots", () => {
           options={MOCK_MANY_OPTIONS}
           density={column}
           listDescription="List description"
+          style={{ marginBottom: "25rem" }}
         />
       </div>
     ),
@@ -262,7 +275,12 @@ test.describe("Alignment screenshots", () => {
     rows: ["top", "bottom"],
     context,
     component: (column, row) => (
-      <div style={{ paddingTop: row === "top" ? "22rem" : "" }}>
+      <div
+        style={{
+          paddingTop: row === "top" ? "22rem" : "",
+          paddingBottom: row !== "top" ? "22rem" : "",
+        }}
+      >
         <OnyxSelect
           label="Label"
           listLabel="List label"
@@ -293,6 +311,7 @@ test.describe("Loading screenshots", () => {
           options={MOCK_MANY_OPTIONS}
           loading={column === "loading"}
           lazyLoading={column === "lazy-loading" ? { enabled: true, loading: true } : undefined}
+          style={{ marginBottom: "25rem" }}
         >
           {column === "custom-button" && (
             <template v-slot:optionsEnd>
@@ -340,7 +359,7 @@ test.describe("Invalidity handling screenshots", () => {
 
       return (
         <OnyxSelect
-          style="width: 12rem"
+          style={{ width: "12rem", marginRight: column === "long-text" ? "6rem" : undefined }}
           label={label}
           message={message}
           customError={row !== "messageTooltip" ? errorMessages : undefined}
@@ -457,7 +476,7 @@ test("should interact with single select", async ({ mount }) => {
   expect(modelValue).toStrictEqual(MOCK_VARIED_OPTIONS_VALUES[1]);
 
   // ACT
-  await component.getByText("Selected").click();
+  await component.getByRole("combobox", { name: "Test select" }).click();
   // ASSERT
   expect(modelValue).toStrictEqual(MOCK_VARIED_OPTIONS_VALUES[1]);
   await expect(comboboxInput).toBeFocused();
@@ -504,7 +523,7 @@ test("should interact with multiselect and search", async ({ mount }) => {
   const mainInput = component.getByRole("textbox", { name: "Test select" });
   const miniSearchInput = component.getByRole("combobox", { name: "Filter the list items" });
 
-  await component.click();
+  await mainInput.click();
 
   // ASSERT
   await expect(component.getByText("Disabled")).toBeDisabled();
@@ -527,12 +546,12 @@ test("should interact with multiselect and search", async ({ mount }) => {
   await expect(miniSearchInput).toBeFocused();
 
   // ACT
-  await component.click();
+  await mainInput.click();
   // ASSERT
   await expect(mainInput).toBeFocused();
 
   // ACT
-  await component.click();
+  await mainInput.click();
   // ASSERT
   await expect(
     miniSearchInput,
@@ -568,7 +587,7 @@ test("should interact with multiselect", async ({ mount }) => {
     on: eventHandlers,
   });
 
-  await component.click();
+  await component.getByRole("combobox", { name: "Test select" }).click();
 
   // ASSERT
   await expect(component.getByText("Disabled")).toBeDisabled();
@@ -668,7 +687,7 @@ test("should support lazy loading", async ({ mount }) => {
     return component.update({ props, on: eventHandlers });
   };
 
-  await component.click();
+  await component.getByRole("combobox", { name: "Test select" }).click();
 
   await expect(component.getByRole("option")).toHaveCount(25);
 
@@ -741,7 +760,7 @@ test("should handle onUpdate:searchTerm correctly when searching", async ({ moun
     },
   });
 
-  await component.click();
+  await component.getByRole("textbox", { name: "Test label" }).click();
   const searchInput = component.getByLabel("Filter the list items");
 
   // ACT
@@ -783,7 +802,7 @@ test("should show custom option slot content", async ({ mount }) => {
   );
 
   // ACT
-  await component.click();
+  await component.getByRole("combobox", { name: "Test label" }).click();
 
   // ASSERT
   for (const option of MOCK_VARIED_OPTIONS) {
@@ -895,7 +914,7 @@ test("should manage filtering internally except when filteredOptions are given",
   });
 
   // ACT
-  await component.click();
+  await component.getByRole("textbox", { name: "Test select" }).click();
   await page.getByRole("option").first().waitFor();
   // ASSERT
   expect(await page.getByRole("option").count(), "should initially show all options").toBe(
