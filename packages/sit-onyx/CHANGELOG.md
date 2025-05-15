@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.219
+
+### Minor Changes
+
+- d807a65: feat(OnyxSelectDialog): move buttons to sticky footer
+
 ## 1.0.0-beta.218
 
 ### Minor Changes
