@@ -13,6 +13,7 @@ import {
 import {
   useAnchorPositionPolyfill,
   USERAGENT_SUPPORTS_ANCHOR_API,
+  useWebkitPopoverKeyFix,
 } from "../../composables/useAnchorPositionPolyfill";
 import { useOpenAlignment } from "../../composables/useOpenAlignment";
 import { useOpenDirection } from "../../composables/useOpenDirection";
@@ -147,12 +148,15 @@ watch([flyoutPosition, flyoutAlignment, flyoutWidth], async () => {
     updateAnchorPositionPolyfill();
   }
 });
+
+const { popoverKey } = useWebkitPopoverKeyFix(isVisible);
 </script>
 
 <template>
   <div ref="flyoutWrapper" class="onyx-component onyx-flyout" :style="`anchor-name: ${anchorName}`">
     <slot :trigger="trigger"></slot>
     <div
+      :key="popoverKey"
       ref="flyout"
       role="dialog"
       :aria-label="props.label"

@@ -3,6 +3,7 @@ import {
   onUnmounted,
   ref,
   toValue,
+  watch,
   watchEffect,
   type MaybeRefOrGetter,
   type Ref,
@@ -140,4 +141,25 @@ export const useAnchorPositionPolyfill = ({
     topPosition,
     updateAnchorPositionPolyfill,
   };
+};
+
+/**
+ * For a current bug in safari/webkit (using Playwright) that leads to the popover not opening correctly,
+ * we need to set a key that changes when the popover opens so its rendered correctly.
+ *
+ * @see: https://github.com/SchwarzIT/onyx/pull/3214
+ */
+export const useWebkitPopoverKeyFix = (isVisible: Ref<boolean>) => {
+  const popoverKey = ref();
+
+  watch(
+    isVisible,
+    (visible) => {
+      if (!visible) return;
+      popoverKey.value = Date.now() + Math.random();
+    },
+    { immediate: true },
+  );
+
+  return { popoverKey };
 };

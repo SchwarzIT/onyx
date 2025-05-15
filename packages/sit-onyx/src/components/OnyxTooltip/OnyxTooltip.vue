@@ -19,6 +19,7 @@ import { useDensity } from "../../composables/density";
 import {
   useAnchorPositionPolyfill,
   USERAGENT_SUPPORTS_ANCHOR_API,
+  useWebkitPopoverKeyFix,
 } from "../../composables/useAnchorPositionPolyfill";
 import { useOpenAlignment } from "../../composables/useOpenAlignment";
 import { useOpenDirection } from "../../composables/useOpenDirection";
@@ -202,6 +203,8 @@ watch([tooltipWidth, toolTipPosition, alignment, alignsWithEdge], async () => {
 
 const id = useId();
 const anchorName = computed(() => `--anchor-${id}`);
+
+const { popoverKey } = useWebkitPopoverKeyFix(isVisible);
 </script>
 
 <template>
@@ -211,6 +214,8 @@ const anchorName = computed(() => `--anchor-${id}`);
     :style="`anchor-name: ${anchorName}`"
   >
     <div
+      v-if="isVisible"
+      :key="popoverKey"
       ref="tooltipRefEl"
       v-bind="tooltip"
       :class="['onyx-tooltip', 'onyx-text--small', 'onyx-truncation-multiline', tooltipClasses]"
