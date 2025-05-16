@@ -73,7 +73,7 @@ test.describe("OnyxFlyout Screenshot Tests", () => {
   test.describe("Positioning Screenshot tests", () => {
     executeMatrixScreenshotTest({
       name: "Positioned Flyout",
-      columns: ["default"],
+      columns: ["default", "disabled"],
       rows: [
         "top",
         "top right",
@@ -87,7 +87,13 @@ test.describe("OnyxFlyout Screenshot Tests", () => {
       component: (column, row) => {
         return (
           <div class="container" style={{ margin: "2rem 6rem" }}>
-            <OnyxFlyoutTestCase label="test" open={true} position={row} alignment="center" />
+            <OnyxFlyoutTestCase
+              label="test"
+              open={true}
+              position={row}
+              alignment="center"
+              disabled={column === "disabled"}
+            />
           </div>
         );
       },

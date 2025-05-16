@@ -22,12 +22,16 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "User menu",
     columns: ["default", "description", "footer"],
-    rows: ["default", "hover", "focus-visible"],
+    rows: ["default", "hover", "focus-visible", "disabled"],
     component: (column, row) => (
       <OnyxUserMenu
-        style={{ marginBottom: row === "default" ? "0rem" : "12rem", marginLeft: "5rem" }}
+        style={{
+          marginBottom: row === "default" || row === "disabled" ? "0rem" : "12rem",
+          marginLeft: "5rem",
+        }}
         fullName="Jane Doe"
         description={column === "description" ? "Company name" : undefined}
+        disabled={row === "disabled"}
       >
         {options}
         {column === "footer" ? <template v-slot:footer>Footer slot content</template> : undefined}
@@ -35,7 +39,7 @@ test.describe("Screenshot tests", () => {
     ),
     hooks: {
       beforeEach: async (component, page, column, row) => {
-        if (row === "default") return;
+        if (row === "default" || row === "disabled") return;
 
         if (row === "hover") {
           await component.getByRole("button", { name: "Jane Doe" }).hover();
