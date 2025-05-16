@@ -4,6 +4,7 @@ import type { OnyxDrawerProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxDrawerProps>(), {
   alignment: "left",
+  modal: true,
 });
 
 const emit = defineEmits<{
@@ -59,6 +60,14 @@ const slots = defineSlots<{
   @include layers.component() {
     --onyx-modal-dialog-padding-inline: var(--onyx-density-md);
     width: 30rem;
+
+    &:not(:modal) {
+      --onyx-dialog-screen-gap: 0;
+      --onyx-dialog-border-radius: 0;
+      border-top: none;
+      border-left: none;
+      border-bottom: none;
+    }
   }
 }
 </style>
