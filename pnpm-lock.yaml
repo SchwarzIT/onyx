@@ -314,6 +314,15 @@ importers:
         specifier: ^3.3.2
         version: 3.3.2
 
+  packages/flags:
+    devDependencies:
+      '@changesets/write':
+        specifier: ~0.4.0
+        version: 0.4.0
+      tsx:
+        specifier: ^4.19.3
+        version: 4.19.3
+
   packages/headless:
     dependencies:
       typescript:
@@ -469,6 +478,9 @@ importers:
       '@axe-core/playwright':
         specifier: ^4.10.1
         version: 4.10.1(playwright-core@1.51.1)
+      '@sit-onyx/flags':
+        specifier: workspace:^
+        version: link:../flags
       '@sit-onyx/headless':
         specifier: workspace:^
         version: link:../headless

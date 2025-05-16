@@ -2,7 +2,6 @@
 import { useTemplateRef, watch } from "vue";
 import { useDensity } from "../../composables/density";
 import type { OnyxDialogProps } from "./types";
-
 const props = withDefaults(defineProps<OnyxDialogProps>(), {
   open: false,
   modal: false,
@@ -99,17 +98,19 @@ watch(
     $max-size: calc(100% - 2 * var(--onyx-dialog-screen-gap));
     max-width: $max-size;
     max-height: $max-size;
-    height: max-content;
-    width: max-content;
-
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 
     &::backdrop {
       background-color: var(--onyx-color-component-opacity-backdrop);
     }
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: fit-content;
+    height: fit-content;
 
     &:modal {
       z-index: var(--onyx-z-index-app-overlay);
@@ -120,12 +121,13 @@ watch(
     &--right {
       --onyx-dialog-screen-gap: var(--onyx-density-xs);
       transform: none;
-      top: var(--onyx-dialog-screen-gap);
+
       height: 100%;
     }
 
     &--left {
       left: var(--onyx-dialog-screen-gap);
+      margin-left: 0;
     }
 
     &--right {

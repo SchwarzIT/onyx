@@ -116,3 +116,10 @@ export type ParsedIcon = {
   aliases: string[];
   category: string;
 };
+
+export type ParsedFlag = {
+  id: string;
+  code: string;
+  internationalName: string;
+  continent: string;
+};

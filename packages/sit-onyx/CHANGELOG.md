@@ -1,5 +1,25 @@
 # sit-onyx
 
+## 1.0.0-beta.222
+
+### Minor Changes
+
+- f4086e3: feat(OnyxDrawer): add new `modal` property
+
+## 1.0.0-beta.221
+
+### Minor Changes
+
+- 1bb49b5: fixed(OnyxTooltip in OnyxDialog): removed translate attribute from dialog to not disturb the anchor attribute in OnyxTooltip
+
+## 1.0.0-beta.220
+
+### Minor Changes
+
+- fc57919: - feat(OnyxDataGrid): implemented support for passing column type specific configuration
+  - all default column types now support `options` for overwriting the formatting
+  - feat(i18n): allow passing INTL formatting options for number `n` and date `d`formatter
+
 ## 1.0.0-beta.219
 
 ### Minor Changes

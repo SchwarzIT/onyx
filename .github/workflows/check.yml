@@ -83,7 +83,7 @@ jobs:
         if: always() # needed to also upload test results when they failed (useful for debugging)
         with:
           name: coverage
-          path: packages/sit-onyx/coverage
+          path: coverage
 
       - name: Upload Storybook artifact
         uses: actions/upload-artifact@v4

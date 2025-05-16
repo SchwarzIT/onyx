@@ -1,7 +1,7 @@
 {
   "name": "sit-onyx",
   "description": "A design system and Vue.js component library created by Schwarz IT",
-  "version": "1.0.0-beta.219",
+  "version": "1.0.0-beta.222",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
@@ -51,6 +51,7 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.1",
+    "@sit-onyx/flags": "workspace:^",
     "@sit-onyx/headless": "workspace:^",
     "@sit-onyx/playwright-utils": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",

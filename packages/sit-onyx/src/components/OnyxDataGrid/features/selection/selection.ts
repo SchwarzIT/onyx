@@ -3,6 +3,7 @@ import { createFeature, type ModifyColumns } from "..";
 import { injectI18n } from "../../../../i18n";
 import OnyxCheckbox from "../../../OnyxCheckbox/OnyxCheckbox.vue";
 import type { DataGridEntry } from "../../types";
+import { createTypeRenderer } from "../renderer";
 import "./selection.scss";
 import type { SelectionOptions, SelectionState } from "./types";
 
@@ -55,18 +56,24 @@ export const useSelection = createFeature(
 
     const { t } = injectI18n();
 
+    const modifyColumns: ModifyColumns<TEntry> = {
+      func: (cols) =>
+        disabled.value
+          ? [...cols]
+          : [
+              {
+                key: SELECTION_COLUMN,
+                type: { name: SELECTION_COLUMN },
+                label: "",
+                width: "2.5rem",
+              },
+              ...cols,
+            ],
+    };
     return {
       name: SELECTION_FEATURE,
       watch: [selectionState, hover, disabled],
-      modifyColumns: {
-        func: (columnConfig) =>
-          disabled.value
-            ? [...columnConfig]
-            : [
-                { key: SELECTION_COLUMN, type: SELECTION_COLUMN, label: "", width: "2.5rem" },
-                ...columnConfig,
-              ],
-      } satisfies ModifyColumns<TEntry>,
+      modifyColumns,
       mutation: {
         func: (rows) => {
           rowsCount.value = rows.length;
@@ -75,7 +82,7 @@ export const useSelection = createFeature(
         order: Infinity,
       },
       typeRenderer: {
-        [SELECTION_COLUMN]: {
+        [SELECTION_COLUMN]: createTypeRenderer({
           header: {
             thAttributes: { class: "onyx-data-grid-selection-cell" },
             component: () =>
@@ -118,7 +125,7 @@ export const useSelection = createFeature(
               });
             },
           },
-        },
+        }),
       },
     };
   },

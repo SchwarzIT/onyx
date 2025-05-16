@@ -1,7 +1,7 @@
+import DE from "@sit-onyx/flags/DE.svg?raw";
+import GB from "@sit-onyx/flags/GB.svg?raw";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxLanguageMenuItem from "./OnyxLanguageMenuItem.vue";
-import deFlag from "./de-DE.svg?raw";
-import enFlag from "./en-US.svg?raw";
 
 /**
  * Pre-built menu item for the `OnyxUserMenu` that can be used inside the nav bar to
@@ -32,8 +32,8 @@ export const Default = {
   args: {
     modelValue: "en-US",
     options: [
-      { value: "en-US", label: "English", icon: enFlag },
-      { value: "de-DE", label: "Deutsch", icon: deFlag },
+      { value: "en-US", label: "English", icon: GB },
+      { value: "de-DE", label: "Deutsch", icon: DE },
     ],
   },
 } satisfies Story;

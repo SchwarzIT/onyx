@@ -21,6 +21,9 @@ export type OnyxTranslations = GetTypeOfTranslations<typeof enUS>;
 
 export type OnyxTranslationKey = FlattenedKeysOf<OnyxTranslations>;
 
+export type OnyxNumberFormatOptions = NumberFormat | Intl.NumberFormatOptions;
+export type OnyxDateFormatOptions = DatetimeFormat | Intl.DateTimeFormatOptions;
+
 export type ProvideI18nOptions = {
   /**
    * Current locale / language to use.
@@ -112,8 +115,11 @@ const createI18n = (options: ProvideI18nOptions = {}) => {
    * Gets the formatted date/time string for the given date and format depending on the current locale.
    */
   const d = computed(() => {
-    return (date: DateValue, format: DatetimeFormat) => {
-      const formatter = new Intl.DateTimeFormat(locale.value, DATETIME_FORMATS[format]);
+    return (date: DateValue, format?: OnyxDateFormatOptions) => {
+      const formatter = new Intl.DateTimeFormat(
+        locale.value,
+        typeof format === "object" || format === undefined ? format : DATETIME_FORMATS[format],
+      );
       return formatter.format(new Date(date));
     };
   });
@@ -122,8 +128,11 @@ const createI18n = (options: ProvideI18nOptions = {}) => {
    * Gets the formatted number string for the given number and format depending on the current locale.
    */
   const n = computed(() => {
-    return (value: number, format: NumberFormat) => {
-      const formatter = new Intl.NumberFormat(locale.value, NUMBER_FORMATS[format]);
+    return (value: number, format?: OnyxNumberFormatOptions) => {
+      const formatter = new Intl.NumberFormat(
+        locale.value,
+        typeof format === "object" || format === undefined ? format : NUMBER_FORMATS[format],
+      );
       return formatter.format(value);
     };
   });

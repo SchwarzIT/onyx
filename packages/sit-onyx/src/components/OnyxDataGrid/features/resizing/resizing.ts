@@ -77,7 +77,8 @@ export const useResizing = createFeature(
         };
       });
 
-      if (showLastCol.value) columns.push({ key: EMPTY_COLUMN, type: EMPTY_COLUMN, label: "" });
+      if (showLastCol.value)
+        columns.push({ key: EMPTY_COLUMN, type: { name: EMPTY_COLUMN }, label: "" });
 
       return columns;
     };

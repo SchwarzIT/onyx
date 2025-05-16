@@ -95,7 +95,7 @@ export const useHideColumns = createFeature(
           return hiddenColumns.value.size > 0
             ? [
                 ...filteredColumns,
-                { key: HIDDEN_COLUMN, type: HIDDEN_COLUMN, width: "2.5rem", label: "" },
+                { key: HIDDEN_COLUMN, type: { name: HIDDEN_COLUMN }, width: "2.5rem", label: "" },
               ]
             : filteredColumns;
         },
