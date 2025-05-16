@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@fontsource-variable/source-code-pro": "^5.2.5",
-    "@fontsource-variable/source-sans-3": "^5.2.6"
+    "@fontsource-variable/source-sans-3": "^5.2.7"
   },
   "devDependencies": {
     "sit-onyx": "workspace:^"
