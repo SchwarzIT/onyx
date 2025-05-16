@@ -2,7 +2,7 @@ import { defineConfig, type DefaultTheme, type UserConfig } from "vitepress";
 import packageJson from "../../../../packages/sit-onyx/package.json" with { type: "json" };
 import viteConfig from "../../vite.config";
 
-const ASSETS_SIDEBAR: DefaultTheme.SidebarItem = [
+const ASSETS_SIDEBAR: DefaultTheme.SidebarItem[] = [
   {
     text: "Assets",
     items: [
