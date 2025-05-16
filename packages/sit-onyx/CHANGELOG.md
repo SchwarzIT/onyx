@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.222
+
+### Minor Changes
+
+- f4086e3: feat(OnyxDrawer): add new `modal` property
+
 ## 1.0.0-beta.221
 
 ### Minor Changes
