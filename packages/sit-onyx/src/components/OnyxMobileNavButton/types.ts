@@ -16,4 +16,8 @@ export type OnyxMobileNavButtonProps = {
    * Headline of the mobile flyout
    */
   headline?: string;
+  /**
+   * If the navButton should be disabled or not.
+   */
+  disabled?: boolean;
 };

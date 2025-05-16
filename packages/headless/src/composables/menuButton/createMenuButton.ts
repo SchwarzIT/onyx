@@ -7,6 +7,7 @@ type CreateMenuButtonOptions = {
   isExpanded: Readonly<Ref<boolean>>;
   trigger: Readonly<Ref<"hover" | "click">>;
   onToggle: () => void;
+  disabled?: Readonly<Ref<boolean, boolean>>;
 };
 
 /**
@@ -31,6 +32,7 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
   watch(options.isExpanded, () => updateDebouncedExpanded.abort()); // manually changing `isExpanded` should abort debounced action
 
   const setExpanded = (expanded: boolean, debounced = false) => {
+    if (options.disabled?.value) return;
     if (expanded === options.isExpanded.value) {
       updateDebouncedExpanded.abort();
       return;

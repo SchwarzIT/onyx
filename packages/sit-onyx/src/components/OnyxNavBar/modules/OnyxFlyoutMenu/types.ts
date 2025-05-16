@@ -15,4 +15,8 @@ export type OnyxFlyoutMenuProps = Pick<OnyxFlyoutProps, "alignment"> & {
    * Indicates whether the element is expanded or collapsed.
    */
   open?: Nullable<boolean>;
+  /**
+   * If the flyout should be disabled or not.
+   */
+  disabled?: boolean;
 };

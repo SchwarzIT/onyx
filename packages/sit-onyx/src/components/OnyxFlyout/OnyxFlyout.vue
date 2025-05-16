@@ -30,11 +30,11 @@ defineSlots<{
    * The always visible parent to which the flyout is aligned.
    * `trigger` can optionally set to a button to explicitly connect the the button and popover.
    */
-  default(params: { trigger: AriaAttributes }): unknown;
+  default(params: { trigger: AriaAttributes; disabled?: boolean }): unknown;
   /**
    * Content shown in the flyout when it is expanded.
    */
-  content: unknown;
+  content(params: { disabled?: boolean }): unknown;
 }>();
 
 const _isVisible = ref(false);
@@ -136,6 +136,7 @@ const flyoutClasses = computed(() => {
     [`onyx-flyout__dialog--position-${flyoutPosition.value.replace(" ", "-")}`]: true,
     [`onyx-flyout__dialog--alignment-${flyoutAlignment.value}`]: true,
     "onyx-flyout__dialog--fitparent": props.fitParent,
+    "onyx-flyout__dialog--disabled": props.disabled,
     "onyx-flyout__dialog--dont-support-anchor": !USERAGENT_SUPPORTS_ANCHOR_API,
   };
 });
@@ -151,7 +152,7 @@ watch([flyoutPosition, flyoutAlignment, flyoutWidth], async () => {
 
 <template>
   <div ref="flyoutWrapper" class="onyx-component onyx-flyout" :style="`anchor-name: ${anchorName}`">
-    <slot :trigger="trigger"></slot>
+    <slot :trigger="trigger" :disabled="disabled"></slot>
     <div
       ref="flyout"
       role="dialog"
@@ -160,7 +161,7 @@ watch([flyoutPosition, flyoutAlignment, flyoutWidth], async () => {
       class="onyx-flyout__dialog"
       :class="flyoutClasses"
     >
-      <slot name="content"></slot>
+      <slot name="content" :disabled="disabled"></slot>
     </div>
   </div>
 </template>
@@ -193,6 +194,11 @@ watch([flyoutPosition, flyoutAlignment, flyoutWidth], async () => {
       max-width: var(--onyx-flyout-max-width);
       width: max-content;
       font-family: var(--onyx-font-family);
+
+      &--disabled {
+        background-color: var(--onyx-color-base-background-blank);
+        color: var(--onyx-color-text-icons-neutral-soft);
+      }
 
       &:popover-open {
         display: flex;

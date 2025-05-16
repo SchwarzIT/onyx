@@ -21,11 +21,11 @@ const slots = defineSlots<{
   /**
    * Slot for the menu options. Its recommended to use the `OnyxMenuItem` component here.
    */
-  default?(): unknown;
+  default?(params: { disabled?: boolean }): unknown;
   /**
    * Optional footer content to display at the bottom.
    */
-  footer?(): unknown;
+  footer?(params: { disabled?: boolean }): unknown;
 }>();
 
 /**
@@ -55,17 +55,23 @@ const isMobile = inject(
     class="onyx-component onyx-user-menu"
     :class="{ 'onyx-user-menu--mobile': isMobile }"
     :is-mobile="isMobile"
+    :disabled="disabled"
   >
     <template #button="{ trigger }">
-      <button class="onyx-user-menu__trigger onyx-text" type="button" v-bind="trigger">
-        <OnyxAvatar v-bind="avatar" size="24px" />
+      <button
+        class="onyx-user-menu__trigger onyx-text"
+        type="button"
+        v-bind="trigger"
+        :disabled="disabled"
+      >
+        <OnyxAvatar v-bind="avatar" size="24px" :disabled />
         <span class="onyx-truncation-ellipsis"> {{ props.fullName }}</span>
       </button>
     </template>
 
     <template #header>
-      <div class="onyx-user-menu__header">
-        <OnyxAvatar v-bind="avatar" size="48px" />
+      <div class="onyx-user-menu__header" :class="{ 'onyx-user-menu__header--disabled': disabled }">
+        <OnyxAvatar v-bind="avatar" size="48px" :disabled />
 
         <div class="onyx-truncation-ellipsis">
           <div class="onyx-user-menu__username onyx-text onyx-truncation-ellipsis">
@@ -83,12 +89,12 @@ const isMobile = inject(
 
     <template #options>
       <div class="onyx-user-menu__options">
-        <slot></slot>
+        <slot :disabled="disabled"></slot>
       </div>
     </template>
 
     <template v-if="slots.footer" #footer>
-      <slot name="footer"></slot>
+      <slot name="footer" :disabled="disabled"></slot>
     </template>
   </UserMenuLayout>
 </template>
@@ -127,7 +133,14 @@ const isMobile = inject(
       margin-left: auto;
       font-weight: 600;
 
+      &:disabled {
+        color: var(--onyx-color-text-icons-neutral-soft);
+      }
       &:hover {
+        &:disabled {
+          background-color: var(--onyx-color-base-background-blank);
+          outline: 0;
+        }
         background-color: var(--onyx-color-base-neutral-200);
       }
 
@@ -149,6 +162,10 @@ const isMobile = inject(
       align-items: center;
       gap: var(--onyx-spacing-md);
       text-align: left;
+      &--disabled {
+        background-color: var(--onyx-color-base-background-blank);
+        color: var(--onyx-color-text-icons-neutral-soft);
+      }
     }
 
     &__username {

@@ -50,7 +50,7 @@ test.describe("OnyxFlyout", () => {
 test.describe("OnyxFlyout Screenshot Tests", () => {
   test.describe("Alignment screenshot tests", () => {
     executeMatrixScreenshotTest({
-      name: "Aligned tooltip",
+      name: "Aligned Flyout",
       columns: ["left", "center", "right"],
       rows: ["top", "bottom"],
       component: (column, row) => {
@@ -72,8 +72,8 @@ test.describe("OnyxFlyout Screenshot Tests", () => {
 
   test.describe("Positioning Screenshot tests", () => {
     executeMatrixScreenshotTest({
-      name: "Positioned Tooltip",
-      columns: ["default"],
+      name: "Positioned Flyout",
+      columns: ["default", "disabled"],
       rows: [
         "top",
         "top right",
@@ -87,7 +87,13 @@ test.describe("OnyxFlyout Screenshot Tests", () => {
       component: (column, row) => {
         return (
           <div class="container" style={{ margin: "2rem 6rem" }}>
-            <OnyxFlyoutTestCase label="test" open={true} position={row} alignment="center" />
+            <OnyxFlyoutTestCase
+              label="test"
+              open={true}
+              position={row}
+              alignment="center"
+              disabled={column === "disabled"}
+            />
           </div>
         );
       },

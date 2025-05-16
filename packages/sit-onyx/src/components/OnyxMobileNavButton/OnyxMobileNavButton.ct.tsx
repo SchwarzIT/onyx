@@ -26,13 +26,14 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Mobile nav button",
     columns: ["default", "open"],
-    rows: ["default", "hover", "active", "focus-visible"],
+    rows: ["default", "hover", "active", "focus-visible", "disabled"],
     removePadding: true,
-    component: (column) => (
+    component: (column, row) => (
       <OnyxMobileNavButton
         label="Label"
         icon={mockPlaywrightIcon}
         open={column === "open"}
+        disabled={row === "disabled"}
         // playwright sets 8px on the body which interfers with the positioning of the flyout
         style="--top-position: 4rem"
       >

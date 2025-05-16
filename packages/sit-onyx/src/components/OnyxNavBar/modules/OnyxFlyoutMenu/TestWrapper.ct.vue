@@ -14,14 +14,14 @@ defineSlots<{
 
 <template>
   <OnyxFlyoutMenu v-bind="props">
-    <template #button="{ trigger: _trigger }">
-      <button type="button" v-bind="_trigger">button label</button>
+    <template #button="{ trigger: _trigger, disabled: _disabled }">
+      <button type="button" v-bind="_trigger" :disabled="_disabled">button label</button>
     </template>
-    <template #options>
-      <OnyxMenuItem active>English</OnyxMenuItem>
-      <OnyxMenuItem>German</OnyxMenuItem>
-      <OnyxMenuItem>Spanish</OnyxMenuItem>
-      <OnyxColorSchemeMenuItem model-value="auto" />
+    <template #options="{ disabled: _disabled }">
+      <OnyxMenuItem active :disabled="_disabled">English</OnyxMenuItem>
+      <OnyxMenuItem :disabled="_disabled">German</OnyxMenuItem>
+      <OnyxMenuItem :disabled="_disabled">Spanish</OnyxMenuItem>
+      <OnyxColorSchemeMenuItem model-value="auto" :disabled="_disabled" />
     </template>
   </OnyxFlyoutMenu>
 </template>
