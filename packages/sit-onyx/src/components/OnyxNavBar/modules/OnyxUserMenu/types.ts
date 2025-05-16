@@ -21,7 +21,7 @@ export type OnyxUserMenuProps = {
    */
   flyoutOpen?: Nullable<boolean>;
   /**
-   * If the flyout should be disabled or not.
+   * If the userMenu should be disabled or not.
    */
   disabled?: boolean;
 };

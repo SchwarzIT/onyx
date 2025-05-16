@@ -38,35 +38,23 @@ const slots = defineSlots<{
      * Attributes and event listeners that must be bound to an interactive element (button or link), that should act as the flyout trigger.
      */
     trigger: object;
+    /**
+     * Passing additional the disabled state
+     */
     disabled?: boolean;
   }): unknown;
   /**
    * OnyxMenuItem's to show
    */
-  options?(params: {
-    /**
-     * Attributes and event listeners that must be bound to an interactive element (button or link), that should act as the flyout trigger.
-     */
-    disabled?: boolean;
-  }): unknown;
+  options?(params: { disabled?: boolean }): unknown;
   /**
    * Optional header content to display above the options.
    */
-  header?(params: {
-    /**
-     * Attributes and event listeners that must be bound to an interactive element (button or link), that should act as the flyout trigger.
-     */
-    disabled?: boolean;
-  }): unknown;
+  header?(params: { disabled?: boolean }): unknown;
   /**
    * Optional footer content to display below the options.
    */
-  footer?(params: {
-    /**
-     * Attributes and event listeners that must be bound to an interactive element (button or link), that should act as the flyout trigger.
-     */
-    disabled?: boolean;
-  }): unknown;
+  footer?(params: { disabled?: boolean }): unknown;
 }>();
 
 const {

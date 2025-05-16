@@ -165,11 +165,6 @@ const isMobile = inject(
       &--disabled {
         background-color: var(--onyx-color-base-background-blank);
         color: var(--onyx-color-text-icons-neutral-soft);
-        .onyx-avatar {
-          background-color: var(--onyx-color-base-background-blank);
-          color: var(--onyx-color-text-icons-neutral-soft);
-          border: var(--onyx-1px-in-rem) solid var(--onyx-color-text-icons-neutral-soft);
-        }
       }
     }
 
