@@ -2,18 +2,12 @@
 import { computed, inject } from "vue";
 import { useVModel, type Nullable } from "../../../../composables/useVModel";
 import OnyxAvatar from "../../../OnyxAvatar/OnyxAvatar.vue";
-import {
-  FORM_INJECTED_SYMBOL,
-  useFormContext,
-  type FormInjected,
-} from "../../../OnyxForm/OnyxForm.core";
 import { MOBILE_NAV_BAR_INJECTION_KEY } from "../../types";
 import type { OnyxUserMenuProps } from "./types";
 import UserMenuLayout from "./UserMenuLayout.vue";
 
 const props = withDefaults(defineProps<OnyxUserMenuProps>(), {
   flyoutOpen: undefined,
-  disabled: FORM_INJECTED_SYMBOL,
 });
 
 const emit = defineEmits<{
@@ -27,11 +21,11 @@ const slots = defineSlots<{
   /**
    * Slot for the menu options. Its recommended to use the `OnyxMenuItem` component here.
    */
-  default?(params: { disabled: FormInjected<boolean> }): unknown;
+  default?(params: { disabled?: boolean }): unknown;
   /**
    * Optional footer content to display at the bottom.
    */
-  footer?(params: { disabled: FormInjected<boolean> }): unknown;
+  footer?(params: { disabled?: boolean }): unknown;
 }>();
 
 /**
@@ -43,7 +37,6 @@ const flyoutOpen = useVModel({
   key: "flyoutOpen",
   initialValue: false,
 });
-const { disabled } = useFormContext(props);
 
 const avatar = computed(() => {
   if (typeof props.avatar === "object") return props.avatar;
@@ -71,14 +64,14 @@ const isMobile = inject(
         v-bind="trigger"
         :disabled="disabled"
       >
-        <OnyxAvatar v-bind="avatar" size="24px" />
+        <OnyxAvatar v-bind="avatar" size="24px" :disabled />
         <span class="onyx-truncation-ellipsis"> {{ props.fullName }}</span>
       </button>
     </template>
 
     <template #header>
       <div class="onyx-user-menu__header" :class="{ 'onyx-user-menu__header--disabled': disabled }">
-        <OnyxAvatar v-bind="avatar" size="48px" />
+        <OnyxAvatar v-bind="avatar" size="48px" :disabled />
 
         <div class="onyx-truncation-ellipsis">
           <div class="onyx-user-menu__username onyx-text onyx-truncation-ellipsis">
@@ -142,11 +135,6 @@ const isMobile = inject(
 
       &:disabled {
         color: var(--onyx-color-text-icons-neutral-soft);
-        .onyx-avatar {
-          background-color: var(--onyx-color-base-background-blank);
-          color: var(--onyx-color-text-icons-neutral-soft);
-          border: var(--onyx-1px-in-rem) solid var(--onyx-color-text-icons-neutral-soft);
-        }
       }
       &:hover {
         &:disabled {

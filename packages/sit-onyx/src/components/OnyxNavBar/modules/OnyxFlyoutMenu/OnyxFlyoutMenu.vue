@@ -4,18 +4,12 @@ import { computed } from "vue";
 import OnyxFlyout from "../../../../components/OnyxFlyout/OnyxFlyout.vue";
 import { useVModel, type Nullable } from "../../../../composables/useVModel";
 import type { SelectOptionValue } from "../../../../types";
-import {
-  FORM_INJECTED_SYMBOL,
-  useFormContext,
-  type FormInjected,
-} from "../../../OnyxForm/OnyxForm.core";
 import type { OnyxFlyoutMenuProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxFlyoutMenuProps>(), {
   trigger: "hover",
   open: undefined,
   alignment: "auto",
-  disabled: FORM_INJECTED_SYMBOL,
 });
 
 const emit = defineEmits<{
@@ -44,7 +38,7 @@ const slots = defineSlots<{
      * Attributes and event listeners that must be bound to an interactive element (button or link), that should act as the flyout trigger.
      */
     trigger: object;
-    disabled?: FormInjected<boolean>;
+    disabled?: boolean;
   }): unknown;
   /**
    * OnyxMenuItem's to show
@@ -53,7 +47,7 @@ const slots = defineSlots<{
     /**
      * Attributes and event listeners that must be bound to an interactive element (button or link), that should act as the flyout trigger.
      */
-    disabled?: FormInjected<boolean>;
+    disabled?: boolean;
   }): unknown;
   /**
    * Optional header content to display above the options.
@@ -62,7 +56,7 @@ const slots = defineSlots<{
     /**
      * Attributes and event listeners that must be bound to an interactive element (button or link), that should act as the flyout trigger.
      */
-    disabled?: FormInjected<boolean>;
+    disabled?: boolean;
   }): unknown;
   /**
    * Optional footer content to display below the options.
@@ -71,11 +65,9 @@ const slots = defineSlots<{
     /**
      * Attributes and event listeners that must be bound to an interactive element (button or link), that should act as the flyout trigger.
      */
-    disabled: FormInjected<boolean>;
+    disabled?: boolean;
   }): unknown;
 }>();
-
-const { disabled } = useFormContext(props);
 
 const {
   elements: { root, button, menu },
@@ -83,7 +75,7 @@ const {
   isExpanded: computed(() => !!isExpanded.value),
   onToggle: () => (isExpanded.value = !isExpanded.value),
   trigger: computed(() => props.trigger),
-  disabled: disabled,
+  disabled: computed(() => props.disabled),
 });
 </script>
 

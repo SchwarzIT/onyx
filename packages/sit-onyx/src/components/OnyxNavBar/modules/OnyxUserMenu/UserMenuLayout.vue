@@ -4,7 +4,6 @@
 import { useVModel, type Nullable } from "../../../../composables/useVModel";
 import { injectI18n } from "../../../../i18n";
 import type { SelectOptionValue } from "../../../../types";
-import { useFormContext, type FormInjected } from "../../../OnyxForm/OnyxForm.core";
 import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
 import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 
@@ -21,7 +20,7 @@ const props = withDefaults(
     /**
      * If the flyout should be disabled or not.
      */
-    disabled: FormInjected<boolean>;
+    disabled?: boolean;
   }>(),
   // eslint-disable-next-line vue/no-boolean-default -- to support 'useVModel' we need to know if a value was set or not
   { flyoutOpen: undefined },
@@ -33,7 +32,6 @@ const emit = defineEmits<{
    */
   "update:flyoutOpen": [value?: Nullable<boolean>];
 }>();
-const { disabled } = useFormContext(props);
 
 /**
  * Controls the open state of the user menu flyout.

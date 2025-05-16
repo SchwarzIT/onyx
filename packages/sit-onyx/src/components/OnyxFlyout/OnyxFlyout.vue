@@ -18,13 +18,11 @@ import { useOpenAlignment } from "../../composables/useOpenAlignment";
 import { useOpenDirection } from "../../composables/useOpenDirection";
 import { useResizeObserver } from "../../composables/useResizeObserver";
 import type { SelectOptionValue } from "../../types";
-import { FORM_INJECTED_SYMBOL, useFormContext, type FormInjected } from "../OnyxForm/OnyxForm.core";
 import type { OnyxFlyoutProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxFlyoutProps>(), {
   position: "auto",
   alignment: "auto",
-  disabled: FORM_INJECTED_SYMBOL,
 });
 
 defineSlots<{
@@ -32,14 +30,13 @@ defineSlots<{
    * The always visible parent to which the flyout is aligned.
    * `trigger` can optionally set to a button to explicitly connect the the button and popover.
    */
-  default(params: { trigger: AriaAttributes; disabled: FormInjected<boolean> }): unknown;
+  default(params: { trigger: AriaAttributes; disabled?: boolean }): unknown;
   /**
    * Content shown in the flyout when it is expanded.
    */
-  content(params: { disabled: FormInjected<boolean> }): unknown;
+  content(params: { disabled?: boolean }): unknown;
 }>();
 
-const { disabled } = useFormContext(props);
 const _isVisible = ref(false);
 const isVisible = computed({
   set: (newVal) => (_isVisible.value = newVal),
@@ -139,7 +136,7 @@ const flyoutClasses = computed(() => {
     [`onyx-flyout__dialog--position-${flyoutPosition.value.replace(" ", "-")}`]: true,
     [`onyx-flyout__dialog--alignment-${flyoutAlignment.value}`]: true,
     "onyx-flyout__dialog--fitparent": props.fitParent,
-    "onyx-flyout__dialog--disabled": disabled.value,
+    "onyx-flyout__dialog--disabled": props.disabled,
     "onyx-flyout__dialog--dont-support-anchor": !USERAGENT_SUPPORTS_ANCHOR_API,
   };
 });
