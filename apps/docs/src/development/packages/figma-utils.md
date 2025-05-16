@@ -119,7 +119,13 @@ Alternatively, you can implement it manually for full control and customization:
 ```ts
 import fs from "node:fs";
 import path from "node:path";
-import { fetchFigmaComponents, optimizeSvg } from "@sit-onyx/figma-utils";
+import {
+  fetchFigmaComponents,
+  optimizeSvg,
+  parseComponentsToIcons,
+  fetchFigmaSVGs,
+  writeIconMetadata,
+} from "@sit-onyx/figma-utils";
 
 const FILE_KEY = "your-figma-file-key";
 const FIGMA_TOKEN = "your-figma-access-token";
@@ -154,4 +160,63 @@ await Promise.all(
 
 // optionally write file with metadata (categories, alias names etc.)
 await writeIconMetadata(path.join(outputDirectory, "metadata.json"), parsedIcons);
+```
+
+### Import flags
+
+::: info CLI command
+Importing flags is also supported via CLI. For more information, run:
+
+```sh
+npx @sit-onyx/figma-utils@beta import-flags --help
+```
+
+:::
+
+Alternatively, you can implement it manually for full control and customization:
+
+```ts
+import fs from "node:fs";
+import path from "node:path";
+import {
+  fetchFigmaComponents,
+  optimizeSvg,
+  parseComponentsToFlags,
+  fetchFigmaSVGs,
+  writeFlagMetadata,
+} from "@sit-onyx/figma-utils";
+
+const FILE_KEY = "your-figma-file-key";
+const FIGMA_TOKEN = "your-figma-access-token";
+const FLAG_PAGE_ID = "your-page-id-that-contains-the-flags"; // e.g. "1:345"
+
+// fetch flag components from Figma API
+const data = await fetchFigmaComponents(FILE_KEY, FIGMA_TOKEN);
+
+// parse components into a normalized format
+const parsedFlags = parseComponentsToFlags({
+  components: data.meta.components,
+  pageId: FLAG_PAGE_ID,
+});
+
+// fetch actual SVG content of the flags
+const svgContents = await fetchFigmaSVGs(
+  FILE_KEY,
+  parsedFlags.map(({ id }) => id),
+  FIGMA_TOKEN,
+);
+
+const outputDirectory = process.cwd();
+
+// write .svg files for all flags
+await Promise.all(
+  parsedFlags.map((flag) => {
+    const content = optimizeSvg(svgContents[icon.id], "image");
+    const fullPath = path.join(outputDirectory, `${flag.code}.svg`);
+    return writeFile(fullPath, content, "utf-8");
+  }),
+);
+
+// optionally write file with metadata (country name, continent etc.)
+await writeFlagMetadata(path.join(outputDirectory, "metadata.json"), parsedFlags);
 ```
