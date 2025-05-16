@@ -72,6 +72,12 @@ Below you can find a full list of changes for the current and previous versions.
 
 </div>
 
+<div v-else-if="params.name === 'flags'">
+
+<!--@include: @/../../../packages/flags/CHANGELOG.md-->
+
+</div>
+
 <div v-else>
   <h1>Changelogs</h1>
   <p>No changelog found for package "{{ params.name }}".</p>

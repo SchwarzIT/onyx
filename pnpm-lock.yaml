@@ -202,6 +202,9 @@ importers:
       '@sit-onyx/chartjs-plugin':
         specifier: workspace:^
         version: link:../../packages/chartjs-plugin
+      '@sit-onyx/flags':
+        specifier: workspace:^
+        version: link:../../packages/flags
       '@sit-onyx/icons':
         specifier: workspace:^
         version: link:../../packages/icons
