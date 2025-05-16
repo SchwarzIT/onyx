@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxFlagLibrary from "./OnyxFlagLibrary.vue";
 
 const meta: Meta<typeof OnyxFlagLibrary> = {
-  title: "Asset library/OnyxFlagLibrary",
+  title: "Assets/OnyxFlagLibrary",
   component: OnyxFlagLibrary,
 };
 
