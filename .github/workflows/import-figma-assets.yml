@@ -1,4 +1,4 @@
-name: Import Figma icons
+name: Import Figma assets
 on:
   workflow_dispatch:
   schedule:

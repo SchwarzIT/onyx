@@ -4,7 +4,6 @@ import path from "node:path";
 import { writeIconMetadata } from "../icons/generate.js";
 import { parseComponentsToIcons } from "../icons/parse.js";
 import { fetchFigmaComponents, fetchFigmaSVGs } from "../index.js";
-import { isDirectory } from "../utils/fs.js";
 import { optimizeSvg } from "../utils/optimize.js";
 
 export type ImportIconsCommandOptions = {
@@ -64,9 +63,7 @@ export async function importIconsCommandAction(options: ImportIconsCommandOption
 
   console.log("Optimizing and writing icon files...");
 
-  if (!(await isDirectory(outputDirectory))) {
-    await mkdir(outputDirectory, { recursive: true });
-  }
+  await mkdir(outputDirectory, { recursive: true });
 
   await Promise.all(
     parsedIcons.map((icon) => {

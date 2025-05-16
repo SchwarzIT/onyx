@@ -4,7 +4,6 @@ import path from "node:path";
 import { writeFlagMetadata } from "../flags/generate.js";
 import { parseComponentsToFlags } from "../flags/parse.js";
 import { fetchFigmaComponents, fetchFigmaSVGs } from "../index.js";
-import { isDirectory } from "../utils/fs.js";
 import { optimizeSvg } from "../utils/optimize.js";
 
 export type ImportFlagsCommandOptions = {
@@ -57,9 +56,7 @@ export async function importFlagsCommandAction(options: ImportFlagsCommandOption
 
   console.log("Optimizing and writing flag files...");
 
-  if (!(await isDirectory(outputDirectory))) {
-    await mkdir(outputDirectory, { recursive: true });
-  }
+  await mkdir(outputDirectory, { recursive: true });
 
   await Promise.all(
     parsedFlags.map((flag) => {
