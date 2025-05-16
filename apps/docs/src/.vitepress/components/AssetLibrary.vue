@@ -98,6 +98,7 @@ const filteredGroups = computed(() => {
 <style lang="scss" scoped>
 .search {
   width: 18rem;
+  max-width: 100%;
 }
 
 .group {
