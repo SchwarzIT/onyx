@@ -2,9 +2,31 @@
 import { OnyxHeadline } from "sit-onyx";
 import { computed } from "vue";
 import packageJson from "../../../../../packages/sit-onyx/package.json";
-import type { HomePageData } from "../../index.data";
+import type { ComponentCardProps } from "./ComponentCard.vue";
 import ComponentRoadmap from "./ComponentRoadmap.vue";
 import RoadmapCard from "./RoadmapCard.vue";
+
+/**
+ * Build-time data for the home page (components, facts/numbers etc.)
+ */
+export type HomePageData = {
+  /** Total number of implemented onyx components. */
+  componentCount: number;
+  /** Total number of component variants/stories across all implemented components as documented with Storybook. */
+  variantCount: number;
+  /** Total number of merged pull requests on GitHub. */
+  mergedPRCount: number;
+  /** Total number of closed issues on GitHub. */
+  closedIssueCount: number;
+  /** Timestamp when this data has been fetched. */
+  timestamp: string;
+  /** Total number of npm downloads for all onyx npm packages in the last month. */
+  downloads: number;
+  /** Number of npm packages inside the `packages` folder of this monorepo. */
+  packageCount: number;
+  /** Component information. */
+  components: ComponentCardProps[];
+};
 
 const props = defineProps<{
   data: HomePageData;
