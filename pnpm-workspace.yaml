@@ -3,14 +3,14 @@ packages:
   - packages/*
 
 catalog:
-  "@vue/compiler-core": 3.5.13
-  "@vue/compiler-dom": 3.5.13
-  "@vue/compiler-sfc": 3.5.13
-  "@vue/compiler-ssr": 3.5.13
-  "@vue/shared": 3.5.13
+  "@vue/compiler-core": 3.5.14
+  "@vue/compiler-dom": 3.5.14
+  "@vue/compiler-sfc": 3.5.14
+  "@vue/compiler-ssr": 3.5.14
+  "@vue/shared": 3.5.14
   chart.js: 4.4.9
-  vue: 3.5.13
-  sass-embedded: 1.88.0
+  vue: 3.5.14
+  sass-embedded: 1.89.0
   typescript: 5.8.3
   vite: 6.3.5
 
