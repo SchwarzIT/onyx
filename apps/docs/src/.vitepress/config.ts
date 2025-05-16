@@ -2,6 +2,16 @@ import { defineConfig, type DefaultTheme, type UserConfig } from "vitepress";
 import packageJson from "../../../../packages/sit-onyx/package.json" with { type: "json" };
 import viteConfig from "../../vite.config";
 
+const ASSETS_SIDEBAR: DefaultTheme.SidebarItem = [
+  {
+    text: "Assets",
+    items: [
+      { text: "Icons", link: "/icons" },
+      { text: "Flags", link: "/flags" },
+    ],
+  },
+];
+
 // https://vitepress.dev/reference/site-config
 export const CONFIG = {
   vite: {
@@ -57,7 +67,7 @@ export const CONFIG = {
         ],
       },
       { text: "Components", link: "https://storybook.onyx.schwarz" },
-      { text: "Icons", link: "/icons" },
+      { text: "Icons & Flags", link: "/icons" },
       {
         text: "Resources",
         items: [
@@ -150,6 +160,7 @@ export const CONFIG = {
           items: [
             { text: "Chart.js plugin", link: "/chartjs-plugin" },
             { text: "Figma utilities", link: "/figma-utils" },
+            { text: "Flags", link: "/flags" },
             { text: "Headless composables", link: "/headless" },
             { text: "Icons", link: "/icons" },
             { text: "Nuxt documentation template", link: "/nuxt-docs" },
@@ -160,6 +171,8 @@ export const CONFIG = {
           ].sort((a, b) => a.text.localeCompare(b.text)),
         },
       ],
+      "/icons": ASSETS_SIDEBAR,
+      "/flags": ASSETS_SIDEBAR,
       "/resources": [
         {
           text: "Resources",

@@ -1,21 +1,30 @@
 <script lang="ts" setup>
+import {
+  capitalize,
+  getIconImportName,
+  groupIconsByCategory,
+  ICON_METADATA,
+} from "@sit-onyx/icons";
 import { OnyxHeadline, OnyxInput } from "sit-onyx";
 import { computed, ref } from "vue";
-import { getEnrichedIconCategoryList } from "../utils-icons";
-import IconLibraryItem from "./IconLibraryItem.vue";
+import AssetLibraryItem from "./AssetLibraryItem.vue";
 
 const ALL_ICONS = import.meta.glob("../../../node_modules/@sit-onyx/icons/src/assets/*.svg", {
   query: "?raw",
   import: "default",
   eager: true,
 }) as Record<string, string>;
-const enrichedIconCategoryList = getEnrichedIconCategoryList(ALL_ICONS);
+
+const categories = Object.entries(groupIconsByCategory(ICON_METADATA)).map(([category, icons]) => ({
+  name: category,
+  icons,
+}));
 
 const search = ref("");
 
 const filteredCategories = computed(() => {
   const lowerCaseSearch = search.value.toLowerCase();
-  return enrichedIconCategoryList
+  return categories
     .map((category) => {
       if (category.name.toLowerCase().includes(lowerCaseSearch)) return category;
 
@@ -34,6 +43,17 @@ const filteredCategories = computed(() => {
     })
     .filter((category) => category.icons.length);
 });
+
+const getSvgContent = (iconName: string) => {
+  return ALL_ICONS[`../../../node_modules/@sit-onyx/icons/src/assets/${iconName}.svg`];
+};
+
+const getFormattedIconName = (iconName: string) => {
+  return iconName
+    .split("-")
+    .map((word) => capitalize(word))
+    .join(" ");
+};
 </script>
 
 <template>
@@ -53,7 +73,14 @@ const filteredCategories = computed(() => {
       </OnyxHeadline>
 
       <div class="category__icons">
-        <IconLibraryItem v-for="icon in category.icons" :key="icon.iconName" :icon="icon" />
+        <AssetLibraryItem
+          v-for="icon in category.icons"
+          :key="icon.iconName"
+          :tooltip-text="getFormattedIconName(icon.iconName)"
+          :content="getSvgContent(icon.iconName)"
+          :clipboard-value="`import ${getIconImportName(icon.iconName)} from &quot;@sit-onyx/icons/${icon.iconName}.svg?raw&quot;`"
+          :success-message="`Import for icon &quot;${getIconImportName(icon.iconName)}&quot; has been copied to your clipboard.`"
+        />
       </div>
     </section>
   </div>
