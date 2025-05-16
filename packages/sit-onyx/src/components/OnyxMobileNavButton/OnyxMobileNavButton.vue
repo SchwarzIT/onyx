@@ -1,13 +1,11 @@
 <script lang="ts" setup>
 import x from "@sit-onyx/icons/x.svg?raw";
-import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxMobileNavButtonProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxMobileNavButtonProps>(), {
   open: false,
-  disabled: FORM_INJECTED_SYMBOL,
 });
 
 const emit = defineEmits<{
@@ -23,7 +21,6 @@ defineSlots<{
    */
   default(): unknown;
 }>();
-const { disabled } = useFormContext(props);
 </script>
 
 <template>
@@ -33,7 +30,7 @@ const { disabled } = useFormContext(props);
       class="onyx-mobile-nav-button__trigger"
       :class="{ 'onyx-mobile-nav-button__trigger--active': props.open }"
       :aria-label="props.label"
-      :disabled="disabled"
+      :disabled="props.disabled"
       @click="emit('update:open', !props.open)"
     >
       <OnyxIcon :icon="props.open ? x : props.icon" />
@@ -42,7 +39,7 @@ const { disabled } = useFormContext(props);
     <template v-if="props.open">
       <div
         class="onyx-mobile-nav-button__flyout"
-        :class="{ 'onyx-mobile-nav-button__flyout--disabled': disabled }"
+        :class="{ 'onyx-mobile-nav-button__flyout--disabled': props.disabled }"
       >
         <div class="onyx-mobile-nav-button__menu">
           <OnyxHeadline is="h2" v-if="props.headline" class="onyx-mobile-nav-button__headline">
@@ -55,7 +52,7 @@ const { disabled } = useFormContext(props);
       <div
         class="onyx-mobile-nav-button__backdrop"
         role="presentation"
-        @click="!disabled ? emit('update:open', false) : null"
+        @click="!props.disabled ? emit('update:open', false) : null"
       ></div
     ></template>
   </div>

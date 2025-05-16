@@ -1,5 +1,3 @@
-import type { FormInjected } from "../OnyxForm/OnyxForm.core";
-
 export type OnyxMobileNavButtonProps = {
   /**
    * Aria label that describes the action when clicking the button.
@@ -19,7 +17,7 @@ export type OnyxMobileNavButtonProps = {
    */
   headline?: string;
   /**
-   * If the button should be disabled or not.
+   * If the navButton should be disabled or not.
    */
-  disabled?: FormInjected<boolean>;
+  disabled?: boolean;
 };
