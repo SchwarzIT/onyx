@@ -213,7 +213,7 @@ const { popoverKey } = useWebkitPopoverKeyFix(isVisible);
     :class="['onyx-component', 'onyx-tooltip-wrapper', densityClass]"
     :style="`anchor-name: ${anchorName}`"
   >
-    <div
+    <dialog
       v-if="isVisible"
       :key="popoverKey"
       ref="tooltipRefEl"
@@ -224,7 +224,7 @@ const { popoverKey } = useWebkitPopoverKeyFix(isVisible);
         <OnyxIcon v-if="props.icon" :icon="props.icon" size="16px" />
         <slot name="tooltip">{{ props.text }}</slot>
       </div>
-    </div>
+    </dialog>
 
     <slot :trigger="trigger"></slot>
   </div>

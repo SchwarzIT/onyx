@@ -162,17 +162,16 @@ const { popoverKey } = useWebkitPopoverKeyFix(isVisible);
 <template>
   <div ref="flyoutWrapper" class="onyx-component onyx-flyout" :style="`anchor-name: ${anchorName}`">
     <slot :trigger="trigger"></slot>
-    <div
+    <dialog
       :key="popoverKey"
       ref="flyout"
-      role="dialog"
       :aria-label="props.label"
       popover="manual"
       class="onyx-flyout__dialog"
       :class="flyoutClasses"
     >
       <slot name="content"></slot>
-    </div>
+    </dialog>
   </div>
 </template>
 
@@ -181,11 +180,13 @@ const { popoverKey } = useWebkitPopoverKeyFix(isVisible);
 
 .onyx-flyout {
   --onyx-flyout-min-width: var(--onyx-spacing-4xl);
-  --onyx-flyoput-max-width: 20rem;
+  --onyx-flyout-max-width: 20rem;
+
   @include layers.component() {
     --onyx-flyout-gap: var(--onyx-spacing-2xs);
     display: inline-flex;
     position: relative;
+
     &__dialog {
       position: fixed;
       position-anchor: v-bind("anchorName");
