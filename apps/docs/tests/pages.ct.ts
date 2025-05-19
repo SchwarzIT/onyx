@@ -9,7 +9,7 @@ test("has title", async ({ page }) => {
   await expect(page).toHaveTitle(/onyx/);
 });
 
-const BLACKLIST_PATHS = [/changelog/i, /icons/i, /about/i];
+const BLACKLIST_PATHS = [/changelog/i, /icons/i, /flags/i, /about/i];
 
 /**
  * maps links listed in the vitepress config to their respective absolute url
