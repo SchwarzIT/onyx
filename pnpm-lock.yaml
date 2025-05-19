@@ -40,7 +40,7 @@ importers:
         specifier: ^1.2.9
         version: 1.2.9(eslint@9.27.0(jiti@2.4.2))
       '@eslint/js':
-        specifier: ^9.26.0
+        specifier: ^9.27.0
         version: 9.27.0
       '@fontsource-variable/source-code-pro':
         specifier: ^5.2.5
@@ -58,16 +58,16 @@ importers:
         specifier: ^1.52.0
         version: 1.52.0
       '@storybook/addon-essentials':
-        specifier: ^8.6.13
+        specifier: ^8.6.14
         version: 8.6.14(@types/react@18.3.12)(storybook@8.6.14(prettier@3.5.3))
       '@storybook/blocks':
-        specifier: ^8.6.13
+        specifier: ^8.6.14
         version: 8.6.14(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@8.6.14(prettier@3.5.3))
       '@storybook/vue3':
-        specifier: ^8.6.13
+        specifier: ^8.6.14
         version: 8.6.14(storybook@8.6.14(prettier@3.5.3))(vue@3.5.14(typescript@5.8.3))
       '@storybook/vue3-vite':
-        specifier: ^8.6.13
+        specifier: ^8.6.14
         version: 8.6.14(storybook@8.6.14(prettier@3.5.3))(vite@6.3.5(@types/node@22.15.21)(jiti@2.4.2)(sass-embedded@1.89.0)(sass@1.89.0)(stylus@0.57.0)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0))(vue@3.5.14(typescript@5.8.3))
       '@tsconfig/node22':
         specifier: ^22.0.1
@@ -79,7 +79,7 @@ importers:
         specifier: ^21.1.7
         version: 21.1.7
       '@types/node':
-        specifier: ^22.15.18
+        specifier: ^22.15.19
         version: 22.15.21
       '@vitejs/plugin-vue':
         specifier: ^5.2.4
@@ -88,7 +88,7 @@ importers:
         specifier: ^3.1.3
         version: 3.1.4(vitest@3.1.4(@types/debug@4.1.12)(@types/node@22.15.21)(jiti@2.4.2)(jsdom@26.1.0)(sass-embedded@1.89.0)(sass@1.89.0)(stylus@0.57.0)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0))
       '@vitest/eslint-plugin':
-        specifier: ^1.1.44
+        specifier: ^1.2.0
         version: 1.2.0(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)(vitest@3.1.4(@types/debug@4.1.12)(@types/node@22.15.21)(jiti@2.4.2)(jsdom@26.1.0)(sass-embedded@1.89.0)(sass@1.89.0)(stylus@0.57.0)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0))
       '@vue/eslint-config-prettier':
         specifier: ^10.2.0
@@ -100,7 +100,7 @@ importers:
         specifier: ~0.7.0
         version: 0.7.0(typescript@5.8.3)(vue@3.5.14(typescript@5.8.3))
       eslint:
-        specifier: ^9.26.0
+        specifier: ^9.27.0
         version: 9.27.0(jiti@2.4.2)
       eslint-plugin-compat:
         specifier: ^6.0.2
@@ -139,7 +139,7 @@ importers:
         specifier: ^2.13.0
         version: 2.13.0
       storybook:
-        specifier: ^8.6.13
+        specifier: ^8.6.14
         version: 8.6.14(prettier@3.5.3)
       stylelint:
         specifier: ^16.19.1
@@ -295,8 +295,8 @@ importers:
         version: 9.27.0(jiti@2.4.2)
     devDependencies:
       '@eslint/core':
-        specifier: ^0.13.0
-        version: 0.13.0
+        specifier: ~0.14.0
+        version: 0.14.0
       '@types/eslint':
         specifier: ^9.6.1
         version: 9.6.1
@@ -310,8 +310,8 @@ importers:
   packages/figma-utils:
     dependencies:
       commander:
-        specifier: ^13.1.0
-        version: 13.1.0
+        specifier: ^14.0.0
+        version: 14.0.0
     optionalDependencies:
       svgo:
         specifier: ^3.3.2
@@ -494,10 +494,10 @@ importers:
         specifier: workspace:^
         version: link:../storybook-utils
       '@storybook/addon-a11y':
-        specifier: ^8.6.13
+        specifier: ^8.6.14
         version: 8.6.14(storybook@8.6.14(prettier@3.5.3))
       '@storybook/addon-actions':
-        specifier: ^8.6.13
+        specifier: ^8.6.14
         version: 8.6.14(storybook@8.6.14(prettier@3.5.3))
       '@vue/compiler-dom':
         specifier: 3.5.14
@@ -552,10 +552,10 @@ importers:
         specifier: workspace:^
         version: link:../shared
       '@storybook/addon-actions':
-        specifier: ^8.6.13
+        specifier: ^8.6.14
         version: 8.6.14(storybook@8.6.14(prettier@3.5.3))
       storybook:
-        specifier: ^8.6.13
+        specifier: ^8.6.14
         version: 8.6.14(prettier@3.5.3)
       vue:
         specifier: 3.5.14
@@ -1123,10 +1123,6 @@ packages:
 
   '@eslint/config-helpers@0.2.2':
     resolution: {integrity: sha512-+GPzk8PlG0sPpzdU5ZvIRMPidzAnZDl/s9L+y13iodqvb8leL53bTannOrQ/Im7UkpsmFU5Ily5U60LWixnmLg==}
-    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-
-  '@eslint/core@0.13.0':
-    resolution: {integrity: sha512-yfkgDw1KR66rkT5A8ci4irzDysN7FRpq3ttJolR88OqQikAWqwA8j5VZyas+vjyBNFIJ7MfybJ9plMILI2UrCw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
   '@eslint/core@0.14.0':
@@ -3203,6 +3199,10 @@ packages:
   commander@13.1.0:
     resolution: {integrity: sha512-/rFeCpNJQbhSZjGVwO9RFV3xPqbnERS8MmIQzCtD/zl6gpJuV/bMLuN92oG3F7d8oDEHHRrujSXNUr8fpjntKw==}
     engines: {node: '>=18'}
+
+  commander@14.0.0:
+    resolution: {integrity: sha512-2uM9rYjPvyq39NwLRqaiLtWHyDC1FvryJDa2ATTVims5YAS4PupsEQsDvP14FqhFr0P49CYDugi59xaxJlTXRA==}
+    engines: {node: '>=20'}
 
   commander@2.20.3:
     resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
@@ -8441,10 +8441,6 @@ snapshots:
 
   '@eslint/config-helpers@0.2.2': {}
 
-  '@eslint/core@0.13.0':
-    dependencies:
-      '@types/json-schema': 7.0.15
-
   '@eslint/core@0.14.0':
     dependencies:
       '@types/json-schema': 7.0.15
@@ -11095,6 +11091,8 @@ snapshots:
   commander@10.0.1: {}
 
   commander@13.1.0: {}
+
+  commander@14.0.0: {}
 
   commander@2.20.3: {}
 
