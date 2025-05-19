@@ -25,7 +25,7 @@ export type OnyxFlyoutProps = {
    */
   fitParent?: boolean;
   /**
-   * If the flyout should be disabled or not.
+   * Whether the flyout is disabled and can not be opened.
    */
   disabled?: boolean;
 };

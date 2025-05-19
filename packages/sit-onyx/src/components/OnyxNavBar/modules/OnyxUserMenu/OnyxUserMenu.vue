@@ -21,11 +21,11 @@ const slots = defineSlots<{
   /**
    * Slot for the menu options. Its recommended to use the `OnyxMenuItem` component here.
    */
-  default?(params: { disabled?: boolean }): unknown;
+  default?(): unknown;
   /**
    * Optional footer content to display at the bottom.
    */
-  footer?(params: { disabled?: boolean }): unknown;
+  footer?(): unknown;
 }>();
 
 /**
@@ -58,20 +58,15 @@ const isMobile = inject(
     :disabled="disabled"
   >
     <template #button="{ trigger }">
-      <button
-        class="onyx-user-menu__trigger onyx-text"
-        type="button"
-        v-bind="trigger"
-        :disabled="disabled"
-      >
+      <button class="onyx-user-menu__trigger onyx-text" type="button" v-bind="trigger">
         <OnyxAvatar v-bind="avatar" size="24px" :disabled />
         <span class="onyx-truncation-ellipsis"> {{ props.fullName }}</span>
       </button>
     </template>
 
     <template #header>
-      <div class="onyx-user-menu__header" :class="{ 'onyx-user-menu__header--disabled': disabled }">
-        <OnyxAvatar v-bind="avatar" size="48px" :disabled />
+      <div class="onyx-user-menu__header">
+        <OnyxAvatar v-bind="avatar" size="48px" />
 
         <div class="onyx-truncation-ellipsis">
           <div class="onyx-user-menu__username onyx-text onyx-truncation-ellipsis">
@@ -89,12 +84,12 @@ const isMobile = inject(
 
     <template #options>
       <div class="onyx-user-menu__options">
-        <slot :disabled="disabled"></slot>
+        <slot></slot>
       </div>
     </template>
 
     <template v-if="slots.footer" #footer>
-      <slot name="footer" :disabled="disabled"></slot>
+      <slot name="footer"></slot>
     </template>
   </UserMenuLayout>
 </template>
@@ -162,10 +157,6 @@ const isMobile = inject(
       align-items: center;
       gap: var(--onyx-spacing-md);
       text-align: left;
-      &--disabled {
-        background-color: var(--onyx-color-base-background-blank);
-        color: var(--onyx-color-text-icons-neutral-soft);
-      }
     }
 
     &__username {

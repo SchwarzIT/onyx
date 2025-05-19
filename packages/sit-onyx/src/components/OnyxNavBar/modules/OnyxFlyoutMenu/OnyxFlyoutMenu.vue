@@ -38,23 +38,19 @@ const slots = defineSlots<{
      * Attributes and event listeners that must be bound to an interactive element (button or link), that should act as the flyout trigger.
      */
     trigger: object;
-    /**
-     * Passing additional the disabled state
-     */
-    disabled?: boolean;
   }): unknown;
   /**
    * OnyxMenuItem's to show
    */
-  options?(params: { disabled?: boolean }): unknown;
+  options?(): unknown;
   /**
    * Optional header content to display above the options.
    */
-  header?(params: { disabled?: boolean }): unknown;
+  header?(): unknown;
   /**
    * Optional footer content to display below the options.
    */
-  footer?(params: { disabled?: boolean }): unknown;
+  footer?(): unknown;
 }>();
 
 const {
@@ -77,13 +73,13 @@ const {
     :disabled="disabled"
   >
     <template v-if="slots.options || slots.header || slots.footer" #default>
-      <slot name="button" :trigger="button" :disabled="disabled"></slot>
+      <slot name="button" :trigger="button"></slot>
     </template>
     <!-- `v-show` instead of `v-if` is necessary, so that we can allow (teleported) dialogs to be shown -->
     <template #content>
       <!-- We always want to render the header so that we can render the padding here -->
       <div class="onyx-flyout-menu__list-header">
-        <slot name="header" :disabled="disabled"></slot>
+        <slot name="header"></slot>
       </div>
 
       <ul
@@ -91,12 +87,12 @@ const {
         v-bind="menu"
         class="onyx-flyout-menu__wrapper onyx-flyout-menu__group"
       >
-        <slot name="options" :disabled="disabled"></slot>
+        <slot name="options"></slot>
       </ul>
 
       <!-- We always want to render the footer so that we can render the padding here -->
       <div class="onyx-flyout-menu__list-footer">
-        <slot name="footer" :disabled="disabled"></slot>
+        <slot name="footer"></slot>
       </div>
     </template>
   </OnyxFlyout>

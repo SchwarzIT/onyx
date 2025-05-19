@@ -39,11 +39,10 @@ type Story = StoryObj<typeof OnyxFlyout>;
 export const Default = {
   args: {
     label: "Choose application language",
-    default: ({ trigger, disabled }) => [
+    default: ({ trigger }) => [
       h(OnyxButton, {
         label: "Trigger",
         mode: "plain",
-        disabled,
         color: "neutral",
         ...trigger,
       }),

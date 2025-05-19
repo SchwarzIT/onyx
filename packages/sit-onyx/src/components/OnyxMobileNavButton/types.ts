@@ -17,7 +17,7 @@ export type OnyxMobileNavButtonProps = {
    */
   headline?: string;
   /**
-   * If the navButton should be disabled or not.
+   * Whether the nav button is disabled and can not be opened.
    */
   disabled?: boolean;
 };

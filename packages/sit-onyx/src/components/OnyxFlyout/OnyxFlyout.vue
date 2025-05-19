@@ -30,17 +30,17 @@ defineSlots<{
    * The always visible parent to which the flyout is aligned.
    * `trigger` can optionally set to a button to explicitly connect the the button and popover.
    */
-  default(params: { trigger: AriaAttributes; disabled?: boolean }): unknown;
+  default(params: { trigger: AriaAttributes }): unknown;
   /**
    * Content shown in the flyout when it is expanded.
    */
-  content(params: { disabled?: boolean }): unknown;
+  content(): unknown;
 }>();
 
 const _isVisible = ref(false);
 const isVisible = computed({
   set: (newVal) => (_isVisible.value = newVal),
-  get: () => (typeof props.open === "boolean" ? props.open : _isVisible.value),
+  get: () => (typeof props.open === "boolean" && !props.disabled ? props.open : _isVisible.value),
 });
 
 const flyoutPosition = computed(() =>
@@ -49,6 +49,7 @@ const flyoutPosition = computed(() =>
 const flyoutAlignment = computed(() =>
   props.alignment === "auto" ? openAlignment.value : props.alignment,
 );
+const disabled = computed(() => props.disabled);
 
 const positionAndAlignment = computed(() => {
   let returnPosition = flyoutPosition.value;
@@ -126,6 +127,7 @@ const trigger = computed(() => ({
   onClick: toggle,
   "aria-expanded": isVisible.value,
   "aria-controls": flyoutRef.value?.id,
+  disabled: disabled.value,
 }));
 
 const id = useId();
@@ -136,11 +138,15 @@ const flyoutClasses = computed(() => {
     [`onyx-flyout__dialog--position-${flyoutPosition.value.replace(" ", "-")}`]: true,
     [`onyx-flyout__dialog--alignment-${flyoutAlignment.value}`]: true,
     "onyx-flyout__dialog--fitparent": props.fitParent,
-    "onyx-flyout__dialog--disabled": props.disabled,
+    "onyx-flyout__dialog--disabled": disabled.value,
     "onyx-flyout__dialog--dont-support-anchor": !USERAGENT_SUPPORTS_ANCHOR_API,
   };
 });
-
+watch([disabled], () => {
+  if (disabled.value) {
+    _isVisible.value = false;
+  }
+});
 watch([flyoutPosition, flyoutAlignment, flyoutWidth], async () => {
   if (!USERAGENT_SUPPORTS_ANCHOR_API) {
     await nextTick();
@@ -152,7 +158,7 @@ watch([flyoutPosition, flyoutAlignment, flyoutWidth], async () => {
 
 <template>
   <div ref="flyoutWrapper" class="onyx-component onyx-flyout" :style="`anchor-name: ${anchorName}`">
-    <slot :trigger="trigger" :disabled="disabled"></slot>
+    <slot :trigger="trigger"></slot>
     <div
       ref="flyout"
       role="dialog"
@@ -161,7 +167,7 @@ watch([flyoutPosition, flyoutAlignment, flyoutWidth], async () => {
       class="onyx-flyout__dialog"
       :class="flyoutClasses"
     >
-      <slot name="content" :disabled="disabled"></slot>
+      <slot name="content"></slot>
     </div>
   </div>
 </template>
@@ -194,11 +200,6 @@ watch([flyoutPosition, flyoutAlignment, flyoutWidth], async () => {
       max-width: var(--onyx-flyout-max-width);
       width: max-content;
       font-family: var(--onyx-font-family);
-
-      &--disabled {
-        background-color: var(--onyx-color-base-background-blank);
-        color: var(--onyx-color-text-icons-neutral-soft);
-      }
 
       &:popover-open {
         display: flex;

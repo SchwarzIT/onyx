@@ -36,13 +36,10 @@ export const Default = {
   args: {
     fullName: "Jane Doe",
     description: "Company Name",
-    default: ({ disabled }) => [
-      h(OnyxMenuItem, { disabled }, () => [h(OnyxIcon, { icon: settings }), "Settings"]),
-      h(OnyxColorSchemeMenuItem, { modelValue: "auto", disabled }),
-      h(OnyxMenuItem, { color: "danger", disabled }, () => [
-        h(OnyxIcon, { icon: logout }),
-        "Logout",
-      ]),
+    default: () => [
+      h(OnyxMenuItem, () => [h(OnyxIcon, { icon: settings }), "Settings"]),
+      h(OnyxColorSchemeMenuItem, { modelValue: "auto" }),
+      h(OnyxMenuItem, { color: "danger" }, () => [h(OnyxIcon, { icon: logout }), "Logout"]),
     ],
     footer: () => ["App version", h("span", { class: "onyx-text--monospace" }, "1.0.0")],
   },

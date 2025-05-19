@@ -7,7 +7,7 @@ type CreateMenuButtonOptions = {
   isExpanded: Readonly<Ref<boolean>>;
   trigger: Readonly<Ref<"hover" | "click">>;
   onToggle: () => void;
-  disabled?: Readonly<Ref<boolean, boolean>>;
+  disabled?: Readonly<Ref<boolean>>;
 };
 
 /**
@@ -145,6 +145,7 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
             onClick: () =>
               options.trigger.value == "click" ? setExpanded(!options.isExpanded.value) : undefined,
             id: buttonId,
+            disabled: options.disabled?.value,
           }) as const,
       ),
       menu: {
