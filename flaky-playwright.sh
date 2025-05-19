@@ -30,7 +30,7 @@
 ✅ pnpm test:playwright src/components/OnyxInfoCard -x --repeat-each 100 --project edge
 ✅ pnpm test:playwright src/components/OnyxInfoTooltip -x --repeat-each 100 --project edge
 ❌ clear && pnpm test:playwright src/components/OnyxInput -x --repeat-each 100 --project edge
-❌ clear && pnpm test:playwright src/components/OnyxLink -x --repeat-each 100 --project edge
+❌/✅ clear && pnpm test:playwright src/components/OnyxLink -x --repeat-each 100 --project edge
 # pnpm test:playwright src/components/OnyxListItem -x --repeat-each 100 --project edge
 ✅ pnpm test:playwright src/components/OnyxLoadingIndicator -x --repeat-each 100 --project edge
 ✅ pnpm test:playwright src/components/OnyxMiniSearch -x --repeat-each 100 --project edge
@@ -48,7 +48,7 @@
 ✅ pnpm test:playwright src/components/OnyxRadioButton -x --repeat-each 100 --project edge
 ✅ pnpm test:playwright src/components/OnyxRadioGroup -x --repeat-each 100 --project edge
 ✅ pnpm test:playwright src/components/OnyxRipple -x --repeat-each 100 --project edge
-❌ clear && pnpm test:playwright src/components/OnyxRouterLink -x --repeat-each 100 --project edge
+❌/✅ clear && pnpm test:playwright src/components/OnyxRouterLink -x --repeat-each 100 --project edge
 ❌ clear && pnpm test:playwright src/components/OnyxSelect/ -x --repeat-each 100 --project edge
 ✅ pnpm test:playwright src/components/OnyxSelectDialog -x --repeat-each 100 --project edge
 ✅ pnpm test:playwright src/components/OnyxSelectInput -x --repeat-each 100 --project edge

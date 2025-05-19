@@ -1,21 +1,27 @@
 import { expect, test } from "../../playwright/a11y";
 import TestWrapper from "./TestWrapper.ct.vue";
 
+const EXTERNAL_HREF = "https://example.com";
+
+test.beforeEach(async ({ page }) => {
+  await page.route(EXTERNAL_HREF, (route) => route.fulfill({ body: "Test page" }));
+});
+
 test("should open external link without router", async ({ page, mount }) => {
   // ARRANGE
-  const component = await mount(<TestWrapper href="https://example.com">Test link</TestWrapper>);
+  const component = await mount(<TestWrapper href={EXTERNAL_HREF}>Test link</TestWrapper>);
 
   // ACT
   await component.click();
 
   // ASSERT
-  await expect(page).toHaveURL("https://example.com");
+  await expect(page).toHaveURL(EXTERNAL_HREF);
 });
 
 test("should open external link without router in new tab", async ({ page, mount }) => {
   // ARRANGE
   const component = await mount(
-    <TestWrapper href="https://example.com" target="_blank">
+    <TestWrapper href={EXTERNAL_HREF} target="_blank">
       Test link
     </TestWrapper>,
   );
@@ -30,7 +36,7 @@ test("should open external link without router in new tab", async ({ page, mount
 
   // ASSERT
   await expect(page).toHaveURL("/");
-  await expect(newTab).toHaveURL("https://example.com");
+  await expect(newTab).toHaveURL(EXTERNAL_HREF);
 });
 
 test("should open internal link with router", async ({ mount }) => {
@@ -103,7 +109,7 @@ for (const modifier of ["Alt", "ControlOrMeta", "Shift"] as const) {
 test("should pass accessibility tests", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(
-    <TestWrapper href="https://example.com" target="_blank">
+    <TestWrapper href={EXTERNAL_HREF} target="_blank">
       Test link
     </TestWrapper>,
   );
@@ -120,7 +126,7 @@ test("should pass accessibility tests", async ({ mount, makeAxeBuilder }) => {
 test("should add rel attribute if target is _blank", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
-    <TestWrapper href="https://example.com" target="_blank">
+    <TestWrapper href={EXTERNAL_HREF} target="_blank">
       Test link
     </TestWrapper>,
   );
