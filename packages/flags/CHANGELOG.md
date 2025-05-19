@@ -1,5 +1,19 @@
 # @sit-onyx/flags
 
+## 1.0.0-beta.2
+
+### Minor Changes
+
+- 88e1af3: feat: update flags
+
+  #### New
+
+  - CC
+
+  #### Modified
+
+  - CK
+
 ## 1.0.0-beta.1
 
 ### Minor Changes

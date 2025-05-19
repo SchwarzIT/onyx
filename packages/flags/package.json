@@ -1,7 +1,7 @@
 {
   "name": "@sit-onyx/flags",
   "description": "SVG country flags for the onyx design system",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "type": "module",
   "license": "Apache-2.0",
   "repository": {
