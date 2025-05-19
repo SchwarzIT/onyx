@@ -57,13 +57,13 @@ test("should render as drawer", async ({ mount, page, makeAxeBuilder }) => {
 
   // ASSERT
   await expect(page).toHaveScreenshot("drawer.png");
-  expect(closeEventCount).toBe(0);
+  await expect(() => expect(closeEventCount).toBe(0)).toPass();
 
   // ACT
   await page.getByRole("button", { name: "Close dialog" }).click();
 
   // ASSERT
-  expect(closeEventCount).toBe(1);
+  await expect(() => expect(closeEventCount).toBe(1)).toPass();
 });
 
 ["default", "drawer"].forEach((type) => {

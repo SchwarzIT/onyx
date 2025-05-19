@@ -30,7 +30,7 @@ test("should behave correctly", async ({ mount, makeAxeBuilder, page }) => {
   await closeButton.click();
 
   // ASSERT
-  expect(closeEventCount).toBe(1);
+  await expect(() => expect(closeEventCount).toBe(1)).toPass();
 });
 
 test("Screenshot test (custom headline)", async ({ mount, page, makeAxeBuilder }) => {

@@ -112,21 +112,21 @@ test("should select page", async ({ mount }) => {
   await component.getByLabel("Available pages").getByLabel("2", { exact: true }).click();
 
   // ASSERT
-  expect(currentPage).toBe(2);
+  await expect(() => expect(currentPage).toBe(2)).toPass();
   await expect(select).toHaveValue("2");
 
   // ACT
   await nextButton.click();
 
   // ASSERT
-  expect(currentPage).toBe(3);
+  await expect(() => expect(currentPage).toBe(3)).toPass();
   await expect(select).toHaveValue("3");
 
   // ACT
   await previousButton.click();
 
   // ASSERT
-  expect(currentPage).toBe(2);
+  await expect(() => expect(currentPage).toBe(2)).toPass();
   await expect(select).toHaveValue("2");
 
   // ACT
@@ -134,7 +134,7 @@ test("should select page", async ({ mount }) => {
   await component.getByLabel("Available pages").getByLabel("42", { exact: true }).click();
 
   // ASSERT
-  expect(currentPage).toBe(42);
+  await expect(() => expect(currentPage).toBe(42)).toPass();
   await expect(select).toHaveValue("42");
   await expect(nextButton, "should disable next button if last page is reached").toBeDisabled();
   await expect(previousButton).toBeEnabled();

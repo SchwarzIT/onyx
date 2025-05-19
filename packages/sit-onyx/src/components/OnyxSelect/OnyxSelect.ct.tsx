@@ -768,14 +768,14 @@ test("should handle onUpdate:searchTerm correctly when searching", async ({ moun
 
   // ASSERT
   expect(onUpdateSearchTerm).toHaveLength(4);
-  expect(onUpdateSearchTerm.at(-1)).toBe("test");
+  await expect(() => expect(onUpdateSearchTerm.at(-1)).toBe("test")).toPass();
 
   // ACT
   await component.getByLabel("Clear search filter").click();
 
   // ASSERT
   expect(onUpdateSearchTerm).toHaveLength(5);
-  expect(onUpdateSearchTerm.at(-1)).toBe("");
+  await expect(() => expect(onUpdateSearchTerm.at(-1)).toBe("")).toPass();
 
   // ACT
   await component.update({ props: { searchTerm: "very long and new test text" } });
@@ -828,7 +828,7 @@ test("should not submit form when selecting via keyboard", async ({ page, mount 
   await page.keyboard.press("Enter");
 
   // ASSERT
-  expect(submitEventCount).toBe(0);
+  await expect(() => expect(submitEventCount).toBe(0)).toPass();
 });
 
 test("should allow custom input text when a pre-selected value is unknown to OnyxSelect", async ({
@@ -917,7 +917,7 @@ test("should manage filtering internally except when filteredOptions are given",
   await component.getByRole("textbox", { name: "Test select" }).click();
   await page.getByRole("option").first().waitFor();
   // ASSERT
-  expect(await page.getByRole("option").count(), "should initially show all options").toBe(
+  await expect(page.getByRole("option"), "should initially show all options").toHaveCount(
     options.length,
   );
   await expect(page.getByLabel("One")).toBeVisible();
@@ -937,10 +937,10 @@ test("should manage filtering internally except when filteredOptions are given",
   // ACT
   await component.update({ props: { searchTerm: "1", noFilter: true } });
   // ASSERT
-  expect(
-    await page.getByRole("option").count(),
+  await expect(
+    page.getByRole("option"),
     "should not filter with the internal logic when searchTerm is not managed by onyx",
-  ).toBe(options.length);
+  ).toHaveCount(options.length);
 
   // ACT
   await component.update({ props: { options: options.filter(({ value }) => value === 1) } });

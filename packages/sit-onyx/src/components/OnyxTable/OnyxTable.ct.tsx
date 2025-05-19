@@ -273,7 +273,7 @@ test("should focus components with active column hover effect", async ({ page, m
   );
 
   await component.getByRole("button", { name: "Header button" }).click();
-  expect(buttonClickCount).toBe(1);
+  await expect(() => expect(buttonClickCount).toBe(1)).toPass();
 
   // simulate moving the mouse down on the column hover effect to test that it will be hidden when moving
   // outside of the table header
@@ -286,5 +286,5 @@ test("should focus components with active column hover effect", async ({ page, m
   await page.mouse.down();
   await page.mouse.up();
 
-  expect(buttonClickCount).toBe(2);
+  await expect(() => expect(buttonClickCount).toBe(2)).toPass();
 });

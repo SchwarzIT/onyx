@@ -99,7 +99,7 @@ test("should behave correctly", async ({ mount, page }) => {
 
   // ASSERT
   expect(updateModelValueEvents).toStrictEqual(["option-3"]);
-  expect(closeEventCount).toBe(1);
+  await expect(() => expect(closeEventCount).toBe(1)).toPass();
 
   // ACT
   await clickOption("Option 1");
@@ -111,7 +111,7 @@ test("should behave correctly", async ({ mount, page }) => {
 
   // ASSERT
   expect(updateModelValueEvents).toStrictEqual(["option-3", "option-1"]);
-  expect(closeEventCount).toBe(2);
+  await expect(() => expect(closeEventCount).toBe(2)).toPass();
 
   // ACT
   await clickOption("Option 2");
@@ -119,17 +119,17 @@ test("should behave correctly", async ({ mount, page }) => {
 
   // ASSERT
   expect(updateModelValueEvents).toStrictEqual(["option-3", "option-1", "option-2"]);
-  expect(closeEventCount).toBe(3);
+  await expect(() => expect(closeEventCount).toBe(3)).toPass();
 
   // ACT
   await component.getByRole("button", { name: "Cancel" }).click();
 
   // ASSERT
-  expect(closeEventCount).toBe(4);
+  await expect(() => expect(closeEventCount).toBe(4)).toPass();
 
   // ACT
   await page.keyboard.press("Escape");
 
   // ASSERT
-  expect(closeEventCount).toBe(5);
+  await expect(() => expect(closeEventCount).toBe(5)).toPass();
 });

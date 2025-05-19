@@ -257,7 +257,7 @@ test("should behave correctly", async ({ mount, page }) => {
   await component.getByRole("button", { name: "Go back" }).click();
 
   // ASSERT
-  expect(backButtonClickEvents).toBe(1);
+  await expect(() => expect(backButtonClickEvents).toBe(1)).toPass();
 
   // ACT
   await component.getByRole("menuitem", { name: "Item 1" }).click();
@@ -389,7 +389,7 @@ test("should display More Items correctly", async ({ mount, page }) => {
     await lastMenuItem.click();
 
     // ASSERT
-    expect(navItemClickEvents).toBe(1);
+    await expect(() => expect(navItemClickEvents).toBe(1)).toPass();
     await expect(moreMenuItem).toBeHidden();
     await expectNMenuItemsToBeVisible(5, page);
   });
@@ -400,7 +400,7 @@ test("should display More Items correctly", async ({ mount, page }) => {
     await page.setViewportSize({ width: ONYX_BREAKPOINTS.md, height: 400 });
 
     // ASSERT
-    expect(navItemClickEvents).toBe(1);
+    await expect(() => expect(navItemClickEvents).toBe(1)).toPass();
     await expect(moreMenuItem).toBeVisible();
     await expect(lastMenuItem).toBeHidden();
     await expectNMenuItemsToBeVisible(4, page);
@@ -422,7 +422,7 @@ test("should display More Items correctly", async ({ mount, page }) => {
     await expect(moreMenuItem).toHaveAttribute("aria-expanded", "false");
     await expect(moreMenuItem).toHaveAttribute("aria-haspopup", "true");
     await expect(lastMenuItem).toBeHidden();
-    expect(navItemClickEvents).toBe(2);
+    await expect(() => expect(navItemClickEvents).toBe(2)).toPass();
   });
 
   await test.step("on mobile breakpoint the mobile menu should work as expected", async () => {
@@ -438,7 +438,7 @@ test("should display More Items correctly", async ({ mount, page }) => {
     await lastMenuItem.click();
 
     // ASSERT
-    expect(navItemClickEvents).toBe(3);
+    await expect(() => expect(navItemClickEvents).toBe(3)).toPass();
   });
 
   await test.step("on desktop breakpoint everything should work as expected again", async () => {
@@ -448,7 +448,7 @@ test("should display More Items correctly", async ({ mount, page }) => {
 
     // ASSERT
     await expectNMenuItemsToBeVisible(5, page);
-    expect(navItemClickEvents).toBe(4);
+    await expect(() => expect(navItemClickEvents).toBe(4)).toPass();
   });
 });
 

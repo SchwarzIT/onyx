@@ -33,5 +33,5 @@ test("should behave correctly", async ({ mount }) => {
   await closeButton.click();
 
   // ASSERT
-  expect(closeEventCount).toBe(1);
+  await expect(() => expect(closeEventCount).toBe(1)).toPass();
 });
