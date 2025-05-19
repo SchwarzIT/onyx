@@ -72,8 +72,8 @@ test("should behave correctly", async ({ mount, page }) => {
   await page.keyboard.press("Enter");
 
   // ASSERT
-  expectEmit(onUpdateModelValue, 1, ["dark"]);
-  expectEmit(onUpdateOpen, 1, [false]);
+  await expect(() => expectEmit(onUpdateModelValue, 1, ["dark"])).toPass();
+  await expect(() => expectEmit(onUpdateOpen, 1, [false])).toPass();
 
   // ACT
   await clickOption("Auto");
@@ -84,26 +84,26 @@ test("should behave correctly", async ({ mount, page }) => {
   await component.getByRole("button", { name: "Apply" }).click();
 
   // ASSERT
-  expectEmit(onUpdateModelValue, 2, ["auto"]);
-  expectEmit(onUpdateOpen, 2, [false]);
+  await expect(() => expectEmit(onUpdateModelValue, 2, ["auto"])).toPass();
+  await expect(() => expectEmit(onUpdateOpen, 2, [false])).toPass();
 
   // ACT
   await clickOption("Light");
   await component.getByRole("button", { name: "Apply" }).click();
 
   // ASSERT
-  expectEmit(onUpdateModelValue, 3, ["light"]);
-  expectEmit(onUpdateOpen, 3, [false]);
+  await expect(() => expectEmit(onUpdateModelValue, 3, ["light"])).toPass();
+  await expect(() => expectEmit(onUpdateOpen, 3, [false])).toPass();
 
   // ACT
   await component.getByRole("button", { name: "Cancel" }).click();
 
   // ASSERT
-  expectEmit(onUpdateOpen, 4, [false]);
+  await expect(() => expectEmit(onUpdateOpen, 4, [false])).toPass();
 
   // ACT
   await page.keyboard.press("Escape");
 
   // ASSERT
-  expectEmit(onUpdateOpen, 5, [false]);
+  await expect(() => expectEmit(onUpdateOpen, 5, [false])).toPass();
 });

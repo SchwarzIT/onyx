@@ -47,5 +47,5 @@ test("should emit event when timer is finished", async ({ mount, page }) => {
 
   // ASSERT
   await expect(component).toContainText("00:00 sec");
-  expect(timerEndedCount).toBe(1);
+  await expect(() => expect(timerEndedCount).toBe(1)).toPass();
 });

@@ -34,9 +34,9 @@ test("useSelection", async ({ page, mount }) => {
     await page.getByRole("checkbox", { name: "Add row with ID '4' to the selection." }).click();
 
     // ASSERT
-    expect(selectionEvents).toHaveLength(1);
-    expect(selectionEvents.at(-1)?.selectMode).toBe("include");
-    expect(selectionEvents.at(-1)?.contingent).toMatchObject([4]);
+    await expect(() => expect(selectionEvents).toHaveLength(1)).toPass();
+    await expect(() => expect(selectionEvents.at(-1)?.selectMode).toBe("include")).toPass();
+    await expect(() => expect(selectionEvents.at(-1)?.contingent).toMatchObject([4])).toPass();
     await expect(component).toHaveScreenshot("data-grid-selection-one-selected.png");
   });
 
@@ -45,9 +45,9 @@ test("useSelection", async ({ page, mount }) => {
     await page.getByRole("checkbox", { name: "Select all rows" }).click();
 
     // ASSERT
-    expect(selectionEvents).toHaveLength(2);
-    expect(selectionEvents.at(-1)?.selectMode).toBe("exclude");
-    expect(selectionEvents.at(-1)?.contingent).toMatchObject([]);
+    await expect(() => expect(selectionEvents).toHaveLength(2)).toPass();
+    await expect(() => expect(selectionEvents.at(-1)?.selectMode).toBe("exclude")).toPass();
+    await expect(() => expect(selectionEvents.at(-1)?.contingent).toMatchObject([])).toPass();
   });
 
   await test.step("deselect all", async () => {
@@ -55,9 +55,9 @@ test("useSelection", async ({ page, mount }) => {
     await page.getByRole("checkbox", { name: "Deselect all rows" }).click();
 
     // ASSERT
-    expect(selectionEvents).toHaveLength(3);
-    expect(selectionEvents.at(-1)?.selectMode).toBe("include");
-    expect(selectionEvents.at(-1)?.contingent).toMatchObject([]);
+    await expect(() => expect(selectionEvents).toHaveLength(3)).toPass();
+    await expect(() => expect(selectionEvents.at(-1)?.selectMode).toBe("include")).toPass();
+    await expect(() => expect(selectionEvents.at(-1)?.contingent).toMatchObject([])).toPass();
   });
   await test.step("select all manually", async () => {
     const selectAllCheckbox = page.getByRole("checkbox", { name: "Select all rows" });
@@ -107,9 +107,9 @@ test("useSelection with hover", async ({ page, mount }) => {
     await page.getByRole("cell", { name: "2", exact: true }).hover();
 
     // ASSERT
-    expect(selectionEvents).toHaveLength(1);
-    expect(selectionEvents.at(-1)?.selectMode).toBe("include");
-    expect(selectionEvents.at(-1)?.contingent).toMatchObject([3]);
+    await expect(() => expect(selectionEvents).toHaveLength(1)).toPass();
+    await expect(() => expect(selectionEvents.at(-1)?.selectMode).toBe("include")).toPass();
+    await expect(() => expect(selectionEvents.at(-1)?.contingent).toMatchObject([3])).toPass();
     await expect(component).toHaveScreenshot("data-grid-selection-one-selected-one-hovered.png");
   });
 });

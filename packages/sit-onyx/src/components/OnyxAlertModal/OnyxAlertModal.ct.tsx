@@ -38,6 +38,6 @@ test("should behave correctly", async ({ mount, page }) => {
   await closeButton.click();
 
   // ASSERT
-  expectEmit(onOpenUpdate, 1, [false]);
+  await expect(() => expectEmit(onOpenUpdate, 1, [false])).toPass();
   await expect(dialog).toBeVisible();
 });

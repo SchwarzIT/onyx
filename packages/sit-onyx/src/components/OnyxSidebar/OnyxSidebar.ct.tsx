@@ -69,13 +69,13 @@ for (const type of ["left", "right", "floating"] as const) {
 
     // ASSERT
     await expect(page).toHaveScreenshot(`temporary-${type}.png`);
-    expect(closeEventCount).toBe(0);
+    await expect(() => expect(closeEventCount).toBe(0)).toPass();
 
     // ACT
     await page.getByRole("button", { name: "Close dialog" }).click();
 
     // ASSERT
-    expect(closeEventCount).toBe(1);
+    await expect(() => expect(closeEventCount).toBe(1)).toPass();
   });
 }
 

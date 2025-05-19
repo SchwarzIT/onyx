@@ -79,7 +79,7 @@ test("should be closable", async ({ mount }) => {
   await component.getByRole("button", { name: "Close" }).click();
 
   // ASSERT
-  expect(closeEvents).toBe(1);
+  await expect(() => expect(closeEvents).toBe(1)).toPass();
 });
 
 test("should have compact density for buttons by default", async ({ mount }) => {

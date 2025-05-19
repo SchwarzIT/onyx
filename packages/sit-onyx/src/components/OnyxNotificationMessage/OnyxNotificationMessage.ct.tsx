@@ -82,7 +82,7 @@ test("should show close button", async ({ page, mount }) => {
 
   // ASSERT
   await expect(closeButton, "should show close button when focussing via keyboard").toBeVisible();
-  expect(closeEventCount).toBe(1);
+  await expect(() => expect(closeEventCount).toBe(1)).toPass();
 
   // ACT
   await page.getByRole("document").click(); // reset focus
@@ -100,7 +100,7 @@ test("should show close button", async ({ page, mount }) => {
   await closeButton.click();
 
   // ASSERT
-  expect(closeEventCount).toBe(2);
+  await expect(() => expect(closeEventCount).toBe(2)).toPass();
 });
 
 test("should close after duration has been elapsed", async ({ page, mount }) => {
@@ -121,7 +121,7 @@ test("should close after duration has been elapsed", async ({ page, mount }) => 
   );
 
   // ASSERT
-  expect(closeEventCount).toBe(0);
+  await expect(() => expect(closeEventCount).toBe(0)).toPass();
 
   // ACT
   await page.clock.runFor(1_000);

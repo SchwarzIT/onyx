@@ -38,7 +38,7 @@ test("should behave correctly", async ({ mount, makeAxeBuilder, page }) => {
 
   // ASSERT
   expect(submitEvents).toStrictEqual([{ columnCount: 4, breakpoints: {} }]);
-  expect(closeEvents).toBe(0);
+  await expect(() => expect(closeEvents).toBe(0)).toPass();
 
   // ACT
   await smBreakpointStepper.fill("2");
@@ -81,7 +81,7 @@ test("should behave correctly", async ({ mount, makeAxeBuilder, page }) => {
   await dialog.getByRole("button", { name: "Cancel" }).click();
 
   // ASSERT
-  expect(closeEvents).toBe(1);
+  await expect(() => expect(closeEvents).toBe(1)).toPass();
 
   // ACT
   await page.getByRole("document").hover(); // reset hover
