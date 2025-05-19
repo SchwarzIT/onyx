@@ -1,7 +1,9 @@
 import { DENSITIES } from "../../composables/density";
+import type { Nullable } from "../../composables/useVModel";
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
 import OnyxDatePicker from "./OnyxDatePicker.vue";
+import type { DateValue } from "./types";
 
 test.describe("Screenshot tests", () => {
   for (const type of ["date", "datetime-local"] as const) {
@@ -35,7 +37,7 @@ test.describe("Screenshot tests", () => {
 
 test("should emit events", async ({ mount, makeAxeBuilder }) => {
   const events = {
-    updateModelValue: [] as (string | undefined)[],
+    updateModelValue: [] as Nullable<DateValue>[],
   };
 
   // ARRANGE

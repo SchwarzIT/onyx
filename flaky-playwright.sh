@@ -13,7 +13,7 @@
 ✅ pnpm test:playwright src/components/OnyxCheckbox/ -x --repeat-each 100 --project edge
 ✅ pnpm test:playwright src/components/OnyxCheckboxGroup -x --repeat-each 100 --project edge
 ✅ clear && pnpm test:playwright src/components/OnyxDataGrid -x --repeat-each 100 --project edge
-❌ clear && pnpm test:playwright src/components/OnyxDatePicker -x --repeat-each 100 --project edge
+✅ clear && pnpm test:playwright src/components/OnyxDatePicker -x --repeat-each 100 --project edge
 ✅ clear && pnpm test:playwright src/components/OnyxDialog -x --repeat-each 100 --project edge
 ✅ pnpm test:playwright src/components/OnyxDrawer -x --repeat-each 100 --project edge
 ✅ pnpm test:playwright src/components/OnyxEmpty -x --repeat-each 100 --project edge
