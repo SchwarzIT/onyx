@@ -35,7 +35,7 @@ jobs:
       - name: 🔎 Run Playwright tests
         run: pnpm run test:playwright:all --filter sit-onyx -- -x --repeat-each 25
         env:
-          PW_UPDATE_SNAPSHOTS: "${{ inputs.update-snapshots }}"
+          # PW_UPDATE_SNAPSHOTS: "${{ inputs.update-snapshots }}"
           PW_SHARD: "${{ matrix.shard }}"
           PW_TOTAL_SHARDS: "${{ strategy.job-total }}"
 
