@@ -1,39 +1,52 @@
 <script lang="ts" setup>
 import { OnyxIcon, OnyxTooltip, useToast } from "sit-onyx";
-import type { EnrichedIcon } from "../utils-icons";
 
-const props = defineProps<{
-  icon: EnrichedIcon;
-}>();
+export type AssetLibraryItemProps = {
+  /**
+   * Raw SVG content.
+   */
+  content: string;
+  /**
+   * Text to show inside a tooltip when hovered.
+   */
+  tooltipText: string;
+  /**
+   * Value that is copied to the users clipboard.
+   */
+  clipboardValue: string;
+  /**
+   * Toast message that is shown after coping.
+   */
+  successMessage: string;
+};
+
+const props = defineProps<AssetLibraryItemProps>();
 
 const toast = useToast();
 
 const handleCopy = async () => {
-  const { importName, iconName } = props.icon;
-  await navigator.clipboard.writeText(
-    `import ${importName} from "@sit-onyx/icons/${iconName}.svg?raw";`,
-  );
+  await navigator.clipboard.writeText(props.clipboardValue);
 
   toast.show({
     headline: "Copied to clipboard!",
-    description: `Import for icon "${importName}" has been copied to your clipboard.`,
+    description: props.successMessage,
     color: "success",
   });
 };
 </script>
 
 <template>
-  <OnyxTooltip :text="props.icon.tooltipName" position="bottom">
+  <OnyxTooltip :text="props.tooltipText" position="bottom">
     <template #default="{ trigger }">
-      <button type="button" class="icon" v-bind="trigger" @click="handleCopy">
-        <OnyxIcon :icon="props.icon.content" />
+      <button type="button" class="asset" v-bind="trigger" @click="handleCopy">
+        <OnyxIcon :icon="props.content" />
       </button>
     </template>
   </OnyxTooltip>
 </template>
 
 <style lang="scss" scoped>
-.icon {
+.asset {
   height: 3.5rem;
   width: 3.5rem;
   padding: var(--onyx-spacing-md);
