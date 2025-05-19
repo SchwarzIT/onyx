@@ -1,4 +1,4 @@
-import { computed, nextTick, onMounted, onUnmounted, ref, toValue, useId, watch } from "vue";
+import { computed, onMounted, onUnmounted, ref, toValue, useId, watch } from "vue";
 import { createFeature, type ModifyColumns } from "../index.js";
 
 import { mergeVueProps } from "../../../../utils/attrs.js";
@@ -60,6 +60,7 @@ export const useStickyColumns = <TEntry extends DataGridEntry>(
 
       document.body.style.setProperty(createStickyPositionCssVar(key), `${width}px`);
     };
+
     const handleScroll = (el: Element) => {
       const width = el.scrollWidth - el.clientWidth;
       const scrollLeft = Math.round(el.scrollLeft);
