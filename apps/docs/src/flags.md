@@ -30,7 +30,7 @@ Afterwards, you can import and use flags as needed. Please see the [OnyxIcon](ht
 
 ## Country names
 
-You can get the country name of a flag in several languages using JavaScript's native [Intl.DisplayNames](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DisplayNames) API.
+You can get the country name of a flag in several languages using JavaScript's [Intl.DisplayNames](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DisplayNames) API.
 
 Here is an example on how to use it (together with [vue-i18n](https://vue-i18n.intlify.dev/)):
 
