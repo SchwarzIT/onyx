@@ -143,6 +143,10 @@
     "continent": "North America",
     "internationalName": ""
   },
+  "CC": {
+    "continent": "Asia",
+    "internationalName": "Cocos (Keeling) Islands"
+  },
   "CD": {
     "continent": "Africa",
     "internationalName": "Congo - Kinshasa"
@@ -164,7 +168,7 @@
     "internationalName": "Côte d’Ivoire"
   },
   "CK": {
-    "continent": "Asia",
+    "continent": "Oceania",
     "internationalName": "Cook Islands"
   },
   "CL": {
