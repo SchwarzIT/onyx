@@ -1,5 +1,5 @@
 <script lang="ts" setup generic="TValue extends PropertyKey">
-import { provide, ref, toRef, toRefs, watch, watchEffect, type Ref } from "vue";
+import { defineProps, provide, ref, toRef, toRefs, watch, watchEffect, type Ref } from "vue";
 import { useDensity } from "../../composables/density";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { useVModel, type Nullable } from "../../composables/useVModel";
@@ -41,7 +41,7 @@ const openItems = useVModel({
   props,
   emit,
   key: "modelValue",
-  initialValue: [] as TValue[],
+  default: () => [] as TValue[],
 });
 
 const { disabled, exclusive } = toRefs(props);

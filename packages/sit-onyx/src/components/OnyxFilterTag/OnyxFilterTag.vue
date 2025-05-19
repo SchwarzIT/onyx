@@ -32,7 +32,7 @@ const active = useVModel({
   props,
   emit,
   key: "active",
-  initialValue: false,
+  default: false,
 });
 const tooltipLabel = computed(() =>
   active.value

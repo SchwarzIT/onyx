@@ -45,7 +45,7 @@ const open = useVModel({
   props,
   emit,
   key: "open",
-  initialValue: false,
+  default: false,
 });
 
 const {

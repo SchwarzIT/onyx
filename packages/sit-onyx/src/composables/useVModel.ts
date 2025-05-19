@@ -1,23 +1,24 @@
-import { computed, ref, type Ref } from "vue";
+import { computed, ref, watch, type Ref } from "vue";
+import type { PrimitiveType } from "../types";
 export type Nullable<T> = T | undefined | null;
 export type UseVModelOptions<
   TKey extends keyof TProps & string,
   TProps extends object,
   TValue extends TProps[TKey],
   TEmit extends (evt: `update:${TKey}`, value: TValue) => void,
-  TDefaultValue extends NonNullable<TValue> | undefined,
+  TDefaultValue extends (TValue extends PrimitiveType ? TValue : () => TValue) | undefined,
 > = {
   key: TKey;
   props: TProps;
   emit: TEmit;
-  initialValue?: TDefaultValue;
+  default?: TDefaultValue;
 };
 
 export const useVModel = <
+  TValue extends TProps[TKey],
   TKey extends keyof TProps & string,
   TProps extends object,
-  TValue extends TProps[TKey],
-  TDefaultValue extends NonNullable<TValue> | undefined,
+  TDefaultValue extends (TValue extends PrimitiveType ? TValue : () => TValue) | undefined,
   TEmit extends (evt: `update:${TKey}`, value: TValue) => void = (
     evt: `update:${TKey}`,
     value: TValue,
@@ -26,13 +27,22 @@ export const useVModel = <
 >(
   options: UseVModelOptions<TKey, TProps, TValue, TEmit, TDefaultValue>,
 ) => {
-  const internalState = ref(options.initialValue) as Ref<Nullable<TValue>>;
+  const getDefault = () =>
+    typeof options.default === "function" ? options.default() : options.default;
+
+  const internalState = ref(getDefault()) as Ref<Nullable<TValue>>;
+  watch(
+    () => options.props[options.key],
+    (newProp) => (internalState.value = newProp as TValue),
+  );
+
   const value = computed({
-    get: () =>
-      options.props[options.key] !== undefined ? options.props[options.key] : internalState.value,
+    get: () => options.props[options.key] ?? internalState.value ?? getDefault(),
     set: (newValue: TValue) => {
-      internalState.value = newValue;
-      options.emit(`update:${options.key}`, newValue);
+      if (newValue !== value.value) {
+        internalState.value = newValue;
+        options.emit(`update:${options.key}`, newValue);
+      }
     },
   });
   return value as Ref<TComputed>;

@@ -11,6 +11,7 @@ import type { SelectOptionValue } from "../../types";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-utils";
 import OnyxSelect from "./OnyxSelect.vue";
+import TestWrapperCt from "./TestWrapper.ct.vue";
 import { SELECT_ALIGNMENTS, type OnyxSelectProps, type SelectOption } from "./types";
 
 const context = {
@@ -487,6 +488,15 @@ test("should interact with single select", async ({ mount }) => {
   // ASSERT
   expect(modelValue).toStrictEqual(MOCK_VARIED_OPTIONS_VALUES[0]);
   await expect(comboboxInput).toBeFocused();
+});
+
+test("should unset correctly", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(TestWrapperCt);
+
+  await component.getByRole("combobox").click();
+  await component.getByRole("option", { name: "Default" }).click();
+  await component.getByRole("button", { name: "Unset" }).click();
 });
 
 test("should interact with multiselect and search", async ({ mount }) => {

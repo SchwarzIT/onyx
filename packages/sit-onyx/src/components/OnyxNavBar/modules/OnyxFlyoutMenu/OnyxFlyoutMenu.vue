@@ -26,7 +26,7 @@ const isExpanded = useVModel({
   props,
   emit,
   key: "open",
-  initialValue: false,
+  default: false,
 });
 
 const slots = defineSlots<{

@@ -35,7 +35,7 @@ const flyoutOpen = useVModel({
   props,
   emit,
   key: "flyoutOpen",
-  initialValue: false,
+  default: false,
 });
 
 const avatar = computed(() => {

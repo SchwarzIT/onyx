@@ -42,7 +42,7 @@ const modelValue = useVModel({
   props,
   emit,
   key: "modelValue",
-  initialValue: "",
+  default: "",
 });
 
 defineOptions({ inheritAttrs: false });

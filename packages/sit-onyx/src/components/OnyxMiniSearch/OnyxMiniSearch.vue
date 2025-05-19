@@ -32,7 +32,7 @@ const modelValue = useVModel({
   props,
   emit,
   key: "modelValue",
-  initialValue: "",
+  default: "",
 });
 
 const { rootAttrs, restAttrs } = useRootAttrs();

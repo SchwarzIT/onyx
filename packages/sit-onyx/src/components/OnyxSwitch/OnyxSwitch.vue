@@ -52,7 +52,7 @@ const isChecked = useVModel({
   props,
   emit,
   key: "modelValue",
-  initialValue: false,
+  default: false,
 });
 
 const input = useTemplateRef("inputRef");
