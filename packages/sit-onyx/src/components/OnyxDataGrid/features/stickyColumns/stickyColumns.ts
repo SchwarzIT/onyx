@@ -1,4 +1,4 @@
-import { computed, nextTick, onUnmounted, ref, useId, watch, type HTMLAttributes } from "vue";
+import { computed, onUnmounted, ref, useId, watch, type HTMLAttributes } from "vue";
 import { createFeature, type ModifyColumns } from "..";
 
 import { mergeVueProps } from "../../../../utils/attrs";
@@ -52,6 +52,7 @@ export const useStickyColumns = createFeature(
 
       document.body.style.setProperty(createStickyPositionCssVar(key), `${width}px`);
     };
+
     const handleScroll = (el: HTMLElement) => {
       const width = el.scrollWidth - el.clientWidth;
       const scrollLeft = Math.round(el.scrollLeft);
@@ -117,9 +118,7 @@ export const useStickyColumns = createFeature(
       scrollContainerAttributes: () =>
         ({
           ref: (el?: HTMLElement) => {
-            if (el) {
-              nextTick(() => handleScroll(el));
-            }
+            if (el) handleScroll(el);
           },
           onScrollCapturePassive: (e: Event) => handleScroll(e.target as HTMLElement),
         }) as HTMLAttributes,
