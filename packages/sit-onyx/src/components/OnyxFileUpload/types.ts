@@ -2,10 +2,6 @@ import type { DensityProp } from "../../composables/density";
 
 export type OnyxFileUploadProps<TMultiple extends boolean> = DensityProp & {
   /**
-   * Aria label of the upload, required for accessibility / screen readers.
-   */
-  label: string;
-  /**
    * Currently selected file(s).
    * If `multiple` property is enabled, this value is an array, otherwise a single file.
    */
@@ -64,5 +60,8 @@ export type UploadSize = (typeof UPLOAD_SIZES)[number];
  */
 export type FileType = `.${string}` | `${"audio" | "video" | "image"}/*` | MediaType;
 
+/**
+ * For a full list of media types, see the [official docs](https://www.iana.org/assignments/media-types/media-types.xhtml).
+ */
 export type MediaType =
   `${"application" | "audio" | "font" | "image" | "model" | "text" | "video"}/${string}`;
