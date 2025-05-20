@@ -1,5 +1,5 @@
 <script lang="ts" setup generic="TValue extends PropertyKey">
-import { defineProps, provide, ref, toRef, toRefs, watch, watchEffect, type Ref } from "vue";
+import { provide, ref, toRef, toRefs, watch, watchEffect, type Ref } from "vue";
 import { useDensity } from "../../composables/density";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { useVModel } from "../../composables/useVModel";
