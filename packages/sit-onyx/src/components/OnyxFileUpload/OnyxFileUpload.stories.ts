@@ -12,7 +12,7 @@ type Story = StoryObj<typeof OnyxFileUpload>;
 
 export const Default = {
   args: {
-    maxSize: 1024 * 1024 * 4,
+    maxSize: "4Mi",
     accept: [".jpg", ".png", ".mp4"],
     style: "width: 32rem",
   },
@@ -23,6 +23,6 @@ export const Multiple = {
     ...Default.args,
     multiple: true,
     maxCount: 42,
-    maxTotalSize: 1024 * 1024 * 128,
+    maxTotalSize: "128Mi",
   },
 } satisfies Story;
