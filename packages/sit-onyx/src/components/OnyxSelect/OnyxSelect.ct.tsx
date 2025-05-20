@@ -494,9 +494,19 @@ test("should unset correctly", async ({ mount }) => {
   // ARRANGE
   const component = await mount(TestWrapperCt);
 
-  await component.getByRole("combobox").click();
+  const output = component.getByTestId("modelValue");
+  const select = component.getByRole("combobox");
+  await expect(select).toHaveValue("");
+  await expect(output).toHaveText("");
+
+  await select.click();
   await component.getByRole("option", { name: "Default" }).click();
+  await expect(select).toHaveValue("Default");
+  await expect(output).toHaveText("1");
+
   await component.getByRole("button", { name: "Unset" }).click();
+  await expect(select).toHaveValue("");
+  await expect(output).toHaveText("");
 });
 
 test("should interact with multiselect and search", async ({ mount }) => {

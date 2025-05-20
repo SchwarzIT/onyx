@@ -15,7 +15,16 @@ const modelValue = ref<number>();
 
 <template>
   <div class="onyx-component">
-    <OnyxSelect :options label="Test selection" list-label="Test options"></OnyxSelect>
+    <OnyxSelect
+      v-model="modelValue"
+      :options
+      label="Test selection"
+      list-label="Test options"
+    ></OnyxSelect>
     <button type="button" @click="modelValue = undefined">Unset</button>
+
+    <span data-testid="modelValue">
+      {{ modelValue }}
+    </span>
   </div>
 </template>
