@@ -197,5 +197,11 @@
   },
   "resizeHandle": {
     "label": "Drag to change width"
+  },
+  "fileUpload": {
+    "clickToUpload": "Click to select",
+    "orDragAndDrop": "or drag and drop file",
+    "maxSize": "Maximum file size: {size}",
+    "maxFileCount": "Maximum {n} files to select in total"
   }
 }
