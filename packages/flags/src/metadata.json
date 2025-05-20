@@ -68,7 +68,7 @@
     "internationalName": "Barbados"
   },
   "BD": {
-    "continent": "Africa",
+    "continent": "Asia",
     "internationalName": "Bangladesh"
   },
   "BE": {
@@ -100,7 +100,7 @@
     "internationalName": "Bermuda"
   },
   "BN": {
-    "continent": "Africa",
+    "continent": "Asia",
     "internationalName": "Brunei"
   },
   "BO": {
@@ -315,10 +315,6 @@
     "continent": "Europe",
     "internationalName": "Georgia"
   },
-  "GF": {
-    "continent": "Oceania",
-    "internationalName": "French Guiana"
-  },
   "GG": {
     "continent": "Europe",
     "internationalName": "Guernsey"
@@ -332,7 +328,7 @@
     "internationalName": "Gibraltar"
   },
   "GL": {
-    "continent": "Europe",
+    "continent": "North America",
     "internationalName": "Greenland"
   },
   "GM": {
@@ -592,7 +588,7 @@
     "internationalName": "Malta"
   },
   "MU": {
-    "continent": "Europe",
+    "continent": "Africa",
     "internationalName": "Mauritius"
   },
   "MV": {
@@ -608,7 +604,7 @@
     "internationalName": "Mexico"
   },
   "MY": {
-    "continent": "Oceania",
+    "continent": "Asia",
     "internationalName": "Malaysia"
   },
   "MZ": {
@@ -670,6 +666,10 @@
   "PE": {
     "continent": "South America",
     "internationalName": "Peru"
+  },
+  "PF": {
+    "continent": "Oceania",
+    "internationalName": "French Polynesia"
   },
   "PG": {
     "continent": "Oceania",
@@ -844,7 +844,7 @@
     "internationalName": "Tunisia"
   },
   "TO": {
-    "continent": "Africa",
+    "continent": "Oceania",
     "internationalName": "Tonga"
   },
   "TR": {
@@ -852,7 +852,7 @@
     "internationalName": "Türkiye"
   },
   "TT": {
-    "continent": "Africa",
+    "continent": "South America",
     "internationalName": "Trinidad & Tobago"
   },
   "TV": {
@@ -864,7 +864,7 @@
     "internationalName": "Taiwan"
   },
   "TZ": {
-    "continent": "Asia",
+    "continent": "Africa",
     "internationalName": "Tanzania"
   },
   "UA": {
@@ -920,7 +920,7 @@
     "internationalName": "Samoa"
   },
   "YE": {
-    "continent": "Africa",
+    "continent": "Asia",
     "internationalName": "Yemen"
   },
   "ZA": {
