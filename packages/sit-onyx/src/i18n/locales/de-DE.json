@@ -203,6 +203,7 @@
     "clickToUpload": "Klicke zum Auswählen",
     "orDragAndDrop": "oder ziehe eine Datei hier her",
     "maxSize": "Maximale Dateigröße: {size}",
+    "maxTotalSize": "{size} insgesamt",
     "maxFileCount": "Maximal {n} Dateien auswählbar"
   }
 }

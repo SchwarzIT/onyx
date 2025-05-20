@@ -51,10 +51,12 @@ const handleChange = (event: Event) => {
   target.value = "";
 };
 
-const getSizeInBytes = (size: number | BinaryPrefixedSize) => {
-  if (typeof size === "number") return size;
-  return convertBinaryPrefixToBytes(size);
-};
+const formatFileSize = computed(() => {
+  return (size: number | BinaryPrefixedSize) => {
+    const bytes = typeof size === "number" ? size : convertBinaryPrefixToBytes(size);
+    return formatBytesToString(locale.value, bytes);
+  };
+});
 </script>
 
 <template>
@@ -69,9 +71,17 @@ const getSizeInBytes = (size: number | BinaryPrefixedSize) => {
       </p>
 
       <p v-if="props.maxSize" class="onyx-file-upload__text onyx-text--small">
+        {{ t("fileUpload.maxSize", { size: formatFileSize(props.maxSize) }) }}
+
+        <template v-if="props.maxTotalSize">
+          ({{ t("fileUpload.maxTotalSize", { size: formatFileSize(props.maxTotalSize) }) }})
+        </template>
+      </p>
+
+      <p v-else-if="props.maxTotalSize" class="onyx-file-upload__text onyx-text--small">
         {{
           t("fileUpload.maxSize", {
-            size: formatBytesToString(locale, getSizeInBytes(props.maxSize)),
+            size: t("fileUpload.maxTotalSize", { size: formatFileSize(props.maxTotalSize) }),
           })
         }}
       </p>
