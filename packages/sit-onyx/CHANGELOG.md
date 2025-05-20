@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.223
+
+### Minor Changes
+
+- 43df367: added disabled prop in OnyxMobileNavButton, OnyxFlyout, OnyxFlyoutMenu, OnyxUserMenu
+
 ## 1.0.0-beta.222
 
 ### Minor Changes
