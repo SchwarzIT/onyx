@@ -70,6 +70,7 @@ const preview: Preview = {
           ["*", "modules"], // sort navigation module folder last
           "Layout",
           "Examples",
+          "Illustrations",
           "Support",
         ],
       },
