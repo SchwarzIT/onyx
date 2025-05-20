@@ -2,7 +2,11 @@
 import { computed } from "vue";
 import { useDensity } from "../../composables/density";
 import { injectI18n } from "../../i18n";
-import { convertBinaryPrefixToBytes, type BinaryPrefixedSize } from "../../utils/numbers";
+import {
+  convertBinaryPrefixToBytes,
+  formatBytesToString,
+  type BinaryPrefixedSize,
+} from "../../utils/numbers";
 import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import type { OnyxFileUploadProps } from "./types";
 
@@ -15,7 +19,7 @@ const emit = defineEmits<{
   "update:modelValue": [value: TMultiple extends true ? File[] : File];
 }>();
 
-const { t, n } = injectI18n();
+const { t, locale } = injectI18n();
 const { densityClass } = useDensity(props);
 
 const currentFiles = computed<File[]>(() => {
@@ -47,13 +51,6 @@ const handleChange = (event: Event) => {
   target.value = "";
 };
 
-const sizeFormatterOptions: Intl.NumberFormatOptions = {
-  notation: "compact",
-  style: "unit",
-  unit: "byte",
-  unitDisplay: "narrow",
-};
-
 const getSizeInBytes = (size: number | BinaryPrefixedSize) => {
   if (typeof size === "number") return size;
   return convertBinaryPrefixToBytes(size);
@@ -73,7 +70,9 @@ const getSizeInBytes = (size: number | BinaryPrefixedSize) => {
 
       <p v-if="props.maxSize" class="onyx-file-upload__text onyx-text--small">
         {{
-          t("fileUpload.maxSize", { size: n(getSizeInBytes(props.maxSize), sizeFormatterOptions) })
+          t("fileUpload.maxSize", {
+            size: formatBytesToString(locale, getSizeInBytes(props.maxSize)),
+          })
         }}
       </p>
 
