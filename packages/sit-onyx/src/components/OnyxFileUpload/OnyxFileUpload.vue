@@ -2,7 +2,6 @@
 import { computed } from "vue";
 import { useDensity } from "../../composables/density";
 import { injectI18n } from "../../i18n";
-import OnyxFileUploadSVG from "../illustrations/OnyxFileUploadSVG/OnyxFileUploadSVG.vue";
 import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import type { OnyxFileUploadProps } from "./types";
 
@@ -83,7 +82,7 @@ const sizeFormatterOptions: Intl.NumberFormatOptions = {
       <input
         class="onyx-file-upload__input"
         type="file"
-        :aria-label="props.label"
+        :aria-label="t('fileUpload.label', { n: props.multiple ? 2 : 1 })"
         :accept="props.accept.length ? props.accept.join(',') : undefined"
         :multiple="props.multiple"
         :disabled="props.disabled"
