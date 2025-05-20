@@ -31,7 +31,7 @@ const getSvgContent = (code: string) => {
   <AssetLibrary :groups="assetGroups" search-placeholder="Country code or name...">
     <template #item="{ asset: flag }">
       <AssetLibraryItem
-        :tooltip-text="flag.name"
+        :tooltip-text="`${flag.name} (${flag.id})`"
         :content="getSvgContent(flag.id)"
         :clipboard-value="`import ${flag.id} from &quot;@sit-onyx/flags/${flag.id}.svg?raw&quot;`"
         :success-message="`Import for flag &quot;${flag.id}&quot; (${flag.name}) has been copied to your clipboard.`"

@@ -1,5 +1,31 @@
 # @sit-onyx/flags
 
+## 1.0.0-beta.3
+
+### Major Changes
+
+- 80d36ec: feat: update flags
+
+  #### Renamed
+
+  - GF => PF
+
+  #### Modified
+
+  - LI
+  - ME
+  - MU
+  - MY
+  - NO
+  - NZ
+  - RS
+  - SE
+  - TK
+  - TN
+  - TT
+  - TZ
+  - WS
+
 ## 1.0.0-beta.2
 
 ### Minor Changes
