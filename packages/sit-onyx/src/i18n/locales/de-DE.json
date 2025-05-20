@@ -197,5 +197,11 @@
   },
   "resizeHandle": {
     "label": "Ziehen, um die Breite zu ändern"
+  },
+  "fileUpload": {
+    "clickToUpload": "Klicke zum Auswählen",
+    "orDragAndDrop": "oder ziehe eine Datei hier her",
+    "maxSize": "Maximale Dateigröße: {size}",
+    "maxFileCount": "Maximal {n} Dateien auswählbar"
   }
 }
