@@ -11,6 +11,17 @@ export type ParseFlagComponentsOptions = {
   pageId: string;
 };
 
+/**
+ * Map of country names for country codes that are not (yet) supported by `Intl.DisplayNames`.
+ */
+const UNKNOWN_COUNTRY_NAMES: Record<string, string | undefined> = {
+  "CA-BC": "British Columbia",
+  "GB-ENG": "England",
+  "GB-SCT": "Scotland",
+  "GB-WLS": "Wales",
+  "US-HI": "Hawaii",
+};
+
 export const parseComponentsToFlags = (options: ParseFlagComponentsOptions): ParsedFlag[] => {
   const pageComponents = options.components.filter(
     ({ containing_frame }) => containing_frame.pageId === options.pageId,
@@ -22,10 +33,10 @@ export const parseComponentsToFlags = (options: ParseFlagComponentsOptions): Par
     pageComponents
       .map<ParsedFlag>((component) => {
         const code = component.description.trim();
-        let internationalName = "";
+        let internationalName = UNKNOWN_COUNTRY_NAMES[code] ?? "";
 
         try {
-          internationalName = countryCodeFormatter.of(code) ?? internationalName;
+          internationalName = countryCodeFormatter.of(code) || internationalName;
         } catch {
           // noop
         }
