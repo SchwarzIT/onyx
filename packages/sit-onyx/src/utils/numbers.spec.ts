@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   applyLimits,
   convertBinaryPrefixToBytes,
+  formatBytesToString,
   roundToPrecision,
   type BinaryPrefixedSize,
 } from "./numbers";
@@ -76,5 +77,21 @@ describe("convertBinaryPrefixToBytes", () => {
   ])("should convert binary prefix $value to $expected bytes", ({ value, expected }) => {
     const bytes = convertBinaryPrefixToBytes(value);
     expect(bytes).toBe(expected);
+  });
+});
+
+describe("formatBytesToString", () => {
+  it.each<{ value: number; expected: string }>([
+    { value: 0, expected: "0B" },
+    { value: 1, expected: "1B" },
+    { value: 1024, expected: "1kB" },
+    { value: 1024 ** 2, expected: "1MB" },
+    { value: 1024 ** 3, expected: "1GB" },
+    { value: 1024 ** 4, expected: "1TB" },
+    { value: 1024 ** 5, expected: "1PB" },
+    { value: 1024 ** 6, expected: "1,024PB" },
+  ])("should convert format bytes $value as $expected", ({ value, expected }) => {
+    const formattedString = formatBytesToString("en", value);
+    expect(formattedString).toBe(expected);
   });
 });
