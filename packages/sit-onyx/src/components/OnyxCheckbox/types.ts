@@ -1,5 +1,4 @@
-import type { Nullable } from "../../composables/useVModel";
-import type { BaseSelectOption, SelectOptionValue } from "../../types";
+import type { BaseSelectOption, Nullable, SelectOptionValue } from "../../types";
 
 export type OnyxCheckboxProps<TValue extends SelectOptionValue = SelectOptionValue> =
   BaseSelectOption<TValue> & {

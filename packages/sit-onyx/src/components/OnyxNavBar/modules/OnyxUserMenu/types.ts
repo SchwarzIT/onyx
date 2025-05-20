@@ -1,4 +1,4 @@
-import type { Nullable } from "../../../../composables/useVModel";
+import type { Nullable } from "../../../../types";
 import type { OnyxAvatarProps } from "../../../OnyxAvatar/types";
 
 export type OnyxUserMenuProps = {

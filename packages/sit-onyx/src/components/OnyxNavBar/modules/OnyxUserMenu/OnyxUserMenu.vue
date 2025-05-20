@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { computed, inject } from "vue";
-import { useVModel, type Nullable } from "../../../../composables/useVModel";
+import { useVModel } from "../../../../composables/useVModel";
+import type { Nullable } from "../../../../types";
 import OnyxAvatar from "../../../OnyxAvatar/OnyxAvatar.vue";
 import { MOBILE_NAV_BAR_INJECTION_KEY } from "../../types";
 import type { OnyxUserMenuProps } from "./types";

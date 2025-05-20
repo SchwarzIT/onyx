@@ -1,7 +1,7 @@
 import type { SkeletonInjected } from "src/composables/useSkeletonState";
 import type { InjectionKey, Ref } from "vue";
 import type { DensityProp } from "../../composables/density";
-import type { Nullable } from "../../composables/useVModel";
+import type { Nullable } from "../../types";
 
 export type OnyxAccordionProps<TValue extends PropertyKey> = DensityProp & {
   /**

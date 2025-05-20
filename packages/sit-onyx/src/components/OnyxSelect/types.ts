@@ -1,6 +1,5 @@
 import type { DensityProp } from "../../composables/density";
-import type { Nullable } from "../../composables/useVModel";
-import type { AutofocusProp, BaseSelectOption, SelectOptionValue } from "../../types";
+import type { AutofocusProp, BaseSelectOption, Nullable, SelectOptionValue } from "../../types";
 import type { FormInjected } from "../OnyxForm/OnyxForm.core";
 import type { OnyxSelectInputProps } from "../OnyxSelectInput/types";
 import type { OnyxSelectOptionProps } from "../OnyxSelectOption/types";

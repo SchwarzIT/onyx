@@ -60,7 +60,7 @@ const tab = computed(() =>
   </button>
 
   <!-- The <Teleport> is used because we want to offer a nice API for the user
-       so he can provide both tab and the panel content in one "OnyxTab" component.
+       so they can provide both tab and the panel content in one "OnyxTab" component.
        However, for the accessibility pattern (see https://www.w3.org/WAI/ARIA/apg/patterns/tabs/),
        we need a separated HTML structure where the tab and the panel must not be nested.
        The <Teleport> will allow us to achieve this by moving the panel content to the `OnyxTabs` component.

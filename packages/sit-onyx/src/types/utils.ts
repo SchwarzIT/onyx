@@ -59,3 +59,8 @@ export type IfNotEmpty<T, Else = never> = T extends Record<PropertyKey, never> ?
  * Simple "Native"/"Primitive" JavaScript types, that do not wrap other types.
  */
 export type PrimitiveType = null | number | string | boolean | symbol;
+
+/**
+ * A type that can also be null or undefined.
+ */
+export type Nullable<T = never> = T | undefined | null;

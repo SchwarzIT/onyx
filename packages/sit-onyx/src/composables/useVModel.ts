@@ -1,6 +1,6 @@
 import { computed, ref, toRef, watch, type Ref } from "vue";
-import type { PrimitiveType } from "../types";
-export type Nullable<T> = T | undefined | null;
+import type { Nullable, PrimitiveType } from "../types";
+
 export type UseVModelOptions<
   TKey extends keyof TProps & string,
   TProps extends object,
@@ -14,6 +14,7 @@ export type UseVModelOptions<
   default?: TDefaultValue;
 };
 
+// region docs
 /**
  * Composable for managing the v-model behavior of a prop.
  * It's behavior differs from the `defineModel` behavior, in that it will always prefer the bound value over the internal state.
@@ -23,6 +24,21 @@ export type UseVModelOptions<
  * Therefore for `null` or `undefined` values, the internal state or default value will always be used.
  *
  * For default values with non-primitive types, it's required to use a factory function that returns the default value to avoid mutating the former value.
+ * 
+ * @example ```typescript
+ *    const props = defineProps<{
+ *        modelValue?: string;
+ *    }>();
+ *
+ *    const emit = defineEmits<{ "update:modelValue": [string] }>();
+ *
+ *    const modelValue = useVModel({
+ *      props,
+ *      emit,
+ *      key: "modelValue",
+ *      default: "",
+ *    });
+```
  */
 export const useVModel = <
   TValue extends TProps[TKey],
@@ -37,6 +53,7 @@ export const useVModel = <
 >(
   options: UseVModelOptions<TKey, TProps, TValue, TEmit, TDefaultValue>,
 ) => {
+  // endregion docs
   const prop = toRef(options.props, options.key) as Ref<TValue>;
 
   const getDefault = () =>

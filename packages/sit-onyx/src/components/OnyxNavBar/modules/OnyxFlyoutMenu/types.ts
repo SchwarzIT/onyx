@@ -1,5 +1,5 @@
 import type { OnyxFlyoutProps } from "../../../../components/OnyxFlyout/types";
-import type { Nullable } from "../../../../composables/useVModel";
+import type { Nullable } from "../../../../types";
 
 export type OnyxFlyoutMenuProps = Pick<OnyxFlyoutProps, "alignment"> & {
   /**

@@ -204,7 +204,7 @@ export const WithContextArea = {
 
 /**
  * This example shows a nav bar with a timer inside the context area that can e.g.
- * be used to indicate to the user that he will be automatically logged out after a given time.
+ * be used to indicate to the user that they will be automatically logged out after a given time.
  */
 export const WithLogoutTimer = {
   args: {
