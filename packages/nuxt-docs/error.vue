@@ -7,15 +7,17 @@ const props = defineProps<{
 }>();
 
 const handleError = () => clearError({ redirect: "/" });
+
+const headlineId = useId();
 </script>
 
 <template>
   <App>
     <div class="error">
-      <ErrorSVG :title="props.error.message" />
+      <OnyxErrorSVG class="error__image" :aria-labelledby="headlineId" />
 
       <div class="error__headline">
-        <OnyxHeadline is="h1">{{ props.error.message }}</OnyxHeadline>
+        <OnyxHeadline is="h1" :id="headlineId">{{ props.error.message }}</OnyxHeadline>
         <OnyxButton label="Back to home" @click="handleError" />
       </div>
 
