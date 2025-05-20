@@ -2,6 +2,7 @@
 import { computed } from "vue";
 import { useDensity } from "../../composables/density";
 import { injectI18n } from "../../i18n";
+import { convertBinaryPrefixToBytes, type BinaryPrefixedSize } from "../../utils/numbers";
 import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import type { OnyxFileUploadProps } from "./types";
 
@@ -52,6 +53,11 @@ const sizeFormatterOptions: Intl.NumberFormatOptions = {
   unit: "byte",
   unitDisplay: "narrow",
 };
+
+const getSizeInBytes = (size: number | BinaryPrefixedSize) => {
+  if (typeof size === "number") return size;
+  return convertBinaryPrefixToBytes(size);
+};
 </script>
 
 <template>
@@ -66,7 +72,9 @@ const sizeFormatterOptions: Intl.NumberFormatOptions = {
       </p>
 
       <p v-if="props.maxSize" class="onyx-file-upload__text onyx-text--small">
-        {{ t("fileUpload.maxSize", { size: n(props.maxSize, sizeFormatterOptions) }) }}
+        {{
+          t("fileUpload.maxSize", { size: n(getSizeInBytes(props.maxSize), sizeFormatterOptions) })
+        }}
       </p>
 
       <p v-if="props.multiple && props.maxCount" class="onyx-file-upload__text onyx-text--small">
@@ -86,6 +94,7 @@ const sizeFormatterOptions: Intl.NumberFormatOptions = {
         :accept="props.accept.length ? props.accept.join(',') : undefined"
         :multiple="props.multiple"
         :disabled="props.disabled"
+        :name="props.name"
         @change="handleChange"
       />
     </OnyxVisuallyHidden>
