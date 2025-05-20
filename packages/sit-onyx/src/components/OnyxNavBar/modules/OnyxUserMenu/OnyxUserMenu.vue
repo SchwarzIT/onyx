@@ -55,6 +55,7 @@ const isMobile = inject(
     class="onyx-component onyx-user-menu"
     :class="{ 'onyx-user-menu--mobile': isMobile }"
     :is-mobile="isMobile"
+    :disabled="disabled"
   >
     <template #button="{ trigger }">
       <button class="onyx-user-menu__trigger onyx-text" type="button" v-bind="trigger">
@@ -127,7 +128,14 @@ const isMobile = inject(
       margin-left: auto;
       font-weight: 600;
 
+      &:disabled {
+        color: var(--onyx-color-text-icons-neutral-soft);
+      }
       &:hover {
+        &:disabled {
+          background-color: var(--onyx-color-base-background-blank);
+          outline: 0;
+        }
         background-color: var(--onyx-color-base-neutral-200);
       }
 

@@ -17,6 +17,10 @@ const props = withDefaults(
      * Controls whether the flyout menu is open.
      */
     flyoutOpen?: Nullable<boolean>;
+    /**
+     * Whether the flyout is disabled and can not be opened.
+     */
+    disabled?: boolean;
   }>(),
   // eslint-disable-next-line vue/no-boolean-default -- to support 'useVModel' we need to know if a value was set or not
   { flyoutOpen: undefined },
@@ -72,6 +76,7 @@ const { t } = injectI18n();
         v-model:open="flyoutOpen"
         :label="t('navigation.userMenuLabel')"
         alignment="right"
+        :disabled="disabled"
       >
         <template #button="{ trigger }">
           <slot name="button" :trigger="trigger"></slot>

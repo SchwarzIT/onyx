@@ -30,12 +30,13 @@ defineSlots<{
       class="onyx-mobile-nav-button__trigger"
       :class="{ 'onyx-mobile-nav-button__trigger--active': props.open }"
       :aria-label="props.label"
+      :disabled="props.disabled"
       @click="emit('update:open', !props.open)"
     >
       <OnyxIcon :icon="props.open ? x : props.icon" />
     </button>
 
-    <template v-if="props.open">
+    <template v-if="!props.disabled && props.open">
       <div class="onyx-mobile-nav-button__flyout">
         <div class="onyx-mobile-nav-button__menu">
           <OnyxHeadline is="h2" v-if="props.headline" class="onyx-mobile-nav-button__headline">
@@ -74,7 +75,7 @@ defineSlots<{
         border: none;
       }
 
-      &:hover:not(&--active) {
+      &:hover:not(&--active):not(&:disabled) {
         background-color: var(--onyx-color-base-background-tinted);
       }
 
@@ -87,6 +88,13 @@ defineSlots<{
       &--active {
         background-color: var(--onyx-color-base-primary-100);
         color: var(--onyx-color-text-icons-primary-intense);
+      }
+
+      &:disabled {
+        cursor: default;
+
+        background-color: var(--onyx-color-base-background-blank);
+        color: var(--onyx-color-text-icons-neutral-soft);
       }
     }
 
@@ -114,7 +122,6 @@ defineSlots<{
       left: 0;
       z-index: var(--onyx-z-index-navigation);
     }
-
     &__backdrop {
       content: "";
       background-color: var(--onyx-color-component-opacity-backdrop);

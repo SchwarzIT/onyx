@@ -59,6 +59,7 @@ const {
   isExpanded: computed(() => !!isExpanded.value),
   onToggle: () => (isExpanded.value = !isExpanded.value),
   trigger: computed(() => props.trigger),
+  disabled: computed(() => props.disabled),
 });
 </script>
 
@@ -69,6 +70,7 @@ const {
     :open="isExpanded"
     :label="props.label"
     :alignment="props.alignment"
+    :disabled="disabled"
   >
     <template v-if="slots.options || slots.header || slots.footer" #default>
       <slot name="button" :trigger="button"></slot>

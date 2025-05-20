@@ -30,6 +30,7 @@ const isExpanded = ref(true);
     :open="props.open ? isExpanded : undefined"
     :alignment="props.alignment"
     :position="props.position"
+    :disabled="props.disabled"
   >
     <template #default="{ trigger }">
       <OnyxButton v-bind="trigger" label="button" type="button"> Open</OnyxButton>

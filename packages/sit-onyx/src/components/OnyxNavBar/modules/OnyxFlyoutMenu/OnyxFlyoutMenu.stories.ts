@@ -42,7 +42,13 @@ export const Default = {
   args: {
     label: "Choose application language",
     button: ({ trigger }) => [
-      h(OnyxButton, { label: "English", mode: "plain", color: "neutral", icon: globe, ...trigger }),
+      h(OnyxButton, {
+        label: "English",
+        mode: "plain",
+        color: "neutral",
+        icon: globe,
+        ...trigger,
+      }),
     ],
     options: () => [
       h(OnyxMenuItem, { active: true }, () => "English"),

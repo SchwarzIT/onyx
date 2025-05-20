@@ -1,5 +1,6 @@
 import { menuButtonTesting } from "@sit-onyx/headless/playwright";
 import { expect, test } from "../../../../playwright/a11y";
+import { executeMatrixScreenshotTest } from "../../../../playwright/screenshots";
 import TestWrapperCt from "./TestWrapper.ct.vue";
 import TestWrapperManyCt from "./TestWrapperMany.ct.vue";
 
@@ -137,4 +138,19 @@ test("should display correctly and allow scrolling for many options", async ({ p
   await expect(footer).toBeInViewport();
   await expect(header).toBeInViewport();
   await expect(menu).toHaveScreenshot("flyout-menu-scrolled-many.png");
+});
+
+test.describe("Disabled Screenshot tests", () => {
+  executeMatrixScreenshotTest({
+    name: "Disabled Flyout",
+    columns: ["default", "disabled"],
+    rows: ["default"],
+    component: (column, _row) => {
+      return (
+        <div class="container" style={{ margin: "0 8rem 12rem 0" }}>
+          <TestWrapperCt label="test" open={true} disabled={column === "disabled"} />
+        </div>
+      );
+    },
+  });
 });

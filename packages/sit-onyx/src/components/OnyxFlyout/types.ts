@@ -24,4 +24,8 @@ export type OnyxFlyoutProps = {
    * If `true`, the flyout will match the width of the parent/slot element.
    */
   fitParent?: boolean;
+  /**
+   * Whether the flyout is disabled and can not be opened.
+   */
+  disabled?: boolean;
 };

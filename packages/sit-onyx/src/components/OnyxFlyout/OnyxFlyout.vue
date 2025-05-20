@@ -34,13 +34,13 @@ defineSlots<{
   /**
    * Content shown in the flyout when it is expanded.
    */
-  content: unknown;
+  content(): unknown;
 }>();
 
 const _isVisible = ref(false);
 const isVisible = computed({
   set: (newVal) => (_isVisible.value = newVal),
-  get: () => (typeof props.open === "boolean" ? props.open : _isVisible.value),
+  get: () => (typeof props.open === "boolean" && !props.disabled ? props.open : _isVisible.value),
 });
 
 const flyoutPosition = computed(() =>
@@ -49,6 +49,7 @@ const flyoutPosition = computed(() =>
 const flyoutAlignment = computed(() =>
   props.alignment === "auto" ? openAlignment.value : props.alignment,
 );
+const disabled = computed(() => props.disabled);
 
 const positionAndAlignment = computed(() => {
   let returnPosition = flyoutPosition.value;
@@ -126,6 +127,7 @@ const trigger = computed(() => ({
   onClick: toggle,
   "aria-expanded": isVisible.value,
   "aria-controls": flyoutRef.value?.id,
+  disabled: disabled.value,
 }));
 
 const id = useId();
@@ -136,10 +138,15 @@ const flyoutClasses = computed(() => {
     [`onyx-flyout__dialog--position-${flyoutPosition.value.replace(" ", "-")}`]: true,
     [`onyx-flyout__dialog--alignment-${flyoutAlignment.value}`]: true,
     "onyx-flyout__dialog--fitparent": props.fitParent,
+    "onyx-flyout__dialog--disabled": disabled.value,
     "onyx-flyout__dialog--dont-support-anchor": !USERAGENT_SUPPORTS_ANCHOR_API,
   };
 });
-
+watch([disabled], () => {
+  if (disabled.value) {
+    _isVisible.value = false;
+  }
+});
 watch([flyoutPosition, flyoutAlignment, flyoutWidth], async () => {
   if (!USERAGENT_SUPPORTS_ANCHOR_API) {
     await nextTick();
