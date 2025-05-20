@@ -13,6 +13,7 @@ const props = defineProps<OnyxFileUploadSVGProps>();
     viewBox="0 0 50 64"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
   >
     <path
       d="M8 0.5H34.793L43.5 9.20703V50C43.5 54.1421 40.1421 57.5 36 57.5H8C3.85786 57.5 0.5 54.1421 0.5 50V8C0.500001 3.85786 3.85787 0.5 8 0.5Z"

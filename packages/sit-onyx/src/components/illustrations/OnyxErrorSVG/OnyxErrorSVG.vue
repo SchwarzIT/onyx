@@ -4,6 +4,7 @@
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 1119.60911 699"
     xmlns:xlink="http://www.w3.org/1999/xlink"
+    aria-hidden="true"
   >
     <circle cx="292.60911" cy="213" r="213" fill="var(--onyx-error-svg-background-color-circle)" />
     <path
