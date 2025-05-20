@@ -20,7 +20,7 @@ defineSlots<{
     <template #options>
       <OnyxMenuItem active>English</OnyxMenuItem>
       <OnyxMenuItem>German</OnyxMenuItem>
-      <OnyxMenuItem x>Spanish</OnyxMenuItem>
+      <OnyxMenuItem>Spanish</OnyxMenuItem>
       <OnyxColorSchemeMenuItem model-value="auto" />
     </template>
   </OnyxFlyoutMenu>

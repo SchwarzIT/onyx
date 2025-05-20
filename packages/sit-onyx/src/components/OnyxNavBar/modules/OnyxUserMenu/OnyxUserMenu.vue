@@ -59,7 +59,7 @@ const isMobile = inject(
   >
     <template #button="{ trigger }">
       <button class="onyx-user-menu__trigger onyx-text" type="button" v-bind="trigger">
-        <OnyxAvatar v-bind="avatar" size="24px" :disabled />
+        <OnyxAvatar v-bind="avatar" size="24px" />
         <span class="onyx-truncation-ellipsis"> {{ props.fullName }}</span>
       </button>
     </template>

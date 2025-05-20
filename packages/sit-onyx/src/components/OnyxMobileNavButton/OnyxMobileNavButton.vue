@@ -36,7 +36,7 @@ defineSlots<{
       <OnyxIcon :icon="props.open ? x : props.icon" />
     </button>
 
-    <template v-if="props.open">
+    <template v-if="!props.disabled && props.open">
       <div
         class="onyx-mobile-nav-button__flyout"
         :class="{ 'onyx-mobile-nav-button__flyout--disabled': props.disabled }"
@@ -52,7 +52,7 @@ defineSlots<{
       <div
         class="onyx-mobile-nav-button__backdrop"
         role="presentation"
-        @click="!props.disabled ? emit('update:open', false) : null"
+        @click="emit('update:open', false)"
       ></div
     ></template>
   </div>
@@ -124,13 +124,7 @@ defineSlots<{
       top: var(--top-position);
       left: 0;
       z-index: var(--onyx-z-index-navigation);
-
-      &--disabled {
-        background-color: var(--onyx-color-base-background-blank);
-        color: var(--onyx-color-text-icons-neutral-soft);
-      }
     }
-
     &__backdrop {
       content: "";
       background-color: var(--onyx-color-component-opacity-backdrop);
