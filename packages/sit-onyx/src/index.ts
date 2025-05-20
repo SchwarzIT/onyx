@@ -181,6 +181,9 @@ export * from "./components/OnyxTabs/types";
 export { default as OnyxTag } from "./components/OnyxTag/OnyxTag.vue";
 export * from "./components/OnyxTag/types";
 
+export { default as OnyxFileUpload } from "./components/OnyxFileUpload/OnyxFileUpload.vue";
+export * from "./components/OnyxFileUpload/types";
+
 export { default as OnyxFilterTag } from "./components/OnyxFilterTag/OnyxFilterTag.vue";
 
 export { default as OnyxFlyout } from "./components/OnyxFlyout/OnyxFlyout.vue";
