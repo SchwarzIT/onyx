@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.224
+
+### Minor Changes
+
+- 535ecef: feat: add OnyxErrorSVG and OnyxFileUploadSVG illustrations
+
 ## 1.0.0-beta.223
 
 ### Minor Changes
