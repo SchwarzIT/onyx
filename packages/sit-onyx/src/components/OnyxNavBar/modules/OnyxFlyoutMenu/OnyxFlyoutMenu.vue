@@ -2,8 +2,8 @@
 import { createMenuButton } from "@sit-onyx/headless";
 import { computed } from "vue";
 import OnyxFlyout from "../../../../components/OnyxFlyout/OnyxFlyout.vue";
-import { useVModel, type Nullable } from "../../../../composables/useVModel";
-import type { SelectOptionValue } from "../../../../types";
+import { useVModel } from "../../../../composables/useVModel";
+import type { Nullable, SelectOptionValue } from "../../../../types";
 import type { OnyxFlyoutMenuProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxFlyoutMenuProps>(), {
@@ -26,7 +26,7 @@ const isExpanded = useVModel({
   props,
   emit,
   key: "open",
-  initialValue: false,
+  default: false,
 });
 
 const slots = defineSlots<{

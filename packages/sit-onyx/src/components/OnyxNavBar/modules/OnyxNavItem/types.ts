@@ -1,4 +1,4 @@
-import type { Nullable } from "../../../../composables/useVModel";
+import type { Nullable } from "../../../../types";
 import type { WithLinkProp } from "../../../OnyxRouterLink/types";
 
 export type OnyxNavItemProps = WithLinkProp<true> & {

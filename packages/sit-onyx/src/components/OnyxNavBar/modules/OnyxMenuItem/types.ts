@@ -1,5 +1,4 @@
-import type { Nullable } from "../../../../composables/useVModel";
-import type { OnyxColor } from "../../../../types";
+import type { Nullable, OnyxColor } from "../../../../types";
 import type { WithLinkProp } from "../../../OnyxRouterLink/types";
 
 export type OnyxMenuItemProps = WithLinkProp & {

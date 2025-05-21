@@ -6,7 +6,8 @@ import { getFormMessages, useCustomValidity } from "../../composables/useCustomV
 import { useErrorClass } from "../../composables/useErrorClass";
 import { useLenientMaxLengthValidation } from "../../composables/useLenientMaxLengthValidation";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
-import { useVModel, type Nullable } from "../../composables/useVModel";
+import { useVModel } from "../../composables/useVModel";
+import type { Nullable } from "../../types";
 import { useRootAttrs } from "../../utils/attrs";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
@@ -42,7 +43,7 @@ const modelValue = useVModel({
   props,
   emit,
   key: "modelValue",
-  initialValue: "",
+  default: "",
 });
 
 defineOptions({ inheritAttrs: false });

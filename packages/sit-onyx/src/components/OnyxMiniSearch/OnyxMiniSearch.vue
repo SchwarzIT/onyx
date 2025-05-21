@@ -4,8 +4,9 @@ import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { computed, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density";
 import { useAutofocus } from "../../composables/useAutoFocus";
-import { useVModel, type Nullable } from "../../composables/useVModel";
+import { useVModel } from "../../composables/useVModel";
 import { injectI18n } from "../../i18n";
+import type { Nullable } from "../../types";
 import { useRootAttrs } from "../../utils/attrs";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxMiniSearchProps } from "./types";
@@ -32,7 +33,7 @@ const modelValue = useVModel({
   props,
   emit,
   key: "modelValue",
-  initialValue: "",
+  default: "",
 });
 
 const { rootAttrs, restAttrs } = useRootAttrs();

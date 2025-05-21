@@ -3,9 +3,9 @@ import { computed, useTemplateRef } from "vue";
 import { useCheckAll } from "../../composables/checkAll";
 import { useDensity } from "../../composables/density";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
-import { useVModel, type Nullable } from "../../composables/useVModel";
+import { useVModel } from "../../composables/useVModel";
 import { injectI18n } from "../../i18n";
-import type { SelectOptionValue } from "../../types";
+import type { Nullable, SelectOptionValue } from "../../types";
 import OnyxCheckbox from "../OnyxCheckbox/OnyxCheckbox.vue";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
@@ -35,8 +35,9 @@ const modelValue = useVModel({
   props,
   emit,
   key: "modelValue",
-  initialValue: [],
+  default: () => [],
 });
+
 const handleUpdate = (value: TValue, isChecked: boolean) => {
   modelValue.value = isChecked
     ? [...modelValue.value, value]

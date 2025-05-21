@@ -39,11 +39,11 @@ const emit = defineEmits<{
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
 
-const isChecked = useVModel<"modelValue", Props, boolean, false>({
+const isChecked = useVModel<boolean, "modelValue", Props, false>({
   props,
   emit,
   key: "modelValue",
-  initialValue: false,
+  default: false,
 });
 
 const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });

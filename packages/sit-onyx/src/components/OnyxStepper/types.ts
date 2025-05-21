@@ -1,5 +1,5 @@
 import type { Autocomplete } from "../../composables/useLenientMaxLengthValidation";
-import type { Nullable } from "../../composables/useVModel";
+import type { Nullable } from "../../types";
 import type { SharedFormElementProps } from "../OnyxFormElement/types";
 
 export type OnyxStepperProps = Omit<

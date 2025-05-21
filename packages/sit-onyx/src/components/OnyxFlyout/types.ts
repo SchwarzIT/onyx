@@ -1,6 +1,6 @@
 import type { AnchorPosition } from "../../composables/useAnchorPositionPolyfill";
 import type { OpenAlignment } from "../../composables/useOpenAlignment";
-import type { Nullable } from "../../composables/useVModel";
+import type { Nullable } from "../../types";
 
 export type OnyxFlyoutProps = {
   /**

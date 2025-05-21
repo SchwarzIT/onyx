@@ -1,7 +1,8 @@
 <script lang="ts" setup generic="T">
 import { computed, useId } from "vue";
 import { useRequired } from "../../composables/required";
-import { useVModel, type Nullable } from "../../composables/useVModel";
+import { useVModel } from "../../composables/useVModel";
+import type { Nullable } from "../../types";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxInfoTooltip from "../OnyxInfoTooltip/OnyxInfoTooltip.vue";
 import FormMessage from "./FormMessage.vue";

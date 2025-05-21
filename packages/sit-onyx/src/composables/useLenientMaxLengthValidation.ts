@@ -1,7 +1,7 @@
 import { computed, toValue, type MaybeRefOrGetter } from "vue";
 import { injectI18n } from "../i18n";
+import type { Nullable } from "../types";
 import type { FormMessages } from "./useCustomValidity";
-import type { Nullable } from "./useVModel";
 
 /**
  * @see [MDN autocapitalize](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autocapitalize)

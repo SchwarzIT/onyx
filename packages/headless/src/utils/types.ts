@@ -30,4 +30,4 @@ export type Arrayable<T> = T | Array<T>;
 /**
  * Either the actual value or a nullish one.
  */
-export type Nullable<T> = T | null | undefined;
+export type Nullable<T = never> = T | null | undefined;

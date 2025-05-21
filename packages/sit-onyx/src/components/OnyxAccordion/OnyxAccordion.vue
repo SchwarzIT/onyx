@@ -2,7 +2,8 @@
 import { provide, ref, toRef, toRefs, watch, watchEffect, type Ref } from "vue";
 import { useDensity } from "../../composables/density";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
-import { useVModel, type Nullable } from "../../composables/useVModel";
+import { useVModel } from "../../composables/useVModel";
+import type { Nullable } from "../../types";
 import {
   ACCORDION_INJECTION_KEY,
   type AccordionInjectionKey,
@@ -41,7 +42,7 @@ const openItems = useVModel({
   props,
   emit,
   key: "modelValue",
-  initialValue: [] as TValue[],
+  default: () => [] as TValue[],
 });
 
 const { disabled, exclusive } = toRefs(props);

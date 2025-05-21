@@ -5,8 +5,7 @@ import type {
   TdHTMLAttributes,
   ThHTMLAttributes,
 } from "vue";
-import type { Nullable } from "../../../composables/useVModel";
-import type { WithHTMLAttributes } from "../../../types";
+import type { Nullable, WithHTMLAttributes } from "../../../types";
 import type { OnyxTableProps } from "../../OnyxTable/types";
 import type { DataGridEntry } from "../types";
 

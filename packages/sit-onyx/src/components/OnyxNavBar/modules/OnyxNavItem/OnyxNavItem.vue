@@ -3,8 +3,9 @@ import arrowSmallLeft from "@sit-onyx/icons/arrow-small-left.svg?raw";
 import { computed, inject, provide, toRef } from "vue";
 import { useLink } from "../../../../composables/useLink";
 import { useMoreListChild } from "../../../../composables/useMoreList";
-import { useVModel, type Nullable } from "../../../../composables/useVModel";
+import { useVModel } from "../../../../composables/useVModel";
 import { injectI18n } from "../../../../i18n";
+import type { Nullable } from "../../../../types";
 import { mergeVueProps, useRootAttrs } from "../../../../utils/attrs";
 import OnyxButton from "../../../OnyxButton/OnyxButton.vue";
 import {
@@ -52,7 +53,7 @@ const open = useVModel({
   props,
   emit,
   key: "open",
-  initialValue: false,
+  default: false,
 });
 
 const { restAttrs, rootAttrs } = useRootAttrs();

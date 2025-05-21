@@ -1,5 +1,10 @@
-import type { Nullable } from "../../composables/useVModel";
-import type { AutofocusProp, BaseSelectOption, Direction, SelectOptionValue } from "../../types";
+import type {
+  AutofocusProp,
+  BaseSelectOption,
+  Direction,
+  Nullable,
+  SelectOptionValue,
+} from "../../types";
 import type { SharedFormElementProps } from "../OnyxFormElement/types";
 
 export type OnyxRadioGroupProps<TValue extends SelectOptionValue = SelectOptionValue> = Pick<

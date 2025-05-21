@@ -58,6 +58,7 @@
     "@storybook/addon-a11y": "^8.6.12",
     "@storybook/addon-actions": "^8.6.12",
     "@vue/compiler-dom": "catalog:",
+    "@vue/test-utils": "^2.4.6",
     "axe-core": "^4.10.3",
     "eslint-plugin-vue-scoped-css": "^2.9.0",
     "sass-embedded": "catalog:",

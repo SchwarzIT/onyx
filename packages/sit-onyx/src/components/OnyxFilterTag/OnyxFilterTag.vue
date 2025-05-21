@@ -2,8 +2,9 @@
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { computed } from "vue";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
-import { useVModel, type Nullable } from "../../composables/useVModel";
+import { useVModel } from "../../composables/useVModel";
 import { injectI18n } from "../../i18n";
+import type { Nullable } from "../../types";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
 import type { OnyxTagProps } from "../OnyxTag/types";
 
@@ -32,7 +33,7 @@ const active = useVModel({
   props,
   emit,
   key: "active",
-  initialValue: false,
+  default: false,
 });
 const tooltipLabel = computed(() =>
   active.value

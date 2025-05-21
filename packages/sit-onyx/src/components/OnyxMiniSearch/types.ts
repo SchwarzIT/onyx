@@ -1,5 +1,5 @@
 import type { DensityProp } from "../../composables/density";
-import type { Nullable } from "../../composables/useVModel";
+import type { Nullable } from "../../types";
 
 export type OnyxMiniSearchProps = DensityProp & {
   /**

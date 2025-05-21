@@ -54,3 +54,13 @@ export type IfExtends<T, Extends, Else = never> = T extends Extends ? T : Else;
  * Returns the passed type if not empty, and `Else` type otherwise.
  */
 export type IfNotEmpty<T, Else = never> = T extends Record<PropertyKey, never> ? Else : T;
+
+/**
+ * Simple "Native"/"Primitive" JavaScript types, that do not wrap other types.
+ */
+export type PrimitiveType = null | number | string | boolean | symbol;
+
+/**
+ * A type that can also be null or undefined.
+ */
+export type Nullable<T = never> = T | undefined | null;

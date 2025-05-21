@@ -14,3 +14,14 @@ The only attributes that are not forwarded are `style` and `class` with the assu
 ::: info
 Your use-case is not covered? Head over to our GitHub [discussion page](https://github.com/SchwarzIT/onyx/discussions) to make suggestions or ask questions!
 :::
+
+## State Control
+
+We want to give the user maximum control of component state, which is achieved by providing props with _two-way binding_ support via Vue's [`v-model`](https://vuejs.org/guide/components/v-model.html#basic-usage).
+To not require the developer to declare `ref`s for state they do not care about, the state will be stored internally if left undefined by the user.
+
+Unfortunately the Vue native [`defineModel`](https://vuejs.org/api/sfc-script-setup.html#definemodel) compiler macro behaves not as expected, as it will prefer internal state updates over external, unchanged state (e.g. `<Comp :open="true" />` will not be considered anymore after an `update:open` with value `false`).
+
+Therefore we created a custom composable `useVModel`, which will prefer the external state:
+
+<<< ../../../../../packages/sit-onyx/src/composables/useVModel.ts#docs

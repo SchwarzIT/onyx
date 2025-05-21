@@ -24,9 +24,9 @@ import { useDensity } from "../../composables/density";
 import { useScrollEnd } from "../../composables/scrollEnd";
 import { useOpenDirection } from "../../composables/useOpenDirection";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState";
-import { useVModel, type Nullable } from "../../composables/useVModel";
+import { useVModel } from "../../composables/useVModel";
 import { injectI18n } from "../../i18n";
-import type { SelectOptionValue } from "../../types";
+import type { Nullable, SelectOptionValue } from "../../types";
 import { groupByKey } from "../../utils/objects";
 import { normalizedIncludes } from "../../utils/strings";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
@@ -48,6 +48,7 @@ const props = withDefaults(defineProps<Props>(), {
   showError: FORM_INJECTED_SYMBOL,
   requiredMarker: FORM_INJECTED_SYMBOL,
   disabled: FORM_INJECTED_SYMBOL,
+  modelValue: undefined,
   readonly: false,
   truncation: "ellipsis",
   valueLabel: undefined,
@@ -105,7 +106,7 @@ const { densityClass } = useDensity(props);
 
 /**
  * Value of the currently selected option or an array of values when the `multiple` prop is `true`.
- */ const modelValue = useVModel<"modelValue", Props, TModelValue, TModelValue>({
+ */ const modelValue = useVModel<TModelValue, "modelValue", Props, undefined>({
   props,
   emit,
   key: "modelValue",
@@ -116,21 +117,21 @@ const { densityClass } = useDensity(props);
  *
  * Hint: Cover `valueLabel` to prevent the disappearance of the current selections label
  */
-const searchTerm = useVModel<"searchTerm", Props, string, string>({
+const searchTerm = useVModel<string, "searchTerm", Props, string>({
   props,
   emit,
   key: "searchTerm",
-  initialValue: "",
+  default: "",
 });
 
 /**
  * If true, the select popover is expanded and visible.
  */
-const open = useVModel<"open", Props, boolean, false>({
+const open = useVModel<boolean, "open", Props, false>({
   props,
   emit,
   key: "open",
-  initialValue: false,
+  default: false,
 });
 
 const select = useTemplateRef<HTMLElement>("selectRef");
