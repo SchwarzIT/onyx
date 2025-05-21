@@ -202,8 +202,8 @@
     "label": "Datei | Dateien",
     "clickToUpload": "Klicke zum Auswählen",
     "orDragAndDrop": "oder ziehe eine Datei hier her",
-    "maxSize": "Maximale Dateigröße: {size}",
-    "maxTotalSize": "{size} insgesamt",
+    "maxFileSize": "Maximale Dateigröße",
+    "inTotal": "insgesamt",
     "maxFileCount": "Maximal {n} Dateien auswählbar"
   }
 }
