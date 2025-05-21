@@ -24,10 +24,6 @@ export type OnyxFileUploadProps<TMultiple extends boolean> = DensityProp &
      */
     accept?: FileType[];
     /**
-     * Visual size of the upload area.
-     */
-    size?: UploadSize;
-    /**
      * Max. allowed file size per file.
      * Can be a number in bytes (e.g. 1024 * 1024 * 42) or a [binary prefixed size](https://en.wikipedia.org/wiki/Binary_prefix) (e.g. 42Mi).
      *
@@ -55,9 +51,6 @@ export type OnyxFileUploadProps<TMultiple extends boolean> = DensityProp &
      */
     disabled?: boolean;
   };
-
-export const UPLOAD_SIZES = ["small", "medium", "large"] as const;
-export type UploadSize = (typeof UPLOAD_SIZES)[number];
 
 /**
  * Unique file type specifier.
