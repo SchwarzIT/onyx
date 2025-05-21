@@ -19,7 +19,11 @@ const data: TEntry[] = [
 const columns: ColumnConfig<TEntry>[] = [
   { key: "name", label: "Name" },
   { key: "age", label: "Age", type: "number" },
-  { key: "birthday", label: "Birthday", type: "date" },
+  {
+    key: "birthday",
+    label: "Birthday",
+    type: { name: "date", options: { format: { dateStyle: "full" } } },
+  },
 ];
 </script>
 
