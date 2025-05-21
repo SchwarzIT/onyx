@@ -25,14 +25,14 @@ export type OnyxFileUploadProps<TMultiple extends boolean> = DensityProp &
     accept?: FileType[];
     /**
      * Max. allowed file size per file.
-     * Can be a number in bytes (e.g. 1024 * 1024 * 42) or a [binary prefixed size](https://en.wikipedia.org/wiki/Binary_prefix) (e.g. 42Mi).
+     * Can be a number in bytes (e.g. 1024 \* 1024 \* 42) or a [binary prefixed size](https://en.wikipedia.org/wiki/Binary_prefix) (e.g. 42Mi).
      *
      * To limit the total size when `multiple` is enabled, you can use the `maxTotalSize` property.
      */
     maxSize?: number | BinaryPrefixedSize;
     /**
      * Max. allowed total file size for all files when `multiple` is enabled.
-     * Can be a number in bytes (e.g. 1024 * 1024 * 42) or a [binary prefixed size](https://en.wikipedia.org/wiki/Binary_prefix) (e.g. 42Mi).
+     * Can be a number in bytes (e.g. 1024 \* 1024 \* 42) or a [binary prefixed size](https://en.wikipedia.org/wiki/Binary_prefix) (e.g. 42Mi).
      *
      * To limit the size per-file, you can use the `maxSize` property.
      */
