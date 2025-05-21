@@ -7,6 +7,7 @@ import {
   formatBytesToString,
   type BinaryPrefixedSize,
 } from "../../utils/numbers";
+import { OnyxFileUploadSVG } from "../illustrations";
 import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import type { OnyxFileUploadProps } from "./types";
 
