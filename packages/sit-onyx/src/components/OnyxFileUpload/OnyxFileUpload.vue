@@ -27,7 +27,7 @@ const currentFiles = computed<File[]>(() => {
 });
 
 /**
- * Sets the currently selected files by considering all necessary props (replace, max count etc.).
+ * Sets the currently selected files by considering all relevant props (e.g. replace etc.).
  */
 const setFiles = (files: File[]) => {
   let newFiles: File | File[];
