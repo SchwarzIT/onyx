@@ -12,7 +12,7 @@ const handleError = () => clearError({ redirect: "/" });
 <template>
   <App>
     <div class="error">
-      <ErrorSVG :title="props.error.message" />
+      <OnyxErrorSVG class="error__image" />
 
       <div class="error__headline">
         <OnyxHeadline is="h1">{{ props.error.message }}</OnyxHeadline>
