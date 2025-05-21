@@ -40,6 +40,9 @@ const overrides = [
     title: 'Designer',
     org: "Schwarz IT",
     orgLink: "https://it.schwarz/",
+    links: [
+      { icon: 'github', link: 'https://github.com/flubnau' },
+    ],
   },
   {
     login: "Guergchen",
@@ -48,6 +51,9 @@ const overrides = [
     title: 'Designer',
     org: "Schwarz IT",
     orgLink: "https://it.schwarz/",
+    links: [
+      { icon: 'github', link: 'https://github.com/Guergchen' },
+    ],
   },
   {
     login: "JoCa96",
@@ -76,10 +82,8 @@ const overrides = [
   {
     login: "MajaZarkova",
     name: 'Maja Zarkova',
-    core: true,
-    title: 'Engineer',
-    org: "Schwarz IT",
-    orgLink: "https://it.schwarz/",
+    core: false,
+    desc: "Former Core Member 🫡",
   },
     {
     login: "ChristianBusshoff",
