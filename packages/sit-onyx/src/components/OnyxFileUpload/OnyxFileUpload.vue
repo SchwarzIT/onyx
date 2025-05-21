@@ -1,5 +1,5 @@
 <script lang="ts" setup generic="TMultiple extends boolean">
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useDensity } from "../../composables/density";
 import { injectI18n } from "../../i18n";
 import {
@@ -57,11 +57,37 @@ const formatFileSize = computed(() => {
     return formatBytesToString(locale.value, bytes);
   };
 });
+
+const isDragging = ref(false);
+
+const handleDrop = (event: DragEvent) => {
+  if (props.disabled) return;
+  isDragging.value = false;
+  const files = Array.from(event.dataTransfer?.files ?? []);
+  setFiles(files);
+};
+
+const handleDragEnter = () => {
+  if (props.disabled) return;
+  isDragging.value = true;
+};
 </script>
 
 <template>
-  <label :class="['onyx-component', 'onyx-file-upload', densityClass]">
-    <OnyxFileUploadSVG :disabled="props.disabled" />
+  <!-- eslint-disable-next-line vuejs-accessibility/no-static-element-interactions -- the label is interactive due to the nested input -->
+  <label
+    :class="[
+      'onyx-component',
+      'onyx-file-upload',
+      densityClass,
+      isDragging ? 'onyx-file-upload--dragging' : '',
+    ]"
+    @dragenter="handleDragEnter"
+    @dragleave="isDragging = false"
+    @dragover.prevent
+    @drop.prevent="handleDrop"
+  >
+    <OnyxFileUploadSVG :disabled="props.disabled" :active="isDragging" />
 
     <div class="onyx-file-upload__content">
       <p class="onyx-file-upload__label onyx-text">
@@ -123,6 +149,20 @@ const formatFileSize = computed(() => {
     justify-content: center;
     align-items: center;
     max-width: 100%;
+
+    &--dragging {
+      border-color: var(--onyx-color-component-border-primary-hover);
+      background-color: var(--onyx-color-base-primary-100);
+
+      * {
+        // needed to not emit "dragleave" event when hovering over children (e.g. text)
+        pointer-events: none;
+      }
+
+      .onyx-file-upload__label {
+        color: var(--onyx-color-text-icons-primary-intense);
+      }
+    }
 
     > .onyx-file-upload-svg {
       margin-bottom: var(--onyx-density-md);
