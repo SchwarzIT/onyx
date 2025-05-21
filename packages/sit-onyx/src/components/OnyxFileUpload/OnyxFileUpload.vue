@@ -11,7 +11,6 @@ import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import type { OnyxFileUploadProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxFileUploadProps<TMultiple>>(), {
-  size: "large",
   accept: () => [],
 });
 
@@ -60,9 +59,7 @@ const formatFileSize = computed(() => {
 </script>
 
 <template>
-  <label
-    :class="['onyx-component', 'onyx-file-upload', densityClass, `onyx-file-upload--${props.size}`]"
-  >
+  <label :class="['onyx-component', 'onyx-file-upload', densityClass]">
     <OnyxFileUploadSVG :disabled="props.disabled" />
 
     <div class="onyx-file-upload__content">
