@@ -70,20 +70,18 @@ const formatFileSize = computed(() => {
         <u>{{ t("fileUpload.clickToUpload") }}</u> {{ t("fileUpload.orDragAndDrop") }}.
       </p>
 
-      <p v-if="props.maxSize" class="onyx-file-upload__text onyx-text--small">
-        {{ t("fileUpload.maxSize", { size: formatFileSize(props.maxSize) }) }}
+      <p v-if="props.maxSize || props.maxTotalSize" class="onyx-file-upload__text onyx-text--small">
+        {{ t("fileUpload.maxFileSize") }}:
 
-        <template v-if="props.maxTotalSize">
-          ({{ t("fileUpload.maxTotalSize", { size: formatFileSize(props.maxTotalSize) }) }})
+        <template v-if="props.maxSize && props.maxTotalSize">
+          {{ formatFileSize(props.maxSize) }} ({{ formatFileSize(props.maxTotalSize) }}
+          {{ t("fileUpload.inTotal") }})
         </template>
-      </p>
 
-      <p v-else-if="props.maxTotalSize" class="onyx-file-upload__text onyx-text--small">
-        {{
-          t("fileUpload.maxSize", {
-            size: t("fileUpload.maxTotalSize", { size: formatFileSize(props.maxTotalSize) }),
-          })
-        }}
+        <template v-else-if="props.maxSize"> {{ formatFileSize(props.maxSize) }} </template>
+        <template v-else-if="props.maxTotalSize">
+          {{ formatFileSize(props.maxTotalSize) }} {{ t("fileUpload.inTotal") }}
+        </template>
       </p>
 
       <p v-if="props.multiple && props.maxCount" class="onyx-file-upload__text onyx-text--small">
