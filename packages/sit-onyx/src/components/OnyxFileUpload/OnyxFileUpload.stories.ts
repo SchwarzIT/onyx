@@ -26,3 +26,10 @@ export const Multiple = {
     maxTotalSize: "128Mi",
   },
 } satisfies Story;
+
+export const Disabled = {
+  args: {
+    ...Default.args,
+    disabled: true,
+  },
+} satisfies Story;
