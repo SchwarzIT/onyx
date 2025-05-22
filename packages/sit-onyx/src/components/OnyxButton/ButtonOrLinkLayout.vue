@@ -34,6 +34,7 @@ const linkProps = computed(() =>
     :disabled="disabled || props.loading"
     :type="props.type"
     :autofocus="props.autofocus"
+    tabindex="0"
   >
     <slot></slot>
   </button>

@@ -19,6 +19,7 @@ import { useDensity } from "../../composables/density";
 import {
   useAnchorPositionPolyfill,
   USERAGENT_SUPPORTS_ANCHOR_API,
+  useWebkitPopoverKeyFix,
 } from "../../composables/useAnchorPositionPolyfill";
 import { useOpenAlignment } from "../../composables/useOpenAlignment";
 import { useOpenDirection } from "../../composables/useOpenDirection";
@@ -202,6 +203,8 @@ watch([tooltipWidth, toolTipPosition, alignment, alignsWithEdge], async () => {
 
 const id = useId();
 const anchorName = computed(() => `--anchor-${id}`);
+
+const { popoverKey } = useWebkitPopoverKeyFix(isVisible);
 </script>
 
 <template>
@@ -210,7 +213,9 @@ const anchorName = computed(() => `--anchor-${id}`);
     :class="['onyx-component', 'onyx-tooltip-wrapper', densityClass]"
     :style="`anchor-name: ${anchorName}`"
   >
-    <div
+    <dialog
+      v-if="isVisible"
+      :key="popoverKey"
       ref="tooltipRefEl"
       v-bind="tooltip"
       :class="['onyx-tooltip', 'onyx-text--small', 'onyx-truncation-multiline', tooltipClasses]"
@@ -219,7 +224,7 @@ const anchorName = computed(() => `--anchor-${id}`);
         <OnyxIcon v-if="props.icon" :icon="props.icon" size="16px" />
         <slot name="tooltip">{{ props.text }}</slot>
       </div>
-    </div>
+    </dialog>
 
     <slot :trigger="trigger"></slot>
   </div>
