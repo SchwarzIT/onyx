@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.226
+
+### Patch Changes
+
+- 266c356: fix(OnyxStepper): correctly format 0 when used with precision
+
 ## 1.0.0-beta.225
 
 ### Patch Changes
