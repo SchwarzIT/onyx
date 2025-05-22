@@ -70,7 +70,7 @@ importers:
         specifier: ^8.6.14
         version: 8.6.14(storybook@8.6.14(prettier@3.5.3))(vite@6.3.5(@types/node@22.15.21)(jiti@2.4.2)(sass-embedded@1.89.0)(sass@1.89.0)(stylus@0.57.0)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0))(vue@3.5.14(typescript@5.8.3))
       '@tsconfig/node22':
-        specifier: ^22.0.1
+        specifier: ^22.0.2
         version: 22.0.2
       '@types/eslint':
         specifier: ^9.6.1
@@ -79,13 +79,13 @@ importers:
         specifier: ^21.1.7
         version: 21.1.7
       '@types/node':
-        specifier: ^22.15.19
+        specifier: ^22.15.21
         version: 22.15.21
       '@vitejs/plugin-vue':
         specifier: ^5.2.4
         version: 5.2.4(vite@6.3.5(@types/node@22.15.21)(jiti@2.4.2)(sass-embedded@1.89.0)(sass@1.89.0)(stylus@0.57.0)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0))(vue@3.5.14(typescript@5.8.3))
       '@vitest/coverage-v8':
-        specifier: ^3.1.3
+        specifier: ^3.1.4
         version: 3.1.4(vitest@3.1.4(@types/debug@4.1.12)(@types/node@22.15.21)(jiti@2.4.2)(jsdom@26.1.0)(sass-embedded@1.89.0)(sass@1.89.0)(stylus@0.57.0)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0))
       '@vitest/eslint-plugin':
         specifier: ^1.2.0
@@ -112,7 +112,7 @@ importers:
         specifier: ^10.1.0
         version: 10.1.0(eslint@9.27.0(jiti@2.4.2))(vue-eslint-parser@10.1.3(eslint@9.27.0(jiti@2.4.2)))
       eslint-plugin-vue-scoped-css:
-        specifier: ^2.9.0
+        specifier: ^2.10.0
         version: 2.10.0(eslint@9.27.0(jiti@2.4.2))(vue-eslint-parser@10.1.3(eslint@9.27.0(jiti@2.4.2)))
       eslint-plugin-vuejs-accessibility:
         specifier: ^2.4.1
@@ -160,7 +160,7 @@ importers:
         specifier: 6.3.5
         version: 6.3.5(@types/node@22.15.21)(jiti@2.4.2)(sass-embedded@1.89.0)(sass@1.89.0)(stylus@0.57.0)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0)
       vitest:
-        specifier: ^3.1.3
+        specifier: ^3.1.4
         version: 3.1.4(@types/debug@4.1.12)(@types/node@22.15.21)(jiti@2.4.2)(jsdom@26.1.0)(sass-embedded@1.89.0)(sass@1.89.0)(stylus@0.57.0)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0)
       vue-tsc:
         specifier: ^2.2.10
@@ -357,13 +357,13 @@ importers:
         specifier: ^2.4.1
         version: 2.4.1(vite@6.3.5(@types/node@22.15.21)(jiti@2.4.2)(sass-embedded@1.89.0)(sass@1.89.0)(stylus@0.57.0)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0))(vue@3.5.14(typescript@5.8.3))
       '@nuxt/kit':
-        specifier: ^3.17.3
+        specifier: ^3.17.4
         version: 3.17.4(magicast@0.3.5)
       '@nuxt/module-builder':
         specifier: ^1.0.1
         version: 1.0.1(@nuxt/cli@3.25.1(magicast@0.3.5))(@vue/compiler-core@3.5.14)(esbuild@0.25.4)(sass@1.89.0)(typescript@5.8.3)(vue-tsc@2.2.10(typescript@5.8.3))(vue@3.5.14(typescript@5.8.3))
       '@nuxt/schema':
-        specifier: ^3.17.3
+        specifier: ^3.17.4
         version: 3.17.4
       '@nuxt/test-utils':
         specifier: ^3.19.0
@@ -372,7 +372,7 @@ importers:
         specifier: ^9.5.4
         version: 9.5.4(@vue/compiler-dom@3.5.14)(eslint@9.27.0(jiti@2.4.2))(magicast@0.3.5)(rollup@4.41.0)(vue@3.5.14(typescript@5.8.3))
       nuxt:
-        specifier: ^3.17.3
+        specifier: ^3.17.4
         version: 3.17.4(@parcel/watcher@2.5.1)(@types/node@22.15.21)(better-sqlite3@11.10.0)(db0@0.3.2(better-sqlite3@11.10.0))(encoding@0.1.13)(eslint@9.27.0(jiti@2.4.2))(ioredis@5.6.1)(magicast@0.3.5)(meow@13.2.0)(optionator@0.9.4)(rollup@4.41.0)(sass-embedded@1.89.0)(sass@1.89.0)(stylelint@16.19.1(typescript@5.8.3))(stylus@0.57.0)(terser@5.39.2)(tsx@4.19.4)(typescript@5.8.3)(vite@6.3.5(@types/node@22.15.21)(jiti@2.4.2)(sass-embedded@1.89.0)(sass@1.89.0)(stylus@0.57.0)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0))(vue-tsc@2.2.10(typescript@5.8.3))(yaml@2.8.0)
       sit-onyx:
         specifier: workspace:^
@@ -414,7 +414,7 @@ importers:
         specifier: workspace:^
         version: link:../shared
       nuxt:
-        specifier: ^3.17.3
+        specifier: ^3.17.4
         version: 3.17.4(@parcel/watcher@2.5.1)(@types/node@22.15.21)(better-sqlite3@11.10.0)(db0@0.3.2(better-sqlite3@11.10.0))(encoding@0.1.13)(eslint@9.27.0(jiti@2.4.2))(ioredis@5.6.1)(magicast@0.3.5)(meow@13.2.0)(optionator@0.9.4)(rollup@4.41.0)(sass-embedded@1.89.0)(sass@1.89.0)(stylelint@16.19.1(typescript@5.8.3))(stylus@0.57.0)(terser@5.39.2)(tsx@4.19.4)(typescript@5.8.3)(vite@6.3.5(@types/node@22.15.21)(jiti@2.4.2)(sass-embedded@1.89.0)(sass@1.89.0)(stylus@0.57.0)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0))(vue-tsc@2.2.10(typescript@5.8.3))(yaml@2.8.0)
       sass-embedded:
         specifier: 1.89.0
