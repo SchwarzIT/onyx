@@ -4,7 +4,7 @@ import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import menu from "@sit-onyx/icons/menu.svg?raw";
 import moreVertical from "@sit-onyx/icons/more-vertical.svg?raw";
 import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
-import { computed, provide, ref, toRef, useId, useTemplateRef, watch } from "vue";
+import { computed, provide, ref, toRef, useTemplateRef, watch } from "vue";
 import { useLink } from "../../composables/useLink";
 import { useResizeObserver } from "../../composables/useResizeObserver";
 import { injectI18n } from "../../i18n";
@@ -84,9 +84,9 @@ const actualIsMobile = computed(() => {
   return props.mobile;
 });
 
-const moreListTargetId = useId();
+const moreListTarget = useTemplateRef("moreListRef");
 provide(MOBILE_NAV_BAR_INJECTION_KEY, actualIsMobile);
-provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, `#${moreListTargetId}`);
+provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, moreListTarget);
 
 const closeMobileMenus = () => {
   isBurgerOpen.value = false;
@@ -182,7 +182,7 @@ defineExpose({
                 </template>
 
                 <template #options>
-                  <div :id="moreListTargetId"></div>
+                  <div ref="moreListRef"></div>
                 </template>
               </OnyxFlyoutMenu>
             </template>
