@@ -454,13 +454,15 @@ test("should display More Items correctly", async ({ mount, page }) => {
 });
 
 test("should work with async nav items", async ({ mount, page }) => {
-  await page.setViewportSize({ width: ONYX_BREAKPOINTS.sm, height: 400 });
-
+  // ARRANGE
+  await page.setViewportSize({ width: ONYX_BREAKPOINTS.sm, height: 400 }); // set small viewport, so that the last element ends up in the more menu
   const component = await mount(AsyncTestCase);
-
   await expect(component.getByRole("menuitem").count()).resolves.toBe(0);
+
+  // ACT
   await component.getByRole("button", { name: "Load Async" }).click();
 
+  // ASSERT
   const menuItemButton = component.getByRole("menuitem", { name: "MenuItem Button" });
   await expect(menuItemButton).toBeVisible();
 
