@@ -197,3 +197,24 @@ test("should replace files", async ({ mount }) => {
   // ASSERT
   await expect(() => expect(files).toHaveLength(1)).toPass();
 });
+
+test("should not support drag and drop when disabled", async ({ mount }) => {
+  // ARRANGE
+  let file: File | undefined;
+
+  const component = await mount(
+    <OnyxFileUpload onUpdate:modelValue={(newFile) => (file = newFile)} disabled />,
+  );
+
+  // ACT
+  const dataTransfer = await component.evaluateHandle(() => {
+    const dt = new DataTransfer();
+    dt.items.add(new File(["this is a test"], "file.txt", { type: "text/plain" }));
+    return dt;
+  });
+
+  await component.dispatchEvent("drop", { dataTransfer });
+
+  // ASSERT
+  await expect(() => expect(file).not.toBeDefined()).toPass();
+});
