@@ -1,4 +1,4 @@
-<script lang="ts" setup generic="TMultiple extends boolean">
+<script lang="ts" setup generic="TMultiple extends boolean = false">
 import { computed, ref } from "vue";
 import { useDensity } from "../../composables/density";
 import { injectI18n } from "../../i18n";
