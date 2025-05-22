@@ -2,6 +2,7 @@ import { DENSITIES } from "../../composables/density";
 import type { FormMessages } from "../../composables/useCustomValidity";
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
+import type { Nullable } from "../../types";
 import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-utils";
 import OnyxStepper from "./OnyxStepper.vue";
 
@@ -527,4 +528,30 @@ test("Should display an error if the value is not a multiple of validStepSize", 
   await expect(errorMessage).toContainText(
     "Please enter a valid number, that is a multiple of 0.5.",
   );
+});
+
+test("should format zero with precision", async ({ mount }) => {
+  let modelValue: Nullable<number>;
+
+  // ARRANGE
+  const component = await mount(
+    <OnyxStepper
+      label="Label"
+      precision={2}
+      onUpdate:modelValue={(newValue) => (modelValue = newValue)}
+    />,
+  );
+  const input = component.getByLabel("Label");
+
+  // ASSERT
+  await expect(input).toHaveValue("");
+  await expect(() => expect(modelValue).toBeUndefined()).toPass();
+
+  // ACT
+  await input.fill("0");
+  await input.blur();
+
+  // ASSERT
+  await expect(input).toHaveValue("0.00");
+  await expect(() => expect(modelValue).toBe(0)).toPass();
 });

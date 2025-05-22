@@ -24,8 +24,8 @@ export const applyLimits = (
  * @param precision - The number of decimal places for rounding (e.g., 0.01 for 2 decimals). Can also be negative.
  * @returns The rounded number as a string. Returns an empty string if `value` is `undefined`.
  */
-export const roundToPrecision = (value: number, precision: number): string => {
-  if (!value) return "";
+export const roundToPrecision = (value: number | undefined, precision: number): string => {
+  if (value == undefined) return "";
   if (precision >= 0) return value.toFixed(precision);
   const factor = Math.pow(10, precision);
   return (Math.round(value * factor) / factor).toString();

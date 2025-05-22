@@ -73,8 +73,9 @@ const modelValue = useVModel({
 const inputValue = ref<string>();
 
 const getFormattedValue = computed(() => {
-  return (value?: number | null) => {
-    if (props.precision !== undefined && value !== undefined && value !== null) {
+  return (value?: Nullable<number>) => {
+    // using "!=" here to check for both undefined and null
+    if (props.precision !== undefined && value != undefined) {
       return roundToPrecision(value, props.precision);
     } else {
       return value?.toString() ?? "";
@@ -96,7 +97,7 @@ const handleClick = (direction: "stepUp" | "stepDown") => {
 
 const handleChange = () => {
   wasTouched.value = true;
-  if (!inputValue.value) {
+  if (inputValue.value == undefined) {
     modelValue.value = undefined;
     return;
   }
