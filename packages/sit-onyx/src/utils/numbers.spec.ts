@@ -50,4 +50,8 @@ describe("roundToPrecision", () => {
   it("returns empty string if value is undefined", () => {
     expect(roundToPrecision(undefined, 2)).toBe("");
   });
+
+  it("rounds zero value when precision is set", () => {
+    expect(roundToPrecision(0, 2)).toBe("0.00");
+  });
 });
