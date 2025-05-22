@@ -18,7 +18,7 @@ import {
 import { useDensity } from "../../composables/density";
 import {
   useAnchorPositionPolyfill,
-  USERAGENT_SUPPORTS_ANCHOR_API,
+  useSupportsAnchorApi,
 } from "../../composables/useAnchorPositionPolyfill";
 import { useOpenAlignment } from "../../composables/useOpenAlignment";
 import { useOpenDirection } from "../../composables/useOpenDirection";
@@ -67,7 +67,7 @@ defineSlots<{
 }>();
 
 const { densityClass } = useDensity(props);
-
+const { USERAGENT_SUPPORTS_ANCHOR_API } = useSupportsAnchorApi();
 const { t } = injectI18n();
 
 const _isVisible = ref(false);
@@ -110,7 +110,7 @@ const tooltipClasses = computed(() => {
     "onyx-tooltip--hidden": !isVisible.value,
     [`onyx-tooltip--position-${toolTipPosition.value.replace(" ", "-")}`]: true,
     [`onyx-tooltip--alignment-${alignment.value}`]: true,
-    "onyx-tooltip--dont-support-anchor": !USERAGENT_SUPPORTS_ANCHOR_API,
+    "onyx-tooltip--dont-support-anchor": !USERAGENT_SUPPORTS_ANCHOR_API.value,
   };
 });
 
@@ -184,17 +184,17 @@ const tooltipWidth = computed(() =>
 onMounted(() => {
   handleOpening(isVisible.value);
   updateDirections();
-  if (!USERAGENT_SUPPORTS_ANCHOR_API) updateAnchorPositionPolyfill();
+  if (!USERAGENT_SUPPORTS_ANCHOR_API.value) updateAnchorPositionPolyfill();
 });
 // update open direction when visibility changes to ensure the tooltip is always visible
 watch(isVisible, async (newVal) => {
   await nextTick();
   handleOpening(newVal);
   updateDirections();
-  if (!USERAGENT_SUPPORTS_ANCHOR_API) updateAnchorPositionPolyfill();
+  if (!USERAGENT_SUPPORTS_ANCHOR_API.value) updateAnchorPositionPolyfill();
 });
 watch([tooltipWidth, toolTipPosition, alignment, alignsWithEdge], async () => {
-  if (!USERAGENT_SUPPORTS_ANCHOR_API) {
+  if (!USERAGENT_SUPPORTS_ANCHOR_API.value) {
     await nextTick();
     updateAnchorPositionPolyfill();
   }
@@ -202,6 +202,14 @@ watch([tooltipWidth, toolTipPosition, alignment, alignsWithEdge], async () => {
 
 const id = useId();
 const anchorName = computed(() => `--anchor-${id}`);
+
+const tooltipStyles = computed(() => ({
+  width: tooltipWidth.value,
+  "position-anchor": anchorName.value,
+  "position-area": positionAndAlignment.value,
+  left: !USERAGENT_SUPPORTS_ANCHOR_API.value ? leftPosition.value : undefined,
+  top: !USERAGENT_SUPPORTS_ANCHOR_API.value ? topPosition.value : undefined,
+}));
 </script>
 
 <template>
@@ -210,10 +218,12 @@ const anchorName = computed(() => `--anchor-${id}`);
     :class="['onyx-component', 'onyx-tooltip-wrapper', densityClass]"
     :style="`anchor-name: ${anchorName}`"
   >
+    <!-- we are using inline "style" here since using v-bind causes hydration errors in Nuxt / SSR -->
     <div
       ref="tooltipRefEl"
       v-bind="tooltip"
       :class="['onyx-tooltip', 'onyx-text--small', 'onyx-truncation-multiline', tooltipClasses]"
+      :style="tooltipStyles"
     >
       <div class="onyx-tooltip--content">
         <OnyxIcon v-if="props.icon" :icon="props.icon" size="16px" />
@@ -239,9 +249,6 @@ $wedge-size: 0.5rem;
     height: max-content;
     overflow: hidden;
     padding: 0;
-    width: v-bind("tooltipWidth");
-    position-anchor: v-bind("anchorName");
-    position-area: v-bind("positionAndAlignment");
 
     --background-color: var(--onyx-color-base-neutral-900);
     --color: var(--onyx-color-text-icons-neutral-inverted);
@@ -254,11 +261,6 @@ $wedge-size: 0.5rem;
     &--success {
       --background-color: var(--onyx-color-base-success-200);
       --color: var(--onyx-color-text-icons-success-bold);
-    }
-
-    &--dont-support-anchor {
-      left: v-bind(leftPosition);
-      top: v-bind(topPosition);
     }
 
     &:popover-open {
