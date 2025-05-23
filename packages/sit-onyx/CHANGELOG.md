@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.227
+
+### Patch Changes
+
+- d149c34: fix(OnyxNavBar): fix runtime error when OnyxNavItems were mounted asynchronously
+
 ## 1.0.0-beta.226
 
 ### Patch Changes
