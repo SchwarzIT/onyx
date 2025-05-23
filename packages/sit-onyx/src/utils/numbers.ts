@@ -34,9 +34,9 @@ export const roundToPrecision = (value: number | undefined, precision: number): 
 /**
  * Data size (with binary prefix). Represents a multiple of 1024 bytes.
  *
- * @example "4Mi" = 4 * 1024 * 1024 = 4_194_304 bytes
+ * @example "4MiB" = 4 * 1024 * 1024 = 4_194_304 bytes
  */
-export type BinaryPrefixedSize = `${number}${IECPrefixSymbol}`;
+export type BinaryPrefixedSize = `${number}${IECPrefixSymbol}B`;
 
 /**
  * IEC prefix symbols.
@@ -67,9 +67,9 @@ export type IECPrefixSymbol = (typeof IEC_PREFIX_SYMBOLS)[number];
  * Converts a [binary prefixed size](https://en.wikipedia.org/wiki/Binary_prefix) to its decimal representation in bytes.
  */
 export const convertBinaryPrefixToBytes = (size: BinaryPrefixedSize): number => {
-  const prefixSymbol = size.substring(size.length - 2) as IECPrefixSymbol;
+  const prefixSymbol = size.substring(size.length - 3, size.length - 1) as IECPrefixSymbol;
   const power = IEC_PREFIX_SYMBOLS.indexOf(prefixSymbol) + 1;
-  const multiplier = +size.substring(0, size.length - 2);
+  const multiplier = +size.substring(0, size.length - 3);
   return multiplier * 1024 ** power;
 };
 

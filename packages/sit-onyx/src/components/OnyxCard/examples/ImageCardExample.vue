@@ -5,11 +5,11 @@ import {
   OnyxCard,
   OnyxFlyoutMenu,
   OnyxHeadline,
+  OnyxImage,
   OnyxMenuItem,
   OnyxSystemButton,
   OnyxTag,
 } from "../../..";
-import OnyxImage from "../../OnyxImage/OnyxImage.vue";
 </script>
 
 <template>

@@ -64,16 +64,16 @@ describe("roundToPrecision", () => {
 
 describe("convertBinaryPrefixToBytes", () => {
   it.each<{ value: BinaryPrefixedSize; expected: number }>([
-    { value: "4.25Ki", expected: 4.25 * 1024 ** 1 },
-    { value: "4.25Mi", expected: 4.25 * 1024 ** 2 },
-    { value: "4.25Gi", expected: 4.25 * 1024 ** 3 },
-    { value: "4.25Ti", expected: 4.25 * 1024 ** 4 },
-    { value: "4.25Pi", expected: 4.25 * 1024 ** 5 },
-    { value: "4.25Ei", expected: 4.25 * 1024 ** 6 },
-    { value: "4.25Zi", expected: 4.25 * 1024 ** 7 },
-    { value: "4.25Yi", expected: 4.25 * 1024 ** 8 },
-    { value: "4.25Ri", expected: 4.25 * 1024 ** 9 },
-    { value: "4.25Qi", expected: 4.25 * 1024 ** 10 },
+    { value: "4.25KiB", expected: 4.25 * 1024 ** 1 },
+    { value: "4.25MiB", expected: 4.25 * 1024 ** 2 },
+    { value: "4.25GiB", expected: 4.25 * 1024 ** 3 },
+    { value: "4.25TiB", expected: 4.25 * 1024 ** 4 },
+    { value: "4.25PiB", expected: 4.25 * 1024 ** 5 },
+    { value: "4.25EiB", expected: 4.25 * 1024 ** 6 },
+    { value: "4.25ZiB", expected: 4.25 * 1024 ** 7 },
+    { value: "4.25YiB", expected: 4.25 * 1024 ** 8 },
+    { value: "4.25RiB", expected: 4.25 * 1024 ** 9 },
+    { value: "4.25QiB", expected: 4.25 * 1024 ** 10 },
   ])("should convert binary prefix $value to $expected bytes", ({ value, expected }) => {
     const bytes = convertBinaryPrefixToBytes(value);
     expect(bytes).toBe(expected);
