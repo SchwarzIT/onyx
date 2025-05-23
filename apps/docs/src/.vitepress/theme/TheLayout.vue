@@ -2,10 +2,11 @@
 import { OnyxToast, useThemeTransition } from "sit-onyx";
 import { useData } from "vitepress";
 import DefaultTheme from "vitepress/theme";
+import { computed } from "vue";
 
 const { Layout } = DefaultTheme;
 const { isDark } = useData();
-useThemeTransition(isDark);
+useThemeTransition(computed(() => (isDark.value ? "dark" : "light")));
 </script>
 
 <template>
