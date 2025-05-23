@@ -10,10 +10,7 @@ import {
   watch,
   type AriaAttributes,
 } from "vue";
-import {
-  useAnchorPositionPolyfill,
-  useSupportsAnchorApi,
-} from "../../composables/useAnchorPositionPolyfill";
+import { useAnchorPositionPolyfill } from "../../composables/useAnchorPositionPolyfill";
 import { useOpenAlignment } from "../../composables/useOpenAlignment";
 import { useOpenDirection } from "../../composables/useOpenDirection";
 import { useResizeObserver } from "../../composables/useResizeObserver";
@@ -36,8 +33,6 @@ defineSlots<{
    */
   content(): unknown;
 }>();
-
-const { USERAGENT_SUPPORTS_ANCHOR_API } = useSupportsAnchorApi();
 
 const _isVisible = ref(false);
 const isVisible = computed({
@@ -75,15 +70,16 @@ const { openAlignment, updateOpenAlignment } = useOpenAlignment(
   flyoutRef,
   "left",
 );
-const { leftPosition, topPosition, updateAnchorPositionPolyfill } = useAnchorPositionPolyfill({
-  positionedRef: flyoutRef,
-  targetRef: flyoutWrapperRef,
-  positionArea: flyoutPosition,
-  alignment: flyoutAlignment,
-  alignsWithEdge: true,
-  fitParent: false,
-  offset: 8,
-});
+const { leftPosition, topPosition, updateAnchorPositionPolyfill, useragentSupportsAnchorApi } =
+  useAnchorPositionPolyfill({
+    positionedRef: flyoutRef,
+    targetRef: flyoutWrapperRef,
+    positionArea: flyoutPosition,
+    alignment: flyoutAlignment,
+    alignsWithEdge: true,
+    fitParent: false,
+    offset: 8,
+  });
 
 const { width } = useResizeObserver(flyoutWrapperRef);
 
@@ -111,14 +107,14 @@ useGlobalEventListener({
 onMounted(() => {
   handleOpening(isVisible.value);
   updateDirections();
-  if (!USERAGENT_SUPPORTS_ANCHOR_API.value) updateAnchorPositionPolyfill();
+  if (!useragentSupportsAnchorApi.value) updateAnchorPositionPolyfill();
 });
 
 watch(isVisible, async (newVal) => {
   await nextTick();
   handleOpening(newVal);
   updateDirections();
-  if (!USERAGENT_SUPPORTS_ANCHOR_API.value) updateAnchorPositionPolyfill();
+  if (!useragentSupportsAnchorApi.value) updateAnchorPositionPolyfill();
 });
 
 const toggle = () => {
@@ -141,7 +137,7 @@ const flyoutClasses = computed(() => {
     [`onyx-flyout__dialog--alignment-${flyoutAlignment.value}`]: true,
     "onyx-flyout__dialog--fitparent": props.fitParent,
     "onyx-flyout__dialog--disabled": disabled.value,
-    "onyx-flyout__dialog--dont-support-anchor": !USERAGENT_SUPPORTS_ANCHOR_API.value,
+    "onyx-flyout__dialog--dont-support-anchor": !useragentSupportsAnchorApi.value,
   };
 });
 watch([disabled], () => {
@@ -150,7 +146,7 @@ watch([disabled], () => {
   }
 });
 watch([flyoutPosition, flyoutAlignment, flyoutWidth], async () => {
-  if (!USERAGENT_SUPPORTS_ANCHOR_API.value) {
+  if (!useragentSupportsAnchorApi.value) {
     await nextTick();
     updateDirections();
     updateAnchorPositionPolyfill();
@@ -161,8 +157,8 @@ const flyoutStyles = computed(() => ({
   "position-anchor": anchorName.value,
   "position-area": positionAndAlignment.value,
   width: props.fitParent ? flyoutWidth.value : undefined,
-  left: !USERAGENT_SUPPORTS_ANCHOR_API.value ? leftPosition.value : undefined,
-  top: !USERAGENT_SUPPORTS_ANCHOR_API.value ? topPosition.value : undefined,
+  left: !useragentSupportsAnchorApi.value ? leftPosition.value : undefined,
+  top: !useragentSupportsAnchorApi.value ? topPosition.value : undefined,
 }));
 </script>
 

@@ -16,10 +16,7 @@ import {
   type VNode,
 } from "vue";
 import { useDensity } from "../../composables/density";
-import {
-  useAnchorPositionPolyfill,
-  useSupportsAnchorApi,
-} from "../../composables/useAnchorPositionPolyfill";
+import { useAnchorPositionPolyfill } from "../../composables/useAnchorPositionPolyfill";
 import { useOpenAlignment } from "../../composables/useOpenAlignment";
 import { useOpenDirection } from "../../composables/useOpenDirection";
 import { useResizeObserver } from "../../composables/useResizeObserver";
@@ -67,7 +64,6 @@ defineSlots<{
 }>();
 
 const { densityClass } = useDensity(props);
-const { USERAGENT_SUPPORTS_ANCHOR_API } = useSupportsAnchorApi();
 const { t } = injectI18n();
 
 const _isVisible = ref(false);
@@ -99,20 +95,6 @@ const toolTipPosition = computed(() =>
 const alignment = computed(() =>
   props.alignment === "auto" ? openAlignment.value : props.alignment,
 );
-
-// classes for the tooltip | computed to prevent bugs
-const tooltipClasses = computed(() => {
-  return {
-    "onyx-tooltip--danger": props.color === "danger",
-    "onyx-tooltip--success": props.color === "success",
-    "onyx-tooltip--fit-parent": props.fitParent,
-    "onyx-tooltip--aligns-with-edge": alignsWithEdge.value,
-    "onyx-tooltip--hidden": !isVisible.value,
-    [`onyx-tooltip--position-${toolTipPosition.value.replace(" ", "-")}`]: true,
-    [`onyx-tooltip--alignment-${alignment.value}`]: true,
-    "onyx-tooltip--dont-support-anchor": !USERAGENT_SUPPORTS_ANCHOR_API.value,
-  };
-});
 
 const positionAndAlignment = computed(() => {
   let returnPosition = toolTipPosition.value;
@@ -147,14 +129,15 @@ const tooltipWrapperRef = useTemplateRef("tooltipWrapperRefEl");
 const tooltipRef = useTemplateRef("tooltipRefEl");
 const { openDirection, updateOpenDirection } = useOpenDirection(tooltipWrapperRef, "top");
 const { openAlignment, updateOpenAlignment } = useOpenAlignment(tooltipWrapperRef, tooltipRef);
-const { leftPosition, topPosition, updateAnchorPositionPolyfill } = useAnchorPositionPolyfill({
-  positionedRef: tooltipRef,
-  targetRef: tooltipWrapperRef,
-  positionArea: toolTipPosition,
-  alignment: alignment,
-  alignsWithEdge: alignsWithEdge,
-  fitParent: fitParent,
-});
+const { leftPosition, topPosition, updateAnchorPositionPolyfill, useragentSupportsAnchorApi } =
+  useAnchorPositionPolyfill({
+    positionedRef: tooltipRef,
+    targetRef: tooltipWrapperRef,
+    positionArea: toolTipPosition,
+    alignment: alignment,
+    alignsWithEdge: alignsWithEdge,
+    fitParent: fitParent,
+  });
 
 // update open direction on resize to ensure the tooltip is always visible
 const updateDirections = () => {
@@ -175,6 +158,20 @@ const handleOpening = (open: boolean) => {
   }
 };
 
+// classes for the tooltip | computed to prevent bugs
+const tooltipClasses = computed(() => {
+  return {
+    "onyx-tooltip--danger": props.color === "danger",
+    "onyx-tooltip--success": props.color === "success",
+    "onyx-tooltip--fit-parent": props.fitParent,
+    "onyx-tooltip--aligns-with-edge": alignsWithEdge.value,
+    "onyx-tooltip--hidden": !isVisible.value,
+    [`onyx-tooltip--position-${toolTipPosition.value.replace(" ", "-")}`]: true,
+    [`onyx-tooltip--alignment-${alignment.value}`]: true,
+    "onyx-tooltip--dont-support-anchor": !useragentSupportsAnchorApi.value,
+  };
+});
+
 const { width } = useResizeObserver(tooltipWrapperRef);
 const tooltipWidth = computed(() =>
   props.fitParent && tooltipWrapperRef.value ? `${width.value}px` : "max-content",
@@ -184,17 +181,17 @@ const tooltipWidth = computed(() =>
 onMounted(() => {
   handleOpening(isVisible.value);
   updateDirections();
-  if (!USERAGENT_SUPPORTS_ANCHOR_API.value) updateAnchorPositionPolyfill();
+  if (!useragentSupportsAnchorApi.value) updateAnchorPositionPolyfill();
 });
 // update open direction when visibility changes to ensure the tooltip is always visible
 watch(isVisible, async (newVal) => {
   await nextTick();
   handleOpening(newVal);
   updateDirections();
-  if (!USERAGENT_SUPPORTS_ANCHOR_API.value) updateAnchorPositionPolyfill();
+  if (!useragentSupportsAnchorApi.value) updateAnchorPositionPolyfill();
 });
 watch([tooltipWidth, toolTipPosition, alignment, alignsWithEdge], async () => {
-  if (!USERAGENT_SUPPORTS_ANCHOR_API.value) {
+  if (!useragentSupportsAnchorApi.value) {
     await nextTick();
     updateAnchorPositionPolyfill();
   }
@@ -207,8 +204,8 @@ const tooltipStyles = computed(() => ({
   width: tooltipWidth.value,
   "position-anchor": anchorName.value,
   "position-area": positionAndAlignment.value,
-  left: !USERAGENT_SUPPORTS_ANCHOR_API.value ? leftPosition.value : undefined,
-  top: !USERAGENT_SUPPORTS_ANCHOR_API.value ? topPosition.value : undefined,
+  left: !useragentSupportsAnchorApi.value ? leftPosition.value : undefined,
+  top: !useragentSupportsAnchorApi.value ? topPosition.value : undefined,
 }));
 </script>
 

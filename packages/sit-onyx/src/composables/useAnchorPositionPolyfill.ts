@@ -31,24 +31,6 @@ type UseAnchorPositionPolyfillOptions = {
   offset?: number;
 };
 
-/**
- * SSR safe composable for checking whether the browser supports the Anchor API.
- * TODO: can be removed after anchor is implemented in all common browsers.
- */
-export const useSupportsAnchorApi = () => {
-  const USERAGENT_SUPPORTS_ANCHOR_API = ref(true);
-
-  onBeforeMount(() => {
-    USERAGENT_SUPPORTS_ANCHOR_API.value =
-      "CSS" in globalThis &&
-      typeof CSS !== "undefined" &&
-      CSS.supports("anchor-name: --test") &&
-      CSS.supports("position-area: top");
-  });
-
-  return { USERAGENT_SUPPORTS_ANCHOR_API };
-};
-
 export const useAnchorPositionPolyfill = ({
   positionedRef,
   targetRef,
@@ -146,9 +128,24 @@ export const useAnchorPositionPolyfill = ({
     window.removeEventListener("scroll", updateAnchorPositionPolyfill, true);
   });
 
+  const useragentSupportsAnchorApi = ref(true);
+
+  /**
+   * SSR safe composable for checking whether the browser supports the Anchor API.
+   * TODO: can be removed after anchor is implemented in all common browsers.
+   */
+  onBeforeMount(() => {
+    useragentSupportsAnchorApi.value =
+      "CSS" in globalThis &&
+      typeof CSS !== "undefined" &&
+      CSS.supports("anchor-name: --test") &&
+      CSS.supports("position-area: top");
+  });
+
   return {
     leftPosition,
     topPosition,
     updateAnchorPositionPolyfill,
+    useragentSupportsAnchorApi,
   };
 };
