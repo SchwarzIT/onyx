@@ -15,8 +15,7 @@ const getTestData = () => [
 ];
 
 const expectRowCount = (dataGrid: Locator, count: number) => {
-  // +1 = header row
-  return expect(dataGrid.getByRole("row")).toHaveCount(count + 1);
+  return expect(dataGrid.getByRole("row")).toHaveCount(count);
 };
 test("should filter by single column", async ({ mount }) => {
   // ARRANGE

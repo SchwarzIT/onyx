@@ -23,3 +23,7 @@ export const CustomFeature = createAdvancedStoryExample(
 export const CustomColumnTypes = {
   ...createAdvancedStoryExample("OnyxDataGrid", "CustomColumnTypes"),
 } satisfies Story;
+
+export const Skeleton = {
+  ...createAdvancedStoryExample("OnyxDataGrid", "SkeletonExample"),
+} satisfies Story;

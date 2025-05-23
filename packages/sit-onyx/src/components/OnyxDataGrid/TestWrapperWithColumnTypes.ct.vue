@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import type { SkeletonInjected } from "src/composables/useSkeletonState";
 import { computed } from "vue";
 import OnyxDataGrid from "./OnyxDataGrid.vue";
 
@@ -11,6 +12,10 @@ const props = defineProps<{
    * If true, column groups are displayed.
    */
   columnGroups: boolean;
+  /**
+   * Whether to show a skeleton.
+   */
+  skeleton?: SkeletonInjected;
 }>();
 
 type Entry = {
@@ -81,6 +86,7 @@ const columnGroups = computed(() =>
 
 <template>
   <OnyxDataGrid
+    :skeleton
     :data
     :columns="[
       { key: 'name', type: 'string', columnGroupKey: props.columnGroups ? 'gdpr' : undefined },

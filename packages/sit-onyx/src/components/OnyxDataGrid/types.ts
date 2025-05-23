@@ -1,3 +1,4 @@
+import type { SkeletonInjected } from "../../composables/useSkeletonState";
 import type { IfExtends, IfNotEmpty, MaybePick, RecordValues, UnionByKey } from "../../types";
 import type {
   ColumnConfig,
@@ -81,6 +82,10 @@ export type OnyxDataGridProps<
    * The data that should be used to fill the datagrid.
    */
   data: TEntry[];
+  /**
+   * Whether to show a skeleton.
+   */
+  skeleton?: SkeletonInjected;
 };
 
 /**

@@ -21,10 +21,18 @@ defineSlots<{
   empty?(): unknown;
 }>();
 
+// defauft skeletonCount if not provided same in table
+const skeletonRowCount = 5;
+
 const columnStyle = computed(() => {
   return {
     "--onyx-data-grid-column-count": props.columns.length,
-    "--onyx-data-grid-row-count": Math.max(props.rows.length + 2, 3),
+
+    "--onyx-data-grid-row-count": !props.skeleton
+      ? Math.max(props.rows.length + 2, 3)
+      : typeof props.skeleton === "number"
+        ? props.skeleton + 2
+        : skeletonRowCount + 2,
     "--onyx-data-grid-template-columns": props.columns
       .map(({ key, width }) => {
         const name = `--onyx-data-grid-column-${CSS.escape(String(key))}`;
@@ -43,18 +51,16 @@ const columnStyle = computed(() => {
     :scroll-container-attrs="mergeVueProps(props.scrollContainerAttrs, { style: columnStyle })"
   >
     <template #head>
-      <tr>
-        <!-- We set `ref_for` to false, so the refs are not passed as an array  -->
-        <th
-          v-for="column in props.columns"
-          :key="column.key"
-          v-bind="column.thAttributes"
-          :ref_for="false"
-          scope="col"
-        >
-          <component :is="column.component" v-bind="column.props" />
-        </th>
-      </tr>
+      <!-- We set `ref_for` to false, so the refs are not passed as an array  -->
+      <th
+        v-for="column in props.columns"
+        :key="column.key"
+        v-bind="column.thAttributes"
+        :ref_for="false"
+        scope="col"
+      >
+        <component :is="column.component" v-bind="column.props" />
+      </th>
     </template>
 
     <tr v-for="row in props.rows" :key="row.id" v-bind="row.trAttributes">

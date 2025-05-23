@@ -1,3 +1,4 @@
+import type { SkeletonInjected } from "src/composables/useSkeletonState";
 import type { HTMLAttributes } from "vue";
 import type { DensityProp } from "../../composables/density";
 
@@ -27,6 +28,10 @@ export type OnyxTableProps = DensityProp & {
    * Supports attributes like id, class, style, and events.
    */
   scrollContainerAttrs?: HTMLAttributes;
+  /**
+   * Whether to show a skeleton.
+   */
+  skeleton?: SkeletonInjected;
 };
 
 /**
