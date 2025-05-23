@@ -44,8 +44,8 @@ test.describe("Screenshot tests (max. file sizes)", () => {
     component: (column) => (
       <OnyxFileUpload
         accept={column.includes("types") ? [".pdf", ".jpg", ".png"] : undefined}
-        maxSize={column.includes("size") ? "4Mi" : undefined}
-        maxTotalSize={column.includes("total") ? "50Mi" : undefined}
+        maxSize={column.includes("size") ? "4MiB" : undefined}
+        maxTotalSize={column.includes("total") ? "50MiB" : undefined}
         maxCount={column.includes("count") ? 8 : undefined}
         multiple
       />
