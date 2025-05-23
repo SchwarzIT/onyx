@@ -7,7 +7,6 @@ export type OnyxCountryMenuItemProps<TValue extends string> = {
   modelValue: TValue;
   /**
    * List of available countries.
-   * If only strings/locale codes are provided, the names will be automatically detected using the native `Intl.DisplayNames` API.
    */
   options: SelectDialogOption<TValue>[];
 };

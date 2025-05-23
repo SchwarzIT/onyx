@@ -11,13 +11,6 @@ import { useIntersectionObserver } from "./useIntersectionObserver";
 import type { OpenAlignment } from "./useOpenAlignment";
 import { getTemplateRefElement, type VueTemplateRefElement } from "./useResizeObserver";
 
-// TODO: can be removed after anchor is implemented in all common browsers
-export const USERAGENT_SUPPORTS_ANCHOR_API =
-  "CSS" in globalThis &&
-  typeof CSS !== "undefined" &&
-  CSS.supports("anchor-name: --test") &&
-  CSS.supports("position-area: top");
-
 export type AnchorPosition =
   | "top"
   | "top right"
@@ -135,9 +128,24 @@ export const useAnchorPositionPolyfill = ({
     window.removeEventListener("scroll", updateAnchorPositionPolyfill, true);
   });
 
+  const useragentSupportsAnchorApi = ref(true);
+
+  /**
+   * SSR safe composable for checking whether the browser supports the Anchor API.
+   * TODO: can be removed after anchor is implemented in all common browsers.
+   */
+  onBeforeMount(() => {
+    useragentSupportsAnchorApi.value =
+      "CSS" in globalThis &&
+      typeof CSS !== "undefined" &&
+      CSS.supports("anchor-name: --test") &&
+      CSS.supports("position-area: top");
+  });
+
   return {
     leftPosition,
     topPosition,
     updateAnchorPositionPolyfill,
+    useragentSupportsAnchorApi,
   };
 };

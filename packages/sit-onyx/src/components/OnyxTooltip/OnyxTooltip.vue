@@ -16,10 +16,7 @@ import {
   type VNode,
 } from "vue";
 import { useDensity } from "../../composables/density";
-import {
-  useAnchorPositionPolyfill,
-  USERAGENT_SUPPORTS_ANCHOR_API,
-} from "../../composables/useAnchorPositionPolyfill";
+import { useAnchorPositionPolyfill } from "../../composables/useAnchorPositionPolyfill";
 import { useOpenAlignment } from "../../composables/useOpenAlignment";
 import { useOpenDirection } from "../../composables/useOpenDirection";
 import { useResizeObserver } from "../../composables/useResizeObserver";
@@ -67,7 +64,6 @@ defineSlots<{
 }>();
 
 const { densityClass } = useDensity(props);
-
 const { t } = injectI18n();
 
 const _isVisible = ref(false);
@@ -99,20 +95,6 @@ const toolTipPosition = computed(() =>
 const alignment = computed(() =>
   props.alignment === "auto" ? openAlignment.value : props.alignment,
 );
-
-// classes for the tooltip | computed to prevent bugs
-const tooltipClasses = computed(() => {
-  return {
-    "onyx-tooltip--danger": props.color === "danger",
-    "onyx-tooltip--success": props.color === "success",
-    "onyx-tooltip--fit-parent": props.fitParent,
-    "onyx-tooltip--aligns-with-edge": alignsWithEdge.value,
-    "onyx-tooltip--hidden": !isVisible.value,
-    [`onyx-tooltip--position-${toolTipPosition.value.replace(" ", "-")}`]: true,
-    [`onyx-tooltip--alignment-${alignment.value}`]: true,
-    "onyx-tooltip--dont-support-anchor": !USERAGENT_SUPPORTS_ANCHOR_API,
-  };
-});
 
 const positionAndAlignment = computed(() => {
   let returnPosition = toolTipPosition.value;
@@ -147,14 +129,15 @@ const tooltipWrapperRef = useTemplateRef("tooltipWrapperRefEl");
 const tooltipRef = useTemplateRef("tooltipRefEl");
 const { openDirection, updateOpenDirection } = useOpenDirection(tooltipWrapperRef, "top");
 const { openAlignment, updateOpenAlignment } = useOpenAlignment(tooltipWrapperRef, tooltipRef);
-const { leftPosition, topPosition, updateAnchorPositionPolyfill } = useAnchorPositionPolyfill({
-  positionedRef: tooltipRef,
-  targetRef: tooltipWrapperRef,
-  positionArea: toolTipPosition,
-  alignment: alignment,
-  alignsWithEdge: alignsWithEdge,
-  fitParent: fitParent,
-});
+const { leftPosition, topPosition, updateAnchorPositionPolyfill, useragentSupportsAnchorApi } =
+  useAnchorPositionPolyfill({
+    positionedRef: tooltipRef,
+    targetRef: tooltipWrapperRef,
+    positionArea: toolTipPosition,
+    alignment: alignment,
+    alignsWithEdge: alignsWithEdge,
+    fitParent: fitParent,
+  });
 
 // update open direction on resize to ensure the tooltip is always visible
 const updateDirections = () => {
@@ -175,6 +158,20 @@ const handleOpening = (open: boolean) => {
   }
 };
 
+// classes for the tooltip | computed to prevent bugs
+const tooltipClasses = computed(() => {
+  return {
+    "onyx-tooltip--danger": props.color === "danger",
+    "onyx-tooltip--success": props.color === "success",
+    "onyx-tooltip--fit-parent": props.fitParent,
+    "onyx-tooltip--aligns-with-edge": alignsWithEdge.value,
+    "onyx-tooltip--hidden": !isVisible.value,
+    [`onyx-tooltip--position-${toolTipPosition.value.replace(" ", "-")}`]: true,
+    [`onyx-tooltip--alignment-${alignment.value}`]: true,
+    "onyx-tooltip--dont-support-anchor": !useragentSupportsAnchorApi.value,
+  };
+});
+
 const { width } = useResizeObserver(tooltipWrapperRef);
 const tooltipWidth = computed(() =>
   props.fitParent && tooltipWrapperRef.value ? `${width.value}px` : "max-content",
@@ -184,17 +181,17 @@ const tooltipWidth = computed(() =>
 onMounted(() => {
   handleOpening(isVisible.value);
   updateDirections();
-  if (!USERAGENT_SUPPORTS_ANCHOR_API) updateAnchorPositionPolyfill();
+  if (!useragentSupportsAnchorApi.value) updateAnchorPositionPolyfill();
 });
 // update open direction when visibility changes to ensure the tooltip is always visible
 watch(isVisible, async (newVal) => {
   await nextTick();
   handleOpening(newVal);
   updateDirections();
-  if (!USERAGENT_SUPPORTS_ANCHOR_API) updateAnchorPositionPolyfill();
+  if (!useragentSupportsAnchorApi.value) updateAnchorPositionPolyfill();
 });
 watch([tooltipWidth, toolTipPosition, alignment, alignsWithEdge], async () => {
-  if (!USERAGENT_SUPPORTS_ANCHOR_API) {
+  if (!useragentSupportsAnchorApi.value) {
     await nextTick();
     updateAnchorPositionPolyfill();
   }
@@ -202,6 +199,14 @@ watch([tooltipWidth, toolTipPosition, alignment, alignsWithEdge], async () => {
 
 const id = useId();
 const anchorName = computed(() => `--anchor-${id}`);
+
+const tooltipStyles = computed(() => ({
+  width: tooltipWidth.value,
+  "position-anchor": anchorName.value,
+  "position-area": positionAndAlignment.value,
+  left: !useragentSupportsAnchorApi.value ? leftPosition.value : undefined,
+  top: !useragentSupportsAnchorApi.value ? topPosition.value : undefined,
+}));
 </script>
 
 <template>
@@ -210,10 +215,12 @@ const anchorName = computed(() => `--anchor-${id}`);
     :class="['onyx-component', 'onyx-tooltip-wrapper', densityClass]"
     :style="`anchor-name: ${anchorName}`"
   >
+    <!-- we are using inline "style" here since using v-bind causes hydration errors in Nuxt / SSR -->
     <div
       ref="tooltipRefEl"
       v-bind="tooltip"
       :class="['onyx-tooltip', 'onyx-text--small', 'onyx-truncation-multiline', tooltipClasses]"
+      :style="tooltipStyles"
     >
       <div class="onyx-tooltip--content">
         <OnyxIcon v-if="props.icon" :icon="props.icon" size="16px" />
@@ -239,9 +246,6 @@ $wedge-size: 0.5rem;
     height: max-content;
     overflow: hidden;
     padding: 0;
-    width: v-bind("tooltipWidth");
-    position-anchor: v-bind("anchorName");
-    position-area: v-bind("positionAndAlignment");
 
     --background-color: var(--onyx-color-base-neutral-900);
     --color: var(--onyx-color-text-icons-neutral-inverted);
@@ -254,11 +258,6 @@ $wedge-size: 0.5rem;
     &--success {
       --background-color: var(--onyx-color-base-success-200);
       --color: var(--onyx-color-text-icons-success-bold);
-    }
-
-    &--dont-support-anchor {
-      left: v-bind(leftPosition);
-      top: v-bind(topPosition);
     }
 
     &:popover-open {
