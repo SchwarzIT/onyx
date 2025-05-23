@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.228
+
+### Patch Changes
+
+- dc832e4: fix: prevent hydration errors for OnyxFlyout and OnyxTooltip
+
 ## 1.0.0-beta.227
 
 ### Patch Changes
