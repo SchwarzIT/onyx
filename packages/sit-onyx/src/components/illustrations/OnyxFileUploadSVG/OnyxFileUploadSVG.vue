@@ -7,7 +7,10 @@ const props = defineProps<OnyxFileUploadSVGProps>();
 <template>
   <svg
     class="onyx-component onyx-file-upload-svg"
-    :class="{ 'onyx-file-upload-svg--disabled': props.disabled }"
+    :class="{
+      'onyx-file-upload-svg--disabled': props.disabled,
+      'onyx-file-upload-svg--active': props.active,
+    }"
     width="50"
     height="64"
     viewBox="0 0 50 64"
@@ -44,6 +47,12 @@ const props = defineProps<OnyxFileUploadSVGProps>();
     --onyx-file-upload-svg-color-bubble: var(--onyx-color-text-icons-neutral-inverted);
     --onyx-file-upload-svg-background-color: var(--onyx-color-base-neutral-200);
     --onyx-file-upload-svg-border-color: var(--onyx-color-base-neutral-500);
+
+    &--active {
+      --onyx-file-upload-svg-background-color: var(--onyx-color-base-primary-200);
+      --onyx-file-upload-svg-border-color: var(--onyx-color-base-primary-600);
+      --onyx-file-upload-svg-background-color-bubble: var(--onyx-color-base-primary-800);
+    }
 
     &--disabled {
       --onyx-file-upload-svg-background-color-bubble: var(--onyx-color-base-neutral-300);

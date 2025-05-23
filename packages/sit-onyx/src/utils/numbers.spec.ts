@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { applyLimits, roundToPrecision } from "./numbers";
+import {
+  applyLimits,
+  convertBinaryPrefixToBytes,
+  formatBytesToString,
+  roundToPrecision,
+  type BinaryPrefixedSize,
+} from "./numbers";
 
 // Tests for applyLimits function
 describe("applyLimits", () => {
@@ -53,5 +59,39 @@ describe("roundToPrecision", () => {
 
   it("rounds zero value when precision is set", () => {
     expect(roundToPrecision(0, 2)).toBe("0.00");
+  });
+});
+
+describe("convertBinaryPrefixToBytes", () => {
+  it.each<{ value: BinaryPrefixedSize; expected: number }>([
+    { value: "4.25KiB", expected: 4.25 * 1024 ** 1 },
+    { value: "4.25MiB", expected: 4.25 * 1024 ** 2 },
+    { value: "4.25GiB", expected: 4.25 * 1024 ** 3 },
+    { value: "4.25TiB", expected: 4.25 * 1024 ** 4 },
+    { value: "4.25PiB", expected: 4.25 * 1024 ** 5 },
+    { value: "4.25EiB", expected: 4.25 * 1024 ** 6 },
+    { value: "4.25ZiB", expected: 4.25 * 1024 ** 7 },
+    { value: "4.25YiB", expected: 4.25 * 1024 ** 8 },
+    { value: "4.25RiB", expected: 4.25 * 1024 ** 9 },
+    { value: "4.25QiB", expected: 4.25 * 1024 ** 10 },
+  ])("should convert binary prefix $value to $expected bytes", ({ value, expected }) => {
+    const bytes = convertBinaryPrefixToBytes(value);
+    expect(bytes).toBe(expected);
+  });
+});
+
+describe("formatBytesToString", () => {
+  it.each<{ value: number; expected: string }>([
+    { value: 0, expected: "0B" },
+    { value: 1, expected: "1B" },
+    { value: 1024, expected: "1kB" },
+    { value: 1024 ** 2, expected: "1MB" },
+    { value: 1024 ** 3, expected: "1GB" },
+    { value: 1024 ** 4, expected: "1TB" },
+    { value: 1024 ** 5, expected: "1PB" },
+    { value: 1024 ** 6, expected: "1,024PB" },
+  ])("should convert format bytes $value as $expected", ({ value, expected }) => {
+    const formattedString = formatBytesToString("en", value);
+    expect(formattedString).toBe(expected);
   });
 });
