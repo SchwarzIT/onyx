@@ -52,7 +52,7 @@
     "eslint-plugin-vue-scoped-css": "^2.9.0",
     "eslint-plugin-vuejs-accessibility": "^2.4.1",
     "jsdom": "^26.1.0",
-    "lint-staged": "^15.5.1",
+    "lint-staged": "^16.0.0",
     "prettier": "^3.5.3",
     "prettier-plugin-organize-imports": "^4.1.0",
     "publint": "^0.3.12",
