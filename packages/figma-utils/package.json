@@ -37,7 +37,7 @@
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "commander": "^13.1.0"
+    "commander": "^14.0.0"
   },
   "optionalDependencies": {
     "svgo": "^3.3.2"
