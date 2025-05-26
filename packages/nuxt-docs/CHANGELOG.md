@@ -1,5 +1,11 @@
 # @sit-onyx/nuxt-docs
 
+## 1.0.0-beta.43
+
+### Patch Changes
+
+- dfe66db: fix bug where markdown files are not loaded when using `@nuxt/content >= 3.5.0`
+
 ## 1.0.0-beta.42
 
 ### Patch Changes

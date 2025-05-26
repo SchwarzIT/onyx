@@ -1,5 +1,11 @@
 # @sit-onyx/figma-utils
 
+## 1.0.0-beta.5
+
+### Major Changes
+
+- dfe66db: bump minimum required Node version to 20
+
 ## 1.0.0-beta.4
 
 ### Major Changes
