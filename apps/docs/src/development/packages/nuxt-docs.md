@@ -85,6 +85,28 @@ yarn install @sit-onyx/nuxt-docs@beta
 
 :::
 
+::: danger Known bug
+Currently, there is a [bug](https://github.com/nuxt/content/issues/3307) in the official @nuxt/content module that prevents the `@sit-onyx/nuxt-docs` package to work correctly.
+
+For now, please make sure to not use the latest @nuxt/content version and instead install version `3.4.0`.
+
+:::: code-group
+
+```sh [pnpm]
+pnpm add @nuxt/content@3.4.0
+```
+
+```sh [npm]
+npm install @nuxt/content@3.4.0
+```
+
+```sh [yarn]
+yarn install @nuxt/content@3.4.0
+```
+
+::::
+:::
+
 ### Step 4: Enable the Nuxt layer
 
 Now, just extend your application with the onyx layer. You can check the [Nuxt documentation](https://nuxt.com/docs/getting-started/layers#usage) for further information.
