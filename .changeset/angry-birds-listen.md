@@ -1,5 +1,5 @@
 ---
-"@sit-onyx/nuxt-docs": major
+"@sit-onyx/nuxt-docs": patch
 ---
 
-update version range for `@nuxt/content` to `>= 3 < 3.5.0` to fix an [existing issue](https://github.com/nuxt/content/issues/3307) with the module
+fix bug where markdown files are not loaded when using `@nuxt/content >= 3.5.0`
