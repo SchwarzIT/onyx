@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.229
+
+### Minor Changes
+
+- 1a4890b: feat: implement new `OnyxFileUpload` component
+
 ## 1.0.0-beta.228
 
 ### Patch Changes
