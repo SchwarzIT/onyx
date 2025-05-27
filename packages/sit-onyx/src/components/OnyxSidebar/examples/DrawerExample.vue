@@ -1,6 +1,15 @@
 <script setup lang="ts">
+import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
 import { ref } from "vue";
-import { OnyxAppLayout, OnyxButton, OnyxHeadline, OnyxPageLayout, OnyxSidebar } from "../../..";
+import {
+  OnyxAppLayout,
+  OnyxButton,
+  OnyxHeadline,
+  OnyxIcon,
+  OnyxPageLayout,
+  OnyxSidebar,
+  OnyxSidebarItem,
+} from "../../..";
 
 const isOpen = ref(false);
 </script>
@@ -14,7 +23,12 @@ const isOpen = ref(false);
             Lorem ipsum dolor sit amet consectetur. Dui purus quisque est.
           </template>
 
-          <div class="sidebar__content">Body content</div>
+          <div class="sidebar__content">
+            <OnyxSidebarItem v-for="i in 6" :key="i" :link="`#link-${i}`">
+              <OnyxIcon :icon="placeholder" />
+              Item {{ i }}
+            </OnyxSidebarItem>
+          </div>
 
           <template #footer>
             <OnyxButton color="neutral" label="Button" />
@@ -34,6 +48,9 @@ const isOpen = ref(false);
 .sidebar {
   &__content {
     padding: var(--onyx-sidebar-padding);
+    display: flex;
+    flex-direction: column;
+    gap: var(--onyx-density-2xs);
   }
 }
 

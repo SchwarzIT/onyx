@@ -1,5 +1,14 @@
 <script setup lang="ts">
-import { OnyxAppLayout, OnyxButton, OnyxHeadline, OnyxPageLayout, OnyxSidebar } from "../../..";
+import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
+import {
+  OnyxAppLayout,
+  OnyxButton,
+  OnyxHeadline,
+  OnyxIcon,
+  OnyxPageLayout,
+  OnyxSidebar,
+  OnyxSidebarItem,
+} from "../../..";
 </script>
 
 <template>
@@ -9,7 +18,12 @@ import { OnyxAppLayout, OnyxButton, OnyxHeadline, OnyxPageLayout, OnyxSidebar } 
         <OnyxSidebar label="Example sidebar">
           <template #header> Header content </template>
 
-          <div class="sidebar__content">Body content</div>
+          <div class="sidebar__content">
+            <OnyxSidebarItem v-for="i in 6" :key="i" :link="`#link-${i}`">
+              <OnyxIcon :icon="placeholder" />
+              Item {{ i }}
+            </OnyxSidebarItem>
+          </div>
 
           <template #footer>
             <OnyxButton color="neutral" label="Button" />
@@ -28,6 +42,9 @@ import { OnyxAppLayout, OnyxButton, OnyxHeadline, OnyxPageLayout, OnyxSidebar } 
 .sidebar {
   &__content {
     padding: var(--onyx-sidebar-padding);
+    display: flex;
+    flex-direction: column;
+    gap: var(--onyx-density-2xs);
   }
 }
 </style>
