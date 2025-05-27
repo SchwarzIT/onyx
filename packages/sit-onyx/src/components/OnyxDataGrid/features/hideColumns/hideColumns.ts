@@ -1,8 +1,13 @@
 import eyeDisabled from "@sit-onyx/icons/eye-disabled.svg?raw";
 import plusSmall from "@sit-onyx/icons/plus-small.svg?raw";
-import { h, ref, unref, watchEffect, type Ref } from "vue";
+import { computed, h, ref, unref, watchEffect, type Ref } from "vue";
 import type { ComponentSlots } from "vue-component-type-helpers";
-import { createFeature, useIsFeatureEnabled, type ModifyColumns } from "..";
+import {
+  createFeature,
+  useIsFeatureEnabled,
+  type InternalColumnConfig,
+  type ModifyColumns,
+} from "..";
 import { injectI18n } from "../../../../i18n";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxFlyoutMenu from "../../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
@@ -20,15 +25,19 @@ export const useHideColumns = createFeature(
     const { t } = injectI18n();
     const { isEnabled } = useIsFeatureEnabled(options);
 
-    const hiddenColumns = ref(new Set()) as Ref<Set<keyof TEntry>>;
+    const columnConfig = ref([]) as Ref<Readonly<InternalColumnConfig<TEntry>[]>>;
+    const hiddenColumnKeys = ref(new Set()) as Ref<Set<keyof TEntry>>;
+    const hiddenColumns = computed(() =>
+      columnConfig.value.filter((c) => hiddenColumnKeys.value.has(c.key)),
+    );
 
     watchEffect(() => {
       // sync hidden columns with user provided options
       Object.entries(unref(options?.columns) ?? {}).forEach(([key, value]) => {
         if (value?.hidden) {
-          hiddenColumns.value.add(key);
+          hiddenColumnKeys.value.add(key);
         } else {
-          hiddenColumns.value.delete(key);
+          hiddenColumnKeys.value.delete(key);
         }
       });
     });
@@ -53,18 +62,14 @@ export const useHideColumns = createFeature(
             }),
           options: () => {
             return Array.from(hiddenColumns.value)
-              .sort(
-                Intl.Collator(locale.value).compare as (a: keyof TEntry, b: keyof TEntry) => number,
-              )
-              .map((column) =>
+              .sort((a, b) => Intl.Collator(locale.value).compare(a.label, b.label))
+              .map(({ key, label }) =>
                 h(
                   OnyxMenuItem,
                   {
-                    onClick: () => {
-                      hiddenColumns.value.delete(column);
-                    },
+                    onClick: () => hiddenColumnKeys.value.delete(key),
                   },
-                  () => column,
+                  () => label,
                 ),
               );
           },
@@ -75,7 +80,7 @@ export const useHideColumns = createFeature(
       h(
         OnyxMenuItem,
         {
-          onClick: () => hiddenColumns.value.add(column),
+          onClick: () => hiddenColumnKeys.value.add(column),
         },
         () => [
           h(OnyxIcon, { icon: eyeDisabled }),
@@ -85,22 +90,34 @@ export const useHideColumns = createFeature(
 
     return {
       name: HIDE_COLUMNS_FEATURE,
-      watch: [hiddenColumns],
-      modifyColumns: {
-        func: (columnConfig) => {
-          const filteredColumns = columnConfig.filter(
-            (column) => !hiddenColumns.value.has(column.key),
-          );
-
-          return hiddenColumns.value.size > 0
-            ? [
-                ...filteredColumns,
-                { key: HIDDEN_COLUMN, type: { name: HIDDEN_COLUMN }, width: "2.5rem", label: "" },
-              ]
-            : filteredColumns;
+      watch: [hiddenColumnKeys],
+      modifyColumns: [
+        {
+          order: 9000,
+          /**
+           * Store the current column configuration for later reference
+           */
+          func: (newConfig) => {
+            columnConfig.value = newConfig;
+            return newConfig as InternalColumnConfig<TEntry>[];
+          },
         },
-      } satisfies ModifyColumns<TEntry>,
+        {
+          order: 9001,
+          func: (columnConfig) => {
+            const filteredColumns = columnConfig.filter(
+              (column) => !hiddenColumnKeys.value.has(column.key),
+            );
 
+            return hiddenColumnKeys.value.size > 0
+              ? [
+                  ...filteredColumns,
+                  { key: HIDDEN_COLUMN, type: { name: HIDDEN_COLUMN }, width: "2.5rem", label: "" },
+                ]
+              : filteredColumns;
+          },
+        },
+      ] satisfies ModifyColumns<TEntry>[],
       typeRenderer: {
         [HIDDEN_COLUMN]: {
           header: {
