@@ -97,7 +97,6 @@ watch(
     :columns="renderColumns"
     :rows="renderRows"
     :scroll-container-attrs="rendererScrollContainerAttributes"
-    :skeleton
   >
     <template #empty>
       <slot name="empty" />

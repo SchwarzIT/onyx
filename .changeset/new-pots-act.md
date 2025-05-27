@@ -2,4 +2,4 @@
 "sit-onyx": minor
 ---
 
-feat(OnyxTable, OnyxDatagrid): add skeleton
+feat(OnyxTable, OnyxDataGrid): add skeleton property

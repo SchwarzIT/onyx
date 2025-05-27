@@ -2,17 +2,14 @@
 import { computed, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density";
 import { useResizeObserver } from "../../composables/useResizeObserver";
-import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { injectI18n } from "../../i18n";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
-import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxTableProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxTableProps>(), {
   striped: false,
   withVerticalBorders: false,
   withPageScrolling: false,
-  skeleton: SKELETON_INJECTED_SYMBOL,
 });
 
 const slots = defineSlots<{
@@ -51,15 +48,8 @@ const slots = defineSlots<{
 }>();
 
 const { t } = injectI18n();
-// defauft skeletonCount if not provided same in dategridRenderer
-const skeletonRowCount = 5;
-
-const skeletonRowCountToUse = computed(() => {
-  return typeof skeleton.value === "number" ? skeleton.value : skeletonRowCount;
-});
 
 const { densityClass } = useDensity(props);
-const skeleton = useSkeletonContext(props);
 
 const isEmptyMessage = computed(() => t.value("table.empty"));
 
@@ -71,13 +61,6 @@ const style = computed(() => ({
   "--onyx-table-observed-height": `${height.value}px`,
   "--onyx-table-observed-width": `${width.value}px`,
 }));
-
-const columnCount = computed(() => {
-  const slotContent = slots.head?.();
-  const headVNode = Array.isArray(slotContent) ? slotContent[0] : slotContent;
-  const children = headVNode?.children;
-  return Array.isArray(children) ? children.length : 0;
-});
 </script>
 
 <template>
@@ -132,15 +115,7 @@ const columnCount = computed(() => {
         </thead>
 
         <tbody>
-          <template v-if="skeleton">
-            <tr v-for="rowCount in skeletonRowCountToUse" :key="rowCount">
-              <td v-for="count in columnCount" :key="count">
-                <OnyxSkeleton :class="['onyx-table-skeleton', densityClass]" />
-              </td>
-            </tr>
-          </template>
-
-          <slot v-else>
+          <slot>
             <!-- fallback content showing an "empty" state
               that will be displayed if no body content is provided -->
             <tr class="onyx-table__empty">
@@ -355,9 +330,9 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
       color: var(--onyx-color-text-icons-primary-intense);
     }
   }
-  &-skeleton {
+  .onyx-skeleton {
     height: 0.5rem;
-    border-radius: 0.5rem;
+    border-radius: var(--onyx-radius-full);
   }
 }
 </style>
