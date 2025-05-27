@@ -1,3 +1,4 @@
+import type { SkeletonInjected } from "src/composables/useSkeletonState";
 import type { IfExtends, IfNotEmpty, MaybePick, RecordValues, UnionByKey } from "../../types";
 import type {
   ColumnConfig,
@@ -59,7 +60,7 @@ export type OnyxDataGridProps<
   TFeatureName extends symbol,
   TFeatures extends DataGridFeature<TEntry, TTypeRenderer, TFeatureName>[] = never,
   TTypes extends ColumnConfigTypeOption<PropertyKey, unknown> = RenderTypesFromFeature<
-    [typeof BASE_FEATURE, ...TFeatures]
+    [ReturnType<typeof BASE_FEATURE>, ...TFeatures]
   >,
 > = {
   /**
@@ -81,6 +82,10 @@ export type OnyxDataGridProps<
    * The data that should be used to fill the datagrid.
    */
   data: TEntry[];
+  /**
+   * Whether to show a skeleton.
+   */
+  skeleton?: SkeletonInjected;
 };
 
 /**

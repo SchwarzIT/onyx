@@ -11,6 +11,7 @@
   "
 >
 import { shallowRef, toRefs, watch, type HTMLAttributes, type WatchHandle } from "vue";
+import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { injectI18n } from "../../i18n";
 import type { TableColumnGroup } from "../OnyxTable/types";
 import {
@@ -29,6 +30,7 @@ const props = withDefaults(
   defineProps<OnyxDataGridProps<TEntry, TColumnGroup, TTypeRenderer, TFeatureName, TFeatures>>(),
   {
     features: () => [] as TFeatures,
+    skeleton: SKELETON_INJECTED_SYMBOL,
   },
 );
 
@@ -43,6 +45,7 @@ defineSlots<{
   empty?(): unknown;
 }>();
 
+const skeleton = useSkeletonContext(props);
 // Using Ref types to avoid `UnwrapRef` issues
 const renderColumns = shallowRef<DataGridRendererColumn<TEntry>[]>([]);
 const renderRows = shallowRef<DataGridRendererRow<TEntry, DataGridMetadata>[]>([]);
@@ -79,7 +82,7 @@ const createFeatureBuilderWatcher = ({
 watch(
   features,
   () => {
-    const featureBuilder = useDataGridFeatures([BASE_FEATURE, ...features.value], {
+    const featureBuilder = useDataGridFeatures([BASE_FEATURE(skeleton), ...features.value], {
       i18n,
       columnConfig: columns,
       columnGroups,

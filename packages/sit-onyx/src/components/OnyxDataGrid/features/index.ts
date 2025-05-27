@@ -78,7 +78,7 @@ export type ColumnConfig<
   | PublicNormalizedColumnConfig<
       TEntry,
       TColumnGroup,
-      TTypes | RenderTypesFromFeature<[typeof BASE_FEATURE]>
+      TTypes | RenderTypesFromFeature<[ReturnType<typeof BASE_FEATURE>]>
     >;
 
 export type DefaultSupportedTypes = "string" | "number" | DatetimeFormat;

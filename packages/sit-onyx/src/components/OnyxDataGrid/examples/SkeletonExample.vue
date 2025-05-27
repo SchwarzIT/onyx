@@ -6,6 +6,7 @@ type TEntry = {
   name: string;
   age: number;
   birthday: Date;
+  skeleton?: boolean;
 };
 
 const data: TEntry[] = [
@@ -28,5 +29,5 @@ const columns: ColumnConfig<TEntry>[] = [
 </script>
 
 <template>
-  <OnyxDataGrid :columns :data :skeleton="7" />
+  <OnyxDataGrid :columns :data skeleton />
 </template>
