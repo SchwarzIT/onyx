@@ -1,5 +1,5 @@
 import { DENSITIES } from "../../../../composables/density";
-import { test } from "../../../../playwright/a11y";
+import { expect, test } from "../../../../playwright/a11y";
 import {
   executeMatrixScreenshotTest,
   mockPlaywrightIcon,
@@ -52,4 +52,19 @@ test.describe("Screenshot tests (density)", () => {
       },
     },
   });
+});
+
+test("should open internal link with router", async ({ mount, page }) => {
+  // ARRANGE
+  const component = await mount(<OnyxSidebarItem link="#test-link">Label</OnyxSidebarItem>);
+
+  // ASSERT
+  await expect(component).toHaveRole("link");
+  await expect(component, "should use the onyx router link").toHaveClass(/.onyx-router-link/);
+
+  // ACT
+  await component.click();
+
+  // ASSERT
+  await expect(page).toHaveURL(/^http:\/\/localhost:\d*\/#test-link$/);
 });
