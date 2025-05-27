@@ -33,13 +33,19 @@ describe("prepareMapping", () => {
       expected: [],
     },
     {
-      title: "should return a single mapping",
+      title: "should return a single mapping for an arrayed mapping",
       features: [{ a: [{ func }] }],
       key: "a",
       expected: [{ func }],
     },
     {
-      title: "should apply sort for multiple definitions",
+      title: "should return a single mapping",
+      features: [{ a: { func } }],
+      key: "a",
+      expected: [{ func }],
+    },
+    {
+      title: "should be able to handle multiple definitions",
       features: [
         {
           a: [
@@ -55,7 +61,7 @@ describe("prepareMapping", () => {
       ],
     },
     {
-      title: "should apply be able to handle all types at once",
+      title: "should be able to handle all types at once",
       features: [
         {
           a: [
@@ -73,9 +79,24 @@ describe("prepareMapping", () => {
         {
           a: [{ func }],
         },
+        {
+          a: { func },
+        },
+
+        {
+          a: { func, order: 0 },
+        },
       ],
       key: "a",
-      expected: [{ func }, { func }, { func, order: 1 }, { func, order: 2 }, { func, order: 3 }],
+      expected: [
+        { func },
+        { func },
+        { func },
+        { func, order: 0 },
+        { func, order: 1 },
+        { func, order: 2 },
+        { func, order: 3 },
+      ],
     },
   ])("$title", ({ key, features, expected }) =>
     expect(prepareMapping(features, key)).toMatchObject(expected),
