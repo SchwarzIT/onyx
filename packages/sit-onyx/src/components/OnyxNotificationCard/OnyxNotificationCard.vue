@@ -25,7 +25,7 @@ const slots = defineSlots<{
   /**
    * Optional custom header actions to display inside a flyout menu.
    * Will only be shown when hovering the notification card or focussing via keyboard.
-   * You must only put [OnyxMenuItem](http://localhost:6006/?path=/docs/navigation-modules-menuitem--docs) components here.
+   * You must only put [OnyxMenuItem](https://storybook.onyx.schwarz/?path=/docs/navigation-navbar-modules-menuitem--docs) components here.
    */
   headerActions?: unknown;
 }>();

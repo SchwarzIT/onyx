@@ -9,7 +9,7 @@ import OnyxNavItem from "./OnyxNavItem.vue";
  * Links are integrated with the provided router.
  */
 const meta: Meta<typeof OnyxNavItem> = {
-  title: "Navigation/modules/NavItem",
+  title: "Navigation/NavBar/modules/NavItem",
   component: OnyxNavItem,
   argTypes: {
     default: {

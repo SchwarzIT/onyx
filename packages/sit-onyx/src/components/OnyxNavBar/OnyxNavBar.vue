@@ -34,7 +34,7 @@ const emit = defineEmits<{
 
 const slots = defineSlots<{
   /**
-   * [`OnyxNavItem`](/docs/navigation-modules-navitem--docs) components should be placed and nested here to build the navigation.
+   * [`OnyxNavItem`](/docs/navigation-navbar-modules-navitem--docs) components should be placed and nested here to build the navigation.
    */
   default?: () => unknown;
   /**

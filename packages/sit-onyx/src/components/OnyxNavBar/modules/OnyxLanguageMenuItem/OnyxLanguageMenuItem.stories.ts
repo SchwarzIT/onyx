@@ -14,7 +14,7 @@ import OnyxLanguageMenuItem from "./OnyxLanguageMenuItem.vue";
  * - Tab: Shift focus between options and cancel/apply button
  */
 const meta: Meta<typeof OnyxLanguageMenuItem> = {
-  title: "Navigation/modules/LanguageMenuItem",
+  title: "Navigation/NavBar/modules/LanguageMenuItem",
   component: OnyxLanguageMenuItem,
   tags: ["new:component"],
   decorators: [
