@@ -21,7 +21,7 @@ it("should be ensured that RenderTypesFromFeature unwraps correctly", async () =
     | ColumnConfigTypeOption<"datetime-local", DateCellOptions>
     | ColumnConfigTypeOption<"time", DateCellOptions>
     | ColumnConfigTypeOption<"timestamp", DateCellOptions>
-    | ColumnConfigTypeOption<"skeleton", object>
+    | ColumnConfigTypeOption<"skeleton", StringCellOptions>
   >();
 
   type SingleFeature = [
