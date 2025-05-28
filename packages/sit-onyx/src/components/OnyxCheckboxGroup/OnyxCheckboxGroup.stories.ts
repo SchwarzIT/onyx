@@ -51,7 +51,7 @@ export const Default = {
 export const Horizontal = {
   args: {
     ...Default.args,
-    direction: "horizontal",
+    orientation: "horizontal",
   },
 } satisfies Story;
 

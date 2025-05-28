@@ -11,6 +11,7 @@ test.describe("Screenshot tests", () => {
       rows: ["default", "hover", "focus-visible"],
       component: (column) => (
         <OnyxProgressStep
+          label="Step"
           value={1}
           icon={column === "icon" ? mockPlaywrightIcon : undefined}
           status={status}

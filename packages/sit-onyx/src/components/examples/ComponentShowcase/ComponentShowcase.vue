@@ -211,7 +211,7 @@ const teamMembers = [
           label="Radio group"
           hide-label
           :options="radioGroupOptions"
-          direction="horizontal"
+          orientation="horizontal"
         />
       </div>
 
@@ -229,7 +229,7 @@ const teamMembers = [
         <OnyxCheckboxGroup
           label="Checkbox group (skeleton)"
           hide-label
-          direction="horizontal"
+          orientation="horizontal"
           :skeleton="4"
           :options="[]"
         />

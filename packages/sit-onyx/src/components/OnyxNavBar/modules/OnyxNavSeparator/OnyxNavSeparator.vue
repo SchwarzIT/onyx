@@ -27,7 +27,7 @@ const isMobile = inject(
 
 .onyx-nav-separator {
   @include layers.component() {
-    background-color: var(--onyx-color-base-neutral-300);
+    background-color: var(--onyx-color-component-border-neutral);
     margin: 0 var(--onyx-spacing-2xs);
     width: var(--onyx-1px-in-rem);
     min-height: 2rem;

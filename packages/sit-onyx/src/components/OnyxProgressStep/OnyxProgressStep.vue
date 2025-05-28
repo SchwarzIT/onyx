@@ -29,13 +29,14 @@ const icon = computed(() => {
       `onyx-progress-step--${props.status}`,
     ]"
     type="button"
+    :disabled="props.disabled"
   >
     <span class="onyx-progress-step__indicator">
       <OnyxIcon v-if="icon" :icon="icon" />
       <template v-else>{{ props.value }}</template>
     </span>
 
-    Label
+    <span> {{ props.label }}</span>
   </button>
 </template>
 
@@ -51,12 +52,15 @@ const icon = computed(() => {
     align-items: center;
     gap: var(--onyx-density-sm);
     font-weight: 600;
-    cursor: pointer;
 
     // reset button styles
     border: none;
     background: none;
     padding: 0;
+
+    &:enabled {
+      cursor: pointer;
+    }
 
     &__indicator {
       display: flex;
@@ -80,14 +84,16 @@ const icon = computed(() => {
       --onyx-progress-step-border-color: var(--onyx-color-component-border-neutral);
       --onyx-progress-step-color: var(--onyx-color-text-icons-neutral-intense);
 
-      &:hover {
-        --onyx-progress-step-background-color: var(--onyx-color-base-neutral-200);
-        --onyx-progress-step-border-color: var(--onyx-color-component-border-neutral-hover);
-      }
+      &:enabled {
+        &:hover {
+          --onyx-progress-step-background-color: var(--onyx-color-base-neutral-200);
+          --onyx-progress-step-border-color: var(--onyx-color-component-border-neutral-hover);
+        }
 
-      &:focus-visible {
-        --onyx-progress-step-background-color: var(--onyx-color-base-neutral-300);
-        --onyx-progress-step-border-color: var(--onyx-color-component-border-neutral-hover);
+        &:focus-visible {
+          --onyx-progress-step-background-color: var(--onyx-color-base-neutral-300);
+          --onyx-progress-step-border-color: var(--onyx-color-component-border-neutral-hover);
+        }
       }
     }
 
@@ -96,12 +102,14 @@ const icon = computed(() => {
       --onyx-progress-step-border-color: var(--onyx-progress-step-background-color);
       --onyx-progress-step-color: var(--onyx-color-text-icons-neutral-inverted);
 
-      &:hover {
-        --onyx-progress-step-background-color: var(--onyx-color-base-neutral-600);
-      }
+      &:enabled {
+        &:hover {
+          --onyx-progress-step-background-color: var(--onyx-color-base-neutral-600);
+        }
 
-      &:focus-visible {
-        --onyx-progress-step-background-color: var(--onyx-color-base-neutral-500);
+        &:focus-visible {
+          --onyx-progress-step-background-color: var(--onyx-color-base-neutral-500);
+        }
       }
     }
 
@@ -110,12 +118,14 @@ const icon = computed(() => {
       --onyx-progress-step-border-color: var(--onyx-progress-step-background-color);
       --onyx-progress-step-color: var(--onyx-color-text-icons-neutral-inverted);
 
-      &:hover {
-        --onyx-progress-step-background-color: var(--onyx-color-component-cta-default-hover);
-      }
+      &:enabled {
+        &:hover {
+          --onyx-progress-step-background-color: var(--onyx-color-component-cta-default-hover);
+        }
 
-      &:focus-visible {
-        --onyx-progress-step-background-color: var(--onyx-color-base-primary-600);
+        &:focus-visible {
+          --onyx-progress-step-background-color: var(--onyx-color-base-primary-600);
+        }
       }
     }
 
@@ -124,13 +134,15 @@ const icon = computed(() => {
       --onyx-progress-step-border-color: var(--onyx-progress-step-background-color);
       --onyx-progress-step-color: var(--onyx-color-text-icons-danger-intense);
 
-      &:hover {
-        --onyx-progress-step-background-color: var(--onyx-color-base-danger-100);
-      }
+      &:enabled {
+        &:hover {
+          --onyx-progress-step-background-color: var(--onyx-color-base-danger-100);
+        }
 
-      &:focus-visible {
-        --onyx-progress-step-background-color: var(--onyx-color-base-danger-300);
-        --onyx-progress-step-color: var(--onyx-color-text-icons-danger-bold);
+        &:focus-visible {
+          --onyx-progress-step-background-color: var(--onyx-color-base-danger-300);
+          --onyx-progress-step-color: var(--onyx-color-text-icons-danger-bold);
+        }
       }
     }
   }

@@ -5,5 +5,5 @@ export * from "./i18n";
 export * from "./themes";
 export * from "./utils";
 
-export const DIRECTIONS = ["horizontal", "vertical"] as const;
-export type Direction = (typeof DIRECTIONS)[number];
+export const ORIENTATIONS = ["horizontal", "vertical"] as const;
+export type Orientation = (typeof ORIENTATIONS)[number];
