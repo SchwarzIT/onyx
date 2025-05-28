@@ -1730,6 +1730,10 @@
     "category": "Business & Statistics",
     "aliases": ["paper-coupon", "news-discount", "Zeitungs-Gutschein", "Zeitungs-Coupon"]
   },
+  "nic": {
+    "category": "Software & Services",
+    "aliases": []
+  },
   "node-pool": {
     "category": "Software & Services",
     "aliases": ["node-cluster", "resource-pool", "Knoten-Pool", "Ressourcen-Pool"]
@@ -2836,6 +2840,10 @@
   "webhook": {
     "category": "Software & Services",
     "aliases": ["HTTP-callback", "server-push", "Webhook", "Server-Push"]
+  },
+  "weight-kg": {
+    "category": "Objects",
+    "aliases": []
   },
   "windmill": {
     "category": "Weather & Climate",
