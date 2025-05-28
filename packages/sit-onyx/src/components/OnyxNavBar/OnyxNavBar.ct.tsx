@@ -14,6 +14,7 @@ import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxPageLayout from "../OnyxPageLayout/OnyxPageLayout.vue";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
+import AsyncTestCase from "./AsyncTestCase.vue";
 import OnyxMenuItem from "./modules/OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxNavItem from "./modules/OnyxNavItem/OnyxNavItem.vue";
 import OnyxUserMenu from "./modules/OnyxUserMenu/OnyxUserMenu.vue";
@@ -450,6 +451,32 @@ test("should display More Items correctly", async ({ mount, page }) => {
     await expectNMenuItemsToBeVisible(5, page);
     expect(navItemClickEvents).toBe(4);
   });
+});
+
+test("should work with async nav items", async ({ mount, page }) => {
+  // ARRANGE
+  await page.setViewportSize({ width: ONYX_BREAKPOINTS.sm, height: 400 }); // set small viewport, so that the last element ends up in the more menu
+  const component = await mount(AsyncTestCase);
+  await expect(component.getByRole("menuitem")).toHaveCount(0);
+
+  // ACT
+  await component.getByRole("button", { name: "Load Async" }).click();
+
+  // ASSERT
+  const menuItemButton = component.getByRole("menuitem", { name: "MenuItem Button" });
+  await expect(menuItemButton).toBeVisible();
+
+  const menuItemLinks = component.getByRole("menuitem", { name: "MenuItem Link" });
+  await expect(menuItemLinks).toHaveCount(3);
+  for (const link of await menuItemLinks.all()) {
+    await expect(link).toBeVisible();
+  }
+
+  const moreMenuButton = component.getByRole("menuitem", { name: "+1 More" });
+  await moreMenuButton.click();
+
+  const menuItemNested = component.getByRole("menuitem", { name: "MenuItem Nested" });
+  await expect(menuItemNested).toBeVisible();
 });
 
 test("should switch to mobile correctly", async ({ mount, page }) => {

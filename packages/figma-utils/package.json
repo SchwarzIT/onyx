@@ -1,7 +1,7 @@
 {
   "name": "@sit-onyx/figma-utils",
   "description": "Utility functions and CLI for importing data from the Figma API into different formats (e.g. CSS, SCSS etc.)",
-  "version": "1.0.0-beta.4",
+  "version": "1.0.0-beta.5",
   "type": "module",
   "bin": {
     "@sit-onyx/figma-utils": "./dist/cli.js"
@@ -10,7 +10,7 @@
     "dist"
   ],
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "types": "./dist/index.d.ts",
   "exports": {
@@ -37,7 +37,7 @@
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "commander": "^13.1.0"
+    "commander": "^14.0.0"
   },
   "optionalDependencies": {
     "svgo": "^3.3.2"

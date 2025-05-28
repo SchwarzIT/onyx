@@ -10,10 +10,7 @@ import {
   watch,
   type AriaAttributes,
 } from "vue";
-import {
-  useAnchorPositionPolyfill,
-  USERAGENT_SUPPORTS_ANCHOR_API,
-} from "../../composables/useAnchorPositionPolyfill";
+import { useAnchorPositionPolyfill } from "../../composables/useAnchorPositionPolyfill";
 import { useOpenAlignment } from "../../composables/useOpenAlignment";
 import { useOpenDirection } from "../../composables/useOpenDirection";
 import { useResizeObserver } from "../../composables/useResizeObserver";
@@ -73,15 +70,16 @@ const { openAlignment, updateOpenAlignment } = useOpenAlignment(
   flyoutRef,
   "left",
 );
-const { leftPosition, topPosition, updateAnchorPositionPolyfill } = useAnchorPositionPolyfill({
-  positionedRef: flyoutRef,
-  targetRef: flyoutWrapperRef,
-  positionArea: flyoutPosition,
-  alignment: flyoutAlignment,
-  alignsWithEdge: true,
-  fitParent: false,
-  offset: 8,
-});
+const { leftPosition, topPosition, updateAnchorPositionPolyfill, useragentSupportsAnchorApi } =
+  useAnchorPositionPolyfill({
+    positionedRef: flyoutRef,
+    targetRef: flyoutWrapperRef,
+    positionArea: flyoutPosition,
+    alignment: flyoutAlignment,
+    alignsWithEdge: true,
+    fitParent: false,
+    offset: 8,
+  });
 
 const { width } = useResizeObserver(flyoutWrapperRef);
 
@@ -109,14 +107,14 @@ useGlobalEventListener({
 onMounted(() => {
   handleOpening(isVisible.value);
   updateDirections();
-  if (!USERAGENT_SUPPORTS_ANCHOR_API) updateAnchorPositionPolyfill();
+  if (!useragentSupportsAnchorApi.value) updateAnchorPositionPolyfill();
 });
 
 watch(isVisible, async (newVal) => {
   await nextTick();
   handleOpening(newVal);
   updateDirections();
-  if (!USERAGENT_SUPPORTS_ANCHOR_API) updateAnchorPositionPolyfill();
+  if (!useragentSupportsAnchorApi.value) updateAnchorPositionPolyfill();
 });
 
 const toggle = () => {
@@ -139,7 +137,7 @@ const flyoutClasses = computed(() => {
     [`onyx-flyout__dialog--alignment-${flyoutAlignment.value}`]: true,
     "onyx-flyout__dialog--fitparent": props.fitParent,
     "onyx-flyout__dialog--disabled": disabled.value,
-    "onyx-flyout__dialog--dont-support-anchor": !USERAGENT_SUPPORTS_ANCHOR_API,
+    "onyx-flyout__dialog--dont-support-anchor": !useragentSupportsAnchorApi.value,
   };
 });
 watch([disabled], () => {
@@ -148,17 +146,26 @@ watch([disabled], () => {
   }
 });
 watch([flyoutPosition, flyoutAlignment, flyoutWidth], async () => {
-  if (!USERAGENT_SUPPORTS_ANCHOR_API) {
+  if (!useragentSupportsAnchorApi.value) {
     await nextTick();
     updateDirections();
     updateAnchorPositionPolyfill();
   }
 });
+
+const flyoutStyles = computed(() => ({
+  "position-anchor": anchorName.value,
+  "position-area": positionAndAlignment.value,
+  width: props.fitParent ? flyoutWidth.value : undefined,
+  left: !useragentSupportsAnchorApi.value ? leftPosition.value : undefined,
+  top: !useragentSupportsAnchorApi.value ? topPosition.value : undefined,
+}));
 </script>
 
 <template>
   <div ref="flyoutWrapper" class="onyx-component onyx-flyout" :style="`anchor-name: ${anchorName}`">
     <slot :trigger="trigger"></slot>
+    <!-- we are using inline "style" here since using v-bind causes hydration errors in Nuxt / SSR -->
     <div
       ref="flyout"
       role="dialog"
@@ -166,6 +173,7 @@ watch([flyoutPosition, flyoutAlignment, flyoutWidth], async () => {
       popover="manual"
       class="onyx-flyout__dialog"
       :class="flyoutClasses"
+      :style="flyoutStyles"
     >
       <slot name="content"></slot>
     </div>
@@ -177,16 +185,15 @@ watch([flyoutPosition, flyoutAlignment, flyoutWidth], async () => {
 
 .onyx-flyout {
   --onyx-flyout-min-width: var(--onyx-spacing-4xl);
-  --onyx-flyoput-max-width: 20rem;
+  --onyx-flyout-max-width: 20rem;
+
   @include layers.component() {
     --onyx-flyout-gap: var(--onyx-spacing-2xs);
     display: inline-flex;
     position: relative;
+
     &__dialog {
       position: fixed;
-      position-anchor: v-bind("anchorName");
-      position-area: v-bind("positionAndAlignment");
-
       border-radius: var(--onyx-radius-md);
       border: none;
       outline: none;
@@ -257,13 +264,10 @@ watch([flyoutPosition, flyoutAlignment, flyoutWidth], async () => {
       &--fitparent {
         min-width: inherit;
         max-width: inherit;
-        width: v-bind(flyoutWidth);
       }
 
       &--dont-support-anchor {
         margin: 0;
-        left: v-bind(leftPosition);
-        top: v-bind(topPosition);
       }
     }
   }

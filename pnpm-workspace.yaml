@@ -1,17 +1,23 @@
 packages:
   - apps/*
   - packages/*
+
 catalog:
-  "@vue/compiler-core": 3.5.13
-  "@vue/compiler-dom": 3.5.13
-  "@vue/compiler-sfc": 3.5.13
-  "@vue/compiler-ssr": 3.5.13
-  "@vue/shared": 3.5.13
-  chart.js: ^4.4.9
-  vue: 3.5.13
-  sass-embedded: 1.86.3
+  "@playwright/experimental-ct-vue": 1.51.1
+  "@playwright/test": 1.51.1
+  "@vue/compiler-core": 3.5.15
+  "@vue/compiler-dom": 3.5.15
+  "@vue/compiler-sfc": 3.5.15
+  "@vue/compiler-ssr": 3.5.15
+  "@vue/shared": 3.5.15
+  chart.js: 4.4.9
+  "playwright": 1.51.1
+  "playwright-core": 1.51.1
+  vue: 3.5.15
+  sass-embedded: 1.89.0
   typescript: 5.8.3
-  vite: 6.2.6
+  vite: 6.3.5
+
 onlyBuiltDependencies:
   - "@parcel/watcher"
   - better-sqlite3

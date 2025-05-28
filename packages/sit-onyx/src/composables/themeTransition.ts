@@ -1,5 +1,5 @@
-import type { ColorSchemeValue } from "src/components/OnyxNavBar/modules";
 import { onMounted, watch, type Ref } from "vue";
+import type { ColorSchemeValue } from "../components/OnyxNavBar/modules";
 
 export const useThemeTransition = (theme: Ref<ColorSchemeValue>) => {
   //onMounted because of Server-Side-Rendering

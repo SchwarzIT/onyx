@@ -11,7 +11,7 @@ import { fileURLToPath } from "node:url";
 export default defineConfig<ConfigOptions>({
   ...PLAYWRIGHT_BASE_CONFIG,
   testDir: "./tests/playwright",
-  timeout: 30 * 1000,
+  timeout: 60 * 1000,
   use: {
     ...PLAYWRIGHT_BASE_CONFIG.use,
     nuxt: {

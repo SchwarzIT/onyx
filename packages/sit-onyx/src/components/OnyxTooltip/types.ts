@@ -1,6 +1,6 @@
-import type { AnchorPosition } from "src/composables/useAnchorPositionPolyfill";
 import type { MaybeRefOrGetter } from "vue";
 import type { DensityProp } from "../../composables/density";
+import type { AnchorPosition } from "../../composables/useAnchorPositionPolyfill";
 import type { OpenAlignment } from "../../composables/useOpenAlignment";
 import type { OnyxColor } from "../../types";
 
