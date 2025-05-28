@@ -3,8 +3,8 @@ import type { CustomValidityProp } from "../../composables/useCustomValidity";
 import type {
   AutofocusProp,
   BaseSelectOption,
-  Direction,
   Nullable,
+  Orientation,
   SelectOptionValue,
 } from "../../types";
 import type { SharedFormElementProps } from "../OnyxFormElement/types";
@@ -26,9 +26,9 @@ export type OnyxCheckboxGroupProps<TValue extends SelectOptionValue = SelectOpti
      */
     modelValue?: Nullable<TValue[]>;
     /**
-     * Direction of the checkboxes.
+     * Orientation of the checkboxes.
      */
-    direction?: Direction;
+    orientation?: Orientation;
     /**
      * If true, an additional checkbox will be displayed to check/uncheck all options.
      * Disabled and skeleton checkboxes will be excluded from the check/uncheck behavior.

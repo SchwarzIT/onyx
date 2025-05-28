@@ -17,6 +17,7 @@ type Story = StoryObj<typeof OnyxProgressStep>;
 
 export const Default = {
   args: {
+    label: "Step",
     value: 1,
   },
 } satisfies Story;
@@ -39,6 +40,13 @@ export const Invalid = {
   args: {
     ...Default.args,
     status: "invalid",
+  },
+} satisfies Story;
+
+export const Disabled = {
+  args: {
+    ...Default.args,
+    disabled: true,
   },
 } satisfies Story;
 
