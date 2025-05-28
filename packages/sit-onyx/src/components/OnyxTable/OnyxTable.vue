@@ -332,6 +332,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
   }
   .onyx-skeleton {
     height: 0.5rem;
+    margin: var(--onyx-density-xs) 0;
     border-radius: var(--onyx-radius-full);
   }
 }

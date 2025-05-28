@@ -31,6 +31,7 @@ export const BASE_FEATURE = createFeature(
           }
         },
       },
+      watch: [skeleton],
       typeRenderer: {
         number: NUMBER_RENDERER,
         string: STRING_RENDERER,
