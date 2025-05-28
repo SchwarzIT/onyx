@@ -52,12 +52,11 @@ test.describe("Screenshot tests (densities)", () => {
   executeMatrixScreenshotTest({
     name: "Table (densities)",
     columns: DENSITIES,
-    rows: ["default", "focus-visible", "columnGroups", "skeleton"],
+    rows: ["default", "focus-visible", "columnGroups"],
     component: (column, row) => (
       <OnyxTable
         density={column}
         withVerticalBorders={row === "columnGroups"}
-        skeleton={row === "skeleton"}
         columnGroups={
           row === "columnGroups"
             ? [

@@ -14,13 +14,14 @@ it("should be ensured that RenderTypesFromFeature unwraps correctly", async () =
   expectTypeOf<RenderTypesFromFeature<never>>().toBeNever();
   expectTypeOf<RenderTypesFromFeature<[]>>().toBeNever();
 
-  expectTypeOf<RenderTypesFromFeature<[typeof BASE_FEATURE]>>().toEqualTypeOf<
+  expectTypeOf<RenderTypesFromFeature<[ReturnType<typeof BASE_FEATURE>]>>().toEqualTypeOf<
     | ColumnConfigTypeOption<"number", NumberCellOptions>
     | ColumnConfigTypeOption<"string", StringCellOptions>
     | ColumnConfigTypeOption<"date", DateCellOptions>
     | ColumnConfigTypeOption<"datetime-local", DateCellOptions>
     | ColumnConfigTypeOption<"time", DateCellOptions>
     | ColumnConfigTypeOption<"timestamp", DateCellOptions>
+    | ColumnConfigTypeOption<"skeleton", object>
   >();
 
   type SingleFeature = [

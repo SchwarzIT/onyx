@@ -156,7 +156,7 @@ export const TIMESTAMP_RENDERER = createTypeRenderer<DateCellOptions>({
       dateFormatter(props.modelValue, { format: "timestamp", ...props.metadata?.typeOptions }),
   },
 });
-export const SKELETON_RENDERER = createTypeRenderer<DateCellOptions>({
+export const SKELETON_RENDERER = createTypeRenderer<object>({
   cell: {
     component: () => h(OnyxSkeleton),
   },
