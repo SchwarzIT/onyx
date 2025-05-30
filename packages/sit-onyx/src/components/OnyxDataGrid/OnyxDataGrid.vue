@@ -13,6 +13,7 @@
 import { shallowRef, toRefs, watch, type HTMLAttributes, type WatchHandle } from "vue";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { injectI18n } from "../../i18n";
+import { mergeVueProps } from "../../utils/attrs";
 import type { TableColumnGroup } from "../OnyxTable/types";
 import {
   useDataGridFeatures,
@@ -25,6 +26,8 @@ import { BASE_FEATURE } from "./features/base/base";
 import OnyxDataGridRenderer from "./OnyxDataGridRenderer/OnyxDataGridRenderer.vue";
 import type { DataGridRendererColumn, DataGridRendererRow } from "./OnyxDataGridRenderer/types";
 import type { DataGridEntry, DataGridMetadata, OnyxDataGridProps } from "./types";
+
+defineOptions({ inheritAttrs: false });
 
 const props = withDefaults(
   defineProps<OnyxDataGridProps<TEntry, TColumnGroup, TTypeRenderer, TFeatureName, TFeatures>>(),
@@ -100,6 +103,14 @@ watch(
     :columns="renderColumns"
     :rows="renderRows"
     :scroll-container-attrs="rendererScrollContainerAttributes"
+    v-bind="
+      mergeVueProps($attrs, {
+        density: props.density,
+        striped: props.striped,
+        withVerticalBorders: props.withVerticalBorders,
+        withPageScrolling: props.withPageScrolling,
+      })
+    "
   >
     <template #empty>
       <slot name="empty" />
