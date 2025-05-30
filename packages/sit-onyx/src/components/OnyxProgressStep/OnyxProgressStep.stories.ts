@@ -29,6 +29,13 @@ export const Active = {
   },
 } satisfies Story;
 
+export const Completed = {
+  args: {
+    ...Default.args,
+    status: "completed",
+  },
+} satisfies Story;
+
 export const Visited = {
   args: {
     ...Default.args,
@@ -40,13 +47,6 @@ export const Invalid = {
   args: {
     ...Default.args,
     status: "invalid",
-  },
-} satisfies Story;
-
-export const Disabled = {
-  args: {
-    ...Default.args,
-    disabled: true,
   },
 } satisfies Story;
 

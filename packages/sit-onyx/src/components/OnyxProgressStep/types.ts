@@ -15,14 +15,21 @@ export type OnyxProgressStepProps = DensityProp & {
   status?: ProgressStepStatus;
   /**
    * Icon to display instead of the numeric indicator.
-   * If `status` is "visited" or "invalid", the icon will be pre-defined so passing a different icon does not work then.
+   * If `status` is "completed", "visited" or "invalid", the icon will be pre-defined so passing a different icon does not work then.
    */
   icon?: string;
   /**
    * Whether the step is disabled and can not be interacted with.
+   * Please note that the step is always disabled for the following `status`: default and active
    */
   disabled?: boolean;
 };
 
-export const PROGRESS_STEP_STATUS = ["default", "active", "visited", "invalid"] as const;
+export const PROGRESS_STEP_STATUS = [
+  "default",
+  "active",
+  "completed",
+  "visited",
+  "invalid",
+] as const;
 export type ProgressStepStatus = (typeof PROGRESS_STEP_STATUS)[number];
