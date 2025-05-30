@@ -3,10 +3,10 @@ import OnyxColorSchemeMenuItem from "./OnyxColorSchemeMenuItem.vue";
 
 /**
  * Pre-built menu item for the `OnyxUserMenu` that can be used inside the nav bar to
- * display the current color scheme to the user and allow changing it by displaying a [OnyxColorSchemeDialog](/docs/navigation-modules-colorschemedialog--docs).
+ * display the current color scheme to the user and allow changing it by displaying a [OnyxColorSchemeDialog](/docs/navigation-navbar-modules-colorschemedialog--docs).
  */
 const meta: Meta<typeof OnyxColorSchemeMenuItem> = {
-  title: "Navigation/modules/ColorSchemeMenuItem",
+  title: "Navigation/NavBar/modules/ColorSchemeMenuItem",
   component: OnyxColorSchemeMenuItem,
   decorators: [
     (story) => ({
