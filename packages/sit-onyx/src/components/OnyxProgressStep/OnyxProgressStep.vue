@@ -19,7 +19,7 @@ const icon = computed(() => {
 });
 
 const isDisabled = computed(() => {
-  return props.disabled || props.status === "default" || props.status === "active";
+  return props.disabled || props.status === "default";
 });
 </script>
 
