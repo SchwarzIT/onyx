@@ -21,5 +21,5 @@ export type ControlledProgressStep = Omit<OnyxProgressStepProps, "status" | "val
   /**
    * The status of the progress step which indicates whether the step is currently active, upcoming or already visited/completed.
    */
-  status?: Extract<ProgressStepStatus, "invalid">;
+  status?: Extract<ProgressStepStatus, "completed" | "invalid">;
 };

@@ -12,7 +12,7 @@ type Story = StoryObj<typeof OnyxProgressSteps>;
 
 export const Default = {
   args: {
-    steps: [{ label: "Step" }, { label: "Step" }, { label: "Step" }, { label: "Step" }],
+    steps: [{ label: "Step" }, { label: "Step" }, { label: "Step" }],
     modelValue: 2,
   },
 } satisfies Story;

@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { computed } from "vue";
+import { computed, ref, watch } from "vue";
 import { useDensity } from "../../composables/density";
 import OnyxProgressStep from "../OnyxProgressStep/OnyxProgressStep.vue";
 import type { ProgressStepStatus } from "../OnyxProgressStep/types";
 import OnyxSeparator from "../OnyxSeparator/OnyxSeparator.vue";
-import type { OnyxProgressStepsProps } from "./types";
+import type { ControlledProgressStep, OnyxProgressStepsProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxProgressStepsProps>(), {
   orientation: "horizontal",
@@ -20,10 +20,23 @@ const emit = defineEmits<{
 
 const { densityClass } = useDensity(props);
 
+const furthestValue = ref(1);
+watch(
+  () => props.modelValue,
+  (newValue) => {
+    if (newValue > furthestValue.value) {
+      furthestValue.value = newValue;
+    }
+  },
+  { immediate: true },
+);
+
 const getStatus = computed(() => {
-  return (stepNumber: number): ProgressStepStatus => {
+  return (step: ControlledProgressStep, stepNumber: number): ProgressStepStatus => {
+    if (step.status) return step.status;
     if (stepNumber === props.modelValue) return "active";
-    else if (stepNumber < props.modelValue) return "visited";
+    else if (stepNumber < props.modelValue) return "completed";
+    else if (stepNumber <= furthestValue.value) return "visited";
     return "default";
   };
 });
@@ -42,8 +55,7 @@ const getStatus = computed(() => {
       <OnyxProgressStep
         v-bind="step"
         :value="index + 1"
-        :status="getStatus(index + 1)"
-        :disabled="index > props.modelValue - 1"
+        :status="getStatus(step, index + 1)"
         @click="emit('update:modelValue', index + 1)"
       />
       <OnyxSeparator
