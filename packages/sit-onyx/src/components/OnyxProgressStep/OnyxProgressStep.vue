@@ -118,7 +118,7 @@ const isDisabled = computed(() => {
         }
 
         &:focus-visible {
-          --onyx-progress-step-background-color: var(--onyx-color-base-neutral-500);
+          --onyx-progress-step-background-color: var(--onyx-color-base-neutral-800);
         }
       }
     }
