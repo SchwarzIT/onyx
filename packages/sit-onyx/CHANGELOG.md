@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.231
+
+### Patch Changes
+
+- a84ede4: fix(OnyxDataGrid): fix useHideColumns not using column label in reveal dropdown
+
 ## 1.0.0-beta.230
 
 ### Patch Changes
