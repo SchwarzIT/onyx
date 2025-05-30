@@ -13,9 +13,13 @@ const props = withDefaults(defineProps<OnyxProgressStepProps>(), {
 const { densityClass } = useDensity(props);
 
 const icon = computed(() => {
-  if (props.status === "visited") return checkSmall;
+  if (props.status === "completed" || props.status === "visited") return checkSmall;
   if (props.status === "invalid") return notificationFlag;
   return props.icon;
+});
+
+const isDisabled = computed(() => {
+  return props.disabled || props.status === "default" || props.status === "active";
 });
 </script>
 
@@ -29,7 +33,7 @@ const icon = computed(() => {
       `onyx-progress-step--${props.status}`,
     ]"
     type="button"
-    :disabled="props.disabled"
+    :disabled="isDisabled"
   >
     <span class="onyx-progress-step__indicator">
       <OnyxIcon v-if="icon" :icon="icon" />
@@ -45,6 +49,7 @@ const icon = computed(() => {
 
 .onyx-progress-step {
   @include layers.component() {
+    --onyx-progress-outline-color: var(--onyx-color-component-focus-neutral);
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
     list-style: none;
@@ -77,9 +82,14 @@ const icon = computed(() => {
 
     &:focus-visible {
       outline: none;
+
+      .onyx-progress-step__indicator {
+        outline: var(--onyx-outline-width) solid var(--onyx-progress-outline-color);
+      }
     }
 
-    &--default {
+    &--default,
+    &--visited {
       --onyx-progress-step-background-color: transparent;
       --onyx-progress-step-border-color: var(--onyx-color-component-border-neutral);
       --onyx-progress-step-color: var(--onyx-color-text-icons-neutral-intense);
@@ -91,7 +101,7 @@ const icon = computed(() => {
         }
 
         &:focus-visible {
-          --onyx-progress-step-background-color: var(--onyx-color-base-neutral-300);
+          --onyx-progress-step-background-color: transparent;
           --onyx-progress-step-border-color: var(--onyx-color-component-border-neutral-hover);
         }
       }
@@ -113,10 +123,11 @@ const icon = computed(() => {
       }
     }
 
-    &--visited {
+    &--completed {
       --onyx-progress-step-background-color: var(--onyx-color-component-cta-default);
       --onyx-progress-step-border-color: var(--onyx-progress-step-background-color);
       --onyx-progress-step-color: var(--onyx-color-text-icons-neutral-inverted);
+      --onyx-progress-outline-color: var(--onyx-color-component-focus-primary);
 
       &:enabled {
         &:hover {
@@ -124,7 +135,7 @@ const icon = computed(() => {
         }
 
         &:focus-visible {
-          --onyx-progress-step-background-color: var(--onyx-color-base-primary-600);
+          --onyx-progress-step-background-color: var(--onyx-color-component-cta-default);
         }
       }
     }
@@ -133,6 +144,7 @@ const icon = computed(() => {
       --onyx-progress-step-background-color: var(--onyx-color-base-danger-200);
       --onyx-progress-step-border-color: var(--onyx-progress-step-background-color);
       --onyx-progress-step-color: var(--onyx-color-text-icons-danger-intense);
+      --onyx-progress-outline-color: var(--onyx-color-component-focus-danger);
 
       &:enabled {
         &:hover {
@@ -140,7 +152,7 @@ const icon = computed(() => {
         }
 
         &:focus-visible {
-          --onyx-progress-step-background-color: var(--onyx-color-base-danger-300);
+          --onyx-progress-step-background-color: var(--onyx-color-base-danger-200);
           --onyx-progress-step-color: var(--onyx-color-text-icons-danger-bold);
         }
       }
