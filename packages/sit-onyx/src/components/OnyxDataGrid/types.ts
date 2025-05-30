@@ -83,7 +83,7 @@ export type OnyxDataGridProps<
    */
   data: TEntry[];
   /**
-   * Whether to show a skeleton.
+   * Whether to show skeleton rows.
    */
   skeleton?: SkeletonInjected;
 };

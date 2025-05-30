@@ -82,7 +82,7 @@ const createFeatureBuilderWatcher = ({
 watch(
   features,
   () => {
-    const featureBuilder = useDataGridFeatures([BASE_FEATURE(skeleton), ...features.value], {
+    const featureBuilder = useDataGridFeatures([BASE_FEATURE({ skeleton }), ...features.value], {
       i18n,
       columnConfig: columns,
       columnGroups,

@@ -6,7 +6,6 @@ type TEntry = {
   name: string;
   age: number;
   birthday: Date;
-  skeleton?: boolean;
 };
 
 const data: TEntry[] = [

@@ -1,41 +1,34 @@
 <script lang="ts" setup>
+import { ref } from "vue";
 import OnyxSkeleton from "../../OnyxSkeleton/OnyxSkeleton.vue";
 import OnyxTable from "../OnyxTable.vue";
 
-const skeleton = true; // Skeleton state
+const skeleton = ref(true); // Skeleton state
+
+const fruits = [
+  { name: "Strawberry", price: "4.50", inventoryKg: "200", inventoryPieces: "100", rating: "5" },
+  { name: "Apple", price: "1.99", inventoryKg: "3000", inventoryPieces: "200", rating: "3" },
+  { name: "Banana", price: "3.75", inventoryKg: "18000", inventoryPieces: "300", rating: "4" },
+];
 </script>
 
 <template>
   <OnyxTable>
     <template #head>
       <tr>
-        <th>Fruit</th>
-        <th>Price (€/kg)</th>
-        <th>Inventory (kg)</th>
-        <th>Inventory (pieces)</th>
-        <th>Rating</th>
+        <th id="fruit">Fruit</th>
+        <th id="price">Price (€/kg)</th>
+        <th id="inventory_kg">Inventory (kg)</th>
+        <th id="inventory_price">Inventory (pieces)</th>
+        <th id="rating">Rating</th>
       </tr>
     </template>
-    <tr>
-      <td><OnyxSkeleton v-if="skeleton" /> <template v-else>Strawbarry</template></td>
-      <td><OnyxSkeleton v-if="skeleton" /> <template v-else>4.50</template></td>
-      <td><OnyxSkeleton v-if="skeleton" /> <template v-else>200</template></td>
-      <td><OnyxSkeleton v-if="skeleton" /> <template v-else>100</template></td>
-      <td><OnyxSkeleton v-if="skeleton" /> <template v-else>5</template></td>
-    </tr>
-    <tr>
-      <td><OnyxSkeleton v-if="skeleton" /> <template v-else>Apple</template></td>
-      <td><OnyxSkeleton v-if="skeleton" /> <template v-else>1.99</template></td>
-      <td><OnyxSkeleton v-if="skeleton" /> <template v-else>3000</template></td>
-      <td><OnyxSkeleton v-if="skeleton" /> <template v-else>200</template></td>
-      <td><OnyxSkeleton v-if="skeleton" /> <template v-else>3</template></td>
-    </tr>
-    <tr>
-      <td><OnyxSkeleton v-if="skeleton" /> <template v-else>Banana</template></td>
-      <td><OnyxSkeleton v-if="skeleton" /> <template v-else>3.75</template></td>
-      <td><OnyxSkeleton v-if="skeleton" /> <template v-else>18000</template></td>
-      <td><OnyxSkeleton v-if="skeleton" /> <template v-else>300</template></td>
-      <td><OnyxSkeleton v-if="skeleton" /> <template v-else>4</template></td>
+
+    <tr v-for="(fruit, i) in fruits" :key="i">
+      <td v-for="(cell, j) in fruit" :key="j">
+        <OnyxSkeleton v-if="skeleton" />
+        <template v-else>{{ cell }}</template>
+      </td>
     </tr>
   </OnyxTable>
 </template>

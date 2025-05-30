@@ -12,11 +12,15 @@ import {
 
 export const BASE_FEATURE_SYMBOL = Symbol("Base");
 
+export type BaseFeatureOptions = {
+  skeleton: ComputedRef<number | boolean>;
+};
+
 /**
  * The Base feature includes everything that should be provided as built-in functionality of the `OnyxDataGrid` component.
  */
 export const BASE_FEATURE = createFeature(
-  (skeleton: ComputedRef<number | boolean>) =>
+  ({ skeleton }: BaseFeatureOptions) =>
     ({
       name: BASE_FEATURE_SYMBOL,
       modifyColumns: {
