@@ -1,5 +1,24 @@
 # @sit-onyx/icons
 
+## 1.0.0-beta.17
+
+### Minor Changes
+
+- 0f045f0: feat: update icons
+
+  #### New
+
+  - expand-window-small
+  - network-card
+  - RSS-web-feed
+  - traffic-light
+  - weight-kg
+
+  #### Modified
+
+  - eye-closed
+  - notification-flag
+
 ## 1.0.0-beta.16
 
 ### Minor Changes
