@@ -1,4 +1,5 @@
 import type { IfExtends, IfNotEmpty, MaybePick, RecordValues, UnionByKey } from "../../types";
+import type { OnyxTableProps } from "../OnyxTable/types";
 import type {
   ColumnConfig,
   ColumnConfigTypeOption,
@@ -81,7 +82,7 @@ export type OnyxDataGridProps<
    * The data that should be used to fill the datagrid.
    */
   data: TEntry[];
-};
+} & Omit<OnyxTableProps, "columnGroups" | "scrollContainerAttrs">;
 
 /**
  * "Raw" user data for a data grid entry/row, e.g. fetched from a backend service.
