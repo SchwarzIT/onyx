@@ -36,7 +36,7 @@ const icon = computed(() => {
       <template v-else>{{ props.value }}</template>
     </span>
 
-    <span> {{ props.label }}</span>
+    <span> {{ props.label }} </span>
   </button>
 </template>
 
@@ -48,7 +48,6 @@ const icon = computed(() => {
     --onyx-progress-outline-color: var(--onyx-color-component-focus-neutral);
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
-    list-style: none;
     display: inline-flex;
     align-items: center;
     gap: var(--onyx-density-sm);
@@ -58,6 +57,8 @@ const icon = computed(() => {
     border: none;
     background: none;
     padding: 0;
+    min-width: max-content;
+    max-width: 100%;
 
     &:enabled {
       cursor: pointer;
