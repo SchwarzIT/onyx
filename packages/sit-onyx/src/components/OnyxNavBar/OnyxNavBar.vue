@@ -374,6 +374,14 @@ $gap: var(--onyx-spacing-md);
     .onyx-mobile-nav-button {
       --top-position: var(--onyx-nav-bar-height);
     }
+
+    .onyx-separator {
+      margin: var(--onyx-spacing-2xs) 0;
+
+      &--vertical {
+        margin: 0 var(--onyx-spacing-2xs);
+      }
+    }
   }
 }
 </style>

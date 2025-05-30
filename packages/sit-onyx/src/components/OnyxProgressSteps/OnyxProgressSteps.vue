@@ -65,20 +65,15 @@ const getStatus = computed(() => {
     align-items: center;
     gap: var(--onyx-density-sm);
 
-    &__separator {
-      width: var(--onyx-density-xl);
-      margin: 0;
-    }
-
     &--vertical {
       flex-direction: column;
       align-items: flex-start;
       gap: var(--onyx-density-2xs);
 
       .onyx-progress-steps__separator {
-        width: var(--onyx-1px-in-rem);
-        min-height: 0.5rem;
-        margin-left: calc(var(--onyx-1px-in-rem) + var(--onyx-density-2xs) + 1.5rem / 2);
+        --onyx-separator-min-size: 0.5rem;
+        // --onyx-density-2xs = padding of step circle/bubble, 1.5rem = width of step circle/bubble
+        margin-left: calc(var(--onyx-separator-size) + var(--onyx-density-2xs) + 1.5rem / 2);
       }
     }
   }

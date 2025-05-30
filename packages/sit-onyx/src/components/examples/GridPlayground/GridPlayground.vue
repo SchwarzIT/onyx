@@ -232,7 +232,7 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
         <GridBadge :value="gridValues.margin" label="Margin" color="danger" />
         <GridBadge :value="gridValues.columnCount" label="Columns" color="warning" />
         <GridBadge :value="gridValues.gutter" label="Gutter" color="info" />
-        <OnyxSeparator />
+        <OnyxSeparator orientation="vertical" />
         <OnyxIconButton
           label="Grid lines visibility"
           :icon="showGridLines ? eye : eyeDisabled"
