@@ -83,7 +83,7 @@ export type OnyxDataGridProps<
    */
   data: TEntry[];
   /**
-   * Whether to show skeleton rows.
+   *  Whether to show skeleton rows. Can be set to `true` to use a pre-defined skeleton row count or you can pass a number tospecific the count.
    */
   skeleton?: SkeletonInjected;
 };

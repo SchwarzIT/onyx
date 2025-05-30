@@ -35,6 +35,15 @@ export const BASE_FEATURE = createFeature(
           }
         },
       },
+      mutation: {
+        func: (rows) => {
+          if (skeleton.value) {
+            const skeletonCount = typeof skeleton.value === "number" ? skeleton.value : 5;
+            return Array.from({ length: skeletonCount }, () => ({}));
+          }
+          return [...rows];
+        },
+      },
       watch: [skeleton],
       typeRenderer: {
         number: NUMBER_RENDERER,
