@@ -193,7 +193,7 @@ export const WithContextArea = {
     ],
     contextArea: () => [
       h(OnyxTag, { label: "QA stage", color: "warning", icon: browserTerminal }),
-      h(OnyxSeparator),
+      h(OnyxSeparator, { orientation: "vertical" }),
       h(OnyxUserMenu, OnyxUserMenuDefault.args, {
         default: OnyxUserMenuDefault.args.default,
         footer: OnyxUserMenuDefault.args.footer,
@@ -211,7 +211,7 @@ export const WithLogoutTimer = {
     ...Default.args,
     contextArea: () => [
       h(OnyxTimer, { endTime: getTimerEndDate(), label: "Logout in:" }),
-      h(OnyxSeparator),
+      h(OnyxSeparator, { orientation: "vertical" }),
       h(OnyxUserMenu, OnyxUserMenuDefault.args, {
         default: OnyxUserMenuDefault.args.default,
         footer: OnyxUserMenuDefault.args.footer,
@@ -247,7 +247,7 @@ export const Mobile = {
     ],
     contextArea: () => [
       h(OnyxTag, { label: "QA stage", color: "warning", icon: browserTerminal }),
-      h(OnyxSeparator),
+      h(OnyxSeparator, { orientation: "vertical" }),
       h(OnyxUserMenu, OnyxUserMenuDefault.args, {
         default: Array.from({ length: 20 }, (_, index) =>
           h(OnyxMenuItem, () => [h(OnyxIcon, { icon: settings }), `Context option ${index}`]),
