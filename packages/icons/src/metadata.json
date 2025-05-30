@@ -967,6 +967,10 @@
       "square"
     ]
   },
+  "expand-window-small": {
+    "category": "Action & Interface",
+    "aliases": []
+  },
   "explosion": {
     "category": "Various",
     "aliases": ["detonation", "Star"]
@@ -1714,6 +1718,10 @@
     "category": "Network & Infrastructure",
     "aliases": ["web", "internet", "Netzwerk", "Internet"]
   },
+  "network-card": {
+    "category": "Network & Infrastructure",
+    "aliases": []
+  },
   "network-router": {
     "category": "Network & Infrastructure",
     "aliases": ["web-hub", "internet-pathway", "Netzwerk-Router", "Internet-Weg", "circle-arrows"]
@@ -2093,6 +2101,10 @@
     "category": "Network & Infrastructure",
     "aliases": ["network-hub", "internet-device", "Router", "Netzwerk-Hub"]
   },
+  "RSS-web-feed": {
+    "category": "Communication",
+    "aliases": []
+  },
   "saving-piggy": {
     "category": "Finance",
     "aliases": ["money-saving", "wealth-store", "Spar-Schwein", "Vermögensspeicher"]
@@ -2138,7 +2150,7 @@
     "aliases": ["secure", "Schloss", "geschützt", "Schutz", "gesichert", "Sicherheit", "safe"]
   },
   "server-search": {
-    "category": "Software & Services",
+    "category": "Network & Infrastructure",
     "aliases": []
   },
   "server-settings": {
@@ -2576,6 +2588,10 @@
     "category": "Transport & Travel",
     "aliases": ["cancel-trip", "travel-stop", "Reise-abbrechen", "Reisestopp"]
   },
+  "traffic-light": {
+    "category": "Objects",
+    "aliases": []
+  },
   "tram": {
     "category": "Transport & Travel",
     "aliases": ["streetcar", "city-rail", "Straßenbahn", "Stadtbahn"]
@@ -2836,6 +2852,10 @@
   "webhook": {
     "category": "Software & Services",
     "aliases": ["HTTP-callback", "server-push", "Webhook", "Server-Push"]
+  },
+  "weight-kg": {
+    "category": "Objects",
+    "aliases": []
   },
   "windmill": {
     "category": "Weather & Climate",
