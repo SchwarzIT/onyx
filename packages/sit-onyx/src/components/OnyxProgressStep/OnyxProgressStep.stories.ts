@@ -1,4 +1,4 @@
-import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
+import cart from "@sit-onyx/icons/cart.svg?raw";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxProgressStep from "./OnyxProgressStep.vue";
@@ -19,6 +19,13 @@ export const Default = {
   args: {
     label: "Step",
     value: 1,
+  },
+} satisfies Story;
+
+export const Icon = {
+  args: {
+    ...Default.args,
+    icon: cart,
   },
 } satisfies Story;
 
@@ -50,9 +57,9 @@ export const Invalid = {
   },
 } satisfies Story;
 
-export const Icon = {
+export const Disabled = {
   args: {
     ...Default.args,
-    icon: placeholder,
+    disabled: true,
   },
 } satisfies Story;
