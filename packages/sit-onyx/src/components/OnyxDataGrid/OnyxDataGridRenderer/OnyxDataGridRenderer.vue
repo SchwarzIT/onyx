@@ -43,8 +43,8 @@ const columnStyle = computed(() => {
     :scroll-container-attrs="mergeVueProps(props.scrollContainerAttrs, { style: columnStyle })"
   >
     <template #head>
+      <!-- We set `ref_for` to false, so the refs are not passed as an array  -->
       <tr>
-        <!-- We set `ref_for` to false, so the refs are not passed as an array  -->
         <th
           v-for="column in props.columns"
           :key="column.key"

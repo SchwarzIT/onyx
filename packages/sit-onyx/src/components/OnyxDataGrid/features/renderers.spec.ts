@@ -115,9 +115,9 @@ describe("renderers", () => {
     });
   }
 });
-
+const skeleton = vue.computed(() => true);
 function getRendererCellValue(value: unknown, type?: DefaultSupportedTypes) {
-  const renderer = createRenderer([BASE_FEATURE]);
+  const renderer = createRenderer([BASE_FEATURE(skeleton)]);
   return renderer
     .getFor("cell", type)
     .component({ modelValue: value, row: { id: 1 } }, { attrs: {}, slots: {}, emit: () => ({}) });

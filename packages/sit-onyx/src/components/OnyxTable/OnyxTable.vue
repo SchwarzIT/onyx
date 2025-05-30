@@ -330,5 +330,10 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
       color: var(--onyx-color-text-icons-primary-intense);
     }
   }
+  td > .onyx-skeleton {
+    height: 0.5rem;
+    margin: var(--onyx-density-xs) 0;
+    border-radius: var(--onyx-radius-full);
+  }
 }
 </style>

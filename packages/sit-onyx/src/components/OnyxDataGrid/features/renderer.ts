@@ -1,4 +1,6 @@
+import { h } from "vue";
 import { type DataGridFeature, type TypeRenderer, type TypeRenderMap } from ".";
+import OnyxSkeleton from "../../../components/OnyxSkeleton/OnyxSkeleton.vue";
 import {
   injectI18n,
   type OnyxDateFormatOptions,
@@ -152,6 +154,11 @@ export const TIMESTAMP_RENDERER = createTypeRenderer<DateCellOptions>({
   cell: {
     component: (props) =>
       dateFormatter(props.modelValue, { format: "timestamp", ...props.metadata?.typeOptions }),
+  },
+});
+export const SKELETON_RENDERER = createTypeRenderer<StringCellOptions>({
+  cell: {
+    component: () => h(OnyxSkeleton),
   },
 });
 

@@ -34,6 +34,7 @@ const enabledFeatures = ref({
   hideColumns: false,
   stickyColumns: false,
   resize: false,
+  skeleton: false,
 });
 
 const data: Entry[] = [
@@ -164,7 +165,7 @@ const dataFeatures = computed(() => {
       />
     </section>
 
-    <OnyxDataGrid :features="dataFeatures" :data :columns />
+    <OnyxDataGrid :skeleton="enabledFeatures.skeleton" :features="dataFeatures" :data :columns />
   </OnyxPageLayout>
 </template>
 
