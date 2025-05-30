@@ -158,6 +158,9 @@ export * from "./components/OnyxSelectInput/types";
 export { default as OnyxSelectOption } from "./components/OnyxSelectOption/OnyxSelectOption.vue";
 export * from "./components/OnyxSelectOption/types";
 
+export { default as OnyxSeparator } from "./components/OnyxSeparator/OnyxSeparator.vue";
+export * from "./components/OnyxSeparator/types";
+
 export { default as OnyxSidebar } from "./components/OnyxSidebar/OnyxSidebar.vue";
 export * from "./components/OnyxSidebar/types";
 

@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { computed } from "vue";
 import { useDensity } from "../../composables/density";
-import OnyxNavSeparator from "../OnyxNavBar/modules/OnyxNavSeparator/OnyxNavSeparator.vue";
 import OnyxProgressStep from "../OnyxProgressStep/OnyxProgressStep.vue";
 import type { ProgressStepStatus } from "../OnyxProgressStep/types";
+import OnyxSeparator from "../OnyxSeparator/OnyxSeparator.vue";
 import type { OnyxProgressStepsProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxProgressStepsProps>(), {
@@ -46,8 +46,9 @@ const getStatus = computed(() => {
         :disabled="index > props.modelValue - 1"
         @click="emit('update:modelValue', index + 1)"
       />
-      <OnyxNavSeparator
+      <OnyxSeparator
         v-if="index < props.steps.length - 1"
+        aria-hidden="true"
         class="onyx-progress-steps__separator"
         :orientation="props.orientation"
       />
