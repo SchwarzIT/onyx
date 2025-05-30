@@ -1,8 +1,13 @@
 <script setup lang="ts">
 import forward from "@sit-onyx/icons/forward.svg?raw";
 import { h } from "vue";
-import { createFeature, OnyxDataGrid, OnyxSystemButton, type TypeRenderMap } from "../../..";
-import { createTypeRenderer } from "../features/renderer";
+import {
+  createFeature,
+  DataGridFeatures,
+  OnyxDataGrid,
+  OnyxSystemButton,
+  type TypeRenderMap,
+} from "../../..";
 
 type Entry = {
   id: number;
@@ -24,7 +29,7 @@ const withCustomType = createFeature(() => ({
   typeRenderer: {
     // use the `createTypeRenderer` function to create a type renderer with custom column type options
     // all properties must be optional
-    ageIcon: createTypeRenderer<{ offset?: number }, Entry>({
+    ageIcon: DataGridFeatures.createTypeRenderer<{ offset?: number }, Entry>({
       cell: {
         component: ({ modelValue, metadata }) => {
           // the custom column options are provided via `props.metadata.typeOptions`

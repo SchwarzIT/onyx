@@ -7,6 +7,7 @@ export * from "./stickyColumns/types";
 
 export { useFiltering } from "./filtering/filtering";
 export { useHideColumns } from "./hideColumns/hideColumns";
+export * from "./renderer";
 export { useResizing } from "./resizing/resizing";
 export { useSelection } from "./selection/selection";
 export { useSorting } from "./sorting/sorting";
