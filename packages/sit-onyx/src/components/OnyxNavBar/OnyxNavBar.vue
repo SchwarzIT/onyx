@@ -357,7 +357,7 @@ $gap: var(--onyx-spacing-md);
       // add extra spacing after the user menu if it is not immediately followed by a nav separator
       // since we are in a row-reverse layout, we need to "separator + user menu" as selector
       // to check if a nav separator exists "visually" after the user menu
-      &:not(:has(.onyx-nav-separator + .onyx-user-menu)) {
+      &:not(:has(.onyx-separator + .onyx-user-menu)) {
         .onyx-user-menu {
           margin-bottom: var(--onyx-spacing-md);
         }
