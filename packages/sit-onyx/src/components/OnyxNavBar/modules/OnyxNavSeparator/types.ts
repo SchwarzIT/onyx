@@ -1,3 +1,5 @@
+import type { Orientation } from "../../../../types";
+
 export type OnyxNavSeparatorProps = {
-  orientation?: "horizontal" | "vertical";
+  orientation?: Orientation;
 };
