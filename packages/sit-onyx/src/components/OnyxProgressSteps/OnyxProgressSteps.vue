@@ -2,9 +2,9 @@
 import { computed, ref, watch } from "vue";
 import { useDensity } from "../../composables/density";
 import OnyxProgressStep from "../OnyxProgressStep/OnyxProgressStep.vue";
-import type { ProgressStepStatus } from "../OnyxProgressStep/types";
+import type { OnyxProgressStepProps, ProgressStepStatus } from "../OnyxProgressStep/types";
 import OnyxSeparator from "../OnyxSeparator/OnyxSeparator.vue";
-import type { ControlledProgressStep, OnyxProgressStepsProps } from "./types";
+import type { OnyxProgressStepsProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxProgressStepsProps>(), {
   orientation: "horizontal",
@@ -31,14 +31,25 @@ watch(
   { immediate: true },
 );
 
-const getStatus = computed(() => {
-  return (step: ControlledProgressStep, stepNumber: number): ProgressStepStatus => {
-    if (step.status) return step.status;
-    if (stepNumber === props.modelValue) return "active";
-    else if (stepNumber < props.modelValue) return "completed";
-    else if (stepNumber <= furthestValue.value) return "visited";
-    return "default";
-  };
+const mappedSteps = computed(() => {
+  return props.steps.map<OnyxProgressStepProps>((step, index) => {
+    const value = index + 1;
+
+    let status: ProgressStepStatus = "default";
+    if (value === props.modelValue) status = "active";
+    else if (value < props.modelValue) status = "completed";
+    else if (value <= furthestValue.value - 1) status = "visited";
+
+    const disabled = status === "default" && value !== furthestValue.value;
+
+    return {
+      value,
+      disabled,
+      status,
+      // allow user to override step properties so he has full control, therefore we add "...step" at the very end
+      ...step,
+    };
+  });
 });
 </script>
 
@@ -51,15 +62,10 @@ const getStatus = computed(() => {
       props.orientation === 'vertical' ? 'onyx-progress-steps--vertical' : '',
     ]"
   >
-    <template v-for="(step, index) in props.steps" :key="index">
-      <OnyxProgressStep
-        v-bind="step"
-        :value="index + 1"
-        :status="getStatus(step, index + 1)"
-        @click="emit('update:modelValue', index + 1)"
-      />
+    <template v-for="step in mappedSteps" :key="step.value">
+      <OnyxProgressStep v-bind="step" @click="emit('update:modelValue', step.value)" />
       <OnyxSeparator
-        v-if="index < props.steps.length - 1"
+        v-if="step.value < mappedSteps.length"
         aria-hidden="true"
         class="onyx-progress-steps__separator"
         :orientation="props.orientation"

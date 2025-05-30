@@ -17,10 +17,6 @@ const icon = computed(() => {
   if (props.status === "invalid") return notificationFlag;
   return props.icon;
 });
-
-const isDisabled = computed(() => {
-  return props.disabled || props.status === "default";
-});
 </script>
 
 <template>
@@ -33,7 +29,7 @@ const isDisabled = computed(() => {
       `onyx-progress-step--${props.status}`,
     ]"
     type="button"
-    :disabled="isDisabled"
+    :disabled="props.disabled"
   >
     <span class="onyx-progress-step__indicator">
       <OnyxIcon v-if="icon" :icon="icon" />

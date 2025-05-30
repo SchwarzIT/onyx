@@ -7,7 +7,7 @@ test.describe("Screenshot tests", () => {
   for (const status of PROGRESS_STEP_STATUS) {
     executeMatrixScreenshotTest({
       name: `Progress step (${status})`,
-      columns: ["number", "icon"],
+      columns: ["number", "icon", "disabled"],
       rows: ["default", "hover", "focus-visible"],
       component: (column) => (
         <OnyxProgressStep
@@ -15,6 +15,7 @@ test.describe("Screenshot tests", () => {
           value={1}
           icon={column === "icon" ? mockPlaywrightIcon : undefined}
           status={status}
+          disabled={column === "disabled"}
         />
       ),
       hooks: {

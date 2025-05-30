@@ -20,7 +20,6 @@ export type OnyxProgressStepProps = DensityProp & {
   icon?: string;
   /**
    * Whether the step is disabled and can not be interacted with.
-   * Please note that the step is always disabled if `status` is "default".
    */
   disabled?: boolean;
 };

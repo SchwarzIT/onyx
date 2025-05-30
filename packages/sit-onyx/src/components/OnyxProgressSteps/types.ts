@@ -1,10 +1,10 @@
 import type { DensityProp } from "../../composables/density";
 import type { Orientation } from "../../types";
-import type { OnyxProgressStepProps, ProgressStepStatus } from "../OnyxProgressStep/types";
+import type { OnyxProgressStepProps } from "../OnyxProgressStep/types";
 
 export type OnyxProgressStepsProps = DensityProp & {
   /**
-   * List of available steps.
+   * List of available steps. The status and disabled state will be managed automatically if not defined but can be overridden per step.
    */
   steps: ControlledProgressStep[];
   /**
@@ -17,9 +17,4 @@ export type OnyxProgressStepsProps = DensityProp & {
   orientation?: Orientation;
 };
 
-export type ControlledProgressStep = Omit<OnyxProgressStepProps, "status" | "value" | "density"> & {
-  /**
-   * The status of the progress step which indicates whether the step is currently active, upcoming or already visited/completed.
-   */
-  status?: Extract<ProgressStepStatus, "completed" | "invalid">;
-};
+export type ControlledProgressStep = Omit<OnyxProgressStepProps, "value" | "density">;
