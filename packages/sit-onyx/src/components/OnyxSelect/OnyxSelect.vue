@@ -11,6 +11,7 @@ import { createComboBox, type ComboboxAutoComplete } from "@sit-onyx/headless";
 import {
   computed,
   nextTick,
+  onMounted,
   ref,
   toRefs,
   useId,
@@ -54,6 +55,7 @@ const props = withDefaults(defineProps<Props>(), {
   valueLabel: undefined,
   alignment: "full",
   open: undefined,
+  keepSelectionOrder: false,
 });
 
 const emit = defineEmits<{
@@ -210,6 +212,11 @@ const allKeyboardOptionIds = computed(() => {
 });
 
 const onToggle = async (preventFocus?: boolean) => {
+  if (props.keepSelectionOrder) {
+    groupedOptions.value = groupByKey(filteredOptions.value, "group");
+  } else {
+    groupedOptions.value = groupByKey(sortOptions(), "group", t.value("selections.selectGroup"));
+  }
   if (props.readonly) {
     open.value = false;
     return;
@@ -309,7 +316,36 @@ const {
   onSelect,
 });
 
-const groupedOptions = computed(() => groupByKey(filteredOptions.value, "group"));
+const sortOptions = () => {
+  let options = filteredOptions.value;
+  if (modelValue.value) {
+    if (Array.isArray(modelValue.value) && modelValue.value.length > 0) {
+      const selectedValues = new Set(modelValue.value as TValue[]);
+
+      options = filteredOptions.value.map((option) => {
+        if (selectedValues.has(option.value)) {
+          return {
+            ...option,
+            group: t.value("selections.selectGroup"),
+          };
+        }
+        return option;
+      });
+    } else {
+      const modelValueOption = options.find(
+        (option) => option.value === (modelValue.value as unknown),
+      );
+      options = options.filter((option) => {
+        return option.value !== (modelValue.value as unknown);
+      });
+      if (modelValueOption) options = [modelValueOption, ...options];
+    }
+    return options;
+  }
+  return filteredOptions.value;
+};
+
+const groupedOptions = ref();
 
 const { vScrollEnd, isScrollEnd } = useScrollEnd({
   enabled: computed(() => props.lazyLoading?.enabled ?? false),
@@ -366,6 +402,14 @@ const selectInputProps = computed(() => {
 });
 
 defineExpose({ input: computed(() => selectInput.value?.input) });
+
+onMounted(() => {
+  if (props.keepSelectionOrder) {
+    groupedOptions.value = groupByKey(filteredOptions.value, "group");
+  } else {
+    groupedOptions.value = groupByKey(sortOptions(), "group", t.value("selections.selectGroup"));
+  }
+});
 </script>
 
 <template>

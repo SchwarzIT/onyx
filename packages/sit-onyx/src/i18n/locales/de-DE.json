@@ -111,6 +111,7 @@
   },
   "selections": {
     "selectAll": "Alle auswählen",
+    "selectGroup": "Ausgewählte",
     "currentSelection": "{n} ausgewählt"
   },
   "stepper": {

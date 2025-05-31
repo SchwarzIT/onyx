@@ -17,8 +17,9 @@ export const areObjectsFlatEqual = (obj1: FlatObject, obj2: FlatObject): boolean
 export const groupByKey = <TValue extends { [key in TKey]?: string }, TKey extends keyof TValue>(
   objects: TValue[],
   key: TKey,
-) => {
-  return objects.reduce(
+  preferredGroup?: string,
+): Record<string, TValue[]> => {
+  const grouped = objects.reduce(
     (acc, currOpt) => {
       const groupName = currOpt[key] ?? "";
       acc[groupName] = acc[groupName] || [];
@@ -27,6 +28,23 @@ export const groupByKey = <TValue extends { [key in TKey]?: string }, TKey exten
     },
     {} as Record<string, TValue[]>,
   );
+
+  if (!preferredGroup) return grouped;
+
+  const sortedGrouped: Record<string, TValue[]> = {};
+  const keys = Object.keys(grouped);
+
+  if (grouped[preferredGroup]) {
+    sortedGrouped[preferredGroup] = grouped[preferredGroup];
+  }
+
+  for (const k of keys) {
+    if (k !== preferredGroup) {
+      sortedGrouped[k] = grouped[k];
+    }
+  }
+
+  return sortedGrouped;
 };
 
 /**
