@@ -208,6 +208,8 @@ export * from "./components/OnyxTooltip/types";
 export { default as OnyxVisuallyHidden } from "./components/OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 export * from "./components/OnyxVisuallyHidden/types";
 
+export { default as OnyxComponentShowcase } from "./components/examples/ComponentShowcase/ComponentShowcase.vue";
+
 export * from "./composables/density";
 export * from "./composables/scrollEnd";
 export * from "./composables/themeTransition";
