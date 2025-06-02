@@ -402,7 +402,17 @@ const selectInputProps = computed(() => {
 });
 
 defineExpose({ input: computed(() => selectInput.value?.input) });
-
+watch(
+  [filteredOptions],
+  () => {
+    if (props.keepSelectionOrder) {
+      groupedOptions.value = groupByKey(filteredOptions.value, "group");
+    } else {
+      groupedOptions.value = groupByKey(sortOptions(), "group", t.value("selections.selectGroup"));
+    }
+  },
+  { deep: true },
+);
 onMounted(() => {
   if (props.keepSelectionOrder) {
     groupedOptions.value = groupByKey(filteredOptions.value, "group");
