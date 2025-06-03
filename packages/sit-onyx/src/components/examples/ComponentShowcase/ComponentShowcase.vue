@@ -5,31 +5,29 @@ import logout from "@sit-onyx/icons/logout.svg?raw";
 import settings from "@sit-onyx/icons/settings.svg?raw";
 import shareIos from "@sit-onyx/icons/share-ios.svg?raw";
 import { ref } from "vue";
-import {
-  OnyxAvatar,
-  OnyxAvatarStack,
-  OnyxBadge,
-  OnyxButton,
-  OnyxCheckboxGroup,
-  OnyxColorSchemeMenuItem,
-  OnyxIcon,
-  OnyxIconButton,
-  OnyxInput,
-  OnyxMenuItem,
-  OnyxNavBar,
-  OnyxNavItem,
-  OnyxPagination,
-  OnyxRadioGroup,
-  OnyxSelect,
-  OnyxStepper,
-  OnyxSwitch,
-  OnyxTable,
-  OnyxTag,
-  OnyxTextarea,
-  OnyxToastMessage,
-  OnyxUserMenu,
-  type SelectOption,
-} from "../../..";
+import OnyxAvatar from "../../OnyxAvatar/OnyxAvatar.vue";
+import OnyxAvatarStack from "../../OnyxAvatarStack/OnyxAvatarStack.vue";
+import OnyxBadge from "../../OnyxBadge/OnyxBadge.vue";
+import OnyxButton from "../../OnyxButton/OnyxButton.vue";
+import OnyxCheckboxGroup from "../../OnyxCheckboxGroup/OnyxCheckboxGroup.vue";
+import OnyxIcon from "../../OnyxIcon/OnyxIcon.vue";
+import OnyxIconButton from "../../OnyxIconButton/OnyxIconButton.vue";
+import OnyxInput from "../../OnyxInput/OnyxInput.vue";
+import OnyxNavBar from "../../OnyxNavBar/OnyxNavBar.vue";
+import OnyxColorSchemeMenuItem from "../../OnyxNavBar/modules/OnyxColorSchemeMenuItem/OnyxColorSchemeMenuItem.vue";
+import OnyxMenuItem from "../../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
+import OnyxNavItem from "../../OnyxNavBar/modules/OnyxNavItem/OnyxNavItem.vue";
+import OnyxUserMenu from "../../OnyxNavBar/modules/OnyxUserMenu/OnyxUserMenu.vue";
+import OnyxPagination from "../../OnyxPagination/OnyxPagination.vue";
+import OnyxRadioGroup from "../../OnyxRadioGroup/OnyxRadioGroup.vue";
+import OnyxSelect from "../../OnyxSelect/OnyxSelect.vue";
+import type { SelectOption } from "../../OnyxSelect/types";
+import OnyxStepper from "../../OnyxStepper/OnyxStepper.vue";
+import OnyxSwitch from "../../OnyxSwitch/OnyxSwitch.vue";
+import OnyxTable from "../../OnyxTable/OnyxTable.vue";
+import OnyxTag from "../../OnyxTag/OnyxTag.vue";
+import OnyxTextarea from "../../OnyxTextarea/OnyxTextarea.vue";
+import OnyxToastMessage from "../../OnyxToastMessage/OnyxToastMessage.vue";
 
 type State = {
   select?: number[];
