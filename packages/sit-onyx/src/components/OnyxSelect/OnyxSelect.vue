@@ -325,28 +325,20 @@ const {
 });
 
 const getOptionsWithGroupForSelected = () => {
-  let options = filteredOptions.value;
-  if (modelValue.value) {
-    if (
-      !props.keepSelectionOrder &&
-      Array.isArray(modelValue.value) &&
-      modelValue.value.length > 0
-    ) {
-      const selectedValues = new Set(modelValue.value as TValue[]);
-
-      options = filteredOptions.value.map((option) => {
-        if (selectedValues.has(option.value)) {
-          return {
-            ...option,
-            group: t.value("selections.selectGroup"),
-          };
-        }
-        return option;
-      });
-    }
-    return options;
+  if (
+    props.keepSelectionOrder ||
+    !modelValue.value ||
+    !Array.isArray(modelValue.value) ||
+    modelValue.value.length == 0
+  ) {
+    return filteredOptions.value;
   }
-  return filteredOptions.value;
+  const selectedValues = new Set(modelValue.value as TValue[]);
+
+  return filteredOptions.value.map((option) => ({
+    ...option,
+    group: selectedValues.has(option.value) ? t.value("selections.selectGroup") : option.group,
+  }));
 };
 
 const groupedOptions = ref<{ name: string; items: SelectOption<TValue>[] }[]>();
