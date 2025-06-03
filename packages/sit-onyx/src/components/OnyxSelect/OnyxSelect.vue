@@ -11,7 +11,6 @@ import { createComboBox, type ComboboxAutoComplete } from "@sit-onyx/headless";
 import {
   computed,
   nextTick,
-  onMounted,
   ref,
   toRefs,
   useId,
@@ -331,14 +330,6 @@ const sortOptions = () => {
         }
         return option;
       });
-    } else {
-      const modelValueOption = options.find(
-        (option) => option.value === (modelValue.value as unknown),
-      );
-      options = options.filter((option) => {
-        return option.value !== (modelValue.value as unknown);
-      });
-      if (modelValueOption) options = [modelValueOption, ...options];
     }
     return options;
   }
@@ -411,15 +402,8 @@ watch(
       groupedOptions.value = groupByKey(sortOptions(), "group", t.value("selections.selectGroup"));
     }
   },
-  { deep: true },
+  { deep: true, immediate: true },
 );
-onMounted(() => {
-  if (props.keepSelectionOrder) {
-    groupedOptions.value = groupByKey(filteredOptions.value, "group");
-  } else {
-    groupedOptions.value = groupByKey(sortOptions(), "group", t.value("selections.selectGroup"));
-  }
-});
 </script>
 
 <template>
@@ -492,10 +476,7 @@ onMounted(() => {
 
               <!-- TODO: remove type cast once its fixed in Vue / vue-tsc version -->
               <ul
-                v-for="(groupOptions, group) in groupedOptions as Record<
-                  string,
-                  SelectOption<TValue>[]
-                >"
+                v-for="group in groupedOptions.order"
                 :key="group"
                 class="onyx-select__group"
                 v-bind="headlessGroup({ label: group })"
@@ -508,7 +489,7 @@ onMounted(() => {
                   {{ group }}
                 </li>
                 <OnyxSelectOption
-                  v-for="option in groupOptions"
+                  v-for="option in groupedOptions.groups[group]"
                   :key="option.value.toString()"
                   v-bind="
                     headlessOption({

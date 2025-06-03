@@ -18,33 +18,27 @@ export const groupByKey = <TValue extends { [key in TKey]?: string }, TKey exten
   objects: TValue[],
   key: TKey,
   preferredGroup?: string,
-): Record<string, TValue[]> => {
-  const grouped = objects.reduce(
-    (acc, currOpt) => {
-      const groupName = currOpt[key] ?? "";
-      acc[groupName] = acc[groupName] || [];
-      acc[groupName].push(currOpt);
-      return acc;
-    },
-    {} as Record<string, TValue[]>,
-  );
+): { groups: Record<string, TValue[]>; order: string[] } => {
+  const grouped: Record<string, TValue[]> = {};
 
-  if (!preferredGroup) return grouped;
-
-  const sortedGrouped: Record<string, TValue[]> = {};
-  const keys = Object.keys(grouped);
-
-  if (grouped[preferredGroup]) {
-    sortedGrouped[preferredGroup] = grouped[preferredGroup];
-  }
-
-  for (const k of keys) {
-    if (k !== preferredGroup) {
-      sortedGrouped[k] = grouped[k];
+  for (const obj of objects) {
+    const groupName = obj[key] ?? "";
+    if (!grouped[groupName]) {
+      grouped[groupName] = [];
     }
+    grouped[groupName].push(obj);
   }
 
-  return sortedGrouped;
+  const keys = Object.keys(grouped);
+  const order =
+    preferredGroup && grouped[preferredGroup]
+      ? [preferredGroup, ...keys.filter((k) => k !== preferredGroup)]
+      : keys;
+
+  return {
+    groups: grouped,
+    order,
+  };
 };
 
 /**
