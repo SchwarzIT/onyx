@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.233
+
+### Minor Changes
+
+- 9566cb6: feat(OnyxTable, OnyxDataGrid): add skeleton property
+
 ## 1.0.0-beta.232
 
 ### Minor Changes
