@@ -40,7 +40,7 @@ const withCustomType = createFeature(() => ({
         },
       },
     }),
-    detailsButton: {
+    detailsButton: DataGridFeatures.createTypeRenderer({
       cell: {
         tdAttributes: {
           style: { width: "calc(1.5rem + 2 * var(--onyx-density-md))" },
@@ -55,7 +55,7 @@ const withCustomType = createFeature(() => ({
           });
         },
       },
-    },
+    }),
   } satisfies TypeRenderMap<Entry>,
 }));
 
