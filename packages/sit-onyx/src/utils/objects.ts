@@ -17,28 +17,39 @@ export const areObjectsFlatEqual = (obj1: FlatObject, obj2: FlatObject): boolean
 export const groupByKey = <TValue extends { [key in TKey]?: string }, TKey extends keyof TValue>(
   objects: TValue[],
   key: TKey,
-  preferredGroup?: string,
-): { groups: Record<string, TValue[]>; order: string[] } => {
-  const grouped: Record<string, TValue[]> = {};
+) => {
+  return objects.reduce(
+    (acc, currOpt) => {
+      const groupName = currOpt[key] ?? "";
+      acc[groupName] = acc[groupName] || [];
+      acc[groupName].push(currOpt);
+      return acc;
+    },
+    {} as Record<string, TValue[]>,
+  );
+};
 
-  for (const obj of objects) {
-    const groupName = obj[key] ?? "";
-    if (!grouped[groupName]) {
-      grouped[groupName] = [];
-    }
-    grouped[groupName].push(obj);
+export const transformGroupedData = <
+  TValue extends { [key in TKey]?: string },
+  TKey extends keyof TValue,
+>(
+  data: Record<string, TValue[]>,
+  firstGroup?: string,
+) => {
+  const entries = Object.entries(data);
+
+  if (firstGroup) {
+    entries.sort(([a], [b]) => {
+      if (a === firstGroup) return -1;
+      if (b === firstGroup) return 1;
+      return 0;
+    });
   }
 
-  const keys = Object.keys(grouped);
-  const order =
-    preferredGroup && grouped[preferredGroup]
-      ? [preferredGroup, ...keys.filter((k) => k !== preferredGroup)]
-      : keys;
-
-  return {
-    groups: grouped,
-    order,
-  };
+  return entries.map(([groupName, items]) => ({
+    name: groupName,
+    items,
+  }));
 };
 
 /**

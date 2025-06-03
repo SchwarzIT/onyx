@@ -27,7 +27,7 @@ import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState";
 import { useVModel } from "../../composables/useVModel";
 import { injectI18n } from "../../i18n";
 import type { Nullable, SelectOptionValue } from "../../types";
-import { groupByKey } from "../../utils/objects";
+import { groupByKey, transformGroupedData } from "../../utils/objects";
 import { normalizedIncludes } from "../../utils/strings";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxFlyout from "../OnyxFlyout/OnyxFlyout.vue";
@@ -214,7 +214,10 @@ const onToggle = async (preventFocus?: boolean) => {
   if (props.keepSelectionOrder) {
     groupedOptions.value = groupByKey(filteredOptions.value, "group");
   } else {
-    groupedOptions.value = groupByKey(sortOptions(), "group", t.value("selections.selectGroup"));
+    groupedOptions.value = transformGroupedData<SelectOption<TValue>, "group">(
+      groupByKey<SelectOption<TValue>, "group">(sortOptions(), "group"),
+      t.value("selections.selectGroup"),
+    );
   }
   if (props.readonly) {
     open.value = false;
@@ -399,7 +402,10 @@ watch(
     if (props.keepSelectionOrder) {
       groupedOptions.value = groupByKey(filteredOptions.value, "group");
     } else {
-      groupedOptions.value = groupByKey(sortOptions(), "group", t.value("selections.selectGroup"));
+      groupedOptions.value = transformGroupedData<SelectOption<TValue>, "group">(
+        groupByKey<SelectOption<TValue>, "group">(sortOptions(), "group"),
+        t.value("selections.selectGroup"),
+      );
     }
   },
   { deep: true, immediate: true },
@@ -476,20 +482,20 @@ watch(
 
               <!-- TODO: remove type cast once its fixed in Vue / vue-tsc version -->
               <ul
-                v-for="group in groupedOptions.order"
-                :key="group"
+                v-for="group in groupedOptions"
+                :key="group.name"
                 class="onyx-select__group"
-                v-bind="headlessGroup({ label: group })"
+                v-bind="headlessGroup({ label: group.name })"
               >
                 <li
-                  v-if="group != ''"
+                  v-if="group.name !== ''"
                   role="presentation"
                   class="onyx-select__group-name onyx-text--small"
                 >
-                  {{ group }}
+                  {{ group.name }}
                 </li>
                 <OnyxSelectOption
-                  v-for="option in groupedOptions.groups[group]"
+                  v-for="option in group.items"
                   :key="option.value.toString()"
                   v-bind="
                     headlessOption({
