@@ -13,6 +13,7 @@ defineSlots<{
 const mockRouterText = ref("");
 
 provide(ROUTER_INJECTION_KEY, {
+  currentRoute: ref("/foo/bar/baz"),
   push: (to) => {
     mockRouterText.value = `Used internal router for "${to}"`;
   },

@@ -15,6 +15,7 @@ import type { ComponentSlots } from "vue-component-type-helpers";
 import { type OnyxI18n } from "../../../i18n";
 import type { DatetimeFormat } from "../../../i18n/datetime-formats";
 import { mergeVueProps } from "../../../utils/attrs";
+import { applyMapping, prepareMapping, type OrderableMapping } from "../../../utils/feature";
 import type { OnyxMenuItem } from "../../OnyxNavBar/modules";
 import OnyxFlyoutMenu from "../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxSystemButton from "../../OnyxSystemButton/OnyxSystemButton.vue";
@@ -31,9 +32,9 @@ import { createRenderer } from "./renderer";
 /**
  * Function type for modifying the normalized column configuration.
  */
-export type ModifyColumns<TEntry extends DataGridEntry> = {
-  func: (columns: Readonly<InternalColumnConfig<TEntry>[]>) => InternalColumnConfig<TEntry>[];
-};
+export type ModifyColumns<TEntry extends DataGridEntry> = OrderableMapping<
+  InternalColumnConfig<TEntry>[]
+>;
 
 export type HeaderCellProps<TOptions = unknown> = { label: string; typeOptions?: TOptions };
 
@@ -78,7 +79,7 @@ export type ColumnConfig<
   | PublicNormalizedColumnConfig<
       TEntry,
       TColumnGroup,
-      TTypes | RenderTypesFromFeature<[typeof BASE_FEATURE]>
+      TTypes | RenderTypesFromFeature<[ReturnType<typeof BASE_FEATURE>]>
     >;
 
 export type DefaultSupportedTypes = "string" | "number" | DatetimeFormat;
@@ -190,7 +191,7 @@ export type DataGridFeature<
    * @example
    * ```ts
    * {
-   *   modifyColumns: (config) => configs.map(column => ({ ...column, type: "newType" }));
+   *   modifyColumns: [ { func: (config) => configs.map(column => ({ ...column, type: "newType" })) } ];
    * }
    * ```
    */
@@ -384,6 +385,10 @@ export const useDataGridFeatures = <
   features: T,
   { i18n, columnConfig, columnGroups }: UseDataGridFeaturesOptions<TEntry, TColumnGroup, TTypes>,
 ) => {
+  const columnMappings = computed(() =>
+    prepareMapping<InternalColumnConfig<TEntry>[], T, "modifyColumns">(features, "modifyColumns"),
+  );
+
   const columns = computed(() => {
     const normalized = toValue(columnConfig).map<InternalColumnConfig<TEntry>>((c) => {
       const obj = typeof c !== "object" ? { key: c } : c;
@@ -393,9 +398,7 @@ export const useDataGridFeatures = <
         type: typeof obj.type === "object" ? obj.type : { name: obj.type ?? "string" },
       };
     });
-    return features
-      .flatMap(({ modifyColumns }) => modifyColumns)
-      .reduce((last, m) => (m?.func ? m.func(last) : last), normalized);
+    return applyMapping(columnMappings.value, normalized);
   });
 
   const renderer = computed(() => createRenderer(features));

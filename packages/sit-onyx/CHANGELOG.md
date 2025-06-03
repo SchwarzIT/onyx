@@ -1,5 +1,30 @@
 # sit-onyx
 
+## 1.0.0-beta.233
+
+### Minor Changes
+
+- 9566cb6: feat(OnyxTable, OnyxDataGrid): add skeleton property
+
+## 1.0.0-beta.232
+
+### Minor Changes
+
+- 21ee2ad: feat: implement OnyxSidebarItem component
+
+## 1.0.0-beta.231
+
+### Patch Changes
+
+- a84ede4: fix(OnyxDataGrid): fix useHideColumns not using column label in reveal dropdown
+
+## 1.0.0-beta.230
+
+### Patch Changes
+
+- Updated dependencies [0f045f0]
+  - @sit-onyx/icons@1.0.0-beta.17
+
 ## 1.0.0-beta.229
 
 ### Minor Changes

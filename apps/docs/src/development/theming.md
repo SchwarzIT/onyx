@@ -45,7 +45,7 @@ Per default, onyx will be displayed in light mode. In order to use the dark mode
 
 ### Let the user decide
 
-In order to let the user switch between light, dark and auto mode, we recommend to use the pre-built [OnyxColorSchemeMenuItem](https://storybook.onyx.schwarz/?path=/docs/navigation-modules-colorschememenuitem--docs) component inside the [nav bar](https://storybook.onyx.schwarz/?path=/story/navigation-navbar--with-context-area) together with the [@vueuse/core](https://vueuse.org/core/useColorMode) library.
+In order to let the user switch between light, dark and auto mode, we recommend to use the pre-built [OnyxColorSchemeMenuItem](https://storybook.onyx.schwarz/?path=/docs/navigation-navbar-modules-colorschemedialog--docs) component inside the [nav bar](https://storybook.onyx.schwarz/?path=/story/navigation-navbar--with-context-area) together with the [@vueuse/core](https://vueuse.org/core/useColorMode) library.
 
 Additionally, to enable a smooth transition when switching between color modes, you can use the `useThemeTransition` composable. This ensures a visually appealing effect during theme changes.
 Below is an example implementation:

@@ -7,12 +7,12 @@ import OnyxMenuItem from "../OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxFlyoutMenu from "./OnyxFlyoutMenu.vue";
 
 /**
- * The flyout menu is mainly used internally for e.g. the [nav button](/docs/navigation-modules-navbutton--docs) or [user menu](/docs/navigation-modules-usermenu--docs).
+ * The flyout menu is used to build up navigation menus such as the [OnyxNavItem](/docs/navigation-navbar-modules-navitem--docs) or [OnyxUserMenu](/docs/navigation-navbar-modules-usermenu--docs).
  *
- * But you can also use it to e.g. build custom nav modules like language selections for your application. The flyout menu will then take care of basic styles and keyboard navigation.
+ * You can also use it to e.g. build custom nav modules like action buttons for your application. The flyout menu will then take care of basic styles and keyboard navigation.
  */
 const meta: Meta<typeof OnyxFlyoutMenu> = {
-  title: "Navigation/modules/FlyoutMenu",
+  title: "Navigation/FlyoutMenu",
   component: OnyxFlyoutMenu,
   decorators: [
     (story) => ({

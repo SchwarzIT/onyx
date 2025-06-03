@@ -5,7 +5,7 @@ import OnyxNavSeparator from "./OnyxNavSeparator.vue";
  * Separator for the context area of the `OnyxNavBar`.
  */
 const meta: Meta<typeof OnyxNavSeparator> = {
-  title: "Navigation/modules/NavSeparator",
+  title: "Navigation/NavBar/modules/NavSeparator",
   component: OnyxNavSeparator,
 };
 
