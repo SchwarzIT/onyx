@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.234
+
+### Patch Changes
+
+- d4803b3: fix(OnyxDataGrid, OnyxTable): fix hover effect is shown when in skeleton mode
+
 ## 1.0.0-beta.233
 
 ### Minor Changes
