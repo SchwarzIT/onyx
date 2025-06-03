@@ -9,6 +9,7 @@ import {
   TIME_RENDERER,
   TIMESTAMP_RENDERER,
 } from "../renderer";
+import "./base.scss";
 
 export const BASE_FEATURE_SYMBOL = Symbol("Base");
 
@@ -44,6 +45,9 @@ export const BASE_FEATURE = createFeature(
           return [...rows];
         },
       },
+      scrollContainerAttributes: () => ({
+        class: skeleton.value ? "onyx-data-grid--skeleton" : "",
+      }),
       watch: [skeleton],
       typeRenderer: {
         number: NUMBER_RENDERER,

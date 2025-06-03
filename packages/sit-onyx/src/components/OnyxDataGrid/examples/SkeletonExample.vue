@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { OnyxDataGrid, type ColumnConfig } from "../../..";
+import { ref } from "vue";
+import { OnyxDataGrid, OnyxSwitch, type ColumnConfig } from "../../..";
 
 type TEntry = {
   id: number;
@@ -25,8 +26,11 @@ const columns: ColumnConfig<TEntry>[] = [
     type: { name: "date", options: { format: { dateStyle: "full" } } },
   },
 ];
+
+const skeleton = ref(true);
 </script>
 
 <template>
-  <OnyxDataGrid :columns :data skeleton />
+  <OnyxSwitch v-model="skeleton" label="Toggle Skeleton Mode" />
+  <OnyxDataGrid :columns :data :skeleton />
 </template>

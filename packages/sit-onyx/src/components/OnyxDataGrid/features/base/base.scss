@@ -1,0 +1,9 @@
+@use "../../../../styles/mixins/layers.scss";
+
+@include layers.component {
+  .onyx-data-grid {
+    .onyx-data-grid--skeleton {
+      pointer-events: none;
+    }
+  }
+}

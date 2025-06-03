@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import { OnyxSwitch } from "../../..";
 import OnyxSkeleton from "../../OnyxSkeleton/OnyxSkeleton.vue";
 import OnyxTable from "../OnyxTable.vue";
 
@@ -10,10 +11,14 @@ const fruits = [
   { name: "Apple", price: "1.99", inventoryKg: "3000", inventoryPieces: "200", rating: "3" },
   { name: "Banana", price: "3.75", inventoryKg: "18000", inventoryPieces: "300", rating: "4" },
 ];
+
+// Hover effects and other interactions should be disabled when in skeleton mode
+const style = computed(() => (skeleton.value ? { "pointer-events": "none" } : {}));
 </script>
 
 <template>
-  <OnyxTable>
+  <OnyxSwitch v-model="skeleton" label="Toggle Skeleton Mode" />
+  <OnyxTable :style>
     <template #head>
       <tr>
         <th id="fruit">Fruit</th>
