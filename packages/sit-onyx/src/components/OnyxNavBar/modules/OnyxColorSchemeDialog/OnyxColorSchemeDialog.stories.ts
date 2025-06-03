@@ -17,7 +17,7 @@ import type { OnyxColorSchemeDialogProps } from "./types";
  * - Tab: Shift focus between options and cancel/apply button
  */
 const meta: Meta<typeof OnyxColorSchemeDialog> = {
-  title: "Navigation/modules/ColorSchemeDialog",
+  title: "Navigation/NavBar/modules/ColorSchemeDialog",
   component: OnyxColorSchemeDialog,
   decorators: [
     (story) => {

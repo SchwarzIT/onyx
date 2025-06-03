@@ -5,7 +5,7 @@ import OnyxTimer from "./OnyxTimer.vue";
  * Component to display a timer to the user.
  */
 const meta: Meta<typeof OnyxTimer> = {
-  title: "Navigation/modules/Timer",
+  title: "Navigation/NavBar/modules/Timer",
   component: OnyxTimer,
   argTypes: {
     endTime: { control: { type: "date" } },

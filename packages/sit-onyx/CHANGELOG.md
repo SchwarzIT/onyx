@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.232
+
+### Minor Changes
+
+- 21ee2ad: feat: implement OnyxSidebarItem component
+
 ## 1.0.0-beta.231
 
 ### Patch Changes

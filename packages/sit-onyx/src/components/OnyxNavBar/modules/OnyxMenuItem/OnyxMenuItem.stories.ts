@@ -6,10 +6,10 @@ import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxMenuItem from "./OnyxMenuItem.vue";
 
 /**
- * Menu item that is intended to be used inside the [OnyxUserMenu](/docs/navigation-modules-usermenu--docs).
+ * Menu item that is intended to be used inside the [OnyxUserMenu](/docs/navigation-navbar-modules-usermenu--docs).
  */
 const meta: Meta<typeof OnyxMenuItem> = {
-  title: "Navigation/modules/MenuItem",
+  title: "Navigation/NavBar/modules/MenuItem",
   component: OnyxMenuItem,
   argTypes: {
     default: { control: { type: "text" } },
