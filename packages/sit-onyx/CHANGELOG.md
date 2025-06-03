@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.235
+
+### Minor Changes
+
+- e014f4e: feat(OnyxComponentShowcase): export ComponentShowcase (to use it in themes repo)
+
 ## 1.0.0-beta.234
 
 ### Patch Changes
