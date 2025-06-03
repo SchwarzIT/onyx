@@ -1,18 +1,36 @@
 name: Check code quality
 on:
-  workflow_call:
+  pull_request:
   workflow_dispatch:
-  push:
-    branches:
-      - main
+  # see: https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue#configuring-continuous-integration-ci-workflows-for-merge-queues
+  merge_group:
+
+# cancel previous runs if new changes are pushed to the branch/PR
+# see: https://stackoverflow.com/a/72408109
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_REMOTE_CACHE__TURBO_TOKEN }}
 
 jobs:
+  # We run the build first standalone to ensure everything is cached for all other jobs
+  build:
+    name: Build and Cache
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/templates/node-setup
+
+      - name: 🛠️ Build packages
+        run: pnpm run build:all
+
   check:
     name: Check code quality
     runs-on: ubuntu-latest
+    needs: build
     steps:
       - uses: actions/checkout@v4
         with:
@@ -26,13 +44,13 @@ jobs:
         # we must continue on error here so the eslint results are uploaded to GitHub in the next step.
         continue-on-error: true
 
-      - name: Upload eslint results to GitHub
+      - name: ⬆️ Upload eslint results to GitHub
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: eslint-results.sarif
           wait-for-processing: true
 
-      - name: 🔎 Check formatting
+      - name: 🎨 Check formatting
         run: pnpm run format:check:all
 
       - name: 🛠️ Build packages
@@ -41,58 +59,35 @@ jobs:
       - name: 🚨 Run unit tests
         run: pnpm run test:all
 
-      - name: 📈 SonarQube Analysis
-        uses: SonarSource/sonarqube-scan-action@v5
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-
       # make sure that publint is only run after all packages have been built
-      - name: Run publint
+      - name: 📋 Run publint
         run: pnpm run publint:all
 
       # scan CSS build for browser compatibility issues
       - name: 💅 Run stylelint
         run: pnpm run stylelint
 
-      - name: 👮 SonarQube Quality Gate check
-        id: sonarqube-quality-gate
-        uses: sonarsource/sonarqube-quality-gate-action@master
-        continue-on-error: true
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-
-      - run: echo "::warning title=Sonarqube-Quality-Gate::Failed"
-        if: ${{ github.event_name == 'pull_request' && steps.sonarqube-quality-gate.outcome != 'success' }}
-
-      - uses: actions/github-script@v7
-        if: ${{ github.event_name == 'pull_request' && steps.sonarqube-quality-gate.outcome != 'success' }}
-        with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '⚠️ Sonarqube Quality Gate Failed!'
-            })
-
-      - name: Upload code coverage artifact
+      - name: ⬆️ Upload code coverage artifact
         uses: actions/upload-artifact@v4
         if: always() # needed to also upload test results when they failed (useful for debugging)
         with:
           name: coverage
           path: coverage
 
-      - name: Upload Storybook artifact
+      - name: ⬆️ Upload Storybook artifact
         uses: actions/upload-artifact@v4
         with:
           name: storybook-static
           path: packages/sit-onyx/storybook-static
 
-      - name: Upload documentation artifact
+      - name: ⬆️ Upload documentation artifact
         uses: actions/upload-artifact@v4
         with:
           name: documentation
           path: apps/docs/src/.vitepress/dist
+
+  screenshots:
+    needs: build
+    name: Component tests
+    uses: ./.github/workflows/playwright.yml
+    secrets: inherit
