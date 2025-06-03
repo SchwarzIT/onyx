@@ -211,14 +211,20 @@ const allKeyboardOptionIds = computed(() => {
 });
 
 const onToggle = async (preventFocus?: boolean) => {
+  const groupedByKey = groupByKey<SelectOption<TValue>, "group">(
+    getOptionsWithGroupForSelected(),
+    "group",
+  );
+
   if (props.keepSelectionOrder) {
-    groupedOptions.value = groupByKey(filteredOptions.value, "group");
+    groupedOptions.value = transformGroupedData<SelectOption<TValue>, "group">(groupedByKey);
   } else {
     groupedOptions.value = transformGroupedData<SelectOption<TValue>, "group">(
-      groupByKey<SelectOption<TValue>, "group">(sortOptions(), "group"),
+      groupedByKey,
       t.value("selections.selectGroup"),
     );
   }
+
   if (props.readonly) {
     open.value = false;
     return;
@@ -318,7 +324,7 @@ const {
   onSelect,
 });
 
-const sortOptions = () => {
+const getOptionsWithGroupForSelected = () => {
   let options = filteredOptions.value;
   if (modelValue.value) {
     if (Array.isArray(modelValue.value) && modelValue.value.length > 0) {
@@ -339,7 +345,7 @@ const sortOptions = () => {
   return filteredOptions.value;
 };
 
-const groupedOptions = ref();
+const groupedOptions = ref<{ name: string; items: SelectOption<TValue>[] }[]>();
 
 const { vScrollEnd, isScrollEnd } = useScrollEnd({
   enabled: computed(() => props.lazyLoading?.enabled ?? false),
@@ -399,15 +405,21 @@ defineExpose({ input: computed(() => selectInput.value?.input) });
 watch(
   [filteredOptions],
   () => {
+    const groupedByKey = groupByKey<SelectOption<TValue>, "group">(
+      getOptionsWithGroupForSelected(),
+      "group",
+    );
+
     if (props.keepSelectionOrder) {
-      groupedOptions.value = groupByKey(filteredOptions.value, "group");
+      groupedOptions.value = transformGroupedData<SelectOption<TValue>, "group">(groupedByKey);
     } else {
       groupedOptions.value = transformGroupedData<SelectOption<TValue>, "group">(
-        groupByKey<SelectOption<TValue>, "group">(sortOptions(), "group"),
+        groupedByKey,
         t.value("selections.selectGroup"),
       );
     }
   },
+
   { deep: true, immediate: true },
 );
 </script>
