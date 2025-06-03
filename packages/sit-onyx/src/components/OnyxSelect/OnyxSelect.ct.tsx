@@ -972,60 +972,6 @@ test("should manage filtering internally except when filteredOptions are given",
   ).toBeEmpty();
 });
 
-test("should show the selected one first", async ({ mount, page }) => {
-  const options = [
-    { value: 1, label: "One" },
-    { value: 2, label: "Two" },
-    { value: 3, label: "Three" },
-  ];
-
-  // ARRANGE
-  const component = await mount(OnyxSelect, {
-    props: {
-      options,
-      label: "Test select",
-      listLabel: "Select label",
-      modelValue: 2,
-      withSearch: true,
-    },
-  });
-
-  // ACT
-  await component.getByRole("textbox", { name: "Test select" }).click();
-  const firstOption = page.getByRole("option").first();
-  await firstOption.waitFor();
-
-  // ASSERT
-  await expect(firstOption).toHaveText("Two");
-});
-test("should show the normal order(keepSelectionOrder)", async ({ mount, page }) => {
-  const options = [
-    { value: 1, label: "One" },
-    { value: 2, label: "Two" },
-    { value: 3, label: "Three" },
-  ];
-
-  // ARRANGE
-  const component = await mount(OnyxSelect, {
-    props: {
-      options,
-      label: "Test select",
-      listLabel: "Select label",
-      modelValue: 2,
-      withSearch: true,
-      keepSelectionOrder: true,
-    },
-  });
-
-  // ACT
-  await component.getByRole("textbox", { name: "Test select" }).click();
-  const firstOption = page.getByRole("option").first();
-  await firstOption.waitFor();
-
-  // ASSERT
-  await expect(firstOption).toHaveText("One");
-});
-
 test("should render a separate group for selected options", async ({ mount, page }) => {
   const options = [
     { value: 1, label: "One" },
@@ -1049,4 +995,33 @@ test("should render a separate group for selected options", async ({ mount, page
   await page.getByRole("option").first().waitFor();
   // ASSERT
   await expect(page.getByText("Selected")).toBeVisible();
+});
+
+test("should not render a separate group for selected options (keepSelectionOrder)", async ({
+  mount,
+  page,
+}) => {
+  const options = [
+    { value: 1, label: "One" },
+    { value: 2, label: "Two" },
+    { value: 3, label: "Three" },
+  ];
+  // ARRANGE
+  const component = await mount(OnyxSelect, {
+    props: {
+      options,
+      label: "Test select",
+      listLabel: "Select label",
+      modelValue: [2],
+      multiple: true,
+      withSearch: true,
+      keepSelectionOrder: true,
+    },
+  });
+
+  // ACT
+  await component.getByRole("textbox", { name: "Test select" }).click();
+  await page.getByRole("option").first().waitFor();
+  // ASSERT
+  await expect(page.getByText("Selected")).toBeHidden();
 });
