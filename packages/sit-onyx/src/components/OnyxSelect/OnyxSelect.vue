@@ -327,7 +327,11 @@ const {
 const getOptionsWithGroupForSelected = () => {
   let options = filteredOptions.value;
   if (modelValue.value) {
-    if (Array.isArray(modelValue.value) && modelValue.value.length > 0) {
+    if (
+      !props.keepSelectionOrder &&
+      Array.isArray(modelValue.value) &&
+      modelValue.value.length > 0
+    ) {
       const selectedValues = new Set(modelValue.value as TValue[]);
 
       options = filteredOptions.value.map((option) => {
