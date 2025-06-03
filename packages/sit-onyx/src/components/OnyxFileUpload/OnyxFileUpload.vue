@@ -1,30 +1,53 @@
-<script lang="ts" setup generic="TMultiple extends boolean = false">
-import { computed, ref } from "vue";
+<script
+  lang="ts"
+  setup
+  generic="
+    TMultiple extends boolean = false,
+    TModelValue extends TMultiple extends true ? File[] : File = TMultiple extends true
+      ? File[]
+      : File
+  "
+>
+import { computed, ref, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density";
+import { useVModel } from "../../composables/useVModel";
 import { injectI18n } from "../../i18n";
+import { useRootAttrs } from "../../utils/attrs";
 import {
   convertBinaryPrefixToBytes,
   formatBytesToString,
   type BinaryPrefixedSize,
 } from "../../utils/numbers";
 import { OnyxFileUploadSVG } from "../illustrations";
-import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import type { OnyxFileUploadProps } from "./types";
 
-const props = withDefaults(defineProps<OnyxFileUploadProps<TMultiple>>(), {
-  accept: () => [],
-});
+const props: OnyxFileUploadProps<TMultiple> = withDefaults(
+  defineProps<OnyxFileUploadProps<TMultiple>>(),
+  {
+    accept: () => [],
+  },
+);
 
 const emit = defineEmits<{
-  "update:modelValue": [value: TMultiple extends true ? File[] : File];
+  "update:modelValue": [value: TModelValue];
 }>();
+
+defineOptions({ inheritAttrs: false });
 
 const { t, locale } = injectI18n();
 const { densityClass } = useDensity(props);
+const { restAttrs, rootAttrs } = useRootAttrs();
+const modelValue = useVModel<TModelValue, "modelValue", typeof props, undefined>({
+  props,
+  emit,
+  key: "modelValue",
+});
+
+const input = useTemplateRef<HTMLInputElement>("inputRef");
 
 const currentFiles = computed<File[]>(() => {
-  if (!props.modelValue) return [];
-  return Array.isArray(props.modelValue) ? props.modelValue : [props.modelValue];
+  if (!modelValue.value) return [];
+  return Array.isArray(modelValue.value) ? modelValue.value : [modelValue.value];
 });
 
 /**
@@ -41,7 +64,7 @@ const setFiles = (files: File[]) => {
     newFiles = currentFiles.value.concat(files);
   }
 
-  emit("update:modelValue", newFiles as TMultiple extends true ? File[] : File);
+  modelValue.value = newFiles as TModelValue;
 };
 
 const handleChange = (event: Event) => {
@@ -74,101 +97,121 @@ const handleDragEnter = () => {
 </script>
 
 <template>
-  <!-- eslint-disable-next-line vuejs-accessibility/no-static-element-interactions -- the label is interactive due to the nested input -->
-  <label
-    :class="[
-      'onyx-component',
-      'onyx-file-upload',
-      densityClass,
-      isDragging ? 'onyx-file-upload--dragging' : '',
-    ]"
-    @dragenter="handleDragEnter"
-    @dragleave="isDragging = false"
-    @dragover.prevent
-    @drop.prevent="handleDrop"
-  >
-    <OnyxFileUploadSVG :disabled="props.disabled" :active="isDragging" />
+  <div :class="['onyx-component', 'onyx-file-upload-wrapper', densityClass]" v-bind="rootAttrs">
+    <button
+      type="button"
+      :class="['onyx-file-upload', isDragging ? 'onyx-file-upload--dragging' : '']"
+      :disabled="props.disabled"
+      @dragenter="handleDragEnter"
+      @dragleave="isDragging = false"
+      @dragover.prevent
+      @drop.prevent="handleDrop"
+      @click="input?.click()"
+    >
+      <OnyxFileUploadSVG :disabled="props.disabled" :active="isDragging" />
 
-    <div class="onyx-file-upload__content">
-      <p class="onyx-file-upload__label onyx-text">
-        <u>{{ t("fileUpload.clickToUpload") }}</u> {{ t("fileUpload.orDragAndDrop") }}.
-      </p>
+      <div class="onyx-file-upload__content">
+        <p class="onyx-file-upload__label onyx-text">
+          <u>{{ t("fileUpload.clickToUpload") }}</u> {{ t("fileUpload.orDragAndDrop") }}.
+        </p>
 
-      <p v-if="props.maxSize || props.maxTotalSize" class="onyx-file-upload__text onyx-text--small">
-        {{ t("fileUpload.maxFileSize") }}:
+        <p
+          v-if="props.maxSize || props.maxTotalSize"
+          class="onyx-file-upload__text onyx-text--small"
+        >
+          {{ t("fileUpload.maxFileSize") }}:
 
-        <template v-if="props.maxSize && props.maxTotalSize">
-          {{ formatFileSize(props.maxSize) }} ({{ formatFileSize(props.maxTotalSize) }}
-          {{ t("fileUpload.inTotal") }})
-        </template>
+          <template v-if="props.maxSize && props.maxTotalSize">
+            {{ formatFileSize(props.maxSize) }} ({{ formatFileSize(props.maxTotalSize) }}
+            {{ t("fileUpload.inTotal") }})
+          </template>
 
-        <template v-else-if="props.maxSize"> {{ formatFileSize(props.maxSize) }} </template>
-        <template v-else-if="props.maxTotalSize">
-          {{ formatFileSize(props.maxTotalSize) }} {{ t("fileUpload.inTotal") }}
-        </template>
-      </p>
+          <template v-else-if="props.maxSize"> {{ formatFileSize(props.maxSize) }} </template>
+          <template v-else-if="props.maxTotalSize">
+            {{ formatFileSize(props.maxTotalSize) }} {{ t("fileUpload.inTotal") }}
+          </template>
+        </p>
 
-      <p v-if="props.multiple && props.maxCount" class="onyx-file-upload__text onyx-text--small">
-        {{ t("fileUpload.maxFileCount", { n: props.maxCount }) }}
-      </p>
+        <p v-if="props.multiple && props.maxCount" class="onyx-file-upload__text onyx-text--small">
+          {{ t("fileUpload.maxFileCount", { n: props.maxCount }) }}
+        </p>
 
-      <p v-if="props.accept.length" class="onyx-file-upload__text onyx-text--small">
-        Allowed file types: {{ props.accept.join(", ") }}
-      </p>
-    </div>
-
-    <OnyxVisuallyHidden>
-      <input
-        class="onyx-file-upload__input"
-        type="file"
-        :aria-label="t('fileUpload.label', { n: props.multiple ? 2 : 1 })"
-        :accept="props.accept.length ? props.accept.join(',') : undefined"
-        :multiple="props.multiple"
-        :disabled="props.disabled"
-        :name="props.name"
-        @change="handleChange"
-      />
-    </OnyxVisuallyHidden>
-  </label>
+        <p v-if="props.accept?.length" class="onyx-file-upload__text onyx-text--small">
+          {{ t("fileUpload.allowedFileTypes", { types: props.accept.join(", ") }) }}
+        </p>
+      </div>
+    </button>
+    <input
+      ref="inputRef"
+      aria-hidden="true"
+      tabindex="-1"
+      class="onyx-file-upload-input"
+      type="file"
+      :accept="props.accept?.length ? props.accept.join(',') : undefined"
+      :multiple="props.multiple"
+      :disabled="props.disabled"
+      :name="props.name"
+      v-bind="restAttrs"
+      @change="handleChange"
+    />
+  </div>
 </template>
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
 
-.onyx-file-upload {
-  @include layers.component() {
-    font-family: var(--onyx-font-family);
-    color: var(--onyx-color-text-icons-neutral-intense);
-    border-radius: var(--onyx-radius-md);
-    border: var(--onyx-1px-in-rem) dashed var(--onyx-color-component-border-neutral);
-    background-color: var(--onyx-color-base-background-blank);
-    padding: var(--onyx-density-xl);
+@include layers.component() {
+  .onyx-file-upload-wrapper {
+    display: grid;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    max-width: 100%;
+    .onyx-file-upload-input {
+      display: none;
+    }
 
-    &--dragging {
-      border-color: var(--onyx-color-component-border-primary-hover);
-      background-color: var(--onyx-color-base-primary-100);
+    .onyx-file-upload {
+      all: unset;
+      grid-area: 1/1;
+      font-family: var(--onyx-font-family);
+      color: var(--onyx-color-text-icons-neutral-intense);
+      border-radius: var(--onyx-radius-md);
+      border: var(--onyx-1px-in-rem) dashed var(--onyx-color-component-border-neutral);
+      background-color: var(--onyx-color-base-background-blank);
+      padding: var(--onyx-density-xl);
 
-      * {
-        // needed to not emit "dragleave" event when hovering over children (e.g. text)
-        pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      max-width: 100%;
+
+      &--dragging {
+        border-color: var(--onyx-color-component-border-primary-hover);
+        background-color: var(--onyx-color-base-primary-100);
+
+        * {
+          // needed to not emit "dragleave" event when hovering over children (e.g. text)
+          pointer-events: none;
+        }
+
+        .onyx-file-upload__label {
+          color: var(--onyx-color-text-icons-primary-intense);
+        }
       }
 
-      .onyx-file-upload__label {
-        color: var(--onyx-color-text-icons-primary-intense);
+      .onyx-file-upload-svg {
+        margin-bottom: var(--onyx-density-md);
+      }
+
+      &__content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: var(--onyx-density-2xs);
       }
     }
 
-    > .onyx-file-upload-svg {
-      margin-bottom: var(--onyx-density-md);
-    }
-
-    &:has(&__input:enabled) {
+    &:has(.onyx-file-upload-input:enabled) .onyx-file-upload {
       cursor: pointer;
 
       &:hover,
@@ -195,17 +238,9 @@ const handleDragEnter = () => {
       }
     }
 
-    &:has(&__input:disabled) {
+    &:has(.onyx-file-upload-input:disabled) .onyx-file-upload {
       background-color: var(--onyx-color-base-background-tinted);
       color: var(--onyx-color-text-icons-neutral-soft);
-    }
-
-    &__content {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: var(--onyx-density-2xs);
     }
   }
 }

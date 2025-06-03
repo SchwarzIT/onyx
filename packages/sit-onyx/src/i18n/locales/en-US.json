@@ -199,11 +199,11 @@
     "label": "Drag to change width"
   },
   "fileUpload": {
-    "label": "File | Files",
     "clickToUpload": "Click to select",
     "orDragAndDrop": "or drag and drop file",
     "maxFileSize": "Maximum file size",
     "inTotal": "in total",
-    "maxFileCount": "Maximum {n} files to select in total"
+    "maxFileCount": "Maximum {n} files to select in total",
+    "allowedFileTypes": "Allowed file types: {types}"
   }
 }

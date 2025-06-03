@@ -1,3 +1,4 @@
+import type { Locator, Page } from "@playwright/test";
 import type { MatrixScreenshotTestOptions } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density";
 import { expect, test } from "../../playwright/a11y";
@@ -9,7 +10,7 @@ const hooks: MatrixScreenshotTestOptions["hooks"] = {
     if (row === "hover") await component.hover();
     if (row === "focus-visible") await page.keyboard.press("Tab");
     if (row === "dragging") {
-      await component.locator("label").evaluate((element) => {
+      await component.locator("button").evaluate((element) => {
         element.dispatchEvent(new DragEvent("dragenter"));
       });
     }
@@ -54,20 +55,45 @@ test.describe("Screenshot tests (max. file sizes)", () => {
   });
 });
 
-test("should select a single file", async ({ mount }) => {
+const getFile = () => ({
+  name: "file.txt",
+  mimeType: "text/plain",
+  buffer: Buffer.from("this is a test"),
+});
+
+const selectFiles = async (page: Page, button: Locator, count: number) => {
+  const fileChooserPromise = page.waitForEvent("filechooser");
+  await button.click();
+  const fileChooser = await fileChooserPromise;
+  await fileChooser.setFiles(Array.from({ length: count }, () => getFile()));
+};
+
+const dragAndDropFiles = async (page: Page, button: Locator, count: number) => {
+  const dataTransfer = await page.evaluateHandle(
+    ({ count: _count }) => {
+      const dt = new DataTransfer();
+      for (let i = 0; i < _count; i++) {
+        dt.items.add(new File(["this is a test"], "file.txt", { type: "text/plain" }));
+      }
+      return dt;
+    },
+    { count },
+  );
+
+  await button.dispatchEvent("drop", { dataTransfer });
+};
+
+test("should select a single file", async ({ mount, page }) => {
   // ARRANGE
   let file: File | undefined;
 
   const component = await mount(
     <OnyxFileUpload onUpdate:modelValue={(newFile) => (file = newFile)} />,
   );
+  const button = component.getByRole("button", { name: "Click to select" });
 
   // ACT
-  await component.getByLabel("File").setInputFiles({
-    name: "file.txt",
-    mimeType: "text/plain",
-    buffer: Buffer.from("this is a test"),
-  });
+  await selectFiles(page, button, 1);
 
   // ASSERT
   await expect(() => expect(file).toBeDefined()).toPass();
@@ -79,39 +105,23 @@ test("should select a single file", async ({ mount }) => {
   await expect(() => expect(file).not.toBeDefined()).toPass();
 
   // ACT
-  const dataTransfer = await component.evaluateHandle(() => {
-    const dt = new DataTransfer();
-    dt.items.add(new File(["this is a test"], "file.txt", { type: "text/plain" }));
-    return dt;
-  });
-
-  await component.dispatchEvent("drop", { dataTransfer });
+  await dragAndDropFiles(page, button, 1);
 
   // ASSERT
   await expect(() => expect(file).toBeDefined()).toPass();
 });
 
-test("should select multiple files", async ({ mount }) => {
+test("should select multiple files", async ({ mount, page }) => {
   // ARRANGE
   let files: File[] = [];
 
   const component = await mount(
     <OnyxFileUpload multiple onUpdate:modelValue={(newFiles) => (files = newFiles)} />,
   );
+  const button = component.getByRole("button", { name: "Click to select" });
 
   // ACT
-  await component.getByLabel("File").setInputFiles([
-    {
-      name: "file.txt",
-      mimeType: "text/plain",
-      buffer: Buffer.from("this is a test"),
-    },
-    {
-      name: "file2.txt",
-      mimeType: "text/plain",
-      buffer: Buffer.from("this is a test 2"),
-    },
-  ]);
+  selectFiles(page, button, 2);
 
   // ASSERT
   await expect(() => expect(files).toHaveLength(2)).toPass();
@@ -123,20 +133,13 @@ test("should select multiple files", async ({ mount }) => {
   await expect(() => expect(files).toHaveLength(0)).toPass();
 
   // ACT
-  const dataTransfer = await component.evaluateHandle(() => {
-    const dt = new DataTransfer();
-    dt.items.add(new File(["this is a test"], "file.txt", { type: "text/plain" }));
-    dt.items.add(new File(["this is a test 2"], "file2.txt", { type: "text/plain" }));
-    return dt;
-  });
-
-  await component.dispatchEvent("drop", { dataTransfer });
+  await dragAndDropFiles(page, button, 2);
 
   // ASSERT
-  await expect(() => expect(files).toHaveLength(2)).toPass();
+  await expect(() => expect(files).toHaveLength(4)).toPass();
 });
 
-test("should replace files", async ({ mount }) => {
+test("should replace files", async ({ mount, page }) => {
   // ARRANGE
   let files: File[] = [];
 
@@ -153,32 +156,16 @@ test("should replace files", async ({ mount }) => {
     },
     on,
   });
+  const button = component.getByRole("button", { name: "Click to select" });
 
   // ACT
-  await component.getByLabel("File").setInputFiles([
-    {
-      name: "file.txt",
-      mimeType: "text/plain",
-      buffer: Buffer.from("this is a test"),
-    },
-    {
-      name: "file2.txt",
-      mimeType: "text/plain",
-      buffer: Buffer.from("this is a test 2"),
-    },
-  ]);
+  await selectFiles(page, button, 2);
 
   // ASSERT
   await expect(() => expect(files).toHaveLength(2)).toPass();
 
   // ACT
-  await component.getByLabel("File").setInputFiles([
-    {
-      name: "file3.txt",
-      mimeType: "text/plain",
-      buffer: Buffer.from("this is a test 3"),
-    },
-  ]);
+  await selectFiles(page, button, 1);
 
   // ASSERT
   await expect(() => expect(files).toHaveLength(3)).toPass();
@@ -186,34 +173,23 @@ test("should replace files", async ({ mount }) => {
   // ACT
   await component.update({ props: { replace: true }, on });
 
-  await component.getByLabel("File").setInputFiles([
-    {
-      name: "file4.txt",
-      mimeType: "text/plain",
-      buffer: Buffer.from("this is a test 4"),
-    },
-  ]);
+  await selectFiles(page, button, 1);
 
   // ASSERT
   await expect(() => expect(files).toHaveLength(1)).toPass();
 });
 
-test("should not support drag and drop when disabled", async ({ mount }) => {
+test("should not support drag and drop when disabled", async ({ mount, page }) => {
   // ARRANGE
   let file: File | undefined;
 
   const component = await mount(
     <OnyxFileUpload onUpdate:modelValue={(newFile) => (file = newFile)} disabled />,
   );
+  const button = component.getByRole("button", { name: "Click to select" });
 
   // ACT
-  const dataTransfer = await component.evaluateHandle(() => {
-    const dt = new DataTransfer();
-    dt.items.add(new File(["this is a test"], "file.txt", { type: "text/plain" }));
-    return dt;
-  });
-
-  await component.dispatchEvent("drop", { dataTransfer });
+  await dragAndDropFiles(page, button, 1);
 
   // ASSERT
   await expect(() => expect(file).not.toBeDefined()).toPass();
