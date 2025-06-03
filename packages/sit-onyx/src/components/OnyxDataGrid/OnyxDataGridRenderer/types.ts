@@ -113,6 +113,10 @@ export type DataGridRendererCellComponentProps<
   TMetadata extends DataGridRendererCellMetadata,
 > = {
   /**
+   * The key of the column for which the cell is rendered.
+   */
+  key: keyof TEntry;
+  /**
    * Complete row data.
    */
   row: Readonly<TEntry>;

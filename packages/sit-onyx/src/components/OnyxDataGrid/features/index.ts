@@ -513,13 +513,18 @@ export const useDataGridFeatures = <
         shallowCopy = result as TEntry[];
       }
     });
-    return shallowCopy.map((entry) => {
+    return shallowCopy.map((row) => {
       const cells = columns.value.reduce<DataGridRendererRow<TEntry, DataGridMetadata>["cells"]>(
         (cells, { key, type, tdAttributes }) => {
           const cellRenderer = renderer.value.getFor("cell", type.name);
           cells[key] = {
             component: cellRenderer.component,
-            props: { row: entry, modelValue: entry[key], metadata: { typeOptions: type.options } },
+            props: {
+              key,
+              row,
+              modelValue: row[key],
+              metadata: { typeOptions: type.options },
+            },
             tdAttributes: mergeVueProps(tdAttributes, cellRenderer.tdAttributes),
           };
           return cells;
@@ -527,7 +532,7 @@ export const useDataGridFeatures = <
         {},
       );
       return {
-        id: entry.id,
+        id: row.id,
         cells,
       };
     });
