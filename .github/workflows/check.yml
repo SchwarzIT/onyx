@@ -44,13 +44,13 @@ jobs:
         # we must continue on error here so the eslint results are uploaded to GitHub in the next step.
         continue-on-error: true
 
-      - name: Upload eslint results to GitHub
+      - name: ⬆️ Upload eslint results to GitHub
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: eslint-results.sarif
           wait-for-processing: true
 
-      - name: 🔎 Check formatting
+      - name: 🎨 Check formatting
         run: pnpm run format:check:all
 
       - name: 🛠️ Build packages
@@ -60,27 +60,27 @@ jobs:
         run: pnpm run test:all
 
       # make sure that publint is only run after all packages have been built
-      - name: Run publint
+      - name: 📋 Run publint
         run: pnpm run publint:all
 
       # scan CSS build for browser compatibility issues
-      - name: Run stylelint 💅
+      - name: 💅 Run stylelint
         run: pnpm run stylelint
 
-      - name: Upload code coverage artifact
+      - name: ⬆️ Upload code coverage artifact
         uses: actions/upload-artifact@v4
         if: always() # needed to also upload test results when they failed (useful for debugging)
         with:
           name: coverage
           path: coverage
 
-      - name: Upload Storybook artifact
+      - name: ⬆️ Upload Storybook artifact
         uses: actions/upload-artifact@v4
         with:
           name: storybook-static
           path: packages/sit-onyx/storybook-static
 
-      - name: Upload documentation artifact
+      - name: ⬆️ Upload documentation artifact
         uses: actions/upload-artifact@v4
         with:
           name: documentation
