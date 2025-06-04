@@ -27,7 +27,7 @@ import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState";
 import { useVModel } from "../../composables/useVModel";
 import { injectI18n } from "../../i18n";
 import type { Nullable, SelectOptionValue } from "../../types";
-import { groupByKey } from "../../utils/objects";
+import { groupByKey, transformGroupedData } from "../../utils/objects";
 import { normalizedIncludes } from "../../utils/strings";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxFlyout from "../OnyxFlyout/OnyxFlyout.vue";
@@ -54,6 +54,7 @@ const props = withDefaults(defineProps<Props>(), {
   valueLabel: undefined,
   alignment: "full",
   open: undefined,
+  keepSelectionOrder: false,
 });
 
 const emit = defineEmits<{
@@ -210,6 +211,20 @@ const allKeyboardOptionIds = computed(() => {
 });
 
 const onToggle = async (preventFocus?: boolean) => {
+  const groupedByKey = groupByKey<SelectOption<TValue>, "group">(
+    getOptionsWithGroupForSelected(),
+    "group",
+  );
+
+  if (props.keepSelectionOrder) {
+    groupedOptions.value = transformGroupedData<SelectOption<TValue>, "group">(groupedByKey);
+  } else {
+    groupedOptions.value = transformGroupedData<SelectOption<TValue>, "group">(
+      groupedByKey,
+      t.value("selections.selectGroup"),
+    );
+  }
+
   if (props.readonly) {
     open.value = false;
     return;
@@ -309,7 +324,24 @@ const {
   onSelect,
 });
 
-const groupedOptions = computed(() => groupByKey(filteredOptions.value, "group"));
+const getOptionsWithGroupForSelected = () => {
+  if (
+    props.keepSelectionOrder ||
+    !modelValue.value ||
+    !Array.isArray(modelValue.value) ||
+    modelValue.value.length == 0
+  ) {
+    return filteredOptions.value;
+  }
+  const selectedValues = new Set(modelValue.value as TValue[]);
+
+  return filteredOptions.value.map((option) => ({
+    ...option,
+    group: selectedValues.has(option.value) ? t.value("selections.selectGroup") : option.group,
+  }));
+};
+
+const groupedOptions = ref<{ name: string; items: SelectOption<TValue>[] }[]>();
 
 const { vScrollEnd, isScrollEnd } = useScrollEnd({
   enabled: computed(() => props.lazyLoading?.enabled ?? false),
@@ -366,6 +398,26 @@ const selectInputProps = computed(() => {
 });
 
 defineExpose({ input: computed(() => selectInput.value?.input) });
+watch(
+  [filteredOptions],
+  () => {
+    const groupedByKey = groupByKey<SelectOption<TValue>, "group">(
+      getOptionsWithGroupForSelected(),
+      "group",
+    );
+
+    if (props.keepSelectionOrder) {
+      groupedOptions.value = transformGroupedData<SelectOption<TValue>, "group">(groupedByKey);
+    } else {
+      groupedOptions.value = transformGroupedData<SelectOption<TValue>, "group">(
+        groupedByKey,
+        t.value("selections.selectGroup"),
+      );
+    }
+  },
+
+  { deep: true, immediate: true },
+);
 </script>
 
 <template>
@@ -438,23 +490,20 @@ defineExpose({ input: computed(() => selectInput.value?.input) });
 
               <!-- TODO: remove type cast once its fixed in Vue / vue-tsc version -->
               <ul
-                v-for="(groupOptions, group) in groupedOptions as Record<
-                  string,
-                  SelectOption<TValue>[]
-                >"
-                :key="group"
+                v-for="group in groupedOptions"
+                :key="group.name"
                 class="onyx-select__group"
-                v-bind="headlessGroup({ label: group })"
+                v-bind="headlessGroup({ label: group.name })"
               >
                 <li
-                  v-if="group != ''"
+                  v-if="group.name !== ''"
                   role="presentation"
                   class="onyx-select__group-name onyx-text--small"
                 >
-                  {{ group }}
+                  {{ group.name }}
                 </li>
                 <OnyxSelectOption
-                  v-for="option in groupOptions"
+                  v-for="option in group.items"
                   :key="option.value.toString()"
                   v-bind="
                     headlessOption({

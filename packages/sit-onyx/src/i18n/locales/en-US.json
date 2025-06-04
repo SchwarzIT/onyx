@@ -111,6 +111,7 @@
   },
   "selections": {
     "selectAll": "Select all",
+    "selectGroup": "Selected",
     "currentSelection": "{n} selected"
   },
   "stepper": {

@@ -180,7 +180,7 @@ test.describe("Grouped screenshots", () => {
             density={row}
             multiple={true}
             withCheckAll={true}
-            style={{ marginBottom: "20rem" }}
+            style={{ marginBottom: "22rem" }}
           />
         </div>
       ) : (
@@ -970,4 +970,58 @@ test("should manage filtering internally except when filteredOptions are given",
     page.getByLabel("Test select"),
     "manual filtering will prevent onyx from showing the label of an option that is no longer available at the time",
   ).toBeEmpty();
+});
+
+test("should render a separate group for selected options", async ({ mount, page }) => {
+  const options = [
+    { value: 1, label: "One" },
+    { value: 2, label: "Two" },
+    { value: 3, label: "Three" },
+  ];
+  // ARRANGE
+  const component = await mount(OnyxSelect, {
+    props: {
+      options,
+      label: "Test select",
+      listLabel: "Select label",
+      modelValue: [2],
+      multiple: true,
+      withSearch: true,
+    },
+  });
+
+  // ACT
+  await component.getByRole("textbox", { name: "Test select" }).click();
+  await page.getByRole("option").first().waitFor();
+  // ASSERT
+  await expect(page.getByText("Selected")).toBeVisible();
+});
+
+test("should not render a separate group for selected options (keepSelectionOrder)", async ({
+  mount,
+  page,
+}) => {
+  const options = [
+    { value: 1, label: "One" },
+    { value: 2, label: "Two" },
+    { value: 3, label: "Three" },
+  ];
+  // ARRANGE
+  const component = await mount(OnyxSelect, {
+    props: {
+      options,
+      label: "Test select",
+      listLabel: "Select label",
+      modelValue: [2],
+      multiple: true,
+      withSearch: true,
+      keepSelectionOrder: true,
+    },
+  });
+
+  // ACT
+  await component.getByRole("textbox", { name: "Test select" }).click();
+  await page.getByRole("option").first().waitFor();
+  // ASSERT
+  await expect(page.getByText("Selected")).toBeHidden();
 });

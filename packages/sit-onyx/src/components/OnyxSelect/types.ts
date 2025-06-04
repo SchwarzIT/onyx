@@ -79,6 +79,11 @@ export type OnyxSelectProps<
      * If you want to use a button instead, use the `optionsEnd` slot.
      */
     lazyLoading?: SelectLazyLoading;
+
+    /**
+     * Whether to preserve the selection order when reopening the dropdown.
+     */
+    keepSelectionOrder?: boolean;
   } & {
     /**
      * Currently selected options. Can be either a single value or an array of values.

@@ -29,6 +29,29 @@ export const groupByKey = <TValue extends { [key in TKey]?: string }, TKey exten
   );
 };
 
+export const transformGroupedData = <
+  TValue extends { [key in TKey]?: string },
+  TKey extends keyof TValue,
+>(
+  data: Record<string, TValue[]>,
+  firstGroup?: string,
+) => {
+  const entries = Object.entries(data);
+
+  if (firstGroup) {
+    entries.sort(([a], [b]) => {
+      if (a === firstGroup) return -1;
+      if (b === firstGroup) return 1;
+      return 0;
+    });
+  }
+
+  return entries.map(([groupName, items]) => ({
+    name: groupName,
+    items,
+  }));
+};
+
 /**
  * Works like `Object.entries`, but considers all own keys of an object (including symbols).
  * @example
