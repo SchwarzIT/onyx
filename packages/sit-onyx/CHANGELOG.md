@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.236
+
+### Minor Changes
+
+- fad403a: feat(OnyxSelect): Implemented Auto-Grouping of selected options
+
 ## 1.0.0-beta.235
 
 ### Minor Changes
