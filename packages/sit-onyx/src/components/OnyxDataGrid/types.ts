@@ -1,5 +1,6 @@
 import type { SkeletonInjected } from "src/composables/useSkeletonState";
 import type { IfExtends, IfNotEmpty, MaybePick, RecordValues, UnionByKey } from "../../types";
+import type { OnyxTableProps } from "../OnyxTable/types";
 import type {
   ColumnConfig,
   ColumnConfigTypeOption,
@@ -83,10 +84,10 @@ export type OnyxDataGridProps<
    */
   data: TEntry[];
   /**
-   *  Whether to show skeleton rows. Can be set to `true` to use a pre-defined skeleton row count or you can pass a number tospecific the count.
+   *  Whether to show skeleton rows. Can be set to `true` to use a pre-defined skeleton row count or you can pass a number to define a specific count.
    */
   skeleton?: SkeletonInjected;
-};
+} & Omit<OnyxTableProps, "columnGroups" | "scrollContainerAttrs">;
 
 /**
  * "Raw" user data for a data grid entry/row, e.g. fetched from a backend service.

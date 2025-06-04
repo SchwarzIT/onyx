@@ -7,5 +7,5 @@ const props = defineProps<Pick<OnyxDataGridRendererProps, "density">>();
 </script>
 
 <template>
-  <OnyxDataGridRenderer v-bind="{ ...props, ...Default.args }" />
+  <OnyxDataGridRenderer v-bind="{ ...props, ...Default.args }" striped with-vertical-borders />
 </template>

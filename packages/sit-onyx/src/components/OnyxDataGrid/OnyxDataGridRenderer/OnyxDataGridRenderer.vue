@@ -5,12 +5,7 @@ import OnyxTable from "../../OnyxTable/OnyxTable.vue";
 import type { DataGridEntry, DataGridMetadata } from "../types";
 import type { OnyxDataGridRendererProps } from "./types";
 
-const props = withDefaults(defineProps<OnyxDataGridRendererProps<TEntry, TMetadata>>(), {
-  // usually we default all boolean props to false (see https://onyx.schwarz/principles/technical-vision.html#component-interface).
-  // However, here for striped and withVerticalBorders this makes sense from UX perspective
-  striped: true,
-  withVerticalBorders: true,
-});
+const props = defineProps<OnyxDataGridRendererProps<TEntry, TMetadata>>();
 
 defineSlots<{
   /**
