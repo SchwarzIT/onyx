@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.237
+
+### Minor Changes
+
+- 2ce3192: feat(OnyxDataGrid): use and pass props to OnyxDataGridRenderer
+  feat(OnyxDataGrid): add `key` property to the cell renderer props
+  fix(OnyxDataGrid): expose `renderer` types and utils
+
 ## 1.0.0-beta.236
 
 ### Minor Changes
