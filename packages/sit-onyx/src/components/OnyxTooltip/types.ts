@@ -54,6 +54,10 @@ export type OnyxTooltipProps = DensityProp & {
    * depending on the specified alignment.
    */
   alignsWithEdge?: boolean;
+  /**
+   * Determines whether the tooltip should be rendered without a wedge (triangle).
+   */
+  withoutWedge?: boolean;
 };
 export type TooltipOpen =
   | "hover"

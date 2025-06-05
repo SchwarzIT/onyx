@@ -169,6 +169,7 @@ const tooltipClasses = computed(() => {
     [`onyx-tooltip--position-${toolTipPosition.value.replace(" ", "-")}`]: true,
     [`onyx-tooltip--alignment-${alignment.value}`]: true,
     "onyx-tooltip--dont-support-anchor": !useragentSupportsAnchorApi.value,
+    "onyx-tooltip--without-wedge": props.withoutWedge,
   };
 });
 
@@ -339,6 +340,7 @@ $wedge-size: 0.5rem;
         }
       }
     }
+    &--without-wedge,
     &--position-top-left,
     &--position-top-right,
     &--position-bottom-left,
