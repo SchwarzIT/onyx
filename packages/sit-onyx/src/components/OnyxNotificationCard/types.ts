@@ -1,4 +1,5 @@
 import type { DensityProp } from "../../composables/density";
+import type { SkeletonInjected } from "../../composables/useSkeletonState";
 import type { DateValue } from "../OnyxDatePicker/types";
 
 export type OnyxNotificationCardProps = DensityProp & {
@@ -18,4 +19,8 @@ export type OnyxNotificationCardProps = DensityProp & {
    * Optional icon to show.
    */
   icon?: string;
+  /**
+   * Whether to show a skeleton.
+   */
+  skeleton?: SkeletonInjected;
 };

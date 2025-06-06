@@ -26,3 +26,5 @@ export default meta;
 type Story = StoryObj<typeof NotificationCenter>;
 
 export const Default = { args: {} } satisfies Story;
+
+export const Skeleton = { args: { skeleton: true } } satisfies Story;
