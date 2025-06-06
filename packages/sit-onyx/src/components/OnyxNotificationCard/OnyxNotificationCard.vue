@@ -3,15 +3,19 @@ import moreVertical from "@sit-onyx/icons/more-vertical.svg?raw";
 import { toRef } from "vue";
 import { useDensity } from "../../composables/density";
 import { useRelativeTimeFormat } from "../../composables/useRelativeTimeFormat";
+import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { injectI18n } from "../../i18n";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxFlyoutMenu from "../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
+import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import type { OnyxNotificationCardProps } from "./types";
 
-const props = defineProps<OnyxNotificationCardProps>();
+const props = withDefaults(defineProps<OnyxNotificationCardProps>(), {
+  skeleton: SKELETON_INJECTED_SYMBOL,
+});
 
 const slots = defineSlots<{
   /**
@@ -31,6 +35,7 @@ const slots = defineSlots<{
 }>();
 
 const { densityClass } = useDensity(props);
+const skeleton = useSkeletonContext(props);
 const { d, t } = injectI18n();
 const { timeAgo } = useRelativeTimeFormat({
   time: toRef(props, "createdAt"),
@@ -40,7 +45,11 @@ const { timeAgo } = useRelativeTimeFormat({
 
 <template>
   <div :class="['onyx-component', 'onyx-notification-card', densityClass]">
-    <div class="onyx-notification-card__content">
+    <div v-if="skeleton" class="onyx-notification-card-skeleton">
+      <OnyxSkeleton class="onyx-notification-card-skeleton__header" />
+      <OnyxSkeleton v-for="n in 3" :key="n" class="onyx-notification-card-skeleton__content" />
+    </div>
+    <div v-else class="onyx-notification-card__content">
       <div>
         <div class="onyx-notification-card__header">
           <div class="onyx-notification-card__header-container">
@@ -113,7 +122,7 @@ const { timeAgo } = useRelativeTimeFormat({
       gap: var(--onyx-density-md);
     }
 
-    &:not(:first-of-type) {
+    &:not(:first-of-type):not(:has(.onyx-notification-card-skeleton)) {
       padding-top: 0;
 
       .onyx-notification-card__content {
@@ -176,6 +185,26 @@ const { timeAgo } = useRelativeTimeFormat({
       gap: var(--onyx-density-md);
       flex-wrap: wrap;
       color: var(--onyx-color-text-icons-neutral-soft);
+    }
+    &:has(.onyx-notification-card-skeleton) {
+      border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+      border-radius: var(--onyx-radius-md);
+      &:hover,
+      &:focus-within {
+        background-color: var(--onyx-color-base-background-blank);
+      }
+    }
+    &-skeleton {
+      display: flex;
+      flex-direction: column;
+      gap: var(--onyx-density-2xs);
+      &__header {
+        height: 1.5rem;
+        width: 33%;
+      }
+      &__content {
+        height: 1rem;
+      }
     }
   }
 }
