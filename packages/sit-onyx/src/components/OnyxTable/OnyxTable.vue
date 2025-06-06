@@ -254,6 +254,11 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
       position: relative;
       padding: var(--onyx-density-xs) var(--onyx-density-md);
 
+      // max width for skeleton, so it looks better
+      > .onyx-skeleton {
+        max-width: 8rem;
+      }
+
       &.onyx-table__colgroup {
         padding-top: var(--onyx-density-3xs);
         padding-bottom: var(--onyx-density-3xs);
