@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.239
+
+### Minor Changes
+
+- 404f295: feat (Tooltip): implement non directional Tooltip
+
 ## 1.0.0-beta.238
 
 ### Patch Changes
