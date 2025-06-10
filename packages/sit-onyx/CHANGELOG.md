@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.238
+
+### Patch Changes
+
+- 1554f8e: fix(OnyxDataGrid, OnyxTable): Restrict width of skeleton indicators
+
 ## 1.0.0-beta.237
 
 ### Minor Changes
