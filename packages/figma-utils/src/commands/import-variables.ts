@@ -18,6 +18,7 @@ export type ImportVariablesCommandOptions = {
   filename?: string;
   dir?: string;
   modes?: string[];
+  combinesDarkLight?: boolean;
   selector: string;
 };
 
@@ -42,6 +43,10 @@ export const importVariablesCommand = new Command("import-variables")
     "Can be used to only export specific Figma modes. If unset, all modes will be exported as a separate file.",
   )
   .option(
+    "-c, --combines-dark-light",
+    "Combines the dark theme data with the light theme data by using the light-dark() funktion ",
+  )
+  .option(
     "-s, --selector <string>",
     'CSS selector to use for the CSS format. You can use {mode} as placeholder for the mode name, so e.g. for the mode named "dark", passing the selector "html.{mode}" will result in "html.dark"',
     ":root",
@@ -53,7 +58,8 @@ export const importVariablesCommand = new Command("import-variables")
  */
 export async function importVariablesCommandAction(options: ImportVariablesCommandOptions) {
   const generators = {
-    CSS: (data: ParsedVariable) => generateAsCSS(data, { selector: options.selector }),
+    CSS: (data: ParsedVariable, dataDark?: ParsedVariable) =>
+      generateAsCSS(data, dataDark, { selector: options.selector }),
     SCSS: generateAsSCSS,
     JSON: generateAsJSON,
   };
@@ -104,13 +110,24 @@ export async function importVariablesCommandAction(options: ImportVariablesComma
       // otherwise all modes will be exported.
       // the default mode (undefined data.modeName) is always generated because its mode name can
       // not be specified by the designer in Figma
+
       const isModeIncluded =
         !options.modes?.length || !data.modeName || options.modes.includes(data.modeName);
       if (!isModeIncluded) return;
 
       const baseName = getBaseFileName(data.modeName);
-      const fullPath = path.join(outputDirectory, `${baseName}.${format.toLowerCase()}`);
-      fs.writeFileSync(fullPath, generators[format as keyof typeof generators](data));
+      const themeName = baseName.split("-")[0];
+      const fullPath = path.join(outputDirectory, `${themeName}.${format.toLowerCase()}`);
+      console.log("fullPath", fullPath);
+      if (options.combinesDarkLight) {
+        // find the matching theme
+        const dataDark = parsedVariables.find(
+          (themeData) => themeData.modeName === themeName + "-dark",
+        );
+        fs.writeFileSync(fullPath, generators[format as keyof typeof generators](data, dataDark));
+      } else {
+        fs.writeFileSync(fullPath, generators[format as keyof typeof generators](data));
+      }
     });
   });
 
