@@ -4,6 +4,7 @@
   "compilerOptions": {
     "composite": true,
     "rootDir": "./src",
-    "baseUrl": "."
+    "baseUrl": ".",
+    "lib": ["ES2022"]
   }
 }

@@ -3,6 +3,7 @@
   "include": ["src/**/*"],
   "exclude": ["src/**/*.ct.*", "src/**/*.spec.*"],
   "compilerOptions": {
+    "lib": ["ES2022"],
     "rootDir": "./src",
     "baseUrl": "."
   }
