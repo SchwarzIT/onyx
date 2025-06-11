@@ -483,8 +483,8 @@ importers:
         version: 5.8.3
     devDependencies:
       '@axe-core/playwright':
-        specifier: ^4.10.1
-        version: 4.10.2(playwright-core@1.53.0)
+        specifier: ^4.10.2
+        version: 4.10.2(playwright-core@1.51.1)
       '@sit-onyx/flags':
         specifier: workspace:^
         version: link:../flags
@@ -5803,11 +5803,6 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
-  playwright-core@1.53.0:
-    resolution: {integrity: sha512-mGLg8m0pm4+mmtB7M89Xw/GSqoNC+twivl8ITteqvAndachozYe2ZA7srU6uleV1vEdAHYqjq+SV8SNxRRFYBw==}
-    engines: {node: '>=18'}
-    hasBin: true
-
   playwright@1.51.1:
     resolution: {integrity: sha512-kkx+MB2KQRkyxjYPc3a0wLZZoDczmppyGJIvQ43l+aZihkaVvmu/21kiyaHeHjiFxjxNNFnUncKmcGIyOojsaw==}
     engines: {node: '>=18'}
@@ -7956,10 +7951,10 @@ snapshots:
       '@csstools/css-tokenizer': 3.0.3
       lru-cache: 10.4.3
 
-  '@axe-core/playwright@4.10.2(playwright-core@1.53.0)':
+  '@axe-core/playwright@4.10.2(playwright-core@1.51.1)':
     dependencies:
       axe-core: 4.10.3
-      playwright-core: 1.53.0
+      playwright-core: 1.51.1
 
   '@babel/code-frame@7.27.1':
     dependencies:
@@ -14169,8 +14164,6 @@ snapshots:
       pathe: 2.0.3
 
   playwright-core@1.51.1: {}
-
-  playwright-core@1.53.0: {}
 
   playwright@1.51.1:
     dependencies:
