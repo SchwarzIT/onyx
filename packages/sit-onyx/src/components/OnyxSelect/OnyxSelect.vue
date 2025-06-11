@@ -8,17 +8,7 @@
   "
 >
 import { createComboBox, type ComboboxAutoComplete } from "@sit-onyx/headless";
-import {
-  computed,
-  nextTick,
-  ref,
-  toRefs,
-  useId,
-  useTemplateRef,
-  watch,
-  watchEffect,
-  type Ref,
-} from "vue";
+import { computed, nextTick, ref, toRefs, useId, useTemplateRef, watch, watchEffect } from "vue";
 import { useCheckAll } from "../../composables/checkAll";
 import { useDensity } from "../../composables/density";
 import { useScrollEnd } from "../../composables/scrollEnd";
@@ -27,7 +17,7 @@ import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState";
 import { useVModel } from "../../composables/useVModel";
 import { injectI18n } from "../../i18n";
 import type { Nullable, SelectOptionValue } from "../../types";
-import { groupByKey, transformGroupedData } from "../../utils/objects";
+import { asArray, groupByKey, transformGroupedData } from "../../utils/objects";
 import { normalizedIncludes } from "../../utils/strings";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxFlyout from "../OnyxFlyout/OnyxFlyout.vue";
@@ -147,11 +137,7 @@ const activeValue = ref<TValue>();
  * Current value but always as array (even if not multiselect) so it is easier
  * to work with it in a unified way.
  */
-const arrayValue = computed(() => {
-  if (modelValue.value === undefined) return [];
-  if (props.multiple && Array.isArray(modelValue.value)) return modelValue.value;
-  return [modelValue.value];
-}) as Readonly<Ref<TValue[]>>;
+const arrayValue = computed(() => asArray(modelValue.value as TModelValue));
 
 /**
  * Contains an array of labels that will be shown in the OnyxSelectInput.
@@ -161,8 +147,7 @@ const arrayValue = computed(() => {
 const selectionLabels = computed(() => {
   // given state
   if (props.valueLabel !== undefined) {
-    if (Array.isArray(props.valueLabel)) return props.valueLabel;
-    return [props.valueLabel];
+    return asArray(props.valueLabel);
   }
   // managed state
   return arrayValue.value.reduce<string[]>((acc, current) => {
