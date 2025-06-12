@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "lidl-dark" theme.
- * Imported from Figma API on Thu, 03 Apr 2025 08:41:43 GMT
+ * Imported from Figma API on Thu, 12 Jun 2025 08:31:57 GMT
  */
 .dark,
 .onyx-theme-lidl-dark {
@@ -36,15 +36,15 @@
   --onyx-color-base-neutral-700: var(--onyx-color-stone-500);
   --onyx-color-base-neutral-800: var(--onyx-color-stone-400);
   --onyx-color-base-neutral-900: var(--onyx-color-stone-300);
-  --onyx-color-base-primary-100: var(--onyx-color-lidl-1100);
-  --onyx-color-base-primary-200: var(--onyx-color-lidl-1000);
-  --onyx-color-base-primary-300: var(--onyx-color-lidl-900);
-  --onyx-color-base-primary-400: var(--onyx-color-lidl-800);
-  --onyx-color-base-primary-500: var(--onyx-color-lidl-700);
-  --onyx-color-base-primary-600: var(--onyx-color-lidl-600);
-  --onyx-color-base-primary-700: var(--onyx-color-lidl-500);
-  --onyx-color-base-primary-800: var(--onyx-color-lidl-400);
-  --onyx-color-base-primary-900: var(--onyx-color-lidl-300);
+  --onyx-color-base-primary-100: var(--onyx-color-lidl-900);
+  --onyx-color-base-primary-200: var(--onyx-color-lidl-800);
+  --onyx-color-base-primary-300: var(--onyx-color-lidl-700);
+  --onyx-color-base-primary-400: var(--onyx-color-lidl-600);
+  --onyx-color-base-primary-500: var(--onyx-color-lidl-500);
+  --onyx-color-base-primary-600: var(--onyx-color-lidl-400);
+  --onyx-color-base-primary-700: var(--onyx-color-lidl-300);
+  --onyx-color-base-primary-800: var(--onyx-color-lidl-200);
+  --onyx-color-base-primary-900: var(--onyx-color-lidl-100);
   --onyx-color-base-quantitatives-100: var(--onyx-color-quantitatives-150);
   --onyx-color-base-quantitatives-200: var(--onyx-color-quantitatives-250);
   --onyx-color-base-quantitatives-300: var(--onyx-color-quantitatives-350);
@@ -80,20 +80,22 @@
   --onyx-color-component-border-disabled: var(--onyx-color-base-neutral-200);
   --onyx-color-component-border-neutral: var(--onyx-color-base-neutral-300);
   --onyx-color-component-border-neutral-hover: var(--onyx-color-base-neutral-400);
-  --onyx-color-component-border-primary: var(--onyx-color-base-primary-500);
-  --onyx-color-component-border-primary-hover: var(--onyx-color-base-primary-400);
+  --onyx-color-component-border-primary: var(--onyx-color-base-primary-600);
+  --onyx-color-component-border-primary-hover: var(--onyx-color-base-primary-700);
   --onyx-color-component-border-success: var(--onyx-color-base-success-500);
   --onyx-color-component-border-success-hover: var(--onyx-color-base-success-400);
   --onyx-color-component-cta-danger: var(--onyx-color-base-danger-500);
   --onyx-color-component-cta-danger-hover: var(--onyx-color-base-danger-400);
-  --onyx-color-component-cta-default: var(--onyx-color-base-primary-500);
-  --onyx-color-component-cta-default-hover: var(--onyx-color-base-primary-400);
+  --onyx-color-component-cta-default: var(--onyx-color-base-primary-600);
+  --onyx-color-component-cta-default-hover: var(--onyx-color-base-primary-700);
   --onyx-color-component-cta-disabled: var(--onyx-color-base-neutral-200);
   --onyx-color-component-focus-danger: var(--onyx-color-base-danger-300);
   --onyx-color-component-focus-neutral: var(--onyx-color-base-neutral-500);
-  --onyx-color-component-focus-primary: var(--onyx-color-base-primary-200);
+  --onyx-color-component-focus-primary: var(--onyx-color-base-primary-500);
   --onyx-color-component-focus-success: var(--onyx-color-base-success-200);
   --onyx-color-component-focus-warning: var(--onyx-color-base-warning-200);
+  --onyx-color-component-nav-label: var(--onyx-color-text-icons-primary-intense);
+  --onyx-color-component-nav-stroke: var(--onyx-color-base-primary-600);
   --onyx-color-component-opacity-backdrop: var(--onyx-color-opacity-medium);
   --onyx-color-text-icons-danger-bold: var(--onyx-color-red-400);
   --onyx-color-text-icons-danger-intense: var(--onyx-color-red-500);
@@ -103,15 +105,15 @@
   --onyx-color-text-icons-info-intense: var(--onyx-color-purple-500);
   --onyx-color-text-icons-info-medium: var(--onyx-color-purple-700);
   --onyx-color-text-icons-info-soft: var(--onyx-color-purple-900);
-  --onyx-color-text-icons-neutral-button: var(--onyx-color-grayscale-white);
+  --onyx-color-text-icons-neutral-button: var(--onyx-color-stone-1200);
   --onyx-color-text-icons-neutral-intense: var(--onyx-color-stone-200);
   --onyx-color-text-icons-neutral-inverted: var(--onyx-color-stone-1200);
   --onyx-color-text-icons-neutral-medium: var(--onyx-color-stone-400);
   --onyx-color-text-icons-neutral-soft: var(--onyx-color-stone-600);
-  --onyx-color-text-icons-primary-bold: var(--onyx-color-lidl-400);
-  --onyx-color-text-icons-primary-intense: var(--onyx-color-lidl-500);
-  --onyx-color-text-icons-primary-medium: var(--onyx-color-lidl-700);
-  --onyx-color-text-icons-primary-soft: var(--onyx-color-lidl-900);
+  --onyx-color-text-icons-primary-bold: var(--onyx-color-lidl-200);
+  --onyx-color-text-icons-primary-intense: var(--onyx-color-lidl-400);
+  --onyx-color-text-icons-primary-medium: var(--onyx-color-lidl-500);
+  --onyx-color-text-icons-primary-soft: var(--onyx-color-lidl-800);
   --onyx-color-text-icons-success-bold: var(--onyx-color-green-400);
   --onyx-color-text-icons-success-intense: var(--onyx-color-green-500);
   --onyx-color-text-icons-success-medium: var(--onyx-color-green-700);
@@ -120,6 +122,26 @@
   --onyx-color-text-icons-warning-intense: var(--onyx-color-orange-500);
   --onyx-color-text-icons-warning-medium: var(--onyx-color-orange-700);
   --onyx-color-text-icons-warning-soft: var(--onyx-color-orange-900);
+  --onyx-font-letter-spacing-default: var(--onyx-font-number-0-spacing);
+  --onyx-font-line-height-lg: var(--onyx-font-number-500);
+  --onyx-font-line-height-md: var(--onyx-font-number-400);
+  --onyx-font-line-height-sm: var(--onyx-font-number-300);
+  --onyx-font-line-height-xl: var(--onyx-font-number-600);
+  --onyx-font-size-lg: var(--onyx-font-number-300);
+  --onyx-font-size-md: var(--onyx-font-number-200);
+  --onyx-font-size-sm: var(--onyx-font-number-100);
+  --onyx-font-size-xl: var(--onyx-font-number-500);
+  --onyx-font-type-data: var(--onyx-font-family-default);
+  --onyx-font-type-description: var(--onyx-font-family-description);
+  --onyx-font-type-h1: var(--onyx-font-family-default);
+  --onyx-font-type-h2: var(--onyx-font-family-default);
+  --onyx-font-type-h3: var(--onyx-font-family-default);
+  --onyx-font-type-h4: var(--onyx-font-family-default);
+  --onyx-font-type-mono: var(--onyx-font-family-mono);
+  --onyx-font-type-paragraph: var(--onyx-font-family-default);
+  --onyx-font-weight-bold: var(--onyx-font-weight-bold);
+  --onyx-font-weight-medium: var(--onyx-font-weight-semiBold);
+  --onyx-font-weight-regular: var(--onyx-font-weight-regular);
   --onyx-radius-full: var(--onyx-number-radius-600);
   --onyx-radius-lg: var(--onyx-number-radius-400);
   --onyx-radius-md: var(--onyx-number-radius-300);
