@@ -10,8 +10,8 @@ const themes = import.meta.glob("../src/styles/variables/themes/*.css");
  */
 export const ONYX_THEMES = Object.entries(themes)
   .sort(([a], [b]) => {
-    if (a.endsWith("onyx-light.css")) return -1;
-    if (b.endsWith("onyx-light.css")) return 1;
+    if (a.endsWith("onyx.css")) return -1;
+    if (b.endsWith("onyx.css")) return 1;
     return a.localeCompare(b);
   })
   .reduce<typeof themes>((obj, [filePath, importFn]) => {
@@ -45,8 +45,7 @@ export const withOnyxTheme: Decorator = (Story, context) => {
   watchEffect(async () => {
     const theme = context.globals.onyxTheme ?? ONYX_THEMES[0];
     currentOnyxTheme.value = theme === ONYX_THEMES[0] ? "default" : theme;
-    await ONYX_THEMES[`${theme}-light.css`]?.();
-    await ONYX_THEMES[`${theme}-dark.css`]?.();
+    await ONYX_THEMES[`${theme}.css`]?.();
   });
 
   return {
