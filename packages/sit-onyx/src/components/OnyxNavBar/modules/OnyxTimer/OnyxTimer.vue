@@ -63,7 +63,7 @@ watchEffect(() => isEnded.value && emit("timerEnded"));
     }
 
     &__time {
-      font-weight: 600;
+      font-weight: var(--onyx-font-weight-medium);
     }
   }
 }

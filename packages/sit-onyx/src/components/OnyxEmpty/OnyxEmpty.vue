@@ -57,7 +57,7 @@ const { densityClass } = useDensity(props);
     gap: var(--onyx-density-md);
 
     &__label {
-      font-weight: 600;
+      font-weight: var(--onyx-font-weight-medium);
       white-space: pre-line;
     }
 

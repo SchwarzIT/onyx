@@ -51,9 +51,9 @@ const { densityClass } = useDensity(props);
     color: var(--onyx-list-item-color);
     padding: var(--onyx-list-item-padding);
     background-color: var(--onyx-color-base-background-blank);
-    font-weight: 400;
-    font-size: 1rem;
-    line-height: 1.5rem;
+    font-weight: var(--onyx-font-weight-regular);
+    font-size: var(--onyx-font-size-md);
+    line-height: var(--onyx-font-line-height-md);
 
     border: none;
     width: 100%;

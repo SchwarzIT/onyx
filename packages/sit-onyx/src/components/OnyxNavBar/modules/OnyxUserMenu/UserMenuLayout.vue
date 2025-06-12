@@ -123,8 +123,8 @@ const { t } = injectI18n();
       margin-top: var(--onyx-spacing-2xs);
       border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
       border-radius: var(--onyx-radius-sm);
-      font-size: 0.8125rem;
-      line-height: 1.25rem;
+      font-size: var(--onyx-font-size-sm);
+      line-height: var(--onyx-font-line-height-sm);
     }
   }
 }

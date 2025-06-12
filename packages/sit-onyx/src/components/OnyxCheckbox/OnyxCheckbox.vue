@@ -193,8 +193,8 @@ useAutofocus(input, props);
     &__label,
     &__marker {
       padding: var(--onyx-checkbox-label-padding-vertical) 0;
-      font-size: 1rem;
-      line-height: 1.5rem;
+      font-size: var(--onyx-font-size-md);
+      line-height: var(--onyx-font-line-height-md);
     }
 
     &__loading {

@@ -21,24 +21,28 @@
 */
 @mixin define-headline-sizes() {
   &--h1 {
-    font-size: 1.75rem;
-    line-height: 2.5rem;
+    font-size: var(--onyx-font-size-xl);
+    line-height: var(--onyx-font-line-height-xl);
+    font-family: var(--onyx-font-type-h1);
   }
 
   &--h2 {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
+    font-size: var(--onyx-font-size-lg);
+    line-height: var(--onyx-font-line-height-lg);
+    font-family: var(--onyx-font-type-h2);
   }
 
   &--h3 {
-    font-size: 1rem;
-    line-height: 1.5rem;
+    font-size: var(--onyx-font-size-md);
+    line-height: var(--onyx-font-line-height-md);
+    font-family: var(--onyx-font-type-h3);
   }
 
   &--h4,
   &--h5,
   &--h6 {
-    font-size: 0.8125rem;
-    line-height: 1.25rem;
+    font-size: var(--onyx-font-size-sm);
+    line-height: var(--onyx-font-line-height-sm);
+    font-family: var(--onyx-font-type-h4);
   }
 }

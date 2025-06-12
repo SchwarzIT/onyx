@@ -155,7 +155,7 @@ const icon = computed(() => {
     }
 
     &__headline {
-      font-weight: 600;
+      font-weight: var(--onyx-font-weight-medium);
       display: flex;
       align-items: flex-start;
       justify-content: space-between;

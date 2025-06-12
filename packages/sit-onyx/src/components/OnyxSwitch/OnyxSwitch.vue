@@ -289,15 +289,15 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
     &__label,
     &__marker {
       padding: var(--onyx-switch-label-padding-vertical) 0;
-      font-size: 1rem;
-      line-height: 1.5rem;
+      font-size: var(--onyx-font-size-md);
+      line-height: var(--onyx-font-line-height-md);
     }
 
     &__label {
       color: var(--onyx-color-text-icons-neutral-intense);
       font-family: var(--onyx-font-family);
       font-style: normal;
-      font-weight: 400;
+      font-weight: var(--onyx-font-weight-regular);
     }
 
     &:hover {

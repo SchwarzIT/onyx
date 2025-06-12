@@ -144,7 +144,7 @@ defineSlots<{
     &__optional {
       display: none;
       font-family: var(--onyx-font-family);
-      font-weight: 400;
+      font-weight: var(--onyx-font-weight-regular);
       font-style: normal;
       color: var(--onyx-color-text-icons-neutral-soft);
       padding-left: var(--onyx-density-xs);
