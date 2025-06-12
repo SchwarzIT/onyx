@@ -116,6 +116,9 @@ export const resolveFigmaVariableValue = (
     if (remBase === false || remBase <= 0) return `${value}px`;
     return `${value / remBase}rem`;
   }
+  if (typeof value === "string") {
+    return value;
+  }
 
   if ("type" in value) {
     // parse value as alias
