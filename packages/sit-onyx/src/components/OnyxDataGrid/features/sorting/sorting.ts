@@ -3,7 +3,6 @@ import listArrowDown from "@sit-onyx/icons/list-arrow-down.svg?raw";
 import listArrowUp from "@sit-onyx/icons/list-arrow-up.svg?raw";
 import { computed, h, toRef, toValue, type Ref } from "vue";
 import { createFeature, useIsFeatureEnabled } from "..";
-import { injectI18n } from "../../../../i18n";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxMenuItem from "../../../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
 import type { DataGridEntry } from "../../types";
@@ -25,7 +24,7 @@ export const nextSortDirection = (current?: SortDirection, skipNone?: boolean): 
 export const SORTING_FEATURE = Symbol("Sorting");
 export const useSorting = createFeature(
   <TEntry extends DataGridEntry>(options?: SortOptions<TEntry>) =>
-    ({ async }) => {
+    ({ async, i18n }) => {
       const sortState: Ref<SortState<TEntry>> = toRef(
         options?.sortState ??
           ({
@@ -41,10 +40,9 @@ export const useSorting = createFeature(
         return config?.[col]?.sortFunc ?? intlCompare.value;
       });
 
-      const { locale, t } = injectI18n();
       const intlCompare = computed(
         () => (a: unknown, b: unknown) =>
-          new Intl.Collator(locale.value).compare(String(a), String(b)),
+          new Intl.Collator(i18n.locale.value).compare(String(a), String(b)),
       );
 
       const handleClick = (clickedColumn: keyof TEntry, skipNone = false) => {
@@ -91,7 +89,7 @@ export const useSorting = createFeature(
           },
           () => [
             h(OnyxIcon, { icon: iconMap[direction] }),
-            t.value(`dataGrid.head.sorting.menu.${direction}`),
+            i18n.t.value(`dataGrid.head.sorting.menu.${direction}`),
           ],
         );
       };

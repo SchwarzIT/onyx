@@ -155,6 +155,7 @@ export type PublicNormalizedColumnConfig<
  */
 export type DataGridFeatureContext = {
   async: Readonly<Ref<boolean>>;
+  i18n: OnyxI18n;
 };
 
 /**
@@ -418,7 +419,7 @@ export const useDataGridFeatures = <
     async,
   }: UseDataGridFeaturesOptions<TEntry, TColumnGroup, TTypes>,
 ) => {
-  const features = featureDefinitions.map((f) => f({ async }));
+  const features = featureDefinitions.map((f) => f({ async, i18n }));
 
   const columnMappings = computed(() =>
     prepareMapping<InternalColumnConfig<TEntry>[], typeof features, "modifyColumns">(

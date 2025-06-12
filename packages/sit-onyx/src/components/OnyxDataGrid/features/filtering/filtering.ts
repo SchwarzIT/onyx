@@ -1,7 +1,6 @@
 import searchX from "@sit-onyx/icons/search-x.svg?raw";
 import { computed, h, toRef, toValue, type Ref } from "vue";
 import { createFeature, useIsFeatureEnabled } from "..";
-import { injectI18n } from "../../../../i18n";
 import type { Nullable } from "../../../../types";
 import { removeDiacritics } from "../../../../utils/strings";
 import OnyxMiniSearch from "../../../OnyxMiniSearch/OnyxMiniSearch.vue";
@@ -15,9 +14,8 @@ export const FILTERING_FEATURE = Symbol("Filtering");
 export type FilterState<TEntry> = Partial<Record<keyof TEntry, string | undefined>>;
 export const useFiltering = createFeature(
   <TEntry extends DataGridEntry>(options?: FilterOptions<TEntry>) =>
-    ({ async }) => {
+    ({ async, i18n }) => {
       const filterState = toRef(options?.filterState ?? {}) as Ref<FilterState<DataGridEntry>>;
-      const { t } = injectI18n();
       const config = computed(() => toValue(options?.columns));
       const { isEnabled } = useIsFeatureEnabled(options);
 
@@ -75,9 +73,9 @@ export const useFiltering = createFeature(
         };
 
         return h(OnyxMiniSearch, {
-          label: t.value("dataGrid.head.filtering.menu.label", { column: column.toString() }),
+          label: i18n.t.value("dataGrid.head.filtering.menu.label", { column: column.toString() }),
           class: "onyx-filter-search",
-          placeholder: t.value(`dataGrid.head.filtering.menu.placeholder`),
+          placeholder: i18n.t.value(`dataGrid.head.filtering.menu.placeholder`),
           modelValue: inputValue,
           // TODO: check after https://github.com/SchwarzIT/onyx/issues/2982 is closed -- `autofocus` doesn't have an effect currently
           autofocus: true,
@@ -111,7 +109,7 @@ export const useFiltering = createFeature(
                 iconComponent: filterState.value[column]
                   ? {
                       iconComponent: h(OnyxSystemButton, {
-                        label: t.value("dataGrid.head.filtering.removeLabel", {
+                        label: i18n.t.value("dataGrid.head.filtering.removeLabel", {
                           column: column.toString(),
                         }),
                         icon: searchX,
