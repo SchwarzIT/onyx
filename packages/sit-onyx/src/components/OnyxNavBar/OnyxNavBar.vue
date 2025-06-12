@@ -368,7 +368,7 @@ $gap: var(--onyx-spacing-md);
       grid-area: nav;
       color: var(--onyx-color-text-icons-primary-intense);
       padding-inline: $gap;
-      font-weight: 600;
+      font-weight: var(--onyx-font-weight-medium);
     }
 
     .onyx-mobile-nav-button {

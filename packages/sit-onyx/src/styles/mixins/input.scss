@@ -42,8 +42,8 @@
     align-items: center;
     gap: var(--onyx-density-xs);
 
-    font-size: 1rem;
-    line-height: 1.5rem;
+    font-size: var(--onyx-font-size-md);
+    line-height: var(--onyx-font-line-height-md);
     padding: $vertical-padding var(--onyx-density-sm);
     height: calc(1lh + 2 * #{$vertical-padding});
 
@@ -176,7 +176,7 @@
 
     &::placeholder {
       color: var(--onyx-color-text-icons-neutral-soft);
-      font-weight: 400;
+      font-weight: var(--onyx-font-weight-regular);
       opacity: 1;
     }
 
@@ -213,7 +213,7 @@
   display: flex;
   flex-direction: column;
   gap: calc(var(--onyx-density-3xs) + $adjustment);
-  line-height: 1.5rem;
+  line-height: var(--onyx-font-line-height-md);
 
   &__label {
     width: var(--onyx-density-3xl);

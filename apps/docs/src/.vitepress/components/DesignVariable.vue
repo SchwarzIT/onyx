@@ -126,7 +126,7 @@ const emit = defineEmits<{
     display: flex;
     text-align: center;
     color: var(--onyx-color-text-icons-success-intense);
-    font-size: 0.8125rem;
+    font-size: var(--onyx-font-size-sm);
   }
 }
 </style>

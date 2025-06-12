@@ -341,8 +341,8 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
 
   &__info-text {
     display: inline-flex;
-    font-size: 0.813rem;
-    line-height: 1.25rem;
+    font-size: var(--onyx-font-size-sm);
+    line-height: var(--onyx-font-line-height-sm);
     color: var(--onyx-color-text-icons-warning-intense);
     gap: var(--onyx-density-xs);
     margin: 0;
@@ -358,14 +358,14 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
   }
 
   &__breakpoint {
-    font-size: 0.813rem;
-    line-height: 1.25rem;
+    font-size: var(--onyx-font-size-sm);
+    line-height: var(--onyx-font-line-height-sm);
     margin: 0;
     color: var(--onyx-color-text-icons-neutral-medium);
 
     > span {
-      font-size: 1rem;
-      line-height: 1.5rem;
+      font-size: var(--onyx-font-size-md);
+      line-height: var(--onyx-font-line-height-md);
       color: var(--onyx-color-text-icons-neutral-intense);
     }
   }

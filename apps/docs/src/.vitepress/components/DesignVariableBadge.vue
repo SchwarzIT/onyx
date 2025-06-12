@@ -23,8 +23,8 @@ const emit = defineEmits<{
 <style lang="scss" scoped>
 .badge {
   cursor: pointer;
-  font-size: 1rem;
-  line-height: 1.5rem;
+  font-size: var(--onyx-font-size-md);
+  line-height: var(--onyx-font-line-height-md);
   padding: var(--onyx-spacing-4xs) var(--onyx-spacing-md);
   border-radius: var(--onyx-radius-full);
 
