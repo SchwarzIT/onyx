@@ -59,7 +59,7 @@ const renderRows = shallowRef<DataGridRendererRow<TEntry, DataGridMetadata>[]>([
 const rendererColumnGroups = shallowRef<TableColumnGroup[]>();
 const rendererScrollContainerAttributes = shallowRef<HTMLAttributes | undefined>();
 
-const { columns, data, features, columnGroups } = toRefs(props);
+const { columns: columnConfig, data, features, columnGroups, async } = toRefs(props);
 
 /**
  * Function to be able to reset the watcher in case of the features being updated.
@@ -75,7 +75,7 @@ const createFeatureBuilderWatcher = ({
   typeof useDataGridFeatures<TEntry, TFeatureName, TTypeRenderer, TColumnGroup, TTypes, TFeatures>
 >) => {
   return watch(
-    [data, columns, columnGroups, i18n.locale, i18n.t, ...watchSources],
+    [data, skeleton, columnConfig, columnGroups, i18n.locale, i18n.t, ...watchSources],
     () => {
       renderColumns.value = createRendererColumns();
       renderRows.value = createRendererRows(data.value);
@@ -91,8 +91,9 @@ watch(
   () => {
     const featureBuilder = useDataGridFeatures([BASE_FEATURE({ skeleton }), ...features.value], {
       i18n,
-      columnConfig: columns,
+      columnConfig,
       columnGroups,
+      async,
     });
     disposeWatcher?.();
     disposeWatcher = createFeatureBuilderWatcher(featureBuilder);

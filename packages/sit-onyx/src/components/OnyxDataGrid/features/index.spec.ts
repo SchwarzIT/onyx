@@ -109,7 +109,7 @@ describe("createTableColumnGroups", () => {
 });
 
 describe("useIsFeatureEnabled", () => {
-  test.each<{ options?: DataGridFeatureOptions<DataGridEntry, object, object>; enabled: boolean }>([
+  test.each<{ options?: DataGridFeatureOptions<DataGridEntry, object>; enabled: boolean }>([
     { options: undefined, enabled: true },
     { options: {}, enabled: true },
     { options: { enabled: true }, enabled: true },

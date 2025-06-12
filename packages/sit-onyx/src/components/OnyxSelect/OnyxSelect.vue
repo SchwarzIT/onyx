@@ -8,7 +8,17 @@
   "
 >
 import { createComboBox, type ComboboxAutoComplete } from "@sit-onyx/headless";
-import { computed, nextTick, ref, toRefs, useId, useTemplateRef, watch, watchEffect } from "vue";
+import {
+  computed,
+  nextTick,
+  ref,
+  toRefs,
+  useId,
+  useTemplateRef,
+  watch,
+  watchEffect,
+  type ComputedRef,
+} from "vue";
 import { useCheckAll } from "../../composables/checkAll";
 import { useDensity } from "../../composables/density";
 import { useScrollEnd } from "../../composables/scrollEnd";
@@ -137,7 +147,7 @@ const activeValue = ref<TValue>();
  * Current value but always as array (even if not multiselect) so it is easier
  * to work with it in a unified way.
  */
-const arrayValue = computed(() => asArray(modelValue.value as TModelValue));
+const arrayValue = computed(() => asArray(modelValue.value)) as ComputedRef<TValue[]>;
 
 /**
  * Contains an array of labels that will be shown in the OnyxSelectInput.
