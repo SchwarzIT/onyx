@@ -1,5 +1,7 @@
+import type { Ref } from "vue";
 import type { DataGridFeatureOptions } from "..";
 import type { DataGridEntry } from "../../types";
+import type { FilterState } from "./filtering";
 
 /**
  * Configuration for how filtering should behave.
@@ -51,22 +53,17 @@ export type FilterConfig<TEntry extends DataGridEntry> = {
 export type FilterOptions<TEntry extends DataGridEntry> = DataGridFeatureOptions<
   TEntry,
   {
-    /**
-     * Configuration for how the filtering should behave across all columns.
-     */
-    filterConfig?: FilterConfig<TEntry>;
-  },
-  {
     [TKey in keyof TEntry]?: {
-      /**
-       * The filter value for this column.
-       * This value will be used to filter the data in this column.
-       */
-      searchTerm?: string;
       /**
        * Configuration for how filtering should behave for this column.
        */
       config?: FilterConfig<TEntry>;
     };
   }
->;
+> & {
+  filterState?: Ref<FilterState<DataGridEntry>>;
+  /**
+   * Configuration for how the filtering should behave across all columns.
+   */
+  filterConfig?: FilterConfig<TEntry>;
+};

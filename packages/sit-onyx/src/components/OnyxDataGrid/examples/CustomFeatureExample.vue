@@ -34,7 +34,7 @@ const columns: ColumnConfig<TEntry>[] = [
 ];
 
 // create a custom reusable data grid feature that you can also e.g. share / re-use in your project
-const withCustomFeature = createFeature(() => ({
+const withCustomFeature = createFeature(() => () => ({
   name: Symbol("example feature name"),
   header: {
     actions: () => [

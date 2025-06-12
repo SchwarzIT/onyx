@@ -32,13 +32,13 @@ const createConfig = (key: string) => ({ key, label: key, type: { name: "string"
 
 test("per default should enable show sort symbols and not sort initially", () => {
   // ARRANGE
-  const withSorting = useSorting();
+  const withSorting = useSorting()({ async: ref(false) });
 
   //ASSERT
-  expect(withSorting.header!.actions!(createConfig("col1"))).toHaveLength(1);
+  expect(withSorting.header.actions(createConfig("col1"))).toHaveLength(1);
 
   const array = getTestData();
-  withSorting.mutation!.func(array);
+  withSorting.mutation.func(array);
   expect(array).toMatchObject(getTestData());
 });
 
@@ -63,16 +63,16 @@ test("should consider reactive sortState", () => {
         },
       },
     }),
-  });
+  })({ async: ref(false) });
 
   // ASSERT
-  expect(withSorting.header!.actions!(createConfig("non-existent"))).toHaveLength(0);
-  expect(withSorting.header!.actions!(createConfig("id"))).toHaveLength(0);
-  expect(withSorting.header!.actions!(createConfig("a"))).toHaveLength(1);
-  expect(withSorting.header!.actions!(createConfig("b"))).toHaveLength(2);
+  expect(withSorting.header.actions(createConfig("non-existent"))).toHaveLength(0);
+  expect(withSorting.header.actions(createConfig("id"))).toHaveLength(0);
+  expect(withSorting.header.actions(createConfig("a"))).toHaveLength(1);
+  expect(withSorting.header.actions(createConfig("b"))).toHaveLength(2);
 
   const array = getTestData();
-  withSorting.mutation!.func(array);
+  withSorting.mutation.func(array);
 
   expect(array, "should sort by initial sortState and use custom sort function").toMatchObject([
     { id: 3, a: "4", b: "3-Start" },
@@ -89,7 +89,7 @@ test("should consider reactive sortState", () => {
 
   // ASSERT
   const array2 = getTestData();
-  withSorting.mutation!.func(array2);
+  withSorting.mutation.func(array2);
   expect(array2, "should consider updated sorting").toMatchObject([
     { id: 6, a: "1", b: "6-End" },
     { id: 5, a: "2", b: "5-End" },
@@ -120,12 +120,12 @@ test("should consider reactive columns", () => {
       direction: "desc",
     },
     columns,
-  });
+  })({ async: ref(false) });
 
   // ASSERT
-  expect(withSorting.header!.actions!(createConfig("id"))).toHaveLength(0);
-  expect(withSorting.header!.actions!(createConfig("a"))).toHaveLength(1);
-  expect(withSorting.header!.actions!(createConfig("b"))).toHaveLength(2);
+  expect(withSorting.header.actions(createConfig("id"))).toHaveLength(0);
+  expect(withSorting.header.actions(createConfig("a"))).toHaveLength(1);
+  expect(withSorting.header.actions(createConfig("b"))).toHaveLength(2);
 
   // ACT
   columns.value!.id = { enabled: true };
@@ -133,15 +133,15 @@ test("should consider reactive columns", () => {
   delete columns.value!.b;
 
   // ASSERT
-  expect(withSorting.header!.actions!(createConfig("id"))).toHaveLength(1);
-  expect(withSorting.header!.actions!(createConfig("a"))).toHaveLength(0);
-  expect(withSorting.header!.actions!(createConfig("b"))).toHaveLength(2);
+  expect(withSorting.header.actions(createConfig("id"))).toHaveLength(1);
+  expect(withSorting.header.actions(createConfig("a"))).toHaveLength(0);
+  expect(withSorting.header.actions(createConfig("b"))).toHaveLength(2);
 
   // ACT
   columns.value = undefined;
 
   // ASSERT
-  expect(withSorting.header!.actions!(createConfig("id"))).toHaveLength(1);
-  expect(withSorting.header!.actions!(createConfig("a"))).toHaveLength(1);
-  expect(withSorting.header!.actions!(createConfig("b"))).toHaveLength(2);
+  expect(withSorting.header.actions(createConfig("id"))).toHaveLength(1);
+  expect(withSorting.header.actions(createConfig("a"))).toHaveLength(1);
+  expect(withSorting.header.actions(createConfig("b"))).toHaveLength(2);
 });

@@ -1,4 +1,4 @@
-import { type MaybeRef } from "vue";
+import type { MaybeRef } from "vue";
 import type { DataGridFeatureOptions } from "..";
 import type { DataGridEntry } from "../../types";
 
@@ -34,12 +34,6 @@ export type SortState<TEntry extends DataGridEntry> = {
 export type SortOptions<TEntry extends DataGridEntry> = DataGridFeatureOptions<
   TEntry,
   {
-    /**
-     * The currently applied sorting. Will be updated by the data grid, can be used for reading, updating and watching the applied sorting.
-     */
-    sortState?: MaybeRef<SortState<TEntry>>;
-  },
-  {
     [TKey in keyof TEntry]?: {
       /**
        * A custom sorting function for this column.
@@ -48,4 +42,9 @@ export type SortOptions<TEntry extends DataGridEntry> = DataGridFeatureOptions<
       sortFunc?: Compare<TEntry[TKey]>;
     };
   }
->;
+> & {
+  /**
+   * The currently applied sorting. Will be updated by the data grid, can be used for reading, updating and watching the applied sorting.
+   */
+  sortState?: MaybeRef<SortState<TEntry>>;
+};

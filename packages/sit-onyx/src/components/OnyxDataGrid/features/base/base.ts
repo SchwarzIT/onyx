@@ -22,41 +22,42 @@ export type BaseFeatureOptions = {
  */
 export const BASE_FEATURE = createFeature(
   ({ skeleton }: BaseFeatureOptions) =>
-    ({
-      name: BASE_FEATURE_SYMBOL,
-      modifyColumns: {
-        func: (columns) => {
-          if (skeleton.value) {
-            return columns.map((column) => ({
-              ...column,
-              type: { name: "skeleton" },
-            }));
-          } else {
-            return [...columns];
-          }
+    () =>
+      ({
+        name: BASE_FEATURE_SYMBOL,
+        modifyColumns: {
+          func: (columns) => {
+            if (skeleton.value) {
+              return columns.map((column) => ({
+                ...column,
+                type: { name: "skeleton" },
+              }));
+            } else {
+              return [...columns];
+            }
+          },
         },
-      },
-      mutation: {
-        func: (rows) => {
-          if (skeleton.value) {
-            const skeletonCount = typeof skeleton.value === "number" ? skeleton.value : 5;
-            return Array.from({ length: skeletonCount }, () => ({}));
-          }
-          return [...rows];
+        mutation: {
+          func: (rows) => {
+            if (skeleton.value) {
+              const skeletonCount = typeof skeleton.value === "number" ? skeleton.value : 5;
+              return Array.from({ length: skeletonCount }, () => ({}));
+            }
+            return [...rows];
+          },
         },
-      },
-      scrollContainerAttributes: () => ({
-        class: skeleton.value ? "onyx-data-grid--skeleton" : "",
-      }),
-      watch: [skeleton],
-      typeRenderer: {
-        number: NUMBER_RENDERER,
-        string: STRING_RENDERER,
-        date: DATE_RENDERER,
-        "datetime-local": DATETIME_RENDERER,
-        time: TIME_RENDERER,
-        timestamp: TIMESTAMP_RENDERER,
-        skeleton: SKELETON_RENDERER,
-      },
-    }) as const,
+        scrollContainerAttributes: () => ({
+          class: skeleton.value ? "onyx-data-grid--skeleton" : "",
+        }),
+        watch: [skeleton],
+        typeRenderer: {
+          number: NUMBER_RENDERER,
+          string: STRING_RENDERER,
+          date: DATE_RENDERER,
+          "datetime-local": DATETIME_RENDERER,
+          time: TIME_RENDERER,
+          timestamp: TIMESTAMP_RENDERER,
+          skeleton: SKELETON_RENDERER,
+        },
+      }) as const,
 );
