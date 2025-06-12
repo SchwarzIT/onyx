@@ -4,6 +4,7 @@
   "exclude": ["**/*-example.*"],
   "compilerOptions": {
     "moduleResolution": "Bundler",
-    "baseUrl": "."
+    "baseUrl": ".",
+    "lib": ["ES2022"]
   }
 }

@@ -194,7 +194,7 @@ test.describe("Alignment screenshot tests", () => {
 test.describe("Positioning Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Positioned Tooltip",
-    columns: ["default"],
+    columns: ["default", "withoutWedge"],
     rows: [
       "top",
       "top right",
@@ -213,6 +213,7 @@ test.describe("Positioning Screenshot tests", () => {
           open={true}
           alignment="center"
           style={{ margin: "2rem 3rem" }}
+          withoutWedge={column === "withoutWedge"}
         >
           <span
             style={{
