@@ -35,9 +35,9 @@ useThemeTransition(computed(() => (isDark.value ? "dark" : "light")));
   &__message,
   &__copyright,
   &__imprint {
-    line-height: 24px;
+    line-height: var(--onyx-font-line-height-md);
     font-size: 14px;
-    font-weight: 500;
+    font-weight: var(--onyx-font-weight-medium);
     color: var(--vp-c-text-2);
   }
 

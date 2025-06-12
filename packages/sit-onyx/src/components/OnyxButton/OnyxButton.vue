@@ -205,10 +205,10 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
 
     &__label {
       padding-inline: var(--onyx-density-2xs);
-      font-size: 1rem;
+      font-size: var(--onyx-font-size-md);
       font-style: normal;
-      font-weight: 600;
-      line-height: 1.5rem;
+      font-weight: var(--onyx-font-weight-medium);
+      line-height: var(--onyx-font-line-height-md);
       position: relative;
     }
 

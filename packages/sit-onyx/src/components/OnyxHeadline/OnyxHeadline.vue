@@ -76,7 +76,7 @@ const copyLink = async (hash: string) => {
     --onyx-headline-scroll-margin: var(--onyx-spacing-xl);
     --border-radius: var(--onyx-radius-sm);
 
-    font-weight: 600;
+    font-weight: var(--onyx-font-weight-medium);
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
     position: relative;

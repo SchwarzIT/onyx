@@ -242,11 +242,11 @@
   --onyx-font-number-400: 1.5rem;
   --onyx-font-number-500: 1.75rem;
   --onyx-font-number-600: 2.5rem;
-  --onyx-font-weight-bold: Bold;
-  --onyx-font-weight-medium: Medium;
-  --onyx-font-weight-regular: Regular;
-  --onyx-font-weight-semibold: Semibold;
-  --onyx-font-weight-semiBold: SemiBold;
+  --onyx-font-weight-bold: 700;
+  --onyx-font-weight-medium: 600;
+  --onyx-font-weight-regular: 400;
+  --onyx-font-weight-semibold: 600;
+  --onyx-font-weight-semiBold: 600;
   --onyx-number-radius-100: 0.125rem;
   --onyx-number-radius-200: 0.25rem;
   --onyx-number-radius-300: 0.5rem;

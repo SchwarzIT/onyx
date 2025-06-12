@@ -34,7 +34,7 @@
     display: block;
     padding: 0 var(--onyx-density-sm);
     color: var(--onyx-color-text-icons-neutral-medium);
-    font-weight: 600;
+    font-weight: var(--onyx-font-weight-medium);
   }
 
   &:has(&__wrapper:focus-visible) {

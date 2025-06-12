@@ -127,7 +127,7 @@ const isMobile = inject(
       gap: var(--onyx-spacing-2xs);
       color: var(--onyx-color-text-icons-neutral-intense);
       margin-left: auto;
-      font-weight: 600;
+      font-weight: var(--onyx-font-weight-medium);
 
       &:disabled {
         color: var(--onyx-color-text-icons-neutral-soft);
@@ -161,12 +161,12 @@ const isMobile = inject(
     }
 
     &__username {
-      font-weight: 600;
+      font-weight: var(--onyx-font-weight-medium);
     }
 
     &__description {
       color: var(--onyx-color-text-icons-neutral-soft);
-      font-weight: 600;
+      font-weight: var(--onyx-font-weight-medium);
     }
 
     &--mobile {

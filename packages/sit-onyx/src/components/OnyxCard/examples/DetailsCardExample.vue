@@ -115,8 +115,8 @@ import { OnyxButton, OnyxCard, OnyxHeadline, OnyxIcon, OnyxSystemButton, OnyxTag
 
   &__label {
     color: var(--onyx-color-text-icons-neutral-soft);
-    font-size: 0.8125rem;
-    line-height: 1.25rem;
+    font-size: var(--onyx-font-size-sm);
+    line-height: var(--onyx-font-line-height-sm);
   }
 
   &__value {
