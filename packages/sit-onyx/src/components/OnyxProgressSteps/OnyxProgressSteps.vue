@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { computed, ref, watch } from "vue";
+import { computed, watch } from "vue";
 import { useDensity } from "../../composables/density";
+import { useVModel } from "../../composables/useVModel";
 import OnyxProgressStep from "../OnyxProgressStep/OnyxProgressStep.vue";
 import type { OnyxProgressStepProps, ProgressStepStatus } from "../OnyxProgressStep/types";
 import OnyxSeparator from "../OnyxSeparator/OnyxSeparator.vue";
@@ -9,6 +10,7 @@ import type { OnyxProgressStepsProps } from "./types";
 const props = withDefaults(defineProps<OnyxProgressStepsProps>(), {
   orientation: "horizontal",
   modelValue: 1,
+  highestValue: 1,
 });
 
 const emit = defineEmits<{
@@ -16,16 +18,26 @@ const emit = defineEmits<{
    * Emitted when the currently active step changes.
    */
   "update:modelValue": [value: number];
+  /**
+   * Emitted when the highest visited step/value changes.
+   */
+  "update:highestValue": [value: number];
 }>();
 
 const { densityClass } = useDensity(props);
 
-const furthestValue = ref(1);
+const highestValue = useVModel({
+  props,
+  emit,
+  key: "highestValue",
+  default: 1,
+});
+
 watch(
   () => props.modelValue,
   (newValue) => {
-    if (newValue > furthestValue.value) {
-      furthestValue.value = newValue;
+    if (newValue > highestValue.value) {
+      highestValue.value = newValue;
     }
   },
   { immediate: true },
@@ -38,9 +50,9 @@ const mappedSteps = computed(() => {
     let status: ProgressStepStatus = "default";
     if (value === props.modelValue) status = "active";
     else if (value < props.modelValue) status = "completed";
-    else if (value <= furthestValue.value - 1) status = "visited";
+    else if (value <= highestValue.value - 1) status = "visited";
 
-    const disabled = status === "default" && value !== furthestValue.value;
+    const disabled = status === "default" && value !== highestValue.value;
 
     return {
       value,

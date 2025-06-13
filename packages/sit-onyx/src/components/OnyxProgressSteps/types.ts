@@ -12,6 +12,13 @@ export type OnyxProgressStepsProps = DensityProp & {
    */
   modelValue?: number;
   /**
+   * The highest value/step that the user has visited but not completed (independent from the active step).
+   * Used to automatically managed the "visited" state of the steps.
+   * If undefined, will be managed internally but can be set manually to e.g. reset the value if a new workflow has been started by the user.
+   * First step = 1.
+   */
+  highestValue?: number;
+  /**
    * Orientation of the steps.
    */
   orientation?: Orientation;

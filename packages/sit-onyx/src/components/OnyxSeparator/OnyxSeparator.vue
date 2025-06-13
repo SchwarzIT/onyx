@@ -7,7 +7,8 @@ const props = withDefaults(defineProps<OnyxSeparatorProps>(), {
   orientation: "horizontal",
 });
 
-const isMobileNavBar = inject(MOBILE_NAV_BAR_INJECTION_KEY);
+// using explicit "undefined" fallback value here to avoid "cannot find symbol" console warning
+const isMobileNavBar = inject(MOBILE_NAV_BAR_INJECTION_KEY, undefined);
 
 const isVertical = computed(() => {
   return props.orientation === "vertical" && !isMobileNavBar?.value;
