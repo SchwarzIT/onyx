@@ -134,6 +134,12 @@ export * from "./components/OnyxPageLayout/types";
 export { default as OnyxPagination } from "./components/OnyxPagination/OnyxPagination.vue";
 export * from "./components/OnyxPagination/types";
 
+export { default as OnyxProgressStep } from "./components/OnyxProgressStep/OnyxProgressStep.vue";
+export * from "./components/OnyxProgressStep/types";
+
+export { default as OnyxProgressSteps } from "./components/OnyxProgressSteps/OnyxProgressSteps.vue";
+export * from "./components/OnyxProgressSteps/types";
+
 export { default as OnyxRadioButton } from "./components/OnyxRadioButton/OnyxRadioButton.vue";
 export * from "./components/OnyxRadioButton/types";
 
@@ -154,6 +160,9 @@ export * from "./components/OnyxSelectInput/types";
 
 export { default as OnyxSelectOption } from "./components/OnyxSelectOption/OnyxSelectOption.vue";
 export * from "./components/OnyxSelectOption/types";
+
+export { default as OnyxSeparator } from "./components/OnyxSeparator/OnyxSeparator.vue";
+export * from "./components/OnyxSeparator/types";
 
 export * from "./components/OnyxSidebar/modules";
 export { default as OnyxSidebar } from "./components/OnyxSidebar/OnyxSidebar.vue";

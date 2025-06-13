@@ -13,7 +13,7 @@ import OnyxInfoTooltip from "../OnyxInfoTooltip/OnyxInfoTooltip.vue";
 import type { OnyxCheckboxGroupProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxCheckboxGroupProps<TValue>>(), {
-  direction: "vertical",
+  orientation: "vertical",
   withCheckAll: false,
   disabled: FORM_INJECTED_SYMBOL,
   skeleton: SKELETON_INJECTED_SYMBOL,
@@ -87,8 +87,8 @@ defineExpose({
     <div
       class="onyx-checkbox-group__content"
       :class="{
-        'onyx-checkbox-group__content--horizontal': props.direction === 'horizontal',
-        'onyx-checkbox-group__content--vertical': props.direction === 'vertical',
+        'onyx-checkbox-group__content--horizontal': props.orientation === 'horizontal',
+        'onyx-checkbox-group__content--vertical': props.orientation === 'vertical',
       }"
     >
       <template v-if="!skeleton">

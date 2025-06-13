@@ -8,6 +8,7 @@ import { injectI18n } from "../../../../i18n";
 import type { Nullable } from "../../../../types";
 import { mergeVueProps, useRootAttrs } from "../../../../utils/attrs";
 import OnyxButton from "../../../OnyxButton/OnyxButton.vue";
+import OnyxSeparator from "../../../OnyxSeparator/OnyxSeparator.vue";
 import {
   MOBILE_NAV_BAR_INJECTION_KEY,
   NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY,
@@ -16,7 +17,6 @@ import {
 } from "../../types";
 import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxNavItemFacade from "../OnyxNavItemFacade/OnyxNavItemFacade.vue";
-import OnyxNavSeparator from "../OnyxNavSeparator/OnyxNavSeparator.vue";
 import type { OnyxNavItemProps } from "./types";
 
 defineOptions({ inheritAttrs: false });
@@ -106,7 +106,7 @@ const { componentRef, isVisible } = isTopLevel
         <OnyxNavItemFacade v-bind="mergeVueProps(props, restAttrs)" :active context="mobile">
           <slot></slot>
         </OnyxNavItemFacade>
-        <OnyxNavSeparator orientation="horizontal" />
+        <OnyxSeparator />
       </template>
     </div>
     <ul role="menu" class="onyx-nav-item-wrapper__mobile-children">

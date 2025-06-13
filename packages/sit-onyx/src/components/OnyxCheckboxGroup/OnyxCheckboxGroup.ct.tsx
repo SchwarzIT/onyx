@@ -1,6 +1,6 @@
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
-import { DIRECTIONS } from "../../types";
+import { ORIENTATIONS } from "../../types";
 import OnyxCheckboxGroup from "./OnyxCheckboxGroup.vue";
 import type { OnyxCheckboxGroupProps } from "./types";
 
@@ -81,7 +81,7 @@ test("should render horizontally", async ({ mount, makeAxeBuilder }) => {
     <OnyxCheckboxGroup
       options={mockOptions}
       label="Horizontal group headline"
-      direction="horizontal"
+      orientation="horizontal"
       withCheckAll
     />,
   );
@@ -181,13 +181,13 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "CheckboxGroup (skeletons)",
     columns: ["default"],
-    rows: DIRECTIONS,
+    rows: ORIENTATIONS,
     component: (_column, row) => (
       <OnyxCheckboxGroup
         options={[]}
         label="Skeleton group headline"
         skeleton={3}
-        direction={row}
+        orientation={row}
       />
     ),
   });
