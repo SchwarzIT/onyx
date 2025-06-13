@@ -143,7 +143,7 @@ export type PublicNormalizedColumnConfig<
   /**
    * Key of the ColumnGroup that this column should be visually grouped in.
    * The columns have to be defined in the correct order.
-   * So columns that should be grouped together have to actually be defined after eachother.
+   * So columns that should be grouped together have to actually be defined after each other.
    *
    * The label for the column group can be configured via the `columnGroups` prop.
    */
@@ -151,7 +151,7 @@ export type PublicNormalizedColumnConfig<
 };
 
 /**
- * Context that is passed to a feature when it is evaluated.
+ * Context that is passed to a feature when it is set up by the `useDataGridFeatures` composable.
  */
 export type DataGridFeatureContext = {
   async: Readonly<Ref<boolean>>;
