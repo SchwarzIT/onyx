@@ -106,7 +106,7 @@ const { componentRef, isVisible } = isTopLevel
         <OnyxNavItemFacade v-bind="mergeVueProps(props, restAttrs)" :active context="mobile">
           <slot></slot>
         </OnyxNavItemFacade>
-        <OnyxSeparator orientation="horizontal" />
+        <OnyxSeparator />
       </template>
     </div>
     <ul role="menu" class="onyx-nav-item-wrapper__mobile-children">

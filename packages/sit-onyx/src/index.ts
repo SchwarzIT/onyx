@@ -137,6 +137,9 @@ export * from "./components/OnyxPagination/types";
 export { default as OnyxProgressStep } from "./components/OnyxProgressStep/OnyxProgressStep.vue";
 export * from "./components/OnyxProgressStep/types";
 
+export { default as OnyxProgressSteps } from "./components/OnyxProgressSteps/OnyxProgressSteps.vue";
+export * from "./components/OnyxProgressSteps/types";
+
 export { default as OnyxRadioButton } from "./components/OnyxRadioButton/OnyxRadioButton.vue";
 export * from "./components/OnyxRadioButton/types";
 
