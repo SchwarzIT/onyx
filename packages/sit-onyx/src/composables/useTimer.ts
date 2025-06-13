@@ -1,4 +1,4 @@
-import { computed, onBeforeUnmount, ref, watch, type Ref } from "vue";
+import { computed, onBeforeUnmount, readonly, ref, watch, type Ref } from "vue";
 
 /**
  * Composable for managing a single timer.
@@ -36,7 +36,7 @@ export const useTimer = (endTime: Ref<ConstructorParameters<typeof Date>[0]>) =>
     /**
      * Time (in milliseconds) that the timer has left.
      */
-    timeLeft,
+    timeLeft: readonly(timeLeft),
     /**
      * Whether the timer is ended.
      */
