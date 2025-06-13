@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.240
+
+### Minor Changes
+
+- 60a738c: feat(OnyxTimer): expose `timeLeft`
+
 ## 1.0.0-beta.239
 
 ### Minor Changes
