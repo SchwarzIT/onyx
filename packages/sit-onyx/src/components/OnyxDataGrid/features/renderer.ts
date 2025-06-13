@@ -1,5 +1,5 @@
 import { h } from "vue";
-import { type DataGridFeature, type TypeRenderer, type TypeRenderMap } from ".";
+import { type DataGridFeatureDescription, type TypeRenderer, type TypeRenderMap } from ".";
 import OnyxSkeleton from "../../../components/OnyxSkeleton/OnyxSkeleton.vue";
 import {
   injectI18n,
@@ -163,7 +163,7 @@ export const SKELETON_RENDERER = createTypeRenderer<StringCellOptions>({
 });
 
 export const createRenderer = <TEntry extends DataGridEntry>(
-  features: DataGridFeature<TEntry, TypeRenderMap<TEntry>, symbol>[],
+  features: DataGridFeatureDescription<TEntry, TypeRenderMap<TEntry>, symbol>[],
 ) => {
   const init = [
     ...features

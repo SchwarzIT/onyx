@@ -24,7 +24,7 @@ const data: Entry[] = [
 ];
 
 // create a custom reusable data grid feature for custom types that you can also e.g. share / re-use in your project to be used in multiple data grids
-const withCustomType = createFeature(() => ({
+const withCustomType = createFeature(() => () => ({
   name: Symbol("example feature name"),
   typeRenderer: {
     // use the `createTypeRenderer` function to create a type renderer with custom column type options
@@ -67,7 +67,7 @@ const features = [withCustomType()];
     :columns="[
       { key: 'name', label: 'Name', type: 'string' },
       { key: 'age', label: 'Age', type: { name: 'ageIcon', options: { offset: -5 } } },
-      { key: 'id', label: '', type: 'detailsButton' },
+      { key: 'id', label: '', type: 'detailsButton', width: 'min-content' },
     ]"
     :data
     :features

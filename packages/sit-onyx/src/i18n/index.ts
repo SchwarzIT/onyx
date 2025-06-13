@@ -82,7 +82,7 @@ export type OnyxI18n = ReturnType<typeof createI18n>;
 /**
  * Creates a new i18n instance.
  */
-const createI18n = (options: ProvideI18nOptions = {}) => {
+export const createI18n = (options: ProvideI18nOptions = {}) => {
   /**
    * Current locale.
    * @default "en-US"

@@ -61,3 +61,18 @@ export const transformGroupedData = <
  */
 export const allObjectEntries = <TValue extends Record<PropertyKey, unknown>>(target: TValue) =>
   Reflect.ownKeys(target).map((key) => [key, target[key]] as [keyof TValue, TValue[keyof TValue]]);
+
+/**
+ * Wraps a value as an array, if it's not already an array.
+ * @param value - the value to convert
+ * @param keepNullish - if true, nullish values (undefined & null) will be preserved in the resulting array
+ */
+export const asArray = <T>(value: T | T[], keepNullish = false): T[] => {
+  if (!keepNullish && value == undefined) {
+    return [];
+  }
+  if (Array.isArray(value)) {
+    return value;
+  }
+  return [value];
+};

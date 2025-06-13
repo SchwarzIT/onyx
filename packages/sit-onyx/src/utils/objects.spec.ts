@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { allObjectEntries, areObjectsFlatEqual, groupByKey } from "./objects";
+import { allObjectEntries, areObjectsFlatEqual, asArray, groupByKey } from "./objects";
 
 const referenceObj = { a: 42, b: "foo", c: null, d: true };
 
@@ -113,5 +113,55 @@ describe("allObjectEntries", () => {
     // ASSERT
     expect(result).toMatchObject(["a", referenceObj]);
     expect(result[1]).toBe(referenceObj);
+  });
+});
+
+describe("asArray", () => {
+  test.each([
+    // ARRANGE
+    {
+      title: "should return empty array for null input",
+      input: null,
+      expected: [],
+      keepNullish: false,
+    },
+    {
+      title: "should return empty array for undefined input",
+      input: undefined,
+      expected: [],
+      keepNullish: false,
+    },
+
+    {
+      title: "should return array with null when nullish should be kept",
+      input: null,
+      expected: [null],
+      keepNullish: true,
+    },
+    {
+      title: "should return array with undefined when nullish should be kept",
+      input: undefined,
+      expected: [undefined],
+      keepNullish: true,
+    },
+
+    {
+      title: "should return array with single element for single value input",
+      input: 42,
+      expected: [42],
+      keepNullish: false,
+    },
+    {
+      title: "should return array with single element for array input",
+      input: [42],
+      expected: [42],
+      keepNullish: false,
+    },
+  ])("$title", ({ input, expected, keepNullish }) => {
+    // ACT
+    const result = asArray(input, keepNullish);
+
+    // ASSERT
+    expect(result).toMatchObject(expected);
   });
 });

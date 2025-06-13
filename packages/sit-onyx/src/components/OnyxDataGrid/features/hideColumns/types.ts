@@ -6,7 +6,6 @@ import type { DataGridEntry } from "../../types";
  */
 export type HideColumnsOptions<TEntry extends DataGridEntry> = DataGridFeatureOptions<
   TEntry,
-  object,
   {
     [TKey in keyof TEntry]?: {
       /**
