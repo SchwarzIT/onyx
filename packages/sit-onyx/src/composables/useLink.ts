@@ -57,8 +57,10 @@ export const useLink = () => {
 
       const href = normalizeHref(extractLinkProps(link).href);
       const path = normalizeHref(currentRoute.value.path);
+      const { hash } = currentRoute.value;
 
       if (href === "/") return path === href;
+      if (hash && hash === href) return true;
       return path.startsWith(href);
     };
   });
@@ -111,7 +113,7 @@ export type ProvideRouterOptions = {
    * Currently active route.
    * @see https://router.vuejs.org/api/interfaces/Router.html#currentRoute
    */
-  currentRoute: Ref<string | { path: string }>;
+  currentRoute: Ref<string | { path: string; hash?: string }>;
 };
 
 export const ROUTER_INJECTION_KEY = Symbol() as InjectionKey<ProvideRouterOptions>;

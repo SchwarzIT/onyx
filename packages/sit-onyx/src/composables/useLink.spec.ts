@@ -28,6 +28,11 @@ describe("useLink", () => {
     { current: "/parent/child", link: "/parent/child", active: true },
     { current: "/parent/child", link: "/parent", active: true },
     { current: "/parent", link: "/parent/child", active: false },
+    // hashes
+    { current: "#some-hash", link: "#some-hash", active: true },
+    { current: { path: "/test", hash: "#some-hash" }, link: "#some-hash", active: true },
+    { current: "#some-hash", link: "#some-other-hash", active: false },
+    { current: { path: "/test", hash: "" }, link: "#some-hash", active: false },
   ])("should mark $link with current $current as active: $active", ({ current, link, active }) => {
     vi.spyOn(vue, "inject").mockImplementation((key) => {
       if (key !== ROUTER_INJECTION_KEY) return;
