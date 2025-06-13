@@ -4,7 +4,7 @@ import { computed, h, ref, unref, watchEffect, type Ref } from "vue";
 import type { ComponentSlots } from "vue-component-type-helpers";
 import {
   createFeature,
-  useIsFeatureEnabled,
+  useFeatureContext,
   type InternalColumnConfig,
   type ModifyColumns,
 } from "..";
@@ -21,8 +21,9 @@ export const HIDDEN_COLUMN = Symbol("HiddenColumn");
 
 export const useHideColumns = createFeature(
   <TEntry extends DataGridEntry>(options?: HideColumnsOptions<TEntry>) =>
-    ({ i18n }) => {
-      const { isEnabled } = useIsFeatureEnabled(options);
+    (ctx) => {
+      const { i18n } = ctx;
+      const { isEnabled } = useFeatureContext(ctx, options);
 
       const columnConfig = ref([]) as Ref<Readonly<InternalColumnConfig<TEntry>[]>>;
       const hiddenColumnKeys = ref(new Set()) as Ref<Set<keyof TEntry>>;

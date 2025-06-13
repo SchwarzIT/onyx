@@ -1,9 +1,11 @@
 import { describe, expect, test } from "vitest";
+import { ref } from "vue";
+import { createI18n } from "../../../i18n";
 import type { TableColumnGroup } from "../../OnyxTable/types";
 import type { DataGridEntry } from "../types";
 import {
   createTableColumnGroups,
-  useIsFeatureEnabled,
+  useFeatureContext,
   type ColumnGroupConfig,
   type DataGridFeatureOptions,
   type InternalColumnConfig,
@@ -108,7 +110,7 @@ describe("createTableColumnGroups", () => {
   });
 });
 
-describe("useIsFeatureEnabled", () => {
+describe("useFeatureContext", () => {
   test.each<{ options?: DataGridFeatureOptions<DataGridEntry, object>; enabled: boolean }>([
     { options: undefined, enabled: true },
     { options: {}, enabled: true },
@@ -120,7 +122,7 @@ describe("useIsFeatureEnabled", () => {
     { options: { enabled: true, columns: { id: { enabled: false } } }, enabled: false },
     { options: { enabled: true, columns: { id: { enabled: true } } }, enabled: true },
   ])("should be enabled $enabled for options $options", ({ options, enabled }) => {
-    const { isEnabled } = useIsFeatureEnabled(options);
+    const { isEnabled } = useFeatureContext({ async: ref(false), i18n: createI18n() }, options);
     expect(isEnabled.value("id")).toBe(enabled);
   });
 });

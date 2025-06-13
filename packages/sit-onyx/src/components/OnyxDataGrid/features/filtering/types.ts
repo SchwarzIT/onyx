@@ -59,7 +59,8 @@ export type FilterOptions<TEntry extends DataGridEntry> = DataGridFeatureOptions
        */
       config?: FilterConfig<TEntry>;
     };
-  }
+  },
+  true
 > & {
   filterState?: Ref<FilterState<DataGridEntry>>;
   /**

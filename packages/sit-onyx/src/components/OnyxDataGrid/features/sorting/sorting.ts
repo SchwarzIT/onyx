@@ -2,7 +2,7 @@ import circleBlock from "@sit-onyx/icons/circle-block.svg?raw";
 import listArrowDown from "@sit-onyx/icons/list-arrow-down.svg?raw";
 import listArrowUp from "@sit-onyx/icons/list-arrow-up.svg?raw";
 import { computed, h, toRef, toValue, type Ref } from "vue";
-import { createFeature, useIsFeatureEnabled } from "..";
+import { createFeature, useFeatureContext } from "..";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxMenuItem from "../../../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
 import type { DataGridEntry } from "../../types";
@@ -24,7 +24,7 @@ export const nextSortDirection = (current?: SortDirection, skipNone?: boolean): 
 export const SORTING_FEATURE = Symbol("Sorting");
 export const useSorting = createFeature(
   <TEntry extends DataGridEntry>(options?: SortOptions<TEntry>) =>
-    ({ async, i18n }) => {
+    (ctx) => {
       const sortState: Ref<SortState<TEntry>> = toRef(
         options?.sortState ??
           ({
@@ -33,7 +33,8 @@ export const useSorting = createFeature(
           } as const),
       );
 
-      const { isEnabled } = useIsFeatureEnabled(options);
+      const { i18n } = ctx;
+      const { isEnabled, isAsync } = useFeatureContext(ctx, options);
 
       const getSortFunc = computed(() => (col: keyof TEntry) => {
         const config = toValue(options?.columns);
@@ -60,7 +61,7 @@ export const useSorting = createFeature(
 
       const sortData = (data: Readonly<TEntry>[]) => {
         const { column, direction } = sortState.value;
-        if (async.value || !column || direction === "none") {
+        if (isAsync.value || !column || direction === "none") {
           return;
         }
         const multiplicand = direction === "asc" ? 1 : -1;
