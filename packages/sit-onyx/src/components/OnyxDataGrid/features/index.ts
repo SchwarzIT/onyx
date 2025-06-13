@@ -281,7 +281,7 @@ export type DataGridFeatureOptions<
 } & (TWithAsync extends true
   ? {
       /**
-       * When async is `true`, then the internal data transformations are disabled and
+       * When async is `true`, then the internal data transformations are disabled and have to be performed by the user.
        */
       async?: boolean;
     }
@@ -591,7 +591,8 @@ export const useDataGridFeatures = <
   };
 };
 
-export const useIsFeatureEnabled = (
+export const useFeatureContext = (
+  ctx: DataGridFeatureContext,
   options?: DataGridFeatureOptions<DataGridEntry, object, boolean>,
 ) => {
   const isEnabled = computed(() => {
@@ -603,6 +604,8 @@ export const useIsFeatureEnabled = (
     };
   });
 
+  const isAsync = computed(() => (options as { async?: boolean })?.async ?? ctx.async.value);
+
   return {
     /**
      * Checks whether a data grid feature is enabled for a given column.
@@ -611,5 +614,9 @@ export const useIsFeatureEnabled = (
      * @default true
      */
     isEnabled,
+    /**
+     * Whether the feature only or all features have data transformations enabled.
+     */
+    isAsync,
   };
 };

@@ -57,21 +57,16 @@ const simulateAsyncUpdate = () => {
     );
 
     // Sorting
-    if (!sortState.value.column) {
+    const sortColumn = sortState.value.column;
+    if (!sortColumn) {
       data.value = filtered;
       return;
     }
     const collator = new Intl.Collator();
     const sorted = filtered.sort((a, b) =>
       sortState.value.direction === "asc"
-        ? collator.compare(
-            a[sortState.value.column as keyof Entry].toString(),
-            b[sortState.value.column as keyof Entry].toString(),
-          )
-        : collator.compare(
-            b[sortState.value.column as keyof Entry].toString(),
-            a[sortState.value.column as keyof Entry].toString(),
-          ),
+        ? collator.compare(a[sortColumn].toString(), b[sortColumn].toString())
+        : collator.compare(b[sortColumn].toString(), a[sortColumn].toString()),
     );
 
     // Update data

@@ -41,7 +41,8 @@ export type SortOptions<TEntry extends DataGridEntry> = DataGridFeatureOptions<
        */
       sortFunc?: Compare<TEntry[TKey]>;
     };
-  }
+  },
+  true
 > & {
   /**
    * The currently applied sorting. Will be updated by the data grid, can be used for reading, updating and watching the applied sorting.

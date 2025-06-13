@@ -1,6 +1,6 @@
 import searchX from "@sit-onyx/icons/search-x.svg?raw";
 import { computed, h, toRef, toValue, type Ref } from "vue";
-import { createFeature, useIsFeatureEnabled } from "..";
+import { createFeature, useFeatureContext } from "..";
 import type { Nullable } from "../../../../types";
 import { removeDiacritics } from "../../../../utils/strings";
 import OnyxMiniSearch from "../../../OnyxMiniSearch/OnyxMiniSearch.vue";
@@ -14,13 +14,14 @@ export const FILTERING_FEATURE = Symbol("Filtering");
 export type FilterState<TEntry> = Partial<Record<keyof TEntry, string | undefined>>;
 export const useFiltering = createFeature(
   <TEntry extends DataGridEntry>(options?: FilterOptions<TEntry>) =>
-    ({ async, i18n }) => {
+    (ctx) => {
+      const { i18n } = ctx;
       const filterState = toRef(options?.filterState ?? {}) as Ref<FilterState<DataGridEntry>>;
       const config = computed(() => toValue(options?.columns));
-      const { isEnabled } = useIsFeatureEnabled(options);
+      const { isEnabled, isAsync } = useFeatureContext(ctx, options);
 
       const filterData = (entries: Readonly<TEntry>[]) => {
-        if (async.value) {
+        if (isAsync.value) {
           return entries;
         }
         return entries.filter((entry) =>
