@@ -100,8 +100,7 @@
   );
   --onyx-color-base-primary-300: light-dark(var(--onyx-color-onyx-300), var(--onyx-color-onyx-900));
   --onyx-color-base-primary-400: light-dark(var(--onyx-color-onyx-400), var(--onyx-color-onyx-800));
-  --onyx-color-base-primary-500: var(--onyx-color-onyx-500);
-  /* --onyx-color-base-primary-500: light-dark(var(--onyx-color-onyx-500), var(--onyx-color-onyx-700)); */
+  --onyx-color-base-primary-500: light-dark(var(--onyx-color-onyx-500), var(--onyx-color-onyx-700));
   --onyx-color-base-primary-600: var(--onyx-color-onyx-600);
   --onyx-color-base-primary-700: light-dark(var(--onyx-color-onyx-700), var(--onyx-color-onyx-500));
   --onyx-color-base-primary-800: light-dark(var(--onyx-color-onyx-800), var(--onyx-color-onyx-400));
