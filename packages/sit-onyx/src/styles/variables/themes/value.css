@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "value" theme.
- * Imported from Figma API on Thu, 12 Jun 2025 08:30:47 GMT
+ * Imported from Figma API on Sun, 15 Jun 2025 09:08:08 GMT
  */
 :where(:root),
 .onyx-theme-default {
@@ -226,7 +226,6 @@
   --onyx-color-twogo-1100: #012c2e;
   --onyx-color-twogo-1200: #00191b;
   --onyx-font-family-default: Source Sans 3;
-  --onyx-font-family-description: OCR A Std;
   --onyx-font-family-digits: DIN 2014;
   --onyx-font-family-digits-decorative: Univia Pro;
   --onyx-font-family-kaufland: Kaufland;
@@ -234,19 +233,17 @@
   --onyx-font-family-mono: Source Code Pro;
   --onyx-font-family-prezero: Helsinki;
   --onyx-font-family-schwarz: Helvetica Now Var;
-  --onyx-font-number-0: 0.75rem;
-  --onyx-font-number-0-spacing: 0%;
-  --onyx-font-number-100: 0.8125rem;
-  --onyx-font-number-200: 1rem;
-  --onyx-font-number-300: 1.25rem;
-  --onyx-font-number-400: 1.5rem;
-  --onyx-font-number-500: 1.75rem;
-  --onyx-font-number-600: 2.5rem;
-  --onyx-font-weight-bold: 700;
-  --onyx-font-weight-medium: 600;
-  --onyx-font-weight-regular: 400;
-  --onyx-font-weight-semibold: 600;
-  --onyx-font-weight-semiBold: 600;
+  --onyx-font-values-0: 0.75rem;
+  --onyx-font-values-0-spacing: 0%;
+  --onyx-font-values-100: 0.8125rem;
+  --onyx-font-values-200: 1rem;
+  --onyx-font-values-300: 1.25rem;
+  --onyx-font-values-400: 1.5rem;
+  --onyx-font-values-500: 1.75rem;
+  --onyx-font-values-600: 2.5rem;
+  --onyx-font-weight-bold: 43.75rem;
+  --onyx-font-weight-regular: 25rem;
+  --onyx-font-weight-semibold: 37.5rem;
   --onyx-number-radius-100: 0.125rem;
   --onyx-number-radius-200: 0.25rem;
   --onyx-number-radius-300: 0.5rem;

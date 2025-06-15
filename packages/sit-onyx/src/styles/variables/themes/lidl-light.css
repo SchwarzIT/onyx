@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "lidl-light" theme.
- * Imported from Figma API on Thu, 12 Jun 2025 08:31:35 GMT
+ * Imported from Figma API on Sun, 15 Jun 2025 09:08:50 GMT
  */
 :where(:root),
 .onyx-theme-lidl-light {
@@ -122,15 +122,15 @@
   --onyx-color-text-icons-warning-intense: var(--onyx-color-orange-500);
   --onyx-color-text-icons-warning-medium: var(--onyx-color-orange-300);
   --onyx-color-text-icons-warning-soft: var(--onyx-color-orange-200);
-  --onyx-font-letter-spacing-default: var(--onyx-font-number-0-spacing);
-  --onyx-font-line-height-lg: var(--onyx-font-number-500);
-  --onyx-font-line-height-md: var(--onyx-font-number-400);
-  --onyx-font-line-height-sm: var(--onyx-font-number-300);
-  --onyx-font-line-height-xl: var(--onyx-font-number-600);
-  --onyx-font-size-lg: var(--onyx-font-number-300);
-  --onyx-font-size-md: var(--onyx-font-number-200);
-  --onyx-font-size-sm: var(--onyx-font-number-100);
-  --onyx-font-size-xl: var(--onyx-font-number-500);
+  --onyx-font-letter-spacing-default: var(--onyx-font-values-0-spacing);
+  --onyx-font-line-height-lg: var(--onyx-font-values-500);
+  --onyx-font-line-height-md: var(--onyx-font-values-400);
+  --onyx-font-line-height-sm: var(--onyx-font-values-300);
+  --onyx-font-line-height-xl: var(--onyx-font-values-600);
+  --onyx-font-size-lg: var(--onyx-font-values-300);
+  --onyx-font-size-md: var(--onyx-font-values-200);
+  --onyx-font-size-sm: var(--onyx-font-values-100);
+  --onyx-font-size-xl: var(--onyx-font-values-500);
   --onyx-font-type-data: var(--onyx-font-family-default);
   --onyx-font-type-description: var(--onyx-font-family-description);
   --onyx-font-type-h1: var(--onyx-font-family-default);
@@ -139,9 +139,6 @@
   --onyx-font-type-h4: var(--onyx-font-family-default);
   --onyx-font-type-mono: var(--onyx-font-family-mono);
   --onyx-font-type-paragraph: var(--onyx-font-family-default);
-  --onyx-font-weight-bold: var(--onyx-font-weight-bold);
-  --onyx-font-weight-medium: var(--onyx-font-weight-semiBold);
-  --onyx-font-weight-regular: var(--onyx-font-weight-regular);
   --onyx-radius-full: var(--onyx-number-radius-600);
   --onyx-radius-lg: var(--onyx-number-radius-400);
   --onyx-radius-md: var(--onyx-number-radius-300);
