@@ -1,0 +1,17 @@
+/**
+ * Do not edit directly.
+ * This file contains the specific variables for the "cozy" theme.
+ * Imported from Figma API on Wed, 11 Jun 2025 13:39:59 GMT
+ */
+:where(.onyx-density-cozy) {
+  --onyx-density-2xl: var(--onyx-number-spacing-800);
+  --onyx-density-2xs: var(--onyx-number-spacing-300);
+  --onyx-density-3xl: var(--onyx-number-spacing-900);
+  --onyx-density-3xs: var(--onyx-number-spacing-200);
+  --onyx-density-4xl: var(--onyx-number-spacing-950);
+  --onyx-density-lg: var(--onyx-number-spacing-600);
+  --onyx-density-md: var(--onyx-number-spacing-500);
+  --onyx-density-sm: var(--onyx-number-spacing-400);
+  --onyx-density-xl: var(--onyx-number-spacing-700);
+  --onyx-density-xs: var(--onyx-number-spacing-350);
+}
