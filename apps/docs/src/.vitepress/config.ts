@@ -131,6 +131,7 @@ export const CONFIG = {
             { text: "Introduction", link: "/introduction" },
             { text: "Colors", link: "/colors" },
             { text: "Spacings", link: "/spacings" },
+            { text: "Fonts", link: "/fonts" },
             { text: "Borders", link: "/borders" },
             { text: "Shadows", link: "/shadows" },
           ],
