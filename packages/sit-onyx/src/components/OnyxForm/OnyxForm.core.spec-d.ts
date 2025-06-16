@@ -13,8 +13,8 @@ import type OnyxTextarea from "../OnyxTextarea/OnyxTextarea.vue";
 import { type __DONT_USE_VUE_FIX_KeyOfFormProps, type FormProps } from "./OnyxForm.core";
 
 it("should be ensured that _KeyofFormProps includes all keys of FormProps", async () => {
-  expectTypeOf<keyof FormProps>().toMatchTypeOf<__DONT_USE_VUE_FIX_KeyOfFormProps>();
-  expectTypeOf<__DONT_USE_VUE_FIX_KeyOfFormProps>().toMatchTypeOf<keyof FormProps>();
+  expectTypeOf<keyof FormProps>().toExtend<__DONT_USE_VUE_FIX_KeyOfFormProps>();
+  expectTypeOf<__DONT_USE_VUE_FIX_KeyOfFormProps>().toExtend<keyof FormProps>();
 });
 
 type AllOnyxFormElements =
@@ -27,7 +27,7 @@ type AllOnyxFormElements =
   | typeof OnyxSwitch;
 
 it("should be ensured that all onyx form elements support the basic input props", async () => {
-  expectTypeOf<ComponentProps<AllOnyxFormElements>>().toMatchTypeOf<{
+  expectTypeOf<ComponentProps<AllOnyxFormElements>>().toExtend<{
     modelValue?: unknown;
     label: string;
     customError?: CustomMessageType;
@@ -35,7 +35,7 @@ it("should be ensured that all onyx form elements support the basic input props"
 });
 
 it("should be ensured that all onyx form elements expose the internal input", async () => {
-  expectTypeOf<ComponentExposed<AllOnyxFormElements>>().toMatchTypeOf<{
+  expectTypeOf<ComponentExposed<AllOnyxFormElements>>().toExtend<{
     input: (HTMLInputElement | HTMLTextAreaElement) | null | undefined;
   }>();
 });
@@ -43,7 +43,7 @@ it("should be ensured that all onyx form elements expose the internal input", as
 type AllOnyxFormGroups = typeof OnyxCheckboxGroup | typeof OnyxRadioGroup;
 
 it("should be ensured that all onyx form element groups expose the internal inputs", async () => {
-  expectTypeOf<ComponentExposed<AllOnyxFormGroups>>().toMatchTypeOf<{
+  expectTypeOf<ComponentExposed<AllOnyxFormGroups>>().toExtend<{
     inputs: HTMLInputElement[];
   }>();
 });
