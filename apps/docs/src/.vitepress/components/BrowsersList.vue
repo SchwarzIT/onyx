@@ -54,7 +54,7 @@ const filteredBrowsers = popularBrowsers
   }
   &__name {
     padding-top: var(--onyx-spacing-xs);
-    font-weight: var(--onyx-font-weight-medium);
+    font-weight: var(--onyx-font-weight-semibold);
   }
   &__image {
     position: relative;

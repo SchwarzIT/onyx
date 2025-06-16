@@ -207,7 +207,7 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
       padding-inline: var(--onyx-density-2xs);
       font-size: var(--onyx-font-size-md);
       font-style: normal;
-      font-weight: var(--onyx-font-weight-medium);
+      font-weight: var(--onyx-font-weight-semibold);
       line-height: var(--onyx-font-line-height-md);
       position: relative;
     }

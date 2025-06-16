@@ -86,7 +86,7 @@ const infoColors = Array.from({ length: 9 }, (_, index) => {
   }
 
   &__button {
-    font-weight: var(--onyx-font-weight-medium);
+    font-weight: var(--onyx-font-weight-semibold);
     font-size: var(--onyx-font-size-md);
 
     &--active {
@@ -120,7 +120,7 @@ const infoColors = Array.from({ length: 9 }, (_, index) => {
   }
 
   &__headline {
-    font-weight: var(--onyx-font-weight-medium);
+    font-weight: var(--onyx-font-weight-semibold);
     margin: 0;
   }
 
