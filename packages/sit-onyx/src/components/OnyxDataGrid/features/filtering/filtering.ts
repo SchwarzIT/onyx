@@ -11,6 +11,8 @@ import "./filtering.scss";
 import type { FilterOptions, FilterState } from "./types";
 
 export const FILTERING_FEATURE = Symbol("Filtering");
+export const FILTERING_MUTATION_ORDER = 0 as const;
+
 export const useFiltering = <TEntry extends DataGridEntry>(options?: FilterOptions<TEntry>) =>
   createFeature((ctx) => {
     const { i18n } = ctx;
@@ -99,6 +101,7 @@ export const useFiltering = <TEntry extends DataGridEntry>(options?: FilterOptio
       watch: [filterState, config],
       mutation: {
         func: filterData,
+        order: FILTERING_MUTATION_ORDER,
       },
       header: {
         actions: ({ key: column }) => {

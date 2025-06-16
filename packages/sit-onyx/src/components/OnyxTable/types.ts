@@ -29,6 +29,41 @@ export type OnyxTableProps = DensityProp & {
   scrollContainerAttrs?: HTMLAttributes;
 };
 
+export type OnyxTableSlots = {
+  /**
+   * Table content. Must only contain valid HTML `<tbody>` children like `<tr>` and `<td>`.
+   */
+  default(): unknown[];
+  /**
+   * Table header. Must only contain valid HTML `<thead>` children like `<tr>` and `<th>`.
+   */
+  head?(): unknown;
+  /**
+   * Optional slot to customize the empty state when no body content exist.
+   * It is recommended to use the `<OnyxEmpty>` component here.
+   *
+   * If unset, a default translated message will be displayed for the current locale.
+   */
+  empty?(props: { defaultMessage: string }): unknown;
+  /**
+   * Optional slot for showing a headline above the table (top left). See OnyxHeadline component.
+   */
+  headline?(): unknown;
+  /**
+   * Optional slot for showing table actions above the table (top right). See OnyxIconButton and OnyxButton component.
+   */
+  actions?(): unknown;
+  /**
+   * Optional slot for displaying a pagination below the table (bottom right). See OnyxPagination component.
+   */
+  pagination?(): unknown;
+  /**
+   * Optional slot for displaying additional information below the table (bottom left).
+   * Useful for showing a legend, page size selection etc.
+   */
+  bottomLeft?(): unknown;
+};
+
 /**
  * Table group that is rendered as `<colgroup>` and corresponding `<th scope="colgroup">` inside the table.
  */

@@ -20,6 +20,11 @@ export const Filtering: Story = {
   ...createAdvancedStoryExample("OnyxDataGrid", "FilteringExample"),
 };
 
+export const Pagination: Story = {
+  tags: ["new:feature"],
+  ...createAdvancedStoryExample("OnyxDataGrid", "PaginationExample"),
+};
+
 export const HideColumns: Story = {
   ...createAdvancedStoryExample("OnyxDataGrid", "HideColumnsExample"),
 };

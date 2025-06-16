@@ -10,11 +10,12 @@
     TFeatures extends DataGridFeature<TEntry, TTypeRenderer, TFeatureName>[] | [] = []
   "
 >
-import { shallowRef, toRefs, watch, type HTMLAttributes, type WatchHandle } from "vue";
+import { shallowRef, toRefs, watch, type HTMLAttributes, type VNode, type WatchHandle } from "vue";
+import type { DataGridFeatureSlots } from "../..";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { injectI18n } from "../../i18n";
 import { mergeVueProps } from "../../utils/attrs";
-import type { TableColumnGroup } from "../OnyxTable/types";
+import type { OnyxTableSlots, TableColumnGroup } from "../OnyxTable/types";
 import {
   useDataGridFeatures,
   type ColumnConfigTypeOption,
@@ -43,14 +44,7 @@ const props = withDefaults(
 
 const i18n = injectI18n();
 
-defineSlots<{
-  /**
-   * Optional slot to customize the empty state when no data exist.
-   *
-   * If unset, the default empty content of OnyxTable will be displayed.
-   */
-  empty?(): unknown;
-}>();
+const slots = defineSlots<Pick<OnyxTableSlots, "empty">>();
 
 const skeleton = useSkeletonContext(props);
 // Using Ref types to avoid `UnwrapRef` issues
@@ -58,6 +52,7 @@ const renderColumns = shallowRef<DataGridRendererColumn<TEntry>[]>([]);
 const renderRows = shallowRef<DataGridRendererRow<TEntry, DataGridMetadata>[]>([]);
 const rendererColumnGroups = shallowRef<TableColumnGroup[]>();
 const rendererScrollContainerAttributes = shallowRef<HTMLAttributes | undefined>();
+const rendererSlots = shallowRef<Partial<Record<keyof DataGridFeatureSlots, VNode[]>>>();
 
 const { columns: columnConfig, data, features, columnGroups, async } = toRefs(props);
 
@@ -71,6 +66,7 @@ const createFeatureBuilderWatcher = ({
   watchSources,
   createRendererColumnGroups,
   createScrollContainerAttributes,
+  createSlots,
 }: ReturnType<
   typeof useDataGridFeatures<TEntry, TFeatureName, TTypeRenderer, TColumnGroup, TTypes, TFeatures>
 >) => {
@@ -81,6 +77,7 @@ const createFeatureBuilderWatcher = ({
       renderRows.value = createRendererRows(data.value);
       rendererColumnGroups.value = createRendererColumnGroups();
       rendererScrollContainerAttributes.value = createScrollContainerAttributes();
+      rendererSlots.value = createSlots();
     },
     { immediate: true, deep: true },
   );
@@ -89,11 +86,12 @@ const createFeatureBuilderWatcher = ({
 watch(
   features,
   () => {
-    const featureBuilder = useDataGridFeatures([BASE_FEATURE({ skeleton }), ...features.value], {
+    const featureBuilder = useDataGridFeatures([BASE_FEATURE, ...features.value], {
       i18n,
       columnConfig,
       columnGroups,
       async,
+      skeleton,
     });
     disposeWatcher?.();
     disposeWatcher = createFeatureBuilderWatcher(featureBuilder);
@@ -117,8 +115,12 @@ watch(
       })
     "
   >
-    <template #empty>
-      <slot name="empty" />
+    <template v-for="(slotContent, slotName) in rendererSlots" :key="slotName" #[slotName]>
+      <component :is="() => slotContent" />
+    </template>
+
+    <template v-if="!!slots.empty" #empty="slotProps">
+      <slot name="empty" v-bind="slotProps" />
     </template>
   </OnyxDataGridRenderer>
 </template>

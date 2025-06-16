@@ -2,19 +2,13 @@
 import { computed } from "vue";
 import { mergeVueProps } from "../../../utils/attrs";
 import OnyxTable from "../../OnyxTable/OnyxTable.vue";
+import type { OnyxTableSlots } from "../../OnyxTable/types";
 import type { DataGridEntry, DataGridMetadata } from "../types";
 import type { OnyxDataGridRendererProps } from "./types";
 
 const props = defineProps<OnyxDataGridRendererProps<TEntry, TMetadata>>();
 
-defineSlots<{
-  /**
-   * Optional slot to customize the empty state when no data exist.
-   *
-   * If unset, the default empty content of OnyxTable will be displayed.
-   */
-  empty?(): unknown;
-}>();
+const slots = defineSlots<Omit<OnyxTableSlots, "default" | "head">>();
 
 const columnStyle = computed(() => {
   return {
@@ -61,8 +55,10 @@ const columnStyle = computed(() => {
       </template>
     </tr>
 
-    <template #empty>
-      <slot name="empty" />
+    <template v-for="(slot, slotName) in slots" :key="slotName" #[slotName]="slotProps">
+      <slot :name="slot?.name" v-bind="slotProps">
+        <component :is="slot"></component>
+      </slot>
     </template>
   </OnyxTable>
 </template>
