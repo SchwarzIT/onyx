@@ -53,6 +53,11 @@ export default defineLoader({
         href: "https://storybook.onyx.schwarz/?path=/docs/buttons-iconbutton--docs",
       },
       {
+        name: "System button",
+        status: "implemented",
+        href: "https://storybook.onyx.schwarz/?path=/docs/buttons-systembutton--docs",
+      },
+      {
         name: "Radio group",
         status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/form-elements-radiogroup--docs",
@@ -90,7 +95,7 @@ export default defineLoader({
       },
       {
         name: "Input",
-        status: getImplementedStatus("OnyxInput"),
+        status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/form-elements-input--docs",
       },
       {
@@ -140,34 +145,62 @@ export default defineLoader({
       },
       {
         name: "Dialog",
-        status: getImplementedStatus("OnyxDialog"),
-        href: "https://storybook.onyx.schwarz/?path=/docs/feedback-dialog--docs",
+        status: "implemented",
+        href: "https://storybook.onyx.schwarz/?path=/docs/feedback-modaldialog--docs",
       },
       {
         name: "Toast",
         status: "implemented",
-        href: "https://storybook.onyx.schwarz/?path=/docs/feedback-toastprovider--docs",
+        href: "https://storybook.onyx.schwarz/?path=/docs/feedback-toast--docs",
       },
-      { name: "Sidebar", status: "in-progress" },
-      { name: "Card", status: "in-progress" },
-      { name: "Popover", status: getImplementedStatus("OnyxPopover") },
+      {
+        name: "Sidebar",
+        status: "in-progress",
+        href: "https://storybook.onyx.schwarz/?path=/docs/navigation-sidebar--docs",
+      },
+      {
+        name: "Card",
+        status: "implemented",
+        href: "https://storybook.onyx.schwarz/?path=/docs/basic-card--docs",
+      },
+      {
+        name: "Drawer",
+        status: "implemented",
+        href: "https://storybook.onyx.schwarz/?path=/docs/feedback-drawer--docs",
+      },
       {
         name: "Pagination",
-        status: getImplementedStatus("OnyxPagination"),
+        status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/data-pagination--docs",
       },
-      { name: "Datepicker", status: "in-progress" },
+      {
+        name: "Datepicker",
+        status: "in-progress",
+        href: "https://storybook.onyx.schwarz/?path=/docs/form-elements-datepicker--docs",
+      },
       { name: "Timepicker", status: getImplementedStatus("OnyxTimepicker") },
       { name: "Calendar", status: getImplementedStatus("OnyxCalendar") },
-      { name: "Accordion", status: "in-progress" },
+      {
+        name: "Accordion",
+        status: "implemented",
+        href: "https://storybook.onyx.schwarz/?path=/docs/basic-accordion--docs",
+      },
       { name: "Slider", status: getImplementedStatus("OnyxSlider") },
       {
         name: "Stepper",
         status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/form-elements-stepper--docs",
       },
-      { name: "Upload", status: "in-progress" },
-      { name: "Breadcrumb", status: getImplementedStatus("OnyxBreadcrumb") },
+      {
+        name: "FileUpload",
+        status: "in-progress",
+        href: "https://storybook.onyx.schwarz/?path=/docs/form-elements-fileupload--docs",
+      },
+      {
+        name: "Breadcrumb",
+        status: "implemented",
+        href: "https://storybook.onyx.schwarz/?path=/docs/navigation-breadcrumb--docs",
+      },
       { name: "Table of Content", status: getImplementedStatus("OnyxTableOfContent") },
       { name: "Wizard", status: getImplementedStatus("OnyxWizard") },
       { name: "Dual list", status: getImplementedStatus("OnyxDualList") },
@@ -176,10 +209,18 @@ export default defineLoader({
         status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/navigation-tabs--docs",
       },
-      { name: "Search", status: "in-progress" },
-      { name: "Filters", status: "in-progress" },
-      { name: "Bottom bar", status: "in-progress" },
-      { name: "Notification center", status: "in-progress" },
+      { name: "Search", status: "planned" },
+      { name: "Filters", status: "planned" },
+      {
+        name: "Bottom bar",
+        status: "implemented",
+        href: "https://storybook.onyx.schwarz/?path=/docs/navigation-bottombar--docs",
+      },
+      {
+        name: "Notifications",
+        status: "implemented",
+        href: "https://storybook.onyx.schwarz/?path=/docs/notifications-notifications--docs",
+      },
     ];
 
     return {
