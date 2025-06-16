@@ -1,7 +1,6 @@
 import type { Ref } from "vue";
 import type { DataGridFeatureOptions } from "..";
 import type { DataGridEntry } from "../../types";
-import type { FilterState } from "./filtering";
 
 /**
  * Configuration for how filtering should behave.
@@ -47,6 +46,11 @@ export type FilterConfig<TEntry extends DataGridEntry> = {
 };
 
 /**
+ * Defines the current filter/search term per column
+ */
+export type FilterState<TEntry> = Partial<Record<keyof TEntry, string | undefined>>;
+
+/**
  * The configuration options for the filtering feature in the OnyxDataGrid component.
  * Includes settings for the individual columns and general filter behavior.
  */
@@ -62,7 +66,7 @@ export type FilterOptions<TEntry extends DataGridEntry> = DataGridFeatureOptions
   },
   true
 > & {
-  filterState?: Ref<FilterState<DataGridEntry>>;
+  filterState?: Ref<FilterState<TEntry>>;
   /**
    * Configuration for how the filtering should behave across all columns.
    */

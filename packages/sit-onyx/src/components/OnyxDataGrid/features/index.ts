@@ -154,7 +154,13 @@ export type PublicNormalizedColumnConfig<
  * Context that is passed to a feature when it is set up by the `useDataGridFeatures` composable.
  */
 export type DataGridFeatureContext = {
+  /**
+   * Ref for the `async` state of the `OnyxDataGrid`. If `true` data mutations should be skipped, if they are expected to be handled by a backend.
+   */
   async: Readonly<Ref<boolean>>;
+  /**
+   * The `i18n` object, which can be used to access messages, formatters and the current locale.
+   */
   i18n: OnyxI18n;
 };
 
@@ -281,7 +287,7 @@ export type DataGridFeatureOptions<
 } & (TWithAsync extends true
   ? {
       /**
-       * When async is `true`, then the internal data transformations are disabled and have to be performed by the user.
+       * When async is `true`, then the internal data transformations of this feature  are disabled and have to be performed manually.
        */
       async?: boolean;
     }

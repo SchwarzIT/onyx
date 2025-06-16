@@ -8,10 +8,9 @@ import type { OnyxMiniSearchProps } from "../../../OnyxMiniSearch/types";
 import OnyxSystemButton from "../../../OnyxSystemButton/OnyxSystemButton.vue";
 import type { DataGridEntry } from "../../types";
 import "./filtering.scss";
-import type { FilterOptions } from "./types";
+import type { FilterOptions, FilterState } from "./types";
 
 export const FILTERING_FEATURE = Symbol("Filtering");
-export type FilterState<TEntry> = Partial<Record<keyof TEntry, string | undefined>>;
 export const useFiltering = <TEntry extends DataGridEntry>(options?: FilterOptions<TEntry>) =>
   createFeature((ctx) => {
     const { i18n } = ctx;

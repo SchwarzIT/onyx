@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import { DataGridFeatures, normalizedIncludes, OnyxDataGrid, type ColumnConfig } from "../../..";
-import type { FilterState } from "../features/filtering/filtering";
-import type { SortState } from "../features/sorting/types";
 
 type Entry = {
   id: number;
@@ -27,8 +25,8 @@ const columns: ColumnConfig<Entry>[] = [
   { key: "birthday", label: "Birthday", type: "date" },
 ];
 
-const filterState = ref({} as FilterState<Entry>);
-const sortState = ref({} as SortState<Entry>);
+const filterState = ref<DataGridFeatures.FilterState<Entry>>({});
+const sortState = ref<DataGridFeatures.SortState<Entry>>({ column: undefined, direction: "none" });
 const skeleton = ref(false);
 
 const withFiltering = DataGridFeatures.useFiltering<Entry>({ filterState });
