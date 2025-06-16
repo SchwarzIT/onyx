@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.243
+
+### Minor Changes
+
+- 6d4199e: feat(OnyxNotificationCard): implemented skeleton
+
 ## 1.0.0-beta.242
 
 ### Major Changes
