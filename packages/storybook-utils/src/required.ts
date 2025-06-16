@@ -8,7 +8,6 @@ export const requiredGlobalType = {
   requiredMode: {
     name: "Required mode",
     description: "Switch between 'required' and 'optional' indicator",
-    defaultValue: "required",
     toolbar: {
       icon: "flag",
       items: [
