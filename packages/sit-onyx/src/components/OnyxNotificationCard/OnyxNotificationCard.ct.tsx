@@ -20,7 +20,7 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Notification card",
     columns: DENSITIES,
-    rows: ["default", "unread", "actions", "separator", "icon"],
+    rows: ["default", "unread", "actions", "separator", "icon", "skeleton"],
     component: (column, row) => {
       const card = (
         <OnyxNotificationCard
@@ -30,6 +30,7 @@ test.describe("Screenshot tests", () => {
           density={column}
           style={{ width: "24rem" }}
           icon={row === "icon" ? mockPlaywrightIcon : undefined}
+          skeleton={row === "skeleton"}
         >
           Lorem ipsum dolor sit amet consectetur. Dui purus quisque est varius vulputate.
           {row === "actions" && (
