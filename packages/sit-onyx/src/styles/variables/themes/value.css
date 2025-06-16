@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "value" theme.
- * Imported from Figma API on Sun, 15 Jun 2025 09:08:08 GMT
+ * Imported from Figma API on Mon, 16 Jun 2025 06:40:14 GMT
  */
 :where(:root),
 .onyx-theme-default {
@@ -241,9 +241,9 @@
   --onyx-font-values-400: 1.5rem;
   --onyx-font-values-500: 1.75rem;
   --onyx-font-values-600: 2.5rem;
-  --onyx-font-weight-bold: 43.75rem;
-  --onyx-font-weight-regular: 25rem;
-  --onyx-font-weight-semibold: 37.5rem;
+  --onyx-font-weight-bold: 700;
+  --onyx-font-weight-regular: 400;
+  --onyx-font-weight-semibold: 600;
   --onyx-number-radius-100: 0.125rem;
   --onyx-number-radius-200: 0.25rem;
   --onyx-number-radius-300: 0.5rem;
