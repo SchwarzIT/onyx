@@ -105,29 +105,11 @@ See the [Storybook Theming docs](https://storybook.js.org/docs/configure/theming
 If you are using [`createPreview()`](#createpreview), the custom light and dark theme will already be set up for you.
 :::
 
-Make sure you have installed the `@storybook/manager-api` package:
-
-::: code-group
-
-```sh [pnpm]
-pnpm add -D @storybook/manager-api
-```
-
-```sh [npm]
-npm install -D @storybook/manager-api
-```
-
-```sh [yarn]
-yarn install -D @storybook/manager-api
-```
-
-:::
-
 ::: code-group
 
 ```ts [.storybook/manager.ts]
 import { createTheme } from "@sit-onyx/storybook-utils";
-import { addons } from "@storybook/manager-api";
+import { addons } from "storybook/manager-api";
 
 addons.setConfig({
   theme: createTheme({
