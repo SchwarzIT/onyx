@@ -29,7 +29,8 @@ export const useOpenAlignment = (
       return;
     }
 
-    const minSpace = (tooltipElementRect.width - wrapperRect.width + minMargin * 2) / 2;
+    const minSpaceCenter = (tooltipElementRect.width - wrapperRect.width + minMargin * 2) / 2;
+    const minSpace = tooltipElementRect.width - wrapperRect.width + minMargin;
 
     const parentLeft = overflowParentRect?.left ?? window.visualViewport?.pageLeft ?? 0;
     const parentRight =
@@ -40,15 +41,20 @@ export const useOpenAlignment = (
     const freeSpaceLeft = wrapperRect.left - parentLeft;
     const freeSpaceRight = parentRight - wrapperRect.right;
 
-    const enoughSpaceLeft = freeSpaceLeft >= minSpace;
-    const enoughSpaceRight = freeSpaceRight >= minSpace;
+    const enoughSpaceLeft = freeSpaceLeft >= minSpaceCenter;
+    const enoughSpaceRight = freeSpaceRight >= minSpaceCenter;
 
-    openAlignment.value =
-      enoughSpaceLeft === enoughSpaceRight
-        ? defaultPosition
-        : freeSpaceLeft > freeSpaceRight
-          ? "right"
-          : "left";
+    if (
+      (defaultPosition === "right" && freeSpaceLeft >= minSpace) ||
+      (defaultPosition === "left" && freeSpaceRight >= minSpace) ||
+      (defaultPosition === "center" && enoughSpaceLeft && enoughSpaceRight)
+    ) {
+      openAlignment.value = defaultPosition;
+    } else if (freeSpaceLeft > freeSpaceRight) {
+      openAlignment.value = "right";
+    } else {
+      openAlignment.value = "left";
+    }
   };
 
   return {
