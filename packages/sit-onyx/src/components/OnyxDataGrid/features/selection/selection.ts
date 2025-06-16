@@ -8,123 +8,121 @@ import type { SelectionOptions, SelectionState } from "./types";
 
 export const SELECTION_FEATURE = Symbol("Selection");
 
-export const useSelection = createFeature(
-  <TEntry extends DataGridEntry>(options?: SelectionOptions) =>
-    ({ i18n }) => {
-      const SELECTION_COLUMN = `selection-column-${useId()}`;
-      const selectionState: Ref<SelectionState> = toRef(
-        options?.selectionState ??
-          ({
-            selectMode: "include",
-            contingent: new Set<TEntry["id"]>(),
-          } as const),
-      );
-      const rowsCount = ref(0);
-      const disabled = toRef(options?.disabled ?? false);
-      const hover = toRef(options?.hover ?? false);
+export const useSelection = <TEntry extends DataGridEntry>(options?: SelectionOptions) =>
+  createFeature(({ i18n }) => {
+    const SELECTION_COLUMN = `selection-column-${useId()}`;
+    const selectionState: Ref<SelectionState> = toRef(
+      options?.selectionState ??
+        ({
+          selectMode: "include",
+          contingent: new Set<TEntry["id"]>(),
+        } as const),
+    );
+    const rowsCount = ref(0);
+    const disabled = toRef(options?.disabled ?? false);
+    const hover = toRef(options?.hover ?? false);
 
-      const getCheckState = (id: PropertyKey) =>
-        selectionState.value.selectMode === "include"
-          ? selectionState.value.contingent.has(id)
-          : !selectionState.value.contingent.has(id);
+    const getCheckState = (id: PropertyKey) =>
+      selectionState.value.selectMode === "include"
+        ? selectionState.value.contingent.has(id)
+        : !selectionState.value.contingent.has(id);
 
-      const updateSelectMode = (checked: boolean) => {
-        selectionState.value.selectMode = checked ? "exclude" : "include";
-        selectionState.value.contingent.clear();
-      };
+    const updateSelectMode = (checked: boolean) => {
+      selectionState.value.selectMode = checked ? "exclude" : "include";
+      selectionState.value.contingent.clear();
+    };
 
-      const updateToggleState = (checked: boolean, id: PropertyKey) => {
-        if (
-          (selectionState.value.selectMode === "include" && checked === true) ||
-          (selectionState.value.selectMode === "exclude" && checked === false)
-        ) {
-          selectionState.value.contingent.add(id);
-        } else {
-          selectionState.value.contingent.delete(id);
-        }
-      };
+    const updateToggleState = (checked: boolean, id: PropertyKey) => {
+      if (
+        (selectionState.value.selectMode === "include" && checked === true) ||
+        (selectionState.value.selectMode === "exclude" && checked === false)
+      ) {
+        selectionState.value.contingent.add(id);
+      } else {
+        selectionState.value.contingent.delete(id);
+      }
+    };
 
-      const isIndeterminate = () =>
-        selectionState.value.contingent.size !== 0 &&
-        selectionState.value.contingent.size !== rowsCount.value;
+    const isIndeterminate = () =>
+      selectionState.value.contingent.size !== 0 &&
+      selectionState.value.contingent.size !== rowsCount.value;
 
-      const isChecked = () =>
-        (selectionState.value.selectMode === "exclude" &&
-          selectionState.value.contingent.size !== rowsCount.value) ||
-        (selectionState.value.selectMode === "include" &&
-          selectionState.value.contingent.size === rowsCount.value);
+    const isChecked = () =>
+      (selectionState.value.selectMode === "exclude" &&
+        selectionState.value.contingent.size !== rowsCount.value) ||
+      (selectionState.value.selectMode === "include" &&
+        selectionState.value.contingent.size === rowsCount.value);
 
-      const modifyColumns: ModifyColumns<TEntry> = {
-        func: (cols) =>
-          disabled.value
-            ? [...cols]
-            : [
-                {
-                  key: SELECTION_COLUMN,
-                  type: { name: SELECTION_COLUMN },
-                  label: "",
-                  width: "2.5rem",
-                },
-                ...cols,
-              ],
-      };
-      return {
-        name: SELECTION_FEATURE,
-        watch: [selectionState, hover, disabled],
-        modifyColumns,
-        mutation: {
-          func: (rows) => {
-            rowsCount.value = rows.length;
-            return rows;
-          },
-          order: Infinity,
-        },
-        typeRenderer: {
-          [SELECTION_COLUMN]: createTypeRenderer({
-            header: {
-              thAttributes: { class: "onyx-data-grid-selection-cell" },
-              component: () =>
-                h(OnyxCheckbox, {
-                  label:
-                    selectionState.value.selectMode === "include"
-                      ? i18n.t.value("dataGrid.head.selection.selectAll")
-                      : i18n.t.value("dataGrid.head.selection.deselectAll"),
-                  value: `selection-all-rows`,
-                  hideLabel: true,
-                  indeterminate: isIndeterminate(),
-                  "onUpdate:modelValue": (checked) => updateSelectMode(checked),
-                  modelValue: isChecked(),
-                }),
-            },
-            cell: {
-              tdAttributes: {
-                class: {
-                  "onyx-data-grid-selection-cell": true,
-                },
+    const modifyColumns: ModifyColumns<TEntry> = {
+      func: (cols) =>
+        disabled.value
+          ? [...cols]
+          : [
+              {
+                key: SELECTION_COLUMN,
+                type: { name: SELECTION_COLUMN },
+                label: "",
+                width: "2.5rem",
               },
-              component: ({ row }) => {
-                const modelValue = getCheckState(row.id);
-                const idAsString = String(row.id);
-                const label =
+              ...cols,
+            ],
+    };
+    return {
+      name: SELECTION_FEATURE,
+      watch: [selectionState, hover, disabled],
+      modifyColumns,
+      mutation: {
+        func: (rows) => {
+          rowsCount.value = rows.length;
+          return rows;
+        },
+        order: Infinity,
+      },
+      typeRenderer: {
+        [SELECTION_COLUMN]: createTypeRenderer({
+          header: {
+            thAttributes: { class: "onyx-data-grid-selection-cell" },
+            component: () =>
+              h(OnyxCheckbox, {
+                label:
                   selectionState.value.selectMode === "include"
-                    ? i18n.t.value("dataGrid.head.selection.select", { id: idAsString })
-                    : i18n.t.value("dataGrid.head.selection.deselect", { id: idAsString });
-                return h(OnyxCheckbox, {
-                  class: {
-                    "onyx-data-grid-selection-cell__checkbox": true,
-                    "onyx-data-grid-selection-cell__checkbox--hover": hover.value,
-                    "onyx-data-grid-selection-cell__checkbox--checked": modelValue,
-                  },
-                  value: `selection-${idAsString}`,
-                  hideLabel: true,
-                  "onUpdate:modelValue": (checked) => updateToggleState(checked, row.id),
-                  label,
-                  modelValue,
-                });
+                    ? i18n.t.value("dataGrid.head.selection.selectAll")
+                    : i18n.t.value("dataGrid.head.selection.deselectAll"),
+                value: `selection-all-rows`,
+                hideLabel: true,
+                indeterminate: isIndeterminate(),
+                "onUpdate:modelValue": (checked) => updateSelectMode(checked),
+                modelValue: isChecked(),
+              }),
+          },
+          cell: {
+            tdAttributes: {
+              class: {
+                "onyx-data-grid-selection-cell": true,
               },
             },
-          }),
-        },
-      };
-    },
-);
+            component: ({ row }) => {
+              const modelValue = getCheckState(row.id);
+              const idAsString = String(row.id);
+              const label =
+                selectionState.value.selectMode === "include"
+                  ? i18n.t.value("dataGrid.head.selection.select", { id: idAsString })
+                  : i18n.t.value("dataGrid.head.selection.deselect", { id: idAsString });
+              return h(OnyxCheckbox, {
+                class: {
+                  "onyx-data-grid-selection-cell__checkbox": true,
+                  "onyx-data-grid-selection-cell__checkbox--hover": hover.value,
+                  "onyx-data-grid-selection-cell__checkbox--checked": modelValue,
+                },
+                value: `selection-${idAsString}`,
+                hideLabel: true,
+                "onUpdate:modelValue": (checked) => updateToggleState(checked, row.id),
+                label,
+                modelValue,
+              });
+            },
+          },
+        }),
+      },
+    };
+  });

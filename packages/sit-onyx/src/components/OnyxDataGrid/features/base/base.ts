@@ -20,8 +20,8 @@ export type BaseFeatureOptions = {
 /**
  * The Base feature includes everything that should be provided as built-in functionality of the `OnyxDataGrid` component.
  */
-export const BASE_FEATURE = createFeature(
-  ({ skeleton }: BaseFeatureOptions) =>
+export const BASE_FEATURE = ({ skeleton }: BaseFeatureOptions) =>
+  createFeature(
     () =>
       ({
         name: BASE_FEATURE_SYMBOL,
@@ -60,4 +60,4 @@ export const BASE_FEATURE = createFeature(
           skeleton: SKELETON_RENDERER,
         },
       }) as const,
-);
+  );

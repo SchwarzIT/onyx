@@ -100,7 +100,7 @@ const columns: ColumnConfig<Entry, ColumnGroupConfig, never>[] = [
   "job",
 ];
 
-const dummyFeature = createFeature(() => () => ({
+const dummyFeature = createFeature(() => ({
   name: Symbol("More actions"),
   watch: [],
   header: {
@@ -146,7 +146,7 @@ const dataFeatures = computed(() => {
     enabled.push(DataGridFeatures.useResizing<Entry>());
   }
   if (enabledFeatures.value.moreActions) {
-    enabled.push(dummyFeature());
+    enabled.push(dummyFeature);
   }
   return enabled;
 });

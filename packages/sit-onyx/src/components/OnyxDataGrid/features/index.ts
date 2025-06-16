@@ -308,11 +308,9 @@ export type DataGridFeatureOptions<
  * ```
  */
 export function createFeature<
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- any must be used here, otherwise the type inference breaks
-  TArgs extends any[],
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- we use any for simplicity
   TFeature extends DataGridFeature<any, any, any>,
-  T extends (...args: TArgs) => CheckDataGridFeature<TFeature>,
+  T extends CheckDataGridFeature<TFeature>,
 >(featureDefinition: T) {
   return featureDefinition;
 }
