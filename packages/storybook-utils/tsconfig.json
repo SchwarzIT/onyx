@@ -4,6 +4,7 @@
   "compilerOptions": {
     "types": ["node", "vite/client"],
     "rootDir": "./src",
-    "baseUrl": "."
+    "baseUrl": ".",
+    "lib": ["es2022"]
   }
 }

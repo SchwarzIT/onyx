@@ -27,6 +27,13 @@ const timeFormat = computed(
 const formattedTime = computed(() => formatTime(timeLeft.value, timeFormat.value));
 
 watchEffect(() => isEnded.value && emit("timerEnded"));
+
+defineExpose({
+  /**
+   * Time (in milliseconds) that the timer has left.
+   */
+  timeLeft,
+});
 </script>
 
 <template>
