@@ -4,11 +4,10 @@ import { computed, h, ref, unref, watchEffect, type Ref } from "vue";
 import type { ComponentSlots } from "vue-component-type-helpers";
 import {
   createFeature,
-  useIsFeatureEnabled,
+  useFeatureContext,
   type InternalColumnConfig,
   type ModifyColumns,
 } from "..";
-import { injectI18n } from "../../../../i18n";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxFlyoutMenu from "../../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxMenuItem from "../../../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
@@ -20,10 +19,12 @@ import type { HideColumnsOptions } from "./types";
 export const HIDE_COLUMNS_FEATURE = Symbol("HideColumnsFeature");
 export const HIDDEN_COLUMN = Symbol("HiddenColumn");
 
-export const useHideColumns = createFeature(
-  <TEntry extends DataGridEntry>(options?: HideColumnsOptions<TEntry>) => {
-    const { t } = injectI18n();
-    const { isEnabled } = useIsFeatureEnabled(options);
+export const useHideColumns = <TEntry extends DataGridEntry>(
+  options?: HideColumnsOptions<TEntry>,
+) =>
+  createFeature((ctx) => {
+    const { i18n } = ctx;
+    const { isEnabled } = useFeatureContext(ctx, options);
 
     const columnConfig = ref([]) as Ref<Readonly<InternalColumnConfig<TEntry>[]>>;
     const hiddenColumnKeys = ref(new Set()) as Ref<Set<keyof TEntry>>;
@@ -42,27 +43,25 @@ export const useHideColumns = createFeature(
       });
     });
 
-    const locale = injectI18n().locale;
-
     const flyoutMenu = () =>
       h(
         OnyxFlyoutMenu,
         {
-          label: t.value("dataGrid.head.hideColumns.revealFlyout"),
+          label: i18n.t.value("dataGrid.head.hideColumns.revealFlyout"),
           trigger: "click",
         },
         {
           button: ({ trigger }) =>
             h(OnyxSystemButton, {
               class: "",
-              label: t.value("dataGrid.head.hideColumns.revealTrigger"),
+              label: i18n.t.value("dataGrid.head.hideColumns.revealTrigger"),
               color: "medium",
               icon: plusSmall,
               ...trigger,
             }),
           options: () => {
             return Array.from(hiddenColumns.value)
-              .sort((a, b) => Intl.Collator(locale.value).compare(a.label, b.label))
+              .sort((a, b) => Intl.Collator(i18n.locale.value).compare(a.label, b.label))
               .map(({ key, label }) =>
                 h(
                   OnyxMenuItem,
@@ -84,7 +83,7 @@ export const useHideColumns = createFeature(
         },
         () => [
           h(OnyxIcon, { icon: eyeDisabled }),
-          t.value("dataGrid.head.hideColumns.menu.hideButton"),
+          i18n.t.value("dataGrid.head.hideColumns.menu.hideButton"),
         ],
       );
 
@@ -112,7 +111,12 @@ export const useHideColumns = createFeature(
             return hiddenColumnKeys.value.size > 0
               ? [
                   ...filteredColumns,
-                  { key: HIDDEN_COLUMN, type: { name: HIDDEN_COLUMN }, width: "2.5rem", label: "" },
+                  {
+                    key: HIDDEN_COLUMN,
+                    type: { name: HIDDEN_COLUMN },
+                    width: "2.5rem",
+                    label: "",
+                  },
                 ]
               : filteredColumns;
           },
@@ -142,5 +146,4 @@ export const useHideColumns = createFeature(
         },
       },
     };
-  },
-);
+  });

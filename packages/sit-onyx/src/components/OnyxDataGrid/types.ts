@@ -28,20 +28,23 @@ export type MapTypeRenderOptions<T> = {
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- we use any for simplicity
 export type RenderTypesFromFeature<TFeatures extends DataGridFeature<any, any, any>[]> =
-  // Safeguard against invalid types
+  // 8. Safeguard against unwanted types
   IfExtends<
-    // Union type of all column types
+    // 7. Union type of all column types
     RecordValues<
-      // Map all `typeRenderer`s to their appropriate column option types
+      // 6. Map all `typeRenderer`s to their appropriate column option types
       MapTypeRenderOptions<
-        // Drop all empty records to avoid ending up with `unknown` type
+        // 5. Drop all empty records to avoid ending up with `unknown` type
         IfNotEmpty<
-          // If defined, take the type of the `typeRenderer` key from the feature
+          // 4. If defined, take the type of the `typeRenderer` key from the feature
           MaybePick<
-            // Merge the values together
+            // 3. Merge the values together
             UnionByKey<
-              // For each feature
-              TFeatures[number]
+              // 2. Take the feature description object
+              ReturnType<
+                // 1. For each feature
+                TFeatures[number]
+              >
             >,
             "typeRenderer"
           >
@@ -71,6 +74,11 @@ export type OnyxDataGridProps<
    * Check the Storybook examples (e.g. [Sorting](/?path=/story/data-datagrid-features--sorting)) for more details on how the features are used and configured.
    */
   features?: TFeatures;
+  /**
+   * When `async` is `true`, the data transformation of supported features is disabled and externalized.
+   * This allows for backend handling of data fetching and data transformation.
+   */
+  async?: boolean;
   /**
    * The order of and which columns should be rendered.
    */

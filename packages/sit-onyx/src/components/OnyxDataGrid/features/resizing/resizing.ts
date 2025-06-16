@@ -1,5 +1,5 @@
 import { h, ref, watch, type HTMLAttributes, type Slots, type ThHTMLAttributes } from "vue";
-import { createFeature, useIsFeatureEnabled, type InternalColumnConfig } from "..";
+import { createFeature, useFeatureContext, type InternalColumnConfig } from "..";
 import { useResizeObserver } from "../../../../composables/useResizeObserver";
 import { mergeVueProps } from "../../../../utils/attrs";
 import OnyxResizeHandle from "../../../OnyxResizeHandle/OnyxResizeHandle.vue";
@@ -9,12 +9,12 @@ import type { ResizingOptions } from "./types";
 
 export const RESIZING_FEATURE = Symbol("Resizing");
 export const EMPTY_COLUMN = Symbol("EmptyColumn");
-export const useResizing = createFeature(
-  <TEntry extends DataGridEntry>(options?: ResizingOptions<TEntry>) => {
+export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOptions<TEntry>) =>
+  createFeature((ctx) => {
     const resizingCol = ref<Readonly<InternalColumnConfig<TEntry>>>();
     const MIN_COLUMN_WIDTH = 3 * 16;
     const headers = ref(new Map<keyof TEntry, HTMLElement>());
-    const { isEnabled } = useIsFeatureEnabled(options);
+    const { isEnabled } = useFeatureContext(ctx, options);
     const colWidths = ref(new Map<keyof TEntry, string>());
     const showLastCol = ref(false);
     const scrollContainer = ref<HTMLElement>();
@@ -150,5 +150,4 @@ export const useResizing = createFeature(
             renderWrapper(slots, cols, i === length - 1),
       },
     };
-  },
-);
+  });

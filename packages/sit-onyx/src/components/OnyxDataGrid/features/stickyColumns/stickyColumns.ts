@@ -8,8 +8,10 @@ import type { StickyColumnsOptions } from "./types";
 
 export const STICKY_COLUMNS_FEATURE = Symbol("StickyColumns");
 
-export const useStickyColumns = createFeature(
-  <TEntry extends DataGridEntry>(options?: StickyColumnsOptions<TEntry>) => {
+export const useStickyColumns = <TEntry extends DataGridEntry>(
+  options?: StickyColumnsOptions<TEntry>,
+) =>
+  createFeature(() => {
     const stickyColumns = computed(() => options?.columns ?? []);
     const position = computed(() => options?.position ?? "left");
     const elementWidths = ref<Record<PropertyKey, number>>({});
@@ -124,5 +126,4 @@ export const useStickyColumns = createFeature(
           onScrollCapturePassive: (e: Event) => handleScroll(e.target as HTMLElement),
         }) as HTMLAttributes,
     };
-  },
-);
+  });

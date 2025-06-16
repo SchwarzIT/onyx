@@ -11,23 +11,30 @@ const meta: Meta<typeof OnyxDataGrid> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Sorting: Story = {
-  ...createAdvancedStoryExample("OnyxDataGrid", "SortingExample"),
+export const Async: Story = {
+  ...createAdvancedStoryExample("OnyxDataGrid", "AsyncExample"),
 };
 
 export const Filtering: Story = {
   ...createAdvancedStoryExample("OnyxDataGrid", "FilteringExample"),
 };
 
-export const Selection: Story = createAdvancedStoryExample("OnyxDataGrid", "SelectionExample");
-
 export const HideColumns: Story = {
   ...createAdvancedStoryExample("OnyxDataGrid", "HideColumnsExample"),
-};
-export const StickyColumns: Story = {
-  ...createAdvancedStoryExample("OnyxDataGrid", "StickyColumnsExample"),
 };
 
 export const Resizing: Story = {
   ...createAdvancedStoryExample("OnyxDataGrid", "ResizingExample"),
+};
+
+export const Selection: Story = {
+  ...createAdvancedStoryExample("OnyxDataGrid", "SelectionExample"),
+};
+
+export const Sorting: Story = {
+  ...createAdvancedStoryExample("OnyxDataGrid", "SortingExample"),
+};
+
+export const StickyColumns: Story = {
+  ...createAdvancedStoryExample("OnyxDataGrid", "StickyColumnsExample"),
 };

@@ -5,6 +5,7 @@ import { useRequired } from "../../composables/required";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { useVModel } from "../../composables/useVModel";
 import type { Nullable, SelectOptionValue } from "../../types";
+import { asArray } from "../../utils/objects";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxInfoTooltip from "../OnyxInfoTooltip/OnyxInfoTooltip.vue";
@@ -51,7 +52,7 @@ const radiobuttons = useTemplateRef("radiobuttonsRef");
 
 defineExpose({
   inputs: computed<HTMLInputElement[]>(() => {
-    const array = Array.isArray(radiobuttons.value) ? radiobuttons.value : [radiobuttons.value];
+    const array = asArray(radiobuttons.value);
     return array
       .flatMap((radiobutton) => radiobutton?.input)
       .filter((radiobutton) => !!radiobutton);

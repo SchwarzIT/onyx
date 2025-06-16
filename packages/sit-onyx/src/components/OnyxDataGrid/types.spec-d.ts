@@ -25,7 +25,7 @@ it("should be ensured that RenderTypesFromFeature unwraps correctly", async () =
   >();
 
   type SingleFeature = [
-    {
+    () => {
       name: symbol;
       watch: WatchSource[];
       typeRenderer?: { a: TypeRenderer<DataGridEntry, { anOption?: number }> };
@@ -36,7 +36,7 @@ it("should be ensured that RenderTypesFromFeature unwraps correctly", async () =
   >();
 
   type SingleFeatureNoOptions = [
-    {
+    () => {
       name: symbol;
       watch: WatchSource[];
       typeRenderer?: { a: TypeRenderer<DataGridEntry> };
@@ -47,7 +47,7 @@ it("should be ensured that RenderTypesFromFeature unwraps correctly", async () =
   >();
 
   type SingleFeatureWithMultiple = [
-    {
+    () => {
       name: symbol;
       watch: WatchSource[];
       typeRenderer?: {
@@ -61,7 +61,7 @@ it("should be ensured that RenderTypesFromFeature unwraps correctly", async () =
   >();
 
   type SingleFeatureWithMultipleNoOptions = [
-    {
+    () => {
       name: symbol;
       watch: WatchSource[];
       typeRenderer?: {
@@ -75,7 +75,7 @@ it("should be ensured that RenderTypesFromFeature unwraps correctly", async () =
   >();
 
   type MultipleFeatures = [
-    {
+    () => {
       name: symbol;
       watch: WatchSource[];
       typeRenderer?: {
@@ -83,25 +83,25 @@ it("should be ensured that RenderTypesFromFeature unwraps correctly", async () =
         b: TypeRenderer<DataGridEntry>;
       };
     },
-    {
+    () => {
       name: symbol;
       watch: WatchSource[];
       typeRenderer?: {
         c: TypeRenderer<DataGridEntry>;
       };
     },
-    {
+    () => {
       name: symbol;
       watch: WatchSource[];
       typeRenderer?: object;
     },
-    {
+    () => {
       name: symbol;
       watch: WatchSource[];
       // eslint-disable-next-line @typescript-eslint/no-empty-object-type -- test case
       typeRenderer: {};
     },
-    {
+    () => {
       name: symbol;
       watch: WatchSource[];
     },
