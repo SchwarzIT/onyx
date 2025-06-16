@@ -1,22 +1,10 @@
-import { expect, test, vi } from "vitest";
+import { expect, test } from "vitest";
 import * as vue from "vue";
-import { ref, toRef } from "vue";
-import { I18N_INJECTION_KEY } from "../../../../i18n";
+import { ref } from "vue";
 import type { DataGridEntry } from "../../types";
 import { createFeatureContextMock } from "../index.spec";
 import { useSorting } from "./sorting";
 import type { SortOptions, SortState } from "./types";
-
-vi.mock("vue", async (importOriginal) => {
-  const module = await importOriginal<typeof import("vue")>();
-
-  return {
-    ...module,
-    inject: vi.fn((key) =>
-      key === I18N_INJECTION_KEY ? { locale: toRef("en-US") } : undefined,
-    ) satisfies (typeof vue)["inject"],
-  };
-});
 
 const getTestData = () => [
   { id: 1, a: "6", b: "1-End" },
@@ -38,8 +26,7 @@ test("per default should enable show sort symbols and not sort initially", () =>
   //ASSERT
   expect(withSorting.header.actions(createConfig("col1"))).toHaveLength(1);
 
-  const array = getTestData();
-  withSorting.mutation.func(array);
+  const array = withSorting.mutation.func(getTestData());
   expect(array).toMatchObject(getTestData());
 });
 
@@ -73,8 +60,7 @@ test("should consider reactive sortState", () => {
   expect(withSorting.header.actions(createConfig("a"))).toHaveLength(1);
   expect(withSorting.header.actions(createConfig("b"))).toHaveLength(2);
 
-  const array = getTestData();
-  withSorting.mutation.func(array);
+  const array = withSorting.mutation.func(getTestData());
 
   expect(array, "should sort by initial sortState and use custom sort function").toMatchObject([
     { id: 3, a: "4", b: "3-Start" },
@@ -90,8 +76,7 @@ test("should consider reactive sortState", () => {
   sortState.value.direction = "asc";
 
   // ASSERT
-  const array2 = getTestData();
-  withSorting.mutation.func(array2);
+  const array2 = withSorting.mutation.func(getTestData());
   expect(array2, "should consider updated sorting").toMatchObject([
     { id: 6, a: "1", b: "6-End" },
     { id: 5, a: "2", b: "5-End" },
@@ -105,8 +90,7 @@ test("should consider reactive sortState", () => {
   async.value = true;
 
   // ASSERT
-  const array3 = getTestData();
-  withSorting.mutation.func(array3);
+  const array3 = withSorting.mutation.func(getTestData());
   expect(array3, "should use original order when async").toMatchObject(getTestData());
 });
 

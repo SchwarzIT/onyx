@@ -62,11 +62,12 @@ export const useSorting = createFeature(
       const sortData = (data: Readonly<TEntry>[]) => {
         const { column, direction } = sortState.value;
         if (isAsync.value || !column || direction === "none") {
-          return;
+          return data;
         }
         const multiplicand = direction === "asc" ? 1 : -1;
         const sortFunc = getSortFunc.value(column);
         data.sort((a, b) => sortFunc(a[column], b[column]) * multiplicand);
+        return data;
       };
 
       const isSortActive = computed(() => {
