@@ -1,5 +1,12 @@
 # demo-app
 
+## 1.0.0-beta.242
+
+### Patch Changes
+
+- Updated dependencies [d3f394b]
+  - sit-onyx@1.0.0-beta.242
+
 ## 1.0.0-beta.241
 
 ### Patch Changes
