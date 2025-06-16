@@ -73,7 +73,7 @@ watch(
     color: var(--onyx-color-text-icons-primary-bold);
     font-family: var(--onyx-font-family);
     line-height: normal;
-    font-weight: var(--onyx-font-weight-medium);
+    font-weight: var(--onyx-font-weight-semibold);
 
     display: flex;
     align-items: center;

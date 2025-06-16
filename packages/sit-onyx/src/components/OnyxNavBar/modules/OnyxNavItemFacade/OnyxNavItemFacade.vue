@@ -72,7 +72,7 @@ const hasChildren = computed(() => !!slots.children);
 
     &:has(.onyx-nav-item--active),
     &.onyx-nav-item--active {
-      font-weight: var(--onyx-font-weight-medium);
+      font-weight: var(--onyx-font-weight-semibold);
       color: var(--onyx-color-text-icons-primary-intense);
       --onyx-list-item-color-selected: var(--onyx-color-text-icons-primary-intense);
 

@@ -268,7 +268,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
     th {
       font-size: var(--onyx-font-size-sm);
       line-height: var(--onyx-font-line-height-sm);
-      font-weight: var(--onyx-font-weight-medium);
+      font-weight: var(--onyx-font-weight-semibold);
 
       &:not(.onyx-table__colgroup) {
         background-color: var(--onyx-color-base-neutral-200);

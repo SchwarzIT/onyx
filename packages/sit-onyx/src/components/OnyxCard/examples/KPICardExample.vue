@@ -40,7 +40,7 @@ import { OnyxCard, OnyxIcon, OnyxTag } from "../../..";
 
   &__value {
     font-size: 3rem;
-    font-weight: var(--onyx-font-weight-medium);
+    font-weight: var(--onyx-font-weight-semibold);
     line-height: 2.75rem;
   }
 }
