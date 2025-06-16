@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.241
+
+### Minor Changes
+
+- 9747f10: feat(router): consider hash for active state
+
+  Also consider hashes when determining the active state of a link when a Vue Router is provided. E.g. the link `#some-headline` will now be active when the current route is `/page-1#some-headline`
+
 ## 1.0.0-beta.240
 
 ### Minor Changes
