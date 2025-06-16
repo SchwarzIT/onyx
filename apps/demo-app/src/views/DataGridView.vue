@@ -100,7 +100,7 @@ const columns: ColumnConfig<Entry, ColumnGroupConfig, never>[] = [
   "job",
 ];
 
-const dummyFeature = createFeature(() => ({
+const dummyFeature = createFeature(() => () => ({
   name: Symbol("More actions"),
   watch: [],
   header: {
