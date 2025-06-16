@@ -7,6 +7,7 @@ import {
   createTableColumnGroups,
   useFeatureContext,
   type ColumnGroupConfig,
+  type DataGridFeatureContext,
   type DataGridFeatureOptions,
   type InternalColumnConfig,
 } from "./index";
@@ -110,6 +111,12 @@ describe("createTableColumnGroups", () => {
   });
 });
 
+export const createFeatureContextMock = (ctx?: Partial<DataGridFeatureContext>) => ({
+  async: ref(false),
+  i18n: createI18n(),
+  ...ctx,
+});
+
 describe("useFeatureContext", () => {
   test.each<{ options?: DataGridFeatureOptions<DataGridEntry, object>; enabled: boolean }>([
     { options: undefined, enabled: true },
@@ -122,7 +129,7 @@ describe("useFeatureContext", () => {
     { options: { enabled: true, columns: { id: { enabled: false } } }, enabled: false },
     { options: { enabled: true, columns: { id: { enabled: true } } }, enabled: true },
   ])("should be enabled $enabled for options $options", ({ options, enabled }) => {
-    const { isEnabled } = useFeatureContext({ async: ref(false), i18n: createI18n() }, options);
+    const { isEnabled } = useFeatureContext(createFeatureContextMock(), options);
     expect(isEnabled.value("id")).toBe(enabled);
   });
 });

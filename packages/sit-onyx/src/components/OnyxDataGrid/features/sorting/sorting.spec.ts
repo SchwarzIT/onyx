@@ -3,6 +3,7 @@ import * as vue from "vue";
 import { ref, toRef } from "vue";
 import { I18N_INJECTION_KEY } from "../../../../i18n";
 import type { DataGridEntry } from "../../types";
+import { createFeatureContextMock } from "../index.spec";
 import { useSorting } from "./sorting";
 import type { SortOptions, SortState } from "./types";
 
@@ -32,7 +33,7 @@ const createConfig = (key: string) => ({ key, label: key, type: { name: "string"
 
 test("per default should enable show sort symbols and not sort initially", () => {
   // ARRANGE
-  const withSorting = useSorting()({ async: ref(false) });
+  const withSorting = useSorting()(createFeatureContextMock());
 
   //ASSERT
   expect(withSorting.header.actions(createConfig("col1"))).toHaveLength(1);
@@ -44,6 +45,7 @@ test("per default should enable show sort symbols and not sort initially", () =>
 
 test("should consider reactive sortState", () => {
   // ARRANGE
+  const async = ref(false);
   const sortState = ref<SortState<TestEntry>>({
     column: "b",
     direction: "desc",
@@ -63,7 +65,7 @@ test("should consider reactive sortState", () => {
         },
       },
     }),
-  })({ async: ref(false) });
+  })(createFeatureContextMock({ async }));
 
   // ASSERT
   expect(withSorting.header.actions(createConfig("non-existent"))).toHaveLength(0);
@@ -98,6 +100,14 @@ test("should consider reactive sortState", () => {
     { id: 2, a: "5", b: "2-End" },
     { id: 1, a: "6", b: "1-End" },
   ]);
+
+  // ACT
+  async.value = true;
+
+  // ASSERT
+  const array3 = getTestData();
+  withSorting.mutation.func(array3);
+  expect(array3, "should use original order when async").toMatchObject(getTestData());
 });
 
 test("should consider reactive columns", () => {
@@ -120,7 +130,7 @@ test("should consider reactive columns", () => {
       direction: "desc",
     },
     columns,
-  })({ async: ref(false) });
+  })(createFeatureContextMock());
 
   // ASSERT
   expect(withSorting.header.actions(createConfig("id"))).toHaveLength(0);
