@@ -45,7 +45,7 @@ const props = defineProps<{
     display: flex;
     flex-direction: column;
     gap: var(--onyx-spacing-2xs);
-    font-weight: var(--onyx-font-weight-medium);
+    font-weight: var(--onyx-font-weight-semibold);
     padding: var(--onyx-spacing-2xs) var(--onyx-spacing-md);
   }
 

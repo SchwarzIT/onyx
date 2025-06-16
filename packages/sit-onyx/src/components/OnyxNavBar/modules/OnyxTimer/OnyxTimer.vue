@@ -70,7 +70,7 @@ defineExpose({
     }
 
     &__time {
-      font-weight: var(--onyx-font-weight-medium);
+      font-weight: var(--onyx-font-weight-semibold);
     }
   }
 }

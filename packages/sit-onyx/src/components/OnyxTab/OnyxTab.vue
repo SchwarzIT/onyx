@@ -96,7 +96,7 @@ const tab = computed(() =>
     color: var(--onyx-color-text-icons-neutral-medium);
     border-radius: var(--onyx-radius-sm);
     padding: var(--onyx-tab-padding-vertical) var(--onyx-density-md);
-    font-weight: var(--onyx-font-weight-medium);
+    font-weight: var(--onyx-font-weight-semibold);
     // tabs should have their needed width and be horizontally scrollable instead if they exceed the max parent width
     // (will be handled by the OnyxTabs component)
     min-width: max-content;

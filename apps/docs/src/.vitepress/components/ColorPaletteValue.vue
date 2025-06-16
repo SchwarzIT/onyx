@@ -94,7 +94,7 @@ const emit = defineEmits<{
 
   &__color {
     padding: var(--onyx-spacing-md);
-    font-weight: var(--onyx-font-weight-medium);
+    font-weight: var(--onyx-font-weight-semibold);
     min-height: 1.5rem;
     box-sizing: content-box;
     background-color: v-bind("props.color");
