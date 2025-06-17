@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from "vue";
+import { ref, watch } from "vue";
 import { DataGridFeatures, normalizedIncludes, OnyxDataGrid, type ColumnConfig } from "../../..";
 
 /**
@@ -32,11 +32,9 @@ const columns: ColumnConfig<Entry>[] = [
  * ====================
  */
 
-/** Whether the very first request is loading. */
-const isFetchingInitially = ref(true);
-
 /** Whether the data is currently loading. */
-const isFetching = ref(false);
+const isLoading = ref(false);
+watch(data, () => (isLoading.value = false)); // whenever the data changes, we turn off the loading state again
 
 // Initialize datagrid states, which we want to observe to query an API with
 const filterState = ref<DataGridFeatures.FilterState<Entry>>({});
@@ -50,10 +48,7 @@ const paginationState = ref<DataGridFeatures.PaginationState>({
   pages: 1,
   pageSize: 25,
 });
-const withPagination = DataGridFeatures.usePagination({
-  paginationState,
-  loading: computed(() => isFetching.value && !isFetchingInitially.value),
-});
+const withPagination = DataGridFeatures.usePagination({ paginationState });
 
 const features = [withFiltering, withSorting, withPagination];
 
@@ -61,12 +56,6 @@ const features = [withFiltering, withSorting, withPagination];
 watch([filterState, sortState, () => paginationState.value.current], simulateAsyncUpdate, {
   deep: true,
   immediate: true,
-});
-
-// whenever the data changes, we turn off the loading states again
-watch(data, () => {
-  isFetchingInitially.value = false;
-  isFetching.value = false;
 });
 
 /**
@@ -78,7 +67,7 @@ watch(data, () => {
  * As this is a simplified example, requirements of real-world applications like error handling and edge cases are not considered.
  */
 async function simulateAsyncUpdate() {
-  isFetching.value = true;
+  isLoading.value = true;
 
   // simulate backend delay here
   await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -117,5 +106,5 @@ async function simulateAsyncUpdate() {
 
 <template>
   <!-- Async is set to true, so that the features data transformation is disabled -->
-  <OnyxDataGrid async :columns :data :features :skeleton="isFetchingInitially || isFetching" />
+  <OnyxDataGrid async :columns :data :features :skeleton="isLoading" />
 </template>
