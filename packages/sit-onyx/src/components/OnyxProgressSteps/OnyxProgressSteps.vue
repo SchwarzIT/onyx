@@ -97,9 +97,14 @@ const mappedSteps = computed(() => {
     display: inline-flex;
     align-items: center;
     gap: var(--onyx-density-sm);
+
+    // overflow styles
     max-width: 100%;
     max-height: 100%;
     overflow: auto;
+    // due to "overflow auto", the focus-visible ring of the steps will be cut off so we use this padding/margin workaround to fix this
+    padding: var(--onyx-outline-width);
+    margin: calc(-1 * var(--onyx-outline-width));
 
     &--vertical {
       flex-direction: column;
