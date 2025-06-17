@@ -20,44 +20,36 @@ export type BaseFeatureOptions = {
 /**
  * The Base feature includes everything that should be provided as built-in functionality of the `OnyxDataGrid` component.
  */
-export const BASE_FEATURE = ({ skeleton }: BaseFeatureOptions) =>
-  createFeature(
-    () =>
-      ({
-        name: BASE_FEATURE_SYMBOL,
-        modifyColumns: {
-          func: (columns) => {
-            if (skeleton.value) {
-              return columns.map((column) => ({
-                ...column,
-                type: { name: "skeleton" },
-              }));
-            } else {
-              return [...columns];
-            }
-          },
+export const BASE_FEATURE = createFeature(
+  ({ skeleton }) =>
+    ({
+      name: BASE_FEATURE_SYMBOL,
+      modifyColumns: {
+        func: (columns) => {
+          if (!skeleton.value) return [...columns];
+          return columns.map((column) => ({ ...column, type: { name: "skeleton" } }));
         },
-        mutation: {
-          func: (rows) => {
-            if (skeleton.value) {
-              const skeletonCount = typeof skeleton.value === "number" ? skeleton.value : 5;
-              return Array.from({ length: skeletonCount }, () => ({}));
-            }
-            return [...rows];
-          },
+      },
+      mutation: {
+        func: (rows) => {
+          if (!skeleton.value) return [...rows];
+          let skeletonCount = typeof skeleton.value === "number" ? skeleton.value : 5;
+          if (rows.length) skeletonCount = rows.length; // if previously rows were displayed, use the same row count for skeletons so the layout does not shift
+          return Array.from({ length: skeletonCount }, () => ({}));
         },
-        scrollContainerAttributes: () => ({
-          class: skeleton.value ? "onyx-data-grid--skeleton" : "",
-        }),
-        watch: [skeleton],
-        typeRenderer: {
-          number: NUMBER_RENDERER,
-          string: STRING_RENDERER,
-          date: DATE_RENDERER,
-          "datetime-local": DATETIME_RENDERER,
-          time: TIME_RENDERER,
-          timestamp: TIMESTAMP_RENDERER,
-          skeleton: SKELETON_RENDERER,
-        },
-      }) as const,
-  );
+      },
+      scrollContainerAttributes: () => ({
+        class: skeleton.value ? "onyx-data-grid--skeleton" : "",
+      }),
+      watch: [skeleton],
+      typeRenderer: {
+        number: NUMBER_RENDERER,
+        string: STRING_RENDERER,
+        date: DATE_RENDERER,
+        "datetime-local": DATETIME_RENDERER,
+        time: TIME_RENDERER,
+        timestamp: TIMESTAMP_RENDERER,
+        skeleton: SKELETON_RENDERER,
+      },
+    }) as const,
+);

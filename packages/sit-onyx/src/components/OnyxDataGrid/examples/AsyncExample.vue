@@ -12,23 +12,18 @@ type Entry = {
   id: number;
   name: string;
   age: number;
-  birthday: Date;
 };
 
-const EXAMPLE_DATA: Entry[] = [
-  { id: 1, name: "Alice", age: 30, birthday: new Date("1990-01-01") },
-  { id: 2, name: "Charlie", age: 35, birthday: new Date("1998-02-11") },
-  { id: 3, name: "Bob", age: 25, birthday: new Date("1995-06-15") },
-  { id: 4, name: "Robin", age: 28, birthday: new Date("2001-02-22") },
-  { id: 5, name: "John", age: 42, birthday: new Date("1997-04-18") },
-];
+const EXAMPLE_DATA: Entry[] = Array.from({ length: 128 }, (_, index) => {
+  const id = index + 1;
+  return { id, name: `Name ${id}`, age: id };
+});
 
 const data = ref<Entry[]>([]);
 
 const columns: ColumnConfig<Entry>[] = [
   { key: "name", label: "Name" },
   { key: "age", label: "Age" },
-  { key: "birthday", label: "Birthday", type: "date" },
 ];
 
 /**
@@ -37,65 +32,79 @@ const columns: ColumnConfig<Entry>[] = [
  * ====================
  */
 
+/** Whether the data is currently loading. */
+const isLoading = ref(false);
+watch(data, () => (isLoading.value = false)); // whenever the data changes, we turn off the loading state again
+
 // Initialize datagrid states, which we want to observe to query an API with
 const filterState = ref<DataGridFeatures.FilterState<Entry>>({});
 const withFiltering = DataGridFeatures.useFiltering<Entry>({ filterState });
 
 const sortState = ref<DataGridFeatures.SortState<Entry>>({ column: undefined, direction: "none" });
-const withSorting = DataGridFeatures.useSorting<Entry>({
-  sortState,
-  columns: { birthday: { enabled: false } },
+const withSorting = DataGridFeatures.useSorting<Entry>({ sortState });
+
+const paginationState = ref<DataGridFeatures.PaginationState>({
+  current: 1,
+  pages: 1,
+  pageSize: 25,
 });
+const withPagination = DataGridFeatures.usePagination({ paginationState });
 
-const features = [withFiltering, withSorting];
+const features = [withFiltering, withSorting, withPagination];
 
-// While an async operation is performed, we show the skeleton mode of the data grid
-const skeleton = ref(false);
-
-watch([filterState, sortState], simulateAsyncUpdate, { deep: true, immediate: true }); // initially and in case the sorting or filtering changes we simulate an API request
-watch(data, () => (skeleton.value = false)); // whenever the data changes, we turn the skeleton off again
+// initially and in case the sorting, filtering or pagination changes we simulate an API request
+watch([filterState, sortState, () => paginationState.value.current], simulateAsyncUpdate, {
+  deep: true,
+  immediate: true,
+});
 
 /**
  * Simulate asynchronous data update from a backend.
- * This function simulates a delay when fetching data and applying filters and sorting.
- * It also shows a skeleton while the data is being "fetched".
+ * This function simulates a delay when fetching data and applying filters, sorting and pagination.
+ * It also sets the loading state while the data is being fetched.
  *
  * Note: You can ignore this function for the purpose if this example.
- * As this is a simplified example, requirements of real-world applications like error handling and pagination are not considered.
+ * As this is a simplified example, requirements of real-world applications like error handling and edge cases are not considered.
  */
-function simulateAsyncUpdate() {
-  skeleton.value = true;
+async function simulateAsyncUpdate() {
+  isLoading.value = true;
 
-  setTimeout(() => {
-    const copy = EXAMPLE_DATA.slice();
+  // simulate backend delay here
+  await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    // Filtering
-    const filtered = copy.filter((e) =>
-      Object.entries(filterState.value).every(([key, value]) =>
-        normalizedIncludes(e[key as keyof Entry].toString(), value),
-      ),
-    );
+  let copy = EXAMPLE_DATA.slice();
 
-    // Sorting
-    const sortColumn = sortState.value.column;
-    if (!sortColumn) {
-      data.value = filtered;
-      return;
-    }
+  // Filtering
+  copy = copy.filter((e) =>
+    Object.entries(filterState.value).every(([key, value]) =>
+      normalizedIncludes(e[key as keyof Entry].toString(), value),
+    ),
+  );
+
+  // Sorting
+  const sortColumn = sortState.value.column;
+  if (sortColumn) {
     const collator = new Intl.Collator();
-    const sorted = filtered.sort((a, b) =>
+    copy.sort((a, b) =>
       sortState.value.direction === "asc"
         ? collator.compare(a[sortColumn].toString(), b[sortColumn].toString())
         : collator.compare(b[sortColumn].toString(), a[sortColumn].toString()),
     );
+  }
 
-    // Update data
-    data.value = sorted;
-  }, 1000);
+  // Pagination
+  paginationState.value.pages = Math.ceil(copy.length / paginationState.value.pageSize);
+
+  const startIndex = (paginationState.value.current - 1) * paginationState.value.pageSize;
+  const endIndex = startIndex + paginationState.value.pageSize;
+  copy = copy.slice(startIndex, endIndex);
+
+  // Update data
+  data.value = copy;
 }
 </script>
 
 <template>
   <!-- Async is set to true, so that the features data transformation is disabled -->
-  <OnyxDataGrid async :columns :data :features :skeleton />
+  <OnyxDataGrid async :columns :data :features :skeleton="isLoading" />
 </template>
