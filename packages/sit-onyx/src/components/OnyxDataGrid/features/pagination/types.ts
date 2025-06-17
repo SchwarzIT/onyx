@@ -12,7 +12,7 @@ export type PaginationOptions = Pick<
   /**
    * How many entries should be displayed per page.
    *
-   * @default 15
+   * @default 25
    */
   pageSize?: number;
   /**
