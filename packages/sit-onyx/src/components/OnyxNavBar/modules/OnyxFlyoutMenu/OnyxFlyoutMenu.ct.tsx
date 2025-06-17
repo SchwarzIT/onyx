@@ -127,8 +127,8 @@ test("should display correctly and allow scrolling for many options", async ({ p
   await expect(menu).toBeInViewport();
   await expect(footer).toBeInViewport();
   await expect(header).toBeInViewport();
-  await expect(menu.getByRole("menuitem", { name: "Option 8" })).toBeInViewport();
-  await expect(menu.getByRole("menuitem", { name: "Option 9" })).not.toBeInViewport();
+  await expect(menu.getByRole("menuitem", { name: "Option 7" })).toBeInViewport();
+  await expect(menu.getByRole("menuitem", { name: "Option 8" })).not.toBeInViewport();
 
   // ACT
   await menu.getByRole("menuitem", { name: "Option 10" }).scrollIntoViewIfNeeded();
