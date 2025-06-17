@@ -97,6 +97,7 @@ test("should hide pagination when empty or only one page exists", async ({ mount
   const pagination = component.getByLabel("Pagination");
 
   // ASSERT
+  await expect(component).toHaveScreenshot("empty.png");
   await expect(component).toContainText("This table is empty.");
   await expect(pagination).toBeHidden();
 
@@ -104,6 +105,7 @@ test("should hide pagination when empty or only one page exists", async ({ mount
   await component.update({ props: { skeleton: true } });
 
   // ASSERT
+  await expect(component).toHaveScreenshot("empty-skeleton.png");
   await expect(pagination).toBeHidden();
   await expectRowCount(component, 5);
   await expect(
@@ -115,6 +117,7 @@ test("should hide pagination when empty or only one page exists", async ({ mount
   await component.update({ props: { data: getTestData(25), skeleton: false } });
 
   // ASSERT
+  await expect(component).toHaveScreenshot("one-page.png");
   await expectRowCount(component, 25);
   await expect(pagination).toBeHidden();
 
@@ -122,6 +125,7 @@ test("should hide pagination when empty or only one page exists", async ({ mount
   await component.update({ props: { skeleton: true } });
 
   // ASSERT
+  await expect(component).toHaveScreenshot("one-page-skeleton.png");
   await expect(pagination).toBeHidden();
   await expectRowCount(component, 25);
   await expect(
@@ -133,6 +137,7 @@ test("should hide pagination when empty or only one page exists", async ({ mount
   await component.update({ props: { data: getTestData(26), skeleton: false } });
 
   // ASSERT
+  await expect(component).toHaveScreenshot("default.png");
   await expectRowCount(component, 25);
   await expect(pagination).toBeVisible();
 });
