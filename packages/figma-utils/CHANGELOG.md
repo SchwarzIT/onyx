@@ -1,5 +1,11 @@
 # @sit-onyx/figma-utils
 
+## 1.0.0-beta.6
+
+### Minor Changes
+
+- 0142958: feat: imported font-variables from figma
+
 ## 1.0.0-beta.5
 
 ### Major Changes

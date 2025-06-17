@@ -1,5 +1,11 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-beta.89
+
+### Minor Changes
+
+- 0142958: feat: imported font-variables from figma
+
 ## 1.0.0-beta.88
 
 ### Major Changes
