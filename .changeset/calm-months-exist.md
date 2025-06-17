@@ -4,4 +4,5 @@
 
 OnyxProgressStep and OnyxProgressSteps: support `skeleton` property
 
-Also make steps scrollable when width/height is exceeded
+- also make steps scrollable when width/height is exceeded
+- fix(OnyxProgressSteps): manage `highestValue` internally when not set explicitly
