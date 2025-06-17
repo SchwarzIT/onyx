@@ -9,7 +9,7 @@
 }
 
 .onyx-disclaimer__title {
-  font-weight: var(--onyx-font-weight-medium);
+  font-weight: var(--onyx-font-weight-semibold);
   margin-bottom: 0.5rem;
 }
 
