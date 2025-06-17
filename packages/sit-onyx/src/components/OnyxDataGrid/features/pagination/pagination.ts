@@ -1,5 +1,6 @@
 import { computed, h, toRef, type Ref } from "vue";
 import { createFeature, useFeatureContext } from "..";
+import { applyLimits } from "../../../../utils/numbers";
 import OnyxPagination from "../../../OnyxPagination/OnyxPagination.vue";
 import { FILTERING_MUTATION_ORDER } from "../filtering/filtering";
 import type { PaginationOptions, PaginationState } from "./types";
@@ -27,7 +28,7 @@ export const usePagination = (options?: PaginationOptions) =>
           if (!isEnabled.value() || isAsync.value) return entries;
 
           state.value.pages = Math.ceil(entries.length / state.value.pageSize);
-          state.value.current = Math.min(state.value.current, state.value.pages);
+          state.value.current = applyLimits(state.value.current, 1, state.value.pages);
 
           const startIndex = (state.value.current - 1) * state.value.pageSize;
           const endIndex = startIndex + state.value.pageSize;
