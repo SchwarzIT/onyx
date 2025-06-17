@@ -9,11 +9,14 @@ export const PAGINATION_FEATURE = Symbol("Pagination");
 export const usePagination = (options?: PaginationOptions) =>
   createFeature((ctx) => {
     const state = toRef(
-      options?.paginationState ?? { current: 1, pages: 1, pageSize: options?.pageSize ?? 15 },
+      options?.paginationState ?? { current: 1, pages: 1, pageSize: options?.pageSize ?? 25 },
     ) as Ref<PaginationState>;
 
     const { isEnabled, isAsync } = useFeatureContext(ctx, options);
     const isLoading = computed(() => options?.loading?.value ?? false);
+    const shouldShowPagination = computed(
+      () => state.value.pages > 1 || state.value.current > state.value.pageSize,
+    );
 
     return {
       name: PAGINATION_FEATURE,
@@ -32,15 +35,18 @@ export const usePagination = (options?: PaginationOptions) =>
         },
       },
       slots: {
-        pagination: () => [
-          h(OnyxPagination, {
-            modelValue: state.value.current,
-            pages: state.value.pages,
-            skeleton: isLoading.value ? false : ctx.skeleton.value,
-            disabled: isLoading.value,
-            "onUpdate:modelValue": (newPage) => (state.value.current = newPage),
-          }),
-        ],
+        pagination: () =>
+          shouldShowPagination.value
+            ? [
+                h(OnyxPagination, {
+                  modelValue: state.value.current,
+                  pages: state.value.pages,
+                  skeleton: isLoading.value ? false : ctx.skeleton.value,
+                  disabled: isLoading.value,
+                  "onUpdate:modelValue": (newPage) => (state.value.current = newPage),
+                }),
+              ]
+            : [],
       },
     };
   });

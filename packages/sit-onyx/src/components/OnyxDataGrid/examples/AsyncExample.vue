@@ -48,7 +48,7 @@ const withSorting = DataGridFeatures.useSorting<Entry>({ sortState });
 const paginationState = ref<DataGridFeatures.PaginationState>({
   current: 1,
   pages: 1,
-  pageSize: 15,
+  pageSize: 25,
 });
 const withPagination = DataGridFeatures.usePagination({
   paginationState,
