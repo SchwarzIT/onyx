@@ -35,6 +35,7 @@ const enabledFeatures = ref({
   stickyColumns: false,
   resize: false,
   skeleton: false,
+  pagination: false,
 });
 
 const data: Entry[] = [
@@ -145,9 +146,13 @@ const dataFeatures = computed(() => {
   if (enabledFeatures.value.resize) {
     enabled.push(DataGridFeatures.useResizing<Entry>());
   }
+  if (enabledFeatures.value.pagination) {
+    enabled.push(DataGridFeatures.usePagination({ pageSize: 2 }));
+  }
   if (enabledFeatures.value.moreActions) {
     enabled.push(dummyFeature);
   }
+
   return enabled;
 });
 </script>
@@ -161,7 +166,7 @@ const dataFeatures = computed(() => {
         v-for="(_, feature) in enabledFeatures"
         :key="feature"
         v-model="enabledFeatures[feature]"
-        :label="`Enable ${feature}`"
+        :label="feature"
       />
     </section>
 
@@ -173,5 +178,7 @@ const dataFeatures = computed(() => {
 .data-grid-settings {
   margin: var(--onyx-grid-gutter) 0;
   display: flex;
+  flex-wrap: wrap;
+  gap: var(--onyx-density-xs);
 }
 </style>
