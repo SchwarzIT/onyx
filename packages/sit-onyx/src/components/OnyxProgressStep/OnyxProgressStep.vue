@@ -3,14 +3,18 @@ import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
 import notificationFlag from "@sit-onyx/icons/notification-flag.svg?raw";
 import { computed } from "vue";
 import { useDensity } from "../../composables/density";
+import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxProgressStepProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxProgressStepProps>(), {
   status: "default",
+  skeleton: SKELETON_INJECTED_SYMBOL,
 });
 
 const { densityClass } = useDensity(props);
+const skeleton = useSkeletonContext(props);
 
 const icon = computed(() => {
   if (props.status === "completed" || props.status === "visited") return checkSmall;
@@ -20,7 +24,13 @@ const icon = computed(() => {
 </script>
 
 <template>
+  <OnyxSkeleton
+    v-if="skeleton"
+    :class="['onyx-progress-step-skeleton', 'onyx-text', densityClass]"
+  />
+
   <button
+    v-else
     :class="[
       'onyx-component',
       'onyx-progress-step',
@@ -43,6 +53,21 @@ const icon = computed(() => {
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
 
+.onyx-progress-step,
+.onyx-progress-step-skeleton {
+  @include layers.component() {
+    --onyx-progress-step-padding: var(--onyx-density-2xs);
+    --onyx-progress-step-gap: var(--onyx-density-sm);
+  }
+}
+
+.onyx-progress-step-skeleton {
+  @include layers.component() {
+    height: calc(1lh + 2 * var(--onyx-progress-step-padding));
+    width: calc(2 * 1lh + 2 * var(--onyx-progress-step-padding) + var(--onyx-progress-step-gap));
+  }
+}
+
 .onyx-progress-step {
   @include layers.component() {
     --onyx-progress-outline-color: var(--onyx-color-component-focus-neutral);
@@ -50,7 +75,7 @@ const icon = computed(() => {
     color: var(--onyx-color-text-icons-neutral-intense);
     display: inline-flex;
     align-items: center;
-    gap: var(--onyx-density-sm);
+    gap: var(--onyx-progress-step-gap);
     font-weight: 600;
 
     // reset button styles
@@ -68,7 +93,7 @@ const icon = computed(() => {
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: var(--onyx-density-2xs);
+      padding: var(--onyx-progress-step-padding);
       border-radius: var(--onyx-radius-full);
       border: 0.125rem solid var(--onyx-progress-step-border-color);
       background-color: var(--onyx-progress-step-background-color);

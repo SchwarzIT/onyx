@@ -33,14 +33,13 @@ const isVertical = computed(() => {
     --onyx-separator-min-size: 2rem;
     background-color: var(--onyx-color-component-border-neutral);
     height: var(--onyx-separator-size);
-    width: 100%;
     min-width: var(--onyx-separator-min-size);
 
     &--vertical {
       width: var(--onyx-separator-size);
       min-width: unset;
       min-height: var(--onyx-separator-min-size);
-      height: 100%;
+      height: initial;
       max-height: 100%;
     }
   }

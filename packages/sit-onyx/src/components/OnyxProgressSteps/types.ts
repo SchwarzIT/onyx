@@ -1,4 +1,5 @@
 import type { DensityProp } from "../../composables/density";
+import type { SkeletonInjected } from "../../composables/useSkeletonState";
 import type { Orientation } from "../../types";
 import type { OnyxProgressStepProps } from "../OnyxProgressStep/types";
 
@@ -22,6 +23,10 @@ export type OnyxProgressStepsProps = DensityProp & {
    * Orientation of the steps.
    */
   orientation?: Orientation;
+  /**
+   * Whether to show all steps as skeleton. Can also be set on individual steps.
+   */
+  skeleton?: SkeletonInjected;
 };
 
 export type ControlledProgressStep = Omit<OnyxProgressStepProps, "value" | "density">;

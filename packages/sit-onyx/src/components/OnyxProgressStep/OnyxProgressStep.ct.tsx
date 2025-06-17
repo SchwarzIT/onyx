@@ -1,3 +1,4 @@
+import { DENSITIES } from "../../composables/density";
 import { test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots";
 import OnyxProgressStep from "./OnyxProgressStep.vue";
@@ -26,4 +27,15 @@ test.describe("Screenshot tests", () => {
       },
     });
   }
+});
+
+test.describe("Screenshot tests (density)", () => {
+  executeMatrixScreenshotTest({
+    name: "Progress step (density)",
+    columns: DENSITIES,
+    rows: ["default", "skeleton"],
+    component: (column, row) => (
+      <OnyxProgressStep label="Step" value={1} density={column} skeleton={row === "skeleton"} />
+    ),
+  });
 });
