@@ -26,6 +26,7 @@ import {
   OnyxLoadingIndicator,
   OnyxPageLayout,
   OnyxPagination,
+  OnyxProgressSteps,
   OnyxRadioGroup,
   OnyxSelect,
   OnyxSidebar,
@@ -70,6 +71,7 @@ const COMPONENTS = [
   "OnyxSelect",
   "OnyxLoadingIndicator",
   "OnyxPagination",
+  "OnyxProgressSteps",
   "OnyxRadioGroup",
   "OnyxSkeleton",
   "OnyxStepper",
@@ -152,6 +154,7 @@ const selectedTab = ref("tab-1");
 const selectedDate = ref<DateValue>();
 
 const openAccordionItems = ref<string[]>([]);
+const currentProgressStep = ref(3);
 </script>
 
 <template>
@@ -164,16 +167,18 @@ const openAccordionItems = ref<string[]>([]);
 
           <OnyxSwitch v-model="useSkeleton" label="All as Skeleton" :skeleton="false" />
 
+          <!-- eslint-disable vue/prefer-true-attribute-shorthand -- shorthand does not work here, see: https://github.com/SchwarzIT/onyx/issues/2741 -->
           <OnyxSelect
             v-model="componentsToShow"
             :options="configOptions"
             label="Visible examples"
             list-label="Available components"
             text-mode="preview"
-            multiple
-            with-check-all
+            :multiple="true"
+            :with-check-all="true"
             with-search
           />
+          <!-- eslint-enable vue/prefer-true-attribute-shorthand -->
         </div>
       </OnyxSidebar>
     </template>
@@ -277,6 +282,17 @@ const openAccordionItems = ref<string[]>([]);
         <OnyxLoadingIndicator v-if="show('OnyxLoadingIndicator')" />
 
         <OnyxPagination v-if="show('OnyxPagination')" v-model="currentPage" :pages="42" />
+
+        <OnyxProgressSteps
+          v-if="show('OnyxProgressSteps')"
+          v-model="currentProgressStep"
+          :steps="[
+            { label: 'Cart' },
+            { label: 'Shipping' },
+            { label: 'Payment' },
+            { label: 'Checkout' },
+          ]"
+        />
 
         <template v-if="show('OnyxRadioGroup')">
           <OnyxRadioGroup

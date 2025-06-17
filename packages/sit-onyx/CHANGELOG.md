@@ -1,5 +1,14 @@
 # sit-onyx
 
+## 1.0.0-beta.246
+
+### Minor Changes
+
+- f838364: OnyxProgressStep and OnyxProgressSteps: support `skeleton` property
+
+  - also make steps scrollable when width/height is exceeded
+  - fix(OnyxProgressSteps): manage `highestValue` internally when not set explicitly
+
 ## 1.0.0-beta.245
 
 ### Major Changes

@@ -1,4 +1,5 @@
 import type { DensityProp } from "../../composables/density";
+import type { SkeletonInjected } from "../../composables/useSkeletonState";
 
 export type OnyxProgressStepProps = DensityProp & {
   /**
@@ -22,6 +23,10 @@ export type OnyxProgressStepProps = DensityProp & {
    * Whether the step is disabled and can not be interacted with.
    */
   disabled?: boolean;
+  /**
+   * Whether to show a skeleton step.
+   */
+  skeleton?: SkeletonInjected;
 };
 
 export const PROGRESS_STEP_STATUS = [

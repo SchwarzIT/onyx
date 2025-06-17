@@ -23,3 +23,10 @@ export const Vertical = {
     orientation: "vertical",
   },
 } satisfies Story;
+
+export const Skeleton = {
+  args: {
+    ...Default.args,
+    skeleton: true,
+  },
+} satisfies Story;
