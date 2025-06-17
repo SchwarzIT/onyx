@@ -48,7 +48,7 @@ Creates a default Storybook preview configuration for a project that uses `onyx`
 
 - Improved controls (sorting and expanded controls so descriptions etc. are also shown in a single story)
 - Improved Vue-specific code highlighting (e.g. using `@` instead of `v-on:`)
-- Setup for dark mode (including docs page). Requires addon [`storybook-dark-mode`](https://storybook.js.org/addons/storybook-dark-mode) to be enabled in .storybook/main.ts file
+- Setup for dark mode (including docs page). Requires addon [`@vueless/storybook-dark-mode`](https://github.com/vuelessjs/storybook-dark-mode#readme) (maintenance form of previous [`storybook-dark-mode`](https://github.com/hipstersmoothie/storybook-dark-mode/issues/295#issuecomment-2938151892)) to be enabled in .storybook/main.ts file
 - Custom Storybook theme using onyx colors (light and dark mode)
 - Configure viewports / breakpoints as defined by onyx
 - Logs Vue emits as Storybook actions
@@ -74,7 +74,7 @@ export default preview;
 import type { StorybookConfig } from "@storybook/vue3-vite";
 
 const config: StorybookConfig = {
-  addons: ["storybook-dark-mode"],
+  addons: ["@vueless/storybook-dark-mode"],
   // ...
 };
 
@@ -105,29 +105,11 @@ See the [Storybook Theming docs](https://storybook.js.org/docs/configure/theming
 If you are using [`createPreview()`](#createpreview), the custom light and dark theme will already be set up for you.
 :::
 
-Make sure you have installed the `@storybook/manager-api` package:
-
-::: code-group
-
-```sh [pnpm]
-pnpm add -D @storybook/manager-api
-```
-
-```sh [npm]
-npm install -D @storybook/manager-api
-```
-
-```sh [yarn]
-yarn install -D @storybook/manager-api
-```
-
-:::
-
 ::: code-group
 
 ```ts [.storybook/manager.ts]
 import { createTheme } from "@sit-onyx/storybook-utils";
-import { addons } from "@storybook/manager-api";
+import { addons } from "storybook/manager-api";
 
 addons.setConfig({
   theme: createTheme({

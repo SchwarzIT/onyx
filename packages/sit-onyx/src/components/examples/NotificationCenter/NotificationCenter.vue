@@ -27,6 +27,10 @@ import {
   useNotification,
   type OnyxNotificationCardProps,
 } from "../../..";
+import {
+  SKELETON_INJECTED_SYMBOL,
+  useSkeletonContext,
+} from "../../../composables/useSkeletonState";
 
 /**
  * Custom notification type for your project. This can also include custom properties depending in your needs (e.g. an ID etc.).
@@ -37,7 +41,10 @@ type MyNotification = OnyxNotificationCardProps & {
    */
   description: string;
 };
-
+const props = withDefaults(defineProps<MyNotification>(), {
+  skeleton: SKELETON_INJECTED_SYMBOL,
+});
+const skeleton = useSkeletonContext(props);
 /**
  * Store that will persist all user notifications of the application.
  * In a real project, this could e.g. be a pinia store.
@@ -162,7 +169,17 @@ const addExampleNotification = () => {
       <template #description> See all notifications from all touchpoints here. </template>
 
       <!-- unread notifications -->
+      <div v-if="skeleton" class="notification-center__skeletons">
+        <OnyxNotificationCard
+          v-for="n in typeof skeleton === 'number' ? skeleton : 6"
+          :key="n"
+          headline="Loading"
+          created-at="Loading"
+          skeleton
+        />
+      </div>
       <OnyxAccordion
+        v-else
         v-model="openAccordions"
         class="notification-center__accordions"
         type="nested-small"
@@ -251,6 +268,12 @@ const addExampleNotification = () => {
 
   &__empty {
     margin-inline: auto;
+  }
+  &__skeletons {
+    display: flex;
+    flex-direction: column;
+    padding: var(--onyx-density-md);
+    gap: var(--onyx-density-md);
   }
 }
 </style>

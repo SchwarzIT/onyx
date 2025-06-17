@@ -5,7 +5,7 @@ import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import OnyxDataGrid from "./OnyxDataGrid.vue";
 import { createFeature } from "./features";
 
-const features = createFeature(() => ({
+const features = createFeature(() => () => ({
   name: Symbol("More actions"),
   watch: [],
   header: {

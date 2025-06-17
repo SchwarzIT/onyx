@@ -7,6 +7,7 @@ import {
   type HTMLAttributes,
   type MaybeRef,
   type MaybeRefOrGetter,
+  type Ref,
   type TdHTMLAttributes,
   type ThHTMLAttributes,
   type WatchSource,
@@ -16,6 +17,7 @@ import { type OnyxI18n } from "../../../i18n";
 import type { DatetimeFormat } from "../../../i18n/datetime-formats";
 import { mergeVueProps } from "../../../utils/attrs";
 import { applyMapping, prepareMapping, type OrderableMapping } from "../../../utils/feature";
+import { asArray } from "../../../utils/objects";
 import type { OnyxMenuItem } from "../../OnyxNavBar/modules";
 import OnyxFlyoutMenu from "../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxSystemButton from "../../OnyxSystemButton/OnyxSystemButton.vue";
@@ -141,7 +143,7 @@ export type PublicNormalizedColumnConfig<
   /**
    * Key of the ColumnGroup that this column should be visually grouped in.
    * The columns have to be defined in the correct order.
-   * So columns that should be grouped together have to actually be defined after eachother.
+   * So columns that should be grouped together have to actually be defined after each other.
    *
    * The label for the column group can be configured via the `columnGroups` prop.
    */
@@ -149,9 +151,34 @@ export type PublicNormalizedColumnConfig<
 };
 
 /**
+ * Context that is passed to a feature when it is set up by the `useDataGridFeatures` composable.
+ */
+export type DataGridFeatureContext = {
+  /**
+   * Ref for the `async` state of the `OnyxDataGrid`. If `true` data mutations should be skipped, if they are expected to be handled by a backend.
+   */
+  async: Readonly<Ref<boolean>>;
+  /**
+   * The `i18n` object, which can be used to access messages, formatters and the current locale.
+   */
+  i18n: OnyxI18n;
+};
+
+/**
  * Complete Type for a single data grid feature.
  */
 export type DataGridFeature<
+  TEntry extends DataGridEntry,
+  TTypeRenderer extends TypeRenderMap<TEntry> = TypeRenderMap<TEntry>,
+  TFeatureName extends symbol = symbol,
+> = (
+  ctx: DataGridFeatureContext,
+) => DataGridFeatureDescription<TEntry, TTypeRenderer, TFeatureName>;
+
+/**
+ * Object that describes the hooks and properties of a datagrid feature.
+ */
+export type DataGridFeatureDescription<
   TEntry extends DataGridEntry,
   TTypeRenderer extends TypeRenderMap<TEntry> = TypeRenderMap<TEntry>,
   TFeatureName extends symbol = symbol,
@@ -179,7 +206,7 @@ export type DataGridFeature<
   };
 
   /**
-   * Defines a renderer for a type.
+   * Defines a renderer for a column type.
    */
   typeRenderer?: TTypeRenderer;
 
@@ -234,9 +261,9 @@ export type DataGridFeature<
 
 export type DataGridFeatureOptions<
   TEntry extends DataGridEntry,
-  TOptions extends object,
   TColumnOptions extends Partial<Record<keyof TEntry, object>>,
-> = TOptions & {
+  TWithAsync extends boolean = false,
+> = {
   /**
    * Whether the feature is enabled by default. Can be overridden per column.
    *
@@ -257,7 +284,14 @@ export type DataGridFeatureOptions<
       }
     | undefined
   >;
-};
+} & (TWithAsync extends true
+  ? {
+      /**
+       * When async is `true`, then the internal data transformations of this feature  are disabled and have to be performed manually.
+       */
+      async?: boolean;
+    }
+  : unknown);
 
 /**
  * Helper function that checks the generics of the DataGridFeature type, without breaking type inference.
@@ -280,11 +314,9 @@ export type DataGridFeatureOptions<
  * ```
  */
 export function createFeature<
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- any must be used here, otherwise the type inference breaks
-  TArgs extends any[],
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- we use any for simplicity
   TFeature extends DataGridFeature<any, any, any>,
-  T extends (...args: TArgs) => CheckDataGridFeature<TFeature>,
+  T extends CheckDataGridFeature<TFeature>,
 >(featureDefinition: T) {
   return featureDefinition;
 }
@@ -302,6 +334,7 @@ export type UseDataGridFeaturesOptions<
   columnConfig: MaybeRefOrGetter<ColumnConfig<TEntry, TColumnGroup, TTypes>[]>;
   i18n: OnyxI18n;
   columnGroups: MaybeRefOrGetter<TColumnGroup>;
+  async: Readonly<Ref<boolean>>;
 };
 
 export const createTableColumnGroups = <
@@ -382,11 +415,21 @@ export const useDataGridFeatures = <
   // The inference of tuple values allows us to create types that are more precise
   T extends DataGridFeature<TEntry, TTypeRenderer, TFeatureName>[] | [],
 >(
-  features: T,
-  { i18n, columnConfig, columnGroups }: UseDataGridFeaturesOptions<TEntry, TColumnGroup, TTypes>,
+  featureDefinitions: T,
+  {
+    i18n,
+    columnConfig,
+    columnGroups,
+    async,
+  }: UseDataGridFeaturesOptions<TEntry, TColumnGroup, TTypes>,
 ) => {
+  const features = featureDefinitions.map((f) => f({ async, i18n }));
+
   const columnMappings = computed(() =>
-    prepareMapping<InternalColumnConfig<TEntry>[], T, "modifyColumns">(features, "modifyColumns"),
+    prepareMapping<InternalColumnConfig<TEntry>[], typeof features, "modifyColumns">(
+      features,
+      "modifyColumns",
+    ),
   );
 
   const columns = computed(() => {
@@ -449,11 +492,7 @@ export const useDataGridFeatures = <
       const actionsSlot = {
         actions: () => {
           // normalizing the iconComponents from Component to {iconComponent: Component}
-          const iconsArray = Array.isArray(iconComponent)
-            ? iconComponent
-            : iconComponent
-              ? [iconComponent]
-              : [];
+          const iconsArray = asArray(iconComponent);
           const normalizedIcons = iconsArray.map((ic) => {
             if (typeof ic === "object" && "iconComponent" in ic) {
               return ic;
@@ -556,8 +595,9 @@ export const useDataGridFeatures = <
   };
 };
 
-export const useIsFeatureEnabled = (
-  options?: DataGridFeatureOptions<DataGridEntry, object, object>,
+export const useFeatureContext = (
+  ctx: DataGridFeatureContext,
+  options?: DataGridFeatureOptions<DataGridEntry, object, boolean>,
 ) => {
   const isEnabled = computed(() => {
     return (column: PropertyKey) => {
@@ -568,6 +608,8 @@ export const useIsFeatureEnabled = (
     };
   });
 
+  const isAsync = computed(() => (options as { async?: boolean })?.async ?? ctx.async.value);
+
   return {
     /**
      * Checks whether a data grid feature is enabled for a given column.
@@ -576,5 +618,9 @@ export const useIsFeatureEnabled = (
      * @default true
      */
     isEnabled,
+    /**
+     * Whether the feature only or all features have data transformations enabled.
+     */
+    isAsync,
   };
 };

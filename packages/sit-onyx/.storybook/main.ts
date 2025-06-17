@@ -11,11 +11,14 @@ const onyxLayers = readFileSync(
 const config: StorybookConfig = {
   stories: ["./pages/*.mdx", "../src/**/*.stories.ts"],
   addons: [
-    "@storybook/addon-essentials",
-    "storybook-dark-mode",
+    "@storybook/addon-docs",
+    "@vueless/storybook-dark-mode",
     "@storybook/addon-a11y",
     "storybook-addon-tag-badges",
   ],
+  features: {
+    interactions: false,
+  },
   staticDirs: ["./public"],
   framework: {
     name: "@storybook/vue3-vite",

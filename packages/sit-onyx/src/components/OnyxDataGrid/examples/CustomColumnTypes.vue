@@ -59,7 +59,7 @@ const withCustomType = createFeature(() => ({
   } satisfies TypeRenderMap<Entry>,
 }));
 
-const features = [withCustomType()];
+const features = [withCustomType];
 </script>
 
 <template>
@@ -67,7 +67,7 @@ const features = [withCustomType()];
     :columns="[
       { key: 'name', label: 'Name', type: 'string' },
       { key: 'age', label: 'Age', type: { name: 'ageIcon', options: { offset: -5 } } },
-      { key: 'id', label: '', type: 'detailsButton' },
+      { key: 'id', label: '', type: 'detailsButton', width: 'min-content' },
     ]"
     :data
     :features

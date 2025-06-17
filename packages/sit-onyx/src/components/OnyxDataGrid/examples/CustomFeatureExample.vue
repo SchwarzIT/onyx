@@ -56,7 +56,7 @@ const withCustomFeature = createFeature(() => ({
   },
 }));
 
-const features = [withCustomFeature()];
+const features = [withCustomFeature];
 </script>
 
 <template>

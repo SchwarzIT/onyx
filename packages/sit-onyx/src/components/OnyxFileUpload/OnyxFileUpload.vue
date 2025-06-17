@@ -18,6 +18,7 @@ import {
   formatBytesToString,
   type BinaryPrefixedSize,
 } from "../../utils/numbers";
+import { asArray } from "../../utils/objects";
 import { OnyxFileUploadSVG } from "../illustrations";
 import type { OnyxFileUploadProps } from "./types";
 
@@ -45,10 +46,7 @@ const modelValue = useVModel<TModelValue, "modelValue", typeof props, undefined>
 
 const input = useTemplateRef<HTMLInputElement>("inputRef");
 
-const currentFiles = computed<File[]>(() => {
-  if (!modelValue.value) return [];
-  return Array.isArray(modelValue.value) ? modelValue.value : [modelValue.value];
-});
+const currentFiles = computed<File[]>(() => asArray(modelValue.value));
 
 /**
  * Sets the currently selected files by considering all relevant props (e.g. replace etc.).

@@ -1,6 +1,5 @@
 import { h, ref, toRef, useId, type Ref } from "vue";
 import { createFeature, type ModifyColumns } from "..";
-import { injectI18n } from "../../../../i18n";
 import OnyxCheckbox from "../../../OnyxCheckbox/OnyxCheckbox.vue";
 import type { DataGridEntry } from "../../types";
 import { createTypeRenderer } from "../renderer";
@@ -9,8 +8,8 @@ import type { SelectionOptions, SelectionState } from "./types";
 
 export const SELECTION_FEATURE = Symbol("Selection");
 
-export const useSelection = createFeature(
-  <TEntry extends DataGridEntry>(options?: SelectionOptions) => {
+export const useSelection = <TEntry extends DataGridEntry>(options?: SelectionOptions) =>
+  createFeature(({ i18n }) => {
     const SELECTION_COLUMN = `selection-column-${useId()}`;
     const selectionState: Ref<SelectionState> = toRef(
       options?.selectionState ??
@@ -54,8 +53,6 @@ export const useSelection = createFeature(
       (selectionState.value.selectMode === "include" &&
         selectionState.value.contingent.size === rowsCount.value);
 
-    const { t } = injectI18n();
-
     const modifyColumns: ModifyColumns<TEntry> = {
       func: (cols) =>
         disabled.value
@@ -89,8 +86,8 @@ export const useSelection = createFeature(
               h(OnyxCheckbox, {
                 label:
                   selectionState.value.selectMode === "include"
-                    ? t.value("dataGrid.head.selection.selectAll")
-                    : t.value("dataGrid.head.selection.deselectAll"),
+                    ? i18n.t.value("dataGrid.head.selection.selectAll")
+                    : i18n.t.value("dataGrid.head.selection.deselectAll"),
                 value: `selection-all-rows`,
                 hideLabel: true,
                 indeterminate: isIndeterminate(),
@@ -109,8 +106,8 @@ export const useSelection = createFeature(
               const idAsString = String(row.id);
               const label =
                 selectionState.value.selectMode === "include"
-                  ? t.value("dataGrid.head.selection.select", { id: idAsString })
-                  : t.value("dataGrid.head.selection.deselect", { id: idAsString });
+                  ? i18n.t.value("dataGrid.head.selection.select", { id: idAsString })
+                  : i18n.t.value("dataGrid.head.selection.deselect", { id: idAsString });
               return h(OnyxCheckbox, {
                 class: {
                   "onyx-data-grid-selection-cell__checkbox": true,
@@ -128,5 +125,4 @@ export const useSelection = createFeature(
         }),
       },
     };
-  },
-);
+  });
