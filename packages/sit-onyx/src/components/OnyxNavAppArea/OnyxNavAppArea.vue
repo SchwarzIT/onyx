@@ -58,7 +58,7 @@ const linkProps = computed(() => extractLinkProps(props.link));
     align-items: center;
     gap: var(--onyx-spacing-md);
     padding: var(--onyx-spacing-md);
-    font-weight: 600;
+    font-weight: var(--onyx-font-weight-semibold);
     white-space: pre-line;
     max-width: 100%;
     // Full container height as maximum

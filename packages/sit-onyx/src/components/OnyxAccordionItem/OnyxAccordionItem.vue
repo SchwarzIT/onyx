@@ -109,9 +109,9 @@ const panelId = computed(() => `panel-${props.value.toString()}`);
       var(--onyx-color-component-border-neutral);
     --onyx-accordion-item-border-focus: none;
     --onyx-accordion-item-border-radius: var(--onyx-radius-md);
-    --onyx-accordion-item-font-size: 1rem;
-    --onyx-accordion-item-line-height: 1.5rem;
-    --onyx-accordion-item-font-weight: 400;
+    --onyx-accordion-item-font-size: var(--onyx-font-size-md);
+    --onyx-accordion-item-line-height: var(--onyx-font-line-height-md);
+    --onyx-accordion-item-font-weight: var(--onyx-font-weight-regular);
     --onyx-accordion-item-justify: space-between;
     --onyx-accordion-item-chevron-rotation: 0deg;
     --onyx-accordion-item-chevron-rotation-open: 180deg;
@@ -125,10 +125,9 @@ const panelId = computed(() => `panel-${props.value.toString()}`);
     --onyx-accordion-item-background-focus: var(--onyx-accordion-item-background-hover);
     --onyx-accordion-item-outline: var(--onyx-outline-width) solid
       var(--onyx-color-component-focus-primary);
-
     &--nested-large,
     &--nested-small {
-      --onyx-accordion-item-font-weight: 600;
+      --onyx-accordion-item-font-weight: var(--onyx-font-weight-semibold);
       --onyx-accordion-item-gap: var(--onyx-density-xs);
       --onyx-accordion-item-justify: flex-start;
       --onyx-accordion-item-chevron-rotation: 90deg;
@@ -148,8 +147,8 @@ const panelId = computed(() => `panel-${props.value.toString()}`);
 
     &--nested-small {
       --onyx-accordion-item-padding: var(--onyx-density-xs) var(--onyx-density-md);
-      --onyx-accordion-item-font-size: 0.8125rem;
-      --onyx-accordion-item-line-height: 1.25rem;
+      --onyx-accordion-item-font-size: var(--onyx-font-size-sm);
+      --onyx-accordion-item-line-height: var(--onyx-font-line-height-sm);
       --onyx-accordion-item-color: var(--onyx-color-text-icons-neutral-medium);
       --onyx-accordion-item-background: var(--onyx-color-base-background-tinted);
       --onyx-accordion-item-background-hover: var(--onyx-color-base-neutral-200);

@@ -45,13 +45,13 @@ const props = defineProps<{
     display: flex;
     flex-direction: column;
     gap: var(--onyx-spacing-2xs);
-    font-weight: 600;
+    font-weight: var(--onyx-font-weight-semibold);
     padding: var(--onyx-spacing-2xs) var(--onyx-spacing-md);
   }
 
   &__title {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
+    font-size: var(--onyx-font-size-lg);
+    line-height: var(--onyx-font-line-height-lg);
     margin: 0;
     color: var(--onyx-color-text-icons-neutral-intense);
   }
@@ -59,7 +59,7 @@ const props = defineProps<{
   &__subtitle {
     color: var(--onyx-color-text-icons-neutral-medium);
     margin: 0;
-    line-height: 1.5rem;
+    line-height: var(--onyx-font-line-height-md);
   }
 
   &:hover,

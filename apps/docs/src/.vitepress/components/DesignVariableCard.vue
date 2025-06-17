@@ -90,7 +90,7 @@ const handleCopy = async () => {
   }
 
   &__value {
-    font-weight: 600;
+    font-weight: var(--onyx-font-weight-semibold);
     color: var(--onyx-color-text-icons-neutral-soft);
     border-top: var(--border);
     padding: var(--onyx-spacing-2xs) var(--padding-inline);

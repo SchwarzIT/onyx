@@ -2,8 +2,7 @@
 
 @layer onyx.utility {
   :root {
-    --onyx-font-family: "Source Sans 3 Variable", sans-serif;
-    --onyx-font-family-mono: "Source Code Pro Variable", monospace;
+    --onyx-font-family: var(--onyx-font-family-paragraph), sans-serif;
     --onyx-1px-in-rem: 0.0625rem;
 
     // animation/transition durations

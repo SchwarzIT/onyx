@@ -121,8 +121,8 @@ const handleApply = () => {
 
     &__label {
       font-weight: 600;
-      font-size: 1rem;
-      line-height: 1.5rem;
+      font-size: var(--onyx-font-size-md);
+      line-height: var(--onyx-font-line-height-md);
       color: var(--onyx-color-text-icons-neutral-intense);
     }
 

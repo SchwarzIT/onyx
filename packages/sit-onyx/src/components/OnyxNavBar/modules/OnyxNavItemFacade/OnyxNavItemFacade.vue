@@ -72,7 +72,7 @@ const hasChildren = computed(() => !!slots.children);
 
     &:has(.onyx-nav-item--active),
     &.onyx-nav-item--active {
-      font-weight: 600;
+      font-weight: var(--onyx-font-weight-semibold);
       color: var(--onyx-color-text-icons-primary-intense);
       --onyx-list-item-color-selected: var(--onyx-color-text-icons-primary-intense);
 
@@ -94,10 +94,10 @@ const hasChildren = computed(() => !!slots.children);
     color: var(--onyx-color-text-icons-neutral-intense);
     width: 100%;
     align-self: stretch;
-    line-height: 1.5rem;
+    line-height: var(--onyx-font-line-height-md);
     text-align: start;
-    font-size: 1rem;
-    font-weight: 400;
+    font-size: var(--onyx-font-size-md);
+    font-weight: var(--onyx-font-weight-regular);
     border-radius: var(--onyx-radius-sm);
     border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
 

@@ -67,7 +67,7 @@ const props = withDefaults(
 
   &__name {
     font-family: var(--onyx-font-family-mono);
-    font-size: 0.8125rem;
+    font-size: var(--onyx-font-size-sm);
   }
 }
 </style>

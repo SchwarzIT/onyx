@@ -49,6 +49,7 @@ export const parseFigmaVariables = (
         variable.valuesByMode?.[mode.modeId],
         apiResponse.meta.variables,
         options?.remBase,
+        variableName,
       );
 
       // add/update parsed variable value
@@ -108,13 +109,18 @@ export const resolveFigmaVariableValue = (
   value: VariableValue,
   allVariables: Record<string, Variable>,
   remBase: ParseFigmaVariablesOptions["remBase"] = 16,
+  name?: string,
 ): string => {
   if (typeof value === "number") {
+    if (name?.includes("font-weight")) return `${value}`;
     // numeric value, parse as rem or pixel value
     // note: value 0 should also be parsed as "0rem" instead of just "0" because otherwise
     // the CSS variable could not be used together with "calc()"
     if (remBase === false || remBase <= 0) return `${value}px`;
     return `${value / remBase}rem`;
+  }
+  if (typeof value === "string") {
+    return `"${value}"`;
   }
 
   if ("type" in value) {

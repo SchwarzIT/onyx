@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "onyx-light" theme.
- * Imported from Figma API on Thu, 03 Apr 2025 08:40:40 GMT
+ * Imported from Figma API on Tue, 17 Jun 2025 12:37:03 GMT
  */
 :where(:root),
 .onyx-theme-default {
@@ -94,6 +94,8 @@
   --onyx-color-component-focus-primary: var(--onyx-color-base-primary-200);
   --onyx-color-component-focus-success: var(--onyx-color-base-success-200);
   --onyx-color-component-focus-warning: var(--onyx-color-base-warning-200);
+  --onyx-color-component-nav-label: var(--onyx-color-text-icons-primary-intense);
+  --onyx-color-component-nav-stroke: var(--onyx-color-base-primary-500);
   --onyx-color-component-opacity-backdrop: var(--onyx-color-opacity-soft);
   --onyx-color-text-icons-danger-bold: var(--onyx-color-red-700);
   --onyx-color-text-icons-danger-intense: var(--onyx-color-red-500);
@@ -120,6 +122,22 @@
   --onyx-color-text-icons-warning-intense: var(--onyx-color-orange-500);
   --onyx-color-text-icons-warning-medium: var(--onyx-color-orange-300);
   --onyx-color-text-icons-warning-soft: var(--onyx-color-orange-200);
+  --onyx-font-family-data: var(--onyx-font-family-default);
+  --onyx-font-family-description: var(--onyx-font-family-description);
+  --onyx-font-family-h1: var(--onyx-font-family-default);
+  --onyx-font-family-h2: var(--onyx-font-family-default);
+  --onyx-font-family-h3: var(--onyx-font-family-default);
+  --onyx-font-family-h4: var(--onyx-font-family-default);
+  --onyx-font-family-paragraph: var(--onyx-font-family-default);
+  --onyx-font-letter-spacing-default: var(--onyx-font-values-0-spacing);
+  --onyx-font-line-height-lg: var(--onyx-font-values-500);
+  --onyx-font-line-height-md: var(--onyx-font-values-400);
+  --onyx-font-line-height-sm: var(--onyx-font-values-300);
+  --onyx-font-line-height-xl: var(--onyx-font-values-600);
+  --onyx-font-size-lg: var(--onyx-font-values-300);
+  --onyx-font-size-md: var(--onyx-font-values-200);
+  --onyx-font-size-sm: var(--onyx-font-values-100);
+  --onyx-font-size-xl: var(--onyx-font-values-500);
   --onyx-radius-full: var(--onyx-number-radius-600);
   --onyx-radius-lg: var(--onyx-number-radius-400);
   --onyx-radius-md: var(--onyx-number-radius-300);

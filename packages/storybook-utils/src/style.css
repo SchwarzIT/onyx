@@ -1,7 +1,7 @@
 .onyx-disclaimer {
   border-radius: 0.5rem;
   padding: 1rem;
-  line-height: 1.5rem;
+  line-height: var(--onyx-font-line-height-md);
   margin: 1rem 0;
 
   /* same color as VitePress var(--vp-c-tip-soft) */
@@ -9,7 +9,7 @@
 }
 
 .onyx-disclaimer__title {
-  font-weight: 600;
+  font-weight: var(--onyx-font-weight-semibold);
   margin-bottom: 0.5rem;
 }
 

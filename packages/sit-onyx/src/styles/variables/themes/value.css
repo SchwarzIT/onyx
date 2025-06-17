@@ -1,22 +1,22 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "value" theme.
- * Imported from Figma API on Thu, 03 Apr 2025 08:40:40 GMT
+ * Imported from Figma API on Tue, 17 Jun 2025 12:37:03 GMT
  */
 :where(:root),
 .onyx-theme-default {
   --onyx-color-digits-100: #e8fcfc;
-  --onyx-color-digits-200: #bbeaed;
-  --onyx-color-digits-300: #79dde2;
-  --onyx-color-digits-400: #3dd0d8;
-  --onyx-color-digits-500: #00c3cd;
-  --onyx-color-digits-600: #00adb5;
-  --onyx-color-digits-700: #00969d;
-  --onyx-color-digits-800: #008085;
-  --onyx-color-digits-900: #00696e;
-  --onyx-color-digits-1000: #005356;
-  --onyx-color-digits-1100: #003c3e;
-  --onyx-color-digits-1200: #002626;
+  --onyx-color-digits-200: #c2e8ee;
+  --onyx-color-digits-300: #96d7e2;
+  --onyx-color-digits-400: #75c7d5;
+  --onyx-color-digits-500: #3bbdce;
+  --onyx-color-digits-600: #00b0bf;
+  --onyx-color-digits-700: #00a5b0;
+  --onyx-color-digits-800: #0099a5;
+  --onyx-color-digits-900: #008291;
+  --onyx-color-digits-1000: #006975;
+  --onyx-color-digits-1100: #00535d;
+  --onyx-color-digits-1200: #003b42;
   --onyx-color-grayscale-black: #000000;
   --onyx-color-grayscale-white: #ffffff;
   --onyx-color-green-100: #ecf8f2;
@@ -55,18 +55,18 @@
   --onyx-color-lemon-1000: #3f4805;
   --onyx-color-lemon-1100: #282e02;
   --onyx-color-lemon-1200: #121601;
-  --onyx-color-lidl-100: #e8f3fc;
-  --onyx-color-lidl-200: #bedcf2;
-  --onyx-color-lidl-300: #77b7e4;
-  --onyx-color-lidl-400: #3b98d9;
-  --onyx-color-lidl-500: #0079ce;
-  --onyx-color-lidl-600: #0069b4;
-  --onyx-color-lidl-700: #005899;
-  --onyx-color-lidl-800: #00487f;
-  --onyx-color-lidl-900: #003e6c;
-  --onyx-color-lidl-1000: #003359;
-  --onyx-color-lidl-1100: #002946;
-  --onyx-color-lidl-1200: #001e33;
+  --onyx-color-lidl-100: #f0f7ff;
+  --onyx-color-lidl-200: #c2dfff;
+  --onyx-color-lidl-300: #61b5e8;
+  --onyx-color-lidl-400: #008cd2;
+  --onyx-color-lidl-500: #0050aa;
+  --onyx-color-lidl-600: #024897;
+  --onyx-color-lidl-700: #03438c;
+  --onyx-color-lidl-800: #043d7e;
+  --onyx-color-lidl-900: #002466;
+  --onyx-color-lidl-1000: #04204d;
+  --onyx-color-lidl-1100: #081c34;
+  --onyx-color-lidl-1200: #09111d;
   --onyx-color-lime-100: #effcef;
   --onyx-color-lime-200: #d5f5d6;
   --onyx-color-lime-300: #b8f3bc;
@@ -105,6 +105,30 @@
   --onyx-color-orange-1000: #73451c;
   --onyx-color-orange-1100: #593412;
   --onyx-color-orange-1200: #402309;
+  --onyx-color-prezero-green-100: #e8f3bd;
+  --onyx-color-prezero-green-200: #e2f593;
+  --onyx-color-prezero-green-300: #d3ed64;
+  --onyx-color-prezero-green-400: #bedd3c;
+  --onyx-color-prezero-green-500: #a5c814;
+  --onyx-color-prezero-green-600: #9dc00c;
+  --onyx-color-prezero-green-700: #91b306;
+  --onyx-color-prezero-green-800: #809d09;
+  --onyx-color-prezero-green-900: #6a8205;
+  --onyx-color-prezero-green-1000: #556902;
+  --onyx-color-prezero-green-1100: #475803;
+  --onyx-color-prezero-green-1200: #374402;
+  --onyx-color-prezero-petrol-100: #e5eced;
+  --onyx-color-prezero-petrol-200: #ccd8db;
+  --onyx-color-prezero-petrol-300: #b2c5c9;
+  --onyx-color-prezero-petrol-400: #99b1b7;
+  --onyx-color-prezero-petrol-500: #809ea4;
+  --onyx-color-prezero-petrol-600: #668b92;
+  --onyx-color-prezero-petrol-700: #4d7780;
+  --onyx-color-prezero-petrol-800: #33646e;
+  --onyx-color-prezero-petrol-900: #1a505c;
+  --onyx-color-prezero-petrol-1000: #003d4a;
+  --onyx-color-prezero-petrol-1100: #00252d;
+  --onyx-color-prezero-petrol-1200: #001f25;
   --onyx-color-purple-100: #f4f1f8;
   --onyx-color-purple-200: #dbcfea;
   --onyx-color-purple-300: #c2addc;
@@ -201,6 +225,25 @@
   --onyx-color-twogo-1000: #023e42;
   --onyx-color-twogo-1100: #012c2e;
   --onyx-color-twogo-1200: #00191b;
+  --onyx-font-family-default: "Source Sans 3 Variable";
+  --onyx-font-family-digits: "DIN 2014";
+  --onyx-font-family-digits-decorative: "Univia Pro";
+  --onyx-font-family-kaufland: "Kaufland";
+  --onyx-font-family-lidl: "Lidl Font Pro";
+  --onyx-font-family-mono: "Source Code Pro Variable";
+  --onyx-font-family-prezero: "Helsinki";
+  --onyx-font-family-schwarz: "Helvetica Now Var";
+  --onyx-font-values-0: 0.75rem;
+  --onyx-font-values-0-spacing: "0%";
+  --onyx-font-values-100: 0.8125rem;
+  --onyx-font-values-200: 1rem;
+  --onyx-font-values-300: 1.25rem;
+  --onyx-font-values-400: 1.5rem;
+  --onyx-font-values-500: 1.75rem;
+  --onyx-font-values-600: 2.5rem;
+  --onyx-font-weight-bold: 700;
+  --onyx-font-weight-regular: 400;
+  --onyx-font-weight-semibold: 600;
   --onyx-number-radius-100: 0.125rem;
   --onyx-number-radius-200: 0.25rem;
   --onyx-number-radius-300: 0.5rem;
