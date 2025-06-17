@@ -11,7 +11,6 @@ import type { OnyxProgressStepsProps } from "./types";
 const props = withDefaults(defineProps<OnyxProgressStepsProps>(), {
   orientation: "horizontal",
   modelValue: 1,
-  highestValue: 1,
   skeleton: SKELETON_INJECTED_SYMBOL,
 });
 
@@ -23,7 +22,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the highest visited step/value changes.
    */
-  "update:highestValue": [value: number];
+  "update:highestValue": [value?: number];
 }>();
 
 const { densityClass } = useDensity(props);
