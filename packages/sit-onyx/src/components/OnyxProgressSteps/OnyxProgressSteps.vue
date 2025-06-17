@@ -98,6 +98,9 @@ const mappedSteps = computed(() => {
     display: inline-flex;
     align-items: center;
     gap: var(--onyx-density-sm);
+    max-width: 100%;
+    max-height: 100%;
+    overflow: auto;
 
     &--vertical {
       flex-direction: column;

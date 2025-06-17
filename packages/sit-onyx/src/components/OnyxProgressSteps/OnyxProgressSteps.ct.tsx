@@ -44,6 +44,29 @@ test.describe("Screenshot tests (skeleton)", () => {
   });
 });
 
+test.describe("Screenshot tests (max size)", () => {
+  executeMatrixScreenshotTest({
+    name: "Progress steps (max size)",
+    columns: ["default", "scrolled"],
+    rows: ORIENTATIONS,
+    component: (column, row) => (
+      <OnyxProgressSteps
+        orientation={row}
+        steps={STEPS}
+        style={{ maxWidth: "9rem", maxHeight: "7rem" }}
+      />
+    ),
+    hooks: {
+      beforeEach: async (component, page, column) => {
+        if (column === "scrolled")
+          await component
+            .getByRole("button", { name: STEPS.at(-1)!.label })
+            .scrollIntoViewIfNeeded();
+      },
+    },
+  });
+});
+
 test("should behave correctly", async ({ mount }) => {
   // ARRANGE
   const component = await mount(OnyxProgressSteps, {
