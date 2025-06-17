@@ -3,6 +3,7 @@ import * as vue from "vue";
 import type { DefaultSupportedTypes } from ".";
 import { provideI18n } from "../../../i18n";
 import { BASE_FEATURE } from "./base/base";
+import { createFeatureContextMock } from "./index.spec";
 import { createRenderer, FALLBACK_RENDER_VALUE } from "./renderer";
 
 // keep track of provide/inject because they need to be mocked
@@ -115,9 +116,9 @@ describe("renderers", () => {
     });
   }
 });
-const skeleton = vue.computed(() => true);
+
 function getRendererCellValue(value: unknown, type?: DefaultSupportedTypes) {
-  const renderer = createRenderer([BASE_FEATURE({ skeleton })()]);
+  const renderer = createRenderer([BASE_FEATURE(createFeatureContextMock())]);
   return renderer
     .getFor("cell", type)
     .component(

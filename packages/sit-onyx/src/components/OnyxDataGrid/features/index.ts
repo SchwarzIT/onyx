@@ -10,6 +10,7 @@ import {
   type Ref,
   type TdHTMLAttributes,
   type ThHTMLAttributes,
+  type VNode,
   type WatchSource,
 } from "vue";
 import type { ComponentSlots } from "vue-component-type-helpers";
@@ -21,7 +22,7 @@ import { asArray } from "../../../utils/objects";
 import type { OnyxMenuItem } from "../../OnyxNavBar/modules";
 import OnyxFlyoutMenu from "../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxSystemButton from "../../OnyxSystemButton/OnyxSystemButton.vue";
-import type { TableColumnGroup } from "../../OnyxTable/types";
+import type { OnyxTableSlots, TableColumnGroup } from "../../OnyxTable/types";
 import type {
   DataGridRendererCell,
   DataGridRendererColumn,
@@ -81,7 +82,7 @@ export type ColumnConfig<
   | PublicNormalizedColumnConfig<
       TEntry,
       TColumnGroup,
-      TTypes | RenderTypesFromFeature<[ReturnType<typeof BASE_FEATURE>]>
+      TTypes | RenderTypesFromFeature<[typeof BASE_FEATURE]>
     >;
 
 export type DefaultSupportedTypes = "string" | "number" | DatetimeFormat;
@@ -162,6 +163,10 @@ export type DataGridFeatureContext = {
    * The `i18n` object, which can be used to access messages, formatters and the current locale.
    */
   i18n: OnyxI18n;
+  /**
+   * Whether the data grid should be shows as skeleton.
+   */
+  skeleton: Readonly<Ref<number | boolean>>;
 };
 
 /**
@@ -201,6 +206,8 @@ export type DataGridFeatureDescription<
     /**
      * Defines the order in which the mutation is handled.
      * This can be used to control the sequence of operations when multiple mutations are applied.
+     *
+     * @default 0
      */
     order?: number;
   };
@@ -257,7 +264,19 @@ export type DataGridFeatureDescription<
     ) => Component;
   };
   scrollContainerAttributes?: () => HTMLAttributes;
+  /**
+   * Optional table slots.
+   */
+  slots?: DataGridFeatureSlots;
 };
+
+export type DataGridFeatureSlots = Partial<{
+  [TSlotName in keyof Pick<OnyxTableSlots, "headline" | "bottomLeft" | "pagination">]: (
+    slotContent?: () => VNode[],
+  ) => VNode[];
+}>;
+
+export type InternalDataGridSlots = Partial<Record<keyof DataGridFeatureSlots, () => VNode[]>>;
 
 export type DataGridFeatureOptions<
   TEntry extends DataGridEntry,
@@ -269,7 +288,7 @@ export type DataGridFeatureOptions<
    *
    * @default true
    */
-  enabled?: boolean;
+  enabled?: MaybeRef<boolean>;
   /**
    * Options for each column. Will override default/global options of the feature.
    */
@@ -335,6 +354,7 @@ export type UseDataGridFeaturesOptions<
   i18n: OnyxI18n;
   columnGroups: MaybeRefOrGetter<TColumnGroup>;
   async: Readonly<Ref<boolean>>;
+  skeleton: DataGridFeatureContext["skeleton"];
 };
 
 export const createTableColumnGroups = <
@@ -421,9 +441,10 @@ export const useDataGridFeatures = <
     columnConfig,
     columnGroups,
     async,
+    skeleton,
   }: UseDataGridFeaturesOptions<TEntry, TColumnGroup, TTypes>,
 ) => {
-  const features = featureDefinitions.map((f) => f({ async, i18n }));
+  const features = featureDefinitions.map((f) => f({ async, i18n, skeleton }));
 
   const columnMappings = computed(() =>
     prepareMapping<InternalColumnConfig<TEntry>[], typeof features, "modifyColumns">(
@@ -577,6 +598,23 @@ export const useDataGridFeatures = <
     });
   };
 
+  const createSlots = () => {
+    const slots: InternalDataGridSlots = {};
+
+    features.forEach((feature) => {
+      if (!feature.slots) return;
+
+      Object.entries(feature.slots).forEach(([_slotName, slotFunc]) => {
+        const slotName = _slotName as keyof typeof feature.slots;
+        const existingSlot = slots[slotName];
+        const newSlot = () => slotFunc(existingSlot);
+        slots[slotName] = newSlot;
+      });
+    });
+
+    return slots;
+  };
+
   const watchSources: WatchSource[] = features.flatMap((f) => f.watch ?? []);
 
   return {
@@ -590,6 +628,8 @@ export const useDataGridFeatures = <
     createRendererRows,
     /** Takes the column definition and creates a RenderHeader for each, adds actions from features */
     createRendererColumns,
+    /** Uses all features and generates the content of the additional table slots (headline, pagination etc.) for the underlying OnyxTable */
+    createSlots,
     // the combined `watch` for all features
     watchSources,
   };
@@ -600,10 +640,10 @@ export const useFeatureContext = (
   options?: DataGridFeatureOptions<DataGridEntry, object, boolean>,
 ) => {
   const isEnabled = computed(() => {
-    return (column: PropertyKey) => {
+    return (column?: PropertyKey) => {
       const columns = toValue(options?.columns);
-      const defaultEnabled = options?.enabled ?? true;
-      const isColumnEnabled = columns?.[column]?.enabled;
+      const defaultEnabled = toValue(options?.enabled) ?? true;
+      const isColumnEnabled = column != undefined ? columns?.[column]?.enabled : undefined;
       return isColumnEnabled ?? defaultEnabled;
     };
   });
