@@ -15,7 +15,7 @@ import type { OnyxRadioGroupProps } from "./types";
 type Props = OnyxRadioGroupProps<TValue>;
 const props = withDefaults(defineProps<Props>(), {
   name: () => useId(), // the name must be globally unique
-  direction: "vertical",
+  orientation: "vertical",
   required: false,
   requiredMarker: FORM_INJECTED_SYMBOL,
   disabled: FORM_INJECTED_SYMBOL,
@@ -76,7 +76,7 @@ defineExpose({
 
     <div
       class="onyx-radio-group__content"
-      :class="{ 'onyx-radio-group__content--horizontal': props.direction === 'horizontal' }"
+      :class="{ 'onyx-radio-group__content--horizontal': props.orientation === 'horizontal' }"
     >
       <template v-if="!skeleton">
         <OnyxRadioButton

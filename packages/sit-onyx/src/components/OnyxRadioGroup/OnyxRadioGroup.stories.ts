@@ -52,7 +52,7 @@ export const Horizontal = {
     label: "Group label",
     options: EXAMPLE_OPTIONS,
     modelValue: EXAMPLE_OPTIONS[0].value,
-    direction: "horizontal",
+    orientation: "horizontal",
   },
 } satisfies Story;
 

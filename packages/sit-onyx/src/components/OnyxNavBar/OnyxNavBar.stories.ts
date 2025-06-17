@@ -8,10 +8,10 @@ import { h } from "vue";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
+import OnyxSeparator from "../OnyxSeparator/OnyxSeparator.vue";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
 import OnyxMenuItem from "./modules/OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxNavItem from "./modules/OnyxNavItem/OnyxNavItem.vue";
-import OnyxNavSeparator from "./modules/OnyxNavSeparator/OnyxNavSeparator.vue";
 import OnyxTimer from "./modules/OnyxTimer/OnyxTimer.vue";
 import { Default as OnyxUserMenuDefault } from "./modules/OnyxUserMenu/OnyxUserMenu.stories";
 import OnyxUserMenu from "./modules/OnyxUserMenu/OnyxUserMenu.vue";
@@ -193,7 +193,7 @@ export const WithContextArea = {
     ],
     contextArea: () => [
       h(OnyxTag, { label: "QA stage", color: "warning", icon: browserTerminal }),
-      h(OnyxNavSeparator),
+      h(OnyxSeparator, { orientation: "vertical" }),
       h(OnyxUserMenu, OnyxUserMenuDefault.args, {
         default: OnyxUserMenuDefault.args.default,
         footer: OnyxUserMenuDefault.args.footer,
@@ -211,7 +211,7 @@ export const WithLogoutTimer = {
     ...Default.args,
     contextArea: () => [
       h(OnyxTimer, { endTime: getTimerEndDate(), label: "Logout in:" }),
-      h(OnyxNavSeparator),
+      h(OnyxSeparator, { orientation: "vertical" }),
       h(OnyxUserMenu, OnyxUserMenuDefault.args, {
         default: OnyxUserMenuDefault.args.default,
         footer: OnyxUserMenuDefault.args.footer,
@@ -247,7 +247,7 @@ export const Mobile = {
     ],
     contextArea: () => [
       h(OnyxTag, { label: "QA stage", color: "warning", icon: browserTerminal }),
-      h(OnyxNavSeparator),
+      h(OnyxSeparator, { orientation: "vertical" }),
       h(OnyxUserMenu, OnyxUserMenuDefault.args, {
         default: Array.from({ length: 20 }, (_, index) =>
           h(OnyxMenuItem, () => [h(OnyxIcon, { icon: settings }), `Context option ${index}`]),

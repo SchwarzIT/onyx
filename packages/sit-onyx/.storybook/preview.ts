@@ -67,6 +67,7 @@ const preview: Preview = {
           "Feedback",
           "Notifications",
           "Navigation",
+          "Progress",
           ["*", "modules"], // sort navigation module folder last
           "Layout",
           "Examples",

@@ -1,7 +1,7 @@
 import { DENSITIES } from "../../composables/density";
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
-import { DIRECTIONS, type SelectOptionValue } from "../../types";
+import { ORIENTATIONS, type SelectOptionValue } from "../../types";
 import OnyxRadioGroup from "./OnyxRadioGroup.vue";
 import type { RadioButtonOption } from "./types";
 
@@ -14,9 +14,9 @@ const EXAMPLE_OPTIONS = [
 ] satisfies RadioButtonOption[];
 
 test.describe("screenshot tests", () => {
-  for (const direction of DIRECTIONS) {
+  for (const orientation of ORIENTATIONS) {
     executeMatrixScreenshotTest({
-      name: `Radio group (${direction})`,
+      name: `Radio group (${orientation})`,
       columns: DENSITIES,
       rows: ["default", "label", "skeleton"],
       component: (column, row) => (
@@ -27,7 +27,7 @@ test.describe("screenshot tests", () => {
           options={EXAMPLE_OPTIONS}
           skeleton={row === "skeleton" ? 3 : undefined}
           density={column}
-          direction={direction}
+          orientation={orientation}
         />
       ),
     });

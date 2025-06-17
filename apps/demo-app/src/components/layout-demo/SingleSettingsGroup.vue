@@ -35,6 +35,6 @@ const selectedOption = computed({
     v-model="selectedOption"
     :label="props.headline"
     :options="props.options"
-    :direction="props.horizontal ? 'horizontal' : 'vertical'"
+    :orientation="props.horizontal ? 'horizontal' : 'vertical'"
   />
 </template>
