@@ -38,13 +38,13 @@ Defines the relative size of the text.
 
 ## Line Height
 
-Controls the vertical spacing between lines of text.
+Controls the height for lines of text.
 
   <OnyxFontsVariables :variables="lineHeights" name="lineHeight" />
 
 ## Font Types
 
-Specifies the style of the font.
+Specifies the font family.
 
   <OnyxFontsVariables :variables="fontTypes" name="fontType" />
 

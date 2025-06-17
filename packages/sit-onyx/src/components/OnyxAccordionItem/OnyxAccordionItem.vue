@@ -127,8 +127,8 @@ const panelId = computed(() => `panel-${props.value.toString()}`);
       var(--onyx-color-component-focus-primary);
     &--nested-large,
     &--nested-small {
-      --onyx-accordion-item-font-weight: var(--onyx-font-weight-semibold)
-        --onyx-accordion-item-gap: var(--onyx-density-xs);
+      --onyx-accordion-item-font-weight: var(--onyx-font-weight-semibold);
+      --onyx-accordion-item-gap: var(--onyx-density-xs);
       --onyx-accordion-item-justify: flex-start;
       --onyx-accordion-item-chevron-rotation: 90deg;
       --onyx-accordion-item-chevron-rotation-open: 0deg;

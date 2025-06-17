@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxFontsVariables from "./OnyxFontsVariables.vue";
 
 const meta: Meta<typeof OnyxFontsVariables> = {
-  title: "variables/OnyxBorderRadiusTokens",
+  title: "variables/OnyxFontsVariables",
   component: OnyxFontsVariables,
 };
 

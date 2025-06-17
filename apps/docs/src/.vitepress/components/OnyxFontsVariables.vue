@@ -3,7 +3,7 @@ import DesignVariableCard from "./DesignVariableCard.vue";
 
 defineProps<{
   variables: string[];
-  name: string;
+  type: "fontSize" | "fontType" | "lineHeight";
 }>();
 </script>
 
@@ -14,11 +14,11 @@ defineProps<{
     :name="value"
     class="variable"
     :style="{
-      fontSize: name === 'fontSize' ? `var(--${value})` : '1rem',
-      fontFamily: name === 'fontType' ? `var(--${value})` : 'auto',
+      fontSize: type === 'fontSize' ? `var(--${value})` : '1rem',
+      fontFamily: type === 'fontType' ? `var(--${value})` : 'auto',
     }"
   >
-    <figure v-if="name === 'lineHeight'" class="preview">
+    <figure v-if="type === 'lineHeight'" class="preview">
       <figure class="preview__area" :style="{ height: `var(--${value})` }"></figure>
     </figure>
     <P v-else>Font</P>
