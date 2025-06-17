@@ -37,7 +37,7 @@ useThemeTransition(computed(() => (isDark.value ? "dark" : "light")));
   &__imprint {
     line-height: var(--onyx-font-line-height-md);
     font-size: 14px;
-    font-weight: var(--onyx-font-weight-semibold);
+    font-weight: 500;
     color: var(--vp-c-text-2);
   }
 
