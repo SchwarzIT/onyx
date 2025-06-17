@@ -1,12 +1,11 @@
 import { ref, unref, type ShallowRef } from "vue";
-import { findParentWithHiddenOverflow } from "./useOpenDirection";
 
 export type OpenAlignment = "center" | "left" | "right";
 
 export const useOpenAlignment = (
   element: Readonly<ShallowRef<Element | null>>,
   tooltipElement: Readonly<ShallowRef<Element | null>>,
-  defaultPosition: "center" | "left" | "right" = "center",
+  defaultPosition: OpenAlignment = "center",
 ) => {
   const minMargin = 16;
   const openAlignment = ref<OpenAlignment>(defaultPosition);
@@ -20,35 +19,36 @@ export const useOpenAlignment = (
       return;
     }
 
-    const overflowParentRect = findParentWithHiddenOverflow(wrapperEl)?.getBoundingClientRect();
     const wrapperRect = wrapperEl.getBoundingClientRect();
-    const tooltipElementRect = tooltipEl.getBoundingClientRect();
+    const tooltipRect = tooltipEl.getBoundingClientRect();
 
-    if (tooltipElementRect.width < wrapperRect.width) {
+    if (tooltipRect.width < wrapperRect.width) {
       openAlignment.value = defaultPosition;
       return;
     }
 
-    const minSpace = (tooltipElementRect.width - wrapperRect.width + minMargin * 2) / 2;
+    const minSpaceCenter = (tooltipRect.width - wrapperRect.width + minMargin * 2) / 2;
+    const minSpace = tooltipRect.width - wrapperRect.width + minMargin;
 
-    const parentLeft = overflowParentRect?.left ?? window.visualViewport?.pageLeft ?? 0;
-    const parentRight =
-      overflowParentRect?.right ??
-      (window.visualViewport?.width ?? window.innerWidth) +
-        (window.visualViewport?.offsetLeft ?? 0);
+    const viewportRight = window.innerWidth;
 
-    const freeSpaceLeft = wrapperRect.left - parentLeft;
-    const freeSpaceRight = parentRight - wrapperRect.right;
+    const freeSpaceLeft = wrapperRect.left;
+    const freeSpaceRight = viewportRight - wrapperRect.right;
 
-    const enoughSpaceLeft = freeSpaceLeft >= minSpace;
-    const enoughSpaceRight = freeSpaceRight >= minSpace;
+    const enoughSpaceLeft = freeSpaceLeft >= minSpaceCenter;
+    const enoughSpaceRight = freeSpaceRight >= minSpaceCenter;
 
-    openAlignment.value =
-      enoughSpaceLeft === enoughSpaceRight
-        ? defaultPosition
-        : freeSpaceLeft > freeSpaceRight
-          ? "right"
-          : "left";
+    if (
+      (defaultPosition === "right" && freeSpaceLeft >= minSpace) ||
+      (defaultPosition === "left" && freeSpaceRight >= minSpace) ||
+      (defaultPosition === "center" && enoughSpaceLeft && enoughSpaceRight)
+    ) {
+      openAlignment.value = defaultPosition;
+    } else if (freeSpaceLeft > freeSpaceRight) {
+      openAlignment.value = "right";
+    } else {
+      openAlignment.value = "left";
+    }
   };
 
   return {

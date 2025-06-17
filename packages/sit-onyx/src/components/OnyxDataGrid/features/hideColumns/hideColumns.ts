@@ -49,6 +49,7 @@ export const useHideColumns = <TEntry extends DataGridEntry>(
         {
           label: i18n.t.value("dataGrid.head.hideColumns.revealFlyout"),
           trigger: "click",
+          alignment: "right",
         },
         {
           button: ({ trigger }) =>
