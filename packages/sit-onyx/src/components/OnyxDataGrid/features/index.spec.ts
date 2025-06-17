@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { ref } from "vue";
+import { readonly, ref } from "vue";
 import { createI18n } from "../../../i18n";
 import type { TableColumnGroup } from "../../OnyxTable/types";
 import type { DataGridEntry } from "../types";
@@ -111,9 +111,12 @@ describe("createTableColumnGroups", () => {
   });
 });
 
-export const createFeatureContextMock = (ctx?: Partial<DataGridFeatureContext>) => ({
+export const createFeatureContextMock = (
+  ctx?: Partial<DataGridFeatureContext>,
+): DataGridFeatureContext => ({
   async: ref(false),
   i18n: createI18n(),
+  skeleton: readonly(ref(false)),
   ...ctx,
 });
 
