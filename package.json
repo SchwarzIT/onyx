@@ -31,7 +31,7 @@
     "@microsoft/eslint-formatter-sarif": "^3.1.0",
     "@playwright/experimental-ct-vue": "catalog:",
     "@playwright/test": "catalog:",
-    "@storybook/addon-docs": "^9.0.10",
+    "@storybook/addon-docs": "^9.0.11",
     "@storybook/vue3": "^9.0.10",
     "@storybook/vue3-vite": "^9.0.10",
     "@tsconfig/node24": "^24.0.1",
