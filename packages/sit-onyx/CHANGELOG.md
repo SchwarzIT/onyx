@@ -1,5 +1,18 @@
 # sit-onyx
 
+## 1.0.0-beta.245
+
+### Major Changes
+
+- 10ba878: - OnyxCheckboxGroup, OnyxRadioGroup: rename property `direction` to `orientation`
+  - rename component `OnyxNavSeparator` to `OnyxSeparator`. Also changed default orientation to `horizontal` instead of `vertical` and removed default margin
+  - rename type `Direction` to `Orientation`
+  - rename constant `DIRECTIONS` to `ORIENTATIONS`
+
+### Minor Changes
+
+- 10ba878: feat: implement new `OnyxProgressSteps` and `OnyxProgressStep` component
+
 ## 1.0.0-beta.244
 
 ### Minor Changes
