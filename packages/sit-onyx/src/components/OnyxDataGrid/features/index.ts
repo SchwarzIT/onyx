@@ -269,9 +269,11 @@ export type DataGridFeatureDescription<
 
 export type DataGridFeatureSlots = Partial<{
   [TSlotName in keyof Pick<OnyxTableSlots, "headline" | "bottomLeft" | "pagination">]: (
-    slotContent?: VNode[],
+    slotContent?: () => VNode[],
   ) => VNode[];
 }>;
+
+export type InternalDataGridSlots = Partial<Record<keyof DataGridFeatureSlots, () => VNode[]>>;
 
 export type DataGridFeatureOptions<
   TEntry extends DataGridEntry,
@@ -594,15 +596,16 @@ export const useDataGridFeatures = <
   };
 
   const createSlots = () => {
-    const slots: Partial<Record<keyof DataGridFeatureSlots, VNode[]>> = {};
+    const slots: InternalDataGridSlots = {};
 
     features.forEach((feature) => {
       if (!feature.slots) return;
 
-      Object.entries(feature.slots).forEach(([slotName, slotFunc]) => {
-        const existingSlot = slots[slotName as keyof typeof slots];
-        const newContent = slotFunc(existingSlot);
-        slots[slotName as keyof typeof slots] = newContent;
+      Object.entries(feature.slots).forEach(([_slotName, slotFunc]) => {
+        const slotName = _slotName as keyof typeof feature.slots;
+        const existingSlot = slots[slotName];
+        const newSlot = () => slotFunc(existingSlot);
+        slots[slotName] = newSlot;
       });
     });
 

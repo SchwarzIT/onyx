@@ -10,8 +10,8 @@
     TFeatures extends DataGridFeature<TEntry, TTypeRenderer, TFeatureName>[] | [] = []
   "
 >
-import { shallowRef, toRefs, watch, type HTMLAttributes, type VNode, type WatchHandle } from "vue";
-import type { DataGridFeatureSlots } from "../..";
+import { shallowRef, toRefs, watch, type HTMLAttributes, type WatchHandle } from "vue";
+import type { InternalDataGridSlots } from "../..";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { injectI18n } from "../../i18n";
 import { mergeVueProps } from "../../utils/attrs";
@@ -52,7 +52,7 @@ const renderColumns = shallowRef<DataGridRendererColumn<TEntry>[]>([]);
 const renderRows = shallowRef<DataGridRendererRow<TEntry, DataGridMetadata>[]>([]);
 const rendererColumnGroups = shallowRef<TableColumnGroup[]>();
 const rendererScrollContainerAttributes = shallowRef<HTMLAttributes | undefined>();
-const rendererSlots = shallowRef<Partial<Record<keyof DataGridFeatureSlots, VNode[]>>>();
+const rendererSlots = shallowRef<InternalDataGridSlots>();
 
 const { columns: columnConfig, data, features, columnGroups, async } = toRefs(props);
 
@@ -115,8 +115,8 @@ watch(
       })
     "
   >
-    <template v-for="(slotContent, slotName) in rendererSlots" :key="slotName" #[slotName]>
-      <component :is="() => slotContent" />
+    <template v-for="(slot, slotName) in rendererSlots" :key="slotName" #[slotName]>
+      <component :is="slot" />
     </template>
 
     <template v-if="!!slots.empty" #empty="slotProps">
