@@ -64,7 +64,7 @@ export type OnyxDataGridProps<
   TFeatureName extends symbol,
   TFeatures extends DataGridFeature<TEntry, TTypeRenderer, TFeatureName>[] = never,
   TTypes extends ColumnConfigTypeOption<PropertyKey, unknown> = RenderTypesFromFeature<
-    [ReturnType<typeof BASE_FEATURE>, ...TFeatures]
+    [typeof BASE_FEATURE, ...TFeatures]
   >,
 > = {
   /**
