@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.244
+
+### Minor Changes
+
+- 656f85b: fix(useOpenAlignment): fixed alignment calc for "right" and "left" as default
+
 ## 1.0.0-beta.243
 
 ### Minor Changes
