@@ -33,6 +33,17 @@ test.describe("Screenshot tests (visited)", () => {
   });
 });
 
+test.describe("Screenshot tests (skeleton)", () => {
+  executeMatrixScreenshotTest({
+    name: "Progress steps (skeleton)",
+    columns: ORIENTATIONS,
+    rows: DENSITIES,
+    component: (column, row) => (
+      <OnyxProgressSteps density={row} orientation={column} steps={STEPS} skeleton />
+    ),
+  });
+});
+
 test("should behave correctly", async ({ mount }) => {
   // ARRANGE
   const component = await mount(OnyxProgressSteps, {

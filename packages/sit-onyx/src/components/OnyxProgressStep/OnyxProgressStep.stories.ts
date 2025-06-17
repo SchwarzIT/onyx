@@ -63,3 +63,10 @@ export const Disabled = {
     disabled: true,
   },
 } satisfies Story;
+
+export const Skeleton = {
+  args: {
+    ...Default.args,
+    skeleton: true,
+  },
+} satisfies Story;

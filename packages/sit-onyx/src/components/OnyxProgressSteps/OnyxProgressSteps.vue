@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { computed, watch } from "vue";
 import { useDensity } from "../../composables/density";
+import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { useVModel } from "../../composables/useVModel";
 import OnyxProgressStep from "../OnyxProgressStep/OnyxProgressStep.vue";
 import type { OnyxProgressStepProps, ProgressStepStatus } from "../OnyxProgressStep/types";
@@ -11,6 +12,7 @@ const props = withDefaults(defineProps<OnyxProgressStepsProps>(), {
   orientation: "horizontal",
   modelValue: 1,
   highestValue: 1,
+  skeleton: SKELETON_INJECTED_SYMBOL,
 });
 
 const emit = defineEmits<{
@@ -25,6 +27,7 @@ const emit = defineEmits<{
 }>();
 
 const { densityClass } = useDensity(props);
+const skeleton = useSkeletonContext(props);
 
 const highestValue = useVModel({
   props,
@@ -58,6 +61,7 @@ const mappedSteps = computed(() => {
       value,
       disabled,
       status,
+      skeleton: skeleton.value,
       // allow user to override step properties so he has full control, therefore we add "...step" at the very end
       ...step,
     };
