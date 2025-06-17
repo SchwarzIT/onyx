@@ -1,5 +1,5 @@
-import { action } from "@storybook/addon-actions";
 import type { Decorator } from "@storybook/vue3";
+import { action } from "storybook/actions";
 import { useArgs } from "storybook/internal/preview-api";
 import type { ArgTypes, ArgTypesEnhancer, StrictInputType } from "storybook/internal/types";
 import { h, isReactive, reactive, watch, type Component, type Events } from "vue";

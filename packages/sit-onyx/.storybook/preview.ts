@@ -1,19 +1,19 @@
-import { createPreview, withVModelDecorator } from "@sit-onyx/storybook-utils";
-import { setup, type Preview } from "@storybook/vue3";
-import { createOnyx } from "../src";
-import docsTemplate from "./docs-template.mdx";
-import { onyxThemeGlobalType, withOnyxTheme } from "./theme-switch";
-
 import "@fontsource-variable/source-code-pro";
 import "@fontsource-variable/source-sans-3";
 import "@sit-onyx/storybook-utils/style.css";
-import { getRules, Spec } from "axe-core";
-import { a11yTags } from "../src/a11yConfig";
 import "../src/styles/index.scss";
 import "./docs-template.scss";
+
+import { createPreview, withVModelDecorator } from "@sit-onyx/storybook-utils";
+import { setup, type Preview } from "@storybook/vue3";
+import { getRules, Spec } from "axe-core";
+import { createOnyx } from "../src";
+import { a11yTags } from "../src/a11yConfig";
+import docsTemplate from "./docs-template.mdx";
 import { enhanceFormInjectedSymbol } from "./formInjected";
 import brandImage from "./public/onyx-logo-long.svg";
 import { enhanceSkeletonInjectedSymbol } from "./skeletonInjected";
+import { onyxThemeGlobalType, withOnyxTheme } from "./theme-switch";
 
 const enabledRules = getRules(a11yTags).map((ruleMetadata) => ({
   id: ruleMetadata.ruleId,

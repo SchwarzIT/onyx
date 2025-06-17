@@ -20,7 +20,7 @@
 
 // support hiding the table of contents inside ".mdx" files by setting a "storybook-hide-toc" class
 #storybook-docs .sbdocs-wrapper:has(.storybook-hide-toc) {
-  > div:last-child {
+  > aside {
     display: none;
   }
 }
