@@ -120,7 +120,7 @@ export const resolveFigmaVariableValue = (
     return `${value / remBase}rem`;
   }
   if (typeof value === "string") {
-    return `'${value}'`;
+    return `"${value}"`;
   }
 
   if ("type" in value) {

@@ -17,7 +17,7 @@ const lineHeights = [
   "onyx-font-line-height-lg",
   "onyx-font-line-height-xl",
 ];
-const fontTypes = [
+const fontFamilies = [
   "onyx-font-type-data",
   "onyx-font-type-h1",
   "onyx-font-type-h2",
@@ -42,11 +42,11 @@ Controls the height for lines of text.
 
   <OnyxFontsVariables :variables="lineHeights" name="lineHeight" />
 
-## Font Types
+## Font Families
 
 Specifies the font family.
 
-  <OnyxFontsVariables :variables="fontTypes" name="fontType" />
+  <OnyxFontsVariables :variables="fontFamilies" name="fontFamily" />
 
 ## Font Spacing
 
