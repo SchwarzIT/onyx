@@ -2,6 +2,12 @@
 import { ref, watch } from "vue";
 import { DataGridFeatures, normalizedIncludes, OnyxDataGrid, type ColumnConfig } from "../../..";
 
+/**
+ * ====================
+ * Basic datagrid setup
+ * ====================
+ */
+
 type Entry = {
   id: number;
   name: string;
@@ -25,23 +31,39 @@ const columns: ColumnConfig<Entry>[] = [
   { key: "birthday", label: "Birthday", type: "date" },
 ];
 
-const filterState = ref<DataGridFeatures.FilterState<Entry>>({});
-const sortState = ref<DataGridFeatures.SortState<Entry>>({ column: undefined, direction: "none" });
-const skeleton = ref(false);
+/**
+ * ====================
+ * Async feature setup
+ * ====================
+ */
 
+// Initialize datagrid states, which we want to observe to query an API with
+const filterState = ref<DataGridFeatures.FilterState<Entry>>({});
 const withFiltering = DataGridFeatures.useFiltering<Entry>({ filterState });
-const withSorting = DataGridFeatures.useSorting<Entry>({ sortState });
+
+const sortState = ref<DataGridFeatures.SortState<Entry>>({ column: undefined, direction: "none" });
+const withSorting = DataGridFeatures.useSorting<Entry>({
+  sortState,
+  columns: { birthday: { enabled: false } },
+});
 
 const features = [withFiltering, withSorting];
+
+// While an async operation is performed, we show the skeleton mode of the data grid
+const skeleton = ref(false);
+
+watch([filterState, sortState], simulateAsyncUpdate, { deep: true, immediate: true }); // initially and in case the sorting or filtering changes we simulate an API request
+watch(data, () => (skeleton.value = false)); // whenever the data changes, we turn the skeleton off again
 
 /**
  * Simulate asynchronous data update from a backend.
  * This function simulates a delay when fetching data and applying filters and sorting.
- * It also shows a skeleton while the data is being fetched.
+ * It also shows a skeleton while the data is being "fetched".
  *
- * Note: This is a simplified example, and real-world applications need to consider error handling and pagination.
+ * Note: You can ignore this function for the purpose if this example.
+ * As this is a simplified example, requirements of real-world applications like error handling and pagination are not considered.
  */
-const simulateAsyncUpdate = () => {
+function simulateAsyncUpdate() {
   skeleton.value = true;
 
   setTimeout(() => {
@@ -70,12 +92,10 @@ const simulateAsyncUpdate = () => {
     // Update data
     data.value = sorted;
   }, 1000);
-};
-
-watch([filterState, sortState], simulateAsyncUpdate, { deep: true, immediate: true });
-watch(data, () => (skeleton.value = false));
+}
 </script>
 
 <template>
-  <OnyxDataGrid :columns :data :features async :skeleton />
+  <!-- Async is set to true, so that the features data transformation is disabled -->
+  <OnyxDataGrid async :columns :data :features :skeleton />
 </template>
