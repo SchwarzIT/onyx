@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "schwarz-dark" theme.
- * Imported from Figma API on Mon, 16 Jun 2025 06:41:22 GMT
+ * Imported from Figma API on Tue, 17 Jun 2025 12:38:13 GMT
  */
 .dark,
 .onyx-theme-schwarz-dark {
@@ -122,6 +122,14 @@
   --onyx-color-text-icons-warning-intense: var(--onyx-color-orange-500);
   --onyx-color-text-icons-warning-medium: var(--onyx-color-orange-700);
   --onyx-color-text-icons-warning-soft: var(--onyx-color-orange-900);
+  --onyx-font-family-data: var(--onyx-font-family-mono);
+  --onyx-font-family-description: var(--onyx-font-family-description);
+  --onyx-font-family-h1: var(--onyx-font-family-default);
+  --onyx-font-family-h2: var(--onyx-font-family-default);
+  --onyx-font-family-h3: var(--onyx-font-family-default);
+  --onyx-font-family-h4: var(--onyx-font-family-default);
+  --onyx-font-family-mono: var(--onyx-font-family-mono);
+  --onyx-font-family-paragraph: var(--onyx-font-family-default);
   --onyx-font-letter-spacing-default: var(--onyx-font-values-0-spacing);
   --onyx-font-line-height-lg: var(--onyx-font-values-500);
   --onyx-font-line-height-md: var(--onyx-font-values-400);
@@ -131,14 +139,6 @@
   --onyx-font-size-md: var(--onyx-font-values-200);
   --onyx-font-size-sm: var(--onyx-font-values-100);
   --onyx-font-size-xl: var(--onyx-font-values-500);
-  --onyx-font-type-data: var(--onyx-font-family-mono);
-  --onyx-font-type-description: var(--onyx-font-family-description);
-  --onyx-font-type-h1: var(--onyx-font-family-default);
-  --onyx-font-type-h2: var(--onyx-font-family-default);
-  --onyx-font-type-h3: var(--onyx-font-family-default);
-  --onyx-font-type-h4: var(--onyx-font-family-default);
-  --onyx-font-type-mono: var(--onyx-font-family-mono);
-  --onyx-font-type-paragraph: var(--onyx-font-family-default);
   --onyx-radius-full: var(--onyx-number-radius-600);
   --onyx-radius-lg: var(--onyx-number-radius-400);
   --onyx-radius-md: var(--onyx-number-radius-300);
