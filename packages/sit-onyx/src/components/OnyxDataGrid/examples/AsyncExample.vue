@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import { DataGridFeatures, normalizedIncludes, OnyxDataGrid, type ColumnConfig } from "../../..";
 
 /**
@@ -33,7 +33,7 @@ const columns: ColumnConfig<Entry>[] = [
  */
 
 /** Whether the very first request is loading. */
-const isLoading = ref(true);
+const isFetchingInitially = ref(true);
 
 /** Whether the data is currently loading. */
 const isFetching = ref(false);
@@ -50,26 +50,32 @@ const paginationState = ref<DataGridFeatures.PaginationState>({
   pages: 1,
   pageSize: 15,
 });
-const withPagination = DataGridFeatures.usePagination({ paginationState, loading: isFetching });
+const withPagination = DataGridFeatures.usePagination({
+  paginationState,
+  loading: computed(() => isFetching.value && !isFetchingInitially.value),
+});
 
 const features = [withFiltering, withSorting, withPagination];
 
+// initially and in case the sorting, filtering or pagination changes we simulate an API request
 watch([filterState, sortState, () => paginationState.value.current], simulateAsyncUpdate, {
   deep: true,
   immediate: true,
-}); // initially and in case the sorting, filtering or pagination changes we simulate an API request
+});
+
+// whenever the data changes, we turn off the loading states again
 watch(data, () => {
-  isLoading.value = false;
+  isFetchingInitially.value = false;
   isFetching.value = false;
-}); // whenever the data changes, we turn the skeleton off again
+});
 
 /**
  * Simulate asynchronous data update from a backend.
- * This function simulates a delay when fetching data and applying filters and sorting.
+ * This function simulates a delay when fetching data and applying filters, sorting and pagination.
  * It also sets the loading state while the data is being fetched.
  *
  * Note: You can ignore this function for the purpose if this example.
- * As this is a simplified example, requirements of real-world applications like error handling and pagination are not considered.
+ * As this is a simplified example, requirements of real-world applications like error handling and edge cases are not considered.
  */
 async function simulateAsyncUpdate() {
   isFetching.value = true;
@@ -111,5 +117,5 @@ async function simulateAsyncUpdate() {
 
 <template>
   <!-- Async is set to true, so that the features data transformation is disabled -->
-  <OnyxDataGrid async :columns :data :features :skeleton="isLoading || isFetching" />
+  <OnyxDataGrid async :columns :data :features :skeleton="isFetchingInitially || isFetching" />
 </template>
