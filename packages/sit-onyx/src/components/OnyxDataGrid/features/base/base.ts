@@ -26,23 +26,16 @@ export const BASE_FEATURE = createFeature(
       name: BASE_FEATURE_SYMBOL,
       modifyColumns: {
         func: (columns) => {
-          if (skeleton.value) {
-            return columns.map((column) => ({
-              ...column,
-              type: { name: "skeleton" },
-            }));
-          } else {
-            return [...columns];
-          }
+          if (!skeleton.value) return [...columns];
+          return columns.map((column) => ({ ...column, type: { name: "skeleton" } }));
         },
       },
       mutation: {
         func: (rows) => {
-          if (skeleton.value) {
-            const skeletonCount = typeof skeleton.value === "number" ? skeleton.value : 5;
-            return Array.from({ length: skeletonCount }, () => ({}));
-          }
-          return [...rows];
+          if (!skeleton.value) return [...rows];
+          let skeletonCount = typeof skeleton.value === "number" ? skeleton.value : 5;
+          if (rows.length) skeletonCount = rows.length; // if previously rows were displayed, use the same row count for skeletons so the layout does not shift
+          return Array.from({ length: skeletonCount }, () => ({}));
         },
       },
       scrollContainerAttributes: () => ({
