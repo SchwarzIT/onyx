@@ -13,14 +13,14 @@ export const usePagination = (options?: PaginationOptions) =>
     ) as Ref<PaginationState>;
 
     const { isEnabled, isAsync } = useFeatureContext(ctx, options);
-    const isLoading = computed(() => options?.loading?.value ?? false);
+    const isDisabled = computed(() => options?.disabled?.value ?? false);
     const shouldShowPagination = computed(
       () => state.value.pages > 1 || state.value.current > state.value.pageSize,
     );
 
     return {
       name: PAGINATION_FEATURE,
-      watch: [state, isEnabled, ctx.skeleton, isLoading],
+      watch: [state, isEnabled, isDisabled, ctx.skeleton],
       mutation: {
         order: FILTERING_MUTATION_ORDER + 1,
         func: (entries) => {
@@ -35,18 +35,19 @@ export const usePagination = (options?: PaginationOptions) =>
         },
       },
       slots: {
-        pagination: () =>
-          shouldShowPagination.value
-            ? [
-                h(OnyxPagination, {
-                  modelValue: state.value.current,
-                  pages: state.value.pages,
-                  skeleton: isLoading.value ? false : ctx.skeleton.value,
-                  disabled: isLoading.value,
-                  "onUpdate:modelValue": (newPage) => (state.value.current = newPage),
-                }),
-              ]
-            : [],
+        pagination: () => {
+          const skeleton = ctx.skeleton.value && !shouldShowPagination.value;
+          if (!shouldShowPagination.value && !skeleton) return [];
+          return [
+            h(OnyxPagination, {
+              modelValue: state.value.current,
+              pages: state.value.pages,
+              disabled: isDisabled.value,
+              skeleton,
+              "onUpdate:modelValue": (newPage) => (state.value.current = newPage),
+            }),
+          ];
+        },
       },
     };
   });

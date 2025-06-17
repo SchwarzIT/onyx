@@ -16,13 +16,13 @@ export type PaginationOptions = Pick<
    */
   pageSize?: number;
   /**
-   * Whether the data is currently loading after changing the current page (will disable the pagination).
-   */
-  loading?: Ref<boolean>;
-  /**
    * The current pagination state. Can be used to e.g. set initial pagination state or pass a custom state (useful when async pagination is used).
    */
   paginationState?: Ref<PaginationState>;
+  /**
+   * Whether to disable the pagination.
+   */
+  disabled?: Ref<boolean | undefined>;
 };
 
 export type PaginationState = {
