@@ -163,6 +163,9 @@ export type DataGridFeatureContext = {
    * The `i18n` object, which can be used to access messages, formatters and the current locale.
    */
   i18n: OnyxI18n;
+  /**
+   * Whether the data grid should be shows as skeleton.
+   */
   skeleton: Readonly<Ref<number | boolean>>;
 };
 
