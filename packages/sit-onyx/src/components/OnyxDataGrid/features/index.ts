@@ -16,6 +16,7 @@ import {
 import type { ComponentSlots } from "vue-component-type-helpers";
 import { type OnyxI18n } from "../../../i18n";
 import type { DatetimeFormat } from "../../../i18n/datetime-formats";
+import type { Nullable } from "../../../types";
 import { mergeVueProps } from "../../../utils/attrs";
 import { applyMapping, prepareMapping, type OrderableMapping } from "../../../utils/feature";
 import { asArray } from "../../../utils/objects";
@@ -272,8 +273,8 @@ export type DataGridFeatureDescription<
 
 export type DataGridFeatureSlots = Partial<{
   [TSlotName in keyof Pick<OnyxTableSlots, "headline" | "bottomLeft" | "pagination">]: (
-    slotContent?: () => VNode[],
-  ) => VNode[];
+    slotContent: () => VNode[],
+  ) => Nullable<VNode>[];
 }>;
 
 export type InternalDataGridSlots = Partial<Record<keyof DataGridFeatureSlots, () => VNode[]>>;
@@ -606,9 +607,9 @@ export const useDataGridFeatures = <
 
       Object.entries(feature.slots).forEach(([_slotName, slotFunc]) => {
         const slotName = _slotName as keyof typeof feature.slots;
-        const existingSlot = slots[slotName];
-        const newSlot = () => slotFunc(existingSlot);
-        slots[slotName] = newSlot;
+        const existingSlot = slots[slotName] ?? (() => []);
+        const newSlotContent = slotFunc(existingSlot).filter((vnode) => vnode != undefined);
+        slots[slotName] = () => newSlotContent;
       });
     });
 
