@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.249
+
+### Patch Changes
+
+- 9f0b003: fix(OnyxProgressSteps): do not cut of outline in focus-visible state
+
 ## 1.0.0-beta.248
 
 ### Minor Changes
