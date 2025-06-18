@@ -3,7 +3,7 @@ import DesignVariableCard from "./DesignVariableCard.vue";
 
 defineProps<{
   variables: string[];
-  type: "fontSize" | "fontType" | "lineHeight";
+  type: "fontSize" | "fontFamily" | "lineHeight" | "fontSpacing" | "fontWeight";
 }>();
 </script>
 
@@ -15,7 +15,8 @@ defineProps<{
     class="variable"
     :style="{
       fontSize: type === 'fontSize' ? `var(--${value})` : '1rem',
-      fontFamily: type === 'fontType' ? `var(--${value})` : 'inherit',
+      fontFamily: type === 'fontFamily' ? `var(--${value})` : 'inherit',
+      fontWeight: type === 'fontWeight' ? `var(--${value})` : 'inherit',
     }"
   >
     <figure v-if="type === 'lineHeight'" class="preview">
