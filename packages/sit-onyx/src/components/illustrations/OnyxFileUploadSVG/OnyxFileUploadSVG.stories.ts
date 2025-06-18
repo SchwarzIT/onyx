@@ -4,7 +4,6 @@ import OnyxFileUploadSVG from "./OnyxFileUploadSVG.vue";
 const meta: Meta<typeof OnyxFileUploadSVG> = {
   title: "Illustrations/FileUploadSVG",
   component: OnyxFileUploadSVG,
-  tags: ["new:component"],
 };
 
 export default meta;

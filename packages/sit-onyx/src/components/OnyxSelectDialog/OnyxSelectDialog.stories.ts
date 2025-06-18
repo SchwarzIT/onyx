@@ -15,7 +15,6 @@ import OnyxSelectDialog from "./OnyxSelectDialog.vue";
 const meta: Meta<typeof OnyxSelectDialog> = {
   title: "Support/SelectDialog",
   component: OnyxSelectDialog,
-  tags: ["new:component"],
 };
 
 export default meta;

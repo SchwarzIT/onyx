@@ -5,7 +5,7 @@ import NotificationCenterCode from "./NotificationCenter.vue?raw";
 const meta: Meta<typeof NotificationCenter> = {
   title: "Notifications/Examples/NotificationCenter",
   component: NotificationCenter,
-  tags: ["!autodocs", "new:component"],
+  tags: ["!autodocs"],
   parameters: {
     layout: "fullscreen",
     docs: {

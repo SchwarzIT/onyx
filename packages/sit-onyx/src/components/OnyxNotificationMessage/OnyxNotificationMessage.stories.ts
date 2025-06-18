@@ -11,7 +11,6 @@ import OnyxNotificationMessage from "./OnyxNotificationMessage.vue";
 const meta: Meta<typeof OnyxNotificationMessage> = {
   title: "Support/NotificationMessage",
   component: OnyxNotificationMessage,
-  tags: ["new:component"],
   argTypes: {
     icon: defineIconSelectArgType(),
   },

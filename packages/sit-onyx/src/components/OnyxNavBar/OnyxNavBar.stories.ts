@@ -134,7 +134,6 @@ export const Nested = {
 } satisfies Story;
 
 export const WithMoreListItem = {
-  tags: ["new:feature"],
   parameters: {
     viewport: { defaultViewport: "sm" },
   },
