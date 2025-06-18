@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.250
+
+### Minor Changes
+
+- 9086251: OnyxDataGrid: when using `slots` in a data grid feature, the passed slotContent is now always defined so you don't have to to nullish checks. When there is no existing slot content, the returned array will be empty
+
 ## 1.0.0-beta.249
 
 ### Patch Changes
