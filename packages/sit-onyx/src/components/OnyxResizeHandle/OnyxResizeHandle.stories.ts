@@ -13,7 +13,6 @@ import OnyxResizeHandle from "./OnyxResizeHandle.vue";
 const meta: Meta<typeof OnyxResizeHandle> = {
   title: "Support/ResizeHandle",
   component: OnyxResizeHandle,
-  tags: ["new:component"],
   decorators: [
     textColorDecorator,
     (story) => ({
@@ -33,5 +32,4 @@ export const Default = createAdvancedStoryExample(
 
 export const Left = {
   ...createAdvancedStoryExample("OnyxResizeHandle", "LeftExample"),
-  tags: ["new:feature"],
 } satisfies Story;

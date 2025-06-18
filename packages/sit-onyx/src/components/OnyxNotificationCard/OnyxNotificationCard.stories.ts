@@ -15,7 +15,6 @@ import OnyxNotificationCard from "./OnyxNotificationCard.vue";
 const meta: Meta<typeof OnyxNotificationCard> = {
   title: "Notifications/NotificationCard",
   component: OnyxNotificationCard,
-  tags: ["new:component"],
   argTypes: {
     actions: { control: { disable: true } },
     headerActions: { control: { disable: true } },

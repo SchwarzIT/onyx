@@ -4,7 +4,6 @@ import OnyxErrorSVG from "./OnyxErrorSVG.vue";
 const meta: Meta<typeof OnyxErrorSVG> = {
   title: "Illustrations/ErrorSVG",
   component: OnyxErrorSVG,
-  tags: ["new:component"],
 };
 
 export default meta;

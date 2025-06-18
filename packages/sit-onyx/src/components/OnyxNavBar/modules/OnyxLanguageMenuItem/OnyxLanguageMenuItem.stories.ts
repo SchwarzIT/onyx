@@ -16,7 +16,6 @@ import OnyxLanguageMenuItem from "./OnyxLanguageMenuItem.vue";
 const meta: Meta<typeof OnyxLanguageMenuItem> = {
   title: "Navigation/NavBar/modules/LanguageMenuItem",
   component: OnyxLanguageMenuItem,
-  tags: ["new:component"],
   decorators: [
     (story) => ({
       components: { story },

@@ -46,7 +46,6 @@ export const Sidebar = createAdvancedStoryExample(
 
 export const SidebarRight = {
   ...createAdvancedStoryExample("OnyxPageLayout", "SidebarRightExample"),
-  tags: ["new:feature"],
 } satisfies Story;
 
 export const Footer = createAdvancedStoryExample("OnyxPageLayout", "FooterExample") satisfies Story;

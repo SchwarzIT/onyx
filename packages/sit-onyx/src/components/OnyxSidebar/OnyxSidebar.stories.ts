@@ -5,7 +5,6 @@ import OnyxSidebar from "./OnyxSidebar.vue";
 const meta: Meta<typeof OnyxSidebar> = {
   title: "Navigation/Sidebar",
   component: OnyxSidebar,
-  tags: ["new:component"],
   parameters: {
     layout: "fullscreen",
   },
@@ -24,10 +23,8 @@ export const Drawer = createAdvancedStoryExample("OnyxSidebar", "DrawerExample")
 
 export const Resizable = {
   ...createAdvancedStoryExample("OnyxSidebar", "ResizeExample"),
-  tags: ["new:feature"],
 } satisfies Story;
 
 export const Right = {
   ...createAdvancedStoryExample("OnyxSidebar", "RightExample"),
-  tags: ["new:feature"],
 } satisfies Story;

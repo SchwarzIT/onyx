@@ -8,7 +8,6 @@ import OnyxFilterTag from "./OnyxFilterTag.vue";
  */
 const meta: Meta<typeof OnyxFilterTag> = {
   title: "Support/FilterTag",
-  tags: ["new:component"],
   component: OnyxFilterTag,
   argTypes: {
     ...withNativeEventLogging(["onClick"]),
