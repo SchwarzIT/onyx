@@ -1,5 +1,11 @@
 # docs
 
+## 1.0.0-beta.5
+
+### Minor Changes
+
+- 181b681: fix(Docs): fixed the Font-Variables Docs.
+
 ## 1.0.0-beta.4
 
 ### Minor Changes
