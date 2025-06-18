@@ -15,7 +15,7 @@ defineProps<{
     class="variable"
     :style="{
       fontSize: type === 'fontSize' ? `var(--${value})` : '1rem',
-      fontFamily: type === 'fontType' ? `var(--${value})` : 'auto',
+      fontFamily: type === 'fontType' ? `var(--${value})` : 'inherit',
     }"
   >
     <figure v-if="type === 'lineHeight'" class="preview">

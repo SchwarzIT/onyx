@@ -34,22 +34,22 @@ const fontSpacings = ["onyx-font-letter-spacing-default"];
 
 Defines the relative size of the text.
 
-  <OnyxFontsVariables :variables="fontSizes" name="fontSize" />
+  <OnyxFontsVariables :variables="fontSizes" type="fontSize" />
 
 ## Line Height
 
 Controls the height for lines of text.
 
-  <OnyxFontsVariables :variables="lineHeights" name="lineHeight" />
+  <OnyxFontsVariables :variables="lineHeights" type="lineHeight" />
 
 ## Font Families
 
 Specifies the font family.
 
-  <OnyxFontsVariables :variables="fontFamilies" name="fontFamily" />
+  <OnyxFontsVariables :variables="fontFamilies" type="fontFamily" />
 
 ## Font Spacing
 
 Adjusts the letter spacing of the text.
 
-  <OnyxFontsVariables :variables="fontSpacings" name="fontSpacing" />
+  <OnyxFontsVariables :variables="fontSpacings" type="fontSpacing" />
