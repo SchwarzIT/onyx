@@ -17,14 +17,19 @@ const lineHeights = [
   "onyx-font-line-height-lg",
   "onyx-font-line-height-xl",
 ];
+const fontWeights = [
+  "onyx-font-weight-regular",
+  "onyx-font-weight-semibold",
+  "onyx-font-weight-bold",
+]
 const fontFamilies = [
-  "onyx-font-type-data",
-  "onyx-font-type-h1",
-  "onyx-font-type-h2",
-  "onyx-font-type-h3",
-  "onyx-font-type-h4",
-  "onyx-font-type-mono",
-  "onyx-font-type-paragraph",
+  "onyx-font-family-data",
+  "onyx-font-family-h1",
+  "onyx-font-family-h2",
+  "onyx-font-family-h3",
+  "onyx-font-family-h4",
+  "onyx-font-family-mono",
+  "onyx-font-family-paragraph",
 ];
 const fontSpacings = ["onyx-font-letter-spacing-default"];
 
@@ -34,22 +39,28 @@ const fontSpacings = ["onyx-font-letter-spacing-default"];
 
 Defines the relative size of the text.
 
-  <OnyxFontsVariables :variables="fontSizes" name="fontSize" />
+  <OnyxFontsVariables :variables="fontSizes" type="fontSize" />
 
 ## Line Height
 
 Controls the height for lines of text.
 
-  <OnyxFontsVariables :variables="lineHeights" name="lineHeight" />
+  <OnyxFontsVariables :variables="lineHeights" type="lineHeight" />
+
+## Font Weight
+
+Specifies the font weight.
+
+<OnyxFontsVariables :variables="fontWeights" type="fontWeight" />
 
 ## Font Families
 
 Specifies the font family.
 
-  <OnyxFontsVariables :variables="fontFamilies" name="fontFamily" />
+  <OnyxFontsVariables :variables="fontFamilies" type="fontFamily" />
 
 ## Font Spacing
 
 Adjusts the letter spacing of the text.
 
-  <OnyxFontsVariables :variables="fontSpacings" name="fontSpacing" />
+  <OnyxFontsVariables :variables="fontSpacings" type="fontSpacing" />
