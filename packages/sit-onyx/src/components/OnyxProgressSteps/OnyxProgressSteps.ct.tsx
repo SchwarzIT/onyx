@@ -47,21 +47,26 @@ test.describe("Screenshot tests (skeleton)", () => {
 test.describe("Screenshot tests (max size)", () => {
   executeMatrixScreenshotTest({
     name: "Progress steps (max size)",
-    columns: ["default", "scrolled"],
+    columns: ["default", "scrolled", "focus-visible"],
     rows: ORIENTATIONS,
     component: (column, row) => (
       <OnyxProgressSteps
         orientation={row}
         steps={STEPS}
         style={{ maxWidth: "9rem", maxHeight: "7rem" }}
+        modelValue={2}
       />
     ),
     hooks: {
       beforeEach: async (component, page, column) => {
-        if (column === "scrolled")
+        if (column === "scrolled") {
           await component
             .getByRole("button", { name: STEPS.at(-1)!.label })
             .scrollIntoViewIfNeeded();
+        }
+        if (column === "focus-visible") {
+          await page.keyboard.press("Tab");
+        }
       },
     },
   });
