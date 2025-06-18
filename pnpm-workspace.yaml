@@ -10,7 +10,7 @@ catalog:
   "@vue/compiler-sfc": 3.5.16
   "@vue/compiler-ssr": 3.5.16
   "@vue/shared": 3.5.16
-  chart.js: 4.4.9
+  chart.js: 4.5.0
   "playwright": 1.51.1
   "playwright-core": 1.51.1
   vue: 3.5.16
