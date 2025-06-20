@@ -1,56 +1,56 @@
 import { expect, test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
-import OnyxFlyoutTestCase from "./OnyxFlyoutTestCase.vue";
+import OnyxPopoverTestCase from "./OnyxPopoverTestCase.vue";
 
-test.describe("OnyxFlyout", () => {
+test.describe("OnyxPopover", () => {
   test("should open and close on trigger click", async ({ mount }) => {
-    const component = await mount(OnyxFlyoutTestCase, {
-      props: { label: "Flyout for testing" },
+    const component = await mount(OnyxPopoverTestCase, {
+      props: { label: "Popover for testing" },
     });
 
-    const flyout = component.getByText("Flyout Content");
+    const popover = component.getByText("Popover Content");
     const button = component.getByRole("button", { name: "button" });
 
     // ASSERT
-    await expect(flyout).toBeHidden();
+    await expect(popover).toBeHidden();
 
     // ACT
     button.click();
 
     // ASSERT
-    await expect(flyout).toBeVisible();
+    await expect(popover).toBeVisible();
 
     // ACT
     button.click();
 
     // ASSERT
-    await expect(flyout).toBeHidden();
+    await expect(popover).toBeHidden();
   });
 
   test("should show when expanded is set to true and hide when false", async ({ mount }) => {
-    const component = await mount(OnyxFlyoutTestCase, {
+    const component = await mount(OnyxPopoverTestCase, {
       props: {
-        label: "Flyout for testing",
+        label: "Popover for testing",
         open: true,
         showExpandedButton: true,
       },
     });
 
-    const flyout = component.getByText("Flyout Content");
+    const popover = component.getByText("Popover Content");
     const changeButton = component.getByRole("button", { name: "changeExpandedButton" });
 
     // ASSERT
-    await expect(flyout).toBeVisible();
+    await expect(popover).toBeVisible();
     // ACT
     await changeButton.click();
     // ASSERT
-    await expect(flyout).toBeHidden();
+    await expect(popover).toBeHidden();
   });
 });
-test.describe("OnyxFlyout Screenshot Tests", () => {
+test.describe("OnyxPopover  Screenshot Tests", () => {
   test.describe("Alignment screenshot tests", () => {
     executeMatrixScreenshotTest({
-      name: "Aligned Flyout",
+      name: "Aligned Popover",
       columns: ["left", "center", "right"],
       rows: ["top", "bottom"],
       component: (column, row) => {
@@ -63,7 +63,7 @@ test.describe("OnyxFlyout Screenshot Tests", () => {
               marginBottom: row === "bottom" ? "2rem" : undefined,
             }}
           >
-            <OnyxFlyoutTestCase label="test" open={true} alignment={column} position={row} />
+            <OnyxPopoverTestCase label="test" open={true} alignment={column} position={row} />
           </div>
         );
       },
@@ -72,7 +72,7 @@ test.describe("OnyxFlyout Screenshot Tests", () => {
 
   test.describe("Positioning Screenshot tests", () => {
     executeMatrixScreenshotTest({
-      name: "Positioned Flyout",
+      name: "Positioned Popover",
       columns: ["default", "disabled"],
       rows: [
         "top",
@@ -87,7 +87,7 @@ test.describe("OnyxFlyout Screenshot Tests", () => {
       component: (column, row) => {
         return (
           <div class="container" style={{ margin: "2rem 6rem" }}>
-            <OnyxFlyoutTestCase
+            <OnyxPopoverTestCase
               label="test"
               open={true}
               position={row}

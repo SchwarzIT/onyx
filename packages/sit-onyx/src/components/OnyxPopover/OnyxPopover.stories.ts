@@ -2,16 +2,15 @@ import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
-import OnyxFlyout from "./OnyxFlyout.vue";
+import OnyxPopover from "./OnyxPopover.vue";
 
 /**
- * The Flyout component is a supportive element for Menus, designed to display a popover above the main page content.
+ * The Popover component is a supportive element for Menus, designed to display elements above the main page content.
  * It remains anchored to the default content, providing additional options or information.
  */
-
-const meta: Meta<typeof OnyxFlyout> = {
-  title: "Support/Flyout",
-  component: OnyxFlyout,
+const meta: Meta<typeof OnyxPopover> = {
+  title: "Support/Popover",
+  component: OnyxPopover,
   decorators: [
     (story) => ({
       components: { story },
@@ -22,19 +21,17 @@ const meta: Meta<typeof OnyxFlyout> = {
     }),
   ],
   argTypes: {
-    button: { control: { disable: true } },
-    options: { control: { disable: true } },
-    header: { control: { disable: true } },
-    footer: { control: { disable: true } },
+    default: { control: { disable: true } },
+    content: { control: { disable: true } },
     ...withNativeEventLogging(["onClick"]),
   },
 };
 
 export default meta;
-type Story = StoryObj<typeof OnyxFlyout>;
+type Story = StoryObj<typeof OnyxPopover>;
 
 /**
- * This example shows a basic OnyxFlyoutMenu
+ * This example shows a basic OnyxPopoverMenu
  */
 export const Default = {
   args: {

@@ -53,11 +53,11 @@ export const useOpenAlignment = (
 
   return {
     /**
-     * Direction in which the flyout etc. should open to.
+     * Direction in which the popover should open to.
      */
     openAlignment,
     /**
-     * Detects in which direction a flyout etc. should be opened, depending on the available space in each direction.
+     * Detects in which direction a popover should be opened, depending on the available space in each direction.
      * Should only be called onBeforeMount or later to support server side rendering.
      */
     updateOpenAlignment,

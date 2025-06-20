@@ -30,10 +30,10 @@ import type { Nullable, SelectOptionValue } from "../../types";
 import { asArray, groupByKey, transformGroupedData } from "../../utils/objects";
 import { normalizedIncludes } from "../../utils/strings";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
-import OnyxFlyout from "../OnyxFlyout/OnyxFlyout.vue";
 import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxMiniSearch from "../OnyxMiniSearch/OnyxMiniSearch.vue";
+import OnyxPopover from "../OnyxPopover/OnyxPopover.vue";
 import OnyxSelectInput from "../OnyxSelectInput/OnyxSelectInput.vue";
 import type { OnyxSelectInputProps } from "../OnyxSelectInput/types";
 import OnyxSelectOption from "../OnyxSelectOption/OnyxSelectOption.vue";
@@ -175,7 +175,7 @@ const filteredOptions = computed(() => {
   if (props.noFilter || !searchTerm.value) return props.options;
 
   return props.options.filter(({ label }: SelectOption) =>
-    normalizedIncludes(label, searchTerm.value as string),
+    normalizedIncludes(label, searchTerm.value),
   );
 });
 
@@ -417,7 +417,7 @@ watch(
 
 <template>
   <div ref="selectRef" class="onyx-component onyx-select-wrapper">
-    <OnyxFlyout
+    <OnyxPopover
       :class="densityClass"
       :label="props.listLabel"
       :position="openDirection"
@@ -534,7 +534,7 @@ watch(
           {{ props.listDescription }}
         </div>
       </template>
-    </OnyxFlyout>
+    </OnyxPopover>
   </div>
 </template>
 
@@ -551,7 +551,7 @@ watch(
   .onyx-select-input {
     width: 100%;
   }
-  .onyx-flyout {
+  .onyx-popover {
     width: 100%;
   }
 }
@@ -568,9 +568,6 @@ watch(
     &__search {
       position: sticky;
       top: 0;
-    }
-
-    &__search {
       border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
     }
 

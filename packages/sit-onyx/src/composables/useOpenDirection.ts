@@ -28,11 +28,11 @@ export const useOpenDirection = (
 
   return {
     /**
-     * Direction in which the flyout etc. should open to.
+     * Direction in which the popover should open to.
      */
     openDirection,
     /**
-     * Detects in which direction a flyout etc. should be opened, depending on the available space in each direction.
+     * Detects in which direction a popover should be opened, depending on the available space in each direction.
      * Should only be called onBeforeMount or later to support server side rendering.
      */
     updateOpenDirection,
@@ -47,7 +47,7 @@ export const findParentWithHiddenOverflow = (element?: Element): Element | undef
 
   const style = getComputedStyle(element);
   if (style.overflow.includes("hidden")) {
-    // if the element has hidden overflow, the flyout would be cut off by this element so we need to use
+    // if the element has hidden overflow, the popover would be cut off by this element so we need to use
     // this element as parent to calculate the open direction instead of the body.
     return element;
   }
