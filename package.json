@@ -59,7 +59,7 @@
     "rimraf": "^6.0.1",
     "simple-git-hooks": "^2.13.0",
     "storybook": "^9.0.12",
-    "stylelint": "^16.20.0",
+    "stylelint": "^16.21.0",
     "stylelint-no-unsupported-browser-features": "^8.0.4",
     "turbo": "^2.5.4",
     "typescript": "catalog:",
