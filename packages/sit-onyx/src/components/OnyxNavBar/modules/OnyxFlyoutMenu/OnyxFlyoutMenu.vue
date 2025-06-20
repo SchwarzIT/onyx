@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" generic="_">
 import { createMenuButton } from "@sit-onyx/headless";
 import { computed } from "vue";
 import { useVModel } from "../../../../composables/useVModel";
