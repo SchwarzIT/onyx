@@ -2869,6 +2869,10 @@
     "category": "Connectivity",
     "aliases": ["wifi", "wireless-network", "Empfang"]
   },
+  "workflows": {
+    "category": "Software & Services",
+    "aliases": []
+  },
   "wrench": {
     "category": "Objects",
     "aliases": ["spanner", "tool", "Schraubenschlüssel", "Werkzeug"]
