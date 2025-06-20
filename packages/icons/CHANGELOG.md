@@ -1,5 +1,15 @@
 # @sit-onyx/icons
 
+## 1.0.0-beta.18
+
+### Minor Changes
+
+- d1df993: feat: update icons
+
+  #### New
+
+  - workflows
+
 ## 1.0.0-beta.17
 
 ### Minor Changes
