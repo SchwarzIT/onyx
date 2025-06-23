@@ -1,3 +1,4 @@
+<!-- For an unknown reason the generic here is necessary, otherwise the typings of the component break -->
 <script setup lang="ts" generic="_">
 import { createMenuButton } from "@sit-onyx/headless";
 import { computed } from "vue";

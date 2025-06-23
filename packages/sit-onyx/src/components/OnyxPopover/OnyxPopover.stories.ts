@@ -9,7 +9,7 @@ import OnyxPopover from "./OnyxPopover.vue";
  * It remains anchored to the default content, providing additional options or information.
  */
 const meta: Meta<typeof OnyxPopover> = {
-  title: "Support/Popover",
+  title: "Basic/Popover",
   component: OnyxPopover,
   decorators: [
     (story) => ({
