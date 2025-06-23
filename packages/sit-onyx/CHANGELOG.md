@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.252
+
+### Major Changes
+
+- 49f6e5e: feat(OnyxFlyout, OnyxPopover): Renamed OnyxFlyout to OnyxPopover
+
 ## 1.0.0-beta.251
 
 ### Patch Changes
