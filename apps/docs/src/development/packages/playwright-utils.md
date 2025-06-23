@@ -260,7 +260,7 @@ test.describe("Screenshot tests", () => {
 ### adjustSizeToAbsolutePosition
 
 Sets the component size to fit all absolute positioned content so it is fully included in screenshots.
-Useful if component includes flyouts etc. that use CSS `position: absolute`.
+Useful if component includes flyouts or popovers that use CSS `position: absolute`.
 
 ```tsx
 import { adjustSizeToAbsolutePosition } from "@sit-onyx/playwright-utils";

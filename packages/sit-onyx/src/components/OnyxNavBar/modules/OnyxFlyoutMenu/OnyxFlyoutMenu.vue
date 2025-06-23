@@ -1,9 +1,10 @@
-<script setup lang="ts" generic="TValue extends SelectOptionValue = SelectOptionValue">
+<!-- For an unknown reason the generic here is necessary, otherwise the typings of the component break -->
+<script setup lang="ts" generic="_">
 import { createMenuButton } from "@sit-onyx/headless";
 import { computed } from "vue";
-import OnyxFlyout from "../../../../components/OnyxFlyout/OnyxFlyout.vue";
 import { useVModel } from "../../../../composables/useVModel";
-import type { Nullable, SelectOptionValue } from "../../../../types";
+import type { Nullable } from "../../../../types";
+import OnyxPopover from "../../../OnyxPopover/OnyxPopover.vue";
 import type { OnyxFlyoutMenuProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxFlyoutMenuProps>(), {
@@ -64,7 +65,7 @@ const {
 </script>
 
 <template>
-  <OnyxFlyout
+  <OnyxPopover
     class="onyx-component onyx-flyout-menu"
     v-bind="root"
     :open="isExpanded"
@@ -95,7 +96,7 @@ const {
         <slot name="footer"></slot>
       </div>
     </template>
-  </OnyxFlyout>
+  </OnyxPopover>
 </template>
 
 <style lang="scss">
