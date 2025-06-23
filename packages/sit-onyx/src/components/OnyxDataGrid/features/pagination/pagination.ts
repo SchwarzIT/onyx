@@ -92,7 +92,7 @@ export const usePagination = (options?: PaginationOptions) =>
       },
       scrollContainerAttributes: () => ({
         ref: (el) => {
-          scrollContainer.value = el;
+          scrollContainer.value = el as typeof scrollContainer.value;
         },
       }),
     };

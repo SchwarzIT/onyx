@@ -115,12 +115,9 @@ const createMergedRef = <T>(...toMerge: VNodeRef[]) => {
 const isMergedRef = (_ref: unknown): _ref is MergedRef =>
   !!_ref && typeof _ref === "object" && MERGED_REFS_SYMBOL in _ref;
 
-type VProps =
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- we want to allow any kind of props
-  | (Data<any> & VNodeProps)
-  | {
-      ref?: (ref?: HTMLElement) => void;
-    };
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- we want to allow any kind of props
+type VProps = Data<any> & VNodeProps;
+
 type VRef = Element | ComponentPublicInstance | null;
 
 /**
@@ -132,11 +129,9 @@ export const mergeVueProps = <T extends VProps | null | undefined>(...args: T[] 
   args.reduce((prev, curr) => {
     // Make sure to always trigger a read access in case we need to access it using `toRaw`
     const _ = curr?.ref;
-    const currRef = (curr && isProxy(curr) && "ref" in curr ? toRaw(curr).ref : curr?.ref) as
-      | VNodeRef
-      | undefined;
-    const prevRef = prev?.ref as VNodeRef | undefined;
-    const merged = mergeProps(prev as Data & VNodeProps, (curr as Data & VNodeProps) ?? {});
+    const currRef = curr && isProxy(curr) && "ref" in curr ? toRaw(curr).ref : curr?.ref;
+    const prevRef = prev?.ref;
+    const merged = mergeProps(prev, curr ?? {});
 
     if (!prevRef && !currRef) {
       return merged;

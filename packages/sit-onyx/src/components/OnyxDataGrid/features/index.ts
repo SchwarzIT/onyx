@@ -11,6 +11,7 @@ import {
   type TdHTMLAttributes,
   type ThHTMLAttributes,
   type VNode,
+  type VNodeProps,
   type WatchSource,
 } from "vue";
 import type { ComponentSlots } from "vue-component-type-helpers";
@@ -271,9 +272,7 @@ export type DataGridFeatureDescription<
   slots?: DataGridFeatureSlots;
 };
 
-export type DataGridScrollContainerAttributes = HTMLAttributes & {
-  ref?: (ref?: HTMLElement) => void;
-};
+export type DataGridScrollContainerAttributes = HTMLAttributes & Pick<VNodeProps, "ref">;
 
 export type DataGridFeatureSlots = Partial<{
   [TSlotName in keyof Pick<OnyxTableSlots, "headline" | "bottomLeft" | "pagination">]: (
