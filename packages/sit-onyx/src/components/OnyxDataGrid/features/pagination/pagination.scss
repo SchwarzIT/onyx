@@ -2,16 +2,13 @@
 
 @include layers.component {
   .onyx-data-grid {
-    &__lazy-loading-row {
-      td {
-        &:first-child {
-          grid-column: 1 / -1;
-          border-right: none;
-        }
+    &__lazy-loading {
+      grid-column: 1 / -1;
+      border-right: none;
+      text-align: center;
 
-        &:not(:first-child) {
-          display: none;
-        }
+      > .onyx-loading-dots {
+        margin-inline: auto;
       }
     }
   }

@@ -7,6 +7,7 @@ import type {
   ColumnConfigTypeOption,
   ColumnGroupConfig,
   DataGridFeature,
+  InternalColumnConfig,
   TypeRenderer,
   TypeRenderMap,
 } from "./features";
@@ -111,4 +112,9 @@ export type DataGridEntry = {
    * Attributes that are bound directly to the `<tr>` element of the row.
    */
   _trAttributes?: HTMLAttributes;
+  /**
+   * Overrides which columns to render in which order.
+   * Useful if e.g. adding a custom full-width row inside a data grid feature.
+   */
+  _columns?: Omit<InternalColumnConfig<{ id: PropertyKey }>, "label">[];
 };

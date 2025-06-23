@@ -2,14 +2,17 @@ import { computed, h, ref, toRef, watch, type Ref } from "vue";
 import { createFeature, useFeatureContext } from "..";
 import { useScrollEnd } from "../../../../composables/scrollEnd";
 import { applyLimits } from "../../../../utils/numbers";
+import OnyxLoadingDots from "../../../OnyxLoadingIndicator/OnyxLoadingDots.vue";
 import OnyxPagination from "../../../OnyxPagination/OnyxPagination.vue";
 import type { DataGridEntry } from "../../types";
 import { FILTERING_MUTATION_ORDER } from "../filtering/filtering";
+import { createTypeRenderer } from "../renderer";
 import "./pagination.scss";
 import type { PaginationOptions, PaginationState } from "./types";
 
 export const PAGINATION_FEATURE = Symbol("Pagination");
 export const PAGINATION_LAZY_LOADING_ROW_ID = Symbol("LazyLoadingRow");
+export const LAZY_LOADING_TYPE_RENDERER = Symbol("LazyLoadingRenderer");
 
 export const usePagination = (options?: PaginationOptions) =>
   createFeature((ctx) => {
@@ -66,12 +69,22 @@ export const usePagination = (options?: PaginationOptions) =>
           if (loading.value) {
             _entries.push({
               id: PAGINATION_LAZY_LOADING_ROW_ID,
-              _trAttributes: { class: "onyx-data-grid__lazy-loading-row" },
+              _columns: [{ key: "id", type: { name: LAZY_LOADING_TYPE_RENDERER } }],
             } satisfies DataGridEntry);
           }
 
           return _entries;
         },
+      },
+      typeRenderer: {
+        [LAZY_LOADING_TYPE_RENDERER]: createTypeRenderer({
+          cell: {
+            tdAttributes: {
+              class: "onyx-data-grid__lazy-loading",
+            },
+            component: () => h(OnyxLoadingDots),
+          },
+        }),
       },
       slots: {
         pagination: () => {

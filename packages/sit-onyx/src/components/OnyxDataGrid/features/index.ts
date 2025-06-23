@@ -566,19 +566,21 @@ export const useDataGridFeatures = <
     entries: TEntry[],
   ): DataGridRendererRow<TEntry, DataGridMetadata>[] => {
     const mutations = features
-      .map((f) => f.mutation)
-      .filter((m) => !!m)
+      .map((feature) => feature.mutation)
+      .filter((mutation) => !!mutation)
       .sort((a, b) => (b.order ?? 0) - (a.order ?? 0));
 
+    // make a copy of entries and apply all mutations to it
     let shallowCopy = [...entries];
     mutations.forEach(({ func }) => {
       const result = func(shallowCopy);
-      if (result) {
-        shallowCopy = result as TEntry[];
-      }
+      if (result) shallowCopy = result;
     });
+
     return shallowCopy.map((row) => {
-      const cells = columns.value.reduce<DataGridRendererRow<TEntry, DataGridMetadata>["cells"]>(
+      const columnsToRender = row._columns ?? columns.value;
+
+      const cells = columnsToRender.reduce<DataGridRendererRow<TEntry, DataGridMetadata>["cells"]>(
         (cells, { key, type, tdAttributes }) => {
           const cellRenderer = renderer.value.getFor("cell", type.name);
           cells[key] = {
@@ -595,10 +597,12 @@ export const useDataGridFeatures = <
         },
         {},
       );
+
       return {
         id: row.id,
-        cells,
         trAttributes: row._trAttributes,
+        columns: columnsToRender,
+        cells,
       };
     });
   };

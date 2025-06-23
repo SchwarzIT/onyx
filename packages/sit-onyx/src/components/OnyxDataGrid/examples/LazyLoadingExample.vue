@@ -48,6 +48,7 @@ const withPagination = DataGridFeatures.usePagination({
   // passing in the loading state when async pagination is used is important so scroll events are handled correctly
   loading: isLoading,
 });
+
 const features = [withPagination];
 </script>
 
