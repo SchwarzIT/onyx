@@ -1,5 +1,13 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-beta.91
+
+### Patch Changes
+
+- c7f55e5: fix(storybook): exclude unwanted controls
+
+  This includes: "ref", "ref_for", "ref_key", "class", "style", "key" and "$slots"
+
 ## 1.0.0-beta.90
 
 ### Patch Changes
