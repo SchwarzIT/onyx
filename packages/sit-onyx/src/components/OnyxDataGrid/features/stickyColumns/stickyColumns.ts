@@ -1,4 +1,4 @@
-import { computed, nextTick, onUnmounted, ref, useId, watch, type HTMLAttributes } from "vue";
+import { computed, nextTick, onUnmounted, ref, useId, watch } from "vue";
 import { createFeature, type ModifyColumns } from "..";
 
 import { mergeVueProps } from "../../../../utils/attrs";
@@ -54,7 +54,7 @@ export const useStickyColumns = <TEntry extends DataGridEntry>(
 
       document.body.style.setProperty(createStickyPositionCssVar(key), `${width}px`);
     };
-    const handleScroll = (el: HTMLElement) => {
+    const handleScroll = (el: Element) => {
       const width = el.scrollWidth - el.clientWidth;
       const scrollLeft = Math.round(el.scrollLeft);
       isScrolled.value =
@@ -116,14 +116,13 @@ export const useStickyColumns = <TEntry extends DataGridEntry>(
             : [...nonSticky, ...sticky.slice().reverse()];
         },
       } satisfies ModifyColumns<TEntry> as ModifyColumns<TEntry>,
-      scrollContainerAttributes: () =>
-        ({
-          ref: (el?: HTMLElement) => {
-            if (el) {
-              nextTick(() => handleScroll(el));
-            }
-          },
-          onScrollCapturePassive: (e: Event) => handleScroll(e.target as HTMLElement),
-        }) as HTMLAttributes,
+      scrollContainerAttributes: () => ({
+        ref: (el) => {
+          if (el) {
+            nextTick(() => handleScroll(el));
+          }
+        },
+        onScrollCapturePassive: (e: Event) => handleScroll(e.target as HTMLElement),
+      }),
     };
   });

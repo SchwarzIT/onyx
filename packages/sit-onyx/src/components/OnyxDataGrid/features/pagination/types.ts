@@ -23,6 +23,17 @@ export type PaginationOptions = Pick<
    * Whether to disable the pagination.
    */
   disabled?: Ref<boolean | undefined>;
+  /**
+   * Defines how the pagination is applied by the user, e.g. using a select, lazy loading on scroll etc.
+   *
+   * @default "select"
+   */
+  type?: PaginationType;
+  /**
+   * Whether the data is currently loading after changing the current page.
+   * Should only be used if pagination is async.
+   */
+  loading?: Ref<boolean>;
 };
 
 export type PaginationState = {
@@ -39,3 +50,5 @@ export type PaginationState = {
    */
   pageSize: number;
 };
+
+export type PaginationType = "select" | "lazy";

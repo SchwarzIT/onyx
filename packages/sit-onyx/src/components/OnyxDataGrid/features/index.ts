@@ -251,7 +251,7 @@ export type DataGridFeatureDescription<
         | {
             iconComponent: Component;
             /**
-             * Will force the iconcomponent to be always shown in the header and not be put into the menu
+             * Will force the icon component to be always shown in the header and not be put into the menu
              */
             alwaysShowInHeader?: boolean;
           };
@@ -264,11 +264,15 @@ export type DataGridFeatureDescription<
       all: InternalColumnConfig<TEntry>[],
     ) => Component;
   };
-  scrollContainerAttributes?: () => HTMLAttributes;
+  scrollContainerAttributes?: () => DataGridScrollContainerAttributes;
   /**
    * Optional table slots.
    */
   slots?: DataGridFeatureSlots;
+};
+
+export type DataGridScrollContainerAttributes = HTMLAttributes & {
+  ref?: (ref?: HTMLElement) => void;
 };
 
 export type DataGridFeatureSlots = Partial<{
@@ -595,6 +599,7 @@ export const useDataGridFeatures = <
       return {
         id: row.id,
         cells,
+        trAttributes: row._trAttributes,
       };
     });
   };

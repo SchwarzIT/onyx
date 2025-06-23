@@ -130,7 +130,7 @@ export const mergeVueProps = <T extends VProps | null | undefined>(...args: T[] 
     const _ = curr?.ref;
     const currRef = curr && isProxy(curr) && "ref" in curr ? toRaw(curr).ref : curr?.ref;
     const prevRef = prev?.ref;
-    const merged = mergeProps(prev, (curr ?? {}) as VProps);
+    const merged = mergeProps(prev, curr ?? {});
 
     if (!prevRef && !currRef) {
       return merged;
