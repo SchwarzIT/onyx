@@ -35,7 +35,7 @@ export const usePagination = (options?: PaginationOptions) =>
     const scrollContainer = ref<HTMLElement>();
 
     const { vScrollEnd, isScrollEnd } = useScrollEnd({
-      enabled: computed(() => type === "lazy" && isLastPage.value),
+      enabled: computed(() => type === "lazy" && !isLastPage.value),
       loading,
     });
 
