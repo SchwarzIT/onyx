@@ -2,7 +2,8 @@
 
 @include layers.component {
   .onyx-data-grid {
-    &__lazy-loading {
+    &__lazy-pagination,
+    &__button-pagination {
       grid-column: 1 / -1;
       border-right: none;
       text-align: center;

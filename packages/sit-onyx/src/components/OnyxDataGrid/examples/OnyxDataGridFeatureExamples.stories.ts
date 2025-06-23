@@ -30,6 +30,11 @@ export const LazyLoading: Story = {
   ...createAdvancedStoryExample("OnyxDataGrid", "LazyLoadingExample"),
 };
 
+export const ButtonLoading: Story = {
+  tags: ["new:feature"],
+  ...createAdvancedStoryExample("OnyxDataGrid", "ButtonLoadingExample"),
+};
+
 export const HideColumns: Story = {
   ...createAdvancedStoryExample("OnyxDataGrid", "HideColumnsExample"),
 };

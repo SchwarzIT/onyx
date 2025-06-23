@@ -1,9 +1,10 @@
-import { computed, h, ref, toRef, watch, type Ref } from "vue";
+import { computed, h, ref, toRef, toValue, watch, type Ref } from "vue";
 import { createFeature, useFeatureContext } from "..";
 import { useScrollEnd } from "../../../../composables/scrollEnd";
 import { applyLimits } from "../../../../utils/numbers";
 import OnyxLoadingDots from "../../../OnyxLoadingIndicator/OnyxLoadingDots.vue";
 import OnyxPagination from "../../../OnyxPagination/OnyxPagination.vue";
+import OnyxSystemButton from "../../../OnyxSystemButton/OnyxSystemButton.vue";
 import type { DataGridEntry } from "../../types";
 import { FILTERING_MUTATION_ORDER } from "../filtering/filtering";
 import { createTypeRenderer } from "../renderer";
@@ -11,8 +12,10 @@ import "./pagination.scss";
 import type { PaginationOptions, PaginationState } from "./types";
 
 export const PAGINATION_FEATURE = Symbol("Pagination");
-export const PAGINATION_LAZY_LOADING_ROW_ID = Symbol("LazyLoadingRow");
+export const LAZY_LOADING_ROW_ID = Symbol("LazyLoadingRow");
 export const LAZY_LOADING_TYPE_RENDERER = Symbol("LazyLoadingRenderer");
+export const BUTTON_LOADING_ROW_ID = Symbol("ButntoLoadingRow");
+export const BUTTON_LOADING_TYPE_RENDERER = Symbol("ButtonLoadingRenderer");
 
 export const usePagination = (options?: PaginationOptions) =>
   createFeature((ctx) => {
@@ -25,13 +28,14 @@ export const usePagination = (options?: PaginationOptions) =>
     const shouldShowPagination = computed(
       () => state.value.pages > 1 || state.value.current > state.value.pageSize,
     );
+    const isLastPage = computed(() => state.value.current >= state.value.pages);
     const loading = computed(() => options?.loading?.value ?? false);
 
     const type = options?.type ?? "select";
     const scrollContainer = ref<HTMLElement>();
 
     const { vScrollEnd, isScrollEnd } = useScrollEnd({
-      enabled: computed(() => state.value.current < state.value.pages),
+      enabled: computed(() => type === "lazy" && isLastPage.value),
       loading,
     });
 
@@ -66,10 +70,17 @@ export const usePagination = (options?: PaginationOptions) =>
             _entries = _entries.slice(startIndex, endIndex);
           }
 
-          if (loading.value) {
+          if (type === "lazy" && loading.value) {
             _entries.push({
-              id: PAGINATION_LAZY_LOADING_ROW_ID,
+              id: LAZY_LOADING_ROW_ID,
               _columns: [{ key: "id", type: { name: LAZY_LOADING_TYPE_RENDERER } }],
+            } satisfies DataGridEntry);
+          }
+
+          if (type === "button" && !isLastPage.value) {
+            _entries.push({
+              id: BUTTON_LOADING_ROW_ID,
+              _columns: [{ key: "id", type: { name: BUTTON_LOADING_TYPE_RENDERER } }],
             } satisfies DataGridEntry);
           }
 
@@ -80,9 +91,26 @@ export const usePagination = (options?: PaginationOptions) =>
         [LAZY_LOADING_TYPE_RENDERER]: createTypeRenderer({
           cell: {
             tdAttributes: {
-              class: "onyx-data-grid__lazy-loading",
+              class: "onyx-data-grid__lazy-pagination",
             },
             component: () => h(OnyxLoadingDots),
+          },
+        }),
+        [BUTTON_LOADING_TYPE_RENDERER]: createTypeRenderer({
+          cell: {
+            tdAttributes: {
+              class: "onyx-data-grid__button-pagination",
+            },
+            component: () => {
+              if (loading.value) return h(OnyxLoadingDots);
+
+              return h(OnyxSystemButton, {
+                label: ctx.i18n.t.value("dataGrid.loadMore"),
+                color: "medium",
+                disabled: toValue(options?.disabled),
+                onClick: () => state.value.current++,
+              });
+            },
           },
         }),
       },
