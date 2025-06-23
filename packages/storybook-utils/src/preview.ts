@@ -62,6 +62,7 @@ export const createPreview = <T extends Preview = Preview>(
         sort: "requiredFirst",
         // needed to also show props/events descriptions etc. when opening a single story
         expanded: true,
+        exclude: ["ref", "ref_for", "ref_key", "class", "style", "key", "$slots"],
       },
       docs: {
         // see: https://github.com/hipstersmoothie/storybook-dark-mode/issues/127#issuecomment-840701971
