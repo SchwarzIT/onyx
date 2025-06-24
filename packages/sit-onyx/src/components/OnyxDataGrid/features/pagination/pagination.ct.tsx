@@ -1,7 +1,7 @@
 import type { Locator } from "@playwright/test";
 import { expect, test } from "../../../../playwright/a11y";
 import AsyncTestCase from "./AsyncTestCase.ct.vue";
-import TestCase from "./TestCase.vue";
+import TestCase from "./TestCase.ct.vue";
 
 const getTestData = (length: number) =>
   Array.from({ length }, (_, index) => ({ id: index + 1, a: `A ${index + 1}` }));
@@ -15,7 +15,6 @@ test("should paginate rows", async ({ mount, page }) => {
   const component = await mount(TestCase, {
     props: {
       data: getTestData(128),
-      columns: ["a"],
     },
   });
 
@@ -91,7 +90,6 @@ test("should hide pagination when empty or only one page exists", async ({ mount
   const component = await mount(TestCase, {
     props: {
       data: [],
-      columns: ["a"],
     },
   });
 
@@ -150,7 +148,6 @@ test("should handle lazy loading", async ({ mount }) => {
     props: {
       style: { maxHeight: "24rem" },
       data: getTestData(52),
-      columns: ["a"],
       paginationOptions: {
         type: "lazy",
       },
@@ -267,7 +264,6 @@ test("should handle button loading", async ({ mount }) => {
     props: {
       style: { maxHeight: "24rem" },
       data: getTestData(52),
-      columns: ["a"],
       paginationOptions: {
         type: "button",
       },
