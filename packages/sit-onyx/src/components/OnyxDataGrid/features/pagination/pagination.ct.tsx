@@ -1,12 +1,13 @@
 import type { Locator } from "@playwright/test";
 import { expect, test } from "../../../../playwright/a11y";
+import AsyncTestCase from "./AsyncTestCase.ct.vue";
 import TestCase from "./TestCase.vue";
 
 const getTestData = (length: number) =>
   Array.from({ length }, (_, index) => ({ id: index + 1, a: `A ${index + 1}` }));
 
-const expectRowCount = async (dataGrid: Locator, count: number) => {
-  await expect(dataGrid.getByRole("row")).toHaveCount(count + 1); // +1 = header row
+const expectRowCount = async (dataGrid: Locator, count: number, message?: string) => {
+  await expect(dataGrid.getByRole("row"), message).toHaveCount(count + 1); // +1 = header row
 };
 
 test("should paginate rows", async ({ mount, page }) => {
@@ -140,4 +141,221 @@ test("should hide pagination when empty or only one page exists", async ({ mount
   await expect(component).toHaveScreenshot("default.png");
   await expectRowCount(component, 25);
   await expect(pagination).toBeVisible();
+});
+
+// eslint-disable-next-line playwright/expect-expect -- expects are done in external functions
+test("should handle lazy loading", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(TestCase, {
+    props: {
+      style: { maxHeight: "24rem" },
+      data: getTestData(52),
+      columns: ["a"],
+      paginationOptions: {
+        type: "lazy",
+      },
+    },
+  });
+
+  const scrollToRow = (number: number) => {
+    return component.evaluate((element, index) => {
+      Array.from(element.querySelectorAll("tr"))
+        .at(index)
+        ?.scrollIntoView({ block: "end", behavior: "smooth" });
+    }, number);
+  };
+
+  // ASSERT
+  await expectRowCount(component, 25);
+
+  // ACT
+  await scrollToRow(24);
+
+  // ASSERT
+  await expectRowCount(component, 25, "scrolling to 2nth last row should not trigger lazy loading");
+
+  // ACT
+  await scrollToRow(25);
+
+  // ASSERT
+  await expectRowCount(component, 50, "scrolling to last row should trigger lazy loading");
+
+  // ACT
+  await scrollToRow(50);
+
+  // ASSERT
+  await expectRowCount(component, 52, "scrolling to last row should trigger lazy loading");
+
+  // ACT
+  await scrollToRow(52);
+
+  // ASSERT
+  await expectRowCount(component, 52, "should disable lazy loading when last page is reached");
+});
+
+test("should handle lazy loading (async)", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(AsyncTestCase, {
+    props: {
+      style: { maxHeight: "24rem" },
+      data: getTestData(25),
+      paginationOptions: {
+        type: "lazy",
+      },
+    },
+  });
+
+  const loadingIndicator = component.locator(".onyx-loading-dots");
+
+  const scrollToRow = (number: number) => {
+    return component.evaluate((element, index) => {
+      Array.from(element.querySelectorAll("tr"))
+        .at(index)
+        ?.scrollIntoView({ block: "end", behavior: "smooth" });
+    }, number);
+  };
+
+  // ASSERT
+  await expect(component.getByRole("row", { name: "A 25" })).toBeVisible();
+  await expect(component.getByRole("row", { name: "A 26" })).toBeHidden();
+
+  // ACT
+  await scrollToRow(24);
+
+  // ASSERT
+  await expect(component.getByRole("row", { name: "A 25" })).toBeVisible();
+  await expect(
+    component.getByRole("row", { name: "A 26" }),
+    "scrolling to 2nth last row should not trigger lazy loading",
+  ).toBeHidden();
+
+  // ACT
+  await scrollToRow(25);
+  await component.update({ props: { loading: true } });
+
+  // ASSERT
+  await expect(loadingIndicator).toBeVisible();
+  await expect(component).toHaveScreenshot("lazy-loading.png");
+
+  // ACT
+  await component.update({ props: { loading: false, data: getTestData(50) } });
+
+  // ASSERT
+  await expect(loadingIndicator).toBeHidden();
+  await expect(component.getByRole("row", { name: "A 25" })).toBeVisible();
+  await expect(
+    component.getByRole("row", { name: "A 50" }),
+    "scrolling to last row should trigger lazy loading",
+  ).toBeVisible();
+
+  // ACT
+  await scrollToRow(50);
+  await component.update({ props: { data: getTestData(52) } });
+
+  // ASSERT
+  await expect(component.getByRole("row", { name: "A 25" })).toBeVisible();
+  await expect(component.getByRole("row", { name: "A 50" })).toBeVisible();
+  await expect(
+    component.getByRole("row", { name: "A 52" }),
+    "scrolling to last row should trigger lazy loading",
+  ).toBeVisible();
+});
+
+test("should handle button loading", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(TestCase, {
+    props: {
+      style: { maxHeight: "24rem" },
+      data: getTestData(52),
+      columns: ["a"],
+      paginationOptions: {
+        type: "button",
+      },
+    },
+  });
+
+  const button = component.getByRole("button", { name: "Load more" });
+
+  // ACT
+  await button.scrollIntoViewIfNeeded();
+
+  // ASSERT
+  await expect(component.getByRole("row", { name: "A 25" })).toBeVisible();
+  await expect(component.getByRole("row", { name: "A 26" })).toBeHidden();
+
+  // ACT
+  await button.click();
+
+  // ASSERT
+  await expect(component.getByRole("row", { name: "A 25" })).toBeVisible();
+  await expect(component.getByRole("row", { name: "A 50" })).toBeVisible();
+
+  // ACT
+  await button.click();
+
+  // ASSERT
+  await expect(component.getByRole("row", { name: "A 25" })).toBeVisible();
+  await expect(component.getByRole("row", { name: "A 50" })).toBeVisible();
+  await expect(component.getByRole("row", { name: "A 52" })).toBeVisible();
+  await expect(button, "should hide button when last page is reached").toBeHidden();
+});
+
+test("should handle button loading (async)", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(AsyncTestCase, {
+    props: {
+      style: { maxHeight: "24rem" },
+      data: getTestData(25),
+      paginationOptions: {
+        type: "button",
+      },
+    },
+  });
+
+  const button = component.getByRole("button", { name: "Load more" });
+  const loadingIndicator = component.locator(".onyx-loading-dots");
+
+  // ACT
+  await button.scrollIntoViewIfNeeded();
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("button.png");
+  await expect(component.getByRole("row", { name: "A 25" })).toBeVisible();
+  await expect(component.getByRole("row", { name: "A 26" })).toBeHidden();
+
+  // ACT
+  await button.click();
+  await component.update({ props: { loading: true } });
+
+  // ASSERT
+  await expect(loadingIndicator).toBeVisible();
+  await expect(component).toHaveScreenshot("button-loading.png");
+
+  // ACT
+  await component.update({ props: { loading: false, data: getTestData(50) } });
+
+  // ASSERT
+  await expect(loadingIndicator).toBeHidden();
+  await expect(component.getByRole("row", { name: "A 25" })).toBeVisible();
+  await expect(component.getByRole("row", { name: "A 50" })).toBeVisible();
+
+  // ACT
+  await button.click();
+  await component.update({ props: { loading: true } });
+
+  // ASSERT
+  await expect(
+    loadingIndicator,
+    "should show loading indicator if last page is reached",
+  ).toBeVisible();
+
+  // ACT
+  await component.update({ props: { data: getTestData(52), loading: false } });
+
+  // ASSERT
+  await expect(component.getByRole("row", { name: "A 25" })).toBeVisible();
+  await expect(component.getByRole("row", { name: "A 50" })).toBeVisible();
+  await expect(component.getByRole("row", { name: "A 52" })).toBeVisible();
+  await expect(button, "should hide button when last page is reached").toBeHidden();
+  await expect(loadingIndicator).toBeHidden();
 });

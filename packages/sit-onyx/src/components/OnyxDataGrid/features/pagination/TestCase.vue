@@ -6,13 +6,14 @@ import type { PaginationOptions } from "./types";
 
 const props = defineProps<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- for simplicity we use any here
-  Pick<OnyxDataGridProps<TEntry, any, any, any, any, any>, "columns" | "data" | "skeleton"> & {
+  Omit<OnyxDataGridProps<TEntry, any, any, any, any, any>, "features"> & {
     /**
      * config
      */
     paginationOptions?: PaginationOptions;
   }
 >();
+
 const withPagination = computed(() => DataGridFeatures.usePagination(props.paginationOptions));
 const features = computed(() => [withPagination.value]);
 </script>

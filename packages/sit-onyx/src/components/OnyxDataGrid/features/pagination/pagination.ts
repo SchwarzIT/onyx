@@ -17,25 +17,25 @@ export const LAZY_LOADING_TYPE_RENDERER = Symbol("LazyLoadingRenderer");
 export const BUTTON_LOADING_ROW_ID = Symbol("ButntoLoadingRow");
 export const BUTTON_LOADING_TYPE_RENDERER = Symbol("ButtonLoadingRenderer");
 
-export const usePagination = (options?: PaginationOptions) =>
+export const usePagination = (options: PaginationOptions = {}) =>
   createFeature((ctx) => {
     const state = toRef(
       options?.paginationState ?? { current: 1, pages: 1, pageSize: options?.pageSize ?? 25 },
     ) as Ref<PaginationState>;
 
     const { isEnabled, isAsync } = useFeatureContext(ctx, options);
-    const isDisabled = computed(() => options?.disabled?.value ?? false);
+    const isDisabled = computed(() => options.disabled?.value ?? false);
     const shouldShowPagination = computed(
       () => state.value.pages > 1 || state.value.current > state.value.pageSize,
     );
     const isLastPage = computed(() => state.value.current >= state.value.pages);
-    const loading = computed(() => options?.loading?.value ?? false);
+    const loading = computed(() => options.loading?.value ?? false);
 
-    const type = options?.type ?? "select";
+    const type = options.type ?? "select";
     const scrollContainer = ref<HTMLElement>();
 
     const { vScrollEnd, isScrollEnd } = useScrollEnd({
-      enabled: computed(() => type === "lazy" && !isLastPage.value),
+      enabled: computed(() => type === "lazy" && !isLastPage.value && !toValue(options.disabled)),
       loading,
     });
 
@@ -51,7 +51,7 @@ export const usePagination = (options?: PaginationOptions) =>
 
     return {
       name: PAGINATION_FEATURE,
-      watch: [state, isEnabled, isDisabled, ctx.skeleton, isScrollEnd, loading],
+      watch: [state, isEnabled, isAsync, isDisabled, ctx.skeleton, isScrollEnd, loading],
       mutation: {
         order: FILTERING_MUTATION_ORDER + 1,
         func: (entries) => {
@@ -77,7 +77,7 @@ export const usePagination = (options?: PaginationOptions) =>
             } satisfies DataGridEntry);
           }
 
-          if (type === "button" && !isLastPage.value) {
+          if (type === "button" && (!isLastPage.value || loading.value)) {
             _entries.push({
               id: BUTTON_LOADING_ROW_ID,
               _columns: [{ key: "id", type: { name: BUTTON_LOADING_TYPE_RENDERER } }],
@@ -107,7 +107,7 @@ export const usePagination = (options?: PaginationOptions) =>
               return h(OnyxSystemButton, {
                 label: ctx.i18n.t.value("dataGrid.loadMore"),
                 color: "medium",
-                disabled: toValue(options?.disabled),
+                disabled: toValue(options.disabled),
                 onClick: () => state.value.current++,
               });
             },
