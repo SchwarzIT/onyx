@@ -78,8 +78,10 @@ export type DataGridRendererRow<
   /**
    * Defines which columns are rendered in which order for this row.
    * Cell content must be included in the "cells" object.
+   *
+   * If undefined, the default columns of the data grid should be used.
    */
-  columns: Pick<DataGridRendererColumn<TEntry>, "key">[];
+  columns?: Pick<DataGridRendererColumn<TEntry>, "key">[];
 };
 
 /**
