@@ -1,5 +1,8 @@
 blank_issues_enabled: false
 contact_links:
+  - name: Request a new feature 🚀
+    url: https://github.com/SchwarzIT/onyx/discussions/categories/ideas
+    about: Do you want to request a new feature to be added to onyx? Use the "Ideas" discussion board!
   - name: Questions & Discussions
     url: https://github.com/SchwarzIT/onyx/discussions/categories/q-a
     about: You have a question that might already be answered by the community? Take a look at the GitHub discussions!
