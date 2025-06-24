@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "value" theme.
- * Imported from Figma API on Wed, 11 Jun 2025 13:38:25 GMT
+ * Imported from Figma API on Tue, 24 Jun 2025 06:17:02 GMT
  */
 :where(:root),
 .onyx-theme-default {
@@ -31,18 +31,18 @@
   --onyx-color-green-1000: #185e3a;
   --onyx-color-green-1100: #0f4f2f;
   --onyx-color-green-1200: #064023;
-  --onyx-color-kl-100: #fafbfc;
-  --onyx-color-kl-200: #e9ecf0;
-  --onyx-color-kl-300: #d7dce0;
-  --onyx-color-kl-400: #b7bec4;
-  --onyx-color-kl-500: #96a1ab;
-  --onyx-color-kl-600: #657682;
-  --onyx-color-kl-700: #42505c;
-  --onyx-color-kl-800: #42515c;
-  --onyx-color-kl-900: #31414b;
-  --onyx-color-kl-1000: #212e3a;
-  --onyx-color-kl-1100: #101e2a;
-  --onyx-color-kl-1200: #000d19;
+  --onyx-color-kl-100: #f5f5f5;
+  --onyx-color-kl-200: #f0f0f0;
+  --onyx-color-kl-300: #e8e8e8;
+  --onyx-color-kl-400: #d3d3d3;
+  --onyx-color-kl-500: #b8b8b8;
+  --onyx-color-kl-600: #8d8d8d;
+  --onyx-color-kl-700: #7f7f7f;
+  --onyx-color-kl-800: #757575;
+  --onyx-color-kl-900: #676767;
+  --onyx-color-kl-1000: #424242;
+  --onyx-color-kl-1100: #363636;
+  --onyx-color-kl-1200: #252525;
   --onyx-color-lemon-100: #fcfff0;
   --onyx-color-lemon-200: #f5ffcc;
   --onyx-color-lemon-300: #f1ffad;
@@ -225,28 +225,26 @@
   --onyx-color-twogo-1000: #023e42;
   --onyx-color-twogo-1100: #012c2e;
   --onyx-color-twogo-1200: #00191b;
-  --onyx-font-family-default: ;
-  --onyx-font-family-description: ;
-  --onyx-font-family-digits: ;
-  --onyx-font-family-digits-decorative: ;
-  --onyx-font-family-kaufland: ;
-  --onyx-font-family-lidl: ;
-  --onyx-font-family-mono: ;
-  --onyx-font-family-prezero: ;
-  --onyx-font-family-schwarz: ;
-  --onyx-font-number-0: 0.75rem;
-  --onyx-font-number-0-spacing: ;
-  --onyx-font-number-100: 0.8125rem;
-  --onyx-font-number-200: 1rem;
-  --onyx-font-number-300: 1.25rem;
-  --onyx-font-number-400: 1.5rem;
-  --onyx-font-number-500: 1.75rem;
-  --onyx-font-number-600: 2.5rem;
-  --onyx-font-weight-bold: ;
-  --onyx-font-weight-medium: ;
-  --onyx-font-weight-regular: ;
-  --onyx-font-weight-semibold: ;
-  --onyx-font-weight-semiBold: ;
+  --onyx-font-family-default: "Source Sans 3";
+  --onyx-font-family-digits: "DIN 2014";
+  --onyx-font-family-digits-decorative: "Univia Pro";
+  --onyx-font-family-kaufland: "Kaufland";
+  --onyx-font-family-lidl: "Lidl Font Pro";
+  --onyx-font-family-mono: "Source Code Pro";
+  --onyx-font-family-prezero: "Helsinki";
+  --onyx-font-family-schwarz: "Helvetica Now Var";
+  --onyx-font-values-0: 0.75rem;
+  --onyx-font-values-0-spacing: "0%";
+  --onyx-font-values-100: 0.8125rem;
+  --onyx-font-values-200: 1rem;
+  --onyx-font-values-300: 1.25rem;
+  --onyx-font-values-400: 1.5rem;
+  --onyx-font-values-500: 1.75rem;
+  --onyx-font-values-600: 2.5rem;
+  --onyx-font-weight-bold: 700;
+  --onyx-font-weight-medium: 500;
+  --onyx-font-weight-regular: 400;
+  --onyx-font-weight-semibold: 600;
   --onyx-number-radius-100: 0.125rem;
   --onyx-number-radius-200: 0.25rem;
   --onyx-number-radius-300: 0.5rem;
