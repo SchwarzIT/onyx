@@ -154,37 +154,29 @@ test("should handle lazy loading", async ({ mount }) => {
     },
   });
 
-  const scrollToRow = (number: number) => {
-    return component.evaluate((element, index) => {
-      Array.from(element.querySelectorAll("tr"))
-        .at(index)
-        ?.scrollIntoView({ block: "end", behavior: "smooth" });
-    }, number);
-  };
-
   // ASSERT
   await expectRowCount(component, 25);
 
   // ACT
-  await scrollToRow(24);
+  await scrollToRow(component, 24);
 
   // ASSERT
   await expectRowCount(component, 25, "scrolling to 2nth last row should not trigger lazy loading");
 
   // ACT
-  await scrollToRow(25);
+  await scrollToRow(component, 25);
 
   // ASSERT
   await expectRowCount(component, 50, "scrolling to last row should trigger lazy loading");
 
   // ACT
-  await scrollToRow(50);
+  await scrollToRow(component, 50);
 
   // ASSERT
   await expectRowCount(component, 52, "scrolling to last row should trigger lazy loading");
 
   // ACT
-  await scrollToRow(52);
+  await scrollToRow(component, 52);
 
   // ASSERT
   await expectRowCount(component, 52, "should disable lazy loading when last page is reached");
@@ -204,20 +196,12 @@ test("should handle lazy loading (async)", async ({ mount }) => {
 
   const loadingIndicator = component.locator(".onyx-loading-dots");
 
-  const scrollToRow = (number: number) => {
-    return component.evaluate((element, index) => {
-      Array.from(element.querySelectorAll("tr"))
-        .at(index)
-        ?.scrollIntoView({ block: "end", behavior: "smooth" });
-    }, number);
-  };
-
   // ASSERT
   await expect(component.getByRole("row", { name: "A 25" })).toBeVisible();
   await expect(component.getByRole("row", { name: "A 26" })).toBeHidden();
 
   // ACT
-  await scrollToRow(24);
+  await scrollToRow(component, 24);
 
   // ASSERT
   await expect(component.getByRole("row", { name: "A 25" })).toBeVisible();
@@ -227,11 +211,12 @@ test("should handle lazy loading (async)", async ({ mount }) => {
   ).toBeHidden();
 
   // ACT
-  await scrollToRow(25);
+  await scrollToRow(component, 25);
   await component.update({ props: { loading: true } });
 
   // ASSERT
   await expect(loadingIndicator).toBeVisible();
+  await loadingIndicator.scrollIntoViewIfNeeded();
   await expect(component).toHaveScreenshot("lazy-loading.png");
 
   // ACT
@@ -246,7 +231,7 @@ test("should handle lazy loading (async)", async ({ mount }) => {
   ).toBeVisible();
 
   // ACT
-  await scrollToRow(50);
+  await scrollToRow(component, 50);
   await component.update({ props: { data: getTestData(52) } });
 
   // ASSERT
@@ -296,7 +281,7 @@ test("should handle button loading", async ({ mount }) => {
   await expect(button, "should hide button when last page is reached").toBeHidden();
 });
 
-test("should handle button loading (async)", async ({ mount }) => {
+test("should handle button loading (async)", async ({ page, mount }) => {
   // ARRANGE
   const component = await mount(AsyncTestCase, {
     props: {
@@ -325,6 +310,7 @@ test("should handle button loading (async)", async ({ mount }) => {
 
   // ASSERT
   await expect(loadingIndicator).toBeVisible();
+  await page.getByRole("document").hover(); // reset mouse hover
   await expect(component).toHaveScreenshot("button-loading.png");
 
   // ACT
@@ -355,3 +341,11 @@ test("should handle button loading (async)", async ({ mount }) => {
   await expect(button, "should hide button when last page is reached").toBeHidden();
   await expect(loadingIndicator).toBeHidden();
 });
+
+function scrollToRow(component: Locator, number: number) {
+  return component.evaluate((element, index) => {
+    Array.from(element.querySelectorAll("tr"))
+      .at(index)
+      ?.scrollIntoView({ block: "end", behavior: "smooth" });
+  }, number);
+}
