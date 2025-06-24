@@ -352,9 +352,6 @@
   --onyx-font-size-md: var(--onyx-font-values-200);
   --onyx-font-size-sm: var(--onyx-font-values-100);
   --onyx-font-size-xl: var(--onyx-font-values-500);
-  --onyx-font-weight-bold: var(--onyx-font-weight-bold);
-  --onyx-font-weight-regular: var(--onyx-font-weight-regular);
-  --onyx-font-weight-semibold: var(--onyx-font-weight-semibold);
   --onyx-radius-full: var(--onyx-number-radius-600);
   --onyx-radius-lg: var(--onyx-number-radius-400);
   --onyx-radius-md: var(--onyx-number-radius-300);
