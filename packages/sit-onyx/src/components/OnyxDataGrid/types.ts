@@ -109,12 +109,21 @@ export type DataGridEntry = {
    */
   id: PropertyKey;
   /**
+   * Additional options for this row.
+   */
+  [DataGridRowOptionsSymbol]?: DataGridEntryOptions;
+};
+
+export type DataGridEntryOptions = {
+  /**
    * Attributes that are bound directly to the `<tr>` element of the row.
    */
-  _trAttributes?: HTMLAttributes;
+  trAttributes?: HTMLAttributes;
   /**
    * Overrides which columns to render in which order.
    * Useful if e.g. adding a custom full-width row inside a data grid feature.
    */
-  _columns?: Omit<InternalColumnConfig<{ id: PropertyKey }>, "label">[];
+  columns?: Omit<InternalColumnConfig<{ id: PropertyKey }>, "label">[];
 };
+
+export const DataGridRowOptionsSymbol = Symbol("RowOptions");

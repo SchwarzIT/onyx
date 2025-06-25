@@ -30,7 +30,12 @@ import type {
   DataGridRendererColumn,
   DataGridRendererRow,
 } from "../OnyxDataGridRenderer/types";
-import type { DataGridEntry, DataGridMetadata, RenderTypesFromFeature } from "../types";
+import {
+  DataGridRowOptionsSymbol,
+  type DataGridEntry,
+  type DataGridMetadata,
+  type RenderTypesFromFeature,
+} from "../types";
 import type { BASE_FEATURE } from "./base/base";
 import { createRenderer } from "./renderer";
 
@@ -578,7 +583,7 @@ export const useDataGridFeatures = <
     });
 
     return shallowCopy.map((row) => {
-      const columnsToRender = row._columns ?? columns.value;
+      const columnsToRender = row[DataGridRowOptionsSymbol]?.columns ?? columns.value;
 
       const cells = columnsToRender.reduce<DataGridRendererRow<TEntry, DataGridMetadata>["cells"]>(
         (cells, { key, type, tdAttributes }) => {
@@ -600,7 +605,7 @@ export const useDataGridFeatures = <
 
       return {
         id: row.id,
-        trAttributes: row._trAttributes,
+        trAttributes: row[DataGridRowOptionsSymbol]?.trAttributes,
         columns: columnsToRender,
         cells,
       };

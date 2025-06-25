@@ -5,7 +5,7 @@ import { applyLimits } from "../../../../utils/numbers";
 import OnyxLoadingDots from "../../../OnyxLoadingIndicator/OnyxLoadingDots.vue";
 import OnyxPagination from "../../../OnyxPagination/OnyxPagination.vue";
 import OnyxSystemButton from "../../../OnyxSystemButton/OnyxSystemButton.vue";
-import type { DataGridEntry } from "../../types";
+import { DataGridRowOptionsSymbol, type DataGridEntry } from "../../types";
 import { FILTERING_MUTATION_ORDER } from "../filtering/filtering";
 import { createTypeRenderer } from "../renderer";
 import "./pagination.scss";
@@ -73,14 +73,18 @@ export const usePagination = (options: PaginationOptions = {}) =>
           if (type === "lazy" && loading.value) {
             _entries.push({
               id: LAZY_LOADING_ROW_ID,
-              _columns: [{ key: "id", type: { name: LAZY_LOADING_TYPE_RENDERER } }],
+              [DataGridRowOptionsSymbol]: {
+                columns: [{ key: "id", type: { name: LAZY_LOADING_TYPE_RENDERER } }],
+              },
             } satisfies DataGridEntry);
           }
 
           if (type === "button" && (!isLastPage.value || loading.value)) {
             _entries.push({
               id: BUTTON_LOADING_ROW_ID,
-              _columns: [{ key: "id", type: { name: BUTTON_LOADING_TYPE_RENDERER } }],
+              [DataGridRowOptionsSymbol]: {
+                columns: [{ key: "id", type: { name: BUTTON_LOADING_TYPE_RENDERER } }],
+              },
             } satisfies DataGridEntry);
           }
 
