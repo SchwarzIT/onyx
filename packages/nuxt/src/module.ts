@@ -51,8 +51,7 @@ export default defineNuxtModule<ModuleOptions>({
     nuxt.options.css.push("sit-onyx/style.css");
 
     if (options.theme !== "onyx") {
-      nuxt.options.css.push(`sit-onyx/themes/${options.theme}-light.css`);
-      nuxt.options.css.push(`sit-onyx/themes/${options.theme}-dark.css`);
+      nuxt.options.css.push(`sit-onyx/themes/${options.theme}.css`);
     }
 
     if (!options.disableGlobalStyles) {
