@@ -100,7 +100,7 @@ export const createPreview = <T extends Preview = Preview>(
         disable: true,
       },
       viewport: {
-        viewports: ONYX_BREAKPOINTS,
+        options: ONYX_BREAKPOINTS,
       },
     },
   } satisfies Preview;
