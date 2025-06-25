@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { h, type TdHTMLAttributes } from "vue";
+import { h } from "vue";
 import type { DataGridEntry } from "../types";
 import OnyxDataGridRenderer from "./OnyxDataGridRenderer.vue";
 import type { DataGridRendererCell, DataGridRendererColumn, DataGridRendererRow } from "./types";
@@ -24,60 +24,11 @@ export const Default = {
  */
 export const GroupedData = {
   args: {
+    ...Default.args,
     columnGroups: [
-      {
-        key: "ungrouped",
-        span: 1,
-      },
-      {
-        key: "group-1",
-        span: 2,
-        header: "Group 1",
-      },
-      {
-        key: "group-2",
-        span: 1,
-        header: "Group 2",
-      },
-    ],
-    columns: Array.from({ length: 4 }, (_, index) => getDummyColumn(index + 1)),
-    rows: [
-      {
-        id: "row-1",
-        cells: {
-          "column-1": getDummyCell(`Row 1, cell 1`),
-          "column-2": getDummyCell(`Row 1, cell 2`),
-          "column-3": getDummyCell(`Row 1, cell 3`),
-          "column-4": getDummyCell(`Row 1, cell 4`),
-        },
-      },
-      {
-        id: "row-2",
-        cells: {
-          "column-1": getDummyCell(`Row 2, cell 1`),
-          "column-2": getDummyCell(`Row 2, cell 2`),
-          "column-3": getDummyCell(`Row 2, cell 3`),
-          "column-4": getDummyCell(`Row 2, cell 4`),
-        },
-      },
-      {
-        id: "row-3",
-        cells: {
-          "column-1": getDummyCell(`Row 3, cell 1`),
-          "column-2": getDummyCell(`Row 3, cell 2`),
-          "column-3": getDummyCell(`Row 3, cell 3`),
-          "column-4": getDummyCell(`Row 3, cell 4`),
-        },
-      },
-      {
-        id: "row-4",
-        cells: {
-          "column-1": getDummyCell(`Row 4, cell 1`),
-          "column-2": getDummyCell(`Row 4, cell 2, 3 and 4`, {
-            colspan: 3,
-          }),
-        },
-      },
+      { key: "ungrouped", span: 1 },
+      { key: "group-1", span: 2, header: "Group 1" },
+      { key: "group-2", span: 1, header: "Group 2" },
     ],
   },
 } satisfies Story;
@@ -97,12 +48,12 @@ function getDummyColumn(columnNumber: number): DataGridRendererColumn<DataGridEn
  */
 function getDummyCell(
   id: string,
-  tdAttributes?: TdHTMLAttributes,
+  columnKey: keyof DataGridEntry,
 ): DataGridRendererCell<DataGridEntry> {
   return {
     component: (props) => h("span", props.row.id.toString()),
-    tdAttributes,
     props: {
+      key: columnKey,
       row: {
         id,
       },
@@ -113,16 +64,20 @@ function getDummyCell(
 /**
  * Creates a new row for use as Storybook example.
  */
-function getDummyRow(
-  rowNumber: number,
-): DataGridRendererRow<{ id: PropertyKey; [key: PropertyKey]: unknown }> {
+function getDummyRow(rowNumber: number): DataGridRendererRow<DataGridEntry> {
+  const columns: DataGridRendererRow<DataGridEntry>["columns"] = Array.from(
+    { length: 4 },
+    (_, index) => getDummyColumn(index + 1),
+  );
+
   return {
     id: `row-${rowNumber}`,
+    columns,
     cells: {
-      "column-1": getDummyCell(`Row ${rowNumber}, cell 1`),
-      "column-2": getDummyCell(`Row ${rowNumber}, cell 2`),
-      "column-3": getDummyCell(`Row ${rowNumber}, cell 3`),
-      "column-4": getDummyCell(`Row ${rowNumber}, cell 4`),
+      "column-1": getDummyCell(`Row ${rowNumber}, cell 1`, columns[0].key),
+      "column-2": getDummyCell(`Row ${rowNumber}, cell 2`, columns[1].key),
+      "column-3": getDummyCell(`Row ${rowNumber}, cell 3`, columns[2].key),
+      "column-4": getDummyCell(`Row ${rowNumber}, cell 4`, columns[3].key),
     },
   };
 }

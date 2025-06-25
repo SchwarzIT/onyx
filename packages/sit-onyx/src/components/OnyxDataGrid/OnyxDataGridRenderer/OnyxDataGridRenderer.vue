@@ -47,7 +47,7 @@ const columnStyle = computed(() => {
     </template>
 
     <tr v-for="row in props.rows" :key="row.id" v-bind="row.trAttributes">
-      <template v-for="column in row.columns ?? props.columns" :key="column.key">
+      <template v-for="column in row.columns" :key="column.key">
         <td v-if="row.cells[column.key]" v-bind="row.cells[column.key]!.tdAttributes">
           <!-- We are safe to use the Non-Null Assertion operator ("!") here, as we check beforehand with "v-if" -->
           <component :is="row.cells[column.key]!.component" v-bind="row.cells[column.key]!.props" />
