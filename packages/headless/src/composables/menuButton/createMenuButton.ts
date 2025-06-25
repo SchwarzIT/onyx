@@ -128,6 +128,7 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
         ...triggerEvents(),
         onFocusout: (event) => {
           // if focus receiving element is not part of the menu button, then close
+          console.log("🔍 ~ createBuilder() callback ~ packages/headless/src/composables/menuButton/createMenuButton.ts:133 ~ event.relatedTarget:", event.relatedTarget)
           if (
             rootId &&
             document.getElementById(rootId)?.contains(event.relatedTarget as HTMLElement)

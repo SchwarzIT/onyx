@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { createMenuItems } from "@sit-onyx/headless";
+import arrowSmallLeft from "@sit-onyx/icons/arrow-small-left.svg?raw";
 import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
-import { computed } from "vue";
+import { computed, withModifiers } from "vue";
 import { useLink } from "../../../../composables/useLink";
 import { useVModel } from "../../../../composables/useVModel";
+import { injectI18n } from "../../../../i18n";
 import type { Nullable } from "../../../../types";
 import { mergeVueProps, useRootAttrs } from "../../../../utils/attrs";
 import { extractLinkProps } from "../../../../utils/router";
@@ -14,6 +16,8 @@ import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
 import { type OnyxMenuItemProps } from "./types";
 
 defineOptions({ inheritAttrs: false });
+
+const { t } = injectI18n();
 
 const { rootAttrs, restAttrs } = useRootAttrs();
 
@@ -82,12 +86,20 @@ const hasChildren = computed(() => !!slots.children);
     <!-- back button -->
 
     <ButtonOrLinkLayout
-      v-if="!open"
+      v-show="!open"
       class="onyx-menu-item__trigger"
       :disabled="props.disabled"
       :link="props.link"
-      v-bind="mergeVueProps(menuItemProps, restAttrs)"
-      @click.stop="open = true"
+      v-bind="
+        mergeVueProps(
+          menuItemProps,
+          restAttrs,
+          hasChildren && {
+            onClick: withModifiers(() => (open = true), ['stop']),
+            onFocusout: withModifiers(() => {}, ['stop']),
+          },
+        )
+      "
     >
       <slot>
         <span>
@@ -104,6 +116,10 @@ const hasChildren = computed(() => !!slots.children);
     </ButtonOrLinkLayout>
 
     <ul v-if="hasChildren" v-show="open" role="menu" class="onyx-menu-item__children">
+      <OnyxMenuItem @click.stop="open = false" @focusout.stop>
+        <OnyxIcon :icon="arrowSmallLeft" />
+        {{ t("back") }}
+      </OnyxMenuItem>
       <slot name="children"></slot>
     </ul>
   </OnyxListItem>
@@ -157,7 +173,12 @@ const hasChildren = computed(() => !!slots.children);
 
       display: flex;
       flex-direction: column;
-      gap: var(--onyx-spacing-2xs);
+
+      &:has(.onyx-menu-item--open) {
+        > .onyx-menu-item:not(.onyx-menu-item--open) {
+          display: none;
+        }
+      }
     }
 
     &__chevron {
