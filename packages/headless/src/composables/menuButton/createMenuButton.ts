@@ -32,6 +32,8 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
   watch(options.isExpanded, () => updateDebouncedExpanded.abort()); // manually changing `isExpanded` should abort debounced action
 
   const setExpanded = (expanded: boolean, debounced = false) => {
+    // eslint-disable-next-line no-console -- for testing
+    console.trace("setExpanded", expanded, debounced);
     if (options.disabled?.value) return;
     if (expanded === options.isExpanded.value) {
       updateDebouncedExpanded.abort();

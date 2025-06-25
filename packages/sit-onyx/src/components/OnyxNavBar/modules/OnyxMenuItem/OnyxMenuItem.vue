@@ -76,13 +76,18 @@ const hasChildren = computed(() => !!slots.children);
     :color="props.color"
     :disabled="props.disabled"
     class="onyx-menu-item"
+    :class="{ 'onyx-menu-item--open': open }"
     v-bind="mergeVueProps(listItem, rootAttrs)"
   >
+    <!-- back button -->
+
     <ButtonOrLinkLayout
+      v-if="!open"
       class="onyx-menu-item__trigger"
       :disabled="props.disabled"
       :link="props.link"
       v-bind="mergeVueProps(menuItemProps, restAttrs)"
+      @click.stop="open = true"
     >
       <slot>
         <span>
@@ -97,6 +102,7 @@ const hasChildren = computed(() => !!slots.children);
         <OnyxIcon :icon="chevronRightSmall" size="24px" />
       </div>
     </ButtonOrLinkLayout>
+
     <ul v-if="hasChildren" v-show="open" role="menu" class="onyx-menu-item__children">
       <slot name="children"></slot>
     </ul>

@@ -57,3 +57,17 @@ export const Default = {
     ],
   },
 } satisfies Story;
+
+export const Nested = {
+  args: {
+    ...Default.args,
+    trigger: "click",
+    options: () => [
+      h(OnyxMenuItem, undefined, {
+        default: "German",
+        children: () => [h(OnyxMenuItem, () => "Nested 1")],
+      }),
+      h(OnyxMenuItem, () => "Spanish"),
+    ],
+  },
+} satisfies Story;

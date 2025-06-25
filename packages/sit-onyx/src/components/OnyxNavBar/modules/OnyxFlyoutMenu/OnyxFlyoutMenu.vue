@@ -58,7 +58,9 @@ const {
   elements: { root, button, menu },
 } = createMenuButton({
   isExpanded: computed(() => !!isExpanded.value),
-  onToggle: () => (isExpanded.value = !isExpanded.value),
+  onToggle: () => {
+    isExpanded.value = !isExpanded.value;
+  },
   trigger: computed(() => props.trigger),
   disabled: computed(() => props.disabled),
 });
@@ -136,6 +138,12 @@ const {
         (var(--onyx-flyout-menu-visible-item-count, 7) + 0.5) * (2 * var(--onyx-density-xs) + 1lh)
       );
       overflow: auto;
+
+      &:has(.onyx-menu-item--open) {
+        > .onyx-menu-item:not(.onyx-menu-item--open) {
+          display: none;
+        }
+      }
     }
   }
 }
