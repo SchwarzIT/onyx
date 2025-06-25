@@ -25,14 +25,20 @@ export type GenerateAsCSSOptions = BaseGenerateOptions & {
  * Generates the given parsed Figma variables into CSS variables.
  *
  * @param data Parsed Figma variables
+ * @param dataDarkTheme Parsed Figma variables for additionally dark theme
  * @param options Optional options to fine-tune the generated output
  * @returns File content of the .css file
  */
-export const generateAsCSS = (data: ParsedVariable, options?: GenerateAsCSSOptions): string => {
+export const generateAsCSS = (
+  data: ParsedVariable,
+  dataDarkTheme?: ParsedVariable,
+  options?: GenerateAsCSSOptions,
+): string => {
   const variableContent = getCssOrScssVariableContent(
     data.variables,
     (name) => `  --${name}`,
     (name) => `var(--${name})`,
+    dataDarkTheme?.variables,
     options,
   );
 
@@ -48,11 +54,16 @@ ${fullSelector} {\n${variableContent.join("\n")}\n}\n`;
  *
  * @returns File content of the .scss file
  */
-export const generateAsSCSS = (data: ParsedVariable, options?: BaseGenerateOptions): string => {
+export const generateAsSCSS = (
+  data: ParsedVariable,
+  dataDarkTheme?: ParsedVariable,
+  options?: BaseGenerateOptions,
+): string => {
   const variableContent = getCssOrScssVariableContent(
     data.variables,
     (name) => `$${name}`,
     (name) => `$${name}`,
+    dataDarkTheme?.variables,
     options,
   );
 
@@ -65,16 +76,24 @@ export const generateAsSCSS = (data: ParsedVariable, options?: BaseGenerateOptio
  *
  * @returns File content of the .json file
  */
-export const generateAsJSON = (data: ParsedVariable): string => {
-  const variables = structuredClone(data.variables);
+export const generateAsJSON = (data: ParsedVariable, dataDarkTheme?: ParsedVariable): string => {
+  const lightVars = structuredClone(data.variables);
+  const darkVars = structuredClone(dataDarkTheme?.variables ?? {});
 
-  // recursively resolve aliases to plain values since keys can not be referenced in a .json file
-  // like we could e.g. in a .css file
-  Object.keys(variables).forEach((name) => {
-    variables[name] = resolveValue(name, variables);
+  // Aliase auflösen
+  Object.keys(lightVars).forEach((name) => {
+    lightVars[name] = resolveValue(name, lightVars);
+  });
+  Object.keys(darkVars).forEach((name) => {
+    darkVars[name] = resolveValue(name, darkVars);
   });
 
-  return `${JSON.stringify(variables, null, 2)}\n`;
+  const result = {
+    light: lightVars,
+    ...(dataDarkTheme ? { dark: darkVars } : {}),
+  };
+
+  return JSON.stringify(result, null, 2) + "\n";
 };
 
 /**
@@ -120,7 +139,8 @@ export const generateTimestampComment = (modeName?: string): string => {
  * @example "{your-variable-name}"
  * @returns `isAlias` whether the variable is an alias and `aliasName` the raw variable name without curly braces.
  */
-export const isAliasVariable = (variableValue: string) => {
+export const isAliasVariable = (variableValue?: string) => {
+  if (!variableValue) return { isAlias: false, aliasName: "" };
   const isAlias = /{.*}/.exec(variableValue);
   const aliasName = variableValue.replace("{", "").replace("}", "");
   return { isAlias, aliasName };
@@ -131,6 +151,7 @@ export const isAliasVariable = (variableValue: string) => {
  * represents a single line of the file.
  *
  * @param variables Variable data (name + value)
+ * @param variablesDarkTheme Variable data (name +value) for additionally dark theme
  * @param nameFormatter Function to format the variable name
  * @param aliasFormatter Function to format a reference to another variable (e.g. `var(--name)` for CSS)
  * @param options Generator options
@@ -139,16 +160,40 @@ const getCssOrScssVariableContent = (
   variables: Record<string, string>,
   nameFormatter: (name: string) => string,
   aliasFormatter: (name: string) => string,
+  variablesDarkTheme?: Record<string, string> | null,
   options?: BaseGenerateOptions,
 ) => {
   return Object.entries(variables).map(([name, value]) => {
-    const { isAlias, aliasName } = isAliasVariable(value);
-    let variableValue = isAlias ? aliasFormatter(aliasName) : value;
+    const lightRawValue = value;
+    const darkRawValue = variablesDarkTheme?.[name];
 
-    if (isAlias && options?.resolveAlias) {
-      variableValue = resolveValue(name, variables);
+    const { isAlias: isLightAlias, aliasName: lightAliasName } = isAliasVariable(lightRawValue);
+    const { isAlias: isDarkAlias, aliasName: darkAliasName } = isAliasVariable(
+      darkRawValue ?? lightRawValue,
+    );
+
+    let lightValue = isLightAlias ? aliasFormatter(lightAliasName) : lightRawValue;
+    let darkValue = isDarkAlias ? aliasFormatter(darkAliasName) : (darkRawValue ?? lightRawValue);
+
+    if (options?.resolveAlias) {
+      if (isLightAlias) {
+        lightValue = resolveValue(name, variables);
+      }
+      if (isDarkAlias) {
+        darkValue = resolveValue(name, variablesDarkTheme ?? {});
+      }
     }
 
-    return `${nameFormatter(name)}: ${variableValue};`;
+    const formattedName = nameFormatter(name);
+
+    if (variablesDarkTheme && darkRawValue) {
+      if (lightValue === darkValue) {
+        return `${formattedName}: ${lightValue};`;
+      } else {
+        return `${formattedName}: light-dark(${lightValue}, ${darkValue});`;
+      }
+    }
+
+    return `${formattedName}: ${lightValue};`;
   });
 };

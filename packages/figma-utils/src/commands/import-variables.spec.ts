@@ -62,14 +62,8 @@ describe("import-variables.ts", () => {
     expect(functions.generateAsCSS).toHaveBeenCalledTimes(2);
     expect(fs.writeFileSync).toHaveBeenCalledTimes(2);
 
-    expect(fs.writeFileSync).toHaveBeenCalledWith(
-      "test-cwd/test-file-name-test-mode-1.css",
-      "mock-css-file-content",
-    );
+    expect(fs.writeFileSync).toHaveBeenCalledWith("test-cwd/test.css", "mock-css-file-content");
 
-    expect(fs.writeFileSync).toHaveBeenCalledWith(
-      "test-cwd/test-file-name-test-mode-2.css",
-      "mock-css-file-content",
-    );
+    expect(fs.writeFileSync).toHaveBeenCalledWith("test-cwd/test.css", "mock-css-file-content");
   });
 });
