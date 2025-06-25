@@ -1,5 +1,12 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-beta.92
+
+### Major Changes
+
+- 980d3bc: - fix(storybook-utils): fix viewports not applied correctly
+  - remove type `StorybookBreakpoint`, use the `Viewport` type from `storybook/internal/viewport` instead
+
 ## 1.0.0-beta.91
 
 ### Patch Changes
