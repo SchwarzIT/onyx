@@ -30,6 +30,21 @@ export const GroupedData = {
       { key: "group-1", span: 2, header: "Group 1" },
       { key: "group-2", span: 1, header: "Group 2" },
     ],
+    rows: [
+      ...Array.from({ length: 3 }, (_, index) => getDummyRow(index + 1)),
+      {
+        ...getDummyRow(4),
+        cells: {
+          "column-1": getDummyCell(`Row 4, cell 1`, "column-1"),
+          "column-2": {
+            ...getDummyCell(`Row 4, cell 2, 3 and 4`, "column-2"),
+            tdAttributes: {
+              colspan: 3,
+            },
+          },
+        },
+      },
+    ],
   },
 } satisfies Story;
 
