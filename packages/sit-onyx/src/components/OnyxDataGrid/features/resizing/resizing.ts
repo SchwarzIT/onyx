@@ -1,4 +1,4 @@
-import { h, ref, watch, type HTMLAttributes, type Slots, type ThHTMLAttributes } from "vue";
+import { h, ref, watch, type Slots, type ThHTMLAttributes } from "vue";
 import { createFeature, useFeatureContext, type InternalColumnConfig } from "..";
 import { useResizeObserver } from "../../../../composables/useResizeObserver";
 import { mergeVueProps } from "../../../../utils/attrs";
@@ -125,12 +125,11 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
       modifyColumns: {
         func: modifyColumns,
       },
-      scrollContainerAttributes: () =>
-        ({
-          ref: (el?: HTMLElement) => {
-            scrollContainer.value = el;
-          },
-        }) as HTMLAttributes,
+      scrollContainerAttributes: () => ({
+        ref: (el) => {
+          scrollContainer.value = el as typeof scrollContainer.value;
+        },
+      }),
       typeRenderer: {
         [EMPTY_COLUMN]: {
           header: {

@@ -103,7 +103,7 @@ const generalVueTsConfig = {
 
 const playwrightConfig = {
   name: "onyx-playwright",
-  files: ["**/*.ct.{js,jsx,ts,tsx}"],
+  files: ["**/*.ct.{js,jsx,ts,tsx,vue}"],
   extends: [playwrightEslintConfig.configs["flat/recommended"]],
   rules: {
     "playwright/expect-expect": [
@@ -120,6 +120,7 @@ const playwrightConfig = {
         ],
       },
     ],
+    "vue/require-prop-comment": "off",
   },
 };
 
@@ -215,9 +216,9 @@ export default tsEslint.config(
   eslint.configs.recommended,
   eslintCommentsConfig,
   generalVueTsConfig,
-  playwrightConfig,
   vitestConfig,
   sitOnyxConfig,
+  playwrightConfig,
   nuxtConfig,
   noConsoleConfig,
   skipFormattingConfig,

@@ -43,7 +43,8 @@
           "hideButton": "Hide column"
         }
       }
-    }
+    },
+    "loadMore": "Load more"
   },
   "validations": {
     "tooShort": {

@@ -1,4 +1,4 @@
-import { ref, unref, watchEffect, type Directive, type MaybeRef, type Ref } from "vue";
+import { readonly, ref, unref, watchEffect, type Directive, type MaybeRef, type Ref } from "vue";
 
 export type UseScrollEndOptions = {
   /**
@@ -64,5 +64,5 @@ export const useScrollEnd = (options: UseScrollEndOptions) => {
     },
   } satisfies Directive<Pick<HTMLElement, "addEventListener" | "removeEventListener">, undefined>;
 
-  return { vScrollEnd, isScrollEnd };
+  return { vScrollEnd, isScrollEnd: readonly(isScrollEnd) };
 };

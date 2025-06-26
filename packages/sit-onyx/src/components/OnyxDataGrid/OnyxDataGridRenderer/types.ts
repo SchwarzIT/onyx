@@ -75,6 +75,11 @@ export type DataGridRendererRow<
    * Attributes that are bound directly to the `<tr>` element of the row.
    */
   trAttributes?: HTMLAttributes;
+  /**
+   * Defines which columns are rendered in which order for this row.
+   * Cell content must be included in the "cells" object.
+   */
+  columns: Pick<DataGridRendererColumn<TEntry>, "key">[];
 };
 
 /**
