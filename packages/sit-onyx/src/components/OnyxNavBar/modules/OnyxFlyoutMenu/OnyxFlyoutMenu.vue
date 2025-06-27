@@ -58,9 +58,7 @@ const {
   elements: { root, button, menu },
 } = createMenuButton({
   isExpanded: computed(() => !!isExpanded.value),
-  onToggle: () => {
-    isExpanded.value = !isExpanded.value;
-  },
+  onToggle: () => (isExpanded.value = !isExpanded.value),
   trigger: computed(() => props.trigger),
   disabled: computed(() => props.disabled),
 });
@@ -139,6 +137,7 @@ const {
       );
       overflow: auto;
 
+      // when nested item is open, hide all other items in the same layer
       &:has(.onyx-menu-item--open) {
         > .onyx-menu-item:not(.onyx-menu-item--open) {
           display: none;

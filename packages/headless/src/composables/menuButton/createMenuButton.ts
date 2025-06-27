@@ -2,6 +2,7 @@ import { computed, useId, watch, type Ref } from "vue";
 import { createBuilder, createElRef } from "../../utils/builder";
 import { debounce } from "../../utils/timer";
 import { useGlobalEventListener } from "../helpers/useGlobalListener";
+import { useOutsideClick } from "../helpers/useOutsideClick";
 
 type CreateMenuButtonOptions = {
   isExpanded: Readonly<Ref<boolean>>;
@@ -16,6 +17,7 @@ type CreateMenuButtonOptions = {
 export const createMenuButton = createBuilder((options: CreateMenuButtonOptions) => {
   const rootId = useId();
   const menuId = useId();
+  const rootRef = createElRef<HTMLElement>();
   const menuRef = createElRef<HTMLElement>();
   const buttonId = useId();
 
@@ -32,8 +34,6 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
   watch(options.isExpanded, () => updateDebouncedExpanded.abort()); // manually changing `isExpanded` should abort debounced action
 
   const setExpanded = (expanded: boolean, debounced = false) => {
-    // eslint-disable-next-line no-console -- for testing
-    console.trace("setExpanded", expanded, debounced);
     if (options.disabled?.value) return;
     if (expanded === options.isExpanded.value) {
       updateDebouncedExpanded.abort();
@@ -120,23 +120,20 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
     }
   };
 
+  useOutsideClick({
+    inside: rootRef,
+    onOutsideClick: () => setExpanded(false),
+    disabled: computed(() => !options.isExpanded.value),
+    checkOnTab: true,
+  });
+
   return {
     elements: {
       root: {
         id: rootId,
         onKeydown: handleKeydown,
+        ref: rootRef,
         ...triggerEvents(),
-        onFocusout: (event) => {
-          // if focus receiving element is not part of the menu button, then close
-          console.log("🔍 ~ createBuilder() callback ~ packages/headless/src/composables/menuButton/createMenuButton.ts:133 ~ event.relatedTarget:", event.relatedTarget)
-          if (
-            rootId &&
-            document.getElementById(rootId)?.contains(event.relatedTarget as HTMLElement)
-          ) {
-            return;
-          }
-          setExpanded(false);
-        },
       },
       button: computed(
         () =>

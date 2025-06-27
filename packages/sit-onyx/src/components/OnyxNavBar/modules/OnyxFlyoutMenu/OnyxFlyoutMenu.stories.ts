@@ -66,7 +66,7 @@ export const Nested = {
       h(OnyxMenuItem, undefined, {
         default: () => "Parent",
         children: () => [
-          h(OnyxMenuItem, null, {
+          h(OnyxMenuItem, undefined, {
             default: () => "Nested 1",
             children: () => [h(OnyxMenuItem, null, () => "Nested 1.1")],
           }),
