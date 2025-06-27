@@ -3,7 +3,7 @@
 
 // prettier-ignore
 $gridVariants: (
-//  NAME    MAX-VARIANT  COLUMNS  GUTTER  MARGIN
+//  NAME    MAX-VARIANT  COLUMNS  GUTTER  MARGIN 
     "2xs"   none         4        1rem    1rem,
     "xs"    none         8        1rem    1rem,
     "sm"    none         8        1.5rem  2rem,
@@ -12,118 +12,165 @@ $gridVariants: (
     "xl"    "lg"         12       2rem    4rem,
 );
 
-@layer onyx.utility {
-  /**
-  * Grid container base class
-  */
-  .onyx-grid {
-    display: grid;
-    grid-template-columns: repeat(var(--onyx-grid-columns), minmax(0, 1fr));
-    gap: var(--onyx-grid-gutter);
-  }
+// prettier-ignore
+$sideBarGridVariants: (
+//  NAME    MAX-VARIANT  COLUMNS  GUTTER  MARGIN 
+    "xs"   none         1        0.5rem  0.5rem,
+    "sm"   none         2        1rem    1rem,
+    "md"   none         4        1rem    1rem,
+    "lg"   "md"         8        1.5rem  2rem,
+    "xl"   "lg"         12       1.5rem  4rem,
+);
 
-  /**
+/*#sidebar breakpoints*/
+$sidebar-breakpoints: (
+  xs: 0px,
+  sm: 200px,
+  md: 328px,
+  lg: 656px,
+  xl: 992px,
+);
+
+@layer onyx.utility {
+  @mixin generate-onyx-grid(
+    $prefix,
+    $variants-map,
+    $breakpoints-map: $breakpoints,
+    $use-container-query: false,
+    $max-overall-span: 20
+  ) {
+    $var-prefix: "--onyx-#{$prefix}";
+    $class-prefix: ".onyx-#{$prefix}";
+
+    #{$class-prefix} {
+      display: grid;
+      grid-template-columns: repeat(var(#{$var-prefix}-columns), minmax(0, 1fr));
+      gap: var(#{$var-prefix}-gutter);
+    }
+    /**
   * Page class to apply padding, max-width and optional centered.
   * Is usually placed at the root element of every page.
   */
-  .onyx-grid-container {
-    // Note: The --onyx-grid-margin is implemented as padding here so that is also included in e.g. custom background colors
-    // but the term "margin" comes from UX/Figma so we decided to keep naming it margin to be aligned
-    padding: var(--onyx-grid-margin);
-    max-width: var(--onyx-grid-max-width, 100%);
-    margin-inline: var(--onyx-grid-margin-inline);
-    box-sizing: border-box; // max-width should include the padding
-    transition: max-width 1s;
-  }
+    #{$class-prefix}-container {
+      padding: var(#{$var-prefix}-margin);
+      max-width: var(#{$var-prefix}-max-width, 100%);
+      margin-inline: var(#{$var-prefix}-margin-inline);
+      box-sizing: border-box; // max-width should include the padding
+      transition: max-width 1s;
+    }
 
-  /**
+    @if $prefix == "grid" {
+      /**
   * Utility class to allow optional centering for pages with max width.
   * Requires a "onyx-grid-max-*" class to be set.
   */
-  .onyx-grid-center {
-    --onyx-grid-margin-inline: auto;
-  }
-
-  /**
+      #{$class-prefix}-center {
+        --onyx-grid-margin-inline: auto;
+      }
+    }
+    /**
   * Grid container classes for "xl" and "lg" breakpoint variants with 16 or 20 columns
   */
-  @include screen(min, lg) {
-    .onyx-grid-xl-20,
-    .onyx-grid-lg-16 {
-      --onyx-grid-columns: 16;
-    }
-  }
-  @include screen(min, xl) {
-    .onyx-grid-xl-20 {
-      --onyx-grid-columns: 20;
+    @for $i from 1 through $max-overall-span {
+      #{$class-prefix}-span-#{$i} {
+        grid-column-end: span min($i, var(#{$var-prefix}-columns));
+      }
     }
 
-    .onyx-grid-xl-16 {
-      --onyx-grid-columns: 16;
+    #{$class-prefix}-span-full {
+      grid-column: 1 / span var(#{$var-prefix}-columns);
     }
-  }
 
-  /**
-  * Grid element class for defining how many columns the element spans
-  */
-  @for $i from 1 through 20 {
-    .onyx-grid-span-#{$i} {
-      grid-column-end: span min($i, var(--onyx-grid-columns));
+    @mixin set-grid-css-variables($columns, $gutter, $margin) {
+      @if $prefix == "grid" {
+        :where(:root) {
+          // grid vars
+          #{$var-prefix}-columns: #{$columns};
+          #{$var-prefix}-gutter: #{$gutter};
+          #{$var-prefix}-margin: #{$margin};
+        }
+      } @else {
+        // sidebar grid vars
+        #{$class-prefix}-container {
+          #{$var-prefix}-columns: #{$columns};
+          #{$var-prefix}-gutter: #{$gutter};
+          #{$var-prefix}-margin: #{$margin};
+        }
+      }
     }
-  }
 
-  /**
-  * Grid element class for spanning the full row width.
-  */
-  .onyx-grid-span-full {
-    grid-column: 1 / span var(--onyx-grid-columns);
-  }
-
-  @mixin generate-grid-properties($columns, $gutter, $margin) {
-    :where(:root) {
-      --onyx-grid-columns: #{$columns};
-      --onyx-grid-gutter: #{$gutter};
-      --onyx-grid-margin: #{$margin};
+    @mixin generate-breakpoint-span-classes($first-span, $last-span, $variant-name) {
+      @for $span from $first-span through $last-span {
+        #{$class-prefix}-#{$variant-name}-span-#{$span} {
+          grid-column-end: span min($span, var(#{$var-prefix}-columns));
+        }
+      }
     }
-  }
 
-  /**
-  * Grid element class for defining breakpoint specific column count
-  */
-  @mixin generate-spans($first, $last, $name) {
-    @for $span from $first through $last {
-      .onyx-grid-#{$name}-span-#{$span} {
-        grid-column-end: span min($span, var(--onyx-grid-columns));
+    @each $name, $maxVariant, $columns, $gutter, $margin in $variants-map {
+      @if ($prefix == "grid" and $name == "2xs") or ($prefix == "sidebar-grid" and $name == "xs") {
+        @include set-grid-css-variables($columns, $gutter, $margin);
+        @include generate-breakpoint-span-classes(1, $columns, $name);
+      } @else {
+        @if $use-container-query {
+          @include container(min, $name, 0, $breakpoints-map) {
+            @include set-grid-css-variables($columns, $gutter, $margin);
+            @include generate-breakpoint-span-classes(1, $columns, $name);
+          }
+        } @else {
+          @include screen(min, $name) {
+            @include set-grid-css-variables($columns, $gutter, $margin);
+            @include generate-breakpoint-span-classes(1, $columns, $name);
+
+            @if $prefix == "grid" and $maxVariant != none {
+              #{$class-prefix}-max-#{$maxVariant} {
+                --onyx-grid-max-width: #{map.get($breakpoints, $name) - 1};
+              }
+            }
+
+            @if $prefix == "grid" and $name == "xl" {
+              @include generate-breakpoint-span-classes(17, 20, $name);
+            }
+          }
+        }
+      }
+    }
+
+    @if $prefix == "grid" {
+      @include screen(min, lg) {
+        .onyx-grid-xl-20,
+        .onyx-grid-lg-16 {
+          --onyx-grid-columns: 16;
+        }
+      }
+      @include screen(min, xl) {
+        .onyx-grid-xl-20 {
+          --onyx-grid-columns: 20;
+        }
+        .onyx-grid-xl-16 {
+          --onyx-grid-columns: 16;
+        }
       }
     }
   }
 
-  /**
-  * Grid container class for defining breakpoint specific max width
-  */
-  @mixin generate-grid-max($name, $maxVariant, $margin) {
-    .onyx-grid-max-#{$maxVariant} {
-      --onyx-grid-max-width: #{map.get($breakpoints, $name) - 1};
-    }
+  @include generate-onyx-grid(
+    $prefix: "grid",
+    $variants-map: $gridVariants,
+    $breakpoints-map: $breakpoints,
+    $use-container-query: false,
+    $max-overall-span: 20
+  );
+
+  .onyx-sidebar {
+    container-type: inline-size;
   }
 
-  @each $name, $maxVariant, $columns, $gutter, $margin in $gridVariants {
-    @if $name == "2xs" {
-      @include generate-grid-properties($columns, $gutter, $margin);
-      @include generate-spans(1, $columns, $name);
-    } @else {
-      @include screen(min, $name) {
-        @include generate-grid-properties($columns, $gutter, $margin);
-        @include generate-spans(1, $columns, $name);
-
-        @if $maxVariant != none {
-          @include generate-grid-max($name, $maxVariant, $margin);
-        }
-
-        @if $name == "xl" {
-          @include generate-spans(17, 20, $name);
-        }
-      }
-    }
-  }
+  @include generate-onyx-grid(
+    $prefix: "sidebar-grid",
+    $variants-map: $sideBarGridVariants,
+    $breakpoints-map: $sidebar-breakpoints,
+    $use-container-query: true,
+    $max-overall-span: 12
+  );
 }

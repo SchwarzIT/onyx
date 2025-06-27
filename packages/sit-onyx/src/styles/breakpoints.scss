@@ -39,8 +39,8 @@ $breakpoints: (
  * @example container(min, sm)
  * @example container(max, sm)
  */
-@mixin container($min-max, $name, $offset: 0) {
-  @container (#{$min-max}-width: #{map.get($breakpoints, $name) + $offset}) {
+@mixin container($min-max, $name, $offset: 0, $breaks: $breakpoints) {
+  @container (#{$min-max}-width: #{map.get($breaks, $name) + $offset}) {
     @content;
   }
 }
