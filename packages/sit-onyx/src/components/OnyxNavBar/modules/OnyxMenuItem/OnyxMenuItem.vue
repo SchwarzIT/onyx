@@ -96,7 +96,6 @@ const hasChildren = computed(() => !!slots.children);
           restAttrs,
           hasChildren && {
             onClick: withModifiers(() => (open = true), ['stop']),
-            onFocusout: withModifiers(() => {}, ['stop']),
           },
         )
       "
@@ -116,7 +115,7 @@ const hasChildren = computed(() => !!slots.children);
     </ButtonOrLinkLayout>
 
     <ul v-if="hasChildren" v-show="open" role="menu" class="onyx-menu-item__children">
-      <OnyxMenuItem @click.stop="open = false" @focusout.stop>
+      <OnyxMenuItem class="onyx-menu-item__back" @click.stop="open = false">
         <OnyxIcon :icon="arrowSmallLeft" />
         {{ t("back") }}
       </OnyxMenuItem>
@@ -174,6 +173,7 @@ const hasChildren = computed(() => !!slots.children);
       display: flex;
       flex-direction: column;
 
+      // when nested child item is open, hide all other items in the same layer (including back button)
       &:has(.onyx-menu-item--open) {
         > .onyx-menu-item:not(.onyx-menu-item--open) {
           display: none;
@@ -185,6 +185,10 @@ const hasChildren = computed(() => !!slots.children);
       flex: 1 0 1.5rem;
       display: flex;
       justify-content: end;
+    }
+
+    &__back {
+      font-weight: var(--onyx-font-weight-semibold);
     }
   }
 }
