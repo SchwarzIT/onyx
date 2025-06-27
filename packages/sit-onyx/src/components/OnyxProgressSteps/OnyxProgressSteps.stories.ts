@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
+import { createAdvancedStoryExample } from "../../utils/storybook";
 import OnyxProgressSteps from "./OnyxProgressSteps.vue";
 
 const meta: Meta<typeof OnyxProgressSteps> = {
@@ -10,23 +11,17 @@ const meta: Meta<typeof OnyxProgressSteps> = {
 export default meta;
 type Story = StoryObj<typeof OnyxProgressSteps>;
 
-export const Default = {
-  args: {
-    steps: [{ label: "Cart" }, { label: "Shipping" }, { label: "Payment" }, { label: "Checkout" }],
-    modelValue: 3,
-  },
-} satisfies Story;
+export const Default = createAdvancedStoryExample(
+  "OnyxProgressSteps",
+  "DefaultExample",
+) satisfies Story;
 
-export const Vertical = {
-  args: {
-    ...Default.args,
-    orientation: "vertical",
-  },
-} satisfies Story;
+export const Vertical = createAdvancedStoryExample(
+  "OnyxProgressSteps",
+  "VerticalExample",
+) satisfies Story;
 
-export const Skeleton = {
-  args: {
-    ...Default.args,
-    skeleton: true,
-  },
-} satisfies Story;
+export const Skeleton = createAdvancedStoryExample(
+  "OnyxProgressSteps",
+  "SkeletonExample",
+) satisfies Story;
