@@ -162,24 +162,42 @@ test("should behave correctly with nested items (via mouse)", async ({ page, mou
     props: { label: "Choose item" },
   });
 
-  const button = page.getByRole("button");
+  const trigger = page.getByRole("button", { name: "Trigger" });
+  const firstItem = page.getByRole("menuitem", { name: "Item 1", exact: true });
+  const nestedChild = page.getByRole("menuitem", { name: "Item 1.1" });
+  const backButton = page.getByRole("menuitem", { name: "Back" });
 
   // ACT
-  await button.click();
-  await page.getByRole("menuitem", { name: "Item 1" }).click();
+  await trigger.hover();
 
   // ASSERT
-  await expect(page.getByRole("menuitem", { name: "Item 1", exact: true })).toBeHidden();
-  await expect(page.getByRole("menuitem", { name: "Item 1.1" })).toBeVisible();
-  await expect(page.getByRole("menuitem", { name: "Back" })).toBeVisible();
+  await expect(firstItem).toBeVisible();
 
   // ACT
-  await page.getByRole("menuitem", { name: "Back" }).click();
+  await firstItem.hover();
 
   // ASSERT
-  await expect(page.getByRole("menuitem", { name: "Item 1", exact: true })).toBeVisible();
+  await expect(
+    firstItem,
+    "should not open nested child on hover, even when flyout trigger is hover",
+  ).toBeVisible();
   await expect(page.getByRole("menuitem", { name: "Item 1.1" })).toBeHidden();
-  await expect(page.getByRole("menuitem", { name: "Back" })).toBeHidden();
+
+  // ACT
+  await firstItem.click();
+
+  // ASSERT
+  await expect(firstItem).toBeHidden();
+  await expect(nestedChild).toBeVisible();
+  await expect(backButton).toBeVisible();
+
+  // ACT
+  await backButton.click();
+
+  // ASSERT
+  await expect(firstItem).toBeVisible();
+  await expect(nestedChild).toBeHidden();
+  await expect(backButton).toBeHidden();
 });
 
 test("should behave correctly with nested items (via keyboard)", async ({
@@ -192,13 +210,13 @@ test("should behave correctly with nested items (via keyboard)", async ({
     props: { label: "Choose item" },
   });
 
-  const button = page.getByRole("button");
+  const trigger = page.getByRole("button", { name: "Trigger" });
   const menu = page.locator("ul").first();
 
   // ASSERT
   await menuButtonTesting({
     page,
-    button,
+    button: trigger,
     menu,
     menuItems: page.getByRole("menuitem"),
   });
@@ -207,7 +225,7 @@ test("should behave correctly with nested items (via keyboard)", async ({
   expect(results.violations).toEqual([]);
 
   // ACT
-  await button.click();
+  await trigger.click();
 
   // ASSERT
   await expect(menu).toHaveScreenshot("nested.png");
@@ -255,24 +273,24 @@ test("should keep nested children open state when toggling", async ({ page, moun
     props: { label: "Choose item", trigger: "click" },
   });
 
-  const button = page.getByRole("button");
+  const trigger = page.getByRole("button", { name: "Trigger" });
   const menu = page.locator("ul").first();
 
   // ACT
-  await button.click();
+  await trigger.click();
   await page.getByRole("menuitem", { name: "Item 1" }).click();
 
   // ASSERT
   await expect(page.getByRole("menuitem", { name: "Item 1.1" })).toBeVisible();
 
   // ACT
-  await button.click();
+  await trigger.click();
 
   // ASSERT
   await expect(menu).toBeHidden();
 
   // ACT
-  await button.click();
+  await trigger.click();
 
   // ASSERT
   await expect(page.getByRole("menuitem", { name: "Item 1.1" })).toBeVisible();
