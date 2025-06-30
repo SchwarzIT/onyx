@@ -64,15 +64,27 @@ export const Nested = {
     trigger: "click",
     options: () => [
       h(OnyxMenuItem, undefined, {
-        default: () => "Parent",
+        default: () => "Item 1",
         children: () => [
           h(OnyxMenuItem, undefined, {
-            default: () => "Nested 1",
-            children: () => [h(OnyxMenuItem, null, () => "Nested 1.1")],
+            default: () => "Item 1.1",
+            children: () => [
+              h(OnyxMenuItem, null, () => "Nested 1.1.1"),
+              h(OnyxMenuItem, null, () => "Nested 1.1.2"),
+            ],
           }),
+          h(OnyxMenuItem, undefined, {
+            default: () => "Item 1.2",
+            children: () => [
+              h(OnyxMenuItem, null, () => "Nested 1.2.1"),
+              h(OnyxMenuItem, null, () => "Nested 1.2.2"),
+            ],
+          }),
+          h(OnyxMenuItem, undefined, "Item 1.3"),
         ],
       }),
-      h(OnyxMenuItem, () => "Spanish"),
+      h(OnyxMenuItem, () => "Item 2"),
+      h(OnyxMenuItem, () => "Item 3"),
     ],
   },
 } satisfies Story;
