@@ -25,7 +25,7 @@ jobs:
 
       - name: 🎨 Import additional themes
         run: |
-          pnpm run @sit-onyx/figma-utils import-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles/variables/themes" -m lidl-light  kaufland-light digits-light schwarz-light  -f CSS -c -s ":where(:root), .onyx-theme-{mode}"
+          pnpm run @sit-onyx/figma-utils import-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles/variables/themes" -m lidl-light  kaufland-light digits-light   -f CSS -c -s ":where(:root), .onyx-theme-{mode}"
         working-directory: packages/figma-utils
 
       - name: 🛠️ Import spacing variables
