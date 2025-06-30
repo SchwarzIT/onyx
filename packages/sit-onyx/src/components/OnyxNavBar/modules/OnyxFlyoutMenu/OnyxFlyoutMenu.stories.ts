@@ -74,26 +74,35 @@ export const Nested = {
     ],
 
     options: () => [
-      h(OnyxMenuItem, undefined, {
-        default: () => "Item 1",
-        children: () => [
-          h(OnyxMenuItem, undefined, {
-            default: () => "Item 1.1",
-            children: () => [
-              h(OnyxMenuItem, null, () => "Nested 1.1.1"),
-              h(OnyxMenuItem, null, () => "Nested 1.1.2"),
-            ],
-          }),
-          h(OnyxMenuItem, undefined, {
-            default: () => "Item 1.2",
-            children: () => [
-              h(OnyxMenuItem, null, () => "Nested 1.2.1"),
-              h(OnyxMenuItem, null, () => "Nested 1.2.2"),
-            ],
-          }),
-          h(OnyxMenuItem, undefined, () => "Item 1.3"),
-        ],
-      }),
+      h(
+        OnyxMenuItem,
+        { label: "Item 1" },
+        {
+          children: () => [
+            h(
+              OnyxMenuItem,
+              { label: "Item 1.1" },
+              {
+                children: () => [
+                  h(OnyxMenuItem, { label: "Nested 1.1.1" }),
+                  h(OnyxMenuItem, { label: "Nested 1.1.2" }),
+                ],
+              },
+            ),
+            h(
+              OnyxMenuItem,
+              { label: "Item 1.2" },
+              {
+                children: () => [
+                  h(OnyxMenuItem, { label: "Nested 1.2.1" }),
+                  h(OnyxMenuItem, { label: "Nested 1.2.2" }),
+                ],
+              },
+            ),
+            h(OnyxMenuItem, { label: "Item 1.3" }),
+          ],
+        },
+      ),
       h(OnyxMenuItem, () => "Item 2"),
       h(OnyxMenuItem, () => "Item 3"),
     ],

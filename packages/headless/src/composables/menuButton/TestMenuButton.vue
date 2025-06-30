@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, type Ref } from "vue";
+import { ref } from "vue";
 import { createMenuButton } from "./createMenuButton";
 
 const items = Array.from({ length: 10 }, (_, index) => {
@@ -10,7 +10,7 @@ const items = Array.from({ length: 10 }, (_, index) => {
 const activeItem = ref<string>();
 const isExpanded = ref(false);
 const onToggle = () => (isExpanded.value = !isExpanded.value);
-const trigger: Readonly<Ref<"click" | "hover">> = ref("hover");
+const trigger = ref<"click" | "hover">("hover");
 
 const {
   elements: { root, button, menu, menuItem, listItem },
