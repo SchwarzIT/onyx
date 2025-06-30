@@ -31,26 +31,17 @@ const gridStore = useGridStore();
         <template #header> Header content </template>
 
         <div class="sidebar__content">
-          <div class="onyx-sidebar-grid-container">
-            <div class="onyx-sidebar-grid">
+          <div class="onyx-grid-container">
+            <div class="onyx-grid">
               <OnyxSidebarItem v-for="i in 6" :key="i" :link="`#link-${i}`">
                 <OnyxIcon :icon="placeholder" />
                 Item {{ i }}
               </OnyxSidebarItem>
             </div>
-            <div class="onyx-sidebar-grid second-sidebar-grid">
-              <p
-                class="onyx-sidebar-grid-md-span-2 onyx-sidebar-grid-lg-span-4 onyx-sidebar-grid-xl-span-6"
-              >
-                Half width
-              </p>
-              <p
-                class="onyx-sidebar-grid-md-span-2 onyx-sidebar-grid-lg-span-4 onyx-sidebar-grid-xl-span-6"
-              >
-                Half width
-              </p>
-
-              <p class="onyx-sidebar-grid-span-full">Full width</p>
+            <div class="onyx-grid second-sidebar-grid">
+              <p class="onyx-grid-md-span-2 onyx-grid-lg-span-4 onyx-grid-xl-span-6">Half width</p>
+              <p class="onyx-grid-md-span-2 onyx-grid-lg-span-4 onyx-grid-xl-span-6">Half width</p>
+              <p class="onyx-grid-span-full">Full width</p>
             </div>
           </div>
         </div>
