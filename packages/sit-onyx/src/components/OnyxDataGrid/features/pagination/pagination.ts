@@ -96,6 +96,7 @@ export const usePagination = (options: PaginationOptions = {}) =>
           cell: {
             tdAttributes: {
               class: "onyx-data-grid__lazy-pagination",
+              colspan: 99,
             },
             component: () => h(OnyxLoadingDots),
           },
@@ -104,6 +105,7 @@ export const usePagination = (options: PaginationOptions = {}) =>
           cell: {
             tdAttributes: {
               class: "onyx-data-grid__button-pagination",
+              colspan: 99,
             },
             component: () => {
               if (loading.value) return h(OnyxLoadingDots);
