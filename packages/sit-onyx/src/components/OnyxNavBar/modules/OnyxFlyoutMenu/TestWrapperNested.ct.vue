@@ -10,7 +10,7 @@ const props = defineProps<OnyxFlyoutMenuProps>();
 <template>
   <OnyxFlyoutMenu v-bind="props">
     <template #button="{ trigger: _trigger }">
-      <button type="button" v-bind="_trigger">button label</button>
+      <button type="button" v-bind="_trigger">Trigger</button>
     </template>
 
     <template #options>
