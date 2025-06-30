@@ -76,6 +76,8 @@ test("should behave correctly with link", async ({ mount, page }) => {
 });
 
 test("should behave correctly with nested children", async ({ mount, page }) => {
+  await page.setViewportSize({ height: 220, width: 180 });
+
   // ARRANGE
   const component = await mount(
     <OnyxNavItem label="Label">
@@ -96,13 +98,13 @@ test("should behave correctly with nested children", async ({ mount, page }) => 
   await component.getByRole("menuitem", { name: "Label" }).hover();
 
   // ASSERT
-  await expect(component).toHaveScreenshot("nested.png");
+  await expect(page).toHaveScreenshot("nested.png");
 
   // ACT
   await component.getByRole("menuitem", { name: "Nested item 1" }).click();
 
   // ASSERT
-  await expect(component).toHaveScreenshot("nested-open.png");
+  await expect(page).toHaveScreenshot("nested-open.png");
   await expect(
     component.getByRole("menuitem", { name: "Nested item 1", exact: true }),
   ).toBeHidden();
