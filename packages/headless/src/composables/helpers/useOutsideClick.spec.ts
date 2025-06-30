@@ -13,8 +13,9 @@ describe("useOutsideClick", () => {
     expect(useOutsideClick).toBeDefined();
   });
 
-  it("should detect outside clicks", () => {
+  it("should detect outside clicks", async () => {
     // ARRANGE
+    vi.useFakeTimers();
     const inside = ref(document.createElement("button"));
     document.body.appendChild(inside.value);
     const outside = ref(document.createElement("button"));
@@ -22,12 +23,24 @@ describe("useOutsideClick", () => {
 
     const onOutsideClick = vi.fn();
     useOutsideClick({ inside, onOutsideClick });
+
     // ACT
     const event = new MouseEvent("click", { bubbles: true });
     outside.value.dispatchEvent(event);
+
     // ASSERT
     expect(onOutsideClick).toHaveBeenCalledTimes(1);
     expect(onOutsideClick).toBeCalledWith(event);
+
+    // ACT
+    outside.value.dispatchEvent(new KeyboardEvent("keydown", { bubbles: true, key: "Tab" }));
+    await vi.runAllTimersAsync();
+
+    // ASSERT
+    expect(
+      onOutsideClick,
+      "should not trigger on Tab press when checkOnTab option is disabled",
+    ).toHaveBeenCalledTimes(1);
   });
 
   it("should detect outside clicks correctly for multiple inside elements", () => {
@@ -79,5 +92,26 @@ describe("useOutsideClick", () => {
     outside.value.dispatchEvent(event2);
     // ASSERT
     expect(onOutsideClick).toHaveBeenCalledTimes(1);
+  });
+
+  it("should detect outside tab via keyboard", async () => {
+    // ARRANGE
+    vi.useFakeTimers();
+    const inside = ref(document.createElement("button"));
+    document.body.appendChild(inside.value);
+    const outside = ref(document.createElement("button"));
+    document.body.appendChild(outside.value);
+
+    const onOutsideClick = vi.fn();
+    useOutsideClick({ inside, onOutsideClick, checkOnTab: true });
+
+    // ACT
+    const event = new KeyboardEvent("keydown", { bubbles: true, key: "Tab" });
+    outside.value.dispatchEvent(event);
+    await vi.runAllTimersAsync();
+
+    // ASSERT
+    expect(onOutsideClick).toHaveBeenCalledTimes(1);
+    expect(onOutsideClick).toBeCalledWith(event);
   });
 });
