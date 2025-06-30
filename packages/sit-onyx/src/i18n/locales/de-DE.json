@@ -43,7 +43,8 @@
           "hideButton": "Spalte verstecken"
         }
       }
-    }
+    },
+    "loadMore": "Mehr laden"
   },
   "validations": {
     "tooShort": {

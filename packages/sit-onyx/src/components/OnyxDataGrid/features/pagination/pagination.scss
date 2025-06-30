@@ -1,0 +1,15 @@
+@use "../../../../styles/mixins/layers.scss";
+
+@include layers.component {
+  .onyx-data-grid {
+    &__lazy-pagination,
+    &__button-pagination {
+      border-right: none;
+      text-align: center;
+
+      > .onyx-loading-dots {
+        margin-inline: auto;
+      }
+    }
+  }
+}

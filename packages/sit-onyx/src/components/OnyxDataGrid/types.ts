@@ -1,4 +1,5 @@
 import type { SkeletonInjected } from "src/composables/useSkeletonState";
+import type { HTMLAttributes } from "vue";
 import type { IfExtends, IfNotEmpty, MaybePick, RecordValues, UnionByKey } from "../../types";
 import type { OnyxTableProps } from "../OnyxTable/types";
 import type {
@@ -6,6 +7,7 @@ import type {
   ColumnConfigTypeOption,
   ColumnGroupConfig,
   DataGridFeature,
+  InternalColumnConfig,
   TypeRenderer,
   TypeRenderMap,
 } from "./features";
@@ -101,6 +103,27 @@ export type OnyxDataGridProps<
  * "Raw" user data for a data grid entry/row, e.g. fetched from a backend service.
  */
 export type DataGridEntry = {
-  id: PropertyKey;
   [key: PropertyKey]: unknown;
+  /**
+   * Unique ID of the data grid entry/row.
+   */
+  id: PropertyKey;
+  /**
+   * Additional options for this row.
+   */
+  [DataGridRowOptionsSymbol]?: DataGridEntryOptions;
 };
+
+export type DataGridEntryOptions = {
+  /**
+   * Attributes that are bound directly to the `<tr>` element of the row.
+   */
+  trAttributes?: HTMLAttributes;
+  /**
+   * Overrides which columns to render in which order.
+   * Useful if e.g. adding a custom full-width row inside a data grid feature.
+   */
+  columns?: Omit<InternalColumnConfig<{ id: PropertyKey }>, "label">[];
+};
+
+export const DataGridRowOptionsSymbol = Symbol("RowOptions");

@@ -23,6 +23,20 @@ export type PaginationOptions = Pick<
    * Whether to disable the pagination.
    */
   disabled?: Ref<boolean | undefined>;
+  /**
+   * Defines how the pagination is applied by the user.
+   * - select: user can select a page using the [OnyxPagination](https://storybook.onyx.schwarz/?path=/docs/data-pagination--docs) component
+   * - lazy: current page is increased automatically when the users scrolls to the end of the table. Requires a fixed table height to be set
+   * - button: when scrolling to the end of the table, a button is shown that can be clicked to load the next page of data
+   *
+   * @default "select"
+   */
+  type?: PaginationType;
+  /**
+   * Whether the data is currently loading after changing the current page.
+   * Should only be used if pagination is async.
+   */
+  loading?: Ref<boolean>;
 };
 
 export type PaginationState = {
@@ -39,3 +53,5 @@ export type PaginationState = {
    */
   pageSize: number;
 };
+
+export type PaginationType = "select" | "lazy" | "button";

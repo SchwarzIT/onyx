@@ -9,7 +9,6 @@ test.describe("Screenshot tests", () => {
     name: "Data grid renderer",
     columns: DENSITIES,
     rows: ["default"],
-
     component: (column) => <DefaultTestWrapper density={column} />,
   });
 });

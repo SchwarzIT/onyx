@@ -11,6 +11,7 @@ import {
   type TdHTMLAttributes,
   type ThHTMLAttributes,
   type VNode,
+  type VNodeProps,
   type WatchSource,
 } from "vue";
 import type { ComponentSlots } from "vue-component-type-helpers";
@@ -29,7 +30,12 @@ import type {
   DataGridRendererColumn,
   DataGridRendererRow,
 } from "../OnyxDataGridRenderer/types";
-import type { DataGridEntry, DataGridMetadata, RenderTypesFromFeature } from "../types";
+import {
+  DataGridRowOptionsSymbol,
+  type DataGridEntry,
+  type DataGridMetadata,
+  type RenderTypesFromFeature,
+} from "../types";
 import type { BASE_FEATURE } from "./base/base";
 import { createRenderer } from "./renderer";
 
@@ -251,7 +257,7 @@ export type DataGridFeatureDescription<
         | {
             iconComponent: Component;
             /**
-             * Will force the iconcomponent to be always shown in the header and not be put into the menu
+             * Will force the icon component to be always shown in the header and not be put into the menu
              */
             alwaysShowInHeader?: boolean;
           };
@@ -264,12 +270,14 @@ export type DataGridFeatureDescription<
       all: InternalColumnConfig<TEntry>[],
     ) => Component;
   };
-  scrollContainerAttributes?: () => HTMLAttributes;
+  scrollContainerAttributes?: () => DataGridScrollContainerAttributes;
   /**
    * Optional table slots.
    */
   slots?: DataGridFeatureSlots;
 };
+
+export type DataGridScrollContainerAttributes = HTMLAttributes & Pick<VNodeProps, "ref">;
 
 export type DataGridFeatureSlots = Partial<{
   [TSlotName in keyof Pick<OnyxTableSlots, "headline" | "bottomLeft" | "pagination">]: (
@@ -563,19 +571,21 @@ export const useDataGridFeatures = <
     entries: TEntry[],
   ): DataGridRendererRow<TEntry, DataGridMetadata>[] => {
     const mutations = features
-      .map((f) => f.mutation)
-      .filter((m) => !!m)
+      .map((feature) => feature.mutation)
+      .filter((mutation) => !!mutation)
       .sort((a, b) => (b.order ?? 0) - (a.order ?? 0));
 
+    // make a copy of entries and apply all mutations to it
     let shallowCopy = [...entries];
     mutations.forEach(({ func }) => {
       const result = func(shallowCopy);
-      if (result) {
-        shallowCopy = result as TEntry[];
-      }
+      if (result) shallowCopy = result;
     });
+
     return shallowCopy.map((row) => {
-      const cells = columns.value.reduce<DataGridRendererRow<TEntry, DataGridMetadata>["cells"]>(
+      const columnsToRender = row[DataGridRowOptionsSymbol]?.columns ?? columns.value;
+
+      const cells = columnsToRender.reduce<DataGridRendererRow<TEntry, DataGridMetadata>["cells"]>(
         (cells, { key, type, tdAttributes }) => {
           const cellRenderer = renderer.value.getFor("cell", type.name);
           cells[key] = {
@@ -592,8 +602,11 @@ export const useDataGridFeatures = <
         },
         {},
       );
+
       return {
         id: row.id,
+        trAttributes: row[DataGridRowOptionsSymbol]?.trAttributes,
+        columns: columnsToRender,
         cells,
       };
     });
