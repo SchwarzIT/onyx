@@ -94,13 +94,6 @@ test("should behave correctly with nested children", async ({ mount, page }) => 
 
   // ACT
   await component.getByRole("menuitem", { name: "Label" }).hover();
-  await component.getByRole("menuitem", { name: "Nested item 2" }).click();
-
-  // ASSERT
-  await expect(page).toHaveURL(/^http:\/\/localhost:\d*\/#nested-2$/);
-
-  // ACT
-  await component.getByRole("menuitem", { name: "Label" }).hover();
 
   // ASSERT
   await expect(component).toHaveScreenshot("nested.png");
@@ -114,6 +107,12 @@ test("should behave correctly with nested children", async ({ mount, page }) => 
     component.getByRole("menuitem", { name: "Nested item 1", exact: true }),
   ).toBeHidden();
   await expect(component.getByRole("menuitem", { name: "Nested item 1.1" })).toBeVisible();
+
+  // ACT
+  await component.getByRole("menuitem", { name: "Nested item 1.1" }).click();
+
+  // ASSERT
+  await expect(page).toHaveURL(/^http:\/\/localhost:\d*\/#nested-1-1$/);
 });
 
 test("should auto detect active state based on provided router", async ({ mount }) => {
