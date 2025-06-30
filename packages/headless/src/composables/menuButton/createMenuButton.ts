@@ -4,7 +4,7 @@ import { debounce } from "../../utils/timer";
 import { useGlobalEventListener } from "../helpers/useGlobalListener";
 import { useOutsideClick } from "../helpers/useOutsideClick";
 
-export type CreateMenuButtonOptions = {
+type CreateMenuButtonOptions = {
   isExpanded: Readonly<Ref<boolean>>;
   trigger: Readonly<Ref<"hover" | "click">>;
   onToggle: () => void;
@@ -160,8 +160,11 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
   };
 });
 
-export type CreateMenuItemOptions = {
-  onOpen: () => void;
+type CreateMenuItemOptions = {
+  /**
+   * Called when the menu item should be opened (if it has nested children).
+   */
+  onOpen?: () => void;
 };
 
 export const createMenuItems = createBuilder((options?: CreateMenuItemOptions) => {
