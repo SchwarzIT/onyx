@@ -44,7 +44,7 @@ export const importVariablesCommand = new Command("import-variables")
   )
   .option(
     "-c, --combines-dark-light",
-    "Combines the dark theme data with the light theme data by using the light-dark() funktion ",
+    "Combines the dark theme data with the light theme data by using the light-dark() CSS function",
   )
   .option(
     "-s, --selector <string>",
@@ -59,7 +59,7 @@ export const importVariablesCommand = new Command("import-variables")
 export async function importVariablesCommandAction(options: ImportVariablesCommandOptions) {
   const generators = {
     CSS: (data: ParsedVariable, dataDark?: ParsedVariable) =>
-      generateAsCSS(data, dataDark, { selector: options.selector }),
+      generateAsCSS(data, { selector: options.selector, dataDarkTheme: dataDark }),
     SCSS: generateAsSCSS,
     JSON: generateAsJSON,
   };

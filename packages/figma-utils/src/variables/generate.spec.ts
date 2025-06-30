@@ -41,7 +41,7 @@ describe("generate.ts", () => {
   });
 
   test("should generate as CSS with custom selector and replace mode placeholder", () => {
-    const fileContent = generateAsCSS(mockData, undefined, {
+    const fileContent = generateAsCSS(mockData, {
       selector: "html.{mode}, .selector-{mode}",
     });
 
@@ -59,8 +59,9 @@ html.test-mode-1, .selector-test-mode-1 {
   });
 
   test("should combine light and dark Data", () => {
-    const fileContent = generateAsCSS(mockData, mockDataDarkTheme, {
+    const fileContent = generateAsCSS(mockData, {
       selector: "html.{mode}, .selector-{mode}",
+      dataDarkTheme: mockDataDarkTheme,
     });
 
     expect(fileContent).toBe(`/**
@@ -77,7 +78,7 @@ html.test-mode-1, .selector-test-mode-1 {
   });
 
   test("should generate as CSS with resolved aliases", () => {
-    const fileContent = generateAsCSS(mockData, undefined, { resolveAlias: true });
+    const fileContent = generateAsCSS(mockData, { resolveAlias: true });
 
     expect(fileContent).toBe(`/**
  * Do not edit directly.

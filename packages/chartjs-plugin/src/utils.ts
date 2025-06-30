@@ -43,24 +43,14 @@ export const getDatasetColors = (color: OnyxColor | `quantitatives-${Quantitativ
 export const getCSSVariableValue = (variableName: string): string => {
   const isDark = getComputedStyle(document.body).colorScheme === "dark";
   const computedValue = getComputedStyle(document.body).getPropertyValue(variableName).trim();
-  const lightDarkMatch = computedValue.match(/^light-dark\(([^,]+),\s*([^)]+)\)$/);
+  const lightDarkMatch = /^light-dark\(([^,]+),\s*([^)]+)\)$/.exec(computedValue);
 
   if (lightDarkMatch) {
-    const lightValue = lightDarkMatch[1].trim();
-    const darkValue = lightDarkMatch[2].trim();
-
-    if (isDark) {
-      return darkValue;
-    } else {
-      return lightValue;
-    }
+    return lightDarkMatch[isDark ? 2 : 1].trim();
   } else {
     return computedValue;
   }
 };
-// export const getCSSVariableValue = (variableName: string) => {
-//   return getComputedStyle(document.body).getPropertyValue(variableName);
-// };
 
 /**
  * Converts the given HEX color to rgb.

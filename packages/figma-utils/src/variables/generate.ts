@@ -8,6 +8,10 @@ export type BaseGenerateOptions = {
    * @default false
    */
   resolveAlias?: boolean;
+  /**
+   * Parsed Figma variables for an additionally dark theme.
+   */
+  dataDarkTheme?: ParsedVariable;
 };
 
 export type GenerateAsCSSOptions = BaseGenerateOptions & {
@@ -25,20 +29,14 @@ export type GenerateAsCSSOptions = BaseGenerateOptions & {
  * Generates the given parsed Figma variables into CSS variables.
  *
  * @param data Parsed Figma variables
- * @param dataDarkTheme Parsed Figma variables for additionally dark theme
  * @param options Optional options to fine-tune the generated output
  * @returns File content of the .css file
  */
-export const generateAsCSS = (
-  data: ParsedVariable,
-  dataDarkTheme?: ParsedVariable,
-  options?: GenerateAsCSSOptions,
-): string => {
+export const generateAsCSS = (data: ParsedVariable, options?: GenerateAsCSSOptions): string => {
   const variableContent = getCssOrScssVariableContent(
     data.variables,
     (name) => `  --${name}`,
     (name) => `var(--${name})`,
-    dataDarkTheme?.variables,
     options,
   );
 
@@ -54,16 +52,11 @@ ${fullSelector} {\n${variableContent.join("\n")}\n}\n`;
  *
  * @returns File content of the .scss file
  */
-export const generateAsSCSS = (
-  data: ParsedVariable,
-  dataDarkTheme?: ParsedVariable,
-  options?: BaseGenerateOptions,
-): string => {
+export const generateAsSCSS = (data: ParsedVariable, options?: BaseGenerateOptions): string => {
   const variableContent = getCssOrScssVariableContent(
     data.variables,
     (name) => `$${name}`,
     (name) => `$${name}`,
-    dataDarkTheme?.variables,
     options,
   );
 
@@ -160,9 +153,9 @@ const getCssOrScssVariableContent = (
   variables: Record<string, string>,
   nameFormatter: (name: string) => string,
   aliasFormatter: (name: string) => string,
-  variablesDarkTheme?: Record<string, string> | null,
   options?: BaseGenerateOptions,
 ) => {
+  const variablesDarkTheme = options?.dataDarkTheme?.variables;
   return Object.entries(variables).map(([name, value]) => {
     const lightRawValue = value;
     const darkRawValue = variablesDarkTheme?.[name];
