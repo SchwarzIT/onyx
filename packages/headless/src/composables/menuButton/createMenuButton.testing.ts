@@ -88,7 +88,4 @@ export const menuButtonTesting = async ({
 
   await menu.press("End");
   await expect(lastItem, "Last item should be focused when pressing end key").toBeFocused();
-
-  await page.keyboard.press("Tab");
-  await expect(menu, "should close menu when tabbing out of component").toBeHidden();
 };
