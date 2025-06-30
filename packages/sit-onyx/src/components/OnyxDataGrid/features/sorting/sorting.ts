@@ -22,6 +22,7 @@ export const nextSortDirection = (current?: SortDirection, skipNone?: boolean): 
 };
 
 export const SORTING_FEATURE = Symbol("Sorting");
+
 export const useSorting = <TEntry extends DataGridEntry>(options?: SortOptions<TEntry>) =>
   createFeature((ctx) => {
     const sortState: Ref<SortState<TEntry>> = toRef(

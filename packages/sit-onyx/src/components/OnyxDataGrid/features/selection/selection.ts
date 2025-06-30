@@ -7,6 +7,7 @@ import "./selection.scss";
 import type { SelectionOptions, SelectionState } from "./types";
 
 export const SELECTION_FEATURE = Symbol("Selection");
+export const SELECTION_MUTATION_ORDER = 1000;
 
 export const useSelection = <TEntry extends DataGridEntry>(options?: SelectionOptions) =>
   createFeature(({ i18n }) => {
@@ -76,7 +77,7 @@ export const useSelection = <TEntry extends DataGridEntry>(options?: SelectionOp
           rowsCount.value = rows.length;
           return rows;
         },
-        order: Infinity,
+        order: SELECTION_MUTATION_ORDER,
       },
       typeRenderer: {
         [SELECTION_COLUMN]: createTypeRenderer({

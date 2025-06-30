@@ -11,7 +11,7 @@ import "./filtering.scss";
 import type { FilterOptions, FilterState } from "./types";
 
 export const FILTERING_FEATURE = Symbol("Filtering");
-export const FILTERING_MUTATION_ORDER = 0 as const;
+export const FILTERING_MUTATION_ORDER = 0;
 
 export const useFiltering = <TEntry extends DataGridEntry>(options?: FilterOptions<TEntry>) =>
   createFeature((ctx) => {

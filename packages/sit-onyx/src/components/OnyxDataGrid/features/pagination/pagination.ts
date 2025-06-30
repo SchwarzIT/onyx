@@ -8,6 +8,7 @@ import OnyxSystemButton from "../../../OnyxSystemButton/OnyxSystemButton.vue";
 import { DataGridRowOptionsSymbol, type DataGridEntry } from "../../types";
 import { FILTERING_MUTATION_ORDER } from "../filtering/filtering";
 import { createTypeRenderer } from "../renderer";
+import { SELECTION_MUTATION_ORDER } from "../selection/selection";
 import "./pagination.scss";
 import type { PaginationOptions, PaginationState } from "./types";
 
@@ -53,7 +54,7 @@ export const usePagination = (options: PaginationOptions = {}) =>
       name: PAGINATION_FEATURE,
       watch: [state, isEnabled, isAsync, isDisabled, ctx.skeleton, isScrollEnd, loading],
       mutation: {
-        order: FILTERING_MUTATION_ORDER + 1,
+        order: Math.max(FILTERING_MUTATION_ORDER, SELECTION_MUTATION_ORDER) + 1,
         func: (entries) => {
           if (!isEnabled.value()) return entries;
 
