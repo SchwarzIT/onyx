@@ -10,8 +10,8 @@
     TFeatures extends DataGridFeature<TEntry, TTypeRenderer, TFeatureName>[] | [] = []
   "
 >
-import { shallowRef, toRefs, watch, type HTMLAttributes, type WatchHandle } from "vue";
-import type { InternalDataGridSlots } from "../..";
+import { shallowRef, toRefs, watch, type WatchHandle } from "vue";
+import type { DataGridScrollContainerAttributes, InternalDataGridSlots } from "../..";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { injectI18n } from "../../i18n";
 import { mergeVueProps } from "../../utils/attrs";
@@ -51,7 +51,7 @@ const skeleton = useSkeletonContext(props);
 const renderColumns = shallowRef<DataGridRendererColumn<TEntry>[]>([]);
 const renderRows = shallowRef<DataGridRendererRow<TEntry, DataGridMetadata>[]>([]);
 const rendererColumnGroups = shallowRef<TableColumnGroup[]>();
-const rendererScrollContainerAttributes = shallowRef<HTMLAttributes | undefined>();
+const rendererScrollContainerAttributes = shallowRef<DataGridScrollContainerAttributes>();
 const rendererSlots = shallowRef<InternalDataGridSlots>();
 
 const { columns: columnConfig, data, features, columnGroups, async } = toRefs(props);

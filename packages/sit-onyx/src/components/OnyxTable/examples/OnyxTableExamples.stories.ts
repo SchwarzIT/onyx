@@ -14,4 +14,4 @@ const meta: Meta<typeof OnyxTable> = {
 
 export default meta;
 
-export const Skeleton = createAdvancedStoryExample("OnyxTable", "OnyxTableSkeletonExample");
+export const Skeleton = createAdvancedStoryExample("OnyxTable", "SkeletonExample");
