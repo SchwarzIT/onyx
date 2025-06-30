@@ -80,7 +80,7 @@ export const Nested = {
               h(OnyxMenuItem, null, () => "Nested 1.2.2"),
             ],
           }),
-          h(OnyxMenuItem, undefined, "Item 1.3"),
+          h(OnyxMenuItem, undefined, () => "Item 1.3"),
         ],
       }),
       h(OnyxMenuItem, () => "Item 2"),
