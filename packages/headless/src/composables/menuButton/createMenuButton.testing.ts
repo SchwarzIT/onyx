@@ -90,8 +90,5 @@ export const menuButtonTesting = async ({
   await expect(lastItem, "Last item should be focused when pressing end key").toBeFocused();
 
   await page.keyboard.press("Tab");
-  await expect(button, "should close flyout when tabbing out of component").toHaveAttribute(
-    "aria-expanded",
-    "false",
-  );
+  await expect(menu, "should close menu when tabbing out of component").toBeHidden();
 };
