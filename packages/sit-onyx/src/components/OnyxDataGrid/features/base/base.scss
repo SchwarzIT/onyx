@@ -2,8 +2,12 @@
 
 @include layers.component {
   .onyx-data-grid {
-    .onyx-data-grid--skeleton {
+    &--skeleton {
       pointer-events: none;
+    }
+
+    &__headline-count {
+      color: var(--onyx-color-text-icons-neutral-soft);
     }
   }
 }

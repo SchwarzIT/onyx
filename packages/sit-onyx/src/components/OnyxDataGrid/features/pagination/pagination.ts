@@ -15,8 +15,10 @@ import type { PaginationOptions, PaginationState } from "./types";
 export const PAGINATION_FEATURE = Symbol("Pagination");
 export const LAZY_LOADING_ROW_ID = Symbol("LazyLoadingRow");
 export const LAZY_LOADING_TYPE_RENDERER = Symbol("LazyLoadingRenderer");
-export const BUTTON_LOADING_ROW_ID = Symbol("ButntoLoadingRow");
+export const BUTTON_LOADING_ROW_ID = Symbol("ButtonLoadingRow");
 export const BUTTON_LOADING_TYPE_RENDERER = Symbol("ButtonLoadingRenderer");
+export const PAGINATION_MUTATION_ORDER =
+  Math.min(FILTERING_MUTATION_ORDER, SELECTION_MUTATION_ORDER) - 1;
 
 export const usePagination = (options: PaginationOptions = {}) =>
   createFeature((ctx) => {
@@ -54,7 +56,7 @@ export const usePagination = (options: PaginationOptions = {}) =>
       name: PAGINATION_FEATURE,
       watch: [state, isEnabled, isAsync, isDisabled, ctx.skeleton, isScrollEnd, loading],
       mutation: {
-        order: Math.max(FILTERING_MUTATION_ORDER, SELECTION_MUTATION_ORDER) + 1,
+        order: PAGINATION_MUTATION_ORDER,
         func: (entries) => {
           if (!isEnabled.value()) return entries;
 

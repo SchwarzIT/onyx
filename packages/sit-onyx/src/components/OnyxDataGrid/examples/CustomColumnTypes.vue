@@ -64,6 +64,7 @@ const features = [withCustomType];
 
 <template>
   <OnyxDataGrid
+    headline="Example headline"
     :columns="[
       { key: 'name', label: 'Name', type: 'string' },
       { key: 'age', label: 'Age', type: { name: 'ageIcon', options: { offset: -5 } } },

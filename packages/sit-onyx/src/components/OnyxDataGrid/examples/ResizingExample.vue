@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { DataGridFeatures, OnyxDataGrid, type ColumnConfig } from "../../..";
-import OnyxHeadline from "../../../components/OnyxHeadline/OnyxHeadline.vue";
 
 type TEntry = {
   id: number;
@@ -88,6 +87,5 @@ const features = [withResizing];
 </script>
 
 <template>
-  <OnyxHeadline is="h3">Resizable table columns with drag and slide</OnyxHeadline>
-  <OnyxDataGrid :columns :data :features />
+  <OnyxDataGrid headline="Resizable table columns with drag and slide" :columns :data :features />
 </template>

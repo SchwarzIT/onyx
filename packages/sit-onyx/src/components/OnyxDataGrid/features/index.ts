@@ -89,7 +89,7 @@ export type ColumnConfig<
   | PublicNormalizedColumnConfig<
       TEntry,
       TColumnGroup,
-      TTypes | RenderTypesFromFeature<[typeof BASE_FEATURE]>
+      TTypes | RenderTypesFromFeature<[ReturnType<typeof BASE_FEATURE>]>
     >;
 
 export type DefaultSupportedTypes = "string" | "number" | DatetimeFormat;
@@ -213,6 +213,8 @@ export type DataGridFeatureDescription<
     /**
      * Defines the order in which the mutation is handled.
      * This can be used to control the sequence of operations when multiple mutations are applied.
+     *
+     * The higher the order, the earlier the mutation is applied.
      *
      * @default 0
      */
