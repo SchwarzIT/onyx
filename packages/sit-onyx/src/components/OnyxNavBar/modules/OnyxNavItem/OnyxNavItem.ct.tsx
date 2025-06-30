@@ -31,7 +31,7 @@ test.describe("Screenshot tests", () => {
           label="Parent item"
           link={row === "external-link" ? "https://onyx.schwarz" : "#"}
           active={column === "active"}
-          style={{ ["max-width"]: "200px" }}
+          style={{ maxWidth: "200px" }}
         >
           {row === "badge" && ["Parent item", <OnyxBadge dot color="warning" />]}
 
@@ -80,17 +80,40 @@ test("should behave correctly with nested children", async ({ mount, page }) => 
   const component = await mount(
     <OnyxNavItem label="Label">
       <template v-slot:children>
-        <OnyxNavItem label="Nested item 1" link="#nested-1" />
+        <OnyxNavItem label="Nested item 1" link="#nested-1">
+          <template v-slot:children>
+            <OnyxNavItem label="Nested item 1.1" link="#nested-1-1" />
+            <OnyxNavItem label="Nested item 1.2" link="#nested-1-2" />
+          </template>
+        </OnyxNavItem>
+
+        <OnyxNavItem label="Nested item 2" link="#nested-2" />
       </template>
     </OnyxNavItem>,
   );
 
   // ACT
   await component.getByRole("menuitem", { name: "Label" }).hover();
+  await component.getByRole("menuitem", { name: "Nested item 2" }).click();
+
+  // ASSERT
+  await expect(page).toHaveURL(/^http:\/\/localhost:\d*\/#nested-2$/);
+
+  // ACT
+  await component.getByRole("menuitem", { name: "Label" }).hover();
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("nested.png");
+
+  // ACT
   await component.getByRole("menuitem", { name: "Nested item 1" }).click();
 
   // ASSERT
-  await expect(page).toHaveURL(/^http:\/\/localhost:\d*\/#nested-1$/);
+  await expect(component).toHaveScreenshot("nested-open.png");
+  await expect(
+    component.getByRole("menuitem", { name: "Nested item 1", exact: true }),
+  ).toBeHidden();
+  await expect(component.getByRole("menuitem", { name: "Nested item 1.1" })).toBeVisible();
 });
 
 test("should auto detect active state based on provided router", async ({ mount }) => {
