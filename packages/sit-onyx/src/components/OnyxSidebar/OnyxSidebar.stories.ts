@@ -26,6 +26,7 @@ export const Resizable = {
 } satisfies Story;
 
 export const Grid = {
+  tags: ["new:feature"],
   ...createAdvancedStoryExample("OnyxSidebar", "GridExample"),
 } satisfies Story;
 
