@@ -49,7 +49,7 @@ test("should show headline", async ({ mount }) => {
 
   // ASSERT
   await expect(
-    component.getByRole("heading", { name: "Advanced headline (2)", level: 2 }),
+    component.getByRole("heading", { name: "Advanced headline (4)", level: 2 }),
     "should render custom headline",
   ).toBeVisible();
 
