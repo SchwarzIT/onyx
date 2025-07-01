@@ -6,10 +6,6 @@ import OnyxFlyoutMenu from "./OnyxFlyoutMenu.vue";
 import type { OnyxFlyoutMenuProps } from "./types";
 
 const props = defineProps<OnyxFlyoutMenuProps>();
-
-defineSlots<{
-  options?(): unknown;
-}>();
 </script>
 
 <template>

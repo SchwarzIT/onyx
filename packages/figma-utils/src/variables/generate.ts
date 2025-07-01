@@ -8,6 +8,10 @@ export type BaseGenerateOptions = {
    * @default false
    */
   resolveAlias?: boolean;
+  /**
+   * Parsed Figma variables for an additionally dark theme.
+   */
+  dataDarkTheme?: ParsedVariable;
 };
 
 export type GenerateAsCSSOptions = BaseGenerateOptions & {
@@ -120,7 +124,8 @@ export const generateTimestampComment = (modeName?: string): string => {
  * @example "{your-variable-name}"
  * @returns `isAlias` whether the variable is an alias and `aliasName` the raw variable name without curly braces.
  */
-export const isAliasVariable = (variableValue: string) => {
+export const isAliasVariable = (variableValue?: string) => {
+  if (!variableValue) return { isAlias: false, aliasName: "" };
   const isAlias = /{.*}/.exec(variableValue);
   const aliasName = variableValue.replace("{", "").replace("}", "");
   return { isAlias, aliasName };
@@ -131,6 +136,7 @@ export const isAliasVariable = (variableValue: string) => {
  * represents a single line of the file.
  *
  * @param variables Variable data (name + value)
+ * @param variablesDarkTheme Variable data (name +value) for additionally dark theme
  * @param nameFormatter Function to format the variable name
  * @param aliasFormatter Function to format a reference to another variable (e.g. `var(--name)` for CSS)
  * @param options Generator options
@@ -141,14 +147,38 @@ const getCssOrScssVariableContent = (
   aliasFormatter: (name: string) => string,
   options?: BaseGenerateOptions,
 ) => {
+  const variablesDarkTheme = options?.dataDarkTheme?.variables;
   return Object.entries(variables).map(([name, value]) => {
-    const { isAlias, aliasName } = isAliasVariable(value);
-    let variableValue = isAlias ? aliasFormatter(aliasName) : value;
+    const lightRawValue = value;
+    const darkRawValue = variablesDarkTheme?.[name];
 
-    if (isAlias && options?.resolveAlias) {
-      variableValue = resolveValue(name, variables);
+    const { isAlias: isLightAlias, aliasName: lightAliasName } = isAliasVariable(lightRawValue);
+    const { isAlias: isDarkAlias, aliasName: darkAliasName } = isAliasVariable(
+      darkRawValue ?? lightRawValue,
+    );
+
+    let lightValue = isLightAlias ? aliasFormatter(lightAliasName) : lightRawValue;
+    let darkValue = isDarkAlias ? aliasFormatter(darkAliasName) : (darkRawValue ?? lightRawValue);
+
+    if (options?.resolveAlias) {
+      if (isLightAlias) {
+        lightValue = resolveValue(name, variables);
+      }
+      if (isDarkAlias) {
+        darkValue = resolveValue(name, variablesDarkTheme ?? {});
+      }
     }
 
-    return `${nameFormatter(name)}: ${variableValue};`;
+    const formattedName = nameFormatter(name);
+
+    if (variablesDarkTheme && darkRawValue) {
+      if (lightValue === darkValue) {
+        return `${formattedName}: ${lightValue};`;
+      } else {
+        return `${formattedName}: light-dark(${lightValue}, ${darkValue});`;
+      }
+    }
+
+    return `${formattedName}: ${lightValue};`;
   });
 };

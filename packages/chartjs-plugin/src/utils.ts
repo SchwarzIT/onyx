@@ -39,8 +39,17 @@ export const getDatasetColors = (color: OnyxColor | `quantitatives-${Quantitativ
  * Gets the current value of the given CSS variable.
  * @param CSS variable name, e.g. `--onyx-color-base-primary-500`
  */
-export const getCSSVariableValue = (variableName: string) => {
-  return getComputedStyle(document.body).getPropertyValue(variableName);
+
+export const getCSSVariableValue = (variableName: string): string => {
+  const isDark = getComputedStyle(document.body).colorScheme === "dark";
+  const computedValue = getComputedStyle(document.body).getPropertyValue(variableName).trim();
+  const lightDarkMatch = /^light-dark\(([^,]+),\s*([^)]+)\)$/.exec(computedValue);
+
+  if (lightDarkMatch) {
+    return lightDarkMatch[isDark ? 2 : 1].trim();
+  } else {
+    return computedValue;
+  }
 };
 
 /**

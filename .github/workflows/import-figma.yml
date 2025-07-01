@@ -18,24 +18,14 @@ jobs:
         run: pnpm run build:all --filter @sit-onyx/figma-utils
 
       # we need to separately import the themes because they are all needed in different formats and selectors
-      - name: 🎨 Import onyx light variables
+      - name: 🎨 Import onyx variables
         run: |
-          pnpm run @sit-onyx/figma-utils import-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles/variables/themes" -m value onyx-light -f CSS -s ":where(:root), .onyx-theme-default"
+          pnpm run @sit-onyx/figma-utils import-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles/variables/themes" -m value onyx-light -f CSS -c -s ":where(:root), .onyx-theme-default"
         working-directory: packages/figma-utils
 
-      - name: 🎨 Import onyx dark variables
+      - name: 🎨 Import additional themes
         run: |
-          pnpm run @sit-onyx/figma-utils import-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles/variables/themes" -m onyx-dark -f CSS -s ".dark, .onyx-theme-default-dark"
-        working-directory: packages/figma-utils
-
-      - name: 🎨 Import additional light-themes
-        run: |
-          pnpm run @sit-onyx/figma-utils import-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles/variables/themes" -m lidl-light  kaufland-light digits-light schwarz-light  -f CSS -s ":where(:root), .onyx-theme-{mode}"
-        working-directory: packages/figma-utils
-
-      - name: 🎨 Import additional dark-themes
-        run: |
-          pnpm run @sit-onyx/figma-utils import-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles/variables/themes" -m lidl-dark kaufland-dark digits-dark schwarz-dark -f CSS -s ".dark, .onyx-theme-{mode}"
+          pnpm run @sit-onyx/figma-utils import-variables -k "${{ vars.FIGMA_FILE_KEY }}" -t "${{ secrets.FIGMA_TOKEN }}" -d "../sit-onyx/src/styles/variables/themes" -m lidl-light  kaufland-light digits-light   -f CSS -c -s ":where(:root), .onyx-theme-{mode}"
         working-directory: packages/figma-utils
 
       - name: 🛠️ Import spacing variables

@@ -71,7 +71,7 @@ const isMobile = inject(
   computed(() => false),
 );
 
-const moreListTargetRef = inject(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY);
+const moreListTargetRef = inject(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, undefined);
 
 const isTopLevel = inject(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, true);
 provide(NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY, false);
@@ -113,6 +113,7 @@ const { componentRef, isVisible } = isTopLevel
       <slot name="children"></slot>
     </ul>
   </div>
+
   <!-- Mobile item displayed in list -->
   <OnyxNavItemFacade
     v-else-if="isMobile"
@@ -124,6 +125,7 @@ const { componentRef, isVisible } = isTopLevel
     <slot></slot>
     <template v-if="slots.children" #children><slot name="children"></slot></template>
   </OnyxNavItemFacade>
+
   <!-- Desktop parent item in navbar with children in a flyout -->
   <OnyxFlyoutMenu
     v-else-if="isTopLevel && hasChildren && isVisible"
@@ -132,7 +134,7 @@ const { componentRef, isVisible } = isTopLevel
   >
     <template #button="{ trigger }">
       <OnyxNavItemFacade
-        v-bind="mergeVueProps<any>(restAttrs, props, trigger)"
+        v-bind="mergeVueProps(restAttrs, props, trigger)"
         ref="componentRef"
         :active
         context="navbar"
@@ -146,6 +148,7 @@ const { componentRef, isVisible } = isTopLevel
       <slot name="children"></slot>
     </template>
   </OnyxFlyoutMenu>
+
   <!-- Desktop nav button directly in navbar  -->
   <OnyxNavItemFacade
     v-else-if="isTopLevel && isVisible"
@@ -156,6 +159,7 @@ const { componentRef, isVisible } = isTopLevel
   >
     <slot></slot>
   </OnyxNavItemFacade>
+
   <!-- Desktop nav item nested in a list flyout -->
   <OnyxNavItemFacade
     v-else-if="isVisible"
@@ -164,7 +168,9 @@ const { componentRef, isVisible } = isTopLevel
     context="list"
   >
     <slot></slot>
+    <template v-if="slots.children" #children><slot name="children"></slot></template>
   </OnyxNavItemFacade>
+
   <!-- Desktop top-level nav item in more list -->
   <template v-else>
     <Teleport :disabled="!moreListTargetRef" :to="moreListTargetRef">

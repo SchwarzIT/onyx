@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { createMenuItems } from "@sit-onyx/headless";
+import arrowSmallLeft from "@sit-onyx/icons/arrow-small-left.svg?raw";
 import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
-import { computed } from "vue";
+import { computed, nextTick, useTemplateRef, withModifiers } from "vue";
 import { useLink } from "../../../../composables/useLink";
 import { useVModel } from "../../../../composables/useVModel";
+import { injectI18n } from "../../../../i18n";
 import type { Nullable } from "../../../../types";
 import { mergeVueProps, useRootAttrs } from "../../../../utils/attrs";
 import { extractLinkProps } from "../../../../utils/router";
@@ -14,6 +16,8 @@ import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
 import { type OnyxMenuItemProps } from "./types";
 
 defineOptions({ inheritAttrs: false });
+
+const { t } = injectI18n();
 
 const { rootAttrs, restAttrs } = useRootAttrs();
 
@@ -49,9 +53,19 @@ const open = useVModel({
   default: false,
 });
 
+const backButton = useTemplateRef("backButtonRef");
+const menuItemElementRef = useTemplateRef("menuItemRef");
+
 const {
   elements: { listItem, menuItem },
-} = createMenuItems();
+} = createMenuItems({
+  onOpen: async () => {
+    if (!hasChildren.value) return;
+    open.value = true;
+    await nextTick();
+    backButton.value?.$el.querySelector("button").focus();
+  },
+});
 
 const { isActive: isPathActive } = useLink();
 const isActive = computed(() => {
@@ -67,6 +81,19 @@ const menuItemProps = computed(() =>
 );
 
 const hasChildren = computed(() => !!slots.children);
+
+const handleBackButtonKeydown = async (event: KeyboardEvent) => {
+  switch (event.key) {
+    case "ArrowLeft":
+    case " ":
+    case "Enter":
+      event.preventDefault();
+      open.value = false;
+      await nextTick();
+      menuItemElementRef.value?.$el.focus();
+      break;
+  }
+};
 </script>
 
 <template>
@@ -76,13 +103,24 @@ const hasChildren = computed(() => !!slots.children);
     :color="props.color"
     :disabled="props.disabled"
     class="onyx-menu-item"
+    :class="{ 'onyx-menu-item--open': open }"
     v-bind="mergeVueProps(listItem, rootAttrs)"
   >
     <ButtonOrLinkLayout
+      v-show="!open"
+      ref="menuItemRef"
       class="onyx-menu-item__trigger"
       :disabled="props.disabled"
       :link="props.link"
-      v-bind="mergeVueProps(menuItemProps, restAttrs)"
+      v-bind="
+        mergeVueProps(
+          menuItemProps,
+          restAttrs,
+          hasChildren && {
+            onClick: withModifiers(() => (open = true), ['stop']),
+          },
+        )
+      "
     >
       <slot>
         <span>
@@ -97,7 +135,17 @@ const hasChildren = computed(() => !!slots.children);
         <OnyxIcon :icon="chevronRightSmall" size="24px" />
       </div>
     </ButtonOrLinkLayout>
+
     <ul v-if="hasChildren" v-show="open" role="menu" class="onyx-menu-item__children">
+      <OnyxMenuItem
+        ref="backButtonRef"
+        class="onyx-menu-item__back"
+        @keydown="handleBackButtonKeydown"
+        @click.stop="open = false"
+      >
+        <OnyxIcon :icon="arrowSmallLeft" />
+        {{ t("back") }}
+      </OnyxMenuItem>
       <slot name="children"></slot>
     </ul>
   </OnyxListItem>
@@ -151,13 +199,23 @@ const hasChildren = computed(() => !!slots.children);
 
       display: flex;
       flex-direction: column;
-      gap: var(--onyx-spacing-2xs);
+
+      // when nested child item is open, hide all other items in the same layer (including back button)
+      &:has(.onyx-menu-item--open) {
+        > .onyx-menu-item:not(.onyx-menu-item--open) {
+          display: none;
+        }
+      }
     }
 
     &__chevron {
       flex: 1 0 1.5rem;
       display: flex;
       justify-content: end;
+    }
+
+    &__back {
+      font-weight: var(--onyx-font-weight-semibold);
     }
   }
 }

@@ -302,10 +302,10 @@
 
 .onyx-error-svg {
   @include layers.component() {
-    --onyx-error-svg-background-color: var(--onyx-color-steel-900);
-    --onyx-error-svg-background-color-accent: var(--onyx-color-steel-800);
-    --onyx-error-svg-background-color-device-controls: var(--onyx-color-steel-200);
-    --onyx-error-svg-background-color-cable: var(--onyx-color-steel-700);
+    --onyx-error-svg-background-color: var(--onyx-color-neutral-steel-900);
+    --onyx-error-svg-background-color-accent: var(--onyx-color-neutral-steel-800);
+    --onyx-error-svg-background-color-device-controls: var(--onyx-color-neutral-steel-200);
+    --onyx-error-svg-background-color-cable: var(--onyx-color-neutral-steel-700);
     --onyx-error-svg-background-color-circle: var(--onyx-color-base-neutral-200);
     --onyx-error-svg-background-color-primary: var(--onyx-color-base-primary-500);
     --onyx-error-svg-background-color-face: #fff;

@@ -27,7 +27,7 @@ export type Variable = {
   valuesByMode: Record<string, VariableValue>;
 };
 
-export type VariableValue = RGBAValue | ColorsAlias | number;
+export type VariableValue = RGBAValue | ColorsAlias | number | string;
 
 export type RGBAValue = {
   r: number;

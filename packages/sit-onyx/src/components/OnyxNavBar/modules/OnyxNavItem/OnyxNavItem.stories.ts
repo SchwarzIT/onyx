@@ -18,14 +18,6 @@ const meta: Meta<typeof OnyxNavItem> = {
   },
 };
 
-const nestedChildren = [
-  { label: "Nested Item 1" },
-  { label: "Nested Item 2", active: true },
-  { label: "Nested Item 3" },
-  { label: "Nested Item 4" },
-  { label: "Nested Item 5" },
-];
-
 export default meta;
 type Story = StoryObj<typeof OnyxNavItem>;
 
@@ -68,8 +60,25 @@ export const WithChildren: Story = {
   args: {
     ...Default.args,
     active: true,
-    children: () =>
-      nestedChildren.map(({ label, active }) => h(OnyxNavItem, { link: "#", active, label })),
+    children: () => {
+      return [
+        h(OnyxNavItem, { label: "Nested Item 1", active: true }),
+        h(
+          OnyxNavItem,
+          { label: "Nested Item 2" },
+          {
+            children: () => [
+              h(OnyxNavItem, { label: "Nested Item 2.1" }),
+              h(OnyxNavItem, { label: "Nested Item 2.2" }),
+              h(OnyxNavItem, { label: "Nested Item 2.3" }),
+            ],
+          },
+        ),
+        h(OnyxNavItem, { label: "Nested Item 3" }),
+        h(OnyxNavItem, { label: "Nested Item 4" }),
+        h(OnyxNavItem, { label: "Nested Item 5" }),
+      ];
+    },
   },
   decorators: [
     (story) => ({
