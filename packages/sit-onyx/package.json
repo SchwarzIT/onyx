@@ -13,8 +13,6 @@
   "main": "./dist/index.js",
   "module": "./dist/index.esm-bundler.js",
   "types": "./dist/index.d.ts",
-  "unpkg": "./dist/index.browser.js",
-  "jsdelivr": "./dist/index.browser.js",
   "exports": {
     ".": {
       "import": {
@@ -75,6 +73,7 @@
     "eslint-plugin-vue-scoped-css": "^2.10.0",
     "sass-embedded": "catalog:",
     "storybook-addon-tag-badges": "^2.0.1",
+    "tsx": "^4.20.3",
     "vue": "catalog:",
     "vue-component-type-helpers": "^2.2.10",
     "vue-i18n": "^11.1.6",
