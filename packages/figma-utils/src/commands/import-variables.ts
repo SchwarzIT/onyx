@@ -60,7 +60,8 @@ export async function importVariablesCommandAction(options: ImportVariablesComma
   const generators = {
     CSS: (data: ParsedVariable, dataDark?: ParsedVariable) =>
       generateAsCSS(data, { selector: options.selector, dataDarkTheme: dataDark }),
-    SCSS: (data: ParsedVariable, _dataDark?: ParsedVariable) => generateAsSCSS(data),
+    SCSS: (data: ParsedVariable, dataDark?: ParsedVariable) =>
+      generateAsSCSS(data, { dataDarkTheme: dataDark }),
     JSON: (data: ParsedVariable, _dataDark?: ParsedVariable) => generateAsJSON(data),
   };
 
@@ -125,7 +126,6 @@ export async function importVariablesCommandAction(options: ImportVariablesComma
           (themeData) => themeData.modeName === themeName + "-dark",
         );
 
-        if (dataDark) generateAsJSON(dataDark);
         fs.writeFileSync(fullPath, generators[format as keyof typeof generators](data, dataDark));
       } else {
         const fullPath = path.join(outputDirectory, `${baseName}.${format.toLowerCase()}`);
