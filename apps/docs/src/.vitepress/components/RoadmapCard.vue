@@ -62,11 +62,11 @@ const target = computed(() => (props.href?.startsWith("http") ? "_blank" : "_sel
   }
 
   &__title {
-    font-size: var(--onyx-font-number-600);
+    font-size: 2.5rem;
     line-height: var(--onyx-font-line-height-xl);
     margin-top: 0;
     margin-bottom: 1rem;
-    font-weight: var(--onyx-font-weight-bold);
+    font-weight: 700;
   }
 
   &__description {

@@ -20,7 +20,6 @@ const lineHeights = [
 const fontWeights = [
   "onyx-font-weight-regular",
   "onyx-font-weight-semibold",
-  "onyx-font-weight-bold",
 ]
 const fontFamilies = [
   "onyx-font-family-data",
