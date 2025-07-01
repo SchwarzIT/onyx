@@ -1,5 +1,5 @@
 import { h, ref, toRef, useId, type Ref } from "vue";
-import { createFeature, type ModifyColumns } from "..";
+import { createFeature, useFeatureContext, type ModifyColumns } from "..";
 import OnyxCheckbox from "../../../OnyxCheckbox/OnyxCheckbox.vue";
 import type { DataGridEntry } from "../../types";
 import { createTypeRenderer } from "../renderer";
@@ -10,7 +10,7 @@ export const SELECTION_FEATURE = Symbol("Selection");
 export const SELECTION_MUTATION_ORDER = 1000;
 
 export const useSelection = <TEntry extends DataGridEntry>(options?: SelectionOptions) =>
-  createFeature(({ i18n }) => {
+  createFeature((ctx) => {
     const SELECTION_COLUMN = `selection-column-${useId()}`;
     const selectionState: Ref<SelectionState> = toRef(
       options?.selectionState ??
@@ -20,8 +20,8 @@ export const useSelection = <TEntry extends DataGridEntry>(options?: SelectionOp
         } as const),
     );
     const rowsCount = ref(0);
-    const disabled = toRef(options?.disabled ?? false);
     const hover = toRef(options?.hover ?? false);
+    const { isEnabled } = useFeatureContext(ctx, options);
 
     const getCheckState = (id: PropertyKey) =>
       selectionState.value.selectMode === "include"
@@ -55,22 +55,23 @@ export const useSelection = <TEntry extends DataGridEntry>(options?: SelectionOp
         selectionState.value.contingent.size === rowsCount.value);
 
     const modifyColumns: ModifyColumns<TEntry> = {
-      func: (cols) =>
-        disabled.value
-          ? [...cols]
-          : [
-              {
-                key: SELECTION_COLUMN,
-                type: { name: SELECTION_COLUMN },
-                label: "",
-                width: "2.5rem",
-              },
-              ...cols,
-            ],
+      func: (cols) => {
+        if (!isEnabled.value()) return [...cols];
+
+        return [
+          {
+            key: SELECTION_COLUMN,
+            type: { name: SELECTION_COLUMN },
+            label: "",
+            width: "2.5rem",
+          },
+          ...cols,
+        ];
+      },
     };
     return {
       name: SELECTION_FEATURE,
-      watch: [selectionState, hover, disabled],
+      watch: [selectionState, hover, isEnabled],
       modifyColumns,
       mutation: {
         func: (rows) => {
@@ -87,8 +88,8 @@ export const useSelection = <TEntry extends DataGridEntry>(options?: SelectionOp
               h(OnyxCheckbox, {
                 label:
                   selectionState.value.selectMode === "include"
-                    ? i18n.t.value("dataGrid.head.selection.selectAll")
-                    : i18n.t.value("dataGrid.head.selection.deselectAll"),
+                    ? ctx.i18n.t.value("dataGrid.head.selection.selectAll")
+                    : ctx.i18n.t.value("dataGrid.head.selection.deselectAll"),
                 value: `selection-all-rows`,
                 hideLabel: true,
                 indeterminate: isIndeterminate(),
@@ -107,8 +108,8 @@ export const useSelection = <TEntry extends DataGridEntry>(options?: SelectionOp
               const idAsString = String(row.id);
               const label =
                 selectionState.value.selectMode === "include"
-                  ? i18n.t.value("dataGrid.head.selection.select", { id: idAsString })
-                  : i18n.t.value("dataGrid.head.selection.deselect", { id: idAsString });
+                  ? ctx.i18n.t.value("dataGrid.head.selection.select", { id: idAsString })
+                  : ctx.i18n.t.value("dataGrid.head.selection.deselect", { id: idAsString });
               return h(OnyxCheckbox, {
                 class: {
                   "onyx-data-grid-selection-cell__checkbox": true,

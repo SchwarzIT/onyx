@@ -1,4 +1,5 @@
 import { type MaybeRef, type MaybeRefOrGetter } from "vue";
+import type { DataGridFeatureOptions } from "..";
 import type { DataGridEntry } from "../../types";
 
 export type SelectionState = {
@@ -28,15 +29,11 @@ export type SelectionState = {
 /**
  * The options of the selection feature for the OnyxDataGrid component.
  */
-export type SelectionOptions = {
+export type SelectionOptions = Pick<DataGridFeatureOptions<DataGridEntry, object>, "enabled"> & {
   /**
    * The currently active selection.
    */
   selectionState?: MaybeRef<SelectionState>;
-  /**
-   * If the row selection column is shown or not.
-   */
-  disabled?: MaybeRefOrGetter<boolean>;
   /**
    * If `true` the selection checkbox of a row will only be shown if the row is hovered or selected.
    */
