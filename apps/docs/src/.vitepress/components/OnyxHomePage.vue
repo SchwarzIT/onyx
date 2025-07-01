@@ -126,7 +126,7 @@ const storybookHost = "https://storybook.onyx.schwarz" as const;
 
   &__headline {
     margin-bottom: var(--onyx-spacing-md);
-    font-size: var(--onyx-font-number-600);
+    font-size: 2.5rem;
     line-height: var(--onyx-font-line-height-xl);
   }
 
