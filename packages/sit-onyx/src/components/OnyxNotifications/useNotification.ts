@@ -1,4 +1,5 @@
 import { computed, inject, ref, type ComputedRef, type InjectionKey } from "vue";
+import { userConsole } from "../../utils/console";
 import type { OnyxButtonProps } from "../OnyxButton/types";
 import type { OnyxNotificationMessageProps } from "../OnyxNotificationMessage/types";
 
@@ -88,13 +89,10 @@ export const createNotificationsProvider = (): NotificationsProvider => {
  * Composable for showing notifications.
  */
 export const useNotification = () => {
-  const logWarning = () => {
-    // eslint-disable-next-line no-console -- we want to inform devs about incorrect usage
-    console.warn(
+  const logWarning = () =>
+    userConsole?.warn(
       'Trying to use "useNotification()" before the notifications provider has been provided. Make sure to "provide" it first.',
     );
-  };
-
   const notificationsProvider = inject(
     NOTIFICATIONS_PROVIDER_INJECTION_KEY,
     // provide fallback so "useNotification()" does not return "undefined"

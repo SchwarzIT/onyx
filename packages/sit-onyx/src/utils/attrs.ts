@@ -12,6 +12,7 @@ import {
   type VNodeRef,
 } from "vue";
 import type { Data } from "../types";
+import { userConsole } from "./console";
 
 // region docs
 /**
@@ -97,11 +98,9 @@ const createMergedRef = <T>(...toMerge: VNodeRef[]) => {
               r.value = value;
               break;
             default:
-              import.meta.env.DEV &&
-                // eslint-disable-next-line no-console -- show console error in dev mode
-                console.error(
-                  `Template Ref of type "${typeof r}" is not supported and cannot be merged!`,
-                );
+              userConsole?.error(
+                `Template Ref of type "${typeof r}" is not supported and cannot be merged!`,
+              );
           }
         });
         trigger();

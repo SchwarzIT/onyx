@@ -1,8 +1,7 @@
 import { defineConfig } from "@playwright/experimental-ct-vue";
 import { PLAYWRIGHT_BASE_CONFIG } from "@sit-onyx/shared/playwright.config.base";
-import { Options } from "@vitejs/plugin-vue";
 
-export const vuePluginOptions: Options = {
+export const vuePluginOptions = {
   template: {
     compilerOptions: {
       // comments can cause issues for components where classes
