@@ -108,7 +108,7 @@ $test-3: $test-2;
   });
 
   test("should generate as JSON", () => {
-    const fileContent = generateAsJSON(mockData, mockDataDarkTheme);
+    const fileContent = generateAsJSON(mockData);
 
     expect(JSON.parse(fileContent)).toStrictEqual({
       light: {
