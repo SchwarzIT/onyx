@@ -60,7 +60,8 @@ export async function importVariablesCommandAction(options: ImportVariablesComma
   const generators = {
     CSS: (data: ParsedVariable, dataDark?: ParsedVariable) =>
       generateAsCSS(data, { selector: options.selector, dataDarkTheme: dataDark }),
-    SCSS: generateAsSCSS,
+    SCSS: (data: ParsedVariable, _dataDark?: ParsedVariable) => generateAsSCSS(data),
+    JSON: (data: ParsedVariable, _dataDark?: ParsedVariable) => generateAsJSON(data),
   };
 
   options.format.forEach((format) => {
@@ -115,7 +116,6 @@ export async function importVariablesCommandAction(options: ImportVariablesComma
       if (!isModeIncluded) return;
 
       const baseName = getBaseFileName(data.modeName);
-      generateAsJSON(data);
       if (options.combinesDarkLight) {
         const themeName = baseName.split("-")[0];
         const fullPath = path.join(outputDirectory, `${themeName}.${format.toLowerCase()}`);

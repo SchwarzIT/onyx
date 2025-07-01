@@ -111,16 +111,9 @@ $test-3: $test-2;
     const fileContent = generateAsJSON(mockData);
 
     expect(JSON.parse(fileContent)).toStrictEqual({
-      light: {
-        "test-1": "#ffffff",
-        "test-2": "1rem",
-        "test-3": "1rem",
-      },
-      dark: {
-        "test-1": "#000000",
-        "test-2": "1rem",
-        "test-3": "#000000",
-      },
+      "test-1": "#ffffff",
+      "test-2": "1rem",
+      "test-3": "1rem",
     });
   });
 });
