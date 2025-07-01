@@ -3,7 +3,7 @@ import { onBeforeMount, onBeforeUnmount, reactive, watchEffect, type Ref } from 
 type DocumentEventType = keyof DocumentEventMap;
 type GlobalListener<K extends DocumentEventType = DocumentEventType> = (
   event: DocumentEventMap[K],
-) => void;
+) => unknown;
 
 export type UseGlobalEventListenerOptions<K extends DocumentEventType> = {
   type: K;

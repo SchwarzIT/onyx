@@ -377,9 +377,11 @@ $gap: var(--onyx-spacing-md);
 
     .onyx-separator {
       margin: var(--onyx-spacing-2xs) 0;
+      width: 100%;
 
       &--vertical {
         margin: 0 var(--onyx-spacing-2xs);
+        width: var(--onyx-separator-size);
       }
     }
   }

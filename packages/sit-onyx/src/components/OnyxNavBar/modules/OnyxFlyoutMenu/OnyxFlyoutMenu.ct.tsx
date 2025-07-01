@@ -3,6 +3,7 @@ import { expect, test } from "../../../../playwright/a11y";
 import { executeMatrixScreenshotTest } from "../../../../playwright/screenshots";
 import TestWrapperCt from "./TestWrapper.ct.vue";
 import TestWrapperManyCt from "./TestWrapperMany.ct.vue";
+import TestWrapperNestedCt from "./TestWrapperNested.ct.vue";
 
 test("check accessibility", async ({ page, mount, makeAxeBuilder }) => {
   await mount(TestWrapperCt, {
@@ -153,4 +154,144 @@ test.describe("Disabled Screenshot tests", () => {
       );
     },
   });
+});
+
+test("should behave correctly with nested items (via mouse)", async ({ page, mount }) => {
+  // ARRANGE
+  await mount(TestWrapperNestedCt, {
+    props: { label: "Choose item" },
+  });
+
+  const trigger = page.getByRole("button", { name: "Trigger" });
+  const firstItem = page.getByRole("menuitem", { name: "Item 1", exact: true });
+  const nestedChild = page.getByRole("menuitem", { name: "Item 1.1" });
+  const backButton = page.getByRole("menuitem", { name: "Back" });
+
+  // ACT
+  await trigger.hover();
+
+  // ASSERT
+  await expect(firstItem).toBeVisible();
+
+  // ACT
+  await firstItem.hover();
+
+  // ASSERT
+  await expect(
+    firstItem,
+    "should not open nested child on hover, even when flyout trigger is hover",
+  ).toBeVisible();
+  await expect(page.getByRole("menuitem", { name: "Item 1.1" })).toBeHidden();
+
+  // ACT
+  await firstItem.click();
+
+  // ASSERT
+  await expect(firstItem).toBeHidden();
+  await expect(nestedChild).toBeVisible();
+  await expect(backButton).toBeVisible();
+
+  // ACT
+  await backButton.click();
+
+  // ASSERT
+  await expect(firstItem).toBeVisible();
+  await expect(nestedChild).toBeHidden();
+  await expect(backButton).toBeHidden();
+});
+
+test("should behave correctly with nested items (via keyboard)", async ({
+  page,
+  mount,
+  makeAxeBuilder,
+}) => {
+  // ARRANGE
+  await mount(TestWrapperNestedCt, {
+    props: { label: "Choose item" },
+  });
+
+  const trigger = page.getByRole("button", { name: "Trigger" });
+  const menu = page.locator("ul").first();
+
+  // ASSERT
+  await menuButtonTesting({
+    page,
+    button: trigger,
+    menu,
+    menuItems: page.getByRole("menuitem"),
+  });
+
+  const results = await makeAxeBuilder().analyze();
+  expect(results.violations).toEqual([]);
+
+  // ACT
+  await trigger.click();
+
+  // ASSERT
+  await expect(menu).toHaveScreenshot("nested.png");
+
+  // ACT
+  await page.keyboard.press("ArrowDown");
+
+  // ASSERT
+  await expect(menu).toHaveScreenshot("nested-active.png");
+  await expect(page.getByRole("menuitem", { name: "Item 1" })).toBeFocused();
+
+  // ACT
+  await page.keyboard.press("ArrowRight");
+
+  // ASSERT
+  await expect(menu).toHaveScreenshot("nested-open.png");
+  await expect(page.getByRole("menuitem", { name: "Back" })).toBeFocused();
+
+  // ACT
+  await page.keyboard.press("ArrowDown");
+  await page.keyboard.press("ArrowDown");
+  await page.keyboard.press("ArrowRight");
+
+  // ASSERT
+  await expect(menu).toHaveScreenshot("nested-open-2.png");
+  await expect(page.getByRole("menuitem", { name: "Back" })).toBeFocused();
+
+  // ACT
+  await page.keyboard.press("ArrowLeft");
+  await expect(page.getByRole("menuitem", { name: "Item 1.2" })).toBeFocused();
+
+  // ACT
+  await page.keyboard.press("ArrowUp");
+  await page.keyboard.press("ArrowUp");
+  await expect(page.getByRole("menuitem", { name: "Back" })).toBeFocused();
+  await page.keyboard.press("Enter");
+
+  // ASSERT
+  await expect(page.getByRole("menuitem", { name: "Item 1" })).toBeFocused();
+});
+
+test("should keep nested children open state when toggling", async ({ page, mount }) => {
+  // ARRANGE
+  await mount(TestWrapperNestedCt, {
+    props: { label: "Choose item", trigger: "click" },
+  });
+
+  const trigger = page.getByRole("button", { name: "Trigger" });
+  const menu = page.locator("ul").first();
+
+  // ACT
+  await trigger.click();
+  await page.getByRole("menuitem", { name: "Item 1" }).click();
+
+  // ASSERT
+  await expect(page.getByRole("menuitem", { name: "Item 1.1" })).toBeVisible();
+
+  // ACT
+  await trigger.click();
+
+  // ASSERT
+  await expect(menu).toBeHidden();
+
+  // ACT
+  await trigger.click();
+
+  // ASSERT
+  await expect(page.getByRole("menuitem", { name: "Item 1.1" })).toBeVisible();
 });
