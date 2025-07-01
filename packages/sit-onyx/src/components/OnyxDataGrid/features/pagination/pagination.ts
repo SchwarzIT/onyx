@@ -125,7 +125,7 @@ export const usePagination = (options: PaginationOptions = {}) =>
       },
       slots: {
         pagination: () => {
-          if (type !== "select") return [];
+          if (!isEnabled.value() || type !== "select") return [];
           const skeleton = ctx.skeleton.value && !shouldShowPagination.value;
           if (!shouldShowPagination.value && !skeleton) return [];
 

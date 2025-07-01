@@ -299,7 +299,7 @@ export type DataGridFeatureOptions<
    *
    * @default true
    */
-  enabled?: MaybeRef<boolean>;
+  enabled?: MaybeRef<boolean | undefined>;
   /**
    * Options for each column. Will override default/global options of the feature.
    */
