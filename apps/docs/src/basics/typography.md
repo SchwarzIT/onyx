@@ -14,9 +14,9 @@ Lidl and Kaufland font families are coming soon.
 
 ## Brand typography
 
-The default font family is defined to be the Source Sans and Source Code Pro (monospace). If you are creating a new onyx project, this will always be included out-of-the-box. In the initial phase, Source Sans applies to all color themes that are provided by onyx.
+The default font family is defined to be the Source Sans and Source Code Pro (monospace). If you are creating a new onyx project in Figma, this will always be included out-of-the-box. In the initial phase, Source Sans applies to all color themes that are provided by onyx.
 
-If you want to use custom font families, please take a look at the [technical documentation](/development/typography).
+If you want to use font families in development, please take a look at the [technical documentation](/development/typography).
 
 <script lang="ts" setup>
 import OnyxTypography from "../.vitepress/components/OnyxTypography.vue";

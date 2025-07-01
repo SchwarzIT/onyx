@@ -39,6 +39,18 @@ import "@fontsource-variable/source-sans-3";
 
 :::
 
+or if you are using Nuxt, then import them in your `nuxt.config.ts`:
+
+::: code-group
+
+```ts [nuxt.config.ts]
+export default defineNuxtConfig({
+  css: ["@fontsource-variable/source-sans-3", "@fontsource-variable/source-code-pro"],
+});
+```
+
+:::
+
 For further information about the font families or installation, refer to the [Fontsource docs](https://fontsource.org).
 
 ## Using custom font families
