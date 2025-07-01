@@ -1,5 +1,19 @@
 # sit-onyx
 
+## 1.0.0-beta.256
+
+### Major Changes
+
+- fb01a85: - feat(OnyxDataGrid): support new `headline` property
+
+  - fix(OnyxDataGrid): do not render empty slots
+  - fix(OnyxDataGrid): fix pagination mutation order to work correctly when used together with filtering and/or selection
+  - fix(OnyxDataGrid): do not render pagination skeleton when usePagination feature is disabled
+
+  #### Breaking change
+
+  - useSelection: remove property `disabled` in favor of new `enabled` property to align with other features
+
 ## 1.0.0-beta.255
 
 ### Major Changes
