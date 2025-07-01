@@ -62,7 +62,7 @@ export async function importVariablesCommandAction(options: ImportVariablesComma
       generateAsCSS(data, { selector: options.selector, dataDarkTheme: dataDark }),
     SCSS: (data: ParsedVariable, dataDark?: ParsedVariable) =>
       generateAsSCSS(data, { dataDarkTheme: dataDark }),
-    JSON: (data: ParsedVariable, _dataDark?: ParsedVariable) => generateAsJSON(data),
+    JSON: (data: ParsedVariable) => generateAsJSON(data),
   };
 
   options.format.forEach((format) => {
