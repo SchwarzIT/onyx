@@ -117,6 +117,7 @@ const isMergedRef = (_ref: unknown): _ref is MergedRef =>
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- we want to allow any kind of props
 type VProps = Data<any> & VNodeProps;
+
 type VRef = Element | ComponentPublicInstance | null;
 
 /**
@@ -130,7 +131,7 @@ export const mergeVueProps = <T extends VProps | null | undefined>(...args: T[] 
     const _ = curr?.ref;
     const currRef = curr && isProxy(curr) && "ref" in curr ? toRaw(curr).ref : curr?.ref;
     const prevRef = prev?.ref;
-    const merged = mergeProps(prev, (curr ?? {}) as VProps);
+    const merged = mergeProps(prev, curr ?? {});
 
     if (!prevRef && !currRef) {
       return merged;

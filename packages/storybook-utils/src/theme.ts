@@ -3,6 +3,7 @@ import {
   type OnyxBreakpoint,
 } from "@sit-onyx/shared/breakpoints";
 import { create, type ThemeVars } from "storybook/internal/theming";
+import type { Viewport } from "storybook/internal/viewport";
 
 export type BrandDetails = Pick<ThemeVars, "brandTitle" | "brandImage" | "brandUrl">;
 
@@ -99,19 +100,25 @@ const defineTheme = (colors: {
 export const ONYX_BREAKPOINTS = Object.entries(RAW_ONYX_BREAKPOINTS).reduce(
   (obj, [name, width]) => {
     const breakpoint = name as OnyxBreakpoint;
-    obj[breakpoint] = { name: breakpoint, styles: { width: `${width}px`, height: "100%" } };
+
+    const TYPES: Record<OnyxBreakpoint, Viewport["type"]> = {
+      "2xs": "mobile",
+      xs: "mobile",
+      sm: "tablet",
+      md: "tablet",
+      lg: "desktop",
+      xl: "desktop",
+    };
+
+    obj[breakpoint] = {
+      name: breakpoint,
+      styles: { width: `${width}px`, height: "100%" },
+      type: TYPES[breakpoint],
+    };
     return obj;
   },
-  {} as Record<OnyxBreakpoint, StorybookBreakpoint>,
+  {} as Record<OnyxBreakpoint, Viewport>,
 );
-
-export type StorybookBreakpoint = {
-  name: OnyxBreakpoint;
-  styles: {
-    width: string;
-    height: string;
-  };
-};
 
 /**
  * Converts a rem string into a numeric value with a rem base of 16.
