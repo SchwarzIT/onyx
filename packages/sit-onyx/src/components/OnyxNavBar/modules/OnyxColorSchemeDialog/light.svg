@@ -7,25 +7,25 @@
 <path d="M16 16H166V36H16V16Z"/>
 </mask>
 <path d="M16 16H166V36H16V16Z" fill="white"/>
-<path d="M166 35H16V37H166V35Z" fill="var(--onyx-color-steel-300)" mask="url(#path-5-inside-1_4499_144816)"/>
+<path d="M166 35H16V37H166V35Z" fill="var(--onyx-color-neutral-steel-300)" mask="url(#path-5-inside-1_4499_144816)"/>
 <rect x="28" y="24" width="40" height="4" fill="var(--onyx-color-base-primary-500)"/>
-<rect x="77" y="24" width="40" height="4" fill="var(--onyx-color-steel-300)"/>
-<rect x="126" y="24" width="40" height="4" fill="var(--onyx-color-steel-300)"/>
+<rect x="77" y="24" width="40" height="4" fill="var(--onyx-color-neutral-steel-300)"/>
+<rect x="126" y="24" width="40" height="4" fill="var(--onyx-color-neutral-steel-300)"/>
 <mask id="path-10-inside-2_4499_144816" fill="white">
 <path d="M16 36H44V104H16V36Z"/>
 </mask>
 <path d="M16 36H44V104H16V36Z" fill="white"/>
-<path d="M43 36V104H45V36H43Z" fill="var(--onyx-color-steel-300)" mask="url(#path-10-inside-2_4499_144816)"/>
-<rect width="122" height="68" transform="translate(44 36)" fill="var(--onyx-color-steel-100)"/>
-<rect x="56" y="48" width="54" height="8" fill="var(--onyx-color-steel-600)"/>
-<rect x="56" y="64" width="82" height="4" fill="var(--onyx-color-steel-500)"/>
-<rect x="56" y="76" width="66" height="4" fill="var(--onyx-color-steel-500)"/>
-<rect x="56" y="88" width="97" height="4" fill="var(--onyx-color-steel-500)"/>
+<path d="M43 36V104H45V36H43Z" fill="var(--onyx-color-neutral-steel-300)" mask="url(#path-10-inside-2_4499_144816)"/>
+<rect width="122" height="68" transform="translate(44 36)" fill="var(--onyx-color-neutral-steel-100)"/>
+<rect x="56" y="48" width="54" height="8" fill="var(--onyx-color-neutral-steel-600)"/>
+<rect x="56" y="64" width="82" height="4" fill="var(--onyx-color-neutral-steel-500)"/>
+<rect x="56" y="76" width="66" height="4" fill="var(--onyx-color-neutral-steel-500)"/>
+<rect x="56" y="88" width="97" height="4" fill="var(--onyx-color-neutral-steel-500)"/>
 </g>
-<path d="M16.5 32C16.5 23.4396 23.4396 16.5 32 16.5H165.5V103.5H16.5V32Z" stroke="var(--onyx-color-steel-300)" shape-rendering="crispEdges"/>
+<path d="M16.5 32C16.5 23.4396 23.4396 16.5 32 16.5H165.5V103.5H16.5V32Z" stroke="var(--onyx-color-neutral-steel-300)" shape-rendering="crispEdges"/>
 </g>
 </g>
-<path d="M0.5 4C0.5 2.06701 2.067 0.5 4 0.5H162C163.933 0.5 165.5 2.067 165.5 4V100C165.5 101.933 163.933 103.5 162 103.5H4C2.067 103.5 0.5 101.933 0.5 100V4Z" stroke="var(--onyx-color-steel-300)"/>
+<path d="M0.5 4C0.5 2.06701 2.067 0.5 4 0.5H162C163.933 0.5 165.5 2.067 165.5 4V100C165.5 101.933 163.933 103.5 162 103.5H4C2.067 103.5 0.5 101.933 0.5 100V4Z" stroke="var(--onyx-color-neutral-steel-300)"/>
 <defs>
 <filter id="filter0_d_4499_144816" x="8" y="10" width="166" height="104" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
