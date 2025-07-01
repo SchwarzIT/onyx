@@ -1,7 +1,7 @@
 import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
-import OnyxMenuItem from "../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
+import OnyxFabItem from "../OnyxFabItem/OnyxFabItem.vue";
 import OnyxFab from "./OnyxFab.vue";
 
 const meta: Meta<typeof OnyxFab> = {
@@ -33,9 +33,9 @@ export const Options = {
   args: {
     label: "Example label",
     options: () => [
-      h(OnyxMenuItem, { label: "Action 1" }),
-      h(OnyxMenuItem, { label: "Action 2" }),
-      h(OnyxMenuItem, { label: "Action 3" }),
+      h(OnyxFabItem, { label: "Action 1", icon: placeholder }),
+      h(OnyxFabItem, { label: "Action 2" }),
+      h(OnyxFabItem, { label: "Action 3", hideLabel: true, icon: placeholder }),
     ],
   },
 } satisfies Story;
