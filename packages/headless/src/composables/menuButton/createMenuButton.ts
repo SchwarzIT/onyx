@@ -1,11 +1,11 @@
-import { computed, useId, watch, type Ref } from "vue";
+import { computed, toValue, useId, watch, type MaybeRef, type Ref } from "vue";
 import { createBuilder, createElRef } from "../../utils/builder";
 import { debounce } from "../../utils/timer";
 import { useGlobalEventListener } from "../helpers/useGlobalListener";
 
 type CreateMenuButtonOptions = {
   isExpanded: Readonly<Ref<boolean>>;
-  trigger: Readonly<Ref<"hover" | "click">>;
+  trigger: Readonly<MaybeRef<"hover" | "click">>;
   onToggle: () => void;
   disabled?: Readonly<Ref<boolean>>;
 };
@@ -110,7 +110,7 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
   };
 
   const triggerEvents = () => {
-    if (options.trigger.value === "hover") {
+    if (toValue(options.trigger) === "hover") {
       return {
         onMouseenter: () => setExpanded(true),
         onMouseleave: () => setExpanded(false, true),
@@ -143,7 +143,9 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
             "aria-haspopup": true,
             onFocus: () => setExpanded(true, true),
             onClick: () =>
-              options.trigger.value == "click" ? setExpanded(!options.isExpanded.value) : undefined,
+              toValue(options.trigger) == "click"
+                ? setExpanded(!options.isExpanded.value)
+                : undefined,
             id: buttonId,
             disabled: options.disabled?.value,
           }) as const,
