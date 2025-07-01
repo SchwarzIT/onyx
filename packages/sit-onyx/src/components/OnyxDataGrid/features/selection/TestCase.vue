@@ -41,7 +41,7 @@ watch(
 const withSelection = DataGridFeatures.useSelection({
   selectionState,
   hover: computed(() => toValue(selectionOption.hover ?? false)),
-  disabled: computed(() => toValue(selectionOption.disabled ?? false)),
+  enabled: computed(() => toValue(selectionOption.enabled ?? false)),
 });
 const features = [withSelection];
 </script>
