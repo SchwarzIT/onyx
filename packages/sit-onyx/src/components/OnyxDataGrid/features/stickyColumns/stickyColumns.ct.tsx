@@ -101,3 +101,33 @@ test("multiple stickyColumns", async ({ page, mount }) => {
   await expect(secondStickyColumn).toHaveCSS("left", /[0-9]+px/);
   await expect(component).toHaveScreenshot("data-grid-two-sticky-columns.png");
 });
+
+test("should allow scrolling the page", async ({ page, mount }) => {
+  // issue: https://github.com/SchwarzIT/onyx/issues/3637
+  // ARRANGE
+  await page.setViewportSize({ width: 400, height: 1000 });
+
+  const component = await mount(
+    <div>
+      <TestCase
+        data={getTestData()}
+        columns={["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k"]}
+        stickyColumnsOptions={{ columns: ["a"] }}
+      />
+      ,{"Hello World ".repeat(256)}
+    </div>,
+  );
+
+  const table = component.getByRole("table");
+
+  // ASSERT
+  await expect(table).toBeInViewport();
+
+  // ACT
+  const box = (await table.boundingBox())!;
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+  await page.mouse.wheel(0, 512);
+
+  // ASSERT
+  await expect(table, "should scroll page when mouse is over the table").not.toBeInViewport();
+});
