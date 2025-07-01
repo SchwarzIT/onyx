@@ -3,13 +3,31 @@
 
 // prettier-ignore
 $gridVariants: (
-//  NAME    MAX-VARIANT  COLUMNS  GUTTER  MARGIN
-    "2xs"   none         4        1rem    1rem,
-    "xs"    none         8        1rem    1rem,
-    "sm"    none         8        1.5rem  2rem,
-    "md"    none         12       1.5rem  4rem,
-    "lg"    "md"         12       2rem    4rem,
-    "xl"    "lg"         12       2rem    4rem,
+// NAME   MAX-VARIANT COLUMNS GUTTER MARGIN
+   "2xs"  none        4       1rem   1rem,
+   "xs"   none        8       1rem   1rem,
+   "sm"   none        8       1.5rem 2rem,
+   "md"   none        12      1.5rem 4rem,
+   "lg"   "md"        12      2rem   4rem,
+   "xl"   "lg"        12      2rem   4rem,
+);
+
+// prettier-ignore
+$sideBarGridVariants: (
+// NAME MAX-VARIANT COLUMNS GUTTER MARGIN
+   "xs" none        1       0.5rem 0.5rem,
+   "sm" none        2       1rem   1rem,
+   "md" none        4       1rem   1rem,
+   "lg" "md"        8       1.5rem 2rem,
+   "xl" "lg"        12      1.5rem 4rem,
+);
+
+$sidebar-breakpoints: (
+  xs: 0px,
+  sm: 200px,
+  md: 328px,
+  lg: 656px,
+  xl: 992px,
 );
 
 @layer onyx.utility {
@@ -53,6 +71,7 @@ $gridVariants: (
       --onyx-grid-columns: 16;
     }
   }
+
   @include screen(min, xl) {
     .onyx-grid-xl-20 {
       --onyx-grid-columns: 20;
@@ -79,8 +98,8 @@ $gridVariants: (
     grid-column: 1 / span var(--onyx-grid-columns);
   }
 
-  @mixin generate-grid-properties($columns, $gutter, $margin) {
-    :where(:root) {
+  @mixin generate-grid-properties($columns, $gutter, $margin, $selector: ":where(:root)") {
+    #{$selector} {
       --onyx-grid-columns: #{$columns};
       --onyx-grid-gutter: #{$gutter};
       --onyx-grid-margin: #{$margin};
@@ -101,9 +120,9 @@ $gridVariants: (
   /**
   * Grid container class for defining breakpoint specific max width
   */
-  @mixin generate-grid-max($name, $maxVariant, $margin) {
+  @mixin generate-grid-max($name, $maxVariant, $breaks: $breakpoints) {
     .onyx-grid-max-#{$maxVariant} {
-      --onyx-grid-max-width: #{map.get($breakpoints, $name) - 1};
+      --onyx-grid-max-width: #{map.get($breaks, $name) - 1};
     }
   }
 
@@ -115,13 +134,35 @@ $gridVariants: (
       @include screen(min, $name) {
         @include generate-grid-properties($columns, $gutter, $margin);
         @include generate-spans(1, $columns, $name);
-
         @if $maxVariant != none {
-          @include generate-grid-max($name, $maxVariant, $margin);
+          @include generate-grid-max($name, $maxVariant);
         }
-
         @if $name == "xl" {
           @include generate-spans(17, 20, $name);
+        }
+      }
+    }
+  }
+
+  /**
+  * SIDEBAR GRID
+  */
+  .onyx-sidebar {
+    container-type: inline-size;
+
+    @each $name, $maxVariant, $columns, $gutter, $margin in $sideBarGridVariants {
+      @include container(min, $name, 0, $sidebar-breakpoints) {
+        @include generate-grid-properties(
+          $columns,
+          $gutter,
+          $margin,
+          ".onyx-grid, .onyx-grid-container"
+        );
+
+        @include generate-spans(1, $columns, $name);
+
+        @if $maxVariant != none {
+          @include generate-grid-max($name, $maxVariant, $sidebar-breakpoints);
         }
       }
     }

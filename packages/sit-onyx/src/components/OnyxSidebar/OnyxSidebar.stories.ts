@@ -25,6 +25,11 @@ export const Resizable = {
   ...createAdvancedStoryExample("OnyxSidebar", "ResizeExample"),
 } satisfies Story;
 
+export const Grid = {
+  tags: ["new:feature"],
+  ...createAdvancedStoryExample("OnyxSidebar", "GridExample"),
+} satisfies Story;
+
 export const Right = {
   ...createAdvancedStoryExample("OnyxSidebar", "RightExample"),
 } satisfies Story;

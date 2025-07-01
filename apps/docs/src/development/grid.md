@@ -62,6 +62,32 @@ If you want to get familiar with how the grid works, you can use our [grid playg
 
 :::
 
+## Sidebar Grid
+
+Similar to the main content area, the sidebar grid in Onyx also leverages a dynamic column system. While the core implementation principles remain consistent with the main grid, the sidebar adapts its column count based on its width, offering 1, 2, 4, 8, or 12 columns.
+
+The same principles of span definition apply here: elements within the sidebar grid can be configured to span a specific number of columns. For a more in-depth understanding of the specific breakpoints and their corresponding column configurations for the sidebar, you can find detailed information in the [design system docs](/basics/breakpoints-grid#sidebar-grid).
+
+### Examples
+
+```html
+<OnyxSidebar label="Example sidebar" resizable>
+  <template #header> Header content </template>
+  <div class="onyx-grid-container">
+    <div class="onyx-grid">
+      <div>item</div>
+      <div class="onyx-grid-span-2">span 2</div>
+      <div class="onyx-grid-span-full">full span</div>
+    </div>
+  </div>
+
+  <template #footer>
+    <OnyxButton color="neutral" label="Button" />
+    <OnyxButton label="Button" />
+  </template>
+</OnyxSidebar>
+```
+
 ## Usage
 
 The grid is configured via specific CSS classes which you can find below.
