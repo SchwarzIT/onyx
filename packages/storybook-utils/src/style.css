@@ -40,18 +40,18 @@
  */
 :where(:root),
 .onyx-theme-default {
-  --onyx-color-steel-100: #fafbfc;
-  --onyx-color-steel-200: #e3eaf0;
-  --onyx-color-steel-300: #c9d6e0;
-  --onyx-color-steel-400: #9db3c4;
-  --onyx-color-steel-500: #7392aa;
-  --onyx-color-steel-600: #506e84;
-  --onyx-color-steel-700: #3e596e;
-  --onyx-color-steel-800: #31495c;
-  --onyx-color-steel-900: #22384a;
-  --onyx-color-steel-1000: #11212d;
-  --onyx-color-steel-1100: #081723;
-  --onyx-color-steel-1200: #000e19;
+  --onyx-color-neutral-steel-100: #fafbfc;
+  --onyx-color-neutral-steel-200: #e3eaf0;
+  --onyx-color-neutral-steel-300: #c9d6e0;
+  --onyx-color-neutral-steel-400: #9db3c4;
+  --onyx-color-neutral-steel-500: #7392aa;
+  --onyx-color-neutral-steel-600: #506e84;
+  --onyx-color-neutral-steel-700: #3e596e;
+  --onyx-color-neutral-steel-800: #31495c;
+  --onyx-color-neutral-steel-900: #22384a;
+  --onyx-color-neutral-steel-1000: #11212d;
+  --onyx-color-neutral-steel-1100: #081723;
+  --onyx-color-neutral-steel-1200: #000e19;
   --onyx-color-themed-primary-100: #e8fcfc;
   --onyx-color-themed-primary-200: #bbeaed;
   --onyx-color-themed-primary-300: #79dde2;

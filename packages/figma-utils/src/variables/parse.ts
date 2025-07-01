@@ -122,7 +122,6 @@ export const resolveFigmaVariableValue = (
   if (typeof value === "string") {
     return `"${value}"`;
   }
-
   if ("type" in value) {
     // parse value as alias
     if (value.type !== "VARIABLE_ALIAS") {

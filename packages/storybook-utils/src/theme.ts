@@ -20,8 +20,7 @@ export const getCustomProperty = (property: string, el: Element = document.body)
  * @see https://storybook.js.org/docs/react/configure/theming#create-a-theme-quickstart
  */
 export const createTheme = (base: "light" | "dark" = "light", brandDetails?: BrandDetails) => {
-  const primaryColor = getCustomProperty("--onyx-color-base-primary-500");
-
+  const primaryColor = getCustomProperty("--onyx-color-onyx-500");
   return create({
     brandTitle: brandDetails?.brandTitle,
     brandUrl: brandDetails?.brandUrl,
@@ -45,20 +44,20 @@ export const createTheme = (base: "light" | "dark" = "light", brandDetails?: Bra
 const getLightTheme = (): Partial<ThemeVars> => {
   return defineTheme({
     background: getCustomProperty("--onyx-color-universal-grayscale-white"),
-    contentBackground: getCustomProperty("--onyx-color-steel-100"),
-    text: getCustomProperty("--onyx-color-steel-700"),
-    textMuted: getCustomProperty("--onyx-color-steel-600"),
-    border: getCustomProperty("--onyx-color-steel-300"),
+    contentBackground: getCustomProperty("--onyx-color-neutral-steel-100"),
+    text: getCustomProperty("--onyx-color-neutral-steel-700"),
+    textMuted: getCustomProperty("--onyx-color-neutral-steel-600"),
+    border: getCustomProperty("--onyx-color-neutral-steel-300"),
   });
 };
 
 const getDarkTheme = (): Partial<ThemeVars> => {
   return defineTheme({
-    background: getCustomProperty("--onyx-color-steel-1100"),
-    contentBackground: getCustomProperty("--onyx-color-steel-1200"),
-    text: getCustomProperty("--onyx-color-steel-200"),
-    textMuted: getCustomProperty("--onyx-color-steel-400"),
-    border: getCustomProperty("--onyx-color-steel-900"),
+    background: getCustomProperty("--onyx-color-neutral-steel-1100"),
+    contentBackground: getCustomProperty("--onyx-color-neutral-steel-1200"),
+    text: getCustomProperty("--onyx-color-neutral-steel-200"),
+    textMuted: getCustomProperty("--onyx-color-neutral-steel-400"),
+    border: getCustomProperty("--onyx-color-neutral-steel-900"),
   });
 };
 
