@@ -17,6 +17,8 @@ import "./base.scss";
 import type { BaseFeatureOptions } from "./types";
 
 export const BASE_FEATURE_SYMBOL = Symbol("Base");
+export const BASE_MUTATION_ORDER =
+  Math.max(FILTERING_MUTATION_ORDER, PAGINATION_MUTATION_ORDER) + 1;
 
 /**
  * The Base feature includes everything that should be provided as built-in functionality of the `OnyxDataGrid` component.
@@ -44,7 +46,7 @@ export const BASE_FEATURE = (options?: BaseFeatureOptions) =>
         },
       },
       mutation: {
-        order: Math.max(FILTERING_MUTATION_ORDER, PAGINATION_MUTATION_ORDER) + 1,
+        order: BASE_MUTATION_ORDER,
         func: (rows) => {
           rowCount.value = rows.length;
           if (!skeleton.value) return [...rows];
