@@ -43,6 +43,7 @@ const { densityClass } = useDensity(props);
   @include layers.component() {
     --onyx-list-item-color: var(--onyx-color-text-icons-neutral-intense);
     --onyx-list-item-color-selected: var(--onyx-color-text-icons-primary-bold);
+    --onyx-list-item-background: var(--onyx-color-base-background-blank);
     --onyx-list-item-background-hover: var(--onyx-color-base-primary-100);
     --onyx-list-item-background-selected: var(--onyx-color-base-primary-200);
     --onyx-list-item-padding: var(--onyx-density-xs) var(--onyx-density-sm);
@@ -50,7 +51,7 @@ const { densityClass } = useDensity(props);
     font-family: var(--onyx-font-family);
     color: var(--onyx-list-item-color);
     padding: var(--onyx-list-item-padding);
-    background-color: var(--onyx-color-base-background-blank);
+    background-color: var(--onyx-list-item-background);
     font-weight: var(--onyx-font-weight-regular);
     font-size: var(--onyx-font-size-md);
     line-height: var(--onyx-font-line-height-md);
