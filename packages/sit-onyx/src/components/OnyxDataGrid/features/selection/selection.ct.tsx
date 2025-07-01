@@ -116,11 +116,12 @@ test("useSelection with hover", async ({ page, mount }) => {
 
 test("useSelection with disabled", async ({ mount }) => {
   // ARRANGE
-  const props = {
-    dataGrid: { data: getTestData(), columns: ["a", "b"] },
-    selectionOption: { disabled: true, hover: true },
-  };
-  const component = await mount(<TestCase {...props} />);
+  const component = await mount(TestCase, {
+    props: {
+      dataGrid: { data: getTestData(), columns: ["a", "b"] },
+      selectionOption: { enabled: false, hover: true },
+    },
+  });
 
   await test.step("initial rendering", async () => {
     // ASSERT
@@ -130,8 +131,11 @@ test("useSelection with disabled", async ({ mount }) => {
 
   await test.step("set enabled", async () => {
     // ARRANGE
-    props.selectionOption.disabled = false;
-    await component.update({ props });
+    await component.update({
+      props: {
+        selectionOption: { enabled: true, hover: true },
+      },
+    });
 
     // ASSERT
     const columns = component.locator("th");
