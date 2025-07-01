@@ -191,6 +191,7 @@ const specificIgnoreConfig = {
     "**/playwright/index.ts",
     "**/vitest.config.ts",
     "**/.storybook/{main,preview}.ts",
+    "packages/sit-onyx/build/index.js",
   ],
 };
 

@@ -1,7 +1,7 @@
 import fsPromises from "node:fs/promises";
 import path from "node:path";
+import { register } from "tsx/esm/api";
 import { build, mergeConfig } from "vite";
-import config from "../vite.config.js";
 
 async function emptyDirectory(dirPath) {
   try {
@@ -18,65 +18,44 @@ async function emptyDirectory(dirPath) {
   }
 }
 
-async function run() {
+/**
+ * Loads vite.config.ts using tsx and returns its content.
+ * This allows us to import ts files here without an explicit compile step.
+ *
+ * Note: This workaround is necessary because `tsx` has an issue with running/importing `sass`.
+ * TODO: Convert this file to TypeScript and remove this workaround once https://github.com/privatenumber/tsx/issues/627 is fixed or https://github.com/vitejs/vite/pull/19182 is released.
+ *
+ */
+async function loadViteConfig() {
+  const unregister = register();
+  const result = (await import("../vite.config.ts")).default;
+  await unregister();
+  return result;
+}
+
+async function buildForProduction(config) {
   process.env.NODE_ENV = "production";
-  const outDir = path.join(import.meta.dirname, "..", config.build?.outDir ?? "dist");
-  await emptyDirectory(outDir);
-
-  await build(
-    mergeConfig(
-      config,
-      {
-        configFile: false,
-        define: { "process.env.NODE_ENV": '"production"' },
+  const prodConfig = mergeConfig(
+    config,
+    {
+      build: {
+        emptyOutDir: false,
       },
-      true,
-    ),
+      configFile: false, // otherwise it will run vite build twice
+      define: { "process.env.NODE_ENV": '"production"' }, // statically replace all "process.env.NODE_ENV" calls
+    },
+    true,
   );
+  return build(prodConfig);
+}
 
-  await build(
-    mergeConfig(
-      {
-        ...config,
-        build: {
-          ...config.build,
-          rollupOptions: {
-            // make sure to externalize deps that shouldn't be bundled
-            // into your library
-            external: ["vue"],
-            output: {
-              // Provide global variables to use in the UMD build
-              // for externalized deps
-              globals: {
-                vue: "Vue",
-              },
-            },
-          },
-        },
-      },
-      {
-        configFile: false,
-        define: { "process.env.NODE_ENV": '"production"' },
-        build: {
-          emptyOutDir: false,
-          lib: {
-            name: "sit-onyx",
-            formats: ["umd"],
-            fileName: () => "index.browser.js",
-            cssFileName: "duplicate-to-be-deleted",
-          },
-        },
-      },
-      true,
-    ),
-  );
-
-  process.env.NODE_ENV = "bundler";
+async function buildForBundler(config) {
+  process.env.NODE_ENV = "development";
   const bundlerConfig = mergeConfig(
     config,
     {
-      mode: "bundler",
-      configFile: false,
+      mode: "development",
+      configFile: false, // otherwise it will run vite build twice
       build: {
         minify: false,
         sourcemap: true,
@@ -91,6 +70,17 @@ async function run() {
     true,
   );
   await build(bundlerConfig);
+}
+
+async function run() {
+  const config = await loadViteConfig();
+  const outDir = path.join(import.meta.dirname, "..", config.build?.outDir ?? "dist");
+  await emptyDirectory(outDir);
+
+  await buildForProduction(config);
+  await buildForBundler(config);
+
+  // delete the redundant CSS file
   await fsPromises.rm(path.join(outDir, "duplicate-to-be-deleted.css"), { force: true });
 }
 

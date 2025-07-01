@@ -518,6 +518,9 @@ importers:
       storybook-addon-tag-badges:
         specifier: ^2.0.1
         version: 2.0.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@9.0.12(@testing-library/dom@10.4.0)(prettier@3.5.3))
+      tsx:
+        specifier: ^4.20.3
+        version: 4.20.3
       vue:
         specifier: 3.5.16
         version: 3.5.16(typescript@5.8.3)

@@ -4,7 +4,7 @@ import vue from "@vitejs/plugin-vue";
 import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vite";
 import packageJson from "./package.json" with { type: "json" };
-import { vuePluginOptions } from "./playwright.config.js";
+import { vuePluginOptions } from "./playwright.config";
 
 // https://vitejs.dev/config
 export default defineConfig({
@@ -40,6 +40,6 @@ export default defineConfig({
 });
 
 /** Gets the given path while ensuring cross-platform and correct decoding */
-function getFilePath(path) {
+function getFilePath(path: string) {
   return fileURLToPath(new URL(path, import.meta.url));
 }
