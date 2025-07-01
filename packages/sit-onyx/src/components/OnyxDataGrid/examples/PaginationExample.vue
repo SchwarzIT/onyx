@@ -22,5 +22,5 @@ const features = [withPagination];
 </script>
 
 <template>
-  <OnyxDataGrid :columns :data :features />
+  <OnyxDataGrid :headline="{ text: 'Example headline', rowCount: true }" :columns :data :features />
 </template>

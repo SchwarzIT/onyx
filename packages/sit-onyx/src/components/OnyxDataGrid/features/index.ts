@@ -89,7 +89,7 @@ export type ColumnConfig<
   | PublicNormalizedColumnConfig<
       TEntry,
       TColumnGroup,
-      TTypes | RenderTypesFromFeature<[typeof BASE_FEATURE]>
+      TTypes | RenderTypesFromFeature<[ReturnType<typeof BASE_FEATURE>]>
     >;
 
 export type DefaultSupportedTypes = "string" | "number" | DatetimeFormat;
@@ -214,6 +214,8 @@ export type DataGridFeatureDescription<
      * Defines the order in which the mutation is handled.
      * This can be used to control the sequence of operations when multiple mutations are applied.
      *
+     * The higher the order, the earlier the mutation is applied.
+     *
      * @default 0
      */
     order?: number;
@@ -297,7 +299,7 @@ export type DataGridFeatureOptions<
    *
    * @default true
    */
-  enabled?: MaybeRef<boolean>;
+  enabled?: MaybeRef<boolean | undefined>;
   /**
    * Options for each column. Will override default/global options of the feature.
    */
@@ -622,7 +624,9 @@ export const useDataGridFeatures = <
         const slotName = _slotName as keyof typeof feature.slots;
         const existingSlot = slots[slotName] ?? (() => []);
         const newSlotContent = slotFunc(existingSlot).filter((vnode) => vnode != undefined);
-        slots[slotName] = () => newSlotContent;
+        if (newSlotContent.length) {
+          slots[slotName] = () => newSlotContent;
+        }
       });
     });
 

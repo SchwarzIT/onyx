@@ -342,6 +342,70 @@ test("should handle button loading (async)", async ({ page, mount }) => {
   await expect(loadingIndicator).toBeHidden();
 });
 
+test("should work correctly when filtering is enabled", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(TestCase, {
+    props: {
+      data: getTestData(128),
+      enabledFeatures: ["filtering"],
+    },
+  });
+
+  const pagination = component.getByLabel("Pagination");
+
+  // ASSERT
+  await expect(pagination).toContainText("of 6 pages");
+
+  // ACT
+  await component
+    .getByRole("columnheader", { name: "a Toggle column actions" })
+    .getByLabel("Toggle column actions")
+    .click();
+
+  await component.getByRole("textbox", { name: "Search column a" }).fill("A 1");
+  await component.press("Enter");
+
+  // ASSERT
+  await expect(pagination).toContainText("of 2 pages");
+});
+
+// TODO: CHECK
+test("should work correctly when selection is enabled", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(TestCase, {
+    props: {
+      data: getTestData(4),
+      enabledFeatures: ["selection"],
+      paginationOptions: {
+        type: "button",
+        pageSize: 2,
+      },
+    },
+  });
+
+  const checkAll = component.getByRole("checkbox", { name: "Select all rows" });
+
+  // ACT
+  await component.getByRole("checkbox", { name: "Add row with ID '1' to the selection" }).click();
+  await component.getByRole("checkbox", { name: "Add row with ID '2' to the selection" }).click();
+
+  // ASSERT
+  await expect(
+    checkAll,
+    "should consider all rows as checked correctly when button pagination row exists",
+  ).toHaveJSProperty("indeterminate", true);
+
+  await expect(checkAll).not.toBeChecked();
+
+  // ACT
+  await component.getByRole("button", { name: "Load more" }).click();
+  await component.getByRole("checkbox", { name: "Add row with ID '3' to the selection" }).click();
+  await component.getByRole("checkbox", { name: "Add row with ID '4' to the selection" }).click();
+
+  // ASSERT
+  await expect(checkAll).toBeChecked();
+});
+
 function scrollToRow(component: Locator, number: number) {
   return component.evaluate((element, index) => {
     Array.from(element.querySelectorAll("tr"))

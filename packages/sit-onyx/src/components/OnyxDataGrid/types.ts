@@ -1,6 +1,7 @@
 import type { SkeletonInjected } from "src/composables/useSkeletonState";
 import type { HTMLAttributes } from "vue";
 import type { IfExtends, IfNotEmpty, MaybePick, RecordValues, UnionByKey } from "../../types";
+import type { OnyxHeadlineProps } from "../OnyxHeadline/types";
 import type { OnyxTableProps } from "../OnyxTable/types";
 import type {
   ColumnConfig,
@@ -66,7 +67,7 @@ export type OnyxDataGridProps<
   TFeatureName extends symbol,
   TFeatures extends DataGridFeature<TEntry, TTypeRenderer, TFeatureName>[] = never,
   TTypes extends ColumnConfigTypeOption<PropertyKey, unknown> = RenderTypesFromFeature<
-    [typeof BASE_FEATURE, ...TFeatures]
+    [ReturnType<typeof BASE_FEATURE>, ...TFeatures]
   >,
 > = {
   /**
@@ -97,6 +98,10 @@ export type OnyxDataGridProps<
    *  Whether to show skeleton rows. Can be set to `true` to use a pre-defined skeleton row count or you can pass a number to define a specific count.
    */
   skeleton?: SkeletonInjected;
+  /**
+   * Headline to display above the data grid.
+   */
+  headline?: string | DataGridHeadline;
 } & Omit<OnyxTableProps, "columnGroups" | "scrollContainerAttrs">;
 
 /**
@@ -127,3 +132,15 @@ export type DataGridEntryOptions = {
 };
 
 export const DataGridRowOptionsSymbol = Symbol("RowOptions");
+
+export type DataGridHeadline = Partial<OnyxHeadlineProps> & {
+  /**
+   * Headline text.
+   */
+  text: string;
+  /**
+   * Optional row count to display. If set to `true`, the count will be determined automatically.
+   * Can also be set to a custom number (useful when e.g. using async pagination).
+   */
+  rowCount?: boolean | number;
+};

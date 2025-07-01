@@ -53,7 +53,7 @@ const features = [withPagination];
 
 <template>
   <!-- we are using an async example here for the lazy loading. You can also use lazy loading without async which will equal virtual scrolling then. -->
-  <OnyxDataGrid class="data-grid" :columns :data :features async />
+  <OnyxDataGrid class="data-grid" headline="Example headline" :columns :data :features async />
 </template>
 
 <style lang="scss" scoped>

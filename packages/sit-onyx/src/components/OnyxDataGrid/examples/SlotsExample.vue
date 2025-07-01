@@ -1,12 +1,6 @@
 <script setup lang="ts">
 import { h } from "vue";
-import {
-  createFeature,
-  DataGridFeatures,
-  OnyxDataGrid,
-  OnyxHeadline,
-  type ColumnConfig,
-} from "../../..";
+import { createFeature, DataGridFeatures, OnyxDataGrid, type ColumnConfig } from "../../..";
 
 type TEntry = {
   id: number;
@@ -38,13 +32,9 @@ const withPagination = DataGridFeatures.usePagination({ pageSize: 2 });
 const withCustomSlots = createFeature(() => ({
   name: Symbol("custom slots feature"),
   slots: {
+    // you could also define the headline here but please note that the OnyxDataGrid supports a native "headline" property.
     bottomLeft: (slotContent) => [
       h("span", "Example bottom left content"),
-      // using slotContent here to ensure that if multiple feature define the same slot, they will be merged
-      ...slotContent(),
-    ],
-    headline: (slotContent) => [
-      h(OnyxHeadline, { is: "h3" }, () => "Example headline"),
       // using slotContent here to ensure that if multiple feature define the same slot, they will be merged
       ...slotContent(),
     ],
@@ -56,5 +46,5 @@ const features = [withCustomSlots, withPagination];
 </script>
 
 <template>
-  <OnyxDataGrid :columns :data :features />
+  <OnyxDataGrid headline="Example headline" :columns :data :features />
 </template>

@@ -28,5 +28,5 @@ const columns: ColumnConfig<TEntry>[] = [
 </script>
 
 <template>
-  <OnyxDataGrid :columns :data />
+  <OnyxDataGrid headline="Example headline" :columns :data />
 </template>

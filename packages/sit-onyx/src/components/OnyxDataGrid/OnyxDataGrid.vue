@@ -10,7 +10,7 @@
     TFeatures extends DataGridFeature<TEntry, TTypeRenderer, TFeatureName>[] | [] = []
   "
 >
-import { shallowRef, toRefs, watch, type WatchHandle } from "vue";
+import { shallowRef, toRef, toRefs, watch, type WatchHandle } from "vue";
 import type { DataGridScrollContainerAttributes, InternalDataGridSlots } from "../..";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import { injectI18n } from "../../i18n";
@@ -86,13 +86,16 @@ const createFeatureBuilderWatcher = ({
 watch(
   features,
   () => {
-    const featureBuilder = useDataGridFeatures([BASE_FEATURE, ...features.value], {
-      i18n,
-      columnConfig,
-      columnGroups,
-      async,
-      skeleton,
-    });
+    const featureBuilder = useDataGridFeatures(
+      [BASE_FEATURE({ headline: toRef(props, "headline") }), ...features.value],
+      {
+        i18n,
+        columnConfig,
+        columnGroups,
+        async,
+        skeleton,
+      },
+    );
     disposeWatcher?.();
     disposeWatcher = createFeatureBuilderWatcher(featureBuilder);
   },

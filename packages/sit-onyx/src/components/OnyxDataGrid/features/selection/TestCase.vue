@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, toValue, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import type { OnyxDataGridProps } from "../../../..";
 import { DataGridFeatures, OnyxDataGrid } from "../../../..";
 
@@ -38,12 +38,14 @@ watch(
   { deep: true },
 );
 
-const withSelection = DataGridFeatures.useSelection({
-  selectionState,
-  hover: computed(() => toValue(selectionOption.hover ?? false)),
-  disabled: computed(() => toValue(selectionOption.disabled ?? false)),
-});
-const features = [withSelection];
+const withSelection = computed(() =>
+  DataGridFeatures.useSelection({
+    ...selectionOption,
+    selectionState,
+  }),
+);
+
+const features = computed(() => [withSelection.value]);
 </script>
 
 <template>

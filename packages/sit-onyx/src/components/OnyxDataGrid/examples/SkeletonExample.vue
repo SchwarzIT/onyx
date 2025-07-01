@@ -32,5 +32,5 @@ const skeleton = ref(true);
 
 <template>
   <OnyxSwitch v-model="skeleton" label="Toggle Skeleton Mode" />
-  <OnyxDataGrid :columns :data :skeleton />
+  <OnyxDataGrid headline="Example headline" :columns :data :skeleton />
 </template>

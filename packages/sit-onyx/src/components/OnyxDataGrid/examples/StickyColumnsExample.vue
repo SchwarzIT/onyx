@@ -46,5 +46,5 @@ const features = [withStickyColumns];
 </script>
 
 <template>
-  <OnyxDataGrid :columns :data :features />
+  <OnyxDataGrid headline="Example headline" :columns :data :features />
 </template>

@@ -106,5 +106,12 @@ async function simulateAsyncUpdate() {
 
 <template>
   <!-- Async is set to true, so that the features data transformation is disabled -->
-  <OnyxDataGrid async :columns :data :features :skeleton="isLoading" />
+  <OnyxDataGrid
+    :headline="{ text: 'Example headline', rowCount: EXAMPLE_DATA.length }"
+    async
+    :columns
+    :data
+    :features
+    :skeleton="isLoading"
+  />
 </template>
