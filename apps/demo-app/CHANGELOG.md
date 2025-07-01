@@ -1,5 +1,17 @@
 # demo-app
 
+## 1.0.0-beta.257
+
+### Minor Changes
+
+- 3763c1c: feat(OnyxSidebar): add grid-layout
+
+### Patch Changes
+
+- Updated dependencies [0d08fe0]
+- Updated dependencies [3763c1c]
+  - sit-onyx@1.0.0-beta.257
+
 ## 1.0.0-beta.256
 
 ### Patch Changes

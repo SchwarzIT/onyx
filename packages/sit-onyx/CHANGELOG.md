@@ -1,5 +1,15 @@
 # sit-onyx
 
+## 1.0.0-beta.257
+
+### Minor Changes
+
+- 3763c1c: feat(OnyxSidebar): add grid-layout
+
+### Patch Changes
+
+- 0d08fe0: fix(OnyxDataGrid): do not prevent page scroll when sticky columns are active
+
 ## 1.0.0-beta.256
 
 ### Major Changes
