@@ -1,4 +1,5 @@
 import globe from "@sit-onyx/icons/globe.svg?raw";
+import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
@@ -54,6 +55,56 @@ export const Default = {
       h(OnyxMenuItem, { active: true }, () => "English"),
       h(OnyxMenuItem, () => "German"),
       h(OnyxMenuItem, () => "Spanish"),
+    ],
+  },
+} satisfies Story;
+
+export const Nested = {
+  args: {
+    label: "Choose an item",
+    trigger: "click",
+    button: ({ trigger }) => [
+      h(OnyxButton, {
+        label: "Example",
+        mode: "plain",
+        color: "neutral",
+        icon: placeholder,
+        ...trigger,
+      }),
+    ],
+
+    options: () => [
+      h(
+        OnyxMenuItem,
+        { label: "Item 1" },
+        {
+          children: () => [
+            h(
+              OnyxMenuItem,
+              { label: "Item 1.1" },
+              {
+                children: () => [
+                  h(OnyxMenuItem, { label: "Nested 1.1.1" }),
+                  h(OnyxMenuItem, { label: "Nested 1.1.2" }),
+                ],
+              },
+            ),
+            h(
+              OnyxMenuItem,
+              { label: "Item 1.2" },
+              {
+                children: () => [
+                  h(OnyxMenuItem, { label: "Nested 1.2.1" }),
+                  h(OnyxMenuItem, { label: "Nested 1.2.2" }),
+                ],
+              },
+            ),
+            h(OnyxMenuItem, { label: "Item 1.3" }),
+          ],
+        },
+      ),
+      h(OnyxMenuItem, () => "Item 2"),
+      h(OnyxMenuItem, () => "Item 3"),
     ],
   },
 } satisfies Story;

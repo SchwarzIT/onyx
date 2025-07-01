@@ -37,6 +37,7 @@ const hasChildren = computed(() => !!slots.children);
       [`onyx-nav-item--${props.context}`]: true,
       'onyx-nav-item--open': props.open,
     }"
+    :open="props.context !== 'list' ? false : undefined"
   >
     <slot></slot>
     <template v-if="hasChildren" #children><slot name="children"></slot></template>

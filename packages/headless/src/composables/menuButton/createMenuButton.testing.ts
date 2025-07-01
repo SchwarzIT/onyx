@@ -73,18 +73,6 @@ export const menuButtonTesting = async ({
   await menu.press("ArrowUp");
   await expect(firstItem, "First item should be focused when pressing arrow up key").toBeFocused();
 
-  await menu.press("ArrowRight");
-  await expect(
-    secondItem,
-    "Second item should be focused when pressing arrow right key",
-  ).toBeFocused();
-
-  await menu.press("ArrowLeft");
-  await expect(
-    firstItem,
-    "First item should be focused when pressing arrow left key",
-  ).toBeFocused();
-
   await page.keyboard.press("Tab");
   await expect(button, "Button should be focused when pressing tab key").not.toBeFocused();
 

@@ -2,6 +2,7 @@ import { computed, useId, watch, type Ref } from "vue";
 import { createBuilder, createElRef } from "../../utils/builder";
 import { debounce } from "../../utils/timer";
 import { useGlobalEventListener } from "../helpers/useGlobalListener";
+import { useOutsideClick } from "../helpers/useOutsideClick";
 
 type CreateMenuButtonOptions = {
   isExpanded: Readonly<Ref<boolean>>;
@@ -16,6 +17,7 @@ type CreateMenuButtonOptions = {
 export const createMenuButton = createBuilder((options: CreateMenuButtonOptions) => {
   const rootId = useId();
   const menuId = useId();
+  const rootRef = createElRef<HTMLElement>();
   const menuRef = createElRef<HTMLElement>();
   const buttonId = useId();
 
@@ -52,7 +54,9 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
     const currentMenu = currentMenuItem?.closest('[role="menu"]') || menuRef.value;
     if (!currentMenu) return;
 
-    const menuItems = Array.from(currentMenu.querySelectorAll<HTMLElement>('[role="menuitem"]'));
+    const menuItems = Array.from(currentMenu.querySelectorAll<HTMLElement>('[role="menuitem"]'))
+      // filter out nested children
+      .filter((item) => item.closest('[role="menu"]') === currentMenu);
     let nextIndex = 0;
 
     if (currentMenuItem) {
@@ -80,12 +84,10 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
   const handleKeydown = (event: KeyboardEvent) => {
     switch (event.key) {
       case "ArrowDown":
-      case "ArrowRight":
         event.preventDefault();
         focusRelativeItem("next");
         break;
       case "ArrowUp":
-      case "ArrowLeft":
         event.preventDefault();
         focusRelativeItem("prev");
         break;
@@ -98,6 +100,7 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
         focusRelativeItem("last");
         break;
       case " ":
+      case "Enter":
         if (event.target instanceof HTMLInputElement) break;
         event.preventDefault();
         (event.target as HTMLElement).click();
@@ -109,32 +112,29 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
     }
   };
 
-  const triggerEvents = () => {
-    if (options.trigger.value === "hover") {
-      return {
-        onMouseenter: () => setExpanded(true),
-        onMouseleave: () => setExpanded(false, true),
-      };
-    }
-  };
+  const triggerEvents = computed(() => {
+    if (options.trigger.value !== "hover") return;
+    return {
+      onMouseenter: () => setExpanded(true),
+      onMouseleave: () => setExpanded(false, true),
+    };
+  });
+
+  useOutsideClick({
+    inside: rootRef,
+    onOutsideClick: () => setExpanded(false),
+    disabled: computed(() => !options.isExpanded.value),
+    checkOnTab: true,
+  });
 
   return {
     elements: {
-      root: {
+      root: computed(() => ({
         id: rootId,
         onKeydown: handleKeydown,
-        ...triggerEvents(),
-        onFocusout: (event) => {
-          // if focus receiving element is not part of the menu button, then close
-          if (
-            rootId &&
-            document.getElementById(rootId)?.contains(event.relatedTarget as HTMLElement)
-          ) {
-            return;
-          }
-          setExpanded(false);
-        },
-      },
+        ref: rootRef,
+        ...triggerEvents.value,
+      })),
       button: computed(
         () =>
           ({
@@ -160,7 +160,25 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
   };
 });
 
-export const createMenuItems = createBuilder(() => {
+type CreateMenuItemOptions = {
+  /**
+   * Called when the menu item should be opened (if it has nested children).
+   */
+  onOpen?: () => void;
+};
+
+export const createMenuItems = createBuilder((options?: CreateMenuItemOptions) => {
+  const onKeydown = (event: KeyboardEvent) => {
+    switch (event.key) {
+      case "ArrowRight":
+      case " ":
+      case "Enter":
+        event.preventDefault();
+        options?.onOpen?.();
+        break;
+    }
+  };
+
   return {
     elements: {
       listItem: {
@@ -170,6 +188,7 @@ export const createMenuItems = createBuilder(() => {
         "aria-current": data.active ? "page" : undefined,
         "aria-disabled": data.disabled,
         role: "menuitem",
+        onKeydown,
       }),
     },
   };

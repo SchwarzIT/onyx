@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import x from "@sit-onyx/icons/x.svg?raw";
+import { computed } from "vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxMobileNavButtonProps } from "./types";
@@ -21,6 +22,8 @@ defineSlots<{
    */
   default(): unknown;
 }>();
+
+const isOpen = computed(() => !props.disabled && props.open);
 </script>
 
 <template>
@@ -36,22 +39,23 @@ defineSlots<{
       <OnyxIcon :icon="props.open ? x : props.icon" />
     </button>
 
-    <template v-if="!props.disabled && props.open">
-      <div class="onyx-mobile-nav-button__flyout">
-        <div class="onyx-mobile-nav-button__menu">
-          <OnyxHeadline is="h2" v-if="props.headline" class="onyx-mobile-nav-button__headline">
-            {{ props.headline }}
-          </OnyxHeadline>
+    <!-- using v-show here instead of v-if so the open state of nested slot items is kept when toggling the nav button -->
+    <div v-show="isOpen" class="onyx-mobile-nav-button__flyout">
+      <div class="onyx-mobile-nav-button__menu">
+        <OnyxHeadline is="h2" v-if="props.headline" class="onyx-mobile-nav-button__headline">
+          {{ props.headline }}
+        </OnyxHeadline>
 
-          <slot></slot>
-        </div>
+        <slot></slot>
       </div>
-      <div
-        class="onyx-mobile-nav-button__backdrop"
-        role="presentation"
-        @click="emit('update:open', false)"
-      ></div
-    ></template>
+    </div>
+
+    <div
+      v-if="isOpen"
+      class="onyx-mobile-nav-button__backdrop"
+      role="presentation"
+      @click="emit('update:open', false)"
+    ></div>
   </div>
 </template>
 
