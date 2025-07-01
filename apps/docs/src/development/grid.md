@@ -44,20 +44,46 @@ If you want to get familiar with how the grid works, you can use our [grid playg
 </main>
 ```
 
+## Sidebar Grid
+
+Similar to the main content area, the sidebar grid in Onyx also leverages a dynamic column system. While the core implementation principles remain consistent with the main grid, the sidebar adapts its column count based on its width, offering 1, 2, 4, 8, or 12 columns.
+
+The same principles of span definition apply here: elements within the sidebar grid can be configured to span a specific number of columns. For a more in-depth understanding of the specific breakpoints and their corresponding column configurations for the sidebar, you can find detailed information in the [design system docs](/basics/breakpoints-grid#sidebar-grid).
+
+### Examples
+
 ```html [With max width]
-<div class="onyx-grid-max-md onyx-grid-center">
-  <OnyxNavBar app-name="Example" />
+<OnyxSidebar label="Example sidebar" resizable>
+  <template #header> Header content </template>
+  <div class="onyx-grid-container">
+    <div class="onyx-grid">
+      <div>item</div>
+      <div class="onyx-grid-span-2">span 2</div>
+      <div class="onyx-grid-span-full">full span</div>
+    </div>
+  </div>
 
-  <main class="onyx-grid-container">
-    <OnyxHeadline is="h1">Page headline</OnyxHeadline>
+  <template #footer>
+    <OnyxButton color="neutral" label="Button" />
+    <OnyxButton label="Button" />
+  </template>
+</OnyxSidebar>
+```
 
-    <form class="onyx-grid">
-      <OnyxInput class="onyx-grid-span-4" label="Input 1" />
-      <OnyxInput class="onyx-grid-span-4" label="Input 2" />
-      <OnyxButton class="onyx-grid-span-16" label="Submit" type="submit" />
-    </form>
-  </main>
-</div>
+:::
+
+::: code-group
+
+```html [Default]
+<main class="onyx-grid-container">
+  <OnyxHeadline is="h1">Page headline</OnyxHeadline>
+
+  <form class="onyx-grid">
+    <OnyxInput class="onyx-grid-span-4" label="Input 1" />
+    <OnyxInput class="onyx-grid-span-4" label="Input 2" />
+    <OnyxButton class="onyx-grid-span-16" label="Submit" type="submit" />
+  </form>
+</main>
 ```
 
 :::
