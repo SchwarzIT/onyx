@@ -3,7 +3,7 @@ import { VITE_BASE_CONFIG } from "@sit-onyx/shared/vite.config.base";
 import vue from "@vitejs/plugin-vue";
 import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vite";
-import packageJson from "./package.json" with { type: "json" };
+import packageJson from "./package.json";
 import { vuePluginOptions } from "./playwright.config";
 
 // https://vitejs.dev/config
