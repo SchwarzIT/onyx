@@ -1,5 +1,13 @@
 # @sit-onyx/headless
 
+## 1.0.0-beta.19
+
+### Minor Changes
+
+- d22943e: - feat(onOutsideClick): support `checkOnTab` option to also check the outside focus when pressing the Tab key
+  - feat(createMenuButton): support keyboard navigation when menuitems with nested children exist
+  - fix(createMenButton): correctly apply trigger events when changing between hover and click trigger dynamically
+
 ## 1.0.0-beta.18
 
 ### Minor Changes

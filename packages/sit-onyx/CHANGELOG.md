@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.254
+
+### Minor Changes
+
+- d22943e: - feat: support nested items for OnyxFlyoutMenu and OnyxNavItem
+  - feat(OnyxNavBar): keep open state of nav items when toggling the burger menu open state
+  - fix(OnyxNavBar): make separator full width on mobile context menu
+
 ## 1.0.0-beta.253
 
 ### Minor Changes
