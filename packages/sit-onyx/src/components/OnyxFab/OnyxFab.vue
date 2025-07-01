@@ -1,15 +1,15 @@
 <script lang="ts" setup>
-import { createMenuButton } from "@sit-onyx/headless";
 import moreHorizontalSmall from "@sit-onyx/icons/more-horizontal-small.svg?raw";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import x from "@sit-onyx/icons/x.svg?raw";
 import { computed, ref } from "vue";
 import { useDensity } from "../../composables/density";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxFlyoutMenu from "../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import type { OnyxFabProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxFabProps>(), {
-  trigger: "click",
+  alignment: "auto",
 });
 
 const slots = defineSlots<{
@@ -22,15 +22,6 @@ const slots = defineSlots<{
 const { densityClass } = useDensity(props);
 
 const isExpanded = ref(false);
-const onToggle = () => (isExpanded.value = !isExpanded.value);
-
-const {
-  elements: { root, button, menu },
-} = createMenuButton({
-  isExpanded,
-  onToggle,
-  trigger: "click",
-});
 
 const triggerIcon = computed(() => {
   if (!slots.options) return props.icon;
@@ -40,22 +31,30 @@ const triggerIcon = computed(() => {
 </script>
 
 <template>
-  <div :class="['onyx-component', 'onyx-fab', densityClass, 'onyx-text']" v-bind="root">
-    <button
-      class="onyx-fab__trigger"
-      v-bind="button"
-      type="button"
-      :title="props.hideLabel ? props.label : undefined"
-      :aria-label="props.label"
-    >
-      <OnyxIcon v-if="triggerIcon" :icon="triggerIcon" />
-      <template v-if="!props.hideLabel">{{ props.label }}</template>
-    </button>
+  <OnyxFlyoutMenu
+    v-model:open="isExpanded"
+    :label="props.label"
+    trigger="click"
+    :class="['onyx-fab', densityClass]"
+    :alignment="props.alignment"
+  >
+    <template #button="{ trigger }">
+      <button
+        v-bind="trigger"
+        class="onyx-fab__trigger"
+        type="button"
+        :title="props.hideLabel ? props.label : undefined"
+        :aria-label="props.label"
+      >
+        <OnyxIcon v-if="triggerIcon" :icon="triggerIcon" />
+        <template v-if="!props.hideLabel">{{ props.label }}</template>
+      </button>
+    </template>
 
-    <ul v-if="slots.options" v-show="isExpanded" v-bind="menu">
+    <template #options>
       <slot name="options"></slot>
-    </ul>
-  </div>
+    </template>
+  </OnyxFlyoutMenu>
 </template>
 
 <style lang="scss">
@@ -63,6 +62,7 @@ const triggerIcon = computed(() => {
 
 .onyx-fab {
   @include layers.component() {
+    --onyx-popover-gap: var(--onyx-density-sm);
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-inverted);
 
@@ -81,6 +81,8 @@ const triggerIcon = computed(() => {
       gap: var(--onyx-density-xs);
       border-radius: var(--onyx-radius-full);
       box-shadow: var(--onyx-shadow-soft-bottom);
+      width: max-content;
+      max-width: 100%;
 
       &:hover {
         background: var(--onyx-color-base-neutral-500);
@@ -89,6 +91,23 @@ const triggerIcon = computed(() => {
       &:focus-visible {
         outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
       }
+    }
+
+    .onyx-popover__dialog {
+      box-shadow: none;
+      background-color: transparent;
+      outline: none;
+    }
+
+    .onyx-flyout-menu__list-header,
+    .onyx-flyout-menu__list-footer {
+      display: none;
+    }
+
+    .onyx-flyout-menu__wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: var(--onyx-density-2xs);
     }
   }
 }
