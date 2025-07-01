@@ -69,24 +69,16 @@ export const generateAsSCSS = (data: ParsedVariable, options?: BaseGenerateOptio
  *
  * @returns File content of the .json file
  */
-export const generateAsJSON = (data: ParsedVariable, dataDarkTheme?: ParsedVariable): string => {
-  const lightVars = structuredClone(data.variables);
-  const darkVars = structuredClone(dataDarkTheme?.variables ?? {});
+export const generateAsJSON = (data: ParsedVariable): string => {
+  const variables = structuredClone(data.variables);
 
-  // Aliase auflösen
-  Object.keys(lightVars).forEach((name) => {
-    lightVars[name] = resolveValue(name, lightVars);
-  });
-  Object.keys(darkVars).forEach((name) => {
-    darkVars[name] = resolveValue(name, darkVars);
+  // recursively resolve aliases to plain values since keys can not be referenced in a .json file
+  // like we could e.g. in a .css file
+  Object.keys(variables).forEach((name) => {
+    variables[name] = resolveValue(name, variables);
   });
 
-  const result = {
-    light: lightVars,
-    ...(dataDarkTheme ? { dark: darkVars } : {}),
-  };
-
-  return JSON.stringify(result, null, 2) + "\n";
+  return `${JSON.stringify(variables, null, 2)}\n`;
 };
 
 /**

@@ -61,7 +61,6 @@ export async function importVariablesCommandAction(options: ImportVariablesComma
     CSS: (data: ParsedVariable, dataDark?: ParsedVariable) =>
       generateAsCSS(data, { selector: options.selector, dataDarkTheme: dataDark }),
     SCSS: generateAsSCSS,
-    JSON: generateAsJSON,
   };
 
   options.format.forEach((format) => {
@@ -116,16 +115,20 @@ export async function importVariablesCommandAction(options: ImportVariablesComma
       if (!isModeIncluded) return;
 
       const baseName = getBaseFileName(data.modeName);
-      const themeName = baseName.split("-")[0];
-      const fullPath = path.join(outputDirectory, `${themeName}.${format.toLowerCase()}`);
-      console.log("fullPath", fullPath);
+      generateAsJSON(data);
       if (options.combinesDarkLight) {
+        const themeName = baseName.split("-")[0];
+        const fullPath = path.join(outputDirectory, `${themeName}.${format.toLowerCase()}`);
+
         // find the matching theme
         const dataDark = parsedVariables.find(
           (themeData) => themeData.modeName === themeName + "-dark",
         );
+
+        if (dataDark) generateAsJSON(dataDark);
         fs.writeFileSync(fullPath, generators[format as keyof typeof generators](data, dataDark));
       } else {
+        const fullPath = path.join(outputDirectory, `${baseName}.${format.toLowerCase()}`);
         fs.writeFileSync(fullPath, generators[format as keyof typeof generators](data));
       }
     });
