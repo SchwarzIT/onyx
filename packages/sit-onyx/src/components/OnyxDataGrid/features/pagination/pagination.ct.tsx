@@ -342,6 +342,33 @@ test("should handle button loading (async)", async ({ page, mount }) => {
   await expect(loadingIndicator).toBeHidden();
 });
 
+test("should work correctly when filtering is enabled", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(TestCase, {
+    props: {
+      data: getTestData(128),
+      enabledFeatures: ["filtering"],
+    },
+  });
+
+  const pagination = component.getByLabel("Pagination");
+
+  // ASSERT
+  await expect(pagination).toContainText("of 6 pages");
+
+  // ACT
+  await component
+    .getByRole("columnheader", { name: "a Toggle column actions" })
+    .getByLabel("Toggle column actions")
+    .click();
+
+  await component.getByRole("textbox", { name: "Search column a" }).fill("A 1");
+  await component.press("Enter");
+
+  // ASSERT
+  await expect(pagination).toContainText("of 2 pages");
+});
+
 function scrollToRow(component: Locator, number: number) {
   return component.evaluate((element, index) => {
     Array.from(element.querySelectorAll("tr"))
