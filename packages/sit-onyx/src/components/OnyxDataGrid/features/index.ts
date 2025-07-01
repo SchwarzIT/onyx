@@ -624,7 +624,9 @@ export const useDataGridFeatures = <
         const slotName = _slotName as keyof typeof feature.slots;
         const existingSlot = slots[slotName] ?? (() => []);
         const newSlotContent = slotFunc(existingSlot).filter((vnode) => vnode != undefined);
-        slots[slotName] = () => newSlotContent;
+        if (newSlotContent.length) {
+          slots[slotName] = () => newSlotContent;
+        }
       });
     });
 
