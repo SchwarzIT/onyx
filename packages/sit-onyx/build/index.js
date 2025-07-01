@@ -46,7 +46,7 @@ async function buildForProduction(config) {
     },
     true,
   );
-  return build(prodConfig);
+  await build(prodConfig);
 }
 
 async function buildForBundler(config) {
@@ -60,15 +60,12 @@ async function buildForBundler(config) {
         minify: false,
         sourcemap: true,
         emptyOutDir: false,
-        lib: {
-          formats: ["es"],
-          fileName: () => "index.esm-bundler.js",
-          cssFileName: "duplicate-to-be-deleted",
-        },
       },
     },
     true,
   );
+  bundlerConfig.build.lib.formats = ["es"];
+  bundlerConfig.build.lib.fileName = () => "index.esm-bundler.js";
   await build(bundlerConfig);
 }
 
@@ -79,9 +76,6 @@ async function run() {
 
   await buildForProduction(config);
   await buildForBundler(config);
-
-  // delete the redundant CSS file
-  await fsPromises.rm(path.join(outDir, "duplicate-to-be-deleted.css"), { force: true });
 }
 
 run();
