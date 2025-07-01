@@ -118,7 +118,7 @@ describe("renderers", () => {
 });
 
 function getRendererCellValue(value: unknown, type?: DefaultSupportedTypes) {
-  const renderer = createRenderer([BASE_FEATURE(createFeatureContextMock())]);
+  const renderer = createRenderer([BASE_FEATURE()(createFeatureContextMock())]);
   return renderer
     .getFor("cell", type)
     .component(
