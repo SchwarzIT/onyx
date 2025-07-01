@@ -33,6 +33,9 @@ async function loadViteConfig() {
   return result;
 }
 
+/**
+ * Vite build with focus on size and performance.
+ */
 async function buildForProduction(config) {
   process.env.NODE_ENV = "production";
   const prodConfig = mergeConfig(
@@ -49,6 +52,9 @@ async function buildForProduction(config) {
   await build(prodConfig);
 }
 
+/**
+ * Vite build with focus on developer experience.
+ */
 async function buildForBundler(config) {
   process.env.NODE_ENV = "development";
   const bundlerConfig = mergeConfig(
@@ -73,7 +79,6 @@ async function run() {
   const config = await loadViteConfig();
   const outDir = path.join(import.meta.dirname, "..", config.build?.outDir ?? "dist");
   await emptyDirectory(outDir);
-
   await buildForProduction(config);
   await buildForBundler(config);
 }
