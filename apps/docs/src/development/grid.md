@@ -44,6 +44,24 @@ If you want to get familiar with how the grid works, you can use our [grid playg
 </main>
 ```
 
+```html [With max width]
+<div class="onyx-grid-max-md onyx-grid-center">
+  <OnyxNavBar app-name="Example" />
+
+  <main class="onyx-grid-container">
+    <OnyxHeadline is="h1">Page headline</OnyxHeadline>
+
+    <form class="onyx-grid">
+      <OnyxInput class="onyx-grid-span-4" label="Input 1" />
+      <OnyxInput class="onyx-grid-span-4" label="Input 2" />
+      <OnyxButton class="onyx-grid-span-16" label="Submit" type="submit" />
+    </form>
+  </main>
+</div>
+```
+
+:::
+
 ## Sidebar Grid
 
 Similar to the main content area, the sidebar grid in Onyx also leverages a dynamic column system. While the core implementation principles remain consistent with the main grid, the sidebar adapts its column count based on its width, offering 1, 2, 4, 8, or 12 columns.
@@ -52,7 +70,7 @@ The same principles of span definition apply here: elements within the sidebar g
 
 ### Examples
 
-```html [With max width]
+```html
 <OnyxSidebar label="Example sidebar" resizable>
   <template #header> Header content </template>
   <div class="onyx-grid-container">
@@ -69,24 +87,6 @@ The same principles of span definition apply here: elements within the sidebar g
   </template>
 </OnyxSidebar>
 ```
-
-:::
-
-::: code-group
-
-```html [Default]
-<main class="onyx-grid-container">
-  <OnyxHeadline is="h1">Page headline</OnyxHeadline>
-
-  <form class="onyx-grid">
-    <OnyxInput class="onyx-grid-span-4" label="Input 1" />
-    <OnyxInput class="onyx-grid-span-4" label="Input 2" />
-    <OnyxButton class="onyx-grid-span-16" label="Submit" type="submit" />
-  </form>
-</main>
-```
-
-:::
 
 ## Usage
 
