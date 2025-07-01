@@ -30,26 +30,14 @@ const gridStore = useGridStore();
       <OnyxSidebar label="Example sidebar" resizable>
         <template #header> Header content </template>
 
-        <div class="sidebar__content">
-          <div class="onyx-grid-container">
-            <div class="onyx-grid">
-              <OnyxSidebarItem v-for="i in 6" :key="i" :link="`#link-${i}`">
-                <OnyxIcon :icon="placeholder" />
-                Item {{ i }}
-              </OnyxSidebarItem>
-            </div>
-            <div class="onyx-grid second-sidebar-grid">
-              <p class="onyx-grid-md-span-2 onyx-grid-lg-span-4 onyx-grid-xl-span-6">Half width</p>
-              <p class="onyx-grid-md-span-2 onyx-grid-lg-span-4 onyx-grid-xl-span-6">Half width</p>
-              <p class="onyx-grid-span-full">Full width</p>
-            </div>
+        <div class="onyx-grid-container">
+          <div class="onyx-grid">
+            <OnyxSidebarItem v-for="i in 6" :key="i" :link="`#link-${i}`">
+              <OnyxIcon :icon="placeholder" />
+              Item {{ i }}
+            </OnyxSidebarItem>
           </div>
         </div>
-
-        <template #footer>
-          <OnyxButton color="neutral" label="Button" />
-          <OnyxButton label="Button" />
-        </template>
       </OnyxSidebar>
     </template>
 
@@ -100,8 +88,5 @@ const gridStore = useGridStore();
   &__card {
     background-color: var(--onyx-color-base-neutral-200);
   }
-}
-.second-sidebar-grid {
-  margin-top: var(--onyx-sidebar-grid-gutter);
 }
 </style>
