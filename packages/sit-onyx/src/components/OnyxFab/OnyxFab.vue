@@ -2,15 +2,24 @@
 import moreHorizontalSmall from "@sit-onyx/icons/more-horizontal-small.svg?raw";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import x from "@sit-onyx/icons/x.svg?raw";
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import { useDensity } from "../../composables/density";
+import { useVModel } from "../../composables/useVModel";
+import type { Nullable } from "../../types";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxFlyoutMenu from "../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import type { OnyxFabProps } from "./types";
 
 const props = withDefaults(defineProps<OnyxFabProps>(), {
-  alignment: "auto",
+  alignment: "right",
 });
+
+const emit = defineEmits<{
+  /**
+   * Emitted when the isExpanded state changes.
+   */
+  "update:open": [value?: Nullable<boolean>];
+}>();
 
 const slots = defineSlots<{
   /**
@@ -21,7 +30,15 @@ const slots = defineSlots<{
 
 const { densityClass } = useDensity(props);
 
-const isExpanded = ref(false);
+/**
+ * If the flyout is expanded or not.
+ */
+const isExpanded = useVModel({
+  props,
+  emit,
+  key: "open",
+  default: false,
+});
 
 const triggerIcon = computed(() => {
   if (!slots.options) return props.icon;
@@ -62,9 +79,22 @@ const triggerIcon = computed(() => {
 
 .onyx-fab {
   @include layers.component() {
+    --onyx-fab-viewport-gap: var(--onyx-density-sm);
     --onyx-popover-gap: var(--onyx-density-sm);
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-inverted);
+    position: fixed;
+    bottom: var(--onyx-fab-viewport-gap);
+    right: var(--onyx-fab-viewport-gap);
+
+    &:has(.onyx-popover__dialog--alignment-left) {
+      right: unset;
+      left: var(--onyx-fab-viewport-gap);
+
+      .onyx-flyout-menu__wrapper {
+        align-items: flex-start;
+      }
+    }
 
     &__trigger {
       // reset button styles
@@ -108,6 +138,7 @@ const triggerIcon = computed(() => {
       display: flex;
       flex-direction: column;
       gap: var(--onyx-density-2xs);
+      align-items: flex-end;
     }
   }
 }
