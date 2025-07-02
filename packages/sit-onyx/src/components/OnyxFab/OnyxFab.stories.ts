@@ -1,4 +1,6 @@
+import arrowSmallUp from "@sit-onyx/icons/arrow-small-up.svg?raw";
 import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
+import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import { defineIconSelectArgType } from "../../utils/storybook";
@@ -10,6 +12,7 @@ const meta: Meta<typeof OnyxFab> = {
   component: OnyxFab,
   tags: ["new:component"],
   argTypes: {
+    ...withNativeEventLogging(["onClick"]),
     options: { control: { disable: true } },
     icon: defineIconSelectArgType(),
   },
@@ -36,6 +39,14 @@ export const Text = {
   args: {
     ...Default.args,
     hideLabel: undefined,
+  },
+} satisfies Story;
+
+export const Link = {
+  args: {
+    label: "Back to top",
+    link: "#",
+    icon: arrowSmallUp,
   },
 } satisfies Story;
 
