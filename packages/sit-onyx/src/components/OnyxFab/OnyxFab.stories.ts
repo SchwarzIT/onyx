@@ -55,9 +55,9 @@ export const Options = {
     label: "Example label",
     hideLabel: true,
     options: () => [
+      h(OnyxFabItem, { label: "Action 3", icon: placeholder }),
+      h(OnyxFabItem, { label: "Action 2", icon: placeholder }),
       h(OnyxFabItem, { label: "Action 1", icon: placeholder }),
-      h(OnyxFabItem, { label: "Action 2" }),
-      h(OnyxFabItem, { label: "Action 3", hideLabel: true, icon: placeholder }),
     ],
   },
 } satisfies Story;

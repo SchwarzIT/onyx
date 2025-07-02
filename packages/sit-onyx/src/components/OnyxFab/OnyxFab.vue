@@ -1,13 +1,11 @@
 <script lang="ts" setup>
 import moreHorizontalSmall from "@sit-onyx/icons/more-horizontal-small.svg?raw";
-import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import x from "@sit-onyx/icons/x.svg?raw";
 import { computed } from "vue";
 import { useDensity } from "../../composables/density";
 import { useVModel } from "../../composables/useVModel";
 import type { Nullable } from "../../types";
-import ButtonOrLinkLayout from "../OnyxButton/ButtonOrLinkLayout.vue";
-import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxFabButton from "../OnyxFabButton/OnyxFabButton.vue";
 import OnyxFlyoutMenu from "../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import type { OnyxFabProps } from "./types";
 
@@ -41,15 +39,17 @@ const isExpanded = useVModel({
   default: false,
 });
 
+const hasOptions = computed(() => !!slots.options);
+
 const triggerIcon = computed(() => {
-  if (!slots.options) return props.icon;
-  if (isExpanded.value) return props.hideLabel ? x : xSmall;
-  return moreHorizontalSmall;
+  if (!hasOptions.value) return props.icon;
+  return isExpanded.value ? x : moreHorizontalSmall;
 });
 </script>
 
 <template>
   <OnyxFlyoutMenu
+    v-if="hasOptions"
     v-model:open="isExpanded"
     :label="props.label"
     trigger="click"
@@ -57,22 +57,15 @@ const triggerIcon = computed(() => {
     :alignment="props.alignment"
   >
     <template #button="{ trigger }">
-      <ButtonOrLinkLayout
-        v-bind="trigger"
-        :link="props.link"
-        class="onyx-fab__trigger"
-        :title="props.hideLabel ? props.label : undefined"
-        :aria-label="props.label"
-      >
-        <OnyxIcon v-if="triggerIcon" :icon="triggerIcon" />
-        <template v-if="!props.hideLabel">{{ props.label }}</template>
-      </ButtonOrLinkLayout>
+      <OnyxFabButton v-bind="{ ...props, ...trigger }" :icon="triggerIcon" />
     </template>
 
     <template #options>
       <slot name="options"></slot>
     </template>
   </OnyxFlyoutMenu>
+
+  <OnyxFabButton v-else class="onyx-fab" v-bind="props" :icon="triggerIcon" />
 </template>
 
 <style lang="scss">
@@ -94,33 +87,6 @@ const triggerIcon = computed(() => {
 
       .onyx-flyout-menu__wrapper {
         align-items: flex-start;
-      }
-    }
-
-    &__trigger {
-      // reset button styles
-      background: var(--onyx-color-base-neutral-800);
-      border: none;
-      cursor: pointer;
-      font: inherit;
-      color: inherit;
-      padding: var(--onyx-density-md);
-
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      gap: var(--onyx-density-xs);
-      border-radius: var(--onyx-radius-full);
-      box-shadow: var(--onyx-shadow-soft-bottom);
-      width: max-content;
-      max-width: 100%;
-
-      &:hover {
-        background: var(--onyx-color-base-neutral-500);
-      }
-
-      &:focus-visible {
-        outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
       }
     }
 

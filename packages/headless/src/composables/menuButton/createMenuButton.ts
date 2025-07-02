@@ -8,6 +8,12 @@ type CreateMenuButtonOptions = {
   trigger: Readonly<MaybeRef<"hover" | "click">>;
   onToggle: () => void;
   disabled?: Readonly<Ref<boolean>>;
+  /**
+   * Whether the menu button opens to the top or bottom. Defines the keyboard navigation behavior (e.g. Arrow up and down).
+   *
+   * @default "bottom"
+   */
+  position?: MaybeRef<"top" | "bottom">;
 };
 
 /**
@@ -18,6 +24,8 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
   const menuId = useId();
   const menuRef = createElRef<HTMLElement>();
   const buttonId = useId();
+
+  const position = computed(() => toValue(options.position) ?? "bottom");
 
   useGlobalEventListener({
     type: "keydown",
@@ -53,6 +61,7 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
     if (!currentMenu) return;
 
     const menuItems = Array.from(currentMenu.querySelectorAll<HTMLElement>('[role="menuitem"]'));
+    if (position.value === "top") menuItems.reverse();
     let nextIndex = 0;
 
     if (currentMenuItem) {
@@ -82,12 +91,12 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
       case "ArrowDown":
       case "ArrowRight":
         event.preventDefault();
-        focusRelativeItem("next");
+        focusRelativeItem(position.value === "bottom" ? "next" : "prev");
         break;
       case "ArrowUp":
       case "ArrowLeft":
         event.preventDefault();
-        focusRelativeItem("prev");
+        focusRelativeItem(position.value === "bottom" ? "prev" : "next");
         break;
       case "Home":
         event.preventDefault();
