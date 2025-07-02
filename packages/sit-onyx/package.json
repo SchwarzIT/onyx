@@ -10,7 +10,6 @@
   },
   "files": [
     "dist",
-    "src/i18n/locales",
     "src/styles"
   ],
   "module": "./dist/index.esm-bundler.js",
@@ -43,7 +42,7 @@
   },
   "scripts": {
     "dev": "storybook dev -p 6006 --no-open",
-    "build": "node ./build/index.js && vue-tsc -p tsconfig.locales.json --composite false",
+    "build": "node ./build/index.js && tsc -p tsconfig.locales.json --composite false",
     "build:storybook": "storybook build",
     "preview": "vite serve storybook-static",
     "test": "vitest",
