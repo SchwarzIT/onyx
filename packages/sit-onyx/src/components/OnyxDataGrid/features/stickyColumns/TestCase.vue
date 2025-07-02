@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
+import { DataGridFeatures, OnyxDataGrid } from "../../../../index";
 import type { DataGridEntry, OnyxDataGridProps } from "../../../../index.js";
-import { DataGridFeatures, OnyxDataGrid } from "../../../../index.js";
 import type { StickyColumnsOptions } from "./types.js";
 
 const { columns, data, stickyColumnsOptions } = defineProps<

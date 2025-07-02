@@ -5,6 +5,7 @@ import pluginVitest from "@vitest/eslint-plugin";
 import skipFormattingConfig from "@vue/eslint-config-prettier/skip-formatting";
 import { defineConfigWithVueTs, vueTsConfigs } from "@vue/eslint-config-typescript";
 import compat from "eslint-plugin-compat";
+import importPlugin from "eslint-plugin-import";
 import playwrightEslintConfig from "eslint-plugin-playwright";
 import vue from "eslint-plugin-vue";
 import vueScopedCss from "eslint-plugin-vue-scoped-css";
@@ -153,6 +154,7 @@ const sitOnyxConfig = {
   files: ["**/packages/sit-onyx/**/*"],
   extends: [
     compat.configs["flat/recommended"],
+    importPlugin.flatConfigs.typescript,
     ...defineConfigWithVueTs(vue.configs["flat/recommended"], vueTsConfigs.recommendedTypeChecked),
     ...vueScopedCss.configs["flat/recommended"],
   ],
@@ -163,6 +165,7 @@ const sitOnyxConfig = {
   },
   plugins: { sitOnyx },
   rules: {
+    "import/extensions": ["error", "ignorePackages", { ts: "never" }],
     "sitOnyx/import-playwright-a11y": "error",
     "sitOnyx/no-shadow-template-ref": "error",
     "sitOnyx/no-shadow-native": "error",
