@@ -25,6 +25,12 @@ We assume that you already have a Vue application set up.
 If thats not the case we recommend you first hop over to the [Vue Quickstart Docs](https://vuejs.org/guide/quick-start.html#creating-a-vue-application). Follow the steps there and then continue with the onyx setup here.
 :::
 
+::: warning Pure ESM
+**onyx** only exports EcmaScript modules, as it is a **[Pure ESM package](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c)**.
+Therefore it cannot be `require()`'d from CommonJS.
+We recommend to read [Sindre Sorhus summary](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c) on this issue.
+:::
+
 ### Step 1: Install dependencies
 
 Install the npm package with your corresponding package manager:
