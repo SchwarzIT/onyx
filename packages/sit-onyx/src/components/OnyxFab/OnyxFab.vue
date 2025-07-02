@@ -6,6 +6,7 @@ import { computed } from "vue";
 import { useDensity } from "../../composables/density";
 import { useVModel } from "../../composables/useVModel";
 import type { Nullable } from "../../types";
+import ButtonOrLinkLayout from "../OnyxButton/ButtonOrLinkLayout.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxFlyoutMenu from "../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import type { OnyxFabProps } from "./types";
@@ -56,16 +57,16 @@ const triggerIcon = computed(() => {
     :alignment="props.alignment"
   >
     <template #button="{ trigger }">
-      <button
+      <ButtonOrLinkLayout
         v-bind="trigger"
+        :link="props.link"
         class="onyx-fab__trigger"
-        type="button"
         :title="props.hideLabel ? props.label : undefined"
         :aria-label="props.label"
       >
         <OnyxIcon v-if="triggerIcon" :icon="triggerIcon" />
         <template v-if="!props.hideLabel">{{ props.label }}</template>
-      </button>
+      </ButtonOrLinkLayout>
     </template>
 
     <template #options>

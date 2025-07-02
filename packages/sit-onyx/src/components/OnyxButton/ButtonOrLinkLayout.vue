@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { computed } from "vue";
+import { computed, useTemplateRef } from "vue";
+import { useAutofocus } from "../../composables/useAutoFocus";
 import { extractLinkProps } from "../../utils/router";
 import { useFormContext } from "../OnyxForm/OnyxForm.core";
 import OnyxRouterLink from "../OnyxRouterLink/OnyxRouterLink.vue";
@@ -17,11 +18,14 @@ defineSlots<{
   default(): unknown;
 }>();
 
+const button = useTemplateRef("buttonRef");
 const { disabled } = useFormContext(props);
 
 const linkProps = computed(() =>
   props.link != undefined ? extractLinkProps(props.link) : undefined,
 );
+
+useAutofocus(button, props);
 </script>
 
 <template>
@@ -31,6 +35,7 @@ const linkProps = computed(() =>
 
   <button
     v-else
+    ref="buttonRef"
     :disabled="disabled || props.loading"
     :type="props.type"
     :autofocus="props.autofocus"
