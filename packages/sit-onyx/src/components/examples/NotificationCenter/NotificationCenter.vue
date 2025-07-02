@@ -6,6 +6,10 @@ import inbox from "@sit-onyx/icons/inbox.svg?raw";
 import settings from "@sit-onyx/icons/settings.svg?raw";
 import { computed, ref } from "vue";
 import {
+  SKELETON_INJECTED_SYMBOL,
+  useSkeletonContext,
+} from "../../../composables/useSkeletonState.js";
+import {
   OnyxAccordion,
   OnyxAccordionItem,
   OnyxAppLayout,
@@ -26,11 +30,7 @@ import {
   OnyxUserMenu,
   useNotification,
   type OnyxNotificationCardProps,
-} from "../../..";
-import {
-  SKELETON_INJECTED_SYMBOL,
-  useSkeletonContext,
-} from "../../../composables/useSkeletonState";
+} from "../../../index.js";
 
 /**
  * Custom notification type for your project. This can also include custom properties depending in your needs (e.g. an ID etc.).

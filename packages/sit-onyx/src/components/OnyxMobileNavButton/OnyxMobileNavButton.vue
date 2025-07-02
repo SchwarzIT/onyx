@@ -3,7 +3,7 @@ import x from "@sit-onyx/icons/x.svg?raw";
 import { computed } from "vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import type { OnyxMobileNavButtonProps } from "./types";
+import type { OnyxMobileNavButtonProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxMobileNavButtonProps>(), {
   open: false,

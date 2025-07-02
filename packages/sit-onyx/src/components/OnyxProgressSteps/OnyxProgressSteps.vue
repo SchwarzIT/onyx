@@ -1,12 +1,15 @@
 <script lang="ts" setup>
 import { computed, watch } from "vue";
-import { useDensity } from "../../composables/density";
-import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
-import { useVModel } from "../../composables/useVModel";
+import { useDensity } from "../../composables/density.js";
+import {
+  SKELETON_INJECTED_SYMBOL,
+  useSkeletonContext,
+} from "../../composables/useSkeletonState.js";
+import { useVModel } from "../../composables/useVModel.js";
 import OnyxProgressStep from "../OnyxProgressStep/OnyxProgressStep.vue";
-import type { OnyxProgressStepProps, ProgressStepStatus } from "../OnyxProgressStep/types";
+import type { OnyxProgressStepProps, ProgressStepStatus } from "../OnyxProgressStep/types.js";
 import OnyxSeparator from "../OnyxSeparator/OnyxSeparator.vue";
-import type { OnyxProgressStepsProps } from "./types";
+import type { OnyxProgressStepsProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxProgressStepsProps>(), {
   orientation: "horizontal",

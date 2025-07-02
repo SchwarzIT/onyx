@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import settings from "@sit-onyx/icons/settings.svg?raw";
 import { ref } from "vue";
-import { OnyxBottomBar, OnyxButton, OnyxDrawer, OnyxIconButton } from "../../..";
+import { OnyxBottomBar, OnyxButton, OnyxDrawer, OnyxIconButton } from "../../../index.js";
 
 const isOpen = ref(false);
 </script>

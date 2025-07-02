@@ -1,8 +1,8 @@
-import { DENSITIES } from "../../composables/density";
-import type { FormMessages } from "../../composables/useCustomValidity";
+import { DENSITIES } from "../../composables/density.js";
+import type { FormMessages } from "../../composables/useCustomValidity.js";
 import { testMaxLengthBehavior } from "../../composables/useLenientMaxLengthValidation.ct-utils";
-import { expect, test } from "../../playwright/a11y";
-import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
+import { expect, test } from "../../playwright/a11y.js";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-utils";
 import OnyxInput from "./OnyxInput.vue";
 

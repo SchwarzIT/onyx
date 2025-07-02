@@ -1,5 +1,5 @@
 import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
-import { expect, test } from "../../playwright/a11y";
+import { expect, test } from "../../playwright/a11y.js";
 import OnyxPageLayout from "./OnyxPageLayout.vue";
 
 const SIDEBAR_ELEMENT = (

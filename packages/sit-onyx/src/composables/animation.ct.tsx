@@ -1,4 +1,4 @@
-import { expect, test } from "../playwright/a11y";
+import { expect, test } from "../playwright/a11y.js";
 import TestCase from "./AnimationTestCase.vue";
 
 test("should sync animation start time", async ({ mount, page }) => {

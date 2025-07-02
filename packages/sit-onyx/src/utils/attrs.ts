@@ -11,8 +11,8 @@ import {
   type VNodeProps,
   type VNodeRef,
 } from "vue";
-import type { Data } from "../types";
-import { userConsole } from "./console";
+import type { Data } from "../types/index.js";
+import { userConsole } from "./console.js";
 
 // region docs
 /**

@@ -1,5 +1,5 @@
-import type { Nullable } from "../../../../types";
-import type { OnyxAvatarProps } from "../../../OnyxAvatar/types";
+import type { Nullable } from "../../../../types/index.js";
+import type { OnyxAvatarProps } from "../../../OnyxAvatar/types.js";
 
 export type OnyxUserMenuProps = {
   /**

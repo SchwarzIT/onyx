@@ -3,7 +3,7 @@
 import OnyxColorSchemeMenuItem from "../OnyxColorSchemeMenuItem/OnyxColorSchemeMenuItem.vue";
 import OnyxMenuItem from "../OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxFlyoutMenu from "./OnyxFlyoutMenu.vue";
-import type { OnyxFlyoutMenuProps } from "./types";
+import type { OnyxFlyoutMenuProps } from "./types.js";
 
 const props = defineProps<OnyxFlyoutMenuProps>();
 </script>

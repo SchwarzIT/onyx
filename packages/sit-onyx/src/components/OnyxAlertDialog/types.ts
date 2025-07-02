@@ -1,5 +1,5 @@
-import type { OnyxDialogProps } from "../OnyxDialog/types";
-import type { OnyxIconProps } from "../OnyxIcon/types";
+import type { OnyxDialogProps } from "../OnyxDialog/types.js";
+import type { OnyxIconProps } from "../OnyxIcon/types.js";
 
 export type OnyxAlertDialogProps = Omit<OnyxDialogProps, "modal" | "alert" | "alignment"> & {
   /**

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useDensity } from "../../composables/density";
-import { provideSkeletonContext } from "../../composables/useSkeletonState";
-import { provideFormContext } from "./OnyxForm.core";
-import type { OnyxFormProps } from "./types";
+import { useDensity } from "../../composables/density.js";
+import { provideSkeletonContext } from "../../composables/useSkeletonState.js";
+import { provideFormContext } from "./OnyxForm.core.js";
+import type { OnyxFormProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxFormProps>(), {
   disabled: false,

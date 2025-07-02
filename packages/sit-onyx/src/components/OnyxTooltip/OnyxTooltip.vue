@@ -15,14 +15,14 @@ import {
   type Ref,
   type VNode,
 } from "vue";
-import { useDensity } from "../../composables/density";
-import { useAnchorPositionPolyfill } from "../../composables/useAnchorPositionPolyfill";
-import { useOpenAlignment } from "../../composables/useOpenAlignment";
-import { useOpenDirection } from "../../composables/useOpenDirection";
-import { useResizeObserver } from "../../composables/useResizeObserver";
-import { injectI18n } from "../../i18n";
+import { useDensity } from "../../composables/density.js";
+import { useAnchorPositionPolyfill } from "../../composables/useAnchorPositionPolyfill.js";
+import { useOpenAlignment } from "../../composables/useOpenAlignment.js";
+import { useOpenDirection } from "../../composables/useOpenDirection.js";
+import { useResizeObserver } from "../../composables/useResizeObserver.js";
+import { injectI18n } from "../../i18n/index.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import type { OnyxTooltipProps } from "./types";
+import type { OnyxTooltipProps } from "./types.js";
 
 type CreateToggletipOptions = {
   toggleLabel: MaybeRefOrGetter<string>;

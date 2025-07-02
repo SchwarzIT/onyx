@@ -1,5 +1,5 @@
-import { OnyxAvatar } from "../..";
-import { expect, test } from "../../playwright/a11y";
+import { OnyxAvatar } from "../../index.js";
+import { expect, test } from "../../playwright/a11y.js";
 import OnyxAvatarStack from "./OnyxAvatarStack.vue";
 
 test("should render", async ({ mount }) => {

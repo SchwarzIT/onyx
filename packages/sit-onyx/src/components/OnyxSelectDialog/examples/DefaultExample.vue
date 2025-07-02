@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
 import { ref } from "vue";
-import { OnyxButton, OnyxSelectDialog, type SelectDialogOption } from "../../..";
+import { OnyxButton, OnyxSelectDialog, type SelectDialogOption } from "../../../index.js";
 
 const isOpen = ref(false);
 

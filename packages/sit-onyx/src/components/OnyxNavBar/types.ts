@@ -1,7 +1,7 @@
 import type { OnyxBreakpoint } from "@sit-onyx/shared/breakpoints";
 import type { ComputedRef, InjectionKey, Ref, TeleportProps } from "vue";
-import type { MoreListInjectionKey } from "../../composables/useMoreList";
-import type { OnyxNavAppAreaProps } from "../OnyxNavAppArea/types";
+import type { MoreListInjectionKey } from "../../composables/useMoreList.js";
+import type { OnyxNavAppAreaProps } from "../OnyxNavAppArea/types.js";
 
 export type OnyxNavBarProps = Pick<OnyxNavAppAreaProps, "appName" | "logoUrl"> & {
   /**

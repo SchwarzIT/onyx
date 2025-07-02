@@ -7,7 +7,7 @@ import {
   OnyxDataGrid,
   OnyxSystemButton,
   type TypeRenderMap,
-} from "../../..";
+} from "../../../index.js";
 
 type Entry = {
   id: number;

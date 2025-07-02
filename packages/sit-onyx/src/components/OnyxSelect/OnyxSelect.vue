@@ -19,25 +19,25 @@ import {
   watchEffect,
   type ComputedRef,
 } from "vue";
-import { useCheckAll } from "../../composables/checkAll";
-import { useDensity } from "../../composables/density";
-import { useScrollEnd } from "../../composables/scrollEnd";
-import { useOpenDirection } from "../../composables/useOpenDirection";
-import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState";
-import { useVModel } from "../../composables/useVModel";
-import { injectI18n } from "../../i18n";
-import type { Nullable, SelectOptionValue } from "../../types";
-import { asArray, groupByKey, transformGroupedData } from "../../utils/objects";
-import { normalizedIncludes } from "../../utils/strings";
+import { useCheckAll } from "../../composables/checkAll.js";
+import { useDensity } from "../../composables/density.js";
+import { useScrollEnd } from "../../composables/scrollEnd.js";
+import { useOpenDirection } from "../../composables/useOpenDirection.js";
+import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
+import { useVModel } from "../../composables/useVModel.js";
+import { injectI18n } from "../../i18n/index.js";
+import type { Nullable, SelectOptionValue } from "../../types/index.js";
+import { asArray, groupByKey, transformGroupedData } from "../../utils/objects.js";
+import { normalizedIncludes } from "../../utils/strings.js";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
-import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core";
+import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core.js";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxMiniSearch from "../OnyxMiniSearch/OnyxMiniSearch.vue";
 import OnyxPopover from "../OnyxPopover/OnyxPopover.vue";
 import OnyxSelectInput from "../OnyxSelectInput/OnyxSelectInput.vue";
-import type { OnyxSelectInputProps } from "../OnyxSelectInput/types";
+import type { OnyxSelectInputProps } from "../OnyxSelectInput/types.js";
 import OnyxSelectOption from "../OnyxSelectOption/OnyxSelectOption.vue";
-import type { OnyxSelectProps, SelectOption } from "./types";
+import type { OnyxSelectProps, SelectOption } from "./types.js";
 
 type Props = OnyxSelectProps<TModelValue, TMultiple, TValue>;
 

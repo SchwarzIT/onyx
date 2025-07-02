@@ -1,8 +1,8 @@
-import { expect, test } from "../../../../playwright/a11y";
+import { expect, test } from "../../../../playwright/a11y.js";
 import {
   executeMatrixScreenshotTest,
   mockPlaywrightIcon,
-} from "../../../../playwright/screenshots";
+} from "../../../../playwright/screenshots.js";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import GridElement from "../GridElement/GridElement.vue";
 

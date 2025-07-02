@@ -1,9 +1,9 @@
-import { DENSITIES } from "../../../../composables/density";
-import { expect, test } from "../../../../playwright/a11y";
+import { DENSITIES } from "../../../../composables/density.js";
+import { expect, test } from "../../../../playwright/a11y.js";
 import {
   executeMatrixScreenshotTest,
   mockPlaywrightIcon,
-} from "../../../../playwright/screenshots";
+} from "../../../../playwright/screenshots.js";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxSidebarItem from "./OnyxSidebarItem.vue";
 

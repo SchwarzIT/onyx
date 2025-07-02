@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { useDensity } from "../../composables/density";
-import type { OnyxBottomBarProps } from "./types";
+import { useDensity } from "../../composables/density.js";
+import type { OnyxBottomBarProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxBottomBarProps>(), {
   hideBorder: false,

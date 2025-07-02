@@ -1,6 +1,6 @@
 import type OnyxInput from "../components/OnyxInput/OnyxInput.vue";
 import type OnyxTextarea from "../components/OnyxTextarea/OnyxTextarea.vue";
-import { expect, test } from "../playwright/a11y";
+import { expect, test } from "../playwright/a11y.js";
 
 export const testMaxLengthBehavior = (FormElement: typeof OnyxInput | typeof OnyxTextarea) => {
   test.describe(`maxlength behavior`, () => {

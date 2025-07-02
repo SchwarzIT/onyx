@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxPopover from "./OnyxPopover.vue";
-import type { OnyxPopoverProps } from "./types";
+import type { OnyxPopoverProps } from "./types.js";
 
 const props = defineProps<
   OnyxPopoverProps & {

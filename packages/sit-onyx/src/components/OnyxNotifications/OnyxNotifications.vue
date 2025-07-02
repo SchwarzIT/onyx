@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxNotificationMessage from "../OnyxNotificationMessage/OnyxNotificationMessage.vue";
-import { useNotification } from "./useNotification";
+import { useNotification } from "./useNotification.js";
 
 const notificationProvider = useNotification();
 </script>

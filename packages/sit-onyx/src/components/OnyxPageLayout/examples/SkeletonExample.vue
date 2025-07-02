@@ -6,7 +6,7 @@ import {
   OnyxRadioGroup,
   OnyxStepper,
   type RadioButtonOption,
-} from "../../..";
+} from "../../../index.js";
 
 const handleSubmit = () => {
   // implement your submit logic here...

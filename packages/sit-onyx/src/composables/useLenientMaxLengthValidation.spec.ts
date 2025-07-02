@@ -1,11 +1,11 @@
 import { describe, expect, test, vi } from "vitest";
 import * as vue from "vue";
 import { nextTick, reactive, ref } from "vue";
-import { I18N_INJECTION_KEY } from "../i18n";
+import { I18N_INJECTION_KEY } from "../i18n/index.js";
 import {
   useLenientMaxLengthValidation,
   type SharedTextInputProps,
-} from "./useLenientMaxLengthValidation";
+} from "./useLenientMaxLengthValidation.js";
 
 vi.mock("vue", async (importOriginal) => {
   const module = await importOriginal<typeof import("vue")>();

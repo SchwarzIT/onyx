@@ -1,5 +1,5 @@
-import type { DensityProp } from "../../composables/density";
-import type { SkeletonInjected } from "../../composables/useSkeletonState";
+import type { DensityProp } from "../../composables/density.js";
+import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 
 export type OnyxBreadcrumbItemProps = DensityProp & {
   /**

@@ -1,7 +1,7 @@
 import type { Locator } from "@playwright/test";
-import { dragResizeHandle } from "../../playwright";
-import { expect, test } from "../../playwright/a11y";
-import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
+import { dragResizeHandle } from "../../playwright.js";
+import { expect, test } from "../../playwright/a11y.js";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import TestWrapperCt from "./TestWrapper.ct.vue";
 
 const expectWidth = async (component: Locator, width: number, message?: string) => {

@@ -28,7 +28,7 @@ async function emptyDirectory(dirPath) {
  */
 async function loadViteConfig() {
   const unregister = register();
-  const result = (await import("../vite.config.ts")).default;
+  const result = (await import("../vite.config.mts")).default;
   await unregister();
   return result;
 }

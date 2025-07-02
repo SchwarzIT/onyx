@@ -1,9 +1,9 @@
-import { DENSITIES } from "../../composables/density";
-import { expect, test } from "../../playwright/a11y";
-import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
-import { ORIENTATIONS } from "../../types";
+import { DENSITIES } from "../../composables/density.js";
+import { expect, test } from "../../playwright/a11y.js";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
+import { ORIENTATIONS } from "../../types/index.js";
 import OnyxProgressSteps from "./OnyxProgressSteps.vue";
-import type { ControlledProgressStep } from "./types";
+import type { ControlledProgressStep } from "./types.js";
 
 const STEPS: ControlledProgressStep[] = [
   { label: "Cart" },

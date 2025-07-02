@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { getInitials, normalizedIncludes, normalizeUrlHash } from "./strings";
+import { getInitials, normalizedIncludes, normalizeUrlHash } from "./strings.js";
 
 test.each([
   // ARRANGE

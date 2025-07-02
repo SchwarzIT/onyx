@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import OnyxNavItem from "../OnyxNavBar/modules/OnyxNavItem/OnyxNavItem.vue";
-import { NAV_BAR_MORE_LIST_INJECTION_KEY } from "../OnyxNavBar/types";
+import { NAV_BAR_MORE_LIST_INJECTION_KEY } from "../OnyxNavBar/types.js";
 import OnyxMoreList from "./OnyxMoreList.vue";
 
 /**

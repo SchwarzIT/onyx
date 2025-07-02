@@ -2,20 +2,23 @@
 import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { computed, useTemplateRef } from "vue";
-import { useDensity } from "../../composables/density";
-import { useRequired } from "../../composables/required";
-import { useAutofocus } from "../../composables/useAutoFocus";
-import { useCustomValidity } from "../../composables/useCustomValidity";
-import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
-import { useVModel } from "../../composables/useVModel";
-import type { Nullable } from "../../types";
-import { useRootAttrs } from "../../utils/attrs";
+import { useDensity } from "../../composables/density.js";
+import { useRequired } from "../../composables/required.js";
+import { useAutofocus } from "../../composables/useAutoFocus.js";
+import { useCustomValidity } from "../../composables/useCustomValidity.js";
+import {
+  SKELETON_INJECTED_SYMBOL,
+  useSkeletonContext,
+} from "../../composables/useSkeletonState.js";
+import { useVModel } from "../../composables/useVModel.js";
+import type { Nullable } from "../../types/index.js";
+import { useRootAttrs } from "../../utils/attrs.js";
 import OnyxErrorTooltip from "../OnyxErrorTooltip/OnyxErrorTooltip.vue";
-import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
+import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import type { OnyxSwitchProps } from "./types";
+import type { OnyxSwitchProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxSwitchProps>(), {
   disabled: FORM_INJECTED_SYMBOL,

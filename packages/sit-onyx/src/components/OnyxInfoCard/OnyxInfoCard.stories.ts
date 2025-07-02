@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
-import { defineIconSelectArgType } from "../../utils/storybook";
+import { defineIconSelectArgType } from "../../utils/storybook.js";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxInfoCard from "./OnyxInfoCard.vue";
 

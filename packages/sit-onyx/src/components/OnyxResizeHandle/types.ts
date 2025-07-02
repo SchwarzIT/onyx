@@ -1,4 +1,4 @@
-import type { VueTemplateRefElement } from "../../composables/useResizeObserver";
+import type { VueTemplateRefElement } from "../../composables/useResizeObserver.js";
 
 export type OnyxResizeHandleProps = {
   /**

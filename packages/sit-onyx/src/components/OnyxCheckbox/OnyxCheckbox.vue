@@ -1,18 +1,21 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
 import { computed, useTemplateRef } from "vue";
-import { useDensity } from "../../composables/density";
-import { useRequired } from "../../composables/required";
-import { useAutofocus } from "../../composables/useAutoFocus";
-import { useCustomValidity } from "../../composables/useCustomValidity";
-import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
-import { useVModel } from "../../composables/useVModel";
-import type { SelectOptionValue } from "../../types";
-import { useRootAttrs } from "../../utils/attrs";
+import { useDensity } from "../../composables/density.js";
+import { useRequired } from "../../composables/required.js";
+import { useAutofocus } from "../../composables/useAutoFocus.js";
+import { useCustomValidity } from "../../composables/useCustomValidity.js";
+import {
+  SKELETON_INJECTED_SYMBOL,
+  useSkeletonContext,
+} from "../../composables/useSkeletonState.js";
+import { useVModel } from "../../composables/useVModel.js";
+import type { SelectOptionValue } from "../../types/index.js";
+import { useRootAttrs } from "../../utils/attrs.js";
 import OnyxErrorTooltip from "../OnyxErrorTooltip/OnyxErrorTooltip.vue";
-import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
+import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import type { OnyxCheckboxProps } from "./types";
+import type { OnyxCheckboxProps } from "./types.js";
 
 type Props = OnyxCheckboxProps<TValue>;
 

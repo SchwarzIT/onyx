@@ -1,16 +1,19 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue">
 import { computed, useTemplateRef } from "vue";
-import { useCheckAll } from "../../composables/checkAll";
-import { useDensity } from "../../composables/density";
-import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
-import { useVModel } from "../../composables/useVModel";
-import { injectI18n } from "../../i18n";
-import type { Nullable, SelectOptionValue } from "../../types";
+import { useCheckAll } from "../../composables/checkAll.js";
+import { useDensity } from "../../composables/density.js";
+import {
+  SKELETON_INJECTED_SYMBOL,
+  useSkeletonContext,
+} from "../../composables/useSkeletonState.js";
+import { useVModel } from "../../composables/useVModel.js";
+import { injectI18n } from "../../i18n/index.js";
+import type { Nullable, SelectOptionValue } from "../../types/index.js";
 import OnyxCheckbox from "../OnyxCheckbox/OnyxCheckbox.vue";
-import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
+import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxInfoTooltip from "../OnyxInfoTooltip/OnyxInfoTooltip.vue";
-import type { OnyxCheckboxGroupProps } from "./types";
+import type { OnyxCheckboxGroupProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxCheckboxGroupProps<TValue>>(), {
   orientation: "vertical",

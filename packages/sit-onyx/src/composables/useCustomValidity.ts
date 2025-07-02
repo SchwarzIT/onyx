@@ -1,12 +1,12 @@
 import { computed, ref, toValue, watch, type Directive, type MaybeRefOrGetter } from "vue";
-import type { DateValue, OnyxDatePickerProps } from "../components/OnyxDatePicker/types";
-import type { InputType } from "../components/OnyxInput/types";
-import { injectI18n } from "../i18n";
+import type { DateValue, OnyxDatePickerProps } from "../components/OnyxDatePicker/types.js";
+import type { InputType } from "../components/OnyxInput/types.js";
+import { injectI18n } from "../i18n/index.js";
 import enUS from "../i18n/locales/en-US.json";
-import { isValidDate } from "../utils/date";
-import { areObjectsFlatEqual } from "../utils/objects";
-import { getFirstInvalidType, transformValidityStateToObject } from "../utils/validity";
-import type { MaxLength } from "./useLenientMaxLengthValidation";
+import { isValidDate } from "../utils/date.js";
+import { areObjectsFlatEqual } from "../utils/objects.js";
+import { getFirstInvalidType, transformValidityStateToObject } from "../utils/validity.js";
+import type { MaxLength } from "./useLenientMaxLengthValidation.js";
 
 export type CustomMessageType = string | FormMessages;
 

@@ -1,5 +1,5 @@
-import type { TruncationType } from "../../types";
-import type { OnyxListItemProps } from "../OnyxListItem/types";
+import type { TruncationType } from "../../types/index.js";
+import type { OnyxListItemProps } from "../OnyxListItem/types.js";
 
 export type OnyxSelectOptionProps = Pick<OnyxListItemProps, "active" | "density"> & {
   /**

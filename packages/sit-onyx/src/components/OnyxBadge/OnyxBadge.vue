@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { useDensity } from "../../composables/density";
+import { useDensity } from "../../composables/density.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import type { OnyxBadgeProps } from "./types";
+import type { OnyxBadgeProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxBadgeProps>(), {
   color: "primary",

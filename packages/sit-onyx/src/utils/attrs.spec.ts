@@ -1,6 +1,6 @@
 import { describe, expect, test, vi, type Mock } from "vitest";
 import * as vue from "vue";
-import { mergeVueProps, useRootAttrs } from "./attrs";
+import { mergeVueProps, useRootAttrs } from "./attrs.js";
 
 vi.mock("vue", async (importOriginal) => {
   const module = await importOriginal<typeof import("vue")>();

@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import arrowSmallLeft from "@sit-onyx/icons/arrow-small-left.svg?raw";
 import { computed, inject, provide, toRef } from "vue";
-import { useLink } from "../../../../composables/useLink";
-import { useMoreListChild } from "../../../../composables/useMoreList";
-import { useVModel } from "../../../../composables/useVModel";
-import { injectI18n } from "../../../../i18n";
-import type { Nullable } from "../../../../types";
-import { mergeVueProps, useRootAttrs } from "../../../../utils/attrs";
+import { useLink } from "../../../../composables/useLink.js";
+import { useMoreListChild } from "../../../../composables/useMoreList.js";
+import { useVModel } from "../../../../composables/useVModel.js";
+import { injectI18n } from "../../../../i18n/index.js";
+import type { Nullable } from "../../../../types/index.js";
+import { mergeVueProps, useRootAttrs } from "../../../../utils/attrs.js";
 import OnyxButton from "../../../OnyxButton/OnyxButton.vue";
 import OnyxSeparator from "../../../OnyxSeparator/OnyxSeparator.vue";
 import {
@@ -14,10 +14,10 @@ import {
   NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY,
   NAV_BAR_MORE_LIST_INJECTION_KEY,
   NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY,
-} from "../../types";
+} from "../../types.js";
 import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxNavItemFacade from "../OnyxNavItemFacade/OnyxNavItemFacade.vue";
-import type { OnyxNavItemProps } from "./types";
+import type { OnyxNavItemProps } from "./types.js";
 
 defineOptions({ inheritAttrs: false });
 

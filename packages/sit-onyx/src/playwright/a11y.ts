@@ -1,4 +1,4 @@
-import AxeBuilder from "@axe-core/playwright";
+import { AxeBuilder } from "@axe-core/playwright";
 import { test as base } from "@playwright/experimental-ct-vue";
 import type { Page } from "@playwright/test";
 import { a11yTags } from "../a11yConfig.js";

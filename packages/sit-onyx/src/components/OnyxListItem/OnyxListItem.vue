@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useDensity } from "../../composables/density";
-import type { OnyxListItemProps } from "./types";
+import { useDensity } from "../../composables/density.js";
+import type { OnyxListItemProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxListItemProps>(), {
   active: false,

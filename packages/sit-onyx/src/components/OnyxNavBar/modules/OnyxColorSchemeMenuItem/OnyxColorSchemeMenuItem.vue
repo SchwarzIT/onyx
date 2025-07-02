@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import circleContrast from "@sit-onyx/icons/circle-contrast.svg?raw";
 import { ref } from "vue";
-import { injectI18n } from "../../../../i18n";
+import { injectI18n } from "../../../../i18n/index.js";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxColorSchemeDialog from "../OnyxColorSchemeDialog/OnyxColorSchemeDialog.vue";
-import type { ColorSchemeValue } from "../OnyxColorSchemeDialog/types";
+import type { ColorSchemeValue } from "../OnyxColorSchemeDialog/types.js";
 import OnyxMenuItem from "../OnyxMenuItem/OnyxMenuItem.vue";
-import type { OnyxColorSchemeMenuItemProps } from "./types";
+import type { OnyxColorSchemeMenuItemProps } from "./types.js";
 
 const props = defineProps<OnyxColorSchemeMenuItemProps>();
 

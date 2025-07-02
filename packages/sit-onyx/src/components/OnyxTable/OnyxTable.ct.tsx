@@ -1,6 +1,6 @@
-import { DENSITIES } from "../../composables/density";
-import { expect, test } from "../../playwright/a11y";
-import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots";
+import { DENSITIES } from "../../composables/density.js";
+import { expect, test } from "../../playwright/a11y.js";
+import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots.js";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";

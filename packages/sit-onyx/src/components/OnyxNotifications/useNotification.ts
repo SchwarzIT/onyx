@@ -1,7 +1,7 @@
 import { computed, inject, ref, type ComputedRef, type InjectionKey } from "vue";
-import { userConsole } from "../../utils/console";
-import type { OnyxButtonProps } from "../OnyxButton/types";
-import type { OnyxNotificationMessageProps } from "../OnyxNotificationMessage/types";
+import { userConsole } from "../../utils/console.js";
+import type { OnyxButtonProps } from "../OnyxButton/types.js";
+import type { OnyxNotificationMessageProps } from "../OnyxNotificationMessage/types.js";
 
 export type NotificationsProvider = {
   /**

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import bag from "@sit-onyx/icons/bag.svg?raw";
 import { ref } from "vue";
-import { OnyxBadge, OnyxIcon, OnyxSelect, OnyxTag, type SelectOption } from "../../..";
+import { OnyxBadge, OnyxIcon, OnyxSelect, OnyxTag, type SelectOption } from "../../../index.js";
 
 const options = [
   { label: "In sale", value: "sale" },

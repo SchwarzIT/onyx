@@ -1,10 +1,10 @@
 import { expect, test } from "vitest";
 import * as vue from "vue";
 import { ref } from "vue";
-import type { DataGridEntry } from "../../types";
+import type { DataGridEntry } from "../../types/index.js";
 import { createFeatureContextMock } from "../index.spec";
-import { useSorting } from "./sorting";
-import type { SortOptions, SortState } from "./types";
+import { useSorting } from "./sorting.js";
+import type { SortOptions, SortState } from "./types.js";
 
 const getTestData = () => [
   { id: 1, a: "6", b: "1-End" },

@@ -4,7 +4,7 @@ import PlaywrightTest from "./PlaywrightTest.ct.vue";
 import {
   createNotificationsProvider,
   NOTIFICATIONS_PROVIDER_INJECTION_KEY,
-} from "./useNotification";
+} from "./useNotification.js";
 
 provide(NOTIFICATIONS_PROVIDER_INJECTION_KEY, createNotificationsProvider());
 </script>

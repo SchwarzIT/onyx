@@ -1,4 +1,4 @@
-import type { WithLinkProp } from "../OnyxRouterLink/types";
+import type { WithLinkProp } from "../OnyxRouterLink/types.js";
 
 export type OnyxNavAppAreaProps = WithLinkProp & {
   /**

@@ -5,10 +5,10 @@ import circleInformation from "@sit-onyx/icons/circle-information.svg?raw";
 import circleX from "@sit-onyx/icons/circle-x.svg?raw";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { computed } from "vue";
-import { useDensity } from "../../composables/density";
-import { injectI18n } from "../../i18n";
+import { useDensity } from "../../composables/density.js";
+import { injectI18n } from "../../i18n/index.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import type { OnyxToastMessageProps } from "./types";
+import type { OnyxToastMessageProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxToastMessageProps>(), {
   color: "neutral",

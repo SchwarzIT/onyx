@@ -1,5 +1,5 @@
 import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
-import { expect, test } from "../../playwright/a11y";
+import { expect, test } from "../../playwright/a11y.js";
 import TestWrapper from "../OnyxTooltip/TestWrapper.ct.vue";
 import OnyxDialog from "./OnyxDialog.vue";
 test.beforeEach(async ({ page }) => {

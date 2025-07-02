@@ -20,7 +20,7 @@ import { type OnyxI18n } from "../../../i18n/index.js";
 import type { Nullable } from "../../../types/index.js";
 import { mergeVueProps } from "../../../utils/attrs.js";
 import { applyMapping, prepareMapping, type OrderableMapping } from "../../../utils/feature.js";
-import { asArray } from "../../../utils/objects";
+import { asArray } from "../../../utils/objects.js";
 import type { OnyxMenuItem } from "../../OnyxNavBar/modules/index.js";
 import OnyxFlyoutMenu from "../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxSystemButton from "../../OnyxSystemButton/OnyxSystemButton.vue";
@@ -35,9 +35,9 @@ import {
   type DataGridEntry,
   type DataGridMetadata,
   type RenderTypesFromFeature,
-} from "../types";
-import type { BASE_FEATURE } from "./base/base";
-import { createRenderer } from "./renderer";
+} from "../types.js";
+import type { BASE_FEATURE } from "./base/base.js";
+import { createRenderer } from "./renderer.js";
 
 /**
  * Function type for modifying the normalized column configuration.

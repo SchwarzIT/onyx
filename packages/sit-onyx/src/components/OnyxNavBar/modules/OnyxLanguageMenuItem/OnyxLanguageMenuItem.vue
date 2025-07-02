@@ -1,11 +1,11 @@
 <script lang="ts" setup generic="TValue extends string">
 import translate from "@sit-onyx/icons/translate.svg?raw";
 import { computed, ref } from "vue";
-import { OnyxSelectDialog } from "../../../..";
-import { injectI18n } from "../../../../i18n";
+import { injectI18n } from "../../../../i18n/index.js";
+import { OnyxSelectDialog } from "../../../../index.js";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxMenuItem from "../OnyxMenuItem/OnyxMenuItem.vue";
-import type { OnyxCountryMenuItemProps } from "./types";
+import type { OnyxCountryMenuItemProps } from "./types.js";
 
 const props = defineProps<OnyxCountryMenuItemProps<TValue>>();
 

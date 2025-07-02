@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import { OnyxSkeleton, OnyxSwitch, OnyxTable } from "../../..";
+import { OnyxSkeleton, OnyxSwitch, OnyxTable } from "../../../index.js";
 
 const skeleton = ref(true); // Skeleton state
 

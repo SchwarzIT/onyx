@@ -1,4 +1,4 @@
-import type { DensityProp } from "../../composables/density";
+import type { DensityProp } from "../../composables/density.js";
 
 export type OnyxBreadcrumbProps = DensityProp & {
   /**

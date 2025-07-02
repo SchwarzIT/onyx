@@ -1,14 +1,17 @@
 <script lang="ts" setup>
 import { computed, useTemplateRef } from "vue";
-import { useDensity } from "../../composables/density";
-import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
-import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
+import { useDensity } from "../../composables/density.js";
+import {
+  SKELETON_INJECTED_SYMBOL,
+  useSkeletonContext,
+} from "../../composables/useSkeletonState.js";
+import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxRipple from "../OnyxRipple/OnyxRipple.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import ButtonOrLinkLayout from "./ButtonOrLinkLayout.vue";
-import type { OnyxButtonProps } from "./types";
+import type { OnyxButtonProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxButtonProps>(), {
   disabled: FORM_INJECTED_SYMBOL,
@@ -160,9 +163,7 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
       }
     }
   }
-}
 
-.onyx-button {
   @include layers.component() {
     position: relative;
     display: inline-flex;

@@ -1,5 +1,5 @@
-import { expect, test } from "../../../../playwright/a11y";
-import { executeMatrixScreenshotTest } from "../../../../playwright/screenshots";
+import { expect, test } from "../../../../playwright/a11y.js";
+import { executeMatrixScreenshotTest } from "../../../../playwright/screenshots.js";
 import OnyxTimer from "./OnyxTimer.vue";
 
 const MOCK_NOW = new Date(2024, 0, 1, 12);

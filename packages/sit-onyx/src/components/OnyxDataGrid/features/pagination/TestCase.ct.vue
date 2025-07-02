@@ -1,9 +1,8 @@
 <script setup lang="ts" generic="TEntry extends DataGridEntry">
 import { computed } from "vue";
-import type { DataGridEntry, OnyxDataGridProps } from "../../../..";
-import { DataGridFeatures, OnyxDataGrid } from "../../../..";
-import { useFiltering, useSelection } from "../all";
-import type { PaginationOptions } from "./types";
+import type { DataGridEntry, OnyxDataGridProps } from "../../../../index.js";
+import { DataGridFeatures, OnyxDataGrid } from "../../../../index.js";
+import type { PaginationOptions } from "./types.js";
 
 const props = defineProps<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- for simplicity we use any here

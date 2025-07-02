@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import user from "@sit-onyx/icons/user.svg?raw";
 import { computed, ref, watch } from "vue";
-import { injectI18n } from "../../i18n";
-import { getInitials } from "../../utils/strings";
+import { injectI18n } from "../../i18n/index.js";
+import { getInitials } from "../../utils/strings.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import type { OnyxAvatarProps } from "./types";
+import type { OnyxAvatarProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxAvatarProps>(), {
   size: "48px",
