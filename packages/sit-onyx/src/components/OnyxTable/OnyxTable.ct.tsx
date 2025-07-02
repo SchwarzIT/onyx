@@ -288,3 +288,18 @@ test("should focus components with active column hover effect", async ({ page, m
 
   expect(buttonClickCount).toBe(2);
 });
+
+test("should set table aria label when headline is passed", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxTable>
+      <template v-slot:headline>
+        <OnyxHeadline is="h3">Example headline</OnyxHeadline>
+      </template>
+    </OnyxTable>,
+  );
+
+  // ASSERT
+  await expect(component.getByRole("heading", { name: "Example headline" })).toBeAttached();
+  await expect(component.getByRole("table", { name: "Example headline" })).toBeAttached();
+});

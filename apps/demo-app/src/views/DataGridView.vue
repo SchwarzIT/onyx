@@ -170,7 +170,13 @@ const dataFeatures = computed(() => {
       />
     </section>
 
-    <OnyxDataGrid :skeleton="enabledFeatures.skeleton" :features="dataFeatures" :data :columns />
+    <OnyxDataGrid
+      headline="Example headline"
+      :skeleton="enabledFeatures.skeleton"
+      :features="dataFeatures"
+      :data
+      :columns
+    />
   </OnyxPageLayout>
 </template>
 

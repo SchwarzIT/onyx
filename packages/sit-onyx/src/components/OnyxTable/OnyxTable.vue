@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, useTemplateRef } from "vue";
+import { computed, useId, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density";
 import { useResizeObserver } from "../../composables/useResizeObserver";
 import { injectI18n } from "../../i18n";
@@ -15,25 +15,26 @@ const props = withDefaults(defineProps<OnyxTableProps>(), {
 const slots = defineSlots<OnyxTableSlots>();
 
 const { t } = injectI18n();
-
 const { densityClass } = useDensity(props);
 
 const isEmptyMessage = computed(() => t.value("table.empty"));
 
 const table = useTemplateRef("tableRef");
-
 const { height, width } = useResizeObserver(table);
 
 const style = computed(() => ({
   "--onyx-table-observed-height": `${height.value}px`,
   "--onyx-table-observed-width": `${width.value}px`,
 }));
+
+const _headlineId = useId();
+const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
 </script>
 
 <template>
   <div class="onyx-table-wrapper onyx-component" :style>
     <div v-if="!!slots.headline || !!slots.actions" class="onyx-table-wrapper__top">
-      <div>
+      <div :id="headlineId">
         <slot name="headline"></slot>
       </div>
 
@@ -58,6 +59,7 @@ const style = computed(() => ({
           props.withVerticalBorders ? 'onyx-table--vertical-borders' : '',
           densityClass,
         ]"
+        :aria-labelledby="headlineId"
       >
         <colgroup
           v-for="group of props.columnGroups"
