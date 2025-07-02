@@ -21,6 +21,7 @@
     "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.2",
     "@changesets/cli": "^2.29.4",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.5.0",
     "@eslint-community/eslint-utils": "^4.7.0",
@@ -53,6 +54,7 @@
     "eslint-plugin-vuejs-accessibility": "^2.4.1",
     "jsdom": "^26.1.0",
     "lint-staged": "^16.1.2",
+    "npm-package-json-lint": "^9.0.0",
     "prettier": "^3.5.3",
     "prettier-plugin-organize-imports": "^4.1.0",
     "publint": "^0.3.12",

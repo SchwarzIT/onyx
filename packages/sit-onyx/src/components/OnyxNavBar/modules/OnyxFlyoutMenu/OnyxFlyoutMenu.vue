@@ -2,10 +2,10 @@
 <script setup lang="ts" generic="_">
 import { createMenuButton } from "@sit-onyx/headless";
 import { computed } from "vue";
-import { useVModel } from "../../../../composables/useVModel";
-import type { Nullable } from "../../../../types";
+import { useVModel } from "../../../../composables/useVModel.js";
+import type { Nullable } from "../../../../types/index.js";
 import OnyxPopover from "../../../OnyxPopover/OnyxPopover.vue";
-import type { OnyxFlyoutMenuProps } from "./types";
+import type { OnyxFlyoutMenuProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxFlyoutMenuProps>(), {
   trigger: "hover",
