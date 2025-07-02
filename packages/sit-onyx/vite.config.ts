@@ -6,7 +6,7 @@ import { DiagnosticCategory } from "typescript";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 import packageJson from "./package.json";
-import { vuePluginOptions } from "./playwright.config";
+import { vuePluginOptions } from "./playwright.config.js";
 
 // https://vitejs.dev/config
 export default defineConfig({
