@@ -26,8 +26,13 @@ const { densityClass } = useDensity(props);
 
 .onyx-fab-button {
   @include layers.component() {
+    --onyx-fab-button-background: var(--onyx-color-base-neutral-800);
+    --onyx-fab-button-background-hover: var(--onyx-color-base-neutral-500);
+    --onyx-fab-button-padding: var(--onyx-density-md);
+    --onyx-fab-button-gap: var(--onyx-density-xs);
+
     font-family: var(--onyx-font-family);
-    background: var(--onyx-color-base-neutral-800);
+    background: var(--onyx-fab-button-background);
     border: none;
     cursor: pointer;
     color: var(--onyx-color-text-icons-neutral-inverted);
@@ -36,17 +41,19 @@ const { densityClass } = useDensity(props);
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    gap: var(--onyx-density-xs);
+    gap: var(--onyx-fab-button-gap);
     border-radius: var(--onyx-radius-full);
     box-shadow: var(--onyx-shadow-soft-bottom);
     width: max-content;
     max-width: 100%;
+    padding: var(--onyx-fab-button-padding);
 
     &:hover {
-      background: var(--onyx-color-base-neutral-500);
+      background: var(--onyx-fab-button-background-hover);
     }
 
     &:focus-visible {
+      background: var(--onyx-fab-button-background);
       outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
     }
   }

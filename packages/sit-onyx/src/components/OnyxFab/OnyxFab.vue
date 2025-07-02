@@ -5,6 +5,7 @@ import { computed } from "vue";
 import { useDensity } from "../../composables/density";
 import { useVModel } from "../../composables/useVModel";
 import type { Nullable } from "../../types";
+import { mergeVueProps } from "../../utils/attrs";
 import OnyxFabButton from "../OnyxFabButton/OnyxFabButton.vue";
 import OnyxFlyoutMenu from "../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import type { OnyxFabProps } from "./types";
@@ -57,7 +58,12 @@ const triggerIcon = computed(() => {
     :alignment="props.alignment"
   >
     <template #button="{ trigger }">
-      <OnyxFabButton v-bind="{ ...props, ...trigger }" :icon="triggerIcon" />
+      <OnyxFabButton
+        v-bind="mergeVueProps(props, trigger)"
+        :label="props.label"
+        :hide-label
+        :icon="triggerIcon"
+      />
     </template>
 
     <template #options>
