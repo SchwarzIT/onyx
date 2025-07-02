@@ -1,5 +1,5 @@
 import { computed, ref, toRef, watch, type Ref } from "vue";
-import type { Nullable, PrimitiveType } from "../types";
+import type { Nullable, PrimitiveType } from "../types/index.js";
 
 export type UseVModelOptions<
   TKey extends keyof TProps & string,

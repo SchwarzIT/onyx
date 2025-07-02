@@ -5,7 +5,7 @@ import {
   ONYX_MAX_WIDTHS,
   type OnyxBreakpoint,
 } from "@sit-onyx/shared/breakpoints";
-import { expect, test } from "../playwright/a11y";
+import { expect, test } from "../playwright/a11y.js";
 
 /**
  * Map of column count per breakpoint.

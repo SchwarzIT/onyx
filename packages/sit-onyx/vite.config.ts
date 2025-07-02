@@ -3,17 +3,24 @@ import { VITE_BASE_CONFIG } from "@sit-onyx/shared/vite.config.base";
 import vue from "@vitejs/plugin-vue";
 import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vite";
+import dts from "vite-plugin-dts";
 import packageJson from "./package.json";
 import { vuePluginOptions } from "./playwright.config";
 
 // https://vitejs.dev/config
 export default defineConfig({
   ...VITE_BASE_CONFIG,
-  plugins: [vue(vuePluginOptions)],
+  plugins: [
+    dts({
+      tsconfigPath: "./tsconfig.app.json",
+      compilerOptions: { composite: false },
+    }),
+    vue(vuePluginOptions),
+  ],
   build: {
     lib: {
       entry: getFilePath("./src/index.ts"),
-      formats: ["es", "cjs"],
+      formats: ["es"],
       fileName: "index",
       cssFileName: "style",
     },

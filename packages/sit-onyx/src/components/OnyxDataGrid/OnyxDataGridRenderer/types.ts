@@ -5,11 +5,13 @@ import type {
   TdHTMLAttributes,
   ThHTMLAttributes,
 } from "vue";
-import type { Nullable, WithHTMLAttributes } from "../../../types";
-import type { OnyxTableProps } from "../../OnyxTable/types";
-import type { DataGridEntry } from "../types";
+import type { Nullable, WithHTMLAttributes } from "../../../types/index.js";
+import type { OnyxTableProps, OnyxTableSlots } from "../../OnyxTable/types.js";
+import type { DataGridEntry } from "../types.js";
 
 export type DataGridRendererCellMetadata = Record<string, unknown>;
+
+export type DataGridRendererSlots = Omit<OnyxTableSlots, "default" | "head">;
 
 export type OnyxDataGridRendererProps<
   TEntry extends DataGridEntry = DataGridEntry,

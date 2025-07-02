@@ -3,8 +3,8 @@ import { computed, inject } from "vue";
 import { useDensity } from "../../composables/density";
 import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import { TABS_INJECTION_KEY } from "../OnyxTabs/types";
-import type { OnyxTabProps } from "./types";
+import { TABS_INJECTION_KEY } from "../OnyxTabs/types.js";
+import type { OnyxTabProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxTabProps>(), {
   disabled: false,

@@ -5,25 +5,22 @@
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
+  "engines": {
+    "node": ">=18"
+  },
   "files": [
     "dist",
     "src/i18n/locales",
     "src/styles"
   ],
-  "main": "./dist/index.js",
   "module": "./dist/index.esm-bundler.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": {
         "types": "./dist/index.d.ts",
-        "node": "./dist/index.cjs",
+        "node": "./dist/index.js",
         "default": "./dist/index.esm-bundler.js"
-      },
-      "require": {
-        "types": "./dist/index.d.ts",
-        "node": "./dist/index.cjs",
-        "default": "./dist/index.js"
       }
     },
     "./style.css": "./dist/style.css",
@@ -46,7 +43,7 @@
   },
   "scripts": {
     "dev": "storybook dev -p 6006 --no-open",
-    "build": "node ./build/index.js && vue-tsc -p tsconfig.app.json --composite false && vue-tsc -p tsconfig.locales.json --composite false",
+    "build": "node ./build/index.js && vue-tsc -p tsconfig.locales.json --composite false",
     "build:storybook": "storybook build",
     "preview": "vite serve storybook-static",
     "test": "vitest",
@@ -74,6 +71,7 @@
     "sass-embedded": "catalog:",
     "storybook-addon-tag-badges": "^2.0.1",
     "tsx": "^4.20.3",
+    "vite-plugin-dts": "^4.5.4",
     "vue": "catalog:",
     "vue-component-type-helpers": "^2.2.10",
     "vue-i18n": "^11.1.6",

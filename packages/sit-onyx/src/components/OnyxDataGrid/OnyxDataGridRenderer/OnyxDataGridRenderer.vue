@@ -2,13 +2,12 @@
 import { computed } from "vue";
 import { mergeVueProps } from "../../../utils/attrs";
 import OnyxTable from "../../OnyxTable/OnyxTable.vue";
-import type { OnyxTableSlots } from "../../OnyxTable/types";
 import type { DataGridEntry, DataGridMetadata } from "../types";
-import type { OnyxDataGridRendererProps } from "./types";
+import type { DataGridRendererSlots, OnyxDataGridRendererProps } from "./types";
 
 const props = defineProps<OnyxDataGridRendererProps<TEntry, TMetadata>>();
 
-const slots = defineSlots<Omit<OnyxTableSlots, "default" | "head">>();
+const slots = defineSlots<DataGridRendererSlots>();
 
 const columnStyle = computed(() => {
   return {
@@ -56,7 +55,7 @@ const columnStyle = computed(() => {
     </tr>
 
     <template v-for="(slot, slotName) in slots" :key="slotName" #[slotName]="slotProps">
-      <slot :name="slot?.name" v-bind="slotProps">
+      <slot :name="slot?.name as 'headline'" v-bind="slotProps">
         <component :is="slot"></component>
       </slot>
     </template>

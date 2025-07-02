@@ -1,0 +1,13 @@
+{
+  "name": "sit-onyx-test-app",
+  "version": "0.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage"
+  },
+  "devDependencies": {
+    "sit-onyx": "workspace:^"
+  }
+}
