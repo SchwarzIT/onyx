@@ -17,8 +17,8 @@
     }
   },
   "optionalDependencies": {
-    "@vitejs/plugin-vue": ">= 5",
+    "@vitejs/plugin-vue": ">= 6",
     "sass-embedded": ">= 1.89.2",
-    "vite": ">= 6"
+    "vite": ">= 7"
   }
 }
