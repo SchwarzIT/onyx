@@ -3,7 +3,7 @@ import { useArgs } from "storybook/internal/preview-api";
 import { ref, watch, watchEffect } from "vue";
 import OnyxButton from "../../../OnyxButton/OnyxButton.vue";
 import OnyxColorSchemeDialog from "./OnyxColorSchemeDialog.vue";
-import type { OnyxColorSchemeDialogProps } from "./types";
+import type { OnyxColorSchemeDialogProps } from "./types.js";
 
 /**
  * Pre-built dialog where the user can select which color scheme (light/dark mode or auto) to use for the application.

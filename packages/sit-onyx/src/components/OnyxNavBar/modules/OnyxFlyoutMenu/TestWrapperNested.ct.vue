@@ -2,7 +2,7 @@
 <script lang="ts" setup>
 import OnyxMenuItem from "../OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxFlyoutMenu from "./OnyxFlyoutMenu.vue";
-import type { OnyxFlyoutMenuProps } from "./types";
+import type { OnyxFlyoutMenuProps } from "./types.js";
 
 const props = defineProps<OnyxFlyoutMenuProps>();
 </script>

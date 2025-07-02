@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { OnyxColor } from "../../../../types";
+import type { OnyxColor } from "../../../../types/index.js";
 import OnyxBadge from "../../../OnyxBadge/OnyxBadge.vue";
 
 const props = defineProps<{

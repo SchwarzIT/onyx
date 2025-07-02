@@ -1,18 +1,18 @@
 import type { MountResultJsx } from "@playwright/experimental-ct-vue";
 import { comboboxSelectOnlyTesting, comboboxTesting } from "@sit-onyx/headless/playwright";
-import { DENSITIES } from "../../composables/density";
-import type { FormMessages } from "../../composables/useCustomValidity";
-import { expect, test } from "../../playwright/a11y";
+import { DENSITIES } from "../../composables/density.js";
+import type { FormMessages } from "../../composables/useCustomValidity.js";
+import { expect, test } from "../../playwright/a11y.js";
 import {
   executeMatrixScreenshotTest,
   type OnyxMatrixScreenshotHookContext,
-} from "../../playwright/screenshots";
-import type { SelectOptionValue } from "../../types";
+} from "../../playwright/screenshots.js";
+import type { SelectOptionValue } from "../../types/index.js";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-utils";
 import OnyxSelect from "./OnyxSelect.vue";
 import TestWrapperCt from "./TestWrapper.ct.vue";
-import { SELECT_ALIGNMENTS, type OnyxSelectProps, type SelectOption } from "./types";
+import { SELECT_ALIGNMENTS, type OnyxSelectProps, type SelectOption } from "./types.js";
 
 const context = {
   disabledAccessibilityRules: [

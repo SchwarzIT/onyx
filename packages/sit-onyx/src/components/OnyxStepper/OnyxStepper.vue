@@ -2,22 +2,25 @@
 import minus from "@sit-onyx/icons/minus.svg?raw";
 import plus from "@sit-onyx/icons/plus.svg?raw";
 import { computed, ref, useTemplateRef, watchEffect } from "vue";
-import { useDensity } from "../../composables/density";
-import { useAutofocus } from "../../composables/useAutoFocus";
-import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
-import { useErrorClass } from "../../composables/useErrorClass";
-import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
-import { useVModel } from "../../composables/useVModel";
-import { injectI18n } from "../../i18n";
-import type { Nullable } from "../../types";
-import { useRootAttrs } from "../../utils/attrs";
-import { applyLimits, roundToPrecision } from "../../utils/numbers";
-import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
+import { useDensity } from "../../composables/density.js";
+import { useAutofocus } from "../../composables/useAutoFocus.js";
+import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity.js";
+import { useErrorClass } from "../../composables/useErrorClass.js";
+import {
+  SKELETON_INJECTED_SYMBOL,
+  useSkeletonContext,
+} from "../../composables/useSkeletonState.js";
+import { useVModel } from "../../composables/useVModel.js";
+import { injectI18n } from "../../i18n/index.js";
+import type { Nullable } from "../../types/index.js";
+import { useRootAttrs } from "../../utils/attrs.js";
+import { applyLimits, roundToPrecision } from "../../utils/numbers.js";
+import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import type { OnyxStepperProps } from "./types";
+import type { OnyxStepperProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxStepperProps>(), {
   stepSize: 1,

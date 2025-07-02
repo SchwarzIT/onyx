@@ -1,9 +1,9 @@
 /* eslint playwright/expect-expect: ["error", { "assertFunctionNames": ["expectRowCount"] }] -- We have some assertions in extra functions */
 import type { Locator } from "@playwright/test";
-import { expect, test } from "../../../../playwright/a11y";
-import type { DataGridEntry } from "../../types";
+import { expect, test } from "../../../../playwright/a11y.js";
+import type { DataGridEntry } from "../../types/index.js";
 import TestCase from "./TestCase.vue";
-import type { FilterConfig } from "./types";
+import type { FilterConfig } from "./types.js";
 const getTestData = () => [
   { id: 1, a: "1", b: "a" },
   { id: 2, a: "1", b: "A" },

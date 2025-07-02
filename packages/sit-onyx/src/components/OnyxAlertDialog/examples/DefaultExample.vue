@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import circleAttention from "@sit-onyx/icons/circle-attention.svg?raw";
 import { ref } from "vue";
-import { OnyxAlertDialog, OnyxButton } from "../../..";
+import { OnyxAlertDialog, OnyxButton } from "../../../index.js";
 
 const isOpen = ref(false);
 </script>

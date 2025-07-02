@@ -1,4 +1,4 @@
-import type { OnyxColor } from "../../types/colors";
+import type { OnyxColor } from "../../types/colors.js";
 
 export type OnyxIconProps = IconSizeProp & {
   /**

@@ -1,4 +1,4 @@
-import type { ColorSchemeValue } from "../OnyxColorSchemeDialog/types";
+import type { ColorSchemeValue } from "../OnyxColorSchemeDialog/types.js";
 
 export type OnyxColorSchemeMenuItemProps = {
   /**

@@ -1,7 +1,7 @@
 import { computed, inject, provide, toRef, type InjectionKey, type Reactive, type Ref } from "vue";
-import type { RequiredMarkerType } from "../../composables/required";
-import type { ShowErrorMode } from "../../composables/useErrorClass";
-import { userConsole } from "../../utils/console";
+import type { RequiredMarkerType } from "../../composables/required.js";
+import type { ShowErrorMode } from "../../composables/useErrorClass.js";
+import { userConsole } from "../../utils/console.js";
 
 const FORM_INJECTION_KEY = Symbol() as InjectionKey<ReturnType<typeof createFormInjectionContext>>;
 

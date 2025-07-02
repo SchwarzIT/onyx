@@ -1,6 +1,6 @@
-import { test } from "../../playwright/a11y";
-import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots";
-import { ONYX_COLORS } from "../../types";
+import { test } from "../../playwright/a11y.js";
+import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots.js";
+import { ONYX_COLORS } from "../../types/index.js";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxNotificationDot from "./OnyxNotificationDot.vue";
 

@@ -9,7 +9,7 @@ import {
   OnyxMenuItem,
   OnyxSystemButton,
   OnyxTag,
-} from "../../..";
+} from "../../../index.js";
 </script>
 
 <template>

@@ -1,16 +1,19 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
 import { useTemplateRef } from "vue";
-import { useDensity } from "../../composables/density";
-import { useAutofocus } from "../../composables/useAutoFocus";
-import { useCustomValidity } from "../../composables/useCustomValidity";
-import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
-import type { SelectOptionValue } from "../../types";
-import { useRootAttrs } from "../../utils/attrs";
+import { useDensity } from "../../composables/density.js";
+import { useAutofocus } from "../../composables/useAutoFocus.js";
+import { useCustomValidity } from "../../composables/useCustomValidity.js";
+import {
+  SKELETON_INJECTED_SYMBOL,
+  useSkeletonContext,
+} from "../../composables/useSkeletonState.js";
+import type { SelectOptionValue } from "../../types/index.js";
+import { useRootAttrs } from "../../utils/attrs.js";
 import OnyxErrorTooltip from "../OnyxErrorTooltip/OnyxErrorTooltip.vue";
-import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
+import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import type { OnyxRadioButtonProps } from "./types";
+import type { OnyxRadioButtonProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxRadioButtonProps<TValue>>(), {
   disabled: FORM_INJECTED_SYMBOL,

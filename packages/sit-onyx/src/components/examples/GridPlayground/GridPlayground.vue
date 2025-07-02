@@ -20,7 +20,7 @@ import {
   useTemplateRef,
   watch,
 } from "vue";
-import { useResizeObserver } from "../../../composables/useResizeObserver";
+import { useResizeObserver } from "../../../composables/useResizeObserver.js";
 import OnyxHeadline from "../../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIcon from "../../OnyxIcon/OnyxIcon.vue";
 import OnyxIconButton from "../../OnyxIconButton/OnyxIconButton.vue";
@@ -29,7 +29,7 @@ import OnyxNavBar from "../../OnyxNavBar/OnyxNavBar.vue";
 import OnyxMenuItem from "../../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxUserMenu from "../../OnyxNavBar/modules/OnyxUserMenu/OnyxUserMenu.vue";
 import OnyxSelect from "../../OnyxSelect/OnyxSelect.vue";
-import type { SelectOption } from "../../OnyxSelect/types";
+import type { SelectOption } from "../../OnyxSelect/types.js";
 import OnyxSeparator from "../../OnyxSeparator/OnyxSeparator.vue";
 import OnyxVisuallyHidden from "../../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import EditGridElementDialog, {

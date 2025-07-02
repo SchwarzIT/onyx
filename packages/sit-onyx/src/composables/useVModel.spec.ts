@@ -1,8 +1,8 @@
 import { mount } from "@vue/test-utils";
 import { describe, expect, test, vi } from "vitest";
 import { nextTick, reactive } from "vue";
-import type { Nullable } from "../types";
-import { useVModel } from "./useVModel";
+import type { Nullable } from "../types/index.js";
+import { useVModel } from "./useVModel.js";
 import UseVModelSpec from "./useVModel.spec.vue";
 
 test("should update the internal state when the prop changes", async () => {

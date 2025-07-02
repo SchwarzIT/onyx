@@ -1,4 +1,4 @@
-import type { SkeletonInjected } from "../../composables/useSkeletonState";
+import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 
 export type OnyxHeadlineProps = {
   /**

@@ -2,14 +2,17 @@
 import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
 import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
 import { computed } from "vue";
-import { useDensity } from "../../composables/density";
-import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
-import { injectI18n } from "../../i18n";
+import { useDensity } from "../../composables/density.js";
+import {
+  SKELETON_INJECTED_SYMBOL,
+  useSkeletonContext,
+} from "../../composables/useSkeletonState.js";
+import { injectI18n } from "../../i18n/index.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
-import type { SelectOption } from "../OnyxSelect/types";
+import type { SelectOption } from "../OnyxSelect/types.js";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import type { OnyxPaginationProps } from "./types";
+import type { OnyxPaginationProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxPaginationProps>(), {
   skeleton: SKELETON_INJECTED_SYMBOL,

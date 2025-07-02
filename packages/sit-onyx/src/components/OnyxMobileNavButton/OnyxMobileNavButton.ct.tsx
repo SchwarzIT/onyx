@@ -1,5 +1,5 @@
-import { expect, test } from "../../playwright/a11y";
-import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots";
+import { expect, test } from "../../playwright/a11y.js";
+import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots.js";
 import OnyxMobileNavButton from "./OnyxMobileNavButton.vue";
 
 test("should render without errors", async ({ mount, makeAxeBuilder }) => {

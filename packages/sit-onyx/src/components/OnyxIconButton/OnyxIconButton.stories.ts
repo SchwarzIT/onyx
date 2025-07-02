@@ -3,7 +3,7 @@ import trash from "@sit-onyx/icons/trash.svg?raw";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
-import { defineIconSelectArgType } from "../../utils/storybook";
+import { defineIconSelectArgType } from "../../utils/storybook.js";
 import OnyxIconButton from "./OnyxIconButton.vue";
 
 /**

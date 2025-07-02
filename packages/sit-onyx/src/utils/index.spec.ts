@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { isInternalLink } from ".";
+import { isInternalLink } from "./index.js";
 
 describe("isInternalLink", () => {
   test.each<{ href: string; internal: boolean }>([

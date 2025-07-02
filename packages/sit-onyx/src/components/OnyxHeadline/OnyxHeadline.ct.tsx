@@ -1,7 +1,7 @@
-import { expect, test } from "../../playwright/a11y";
-import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
+import { expect, test } from "../../playwright/a11y.js";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import OnyxHeadline from "./OnyxHeadline.vue";
-import { HEADLINE_TYPES } from "./types";
+import { HEADLINE_TYPES } from "./types.js";
 
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({

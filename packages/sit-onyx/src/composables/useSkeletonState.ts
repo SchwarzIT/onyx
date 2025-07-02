@@ -1,5 +1,5 @@
 import { computed, inject, provide, type ComputedRef, type InjectionKey, type Reactive } from "vue";
-import { userConsole } from "../utils/console";
+import { userConsole } from "../utils/console.js";
 
 const SKELETON_INJECTION_KEY = Symbol() as InjectionKey<
   ReturnType<typeof createSkeletonInjectionContext>

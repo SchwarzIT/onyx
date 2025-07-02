@@ -1,10 +1,10 @@
 <script lang="ts" setup generic="TValue extends PropertyKey = PropertyKey">
 import { createTabs } from "@sit-onyx/headless";
 import { provide, toRef, useTemplateRef } from "vue";
-import { useDensity } from "../../composables/density";
-import { provideSkeletonContext } from "../../composables/useSkeletonState";
-import { useVModel } from "../../composables/useVModel";
-import { TABS_INJECTION_KEY, type OnyxTabsProps, type TabsInjectionKey } from "./types";
+import { useDensity } from "../../composables/density.js";
+import { provideSkeletonContext } from "../../composables/useSkeletonState.js";
+import { useVModel } from "../../composables/useVModel.js";
+import { TABS_INJECTION_KEY, type OnyxTabsProps, type TabsInjectionKey } from "./types.js";
 
 type Props = OnyxTabsProps<TValue>;
 const props = withDefaults(defineProps<Props>(), {

@@ -1,7 +1,7 @@
-import type { DensityProp } from "../../composables/density";
-import type { SkeletonInjected } from "../../composables/useSkeletonState";
-import type { Orientation } from "../../types";
-import type { OnyxProgressStepProps } from "../OnyxProgressStep/types";
+import type { DensityProp } from "../../composables/density.js";
+import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
+import type { Orientation } from "../../types/index.js";
+import type { OnyxProgressStepProps } from "../OnyxProgressStep/types.js";
 
 export type OnyxProgressStepsProps = DensityProp & {
   /**

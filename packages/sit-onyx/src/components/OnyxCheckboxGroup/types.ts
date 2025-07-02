@@ -1,13 +1,13 @@
-import type { RequiredProp } from "../../composables/required";
-import type { CustomValidityProp } from "../../composables/useCustomValidity";
+import type { RequiredProp } from "../../composables/required.js";
+import type { CustomValidityProp } from "../../composables/useCustomValidity.js";
 import type {
   AutofocusProp,
   BaseSelectOption,
   Nullable,
   Orientation,
   SelectOptionValue,
-} from "../../types";
-import type { SharedFormElementProps } from "../OnyxFormElement/types";
+} from "../../types/index.js";
+import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
 
 export type OnyxCheckboxGroupProps<TValue extends SelectOptionValue = SelectOptionValue> = Pick<
   BaseSelectOption,

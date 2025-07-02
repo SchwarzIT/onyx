@@ -6,7 +6,7 @@ import {
   useFormContext,
   type FormInjected,
   type FormProps,
-} from "./OnyxForm.core";
+} from "./OnyxForm.core.js";
 
 let injected: (args: unknown[]) => void;
 

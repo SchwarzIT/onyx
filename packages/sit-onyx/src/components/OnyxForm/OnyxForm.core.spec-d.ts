@@ -1,6 +1,6 @@
 import { expectTypeOf, it } from "vitest";
 import type { ComponentExposed, ComponentProps } from "vue-component-type-helpers";
-import type { CustomMessageType } from "../../composables/useCustomValidity";
+import type { CustomMessageType } from "../../composables/useCustomValidity.js";
 import type OnyxCheckbox from "../OnyxCheckbox/OnyxCheckbox.vue";
 import type OnyxCheckboxGroup from "../OnyxCheckboxGroup/OnyxCheckboxGroup.vue";
 import type OnyxInput from "../OnyxInput/OnyxInput.vue";
@@ -10,7 +10,7 @@ import type OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
 import type OnyxStepper from "../OnyxStepper/OnyxStepper.vue";
 import OnyxSwitch from "../OnyxSwitch/OnyxSwitch.vue";
 import type OnyxTextarea from "../OnyxTextarea/OnyxTextarea.vue";
-import { type __DONT_USE_VUE_FIX_KeyOfFormProps, type FormProps } from "./OnyxForm.core";
+import { type __DONT_USE_VUE_FIX_KeyOfFormProps, type FormProps } from "./OnyxForm.core.js";
 
 it("should be ensured that _KeyofFormProps includes all keys of FormProps", async () => {
   expectTypeOf<keyof FormProps>().toExtend<__DONT_USE_VUE_FIX_KeyOfFormProps>();

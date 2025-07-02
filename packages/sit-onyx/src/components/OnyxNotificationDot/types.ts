@@ -1,4 +1,4 @@
-import type { OnyxBadgeProps } from "../OnyxBadge/types";
+import type { OnyxBadgeProps } from "../OnyxBadge/types.js";
 
 export type OnyxNotificationDotProps = {
   /**

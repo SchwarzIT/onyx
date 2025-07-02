@@ -1,5 +1,5 @@
 import { describe, expectTypeOf, it } from "vitest";
-import type { IfNotEmpty, KeysOfUnion, RecordValues } from "./utils";
+import type { IfNotEmpty, KeysOfUnion, RecordValues } from "./utils.js";
 
 describe("RecordValues", () => {
   it("should return value type for a record", () => {

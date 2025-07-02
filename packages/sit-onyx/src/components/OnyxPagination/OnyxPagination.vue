@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState";
+import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import OnyxSelectPagination from "./OnyxSelectPagination.vue";
-import type { OnyxPaginationProps } from "./types";
+import type { OnyxPaginationProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxPaginationProps>(), {
   disabled: false,

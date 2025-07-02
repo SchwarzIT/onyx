@@ -1,5 +1,5 @@
-import type { Nullable, OnyxColor } from "../../../../types";
-import type { WithLinkProp } from "../../../OnyxRouterLink/types";
+import type { Nullable, OnyxColor } from "../../../../types/index.js";
+import type { WithLinkProp } from "../../../OnyxRouterLink/types.js";
 
 export type OnyxMenuItemProps = WithLinkProp & {
   /**

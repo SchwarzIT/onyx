@@ -1,4 +1,4 @@
-import type { SharedLinkProps } from "../OnyxRouterLink/types";
+import type { SharedLinkProps } from "../OnyxRouterLink/types.js";
 
 export type OnyxExternalLinkIconProps = Partial<Pick<SharedLinkProps, "href">> & {
   /**

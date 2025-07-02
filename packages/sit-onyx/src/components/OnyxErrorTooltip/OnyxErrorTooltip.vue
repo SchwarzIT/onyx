@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed, useTemplateRef } from "vue";
-import { type FormMessages, getFormMessageText } from "../../composables/useCustomValidity";
+import { type FormMessages, getFormMessageText } from "../../composables/useCustomValidity.js";
 import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 
 const props = defineProps<{

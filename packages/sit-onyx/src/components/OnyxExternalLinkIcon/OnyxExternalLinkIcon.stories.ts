@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { textColorDecorator } from "../../utils/storybook";
+import { textColorDecorator } from "../../utils/storybook.js";
 import OnyxExternalLinkIcon from "./OnyxExternalLinkIcon.vue";
 
 /**

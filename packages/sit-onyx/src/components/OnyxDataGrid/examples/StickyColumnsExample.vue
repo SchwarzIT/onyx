@@ -4,7 +4,7 @@ import {
   OnyxDataGrid,
   type ColumnConfig,
   type ColumnGroupConfig,
-} from "../../..";
+} from "../../../index.js";
 
 type TEntry = {
   [key in `column-${number}`]?: string;

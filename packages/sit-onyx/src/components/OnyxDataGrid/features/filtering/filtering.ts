@@ -1,14 +1,14 @@
 import searchX from "@sit-onyx/icons/search-x.svg?raw";
 import { computed, h, toRef, toValue, type Ref } from "vue";
-import { createFeature, useFeatureContext } from "..";
-import type { Nullable } from "../../../../types";
-import { removeDiacritics } from "../../../../utils/strings";
+import type { Nullable } from "../../../../types/index.js";
+import { removeDiacritics } from "../../../../utils/strings.js";
 import OnyxMiniSearch from "../../../OnyxMiniSearch/OnyxMiniSearch.vue";
-import type { OnyxMiniSearchProps } from "../../../OnyxMiniSearch/types";
+import type { OnyxMiniSearchProps } from "../../../OnyxMiniSearch/types.js";
 import OnyxSystemButton from "../../../OnyxSystemButton/OnyxSystemButton.vue";
-import type { DataGridEntry } from "../../types";
+import type { DataGridEntry } from "../../types.js";
+import { createFeature, useFeatureContext } from "../index.js";
 import "./filtering.scss";
-import type { FilterOptions, FilterState } from "./types";
+import type { FilterOptions, FilterState } from "./types.js";
 
 export const FILTERING_FEATURE = Symbol("Filtering");
 export const FILTERING_MUTATION_ORDER = 0;

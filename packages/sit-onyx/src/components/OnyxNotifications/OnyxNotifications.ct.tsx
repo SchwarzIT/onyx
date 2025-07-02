@@ -1,5 +1,5 @@
 import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
-import { expect, test } from "../../playwright/a11y";
+import { expect, test } from "../../playwright/a11y.js";
 import OnyxAppLayout from "../OnyxAppLayout/OnyxAppLayout.vue";
 import OnyxNavBar from "../OnyxNavBar/OnyxNavBar.vue";
 import PlaywrightTestWrapper from "./PlaywrightTestWrapper.ct.vue";

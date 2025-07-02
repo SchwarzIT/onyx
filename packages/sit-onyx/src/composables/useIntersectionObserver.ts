@@ -1,6 +1,6 @@
 import { onBeforeUnmount, onMounted, ref, watch, type Ref } from "vue";
 
-import { getTemplateRefElement, type VueTemplateRefElement } from "./useResizeObserver";
+import { getTemplateRefElement, type VueTemplateRefElement } from "./useResizeObserver.js";
 export type UseIntersectionObserverOptions = {
   /**
    * Sets the root element to use for intersection checking.

@@ -1,5 +1,5 @@
 import { type MaybeRef, type MaybeRefOrGetter } from "vue";
-import type { DataGridEntry } from "../../types";
+import type { DataGridEntry } from "../../types.js";
 
 export type SelectionState = {
   /**

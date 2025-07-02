@@ -2,11 +2,14 @@
 import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
 import notificationFlag from "@sit-onyx/icons/notification-flag.svg?raw";
 import { computed } from "vue";
-import { useDensity } from "../../composables/density";
-import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
+import { useDensity } from "../../composables/density.js";
+import {
+  SKELETON_INJECTED_SYMBOL,
+  useSkeletonContext,
+} from "../../composables/useSkeletonState.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import type { OnyxProgressStepProps } from "./types";
+import type { OnyxProgressStepProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxProgressStepProps>(), {
   status: "default",

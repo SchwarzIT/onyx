@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { computed, watchEffect } from "vue";
-import { useTimer } from "../../../../composables/useTimer";
-import { injectI18n } from "../../../../i18n";
-import { formatTime, timeToDurationString } from "../../../../utils/time";
-import type { OnyxTimerProps } from "./types";
+import { useTimer } from "../../../../composables/useTimer.js";
+import { injectI18n } from "../../../../i18n/index.js";
+import { formatTime, timeToDurationString } from "../../../../utils/time.js";
+import type { OnyxTimerProps } from "./types.js";
 
 const props = defineProps<OnyxTimerProps>();
 

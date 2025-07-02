@@ -4,8 +4,8 @@ import type {
   Nullable,
   Orientation,
   SelectOptionValue,
-} from "../../types";
-import type { SharedFormElementProps } from "../OnyxFormElement/types";
+} from "../../types/index.js";
+import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
 
 export type OnyxRadioGroupProps<TValue extends SelectOptionValue = SelectOptionValue> = Pick<
   BaseSelectOption,

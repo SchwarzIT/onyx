@@ -1,4 +1,4 @@
-import type { OnyxModalDialogProps } from "../OnyxModalDialog/types";
+import type { OnyxModalDialogProps } from "../OnyxModalDialog/types.js";
 
 export type OnyxSelectDialogProps<TValue extends string = string> = Pick<
   OnyxModalDialogProps,

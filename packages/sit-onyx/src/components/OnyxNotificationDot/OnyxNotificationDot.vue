@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
-import type { OnyxNotificationDotProps } from "./types";
+import type { OnyxNotificationDotProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxNotificationDotProps>(), {
   color: "warning",

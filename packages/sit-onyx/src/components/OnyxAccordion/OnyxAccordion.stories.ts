@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
-import { createAdvancedStoryExample } from "../../utils/storybook";
+import { createAdvancedStoryExample } from "../../utils/storybook.js";
 import OnyxAccordionItem from "../OnyxAccordionItem/OnyxAccordionItem.vue";
 import OnyxAccordion from "./OnyxAccordion.vue";
 

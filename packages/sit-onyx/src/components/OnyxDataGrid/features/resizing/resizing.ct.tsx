@@ -1,6 +1,6 @@
 import type { Locator } from "@playwright/test";
-import { dragResizeHandle } from "../../../../playwright";
-import { expect, test } from "../../../../playwright/a11y";
+import { dragResizeHandle } from "../../../../playwright.js";
+import { expect, test } from "../../../../playwright/a11y.js";
 import TestCase from "./TestCase.vue";
 
 const getTestData = () => [

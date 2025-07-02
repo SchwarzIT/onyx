@@ -1,5 +1,5 @@
-import type { Nullable } from "../../../../types";
-import type { OnyxPopoverProps } from "../../../OnyxPopover/types";
+import type { Nullable } from "../../../../types/index.js";
+import type { OnyxPopoverProps } from "../../../OnyxPopover/types.js";
 
 export type OnyxFlyoutMenuProps = Pick<OnyxPopoverProps, "alignment"> & {
   /**

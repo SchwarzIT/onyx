@@ -1,5 +1,5 @@
-import type { DensityProp } from "../../composables/density";
-import type { OnyxDrawerProps } from "../OnyxDrawer/types";
+import type { DensityProp } from "../../composables/density.js";
+import type { OnyxDrawerProps } from "../OnyxDrawer/types.js";
 
 export type OnyxSidebarProps = DensityProp & {
   /**

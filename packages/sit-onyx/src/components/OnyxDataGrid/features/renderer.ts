@@ -1,15 +1,15 @@
 import { h } from "vue";
-import { type DataGridFeatureDescription, type TypeRenderer, type TypeRenderMap } from ".";
 import OnyxSkeleton from "../../../components/OnyxSkeleton/OnyxSkeleton.vue";
 import {
   injectI18n,
   type OnyxDateFormatOptions,
   type OnyxNumberFormatOptions,
-} from "../../../i18n";
-import { allObjectEntries } from "../../../utils/objects";
-import type { DateValue } from "../../OnyxDatePicker/types";
-import type { DataGridEntry } from "../types";
+} from "../../../i18n/index.js";
+import { allObjectEntries } from "../../../utils/objects.js";
+import type { DateValue } from "../../OnyxDatePicker/types.js";
+import type { DataGridEntry } from "../types.js";
 import HeaderCell from "./HeaderCell.vue";
+import { type DataGridFeatureDescription, type TypeRenderer, type TypeRenderMap } from "./index.js";
 import "./renderer.scss";
 
 export const FALLBACK_RENDER_VALUE = "-";

@@ -1,5 +1,5 @@
-import { test } from "../../../../playwright/a11y";
-import { executeMatrixScreenshotTest } from "../../../../playwright/screenshots";
+import { test } from "../../../../playwright/a11y.js";
+import { executeMatrixScreenshotTest } from "../../../../playwright/screenshots.js";
 import SortAction from "./SortAction.vue";
 
 test.describe("Screenshot tests", () => {

@@ -1,5 +1,5 @@
-import type { DialogAlignment } from "../OnyxDialog/types";
-import type { OnyxModalDialogProps } from "../OnyxModalDialog/types";
+import type { DialogAlignment } from "../OnyxDialog/types.js";
+import type { OnyxModalDialogProps } from "../OnyxModalDialog/types.js";
 
 export type OnyxDrawerProps = OnyxModalDialogProps & {
   /**

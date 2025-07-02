@@ -1,4 +1,4 @@
-import { expect, test } from "../../playwright/a11y";
+import { expect, test } from "../../playwright/a11y.js";
 import OnyxVisuallyHidden from "./OnyxVisuallyHidden.vue";
 
 test("should not be visible", async ({ mount }) => {

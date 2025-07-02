@@ -1,4 +1,4 @@
-import type { OnyxInputProps } from "../OnyxInput/types";
+import type { OnyxInputProps } from "../OnyxInput/types.js";
 
 export type OnyxTextareaProps = Omit<
   OnyxInputProps,

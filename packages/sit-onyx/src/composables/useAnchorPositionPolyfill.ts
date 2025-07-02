@@ -7,9 +7,9 @@ import {
   type MaybeRefOrGetter,
   type Ref,
 } from "vue";
-import { useIntersectionObserver } from "./useIntersectionObserver";
-import type { OpenAlignment } from "./useOpenAlignment";
-import { getTemplateRefElement, type VueTemplateRefElement } from "./useResizeObserver";
+import { useIntersectionObserver } from "./useIntersectionObserver.js";
+import type { OpenAlignment } from "./useOpenAlignment.js";
+import { getTemplateRefElement, type VueTemplateRefElement } from "./useResizeObserver.js";
 
 export type AnchorPosition =
   | "top"

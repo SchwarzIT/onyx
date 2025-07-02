@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import { OnyxProgressSteps, type ControlledProgressStep } from "../../..";
+import { OnyxProgressSteps, type ControlledProgressStep } from "../../../index.js";
 
 const activeStep = ref(3);
 

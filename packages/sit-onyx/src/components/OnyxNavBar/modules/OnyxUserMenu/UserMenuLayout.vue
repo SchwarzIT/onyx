@@ -1,9 +1,9 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue = SelectOptionValue">
 // this layout component is only used internally for the user menu component
 // to easily switch between mobile and desktop layout
-import { useVModel } from "../../../../composables/useVModel";
-import { injectI18n } from "../../../../i18n";
-import type { Nullable, SelectOptionValue } from "../../../../types";
+import { useVModel } from "../../../../composables/useVModel.js";
+import { injectI18n } from "../../../../i18n/index.js";
+import type { Nullable, SelectOptionValue } from "../../../../types/index.js";
 import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
 import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 

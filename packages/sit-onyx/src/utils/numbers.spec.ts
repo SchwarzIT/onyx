@@ -5,7 +5,7 @@ import {
   formatBytesToString,
   roundToPrecision,
   type BinaryPrefixedSize,
-} from "./numbers";
+} from "./numbers.js";
 
 // Tests for applyLimits function
 describe("applyLimits", () => {

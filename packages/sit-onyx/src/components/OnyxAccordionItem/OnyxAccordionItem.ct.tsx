@@ -1,5 +1,5 @@
 import { OnyxAccordionItem } from "../../index.ts";
-import { expect, test } from "../../playwright/a11y";
+import { expect, test } from "../../playwright/a11y.js";
 
 test("should apply the disabled state", async ({ mount, page }) => {
   // ARRANGE

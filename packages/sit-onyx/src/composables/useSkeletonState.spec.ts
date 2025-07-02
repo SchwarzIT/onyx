@@ -5,7 +5,7 @@ import {
   provideSkeletonContext,
   useSkeletonContext,
   type SkeletonInjected,
-} from "./useSkeletonState";
+} from "./useSkeletonState.js";
 
 let injected: (args: unknown[]) => void;
 

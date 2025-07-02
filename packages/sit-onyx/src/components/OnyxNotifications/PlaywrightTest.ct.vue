@@ -2,7 +2,7 @@
 import circleAttention from "@sit-onyx/icons/circle-attention.svg?raw";
 import { onMounted } from "vue";
 import OnyxNotifications from "./OnyxNotifications.vue";
-import { useNotification } from "./useNotification";
+import { useNotification } from "./useNotification.js";
 
 const notification = useNotification();
 

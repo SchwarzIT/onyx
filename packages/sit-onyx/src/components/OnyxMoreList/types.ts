@@ -1,5 +1,5 @@
 import type { Component } from "vue";
-import type { MoreListInjectionKey } from "../../composables/useMoreList";
+import type { MoreListInjectionKey } from "../../composables/useMoreList.js";
 
 export type OnyxMoreListProps = {
   /**

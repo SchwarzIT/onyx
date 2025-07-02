@@ -1,16 +1,16 @@
 import { computed, h, ref, toRef, toValue, watch, type Ref } from "vue";
-import { createFeature, useFeatureContext } from "..";
-import { useScrollEnd } from "../../../../composables/scrollEnd";
-import { applyLimits } from "../../../../utils/numbers";
+import { useScrollEnd } from "../../../../composables/scrollEnd.js";
+import { applyLimits } from "../../../../utils/numbers.js";
 import OnyxLoadingDots from "../../../OnyxLoadingIndicator/OnyxLoadingDots.vue";
 import OnyxPagination from "../../../OnyxPagination/OnyxPagination.vue";
 import OnyxSystemButton from "../../../OnyxSystemButton/OnyxSystemButton.vue";
-import { DataGridRowOptionsSymbol, type DataGridEntry } from "../../types";
-import { FILTERING_MUTATION_ORDER } from "../filtering/filtering";
-import { createTypeRenderer } from "../renderer";
-import { SELECTION_MUTATION_ORDER } from "../selection/selection";
+import { DataGridRowOptionsSymbol, type DataGridEntry } from "../../types.js";
+import { FILTERING_MUTATION_ORDER } from "../filtering/filtering.js";
+import { createFeature, useFeatureContext } from "../index.js";
+import { createTypeRenderer } from "../renderer.js";
+import { SELECTION_MUTATION_ORDER } from "../selection/selection.js";
 import "./pagination.scss";
-import type { PaginationOptions, PaginationState } from "./types";
+import type { PaginationOptions, PaginationState } from "./types.js";
 
 export const PAGINATION_FEATURE = Symbol("Pagination");
 export const LAZY_LOADING_ROW_ID = Symbol("LazyLoadingRow");

@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import * as vue from "vue";
-import type { DefaultSupportedTypes } from ".";
-import { provideI18n } from "../../../i18n";
-import { BASE_FEATURE } from "./base/base";
-import { createFeatureContextMock } from "./index.spec";
-import { createRenderer, FALLBACK_RENDER_VALUE } from "./renderer";
+import { provideI18n } from "../../../i18n/index.js";
+import { BASE_FEATURE } from "./base/base.js";
+import type { DefaultSupportedTypes } from "./index.js";
+import { createFeatureContextMock } from "./index.spec.js";
+import { createRenderer, FALLBACK_RENDER_VALUE } from "./renderer.js";
 
 // keep track of provide/inject because they need to be mocked
 let provided = new Map();

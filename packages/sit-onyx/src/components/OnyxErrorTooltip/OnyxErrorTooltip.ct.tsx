@@ -1,4 +1,4 @@
-import { expect, test } from "../../playwright/a11y";
+import { expect, test } from "../../playwright/a11y.js";
 import OnyxErrorTooltip from "./OnyxErrorTooltip.vue";
 
 test("should render without error-tooltip", async ({ mount, makeAxeBuilder }) => {

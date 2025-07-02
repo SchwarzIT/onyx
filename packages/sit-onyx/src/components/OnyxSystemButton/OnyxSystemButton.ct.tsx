@@ -1,8 +1,8 @@
 import type { ScreenshotTestHooks } from "@sit-onyx/playwright-utils";
-import { expect, test } from "../../playwright/a11y";
-import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots";
+import { expect, test } from "../../playwright/a11y.js";
+import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots.js";
 import OnyxSystemButton from "./OnyxSystemButton.vue";
-import { SYSTEM_BUTTON_COLORS } from "./types";
+import { SYSTEM_BUTTON_COLORS } from "./types.js";
 
 const hooks: ScreenshotTestHooks<string, string> = {
   beforeEach: async (component, page, column, row) => {

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import circleX from "@sit-onyx/icons/circle-x.svg?raw";
-import { useDensity, type DensityProp } from "../../composables/density";
+import { useDensity, type DensityProp } from "../../composables/density.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 
 const props = defineProps<DensityProp>();

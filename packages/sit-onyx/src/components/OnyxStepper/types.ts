@@ -1,6 +1,6 @@
-import type { Autocomplete } from "../../composables/useLenientMaxLengthValidation";
-import type { Nullable } from "../../types";
-import type { SharedFormElementProps } from "../OnyxFormElement/types";
+import type { Autocomplete } from "../../composables/useLenientMaxLengthValidation.js";
+import type { Nullable } from "../../types/index.js";
+import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
 
 export type OnyxStepperProps = Omit<
   SharedFormElementProps,

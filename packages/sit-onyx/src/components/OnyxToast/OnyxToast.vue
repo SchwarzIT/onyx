@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import OnyxToastMessage from "../OnyxToastMessage/OnyxToastMessage.vue";
-import { useToast } from "./useToast";
+import { useToast } from "./useToast.js";
 
 const toastProvider = useToast();
 </script>

@@ -1,6 +1,6 @@
 import type { Page } from "@playwright/test";
 import { useMatrixScreenshotTest } from "@sit-onyx/playwright-utils";
-import { createAxeBuilder, DEFAULT_DISABLED_AXE_RULES, expect } from "../playwright/a11y";
+import { createAxeBuilder, DEFAULT_DISABLED_AXE_RULES, expect } from "../playwright/a11y.js";
 
 export type OnyxMatrixScreenshotHookContext = {
   /**

@@ -1,9 +1,9 @@
-import type { FormInjectedProps } from "../components/OnyxForm/OnyxForm.core";
-import type { DensityProp } from "../composables/density";
-import type { RequiredProp } from "../composables/required";
-import type { CustomValidityProp } from "../composables/useCustomValidity";
-import type { SkeletonInjected } from "../composables/useSkeletonState";
-import type { TruncationType } from "./fonts";
+import type { FormInjectedProps } from "../components/OnyxForm/OnyxForm.core.js";
+import type { DensityProp } from "../composables/density.js";
+import type { RequiredProp } from "../composables/required.js";
+import type { CustomValidityProp } from "../composables/useCustomValidity.js";
+import type { SkeletonInjected } from "../composables/useSkeletonState.js";
+import type { TruncationType } from "./fonts.js";
 
 // IMPORTANT: When changing this type, make sure to implement the feature
 // for the following components:

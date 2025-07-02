@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxAccordion, OnyxAccordionItem, OnyxDrawer } from "../../..";
+import { OnyxAccordion, OnyxAccordionItem, OnyxDrawer } from "../../../index.js";
 </script>
 
 <template>

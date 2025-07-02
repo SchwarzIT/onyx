@@ -1,18 +1,21 @@
 <script lang="ts" setup>
 import { computed, useTemplateRef } from "vue";
-import { useDensity } from "../../composables/density";
-import { useAutofocus } from "../../composables/useAutoFocus";
-import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
-import { useErrorClass } from "../../composables/useErrorClass";
-import { useLenientMaxLengthValidation } from "../../composables/useLenientMaxLengthValidation";
-import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
-import { useVModel } from "../../composables/useVModel";
-import type { Nullable } from "../../types";
-import { useRootAttrs } from "../../utils/attrs";
-import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
+import { useDensity } from "../../composables/density.js";
+import { useAutofocus } from "../../composables/useAutoFocus.js";
+import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity.js";
+import { useErrorClass } from "../../composables/useErrorClass.js";
+import { useLenientMaxLengthValidation } from "../../composables/useLenientMaxLengthValidation.js";
+import {
+  SKELETON_INJECTED_SYMBOL,
+  useSkeletonContext,
+} from "../../composables/useSkeletonState.js";
+import { useVModel } from "../../composables/useVModel.js";
+import type { Nullable } from "../../types/index.js";
+import { useRootAttrs } from "../../utils/attrs.js";
+import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import type { OnyxTextareaProps } from "./types";
+import type { OnyxTextareaProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxTextareaProps>(), {
   required: false,

@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import { computed } from "vue";
-import { injectI18n } from "../../../../i18n";
+import { injectI18n } from "../../../../i18n/index.js";
 import OnyxSelectDialog from "../../../OnyxSelectDialog/OnyxSelectDialog.vue";
-import type { SelectDialogOption } from "../../../OnyxSelectDialog/types";
+import type { SelectDialogOption } from "../../../OnyxSelectDialog/types.js";
 import autoImage from "./auto.svg?raw";
 import darkImage from "./dark.svg?raw";
 import lightImage from "./light.svg?raw";
-import type { ColorSchemeValue, OnyxColorSchemeDialogProps } from "./types";
+import type { ColorSchemeValue, OnyxColorSchemeDialogProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxColorSchemeDialogProps>(), {
   open: false,

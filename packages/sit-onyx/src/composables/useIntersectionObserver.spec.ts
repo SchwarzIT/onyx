@@ -1,6 +1,6 @@
 import { describe, expect, test, vi } from "vitest";
 import { ref } from "vue";
-import { useIntersectionObserver } from "./useIntersectionObserver";
+import { useIntersectionObserver } from "./useIntersectionObserver.js";
 
 vi.mock("vue", async (importOriginal) => {
   return {

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h, provide, ref } from "vue";
-import { ROUTER_INJECTION_KEY } from "../../composables/useLink";
+import { ROUTER_INJECTION_KEY } from "../../composables/useLink.js";
 import OnyxBreadcrumbItem from "../OnyxBreadcrumbItem/OnyxBreadcrumbItem.vue";
 import OnyxBreadcrumb from "./OnyxBreadcrumb.vue";
 

@@ -1,6 +1,6 @@
-import { expect, test } from "../../../../playwright/a11y";
-import { executeMatrixScreenshotTest } from "../../../../playwright/screenshots";
-import type { ColorSchemeValue } from "../OnyxColorSchemeDialog/types";
+import { expect, test } from "../../../../playwright/a11y.js";
+import { executeMatrixScreenshotTest } from "../../../../playwright/screenshots.js";
+import type { ColorSchemeValue } from "../OnyxColorSchemeDialog/types.js";
 import OnyxColorSchemeMenuItem from "./OnyxColorSchemeMenuItem.vue";
 
 test.describe("Screenshot tests", () => {

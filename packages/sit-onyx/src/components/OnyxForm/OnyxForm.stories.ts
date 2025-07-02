@@ -1,7 +1,7 @@
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { ShowErrorModes } from "../../composables/useErrorClass";
-import { createAdvancedStoryExample } from "../../utils/storybook";
+import { ShowErrorModes } from "../../composables/useErrorClass.js";
+import { createAdvancedStoryExample } from "../../utils/storybook.js";
 import OnyxForm from "./OnyxForm.vue";
 
 /**

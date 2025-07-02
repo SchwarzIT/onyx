@@ -1,11 +1,11 @@
 import { h, ref, watch, type Slots, type ThHTMLAttributes } from "vue";
-import { createFeature, useFeatureContext, type InternalColumnConfig } from "..";
-import { useResizeObserver } from "../../../../composables/useResizeObserver";
-import { mergeVueProps } from "../../../../utils/attrs";
+import { useResizeObserver } from "../../../../composables/useResizeObserver.js";
+import { mergeVueProps } from "../../../../utils/attrs.js";
 import OnyxResizeHandle from "../../../OnyxResizeHandle/OnyxResizeHandle.vue";
-import type { DataGridEntry } from "../../types";
+import type { DataGridEntry } from "../../types.js";
+import { createFeature, useFeatureContext, type InternalColumnConfig } from "../index.js";
 import "./resizing.scss";
-import type { ResizingOptions } from "./types";
+import type { ResizingOptions } from "./types.js";
 
 export const RESIZING_FEATURE = Symbol("Resizing");
 export const EMPTY_COLUMN = Symbol("EmptyColumn");

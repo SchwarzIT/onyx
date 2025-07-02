@@ -1,4 +1,4 @@
-import { expect, test } from "../../playwright/a11y";
+import { expect, test } from "../../playwright/a11y.js";
 import OnyxAppLayout from "./OnyxAppLayout.vue";
 
 test.beforeEach(async ({ page }) => {

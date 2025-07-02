@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { provide, toRef } from "vue";
-import { ROUTER_INJECTION_KEY } from "../../../../composables/useLink";
+import { ROUTER_INJECTION_KEY } from "../../../../composables/useLink.js";
 import OnyxNavItem from "./OnyxNavItem.vue";
-import type { OnyxNavItemProps } from "./types";
+import type { OnyxNavItemProps } from "./types.js";
 
 const props = withDefaults(
   defineProps<

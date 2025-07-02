@@ -1,6 +1,6 @@
-import { DENSITIES } from "../../../composables/density";
-import { test } from "../../../playwright/a11y";
-import { executeMatrixScreenshotTest } from "../../../playwright/screenshots";
+import { DENSITIES } from "../../../composables/density.js";
+import { test } from "../../../playwright/a11y.js";
+import { executeMatrixScreenshotTest } from "../../../playwright/screenshots.js";
 import DefaultTestWrapper from "./playwright/DefaultTestWrapper.ct.vue";
 import GroupedDataTestWrapper from "./playwright/GroupedDataTestWrapper.ct.vue";
 

@@ -1,4 +1,4 @@
-import type { OnyxSelectDialogProps } from "../../../OnyxSelectDialog/types";
+import type { OnyxSelectDialogProps } from "../../../OnyxSelectDialog/types.js";
 
 export type OnyxColorSchemeDialogProps = Omit<
   OnyxSelectDialogProps,

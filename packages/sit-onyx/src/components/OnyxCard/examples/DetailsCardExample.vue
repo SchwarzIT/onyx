@@ -2,7 +2,14 @@
 import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
 import fileCopy from "@sit-onyx/icons/file-copy.svg?raw";
 import home from "@sit-onyx/icons/home.svg?raw";
-import { OnyxButton, OnyxCard, OnyxHeadline, OnyxIcon, OnyxSystemButton, OnyxTag } from "../../..";
+import {
+  OnyxButton,
+  OnyxCard,
+  OnyxHeadline,
+  OnyxIcon,
+  OnyxSystemButton,
+  OnyxTag,
+} from "../../../index.js";
 </script>
 
 <template>

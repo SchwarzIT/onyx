@@ -1,4 +1,4 @@
-import type { OnyxButtonProps } from "../OnyxButton/types";
+import type { OnyxButtonProps } from "../OnyxButton/types.js";
 
 export type OnyxSystemButtonProps = Pick<
   OnyxButtonProps,

@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
-import type { DataGridEntry } from "../types";
+import type { DataGridEntry } from "../types/index.js";
 import OnyxDataGridRenderer from "./OnyxDataGridRenderer.vue";
-import type { DataGridRendererCell, DataGridRendererColumn, DataGridRendererRow } from "./types";
+import type { DataGridRendererCell, DataGridRendererColumn, DataGridRendererRow } from "./types.js";
 
 const meta: Meta<typeof OnyxDataGridRenderer> = {
   title: "Support/DataGridRenderer",

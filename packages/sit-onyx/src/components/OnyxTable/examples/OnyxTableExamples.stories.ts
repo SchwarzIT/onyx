@@ -1,5 +1,5 @@
 import type { Meta } from "@storybook/vue3";
-import { createAdvancedStoryExample } from "../../../utils/storybook";
+import { createAdvancedStoryExample } from "../../../utils/storybook.js";
 import OnyxTable from "../../OnyxTable/OnyxTable.vue";
 
 const meta: Meta<typeof OnyxTable> = {

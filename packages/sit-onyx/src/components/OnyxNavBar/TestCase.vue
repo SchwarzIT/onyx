@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import OnyxNavItem from "./modules/OnyxNavItem/OnyxNavItem.vue";
 import OnyxNavBar from "./OnyxNavBar.vue";
-import { type OnyxNavBarProps } from "./types";
+import { type OnyxNavBarProps } from "./types.js";
 
 const props = defineProps<OnyxNavBarProps>();
 </script>

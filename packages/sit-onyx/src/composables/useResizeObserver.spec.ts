@@ -1,6 +1,6 @@
 import { describe, expect, test, vi } from "vitest";
 import { ref, toValue } from "vue";
-import { useResizeObserver } from "./useResizeObserver";
+import { useResizeObserver } from "./useResizeObserver.js";
 
 vi.mock("vue", async (importOriginal) => {
   return {

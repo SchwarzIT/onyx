@@ -1,8 +1,13 @@
-import type { DensityProp } from "../../composables/density";
-import type { AutofocusProp, BaseSelectOption, Nullable, SelectOptionValue } from "../../types";
-import type { FormInjected } from "../OnyxForm/OnyxForm.core";
-import type { OnyxSelectInputProps } from "../OnyxSelectInput/types";
-import type { OnyxSelectOptionProps } from "../OnyxSelectOption/types";
+import type { DensityProp } from "../../composables/density.js";
+import type {
+  AutofocusProp,
+  BaseSelectOption,
+  Nullable,
+  SelectOptionValue,
+} from "../../types/index.js";
+import type { FormInjected } from "../OnyxForm/OnyxForm.core.js";
+import type { OnyxSelectInputProps } from "../OnyxSelectInput/types.js";
+import type { OnyxSelectOptionProps } from "../OnyxSelectOption/types.js";
 
 export type OnyxSelectProps<
   TModelValue,

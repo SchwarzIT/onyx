@@ -1,6 +1,6 @@
 import { computed, inject, ref, type ComputedRef, type InjectionKey } from "vue";
-import { userConsole } from "../../utils/console";
-import type { OnyxToastMessageProps } from "../OnyxToastMessage/types";
+import { userConsole } from "../../utils/console.js";
+import type { OnyxToastMessageProps } from "../OnyxToastMessage/types.js";
 
 export type ToastProvider = {
   /**

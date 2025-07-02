@@ -1,12 +1,15 @@
 <script lang="ts" setup>
 import { computed } from "vue";
-import { useDensity } from "../../composables/density";
-import { useLink } from "../../composables/useLink";
-import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
-import { useRootAttrs } from "../../utils/attrs";
+import { useDensity } from "../../composables/density.js";
+import { useLink } from "../../composables/useLink.js";
+import {
+  SKELETON_INJECTED_SYMBOL,
+  useSkeletonContext,
+} from "../../composables/useSkeletonState.js";
+import { useRootAttrs } from "../../utils/attrs.js";
 import OnyxRouterLink from "../OnyxRouterLink/OnyxRouterLink.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import type { OnyxBreadcrumbItemProps } from "./types";
+import type { OnyxBreadcrumbItemProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxBreadcrumbItemProps>(), {
   active: "auto",

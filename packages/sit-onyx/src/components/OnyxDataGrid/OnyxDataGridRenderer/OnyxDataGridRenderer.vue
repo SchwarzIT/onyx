@@ -1,9 +1,9 @@
 <script lang="ts" setup generic="TEntry extends DataGridEntry, TMetadata extends DataGridMetadata">
 import { computed } from "vue";
-import { mergeVueProps } from "../../../utils/attrs";
+import { mergeVueProps } from "../../../utils/attrs.js";
 import OnyxTable from "../../OnyxTable/OnyxTable.vue";
-import type { DataGridEntry, DataGridMetadata } from "../types";
-import type { DataGridRendererSlots, OnyxDataGridRendererProps } from "./types";
+import type { DataGridEntry, DataGridMetadata } from "../types.js";
+import type { DataGridRendererSlots, OnyxDataGridRendererProps } from "./types.js";
 
 const props = defineProps<OnyxDataGridRendererProps<TEntry, TMetadata>>();
 

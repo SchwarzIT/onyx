@@ -1,4 +1,4 @@
-import type { IconSize, IconSizeProp } from "../OnyxIcon/types";
+import type { IconSize, IconSizeProp } from "../OnyxIcon/types.js";
 
 export type OnyxAvatarProps = IconSizeProp<Exclude<IconSize, "12px">> & {
   /**

@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { formatTime, getTimeFragments, timeToDurationString } from "./time";
+import { formatTime, getTimeFragments, timeToDurationString } from "./time.js";
 
 describe("time", () => {
   test.each([

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import circleAttention from "@sit-onyx/icons/circle-attention.svg?raw";
-import { OnyxButton, OnyxNotifications, useNotification } from "../../..";
+import { OnyxButton, OnyxNotifications, useNotification } from "../../../index.js";
 
 const notification = useNotification();
 

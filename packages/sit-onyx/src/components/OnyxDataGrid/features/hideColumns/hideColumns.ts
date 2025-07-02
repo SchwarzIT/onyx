@@ -2,19 +2,19 @@ import eyeDisabled from "@sit-onyx/icons/eye-disabled.svg?raw";
 import plusSmall from "@sit-onyx/icons/plus-small.svg?raw";
 import { computed, h, ref, unref, watchEffect, type Ref } from "vue";
 import type { ComponentSlots } from "vue-component-type-helpers";
+import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
+import OnyxFlyoutMenu from "../../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
+import OnyxMenuItem from "../../../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
+import OnyxSystemButton from "../../../OnyxSystemButton/OnyxSystemButton.vue";
+import type { DataGridEntry } from "../../types.js";
 import {
   createFeature,
   useFeatureContext,
   type InternalColumnConfig,
   type ModifyColumns,
-} from "..";
-import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
-import OnyxFlyoutMenu from "../../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
-import OnyxMenuItem from "../../../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
-import OnyxSystemButton from "../../../OnyxSystemButton/OnyxSystemButton.vue";
-import type { DataGridEntry } from "../../types";
+} from "../index.js";
 import "./hideColumns.scss";
-import type { HideColumnsOptions } from "./types";
+import type { HideColumnsOptions } from "./types.js";
 
 export const HIDE_COLUMNS_FEATURE = Symbol("HideColumnsFeature");
 export const HIDDEN_COLUMN = Symbol("HiddenColumn");

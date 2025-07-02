@@ -1,4 +1,4 @@
-import type { SharedFormElementProps } from "../OnyxFormElement/types";
+import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
 
 export const MULTISELECT_TEXT_MODE = ["summary", "preview"] as const;
 export type MultiselectTextMode = (typeof MULTISELECT_TEXT_MODE)[number];

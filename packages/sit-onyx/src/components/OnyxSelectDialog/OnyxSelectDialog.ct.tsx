@@ -1,7 +1,7 @@
-import { expect, test } from "../../playwright/a11y";
-import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots";
+import { expect, test } from "../../playwright/a11y.js";
+import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots.js";
 import OnyxSelectDialog from "./OnyxSelectDialog.vue";
-import type { SelectDialogOption } from "./types";
+import type { SelectDialogOption } from "./types.js";
 
 const OPTIONS: SelectDialogOption[] = [
   { label: "Option 1", value: "option-1" },

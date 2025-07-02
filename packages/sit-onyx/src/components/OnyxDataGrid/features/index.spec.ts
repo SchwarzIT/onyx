@@ -1,8 +1,8 @@
 import { describe, expect, test } from "vitest";
 import { readonly, ref } from "vue";
-import { createI18n } from "../../../i18n";
-import type { TableColumnGroup } from "../../OnyxTable/types";
-import type { DataGridEntry } from "../types";
+import { createI18n } from "../../../i18n/index.js";
+import type { TableColumnGroup } from "../../OnyxTable/types.js";
+import type { DataGridEntry } from "../types/index.js";
 import {
   createTableColumnGroups,
   useFeatureContext,
@@ -10,7 +10,7 @@ import {
   type DataGridFeatureContext,
   type DataGridFeatureOptions,
   type InternalColumnConfig,
-} from "./index";
+} from "./index.js";
 
 describe("createTableColumnGroups", () => {
   test.each([

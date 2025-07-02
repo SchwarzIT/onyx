@@ -2,6 +2,7 @@
 import { VITE_BASE_CONFIG } from "@sit-onyx/shared/vite.config.base";
 import vue from "@vitejs/plugin-vue";
 import { fileURLToPath, URL } from "node:url";
+import { DiagnosticCategory } from "typescript";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 import packageJson from "./package.json";
@@ -14,6 +15,11 @@ export default defineConfig({
     dts({
       tsconfigPath: "./tsconfig.app.json",
       compilerOptions: { composite: false },
+      afterDiagnostic: async (diagnostics) => {
+        if (diagnostics.some((d) => d.category === DiagnosticCategory.Error)) {
+          throw new Error("Build aborted due to TypeScript errors in the library!");
+        }
+      },
     }),
     vue(vuePluginOptions),
   ],

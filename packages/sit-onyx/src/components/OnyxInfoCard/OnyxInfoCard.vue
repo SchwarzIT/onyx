@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import circleAttention from "@sit-onyx/icons/circle-attention.svg?raw";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
-import { useDensity } from "../../composables/density";
-import { injectI18n } from "../../i18n";
+import { useDensity } from "../../composables/density.js";
+import { injectI18n } from "../../i18n/index.js";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
-import type { OnyxInfoCardProps } from "./types";
+import type { OnyxInfoCardProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxInfoCardProps>(), {
   color: "info",

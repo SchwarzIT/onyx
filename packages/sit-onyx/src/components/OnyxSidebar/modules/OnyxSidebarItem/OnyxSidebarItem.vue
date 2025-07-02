@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { computed } from "vue";
-import { useDensity } from "../../../../composables/density";
-import { useLink } from "../../../../composables/useLink";
-import { extractLinkProps } from "../../../../utils/router";
+import { useDensity } from "../../../../composables/density.js";
+import { useLink } from "../../../../composables/useLink.js";
+import { extractLinkProps } from "../../../../utils/router.js";
 import OnyxRouterLink from "../../../OnyxRouterLink/OnyxRouterLink.vue";
-import type { OnyxSidebarItemProps } from "./types";
+import type { OnyxSidebarItemProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxSidebarItemProps>(), {
   active: "auto",

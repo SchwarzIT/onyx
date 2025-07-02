@@ -1,12 +1,15 @@
 <script lang="ts" setup>
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { computed } from "vue";
-import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
-import { useVModel } from "../../composables/useVModel";
-import { injectI18n } from "../../i18n";
-import type { Nullable } from "../../types";
+import {
+  SKELETON_INJECTED_SYMBOL,
+  useSkeletonContext,
+} from "../../composables/useSkeletonState.js";
+import { useVModel } from "../../composables/useVModel.js";
+import { injectI18n } from "../../i18n/index.js";
+import type { Nullable } from "../../types/index.js";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
-import type { OnyxTagProps } from "../OnyxTag/types";
+import type { OnyxTagProps } from "../OnyxTag/types.js";
 
 const props = withDefaults(
   defineProps<

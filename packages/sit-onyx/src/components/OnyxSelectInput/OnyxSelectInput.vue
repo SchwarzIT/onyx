@@ -3,22 +3,25 @@ import { CLOSING_KEYS, OPENING_KEYS } from "@sit-onyx/headless";
 import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
 import chevronDownUp from "@sit-onyx/icons/chevron-down-up.svg?raw";
 import { computed, ref, useTemplateRef, watch } from "vue";
-import { useDensity } from "../../composables/density";
-import { useAutofocus } from "../../composables/useAutoFocus";
-import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
-import { useErrorClass } from "../../composables/useErrorClass";
-import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
-import { injectI18n } from "../../i18n";
-import type { SelectOptionValue } from "../../types";
-import { useRootAttrs } from "../../utils/attrs";
+import { useDensity } from "../../composables/density.js";
+import { useAutofocus } from "../../composables/useAutoFocus.js";
+import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity.js";
+import { useErrorClass } from "../../composables/useErrorClass.js";
+import {
+  SKELETON_INJECTED_SYMBOL,
+  useSkeletonContext,
+} from "../../composables/useSkeletonState.js";
+import { injectI18n } from "../../i18n/index.js";
+import type { SelectOptionValue } from "../../types/index.js";
+import { useRootAttrs } from "../../utils/attrs.js";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
-import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
+import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
-import type { OnyxSelectInputProps } from "./types";
+import type { OnyxSelectInputProps } from "./types.js";
 
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();

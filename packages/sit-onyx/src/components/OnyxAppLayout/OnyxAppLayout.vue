@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { OnyxAppLayoutProps } from "./types";
+import type { OnyxAppLayoutProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxAppLayoutProps>(), {
   navBarAlignment: "top",

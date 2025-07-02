@@ -1,5 +1,5 @@
 import type { ComputedRef } from "vue";
-import { createFeature } from "..";
+import { createFeature } from "../index.js";
 import {
   DATE_RENDERER,
   DATETIME_RENDERER,
@@ -8,7 +8,7 @@ import {
   STRING_RENDERER,
   TIME_RENDERER,
   TIMESTAMP_RENDERER,
-} from "../renderer";
+} from "../renderer.js";
 import "./base.scss";
 
 export const BASE_FEATURE_SYMBOL = Symbol("Base");

@@ -1,4 +1,4 @@
-import type { OnyxExternalLinkIconProps } from "../OnyxExternalLinkIcon/types";
+import type { OnyxExternalLinkIconProps } from "../OnyxExternalLinkIcon/types.js";
 
 export type OnyxRouterLinkProps = SharedLinkProps;
 

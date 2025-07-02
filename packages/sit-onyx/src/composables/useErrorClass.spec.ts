@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 import { ref } from "vue";
-import { useErrorClass, type ShowErrorMode } from "./useErrorClass";
+import { useErrorClass, type ShowErrorMode } from "./useErrorClass.js";
 
 describe("useErrorClass", () => {
   const showErrorMode = ref<ShowErrorMode>(true);

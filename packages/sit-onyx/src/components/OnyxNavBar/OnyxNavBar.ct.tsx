@@ -1,13 +1,13 @@
 import type { Page } from "@playwright/test";
 import { navigationTesting } from "@sit-onyx/headless/playwright";
 import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
-import { expect, test } from "../../playwright/a11y";
+import { expect, test } from "../../playwright/a11y.js";
 import {
   MOCK_PLAYWRIGHT_LOGO_URL,
   defineLogoMockRoutes,
   executeMatrixScreenshotTest,
   mockPlaywrightIcon,
-} from "../../playwright/screenshots";
+} from "../../playwright/screenshots.js";
 import OnyxAppLayout from "../OnyxAppLayout/OnyxAppLayout.vue";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -20,7 +20,7 @@ import OnyxNavItem from "./modules/OnyxNavItem/OnyxNavItem.vue";
 import OnyxUserMenu from "./modules/OnyxUserMenu/OnyxUserMenu.vue";
 import OnyxNavBar from "./OnyxNavBar.vue";
 import TestCase from "./TestCase.vue";
-import type { OnyxNavBarProps } from "./types";
+import type { OnyxNavBarProps } from "./types.js";
 
 test.beforeEach(async ({ page }) => {
   await defineLogoMockRoutes(page);

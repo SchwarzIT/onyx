@@ -1,6 +1,6 @@
-import type { AnchorPosition } from "../../composables/useAnchorPositionPolyfill";
-import type { OpenAlignment } from "../../composables/useOpenAlignment";
-import type { Nullable } from "../../types";
+import type { AnchorPosition } from "../../composables/useAnchorPositionPolyfill.js";
+import type { OpenAlignment } from "../../composables/useOpenAlignment.js";
+import type { Nullable } from "../../types/index.js";
 
 export type OnyxPopoverProps = {
   /**

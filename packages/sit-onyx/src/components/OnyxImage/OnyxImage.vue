@@ -1,11 +1,14 @@
 <script lang="ts" setup>
 import fileDisabled from "@sit-onyx/icons/file-disabled.svg?raw";
 import { computed, ref, watch } from "vue";
-import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
-import { useRootAttrs } from "../../utils/attrs";
+import {
+  SKELETON_INJECTED_SYMBOL,
+  useSkeletonContext,
+} from "../../composables/useSkeletonState.js";
+import { useRootAttrs } from "../../utils/attrs.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import type { OnyxImageProps } from "./types";
+import type { OnyxImageProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxImageProps>(), {
   loading: "lazy",

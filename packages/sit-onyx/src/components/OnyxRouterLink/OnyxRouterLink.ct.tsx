@@ -1,4 +1,4 @@
-import { expect, test } from "../../playwright/a11y";
+import { expect, test } from "../../playwright/a11y.js";
 import TestWrapper from "./TestWrapper.ct.vue";
 
 test("should open external link without router", async ({ page, mount }) => {

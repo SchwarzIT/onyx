@@ -1,8 +1,8 @@
-import { expect, test } from "../../../../playwright/a11y";
+import { expect, test } from "../../../../playwright/a11y.js";
 import {
   executeMatrixScreenshotTest,
   type OnyxMatrixScreenshotHookContext,
-} from "../../../../playwright/screenshots";
+} from "../../../../playwright/screenshots.js";
 import OnyxBadge from "../../../OnyxBadge/OnyxBadge.vue";
 import ComponentTestWrapper from "./ComponentTestWrapper.ct.vue";
 import OnyxNavItem from "./OnyxNavItem.vue";

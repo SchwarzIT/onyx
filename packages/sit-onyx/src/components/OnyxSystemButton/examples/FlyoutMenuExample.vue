@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import moreVertical from "@sit-onyx/icons/more-vertical.svg?raw";
-import { OnyxFlyoutMenu, OnyxMenuItem, OnyxSystemButton } from "../../..";
+import { OnyxFlyoutMenu, OnyxMenuItem, OnyxSystemButton } from "../../../index.js";
 </script>
 
 <template>

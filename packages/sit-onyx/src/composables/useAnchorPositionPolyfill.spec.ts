@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { ref } from "vue";
-import { useAnchorPositionPolyfill, type AnchorPosition } from "./useAnchorPositionPolyfill";
-import type { OpenAlignment } from "./useOpenAlignment";
+import { useAnchorPositionPolyfill, type AnchorPosition } from "./useAnchorPositionPolyfill.js";
+import type { OpenAlignment } from "./useOpenAlignment.js";
 
 describe("useAnchorPositionPolyfill", () => {
   const positionedRef = ref<HTMLElement | null>(null);

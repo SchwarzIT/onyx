@@ -1,7 +1,7 @@
 import { expect, test } from "vitest";
 import { ref } from "vue";
 import { createFeatureContextMock } from "../index.spec";
-import { useFiltering, type FilterState } from "./filtering";
+import { useFiltering, type FilterState } from "./filtering.js";
 
 const getTestData = () => [
   { id: 1, a: "6", b: "1-End" },

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import OnyxModalDialog from "./OnyxModalDialog.vue";
-import type { ModalDialogAlignment } from "./types";
+import type { ModalDialogAlignment } from "./types.js";
 
 const props = defineProps<{
   /** Dialog alignment */

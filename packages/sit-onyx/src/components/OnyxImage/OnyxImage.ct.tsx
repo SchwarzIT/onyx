@@ -1,8 +1,8 @@
-import { test } from "../../playwright/a11y";
-import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
+import { test } from "../../playwright/a11y.js";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import OnyxImage from "./OnyxImage.vue";
 import TEST_IMAGE from "./test-image.jpg";
-import { IMAGE_SHAPES } from "./types";
+import { IMAGE_SHAPES } from "./types.js";
 
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({

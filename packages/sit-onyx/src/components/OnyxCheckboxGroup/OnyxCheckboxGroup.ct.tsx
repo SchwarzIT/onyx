@@ -1,8 +1,8 @@
-import { expect, test } from "../../playwright/a11y";
-import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
-import { ORIENTATIONS } from "../../types";
+import { expect, test } from "../../playwright/a11y.js";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
+import { ORIENTATIONS } from "../../types/index.js";
 import OnyxCheckboxGroup from "./OnyxCheckboxGroup.vue";
-import type { OnyxCheckboxGroupProps } from "./types";
+import type { OnyxCheckboxGroupProps } from "./types.js";
 
 const mockOptions: OnyxCheckboxGroupProps["options"] = [
   { label: "Default", value: 1 },

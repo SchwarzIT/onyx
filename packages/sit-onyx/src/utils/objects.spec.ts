@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { allObjectEntries, areObjectsFlatEqual, asArray, groupByKey } from "./objects";
+import { allObjectEntries, areObjectsFlatEqual, asArray, groupByKey } from "./objects.js";
 
 const referenceObj = { a: 42, b: "foo", c: null, d: true };
 

@@ -6,7 +6,7 @@ import {
   OnyxDataGrid,
   OnyxHeadline,
   type ColumnConfig,
-} from "../../..";
+} from "../../../index.js";
 
 type TEntry = {
   id: number;

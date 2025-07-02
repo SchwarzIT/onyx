@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxButton, OnyxToast, useToast } from "../../..";
+import { OnyxButton, OnyxToast, useToast } from "../../../index.js";
 
 const toast = useToast();
 

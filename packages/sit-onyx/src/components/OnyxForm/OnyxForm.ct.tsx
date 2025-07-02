@@ -1,7 +1,7 @@
 import type { Locator } from "@playwright/test";
 import { h, type Component } from "vue";
 import type { ComponentProps } from "vue-component-type-helpers";
-import { expect, test } from "../../playwright/a11y";
+import { expect, test } from "../../playwright/a11y.js";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxCheckbox from "../OnyxCheckbox/OnyxCheckbox.vue";
 import OnyxCheckboxGroup from "../OnyxCheckboxGroup/OnyxCheckboxGroup.vue";
@@ -9,7 +9,7 @@ import OnyxInput from "../OnyxInput/OnyxInput.vue";
 import OnyxRadioButton from "../OnyxRadioButton/OnyxRadioButton.vue";
 import OnyxRadioGroup from "../OnyxRadioGroup/OnyxRadioGroup.vue";
 import OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
-import type { SelectOption } from "../OnyxSelect/types";
+import type { SelectOption } from "../OnyxSelect/types.js";
 import OnyxStepper from "../OnyxStepper/OnyxStepper.vue";
 import OnyxSwitch from "../OnyxSwitch/OnyxSwitch.vue";
 import OnyxTextarea from "../OnyxTextarea/OnyxTextarea.vue";

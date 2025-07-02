@@ -2,7 +2,7 @@ import expandWindow from "@sit-onyx/icons/expand-window.svg?raw";
 import moreVerticalSmall from "@sit-onyx/icons/more-vertical-small.svg?raw";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { defineIconSelectArgType } from "../../utils/storybook";
+import { defineIconSelectArgType } from "../../utils/storybook.js";
 import OnyxSystemButton from "./OnyxSystemButton.vue";
 
 /**

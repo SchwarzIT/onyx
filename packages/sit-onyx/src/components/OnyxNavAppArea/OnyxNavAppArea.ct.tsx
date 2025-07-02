@@ -1,11 +1,11 @@
-import { expect, test } from "../../playwright/a11y";
+import { expect, test } from "../../playwright/a11y.js";
 import {
   MOCK_PLAYWRIGHT_LOGO_URL,
   MOCK_PLAYWRIGHT_LOGO_WIDE_URL,
   defineLogoMockRoutes,
   executeMatrixScreenshotTest,
   mockPlaywrightIcon,
-} from "../../playwright/screenshots";
+} from "../../playwright/screenshots.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxNavAppArea from "./OnyxNavAppArea.vue";
 

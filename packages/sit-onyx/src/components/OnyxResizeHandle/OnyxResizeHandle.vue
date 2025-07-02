@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from "vue";
-import { getTemplateRefElement } from "../../composables/useResizeObserver";
-import { injectI18n } from "../../i18n";
+import { getTemplateRefElement } from "../../composables/useResizeObserver.js";
+import { injectI18n } from "../../i18n/index.js";
 import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
-import type { OnyxResizeHandleProps } from "./types";
+import type { OnyxResizeHandleProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxResizeHandleProps>(), {
   min: 1,

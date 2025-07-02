@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
-import { DataGridFeatures, normalizedIncludes, OnyxDataGrid, type ColumnConfig } from "../../..";
+import {
+  DataGridFeatures,
+  normalizedIncludes,
+  OnyxDataGrid,
+  type ColumnConfig,
+} from "../../../index.js";
 
 /**
  * ====================
