@@ -1,0 +1,56 @@
+import { DENSITIES } from "../../composables/density";
+import { expect, test } from "../../playwright/a11y";
+import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots";
+import OnyxFabItem from "./OnyxFabItem.vue";
+
+test.describe("Screenshot tests", () => {
+  executeMatrixScreenshotTest({
+    name: "Fab item",
+    columns: DENSITIES,
+    rows: ["default", "hover", "focus-visible"],
+    component: (column) => (
+      <ul role="menu" style={{ display: "contents" }}>
+        <OnyxFabItem label="Label" density={column} />
+      </ul>
+    ),
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        if (row === "hover") await component.hover();
+        if (row === "focus-visible") await page.keyboard.press("Tab");
+      },
+    },
+  });
+});
+
+test.describe("Screenshot tests (icon)", () => {
+  executeMatrixScreenshotTest({
+    name: "Fab item (item)",
+    columns: ["default", "link"],
+    rows: ["text", "icon", "text-icon"],
+    component: (column, row) => (
+      <ul role="menu" style={{ display: "contents" }}>
+        <OnyxFabItem
+          label="Label"
+          icon={row.includes("icon") ? mockPlaywrightIcon : undefined}
+          hideLabel={!row.includes("text")}
+          link={column === "link" ? "#test" : undefined}
+        />
+      </ul>
+    ),
+  });
+});
+
+test("should render as link", async ({ page, mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <ul role="menu" style={{ display: "contents" }}>
+      <OnyxFabItem label="Label" link="#test" />
+    </ul>,
+  );
+
+  // ACT
+  await component.getByRole("menuitem", { name: "Label" }).click();
+
+  // ASSERT
+  await expect(page).toHaveURL(/^http:\/\/localhost:\d*\/#test$/);
+});
