@@ -212,6 +212,7 @@ const popoverStyles = computed(() => ({
 
       min-width: var(--onyx-popover-min-width);
       max-width: var(--onyx-popover-max-width);
+      max-height: 100%;
       width: max-content;
       font-family: var(--onyx-font-family);
 
