@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.258
+
+### Minor Changes
+
+- 6797674: feat(OnyxTable): set aria label of native table when headline slot is passed
+
 ## 1.0.0-beta.257
 
 ### Minor Changes
