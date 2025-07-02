@@ -28,7 +28,7 @@ If thats not the case we recommend you first hop over to the [Vue Quickstart Doc
 ::: warning Pure ESM
 **onyx** only exports EcmaScript modules, as it is a **[Pure ESM package](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c)**.
 Therefore it cannot be `require()`'d from CommonJS.
-We recommend to read [Sindre Sorhus summary](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c) on this issue.
+We recommend to read [_The dual-package hazard_](https://nodejs.org/en/learn/modules/publishing-a-package#the-dual-package-hazard) on this issue.
 :::
 
 ### Step 1: Install dependencies
