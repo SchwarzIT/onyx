@@ -113,6 +113,14 @@ const triggerIcon = computed(() => {
       gap: var(--onyx-density-2xs);
       align-items: flex-end;
     }
+
+    .onyx-popover__dialog,
+    .onyx-flyout-menu__wrapper {
+      // prevent cutting of the options outline and box shadow
+      // since the floating action button is always positioned at the bottom corner and should
+      // not have too many options, we assume that not scrolling when overflowing is acceptable.
+      overflow: visible;
+    }
   }
 }
 </style>
