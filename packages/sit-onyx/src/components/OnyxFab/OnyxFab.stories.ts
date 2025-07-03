@@ -13,7 +13,7 @@ const meta: Meta<typeof OnyxFab> = {
   tags: ["new:component"],
   argTypes: {
     ...withNativeEventLogging(["onClick"]),
-    options: { control: { disable: true } },
+    default: { control: { disable: true } },
     icon: defineIconSelectArgType(),
   },
   decorators: [
@@ -54,10 +54,22 @@ export const Options = {
   args: {
     label: "Example label",
     hideLabel: true,
-    options: () => [
+    default: () => [
       h(OnyxFabItem, { label: "Action 3", icon: placeholder }),
       h(OnyxFabItem, { label: "Action 2", icon: placeholder }),
       h(OnyxFabItem, { label: "Action 1", icon: placeholder }),
+    ],
+  },
+} satisfies Story;
+
+export const IconOptions = {
+  args: {
+    label: "Example label",
+    hideLabel: true,
+    default: () => [
+      h(OnyxFabItem, { label: "Action 3", icon: placeholder, hideLabel: true }),
+      h(OnyxFabItem, { label: "Action 2", icon: placeholder, hideLabel: true }),
+      h(OnyxFabItem, { label: "Action 1", icon: placeholder, hideLabel: true }),
     ],
   },
 } satisfies Story;
