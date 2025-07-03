@@ -60,6 +60,7 @@ const hasChildren = computed(() => !!slots.children);
 
     &:has(:focus-visible) {
       outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
+      color: var(--onyx-list-item-color);
     }
 
     &:hover {

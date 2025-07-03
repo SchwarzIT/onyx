@@ -72,6 +72,10 @@ const { densityClass } = useDensity(props);
         background-color: var(--onyx-list-item-background-hover);
       }
 
+      &:focus-within {
+        color: var(--onyx-list-item-color-selected);
+      }
+
       // single select
       &.onyx-list-item--selected {
         background-color: var(--onyx-list-item-background-selected);
