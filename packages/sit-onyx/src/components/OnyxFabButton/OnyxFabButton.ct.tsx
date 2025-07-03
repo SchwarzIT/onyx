@@ -1,3 +1,4 @@
+import { useFocusStateHooks } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density";
 import { test } from "../../playwright/a11y";
 import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots";
@@ -20,8 +21,7 @@ test.describe("Screenshot tests", () => {
       ),
       hooks: {
         beforeEach: async (component, page, column, row) => {
-          if (row === "hover") await component.hover();
-          if (row === "focus-visible") await page.keyboard.press("Tab");
+          await useFocusStateHooks(component, page, row);
         },
       },
     });
