@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.259
+
+### Patch Changes
+
+- dc798ec: fix(OnyxListItem): update focus color #3648
+
 ## 1.0.0-beta.258
 
 ### Minor Changes
