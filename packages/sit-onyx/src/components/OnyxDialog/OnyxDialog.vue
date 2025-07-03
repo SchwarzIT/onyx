@@ -7,6 +7,7 @@ const props = withDefaults(defineProps<OnyxDialogProps>(), {
   modal: false,
   alert: false,
   alignment: "center",
+  stayOpenOnBackdropClick: false,
 });
 
 const emit = defineEmits<{
@@ -27,7 +28,6 @@ defineSlots<{
 
 const dialog = useTemplateRef("dialogRef");
 const { densityClass } = useDensity(props);
-
 /**
  * Shows the dialog either as default dialog or modal.
  */
@@ -42,6 +42,21 @@ watch([dialog, () => props.open], () => {
   else dialog.value?.close();
 });
 
+watch(dialog, (currentDialog) => {
+  if (props.modal && !props.disableClosingOnBackdropClick) {
+    currentDialog?.addEventListener("click", (e) => {
+      const dialogDimensions = currentDialog.getBoundingClientRect();
+      if (
+        e.clientX < dialogDimensions.left ||
+        e.clientX > dialogDimensions.right ||
+        e.clientY < dialogDimensions.top ||
+        e.clientY > dialogDimensions.bottom
+      ) {
+        emit("close");
+      }
+    });
+  }
+});
 watch(
   () => props.modal,
   () => {

@@ -14,6 +14,7 @@ import {
   OnyxCard,
   OnyxCheckboxGroup,
   OnyxDatePicker,
+  OnyxDialog,
   OnyxEmpty,
   OnyxFilterTag,
   OnyxHeadline,
@@ -83,6 +84,7 @@ const COMPONENTS = [
   "OnyxTimer",
   "OnyxToast",
   "OnyxTooltip",
+  "OnyxDialog",
 ] as const;
 
 /* Config data to regulate which components will be shown */
@@ -152,7 +154,7 @@ const tableData = [
 const currentPage = ref(1);
 const selectedTab = ref("tab-1");
 const selectedDate = ref<DateValue>();
-
+const isDialogOpen = ref(false);
 const openAccordionItems = ref<string[]>([]);
 const currentProgressStep = ref(3);
 </script>
@@ -241,6 +243,18 @@ const currentProgressStep = ref(3);
 
         <OnyxIconButton v-if="show('OnyxIconButton')" label="Happy Emoji" :icon="emojiHappy2" />
 
+        <OnyxButton
+          v-if="show('OnyxDialog')"
+          label="Open Dialog"
+          @click="
+            () => {
+              isDialogOpen = true;
+            }
+          "
+        />
+        <OnyxDialog label="Dialog" :open="isDialogOpen" modal @close="isDialogOpen = false">
+          Dialog Content
+        </OnyxDialog>
         <OnyxImage
           v-if="show('OnyxImage')"
           src="https://picsum.photos/512/256"
