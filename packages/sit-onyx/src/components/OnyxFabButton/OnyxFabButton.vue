@@ -17,7 +17,7 @@ const { densityClass } = useDensity(props);
     :link="props.link"
   >
     <OnyxIcon v-if="props.icon" :icon="props.icon" />
-    <template v-if="!props.hideLabel">{{ props.label }}</template>
+    <span v-if="!props.hideLabel" class="onyx-fab-button__label">{{ props.label }}</span>
   </ButtonOrLinkLayout>
 </template>
 
@@ -36,7 +36,6 @@ const { densityClass } = useDensity(props);
     border: none;
     cursor: pointer;
     color: var(--onyx-color-text-icons-neutral-inverted);
-    padding: var(--onyx-density-md);
 
     display: inline-flex;
     justify-content: center;

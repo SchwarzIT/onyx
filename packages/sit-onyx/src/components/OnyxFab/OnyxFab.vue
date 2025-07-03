@@ -25,7 +25,7 @@ const slots = defineSlots<{
   /**
    * Nested options to show inside a flyout.
    */
-  options?(): unknown;
+  default?(): unknown;
 }>();
 
 const { densityClass } = useDensity(props);
@@ -40,7 +40,7 @@ const isExpanded = useVModel({
   default: false,
 });
 
-const hasOptions = computed(() => !!slots.options);
+const hasOptions = computed(() => !!slots.default);
 
 const triggerIcon = computed(() => {
   if (!hasOptions.value) return props.icon;
@@ -61,13 +61,13 @@ const triggerIcon = computed(() => {
       <OnyxFabButton
         v-bind="mergeVueProps(props, trigger)"
         :label="props.label"
-        :hide-label
+        hide-label
         :icon="triggerIcon"
       />
     </template>
 
     <template #options>
-      <slot name="options"></slot>
+      <slot name="default"></slot>
     </template>
   </OnyxFlyoutMenu>
 
@@ -96,12 +96,6 @@ const triggerIcon = computed(() => {
       }
     }
 
-    .onyx-popover__dialog {
-      box-shadow: none;
-      background-color: transparent;
-      outline: none;
-    }
-
     .onyx-flyout-menu__list-header,
     .onyx-flyout-menu__list-footer {
       display: none;
@@ -112,6 +106,20 @@ const triggerIcon = computed(() => {
       flex-direction: column;
       gap: var(--onyx-density-2xs);
       align-items: flex-end;
+    }
+
+    .onyx-popover__dialog {
+      --onyx-popover-min-width: 0;
+      box-shadow: none;
+      background-color: transparent;
+      outline: none;
+      width: calc(1.5rem + 2 * var(--onyx-density-md)); // density-md = fab button padding
+
+      &:not(:has(.onyx-fab-button__label)) {
+        .onyx-flyout-menu__wrapper {
+          align-items: center;
+        }
+      }
     }
 
     .onyx-popover__dialog,
