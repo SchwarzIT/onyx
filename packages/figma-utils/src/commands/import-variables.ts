@@ -126,7 +126,10 @@ export async function importVariablesCommandAction(options: ImportVariablesComma
           (themeData) => themeData.modeName === themeName + "-dark",
         );
 
-        fs.writeFileSync(fullPath, generators[format as keyof typeof generators](data, dataDark));
+        fs.writeFileSync(
+          fullPath,
+          generators[format as keyof typeof generators]({ ...data, modeName: themeName }, dataDark),
+        );
       } else {
         const fullPath = path.join(outputDirectory, `${baseName}.${format.toLowerCase()}`);
         fs.writeFileSync(fullPath, generators[format as keyof typeof generators](data));
