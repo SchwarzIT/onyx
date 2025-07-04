@@ -2,6 +2,7 @@ import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
 import { expect, test } from "../../playwright/a11y";
 import TestWrapper from "../OnyxTooltip/TestWrapper.ct.vue";
 import OnyxDialog from "./OnyxDialog.vue";
+import ModalExample from "./examples/ModalExample.vue";
 test.beforeEach(async ({ page }) => {
   await page.setViewportSize({ width: 256, height: 128 });
 });
@@ -86,6 +87,15 @@ for (const alignment of ["left", "right"] as const) {
     expect(accessibilityScanResults.violations).toEqual([]);
   });
 }
+
+test("should close on Backdrop click", async ({ mount, page }) => {
+  await mount(<ModalExample />);
+
+  await page.getByRole("button", { name: "Open modal" }).click();
+  await expect(page.getByRole("dialog", { name: "Example modal dialog" })).toBeVisible();
+  await page.mouse.click(1, 1);
+  await expect(page.getByRole("dialog", { name: "Example modal dialog" })).toBeHidden();
+});
 
 test("tooltip inside dialog", async ({ mount, makeAxeBuilder, page }) => {
   await mount(
