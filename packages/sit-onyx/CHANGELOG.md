@@ -1,5 +1,20 @@
 # sit-onyx
 
+## 1.0.0-beta.261
+
+### Patch Changes
+
+- 43de03d: fix(OnyxMiniSearch): fix text color with filled value in dark mode
+
+## 1.0.0-beta.260
+
+### Patch Changes
+
+- 2617d53: fix kaufland theme
+
+  - fix: add missing neutral-carbon CSS variables which broke the kaufland theme
+  - fix: update component showcase to import logo url instead of using absolut path so it shows correctly when importing the showcase
+
 ## 1.0.0-beta.259
 
 ### Patch Changes

@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "value" theme.
- * Imported from Figma API on Mon, 30 Jun 2025 15:23:49 GMT
+ * Imported from Figma API on Fri, 04 Jul 2025 06:52:28 GMT
  */
 :where(:root),
 .onyx-theme-default {
@@ -41,6 +41,18 @@
   --onyx-color-lidl-blue-1000: #04204d;
   --onyx-color-lidl-blue-1100: #081c34;
   --onyx-color-lidl-blue-1200: #09111d;
+  --onyx-color-neutral-carbon-100: #fcfcfc;
+  --onyx-color-neutral-carbon-200: #f0f0f0;
+  --onyx-color-neutral-carbon-300: #e1e1e1;
+  --onyx-color-neutral-carbon-400: #c5c5c5;
+  --onyx-color-neutral-carbon-500: #aaaaaa;
+  --onyx-color-neutral-carbon-600: #858585;
+  --onyx-color-neutral-carbon-700: #6d6d6d;
+  --onyx-color-neutral-carbon-800: #5c5c5c;
+  --onyx-color-neutral-carbon-900: #4b4b4b;
+  --onyx-color-neutral-carbon-1000: #3a3a3a;
+  --onyx-color-neutral-carbon-1100: #2a2a2a;
+  --onyx-color-neutral-carbon-1200: #191919;
   --onyx-color-neutral-grayscale-black: #000000;
   --onyx-color-neutral-grayscale-white: #ffffff;
   --onyx-color-neutral-steel-100: #fafbfc;

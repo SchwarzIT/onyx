@@ -112,7 +112,7 @@ defineExpose({
       font-style: normal;
       flex-grow: 1;
       min-width: calc(var(--onyx-placeholder-character-count) * 1ch);
-      color: var(--onyx-color-text-icons-neutral-intense);
+      color: inherit;
 
       &::placeholder {
         color: var(--onyx-color-text-icons-neutral-soft);
