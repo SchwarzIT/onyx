@@ -1,10 +1,10 @@
 /**
  * Do not edit directly.
- * This file contains the specific variables for the "kaufland-light" theme.
- * Imported from Figma API on Mon, 30 Jun 2025 15:24:11 GMT
+ * This file contains the specific variables for the "kaufland" theme.
+ * Imported from Figma API on Fri, 04 Jul 2025 06:33:51 GMT
  */
 :where(:root),
-.onyx-theme-kaufland-light {
+.onyx-theme-kaufland {
   --onyx-color-base-background-blank: light-dark(
     var(--onyx-color-neutral-grayscale-white),
     var(--onyx-color-neutral-carbon-1100)
