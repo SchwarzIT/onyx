@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.261
+
+### Patch Changes
+
+- 43de03d: fix(OnyxMiniSearch): fix text color with filled value in dark mode
+
 ## 1.0.0-beta.260
 
 ### Patch Changes
