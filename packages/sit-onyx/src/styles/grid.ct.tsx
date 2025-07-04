@@ -5,6 +5,7 @@ import {
   ONYX_MAX_WIDTHS,
   type OnyxBreakpoint,
 } from "@sit-onyx/shared/breakpoints";
+import OnyxSidebar from "../components/OnyxSidebar/OnyxSidebar.vue";
 import { expect, test } from "../playwright/a11y.js";
 
 /**
@@ -274,5 +275,50 @@ Object.entries(ONYX_MAX_WIDTHS).forEach(([breakpoint, size]) => {
 
     expect(box.left).toBe(EXPECTED_LEFT);
     expect(box.right).toBe(EXPECTED_RIGHT);
+  });
+});
+
+/**
+ * Map of column count per breakpoint.
+ */
+const SIDEBAR_GRID_COLUMNS = {
+  xs: 1,
+  sm: 2,
+  md: 4,
+  lg: 8,
+  xl: 12,
+};
+const SIDEBAR_BREAKPOINTS = {
+  xs: 0,
+  sm: 200,
+  md: 328,
+  lg: 656,
+  xl: 992,
+};
+
+Object.entries(SIDEBAR_GRID_COLUMNS).forEach(([name, columns]) => {
+  test(`all 'onyx-grid-span-*' should have correct column count for ${name} breakpoint in the sidebar`, async ({
+    mount,
+    page,
+  }) => {
+    // ARRANGE
+    await mount(
+      <OnyxSidebar label="Example sidebar" style={{ width: SIDEBAR_BREAKPOINTS[name] + 1 + "px" }}>
+        <main class="onyx-grid onyx-grid-container" style={{ outline: "1px solid red" }}>
+          {Array.from({ length: 16 }, (_, i) => createGridElement(i + 1))}
+          {createGridElement("full")}
+        </main>
+      </OnyxSidebar>,
+    );
+
+    // ASSERT
+    await fullPageScreenshot(page, `grid-${name}.png`);
+    const allGridElements = await getAllGridElements(page);
+
+    for (let i = 0; i < allGridElements.length; i++) {
+      const element = allGridElements[i];
+      await expectComputedGridSpan(element, Math.min(i + 1, columns));
+      await expectComputedColumnCount(page, columns);
+    }
   });
 });
