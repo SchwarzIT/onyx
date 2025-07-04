@@ -14,6 +14,7 @@ import { OnyxAppLayout, OnyxButton, OnyxHeadline, OnyxPageLayout, OnyxSidebar } 
                 {{ i }}
               </div>
               <div class="onyx-grid-example onyx-grid-span-2">span 2</div>
+              <div class="onyx-grid-example onyx-grid-md-span-4">md span 4</div>
               <div class="onyx-grid-example onyx-grid-span-full">full span</div>
             </div>
           </div>
@@ -27,7 +28,21 @@ import { OnyxAppLayout, OnyxButton, OnyxHeadline, OnyxPageLayout, OnyxSidebar } 
 
       <!-- page content -->
       <OnyxHeadline is="h1">Page content</OnyxHeadline>
-      <p>Breakpoints for the grid dynamically adjust based on the width of the sidebar.</p>
+      <p>
+        Breakpoints for the grid dynamically adjust based on the width of the main page content area
+        or the sidebar.
+      </p>
+
+      <div class="onyx-grid-container">
+        <div class="onyx-grid">
+          <div v-for="i in 12" :key="i" class="onyx-grid-example">
+            {{ i }}
+          </div>
+          <div class="onyx-grid-example onyx-grid-span-2">span 2</div>
+          <div class="onyx-grid-example onyx-grid-md-span-4">md span 4</div>
+          <div class="onyx-grid-example onyx-grid-span-full">full span</div>
+        </div>
+      </div>
     </OnyxPageLayout>
   </OnyxAppLayout>
 </template>

@@ -65,14 +65,15 @@ $sidebar-breakpoints: (
   /**
   * Grid container classes for "xl" and "lg" breakpoint variants with 16 or 20 columns
   */
-  @include screen(min, lg) {
+
+  @include container(min, lg) {
     .onyx-grid-xl-20,
     .onyx-grid-lg-16 {
       --onyx-grid-columns: 16;
     }
   }
 
-  @include screen(min, xl) {
+  @include container(min, xl) {
     .onyx-grid-xl-20 {
       --onyx-grid-columns: 20;
     }
@@ -126,19 +127,40 @@ $sidebar-breakpoints: (
     }
   }
 
-  @each $name, $maxVariant, $columns, $gutter, $margin in $gridVariants {
-    @if $name == "2xs" {
-      @include generate-grid-properties($columns, $gutter, $margin);
-      @include generate-spans(1, $columns, $name);
-    } @else {
-      @include screen(min, $name) {
-        @include generate-grid-properties($columns, $gutter, $margin);
+  /**
+ * Initializes the grid layout on the `.page__main` element.
+ * Additionally, users may apply the `.onyx-grid-wrapper` class
+ * to explicitly activate the grid. The layout will adapt
+ * to the width of this wrapper accordingly.
+ */
+  .onyx-page__main,
+  .onyx-grid-wrapper {
+    container-type: inline-size;
+
+    @each $name, $maxVariant, $columns, $gutter, $margin in $gridVariants {
+      @if $name == "2xs" {
+        @include generate-grid-properties(
+          $columns,
+          $gutter,
+          $margin,
+          ".onyx-grid, .onyx-grid-container"
+        );
         @include generate-spans(1, $columns, $name);
-        @if $maxVariant != none {
-          @include generate-grid-max($name, $maxVariant);
-        }
-        @if $name == "xl" {
-          @include generate-spans(17, 20, $name);
+      } @else {
+        @include container(min, $name) {
+          @include generate-grid-properties(
+            $columns,
+            $gutter,
+            $margin,
+            ".onyx-grid, .onyx-grid-container"
+          );
+          @include generate-spans(1, $columns, $name);
+          @if $maxVariant != none {
+            @include generate-grid-max($name, $maxVariant);
+          }
+          @if $name == "xl" {
+            @include generate-spans(17, 20, $name);
+          }
         }
       }
     }
@@ -155,7 +177,7 @@ $sidebar-breakpoints: (
         @include generate-grid-properties(
           $columns,
           $gutter,
-          $margin,
+          var(--onyx-spacing-xs) $margin var(--onyx-spacing-xs) $margin,
           ".onyx-grid, .onyx-grid-container"
         );
 
@@ -164,6 +186,20 @@ $sidebar-breakpoints: (
         @if $maxVariant != none {
           @include generate-grid-max($name, $maxVariant, $sidebar-breakpoints);
         }
+      }
+    }
+  }
+
+  /*
+* Sets grid variables on root based on viewport size,
+* providing theme properties for elements outside an onyx-grid. e.g. OnyxBottomBar
+*/
+  @each $name, $columns, $gutter, $margin in $gridVariants {
+    @if $name == "2xs" {
+      @include generate-grid-properties($columns, $gutter, $margin);
+    } @else {
+      @include screen(min, $name) {
+        @include generate-grid-properties($columns, $gutter, $margin);
       }
     }
   }
