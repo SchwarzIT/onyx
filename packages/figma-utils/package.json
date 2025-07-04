@@ -40,6 +40,6 @@
     "commander": "^14.0.0"
   },
   "optionalDependencies": {
-    "svgo": "^3.3.2"
+    "svgo": "^4.0.0"
   }
 }
