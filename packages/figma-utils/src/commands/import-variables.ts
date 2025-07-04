@@ -44,7 +44,7 @@ export const importVariablesCommand = new Command("import-variables")
   )
   .option(
     "-c, --combines-dark-light",
-    "Combines the dark theme data with the light theme data by using the light-dark() CSS function",
+    "Combines the dark theme data with the light theme data by using the light-dark() CSS function. The Figma file must include two modes with -light and -dark prefix, e.g. example-light and example-dark.",
   )
   .option(
     "-s, --selector <string>",
