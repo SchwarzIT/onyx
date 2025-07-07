@@ -7,6 +7,7 @@ import type {
   RecordValues,
   UnionByKey,
 } from "../../types/index.js";
+import type { OnyxHeadlineProps } from "../OnyxHeadline/types.js";
 import type { OnyxTableProps } from "../OnyxTable/types.js";
 import type { BASE_FEATURE } from "./features/base/base.js";
 import type {

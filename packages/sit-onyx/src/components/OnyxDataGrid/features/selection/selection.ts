@@ -1,7 +1,7 @@
 import { h, ref, toRef, useId, type Ref } from "vue";
 import OnyxCheckbox from "../../../OnyxCheckbox/OnyxCheckbox.vue";
 import type { DataGridEntry } from "../../types.js";
-import { createFeature, type ModifyColumns } from "../index.js";
+import { createFeature, useFeatureContext, type ModifyColumns } from "../index.js";
 import { createTypeRenderer } from "../renderer.js";
 import "./selection.scss";
 import type { SelectionOptions, SelectionState } from "./types.js";

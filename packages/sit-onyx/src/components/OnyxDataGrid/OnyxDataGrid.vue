@@ -10,7 +10,7 @@
     TFeatures extends DataGridFeature<TEntry, TTypeRenderer, TFeatureName>[] | [] = []
   "
 >
-import { shallowRef, toRefs, watch, type WatchHandle } from "vue";
+import { shallowRef, toRef, toRefs, watch, type WatchHandle } from "vue";
 import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,

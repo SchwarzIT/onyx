@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, useTemplateRef } from "vue";
+import { computed, useId, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useResizeObserver } from "../../composables/useResizeObserver.js";
 import { injectI18n } from "../../i18n/index.js";

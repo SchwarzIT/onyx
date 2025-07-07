@@ -4,14 +4,14 @@ import { beforeEach, expect, test, vi } from "vitest";
 import * as vue from "vue";
 import { createI18n as createVueI18n } from "vue-i18n";
 import type { FlattenedKeysOf, TranslationValue } from "../types/index.js";
-import type { DatetimeFormat } from "./datetime-formats";
+import type { DatetimeFormat } from "./datetime-formats.js";
 import {
   injectI18n,
   provideI18n,
   type OnyxTranslations,
   type ProvideI18nOptions,
 } from "./index.js";
-import type { NumberFormat } from "./number-formats";
+import type { NumberFormat } from "./number-formats.js";
 
 // keep track of provide/inject because they need to be mocked
 let provided = new Map();
