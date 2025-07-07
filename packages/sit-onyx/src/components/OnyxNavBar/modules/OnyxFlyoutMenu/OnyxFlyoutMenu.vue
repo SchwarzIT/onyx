@@ -1,9 +1,10 @@
 <!-- For an unknown reason the generic here is necessary, otherwise the typings of the component break -->
 <script setup lang="ts" generic="_">
 import { createMenuButton } from "@sit-onyx/headless";
-import { computed, useTemplateRef } from "vue";
+import { computed, ref, type ComponentInstance, type VNodeRef } from "vue";
 import { useVModel } from "../../../../composables/useVModel.js";
 import type { Nullable } from "../../../../types/index.js";
+import { mergeVueProps } from "../../../../utils/attrs";
 import OnyxPopover from "../../../OnyxPopover/OnyxPopover.vue";
 import type { OnyxFlyoutMenuProps } from "./types.js";
 
@@ -54,7 +55,7 @@ const slots = defineSlots<{
   footer?(): unknown;
 }>();
 
-const popover = useTemplateRef("popoverRef");
+const popover = ref<ComponentInstance<typeof OnyxPopover>>();
 const actualPosition = computed(() => popover.value?.popoverPosition);
 
 const {
@@ -70,8 +71,7 @@ const {
 
 <template>
   <OnyxPopover
-    v-bind="root"
-    ref="popoverRef"
+    v-bind="mergeVueProps(root, { ref: popover as VNodeRef | undefined })"
     class="onyx-component onyx-flyout-menu"
     :open="isExpanded"
     :label="props.label"
