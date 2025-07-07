@@ -10,7 +10,7 @@ const meta: Meta<typeof OnyxMobileNavButton> = {
   title: "Support/MobileNavButton",
   component: OnyxMobileNavButton,
   argTypes: {
-    icon: defineIconSelectArgType(),
+    icon: defineIconSelectArgType({ required: true }),
     default: { control: { type: "text" } },
   },
   decorators: [

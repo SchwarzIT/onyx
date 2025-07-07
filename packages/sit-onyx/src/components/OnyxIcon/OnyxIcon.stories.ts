@@ -16,7 +16,7 @@ const meta: Meta<typeof OnyxIcon> = {
   title: "Basic/Icon",
   component: OnyxIcon,
   argTypes: {
-    icon: defineIconSelectArgType(),
+    icon: defineIconSelectArgType({ required: true }),
   },
 
   decorators: [textColorDecorator],
