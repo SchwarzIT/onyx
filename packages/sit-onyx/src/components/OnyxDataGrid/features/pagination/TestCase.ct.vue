@@ -2,6 +2,7 @@
 import { computed } from "vue";
 import type { DataGridEntry, OnyxDataGridProps } from "../../../../index.js";
 import { DataGridFeatures, OnyxDataGrid } from "../../../../index.js";
+import { useFiltering, useSelection } from "../all.js";
 import type { PaginationOptions } from "./types.js";
 
 const props = defineProps<
