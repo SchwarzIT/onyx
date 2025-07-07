@@ -5,7 +5,6 @@ import pluginVitest from "@vitest/eslint-plugin";
 import skipFormattingConfig from "@vue/eslint-config-prettier/skip-formatting";
 import { defineConfigWithVueTs, vueTsConfigs } from "@vue/eslint-config-typescript";
 import compat from "eslint-plugin-compat";
-import importPlugin from "eslint-plugin-import";
 import playwrightEslintConfig from "eslint-plugin-playwright";
 import vue from "eslint-plugin-vue";
 import vueScopedCss from "eslint-plugin-vue-scoped-css";
@@ -68,6 +67,24 @@ const generalVueTsConfig = {
     ],
     "no-console": "error",
     "no-debugger": "error",
+    // "no-restricted-imports": [
+    //   "error",
+    //   {
+    //     patterns: [
+    //       {
+    //         group: ["*.ts"],
+    //         message:
+    //           "Module specifiers are not transformed and therefore the specifier of the output file has to be used. Use '.js' instead of '.ts'.",
+    //       },
+    //       {
+    //         // regex the matches an relative path without a file extension
+    //         regex: "^\\..?/?(.*/[\\w]+)?$",
+    //         message:
+    //           "The ESM loader does no extension searching. A file extension must be provided when the specifier is a relative or absolute file URL. Add '.js' to the import statement.",
+    //       },
+    //     ],
+    //   },
+    // ],
     "vue/no-console": "error",
     "vue/html-button-has-type": "error",
     "vue/valid-define-options": "error",
@@ -154,7 +171,6 @@ const sitOnyxConfig = {
   files: ["**/packages/sit-onyx/**/*"],
   extends: [
     compat.configs["flat/recommended"],
-    importPlugin.flatConfigs.typescript,
     ...defineConfigWithVueTs(vue.configs["flat/recommended"], vueTsConfigs.recommendedTypeChecked),
     ...vueScopedCss.configs["flat/recommended"],
   ],
@@ -165,11 +181,11 @@ const sitOnyxConfig = {
   },
   plugins: { sitOnyx },
   rules: {
-    "import/extensions": ["error", "ignorePackages", { ts: "never" }],
     "sitOnyx/import-playwright-a11y": "error",
     "sitOnyx/no-shadow-template-ref": "error",
     "sitOnyx/no-shadow-native": "error",
     "sitOnyx/require-root-class": "error",
+    "sitOnyx/no-restricted-import-extensions": "error",
     "vue/require-prop-comment": "error",
     // disallow scoped or module CSS for components
     // see https://onyx.schwarz/principles/technical-vision.html#css

@@ -1,10 +1,9 @@
-import { ref } from "process";
-import { computed, toValue, type h } from "vue";
-import { OnyxHeadline } from "../../../../index.ts";
-import type { DataGridHeadline } from "../../types.ts";
-import { FILTERING_MUTATION_ORDER } from "../filtering/filtering.ts";
+import { computed, h, ref, toValue } from "vue";
+import { OnyxHeadline } from "../../../../index.js";
+import type { DataGridHeadline } from "../../types.js";
+import { FILTERING_MUTATION_ORDER } from "../filtering/filtering.js";
 import { createFeature } from "../index.js";
-import { PAGINATION_MUTATION_ORDER } from "../pagination/pagination.ts";
+import { PAGINATION_MUTATION_ORDER } from "../pagination/pagination.js";
 import {
   DATE_RENDERER,
   DATETIME_RENDERER,
