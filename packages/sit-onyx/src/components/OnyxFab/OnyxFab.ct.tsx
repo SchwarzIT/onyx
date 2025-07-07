@@ -21,7 +21,8 @@ test.describe("Screenshot tests", () => {
           element.style.width = `${document.documentElement.scrollWidth}px`;
         });
 
-        await useFocusStateHooks(component, page, row);
+        const button = component.getByRole("button", { name: "Label" });
+        await useFocusStateHooks(button, page, row);
       },
     },
   });
@@ -35,12 +36,10 @@ const optionsHooks: MatrixScreenshotTestOptions["hooks"] = {
       element.style.width = `${document.documentElement.scrollWidth}px`;
     });
 
-    if (row === "hover") {
-      const button = page.getByRole("button", { name: "Label" });
-      await button.hover();
-    }
+    const button = component.getByRole("button", { name: "Label" });
+    await useFocusStateHooks(button, page, row);
+
     if (row === "focus-visible") {
-      await page.keyboard.press("Tab");
       // eslint-disable-next-line playwright/no-standalone-expect -- test block is added by "executeMatrixScreenshotTest"
       await expect(component.getByRole("menuitem", { name: "Option 1" })).toBeVisible();
     }

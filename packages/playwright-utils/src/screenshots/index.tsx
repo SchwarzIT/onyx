@@ -163,16 +163,15 @@ const GridLabel = (props: { type: "column" | "row"; name: string }) => {
  * - focus-visible: press Tab key to focus component
  */
 export const useFocusStateHooks = async (component: Locator, page: Page, state: string) => {
-  const box = (await component.boundingBox())!;
-  const center = { x: box.x + box.width / 2, y: box.y + box.height / 2 };
-
   if (state === "hover") {
-    await component.hover({ position: center });
+    await component.hover();
   }
   if (state === "focus-visible") {
     await page.keyboard.press("Tab");
   }
   if (state === "active") {
+    const box = (await component.boundingBox())!;
+    const center = { x: box.x + box.width / 2, y: box.y + box.height / 2 };
     await page.mouse.move(center.x, center.y);
     await page.mouse.down();
   }
