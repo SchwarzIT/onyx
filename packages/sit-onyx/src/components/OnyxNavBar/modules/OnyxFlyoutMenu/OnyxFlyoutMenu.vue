@@ -70,9 +70,9 @@ const {
 
 <template>
   <OnyxPopover
+    v-bind="root"
     ref="popoverRef"
     class="onyx-component onyx-flyout-menu"
-    v-bind="root"
     :open="isExpanded"
     :label="props.label"
     :alignment="props.alignment"
