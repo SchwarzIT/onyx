@@ -21,7 +21,7 @@ test.describe("Screenshot tests", () => {
       ),
       hooks: {
         beforeEach: async (component, page, column, row) => {
-          await useFocusStateHooks(component, page, row);
+          await useFocusStateHooks({ component, page, state: row });
         },
       },
     });

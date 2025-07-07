@@ -22,7 +22,7 @@ test.describe("Screenshot tests", () => {
         });
 
         const button = component.getByRole("button", { name: "Label" });
-        await useFocusStateHooks(button, page, row);
+        await useFocusStateHooks({ component: button, page, state: row });
       },
     },
   });
@@ -37,7 +37,7 @@ const optionsHooks: MatrixScreenshotTestOptions["hooks"] = {
     });
 
     const button = component.getByRole("button", { name: "Label" });
-    await useFocusStateHooks(button, page, row);
+    await useFocusStateHooks({ component: button, page, state: row });
 
     if (row === "focus-visible") {
       // eslint-disable-next-line playwright/no-standalone-expect -- test block is added by "executeMatrixScreenshotTest"

@@ -154,6 +154,21 @@ const GridLabel = (props: { type: "column" | "row"; name: string }) => {
   );
 };
 
+export type UseFocusStateHooksOptions = {
+  /**
+   * Component to apply the focus to.
+   */
+  component: Locator;
+  /**
+   * Current Playwright test page.
+   */
+  page: Page;
+  /**
+   * States to apply the focus to. One of: "hover", "active", "focus-visible".
+   */
+  state: string;
+};
+
 /**
  * Utility hook for screenshot tests to capture the component in hover, active and focus-visible state.
  *
@@ -162,7 +177,7 @@ const GridLabel = (props: { type: "column" | "row"; name: string }) => {
  * - active: will hold the mouse down on the center of the component
  * - focus-visible: press Tab key to focus component
  */
-export const useFocusStateHooks = async (component: Locator, page: Page, state: string) => {
+export const useFocusStateHooks = async ({ component, page, state }: UseFocusStateHooksOptions) => {
   if (state === "hover") {
     await component.hover();
   }
