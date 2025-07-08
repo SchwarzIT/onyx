@@ -2,7 +2,7 @@
   "name": "@sit-onyx/eslint-plugin",
   "description": "Custom eslint rules that should be used for all packages of this monorepo",
   "private": true,
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "type": "commonjs",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
