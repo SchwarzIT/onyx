@@ -13,16 +13,14 @@ module.exports = {
   meta: {
     type: "problem",
     fixable: true,
-
     docs: {
-      description: "Disallow '.ts' imports.",
+      description: "Disallow esm incompatible imports.",
       recommended: true,
     },
-
     messages: {
-      patterns: "'{{importSource}}' import is restricted from being used by a pattern.",
-      patternWithCustomMessage:
-        "'{{importSource}}' import is restricted from being used by a pattern. {{customMessage}}",
+      incorrectExtension: `Module specifiers are not transformed and therefore the specifier of the output file has to be used. Use '.{{newExtension}}' instead of '.{{extension}}'.`,
+      missingFile: `The ESM loader does no extension searching. Add 'index.js' to the import statement.`,
+      missingExtension: `The ESM loader does no extension searching. A file extension must be provided when the specifier is a relative or absolute file URL. Add '.js' to the import statement.`,
     },
   },
 
@@ -45,14 +43,15 @@ module.exports = {
       const importSource = node.source.value.trim();
 
       if (/\.tsx?$/.test(importSource)) {
-        const extension = importSource.split(".").at(-1);
+        const extension = importSource.split(".").at(-1) ?? "ts";
         const newExtension = extension?.replace("t", "j") ?? "js";
 
         return context.report({
           node,
-          message: `Module specifiers are not transformed and therefore the specifier of the output file has to be used. Use '.${newExtension}' instead of '.${extension}'.`,
+          messageId: "incorrectExtension",
           data: {
-            importSource,
+            newExtension,
+            extension,
           },
           fix: (fixer) =>
             fixer.replaceTextRange(
@@ -73,10 +72,7 @@ module.exports = {
         const indexFile = "/index.js";
         return context.report({
           node,
-          message: `The ESM loader does no extension searching. Add 'index.js' to the import statement.`,
-          data: {
-            importSource,
-          },
+          messageId: "missingFile",
           fix: (fixer) =>
             // Insert /index.js and overwrite existing slash if necessary: `from "../"` => `../index.js`
             fixer.replaceTextRange(
@@ -89,10 +85,7 @@ module.exports = {
       if (!importSource.split("/").at(-1)?.includes(".")) {
         return context.report({
           node,
-          message: `The ESM loader does no extension searching. A file extension must be provided when the specifier is a relative or absolute file URL. Add '.js' to the import statement.`,
-          data: {
-            importSource,
-          },
+          messageId: "missingExtension",
           fix: (fixer) =>
             // Add .js before the apostrophe: `from "../index"` => `from "../index.js"`
             fixer.insertTextAfterRange([node.source.range[0], node.source.range[1] - 1], ".js"),
