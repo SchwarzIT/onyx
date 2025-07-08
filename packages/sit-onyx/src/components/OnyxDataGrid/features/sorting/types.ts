@@ -9,7 +9,7 @@ export type SortDirection = "asc" | "desc" | "none";
  * The returned number value indicates the relative order of two values:
  * -1: less than, 0: equal to, 1: greater than
  */
-export type Compare<T> = (a: T, b: T) => number;
+export type Compare<T> = (a: T, b: T, collator: Intl.Collator) => number;
 
 /**
  * The values by which the data is currently sorted.
