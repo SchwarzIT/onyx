@@ -15,6 +15,8 @@ If you are an Schwarz employee and want to access one the following themes, plea
 - PreZero
 - Schwarz corporate solutions
 
+If you have any other questions or need support, please get in touch with the [team](/about/team).
+
 :::
 
 ## Themes
