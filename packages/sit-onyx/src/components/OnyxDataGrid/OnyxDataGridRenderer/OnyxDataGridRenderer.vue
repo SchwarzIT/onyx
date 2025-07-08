@@ -55,6 +55,7 @@ const columnStyle = computed(() => {
     </tr>
 
     <template v-for="(slot, slotName) in slots" :key="slotName" #[slotName]="slotProps">
+      <!-- The type assertion here is a workaround for incorrect type assertion, which otherwise breaks the build  -->
       <slot :name="slot?.name as 'headline'" v-bind="slotProps">
         <component :is="slot"></component>
       </slot>

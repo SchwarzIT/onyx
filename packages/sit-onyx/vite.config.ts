@@ -11,6 +11,7 @@ import { vuePluginOptions } from "./playwright.config.js";
 // https://vitejs.dev/config
 export default defineConfig({
   ...VITE_BASE_CONFIG,
+  mode: "development",
   plugins: [
     dts({
       tsconfigPath: "./tsconfig.app.json",
@@ -29,10 +30,12 @@ export default defineConfig({
     vue(vuePluginOptions),
   ],
   build: {
+    minify: false,
+    sourcemap: true,
     lib: {
       entry: getFilePath("./src/index.ts"),
       formats: ["es"],
-      fileName: "index",
+      fileName: "index.esm-bundler",
       cssFileName: "style",
     },
     rollupOptions: {
