@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { computed } from "vue";
-import { injectI18n } from "../../i18n";
-import { extractLinkProps } from "../../utils/router";
+import { injectI18n } from "../../i18n/index.js";
+import { extractLinkProps } from "../../utils/router.js";
 import OnyxRouterLink from "../OnyxRouterLink/OnyxRouterLink.vue";
-import type { OnyxNavAppAreaProps } from "./types";
+import type { OnyxNavAppAreaProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxNavAppAreaProps>(), {
   link: "/",

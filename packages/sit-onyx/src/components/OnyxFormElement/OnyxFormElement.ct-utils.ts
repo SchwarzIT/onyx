@@ -1,6 +1,6 @@
 import type { MountResultJsx } from "@playwright/experimental-ct-vue";
 import { type Locator, type Page } from "@playwright/test";
-import { expect } from "../../playwright/a11y";
+import { expect } from "../../playwright/a11y.js";
 
 type PageOrLocator = Page | Locator | MountResultJsx;
 type FormElementTooltip = "label" | "message";

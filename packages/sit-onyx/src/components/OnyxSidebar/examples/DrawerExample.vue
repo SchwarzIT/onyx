@@ -9,7 +9,7 @@ import {
   OnyxPageLayout,
   OnyxSidebar,
   OnyxSidebarItem,
-} from "../../..";
+} from "../../../index.js";
 
 const isOpen = ref(false);
 </script>

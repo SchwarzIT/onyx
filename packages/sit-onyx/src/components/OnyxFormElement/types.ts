@@ -1,14 +1,14 @@
-import type { DensityProp } from "../../composables/density";
-import type { RequiredProp } from "../../composables/required";
+import type { DensityProp } from "../../composables/density.js";
+import type { RequiredProp } from "../../composables/required.js";
 import type {
   CustomMessageType,
   CustomValidityProp,
   FormMessages,
-} from "../../composables/useCustomValidity";
-import type { SharedTextInputProps } from "../../composables/useLenientMaxLengthValidation";
-import type { SkeletonInjected } from "../../composables/useSkeletonState";
-import type { AutofocusProp, Nullable } from "../../types";
-import type { FormInjectedProps } from "../OnyxForm/OnyxForm.core";
+} from "../../composables/useCustomValidity.js";
+import type { SharedTextInputProps } from "../../composables/useLenientMaxLengthValidation.js";
+import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
+import type { AutofocusProp, Nullable } from "../../types/index.js";
+import type { FormInjectedProps } from "../OnyxForm/OnyxForm.core.js";
 
 export type OnyxFormElementProps<T> = Omit<
   SharedFormElementProps,

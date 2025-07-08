@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { computed, ref, useTemplateRef } from "vue";
-import { useDensity } from "../../composables/density";
+import { useDensity } from "../../composables/density.js";
 import OnyxDrawer from "../OnyxDrawer/OnyxDrawer.vue";
 import OnyxResizeHandle from "../OnyxResizeHandle/OnyxResizeHandle.vue";
-import type { OnyxSidebarProps } from "./types";
+import type { OnyxSidebarProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxSidebarProps>(), {
   alignment: "left",

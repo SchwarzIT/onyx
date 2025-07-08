@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
 import OnyxCheckboxGroup from "./OnyxCheckboxGroup.vue";
-import type { CheckboxGroupOption } from "./types";
+import type { CheckboxGroupOption } from "./types.js";
 
 /**
  * Checkboxes are a fundamental UI element, that allows users to make a binary selection.

@@ -1,4 +1,4 @@
-import type { BaseSelectOption, Nullable, SelectOptionValue } from "../../types";
+import type { BaseSelectOption, Nullable, SelectOptionValue } from "../../types/index.js";
 
 export type OnyxSwitchProps<TValue extends SelectOptionValue = SelectOptionValue> = Omit<
   BaseSelectOption<TValue>,

@@ -11,22 +11,25 @@
   "
 >
 import { shallowRef, toRef, toRefs, watch, type WatchHandle } from "vue";
-import type { DataGridScrollContainerAttributes, InternalDataGridSlots } from "../..";
-import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
-import { injectI18n } from "../../i18n";
-import { mergeVueProps } from "../../utils/attrs";
-import type { OnyxTableSlots, TableColumnGroup } from "../OnyxTable/types";
+import {
+  SKELETON_INJECTED_SYMBOL,
+  useSkeletonContext,
+} from "../../composables/useSkeletonState.js";
+import { injectI18n } from "../../i18n/index.js";
+import type { DataGridScrollContainerAttributes, InternalDataGridSlots } from "../../index.js";
+import { mergeVueProps } from "../../utils/attrs.js";
+import type { OnyxTableSlots, TableColumnGroup } from "../OnyxTable/types.js";
+import { BASE_FEATURE } from "./features/base/base.js";
 import {
   useDataGridFeatures,
   type ColumnConfigTypeOption,
   type ColumnGroupConfig,
   type DataGridFeature,
   type TypeRenderMap,
-} from "./features";
-import { BASE_FEATURE } from "./features/base/base";
+} from "./features/index.js";
 import OnyxDataGridRenderer from "./OnyxDataGridRenderer/OnyxDataGridRenderer.vue";
-import type { DataGridRendererColumn, DataGridRendererRow } from "./OnyxDataGridRenderer/types";
-import type { DataGridEntry, DataGridMetadata, OnyxDataGridProps } from "./types";
+import type { DataGridRendererColumn, DataGridRendererRow } from "./OnyxDataGridRenderer/types.js";
+import type { DataGridEntry, DataGridMetadata, OnyxDataGridProps } from "./types.js";
 
 defineOptions({ inheritAttrs: false });
 

@@ -1,11 +1,14 @@
 <script lang="ts" setup>
 import { computed } from "vue";
-import { useDensity } from "../../composables/density";
-import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
+import { useDensity } from "../../composables/density.js";
+import {
+  SKELETON_INJECTED_SYMBOL,
+  useSkeletonContext,
+} from "../../composables/useSkeletonState.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
-import type { OnyxTagProps } from "./types";
+import type { OnyxTagProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxTagProps>(), {
   color: "neutral",

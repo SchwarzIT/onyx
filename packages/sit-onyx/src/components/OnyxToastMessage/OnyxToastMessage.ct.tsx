@@ -1,7 +1,7 @@
-import { DENSITIES } from "../../composables/density";
-import { test } from "../../playwright/a11y";
-import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
-import type { OnyxColor } from "../../types";
+import { DENSITIES } from "../../composables/density.js";
+import { test } from "../../playwright/a11y.js";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
+import type { OnyxColor } from "../../types/index.js";
 import OnyxToastMessage from "./OnyxToastMessage.vue";
 
 const TOAST_COLORS = ["neutral", "danger", "warning", "success"] satisfies OnyxColor[];

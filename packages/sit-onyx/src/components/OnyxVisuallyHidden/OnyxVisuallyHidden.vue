@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { OnyxVisuallyHiddenProps } from "./types";
+import type { OnyxVisuallyHiddenProps } from "./types.js";
 
 defineSlots<{
   /**

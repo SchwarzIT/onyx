@@ -1,4 +1,4 @@
-import { expect, test } from "../../playwright/a11y";
+import { expect, test } from "../../playwright/a11y.js";
 import RippleTestWrapper from "./RippleTestWrapper.ct.vue";
 
 test("should trigger some ripples", async ({ mount }) => {

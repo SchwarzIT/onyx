@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { isValidDate } from "./date";
+import { isValidDate } from "./date.js";
 
 describe("date", () => {
   test.each([

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { OnyxAppLayout, OnyxHeadline, OnyxPageLayout } from "../../..";
+import { OnyxAppLayout, OnyxHeadline, OnyxPageLayout } from "../../../index.js";
 </script>
 
 <template>

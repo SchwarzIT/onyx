@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { onMounted } from "vue";
 import OnyxToast from "./OnyxToast.vue";
-import { useToast } from "./useToast";
+import { useToast } from "./useToast.js";
 
 const toast = useToast();
 

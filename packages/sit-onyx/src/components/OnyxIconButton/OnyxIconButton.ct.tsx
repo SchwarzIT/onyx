@@ -1,11 +1,11 @@
 import type { MatrixScreenshotTestOptions } from "@sit-onyx/playwright-utils";
 import type { HTMLAttributes } from "vue";
-import { DENSITIES } from "../../composables/density";
-import { expect, test } from "../../playwright/a11y";
-import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots";
-import { BUTTON_COLORS } from "../OnyxButton/types";
+import { DENSITIES } from "../../composables/density.js";
+import { expect, test } from "../../playwright/a11y.js";
+import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots.js";
+import { BUTTON_COLORS } from "../OnyxButton/types.js";
 import OnyxIconButton from "./OnyxIconButton.vue";
-import type { OnyxIconButtonProps } from "./types";
+import type { OnyxIconButtonProps } from "./types.js";
 
 test("should behave correctly", async ({ page, mount }) => {
   const clickSpy: MouseEvent[] = [];

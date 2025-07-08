@@ -1,4 +1,4 @@
-import { expect, test } from "../playwright/a11y";
+import { expect, test } from "../playwright/a11y.js";
 
 import TestCase from "./useAnchorPostionPolyfillTestCase.vue";
 

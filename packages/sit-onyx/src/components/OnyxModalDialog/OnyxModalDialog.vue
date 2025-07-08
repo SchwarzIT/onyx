@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { computed, useId } from "vue";
-import { useDensity } from "../../composables/density";
-import { injectI18n } from "../../i18n";
+import { useDensity } from "../../composables/density.js";
+import { injectI18n } from "../../i18n/index.js";
 import OnyxDialog from "../OnyxDialog/OnyxDialog.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
-import type { OnyxModalDialogProps } from "./types";
+import type { OnyxModalDialogProps } from "./types.js";
 
 const props = defineProps<OnyxModalDialogProps>();
 

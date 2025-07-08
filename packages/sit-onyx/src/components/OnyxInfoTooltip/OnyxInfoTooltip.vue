@@ -5,7 +5,7 @@ import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
-import type { OnyxInfoTooltipProps } from "./types";
+import type { OnyxInfoTooltipProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxInfoTooltipProps>(), {
   open: "click",

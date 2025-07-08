@@ -1,12 +1,12 @@
 <script lang="ts" setup generic="T">
 import { computed, useId } from "vue";
-import { useRequired } from "../../composables/required";
-import { useVModel } from "../../composables/useVModel";
-import type { Nullable } from "../../types";
-import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
+import { useRequired } from "../../composables/required.js";
+import { useVModel } from "../../composables/useVModel.js";
+import type { Nullable } from "../../types/index.js";
+import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxInfoTooltip from "../OnyxInfoTooltip/OnyxInfoTooltip.vue";
 import FormMessage from "./FormMessage.vue";
-import type { OnyxFormElementProps } from "./types";
+import type { OnyxFormElementProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxFormElementProps<T>>(), {
   required: false,

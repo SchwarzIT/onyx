@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { provide, ref, useTemplateRef, watch } from "vue";
-import { useMoreList } from "../../composables/useMoreList";
-import type { VueTemplateRefElement } from "../../composables/useResizeObserver";
-import type { MoreListSlotBindings, OnyxMoreListProps } from "./types";
+import { useMoreList } from "../../composables/useMoreList.js";
+import type { VueTemplateRefElement } from "../../composables/useResizeObserver.js";
+import type { MoreListSlotBindings, OnyxMoreListProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxMoreListProps>(), { is: "div" });
 

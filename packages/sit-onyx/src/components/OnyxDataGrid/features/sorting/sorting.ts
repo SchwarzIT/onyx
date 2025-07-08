@@ -2,12 +2,12 @@ import circleBlock from "@sit-onyx/icons/circle-block.svg?raw";
 import listArrowDown from "@sit-onyx/icons/list-arrow-down.svg?raw";
 import listArrowUp from "@sit-onyx/icons/list-arrow-up.svg?raw";
 import { computed, h, toRef, toValue, type Ref } from "vue";
-import { createFeature, useFeatureContext } from "..";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxMenuItem from "../../../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
-import type { DataGridEntry } from "../../types";
+import type { DataGridEntry } from "../../types.js";
+import { createFeature, useFeatureContext } from "../index.js";
 import SortAction from "./SortAction.vue";
-import type { SortDirection, SortOptions, SortState } from "./types";
+import type { SortDirection, SortOptions, SortState } from "./types.js";
 
 export const nextSortDirection = (current?: SortDirection, skipNone?: boolean): SortDirection => {
   switch (current) {

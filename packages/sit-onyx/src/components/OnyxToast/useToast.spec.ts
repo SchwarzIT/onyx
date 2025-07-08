@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { createToastProvider } from "./useToast";
+import { createToastProvider } from "./useToast.js";
 
 describe("useToast", () => {
   test("should create toast provider", () => {

@@ -1,6 +1,6 @@
 import { computed, type Ref } from "vue";
-import type { OnyxCheckboxProps } from "../components/OnyxCheckbox/types";
-import type { SelectOptionValue } from "../types";
+import type { OnyxCheckboxProps } from "../components/OnyxCheckbox/types.js";
+import type { SelectOptionValue } from "../types/index.js";
 
 const useSelectAllCheckboxState = <TValue extends SelectOptionValue = SelectOptionValue>(
   enabledOptionValues: Ref<TValue[]>,

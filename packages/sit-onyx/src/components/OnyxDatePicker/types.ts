@@ -1,5 +1,5 @@
-import type { Nullable } from "../../types";
-import type { OnyxInputProps } from "../OnyxInput/types";
+import type { Nullable } from "../../types/index.js";
+import type { OnyxInputProps } from "../OnyxInput/types.js";
 
 export type OnyxDatePickerProps = Omit<
   OnyxInputProps,

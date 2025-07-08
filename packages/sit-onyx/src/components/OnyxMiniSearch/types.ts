@@ -1,5 +1,5 @@
-import type { DensityProp } from "../../composables/density";
-import type { Nullable } from "../../types";
+import type { DensityProp } from "../../composables/density.js";
+import type { Nullable } from "../../types/index.js";
 
 export type OnyxMiniSearchProps = DensityProp & {
   /**

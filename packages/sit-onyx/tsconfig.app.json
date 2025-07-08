@@ -1,12 +1,15 @@
 {
-  "extends": ["@vue/tsconfig/tsconfig.dom.json", "@vue/tsconfig/tsconfig.lib.json"],
+  "extends": [
+    "@vue/tsconfig/tsconfig.dom.json",
+    "@vue/tsconfig/tsconfig.lib.json",
+    "@sit-onyx/shared/tsconfig.json"
+  ],
   "include": ["env.d.ts", "src/**/*"],
   "exclude": ["src/**/*.ct.*", "src/**/*.spec.*", "src/**/*.stories.ts", "src/**/*.ct.vue"],
   "compilerOptions": {
     "composite": true,
-    "rootDir": "./src",
-    "outDir": "./dist",
     "baseUrl": ".",
-    "lib": ["ES2022", "DOM"]
+    "lib": ["ES2022", "DOM"],
+    "rootDir": "./src"
   }
 }

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed, ref } from "vue";
-import { normalizedIncludes, OnyxSelect, type SelectOption } from "../../..";
+import { normalizedIncludes, OnyxSelect, type SelectOption } from "../../../index.js";
 
 const allOptions: SelectOption<number>[] = [
   { value: 0, label: "Option Zero" },

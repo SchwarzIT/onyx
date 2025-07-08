@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { createAdvancedStoryExample } from "../../utils/storybook";
+import { createAdvancedStoryExample } from "../../utils/storybook.js";
 import OnyxSidebar from "./OnyxSidebar.vue";
 
 const meta: Meta<typeof OnyxSidebar> = {

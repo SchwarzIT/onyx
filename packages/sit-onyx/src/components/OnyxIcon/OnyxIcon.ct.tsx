@@ -1,8 +1,8 @@
-import { test } from "../../playwright/a11y";
-import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots";
-import { ONYX_COLORS } from "../../types/colors";
+import { test } from "../../playwright/a11y.js";
+import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots.js";
+import { ONYX_COLORS } from "../../types/colors.js";
 import OnyxIcon from "./OnyxIcon.vue";
-import { ICON_SIZES } from "./types";
+import { ICON_SIZES } from "./types.js";
 
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({

@@ -1,6 +1,6 @@
-import { expect, test } from "../../playwright/a11y";
+import { expect, test } from "../../playwright/a11y.js";
 import TestWrapperCt from "./TestWrapper.ct.vue";
-import type { MoreListSlotBindings } from "./types";
+import type { MoreListSlotBindings } from "./types.js";
 
 test("should render", async ({ mount, makeAxeBuilder, page }) => {
   const events: MoreListSlotBindings[] = [];

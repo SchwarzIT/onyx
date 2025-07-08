@@ -1,9 +1,9 @@
-import { DENSITIES } from "../../composables/density";
-import { test } from "../../playwright/a11y";
+import { DENSITIES } from "../../composables/density.js";
+import { test } from "../../playwright/a11y.js";
 import {
   executeMatrixScreenshotTest,
   type OnyxMatrixScreenshotHookContext,
-} from "../../playwright/screenshots";
+} from "../../playwright/screenshots.js";
 import OnyxSelectOption from "./OnyxSelectOption.vue";
 
 const context: OnyxMatrixScreenshotHookContext = {

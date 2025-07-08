@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { h } from "vue";
-import { createFeature, DataGridFeatures, OnyxDataGrid, type ColumnConfig } from "../../..";
+import {
+  createFeature,
+  DataGridFeatures,
+  OnyxDataGrid,
+  type ColumnConfig,
+} from "../../../index.js";
 
 type TEntry = {
   id: number;

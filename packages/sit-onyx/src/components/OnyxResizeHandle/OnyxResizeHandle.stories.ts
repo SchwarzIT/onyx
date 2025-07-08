@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { createAdvancedStoryExample, textColorDecorator } from "../../utils/storybook";
+import { createAdvancedStoryExample, textColorDecorator } from "../../utils/storybook.js";
 import OnyxResizeHandle from "./OnyxResizeHandle.vue";
 
 /**

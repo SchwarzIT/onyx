@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { OnyxFileUploadSVGProps } from "./types";
+import type { OnyxFileUploadSVGProps } from "./types.js";
 
 const props = defineProps<OnyxFileUploadSVGProps>();
 </script>

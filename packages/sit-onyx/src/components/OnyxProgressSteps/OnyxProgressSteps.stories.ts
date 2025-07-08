@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { createAdvancedStoryExample } from "../../utils/storybook";
+import { createAdvancedStoryExample } from "../../utils/storybook.js";
 import OnyxProgressSteps from "./OnyxProgressSteps.vue";
 
 const meta: Meta<typeof OnyxProgressSteps> = {

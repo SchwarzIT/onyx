@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import homeIcon from "@sit-onyx/icons/home.svg?raw";
-import { useDensity } from "../../composables/density";
-import { provideSkeletonContext } from "../../composables/useSkeletonState";
-import { injectI18n } from "../../i18n";
+import { useDensity } from "../../composables/density.js";
+import { provideSkeletonContext } from "../../composables/useSkeletonState.js";
+import { injectI18n } from "../../i18n/index.js";
 import OnyxBreadcrumbItem from "../OnyxBreadcrumbItem/OnyxBreadcrumbItem.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import type { OnyxBreadcrumbProps } from "./types";
+import type { OnyxBreadcrumbProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxBreadcrumbProps>(), {
   container: false,

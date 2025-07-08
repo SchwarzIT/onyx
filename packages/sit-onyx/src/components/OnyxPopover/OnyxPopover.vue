@@ -10,11 +10,11 @@ import {
   watch,
   type AriaAttributes,
 } from "vue";
-import { useAnchorPositionPolyfill } from "../../composables/useAnchorPositionPolyfill";
-import { useOpenAlignment } from "../../composables/useOpenAlignment";
-import { useOpenDirection } from "../../composables/useOpenDirection";
-import { useResizeObserver } from "../../composables/useResizeObserver";
-import type { OnyxPopoverProps } from "./types";
+import { useAnchorPositionPolyfill } from "../../composables/useAnchorPositionPolyfill.js";
+import { useOpenAlignment } from "../../composables/useOpenAlignment.js";
+import { useOpenDirection } from "../../composables/useOpenDirection.js";
+import { useResizeObserver } from "../../composables/useResizeObserver.js";
+import type { OnyxPopoverProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxPopoverProps>(), {
   position: "auto",

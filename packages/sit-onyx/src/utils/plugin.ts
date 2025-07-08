@@ -2,13 +2,13 @@ import { watchEffect, type Plugin } from "vue";
 import {
   createNotificationsProvider,
   NOTIFICATIONS_PROVIDER_INJECTION_KEY,
-} from "../components/OnyxNotifications/useNotification";
+} from "../components/OnyxNotifications/useNotification.js";
 import {
   createToastProvider,
   TOAST_PROVIDER_INJECTION_KEY,
-} from "../components/OnyxToast/useToast";
-import { ROUTER_INJECTION_KEY, type ProvideRouterOptions } from "../composables/useLink";
-import { injectI18n, provideI18n, type ProvideI18nOptions } from "../i18n";
+} from "../components/OnyxToast/useToast.js";
+import { ROUTER_INJECTION_KEY, type ProvideRouterOptions } from "../composables/useLink.js";
+import { injectI18n, provideI18n, type ProvideI18nOptions } from "../i18n/index.js";
 
 export type OnyxPluginOptions = {
   /**

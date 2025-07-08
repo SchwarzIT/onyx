@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { provideSkeletonContext } from "../../composables/useSkeletonState";
-import type { OnyxPageLayoutProps } from "./types";
+import { provideSkeletonContext } from "../../composables/useSkeletonState.js";
+import type { OnyxPageLayoutProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxPageLayoutProps>(), {
   footerAlignment: "full",

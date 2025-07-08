@@ -5,24 +5,31 @@
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
+  "engines": {
+    "node": ">=18"
+  },
   "files": [
     "dist",
-    "src/i18n/locales",
     "src/styles"
   ],
+  "module": "./dist/index.esm-bundler.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "node": "./dist/index.js",
+        "default": "./dist/index.esm-bundler.js"
+      }
     },
     "./style.css": "./dist/style.css",
     "./global.css": "./src/styles/global.css",
     "./locales/*": "./dist/i18n/locales/*",
     "./src/styles/*": "./src/styles/*",
     "./breakpoints.scss": "./src/styles/breakpoints.scss",
-    "./themes/*": "./src/styles/variables/themes/*"
+    "./themes/*": "./src/styles/variables/themes/*",
+    "./dist/*": "./dist/*",
+    "./package.json": "./package.json"
   },
   "homepage": "https://onyx.schwarz",
   "repository": {
@@ -35,7 +42,7 @@
   },
   "scripts": {
     "dev": "storybook dev -p 6006 --no-open",
-    "build": "vite build && vue-tsc -p tsconfig.app.json --composite false && vue-tsc -p tsconfig.locales.json --composite false",
+    "build": "node ./build/index.js && tsc -p tsconfig.locales.json --composite false",
     "build:storybook": "storybook build",
     "preview": "vite serve storybook-static",
     "test": "vitest",
@@ -62,6 +69,8 @@
     "eslint-plugin-vue-scoped-css": "^2.10.0",
     "sass-embedded": "catalog:",
     "storybook-addon-tag-badges": "^2.0.1",
+    "tsx": "^4.20.3",
+    "vite-plugin-dts": "^4.5.4",
     "vue": "catalog:",
     "vue-component-type-helpers": "^2.2.10",
     "vue-i18n": "^11.1.6",

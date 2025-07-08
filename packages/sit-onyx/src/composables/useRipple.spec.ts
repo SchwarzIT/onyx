@@ -1,6 +1,6 @@
 import { describe, expect, test, vi } from "vitest";
 import { ref } from "vue";
-import { useRipple } from "./useRipple";
+import { useRipple } from "./useRipple.js";
 
 vi.mock("vue", async (original) => ({
   ...((await original()) as typeof import("vue")),

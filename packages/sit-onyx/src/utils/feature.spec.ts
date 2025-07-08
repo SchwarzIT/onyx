@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { applyMapping, prepareMapping, type SingleOrderableMapping } from "./feature";
+import { applyMapping, prepareMapping, type SingleOrderableMapping } from "./feature.js";
 
 describe("prepareMapping", () => {
   const func = <T>(a: T) => a;

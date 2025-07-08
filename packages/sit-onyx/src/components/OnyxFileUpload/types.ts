@@ -1,6 +1,6 @@
-import type { DensityProp } from "../../composables/density";
-import type { BinaryPrefixedSize } from "../../utils/numbers";
-import type { SharedFormElementProps } from "../OnyxFormElement/types";
+import type { DensityProp } from "../../composables/density.js";
+import type { BinaryPrefixedSize } from "../../utils/numbers.js";
+import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
 
 export type OnyxFileUploadProps<TMultiple extends boolean> = DensityProp &
   Pick<SharedFormElementProps, "name"> & {

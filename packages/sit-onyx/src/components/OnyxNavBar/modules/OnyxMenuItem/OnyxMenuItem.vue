@@ -3,17 +3,17 @@ import { createMenuItems } from "@sit-onyx/headless";
 import arrowSmallLeft from "@sit-onyx/icons/arrow-small-left.svg?raw";
 import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
 import { computed, nextTick, useTemplateRef, withModifiers } from "vue";
-import { useLink } from "../../../../composables/useLink";
-import { useVModel } from "../../../../composables/useVModel";
-import { injectI18n } from "../../../../i18n";
-import type { Nullable } from "../../../../types";
-import { mergeVueProps, useRootAttrs } from "../../../../utils/attrs";
-import { extractLinkProps } from "../../../../utils/router";
+import { useLink } from "../../../../composables/useLink.js";
+import { useVModel } from "../../../../composables/useVModel.js";
+import { injectI18n } from "../../../../i18n/index.js";
+import type { Nullable } from "../../../../types/index.js";
+import { mergeVueProps, useRootAttrs } from "../../../../utils/attrs.js";
+import { extractLinkProps } from "../../../../utils/router.js";
 import ButtonOrLinkLayout from "../../../OnyxButton/ButtonOrLinkLayout.vue";
 import OnyxExternalLinkIcon from "../../../OnyxExternalLinkIcon/OnyxExternalLinkIcon.vue";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
-import { type OnyxMenuItemProps } from "./types";
+import { type OnyxMenuItemProps } from "./types.js";
 
 defineOptions({ inheritAttrs: false });
 

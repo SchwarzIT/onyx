@@ -5,7 +5,7 @@ import {
   type CustomMessageType,
   type InputValidationElement,
   type UseCustomValidityOptions,
-} from "./useCustomValidity";
+} from "./useCustomValidity.js";
 
 const tFunctionMock = vi.fn();
 

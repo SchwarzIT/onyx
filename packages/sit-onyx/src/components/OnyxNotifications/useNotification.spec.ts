@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { createNotificationsProvider } from "./useNotification";
+import { createNotificationsProvider } from "./useNotification.js";
 
 describe("useNotification", () => {
   test("should create notifications provider", () => {

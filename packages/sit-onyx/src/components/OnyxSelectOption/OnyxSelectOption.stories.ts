@@ -1,7 +1,7 @@
 import settings from "@sit-onyx/icons/settings.svg?raw";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import type { AriaAttributes } from "vue";
-import { defineIconSelectArgType } from "../../utils/storybook";
+import { defineIconSelectArgType } from "../../utils/storybook.js";
 import OnyxSelectOption from "./OnyxSelectOption.vue";
 
 /**

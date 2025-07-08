@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { FormMessages } from "../../composables/useCustomValidity";
+import type { FormMessages } from "../../composables/useCustomValidity.js";
 import OnyxInfoTooltip from "../OnyxInfoTooltip/OnyxInfoTooltip.vue";
 import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 

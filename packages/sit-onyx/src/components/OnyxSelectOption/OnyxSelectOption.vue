@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
-import type { OnyxSelectOptionProps } from "./types";
+import type { OnyxSelectOptionProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxSelectOptionProps>(), {
   active: false,

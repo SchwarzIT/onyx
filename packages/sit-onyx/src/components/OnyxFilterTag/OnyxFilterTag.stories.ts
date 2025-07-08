@@ -1,6 +1,6 @@
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { defineIconSelectArgType } from "../../utils/storybook";
+import { defineIconSelectArgType } from "../../utils/storybook.js";
 import OnyxFilterTag from "./OnyxFilterTag.vue";
 
 /**

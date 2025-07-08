@@ -1,9 +1,9 @@
-import { DENSITIES } from "../../composables/density";
-import { expect, test } from "../../playwright/a11y";
-import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
-import { ORIENTATIONS, type SelectOptionValue } from "../../types";
+import { DENSITIES } from "../../composables/density.js";
+import { expect, test } from "../../playwright/a11y.js";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
+import { ORIENTATIONS, type SelectOptionValue } from "../../types/index.js";
 import OnyxRadioGroup from "./OnyxRadioGroup.vue";
-import type { RadioButtonOption } from "./types";
+import type { RadioButtonOption } from "./types.js";
 
 const EXAMPLE_OPTIONS = [
   { label: "Dummy 1", value: 1 },

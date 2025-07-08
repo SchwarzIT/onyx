@@ -1,8 +1,8 @@
 import type { MaybeRefOrGetter } from "vue";
-import type { DensityProp } from "../../composables/density";
-import type { AnchorPosition } from "../../composables/useAnchorPositionPolyfill";
-import type { OpenAlignment } from "../../composables/useOpenAlignment";
-import type { OnyxColor } from "../../types";
+import type { DensityProp } from "../../composables/density.js";
+import type { AnchorPosition } from "../../composables/useAnchorPositionPolyfill.js";
+import type { OpenAlignment } from "../../composables/useOpenAlignment.js";
+import type { OnyxColor } from "../../types/index.js";
 
 export type TooltipOptions = {
   /**

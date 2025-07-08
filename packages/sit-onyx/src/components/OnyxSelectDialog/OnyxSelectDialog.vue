@@ -1,13 +1,13 @@
 <script lang="ts" setup generic="TValue extends string">
 import { ref, useId, watchEffect } from "vue";
-import { injectI18n } from "../../i18n";
+import { injectI18n } from "../../i18n/index.js";
 import OnyxBottomBar from "../OnyxBottomBar/OnyxBottomBar.vue";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxCard from "../OnyxCard/OnyxCard.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxModalDialog from "../OnyxModalDialog/OnyxModalDialog.vue";
 import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
-import type { OnyxSelectDialogProps } from "./types";
+import type { OnyxSelectDialogProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxSelectDialogProps<TValue>>(), {
   open: false,

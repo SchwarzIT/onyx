@@ -1,5 +1,6 @@
 import { computed, inject, ref, type ComputedRef, type InjectionKey } from "vue";
-import type { OnyxToastMessageProps } from "../OnyxToastMessage/types";
+import { userConsole } from "../../utils/console.js";
+import type { OnyxToastMessageProps } from "../OnyxToastMessage/types.js";
 
 export type ToastProvider = {
   /**
@@ -79,8 +80,7 @@ export const createToastProvider = (): ToastProvider => {
  */
 export const useToast = () => {
   const logWarning = () => {
-    // eslint-disable-next-line no-console -- we want to inform devs about incorrect usage
-    console.warn(
+    userConsole?.warn(
       'Trying to use "useToast()" before the toast provider has been provided. Make sure to "provide" it first.',
     );
   };

@@ -1,8 +1,8 @@
-import type { DensityProp } from "../../composables/density";
-import type { SkeletonInjected } from "../../composables/useSkeletonState";
-import type { AutofocusProp } from "../../types";
-import type { FormInjected } from "../OnyxForm/OnyxForm.core";
-import type { WithLinkProp } from "../OnyxRouterLink/types";
+import type { DensityProp } from "../../composables/density.js";
+import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
+import type { AutofocusProp } from "../../types/index.js";
+import type { FormInjected } from "../OnyxForm/OnyxForm.core.js";
+import type { WithLinkProp } from "../OnyxRouterLink/types.js";
 
 export type OnyxButtonProps = DensityProp &
   AutofocusProp & {

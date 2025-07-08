@@ -1,7 +1,7 @@
 import circleInformation from "@sit-onyx/icons/circle-information.svg?raw";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { computed, h, ref } from "vue";
-import { defineIconSelectArgType } from "../../utils/storybook";
+import { defineIconSelectArgType } from "../../utils/storybook.js";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxTooltip from "./OnyxTooltip.vue";
 

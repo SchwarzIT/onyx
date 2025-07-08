@@ -2,22 +2,25 @@
 import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { computed, useTemplateRef } from "vue";
-import { useDensity } from "../../composables/density";
-import { useAutofocus } from "../../composables/useAutoFocus";
-import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity";
-import { useErrorClass } from "../../composables/useErrorClass";
-import { useLenientMaxLengthValidation } from "../../composables/useLenientMaxLengthValidation";
-import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
-import { useVModel } from "../../composables/useVModel";
-import { injectI18n } from "../../i18n";
-import type { Nullable } from "../../types";
-import { useRootAttrs } from "../../utils/attrs";
-import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
+import { useDensity } from "../../composables/density.js";
+import { useAutofocus } from "../../composables/useAutoFocus.js";
+import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity.js";
+import { useErrorClass } from "../../composables/useErrorClass.js";
+import { useLenientMaxLengthValidation } from "../../composables/useLenientMaxLengthValidation.js";
+import {
+  SKELETON_INJECTED_SYMBOL,
+  useSkeletonContext,
+} from "../../composables/useSkeletonState.js";
+import { useVModel } from "../../composables/useVModel.js";
+import { injectI18n } from "../../i18n/index.js";
+import type { Nullable } from "../../types/index.js";
+import { useRootAttrs } from "../../utils/attrs.js";
+import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import type { OnyxInputProps } from "./types";
+import type { OnyxInputProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxInputProps>(), {
   type: "text",
