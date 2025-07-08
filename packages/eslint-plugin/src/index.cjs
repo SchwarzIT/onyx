@@ -13,7 +13,7 @@ module.exports = {
     "import-playwright-a11y": require("./rules/import-playwright-a11y.cjs"),
     "no-shadow-native": require("./rules/no-shadow-native-events.cjs"),
     "no-shadow-template-ref": require("./rules/no-shadow-template-ref.cjs"),
-    "no-restricted-import-extensions": require("./rules/no-restricted-import-extensions.cjs"),
+    "no-esm-incompatible-imports": require("./rules/no-esm-incompatible-imports.cjs"),
     "require-root-class": require("./rules/require-root-class.cjs"),
   },
 };
