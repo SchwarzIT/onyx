@@ -42,22 +42,22 @@ watch([dialog, () => props.open], () => {
   else dialog.value?.close();
 });
 
-watch(dialog, (currentDialog) => {
-  if (props.modal && !props.disableClosingOnBackdropClick) {
-    currentDialog?.addEventListener("click", (e) => {
-      const dialogDimensions = currentDialog.getBoundingClientRect();
-      if (
-        e.detail > 0 &&
-        (e.clientX < dialogDimensions.left ||
-          e.clientX > dialogDimensions.right ||
-          e.clientY < dialogDimensions.top ||
-          e.clientY > dialogDimensions.bottom)
-      ) {
-        emit("close");
-      }
-    });
+const handleBackdropClick = (event: MouseEvent) => {
+  const dialogElement = dialog.value;
+  if (!dialogElement || !props.modal || props.disableClosingOnBackdropClick) {
+    return;
   }
-});
+
+  const dialogDimensions = dialogElement.getBoundingClientRect();
+  if (
+    event.clientX < dialogDimensions.left ||
+    event.clientX > dialogDimensions.right ||
+    event.clientY < dialogDimensions.top ||
+    event.clientY > dialogDimensions.bottom
+  ) {
+    emit("close");
+  }
+};
 watch(
   () => props.modal,
   () => {
@@ -75,6 +75,7 @@ watch(
 <template>
   <!-- do not use the @close event here since it would emit redundant events when we call .close() internally -->
   <!-- also we use cancel.prevent here so the dialog does not close automatically and is fully controlled by the "open" property -->
+  <!-- eslint-disable-next-line vuejs-accessibility/click-events-have-key-events eslint-disable-next-line vuejs-accessibility/no-static-element-interactions -->
   <dialog
     v-if="props.open"
     ref="dialogRef"
@@ -89,6 +90,7 @@ watch(
     :aria-label="props.label"
     :role="props.alert ? 'alertdialog' : undefined"
     @cancel.prevent="emit('close')"
+    @click="handleBackdropClick"
   >
     <slot></slot>
   </dialog>

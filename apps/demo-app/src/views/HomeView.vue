@@ -243,15 +243,7 @@ const currentProgressStep = ref(3);
 
         <OnyxIconButton v-if="show('OnyxIconButton')" label="Happy Emoji" :icon="emojiHappy2" />
 
-        <OnyxButton
-          v-if="show('OnyxDialog')"
-          label="Open Dialog"
-          @click="
-            () => {
-              isDialogOpen = true;
-            }
-          "
-        />
+        <OnyxButton v-if="show('OnyxDialog')" label="Open Dialog" @click="isDialogOpen = true" />
         <OnyxDialog label="Dialog" :open="isDialogOpen" modal @close="isDialogOpen = false">
           Dialog Content
         </OnyxDialog>

@@ -16,7 +16,7 @@ export type OnyxDialogProps = DensityProp & {
    */
   modal?: boolean;
   /**
-   * Whether the dialog should close when the user clicks outside of it.
+   * Whether to prevent closing the dialog when clicking outside of it.
    */
   disableClosingOnBackdropClick?: boolean;
   /**
