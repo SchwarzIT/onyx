@@ -47,7 +47,6 @@
     "@vueless/storybook-dark-mode": "^9.0.5",
     "eslint": "^9.29.0",
     "eslint-plugin-compat": "^6.0.2",
-    "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-playwright": "^2.2.0",
     "eslint-plugin-vue": "^10.2.0",
     "eslint-plugin-vue-scoped-css": "^2.10.0",
