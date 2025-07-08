@@ -25,7 +25,6 @@
     "./locales/*": "./dist/i18n/locales/*",
     "./src/styles/*": "./src/styles/*",
     "./breakpoints.scss": "./src/styles/breakpoints.scss",
-    "./themes/*": "./src/styles/variables/themes/*",
     "./dist/*": "./dist/*",
     "./package.json": "./package.json"
   },
