@@ -13,7 +13,6 @@ import docsTemplate from "./docs-template.mdx";
 import { enhanceFormInjectedSymbol } from "./formInjected";
 import brandImage from "./public/onyx-logo-long.svg";
 import { enhanceSkeletonInjectedSymbol } from "./skeletonInjected";
-import { onyxThemeGlobalType, withOnyxTheme } from "./theme-switch";
 
 const enabledRules = getRules(a11yTags).map((ruleMetadata) => ({
   id: ruleMetadata.ruleId,
@@ -39,10 +38,7 @@ const basePreview = createPreview(
         config: axeConfig,
       },
     },
-    globalTypes: {
-      ...onyxThemeGlobalType,
-    },
-    decorators: [withOnyxTheme, withVModelDecorator()],
+    decorators: [withVModelDecorator()],
   },
   {
     brandImage,

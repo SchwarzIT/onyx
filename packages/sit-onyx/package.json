@@ -21,8 +21,7 @@
     "./global.css": "./src/styles/global.css",
     "./locales/*": "./dist/i18n/locales/*",
     "./src/styles/*": "./src/styles/*",
-    "./breakpoints.scss": "./src/styles/breakpoints.scss",
-    "./themes/*": "./src/styles/variables/themes/*"
+    "./breakpoints.scss": "./src/styles/breakpoints.scss"
   },
   "homepage": "https://onyx.schwarz",
   "repository": {

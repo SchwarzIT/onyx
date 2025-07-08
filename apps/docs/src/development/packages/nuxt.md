@@ -39,21 +39,6 @@ If you are also using the [@nuxtjs/i18n](https://i18n.nuxtjs.org/) module, make 
 
 Afterwards you're able to just use all onyx components inside your app and the global styles will automatically be set up for you.
 
-## Themes
-
-The module will use the "onyx" theme by default. To change the theme just specify its name inside the config option `onyx.theme`.
-
-```ts [nuxt.config.ts]
-export default defineNuxtConfig({
-  modules: ["@sit-onyx/nuxt"],
-  onyx: {
-    theme: "lidl",
-  },
-});
-```
-
-For all supported themes see: [Theming](/development/theming#themes)
-
 ## Integration with @nuxtjs/i18n
 
 onyx features built in translations and the nuxt module extends on that by offering an out of the box integration with [@nuxtjs/i18n](https://i18n.nuxtjs.org/).

@@ -18,7 +18,6 @@ export default defineNuxtConfig({
     ],
   },
   onyx: {
-    theme: "lidl",
     i18n: {
       registerLocales: {
         "en-US": "en-US",
