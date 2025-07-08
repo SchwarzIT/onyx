@@ -1742,6 +1742,10 @@
     "category": "Software & Services",
     "aliases": ["node-cluster", "resource-pool", "Knoten-Pool", "Ressourcen-Pool"]
   },
+  "notebook-code": {
+    "category": "File & Type",
+    "aliases": []
+  },
   "notebook-edit": {
     "category": "File & Type",
     "aliases": ["Notizbuch bearbeiten", "Tagebuch ändern"]
@@ -2407,6 +2411,10 @@
   "tag-disabled": {
     "category": "Business & Statistics",
     "aliases": ["label-off", "price-tag-off", "Etikett deaktiviert", "Preisschild aus"]
+  },
+  "terraform": {
+    "category": "Network & Infrastructure",
+    "aliases": []
   },
   "test-tube": {
     "category": "Objects",
