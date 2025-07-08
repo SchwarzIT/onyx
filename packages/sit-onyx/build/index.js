@@ -5,8 +5,11 @@ import { build, mergeConfig } from "vite";
 
 async function emptyDirectory(dirPath) {
   try {
-    const files = await fsPromises.readdir(dirPath);
+    // create the directory if it doesn't exist. `recursive` ensures that the command doesn't fail when it already exists.
+    await fsPromises.mkdir(dirPath, { recursive: true });
 
+    // empty the directory without removing it
+    const files = await fsPromises.readdir(dirPath);
     const promises = files.map(async (file) =>
       fsPromises.rm(path.join(dirPath, file), { recursive: true, force: true }),
     );
