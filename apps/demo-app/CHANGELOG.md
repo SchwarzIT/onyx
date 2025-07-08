@@ -1,5 +1,13 @@
 # demo-app
 
+## 1.0.0-beta.262
+
+### Patch Changes
+
+- Updated dependencies [5a27c6a]
+  - @sit-onyx/icons@1.0.0-beta.19
+  - sit-onyx@1.0.0-beta.262
+
 ## 1.0.0-beta.261
 
 ### Patch Changes
