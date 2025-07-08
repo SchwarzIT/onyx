@@ -67,24 +67,6 @@ const generalVueTsConfig = {
     ],
     "no-console": "error",
     "no-debugger": "error",
-    // "no-restricted-imports": [
-    //   "error",
-    //   {
-    //     patterns: [
-    //       {
-    //         group: ["*.ts"],
-    //         message:
-    //           "Module specifiers are not transformed and therefore the specifier of the output file has to be used. Use '.js' instead of '.ts'.",
-    //       },
-    //       {
-    //         // regex the matches an relative path without a file extension
-    //         regex: "^\\..?/?(.*/[\\w]+)?$",
-    //         message:
-    //           "The ESM loader does no extension searching. A file extension must be provided when the specifier is a relative or absolute file URL. Add '.js' to the import statement.",
-    //       },
-    //     ],
-    //   },
-    // ],
     "vue/no-console": "error",
     "vue/html-button-has-type": "error",
     "vue/valid-define-options": "error",
