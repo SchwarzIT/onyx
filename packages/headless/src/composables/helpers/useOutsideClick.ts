@@ -36,11 +36,6 @@ export const useOutsideClick = <TCheckOnTab extends boolean | undefined>({
 }: UseOutsideClickOptions<TCheckOnTab>) => {
   const isOutsideClick = (target: EventTarget | null) => {
     if (!target) return true;
-    if (target instanceof Node && !target.isConnected) {
-      // if the node is not connected to the document (because it was e.g. removed from it)
-      // we skip the outside click here. THis is needed to support use cases where e.g. a button icon is toggled when clicking
-      return false;
-    }
     const raw = toValue(inside);
     const elements = Array.isArray(raw) ? raw : [raw];
     return !elements.some((element) => element?.contains(target as Node | null));
@@ -54,7 +49,7 @@ export const useOutsideClick = <TCheckOnTab extends boolean | undefined>({
     if (isOutsideClick(event.target)) onOutsideClick(event);
   };
 
-  useGlobalEventListener({ type: "click", listener: clickListener, disabled });
+  useGlobalEventListener({ type: "mousedown", listener: clickListener, disabled });
 
   if (checkOnTab) {
     const keydownListener = async (event: KeyboardEvent) => {
