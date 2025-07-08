@@ -1,5 +1,5 @@
-import type { DensityProp } from "../../composables/density";
-import type { WithLinkProp } from "../OnyxRouterLink/types";
+import type { DensityProp } from "../../composables/density.js";
+import type { WithLinkProp } from "../OnyxRouterLink/types.js";
 
 export type OnyxFabButtonProps = DensityProp &
   WithLinkProp & {

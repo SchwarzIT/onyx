@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { createMenuItems } from "@sit-onyx/headless";
-import { useDensity } from "../../composables/density";
-import { mergeVueProps } from "../../utils/attrs";
+import { useDensity } from "../../composables/density.js";
+import { mergeVueProps } from "../../utils/attrs.js";
 import OnyxFabButton from "../OnyxFabButton/OnyxFabButton.vue";
-import type { OnyxFabItemProps } from "./types";
+import type { OnyxFabItemProps } from "./types.js";
 
 const props = defineProps<OnyxFabItemProps>();
 

@@ -1,5 +1,5 @@
-import type { Nullable } from "../../types";
-import type { OnyxFabButtonProps } from "../OnyxFabButton/types";
+import type { Nullable } from "../../types.js";
+import type { OnyxFabButtonProps } from "../OnyxFabButton/types.js";
 
 export type OnyxFabProps = OnyxFabButtonProps & {
   /**

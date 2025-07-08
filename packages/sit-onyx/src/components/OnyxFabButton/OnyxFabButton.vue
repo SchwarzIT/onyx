@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { useDensity } from "../../composables/density";
+import { useDensity } from "../../composables/density.js";
 import ButtonOrLinkLayout from "../OnyxButton/ButtonOrLinkLayout.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import type { OnyxFabButtonProps } from "./types";
+import type { OnyxFabButtonProps } from "./types.js";
 
 const props = defineProps<OnyxFabButtonProps>();
 

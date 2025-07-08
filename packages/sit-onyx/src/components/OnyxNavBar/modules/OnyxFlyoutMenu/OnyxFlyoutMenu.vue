@@ -4,7 +4,7 @@ import { createMenuButton } from "@sit-onyx/headless";
 import { computed, ref, type ComponentInstance, type VNodeRef } from "vue";
 import { useVModel } from "../../../../composables/useVModel.js";
 import type { Nullable } from "../../../../types/index.js";
-import { mergeVueProps } from "../../../../utils/attrs";
+import { mergeVueProps } from "../../../../utils/attrs.js";
 import OnyxPopover from "../../../OnyxPopover/OnyxPopover.vue";
 import type { OnyxFlyoutMenuProps } from "./types.js";
 

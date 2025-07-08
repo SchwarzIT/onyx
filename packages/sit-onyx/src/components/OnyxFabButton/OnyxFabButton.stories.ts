@@ -1,7 +1,7 @@
 import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { defineIconSelectArgType } from "../../utils/storybook";
+import { defineIconSelectArgType } from "../../utils/storybook.js";
 import OnyxFabButton from "./OnyxFabButton.vue";
 
 const meta: Meta<typeof OnyxFabButton> = {

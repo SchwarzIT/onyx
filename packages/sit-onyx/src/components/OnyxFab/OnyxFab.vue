@@ -2,13 +2,13 @@
 import moreHorizontalSmall from "@sit-onyx/icons/more-horizontal-small.svg?raw";
 import x from "@sit-onyx/icons/x.svg?raw";
 import { computed } from "vue";
-import { useDensity } from "../../composables/density";
-import { useVModel } from "../../composables/useVModel";
-import type { Nullable } from "../../types";
-import { mergeVueProps } from "../../utils/attrs";
+import { useDensity } from "../../composables/density.js";
+import { useVModel } from "../../composables/useVModel.js";
+import type { Nullable } from "../../types/index.js";
+import { mergeVueProps } from "../../utils/attrs.js";
 import OnyxFabButton from "../OnyxFabButton/OnyxFabButton.vue";
 import OnyxFlyoutMenu from "../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
-import type { OnyxFabProps } from "./types";
+import type { OnyxFabProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxFabProps>(), {
   alignment: "right",

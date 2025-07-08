@@ -3,7 +3,7 @@ import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
-import { defineIconSelectArgType } from "../../utils/storybook";
+import { defineIconSelectArgType } from "../../utils/storybook.js";
 import OnyxFabItem from "../OnyxFabItem/OnyxFabItem.vue";
 import OnyxFab from "./OnyxFab.vue";
 

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed, useTemplateRef } from "vue";
-import { useAutofocus } from "../../composables/useAutoFocus";
+import { useAutofocus } from "../../composables/useAutoFocus.js";
 import { extractLinkProps } from "../../utils/router.js";
 import { useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxRouterLink from "../OnyxRouterLink/OnyxRouterLink.vue";
