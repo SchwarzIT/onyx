@@ -4,6 +4,19 @@ onyx supports a dark and a light theme as well as custom color themes. The optio
 
 To learn more about the theming concept of onyx, take a look at our [colors documentation](/basics/colors.html)
 
+::: warning Schwarz internal themes
+onyx includes build-in themes for brands of the [Schwarz group](https://gruppe.schwarz/) that are only accessible for internal employees.
+
+If you are an Schwarz employee and want to access one the following themes, please refer to the [Vue Blueprint documentation](https://vue-blueprint.schwarz/guide/onyx-themes.html):
+
+- Schwarz Digits
+- Kaufland
+- Lidl
+- PreZero
+- Schwarz corporate solutions
+
+:::
+
 ## Themes
 
 To use a different theme, add the corresponding imports to your `main.ts` file (example a theme called "my-theme"):
