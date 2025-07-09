@@ -33,15 +33,13 @@ import { OnyxAppLayout, OnyxButton, OnyxHeadline, OnyxPageLayout, OnyxSidebar } 
         or the sidebar.
       </p>
 
-      <div class="onyx-grid-container">
-        <div class="onyx-grid">
-          <div v-for="i in 12" :key="i" class="onyx-grid-example">
-            {{ i }}
-          </div>
-          <div class="onyx-grid-example onyx-grid-span-2">span 2</div>
-          <div class="onyx-grid-example onyx-grid-md-span-4">md span 4</div>
-          <div class="onyx-grid-example onyx-grid-span-full">full span</div>
+      <div class="onyx-grid">
+        <div v-for="i in 12" :key="i" class="onyx-grid-example">
+          {{ i }}
         </div>
+        <div class="onyx-grid-example onyx-grid-span-2">span 2</div>
+        <div class="onyx-grid-example onyx-grid-md-span-4">md span 4</div>
+        <div class="onyx-grid-example onyx-grid-span-full">full span</div>
       </div>
     </OnyxPageLayout>
   </OnyxAppLayout>
