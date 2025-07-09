@@ -128,39 +128,36 @@ $sidebar-breakpoints: (
   }
 
   /**
- * Initializes the grid layout on the `.page__main` element.
- * Additionally, users may apply the `.onyx-grid-wrapper` class
- * to explicitly activate the grid. The layout will adapt
+ * Initializes the grid layout on the `.page__main` element. The layout will adapt
  * to the width of this wrapper accordingly.
  */
-  .onyx-page__main,
-  .onyx-grid-wrapper {
+  .onyx-page__main {
     container-type: inline-size;
+  }
 
-    @each $name, $maxVariant, $columns, $gutter, $margin in $gridVariants {
-      @if $name == "2xs" {
+  @each $name, $maxVariant, $columns, $gutter, $margin in $gridVariants {
+    @if $name == "2xs" {
+      @include generate-grid-properties(
+        $columns,
+        $gutter,
+        var(--onyx-density-md) $margin var(--onyx-density-md) $margin,
+        ".onyx-grid, .onyx-grid-container"
+      );
+      @include generate-spans(1, $columns, $name);
+    } @else {
+      @include container(min, $name) {
         @include generate-grid-properties(
           $columns,
           $gutter,
-          $margin,
+          var(--onyx-density-md) $margin var(--onyx-density-md) $margin,
           ".onyx-grid, .onyx-grid-container"
         );
         @include generate-spans(1, $columns, $name);
-      } @else {
-        @include container(min, $name) {
-          @include generate-grid-properties(
-            $columns,
-            $gutter,
-            $margin,
-            ".onyx-grid, .onyx-grid-container"
-          );
-          @include generate-spans(1, $columns, $name);
-          @if $maxVariant != none {
-            @include generate-grid-max($name, $maxVariant);
-          }
-          @if $name == "xl" {
-            @include generate-spans(17, 20, $name);
-          }
+        @if $maxVariant != none {
+          @include generate-grid-max($name, $maxVariant);
+        }
+        @if $name == "xl" {
+          @include generate-spans(17, 20, $name);
         }
       }
     }
@@ -177,7 +174,7 @@ $sidebar-breakpoints: (
         @include generate-grid-properties(
           $columns,
           $gutter,
-          var(--onyx-spacing-xs) $margin var(--onyx-spacing-xs) $margin,
+          var(--onyx-density-md) $margin var(--onyx-density-md) $margin,
           ".onyx-grid, .onyx-grid-container"
         );
 
