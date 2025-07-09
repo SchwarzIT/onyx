@@ -1,5 +1,5 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "extends": ["@vue/tsconfig/tsconfig.dom.json", "@sit-onyx/shared/tsconfig.json"],
   "include": ["src", "svg.d.ts"],
   "compilerOptions": {
     "types": ["node", "vite/client"],
