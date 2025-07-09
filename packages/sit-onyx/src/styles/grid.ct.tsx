@@ -6,7 +6,8 @@ import {
   type OnyxBreakpoint,
 } from "@sit-onyx/shared/breakpoints";
 import OnyxSidebar from "../components/OnyxSidebar/OnyxSidebar.vue";
-import { expect, test } from "../playwright/a11y";
+import { expect, test } from "../playwright/a11y.js";
+
 
 /**
  * Map of column count per breakpoint.

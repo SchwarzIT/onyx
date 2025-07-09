@@ -1,4 +1,4 @@
-import type { SkeletonProvidedProp } from "../../composables/useSkeletonState";
+import type { SkeletonProvidedProp } from "../../composables/useSkeletonState.js";
 
 export type OnyxPageLayoutProps = Partial<SkeletonProvidedProp> & {
   /**

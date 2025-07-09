@@ -1,6 +1,7 @@
 import { computed, inject, provide, toRef, type InjectionKey, type Reactive, type Ref } from "vue";
-import type { RequiredMarkerType } from "../../composables/required";
-import type { ShowErrorMode } from "../../composables/useErrorClass";
+import type { RequiredMarkerType } from "../../composables/required.js";
+import type { ShowErrorMode } from "../../composables/useErrorClass.js";
+import { userConsole } from "../../utils/console.js";
 
 const FORM_INJECTION_KEY = Symbol() as InjectionKey<ReturnType<typeof createFormInjectionContext>>;
 
@@ -95,9 +96,8 @@ const createCompute = <TKey extends keyof FormProps>(
     if (prop === FORM_INJECTED_SYMBOL) {
       return formProps?.value[key] ?? defaultValue;
     }
-    if (import.meta.env.DEV && prop != undefined) {
-      // eslint-disable-next-line no-console -- we only log the error in dev mode
-      console.error(
+    if (prop != undefined) {
+      userConsole?.error(
         `The %s prop is an unrecognized symbol: %o which is not identical to the expected symbol %o.`,
         key,
         prop,

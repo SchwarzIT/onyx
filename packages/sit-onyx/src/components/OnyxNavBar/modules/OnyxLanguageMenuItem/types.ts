@@ -1,4 +1,4 @@
-import type { SelectDialogOption } from "../../../OnyxSelectDialog/types";
+import type { SelectDialogOption } from "../../../OnyxSelectDialog/types.js";
 
 export type OnyxCountryMenuItemProps<TValue extends string> = {
   /**

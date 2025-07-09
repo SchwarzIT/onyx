@@ -2,6 +2,13 @@ import type { ArgTypes, Decorator, StoryObj } from "@storybook/vue3";
 import type { DefineComponent } from "vue";
 import OnyxToast from "../components/OnyxToast/OnyxToast.vue";
 
+export type DefineIconSelectArgTypeOptions = {
+  /**
+   * Whether the icon property is required. If optional, a "none" option will be displayed at the top.
+   */
+  required?: boolean;
+};
+
 /**
  * Defines the control for a Storybook argType to be a select/dropdown of
  * all available onyx icons.
@@ -15,7 +22,7 @@ import OnyxToast from "../components/OnyxToast/OnyxToast.vue";
  * }
  * ```
  */
-export const defineIconSelectArgType = () => {
+export const defineIconSelectArgType = (options?: DefineIconSelectArgTypeOptions) => {
   const ALL_ICONS = import.meta.glob("../../node_modules/@sit-onyx/icons/src/assets/*.svg", {
     query: "?raw",
     import: "default",
@@ -31,7 +38,7 @@ export const defineIconSelectArgType = () => {
       labels[content as string] = filePath.split("/").at(-1)!.replace(".svg", "");
       return labels;
     },
-    {},
+    options?.required ? {} : { "": "-- none --" },
   );
 
   return {

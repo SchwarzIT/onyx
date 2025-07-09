@@ -1,12 +1,15 @@
 <script lang="ts" setup>
 import { computed } from "vue";
-import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
-import { injectI18n } from "../../i18n";
-import { normalizeUrlHash } from "../../utils/strings";
+import {
+  SKELETON_INJECTED_SYMBOL,
+  useSkeletonContext,
+} from "../../composables/useSkeletonState.js";
+import { injectI18n } from "../../i18n/index.js";
+import { normalizeUrlHash } from "../../utils/strings.js";
 import OnyxRouterLink from "../OnyxRouterLink/OnyxRouterLink.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
-import type { OnyxHeadlineProps } from "./types";
+import type { OnyxHeadlineProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxHeadlineProps>(), {
   skeleton: SKELETON_INJECTED_SYMBOL,

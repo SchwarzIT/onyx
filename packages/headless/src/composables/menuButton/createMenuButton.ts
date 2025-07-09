@@ -1,4 +1,4 @@
-import { computed, useId, watch, type Ref } from "vue";
+import { computed, toValue, useId, watch, type MaybeRef, type Ref } from "vue";
 import { createBuilder, createElRef } from "../../utils/builder";
 import { debounce } from "../../utils/timer";
 import { useGlobalEventListener } from "../helpers/useGlobalListener";
@@ -6,9 +6,15 @@ import { useOutsideClick } from "../helpers/useOutsideClick";
 
 type CreateMenuButtonOptions = {
   isExpanded: Readonly<Ref<boolean>>;
-  trigger: Readonly<Ref<"hover" | "click">>;
+  trigger: Readonly<MaybeRef<"hover" | "click">>;
   onToggle: () => void;
   disabled?: Readonly<Ref<boolean>>;
+  /**
+   * Whether the menu button opens to the top or bottom. Defines the keyboard navigation behavior (e.g. Arrow up and down).
+   *
+   * @default "bottom"
+   */
+  position?: MaybeRef<"top" | "bottom">;
 };
 
 /**
@@ -20,6 +26,8 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
   const rootRef = createElRef<HTMLElement>();
   const menuRef = createElRef<HTMLElement>();
   const buttonId = useId();
+
+  const position = computed(() => toValue(options.position) ?? "bottom");
 
   useGlobalEventListener({
     type: "keydown",
@@ -57,6 +65,7 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
     const menuItems = Array.from(currentMenu.querySelectorAll<HTMLElement>('[role="menuitem"]'))
       // filter out nested children
       .filter((item) => item.closest('[role="menu"]') === currentMenu);
+    if (position.value === "top") menuItems.reverse();
     let nextIndex = 0;
 
     if (currentMenuItem) {
@@ -85,11 +94,11 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
     switch (event.key) {
       case "ArrowDown":
         event.preventDefault();
-        focusRelativeItem("next");
+        focusRelativeItem(position.value === "bottom" ? "next" : "prev");
         break;
       case "ArrowUp":
         event.preventDefault();
-        focusRelativeItem("prev");
+        focusRelativeItem(position.value === "bottom" ? "prev" : "next");
         break;
       case "Home":
         event.preventDefault();
@@ -113,7 +122,7 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
   };
 
   const triggerEvents = computed(() => {
-    if (options.trigger.value !== "hover") return;
+    if (toValue(options.trigger) !== "hover") return;
     return {
       onMouseenter: () => setExpanded(true),
       onMouseleave: () => setExpanded(false, true),
@@ -143,7 +152,9 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
             "aria-haspopup": true,
             onFocus: () => setExpanded(true, true),
             onClick: () =>
-              options.trigger.value == "click" ? setExpanded(!options.isExpanded.value) : undefined,
+              toValue(options.trigger) == "click"
+                ? setExpanded(!options.isExpanded.value)
+                : undefined,
             id: buttonId,
             disabled: options.disabled?.value,
           }) as const,

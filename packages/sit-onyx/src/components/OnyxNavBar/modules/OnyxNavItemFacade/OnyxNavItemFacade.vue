@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed } from "vue";
 import OnyxMenuItem from "../OnyxMenuItem/OnyxMenuItem.vue";
-import type { OnyxMenuItemProps } from "../OnyxMenuItem/types";
+import type { OnyxMenuItemProps } from "../OnyxMenuItem/types.js";
 
 const props = defineProps<
   OnyxMenuItemProps & {

@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { useLink } from "../../composables/useLink";
-import { injectI18n } from "../../i18n";
+import { useLink } from "../../composables/useLink.js";
+import { injectI18n } from "../../i18n/index.js";
 import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
-import type { OnyxRouterLinkProps } from "./types";
+import type { OnyxRouterLinkProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxRouterLinkProps>(), {
   target: "_self",

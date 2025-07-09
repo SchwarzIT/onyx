@@ -15,29 +15,29 @@ import {
   type WatchSource,
 } from "vue";
 import type { ComponentSlots } from "vue-component-type-helpers";
-import { type OnyxI18n } from "../../../i18n";
-import type { DatetimeFormat } from "../../../i18n/datetime-formats";
-import type { Nullable } from "../../../types";
-import { mergeVueProps } from "../../../utils/attrs";
-import { applyMapping, prepareMapping, type OrderableMapping } from "../../../utils/feature";
-import { asArray } from "../../../utils/objects";
-import type { OnyxMenuItem } from "../../OnyxNavBar/modules";
+import type { DatetimeFormat } from "../../../i18n/datetime-formats.js";
+import { type OnyxI18n } from "../../../i18n/index.js";
+import type { Nullable } from "../../../types/index.js";
+import { mergeVueProps } from "../../../utils/attrs.js";
+import { applyMapping, prepareMapping, type OrderableMapping } from "../../../utils/feature.js";
+import { asArray } from "../../../utils/objects.js";
+import type { OnyxMenuItem } from "../../OnyxNavBar/modules/index.js";
 import OnyxFlyoutMenu from "../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxSystemButton from "../../OnyxSystemButton/OnyxSystemButton.vue";
-import type { OnyxTableSlots, TableColumnGroup } from "../../OnyxTable/types";
+import type { OnyxTableSlots, TableColumnGroup } from "../../OnyxTable/types.js";
 import type {
   DataGridRendererCell,
   DataGridRendererColumn,
   DataGridRendererRow,
-} from "../OnyxDataGridRenderer/types";
+} from "../OnyxDataGridRenderer/types.js";
 import {
   DataGridRowOptionsSymbol,
   type DataGridEntry,
   type DataGridMetadata,
   type RenderTypesFromFeature,
-} from "../types";
-import type { BASE_FEATURE } from "./base/base";
-import { createRenderer } from "./renderer";
+} from "../types.js";
+import type { BASE_FEATURE } from "./base/base.js";
+import { createRenderer } from "./renderer.js";
 
 /**
  * Function type for modifying the normalized column configuration.

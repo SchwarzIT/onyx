@@ -1,14 +1,14 @@
 import { expectTypeOf, it } from "vitest";
 import type { WatchSource } from "vue";
+import type { BASE_FEATURE } from "./features/base/base.js";
 import type {
   ColumnConfigTypeOption,
   DataGridFeature,
   TypeRenderer,
   TypeRenderMap,
-} from "./features";
-import type { BASE_FEATURE } from "./features/base/base";
-import type { DateCellOptions, NumberCellOptions, StringCellOptions } from "./features/renderer";
-import type { DataGridEntry, RenderTypesFromFeature } from "./types";
+} from "./features/index.js";
+import type { DateCellOptions, NumberCellOptions, StringCellOptions } from "./features/renderer.js";
+import type { DataGridEntry, RenderTypesFromFeature } from "./types.js";
 
 it("should be ensured that RenderTypesFromFeature unwraps correctly", async () => {
   expectTypeOf<RenderTypesFromFeature<never>>().toBeNever();

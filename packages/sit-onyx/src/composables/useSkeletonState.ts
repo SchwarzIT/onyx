@@ -1,4 +1,5 @@
 import { computed, inject, provide, type ComputedRef, type InjectionKey, type Reactive } from "vue";
+import { userConsole } from "../utils/console.js";
 
 const SKELETON_INJECTION_KEY = Symbol() as InjectionKey<
   ReturnType<typeof createSkeletonInjectionContext>
@@ -58,14 +59,11 @@ const createSkeletonInjectionContext =
       if (props.skeleton === SKELETON_INJECTED_SYMBOL) {
         return parentElementProps?.skeleton === true ? 3 : false;
       }
-      if (import.meta.env.DEV) {
-        // eslint-disable-next-line no-console -- we only log the error in dev mode
-        console.error(
-          `skeleton prop is an recognized symbol: %o which is not identical to the symbol %o.`,
-          props.skeleton,
-          SKELETON_INJECTED_SYMBOL,
-        );
-      }
+      userConsole?.warn(
+        `skeleton prop is an recognized symbol: %o which is not identical to the symbol %o. This should not happen and is probably a bug in onyx.`,
+        props.skeleton,
+        SKELETON_INJECTED_SYMBOL,
+      );
       return false;
     });
 

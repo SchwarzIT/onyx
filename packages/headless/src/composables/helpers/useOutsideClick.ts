@@ -49,7 +49,7 @@ export const useOutsideClick = <TCheckOnTab extends boolean | undefined>({
     if (isOutsideClick(event.target)) onOutsideClick(event);
   };
 
-  useGlobalEventListener({ type: "click", listener: clickListener, disabled });
+  useGlobalEventListener({ type: "mousedown", listener: clickListener, disabled });
 
   if (checkOnTab) {
     const keydownListener = async (event: KeyboardEvent) => {

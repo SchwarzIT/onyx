@@ -10,11 +10,11 @@ import {
   watch,
   type AriaAttributes,
 } from "vue";
-import { useAnchorPositionPolyfill } from "../../composables/useAnchorPositionPolyfill";
-import { useOpenAlignment } from "../../composables/useOpenAlignment";
-import { useOpenDirection } from "../../composables/useOpenDirection";
-import { useResizeObserver } from "../../composables/useResizeObserver";
-import type { OnyxPopoverProps } from "./types";
+import { useAnchorPositionPolyfill } from "../../composables/useAnchorPositionPolyfill.js";
+import { useOpenAlignment } from "../../composables/useOpenAlignment.js";
+import { useOpenDirection } from "../../composables/useOpenDirection.js";
+import { useResizeObserver } from "../../composables/useResizeObserver.js";
+import type { OnyxPopoverProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxPopoverProps>(), {
   position: "auto",
@@ -45,6 +45,18 @@ const popoverPosition = computed(() =>
 const popoverAlignment = computed(() =>
   props.alignment === "auto" ? openAlignment.value : props.alignment,
 );
+
+defineExpose({
+  /**
+   * Actual used popover position.
+   */
+  popoverPosition,
+  /**
+   * Actual used popover alignment.
+   */
+  popoverAlignment,
+});
+
 const disabled = computed(() => props.disabled);
 
 const positionAndAlignment = computed(() => {
@@ -143,7 +155,7 @@ const popoverClasses = computed(() => {
     "onyx-popover__dialog--dont-support-anchor": !userAgentSupportsAnchorApi.value,
   };
 });
-watch([disabled], () => {
+watch(disabled, () => {
   if (disabled.value) {
     _isVisible.value = false;
   }
@@ -212,6 +224,7 @@ const popoverStyles = computed(() => ({
 
       min-width: var(--onyx-popover-min-width);
       max-width: var(--onyx-popover-max-width);
+      max-height: 100%;
       width: max-content;
       font-family: var(--onyx-font-family);
 

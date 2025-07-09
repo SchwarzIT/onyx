@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { OnyxIconProps } from "./types";
+import type { OnyxIconProps } from "./types.js";
 
 const props = defineProps<OnyxIconProps>();
 </script>

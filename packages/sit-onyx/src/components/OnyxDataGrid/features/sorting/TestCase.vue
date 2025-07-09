@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
-import type { DataGridEntry, OnyxDataGridProps } from "../../../..";
-import { DataGridFeatures, OnyxDataGrid } from "../../../..";
+import type { DataGridEntry, OnyxDataGridProps } from "../../../../index.js";
+import { DataGridFeatures, OnyxDataGrid } from "../../../../index.js";
 
 const { columns, data } =
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- for simplicity we use any here

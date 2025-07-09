@@ -1,12 +1,15 @@
 <script lang="ts" setup>
 import chevronDownSmall from "@sit-onyx/icons/chevron-down-small.svg?raw";
 import { computed, inject, watch } from "vue";
-import { useDensity } from "../../composables/density";
-import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
-import { ACCORDION_INJECTION_KEY } from "../OnyxAccordion/types";
+import { useDensity } from "../../composables/density.js";
+import {
+  SKELETON_INJECTED_SYMBOL,
+  useSkeletonContext,
+} from "../../composables/useSkeletonState.js";
+import { ACCORDION_INJECTION_KEY } from "../OnyxAccordion/types.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import type { OnyxAccordionItemProps } from "./types";
+import type { OnyxAccordionItemProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxAccordionItemProps>(), {
   disabled: false,

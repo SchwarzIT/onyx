@@ -1,5 +1,11 @@
 # @sit-onyx/eslint-plugin
 
+## 1.0.0-beta.3
+
+### Minor Changes
+
+- cc27e98: feat: implemented sitOnyx/no-esm-incompatible-imports eslint rule for detecting and fixing invalid imports in pure esm projects
+
 ## 1.0.0-beta.2
 
 ### Minor Changes

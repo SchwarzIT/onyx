@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DataGridFeatures, OnyxDataGrid, type ColumnConfig } from "../../..";
+import { DataGridFeatures, OnyxDataGrid, type ColumnConfig } from "../../../index.js";
 
 type TEntry = {
   id: number;

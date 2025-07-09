@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { computed, inject } from "vue";
-import { useVModel } from "../../../../composables/useVModel";
-import type { Nullable } from "../../../../types";
+import { useVModel } from "../../../../composables/useVModel.js";
+import type { Nullable } from "../../../../types/index.js";
 import OnyxAvatar from "../../../OnyxAvatar/OnyxAvatar.vue";
-import { MOBILE_NAV_BAR_INJECTION_KEY } from "../../types";
-import type { OnyxUserMenuProps } from "./types";
+import { MOBILE_NAV_BAR_INJECTION_KEY } from "../../types.js";
+import type { OnyxUserMenuProps } from "./types.js";
 import UserMenuLayout from "./UserMenuLayout.vue";
 
 const props = withDefaults(defineProps<OnyxUserMenuProps>(), {

@@ -1,7 +1,7 @@
 import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
 import path from "path";
-import { expect, test } from "../../../playwright/a11y";
-import { MOCK_PLAYWRIGHT_LOGO } from "../../../playwright/screenshots";
+import { expect, test } from "../../../playwright/a11y.js";
+import { MOCK_PLAYWRIGHT_LOGO } from "../../../playwright/screenshots.js";
 import ComponentShowcase from "./ComponentShowcase.vue";
 
 test.beforeEach(async ({ page }) => {

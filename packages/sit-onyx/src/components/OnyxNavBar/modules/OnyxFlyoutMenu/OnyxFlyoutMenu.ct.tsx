@@ -1,6 +1,6 @@
 import { menuButtonTesting } from "@sit-onyx/headless/playwright";
-import { expect, test } from "../../../../playwright/a11y";
-import { executeMatrixScreenshotTest } from "../../../../playwright/screenshots";
+import { expect, test } from "../../../../playwright/a11y.js";
+import { executeMatrixScreenshotTest } from "../../../../playwright/screenshots.js";
 import TestWrapperCt from "./TestWrapper.ct.vue";
 import TestWrapperManyCt from "./TestWrapperMany.ct.vue";
 import TestWrapperNestedCt from "./TestWrapperNested.ct.vue";

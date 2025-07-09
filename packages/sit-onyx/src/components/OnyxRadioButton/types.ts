@@ -1,4 +1,4 @@
-import type { BaseSelectOption, SelectOptionValue } from "../../types";
+import type { BaseSelectOption, SelectOptionValue } from "../../types/index.js";
 
 export type OnyxRadioButtonProps<TValue extends SelectOptionValue = SelectOptionValue> = Omit<
   BaseSelectOption<TValue>,

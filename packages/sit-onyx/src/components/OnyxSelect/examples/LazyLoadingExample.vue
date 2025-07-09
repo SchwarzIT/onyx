@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import { OnyxSelect, type SelectOption } from "../../..";
+import { OnyxSelect, type SelectOption } from "../../../index.js";
 
 const generateDummyOptions = (count: number, existingItems: number) => {
   return Array.from({ length: count }, (_, index) => {

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, inject } from "vue";
-import { MOBILE_NAV_BAR_INJECTION_KEY } from "../OnyxNavBar/types";
-import type { OnyxSeparatorProps } from "./types";
+import { MOBILE_NAV_BAR_INJECTION_KEY } from "../OnyxNavBar/types.js";
+import type { OnyxSeparatorProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxSeparatorProps>(), {
   orientation: "horizontal",

@@ -1,7 +1,7 @@
 import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { defineIconSelectArgType } from "../../utils/storybook";
+import { defineIconSelectArgType } from "../../utils/storybook.js";
 import OnyxButton from "./OnyxButton.vue";
 
 /**

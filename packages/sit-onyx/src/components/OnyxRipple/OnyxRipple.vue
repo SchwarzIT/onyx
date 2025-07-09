@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useTemplateRef } from "vue";
-import { useRipple } from "../../composables/useRipple";
+import { useRipple } from "../../composables/useRipple.js";
 
 const rippleTrigger = useTemplateRef("rippleTriggerRef");
 const { ripples, hideRipple, events } = useRipple(rippleTrigger);

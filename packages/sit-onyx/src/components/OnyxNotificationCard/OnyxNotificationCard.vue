@@ -1,17 +1,20 @@
 <script lang="ts" setup>
 import moreVertical from "@sit-onyx/icons/more-vertical.svg?raw";
 import { toRef } from "vue";
-import { useDensity } from "../../composables/density";
-import { useRelativeTimeFormat } from "../../composables/useRelativeTimeFormat";
-import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
-import { injectI18n } from "../../i18n";
+import { useDensity } from "../../composables/density.js";
+import { useRelativeTimeFormat } from "../../composables/useRelativeTimeFormat.js";
+import {
+  SKELETON_INJECTED_SYMBOL,
+  useSkeletonContext,
+} from "../../composables/useSkeletonState.js";
+import { injectI18n } from "../../i18n/index.js";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxFlyoutMenu from "../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
-import type { OnyxNotificationCardProps } from "./types";
+import type { OnyxNotificationCardProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxNotificationCardProps>(), {
   skeleton: SKELETON_INJECTED_SYMBOL,

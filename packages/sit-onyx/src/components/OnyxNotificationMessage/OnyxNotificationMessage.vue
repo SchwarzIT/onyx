@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import OnyxInfoCard from "../OnyxInfoCard/OnyxInfoCard.vue";
-import type { OnyxNotificationMessageProps } from "./types";
+import type { OnyxNotificationMessageProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxNotificationMessageProps>(), {
   color: "neutral",

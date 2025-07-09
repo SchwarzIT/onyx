@@ -1,5 +1,11 @@
 # @sit-onyx/headless
 
+## 1.0.0-beta.20
+
+### Minor Changes
+
+- ec6e617: feat(createMenuButton): add `position` option to support flyouts that open to the top
+
 ## 1.0.0-beta.19
 
 ### Minor Changes

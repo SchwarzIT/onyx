@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import plusSmall from "@sit-onyx/icons/plus-small.svg?raw";
 import { ref } from "vue";
-import { OnyxButton, OnyxSelect, type SelectOption } from "../../..";
+import { OnyxButton, OnyxSelect, type SelectOption } from "../../../index.js";
 
 const generateDummyOptions = (count: number, existingItems: number) => {
   return Array.from({ length: count }, (_, index) => {

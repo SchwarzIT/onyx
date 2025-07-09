@@ -3,10 +3,10 @@ import arrowsSort from "@sit-onyx/icons/arrows-sort.svg?raw";
 import listArrowDown from "@sit-onyx/icons/list-arrow-down.svg?raw";
 import listArrowUp from "@sit-onyx/icons/list-arrow-up.svg?raw";
 import { computed } from "vue";
-import { injectI18n } from "../../../../i18n";
+import { injectI18n } from "../../../../i18n/index.js";
 import OnyxSystemButton from "../../../OnyxSystemButton/OnyxSystemButton.vue";
-import { nextSortDirection } from "./sorting";
-import type { SortDirection } from "./types";
+import { nextSortDirection } from "./sorting.js";
+import type { SortDirection } from "./types.js";
 
 const props = defineProps<{
   /**

@@ -1,7 +1,7 @@
-import { DENSITIES } from "../../composables/density";
-import { expect, test } from "../../playwright/a11y";
-import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
-import { ONYX_COLORS } from "../../types";
+import { DENSITIES } from "../../composables/density.js";
+import { expect, test } from "../../playwright/a11y.js";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
+import { ONYX_COLORS } from "../../types/index.js";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxInfoCard from "./OnyxInfoCard.vue";
 

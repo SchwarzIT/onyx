@@ -9,18 +9,18 @@
   "
 >
 import { computed, ref, useTemplateRef } from "vue";
-import { useDensity } from "../../composables/density";
-import { useVModel } from "../../composables/useVModel";
-import { injectI18n } from "../../i18n";
-import { useRootAttrs } from "../../utils/attrs";
+import { useDensity } from "../../composables/density.js";
+import { useVModel } from "../../composables/useVModel.js";
+import { injectI18n } from "../../i18n/index.js";
+import { useRootAttrs } from "../../utils/attrs.js";
 import {
   convertBinaryPrefixToBytes,
   formatBytesToString,
   type BinaryPrefixedSize,
-} from "../../utils/numbers";
-import { asArray } from "../../utils/objects";
-import { OnyxFileUploadSVG } from "../illustrations";
-import type { OnyxFileUploadProps } from "./types";
+} from "../../utils/numbers.js";
+import { asArray } from "../../utils/objects.js";
+import { OnyxFileUploadSVG } from "../illustrations/index.js";
+import type { OnyxFileUploadProps } from "./types.js";
 
 const props: OnyxFileUploadProps<TMultiple> = withDefaults(
   defineProps<OnyxFileUploadProps<TMultiple>>(),

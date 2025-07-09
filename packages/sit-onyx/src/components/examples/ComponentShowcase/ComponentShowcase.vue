@@ -22,7 +22,7 @@ import OnyxUserMenu from "../../OnyxNavBar/modules/OnyxUserMenu/OnyxUserMenu.vue
 import OnyxPagination from "../../OnyxPagination/OnyxPagination.vue";
 import OnyxRadioGroup from "../../OnyxRadioGroup/OnyxRadioGroup.vue";
 import OnyxSelect from "../../OnyxSelect/OnyxSelect.vue";
-import type { SelectOption } from "../../OnyxSelect/types";
+import type { SelectOption } from "../../OnyxSelect/types.js";
 import OnyxStepper from "../../OnyxStepper/OnyxStepper.vue";
 import OnyxSwitch from "../../OnyxSwitch/OnyxSwitch.vue";
 import OnyxTable from "../../OnyxTable/OnyxTable.vue";

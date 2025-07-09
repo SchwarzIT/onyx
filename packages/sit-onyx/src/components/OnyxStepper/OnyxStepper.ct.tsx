@@ -1,8 +1,8 @@
-import { DENSITIES } from "../../composables/density";
-import type { FormMessages } from "../../composables/useCustomValidity";
-import { expect, test } from "../../playwright/a11y";
-import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
-import type { Nullable } from "../../types";
+import { DENSITIES } from "../../composables/density.js";
+import type { FormMessages } from "../../composables/useCustomValidity.js";
+import { expect, test } from "../../playwright/a11y.js";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
+import type { Nullable } from "../../types/index.js";
 import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-utils";
 import OnyxStepper from "./OnyxStepper.vue";
 

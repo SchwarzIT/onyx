@@ -1,8 +1,15 @@
-import type { SkeletonInjected } from "src/composables/useSkeletonState";
 import type { HTMLAttributes } from "vue";
-import type { IfExtends, IfNotEmpty, MaybePick, RecordValues, UnionByKey } from "../../types";
-import type { OnyxHeadlineProps } from "../OnyxHeadline/types";
-import type { OnyxTableProps } from "../OnyxTable/types";
+import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
+import type {
+  IfExtends,
+  IfNotEmpty,
+  MaybePick,
+  RecordValues,
+  UnionByKey,
+} from "../../types/index.js";
+import type { OnyxHeadlineProps } from "../OnyxHeadline/types.js";
+import type { OnyxTableProps } from "../OnyxTable/types.js";
+import type { BASE_FEATURE } from "./features/base/base.js";
 import type {
   ColumnConfig,
   ColumnConfigTypeOption,
@@ -11,8 +18,7 @@ import type {
   InternalColumnConfig,
   TypeRenderer,
   TypeRenderMap,
-} from "./features";
-import type { BASE_FEATURE } from "./features/base/base";
+} from "./features/index.js";
 
 export type DataGridMetadata = Record<string, unknown>;
 

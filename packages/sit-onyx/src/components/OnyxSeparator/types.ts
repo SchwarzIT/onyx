@@ -1,4 +1,4 @@
-import type { Orientation } from "../../types";
+import type { Orientation } from "../../types/index.js";
 
 export type OnyxSeparatorProps = {
   /**

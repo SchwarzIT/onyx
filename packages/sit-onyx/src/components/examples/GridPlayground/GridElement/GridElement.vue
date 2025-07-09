@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed, useTemplateRef } from "vue";
-import { useResizeObserver } from "../../../../composables/useResizeObserver";
+import { useResizeObserver } from "../../../../composables/useResizeObserver.js";
 import type { GridElementConfig } from "../EditGridElementDialog/EditGridElementDialog.vue";
 
 const props = defineProps<

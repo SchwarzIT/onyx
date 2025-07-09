@@ -1,16 +1,19 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue">
 import { computed, useId, useTemplateRef } from "vue";
-import { useDensity } from "../../composables/density";
-import { useRequired } from "../../composables/required";
-import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
-import { useVModel } from "../../composables/useVModel";
-import type { Nullable, SelectOptionValue } from "../../types";
-import { asArray } from "../../utils/objects";
-import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core";
+import { useDensity } from "../../composables/density.js";
+import { useRequired } from "../../composables/required.js";
+import {
+  SKELETON_INJECTED_SYMBOL,
+  useSkeletonContext,
+} from "../../composables/useSkeletonState.js";
+import { useVModel } from "../../composables/useVModel.js";
+import type { Nullable, SelectOptionValue } from "../../types/index.js";
+import { asArray } from "../../utils/objects.js";
+import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxInfoTooltip from "../OnyxInfoTooltip/OnyxInfoTooltip.vue";
 import OnyxRadioButton from "../OnyxRadioButton/OnyxRadioButton.vue";
-import type { OnyxRadioGroupProps } from "./types";
+import type { OnyxRadioGroupProps } from "./types.js";
 
 type Props = OnyxRadioGroupProps<TValue>;
 const props = withDefaults(defineProps<Props>(), {

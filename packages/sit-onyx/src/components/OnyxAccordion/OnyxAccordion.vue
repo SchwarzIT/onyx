@@ -1,14 +1,17 @@
 <script lang="ts" setup generic="TValue extends PropertyKey">
 import { provide, ref, toRef, toRefs, watch, watchEffect, type Ref } from "vue";
-import { useDensity } from "../../composables/density";
-import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
-import { useVModel } from "../../composables/useVModel";
-import type { Nullable } from "../../types";
+import { useDensity } from "../../composables/density.js";
+import {
+  SKELETON_INJECTED_SYMBOL,
+  useSkeletonContext,
+} from "../../composables/useSkeletonState.js";
+import { useVModel } from "../../composables/useVModel.js";
+import type { Nullable } from "../../types/index.js";
 import {
   ACCORDION_INJECTION_KEY,
   type AccordionInjectionKey,
   type OnyxAccordionProps,
-} from "./types";
+} from "./types.js";
 
 const props = withDefaults(defineProps<OnyxAccordionProps<TValue>>(), {
   exclusive: false,

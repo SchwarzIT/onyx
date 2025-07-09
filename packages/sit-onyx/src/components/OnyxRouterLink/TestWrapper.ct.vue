@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { provide, ref } from "vue";
-import { ROUTER_INJECTION_KEY } from "../../composables/useLink";
+import { ROUTER_INJECTION_KEY } from "../../composables/useLink.js";
 import OnyxRouterLink from "./OnyxRouterLink.vue";
-import type { OnyxRouterLinkProps } from "./types";
+import type { OnyxRouterLinkProps } from "./types.js";
 
 const props = defineProps<OnyxRouterLinkProps>();
 

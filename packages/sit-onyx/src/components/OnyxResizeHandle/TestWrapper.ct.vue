@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref, useTemplateRef } from "vue";
 import OnyxResizeHandle from "./OnyxResizeHandle.vue";
-import type { ResizeHandleAlignment } from "./types";
+import type { ResizeHandleAlignment } from "./types.js";
 
 const props = defineProps<{
   /** Alignment of the resize handle */

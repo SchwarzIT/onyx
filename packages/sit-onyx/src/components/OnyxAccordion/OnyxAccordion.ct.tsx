@@ -1,9 +1,9 @@
-import { DENSITIES } from "../../composables/density";
-import { expect, test } from "../../playwright/a11y";
-import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
+import { DENSITIES } from "../../composables/density.js";
+import { expect, test } from "../../playwright/a11y.js";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import OnyxAccordionItem from "../OnyxAccordionItem/OnyxAccordionItem.vue";
 import OnyxAccordion from "./OnyxAccordion.vue";
-import { ACCORDION_TYPES } from "./types";
+import { ACCORDION_TYPES } from "./types.js";
 import VModelTestWrapper from "./VModelTestWrapper.ct.vue";
 
 test.describe("Screenshot tests", () => {
