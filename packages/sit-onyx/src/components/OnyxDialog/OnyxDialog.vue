@@ -7,7 +7,7 @@ const props = withDefaults(defineProps<OnyxDialogProps>(), {
   modal: false,
   alert: false,
   alignment: "center",
-  stayOpenOnBackdropClick: false,
+  disableClosingOnBackdropClick: false,
 });
 
 const emit = defineEmits<{
@@ -44,7 +44,7 @@ watch([dialog, () => props.open], () => {
 
 const handleBackdropClick = (event: MouseEvent) => {
   const dialogElement = dialog.value;
-  if (!dialogElement || !props.modal || props.disableClosingOnBackdropClick) {
+  if (!event.detail || !dialogElement || !props.modal || props.disableClosingOnBackdropClick) {
     return;
   }
 
