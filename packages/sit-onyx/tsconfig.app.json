@@ -5,7 +5,13 @@
     "@sit-onyx/shared/tsconfig.json"
   ],
   "include": ["env.d.ts", "src/**/*"],
-  "exclude": ["src/**/*.ct.*", "src/**/*.spec.*", "src/**/*.stories.ts", "src/**/*.ct.vue"],
+  "exclude": [
+    "src/**/*.ct.*",
+    "src/**/*.spec.*",
+    "src/**/*.stories.ts",
+    "src/**/*.ct.vue",
+    "src/playwright/**/*"
+  ],
   "compilerOptions": {
     "composite": true,
     "baseUrl": ".",
