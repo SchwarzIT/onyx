@@ -1,5 +1,5 @@
-import type { DataGridFeatureOptions } from "..";
-import type { DataGridEntry } from "../../types";
+import type { DataGridEntry } from "../../types.js";
+import type { DataGridFeatureOptions } from "../index.js";
 
 /**
  * The options of the sorting feature for the OnyxDataGrid component.

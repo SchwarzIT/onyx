@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useTemplateRef, watch } from "vue";
-import { useDensity } from "../../composables/density";
-import type { OnyxDialogProps } from "./types";
+import { useDensity } from "../../composables/density.js";
+import type { OnyxDialogProps } from "./types.js";
 const props = withDefaults(defineProps<OnyxDialogProps>(), {
   open: false,
   modal: false,

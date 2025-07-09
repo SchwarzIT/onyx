@@ -1,8 +1,8 @@
-import { DENSITIES } from "../../composables/density";
-import { expect, test } from "../../playwright/a11y";
-import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
+import { DENSITIES } from "../../composables/density.js";
+import { expect, test } from "../../playwright/a11y.js";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import OnyxSelectInput from "./OnyxSelectInput.vue";
-import { MULTISELECT_TEXT_MODE } from "./types";
+import { MULTISELECT_TEXT_MODE } from "./types.js";
 
 test.describe("Screenshot tests", () => {
   for (const state of ["default", "placeholder", "with value"] as const) {

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import OnyxModalDialog from "../OnyxModalDialog/OnyxModalDialog.vue";
-import type { OnyxDrawerProps } from "./types";
+import type { OnyxDrawerProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxDrawerProps>(), {
   alignment: "left",

@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { computed, useId, useTemplateRef } from "vue";
-import { useDensity } from "../../composables/density";
-import { useResizeObserver } from "../../composables/useResizeObserver";
-import { injectI18n } from "../../i18n";
+import { useDensity } from "../../composables/density.js";
+import { useResizeObserver } from "../../composables/useResizeObserver.js";
+import { injectI18n } from "../../i18n/index.js";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
-import type { OnyxTableProps, OnyxTableSlots } from "./types";
+import type { OnyxTableProps, OnyxTableSlots } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxTableProps>(), {
   striped: false,

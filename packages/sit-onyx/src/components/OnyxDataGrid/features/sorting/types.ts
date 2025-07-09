@@ -1,6 +1,6 @@
 import type { MaybeRef } from "vue";
-import type { DataGridFeatureOptions } from "..";
-import type { DataGridEntry } from "../../types";
+import type { DataGridEntry } from "../../types.js";
+import type { DataGridFeatureOptions } from "../index.js";
 
 export type SortDirection = "asc" | "desc" | "none";
 

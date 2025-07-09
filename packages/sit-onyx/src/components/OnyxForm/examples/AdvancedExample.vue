@@ -11,7 +11,7 @@ import {
   useToast,
   type CheckboxGroupOption,
   type OnyxFormProps,
-} from "../../..";
+} from "../../../index.js";
 
 type LegalTerm = "general-terms" | "optional-terms";
 

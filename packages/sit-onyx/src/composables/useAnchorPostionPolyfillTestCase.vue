@@ -2,8 +2,8 @@
 <!-- eslint-disable vue/no-static-inline-styles -->
 <script setup lang="ts">
 import { onMounted, ref, useTemplateRef } from "vue";
-import { useAnchorPositionPolyfill, type AnchorPosition } from "./useAnchorPositionPolyfill";
-import type { OpenAlignment } from "./useOpenAlignment";
+import { useAnchorPositionPolyfill, type AnchorPosition } from "./useAnchorPositionPolyfill.js";
+import type { OpenAlignment } from "./useOpenAlignment.js";
 
 const positionedRef = useTemplateRef("positioned");
 const targetRef = useTemplateRef("target");

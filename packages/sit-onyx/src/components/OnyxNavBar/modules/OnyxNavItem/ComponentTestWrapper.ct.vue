@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { computed, provide } from "vue";
-import { MOBILE_NAV_BAR_INJECTION_KEY, NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY } from "../../types";
+import { MOBILE_NAV_BAR_INJECTION_KEY, NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY } from "../../types.js";
 import OnyxNavItem from "./OnyxNavItem.vue";
-import type { OnyxNavItemProps } from "./types";
+import type { OnyxNavItemProps } from "./types.js";
 
 const props = defineProps<
   OnyxNavItemProps & {

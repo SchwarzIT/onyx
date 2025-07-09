@@ -2,7 +2,7 @@
 import { computed } from "vue";
 import type { OnyxDataGridProps } from "../../../..";
 import { OnyxDataGrid } from "../../../..";
-import { useFiltering, usePagination } from "../all";
+import { useFiltering, usePagination } from "../all.js";
 
 const props = defineProps<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- for simplicity we use any here

@@ -1,8 +1,8 @@
 import type { createTabs } from "@sit-onyx/headless";
 import type { InjectionKey, Ref, ShallowRef } from "vue";
-import type { DensityProp } from "../../composables/density";
-import type { SkeletonProvidedProp } from "../../composables/useSkeletonState";
-import type { HeadlineType } from "../OnyxHeadline/types";
+import type { DensityProp } from "../../composables/density.js";
+import type { SkeletonProvidedProp } from "../../composables/useSkeletonState.js";
+import type { HeadlineType } from "../OnyxHeadline/types.js";
 
 export type OnyxTabsProps<TValue extends PropertyKey = PropertyKey> = DensityProp &
   Partial<SkeletonProvidedProp> & {

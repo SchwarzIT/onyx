@@ -1,6 +1,6 @@
 import { describe, expect, test, vi } from "vitest";
 import * as vue from "vue";
-import { ROUTER_INJECTION_KEY, useLink, type ProvideRouterOptions } from "./useLink";
+import { ROUTER_INJECTION_KEY, useLink, type ProvideRouterOptions } from "./useLink.js";
 
 vi.mock("vue", async (importOriginal) => {
   const module = await importOriginal<typeof import("vue")>();

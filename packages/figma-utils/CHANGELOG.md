@@ -1,5 +1,11 @@
 # @sit-onyx/figma-utils
 
+## 1.0.0-beta.8
+
+### Patch Changes
+
+- 2617d53: fix: use the correct mode name for selector and comment when combine-light-dark is enabled
+
 ## 1.0.0-beta.7
 
 ### Minor Changes

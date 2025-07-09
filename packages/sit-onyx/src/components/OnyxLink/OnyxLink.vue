@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import OnyxExternalLinkIcon from "../OnyxExternalLinkIcon/OnyxExternalLinkIcon.vue";
 import OnyxRouterLink from "../OnyxRouterLink/OnyxRouterLink.vue";
-import type { OnyxLinkProps } from "./types";
+import type { OnyxLinkProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxLinkProps>(), {
   target: "_self",

@@ -1,10 +1,10 @@
 import { computed, nextTick, onUnmounted, ref, useId, watch } from "vue";
-import { createFeature, type ModifyColumns } from "..";
+import { createFeature, type ModifyColumns } from "../index.js";
 
-import { mergeVueProps } from "../../../../utils/attrs";
-import type { DataGridEntry } from "../../types";
+import { mergeVueProps } from "../../../../utils/attrs.js";
+import type { DataGridEntry } from "../../types.js";
 import "./stickyColumns.scss";
-import type { StickyColumnsOptions } from "./types";
+import type { StickyColumnsOptions } from "./types.js";
 
 export const STICKY_COLUMNS_FEATURE = Symbol("StickyColumns");
 

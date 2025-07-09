@@ -1,5 +1,5 @@
-import type { DensityProp } from "../../composables/density";
-import type { OnyxColor } from "../../types/colors";
+import type { DensityProp } from "../../composables/density.js";
+import type { OnyxColor } from "../../types/colors.js";
 
 export type OnyxBadgeProps = DensityProp & {
   /**

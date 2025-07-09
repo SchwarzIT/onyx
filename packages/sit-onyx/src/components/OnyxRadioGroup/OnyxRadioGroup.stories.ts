@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
-import type { BaseSelectOption } from "../../types";
+import type { BaseSelectOption } from "../../types/index.js";
 import OnyxRadioGroup from "./OnyxRadioGroup.vue";
 
 /**

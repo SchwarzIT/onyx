@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import OnyxNavItem from "../OnyxNavBar/modules/OnyxNavItem/OnyxNavItem.vue";
-import { NAV_BAR_MORE_LIST_INJECTION_KEY } from "../OnyxNavBar/types";
+import { NAV_BAR_MORE_LIST_INJECTION_KEY } from "../OnyxNavBar/types.js";
 import OnyxMoreList from "./OnyxMoreList.vue";
-import type { MoreListSlotBindings } from "./types";
+import type { MoreListSlotBindings } from "./types.js";
 
 const props = defineProps<{
   /**

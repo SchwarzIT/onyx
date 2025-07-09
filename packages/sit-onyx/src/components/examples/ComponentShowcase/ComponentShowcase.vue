@@ -5,6 +5,7 @@ import logout from "@sit-onyx/icons/logout.svg?raw";
 import settings from "@sit-onyx/icons/settings.svg?raw";
 import shareIos from "@sit-onyx/icons/share-ios.svg?raw";
 import { ref } from "vue";
+import logoUrl from "../../../../.storybook/public/onyx-logo.svg";
 import OnyxAvatar from "../../OnyxAvatar/OnyxAvatar.vue";
 import OnyxAvatarStack from "../../OnyxAvatarStack/OnyxAvatarStack.vue";
 import OnyxBadge from "../../OnyxBadge/OnyxBadge.vue";
@@ -21,7 +22,7 @@ import OnyxUserMenu from "../../OnyxNavBar/modules/OnyxUserMenu/OnyxUserMenu.vue
 import OnyxPagination from "../../OnyxPagination/OnyxPagination.vue";
 import OnyxRadioGroup from "../../OnyxRadioGroup/OnyxRadioGroup.vue";
 import OnyxSelect from "../../OnyxSelect/OnyxSelect.vue";
-import type { SelectOption } from "../../OnyxSelect/types";
+import type { SelectOption } from "../../OnyxSelect/types.js";
 import OnyxStepper from "../../OnyxStepper/OnyxStepper.vue";
 import OnyxSwitch from "../../OnyxSwitch/OnyxSwitch.vue";
 import OnyxTable from "../../OnyxTable/OnyxTable.vue";
@@ -235,7 +236,7 @@ const teamMembers = [
         />
       </div>
 
-      <OnyxNavBar class="grid--nav" app-name="Nav bar" logo-url="/onyx-logo.svg">
+      <OnyxNavBar class="grid--nav" app-name="Nav bar" :logo-url="logoUrl">
         <OnyxNavItem label="Page 1" active />
         <OnyxNavItem label="Page 2">
           <template #children>

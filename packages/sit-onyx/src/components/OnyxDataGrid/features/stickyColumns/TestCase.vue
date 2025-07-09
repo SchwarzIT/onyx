@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import type { DataGridEntry, OnyxDataGridProps } from "../../../..";
-import { DataGridFeatures, OnyxDataGrid } from "../../../..";
-import type { StickyColumnsOptions } from "./types";
+import type { DataGridEntry, OnyxDataGridProps } from "../../../../index.js";
+import { DataGridFeatures, OnyxDataGrid } from "../../../../index.js";
+import type { StickyColumnsOptions } from "./types.js";
 
 const { columns, data, stickyColumnsOptions } = defineProps<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- for simplicity we use any here

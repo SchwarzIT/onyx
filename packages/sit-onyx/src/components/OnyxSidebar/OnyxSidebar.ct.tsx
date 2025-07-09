@@ -1,5 +1,5 @@
-import { dragResizeHandle } from "../../playwright";
-import { expect, test } from "../../playwright/a11y";
+import { expect, test } from "../../playwright/a11y.js";
+import { dragResizeHandle } from "../../playwright/index.js";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxSidebar from "./OnyxSidebar.vue";
 

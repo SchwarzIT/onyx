@@ -1,9 +1,9 @@
 import { computed, h, ref, toValue } from "vue";
-import { createFeature } from "..";
-import OnyxHeadline from "../../../OnyxHeadline/OnyxHeadline.vue";
-import type { DataGridHeadline } from "../../types";
-import { FILTERING_MUTATION_ORDER } from "../filtering/filtering";
-import { PAGINATION_MUTATION_ORDER } from "../pagination/pagination";
+import { OnyxHeadline } from "../../../../index.js";
+import type { DataGridHeadline } from "../../types.js";
+import { FILTERING_MUTATION_ORDER } from "../filtering/filtering.js";
+import { createFeature } from "../index.js";
+import { PAGINATION_MUTATION_ORDER } from "../pagination/pagination.js";
 import {
   DATE_RENDERER,
   DATETIME_RENDERER,
@@ -12,9 +12,9 @@ import {
   STRING_RENDERER,
   TIME_RENDERER,
   TIMESTAMP_RENDERER,
-} from "../renderer";
+} from "../renderer.js";
 import "./base.scss";
-import type { BaseFeatureOptions } from "./types";
+import type { BaseFeatureOptions } from "./types.js";
 
 export const BASE_FEATURE_SYMBOL = Symbol("Base");
 export const BASE_MUTATION_ORDER =

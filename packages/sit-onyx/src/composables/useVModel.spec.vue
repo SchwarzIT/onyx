@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { Nullable } from "../types";
-import { useVModel } from "./useVModel";
+import type { Nullable } from "../types/index.js";
+import { useVModel } from "./useVModel.js";
 
 const props = defineProps<{
   /**

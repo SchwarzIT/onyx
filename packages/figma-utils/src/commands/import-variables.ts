@@ -44,7 +44,7 @@ export const importVariablesCommand = new Command("import-variables")
   )
   .option(
     "-c, --combines-dark-light",
-    "Combines the dark theme data with the light theme data by using the light-dark() CSS function",
+    "Combines the dark theme data with the light theme data by using the light-dark() CSS function. The Figma file must include two modes with -light and -dark prefix, e.g. example-light and example-dark.",
   )
   .option(
     "-s, --selector <string>",
@@ -126,7 +126,10 @@ export async function importVariablesCommandAction(options: ImportVariablesComma
           (themeData) => themeData.modeName === themeName + "-dark",
         );
 
-        fs.writeFileSync(fullPath, generators[format as keyof typeof generators](data, dataDark));
+        fs.writeFileSync(
+          fullPath,
+          generators[format as keyof typeof generators]({ ...data, modeName: themeName }, dataDark),
+        );
       } else {
         const fullPath = path.join(outputDirectory, `${baseName}.${format.toLowerCase()}`);
         fs.writeFileSync(fullPath, generators[format as keyof typeof generators](data));

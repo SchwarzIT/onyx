@@ -1,5 +1,12 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-beta.94
+
+### Patch Changes
+
+- Updated dependencies [5a27c6a]
+  - @sit-onyx/icons@1.0.0-beta.19
+
 ## 1.0.0-beta.93
 
 ### Minor Changes

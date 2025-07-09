@@ -5,9 +5,9 @@ import menu from "@sit-onyx/icons/menu.svg?raw";
 import moreVertical from "@sit-onyx/icons/more-vertical.svg?raw";
 import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
 import { computed, provide, ref, toRef, useTemplateRef, watch } from "vue";
-import { useLink } from "../../composables/useLink";
-import { useResizeObserver } from "../../composables/useResizeObserver";
-import { injectI18n } from "../../i18n";
+import { useLink } from "../../composables/useLink.js";
+import { useResizeObserver } from "../../composables/useResizeObserver.js";
+import { injectI18n } from "../../i18n/index.js";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxMobileNavButton from "../OnyxMobileNavButton/OnyxMobileNavButton.vue";
 import OnyxMoreList from "../OnyxMoreList/OnyxMoreList.vue";
@@ -19,7 +19,7 @@ import {
   NAV_BAR_MORE_LIST_INJECTION_KEY,
   NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY,
   type OnyxNavBarProps,
-} from "./types";
+} from "./types.js";
 
 const props = withDefaults(defineProps<OnyxNavBarProps>(), {
   mobile: "sm",

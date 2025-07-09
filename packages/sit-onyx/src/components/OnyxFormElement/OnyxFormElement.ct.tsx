@@ -1,4 +1,4 @@
-import { expect, test } from "../../playwright/a11y";
+import { expect, test } from "../../playwright/a11y.js";
 import OnyxInput from "../OnyxInput/OnyxInput.vue";
 import OnyxFormElement from "./OnyxFormElement.vue";
 import TestWrapper from "./TestWrapper.ct.vue";

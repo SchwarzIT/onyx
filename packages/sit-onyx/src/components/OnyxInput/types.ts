@@ -1,5 +1,5 @@
-import type { SharedTextInputProps } from "../../composables/useLenientMaxLengthValidation";
-import type { SharedFormElementProps } from "../OnyxFormElement/types";
+import type { SharedTextInputProps } from "../../composables/useLenientMaxLengthValidation.js";
+import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
 
 export type OnyxInputProps = SharedFormElementProps &
   SharedTextInputProps & {

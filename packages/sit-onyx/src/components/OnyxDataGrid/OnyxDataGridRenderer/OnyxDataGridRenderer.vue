@@ -1,14 +1,13 @@
 <script lang="ts" setup generic="TEntry extends DataGridEntry, TMetadata extends DataGridMetadata">
 import { computed } from "vue";
-import { mergeVueProps } from "../../../utils/attrs";
+import { mergeVueProps } from "../../../utils/attrs.js";
 import OnyxTable from "../../OnyxTable/OnyxTable.vue";
-import type { OnyxTableSlots } from "../../OnyxTable/types";
-import type { DataGridEntry, DataGridMetadata } from "../types";
-import type { OnyxDataGridRendererProps } from "./types";
+import type { DataGridEntry, DataGridMetadata } from "../types.js";
+import type { DataGridRendererSlots, OnyxDataGridRendererProps } from "./types.js";
 
 const props = defineProps<OnyxDataGridRendererProps<TEntry, TMetadata>>();
 
-const slots = defineSlots<Omit<OnyxTableSlots, "default" | "head">>();
+const slots = defineSlots<DataGridRendererSlots>();
 
 const columnStyle = computed(() => {
   return {
@@ -56,7 +55,8 @@ const columnStyle = computed(() => {
     </tr>
 
     <template v-for="(slot, slotName) in slots" :key="slotName" #[slotName]="slotProps">
-      <slot :name="slot?.name" v-bind="slotProps">
+      <!-- The type assertion here is a workaround for incorrect type assertion, which otherwise breaks the build  -->
+      <slot :name="slot?.name as 'headline'" v-bind="slotProps">
         <component :is="slot"></component>
       </slot>
     </template>

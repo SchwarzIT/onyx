@@ -1,5 +1,5 @@
-import { expect, test } from "../../playwright/a11y";
-import { executeMatrixScreenshotTest } from "../../playwright/screenshots";
+import { expect, test } from "../../playwright/a11y.js";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import OnyxInfoTooltip from "./OnyxInfoTooltip.vue";
 
 test.describe("Screenshot tests", () => {

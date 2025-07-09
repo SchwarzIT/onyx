@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxCard, OnyxHeadline } from "../../..";
+import { OnyxCard, OnyxHeadline } from "../../../index.js";
 </script>
 
 <template>

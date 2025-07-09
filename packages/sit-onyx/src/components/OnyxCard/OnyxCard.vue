@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { useDensity } from "../../composables/density";
-import type { OnyxCardProps } from "./types";
+import { useDensity } from "../../composables/density.js";
+import type { OnyxCardProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxCardProps>(), {
   clickable: false,

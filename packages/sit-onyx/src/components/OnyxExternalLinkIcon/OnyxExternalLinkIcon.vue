@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import arrowSmallUpRight from "@sit-onyx/icons/arrow-small-up-right.svg?raw";
 import { computed } from "vue";
-import { isInternalLink } from "../../utils";
+import { isInternalLink } from "../../utils/index.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import type { OnyxExternalLinkIconProps } from "./types";
+import type { OnyxExternalLinkIconProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxExternalLinkIconProps>(), {
   withExternalIcon: "auto",

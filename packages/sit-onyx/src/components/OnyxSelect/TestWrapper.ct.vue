@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import OnyxSelect from "./OnyxSelect.vue";
-import type { SelectOption } from "./types";
+import type { SelectOption } from "./types.js";
 
 const options = [
   { value: 1, label: "Default" },

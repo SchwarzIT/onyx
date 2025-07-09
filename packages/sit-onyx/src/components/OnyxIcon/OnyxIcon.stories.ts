@@ -1,6 +1,6 @@
 import happyIcon from "@sit-onyx/icons/emoji-happy-2.svg?raw";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { defineIconSelectArgType, textColorDecorator } from "../../utils/storybook";
+import { defineIconSelectArgType, textColorDecorator } from "../../utils/storybook.js";
 import OnyxIcon from "./OnyxIcon.vue";
 
 /**
@@ -16,7 +16,7 @@ const meta: Meta<typeof OnyxIcon> = {
   title: "Basic/Icon",
   component: OnyxIcon,
   argTypes: {
-    icon: defineIconSelectArgType(),
+    icon: defineIconSelectArgType({ required: true }),
   },
 
   decorators: [textColorDecorator],

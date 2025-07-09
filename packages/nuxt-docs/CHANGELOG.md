@@ -1,5 +1,38 @@
 # @sit-onyx/nuxt-docs
 
+## 1.0.0-beta.77
+
+### Patch Changes
+
+- Updated dependencies [cc27e98]
+  - sit-onyx@1.0.0-beta.263
+  - @sit-onyx/nuxt@1.0.0-beta.265
+
+## 1.0.0-beta.76
+
+### Patch Changes
+
+- Updated dependencies [5a27c6a]
+  - @sit-onyx/icons@1.0.0-beta.19
+  - sit-onyx@1.0.0-beta.262
+  - @sit-onyx/nuxt@1.0.0-beta.264
+
+## 1.0.0-beta.75
+
+### Patch Changes
+
+- Updated dependencies [43de03d]
+  - sit-onyx@1.0.0-beta.261
+  - @sit-onyx/nuxt@1.0.0-beta.263
+
+## 1.0.0-beta.74
+
+### Patch Changes
+
+- Updated dependencies [2617d53]
+  - sit-onyx@1.0.0-beta.260
+  - @sit-onyx/nuxt@1.0.0-beta.262
+
 ## 1.0.0-beta.73
 
 ### Patch Changes

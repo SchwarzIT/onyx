@@ -1,4 +1,4 @@
-import { expect, test } from "../../../../playwright/a11y";
+import { expect, test } from "../../../../playwright/a11y.js";
 import EditGridElementDialog, { type GridElementConfig } from "./EditGridElementDialog.vue";
 
 test("should behave correctly", async ({ mount, makeAxeBuilder, page }) => {

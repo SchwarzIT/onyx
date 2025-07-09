@@ -1,4 +1,4 @@
-import type { DataGridEntry } from "../../types";
+import type { DataGridEntry } from "../../types.js";
 /*
  * The configuration options for the stickyColumn feature in the OnyxDataGrid component.
  */

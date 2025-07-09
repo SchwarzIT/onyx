@@ -8,7 +8,7 @@ import {
   OnyxPageLayout,
   OnyxSidebar,
   OnyxSidebarItem,
-} from "../../..";
+} from "../../../index.js";
 </script>
 
 <template>

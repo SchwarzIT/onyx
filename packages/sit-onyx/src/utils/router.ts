@@ -1,4 +1,4 @@
-import type { WithLinkProp } from "../components/OnyxRouterLink/types";
+import type { WithLinkProp } from "../components/OnyxRouterLink/types.js";
 
 /**
  * Extracts the link props from the given data and unifies them into an object if its a string link.

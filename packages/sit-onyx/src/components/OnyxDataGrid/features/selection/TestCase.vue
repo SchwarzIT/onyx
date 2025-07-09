@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
-import type { OnyxDataGridProps } from "../../../..";
-import { DataGridFeatures, OnyxDataGrid } from "../../../..";
+import type { OnyxDataGridProps } from "../../../../index.js";
+import { DataGridFeatures, OnyxDataGrid } from "../../../../index.js";
 
 // Playwright is only able to transfer JSON compatible data types, so we emit an array here
 export type TransferableEmit = Omit<DataGridFeatures.SelectionState, "contingent"> & {

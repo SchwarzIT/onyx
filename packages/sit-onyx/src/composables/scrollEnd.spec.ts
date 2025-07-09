@@ -1,6 +1,6 @@
 import { describe, expect, test, vi } from "vitest";
 import { nextTick, ref } from "vue";
-import { useScrollEnd } from "./scrollEnd";
+import { useScrollEnd } from "./scrollEnd.js";
 
 describe("scrollEnd.ts", () => {
   test("should calculate isScrollEnd", async () => {

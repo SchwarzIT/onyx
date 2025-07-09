@@ -1,5 +1,16 @@
 # @sit-onyx/icons
 
+## 1.0.0-beta.19
+
+### Minor Changes
+
+- 5a27c6a: feat: update icons
+
+  #### New
+
+  - notebook-code
+  - terraform
+
 ## 1.0.0-beta.18
 
 ### Minor Changes

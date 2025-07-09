@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import arrowSmallUp from "@sit-onyx/icons/arrow-small-up.svg?raw";
 import expandWindow from "@sit-onyx/icons/expand-window.svg?raw";
-import { OnyxCard, OnyxIcon, OnyxTag } from "../../..";
+import { OnyxCard, OnyxIcon, OnyxTag } from "../../../index.js";
 </script>
 
 <template>

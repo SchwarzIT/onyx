@@ -1,5 +1,5 @@
-import type { Nullable } from "../../../../types";
-import type { WithLinkProp } from "../../../OnyxRouterLink/types";
+import type { Nullable } from "../../../../types/index.js";
+import type { WithLinkProp } from "../../../OnyxRouterLink/types.js";
 
 export type OnyxNavItemProps = WithLinkProp<true> & {
   /**

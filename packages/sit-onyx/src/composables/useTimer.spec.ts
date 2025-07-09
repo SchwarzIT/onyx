@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import { ref } from "vue";
-import { useTimer } from "./useTimer";
+import { useTimer } from "./useTimer.js";
 
 vi.mock("vue", async (importOriginal) => {
   return {

@@ -1,6 +1,6 @@
 import menu from "@sit-onyx/icons/menu.svg?raw";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { defineIconSelectArgType } from "../../utils/storybook";
+import { defineIconSelectArgType } from "../../utils/storybook.js";
 import OnyxMobileNavButton from "./OnyxMobileNavButton.vue";
 
 /**
@@ -10,7 +10,7 @@ const meta: Meta<typeof OnyxMobileNavButton> = {
   title: "Support/MobileNavButton",
   component: OnyxMobileNavButton,
   argTypes: {
-    icon: defineIconSelectArgType(),
+    icon: defineIconSelectArgType({ required: true }),
     default: { control: { type: "text" } },
   },
   decorators: [

@@ -1,12 +1,15 @@
 <script lang="ts" setup>
-import { useDensity } from "../../composables/density";
-import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState";
+import { useDensity } from "../../composables/density.js";
+import {
+  SKELETON_INJECTED_SYMBOL,
+  useSkeletonContext,
+} from "../../composables/useSkeletonState.js";
 import ButtonOrLinkLayout from "../OnyxButton/ButtonOrLinkLayout.vue";
-import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core";
+import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import type { OnyxIconButtonProps } from "./types";
+import type { OnyxIconButtonProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxIconButtonProps>(), {
   disabled: FORM_INJECTED_SYMBOL,

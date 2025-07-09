@@ -1,5 +1,5 @@
 import type { Locator } from "@playwright/test";
-import { expect, test } from "../../../../playwright/a11y";
+import { expect, test } from "../../../../playwright/a11y.js";
 import TestWrapper from "./TestWrapper.ct.vue";
 
 const getTestData = (length: number) =>

@@ -15,7 +15,7 @@ import {
   getTemplateRefElement,
   useResizeObserver,
   type VueTemplateRefElement,
-} from "./useResizeObserver";
+} from "./useResizeObserver.js";
 
 /**
  * Injection key for providing "more" data to child components of a list to e.g. render a "+3 more" indicator.

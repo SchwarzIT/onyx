@@ -14,7 +14,8 @@
     "./*": {
       "types": "./src/*.ts",
       "import": "./dist/*.js"
-    }
+    },
+    "./tsconfig.json": "./tsconfig.json"
   },
   "optionalDependencies": {
     "@vitejs/plugin-vue": ">= 5",

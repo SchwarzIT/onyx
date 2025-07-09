@@ -2,14 +2,14 @@
 import search from "@sit-onyx/icons/search.svg?raw";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { computed, useTemplateRef } from "vue";
-import { useDensity } from "../../composables/density";
-import { useAutofocus } from "../../composables/useAutoFocus";
-import { useVModel } from "../../composables/useVModel";
-import { injectI18n } from "../../i18n";
-import type { Nullable } from "../../types";
-import { useRootAttrs } from "../../utils/attrs";
+import { useDensity } from "../../composables/density.js";
+import { useAutofocus } from "../../composables/useAutoFocus.js";
+import { useVModel } from "../../composables/useVModel.js";
+import { injectI18n } from "../../i18n/index.js";
+import type { Nullable } from "../../types/index.js";
+import { useRootAttrs } from "../../utils/attrs.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import type { OnyxMiniSearchProps } from "./types";
+import type { OnyxMiniSearchProps } from "./types.js";
 
 defineOptions({ inheritAttrs: false });
 
@@ -112,7 +112,7 @@ defineExpose({
       font-style: normal;
       flex-grow: 1;
       min-width: calc(var(--onyx-placeholder-character-count) * 1ch);
-      color: var(--onyx-color-text-icons-neutral-intense);
+      color: inherit;
 
       &::placeholder {
         color: var(--onyx-color-text-icons-neutral-soft);
