@@ -1,7 +1,6 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "extends": ["@vue/tsconfig/tsconfig.dom.json", "@sit-onyx/shared/tsconfig.json"],
   "include": ["src/**/*"],
-  "exclude": ["src/**/*.ct.*", "src/**/*.spec.*"],
   "compilerOptions": {
     "lib": ["ES2022"],
     "rootDir": "./src",

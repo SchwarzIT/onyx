@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { hexToRgb } from "./utils";
+import { hexToRgb } from "./utils.js";
 
 describe("utils.ts", () => {
   test("should convert hex to rgb", () => {
