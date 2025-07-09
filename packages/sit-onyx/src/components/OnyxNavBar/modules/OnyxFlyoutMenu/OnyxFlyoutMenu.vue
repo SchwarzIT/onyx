@@ -1,9 +1,10 @@
 <!-- For an unknown reason the generic here is necessary, otherwise the typings of the component break -->
 <script setup lang="ts" generic="_">
 import { createMenuButton } from "@sit-onyx/headless";
-import { computed } from "vue";
+import { computed, ref, type ComponentInstance, type VNodeRef } from "vue";
 import { useVModel } from "../../../../composables/useVModel.js";
 import type { Nullable } from "../../../../types/index.js";
+import { mergeVueProps } from "../../../../utils/attrs.js";
 import OnyxPopover from "../../../OnyxPopover/OnyxPopover.vue";
 import type { OnyxFlyoutMenuProps } from "./types.js";
 
@@ -54,6 +55,9 @@ const slots = defineSlots<{
   footer?(): unknown;
 }>();
 
+const popover = ref<ComponentInstance<typeof OnyxPopover>>();
+const actualPosition = computed(() => popover.value?.popoverPosition);
+
 const {
   elements: { root, button, menu },
 } = createMenuButton({
@@ -61,13 +65,14 @@ const {
   onToggle: () => (isExpanded.value = !isExpanded.value),
   trigger: computed(() => props.trigger),
   disabled: computed(() => props.disabled),
+  position: computed(() => (actualPosition.value?.includes("top") ? "top" : "bottom")),
 });
 </script>
 
 <template>
   <OnyxPopover
+    v-bind="mergeVueProps(root, { ref: popover as VNodeRef | undefined })"
     class="onyx-component onyx-flyout-menu"
-    v-bind="root"
     :open="isExpanded"
     :label="props.label"
     :alignment="props.alignment"

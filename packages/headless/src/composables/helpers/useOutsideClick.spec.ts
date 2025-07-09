@@ -25,7 +25,7 @@ describe("useOutsideClick", () => {
     useOutsideClick({ inside, onOutsideClick });
 
     // ACT
-    const event = new MouseEvent("click", { bubbles: true });
+    const event = new MouseEvent("mousedown", { bubbles: true });
     outside.value.dispatchEvent(event);
 
     // ASSERT
@@ -53,7 +53,7 @@ describe("useOutsideClick", () => {
     const onOutsideClick = vi.fn();
     useOutsideClick({ inside, onOutsideClick });
     // ACT
-    const event = new MouseEvent("click", { bubbles: true });
+    const event = new MouseEvent("mousedown", { bubbles: true });
     inside[0].dispatchEvent(event);
     inside[1].dispatchEvent(event);
     // ASSERT
@@ -79,7 +79,7 @@ describe("useOutsideClick", () => {
     useOutsideClick({ inside, disabled, onOutsideClick });
 
     // ACT
-    const event = new MouseEvent("click", { bubbles: true });
+    const event = new MouseEvent("mousedown", { bubbles: true });
     outside.value.dispatchEvent(event);
     // ASSERT
     expect(onOutsideClick).toHaveBeenCalledTimes(1);
@@ -88,7 +88,7 @@ describe("useOutsideClick", () => {
     // ACT
     disabled.value = true;
     await vi.runAllTimersAsync();
-    const event2 = new MouseEvent("click", { bubbles: true });
+    const event2 = new MouseEvent("mousedown", { bubbles: true });
     outside.value.dispatchEvent(event2);
     // ASSERT
     expect(onOutsideClick).toHaveBeenCalledTimes(1);

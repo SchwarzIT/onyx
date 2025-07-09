@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/experimental-ct-vue";
-import type { Locator } from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
 import type { JSX } from "vue/jsx-runtime";
 import { ScreenshotMatrix } from "./ScreenshotMatrix";
 import type {
@@ -152,4 +152,42 @@ const GridLabel = (props: { type: "column" | "row"; name: string }) => {
       {props.name}
     </div>
   );
+};
+
+export type UseFocusStateHooksOptions = {
+  /**
+   * Component to apply the focus to.
+   */
+  component: Locator;
+  /**
+   * Current Playwright test page.
+   */
+  page: Page;
+  /**
+   * States to apply the focus to. One of: "hover", "active", "focus-visible".
+   */
+  state: string;
+};
+
+/**
+ * Utility hook for screenshot tests to capture the component in hover, active and focus-visible state.
+ *
+ * States:
+ * - hover: will hover the center of the component
+ * - active: will hold the mouse down on the center of the component
+ * - focus-visible: press Tab key to focus component
+ */
+export const useFocusStateHooks = async ({ component, page, state }: UseFocusStateHooksOptions) => {
+  if (state === "hover") {
+    await component.hover();
+  }
+  if (state === "focus-visible") {
+    await page.keyboard.press("Tab");
+  }
+  if (state === "active") {
+    const box = (await component.boundingBox())!;
+    const center = { x: box.x + box.width / 2, y: box.y + box.height / 2 };
+    await page.mouse.move(center.x, center.y);
+    await page.mouse.down();
+  }
 };
