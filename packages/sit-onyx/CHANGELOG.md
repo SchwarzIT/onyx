@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.264
+
+### Minor Changes
+
+- ec6e617: feat: add new OnyxFab component
+
 ## 1.0.0-beta.263
 
 ### Major Changes
