@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import { createMenuButton } from "./createMenuButton";
+import { createMenuButton } from "./createMenuButton.js";
 
 const items = Array.from({ length: 10 }, (_, index) => {
   const id = index + 1;

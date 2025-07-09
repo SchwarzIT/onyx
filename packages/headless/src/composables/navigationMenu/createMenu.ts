@@ -1,6 +1,6 @@
 import { unref, useId, type MaybeRef } from "vue";
-import { createBuilder } from "../../utils/builder";
-import { MathUtils } from "../../utils/math";
+import { createBuilder } from "../../utils/builder.js";
+import { MathUtils } from "../../utils/math.js";
 
 type CreateNavigationMenu = {
   /**

@@ -1,8 +1,8 @@
 import { computed, toValue, useId, watch, type MaybeRef, type Ref } from "vue";
-import { createBuilder, createElRef } from "../../utils/builder";
-import { debounce } from "../../utils/timer";
-import { useGlobalEventListener } from "../helpers/useGlobalListener";
-import { useOutsideClick } from "../helpers/useOutsideClick";
+import { createBuilder, createElRef } from "../../utils/builder.js";
+import { debounce } from "../../utils/timer.js";
+import { useGlobalEventListener } from "../helpers/useGlobalListener.js";
+import { useOutsideClick } from "../helpers/useOutsideClick.js";
 
 type CreateMenuButtonOptions = {
   isExpanded: Readonly<Ref<boolean>>;
