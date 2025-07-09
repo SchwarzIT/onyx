@@ -92,13 +92,13 @@ The same principles of span definition apply here: elements within the sidebar g
 
 The grid is configured via specific CSS classes which you can find below.
 
-#### Grid within a Page Layout
+#### Grid within a OnyxPageLayout
 
-When integrating the grid within a standard page layout, the breakpoints are automatically calculated based on the width of the `onyx-page__main` element. This ensures the grid adapts consistently with the main content area of your page.
+When integrating the grid within a standard [OnyxPageLayout](https://storybook.onyx.schwarz/?path=/docs/layout-pagelayout--docs) component, the breakpoints are automatically calculated based on the width of the content. This ensures the grid adapts consistently with the main content area of your page.
 
-#### Standalone Grid Usage
+#### Usage without OnyxPageLayout
 
-For scenarios where the grid is used independently, outside of a `onyx-page__main` context, you can define the breakpoint reference by applying the `onyx-grid-wrapper` class to the component that should determine the grid's width. This allows you to control the responsive behavior precisely, even in custom or isolated layouts.
+For scenarios where the grid is used independently, outside of the OnyxPageLayout component, you must manually define its container. Apply `container-type: inline-size` to the component that should determine the grid's width. This allows for precise control over the responsive behavior, even in custom or isolated layouts.
 
 ### Page padding and max width
 
