@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "kaufland" theme.
- * Imported from Figma API on Fri, 04 Jul 2025 06:53:01 GMT
+ * Imported from Figma API on Thu, 10 Jul 2025 09:50:55 GMT
  */
 :where(:root),
 .onyx-theme-kaufland {
@@ -401,14 +401,14 @@
     var(--onyx-color-system-orange-200),
     var(--onyx-color-system-orange-900)
   );
-  --onyx-font-family-data: var(--onyx-font-family-Source-Sans-3);
-  --onyx-font-family-description: var(--onyx-font-family-OCR-A-Std);
-  --onyx-font-family-h1: var(--onyx-font-family-Source-Sans-3);
-  --onyx-font-family-h2: var(--onyx-font-family-Source-Sans-3);
-  --onyx-font-family-h3: var(--onyx-font-family-Source-Sans-3);
-  --onyx-font-family-h4: var(--onyx-font-family-Source-Sans-3);
-  --onyx-font-family-mono: var(--onyx-font-family-Source-Code-Pro);
-  --onyx-font-family-paragraph: var(--onyx-font-family-Source-Sans-3);
+  --onyx-font-family-export-data: var(--onyx-font-family-Source-Sans-3);
+  --onyx-font-family-export-description: var(--onyx-font-family-OCR-A-Std);
+  --onyx-font-family-export-h1: var(--onyx-font-family-Source-Sans-3);
+  --onyx-font-family-export-h2: var(--onyx-font-family-Source-Sans-3);
+  --onyx-font-family-export-h3: var(--onyx-font-family-Source-Sans-3);
+  --onyx-font-family-export-h4: var(--onyx-font-family-Source-Sans-3);
+  --onyx-font-family-export-mono: var(--onyx-font-family-Source-Code-Pro);
+  --onyx-font-family-export-paragraph: var(--onyx-font-family-Source-Sans-3);
   --onyx-font-letter-spacing-default: var(--onyx-font-values-0-spacing);
   --onyx-font-line-height-lg: var(--onyx-font-values-500);
   --onyx-font-line-height-md: var(--onyx-font-values-400);
