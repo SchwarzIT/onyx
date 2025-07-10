@@ -201,6 +201,7 @@
     "label": "Ziehen, um die Breite zu ändern"
   },
   "fileUpload": {
+    "upload": "Hochlanden",
     "clickToUpload": "Klicke zum Auswählen",
     "orDragAndDrop": "oder ziehe eine Datei hier her",
     "maxFileSize": "Maximale Dateigröße",
