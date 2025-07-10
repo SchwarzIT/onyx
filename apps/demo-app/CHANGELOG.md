@@ -1,5 +1,12 @@
 # demo-app
 
+## 1.0.0-beta.264
+
+### Patch Changes
+
+- Updated dependencies [ec6e617]
+  - sit-onyx@1.0.0-beta.264
+
 ## 1.0.0-beta.263
 
 ### Patch Changes

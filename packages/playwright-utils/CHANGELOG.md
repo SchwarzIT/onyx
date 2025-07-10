@@ -1,5 +1,11 @@
 # @sit-onyx/playwright-utils
 
+## 1.0.0-beta.3
+
+### Minor Changes
+
+- ec6e617: feat: add utility `useFocusStateHooks`
+
 ## 1.0.0-beta.2
 
 ### Patch Changes
