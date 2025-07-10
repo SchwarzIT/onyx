@@ -201,6 +201,7 @@
     "label": "Drag to change width"
   },
   "fileUpload": {
+    "upload": "Upload",
     "clickToUpload": "Click to select",
     "orDragAndDrop": "or drag and drop file",
     "maxFileSize": "Maximum file size",
