@@ -41,6 +41,30 @@ $sidebar-breakpoints: (
   }
 
   /**
+  * Grid container classes for "xl" and "lg" breakpoint variants with 16 or 20 columns
+  */
+  @include container(min, lg) {
+    .onyx-grid.onyx-grid-xl-20,
+    .onyx-grid-container.onyx-grid-xl-20,
+    .onyx-grid.onyx-grid-lg-16,
+    .onyx-grid-container.onyx-grid-lg-16 {
+      --onyx-grid-columns: 16;
+    }
+  }
+
+  @include container(min, xl) {
+    .onyx-grid.onyx-grid-xl-20,
+    .onyx-grid-container.onyx-grid-xl-20 {
+      --onyx-grid-columns: 20;
+    }
+
+    .onyx-grid.onyx-grid-xl-16,
+    .onyx-grid-container.onyx-grid-xl-16 {
+      --onyx-grid-columns: 16;
+    }
+  }
+
+  /**
   * Page class to apply padding, max-width and optional centered.
   * Is usually placed at the root element of every page.
   */
@@ -60,27 +84,6 @@ $sidebar-breakpoints: (
   */
   .onyx-grid-center {
     --onyx-grid-margin-inline: auto;
-  }
-
-  /**
-  * Grid container classes for "xl" and "lg" breakpoint variants with 16 or 20 columns
-  */
-
-  @include container(min, lg) {
-    .onyx-grid-xl-20,
-    .onyx-grid-lg-16 {
-      --onyx-grid-columns: 16;
-    }
-  }
-
-  @include container(min, xl) {
-    .onyx-grid-xl-20 {
-      --onyx-grid-columns: 20;
-    }
-
-    .onyx-grid-xl-16 {
-      --onyx-grid-columns: 16;
-    }
   }
 
   /**

@@ -269,34 +269,35 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
           </template>
         </OnyxNavBar>
       </div>
+      <div class="onyx-grid-layout">
+        <div class="onyx-grid-container">
+          <div ref="gridRef" class="onyx-grid">
+            <GridElement
+              v-for="(element, index) in gridElements"
+              :key="index"
+              class="element"
+              v-bind="element"
+              :label="`Edit grid element ${index + 1}`"
+              @click="gridElementIndexToEdit = index"
+            >
+              <template #default="{ gridSpan }">
+                <span class="element__span">{{ gridSpan }}</span>
+                <OnyxVisuallyHidden>
+                  This grid element spans {{ gridSpan }} columns
+                </OnyxVisuallyHidden>
+                <OnyxIcon class="element__icon" :icon="edit" />
+              </template>
+            </GridElement>
 
-      <div class="onyx-grid-container">
-        <div ref="gridRef" class="onyx-grid">
-          <GridElement
-            v-for="(element, index) in gridElements"
-            :key="index"
-            class="element"
-            v-bind="element"
-            :label="`Edit grid element ${index + 1}`"
-            @click="gridElementIndexToEdit = index"
-          >
-            <template #default="{ gridSpan }">
-              <span class="element__span">{{ gridSpan }}</span>
-              <OnyxVisuallyHidden>
-                This grid element spans {{ gridSpan }} columns
-              </OnyxVisuallyHidden>
-              <OnyxIcon class="element__icon" :icon="edit" />
-            </template>
-          </GridElement>
-
-          <GridElement
-            :column-count="2"
-            mode="outline"
-            label="Add grid element"
-            @click="isAddDialogOpen = true"
-          >
-            <OnyxIcon :icon="plus" />
-          </GridElement>
+            <GridElement
+              :column-count="2"
+              mode="outline"
+              label="Add grid element"
+              @click="isAddDialogOpen = true"
+            >
+              <OnyxIcon :icon="plus" />
+            </GridElement>
+          </div>
         </div>
       </div>
     </div>
@@ -323,6 +324,9 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
 </template>
 
 <style lang="scss" scoped>
+.onyx-grid-layout {
+  container-type: inline-size;
+}
 .playground {
   font-family: var(--onyx-font-family);
   color: var(--onyx-color-text-icons-neutral-intense);
