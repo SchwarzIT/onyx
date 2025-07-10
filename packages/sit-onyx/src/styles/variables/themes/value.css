@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "value" theme.
- * Imported from Figma API on Fri, 04 Jul 2025 06:52:28 GMT
+ * Imported from Figma API on Thu, 10 Jul 2025 09:14:33 GMT
  */
 :where(:root),
 .onyx-theme-default {
@@ -230,8 +230,9 @@
   --onyx-font-family-Helvetica-Now-Var: "Helvetica Now Var";
   --onyx-font-family-Kaufland: "Kaufland";
   --onyx-font-family-Lidl-Font-Pro: "Lidl Font Pro";
-  --onyx-font-family-Source-Code-Pro: "Source Code Pro Variable";
-  --onyx-font-family-Source-Sans-3: "Source Sans 3 Variable";
+  --onyx-font-family-OCR-A-Std: "OCR A Std";
+  --onyx-font-family-Source-Code-Pro-Variable: "Source Code Pro Variable";
+  --onyx-font-family-Source-Sans-Variable: "Source Sans 3 Variable";
   --onyx-font-family-Univia-Pro: "Univia Pro";
   --onyx-font-values-0: 0.75rem;
   --onyx-font-values-0-spacing: "0%";
