@@ -14,6 +14,7 @@ import { useDensity } from "../../composables/density.js";
 import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
+  type SkeletonInjected,
 } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
@@ -38,6 +39,17 @@ const props: OnyxFileUploadProps<TMultiple> = withDefaults(
   },
 );
 
+// const props = withDefaults(
+//   defineProps<OnyxFileUploadProps<TMultiple>>(),
+//   {
+//     accept: () => [],
+//     visualSize: "large",
+//     skeleton: SKELETON_INJECTED_SYMBOL,
+//   },
+// );
+
+const skeleton = useSkeletonContext(props as { skeleton: SkeletonInjected });
+
 const emit = defineEmits<{
   "update:modelValue": [value: TModelValue];
 }>();
@@ -55,8 +67,6 @@ const modelValue = useVModel<TModelValue, "modelValue", typeof props, undefined>
 const input = useTemplateRef<HTMLInputElement>("inputRef");
 
 const currentFiles = computed<File[]>(() => asArray(modelValue.value));
-
-const skeleton = useSkeletonContext(props);
 
 /**
  * Sets the currently selected files by considering all relevant props (e.g. replace etc.).
