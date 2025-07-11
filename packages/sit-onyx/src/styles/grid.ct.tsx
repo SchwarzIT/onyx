@@ -76,8 +76,8 @@ Object.entries(GRID_COLUMNS).forEach(([name, columns]) => {
       height: 400,
     });
     await mount(
-      <OnyxPageLayout>
-        <main class="onyx-grid" style={{ outline: "1px solid red" }}>
+      <OnyxPageLayout style={{ outline: "1px solid red" }}>
+        <main class="onyx-grid">
           {Array.from({ length: 16 }, (_, i) => createGridElement(i + 1))}
           {createGridElement("full")}
         </main>
@@ -112,8 +112,8 @@ XL_VARIANTS.forEach(({ className, expectedColumns, breakpoint }) => {
     await page.setViewportSize({ width: ONYX_BREAKPOINTS[breakpoint] + 1, height: 400 });
 
     await mount(
-      <OnyxPageLayout>
-        <main class={`onyx-grid ${className}`} style={{ outline: "1px solid red" }}>
+      <OnyxPageLayout style={{ outline: "1px solid red" }}>
+        <main class={`onyx-grid ${className}`}>
           {createGridElement(20)}
           {createGridElement("full")}
         </main>
@@ -137,8 +137,8 @@ Object.entries(GRID_COLUMNS).forEach(([name, columns]) => {
       height: 400,
     });
     await mount(
-      <OnyxPageLayout>
-        <main class="onyx-grid onyx-grid-max-md" style={{ outline: "1px solid red" }}>
+      <OnyxPageLayout style={{ outline: "1px solid red" }}>
+        <main class="onyx-grid onyx-grid-max-md">
           {Array.from({ length: 16 }, (_, i) => createGridElement(i + 1))}
         </main>
       </OnyxPageLayout>,
@@ -164,11 +164,8 @@ Object.entries(GRID_COLUMNS).forEach(([name, columns]) => {
       height: 400,
     });
     await mount(
-      <OnyxPageLayout>
-        <main
-          class="onyx-grid onyx-grid-container onyx-grid-max-lg"
-          style={{ outline: "1px solid red" }}
-        >
+      <OnyxPageLayout style={{ outline: "1px solid red" }}>
+        <main class="onyx-grid onyx-grid-max-lg">
           {Array.from({ length: 16 }, (_, i) => createGridElement(i + 1))}
         </main>
       </OnyxPageLayout>,
@@ -194,8 +191,8 @@ Object.entries(GRID_COLUMNS).forEach(([name], i) => {
       height: 400,
     });
     await mount(
-      <OnyxPageLayout>
-        <main class="onyx-grid" style={{ outline: "1px solid red" }}>
+      <OnyxPageLayout style={{ outline: "1px solid red" }}>
+        <main class="onyx-grid">
           {createGridElement(
             NaN,
             `onyx-grid-span-16 onyx-grid-2xs-span-1 onyx-grid-xs-span-2 onyx-grid-sm-span-3 onyx-grid-md-span-4 onyx-grid-lg-span-5 onyx-grid-xl-span-6`,
@@ -218,8 +215,8 @@ test(`default span should apply when no breakpoint span is active`, async ({ mou
     height: 400,
   });
   await mount(
-    <OnyxPageLayout>
-      <main class="onyx-grid" style={{ outline: "1px solid red" }}>
+    <OnyxPageLayout style={{ outline: "1px solid red" }}>
+      <main class="onyx-grid">
         {createGridElement(
           NaN,
           `onyx-grid-span-4 onyx-grid-lg-span-5 onyx-grid-xl-span-6`,
