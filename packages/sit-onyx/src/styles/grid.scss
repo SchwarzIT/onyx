@@ -194,7 +194,7 @@ $sidebar-breakpoints: (
 * Sets grid variables on root based on viewport size,
 * providing theme properties for elements outside an onyx-grid. e.g. OnyxBottomBar
 */
-  @each $name, $columns, $gutter, $margin in $gridVariants {
+  @each $name, $maxVariant, $columns, $gutter, $margin in $gridVariants {
     @if $name == "2xs" {
       @include generate-grid-properties($columns, $gutter, $margin);
     } @else {
