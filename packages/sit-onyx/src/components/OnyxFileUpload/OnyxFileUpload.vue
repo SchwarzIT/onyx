@@ -39,15 +39,6 @@ const props: OnyxFileUploadProps<TMultiple> = withDefaults(
   },
 );
 
-// const props = withDefaults(
-//   defineProps<OnyxFileUploadProps<TMultiple>>(),
-//   {
-//     accept: () => [],
-//     visualSize: "large",
-//     skeleton: SKELETON_INJECTED_SYMBOL,
-//   },
-// );
-
 const skeleton = useSkeletonContext(props as { skeleton: SkeletonInjected });
 
 const emit = defineEmits<{
