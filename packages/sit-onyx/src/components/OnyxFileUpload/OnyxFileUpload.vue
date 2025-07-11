@@ -320,19 +320,19 @@ const handleDragEnter = () => {
     }
   }
   .onyx-file-upload-skeleton {
-    height: 200px;
+    height: 120px;
     width: 400px;
     box-sizing: initial;
     padding: var(--onyx-density-xl);
 
     &--medium {
       padding: var(--onyx-density-xs);
-      height: 80px;
+      height: 50px;
     }
 
     &--small {
       padding: var(--onyx-density-sm);
-      height: 50px;
+      height: 25px;
     }
   }
 }
