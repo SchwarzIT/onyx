@@ -245,7 +245,10 @@ Object.entries(ONYX_MAX_WIDTHS).forEach(([breakpoint, size]) => {
 
     await mount(
       <main style={{ containerType: "inline-size" }}>
-        <div class={`onyx-grid-container ${className}`} style={{ outline: "1px solid red" }}>
+        <div
+          class={`onyx-grid-container ${className}`}
+          style={{ outline: "1px solid red", transition: "none" }}
+        >
           {createGridElement(1)}
         </div>
       </main>,
@@ -275,7 +278,7 @@ Object.entries(ONYX_MAX_WIDTHS).forEach(([breakpoint, size]) => {
       <main style={{ containerType: "inline-size" }}>
         <div
           class={`onyx-grid-container ${className} onyx-grid-center`}
-          style={{ outline: "1px solid red" }}
+          style={{ outline: "1px solid red", transition: "none" }}
         >
           {createGridElement(1)}
         </div>
