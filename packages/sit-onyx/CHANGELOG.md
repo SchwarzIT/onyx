@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.266
+
+### Minor Changes
+
+- 3481329: - feat(OnyxFab): implement skeleton
+  - export OnyxFab, OnyxFabButton and OnyxFabItem component and types
+  - fix(OnyxFab): set z-index correctly
+
 ## 1.0.0-beta.265
 
 ### Minor Changes
