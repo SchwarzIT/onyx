@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { DEFAULT_COMPARES } from "./defaults.ts";
+import { DEFAULT_COMPARES } from "./defaults.js";
 
 const OLDER_DATE = new Date(2021, 11, 31);
 const NEWER_DATE = new Date(2022, 0, 1);

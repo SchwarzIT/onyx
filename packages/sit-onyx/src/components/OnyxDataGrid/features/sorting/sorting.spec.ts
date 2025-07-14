@@ -1,8 +1,8 @@
 import { expect, test } from "vitest";
 import * as vue from "vue";
 import { ref } from "vue";
-import type { DataGridEntry } from "../../types/index.js";
-import { createFeatureContextMock } from "../index.spec";
+import type { DataGridEntry } from "../../types.js";
+import { createFeatureContextMock } from "../index.spec.js";
 import { useSorting } from "./sorting.js";
 import type { SortOptions, SortState } from "./types.js";
 
