@@ -39,6 +39,7 @@ export const useResizeObserver = (
 
   // ensure ResizeObserver is only called on mount to support server side rendering
   onMounted(() => {
+    if (!("ResizeObserver" in window)) return;
     const observer = new ResizeObserver(callback);
 
     if (!target) {
