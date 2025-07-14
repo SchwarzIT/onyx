@@ -1,5 +1,16 @@
 # demo-app
 
+## 1.0.0-beta.265
+
+### Minor Changes
+
+- 2cbd69a: feat(OnyxDialog): added closing on clicking the backdrop
+
+### Patch Changes
+
+- Updated dependencies [2cbd69a]
+  - sit-onyx@1.0.0-beta.265
+
 ## 1.0.0-beta.264
 
 ### Patch Changes

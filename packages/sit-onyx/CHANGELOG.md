@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.265
+
+### Minor Changes
+
+- 2cbd69a: feat(OnyxDialog): added closing on clicking the backdrop
+
 ## 1.0.0-beta.264
 
 ### Minor Changes
