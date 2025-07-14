@@ -1,5 +1,5 @@
-import fs from "node:fs/promises";
-import path from "node:path";
+import { readdir, readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 /**
@@ -10,10 +10,10 @@ export const getOnyxNpmPackages = async () => {
 
   const packageFolders: string[] = [];
 
-  for (const packageName of await fs.readdir(packagePath)) {
+  for (const packageName of await readdir(packagePath)) {
     try {
-      const packageJsonPath = path.join(packagePath, packageName, "package.json");
-      const packageJson = JSON.parse(await fs.readFile(packageJsonPath, "utf-8"));
+      const packageJsonPath = join(packagePath, packageName, "package.json");
+      const packageJson = JSON.parse(await readFile(packageJsonPath, "utf-8"));
       if (!packageJson.private) packageFolders.push(packageName);
     } catch {
       // folder is invalid npm package because it does not contain a valid package.json file

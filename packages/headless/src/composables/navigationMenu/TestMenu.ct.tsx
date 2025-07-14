@@ -1,5 +1,5 @@
 import { test } from "@playwright/experimental-ct-vue";
-import { navigationTesting } from "./createMenu.testing";
+import { navigationTesting } from "./createMenu.testing.js";
 import TestMenu from "./TestMenu.vue";
 
 test("navigationMenu", async ({ mount, page }) => {

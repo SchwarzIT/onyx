@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { OnyxSelect, type SelectOption } from "sit-onyx";
 import { computed, ref, watchEffect } from "vue";
-import { fetchVersions } from "../utils/versions";
+import { fetchVersions } from "../utils/versions.js";
 
 const props = defineProps<{
   /**

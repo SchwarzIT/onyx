@@ -1,5 +1,5 @@
 import { defineLoader } from "vitepress";
-import { executeGitHubRequest } from "../github-api";
+import { executeGitHubRequest } from "../github-api.js";
 
 /**
  * Build-time data for the team page

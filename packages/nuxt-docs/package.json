@@ -19,6 +19,7 @@
     "layouts",
     "pages",
     "*.ts",
+    "!*.e2e.ts",
     "*.vue",
     "*.json"
   ],

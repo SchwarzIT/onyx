@@ -5,7 +5,7 @@ import { useDark } from "@vueuse/core";
 import { OnyxAppLayout } from "sit-onyx";
 import { computed, useTemplateRef, type ComponentInstance } from "vue";
 import TheHeader from "./components/TheHeader.vue";
-import { useStore } from "./composables/useStore";
+import { useStore } from "./composables/useStore.js";
 
 const { store, onyxVersion, isLoadingOnyxVersions } = useStore();
 
