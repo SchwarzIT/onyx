@@ -152,9 +152,9 @@ useGlobalEventListener({
 
 const handleOpening = (open: boolean) => {
   if (open) {
-    tooltipRef.value?.showPopover();
+    tooltipRef.value?.showPopover?.();
   } else {
-    tooltipRef.value?.hidePopover();
+    tooltipRef.value?.hidePopover?.();
   }
 };
 

@@ -2,6 +2,7 @@ import { computed, nextTick, onUnmounted, ref, useId, watch } from "vue";
 import { createFeature, type ModifyColumns } from "../index.js";
 
 import { mergeVueProps } from "../../../../utils/attrs.js";
+import { escapeCSS } from "../../../../utils/dom.js";
 import type { DataGridEntry } from "../../types.js";
 import "./stickyColumns.scss";
 import type { StickyColumnsOptions } from "./types.js";
@@ -20,26 +21,28 @@ export const useStickyColumns = <TEntry extends DataGridEntry>(
     const isScrolled = ref(false);
 
     const createStickyPositionCssVar = (key: PropertyKey) =>
-      `--onyx-data-grid-sticky-column-position-${stickyId}-${CSS.escape(String(key))}`;
+      `--onyx-data-grid-sticky-column-position-${stickyId}-${escapeCSS(String(key))}`;
 
-    const resizeObserver = new ResizeObserver(() => {
-      Object.entries(elementsToStyle.value).forEach(
-        ([column, el]: [PropertyKey, HTMLElement]) =>
-          (elementWidths.value[column] = el.getBoundingClientRect().width),
+    if ("ResizeObserver" in window) {
+      const resizeObserver = new ResizeObserver(() => {
+        Object.entries(elementsToStyle.value).forEach(
+          ([column, el]: [PropertyKey, HTMLElement]) =>
+            (elementWidths.value[column] = el.getBoundingClientRect().width),
+        );
+
+        stickyColumns.value.forEach((columnKey, i) => setElementStyles(columnKey, i));
+      });
+
+      watch(
+        elementsToStyle,
+        () => {
+          resizeObserver.disconnect();
+          Object.values(elementsToStyle.value).forEach((el) => resizeObserver.observe(el));
+        },
+        { deep: true },
       );
-
-      stickyColumns.value.forEach((columnKey, i) => setElementStyles(columnKey, i));
-    });
-
-    watch(
-      elementsToStyle,
-      () => {
-        resizeObserver.disconnect();
-        Object.values(elementsToStyle.value).forEach((el) => resizeObserver.observe(el));
-      },
-      { deep: true },
-    );
-    onUnmounted(() => resizeObserver.disconnect());
+      onUnmounted(() => resizeObserver.disconnect());
+    }
 
     const setElementStyles = (key: PropertyKey, index: number) => {
       if (!options) return;

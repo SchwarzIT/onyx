@@ -35,6 +35,8 @@ export const useIntersectionObserver = (
   };
 
   onMounted(() => {
+    if (!("IntersectionObserver" in window)) return;
+
     const observer = new IntersectionObserver(callback, {
       root: options?.root ?? null,
       rootMargin: options?.rootMargin ?? "0px",

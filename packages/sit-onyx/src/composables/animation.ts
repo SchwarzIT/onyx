@@ -19,6 +19,7 @@ const onIdleCallback =
     : (cb: () => void, _: IdleRequestOptions) => setTimeout(cb, 0);
 
 const syncAnimations = (animationName: string) => {
+  if (!("getAnimations" in document)) return;
   isAlreadyTriggered.delete(animationName);
 
   // get all animations and sync them

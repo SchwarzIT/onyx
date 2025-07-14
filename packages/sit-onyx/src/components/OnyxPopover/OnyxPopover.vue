@@ -104,9 +104,9 @@ const popoverWidth = computed(() =>
 
 const handleOpening = (open: boolean) => {
   if (open) {
-    popoverRef.value?.showPopover();
+    popoverRef.value?.showPopover?.();
   } else {
-    popoverRef.value?.hidePopover();
+    popoverRef.value?.hidePopover?.();
   }
 };
 const updateDirections = () => {
