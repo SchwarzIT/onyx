@@ -16,7 +16,7 @@ import {
 import { useI18n } from "vue-i18n";
 import { RouterView, useRoute, useRouter } from "vue-router";
 import onyxLogo from "./assets/onyx-logo.svg";
-import { useGridStore } from "./stores/grid-store";
+import { useGridStore } from "./stores/grid-store.js";
 
 const router = useRouter();
 const route = useRoute();
