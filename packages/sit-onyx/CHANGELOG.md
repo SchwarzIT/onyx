@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.267
+
+### Minor Changes
+
+- 73680bc: feat: import Font-Variables from Figma
+
 ## 1.0.0-beta.266
 
 ### Minor Changes
