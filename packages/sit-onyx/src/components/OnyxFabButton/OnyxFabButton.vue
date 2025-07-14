@@ -42,6 +42,7 @@ const skeleton = useSkeletonContext(props);
     --onyx-fab-button-background-hover: var(--onyx-color-base-neutral-500);
     --onyx-fab-button-padding: var(--onyx-density-md);
     --onyx-fab-button-gap: var(--onyx-density-xs);
+    box-shadow: var(--onyx-shadow-soft-bottom);
   }
 }
 
@@ -66,7 +67,6 @@ const skeleton = useSkeletonContext(props);
     align-items: center;
     gap: var(--onyx-fab-button-gap);
     border-radius: var(--onyx-radius-full);
-    box-shadow: var(--onyx-shadow-soft-bottom);
     width: max-content;
     max-width: 100%;
     padding: var(--onyx-fab-button-padding);
