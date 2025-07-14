@@ -98,6 +98,7 @@ const triggerIcon = computed(() => {
     position: fixed;
     bottom: var(--onyx-fab-viewport-gap);
     right: var(--onyx-fab-viewport-gap);
+    z-index: var(--onyx-z-index-notification);
 
     &:has(.onyx-popover__dialog--alignment-left) {
       right: unset;

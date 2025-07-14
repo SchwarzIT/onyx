@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import emojiHappy2 from "@sit-onyx/icons/emoji-happy-2.svg?raw";
+import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
 import { useStorage } from "@vueuse/core";
 import {
   DENSITIES,
@@ -15,6 +16,8 @@ import {
   OnyxCheckboxGroup,
   OnyxDatePicker,
   OnyxEmpty,
+  OnyxFab,
+  OnyxFabItem,
   OnyxFilterTag,
   OnyxHeadline,
   OnyxIcon,
@@ -61,6 +64,7 @@ const COMPONENTS = [
   "OnyxCheckboxGroup",
   "OnyxDatePicker",
   "OnyxEmpty",
+  "OnyxFab",
   "OnyxHeadline",
   "OnyxIcon",
   "OnyxIconButton",
@@ -234,6 +238,12 @@ const currentProgressStep = ref(3);
         <OnyxDatePicker v-if="show('OnyxDatePicker')" v-model="selectedDate" label="Date picker" />
 
         <OnyxEmpty v-if="show('OnyxEmpty')">No data available</OnyxEmpty>
+
+        <OnyxFab v-if="show('OnyxFab')" label="Example label">
+          <OnyxFabItem :icon="placeholder" label="Action 3" />
+          <OnyxFabItem :icon="placeholder" label="Action 2" />
+          <OnyxFabItem :icon="placeholder" label="Action 1" />
+        </OnyxFab>
 
         <OnyxHeadline is="h1" v-if="show('OnyxHeadline')" hash="headline">Headline</OnyxHeadline>
 
