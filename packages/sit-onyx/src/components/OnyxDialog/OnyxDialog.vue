@@ -7,6 +7,7 @@ const props = withDefaults(defineProps<OnyxDialogProps>(), {
   modal: false,
   alert: false,
   alignment: "center",
+  disableClosingOnBackdropClick: false,
 });
 
 const emit = defineEmits<{
@@ -27,7 +28,6 @@ defineSlots<{
 
 const dialog = useTemplateRef("dialogRef");
 const { densityClass } = useDensity(props);
-
 /**
  * Shows the dialog either as default dialog or modal.
  */
@@ -42,6 +42,22 @@ watch([dialog, () => props.open], () => {
   else dialog.value?.close();
 });
 
+const handleBackdropClick = (event: MouseEvent) => {
+  const dialogElement = dialog.value;
+  if (!event.detail || !dialogElement || !props.modal || props.disableClosingOnBackdropClick) {
+    return;
+  }
+
+  const dialogDimensions = dialogElement.getBoundingClientRect();
+  if (
+    event.clientX < dialogDimensions.left ||
+    event.clientX > dialogDimensions.right ||
+    event.clientY < dialogDimensions.top ||
+    event.clientY > dialogDimensions.bottom
+  ) {
+    emit("close");
+  }
+};
 watch(
   () => props.modal,
   () => {
@@ -59,6 +75,7 @@ watch(
 <template>
   <!-- do not use the @close event here since it would emit redundant events when we call .close() internally -->
   <!-- also we use cancel.prevent here so the dialog does not close automatically and is fully controlled by the "open" property -->
+  <!-- eslint-disable-next-line vuejs-accessibility/click-events-have-key-events eslint-disable-next-line vuejs-accessibility/no-static-element-interactions -->
   <dialog
     v-if="props.open"
     ref="dialogRef"
@@ -73,6 +90,7 @@ watch(
     :aria-label="props.label"
     :role="props.alert ? 'alertdialog' : undefined"
     @cancel.prevent="emit('close')"
+    @click="handleBackdropClick"
   >
     <slot></slot>
   </dialog>
