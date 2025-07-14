@@ -1,4 +1,5 @@
 import type { DensityProp } from "../../composables/density.js";
+import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 import type { WithLinkProp } from "../OnyxRouterLink/types.js";
 
 export type OnyxFabButtonProps = DensityProp &
@@ -16,4 +17,8 @@ export type OnyxFabButtonProps = DensityProp &
      * Icon to show in the action button.
      */
     icon?: string;
+    /**
+     * Whether to show a skeleton button.
+     */
+    skeleton?: SkeletonInjected;
   };

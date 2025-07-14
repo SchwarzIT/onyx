@@ -1,5 +1,25 @@
 # sit-onyx
 
+## 1.0.0-beta.267
+
+### Minor Changes
+
+- 73680bc: feat: import Font-Variables from Figma
+
+## 1.0.0-beta.266
+
+### Minor Changes
+
+- 3481329: - feat(OnyxFab): implement skeleton
+  - export OnyxFab, OnyxFabButton and OnyxFabItem component and types
+  - fix(OnyxFab): set z-index correctly
+
+## 1.0.0-beta.265
+
+### Minor Changes
+
+- 2cbd69a: feat(OnyxDialog): added closing on clicking the backdrop
+
 ## 1.0.0-beta.264
 
 ### Minor Changes
