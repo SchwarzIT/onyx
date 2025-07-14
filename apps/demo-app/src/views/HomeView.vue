@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import emojiHappy2 from "@sit-onyx/icons/emoji-happy-2.svg?raw";
+import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
 import { useStorage } from "@vueuse/core";
 import {
   DENSITIES,
@@ -14,7 +15,10 @@ import {
   OnyxCard,
   OnyxCheckboxGroup,
   OnyxDatePicker,
+  OnyxDialog,
   OnyxEmpty,
+  OnyxFab,
+  OnyxFabItem,
   OnyxFilterTag,
   OnyxHeadline,
   OnyxIcon,
@@ -61,6 +65,7 @@ const COMPONENTS = [
   "OnyxCheckboxGroup",
   "OnyxDatePicker",
   "OnyxEmpty",
+  "OnyxFab",
   "OnyxHeadline",
   "OnyxIcon",
   "OnyxIconButton",
@@ -83,6 +88,7 @@ const COMPONENTS = [
   "OnyxTimer",
   "OnyxToast",
   "OnyxTooltip",
+  "OnyxDialog",
 ] as const;
 
 /* Config data to regulate which components will be shown */
@@ -152,7 +158,7 @@ const tableData = [
 const currentPage = ref(1);
 const selectedTab = ref("tab-1");
 const selectedDate = ref<DateValue>();
-
+const isDialogOpen = ref(false);
 const openAccordionItems = ref<string[]>([]);
 const currentProgressStep = ref(3);
 </script>
@@ -235,12 +241,22 @@ const currentProgressStep = ref(3);
 
         <OnyxEmpty v-if="show('OnyxEmpty')">No data available</OnyxEmpty>
 
+        <OnyxFab v-if="show('OnyxFab')" label="Example label">
+          <OnyxFabItem :icon="placeholder" label="Action 3" />
+          <OnyxFabItem :icon="placeholder" label="Action 2" />
+          <OnyxFabItem :icon="placeholder" label="Action 1" />
+        </OnyxFab>
+
         <OnyxHeadline is="h1" v-if="show('OnyxHeadline')" hash="headline">Headline</OnyxHeadline>
 
         <OnyxIcon v-if="show('OnyxIcon')" :icon="emojiHappy2" />
 
         <OnyxIconButton v-if="show('OnyxIconButton')" label="Happy Emoji" :icon="emojiHappy2" />
 
+        <OnyxButton v-if="show('OnyxDialog')" label="Open Dialog" @click="isDialogOpen = true" />
+        <OnyxDialog label="Dialog" :open="isDialogOpen" modal @close="isDialogOpen = false">
+          Dialog Content
+        </OnyxDialog>
         <OnyxImage
           v-if="show('OnyxImage')"
           src="https://picsum.photos/512/256"
