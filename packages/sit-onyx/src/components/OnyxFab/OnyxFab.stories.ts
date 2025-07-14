@@ -80,3 +80,10 @@ export const LeftAligned = {
     alignment: "left",
   },
 } satisfies Story;
+
+export const Skeleton = {
+  args: {
+    ...Default.args,
+    skeleton: true,
+  },
+} satisfies Story;

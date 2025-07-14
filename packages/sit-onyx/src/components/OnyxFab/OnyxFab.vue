@@ -3,6 +3,10 @@ import moreHorizontalSmall from "@sit-onyx/icons/more-horizontal-small.svg?raw";
 import x from "@sit-onyx/icons/x.svg?raw";
 import { computed } from "vue";
 import { useDensity } from "../../composables/density.js";
+import {
+  SKELETON_INJECTED_SYMBOL,
+  useSkeletonContext,
+} from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import type { Nullable } from "../../types/index.js";
 import { mergeVueProps } from "../../utils/attrs.js";
@@ -12,6 +16,7 @@ import type { OnyxFabProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxFabProps>(), {
   alignment: "right",
+  skeleton: SKELETON_INJECTED_SYMBOL,
 });
 
 const emit = defineEmits<{
@@ -29,6 +34,7 @@ const slots = defineSlots<{
 }>();
 
 const { densityClass } = useDensity(props);
+const skeleton = useSkeletonContext(props);
 
 /**
  * If the flyout is expanded or not.
@@ -49,8 +55,16 @@ const triggerIcon = computed(() => {
 </script>
 
 <template>
+  <OnyxFabButton
+    v-if="!hasOptions || skeleton"
+    class="onyx-fab"
+    v-bind="props"
+    :icon="triggerIcon"
+    :skeleton
+  />
+
   <OnyxFlyoutMenu
-    v-if="hasOptions"
+    v-else
     v-model:open="isExpanded"
     :label="props.label"
     trigger="click"
@@ -70,8 +84,6 @@ const triggerIcon = computed(() => {
       <slot name="default"></slot>
     </template>
   </OnyxFlyoutMenu>
-
-  <OnyxFabButton v-else class="onyx-fab" v-bind="props" :icon="triggerIcon" />
 </template>
 
 <style lang="scss">
