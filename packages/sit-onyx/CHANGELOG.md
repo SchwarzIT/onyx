@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.268
+
+### Patch Changes
+
+- c92190a: fix: ensure all components can be mounted with Vitest without errors
+
 ## 1.0.0-beta.267
 
 ### Minor Changes
