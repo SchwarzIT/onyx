@@ -200,6 +200,9 @@ $sidebar-breakpoints: (
     } @else {
       @include screen(min, $name) {
         @include generate-grid-properties($columns, $gutter, $margin);
+        @if $maxVariant != none {
+          @include generate-grid-max($name, $maxVariant);
+        }
       }
     }
   }
