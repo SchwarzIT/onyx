@@ -9,9 +9,15 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Fab",
     columns: DENSITIES,
-    rows: ["default", "hover", "focus-visible"],
-    component: (column) => (
-      <OnyxFab label="Label" hideLabel={true} icon={mockPlaywrightIcon} density={column} />
+    rows: ["default", "hover", "focus-visible", "skeleton"],
+    component: (column, row) => (
+      <OnyxFab
+        label="Label"
+        hideLabel={true}
+        icon={mockPlaywrightIcon}
+        density={column}
+        skeleton={row === "skeleton"}
+      />
     ),
     hooks: {
       beforeEach: async (component, page, column, row) => {
