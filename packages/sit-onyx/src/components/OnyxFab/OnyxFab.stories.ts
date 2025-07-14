@@ -53,7 +53,6 @@ export const Link = {
 export const Options = {
   args: {
     label: "Example label",
-    hideLabel: true,
     default: () => [
       h(OnyxFabItem, { label: "Action 3", icon: placeholder }),
       h(OnyxFabItem, { label: "Action 2", icon: placeholder }),
@@ -65,7 +64,6 @@ export const Options = {
 export const IconOptions = {
   args: {
     label: "Example label",
-    hideLabel: true,
     default: () => [
       h(OnyxFabItem, { label: "Action 3", icon: placeholder, hideLabel: true }),
       h(OnyxFabItem, { label: "Action 2", icon: placeholder, hideLabel: true }),
