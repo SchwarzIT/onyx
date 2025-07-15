@@ -5,7 +5,12 @@ import { computed, h, toRef, toValue, type Ref } from "vue";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxMenuItem from "../../../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
 import type { DataGridEntry } from "../../types.js";
-import { createFeature, useFeatureContext, type InternalColumnConfig } from "../index.js";
+import {
+  createFeature,
+  useFeatureContext,
+  type InternalColumnConfig,
+  type ModifyColumns,
+} from "../index.js";
 import { DEFAULT_COMPARES, STRING_COMPARE } from "./defaults.js";
 import SortAction from "./SortAction.vue";
 import type { SortDirection, SortOptions, SortState } from "./types.js";
@@ -114,7 +119,7 @@ export const useSorting = <TEntry extends DataGridEntry>(options?: SortOptions<T
           func: (_finalConfig) => (finalConfig = _finalConfig),
           order: Infinity,
         },
-      ],
+      ] satisfies ModifyColumns<TEntry>,
       header: {
         actions: ({ key: column, label }) => {
           if (!isEnabled.value(column)) return [];
