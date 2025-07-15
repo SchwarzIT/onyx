@@ -102,6 +102,14 @@ const { densityClass } = useDensity(props);
       white-space: pre-line;
     }
 
+    &__headline + &__description {
+      padding-top: 0;
+    }
+
+    &__description {
+      padding-top: var(--onyx-density-3xs);
+    }
+
     &__buttons {
       display: flex;
       flex-wrap: wrap;
