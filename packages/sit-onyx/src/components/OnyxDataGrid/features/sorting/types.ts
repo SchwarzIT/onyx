@@ -48,4 +48,9 @@ export type SortOptions<TEntry extends DataGridEntry> = DataGridFeatureOptions<
    * The currently applied sorting. Will be updated by the data grid, can be used for reading, updating and watching the applied sorting.
    */
   sortState?: MaybeRef<SortState<TEntry>>;
+  /**
+   * The `Intl.Collator` used for the default (string-based) sorting.
+   * Defaults to `new Intl.Collator(i18n.locale.value, { numeric: true })` where `i18n` is the OnyxI18n instance.
+   */
+  collator?: MaybeRef<Intl.Collator>;
 };
