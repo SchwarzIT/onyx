@@ -330,7 +330,7 @@ Object.entries(SIDEBAR_GRID_COLUMNS).forEach(([name, columns]) => {
     );
 
     // ASSERT
-    await fullPageScreenshot(page, `grid-${name}.png`);
+    await fullPageScreenshot(page, `grid-sidebar-${name}.png`);
     const allGridElements = await getAllGridElements(page);
 
     for (let i = 0; i < allGridElements.length; i++) {
