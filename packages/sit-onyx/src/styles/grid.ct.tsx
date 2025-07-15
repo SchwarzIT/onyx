@@ -305,12 +305,13 @@ const SIDEBAR_GRID_COLUMNS = {
   lg: 8,
   xl: 12,
 };
-const SIDEBAR_BREAKPOINTS = {
-  xs: 0,
-  sm: 200,
-  md: 328,
-  lg: 656,
-  xl: 992,
+// 1 px small than the next breakpoint
+const SIDEBAR_TEST_WIDTH = {
+  xs: 199,
+  sm: 327,
+  md: 655,
+  lg: 991,
+  xl: 1000,
 };
 
 Object.entries(SIDEBAR_GRID_COLUMNS).forEach(([name, columns]) => {
@@ -320,7 +321,7 @@ Object.entries(SIDEBAR_GRID_COLUMNS).forEach(([name, columns]) => {
   }) => {
     // ARRANGE
     await mount(
-      <OnyxSidebar label="Example sidebar" style={{ width: SIDEBAR_BREAKPOINTS[name] + 1 + "px" }}>
+      <OnyxSidebar label="Example sidebar" style={{ width: SIDEBAR_TEST_WIDTH[name] + "px" }}>
         <main class="onyx-grid onyx-grid-container" style={{ outline: "1px solid red" }}>
           {Array.from({ length: 16 }, (_, i) => createGridElement(i + 1))}
           {createGridElement("full")}
