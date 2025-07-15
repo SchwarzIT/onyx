@@ -38,6 +38,10 @@ export const useSorting = <TEntry extends DataGridEntry>(options?: SortOptions<T
     const { isEnabled, isAsync } = useFeatureContext(ctx, options);
     let finalConfig: readonly InternalColumnConfig<TEntry>[] = [];
 
+    const collator = computed(
+      () => toValue(options?.collator) ?? new Intl.Collator(i18n.locale.value, { numeric: true }),
+    );
+
     const getSortFunc = (col: keyof TEntry) => {
       const config = toValue(options?.columns);
       const customSort = config?.[col]?.sortFunc;
@@ -48,9 +52,16 @@ export const useSorting = <TEntry extends DataGridEntry>(options?: SortOptions<T
       return columnType in DEFAULT_COMPARES ? DEFAULT_COMPARES[columnType] : STRING_COMPARE;
     };
 
-    const collator = computed(
-      () => toValue(options?.collator) ?? new Intl.Collator(i18n.locale.value, { numeric: true }),
-    );
+    const sortData = (data: Readonly<TEntry>[]) => {
+      const { column, direction } = sortState.value;
+      if (isAsync.value || !column || direction === "none") {
+        return data;
+      }
+      const multiplicand = direction === "asc" ? 1 : -1;
+      const sortFunc = getSortFunc(column);
+      data.sort((a, b) => sortFunc(a[column], b[column], collator.value) * multiplicand);
+      return data;
+    };
 
     const handleClick = (clickedColumn: keyof TEntry, skipNone = false) => {
       const direction =
@@ -63,17 +74,6 @@ export const useSorting = <TEntry extends DataGridEntry>(options?: SortOptions<T
         direction,
         column,
       };
-    };
-
-    const sortData = (data: Readonly<TEntry>[]) => {
-      const { column, direction } = sortState.value;
-      if (isAsync.value || !column || direction === "none") {
-        return data;
-      }
-      const multiplicand = direction === "asc" ? 1 : -1;
-      const sortFunc = getSortFunc(column);
-      data.sort((a, b) => sortFunc(a[column], b[column], collator.value) * multiplicand);
-      return data;
     };
 
     const isSortActive = computed(() => {
@@ -110,6 +110,7 @@ export const useSorting = <TEntry extends DataGridEntry>(options?: SortOptions<T
       },
       modifyColumns: [
         {
+          // save final column config
           func: (_finalConfig) => (finalConfig = _finalConfig),
           order: Infinity,
         },
