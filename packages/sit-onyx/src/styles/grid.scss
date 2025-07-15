@@ -143,7 +143,7 @@ $sidebar-breakpoints: (
       @include generate-grid-properties(
         $columns,
         $gutter,
-        var(--onyx-density-md) $margin var(--onyx-density-md) $margin,
+        4rem $margin 4rem $margin,
         ".onyx-grid, .onyx-grid-container"
       );
       @include generate-spans(1, $columns, $name);
@@ -152,7 +152,7 @@ $sidebar-breakpoints: (
         @include generate-grid-properties(
           $columns,
           $gutter,
-          var(--onyx-density-md) $margin var(--onyx-density-md) $margin,
+          var(--onyx-density-3xl) $margin var(--onyx-density-3xl) $margin,
           ".onyx-grid, .onyx-grid-container"
         );
         @include generate-spans(1, $columns, $name);
