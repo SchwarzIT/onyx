@@ -1,6 +1,6 @@
-import type { DataGridEntry } from "../../types.ts";
-import type { DefaultSupportedTypes } from "../index.ts";
-import type { Compare } from "./types.ts";
+import type { DataGridEntry } from "../../types.js";
+import type { DefaultSupportedTypes } from "../index.js";
+import type { Compare } from "./types.js";
 
 export const STRING_COMPARE = (a: unknown, b: unknown, collator: Intl.Collator) =>
   collator.compare(String(a), String(b));
