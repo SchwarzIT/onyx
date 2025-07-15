@@ -317,6 +317,9 @@ const handleDragEnter = () => {
     &:has(.onyx-file-upload-input:disabled) .onyx-file-upload {
       background-color: var(--onyx-color-base-background-tinted);
       color: var(--onyx-color-text-icons-neutral-soft);
+      .onyx-file-upload__icon {
+        color: var(--onyx-color-text-icons-neutral-soft);
+      }
     }
   }
   .onyx-file-upload-skeleton {
