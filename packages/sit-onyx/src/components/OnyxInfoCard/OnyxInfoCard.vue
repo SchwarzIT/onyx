@@ -73,6 +73,7 @@ const { densityClass } = useDensity(props);
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
+@use "../../styles/mixins/density.scss";
 
 .onyx-info-card {
   @include layers.component() {
@@ -107,7 +108,7 @@ const { densityClass } = useDensity(props);
     }
 
     &__description {
-      padding-top: var(--onyx-density-3xs);
+      padding-top: 0.125rem;
     }
 
     &__buttons {
