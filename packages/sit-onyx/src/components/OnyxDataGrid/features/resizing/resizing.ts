@@ -1,6 +1,7 @@
 import { h, ref, watch, type Slots, type ThHTMLAttributes } from "vue";
 import { useResizeObserver } from "../../../../composables/useResizeObserver.js";
 import { mergeVueProps } from "../../../../utils/attrs.js";
+import { escapeCSS } from "../../../../utils/dom.js";
 import OnyxResizeHandle from "../../../OnyxResizeHandle/OnyxResizeHandle.vue";
 import type { DataGridEntry } from "../../types.js";
 import { createFeature, useFeatureContext, type InternalColumnConfig } from "../index.js";
@@ -26,7 +27,7 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
       () => {
         // Changing the width directly is needed to avoid re-rendering the table too often.
         headers.value.forEach((th, columnKey) => {
-          const property = `--onyx-data-grid-column-${CSS.escape(String(columnKey))}`;
+          const property = `--onyx-data-grid-column-${escapeCSS(String(columnKey))}`;
           const container = th.closest<HTMLElement>(".onyx-table-wrapper__container");
           const width = colWidths.value.get(columnKey);
           if (width) {

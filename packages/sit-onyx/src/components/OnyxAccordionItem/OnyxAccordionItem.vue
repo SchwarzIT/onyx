@@ -28,7 +28,7 @@ defineSlots<{
   default?(): unknown;
 }>();
 
-const accordionContext = inject(ACCORDION_INJECTION_KEY);
+const accordionContext = inject(ACCORDION_INJECTION_KEY, undefined);
 
 const isOpen = computed({
   get: () => accordionContext?.openItems.value.includes(props.value),

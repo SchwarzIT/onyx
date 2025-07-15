@@ -26,7 +26,7 @@ defineSlots<{
 }>();
 
 const { densityClass } = useDensity(props);
-const tabsContext = inject(TABS_INJECTION_KEY);
+const tabsContext = inject(TABS_INJECTION_KEY, undefined);
 const skeleton = useSkeletonContext(props);
 const sizeClass = computed(() => `onyx-tab--${tabsContext?.size.value}`);
 

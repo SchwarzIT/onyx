@@ -1,6 +1,7 @@
 <script lang="ts" setup generic="TEntry extends DataGridEntry, TMetadata extends DataGridMetadata">
 import { computed } from "vue";
 import { mergeVueProps } from "../../../utils/attrs.js";
+import { escapeCSS } from "../../../utils/dom.js";
 import OnyxTable from "../../OnyxTable/OnyxTable.vue";
 import type { DataGridEntry, DataGridMetadata } from "../types.js";
 import type { DataGridRendererSlots, OnyxDataGridRendererProps } from "./types.js";
@@ -15,7 +16,7 @@ const columnStyle = computed(() => {
     "--onyx-data-grid-row-count": Math.max(props.rows.length + 2, 3),
     "--onyx-data-grid-template-columns": props.columns
       .map(({ key, width }) => {
-        const name = `--onyx-data-grid-column-${CSS.escape(String(key))}`;
+        const name = `--onyx-data-grid-column-${escapeCSS(String(key))}`;
         const value = width ?? "minmax(min-content, 1fr)";
         return `var(${name}, ${value})`;
       })
