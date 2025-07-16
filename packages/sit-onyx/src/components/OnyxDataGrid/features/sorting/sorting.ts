@@ -5,7 +5,13 @@ import { computed, h, toRef, toValue, type Ref } from "vue";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxMenuItem from "../../../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
 import type { DataGridEntry } from "../../types.js";
-import { createFeature, useFeatureContext } from "../index.js";
+import {
+  createFeature,
+  useFeatureContext,
+  type InternalColumnConfig,
+  type ModifyColumns,
+} from "../index.js";
+import { DEFAULT_COMPARES, STRING_COMPARE } from "./defaults.js";
 import SortAction from "./SortAction.vue";
 import type { SortDirection, SortOptions, SortState } from "./types.js";
 
@@ -35,16 +41,32 @@ export const useSorting = <TEntry extends DataGridEntry>(options?: SortOptions<T
 
     const { i18n } = ctx;
     const { isEnabled, isAsync } = useFeatureContext(ctx, options);
+    let finalConfig: readonly InternalColumnConfig<TEntry>[] = [];
 
-    const getSortFunc = computed(() => (col: keyof TEntry) => {
-      const config = toValue(options?.columns);
-      return config?.[col]?.sortFunc ?? intlCompare.value;
-    });
-
-    const intlCompare = computed(
-      () => (a: unknown, b: unknown) =>
-        new Intl.Collator(i18n.locale.value).compare(String(a), String(b)),
+    const collator = computed(
+      () => toValue(options?.collator) ?? new Intl.Collator(i18n.locale.value, { numeric: true }),
     );
+
+    const getSortFunc = (col: keyof TEntry) => {
+      const config = toValue(options?.columns);
+      const customSort = config?.[col]?.sortFunc;
+      if (customSort) {
+        return customSort;
+      }
+      const columnType = finalConfig.find(({ key }) => col === key)?.type.name ?? "";
+      return columnType in DEFAULT_COMPARES ? DEFAULT_COMPARES[columnType] : STRING_COMPARE;
+    };
+
+    const sortData = (data: Readonly<TEntry>[]) => {
+      const { column, direction } = sortState.value;
+      if (isAsync.value || !column || direction === "none") {
+        return data;
+      }
+      const multiplicand = direction === "asc" ? 1 : -1;
+      const sortFunc = getSortFunc(column);
+      data.sort((a, b) => sortFunc(a[column], b[column], collator.value) * multiplicand);
+      return data;
+    };
 
     const handleClick = (clickedColumn: keyof TEntry, skipNone = false) => {
       const direction =
@@ -57,17 +79,6 @@ export const useSorting = <TEntry extends DataGridEntry>(options?: SortOptions<T
         direction,
         column,
       };
-    };
-
-    const sortData = (data: Readonly<TEntry>[]) => {
-      const { column, direction } = sortState.value;
-      if (isAsync.value || !column || direction === "none") {
-        return data;
-      }
-      const multiplicand = direction === "asc" ? 1 : -1;
-      const sortFunc = getSortFunc.value(column);
-      data.sort((a, b) => sortFunc(a[column], b[column]) * multiplicand);
-      return data;
     };
 
     const isSortActive = computed(() => {
@@ -98,10 +109,17 @@ export const useSorting = <TEntry extends DataGridEntry>(options?: SortOptions<T
 
     return {
       name: SORTING_FEATURE,
-      watch: [sortState, intlCompare],
+      watch: [sortState, collator],
       mutation: {
         func: sortData,
       },
+      modifyColumns: [
+        {
+          // save final column config
+          func: (_finalConfig) => (finalConfig = _finalConfig),
+          order: -Infinity,
+        },
+      ] satisfies ModifyColumns<TEntry>,
       header: {
         actions: ({ key: column, label }) => {
           if (!isEnabled.value(column)) return [];
