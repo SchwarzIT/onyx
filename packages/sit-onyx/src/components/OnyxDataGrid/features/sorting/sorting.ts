@@ -109,7 +109,7 @@ export const useSorting = <TEntry extends DataGridEntry>(options?: SortOptions<T
 
     return {
       name: SORTING_FEATURE,
-      watch: [sortState, i18n.locale],
+      watch: [sortState, collator],
       mutation: {
         func: sortData,
       },
