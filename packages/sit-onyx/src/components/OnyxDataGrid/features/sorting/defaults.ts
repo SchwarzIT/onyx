@@ -19,6 +19,10 @@ const toComparableTime = (date: Date) =>
       date.getUTCMilliseconds(),
     ),
   );
+
+/**
+ * Compares only the time of two dates, ignoring the date part.
+ */
 export const TIME_COMPARE = (a: unknown, b: unknown, collator: Intl.Collator) => {
   if (!(a instanceof Date && b instanceof Date)) {
     return STRING_COMPARE(a, b, collator);
@@ -33,6 +37,7 @@ export const DEFAULT_COMPARES: Record<PropertyKey, Compare<unknown>> = Object.fr
   number: NUMBER_COMPARE,
   date: NUMBER_COMPARE,
   "datetime-local": NUMBER_COMPARE,
+  // As *time* only shows the time part, we only sort by the time part here.
   time: TIME_COMPARE,
   timestamp: NUMBER_COMPARE,
   skeleton: () => 0,
