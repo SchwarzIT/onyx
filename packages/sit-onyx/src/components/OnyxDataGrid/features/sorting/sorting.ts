@@ -117,7 +117,7 @@ export const useSorting = <TEntry extends DataGridEntry>(options?: SortOptions<T
         {
           // save final column config
           func: (_finalConfig) => (finalConfig = _finalConfig),
-          order: Infinity,
+          order: -Infinity,
         },
       ] satisfies ModifyColumns<TEntry>,
       header: {
