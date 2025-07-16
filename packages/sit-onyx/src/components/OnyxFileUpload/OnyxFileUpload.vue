@@ -9,6 +9,7 @@
   "
 >
 import cloudArrowUp from "@sit-onyx/icons/cloud-arrow-up.svg?raw";
+
 import { computed, ref, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density.js";
 import {
@@ -26,6 +27,7 @@ import {
 } from "../../utils/numbers.js";
 import { asArray } from "../../utils/objects.js";
 import { OnyxFileUploadSVG } from "../illustrations/index.js";
+import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxFileUploadProps } from "./types.js";
@@ -34,12 +36,15 @@ const props: OnyxFileUploadProps<TMultiple> = withDefaults(
   defineProps<OnyxFileUploadProps<TMultiple>>(),
   {
     accept: () => [],
-    visualSize: "large",
+    size: "large",
+    disabled: FORM_INJECTED_SYMBOL,
+    showError: FORM_INJECTED_SYMBOL,
     skeleton: SKELETON_INJECTED_SYMBOL,
   },
 );
 
 const skeleton = useSkeletonContext(props as { skeleton: SkeletonInjected });
+const { disabled, showError } = useFormContext(props);
 
 const emit = defineEmits<{
   "update:modelValue": [value: TModelValue];
@@ -89,18 +94,25 @@ const formatFileSize = computed(() => {
     return formatBytesToString(locale.value, bytes);
   };
 });
+const showDetails = computed(() => {
+  return (
+    props.size === "large" ||
+    ((props.maxSize || props.maxTotalSize || props.maxCount || props.accept?.length) &&
+      props.size !== "small")
+  );
+});
 
 const isDragging = ref(false);
 
 const handleDrop = (event: DragEvent) => {
-  if (props.disabled) return;
+  if (disabled) return;
   isDragging.value = false;
   const files = Array.from(event.dataTransfer?.files ?? []);
   setFiles(files);
 };
 
 const handleDragEnter = () => {
-  if (props.disabled) return;
+  if (disabled) return;
   isDragging.value = true;
 };
 </script>
@@ -108,11 +120,7 @@ const handleDragEnter = () => {
 <template>
   <OnyxSkeleton
     v-if="skeleton"
-    :class="[
-      'onyx-file-upload-skeleton',
-      `onyx-file-upload-skeleton--${props.visualSize}`,
-      densityClass,
-    ]"
+    :class="['onyx-file-upload-skeleton', `onyx-file-upload-skeleton--${props.size}`, densityClass]"
   />
   <div
     v-else
@@ -123,10 +131,11 @@ const handleDragEnter = () => {
       type="button"
       :class="[
         'onyx-file-upload',
-        `onyx-file-upload--${props.visualSize}`,
+        `onyx-file-upload--${props.size}`,
+        showError === true && size !== 'small' ? 'onyx-file-upload--error' : '',
         isDragging ? 'onyx-file-upload--dragging' : '',
       ]"
-      :disabled="props.disabled"
+      :disabled="disabled"
       @dragenter="handleDragEnter"
       @dragleave="isDragging = false"
       @dragover.prevent
@@ -134,23 +143,18 @@ const handleDragEnter = () => {
       @click="input?.click()"
     >
       <OnyxFileUploadSVG
-        v-if="props.visualSize === 'large'"
-        :disabled="props.disabled"
+        v-if="props.size === 'large'"
+        :disabled="disabled"
         :active="isDragging"
+        :error="showError === true ? true : false"
       />
       <div v-else class="onyx-file-upload__icon">
-        <OnyxIcon :icon="cloudArrowUp" /> <span> {{ t("fileUpload.upload") }}</span>
+        <OnyxIcon :icon="cloudArrowUp" />
+        <span> {{ t("fileUpload.upload") }}</span>
       </div>
 
-      <div
-        v-if="
-          props.visualSize === 'large' ||
-          ((props.maxSize || props.maxTotalSize || props.maxCount || props.accept?.length) &&
-            props.visualSize !== 'small')
-        "
-        class="onyx-file-upload__content"
-      >
-        <p v-if="props.visualSize === 'large'" class="onyx-file-upload__label onyx-text">
+      <div v-if="showDetails" class="onyx-file-upload__content">
+        <p v-if="props.size === 'large'" class="onyx-file-upload__label onyx-text">
           <u>{{ t("fileUpload.clickToUpload") }}</u> {{ t("fileUpload.orDragAndDrop") }}.
         </p>
 
@@ -188,7 +192,7 @@ const handleDragEnter = () => {
       type="file"
       :accept="props.accept?.length ? props.accept.join(',') : undefined"
       :multiple="props.multiple"
-      :disabled="props.disabled"
+      :disabled="disabled"
       :name="props.name"
       v-bind="restAttrs"
       @change="handleChange"
@@ -198,6 +202,8 @@ const handleDragEnter = () => {
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
+@use "../../styles/mixins/input.scss";
+
 @include layers.component() {
   .onyx-file-upload-wrapper {
     display: grid;
@@ -240,6 +246,9 @@ const handleDragEnter = () => {
         font-weight: var(--onyx-font-weight-semibold);
         line-height: var(--onyx-font-line-height-md);
       }
+      &--error {
+        border-color: var(--onyx-color-component-border-danger);
+      }
 
       &--dragging {
         border-color: var(--onyx-color-component-border-primary-hover);
@@ -275,8 +284,12 @@ const handleDragEnter = () => {
       &:focus-within {
         border-color: var(--onyx-color-component-border-primary-hover);
 
-        .onyx-file-upload__label {
+        &:not(.onyx-file-upload--error) .onyx-file-upload__label {
           color: var(--onyx-color-text-icons-primary-intense);
+        }
+
+        &.onyx-file-upload--error {
+          border-color: var(--onyx-color-component-border-danger-hover);
         }
       }
 
@@ -284,10 +297,16 @@ const handleDragEnter = () => {
         > .onyx-file-upload-svg {
           --onyx-file-upload-svg-background-color-bubble: var(--onyx-color-base-primary-800);
         }
+        &.onyx-file-upload--error > .onyx-file-upload-svg {
+          --onyx-file-upload-svg-background-color-bubble: var(--onyx-color-base-danger-800);
+        }
       }
 
       &:focus-within {
         outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
+        &.onyx-file-upload--error {
+          outline-color: var(--onyx-color-component-border-danger-hover);
+        }
       }
 
       .onyx-file-upload__text {
@@ -323,8 +342,8 @@ const handleDragEnter = () => {
     }
   }
   .onyx-file-upload-skeleton {
-    height: 120px;
-    width: 400px;
+    height: 7.5rem;
+    width: 25rem;
     box-sizing: initial;
     padding: var(--onyx-density-xl);
 

@@ -20,14 +20,14 @@ export const Default = {
 export const Medium = {
   args: {
     ...Default.args,
-    visualSize: "medium",
+    size: "medium",
   },
 } satisfies Story;
 
 export const Small = {
   args: {
     ...Default.args,
-    visualSize: "small",
+    size: "small",
   },
 } satisfies Story;
 

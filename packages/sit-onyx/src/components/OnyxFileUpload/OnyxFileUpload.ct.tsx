@@ -16,41 +16,46 @@ const hooks: MatrixScreenshotTestOptions["hooks"] = {
     }
   },
 };
-const visualSizes: ("large" | "medium" | "small")[] = ["large", "medium", "small"];
+const sizes: ("large" | "medium" | "small")[] = ["large", "medium", "small"];
 test.describe("Screenshot tests", () => {
-  visualSizes.forEach((size) => {
+  sizes.forEach((size) => {
     executeMatrixScreenshotTest({
       name: `File upload ${size}`,
       columns: DENSITIES,
-      rows: ["default", "hover", "focus-visible", "dragging", "skeleton"],
+      rows: ["default", "hover", "focus-visible", "dragging", "disabled", "skeleton"],
       component: (column, row) => (
-        <OnyxFileUpload density={column} visualSize={size} skeleton={row === "skeleton"} />
+        <OnyxFileUpload
+          density={column}
+          size={size}
+          disabled={row === "disabled"}
+          skeleton={row === "skeleton"}
+        />
       ),
       hooks,
     });
   });
 });
 
-test.describe("Screenshot tests (disabled)", () => {
-  visualSizes.forEach((size) => {
+test.describe("Screenshot tests (error)", () => {
+  sizes.forEach((size) => {
     executeMatrixScreenshotTest({
-      name: `File upload ${size} (disabled)`,
-      columns: ["disabled"],
+      name: `File upload ${size} (error)`,
+      columns: ["error"],
       rows: ["default", "hover", "focus-visible", "dragging"],
-      component: () => <OnyxFileUpload disabled visualSize={size} />,
+      component: () => <OnyxFileUpload showError size={size} />,
       hooks,
     });
   });
 });
 test.describe("Screenshot tests (max. file sizes)", () => {
-  visualSizes.forEach((size) => {
+  sizes.forEach((size) => {
     executeMatrixScreenshotTest({
       name: `File upload ${size} (max. file sizes)`,
       columns: ["types", "size", "total", "count", "size-total", "types-size-total-count"],
       rows: ["default", "hover", "focus-visible", "dragging"],
       component: (column) => (
         <OnyxFileUpload
-          visualSize={size}
+          size={size}
           accept={column.includes("types") ? [".pdf", ".jpg", ".png"] : undefined}
           maxSize={column.includes("size") ? "4MiB" : undefined}
           maxTotalSize={column.includes("total") ? "50MiB" : undefined}
