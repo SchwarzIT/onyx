@@ -235,7 +235,7 @@ $gap: var(--onyx-spacing-md);
     height: var(--onyx-nav-bar-height);
     z-index: var(--onyx-z-index-navigation);
     position: relative;
-    container-type: size;
+    container-type: inline-size;
 
     // implement bottom border with ::after so it does not add to the height
     &::after {
