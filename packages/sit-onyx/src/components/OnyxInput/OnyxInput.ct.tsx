@@ -432,4 +432,26 @@ test("should show correct message", async ({ mount }) => {
   await expect(errorMessageElement).toBeVisible();
 });
 
+test("should hide/show password", async ({ mount }) => {
+  const component = await mount(<OnyxInput label="Label" modelValue={"test"} type="password" />);
+
+  const input = component.getByLabel("Label");
+  const eyeIcon = component.getByRole("button", { name: "Show Password" });
+  const eyeClosedIcon = component.getByRole("button", { name: "Hide Password" });
+
+  // ASSERT
+  await expect(input).toHaveAttribute("type", "password");
+  await expect(eyeIcon).toBeVisible();
+  await expect(eyeClosedIcon).toBeHidden();
+  await expect(component).toHaveScreenshot(`input-password-hidden.png`);
+
+  //ACT
+  await eyeIcon.click();
+
+  // ASSERT
+  await expect(input).toHaveAttribute("type", "text");
+  await expect(eyeIcon).toBeHidden();
+  await expect(eyeClosedIcon).toBeVisible();
+  await expect(component).toHaveScreenshot(`input-password-shown.png`);
+});
 testMaxLengthBehavior(OnyxInput);
