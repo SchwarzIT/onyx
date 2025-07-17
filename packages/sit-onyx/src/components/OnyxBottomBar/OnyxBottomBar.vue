@@ -29,7 +29,7 @@ const { densityClass } = useDensity(props);
       props.hideBorder ? '' : 'onyx-bottom-bar--border',
     ]"
   >
-    <div class="onyx-bottom-bar__content">
+    <div class="onyx-bottom-bar__content onyx-grid-container">
       <div class="onyx-bottom-bar__content--left">
         <slot name="left"></slot>
       </div>

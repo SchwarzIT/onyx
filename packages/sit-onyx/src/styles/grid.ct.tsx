@@ -243,7 +243,7 @@ Object.entries(ONYX_MAX_WIDTHS).forEach(([breakpoint, size]) => {
     await mount(
       <main style={{ containerType: "inline-size" }}>
         <div
-          class={`onyx-grid-container ${className}`}
+          class={`onyx-grid-layout ${className}`}
           style={{ outline: "1px solid red", transition: "none" }}
         >
           {createGridElement(1)}
@@ -274,7 +274,7 @@ Object.entries(ONYX_MAX_WIDTHS).forEach(([breakpoint, size]) => {
     await mount(
       <main style={{ containerType: "inline-size" }}>
         <div
-          class={`onyx-grid-container ${className} onyx-grid-center`}
+          class={`onyx-grid-layout ${className} onyx-grid-center`}
           style={{ outline: "1px solid red", transition: "none" }}
         >
           {createGridElement(1)}
@@ -322,7 +322,7 @@ Object.entries(SIDEBAR_GRID_COLUMNS).forEach(([name, columns]) => {
     // ARRANGE
     await mount(
       <OnyxSidebar label="Example sidebar" style={{ width: SIDEBAR_TEST_WIDTH[name] + "px" }}>
-        <main class="onyx-grid onyx-grid-container" style={{ outline: "1px solid red" }}>
+        <main class="onyx-grid onyx-grid-layout" style={{ outline: "1px solid red" }}>
           {Array.from({ length: 16 }, (_, i) => createGridElement(i + 1))}
           {createGridElement("full")}
         </main>

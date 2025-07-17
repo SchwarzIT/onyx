@@ -9,7 +9,7 @@ export type OnyxPageLayoutProps = Partial<SkeletonProvidedProp> & {
   footerAlignment?: "full" | "page";
   /**
    * If `true`, the default responsive page content padding will be removed.
-   * You can use the `onyx-grid-container` CSS class on your own which is used internally for the padding.
+   * You can use the `onyx-grid-layout` CSS class on your own which is used internally for the padding.
    * Useful when e.g. implementing a page with a full width hero image at the top, followed by content below.
    */
   noPadding?: boolean;

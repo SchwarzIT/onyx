@@ -18,7 +18,7 @@ const props = withDefaults(
 
 <template>
   <div class="overlay">
-    <div class="overlay__container onyx-grid-container">
+    <div class="overlay__container onyx-grid-layout">
       <div
         class="onyx-grid overlay__grid"
         :class="{ 'overlay__grid--lines-visible': props.showGridLines }"
