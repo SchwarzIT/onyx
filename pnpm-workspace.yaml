@@ -3,16 +3,16 @@ packages:
   - packages/*
 
 catalog:
-  "@playwright/experimental-ct-vue": 1.54.1
-  "@playwright/test": 1.54.1
+  "@playwright/experimental-ct-vue": 1.51.1
+  "@playwright/test": 1.51.1
   "@vue/compiler-core": 3.5.17
   "@vue/compiler-dom": 3.5.17
   "@vue/compiler-sfc": 3.5.17
   "@vue/compiler-ssr": 3.5.17
   "@vue/shared": 3.5.17
   chart.js: 4.5.0
-  "playwright": 1.54.1
-  "playwright-core": 1.54.1
+  "playwright": 1.51.1
+  "playwright-core": 1.51.1
   vue: 3.5.17
   sass-embedded: 1.89.2
   typescript: 5.8.3
