@@ -1,7 +1,7 @@
 import type { Nullable } from "../../types/index.js";
-import type { OnyxFabButtonProps } from "../OnyxFabButton/types.js";
+import type { OnyxFABButtonProps } from "../OnyxFABButton/types.js";
 
-export type OnyxFabProps = OnyxFabButtonProps & {
+export type OnyxFABProps = OnyxFABButtonProps & {
   /**
    * How to align the component relative to the viewport.
    */

@@ -2,7 +2,7 @@ import type { DensityProp } from "../../composables/density.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 import type { WithLinkProp } from "../OnyxRouterLink/types.js";
 
-export type OnyxFabButtonProps = DensityProp &
+export type OnyxFABButtonProps = DensityProp &
   WithLinkProp & {
     /**
      * (Aria) Label of the action button that describes the action.
