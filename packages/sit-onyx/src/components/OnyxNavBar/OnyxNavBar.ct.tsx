@@ -377,13 +377,14 @@ test("should display More Items correctly", async ({ mount, page }) => {
       <OnyxNavItem link="#2" label="Menuitem 2" />
       <OnyxNavItem link="#3" label="Menuitem 3" />
       <OnyxNavItem link="#4" label="Menuitem 4" />
-      <OnyxNavItem link="#5" onClick={() => navItemClickEvents++} label="Menuitem 5" />
+      <OnyxNavItem link="#5" label="Menuitem 5" />
+      <OnyxNavItem link="#6" onClick={() => navItemClickEvents++} label="Menuitem 6" />
     </OnyxNavBar>,
   );
 
   const moreMenuItem = component.getByRole("menuitem", { name: /\+\d More/ });
   const firstMenuItem = component.getByRole("menuitem", { name: "Menuitem 0" });
-  const lastMenuItem = component.getByRole("menuitem", { name: "Menuitem 5" });
+  const lastMenuItem = component.getByRole("menuitem", { name: "Menuitem 6" });
 
   await test.step("on a wide screen all menuitems should visible", async () => {
     // ACT
@@ -428,7 +429,7 @@ test("should display More Items correctly", async ({ mount, page }) => {
 
   await test.step("on mobile breakpoint the mobile menu should work as expected", async () => {
     // ACT
-    await page.setViewportSize({ width: ONYX_BREAKPOINTS.sm, height: 800 });
+    await page.setViewportSize({ width: ONYX_BREAKPOINTS.xs, height: 800 });
     await component.getByLabel("Toggle burger menu").click();
 
     // ASSERT
