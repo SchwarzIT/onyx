@@ -49,6 +49,7 @@ const { densityClass } = useDensity(props);
     bottom: 0;
     width: 100%;
     background-color: var(--onyx-color-base-background-blank);
+    container-type: inline-size;
 
     &--border {
       border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
