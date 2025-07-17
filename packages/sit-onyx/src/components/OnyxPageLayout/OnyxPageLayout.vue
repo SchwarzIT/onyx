@@ -49,9 +49,9 @@ provideSkeletonContext(props);
     </div>
 
     <main class="onyx-page__main">
-      <slot v-if="props.noPadding"></slot>
+      <slot v-if="props.noPadding" class="onyx-grid-container"></slot>
 
-      <div v-else class="onyx-grid-container">
+      <div v-else class="onyx-grid-layout">
         <slot></slot>
       </div>
     </main>
@@ -79,6 +79,7 @@ provideSkeletonContext(props);
     grid-template-areas:
       "side main side-right"
       "footer footer footer";
+    container-type: inline-size;
 
     &--footer-page {
       grid-template-areas:
@@ -106,9 +107,9 @@ provideSkeletonContext(props);
     }
 
     &:has(&__sidebar) {
-      // disable centering of the onyx-grid-container when a sidebar exists
+      // disable centering of the onyx-grid-layout when a sidebar exists
       // because centering does not work here / is not aligned with the nav bar
-      .onyx-page__main > .onyx-grid-container,
+      .onyx-page__main > .onyx-grid-layout,
       &.onyx-page--footer-page {
         --onyx-grid-margin-inline: 0;
       }

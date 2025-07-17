@@ -45,8 +45,10 @@ $sidebar-breakpoints: (
   */
   @include container(min, lg) {
     .onyx-grid.onyx-grid-xl-20,
+    .onyx-grid-layout.onyx-grid-xl-20,
     .onyx-grid-container.onyx-grid-xl-20,
     .onyx-grid.onyx-grid-lg-16,
+    .onyx-grid-layout.onyx-grid-lg-16,
     .onyx-grid-container.onyx-grid-lg-16 {
       --onyx-grid-columns: 16;
     }
@@ -54,11 +56,13 @@ $sidebar-breakpoints: (
 
   @include container(min, xl) {
     .onyx-grid.onyx-grid-xl-20,
+    .onyx-grid-layout.onyx-grid-xl-20,
     .onyx-grid-container.onyx-grid-xl-20 {
       --onyx-grid-columns: 20;
     }
 
     .onyx-grid.onyx-grid-xl-16,
+    .onyx-grid-layout.onyx-grid-xl-16,
     .onyx-grid-container.onyx-grid-xl-16 {
       --onyx-grid-columns: 16;
     }
@@ -68,10 +72,11 @@ $sidebar-breakpoints: (
   * Page class to apply padding, max-width and optional centered.
   * Is usually placed at the root element of every page.
   */
-  .onyx-grid-container {
+  .onyx-grid-layout {
     // Note: The --onyx-grid-margin is implemented as padding here so that is also included in e.g. custom background colors
     // but the term "margin" comes from UX/Figma so we decided to keep naming it margin to be aligned
-    padding: var(--onyx-grid-margin);
+    padding: var(--onyx-density-3xl) var(--onyx-grid-margin) var(--onyx-density-3xl)
+      var(--onyx-grid-margin);
     max-width: var(--onyx-grid-max-width, 100%);
     margin-inline: var(--onyx-grid-margin-inline);
     box-sizing: border-box; // max-width should include the padding
@@ -143,8 +148,8 @@ $sidebar-breakpoints: (
       @include generate-grid-properties(
         $columns,
         $gutter,
-        4rem $margin 4rem $margin,
-        ".onyx-grid, .onyx-grid-container"
+        $margin,
+        ".onyx-grid, .onyx-grid-layout, .onyx-grid-container"
       );
       @include generate-spans(1, $columns, $name);
     } @else {
@@ -152,8 +157,8 @@ $sidebar-breakpoints: (
         @include generate-grid-properties(
           $columns,
           $gutter,
-          var(--onyx-density-3xl) $margin var(--onyx-density-3xl) $margin,
-          ".onyx-grid, .onyx-grid-container"
+          $margin,
+          ".onyx-grid, .onyx-grid-layout, .onyx-grid-container"
         );
         @include generate-spans(1, $columns, $name);
         @if $maxVariant != none {
@@ -170,6 +175,10 @@ $sidebar-breakpoints: (
   * SIDEBAR GRID
   */
   .onyx-sidebar {
+    .onyx-grid-layout {
+      padding: var(--onyx-density-md) var(--onyx-grid-margin) var(--onyx-density-md)
+        var(--onyx-grid-margin);
+    }
     container-type: inline-size;
 
     @each $name, $maxVariant, $columns, $gutter, $margin in $sideBarGridVariants {
@@ -177,31 +186,14 @@ $sidebar-breakpoints: (
         @include generate-grid-properties(
           $columns,
           $gutter,
-          var(--onyx-density-md) $margin var(--onyx-density-md) $margin,
-          ".onyx-grid, .onyx-grid-container"
+          $margin,
+          ".onyx-grid, .onyx-grid-layout, .onyx-grid-container"
         );
 
         @include generate-spans(1, $columns, $name);
 
         @if $maxVariant != none {
           @include generate-grid-max($name, $maxVariant, $sidebar-breakpoints);
-        }
-      }
-    }
-  }
-
-  /*
-* Sets grid variables on root based on viewport size,
-* providing theme properties for elements outside an onyx-grid. e.g. OnyxBottomBar
-*/
-  @each $name, $maxVariant, $columns, $gutter, $margin in $gridVariants {
-    @if $name == "2xs" {
-      @include generate-grid-properties($columns, $gutter, $margin);
-    } @else {
-      @include screen(min, $name) {
-        @include generate-grid-properties($columns, $gutter, $margin);
-        @if $maxVariant != none {
-          @include generate-grid-max($name, $maxVariant);
         }
       }
     }

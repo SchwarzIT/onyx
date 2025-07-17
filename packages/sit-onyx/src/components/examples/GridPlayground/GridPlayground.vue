@@ -166,7 +166,7 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
 
 <template>
   <div class="onyx-text playground">
-    <div class="onyx-grid-container playground__container">
+    <div class="onyx-grid-layout playground__container">
       <OnyxHeadline is="h1" class="playground__headline">Grid and breakpoint demo</OnyxHeadline>
 
       <p v-if="!isFullscreen" class="playground__info-text">
@@ -223,7 +223,7 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
       </div>
     </div>
 
-    <div v-if="gridValues" class="playground__grid-values">
+    <div v-if="gridValues" class="playground__grid-values onyx-grid-container">
       <p class="playground__breakpoint">
         Current breakpoint: <span>{{ currentBreakpoint }}</span>
       </p>
@@ -270,34 +270,32 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
         </OnyxNavBar>
       </div>
       <div class="onyx-grid-layout">
-        <div class="onyx-grid-container">
-          <div ref="gridRef" class="onyx-grid">
-            <GridElement
-              v-for="(element, index) in gridElements"
-              :key="index"
-              class="element"
-              v-bind="element"
-              :label="`Edit grid element ${index + 1}`"
-              @click="gridElementIndexToEdit = index"
-            >
-              <template #default="{ gridSpan }">
-                <span class="element__span">{{ gridSpan }}</span>
-                <OnyxVisuallyHidden>
-                  This grid element spans {{ gridSpan }} columns
-                </OnyxVisuallyHidden>
-                <OnyxIcon class="element__icon" :icon="edit" />
-              </template>
-            </GridElement>
+        <div ref="gridRef" class="onyx-grid">
+          <GridElement
+            v-for="(element, index) in gridElements"
+            :key="index"
+            class="element"
+            v-bind="element"
+            :label="`Edit grid element ${index + 1}`"
+            @click="gridElementIndexToEdit = index"
+          >
+            <template #default="{ gridSpan }">
+              <span class="element__span">{{ gridSpan }}</span>
+              <OnyxVisuallyHidden>
+                This grid element spans {{ gridSpan }} columns
+              </OnyxVisuallyHidden>
+              <OnyxIcon class="element__icon" :icon="edit" />
+            </template>
+          </GridElement>
 
-            <GridElement
-              :column-count="2"
-              mode="outline"
-              label="Add grid element"
-              @click="isAddDialogOpen = true"
-            >
-              <OnyxIcon :icon="plus" />
-            </GridElement>
-          </div>
+          <GridElement
+            :column-count="2"
+            mode="outline"
+            label="Add grid element"
+            @click="isAddDialogOpen = true"
+          >
+            <OnyxIcon :icon="plus" />
+          </GridElement>
         </div>
       </div>
     </div>
@@ -324,15 +322,13 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
 </template>
 
 <style lang="scss" scoped>
-.onyx-grid-layout {
-  container-type: inline-size;
-}
 .playground {
   font-family: var(--onyx-font-family);
   color: var(--onyx-color-text-icons-neutral-intense);
   background-color: var(--onyx-color-base-background-tinted);
   overflow: scroll;
   height: 100vh;
+  container-type: inline-size;
 
   &__container {
     box-shadow: var(--onyx-shadow-medium-bottom);
@@ -398,7 +394,7 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
     flex-wrap: wrap;
   }
 
-  > .onyx-grid-container {
+  > .onyx-grid-layout {
     padding-bottom: var(--onyx-spacing-xl);
   }
 }

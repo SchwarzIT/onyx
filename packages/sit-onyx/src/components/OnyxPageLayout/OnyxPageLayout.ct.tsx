@@ -266,7 +266,7 @@ test("should not have inline margin for onyx grid container when sidebar exists"
       <template v-slot:sidebar>{SIDEBAR_ELEMENT}</template>
       <template v-slot:footer>
         <footer style={{ height: "4rem", background: "olivedrab" }}>
-          <div class="onyx-grid-container">Footer</div>
+          <div class="onyx-grid-layout">Footer</div>
         </footer>
       </template>
     </OnyxPageLayout>,
@@ -274,11 +274,11 @@ test("should not have inline margin for onyx grid container when sidebar exists"
 
   // ASSERT
   const pageMarginInline = await component
-    .locator(".onyx-page__main > .onyx-grid-container")
+    .locator(".onyx-page__main > .onyx-grid-layout")
     .evaluate((element) => getComputedStyle(element).marginInline);
 
   const footerMarginInline = await component
-    .locator("footer > .onyx-grid-container")
+    .locator("footer > .onyx-grid-layout")
     .evaluate((element) => getComputedStyle(element).marginInline);
 
   expect(pageMarginInline).toBe("0px");
