@@ -7,7 +7,6 @@
 - 5a27c6a: feat: update icons
 
   #### New
-
   - notebook-code
   - terraform
 
@@ -18,7 +17,6 @@
 - d1df993: feat: update icons
 
   #### New
-
   - workflows
 
 ## 1.0.0-beta.17
@@ -28,7 +26,6 @@
 - 0f045f0: feat: update icons
 
   #### New
-
   - expand-window-small
   - network-card
   - RSS-web-feed
@@ -36,7 +33,6 @@
   - weight-kg
 
   #### Modified
-
   - eye-closed
   - notification-flag
 
@@ -47,7 +43,6 @@
 - de2a1e8: feat: update icons
 
   #### New icons
-
   - check-read
 
 ## 1.0.0-beta.15
@@ -57,7 +52,6 @@
 - e9ef809: feat: update icons
 
   #### New icons
-
   - eye-closed
 
 ## 1.0.0-beta.14
@@ -67,7 +61,6 @@
 - 41eb73c: feat: update icons
 
   #### New icons
-
   - cloud-edge
   - computer-security-warning
   - cookie
@@ -81,7 +74,6 @@
 - 9319044: feat: update icons
 
   #### New icons
-
   - hacker
   - paragraph
 
@@ -92,11 +84,9 @@
 - 00ca133: feat: update icons
 
   #### Deleted icons
-
   - mail-key
 
   #### New icons
-
   - bullet-list
   - key-mail
   - list-arrow-down
@@ -106,7 +96,6 @@
   - settings-arrows
 
   #### Modified icons
-
   - key-clock
   - notification-flag
   - sidebar-arrow-left
@@ -118,7 +107,6 @@
 - f471335: feat: update icons
 
   #### New icons
-
   - book-binocular
   - key-clock
   - mail-key
@@ -130,11 +118,9 @@
 - ad447e9: feat: update icons
 
   #### New icons
-
   - browser-domain
 
   #### Modified icons
-
   - key-settings
 
 ## 1.0.0-beta.9
@@ -144,11 +130,9 @@
 - ee0fcd2: feat: update icons
 
   #### New icons
-
   - browser-domain
 
   #### Modified icons
-
   - key-settings
 
 ## 1.0.0-beta.8
@@ -158,7 +142,6 @@
 - 6755052: feat: update icons
 
   #### New icons
-
   - cloud-files
   - folder-file
 
@@ -169,7 +152,6 @@
 - f6f01c6: feat: update icons
 
   #### New icons
-
   - bookmark-filled
 
 ## 1.0.0-beta.6
@@ -179,7 +161,6 @@
 - be5b415: feat: update icons
 
   #### Modified icons
-
   - cancellation-undone
   - sidebar-arrow-right
 
@@ -190,7 +171,6 @@
 - 3e49c73: feat: update icons
 
   #### New icons
-
   - key-settings
 
 ## 1.0.0-beta.4
@@ -202,11 +182,9 @@
   Also fixed icon aliases in the metadata for most icons which are now separated correctly
 
   #### New icons
-
   - heptagon-cloud-foundry
 
   #### Modified icons
-
   - sidebar-arrow-right
 
 ## 1.0.0-beta.3
@@ -222,7 +200,6 @@
 - 79033ac: feat: update icons
 
   #### New icons
-
   - heart-filled
   - rocket-plus
   - star-filled
@@ -236,7 +213,6 @@
   All icons are updated to use the latest icons from
 
   #### New icons
-
   - anchor
   - arrow-small-up-right-top
   - broom
@@ -264,11 +240,9 @@
   - truck-empty
 
   #### Deleted icons
-
   - computer-argus (renamed to computer-eye)
 
   #### Other breaking changes
-
   - removed `ICON_CATEGORIES`, use `groupIconsByCategory(ICON_METADATA)` instead
   - removed `optimizeSvg`, `isDirectory` and `readAllIconPaths`
   - moved exported types from `/utils` to `/types`
@@ -286,7 +260,6 @@
 ### Minor Changes
 
 - fad8140: feat: add new icons
-
   - arrow-small-down
   - arrow-small-up
   - car-electric
@@ -315,7 +288,6 @@
 - 5ac259d: feat(icons): update icons
 
   The new available icons are:
-
   - chevron-down-up
   - plus-minus
   - server-lock
