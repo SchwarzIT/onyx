@@ -2,7 +2,7 @@ import { useFocusStateHooks } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density.js";
 import { test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots.js";
-import OnyxFabButton from "./OnyxFabButton.vue";
+import OnyxFABButton from "./OnyxFABButton.vue";
 
 test.describe("Screenshot tests", () => {
   for (const type of ["hideLabel", "text", "link"] as const) {
@@ -11,7 +11,7 @@ test.describe("Screenshot tests", () => {
       columns: DENSITIES,
       rows: ["default", "hover", "focus-visible"],
       component: (column) => (
-        <OnyxFabButton
+        <OnyxFABButton
           label="Label"
           icon={mockPlaywrightIcon}
           hideLabel={type === "hideLabel"}

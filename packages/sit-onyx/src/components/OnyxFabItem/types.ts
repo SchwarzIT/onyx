@@ -1,7 +1,7 @@
 import type { DensityProp } from "../../composables/density.js";
 import type { WithLinkProp } from "../OnyxRouterLink/types.js";
 
-export type OnyxFabItemProps = DensityProp &
+export type OnyxFABItemProps = DensityProp &
   WithLinkProp & {
     /**
      * Text label to show

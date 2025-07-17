@@ -7,9 +7,9 @@ import {
 import ButtonOrLinkLayout from "../OnyxButton/ButtonOrLinkLayout.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import type { OnyxFabButtonProps } from "./types.js";
+import type { OnyxFABButtonProps } from "./types.js";
 
-const props = withDefaults(defineProps<OnyxFabButtonProps>(), {
+const props = withDefaults(defineProps<OnyxFABButtonProps>(), {
   skeleton: SKELETON_INJECTED_SYMBOL,
 });
 
