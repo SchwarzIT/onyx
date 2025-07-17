@@ -2,11 +2,11 @@ import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { defineIconSelectArgType } from "../../utils/storybook.js";
-import OnyxFabItem from "./OnyxFabItem.vue";
+import OnyxFABItem from "./OnyxFABItem.vue";
 
-const meta: Meta<typeof OnyxFabItem> = {
-  title: "Support/FabItem",
-  component: OnyxFabItem,
+const meta: Meta<typeof OnyxFABItem> = {
+  title: "Support/FABItem",
+  component: OnyxFABItem,
   tags: ["new:component"],
   argTypes: {
     ...withNativeEventLogging(["onClick"]),
@@ -15,7 +15,7 @@ const meta: Meta<typeof OnyxFabItem> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof OnyxFabItem>;
+type Story = StoryObj<typeof OnyxFABItem>;
 
 export const Default = {
   args: {

@@ -2,7 +2,7 @@ import { useFocusStateHooks } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots.js";
-import OnyxFabItem from "./OnyxFabItem.vue";
+import OnyxFABItem from "./OnyxFABItem.vue";
 
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
@@ -11,7 +11,7 @@ test.describe("Screenshot tests", () => {
     rows: ["default", "hover", "focus-visible"],
     component: (column) => (
       <ul role="menu" style={{ display: "contents" }}>
-        <OnyxFabItem label="Label" density={column} />
+        <OnyxFABItem label="Label" density={column} />
       </ul>
     ),
     hooks: {
@@ -29,7 +29,7 @@ test.describe("Screenshot tests (icon)", () => {
     rows: ["text", "icon", "text-icon"],
     component: (column, row) => (
       <ul role="menu" style={{ display: "contents" }}>
-        <OnyxFabItem
+        <OnyxFABItem
           label="Label"
           icon={row.includes("icon") ? mockPlaywrightIcon : undefined}
           hideLabel={!row.includes("text")}
@@ -44,7 +44,7 @@ test("should render as link", async ({ page, mount }) => {
   // ARRANGE
   const component = await mount(
     <ul role="menu" style={{ display: "contents" }}>
-      <OnyxFabItem label="Label" link="#test" />
+      <OnyxFABItem label="Label" link="#test" />
     </ul>,
   );
 

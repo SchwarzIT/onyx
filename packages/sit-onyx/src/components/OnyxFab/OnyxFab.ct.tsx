@@ -2,8 +2,8 @@ import { useFocusStateHooks, type MatrixScreenshotTestOptions } from "@sit-onyx/
 import { DENSITIES } from "../../composables/density.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots.js";
-import OnyxFabItem from "../OnyxFabItem/OnyxFabItem.vue";
-import OnyxFab from "./OnyxFab.vue";
+import OnyxFABItem from "../OnyxFABItem/OnyxFABItem.vue";
+import OnyxFAB from "./OnyxFAB.vue";
 
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
@@ -11,7 +11,7 @@ test.describe("Screenshot tests", () => {
     columns: DENSITIES,
     rows: ["default", "hover", "focus-visible", "skeleton"],
     component: (column, row) => (
-      <OnyxFab
+      <OnyxFAB
         label="Label"
         hideLabel={true}
         icon={mockPlaywrightIcon}
@@ -58,11 +58,11 @@ test.describe("Screenshot tests (options)", () => {
     columns: DENSITIES,
     rows: ["default", "hover", "focus-visible"],
     component: (column) => (
-      <OnyxFab label="Label" icon={mockPlaywrightIcon} density={column}>
-        <OnyxFabItem label="Option 3" icon={mockPlaywrightIcon} />
-        <OnyxFabItem label="Option 2" icon={mockPlaywrightIcon} />
-        <OnyxFabItem label="Option 1" icon={mockPlaywrightIcon} />
-      </OnyxFab>
+      <OnyxFAB label="Label" icon={mockPlaywrightIcon} density={column}>
+        <OnyxFABItem label="Option 3" icon={mockPlaywrightIcon} />
+        <OnyxFABItem label="Option 2" icon={mockPlaywrightIcon} />
+        <OnyxFABItem label="Option 1" icon={mockPlaywrightIcon} />
+      </OnyxFAB>
     ),
     hooks: optionsHooks,
   });
@@ -74,11 +74,11 @@ test.describe("Screenshot tests (options, left aligned)", () => {
     columns: DENSITIES,
     rows: ["default", "hover", "focus-visible"],
     component: (column) => (
-      <OnyxFab label="Label" icon={mockPlaywrightIcon} density={column} alignment="left">
-        <OnyxFabItem label="Option 3" icon={mockPlaywrightIcon} />
-        <OnyxFabItem label="Option 2" icon={mockPlaywrightIcon} />
-        <OnyxFabItem label="Option 1" icon={mockPlaywrightIcon} />
-      </OnyxFab>
+      <OnyxFAB label="Label" icon={mockPlaywrightIcon} density={column} alignment="left">
+        <OnyxFABItem label="Option 3" icon={mockPlaywrightIcon} />
+        <OnyxFABItem label="Option 2" icon={mockPlaywrightIcon} />
+        <OnyxFABItem label="Option 1" icon={mockPlaywrightIcon} />
+      </OnyxFAB>
     ),
     hooks: optionsHooks,
   });
@@ -90,11 +90,11 @@ test.describe("Screenshot tests (options, icons only)", () => {
     columns: DENSITIES,
     rows: ["default", "hover", "focus-visible"],
     component: (column) => (
-      <OnyxFab label="Label" icon={mockPlaywrightIcon} density={column} alignment="left">
-        <OnyxFabItem label="Option 3" hideLabel icon={mockPlaywrightIcon} />
-        <OnyxFabItem label="Option 2" hideLabel icon={mockPlaywrightIcon} />
-        <OnyxFabItem label="Option 1" hideLabel icon={mockPlaywrightIcon} />
-      </OnyxFab>
+      <OnyxFAB label="Label" icon={mockPlaywrightIcon} density={column} alignment="left">
+        <OnyxFABItem label="Option 3" hideLabel icon={mockPlaywrightIcon} />
+        <OnyxFABItem label="Option 2" hideLabel icon={mockPlaywrightIcon} />
+        <OnyxFABItem label="Option 1" hideLabel icon={mockPlaywrightIcon} />
+      </OnyxFAB>
     ),
     hooks: optionsHooks,
   });

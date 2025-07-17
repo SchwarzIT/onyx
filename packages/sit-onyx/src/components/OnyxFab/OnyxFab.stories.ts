@@ -4,12 +4,15 @@ import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { h } from "vue";
 import { defineIconSelectArgType } from "../../utils/storybook.js";
-import OnyxFabItem from "../OnyxFabItem/OnyxFabItem.vue";
-import OnyxFab from "./OnyxFab.vue";
+import OnyxFABItem from "../OnyxFABItem/OnyxFABItem.vue";
+import OnyxFAB from "./OnyxFAB.vue";
 
-const meta: Meta<typeof OnyxFab> = {
-  title: "Buttons/Fab",
-  component: OnyxFab,
+/**
+ * A floating action button (FAB) is a fixed/sticky action button that appears at the bottom corner of a screen.
+ */
+const meta: Meta<typeof OnyxFAB> = {
+  title: "Buttons/FAB",
+  component: OnyxFAB,
   tags: ["new:component"],
   argTypes: {
     ...withNativeEventLogging(["onClick"]),
@@ -25,7 +28,7 @@ const meta: Meta<typeof OnyxFab> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof OnyxFab>;
+type Story = StoryObj<typeof OnyxFAB>;
 
 export const Default = {
   args: {
@@ -50,31 +53,31 @@ export const Link = {
   },
 } satisfies Story;
 
-export const Options = {
+export const Items = {
   args: {
     label: "Example label",
     default: () => [
-      h(OnyxFabItem, { label: "Action 3", icon: placeholder }),
-      h(OnyxFabItem, { label: "Action 2", icon: placeholder }),
-      h(OnyxFabItem, { label: "Action 1", icon: placeholder }),
+      h(OnyxFABItem, { label: "Action 3", icon: placeholder }),
+      h(OnyxFABItem, { label: "Action 2", icon: placeholder }),
+      h(OnyxFABItem, { label: "Action 1", icon: placeholder }),
     ],
   },
 } satisfies Story;
 
-export const IconOptions = {
+export const IconItems = {
   args: {
     label: "Example label",
     default: () => [
-      h(OnyxFabItem, { label: "Action 3", icon: placeholder, hideLabel: true }),
-      h(OnyxFabItem, { label: "Action 2", icon: placeholder, hideLabel: true }),
-      h(OnyxFabItem, { label: "Action 1", icon: placeholder, hideLabel: true }),
+      h(OnyxFABItem, { label: "Action 3", icon: placeholder, hideLabel: true }),
+      h(OnyxFABItem, { label: "Action 2", icon: placeholder, hideLabel: true }),
+      h(OnyxFABItem, { label: "Action 1", icon: placeholder, hideLabel: true }),
     ],
   },
 } satisfies Story;
 
 export const LeftAligned = {
   args: {
-    ...Options.args,
+    ...Items.args,
     alignment: "left",
   },
 } satisfies Story;

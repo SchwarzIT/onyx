@@ -10,11 +10,11 @@ import {
 import { useVModel } from "../../composables/useVModel.js";
 import type { Nullable } from "../../types/index.js";
 import { mergeVueProps } from "../../utils/attrs.js";
-import OnyxFabButton from "../OnyxFabButton/OnyxFabButton.vue";
+import OnyxFABButton from "../OnyxFABButton/OnyxFABButton.vue";
 import OnyxFlyoutMenu from "../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
-import type { OnyxFabProps } from "./types.js";
+import type { OnyxFABProps } from "./types.js";
 
-const props = withDefaults(defineProps<OnyxFabProps>(), {
+const props = withDefaults(defineProps<OnyxFABProps>(), {
   alignment: "right",
   skeleton: SKELETON_INJECTED_SYMBOL,
 });
@@ -55,7 +55,7 @@ const triggerIcon = computed(() => {
 </script>
 
 <template>
-  <OnyxFabButton
+  <OnyxFABButton
     v-if="!hasOptions || skeleton"
     class="onyx-fab"
     v-bind="props"
@@ -72,7 +72,7 @@ const triggerIcon = computed(() => {
     :alignment="props.alignment"
   >
     <template #button="{ trigger }">
-      <OnyxFabButton
+      <OnyxFABButton
         v-bind="mergeVueProps(props, trigger)"
         :label="props.label"
         hide-label
