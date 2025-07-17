@@ -101,7 +101,7 @@ test("should select a single file", async ({ mount, page }) => {
   let file: File | undefined;
 
   const component = await mount(
-    <OnyxFileUpload onUpdate:modelValue={(newFile) => (file = newFile)} />,
+    <OnyxFileUpload size="large" onUpdate:modelValue={(newFile) => (file = newFile)} />,
   );
   const button = component.getByRole("button", { name: "Click to select" });
 
@@ -129,7 +129,7 @@ test("should select multiple files", async ({ mount, page }) => {
   let files: File[] = [];
 
   const component = await mount(
-    <OnyxFileUpload multiple onUpdate:modelValue={(newFiles) => (files = newFiles)} />,
+    <OnyxFileUpload size="large" multiple onUpdate:modelValue={(newFiles) => (files = newFiles)} />,
   );
   const button = component.getByRole("button", { name: "Click to select" });
 

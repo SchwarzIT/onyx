@@ -132,7 +132,7 @@ const handleDragEnter = () => {
       :class="[
         'onyx-file-upload',
         `onyx-file-upload--${props.size}`,
-        showError === true && size !== 'small' ? 'onyx-file-upload--error' : '',
+        showError === true && props.size !== 'small' ? 'onyx-file-upload--error' : '',
         isDragging ? 'onyx-file-upload--dragging' : '',
       ]"
       :disabled="disabled"
