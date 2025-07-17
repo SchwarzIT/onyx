@@ -4,7 +4,7 @@
       <NavBar />
     </template>
 
-    <div class="onyx-grid-container">
+    <div class="onyx-grid-layout">
       <NuxtPage />
     </div>
   </OnyxAppLayout>
