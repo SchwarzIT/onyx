@@ -20,6 +20,7 @@ const props = withDefaults(defineProps<OnyxButtonProps>(), {
   color: "primary",
   mode: "default",
   skeleton: SKELETON_INJECTED_SYMBOL,
+  iconPosition: "left",
 });
 
 const { densityClass } = useDensity(props);
@@ -28,6 +29,10 @@ const skeleton = useSkeletonContext(props);
 
 const ripple = useTemplateRef("rippleRef");
 const rippleEvents = computed(() => ripple.value?.events ?? {});
+
+const icon = computed(() => {
+  return props.icon && !props.loading ? props.icon : undefined;
+});
 </script>
 
 <template>
@@ -47,9 +52,14 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
     v-on="rippleEvents"
   >
     <OnyxRipple v-if="!disabled && !props.loading" ref="rippleRef" />
-    <OnyxIcon v-if="props.icon && !props.loading" class="onyx-button__icon" :icon="props.icon" />
+    <OnyxIcon v-if="icon && props.iconPosition === 'left'" class="onyx-button__icon" :icon="icon" />
     <OnyxLoadingIndicator v-if="props.loading" class="onyx-button__loading" />
     <span class="onyx-button__label onyx-truncation-ellipsis">{{ props.label }}</span>
+    <OnyxIcon
+      v-if="icon && props.iconPosition === 'right'"
+      class="onyx-button__icon"
+      :icon="icon"
+    />
   </ButtonOrLinkLayout>
 </template>
 
