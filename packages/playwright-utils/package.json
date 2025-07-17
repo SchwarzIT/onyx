@@ -3,9 +3,10 @@
   "description": "Utilities for Vue component testing with Playwright",
   "version": "1.0.0-beta.3",
   "type": "module",
+  "author": "Schwarz IT KG",
   "license": "Apache-2.0",
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "repository": {
     "type": "git",
