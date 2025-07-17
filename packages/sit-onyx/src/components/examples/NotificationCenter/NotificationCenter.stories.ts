@@ -10,7 +10,7 @@ const meta: Meta<typeof NotificationCenter> = {
     layout: "fullscreen",
     docs: {
       source: {
-        code: NotificationCenterCode.replace('from "../../.."', 'from "sit-onyx"'),
+        code: NotificationCenterCode.replace('from "../../../index.js"', 'from "sit-onyx"'),
       },
     },
     controls: {
