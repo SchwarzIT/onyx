@@ -6,7 +6,6 @@ import OnyxProgressStep from "./OnyxProgressStep.vue";
 const meta: Meta<typeof OnyxProgressStep> = {
   title: "Progress/ProgressStep",
   component: OnyxProgressStep,
-  tags: ["new:component"],
   argTypes: {
     ...withNativeEventLogging(["onClick"]),
   },

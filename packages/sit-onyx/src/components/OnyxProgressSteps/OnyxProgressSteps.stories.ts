@@ -5,7 +5,6 @@ import OnyxProgressSteps from "./OnyxProgressSteps.vue";
 const meta: Meta<typeof OnyxProgressSteps> = {
   title: "Progress/ProgressSteps",
   component: OnyxProgressSteps,
-  tags: ["new:component"],
 };
 
 export default meta;

@@ -1,5 +1,18 @@
 # sit-onyx
 
+## 1.0.0-beta.270
+
+### Patch Changes
+
+- Updated dependencies [eb481fe]
+  - @sit-onyx/icons@1.0.0-beta.20
+
+## 1.0.0-beta.269
+
+### Minor Changes
+
+- 6cddb20: feat(OnyxDataGrid): implement default sortings for default column types
+
 ## 1.0.0-beta.268
 
 ### Patch Changes

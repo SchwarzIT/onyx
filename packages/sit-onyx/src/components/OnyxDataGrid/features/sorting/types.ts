@@ -9,7 +9,7 @@ export type SortDirection = "asc" | "desc" | "none";
  * The returned number value indicates the relative order of two values:
  * -1: less than, 0: equal to, 1: greater than
  */
-export type Compare<T> = (a: T, b: T) => number;
+export type Compare<T> = (a: T, b: T, collator: Intl.Collator) => number;
 
 /**
  * The values by which the data is currently sorted.
@@ -48,4 +48,11 @@ export type SortOptions<TEntry extends DataGridEntry> = DataGridFeatureOptions<
    * The currently applied sorting. Will be updated by the data grid, can be used for reading, updating and watching the applied sorting.
    */
   sortState?: MaybeRef<SortState<TEntry>>;
+  /**
+   * The `Intl.Collator` used for the default (string-based) sorting.
+   * The collator allows for customizing the sorting behavior, see [MDN Collator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Collator/Collator).
+   *
+   * Defaults to `new Intl.Collator(i18n.locale.value, { numeric: true })` where `i18n` is the OnyxI18n instance.
+   */
+  collator?: MaybeRef<Intl.Collator>;
 };

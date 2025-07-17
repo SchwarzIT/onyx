@@ -102,7 +102,7 @@ export function createAdvancedStoryExample(componentName: string, exampleName: s
     parameters: {
       docs: {
         source: {
-          code: codeSnippet.replace('from "../../.."', 'from "sit-onyx"'),
+          code: codeSnippet.replace(/from "(\.\.\/)+\w*\.?\w*"/, 'from "sit-onyx"'),
         },
       },
       controls: {

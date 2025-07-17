@@ -1,5 +1,5 @@
 export type SingleOrderableMapping<T, TOutput = T, TInput = Readonly<TOutput>> = {
-  func: (input: TInput) => TOutput;
+  func: (input: TInput) => TInput | TOutput;
   order?: number;
 };
 
