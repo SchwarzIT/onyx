@@ -1,5 +1,11 @@
 # @sit-onyx/nuxt
 
+## 1.0.0-beta.272
+
+### Patch Changes
+
+- sit-onyx@1.0.0-beta.270
+
 ## 1.0.0-beta.271
 
 ### Patch Changes

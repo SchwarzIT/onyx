@@ -1,5 +1,14 @@
 # @sit-onyx/nuxt-docs
 
+## 1.0.0-beta.84
+
+### Patch Changes
+
+- Updated dependencies [eb481fe]
+  - @sit-onyx/icons@1.0.0-beta.20
+  - sit-onyx@1.0.0-beta.270
+  - @sit-onyx/nuxt@1.0.0-beta.272
+
 ## 1.0.0-beta.83
 
 ### Patch Changes
