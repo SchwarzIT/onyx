@@ -1,7 +1,10 @@
 <script lang="ts" setup>
 import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
+import eyeClosed from "@sit-onyx/icons/eye-closed.svg?raw";
+import eye from "@sit-onyx/icons/eye.svg?raw";
+
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
-import { computed, useTemplateRef } from "vue";
+import { computed, ref, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
 import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity.js";
@@ -94,6 +97,13 @@ const { disabled, showError } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
 const errorClass = useErrorClass(showError);
 useAutofocus(input, props);
+const showPassword = ref(false);
+const displayType = computed(() => {
+  if (props.type === "password" && showPassword.value) {
+    return "text";
+  }
+  return props.type;
+});
 </script>
 
 <template>
@@ -129,7 +139,7 @@ useAutofocus(input, props);
             v-custom-validity
             :placeholder="props.placeholder"
             class="onyx-input__native"
-            :type="props.type"
+            :type="displayType"
             :required="props.required"
             :autocapitalize="props.autocapitalize"
             :autocomplete="props.autocomplete"
@@ -144,7 +154,6 @@ useAutofocus(input, props);
             :title="props.hideLabel ? props.label : undefined"
             v-bind="restAttrs"
           />
-
           <button
             v-if="!props.hideClearIcon && modelValue !== ''"
             type="button"
@@ -165,7 +174,19 @@ useAutofocus(input, props);
           />
 
           <hr v-if="slots.trailing" class="onyx-input__separator onyx-input__separator--trailing" />
-          <slot name="trailing"></slot>
+          <slot name="trailing">
+            <button
+              v-if="props.type === 'password'"
+              type="button"
+              class="onyx-input__show-password"
+              :aria-label="showPassword ? t('input.hidePassword') : t('input.showPassword')"
+              :title="showPassword ? t('input.hidePassword') : t('input.showPassword')"
+              tabindex="-1"
+              @click="showPassword = !showPassword"
+            >
+              <OnyxIcon class="onyx-input__eye-icon" :icon="showPassword ? eyeClosed : eye" />
+            </button>
+          </slot>
         </div>
       </template>
     </OnyxFormElement>
@@ -199,7 +220,8 @@ useAutofocus(input, props);
     display: none;
   }
 
-  &__clear {
+  &__clear,
+  &__show-password {
     height: 100%;
     margin: 0;
     padding: 0;

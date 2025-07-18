@@ -172,7 +172,9 @@
     }
   },
   "input": {
-    "clear": "Eingabe löschen"
+    "clear": "Eingabe löschen",
+    "showPassword": "Passwort anzeigen",
+    "hidePassword": "Passwort verstecken"
   },
   "dialog": {
     "close": "Dialog schließen"
