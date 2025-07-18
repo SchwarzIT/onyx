@@ -34,16 +34,16 @@
     "test:coverage": "vitest run --coverage"
   },
   "devDependencies": {
-    "@nuxt/devtools": "^2.5.0",
+    "@nuxt/devtools": "^2.6.2",
     "@nuxt/kit": "^3.17.5",
     "@nuxt/module-builder": "^1.0.1",
     "@nuxt/schema": "^3.17.5",
-    "@nuxt/test-utils": "^3.19.1",
+    "@nuxt/test-utils": "^3.19.2",
     "@nuxtjs/i18n": "^9.5.5",
     "nuxt": "^3.17.5",
     "sit-onyx": "workspace:^",
     "typescript": "catalog:",
-    "vue-i18n": "^11.1.6"
+    "vue-i18n": "^11.1.10"
   },
   "peerDependencies": {
     "sit-onyx": "workspace:^"
