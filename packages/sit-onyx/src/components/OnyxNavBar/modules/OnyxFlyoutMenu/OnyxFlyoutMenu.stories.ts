@@ -13,7 +13,7 @@ import OnyxFlyoutMenu from "./OnyxFlyoutMenu.vue";
  * You can also use it to e.g. build custom nav modules like action buttons for your application. The flyout menu will then take care of basic styles and keyboard navigation.
  */
 const meta: Meta<typeof OnyxFlyoutMenu> = {
-  title: "Navigation/FlyoutMenu",
+  title: "Basic/FlyoutMenu",
   component: OnyxFlyoutMenu,
   decorators: [
     (story) => ({

@@ -9,7 +9,7 @@ import OnyxMenuItem from "./OnyxMenuItem.vue";
  * Menu item that is intended to be used inside the [OnyxUserMenu](/docs/navigation-navbar-modules-usermenu--docs).
  */
 const meta: Meta<typeof OnyxMenuItem> = {
-  title: "Navigation/NavBar/modules/MenuItem",
+  title: "Basic/MenuItem",
   component: OnyxMenuItem,
   argTypes: {
     default: { control: { type: "text" } },
