@@ -120,7 +120,7 @@ defineExpose({
     class="onyx-component onyx-nav-bar"
     :class="{ 'onyx-nav-bar--mobile': actualIsMobile }"
   >
-    <div class="onyx-nav-bar__content">
+    <div class="onyx-nav-bar__content onyx-grid-container">
       <span
         v-if="actualIsMobile && slots.mobileActivePage && !isBurgerOpen && !isContextOpen"
         class="onyx-nav-bar__mobile-page onyx-truncation-ellipsis"
@@ -235,7 +235,7 @@ $gap: var(--onyx-spacing-md);
     height: var(--onyx-nav-bar-height);
     z-index: var(--onyx-z-index-navigation);
     position: relative;
-    container-type: size;
+    container-type: inline-size;
 
     // implement bottom border with ::after so it does not add to the height
     &::after {

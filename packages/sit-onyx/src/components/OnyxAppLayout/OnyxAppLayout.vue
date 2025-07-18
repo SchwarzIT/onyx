@@ -48,6 +48,7 @@ const slots = defineSlots<{
     width: 100vw;
     display: grid;
     grid-template-rows: max-content 1fr;
+    container-type: inline-size;
 
     &--horizontal {
       grid-template-rows: none;

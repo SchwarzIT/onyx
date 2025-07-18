@@ -29,7 +29,7 @@ const { densityClass } = useDensity(props);
       props.hideBorder ? '' : 'onyx-bottom-bar--border',
     ]"
   >
-    <div class="onyx-bottom-bar__content">
+    <div class="onyx-bottom-bar__content onyx-grid-container">
       <div class="onyx-bottom-bar__content--left">
         <slot name="left"></slot>
       </div>
@@ -49,6 +49,7 @@ const { densityClass } = useDensity(props);
     bottom: 0;
     width: 100%;
     background-color: var(--onyx-color-base-background-blank);
+    container-type: inline-size;
 
     &--border {
       border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);

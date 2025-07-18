@@ -166,7 +166,7 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
 
 <template>
   <div class="onyx-text playground">
-    <div class="onyx-grid-container playground__container">
+    <div class="onyx-grid-layout playground__container">
       <OnyxHeadline is="h1" class="playground__headline">Grid and breakpoint demo</OnyxHeadline>
 
       <p v-if="!isFullscreen" class="playground__info-text">
@@ -223,7 +223,7 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
       </div>
     </div>
 
-    <div v-if="gridValues" class="playground__grid-values">
+    <div v-if="gridValues" class="playground__grid-values onyx-grid-container">
       <p class="playground__breakpoint">
         Current breakpoint: <span>{{ currentBreakpoint }}</span>
       </p>
@@ -269,8 +269,7 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
           </template>
         </OnyxNavBar>
       </div>
-
-      <div class="onyx-grid-container">
+      <div class="onyx-grid-layout">
         <div ref="gridRef" class="onyx-grid">
           <GridElement
             v-for="(element, index) in gridElements"
@@ -329,6 +328,7 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
   background-color: var(--onyx-color-base-background-tinted);
   overflow: scroll;
   height: 100vh;
+  container-type: inline-size;
 
   &__container {
     box-shadow: var(--onyx-shadow-medium-bottom);
@@ -384,6 +384,7 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
   &__grid-wrapper {
     overflow: hidden;
     min-height: 70vh;
+    container-type: inline-size;
   }
 
   &__badges {
@@ -393,7 +394,7 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
     flex-wrap: wrap;
   }
 
-  > .onyx-grid-container {
+  > .onyx-grid-layout {
     padding-bottom: var(--onyx-spacing-xl);
   }
 }

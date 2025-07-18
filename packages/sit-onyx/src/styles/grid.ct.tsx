@@ -5,6 +5,8 @@ import {
   ONYX_MAX_WIDTHS,
   type OnyxBreakpoint,
 } from "@sit-onyx/shared/breakpoints";
+import OnyxPageLayout from "../components/OnyxPageLayout/OnyxPageLayout.vue";
+import OnyxSidebar from "../components/OnyxSidebar/OnyxSidebar.vue";
 import { expect, test } from "../playwright/a11y.js";
 
 /**
@@ -74,10 +76,12 @@ Object.entries(GRID_COLUMNS).forEach(([name, columns]) => {
       height: 400,
     });
     await mount(
-      <main class="onyx-grid onyx-grid-container" style={{ outline: "1px solid red" }}>
-        {Array.from({ length: 16 }, (_, i) => createGridElement(i + 1))}
-        {createGridElement("full")}
-      </main>,
+      <OnyxPageLayout style={{ outline: "1px solid red" }}>
+        <main class="onyx-grid">
+          {Array.from({ length: 16 }, (_, i) => createGridElement(i + 1))}
+          {createGridElement("full")}
+        </main>
+      </OnyxPageLayout>,
     );
 
     // ASSERT
@@ -108,13 +112,12 @@ XL_VARIANTS.forEach(({ className, expectedColumns, breakpoint }) => {
     await page.setViewportSize({ width: ONYX_BREAKPOINTS[breakpoint] + 1, height: 400 });
 
     await mount(
-      <main
-        class={`onyx-grid onyx-grid-container ${className}`}
-        style={{ outline: "1px solid red" }}
-      >
-        {createGridElement(20)}
-        {createGridElement("full")}
-      </main>,
+      <OnyxPageLayout style={{ outline: "1px solid red" }}>
+        <main class={`onyx-grid ${className}`}>
+          {createGridElement(20)}
+          {createGridElement("full")}
+        </main>
+      </OnyxPageLayout>,
     );
 
     await expectComputedColumnCount(page, expectedColumns);
@@ -134,12 +137,11 @@ Object.entries(GRID_COLUMNS).forEach(([name, columns]) => {
       height: 400,
     });
     await mount(
-      <main
-        class="onyx-grid onyx-grid-container onyx-grid-max-md"
-        style={{ outline: "1px solid red" }}
-      >
-        {Array.from({ length: 16 }, (_, i) => createGridElement(i + 1))}
-      </main>,
+      <OnyxPageLayout style={{ outline: "1px solid red" }}>
+        <main class="onyx-grid onyx-grid-max-md">
+          {Array.from({ length: 16 }, (_, i) => createGridElement(i + 1))}
+        </main>
+      </OnyxPageLayout>,
     );
 
     // ASSERT
@@ -162,12 +164,11 @@ Object.entries(GRID_COLUMNS).forEach(([name, columns]) => {
       height: 400,
     });
     await mount(
-      <main
-        class="onyx-grid onyx-grid-container onyx-grid-max-lg"
-        style={{ outline: "1px solid red" }}
-      >
-        {Array.from({ length: 16 }, (_, i) => createGridElement(i + 1))}
-      </main>,
+      <OnyxPageLayout style={{ outline: "1px solid red" }}>
+        <main class="onyx-grid onyx-grid-max-lg">
+          {Array.from({ length: 16 }, (_, i) => createGridElement(i + 1))}
+        </main>
+      </OnyxPageLayout>,
     );
 
     // ASSERT
@@ -190,13 +191,15 @@ Object.entries(GRID_COLUMNS).forEach(([name], i) => {
       height: 400,
     });
     await mount(
-      <main class="onyx-grid onyx-grid-container" style={{ outline: "1px solid red" }}>
-        {createGridElement(
-          NaN,
-          `onyx-grid-span-16 onyx-grid-2xs-span-1 onyx-grid-xs-span-2 onyx-grid-sm-span-3 onyx-grid-md-span-4 onyx-grid-lg-span-5 onyx-grid-xl-span-6`,
-          "dynamic element",
-        )}
-      </main>,
+      <OnyxPageLayout style={{ outline: "1px solid red" }}>
+        <main class="onyx-grid">
+          {createGridElement(
+            NaN,
+            `onyx-grid-span-16 onyx-grid-2xs-span-1 onyx-grid-xs-span-2 onyx-grid-sm-span-3 onyx-grid-md-span-4 onyx-grid-lg-span-5 onyx-grid-xl-span-6`,
+            "dynamic element",
+          )}
+        </main>
+      </OnyxPageLayout>,
     );
     const element = page.getByText("dynamic element");
 
@@ -212,13 +215,15 @@ test(`default span should apply when no breakpoint span is active`, async ({ mou
     height: 400,
   });
   await mount(
-    <main class="onyx-grid onyx-grid-container" style={{ outline: "1px solid red" }}>
-      {createGridElement(
-        NaN,
-        `onyx-grid-span-4 onyx-grid-lg-span-5 onyx-grid-xl-span-6`,
-        "dynamic element",
-      )}
-    </main>,
+    <OnyxPageLayout style={{ outline: "1px solid red" }}>
+      <main class="onyx-grid">
+        {createGridElement(
+          NaN,
+          `onyx-grid-span-4 onyx-grid-lg-span-5 onyx-grid-xl-span-6`,
+          "dynamic element",
+        )}
+      </main>
+    </OnyxPageLayout>,
   );
   const element = page.getByText("dynamic element");
 
@@ -236,12 +241,20 @@ Object.entries(ONYX_MAX_WIDTHS).forEach(([breakpoint, size]) => {
     await page.setViewportSize({ width: ONYX_BREAKPOINTS.xl, height: 400 });
 
     await mount(
-      <main class={`onyx-grid-container ${className}`} style={{ outline: "1px solid red" }}>
-        {createGridElement(1)}
+      <main style={{ containerType: "inline-size" }}>
+        <div
+          class={`onyx-grid-layout ${className}`}
+          style={{ outline: "1px solid red", transition: "none" }}
+        >
+          {createGridElement(1)}
+        </div>
       </main>,
     );
 
-    const box = await page.locator("main").evaluate((el) => el.getBoundingClientRect());
+    const box = await page
+      .locator("div")
+      .nth(1)
+      .evaluate((el) => el.getBoundingClientRect());
 
     expect(box.left).toBe(0);
     expect(box.right).toBe(size);
@@ -259,20 +272,71 @@ Object.entries(ONYX_MAX_WIDTHS).forEach(([breakpoint, size]) => {
     await page.setViewportSize({ width: VIEWPORT_WIDTH, height: 400 });
 
     await mount(
-      <main
-        class={`onyx-grid-container ${className} onyx-grid-center`}
-        style={{ outline: "1px solid red" }}
-      >
-        {createGridElement(1)}
+      <main style={{ containerType: "inline-size" }}>
+        <div
+          class={`onyx-grid-layout ${className} onyx-grid-center`}
+          style={{ outline: "1px solid red", transition: "none" }}
+        >
+          {createGridElement(1)}
+        </div>
       </main>,
     );
 
-    const box = await page.locator("main").evaluate((el) => el.getBoundingClientRect());
+    const box = await page
+      .locator("div")
+      .nth(1)
+      .evaluate((el) => el.getBoundingClientRect());
 
     const EXPECTED_LEFT = (VIEWPORT_WIDTH - size) / 2;
     const EXPECTED_RIGHT = EXPECTED_LEFT + size;
 
     expect(box.left).toBe(EXPECTED_LEFT);
     expect(box.right).toBe(EXPECTED_RIGHT);
+  });
+});
+
+/**
+ * Map of column count per breakpoint.
+ */
+const SIDEBAR_GRID_COLUMNS = {
+  xs: 1,
+  sm: 2,
+  md: 4,
+  lg: 8,
+  xl: 12,
+};
+// 1 px small than the next breakpoint
+const SIDEBAR_TEST_WIDTH = {
+  xs: 199,
+  sm: 327,
+  md: 655,
+  lg: 991,
+  xl: 1000,
+};
+
+Object.entries(SIDEBAR_GRID_COLUMNS).forEach(([name, columns]) => {
+  test(`all 'onyx-grid-span-*' should have correct column count for ${name} breakpoint in the sidebar`, async ({
+    mount,
+    page,
+  }) => {
+    // ARRANGE
+    await mount(
+      <OnyxSidebar label="Example sidebar" style={{ width: SIDEBAR_TEST_WIDTH[name] + "px" }}>
+        <main class="onyx-grid onyx-grid-layout" style={{ outline: "1px solid red" }}>
+          {Array.from({ length: 16 }, (_, i) => createGridElement(i + 1))}
+          {createGridElement("full")}
+        </main>
+      </OnyxSidebar>,
+    );
+
+    // ASSERT
+    await fullPageScreenshot(page, `grid-sidebar-${name}.png`);
+    const allGridElements = await getAllGridElements(page);
+
+    for (let i = 0; i < allGridElements.length; i++) {
+      const element = allGridElements[i];
+      await expectComputedGridSpan(element, Math.min(i + 1, columns));
+      await expectComputedColumnCount(page, columns);
+    }
   });
 });

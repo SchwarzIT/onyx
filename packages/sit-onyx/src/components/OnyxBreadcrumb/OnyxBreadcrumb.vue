@@ -29,6 +29,7 @@ provideSkeletonContext(props);
     :class="[
       'onyx-component',
       'onyx-breadcrumb',
+      'onyx-grid-container',
       densityClass,
       props.container ? 'onyx-breadcrumb--container' : '',
     ]"

@@ -342,12 +342,12 @@ Object.entries(ONYX_BREAKPOINTS).forEach(([breakpoint, width]) => {
 
     /* eslint-disable playwright/no-conditional-in-test, playwright/no-conditional-expect -- prevent useless screenshots for breakpoints that don't have a max width */
     if (width > ONYX_BREAKPOINTS.md) {
-      const app = page.locator(".onyx-app");
+      const gridLayout = page.locator(".onyx-grid-layout");
 
-      await app.evaluate((element) => element.classList.add("onyx-grid-max-md"));
+      await gridLayout.evaluate((element) => element.classList.add("onyx-grid-max-md"));
       await expect(page).toHaveScreenshot(`grid-max-width-${breakpoint}.png`);
 
-      await app.evaluate((element) => element.classList.add("onyx-grid-center"));
+      await gridLayout.evaluate((element) => element.classList.add("onyx-grid-center"));
       await expect(page).toHaveScreenshot(`grid-max-center-${breakpoint}.png`);
     }
     /* eslint-enable */
@@ -377,13 +377,14 @@ test("should display More Items correctly", async ({ mount, page }) => {
       <OnyxNavItem link="#2" label="Menuitem 2" />
       <OnyxNavItem link="#3" label="Menuitem 3" />
       <OnyxNavItem link="#4" label="Menuitem 4" />
-      <OnyxNavItem link="#5" onClick={() => navItemClickEvents++} label="Menuitem 5" />
+      <OnyxNavItem link="#5" label="Menuitem 5" />
+      <OnyxNavItem link="#6" onClick={() => navItemClickEvents++} label="Menuitem 6" />
     </OnyxNavBar>,
   );
 
   const moreMenuItem = component.getByRole("menuitem", { name: /\+\d More/ });
   const firstMenuItem = component.getByRole("menuitem", { name: "Menuitem 0" });
-  const lastMenuItem = component.getByRole("menuitem", { name: "Menuitem 5" });
+  const lastMenuItem = component.getByRole("menuitem", { name: "Menuitem 6" });
 
   await test.step("on a wide screen all menuitems should visible", async () => {
     // ACT
@@ -428,7 +429,7 @@ test("should display More Items correctly", async ({ mount, page }) => {
 
   await test.step("on mobile breakpoint the mobile menu should work as expected", async () => {
     // ACT
-    await page.setViewportSize({ width: ONYX_BREAKPOINTS.sm, height: 800 });
+    await page.setViewportSize({ width: ONYX_BREAKPOINTS.xs, height: 800 });
     await component.getByLabel("Toggle burger menu").click();
 
     // ASSERT

@@ -33,7 +33,7 @@ If you want to get familiar with how the grid works, you can use our [grid playg
 ::: code-group
 
 ```html [Default]
-<main class="onyx-grid-container">
+<main class="onyx-grid-layout">
   <OnyxHeadline is="h1">Page headline</OnyxHeadline>
 
   <form class="onyx-grid">
@@ -48,7 +48,7 @@ If you want to get familiar with how the grid works, you can use our [grid playg
 <div class="onyx-grid-max-md onyx-grid-center">
   <OnyxNavBar app-name="Example" />
 
-  <main class="onyx-grid-container">
+  <main class="onyx-grid-layout">
     <OnyxHeadline is="h1">Page headline</OnyxHeadline>
 
     <form class="onyx-grid">
@@ -73,7 +73,7 @@ The same principles of span definition apply here: elements within the sidebar g
 ```html
 <OnyxSidebar label="Example sidebar" resizable>
   <template #header> Header content </template>
-  <div class="onyx-grid-container">
+  <div class="onyx-grid-layout">
     <div class="onyx-grid">
       <div>item</div>
       <div class="onyx-grid-span-2">span 2</div>
@@ -92,9 +92,19 @@ The same principles of span definition apply here: elements within the sidebar g
 
 The grid is configured via specific CSS classes which you can find below.
 
+#### Grid within a OnyxPageLayout
+
+When integrating the grid within a standard [OnyxPageLayout](https://storybook.onyx.schwarz/?path=/docs/layout-pagelayout--docs) component, the breakpoints are automatically calculated based on the width of the content. This ensures the grid adapts consistently with the main content area of your page.
+
+#### Usage without OnyxPageLayout
+
+For scenarios where the grid is used independently, outside of the OnyxPageLayout component, you must manually define its container. Apply `container-type: inline-size` to the component that should determine the grid's width. This allows for precise control over the responsive behavior, even in custom or isolated layouts.
+
+Additionally, if you're utilizing grid-related variables without directly applying the `onyx-grid` or `onyx-grid-layout` classes, you'll need to wrap your content within an `onyx-grid-container` to ensure these variables are correctly scoped and applied.
+
 ### Page padding and max width
 
-Use the `onyx-grid-container` class to set up the main page padding. Should be typically be set on the root component of every page.
+Use the `onyx-grid-layout` class to set up the main page padding. Should be typically be set on the root component of every page.
 
 Optionally, you can configure to limit the page content width at a specific breakpoint. This can help to maintain some white space for larger screens so the content does not take up e.g. the whole 4k screen width. To do so, set the following class on the very top element of your application:
 
