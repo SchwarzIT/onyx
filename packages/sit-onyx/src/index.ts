@@ -203,6 +203,9 @@ export * from "./components/OnyxTag/types.js";
 export { default as OnyxFileCard } from "./components/OnyxFileCard/OnyxFileCard.vue";
 export * from "./components/OnyxFileCard/types.js";
 
+export { default as OnyxFileTypeIcon } from "./components/OnyxFileTypeIcon/OnyxFileTypeIcon.vue";
+export * from "./components/OnyxFileTypeIcon/types.js";
+
 export { default as OnyxFileUpload } from "./components/OnyxFileUpload/OnyxFileUpload.vue";
 export * from "./components/OnyxFileUpload/types.js";
 
