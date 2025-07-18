@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { ref } from "vue";
-import { mockVueLifecycle } from "../../utils/vitest";
-import { useOutsideClick } from "./useOutsideClick";
+import { mockVueLifecycle } from "../../utils/vitest.js";
+import { useOutsideClick } from "./useOutsideClick.js";
 
 describe("useOutsideClick", () => {
   beforeEach(() => {

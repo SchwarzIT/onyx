@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { ChartData } from "chart.js";
 import { PolarArea } from "vue-chartjs";
-import { chartOptionsWithoutScales } from "../data";
+import { chartOptionsWithoutScales } from "../data.js";
 
 const chartData: ChartData<"polarArea"> = {
   labels: ["Label 1", "Label 2", "Label 3", "Label 4", "Label 5", "Label 6", "Label 7"],

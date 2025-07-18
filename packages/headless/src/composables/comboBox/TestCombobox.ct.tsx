@@ -1,5 +1,5 @@
 import { test } from "@playwright/experimental-ct-vue";
-import { comboboxSelectOnlyTesting, comboboxTesting } from "./createComboBox.testing";
+import { comboboxSelectOnlyTesting, comboboxTesting } from "./createComboBox.testing.js";
 import SelectOnlyCombobox from "./SelectOnlyCombobox.vue";
 import TestCombobox from "./TestCombobox.vue";
 

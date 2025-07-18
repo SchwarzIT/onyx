@@ -5,9 +5,9 @@ import { deepmerge } from "deepmerge-ts";
 import { DOCS_RENDERED } from "storybook/internal/core-events";
 import { addons } from "storybook/internal/preview-api";
 import type { ThemeVars } from "storybook/internal/theming";
-import { enhanceEventArgTypes } from "./actions";
-import { requiredGlobalType, withRequired } from "./required";
-import { ONYX_BREAKPOINTS, createTheme, type BrandDetails } from "./theme";
+import { enhanceEventArgTypes } from "./actions.js";
+import { requiredGlobalType, withRequired } from "./required.js";
+import { ONYX_BREAKPOINTS, createTheme, type BrandDetails } from "./theme.js";
 
 /**
  * Creates a default Storybook preview configuration for 'onyx' with the following features:

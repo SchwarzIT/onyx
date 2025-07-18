@@ -1,4 +1,4 @@
-import type { Data } from "./browser-loader.data";
+import type { Data } from "./browser-loader.data.js";
 
 // We need to mock the Data for Storybook
 export const data: Data = {

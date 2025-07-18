@@ -16,7 +16,7 @@ export const vuePluginOptions: Options = {
  *
  * See https://playwright.dev/docs/test-configuration
  */
-export const PLAYWRIGHT_BASE_CONFIG = {
+export const PLAYWRIGHT_BASE_CONFIG: PlaywrightTestConfig = {
   /**
    * SCREENSHOTS
    *
@@ -84,4 +84,4 @@ export const PLAYWRIGHT_BASE_CONFIG = {
     { name: "webkit", use: { ...devices["Desktop Safari"] } },
   ],
   testMatch: "**/*.@(ct|e2e).?(c|m)[jt]s?(x)",
-} as const satisfies PlaywrightTestConfig;
+};

@@ -1,6 +1,6 @@
 import { computed, toRef, toValue, useId, type MaybeRefOrGetter, type Ref } from "vue";
-import { createBuilder } from "../../utils/builder";
-import { useDismissible } from "../helpers/useDismissible";
+import { createBuilder } from "../../utils/builder.js";
+import { useDismissible } from "../helpers/useDismissible.js";
 
 export type CreateTooltipOptions = {
   /**

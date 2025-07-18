@@ -10,7 +10,7 @@ import {
   SidebarDemo,
   TooltipDemo,
   type SettingsSections,
-} from "../components/layout-demo";
+} from "../components/layout-demo/index.js";
 
 const settings = ref<SettingsSections>({
   content: { showLongPageContent: true },

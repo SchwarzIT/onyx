@@ -13,7 +13,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: getFilePath("./src/index.ts"),
-      formats: ["es", "cjs"],
+      formats: ["es"],
       fileName: "index",
     },
     rollupOptions: {

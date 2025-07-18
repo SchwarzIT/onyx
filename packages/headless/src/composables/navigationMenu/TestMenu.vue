@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import TestMenuButton from "../menuButton/TestMenuButton.vue";
-import { createNavigationMenu } from "./createMenu";
+import { createNavigationMenu } from "./createMenu.js";
 
 const {
   elements: { nav },

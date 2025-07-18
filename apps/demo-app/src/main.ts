@@ -8,7 +8,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import App from "./App.vue";
 import deDE from "./i18n/locales/de-DE.json";
 import enUS from "./i18n/locales/en-US.json";
-import { routes } from "./router";
+import { routes } from "./router/index.js";
 
 import "@fontsource-variable/source-code-pro";
 import "@fontsource-variable/source-sans-3";

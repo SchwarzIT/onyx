@@ -1,7 +1,7 @@
 import writeChangeset from "@changesets/write";
 import { exec } from "node:child_process";
 import { beforeEach, describe, expect, test, vi } from "vitest";
-import { generateChangeset } from "./generate-changeset";
+import { generateChangeset } from "./generate-changeset.js";
 
 vi.mock("node:child_process");
 vi.mock("node:fs/promises");

@@ -3,7 +3,11 @@
   "description": "SVG country flags for the onyx design system",
   "version": "1.0.0-beta.3",
   "type": "module",
+  "author": "Schwarz IT KG",
   "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/schwarzit/onyx",
@@ -13,15 +17,15 @@
     "url": "https://github.com/schwarzit/onyx/issues"
   },
   "files": [
-    "src",
+    "src/assets",
     "dist"
   ],
   "exports": {
     ".": {
-      "types": "./src/index.ts",
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./metadata": "./src/metadata.json",
+    "./metadata": "./dist/metadata.json",
     "./*": "./src/assets/*"
   },
   "scripts": {
@@ -31,6 +35,7 @@
   },
   "devDependencies": {
     "@changesets/write": "~0.4.0",
+    "@sit-onyx/shared": "workspace:^",
     "tsx": "^4.20.3"
   }
 }

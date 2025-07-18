@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { Default as ComponentRoadmapStory } from "./ComponentRoadmap.stories";
+import { Default as ComponentRoadmapStory } from "./ComponentRoadmap.stories.js";
 import OnyxHomePage from "./OnyxHomePage.vue";
 
 /**

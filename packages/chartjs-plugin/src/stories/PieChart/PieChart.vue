@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { ChartData } from "chart.js";
 import { Pie } from "vue-chartjs";
-import { chartOptions } from "../data";
+import { chartOptions } from "../data.js";
 
 const chartData: ChartData<"pie"> = {
   labels: ["Label 1", "Label 2", "Label 3", "Label 4"],

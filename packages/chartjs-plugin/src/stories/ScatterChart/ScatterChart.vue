@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { ChartData } from "chart.js";
 import { Scatter } from "vue-chartjs";
-import { chartOptions } from "../data";
+import { chartOptions } from "../data.js";
 
 const chartData: ChartData<"scatter"> = {
   datasets: [

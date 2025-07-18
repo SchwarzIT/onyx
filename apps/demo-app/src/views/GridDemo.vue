@@ -11,7 +11,7 @@ import {
   OnyxSidebarItem,
   OnyxSwitch,
 } from "sit-onyx";
-import { useGridStore } from "../stores/grid-store";
+import { useGridStore } from "../stores/grid-store.js";
 
 const gridStore = useGridStore();
 </script>

@@ -1,4 +1,4 @@
-import { isSubsetMatching } from "./object";
+import { isSubsetMatching } from "./object.js";
 
 export type PressedKey =
   | string
