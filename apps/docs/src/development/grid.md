@@ -104,7 +104,7 @@ Additionally, if you're utilizing grid-related variables without directly applyi
 
 ### Page padding and max width
 
-Use the `onyx-grid-container` class to set up the main page padding. Should be typically be set on the root component of every page.
+Use the `onyx-grid-layout` class to set up the main page padding. Should be typically be set on the root component of every page.
 
 Optionally, you can configure to limit the page content width at a specific breakpoint. This can help to maintain some white space for larger screens so the content does not take up e.g. the whole 4k screen width. To do so, set the following class on the very top element of your application:
 
