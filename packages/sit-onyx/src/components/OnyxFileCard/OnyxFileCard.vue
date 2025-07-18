@@ -79,6 +79,10 @@ const formatFileSize = computed(() => {
       flex-wrap: wrap;
       gap: var(--onyx-card-gap);
     }
+
+    &:hover {
+      background-color: var(--onyx-color-base-background-tinted);
+    }
   }
 }
 </style>
