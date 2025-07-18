@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.271
+
+### Patch Changes
+
+- Updated dependencies [1911f6c]
+  - @sit-onyx/shared@1.0.0-beta.4
+  - @sit-onyx/icons@1.0.0-beta.21
+
 ## 1.0.0-beta.270
 
 ### Patch Changes
