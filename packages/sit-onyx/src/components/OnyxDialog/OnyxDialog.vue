@@ -82,7 +82,6 @@ watch(
     :class="[
       'onyx-component',
       'onyx-dialog',
-      'onyx-grid-container',
       densityClass,
       'onyx-truncation-multiline',
       props.alignment !== 'center' ? `onyx-dialog--${props.alignment}` : '',
