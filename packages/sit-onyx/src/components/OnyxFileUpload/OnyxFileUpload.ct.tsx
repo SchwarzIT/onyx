@@ -16,42 +16,55 @@ const hooks: MatrixScreenshotTestOptions["hooks"] = {
     }
   },
 };
-
+const sizes: ("large" | "medium" | "small")[] = ["large", "medium", "small"];
 test.describe("Screenshot tests", () => {
-  executeMatrixScreenshotTest({
-    name: "File upload",
-    columns: DENSITIES,
-    rows: ["default", "hover", "focus-visible", "dragging"],
-    component: (column) => <OnyxFileUpload density={column} />,
-    hooks,
+  sizes.forEach((size) => {
+    executeMatrixScreenshotTest({
+      name: `File upload ${size}`,
+      columns: DENSITIES,
+      rows: ["default", "hover", "focus-visible", "dragging", "disabled", "skeleton"],
+      component: (column, row) => (
+        <OnyxFileUpload
+          density={column}
+          size={size}
+          disabled={row === "disabled"}
+          skeleton={row === "skeleton"}
+        />
+      ),
+      hooks,
+    });
   });
 });
 
-test.describe("Screenshot tests (disabled)", () => {
-  executeMatrixScreenshotTest({
-    name: "File upload (disabled)",
-    columns: ["disabled"],
-    rows: ["default", "hover", "focus-visible", "dragging"],
-    component: () => <OnyxFileUpload disabled />,
-    hooks,
+test.describe("Screenshot tests (error)", () => {
+  sizes.forEach((size) => {
+    executeMatrixScreenshotTest({
+      name: `File upload ${size} (error)`,
+      columns: ["error"],
+      rows: ["default", "hover", "focus-visible", "dragging"],
+      component: () => <OnyxFileUpload showError size={size} />,
+      hooks,
+    });
   });
 });
-
 test.describe("Screenshot tests (max. file sizes)", () => {
-  executeMatrixScreenshotTest({
-    name: "File upload (max. file sizes)",
-    columns: ["types", "size", "total", "count", "size-total", "types-size-total-count"],
-    rows: ["default", "hover", "focus-visible", "dragging"],
-    component: (column) => (
-      <OnyxFileUpload
-        accept={column.includes("types") ? [".pdf", ".jpg", ".png"] : undefined}
-        maxSize={column.includes("size") ? "4MiB" : undefined}
-        maxTotalSize={column.includes("total") ? "50MiB" : undefined}
-        maxCount={column.includes("count") ? 8 : undefined}
-        multiple
-      />
-    ),
-    hooks,
+  sizes.forEach((size) => {
+    executeMatrixScreenshotTest({
+      name: `File upload ${size} (max. file sizes)`,
+      columns: ["types", "size", "total", "count", "size-total", "types-size-total-count"],
+      rows: ["default", "hover", "focus-visible", "dragging"],
+      component: (column) => (
+        <OnyxFileUpload
+          size={size}
+          accept={column.includes("types") ? [".pdf", ".jpg", ".png"] : undefined}
+          maxSize={column.includes("size") ? "4MiB" : undefined}
+          maxTotalSize={column.includes("total") ? "50MiB" : undefined}
+          maxCount={column.includes("count") ? 8 : undefined}
+          multiple
+        />
+      ),
+      hooks,
+    });
   });
 });
 
@@ -88,7 +101,7 @@ test("should select a single file", async ({ mount, page }) => {
   let file: File | undefined;
 
   const component = await mount(
-    <OnyxFileUpload onUpdate:modelValue={(newFile) => (file = newFile)} />,
+    <OnyxFileUpload size="large" onUpdate:modelValue={(newFile) => (file = newFile)} />,
   );
   const button = component.getByRole("button", { name: "Click to select" });
 
@@ -116,7 +129,7 @@ test("should select multiple files", async ({ mount, page }) => {
   let files: File[] = [];
 
   const component = await mount(
-    <OnyxFileUpload multiple onUpdate:modelValue={(newFiles) => (files = newFiles)} />,
+    <OnyxFileUpload size="large" multiple onUpdate:modelValue={(newFiles) => (files = newFiles)} />,
   );
   const button = component.getByRole("button", { name: "Click to select" });
 

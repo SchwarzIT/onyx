@@ -17,6 +17,20 @@ export const Default = {
   },
 } satisfies Story;
 
+export const Medium = {
+  args: {
+    ...Default.args,
+    size: "medium",
+  },
+} satisfies Story;
+
+export const Small = {
+  args: {
+    ...Default.args,
+    size: "small",
+  },
+} satisfies Story;
+
 export const Multiple = {
   args: {
     ...Default.args,
