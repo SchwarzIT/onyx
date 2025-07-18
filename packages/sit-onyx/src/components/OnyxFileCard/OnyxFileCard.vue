@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import file from "@sit-onyx/icons/file.svg?raw";
 import { computed } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { injectI18n } from "../../i18n/index.js";
@@ -9,7 +8,7 @@ import {
   formatBytesToString,
 } from "../../utils/numbers.js";
 import OnyxCard from "../OnyxCard/OnyxCard.vue";
-import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxFileTypeIcon from "../OnyxFileTypeIcon/OnyxFileTypeIcon.vue";
 import type { OnyxFileCardProps } from "./types.js";
 
 const props = defineProps<OnyxFileCardProps>();
@@ -31,17 +30,12 @@ const formatFileSize = computed(() => {
     return formatBytesToString(locale.value, bytes);
   };
 });
-
-const icon = computed(() => {
-  // TODO: implement type detection here
-  return file;
-});
 </script>
 
 <template>
   <OnyxCard :class="['onyx-component', 'onyx-file-card', densityClass]">
     <div class="onyx-file-card__icon">
-      <OnyxIcon :icon="icon" />
+      <OnyxFileTypeIcon :type="props.type" />
     </div>
 
     <div class="onyx-text--small">
