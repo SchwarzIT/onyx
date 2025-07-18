@@ -200,6 +200,9 @@ export * from "./components/OnyxTabs/types.js";
 export { default as OnyxTag } from "./components/OnyxTag/OnyxTag.vue";
 export * from "./components/OnyxTag/types.js";
 
+export { default as OnyxFileCard } from "./components/OnyxFileCard/OnyxFileCard.vue";
+export * from "./components/OnyxFileCard/types.js";
+
 export { default as OnyxFileUpload } from "./components/OnyxFileUpload/OnyxFileUpload.vue";
 export * from "./components/OnyxFileUpload/types.js";
 
