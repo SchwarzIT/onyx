@@ -2151,7 +2151,7 @@
   },
   "server-edit": {
     "category": "Network & Infrastructure",
-    "aliases": []
+    "aliases": ["custom image", "Stift", "Bearbeiten", "Service"]
   },
   "server-lock": {
     "category": "Network & Infrastructure",
