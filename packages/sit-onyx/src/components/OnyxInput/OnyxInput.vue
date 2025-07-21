@@ -23,6 +23,7 @@ import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
+import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import type { OnyxInputProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxInputProps>(), {
@@ -173,19 +174,18 @@ const displayType = computed(() => {
             color="success"
           />
 
-          <hr v-if="slots.trailing" class="onyx-input__separator onyx-input__separator--trailing" />
+          <hr
+            v-if="slots.trailing || props.type === 'password'"
+            class="onyx-input__separator onyx-input__separator--trailing"
+          />
           <slot name="trailing">
-            <button
+            <OnyxSystemButton
               v-if="props.type === 'password'"
-              type="button"
-              class="onyx-input__show-password"
-              :aria-label="showPassword ? t('input.hidePassword') : t('input.showPassword')"
-              :title="showPassword ? t('input.hidePassword') : t('input.showPassword')"
+              :icon="showPassword ? eyeClosed : eye"
+              :label="showPassword ? t('input.hidePassword') : t('input.showPassword')"
               tabindex="-1"
               @click="showPassword = !showPassword"
-            >
-              <OnyxIcon class="onyx-input__eye-icon" :icon="showPassword ? eyeClosed : eye" />
-            </button>
+            />
           </slot>
         </div>
       </template>
@@ -220,8 +220,7 @@ const displayType = computed(() => {
     display: none;
   }
 
-  &__clear,
-  &__show-password {
+  &__clear {
     height: 100%;
     margin: 0;
     padding: 0;

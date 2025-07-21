@@ -173,7 +173,7 @@ export const SuccessInput: Story = {
 /**
  * This example shows an password input.
  */
-export const PasswordInput: Story = {
+export const Password: Story = {
   tags: ["new:feature"],
   args: {
     ...Default.args,
