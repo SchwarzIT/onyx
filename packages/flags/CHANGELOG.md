@@ -14,11 +14,9 @@
 - 80d36ec: feat: update flags
 
   #### Renamed
-
   - GF => PF
 
   #### Modified
-
   - LI
   - ME
   - MU
@@ -40,11 +38,9 @@
 - 88e1af3: feat: update flags
 
   #### New
-
   - CC
 
   #### Modified
-
   - CK
 
 ## 1.0.0-beta.1
@@ -61,7 +57,6 @@
 - 8b48c62: feat: update flags
 
   #### New
-
   - AD
   - AE
   - AF
