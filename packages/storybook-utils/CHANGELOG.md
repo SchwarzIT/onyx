@@ -94,6 +94,7 @@
   #### Replaced storybook-dark-mode package
 
   The `storybook-dark-mode` package was replaced with the maintenance fork `@vueless/storybook-dark-mode`. See [this issue](https://github.com/hipstersmoothie/storybook-dark-mode/issues/295#issuecomment-2938151892) for further information. To migrate:
+
   - replace `storybook-dark-mode` with `@vueless/storybook-dark-mode` in your `.storybook/main.ts` file
   - install `@vueless/storybook-dark-mode` (as devDependency)
   - uninstall package `storybook-dark-mode`
