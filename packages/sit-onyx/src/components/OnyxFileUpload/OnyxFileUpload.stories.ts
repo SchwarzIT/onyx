@@ -4,7 +4,6 @@ import OnyxFileUpload from "./OnyxFileUpload.vue";
 const meta: Meta<typeof OnyxFileUpload> = {
   title: "Form Elements/FileUpload",
   component: OnyxFileUpload,
-  tags: ["new:component"],
 };
 
 export default meta;

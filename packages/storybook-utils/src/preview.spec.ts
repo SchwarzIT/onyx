@@ -2,7 +2,7 @@ import bellRing from "@sit-onyx/icons/bell-ring.svg?raw";
 import calendar from "@sit-onyx/icons/calendar.svg?raw";
 import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
 import { describe, expect, test } from "vitest";
-import { replaceAll, sourceCodeTransformer } from "./preview";
+import { replaceAll, sourceCodeTransformer } from "./preview.js";
 
 describe("preview.ts", () => {
   test("should transform source code and add icon/onyx imports", () => {

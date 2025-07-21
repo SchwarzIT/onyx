@@ -1,5 +1,30 @@
 # @sit-onyx/vitepress-theme
 
+## 1.0.0-beta.272
+
+### Major Changes
+
+- 1911f6c: feat(dist)!: Removed commonjs builds
+
+  - **BREAKING CHANGE:** We dropped commonjs (cjs) builds and packages are now shipped as a [pure esm package](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c#pure-esm-package). Node >= 18 is required.
+
+### Patch Changes
+
+- sit-onyx@1.0.0-beta.271
+
+## 1.0.0-beta.271
+
+### Patch Changes
+
+- sit-onyx@1.0.0-beta.270
+
+## 1.0.0-beta.270
+
+### Patch Changes
+
+- Updated dependencies [6cddb20]
+  - sit-onyx@1.0.0-beta.269
+
 ## 1.0.0-beta.269
 
 ### Patch Changes

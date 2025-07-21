@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, useTemplateRef } from "vue";
-import { createComboBox } from "./createComboBox";
+import { createComboBox } from "./createComboBox.js";
 
 const options = ["a", "b", "c", "d"];
 const isExpanded = ref(false);

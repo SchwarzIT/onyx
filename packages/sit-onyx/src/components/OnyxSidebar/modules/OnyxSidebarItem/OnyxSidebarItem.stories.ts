@@ -8,7 +8,6 @@ import OnyxSidebarItem from "./OnyxSidebarItem.vue";
 const meta: Meta<typeof OnyxSidebarItem> = {
   title: "Navigation/Sidebar/modules/SidebarItem",
   component: OnyxSidebarItem,
-  tags: ["new:component"],
   argTypes: {
     ...withNativeEventLogging(["onClick"]),
     default: { control: { disable: true } },

@@ -1,4 +1,4 @@
-import { generateChangeset } from "./generate-changeset";
+import { generateChangeset } from "./generate-changeset.js";
 
 await generateChangeset({
   packageName: "@sit-onyx/icons",

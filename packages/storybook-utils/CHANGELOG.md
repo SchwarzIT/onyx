@@ -1,5 +1,26 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-beta.96
+
+### Major Changes
+
+- 1911f6c: feat(dist)!: Removed commonjs builds
+
+  - **BREAKING CHANGE:** We dropped commonjs (cjs) builds and packages are now shipped as a [pure esm package](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c#pure-esm-package). Node >= 18 is required.
+
+### Patch Changes
+
+- Updated dependencies [1911f6c]
+  - @sit-onyx/shared@1.0.0-beta.4
+  - @sit-onyx/icons@1.0.0-beta.21
+
+## 1.0.0-beta.95
+
+### Patch Changes
+
+- Updated dependencies [eb481fe]
+  - @sit-onyx/icons@1.0.0-beta.20
+
 ## 1.0.0-beta.94
 
 ### Patch Changes

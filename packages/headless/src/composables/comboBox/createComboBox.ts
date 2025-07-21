@@ -1,14 +1,14 @@
 import { computed, unref, useId, type MaybeRef, type Ref } from "vue";
-import { createBuilder } from "../../utils/builder";
-import { isPrintableCharacter, wasKeyPressed, type PressedKey } from "../../utils/keyboard";
-import type { Nullable } from "../../utils/types";
-import { useOutsideClick } from "../helpers/useOutsideClick";
-import { useTypeAhead } from "../helpers/useTypeAhead";
+import { createBuilder } from "../../utils/builder.js";
+import { isPrintableCharacter, wasKeyPressed, type PressedKey } from "../../utils/keyboard.js";
+import type { Nullable } from "../../utils/types.js";
+import { useOutsideClick } from "../helpers/useOutsideClick.js";
+import { useTypeAhead } from "../helpers/useTypeAhead.js";
 import {
   createListbox,
   type CreateListboxOptions,
   type ListboxValue,
-} from "../listbox/createListbox";
+} from "../listbox/createListbox.js";
 
 /** See https://w3c.github.io/aria/#aria-autocomplete */
 export type ComboboxAutoComplete = "none" | "list" | "both";

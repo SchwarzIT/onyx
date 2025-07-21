@@ -29,6 +29,5 @@ export const Skeleton = {
 } satisfies Story;
 
 export const Slots = {
-  tags: ["new:feature"],
   ...createAdvancedStoryExample("OnyxDataGrid", "SlotsExample"),
 } satisfies Story;

@@ -1,17 +1,19 @@
 {
   "name": "@sit-onyx/figma-utils",
   "description": "Utility functions and CLI for importing data from the Figma API into different formats (e.g. CSS, SCSS etc.)",
-  "version": "1.0.0-beta.8",
+  "version": "1.0.0-beta.9",
   "type": "module",
+  "author": "Schwarz IT KG",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20"
+  },
   "bin": {
     "@sit-onyx/figma-utils": "./dist/cli.js"
   },
   "files": [
     "dist"
   ],
-  "engines": {
-    "node": ">=20"
-  },
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {

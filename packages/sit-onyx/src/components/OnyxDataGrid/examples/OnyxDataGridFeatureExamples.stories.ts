@@ -13,7 +13,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Async: Story = {
   ...createAdvancedStoryExample("OnyxDataGrid", "AsyncExample"),
-  tags: ["new:feature"],
 };
 
 export const Filtering: Story = {
@@ -21,7 +20,6 @@ export const Filtering: Story = {
 };
 
 export const Pagination: Story = {
-  tags: ["new:feature"],
   ...createAdvancedStoryExample("OnyxDataGrid", "PaginationExample"),
 };
 

@@ -1,10 +1,13 @@
 {
   "name": "@sit-onyx/vitepress-theme",
   "description": "VitePress theme that uses the onyx design system",
-  "version": "1.0.0-beta.269",
+  "version": "1.0.0-beta.272",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20"
+  },
   "files": [
     "src"
   ],

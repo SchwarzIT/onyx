@@ -1,8 +1,8 @@
-import fs from "node:fs";
+import * as fs from "node:fs";
 import { defineLoader } from "vitepress";
 import type { HomePageData } from "./.vitepress/components/OnyxHomePage.vue";
-import { getOnyxNpmPackages } from "./.vitepress/utils";
-import { executeGitHubRequest } from "./github-api";
+import { getOnyxNpmPackages } from "./.vitepress/utils.js";
+import { executeGitHubRequest } from "./github-api.js";
 
 declare const data: HomePageData;
 export { data };

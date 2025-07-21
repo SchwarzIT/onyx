@@ -1,4 +1,4 @@
-import { getOnyxNpmPackages } from "../../../.vitepress/utils";
+import { getOnyxNpmPackages } from "../../../.vitepress/utils.js";
 
 // https://vitepress.dev/guide/routing#dynamically-generating-paths
 export default {

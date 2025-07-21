@@ -1,6 +1,8 @@
 import { test } from "../../../playwright/a11y.js";
-import { executeMatrixScreenshotTest } from "../../../playwright/screenshots.js";
-import { illustrationScreenshotHooks } from "../playwright-utils.jsx";
+import {
+  executeMatrixScreenshotTest,
+  illustrationScreenshotHooks,
+} from "../../../playwright/screenshots.js";
 import OnyxFileUploadSVG from "./OnyxFileUploadSVG.vue";
 
 test.describe("Screenshot tests", () => {

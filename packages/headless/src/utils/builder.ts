@@ -8,7 +8,7 @@ import {
   type WritableComputedOptions,
   type WritableComputedRef,
 } from "vue";
-import type { IfDefined } from "./types";
+import type { IfDefined } from "./types.js";
 
 /**
  * Properties as they can be used by `v-bind` on an HTML element.

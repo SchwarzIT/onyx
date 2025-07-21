@@ -6,10 +6,6 @@ import inbox from "@sit-onyx/icons/inbox.svg?raw";
 import settings from "@sit-onyx/icons/settings.svg?raw";
 import { computed, ref } from "vue";
 import {
-  SKELETON_INJECTED_SYMBOL,
-  useSkeletonContext,
-} from "../../../composables/useSkeletonState.js";
-import {
   OnyxAccordion,
   OnyxAccordionItem,
   OnyxAppLayout,
@@ -28,7 +24,9 @@ import {
   OnyxNotificationDot,
   OnyxNotifications,
   OnyxUserMenu,
+  SKELETON_INJECTED_SYMBOL,
   useNotification,
+  useSkeletonContext,
   type OnyxNotificationCardProps,
 } from "../../../index.js";
 
@@ -41,10 +39,13 @@ type MyNotification = OnyxNotificationCardProps & {
    */
   description: string;
 };
+
 const props = withDefaults(defineProps<MyNotification>(), {
   skeleton: SKELETON_INJECTED_SYMBOL,
 });
+
 const skeleton = useSkeletonContext(props);
+
 /**
  * Store that will persist all user notifications of the application.
  * In a real project, this could e.g. be a pinia store.

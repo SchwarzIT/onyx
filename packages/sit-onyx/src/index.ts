@@ -232,6 +232,7 @@ export * from "./composables/density.js";
 export * from "./composables/scrollEnd.js";
 export * from "./composables/themeTransition.js";
 export * from "./composables/useLink.js";
+export * from "./composables/useSkeletonState.js";
 
 export { provideI18n, type TranslationFunction } from "./i18n/index.js";
 export type { OnyxTranslations, ProvideI18nOptions } from "./i18n/index.js";

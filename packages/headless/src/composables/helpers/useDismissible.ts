@@ -1,5 +1,5 @@
 import { computed, type Ref } from "vue";
-import { useGlobalEventListener } from "./useGlobalListener";
+import { useGlobalEventListener } from "./useGlobalListener.js";
 
 type UseDismissibleOptions = { isExpanded: Ref<boolean> };
 

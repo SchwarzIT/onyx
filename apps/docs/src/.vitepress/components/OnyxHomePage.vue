@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { OnyxHeadline } from "sit-onyx";
+import packageJson from "sit-onyx/package.json";
 import { computed } from "vue";
-import packageJson from "../../../../../packages/sit-onyx/package.json";
 import type { ComponentCardProps } from "./ComponentCard.vue";
 import ComponentRoadmap from "./ComponentRoadmap.vue";
 import RoadmapCard from "./RoadmapCard.vue";

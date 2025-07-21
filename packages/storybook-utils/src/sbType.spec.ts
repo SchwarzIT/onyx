@@ -1,6 +1,6 @@
 import type { SBType } from "storybook/internal/types";
 import { describe, expect, test, vi } from "vitest";
-import { walkTree } from "./sbType";
+import { walkTree } from "./sbType.js";
 
 describe("walkTree", () => {
   test.each<{ input: SBType; expected: SBType["name"][] }>([

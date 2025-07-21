@@ -1,6 +1,6 @@
 import type { StoryContextForEnhancers } from "storybook/internal/types";
 import { expect, test } from "vitest";
-import { enhanceEventArgTypes } from "./actions";
+import { enhanceEventArgTypes } from "./actions.js";
 
 test("should enhance event arg types", () => {
   const argTypes = {

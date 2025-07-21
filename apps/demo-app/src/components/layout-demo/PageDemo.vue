@@ -1,8 +1,14 @@
 <script lang="ts" setup>
 import { OnyxHeadline } from "sit-onyx";
 import { computed } from "vue";
-import type { SettingsSections } from ".";
-import { FloatingButtonDemo, FlyoutDemo, LayoutSettings, StickyDemo, TooltipDemo } from ".";
+import type { SettingsSections } from "./index.js";
+import {
+  FloatingButtonDemo,
+  FlyoutDemo,
+  LayoutSettings,
+  StickyDemo,
+  TooltipDemo,
+} from "./index.js";
 
 const settings = defineModel<SettingsSections>({ required: true });
 const isSidebarOpen = defineModel<boolean>("isSidebarOpen");

@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { MathUtils } from "./math";
+import { MathUtils } from "./math.js";
 
 describe("MathUtils.clamp", () => {
   test.each([

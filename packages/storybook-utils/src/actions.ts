@@ -4,7 +4,7 @@ import { useArgs } from "storybook/internal/preview-api";
 import type { ArgTypes, ArgTypesEnhancer, StrictInputType } from "storybook/internal/types";
 import { h, isReactive, reactive, watch, type Component, type Events } from "vue";
 import type { ComponentProps, ComponentSlots } from "vue-component-type-helpers";
-import { EVENT_DOC_MAP } from "./events";
+import { EVENT_DOC_MAP } from "./events.js";
 
 type ComponentEmits<Props extends ComponentProps<unknown>> = keyof {
   [Key in keyof Props as Key extends `on${string}` ? Key : never]: true;

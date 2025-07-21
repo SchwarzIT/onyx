@@ -1,8 +1,13 @@
 {
   "name": "demo-app",
   "private": true,
-  "version": "1.0.0-beta.268",
+  "version": "1.0.0-beta.271",
   "type": "module",
+  "author": "Schwarz IT KG",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
