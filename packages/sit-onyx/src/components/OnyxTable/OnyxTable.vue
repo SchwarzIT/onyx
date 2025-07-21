@@ -238,6 +238,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
       font-size: var(--onyx-font-size-sm);
       line-height: var(--onyx-font-line-height-sm);
       font-weight: var(--onyx-font-weight-semibold);
+      font-family: var(--onyx-font-family-h4);
 
       &:not(.onyx-table__colgroup) {
         background-color: var(--onyx-color-base-neutral-200);
@@ -247,6 +248,13 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
           background: var(--onyx-color-base-neutral-300);
         }
       }
+    }
+
+    td {
+      font-family: var(--onyx-font-family-data);
+      font-size: var(--onyx-font-size-md);
+      font-weight: var(--onyx-font-weight-400);
+      line-height: var(--onyx-font-line-height-md);
     }
 
     // we need to use ::before to set the row/td background color
