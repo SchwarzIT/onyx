@@ -56,6 +56,8 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.2",
+    "@playwright/experimental-ct-vue": "catalog:",
+    "@playwright/test": "catalog:",
     "@sit-onyx/flags": "workspace:^",
     "@sit-onyx/headless": "workspace:^",
     "@sit-onyx/playwright-utils": "workspace:^",
