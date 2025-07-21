@@ -37,6 +37,8 @@
     "sit-onyx": "workspace:^"
   },
   "devDependencies": {
+    "@playwright/experimental-ct-vue": "catalog:",
+    "@playwright/test": "catalog:",
     "@sit-onyx/shared": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",
     "@vue/compiler-dom": "catalog:",
