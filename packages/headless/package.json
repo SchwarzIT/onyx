@@ -9,12 +9,18 @@
     "node": ">=20"
   },
   "files": [
-    "src"
+    "dist"
   ],
-  "types": "./src/index.ts",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./src/index.ts",
-    "./playwright": "./src/playwright.ts"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./playwright": {
+      "types": "./playwright/index.d.ts",
+      "default": "./playwright/index.js"
+    }
   },
   "homepage": "https://onyx.schwarz/development/packages/headless.html",
   "repository": {
@@ -26,17 +32,20 @@
     "url": "https://github.com/SchwarzIT/onyx/issues"
   },
   "scripts": {
-    "build": "vue-tsc --build --force",
+    "build": "vite build",
     "test": "vitest",
     "test:playwright": "playwright install && playwright test"
   },
   "peerDependencies": {
     "typescript": ">= 5",
-    "vue": ">= 3.5.0"
+    "vue": ">= 3.5.0",
+    "@playwright/experimental-ct-vue": "catalog:",
+    "@playwright/test": "catalog:"
   },
   "devDependencies": {
     "@sit-onyx/shared": "workspace:^",
     "@vue/compiler-dom": "catalog:",
+    "vite-plugin-dts": "^4.5.4",
     "vue": "catalog:"
   }
 }
