@@ -59,6 +59,7 @@ const preview: Preview = {
           "Buttons",
           "Form Elements",
           "Basic",
+          "Cards",
           "Data",
           "Feedback",
           "Notifications",
