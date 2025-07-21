@@ -433,7 +433,9 @@ test("should show correct message", async ({ mount }) => {
 });
 
 test("should hide/show password", async ({ mount }) => {
-  const component = await mount(<OnyxInput label="Label" modelValue={"test"} type="password" />);
+  const component = await mount(
+    <OnyxInput label="Label" modelValue={"test"} type="password" style={{ width: "15rem" }} />,
+  );
 
   const input = component.getByLabel("Label");
   const eyeIcon = component.getByRole("button", { name: "Show Password" });
