@@ -5,7 +5,6 @@
 ### Major Changes
 
 - 1911f6c: feat(dist)!: Removed commonjs builds
-
   - **BREAKING CHANGE:** We dropped commonjs (cjs) builds and packages are now shipped as a [pure esm package](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c#pure-esm-package). Node >= 18 is required.
 
 ### Patch Changes
@@ -2305,7 +2304,6 @@
 ### Patch Changes
 
 - 25893ed: feat: add nuxt module to easily integrate onyx into nuxt projects
-
   - Add the global styles to the nuxt project
   - Auto imports all onyx components
   - Add nuxt section to the getting started guide

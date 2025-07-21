@@ -5,7 +5,6 @@
 ### Major Changes
 
 - 1911f6c: feat(dist)!: Removed commonjs builds
-
   - **BREAKING CHANGE:** We dropped commonjs (cjs) builds and packages are now shipped as a [pure esm package](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c#pure-esm-package). Node >= 18 is required.
 
 ### Patch Changes
@@ -687,7 +686,6 @@
 ### Patch Changes
 
 - ed69f4e: Fix some issues when trying to use the `@sit-onyx/nuxt-docs` package:
-
   - remove no longer existing OnyxNavButton in favor of OnyxNavItem. Also include type-check into the build to prevent such issues in the future
   - update docs to include missing required steps/configuration
   - use peerDependencies instead of dependencies
