@@ -1,5 +1,13 @@
 # @sit-onyx/headless
 
+## 1.0.0-beta.22
+
+### Major Changes
+
+- 4018961: feat(dist)!: Added esm build
+
+  - **BREAKING CHANGE:** Actual esm dist build was added. So far only typescript was provided.
+
 ## 1.0.0-beta.21
 
 ### Major Changes
