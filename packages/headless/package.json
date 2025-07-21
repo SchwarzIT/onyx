@@ -18,8 +18,8 @@
       "default": "./dist/index.js"
     },
     "./playwright": {
-      "types": "./playwright/index.d.ts",
-      "default": "./playwright/index.js"
+      "types": "./dist/playwright.d.ts",
+      "default": "./dist/playwright.js"
     }
   },
   "homepage": "https://onyx.schwarz/development/packages/headless.html",
