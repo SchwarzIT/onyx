@@ -1,5 +1,18 @@
 # @sit-onyx/nuxt
 
+## 1.0.0-beta.274
+
+### Major Changes
+
+- 928de9f: remove digits, kaufland and lidl theme since they are now only available for internal Schwarz employees
+
+  For further information and migration instructions, see our [theming docs](https://onyx.schwarz/development/theming.html)
+
+### Patch Changes
+
+- Updated dependencies [928de9f]
+  - sit-onyx@1.0.0-beta.272
+
 ## 1.0.0-beta.273
 
 ### Major Changes
