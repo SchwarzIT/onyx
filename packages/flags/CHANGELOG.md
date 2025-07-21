@@ -5,7 +5,6 @@
 ### Major Changes
 
 - 1911f6c: feat(dist)!: Removed commonjs builds
-
   - **BREAKING CHANGE:** We dropped commonjs (cjs) builds and packages are now shipped as a [pure esm package](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c#pure-esm-package). Node >= 18 is required.
 
 ## 1.0.0-beta.3
@@ -15,11 +14,9 @@
 - 80d36ec: feat: update flags
 
   #### Renamed
-
   - GF => PF
 
   #### Modified
-
   - LI
   - ME
   - MU
@@ -41,11 +38,9 @@
 - 88e1af3: feat: update flags
 
   #### New
-
   - CC
 
   #### Modified
-
   - CK
 
 ## 1.0.0-beta.1
@@ -62,7 +57,6 @@
 - 8b48c62: feat: update flags
 
   #### New
-
   - AD
   - AE
   - AF

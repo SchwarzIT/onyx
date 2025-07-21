@@ -5,7 +5,6 @@
 ### Major Changes
 
 - 1911f6c: feat(dist)!: Removed commonjs builds
-
   - **BREAKING CHANGE:** We dropped commonjs (cjs) builds and packages are now shipped as a [pure esm package](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c#pure-esm-package). Node >= 18 is required.
 
 ## 1.0.0-beta.8
@@ -59,7 +58,6 @@
 - 33700f9: refactor(icon-import): change alias separator to comma
 
   To use the previous behavior, change the alias separator to `|`:
-
   - if using CLI: add flag `-s "|"`
   - if using function: `parseComponentsToIcons({ aliasSeparator: "|" })`
 
