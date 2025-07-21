@@ -105,14 +105,14 @@ const showDetails = computed(() => {
 const isDragging = ref(false);
 
 const handleDrop = (event: DragEvent) => {
-  if (disabled) return;
+  if (disabled.value) return;
   isDragging.value = false;
   const files = Array.from(event.dataTransfer?.files ?? []);
   setFiles(files);
 };
 
 const handleDragEnter = () => {
-  if (disabled) return;
+  if (disabled.value) return;
   isDragging.value = true;
 };
 </script>
