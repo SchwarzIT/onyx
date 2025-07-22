@@ -34,7 +34,7 @@ const formatFileSize = computed(() => {
 
 <template>
   <OnyxCard :class="['onyx-component', 'onyx-file-card', densityClass]">
-    <div class="onyx-file-card__icon">
+    <div class="onyx-file-card__icon" aria-hidden="true">
       <OnyxFileTypeIcon :type="props.type" />
     </div>
 
