@@ -1,7 +1,10 @@
 <script lang="ts" setup>
-import { computed, ref, useTemplateRef } from "vue";
+import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
+import { computed, inject, ref, useId, useTemplateRef, watch } from "vue";
 import { useDensity } from "../../composables/density.js";
+import { getWindowInnerSize } from "../../composables/useResizeObserver.js";
 import OnyxDrawer from "../OnyxDrawer/OnyxDrawer.vue";
+import { SIDEBAR_INJECTION_KEY } from "../OnyxPageLayout/types.js";
 import OnyxResizeHandle from "../OnyxResizeHandle/OnyxResizeHandle.vue";
 import type { OnyxSidebarProps } from "./types.js";
 
@@ -54,11 +57,57 @@ const resizeHandleProps = computed(
       alignment: props.alignment === "left" ? "right" : "left",
     }) as const,
 );
+const { width: windowWidth } = getWindowInnerSize();
+const dispayAsDrawer = computed(() => props.drawer || windowWidth.value <= ONYX_BREAKPOINTS.sm);
+
+const _isDrawerOpen = ref(false);
+const sidebarContext = inject(SIDEBAR_INJECTION_KEY, undefined);
+const sidebarId = useId();
+
+const isDrawerOpen = computed<boolean>({
+  get: () => {
+    if (typeof props.drawer?.open === "boolean") {
+      return props.drawer.open;
+    }
+    if (sidebarContext) {
+      const foundSidebar = sidebarContext.sidebarItems.value.find(
+        (sidebar) => sidebar.id === sidebarId,
+      );
+      return foundSidebar ? foundSidebar.open : _isDrawerOpen.value;
+    }
+
+    return _isDrawerOpen.value;
+  },
+  set: (newVal: boolean) => {
+    if (sidebarContext) {
+      sidebarContext.updateItems({
+        id: sidebarId,
+        alignment: props.alignment,
+        open: newVal,
+        isDrawer: props.drawer ? true : false,
+      });
+    } else {
+      _isDrawerOpen.value = newVal;
+    }
+  },
+});
+watch(
+  [() => props.alignment],
+  () => {
+    sidebarContext?.updateItems({
+      id: sidebarId,
+      alignment: props.alignment,
+      open: isDrawerOpen.value,
+      isDrawer: props.drawer ? true : false,
+    });
+  },
+  { immediate: true },
+);
 </script>
 
 <template>
   <aside
-    v-if="!props.drawer"
+    v-if="!dispayAsDrawer"
     ref="sidebarRef"
     :class="[
       'onyx-component',
@@ -88,12 +137,18 @@ const resizeHandleProps = computed(
     v-else
     v-bind="props.drawer"
     ref="drawerRef"
+    :open="isDrawerOpen"
     :label="props.label"
     :density="props.density"
     class="onyx-sidebar"
     :style="widthStyle"
     :alignment="props.alignment"
-    @close="emit('close')"
+    @close="
+      () => {
+        isDrawerOpen = false;
+        emit('close');
+      }
+    "
   >
     <template v-if="!!slots.header" #headline>
       <slot name="header"></slot>

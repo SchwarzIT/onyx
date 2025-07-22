@@ -1,3 +1,4 @@
+import type { InjectionKey, Ref } from "vue";
 import type { SkeletonProvidedProp } from "../../composables/useSkeletonState.js";
 
 export type OnyxPageLayoutProps = Partial<SkeletonProvidedProp> & {
@@ -14,3 +15,21 @@ export type OnyxPageLayoutProps = Partial<SkeletonProvidedProp> & {
    */
   noPadding?: boolean;
 };
+export type SidebarItem = {
+  id: PropertyKey;
+  alignment: "left" | "right";
+  open: boolean;
+  isDrawer: boolean;
+};
+export type SidebarInjectionKey = InjectionKey<{
+  /**
+   * Array of all sidebar items.
+   */
+  sidebarItems: Readonly<Ref<SidebarItem[]>>;
+  /**
+   * Function to update the state of a Sidebar.
+   */
+  updateItems: (sidebar: SidebarItem) => void;
+}>;
+
+export const SIDEBAR_INJECTION_KEY = Symbol() as SidebarInjectionKey;

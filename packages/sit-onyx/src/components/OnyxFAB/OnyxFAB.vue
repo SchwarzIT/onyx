@@ -57,7 +57,7 @@ const triggerIcon = computed(() => {
 <template>
   <OnyxFABButton
     v-if="!hasOptions || skeleton"
-    class="onyx-fab"
+    :class="['onyx-fab', `onyx-fab--${props.alignment}`]"
     v-bind="props"
     :icon="triggerIcon"
     :skeleton
@@ -68,7 +68,7 @@ const triggerIcon = computed(() => {
     v-model:open="isExpanded"
     :label="props.label"
     trigger="click"
-    :class="['onyx-fab', densityClass]"
+    :class="['onyx-fab', `onyx-fab--${props.alignment}`, densityClass]"
     :alignment="props.alignment"
   >
     <template #button="{ trigger }">
@@ -100,7 +100,7 @@ const triggerIcon = computed(() => {
     right: var(--onyx-fab-viewport-gap);
     z-index: var(--onyx-z-index-notification);
 
-    &:has(.onyx-popover__dialog--alignment-left) {
+    &--left {
       right: unset;
       left: var(--onyx-fab-viewport-gap);
 
