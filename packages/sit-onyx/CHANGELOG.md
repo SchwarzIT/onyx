@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.273
+
+### Patch Changes
+
+- 68eeaa4: fix(OnyxCheckbox): update checked and indeterminate icon color in dark mode
+
 ## 1.0.0-beta.272
 
 ### Major Changes
