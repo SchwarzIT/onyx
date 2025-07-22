@@ -1,7 +1,7 @@
-import fs from "fs/promises";
+import { readFile } from "fs/promises";
 import { fileURLToPath } from "url";
 import { defineLoader } from "vitepress";
-import { cached } from "../cached";
+import { cached } from "../cached.js";
 
 const browserslistRcPath = fileURLToPath(new URL("../../../../.browserslistrc", import.meta.url));
 
@@ -30,7 +30,7 @@ export default defineLoader({
     let browserRules = "";
 
     try {
-      const data = await fs.readFile(browserslistRcPath, "utf8");
+      const data = await readFile(browserslistRcPath, "utf8");
       const lines = data.split("\n").filter((l) => !!l && !l.startsWith("#"));
       browserRules = lines.join("").trim();
     } catch {

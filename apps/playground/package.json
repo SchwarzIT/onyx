@@ -1,10 +1,13 @@
 {
   "name": "playground",
-  "version": "1.0.0-beta.270",
+  "version": "1.0.0-beta.271",
   "description": "Playground for the onyx Vue components",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20"
+  },
   "private": true,
   "homepage": "https://playground.onyx.schwarz",
   "scripts": {
@@ -18,7 +21,7 @@
   "dependencies": {
     "@sit-onyx/icons": "workspace:^",
     "@vue/repl": "~4.2.1",
-    "@vueuse/core": "^13.3.0",
+    "@vueuse/core": "^13.5.0",
     "sit-onyx": "workspace:^"
   },
   "devDependencies": {

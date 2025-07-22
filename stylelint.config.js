@@ -16,6 +16,7 @@ export default {
           "css-scrollbar",
           "css-touch-action",
           "css3-cursors",
+          "css-subgrid",
         ],
         ignorePartialSupport: true,
       },

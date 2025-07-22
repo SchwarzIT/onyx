@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { isSubsetMatching } from "./object";
+import { isSubsetMatching } from "./object.js";
 
 const referenceObj = { a: 42, b: "foo", c: null, d: true };
 

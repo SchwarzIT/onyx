@@ -1,8 +1,8 @@
-import fs from "node:fs";
+import * as fs from "node:fs";
 import { defineLoader } from "vitepress";
 import type { HomePageData } from "./.vitepress/components/OnyxHomePage.vue";
-import { getOnyxNpmPackages } from "./.vitepress/utils";
-import { executeGitHubRequest } from "./github-api";
+import { getOnyxNpmPackages } from "./.vitepress/utils.js";
+import { executeGitHubRequest } from "./github-api.js";
 
 declare const data: HomePageData;
 export { data };
@@ -56,6 +56,16 @@ export default defineLoader({
         name: "System button",
         status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/buttons-systembutton--docs",
+      },
+      {
+        name: "Floating Action Button",
+        status: "in-progress",
+        href: "https://storybook.onyx.schwarz/?path=/docs/buttons-fab--docs",
+      },
+      {
+        name: "Link",
+        status: "implemented",
+        href: "https://storybook.onyx.schwarz/?path=/docs/navigation-link--docs",
       },
       {
         name: "Radio group",
@@ -197,12 +207,26 @@ export default defineLoader({
         href: "https://storybook.onyx.schwarz/?path=/docs/form-elements-fileupload--docs",
       },
       {
+        name: "Form",
+        status: "in-progress",
+        href: "https://storybook.onyx.schwarz/?path=/docs/form-elements-form--docs",
+      },
+      {
+        name: "Grid Layout",
+        status: "implemented",
+        href: "https://storybook.onyx.schwarz/iframe.html?id=examples-gridplayground--default",
+      },
+      {
         name: "Breadcrumb",
         status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/navigation-breadcrumb--docs",
       },
       { name: "Table of Content", status: getImplementedStatus("OnyxTableOfContent") },
-      { name: "Wizard", status: getImplementedStatus("OnyxWizard") },
+      {
+        name: "ProgressSteps",
+        status: "implemented",
+        href: "https://storybook.onyx.schwarz/?path=/docs/progress-progresssteps--docs",
+      },
       { name: "Dual list", status: getImplementedStatus("OnyxDualList") },
       {
         name: "Tabs",

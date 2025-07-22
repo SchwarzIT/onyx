@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { ChartData } from "chart.js";
 import { Radar } from "vue-chartjs";
-import { chartOptionsWithoutScales } from "../data";
+import { chartOptionsWithoutScales } from "../data.js";
 
 const chartData: ChartData<"radar"> = {
   labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],

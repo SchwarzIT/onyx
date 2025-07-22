@@ -1,5 +1,27 @@
 # sit-onyx
 
+## 1.0.0-beta.273
+
+### Patch Changes
+
+- 68eeaa4: fix(OnyxCheckbox): update checked and indeterminate icon color in dark mode
+
+## 1.0.0-beta.272
+
+### Major Changes
+
+- 928de9f: remove digits, kaufland and lidl theme since they are now only available for internal Schwarz employees
+
+  For further information and migration instructions, see our [theming docs](https://onyx.schwarz/development/theming.html)
+
+## 1.0.0-beta.271
+
+### Patch Changes
+
+- Updated dependencies [1911f6c]
+  - @sit-onyx/shared@1.0.0-beta.4
+  - @sit-onyx/icons@1.0.0-beta.21
+
 ## 1.0.0-beta.270
 
 ### Patch Changes
@@ -50,7 +72,6 @@
 ### Major Changes
 
 - cc27e98: feat(dist)!: add dedicated entrypoint for bundlers
-
   - **BREAKING CHANGE:** We dropped commonjs (cjs) support and ship `sit-onyx` now as a [pure esm package](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c#pure-esm-package). Node >= 18 is required.
   - We now publish two entrypoints for `sit-onyx`, if you are using a bundler like `vite` you don't need to change anything:
     1. `./dist/index.esm-bundler.js`: _(Default)_ Non-minified build intended to be used with an bundler. Comes with source-maps and additional logging for an improved developer experience.
@@ -74,7 +95,6 @@
 ### Patch Changes
 
 - 2617d53: fix kaufland theme
-
   - fix: add missing neutral-carbon CSS variables which broke the kaufland theme
   - fix: update component showcase to import logo url instead of using absolut path so it shows correctly when importing the showcase
 
@@ -105,13 +125,11 @@
 ### Major Changes
 
 - fb01a85: - feat(OnyxDataGrid): support new `headline` property
-
   - fix(OnyxDataGrid): do not render empty slots
   - fix(OnyxDataGrid): fix pagination mutation order to work correctly when used together with filtering and/or selection
   - fix(OnyxDataGrid): do not render pagination skeleton when usePagination feature is disabled
 
   #### Breaking change
-
   - useSelection: remove property `disabled` in favor of new `enabled` property to align with other features
 
 ## 1.0.0-beta.255
@@ -155,7 +173,6 @@
 - dfd13a1: feat(OnyxDataGrid): support new `type` option for usePagination feature that supports lazy and button loading
 
   Also support new `_trAttributes` and `_columns` property for data grid entries/data:
-
   - `_trAttributes`: can be used to pass attributes that are bound directly to the `<tr>` element
   - `_columns`: override which columns to render for the specific row. Useful if creating custom full-width rows
 
@@ -195,7 +212,6 @@
 ### Minor Changes
 
 - cc9e7c6: feat(OnyxDataGrid): support new `usePagination` feature
-
   - features are now able to pass slots to the underlying OnyxTable of the data grid. Supported slots are: headline, bottomLeft and pagination (see [OnyxTable](https://storybook.onyx.schwarz/?path=/story/data-table--with-slots)).
   - the feature context now also includes the `skeleton` of the data grid which can be used for custom components
   - the skeleton now considers the current data when determining the skeleton count so the data grid layout does not shift
@@ -206,7 +222,6 @@
 ### Minor Changes
 
 - f838364: OnyxProgressStep and OnyxProgressSteps: support `skeleton` property
-
   - also make steps scrollable when width/height is exceeded
   - fix(OnyxProgressSteps): manage `highestValue` internally when not set explicitly
 
@@ -486,12 +501,10 @@
   The breaking changes in this version are:
 
   #### OnyxAppLayout
-
   - removed slot `pageOverlay` and `appOverlay`. Use the OnyxModalDialog, OnyxDialog or OnyxAlertDialog component instead
   - removed default colors for slots. The layout will now no longer define any default colors so they correct colors are taken from the passed slot content
 
   #### OnyxPageLayout
-
   - removed property `hideSidebar`. Use a `v-if` on your passed slot instead, e.g. `<template v-if="isSidebarVisible" #sidebar>`
   - removed property `footerAsideSidebar`. Use new `footerAlignment` instead.
   - removed default colors for slots. The layout will now no longer define any default colors so they correct colors are taken from the passed slot content
@@ -579,11 +592,9 @@
   Allow easier color overrides via CSS by using a updated CSS variables structure so you don't need to copy advanced selectors to override colors.
 
   #### Renamed variables
-
   - renamed `--onyx-button-background-hover-color` to `--onyx-button-background-color-hover`
 
   #### New variables
-
   - `--onyx-button-padding-inline`
   - `--onyx-button-background-color-disabled`
   - `--onyx-button-text-color-hover`
@@ -782,16 +793,18 @@
   ```
 
   #### Breaking changes
-
   - sorting feature: all columns will be enabled now by default (previously they were disabled)
   - hide columns feature: API / options for passing columns has changed to align with the other features
     - Old:
+
     ```ts
     DataGridFeatures.useHideColumns({
     columns: [{ name: "a" }, { name: "b", hidden: true }];
     });
     ```
+
     - New:
+
     ```ts
     DataGridFeatures.useHideColumns<Entry>({
       columns: {
@@ -854,7 +867,6 @@
 ### Patch Changes
 
 - 2b9cbb7: fix(OnyxDataGrid): improve string, number and fallback formatters
-
   - string/fallback formatter now renders "-" if undefined/null is passed. Also arrays are separated with comma and the array values are recursively formatted (undefined/null values are filtered out). Objects are formatted with `JSON.stringify()` instead of showing "[object Object]"
   - number formatter: null, true and false are not correctly formatted as fallback value "-".
 
@@ -952,7 +964,6 @@
   The OnyxAccordion now also supports a `v-model` for the currently opened items.
 
   #### Breaking changes
-
   - OnyxAccordionItem: remove `open` property. Use the new `v-model` / `modelValue` on the OnyxAccordion
   - OnyxAccordionItem: require new `value` property
 
@@ -1039,13 +1050,11 @@
   The Vue Router integration has been further improved in this version.
 
   #### Improvements
-
   - nav bar app area is now a link instead of a button which supports browser-native features like copy link address, open in a new tab etc.
   - the nav bar automatically closes mobile fly outs (like burger or context menu) when the current route changes, e.g. because the user clicked a nav item
   - fix bug that mobile nav item with children does not open child view but instead directly opens link
 
   #### Breaking changes
-
   - OnyxNavBar: remove `navigateToStart` event. App area link will be opened directly (integrated with router). The link defaults to `/` and can be changed by the new `appArea` property
   - OnyxNavBar: remove `appAreaLabel` property in favor of new `appArea` property
   - OnyxNavButton and OnyxNavItem: remove event `navigate` which is no longer needed. The links will be opened directly. External links via the browser, internal links via the provided router (or browser if no router is provided)
@@ -1077,14 +1086,12 @@
 ### Major Changes
 
 - f03482f: ### feat(OnyxDataGrid)!: Implemented support for column types and custom renderers into the feature API
-
   - The new feature property `typeRenderer` can be used to define custom renderers for column types. TypeRenderer keys of type `symbol` are intended for internal usage.
   - These types can now be specified in the `column` configuration with the new `ColumnConfig` type.
   - `watch` is not a required property anymore.
   - Features can now define `modifyColumns` to add, drop or change the normalized column configuration.
 
   ### feat(DataGridRenderer)!: Removed `prop` from `DataGridRendererColumn`.
-
   - The `component` has no need for this abstraction. Any props can be directly used in the passed component.
 
 ## 1.0.0-beta.138
@@ -1105,14 +1112,12 @@
   When passing internal links to onyx components, like OnyxLink, OnyxNavButton etc., they will be opened using the provided router instead of native browser links so no full page-reload is done in SPAs.
 
   #### Breaking changes
-
   - rename type `OnyxExternalLinkIcon` to `OnyxExternalLinkIconProps`
   - OnyxLink: make property `href` required
   - OnyxMenuItem: remove properties `href` and `target` in favor of new `link` property
   - OnyxNavButton and OnyxNavItem: remove properties `href`, `target` and `withExternalIcon` in favor of new `link` property
 
   #### Other changes
-
   - add new `OnyxRouterLink` component, `useLink` composable and `extractLinkProps` utility
 
 ## 1.0.0-beta.137
@@ -1138,12 +1143,10 @@
   If the username contains unsupported characters (e.g. for some Korean characters) a fallback icon will be displayed.
 
   Example for "John Middlename Doe":
-
   - Previously: "JM"
   - Now: "JD"
 
   #### Breaking changes
-
   - OnyxAvatar: The `label` property has been removed in favor of `fullName` which now als supports passing a locale for determining the initials (will use the i18n locale by default).
   - OnyxAvatar: The default slot has been removed in favor of the `initials` property to set custom initials.
   - OnyxUserMenu: The `username` property has been renamed to `fullName` to align with the OnyxAvatar
@@ -1174,7 +1177,6 @@
 - ece5641: chore: replace redundant useManagedState with defineModel
 
   The changes are mostly internal, but the typings were of `OnyxSelect` were improved:
-
   - The `modelValue` now infers a specific subtype of `SelectOptionValue` and the `options` values must match.
   - `withSearch`: Filtering of the options will not automatically disabled anymore when `searchTerm` is bound. Instead `noFilter` must be set.
 
@@ -1282,7 +1284,6 @@
 - 4464ff3: feat(OnyxHeadline): automatically normalize hash
 
   Other changes:
-
   - hide `#` when hash is set for screen readers
   - add hover title and screen reader text to hash link
   - remove `normalizeUrlHash()` method since this is now automatically done by the OnyxHeadline
@@ -1336,15 +1337,12 @@
 - 357ac46: feat(OnyxDataGrid): implement menu items for sorting feature
 
   #### Breaking changes
-
   - OnyxDataGrid: rename header actions property `listItems` to `menuItems`. It now expects `OnyxMenuItem` components instead of `OnyxListItem`
 
   #### Features
-
   - OnyxDataGrid: add German translations
 
   #### Fixes
-
   - OnyxDataGrid: update translations when locale changes
   - OnyxUserMenu: use `OnyxMenuItem` for footer instead of `OnyxListItem`
 
@@ -1353,7 +1351,6 @@
 ### Major Changes
 
 - 9e53a89: feat(OnyxStepper): update OnyxStepper API
-
   - remove property `step`, use `stepSize` instead
   - remove property `stripStep`, use `validStepSize` instead. User inputs will no longer be manipulated, instead an error will be shown
   - changed logic of `precision` property. Now determined numbers of decimal places to show. Is no longer the default value of `stepSize` property.
@@ -1404,7 +1401,6 @@
 ### Major Changes
 
 - aa6b94e: feat(OnyxModalDialog, OnyxAlertDialog): add `aria-describedby` attribute
-
   - OnyxModalDialog: renamed slot `subtitle` to `description`
 
 ## 1.0.0-beta.98
@@ -1468,7 +1464,6 @@
 ### Minor Changes
 
 - f36104b: feat(OnyxDataGrid): use `OnyxSystemButton` for header actions
-
   - fix(OnyxFlyoutMenu): correctly position flyout when open
 
 ## 1.0.0-beta.89
@@ -1502,7 +1497,6 @@
 ### Patch Changes
 
 - 1a11a27: fix: update OnyxAvatar and OnyxAvatarStack border to align with Figma
-
   - OnyxAvatar: remove border
   - OnyxAvatarStack: add primary border to all avatars
 
@@ -1526,7 +1520,6 @@
 - 5fba96d: fix: adjust component colors and align with Figma
 
   All components were updated to be aligned with the Figma UX design. This change brings several color/contrast improvements/fixes:
-
   - Button: Update background, text and border colors
   - Tag: Update text and border colors
   - IconButton: Update text colors
@@ -1571,7 +1564,6 @@
 - 6730706: feat(OnyxMoreList): support more indicator
 
   Also changed the underlying logic to calculate the component visibility which is now based on component widths instead of using IntersectionObservers.
-
   - OnyxMoreList: removed `disabled` property
   - OnyxMoreList: removed `is` property. Make sure to use the new `default` and `more` slots and bind the attributes passed to the slots using `v-bind`.
   - useMoreList: removed `disabled` and `componentRefs` option, added required `listRef` and `moreIndicatorRef` option
@@ -1584,7 +1576,6 @@
 - 9f23f13: feat: support `schwarz` theme
 
   For docs about how to use the theme, see our [theming docs](https://onyx.schwarz/development/theming.html).
-
   - `sit-onyx` now also exports a `ONYX_THEMES` array that includes a list of all available themes.
   - OnyxButton: adjust text color contrast
 
@@ -1605,7 +1596,6 @@
 ### Patch Changes
 
 - 554833c: feat: implement new figma varialbe structure
-
   - own dark and light colors for each theme
   - removed secondary color (visible in: OnyxBadge, OnyxIcon, OnyxTag)
 
@@ -1626,7 +1616,6 @@
 ### Major Changes
 
 - 4a4c414: ### BREAKING CHANGE:
-
   - feat(OnyxNavButton, OnyxUserMenu, OnyxFlyoutMenu): button slot now provides a trigger parameter which must be bound to the interactive element
   - feat(OnyxFlyoutMenu): Renamed "default" slot to "button"
 
@@ -1637,7 +1626,6 @@
 - 3f55c48: feat(OnyxTabs): support horizontal scrolling when overflowing
 
   The following additional features/fixes are also included:
-
   - OnyxTabs: add property `size` to change the font style
   - OnyxTabs: fix vertical alignment of tab text if its not selected
   - add CSS variable `--onyx-outline-width` and use it in all components for consistency
@@ -1655,7 +1643,6 @@
 ### Minor Changes
 
 - 8421235: feat(tabs): support keyboard navigation
-
   - Arrow left/right: Focus previous/next tab
   - Home: Focus first tab
   - End: Focus last tab
@@ -1700,7 +1687,6 @@
 ### Minor Changes
 
 - 3bc1d58: feat(OnyxStepper):
-
   - Implemented `stripStep` and `precision`.
   - Deprecated `step`, replacing it with `stepSize` and `precision`.
 
@@ -1801,7 +1787,6 @@
 ### Minor Changes
 
 - 8aa66eb: feat: implement basic OnyxDataGridRenderer component
-
   - also support column grouping for the `OnyxTable` component via the `columnGroups` property
 
 ## 1.0.0-beta.46
@@ -1830,7 +1815,6 @@
 ### Major Changes
 
 - e6af99b: feat: Remove/Rename emits that collide with native event names
-
   - OnyxInput, OnyxTextarea and OnyxStepper: Remove `focus` and `blur` event - Use `focusin`/`focusout` or `@focus.capture`/`@focus.blur` instead
   - OnyxInput and OnyxTextarea: Remove Vue `change` emit - You will now receive the native `@change` event, but the value must now retrieved with with `$event.target.value` or use `@update:modelvalue`
   - OnyxNavBar: Rename `appAreaClick` to `navigateToStart` and `backButtonClick` to `navigateBack`
@@ -1973,7 +1957,6 @@
 ### Major Changes
 
 - dae102e: refactor(OnyxSelect):
-
   - remove redundant `manualSearch` property in favor of inferring the managed state of searchTerm
   - omit `showfocus` which is only used to control OnyxSelectInput
 
@@ -2022,11 +2005,9 @@
 - 17c0aa5: refactor(OnyxSelect): restrict modelValue to only contain values
 
   #### Breaking changes
-
   - OnyxSelects `modelValue` now only needs TValue, not `SelectOption<TValue>`
 
   #### Features
-
   - OnyxSelect determines the displayed labels by comparing `modelValue` with `options`. This can be overridden by setting the new prop `valueLabel`.
   - OnyxSelect now filters the options internally when `searchTerm` is set. This can be overridden by setting the new prop `manualSearch`.
 
@@ -2037,7 +2018,6 @@
 - 258c3ec: refactor: implement new density CSS variables
 
   #### Breaking changes
-
   - remove CSS variable `--onyx-density`, can be replaced with 2rem, 2.5rem or 3rem accordingly for compact, default and cozy density
   - OnyxBadge: removed CSS variables `--onyx-badge-padding`, ` --onyx-badge-icon-padding`, `--onyx-badge-height` and `--onyx-badge-dot-size`
   - OnyxDialog: removed CSS variable `--onyx-dialog-padding`
@@ -2049,7 +2029,6 @@
   #### Features
 
   New density CSS variables were added and used inside all onyx components which automatically adjust their spacing based on the current density:
-
   - --onyx-density-3xs
   - --onyx-density-2xs
   - --onyx-density-xs
@@ -2061,13 +2040,11 @@
   - --onyx-density-4xl
 
   The following components now also support density:
-
   - OnyxCheckboxGroup / OnyxRadioGroup headline and horizontal layout
   - OnyxEmpty
   - OnyxTooltip
 
   #### Other bug fixes
-
   - several visual fixes/improvements related to density/spacing
   - fix(OnyxMiniSearch): translate placeholder
   - fix(OnyxSelectInput): disable autocomplete for native input
@@ -2094,7 +2071,6 @@
 - 25bfc85: feat(OnyxCheckbox, OnyxSwitch, OnyxRadioButton): show error messages in the title when invalid
 
   For components that don't support an error message footer, we now set the `title` to show the error message info in the default browser tooltip.
-
   - Supports custom errors as well as default errors, e.g. `required`.
   - Combines the error message with a hidden label in the `title`.
 
@@ -2165,7 +2141,6 @@
 - 6e14afd: fix(OnyxMobileNavButton): scroll on overflowing mobile flyout
 
   The flyout of OnyxMobileNavButton now has a max height and is scrollable if too many nav/context items exist.
-
   - app version inside the mobile flyout is not positioned absolute anymore and is a disabled list item
   - fixed duplicate border in mobile context menu when multiple list items exist
 
@@ -2186,7 +2161,6 @@
 ### Major Changes
 
 - 7b72cbc: refactor: rename toast components
-
   - renamed `OnyxToast` to `OnyxToastMessage`
   - renamed `OnyxToastProvider` to `OnyxToast`
 
@@ -2208,7 +2182,6 @@
 ### Patch Changes
 
 - bf1e992: fix(typings): incorrect or outdated type definitions
-
   - The `vite-plugin-dts` was removed and instead we use `vue-tsc` for the generation of the type definitions.
   - The plugin used an outdated version of the [`@vue/language-core`](https://www.npmjs.com/package/%40vue%2Flanguage-core) package
 
@@ -2217,7 +2190,6 @@
 ### Major Changes
 
 - 555ac22: refactor navigation components
-
   - `OnyxFlyoutMenu`: rename default slot to options
   - previous `OnyxNavItem` component is now `OnyxNavButton` with changed API
   - new `OnyxNavItem` is now only intended to be used as children for the new `OnyxNavButton`
@@ -2269,7 +2241,6 @@
 - 760bb76: refactor(OnyxTable): split default slot to distinguish thead and tbody
 
   Including new features:
-
   - implement empty state when no table data exists
   - define focus outline
 
@@ -2334,7 +2305,6 @@
 ### Minor Changes
 
 - 0bdb49a: feat(OnyxSelectInput): support validity handling
-
   - internal input is not readonly, but blocks all character inputs
   - supports translated error message for empty required inputs
 
@@ -2364,7 +2334,6 @@
   - fix(OnyxButton): keep label width when loading
   - fix(OnyxInput, OnyxTextarea): fix label tooltip not correctly vertically aligned
 - b7e9aaf: refactor: align list items
-
   - OnyxSelect: remove property `color`
   - OnyxUserMenu: remove property `options` and even `optionsClick` in favor of a `default` slot where `<OnyxListItem>` should be placed
 
@@ -2375,7 +2344,6 @@
 - d4fbcf4: refactor: align all namings with Figma
 
   The breaking changes changes are:
-
   - rename `OnyxRadioButtonGroup` to `OnyxRadioGroup`
   - OnyxRadioButton: rename property `selected` to `checked`
   - OnyxAvatar: remove `type` male/female
@@ -2431,7 +2399,6 @@
 ### Minor Changes
 
 - 0863114: feat: support `autofocus` property for multiple components
-
   - OnyxButton, OnyxCheckbox, OnyxIconButton, OnyxRadioButton, OnyxSwitch, OnyxSelect
 
 - 0863114: feat: add `OnyxColorSchemeDialog` component
@@ -2581,7 +2548,6 @@
 ### Major Changes
 
 - b0554c8: refactor: rename listbox to select
-
   - rename component `OnyxListbox` to `OnyxSelect`
   - rename component `OnyxListboxOption` to `OnyxSelectOption`
 
@@ -2619,7 +2585,6 @@
 ### Major Changes
 
 - 309fb43: refactor grid implementation
-
   - remove padding, max-width and center from the `onyx-grid` class in favor of the `onyx-grid-container` class
 
 ### Patch Changes
@@ -2766,7 +2731,6 @@
 ### Major Changes
 
 - f99f38f: refactor: align color property names
-
   - rename property `variation` to `color` for: OnyxBadge, OnyxButton and OnyxIconButton
   - OnyxButton and OnyxIconButton: rename color `secondary` to `neutral`
 
@@ -2813,7 +2777,6 @@
 ### Major Changes
 
 - 7951251: refactor: align properties for selection components
-
   - remove type `SelectionOption` and `ListboxOption` in favor of `SelectOption`. Affects: OnyxCheckboxGroup, OnyxRadioButtonGroup, OnyxListbox and OnyxSelect
   - OnyxSelect: change property `modelValue` to be a select options instead of value only. This allows (e.g. to display a label for the current value(s) when the value(s) are not included in the options or the options are loading asynchronously)
   - OnyxSelect: require property `options`
@@ -2955,7 +2918,6 @@
 ### Major Changes
 
 - 4508633: refactor: rename density constant and type
-
   - rename constant `DENSITY` to `DENSITIES`
   - rename type `DensityType` to `Density`
 

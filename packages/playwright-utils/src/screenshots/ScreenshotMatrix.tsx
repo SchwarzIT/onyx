@@ -1,4 +1,4 @@
-import { escapeGridAreaName } from "./utils";
+import { escapeGridAreaName } from "./utils.js";
 
 export type ScreenshotMatrixProps = {
   /**

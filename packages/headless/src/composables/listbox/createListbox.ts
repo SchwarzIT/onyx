@@ -1,7 +1,7 @@
 import { computed, nextTick, ref, unref, useId, watchEffect, type MaybeRef, type Ref } from "vue";
-import { createBuilder, type VBindAttributes } from "../../utils/builder";
-import type { Nullable } from "../../utils/types";
-import { useTypeAhead } from "../helpers/useTypeAhead";
+import { createBuilder, type VBindAttributes } from "../../utils/builder.js";
+import type { Nullable } from "../../utils/types.js";
+import { useTypeAhead } from "../helpers/useTypeAhead.js";
 
 export type ListboxValue = string | number | boolean;
 

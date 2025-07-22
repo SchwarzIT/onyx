@@ -1,8 +1,8 @@
 import {
-  Chart,
   DoughnutController,
   PieController,
   PolarAreaController,
+  type Chart,
   type ChartDataset,
   type ChartType,
   type Color,
@@ -10,7 +10,7 @@ import {
   type ScaleOptionsByType,
   type ScaleTypeRegistry,
 } from "chart.js";
-import { QUANTITATIVE_COLOR_STEPS, getCSSVariableValue, hexToRgb } from "./utils";
+import { QUANTITATIVE_COLOR_STEPS, getCSSVariableValue, hexToRgb } from "./utils.js";
 
 /**
  * Registers the onyx Chart.js plugin and updates the default styles (colors, fonts etc.) to match

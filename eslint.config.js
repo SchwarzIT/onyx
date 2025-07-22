@@ -25,7 +25,9 @@ const generalVueTsConfig = {
     ...defineConfigWithVueTs(vue.configs["flat/recommended"], vueTsConfigs.recommended),
     ...vueA11y.configs["flat/recommended"],
   ],
+  plugins: { sitOnyx },
   rules: {
+    "sitOnyx/no-esm-incompatible-imports": "error",
     "vue/html-self-closing": [
       "error",
       {
@@ -167,7 +169,6 @@ const sitOnyxConfig = {
     "sitOnyx/no-shadow-template-ref": "error",
     "sitOnyx/no-shadow-native": "error",
     "sitOnyx/require-root-class": "error",
-    "sitOnyx/no-esm-incompatible-imports": "error",
     "vue/require-prop-comment": "error",
     // disallow scoped or module CSS for components
     // see https://onyx.schwarz/principles/technical-vision.html#css

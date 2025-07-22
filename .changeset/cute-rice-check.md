@@ -19,12 +19,15 @@ DataGridFeatures.useSorting<Entry>({
 - sorting feature: all columns will be enabled now by default (previously they were disabled)
 - hide columns feature: API / options for passing columns has changed to align with the other features
   - Old:
+
   ```ts
   DataGridFeatures.useHideColumns({
   columns: [{ name: "a" }, { name: "b", hidden: true }];
   });
   ```
+
   - New:
+
   ```ts
   DataGridFeatures.useHideColumns<Entry>({
     columns: {

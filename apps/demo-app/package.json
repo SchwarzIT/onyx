@@ -1,8 +1,13 @@
 {
   "name": "demo-app",
   "private": true,
-  "version": "1.0.0-beta.270",
+  "version": "1.0.0-beta.271",
   "type": "module",
+  "author": "Schwarz IT KG",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
@@ -10,10 +15,10 @@
   },
   "dependencies": {
     "@sit-onyx/icons": "workspace:^",
-    "@vueuse/core": "^13.3.0",
+    "@vueuse/core": "^13.5.0",
     "pinia": "^3.0.3",
     "sit-onyx": "workspace:^",
-    "vue-i18n": "^11.1.6",
+    "vue-i18n": "^11.1.10",
     "vue-router": "^4.5.1"
   },
   "devDependencies": {

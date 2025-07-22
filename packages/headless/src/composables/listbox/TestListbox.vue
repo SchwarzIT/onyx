@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import { createListbox } from "./createListbox";
+import { createListbox } from "./createListbox.js";
 
 type Options = (typeof options)[number];
 

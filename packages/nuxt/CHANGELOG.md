@@ -1,5 +1,29 @@
 # @sit-onyx/nuxt
 
+## 1.0.0-beta.274
+
+### Major Changes
+
+- 928de9f: remove digits, kaufland and lidl theme since they are now only available for internal Schwarz employees
+
+  For further information and migration instructions, see our [theming docs](https://onyx.schwarz/development/theming.html)
+
+### Patch Changes
+
+- Updated dependencies [928de9f]
+  - sit-onyx@1.0.0-beta.272
+
+## 1.0.0-beta.273
+
+### Major Changes
+
+- 1911f6c: feat(dist)!: Removed commonjs builds
+  - **BREAKING CHANGE:** We dropped commonjs (cjs) builds and packages are now shipped as a [pure esm package](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c#pure-esm-package). Node >= 18 is required.
+
+### Patch Changes
+
+- sit-onyx@1.0.0-beta.271
+
 ## 1.0.0-beta.272
 
 ### Patch Changes
@@ -2293,7 +2317,6 @@
 ### Patch Changes
 
 - 25893ed: feat: add nuxt module to easily integrate onyx into nuxt projects
-
   - Add the global styles to the nuxt project
   - Auto imports all onyx components
   - Add nuxt section to the getting started guide

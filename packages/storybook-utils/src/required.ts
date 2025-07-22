@@ -1,6 +1,6 @@
 import { type Decorator } from "@storybook/vue3";
 import { ref, watch } from "vue";
-import type { StorybookGlobalType } from "./types";
+import type { StorybookGlobalType } from "./types.js";
 
 type RequiredIndicator = "required" | "optional";
 

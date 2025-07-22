@@ -1,6 +1,6 @@
 import { test } from "@playwright/experimental-ct-vue";
 import TestListbox from "./TestListbox.vue";
-import { listboxTesting } from "./createListbox.testing";
+import { listboxTesting } from "./createListbox.testing.js";
 
 test("listbox", async ({ mount, page }) => {
   await mount(<TestListbox />);
