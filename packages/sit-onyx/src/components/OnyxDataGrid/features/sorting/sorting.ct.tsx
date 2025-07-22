@@ -107,10 +107,10 @@ test("should sort the default types correctly", async ({ mount }) => {
 
   const component = await mount(<TestCase data={data} columns={columnsConfig} />);
 
-  const getFirstColumn = () => component.locator("tbody tr td:first-of-type").all();
+  const getFirstColumn = () => component.getByRole("row").locator("td:first-of-type").all();
 
   // ASSERT
-  const columns = component.locator("th");
+  const columns = component.getByRole("columnheader");
   await expect(columns).toHaveCount(7);
 
   let rows = await getFirstColumn();
