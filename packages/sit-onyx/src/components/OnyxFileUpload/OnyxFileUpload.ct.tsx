@@ -149,8 +149,8 @@ test("should replace files", async ({ mount, page }) => {
 
   const on = {
     "update:modelValue": async (newFiles: File[]) => {
-      files = newFiles;
       await component.update({ props: { modelValue: newFiles }, on });
+      files = newFiles;
     },
   };
 
