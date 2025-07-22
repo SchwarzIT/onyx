@@ -1,0 +1,29 @@
+import { useFocusStateHooks } from "@sit-onyx/playwright-utils";
+import { DENSITIES } from "../../composables/density.js";
+import { test } from "../../playwright/a11y.js";
+import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots.js";
+import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
+import OnyxFileCard from "./OnyxFileCard.vue";
+
+test.describe("Screenshot tests", () => {
+  executeMatrixScreenshotTest({
+    name: "File card",
+    columns: DENSITIES,
+    rows: ["default", "hover", "actions"],
+    component: (column, row) => (
+      <OnyxFileCard filename="filename.pdf" type="application/pdf" size="42MiB" density={column}>
+        {row === "actions" && (
+          <template v-slot:actions>
+            <OnyxIconButton label="Action 1" icon={mockPlaywrightIcon} color="neutral" />
+            <OnyxIconButton label="Action 2" icon={mockPlaywrightIcon} color="neutral" />
+          </template>
+        )}
+      </OnyxFileCard>
+    ),
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        await useFocusStateHooks({ component, page, state: row });
+      },
+    },
+  });
+});
