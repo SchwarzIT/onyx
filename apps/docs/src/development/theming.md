@@ -1,38 +1,48 @@
 # Theming
 
-<script setup lang="ts">
-import { data } from './theming.data';
-</script>
-
-onyx supports a dark and a light theme as well as multiple built-in color themes. The options how to set up the theme for your application are described on this page.
+onyx supports a dark and a light theme as well as custom color themes. The options how to set up the theme for your application are described on this page.
 
 To learn more about the theming concept of onyx, take a look at our [colors documentation](/basics/colors.html)
 
+::: warning Schwarz internal themes
+onyx includes build-in themes for brands of the [Schwarz group](https://gruppe.schwarz/) that are only accessible for internal employees.
+
+If you are an Schwarz employee and want to access one the following themes, please refer to the [Vue Blueprint documentation](https://vue-blueprint.schwarz/guide/onyx-themes.html):
+
+- Schwarz Digits
+- Kaufland
+- Lidl
+- PreZero
+- Schwarz corporate solutions
+
+If you have any other questions or need support, please get in touch with the [team](/about/team).
+
+:::
+
 ## Themes
 
-The following color themes are built-in to onyx:
-
-<ul>
-  <li v-for="(theme, index) in data.themes" :key="theme">
-    {{ theme }}
-    <span v-if="index === 0">(default)</span>
-  </li>
-</ul>
-
-To use a different theme, add the corresponding imports to your `main.ts` file (example for the lidl theme):
+To use a different theme, add the corresponding imports to your `main.ts` file (example a theme called "my-theme"):
 
 ::: code-group
 
 ```ts [main.ts]
 // import "sit-onyx/styles.css";
 // make sure to import the theme AFTER the general "sit-onyx/styles.css" file!
-import "sit-onyx/themes/lidl.css";
+import "./my-theme.css";
 ```
 
 :::
 
-::: info
-Importing the styles for the theme manually is not necessary when using the nuxt module. See: [Nuxt](/development/packages/nuxt#themes)
+or if you are using Nuxt, then import them in your `nuxt.config.ts`:
+
+::: code-group
+
+```ts [nuxt.config.ts]
+export default defineNuxtConfig({
+  css: ["~/assets/css/my-theme.css"],
+});
+```
+
 :::
 
 ## Dark mode

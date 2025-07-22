@@ -93,8 +93,8 @@ export const createBuilder = <
 type VueTemplateRefElement<E extends Element> = E | (ComponentPublicInstance & { $el: E }) | null;
 type VueTemplateRef<E extends Element> = Ref<VueTemplateRefElement<E>>;
 
-declare const HeadlessElRefSymbol: unique symbol;
-type HeadlessElRef<E extends Element> = WritableComputedRef<E> & {
+export declare const HeadlessElRefSymbol: unique symbol;
+export type HeadlessElRef<E extends Element> = WritableComputedRef<E> & {
   /**
    * type differentiator
    * ensures that only `createElRef` can be used for headless element ref bindings

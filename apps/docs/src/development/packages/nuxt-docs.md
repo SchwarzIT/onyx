@@ -26,7 +26,7 @@ A full changelog can be found [here](/development/packages/changelogs/nuxt-docs)
 
 ## Features
 
-The theme includes the following features:
+The package includes the following features:
 
 - pre-defined page layouts (landing page, docs etc.)
 - pre-configured [Nuxt content](https://content.nuxt.com/) module to render markdown pages with onyx components.

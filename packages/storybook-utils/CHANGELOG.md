@@ -5,7 +5,6 @@
 ### Major Changes
 
 - 1911f6c: feat(dist)!: Removed commonjs builds
-
   - **BREAKING CHANGE:** We dropped commonjs (cjs) builds and packages are now shipped as a [pure esm package](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c#pure-esm-package). Node >= 18 is required.
 
 ### Patch Changes
@@ -95,7 +94,6 @@
   #### Replaced storybook-dark-mode package
 
   The `storybook-dark-mode` package was replaced with the maintenance fork `@vueless/storybook-dark-mode`. See [this issue](https://github.com/hipstersmoothie/storybook-dark-mode/issues/295#issuecomment-2938151892) for further information. To migrate:
-
   - replace `storybook-dark-mode` with `@vueless/storybook-dark-mode` in your `.storybook/main.ts` file
   - install `@vueless/storybook-dark-mode` (as devDependency)
   - uninstall package `storybook-dark-mode`
@@ -897,7 +895,6 @@
 ### Patch Changes
 
 - 5c5bb15: docs: fix Storybook code snippets
-
   - remove unnecessary new line before `import { ref } from "vue";`
   - fix onyx component imports when component has no props, e.g. `<OnyxComponent>Test</OnyxComponent>`
 
@@ -1185,7 +1182,6 @@
 ### Major Changes
 
 - 99b2089: use experimental source code generator
-
   - port the improved source code generator from [this Storybook PR](https://github.com/storybookjs/storybook/pull/27194).
   - globally replace onyx icons with their corresponding imports from `@sit-onyx/icons`
 

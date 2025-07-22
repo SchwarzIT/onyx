@@ -1,11 +1,17 @@
 # @sit-onyx/headless
 
+## 1.0.0-beta.22
+
+### Major Changes
+
+- 4018961: feat(dist)!: Added esm build
+  - **BREAKING CHANGE:** Actual esm dist build was added. So far only typescript was provided.
+
 ## 1.0.0-beta.21
 
 ### Major Changes
 
 - 1911f6c: feat(dist)!: Removed commonjs builds
-
   - **BREAKING CHANGE:** We dropped commonjs (cjs) builds and packages are now shipped as a [pure esm package](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c#pure-esm-package). Node >= 18 is required.
 
 ## 1.0.0-beta.20
@@ -35,7 +41,6 @@
 - ece5641: chore: replace redundant useManagedState with defineModel
 
   The changes are mostly internal, but the typings were of `OnyxSelect` were improved:
-
   - The `modelValue` now infers a specific subtype of `SelectOptionValue` and the `options` values must match.
   - `withSearch`: Filtering of the options will not automatically disabled anymore when `searchTerm` is bound. Instead `noFilter` must be set.
 
@@ -81,7 +86,6 @@
 ### Minor Changes
 
 - 8421235: feat(tabs): support keyboard navigation
-
   - Arrow left/right: Focus previous/next tab
   - Home: Focus first tab
   - End: Focus last tab

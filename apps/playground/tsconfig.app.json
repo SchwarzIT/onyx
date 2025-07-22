@@ -5,6 +5,6 @@
     "composite": true,
     "rootDir": "./src",
     "baseUrl": ".",
-    "lib": ["ES2022"]
+    "lib": ["ES2022", "DOM"]
   }
 }
