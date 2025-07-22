@@ -22,22 +22,7 @@ const columns: ColumnConfig<TEntry>[] = [
   { key: "birthday", label: "Birthday", type: "date" },
 ];
 
-const withFiltering = DataGridFeatures.useFiltering<TEntry>({
-  columns: {
-    name: {
-      enabled: true,
-      config: {
-        // customize config for "name" column
-        caseSensitive: true,
-      },
-    },
-    age: { enabled: false },
-  },
-  // default config for all columns
-  filterConfig: {
-    searchFromStart: true,
-  },
-});
+const withFiltering = DataGridFeatures.useFiltering<TEntry>();
 
 const features = [withFiltering];
 </script>
