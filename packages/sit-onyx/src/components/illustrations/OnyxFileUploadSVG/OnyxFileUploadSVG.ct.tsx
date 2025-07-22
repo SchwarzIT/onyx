@@ -7,7 +7,7 @@ import OnyxFileUploadSVG from "./OnyxFileUploadSVG.vue";
 
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
-    name: "File upload SVG ",
+    name: "File upload SVG",
     columns: ["light", "dark"],
     rows: ["default", "disabled", "active"],
     component: (column, row) => (
