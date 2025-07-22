@@ -48,12 +48,18 @@ export const createPreview = <T extends Preview = Preview>(
     argTypesEnhancers: [enhanceEventArgTypes],
     initialGlobals: {
       ["requiredMode" satisfies keyof typeof requiredGlobalType]: "required",
+      backgrounds: { value: "currentTheme" },
     },
     globalTypes: {
       ...requiredGlobalType,
     },
     decorators: [withRequired],
     parameters: {
+      toolbar: {
+        // Per onyx storybook configuration, there is only the default, dynamic theme.
+        // Therefore the background select is redundant.
+        "storybook/background": { hidden: true },
+      },
       controls: {
         matchers: {
           color: /(background|color)$/i,
@@ -96,8 +102,9 @@ export const createPreview = <T extends Preview = Preview>(
         dark: themes.dark,
       },
       backgrounds: {
-        // backgrounds are not needed because we have configured the darkMode addon/toggle switch
-        disable: true,
+        options: {
+          currentTheme: { name: "currentTheme", value: "var(--onyx-color-base-background-tinted)" },
+        },
       },
       viewport: {
         options: ONYX_BREAKPOINTS,

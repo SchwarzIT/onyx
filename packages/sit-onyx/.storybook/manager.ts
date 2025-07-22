@@ -2,6 +2,9 @@ import type { Badge, TagBadgeParameters } from "storybook-addon-tag-badges";
 import { addons } from "storybook/internal/manager-api";
 
 addons.setConfig({
+  toolbar: {
+    "storybook/background": { hidden: true },
+  },
   tagBadges: [
     {
       tags: {
