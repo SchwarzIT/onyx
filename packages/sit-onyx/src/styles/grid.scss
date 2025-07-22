@@ -204,10 +204,14 @@ $sidebar-breakpoints: (
 * providing the properties for elements outside of container-queries e.g. popovers, dialogs 
 */
   @each $name, $maxVariant, $columns, $gutter, $margin in $gridVariants {
-    @include screen(min, $name) {
+    @if $name == "2xs" {
       @include generate-grid-properties($columns, $gutter, $margin);
-      @if $maxVariant != none {
-        @include generate-grid-max($name, $maxVariant);
+    } @else {
+      @include screen(min, $name) {
+        @include generate-grid-properties($columns, $gutter, $margin);
+        @if $maxVariant != none {
+          @include generate-grid-max($name, $maxVariant);
+        }
       }
     }
   }
