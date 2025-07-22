@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import { createTabs } from "./createTabs";
+import { createTabs } from "./createTabs.js";
 
 const selectedTab = ref("tab-1");
 

@@ -1,4 +1,4 @@
-import fs from "node:fs";
+import { readFileSync } from "node:fs";
 import { defineLoader } from "vitepress";
 
 export type Data = {
@@ -28,7 +28,7 @@ export default defineLoader({
   watch: ["../../../../packages/sit-onyx/src/i18n/locales/*.json"],
   load(watchedFiles): Data {
     const languages = watchedFiles.map((path) => {
-      const fileContent = JSON.parse(fs.readFileSync(path, "utf-8"));
+      const fileContent = JSON.parse(readFileSync(path, "utf-8"));
       const name = path.split("/").at(-1)!.replace(".json", "");
       return { name, fileContent, keyCount: countKeys(fileContent) };
     });

@@ -1,13 +1,13 @@
 import { expect, test } from "@playwright/experimental-ct-vue";
 import type { Locator, Page } from "@playwright/test";
 import type { JSX } from "vue/jsx-runtime";
-import { ScreenshotMatrix } from "./ScreenshotMatrix";
+import { ScreenshotMatrix } from "./ScreenshotMatrix.js";
 import type {
   HookContext,
   MatrixScreenshotTestOptions,
   UseMatrixScreenshotTestOptions,
-} from "./types";
-import { escapeGridAreaName } from "./utils";
+} from "./types.js";
+import { escapeGridAreaName } from "./utils.js";
 
 /**
  * Creates a screenshot utility that can be used to capture matrix screenshots.

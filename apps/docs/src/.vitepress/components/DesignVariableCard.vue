@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref, toRef, useTemplateRef } from "vue";
-import { useCssVariableValue } from "../utils-browser";
+import { useCssVariableValue } from "../utils-browser.js";
 import DesignVariable from "./DesignVariable.vue";
 
 const props = defineProps<{

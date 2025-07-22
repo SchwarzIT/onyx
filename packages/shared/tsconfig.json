@@ -8,6 +8,7 @@
     /* Modules */
     "module": "node16",
     "moduleResolution": "node16",
+    "allowImportingTsExtensions": false,
 
     /* Emit */
     "outDir": "./dist" /* Specify an output folder for all emitted files. */,

@@ -1,2 +1,2 @@
-export * from "./screenshots/index";
-export * from "./screenshots/types";
+export * from "./screenshots/index.js";
+export * from "./screenshots/types.js";

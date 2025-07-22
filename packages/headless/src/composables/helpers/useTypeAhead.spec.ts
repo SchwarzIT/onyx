@@ -1,5 +1,5 @@
 import { beforeAll, expect, test, vi } from "vitest";
-import { useTypeAhead } from "./useTypeAhead";
+import { useTypeAhead } from "./useTypeAhead.js";
 
 beforeAll(() => {
   vi.useFakeTimers();

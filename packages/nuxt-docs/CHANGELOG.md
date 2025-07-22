@@ -1,5 +1,36 @@
 # @sit-onyx/nuxt-docs
 
+## 1.0.0-beta.86
+
+### Patch Changes
+
+- Updated dependencies [928de9f]
+  - sit-onyx@1.0.0-beta.272
+  - @sit-onyx/nuxt@1.0.0-beta.274
+
+## 1.0.0-beta.85
+
+### Major Changes
+
+- 1911f6c: feat(dist)!: Removed commonjs builds
+  - **BREAKING CHANGE:** We dropped commonjs (cjs) builds and packages are now shipped as a [pure esm package](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c#pure-esm-package). Node >= 18 is required.
+
+### Patch Changes
+
+- Updated dependencies [1911f6c]
+  - @sit-onyx/icons@1.0.0-beta.21
+  - @sit-onyx/nuxt@1.0.0-beta.273
+  - sit-onyx@1.0.0-beta.271
+
+## 1.0.0-beta.84
+
+### Patch Changes
+
+- Updated dependencies [eb481fe]
+  - @sit-onyx/icons@1.0.0-beta.20
+  - sit-onyx@1.0.0-beta.270
+  - @sit-onyx/nuxt@1.0.0-beta.272
+
 ## 1.0.0-beta.83
 
 ### Patch Changes
@@ -663,7 +694,6 @@
 ### Patch Changes
 
 - ed69f4e: Fix some issues when trying to use the `@sit-onyx/nuxt-docs` package:
-
   - remove no longer existing OnyxNavButton in favor of OnyxNavItem. Also include type-check into the build to prevent such issues in the future
   - update docs to include missing required steps/configuration
   - use peerDependencies instead of dependencies

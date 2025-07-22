@@ -1,5 +1,5 @@
 import { computed, unref, useId, type MaybeRef, type Ref } from "vue";
-import { createBuilder } from "../../utils/builder";
+import { createBuilder } from "../../utils/builder.js";
 
 type CreateTabsOptions<TKey extends PropertyKey = PropertyKey> = {
   /**

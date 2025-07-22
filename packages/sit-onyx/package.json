@@ -1,12 +1,12 @@
 {
   "name": "sit-onyx",
   "description": "A design system and Vue.js component library created by Schwarz IT",
-  "version": "1.0.0-beta.269",
+  "version": "1.0.0-beta.272",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "files": [
     "dist",
@@ -16,18 +16,15 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "node": "./dist/index.js",
-        "default": "./dist/index.esm-bundler.js"
-      }
+      "types": "./dist/index.d.ts",
+      "node": "./dist/index.js",
+      "default": "./dist/index.esm-bundler.js"
     },
     "./style.css": "./dist/style.css",
     "./global.css": "./src/styles/global.css",
     "./locales/*": "./dist/i18n/locales/*",
     "./src/styles/*": "./src/styles/*",
     "./breakpoints.scss": "./src/styles/breakpoints.scss",
-    "./themes/*": "./src/styles/variables/themes/*",
     "./dist/*": "./dist/*",
     "./package.json": "./package.json"
   },
@@ -58,22 +55,24 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.2",
+    "@playwright/experimental-ct-vue": "catalog:",
+    "@playwright/test": "catalog:",
     "@sit-onyx/flags": "workspace:^",
     "@sit-onyx/headless": "workspace:^",
     "@sit-onyx/playwright-utils": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",
-    "@storybook/addon-a11y": "^9.0.12",
+    "@storybook/addon-a11y": "^9.0.17",
     "@vue/compiler-dom": "catalog:",
     "@vue/test-utils": "^2.4.6",
     "axe-core": "^4.10.3",
-    "eslint-plugin-vue-scoped-css": "^2.10.0",
+    "eslint-plugin-vue-scoped-css": "^2.11.0",
     "sass-embedded": "catalog:",
     "storybook-addon-tag-badges": "^2.0.1",
     "tsx": "^4.20.3",
     "vite-plugin-dts": "^4.5.4",
     "vue": "catalog:",
-    "vue-component-type-helpers": "^2.2.10",
-    "vue-i18n": "^11.1.6",
+    "vue-component-type-helpers": "^3.0.3",
+    "vue-i18n": "^11.1.10",
     "vue-router": "^4.5.1"
   }
 }

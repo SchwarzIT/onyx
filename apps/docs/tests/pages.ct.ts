@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { join } from "node:path";
-import type { DefaultTheme } from "../node_modules/vitepress/types/default-theme";
-import { CONFIG } from "../src/.vitepress/config";
+import type { DefaultTheme } from "../node_modules/vitepress/types/default-theme.js";
+import { CONFIG } from "../src/.vitepress/config.js";
 
 test("has title", async ({ page }) => {
   await page.goto("/");

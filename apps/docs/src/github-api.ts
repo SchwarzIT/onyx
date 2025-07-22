@@ -1,4 +1,4 @@
-import { cached } from "./cached";
+import { cached } from "./cached.js";
 
 /**
  * Executes a GET request to the given GitHub API route.

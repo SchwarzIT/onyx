@@ -2149,6 +2149,10 @@
     "category": "Network & Infrastructure",
     "aliases": ["host-link", "join-server", "Server-Verbindung", "Server-Verknüpfung"]
   },
+  "server-edit": {
+    "category": "Network & Infrastructure",
+    "aliases": ["custom image", "Stift", "Bearbeiten", "Service"]
+  },
   "server-lock": {
     "category": "Network & Infrastructure",
     "aliases": ["secure", "Schloss", "geschützt", "Schutz", "gesichert", "Sicherheit", "safe"]
