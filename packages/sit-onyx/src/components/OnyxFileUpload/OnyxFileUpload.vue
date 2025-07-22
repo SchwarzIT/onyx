@@ -38,13 +38,12 @@ const props: OnyxFileUploadProps<TMultiple> = withDefaults(
     accept: () => [],
     size: "large",
     disabled: FORM_INJECTED_SYMBOL,
-    showError: FORM_INJECTED_SYMBOL,
     skeleton: SKELETON_INJECTED_SYMBOL,
   },
 );
 
 const skeleton = useSkeletonContext(props as { skeleton: SkeletonInjected });
-const { disabled, showError } = useFormContext(props);
+const { disabled } = useFormContext(props);
 
 const emit = defineEmits<{
   "update:modelValue": [value: TModelValue];
@@ -132,7 +131,6 @@ const handleDragEnter = () => {
       :class="[
         'onyx-file-upload',
         `onyx-file-upload--${props.size}`,
-        showError === true && props.size !== 'small' ? 'onyx-file-upload--error' : '',
         isDragging ? 'onyx-file-upload--dragging' : '',
       ]"
       :disabled="disabled"
@@ -142,15 +140,10 @@ const handleDragEnter = () => {
       @drop.prevent="handleDrop"
       @click="input?.click()"
     >
-      <OnyxFileUploadSVG
-        v-if="props.size === 'large'"
-        :disabled="disabled"
-        :active="isDragging"
-        :error="showError === true ? true : false"
-      />
+      <OnyxFileUploadSVG v-if="props.size === 'large'" :disabled="disabled" :active="isDragging" />
       <div v-else class="onyx-file-upload__icon">
         <OnyxIcon :icon="cloudArrowUp" />
-        <span> {{ t("fileUpload.upload") }}</span>
+        <span> {{ t("fileUpload.select") }}</span>
       </div>
 
       <div v-if="showDetails" class="onyx-file-upload__content">
@@ -246,9 +239,6 @@ const handleDragEnter = () => {
         font-weight: var(--onyx-font-weight-semibold);
         line-height: var(--onyx-font-line-height-md);
       }
-      &--error {
-        border-color: var(--onyx-color-component-border-danger);
-      }
 
       &--dragging {
         border-color: var(--onyx-color-component-border-primary-hover);
@@ -283,13 +273,8 @@ const handleDragEnter = () => {
       &:hover,
       &:focus-within {
         border-color: var(--onyx-color-component-border-primary-hover);
-
-        &:not(.onyx-file-upload--error) .onyx-file-upload__label {
+        .onyx-file-upload__label {
           color: var(--onyx-color-text-icons-primary-intense);
-        }
-
-        &.onyx-file-upload--error {
-          border-color: var(--onyx-color-component-border-danger-hover);
         }
       }
 
@@ -297,16 +282,10 @@ const handleDragEnter = () => {
         > .onyx-file-upload-svg {
           --onyx-file-upload-svg-background-color-bubble: var(--onyx-color-base-primary-800);
         }
-        &.onyx-file-upload--error > .onyx-file-upload-svg {
-          --onyx-file-upload-svg-background-color-bubble: var(--onyx-color-base-danger-800);
-        }
       }
 
       &:focus-within {
         outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
-        &.onyx-file-upload--error {
-          outline-color: var(--onyx-color-component-border-danger-hover);
-        }
       }
 
       .onyx-file-upload__text {

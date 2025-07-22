@@ -4,6 +4,7 @@ import { DENSITIES } from "../../composables/density.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import OnyxFileUpload from "./OnyxFileUpload.vue";
+import type { FileUploadSize } from "./types.js";
 
 const hooks: MatrixScreenshotTestOptions["hooks"] = {
   beforeEach: async (component, page, column, row) => {
@@ -16,9 +17,10 @@ const hooks: MatrixScreenshotTestOptions["hooks"] = {
     }
   },
 };
-const sizes: ("large" | "medium" | "small")[] = ["large", "medium", "small"];
+const FILE_UPLOAD_SIZES = ["small", "medium", "large"] as FileUploadSize[];
+
 test.describe("Screenshot tests", () => {
-  sizes.forEach((size) => {
+  FILE_UPLOAD_SIZES.forEach((size) => {
     executeMatrixScreenshotTest({
       name: `File upload ${size}`,
       columns: DENSITIES,
@@ -36,19 +38,8 @@ test.describe("Screenshot tests", () => {
   });
 });
 
-test.describe("Screenshot tests (error)", () => {
-  sizes.forEach((size) => {
-    executeMatrixScreenshotTest({
-      name: `File upload ${size} (error)`,
-      columns: ["error"],
-      rows: ["default", "hover", "focus-visible", "dragging"],
-      component: () => <OnyxFileUpload showError size={size} />,
-      hooks,
-    });
-  });
-});
 test.describe("Screenshot tests (max. file sizes)", () => {
-  sizes.forEach((size) => {
+  FILE_UPLOAD_SIZES.forEach((size) => {
     executeMatrixScreenshotTest({
       name: `File upload ${size} (max. file sizes)`,
       columns: ["types", "size", "total", "count", "size-total", "types-size-total-count"],
@@ -101,7 +92,7 @@ test("should select a single file", async ({ mount, page }) => {
   let file: File | undefined;
 
   const component = await mount(
-    <OnyxFileUpload size="large" onUpdate:modelValue={(newFile) => (file = newFile)} />,
+    <OnyxFileUpload onUpdate:modelValue={(newFile) => (file = newFile)} />,
   );
   const button = component.getByRole("button", { name: "Click to select" });
 
@@ -129,7 +120,7 @@ test("should select multiple files", async ({ mount, page }) => {
   let files: File[] = [];
 
   const component = await mount(
-    <OnyxFileUpload size="large" multiple onUpdate:modelValue={(newFiles) => (files = newFiles)} />,
+    <OnyxFileUpload multiple onUpdate:modelValue={(newFiles) => (files = newFiles)} />,
   );
   const button = component.getByRole("button", { name: "Click to select" });
 

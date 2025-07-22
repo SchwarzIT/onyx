@@ -58,15 +58,11 @@ export type OnyxFileUploadProps<TMultiple extends boolean> = DensityProp &
      * The size of the upload container
      * @default large
      */
-    size?: "large" | "medium" | "small";
+    size?: FileUploadSize;
     /**
      * Whether to show a skeleton fileUpload.
      */
     skeleton?: SkeletonInjected;
-    /**
-     * Whether to show the Upload in an error state.
-     */
-    showError?: FormInjected<boolean | "touched" | undefined>;
   };
 
 /**
@@ -82,3 +78,5 @@ export type FileType = `.${string}` | `${"audio" | "video" | "image"}/*` | Media
  */
 export type MediaType =
   `${"application" | "audio" | "font" | "image" | "model" | "text" | "video"}/${string}`;
+
+export type FileUploadSize = "large" | "medium" | "small";
