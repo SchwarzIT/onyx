@@ -3,7 +3,7 @@ import NotificationCenter from "./NotificationCenter.vue";
 import NotificationCenterCode from "./NotificationCenter.vue?raw";
 
 const meta: Meta<typeof NotificationCenter> = {
-  title: "Notifications/Examples/NotificationCenter",
+  title: "Notifications/NotificationCenter",
   component: NotificationCenter,
   tags: ["!autodocs"],
   parameters: {
