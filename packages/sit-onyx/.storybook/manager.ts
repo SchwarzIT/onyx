@@ -3,6 +3,7 @@ import { addons } from "storybook/internal/manager-api";
 
 addons.setConfig({
   toolbar: {
+    // Hides background select from docs pages.
     "storybook/background": { hidden: true },
   },
   tagBadges: [
