@@ -4,6 +4,7 @@ import { DENSITIES } from "../../composables/density.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import OnyxFileUpload from "./OnyxFileUpload.vue";
+import type { FileUploadSize } from "./types.js";
 
 const hooks: MatrixScreenshotTestOptions["hooks"] = {
   beforeEach: async (component, page, column, row) => {
@@ -16,42 +17,45 @@ const hooks: MatrixScreenshotTestOptions["hooks"] = {
     }
   },
 };
+const FILE_UPLOAD_SIZES: FileUploadSize[] = ["small", "medium", "large"];
 
 test.describe("Screenshot tests", () => {
-  executeMatrixScreenshotTest({
-    name: "File upload",
-    columns: DENSITIES,
-    rows: ["default", "hover", "focus-visible", "dragging"],
-    component: (column) => <OnyxFileUpload density={column} />,
-    hooks,
-  });
-});
-
-test.describe("Screenshot tests (disabled)", () => {
-  executeMatrixScreenshotTest({
-    name: "File upload (disabled)",
-    columns: ["disabled"],
-    rows: ["default", "hover", "focus-visible", "dragging"],
-    component: () => <OnyxFileUpload disabled />,
-    hooks,
+  FILE_UPLOAD_SIZES.forEach((size) => {
+    executeMatrixScreenshotTest({
+      name: `File upload ${size}`,
+      columns: DENSITIES,
+      rows: ["default", "hover", "focus-visible", "dragging", "disabled", "skeleton"],
+      component: (column, row) => (
+        <OnyxFileUpload
+          density={column}
+          size={size}
+          disabled={row === "disabled"}
+          skeleton={row === "skeleton"}
+        />
+      ),
+      hooks,
+    });
   });
 });
 
 test.describe("Screenshot tests (max. file sizes)", () => {
-  executeMatrixScreenshotTest({
-    name: "File upload (max. file sizes)",
-    columns: ["types", "size", "total", "count", "size-total", "types-size-total-count"],
-    rows: ["default", "hover", "focus-visible", "dragging"],
-    component: (column) => (
-      <OnyxFileUpload
-        accept={column.includes("types") ? [".pdf", ".jpg", ".png"] : undefined}
-        maxSize={column.includes("size") ? "4MiB" : undefined}
-        maxTotalSize={column.includes("total") ? "50MiB" : undefined}
-        maxCount={column.includes("count") ? 8 : undefined}
-        multiple
-      />
-    ),
-    hooks,
+  FILE_UPLOAD_SIZES.forEach((size) => {
+    executeMatrixScreenshotTest({
+      name: `File upload ${size} (max. file sizes)`,
+      columns: ["types", "size", "total", "count", "size-total", "types-size-total-count"],
+      rows: ["default", "hover", "focus-visible", "dragging"],
+      component: (column) => (
+        <OnyxFileUpload
+          size={size}
+          accept={column.includes("types") ? [".pdf", ".jpg", ".png"] : undefined}
+          maxSize={column.includes("size") ? "4MiB" : undefined}
+          maxTotalSize={column.includes("total") ? "50MiB" : undefined}
+          maxCount={column.includes("count") ? 8 : undefined}
+          multiple
+        />
+      ),
+      hooks,
+    });
   });
 });
 
