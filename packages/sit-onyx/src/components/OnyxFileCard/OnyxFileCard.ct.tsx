@@ -9,9 +9,15 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "File card",
     columns: DENSITIES,
-    rows: ["default", "hover", "actions"],
+    rows: ["default", "hover", "actions", "truncated"],
     component: (column, row) => (
-      <OnyxFileCard filename="filename.pdf" type="application/pdf" size="42MiB" density={column}>
+      <OnyxFileCard
+        filename="filename.pdf"
+        type="application/pdf"
+        size="42MiB"
+        density={column}
+        style={{ width: row === "truncated" ? "8rem" : undefined }}
+      >
         {row === "actions" && (
           <template v-slot:actions>
             <OnyxIconButton label="Action 1" icon={mockPlaywrightIcon} color="neutral" />
