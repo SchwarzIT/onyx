@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.274
+
+### Minor Changes
+
+- 4f26db2: feat(OnyxInput): Implement show/hide feature for passwords
+
 ## 1.0.0-beta.273
 
 ### Patch Changes
