@@ -17,7 +17,7 @@ const hooks: MatrixScreenshotTestOptions["hooks"] = {
     }
   },
 };
-const FILE_UPLOAD_SIZES = ["small", "medium", "large"] as FileUploadSize[];
+const FILE_UPLOAD_SIZES: FileUploadSize[] = ["small", "medium", "large"];
 
 test.describe("Screenshot tests", () => {
   FILE_UPLOAD_SIZES.forEach((size) => {
