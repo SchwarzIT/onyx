@@ -34,13 +34,15 @@ const formatFileSize = computed(() => {
 
 <template>
   <OnyxCard :class="['onyx-component', 'onyx-file-card', densityClass]">
-    <div class="onyx-file-card__icon" aria-hidden="true">
-      <OnyxFileTypeIcon :type="props.type" />
-    </div>
+    <div class="onyx-file-card__details onyx-truncation-ellipsis">
+      <div class="onyx-file-card__icon" aria-hidden="true">
+        <OnyxFileTypeIcon :type="props.type" />
+      </div>
 
-    <div class="onyx-text--small">
-      <div class="onyx-file-card__name onyx-truncation-ellipsis">{{ props.filename }}</div>
-      <div class="onyx-file-card__size">{{ formatFileSize(props.size) }}</div>
+      <div class="onyx-text--small onyx-truncation-ellipsis">
+        <div class="onyx-file-card__name onyx-truncation-ellipsis">{{ props.filename }}</div>
+        <div class="onyx-file-card__size">{{ formatFileSize(props.size) }}</div>
+      </div>
     </div>
 
     <div v-if="!!slots.actions" class="onyx-file-card__actions">
@@ -56,6 +58,9 @@ const formatFileSize = computed(() => {
   @include layers.component() {
     --onyx-card-padding: var(--onyx-density-xs);
     flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--onyx-card-gap) var(--onyx-density-xl);
+    justify-content: space-between;
 
     &__icon {
       border-radius: var(--onyx-radius-sm);
@@ -72,8 +77,13 @@ const formatFileSize = computed(() => {
       color: var(--onyx-color-text-icons-neutral-medium);
     }
 
+    &__details {
+      display: flex;
+      align-items: center;
+      gap: var(--onyx-card-gap);
+    }
+
     &__actions {
-      margin-left: auto;
       display: flex;
       align-items: center;
       flex-wrap: wrap;
