@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { iconXSmall } from "@sit-onyx/icons";
+import { iconCircleAttention, iconXSmall } from "@sit-onyx/icons";
 import { useId } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { injectI18n } from "../../i18n/index.js";
@@ -9,7 +9,9 @@ import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import type { OnyxAlertModalProps } from "./types.js";
 
-const props = defineProps<OnyxAlertModalProps>();
+const props = withDefaults(defineProps<OnyxAlertModalProps>(), {
+  icon: () => ({ icon: iconCircleAttention, color: "danger" }),
+});
 
 const emit = defineEmits<{
   /**
@@ -30,7 +32,10 @@ defineSlots<{
   headline?(bindings: Pick<OnyxAlertModalProps, "label">): unknown;
   /**
    * Slot to display custom actions at the bottom of the modal, e.g. buttons for confirm or cancelling the current user workflow.
-   * For accessibility purposes it is recommended to set autofocus on one button, preferably the "cancel" button if one exists.
+   * Focus is automatically set to the first focusable element inside the modal dialog.
+   * If this is a button, it should be the least destructive action, to prevent users from accidentally confirming non-reversible actions.
+   *
+   * If you have to, you can use the `autofocus` button attribute to force the initial focus on another button.
    *
    * @example
    * ```vue
