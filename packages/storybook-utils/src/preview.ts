@@ -48,6 +48,7 @@ export const createPreview = <T extends Preview = Preview>(
     argTypesEnhancers: [enhanceEventArgTypes],
     initialGlobals: {
       ["requiredMode" satisfies keyof typeof requiredGlobalType]: "required",
+      backgrounds: { value: "currentTheme" },
     },
     globalTypes: {
       ...requiredGlobalType,
@@ -96,8 +97,9 @@ export const createPreview = <T extends Preview = Preview>(
         dark: themes.dark,
       },
       backgrounds: {
-        // backgrounds are not needed because we have configured the darkMode addon/toggle switch
-        disable: true,
+        options: {
+          currentTheme: { name: "Dynamic", value: "var(--onyx-color-base-background-tinted)" },
+        },
       },
       viewport: {
         options: ONYX_BREAKPOINTS,

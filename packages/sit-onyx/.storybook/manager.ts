@@ -2,6 +2,11 @@ import type { Badge, TagBadgeParameters } from "storybook-addon-tag-badges";
 import { addons } from "storybook/internal/manager-api";
 
 addons.setConfig({
+  toolbar: {
+    // Per onyx storybook configuration, there is only a single, default (dynamic) theme.
+    // Therefore the background select is redundant.
+    "storybook/background": { hidden: true },
+  },
   tagBadges: [
     {
       tags: {
