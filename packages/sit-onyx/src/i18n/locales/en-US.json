@@ -172,7 +172,9 @@
     }
   },
   "input": {
-    "clear": "Clear input"
+    "clear": "Clear input",
+    "showPassword": "Show Password",
+    "hidePassword": "Hide Password"
   },
   "dialog": {
     "close": "Close dialog"

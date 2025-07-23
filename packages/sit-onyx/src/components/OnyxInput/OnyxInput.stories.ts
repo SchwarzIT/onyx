@@ -171,6 +171,18 @@ export const SuccessInput: Story = {
 };
 
 /**
+ * This example shows an password input.
+ */
+export const Password: Story = {
+  tags: ["new:feature"],
+  args: {
+    ...Default.args,
+    modelValue: "Password",
+    type: "password",
+  },
+};
+
+/**
  * This example shows an input with info label tooltip.
  */
 export const WithLabelTooltip: Story = {
