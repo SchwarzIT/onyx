@@ -3,8 +3,8 @@ import { createAdvancedStoryExample } from "../../utils/storybook.js";
 import OnyxAlertModal from "./OnyxAlertModal.vue";
 
 /**
- * The alert dialog is used to provide important information to the user.
- * Note that this dialog is an [alert dialog](https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/).
+ * The alert modal is used to provide important information to the user.
+ * Note that this modal dialog is an [alert dialog](https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/).
  * It interrupts the user's workflow to communicate an important message and acquires a response, e.g. a delete confirmation.
  *
  * You can also implement a custom dialog using the [OnyxDialog](/docs/support-dialog--docs) component.
