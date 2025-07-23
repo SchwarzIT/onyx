@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.275
+
+### Minor Changes
+
+- ff2f8b7: feat(OnyxFileUpload): add small & medium visualSizes and skeleton
+
 ## 1.0.0-beta.274
 
 ### Minor Changes
