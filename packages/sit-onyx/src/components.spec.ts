@@ -204,6 +204,18 @@ const COMPONENTS: Components = {
       value: "value-1",
     },
   },
+  OnyxFileCard: {
+    props: {
+      filename: "filename.pdf",
+      size: "42MiB",
+      type: "application/pdf",
+    },
+  },
+  OnyxFileTypeIcon: {
+    props: {
+      type: "application/pdf",
+    },
+  },
 };
 
 describe("components", () => {
