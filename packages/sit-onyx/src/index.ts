@@ -7,8 +7,8 @@ export * from "./components/OnyxAccordion/types.js";
 export { default as OnyxAccordionItem } from "./components/OnyxAccordionItem/OnyxAccordionItem.vue";
 export * from "./components/OnyxAccordionItem/types.js";
 
-export { default as OnyxAlertDialog } from "./components/OnyxAlertDialog/OnyxAlertDialog.vue";
-export * from "./components/OnyxAlertDialog/types.js";
+export { default as OnyxAlertModal } from "./components/OnyxAlertModal/OnyxAlertModal.vue";
+export * from "./components/OnyxAlertModal/types.js";
 
 export { default as OnyxAppLayout } from "./components/OnyxAppLayout/OnyxAppLayout.vue";
 export * from "./components/OnyxAppLayout/types.js";
