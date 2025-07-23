@@ -55,11 +55,6 @@ export const createPreview = <T extends Preview = Preview>(
     },
     decorators: [withRequired],
     parameters: {
-      toolbar: {
-        // Per onyx storybook configuration, there is only the default, dynamic theme.
-        // Therefore the background select is redundant.
-        "storybook/background": { hidden: true },
-      },
       controls: {
         matchers: {
           color: /(background|color)$/i,
@@ -103,7 +98,7 @@ export const createPreview = <T extends Preview = Preview>(
       },
       backgrounds: {
         options: {
-          currentTheme: { name: "currentTheme", value: "var(--onyx-color-base-background-tinted)" },
+          currentTheme: { name: "Dynamic", value: "var(--onyx-color-base-background-tinted)" },
         },
       },
       viewport: {
