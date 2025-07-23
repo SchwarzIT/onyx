@@ -152,6 +152,8 @@ useOutsideClick({
 
     &__content {
       padding: var(--onyx-dialog-padding);
+      width: inherit;
+      height: inherit;
     }
   }
 }
