@@ -1,7 +1,9 @@
 <script lang="ts" setup>
-import { useTemplateRef, watch } from "vue";
+import { useOutsideClick } from "@sit-onyx/headless";
+import { computed, useTemplateRef, watch } from "vue";
 import { useDensity } from "../../composables/density.js";
 import type { OnyxDialogProps } from "./types.js";
+
 const props = withDefaults(defineProps<OnyxDialogProps>(), {
   open: false,
   modal: false,
@@ -27,7 +29,9 @@ defineSlots<{
 }>();
 
 const dialog = useTemplateRef("dialogRef");
+
 const { densityClass } = useDensity(props);
+
 /**
  * Shows the dialog either as default dialog or modal.
  */
@@ -42,22 +46,6 @@ watch([dialog, () => props.open], () => {
   else dialog.value?.close();
 });
 
-const handleBackdropClick = (event: MouseEvent) => {
-  const dialogElement = dialog.value;
-  if (!event.detail || !dialogElement || !props.modal || props.disableClosingOnBackdropClick) {
-    return;
-  }
-
-  const dialogDimensions = dialogElement.getBoundingClientRect();
-  if (
-    event.clientX < dialogDimensions.left ||
-    event.clientX > dialogDimensions.right ||
-    event.clientY < dialogDimensions.top ||
-    event.clientY > dialogDimensions.bottom
-  ) {
-    emit("close");
-  }
-};
 watch(
   () => props.modal,
   () => {
@@ -69,6 +57,14 @@ watch(
     }
   },
 );
+
+const content = useTemplateRef("contentRef");
+
+useOutsideClick({
+  inside: content,
+  disabled: computed(() => !props.modal || props.disableClosingOnBackdropClick),
+  onOutsideClick: () => emit("close"),
+});
 </script>
 
 <!-- eslint-disable-next-line vue/no-root-v-if -->
@@ -90,9 +86,10 @@ watch(
     :aria-label="props.label"
     :role="props.alert ? 'alertdialog' : undefined"
     @cancel.prevent="emit('close')"
-    @click="handleBackdropClick"
   >
-    <slot></slot>
+    <div ref="contentRef" class="onyx-dialog__content">
+      <slot></slot>
+    </div>
   </dialog>
 </template>
 
@@ -103,23 +100,20 @@ watch(
   @include layers.component() {
     --onyx-dialog-screen-gap: var(--onyx-grid-margin);
     --onyx-dialog-border-radius: var(--onyx-radius-md);
+    --onyx-dialog-padding: var(--onyx-density-md) var(--onyx-density-lg);
     outline: none;
     border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
     border-radius: var(--onyx-dialog-border-radius);
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
-    padding: var(--onyx-density-md) var(--onyx-density-lg);
     background-color: var(--onyx-color-base-background-blank);
     overflow: auto;
     z-index: var(--onyx-z-index-page-overlay);
+    padding: 0;
 
     $max-size: calc(100% - 2 * var(--onyx-dialog-screen-gap));
     max-width: $max-size;
     max-height: $max-size;
-
-    &::backdrop {
-      background-color: var(--onyx-color-component-opacity-backdrop);
-    }
 
     position: fixed;
     top: 0;
@@ -130,6 +124,10 @@ watch(
     width: fit-content;
     height: fit-content;
 
+    &::backdrop {
+      background-color: var(--onyx-color-component-opacity-backdrop);
+    }
+
     &:modal {
       z-index: var(--onyx-z-index-app-overlay);
       border: none;
@@ -139,7 +137,6 @@ watch(
     &--right {
       --onyx-dialog-screen-gap: var(--onyx-density-xs);
       transform: none;
-
       height: 100%;
     }
 
@@ -151,6 +148,10 @@ watch(
     &--right {
       left: unset;
       right: var(--onyx-dialog-screen-gap);
+    }
+
+    &__content {
+      padding: var(--onyx-dialog-padding);
     }
   }
 }

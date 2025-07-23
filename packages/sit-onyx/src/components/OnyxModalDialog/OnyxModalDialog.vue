@@ -93,10 +93,13 @@ const hasDescription = computed(() => !!slots.description);
 .onyx-modal-dialog {
   @include layers.component() {
     --onyx-modal-dialog-padding-inline: var(--onyx-density-lg);
-
-    padding: 0;
+    --onyx-dialog-padding: 0;
     display: flex;
-    flex-direction: column;
+
+    .onyx-dialog__content {
+      display: flex;
+      flex-direction: column;
+    }
 
     &__header {
       display: flex;

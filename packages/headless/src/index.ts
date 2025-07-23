@@ -1,5 +1,6 @@
 export * from "./composables/comboBox/createComboBox.js";
 export * from "./composables/helpers/useGlobalListener.js";
+export * from "./composables/helpers/useOutsideClick.js";
 export * from "./composables/listbox/createListbox.js";
 export * from "./composables/menuButton/createMenuButton.js";
 export * from "./composables/navigationMenu/createMenu.js";
