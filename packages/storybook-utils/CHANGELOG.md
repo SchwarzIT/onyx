@@ -1,5 +1,22 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-beta.97
+
+### Major Changes
+
+- f0bcd9c: fix(background): Fix missing background color on fullscreen stories and sometimes on general page.
+
+  BREAKING CHANGE: `storybook/background` addon is not disabled anymore. If you don't plan on providing additional, custom backgrounds you should hide the background select from the toolbar:
+
+  ```ts
+  // manager.ts
+  addons.setConfig({
+    toolbar: {
+      "storybook/background": { hidden: true },
+    },
+  });
+  ```
+
 ## 1.0.0-beta.96
 
 ### Major Changes
