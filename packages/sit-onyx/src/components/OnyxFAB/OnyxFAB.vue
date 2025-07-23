@@ -50,7 +50,13 @@ const hasOptions = computed(() => !!slots.default);
 
 const triggerIcon = computed(() => {
   if (!hasOptions.value) return props.icon;
-  return isExpanded.value ? x : moreHorizontalSmall;
+  return isExpanded.value
+    ? props.closingIcon
+      ? props.closingIcon
+      : x
+    : props.icon
+      ? props.icon
+      : moreHorizontalSmall;
 });
 </script>
 
@@ -100,15 +106,6 @@ const triggerIcon = computed(() => {
     right: var(--onyx-fab-viewport-gap);
     z-index: var(--onyx-z-index-notification);
 
-    &--left {
-      right: unset;
-      left: var(--onyx-fab-viewport-gap);
-
-      .onyx-flyout-menu__wrapper {
-        align-items: flex-start;
-      }
-    }
-
     .onyx-flyout-menu__list-header,
     .onyx-flyout-menu__list-footer {
       display: none;
@@ -119,6 +116,15 @@ const triggerIcon = computed(() => {
       flex-direction: column;
       gap: var(--onyx-density-2xs);
       align-items: flex-end;
+    }
+
+    &--left {
+      right: unset;
+      left: var(--onyx-fab-viewport-gap);
+
+      .onyx-flyout-menu__wrapper {
+        align-items: flex-start;
+      }
     }
 
     .onyx-popover__dialog {

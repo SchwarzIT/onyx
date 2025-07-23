@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import chevronUpSmall from "@sit-onyx/icons/chevron-up-small.svg?raw";
+import sidebarArrowLeft from "@sit-onyx/icons/sidebar-arrow-left.svg?raw";
+import sidebarArrowRight from "@sit-onyx/icons/sidebar-arrow-right.svg?raw";
 import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
 import { computed, provide, ref, type Ref } from "vue";
 import { getWindowInnerSize } from "../../composables/useResizeObserver.js";
@@ -103,8 +104,9 @@ const dispaySidebarFab = computed(
         sidebarItems.length === 1 &&
         !sidebarItems.some((sidebar) => sidebar.isDrawer)
       "
+      class="onyx-page__sidebar-fab"
       label="Open Sidebar"
-      :icon="chevronUpSmall"
+      :icon="sidebarArrowRight"
       hide-label
       :alignment="fabAlignment"
       @click="updateItems({ ...sidebarItems[0], open: true })"
@@ -115,19 +117,19 @@ const dispaySidebarFab = computed(
         sidebarItems.length > 1 &&
         !sidebarItems.some((sidebar) => sidebar.isDrawer)
       "
+      class="onyx-page__sidebar-fab"
       label="Open Sidebar"
-      :icon="chevronUpSmall"
+      :icon="sidebarArrowRight"
+      :closing-icon="sidebarArrowLeft"
       hide-label
       :alignment="fabAlignment"
     >
       <OnyxFabItem
         v-for="sidebar in sidebarItems"
         :key="sidebar.id"
-        label="open sidebar"
-        :icon="chevronUpSmall"
+        :label="sidebar.label"
         @click="updateItems({ ...sidebar, open: true })"
-        >Toggle
-      </OnyxFabItem>
+      />
     </OnyxFab>
   </div>
 </template>
@@ -158,6 +160,11 @@ const dispaySidebarFab = computed(
 
       &--right {
         grid-area: side-right;
+      }
+      &-fab {
+        &.onyx-fab--right .onyx-icon {
+          transform: rotate(180deg);
+        }
       }
     }
 

@@ -17,6 +17,7 @@ export type OnyxPageLayoutProps = Partial<SkeletonProvidedProp> & {
 };
 export type SidebarItem = {
   id: PropertyKey;
+  label: string;
   alignment: "left" | "right";
   open: boolean;
   isDrawer: boolean;

@@ -82,6 +82,7 @@ const isDrawerOpen = computed<boolean>({
     if (sidebarContext) {
       sidebarContext.updateItems({
         id: sidebarId,
+        label: props.label,
         alignment: props.alignment,
         open: newVal,
         isDrawer: props.drawer ? true : false,
@@ -96,6 +97,7 @@ watch(
   () => {
     sidebarContext?.updateItems({
       id: sidebarId,
+      label: props.label,
       alignment: props.alignment,
       open: isDrawerOpen.value,
       isDrawer: props.drawer ? true : false,

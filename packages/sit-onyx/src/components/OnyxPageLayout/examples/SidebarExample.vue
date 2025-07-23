@@ -21,6 +21,16 @@ import {
           </div>
         </OnyxSidebar>
       </template>
+      <template #sidebarRight>
+        <OnyxSidebar label="Example sidebar" alignment="right">
+          <div class="sidebar__content">
+            For sidebar examples, see:
+            <OnyxLink href="/?path=/docs/navigation-sidebar--docs" target="_parent">
+              OnyxSidebar 2
+            </OnyxLink>
+          </div>
+        </OnyxSidebar>
+      </template>
 
       <!-- page content -->
       <OnyxHeadline is="h1">Page content</OnyxHeadline>
