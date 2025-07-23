@@ -184,6 +184,7 @@ const displayType = computed(() => {
               :icon="showPassword ? eyeClosed : eye"
               :label="showPassword ? t('input.hidePassword') : t('input.showPassword')"
               tabindex="-1"
+              color="soft"
               @click="showPassword = !showPassword"
             />
           </slot>
