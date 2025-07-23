@@ -7,29 +7,29 @@ import OnyxDialog from "../OnyxDialog/OnyxDialog.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
-import type { OnyxAlertDialogProps } from "./types.js";
+import type { OnyxAlertModalProps } from "./types.js";
 
-const props = defineProps<OnyxAlertDialogProps>();
+const props = defineProps<OnyxAlertModalProps>();
 
 const emit = defineEmits<{
   /**
-   * Emitted when the dialog should be closed.
+   * Emitted when the modal should be closed.
    */
   close: [];
 }>();
 
 defineSlots<{
   /**
-   * Dialog content.
+   * Modal content.
    */
   default(): unknown;
   /**
    * Optional slot to override the headline with custom content.
    * If unset, the `label` property will be shown.
    */
-  headline?(bindings: Pick<OnyxAlertDialogProps, "label">): unknown;
+  headline?(bindings: Pick<OnyxAlertModalProps, "label">): unknown;
   /**
-   * Slot to display custom actions at the bottom of the dialog, e.g. buttons for confirm or cancelling the current user workflow.
+   * Slot to display custom actions at the bottom of the modal, e.g. buttons for confirm or cancelling the current user workflow.
    * For accessibility purposes it is recommended to set autofocus on one button, preferably the "cancel" button if one exists.
    *
    * @example
@@ -48,37 +48,37 @@ const describedById = useId();
 
 <template>
   <OnyxDialog
-    :class="['onyx-alert-dialog', densityClass]"
+    :class="['onyx-alert-modal', densityClass]"
     v-bind="props"
     :aria-describedby="describedById"
     modal
     alert
     @close="emit('close')"
   >
-    <div class="onyx-alert-dialog__content">
-      <OnyxIcon v-if="props.icon" class="onyx-alert-dialog__icon" v-bind="props.icon" size="64px" />
+    <div class="onyx-alert-modal__content">
+      <OnyxIcon v-if="props.icon" class="onyx-alert-modal__icon" v-bind="props.icon" size="64px" />
 
       <div>
-        <div class="onyx-alert-dialog__headline">
+        <div class="onyx-alert-modal__headline">
           <slot name="headline" :label="props.label">
             <OnyxHeadline is="h2">{{ props.label }}</OnyxHeadline>
           </slot>
 
           <OnyxSystemButton
-            class="onyx-alert-dialog__close"
+            class="onyx-alert-modal__close"
             :label="t('dialog.close')"
             :icon="iconXSmall"
             @click="emit('close')"
           />
         </div>
 
-        <div :id="describedById" class="onyx-alert-dialog__body onyx-truncation">
+        <div :id="describedById" class="onyx-alert-modal__body onyx-truncation">
           <slot></slot>
         </div>
       </div>
     </div>
 
-    <div class="onyx-alert-dialog__actions">
+    <div class="onyx-alert-modal__actions">
       <slot name="actions"></slot>
     </div>
   </OnyxDialog>
@@ -88,7 +88,7 @@ const describedById = useId();
 @use "../../styles/mixins/layers.scss";
 @use "../../styles/breakpoints.scss";
 
-.onyx-alert-dialog {
+.onyx-alert-modal {
   @include layers.component() {
     --max-width: 26rem;
 
