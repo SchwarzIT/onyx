@@ -189,7 +189,7 @@ test("should render the sidebar fab button on small screens (multiple options)",
   //ASSERT
   await expect(fabItem).toBeVisible();
   await expect(fabItem2).toBeVisible();
-  await expect(component).toHaveScreenshot("sidebar-fab-button.png");
+  await expect(component).toHaveScreenshot("sidebar-fab-button-multiple-options.png");
 
   //ACT
   await fabItem.click();
