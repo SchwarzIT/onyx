@@ -16,7 +16,7 @@ test.describe("Screenshot tests", () => {
         type="application/pdf"
         size="42MiB"
         density={column}
-        style={{ width: row === "truncated" ? "8rem" : undefined }}
+        style={{ width: row === "truncated" ? "7rem" : undefined }}
       >
         {row === "actions" && (
           <template v-slot:actions>
