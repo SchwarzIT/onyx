@@ -1,6 +1,6 @@
 import type { Meta } from "@storybook/vue3-vite";
 import { createAdvancedStoryExample } from "../../utils/storybook.js";
-import OnyxAlertDialog from "./OnyxAlertDialog.vue";
+import OnyxAlertModal from "./OnyxAlertModal.vue";
 
 /**
  * The alert dialog is used to provide important information to the user.
@@ -9,9 +9,9 @@ import OnyxAlertDialog from "./OnyxAlertDialog.vue";
  *
  * You can also implement a custom dialog using the [OnyxDialog](/docs/support-dialog--docs) component.
  */
-const meta: Meta<typeof OnyxAlertDialog> = {
-  title: "Feedback/AlertDialog",
-  component: OnyxAlertDialog,
+const meta: Meta<typeof OnyxAlertModal> = {
+  title: "Feedback/AlertModal",
+  component: OnyxAlertModal,
   argTypes: {
     default: { control: { type: "text" } },
     headline: { control: { disable: true } },
@@ -20,4 +20,4 @@ const meta: Meta<typeof OnyxAlertDialog> = {
 
 export default meta;
 
-export const Default = createAdvancedStoryExample("OnyxAlertDialog", "DefaultExample");
+export const Default = createAdvancedStoryExample("OnyxAlertModal", "DefaultExample");

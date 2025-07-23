@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import circleAttention from "@sit-onyx/icons/circle-attention.svg?raw";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
-import OnyxAlertDialog from "./OnyxAlertDialog.vue";
+import OnyxAlertModal from "./OnyxAlertModal.vue";
 
 const emit = defineEmits<{
   close: [];
@@ -9,7 +9,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <OnyxAlertDialog
+  <OnyxAlertModal
     label="Confirm deletion"
     :icon="{ icon: circleAttention, color: 'danger' }"
     open
@@ -21,5 +21,5 @@ const emit = defineEmits<{
       <OnyxButton label="Cancel" color="neutral" autofocus />
       <OnyxButton label="Delete" color="danger" />
     </template>
-  </OnyxAlertDialog>
+  </OnyxAlertModal>
 </template>
