@@ -1,33 +1,10 @@
 <script lang="ts" setup>
-import { OnyxFileTypeIcon, type MediaType } from "../../../index.js";
-
-const types: MediaType[] = [
-  "application/octet-stream",
-  "application/pdf",
-  "text/csv",
-  "audio/mp3",
-  "video/mp4",
-  "image/png",
-  "application/rtf",
-  "application/vnd.ms-powerpoint",
-  "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-  "application/vnd.ms-excel",
-  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-  "application/msword",
-  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-  "text/html",
-  "application/zip",
-  "application/vnd.rar",
-  "application/x-7z-compressed",
-  "application/x-tar",
-  "application/gzip",
-  "application/x-bzip2",
-];
+import { OnyxFileTypeIcon, SUPPORTED_FILE_TYPE_ICON_MEDIA_TYPES } from "../../../index.js";
 </script>
 
 <template>
   <div class="layout">
-    <div v-for="type in types" :key="type">
+    <div v-for="type in SUPPORTED_FILE_TYPE_ICON_MEDIA_TYPES" :key="type">
       <OnyxFileTypeIcon :type />
       ({{ type }})
     </div>
