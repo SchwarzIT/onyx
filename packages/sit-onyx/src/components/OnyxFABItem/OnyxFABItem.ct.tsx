@@ -6,7 +6,7 @@ import OnyxFABItem from "./OnyxFABItem.vue";
 
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
-    name: "Fab item",
+    name: "FAB item",
     columns: DENSITIES,
     rows: ["default", "hover", "focus-visible"],
     component: (column) => (
@@ -24,7 +24,7 @@ test.describe("Screenshot tests", () => {
 
 test.describe("Screenshot tests (icon)", () => {
   executeMatrixScreenshotTest({
-    name: "Fab item (item)",
+    name: "FAB item (item)",
     columns: ["default", "link"],
     rows: ["text", "icon", "text-icon"],
     component: (column, row) => (
