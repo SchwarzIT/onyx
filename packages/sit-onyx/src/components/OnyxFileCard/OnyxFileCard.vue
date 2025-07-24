@@ -87,7 +87,7 @@ const formatFileSize = computed(() => {
       display: flex;
       align-items: center;
       flex-wrap: wrap;
-      gap: var(--onyx-card-gap);
+      gap: var(--onyx-spacing-2xs);
     }
 
     &:hover {
