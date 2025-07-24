@@ -7,7 +7,7 @@ import OnyxFAB from "./OnyxFAB.vue";
 
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
-    name: "Fab",
+    name: "FAB",
     columns: DENSITIES,
     rows: ["default", "hover", "focus-visible", "skeleton"],
     component: (column, row) => (
@@ -54,7 +54,7 @@ const optionsHooks: MatrixScreenshotTestOptions["hooks"] = {
 
 test.describe("Screenshot tests (options)", () => {
   executeMatrixScreenshotTest({
-    name: "Fab (options)",
+    name: "FAB (options)",
     columns: DENSITIES,
     rows: ["default", "hover", "focus-visible"],
     component: (column) => (
@@ -70,7 +70,7 @@ test.describe("Screenshot tests (options)", () => {
 
 test.describe("Screenshot tests (options, left aligned)", () => {
   executeMatrixScreenshotTest({
-    name: "Fab (options, left aligned)",
+    name: "FAB (options, left aligned)",
     columns: DENSITIES,
     rows: ["default", "hover", "focus-visible"],
     component: (column) => (
@@ -86,7 +86,7 @@ test.describe("Screenshot tests (options, left aligned)", () => {
 
 test.describe("Screenshot tests (options, icons only)", () => {
   executeMatrixScreenshotTest({
-    name: "Fab (options, icons only)",
+    name: "FAB (options, icons only)",
     columns: DENSITIES,
     rows: ["default", "hover", "focus-visible"],
     component: (column) => (

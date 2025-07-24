@@ -7,7 +7,7 @@ import OnyxFABButton from "./OnyxFABButton.vue";
 test.describe("Screenshot tests", () => {
   for (const type of ["hideLabel", "text", "link"] as const) {
     executeMatrixScreenshotTest({
-      name: `Fab button (${type})`,
+      name: `FAB button (${type})`,
       columns: DENSITIES,
       rows: ["default", "hover", "focus-visible"],
       component: (column) => (
