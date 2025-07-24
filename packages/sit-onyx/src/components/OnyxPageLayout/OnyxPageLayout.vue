@@ -49,7 +49,9 @@ provideSkeletonContext(props);
     </div>
 
     <main class="onyx-page__main">
-      <slot v-if="props.noPadding" class="onyx-grid-container"></slot>
+      <div v-if="props.noPadding" class="onyx-grid-container">
+        <slot></slot>
+      </div>
 
       <div v-else class="onyx-grid-layout">
         <slot></slot>
@@ -97,6 +99,7 @@ provideSkeletonContext(props);
     }
 
     &__main {
+      container-type: inline-size;
       grid-area: main;
       overflow: hidden auto;
       position: relative;

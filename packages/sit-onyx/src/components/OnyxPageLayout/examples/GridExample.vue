@@ -47,7 +47,7 @@ import { OnyxAppLayout, OnyxButton, OnyxHeadline, OnyxPageLayout, OnyxSidebar } 
 
 <style lang="scss" scoped>
 .onyx-grid-example {
-  background-color: var(--onyx-color-component-cta-default);
+  border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-400);
   padding: var(--onyx-spacing-xs);
   border-radius: var(--onyx-radius-sm);
 
