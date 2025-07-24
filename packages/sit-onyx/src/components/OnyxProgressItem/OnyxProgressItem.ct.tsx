@@ -1,17 +1,17 @@
 import { DENSITIES } from "../../composables/density.js";
 import { test } from "../../playwright/a11y.js";
-import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots.js";
-import OnyxProgressStep from "./OnyxProgressStep.vue";
-import { PROGRESS_STEP_STATUS } from "./types.js";
+import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots.jsx";
+import OnyxProgressItem from "./OnyxProgressItem.vue";
+import { PROGRESS_ITEM_STATUS } from "./types.js";
 
 test.describe("Screenshot tests", () => {
-  for (const status of PROGRESS_STEP_STATUS) {
+  for (const status of PROGRESS_ITEM_STATUS) {
     executeMatrixScreenshotTest({
-      name: `Progress step (${status})`,
+      name: `Progress item (${status})`,
       columns: ["number", "icon", "disabled"],
       rows: ["default", "hover", "focus-visible"],
       component: (column) => (
-        <OnyxProgressStep
+        <OnyxProgressItem
           label="Step"
           value={1}
           icon={column === "icon" ? mockPlaywrightIcon : undefined}
@@ -31,11 +31,11 @@ test.describe("Screenshot tests", () => {
 
 test.describe("Screenshot tests (density)", () => {
   executeMatrixScreenshotTest({
-    name: "Progress step (density)",
+    name: "Progress item (density)",
     columns: DENSITIES,
     rows: ["default", "skeleton"],
     component: (column, row) => (
-      <OnyxProgressStep label="Step" value={1} density={column} skeleton={row === "skeleton"} />
+      <OnyxProgressItem label="Step" value={1} density={column} skeleton={row === "skeleton"} />
     ),
   });
 });

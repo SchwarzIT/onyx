@@ -1,7 +1,7 @@
 import type { DensityProp } from "../../composables/density.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 
-export type OnyxProgressStepProps = DensityProp & {
+export type OnyxProgressItemProps = DensityProp & {
   /**
    * Visual label.
    */
@@ -11,29 +11,29 @@ export type OnyxProgressStepProps = DensityProp & {
    */
   value: number;
   /**
-   * The status of the progress step which indicates whether the step is currently active, upcoming or already visited/completed.
+   * The status of the progress item which indicates whether the item is currently active, upcoming or already visited/completed.
    */
-  status?: ProgressStepStatus;
+  status?: ProgressItemStatus;
   /**
    * Icon to display instead of the numeric indicator.
    * If `status` is "completed", "visited" or "invalid", the icon will be pre-defined so passing a different icon does not work then.
    */
   icon?: string;
   /**
-   * Whether the step is disabled and can not be interacted with.
+   * Whether the item is disabled and can not be interacted with.
    */
   disabled?: boolean;
   /**
-   * Whether to show a skeleton step.
+   * Whether to show a skeleton item.
    */
   skeleton?: SkeletonInjected;
 };
 
-export const PROGRESS_STEP_STATUS = [
+export const PROGRESS_ITEM_STATUS = [
   "default",
   "active",
   "completed",
   "visited",
   "invalid",
 ] as const;
-export type ProgressStepStatus = (typeof PROGRESS_STEP_STATUS)[number];
+export type ProgressItemStatus = (typeof PROGRESS_ITEM_STATUS)[number];

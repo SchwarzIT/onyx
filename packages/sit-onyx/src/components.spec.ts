@@ -103,7 +103,7 @@ const COMPONENTS: Components = {
       steps: [{ label: "Step 1" }, { label: "Step 2" }],
     },
   },
-  OnyxProgressStep: {
+  OnyxProgressItem: {
     props: {
       label: "Progress step",
       value: 1,

@@ -1,18 +1,18 @@
 import cart from "@sit-onyx/icons/cart.svg?raw";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3";
-import OnyxProgressStep from "./OnyxProgressStep.vue";
+import OnyxProgressItem from "./OnyxProgressItem.vue";
 
-const meta: Meta<typeof OnyxProgressStep> = {
-  title: "Progress/ProgressStep",
-  component: OnyxProgressStep,
+const meta: Meta<typeof OnyxProgressItem> = {
+  title: "Progress/ProgressItem",
+  component: OnyxProgressItem,
   argTypes: {
     ...withNativeEventLogging(["onClick"]),
   },
 };
 
 export default meta;
-type Story = StoryObj<typeof OnyxProgressStep>;
+type Story = StoryObj<typeof OnyxProgressItem>;
 
 export const Default = {
   args: {
