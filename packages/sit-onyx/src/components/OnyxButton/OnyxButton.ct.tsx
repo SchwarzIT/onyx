@@ -72,6 +72,22 @@ test.describe("Screenshot tests", () => {
   });
 });
 
+test.describe("Screenshot tests (right icon)", () => {
+  executeMatrixScreenshotTest({
+    name: "Button (right icon)",
+    columns: ["default"],
+    rows: ["default", "loading"],
+    component: (column, row) => (
+      <OnyxButton
+        label="Button"
+        icon={mockPlaywrightIcon}
+        iconPosition="right"
+        loading={row === "loading"}
+      />
+    ),
+  });
+});
+
 test("should truncate text", async ({ mount }) => {
   const label = "Very long label that should be truncated";
 
