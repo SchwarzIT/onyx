@@ -67,6 +67,7 @@ const preview: Preview = {
           "Data",
           "Feedback",
           "Notifications",
+          ["NotificationCenter"],
           "Navigation",
           "Progress",
           "Search & Filter",
