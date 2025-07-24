@@ -5,9 +5,11 @@ import DesignVariableCard from "./DesignVariableCard.vue";
 const { isDark } = useData();
 
 const shadows = [
+  "onyx-shadow-medium-top",
   "onyx-shadow-medium-bottom",
   "onyx-shadow-medium-left",
   "onyx-shadow-medium-right",
+  "onyx-shadow-soft-top",
   "onyx-shadow-soft-bottom",
   "onyx-shadow-soft-left",
   "onyx-shadow-soft-right",
