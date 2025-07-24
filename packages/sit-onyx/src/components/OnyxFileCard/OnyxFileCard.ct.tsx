@@ -33,3 +33,26 @@ test.describe("Screenshot tests", () => {
     },
   });
 });
+
+test.describe("Screenshot tests (link)", () => {
+  executeMatrixScreenshotTest({
+    name: "File card (link)",
+    columns: ["default", "truncated"],
+    rows: ["default", "hover", "focus-visible"],
+    component: (column) => (
+      <OnyxFileCard
+        filename="filename.pdf"
+        type="application/pdf"
+        size="42MiB"
+        style={{ width: column === "truncated" ? "7rem" : undefined }}
+        link="#example-link"
+      />
+    ),
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        const link = component.getByRole("link", { name: "filename.pdf" });
+        await useFocusStateHooks({ component: link, page, state: row });
+      },
+    },
+  });
+});
