@@ -131,6 +131,7 @@ const trigger = computed(() => ({
   onClick: toggle,
   "aria-expanded": isVisible.value,
   "aria-controls": popoverRef.value?.id,
+  "aria-haspopup": true,
   disabled: disabled.value,
 }));
 
