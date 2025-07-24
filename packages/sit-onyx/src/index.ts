@@ -143,8 +143,8 @@ export * from "./components/OnyxPageLayout/types.js";
 export { default as OnyxPagination } from "./components/OnyxPagination/OnyxPagination.vue";
 export * from "./components/OnyxPagination/types.js";
 
-export { default as OnyxProgressStep } from "./components/OnyxProgressStep/OnyxProgressStep.vue";
-export * from "./components/OnyxProgressStep/types.js";
+export { default as OnyxProgressItem } from "./components/OnyxProgressItem/OnyxProgressItem.vue";
+export * from "./components/OnyxProgressItem/types.js";
 
 export { default as OnyxProgressSteps } from "./components/OnyxProgressSteps/OnyxProgressSteps.vue";
 export * from "./components/OnyxProgressSteps/types.js";
