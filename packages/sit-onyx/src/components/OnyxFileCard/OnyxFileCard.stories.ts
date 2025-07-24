@@ -21,7 +21,7 @@ type Story = StoryObj<typeof OnyxFileCard>;
 
 export const Default = {
   args: {
-    style: "width: 24rem",
+    style: "width: 20rem",
     filename: "example.pdf",
     type: "application/pdf",
     size: "42MiB",
@@ -46,5 +46,12 @@ export const Default = {
       ),
       h(OnyxIconButton, { label: "Delete file", icon: trash, color: "danger" }),
     ],
+  },
+} satisfies Story;
+
+export const Link = {
+  args: {
+    ...Default.args,
+    link: "https://onyx.schwarz/favicon.svg",
   },
 } satisfies Story;

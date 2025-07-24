@@ -1,6 +1,7 @@
 import type { DensityProp } from "../../composables/density.js";
 import type { BinaryPrefixedSize } from "../../utils/numbers.js";
 import type { MediaType } from "../OnyxFileUpload/types.js";
+import type { SharedLinkProps } from "../OnyxRouterLink/types.js";
 
 export type OnyxFileCardProps = DensityProp & {
   /**
@@ -17,4 +18,8 @@ export type OnyxFileCardProps = DensityProp & {
    * For the user, the size will be displayed in decimal instead of binary notation (e.g. 42MB instead of 42MiB) since users are mostly non-technical and such visualization is therefore simpler to understand.
    */
   size: number | BinaryPrefixedSize;
+  /**
+   * Link to the file. If set, the filename will be rendered as link.
+   */
+  link?: string | SharedLinkProps;
 };

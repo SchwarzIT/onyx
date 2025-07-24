@@ -7,8 +7,10 @@ import {
   convertBinaryPrefixToBytes,
   formatBytesToString,
 } from "../../utils/numbers.js";
+import { extractLinkProps } from "../../utils/router.js";
 import OnyxCard from "../OnyxCard/OnyxCard.vue";
 import OnyxFileTypeIcon from "../OnyxFileTypeIcon/OnyxFileTypeIcon.vue";
+import OnyxLink from "../OnyxLink/OnyxLink.vue";
 import type { OnyxFileCardProps } from "./types.js";
 
 const props = defineProps<OnyxFileCardProps>();
@@ -30,6 +32,12 @@ const formatFileSize = computed(() => {
     return formatBytesToString(locale.value, bytes);
   };
 });
+
+const link = computed(() => {
+  if (!props.link) return;
+  if (typeof props.link === "string") return { href: props.link };
+  return extractLinkProps(props.link);
+});
 </script>
 
 <template>
@@ -40,7 +48,18 @@ const formatFileSize = computed(() => {
       </div>
 
       <div class="onyx-text--small onyx-truncation-ellipsis">
-        <div class="onyx-file-card__name onyx-truncation-ellipsis">{{ props.filename }}</div>
+        <div class="onyx-file-card__name onyx-truncation-ellipsis">
+          <OnyxLink
+            v-if="link"
+            :href="link?.href"
+            :target="link?.target ?? '_blank'"
+            :with-external-icon="false"
+            class="onyx-truncation-ellipsis"
+          >
+            {{ props.filename }}
+          </OnyxLink>
+          <template v-else>{{ props.filename }}</template>
+        </div>
         <div class="onyx-file-card__size">{{ formatFileSize(props.size) }}</div>
       </div>
     </div>
@@ -71,6 +90,25 @@ const formatFileSize = computed(() => {
 
     &__name {
       font-weight: var(--onyx-font-weight-semibold);
+
+      .onyx-link {
+        display: block;
+
+        &:not(:hover, :focus-visible) {
+          text-decoration: none;
+          color: inherit;
+        }
+      }
+    }
+
+    &:has(&__name .onyx-link:focus-within) {
+      outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
+
+      .onyx-file-card__name {
+        .onyx-link {
+          outline: none;
+        }
+      }
     }
 
     &__size {
