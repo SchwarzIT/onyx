@@ -11,7 +11,7 @@ import {
   type VNodeProps,
   type VNodeRef,
 } from "vue";
-import type { Data } from "../types/index.js";
+import type { Data, MergeAll } from "../types/index.js";
 import { userConsole } from "./console.js";
 
 // region docs
@@ -119,18 +119,21 @@ type VProps = Data<any> & VNodeProps;
 
 type VRef = Element | ComponentPublicInstance | null;
 
+type MergeVuePropsResult<T extends unknown[]> =
+  MergeAll<T> extends { ref: NonNullable<unknown> } ? MergeAll<[...T, { ref: Ref }]> : MergeAll<T>;
+
 /**
  * Extends the Vue's `mergeProp` function, so that it
  *   - doesn't complain about nullish parameters
  *   - is also able to merge `ref` properties
  */
-export const mergeVueProps = <T extends VProps | null | undefined>(...args: T[] | []) =>
+export const mergeVueProps = <T extends (VProps | null | undefined)[]>(...args: T | []) =>
   args.reduce((prev, curr) => {
     // Make sure to always trigger a read access in case we need to access it using `toRaw`
     const _ = curr?.ref;
     const currRef = curr && isProxy(curr) && "ref" in curr ? toRaw(curr).ref : curr?.ref;
     const prevRef = prev?.ref;
-    const merged = mergeProps(prev, curr ?? {});
+    const merged = mergeProps(prev ?? {}, curr ?? {});
 
     if (!prevRef && !currRef) {
       return merged;
@@ -155,4 +158,4 @@ export const mergeVueProps = <T extends VProps | null | undefined>(...args: T[] 
     }
     merged.ref = mergedRef;
     return merged;
-  }, {} as VProps) as NonNullable<T>;
+  }, {}) as MergeVuePropsResult<T>;

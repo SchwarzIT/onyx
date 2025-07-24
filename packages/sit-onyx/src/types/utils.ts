@@ -22,6 +22,36 @@ export type UnionByKey<T> = {
 };
 
 /**
+ * Merges two types destructively, right to left:
+ * All keys from `Source` are kept as is and only the extraneous keys from `Target` that are not present in `Source` are copied over.
+ *
+ * @example
+ * ```ts
+ * type Result = Merge<{ a: number; b: string }, { b: boolean, c: unknown }> // => { a: number; b: boolean, c: unknown }
+ * ```
+ */
+export type Merge<Target, Source> = {
+  [P in Exclude<keyof Target, keyof Source>]: Target[P];
+} & Source;
+
+/**
+ * Merges all types destructively from left to right:
+ * For duplicated keys only the type from the right most occurring entry is kept.
+ *
+ * This is similar to the inferred type of a destructuring merge: `{ ...{ a: 1, b: "str" }, ...{ b: true }, ...{ b: 2 } }`.
+ *
+ * @example
+ * ```ts
+ * type Result = MergeAll<[{ a: number; b: string }, { b: boolean, c: unknown }, { b: number }]> // => { a: number; b: number, c: unknown }
+ * ```
+ */
+export type MergeAll<T extends unknown[]> = T extends [infer First, ...infer Rest]
+  ? Rest extends []
+    ? First
+    : Merge<First, MergeAll<Rest>>
+  : never;
+
+/**
  * Pick a value from `T` for the key `K`, if it exists.
  */
 export type MaybePick<T, Key, Fallback = never> = Key extends keyof T ? T[Key] : Fallback;
