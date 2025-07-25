@@ -21,7 +21,7 @@ export const wasKeyPressed = (event: KeyboardEvent, key: PressedKey) => {
   );
 };
 
-const GRAPHEME_SEGMENTER = new Intl.Segmenter();
+const GRAPHEME_SEGMENTER = new Intl.Segmenter("en-US");
 
 /**
  * Check if the `key` property of a KeyboardEvent is a printable character.
