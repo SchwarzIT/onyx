@@ -1,5 +1,11 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-beta.98
+
+### Patch Changes
+
+- 642dd24: remove imports from `@storybook/vue3` in favor of `@storybook/vue3-vite`
+
 ## 1.0.0-beta.97
 
 ### Major Changes
