@@ -69,19 +69,23 @@ export const useResizeObserver = (
 
   return { width, height };
 };
-export const getWindowInnerSize = () => {
-  const width = ref(window.innerWidth);
-  const height = ref(window.innerHeight);
+export const useWindowInnerSize = () => {
+  const width = ref(0);
+  const height = ref(0);
+
   const updateWindowSize = () => {
-    height.value = window.innerHeight;
     width.value = window.innerWidth;
+    height.value = window.innerHeight;
   };
 
   onMounted(() => {
     updateWindowSize();
     window.addEventListener("resize", updateWindowSize);
   });
-  onUnmounted(() => window.removeEventListener("resize", updateWindowSize));
+
+  onUnmounted(() => {
+    window.removeEventListener("resize", updateWindowSize);
+  });
 
   return { width, height };
 };

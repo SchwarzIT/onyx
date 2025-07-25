@@ -2,7 +2,7 @@
 import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
 import { computed, inject, ref, useId, useTemplateRef, watch } from "vue";
 import { useDensity } from "../../composables/density.js";
-import { getWindowInnerSize } from "../../composables/useResizeObserver.js";
+import { useWindowInnerSize } from "../../composables/useResizeObserver.js";
 import OnyxDrawer from "../OnyxDrawer/OnyxDrawer.vue";
 import { SIDEBAR_INJECTION_KEY } from "../OnyxPageLayout/types.js";
 import OnyxResizeHandle from "../OnyxResizeHandle/OnyxResizeHandle.vue";
@@ -57,7 +57,7 @@ const resizeHandleProps = computed(
       alignment: props.alignment === "left" ? "right" : "left",
     }) as const,
 );
-const { width: windowWidth } = getWindowInnerSize();
+const { width: windowWidth } = useWindowInnerSize();
 const dispayAsDrawer = computed(() => props.drawer || windowWidth.value <= ONYX_BREAKPOINTS.sm);
 
 const _isDrawerOpen = ref(false);

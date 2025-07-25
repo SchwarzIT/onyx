@@ -3,7 +3,7 @@ import sidebarArrowLeft from "@sit-onyx/icons/sidebar-arrow-left.svg?raw";
 import sidebarArrowRight from "@sit-onyx/icons/sidebar-arrow-right.svg?raw";
 import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
 import { computed, provide, ref, type Ref } from "vue";
-import { getWindowInnerSize } from "../../composables/useResizeObserver.js";
+import { useWindowInnerSize } from "../../composables/useResizeObserver.js";
 import { provideSkeletonContext } from "../../composables/useSkeletonState.js";
 import OnyxFAB from "../OnyxFAB/OnyxFAB.vue";
 import OnyxFABItem from "../OnyxFABItem/OnyxFABItem.vue";
@@ -62,7 +62,7 @@ const fabAlignment = computed(() => {
   const hasLeftSidebar = sidebarItems.value.some((item) => item.alignment === "left");
   return hasLeftSidebar ? "left" : "right";
 });
-const { width: windowWidth } = getWindowInnerSize();
+const { width: windowWidth } = useWindowInnerSize();
 const dispaySidebarFab = computed(
   () =>
     sidebarItems.value.some((sidebar) => !sidebar.isDrawer) &&
