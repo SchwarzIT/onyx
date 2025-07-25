@@ -510,4 +510,15 @@ test("should show correct message", async ({ mount }) => {
   await expect(errorMessageElement).toBeVisible();
 });
 
+test("should not cause the page to grow for large inputs", async ({ mount, page }) => {
+  // Bug #3797 https://github.com/SchwarzIT/onyx/issues/3797
+  const modelValue = "Zaphod Beeblebrox\n".repeat(1028);
+  const component = await mount(<OnyxTextarea label="Label" required modelValue={modelValue} />);
+
+  const textarea = component.getByLabel("Label");
+  const textareaBb = await textarea.boundingBox();
+  const pageHeight = await page.locator("body").evaluate((e) => e.scrollHeight);
+  expect(pageHeight).toBeCloseTo(textareaBb!.height, 2);
+});
+
 testMaxLengthBehavior(OnyxTextarea);
