@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import type { SkeletonInjected } from "src/composables/useSkeletonState";
 import { computed } from "vue";
+import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 import OnyxDataGrid from "./OnyxDataGrid.vue";
 
 const props = defineProps<{

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { useFileSize } from "src/composables/useFileSize.js";
 import { computed } from "vue";
 import { useDensity } from "../../composables/density.js";
+import { useFileSize } from "../../composables/useFileSize.js";
 import { extractLinkProps } from "../../utils/router.js";
 import OnyxCard from "../OnyxCard/OnyxCard.vue";
 import OnyxFileTypeIcon from "../OnyxFileTypeIcon/OnyxFileTypeIcon.vue";
