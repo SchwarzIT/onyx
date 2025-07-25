@@ -5,7 +5,6 @@ export default defineNuxtConfig({
   css: ["@fontsource-variable/source-sans-3", "@fontsource-variable/source-code-pro"],
   i18n: {
     defaultLocale: "en-US",
-    lazy: true,
     locales: [
       // en-US will inherit the default translations for onyx by default as en-US is a supported language
       { code: "en-US", file: "en-US.json", name: "English (US)" },

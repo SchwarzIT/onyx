@@ -24,9 +24,7 @@ export default defineNuxtPlugin({
     app.vueApp.use(
       createOnyx({
         i18n: {
-          locale: computed(
-            () => localeProperties.value.language ?? localeProperties.value.iso ?? "en-US",
-          ),
+          locale: computed(() => localeProperties.value.language ?? "en-US"),
           t,
         },
         router,
