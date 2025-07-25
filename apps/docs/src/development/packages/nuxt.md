@@ -26,6 +26,7 @@ A full changelog can be found [here](/development/packages/changelogs/nuxt).
 - Automatic setup of global styles
 - Automatic integration with [@nuxtjs/i18n](https://i18n.nuxtjs.org/)
 - Automatic integration with [Nuxt routing](https://nuxt.com/docs/getting-started/routing)
+- supports Nuxt 4
 
 ## Quick Setup
 
@@ -48,6 +49,8 @@ If your Nuxt project uses both modules, onyx will automatically detect it and us
 
 To merge the locales provided by onyx with your own, you need to define a mapping.
 
+::: code-group
+
 ```ts [nuxt.config.ts]
 export default defineNuxtConfig({
   modules: ["@sit-onyx/nuxt", "@nuxtjs/i18n"],
@@ -61,13 +64,15 @@ export default defineNuxtConfig({
   onyx: {
     i18n: {
       registerLocales: {
-        "de-DE": "de-DE",
         en_US: "en-US",
+        de: "de-DE",
       },
     },
   },
 });
 ```
+
+:::
 
 > Please register @sit-onyx/nuxt **before** @nuxtjs/i18n. Otherwise the translations for onyx won't be picked up by @nuxtjs/i18n.
 
@@ -75,7 +80,9 @@ export default defineNuxtConfig({
 
 It might happen that a certain translation provided by onyx doesn't fit your project. As project specific translations will always overwrite the defaults from onyx, you can easily provide your own. Just define the key of the onyx translation inside your own messages scoped to the key "onyx". E.g. this example will remove the default brackets around the translation for "optional":
 
-```json en-US.json
+::: code-group
+
+```json [i18n/locales/en-US.json]
 {
   "foo": "bar",
   "onyx": {
@@ -83,6 +90,8 @@ It might happen that a certain translation provided by onyx doesn't fit your pro
   }
 }
 ```
+
+:::
 
 For all available translations / keys please see: [i18n](/development/i18n#build-in-languages)
 
@@ -92,7 +101,9 @@ Maybe your project requires a language not supported by onyx. In this case you m
 
 In case you'd like to use the messages of an existing onyx language, you can import it into your messages and overwrite them as you wish:
 
-```ts customLang.ts
+::: code-group
+
+```ts [i18n/locales/customLang.ts]
 import enUS from "sit-onyx/locales/en-US.json";
 
 export default {
@@ -100,6 +111,8 @@ export default {
   onyx: { ...enUS, optional: "Custom optional" },
 };
 ```
+
+:::
 
 For more examples on how to customize your projects languages with support for onyx, feel free to take a look at one of our tests: [@sit-onyx/nuxt i18n test fixture](https://github.com/SchwarzIT/onyx/blob/nuxt-i18n/packages/nuxt/test/fixtures/i18n/nuxt.config.ts)
 

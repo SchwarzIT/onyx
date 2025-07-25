@@ -31,6 +31,7 @@ The package includes the following features:
 - pre-defined page layouts (landing page, docs etc.)
 - pre-configured [Nuxt content](https://content.nuxt.com/) module to render markdown pages with onyx components.
 - custom user friendly error page for 404, unexpected errors etc.
+- supports Nuxt 4
 
 ## Installation
 
@@ -40,7 +41,7 @@ To get started, you need a basic Nuxt project. You can check out the [Nuxt docum
 
 ::: warning app.vue
 **Important!**
-If your Nuxt project has a `app.vue` file, delete it. Otherwise the whole documentation template will be overridden and not work correctly.
+If your Nuxt project has a `app/app.vue` file, delete it. Otherwise the whole documentation template will be overridden and not work correctly.
 :::
 
 ### Step 2: Configure pnpm
@@ -118,11 +119,11 @@ This is an example page using the [onyx documentation template](https://onyx.sch
 
 ## Configuration
 
-To configure the documentation layer, simply define a `app.config.ts`. There you can configure global options like the nav bar etc.
+To configure the documentation layer, simply define a `app/app.config.ts`. There you can configure global options like the nav bar etc.
 
 ::: code-group
 
-```ts [app.config.ts]
+```ts [app/app.config.ts]
 export default defineAppConfig({
   onyxDocs: {
     // your options here
