@@ -60,8 +60,6 @@ const { densityClass } = useDensity(props);
       justify-content: space-between;
       gap: var(--onyx-density-xs);
       overflow-x: auto;
-      max-width: var(--onyx-grid-max-width);
-      margin-inline: var(--onyx-grid-margin-inline);
 
       // by default the horizontal padding should be aligned with the grid
       // however, when used inside the modal dialog, it should automatically adapt to the dialog padding

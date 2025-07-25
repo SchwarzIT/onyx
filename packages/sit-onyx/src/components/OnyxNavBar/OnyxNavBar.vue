@@ -256,10 +256,6 @@ $gap: var(--onyx-spacing-md);
       height: 100%;
       padding-inline: var(--onyx-grid-margin);
 
-      // sync with grid
-      max-width: var(--onyx-grid-max-width);
-      margin-inline: var(--onyx-grid-margin-inline);
-
       &:has(.onyx-nav-bar__back) {
         grid-template-columns: max-content max-content 1fr auto;
         grid-template-areas: "app back nav context";

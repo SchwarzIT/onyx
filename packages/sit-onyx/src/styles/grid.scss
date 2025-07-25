@@ -42,6 +42,8 @@ $sidebar-breakpoints: (
 
   /**
   * Grid container classes for "xl" and "lg" breakpoint variants with 16 or 20 columns
+  *
+  * Needs onyx-grid-* to override the --onyx-grid-columns 
   */
   @include container(min, lg) {
     .onyx-grid,
@@ -79,21 +81,25 @@ $sidebar-breakpoints: (
   * Page class to apply padding, max-width and optional centered.
   * Is usually placed at the root element of every page.
   */
-
-  .onyx-grid-layout {
-    // Note: The --onyx-grid-margin is implemented as padding here so that is also included in e.g. custom background colors
-    // but the term "margin" comes from UX/Figma so we decided to keep naming it margin to be aligned
-    --onyx-grid-margin-vertical: var(--onyx-density-3xl);
-    padding: var(--onyx-grid-margin-vertical) var(--onyx-grid-margin);
+  .onyx-grid-layout,
+  .onyx-grid-container {
     max-width: var(--onyx-grid-max-width, 100%);
     margin-inline: var(--onyx-grid-margin-inline);
     box-sizing: border-box; // max-width should include the padding
     transition: max-width 1s;
   }
+  .onyx-grid-layout {
+    // Note: The --onyx-grid-margin is implemented as padding here so that is also included in e.g. custom background colors
+    // but the term "margin" comes from UX/Figma so we decided to keep naming it margin to be aligned
+    --onyx-grid-margin-vertical: var(--onyx-density-3xl);
+    padding: var(--onyx-grid-margin-vertical) var(--onyx-grid-margin);
+  }
 
   /**
   * Utility class to allow optional centering for pages with max width.
   * Requires a "onyx-grid-max-*" class to be set.
+  *
+  *  Must be placed inside the desired container. E.g. on Onyx-grid-layout/Onyx-grid-container
   */
   .onyx-grid-center {
     --onyx-grid-margin-inline: auto;
@@ -134,6 +140,8 @@ $sidebar-breakpoints: (
 
   /**
   * Grid container class for defining breakpoint specific max width
+  *
+  *  Must be placed inside the desired container. E.g. on Onyx-grid-layout/Onyx-grid-container
   */
   @mixin generate-grid-max($name, $maxVariant, $breaks: $breakpoints) {
     .onyx-grid-max-#{$maxVariant} {
