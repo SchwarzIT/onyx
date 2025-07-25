@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.279
+
+### Patch Changes
+
+- 24e3d9b: fix(OnyxTextarea): fix invisible overflow causing growing page height for large inputs
+
 ## 1.0.0-beta.278
 
 ### Minor Changes
