@@ -2,7 +2,7 @@ import check from "@sit-onyx/icons/check.svg?raw";
 import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
-import type { Meta, StoryObj } from "@storybook/vue3";
+import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { defineIconSelectArgType } from "../../utils/storybook.js";
 import OnyxTag from "./OnyxTag.vue";
 

@@ -1,5 +1,5 @@
 import { createPreview } from "@sit-onyx/storybook-utils";
-import { setup } from "@storybook/vue3";
+import { setup } from "@storybook/vue3-vite";
 import { Chart, registerables } from "chart.js";
 import { registerOnyxPlugin } from "../src";
 

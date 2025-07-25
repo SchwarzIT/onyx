@@ -6,6 +6,7 @@ import skipFormattingConfig from "@vue/eslint-config-prettier/skip-formatting";
 import { defineConfigWithVueTs, vueTsConfigs } from "@vue/eslint-config-typescript";
 import compat from "eslint-plugin-compat";
 import playwrightEslintConfig from "eslint-plugin-playwright";
+import storybook from "eslint-plugin-storybook";
 import vue from "eslint-plugin-vue";
 import vueScopedCss from "eslint-plugin-vue-scoped-css";
 import vueA11y from "eslint-plugin-vuejs-accessibility";
@@ -123,6 +124,7 @@ const playwrightConfig = {
       },
     ],
     "vue/require-prop-comment": "off",
+    "vue/require-default-prop": "off",
   },
 };
 
@@ -220,6 +222,7 @@ export default tsEslint.config(
   eslintCommentsConfig,
   generalVueTsConfig,
   vitestConfig,
+  ...storybook.configs["flat/recommended"],
   sitOnyxConfig,
   playwrightConfig,
   nuxtConfig,

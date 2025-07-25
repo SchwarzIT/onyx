@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/vue3";
+import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import PolarAreaChart from "./PolarAreaChart.vue";
 
 const meta: Meta<typeof PolarAreaChart> = {

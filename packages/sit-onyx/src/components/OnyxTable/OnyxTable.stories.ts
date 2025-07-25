@@ -1,5 +1,5 @@
 import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
-import type { Meta, StoryObj } from "@storybook/vue3";
+import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";

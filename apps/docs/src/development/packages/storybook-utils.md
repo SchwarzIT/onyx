@@ -120,7 +120,7 @@ addons.setConfig({
 
 ```ts [.storybook/preview.ts]
 import { createTheme } from "@sit-onyx/storybook-utils";
-import type { Preview } from "@storybook/vue3";
+import type { Preview } from "@storybook/vue3-vite";
 
 const preview: Preview = {
   parameters: {

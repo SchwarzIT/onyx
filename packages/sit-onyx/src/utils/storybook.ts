@@ -1,4 +1,4 @@
-import type { ArgTypes, Decorator, StoryObj } from "@storybook/vue3";
+import type { ArgTypes, Decorator, StoryObj } from "@storybook/vue3-vite";
 import type { DefineComponent } from "vue";
 import OnyxToast from "../components/OnyxToast/OnyxToast.vue";
 

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/vue3";
+import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { createAdvancedStoryExample } from "../../../utils/storybook.js";
 import OnyxDataGrid from "../../OnyxDataGrid/OnyxDataGrid.vue";
 

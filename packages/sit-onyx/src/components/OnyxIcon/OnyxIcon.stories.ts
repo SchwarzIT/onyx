@@ -1,5 +1,5 @@
 import happyIcon from "@sit-onyx/icons/emoji-happy-2.svg?raw";
-import type { Meta, StoryObj } from "@storybook/vue3";
+import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { defineIconSelectArgType, textColorDecorator } from "../../utils/storybook.js";
 import OnyxIcon from "./OnyxIcon.vue";
 

@@ -1,5 +1,5 @@
 import bell from "@sit-onyx/icons/bell.svg?raw";
-import type { Meta, StoryObj } from "@storybook/vue3";
+import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
 import { textColorDecorator } from "../../utils/storybook.js";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";

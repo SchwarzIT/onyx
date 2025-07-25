@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/vue3";
+import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { useArgs } from "storybook/internal/preview-api";
 import { ref, watch, watchEffect } from "vue";
 import OnyxButton from "../../../OnyxButton/OnyxButton.vue";

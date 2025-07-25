@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/vue3";
+import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import OnyxIconLibrary from "./OnyxIconLibrary.vue";
 
 const meta: Meta<typeof OnyxIconLibrary> = {

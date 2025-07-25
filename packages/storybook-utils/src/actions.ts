@@ -1,4 +1,4 @@
-import type { Decorator } from "@storybook/vue3";
+import type { Decorator } from "@storybook/vue3-vite";
 import { action } from "storybook/actions";
 import { useArgs } from "storybook/internal/preview-api";
 import type { ArgTypes, ArgTypesEnhancer, StrictInputType } from "storybook/internal/types";

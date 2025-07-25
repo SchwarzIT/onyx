@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/vue3";
+import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { provide, ref } from "vue";
 import { ROUTER_INJECTION_KEY } from "../../composables/useLink.js";
 import OnyxRouterLink from "./OnyxRouterLink.vue";

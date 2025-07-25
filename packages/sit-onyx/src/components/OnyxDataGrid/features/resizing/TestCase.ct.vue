@@ -2,19 +2,17 @@
 import { computed } from "vue";
 import type { DataGridEntry, OnyxDataGridProps } from "../../../../index.js";
 import { DataGridFeatures, OnyxDataGrid } from "../../../../index.js";
-import type { StickyColumnsOptions } from "./types.js";
+import type { ResizingOptions } from "./types.js";
 
-const { columns, data, stickyColumnsOptions } = defineProps<
+const { columns, data, resizingOptions } = defineProps<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- for simplicity we use any here
   Pick<OnyxDataGridProps<any, any, any, any, any, any>, "columns" | "data"> & {
-    /**
-     * config
-     */
-    stickyColumnsOptions?: StickyColumnsOptions<DataGridEntry>;
+    resizingOptions?: ResizingOptions<DataGridEntry>;
   }
 >();
-const withStickyColumns = computed(() => DataGridFeatures.useStickyColumns(stickyColumnsOptions));
-const features = computed(() => [withStickyColumns.value]);
+
+const withResizing = computed(() => DataGridFeatures.useResizing(resizingOptions));
+const features = computed(() => [withResizing.value]);
 </script>
 
 <template>

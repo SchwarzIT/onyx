@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/vue3";
+import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { Default as SelectDefaultStory } from "../OnyxSelect/OnyxSelect.stories";
 import OnyxSelectInput from "./OnyxSelectInput.vue";
 

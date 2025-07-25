@@ -1,6 +1,6 @@
 import DE from "@sit-onyx/flags/DE.svg?raw";
 import GB from "@sit-onyx/flags/GB.svg?raw";
-import type { Meta, StoryObj } from "@storybook/vue3";
+import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import OnyxLanguageMenuItem from "./OnyxLanguageMenuItem.vue";
 
 /**

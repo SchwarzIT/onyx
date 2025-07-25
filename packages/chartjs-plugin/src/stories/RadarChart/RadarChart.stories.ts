@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/vue3";
+import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import RadarChart from "./RadarChart.vue";
 
 const meta: Meta<typeof RadarChart> = {

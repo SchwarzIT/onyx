@@ -158,7 +158,7 @@ Also make sure to remove the "Onyx" prefix for the title.
 ::: code-group
 
 ```ts{5} [OnyxExampleComponent.stories.ts]
-import type { Meta, StoryObj } from "@storybook/vue3";
+import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import OnyxExampleComponent from "./OnyxExampleComponent.vue";
 
 const meta: Meta<typeof OnyxExampleComponent> = {
