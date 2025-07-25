@@ -35,7 +35,6 @@ const formatFileSize = computed(() => {
 
 const link = computed(() => {
   if (!props.link) return;
-  if (typeof props.link === "string") return { href: props.link };
   return extractLinkProps(props.link);
 });
 </script>
