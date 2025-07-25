@@ -130,7 +130,7 @@ test("should render as drawer", async ({ mount, page, makeAxeBuilder }) => {
       }`,
     });
 
-    const viewportWidth = 512;
+    const viewportWidth = 1200;
 
     await page.setViewportSize({ height: 256, width: viewportWidth });
 
@@ -173,7 +173,7 @@ test("should render as drawer", async ({ mount, page, makeAxeBuilder }) => {
 
     // ASSERT
     box = (await component.boundingBox())!;
-    expect(box.width, "should have max width when resizing").toBe(viewportWidth - 16);
+    expect(box.width, "should have max width when resizing").toBe(viewportWidth - 64);
 
     // ACT
     await dragResizeHandle({ page, to: viewportWidth, preventUp: true });

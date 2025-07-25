@@ -5,8 +5,8 @@ import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
 import { computed, provide, ref, type Ref } from "vue";
 import { getWindowInnerSize } from "../../composables/useResizeObserver.js";
 import { provideSkeletonContext } from "../../composables/useSkeletonState.js";
-import OnyxFab from "../OnyxFab/OnyxFab.vue";
-import OnyxFabItem from "../OnyxFabItem/OnyxFabItem.vue";
+import OnyxFAB from "../OnyxFAB/OnyxFAB.vue";
+import OnyxFABItem from "../OnyxFABItem/OnyxFABItem.vue";
 import { SIDEBAR_INJECTION_KEY, type OnyxPageLayoutProps, type SidebarItem } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxPageLayoutProps>(), {
@@ -98,7 +98,7 @@ const dispaySidebarFab = computed(
     <div v-if="slots.footer" class="onyx-page__footer">
       <slot name="footer"></slot>
     </div>
-    <OnyxFab
+    <OnyxFAB
       v-if="
         dispaySidebarFab &&
         sidebarItems.length === 1 &&
@@ -111,7 +111,7 @@ const dispaySidebarFab = computed(
       :alignment="fabAlignment"
       @click="updateItems({ ...sidebarItems[0], open: true })"
     />
-    <OnyxFab
+    <OnyxFAB
       v-if="
         dispaySidebarFab &&
         sidebarItems.length > 1 &&
@@ -124,13 +124,13 @@ const dispaySidebarFab = computed(
       hide-label
       :alignment="fabAlignment"
     >
-      <OnyxFabItem
+      <OnyxFABItem
         v-for="sidebar in sidebarItems"
         :key="sidebar.id"
         :label="sidebar.label"
         @click="updateItems({ ...sidebar, open: true })"
       />
-    </OnyxFab>
+    </OnyxFAB>
   </div>
 </template>
 
