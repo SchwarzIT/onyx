@@ -12,6 +12,7 @@ import cloudArrowUp from "@sit-onyx/icons/cloud-arrow-up.svg?raw";
 
 import { computed, ref, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density.js";
+import { useFileSize } from "../../composables/useFileSize.js";
 import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
@@ -20,17 +21,14 @@ import {
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import { useRootAttrs } from "../../utils/attrs.js";
-import {
-  convertBinaryPrefixToBytes,
-  formatBytesToString,
-  type BinaryPrefixedSize,
-} from "../../utils/numbers.js";
 import { asArray } from "../../utils/objects.js";
 import { OnyxFileUploadSVG } from "../illustrations/index.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxFileUploadProps } from "./types.js";
+
+defineOptions({ inheritAttrs: false });
 
 const props: OnyxFileUploadProps<TMultiple> = withDefaults(
   defineProps<OnyxFileUploadProps<TMultiple>>(),
@@ -42,17 +40,18 @@ const props: OnyxFileUploadProps<TMultiple> = withDefaults(
   },
 );
 
-const skeleton = useSkeletonContext(props as { skeleton: SkeletonInjected });
-const { disabled } = useFormContext(props);
-
 const emit = defineEmits<{
   "update:modelValue": [value: TModelValue];
 }>();
-defineOptions({ inheritAttrs: false });
 
-const { t, locale } = injectI18n();
+const skeleton = useSkeletonContext(props as { skeleton: SkeletonInjected });
+const { disabled } = useFormContext(props);
+
+const { t } = injectI18n();
 const { densityClass } = useDensity(props);
 const { restAttrs, rootAttrs } = useRootAttrs();
+const { formatFileSize } = useFileSize();
+
 const modelValue = useVModel<TModelValue, "modelValue", typeof props, undefined>({
   props,
   emit,
@@ -87,12 +86,6 @@ const handleChange = (event: Event) => {
   target.value = "";
 };
 
-const formatFileSize = computed(() => {
-  return (size: number | BinaryPrefixedSize) => {
-    const bytes = typeof size === "number" ? size : convertBinaryPrefixToBytes(size);
-    return formatBytesToString(locale.value, bytes);
-  };
-});
 const showDetails = computed(() => {
   return (
     props.size === "large" ||
