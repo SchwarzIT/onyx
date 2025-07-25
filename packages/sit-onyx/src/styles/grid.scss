@@ -166,12 +166,12 @@ $sidebar-breakpoints: (
           @include generate-grid-properties($columns, $gutter, $margin);
         }
         @include generate-spans(1, $columns, $name);
-        @if $maxVariant != none {
-          @include generate-grid-max($name, $maxVariant);
-        }
         @if $name == "xl" {
           @include generate-spans(17, 20, $name);
         }
+      }
+      @if $maxVariant != none {
+        @include generate-grid-max($name, $maxVariant);
       }
     }
   }
@@ -195,10 +195,9 @@ $sidebar-breakpoints: (
         }
 
         @include generate-spans(1, $columns, $name);
-
-        @if $maxVariant != none {
-          @include generate-grid-max($name, $maxVariant, $sidebar-breakpoints);
-        }
+      }
+      @if $maxVariant != none {
+        @include generate-grid-max($name, $maxVariant, $sidebar-breakpoints);
       }
     }
   }
