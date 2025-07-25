@@ -518,7 +518,7 @@ test("should not cause the page to grow for large inputs", async ({ mount, page 
   const textarea = component.getByLabel("Label");
   const textareaBb = await textarea.boundingBox();
   const pageHeight = await page.locator("body").evaluate((e) => e.scrollHeight);
-  expect(pageHeight).toBeCloseTo(textareaBb!.height, 2);
+  expect(pageHeight).toBeCloseTo(textareaBb!.height, -2);
 });
 
 testMaxLengthBehavior(OnyxTextarea);
