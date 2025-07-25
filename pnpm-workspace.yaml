@@ -11,8 +11,8 @@ catalog:
   "@vue/compiler-ssr": 3.5.18
   "@vue/shared": 3.5.18
   chart.js: 4.5.0
-  playwright: 1.51.1
-  playwright-core: 1.51.1
+  playwright: 1.54.1
+  playwright-core: 1.54.1
 
   sass-embedded: 1.89.2
   typescript: 5.8.3

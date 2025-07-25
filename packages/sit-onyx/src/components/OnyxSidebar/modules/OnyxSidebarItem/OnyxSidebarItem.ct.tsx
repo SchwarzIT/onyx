@@ -60,7 +60,7 @@ test("should open internal link with router", async ({ mount, page }) => {
 
   // ASSERT
   await expect(component).toHaveRole("link");
-  await expect(component, "should use the onyx router link").toHaveClass(/.onyx-router-link/);
+  await expect(component, "should use the onyx router link").toContainClass("onyx-router-link");
 
   // ACT
   await component.click();

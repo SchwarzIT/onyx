@@ -9,6 +9,11 @@ updates:
     schedule:
       interval: daily
     groups:
+      playwright:
+        patterns:
+          - "^@playwright/*"
+          - "^playwright*"
+
       minor:
         update-types:
           - minor
