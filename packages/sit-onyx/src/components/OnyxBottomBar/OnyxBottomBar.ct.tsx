@@ -73,12 +73,18 @@ Object.entries(ONYX_BREAKPOINTS).forEach(([breakpoint, width]) => {
 
     /* eslint-disable playwright/no-conditional-in-test, playwright/no-conditional-expect -- prevent useless screenshots for breakpoints that don't have a max width */
     if (width > ONYX_BREAKPOINTS.md) {
-      const app = page.locator(".onyx-app");
+      //Classes has to be added for each container
+      const gridLayout = page.locator(".onyx-grid-layout");
+      const bottomBar = page.locator(".onyx-bottom-bar__content");
 
-      await app.evaluate((element) => element.classList.add("onyx-grid-max-md"));
+      await gridLayout.evaluate((element) => element.classList.add("onyx-grid-max-md"));
+      await bottomBar.evaluate((element) => element.classList.add("onyx-grid-max-md"));
+
       await expect(page).toHaveScreenshot(`grid-max-width-${breakpoint}.png`);
 
-      await app.evaluate((element) => element.classList.add("onyx-grid-center"));
+      await gridLayout.evaluate((element) => element.classList.add("onyx-grid-center"));
+      await bottomBar.evaluate((element) => element.classList.add("onyx-grid-center"));
+
       await expect(page).toHaveScreenshot(`grid-max-center-${breakpoint}.png`);
     }
     /* eslint-enable */

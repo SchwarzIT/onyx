@@ -72,8 +72,6 @@ provideSkeletonContext(props);
       display: flex;
       align-items: center;
       gap: var(--onyx-density-xs);
-      margin-inline: var(--onyx-grid-margin-inline);
-      max-width: var(--onyx-grid-max-width);
     }
 
     &__home {
