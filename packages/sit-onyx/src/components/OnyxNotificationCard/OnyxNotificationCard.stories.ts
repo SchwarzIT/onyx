@@ -1,7 +1,7 @@
 import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
 import circleAttention from "@sit-onyx/icons/circle-attention.svg?raw";
 import trash from "@sit-onyx/icons/trash.svg?raw";
-import type { Meta, StoryObj } from "@storybook/vue3";
+import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
 import { defineIconSelectArgType } from "../../utils/storybook.js";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";

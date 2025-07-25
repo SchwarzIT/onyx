@@ -1,7 +1,7 @@
 import type { Locator } from "@playwright/test";
 import { expect, test } from "../../../../playwright/a11y.js";
 import { dragResizeHandle } from "../../../../playwright/index.js";
-import TestCase from "./TestCase.vue";
+import TestCase from "./TestCase.ct.vue";
 
 const getTestData = () => [
   { id: 1, a: "1", b: "a", c: "aa" },

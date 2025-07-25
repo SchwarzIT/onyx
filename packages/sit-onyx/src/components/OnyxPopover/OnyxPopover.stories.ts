@@ -1,5 +1,5 @@
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
-import type { Meta, StoryObj } from "@storybook/vue3";
+import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxPopover from "./OnyxPopover.vue";

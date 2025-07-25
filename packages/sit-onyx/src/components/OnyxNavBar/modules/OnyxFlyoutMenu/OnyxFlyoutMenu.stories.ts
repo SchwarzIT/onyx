@@ -1,7 +1,7 @@
 import globe from "@sit-onyx/icons/globe.svg?raw";
 import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
-import type { Meta, StoryObj } from "@storybook/vue3";
+import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
 import OnyxButton from "../../../OnyxButton/OnyxButton.vue";
 import OnyxMenuItem from "../OnyxMenuItem/OnyxMenuItem.vue";

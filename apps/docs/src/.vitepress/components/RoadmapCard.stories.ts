@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/vue3";
+import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import RoadmapCard from "./RoadmapCard.vue";
 
 const meta: Meta<typeof RoadmapCard> = {

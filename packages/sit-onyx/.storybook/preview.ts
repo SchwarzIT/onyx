@@ -5,7 +5,7 @@ import "../src/styles/index.scss";
 import "./docs-template.scss";
 
 import { createPreview, withVModelDecorator } from "@sit-onyx/storybook-utils";
-import { setup, type Preview } from "@storybook/vue3";
+import { setup, type Preview } from "@storybook/vue3-vite";
 import { getRules, Spec } from "axe-core";
 import { createOnyx } from "../src";
 import { a11yTags } from "../src/a11yConfig";

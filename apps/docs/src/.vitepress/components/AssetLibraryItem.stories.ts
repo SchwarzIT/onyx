@@ -1,5 +1,5 @@
 import emojiHappy2 from "@sit-onyx/icons/emoji-happy-2.svg?raw";
-import type { Meta, StoryObj } from "@storybook/vue3";
+import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import AssetLibraryItem from "./AssetLibraryItem.vue";
 
 const meta: Meta<typeof AssetLibraryItem> = {

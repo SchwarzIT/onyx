@@ -1,4 +1,4 @@
-import type { Meta } from "@storybook/vue3";
+import type { Meta } from "@storybook/vue3-vite";
 import { createAdvancedStoryExample } from "../../utils/storybook.js";
 import OnyxToast from "./OnyxToast.vue";
 

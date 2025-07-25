@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/vue3";
+import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { textColorDecorator } from "../../utils/storybook.js";
 import OnyxLoadingIndicator from "./OnyxLoadingIndicator.vue";
 

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/vue3";
+import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import OnyxCheckboxGroup from "./OnyxCheckboxGroup.vue";
 import type { CheckboxGroupOption } from "./types.js";
 

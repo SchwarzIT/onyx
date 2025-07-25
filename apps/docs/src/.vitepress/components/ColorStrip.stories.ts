@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/vue3";
+import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import ColorStrip from "./ColorStrip.vue";
 
 const meta: Meta<typeof ColorStrip> = {

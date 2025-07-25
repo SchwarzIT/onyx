@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/vue3";
+import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import PieChart from "./PieChart.vue";
 
 const meta: Meta<typeof PieChart> = {

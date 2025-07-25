@@ -1,5 +1,5 @@
 import menu from "@sit-onyx/icons/menu.svg?raw";
-import type { Meta, StoryObj } from "@storybook/vue3";
+import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { defineIconSelectArgType } from "../../utils/storybook.js";
 import OnyxMobileNavButton from "./OnyxMobileNavButton.vue";
 
