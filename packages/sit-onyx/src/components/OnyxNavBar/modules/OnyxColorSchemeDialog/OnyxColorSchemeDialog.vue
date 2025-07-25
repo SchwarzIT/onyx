@@ -82,6 +82,10 @@ const options = computed<SelectDialogOption<ColorSchemeValue>[]>(() => {
           flex-direction: column;
           align-items: flex-start;
         }
+
+        .onyx-select-dialog__icon {
+          box-shadow: var(--onyx-shadow-medium-top);
+        }
       }
     }
   }

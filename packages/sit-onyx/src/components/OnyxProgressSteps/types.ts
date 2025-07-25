@@ -1,7 +1,7 @@
 import type { DensityProp } from "../../composables/density.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 import type { Orientation } from "../../types/index.js";
-import type { OnyxProgressStepProps } from "../OnyxProgressStep/types.js";
+import type { OnyxProgressItemProps } from "../OnyxProgressItem/types.js";
 
 export type OnyxProgressStepsProps = DensityProp & {
   /**
@@ -29,4 +29,4 @@ export type OnyxProgressStepsProps = DensityProp & {
   skeleton?: SkeletonInjected;
 };
 
-export type ControlledProgressStep = Omit<OnyxProgressStepProps, "value" | "density">;
+export type ControlledProgressStep = Omit<OnyxProgressItemProps, "value" | "density">;

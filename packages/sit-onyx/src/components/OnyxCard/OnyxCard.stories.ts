@@ -9,7 +9,7 @@ import OnyxCard from "./OnyxCard.vue";
  * enhancing user experience and content discoverability.
  */
 const meta: Meta<typeof OnyxCard> = {
-  title: "Basic/Card",
+  title: "Cards/Card",
   component: OnyxCard,
   argTypes: {
     style: { table: { disable: true } },
@@ -23,11 +23,12 @@ type Story = StoryObj<typeof OnyxCard>;
 export const Default = {
   args: {
     style: "width: 20rem;",
-    default: h(
-      "span",
-      { style: "color: var(--onyx-color-text-icons-info-intense);" },
-      "Note: The card component is fully flexible. It can be adjusted with every content the project needs.",
-    ),
+    default: () =>
+      h(
+        "span",
+        { style: "color: var(--onyx-color-text-icons-info-intense);" },
+        "Note: The card component is fully flexible. It can be adjusted with every content the project needs.",
+      ),
   },
 } satisfies Story;
 

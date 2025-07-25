@@ -17,8 +17,8 @@ import {
   OnyxDatePicker,
   OnyxDialog,
   OnyxEmpty,
-  OnyxFab,
-  OnyxFabItem,
+  OnyxFAB,
+  OnyxFABItem,
   OnyxFilterTag,
   OnyxHeadline,
   OnyxIcon,
@@ -65,7 +65,7 @@ const COMPONENTS = [
   "OnyxCheckboxGroup",
   "OnyxDatePicker",
   "OnyxEmpty",
-  "OnyxFab",
+  "OnyxFAB",
   "OnyxHeadline",
   "OnyxIcon",
   "OnyxIconButton",
@@ -241,11 +241,11 @@ const currentProgressStep = ref(3);
 
         <OnyxEmpty v-if="show('OnyxEmpty')">No data available</OnyxEmpty>
 
-        <OnyxFab v-if="show('OnyxFab')" label="Example label">
-          <OnyxFabItem :icon="placeholder" label="Action 3" />
-          <OnyxFabItem :icon="placeholder" label="Action 2" />
-          <OnyxFabItem :icon="placeholder" label="Action 1" />
-        </OnyxFab>
+        <OnyxFAB v-if="show('OnyxFAB')" label="Example label">
+          <OnyxFABItem :icon="placeholder" label="Action 3" />
+          <OnyxFABItem :icon="placeholder" label="Action 2" />
+          <OnyxFABItem :icon="placeholder" label="Action 1" />
+        </OnyxFAB>
 
         <OnyxHeadline is="h1" v-if="show('OnyxHeadline')" hash="headline">Headline</OnyxHeadline>
 
