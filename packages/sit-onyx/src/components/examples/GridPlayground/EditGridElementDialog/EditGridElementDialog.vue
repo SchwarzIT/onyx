@@ -136,9 +136,8 @@ const handleCheckboxChange = (isChecked: boolean, breakpoint: OnyxBreakpoint) =>
 
 <style lang="scss" scoped>
 .dialog {
-  padding: 0;
+  --onyx-dialog-padding: 0;
   width: 30rem;
-  max-width: 100%;
 
   &__header {
     display: flex;
