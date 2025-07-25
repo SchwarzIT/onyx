@@ -6,6 +6,9 @@ settings:
 
 catalogs:
   default:
+    chart.js:
+      specifier: 4.5.0
+      version: 4.5.0
     typescript:
       specifier: 5.8.3
       version: 5.8.3
@@ -559,7 +562,7 @@ importers:
         version: 3.5.18(typescript@5.8.3)
       vue-component-type-helpers:
         specifier: ^3.0.3
-        version: 3.0.3
+        version: 3.0.4
       vue-i18n:
         specifier: ^11.1.11
         version: 11.1.11(vue@3.5.18(typescript@5.8.3))
@@ -593,7 +596,7 @@ importers:
         version: 3.5.18(typescript@5.8.3)
       vue-component-type-helpers:
         specifier: ^3.0.3
-        version: 3.0.3
+        version: 3.0.4
 
   packages/vitepress-theme:
     dependencies:
@@ -7620,9 +7623,6 @@ packages:
 
   vue-component-type-helpers@2.2.12:
     resolution: {integrity: sha512-YbGqHZ5/eW4SnkPNR44mKVc6ZKQoRs/Rux1sxC6rdwXb4qpbOSYfDr9DsTHolOTGmIKgM9j141mZbBeg05R1pw==}
-
-  vue-component-type-helpers@3.0.3:
-    resolution: {integrity: sha512-koiBu7lO8e6w/UlbZAAIW11qcFQocYIl7Nh/SVwGZ804ej5KrncU32bRxi2zfU2Kyf6HWuk1CeeVP2rhIL+vyQ==}
 
   vue-component-type-helpers@3.0.4:
     resolution: {integrity: sha512-WtR3kPk8vqKYfCK/HGyT47lK/T3FaVyWxaCNuosaHYE8h9/k0lYRZ/PI/+T/z2wP+uuNKmL6z30rOcBboOu/YA==}
@@ -16556,8 +16556,6 @@ snapshots:
       vue-component-type-helpers: 3.0.4
 
   vue-component-type-helpers@2.2.12: {}
-
-  vue-component-type-helpers@3.0.3: {}
 
   vue-component-type-helpers@3.0.4: {}
 
