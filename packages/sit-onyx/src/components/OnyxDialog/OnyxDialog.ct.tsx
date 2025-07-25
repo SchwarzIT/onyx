@@ -91,7 +91,7 @@ for (const alignment of ["left", "right"] as const) {
 
 test("should close correctly when clicking outside the dialog", async ({ mount, page }) => {
   // ARRANGE
-  await page.setViewportSize({ width: 512, height: 512 });
+  await page.setViewportSize({ width: 512, height: 1028 });
 
   let closeCount = 0;
 
