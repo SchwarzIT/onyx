@@ -47,21 +47,21 @@
     "sit-onyx": "workspace:^"
   },
   "devDependencies": {
-    "@fontsource-variable/source-code-pro": "^5.2.6",
-    "@fontsource-variable/source-sans-3": "^5.2.8",
-    "@nuxt/content": "^3.6.3",
-    "@nuxt/image": "^1.10.0",
+    "@fontsource-variable/source-code-pro": ">= 5",
+    "@fontsource-variable/source-sans-3": ">= 5",
+    "@nuxt/content": ">= 3",
+    "@nuxt/image": ">= 1",
     "@nuxt/test-utils": "^3.19.2",
-    "@nuxtjs/color-mode": "^3.5.2",
-    "@playwright/experimental-ct-vue": "1.54.1",
-    "@playwright/test": "1.54.1",
+    "@nuxtjs/color-mode": ">= 3",
+    "@playwright/experimental-ct-vue": "catalog:",
+    "@playwright/test": "catalog:",
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/nuxt": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
     "nuxt": "^4.0.1",
-    "sass-embedded": "1.89.2",
+    "sass-embedded": "catalog:",
     "sit-onyx": "workspace:^",
     "typescript": "catalog:",
-    "vue": "3.5.18"
+    "vue": "catalog:"
   }
 }
