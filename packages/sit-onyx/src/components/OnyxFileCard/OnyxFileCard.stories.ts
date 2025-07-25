@@ -8,7 +8,7 @@ import OnyxMenuItem from "../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxFileCard from "./OnyxFileCard.vue";
 
 const meta: Meta<typeof OnyxFileCard> = {
-  title: "Basic/FileCard",
+  title: "Cards/FileCard",
   component: OnyxFileCard,
   tags: ["new:component"],
   argTypes: {
