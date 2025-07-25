@@ -1,8 +1,8 @@
 import { DENSITIES } from "../../composables/density.js";
-import { testMaxLengthBehavior } from "../../composables/useLenientMaxLengthValidation.ct-utils";
+import { testMaxLengthBehavior } from "../../composables/useLenientMaxLengthValidation.ct-utils.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
-import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-utils";
+import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-utils.js";
 import OnyxTextarea from "./OnyxTextarea.vue";
 
 test.describe("Screenshot tests", () => {
@@ -508,6 +508,17 @@ test("should show correct message", async ({ mount }) => {
   await expect(messageElement).toBeHidden();
   await expect(successMessageElement).toBeHidden();
   await expect(errorMessageElement).toBeVisible();
+});
+
+test("should not cause the page to grow for large inputs", async ({ mount, page }) => {
+  // Bug #3797 https://github.com/SchwarzIT/onyx/issues/3797
+  const modelValue = "Zaphod Beeblebrox\n".repeat(1028);
+  const component = await mount(<OnyxTextarea label="Label" required modelValue={modelValue} />);
+
+  const textarea = component.getByLabel("Label");
+  const textareaBb = await textarea.boundingBox();
+  const pageHeight = await page.locator("body").evaluate((e) => e.scrollHeight);
+  expect(pageHeight).toBeCloseTo(textareaBb!.height, -2);
 });
 
 testMaxLengthBehavior(OnyxTextarea);

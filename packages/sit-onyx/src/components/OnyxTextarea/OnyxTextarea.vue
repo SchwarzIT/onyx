@@ -169,18 +169,6 @@ useAutofocus(input, props);
   @include input.define-skeleton-styles($height: var(--min-height));
 }
 
-/**
-* Styles that are shared between the <textarea> and the ::after element of the wrapper
-* that is used for the autosize feature.
-*/
-@mixin define-shared-autosize-styles() {
-  grid-area: 1 / 1;
-  height: 100%;
-  min-height: var(--min-height);
-  max-height: var(--max-height);
-  padding: var(--onyx-textarea-padding-vertical) var(--onyx-density-sm);
-}
-
 .onyx-textarea {
   @include layers.component() {
     @include input.define-shared-styles(
@@ -195,17 +183,29 @@ useAutofocus(input, props);
 
       // auto-resize, based on: https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas
       &::after {
-        @include define-shared-autosize-styles;
         /* Note the weird space! Needed to prevent jumpy behavior */
         content: attr(data-autosize-value) " ";
         white-space: pre-wrap; // this is how textarea text behaves
         visibility: hidden; // hidden from view, clicks, and screen readers
         overflow-wrap: anywhere;
+        overflow-y: hidden;
       }
     }
 
+    /**
+     * Styles that are shared between the <textarea> and the ::after element of the wrapper
+     * that is used for the autosize feature.
+     */
+    &__wrapper:after,
     &__native {
-      @include define-shared-autosize-styles;
+      grid-area: 1 / 1;
+      height: 100%;
+      min-height: var(--min-height);
+      max-height: var(--max-height);
+      padding: var(--onyx-textarea-padding-vertical) var(--onyx-density-sm);
+    }
+
+    &__native {
       resize: vertical;
 
       &--no-resize {
