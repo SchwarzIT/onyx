@@ -74,7 +74,7 @@ describe("mergeVueProps", () => {
     const fnRef = vi.fn();
     const result = mergeVueProps({}, { ref: ref1 }, { ref: ref2 }, {}, { ref: fnRef }, {});
 
-    const targetRef = result.ref as vue.Ref;
+    const targetRef = result.ref;
     targetRef.value = newValue;
     expect(targetRef.value).toBe(newValue);
     expect(ref1.value).toBe(newValue);

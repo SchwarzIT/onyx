@@ -82,6 +82,14 @@ const menuItemProps = computed(() =>
 
 const hasChildren = computed(() => !!slots.children);
 
+const childrenClickHandler = computed(() =>
+  hasChildren.value
+    ? {
+        onClick: withModifiers(() => (open.value = true), ["stop"]),
+      }
+    : null,
+);
+
 const handleBackButtonKeydown = async (event: KeyboardEvent) => {
   switch (event.key) {
     case "ArrowLeft":
@@ -112,15 +120,7 @@ const handleBackButtonKeydown = async (event: KeyboardEvent) => {
       class="onyx-menu-item__trigger"
       :disabled="props.disabled"
       :link="props.link"
-      v-bind="
-        mergeVueProps(
-          menuItemProps,
-          restAttrs,
-          hasChildren && {
-            onClick: withModifiers(() => (open = true), ['stop']),
-          },
-        )
-      "
+      v-bind="mergeVueProps(menuItemProps, restAttrs, childrenClickHandler)"
     >
       <slot>
         <span>
