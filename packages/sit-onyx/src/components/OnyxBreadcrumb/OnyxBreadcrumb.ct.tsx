@@ -44,7 +44,7 @@ test("should be aligned with the grid when in container mode", async ({ page, mo
   await page.setViewportSize({ width: ONYX_BREAKPOINTS.xl, height: 256 });
 
   const component = await mount(
-    <div>
+    <div style={{ containerType: "inline-size" }}>
       <OnyxBreadcrumb container>
         <OnyxBreadcrumbItem href="#">Item 1</OnyxBreadcrumbItem>
         <OnyxBreadcrumbItem href="#">Item 2</OnyxBreadcrumbItem>
@@ -52,7 +52,7 @@ test("should be aligned with the grid when in container mode", async ({ page, mo
           Item 3
         </OnyxBreadcrumbItem>
       </OnyxBreadcrumb>
-      <div class="onyx-grid-container">
+      <div class="onyx-grid-layout">
         <div
           style={{
             backgroundColor: "var(--onyx-color-base-info-300)",
@@ -67,9 +67,9 @@ test("should be aligned with the grid when in container mode", async ({ page, mo
 
   await expect(page).toHaveScreenshot("grid.png");
 
-  await component.evaluate((element) => {
-    element.classList.add("onyx-grid-max-md", "onyx-grid-center");
-  });
+  await component.evaluate((element) =>
+    element.classList.add("onyx-grid-max-md", "onyx-grid-center"),
+  );
 
   await expect(page).toHaveScreenshot("grid-max-width.png");
 });

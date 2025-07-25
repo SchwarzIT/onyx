@@ -63,6 +63,7 @@ const resizeHandleProps = computed(
     :class="[
       'onyx-component',
       'onyx-sidebar',
+      'onyx-grid-container',
       densityClass,
       props.alignment === 'right' ? 'onyx-sidebar--right' : '',
     ]"

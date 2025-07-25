@@ -30,7 +30,7 @@ const gridStore = useGridStore();
       <OnyxSidebar label="Example sidebar" resizable>
         <template #header> Header content </template>
 
-        <div class="onyx-grid-container">
+        <div class="onyx-grid-layout">
           <div class="onyx-grid">
             <OnyxSidebarItem v-for="i in 6" :key="i" :link="`#link-${i}`">
               <OnyxIcon :icon="placeholder" />
@@ -41,7 +41,7 @@ const gridStore = useGridStore();
       </OnyxSidebar>
     </template>
 
-    <div class="onyx-grid-container">
+    <div class="onyx-grid-layout">
       <OnyxHeadline is="h1">Grid demo page</OnyxHeadline>
 
       <form class="onyx-grid" @submit.prevent>

@@ -15,7 +15,7 @@ const meta: Meta<typeof OnyxHeadline> = {
   decorators: [
     (story) => ({
       components: { story },
-      template: '<div class="onyx-grid-container"> <story /> </div>',
+      template: '<div class="onyx-grid-layout"> <story /> </div>',
     }),
   ],
 };
