@@ -1,6 +1,6 @@
 {
   "name": "@sit-onyx/nuxt-docs",
-  "version": "1.0.0-beta.88",
+  "version": "1.0.0-beta.89",
   "description": "Nuxt layer/template for creating documentations with the onyx design system",
   "type": "module",
   "author": "Schwarz IT KG",
