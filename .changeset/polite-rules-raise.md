@@ -3,4 +3,4 @@
 "@sit-onyx/nuxt": major
 ---
 
-support Nuxt 4
+Nuxt 4 is supported now which means you need to update your project to Nuxt 4 as well when using the `@sit-onyx/nuxt` or `@sit-onyx/nuxt-docs` package
