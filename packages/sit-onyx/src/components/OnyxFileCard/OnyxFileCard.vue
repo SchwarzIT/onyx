@@ -1,12 +1,7 @@
 <script lang="ts" setup>
+import { useFileSize } from "src/composables/useFileSize.js";
 import { computed } from "vue";
 import { useDensity } from "../../composables/density.js";
-import { injectI18n } from "../../i18n/index.js";
-import {
-  type BinaryPrefixedSize,
-  convertBinaryPrefixToBytes,
-  formatBytesToString,
-} from "../../utils/numbers.js";
 import { extractLinkProps } from "../../utils/router.js";
 import OnyxCard from "../OnyxCard/OnyxCard.vue";
 import OnyxFileTypeIcon from "../OnyxFileTypeIcon/OnyxFileTypeIcon.vue";
@@ -24,14 +19,7 @@ const slots = defineSlots<{
 }>();
 
 const { densityClass } = useDensity(props);
-const { locale } = injectI18n();
-
-const formatFileSize = computed(() => {
-  return (size: number | BinaryPrefixedSize) => {
-    const bytes = typeof size === "number" ? size : convertBinaryPrefixToBytes(size);
-    return formatBytesToString(locale.value, bytes);
-  };
-});
+const { formatFileSize } = useFileSize();
 
 const link = computed(() => {
   if (!props.link) return;
