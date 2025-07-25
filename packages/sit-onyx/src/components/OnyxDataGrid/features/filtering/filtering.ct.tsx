@@ -2,7 +2,7 @@
 import type { Locator } from "@playwright/test";
 import { expect, test } from "../../../../playwright/a11y.js";
 import type { DataGridEntry } from "../../types/index.js";
-import TestCase from "./TestCase.vue";
+import TestCase from "./TestCase.ct.vue";
 import type { FilterConfig } from "./types.js";
 const getTestData = () => [
   { id: 1, a: "1", b: "a" },

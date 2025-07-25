@@ -1,5 +1,5 @@
 import { expect, test } from "../../../../playwright/a11y.js";
-import TestCase from "./TestCase.vue";
+import TestCase from "./TestCase.ct.vue";
 
 const getTestData = () => [
   { id: 1, a: "1", b: "a", c: "C", d: "D", e: "E", f: "F", g: "G", h: "H", i: "I", j: "J", k: "K" },
