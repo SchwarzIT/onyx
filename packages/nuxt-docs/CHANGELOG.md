@@ -1,5 +1,18 @@
 # @sit-onyx/nuxt-docs
 
+## 1.0.0-beta.92
+
+### Major Changes
+
+- c1ee0f0: Nuxt 4 is supported now which means you need to update your project to Nuxt 4 as well when using the `@sit-onyx/nuxt` or `@sit-onyx/nuxt-docs` package
+
+  The Nuxt I18n integration of `@sit-onyx/nuxt` now also no longer supports the `iso` property when defining locales which means to need to use `@nuxtjs/i18n >= 9.0.0`, see [Nuxt I18n docs](https://v9.i18n.nuxtjs.org/docs/guide/migrating/)
+
+### Patch Changes
+
+- Updated dependencies [c1ee0f0]
+  - @sit-onyx/nuxt@1.0.0-beta.280
+
 ## 1.0.0-beta.91
 
 ### Patch Changes
