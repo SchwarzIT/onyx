@@ -92,6 +92,10 @@ describe("Merge", () => {
     expectTypeOf<Merge<unknown, { a: number }>>().branded.toEqualTypeOf<{
       a: number;
     }>();
+
+    expectTypeOf<Merge<null, { a: number }>>().branded.toEqualTypeOf<{
+      a: number;
+    }>();
   });
 });
 
@@ -115,7 +119,20 @@ describe("MergeAll", () => {
     }>();
 
     expectTypeOf<
-      MergeAll<[{ a: number }, { b: boolean }, { a: boolean }, {}, object, { c: unknown }]>
+      MergeAll<
+        [
+          null,
+          undefined,
+          { a: number },
+          { b: boolean },
+          { a: boolean },
+          {},
+          object,
+          { c: unknown },
+          null,
+          undefined,
+        ]
+      >
     >().branded.toEqualTypeOf<{
       a: boolean;
       b: boolean;

@@ -32,7 +32,7 @@ export type UnionByKey<T> = {
  */
 export type Merge<Target, Source> = {
   [P in Exclude<keyof Target, keyof Source>]: Target[P];
-} & Source;
+} & (Source extends object ? Source : unknown);
 
 /**
  * Merges all types destructively from left to right:
