@@ -1,5 +1,11 @@
 # @sit-onyx/headless
 
+## 1.0.0-beta.23
+
+### Minor Changes
+
+- 941b4a3: feat: export "useOutsideClick" composable
+
 ## 1.0.0-beta.22
 
 ### Major Changes
