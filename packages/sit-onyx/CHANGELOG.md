@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.278
+
+### Minor Changes
+
+- 317ecd6: feat: add new OnyxFileCard and OnyxFileTypeIcon component
+
 ## 1.0.0-beta.277
 
 ### Major Changes
