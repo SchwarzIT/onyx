@@ -19,7 +19,10 @@ import type { OnyxFileTypeIconProps } from "./types.js";
 
 const props = defineProps<OnyxFileTypeIconProps>();
 
+const FALLBACK_ICON = file;
+
 const icon = computed(() => {
+  if (!props.type) return FALLBACK_ICON;
   if (props.type === "application/pdf") return filePdf;
   if (props.type === "text/csv") return fileCsv;
   if (props.type.startsWith("audio/")) return audio;
@@ -61,7 +64,7 @@ const icon = computed(() => {
   }
   if (props.type.startsWith("text/")) return fileText;
 
-  return file;
+  return FALLBACK_ICON;
 });
 </script>
 
