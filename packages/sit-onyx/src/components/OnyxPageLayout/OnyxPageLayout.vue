@@ -1,6 +1,13 @@
 <script lang="ts" setup>
+import sidebarArrowLeft from "@sit-onyx/icons/sidebar-arrow-left.svg?raw";
+import sidebarArrowRight from "@sit-onyx/icons/sidebar-arrow-right.svg?raw";
+import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
+import { computed, provide, ref, type Ref } from "vue";
+import { useWindowInnerSize } from "../../composables/useResizeObserver.js";
 import { provideSkeletonContext } from "../../composables/useSkeletonState.js";
-import type { OnyxPageLayoutProps } from "./types.js";
+import OnyxFAB from "../OnyxFAB/OnyxFAB.vue";
+import OnyxFABItem from "../OnyxFABItem/OnyxFABItem.vue";
+import { SIDEBAR_INJECTION_KEY, type OnyxPageLayoutProps, type SidebarItem } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxPageLayoutProps>(), {
   footerAlignment: "full",
@@ -33,6 +40,34 @@ const slots = defineSlots<{
 }>();
 
 provideSkeletonContext(props);
+
+const sidebarItems: Ref<SidebarItem[]> = ref([]);
+
+const updateItems = (sidebar: SidebarItem) => {
+  const existingItemIndex = sidebarItems.value.findIndex((item) => item.id === sidebar.id);
+  if (existingItemIndex !== -1) {
+    sidebarItems.value[existingItemIndex] = sidebar;
+  } else {
+    sidebarItems.value.push(sidebar);
+  }
+};
+
+provide(SIDEBAR_INJECTION_KEY, {
+  sidebarItems,
+  updateItems,
+});
+
+const fabAlignment = computed(() => {
+  // Check if any sidebar item has 'left' alignment
+  const hasLeftSidebar = sidebarItems.value.some((item) => item.alignment === "left");
+  return hasLeftSidebar ? "left" : "right";
+});
+const { width: windowWidth } = useWindowInnerSize();
+const dispaySidebarFab = computed(
+  () =>
+    sidebarItems.value.some((sidebar) => !sidebar.isDrawer) &&
+    windowWidth.value <= ONYX_BREAKPOINTS.sm,
+);
 </script>
 
 <template>
@@ -63,6 +98,39 @@ provideSkeletonContext(props);
     <div v-if="slots.footer" class="onyx-page__footer">
       <slot name="footer"></slot>
     </div>
+    <OnyxFAB
+      v-if="
+        dispaySidebarFab &&
+        sidebarItems.length === 1 &&
+        !sidebarItems.some((sidebar) => sidebar.isDrawer)
+      "
+      class="onyx-page__sidebar-fab"
+      label="Open Sidebar"
+      :icon="sidebarArrowRight"
+      hide-label
+      :alignment="fabAlignment"
+      @click="updateItems({ ...sidebarItems[0], open: true })"
+    />
+    <OnyxFAB
+      v-if="
+        dispaySidebarFab &&
+        sidebarItems.length > 1 &&
+        !sidebarItems.some((sidebar) => sidebar.isDrawer)
+      "
+      class="onyx-page__sidebar-fab"
+      label="Open Sidebar"
+      :icon="sidebarArrowRight"
+      :closing-icon="sidebarArrowLeft"
+      hide-label
+      :alignment="fabAlignment"
+    >
+      <OnyxFABItem
+        v-for="sidebar in sidebarItems"
+        :key="sidebar.id"
+        :label="sidebar.label"
+        @click="updateItems({ ...sidebar, open: true })"
+      />
+    </OnyxFAB>
   </div>
 </template>
 
@@ -92,6 +160,11 @@ provideSkeletonContext(props);
 
       &--right {
         grid-area: side-right;
+      }
+      &-fab {
+        &.onyx-fab--right .onyx-icon {
+          transform: rotate(180deg);
+        }
       }
     }
 
