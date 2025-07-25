@@ -3,7 +3,7 @@ import { createAdvancedStoryExample } from "../../../utils/storybook.js";
 import OnyxCard from "../../OnyxCard/OnyxCard.vue";
 
 const meta: Meta<typeof OnyxCard> = {
-  title: "Basic/Card/Examples",
+  title: "Cards/Card/Examples",
   component: OnyxCard,
   tags: ["!autodocs"],
   argTypes: {

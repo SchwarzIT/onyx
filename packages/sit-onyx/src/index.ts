@@ -62,14 +62,14 @@ export * from "./components/OnyxDrawer/types.js";
 
 export { default as OnyxEmpty } from "./components/OnyxEmpty/OnyxEmpty.vue";
 
-export { default as OnyxFab } from "./components/OnyxFab/OnyxFab.vue";
-export * from "./components/OnyxFab/types.js";
+export { default as OnyxFAB } from "./components/OnyxFAB/OnyxFAB.vue";
+export * from "./components/OnyxFAB/types.js";
 
-export { default as OnyxFabButton } from "./components/OnyxFabButton/OnyxFabButton.vue";
-export * from "./components/OnyxFabButton/types.js";
+export { default as OnyxFABButton } from "./components/OnyxFABButton/OnyxFABButton.vue";
+export * from "./components/OnyxFABButton/types.js";
 
-export { default as OnyxFabItem } from "./components/OnyxFabItem/OnyxFabItem.vue";
-export * from "./components/OnyxFabItem/types.js";
+export { default as OnyxFABItem } from "./components/OnyxFABItem/OnyxFABItem.vue";
+export * from "./components/OnyxFABItem/types.js";
 
 export { default as OnyxExternalLinkIcon } from "./components/OnyxExternalLinkIcon/OnyxExternalLinkIcon.vue";
 export * from "./components/OnyxExternalLinkIcon/types.js";
@@ -143,8 +143,8 @@ export * from "./components/OnyxPageLayout/types.js";
 export { default as OnyxPagination } from "./components/OnyxPagination/OnyxPagination.vue";
 export * from "./components/OnyxPagination/types.js";
 
-export { default as OnyxProgressStep } from "./components/OnyxProgressStep/OnyxProgressStep.vue";
-export * from "./components/OnyxProgressStep/types.js";
+export { default as OnyxProgressItem } from "./components/OnyxProgressItem/OnyxProgressItem.vue";
+export * from "./components/OnyxProgressItem/types.js";
 
 export { default as OnyxProgressSteps } from "./components/OnyxProgressSteps/OnyxProgressSteps.vue";
 export * from "./components/OnyxProgressSteps/types.js";

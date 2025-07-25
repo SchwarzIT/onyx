@@ -7,7 +7,7 @@ import OnyxFilterTag from "./OnyxFilterTag.vue";
  * Tags are succinct textual labels that provide single-worded information or hints to their related parent element.
  */
 const meta: Meta<typeof OnyxFilterTag> = {
-  title: "Support/FilterTag",
+  title: "Search & Filter/FilterTag",
   component: OnyxFilterTag,
   argTypes: {
     ...withNativeEventLogging(["onClick"]),

@@ -35,6 +35,10 @@ export type OnyxButtonProps = DensityProp &
      */
     icon?: string;
     /**
+     * Position where the icon is placed.
+     */
+    iconPosition?: "left" | "right";
+    /**
      * Whether to show a skeleton button.
      */
     skeleton?: SkeletonInjected;

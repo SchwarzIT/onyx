@@ -53,7 +53,7 @@ export const Clickable = {
   },
 } satisfies Story;
 
-export const ManualClose = {
+export const Closable = {
   args: {
     ...Default.args,
     duration: 0,

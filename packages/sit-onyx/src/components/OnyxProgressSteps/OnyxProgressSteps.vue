@@ -6,8 +6,8 @@ import {
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
-import OnyxProgressStep from "../OnyxProgressStep/OnyxProgressStep.vue";
-import type { OnyxProgressStepProps, ProgressStepStatus } from "../OnyxProgressStep/types.js";
+import OnyxProgressItem from "../OnyxProgressItem/OnyxProgressItem.vue";
+import type { OnyxProgressItemProps, ProgressItemStatus } from "../OnyxProgressItem/types.js";
 import OnyxSeparator from "../OnyxSeparator/OnyxSeparator.vue";
 import type { OnyxProgressStepsProps } from "./types.js";
 
@@ -49,10 +49,10 @@ watch(
 );
 
 const mappedSteps = computed(() => {
-  return props.steps.map<OnyxProgressStepProps>((step, index) => {
+  return props.steps.map<OnyxProgressItemProps>((step, index) => {
     const value = index + 1;
 
-    let status: ProgressStepStatus = "default";
+    let status: ProgressItemStatus = "default";
     if (value === props.modelValue) status = "active";
     else if (value < props.modelValue) status = "completed";
     else if (value <= highestValue.value - 1) status = "visited";
@@ -82,7 +82,7 @@ const mappedSteps = computed(() => {
   >
     <div class="onyx-progress-steps__scroll-container">
       <template v-for="step in mappedSteps" :key="step.value">
-        <OnyxProgressStep v-bind="step" @click="emit('update:modelValue', step.value)" />
+        <OnyxProgressItem v-bind="step" @click="emit('update:modelValue', step.value)" />
         <OnyxSeparator
           v-if="step.value < mappedSteps.length"
           aria-hidden="true"
