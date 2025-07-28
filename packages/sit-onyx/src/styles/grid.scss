@@ -99,7 +99,7 @@ $sidebar-breakpoints: (
   * Utility class to allow optional centering for pages with max width.
   * Requires a "onyx-grid-max-*" class to be set.
   *
-  *  Must be placed inside the desired container. E.g. on Onyx-grid-layout/Onyx-grid-container
+  *  Must be placed inside the desired container. E.g. on onyx-grid-layout/onyx-grid-container
   */
   .onyx-grid-center {
     --onyx-grid-margin-inline: auto;
@@ -141,7 +141,7 @@ $sidebar-breakpoints: (
   /**
   * Grid container class for defining breakpoint specific max width
   *
-  *  Must be placed inside the desired container. E.g. on Onyx-grid-layout/Onyx-grid-container
+  *  Must be placed inside the desired container. E.g. on onyx-grid-layout/onyx-grid-container
   */
   @mixin generate-grid-max($name, $maxVariant, $breaks: $breakpoints) {
     .onyx-grid-max-#{$maxVariant} {
