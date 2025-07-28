@@ -19,6 +19,7 @@ import type { OnyxPopoverProps } from "./types.js";
 const props = withDefaults(defineProps<OnyxPopoverProps>(), {
   position: "auto",
   alignment: "auto",
+  role: "dialog",
 });
 
 defineSlots<{
@@ -190,7 +191,7 @@ const popoverStyles = computed(() => {
     <!-- we are using inline "style" here since using v-bind causes hydration errors in Nuxt / SSR -->
     <div
       ref="popover"
-      role="dialog"
+      :role="props.role"
       :aria-label="props.label"
       popover="manual"
       class="onyx-popover__dialog"
