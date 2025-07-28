@@ -54,8 +54,8 @@ export * from "./components/OnyxDataGrid/features/index.js";
 export { default as OnyxDatePicker } from "./components/OnyxDatePicker/OnyxDatePicker.vue";
 export * from "./components/OnyxDatePicker/types.js";
 
-export { default as OnyxDialog } from "./components/OnyxDialog/OnyxDialog.vue";
-export * from "./components/OnyxDialog/types.js";
+export { default as OnyxSupportDialog } from "./components/OnyxSupportDialog/OnyxSupportDialog.vue";
+export * from "./components/OnyxSupportDialog/types.js";
 
 export { default as OnyxDrawer } from "./components/OnyxDrawer/OnyxDrawer.vue";
 export * from "./components/OnyxDrawer/types.js";
