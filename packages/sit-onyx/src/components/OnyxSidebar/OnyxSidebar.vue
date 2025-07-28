@@ -58,11 +58,16 @@ const resizeHandleProps = computed(
     }) as const,
 );
 const { width: windowWidth } = useWindowInnerSize();
-const dispayAsDrawer = computed(() => props.drawer || windowWidth.value <= ONYX_BREAKPOINTS.sm);
 
 const _isDrawerOpen = ref(false);
 const sidebarContext = inject(SIDEBAR_INJECTION_KEY, undefined);
 const sidebarId = useId();
+
+const dispayAsDrawer = computed(
+  () =>
+    props.drawer ||
+    (!sidebarContext?.disableSidebarMinimize.value && windowWidth.value <= ONYX_BREAKPOINTS.sm),
+);
 
 const isDrawerOpen = computed<boolean>({
   get: () => {

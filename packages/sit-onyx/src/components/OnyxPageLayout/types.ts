@@ -14,6 +14,10 @@ export type OnyxPageLayoutProps = Partial<SkeletonProvidedProp> & {
    * Useful when e.g. implementing a page with a full width hero image at the top, followed by content below.
    */
   noPadding?: boolean;
+  /**
+   * Whether the sidebar will not automatically minimize into a FAB-Button.
+   */
+  disableSidebarMinimize?: boolean;
 };
 export type SidebarItem = {
   id: PropertyKey;
@@ -27,6 +31,10 @@ export type SidebarInjectionKey = InjectionKey<{
    * Array of all sidebar items.
    */
   sidebarItems: Readonly<Ref<SidebarItem[]>>;
+  /**
+   * Whether the sidebar will not automatically minimize into a FAB-Button.
+   */
+  disableSidebarMinimize: Ref<boolean>;
   /**
    * Function to update the state of a Sidebar.
    */

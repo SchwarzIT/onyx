@@ -11,6 +11,7 @@ import { SIDEBAR_INJECTION_KEY, type OnyxPageLayoutProps, type SidebarItem } fro
 
 const props = withDefaults(defineProps<OnyxPageLayoutProps>(), {
   footerAlignment: "full",
+  disableSidebarMinimize: false,
 });
 
 const slots = defineSlots<{
@@ -51,9 +52,10 @@ const updateItems = (sidebar: SidebarItem) => {
     sidebarItems.value.push(sidebar);
   }
 };
-
+const disableSidebarMinimize = computed(() => props.disableSidebarMinimize);
 provide(SIDEBAR_INJECTION_KEY, {
   sidebarItems,
+  disableSidebarMinimize,
   updateItems,
 });
 
@@ -65,6 +67,7 @@ const fabAlignment = computed(() => {
 const { width: windowWidth } = useWindowInnerSize();
 const dispaySidebarFab = computed(
   () =>
+    !props.disableSidebarMinimize &&
     sidebarItems.value.some((sidebar) => !sidebar.isDrawer) &&
     windowWidth.value <= ONYX_BREAKPOINTS.sm,
 );
