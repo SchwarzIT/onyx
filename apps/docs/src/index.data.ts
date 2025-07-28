@@ -154,7 +154,7 @@ export default defineLoader({
         href: "https://storybook.onyx.schwarz/?path=/docs/basic-avatar--docs",
       },
       {
-        name: "Dialog",
+        name: "Modal/Dialog",
         status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/feedback-modal--docs",
       },
