@@ -1,5 +1,11 @@
 # @sit-onyx/headless
 
+## 1.0.0-beta.24
+
+### Minor Changes
+
+- 51889c7: feat(isPrintableCharacter): making now use of the Segmenter Intl API for detection of printable keyboard characters, replacing the static NAMED_KEYS_SET lookup.
+
 ## 1.0.0-beta.23
 
 ### Minor Changes
