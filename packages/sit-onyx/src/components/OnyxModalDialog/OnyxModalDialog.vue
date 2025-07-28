@@ -61,6 +61,7 @@ const hasDescription = computed(() => !!slots.description);
         </div>
 
         <OnyxSystemButton
+          v-if="!props.nonDismissible"
           class="onyx-alert-dialog__close"
           :label="t('dialog.close')"
           :icon="xSmall"
