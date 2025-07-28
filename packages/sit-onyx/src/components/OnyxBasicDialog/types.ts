@@ -1,6 +1,6 @@
 import type { DensityProp } from "../../composables/density.js";
 
-export type OnyxSupportDialogProps = DensityProp & {
+export type OnyxBasicDialogProps = DensityProp & {
   /**
    * (Aria) label that describes the dialog. Required for accessibility / screen readers.
    */

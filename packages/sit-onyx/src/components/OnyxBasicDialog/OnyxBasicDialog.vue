@@ -2,9 +2,9 @@
 import { useOutsideClick } from "@sit-onyx/headless";
 import { computed, useTemplateRef, watch } from "vue";
 import { useDensity } from "../../composables/density.js";
-import type { OnyxSupportDialogProps } from "./types.js";
+import type { OnyxBasicDialogProps } from "./types.js";
 
-const props = withDefaults(defineProps<OnyxSupportDialogProps>(), {
+const props = withDefaults(defineProps<OnyxBasicDialogProps>(), {
   open: false,
   modal: false,
   alert: false,
@@ -79,15 +79,15 @@ useOutsideClick({
       'onyx-component',
       densityClass,
       'onyx-truncation-multiline',
-      'onyx-support-dialog',
-      { [`onyx-support-dialog--${props.alignment}`]: props.alignment !== 'center' },
+      'onyx-basic-dialog',
+      { [`onyx-basic-dialog--${props.alignment}`]: props.alignment !== 'center' },
     ]"
     :aria-modal="props.modal"
     :aria-label="props.label"
     :role="props.alert ? 'alertdialog' : undefined"
     @cancel.prevent="props.nonDismissible || emit('close')"
   >
-    <div ref="contentRef" class="onyx-support-dialog__content">
+    <div ref="contentRef" class="onyx-basic-dialog__content">
       <slot></slot>
     </div>
   </dialog>
@@ -96,14 +96,14 @@ useOutsideClick({
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
 
-.onyx-support-dialog {
+.onyx-basic-dialog {
   @include layers.component() {
-    --onyx-support-dialog-screen-gap: var(--onyx-grid-margin);
-    --onyx-support-dialog-border-radius: var(--onyx-radius-md);
-    --onyx-support-dialog-padding: var(--onyx-density-md) var(--onyx-density-lg);
+    --onyx-basic-dialog-screen-gap: var(--onyx-grid-margin);
+    --onyx-basic-dialog-border-radius: var(--onyx-radius-md);
+    --onyx-basic-dialog-padding: var(--onyx-density-md) var(--onyx-density-lg);
     outline: none;
     border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
-    border-radius: var(--onyx-support-dialog-border-radius);
+    border-radius: var(--onyx-basic-dialog-border-radius);
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
     background-color: var(--onyx-color-base-background-blank);
@@ -111,7 +111,7 @@ useOutsideClick({
     z-index: var(--onyx-z-index-page-overlay);
     padding: 0;
 
-    $max-size: calc(100% - 2 * var(--onyx-support-dialog-screen-gap));
+    $max-size: calc(100% - 2 * var(--onyx-basic-dialog-screen-gap));
     max-width: $max-size;
     max-height: $max-size;
 
@@ -135,28 +135,28 @@ useOutsideClick({
 
     &--left,
     &--right {
-      --onyx-support-dialog-screen-gap: var(--onyx-density-xs);
+      --onyx-basic-dialog-screen-gap: var(--onyx-density-xs);
       transform: none;
       height: 100%;
     }
 
     &--left {
-      left: var(--onyx-support-dialog-screen-gap);
+      left: var(--onyx-basic-dialog-screen-gap);
       margin-left: 0;
     }
 
     &--right {
       left: unset;
-      right: var(--onyx-support-dialog-screen-gap);
+      right: var(--onyx-basic-dialog-screen-gap);
     }
 
     &__content {
-      padding: var(--onyx-support-dialog-padding);
+      padding: var(--onyx-basic-dialog-padding);
       width: inherit;
     }
   }
 }
-.dark .onyx-support-dialog:modal {
+.dark .onyx-basic-dialog:modal {
   outline: var(--onyx-spacing-5xs) solid var(--onyx-color-component-border-neutral);
 }
 </style>

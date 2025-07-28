@@ -7,6 +7,7 @@ import {
   OnyxAccordionItem,
   OnyxAvatar,
   OnyxBadge,
+  OnyxBasicDialog,
   OnyxBottomBar,
   OnyxBreadcrumb,
   OnyxBreadcrumbItem,
@@ -35,7 +36,6 @@ import {
   OnyxSidebar,
   OnyxSkeleton,
   OnyxStepper,
-  OnyxSupportDialog,
   OnyxSwitch,
   OnyxTab,
   OnyxTable,
@@ -89,7 +89,7 @@ const COMPONENTS = [
   "OnyxTimer",
   "OnyxToast",
   "OnyxTooltip",
-  "OnyxSupportDialog",
+  "OnyxBasicDialog",
 ] as const;
 
 /* Config data to regulate which components will be shown */
@@ -263,13 +263,13 @@ const currentProgressStep = ref(3);
         <OnyxIconButton v-if="show('OnyxIconButton')" label="Happy Emoji" :icon="iconEmojiHappy2" />
 
         <OnyxButton
-          v-if="show('OnyxSupportDialog')"
+          v-if="show('OnyxBasicDialog')"
           label="Open Dialog"
           @click="isDialogOpen = true"
         />
-        <OnyxSupportDialog label="Dialog" :open="isDialogOpen" modal @close="isDialogOpen = false">
+        <OnyxBasicDialog label="Dialog" :open="isDialogOpen" modal @close="isDialogOpen = false">
           Dialog Content
-        </OnyxSupportDialog>
+        </OnyxBasicDialog>
         <OnyxImage
           v-if="show('OnyxImage')"
           src="https://picsum.photos/512/256"

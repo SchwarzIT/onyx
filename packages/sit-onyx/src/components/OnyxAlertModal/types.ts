@@ -1,8 +1,8 @@
+import type { OnyxBasicDialogProps } from "../OnyxBasicDialog/types.js";
 import type { OnyxIconProps } from "../OnyxIcon/types.js";
-import type { OnyxSupportDialogProps } from "../OnyxSupportDialog/types.js";
 
 export type OnyxAlertModalProps = Pick<
-  OnyxSupportDialogProps,
+  OnyxBasicDialogProps,
   "density" | "nonDismissible" | "label" | "open"
 > & {
   /**

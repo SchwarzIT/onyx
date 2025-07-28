@@ -8,7 +8,7 @@ import { computed, onUnmounted, ref, useId, useTemplateRef, watch } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useResizeObserver } from "../../composables/useResizeObserver.js";
 import { useGlobalFAB } from "../OnyxGlobalFAB/useGlobalFAB.js";
-import OnyxModalDialog from "../OnyxModalDialog/OnyxModalDialog.vue";
+import OnyxModal from "../OnyxModal/OnyxModal.vue";
 import OnyxResizeHandle from "../OnyxResizeHandle/OnyxResizeHandle.vue";
 import type { OnyxSidebarProps } from "./types.js";
 
@@ -153,7 +153,7 @@ onUnmounted(() => {
     <OnyxResizeHandle v-if="props.resizable" :element="sidebarElement" v-bind="resizeHandleProps" />
   </aside>
 
-  <OnyxModalDialog
+  <OnyxModal
     v-else
     v-bind="props.temporary"
     ref="modalRef"
@@ -194,7 +194,7 @@ onUnmounted(() => {
     </template>
 
     <OnyxResizeHandle v-if="props.resizable" :element="modalElement" v-bind="resizeHandleProps" />
-  </OnyxModalDialog>
+  </OnyxModal>
 </template>
 
 <style lang="scss">
@@ -233,11 +233,11 @@ onUnmounted(() => {
     }
 
     &--temporary {
-      --onyx-modal-dialog-padding-inline: var(--onyx-density-md);
+      --onyx-modal-padding-inline: var(--onyx-density-md);
 
       &:not(.onyx-sidebar--floating) {
-        --onyx-support-dialog-screen-gap: 0;
-        --onyx-support-dialog-border-radius: 0;
+        --onyx-basic-dialog-screen-gap: 0;
+        --onyx-basic-dialog-border-radius: 0;
         border-top: none;
         border-left: none;
         border-bottom: none;
