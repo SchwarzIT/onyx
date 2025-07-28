@@ -160,18 +160,21 @@ watch([popoverPosition, popoverAlignment, width], async () => {
 });
 
 const popoverStyles = computed(() => {
+  const _width = props.fitParent ? `${width.value}px` : undefined;
+
+  if (useragentSupportsAnchorApi.value) {
+    return {
+      width: _width,
+      "position-anchor": anchorName.value,
+      "position-area": positionAndAlignment.value,
+    };
+  }
+
+  // fallback styles if browser does not support the Anchor API yet
   return {
-    width: props.fitParent ? `${width.value}px` : undefined,
-    ...(useragentSupportsAnchorApi
-      ? {
-          "position-anchor": anchorName.value,
-          "position-area": positionAndAlignment.value,
-        }
-      : {
-          // fallback styles if browser does not support the Anchor API yet
-          left: leftPosition.value,
-          top: topPosition.value,
-        }),
+    width: _width,
+    left: leftPosition.value,
+    top: topPosition.value,
   };
 });
 </script>
