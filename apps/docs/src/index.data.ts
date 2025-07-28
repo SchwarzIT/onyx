@@ -156,7 +156,7 @@ export default defineLoader({
       {
         name: "Dialog",
         status: "implemented",
-        href: "https://storybook.onyx.schwarz/?path=/docs/feedback-modaldialog--docs",
+        href: "https://storybook.onyx.schwarz/?path=/docs/feedback-modal--docs",
       },
       {
         name: "Toast",

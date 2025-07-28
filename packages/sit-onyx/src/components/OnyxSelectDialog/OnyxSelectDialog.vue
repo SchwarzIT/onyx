@@ -5,7 +5,7 @@ import OnyxBottomBar from "../OnyxBottomBar/OnyxBottomBar.vue";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxCard from "../OnyxCard/OnyxCard.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import OnyxModalDialog from "../OnyxModalDialog/OnyxModalDialog.vue";
+import OnyxModal from "../OnyxModal/OnyxModal.vue";
 import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import type { OnyxSelectDialogProps } from "./types.js";
 
@@ -50,12 +50,7 @@ const handleApply = () => {
 </script>
 
 <template>
-  <OnyxModalDialog
-    v-bind="props"
-    class="onyx-select-dialog"
-    :label="props.label"
-    @close="emit('close')"
-  >
+  <OnyxModal v-bind="props" class="onyx-select-dialog" :label="props.label" @close="emit('close')">
     <template v-if="!!slots.description" #description>
       <slot name="description"></slot>
     </template>
@@ -93,7 +88,7 @@ const handleApply = () => {
         <OnyxButton :label="t('apply')" type="submit" :form="formId" />
       </OnyxBottomBar>
     </template>
-  </OnyxModalDialog>
+  </OnyxModal>
 </template>
 
 <style lang="scss">
@@ -110,7 +105,7 @@ const handleApply = () => {
       display: flex;
       flex-direction: column;
       gap: var(--onyx-density-xs);
-      padding: var(--onyx-select-dialog-gap) var(--onyx-modal-dialog-padding-inline);
+      padding: var(--onyx-select-dialog-gap) var(--onyx-modal-padding-inline);
     }
 
     &__list {
