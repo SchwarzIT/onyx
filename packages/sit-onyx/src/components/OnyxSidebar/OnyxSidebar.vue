@@ -66,7 +66,9 @@ const sidebarId = useId();
 const dispayAsDrawer = computed(
   () =>
     props.drawer ||
-    (!sidebarContext?.disableSidebarMinimize.value && windowWidth.value <= ONYX_BREAKPOINTS.sm),
+    (sidebarContext &&
+      !sidebarContext.disableSidebarMinimize.value &&
+      windowWidth.value <= ONYX_BREAKPOINTS.sm),
 );
 
 const isDrawerOpen = computed<boolean>({
