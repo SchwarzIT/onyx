@@ -160,18 +160,18 @@ watch([popoverPosition, popoverAlignment, width], async () => {
 });
 
 const popoverStyles = computed(() => {
-  if (useragentSupportsAnchorApi.value) {
-    return {
-      "position-anchor": anchorName.value,
-      "position-area": positionAndAlignment.value,
-    };
-  }
-
-  // fallback styles if browser does not support the Anchor API yet
   return {
     width: props.fitParent ? `${width.value}px` : undefined,
-    left: leftPosition.value,
-    top: topPosition.value,
+    ...(useragentSupportsAnchorApi
+      ? {
+          "position-anchor": anchorName.value,
+          "position-area": positionAndAlignment.value,
+        }
+      : {
+          // fallback styles if browser does not support the Anchor API yet
+          left: leftPosition.value,
+          top: topPosition.value,
+        }),
   };
 });
 </script>
@@ -262,8 +262,8 @@ const popoverStyles = computed(() => {
         margin-right: var(--onyx-popover-gap);
       }
       &--fitparent {
-        --onyx-popover-min-width: inherit;
-        --onyx-popover-max-width: inherit;
+        min-width: inherit;
+        max-width: inherit;
       }
       &--dont-support-anchor {
         margin: 0;
