@@ -37,7 +37,7 @@ export type SidebarAlignment = (typeof SIDEBAR_ALIGNMENT)[number];
 
 export type TemporarySidebar = Pick<
   OnyxModalDialogProps,
-  "open" | "disableClosingOnBackdropClick"
+  "open" | "nonDismissible"
 > & {
   /**
    * If `true`, the sidebar will have a small gap from the viewport and have rounded corners.

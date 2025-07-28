@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxAppLayout, OnyxDialog, OnyxHeadline, OnyxPageLayout, useToast } from "sit-onyx";
+import { OnyxAppLayout, OnyxHeadline, OnyxPageLayout, OnyxSupportDialog, useToast } from "sit-onyx";
 import { ref, watch } from "vue";
 import {
   FlyoutDemo,
@@ -75,7 +75,7 @@ watch(
       </template>
     </OnyxPageLayout>
 
-    <OnyxDialog
+    <OnyxSupportDialog
       label="Example dialog"
       :open="settings.overlay.showModal"
       modal
@@ -86,9 +86,9 @@ watch(
 
       <LayoutSettings v-model="settings" :show="['overlay']" />
       <TooltipDemo :force-tooltip="settings.content.forceTooltip" />
-    </OnyxDialog>
+    </OnyxSupportDialog>
 
-    <OnyxDialog
+    <OnyxSupportDialog
       label="Example dialog"
       :open="settings.overlay.showPopover"
       @close="settings.overlay.showPopover = false"
@@ -98,7 +98,7 @@ watch(
 
       <LayoutSettings v-model="settings" :show="['overlay']" />
       <TooltipDemo :force-tooltip="settings.content.forceTooltip" />
-    </OnyxDialog>
+    </OnyxSupportDialog>
   </OnyxAppLayout>
 </template>
 

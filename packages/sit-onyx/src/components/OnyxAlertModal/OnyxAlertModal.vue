@@ -3,9 +3,9 @@ import { iconCircleAttention, iconXSmall } from "@sit-onyx/icons";
 import { useId } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { injectI18n } from "../../i18n/index.js";
-import OnyxDialog from "../OnyxDialog/OnyxDialog.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxSupportDialog from "../OnyxSupportDialog/OnyxSupportDialog.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import type { OnyxAlertModalProps } from "./types.js";
 
@@ -52,7 +52,7 @@ const describedById = useId();
 </script>
 
 <template>
-  <OnyxDialog
+  <OnyxSupportDialog
     :class="['onyx-alert-modal', densityClass]"
     v-bind="props"
     :aria-describedby="describedById"
@@ -86,7 +86,7 @@ const describedById = useId();
     <div class="onyx-alert-modal__actions">
       <slot name="actions"></slot>
     </div>
-  </OnyxDialog>
+  </OnyxSupportDialog>
 </template>
 
 <style lang="scss">

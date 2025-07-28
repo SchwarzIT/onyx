@@ -1,3 +1,3 @@
-import type { OnyxDialogProps } from "../OnyxDialog/types.js";
+import type { OnyxSupportDialogProps } from "../OnyxSupportDialog/types.js";
 
-export type OnyxModalDialogProps = Omit<OnyxDialogProps, "modal" | "alignment">;
+export type OnyxModalDialogProps = Omit<OnyxSupportDialogProps, "modal" | "alignment">;
