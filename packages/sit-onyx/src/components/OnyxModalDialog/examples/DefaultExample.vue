@@ -9,7 +9,12 @@ const isOpen = ref(false);
   <div>
     <OnyxButton label="Show modal" @click="isOpen = true" />
 
-    <OnyxModalDialog label="Example modal dialog" :open="isOpen" @close="isOpen = false">
+    <OnyxModalDialog
+      label="Example modal dialog"
+      :open="isOpen"
+      non-dismissible
+      @close="isOpen = false"
+    >
       <template #description> This is an example description about the dialog. </template>
 
       <div class="modal">
@@ -21,8 +26,8 @@ const isOpen = ref(false);
 
       <template #footer>
         <OnyxBottomBar>
-          <OnyxButton label="Close" color="neutral" mode="plain" />
-          <OnyxButton label="Save" />
+          <OnyxButton label="Close" color="neutral" mode="plain" @click="isOpen = false" />
+          <OnyxButton label="Save" @click="isOpen = false" />
         </OnyxBottomBar>
       </template>
     </OnyxModalDialog>

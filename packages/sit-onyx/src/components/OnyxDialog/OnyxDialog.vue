@@ -9,7 +9,7 @@ const props = withDefaults(defineProps<OnyxDialogProps>(), {
   modal: false,
   alert: false,
   alignment: "center",
-  disableClosingOnBackdropClick: false,
+  nonDismissible: false,
 });
 
 const emit = defineEmits<{
@@ -62,7 +62,7 @@ const content = useTemplateRef("contentRef");
 
 useOutsideClick({
   inside: content,
-  disabled: computed(() => !props.modal || props.disableClosingOnBackdropClick),
+  disabled: computed(() => !props.modal || props.nonDismissible),
   onOutsideClick: () => emit("close"),
 });
 </script>
@@ -85,7 +85,7 @@ useOutsideClick({
     :aria-modal="props.modal"
     :aria-label="props.label"
     :role="props.alert ? 'alertdialog' : undefined"
-    @cancel.prevent="emit('close')"
+    @cancel.prevent="props.nonDismissible || emit('close')"
   >
     <div ref="contentRef" class="onyx-dialog__content">
       <slot></slot>

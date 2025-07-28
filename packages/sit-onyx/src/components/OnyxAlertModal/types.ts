@@ -3,7 +3,7 @@ import type { OnyxIconProps } from "../OnyxIcon/types.js";
 
 export type OnyxAlertModalProps = Pick<
   OnyxDialogProps,
-  "density" | "disableClosingOnBackdropClick" | "label" | "open"
+  "density" | "nonDismissible" | "label" | "open"
 > & {
   /**
    * Optional icon to show.
