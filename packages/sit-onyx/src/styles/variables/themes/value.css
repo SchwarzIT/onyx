@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "value" theme.
- * Imported from Figma API on Mon, 21 Jul 2025 13:33:14 GMT
+ * Imported from Figma API on Mon, 28 Jul 2025 13:12:13 GMT
  */
 :where(:root),
 .onyx-theme-default {
@@ -17,18 +17,18 @@
   --onyx-color-digits-mint-1000: #006975;
   --onyx-color-digits-mint-1100: #00535d;
   --onyx-color-digits-mint-1200: #003b42;
-  --onyx-color-kl-gray-100: #f5f5f5;
-  --onyx-color-kl-gray-200: #f0f0f0;
-  --onyx-color-kl-gray-300: #e8e8e8;
-  --onyx-color-kl-gray-400: #d3d3d3;
-  --onyx-color-kl-gray-500: #b8b8b8;
-  --onyx-color-kl-gray-600: #8d8d8d;
-  --onyx-color-kl-gray-700: #7f7f7f;
-  --onyx-color-kl-gray-800: #757575;
-  --onyx-color-kl-gray-900: #676767;
-  --onyx-color-kl-gray-1000: #424242;
-  --onyx-color-kl-gray-1100: #363636;
-  --onyx-color-kl-gray-1200: #252525;
+  --onyx-color-kaufland-gray-100: #f5f5f5;
+  --onyx-color-kaufland-gray-200: #f0f0f0;
+  --onyx-color-kaufland-gray-300: #e8e8e8;
+  --onyx-color-kaufland-gray-400: #d3d3d3;
+  --onyx-color-kaufland-gray-500: #b8b8b8;
+  --onyx-color-kaufland-gray-600: #8d8d8d;
+  --onyx-color-kaufland-gray-700: #7f7f7f;
+  --onyx-color-kaufland-gray-800: #757575;
+  --onyx-color-kaufland-gray-900: #676767;
+  --onyx-color-kaufland-gray-1000: #424242;
+  --onyx-color-kaufland-gray-1100: #363636;
+  --onyx-color-kaufland-gray-1200: #252525;
   --onyx-color-lidl-blue-100: #f0f7ff;
   --onyx-color-lidl-blue-200: #c2dfff;
   --onyx-color-lidl-blue-300: #61b5e8;
@@ -141,42 +141,42 @@
   --onyx-color-quantitatives-1150: #5551ce;
   --onyx-color-quantitatives-1200: #00bcc6;
   --onyx-color-quantitatives-1250: #018a91;
-  --onyx-color-scos-blue-100: #ebf1fe;
-  --onyx-color-scos-blue-200: #c5d4fc;
-  --onyx-color-scos-blue-300: #94adf3;
-  --onyx-color-scos-blue-400: #6a8bef;
-  --onyx-color-scos-blue-500: #4a6be8;
-  --onyx-color-scos-blue-600: #3e58ba;
-  --onyx-color-scos-blue-700: #2a3f90;
-  --onyx-color-scos-blue-800: #203274;
-  --onyx-color-scos-blue-900: #172559;
-  --onyx-color-scos-blue-1000: #0e1840;
-  --onyx-color-scos-blue-1100: #060d29;
-  --onyx-color-scos-blue-1200: #020413;
-  --onyx-color-scos-lemon-100: #fcfff0;
-  --onyx-color-scos-lemon-200: #f5ffcc;
-  --onyx-color-scos-lemon-300: #f1ffad;
-  --onyx-color-scos-lemon-400: #eaff70;
-  --onyx-color-scos-lemon-500: #e5ff29;
-  --onyx-color-scos-lemon-600: #c7de22;
-  --onyx-color-scos-lemon-700: #9db015;
-  --onyx-color-scos-lemon-800: #72800f;
-  --onyx-color-scos-lemon-900: #586309;
-  --onyx-color-scos-lemon-1000: #3f4805;
-  --onyx-color-scos-lemon-1100: #282e02;
-  --onyx-color-scos-lemon-1200: #121601;
-  --onyx-color-scos-lime-100: #effcef;
-  --onyx-color-scos-lime-200: #d5f5d6;
-  --onyx-color-scos-lime-300: #b8f3bc;
-  --onyx-color-scos-lime-400: #85e890;
-  --onyx-color-scos-lime-500: #32dc5a;
-  --onyx-color-scos-lime-600: #2abf4d;
-  --onyx-color-scos-lime-700: #1c9a3a;
-  --onyx-color-scos-lime-800: #146e29;
-  --onyx-color-scos-lime-900: #0d541e;
-  --onyx-color-scos-lime-1000: #073c13;
-  --onyx-color-scos-lime-1100: #032609;
-  --onyx-color-scos-lime-1200: #011103;
+  --onyx-color-schwarz-blue-100: #ebf1fe;
+  --onyx-color-schwarz-blue-200: #c5d4fc;
+  --onyx-color-schwarz-blue-300: #94adf3;
+  --onyx-color-schwarz-blue-400: #6a8bef;
+  --onyx-color-schwarz-blue-500: #4a6be8;
+  --onyx-color-schwarz-blue-600: #3e58ba;
+  --onyx-color-schwarz-blue-700: #2a3f90;
+  --onyx-color-schwarz-blue-800: #203274;
+  --onyx-color-schwarz-blue-900: #172559;
+  --onyx-color-schwarz-blue-1000: #0e1840;
+  --onyx-color-schwarz-blue-1100: #060d29;
+  --onyx-color-schwarz-blue-1200: #020413;
+  --onyx-color-schwarz-lemon-100: #fcfff0;
+  --onyx-color-schwarz-lemon-200: #f5ffcc;
+  --onyx-color-schwarz-lemon-300: #f1ffad;
+  --onyx-color-schwarz-lemon-400: #eaff70;
+  --onyx-color-schwarz-lemon-500: #e5ff29;
+  --onyx-color-schwarz-lemon-600: #c7de22;
+  --onyx-color-schwarz-lemon-700: #9db015;
+  --onyx-color-schwarz-lemon-800: #72800f;
+  --onyx-color-schwarz-lemon-900: #586309;
+  --onyx-color-schwarz-lemon-1000: #3f4805;
+  --onyx-color-schwarz-lemon-1100: #282e02;
+  --onyx-color-schwarz-lemon-1200: #121601;
+  --onyx-color-schwarz-lime-100: #effcef;
+  --onyx-color-schwarz-lime-200: #d5f5d6;
+  --onyx-color-schwarz-lime-300: #b8f3bc;
+  --onyx-color-schwarz-lime-400: #85e890;
+  --onyx-color-schwarz-lime-500: #32dc5a;
+  --onyx-color-schwarz-lime-600: #2abf4d;
+  --onyx-color-schwarz-lime-700: #1c9a3a;
+  --onyx-color-schwarz-lime-800: #146e29;
+  --onyx-color-schwarz-lime-900: #0d541e;
+  --onyx-color-schwarz-lime-1000: #073c13;
+  --onyx-color-schwarz-lime-1100: #032609;
+  --onyx-color-schwarz-lime-1200: #011103;
   --onyx-color-system-green-100: #ecf8f2;
   --onyx-color-system-green-200: #c6e4d5;
   --onyx-color-system-green-300: #98d1b3;

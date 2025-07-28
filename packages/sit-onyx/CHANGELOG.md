@@ -1,5 +1,16 @@
 # sit-onyx
 
+## 1.0.0-beta.280
+
+### Major Changes
+
+- ca304b6: rename kaufland and scos CSS variables
+
+  | Old                  | New                      |
+  | -------------------- | ------------------------ |
+  | --onyx-color-kl-\*   | --onyx-color-kaufland-\* |
+  | --onyx-color-scos-\* | --onyx-color-schwarz-\*  |
+
 ## 1.0.0-beta.279
 
 ### Patch Changes
