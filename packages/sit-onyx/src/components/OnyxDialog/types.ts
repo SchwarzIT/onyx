@@ -16,9 +16,9 @@ export type OnyxDialogProps = DensityProp & {
    */
   modal?: boolean;
   /**
-   * Whether to prevent closing the dialog when clicking outside of it.
+   * Whether to prevent closing the dialog when clicking outside or pressing the `Escape` key.
    */
-  disableClosingOnBackdropClick?: boolean;
+  nonDismissible?: boolean;
   /**
    * Whether the dialog is an [alert dialog](https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/).
    * Should be set for better accessibility / screen reader support when the dialog
