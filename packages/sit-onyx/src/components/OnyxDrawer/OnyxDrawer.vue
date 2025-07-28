@@ -62,8 +62,8 @@ const slots = defineSlots<{
     width: 30rem;
 
     &:not(:modal) {
-      --onyx-support-dialog-screen-gap: 0;
-      --onyx-support-dialog-border-radius: 0;
+      --onyx-basic-dialog-screen-gap: 0;
+      --onyx-basic-dialog-border-radius: 0;
       border-top: none;
       border-left: none;
       border-bottom: none;

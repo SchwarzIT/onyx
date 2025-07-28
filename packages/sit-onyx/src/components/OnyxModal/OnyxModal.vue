@@ -3,8 +3,8 @@ import xSmall from "@sit-onyx/icons/x-small.svg?raw";
 import { computed, useId } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { injectI18n } from "../../i18n/index.js";
+import OnyxBasicDialog from "../OnyxBasicDialog/OnyxBasicDialog.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
-import OnyxSupportDialog from "../OnyxSupportDialog/OnyxSupportDialog.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import type { OnyxModalProps } from "./types.js";
 
@@ -45,7 +45,7 @@ const hasDescription = computed(() => !!slots.description);
 </script>
 
 <template>
-  <OnyxSupportDialog
+  <OnyxBasicDialog
     v-bind="props"
     :class="['onyx-modal', densityClass]"
     :aria-describedby="hasDescription ? descriptionId : undefined"
@@ -85,7 +85,7 @@ const hasDescription = computed(() => !!slots.description);
     <div v-if="!!slots.footer" class="onyx-modal__footer">
       <slot name="footer"></slot>
     </div>
-  </OnyxSupportDialog>
+  </OnyxBasicDialog>
 </template>
 
 <style lang="scss">
@@ -94,10 +94,10 @@ const hasDescription = computed(() => !!slots.description);
 .onyx-modal {
   @include layers.component() {
     --onyx-modal-padding-inline: var(--onyx-density-lg);
-    --onyx-support-dialog-padding: 0;
+    --onyx-basic-dialog-padding: 0;
     display: flex;
 
-    .onyx-support-dialog__content {
+    .onyx-basic-dialog__content {
       display: flex;
       flex-direction: column;
     }
