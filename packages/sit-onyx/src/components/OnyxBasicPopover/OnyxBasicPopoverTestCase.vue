@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
-import OnyxPopover from "./OnyxPopover.vue";
-import type { OnyxPopoverProps } from "./types.js";
+import OnyxBasicPopover from "./OnyxBasicPopover.vue";
+import type { OnyxBasicPopoverProps } from "./types.js";
 
 const props = defineProps<
-  OnyxPopoverProps & {
+  OnyxBasicPopoverProps & {
     /**
      * If Button is shown
      */
@@ -25,7 +25,7 @@ const isExpanded = ref(true);
   >
     Change Expanded
   </OnyxButton>
-  <OnyxPopover
+  <OnyxBasicPopover
     :label="props.label"
     :open="props.open ? isExpanded : undefined"
     :alignment="props.alignment"
@@ -38,5 +38,5 @@ const isExpanded = ref(true);
     <template #content>
       <div label="content">Popover Content</div>
     </template>
-  </OnyxPopover>
+  </OnyxBasicPopover>
 </template>
