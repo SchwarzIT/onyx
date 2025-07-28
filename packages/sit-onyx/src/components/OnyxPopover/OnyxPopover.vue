@@ -60,16 +60,15 @@ defineExpose({
 const disabled = computed(() => props.disabled);
 
 const positionAndAlignment = computed(() => {
-  let returnPosition = popoverPosition.value;
   if (popoverPosition.value === "top" || popoverPosition.value === "bottom") {
     if (popoverAlignment.value === "left") {
-      returnPosition = popoverPosition.value + " " + "x-start";
+      return popoverPosition.value + " " + "span-right";
     }
     if (popoverAlignment.value === "right") {
-      returnPosition = popoverPosition.value + " " + "x-end";
+      return popoverPosition.value + " " + "span-left";
     }
   }
-  return returnPosition;
+  return popoverPosition.value;
 });
 
 const popoverRef = useTemplateRef("popover");
@@ -81,26 +80,18 @@ const { openAlignment, updateOpenAlignment } = useOpenAlignment(
   popoverRef,
   "left",
 );
-const {
-  leftPosition,
-  topPosition,
-  updateAnchorPositionPolyfill,
-  useragentSupportsAnchorApi: userAgentSupportsAnchorApi,
-} = useAnchorPositionPolyfill({
-  positionedRef: popoverRef,
-  targetRef: popoverWrapperRef,
-  positionArea: popoverPosition,
-  alignment: popoverAlignment,
-  alignsWithEdge: true,
-  fitParent: false,
-  offset: 8,
-});
+const { leftPosition, topPosition, updateAnchorPositionPolyfill, userAgentSupportsAnchorApi } =
+  useAnchorPositionPolyfill({
+    positionedRef: popoverRef,
+    targetRef: popoverWrapperRef,
+    positionArea: popoverPosition,
+    alignment: popoverAlignment,
+    alignsWithEdge: true,
+    fitParent: false,
+    offset: 8,
+  });
 
 const { width } = useResizeObserver(popoverWrapperRef);
-
-const popoverWidth = computed(() =>
-  props.fitParent && popoverWrapperRef.value ? `${width.value}px` : "max-content",
-);
 
 const handleOpening = (open: boolean) => {
   if (open) {
@@ -160,7 +151,7 @@ watch(disabled, () => {
     _isVisible.value = false;
   }
 });
-watch([popoverPosition, popoverAlignment, popoverWidth], async () => {
+watch([popoverPosition, popoverAlignment, width], async () => {
   if (!userAgentSupportsAnchorApi.value) {
     await nextTick();
     updateDirections();
@@ -168,13 +159,21 @@ watch([popoverPosition, popoverAlignment, popoverWidth], async () => {
   }
 });
 
-const popoverStyles = computed(() => ({
-  "position-anchor": anchorName.value,
-  "position-area": positionAndAlignment.value,
-  width: props.fitParent ? popoverWidth.value : undefined,
-  left: !userAgentSupportsAnchorApi.value ? leftPosition.value : undefined,
-  top: !userAgentSupportsAnchorApi.value ? topPosition.value : undefined,
-}));
+const popoverStyles = computed(() => {
+  if (userAgentSupportsAnchorApi.value) {
+    return {
+      "position-anchor": anchorName.value,
+      "position-area": positionAndAlignment.value,
+    };
+  }
+
+  // fallback styles if browser does not support the Anchor API yet
+  return {
+    width: props.fitParent ? `${width.value}px` : undefined,
+    left: leftPosition.value,
+    top: topPosition.value,
+  };
+});
 </script>
 
 <template>
@@ -262,30 +261,10 @@ const popoverStyles = computed(() => ({
         margin-bottom: var(--onyx-popover-gap);
         margin-right: var(--onyx-popover-gap);
       }
-
-      &--alignment-left {
-        &.onyx-popover__dialog--position-top,
-        &.onyx-popover__dialog--position-bottom {
-          transform: translateX(100%);
-          &.onyx-popover__dialog--dont-support-anchor {
-            transform: none;
-          }
-        }
-      }
-      &--alignment-right {
-        &.onyx-popover__dialog--position-top,
-        &.onyx-popover__dialog--position-bottom {
-          transform: translateX(-100%);
-          &.onyx-popover__dialog--dont-support-anchor {
-            transform: none;
-          }
-        }
-      }
       &--fitparent {
-        min-width: inherit;
-        max-width: inherit;
+        --onyx-popover-min-width: inherit;
+        --onyx-popover-max-width: inherit;
       }
-
       &--dont-support-anchor {
         margin: 0;
       }

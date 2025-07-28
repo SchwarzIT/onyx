@@ -36,14 +36,7 @@ type Story = StoryObj<typeof OnyxPopover>;
 export const Default = {
   args: {
     label: "Choose application language",
-    default: ({ trigger }) => [
-      h(OnyxButton, {
-        label: "Trigger",
-        mode: "plain",
-        color: "neutral",
-        ...trigger,
-      }),
-    ],
-    content: () => "Content",
+    default: ({ trigger }) => h(OnyxButton, { label: "Trigger", ...trigger }),
+    content: () => "Example content",
   },
 } satisfies Story;
