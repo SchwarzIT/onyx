@@ -1,4 +1,5 @@
 import {
+  computed,
   onBeforeMount,
   onUnmounted,
   ref,
@@ -7,39 +8,45 @@ import {
   type MaybeRefOrGetter,
   type Ref,
 } from "vue";
+import type { PopoverPosition } from "../components/OnyxSupportPopover/types.js";
 import { useIntersectionObserver } from "./useIntersectionObserver.js";
-import type { OpenAlignment } from "./useOpenAlignment.js";
 import { getTemplateRefElement, type VueTemplateRefElement } from "./useResizeObserver.js";
-
-export type AnchorPosition =
-  | "top"
-  | "top right"
-  | "top left"
-  | "right"
-  | "bottom"
-  | "bottom right"
-  | "bottom left"
-  | "left";
 
 type UseAnchorPositionPolyfillOptions = {
   positionedRef: Ref<VueTemplateRefElement>;
   targetRef: Ref<VueTemplateRefElement>;
-  positionArea: MaybeRefOrGetter<AnchorPosition>;
-  alignment: MaybeRefOrGetter<OpenAlignment>;
-  alignsWithEdge: MaybeRefOrGetter<boolean>;
-  fitParent: MaybeRefOrGetter<boolean>;
+  position: MaybeRefOrGetter<PopoverPosition>;
   offset?: number;
 };
 
 export const useAnchorPositionPolyfill = ({
   positionedRef,
   targetRef,
-  positionArea,
-  alignment,
-  alignsWithEdge,
-  fitParent,
+  position,
   offset = 0,
 }: UseAnchorPositionPolyfillOptions) => {
+  const fitParentWidth = computed(() =>
+    (["top center", "bottom center", "center center"] as PopoverPosition[]).includes(
+      toValue(position),
+    ),
+  );
+
+  const fitParentHeight = computed(() =>
+    (["center left", "center right"] as PopoverPosition[]).includes(toValue(position)),
+  );
+
+  const alignment = computed(() => {
+    const _position = toValue(position);
+    if (_position.startsWith("left")) return "left";
+    if (_position.startsWith("right")) return "right";
+    return "center";
+  });
+
+  const alignsWithEdge = computed(() => {
+    const _position = toValue(position);
+    return _position.includes("span-") && !_position.includes("span-all");
+  });
+
   const leftPosition = ref("-1000px");
   const topPosition = ref("-1000px");
 
@@ -56,17 +63,20 @@ export const useAnchorPositionPolyfill = ({
     let top = 0;
     let left = 0;
 
+    const positionArea = toValue(position);
+
     const alignmentPositioning =
-      toValue(alignsWithEdge) &&
-      toValue(alignment) !== "center" &&
-      (toValue(positionArea) === "top" || toValue(positionArea) === "bottom")
-        ? toValue(alignment) === "left" || toValue(fitParent)
+      alignsWithEdge.value &&
+      alignment.value !== "center" &&
+      (positionArea.startsWith("top") || positionArea.startsWith("bottom"))
+        ? alignment.value === "left" || fitParentWidth.value
           ? targetRect.left
           : targetRect.right - positionedElRect.width
         : targetRect.left + targetRect.width / 2 - positionedElRect.width / 2;
 
-    switch (toValue(positionArea)) {
-      case "top":
+    switch (positionArea) {
+      case "top center":
+      case "top span-all":
         top = targetRect.top - positionedElRect.height - offset;
         left = alignmentPositioning;
         break;
@@ -81,12 +91,8 @@ export const useAnchorPositionPolyfill = ({
         left = targetRect.left - positionedElRect.width - offset;
         break;
 
-      case "right":
-        top = targetRect.top + targetRect.height / 2 - positionedElRect.height / 2;
-        left = targetRect.right + offset;
-        break;
-
-      case "bottom":
+      case "bottom center":
+      case "bottom span-all":
         top = targetRect.bottom + offset;
         left = alignmentPositioning;
         break;
@@ -101,9 +107,80 @@ export const useAnchorPositionPolyfill = ({
         left = targetRect.left - positionedElRect.width - offset;
         break;
 
-      case "left":
+      case "center center":
+        top = targetRect.top + targetRect.height / 2 - positionedElRect.height / 2;
+        left = targetRect.left + targetRect.width / 2 - positionedElRect.width / 2;
+        break;
+
+      case "center right":
+        top = targetRect.top + targetRect.height / 2 - positionedElRect.height / 2;
+        left = targetRect.right + offset;
+        break;
+
+      case "center left":
         top = targetRect.top + targetRect.height / 2 - positionedElRect.height / 2;
         left = targetRect.left - positionedElRect.width - offset;
+        break;
+
+      // spans
+      case "top span-left":
+        top = targetRect.top - positionedElRect.height - offset;
+        left = targetRect.right - positionedElRect.width;
+        break;
+
+      case "top span-x-end":
+        top = targetRect.top - positionedElRect.height - offset;
+        left = targetRect.left;
+        break;
+
+      case "bottom span-left":
+        top = targetRect.bottom + offset;
+        left = targetRect.right - positionedElRect.width;
+        break;
+
+      case "bottom span-x-end":
+        top = targetRect.bottom + offset;
+        left = targetRect.left;
+        break;
+
+      case "center span-left":
+        top = targetRect.top + targetRect.height / 2 - positionedElRect.height / 2;
+        left = targetRect.right - positionedElRect.width;
+        break;
+
+      case "center span-x-end":
+        top = targetRect.top + targetRect.height / 2 - positionedElRect.height / 2;
+        left = targetRect.left;
+        break;
+
+      case "left span-top":
+        top = targetRect.top - (positionedElRect.height - targetRect.height);
+        left = targetRect.left - positionedElRect.width - offset;
+        break;
+
+      case "left span-bottom":
+        top = targetRect.top;
+        left = targetRect.left - positionedElRect.width - offset;
+        break;
+
+      case "left span-all":
+        top = targetRect.top + targetRect.height / 2 - positionedElRect.height / 2;
+        left = targetRect.left - positionedElRect.width - offset;
+        break;
+
+      case "right span-top":
+        top = targetRect.top - (positionedElRect.height - targetRect.height);
+        left = targetRect.right + offset;
+        break;
+
+      case "right span-bottom":
+        top = targetRect.top;
+        left = targetRect.right + offset;
+        break;
+
+      case "right span-all":
+        top = targetRect.top + targetRect.height / 2 - positionedElRect.height / 2;
+        left = targetRect.right + offset;
         break;
     }
 
@@ -128,7 +205,7 @@ export const useAnchorPositionPolyfill = ({
     window.removeEventListener("scroll", updateAnchorPositionPolyfill, true);
   });
 
-  const useragentSupportsAnchorApi = ref(true);
+  const userAgentSupportsAnchorApi = ref(true);
 
   /**
    * SSR safe composable for checking whether the browser supports the Anchor API.
@@ -149,6 +226,9 @@ export const useAnchorPositionPolyfill = ({
     leftPosition,
     topPosition,
     updateAnchorPositionPolyfill,
-    useragentSupportsAnchorApi,
+    userAgentSupportsAnchorApi,
+    fitParentWidth,
+    fitParentHeight,
+    alignment,
   };
 };

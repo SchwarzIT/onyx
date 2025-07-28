@@ -138,7 +138,7 @@ const tooltipWrapperRef = useTemplateRef("tooltipWrapperRefEl");
 const tooltipRef = useTemplateRef("tooltipRefEl");
 const { openDirection, updateOpenDirection } = useOpenDirection(tooltipWrapperRef, "top");
 const { openAlignment, updateOpenAlignment } = useOpenAlignment(tooltipWrapperRef, tooltipRef);
-const { leftPosition, topPosition, updateAnchorPositionPolyfill, useragentSupportsAnchorApi } =
+const { leftPosition, topPosition, updateAnchorPositionPolyfill, userAgentSupportsAnchorApi } =
   useAnchorPositionPolyfill({
     positionedRef: tooltipRef,
     targetRef: tooltipWrapperRef,
@@ -177,7 +177,7 @@ const tooltipClasses = computed(() => {
     "onyx-tooltip--hidden": !isVisible.value,
     [`onyx-tooltip--position-${toolTipPosition.value.replace(" ", "-")}`]: true,
     [`onyx-tooltip--alignment-${alignment.value}`]: true,
-    "onyx-tooltip--dont-support-anchor": !useragentSupportsAnchorApi.value,
+    "onyx-tooltip--dont-support-anchor": !userAgentSupportsAnchorApi.value,
     "onyx-tooltip--without-wedge": props.withoutWedge,
   };
 });
@@ -191,17 +191,17 @@ const tooltipWidth = computed(() =>
 onMounted(() => {
   handleOpening(isVisible.value);
   updateDirections();
-  if (!useragentSupportsAnchorApi.value) updateAnchorPositionPolyfill();
+  if (!userAgentSupportsAnchorApi.value) updateAnchorPositionPolyfill();
 });
 // update open direction when visibility changes to ensure the tooltip is always visible
 watch(isVisible, async (newVal) => {
   await nextTick();
   handleOpening(newVal);
   updateDirections();
-  if (!useragentSupportsAnchorApi.value) updateAnchorPositionPolyfill();
+  if (!userAgentSupportsAnchorApi.value) updateAnchorPositionPolyfill();
 });
 watch([tooltipWidth, toolTipPosition, alignment, alignsWithEdge], async () => {
-  if (!useragentSupportsAnchorApi.value) {
+  if (!userAgentSupportsAnchorApi.value) {
     await nextTick();
     updateAnchorPositionPolyfill();
   }

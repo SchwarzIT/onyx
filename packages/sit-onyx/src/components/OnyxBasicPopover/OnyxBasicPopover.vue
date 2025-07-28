@@ -267,8 +267,8 @@ const popoverStyles = computed(() => {
         margin-right: var(--onyx-basic-popover-gap);
       }
       &--fitparent {
-        min-width: inherit;
-        max-width: inherit;
+        --onyx-popover-min-width: inherit;
+        --onyx-popover-max-width: inherit;
       }
       &--dont-support-anchor {
         margin: 0;
