@@ -14,9 +14,9 @@ import { useAnchorPositionPolyfill } from "../../composables/useAnchorPositionPo
 import { useOpenAlignment } from "../../composables/useOpenAlignment.js";
 import { useOpenDirection } from "../../composables/useOpenDirection.js";
 import { useResizeObserver } from "../../composables/useResizeObserver.js";
-import type { OnyxPopoverProps } from "./types.js";
+import type { OnyxBasicPopoverProps } from "./types.js";
 
-const props = withDefaults(defineProps<OnyxPopoverProps>(), {
+const props = withDefaults(defineProps<OnyxBasicPopoverProps>(), {
   position: "auto",
   alignment: "auto",
   role: "dialog",
@@ -141,11 +141,11 @@ const anchorName = computed(() => `--anchor-${id}`);
 
 const popoverClasses = computed(() => {
   return {
-    [`onyx-popover__dialog--position-${popoverPosition.value.replace(" ", "-")}`]: true,
-    [`onyx-popover__dialog--alignment-${popoverAlignment.value}`]: true,
-    "onyx-popover__dialog--fitparent": props.fitParent,
-    "onyx-popover__dialog--disabled": disabled.value,
-    "onyx-popover__dialog--dont-support-anchor": !useragentSupportsAnchorApi.value,
+    [`onyx-basic-popover__dialog--position-${popoverPosition.value.replace(" ", "-")}`]: true,
+    [`onyx-basic-popover__dialog--alignment-${popoverAlignment.value}`]: true,
+    "onyx-basic-popover__dialog--fitparent": props.fitParent,
+    "onyx-basic-popover__dialog--disabled": disabled.value,
+    "onyx-basic-popover__dialog--dont-support-anchor": !useragentSupportsAnchorApi.value,
   };
 });
 watch(disabled, () => {
@@ -184,7 +184,7 @@ const popoverStyles = computed(() => {
 <template>
   <div
     ref="popoverWrapper"
-    class="onyx-component onyx-popover"
+    class="onyx-component onyx-basic-popover"
     :style="`anchor-name: ${anchorName}`"
   >
     <slot :trigger="trigger"></slot>
@@ -194,7 +194,7 @@ const popoverStyles = computed(() => {
       :role="props.role"
       :aria-label="props.label"
       popover="manual"
-      class="onyx-popover__dialog"
+      class="onyx-basic-popover__dialog"
       :class="popoverClasses"
       :style="popoverStyles"
     >
@@ -206,12 +206,12 @@ const popoverStyles = computed(() => {
 <style lang="scss">
 @use "../../styles/mixins/layers";
 
-.onyx-popover {
-  --onyx-popover-min-width: var(--onyx-spacing-4xl);
-  --onyx-popover-max-width: 20rem;
+.onyx-basic-popover {
+  --onyx-basic-popover-min-width: var(--onyx-spacing-4xl);
+  --onyx-basic-popover-max-width: 20rem;
 
   @include layers.component() {
-    --onyx-popover-gap: var(--onyx-spacing-2xs);
+    --onyx-basic-popover-gap: var(--onyx-spacing-2xs);
     display: inline-flex;
     position: relative;
 
@@ -226,8 +226,8 @@ const popoverStyles = computed(() => {
       padding: 0;
       box-sizing: border-box;
 
-      min-width: var(--onyx-popover-min-width);
-      max-width: var(--onyx-popover-max-width);
+      min-width: var(--onyx-basic-popover-min-width);
+      max-width: var(--onyx-basic-popover-max-width);
       max-height: 100%;
       width: max-content;
       font-family: var(--onyx-font-family);
@@ -239,32 +239,51 @@ const popoverStyles = computed(() => {
       }
 
       &--position-right {
-        margin-left: var(--onyx-popover-gap);
+        margin-left: var(--onyx-basic-popover-gap);
       }
       &--position-left {
-        margin-right: var(--onyx-popover-gap);
+        margin-right: var(--onyx-basic-popover-gap);
       }
       &--position-bottom {
-        margin-top: var(--onyx-popover-gap);
+        margin-top: var(--onyx-basic-popover-gap);
       }
       &--position-bottom-right {
-        margin-top: var(--onyx-popover-gap);
-        margin-left: var(--onyx-popover-gap);
+        margin-top: var(--onyx-basic-popover-gap);
+        margin-left: var(--onyx-basic-popover-gap);
       }
       &--position-bottom-left {
-        margin-top: var(--onyx-popover-gap);
-        margin-right: var(--onyx-popover-gap);
+        margin-top: var(--onyx-basic-popover-gap);
+        margin-right: var(--onyx-basic-popover-gap);
       }
       &--position-top {
-        margin-bottom: var(--onyx-popover-gap);
+        margin-bottom: var(--onyx-basic-popover-gap);
       }
       &--position-top-right {
-        margin-bottom: var(--onyx-popover-gap);
-        margin-left: var(--onyx-popover-gap);
+        margin-bottom: var(--onyx-basic-popover-gap);
+        margin-left: var(--onyx-basic-popover-gap);
       }
       &--position-top-left {
-        margin-bottom: var(--onyx-popover-gap);
-        margin-right: var(--onyx-popover-gap);
+        margin-bottom: var(--onyx-basic-popover-gap);
+        margin-right: var(--onyx-basic-popover-gap);
+      }
+
+      &--alignment-left {
+        &.onyx-basic-popover__dialog--position-top,
+        &.onyx-basic-popover__dialog--position-bottom {
+          transform: translateX(100%);
+          &.onyx-basic-popover__dialog--dont-support-anchor {
+            transform: none;
+          }
+        }
+      }
+      &--alignment-right {
+        &.onyx-basic-popover__dialog--position-top,
+        &.onyx-basic-popover__dialog--position-bottom {
+          transform: translateX(-100%);
+          &.onyx-basic-popover__dialog--dont-support-anchor {
+            transform: none;
+          }
+        }
       }
       &--fitparent {
         min-width: inherit;
@@ -276,7 +295,7 @@ const popoverStyles = computed(() => {
     }
   }
 }
-.dark .onyx-popover__dialog {
+.dark .onyx-basic-popover__dialog {
   @include layers.component() {
     outline: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
   }

@@ -91,13 +91,22 @@ const triggerIcon = computed(() => {
 .onyx-fab {
   @include layers.component() {
     --onyx-fab-viewport-gap: var(--onyx-density-sm);
-    --onyx-popover-gap: var(--onyx-density-sm);
+    --onyx-basic-popover-gap: var(--onyx-density-sm);
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-inverted);
     position: fixed;
     bottom: var(--onyx-fab-viewport-gap);
     right: var(--onyx-fab-viewport-gap);
     z-index: var(--onyx-z-index-notification);
+
+    &:has(.onyx-basic-popover__dialog--alignment-left) {
+      right: unset;
+      left: var(--onyx-fab-viewport-gap);
+
+      .onyx-flyout-menu__wrapper {
+        align-items: flex-start;
+      }
+    }
 
     .onyx-flyout-menu__list-header,
     .onyx-flyout-menu__list-footer {
@@ -120,8 +129,8 @@ const triggerIcon = computed(() => {
       }
     }
 
-    .onyx-popover__dialog {
-      --onyx-popover-min-width: 0;
+    .onyx-basic-popover__dialog {
+      --onyx-basic-popover-min-width: 0;
       box-shadow: none;
       background-color: transparent;
       outline: none;
@@ -134,7 +143,7 @@ const triggerIcon = computed(() => {
       }
     }
 
-    .onyx-popover__dialog,
+    .onyx-basic-popover__dialog,
     .onyx-flyout-menu__wrapper {
       // prevent cutting of the options outline and box shadow
       // since the floating action button is always positioned at the bottom corner and should

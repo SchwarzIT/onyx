@@ -2,7 +2,7 @@ import type { AnchorPosition } from "../../composables/useAnchorPositionPolyfill
 import type { OpenAlignment } from "../../composables/useOpenAlignment.js";
 import type { Nullable } from "../../types/index.js";
 
-export type OnyxPopoverProps = {
+export type OnyxBasicPopoverProps = {
   /**
    * Aria label for the popover.
    */
