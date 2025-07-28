@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import { type OnyxBreakpoint, ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
 import { ref, toRaw, watch } from "vue";
+import OnyxBasicDialog from "../../../OnyxBasicDialog/OnyxBasicDialog.vue";
 import OnyxButton from "../../../OnyxButton/OnyxButton.vue";
 import OnyxCheckbox from "../../../OnyxCheckbox/OnyxCheckbox.vue";
 import OnyxHeadline from "../../../OnyxHeadline/OnyxHeadline.vue";
 import OnyxStepper from "../../../OnyxStepper/OnyxStepper.vue";
-import OnyxSupportDialog from "../../../OnyxSupportDialog/OnyxSupportDialog.vue";
 
 export type GridElementConfig = {
   isFullWidth?: boolean;
@@ -63,7 +63,7 @@ const handleCheckboxChange = (isChecked: boolean, breakpoint: OnyxBreakpoint) =>
 </script>
 
 <template>
-  <OnyxSupportDialog :label="label" :open="props.open" modal class="dialog" @close="emit('close')">
+  <OnyxBasicDialog :label="label" :open="props.open" modal class="dialog" @close="emit('close')">
     <form @submit.prevent="handleSubmit">
       <div class="dialog__header">
         <OnyxHeadline is="h2">{{ label }}</OnyxHeadline>
@@ -131,12 +131,12 @@ const handleCheckboxChange = (isChecked: boolean, breakpoint: OnyxBreakpoint) =>
         </div>
       </div>
     </form>
-  </OnyxSupportDialog>
+  </OnyxBasicDialog>
 </template>
 
 <style lang="scss" scoped>
 .dialog {
-  --onyx-support-dialog-padding: 0;
+  --onyx-basic-dialog-padding: 0;
   width: 30rem;
 
   &__header {

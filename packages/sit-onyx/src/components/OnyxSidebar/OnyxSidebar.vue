@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, ref, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density.js";
-import OnyxModalDialog from "../OnyxModalDialog/OnyxModalDialog.vue";
+import OnyxModal from "../OnyxModal/OnyxModal.vue";
 import OnyxResizeHandle from "../OnyxResizeHandle/OnyxResizeHandle.vue";
 import type { OnyxSidebarProps } from "./types.js";
 
@@ -86,7 +86,7 @@ const resizeHandleProps = computed(
     <OnyxResizeHandle v-if="props.resizable" :element="sidebarElement" v-bind="resizeHandleProps" />
   </aside>
 
-  <OnyxModalDialog
+  <OnyxModal
     v-else
     ref="modalRef"
     v-bind="props.temporary"
@@ -158,11 +158,11 @@ const resizeHandleProps = computed(
     }
 
     &--temporary {
-      --onyx-modal-dialog-padding-inline: var(--onyx-density-md);
+      --onyx-modal-padding-inline: var(--onyx-density-md);
 
       &:not(.onyx-sidebar--floating) {
-        --onyx-support-dialog-screen-gap: 0;
-        --onyx-support-dialog-border-radius: 0;
+      --onyx-basic-dialog-screen-gap: 0;
+      --onyx-basic-dialog-border-radius: 0;
         border-top: none;
         border-left: none;
         border-bottom: none;

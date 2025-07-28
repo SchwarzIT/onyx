@@ -5,7 +5,7 @@ import OnyxModal from "./OnyxModal.vue";
 /**
  * The modal dialog is used to provide information to the user while interaction with the rest of the page is prevented and a backdrop is displayed.
  *
- * You can also implement a custom dialog using the [OnyxSupportDialog](/docs/support-dialog--docs) component.
+ * You can also implement a custom dialog using the [OnyxBasicDialog](/docs/support-dialog--docs) component.
  */
 const meta: Meta<typeof OnyxModal> = {
   title: "Feedback/Modal",
