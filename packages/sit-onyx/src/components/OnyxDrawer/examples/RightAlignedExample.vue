@@ -43,7 +43,7 @@ const isOpen = ref(false);
   width: 30rem;
 
   &__content {
-    padding: var(--onyx-density-xl) var(--onyx-modal-dialog-padding-inline);
+    padding: var(--onyx-density-xl) var(--onyx-modal-padding-inline);
   }
 
   &__placeholder {

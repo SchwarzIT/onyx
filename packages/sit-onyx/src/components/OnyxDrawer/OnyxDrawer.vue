@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import OnyxModalDialog from "../OnyxModalDialog/OnyxModalDialog.vue";
+import OnyxModal from "../OnyxModal/OnyxModal.vue";
 import type { OnyxDrawerProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxDrawerProps>(), {
@@ -36,7 +36,7 @@ const slots = defineSlots<{
 </script>
 
 <template>
-  <OnyxModalDialog class="onyx-drawer" v-bind="props" @close="emit('close')">
+  <OnyxModal class="onyx-drawer" v-bind="props" @close="emit('close')">
     <template v-if="!!slots.headline" #headline>
       <slot name="headline" :label="props.label"></slot>
     </template>
@@ -50,7 +50,7 @@ const slots = defineSlots<{
     <template v-if="!!slots.footer" #footer>
       <slot name="footer"></slot>
     </template>
-  </OnyxModalDialog>
+  </OnyxModal>
 </template>
 
 <style lang="scss">
@@ -58,7 +58,7 @@ const slots = defineSlots<{
 
 .onyx-drawer {
   @include layers.component() {
-    --onyx-modal-dialog-padding-inline: var(--onyx-density-md);
+    --onyx-modal-padding-inline: var(--onyx-density-md);
     width: 30rem;
 
     &:not(:modal) {

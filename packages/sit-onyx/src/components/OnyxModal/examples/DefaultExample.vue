@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import { OnyxBottomBar, OnyxButton, OnyxModalDialog } from "../../../index.js";
+import { OnyxBottomBar, OnyxButton, OnyxModal } from "../../../index.js";
 
 const isOpen = ref(false);
 </script>
@@ -9,12 +9,7 @@ const isOpen = ref(false);
   <div>
     <OnyxButton label="Show modal" @click="isOpen = true" />
 
-    <OnyxModalDialog
-      label="Example modal dialog"
-      :open="isOpen"
-      non-dismissible
-      @close="isOpen = false"
-    >
+    <OnyxModal label="Example modal dialog" :open="isOpen" non-dismissible @close="isOpen = false">
       <template #description> This is an example description about the dialog. </template>
 
       <div class="modal">
@@ -30,13 +25,13 @@ const isOpen = ref(false);
           <OnyxButton label="Save" @click="isOpen = false" />
         </OnyxBottomBar>
       </template>
-    </OnyxModalDialog>
+    </OnyxModal>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .modal {
-  padding: var(--onyx-density-xl) var(--onyx-modal-dialog-padding-inline);
+  padding: var(--onyx-density-xl) var(--onyx-modal-padding-inline);
 
   &__description {
     color: var(--onyx-color-text-icons-info-intense);

@@ -64,8 +64,7 @@ const { densityClass } = useDensity(props);
 
       // by default the horizontal padding should be aligned with the grid
       // however, when used inside the modal dialog, it should automatically adapt to the dialog padding
-      padding: var(--onyx-spacing-2xs)
-        var(--onyx-modal-dialog-padding-inline, var(--onyx-grid-margin));
+      padding: var(--onyx-spacing-2xs) var(--onyx-modal-padding-inline, var(--onyx-grid-margin));
 
       &--left,
       &--right {

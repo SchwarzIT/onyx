@@ -1,7 +1,7 @@
-import type { OnyxModalDialogProps } from "../OnyxModalDialog/types.js";
+import type { OnyxModalProps } from "../OnyxModal/types.js";
 import type { DialogAlignment } from "../OnyxSupportDialog/types.js";
 
-export type OnyxDrawerProps = OnyxModalDialogProps & {
+export type OnyxDrawerProps = OnyxModalProps & {
   /**
    * How to align the drawer horizontally.
    */

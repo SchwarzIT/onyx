@@ -112,8 +112,8 @@ export * from "./components/OnyxMiniSearch/types.js";
 export { default as OnyxMobileNavButton } from "./components/OnyxMobileNavButton/OnyxMobileNavButton.vue";
 export * from "./components/OnyxMobileNavButton/types.js";
 
-export { default as OnyxModalDialog } from "./components/OnyxModalDialog/OnyxModalDialog.vue";
-export * from "./components/OnyxModalDialog/types.js";
+export { default as OnyxModal } from "./components/OnyxModal/OnyxModal.vue";
+export * from "./components/OnyxModal/types.js";
 
 export { default as OnyxMoreList } from "./components/OnyxMoreList/OnyxMoreList.vue";
 export * from "./components/OnyxMoreList/types.js";
