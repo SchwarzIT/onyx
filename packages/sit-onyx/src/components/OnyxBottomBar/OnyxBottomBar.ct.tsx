@@ -76,9 +76,11 @@ Object.entries(ONYX_BREAKPOINTS).forEach(([breakpoint, width]) => {
       const app = page.locator(".onyx-app");
 
       await app.evaluate((element) => element.classList.add("onyx-grid-max-md"));
+
       await expect(page).toHaveScreenshot(`grid-max-width-${breakpoint}.png`);
 
       await app.evaluate((element) => element.classList.add("onyx-grid-center"));
+
       await expect(page).toHaveScreenshot(`grid-max-center-${breakpoint}.png`);
     }
     /* eslint-enable */

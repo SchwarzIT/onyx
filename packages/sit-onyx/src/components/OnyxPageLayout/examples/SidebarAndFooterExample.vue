@@ -26,8 +26,8 @@ import {
       <OnyxHeadline is="h1">Page content</OnyxHeadline>
 
       <template #footer>
-        <!-- we are using the "onyx-grid-container" class here to sync the footer with the global application max-width, alignment and horizontal padding -->
-        <footer class="footer onyx-grid-container">Footer content</footer>
+        <!-- we are using the "onyx-grid-layout" class here to sync the footer with the global application max-width, alignment and horizontal padding -->
+        <footer class="footer onyx-grid-layout">Footer content</footer>
       </template>
     </OnyxPageLayout>
   </OnyxAppLayout>

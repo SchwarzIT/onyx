@@ -8,7 +8,7 @@ import { OnyxAppLayout, OnyxButton, OnyxHeadline, OnyxPageLayout, OnyxSidebar } 
       <template #sidebar>
         <OnyxSidebar label="Example sidebar" resizable>
           <template #header> Header content </template>
-          <div class="onyx-grid-container">
+          <div class="onyx-grid-layout">
             <div class="onyx-grid">
               <div v-for="i in 6" :key="i" class="onyx-grid-example">
                 {{ i }}
@@ -27,13 +27,14 @@ import { OnyxAppLayout, OnyxButton, OnyxHeadline, OnyxPageLayout, OnyxSidebar } 
 
       <!-- page content -->
       <OnyxHeadline is="h1">Page content</OnyxHeadline>
+      <p>Breakpoints for the grid dynamically adjust based on the width of the sidebar.</p>
     </OnyxPageLayout>
   </OnyxAppLayout>
 </template>
 
 <style lang="scss" scoped>
 .onyx-grid-example {
-  background-color: var(--onyx-color-component-cta-default);
+  border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-400);
   padding: var(--onyx-spacing-xs);
   border-radius: var(--onyx-radius-sm);
 

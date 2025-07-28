@@ -29,7 +29,7 @@ const { densityClass } = useDensity(props);
       props.hideBorder ? '' : 'onyx-bottom-bar--border',
     ]"
   >
-    <div class="onyx-bottom-bar__content">
+    <div class="onyx-bottom-bar__content onyx-grid-container">
       <div class="onyx-bottom-bar__content--left">
         <slot name="left"></slot>
       </div>
@@ -49,6 +49,7 @@ const { densityClass } = useDensity(props);
     bottom: 0;
     width: 100%;
     background-color: var(--onyx-color-base-background-blank);
+    container-type: inline-size;
 
     &--border {
       border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
@@ -59,8 +60,6 @@ const { densityClass } = useDensity(props);
       justify-content: space-between;
       gap: var(--onyx-density-xs);
       overflow-x: auto;
-      max-width: var(--onyx-grid-max-width);
-      margin-inline: var(--onyx-grid-margin-inline);
 
       // by default the horizontal padding should be aligned with the grid
       // however, when used inside the modal dialog, it should automatically adapt to the dialog padding
