@@ -211,8 +211,8 @@ export * from "./components/OnyxFileUpload/types.js";
 
 export { default as OnyxFilterTag } from "./components/OnyxFilterTag/OnyxFilterTag.vue";
 
-export { default as OnyxPopover } from "./components/OnyxPopover/OnyxPopover.vue";
-export * from "./components/OnyxPopover/types.js";
+export { default as OnyxBasicPopover } from "./components/OnyxBasicPopover/OnyxBasicPopover.vue";
+export * from "./components/OnyxBasicPopover/types.js";
 
 export { default as OnyxTextarea } from "./components/OnyxTextarea/OnyxTextarea.vue";
 export * from "./components/OnyxTextarea/types.js";
