@@ -28,7 +28,7 @@ const hideLabelIfOption = computed(() =>
     :hide-label
     @click="fabItems.items.value[0].onClick"
   />
-  <OnyxFAB v-if="fabItems.items.value.length > 1" label="globalFAB" :alignment>
+  <OnyxFAB v-else-if="fabItems.items.value.length > 1" label="globalFAB" :alignment>
     <OnyxFABItem
       v-for="item in fabItems.items.value"
       :key="item.id"
