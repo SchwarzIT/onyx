@@ -4,20 +4,20 @@ import type { OnyxFABItemProps } from "../OnyxFABItem/types.js";
 
 export type GlobalFABProvider = {
   /**
-   * Readonly list of currently active toasts.
+   * Readonly list of currently active items.
    */
-  items: ComputedRef<ProvidedFABItems[]>;
+  items: ComputedRef<ProvidedFABItem[]>;
   /**
    * add the FABOption.
    */
-  add: (fabItem: ProvidedFABItems) => void;
+  add: (fabItem: ProvidedFABItem) => void;
   /**
    * removes the FABOption with the given `id`.
    */
-  remove: (id: ProvidedFABItems["id"]) => void;
+  remove: (id: ProvidedFABItem["id"]) => void;
 };
 
-export type ProvidedFABItems = OnyxFABItemProps & {
+export type ProvidedFABItem = OnyxFABItemProps & {
   /**
    * Unique FABItem id used to identify the FABItem.
    */
@@ -54,7 +54,7 @@ export type ProvidedFABItems = OnyxFABItemProps & {
 export const GLOBAL_FAB_PROVIDER_INJECTION_KEY = Symbol() as InjectionKey<GlobalFABProvider>;
 
 /**
- * Creates a new FABItem provider that can be used with `useFAB()`.
+ * Creates a new FABItem provider that can be used with `useGlobalFAB()`.
  * Should be provided once on global app level with:
  *
  * @example
@@ -65,9 +65,9 @@ export const GLOBAL_FAB_PROVIDER_INJECTION_KEY = Symbol() as InjectionKey<Global
  * ```
  */
 export const createGlobalFABProvider = (): GlobalFABProvider => {
-  const items = ref<ProvidedFABItems[]>([]);
+  const items = ref<ProvidedFABItem[]>([]);
 
-  const add: GlobalFABProvider["add"] = (item: ProvidedFABItems) => {
+  const add: GlobalFABProvider["add"] = (item: ProvidedFABItem) => {
     items.value.push(item);
   };
 

@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 import { createGlobalFABProvider } from "./useGlobalFAB.js";
 
-describe("useToast", () => {
+describe("useGlobalFAB", () => {
   test("should create toast provider", () => {
     const provider = createGlobalFABProvider();
 

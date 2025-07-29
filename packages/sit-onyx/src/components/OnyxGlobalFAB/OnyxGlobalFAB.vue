@@ -7,7 +7,7 @@ import { useGlobalFAB } from "./useGlobalFAB.js";
 const fabItems = useGlobalFAB();
 // align left if all items have left alignment otherwise align right
 const alignment = computed(() =>
-  fabItems.items.value.every((item) => item.alignment === "left") ? "left" : "right",
+  fabItems.items.value.some((item) => item.alignment === "right") ? "right" : "left",
 );
 
 // hide label if all items have hideLabel set to true

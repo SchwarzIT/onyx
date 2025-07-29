@@ -8,22 +8,21 @@ const fabItems = useGlobalFAB();
 let id = 1;
 const addFAB = () => {
   fabItems.add({
-    id: id,
+    id: id++,
     label: "New Item " + id,
     icon: placeholder,
   });
-  id++;
 };
 const removeFAB = () => {
   if (fabItems.items.value.length) {
-    const id = fabItems.items.value[fabItems.items.value.length - 1].id;
-    fabItems.remove(id);
+    const lastId = fabItems.items.value.at(-1)?.id;
+    if (lastId !== undefined) fabItems.remove(lastId);
   }
 };
 </script>
 
 <template>
-  <div class="global-fab">
+  <div class="actions">
     <OnyxButton label="Add example FAB Option" @click="addFAB" />
     <OnyxButton label="Remove example FAB Option" @click="removeFAB" />
   </div>
@@ -32,8 +31,9 @@ const removeFAB = () => {
 </template>
 
 <style lang="scss" scoped>
-.global-fab {
+.actions {
   display: flex;
-  gap: 1rem;
+  gap: var(--onyx-density-md);
+  flex-wrap: wrap;
 }
 </style>

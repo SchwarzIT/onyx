@@ -16,7 +16,7 @@ provide(GLOBAL_FAB_PROVIDER_INJECTION_KEY, createGlobalFABProvider());
     <OnyxPageLayout>
       Page content
       <template #sidebar>
-        <OnyxSidebar label="Label">
+        <OnyxSidebar label="Sidebar label">
           <template #header> Header content </template>
           <div class="onyx-grid">Body content</div>
           <template #footer>

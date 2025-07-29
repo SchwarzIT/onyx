@@ -65,25 +65,12 @@ const { width: windowWidth } = useResizeObserver();
 const _isDrawerOpen = ref(false);
 
 const displayAsDrawer = computed(() => {
-  // If `drawer` prop is explicitly true, it's always displayed as a drawer.
-  if (props.drawer) {
-    return true;
-  }
-  // If `collapseSidebar` is false it's never collapse
-  if (!props.collapseSidebar) {
-    return false;
-  }
-  let breakpointWidth;
-  if (typeof props.collapseSidebar === "number") {
-    // If it's a number, use it directly as the breakpoint width
-    breakpointWidth = props.collapseSidebar;
-  } else if (typeof props.collapseSidebar === "string" && ONYX_BREAKPOINTS[props.collapseSidebar]) {
-    // If it's a string, try to find the corresponding breakpoint in ONYX_BREAKPOINTS
-    breakpointWidth = ONYX_BREAKPOINTS[props.collapseSidebar];
-  } else {
-    // Fallback
-    breakpointWidth = ONYX_BREAKPOINTS.sm;
-  }
+  if (props.drawer) return true;
+  if (!props.collapseSidebar) return false;
+  const breakpointWidth =
+    typeof props.collapseSidebar === "number"
+      ? props.collapseSidebar
+      : ONYX_BREAKPOINTS[props.collapseSidebar];
   return windowWidth.value <= breakpointWidth;
 });
 
