@@ -2,6 +2,7 @@ import moreVerticalSmall from "@sit-onyx/icons/more-vertical-small.svg?raw";
 import trash from "@sit-onyx/icons/trash.svg?raw";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
+import { defineIconSelectArgType } from "../../utils/storybook.js";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxFlyoutMenu from "../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxMenuItem from "../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
@@ -13,6 +14,7 @@ const meta: Meta<typeof OnyxFileCard> = {
   tags: ["new:component"],
   argTypes: {
     actions: { control: { disable: true } },
+    icon: defineIconSelectArgType(),
   },
 };
 
@@ -21,7 +23,7 @@ type Story = StoryObj<typeof OnyxFileCard>;
 
 export const Default = {
   args: {
-    style: "width: 20rem",
+    style: "width: 24rem",
     filename: "example.pdf",
     type: "application/pdf",
     size: "42MiB",
@@ -53,5 +55,15 @@ export const Link = {
   args: {
     ...Default.args,
     link: "https://onyx.schwarz/favicon.svg",
+  },
+} satisfies Story;
+
+export const Status = {
+  args: {
+    ...Default.args,
+    status: {
+      text: "Stopped - unexpected error",
+      color: "danger",
+    },
   },
 } satisfies Story;

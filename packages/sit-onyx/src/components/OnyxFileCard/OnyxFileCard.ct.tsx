@@ -2,6 +2,7 @@ import { useFocusStateHooks } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density.js";
 import { test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots.js";
+import { ONYX_COLORS } from "../../types/colors.js";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxFileCard from "./OnyxFileCard.vue";
 
@@ -54,5 +55,23 @@ test.describe("Screenshot tests (link)", () => {
         await useFocusStateHooks({ component: link, page, state: row });
       },
     },
+  });
+});
+
+test.describe("Screenshot tests (status)", () => {
+  executeMatrixScreenshotTest({
+    name: "File card (status)",
+    columns: ["default", "custom-icon", "truncated"],
+    rows: ONYX_COLORS,
+    component: (column, row) => (
+      <OnyxFileCard
+        filename="filename.pdf"
+        type="application/pdf"
+        size="42MiB"
+        style={{ width: column === "truncated" ? "7rem" : undefined }}
+        status={{ color: row, text: "Status message" }}
+        icon={column === "custom-icon" ? mockPlaywrightIcon : undefined}
+      />
+    ),
   });
 });

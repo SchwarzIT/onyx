@@ -1,10 +1,12 @@
 <script lang="ts" setup>
+import circleAttention from "@sit-onyx/icons/circle-attention.svg?raw";
 import { computed } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useFileSize } from "../../composables/useFileSize.js";
 import { extractLinkProps } from "../../utils/router.js";
 import OnyxCard from "../OnyxCard/OnyxCard.vue";
 import OnyxFileTypeIcon from "../OnyxFileTypeIcon/OnyxFileTypeIcon.vue";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLink from "../OnyxLink/OnyxLink.vue";
 import type { OnyxFileCardProps } from "./types.js";
 
@@ -29,9 +31,11 @@ const link = computed(() => {
 
 <template>
   <OnyxCard :class="['onyx-component', 'onyx-file-card', densityClass]">
-    <div class="onyx-file-card__details onyx-truncation-ellipsis">
+    <div class="onyx-file-card__wrapper onyx-truncation-ellipsis">
       <div class="onyx-file-card__icon" aria-hidden="true">
-        <OnyxFileTypeIcon :type="props.type" />
+        <OnyxIcon v-if="props.icon" :icon="props.icon" />
+        <OnyxIcon v-else-if="props.status?.color === 'danger'" :icon="circleAttention" />
+        <OnyxFileTypeIcon v-else :type="props.type" />
       </div>
 
       <div class="onyx-text--small onyx-truncation-ellipsis">
@@ -47,7 +51,23 @@ const link = computed(() => {
           </OnyxLink>
           <template v-else>{{ props.filename }}</template>
         </div>
-        <div class="onyx-file-card__size">{{ formatFileSize(props.size) }}</div>
+
+        <div class="onyx-file-card__details onyx-truncation-ellipsis">
+          <div class="onyx-file-card__size">
+            {{ formatFileSize(props.size) }}
+          </div>
+
+          <span
+            v-if="props.status"
+            :class="[
+              'onyx-file-card__status',
+              `onyx-file-card__status--${props.status.color}`,
+              'onyx-truncation-ellipsis',
+            ]"
+          >
+            {{ props.status.text }}
+          </span>
+        </div>
       </div>
     </div>
 
@@ -75,6 +95,14 @@ const link = computed(() => {
       padding: var(--onyx-density-xs);
     }
 
+    &:has(.onyx-file-card__status--danger) {
+      .onyx-file-card__icon {
+        background-color: var(--onyx-color-base-danger-100);
+        border-color: var(--onyx-color-base-danger-300);
+        color: var(--onyx-color-text-icons-danger-intense);
+      }
+    }
+
     &__name {
       font-weight: var(--onyx-font-weight-semibold);
 
@@ -86,6 +114,13 @@ const link = computed(() => {
           color: inherit;
         }
       }
+    }
+
+    &__wrapper {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--onyx-density-md);
     }
 
     &:has(&__name .onyx-link:focus-within) {
@@ -106,6 +141,16 @@ const link = computed(() => {
       display: flex;
       align-items: center;
       gap: var(--onyx-card-gap);
+    }
+
+    &__status {
+      $colors: primary, neutral, danger, warning, success, info;
+
+      @each $color in $colors {
+        &--#{$color} {
+          color: var(--onyx-color-text-icons-#{$color}-intense);
+        }
+      }
     }
 
     &__actions {
