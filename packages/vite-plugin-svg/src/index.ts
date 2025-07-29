@@ -32,21 +32,31 @@ export default function vitePluginSVG(options: PluginOptions): Plugin {
     async load(id) {
       if (id !== resolvedVirtualModuleId) return;
 
-      const files = (await readdir(options.input, { encoding: "utf-8" })).filter((file) =>
-        file.endsWith(".svg"),
-      );
+      const files = (await readdir(options.input, { encoding: "utf-8" }))
+        .filter((file) => file.endsWith(".svg"))
+        .map((fileName) => {
+          let exportName = camelize(fileName.replace(".svg", ""));
+          if (options.modifyExportName) {
+            exportName = options.modifyExportName(exportName, fileName);
+          }
+
+          return { fileName, exportName };
+        });
 
       const output: string[] = [];
 
-      for (const fileName of files) {
-        let exportName = camelize(fileName.replace(".svg", ""));
-        if (options.modifyExportName) {
-          exportName = options.modifyExportName(exportName, fileName);
-        }
-
+      for (const { fileName, exportName } of files) {
         const svgContent = await readFile(path.join(options.input, fileName), "utf-8");
         output.push(`export const ${exportName} = \`${svgContent}\``);
       }
+
+      const dtsFilename = `${virtualModuleId}.d.ts`;
+
+      this.emitFile({
+        type: "asset",
+        fileName: dtsFilename,
+        source: files.map(({ exportName }) => `export const ${exportName}: string`).join(";\n"),
+      });
 
       return {
         code: output.join(";\n"),
