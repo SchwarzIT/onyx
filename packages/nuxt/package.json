@@ -38,12 +38,12 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "^2.6.2",
-    "@nuxt/kit": "^4.0.1",
-    "@nuxt/module-builder": "^1.0.1",
-    "@nuxt/schema": "^4.0.1",
+    "@nuxt/kit": "^4.0.2",
+    "@nuxt/module-builder": "^1.0.2",
+    "@nuxt/schema": "^4.0.2",
     "@nuxt/test-utils": "^3.19.2",
     "@nuxtjs/i18n": "^10.0.3",
-    "nuxt": "^4.0.1",
+    "nuxt": "^4.0.2",
     "sit-onyx": "workspace:^",
     "typescript": "catalog:",
     "vue-i18n": "^11.1.11"
