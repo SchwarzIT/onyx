@@ -1,7 +1,9 @@
+import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
 import { expect, test } from "../../playwright/a11y.js";
 import { dragResizeHandle } from "../../playwright/index.js";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxSidebar from "./OnyxSidebar.vue";
+import PlaywrightTest from "./PlaywrightTest.vue";
 
 const CONTENT = [
   <template v-slot:header> Header content </template>,
@@ -192,4 +194,22 @@ test("should render as drawer", async ({ mount, page, makeAxeBuilder }) => {
     box = (await component.boundingBox())!;
     expect(box.width, "should have min width when resizing").toBe(64);
   });
+});
+
+test("should render fab on small screens", async ({ mount, page }) => {
+  // ARRANGE
+  await page.setViewportSize({ height: ONYX_BREAKPOINTS.sm, width: 320 });
+
+  const component = await mount(<PlaywrightTest />);
+  const FAB = component.getByRole("button", { name: "Label" });
+  const sidebar = page.locator("dialog");
+  // ASSERT
+  await expect(FAB).toBeVisible();
+  await expect(sidebar).toBeHidden();
+  await expect(component).toHaveScreenshot("collapsed.png");
+
+  // ACT
+  await FAB.click();
+  // ASSERT
+  await expect(sidebar).toBeVisible();
 });
