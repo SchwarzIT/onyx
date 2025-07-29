@@ -1,4 +1,5 @@
 import type { DensityProp } from "../../composables/density.js";
+import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 import type { OnyxColor } from "../../types/colors.js";
 import type { BinaryPrefixedSize } from "../../utils/numbers.js";
 import type { OnyxFileTypeIconProps } from "../OnyxFileTypeIcon/types.js";
@@ -28,6 +29,10 @@ export type OnyxFileCardProps = DensityProp &
      * Optional icon to show. If unset, a default icon will be shown depending on the file `type` property.
      */
     icon?: string;
+    /**
+     * Whether to show a skeleton card.
+     */
+    skeleton?: SkeletonInjected;
   };
 
 export type FileCardStatus = {

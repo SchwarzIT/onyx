@@ -3,14 +3,21 @@ import circleAttention from "@sit-onyx/icons/circle-attention.svg?raw";
 import { computed } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useFileSize } from "../../composables/useFileSize.js";
+import {
+  SKELETON_INJECTED_SYMBOL,
+  useSkeletonContext,
+} from "../../composables/useSkeletonState.js";
 import { extractLinkProps } from "../../utils/router.js";
 import OnyxCard from "../OnyxCard/OnyxCard.vue";
 import OnyxFileTypeIcon from "../OnyxFileTypeIcon/OnyxFileTypeIcon.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLink from "../OnyxLink/OnyxLink.vue";
+import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxFileCardProps } from "./types.js";
 
-const props = defineProps<OnyxFileCardProps>();
+const props = withDefaults(defineProps<OnyxFileCardProps>(), {
+  skeleton: SKELETON_INJECTED_SYMBOL,
+});
 
 const slots = defineSlots<{
   /**
@@ -22,6 +29,7 @@ const slots = defineSlots<{
 
 const { densityClass } = useDensity(props);
 const { formatFileSize } = useFileSize();
+const skeleton = useSkeletonContext(props);
 
 const link = computed(() => {
   if (!props.link) return;
@@ -30,7 +38,9 @@ const link = computed(() => {
 </script>
 
 <template>
-  <OnyxCard :class="['onyx-component', 'onyx-file-card', densityClass]">
+  <OnyxSkeleton v-if="skeleton" :class="['onyx-file-card-skeleton', densityClass]" />
+
+  <OnyxCard v-else :class="['onyx-component', 'onyx-file-card', densityClass]">
     <div class="onyx-file-card__wrapper onyx-truncation-ellipsis">
       <div class="onyx-file-card__icon" aria-hidden="true">
         <OnyxIcon v-if="props.icon" :icon="props.icon" />
@@ -80,19 +90,47 @@ const link = computed(() => {
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
 
-.onyx-file-card {
+.onyx-file-card,
+.onyx-file-card-skeleton {
   @include layers.component() {
     --onyx-card-padding: var(--onyx-density-xs);
+    --onyx-file-card-icon-padding: var(--onyx-density-xs);
+  }
+}
+
+.onyx-file-card-skeleton {
+  @include layers.component() {
+    // icon size + padding + border
+    --onyx-file-card-skeleton-icon-height: calc(
+      1.5rem + 2 * var(--onyx-file-card-icon-padding) + 2 * var(--onyx-1px-in-rem)
+    );
+
+    // line height of filename + file size
+    --onyx-file-card-skeleton-text-height: calc(2 * var(--onyx-font-line-height-sm));
+
+    height: calc(
+      max(var(--onyx-file-card-skeleton-icon-height), var(--onyx-file-card-skeleton-text-height)) +
+        2 * var(--onyx-card-padding) + 2 * var(--onyx-1px-in-rem)
+    );
+    width: 24rem;
+  }
+}
+
+.onyx-file-card {
+  @include layers.component() {
     flex-direction: row;
     flex-wrap: wrap;
     gap: var(--onyx-card-gap) var(--onyx-density-xl);
     justify-content: space-between;
 
     &__icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       border-radius: var(--onyx-radius-sm);
       border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
       background-color: var(--onyx-color-base-neutral-200);
-      padding: var(--onyx-density-xs);
+      padding: var(--onyx-file-card-icon-padding);
     }
 
     &:has(.onyx-file-card__status--danger) {

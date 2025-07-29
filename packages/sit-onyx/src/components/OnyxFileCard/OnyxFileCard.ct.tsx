@@ -10,7 +10,7 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "File card",
     columns: DENSITIES,
-    rows: ["default", "hover", "actions", "truncated"],
+    rows: ["default", "hover", "actions", "truncated", "skeleton"],
     component: (column, row) => (
       <OnyxFileCard
         filename="filename.pdf"
@@ -18,6 +18,7 @@ test.describe("Screenshot tests", () => {
         size="42MiB"
         density={column}
         style={{ width: row === "truncated" ? "7rem" : undefined }}
+        skeleton={row === "skeleton"}
       >
         {row === "actions" && (
           <template v-slot:actions>
