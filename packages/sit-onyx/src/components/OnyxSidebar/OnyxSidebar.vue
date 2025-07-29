@@ -107,15 +107,15 @@ watch(
         fabItems.add({
           id,
           label: props.label,
-          icon: sidebarArrowRight,
+          hideLabel: true,
           hideLabelIfOption: false,
+          icon: sidebarArrowRight,
+          iconIfOption: false,
+          alignment: props.alignment,
           class: props.alignment === "right" ? "onyx-fab-icon--rotated" : "",
           onClick: () => {
             isDrawerOpen.value = !isDrawerOpen.value;
           },
-          alignment: props.alignment,
-          hideLabel: true,
-          hideLabelIfOption: false,
         });
       } else {
         fabItems.remove(id);
