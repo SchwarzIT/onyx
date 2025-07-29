@@ -1,3 +1,4 @@
+import type { OnyxBreakpoint } from "@sit-onyx/shared/breakpoints";
 import type { DensityProp } from "../../composables/density.js";
 import type { OnyxDrawerProps } from "../OnyxDrawer/types.js";
 
@@ -21,6 +22,15 @@ export type OnyxSidebarProps = DensityProp & {
    * Note: When using the non-drawer sidebar (default), you need to do the actual positioning on the page manually. You can use the [OnyxPageLayout](https://storybook.onyx.schwarz/?path=/story/layout-pagelayout--sidebar-right) for this.
    */
   alignment?: SidebarAlignment;
+  /**
+   * Controls the collapsing behavior of the sidebar.
+   * - If set to a `OnyxBreakpoint` enum value (e.g., `md`), the sidebar will collapse when the screen width
+   * is at or below that breakpoint.
+   * - If set to a `number`, the sidebar will collapse when the screen width is at or below this pixel value.
+   * - If set to `false`, the sidebar will never collapse automatically based on screen width.
+   * @default `sm`
+   */
+  collapseSidebar?: OnyxBreakpoint | number | false;
 };
 
 export const SIDEBAR_ALIGNMENT = ["left", "right"] as const;

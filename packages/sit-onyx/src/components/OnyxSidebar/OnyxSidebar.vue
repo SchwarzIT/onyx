@@ -1,15 +1,17 @@
 <script lang="ts" setup>
+import sidebarArrowRight from "@sit-onyx/icons/sidebar-arrow-right.svg?raw";
 import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
-import { computed, inject, ref, useId, useTemplateRef, watch } from "vue";
+import { computed, ref, useId, useTemplateRef, watch } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useWindowInnerSize } from "../../composables/useResizeObserver.js";
 import OnyxDrawer from "../OnyxDrawer/OnyxDrawer.vue";
-import { SIDEBAR_INJECTION_KEY } from "../OnyxPageLayout/types.js";
+import { useGlobalFAB } from "../OnyxGlobalFAB/useGlobalFAB.js";
 import OnyxResizeHandle from "../OnyxResizeHandle/OnyxResizeHandle.vue";
 import type { OnyxSidebarProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxSidebarProps>(), {
   alignment: "left",
+  collapseSidebar: "sm",
 });
 
 const emit = defineEmits<{
@@ -40,6 +42,7 @@ const slots = defineSlots<{
 }>();
 
 const { densityClass } = useDensity(props);
+const fabItems = useGlobalFAB();
 
 const sidebarElement = useTemplateRef("sidebarRef");
 const drawerElement = useTemplateRef("drawerRef");
@@ -60,55 +63,64 @@ const resizeHandleProps = computed(
 const { width: windowWidth } = useWindowInnerSize();
 
 const _isDrawerOpen = ref(false);
-const sidebarContext = inject(SIDEBAR_INJECTION_KEY, undefined);
-const sidebarId = useId();
 
-const dispayAsDrawer = computed(
-  () =>
-    props.drawer ||
-    (sidebarContext &&
-      !sidebarContext.disableSidebarMinimize.value &&
-      windowWidth.value <= ONYX_BREAKPOINTS.sm),
-);
+const displayAsDrawer = computed(() => {
+  // If `drawer` prop is explicitly true, it's always displayed as a drawer.
+  if (props.drawer) {
+    return true;
+  }
+  // If `collapseSidebar` is false it's never collapse
+  if (!props.collapseSidebar) {
+    return false;
+  }
+  let breakpointWidth;
+  if (typeof props.collapseSidebar === "number") {
+    // If it's a number, use it directly as the breakpoint width
+    breakpointWidth = props.collapseSidebar;
+  } else if (typeof props.collapseSidebar === "string" && ONYX_BREAKPOINTS[props.collapseSidebar]) {
+    // If it's a string, try to find the corresponding breakpoint in ONYX_BREAKPOINTS
+    breakpointWidth = ONYX_BREAKPOINTS[props.collapseSidebar];
+  } else {
+    // Fallback
+    breakpointWidth = ONYX_BREAKPOINTS.sm;
+  }
+  return windowWidth.value <= breakpointWidth;
+});
 
 const isDrawerOpen = computed<boolean>({
   get: () => {
     if (typeof props.drawer?.open === "boolean") {
       return props.drawer.open;
     }
-    if (sidebarContext) {
-      const foundSidebar = sidebarContext.sidebarItems.value.find(
-        (sidebar) => sidebar.id === sidebarId,
-      );
-      return foundSidebar ? foundSidebar.open : _isDrawerOpen.value;
-    }
-
     return _isDrawerOpen.value;
   },
   set: (newVal: boolean) => {
-    if (sidebarContext) {
-      sidebarContext.updateItems({
-        id: sidebarId,
-        label: props.label,
-        alignment: props.alignment,
-        open: newVal,
-        isDrawer: props.drawer ? true : false,
-      });
-    } else {
-      _isDrawerOpen.value = newVal;
-    }
+    _isDrawerOpen.value = newVal;
   },
 });
+const id = useId();
 watch(
-  [() => props.alignment],
+  [() => displayAsDrawer.value],
   () => {
-    sidebarContext?.updateItems({
-      id: sidebarId,
-      label: props.label,
-      alignment: props.alignment,
-      open: isDrawerOpen.value,
-      isDrawer: props.drawer ? true : false,
-    });
+    if (!props.drawer && props.collapseSidebar) {
+      if (windowWidth.value <= ONYX_BREAKPOINTS.sm) {
+        fabItems.add({
+          id,
+          label: props.label,
+          icon: sidebarArrowRight,
+          hideLabelIfOption: false,
+          class: props.alignment === "right" ? "onyx-fab-icon--rotated" : "",
+          onClick: () => {
+            isDrawerOpen.value = !isDrawerOpen.value;
+          },
+          alignment: props.alignment,
+          hideLabel: true,
+          hideLabelIfOption: false,
+        });
+      } else {
+        fabItems.remove(id);
+      }
+    }
   },
   { immediate: true },
 );
@@ -116,7 +128,7 @@ watch(
 
 <template>
   <aside
-    v-if="!dispayAsDrawer"
+    v-if="!displayAsDrawer"
     ref="sidebarRef"
     :class="[
       'onyx-component',

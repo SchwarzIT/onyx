@@ -32,10 +32,6 @@ export type SidebarInjectionKey = InjectionKey<{
    */
   sidebarItems: Readonly<Ref<SidebarItem[]>>;
   /**
-   * Whether the sidebar will not automatically minimize into a FAB-Button.
-   */
-  disableSidebarMinimize: Ref<boolean>;
-  /**
    * Function to update the state of a Sidebar.
    */
   updateItems: (sidebar: SidebarItem) => void;

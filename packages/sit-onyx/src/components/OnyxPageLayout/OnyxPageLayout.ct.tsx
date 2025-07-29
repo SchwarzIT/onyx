@@ -125,13 +125,13 @@ test("should render the sidebar fab button on small screens", async ({ mount, pa
   const sidebarDrawer = component.getByRole("dialog", { name: "Test Sidebar" });
 
   //ACT
-  await page.setViewportSize({ width: 1200, height: 800 });
+  await page.setViewportSize({ width: ONYX_BREAKPOINTS.md, height: 800 });
 
   // ASSERT
   await expect(fabButton).toBeHidden();
 
   //ACT
-  await page.setViewportSize({ width: 500, height: 800 });
+  await page.setViewportSize({ width: ONYX_BREAKPOINTS.sm, height: 800 });
 
   // ASSERT
   await expect(fabButton).toBeVisible();
@@ -171,13 +171,13 @@ test("should render the sidebar fab button on small screens (multiple options)",
   const sidebarDrawer = component.getByRole("dialog", { name: "Test Sidebar" });
 
   //ACT
-  await page.setViewportSize({ width: 1200, height: 800 });
+  await page.setViewportSize({ width: ONYX_BREAKPOINTS.md, height: 800 });
 
   // ASSERT
   await expect(fabButton).toBeHidden();
 
   //ACT
-  await page.setViewportSize({ width: 500, height: 800 });
+  await page.setViewportSize({ width: ONYX_BREAKPOINTS.sm, height: 800 });
 
   // ASSERT
   await expect(fabButton).toBeVisible();

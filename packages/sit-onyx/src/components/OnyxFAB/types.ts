@@ -11,9 +11,4 @@ export type OnyxFABProps = OnyxFABButtonProps & {
    * If unset, the open state is manged internally.
    */
   open?: Nullable<boolean>;
-
-  /**
-   * To display a custom closing Icon
-   */
-  closingIcon?: string;
 };

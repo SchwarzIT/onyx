@@ -50,13 +50,7 @@ const hasOptions = computed(() => !!slots.default);
 
 const triggerIcon = computed(() => {
   if (!hasOptions.value) return props.icon;
-  return isExpanded.value
-    ? props.closingIcon
-      ? props.closingIcon
-      : x
-    : props.icon
-      ? props.icon
-      : moreHorizontalSmall;
+  return isExpanded.value ? x : moreHorizontalSmall;
 });
 </script>
 
