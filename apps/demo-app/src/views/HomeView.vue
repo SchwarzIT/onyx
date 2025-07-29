@@ -19,6 +19,7 @@ import {
   OnyxEmpty,
   OnyxFAB,
   OnyxFABItem,
+  OnyxFileCard,
   OnyxFilterTag,
   OnyxHeadline,
   OnyxIcon,
@@ -66,6 +67,7 @@ const COMPONENTS = [
   "OnyxDatePicker",
   "OnyxEmpty",
   "OnyxFAB",
+  "OnyxFileCard",
   "OnyxHeadline",
   "OnyxIcon",
   "OnyxIconButton",
@@ -246,6 +248,14 @@ const currentProgressStep = ref(3);
           <OnyxFABItem :icon="placeholder" label="Action 2" />
           <OnyxFABItem :icon="placeholder" label="Action 1" />
         </OnyxFAB>
+
+        <OnyxFileCard
+          v-if="show('OnyxFileCard')"
+          filename="example.pdf"
+          type="application/pdf"
+          size="42MiB"
+          :status="{ text: 'Example status', color: 'warning' }"
+        />
 
         <OnyxHeadline is="h1" v-if="show('OnyxHeadline')" hash="headline">Headline</OnyxHeadline>
 
