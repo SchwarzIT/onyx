@@ -118,7 +118,7 @@ export async function importVariablesCommandAction(options: ImportVariablesComma
 
       const baseName = getBaseFileName(data.modeName);
       if (options.combinesDarkLight) {
-        const themeName = baseName.split("-")[0];
+        const themeName = baseName.replace("-light", "").replace("-dark", "");
         const fullPath = path.join(outputDirectory, `${themeName}.${format.toLowerCase()}`);
 
         // find the matching theme
