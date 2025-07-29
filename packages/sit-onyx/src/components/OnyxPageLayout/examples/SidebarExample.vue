@@ -21,6 +21,7 @@ import {
           </div>
         </OnyxSidebar>
       </template>
+
       <!-- page content -->
       <OnyxHeadline is="h1">Page content</OnyxHeadline>
     </OnyxPageLayout>
