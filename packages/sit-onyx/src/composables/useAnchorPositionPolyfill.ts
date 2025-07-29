@@ -135,11 +135,14 @@ export const useAnchorPositionPolyfill = ({
    * TODO: can be removed after anchor is implemented in all common browsers.
    */
   onBeforeMount(() => {
+    const isSafari = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
+
     useragentSupportsAnchorApi.value =
       "CSS" in globalThis &&
       typeof CSS !== "undefined" &&
       CSS.supports("anchor-name: --test") &&
-      CSS.supports("position-area: top");
+      CSS.supports("position-area: top") &&
+      !isSafari;
   });
 
   return {
