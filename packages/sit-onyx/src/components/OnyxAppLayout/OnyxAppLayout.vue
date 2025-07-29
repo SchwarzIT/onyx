@@ -38,9 +38,9 @@ const slots = defineSlots<{
     <div class="onyx-app__page">
       <slot></slot>
     </div>
+    <OnyxToast />
+    <OnyxGlobalFAB />
   </div>
-  <OnyxToast />
-  <OnyxGlobalFAB />
 </template>
 
 <style lang="scss">

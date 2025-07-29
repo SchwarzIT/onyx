@@ -24,11 +24,11 @@ const hideLabelIfOption = computed(() =>
     :class="fabItems.items.value[0].class"
     :label="fabItems.items.value[0].label"
     :icon="fabItems.items.value[0].icon"
-    :alignment="alignment"
-    :hide-label="hideLabel"
+    :alignment
+    :hide-label
     @click="fabItems.items.value[0].onClick"
   />
-  <OnyxFAB v-if="fabItems.items.value.length > 1" label="globalFAB" :alignment="alignment">
+  <OnyxFAB v-if="fabItems.items.value.length > 1" label="globalFAB" :alignment>
     <OnyxFABItem
       v-for="item in fabItems.items.value"
       :key="item.id"
@@ -41,7 +41,6 @@ const hideLabelIfOption = computed(() =>
             ? item.icon
             : ''
       "
-      :alignment="item.alignment"
       :hide-label="hideLabelIfOption"
       @click="item.onClick"
     />

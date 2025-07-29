@@ -1,4 +1,4 @@
-import { onBeforeUnmount, onMounted, onUnmounted, ref, watch, type Ref } from "vue";
+import { onBeforeUnmount, onMounted, ref, watch, type Ref } from "vue";
 
 export type UseResizeObserverOptions = {
   /**
@@ -65,26 +65,6 @@ export const useResizeObserver = (
     );
 
     onBeforeUnmount(() => observer.disconnect());
-  });
-
-  return { width, height };
-};
-export const useWindowInnerSize = () => {
-  const width = ref(0);
-  const height = ref(0);
-
-  const updateWindowSize = () => {
-    width.value = window.innerWidth;
-    height.value = window.innerHeight;
-  };
-
-  onMounted(() => {
-    updateWindowSize();
-    window.addEventListener("resize", updateWindowSize);
-  });
-
-  onUnmounted(() => {
-    window.removeEventListener("resize", updateWindowSize);
   });
 
   return { width, height };

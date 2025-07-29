@@ -27,7 +27,11 @@ test.beforeEach(async ({ page }) => {
 
 test("should render", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
-  const component = await mount(<OnyxSidebar label="Label">{CONTENT}</OnyxSidebar>);
+  const component = await mount(
+    <OnyxSidebar label="Label" collapseSidebar={false}>
+      {CONTENT}
+    </OnyxSidebar>,
+  );
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
@@ -74,7 +78,12 @@ test("should render as drawer", async ({ mount, page, makeAxeBuilder }) => {
 
     // ARRANGE
     const component = await mount(
-      <OnyxSidebar label="Label" drawer={type === "drawer" ? { open: true } : undefined} resizable>
+      <OnyxSidebar
+        collapseSidebar={false}
+        label="Label"
+        drawer={type === "drawer" ? { open: true } : undefined}
+        resizable
+      >
         {CONTENT}
       </OnyxSidebar>,
     );
@@ -141,6 +150,7 @@ test("should render as drawer", async ({ mount, page, makeAxeBuilder }) => {
         drawer={type === "drawer" ? { open: true } : undefined}
         alignment="right"
         resizable
+        collapseSidebar={false}
       >
         {CONTENT}
       </OnyxSidebar>,

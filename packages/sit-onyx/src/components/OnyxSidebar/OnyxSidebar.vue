@@ -3,7 +3,7 @@ import sidebarArrowRight from "@sit-onyx/icons/sidebar-arrow-right.svg?raw";
 import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
 import { computed, ref, useId, useTemplateRef, watch } from "vue";
 import { useDensity } from "../../composables/density.js";
-import { useWindowInnerSize } from "../../composables/useResizeObserver.js";
+import { useResizeObserver } from "../../composables/useResizeObserver.js";
 import OnyxDrawer from "../OnyxDrawer/OnyxDrawer.vue";
 import { useGlobalFAB } from "../OnyxGlobalFAB/useGlobalFAB.js";
 import OnyxResizeHandle from "../OnyxResizeHandle/OnyxResizeHandle.vue";
@@ -60,7 +60,7 @@ const resizeHandleProps = computed(
       alignment: props.alignment === "left" ? "right" : "left",
     }) as const,
 );
-const { width: windowWidth } = useWindowInnerSize();
+const { width: windowWidth } = useResizeObserver();
 
 const _isDrawerOpen = ref(false);
 
