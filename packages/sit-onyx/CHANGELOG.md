@@ -1,5 +1,27 @@
 # sit-onyx
 
+## 1.0.0-beta.281
+
+### Major Changes
+
+- f78c792: feat(Grid-Layout):
+  - renamed onyx-grid-container to onyx-grid-layout
+  - added new onyx-grid-container class
+  - changed padding of onyx-grid-layout to have fixed top/bottom spacings
+  - update grid to consider the current container instead of the viewport for applying breakpoints (changed from media-query to container-query)
+  - added Tests for the sidebar grid.
+
+## 1.0.0-beta.280
+
+### Major Changes
+
+- ca304b6: rename kaufland and scos CSS variables
+
+  | Old                  | New                      |
+  | -------------------- | ------------------------ |
+  | --onyx-color-kl-\*   | --onyx-color-kaufland-\* |
+  | --onyx-color-scos-\* | --onyx-color-schwarz-\*  |
+
 ## 1.0.0-beta.279
 
 ### Patch Changes

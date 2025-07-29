@@ -1,6 +1,6 @@
 {
   "name": "@sit-onyx/nuxt",
-  "version": "1.0.0-beta.280",
+  "version": "1.0.0-beta.282",
   "description": "A Nuxt module to easily integrate onyx into Nuxt projects",
   "type": "module",
   "author": "Schwarz IT KG",

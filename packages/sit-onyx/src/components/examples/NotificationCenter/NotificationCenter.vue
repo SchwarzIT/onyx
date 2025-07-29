@@ -141,7 +141,7 @@ const addExampleNotification = () => {
     </template>
 
     <!-- EXAMPLE PAGE CONTENT -->
-    <div class="onyx-grid-container page">
+    <div class="onyx-grid-layout page">
       <OnyxHeadline is="h1">Page content</OnyxHeadline>
 
       <p>

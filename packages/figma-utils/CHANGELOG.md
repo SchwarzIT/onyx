@@ -1,5 +1,13 @@
 # @sit-onyx/figma-utils
 
+## 1.0.0-beta.10
+
+### Patch Changes
+
+- b412f02: fix(import-variables): correctly get theme name when combinesDarkLight is enabled
+
+  Previously the mode name was determined by using the part before the first "-" character which does not work correctly if the theme/mode name itself contains dashes.
+
 ## 1.0.0-beta.9
 
 ### Major Changes
