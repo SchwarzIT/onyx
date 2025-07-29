@@ -112,7 +112,8 @@ const link = computed(() => {
       max(var(--onyx-file-card-skeleton-icon-height), var(--onyx-file-card-skeleton-text-height)) +
         2 * var(--onyx-card-padding) + 2 * var(--onyx-1px-in-rem)
     );
-    width: 24rem;
+
+    width: 16rem;
   }
 }
 
