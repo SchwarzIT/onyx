@@ -13,7 +13,7 @@ If you are an Schwarz employee and want to access one the following themes, plea
 - Kaufland
 - Lidl
 - PreZero
-- Schwarz corporate solutions
+- Schwarz group and Schwarz corporate solutions
 
 If you have any other questions or need support, please get in touch with the [team](/about/team).
 
