@@ -1,0 +1,36 @@
+{
+  "name": "@sit-onyx/vite-plugin-svg",
+  "description": "A Vite plugin to generate JavaScript exports for SVG files",
+  "version": "0.0.0",
+  "type": "module",
+  "author": "Schwarz IT KG",
+  "license": "Apache-2.0",
+  "files": [
+    "dist"
+  ],
+  "types": "./dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./virtual": {
+      "types": "./dist/virtual.d.ts"
+    }
+  },
+  "homepage": "https://onyx.schwarz",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SchwarzIT/onyx",
+    "directory": "packages/vite-plugin-svg"
+  },
+  "bugs": {
+    "url": "https://github.com/SchwarzIT/onyx/issues"
+  },
+  "scripts": {
+    "build": "tsc && cp src/virtual.d.ts dist/virtual.d.ts"
+  },
+  "peerDependencies": {
+    "vite": ">= 5"
+  },
+  "devDependencies": {
+    "@sit-onyx/shared": "workspace:^"
+  }
+}

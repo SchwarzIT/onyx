@@ -10,14 +10,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/schwarzit/onyx",
+    "url": "https://github.com/SchwarzIT/onyx",
     "directory": "packages/icons"
   },
   "bugs": {
-    "url": "https://github.com/schwarzit/onyx/issues"
+    "url": "https://github.com/SchwarzIT/onyx/issues"
   },
   "files": [
-    "src/assets",
     "dist"
   ],
   "exports": {
@@ -26,16 +25,20 @@
       "import": "./dist/index.js"
     },
     "./metadata": "./dist/metadata.json",
-    "./*": "./src/assets/*"
+    "./*": "./dist/assets/*",
+    "./utils": "./dist/utils.js"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "vite build",
     "test": "vitest",
     "generate:changeset": "tsx ./scripts/changeset.ts"
   },
   "devDependencies": {
     "@changesets/write": "~0.4.0",
     "@sit-onyx/shared": "workspace:^",
-    "tsx": "^4.20.3"
+    "@sit-onyx/vite-plugin-svg": "workspace:^",
+    "tsx": "^4.20.3",
+    "vite-plugin-dts": "^4.5.4",
+    "vite-plugin-static-copy": "^3.1.1"
   }
 }

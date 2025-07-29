@@ -4,7 +4,7 @@
   "compilerOptions": {
     "rootDir": "./src",
     "baseUrl": ".",
-    "types": ["node", "@sit-onyx/vite-plugin-svg/virtual"],
+    "types": ["node"],
     "outDir": "./dist",
     "declaration": true,
     "verbatimModuleSyntax": true,
