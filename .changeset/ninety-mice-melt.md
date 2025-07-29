@@ -2,4 +2,4 @@
 "sit-onyx": minor
 ---
 
-feat(OnyxFileCard): implement `status` and `icon` property
+feat(OnyxFileCard): implement `status`, `icon` and `skeleton` property
