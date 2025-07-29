@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.283
+
+### Minor Changes
+
+- 405fa0f: feat(OnyxFileCard): implement `status`, `icon` and `skeleton` property
+
 ## 1.0.0-beta.282
 
 ### Patch Changes
