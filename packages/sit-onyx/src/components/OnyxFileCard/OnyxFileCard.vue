@@ -158,7 +158,7 @@ const link = computed(() => {
     &__wrapper {
       display: flex;
       align-items: center;
-      gap: var(--onyx-density-md);
+      gap: var(--onyx-card-gap);
     }
 
     &:has(&__name .onyx-link:focus-within) {
@@ -178,7 +178,7 @@ const link = computed(() => {
     &__details {
       display: flex;
       align-items: center;
-      gap: var(--onyx-card-gap);
+      gap: var(--onyx-density-md);
     }
 
     &__status {
