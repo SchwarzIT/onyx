@@ -30,5 +30,5 @@ import filePdf from "@sit-onyx/icons/file-pdf.svg?raw";
 
 #### Breaking changes
 
-- utility functions and types are moved from `@sit-onyx/icons` to `@sit-onyx/icons/utils` so the root path only includes icons.
+- utility functions and types are moved from `@sit-onyx/icons` to `@sit-onyx/icons/utils` so the root path only includes icons
 - removed import `@sit-onyx/icons/metadata.json`, use `import { ICON_METADATA } from "@sit-onyx/icons/utils";` instead
