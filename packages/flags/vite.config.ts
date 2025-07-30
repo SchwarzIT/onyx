@@ -1,6 +1,5 @@
 import { VITE_BASE_CONFIG } from "@sit-onyx/shared/vite.config.base";
 import svg from "@sit-onyx/vite-plugin-svg";
-import vue from "@vitejs/plugin-vue";
 import { fileURLToPath, URL } from "node:url";
 import { DiagnosticCategory } from "typescript";
 import { defineConfig } from "vite";
@@ -11,7 +10,6 @@ import { viteStaticCopy } from "vite-plugin-static-copy";
 export default defineConfig({
   ...VITE_BASE_CONFIG,
   plugins: [
-    vue(),
     svg({
       base: import.meta.url,
       input: "src/assets",
