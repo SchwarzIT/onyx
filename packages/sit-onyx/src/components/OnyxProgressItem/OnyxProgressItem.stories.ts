@@ -1,4 +1,4 @@
-import cart from "@sit-onyx/icons/cart.svg?raw";
+import { iconCart } from "@sit-onyx/icons";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import OnyxProgressItem from "./OnyxProgressItem.vue";
@@ -24,7 +24,7 @@ export const Default = {
 export const Icon = {
   args: {
     ...Default.args,
-    icon: cart,
+    icon: iconCart,
   },
 } satisfies Story;
 

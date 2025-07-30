@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import arrowsSort from "@sit-onyx/icons/arrows-sort.svg?raw";
-import listArrowDown from "@sit-onyx/icons/list-arrow-down.svg?raw";
-import listArrowUp from "@sit-onyx/icons/list-arrow-up.svg?raw";
+import { iconArrowsSort, iconListArrowDown, iconListArrowUp } from "@sit-onyx/icons";
 import { computed } from "vue";
 import { injectI18n } from "../../../../i18n/index.js";
 import OnyxSystemButton from "../../../OnyxSystemButton/OnyxSystemButton.vue";
@@ -23,10 +21,10 @@ const { t } = injectI18n();
 
 const icon = computed(() =>
   props.sortDirection === "asc"
-    ? listArrowUp
+    ? iconListArrowUp
     : props.sortDirection === "desc"
-      ? listArrowDown
-      : arrowsSort,
+      ? iconListArrowDown
+      : iconArrowsSort,
 );
 
 const buttonLabel = computed(() => {

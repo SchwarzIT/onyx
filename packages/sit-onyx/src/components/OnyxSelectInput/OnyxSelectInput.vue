@@ -1,7 +1,6 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue">
 import { CLOSING_KEYS, OPENING_KEYS } from "@sit-onyx/headless";
-import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
-import chevronDownUp from "@sit-onyx/icons/chevron-down-up.svg?raw";
+import { iconCheckSmall, iconChevronDownUp } from "@sit-onyx/icons";
 import { computed, ref, useTemplateRef, watch } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
@@ -206,13 +205,13 @@ useAutofocus(input, props);
             tabindex="-1"
             :disabled="disabled || props.readonly || props.loading"
           >
-            <OnyxIcon :icon="chevronDownUp" />
+            <OnyxIcon :icon="iconChevronDownUp" />
           </button>
 
           <OnyxIcon
             v-if="!props.hideSuccessIcon && successMessages"
             class="onyx-select-input__check-icon"
-            :icon="checkSmall"
+            :icon="iconCheckSmall"
             color="success"
           />
         </div>

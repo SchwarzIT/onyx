@@ -1,6 +1,4 @@
-import browserTerminal from "@sit-onyx/icons/browser-terminal.svg?raw";
-import search from "@sit-onyx/icons/search.svg?raw";
-import settings from "@sit-onyx/icons/settings.svg?raw";
+import { iconBrowserTerminal, iconSearch, iconSettings } from "@sit-onyx/icons";
 import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { action } from "storybook/actions";
@@ -13,7 +11,7 @@ import OnyxTag from "../OnyxTag/OnyxTag.vue";
 import OnyxMenuItem from "./modules/OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxNavItem from "./modules/OnyxNavItem/OnyxNavItem.vue";
 import OnyxTimer from "./modules/OnyxTimer/OnyxTimer.vue";
-import { Default as OnyxUserMenuDefault } from "./modules/OnyxUserMenu/OnyxUserMenu.stories";
+import { Default as OnyxUserMenuDefault } from "./modules/OnyxUserMenu/OnyxUserMenu.stories.js";
 import OnyxUserMenu from "./modules/OnyxUserMenu/OnyxUserMenu.vue";
 import OnyxNavBar from "./OnyxNavBar.vue";
 
@@ -188,10 +186,10 @@ export const WithContextArea = {
   args: {
     ...Default.args,
     globalContextArea: () => [
-      h(OnyxIconButton, { label: "Search", icon: search, color: "neutral" }),
+      h(OnyxIconButton, { label: "Search", icon: iconSearch, color: "neutral" }),
     ],
     contextArea: () => [
-      h(OnyxTag, { label: "QA stage", color: "warning", icon: browserTerminal }),
+      h(OnyxTag, { label: "QA stage", color: "warning", icon: iconBrowserTerminal }),
       h(OnyxSeparator, { orientation: "vertical" }),
       h(OnyxUserMenu, OnyxUserMenuDefault.args, {
         default: OnyxUserMenuDefault.args.default,
@@ -245,11 +243,11 @@ export const Mobile = {
       ),
     ],
     contextArea: () => [
-      h(OnyxTag, { label: "QA stage", color: "warning", icon: browserTerminal }),
+      h(OnyxTag, { label: "QA stage", color: "warning", icon: iconBrowserTerminal }),
       h(OnyxSeparator, { orientation: "vertical" }),
       h(OnyxUserMenu, OnyxUserMenuDefault.args, {
         default: Array.from({ length: 20 }, (_, index) =>
-          h(OnyxMenuItem, () => [h(OnyxIcon, { icon: settings }), `Context option ${index}`]),
+          h(OnyxMenuItem, () => [h(OnyxIcon, { icon: iconSettings }), `Context option ${index}`]),
         ),
         footer: OnyxUserMenuDefault.args.footer,
       }),

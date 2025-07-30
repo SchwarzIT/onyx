@@ -1,6 +1,4 @@
-import check from "@sit-onyx/icons/check.svg?raw";
-import xSmall from "@sit-onyx/icons/x-small.svg?raw";
-
+import { iconCheck, iconXSmall } from "@sit-onyx/icons";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { defineIconSelectArgType } from "../../utils/storybook.js";
@@ -36,7 +34,7 @@ export const Primary = {
 export const WithIcon = {
   args: {
     label: "Done",
-    icon: check,
+    icon: iconCheck,
     color: "success",
   },
 } satisfies Story;
@@ -73,6 +71,6 @@ export const Dismissable = {
   },
   args: {
     label: "Tag",
-    clickable: { label: "Click to remove 'Tag' from the selection.", actionIcon: xSmall },
+    clickable: { label: "Click to remove 'Tag' from the selection.", actionIcon: iconXSmall },
   },
 } satisfies Story;

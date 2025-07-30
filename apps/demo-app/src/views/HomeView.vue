@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import emojiHappy2 from "@sit-onyx/icons/emoji-happy-2.svg?raw";
-import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
+import { iconEmojiHappy2, iconPlaceholder } from "@sit-onyx/icons";
 import { useStorage } from "@vueuse/core";
 import {
   DENSITIES,
@@ -242,16 +241,16 @@ const currentProgressStep = ref(3);
         <OnyxEmpty v-if="show('OnyxEmpty')">No data available</OnyxEmpty>
 
         <OnyxFAB v-if="show('OnyxFAB')" label="Example label">
-          <OnyxFABItem :icon="placeholder" label="Action 3" />
-          <OnyxFABItem :icon="placeholder" label="Action 2" />
-          <OnyxFABItem :icon="placeholder" label="Action 1" />
+          <OnyxFABItem :icon="iconPlaceholder" label="Action 3" />
+          <OnyxFABItem :icon="iconPlaceholder" label="Action 2" />
+          <OnyxFABItem :icon="iconPlaceholder" label="Action 1" />
         </OnyxFAB>
 
         <OnyxHeadline is="h1" v-if="show('OnyxHeadline')" hash="headline">Headline</OnyxHeadline>
 
-        <OnyxIcon v-if="show('OnyxIcon')" :icon="emojiHappy2" />
+        <OnyxIcon v-if="show('OnyxIcon')" :icon="iconEmojiHappy2" />
 
-        <OnyxIconButton v-if="show('OnyxIconButton')" label="Happy Emoji" :icon="emojiHappy2" />
+        <OnyxIconButton v-if="show('OnyxIconButton')" label="Happy Emoji" :icon="iconEmojiHappy2" />
 
         <OnyxButton v-if="show('OnyxDialog')" label="Open Dialog" @click="isDialogOpen = true" />
         <OnyxDialog label="Dialog" :open="isDialogOpen" modal @close="isDialogOpen = false">
@@ -378,7 +377,12 @@ const currentProgressStep = ref(3);
           <OnyxTab label="Tab 3" value="tab-3">Tab panel content 3...</OnyxTab>
         </OnyxTabs>
 
-        <OnyxTag v-if="show('OnyxTag')" label="Example tag" :icon="emojiHappy2" color="primary" />
+        <OnyxTag
+          v-if="show('OnyxTag')"
+          label="Example tag"
+          :icon="iconEmojiHappy2"
+          color="primary"
+        />
         <OnyxTag v-if="show('OnyxTag')" label="Example interactive tag" clickable="clickable" />
         <OnyxFilterTag
           v-if="show('OnyxTag')"

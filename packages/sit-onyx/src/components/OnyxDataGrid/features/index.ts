@@ -1,4 +1,4 @@
-import moreHorizontalSmall from "@sit-onyx/icons/more-horizontal-small.svg?raw";
+import { iconMoreHorizontalSmall } from "@sit-onyx/icons";
 import {
   computed,
   h,
@@ -514,7 +514,7 @@ export const useDataGridFeatures = <
               class: actions.length > 1 ? "onyx-system-button--multiple-actions" : "",
               label: i18n.t.value("navigation.moreActionsTrigger"),
               color: "medium",
-              icon: moreHorizontalSmall,
+              icon: iconMoreHorizontalSmall,
               ...trigger,
             }),
           options: () => menuItems,

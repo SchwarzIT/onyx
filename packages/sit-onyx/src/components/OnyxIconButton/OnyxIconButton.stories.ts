@@ -1,5 +1,4 @@
-import expandWindow from "@sit-onyx/icons/expand-window.svg?raw";
-import trash from "@sit-onyx/icons/trash.svg?raw";
+import { iconExpandWindow, iconTrash } from "@sit-onyx/icons";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
@@ -28,7 +27,7 @@ type Story = StoryObj<typeof OnyxIconButton>;
 export const Primary = {
   args: {
     label: "Button",
-    icon: trash,
+    icon: iconTrash,
   },
 } satisfies Story;
 
@@ -39,7 +38,7 @@ export const Neutral = {
   args: {
     label: "Button",
     color: "neutral",
-    icon: trash,
+    icon: iconTrash,
   },
 } satisfies Story;
 
@@ -50,7 +49,7 @@ export const Danger = {
   args: {
     label: "Button",
     color: "danger",
-    icon: trash,
+    icon: iconTrash,
   },
 } satisfies Story;
 
@@ -59,7 +58,7 @@ export const Danger = {
  */
 export const WithLink = {
   args: {
-    icon: expandWindow,
+    icon: iconExpandWindow,
     label: "Open documentation",
     link: {
       href: "https://onyx.schwarz",
@@ -85,7 +84,7 @@ export const Loading = {
   args: {
     label: "Button",
     loading: true,
-    icon: trash,
+    icon: iconTrash,
   },
 } satisfies Story;
 

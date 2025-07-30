@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import x from "@sit-onyx/icons/x.svg?raw";
+import { iconX } from "@sit-onyx/icons";
 import { computed } from "vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -36,7 +36,7 @@ const isOpen = computed(() => !props.disabled && props.open);
       :disabled="props.disabled"
       @click="emit('update:open', !props.open)"
     >
-      <OnyxIcon :icon="props.open ? x : props.icon" />
+      <OnyxIcon :icon="props.open ? iconX : props.icon" />
     </button>
 
     <!-- using v-show here instead of v-if so the open state of nested slot items is kept when toggling the nav button -->

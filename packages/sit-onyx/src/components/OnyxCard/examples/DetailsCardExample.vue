@@ -1,7 +1,5 @@
 <script lang="ts" setup>
-import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
-import fileCopy from "@sit-onyx/icons/file-copy.svg?raw";
-import home from "@sit-onyx/icons/home.svg?raw";
+import { iconCheckSmall, iconFileCopy, iconHome } from "@sit-onyx/icons";
 import {
   OnyxButton,
   OnyxCard,
@@ -16,7 +14,7 @@ import {
   <OnyxCard class="card">
     <div class="card__header">
       <div class="card__icon-wrapper">
-        <OnyxIcon class="card__icon" :icon="checkSmall" size="32px" />
+        <OnyxIcon class="card__icon" :icon="iconCheckSmall" size="32px" />
       </div>
 
       <div>
@@ -34,7 +32,7 @@ import {
         <span class="detail__label">Number</span>
         <span class="detail__value detail__value--mono">
           48164100740
-          <OnyxSystemButton label="Copy number" :icon="fileCopy" />
+          <OnyxSystemButton label="Copy number" :icon="iconFileCopy" />
         </span>
       </div>
 
@@ -56,7 +54,7 @@ import {
       </div>
     </div>
 
-    <OnyxButton class="card__button" label="Home" mode="outline" :icon="home" />
+    <OnyxButton class="card__button" label="Home" mode="outline" :icon="iconHome" />
   </OnyxCard>
 </template>
 

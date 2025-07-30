@@ -1,4 +1,4 @@
-import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
+import { iconPlaceholder } from "@sit-onyx/icons";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { defineIconSelectArgType } from "../../utils/storybook.js";
 import OnyxBadge from "./OnyxBadge.vue";
@@ -43,7 +43,7 @@ export const Number = {
 export const Icon = {
   args: {
     color: "danger",
-    icon: placeholder,
+    icon: iconPlaceholder,
   },
 } satisfies Story;
 

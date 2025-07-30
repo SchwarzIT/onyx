@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import fileDisabled from "@sit-onyx/icons/file-disabled.svg?raw";
+import { iconFileDisabled } from "@sit-onyx/icons";
 import { computed, ref, watch } from "vue";
 import {
   SKELETON_INJECTED_SYMBOL,
@@ -70,7 +70,7 @@ const { restAttrs, rootAttrs } = useRootAttrs();
       />
 
       <div v-if="isError" class="onyx-image__error" :style="size" v-bind="restAttrs">
-        <OnyxIcon :icon="fileDisabled" size="32px" />
+        <OnyxIcon :icon="iconFileDisabled" size="32px" />
         <div class="onyx-image__alt onyx-text--small">{{ props.alt }}</div>
       </div>
     </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import sort from "@sit-onyx/icons/sort.svg?raw";
+import { iconSort } from "@sit-onyx/icons";
 import {
   DataGridFeatures,
   OnyxDataGrid,
@@ -109,7 +109,7 @@ const dummyFeature = createFeature(() => ({
       {
         iconComponent: h(OnyxSystemButton, {
           label: "Column options",
-          icon: sort,
+          icon: iconSort,
           color: "medium",
         }),
         menuItems: [h(OnyxMenuItem, () => "Pin column"), h(OnyxMenuItem, () => "Unpin column")],
@@ -117,7 +117,7 @@ const dummyFeature = createFeature(() => ({
       {
         iconComponent: h(OnyxSystemButton, {
           label: "Column options",
-          icon: sort,
+          icon: iconSort,
           color: "medium",
         }),
         menuItems: [h(OnyxMenuItem, () => "Remove column")],

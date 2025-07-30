@@ -1,5 +1,4 @@
-import arrowSmallUp from "@sit-onyx/icons/arrow-small-up.svg?raw";
-import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
+import { iconArrowSmallUp, iconPlaceholder } from "@sit-onyx/icons";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
@@ -33,7 +32,7 @@ type Story = StoryObj<typeof OnyxFAB>;
 export const Default = {
   args: {
     label: "Example label",
-    icon: placeholder,
+    icon: iconPlaceholder,
     hideLabel: true,
   },
 } satisfies Story;
@@ -49,7 +48,7 @@ export const Link = {
   args: {
     label: "Back to top",
     link: "#",
-    icon: arrowSmallUp,
+    icon: iconArrowSmallUp,
   },
 } satisfies Story;
 
@@ -57,9 +56,9 @@ export const Items = {
   args: {
     label: "Example label",
     default: () => [
-      h(OnyxFABItem, { label: "Action 3", icon: placeholder }),
-      h(OnyxFABItem, { label: "Action 2", icon: placeholder }),
-      h(OnyxFABItem, { label: "Action 1", icon: placeholder }),
+      h(OnyxFABItem, { label: "Action 3", icon: iconPlaceholder }),
+      h(OnyxFABItem, { label: "Action 2", icon: iconPlaceholder }),
+      h(OnyxFABItem, { label: "Action 1", icon: iconPlaceholder }),
     ],
   },
 } satisfies Story;
@@ -68,9 +67,9 @@ export const IconItems = {
   args: {
     label: "Example label",
     default: () => [
-      h(OnyxFABItem, { label: "Action 3", icon: placeholder, hideLabel: true }),
-      h(OnyxFABItem, { label: "Action 2", icon: placeholder, hideLabel: true }),
-      h(OnyxFABItem, { label: "Action 1", icon: placeholder, hideLabel: true }),
+      h(OnyxFABItem, { label: "Action 3", icon: iconPlaceholder, hideLabel: true }),
+      h(OnyxFABItem, { label: "Action 2", icon: iconPlaceholder, hideLabel: true }),
+      h(OnyxFABItem, { label: "Action 1", icon: iconPlaceholder, hideLabel: true }),
     ],
   },
 } satisfies Story;

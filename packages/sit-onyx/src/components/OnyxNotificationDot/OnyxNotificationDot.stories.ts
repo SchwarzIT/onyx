@@ -1,4 +1,4 @@
-import bell from "@sit-onyx/icons/bell.svg?raw";
+import { iconBell } from "@sit-onyx/icons";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
 import { textColorDecorator } from "../../utils/storybook.js";
@@ -22,6 +22,6 @@ type Story = StoryObj<typeof OnyxNotificationDot>;
 
 export const Default = {
   args: {
-    default: () => h(OnyxIconButton, { icon: bell, label: "Notifications", color: "neutral" }),
+    default: () => h(OnyxIconButton, { icon: iconBell, label: "Notifications", color: "neutral" }),
   },
 } satisfies Story;

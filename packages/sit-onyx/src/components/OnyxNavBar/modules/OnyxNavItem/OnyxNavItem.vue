@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import arrowSmallLeft from "@sit-onyx/icons/arrow-small-left.svg?raw";
+import { iconArrowSmallLeft } from "@sit-onyx/icons";
 import { computed, inject, provide, toRef } from "vue";
 import { useLink } from "../../../../composables/useLink.js";
 import { useMoreListChild } from "../../../../composables/useMoreList.js";
@@ -98,7 +98,7 @@ const { componentRef, isVisible } = isTopLevel
         :label="t('back')"
         mode="plain"
         color="neutral"
-        :icon="arrowSmallLeft"
+        :icon="iconArrowSmallLeft"
         @click="open = false"
       />
 

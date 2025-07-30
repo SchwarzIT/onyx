@@ -1,9 +1,11 @@
 <script lang="ts" setup>
-import bell from "@sit-onyx/icons/bell.svg?raw";
-import checkRead from "@sit-onyx/icons/check-read.svg?raw";
-import circleAttention from "@sit-onyx/icons/circle-attention.svg?raw";
-import inbox from "@sit-onyx/icons/inbox.svg?raw";
-import settings from "@sit-onyx/icons/settings.svg?raw";
+import {
+  iconBell,
+  iconCheckRead,
+  iconCircleAttention,
+  iconInbox,
+  iconSettings,
+} from "@sit-onyx/icons";
 import { computed, ref } from "vue";
 import {
   OnyxAccordion,
@@ -92,7 +94,7 @@ const isDrawerOpen = ref(false);
  * Adds a new example notifications. Usually this should be provided by your backend / API
  */
 const addExampleNotification = () => {
-  const icon = Math.random() < 0.5 ? circleAttention : undefined;
+  const icon = Math.random() < 0.5 ? iconCircleAttention : undefined;
 
   const notification: MyNotification = {
     headline: `Example notification ${store.notifications.value.length + 1}`,
@@ -123,7 +125,7 @@ const addExampleNotification = () => {
             <OnyxIconButton
               label="Notifications"
               color="neutral"
-              :icon="bell"
+              :icon="iconBell"
               @click="isDrawerOpen = true"
             />
           </OnyxNotificationDot>
@@ -132,7 +134,7 @@ const addExampleNotification = () => {
         <template #contextArea>
           <OnyxUserMenu full-name="Jane Doe">
             <OnyxMenuItem>
-              <OnyxIcon :icon="settings" />
+              <OnyxIcon :icon="iconSettings" />
               Settings
             </OnyxMenuItem>
           </OnyxUserMenu>
@@ -193,7 +195,7 @@ const addExampleNotification = () => {
             class="notification-center__empty"
           >
             <template #icon>
-              <OnyxIcon :icon="inbox" size="48px" />
+              <OnyxIcon :icon="iconInbox" size="48px" />
             </template>
             No new messages in your inbox
           </OnyxEmpty>
@@ -221,7 +223,7 @@ const addExampleNotification = () => {
             class="notification-center__empty"
           >
             <template #icon>
-              <OnyxIcon :icon="inbox" size="48px" />
+              <OnyxIcon :icon="iconInbox" size="48px" />
             </template>
             No new messages in your inbox
           </OnyxEmpty>
@@ -240,7 +242,7 @@ const addExampleNotification = () => {
         <OnyxBottomBar density="compact">
           <OnyxButton
             label="Mark as all read"
-            :icon="checkRead"
+            :icon="iconCheckRead"
             color="neutral"
             :disabled="!store.unreadNotifications.value.length"
             @click="store.markAllAsRead"

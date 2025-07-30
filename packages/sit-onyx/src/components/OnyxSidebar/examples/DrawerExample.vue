@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
+import { iconPlaceholder } from "@sit-onyx/icons";
 import { ref } from "vue";
 import {
   OnyxAppLayout,
@@ -25,7 +25,7 @@ const isOpen = ref(false);
 
           <div class="sidebar__content">
             <OnyxSidebarItem v-for="i in 6" :key="i" :link="`#link-${i}`">
-              <OnyxIcon :icon="placeholder" />
+              <OnyxIcon :icon="iconPlaceholder" />
               Item {{ i }}
             </OnyxSidebarItem>
           </div>

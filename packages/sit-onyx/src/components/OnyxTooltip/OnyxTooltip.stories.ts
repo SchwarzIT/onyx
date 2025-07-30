@@ -1,4 +1,4 @@
-import circleInformation from "@sit-onyx/icons/circle-information.svg?raw";
+import { iconCircleInformation } from "@sit-onyx/icons";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { computed, h, ref } from "vue";
 import { defineIconSelectArgType } from "../../utils/storybook.js";
@@ -44,7 +44,7 @@ export const Default = {
   args: {
     text: "Tooltip text",
     default: ({ trigger }) => h(OnyxButton, { label: "Slot content goes here", ...trigger }),
-    icon: circleInformation,
+    icon: iconCircleInformation,
     open: true,
   },
 } satisfies Story;

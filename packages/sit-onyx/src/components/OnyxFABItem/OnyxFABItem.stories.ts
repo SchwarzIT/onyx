@@ -1,4 +1,4 @@
-import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
+import { iconPlaceholder } from "@sit-onyx/icons";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { defineIconSelectArgType } from "../../utils/storybook.js";
@@ -26,7 +26,7 @@ export const Default = {
 export const Icon = {
   args: {
     ...Default.args,
-    icon: placeholder,
+    icon: iconPlaceholder,
   },
 } satisfies Story;
 

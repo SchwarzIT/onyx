@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import circleX from "@sit-onyx/icons/circle-x.svg?raw";
+import { iconCircleX } from "@sit-onyx/icons";
 import { useDensity, type DensityProp } from "../../composables/density.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 
@@ -26,7 +26,7 @@ const { densityClass } = useDensity(props);
 <template>
   <div :class="['onyx-component', 'onyx-empty', densityClass]">
     <slot name="icon">
-      <OnyxIcon :icon="circleX" size="48px" />
+      <OnyxIcon :icon="iconCircleX" size="48px" />
     </slot>
 
     <div class="onyx-empty__label onyx-text onyx-truncation-multiline">

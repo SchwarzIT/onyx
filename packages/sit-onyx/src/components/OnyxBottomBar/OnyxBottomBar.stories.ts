@@ -1,5 +1,4 @@
-import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
-import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
+import { iconChevronLeftSmall, iconChevronRightSmall } from "@sit-onyx/icons";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
@@ -55,8 +54,8 @@ export const Default = {
 export const WithLeftSlot = {
   args: {
     left: () => [
-      h(OnyxIconButton, { label: "Prev", icon: chevronLeftSmall, color: "neutral" }),
-      h(OnyxIconButton, { label: "Next", icon: chevronRightSmall, color: "neutral" }),
+      h(OnyxIconButton, { label: "Prev", icon: iconChevronLeftSmall, color: "neutral" }),
+      h(OnyxIconButton, { label: "Next", icon: iconChevronRightSmall, color: "neutral" }),
     ],
   },
 } satisfies Story;

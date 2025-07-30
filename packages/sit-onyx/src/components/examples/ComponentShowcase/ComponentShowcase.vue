@@ -1,9 +1,11 @@
 <script lang="ts" setup>
-import arrowSmallRight from "@sit-onyx/icons/arrow-small-right.svg?raw";
-import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
-import logout from "@sit-onyx/icons/logout.svg?raw";
-import settings from "@sit-onyx/icons/settings.svg?raw";
-import shareIos from "@sit-onyx/icons/share-ios.svg?raw";
+import {
+  iconArrowSmallRight,
+  iconCheckSmall,
+  iconLogout,
+  iconSettings,
+  iconShareIos,
+} from "@sit-onyx/icons";
 import { ref } from "vue";
 import logoUrl from "../../../../.storybook/public/onyx-logo.svg";
 import OnyxAvatar from "../../OnyxAvatar/OnyxAvatar.vue";
@@ -218,9 +220,9 @@ const teamMembers = [
 
       <div class="showcase__flex grid--row3">
         <OnyxInput label="Input" placeholder="Example input" hide-label />
-        <OnyxIconButton :icon="shareIos" label="Icon button" />
-        <OnyxButton :icon="arrowSmallRight" label="Button" color="neutral" />
-        <OnyxButton :icon="checkSmall" label="Button" />
+        <OnyxIconButton :icon="iconShareIos" label="Icon button" />
+        <OnyxButton :icon="iconArrowSmallRight" label="Button" color="neutral" />
+        <OnyxButton :icon="iconCheckSmall" label="Button" />
         <OnyxStepper v-model="state.stepper" label="Stepper" hide-label placeholder="0" />
       </div>
 
@@ -249,7 +251,7 @@ const teamMembers = [
         <template #contextArea>
           <OnyxUserMenu description="Company Name" full-name="Jane Doe">
             <OnyxMenuItem>
-              <OnyxIcon :icon="settings" />
+              <OnyxIcon :icon="iconSettings" />
               Settings
             </OnyxMenuItem>
             <OnyxColorSchemeMenuItem
@@ -257,7 +259,7 @@ const teamMembers = [
               @update:model-value="isDark = $event === 'dark'"
             />
             <OnyxMenuItem color="danger">
-              <OnyxIcon :icon="logout" />
+              <OnyxIcon :icon="iconLogout" />
               Logout
             </OnyxMenuItem>
 

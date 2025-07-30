@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import user from "@sit-onyx/icons/user.svg?raw";
+import { iconUser } from "@sit-onyx/icons";
 import { computed, ref, watch } from "vue";
 import { injectI18n } from "../../i18n/index.js";
 import { getInitials } from "../../utils/strings.js";
@@ -53,7 +53,7 @@ watch(
 
     <template v-else>
       <div v-if="initials" class="onyx-avatar__initials">{{ initials }}</div>
-      <OnyxIcon v-else :icon="user" class="onyx-avatar__icon" />
+      <OnyxIcon v-else :icon="iconUser" class="onyx-avatar__icon" />
     </template>
   </figure>
 </template>

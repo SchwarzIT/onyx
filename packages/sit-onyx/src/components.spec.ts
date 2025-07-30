@@ -1,4 +1,4 @@
-import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
+import { iconPlaceholder } from "@sit-onyx/icons";
 import { mount } from "@vue/test-utils";
 import { describe, expect, test, vi } from "vitest";
 import type { ComponentProps } from "vue-component-type-helpers";
@@ -134,7 +134,7 @@ const COMPONENTS: Components = {
   OnyxMobileNavButton: {
     props: {
       label: "Mobile nav button",
-      icon: placeholder,
+      icon: iconPlaceholder,
     },
   },
   OnyxLink: {
@@ -157,7 +157,7 @@ const COMPONENTS: Components = {
   },
   OnyxIcon: {
     props: {
-      icon: placeholder,
+      icon: iconPlaceholder,
     },
   },
   OnyxHeadline: {

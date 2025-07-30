@@ -1,5 +1,4 @@
-import logout from "@sit-onyx/icons/logout.svg?raw";
-import settings from "@sit-onyx/icons/settings.svg?raw";
+import { iconLogout, iconSettings } from "@sit-onyx/icons";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
@@ -37,9 +36,9 @@ export const Default = {
     fullName: "Jane Doe",
     description: "Company Name",
     default: () => [
-      h(OnyxMenuItem, () => [h(OnyxIcon, { icon: settings }), "Settings"]),
+      h(OnyxMenuItem, () => [h(OnyxIcon, { icon: iconSettings }), "Settings"]),
       h(OnyxColorSchemeMenuItem, { modelValue: "auto" }),
-      h(OnyxMenuItem, { color: "danger" }, () => [h(OnyxIcon, { icon: logout }), "Logout"]),
+      h(OnyxMenuItem, { color: "danger" }, () => [h(OnyxIcon, { icon: iconLogout }), "Logout"]),
     ],
     footer: () => ["App version", h("span", { class: "onyx-text--monospace" }, "1.0.0")],
   },

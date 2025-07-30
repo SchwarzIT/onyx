@@ -1,4 +1,4 @@
-import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
+import { iconPlaceholder } from "@sit-onyx/icons";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
@@ -83,8 +83,8 @@ export const WithSlots = {
       ),
     ]),
     actions: [
-      h(OnyxIconButton, { icon: placeholder, label: "Example action" }),
-      h(OnyxIconButton, { icon: placeholder, label: "Example action" }),
+      h(OnyxIconButton, { icon: iconPlaceholder, label: "Example action" }),
+      h(OnyxIconButton, { icon: iconPlaceholder, label: "Example action" }),
     ],
     pagination: h(OnyxPagination, { modelValue: 1, pages: 42 }),
     bottomLeft: "Custom content...",

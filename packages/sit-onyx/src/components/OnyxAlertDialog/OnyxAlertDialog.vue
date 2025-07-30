@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import xSmall from "@sit-onyx/icons/x-small.svg?raw";
+import { iconXSmall } from "@sit-onyx/icons";
 import { useId } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { injectI18n } from "../../i18n/index.js";
@@ -67,7 +67,7 @@ const describedById = useId();
           <OnyxSystemButton
             class="onyx-alert-dialog__close"
             :label="t('dialog.close')"
-            :icon="xSmall"
+            :icon="iconXSmall"
             @click="emit('close')"
           />
         </div>

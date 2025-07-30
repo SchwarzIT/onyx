@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import settings from "@sit-onyx/icons/settings.svg?raw";
+import { iconSettings } from "@sit-onyx/icons";
 import { ref } from "vue";
 import { OnyxBottomBar, OnyxButton, OnyxDrawer, OnyxIconButton } from "../../../index.js";
 
@@ -24,7 +24,7 @@ const isOpen = ref(false);
 
       <template #footer>
         <OnyxBottomBar density="compact">
-          <OnyxIconButton label="Settings" :icon="settings" color="neutral" />
+          <OnyxIconButton label="Settings" :icon="iconSettings" color="neutral" />
           <OnyxButton label="Button" color="neutral" />
         </OnyxBottomBar>
       </template>

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import plusSmall from "@sit-onyx/icons/plus-small.svg?raw";
+import { iconPlusSmall } from "@sit-onyx/icons";
 import { ref } from "vue";
 import { OnyxButton, OnyxSelect, type SelectOption } from "../../../index.js";
 
@@ -36,7 +36,7 @@ const handleLoadMore = async () => {
         label="Load more"
         mode="plain"
         :loading="isLazyLoading"
-        :icon="plusSmall"
+        :icon="iconPlusSmall"
         @click="handleLoadMore"
       />
     </template>
