@@ -50,9 +50,10 @@ export default function vitePluginSVG(options: PluginOptions): Plugin {
       const files = (await this.fs.readdir(getFilePath(options.input)))
         .filter((file) => file.endsWith(".svg"))
         .map((fileName) => {
-          let exportName = camelize(fileName.replace(".svg", ""));
+          const baseName = fileName.replace(".svg", "");
+          let exportName = camelize(baseName);
           if (options.modifyExportName) {
-            exportName = options.modifyExportName(exportName, fileName);
+            exportName = options.modifyExportName(exportName, baseName);
           }
 
           return { fileName, exportName };
