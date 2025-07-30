@@ -24,8 +24,8 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./*": "./dist/assets/*",
-    "./utils": "./dist/utils.js"
+    "./utils": "./dist/utils.js",
+    "./*": "./dist/assets/*"
   },
   "scripts": {
     "build": "vite build",

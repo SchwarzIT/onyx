@@ -13,7 +13,7 @@ export type PluginOptions = {
    */
   input: string;
   /**
-   * Path to the generated `.d.ts` type file.
+   * Path to the generated `.d.ts` type file that exports the SVGs.
    *
    * @default "dist/index.d.ts"
    */
@@ -28,14 +28,15 @@ export type PluginOptions = {
   modifyExportName?: (name: string, rawName: string) => string;
 };
 
+/**
+ * A Vite plugin to generate JavaScript exports for SVG files
+ */
 export default function vitePluginSVG(options: PluginOptions): Plugin {
   const virtualModuleId = "virtual:vite-plugin-svg";
   const resolvedVirtualModuleId = "\0" + virtualModuleId;
 
   /** Gets the given path while ensuring cross-platform and correct decoding */
-  const getFilePath = (path: string) => {
-    return fileURLToPath(new URL(path, options.base));
-  };
+  const getFilePath = (path: string) => fileURLToPath(new URL(path, options.base));
 
   return {
     name: "vite-plugin-svg",
@@ -59,28 +60,32 @@ export default function vitePluginSVG(options: PluginOptions): Plugin {
           return { fileName, exportName };
         });
 
-      const output: string[] = [];
+      const exports = await Promise.all(
+        files.map(async ({ fileName, exportName }) => {
+          const svgContent = await this.fs.readFile(path.join(options.input, fileName), {
+            encoding: "utf8",
+          });
+          return `export const ${exportName} = \`${svgContent}\``;
+        }),
+      );
 
-      for (const { fileName, exportName } of files) {
-        const svgContent = await this.fs.readFile(path.join(options.input, fileName), {
-          encoding: "utf8",
-        });
-        output.push(`export const ${exportName} = \`${svgContent}\``);
-      }
-
-      const dtsFilename = `${virtualModuleId}.d.ts`;
-
+      // generate a .d.ts file for the dist folder that includes types for all icons
+      // to support intellisense when using the exports
       this.emitFile({
         type: "asset",
-        fileName: dtsFilename,
+        fileName: `${virtualModuleId}.d.ts`,
         source: files.map(({ exportName }) => `export const ${exportName}: string`).join(";\n"),
       });
 
       return {
-        code: output.join(";\n"),
+        code: exports.join(";\n"),
       };
     },
     async closeBundle() {
+      // Since Vite virtual modules must be imported from "virtual:vite-plugin-svg"
+      // the virtual:vite-plugin-svg.d.ts file that we are generating above will not be picked up
+      // since it must be a relative path.
+      // Therefore, we are replacing the imported module name with the correct relative path to our .d.ts file
       const dTsPath = getFilePath(options.dtsFile ?? "dist/index.d.ts");
       const content = await this.fs.readFile(dTsPath, { encoding: "utf8" });
 
