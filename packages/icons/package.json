@@ -24,7 +24,6 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./metadata": "./dist/metadata.json",
     "./*": "./dist/assets/*",
     "./utils": "./dist/utils.js"
   },
