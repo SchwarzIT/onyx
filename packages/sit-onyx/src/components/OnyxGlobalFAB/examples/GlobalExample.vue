@@ -5,17 +5,17 @@ import { useGlobalFAB } from "../../OnyxGlobalFAB/useGlobalFAB.js";
 import OnyxGlobalFAB from "../OnyxGlobalFAB.vue";
 const fabItems = useGlobalFAB();
 
-let id = 1;
+let id = 0;
 const addFAB = () => {
   fabItems.add({
     id: id++,
-    label: "New Item " + id,
+    label: "New Item",
     icon: placeholder,
   });
 };
 const removeFAB = () => {
   if (fabItems.items.value.length) {
-    const lastId = fabItems.items.value.at(-1)?.id;
+    const lastId = fabItems.items.value.at(-1)?.value.id;
     if (lastId !== undefined) fabItems.remove(lastId);
   }
 };

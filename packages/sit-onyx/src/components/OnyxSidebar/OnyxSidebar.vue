@@ -86,23 +86,26 @@ const isDrawerOpen = computed<boolean>({
   },
 });
 const id = useId();
+
 watch(
   [() => displayAsDrawer.value],
   () => {
     if (!props.drawer && props.collapseSidebar) {
       if (windowWidth.value <= ONYX_BREAKPOINTS.sm) {
-        fabItems.add({
-          id,
-          label: props.label,
-          hideLabel: true,
-          ifOption: { hideLabel: false, icon: "" },
-          icon: sidebarArrowRight,
-          alignment: props.alignment,
-          class: props.alignment === "right" ? "onyx-fab-icon--rotated" : "",
-          onClick: () => {
-            isDrawerOpen.value = !isDrawerOpen.value;
-          },
-        });
+        fabItems.add(
+          computed(() => ({
+            id,
+            label: props.label,
+            hideLabel: true,
+            ifOption: { hideLabel: false, icon: "" },
+            icon: sidebarArrowRight,
+            alignment: props.alignment,
+            class: props.alignment === "right" ? "onyx-fab-icon--rotated" : "",
+            onClick: () => {
+              isDrawerOpen.value = !isDrawerOpen.value;
+            },
+          })),
+        );
       } else {
         fabItems.remove(id);
       }

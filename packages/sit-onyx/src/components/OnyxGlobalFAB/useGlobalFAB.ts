@@ -1,4 +1,12 @@
-import { computed, inject, ref, type ComputedRef, type InjectionKey, type MaybeRef } from "vue";
+import {
+  computed,
+  inject,
+  ref,
+  type ComputedRef,
+  type InjectionKey,
+  type MaybeRefOrGetter,
+  type Ref,
+} from "vue";
 import { userConsole } from "../../utils/console.js";
 import type { OnyxFABItemProps } from "../OnyxFABItem/types.js";
 
@@ -6,18 +14,18 @@ export type GlobalFABProvider = {
   /**
    * Readonly list of currently active items.
    */
-  items: ComputedRef<ProvidedFABItem[]>;
+  items: ComputedRef<Ref<ProvidedFABItem>[]>;
   /**
    * add the FABOption.
    */
-  add: (item: ProvidedFABItem) => void;
+  add: (item: MaybeRefOrGetter<ProvidedFABItem>) => void;
   /**
    * removes the FABOption with the given `id`.
    */
   remove: (id: ProvidedFABItem["id"]) => void;
 };
 
-export type ProvidedFABItem = Omit<OnyxFABItemProps, "label"> & {
+export type ProvidedFABItem = OnyxFABItemProps & {
   /**
    * Unique FABItem id used to identify the FABItem.
    */
@@ -27,15 +35,13 @@ export type ProvidedFABItem = Omit<OnyxFABItemProps, "label"> & {
    */
   alignment?: "left" | "right";
   /**
-   * Text label to show
-   */
-  label: MaybeRef<string>;
-  /**
    * Overrides properties of this FAB item if it's not the only available option.
    * If there are multiple FAB items displayed, the properties defined here will
    * take precedence for *this specific item*.
    */
-  ifOption?: Omit<ProvidedFABItem, "ifOption" | "id" | "label"> & { label?: MaybeRef<string> };
+  ifOption?: Omit<ProvidedFABItem, "ifOption" | "id" | "label"> & {
+    label?: string;
+  };
   /**
    * Custom class for the OnyxFABItem.
    */
@@ -60,14 +66,14 @@ export const GLOBAL_FAB_PROVIDER_INJECTION_KEY = Symbol() as InjectionKey<Global
  * ```
  */
 export const createGlobalFABProvider = (): GlobalFABProvider => {
-  const items = ref<ProvidedFABItem[]>([]);
+  const items = ref<Ref<ProvidedFABItem>[]>([]);
 
-  const add: GlobalFABProvider["add"] = (item: ProvidedFABItem) => {
-    items.value.push(item);
+  const add: GlobalFABProvider["add"] = (item: MaybeRefOrGetter<ProvidedFABItem>) => {
+    items.value.push(ref(item) as Ref<ProvidedFABItem>);
   };
 
   const remove: GlobalFABProvider["remove"] = (id) => {
-    items.value = items.value.filter((item) => item.id !== id);
+    items.value = items.value.filter((itemRef) => itemRef.value.id !== id);
   };
 
   return {
