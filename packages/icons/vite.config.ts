@@ -14,7 +14,8 @@ export default defineConfig({
   plugins: [
     vue(),
     svg({
-      input: getFilePath("./src/assets"),
+      base: import.meta.url,
+      input: "src/assets",
       modifyExportName: (name) => `icon${capitalize(name)}`,
     }),
     dts({
