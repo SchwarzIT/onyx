@@ -60,14 +60,12 @@ export default function vitePluginSVG(options: PluginOptions): Plugin {
           return { fileName, exportName };
         });
 
-      const exports = await Promise.all(
-        files.map(async ({ fileName, exportName }) => {
-          const svgContent = await this.fs.readFile(path.join(options.input, fileName), {
-            encoding: "utf8",
-          });
-          return `export const ${exportName} = \`${svgContent}\``;
-        }),
-      );
+      const exports = files.map(({ fileName, exportName }) => {
+        // we are using import query "?raw" here so Vite will take care of loading the SVG content for us
+        // so we don't need to read the file content ourselves
+        const svgPath = `${path.join(getFilePath(options.input), fileName)}?raw`;
+        return `export { default as ${exportName} } from "${svgPath}";`;
+      });
 
       // generate a .d.ts file for the dist folder that includes types for all icons
       // to support intellisense when using the exports
