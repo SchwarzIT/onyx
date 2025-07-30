@@ -95,9 +95,8 @@ watch(
           id,
           label: props.label,
           hideLabel: true,
-          hideLabelIfOption: false,
+          ifOption: { hideLabel: false, icon: "" },
           icon: sidebarArrowRight,
-          iconIfOption: false,
           alignment: props.alignment,
           class: props.alignment === "right" ? "onyx-fab-icon--rotated" : "",
           onClick: () => {

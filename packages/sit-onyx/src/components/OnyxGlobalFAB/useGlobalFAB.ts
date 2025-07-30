@@ -1,4 +1,4 @@
-import { computed, inject, ref, type ComputedRef, type InjectionKey } from "vue";
+import { computed, inject, ref, type ComputedRef, type InjectionKey, type MaybeRef } from "vue";
 import { userConsole } from "../../utils/console.js";
 import type { OnyxFABItemProps } from "../OnyxFABItem/types.js";
 
@@ -10,14 +10,14 @@ export type GlobalFABProvider = {
   /**
    * add the FABOption.
    */
-  add: (fabItem: ProvidedFABItem) => void;
+  add: (item: ProvidedFABItem) => void;
   /**
    * removes the FABOption with the given `id`.
    */
   remove: (id: ProvidedFABItem["id"]) => void;
 };
 
-export type ProvidedFABItem = OnyxFABItemProps & {
+export type ProvidedFABItem = Omit<OnyxFABItemProps, "label"> & {
   /**
    * Unique FABItem id used to identify the FABItem.
    */
@@ -27,20 +27,15 @@ export type ProvidedFABItem = OnyxFABItemProps & {
    */
   alignment?: "left" | "right";
   /**
-   * if all fabItems have hideLabel true, it will not show labels.
+   * Text label to show
    */
-  hideLabel?: boolean;
+  label: MaybeRef<string>;
   /**
-   * if the Label should be displayed if it's an option of an FAB.
+   * Overrides properties of this FAB item if it's not the only available option.
+   * If there are multiple FAB items displayed, the properties defined here will
+   * take precedence for *this specific item*.
    */
-  hideLabelIfOption?: boolean;
-  /**
-   * Controls the icon if it's an option of an FAB.
-   * - If set to an icon, this icon will be displayed.
-   * - If set to a `false`,  no icon will be displayed.
-   * - If set to `true`, the "normal" icon will be displayed.
-   */
-  iconIfOption?: boolean | string;
+  ifOption?: Omit<ProvidedFABItem, "ifOption" | "id" | "label"> & { label?: MaybeRef<string> };
   /**
    * Custom class for the OnyxFABItem.
    */
