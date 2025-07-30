@@ -4,6 +4,7 @@ import {
   iconCircleCheck,
   iconCircleInformation,
   iconCircleX,
+  iconXSmall,
 } from "@sit-onyx/icons";
 import { computed } from "vue";
 import { useDensity } from "../../composables/density.js";
@@ -65,7 +66,7 @@ const icon = computed(() => {
             class="onyx-toast-message__close"
             @click="emit('close')"
           >
-            <OnyxIcon :icon="xSmall" />
+            <OnyxIcon :icon="iconXSmall" />
           </button>
         </div>
 
