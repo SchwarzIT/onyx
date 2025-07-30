@@ -1,7 +1,7 @@
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { Plugin } from "vite";
-import { camelize } from "./utils.js";
+import { toCamelCase } from "./utils.js";
 
 export type PluginOptions = {
   /**
@@ -52,7 +52,7 @@ export default function vitePluginSVG(options: PluginOptions): Plugin {
         .filter((file) => file.endsWith(".svg"))
         .map((fileName) => {
           const baseName = fileName.replace(".svg", "");
-          let exportName = camelize(baseName);
+          let exportName = toCamelCase(baseName);
           if (options.modifyExportName) {
             exportName = options.modifyExportName(exportName, baseName);
           }
