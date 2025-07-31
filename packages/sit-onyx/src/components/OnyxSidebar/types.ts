@@ -1,6 +1,6 @@
 import type { OnyxBreakpoint } from "@sit-onyx/shared/breakpoints";
 import type { DensityProp } from "../../composables/density.js";
-import type { OnyxModalDialogProps } from "../OnyxModalDialog/types.js";
+import type { OnyxModalProps } from "../OnyxModal/types.js";
 
 export type OnyxSidebarProps = DensityProp & {
   /**
@@ -35,10 +35,7 @@ export type OnyxSidebarProps = DensityProp & {
 export const SIDEBAR_ALIGNMENT = ["left", "right"] as const;
 export type SidebarAlignment = (typeof SIDEBAR_ALIGNMENT)[number];
 
-export type TemporarySidebar = Pick<
-  OnyxModalDialogProps,
-  "open" | "nonDismissible"
-> & {
+export type TemporarySidebar = Pick<OnyxModalProps, "open" | "nonDismissible"> & {
   /**
    * If `true`, the sidebar will have a small gap from the viewport and have rounded corners.
    */
