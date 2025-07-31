@@ -1,8 +1,9 @@
 import { describe, expect, test } from "vitest";
+import { unref } from "vue";
 import { createGlobalFABProvider } from "./useGlobalFAB.js";
 
 describe("useGlobalFAB", () => {
-  test("should create toast provider", () => {
+  test("should create fab provider and handle items correctly", () => {
     const provider = createGlobalFABProvider();
 
     expect(provider.items.value).toStrictEqual([]);
@@ -10,7 +11,8 @@ describe("useGlobalFAB", () => {
     provider.add({ id: 1, label: "Test 1" });
     provider.add({ id: 2, label: "Test 2" });
 
-    expect(provider.items.value).toStrictEqual([
+    const currentItems = provider.items.value.map((itemRef) => unref(itemRef));
+    expect(currentItems).toStrictEqual([
       {
         id: 1,
         label: "Test 1",
@@ -23,7 +25,8 @@ describe("useGlobalFAB", () => {
 
     provider.remove(2);
 
-    expect(provider.items.value).toStrictEqual([
+    const itemsAfterRemoval = provider.items.value.map((itemRef) => unref(itemRef));
+    expect(itemsAfterRemoval).toStrictEqual([
       {
         id: 1,
         label: "Test 1",
