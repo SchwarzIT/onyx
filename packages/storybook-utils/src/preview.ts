@@ -190,33 +190,30 @@ export const sourceCodeTransformer = async (originalSourceCode: string): Promise
     if (!value.size) additionalImports.delete(key);
   });
 
-  if (additionalImports.size === 0) return code;
-
   // generate the source code for the additional imports and add them to the top of the code snippet
-  const additionalImportsCode = Array.from(additionalImports.entries()).reduce(
-    (code, [packageName, imports]) => {
-      if (imports.size) {
-        code.push(
-          `import { ${Array.from(imports.values()).sort().join(", ")} } from "${packageName}";`,
-        );
-      }
-      return code;
-    },
-    [] as string[],
-  );
-
-  if (code.startsWith("<script")) {
-    const index = code.indexOf("\n");
-    const hasOtherImports = code.includes("import {");
-    return (
-      code.slice(0, index) +
-      additionalImportsCode.join("\n") +
-      (!hasOtherImports ? "\n" : "") +
-      code.slice(index)
+  if (additionalImports.size > 0) {
+    const additionalImportsCode = Array.from(additionalImports.entries()).reduce(
+      (code, [packageName, imports]) => {
+        if (imports.size) {
+          code.push(
+            `import { ${Array.from(imports.values()).sort().join(", ")} } from "${packageName}";`,
+          );
+        }
+        return code;
+      },
+      [] as string[],
     );
-  }
 
-  return `<script lang="ts" setup>
+    if (code.startsWith("<script")) {
+      const index = code.indexOf("\n");
+      const hasOtherImports = code.includes("import {");
+      code =
+        code.slice(0, index) +
+        additionalImportsCode.join("\n") +
+        (!hasOtherImports ? "\n" : "") +
+        code.slice(index);
+    } else {
+      code = `<script lang="ts" setup>
 ${additionalImportsCode.join("\n")}
 </script>
 
