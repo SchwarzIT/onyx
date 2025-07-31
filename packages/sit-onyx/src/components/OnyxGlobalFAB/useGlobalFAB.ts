@@ -1,7 +1,8 @@
 import {
   computed,
   inject,
-  ref,
+  shallowRef,
+  toRef,
   type ComputedRef,
   type InjectionKey,
   type MaybeRefOrGetter,
@@ -29,9 +30,12 @@ export type ProvidedFABItem = OnyxFABItemProps & {
   /**
    * Unique FABItem id used to identify the FABItem.
    */
-  id: symbol | number | string;
+  id: PropertyKey;
   /**
-   * default is right but if all fabItems have right alignment it will be aligned to the right.
+   * How to align the item relative to the viewport.
+   * If at least one item is left aligned, all items will be left aligned.
+   *
+   * @default "right"
    */
   alignment?: "left" | "right";
   /**
@@ -39,17 +43,11 @@ export type ProvidedFABItem = OnyxFABItemProps & {
    * If there are multiple FAB items displayed, the properties defined here will
    * take precedence for *this specific item*.
    */
-  ifOption?: Omit<ProvidedFABItem, "ifOption" | "id" | "label"> & {
-    label?: string;
-  };
+  ifOption?: Partial<Omit<ProvidedFABItem, "ifOption" | "id">>;
   /**
-   * Custom class for the OnyxFABItem.
+   * Callback when the FABItem is clicked.
    */
-  class?: string;
-  /**
-   * Callback when the FABIteom is clicked.
-   */
-  onClick?: () => void;
+  onClick?: () => unknown;
 };
 
 export const GLOBAL_FAB_PROVIDER_INJECTION_KEY = Symbol() as InjectionKey<GlobalFABProvider>;
@@ -66,10 +64,10 @@ export const GLOBAL_FAB_PROVIDER_INJECTION_KEY = Symbol() as InjectionKey<Global
  * ```
  */
 export const createGlobalFABProvider = (): GlobalFABProvider => {
-  const items = ref<Ref<ProvidedFABItem>[]>([]);
+  const items = shallowRef<Ref<ProvidedFABItem>[]>([]);
 
   const add: GlobalFABProvider["add"] = (item: MaybeRefOrGetter<ProvidedFABItem>) => {
-    items.value.push(ref(item) as Ref<ProvidedFABItem>);
+    items.value = items.value.concat(toRef(item));
   };
 
   const remove: GlobalFABProvider["remove"] = (id) => {

@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+import arrowSmallLeft from "@sit-onyx/icons/arrow-small-left.svg?raw";
+import arrowSmallRight from "@sit-onyx/icons/arrow-small-right.svg?raw";
+import sidebarArrowLeft from "@sit-onyx/icons/sidebar-arrow-left.svg?raw";
 import sidebarArrowRight from "@sit-onyx/icons/sidebar-arrow-right.svg?raw";
 import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
 import { computed, ref, useId, useTemplateRef, watch } from "vue";
@@ -42,7 +45,7 @@ const slots = defineSlots<{
 }>();
 
 const { densityClass } = useDensity(props);
-const fabItems = useGlobalFAB();
+const globalFAB = useGlobalFAB();
 
 const sidebarElement = useTemplateRef("sidebarRef");
 const drawerElement = useTemplateRef("drawerRef");
@@ -64,8 +67,7 @@ const { width: windowWidth } = useResizeObserver();
 
 const _isDrawerOpen = ref(false);
 
-const displayAsDrawer = computed(() => {
-  if (props.drawer) return true;
+const shouldCollapse = computed(() => {
   if (!props.collapseSidebar) return false;
   const breakpointWidth =
     typeof props.collapseSidebar === "number"
@@ -85,31 +87,33 @@ const isDrawerOpen = computed<boolean>({
     _isDrawerOpen.value = newVal;
   },
 });
+
 const id = useId();
 
 watch(
-  [() => displayAsDrawer.value],
+  [shouldCollapse, () => props.drawer],
   () => {
-    if (!props.drawer && props.collapseSidebar) {
-      if (windowWidth.value <= ONYX_BREAKPOINTS.sm) {
-        fabItems.add(
-          computed(() => ({
-            id,
-            label: props.label,
-            hideLabel: true,
-            ifOption: { hideLabel: false, icon: "" },
-            icon: sidebarArrowRight,
-            alignment: props.alignment,
-            class: props.alignment === "right" ? "onyx-fab-icon--rotated" : "",
-            onClick: () => {
-              isDrawerOpen.value = !isDrawerOpen.value;
-            },
-          })),
-        );
-      } else {
-        fabItems.remove(id);
-      }
+    if (!shouldCollapse.value || props.drawer) {
+      globalFAB.remove(id);
+      return;
     }
+
+    globalFAB.add(
+      computed(() => ({
+        id,
+        label: props.label,
+        hideLabel: true,
+        icon: props.alignment === "right" ? sidebarArrowLeft : sidebarArrowRight,
+        ifOption: {
+          hideLabel: false,
+          icon: props.alignment === "right" ? arrowSmallLeft : arrowSmallRight,
+        },
+        alignment: props.alignment,
+        onClick: () => {
+          isDrawerOpen.value = !isDrawerOpen.value;
+        },
+      })),
+    );
   },
   { immediate: true },
 );
@@ -117,7 +121,7 @@ watch(
 
 <template>
   <aside
-    v-if="!displayAsDrawer"
+    v-if="!props.drawer && !shouldCollapse"
     ref="sidebarRef"
     :class="[
       'onyx-component',
