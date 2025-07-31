@@ -1,36 +1,33 @@
 import { computed, type ComputedRef } from "#imports";
 import type { LocaleObject } from "@nuxtjs/i18n";
 import { defineNuxtPlugin, useNuxtApp, useRouter } from "nuxt/app";
-import { createOnyx, type ProvideI18nOptions, type TranslationFunction } from "sit-onyx";
+import { createOnyx, type TranslationFunction } from "sit-onyx";
 import type { Composer } from "vue-i18n";
 
 type I18n = Composer & { localeProperties: ComputedRef<LocaleObject> };
 
 export default defineNuxtPlugin({
   name: "onyx:plugin",
-  dependsOn: [],
+  // @ts-ignore: dependency comes from @nuxtjs/i18n
+  dependsOn: ["i18n:plugin"],
   setup: (app) => {
-    const i18n = useNuxtApp().$i18n as I18n | undefined;
+    // This plugin is only added if the i18n module was added as well so it's safe to assume $i18n was provided
+    const { t: translate, localeProperties } = useNuxtApp().$i18n as I18n;
     const router = useRouter();
 
-    const getI18nOptions = (): ProvideI18nOptions | undefined => {
-      if (!i18n) return;
-
-      const t = computed((): TranslationFunction => {
-        return (key, placeholders) => {
-          return i18n.t(`onyx.${key}`, placeholders?.n ?? 1, { named: placeholders });
-        };
-      });
-
-      const locale = computed(() => i18n.localeProperties.value.language ?? "en-US");
-
-      return { t, locale };
-    };
+    const t = computed((): TranslationFunction => {
+      return (key, placeholders) => {
+        return translate(`onyx.${key}`, placeholders?.n ?? 1, { named: placeholders });
+      };
+    });
 
     app.vueApp.use(
       createOnyx({
+        i18n: {
+          locale: computed(() => localeProperties.value.language ?? "en-US"),
+          t,
+        },
         router,
-        i18n: getI18nOptions(),
       }),
     );
   },
