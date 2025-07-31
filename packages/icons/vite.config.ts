@@ -5,7 +5,7 @@ import { DiagnosticCategory } from "typescript";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 import { viteStaticCopy } from "vite-plugin-static-copy";
-import { getIconImportName } from "./dist/utils.js";
+import { getIconImportName } from "./src/utils.js";
 
 // https://vitejs.dev/config
 export default defineConfig({
