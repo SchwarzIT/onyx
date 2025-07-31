@@ -1,5 +1,16 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-beta.100
+
+### Minor Changes
+
+- a18d955: feat: update onyx icon code replacement to use JavaScript instead of raw SVG imports
+
+### Patch Changes
+
+- Updated dependencies [a18d955]
+  - @sit-onyx/icons@1.0.0-beta.23
+
 ## 1.0.0-beta.99
 
 ### Patch Changes
