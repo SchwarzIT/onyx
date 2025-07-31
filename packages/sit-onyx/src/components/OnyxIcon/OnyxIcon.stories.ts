@@ -5,12 +5,9 @@ import OnyxIcon from "./OnyxIcon.vue";
 
 /**
  * Icons allow developers to integrate library icons directly into a project, enhancing visual communication and accessibility within the interface.
- * We recommend using the official icons from `@sit-onyx/icons`.
+ * We recommend using the official icons from [`@sit-onyx/icons`](https://onyx.schwarz/icons.html).
  *
- * When importing SVG icon files, make sure to add `?raw` after the file name as shown in the examples to import the SVG content
- * instead of the file system path to the file.
- *
- * For a list of all onyx icons, please visit our [icon library](https://onyx.schwarz/icons.html).
+ * For usage instructions and a list of all onyx icons, please visit our [icon library](https://onyx.schwarz/icons.html).
  */
 const meta: Meta<typeof OnyxIcon> = {
   title: "Basic/Icon",

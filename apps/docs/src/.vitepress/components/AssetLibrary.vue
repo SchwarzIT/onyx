@@ -1,18 +1,18 @@
-<script lang="ts" setup>
+<script lang="ts" setup generic="TData">
 import { normalizedIncludes, OnyxEmpty, OnyxHeadline, OnyxInput } from "sit-onyx";
 import { computed, ref } from "vue";
 
-export type AssetLibraryProps = {
-  groups: AssetLibraryGroup[];
+export type AssetLibraryProps<TData = unknown> = {
+  groups: AssetLibraryGroup<TData>[];
   searchPlaceholder: string;
 };
 
-export type AssetLibraryGroup = {
+export type AssetLibraryGroup<TData = unknown> = {
   name: string;
-  assets: Asset[];
+  assets: Asset<TData>[];
 };
 
-export type Asset = {
+export type Asset<TData = unknown> = {
   /**
    * Unique ID of the asset.
    *
@@ -29,15 +29,19 @@ export type Asset = {
    * Optional alias names of the asset what can be searched by to find the asset.
    */
   aliases?: string[];
+  /**
+   * Optional custom data to be associated with the asset.
+   */
+  data?: TData;
 };
 
-const props = defineProps<AssetLibraryProps>();
+const props = defineProps<AssetLibraryProps<TData>>();
 
 defineSlots<{
   /**
    * Slot to render an individual asset item.
    */
-  item(props: { asset: Asset }): unknown;
+  item(props: { asset: Asset<TData> }): unknown;
 }>();
 
 const search = ref("");

@@ -39,22 +39,20 @@ export const groupIconsByCategory = (iconMetadata: Record<string, IconMetadata>)
 };
 
 /**
- * Transform an icon name to its corresponding JavaScript import name.
+ * Transform an icon file name to its corresponding JavaScript import name.
  *
  * @example
  * ```ts
- * "bell-disabled" => "bellDisabled"
- * // e.g. used as 'import bellDisabled from "@sit-onyx/icons/bell-disabled.svg?raw"'
+ * "bell-disabled.svg" => "iconBellDisabled"
+ * // e.g. used as 'import { iconBellDisabled } from "@sit-onyx/icons"'
  * ```
  */
 export const getIconImportName = (iconName: string) => {
-  return iconName
+  return `icon${iconName
+    .replace(".svg", "")
     .split("-")
-    .map((word, index) => {
-      if (index === 0) return word;
-      return capitalize(word);
-    })
-    .join("");
+    .map((word) => capitalize(word))
+    .join("")}`;
 };
 
 /**
