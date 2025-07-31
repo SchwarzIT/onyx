@@ -1,7 +1,5 @@
 <script lang="ts" setup>
-import circleArrowRight from "@sit-onyx/icons/circle-arrow-right.svg?raw";
-import circleCheck from "@sit-onyx/icons/circle-check.svg?raw";
-import clock from "@sit-onyx/icons/clock.svg?raw";
+import { iconCircleArrowRight, iconCircleCheck, iconClock } from "@sit-onyx/icons";
 import { OnyxIcon, type OnyxColor } from "sit-onyx";
 
 export type ComponentStatus = "implemented" | "in-progress" | "planned";
@@ -14,17 +12,17 @@ const props = defineProps<{
 
 const icons = {
   implemented: {
-    icon: circleCheck,
+    icon: iconCircleCheck,
     label: "Implemented",
     color: "success",
   },
   "in-progress": {
-    icon: circleArrowRight,
+    icon: iconCircleArrowRight,
     label: "In progress",
     color: "neutral",
   },
   planned: {
-    icon: clock,
+    icon: iconClock,
     label: "Planned",
     color: "warning",
   },

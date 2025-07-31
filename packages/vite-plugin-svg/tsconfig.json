@@ -1,0 +1,13 @@
+{
+  "extends": ["@tsconfig/node24/tsconfig.json", "@sit-onyx/shared/tsconfig.json"],
+  "include": ["src/**/*"],
+  "compilerOptions": {
+    "rootDir": "./src",
+    "baseUrl": ".",
+    "types": ["node"],
+    "outDir": "./dist",
+    "declaration": true,
+    "verbatimModuleSyntax": true,
+    "resolveJsonModule": true
+  }
+}

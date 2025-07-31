@@ -1,5 +1,4 @@
-import DE from "@sit-onyx/flags/DE.svg?raw";
-import GB from "@sit-onyx/flags/GB.svg?raw";
+import { flagDE, flagGB } from "@sit-onyx/flags";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import OnyxLanguageMenuItem from "./OnyxLanguageMenuItem.vue";
 
@@ -31,8 +30,8 @@ export const Default = {
   args: {
     modelValue: "en-US",
     options: [
-      { value: "en-US", label: "English", icon: GB },
-      { value: "de-DE", label: "Deutsch", icon: DE },
+      { value: "en-US", label: "English", icon: flagGB },
+      { value: "de-DE", label: "Deutsch", icon: flagDE },
     ],
   },
 } satisfies Story;

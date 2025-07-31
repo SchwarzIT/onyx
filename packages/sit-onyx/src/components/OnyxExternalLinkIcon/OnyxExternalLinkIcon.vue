@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import arrowSmallUpRight from "@sit-onyx/icons/arrow-small-up-right.svg?raw";
+import { iconArrowSmallUpRight } from "@sit-onyx/icons";
 import { computed } from "vue";
 import { isInternalLink } from "../../utils/index.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -21,7 +21,7 @@ const isVisible = computed(() => {
   <OnyxIcon
     v-if="isVisible"
     class="onyx-component onyx-external-link-icon"
-    :icon="arrowSmallUpRight"
+    :icon="iconArrowSmallUpRight"
     size="16px"
   />
 </template>

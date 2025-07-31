@@ -1,4 +1,4 @@
-import { getIconImportName } from "@sit-onyx/icons";
+import { getIconImportName } from "@sit-onyx/icons/utils";
 import type { Preview } from "@storybook/vue3-vite";
 import { DARK_MODE_EVENT_NAME } from "@vueless/storybook-dark-mode";
 import { deepmerge } from "deepmerge-ts";

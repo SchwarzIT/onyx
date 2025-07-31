@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
-import xSmall from "@sit-onyx/icons/x-small.svg?raw";
+import { iconCheckSmall, iconXSmall } from "@sit-onyx/icons";
 import { computed, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useRequired } from "../../composables/required.js";
@@ -104,7 +103,7 @@ useAutofocus(input, props);
         <span class="onyx-switch__container">
           <span class="onyx-switch__icon">
             <OnyxLoadingIndicator v-if="props.loading" class="onyx-switch__spinner" type="circle" />
-            <OnyxIcon v-else :icon="isChecked ? checkSmall : xSmall" />
+            <OnyxIcon v-else :icon="isChecked ? iconCheckSmall : iconXSmall" />
           </span>
           <div class="onyx-switch__frame"></div>
         </span>

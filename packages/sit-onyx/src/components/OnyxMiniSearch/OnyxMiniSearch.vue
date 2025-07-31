@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import search from "@sit-onyx/icons/search.svg?raw";
-import xSmall from "@sit-onyx/icons/x-small.svg?raw";
+import { iconSearch, iconXSmall } from "@sit-onyx/icons";
 import { computed, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
@@ -81,10 +80,10 @@ defineExpose({
       @mousedown.prevent
       @click="emit('clear')"
     >
-      <OnyxIcon :icon="xSmall" />
+      <OnyxIcon :icon="iconXSmall" />
     </button>
 
-    <OnyxIcon class="onyx-mini-search__icon" :icon="search" />
+    <OnyxIcon class="onyx-mini-search__icon" :icon="iconSearch" />
   </div>
 </template>
 

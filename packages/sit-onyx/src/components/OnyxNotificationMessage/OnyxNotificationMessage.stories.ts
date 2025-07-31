@@ -1,4 +1,4 @@
-import circleAttention from "@sit-onyx/icons/circle-attention.svg?raw";
+import { iconCircleAttention } from "@sit-onyx/icons";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
 import { defineIconSelectArgType } from "../../utils/storybook.js";
@@ -31,7 +31,7 @@ export const Default = {
 export const WithIcon = {
   args: {
     ...Default.args,
-    icon: circleAttention,
+    icon: iconCircleAttention,
   },
 } satisfies Story;
 

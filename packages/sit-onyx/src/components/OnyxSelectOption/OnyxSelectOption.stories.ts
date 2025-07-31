@@ -1,4 +1,4 @@
-import settings from "@sit-onyx/icons/settings.svg?raw";
+import { iconSettings } from "@sit-onyx/icons";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import type { AriaAttributes } from "vue";
 import { defineIconSelectArgType } from "../../utils/storybook.js";
@@ -69,6 +69,6 @@ export const Indeterminate = {
 export const WithIcon = {
   args: {
     ...Default.args,
-    icon: settings,
+    icon: iconSettings,
   },
 } satisfies Story;

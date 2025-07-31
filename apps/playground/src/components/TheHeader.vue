@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import moon from "@sit-onyx/icons/moon.svg?raw";
-import shareAndroid from "@sit-onyx/icons/share-android.svg?raw";
-import sunny from "@sit-onyx/icons/sunny.svg?raw";
-import sync from "@sit-onyx/icons/sync.svg?raw";
+import { iconMoon, iconShareAndroid, iconSunny, iconSync } from "@sit-onyx/icons";
 import logoUrl from "../../../docs/src/public/images/logo.svg";
 import githubLogo from "../assets/github-logo.svg?raw";
 import HeaderIconButton from "./HeaderIconButton.vue";
@@ -50,13 +47,13 @@ const copyLink = async () => {
 
       <HeaderIconButton
         label="Toggle dark mode"
-        :icon="isDark ? moon : sunny"
+        :icon="isDark ? iconMoon : iconSunny"
         @click="isDark = !isDark"
       />
 
-      <HeaderIconButton label="Copy URL" :icon="shareAndroid" @click="copyLink" />
+      <HeaderIconButton label="Copy URL" :icon="iconShareAndroid" @click="copyLink" />
 
-      <HeaderIconButton label="Reload page" :icon="sync" @click="emit('reloadPage')" />
+      <HeaderIconButton label="Reload page" :icon="iconSync" @click="emit('reloadPage')" />
 
       <a
         href="https://github.com/SchwarzIt/onyx/tree/main/apps/playground"

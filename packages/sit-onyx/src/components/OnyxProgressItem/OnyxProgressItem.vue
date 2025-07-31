@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
-import notificationFlag from "@sit-onyx/icons/notification-flag.svg?raw";
+import { iconCheckSmall, iconNotificationFlag } from "@sit-onyx/icons";
 import { computed } from "vue";
 import { useDensity } from "../../composables/density.js";
 import {
@@ -20,8 +19,8 @@ const { densityClass } = useDensity(props);
 const skeleton = useSkeletonContext(props);
 
 const icon = computed(() => {
-  if (props.status === "completed" || props.status === "visited") return checkSmall;
-  if (props.status === "invalid") return notificationFlag;
+  if (props.status === "completed" || props.status === "visited") return iconCheckSmall;
+  if (props.status === "invalid") return iconNotificationFlag;
   return props.icon;
 });
 </script>

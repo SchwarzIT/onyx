@@ -1,8 +1,6 @@
 <script lang="ts" setup>
 import { createNavigationMenu } from "@sit-onyx/headless";
-import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
-import menu from "@sit-onyx/icons/menu.svg?raw";
-import moreVertical from "@sit-onyx/icons/more-vertical.svg?raw";
+import { iconChevronLeftSmall, iconMenu, iconMoreVertical } from "@sit-onyx/icons";
 import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
 import { computed, provide, ref, toRef, useTemplateRef, watch } from "vue";
 import { useLink } from "../../composables/useLink.js";
@@ -142,7 +140,7 @@ defineExpose({
         v-if="props.withBackButton"
         class="onyx-nav-bar__back"
         :label="t('navigation.goBack')"
-        :icon="chevronLeftSmall"
+        :icon="iconChevronLeftSmall"
         color="neutral"
         @click="emit('navigateBack', $event)"
       />
@@ -152,7 +150,7 @@ defineExpose({
           v-if="actualIsMobile"
           v-model:open="isBurgerOpen"
           class="onyx-nav-bar__burger"
-          :icon="menu"
+          :icon="iconMenu"
           :label="t('navigation.toggleBurgerMenu')"
           :headline="t('navigation.navigationHeadline')"
           @update:open="isContextOpen = false"
@@ -199,7 +197,7 @@ defineExpose({
           <OnyxMobileNavButton
             v-if="slots.contextArea"
             v-model:open="isContextOpen"
-            :icon="moreVertical"
+            :icon="iconMoreVertical"
             :label="t('navigation.toggleContextMenu')"
             @update:open="isBurgerOpen = false"
           >

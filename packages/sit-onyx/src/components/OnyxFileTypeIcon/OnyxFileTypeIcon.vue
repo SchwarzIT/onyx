@@ -1,45 +1,47 @@
 <script lang="ts" setup>
-import audio from "@sit-onyx/icons/audio.svg?raw";
-import fileArchive from "@sit-onyx/icons/file-archive.svg?raw";
-import fileCsv from "@sit-onyx/icons/file-csv.svg?raw";
-import fileDoc from "@sit-onyx/icons/file-doc.svg?raw";
-import fileGlobe from "@sit-onyx/icons/file-globe.svg?raw";
-import filePdf from "@sit-onyx/icons/file-pdf.svg?raw";
-import filePpt from "@sit-onyx/icons/file-ppt.svg?raw";
-import fileRtf from "@sit-onyx/icons/file-rtf.svg?raw";
-import fileText from "@sit-onyx/icons/file-text.svg?raw";
-import fileXls from "@sit-onyx/icons/file-xls.svg?raw";
-import fileXlsx from "@sit-onyx/icons/file-xlsx.svg?raw";
-import file from "@sit-onyx/icons/file.svg?raw";
-import picture from "@sit-onyx/icons/picture.svg?raw";
-import videocam from "@sit-onyx/icons/videocam.svg?raw";
+import {
+  iconAudio,
+  iconFile,
+  iconFileArchive,
+  iconFileCsv,
+  iconFileDoc,
+  iconFileGlobe,
+  iconFilePdf,
+  iconFilePpt,
+  iconFileRtf,
+  iconFileText,
+  iconFileXls,
+  iconFileXlsx,
+  iconPicture,
+  iconVideocam,
+} from "@sit-onyx/icons";
 import { computed } from "vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxFileTypeIconProps } from "./types.js";
 
 const props = defineProps<OnyxFileTypeIconProps>();
 
-const FALLBACK_ICON = file;
+const FALLBACK_ICON = iconFile;
 
 const icon = computed(() => {
   if (!props.type) return FALLBACK_ICON;
-  if (props.type === "application/pdf") return filePdf;
-  if (props.type === "text/csv") return fileCsv;
-  if (props.type.startsWith("audio/")) return audio;
-  if (props.type.startsWith("video/")) return videocam;
-  if (props.type.startsWith("image/")) return picture;
-  if (["application/rtf", "text/rtf"].includes(props.type)) return fileRtf;
+  if (props.type === "application/pdf") return iconFilePdf;
+  if (props.type === "text/csv") return iconFileCsv;
+  if (props.type.startsWith("audio/")) return iconAudio;
+  if (props.type.startsWith("video/")) return iconVideocam;
+  if (props.type.startsWith("image/")) return iconPicture;
+  if (["application/rtf", "text/rtf"].includes(props.type)) return iconFileRtf;
   if (
     [
       "application/vnd.ms-powerpoint",
       "application/vnd.openxmlformats-officedocument.presentationml.presentation",
     ].includes(props.type)
   ) {
-    return filePpt;
+    return iconFilePpt;
   }
-  if (props.type === "application/vnd.ms-excel") return fileXls;
+  if (props.type === "application/vnd.ms-excel") return iconFileXls;
   if (props.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
-    return fileXlsx;
+    return iconFileXlsx;
   }
   if (
     [
@@ -47,9 +49,9 @@ const icon = computed(() => {
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     ].includes(props.type)
   ) {
-    return fileDoc;
+    return iconFileDoc;
   }
-  if (props.type === "text/html") return fileGlobe;
+  if (props.type === "text/html") return iconFileGlobe;
   if (
     [
       "application/zip",
@@ -60,9 +62,9 @@ const icon = computed(() => {
       "application/x-bzip2",
     ].includes(props.type)
   ) {
-    return fileArchive;
+    return iconFileArchive;
   }
-  if (props.type.startsWith("text/")) return fileText;
+  if (props.type.startsWith("text/")) return iconFileText;
 
   return FALLBACK_ICON;
 });

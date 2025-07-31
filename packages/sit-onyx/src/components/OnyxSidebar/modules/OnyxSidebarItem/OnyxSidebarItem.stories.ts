@@ -1,4 +1,4 @@
-import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
+import { iconPlaceholder } from "@sit-onyx/icons";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
@@ -19,7 +19,7 @@ type Story = StoryObj<typeof OnyxSidebarItem>;
 
 export const Default = {
   args: {
-    default: () => [h(OnyxIcon, { icon: placeholder }), "Sidebar item"],
+    default: () => [h(OnyxIcon, { icon: iconPlaceholder }), "Sidebar item"],
     style: "width: 16rem",
     link: "#example-link",
   },

@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import pinDisabled from "@sit-onyx/icons/pin-disabled.svg?raw";
-import pin from "@sit-onyx/icons/pin.svg?raw";
-import trash from "@sit-onyx/icons/trash.svg?raw";
+import { iconPin, iconPinDisabled, iconTrash } from "@sit-onyx/icons";
 import { h } from "vue";
 import {
   createFeature,
@@ -41,13 +39,13 @@ const withCustomFeature = createFeature(() => ({
       {
         iconComponent: h(OnyxSystemButton, {
           label: "Column options",
-          icon: pin,
+          icon: iconPin,
           color: "medium",
         }),
         menuItems: [
-          h(OnyxMenuItem, () => [h(OnyxIcon, { icon: pin }), "Pin column"]),
-          h(OnyxMenuItem, () => [h(OnyxIcon, { icon: pinDisabled }), "Unpin column"]),
-          h(OnyxMenuItem, () => [h(OnyxIcon, { icon: trash }), "Remove column"]),
+          h(OnyxMenuItem, () => [h(OnyxIcon, { icon: iconPin }), "Pin column"]),
+          h(OnyxMenuItem, () => [h(OnyxIcon, { icon: iconPinDisabled }), "Unpin column"]),
+          h(OnyxMenuItem, () => [h(OnyxIcon, { icon: iconTrash }), "Remove column"]),
         ],
         // always show in flyout menu, even if there is only one feature
         showFlyoutMenu: true,

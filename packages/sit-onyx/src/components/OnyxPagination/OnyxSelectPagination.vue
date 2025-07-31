@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import chevronLeftSmall from "@sit-onyx/icons/chevron-left-small.svg?raw";
-import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
+import { iconChevronLeftSmall, iconChevronRightSmall } from "@sit-onyx/icons";
 import { computed } from "vue";
 import { useDensity } from "../../composables/density.js";
 import {
@@ -81,7 +80,7 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
       :disabled="props.disabled || hasReachedMin"
       @click="emit('update:modelValue', props.modelValue - 1)"
     >
-      <OnyxIcon :icon="chevronLeftSmall" />
+      <OnyxIcon :icon="iconChevronLeftSmall" />
     </button>
 
     <button
@@ -91,7 +90,7 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
       :disabled="props.disabled || hasReachedMax"
       @click="emit('update:modelValue', props.modelValue + 1)"
     >
-      <OnyxIcon :icon="chevronRightSmall" />
+      <OnyxIcon :icon="iconChevronRightSmall" />
     </button>
   </div>
 </template>

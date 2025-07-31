@@ -1,9 +1,10 @@
 <script lang="ts" setup>
-import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
+import { iconPlaceholder } from "@sit-onyx/icons";
 import {
   OnyxBottomBar,
   OnyxButton,
   OnyxHeadline,
+  OnyxIcon,
   OnyxImage,
   OnyxInput,
   OnyxPageLayout,
@@ -33,7 +34,7 @@ const gridStore = useGridStore();
         <div class="onyx-grid-layout">
           <div class="onyx-grid">
             <OnyxSidebarItem v-for="i in 6" :key="i" :link="`#link-${i}`">
-              <OnyxIcon :icon="placeholder" />
+              <OnyxIcon :icon="iconPlaceholder" />
               Item {{ i }}
             </OnyxSidebarItem>
           </div>

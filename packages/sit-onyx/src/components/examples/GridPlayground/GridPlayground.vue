@@ -1,10 +1,12 @@
 <script lang="ts" setup>
-import circleAttention from "@sit-onyx/icons/circle-attention.svg?raw";
-import edit from "@sit-onyx/icons/edit.svg?raw";
-import eyeDisabled from "@sit-onyx/icons/eye-disabled.svg?raw";
-import eye from "@sit-onyx/icons/eye.svg?raw";
-import plus from "@sit-onyx/icons/plus.svg?raw";
-import settings from "@sit-onyx/icons/settings.svg?raw";
+import {
+  iconCircleAttention,
+  iconEdit,
+  iconEye,
+  iconEyeDisabled,
+  iconPlus,
+  iconSettings,
+} from "@sit-onyx/icons";
 import {
   ONYX_BREAKPOINTS,
   ONYX_MAX_WIDTHS,
@@ -170,7 +172,7 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
       <OnyxHeadline is="h1" class="playground__headline">Grid and breakpoint demo</OnyxHeadline>
 
       <p v-if="!isFullscreen" class="playground__info-text">
-        <OnyxIcon :icon="circleAttention" size="16px" />
+        <OnyxIcon :icon="iconCircleAttention" size="16px" />
         For the best experience, please press the "Fullscreen"
         <OnyxIcon :icon="StorybookExpand" inline /> or "New Tab"
         <OnyxIcon :icon="StorybookNewTab" inline /> button in the upper right corner.
@@ -185,8 +187,8 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
       </p>
 
       <p>
-        Use the "Toggle Grid Lines Visibility" <OnyxIcon :icon="eye" inline /> button on the right
-        to see how the grid elements align with the grid columns.
+        Use the "Toggle Grid Lines Visibility" <OnyxIcon :icon="iconEye" inline /> button on the
+        right to see how the grid elements align with the grid columns.
       </p>
 
       <OnyxHeadline is="h2" class="playground__headline">Grid customization</OnyxHeadline>
@@ -235,7 +237,7 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
         <OnyxSeparator orientation="vertical" />
         <OnyxIconButton
           label="Grid lines visibility"
-          :icon="showGridLines ? eye : eyeDisabled"
+          :icon="showGridLines ? iconEye : iconEyeDisabled"
           @click="showGridLines = !showGridLines"
         ></OnyxIconButton>
       </div>
@@ -257,7 +259,7 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
           <template #contextArea>
             <OnyxUserMenu full-name="Jane Doe" description="Example user">
               <OnyxMenuItem>
-                <OnyxIcon :icon="settings" />
+                <OnyxIcon :icon="iconSettings" />
                 Settings
               </OnyxMenuItem>
 
@@ -284,7 +286,7 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
               <OnyxVisuallyHidden>
                 This grid element spans {{ gridSpan }} columns
               </OnyxVisuallyHidden>
-              <OnyxIcon class="element__icon" :icon="edit" />
+              <OnyxIcon class="element__icon" :icon="iconEdit" />
             </template>
           </GridElement>
 
@@ -294,7 +296,7 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
             label="Add grid element"
             @click="isAddDialogOpen = true"
           >
-            <OnyxIcon :icon="plus" />
+            <OnyxIcon :icon="iconPlus" />
           </GridElement>
         </div>
       </div>

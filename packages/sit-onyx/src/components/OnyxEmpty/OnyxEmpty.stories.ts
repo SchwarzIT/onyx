@@ -1,4 +1,4 @@
-import fileDisabled from "@sit-onyx/icons/file-disabled.svg?raw";
+import { iconFileDisabled } from "@sit-onyx/icons";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
 import { OnyxLink } from "../../index.js";
@@ -36,7 +36,7 @@ export const Default = {
  */
 export const CustomContent = {
   args: {
-    icon: () => h(OnyxIcon, { icon: fileDisabled, size: "48px", color: "danger" }),
+    icon: () => h(OnyxIcon, { icon: iconFileDisabled, size: "48px", color: "danger" }),
     default: () => [
       "No data found. Go to ",
       h(OnyxLink, { href: "#" }, () => "this page"),

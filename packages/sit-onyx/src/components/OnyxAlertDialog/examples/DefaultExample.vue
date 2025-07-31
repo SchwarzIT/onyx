@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import circleAttention from "@sit-onyx/icons/circle-attention.svg?raw";
+import { iconCircleAttention } from "@sit-onyx/icons";
 import { ref } from "vue";
 import { OnyxAlertDialog, OnyxButton } from "../../../index.js";
 
@@ -11,7 +11,7 @@ const isOpen = ref(false);
     <OnyxButton label="Show alert modal" @click="isOpen = true" />
 
     <OnyxAlertDialog
-      :icon="{ icon: circleAttention, color: 'danger' }"
+      :icon="{ icon: iconCircleAttention, color: 'danger' }"
       label="Confirm deletion"
       :open="isOpen"
       @close="isOpen = false"

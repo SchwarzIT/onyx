@@ -4,7 +4,7 @@ import {
   getIconImportName,
   groupIconsByCategory,
   ICON_METADATA,
-} from "@sit-onyx/icons";
+} from "@sit-onyx/icons/utils";
 import type { Asset, AssetLibraryGroup } from "./AssetLibrary.vue";
 import AssetLibrary from "./AssetLibrary.vue";
 import AssetLibraryItem from "./AssetLibraryItem.vue";

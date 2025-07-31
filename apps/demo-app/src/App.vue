@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import logout from "@sit-onyx/icons/logout.svg?raw";
+import { iconLogout } from "@sit-onyx/icons";
 import { useColorMode } from "@vueuse/core";
 import {
   OnyxAppLayout,
@@ -70,7 +70,7 @@ useThemeTransition(colorScheme);
             <OnyxColorSchemeMenuItem v-model="colorScheme" />
 
             <OnyxMenuItem color="danger">
-              <OnyxIcon :icon="logout" />
+              <OnyxIcon :icon="iconLogout" />
               Logout
             </OnyxMenuItem>
 

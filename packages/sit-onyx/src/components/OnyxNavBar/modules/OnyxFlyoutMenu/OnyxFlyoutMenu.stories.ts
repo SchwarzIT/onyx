@@ -1,5 +1,4 @@
-import globe from "@sit-onyx/icons/globe.svg?raw";
-import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
+import { iconGlobe, iconPlaceholder } from "@sit-onyx/icons";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
@@ -47,7 +46,7 @@ export const Default = {
         label: "English",
         mode: "plain",
         color: "neutral",
-        icon: globe,
+        icon: iconGlobe,
         ...trigger,
       }),
     ],
@@ -68,7 +67,7 @@ export const Nested = {
         label: "Example",
         mode: "plain",
         color: "neutral",
-        icon: placeholder,
+        icon: iconPlaceholder,
         ...trigger,
       }),
     ],
