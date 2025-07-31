@@ -85,9 +85,9 @@ export default defineNuxtModule<ModuleOptions>({
       };
 
       nuxt.hook("i18n:registerModule", registerOnyxLocales);
-
-      addPlugin({ src: resolve("./runtime/plugins/onyx") });
     }
+
+    addPlugin({ src: resolve("./runtime/plugins/onyx") });
   },
 });
 
