@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import { OnyxAccordion, OnyxAccordionItem, OnyxDrawer } from "../../../index.js";
+import { OnyxAccordion, OnyxAccordionItem, OnyxSidebar } from "../../../index.js";
 </script>
 
 <template>
-  <OnyxDrawer label="Example headline" open>
+  <OnyxSidebar label="Example headline" :temporary="{ open: true }">
     <template #description>
       The "nested-large" accordion type is intended to be used inside parent components like e.g.
-      the OnyxDrawer.
+      the OnyxSidebar.
     </template>
 
     <OnyxAccordion type="nested-large">
@@ -25,5 +25,5 @@ import { OnyxAccordion, OnyxAccordionItem, OnyxDrawer } from "../../../index.js"
         Content...
       </OnyxAccordionItem>
     </OnyxAccordion>
-  </OnyxDrawer>
+  </OnyxSidebar>
 </template>

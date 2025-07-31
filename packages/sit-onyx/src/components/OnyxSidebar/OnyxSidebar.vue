@@ -1,12 +1,13 @@
 <script lang="ts" setup>
 import { computed, ref, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density.js";
-import OnyxDrawer from "../OnyxDrawer/OnyxDrawer.vue";
+import OnyxModalDialog from "../OnyxModalDialog/OnyxModalDialog.vue";
 import OnyxResizeHandle from "../OnyxResizeHandle/OnyxResizeHandle.vue";
 import type { OnyxSidebarProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxSidebarProps>(), {
   alignment: "left",
+  resizable: true,
 });
 
 const emit = defineEmits<{
@@ -39,7 +40,7 @@ const slots = defineSlots<{
 const { densityClass } = useDensity(props);
 
 const sidebarElement = useTemplateRef("sidebarRef");
-const drawerElement = useTemplateRef("drawerRef");
+const modalElement = useTemplateRef("modalRef");
 const width = ref<number>();
 const widthStyle = computed(() => {
   if (!width.value) return;
@@ -58,7 +59,7 @@ const resizeHandleProps = computed(
 
 <template>
   <aside
-    v-if="!props.drawer"
+    v-if="!props.temporary"
     ref="sidebarRef"
     :class="[
       'onyx-component',
@@ -85,13 +86,18 @@ const resizeHandleProps = computed(
     <OnyxResizeHandle v-if="props.resizable" :element="sidebarElement" v-bind="resizeHandleProps" />
   </aside>
 
-  <OnyxDrawer
+  <OnyxModalDialog
     v-else
-    v-bind="props.drawer"
-    ref="drawerRef"
+    ref="modalRef"
+    v-bind="props.temporary"
+    :class="[
+      'onyx-sidebar',
+      'onyx-sidebar--temporary',
+      props.alignment === 'right' ? 'onyx-sidebar--right' : '',
+      props.temporary.floating ? 'onyx-sidebar--floating' : '',
+    ]"
     :label="props.label"
     :density="props.density"
-    class="onyx-sidebar"
     :style="widthStyle"
     :alignment="props.alignment"
     @close="emit('close')"
@@ -112,8 +118,8 @@ const resizeHandleProps = computed(
       </div>
     </template>
 
-    <OnyxResizeHandle v-if="props.resizable" :element="drawerElement" v-bind="resizeHandleProps" />
-  </OnyxDrawer>
+    <OnyxResizeHandle v-if="props.resizable" :element="modalElement" v-bind="resizeHandleProps" />
+  </OnyxModalDialog>
 </template>
 
 <style lang="scss">
@@ -131,7 +137,7 @@ const resizeHandleProps = computed(
     min-width: var(--onyx-sidebar-min-width);
     max-width: calc(100vw - var(--onyx-grid-margin));
 
-    &:not(:is(.onyx-drawer)) {
+    &:not(&--temporary) {
       font-family: var(--onyx-font-family);
       color: var(--onyx-color-text-icons-neutral-intense);
       background-color: var(--onyx-color-base-background-blank);
@@ -151,9 +157,16 @@ const resizeHandleProps = computed(
       position: relative;
     }
 
-    &:is(.onyx-drawer) {
-      --onyx-dialog-screen-gap: 0;
-      --onyx-dialog-border-radius: 0;
+    &--temporary {
+      --onyx-modal-dialog-padding-inline: var(--onyx-density-md);
+
+      &:not(.onyx-sidebar--floating) {
+        --onyx-dialog-screen-gap: 0;
+        --onyx-dialog-border-radius: 0;
+        border-top: none;
+        border-left: none;
+        border-bottom: none;
+      }
     }
 
     &__header {

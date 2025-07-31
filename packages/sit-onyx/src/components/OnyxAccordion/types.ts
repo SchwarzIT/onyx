@@ -22,7 +22,7 @@ export type OnyxAccordionProps<TValue extends PropertyKey> = DensityProp & {
   skeleton?: SkeletonInjected;
   /**
    * Accordion type. Will have different visual representations.
-   * Please note that "nested-large" and "nested-small" should only be used inside other components like e.g. the [OnyxDrawer](https://storybook.onyx.schwarz/?path=/docs/feedback-drawer--docs).
+   * Please note that "nested-large" and "nested-small" should only be used inside other components like e.g. the [OnyxSidebar](https://storybook.onyx.schwarz/?path=/docs/navigation-sidebar--default).
    */
   type?: AccordionType;
 };

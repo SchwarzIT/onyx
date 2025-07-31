@@ -12,7 +12,7 @@ import {
   <OnyxAppLayout>
     <OnyxPageLayout>
       <template #sidebarRight>
-        <OnyxSidebar label="Example sidebar" alignment="right" resizable>
+        <OnyxSidebar label="Example sidebar" alignment="right">
           <template #header> Header content </template>
 
           <div class="sidebar__content">
