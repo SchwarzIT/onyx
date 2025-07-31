@@ -1,7 +1,8 @@
 <script lang="ts" setup>
-import { useOutsideClick } from "@sit-onyx/headless";
+import { useGlobalEventListener, useOutsideClick, wasKeyPressed } from "@sit-onyx/headless";
 import { computed, useTemplateRef, watch } from "vue";
 import { useDensity } from "../../composables/density.js";
+import { useVModel } from "../../composables/useVModel.js";
 import type { OnyxBasicDialogProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxBasicDialogProps>(), {
@@ -16,7 +17,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the dialog should be closed (only when `modal` property is `true`).
    */
-  close: [];
+  "update:open": [open: boolean];
 }>();
 
 defineSlots<{
@@ -32,6 +33,8 @@ const dialog = useTemplateRef("dialogRef");
 
 const { densityClass } = useDensity(props);
 
+const open = useVModel({ props, emit, key: "open" });
+
 /**
  * Shows the dialog either as default dialog or modal.
  */
@@ -41,8 +44,8 @@ const openDialog = () => {
 };
 
 // sync open state
-watch([dialog, () => props.open], () => {
-  if (props.open) openDialog();
+watch([dialog, open], () => {
+  if (open.value) openDialog();
   else dialog.value?.close();
 });
 
@@ -62,8 +65,18 @@ const content = useTemplateRef("contentRef");
 
 useOutsideClick({
   inside: content,
-  disabled: computed(() => !props.modal || props.nonDismissible),
-  onOutsideClick: () => emit("close"),
+  // modal dialog obscures other content and can be closed by outside click
+  // non-modal dialog allows interactions with other elements without closing
+  disabled: computed(() => !open.value || props.nonDismissible || !props.modal),
+  onOutsideClick: () => emit("update:open", false),
+});
+
+useGlobalEventListener({
+  type: "keydown",
+  // modal dialog has native support for closing via `Escape`
+  // non-modal dialog needs custom support for this
+  disabled: computed(() => !open.value || props.nonDismissible),
+  listener: (event) => wasKeyPressed(event, { key: "Escape" }) && emit("update:open", false),
 });
 </script>
 
@@ -71,7 +84,6 @@ useOutsideClick({
 <template>
   <!-- do not use the @close event here since it would emit redundant events when we call .close() internally -->
   <!-- also we use cancel.prevent here so the dialog does not close automatically and is fully controlled by the "open" property -->
-  <!-- eslint-disable-next-line vuejs-accessibility/click-events-have-key-events eslint-disable-next-line vuejs-accessibility/no-static-element-interactions -->
   <dialog
     v-if="props.open"
     ref="dialogRef"
@@ -85,7 +97,7 @@ useOutsideClick({
     :aria-modal="props.modal"
     :aria-label="props.label"
     :role="props.alert ? 'alertdialog' : undefined"
-    @cancel.prevent="props.nonDismissible || emit('close')"
+    @cancel.prevent
   >
     <div ref="contentRef" class="onyx-basic-dialog__content">
       <slot></slot>
