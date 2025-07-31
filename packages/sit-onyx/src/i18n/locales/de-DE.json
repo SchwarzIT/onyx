@@ -210,5 +210,8 @@
     "inTotal": "insgesamt",
     "maxFileCount": "Maximal {n} Dateien auswählbar",
     "allowedFileTypes": "Erlaubte Dateien: {types}"
+  },
+  "globalFAB": {
+    "label": "Globale Aktionen"
   }
 }

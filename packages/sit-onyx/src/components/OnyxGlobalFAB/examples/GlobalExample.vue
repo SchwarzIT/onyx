@@ -3,31 +3,33 @@ import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
 import OnyxButton from "../../OnyxButton/OnyxButton.vue";
 import { useGlobalFAB } from "../../OnyxGlobalFAB/useGlobalFAB.js";
 import OnyxGlobalFAB from "../OnyxGlobalFAB.vue";
-const fabItems = useGlobalFAB();
 
+const globalFAB = useGlobalFAB();
 let id = 0;
+
 const addFAB = () => {
-  fabItems.add({
+  globalFAB.add({
     id: id++,
     label: "New Item",
     icon: placeholder,
   });
 };
+
 const removeFAB = () => {
-  if (fabItems.items.value.length) {
-    const lastId = fabItems.items.value.at(-1)?.value.id;
-    if (lastId !== undefined) fabItems.remove(lastId);
-  }
+  const lastId = globalFAB.items.value.at(-1)?.value.id;
+  if (lastId !== undefined) globalFAB.remove(lastId);
 };
 </script>
 
 <template>
-  <div class="actions">
-    <OnyxButton label="Add example FAB Option" @click="addFAB" />
-    <OnyxButton label="Remove example FAB Option" @click="removeFAB" />
-  </div>
+  <div>
+    <div class="actions">
+      <OnyxButton label="Add example FAB Option" @click="addFAB" />
+      <OnyxButton label="Remove example FAB Option" @click="removeFAB" />
+    </div>
 
-  <OnyxGlobalFAB />
+    <OnyxGlobalFAB />
+  </div>
 </template>
 
 <style lang="scss" scoped>

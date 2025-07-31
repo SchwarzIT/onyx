@@ -13,24 +13,13 @@ describe("useGlobalFAB", () => {
 
     const currentItems = provider.items.value.map((itemRef) => unref(itemRef));
     expect(currentItems).toStrictEqual([
-      {
-        id: 1,
-        label: "Test 1",
-      },
-      {
-        id: 2,
-        label: "Test 2",
-      },
+      { id: 1, label: "Test 1" },
+      { id: 2, label: "Test 2" },
     ]);
 
     provider.remove(2);
 
     const itemsAfterRemoval = provider.items.value.map((itemRef) => unref(itemRef));
-    expect(itemsAfterRemoval).toStrictEqual([
-      {
-        id: 1,
-        label: "Test 1",
-      },
-    ]);
+    expect(itemsAfterRemoval).toStrictEqual([{ id: 1, label: "Test 1" }]);
   });
 });
