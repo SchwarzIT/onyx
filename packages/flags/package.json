@@ -5,7 +5,7 @@
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
-  "sideEffects": "false",
+  "sideEffects": false,
   "engines": {
     "node": ">=20"
   },
