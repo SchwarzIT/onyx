@@ -9,6 +9,9 @@ type I18n = Composer & { localeProperties: ComputedRef<LocaleObject> };
 export default defineNuxtPlugin({
   name: "onyx:plugin",
   dependsOn: [],
+  // "parallel: false" is the current default but to be resistant for future changes, we explicitly set it to false here
+  // see: https://github.com/SchwarzIT/onyx/pull/3832#discussion_r2244487744
+  parallel: false,
   setup: (app) => {
     const i18n = useNuxtApp().$i18n as I18n | undefined;
     const router = useRouter();
