@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import { OnyxButton, OnyxDialog } from "../../../index.js";
+import { OnyxBasicDialog, OnyxButton } from "../../../index.js";
 
 const isOpen = ref(false);
 </script>
@@ -9,14 +9,14 @@ const isOpen = ref(false);
   <div>
     <OnyxButton label="Open modal" @click="isOpen = true" />
 
-    <OnyxDialog
+    <OnyxBasicDialog
       label="Example modal dialog"
       :open="isOpen"
-      alignment="right"
+      alignment="left"
       modal
       @close="isOpen = false"
     >
       Dialog content...
-    </OnyxDialog>
+    </OnyxBasicDialog>
   </div>
 </template>

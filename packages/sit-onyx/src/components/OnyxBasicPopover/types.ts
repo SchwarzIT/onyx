@@ -2,7 +2,7 @@ import type { AnchorPosition } from "../../composables/useAnchorPositionPolyfill
 import type { OpenAlignment } from "../../composables/useOpenAlignment.js";
 import type { Nullable } from "../../types/index.js";
 
-export type OnyxPopoverProps = {
+export type OnyxBasicPopoverProps = {
   /**
    * Aria label for the popover.
    */
@@ -28,4 +28,11 @@ export type OnyxPopoverProps = {
    * Whether the popover is disabled and can not be opened.
    */
   disabled?: boolean;
+  /**
+   * Role for the popover.
+   * This can be used to control the ARIA role for accessibility.
+   *
+   * @default "dialog"
+   */
+  role?: "menu" | "listbox" | "tree" | "grid" | "dialog";
 };
