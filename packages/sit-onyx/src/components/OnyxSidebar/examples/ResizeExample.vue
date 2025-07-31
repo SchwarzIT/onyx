@@ -12,10 +12,12 @@ import {
   <OnyxAppLayout>
     <OnyxPageLayout>
       <template #sidebar>
-        <OnyxSidebar label="Example sidebar" resizable>
+        <OnyxSidebar label="Example sidebar">
           <template #header> Header content </template>
 
           <div class="sidebar__content">
+            By default, the sidebar is resizable which means:
+
             <ul>
               <li><b>Drag the right border</b> the resize the sidebar</li>
               <li><b>Double click</b> it to reset the width back to the original size</li>
@@ -24,6 +26,8 @@ import {
                 previous width
               </li>
             </ul>
+
+            This behavior can be disabled by setting the resizable property to false.
           </div>
 
           <template #footer>
@@ -43,6 +47,9 @@ import {
 .sidebar {
   &__content {
     padding: var(--onyx-sidebar-padding);
+    display: flex;
+    flex-direction: column;
+    gap: var(--onyx-density-md);
   }
 }
 </style>
