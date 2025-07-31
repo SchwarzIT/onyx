@@ -27,7 +27,7 @@ const gridStore = useGridStore();
       loading="eager"
     />
     <template #sidebar>
-      <OnyxSidebar label="Example sidebar" resizable>
+      <OnyxSidebar label="Example sidebar">
         <template #header> Header content </template>
 
         <div class="onyx-grid-layout">

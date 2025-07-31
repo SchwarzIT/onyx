@@ -12,7 +12,6 @@ import {
   OnyxBadge,
   OnyxBottomBar,
   OnyxButton,
-  OnyxDrawer,
   OnyxEmpty,
   OnyxHeadline,
   OnyxIcon,
@@ -23,6 +22,7 @@ import {
   OnyxNotificationCard,
   OnyxNotificationDot,
   OnyxNotifications,
+  OnyxSidebar,
   OnyxUserMenu,
   SKELETON_INJECTED_SYMBOL,
   useNotification,
@@ -86,7 +86,7 @@ const { show } = useNotification();
 const store = useNotificationStore();
 
 const openAccordions = ref(["unread"]);
-const isDrawerOpen = ref(false);
+const isSidebarOpen = ref(false);
 
 /**
  * Adds a new example notifications. Usually this should be provided by your backend / API
@@ -124,7 +124,7 @@ const addExampleNotification = () => {
               label="Notifications"
               color="neutral"
               :icon="bell"
-              @click="isDrawerOpen = true"
+              @click="isSidebarOpen = true"
             />
           </OnyxNotificationDot>
         </template>
@@ -153,12 +153,12 @@ const addExampleNotification = () => {
     </div>
 
     <!-- NOTIFICATION CENTER -->
-    <OnyxDrawer
+    <OnyxSidebar
       class="notification-center"
       label="Notifications"
       alignment="right"
-      :open="isDrawerOpen"
-      @close="isDrawerOpen = false"
+      :temporary="{ open: isSidebarOpen, floating: true }"
+      @close="isSidebarOpen = false"
     >
       <template #headline="{ label }">
         <OnyxHeadline is="h2">{{ label }}</OnyxHeadline>
@@ -247,7 +247,7 @@ const addExampleNotification = () => {
           />
         </OnyxBottomBar>
       </template>
-    </OnyxDrawer>
+    </OnyxSidebar>
 
     <OnyxNotifications />
   </OnyxAppLayout>
@@ -270,11 +270,18 @@ const addExampleNotification = () => {
   &__empty {
     margin-inline: auto;
   }
+
   &__skeletons {
     display: flex;
     flex-direction: column;
     padding: var(--onyx-density-md);
     gap: var(--onyx-density-md);
+  }
+
+  // we use the OnyxBottomBar which already provides its own padding + border
+  :deep(.onyx-sidebar__footer) {
+    padding: 0;
+    border-top: none;
   }
 }
 </style>
