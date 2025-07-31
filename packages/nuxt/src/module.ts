@@ -88,8 +88,6 @@ export default defineNuxtModule<ModuleOptions>({
 
       addPlugin({ src: resolve("./runtime/plugins/onyx") });
     }
-
-    addPlugin({ src: resolve("./runtime/plugins/onyx") });
   },
 });
 
