@@ -47,11 +47,11 @@ yarn install -D @sit-onyx/storybook-utils@beta
 Creates a default Storybook preview configuration for a project that uses `onyx`. Includes the following features:
 
 - Improved controls (sorting and expanded controls so descriptions etc. are also shown in a single story)
-- Improved Vue-specific code highlighting (e.g. using `@` instead of `v-on:`)
 - Setup for dark mode (including docs page). Requires addon [`@vueless/storybook-dark-mode`](https://github.com/vuelessjs/storybook-dark-mode#readme) (maintenance form of previous [`storybook-dark-mode`](https://github.com/hipstersmoothie/storybook-dark-mode/issues/295#issuecomment-2938151892)) to be enabled in .storybook/main.ts file
 - Custom Storybook theme using onyx colors (light and dark mode)
 - Configure viewports / breakpoints as defined by onyx
 - Logs Vue emits as Storybook actions
+- Source code transformer that formats the code snippets with prettier and adds imports for used icons, flags and onyx components
 
 ::: code-group
 
