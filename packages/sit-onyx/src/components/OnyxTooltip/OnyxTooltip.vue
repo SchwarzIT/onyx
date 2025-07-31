@@ -201,13 +201,22 @@ watch([tooltipWidth, toolTipPosition, alignment, alignsWithEdge], async () => {
 const id = useId();
 const anchorName = computed(() => `--anchor-${id}`);
 
-const tooltipStyles = computed(() => ({
-  width: tooltipWidth.value,
-  "position-anchor": anchorName.value,
-  "position-area": positionAndAlignment.value,
-  left: !useragentSupportsAnchorApi.value ? leftPosition.value : undefined,
-  top: !useragentSupportsAnchorApi.value ? topPosition.value : undefined,
-}));
+const tooltipStyles = computed(() => {
+  if (useragentSupportsAnchorApi.value) {
+    return {
+      width: tooltipWidth.value,
+      "position-anchor": anchorName.value,
+      "position-area": positionAndAlignment.value,
+    };
+  }
+
+  // fallback styles if browser does not support the Anchor API yet
+  return {
+    width: tooltipWidth.value,
+    left: leftPosition.value,
+    top: topPosition.value,
+  };
+});
 </script>
 
 <template>

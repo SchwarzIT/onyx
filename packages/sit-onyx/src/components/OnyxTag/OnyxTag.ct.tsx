@@ -69,11 +69,11 @@ test("should truncate text", async ({ mount }) => {
 });
 test("should render non-interactive tag without event", async ({ mount }) => {
   const component = await mount(<OnyxTag label="Tag" />);
-  await expect(component).not.toHaveClass(/onyx-tag--interactive/);
+  await expect(component).not.toContainClass("onyx-tag--interactive");
 });
 
 test("should render interactive tag with clickable prop", async ({ mount }) => {
   const component = await mount(<OnyxTag label="Tag" clickable="clickable" />);
   const interactiveTag = component.getByRole("button", { name: "Tag" });
-  await expect(interactiveTag).toHaveClass(/onyx-tag--interactive/);
+  await expect(interactiveTag).toContainClass("onyx-tag--interactive");
 });

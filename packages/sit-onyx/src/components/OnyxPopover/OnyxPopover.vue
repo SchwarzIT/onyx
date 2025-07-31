@@ -60,16 +60,15 @@ defineExpose({
 const disabled = computed(() => props.disabled);
 
 const positionAndAlignment = computed(() => {
-  let returnPosition = popoverPosition.value;
   if (popoverPosition.value === "top" || popoverPosition.value === "bottom") {
     if (popoverAlignment.value === "left") {
-      returnPosition = popoverPosition.value + " " + "x-start";
+      return popoverPosition.value + " " + "span-right";
     }
     if (popoverAlignment.value === "right") {
-      returnPosition = popoverPosition.value + " " + "x-end";
+      return popoverPosition.value + " " + "span-left";
     }
   }
-  return returnPosition;
+  return popoverPosition.value;
 });
 
 const popoverRef = useTemplateRef("popover");
@@ -81,26 +80,18 @@ const { openAlignment, updateOpenAlignment } = useOpenAlignment(
   popoverRef,
   "left",
 );
-const {
-  leftPosition,
-  topPosition,
-  updateAnchorPositionPolyfill,
-  useragentSupportsAnchorApi: userAgentSupportsAnchorApi,
-} = useAnchorPositionPolyfill({
-  positionedRef: popoverRef,
-  targetRef: popoverWrapperRef,
-  positionArea: popoverPosition,
-  alignment: popoverAlignment,
-  alignsWithEdge: true,
-  fitParent: false,
-  offset: 8,
-});
+const { leftPosition, topPosition, updateAnchorPositionPolyfill, useragentSupportsAnchorApi } =
+  useAnchorPositionPolyfill({
+    positionedRef: popoverRef,
+    targetRef: popoverWrapperRef,
+    positionArea: popoverPosition,
+    alignment: popoverAlignment,
+    alignsWithEdge: true,
+    fitParent: false,
+    offset: 8,
+  });
 
 const { width } = useResizeObserver(popoverWrapperRef);
-
-const popoverWidth = computed(() =>
-  props.fitParent && popoverWrapperRef.value ? `${width.value}px` : "max-content",
-);
 
 const handleOpening = (open: boolean) => {
   if (open) {
@@ -122,14 +113,14 @@ useGlobalEventListener({
 onMounted(() => {
   handleOpening(isVisible.value);
   updateDirections();
-  if (!userAgentSupportsAnchorApi.value) updateAnchorPositionPolyfill();
+  if (!useragentSupportsAnchorApi.value) updateAnchorPositionPolyfill();
 });
 
 watch(isVisible, async (newVal) => {
   await nextTick();
   handleOpening(newVal);
   updateDirections();
-  if (!userAgentSupportsAnchorApi.value) updateAnchorPositionPolyfill();
+  if (!useragentSupportsAnchorApi.value) updateAnchorPositionPolyfill();
 });
 
 const toggle = () => {
@@ -152,7 +143,7 @@ const popoverClasses = computed(() => {
     [`onyx-popover__dialog--alignment-${popoverAlignment.value}`]: true,
     "onyx-popover__dialog--fitparent": props.fitParent,
     "onyx-popover__dialog--disabled": disabled.value,
-    "onyx-popover__dialog--dont-support-anchor": !userAgentSupportsAnchorApi.value,
+    "onyx-popover__dialog--dont-support-anchor": !useragentSupportsAnchorApi.value,
   };
 });
 watch(disabled, () => {
@@ -160,21 +151,32 @@ watch(disabled, () => {
     _isVisible.value = false;
   }
 });
-watch([popoverPosition, popoverAlignment, popoverWidth], async () => {
-  if (!userAgentSupportsAnchorApi.value) {
+watch([popoverPosition, popoverAlignment, width], async () => {
+  if (!useragentSupportsAnchorApi.value) {
     await nextTick();
     updateDirections();
     updateAnchorPositionPolyfill();
   }
 });
 
-const popoverStyles = computed(() => ({
-  "position-anchor": anchorName.value,
-  "position-area": positionAndAlignment.value,
-  width: props.fitParent ? popoverWidth.value : undefined,
-  left: !userAgentSupportsAnchorApi.value ? leftPosition.value : undefined,
-  top: !userAgentSupportsAnchorApi.value ? topPosition.value : undefined,
-}));
+const popoverStyles = computed(() => {
+  const _width = props.fitParent ? `${width.value}px` : undefined;
+
+  if (useragentSupportsAnchorApi.value) {
+    return {
+      width: _width,
+      "position-anchor": anchorName.value,
+      "position-area": positionAndAlignment.value,
+    };
+  }
+
+  // fallback styles if browser does not support the Anchor API yet
+  return {
+    width: _width,
+    left: leftPosition.value,
+    top: topPosition.value,
+  };
+});
 </script>
 
 <template>
@@ -262,30 +264,10 @@ const popoverStyles = computed(() => ({
         margin-bottom: var(--onyx-popover-gap);
         margin-right: var(--onyx-popover-gap);
       }
-
-      &--alignment-left {
-        &.onyx-popover__dialog--position-top,
-        &.onyx-popover__dialog--position-bottom {
-          transform: translateX(100%);
-          &.onyx-popover__dialog--dont-support-anchor {
-            transform: none;
-          }
-        }
-      }
-      &--alignment-right {
-        &.onyx-popover__dialog--position-top,
-        &.onyx-popover__dialog--position-bottom {
-          transform: translateX(-100%);
-          &.onyx-popover__dialog--dont-support-anchor {
-            transform: none;
-          }
-        }
-      }
       &--fitparent {
         min-width: inherit;
         max-width: inherit;
       }
-
       &--dont-support-anchor {
         margin: 0;
       }

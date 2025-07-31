@@ -1,5 +1,19 @@
 # sit-onyx
 
+## 1.0.0-beta.283
+
+### Minor Changes
+
+- 405fa0f: feat(OnyxFileCard): implement `status`, `icon` and `skeleton` property
+
+## 1.0.0-beta.282
+
+### Patch Changes
+
+- a9f9321: fix(OnyxPopover): correctly position popover in some browsers
+
+  Removed CSS `transform` when positioning the popover which caused the popover to be misaligned in some cases for some browsers (e.g. Safari)
+
 ## 1.0.0-beta.281
 
 ### Major Changes

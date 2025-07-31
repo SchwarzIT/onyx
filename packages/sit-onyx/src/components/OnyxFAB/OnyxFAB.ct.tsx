@@ -99,3 +99,42 @@ test.describe("Screenshot tests (options, icons only)", () => {
     hooks: optionsHooks,
   });
 });
+
+test.describe("Popover API (webkit)", () => {
+  test.use({ userAgent: "My user agent" });
+
+  test("webkit popover API", async ({ mount, page, browserName }) => {
+    // eslint-disable-next-line playwright/no-skipped-test -- ---- webkit does not fully support the Popover API
+    test.skip(browserName !== "webkit", "only webkit currently has issues with the Popover API");
+
+    await page.setViewportSize({ height: 512, width: 256 });
+
+    // ARRANGE
+    await mount(
+      <div style={{ fontFamily: "var(--onyx-font-family)" }}>
+        <p>
+          This test is only executed for the webkit browser since it does currently not
+          fully/correctly support the Popover API. We currently apply a fix for this by always using
+          the onyx useAnchorPositionPolyfill if the user agent is safari. This test is intended to
+          look broken until webkit correctly supports the Popover API.
+        </p>
+
+        <p>
+          <strong>
+            If this test looks correctly in the future, we can remove the workaround / user agent
+            detection inside useAnchorPositionPolyfill.
+          </strong>
+        </p>
+
+        <OnyxFAB label="Label" open>
+          <OnyxFABItem label="Option 3" hideLabel icon={mockPlaywrightIcon} />
+          <OnyxFABItem label="Option 2" hideLabel icon={mockPlaywrightIcon} />
+          <OnyxFABItem label="Option 1" hideLabel icon={mockPlaywrightIcon} />
+        </OnyxFAB>
+      </div>,
+    );
+
+    // ASSERT
+    await expect(page).toHaveScreenshot("webkit-popover-api.png");
+  });
+});

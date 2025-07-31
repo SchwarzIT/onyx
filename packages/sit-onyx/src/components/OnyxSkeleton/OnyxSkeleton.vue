@@ -19,6 +19,8 @@ onMounted(() => requestAnimationSync("onyx-skeleton"));
     // inherit size by default if not set explicitly
     height: 100%;
     width: 100%;
+    max-width: 100%;
+    max-height: 100%;
 
     background: linear-gradient(
       to right,
