@@ -1,7 +1,6 @@
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { Plugin } from "vite";
-import { toCamelCase } from "./utils.js";
 
 export type PluginOptions = {
   /**
@@ -21,11 +20,10 @@ export type PluginOptions = {
   /**
    * Modifies the export name for a given SVG.
    *
-   * @param name Java-Script safe export name in camelCase, e.g. "myFile"
-   * @param rawName The raw SVG file name, e.g. "my-file.svg"
+   * @param rawName The raw SVG file name (without .svg suffix), e.g. "my-file.svg"
    * @returns
    */
-  modifyExportName?: (name: string, rawName: string) => string;
+  modifyExportName?: (rawName: string) => string;
 };
 
 /**
@@ -52,11 +50,7 @@ export default function vitePluginSVG(options: PluginOptions): Plugin {
         .filter((file) => file.endsWith(".svg"))
         .map((fileName) => {
           const baseName = fileName.replace(".svg", "");
-          let exportName = toCamelCase(baseName);
-          if (options.modifyExportName) {
-            exportName = options.modifyExportName(exportName, baseName);
-          }
-
+          const exportName = options.modifyExportName?.(baseName) ?? baseName;
           return { fileName, exportName };
         });
 

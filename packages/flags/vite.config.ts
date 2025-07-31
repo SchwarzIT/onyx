@@ -5,6 +5,7 @@ import { DiagnosticCategory } from "typescript";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 import { viteStaticCopy } from "vite-plugin-static-copy";
+import { getFlagImportName } from "./src/utils.js";
 
 // https://vitejs.dev/config
 export default defineConfig({
@@ -13,7 +14,7 @@ export default defineConfig({
     svg({
       base: import.meta.url,
       input: "src/assets",
-      modifyExportName: (name, rawName) => `flag${rawName.replaceAll("-", "_")}`,
+      modifyExportName: (name) => getFlagImportName(name),
     }),
     dts({
       afterDiagnostic: async (diagnostics) => {

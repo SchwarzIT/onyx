@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import * as ALL_ICONS from "@sit-onyx/icons";
 import {
   capitalize,
   getIconImportName,
@@ -9,18 +10,12 @@ import type { Asset, AssetLibraryGroup } from "./AssetLibrary.vue";
 import AssetLibrary from "./AssetLibrary.vue";
 import AssetLibraryItem from "./AssetLibraryItem.vue";
 
-const ALL_ICONS = import.meta.glob("../../../node_modules/@sit-onyx/icons/src/assets/*.svg", {
-  query: "?raw",
-  import: "default",
-  eager: true,
-}) as Record<string, string>;
-
 const assetGroups = Object.entries(groupIconsByCategory(ICON_METADATA)).map<AssetLibraryGroup>(
   ([category, icons]) => {
     return {
       name: category,
       assets: icons.map<Asset>((icon) => ({
-        id: icon.iconName,
+        id: getIconImportName(icon.iconName),
         aliases: icon.metadata.aliases,
         name: icon.iconName
           .split("-")
@@ -30,10 +25,6 @@ const assetGroups = Object.entries(groupIconsByCategory(ICON_METADATA)).map<Asse
     };
   },
 );
-
-const getSvgContent = (iconName: string) => {
-  return ALL_ICONS[`../../../node_modules/@sit-onyx/icons/src/assets/${iconName}.svg`];
-};
 </script>
 
 <template>
@@ -41,9 +32,9 @@ const getSvgContent = (iconName: string) => {
     <template #item="{ asset: icon }">
       <AssetLibraryItem
         :tooltip-text="icon.name"
-        :content="getSvgContent(icon.id)"
-        :clipboard-value="`import ${getIconImportName(icon.id)} from &quot;@sit-onyx/icons/${icon.id}.svg?raw&quot;`"
-        :success-message="`Import for icon &quot;${getIconImportName(icon.id)}&quot; has been copied to your clipboard.`"
+        :content="ALL_ICONS[icon.id]"
+        :clipboard-value="`import { ${icon.id} } from &quot;@sit-onyx/icons&quot;`"
+        :success-message="`Import for &quot;${icon.id}&quot; has been copied to your clipboard.`"
       />
     </template>
   </AssetLibrary>
