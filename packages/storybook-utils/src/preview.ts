@@ -179,24 +179,42 @@ export const sourceCodeTransformer = async (originalSourceCode: string): Promise
     additionalImports.unshift(`import { ${usedOnyxComponents.join(", ")} } from "sit-onyx";`);
   }
 
-  if (additionalImports.length === 0) return code;
-
-  if (code.startsWith("<script")) {
-    const index = code.indexOf("\n");
-    const hasOtherImports = code.includes("import {");
-    return (
-      code.slice(0, index) +
-      additionalImports.join("\n") +
-      (!hasOtherImports ? "\n" : "") +
-      code.slice(index)
-    );
-  }
-
-  return `<script lang="ts" setup>
+  if (additionalImports.length > 1) {
+    if (code.startsWith("<script")) {
+      const index = code.indexOf("\n");
+      const hasOtherImports = code.includes("import {");
+      code =
+        code.slice(0, index) +
+        additionalImports.join("\n") +
+        (!hasOtherImports ? "\n" : "") +
+        code.slice(index);
+    } else {
+      code = `<script lang="ts" setup>
 ${additionalImports.join("\n")}
 </script>
 
 ${code}`;
+    }
+  }
+
+  try {
+    const { format } = await import("prettier/standalone");
+    const parserHtml = await import("prettier/parser-html");
+
+    code = await format(code, {
+      parser: "vue",
+      plugins: [parserHtml],
+      htmlWhitespaceSensitivity: "ignore",
+    });
+
+    // trim code to remove trailing newlines that are added by prettier
+    code = code.trim();
+  } catch (e) {
+    // eslint-disable-next-line no-console -- if the formatting fails, there is usually an issue with our code so we want to inform the user that the formatting failed
+    console.error("Error while formatting Storybook code snippet:", e);
+  }
+
+  return code;
 };
 
 /**

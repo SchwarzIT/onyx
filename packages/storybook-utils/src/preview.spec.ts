@@ -18,9 +18,13 @@ import { iconBellRing, iconCalendar, iconPlaceholder } from "@sit-onyx/icons";
 </script>
 
 <template>
-<OnyxTest :icon="iconPlaceholder" :test="iconBellRing" :obj="{foo:iconCalendar}" />
-<OnyxOtherComponent />
-<OnyxComp>Test</OnyxComp>
+  <OnyxTest
+    :icon="iconPlaceholder"
+    :test="iconBellRing"
+    :obj="{foo:iconCalendar}"
+  />
+  <OnyxOtherComponent />
+  <OnyxComp>Test</OnyxComp>
 </template>`);
   });
 });
