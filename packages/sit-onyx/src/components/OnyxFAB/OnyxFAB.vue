@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import moreHorizontalSmall from "@sit-onyx/icons/more-horizontal-small.svg?raw";
-import x from "@sit-onyx/icons/x.svg?raw";
+import { iconMoreHorizontalSmall, iconX } from "@sit-onyx/icons";
 import { computed } from "vue";
 import { useDensity } from "../../composables/density.js";
 import {
@@ -50,7 +49,7 @@ const hasOptions = computed(() => !!slots.default);
 
 const triggerIcon = computed(() => {
   if (!hasOptions.value) return props.icon;
-  return isExpanded.value ? x : moreHorizontalSmall;
+  return isExpanded.value ? iconX : iconMoreHorizontalSmall;
 });
 </script>
 

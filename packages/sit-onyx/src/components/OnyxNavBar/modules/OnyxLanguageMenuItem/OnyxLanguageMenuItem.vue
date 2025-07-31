@@ -1,5 +1,5 @@
 <script lang="ts" setup generic="TValue extends string">
-import translate from "@sit-onyx/icons/translate.svg?raw";
+import { iconTranslate } from "@sit-onyx/icons";
 import { computed, ref } from "vue";
 import { injectI18n } from "../../../../i18n/index.js";
 import { OnyxSelectDialog } from "../../../../index.js";
@@ -23,7 +23,7 @@ const currentValueLabel = computed(() => {
 
 <template>
   <OnyxMenuItem class="onyx-component onyx-language-menu-item" @click="isOpen = true">
-    <OnyxIcon :icon="translate" />
+    <OnyxIcon :icon="iconTranslate" />
 
     <div>
       {{ t("languageSelect.label") }}:

@@ -1,6 +1,4 @@
-import circleBlock from "@sit-onyx/icons/circle-block.svg?raw";
-import listArrowDown from "@sit-onyx/icons/list-arrow-down.svg?raw";
-import listArrowUp from "@sit-onyx/icons/list-arrow-up.svg?raw";
+import { iconCircleBlock, iconListArrowDown, iconListArrowUp } from "@sit-onyx/icons";
 import { computed, h, toRef, toValue, type Ref } from "vue";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxMenuItem from "../../../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
@@ -89,9 +87,9 @@ export const useSorting = <TEntry extends DataGridEntry>(options?: SortOptions<T
 
     const getMenuItem = (column: keyof DataGridEntry, direction: SortDirection) => {
       const iconMap = {
-        none: circleBlock,
-        asc: listArrowUp,
-        desc: listArrowDown,
+        none: iconCircleBlock,
+        asc: iconListArrowUp,
+        desc: iconListArrowDown,
       } satisfies Record<SortDirection, string>;
 
       return h(

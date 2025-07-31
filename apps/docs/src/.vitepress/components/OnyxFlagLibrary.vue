@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { FLAG_METADATA, groupFlagsByContinent } from "@sit-onyx/flags";
+import { FLAG_METADATA, groupFlagsByContinent } from "@sit-onyx/flags/utils";
 import type { Asset, AssetLibraryGroup } from "./AssetLibrary.vue";
 import AssetLibrary from "./AssetLibrary.vue";
 import AssetLibraryItem from "./AssetLibraryItem.vue";

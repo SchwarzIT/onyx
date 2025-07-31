@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import circleContrast from "@sit-onyx/icons/circle-contrast.svg?raw";
+import { iconCircleContrast } from "@sit-onyx/icons";
 import { extractLinkProps, type ColorSchemeValue } from "sit-onyx";
 
 const { onyxDocs } = useAppConfig();
@@ -29,7 +29,7 @@ const colorScheme = computed({
     <template #contextArea>
       <OnyxIconButton
         label="Toggle color scheme"
-        :icon="circleContrast"
+        :icon="iconCircleContrast"
         color="neutral"
         @click="isColorSchemeDialogOpen = true"
       />

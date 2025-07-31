@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { createMenuItems } from "@sit-onyx/headless";
-import arrowSmallLeft from "@sit-onyx/icons/arrow-small-left.svg?raw";
-import chevronRightSmall from "@sit-onyx/icons/chevron-right-small.svg?raw";
+import { iconArrowSmallLeft, iconChevronRightSmall } from "@sit-onyx/icons";
 import { computed, nextTick, useTemplateRef, withModifiers } from "vue";
 import { useLink } from "../../../../composables/useLink.js";
 import { useVModel } from "../../../../composables/useVModel.js";
@@ -132,7 +131,7 @@ const handleBackButtonKeydown = async (event: KeyboardEvent) => {
       </slot>
 
       <div v-if="hasChildren" class="onyx-menu-item__chevron">
-        <OnyxIcon :icon="chevronRightSmall" size="24px" />
+        <OnyxIcon :icon="iconChevronRightSmall" size="24px" />
       </div>
     </ButtonOrLinkLayout>
 
@@ -143,7 +142,7 @@ const handleBackButtonKeydown = async (event: KeyboardEvent) => {
         @keydown="handleBackButtonKeydown"
         @click.stop="open = false"
       >
-        <OnyxIcon :icon="arrowSmallLeft" />
+        <OnyxIcon :icon="iconArrowSmallLeft" />
         {{ t("back") }}
       </OnyxMenuItem>
       <slot name="children"></slot>

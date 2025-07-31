@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import xSmall from "@sit-onyx/icons/x-small.svg?raw";
+import { iconXSmall } from "@sit-onyx/icons";
 import { OnyxButton, OnyxHeadline, OnyxSidebar } from "sit-onyx";
 
 const isOpen = defineModel<boolean>();
@@ -23,7 +23,7 @@ defineSlots<{
     </div>
 
     <template v-if="isClosable" #footer>
-      <OnyxButton :icon="xSmall" label="Close" @click="isOpen = false" />
+      <OnyxButton :icon="iconXSmall" label="Close" @click="isOpen = false" />
     </template>
   </OnyxSidebar>
 </template>

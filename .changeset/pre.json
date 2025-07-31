@@ -17,7 +17,8 @@
     "@sit-onyx/nuxt": "0.0.0",
     "@sit-onyx/playwright-utils": "0.0.0",
     "@sit-onyx/shared": "1.0.0",
-    "@sit-onyx/nuxt-docs": "0.0.0"
+    "@sit-onyx/nuxt-docs": "0.0.0",
+    "@sit-onyx/vite-plugin-svg": "0.0.0"
   },
   "changesets": [
     "afraid-avocados-hear",
@@ -103,6 +104,7 @@
     "dry-parts-glow",
     "dull-kids-drum",
     "dull-pandas-travel",
+    "dull-teams-drum",
     "early-tools-melt",
     "early-wasps-warn",
     "eight-eyes-switch",
@@ -200,6 +202,7 @@
     "great-cameras-give",
     "great-months-serve",
     "great-walls-juggle",
+    "green-monkeys-hide",
     "grumpy-cows-sleep",
     "grumpy-donkeys-run",
     "grumpy-lines-cheer",
@@ -427,6 +430,7 @@
     "silent-files-argue",
     "silly-avocados-drop",
     "silly-candles-switch",
+    "silly-turtles-make",
     "silly-waves-applaud",
     "silver-berries-shave",
     "silver-birds-dress",
@@ -568,6 +572,7 @@
     "tricky-kids-bake",
     "tricky-llamas-attack",
     "tricky-seas-retire",
+    "twelve-boxes-rest",
     "twelve-impalas-create",
     "twelve-peas-yawn",
     "twenty-apricots-double",

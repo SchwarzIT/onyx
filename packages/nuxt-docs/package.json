@@ -1,6 +1,6 @@
 {
   "name": "@sit-onyx/nuxt-docs",
-  "version": "1.0.0-beta.95",
+  "version": "1.0.0-beta.97",
   "description": "Nuxt layer/template for creating documentations with the onyx design system",
   "type": "module",
   "author": "Schwarz IT KG",
@@ -10,11 +10,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/schwarzit/onyx",
+    "url": "https://github.com/SchwarzIT/onyx",
     "directory": "packages/nuxt-docs"
   },
   "bugs": {
-    "url": "https://github.com/schwarzit/onyx/issues"
+    "url": "https://github.com/SchwarzIT/onyx/issues"
   },
   "main": "./nuxt.config.ts",
   "files": [

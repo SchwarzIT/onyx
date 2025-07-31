@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import moreVertical from "@sit-onyx/icons/more-vertical.svg?raw";
+import { iconMoreVertical } from "@sit-onyx/icons";
 import {
   OnyxButton,
   OnyxCard,
@@ -31,7 +31,7 @@ import {
 
       <OnyxFlyoutMenu label="Actions" trigger="click">
         <template #button="{ trigger }">
-          <OnyxSystemButton v-bind="trigger" :icon="moreVertical" label="Open link" />
+          <OnyxSystemButton v-bind="trigger" :icon="iconMoreVertical" label="Open link" />
         </template>
 
         <template #options>

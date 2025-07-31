@@ -1,5 +1,27 @@
 # @sit-onyx/nuxt
 
+## 1.0.0-beta.286
+
+### Patch Changes
+
+- Updated dependencies [5cdbe8c]
+  - sit-onyx@1.0.0-beta.285
+
+## 1.0.0-beta.285
+
+### Patch Changes
+
+- 5e81385: fix(nuxt): always provide onyx plugin
+
+  Previously, the onyx plugin was only registered if Nuxt I18n was used.
+  This caused the issue that the router integration did not work when not using i18n.
+
+## 1.0.0-beta.284
+
+### Patch Changes
+
+- sit-onyx@1.0.0-beta.284
+
 ## 1.0.0-beta.283
 
 ### Patch Changes

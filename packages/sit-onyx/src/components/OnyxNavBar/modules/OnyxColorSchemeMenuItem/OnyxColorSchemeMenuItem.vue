@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import circleContrast from "@sit-onyx/icons/circle-contrast.svg?raw";
+import { iconCircleContrast } from "@sit-onyx/icons";
 import { ref } from "vue";
 import { injectI18n } from "../../../../i18n/index.js";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
@@ -21,7 +21,7 @@ const isOpen = ref(false);
 
 <template>
   <OnyxMenuItem class="onyx-component onyx-color-scheme-menu-item" @click="isOpen = true">
-    <OnyxIcon :icon="circleContrast" />
+    <OnyxIcon :icon="iconCircleContrast" />
 
     <div>
       {{ t("colorScheme.appearance") }}:

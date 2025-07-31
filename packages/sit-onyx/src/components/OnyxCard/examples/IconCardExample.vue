@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import calendarClock from "@sit-onyx/icons/calendar-clock.svg?raw";
-import moreVertical from "@sit-onyx/icons/more-vertical.svg?raw";
+import { iconCalendarClock, iconMoreVertical } from "@sit-onyx/icons";
 import {
   OnyxCard,
   OnyxFlyoutMenu,
@@ -13,7 +12,7 @@ import {
 
 <template>
   <OnyxCard class="card">
-    <OnyxIcon color="primary" :icon="calendarClock" size="64px" />
+    <OnyxIcon color="primary" :icon="iconCalendarClock" size="64px" />
 
     <div>
       <div class="card__content">
@@ -21,7 +20,7 @@ import {
 
         <OnyxFlyoutMenu label="Actions" trigger="click">
           <template #button="{ trigger }">
-            <OnyxSystemButton v-bind="trigger" :icon="moreVertical" label="Open link" />
+            <OnyxSystemButton v-bind="trigger" :icon="iconMoreVertical" label="Open link" />
           </template>
 
           <template #options>

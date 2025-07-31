@@ -1,9 +1,5 @@
 <script lang="ts" setup>
-import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
-import eyeClosed from "@sit-onyx/icons/eye-closed.svg?raw";
-import eye from "@sit-onyx/icons/eye.svg?raw";
-
-import xSmall from "@sit-onyx/icons/x-small.svg?raw";
+import { iconCheckSmall, iconEye, iconEyeClosed, iconXSmall } from "@sit-onyx/icons";
 import { computed, ref, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
@@ -164,13 +160,13 @@ const displayType = computed(() => {
             tabindex="-1"
             @click="() => (modelValue = '')"
           >
-            <OnyxIcon :icon="xSmall" />
+            <OnyxIcon :icon="iconXSmall" />
           </button>
 
           <OnyxIcon
             v-if="!props.hideSuccessIcon && successMessages"
             class="onyx-input__check-icon"
-            :icon="checkSmall"
+            :icon="iconCheckSmall"
             color="success"
           />
 
@@ -181,7 +177,7 @@ const displayType = computed(() => {
           <slot name="trailing">
             <OnyxSystemButton
               v-if="props.type === 'password'"
-              :icon="showPassword ? eyeClosed : eye"
+              :icon="showPassword ? iconEyeClosed : iconEye"
               :label="showPassword ? t('input.hidePassword') : t('input.showPassword')"
               tabindex="-1"
               color="soft"

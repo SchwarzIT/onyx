@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import circleAttention from "@sit-onyx/icons/circle-attention.svg?raw";
+import { iconCircleAttention } from "@sit-onyx/icons";
 import { OnyxButton, OnyxNotifications, useNotification } from "../../../index.js";
 
 const notification = useNotification();
@@ -18,7 +18,7 @@ const showExampleNotifications = () => {
     headline: "Example notification 2",
     description:
       "Lorem ipsum dolor sit amet consectetur. Dui purus quisque est varius vulputate. Ut odio dui diam pulvinar velit mollis cursus eu ut.",
-    icon: circleAttention,
+    icon: iconCircleAttention,
   });
   notification.show({
     headline: "Example notification 3",

@@ -1,4 +1,4 @@
-import menu from "@sit-onyx/icons/menu.svg?raw";
+import { iconMenu } from "@sit-onyx/icons";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { defineIconSelectArgType } from "../../utils/storybook.js";
 import OnyxMobileNavButton from "./OnyxMobileNavButton.vue";
@@ -31,7 +31,7 @@ type Story = StoryObj<typeof OnyxMobileNavButton>;
 export const Default = {
   args: {
     label: "Toggle burger menu",
-    icon: menu,
+    icon: iconMenu,
     default: "Menu slot content...",
   },
 } satisfies Story;

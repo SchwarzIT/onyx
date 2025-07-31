@@ -1,4 +1,4 @@
-import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
+import { iconCheckSmall } from "@sit-onyx/icons";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { defineIconSelectArgType } from "../../utils/storybook.js";
@@ -83,7 +83,7 @@ export const Loading = {
 export const WithIcon = {
   args: {
     label: "Button",
-    icon: checkSmall,
+    icon: iconCheckSmall,
   },
 } satisfies Story;
 

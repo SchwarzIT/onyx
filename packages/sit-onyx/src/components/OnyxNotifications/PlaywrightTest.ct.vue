@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import circleAttention from "@sit-onyx/icons/circle-attention.svg?raw";
+import { iconCircleAttention } from "@sit-onyx/icons";
 import { onMounted } from "vue";
 import OnyxNotifications from "./OnyxNotifications.vue";
 import { useNotification } from "./useNotification.js";
@@ -22,7 +22,7 @@ onMounted(() => {
     description:
       "Lorem ipsum dolor sit amet consectetur. Dui purus quisque est varius vulputate. Ut odio dui diam pulvinar velit mollis cursus eu ut.",
     duration: 0,
-    icon: circleAttention,
+    icon: iconCircleAttention,
   });
   notification.show({
     headline: "Example notification 3",

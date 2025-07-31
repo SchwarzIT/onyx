@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import circleInformation from "@sit-onyx/icons/circle-information.svg?raw";
+import { iconCircleInformation } from "@sit-onyx/icons";
 import { computed } from "vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
@@ -30,7 +30,7 @@ const type = computed(() => {
               // if type is `click` aria-label will always be defined
               trigger['aria-label']!
             "
-            :icon="circleInformation"
+            :icon="iconCircleInformation"
             class="onyx-info-tooltip__trigger"
             color="soft"
             v-bind="trigger"
@@ -43,7 +43,7 @@ const type = computed(() => {
       <OnyxTooltip aria-hidden="true" v-bind="props">
         <template #default="{ trigger }">
           <span class="onyx-info-tooltip__trigger" v-bind="trigger">
-            <OnyxIcon :icon="circleInformation" />
+            <OnyxIcon :icon="iconCircleInformation" />
           </span>
         </template>
       </OnyxTooltip>

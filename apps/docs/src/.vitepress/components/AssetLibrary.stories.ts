@@ -1,4 +1,4 @@
-import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
+import { iconPlaceholder } from "@sit-onyx/icons";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
 import AssetLibrary from "./AssetLibrary.vue";
@@ -36,7 +36,7 @@ export const Default = {
     item: ({ asset }) =>
       h(AssetLibraryItem, {
         tooltipText: asset.name,
-        content: placeholder,
+        content: iconPlaceholder,
         clipboardValue: "Clipboard value",
         successMessage: `Successfully copied "${asset.name}" to clipboard`,
       }),

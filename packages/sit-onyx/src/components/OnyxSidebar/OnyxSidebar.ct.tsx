@@ -45,34 +45,41 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
   await expect(component).toHaveScreenshot("default.png");
 });
 
-test("should render as drawer", async ({ mount, page, makeAxeBuilder }) => {
-  let closeEventCount = 0;
+for (const type of ["left", "right", "floating"] as const) {
+  test(`should render as temporary (${type})`, async ({ mount, page, makeAxeBuilder }) => {
+    let closeEventCount = 0;
 
-  // ARRANGE
-  await mount(
-    <OnyxSidebar label="Example headline" drawer={{ open: true }} onClose={() => closeEventCount++}>
-      {CONTENT}
-    </OnyxSidebar>,
-  );
+    // ARRANGE
+    await mount(
+      <OnyxSidebar
+        label="Example headline"
+        temporary={{ open: true, floating: type === "floating" }}
+        onClose={() => closeEventCount++}
+        alignment={type === "right" ? "right" : "left"}
+      >
+        {CONTENT}
+      </OnyxSidebar>,
+    );
 
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
+    // ACT
+    const accessibilityScanResults = await makeAxeBuilder().analyze();
 
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
+    // ASSERT
+    expect(accessibilityScanResults.violations).toEqual([]);
 
-  // ASSERT
-  await expect(page).toHaveScreenshot("drawer.png");
-  expect(closeEventCount).toBe(0);
+    // ASSERT
+    await expect(page).toHaveScreenshot(`temporary-${type}.png`);
+    expect(closeEventCount).toBe(0);
 
-  // ACT
-  await page.getByRole("button", { name: "Close dialog" }).click();
+    // ACT
+    await page.getByRole("button", { name: "Close dialog" }).click();
 
-  // ASSERT
-  expect(closeEventCount).toBe(1);
-});
+    // ASSERT
+    expect(closeEventCount).toBe(1);
+  });
+}
 
-["default", "drawer"].forEach((type) => {
+["default", "temporary"].forEach((type) => {
   test(`should support resizing (${type})`, async ({ page, mount, makeAxeBuilder }) => {
     const viewportWidth = 512;
 
@@ -83,7 +90,7 @@ test("should render as drawer", async ({ mount, page, makeAxeBuilder }) => {
       <OnyxSidebar
         collapseSidebar={false}
         label="Label"
-        drawer={type === "drawer" ? { open: true } : undefined}
+        temporary={type === "temporary" ? { open: true } : undefined}
         resizable
       >
         {CONTENT}
@@ -128,7 +135,7 @@ test("should render as drawer", async ({ mount, page, makeAxeBuilder }) => {
   });
 });
 
-["default", "drawer"].forEach((type) => {
+["default", "temporary"].forEach((type) => {
   test(`should support resizing right aligned (${type})`, async ({
     page,
     mount,
@@ -149,7 +156,7 @@ test("should render as drawer", async ({ mount, page, makeAxeBuilder }) => {
     const component = await mount(
       <OnyxSidebar
         label="Label"
-        drawer={type === "drawer" ? { open: true } : undefined}
+        temporary={type === "temporary" ? { open: true } : undefined}
         alignment="right"
         resizable
         collapseSidebar={false}

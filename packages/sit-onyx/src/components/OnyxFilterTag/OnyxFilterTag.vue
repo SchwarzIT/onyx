@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import xSmall from "@sit-onyx/icons/x-small.svg?raw";
+import { iconXSmall } from "@sit-onyx/icons";
 import { computed } from "vue";
 import {
   SKELETON_INJECTED_SYMBOL,
@@ -49,7 +49,7 @@ const skeleton = useSkeletonContext(props);
 <template>
   <OnyxTag
     v-bind="props"
-    :clickable="{ label: tooltipLabel, actionIcon: active ? xSmall : undefined }"
+    :clickable="{ label: tooltipLabel, actionIcon: active ? iconXSmall : undefined }"
     class="onyx-filter-tag"
     :skeleton="skeleton"
     @click="

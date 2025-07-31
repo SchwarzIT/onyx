@@ -1,4 +1,4 @@
-import searchX from "@sit-onyx/icons/search-x.svg?raw";
+import { iconSearchX } from "@sit-onyx/icons";
 import { computed, h, toRef, toValue, type Ref } from "vue";
 import type { Nullable } from "../../../../types/index.js";
 import { removeDiacritics } from "../../../../utils/strings.js";
@@ -114,7 +114,7 @@ export const useFiltering = <TEntry extends DataGridEntry>(options?: FilterOptio
                       label: i18n.t.value("dataGrid.head.filtering.removeLabel", {
                         column: column.toString(),
                       }),
-                      icon: searchX,
+                      icon: iconSearchX,
                       color: "medium",
                       onClick: () => clearFilter(column),
                     }),

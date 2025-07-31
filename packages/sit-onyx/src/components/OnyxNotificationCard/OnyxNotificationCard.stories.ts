@@ -1,6 +1,4 @@
-import checkSmall from "@sit-onyx/icons/check-small.svg?raw";
-import circleAttention from "@sit-onyx/icons/circle-attention.svg?raw";
-import trash from "@sit-onyx/icons/trash.svg?raw";
+import { iconCheckSmall, iconCircleAttention, iconTrash } from "@sit-onyx/icons";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
 import { defineIconSelectArgType } from "../../utils/storybook.js";
@@ -30,7 +28,7 @@ export const Default = {
     style: "width: 32rem",
     headline: "Example notification",
     createdAt: new Date(),
-    icon: circleAttention,
+    icon: iconCircleAttention,
     default:
       "Lorem ipsum dolor sit amet consectetur. Dui purus quisque est varius vulputate. Ut odio dui diam pulvinar velit mollis cursus eu ut. Lorem ipsum dolor sit amet consectetur. Dui purus quisque est varius vulputate. Ut odio dui diam pulvinar velit mollis cursus eu ut. Lorem ipsum dolor sit amet consectetur. Dui purus quisque est varius vulputate. Ut odio dui diam pulvinar velit mollis cursus eu ut.",
   },
@@ -51,8 +49,8 @@ export const Actions = {
       h(OnyxButton, { label: "Button" }),
     ],
     headerActions: () => [
-      h(OnyxMenuItem, () => [h(OnyxIcon, { icon: checkSmall }), "Mark as read"]),
-      h(OnyxMenuItem, { color: "danger" }, () => [h(OnyxIcon, { icon: trash }), "Delete"]),
+      h(OnyxMenuItem, () => [h(OnyxIcon, { icon: iconCheckSmall }), "Mark as read"]),
+      h(OnyxMenuItem, { color: "danger" }, () => [h(OnyxIcon, { icon: iconTrash }), "Delete"]),
     ],
   },
 } satisfies Story;

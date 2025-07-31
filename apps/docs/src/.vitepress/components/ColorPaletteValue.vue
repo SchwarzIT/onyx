@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import copyIcon from "@sit-onyx/icons/copy.svg?raw";
+import { iconCopy } from "@sit-onyx/icons";
 import { OnyxIcon } from "sit-onyx";
 
 export type ColorPaletteValueProps = {
@@ -26,7 +26,7 @@ const emit = defineEmits<{
   <button type="button" class="step" @click="emit('select')">
     <div class="step__color" :class="{ 'step__color--with-border': props.showBorder }">
       <span v-if="props.name" class="step__name">{{ props.name }}</span>
-      <OnyxIcon class="step__icon" :icon="copyIcon" />
+      <OnyxIcon class="step__icon" :icon="iconCopy" />
     </div>
     <p class="step__description">{{ props.description }}</p>
   </button>

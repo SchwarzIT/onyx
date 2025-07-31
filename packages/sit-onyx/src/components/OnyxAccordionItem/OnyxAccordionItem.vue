@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import chevronDownSmall from "@sit-onyx/icons/chevron-down-small.svg?raw";
+import { iconChevronDownSmall } from "@sit-onyx/icons";
 import { computed, inject, watch } from "vue";
 import { useDensity } from "../../composables/density.js";
 import {
@@ -91,7 +91,7 @@ const panelId = computed(() => `panel-${props.value.toString()}`);
         <slot name="header"></slot>
       </div>
 
-      <OnyxIcon :icon="chevronDownSmall" class="onyx-accordion-item__header-icon" />
+      <OnyxIcon :icon="iconChevronDownSmall" class="onyx-accordion-item__header-icon" />
     </summary>
 
     <div :id="panelId" class="onyx-accordion-item__panel" role="region" :aria-labelledby="headerId">

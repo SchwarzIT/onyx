@@ -19,7 +19,10 @@ type Story = StoryObj<typeof OnyxSidebar>;
 
 export const Default = createAdvancedStoryExample("OnyxSidebar", "DefaultExample") satisfies Story;
 
-export const Drawer = createAdvancedStoryExample("OnyxSidebar", "DrawerExample") satisfies Story;
+export const Temporary = createAdvancedStoryExample(
+  "OnyxSidebar",
+  "TemporaryExample",
+) satisfies Story;
 
 export const Resizable = {
   ...createAdvancedStoryExample("OnyxSidebar", "ResizeExample"),

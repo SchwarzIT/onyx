@@ -1,4 +1,4 @@
-import happyIcon from "@sit-onyx/icons/emoji-happy-2.svg?raw";
+import { iconEmojiHappy2 } from "@sit-onyx/icons";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { defineIconSelectArgType, textColorDecorator } from "../../utils/storybook.js";
 import OnyxIcon from "./OnyxIcon.vue";
@@ -30,7 +30,7 @@ type Story = StoryObj<typeof OnyxIcon>;
  */
 export const Default = {
   args: {
-    icon: happyIcon,
+    icon: iconEmojiHappy2,
   },
 } satisfies Story;
 

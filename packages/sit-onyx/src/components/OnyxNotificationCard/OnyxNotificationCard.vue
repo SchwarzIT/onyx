@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import moreVertical from "@sit-onyx/icons/more-vertical.svg?raw";
+import { iconMoreVertical } from "@sit-onyx/icons";
 import { toRef } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useRelativeTimeFormat } from "../../composables/useRelativeTimeFormat.js";
@@ -74,7 +74,7 @@ const { timeAgo } = useRelativeTimeFormat({
                 <OnyxSystemButton
                   v-bind="trigger"
                   :label="t('notificationCard.toggleActions')"
-                  :icon="moreVertical"
+                  :icon="iconMoreVertical"
                 />
               </template>
 

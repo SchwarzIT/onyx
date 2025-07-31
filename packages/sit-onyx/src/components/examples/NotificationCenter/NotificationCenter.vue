@@ -1,9 +1,11 @@
 <script lang="ts" setup>
-import bell from "@sit-onyx/icons/bell.svg?raw";
-import checkRead from "@sit-onyx/icons/check-read.svg?raw";
-import circleAttention from "@sit-onyx/icons/circle-attention.svg?raw";
-import inbox from "@sit-onyx/icons/inbox.svg?raw";
-import settings from "@sit-onyx/icons/settings.svg?raw";
+import {
+  iconBell,
+  iconCheckRead,
+  iconCircleAttention,
+  iconInbox,
+  iconSettings,
+} from "@sit-onyx/icons";
 import { computed, ref } from "vue";
 import {
   OnyxAccordion,
@@ -12,7 +14,6 @@ import {
   OnyxBadge,
   OnyxBottomBar,
   OnyxButton,
-  OnyxDrawer,
   OnyxEmpty,
   OnyxHeadline,
   OnyxIcon,
@@ -23,6 +24,7 @@ import {
   OnyxNotificationCard,
   OnyxNotificationDot,
   OnyxNotifications,
+  OnyxSidebar,
   OnyxUserMenu,
   SKELETON_INJECTED_SYMBOL,
   useNotification,
@@ -86,13 +88,13 @@ const { show } = useNotification();
 const store = useNotificationStore();
 
 const openAccordions = ref(["unread"]);
-const isDrawerOpen = ref(false);
+const isSidebarOpen = ref(false);
 
 /**
  * Adds a new example notifications. Usually this should be provided by your backend / API
  */
 const addExampleNotification = () => {
-  const icon = Math.random() < 0.5 ? circleAttention : undefined;
+  const icon = Math.random() < 0.5 ? iconCircleAttention : undefined;
 
   const notification: MyNotification = {
     headline: `Example notification ${store.notifications.value.length + 1}`,
@@ -123,8 +125,8 @@ const addExampleNotification = () => {
             <OnyxIconButton
               label="Notifications"
               color="neutral"
-              :icon="bell"
-              @click="isDrawerOpen = true"
+              :icon="iconBell"
+              @click="isSidebarOpen = true"
             />
           </OnyxNotificationDot>
         </template>
@@ -132,7 +134,7 @@ const addExampleNotification = () => {
         <template #contextArea>
           <OnyxUserMenu full-name="Jane Doe">
             <OnyxMenuItem>
-              <OnyxIcon :icon="settings" />
+              <OnyxIcon :icon="iconSettings" />
               Settings
             </OnyxMenuItem>
           </OnyxUserMenu>
@@ -153,12 +155,12 @@ const addExampleNotification = () => {
     </div>
 
     <!-- NOTIFICATION CENTER -->
-    <OnyxDrawer
+    <OnyxSidebar
       class="notification-center"
       label="Notifications"
       alignment="right"
-      :open="isDrawerOpen"
-      @close="isDrawerOpen = false"
+      :temporary="{ open: isSidebarOpen, floating: true }"
+      @close="isSidebarOpen = false"
     >
       <template #headline="{ label }">
         <OnyxHeadline is="h2">{{ label }}</OnyxHeadline>
@@ -193,7 +195,7 @@ const addExampleNotification = () => {
             class="notification-center__empty"
           >
             <template #icon>
-              <OnyxIcon :icon="inbox" size="48px" />
+              <OnyxIcon :icon="iconInbox" size="48px" />
             </template>
             No new messages in your inbox
           </OnyxEmpty>
@@ -221,7 +223,7 @@ const addExampleNotification = () => {
             class="notification-center__empty"
           >
             <template #icon>
-              <OnyxIcon :icon="inbox" size="48px" />
+              <OnyxIcon :icon="iconInbox" size="48px" />
             </template>
             No new messages in your inbox
           </OnyxEmpty>
@@ -240,14 +242,14 @@ const addExampleNotification = () => {
         <OnyxBottomBar density="compact">
           <OnyxButton
             label="Mark as all read"
-            :icon="checkRead"
+            :icon="iconCheckRead"
             color="neutral"
             :disabled="!store.unreadNotifications.value.length"
             @click="store.markAllAsRead"
           />
         </OnyxBottomBar>
       </template>
-    </OnyxDrawer>
+    </OnyxSidebar>
 
     <OnyxNotifications />
   </OnyxAppLayout>
@@ -270,11 +272,18 @@ const addExampleNotification = () => {
   &__empty {
     margin-inline: auto;
   }
+
   &__skeletons {
     display: flex;
     flex-direction: column;
     padding: var(--onyx-density-md);
     gap: var(--onyx-density-md);
+  }
+
+  // we use the OnyxBottomBar which already provides its own padding + border
+  :deep(.onyx-sidebar__footer) {
+    padding: 0;
+    border-top: none;
   }
 }
 </style>

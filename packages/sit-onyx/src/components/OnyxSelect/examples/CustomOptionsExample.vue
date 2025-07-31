@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import bag from "@sit-onyx/icons/bag.svg?raw";
+import { iconBag } from "@sit-onyx/icons";
 import { ref } from "vue";
 import { OnyxBadge, OnyxIcon, OnyxSelect, OnyxTag, type SelectOption } from "../../../index.js";
 
@@ -25,7 +25,7 @@ const value = ref<string>();
         <OnyxTag v-if="option.value === 'price-tag'" :label="option.label" />
 
         <template v-else>
-          <OnyxIcon v-if="option.value === 'shopping-bag'" :icon="bag" />
+          <OnyxIcon v-if="option.value === 'shopping-bag'" :icon="iconBag" />
           {{ option.label }}
           <OnyxBadge v-if="option.value === 'sale'" color="danger">Sale!</OnyxBadge>
         </template>

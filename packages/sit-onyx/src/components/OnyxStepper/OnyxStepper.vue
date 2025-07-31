@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import minus from "@sit-onyx/icons/minus.svg?raw";
-import plus from "@sit-onyx/icons/plus.svg?raw";
+import { iconMinus, iconPlus } from "@sit-onyx/icons";
 import { computed, ref, useTemplateRef, watchEffect } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
@@ -154,7 +153,7 @@ useAutofocus(input, props);
           tabindex="-1"
           @click="handleClick('stepDown')"
         >
-          <OnyxIcon :icon="minus" />
+          <OnyxIcon :icon="iconMinus" />
         </button>
         <OnyxLoadingIndicator v-if="props.loading" class="onyx-stepper__loading" type="circle" />
         <input
@@ -198,7 +197,7 @@ useAutofocus(input, props);
           tabindex="-1"
           @click="handleClick('stepUp')"
         >
-          <OnyxIcon :icon="plus" />
+          <OnyxIcon :icon="iconPlus" />
         </button>
       </div>
     </OnyxFormElement>

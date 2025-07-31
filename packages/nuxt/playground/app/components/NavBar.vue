@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import logout from "@sit-onyx/icons/logout.svg?raw";
-import settings from "@sit-onyx/icons/settings.svg?raw";
+import { iconLogout, iconSettings } from "@sit-onyx/icons";
 
 const localePath = useLocalePath();
 </script>
@@ -13,12 +12,12 @@ const localePath = useLocalePath();
     <template #contextArea>
       <OnyxUserMenu description="Company Name" full-name="Jane Doe">
         <OnyxMenuItem>
-          <OnyxIcon :icon="settings" />
+          <OnyxIcon :icon="iconSettings" />
           Settings
         </OnyxMenuItem>
 
         <OnyxMenuItem color="danger">
-          <OnyxIcon :icon="logout" />
+          <OnyxIcon :icon="iconLogout" />
           Logout
         </OnyxMenuItem>
       </OnyxUserMenu>

@@ -56,7 +56,7 @@ Alternatively, there is also metadata available for each flag exported from the 
 ::: details Expand code snippet
 
 ```ts
-import { FLAG_METADATA } from "@sit-onyx/flags";
+import { FLAG_METADATA } from "@sit-onyx/flags/utils";
 
 console.log(FLAG_METADATA.DE);
 // Output: { internationalName: "Germany", continent: "Europe" }

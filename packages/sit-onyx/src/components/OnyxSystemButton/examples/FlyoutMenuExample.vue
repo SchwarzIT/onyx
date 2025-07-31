@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import moreVertical from "@sit-onyx/icons/more-vertical.svg?raw";
+import { iconMoreVertical } from "@sit-onyx/icons";
 import { OnyxFlyoutMenu, OnyxMenuItem, OnyxSystemButton } from "../../../index.js";
 </script>
 
 <template>
   <OnyxFlyoutMenu label="Actions">
     <template #button="{ trigger }">
-      <OnyxSystemButton v-bind="trigger" label="Toggle actions" :icon="moreVertical" />
+      <OnyxSystemButton v-bind="trigger" label="Toggle actions" :icon="iconMoreVertical" />
     </template>
 
     <template #options>

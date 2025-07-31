@@ -1,5 +1,4 @@
-import moreVerticalSmall from "@sit-onyx/icons/more-vertical-small.svg?raw";
-import trash from "@sit-onyx/icons/trash.svg?raw";
+import { iconMoreVerticalSmall, iconTrash } from "@sit-onyx/icons";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
 import { defineIconSelectArgType } from "../../utils/storybook.js";
@@ -36,7 +35,7 @@ export const Default = {
             h(OnyxIconButton, {
               ...trigger,
               label: "Show more actions",
-              icon: moreVerticalSmall,
+              icon: iconMoreVerticalSmall,
               color: "neutral",
             }),
           options: () => [
@@ -46,7 +45,7 @@ export const Default = {
           ],
         },
       ),
-      h(OnyxIconButton, { label: "Delete file", icon: trash, color: "danger" }),
+      h(OnyxIconButton, { label: "Delete file", icon: iconTrash, color: "danger" }),
     ],
   },
 } satisfies Story;

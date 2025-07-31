@@ -8,8 +8,7 @@
       : File
   "
 >
-import cloudArrowUp from "@sit-onyx/icons/cloud-arrow-up.svg?raw";
-
+import { iconCloudArrowUp } from "@sit-onyx/icons";
 import { computed, ref, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useFileSize } from "../../composables/useFileSize.js";
@@ -135,7 +134,7 @@ const handleDragEnter = () => {
     >
       <OnyxFileUploadSVG v-if="props.size === 'large'" :disabled="disabled" :active="isDragging" />
       <div v-else class="onyx-file-upload__icon">
-        <OnyxIcon :icon="cloudArrowUp" />
+        <OnyxIcon :icon="iconCloudArrowUp" />
         <span> {{ t("fileUpload.select") }}</span>
       </div>
 

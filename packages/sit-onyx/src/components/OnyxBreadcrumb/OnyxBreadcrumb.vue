@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import homeIcon from "@sit-onyx/icons/home.svg?raw";
+import { iconHome } from "@sit-onyx/icons";
 import { useDensity } from "../../composables/density.js";
 import { provideSkeletonContext } from "../../composables/useSkeletonState.js";
 import { injectI18n } from "../../i18n/index.js";
@@ -42,7 +42,7 @@ provideSkeletonContext(props);
         :aria-label="props.home?.label ?? t('breadcrumb.home')"
         :skeleton="skeleton"
       >
-        <OnyxIcon v-if="!props.home?.label" :icon="homeIcon" size="16px" />
+        <OnyxIcon v-if="!props.home?.label" :icon="iconHome" size="16px" />
         <template v-else>{{ props.home.label }}</template>
       </OnyxBreadcrumbItem>
 

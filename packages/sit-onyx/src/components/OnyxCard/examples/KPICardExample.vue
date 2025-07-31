@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import arrowSmallUp from "@sit-onyx/icons/arrow-small-up.svg?raw";
-import expandWindow from "@sit-onyx/icons/expand-window.svg?raw";
+import { iconArrowSmallUp, iconExpandWindow } from "@sit-onyx/icons";
 import { OnyxCard, OnyxIcon, OnyxTag } from "../../../index.js";
 </script>
 
@@ -8,12 +7,12 @@ import { OnyxCard, OnyxIcon, OnyxTag } from "../../../index.js";
   <OnyxCard class="card" clickable>
     <div class="card__header">
       Headline
-      <OnyxIcon :icon="expandWindow" />
+      <OnyxIcon :icon="iconExpandWindow" />
     </div>
 
     <div class="card__content">
       <span class="card__value"> 5.0 </span>
-      <OnyxTag label="4.2 %" :icon="arrowSmallUp" density="compact" color="success" />
+      <OnyxTag label="4.2 %" :icon="iconArrowSmallUp" density="compact" color="success" />
     </div>
   </OnyxCard>
 </template>

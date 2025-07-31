@@ -1,9 +1,11 @@
 <script lang="ts" setup>
-import circleAttention from "@sit-onyx/icons/circle-attention.svg?raw";
-import circleCheck from "@sit-onyx/icons/circle-check.svg?raw";
-import circleInformation from "@sit-onyx/icons/circle-information.svg?raw";
-import circleX from "@sit-onyx/icons/circle-x.svg?raw";
-import xSmall from "@sit-onyx/icons/x-small.svg?raw";
+import {
+  iconCircleAttention,
+  iconCircleCheck,
+  iconCircleInformation,
+  iconCircleX,
+  iconXSmall,
+} from "@sit-onyx/icons";
 import { computed } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { injectI18n } from "../../i18n/index.js";
@@ -30,10 +32,10 @@ const { densityClass } = useDensity(props);
 const hasProgressBar = computed(() => props.duration > 0);
 
 const DEFAULT_ICONS: Record<typeof props.color, string> = {
-  neutral: circleInformation,
-  danger: circleX,
-  warning: circleAttention,
-  success: circleCheck,
+  neutral: iconCircleInformation,
+  danger: iconCircleX,
+  warning: iconCircleAttention,
+  success: iconCircleCheck,
 };
 
 const icon = computed(() => {
@@ -64,7 +66,7 @@ const icon = computed(() => {
             class="onyx-toast-message__close"
             @click="emit('close')"
           >
-            <OnyxIcon :icon="xSmall" />
+            <OnyxIcon :icon="iconXSmall" />
           </button>
         </div>
 

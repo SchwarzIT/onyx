@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import circleAttention from "@sit-onyx/icons/circle-attention.svg?raw";
+import { iconCircleAttention } from "@sit-onyx/icons";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxAlertDialog from "./OnyxAlertDialog.vue";
 
@@ -11,7 +11,7 @@ const emit = defineEmits<{
 <template>
   <OnyxAlertDialog
     label="Confirm deletion"
-    :icon="{ icon: circleAttention, color: 'danger' }"
+    :icon="{ icon: iconCircleAttention, color: 'danger' }"
     open
     @close="emit('close')"
   >

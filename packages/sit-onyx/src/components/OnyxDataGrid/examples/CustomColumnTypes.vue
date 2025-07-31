@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import forward from "@sit-onyx/icons/forward.svg?raw";
+import { iconForward } from "@sit-onyx/icons";
 import { h } from "vue";
 import {
   createFeature,
@@ -48,7 +48,7 @@ const withCustomType = createFeature(() => ({
         component: (props) => {
           return h(OnyxSystemButton, {
             label: "Show details",
-            icon: forward,
+            icon: iconForward,
             link: `#some-page-${props.row.id}`,
             onClick: () => alert(JSON.stringify(props)),
             style: { verticalAlign: "middle" },

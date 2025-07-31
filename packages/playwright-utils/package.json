@@ -10,11 +10,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/schwarzit/onyx",
+    "url": "https://github.com/SchwarzIT/onyx",
     "directory": "packages/playwright-utils"
   },
   "bugs": {
-    "url": "https://github.com/schwarzit/onyx/issues"
+    "url": "https://github.com/SchwarzIT/onyx/issues"
   },
   "files": [
     "dist"

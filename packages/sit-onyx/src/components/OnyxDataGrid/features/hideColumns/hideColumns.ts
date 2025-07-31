@@ -1,5 +1,4 @@
-import eyeDisabled from "@sit-onyx/icons/eye-disabled.svg?raw";
-import plusSmall from "@sit-onyx/icons/plus-small.svg?raw";
+import { iconEyeDisabled, iconPlusSmall } from "@sit-onyx/icons";
 import { computed, h, ref, unref, watchEffect, type Ref } from "vue";
 import type { ComponentSlots } from "vue-component-type-helpers";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
@@ -57,7 +56,7 @@ export const useHideColumns = <TEntry extends DataGridEntry>(
               class: "",
               label: i18n.t.value("dataGrid.head.hideColumns.revealTrigger"),
               color: "medium",
-              icon: plusSmall,
+              icon: iconPlusSmall,
               ...trigger,
             }),
           options: () => {
@@ -83,7 +82,7 @@ export const useHideColumns = <TEntry extends DataGridEntry>(
           onClick: () => hiddenColumnKeys.value.add(column),
         },
         () => [
-          h(OnyxIcon, { icon: eyeDisabled }),
+          h(OnyxIcon, { icon: iconEyeDisabled }),
           i18n.t.value("dataGrid.head.hideColumns.menu.hideButton"),
         ],
       );

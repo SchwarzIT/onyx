@@ -1,18 +1,17 @@
 import type { OnyxBreakpoint } from "@sit-onyx/shared/breakpoints";
 import type { DensityProp } from "../../composables/density.js";
-import type { OnyxDrawerProps } from "../OnyxDrawer/types.js";
+import type { OnyxModalDialogProps } from "../OnyxModalDialog/types.js";
 
 export type OnyxSidebarProps = DensityProp & {
   /**
    * (Aria) label that describes the dialog. Required for accessibility / screen readers.
-   * When the `drawer` is set, the label will be used as the drawer label/headline by default.
+   * When the `temporary` property is set, the label will be used as the displayed label/headline by default.
    */
   label: string;
   /**
-   * If set, the sidebar will be shown as overlay above the page content instead of in-place.
-   * Will use the [OnyxDrawer](https://storybook.onyx.schwarz/?path=/docs/feedback-drawer--docs) under the hood.
+   * If set, the sidebar will be shown as an temporary overlay above the page content instead of in-place.
    */
-  drawer?: Omit<OnyxDrawerProps, "label" | "density" | "alignment">;
+  temporary?: TemporarySidebar;
   /**
    * Whether the sidebar should be manually resizable by the user by dragging the right border.
    */
@@ -35,3 +34,13 @@ export type OnyxSidebarProps = DensityProp & {
 
 export const SIDEBAR_ALIGNMENT = ["left", "right"] as const;
 export type SidebarAlignment = (typeof SIDEBAR_ALIGNMENT)[number];
+
+export type TemporarySidebar = Pick<
+  OnyxModalDialogProps,
+  "open" | "disableClosingOnBackdropClick"
+> & {
+  /**
+   * If `true`, the sidebar will have a small gap from the viewport and have rounded corners.
+   */
+  floating?: boolean;
+};
