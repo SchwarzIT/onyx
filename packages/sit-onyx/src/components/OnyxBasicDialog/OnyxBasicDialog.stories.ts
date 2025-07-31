@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import { createAdvancedStoryExample } from "../../utils/storybook.js";
+import { h } from "vue";
+import { OnyxButton } from "../../index.js";
 import OnyxBasicDialog from "./OnyxBasicDialog.vue";
 
 /**
@@ -28,14 +29,44 @@ export const Default = {
     open: true,
     default: "Dialog content...",
   },
+  render: (args) => ({
+    setup: () => {
+      return () => [
+        h(OnyxButton, { label: "Toggle", onClick: () => args["onUpdate:open"]?.(!args.open) }),
+        h(OnyxBasicDialog, args, {
+          default: args.default,
+        }),
+      ];
+    },
+  }),
 } satisfies Story;
 
 /**
  * This example shows a modal dialog which will block the primary page content and show a backdrop.
  * **Hint**: In this example, you can close the dialog by pressing "Escape".
  */
-export const Modal = createAdvancedStoryExample("OnyxBasicDialog", "ModalExample");
+export const Modal = {
+  ...Default,
+  args: {
+    label: "Example Modal",
+    open: true,
+    default: "Modal content...",
+    modal: true,
+  },
+} satisfies Story;
 
-export const LeftAligned = createAdvancedStoryExample("OnyxBasicDialog", "LeftAlignedExample");
+export const LeftAligned = {
+  ...Default,
+  args: {
+    ...Default.args,
+    alignment: "left",
+  },
+} satisfies Story;
 
-export const RightAligned = createAdvancedStoryExample("OnyxBasicDialog", "RightAlignedExample");
+export const RightAligned = {
+  ...Default,
+  args: {
+    ...Default.args,
+    alignment: "right",
+  },
+} satisfies Story;
