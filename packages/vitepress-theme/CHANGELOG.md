@@ -1,5 +1,11 @@
 # @sit-onyx/vitepress-theme
 
+## 1.0.0-beta.282
+
+### Patch Changes
+
+- sit-onyx@1.0.0-beta.284
+
 ## 1.0.0-beta.281
 
 ### Patch Changes
