@@ -210,7 +210,7 @@ ${code}`;
     // trim code to remove trailing newlines that are added by prettier
     code = code.trim();
   } catch (e) {
-    // eslint-disable-next-line no-console -- --if the formatting fails, there is usually an issue with our code so we want to inform the user that the formatting failed
+    // eslint-disable-next-line no-console -- if the formatting fails, there is usually an issue with our code so we want to inform the user that the formatting failed
     console.error("Error while formatting Storybook code snippet:", e);
   }
 
