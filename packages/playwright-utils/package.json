@@ -33,7 +33,8 @@
     "@playwright/experimental-ct-vue": ">= 1",
     "@playwright/test": ">= 1",
     "playwright": ">= 1",
-    "vue": ">= 3"
+    "vue": ">= 3",
+    "vue-component-type-helpers": ">= 3"
   },
   "devDependencies": {
     "@sit-onyx/shared": "workspace:*",
