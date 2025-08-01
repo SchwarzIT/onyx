@@ -4,10 +4,9 @@ import arrowSmallRight from "@sit-onyx/icons/arrow-small-right.svg?raw";
 import sidebarArrowLeft from "@sit-onyx/icons/sidebar-arrow-left.svg?raw";
 import sidebarArrowRight from "@sit-onyx/icons/sidebar-arrow-right.svg?raw";
 import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
-import { computed, ref, useId, useTemplateRef, watch } from "vue";
+import { computed, onUnmounted, ref, useId, useTemplateRef, watch } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useResizeObserver } from "../../composables/useResizeObserver.js";
-import OnyxDrawer from "../OnyxDrawer/OnyxDrawer.vue";
 import { useGlobalFAB } from "../OnyxGlobalFAB/useGlobalFAB.js";
 import OnyxModalDialog from "../OnyxModalDialog/OnyxModalDialog.vue";
 import OnyxResizeHandle from "../OnyxResizeHandle/OnyxResizeHandle.vue";
@@ -41,7 +40,7 @@ const slots = defineSlots<{
    */
   footer?(): unknown;
   /**
-   * Description slot of the `OnyxDrawer`. Only available if the `drawer` property is set.
+   * Description slot of the `OnyxModelDialog`. Only available if the `temporary` property is set.
    */
   description?(): unknown;
 }>();
@@ -80,8 +79,8 @@ const shouldCollapse = computed(() => {
 
 const isDrawerOpen = computed<boolean>({
   get: () => {
-    if (typeof props.drawer?.open === "boolean") {
-      return props.drawer.open;
+    if (typeof props.temporary?.open === "boolean") {
+      return props.temporary.open;
     }
     return _isDrawerOpen.value;
   },
@@ -93,9 +92,9 @@ const isDrawerOpen = computed<boolean>({
 const id = useId();
 
 watch(
-  [shouldCollapse, () => props.drawer],
+  [shouldCollapse, () => props.temporary],
   () => {
-    if (!shouldCollapse.value || props.drawer) {
+    if (!shouldCollapse.value || props.temporary) {
       globalFAB.remove(id);
       return;
     }
@@ -119,6 +118,10 @@ watch(
   },
   { immediate: true },
 );
+
+onUnmounted(() => {
+  globalFAB.remove(id);
+});
 </script>
 
 <template>
@@ -159,7 +162,7 @@ watch(
       'onyx-sidebar',
       'onyx-sidebar--temporary',
       props.alignment === 'right' ? 'onyx-sidebar--right' : '',
-      props.temporary.floating ? 'onyx-sidebar--floating' : '',
+      props.temporary?.floating ? 'onyx-sidebar--floating' : '',
     ]"
     :label="props.label"
     :density="props.density"
