@@ -2,7 +2,7 @@ import { expect } from "@playwright/test";
 import type { Component } from "vue";
 import type { ComponentEmitHandler } from "./types.js";
 
-export const EVENT_SPY_SYMBOL = Symbol("EVENT_SPY_SYMBOL");
+export const EMIT_SPY_SYMBOL = Symbol("EMIT_SPY_SYMBOL");
 
 /**
  * Creates a simple, typed spy for recording emits.
@@ -10,14 +10,14 @@ export const EVENT_SPY_SYMBOL = Symbol("EVENT_SPY_SYMBOL");
  * @example
  * ```tsx
  * // create spy
- * const onUpdateOpen = createEventSpy<typeof OnyxColorSchemeDialog, "onUpdate:open">();
+ * const onUpdateOpen = createEmitSpy<typeof OnyxColorSchemeDialog, "onUpdate:open">();
  * // add spy
  * const component = await mount(<OnyxColorSchemeDialog onUpdate:open={onUpdateOpen} />);
  * // check spy
- * expectEventCall(onUpdateOpen, 1, [false]);
+ * expectEmit(onUpdateOpen, 1, [false]);
  * ```
  */
-export const createEventSpy = <
+export const createEmitSpy = <
   C extends Component,
   Key extends keyof Emits,
   Emits = ComponentEmitHandler<C>,
@@ -28,21 +28,21 @@ export const createEventSpy = <
   const handler = (...args: Args) => {
     calls.push(args);
   };
-  handler[EVENT_SPY_SYMBOL] = calls;
+  handler[EMIT_SPY_SYMBOL] = calls;
   return handler;
 };
 
 /**
- * Checks the event spy created by `createEventSpy`.
+ * Asserts the emits recorded from the spy created by `createEmitSpy`.
  * Expects the spy to have recorded `n` calls, and `matches` to match the arguments of the last call.
- * @see `createEventSpy` documentation for example usage.
+ * @see `createEmitSpy` documentation for example usage.
  */
-export const expectEventCall = <Handler extends { [EVENT_SPY_SYMBOL]: unknown[][] }>(
-  eventSpy: Handler,
+export const expectEmit = <Handler extends { [EMIT_SPY_SYMBOL]: unknown[][] }>(
+  emitSpy: Handler,
   n: number,
   matches: unknown[] | Record<string, unknown>,
 ) => {
-  const calls = eventSpy[EVENT_SPY_SYMBOL];
+  const calls = emitSpy[EMIT_SPY_SYMBOL];
   expect(calls).toHaveLength(n);
 
   const nthCall = calls[n - 1];
