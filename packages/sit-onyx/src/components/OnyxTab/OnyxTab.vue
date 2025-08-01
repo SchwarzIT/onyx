@@ -51,7 +51,7 @@ const tab = computed(() =>
       'onyx-tab',
       densityClass,
       sizeClass,
-      tab?.['aria-selected'] ? 'onyx-tab--selected' : '',
+      { 'onyx-tab--selected': tab?.['aria-selected'] },
     ]"
     v-bind="tab"
     type="button"

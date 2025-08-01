@@ -41,7 +41,7 @@ provideSkeletonContext(props);
     :class="[
       'onyx-component',
       'onyx-page',
-      props.footerAlignment === 'page' ? 'onyx-page--footer-page' : '',
+      { 'onyx-page--footer-page': props.footerAlignment === 'page' },
     ]"
   >
     <div v-if="slots.sidebar" class="onyx-page__sidebar">

@@ -40,7 +40,7 @@ const isActive = computed(() => {
       'onyx-breadcrumb-item',
       'onyx-text--small',
       densityClass,
-      isActive ? 'onyx-breadcrumb-item--active' : '',
+      { 'onyx-breadcrumb-item--active': isActive },
     ]"
     v-bind="rootAttrs"
   >

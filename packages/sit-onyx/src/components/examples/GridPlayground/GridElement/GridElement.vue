@@ -50,8 +50,7 @@ const size = useResizeObserver(button);
 <template>
   <button
     ref="buttonRef"
-    class="grid-element"
-    :class="[...gridClasses, props.mode === 'outline' ? 'grid-element--outline' : '']"
+    :class="['grid-element', ...gridClasses, { 'grid-element--outline': props.mode === 'outline' }]"
     type="button"
     :aria-label="props.label"
     :title="props.label"

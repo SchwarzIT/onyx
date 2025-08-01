@@ -80,7 +80,7 @@ useOutsideClick({
       'onyx-dialog',
       densityClass,
       'onyx-truncation-multiline',
-      props.alignment !== 'center' ? `onyx-dialog--${props.alignment}` : '',
+      { [`onyx-dialog--${props.alignment}`]: props.alignment !== 'center' },
     ]"
     :aria-modal="props.modal"
     :aria-label="props.label"

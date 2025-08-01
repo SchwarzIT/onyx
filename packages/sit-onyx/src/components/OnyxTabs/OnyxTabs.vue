@@ -56,7 +56,7 @@ provide(TABS_INJECTION_KEY as TabsInjectionKey<TValue>, {
       'onyx-component',
       'onyx-tabs',
       densityClass,
-      props.stretched ? 'onyx-tabs--stretched' : '',
+      { 'onyx-tabs--stretched': props.stretched },
     ]"
   >
     <div v-bind="headless.elements.tablist.value" class="onyx-tabs__tablist">
