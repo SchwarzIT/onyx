@@ -1,3 +1,4 @@
+import { createEmitSpy, expectEmit } from "@sit-onyx/playwright-utils";
 import { expect, test } from "../../../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../../../playwright/screenshots.js";
 import OnyxColorSchemeDialog from "./OnyxColorSchemeDialog.vue";
@@ -42,7 +43,8 @@ test("should behave correctly", async ({ mount, page }) => {
   await page.setViewportSize({ width: 512, height: 640 });
 
   const updateModelValueEvents: ColorSchemeValue[] = [];
-  let closeEventCount = 0;
+
+  const onUpdateOpen = createEmitSpy<typeof OnyxColorSchemeDialog, "onUpdate:open">();
 
   // ARRANGE
   const component = await mount(
@@ -51,9 +53,10 @@ test("should behave correctly", async ({ mount, page }) => {
       open
       style={{ width: "48rem" }}
       onUpdate:modelValue={(value) => updateModelValueEvents.push(value)}
-      onClose={() => closeEventCount++}
+      onUpdate:open={onUpdateOpen}
     />,
   );
+  expectEmit(onUpdateOpen, 1, [false]);
 
   const clickOption = (label: string) => {
     return component.getByText(label, { exact: true }).click();
@@ -73,7 +76,7 @@ test("should behave correctly", async ({ mount, page }) => {
 
   // ASSERT
   expect(updateModelValueEvents).toStrictEqual(["dark"]);
-  expect(closeEventCount).toBe(1);
+  expectEmit(onUpdateOpen, 1, [false]);
 
   // ACT
   await clickOption("Auto");
@@ -85,7 +88,7 @@ test("should behave correctly", async ({ mount, page }) => {
 
   // ASSERT
   expect(updateModelValueEvents).toStrictEqual(["dark", "auto"]);
-  expect(closeEventCount).toBe(2);
+  expectEmit(onUpdateOpen, 2, [false]);
 
   // ACT
   await clickOption("Light");
@@ -93,17 +96,17 @@ test("should behave correctly", async ({ mount, page }) => {
 
   // ASSERT
   expect(updateModelValueEvents).toStrictEqual(["dark", "auto", "light"]);
-  expect(closeEventCount).toBe(3);
+  expectEmit(onUpdateOpen, 3, [false]);
 
   // ACT
   await component.getByRole("button", { name: "Cancel" }).click();
 
   // ASSERT
-  expect(closeEventCount).toBe(4);
+  expectEmit(onUpdateOpen, 4, [false]);
 
   // ACT
   await page.keyboard.press("Escape");
 
   // ASSERT
-  expect(closeEventCount).toBe(5);
+  expectEmit(onUpdateOpen, 5, [false]);
 });
