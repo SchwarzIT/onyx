@@ -8,6 +8,17 @@ import {
 import OnyxPageLayout from "../OnyxPageLayout/OnyxPageLayout.vue";
 import OnyxSidebar from "./OnyxSidebar.vue";
 
+const props = defineProps<{
+  /**
+   * If the left sidebar should be displayed
+   */
+  sidebarLeft?: boolean;
+  /**
+   * If the right sidebar should be displayed
+   */
+  sidebarRight?: boolean;
+}>();
+
 provide(GLOBAL_FAB_PROVIDER_INJECTION_KEY, createGlobalFABProvider());
 </script>
 
@@ -15,8 +26,18 @@ provide(GLOBAL_FAB_PROVIDER_INJECTION_KEY, createGlobalFABProvider());
   <OnyxAppLayout>
     <OnyxPageLayout>
       Page content
-      <template #sidebar>
-        <OnyxSidebar label="Sidebar label">
+      <template v-if="props.sidebarLeft" #sidebar>
+        <OnyxSidebar label="Sidebar Left">
+          <template #header> Header content </template>
+          <div class="onyx-grid">Body content</div>
+          <template #footer>
+            <OnyxButton color="neutral" label="Button" />
+            <OnyxButton label="Button" />
+          </template>
+        </OnyxSidebar>
+      </template>
+      <template v-if="props.sidebarRight" #sidebarRight>
+        <OnyxSidebar label="Sidebar Right" alignment="right">
           <template #header> Header content </template>
           <div class="onyx-grid">Body content</div>
           <template #footer>

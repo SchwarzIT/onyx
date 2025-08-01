@@ -203,20 +203,68 @@ for (const type of ["left", "right", "floating"] as const) {
   });
 });
 
-test("should render fab on small screens", async ({ mount, page }) => {
+test("should render fab on small screens (left Sidebar)", async ({ mount, page }) => {
   // ARRANGE
   await page.setViewportSize({ height: ONYX_BREAKPOINTS.sm, width: 320 });
 
-  const component = await mount(<PlaywrightTest />);
-  const FAB = component.getByRole("button", { name: "Label" });
-  const sidebar = page.locator("dialog");
+  const component = await mount(<PlaywrightTest sidebarLeft />);
+  const FABLeftSidebar = component.getByRole("button", { name: "Sidebar Left" });
+  const leftSidebar = component.getByRole("dialog", { name: "Sidebar Left" });
+  // ASSERT
+  await expect(FABLeftSidebar).toBeVisible();
+  await expect(leftSidebar).toBeHidden();
+  await expect(component).toHaveScreenshot("collapsed-left.png");
+
+  // ACT
+  await FABLeftSidebar.click();
+  // ASSERT
+  await expect(leftSidebar).toBeVisible();
+});
+test("should render fab on small screens (right Sidebar)", async ({ mount, page }) => {
+  // ARRANGE
+  await page.setViewportSize({ height: ONYX_BREAKPOINTS.sm, width: 320 });
+
+  const component = await mount(<PlaywrightTest sidebarRight />);
+  const FAB = component.getByRole("button", { name: "Sidebar Right" });
+  const sidebar = component.getByRole("dialog", { name: "Sidebar Right" });
   // ASSERT
   await expect(FAB).toBeVisible();
   await expect(sidebar).toBeHidden();
-  await expect(component).toHaveScreenshot("collapsed.png");
+  await expect(component).toHaveScreenshot("collapsed-right.png");
 
   // ACT
   await FAB.click();
   // ASSERT
   await expect(sidebar).toBeVisible();
+});
+test("should render fab on small screens (left & right Sidebar)", async ({ mount, page }) => {
+  // ARRANGE
+  await page.setViewportSize({ height: ONYX_BREAKPOINTS.sm, width: 320 });
+
+  const component = await mount(<PlaywrightTest sidebarLeft sidebarRight />);
+
+  const FAB = component.getByRole("button", { name: "Global actions" });
+  const FABLeftSidebar = component.getByRole("menuitem", { name: "Sidebar Left" });
+  const leftSidebar = component.getByRole("dialog", { name: "Sidebar Left" });
+  const FABRightSidebar = component.getByRole("menuitem", { name: "Sidebar Right" });
+  const rightSidebar = component.getByRole("dialog", { name: "Sidebar Right" });
+  // ASSERT
+  await expect(FAB).toBeVisible();
+  await expect(leftSidebar).toBeHidden();
+  await expect(rightSidebar).toBeHidden();
+  await expect(component).toHaveScreenshot("collapsed-multible.png");
+
+  // ACT
+  await FAB.click();
+
+  //ASSERT
+  await expect(FABLeftSidebar).toBeVisible();
+  await expect(FABRightSidebar).toBeVisible();
+
+  await expect(component).toHaveScreenshot("collapsed-multible-extended.png");
+
+  // ACT
+  await FABLeftSidebar.click();
+  // ASSERT
+  await expect(leftSidebar).toBeVisible();
 });

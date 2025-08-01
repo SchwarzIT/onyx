@@ -8,4 +8,7 @@ The sidebar will collapse automatically into drawer mode when the screen reaches
 #### Other changes:
 
 - implement `OnyxGlobalFAB` component and `useGlobalFAB` composable
+
+### Breaking change:
+
 - OnyxAppLayout: provide OnyxToast and OnyxGlobalFAB by default so it you are using the OnyxAppLayout, you no longer need to add those components manually
