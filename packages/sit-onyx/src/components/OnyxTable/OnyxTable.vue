@@ -46,7 +46,7 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
     <div
       :class="[
         'onyx-table-wrapper__container',
-        props.withPageScrolling ? 'onyx-table-wrapper__container--no-scroll' : '',
+        { 'onyx-table-wrapper__container--no-scroll': props.withPageScrolling },
       ]"
       :tabindex="props.withPageScrolling ? undefined : 0"
       v-bind="scrollContainerAttrs"
@@ -55,8 +55,10 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
         ref="tableRef"
         class="onyx-table onyx-text"
         :class="[
-          props.striped ? 'onyx-table--striped' : '',
-          props.withVerticalBorders ? 'onyx-table--vertical-borders' : '',
+          {
+            'onyx-table--striped': props.striped,
+            'onyx-table--vertical-borders': props.withVerticalBorders,
+          },
           densityClass,
         ]"
         :aria-labelledby="headlineId"

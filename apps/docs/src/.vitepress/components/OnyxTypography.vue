@@ -47,7 +47,7 @@ const getTextSizeClass = (fontSize?: TextSize) => {
   <section class="typography vp-raw">
     <DesignVariableHeader v-model="currentTab" :tabs="AVAILABLE_FONT_TABS" />
 
-    <div class="typography__content" :class="isMonospace ? 'onyx-text--monospace' : ''">
+    <div :class="['typography__content', { 'onyx-text--monospace': isMonospace }]">
       <DesignVariableCard
         v-for="variable in props.variables"
         :key="variable.name"

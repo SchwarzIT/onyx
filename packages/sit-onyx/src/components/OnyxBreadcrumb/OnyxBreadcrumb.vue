@@ -31,7 +31,7 @@ provideSkeletonContext(props);
       'onyx-breadcrumb',
       'onyx-grid-container',
       densityClass,
-      props.container ? 'onyx-breadcrumb--container' : '',
+      { 'onyx-breadcrumb--container': props.container },
     ]"
     :aria-label="t('breadcrumb.label')"
   >

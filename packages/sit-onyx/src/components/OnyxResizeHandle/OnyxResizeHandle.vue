@@ -102,8 +102,10 @@ const onKeydown = (event: KeyboardEvent) => {
     :class="[
       'onyx-component',
       'onyx-resize-handle',
-      isActive ? 'onyx-resize-handle--active' : '',
-      props.alignment === 'left' ? 'onyx-resize-handle--left' : '',
+      {
+        'onyx-resize-handle--active': isActive,
+        'onyx-resize-handle--left': props.alignment === 'left',
+      },
     ]"
     @mousedown="handleMousedown"
     @dblclick="handleDoubleClick"

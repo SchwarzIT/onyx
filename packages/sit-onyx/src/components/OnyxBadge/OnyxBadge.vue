@@ -25,7 +25,7 @@ defineSlots<{
       'onyx-truncation-ellipsis',
       'onyx-text',
       `onyx-badge--${props.color}`,
-      props.dot ? 'onyx-badge--dot' : '',
+      { 'onyx-badge--dot': props.dot },
       densityClass,
     ]"
   >

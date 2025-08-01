@@ -21,7 +21,7 @@ const { navigate, isActive } = useLink();
     :class="[
       'onyx-component',
       'onyx-router-link',
-      isActive(props.href) ? 'onyx-router-link--active' : '',
+      { 'onyx-router-link--active': isActive(props.href) },
     ]"
     :href="props.href"
     :target="props.target"

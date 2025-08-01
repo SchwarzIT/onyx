@@ -32,7 +32,7 @@ const slots = defineSlots<{
     :class="[
       'onyx-component',
       'onyx-notification-message',
-      !props.duration ? 'onyx-notification-message--permanent' : '',
+      { 'onyx-notification-message--permanent': !props.duration },
     ]"
     :headline="props.headline"
     color="neutral"

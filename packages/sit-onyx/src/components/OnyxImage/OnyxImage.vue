@@ -45,8 +45,7 @@ const { restAttrs, rootAttrs } = useRootAttrs();
     :class="[
       'onyx-component',
       'onyx-image',
-      props.shape ? `onyx-image--${props.shape}` : '',
-      isError ? 'onyx-image--error' : undefined,
+      { 'onyx-image--error': isError, [`onyx-image--${props.shape}`]: props.shape },
     ]"
   >
     <OnyxSkeleton v-if="skeleton" class="onyx-image__source" :style="size" v-bind="restAttrs" />
