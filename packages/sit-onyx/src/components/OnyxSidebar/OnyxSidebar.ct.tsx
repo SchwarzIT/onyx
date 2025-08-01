@@ -1,7 +1,9 @@
+import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
 import { expect, test } from "../../playwright/a11y.js";
 import { dragResizeHandle } from "../../playwright/index.js";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxSidebar from "./OnyxSidebar.vue";
+import PlaywrightTest from "./PlaywrightTest.vue";
 
 const CONTENT = [
   <template v-slot:header> Header content </template>,
@@ -27,7 +29,11 @@ test.beforeEach(async ({ page }) => {
 
 test("should render", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
-  const component = await mount(<OnyxSidebar label="Label">{CONTENT}</OnyxSidebar>);
+  const component = await mount(
+    <OnyxSidebar label="Label" collapseSidebar={false}>
+      {CONTENT}
+    </OnyxSidebar>,
+  );
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
@@ -81,7 +87,12 @@ for (const type of ["left", "right", "floating"] as const) {
 
     // ARRANGE
     const component = await mount(
-      <OnyxSidebar label="Label" temporary={type === "temporary" ? { open: true } : undefined}>
+      <OnyxSidebar
+        collapseSidebar={false}
+        label="Label"
+        temporary={type === "temporary" ? { open: true } : undefined}
+        resizable
+      >
         {CONTENT}
       </OnyxSidebar>,
     );
@@ -147,6 +158,8 @@ for (const type of ["left", "right", "floating"] as const) {
         label="Label"
         temporary={type === "temporary" ? { open: true } : undefined}
         alignment="right"
+        resizable
+        collapseSidebar={false}
       >
         {CONTENT}
       </OnyxSidebar>,
@@ -188,4 +201,70 @@ for (const type of ["left", "right", "floating"] as const) {
     box = (await component.boundingBox())!;
     expect(box.width, "should have min width when resizing").toBe(64);
   });
+});
+
+test("should render fab on small screens (left Sidebar)", async ({ mount, page }) => {
+  // ARRANGE
+  await page.setViewportSize({ height: ONYX_BREAKPOINTS.sm, width: 320 });
+
+  const component = await mount(<PlaywrightTest sidebarLeft />);
+  const FABLeftSidebar = component.getByRole("button", { name: "Sidebar Left" });
+  const leftSidebar = component.getByRole("dialog", { name: "Sidebar Left" });
+  // ASSERT
+  await expect(FABLeftSidebar).toBeVisible();
+  await expect(leftSidebar).toBeHidden();
+  await expect(component).toHaveScreenshot("collapsed-left.png");
+
+  // ACT
+  await FABLeftSidebar.click();
+  // ASSERT
+  await expect(leftSidebar).toBeVisible();
+});
+test("should render fab on small screens (right Sidebar)", async ({ mount, page }) => {
+  // ARRANGE
+  await page.setViewportSize({ height: ONYX_BREAKPOINTS.sm, width: 320 });
+
+  const component = await mount(<PlaywrightTest sidebarRight />);
+  const FAB = component.getByRole("button", { name: "Sidebar Right" });
+  const sidebar = component.getByRole("dialog", { name: "Sidebar Right" });
+  // ASSERT
+  await expect(FAB).toBeVisible();
+  await expect(sidebar).toBeHidden();
+  await expect(component).toHaveScreenshot("collapsed-right.png");
+
+  // ACT
+  await FAB.click();
+  // ASSERT
+  await expect(sidebar).toBeVisible();
+});
+test("should render fab on small screens (left & right Sidebar)", async ({ mount, page }) => {
+  // ARRANGE
+  await page.setViewportSize({ height: ONYX_BREAKPOINTS.sm, width: 320 });
+
+  const component = await mount(<PlaywrightTest sidebarLeft sidebarRight />);
+
+  const FAB = component.getByRole("button", { name: "Global actions" });
+  const FABLeftSidebar = component.getByRole("menuitem", { name: "Sidebar Left" });
+  const leftSidebar = component.getByRole("dialog", { name: "Sidebar Left" });
+  const FABRightSidebar = component.getByRole("menuitem", { name: "Sidebar Right" });
+  const rightSidebar = component.getByRole("dialog", { name: "Sidebar Right" });
+  // ASSERT
+  await expect(FAB).toBeVisible();
+  await expect(leftSidebar).toBeHidden();
+  await expect(rightSidebar).toBeHidden();
+  await expect(component).toHaveScreenshot("collapsed-multible.png");
+
+  // ACT
+  await FAB.click();
+
+  //ASSERT
+  await expect(FABLeftSidebar).toBeVisible();
+  await expect(FABRightSidebar).toBeVisible();
+
+  await expect(component).toHaveScreenshot("collapsed-multible-extended.png");
+
+  // ACT
+  await FABLeftSidebar.click();
+  // ASSERT
+  await expect(leftSidebar).toBeVisible();
 });

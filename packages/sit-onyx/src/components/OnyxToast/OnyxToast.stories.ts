@@ -11,7 +11,7 @@ import OnyxToast from "./OnyxToast.vue";
  * ### Setup
  *
  * #### Step 1: Use the `<OnyxToast />` component
- *
+ * **If you are using `OnyxAppLayout`, you can skip this step since this will alread be set up for you.**
  * Place the `<OnyxToast />` component once anywhere in your application (e.g. in your App.vue file).
  * It will take care of displaying the toasts correctly.
  *

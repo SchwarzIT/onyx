@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import OnyxGlobalFAB from "../OnyxGlobalFAB/OnyxGlobalFAB.vue";
+import OnyxToast from "../OnyxToast/OnyxToast.vue";
 import type { OnyxAppLayoutProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxAppLayoutProps>(), {
@@ -36,6 +38,8 @@ const slots = defineSlots<{
     <div class="onyx-app__page">
       <slot></slot>
     </div>
+    <OnyxToast />
+    <OnyxGlobalFAB />
   </div>
 </template>
 

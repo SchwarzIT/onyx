@@ -58,7 +58,7 @@ test.describe("Screenshot tests (options)", () => {
     columns: DENSITIES,
     rows: ["default", "hover", "focus-visible"],
     component: (column) => (
-      <OnyxFAB label="Label" icon={mockPlaywrightIcon} density={column}>
+      <OnyxFAB label="Label" density={column}>
         <OnyxFABItem label="Option 3" icon={mockPlaywrightIcon} />
         <OnyxFABItem label="Option 2" icon={mockPlaywrightIcon} />
         <OnyxFABItem label="Option 1" icon={mockPlaywrightIcon} />
@@ -74,7 +74,7 @@ test.describe("Screenshot tests (options, left aligned)", () => {
     columns: DENSITIES,
     rows: ["default", "hover", "focus-visible"],
     component: (column) => (
-      <OnyxFAB label="Label" icon={mockPlaywrightIcon} density={column} alignment="left">
+      <OnyxFAB label="Label" density={column} alignment="left">
         <OnyxFABItem label="Option 3" icon={mockPlaywrightIcon} />
         <OnyxFABItem label="Option 2" icon={mockPlaywrightIcon} />
         <OnyxFABItem label="Option 1" icon={mockPlaywrightIcon} />
@@ -90,7 +90,7 @@ test.describe("Screenshot tests (options, icons only)", () => {
     columns: DENSITIES,
     rows: ["default", "hover", "focus-visible"],
     component: (column) => (
-      <OnyxFAB label="Label" icon={mockPlaywrightIcon} density={column} alignment="left">
+      <OnyxFAB label="Label" density={column} alignment="left">
         <OnyxFABItem label="Option 3" hideLabel icon={mockPlaywrightIcon} />
         <OnyxFABItem label="Option 2" hideLabel icon={mockPlaywrightIcon} />
         <OnyxFABItem label="Option 1" hideLabel icon={mockPlaywrightIcon} />

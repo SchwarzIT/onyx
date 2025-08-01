@@ -1,5 +1,9 @@
 import { watchEffect, type Plugin } from "vue";
 import {
+  createGlobalFABProvider,
+  GLOBAL_FAB_PROVIDER_INJECTION_KEY,
+} from "../components/OnyxGlobalFAB/useGlobalFAB.js";
+import {
   createNotificationsProvider,
   NOTIFICATIONS_PROVIDER_INJECTION_KEY,
 } from "../components/OnyxNotifications/useNotification.js";
@@ -32,6 +36,7 @@ export const createOnyx = (options: OnyxPluginOptions = {}): Plugin => ({
     const i18n = app.runWithContext(() => injectI18n());
 
     app.provide(TOAST_PROVIDER_INJECTION_KEY, createToastProvider());
+    app.provide(GLOBAL_FAB_PROVIDER_INJECTION_KEY, createGlobalFABProvider());
     app.provide(NOTIFICATIONS_PROVIDER_INJECTION_KEY, createNotificationsProvider());
 
     if (options.router) app.provide(ROUTER_INJECTION_KEY, options.router);

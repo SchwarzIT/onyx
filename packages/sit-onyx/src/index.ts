@@ -68,6 +68,9 @@ export * from "./components/OnyxFABButton/types.js";
 export { default as OnyxFABItem } from "./components/OnyxFABItem/OnyxFABItem.vue";
 export * from "./components/OnyxFABItem/types.js";
 
+export { default as OnyxGlobalFAB } from "./components/OnyxGlobalFAB/OnyxGlobalFAB.vue";
+export * from "./components/OnyxGlobalFAB/useGlobalFAB.js";
+
 export { default as OnyxExternalLinkIcon } from "./components/OnyxExternalLinkIcon/OnyxExternalLinkIcon.vue";
 export * from "./components/OnyxExternalLinkIcon/types.js";
 
