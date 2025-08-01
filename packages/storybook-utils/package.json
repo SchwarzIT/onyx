@@ -1,7 +1,7 @@
 {
   "name": "@sit-onyx/storybook-utils",
   "description": "Storybook utilities for Vue",
-  "version": "1.0.0-beta.99",
+  "version": "1.0.0-beta.101",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
@@ -36,6 +36,7 @@
     "@sit-onyx/shared": "workspace:^",
     "@storybook/vue3-vite": ">= 9.0.0",
     "@vueless/storybook-dark-mode": ">= 9.0.0",
+    "prettier": ">= 3.0.0",
     "storybook": ">= 9.0.0",
     "vue-component-type-helpers": ">= 2"
   },

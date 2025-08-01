@@ -1,11 +1,11 @@
 {
   "name": "@sit-onyx/icons",
   "description": "SVG icons for the onyx design system",
-  "version": "1.0.0-beta.22",
+  "version": "1.0.0-beta.23",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
-  "sideEffects": "false",
+  "sideEffects": false,
   "engines": {
     "node": ">=20"
   },

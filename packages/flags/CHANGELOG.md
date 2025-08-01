@@ -1,5 +1,11 @@
 # @sit-onyx/flags
 
+## 1.0.0-beta.6
+
+### Patch Changes
+
+- a18d955: fix declaration of "sideEffects" in package.json
+
 ## 1.0.0-beta.5
 
 ### Major Changes

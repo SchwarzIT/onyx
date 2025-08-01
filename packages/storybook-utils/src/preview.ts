@@ -1,4 +1,3 @@
-import { getIconImportName } from "@sit-onyx/icons/utils";
 import type { Preview } from "@storybook/vue3-vite";
 import { DARK_MODE_EVENT_NAME } from "@vueless/storybook-dark-mode";
 import { deepmerge } from "deepmerge-ts";
@@ -132,51 +131,43 @@ export const createPreview = <T extends Preview = Preview>(
  *
  * @see https://storybook.js.org/docs/react/api/doc-block-source
  */
-export const sourceCodeTransformer = (originalSourceCode: string): string => {
-  const RAW_ICONS = import.meta.glob("../node_modules/@sit-onyx/icons/src/assets/*.svg", {
-    query: "?raw",
-    import: "default",
-    eager: true,
-  });
+export const sourceCodeTransformer = async (originalSourceCode: string): Promise<string> => {
+  const ALL_ICONS = await import("@sit-onyx/icons");
 
   let code = originalSourceCode;
-
-  /**
-   * Mapping between icon SVG content (key) and icon name (value).
-   * Needed to display a labelled dropdown list of all available icons.
-   */
-  const ALL_ICONS = Object.entries(RAW_ICONS).reduce<Record<string, string>>(
-    (obj, [filePath, content]) => {
-      obj[filePath.split("/").at(-1)!.replace(".svg", "")] = content as string;
-      return obj;
-    },
-    {},
-  );
 
   const additionalImports: string[] = [];
 
   // add icon imports to the source code for all used onyx icons
+  const usedIcons = new Set<string>();
+
   Object.entries(ALL_ICONS).forEach(([iconName, iconContent]) => {
-    const importName = getIconImportName(iconName);
     const singleQuotedIconContent = `'${replaceAll(iconContent, '"', "\\'")}'`;
     const escapedIconContent = `"${replaceAll(iconContent, '"', '\\"')}"`;
 
     if (code.includes(iconContent)) {
+      usedIcons.add(iconName);
+
       code = code.replace(
         new RegExp(` (\\S+)=['"]${escapeRegExp(iconContent)}['"]`),
-        ` :$1="${importName}"`,
+        ` :$1="${iconName}"`,
       );
-      additionalImports.push(`import ${importName} from "@sit-onyx/icons/${iconName}.svg?raw";`);
     } else if (code.includes(singleQuotedIconContent)) {
       // support icons inside objects
-      code = code.replace(singleQuotedIconContent, importName);
-      additionalImports.push(`import ${importName} from "@sit-onyx/icons/${iconName}.svg?raw";`);
+      usedIcons.add(iconName);
+      code = code.replace(singleQuotedIconContent, iconName);
     } else if (code.includes(escapedIconContent)) {
       // support icons inside objects
-      code = code.replace(escapedIconContent, importName);
-      additionalImports.push(`import ${importName} from "@sit-onyx/icons/${iconName}.svg?raw";`);
+      usedIcons.add(iconName);
+      code = code.replace(escapedIconContent, iconName);
     }
   });
+
+  if (usedIcons.size > 0) {
+    additionalImports.push(
+      `import { ${Array.from(usedIcons.values()).sort().join(", ")} } from "@sit-onyx/icons";`,
+    );
+  }
 
   // add imports for all used onyx components
   // Set is used here to only include unique components if they are used multiple times
@@ -188,24 +179,42 @@ export const sourceCodeTransformer = (originalSourceCode: string): string => {
     additionalImports.unshift(`import { ${usedOnyxComponents.join(", ")} } from "sit-onyx";`);
   }
 
-  if (additionalImports.length === 0) return code;
-
-  if (code.startsWith("<script")) {
-    const index = code.indexOf("\n");
-    const hasOtherImports = code.includes("import {");
-    return (
-      code.slice(0, index) +
-      additionalImports.join("\n") +
-      (!hasOtherImports ? "\n" : "") +
-      code.slice(index)
-    );
-  }
-
-  return `<script lang="ts" setup>
+  if (additionalImports.length > 1) {
+    if (code.startsWith("<script")) {
+      const index = code.indexOf("\n");
+      const hasOtherImports = code.includes("import {");
+      code =
+        code.slice(0, index) +
+        additionalImports.join("\n") +
+        (!hasOtherImports ? "\n" : "") +
+        code.slice(index);
+    } else {
+      code = `<script lang="ts" setup>
 ${additionalImports.join("\n")}
 </script>
 
 ${code}`;
+    }
+  }
+
+  try {
+    const { format } = await import("prettier/standalone");
+    const parserHtml = await import("prettier/parser-html");
+
+    code = await format(code, {
+      parser: "vue",
+      plugins: [parserHtml],
+      htmlWhitespaceSensitivity: "ignore",
+    });
+
+    // trim code to remove trailing newlines that are added by prettier
+    code = code.trim();
+  } catch (e) {
+    // eslint-disable-next-line no-console -- if the formatting fails, there is usually an issue with our code so we want to inform the user that the formatting failed
+    console.error("Error while formatting Storybook code snippet:", e);
+  }
+
+  return code;
 };
 
 /**

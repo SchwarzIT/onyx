@@ -1,5 +1,11 @@
 # @sit-onyx/icons
 
+## 1.0.0-beta.23
+
+### Patch Changes
+
+- a18d955: fix declaration of "sideEffects" in package.json
+
 ## 1.0.0-beta.22
 
 ### Major Changes
