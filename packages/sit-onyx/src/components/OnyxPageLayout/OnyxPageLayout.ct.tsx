@@ -39,7 +39,20 @@ test("should render with content only", async ({ mount, makeAxeBuilder }) => {
 
 test("should render with content and no padding", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
-  const component = await mount(<OnyxPageLayout noPadding>Page content</OnyxPageLayout>);
+  const component = await mount(
+    <OnyxPageLayout
+      // when setting max-width and noPadding, the max-width of the grid should not be applied so its possible to show
+      // full-width content like hero images
+      class="onyx-grid-max-md onyx-grid-center"
+      style={{ width: `${ONYX_BREAKPOINTS.xl}px` }}
+      noPadding
+    >
+      <div
+        style={{ background: "var(--onyx-color-base-info-200)", width: "100%", height: "256px" }}
+      ></div>
+      Page content
+    </OnyxPageLayout>,
+  );
 
   // ASSERT
   await expect(component).toHaveScreenshot("no-padding.png");
