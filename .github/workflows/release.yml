@@ -18,6 +18,8 @@ jobs:
     permissions:
       id-token: write
       contents: write
+    env:
+      NPM_CONFIG_PROVENANCE: true
     steps:
       - uses: actions/checkout@v4
         with:
@@ -50,6 +52,7 @@ jobs:
       - name: ⛴️ Version and Publish
         if: ${{ env.STAGE == 'prod' }}
         run: |
+          npm -v
           pnpm exec changeset version
           pnpm exec changeset publish
           git add --all
@@ -63,6 +66,7 @@ jobs:
       - name: 📸 Snapshot and Publish
         if: ${{ env.STAGE != 'prod' }}
         run: |
+          npm -v
           # [Snapshot release fails if repository is in pre-release mode](https://github.com/changesets/changesets/issues/1195)
           rm -f .changeset/pre.json
           # Add empty changeset so we always have a new snapshot release for each new run
