@@ -3,6 +3,7 @@ import { iconXSmall } from "@sit-onyx/icons";
 import { computed, useId } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { injectI18n } from "../../i18n/index.js";
+import type { Nullable } from "../../types/index.js";
 import OnyxBasicDialog from "../OnyxBasicDialog/OnyxBasicDialog.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
@@ -11,10 +12,7 @@ import type { OnyxModalProps } from "./types.js";
 const props = defineProps<OnyxModalProps>();
 
 const emit = defineEmits<{
-  /**
-   * Emitted when the dialog should be closed.
-   */
-  close: [];
+  "update:open": [open: Nullable<boolean>];
 }>();
 
 const slots = defineSlots<{
@@ -47,10 +45,10 @@ const hasDescription = computed(() => !!slots.description);
 <template>
   <OnyxBasicDialog
     v-bind="props"
+    modal
     :class="['onyx-modal', densityClass]"
     :aria-describedby="hasDescription ? descriptionId : undefined"
-    modal
-    @close="emit('close')"
+    @update:open="emit('update:open', $event)"
   >
     <div class="onyx-modal__header">
       <div class="onyx-modal__headline">
@@ -65,7 +63,7 @@ const hasDescription = computed(() => !!slots.description);
           class="onyx-alert-dialog__close"
           :label="t('dialog.close')"
           :icon="iconXSmall"
-          @click="emit('close')"
+          @click="emit('update:open', false)"
         />
       </div>
 

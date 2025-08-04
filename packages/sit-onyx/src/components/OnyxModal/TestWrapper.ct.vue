@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import type { DialogAlignment } from "../OnyxSupportDialog/types.js";
+import type { Nullable } from "../../types/utils.js";
+import type { DialogAlignment } from "../OnyxBasicDialog/types.js";
 import OnyxModal from "./OnyxModal.vue";
 
 const props = defineProps<{
@@ -14,12 +15,17 @@ defineSlots<{
 }>();
 
 const emit = defineEmits<{
-  close: [];
+  "update:open": [open: Nullable<boolean>];
 }>();
 </script>
 
 <template>
-  <OnyxModal label="Example modal dialog" :alignment="props.alignment" open @close="emit('close')">
+  <OnyxModal
+    label="Example modal dialog"
+    :alignment="props.alignment"
+    :open="true"
+    @update:open="emit('update:open', $event)"
+  >
     <template #headline>
       <slot name="headline"></slot>
     </template>

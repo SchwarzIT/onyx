@@ -1,3 +1,4 @@
+import { createEmitSpy, expectEmit } from "@sit-onyx/playwright-utils";
 import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
 import { DEFAULT_DISABLED_AXE_RULES, expect, test } from "../../playwright/a11y.js";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
@@ -11,10 +12,10 @@ test.beforeEach(async ({ page }) => {
 });
 
 test("should behave correctly", async ({ mount, makeAxeBuilder, page }) => {
-  let closeEventCount = 0;
+  const onOpenUpdate = createEmitSpy<typeof TestWrapperCt, "onUpdate:open">();
 
   // ARRANGE
-  const component = await mount(<TestWrapperCt onClose={() => closeEventCount++} />);
+  const component = await mount(<TestWrapperCt onUpdate:open={onOpenUpdate} />);
   const closeButton = component.getByRole("button", { name: "Close dialog" });
 
   // ASSERT
@@ -30,7 +31,7 @@ test("should behave correctly", async ({ mount, makeAxeBuilder, page }) => {
   await closeButton.click();
 
   // ASSERT
-  expect(closeEventCount).toBe(1);
+  expectEmit(onOpenUpdate, 1, [false]);
 });
 
 test("Screenshot test (custom headline)", async ({ mount, page, makeAxeBuilder }) => {

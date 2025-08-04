@@ -9,7 +9,7 @@ const isOpen = ref(false);
   <div>
     <OnyxButton label="Show modal" @click="isOpen = true" />
 
-    <OnyxModal label="Example modal dialog" :open="isOpen" non-dismissible @close="isOpen = false">
+    <OnyxModal v-model:open="isOpen" label="Example modal dialog" non-dismissible>
       <template #description> This is an example description about the dialog. </template>
 
       <div class="modal">
