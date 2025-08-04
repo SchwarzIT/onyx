@@ -51,6 +51,8 @@ jobs:
 
       - name: ⛴️ Version and Publish
         if: ${{ env.STAGE == 'prod' }}
+        env:
+          NPM_CONFIG_PROVENANCE: true
         run: |
           npm -v
           pnpm exec changeset version
@@ -65,6 +67,8 @@ jobs:
 
       - name: 📸 Snapshot and Publish
         if: ${{ env.STAGE != 'prod' }}
+        env:
+          NPM_CONFIG_PROVENANCE: true
         run: |
           npm -v
           # [Snapshot release fails if repository is in pre-release mode](https://github.com/changesets/changesets/issues/1195)
