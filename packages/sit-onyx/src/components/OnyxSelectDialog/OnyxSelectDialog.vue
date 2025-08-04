@@ -1,6 +1,7 @@
 <script lang="ts" setup generic="TValue extends string">
 import { ref, useId, watchEffect } from "vue";
 import { injectI18n } from "../../i18n/index.js";
+import type { Nullable } from "../../types/index.js";
 import OnyxBottomBar from "../OnyxBottomBar/OnyxBottomBar.vue";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxCard from "../OnyxCard/OnyxCard.vue";
@@ -18,10 +19,7 @@ const emit = defineEmits<{
    * Emitted when the color scheme should be changed.
    */
   "update:modelValue": [value: TValue];
-  /**
-   * Emitted when the dialog should be closed.
-   */
-  close: [];
+  "update:open": [open: Nullable<boolean>];
 }>();
 
 const slots = defineSlots<{
@@ -45,12 +43,18 @@ const handleChange = (event: Event) => {
 const handleApply = () => {
   if (!currentValue.value) return;
   emit("update:modelValue", currentValue.value);
-  emit("close");
+  emit("update:open", false);
 };
 </script>
 
 <template>
-  <OnyxModal v-bind="props" class="onyx-select-dialog" :label="props.label" @close="emit('close')">
+  <OnyxModal
+    v-bind="props"
+    :open="props.open"
+    class="onyx-select-dialog"
+    :label="props.label"
+    @update:open="emit('update:open', $event)"
+  >
     <template v-if="!!slots.description" #description>
       <slot name="description"></slot>
     </template>
@@ -84,7 +88,12 @@ const handleApply = () => {
 
     <template #footer>
       <OnyxBottomBar>
-        <OnyxButton :label="t('cancel')" mode="plain" color="neutral" @click="emit('close')" />
+        <OnyxButton
+          :label="t('cancel')"
+          mode="plain"
+          color="neutral"
+          @click="emit('update:open', false)"
+        />
         <OnyxButton :label="t('apply')" type="submit" :form="formId" />
       </OnyxBottomBar>
     </template>
