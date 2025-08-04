@@ -1,5 +1,5 @@
 <template>
-  <OnyxAppLayout class="onyx-grid-max-md onyx-grid-center">
+  <OnyxAppLayout class="onyx-grid-max-lg onyx-grid-center">
     <template #navBar>
       <NavBar />
     </template>
