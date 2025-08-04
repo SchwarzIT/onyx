@@ -1,6 +1,6 @@
 import { expect } from "@playwright/test";
 import type { Component } from "vue";
-import type { ComponentEmitHandler } from "./types.js";
+import type { ComponentEmitProps } from "./types.js";
 
 export const EMIT_SPY_SYMBOL = Symbol("EMIT_SPY_SYMBOL");
 
@@ -20,7 +20,7 @@ export const EMIT_SPY_SYMBOL = Symbol("EMIT_SPY_SYMBOL");
 export const createEmitSpy = <
   C extends Component,
   Key extends keyof Emits,
-  Emits = ComponentEmitHandler<C>,
+  Emits = ComponentEmitProps<C>,
   Handler = NonNullable<Emits[Key]>,
   Args extends unknown[] = Handler extends (...args: infer _Args) => unknown ? _Args : unknown[],
 >() => {
