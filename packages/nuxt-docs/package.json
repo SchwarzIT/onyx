@@ -18,14 +18,9 @@
   },
   "main": "./nuxt.config.ts",
   "files": [
-    "components",
-    "composables",
-    "layouts",
-    "pages",
-    "*.ts",
-    "!*.e2e.ts",
-    "*.vue",
-    "*.json"
+    "app",
+    "content.config.ts",
+    "nuxt.config.ts"
   ],
   "scripts": {
     "dev": "pnpm dev:prepare && nuxi dev playground",
