@@ -123,7 +123,7 @@ const handleDragEnter = () => {
       :class="[
         'onyx-file-upload',
         `onyx-file-upload--${props.size}`,
-        isDragging ? 'onyx-file-upload--dragging' : '',
+        { 'onyx-file-upload--dragging': isDragging },
       ]"
       :disabled="disabled"
       @dragenter="handleDragEnter"

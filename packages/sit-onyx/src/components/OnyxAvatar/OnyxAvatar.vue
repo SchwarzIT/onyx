@@ -38,7 +38,7 @@ watch(
       'onyx-component',
       'onyx-avatar',
       `onyx-avatar--${props.size}`,
-      props.initials ? 'onyx-avatar--custom' : '',
+      { 'onyx-avatar--custom': props.initials },
     ]"
     :title="ariaLabel"
     :aria-label="ariaLabel"

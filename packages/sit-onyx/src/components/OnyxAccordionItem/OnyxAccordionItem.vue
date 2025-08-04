@@ -59,7 +59,7 @@ const panelId = computed(() => `panel-${props.value.toString()}`);
       'onyx-component',
       'onyx-accordion-item-skeleton',
       densityClass,
-      type !== 'default' ? `onyx-accordion-item-skeleton--${type}` : '',
+      { [`onyx-accordion-item-skeleton--${type}`]: type !== 'default' },
     ]"
   >
     <OnyxSkeleton class="onyx-accordion-item-skeleton__main" />
@@ -72,7 +72,7 @@ const panelId = computed(() => `panel-${props.value.toString()}`);
       'onyx-component',
       'onyx-accordion-item',
       densityClass,
-      type !== 'default' ? `onyx-accordion-item--${type}` : '',
+      { [`onyx-accordion-item--${type}`]: type !== 'default' },
     ]"
     :open="isOpen"
   >

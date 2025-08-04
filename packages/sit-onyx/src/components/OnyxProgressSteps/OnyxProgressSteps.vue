@@ -77,7 +77,7 @@ const mappedSteps = computed(() => {
       'onyx-component',
       'onyx-progress-steps',
       densityClass,
-      props.orientation === 'vertical' ? 'onyx-progress-steps--vertical' : '',
+      { 'onyx-progress-steps--vertical': props.orientation === 'vertical' },
     ]"
   >
     <div class="onyx-progress-steps__scroll-container">

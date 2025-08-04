@@ -133,7 +133,7 @@ onUnmounted(() => {
       'onyx-sidebar',
       'onyx-grid-container',
       densityClass,
-      props.alignment === 'right' ? 'onyx-sidebar--right' : '',
+      { 'onyx-sidebar--right': props.alignment === 'right' },
     ]"
     :aria-label="props.label"
     :style="widthStyle"
@@ -161,8 +161,10 @@ onUnmounted(() => {
     :class="[
       'onyx-sidebar',
       'onyx-sidebar--temporary',
-      props.alignment === 'right' ? 'onyx-sidebar--right' : '',
-      props.temporary?.floating ? 'onyx-sidebar--floating' : '',
+      {
+        'onyx-sidebar--right': props.alignment === 'right',
+        'onyx-sidebar--floating': props.temporary.floating,
+      },
     ]"
     :label="props.label"
     :density="props.density"
