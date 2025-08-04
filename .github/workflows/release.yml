@@ -16,6 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
     permissions:
+      id-token: write
       contents: write
     env:
       NPM_CONFIG_PROVENANCE: true
