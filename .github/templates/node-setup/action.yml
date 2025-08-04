@@ -13,6 +13,8 @@ runs:
         node-version-file: .node-version
         cache: pnpm
 
+    # *pnpm* uses *npm* under the hood for publishing.
+    # For publishing securely the latest npm version should always be used.
     - name: Keep npm up-to-date
       run: npm install -g npm@latest
       shell: bash
