@@ -1,6 +1,5 @@
 {
   "type": "module",
-  "packageManager": "pnpm@10.13.1",
   "private": true,
   "scripts": {
     "test:playwright": "playwright install && playwright test"
