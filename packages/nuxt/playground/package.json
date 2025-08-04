@@ -2,7 +2,6 @@
   "private": true,
   "name": "onyx-nuxt-playground",
   "type": "module",
-  "packageManager": "pnpm@10.13.1",
   "scripts": {
     "dev": "nuxi dev",
     "build": "nuxi build",

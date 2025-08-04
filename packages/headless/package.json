@@ -3,7 +3,6 @@
   "description": "Headless composables for Vue",
   "version": "1.0.0-beta.24",
   "type": "module",
-  "packageManager": "pnpm@10.13.1",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
   "engines": {
