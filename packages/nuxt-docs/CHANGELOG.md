@@ -1,5 +1,11 @@
 # @sit-onyx/nuxt-docs
 
+## 1.0.0-beta.99
+
+### Patch Changes
+
+- 8a06e79: change default grid max-width to lg instead of md
+
 ## 1.0.0-beta.98
 
 ### Patch Changes
