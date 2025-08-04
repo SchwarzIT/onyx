@@ -16,6 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
     permissions:
+      id-token: write
       contents: write
     steps:
       - uses: actions/checkout@v4
@@ -25,8 +26,6 @@ jobs:
           fetch-depth: 0
 
       - uses: ./.github/templates/node-setup
-        with:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: 🛠️ Build packages
         run: pnpm build:all --filter=!docs
