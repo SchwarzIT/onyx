@@ -12,19 +12,7 @@ runs:
     - name: 🧑‍💼 Setup pnpm
       uses: pnpm/action-setup@v4
 
-    - name: 🔐 Setup Node.js
-      if: ${{ inputs.NODE_AUTH_TOKEN != '' }}
-      uses: actions/setup-node@v4
-      with:
-        node-version-file: .node-version
-        cache: pnpm
-        registry-url: "https://registry.npmjs.org/"
-        scope: sit-onyx
-      env:
-        NODE_AUTH_TOKEN: ${{ inputs.NODE_AUTH_TOKEN }}
-
     - name: 🏗️ Setup Node.js
-      if: ${{ inputs.NODE_AUTH_TOKEN == '' }}
       uses: actions/setup-node@v4
       with:
         node-version-file: .node-version

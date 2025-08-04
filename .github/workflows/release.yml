@@ -25,6 +25,8 @@ jobs:
           # needed when building VitePress docs so timestamps can be calculated correctly
           fetch-depth: 0
 
+      - uses: ./.github/templates/node-setup
+
       - name: 🛠️ Build packages
         run: pnpm build:all --filter=!docs
 
