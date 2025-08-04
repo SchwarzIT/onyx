@@ -2,7 +2,6 @@ import { createEmitSpy, expectEmit } from "@sit-onyx/playwright-utils";
 import { expect, test } from "../../../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../../../playwright/screenshots.js";
 import OnyxColorSchemeDialog from "./OnyxColorSchemeDialog.vue";
-import type { ColorSchemeValue } from "./types.js";
 
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
@@ -42,8 +41,7 @@ test.describe("Screenshot tests", () => {
 test("should behave correctly", async ({ mount, page }) => {
   await page.setViewportSize({ width: 512, height: 640 });
 
-  const updateModelValueEvents: ColorSchemeValue[] = [];
-
+  const onUpdateModelValue = createEmitSpy<typeof OnyxColorSchemeDialog, "onUpdate:modelValue">();
   const onUpdateOpen = createEmitSpy<typeof OnyxColorSchemeDialog, "onUpdate:open">();
 
   // ARRANGE
@@ -52,11 +50,10 @@ test("should behave correctly", async ({ mount, page }) => {
       modelValue="light"
       open
       style={{ width: "48rem" }}
-      onUpdate:modelValue={(value) => updateModelValueEvents.push(value)}
+      onUpdate:modelValue={onUpdateModelValue}
       onUpdate:open={onUpdateOpen}
     />,
   );
-  expectEmit(onUpdateOpen, 1, [false]);
 
   const clickOption = (label: string) => {
     return component.getByText(label, { exact: true }).click();
@@ -75,19 +72,19 @@ test("should behave correctly", async ({ mount, page }) => {
   await page.keyboard.press("Enter");
 
   // ASSERT
-  expect(updateModelValueEvents).toStrictEqual(["dark"]);
+  expectEmit(onUpdateModelValue, 1, ["dark"]);
   expectEmit(onUpdateOpen, 1, [false]);
 
   // ACT
   await clickOption("Auto");
 
   // ASSERT
-  expect(updateModelValueEvents).toStrictEqual(["dark"]);
+  expectEmit(onUpdateModelValue, 1);
 
   await component.getByRole("button", { name: "Apply" }).click();
 
   // ASSERT
-  expect(updateModelValueEvents).toStrictEqual(["dark", "auto"]);
+  expectEmit(onUpdateModelValue, 2, ["auto"]);
   expectEmit(onUpdateOpen, 2, [false]);
 
   // ACT
@@ -95,7 +92,7 @@ test("should behave correctly", async ({ mount, page }) => {
   await component.getByRole("button", { name: "Apply" }).click();
 
   // ASSERT
-  expect(updateModelValueEvents).toStrictEqual(["dark", "auto", "light"]);
+  expectEmit(onUpdateModelValue, 3, ["light"]);
   expectEmit(onUpdateOpen, 3, [false]);
 
   // ACT

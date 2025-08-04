@@ -39,7 +39,7 @@ const meta: Meta<typeof OnyxColorSchemeDialog> = {
         },
         template: `<div>
             <OnyxButton label="Show dialog" @click="isOpen = true" />
-            <story :open="isOpen" @close="isOpen = false;" />
+            <story v-model:open="isOpen" />
           </div>`,
       };
     },
