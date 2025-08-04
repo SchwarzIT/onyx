@@ -163,7 +163,7 @@ onUnmounted(() => {
       'onyx-sidebar--temporary',
       {
         'onyx-sidebar--right': props.alignment === 'right',
-        'onyx-sidebar--floating': props.temporary.floating,
+        'onyx-sidebar--floating': props.temporary?.floating,
       },
     ]"
     :label="props.label"
