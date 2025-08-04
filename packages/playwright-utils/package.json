@@ -3,6 +3,7 @@
   "description": "Utilities for Vue component testing with Playwright",
   "version": "1.0.0-beta.4",
   "type": "module",
+  "packageManager": "pnpm@10.13.1",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
   "engines": {
