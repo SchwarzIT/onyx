@@ -53,10 +53,7 @@ jobs:
 
       - name: ⛴️ Version and Publish
         if: ${{ env.STAGE == 'prod' }}
-        env:
-          NPM_CONFIG_PROVENANCE: true
         run: |
-          npm -v
           pnpm exec changeset version
           pnpm exec changeset publish
           git add --all
@@ -69,15 +66,12 @@ jobs:
 
       - name: 📸 Snapshot and Publish
         if: ${{ env.STAGE != 'prod' }}
-        env:
-          NPM_CONFIG_PROVENANCE: true
         run: |
           # [Snapshot release fails if repository is in pre-release mode](https://github.com/changesets/changesets/issues/1195)
           rm -f .changeset/pre.json
           # Add empty changeset so we always have a new snapshot release for each new run
           pnpm exec changeset add --empty
           pnpm exec changeset version --snapshot
-          npm config list
           pnpm exec changeset publish --tag snapshot
 
       # the docs need to be build AFTER the release because there the changelogs are generated which need to be included in the
