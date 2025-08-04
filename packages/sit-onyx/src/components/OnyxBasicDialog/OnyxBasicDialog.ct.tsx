@@ -1,3 +1,4 @@
+import { createEmitSpy, expectEmit } from "@sit-onyx/playwright-utils";
 import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
 import { expect, test } from "../../playwright/a11y.js";
 import OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
@@ -93,10 +94,10 @@ test("should close correctly when clicking outside the dialog", async ({ mount, 
   // ARRANGE
   await page.setViewportSize({ width: 512, height: 1028 });
 
-  let closeCount = 0;
+  const onOpenUpdate = createEmitSpy<typeof OnyxBasicDialog, "onUpdate:open">();
 
   await mount(
-    <OnyxBasicDialog label="Label" open modal onClose={() => closeCount++}>
+    <OnyxBasicDialog label="Label" open modal onUpdate:open={onOpenUpdate}>
       Example modal dialog
       <OnyxSelect
         label="Select"
@@ -122,7 +123,7 @@ test("should close correctly when clicking outside the dialog", async ({ mount, 
   // ASSERT
   await expect(select).toHaveValue("Option 1");
   await expect(
-    () => expect(closeCount).toBe(0),
+    () => expectEmit(onOpenUpdate, 0),
     "should not close when clicking inside the select flyout",
   ).toPass();
 
@@ -131,7 +132,7 @@ test("should close correctly when clicking outside the dialog", async ({ mount, 
 
   // ASSERT
   await expect(
-    () => expect(closeCount).toBe(1),
+    () => expectEmit(onOpenUpdate, 1, [false]),
     "should close when clicking the backdrop",
   ).toPass();
 });
