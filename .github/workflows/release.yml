@@ -75,7 +75,7 @@ jobs:
           # Add empty changeset so we always have a new snapshot release for each new run
           pnpm exec changeset add --empty
           pnpm exec changeset version --snapshot
-          npm config list
+          npm config list -l
           pnpm exec changeset publish --tag snapshot
 
       # the docs need to be build AFTER the release because there the changelogs are generated which need to be included in the
