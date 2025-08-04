@@ -75,12 +75,7 @@ watch(
       </template>
     </OnyxPageLayout>
 
-    <OnyxBasicDialog
-      label="Example dialog"
-      :open="settings.overlay.showModal"
-      modal
-      @close="settings.overlay.showModal = false"
-    >
+    <OnyxBasicDialog v-model:open="settings.overlay.showModal" label="Example dialog" modal>
       <OnyxHeadline is="h2">Modal content</OnyxHeadline>
       <p>Press "Escape" to close the modal.</p>
 
@@ -88,11 +83,7 @@ watch(
       <TooltipDemo :force-tooltip="settings.content.forceTooltip" />
     </OnyxBasicDialog>
 
-    <OnyxBasicDialog
-      label="Example dialog"
-      :open="settings.overlay.showPopover"
-      @close="settings.overlay.showPopover = false"
-    >
+    <OnyxBasicDialog v-model:open="settings.overlay.showPopover" label="Example dialog">
       <OnyxHeadline is="h2">Modal content</OnyxHeadline>
       <p>Press "Escape" to close the modal.</p>
 

@@ -63,7 +63,13 @@ const handleCheckboxChange = (isChecked: boolean, breakpoint: OnyxBreakpoint) =>
 </script>
 
 <template>
-  <OnyxBasicDialog :label="label" :open="props.open" modal class="dialog" @close="emit('close')">
+  <OnyxBasicDialog
+    :label="label"
+    :open="props.open"
+    class="dialog"
+    modal
+    @update:open="(newOpen) => !newOpen && emit('close')"
+  >
     <form @submit.prevent="handleSubmit">
       <div class="dialog__header">
         <OnyxHeadline is="h2">{{ label }}</OnyxHeadline>

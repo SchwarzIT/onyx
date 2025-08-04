@@ -157,7 +157,7 @@ onUnmounted(() => {
     v-else
     v-bind="props.temporary"
     ref="modalRef"
-    :open="isModalOpen"
+    v-model:open="isModalOpen"
     :class="[
       'onyx-sidebar',
       'onyx-sidebar--temporary',
@@ -170,12 +170,6 @@ onUnmounted(() => {
     :density="props.density"
     :style="widthStyle"
     :alignment="props.alignment"
-    @close="
-      () => {
-        isModalOpen = false;
-        emit('close');
-      }
-    "
   >
     <template v-if="!!slots.header" #headline>
       <slot name="header"></slot>

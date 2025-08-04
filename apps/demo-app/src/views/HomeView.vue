@@ -267,7 +267,7 @@ const currentProgressStep = ref(3);
           label="Open Dialog"
           @click="isDialogOpen = true"
         />
-        <OnyxBasicDialog label="Dialog" :open="isDialogOpen" modal @close="isDialogOpen = false">
+        <OnyxBasicDialog v-model:open="isDialogOpen" label="Dialog" modal>
           Dialog Content
         </OnyxBasicDialog>
         <OnyxImage
