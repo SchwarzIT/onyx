@@ -3,6 +3,7 @@ import { iconCircleAttention, iconXSmall } from "@sit-onyx/icons";
 import { useId } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { injectI18n } from "../../i18n/index.js";
+import type { Nullable } from "../../types/utils.js";
 import OnyxBasicDialog from "../OnyxBasicDialog/OnyxBasicDialog.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -17,7 +18,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the modal should be closed.
    */
-  close: [];
+  "update:open": [open: Nullable<boolean>];
 }>();
 
 defineSlots<{
@@ -58,7 +59,7 @@ const describedById = useId();
     :aria-describedby="describedById"
     modal
     alert
-    @close="emit('close')"
+    @update:open="emit('update:open', $event)"
   >
     <div class="onyx-alert-modal__content">
       <OnyxIcon v-if="props.icon" class="onyx-alert-modal__icon" v-bind="props.icon" size="64px" />
@@ -73,7 +74,7 @@ const describedById = useId();
             class="onyx-alert-modal__close"
             :label="t('dialog.close')"
             :icon="iconXSmall"
-            @click="emit('close')"
+            @click="emit('update:open', false)"
           />
         </div>
 

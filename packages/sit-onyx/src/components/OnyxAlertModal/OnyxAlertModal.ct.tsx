@@ -1,3 +1,4 @@
+import { createEmitSpy, expectEmit } from "@sit-onyx/playwright-utils";
 import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
 import { expect, test } from "../../playwright/a11y.js";
 import TestWrapperCt from "./TestWrapper.ct.vue";
@@ -22,16 +23,21 @@ test.describe("Screenshot tests", () => {
   }
 });
 
-test("should behave correctly", async ({ mount }) => {
-  let closeEventCount = 0;
+test("should behave correctly", async ({ mount, page }) => {
+  const onOpenUpdate = createEmitSpy<typeof TestWrapperCt, "onUpdate:open">();
 
   // ARRANGE
-  const component = await mount(<TestWrapperCt onClose={() => closeEventCount++} />);
+  const component = await mount(<TestWrapperCt onUpdate:open={onOpenUpdate} />);
   const closeButton = component.getByRole("button", { name: "Close dialog" });
+  const dialog = page.getByRole("alertdialog");
+
+  // ASSERT
+  await expect(dialog).toBeVisible();
 
   // ACT
   await closeButton.click();
 
   // ASSERT
-  expect(closeEventCount).toBe(1);
+  expectEmit(onOpenUpdate, 1, [false]);
+  await expect(dialog).toBeVisible();
 });

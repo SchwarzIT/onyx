@@ -11,10 +11,9 @@ const isOpen = ref(false);
     <OnyxButton label="Show alert modal" @click="isOpen = true" />
 
     <OnyxAlertModal
+      v-model:open="isOpen"
       :icon="{ icon: iconCircleAttention, color: 'danger' }"
       label="Confirm deletion"
-      :open="isOpen"
-      @close="isOpen = false"
     >
       Are you sure that you want to delete the selected item? This action can not be reverted.
 
