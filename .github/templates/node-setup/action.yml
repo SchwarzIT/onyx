@@ -16,7 +16,10 @@ runs:
     # *pnpm* uses *npm* under the hood for publishing.
     # For publishing securely the latest npm version should always be used.
     - name: Keep npm up-to-date
-      run: npm install -g npm@latest
+      run: |
+        npm -v
+        npm install -g npm@latest
+        npm -v
       shell: bash
 
     - name: 📆 Get Date
