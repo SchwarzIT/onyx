@@ -1,5 +1,13 @@
 # @sit-onyx/icons
 
+## 1.0.0-beta.24
+
+### Major Changes
+
+- b4d113a: feat: update `getIconImportName` utility to return the JavaScript import name instead of raw SVG import name
+
+  The utility will now return the JavaScript import name (e.g. iconBellDisabled) instead of the raw SVG import name (bellDisabled)
+
 ## 1.0.0-beta.23
 
 ### Patch Changes
