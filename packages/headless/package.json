@@ -45,7 +45,6 @@
   "devDependencies": {
     "@sit-onyx/shared": "workspace:^",
     "@vue/compiler-dom": "catalog:",
-    "vite-plugin-dts": "^4.5.4",
     "vue": "catalog:"
   }
 }

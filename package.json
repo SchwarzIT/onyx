@@ -64,6 +64,7 @@
     "typescript": "catalog:",
     "typescript-eslint": "^8.39.0",
     "vite": "catalog:",
+    "vite-plugin-dts": "^4.5.4",
     "vitest": "^3.2.4",
     "vue-tsc": "^3.0.5"
   },
