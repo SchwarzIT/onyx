@@ -11,8 +11,8 @@ updates:
     groups:
       playwright:
         patterns:
-          - "^@playwright/*"
-          - "^playwright*"
+          - "@playwright/*"
+          - "playwright*"
 
       minor:
         update-types:
