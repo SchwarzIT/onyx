@@ -1,7 +1,7 @@
 {
   "name": "@sit-onyx/storybook-utils",
   "description": "Storybook utilities for Vue",
-  "version": "1.0.0-beta.101",
+  "version": "1.0.0-beta.102",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
@@ -32,6 +32,7 @@
     "stylelint": "stylelint \"src/**/*.css\""
   },
   "peerDependencies": {
+    "@sit-onyx/flags": "workspace:^",
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
     "@storybook/vue3-vite": ">= 9.0.0",

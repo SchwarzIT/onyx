@@ -49,11 +49,7 @@ provideSkeletonContext(props);
     </div>
 
     <main class="onyx-page__main">
-      <div v-if="props.noPadding" class="onyx-grid-container">
-        <slot></slot>
-      </div>
-
-      <div v-else class="onyx-grid-layout">
+      <div :class="{ 'onyx-grid-layout': !props.noPadding }">
         <slot></slot>
       </div>
     </main>

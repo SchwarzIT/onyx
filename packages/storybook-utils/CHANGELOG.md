@@ -1,5 +1,18 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-beta.102
+
+### Minor Changes
+
+- b4d113a: feat: replace flags in source code snippets that are imported from `@sit-onyx/flags` with corresponding import statements
+
+### Patch Changes
+
+- Updated dependencies [b4d113a]
+- Updated dependencies [b4d113a]
+  - @sit-onyx/flags@1.0.0-beta.7
+  - @sit-onyx/icons@1.0.0-beta.24
+
 ## 1.0.0-beta.101
 
 ### Minor Changes

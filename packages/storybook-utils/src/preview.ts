@@ -132,65 +132,89 @@ export const createPreview = <T extends Preview = Preview>(
  * @see https://storybook.js.org/docs/react/api/doc-block-source
  */
 export const sourceCodeTransformer = async (originalSourceCode: string): Promise<string> => {
-  const ALL_ICONS = await import("@sit-onyx/icons");
-
   let code = originalSourceCode;
 
-  const additionalImports: string[] = [];
-
-  // add icon imports to the source code for all used onyx icons
-  const usedIcons = new Set<string>();
-
-  Object.entries(ALL_ICONS).forEach(([iconName, iconContent]) => {
-    const singleQuotedIconContent = `'${replaceAll(iconContent, '"', "\\'")}'`;
-    const escapedIconContent = `"${replaceAll(iconContent, '"', '\\"')}"`;
-
-    if (code.includes(iconContent)) {
-      usedIcons.add(iconName);
-
-      code = code.replace(
-        new RegExp(` (\\S+)=['"]${escapeRegExp(iconContent)}['"]`),
-        ` :$1="${iconName}"`,
-      );
-    } else if (code.includes(singleQuotedIconContent)) {
-      // support icons inside objects
-      usedIcons.add(iconName);
-      code = code.replace(singleQuotedIconContent, iconName);
-    } else if (code.includes(escapedIconContent)) {
-      // support icons inside objects
-      usedIcons.add(iconName);
-      code = code.replace(escapedIconContent, iconName);
-    }
-  });
-
-  if (usedIcons.size > 0) {
-    additionalImports.push(
-      `import { ${Array.from(usedIcons.values()).sort().join(", ")} } from "@sit-onyx/icons";`,
-    );
-  }
+  /**
+   * A list of additional JavaScript imports to be added at the top of the source code.
+   *
+   * key = module/package name to import from, value: set of imports to import from the package
+   */
+  const additionalImports = new Map<string, Set<string>>();
 
   // add imports for all used onyx components
   // Set is used here to only include unique components if they are used multiple times
-  const usedOnyxComponents = [
-    ...new Set(Array.from(code.matchAll(/<(Onyx\w+)(?:\s*\/?)/g)).map((match) => match[1])),
-  ].sort();
+  const usedOnyxComponents = new Set(
+    Array.from(code.matchAll(/<(Onyx\w+)(?:\s*\/?)/g)).map((match) => match[1]),
+  );
+  additionalImports.set("sit-onyx", usedOnyxComponents);
 
-  if (usedOnyxComponents.length > 0) {
-    additionalImports.unshift(`import { ${usedOnyxComponents.join(", ")} } from "sit-onyx";`);
-  }
+  /**
+   * List of npm packages to replace the source code with.
+   * The source code will be checked for any import of the package and (if its used), the code will be replaced by the corresponding import.
+   */
+  const packagesToReplace = [
+    { name: "@sit-onyx/icons", data: await import("@sit-onyx/icons") },
+    { name: "@sit-onyx/flags", data: await import("@sit-onyx/flags") },
+  ];
 
-  if (additionalImports.length > 1) {
+  packagesToReplace.forEach((_package) => {
+    Object.entries(_package.data).forEach(([name, content]) => {
+      const singleQuotedContent = `'${replaceAll(content, '"', "\\'")}'`;
+      const escapedContent = `"${replaceAll(content, '"', '\\"')}"`;
+
+      const imports = additionalImports.get(_package.name) ?? new Set<string>();
+
+      if (code.includes(content)) {
+        imports.add(name);
+
+        code = code.replace(
+          new RegExp(` (\\S+)=['"]${escapeRegExp(content)}['"]`),
+          ` :$1="${name}"`,
+        );
+      } else if (code.includes(singleQuotedContent)) {
+        // support values inside objects
+        imports.add(name);
+        code = code.replace(singleQuotedContent, name);
+      } else if (code.includes(escapedContent)) {
+        // support values inside objects
+        imports.add(name);
+        code = code.replace(escapedContent, name);
+      }
+
+      additionalImports.set(_package.name, imports);
+    });
+  });
+
+  // remove imports without any data so we don't add empty imports
+  additionalImports.forEach((value, key) => {
+    if (!value.size) additionalImports.delete(key);
+  });
+
+  // generate the source code for the additional imports and add them to the top of the code snippet
+  if (additionalImports.size > 0) {
+    const additionalImportsCode = Array.from(additionalImports.entries()).reduce(
+      (code, [packageName, imports]) => {
+        if (imports.size) {
+          code.push(
+            `import { ${Array.from(imports.values()).sort().join(", ")} } from "${packageName}";`,
+          );
+        }
+        return code;
+      },
+      [] as string[],
+    );
+
     if (code.startsWith("<script")) {
       const index = code.indexOf("\n");
       const hasOtherImports = code.includes("import {");
       code =
         code.slice(0, index) +
-        additionalImports.join("\n") +
+        additionalImportsCode.join("\n") +
         (!hasOtherImports ? "\n" : "") +
         code.slice(index);
     } else {
       code = `<script lang="ts" setup>
-${additionalImports.join("\n")}
+${additionalImportsCode.join("\n")}
 </script>
 
 ${code}`;
