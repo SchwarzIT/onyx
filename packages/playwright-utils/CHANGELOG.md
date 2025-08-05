@@ -1,5 +1,11 @@
 # @sit-onyx/playwright-utils
 
+## 1.0.0-beta.5
+
+### Minor Changes
+
+- 17edbba: feat: implemented emit spy helper functions: `createEmitSpy` and `expectEmit`
+
 ## 1.0.0-beta.4
 
 ### Major Changes
