@@ -53,6 +53,8 @@ export const useStore = () => {
         mergeImportMap(importMap.value, {
           imports: {
             "sit-onyx": `https://cdn.jsdelivr.net/npm/sit-onyx@${onyxVersion.value}/dist/index.js`,
+            "@sit-onyx/icons": `https://cdn.jsdelivr.net/npm/@sit-onyx/icons@beta/dist/index.js`,
+            "@sit-onyx/shared": `https://cdn.jsdelivr.net/npm/@sit-onyx/shared@beta/dist/index.js`,
           },
         }),
       ),
