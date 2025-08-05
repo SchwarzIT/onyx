@@ -40,7 +40,7 @@ const slots = defineSlots<{
    */
   footer?(): unknown;
   /**
-   * Description slot of the `OnyxModelDialog`. Only available if the `temporary` property is set.
+   * Description slot of the `OnyxModalDialog`. Only available if the `temporary` property is set.
    */
   description?(): unknown;
 }>();
@@ -66,7 +66,7 @@ const resizeHandleProps = computed(
 );
 const { width: windowWidth } = useResizeObserver();
 
-const _isDrawerOpen = ref(false);
+const _isModalOpen = ref(false);
 
 const shouldCollapse = computed(() => {
   if (!props.collapseSidebar) return false;
@@ -77,15 +77,15 @@ const shouldCollapse = computed(() => {
   return windowWidth.value <= breakpointWidth;
 });
 
-const isDrawerOpen = computed<boolean>({
+const isModalOpen = computed<boolean>({
   get: () => {
     if (typeof props.temporary?.open === "boolean") {
       return props.temporary.open;
     }
-    return _isDrawerOpen.value;
+    return _isModalOpen.value;
   },
   set: (newVal: boolean) => {
-    _isDrawerOpen.value = newVal;
+    _isModalOpen.value = newVal;
   },
 });
 
@@ -111,7 +111,7 @@ watch(
         },
         alignment: props.alignment,
         onClick: () => {
-          isDrawerOpen.value = !isDrawerOpen.value;
+          isModalOpen.value = !isModalOpen.value;
         },
       })),
     );
@@ -157,7 +157,7 @@ onUnmounted(() => {
     v-else
     v-bind="props.temporary"
     ref="modalRef"
-    :open="isDrawerOpen"
+    :open="isModalOpen"
     :class="[
       'onyx-sidebar',
       'onyx-sidebar--temporary',
@@ -172,7 +172,7 @@ onUnmounted(() => {
     :alignment="props.alignment"
     @close="
       () => {
-        isDrawerOpen = false;
+        isModalOpen = false;
         emit('close');
       }
     "
