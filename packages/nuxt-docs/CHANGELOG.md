@@ -1,5 +1,16 @@
 # @sit-onyx/nuxt-docs
 
+## 1.0.0-beta.101
+
+### Patch Changes
+
+- bf163a2: fix(nuxt-docs): update page content when navigating
+
+  Previously the page content did not update when dynamically navigating to another route which is fixed now
+
+- Updated dependencies [0c50fd5]
+  - sit-onyx@1.0.0-beta.287
+
 ## 1.0.0-beta.100
 
 ### Patch Changes
