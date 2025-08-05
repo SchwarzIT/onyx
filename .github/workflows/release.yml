@@ -16,6 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
     permissions:
+      id-token: write
       contents: write
     steps:
       - uses: actions/checkout@v4
@@ -25,8 +26,6 @@ jobs:
           fetch-depth: 0
 
       - uses: ./.github/templates/node-setup
-        with:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: 🛠️ Build packages
         run: pnpm build:all --filter=!docs
@@ -51,8 +50,8 @@ jobs:
       - name: ⛴️ Version and Publish
         if: ${{ env.STAGE == 'prod' }}
         run: |
-          npx changeset version
-          npx changeset publish
+          pnpm exec changeset version
+          pnpm exec changeset publish
           git add --all
           if [[ `git status --porcelain` ]]; then
             git commit --amend --no-edit
@@ -67,9 +66,9 @@ jobs:
           # [Snapshot release fails if repository is in pre-release mode](https://github.com/changesets/changesets/issues/1195)
           rm -f .changeset/pre.json
           # Add empty changeset so we always have a new snapshot release for each new run
-          npx changeset add --empty
-          npx changeset version --snapshot
-          npx changeset publish --tag snapshot
+          pnpm exec changeset add --empty
+          pnpm exec changeset version --snapshot
+          pnpm exec changeset publish --tag snapshot
 
       # the docs need to be build AFTER the release because there the changelogs are generated which need to be included in the
       # documentation build

@@ -45,7 +45,7 @@ If you want to get familiar with how the grid works, you can use our [grid playg
 ```
 
 ```html [With max width]
-<div class="onyx-grid-max-md onyx-grid-center">
+<div class="onyx-grid-max-lg onyx-grid-center">
   <OnyxNavBar app-name="Example" />
 
   <main class="onyx-grid-layout">

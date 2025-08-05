@@ -1,34 +1,23 @@
 name: Setup node
 description: Custom node setup for onyx
 
-inputs:
-  NODE_AUTH_TOKEN:
-    default: ""
-    description: If the npm registry setup should be authenticated.
-
 runs:
   using: "composite"
   steps:
     - name: 🧑‍💼 Setup pnpm
       uses: pnpm/action-setup@v4
 
-    - name: 🔐 Setup Node.js
-      if: ${{ inputs.NODE_AUTH_TOKEN != '' }}
-      uses: actions/setup-node@v4
-      with:
-        node-version-file: .node-version
-        cache: pnpm
-        registry-url: "https://registry.npmjs.org/"
-        scope: sit-onyx
-      env:
-        NODE_AUTH_TOKEN: ${{ inputs.NODE_AUTH_TOKEN }}
-
     - name: 🏗️ Setup Node.js
-      if: ${{ inputs.NODE_AUTH_TOKEN == '' }}
       uses: actions/setup-node@v4
       with:
         node-version-file: .node-version
         cache: pnpm
+
+    # *pnpm* uses *npm* under the hood for publishing.
+    # For publishing securely the latest npm version should always be used.
+    - name: Keep npm up-to-date
+      run: npm install -g npm@latest
+      shell: bash
 
     - name: 📆 Get Date
       id: get-date
