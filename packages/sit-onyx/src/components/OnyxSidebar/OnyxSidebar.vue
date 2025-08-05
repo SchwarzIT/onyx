@@ -1,12 +1,20 @@
 <script lang="ts" setup>
-import { computed, ref, useTemplateRef } from "vue";
+import arrowSmallLeft from "@sit-onyx/icons/arrow-small-left.svg?raw";
+import arrowSmallRight from "@sit-onyx/icons/arrow-small-right.svg?raw";
+import sidebarArrowLeft from "@sit-onyx/icons/sidebar-arrow-left.svg?raw";
+import sidebarArrowRight from "@sit-onyx/icons/sidebar-arrow-right.svg?raw";
+import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
+import { computed, onUnmounted, ref, useId, useTemplateRef, watch } from "vue";
 import { useDensity } from "../../composables/density.js";
+import { useResizeObserver } from "../../composables/useResizeObserver.js";
+import { useGlobalFAB } from "../OnyxGlobalFAB/useGlobalFAB.js";
 import OnyxModalDialog from "../OnyxModalDialog/OnyxModalDialog.vue";
 import OnyxResizeHandle from "../OnyxResizeHandle/OnyxResizeHandle.vue";
 import type { OnyxSidebarProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxSidebarProps>(), {
   alignment: "left",
+  collapseSidebar: "sm",
   resizable: true,
 });
 
@@ -32,12 +40,13 @@ const slots = defineSlots<{
    */
   footer?(): unknown;
   /**
-   * Description slot of the `OnyxDrawer`. Only available if the `drawer` property is set.
+   * Description slot of the `OnyxModalDialog`. Only available if the `temporary` property is set.
    */
   description?(): unknown;
 }>();
 
 const { densityClass } = useDensity(props);
+const globalFAB = useGlobalFAB();
 
 const sidebarElement = useTemplateRef("sidebarRef");
 const modalElement = useTemplateRef("modalRef");
@@ -55,11 +64,69 @@ const resizeHandleProps = computed(
       alignment: props.alignment === "left" ? "right" : "left",
     }) as const,
 );
+const { width: windowWidth } = useResizeObserver();
+
+const _isModalOpen = ref(false);
+
+const shouldCollapse = computed(() => {
+  if (!props.collapseSidebar) return false;
+  const breakpointWidth =
+    typeof props.collapseSidebar === "number"
+      ? props.collapseSidebar
+      : ONYX_BREAKPOINTS[props.collapseSidebar];
+  return windowWidth.value <= breakpointWidth;
+});
+
+const isModalOpen = computed<boolean>({
+  get: () => {
+    if (typeof props.temporary?.open === "boolean") {
+      return props.temporary.open;
+    }
+    return _isModalOpen.value;
+  },
+  set: (newVal: boolean) => {
+    _isModalOpen.value = newVal;
+  },
+});
+
+const id = useId();
+
+watch(
+  [shouldCollapse, () => props.temporary],
+  () => {
+    if (!shouldCollapse.value || props.temporary) {
+      globalFAB.remove(id);
+      return;
+    }
+
+    globalFAB.add(
+      computed(() => ({
+        id,
+        label: props.label,
+        hideLabel: true,
+        icon: props.alignment === "right" ? sidebarArrowLeft : sidebarArrowRight,
+        ifOption: {
+          hideLabel: false,
+          icon: props.alignment === "right" ? arrowSmallLeft : arrowSmallRight,
+        },
+        alignment: props.alignment,
+        onClick: () => {
+          isModalOpen.value = !isModalOpen.value;
+        },
+      })),
+    );
+  },
+  { immediate: true },
+);
+
+onUnmounted(() => {
+  globalFAB.remove(id);
+});
 </script>
 
 <template>
   <aside
-    v-if="!props.temporary"
+    v-if="!props.temporary && !shouldCollapse"
     ref="sidebarRef"
     :class="[
       'onyx-component',
@@ -88,21 +155,27 @@ const resizeHandleProps = computed(
 
   <OnyxModalDialog
     v-else
-    ref="modalRef"
     v-bind="props.temporary"
+    ref="modalRef"
+    :open="isModalOpen"
     :class="[
       'onyx-sidebar',
       'onyx-sidebar--temporary',
       {
         'onyx-sidebar--right': props.alignment === 'right',
-        'onyx-sidebar--floating': props.temporary.floating,
+        'onyx-sidebar--floating': props.temporary?.floating,
       },
     ]"
     :label="props.label"
     :density="props.density"
     :style="widthStyle"
     :alignment="props.alignment"
-    @close="emit('close')"
+    @close="
+      () => {
+        isModalOpen = false;
+        emit('close');
+      }
+    "
   >
     <template v-if="!!slots.header" #headline>
       <slot name="header"></slot>

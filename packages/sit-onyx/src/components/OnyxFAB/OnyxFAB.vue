@@ -56,7 +56,7 @@ const triggerIcon = computed(() => {
 <template>
   <OnyxFABButton
     v-if="!hasOptions || skeleton"
-    class="onyx-fab"
+    :class="['onyx-fab', `onyx-fab--${props.alignment}`]"
     v-bind="props"
     :icon="triggerIcon"
     :skeleton
@@ -67,7 +67,7 @@ const triggerIcon = computed(() => {
     v-model:open="isExpanded"
     :label="props.label"
     trigger="click"
-    :class="['onyx-fab', densityClass]"
+    :class="['onyx-fab', `onyx-fab--${props.alignment}`, densityClass]"
     :alignment="props.alignment"
   >
     <template #button="{ trigger }">
@@ -99,15 +99,6 @@ const triggerIcon = computed(() => {
     right: var(--onyx-fab-viewport-gap);
     z-index: var(--onyx-z-index-notification);
 
-    &:has(.onyx-popover__dialog--alignment-left) {
-      right: unset;
-      left: var(--onyx-fab-viewport-gap);
-
-      .onyx-flyout-menu__wrapper {
-        align-items: flex-start;
-      }
-    }
-
     .onyx-flyout-menu__list-header,
     .onyx-flyout-menu__list-footer {
       display: none;
@@ -118,6 +109,15 @@ const triggerIcon = computed(() => {
       flex-direction: column;
       gap: var(--onyx-density-2xs);
       align-items: flex-end;
+    }
+
+    &--left {
+      right: unset;
+      left: var(--onyx-fab-viewport-gap);
+
+      .onyx-flyout-menu__wrapper {
+        align-items: flex-start;
+      }
     }
 
     .onyx-popover__dialog {

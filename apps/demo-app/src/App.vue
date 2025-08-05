@@ -9,7 +9,6 @@ import {
   OnyxMenuItem,
   OnyxNavBar,
   OnyxNavItem,
-  OnyxToast,
   OnyxUserMenu,
   useThemeTransition,
 } from "sit-onyx";
@@ -84,7 +83,5 @@ useThemeTransition(colorScheme);
     </template>
 
     <RouterView />
-
-    <OnyxToast />
   </OnyxAppLayout>
 </template>
