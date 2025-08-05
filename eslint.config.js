@@ -120,6 +120,7 @@ const playwrightConfig = {
           "tabsTesting",
           "comboboxTesting",
           "comboboxSelectOnlyTesting",
+          "expectEventCall",
         ],
       },
     ],
