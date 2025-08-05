@@ -66,8 +66,6 @@ const resizeHandleProps = computed(
 );
 const { width: windowWidth } = useResizeObserver();
 
-const _isModalOpen = ref(false);
-
 const shouldCollapse = computed(() => {
   if (!props.collapseSidebar) return false;
   const breakpointWidth =
@@ -77,6 +75,7 @@ const shouldCollapse = computed(() => {
   return windowWidth.value <= breakpointWidth;
 });
 
+const _isModalOpen = ref(false);
 const isModalOpen = computed<boolean>({
   get: () => {
     if (typeof props.temporary?.open === "boolean") {
@@ -86,6 +85,9 @@ const isModalOpen = computed<boolean>({
   },
   set: (newVal: boolean) => {
     _isModalOpen.value = newVal;
+    if (!newVal) {
+      emit("close");
+    }
   },
 });
 
