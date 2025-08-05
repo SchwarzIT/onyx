@@ -54,6 +54,7 @@ export const useStore = () => {
           imports: {
             "sit-onyx": `https://cdn.jsdelivr.net/npm/sit-onyx@${onyxVersion.value}/dist/index.js`,
             "@sit-onyx/icons": `https://cdn.jsdelivr.net/npm/@sit-onyx/icons@beta/dist/index.js`,
+            "@sit-onyx/flags": `https://cdn.jsdelivr.net/npm/@sit-onyx/flags@beta/dist/index.js`,
             "@sit-onyx/shared": `https://cdn.jsdelivr.net/npm/@sit-onyx/shared@beta/dist/index.js`,
           },
         }),
