@@ -32,6 +32,7 @@
     "stylelint": "stylelint \"src/**/*.css\""
   },
   "peerDependencies": {
+    "@sit-onyx/flags": "workspace:^",
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
     "@storybook/vue3-vite": ">= 9.0.0",
