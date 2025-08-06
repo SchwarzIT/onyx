@@ -198,7 +198,7 @@ Now you need to configure the [Nuxt content](https://content.nuxt.com/) module s
 
 ::: code-group
 
-```ts
+```ts [content.config.ts]
 import { defineCollection, defineContentConfig } from "@nuxt/content";
 
 export default defineContentConfig({
