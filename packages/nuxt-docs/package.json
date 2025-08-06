@@ -36,6 +36,7 @@
     "@nuxt/content": ">= 3",
     "@nuxt/image": ">= 1",
     "@nuxtjs/color-mode": ">= 3",
+    "@nuxtjs/i18n": ">= 10",
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/nuxt": "workspace:^",
     "sass-embedded": ">= 1",
