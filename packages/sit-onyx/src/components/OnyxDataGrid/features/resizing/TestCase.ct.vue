@@ -18,3 +18,9 @@ const features = computed(() => [withResizing.value]);
 <template>
   <OnyxDataGrid :columns :data :features />
 </template>
+
+<style>
+.onyx-data-grid {
+  max-width: 1000px;
+}
+</style>

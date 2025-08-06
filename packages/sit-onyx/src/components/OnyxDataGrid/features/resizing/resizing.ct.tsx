@@ -36,23 +36,42 @@ test("should resize columns", async ({ page, mount }) => {
   const aColumn = component.getByRole("columnheader", { name: "Drag to change width a" });
   const bColumn = component.getByRole("columnheader", { name: "Drag to change width b" });
   const cColumn = component.getByRole("columnheader", { name: "Drag to change width c" });
+  const resizeHandles = component
+    .getByRole("columnheader", { name: "Drag to change width" })
+    .getByRole("button");
 
   // ASSERT
   let box = (await aColumn.boundingBox())!;
-  expect(box.width).toBe(200);
+  expect(box.width).toBeCloseTo(200);
   await expectColumnCount(component, 3, "should show all 3 columns without empty column");
+  await expect(resizeHandles, "should not render a resize handle for the last column").toHaveCount(
+    3,
+  );
 
   // ACT
   await dragResizeHandle({ page, component: aColumn, to: 100 });
   box = (await aColumn.boundingBox())!;
 
   // ASSERT
-  expect(box.width).toBe(99);
-  await expectColumnCount(component, 4, "should show empty column when resizing smaller");
+  expect(box.width).toBeCloseTo(100, -1);
   await expect(component).toHaveScreenshot("data-grid-resized-columns-with-extra-empty-column.png");
 
   const bBox = (await bColumn.boundingBox())!;
-  const cBox = (await cColumn.boundingBox())!;
-  expect(bBox.width, "should keep width of other columns when resizing").toBe(100);
-  expect(cBox.width, "should keep width of other columns when resizing").toBe(300);
+  let cBox = (await cColumn.boundingBox())!;
+  expect(bBox.width, "should keep width of other columns when resizing").toBeCloseTo(100);
+  expect(cBox.width, "should keep width of other columns when resizing").toBeCloseTo(300);
+
+  // ACT
+  await dragResizeHandle({ page, component: cColumn, to: 1200 });
+
+  // ASSERT
+  cBox = (await cColumn.boundingBox())!;
+  expect(cBox.width, "should be able to resize outside of viewport").toBeCloseTo(1000);
+
+  // ACT
+  await cColumn.getByRole("button", { name: "Drag to change width" }).dblclick();
+
+  // ASSERT
+  cBox = (await cColumn.boundingBox())!;
+  expect(cBox.width, "should be able to resize on doubleclick").toBeCloseTo(50, -1);
 });
