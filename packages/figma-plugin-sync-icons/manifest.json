@@ -1,0 +1,14 @@
+{
+  "name": "Sync Icons",
+  "id": "1532647156372853051",
+  "api": "1.0.0",
+  "main": "code.js",
+  "capabilities": [],
+
+  "enableProposedApi": false,
+  "documentAccess": "dynamic-page",
+  "editorType": ["dev"],
+  "networkAccess": {
+    "allowedDomains": ["https://api.figma.com"]
+  }
+}
