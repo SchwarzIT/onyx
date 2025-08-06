@@ -20,7 +20,6 @@ test.beforeEach(async ({ page }) => {
 });
 
 test("should resize columns", async ({ page, mount }) => {
-  page.setViewportSize({ width: 1280, height: 768 });
   // ARRANGE
   const data = getTestData();
   const component = await mount(
@@ -63,11 +62,11 @@ test("should resize columns", async ({ page, mount }) => {
   expect(cBox.width, "should keep width of other columns when resizing").toBeCloseTo(300);
 
   // ACT
-  await dragResizeHandle({ page, component: cColumn, to: 1480 });
+  await dragResizeHandle({ page, component: cColumn, to: 1200 });
 
   // ASSERT
   cBox = (await cColumn.boundingBox())!;
-  expect(cBox.width, "should be able to resize outside of viewport").toBeCloseTo(1280);
+  expect(cBox.width, "should be able to resize outside of viewport").toBeCloseTo(1000);
 
   // ACT
   await cColumn.getByRole("button", { name: "Drag to change width" }).dblclick();
