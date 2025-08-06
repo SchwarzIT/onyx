@@ -266,25 +266,6 @@ const popoverStyles = computed(() => {
         margin-bottom: var(--onyx-basic-popover-gap);
         margin-right: var(--onyx-basic-popover-gap);
       }
-
-      &--alignment-left {
-        &.onyx-basic-popover__dialog--position-top,
-        &.onyx-basic-popover__dialog--position-bottom {
-          transform: translateX(100%);
-          &.onyx-basic-popover__dialog--dont-support-anchor {
-            transform: none;
-          }
-        }
-      }
-      &--alignment-right {
-        &.onyx-basic-popover__dialog--position-top,
-        &.onyx-basic-popover__dialog--position-bottom {
-          transform: translateX(-100%);
-          &.onyx-basic-popover__dialog--dont-support-anchor {
-            transform: none;
-          }
-        }
-      }
       &--fitparent {
         min-width: inherit;
         max-width: inherit;
