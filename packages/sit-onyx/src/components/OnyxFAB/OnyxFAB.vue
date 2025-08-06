@@ -99,15 +99,6 @@ const triggerIcon = computed(() => {
     right: var(--onyx-fab-viewport-gap);
     z-index: var(--onyx-z-index-notification);
 
-    &:has(.onyx-basic-popover__dialog--alignment-left) {
-      right: unset;
-      left: var(--onyx-fab-viewport-gap);
-
-      .onyx-flyout-menu__wrapper {
-        align-items: flex-start;
-      }
-    }
-
     .onyx-flyout-menu__list-header,
     .onyx-flyout-menu__list-footer {
       display: none;

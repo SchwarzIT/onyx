@@ -16,7 +16,7 @@ const props = withDefaults(defineProps<OnyxAlertModalProps>(), {
 
 const emit = defineEmits<{
   /**
-   * Emitted when the modal should be closed.
+   * Emitted when the modal dialog should be closed.
    */
   "update:open": [open: Nullable<boolean>];
 }>();

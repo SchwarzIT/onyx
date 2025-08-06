@@ -12,6 +12,10 @@ import type { OnyxModalProps } from "./types.js";
 const props = defineProps<OnyxModalProps>();
 
 const emit = defineEmits<{
+  /**
+   * Emitted when the modal dialog should be closed.
+   * Opening is always controlled via the `open` prop.
+   */
   "update:open": [open: Nullable<boolean>];
 }>();
 

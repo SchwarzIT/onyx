@@ -18,6 +18,9 @@ const emit = defineEmits<{
    * Emitted when the color scheme should be changed.
    */
   "update:modelValue": [value: ColorSchemeValue];
+  /**
+   * Emitted when the dialog should be closed.
+   */
   "update:open": [value: Nullable<boolean>];
 }>();
 

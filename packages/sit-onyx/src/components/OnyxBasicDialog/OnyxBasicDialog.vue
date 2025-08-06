@@ -14,6 +14,10 @@ const props = withDefaults(defineProps<OnyxBasicDialogProps>(), {
 });
 
 const emit = defineEmits<{
+  /**
+   * Emitted when the dialog should be closed.
+   * Opening is always controlled via the `open` prop.
+   */
   "update:open": [open: Nullable<boolean>];
 }>();
 
