@@ -1,6 +1,7 @@
 import { addComponent, addPlugin, createResolver, defineNuxtModule, useLogger } from "@nuxt/kit";
 import type { NuxtOptions } from "@nuxt/schema";
 import type { ModuleHooks as NuxtI18nModuleHooks } from "@nuxtjs/i18n";
+import { stat } from "node:fs/promises";
 import * as onyx from "sit-onyx";
 
 export interface ModuleOptions {
@@ -14,20 +15,6 @@ export interface ModuleOptions {
    * @see https://onyx.schwarz/development/#installation
    */
   disableGlobalStyles?: boolean;
-  /**
-   * Settings related to the integration with @nuxtjs/i18n
-   */
-  i18n?: {
-    /**
-     * Mapping for registering the translations from onyx with @nuxtjs/i18n.
-     * @example
-     * ```ts
-     * registerLocales: { "en_US": "en-US" }
-     * ```
-     * This would register the onyx translations for the language "en-US" to the code "en_US" of your projects locales.
-     */
-    registerLocales?: Record<string, "en-US" | "de-DE" | "ko-KR">;
-  };
 }
 
 export default defineNuxtModule<ModuleOptions>({
@@ -72,13 +59,33 @@ export default defineNuxtModule<ModuleOptions>({
 
     // If the i18n module was registered all the onyx locales and the plugin should be registered
     if (i18nModuleIndex >= 0) {
-      const registerOnyxLocales: NuxtI18nModuleHooks["i18n:registerModule"] = (register) => {
+      const registerOnyxLocales: NuxtI18nModuleHooks["i18n:registerModule"] = async (register) => {
+        // auto-detect onyx locales to register
+        const onyxLocalesToRegister: Record<string, string> = {};
+
+        for (const projectLocale of nuxt.options.i18n?.locales ?? []) {
+          const locale =
+            typeof projectLocale === "string"
+              ? { code: projectLocale, language: projectLocale }
+              : projectLocale;
+
+          const language = locale.language ?? locale.code;
+
+          try {
+            await stat(resolve(`./runtime/locales/${language}.js`));
+            onyxLocalesToRegister[locale.code] = language;
+          } catch {
+            // noop, file does not exist in onyx, so we don't need to register it
+          }
+        }
+
         register({
           langDir: resolve("./runtime/locales"),
           // we need to use .js files instead of .ts because the .ts files would be compiled to .js in the build step, so
           // when projects use this nuxt module, .ts files will throw a "can not find file" error
-          locales: Object.entries(options.i18n?.registerLocales ?? {}).map(([code, language]) => ({
+          locales: Object.entries(onyxLocalesToRegister).map(([code, language]) => ({
             code,
+            language,
             file: `${language}.js`,
           })),
         });
