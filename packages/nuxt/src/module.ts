@@ -63,21 +63,18 @@ export default defineNuxtModule<ModuleOptions>({
         // auto-detect onyx locales to register
         const onyxLocalesToRegister: Record<string, string> = {};
 
-        for (const projectLocale of nuxt.options.i18n?.locales ?? []) {
-          const locale =
-            typeof projectLocale === "string"
-              ? { code: projectLocale, language: projectLocale }
-              : projectLocale;
+        await Promise.allSettled(
+          nuxt.options.i18n?.locales?.map(async (projectLocale) => {
+            const locale =
+              typeof projectLocale === "string"
+                ? { code: projectLocale, language: projectLocale }
+                : projectLocale;
 
-          const language = locale.language ?? locale.code;
-
-          try {
+            const language = locale.language ?? locale.code;
             await stat(resolve(`./runtime/locales/${language}.js`));
             onyxLocalesToRegister[locale.code] = language;
-          } catch {
-            // noop, file does not exist in onyx, so we don't need to register it
-          }
-        }
+          }) ?? [],
+        );
 
         register({
           langDir: resolve("./runtime/locales"),
