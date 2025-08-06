@@ -6,7 +6,9 @@ const props = defineProps<{
   error: NuxtError;
 }>();
 
-const handleError = () => clearError({ redirect: "/" });
+const localePath = useLocalePath();
+
+const handleError = () => clearError({ redirect: localePath("/") });
 </script>
 
 <template>
