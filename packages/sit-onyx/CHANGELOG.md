@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.289
+
+### Patch Changes
+
+- 79dfa6c: fix(DataGridFeatures.useResizing): Fix issue where resizing didn't work with horizontal overflowing data grids
+
 ## 1.0.0-beta.288
 
 ### Minor Changes
