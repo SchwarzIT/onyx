@@ -2,6 +2,13 @@
   body {
     font-family: sans-serif;
     padding: 0.5rem 1rem;
+    margin: 0;
+  }
+  form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-block-end: 0;
   }
   label {
     display: block;
@@ -11,17 +18,19 @@
   }
   input {
     width: 100%;
-    padding: 0.5rem;
+    padding: 1rem;
     box-sizing: border-box;
-    margin-bottom: 0.5rem;
     border-radius: 0.5rem;
+  }
+  .input-group {
+    margin-bottom: 2rem;
   }
   button {
     width: 100%;
-    padding: 0.5rem;
+    padding: 1rem;
     background-color: #0d99ff;
     border-radius: 0.5rem;
-    margin-top: 0.5rem;
+    margin-top: auto;
     color: white;
     border: none;
     cursor: pointer;
@@ -29,30 +38,50 @@
   button:hover {
     background-color: #1386d8;
   }
+  a {
+    text-decoration: none;
+    color: #0d99ff;
+  }
+  a:hover {
+    color: #1386d8;
+  }
+  small {
+    margin-top: 0.5rem;
+  }
 </style>
 
-<label for="accessToken">Your Access-Token</label>
-<input type="text" id="accessToken" placeholder="e.g. figd_..." />
-
-<label for="fileKey">Icon Libary File-Key:</label>
-<input type="text" id="fileKey" placeholder="e.g. 123456789..." />
-
-<button id="saveButton">Run Plugin</button>
-
+<form id="form">
+  <div class="input-group">
+    <label for="accessToken">Your Access-Token:</label>
+    <input required type="text" id="accessToken" placeholder="e.g. figd_..." />
+    <small
+      >See
+      <a target="_blank" href="https://www.figma.com/developers/api#access-tokens"
+        >Access Token documentation</a
+      >.</small
+    >
+  </div>
+  <div class="input-group">
+    <label for="fileKey">Icon Libary File-Key:</label>
+    <input required type="text" id="fileKey" placeholder="e.g. 123456789..." />
+  </div>
+  <button id="button" type="submit">Save & Run</button>
+</form>
 <script>
   const accessTokenInput = document.getElementById("accessToken");
   const fileKeyInput = document.getElementById("fileKey");
-  const saveButton = document.getElementById("saveButton");
-
+  const form = document.getElementById("form");
+  const button = document.getElementById("button");
   window.onload = () => {
     parent.postMessage({ pluginMessage: { type: "get-stored-data" } }, "*");
   };
-
-  saveButton.onclick = () => {
+  form.onsubmit = (event) => {
+    event.preventDefault();
     const accessToken = accessTokenInput.value;
     const fileKey = fileKeyInput.value;
 
     parent.postMessage({ pluginMessage: { type: "save-and-run", accessToken, fileKey } }, "*");
+    button.innerHTML = "Running...";
   };
 
   window.onmessage = (event) => {

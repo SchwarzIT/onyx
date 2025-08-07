@@ -12,7 +12,7 @@ async function fetchRemoteFile(fileKey: string, accessToken: string) {
 }
 
 async function runPlugin() {
-  figma.showUI(__html__);
+  figma.showUI(__html__, { width: 400, height: 300 });
 
   figma.ui.onmessage = async (msg) => {
     if (msg.type === "get-stored-data") {
