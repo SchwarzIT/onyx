@@ -1,0 +1,70 @@
+<style>
+  body {
+    font-family: sans-serif;
+    padding: 0.5rem 1rem;
+  }
+  label {
+    display: block;
+    margin-bottom: 0.2rem;
+    font-weight: bold;
+    font-size: 0.8rem;
+  }
+  input {
+    width: 100%;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    margin-bottom: 0.5rem;
+    border-radius: 0.5rem;
+  }
+  button {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: #0d99ff;
+    border-radius: 0.5rem;
+    margin-top: 0.5rem;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #1386d8;
+  }
+</style>
+
+<label for="accessToken">Your Access-Token</label>
+<input type="text" id="accessToken" placeholder="e.g. figd_..." />
+
+<label for="fileKey">Icon Libary File-Key:</label>
+<input type="text" id="fileKey" placeholder="e.g. 123456789..." />
+
+<button id="saveButton">Run Plugin</button>
+
+<script>
+  const accessTokenInput = document.getElementById("accessToken");
+  const fileKeyInput = document.getElementById("fileKey");
+  const saveButton = document.getElementById("saveButton");
+
+  window.onload = () => {
+    parent.postMessage({ pluginMessage: { type: "get-stored-data" } }, "*");
+  };
+
+  saveButton.onclick = () => {
+    const accessToken = accessTokenInput.value;
+    const fileKey = fileKeyInput.value;
+
+    parent.postMessage({ pluginMessage: { type: "save-and-run", accessToken, fileKey } }, "*");
+  };
+
+  window.onmessage = (event) => {
+    const { type, accessToken, fileKey } = event.data.pluginMessage;
+
+    if (type === "set-prefilled-data") {
+      if (accessToken) {
+        accessTokenInput.value = accessToken;
+      }
+      if (fileKey) {
+        fileKeyInput.value = fileKey;
+      }
+    }
+  };
+</script>
