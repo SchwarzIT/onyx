@@ -1,8 +1,13 @@
 <script setup lang="ts">
 import { iconCircleContrast, iconTranslate } from "@sit-onyx/icons";
-import { extractLinkProps, type ColorSchemeValue, type SelectDialogOption } from "sit-onyx";
+import { type ColorSchemeValue, type OnyxNavBarProps, type OnyxNavBarSlots } from "sit-onyx";
 
-const { onyxDocs } = useAppConfig();
+const props = withDefaults(defineProps<OnyxNavBarProps>(), {
+  appName: "Documentation",
+});
+
+const slots = defineSlots<OnyxNavBarSlots>();
+
 const router = useRouter();
 const colorMode = useColorMode();
 
@@ -38,17 +43,27 @@ const currentLocaleLabel = computed(() => {
 
 <template>
   <OnyxNavBar
-    :app-area="{ link: localePath('/') }"
-    v-bind="onyxDocs.nav"
+    v-bind="props"
+    :app-area="props.appArea ?? { link: localePath('/') }"
     @navigate-back="router.back"
   >
-    <NavItem
-      v-for="item in onyxDocs.nav?.items"
-      :key="extractLinkProps(item.link ?? '').href"
-      v-bind="item"
-    />
+    <template v-if="slots.appArea" #appArea>
+      <slot name="appArea"></slot>
+    </template>
+
+    <slot></slot>
+
+    <template v-if="slots.globalContextArea" #globalContextArea>
+      <slot name="globalContextArea"></slot>
+    </template>
+
+    <template v-if="slots.mobileActivePage" #mobileActivePage>
+      <slot name="mobileActivePage"></slot>
+    </template>
 
     <template #contextArea>
+      <slot name="contextArea"></slot>
+
       <template v-if="locales.length > 1">
         <OnyxButton
           :label="currentLocaleLabel"
@@ -75,8 +90,8 @@ const currentLocaleLabel = computed(() => {
         color="neutral"
         @click="isColorSchemeDialogOpen = true"
       />
-    </template>
 
-    <OnyxColorSchemeDialog v-model="colorScheme" v-model:open="isColorSchemeDialogOpen" />
+      <OnyxColorSchemeDialog v-model="colorScheme" v-model:open="isColorSchemeDialogOpen" />
+    </template>
   </OnyxNavBar>
 </template>
