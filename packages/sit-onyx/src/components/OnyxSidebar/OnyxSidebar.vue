@@ -8,7 +8,7 @@ import { computed, onUnmounted, ref, useId, useTemplateRef, watch } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useResizeObserver } from "../../composables/useResizeObserver.js";
 import { useGlobalFAB } from "../OnyxGlobalFAB/useGlobalFAB.js";
-import OnyxModalDialog from "../OnyxModalDialog/OnyxModalDialog.vue";
+import OnyxModal from "../OnyxModal/OnyxModal.vue";
 import OnyxResizeHandle from "../OnyxResizeHandle/OnyxResizeHandle.vue";
 import type { OnyxSidebarProps } from "./types.js";
 
@@ -66,8 +66,6 @@ const resizeHandleProps = computed(
 );
 const { width: windowWidth } = useResizeObserver();
 
-const _isModalOpen = ref(false);
-
 const shouldCollapse = computed(() => {
   if (!props.collapseSidebar) return false;
   const breakpointWidth =
@@ -77,6 +75,7 @@ const shouldCollapse = computed(() => {
   return windowWidth.value <= breakpointWidth;
 });
 
+const _isModalOpen = ref(false);
 const isModalOpen = computed<boolean>({
   get: () => {
     if (typeof props.temporary?.open === "boolean") {
@@ -86,6 +85,9 @@ const isModalOpen = computed<boolean>({
   },
   set: (newVal: boolean) => {
     _isModalOpen.value = newVal;
+    if (!newVal) {
+      emit("close");
+    }
   },
 });
 
@@ -153,11 +155,11 @@ onUnmounted(() => {
     <OnyxResizeHandle v-if="props.resizable" :element="sidebarElement" v-bind="resizeHandleProps" />
   </aside>
 
-  <OnyxModalDialog
+  <OnyxModal
     v-else
     v-bind="props.temporary"
     ref="modalRef"
-    :open="isModalOpen"
+    v-model:open="isModalOpen"
     :class="[
       'onyx-sidebar',
       'onyx-sidebar--temporary',
@@ -170,12 +172,6 @@ onUnmounted(() => {
     :density="props.density"
     :style="widthStyle"
     :alignment="props.alignment"
-    @close="
-      () => {
-        isModalOpen = false;
-        emit('close');
-      }
-    "
   >
     <template v-if="!!slots.header" #headline>
       <slot name="header"></slot>
@@ -194,7 +190,7 @@ onUnmounted(() => {
     </template>
 
     <OnyxResizeHandle v-if="props.resizable" :element="modalElement" v-bind="resizeHandleProps" />
-  </OnyxModalDialog>
+  </OnyxModal>
 </template>
 
 <style lang="scss">
@@ -233,11 +229,11 @@ onUnmounted(() => {
     }
 
     &--temporary {
-      --onyx-modal-dialog-padding-inline: var(--onyx-density-md);
+      --onyx-modal-padding-inline: var(--onyx-density-md);
 
       &:not(.onyx-sidebar--floating) {
-        --onyx-dialog-screen-gap: 0;
-        --onyx-dialog-border-radius: 0;
+        --onyx-basic-dialog-screen-gap: 0;
+        --onyx-basic-dialog-border-radius: 0;
         border-top: none;
         border-left: none;
         border-bottom: none;

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxAppLayout, OnyxDialog, OnyxHeadline, OnyxPageLayout, useToast } from "sit-onyx";
+import { OnyxAppLayout, OnyxBasicDialog, OnyxHeadline, OnyxPageLayout, useToast } from "sit-onyx";
 import { ref, watch } from "vue";
 import {
   FlyoutDemo,
@@ -75,30 +75,21 @@ watch(
       </template>
     </OnyxPageLayout>
 
-    <OnyxDialog
-      label="Example dialog"
-      :open="settings.overlay.showModal"
-      modal
-      @close="settings.overlay.showModal = false"
-    >
+    <OnyxBasicDialog v-model:open="settings.overlay.showModal" label="Example dialog" modal>
       <OnyxHeadline is="h2">Modal content</OnyxHeadline>
       <p>Press "Escape" to close the modal.</p>
 
       <LayoutSettings v-model="settings" :show="['overlay']" />
       <TooltipDemo :force-tooltip="settings.content.forceTooltip" />
-    </OnyxDialog>
+    </OnyxBasicDialog>
 
-    <OnyxDialog
-      label="Example dialog"
-      :open="settings.overlay.showPopover"
-      @close="settings.overlay.showPopover = false"
-    >
+    <OnyxBasicDialog v-model:open="settings.overlay.showPopover" label="Example dialog">
       <OnyxHeadline is="h2">Modal content</OnyxHeadline>
       <p>Press "Escape" to close the modal.</p>
 
       <LayoutSettings v-model="settings" :show="['overlay']" />
       <TooltipDemo :force-tooltip="settings.content.forceTooltip" />
-    </OnyxDialog>
+    </OnyxBasicDialog>
   </OnyxAppLayout>
 </template>
 

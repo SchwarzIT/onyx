@@ -1,11 +1,13 @@
+import { iconEmojiHappy2 } from "@sit-onyx/icons";
+import { createEmitSpy, expectEmit } from "@sit-onyx/playwright-utils";
 import { expect, test } from "../../playwright/a11y.js";
-import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots.js";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import OnyxSelectDialog from "./OnyxSelectDialog.vue";
 import type { SelectDialogOption } from "./types.js";
 
 const OPTIONS: SelectDialogOption[] = [
   { label: "Option 1", value: "option-1" },
-  { label: "Option 2", value: "option-2", icon: mockPlaywrightIcon },
+  { label: "Option 2", value: "option-2", icon: iconEmojiHappy2 },
   { label: "Option 3", value: "option-3", description: "Example description" },
 ];
 
@@ -65,8 +67,8 @@ test.describe("Screenshot tests", () => {
 test("should behave correctly", async ({ mount, page }) => {
   await page.setViewportSize({ width: 512, height: 640 });
 
-  const updateModelValueEvents: string[] = [];
-  let closeEventCount = 0;
+  const onUpdateModelValue = createEmitSpy<typeof OnyxSelectDialog, "onUpdate:modelValue">();
+  const onUpdateOpen = createEmitSpy<typeof OnyxSelectDialog, "onUpdate:open">();
 
   // ARRANGE
   const component = await mount(
@@ -76,8 +78,8 @@ test("should behave correctly", async ({ mount, page }) => {
       modelValue="option-2"
       open
       style={{ width: "48rem" }}
-      onUpdate:modelValue={(value) => updateModelValueEvents.push(value)}
-      onClose={() => closeEventCount++}
+      onUpdate:modelValue={onUpdateModelValue}
+      onUpdate:open={onUpdateOpen}
     />,
   );
 
@@ -98,38 +100,38 @@ test("should behave correctly", async ({ mount, page }) => {
   await page.keyboard.press("Enter");
 
   // ASSERT
-  expect(updateModelValueEvents).toStrictEqual(["option-3"]);
-  expect(closeEventCount).toBe(1);
+  expectEmit(onUpdateModelValue, 1, ["option-3"]);
+  expectEmit(onUpdateOpen, 1, [false]);
 
   // ACT
   await clickOption("Option 1");
 
   // ASSERT
-  expect(updateModelValueEvents).toStrictEqual(["option-3"]);
+  expectEmit(onUpdateModelValue, 1, ["option-3"]);
 
   await component.getByRole("button", { name: "Apply" }).click();
 
   // ASSERT
-  expect(updateModelValueEvents).toStrictEqual(["option-3", "option-1"]);
-  expect(closeEventCount).toBe(2);
+  expectEmit(onUpdateModelValue, 2, ["option-1"]);
+  expectEmit(onUpdateOpen, 2, [false]);
 
   // ACT
   await clickOption("Option 2");
   await component.getByRole("button", { name: "Apply" }).click();
 
   // ASSERT
-  expect(updateModelValueEvents).toStrictEqual(["option-3", "option-1", "option-2"]);
-  expect(closeEventCount).toBe(3);
+  expectEmit(onUpdateModelValue, 3, ["option-2"]);
+  expectEmit(onUpdateOpen, 3, [false]);
 
   // ACT
   await component.getByRole("button", { name: "Cancel" }).click();
 
   // ASSERT
-  expect(closeEventCount).toBe(4);
+  expectEmit(onUpdateOpen, 4, [false]);
 
   // ACT
   await page.keyboard.press("Escape");
 
   // ASSERT
-  expect(closeEventCount).toBe(5);
+  expectEmit(onUpdateOpen, 5, [false]);
 });

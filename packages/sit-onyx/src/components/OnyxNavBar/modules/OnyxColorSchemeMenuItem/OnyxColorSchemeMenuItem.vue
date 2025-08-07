@@ -34,9 +34,8 @@ const isOpen = ref(false);
       to not nest it inside the button -->
     <Teleport to="body">
       <OnyxColorSchemeDialog
+        v-model:open="isOpen"
         :model-value="props.modelValue"
-        :open="isOpen"
-        @close="isOpen = false"
         @update:model-value="emit('update:modelValue', $event)"
       />
     </Teleport>

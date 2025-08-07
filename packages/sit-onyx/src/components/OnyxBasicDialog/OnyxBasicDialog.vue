@@ -1,22 +1,24 @@
 <script lang="ts" setup>
-import { useOutsideClick } from "@sit-onyx/headless";
+import { useGlobalEventListener, useOutsideClick, wasKeyPressed } from "@sit-onyx/headless";
 import { computed, useTemplateRef, watch } from "vue";
 import { useDensity } from "../../composables/density.js";
-import type { OnyxDialogProps } from "./types.js";
+import { useVModel } from "../../composables/useVModel.js";
+import type { Nullable } from "../../types/index.js";
+import type { OnyxBasicDialogProps } from "./types.js";
 
-const props = withDefaults(defineProps<OnyxDialogProps>(), {
-  open: false,
+const props = withDefaults(defineProps<OnyxBasicDialogProps>(), {
   modal: false,
   alert: false,
   alignment: "center",
-  disableClosingOnBackdropClick: false,
+  nonDismissible: false,
 });
 
 const emit = defineEmits<{
   /**
-   * Emitted when the dialog should be closed (only when `modal` property is `true`).
+   * Emitted when the dialog should be closed.
+   * Opening is always controlled via the `open` prop.
    */
-  close: [];
+  "update:open": [open: Nullable<boolean>];
 }>();
 
 defineSlots<{
@@ -32,6 +34,8 @@ const dialog = useTemplateRef("dialogRef");
 
 const { densityClass } = useDensity(props);
 
+const open = useVModel({ props, emit, key: "open", default: false });
+
 /**
  * Shows the dialog either as default dialog or modal.
  */
@@ -41,8 +45,8 @@ const openDialog = () => {
 };
 
 // sync open state
-watch([dialog, () => props.open], () => {
-  if (props.open) openDialog();
+watch([dialog, open], () => {
+  if (open.value) openDialog();
   else dialog.value?.close();
 });
 
@@ -62,8 +66,18 @@ const content = useTemplateRef("contentRef");
 
 useOutsideClick({
   inside: content,
-  disabled: computed(() => !props.modal || props.disableClosingOnBackdropClick),
-  onOutsideClick: () => emit("close"),
+  // modal dialog obscures other content and can be closed by outside click
+  // non-modal dialog allows interactions with other elements without closing
+  disabled: computed(() => !open.value || props.nonDismissible || !props.modal),
+  onOutsideClick: () => emit("update:open", false),
+});
+
+useGlobalEventListener({
+  type: "keydown",
+  // modal dialog has native support for closing via `Escape`
+  // non-modal dialog needs custom support for this
+  disabled: computed(() => !open.value || props.nonDismissible),
+  listener: (event) => wasKeyPressed(event, { key: "Escape" }) && emit("update:open", false),
 });
 </script>
 
@@ -71,23 +85,22 @@ useOutsideClick({
 <template>
   <!-- do not use the @close event here since it would emit redundant events when we call .close() internally -->
   <!-- also we use cancel.prevent here so the dialog does not close automatically and is fully controlled by the "open" property -->
-  <!-- eslint-disable-next-line vuejs-accessibility/click-events-have-key-events eslint-disable-next-line vuejs-accessibility/no-static-element-interactions -->
   <dialog
     v-if="props.open"
     ref="dialogRef"
     :class="[
       'onyx-component',
-      'onyx-dialog',
       densityClass,
       'onyx-truncation-multiline',
-      { [`onyx-dialog--${props.alignment}`]: props.alignment !== 'center' },
+      'onyx-basic-dialog',
+      { [`onyx-basic-dialog--${props.alignment}`]: props.alignment !== 'center' },
     ]"
     :aria-modal="props.modal"
     :aria-label="props.label"
     :role="props.alert ? 'alertdialog' : undefined"
-    @cancel.prevent="emit('close')"
+    @cancel.prevent
   >
-    <div ref="contentRef" class="onyx-dialog__content">
+    <div ref="contentRef" class="onyx-basic-dialog__content">
       <slot></slot>
     </div>
   </dialog>
@@ -96,14 +109,14 @@ useOutsideClick({
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
 
-.onyx-dialog {
+.onyx-basic-dialog {
   @include layers.component() {
-    --onyx-dialog-screen-gap: var(--onyx-grid-margin);
-    --onyx-dialog-border-radius: var(--onyx-radius-md);
-    --onyx-dialog-padding: var(--onyx-density-md) var(--onyx-density-lg);
+    --onyx-basic-dialog-screen-gap: var(--onyx-grid-margin);
+    --onyx-basic-dialog-border-radius: var(--onyx-radius-md);
+    --onyx-basic-dialog-padding: var(--onyx-density-md) var(--onyx-density-lg);
     outline: none;
     border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
-    border-radius: var(--onyx-dialog-border-radius);
+    border-radius: var(--onyx-basic-dialog-border-radius);
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
     background-color: var(--onyx-color-base-background-blank);
@@ -111,7 +124,7 @@ useOutsideClick({
     z-index: var(--onyx-z-index-page-overlay);
     padding: 0;
 
-    $max-size: calc(100% - 2 * var(--onyx-dialog-screen-gap));
+    $max-size: calc(100% - 2 * var(--onyx-basic-dialog-screen-gap));
     max-width: $max-size;
     max-height: $max-size;
 
@@ -135,28 +148,28 @@ useOutsideClick({
 
     &--left,
     &--right {
-      --onyx-dialog-screen-gap: var(--onyx-density-xs);
+      --onyx-basic-dialog-screen-gap: var(--onyx-density-xs);
       transform: none;
       height: 100%;
     }
 
     &--left {
-      left: var(--onyx-dialog-screen-gap);
+      left: var(--onyx-basic-dialog-screen-gap);
       margin-left: 0;
     }
 
     &--right {
       left: unset;
-      right: var(--onyx-dialog-screen-gap);
+      right: var(--onyx-basic-dialog-screen-gap);
     }
 
     &__content {
-      padding: var(--onyx-dialog-padding);
+      padding: var(--onyx-basic-dialog-padding);
       width: inherit;
     }
   }
 }
-.dark .onyx-dialog:modal {
+.dark .onyx-basic-dialog:modal {
   outline: var(--onyx-spacing-5xs) solid var(--onyx-color-component-border-neutral);
 }
 </style>

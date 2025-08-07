@@ -20,10 +20,9 @@ const selectedValue = ref(options[0].value);
 
     <OnyxSelectDialog
       v-model="selectedValue"
+      v-model:open="isOpen"
       label="Example select dialog"
       :options="options"
-      :open="isOpen"
-      @close="isOpen = false"
     >
       <template #description> Lorem ipsum dolor sit amet consectetur. </template>
     </OnyxSelectDialog>

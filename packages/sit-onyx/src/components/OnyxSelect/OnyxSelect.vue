@@ -29,11 +29,11 @@ import { injectI18n } from "../../i18n/index.js";
 import type { Nullable, SelectOptionValue } from "../../types/index.js";
 import { asArray, groupByKey, transformGroupedData } from "../../utils/objects.js";
 import { normalizedIncludes } from "../../utils/strings.js";
+import OnyxBasicPopover from "../OnyxBasicPopover/OnyxBasicPopover.vue";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core.js";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxMiniSearch from "../OnyxMiniSearch/OnyxMiniSearch.vue";
-import OnyxPopover from "../OnyxPopover/OnyxPopover.vue";
 import OnyxSelectInput from "../OnyxSelectInput/OnyxSelectInput.vue";
 import type { OnyxSelectInputProps } from "../OnyxSelectInput/types.js";
 import OnyxSelectOption from "../OnyxSelectOption/OnyxSelectOption.vue";
@@ -417,7 +417,7 @@ watch(
 
 <template>
   <div ref="selectRef" class="onyx-component onyx-select-wrapper">
-    <OnyxPopover
+    <OnyxBasicPopover
       :class="densityClass"
       :label="props.listLabel"
       :position="openDirection"
@@ -534,7 +534,7 @@ watch(
           {{ props.listDescription }}
         </div>
       </template>
-    </OnyxPopover>
+    </OnyxBasicPopover>
   </div>
 </template>
 
@@ -551,7 +551,7 @@ watch(
   .onyx-select-input {
     width: 100%;
   }
-  .onyx-popover {
+  .onyx-basic-popover {
     width: 100%;
   }
 }

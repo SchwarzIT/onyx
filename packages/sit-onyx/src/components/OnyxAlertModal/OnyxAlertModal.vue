@@ -1,36 +1,42 @@
 <script lang="ts" setup>
-import { iconXSmall } from "@sit-onyx/icons";
+import { iconCircleAttention, iconXSmall } from "@sit-onyx/icons";
 import { useId } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { injectI18n } from "../../i18n/index.js";
-import OnyxDialog from "../OnyxDialog/OnyxDialog.vue";
+import type { Nullable } from "../../types/utils.js";
+import OnyxBasicDialog from "../OnyxBasicDialog/OnyxBasicDialog.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
-import type { OnyxAlertDialogProps } from "./types.js";
+import type { OnyxAlertModalProps } from "./types.js";
 
-const props = defineProps<OnyxAlertDialogProps>();
+const props = withDefaults(defineProps<OnyxAlertModalProps>(), {
+  icon: () => ({ icon: iconCircleAttention, color: "danger" }),
+});
 
 const emit = defineEmits<{
   /**
-   * Emitted when the dialog should be closed.
+   * Emitted when the modal dialog should be closed.
    */
-  close: [];
+  "update:open": [open: Nullable<boolean>];
 }>();
 
 defineSlots<{
   /**
-   * Dialog content.
+   * Modal content.
    */
   default(): unknown;
   /**
    * Optional slot to override the headline with custom content.
    * If unset, the `label` property will be shown.
    */
-  headline?(bindings: Pick<OnyxAlertDialogProps, "label">): unknown;
+  headline?(bindings: Pick<OnyxAlertModalProps, "label">): unknown;
   /**
-   * Slot to display custom actions at the bottom of the dialog, e.g. buttons for confirm or cancelling the current user workflow.
-   * For accessibility purposes it is recommended to set autofocus on one button, preferably the "cancel" button if one exists.
+   * Slot to display custom actions at the bottom of the modal, e.g. buttons for confirm or cancelling the current user workflow.
+   * Focus is automatically set to the first focusable element inside the modal dialog.
+   * If this is a button, it should be the least destructive action, to prevent users from accidentally confirming non-reversible actions.
+   *
+   * If you have to, you can use the `autofocus` button attribute to force the initial focus on another button.
    *
    * @example
    * ```vue
@@ -47,48 +53,48 @@ const describedById = useId();
 </script>
 
 <template>
-  <OnyxDialog
-    :class="['onyx-alert-dialog', densityClass]"
+  <OnyxBasicDialog
+    :class="['onyx-alert-modal', densityClass]"
     v-bind="props"
     :aria-describedby="describedById"
     modal
     alert
-    @close="emit('close')"
+    @update:open="emit('update:open', $event)"
   >
-    <div class="onyx-alert-dialog__content">
-      <OnyxIcon v-if="props.icon" class="onyx-alert-dialog__icon" v-bind="props.icon" size="64px" />
+    <div class="onyx-alert-modal__content">
+      <OnyxIcon v-if="props.icon" class="onyx-alert-modal__icon" v-bind="props.icon" size="64px" />
 
       <div>
-        <div class="onyx-alert-dialog__headline">
+        <div class="onyx-alert-modal__headline">
           <slot name="headline" :label="props.label">
             <OnyxHeadline is="h2">{{ props.label }}</OnyxHeadline>
           </slot>
 
           <OnyxSystemButton
-            class="onyx-alert-dialog__close"
+            class="onyx-alert-modal__close"
             :label="t('dialog.close')"
             :icon="iconXSmall"
-            @click="emit('close')"
+            @click="emit('update:open', false)"
           />
         </div>
 
-        <div :id="describedById" class="onyx-alert-dialog__body onyx-truncation">
+        <div :id="describedById" class="onyx-alert-modal__body onyx-truncation">
           <slot></slot>
         </div>
       </div>
     </div>
 
-    <div class="onyx-alert-dialog__actions">
+    <div class="onyx-alert-modal__actions">
       <slot name="actions"></slot>
     </div>
-  </OnyxDialog>
+  </OnyxBasicDialog>
 </template>
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
 @use "../../styles/breakpoints.scss";
 
-.onyx-alert-dialog {
+.onyx-alert-modal {
   @include layers.component() {
     --max-width: 26rem;
 
