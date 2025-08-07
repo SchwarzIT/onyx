@@ -59,11 +59,10 @@ const currentLocaleLabel = computed(() => {
         />
 
         <OnyxSelectDialog
-          :open="isLanguageDialogOpen"
+          v-model:open="isLanguageDialogOpen"
           :label="$t('onyx.languageSelect.headline')"
           :model-value="locale"
           :options="languageOptions"
-          @close="isLanguageDialogOpen = false"
           @update:model-value="setLocale($event)"
         >
           <template #description> {{ $t("onyx.languageSelect.subtitle") }} </template>
