@@ -91,7 +91,7 @@ const triggerIcon = computed(() => {
 .onyx-fab {
   @include layers.component() {
     --onyx-fab-viewport-gap: var(--onyx-density-sm);
-    --onyx-popover-gap: var(--onyx-density-sm);
+    --onyx-basic-popover-gap: var(--onyx-density-sm);
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-inverted);
     position: fixed;
@@ -120,8 +120,8 @@ const triggerIcon = computed(() => {
       }
     }
 
-    .onyx-popover__dialog {
-      --onyx-popover-min-width: 0;
+    .onyx-basic-popover__dialog {
+      --onyx-basic-popover-min-width: 0;
       box-shadow: none;
       background-color: transparent;
       outline: none;
@@ -134,7 +134,7 @@ const triggerIcon = computed(() => {
       }
     }
 
-    .onyx-popover__dialog,
+    .onyx-basic-popover__dialog,
     .onyx-flyout-menu__wrapper {
       // prevent cutting of the options outline and box shadow
       // since the floating action button is always positioned at the bottom corner and should

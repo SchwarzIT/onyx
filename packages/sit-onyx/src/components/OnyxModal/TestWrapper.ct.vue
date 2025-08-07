@@ -1,10 +1,11 @@
 <script lang="ts" setup>
-import OnyxModalDialog from "./OnyxModalDialog.vue";
-import type { ModalDialogAlignment } from "./types.js";
+import type { Nullable } from "../../types/utils.js";
+import type { DialogAlignment } from "../OnyxBasicDialog/types.js";
+import OnyxModal from "./OnyxModal.vue";
 
 const props = defineProps<{
   /** Dialog alignment */
-  alignment?: ModalDialogAlignment;
+  alignment?: DialogAlignment;
 }>();
 
 defineSlots<{
@@ -14,16 +15,16 @@ defineSlots<{
 }>();
 
 const emit = defineEmits<{
-  close: [];
+  "update:open": [open: Nullable<boolean>];
 }>();
 </script>
 
 <template>
-  <OnyxModalDialog
+  <OnyxModal
     label="Example modal dialog"
     :alignment="props.alignment"
-    open
-    @close="emit('close')"
+    :open="true"
+    @update:open="emit('update:open', $event)"
   >
     <template #headline>
       <slot name="headline"></slot>
@@ -38,12 +39,12 @@ const emit = defineEmits<{
     <template #footer>
       <slot name="footer"></slot>
     </template>
-  </OnyxModalDialog>
+  </OnyxModal>
 </template>
 
 <!-- eslint-disable-next-line vue-scoped-css/enforce-style-type -->
 <style lang="scss" scoped>
 .content {
-  padding: var(--onyx-density-xl) var(--onyx-modal-dialog-padding-inline);
+  padding: var(--onyx-density-xl) var(--onyx-modal-padding-inline);
 }
 </style>

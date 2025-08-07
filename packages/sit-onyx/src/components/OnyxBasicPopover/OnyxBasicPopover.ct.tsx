@@ -1,10 +1,10 @@
 import { expect, test } from "../../playwright/a11y.js";
-import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
-import OnyxPopoverTestCase from "./OnyxPopoverTestCase.vue";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots.jsx";
+import OnyxBasicPopoverTestCase from "./OnyxBasicPopoverTestCase.vue";
 
-test.describe("OnyxPopover", () => {
+test.describe("OnyxBasicPopover", () => {
   test("should open and close on trigger click", async ({ mount }) => {
-    const component = await mount(OnyxPopoverTestCase, {
+    const component = await mount(OnyxBasicPopoverTestCase, {
       props: { label: "Popover for testing" },
     });
 
@@ -28,7 +28,7 @@ test.describe("OnyxPopover", () => {
   });
 
   test("should show when expanded is set to true and hide when false", async ({ mount }) => {
-    const component = await mount(OnyxPopoverTestCase, {
+    const component = await mount(OnyxBasicPopoverTestCase, {
       props: {
         label: "Popover for testing",
         open: true,
@@ -47,7 +47,7 @@ test.describe("OnyxPopover", () => {
     await expect(popover).toBeHidden();
   });
 });
-test.describe("OnyxPopover  Screenshot Tests", () => {
+test.describe("OnyxBasicPopover  Screenshot Tests", () => {
   test.describe("Alignment screenshot tests", () => {
     executeMatrixScreenshotTest({
       name: "Aligned Popover",
@@ -63,7 +63,7 @@ test.describe("OnyxPopover  Screenshot Tests", () => {
               marginBottom: row === "bottom" ? "2rem" : undefined,
             }}
           >
-            <OnyxPopoverTestCase label="test" open={true} alignment={column} position={row} />
+            <OnyxBasicPopoverTestCase label="test" open={true} alignment={column} position={row} />
           </div>
         );
       },
@@ -87,7 +87,7 @@ test.describe("OnyxPopover  Screenshot Tests", () => {
       component: (column, row) => {
         return (
           <div class="container" style={{ margin: "2rem 6rem" }}>
-            <OnyxPopoverTestCase
+            <OnyxBasicPopoverTestCase
               label="test"
               open={true}
               position={row}

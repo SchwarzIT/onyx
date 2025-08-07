@@ -1,15 +1,15 @@
 import type { Meta } from "@storybook/vue3-vite";
 import { createAdvancedStoryExample } from "../../utils/storybook.js";
-import OnyxModalDialog from "./OnyxModalDialog.vue";
+import OnyxModal from "./OnyxModal.vue";
 
 /**
  * The modal dialog is used to provide information to the user while interaction with the rest of the page is prevented and a backdrop is displayed.
  *
- * You can also implement a custom dialog using the [OnyxDialog](/docs/support-dialog--docs) component.
+ * You can also implement a custom dialog using the [OnyxBasicDialog](/docs/support-dialog--docs) component.
  */
-const meta: Meta<typeof OnyxModalDialog> = {
-  title: "Feedback/ModalDialog",
-  component: OnyxModalDialog,
+const meta: Meta<typeof OnyxModal> = {
+  title: "Feedback/Modal",
+  component: OnyxModal,
   argTypes: {
     default: { control: { disable: true } },
     headline: { control: { disable: true } },
@@ -20,4 +20,4 @@ const meta: Meta<typeof OnyxModalDialog> = {
 
 export default meta;
 
-export const Default = createAdvancedStoryExample("OnyxModalDialog", "DefaultExample");
+export const Default = createAdvancedStoryExample("OnyxModal", "DefaultExample");

@@ -1,8 +1,9 @@
+import { createEmitSpy, expectEmit } from "@sit-onyx/playwright-utils";
 import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
 import { expect, test } from "../../playwright/a11y.js";
 import OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
 import TestWrapper from "../OnyxTooltip/TestWrapper.ct.vue";
-import OnyxDialog from "./OnyxDialog.vue";
+import OnyxBasicDialog from "./OnyxBasicDialog.vue";
 
 test.beforeEach(async ({ page }) => {
   await page.setViewportSize({ width: 256, height: 128 });
@@ -10,9 +11,9 @@ test.beforeEach(async ({ page }) => {
 
 test("should render", async ({ mount, makeAxeBuilder, page }) => {
   await mount(
-    <OnyxDialog label="Label" open>
+    <OnyxBasicDialog label="Label" open>
       Content
-    </OnyxDialog>,
+    </OnyxBasicDialog>,
   );
 
   // accessibility tests
@@ -24,9 +25,9 @@ test("should render", async ({ mount, makeAxeBuilder, page }) => {
 
 test("should render in modal", async ({ mount, makeAxeBuilder, page }) => {
   await mount(
-    <OnyxDialog label="Label" open modal>
+    <OnyxBasicDialog label="Label" open modal>
       Content
-    </OnyxDialog>,
+    </OnyxBasicDialog>,
   );
 
   // accessibility tests
@@ -38,9 +39,9 @@ test("should render in modal", async ({ mount, makeAxeBuilder, page }) => {
 
 test("should render with long content", async ({ mount, makeAxeBuilder, page }) => {
   await mount(
-    <OnyxDialog label="Label" open>
+    <OnyxBasicDialog label="Label" open>
       {"Test".repeat(64)}
-    </OnyxDialog>,
+    </OnyxBasicDialog>,
   );
 
   // accessibility tests
@@ -58,9 +59,9 @@ Object.entries(ONYX_BREAKPOINTS).forEach(([breakpoint, width]) => {
     await page.setViewportSize({ width, height: 300 });
 
     await mount(
-      <OnyxDialog label="Label" open style={{ width: "100%", height: "100%" }} modal>
+      <OnyxBasicDialog label="Label" open style={{ width: "100%", height: "100%" }} modal>
         Max size, breakpoint {breakpoint} ({width}px)
-      </OnyxDialog>,
+      </OnyxBasicDialog>,
     );
 
     await expect(page).toHaveScreenshot(`breakpoint-${breakpoint}.png`);
@@ -73,9 +74,9 @@ for (const alignment of ["left", "right"] as const) {
 
     // ARRANGE
     await mount(
-      <OnyxDialog label="Label" alignment={alignment} open modal>
+      <OnyxBasicDialog label="Label" alignment={alignment} open modal>
         Content
-      </OnyxDialog>,
+      </OnyxBasicDialog>,
     );
 
     // ASSERT
@@ -93,10 +94,10 @@ test("should close correctly when clicking outside the dialog", async ({ mount, 
   // ARRANGE
   await page.setViewportSize({ width: 512, height: 1028 });
 
-  let closeCount = 0;
+  const onOpenUpdate = createEmitSpy<typeof OnyxBasicDialog, "onUpdate:open">();
 
   await mount(
-    <OnyxDialog label="Label" open modal onClose={() => closeCount++}>
+    <OnyxBasicDialog label="Label" open modal onUpdate:open={onOpenUpdate}>
       Example modal dialog
       <OnyxSelect
         label="Select"
@@ -106,7 +107,7 @@ test("should close correctly when clicking outside the dialog", async ({ mount, 
           value: index + 1,
         }))}
       />
-    </OnyxDialog>,
+    </OnyxBasicDialog>,
   );
 
   const dialog = page.getByRole("dialog", { name: "Label" });
@@ -122,7 +123,7 @@ test("should close correctly when clicking outside the dialog", async ({ mount, 
   // ASSERT
   await expect(select).toHaveValue("Option 1");
   await expect(
-    () => expect(closeCount).toBe(0),
+    () => expectEmit(onOpenUpdate, 0),
     "should not close when clicking inside the select flyout",
   ).toPass();
 
@@ -131,16 +132,16 @@ test("should close correctly when clicking outside the dialog", async ({ mount, 
 
   // ASSERT
   await expect(
-    () => expect(closeCount).toBe(1),
+    () => expectEmit(onOpenUpdate, 1, [false]),
     "should close when clicking the backdrop",
   ).toPass();
 });
 
 test("tooltip inside dialog", async ({ mount, makeAxeBuilder, page }) => {
   await mount(
-    <OnyxDialog label="Label" open modal>
+    <OnyxBasicDialog label="Label" open modal>
       <TestWrapper text="Test tooltip" open="hover" />
-    </OnyxDialog>,
+    </OnyxBasicDialog>,
   );
 
   // accessibility tests

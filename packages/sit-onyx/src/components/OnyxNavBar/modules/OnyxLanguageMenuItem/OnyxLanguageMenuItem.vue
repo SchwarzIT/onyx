@@ -34,11 +34,10 @@ const currentValueLabel = computed(() => {
       to not nest it inside the button -->
     <Teleport to="body">
       <OnyxSelectDialog
+        v-model:open="isOpen"
         :model-value="props.modelValue"
         :label="t('languageSelect.headline')"
         :options="props.options"
-        :open="isOpen"
-        @close="isOpen = false"
         @update:model-value="emit('update:modelValue', $event)"
       >
         <template #description>

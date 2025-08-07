@@ -1,6 +1,7 @@
 import type { DensityProp } from "../../composables/density.js";
+import type { Nullable } from "../../types/index.js";
 
-export type OnyxDialogProps = DensityProp & {
+export type OnyxBasicDialogProps = DensityProp & {
   /**
    * (Aria) label that describes the dialog. Required for accessibility / screen readers.
    */
@@ -8,7 +9,7 @@ export type OnyxDialogProps = DensityProp & {
   /**
    * Whether the dialog is open.
    */
-  open?: boolean;
+  open?: Nullable<boolean>;
   /**
    * Whether the dialog is a modal.
    * If `true`, interaction with the rest of the page is prevented and a backdrop is displayed.
@@ -16,9 +17,9 @@ export type OnyxDialogProps = DensityProp & {
    */
   modal?: boolean;
   /**
-   * Whether to prevent closing the dialog when clicking outside of it.
+   * Whether to prevent closing the dialog when clicking outside or pressing the `Escape` key.
    */
-  disableClosingOnBackdropClick?: boolean;
+  nonDismissible?: boolean;
   /**
    * Whether the dialog is an [alert dialog](https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/).
    * Should be set for better accessibility / screen reader support when the dialog

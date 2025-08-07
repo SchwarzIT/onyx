@@ -3,18 +3,20 @@ import { iconXSmall } from "@sit-onyx/icons";
 import { computed, useId } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { injectI18n } from "../../i18n/index.js";
-import OnyxDialog from "../OnyxDialog/OnyxDialog.vue";
+import type { Nullable } from "../../types/index.js";
+import OnyxBasicDialog from "../OnyxBasicDialog/OnyxBasicDialog.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
-import type { OnyxModalDialogProps } from "./types.js";
+import type { OnyxModalProps } from "./types.js";
 
-const props = defineProps<OnyxModalDialogProps>();
+const props = defineProps<OnyxModalProps>();
 
 const emit = defineEmits<{
   /**
-   * Emitted when the dialog should be closed.
+   * Emitted when the modal dialog should be closed.
+   * Opening is always controlled via the `open` prop.
    */
-  close: [];
+  "update:open": [open: Nullable<boolean>];
 }>();
 
 const slots = defineSlots<{
@@ -26,7 +28,7 @@ const slots = defineSlots<{
    * Optional slot to override the headline with custom content.
    * If unset, the `label` property will be shown.
    */
-  headline?(bindings: Pick<OnyxModalDialogProps, "label">): unknown;
+  headline?(bindings: Pick<OnyxModalProps, "label">): unknown;
   /**
    * Optional slot to add custom content, e.g. a description to the dialog header (below the headline).
    */
@@ -45,58 +47,59 @@ const hasDescription = computed(() => !!slots.description);
 </script>
 
 <template>
-  <OnyxDialog
+  <OnyxBasicDialog
     v-bind="props"
-    :class="['onyx-modal-dialog', densityClass]"
-    :aria-describedby="hasDescription ? descriptionId : undefined"
     modal
-    @close="emit('close')"
+    :class="['onyx-modal', densityClass]"
+    :aria-describedby="hasDescription ? descriptionId : undefined"
+    @update:open="emit('update:open', $event)"
   >
-    <div class="onyx-modal-dialog__header">
-      <div class="onyx-modal-dialog__headline">
-        <div class="onyx-modal-dialog__headline-content">
+    <div class="onyx-modal__header">
+      <div class="onyx-modal__headline">
+        <div class="onyx-modal__headline-content">
           <slot name="headline" :label="props.label">
             <OnyxHeadline is="h2">{{ props.label }}</OnyxHeadline>
           </slot>
         </div>
 
         <OnyxSystemButton
+          v-if="!props.nonDismissible"
           class="onyx-alert-dialog__close"
           :label="t('dialog.close')"
           :icon="iconXSmall"
-          @click="emit('close')"
+          @click="emit('update:open', false)"
         />
       </div>
 
       <div
         v-if="hasDescription"
         :id="descriptionId"
-        class="onyx-modal-dialog__description onyx-text--small"
+        class="onyx-modal__description onyx-text--small"
       >
         <slot name="description"></slot>
       </div>
     </div>
 
-    <div class="onyx-modal-dialog__body">
+    <div class="onyx-modal__body">
       <slot></slot>
     </div>
 
-    <div v-if="!!slots.footer" class="onyx-modal-dialog__footer">
+    <div v-if="!!slots.footer" class="onyx-modal__footer">
       <slot name="footer"></slot>
     </div>
-  </OnyxDialog>
+  </OnyxBasicDialog>
 </template>
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
 
-.onyx-modal-dialog {
+.onyx-modal {
   @include layers.component() {
-    --onyx-modal-dialog-padding-inline: var(--onyx-density-lg);
-    --onyx-dialog-padding: 0;
+    --onyx-modal-padding-inline: var(--onyx-density-lg);
+    --onyx-basic-dialog-padding: 0;
     display: flex;
 
-    .onyx-dialog__content {
+    .onyx-basic-dialog__content {
       display: flex;
       flex-direction: column;
     }
@@ -105,7 +108,7 @@ const hasDescription = computed(() => !!slots.description);
       display: flex;
       flex-direction: column;
       gap: var(--onyx-density-2xs);
-      padding: var(--onyx-density-sm) var(--onyx-modal-dialog-padding-inline);
+      padding: var(--onyx-density-sm) var(--onyx-modal-padding-inline);
       border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
     }
 

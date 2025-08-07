@@ -35,10 +35,6 @@ const colorScheme = computed({
       />
     </template>
 
-    <OnyxColorSchemeDialog
-      v-model="colorScheme"
-      :open="isColorSchemeDialogOpen"
-      @close="isColorSchemeDialogOpen = false"
-    />
+    <OnyxColorSchemeDialog v-model="colorScheme" v-model:open="isColorSchemeDialogOpen" />
   </OnyxNavBar>
 </template>

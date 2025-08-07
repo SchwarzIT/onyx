@@ -40,13 +40,14 @@ export const createEmitSpy = <
 export const expectEmit = <Handler extends { [EMIT_SPY_SYMBOL]: unknown[][] }>(
   emitSpy: Handler,
   n: number,
-  matches: unknown[],
+  matches?: unknown[],
 ) => {
   const calls = emitSpy[EMIT_SPY_SYMBOL];
   expect(calls).toHaveLength(n);
 
   const nthCall = calls[n - 1];
-  expect(nthCall).toMatchObject(matches);
-
+  if (matches) {
+    expect(nthCall).toMatchObject(matches);
+  }
   return nthCall;
 };
