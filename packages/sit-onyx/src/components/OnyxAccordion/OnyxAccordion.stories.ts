@@ -60,6 +60,13 @@ export const NestedSmall = {
   ...createAdvancedStoryExample("OnyxAccordion", "NestedSmallExample"),
 } satisfies Story;
 
+export const Card = {
+  args: {
+    ...Default.args,
+    type: "card",
+  },
+} satisfies Story;
+
 export const InitialOpen = {
   args: {
     ...Default.args,
