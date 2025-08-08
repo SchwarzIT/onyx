@@ -1,3 +1,4 @@
+import { iconCheck, iconMinus } from "@sit-onyx/icons";
 import { h } from "vue";
 import OnyxSkeleton from "../../../components/OnyxSkeleton/OnyxSkeleton.vue";
 import {
@@ -7,6 +8,8 @@ import {
 } from "../../../i18n/index.js";
 import { allObjectEntries } from "../../../utils/objects.js";
 import type { DateValue } from "../../OnyxDatePicker/types.js";
+import OnyxIcon from "../../OnyxIcon/OnyxIcon.vue";
+import type { OnyxIconProps } from "../../OnyxIcon/types.js";
 import type { DataGridEntry } from "../types.js";
 import HeaderCell from "./HeaderCell.vue";
 import { type DataGridFeatureDescription, type TypeRenderer, type TypeRenderMap } from "./index.js";
@@ -159,6 +162,41 @@ export const TIMESTAMP_RENDERER = createTypeRenderer<DateCellOptions>({
 export const SKELETON_RENDERER = createTypeRenderer<StringCellOptions>({
   cell: {
     component: () => h(OnyxSkeleton),
+  },
+});
+
+export type BooleanCellOptions = {
+  /**
+   * Icon to display when the value is truthy.
+   */
+  truthy?: Partial<OnyxIconProps>;
+  /**
+   * Icon to display when the value is falsy.
+   */
+  falsy?: Partial<OnyxIconProps>;
+};
+
+export const BOOLEAN_RENDERER = createTypeRenderer<BooleanCellOptions>({
+  header: { component: HeaderCell },
+  cell: {
+    tdAttributes: {
+      class: "onyx-data-grid-boolean-cell",
+    },
+    component: (props) => {
+      const value = Boolean(props.modelValue);
+
+      const truthyProps: OnyxIconProps = {
+        icon: iconCheck,
+        ...props.metadata?.typeOptions?.truthy,
+      };
+
+      const falsyProps: OnyxIconProps = {
+        icon: iconMinus,
+        ...props.metadata?.typeOptions?.falsy,
+      };
+
+      return h(OnyxIcon, value ? truthyProps : falsyProps);
+    },
   },
 });
 
