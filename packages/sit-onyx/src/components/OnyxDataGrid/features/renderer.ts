@@ -1,4 +1,4 @@
-import { iconCheck, iconMinus } from "@sit-onyx/icons";
+import { iconCheck, iconX } from "@sit-onyx/icons";
 import { h } from "vue";
 import OnyxSkeleton from "../../../components/OnyxSkeleton/OnyxSkeleton.vue";
 import {
@@ -192,7 +192,7 @@ export const BOOLEAN_RENDERER = createTypeRenderer<BooleanCellOptions>({
       };
 
       const falsyProps: OnyxIconProps = {
-        icon: iconMinus,
+        icon: iconX,
         ...props.metadata?.typeOptions?.falsy,
       };
 
