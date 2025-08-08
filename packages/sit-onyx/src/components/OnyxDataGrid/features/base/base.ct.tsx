@@ -143,7 +143,7 @@ test("should render boolean column type", async ({ mount }) => {
   // ARRANGE
   const component = await mount(TestWrapper, {
     props: {
-      style: "width: 8rem",
+      style: "width: 12rem",
       columns: [{ key: "a", label: "Column A", type: "boolean" }],
       data: [
         { id: 1, a: true },
