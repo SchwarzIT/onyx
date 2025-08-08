@@ -15,7 +15,6 @@ import {
   type WatchSource,
 } from "vue";
 import type { ComponentSlots } from "vue-component-type-helpers";
-import type { DatetimeFormat } from "../../../i18n/datetime-formats.js";
 import { type OnyxI18n } from "../../../i18n/index.js";
 import type { Nullable } from "../../../types/index.js";
 import { mergeVueProps } from "../../../utils/attrs.js";
@@ -92,7 +91,10 @@ export type ColumnConfig<
       TTypes | RenderTypesFromFeature<[ReturnType<typeof BASE_FEATURE>]>
     >;
 
-export type DefaultSupportedTypes = "string" | "number" | DatetimeFormat;
+export type DefaultSupportedTypes = Extract<
+  RenderTypesFromFeature<[ReturnType<typeof BASE_FEATURE>]>,
+  string
+>;
 
 /**
  * Configuration for the column groupings.

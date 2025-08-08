@@ -7,7 +7,12 @@ import type {
   TypeRenderer,
   TypeRenderMap,
 } from "./features/index.js";
-import type { DateCellOptions, NumberCellOptions, StringCellOptions } from "./features/renderer.js";
+import type {
+  BooleanCellOptions,
+  DateCellOptions,
+  NumberCellOptions,
+  StringCellOptions,
+} from "./features/renderer.js";
 import type { DataGridEntry, RenderTypesFromFeature } from "./types.js";
 
 it("should be ensured that RenderTypesFromFeature unwraps correctly", async () => {
@@ -22,6 +27,7 @@ it("should be ensured that RenderTypesFromFeature unwraps correctly", async () =
     | ColumnConfigTypeOption<"time", DateCellOptions>
     | ColumnConfigTypeOption<"timestamp", DateCellOptions>
     | ColumnConfigTypeOption<"skeleton", StringCellOptions>
+    | ColumnConfigTypeOption<"boolean", BooleanCellOptions>
   >();
 
   type SingleFeature = [
