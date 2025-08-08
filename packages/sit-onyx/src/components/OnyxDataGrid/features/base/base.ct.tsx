@@ -157,11 +157,11 @@ test("should render boolean column type", async ({ mount }) => {
 
   await expect(
     component.getByRole("cell").first(),
-    "should include visually hidden value",
-  ).toHaveText("true");
+    "should include visually hidden label",
+  ).toHaveText("Yes");
 
   await expect(
     component.getByRole("cell").nth(1),
-    "should include visually hidden value",
-  ).toHaveText("false");
+    "should include visually hidden label",
+  ).toHaveText("No");
 });
