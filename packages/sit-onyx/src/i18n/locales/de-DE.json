@@ -209,6 +209,8 @@
     "maxFileSize": "Maximale Dateigröße",
     "inTotal": "insgesamt",
     "maxFileCount": "Maximal {n} Dateien auswählbar",
-    "allowedFileTypes": "Erlaubte Dateien: {types}"
+    "allowedFileTypes": "Erlaubte Dateien: {types}",
+    "hideFilesButton": "Alle Dateien ausblenden",
+    "revealFilesButton": "Alle Dateien anzeigen"
   }
 }

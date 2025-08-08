@@ -46,3 +46,13 @@ export const Disabled = {
     disabled: true,
   },
 } satisfies Story;
+
+export const MaxHeight = {
+  args: {
+    ...Default.args,
+    multiple: true,
+    maxCount: 42,
+    maxTotalSize: "128MiB",
+    maxHeight: "4rem",
+  },
+} satisfies Story;

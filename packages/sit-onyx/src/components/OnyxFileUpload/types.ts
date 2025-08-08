@@ -1,16 +1,18 @@
 import type { DensityProp } from "../../composables/density.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 import type { BinaryPrefixedSize } from "../../utils/numbers.js";
+import type { OnyxFileCardProps } from "../OnyxFileCard/types.js";
 import type { FormInjected } from "../OnyxForm/OnyxForm.core.js";
 import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
 
 export type OnyxFileUploadProps<TMultiple extends boolean> = DensityProp &
-  Pick<SharedFormElementProps, "name"> & {
+  Pick<SharedFormElementProps, "name"> &
+  OnyxFileArea & {
     /**
      * Currently selected file(s).
      * If `multiple` property is enabled, this value is an array, otherwise a single file.
      */
-    modelValue?: TMultiple extends true ? File[] : File;
+    modelValue?: TMultiple extends true ? File[] : File | null;
     /**
      * Whether multiple files can be selected.
      * If `true`, the `modelValue` property will be an array, otherwise a single value.
@@ -65,6 +67,20 @@ export type OnyxFileUploadProps<TMultiple extends boolean> = DensityProp &
     skeleton?: SkeletonInjected;
   };
 
+type OnyxFileArea = Pick<OnyxFileCardProps, "icon"> & {
+  /**
+   * Max Height of the FileArea in rem
+   */
+  maxHeight?: number | string;
+  /**
+   * Wheter to display a hide/reveal Button for the file Area
+   */
+  hasHideButton?: boolean;
+  /**
+   * Custom Actions for for the fileCards.
+   */
+  fileCardActions?: { label: string; clickEvent(file: File): void }[];
+};
 /**
  * Unique file type specifier.
  * For a full list of media types, see the [official docs](https://www.iana.org/assignments/media-types/media-types.xhtml).

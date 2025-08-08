@@ -120,7 +120,6 @@ const link = computed(() => {
 .onyx-file-card {
   @include layers.component() {
     flex-direction: row;
-    flex-wrap: wrap;
     gap: var(--onyx-card-gap) var(--onyx-density-xl);
     justify-content: space-between;
 
