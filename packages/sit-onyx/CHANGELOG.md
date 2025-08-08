@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.291
+
+### Minor Changes
+
+- 269348c: feat(OnyxDataGrid): support boolean column type
+
 ## 1.0.0-beta.290
 
 ### Major Changes
