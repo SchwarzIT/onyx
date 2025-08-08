@@ -1,82 +1,47 @@
 <script setup lang="ts">
-import { iconCircleContrast, iconTranslate } from "@sit-onyx/icons";
-import { extractLinkProps, type ColorSchemeValue, type SelectDialogOption } from "sit-onyx";
+import type { OnyxNavBarProps, OnyxNavBarSlots } from "sit-onyx";
+import ColorSchemeSwitch from "./ColorSchemeSwitch.vue";
 
-const { onyxDocs } = useAppConfig();
+const props = withDefaults(defineProps<OnyxNavBarProps>(), {
+  appName: "Documentation",
+  withBackButton: true,
+});
+
+const slots = defineSlots<OnyxNavBarSlots>();
+
 const router = useRouter();
-const colorMode = useColorMode();
-
-const isColorSchemeDialogOpen = ref(false);
-
-const colorScheme = computed({
-  get: () => {
-    return colorMode.preference === "system" ? "auto" : (colorMode.preference as ColorSchemeValue);
-  },
-  set: (newValue) => {
-    colorMode.preference = newValue === "auto" ? "system" : newValue;
-  },
-});
-
-const { locale, setLocale, locales } = useI18n();
+const { locales } = useI18n();
 const localePath = useLocalePath();
-const isLanguageDialogOpen = ref(false);
-
-const languageOptions = computed(() => {
-  return locales.value.map((locale) => {
-    return {
-      label: locale.name ?? locale.code,
-      value: locale.code,
-    } satisfies SelectDialogOption;
-  });
-});
-
-const currentLocaleLabel = computed(() => {
-  // using "!" here is safe since splitting a string will always return at least one string in the returned array
-  return locale.value.split("-")[0]!.split("_")[0]!.toUpperCase();
-});
 </script>
 
 <template>
   <OnyxNavBar
-    :app-area="{ link: localePath('/') }"
-    v-bind="onyxDocs.nav"
+    v-bind="props"
+    :app-area="props.appArea ?? { link: localePath('/') }"
     @navigate-back="router.back"
   >
-    <NavItem
-      v-for="item in onyxDocs.nav?.items"
-      :key="extractLinkProps(item.link ?? '').href"
-      v-bind="item"
-    />
-
-    <template #contextArea>
-      <template v-if="locales.length > 1">
-        <OnyxButton
-          :label="currentLocaleLabel"
-          :icon="iconTranslate"
-          color="neutral"
-          mode="plain"
-          @click="isLanguageDialogOpen = true"
-        />
-
-        <OnyxSelectDialog
-          v-model:open="isLanguageDialogOpen"
-          :label="$t('onyx.languageSelect.headline')"
-          :model-value="locale"
-          :options="languageOptions"
-          @update:model-value="setLocale($event)"
-        >
-          <template #description> {{ $t("onyx.languageSelect.subtitle") }} </template>
-        </OnyxSelectDialog>
-      </template>
-
-      <OnyxIconButton
-        label="Toggle color scheme"
-        :icon="iconCircleContrast"
-        color="neutral"
-        @click="isColorSchemeDialogOpen = true"
-      />
+    <!-- eslint-disable vue/require-explicit-slots -- slots type is imported from onyx but eslint does not seem to be able to handle this -->
+    <template v-if="slots.appArea" #appArea>
+      <slot name="appArea"></slot>
     </template>
 
-    <OnyxColorSchemeDialog v-model="colorScheme" v-model:open="isColorSchemeDialogOpen" />
+    <slot></slot>
+
+    <template v-if="slots.globalContextArea" #globalContextArea>
+      <slot name="globalContextArea"></slot>
+    </template>
+
+    <template v-if="slots.mobileActivePage" #mobileActivePage>
+      <slot name="mobileActivePage"></slot>
+    </template>
+
+    <template #contextArea>
+      <slot name="contextArea">
+        <!-- using lazy here so the locale switch code is not loaded when only one locale exists -->
+        <LazyLocaleSwitch v-if="locales.length > 1" />
+        <ColorSchemeSwitch />
+      </slot>
+    </template>
+    <!-- eslint-enable vue/require-explicit-slots -->
   </OnyxNavBar>
 </template>

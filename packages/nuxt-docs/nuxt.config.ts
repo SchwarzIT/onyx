@@ -1,5 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  $meta: {
+    // the name is used to generate import aliases so the user can easily import
+    // any component or file from this layer from "#layers/onyx"
+    // see: https://nuxt.com/docs/4.x/guide/going-further/layers#named-layer-aliases
+    name: "onyx",
+  },
   devtools: { enabled: true },
   compatibilityDate: "2025-01-20",
   typescript: { typeCheck: "build" },
