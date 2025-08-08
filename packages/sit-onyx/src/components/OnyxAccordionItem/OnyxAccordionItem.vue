@@ -50,11 +50,14 @@ const type = computed(() => accordionContext?.type.value ?? "default");
 
 const headerId = computed(() => `header-${props.value.toString()}`);
 const panelId = computed(() => `panel-${props.value.toString()}`);
+
+const showSkeleton = computed(() => skeleton.value || accordionContext?.skeleton.value);
 </script>
 
 <template>
-  <div
-    v-if="skeleton || accordionContext?.skeleton.value"
+  <component
+    :is="type === 'card' ? OnyxSkeleton : 'div'"
+    v-if="showSkeleton"
     :class="[
       'onyx-component',
       'onyx-accordion-item-skeleton',
@@ -64,7 +67,7 @@ const panelId = computed(() => `panel-${props.value.toString()}`);
   >
     <OnyxSkeleton class="onyx-accordion-item-skeleton__main" />
     <OnyxSkeleton class="onyx-accordion-item-skeleton__icon" />
-  </div>
+  </component>
 
   <details
     v-else
@@ -128,6 +131,7 @@ const panelId = computed(() => `panel-${props.value.toString()}`);
     --onyx-accordion-item-background-focus: var(--onyx-accordion-item-background-hover);
     --onyx-accordion-item-outline: var(--onyx-outline-width) solid
       var(--onyx-color-component-focus-primary);
+
     &--nested-large,
     &--nested-small {
       --onyx-accordion-item-font-weight: var(--onyx-font-weight-semibold);
@@ -156,6 +160,10 @@ const panelId = computed(() => `panel-${props.value.toString()}`);
       --onyx-accordion-item-background: var(--onyx-color-base-background-tinted);
       --onyx-accordion-item-background-hover: var(--onyx-color-base-neutral-200);
       --onyx-accordion-item-background-focus: var(--onyx-color-base-neutral-300);
+    }
+
+    &--card {
+      --onyx-accordion-item-background: var(--onyx-color-base-background-blank);
     }
   }
 }
@@ -228,6 +236,28 @@ const panelId = computed(() => `panel-${props.value.toString()}`);
       }
     }
 
+    &--card {
+      border: var(--onyx-accordion-item-border);
+      border-radius: var(--onyx-accordion-item-border-radius);
+      background-color: var(--onyx-accordion-item-background);
+
+      &:hover {
+        background-color: var(--onyx-accordion-item-background-hover);
+
+        .onyx-accordion-item__header {
+          background-color: var(--onyx-accordion-item-background-hover);
+        }
+      }
+
+      &:has(.onyx-accordion-item__header:focus-visible) {
+        background-color: var(--onyx-accordion-item-background-focus);
+      }
+
+      .onyx-accordion-item__header {
+        border-radius: var(--onyx-accordion-item-border-radius);
+      }
+    }
+
     &:has(&__header:focus-visible) {
       border-radius: var(--onyx-accordion-item-border-radius);
       border-bottom: var(--onyx-accordion-item-border-focus);
@@ -282,6 +312,11 @@ const panelId = computed(() => `panel-${props.value.toString()}`);
       height: $icon-size;
       width: $icon-size;
       flex-shrink: 0;
+    }
+
+    &--card {
+      border: none;
+      height: calc($icon-size + 2 * var(--onyx-accordion-item-padding));
     }
   }
 }
