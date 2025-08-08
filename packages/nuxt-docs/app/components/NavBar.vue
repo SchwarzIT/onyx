@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { iconCircleContrast, iconTranslate } from "@sit-onyx/icons";
-import { type ColorSchemeValue, type OnyxNavBarProps, type OnyxNavBarSlots } from "sit-onyx";
+import type { OnyxNavBarProps, OnyxNavBarSlots } from "sit-onyx";
+import ColorSchemeSwitch from "./ColorSchemeSwitch.vue";
 
 const props = withDefaults(defineProps<OnyxNavBarProps>(), {
   appName: "Documentation",
@@ -9,36 +9,8 @@ const props = withDefaults(defineProps<OnyxNavBarProps>(), {
 const slots = defineSlots<OnyxNavBarSlots>();
 
 const router = useRouter();
-const colorMode = useColorMode();
-
-const isColorSchemeDialogOpen = ref(false);
-
-const colorScheme = computed({
-  get: () => {
-    return colorMode.preference === "system" ? "auto" : (colorMode.preference as ColorSchemeValue);
-  },
-  set: (newValue) => {
-    colorMode.preference = newValue === "auto" ? "system" : newValue;
-  },
-});
-
-const { locale, setLocale, locales } = useI18n();
+const { locales } = useI18n();
 const localePath = useLocalePath();
-const isLanguageDialogOpen = ref(false);
-
-const languageOptions = computed(() => {
-  return locales.value.map((locale) => {
-    return {
-      label: locale.name ?? locale.code,
-      value: locale.code,
-    } satisfies SelectDialogOption;
-  });
-});
-
-const currentLocaleLabel = computed(() => {
-  // using "!" here is safe since splitting a string will always return at least one string in the returned array
-  return locale.value.split("-")[0]!.split("_")[0]!.toUpperCase();
-});
 </script>
 
 <template>
@@ -62,36 +34,11 @@ const currentLocaleLabel = computed(() => {
     </template>
 
     <template #contextArea>
-      <slot name="contextArea"></slot>
-
-      <template v-if="locales.length > 1">
-        <OnyxButton
-          :label="currentLocaleLabel"
-          :icon="iconTranslate"
-          color="neutral"
-          mode="plain"
-          @click="isLanguageDialogOpen = true"
-        />
-
-        <OnyxSelectDialog
-          v-model:open="isLanguageDialogOpen"
-          :label="$t('onyx.languageSelect.headline')"
-          :model-value="locale"
-          :options="languageOptions"
-          @update:model-value="setLocale($event)"
-        >
-          <template #description> {{ $t("onyx.languageSelect.subtitle") }} </template>
-        </OnyxSelectDialog>
-      </template>
-
-      <OnyxIconButton
-        label="Toggle color scheme"
-        :icon="iconCircleContrast"
-        color="neutral"
-        @click="isColorSchemeDialogOpen = true"
-      />
-
-      <OnyxColorSchemeDialog v-model="colorScheme" v-model:open="isColorSchemeDialogOpen" />
+      <slot name="contextArea">
+        <!-- using lazy here so the locale switch code is not loaded when only one locale exists -->
+        <LazyLocaleSwitch v-if="locales.length > 1" />
+        <ColorSchemeSwitch />
+      </slot>
     </template>
   </OnyxNavBar>
 </template>
