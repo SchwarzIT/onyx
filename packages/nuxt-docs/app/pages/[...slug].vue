@@ -1,9 +1,19 @@
 <script setup lang="ts">
-const route = useRoute();
-const path = computed(() => route.path);
+import type { Collections } from "@nuxt/content";
 
-const collection = await useAsyncData(path, () =>
-  queryCollection("content").path(path.value).first(),
+const route = useRoute();
+const { locale } = useI18n();
+const slug = computed(() => {
+  const value = String(route.params.slug);
+  return value.startsWith("/") ? value : `/${value}`;
+});
+
+const collection = await useAsyncData(
+  () => `page-${slug.value}-${locale.value}`,
+  () => {
+    const collection = `content_${locale.value}` as keyof Collections;
+    return queryCollection(collection).path(slug.value).first();
+  },
 );
 
 watch(
