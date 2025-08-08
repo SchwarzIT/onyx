@@ -19,6 +19,7 @@ const localePath = useLocalePath();
     :app-area="props.appArea ?? { link: localePath('/') }"
     @navigate-back="router.back"
   >
+    <!-- eslint-disable vue/require-explicit-slots -- slots type is imported from onyx but eslint does not seem to be able to handle this -->
     <template v-if="slots.appArea" #appArea>
       <slot name="appArea"></slot>
     </template>
@@ -40,5 +41,6 @@ const localePath = useLocalePath();
         <ColorSchemeSwitch />
       </slot>
     </template>
+    <!-- eslint-enable vue/require-explicit-slots -->
   </OnyxNavBar>
 </template>
