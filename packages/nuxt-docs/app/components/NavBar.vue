@@ -4,6 +4,7 @@ import ColorSchemeSwitch from "./ColorSchemeSwitch.vue";
 
 const props = withDefaults(defineProps<OnyxNavBarProps>(), {
   appName: "Documentation",
+  withBackButton: true,
 });
 
 const slots = defineSlots<OnyxNavBarSlots>();
