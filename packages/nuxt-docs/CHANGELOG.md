@@ -1,5 +1,15 @@
 # @sit-onyx/nuxt-docs
 
+## 1.0.0-beta.106
+
+### Major Changes
+
+- df455a1: refactor(nuxt-docs): remove app config in favor of Nuxt overrides
+
+  Configuration via `app.config.ts` file has been removed in favor of a more flexible and Nuxt native approach by leveraging the Nuxt layer
+
+  For further information, see the [onyx documentation](https://onyx.schwarz/development/packages/nuxt-docs.html#customization).
+
 ## 1.0.0-beta.105
 
 ### Major Changes
