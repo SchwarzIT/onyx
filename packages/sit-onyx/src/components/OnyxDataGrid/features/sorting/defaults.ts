@@ -7,6 +7,8 @@ export const STRING_COMPARE = (a: unknown, b: unknown, collator: Intl.Collator) 
 
 export const NUMBER_COMPARE = (a: unknown, b: unknown) => Number(a) - Number(b);
 
+export const BOOLEAN_COMPARE = (a: unknown, b: unknown) => NUMBER_COMPARE(a ? 1 : 0, b ? 1 : 0);
+
 const toComparableTime = (date: Date) =>
   new Date(
     Date.UTC(
@@ -41,4 +43,5 @@ export const DEFAULT_COMPARES: Record<PropertyKey, Compare<unknown>> = Object.fr
   time: TIME_COMPARE,
   timestamp: NUMBER_COMPARE,
   skeleton: () => 0,
+  boolean: BOOLEAN_COMPARE,
 }) satisfies Record<DefaultSupportedTypes, Compare<DataGridEntry>>;

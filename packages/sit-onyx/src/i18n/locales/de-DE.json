@@ -1,4 +1,6 @@
 {
+  "yes": "Ja",
+  "no": "Nein",
   "optional": "(optional)",
   "cancel": "Abbrechen",
   "apply": "Anwenden",
