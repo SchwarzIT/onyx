@@ -10,6 +10,7 @@ import { allObjectEntries } from "../../../utils/objects.js";
 import type { DateValue } from "../../OnyxDatePicker/types.js";
 import OnyxIcon from "../../OnyxIcon/OnyxIcon.vue";
 import type { OnyxIconProps } from "../../OnyxIcon/types.js";
+import OnyxVisuallyHidden from "../../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import type { DataGridEntry } from "../types.js";
 import HeaderCell from "./HeaderCell.vue";
 import { type DataGridFeatureDescription, type TypeRenderer, type TypeRenderMap } from "./index.js";
@@ -195,7 +196,11 @@ export const BOOLEAN_RENDERER = createTypeRenderer<BooleanCellOptions>({
         ...props.metadata?.typeOptions?.falsy,
       };
 
-      return h(OnyxIcon, value ? truthyProps : falsyProps);
+      return [
+        h(OnyxIcon, value ? truthyProps : falsyProps),
+        // since icons are aria hidden (visual only), we include the value with OnyxVisuallyHidden here for screen readers
+        h(OnyxVisuallyHidden, undefined, value),
+      ];
     },
   },
 });
