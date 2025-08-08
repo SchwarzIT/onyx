@@ -170,11 +170,20 @@ export type BooleanCellOptions = {
   /**
    * Icon to display when the value is truthy.
    */
-  truthy?: Partial<OnyxIconProps>;
+  truthy?: BooleanCellIconOptions;
   /**
    * Icon to display when the value is falsy.
    */
-  falsy?: Partial<OnyxIconProps>;
+  falsy?: BooleanCellIconOptions;
+};
+
+export type BooleanCellIconOptions = Partial<OnyxIconProps> & {
+  /**
+   * Label to display (visually hidden) for e.g. screen readers.
+   *
+   * @default "Yes" / "No" label depending on the current locale
+   */
+  label?: string;
 };
 
 export const BOOLEAN_RENDERER = createTypeRenderer<BooleanCellOptions>({
@@ -183,23 +192,28 @@ export const BOOLEAN_RENDERER = createTypeRenderer<BooleanCellOptions>({
     tdAttributes: {
       class: "onyx-data-grid-boolean-cell",
     },
-    component: (props) => {
-      const value = Boolean(props.modelValue);
+    component: ({ modelValue, metadata }) => {
+      const value = Boolean(modelValue);
+      const { t } = injectI18n();
 
-      const truthyProps: OnyxIconProps = {
+      const truthyProps = {
         icon: iconCheck,
-        ...props.metadata?.typeOptions?.truthy,
-      };
+        label: t.value("yes"),
+        ...metadata?.typeOptions?.truthy,
+      } satisfies BooleanCellIconOptions;
 
-      const falsyProps: OnyxIconProps = {
+      const falsyProps = {
         icon: iconX,
-        ...props.metadata?.typeOptions?.falsy,
-      };
+        label: t.value("no"),
+        ...metadata?.typeOptions?.falsy,
+      } satisfies BooleanCellIconOptions;
+
+      const props = value ? truthyProps : falsyProps;
 
       return [
-        h(OnyxIcon, value ? truthyProps : falsyProps),
+        h(OnyxIcon, props),
         // since icons are aria hidden (visual only), we include the value with OnyxVisuallyHidden here for screen readers
-        h(OnyxVisuallyHidden, undefined, value),
+        h(OnyxVisuallyHidden, undefined, () => props.label),
       ];
     },
   },
