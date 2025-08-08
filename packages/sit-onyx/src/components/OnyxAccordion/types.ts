@@ -45,5 +45,5 @@ export type AccordionInjectionKey<TValue extends PropertyKey> = InjectionKey<{
 
 export const ACCORDION_INJECTION_KEY = Symbol() as AccordionInjectionKey<PropertyKey>;
 
-export const ACCORDION_TYPES = ["default", "nested-large", "nested-small"] as const;
+export const ACCORDION_TYPES = ["default", "nested-large", "nested-small", "card"] as const;
 export type AccordionType = (typeof ACCORDION_TYPES)[number];
