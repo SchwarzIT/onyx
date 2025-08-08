@@ -91,10 +91,9 @@ export type ColumnConfig<
       TTypes | RenderTypesFromFeature<[ReturnType<typeof BASE_FEATURE>]>
     >;
 
-export type DefaultSupportedTypes = Extract<
-  RenderTypesFromFeature<[ReturnType<typeof BASE_FEATURE>]>,
-  string
->;
+export type DefaultSupportedTypes = keyof ReturnType<
+  ReturnType<typeof BASE_FEATURE>
+>["typeRenderer"];
 
 /**
  * Configuration for the column groupings.
