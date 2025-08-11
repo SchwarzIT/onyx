@@ -20,6 +20,7 @@ import {
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import { useRootAttrs } from "../../utils/attrs.js";
+import { convertBinaryPrefixToBytes } from "../../utils/numbers.js";
 import { asArray } from "../../utils/objects.js";
 import { OnyxFileUploadSVG } from "../illustrations/index.js";
 import OnyxFileCard from "../OnyxFileCard/OnyxFileCard.vue";
@@ -72,6 +73,31 @@ const input = useTemplateRef<HTMLInputElement>("inputRef");
 
 const currentFiles = computed<File[]>(() => asArray(modelValue.value ?? []) as unknown as File[]);
 const hideFiles = ref(false);
+
+const fileStatuses = computed(() => {
+  return currentFiles.value.map((file, index) => {
+    if (props.maxSize && file.size > convertBinaryPrefixToBytes(props.maxSize)) {
+      return {
+        text: t.value("fileUpload.status.fileSizeError", { size: props.maxSize }),
+        color: "danger",
+      };
+    }
+    const totalSize = currentFiles.value.slice(0, index + 1).reduce((sum, f) => sum + f.size, 0);
+    if (props.maxTotalSize && totalSize > convertBinaryPrefixToBytes(props.maxTotalSize)) {
+      return {
+        text: t.value("fileUpload.status.maxFileSizeError", { size: props.maxTotalSize }),
+        color: "danger",
+      };
+    }
+    if (props.multiple && props.maxCount && index >= props.maxCount) {
+      return {
+        text: t.value("fileUpload.status.maxCountError", { count: props.maxCount }),
+        color: "danger",
+      };
+    }
+    return null;
+  });
+});
 
 /**
  * Sets the currently selected files by considering all relevant props (e.g. replace etc.).
@@ -212,19 +238,20 @@ const handleDragEnter = () => {
     >
       <slot>
         <OnyxSystemButton
-          v-if="props.hasHideButton"
+          v-if="props.hasHideButton && currentFiles.length"
           class="onyx-file-area__hide-button"
           :label="hideFiles ? t('fileUpload.revealFilesButton') : t('fileUpload.hideFilesButton')"
           @click="() => (hideFiles = !hideFiles)"
         />
         <template v-if="!hideFiles">
           <OnyxFileCard
-            v-for="file in currentFiles"
+            v-for="(file, index) in currentFiles"
             :key="file.name"
             :filename="file.name"
             :size="file.size"
             :icon
             :disabled
+            :status="fileStatuses[index]"
           >
             <template #actions>
               <OnyxFlyoutMenu v-if="fileCardActions" label="More actions" trigger="click">

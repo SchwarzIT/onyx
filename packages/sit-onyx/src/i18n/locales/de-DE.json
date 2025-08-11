@@ -211,6 +211,11 @@
     "maxFileCount": "Maximal {n} Dateien auswählbar",
     "allowedFileTypes": "Erlaubte Dateien: {types}",
     "hideFilesButton": "Alle Dateien ausblenden",
-    "revealFilesButton": "Alle Dateien anzeigen"
+    "revealFilesButton": "Alle Dateien anzeigen",
+    "status": {
+      "fileSizeError": "Datei überschreitet die maximal zulässige Größe von {size}",
+      "maxFileSizeError": "Gesamtgröße der Dateien überschreitet das zulässige Maximum von {size}",
+      "maxCountError": "Die Anzahl der Dateien überschreitet das zulässige Maximum von {count}"
+    }
   }
 }
