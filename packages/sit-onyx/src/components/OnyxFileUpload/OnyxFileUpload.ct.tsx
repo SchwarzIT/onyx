@@ -92,7 +92,10 @@ test("should select a single file", async ({ mount, page }) => {
   let file: File | undefined;
 
   const component = await mount(
-    <OnyxFileUpload onUpdate:modelValue={(newFile) => (file = newFile)} />,
+    <OnyxFileUpload
+      onUpdate:modelValue={(newFile) => (file = newFile)}
+      style={{ padding: "1rem", width: "32rem" }}
+    />,
   );
   const button = component.getByRole("button", { name: "Click to select" });
 
@@ -124,6 +127,7 @@ test("should select multiple files", async ({ mount, page }) => {
     <OnyxFileUpload
       multiple
       maxHeight={"12rem"}
+      style={{ padding: "1rem", width: "32rem" }}
       onUpdate:modelValue={(newFiles) => (files = newFiles)}
     />,
   );
@@ -221,6 +225,7 @@ test("should has hide button", async ({ mount, page }) => {
     <OnyxFileUpload
       multiple
       hasHideButton
+      style={{ padding: "1rem", width: "32rem" }}
       onUpdate:modelValue={(newFiles) => (files = newFiles)}
     />,
   );
@@ -252,6 +257,7 @@ test("should display actions if available", async ({ mount, page }) => {
   const component = await mount(
     <OnyxFileUpload
       multiple
+      style={{ padding: "1rem", width: "32rem" }}
       fileCardActions={[
         { label: "Print", onClick: () => {} },
         { label: "Download", onClick: () => {} },
