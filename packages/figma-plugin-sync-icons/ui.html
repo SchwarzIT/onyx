@@ -1,0 +1,112 @@
+<style>
+  body {
+    font-family: sans-serif;
+    padding: 0.5rem 1rem;
+    margin: 0;
+  }
+  form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-block-end: 0;
+  }
+  label {
+    display: block;
+    margin-bottom: 0.2rem;
+    font-weight: bold;
+    font-size: 0.8rem;
+  }
+  input {
+    width: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
+    border-radius: 0.5rem;
+  }
+  .input-group {
+    margin-bottom: 2rem;
+  }
+  button {
+    width: 100%;
+    padding: 1rem;
+    background-color: #0d99ff;
+    border-radius: 0.5rem;
+    margin-top: auto;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  button:not(:disabled):hover {
+    background-color: #1386d8;
+  }
+  button:disabled {
+    background-color: #7bb5e6;
+    color: #e0e7f1;
+  }
+  a {
+    text-decoration: none;
+    color: #0d99ff;
+  }
+  a:hover {
+    color: #1386d8;
+  }
+  small {
+    margin-top: 0.5rem;
+  }
+</style>
+
+<form id="form">
+  <div class="input-group">
+    <label for="accessToken">Your Access-Token:</label>
+    <input required type="text" id="accessToken" placeholder="e.g. figd_..." />
+    <small
+      >See
+      <a target="_blank" href="https://www.figma.com/developers/api#access-tokens"
+        >Access Token documentation</a
+      >.</small
+    >
+  </div>
+  <div class="input-group">
+    <label for="fileKey">Icon Libary File-Key:</label>
+    <input required type="text" id="fileKey" placeholder="e.g. 123456789..." />
+    <small
+      >See
+      <a
+        target="_blank"
+        href="https://forum.figma.com/ask-the-community-7/how-to-find-key-file-36581"
+        >Access Token documentation</a
+      >.</small
+    >
+  </div>
+  <button id="button" type="submit">Save & Run</button>
+</form>
+<script>
+  const accessTokenInput = document.getElementById("accessToken");
+  const fileKeyInput = document.getElementById("fileKey");
+  const form = document.getElementById("form");
+  const button = document.getElementById("button");
+  window.onload = () => {
+    parent.postMessage({ pluginMessage: { type: "get-stored-data" } }, "*");
+  };
+  form.onsubmit = (event) => {
+    event.preventDefault();
+    const accessToken = accessTokenInput.value;
+    const fileKey = fileKeyInput.value;
+
+    parent.postMessage({ pluginMessage: { type: "save-and-run", accessToken, fileKey } }, "*");
+    button.innerHTML = "Running...";
+    button.disabled = true;
+  };
+
+  window.onmessage = (event) => {
+    const { type, accessToken, fileKey } = event.data.pluginMessage;
+
+    if (type === "set-prefilled-data") {
+      if (accessToken) {
+        accessTokenInput.value = accessToken;
+      }
+      if (fileKey) {
+        fileKeyInput.value = fileKey;
+      }
+    }
+  };
+</script>
