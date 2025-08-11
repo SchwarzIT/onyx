@@ -4,7 +4,7 @@
   "description": "This Figma plugin syncs Onyx icons with the UX Schwarz IT Icon Library and applies color variables.",
   "main": "./dist/code.js",
   "files": [
-    "./dist"
+    "dist"
   ],
   "private": true,
   "scripts": {
