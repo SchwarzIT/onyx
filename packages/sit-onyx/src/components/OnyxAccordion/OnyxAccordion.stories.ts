@@ -61,6 +61,7 @@ export const NestedSmall = {
 } satisfies Story;
 
 export const Card = {
+  tags: ["new:feature"],
   args: {
     ...Default.args,
     type: "card",
