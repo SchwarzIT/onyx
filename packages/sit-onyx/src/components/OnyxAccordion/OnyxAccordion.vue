@@ -88,7 +88,14 @@ provide(ACCORDION_INJECTION_KEY as AccordionInjectionKey<TValue>, {
 </script>
 
 <template>
-  <div :class="['onyx-component', 'onyx-accordion', densityClass]">
+  <div
+    :class="[
+      'onyx-component',
+      'onyx-accordion',
+      densityClass,
+      { 'onyx-accordion--card': props.type === 'card' },
+    ]"
+  >
     <slot></slot>
   </div>
 </template>
@@ -99,6 +106,13 @@ provide(ACCORDION_INJECTION_KEY as AccordionInjectionKey<TValue>, {
 .onyx-accordion {
   @include layers.component() {
     width: 100%;
+
+    &--card {
+      --onyx-accordion-gap: var(--onyx-density-xs);
+      display: flex;
+      flex-direction: column;
+      gap: var(--onyx-accordion-gap);
+    }
   }
 }
 </style>
