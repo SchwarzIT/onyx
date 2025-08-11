@@ -126,8 +126,8 @@ test("should select multiple files", async ({ mount, page }) => {
   const component = await mount(
     <OnyxFileUpload
       multiple
-      maxHeight={"12rem"}
-      style={{ padding: "1rem", width: "32rem" }}
+      listType="maxHeight"
+      style={{ padding: "1rem", width: "32rem", "--onyx-file-upload-max-files": "2" }}
       onUpdate:modelValue={(newFiles) => (files = newFiles)}
     />,
   );
@@ -217,14 +217,14 @@ test("should not support drag and drop when disabled", async ({ mount, page }) =
   await expect(() => expect(file).not.toBeDefined()).toPass();
 });
 
-test("should has hide button", async ({ mount, page }) => {
+test("should have hide button", async ({ mount, page }) => {
   // ARRANGE
   let files: File[] = [];
 
   const component = await mount(
     <OnyxFileUpload
       multiple
-      hasHideButton
+      listType="button"
       style={{ padding: "1rem", width: "32rem" }}
       onUpdate:modelValue={(newFiles) => (files = newFiles)}
     />,
@@ -251,38 +251,4 @@ test("should has hide button", async ({ mount, page }) => {
   await expect(component).toHaveScreenshot("reveal-button.png");
   await expect(hideButton).toBeHidden();
   await expect(revealButton).toBeVisible();
-});
-
-test("should display actions if available", async ({ mount, page }) => {
-  const component = await mount(
-    <OnyxFileUpload
-      multiple
-      style={{ padding: "1rem", width: "32rem" }}
-      fileCardActions={[
-        { label: "Print", onClick: () => {} },
-        { label: "Download", onClick: () => {} },
-      ]}
-    />,
-  );
-  const button = component.getByRole("button", { name: "Click to select" });
-  const moreActionButton = component.getByRole("button", { name: "Show more actions" }).first();
-  const moreActionFlyoutMenu = component
-    .getByRole("dialog", { name: "More actions" })
-    .locator("div")
-    .first();
-  // ACT
-  selectFiles(page, button, 2);
-
-  // ASSERT
-  await expect(moreActionButton).toBeVisible();
-  await expect(moreActionFlyoutMenu).toBeHidden();
-
-  await expect(component).toHaveScreenshot("file-card-action.png");
-
-  // ACT
-  await moreActionButton.click();
-
-  // ASSERT
-  await expect(moreActionFlyoutMenu).toBeVisible();
-  await expect(component).toHaveScreenshot("file-card-action-expand.png");
 });

@@ -51,23 +51,13 @@ export const MaxHeight = {
   args: {
     ...Default.args,
     multiple: true,
-    maxHeight: "12rem",
+    listType: "maxHeight",
   },
 } satisfies Story;
 export const HideButton = {
   args: {
     ...Default.args,
     multiple: true,
-    hasHideButton: true,
-  },
-} satisfies Story;
-export const FileCardActions = {
-  args: {
-    ...Default.args,
-    multiple: true,
-    fileCardActions: [
-      { label: "Download", onClick: () => {} },
-      { label: "Print", onClick: () => {} },
-    ],
+    listType: "button",
   },
 } satisfies Story;

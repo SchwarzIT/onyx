@@ -3,12 +3,12 @@
   setup
   generic="
     TMultiple extends boolean = false,
-    TModelValue extends TMultiple extends true ? File[] : File | null = TMultiple extends true
+    TModelValue extends TMultiple extends true ? File[] : Nullable<File> = TMultiple extends true
       ? File[]
-      : File | null
+      : Nullable<File>
   "
 >
-import { iconCloudArrowUp, iconMoreVerticalSmall, iconTrash } from "@sit-onyx/icons";
+import { iconCloudArrowUp, iconTrash } from "@sit-onyx/icons";
 import { computed, ref, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useFileSize } from "../../composables/useFileSize.js";
@@ -19,6 +19,7 @@ import {
 } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
+import type { Nullable } from "../../types/utils.js";
 import { useRootAttrs } from "../../utils/attrs.js";
 import { convertBinaryPrefixToBytes } from "../../utils/numbers.js";
 import { asArray } from "../../utils/objects.js";
@@ -28,8 +29,6 @@ import type { FileCardStatus } from "../OnyxFileCard/types.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
-import OnyxFlyoutMenu from "../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
-import OnyxMenuItem from "../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import type { OnyxFileUploadProps } from "./types.js";
@@ -41,6 +40,7 @@ const props: OnyxFileUploadProps<TMultiple> = withDefaults(
   {
     accept: () => [],
     size: "large",
+    listType: "list",
     disabled: FORM_INJECTED_SYMBOL,
     skeleton: SKELETON_INJECTED_SYMBOL,
   },
@@ -73,21 +73,30 @@ const modelValue = useVModel<TModelValue, "modelValue", typeof props, undefined>
 
 const input = useTemplateRef<HTMLInputElement>("inputRef");
 
-const currentFiles = computed<File[]>(() => asArray(modelValue.value ?? []) as unknown as File[]);
+// const currentFiles = computed<File[]>(() => asArray(modelValue.value ?? []) as unknown as File[]);
+const currentFiles = computed<File[]>(() =>
+  (asArray(modelValue.value ?? []) as (File | null | undefined)[]).filter(
+    (file): file is File => file != null,
+  ),
+);
 const hideFiles = ref(false);
 
 const fileStatuses = computed((): (FileCardStatus | undefined)[] => {
   return currentFiles.value.map((file, index) => {
     if (props.maxSize && file.size > convertBinaryPrefixToBytes(props.maxSize)) {
       return {
-        text: t.value("fileUpload.status.fileSizeError", { size: props.maxSize }),
+        text: t.value("fileUpload.status.fileSizeError", {
+          size: formatFileSize.value(props.maxSize),
+        }),
         color: "danger",
       };
     }
     const totalSize = currentFiles.value.slice(0, index + 1).reduce((sum, f) => sum + f.size, 0);
     if (props.maxTotalSize && totalSize > convertBinaryPrefixToBytes(props.maxTotalSize)) {
       return {
-        text: t.value("fileUpload.status.maxFileSizeError", { size: props.maxTotalSize }),
+        text: t.value("fileUpload.status.maxFileSizeError", {
+          size: formatFileSize.value(props.maxTotalSize),
+        }),
         color: "danger",
       };
     }
@@ -154,6 +163,10 @@ const handleDrop = (event: DragEvent) => {
 const handleDragEnter = () => {
   if (disabled.value) return;
   isDragging.value = true;
+};
+
+const createFileURL = (file: File) => {
+  return URL.createObjectURL(file);
 };
 </script>
 
@@ -232,68 +245,39 @@ const handleDragEnter = () => {
       @change="handleChange"
     />
     <div
-      class="onyx-file-area"
-      :style="{
-        maxHeight: typeof props.maxHeight === 'number' ? props.maxHeight + 'px' : props.maxHeight,
-      }"
+      :class="['onyx-file-area', props.listType === 'maxHeight' && 'onyx-file-area--max-height']"
     >
-      <slot>
-        <OnyxSystemButton
-          v-if="props.hasHideButton && currentFiles.length"
-          class="onyx-file-area__hide-button"
-          :label="hideFiles ? t('fileUpload.revealFilesButton') : t('fileUpload.hideFilesButton')"
-          @click="() => (hideFiles = !hideFiles)"
-        />
-        <template v-if="!hideFiles">
-          <OnyxFileCard
-            v-for="(file, index) in currentFiles"
-            :key="file.name"
-            :filename="file.name"
-            :size="file.size"
-            :icon
-            :disabled
-            :status="fileStatuses[index]"
-          >
-            <template #actions>
-              <OnyxFlyoutMenu
-                v-if="fileCardActions"
-                label="More actions"
-                trigger="click"
-                alignment="right"
-              >
-                <template #button="{ trigger }">
-                  <OnyxIconButton
-                    color="neutral"
-                    :icon="iconMoreVerticalSmall"
-                    label="Show more actions"
-                    v-bind="trigger"
-                  />
-                </template>
-
-                <template #options>
-                  <OnyxMenuItem
-                    v-for="fileCardAction in fileCardActions"
-                    :key="fileCardAction.label"
-                    :label="fileCardAction.label"
-                    @click="fileCardAction.onClick(file)"
-                  />
-                </template>
-              </OnyxFlyoutMenu>
-
-              <OnyxIconButton
-                color="danger"
-                :icon="iconTrash"
-                label="Delete file"
-                @click="
-                  () => {
-                    removeFile(file);
-                  }
-                "
-              />
-            </template>
-          </OnyxFileCard>
+      <OnyxSystemButton
+        v-if="props.listType === 'button' && currentFiles.length"
+        class="onyx-file-area__hide-button"
+        :label="hideFiles ? t('fileUpload.revealFilesButton') : t('fileUpload.hideFilesButton')"
+        @click="() => (hideFiles = !hideFiles)"
+      />
+      <template v-if="!hideFiles">
+        <template v-for="(file, index) in currentFiles" :key="file.name">
+          <slot :file :status="fileStatuses[index]">
+            <OnyxFileCard
+              :filename="file.name"
+              :size="file.size"
+              :status="fileStatuses[index]"
+              :link="createFileURL(file)"
+            >
+              <template #actions>
+                <OnyxIconButton
+                  color="danger"
+                  :icon="iconTrash"
+                  :label="t('fileUpload.deleteButton')"
+                  @click="
+                    () => {
+                      removeFile(file);
+                    }
+                  "
+                />
+              </template>
+            </OnyxFileCard>
+          </slot>
         </template>
-      </slot>
+      </template>
     </div>
   </div>
 </template>
@@ -427,7 +411,6 @@ const handleDragEnter = () => {
 
     // Onyx file area
     .onyx-file-area {
-      overflow-y: scroll;
       display: flex;
       flex-direction: column;
 
@@ -436,6 +419,16 @@ const handleDragEnter = () => {
       }
       &__hide-button {
         margin: var(--onyx-density-xs) auto 0 auto;
+      }
+      &--max-height {
+        overflow-y: scroll;
+        max-height: calc(
+          (var(--onyx-file-upload-max-files, 3) + 0.5) *
+            (
+              max(1.74rem + var(--onyx-density-xs) * 2, 2.625rem) + var(--onyx-density-xs) * 2 +
+                var(--onyx-density-sm)
+            )
+        );
       }
     }
   }

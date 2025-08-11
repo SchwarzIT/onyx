@@ -1,18 +1,17 @@
 import type { DensityProp } from "../../composables/density.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
+import type { Nullable } from "../../types/utils.js";
 import type { BinaryPrefixedSize } from "../../utils/numbers.js";
-import type { OnyxFileCardProps } from "../OnyxFileCard/types.js";
 import type { FormInjected } from "../OnyxForm/OnyxForm.core.js";
 import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
 
 export type OnyxFileUploadProps<TMultiple extends boolean> = DensityProp &
-  Pick<SharedFormElementProps, "name"> &
-  OnyxFileArea & {
+  Pick<SharedFormElementProps, "name"> & {
     /**
      * Currently selected file(s).
      * If `multiple` property is enabled, this value is an array, otherwise a single file.
      */
-    modelValue?: TMultiple extends true ? File[] : File | null;
+    modelValue?: TMultiple extends true ? File[] : Nullable<File>;
     /**
      * Whether multiple files can be selected.
      * If `true`, the `modelValue` property will be an array, otherwise a single value.
@@ -65,22 +64,14 @@ export type OnyxFileUploadProps<TMultiple extends boolean> = DensityProp &
      * Whether to show a skeleton fileUpload.
      */
     skeleton?: SkeletonInjected;
+    /**
+     * How to display the uploaded files.
+     * For `maxHeight`: set `--onyx-file-upload-max-files` to the desired number of visible items (default: 3).
+     * @default list
+     */
+    listType: "list" | "maxHeight" | "button";
   };
 
-type OnyxFileArea = Pick<OnyxFileCardProps, "icon"> & {
-  /**
-   * Max Height of the FileArea in rem
-   */
-  maxHeight?: number | string;
-  /**
-   * Wheter to display a hide/reveal Button for the file Area
-   */
-  hasHideButton?: boolean;
-  /**
-   * Custom Actions for for the fileCards.
-   */
-  fileCardActions?: { label: string; onClick(file: File): void }[];
-};
 /**
  * Unique file type specifier.
  * For a full list of media types, see the [official docs](https://www.iana.org/assignments/media-types/media-types.xhtml).
