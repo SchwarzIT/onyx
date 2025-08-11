@@ -6,5 +6,10 @@
       font-family: var(--onyx-font-family-mono);
       text-align: end;
     }
+
+    .onyx-data-grid-boolean-cell {
+      color: var(--onyx-color-text-icons-neutral-medium);
+      text-align: center;
+    }
   }
 }

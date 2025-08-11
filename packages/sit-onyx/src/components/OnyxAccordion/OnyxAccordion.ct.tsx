@@ -19,6 +19,11 @@ test.describe("Screenshot tests", () => {
           skeleton={row === "skeleton"}
           disabled={row === "disabled"}
           type={type}
+          modelValue={
+            row === "open" || (["hover", "focus-visible"].includes(row) && type === "card")
+              ? ["item-1"]
+              : undefined
+          }
         >
           <OnyxAccordionItem value="item-1">
             <template v-slot:header>Header 1</template>
@@ -32,12 +37,6 @@ test.describe("Screenshot tests", () => {
       ),
       hooks: {
         beforeEach: async (component, page, _column, row) => {
-          if (row === "open") {
-            await component.evaluate((element) => {
-              element.style.padding = `auto 5rem`;
-            });
-            await component.getByRole("button", { name: "Header 1" }).click();
-          }
           if (row === "hover") await component.getByRole("button", { name: "Header 1" }).hover();
           if (row === "focus-visible") await page.keyboard.press("Tab");
         },

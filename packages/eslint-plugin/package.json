@@ -14,7 +14,7 @@
     "eslint": ">= 8"
   },
   "devDependencies": {
-    "@eslint/core": "~0.15.1",
+    "@eslint/core": "~0.15.2",
     "@types/eslint": "^9.6.1",
     "eslint-vitest-rule-tester": "^2.2.1",
     "vue-eslint-parser": "^10.2.0"

@@ -5,6 +5,7 @@ import { FILTERING_MUTATION_ORDER } from "../filtering/filtering.js";
 import { createFeature } from "../index.js";
 import { PAGINATION_MUTATION_ORDER } from "../pagination/pagination.js";
 import {
+  BOOLEAN_RENDERER,
   DATE_RENDERER,
   DATETIME_RENDERER,
   NUMBER_RENDERER,
@@ -66,6 +67,7 @@ export const BASE_FEATURE = (options?: BaseFeatureOptions) =>
         time: TIME_RENDERER,
         timestamp: TIMESTAMP_RENDERER,
         skeleton: SKELETON_RENDERER,
+        boolean: BOOLEAN_RENDERER,
       },
       slots: {
         headline: (slotContent) => {

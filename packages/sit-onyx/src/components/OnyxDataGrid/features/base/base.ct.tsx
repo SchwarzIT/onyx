@@ -138,3 +138,30 @@ test("should show skeleton", async ({ mount }) => {
     "skeleton row count should match actual data count if it exists",
   );
 });
+
+test("should render boolean column type", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(TestWrapper, {
+    props: {
+      style: "width: 12rem",
+      columns: [{ key: "a", label: "Column A", type: "boolean" }],
+      data: [
+        { id: 1, a: true },
+        { id: 1, a: false },
+      ],
+    },
+  });
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("boolean.png");
+
+  await expect(
+    component.getByRole("cell").first(),
+    "should include visually hidden label",
+  ).toHaveText("Yes");
+
+  await expect(
+    component.getByRole("cell").nth(1),
+    "should include visually hidden label",
+  ).toHaveText("No");
+});

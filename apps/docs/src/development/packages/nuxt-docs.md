@@ -122,24 +122,43 @@ This is an example page using the [onyx documentation template](https://onyx.sch
 By default, the `content/en` folder is used to provide the content so all files must be placed inside this folder. If you want to add other languages or change the default language, refer to thr [i18n section](#i18n).
 :::
 
-## Configuration
+## Customization
 
-To configure the documentation layer, simply define a `app/app.config.ts`. There you can configure global options like the nav bar etc.
+Due to the nature of [Nuxt layers](https://nuxt.com/docs/4.x/getting-started/layers), almost every part of the default config and components can be overridden or customized if needed.
+
+::: tip Layer exports
+All components, pages, composables etc. from the `@sit-onyx/nuxt-docs` layer can be imported from `#layers/onyx/*`. This is especially useful when customizing existing components (see example below).
+:::
+
+To override or customize a component provided by `@sit-onyx/nuxt-docs`, you first need to create new component in your project with the **same name** as the one that you want to customize. In this example, we will add nav items to the default nav bar.
+
+By default, Nuxt will prioritize project-specific components over the ones provided by Nuxt layers (thats what `@sit-onyx/nuxt-docs` is) so in this example, the default nav bar would be replaced completely.
+
+While this can be useful for certain use cases, in this example we only want to extend / customize the default nav bar instead of replacing it completely so we can still benefit from the default nav bar features. Therefore, we will import the default nav bar from `#layers/onyx` and use its supported slots to add nav items. You could also e.g. change props at this point.
 
 ::: code-group
 
-```ts [app/app.config.ts]
-export default defineAppConfig({
-  onyxDocs: {
-    // your options here
-    nav: {
-      appName: "My documentation",
-    },
-  },
-});
+```vue [app/components/NavBar.vue]
+<script lang="ts" setup>
+import NavBar from "#layers/onyx/app/components/NavBar.vue";
+
+// localePath from Nuxt i18n is used here to ensure correct links depending on the current locale and i18n routing strategy
+// e.g. for a "de" locale, the paths might be prefixed with "/de"
+const localePath = useLocalePath();
+</script>
+
+<template>
+  <NavBar>
+    <OnyxNavItem label="Home" :link="localePath('/')" />
+    <OnyxNavItem label="Foo" :link="localePath('/foo')" />
+    <OnyxNavItem label="Does not exist" :link="localePath('/does-not-exist')" />
+  </NavBar>
+</template>
 ```
 
 :::
+
+Thats it! The application will now show the nav items that we just passed while keeping all the default features from the nav bar like language and dark/light mode switch.
 
 ## Write markdown
 

@@ -1,3 +1,4 @@
+import { iconCheck, iconX } from "@sit-onyx/icons";
 import { h } from "vue";
 import OnyxSkeleton from "../../../components/OnyxSkeleton/OnyxSkeleton.vue";
 import {
@@ -7,6 +8,9 @@ import {
 } from "../../../i18n/index.js";
 import { allObjectEntries } from "../../../utils/objects.js";
 import type { DateValue } from "../../OnyxDatePicker/types.js";
+import OnyxIcon from "../../OnyxIcon/OnyxIcon.vue";
+import type { OnyxIconProps } from "../../OnyxIcon/types.js";
+import OnyxVisuallyHidden from "../../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import type { DataGridEntry } from "../types.js";
 import HeaderCell from "./HeaderCell.vue";
 import { type DataGridFeatureDescription, type TypeRenderer, type TypeRenderMap } from "./index.js";
@@ -159,6 +163,59 @@ export const TIMESTAMP_RENDERER = createTypeRenderer<DateCellOptions>({
 export const SKELETON_RENDERER = createTypeRenderer<StringCellOptions>({
   cell: {
     component: () => h(OnyxSkeleton),
+  },
+});
+
+export type BooleanCellOptions = {
+  /**
+   * Icon to display when the value is truthy.
+   */
+  truthy?: BooleanCellIconOptions;
+  /**
+   * Icon to display when the value is falsy.
+   */
+  falsy?: BooleanCellIconOptions;
+};
+
+export type BooleanCellIconOptions = Partial<OnyxIconProps> & {
+  /**
+   * Label to display (visually hidden) for e.g. screen readers.
+   *
+   * @default "Yes" / "No" label depending on the current locale
+   */
+  label?: string;
+};
+
+export const BOOLEAN_RENDERER = createTypeRenderer<BooleanCellOptions>({
+  header: { component: HeaderCell },
+  cell: {
+    tdAttributes: {
+      class: "onyx-data-grid-boolean-cell",
+    },
+    component: ({ modelValue, metadata }) => {
+      const value = Boolean(modelValue);
+      const { t } = injectI18n();
+
+      const truthyProps = {
+        icon: iconCheck,
+        label: t.value("yes"),
+        ...metadata?.typeOptions?.truthy,
+      } satisfies BooleanCellIconOptions;
+
+      const falsyProps = {
+        icon: iconX,
+        label: t.value("no"),
+        ...metadata?.typeOptions?.falsy,
+      } satisfies BooleanCellIconOptions;
+
+      const props = value ? truthyProps : falsyProps;
+
+      return [
+        h(OnyxIcon, props),
+        // since icons are aria hidden (visual only), we include the value with OnyxVisuallyHidden here for screen readers
+        h(OnyxVisuallyHidden, undefined, () => props.label),
+      ];
+    },
   },
 });
 
