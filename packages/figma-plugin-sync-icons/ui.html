@@ -35,8 +35,12 @@
     border: none;
     cursor: pointer;
   }
-  button:hover {
+  button:not(:disabled):hover {
     background-color: #1386d8;
+  }
+  button:disabled {
+    background-color: #7bb5e6;
+    color: #e0e7f1;
   }
   a {
     text-decoration: none;
@@ -64,6 +68,14 @@
   <div class="input-group">
     <label for="fileKey">Icon Libary File-Key:</label>
     <input required type="text" id="fileKey" placeholder="e.g. 123456789..." />
+    <small
+      >See
+      <a
+        target="_blank"
+        href="https://forum.figma.com/ask-the-community-7/how-to-find-key-file-36581"
+        >Access Token documentation</a
+      >.</small
+    >
   </div>
   <button id="button" type="submit">Save & Run</button>
 </form>
@@ -82,6 +94,7 @@
 
     parent.postMessage({ pluginMessage: { type: "save-and-run", accessToken, fileKey } }, "*");
     button.innerHTML = "Running...";
+    button.disabled = true;
   };
 
   window.onmessage = (event) => {
