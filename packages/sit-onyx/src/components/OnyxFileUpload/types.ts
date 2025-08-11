@@ -79,7 +79,7 @@ type OnyxFileArea = Pick<OnyxFileCardProps, "icon"> & {
   /**
    * Custom Actions for for the fileCards.
    */
-  fileCardActions?: { label: string; clickEvent(file: File): void }[];
+  fileCardActions?: { label: string; onClick(file: File): void }[];
 };
 /**
  * Unique file type specifier.

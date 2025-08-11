@@ -24,10 +24,12 @@ import { convertBinaryPrefixToBytes } from "../../utils/numbers.js";
 import { asArray } from "../../utils/objects.js";
 import { OnyxFileUploadSVG } from "../illustrations/index.js";
 import OnyxFileCard from "../OnyxFileCard/OnyxFileCard.vue";
+import type { FileCardStatus } from "../OnyxFileCard/types.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxFlyoutMenu from "../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
+import OnyxMenuItem from "../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import type { OnyxFileUploadProps } from "./types.js";
@@ -74,7 +76,7 @@ const input = useTemplateRef<HTMLInputElement>("inputRef");
 const currentFiles = computed<File[]>(() => asArray(modelValue.value ?? []) as unknown as File[]);
 const hideFiles = ref(false);
 
-const fileStatuses = computed(() => {
+const fileStatuses = computed((): (FileCardStatus | undefined)[] => {
   return currentFiles.value.map((file, index) => {
     if (props.maxSize && file.size > convertBinaryPrefixToBytes(props.maxSize)) {
       return {
@@ -95,7 +97,6 @@ const fileStatuses = computed(() => {
         color: "danger",
       };
     }
-    return null;
   });
 });
 
@@ -254,7 +255,12 @@ const handleDragEnter = () => {
             :status="fileStatuses[index]"
           >
             <template #actions>
-              <OnyxFlyoutMenu v-if="fileCardActions" label="More actions" trigger="click">
+              <OnyxFlyoutMenu
+                v-if="fileCardActions"
+                label="More actions"
+                trigger="click"
+                alignment="right"
+              >
                 <template #button="{ trigger }">
                   <OnyxIconButton
                     color="neutral"
@@ -269,7 +275,7 @@ const handleDragEnter = () => {
                     v-for="fileCardAction in fileCardActions"
                     :key="fileCardAction.label"
                     :label="fileCardAction.label"
-                    @click="fileCardAction.clickEvent(file)"
+                    @click="fileCardAction.onClick(file)"
                   />
                 </template>
               </OnyxFlyoutMenu>

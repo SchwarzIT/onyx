@@ -13,7 +13,7 @@ export const Default = {
   args: {
     maxSize: "4MiB",
     accept: [".jpg", ".png", ".mp4"],
-    style: "width: 20rem",
+    style: "width: 30rem",
   },
 } satisfies Story;
 
@@ -51,8 +51,23 @@ export const MaxHeight = {
   args: {
     ...Default.args,
     multiple: true,
-    maxCount: 42,
-    maxTotalSize: "128MiB",
-    maxHeight: "4rem",
+    maxHeight: "12rem",
+  },
+} satisfies Story;
+export const HideButton = {
+  args: {
+    ...Default.args,
+    multiple: true,
+    hasHideButton: true,
+  },
+} satisfies Story;
+export const FileCardActions = {
+  args: {
+    ...Default.args,
+    multiple: true,
+    fileCardActions: [
+      { label: "Download", onClick: () => {} },
+      { label: "Print", onClick: () => {} },
+    ],
   },
 } satisfies Story;
