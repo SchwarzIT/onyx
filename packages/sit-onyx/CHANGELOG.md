@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.292
+
+### Minor Changes
+
+- df77108: feat(OnyxAccordion): support `type="card"`
+
 ## 1.0.0-beta.291
 
 ### Minor Changes
