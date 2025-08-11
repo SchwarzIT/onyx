@@ -28,6 +28,34 @@ yarn install -D @sit-onyx/flags@beta
 
 Afterwards, you can import and use flags as needed. Please see the [OnyxIcon](https://storybook.onyx.schwarz/?path=/docs/basic-icon--docs) for the technical documentation. Technically, flags are used the same way as icons in onyx. This means that also flags can be passed for all components that support icons.
 
+## Usage
+
+There are two different ways of using / importing flags from this package:
+
+### Option 1: JavaScript import <Badge text="recommended" />
+
+> **Requires @sit-onyx/flags version >= 1.0.0-beta.5**
+
+For the best developer experience, it is recommended to use JavaScript imports. This approach also supports IDE intellisense, so you can e.g. just start typing "flag" in your editor and all available flags will be suggested to you.
+
+```ts
+import { flagDE } from "@sit-onyx/flags";
+
+// or to import all flags (note: no tree-shaking will be supported then):
+// import * as ALL_FLAGS from "@sit-onyx/flags";
+```
+
+### Option 2: Import from SVG file
+
+Alternatively, you can import the icon from the raw SVG file:
+
+```ts
+// Note that "?raw" is needed to import the SVG content instead of a path to the file itself.
+// ?raw will be resolved by the bundler (e.g. Vite).
+// if you want to import the path to the flag instead of the content, you can omit the "?raw" part
+import flagDE from "@sit-onyx/flags/DE.svg?raw";
+```
+
 ## Country names
 
 You can get the country name of a flag in several languages using JavaScript's [Intl.DisplayNames](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DisplayNames) API.

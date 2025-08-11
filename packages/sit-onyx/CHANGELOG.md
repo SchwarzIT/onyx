@@ -1,5 +1,80 @@
 # sit-onyx
 
+## 1.0.0-beta.292
+
+### Minor Changes
+
+- df77108: feat(OnyxAccordion): support `type="card"`
+
+## 1.0.0-beta.291
+
+### Minor Changes
+
+- 269348c: feat(OnyxDataGrid): support boolean column type
+
+## 1.0.0-beta.290
+
+### Major Changes
+
+- 641eac3: feat!: Renamed Popover, Dialog, Modal components
+
+  **BREAKING CHANGE**
+  - Renamed `OnyxPopover` to `OnyxBasicPopover`.
+  - Renamed `OnyxDialog` to `OnyxBasicDialog`.
+  - Renamed `OnyxModalDialog` to `OnyxModal`.
+  - Renamed `OnyxAlertDialog` to `OnyxAlertModal`.
+  - Renamed `disableClosingOnBackdropClick` prop to `nonDismissible` for `OnyxBasicDialog` and `OnyxModal`.
+  - Added `role` prop to `OnyxBasicPopover` (Defaults to `dialog`).
+  - Removed most instances of the `close` emit, where it was used in combination with the `open` prop. Instead the `open` prop now has `v-model` support:
+
+  ```vue
+  <template>
+    <!-- OLD -->
+    <OnyxComponent :open="isOpen" @close="isOpen = false" />
+    <OnyxComponent open @close="onClose" />
+    <!-- is now NEW -->
+    <OnyxComponent v-model:open="isOpen" />
+    <OnyxComponent open @update:open="$event && onClose($event)" />
+  </template>
+  ```
+
+## 1.0.0-beta.289
+
+### Patch Changes
+
+- 79dfa6c: fix(DataGridFeatures.useResizing): Fix issue where resizing didn't work with horizontal overflowing data grids
+
+## 1.0.0-beta.288
+
+### Minor Changes
+
+- 33c7595: feat(OnyxSidebar): implement mobile behavior
+  The sidebar will collapse automatically into drawer mode when the screen reaches specific breakpoint (depending on the `collapseSidebar` property). A floating action button (FAB) will be shown then to toggle the sidebar visibility
+
+  #### Other changes:
+  - implement `OnyxGlobalFAB` component and `useGlobalFAB` composable
+
+  ### Breaking change:
+  - OnyxAppLayout: provide OnyxToast and OnyxGlobalFAB by default so it you are using the OnyxAppLayout, you no longer need to add those components manually
+
+## 1.0.0-beta.287
+
+### Patch Changes
+
+- 0c50fd5: fix(OnyxPageLayout): do not set grid max-width when `noPadding` is set
+
+  Due to a refactoring in version 1.0.0-beta.281, the OnyxPageLayout was applying the max-width when the `noPadding` property was set.
+  This had the side effect that full-width content like e.g. hero images could not be passed.
+
+  This behavior is fixed now so it works like prior version 1.0.0-beta.281
+
+## 1.0.0-beta.286
+
+### Patch Changes
+
+- Updated dependencies [b4d113a]
+  - @sit-onyx/icons@1.0.0-beta.24
+
 ## 1.0.0-beta.285
 
 ### Major Changes

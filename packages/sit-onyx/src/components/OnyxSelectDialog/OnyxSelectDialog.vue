@@ -1,11 +1,12 @@
 <script lang="ts" setup generic="TValue extends string">
 import { ref, useId, watchEffect } from "vue";
 import { injectI18n } from "../../i18n/index.js";
+import type { Nullable } from "../../types/index.js";
 import OnyxBottomBar from "../OnyxBottomBar/OnyxBottomBar.vue";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxCard from "../OnyxCard/OnyxCard.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import OnyxModalDialog from "../OnyxModalDialog/OnyxModalDialog.vue";
+import OnyxModal from "../OnyxModal/OnyxModal.vue";
 import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import type { OnyxSelectDialogProps } from "./types.js";
 
@@ -21,7 +22,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the dialog should be closed.
    */
-  close: [];
+  "update:open": [open: Nullable<boolean>];
 }>();
 
 const slots = defineSlots<{
@@ -45,16 +46,17 @@ const handleChange = (event: Event) => {
 const handleApply = () => {
   if (!currentValue.value) return;
   emit("update:modelValue", currentValue.value);
-  emit("close");
+  emit("update:open", false);
 };
 </script>
 
 <template>
-  <OnyxModalDialog
+  <OnyxModal
     v-bind="props"
+    :open="props.open"
     class="onyx-select-dialog"
     :label="props.label"
-    @close="emit('close')"
+    @update:open="emit('update:open', $event)"
   >
     <template v-if="!!slots.description" #description>
       <slot name="description"></slot>
@@ -89,11 +91,16 @@ const handleApply = () => {
 
     <template #footer>
       <OnyxBottomBar>
-        <OnyxButton :label="t('cancel')" mode="plain" color="neutral" @click="emit('close')" />
+        <OnyxButton
+          :label="t('cancel')"
+          mode="plain"
+          color="neutral"
+          @click="emit('update:open', false)"
+        />
         <OnyxButton :label="t('apply')" type="submit" :form="formId" />
       </OnyxBottomBar>
     </template>
-  </OnyxModalDialog>
+  </OnyxModal>
 </template>
 
 <style lang="scss">
@@ -110,7 +117,7 @@ const handleApply = () => {
       display: flex;
       flex-direction: column;
       gap: var(--onyx-density-xs);
-      padding: var(--onyx-select-dialog-gap) var(--onyx-modal-dialog-padding-inline);
+      padding: var(--onyx-select-dialog-gap) var(--onyx-modal-padding-inline);
     }
 
     &__list {

@@ -1,5 +1,84 @@
 # @sit-onyx/nuxt-docs
 
+## 1.0.0-beta.108
+
+### Patch Changes
+
+- Updated dependencies [df77108]
+  - sit-onyx@1.0.0-beta.292
+  - @sit-onyx/nuxt@1.0.0-beta.292
+
+## 1.0.0-beta.107
+
+### Patch Changes
+
+- Updated dependencies [269348c]
+  - sit-onyx@1.0.0-beta.291
+  - @sit-onyx/nuxt@1.0.0-beta.291
+
+## 1.0.0-beta.106
+
+### Major Changes
+
+- df455a1: refactor(nuxt-docs): remove app config in favor of Nuxt overrides
+
+  Configuration via `app.config.ts` file has been removed in favor of a more flexible and Nuxt native approach by leveraging the Nuxt layer
+
+  For further information, see the [onyx documentation](https://onyx.schwarz/development/packages/nuxt-docs.html#customization).
+
+## 1.0.0-beta.105
+
+### Major Changes
+
+- 63e4499: feat: support Nuxt i18n
+
+  Nuxt i18n integration is now supported by default. For further information see the [onyx documentation](https://onyx.schwarz/development/packages/nuxt-docs.html#i18n).
+
+  The default Nuxt content config has been changed, so by default, markdown files will only be loaded from the `content/en` directory instead of `content/` directly. To migrate, move all existing files to a new `content/en` folder.
+
+## 1.0.0-beta.104
+
+### Patch Changes
+
+- Updated dependencies [641eac3]
+  - sit-onyx@1.0.0-beta.290
+  - @sit-onyx/nuxt@1.0.0-beta.290
+
+## 1.0.0-beta.103
+
+### Patch Changes
+
+- Updated dependencies [dedae71]
+  - @sit-onyx/nuxt@1.0.0-beta.289
+
+## 1.0.0-beta.102
+
+### Patch Changes
+
+- Updated dependencies [33c7595]
+  - sit-onyx@1.0.0-beta.288
+  - @sit-onyx/nuxt@1.0.0-beta.288
+
+## 1.0.0-beta.101
+
+### Patch Changes
+
+- bf163a2: fix(nuxt-docs): update page content when navigating
+
+  Previously the page content did not update when dynamically navigating to another route which is fixed now
+
+- Updated dependencies [0c50fd5]
+  - sit-onyx@1.0.0-beta.287
+
+## 1.0.0-beta.100
+
+### Patch Changes
+
+- Updated dependencies [b4d113a]
+  - @sit-onyx/icons@1.0.0-beta.24
+  - sit-onyx@1.0.0-beta.286
+  - @sit-onyx/nuxt@1.0.0-beta.287
+
 ## 1.0.0-beta.99
 
 ### Patch Changes

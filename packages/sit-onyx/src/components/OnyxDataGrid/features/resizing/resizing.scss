@@ -1,8 +1,8 @@
 @use "../../../../styles/mixins/layers.scss";
 
 @include layers.component {
-  .onyx-data-grid-empty-columns-cell {
-    width: 100%;
+  .onyx-data-grid-filler-column-cell:is(td, th) {
+    padding: 0;
   }
 
   .onyx-data-grid-resize-cell {

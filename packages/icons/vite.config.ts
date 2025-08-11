@@ -5,7 +5,7 @@ import { DiagnosticCategory } from "typescript";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 import { viteStaticCopy } from "vite-plugin-static-copy";
-import { capitalize } from "./src/utils.js";
+import { getIconImportName } from "./src/utils.js";
 
 // https://vitejs.dev/config
 export default defineConfig({
@@ -14,7 +14,7 @@ export default defineConfig({
     svg({
       base: import.meta.url,
       input: "src/assets",
-      modifyExportName: (name) => `icon${capitalize(name)}`,
+      modifyExportName: (name) => getIconImportName(name),
     }),
     dts({
       afterDiagnostic: async (diagnostics) => {

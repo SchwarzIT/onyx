@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import OnyxAppLayout from "../OnyxAppLayout/OnyxAppLayout.vue";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
-import type { OnyxNavItemProps } from "./modules.js";
+import type { OnyxNavItemProps } from "./modules/index.js";
 import OnyxNavItem from "./modules/OnyxNavItem/OnyxNavItem.vue";
 import OnyxNavBar from "./OnyxNavBar.vue";
 

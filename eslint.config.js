@@ -75,7 +75,10 @@ const generalVueTsConfig = {
     "vue/valid-define-options": "error",
     "vue/no-setup-props-reactivity-loss": "error",
     "vue/no-restricted-syntax": "error",
-    "vue/prefer-true-attribute-shorthand": "error",
+    /**
+     * TODO: Revert after [#2741](https://github.com/SchwarzIT/onyx/issues/2741) is fixed
+     */
+    "vue/prefer-true-attribute-shorthand": ["error", "always", { except: ["open", "multiple"] }],
     "vue/no-loss-of-precision": "error",
     "vue/no-irregular-whitespace": "error",
     "vue/require-explicit-slots": "error",
@@ -120,6 +123,7 @@ const playwrightConfig = {
           "tabsTesting",
           "comboboxTesting",
           "comboboxSelectOnlyTesting",
+          "expectEventCall",
         ],
       },
     ],

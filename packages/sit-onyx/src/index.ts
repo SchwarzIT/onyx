@@ -7,8 +7,8 @@ export * from "./components/OnyxAccordion/types.js";
 export { default as OnyxAccordionItem } from "./components/OnyxAccordionItem/OnyxAccordionItem.vue";
 export * from "./components/OnyxAccordionItem/types.js";
 
-export { default as OnyxAlertDialog } from "./components/OnyxAlertDialog/OnyxAlertDialog.vue";
-export * from "./components/OnyxAlertDialog/types.js";
+export { default as OnyxAlertModal } from "./components/OnyxAlertModal/OnyxAlertModal.vue";
+export * from "./components/OnyxAlertModal/types.js";
 
 export { default as OnyxAppLayout } from "./components/OnyxAppLayout/OnyxAppLayout.vue";
 export * from "./components/OnyxAppLayout/types.js";
@@ -54,8 +54,8 @@ export * from "./components/OnyxDataGrid/features/index.js";
 export { default as OnyxDatePicker } from "./components/OnyxDatePicker/OnyxDatePicker.vue";
 export * from "./components/OnyxDatePicker/types.js";
 
-export { default as OnyxDialog } from "./components/OnyxDialog/OnyxDialog.vue";
-export * from "./components/OnyxDialog/types.js";
+export { default as OnyxBasicDialog } from "./components/OnyxBasicDialog/OnyxBasicDialog.vue";
+export * from "./components/OnyxBasicDialog/types.js";
 
 export { default as OnyxEmpty } from "./components/OnyxEmpty/OnyxEmpty.vue";
 
@@ -67,6 +67,9 @@ export * from "./components/OnyxFABButton/types.js";
 
 export { default as OnyxFABItem } from "./components/OnyxFABItem/OnyxFABItem.vue";
 export * from "./components/OnyxFABItem/types.js";
+
+export { default as OnyxGlobalFAB } from "./components/OnyxGlobalFAB/OnyxGlobalFAB.vue";
+export * from "./components/OnyxGlobalFAB/useGlobalFAB.js";
 
 export { default as OnyxExternalLinkIcon } from "./components/OnyxExternalLinkIcon/OnyxExternalLinkIcon.vue";
 export * from "./components/OnyxExternalLinkIcon/types.js";
@@ -109,8 +112,8 @@ export * from "./components/OnyxMiniSearch/types.js";
 export { default as OnyxMobileNavButton } from "./components/OnyxMobileNavButton/OnyxMobileNavButton.vue";
 export * from "./components/OnyxMobileNavButton/types.js";
 
-export { default as OnyxModalDialog } from "./components/OnyxModalDialog/OnyxModalDialog.vue";
-export * from "./components/OnyxModalDialog/types.js";
+export { default as OnyxModal } from "./components/OnyxModal/OnyxModal.vue";
+export * from "./components/OnyxModal/types.js";
 
 export { default as OnyxMoreList } from "./components/OnyxMoreList/OnyxMoreList.vue";
 export * from "./components/OnyxMoreList/types.js";
@@ -208,8 +211,8 @@ export * from "./components/OnyxFileUpload/types.js";
 
 export { default as OnyxFilterTag } from "./components/OnyxFilterTag/OnyxFilterTag.vue";
 
-export { default as OnyxPopover } from "./components/OnyxPopover/OnyxPopover.vue";
-export * from "./components/OnyxPopover/types.js";
+export { default as OnyxBasicPopover } from "./components/OnyxBasicPopover/OnyxBasicPopover.vue";
+export * from "./components/OnyxBasicPopover/types.js";
 
 export { default as OnyxTextarea } from "./components/OnyxTextarea/OnyxTextarea.vue";
 export * from "./components/OnyxTextarea/types.js";

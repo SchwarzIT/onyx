@@ -1,6 +1,6 @@
 {
   "name": "playground",
-  "version": "1.0.0-beta.271",
+  "version": "1.0.0-beta.272",
   "description": "Playground for the onyx Vue components",
   "type": "module",
   "author": "Schwarz IT KG",
@@ -21,7 +21,7 @@
   "dependencies": {
     "@sit-onyx/icons": "workspace:^",
     "@vue/repl": "~4.2.1",
-    "@vueuse/core": "^13.5.0",
+    "@vueuse/core": "^13.6.0",
     "sit-onyx": "workspace:^"
   },
   "devDependencies": {

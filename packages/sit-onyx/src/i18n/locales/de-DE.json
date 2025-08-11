@@ -1,4 +1,6 @@
 {
+  "yes": "Ja",
+  "no": "Nein",
   "optional": "(optional)",
   "cancel": "Abbrechen",
   "apply": "Anwenden",
@@ -217,5 +219,8 @@
       "maxFileSizeError": "Gesamtgröße der Dateien überschreitet das zulässige Maximum von {size}",
       "maxCountError": "Die Anzahl der Dateien überschreitet das zulässige Maximum von {count}"
     }
+  },
+  "globalFAB": {
+    "label": "Globale Aktionen"
   }
 }

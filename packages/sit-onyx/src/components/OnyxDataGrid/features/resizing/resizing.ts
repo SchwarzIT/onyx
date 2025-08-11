@@ -1,5 +1,4 @@
 import { h, ref, watch, type Slots, type ThHTMLAttributes } from "vue";
-import { useResizeObserver } from "../../../../composables/useResizeObserver.js";
 import { mergeVueProps } from "../../../../utils/attrs.js";
 import { escapeCSS } from "../../../../utils/dom.js";
 import OnyxResizeHandle from "../../../OnyxResizeHandle/OnyxResizeHandle.vue";
@@ -9,7 +8,7 @@ import "./resizing.scss";
 import type { ResizingOptions } from "./types.js";
 
 export const RESIZING_FEATURE = Symbol("Resizing");
-export const EMPTY_COLUMN = Symbol("EmptyColumn");
+export const FILLER_COLUMN = Symbol("FILLER_COLUMN");
 export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOptions<TEntry>) =>
   createFeature((ctx) => {
     const resizingCol = ref<Readonly<InternalColumnConfig<TEntry>>>();
@@ -17,10 +16,7 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
     const headers = ref(new Map<keyof TEntry, HTMLElement>());
     const { isEnabled } = useFeatureContext(ctx, options);
     const colWidths = ref(new Map<keyof TEntry, string>());
-    const showLastCol = ref(false);
     const scrollContainer = ref<HTMLElement>();
-    let tableWidth: number;
-    let tableWrapperWidth: number;
 
     watch(
       [headers, colWidths],
@@ -39,20 +35,6 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
       },
       { flush: "post", deep: true },
     );
-
-    const { width } = useResizeObserver(scrollContainer);
-    watch(width, () => updateTableWidths());
-
-    const updateTableWidths = () => {
-      const header = resizingCol.value ? headers.value.get(resizingCol.value.key) : undefined;
-      if (!header) return;
-
-      tableWidth = header.closest(".onyx-table")?.getBoundingClientRect().width ?? 0;
-      tableWrapperWidth =
-        header.closest(".onyx-table-wrapper__container")?.getBoundingClientRect().width ?? 0;
-
-      showLastCol.value = tableWrapperWidth > tableWidth;
-    };
 
     const modifyColumns = (cols: Readonly<InternalColumnConfig<TEntry>[]>) => {
       const columns = cols.map((column) => {
@@ -78,8 +60,7 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
         };
       });
 
-      if (showLastCol.value)
-        columns.push({ key: EMPTY_COLUMN, type: { name: EMPTY_COLUMN }, label: "" });
+      columns.push({ key: FILLER_COLUMN, type: { name: FILLER_COLUMN }, label: "" });
 
       return columns;
     };
@@ -87,10 +68,10 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
     const renderWrapper = (
       slots: Slots,
       column: Readonly<InternalColumnConfig<TEntry>>,
-      isLastColumn: boolean,
+      noResizeHandle: boolean,
     ) => {
       const slotContent = slots.default?.();
-      if (!isEnabled.value(column.key) || isLastColumn) return slotContent;
+      if (!isEnabled.value(column.key) || noResizeHandle) return slotContent;
 
       return [
         h(OnyxResizeHandle, {
@@ -104,11 +85,8 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
               const { width } = el.getBoundingClientRect();
               colWidths.value.set(col, `${Math.max(MIN_COLUMN_WIDTH, width)}px`);
             });
-
-            showLastCol.value = true;
           },
           onEnd: () => {
-            updateTableWidths();
             resizingCol.value = undefined;
           },
           onUpdateWidth: (width) => {
@@ -122,7 +100,6 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
 
     return {
       name: RESIZING_FEATURE,
-      watch: [showLastCol],
       modifyColumns: {
         func: modifyColumns,
       },
@@ -132,13 +109,16 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
         },
       }),
       typeRenderer: {
-        [EMPTY_COLUMN]: {
+        /**
+         * The filler column stretches the remaining space in case the column widths are smaller than the table's intended width.
+         */
+        [FILLER_COLUMN]: {
           header: {
-            thAttributes: { class: "onyx-data-grid-empty-columns-cell" },
+            thAttributes: { class: "onyx-data-grid-filler-column-cell", "aria-hidden": true },
             component: () => null,
           },
           cell: {
-            tdAttributes: { class: "onyx-data-grid-empty-columns-cell" },
+            tdAttributes: { class: "onyx-data-grid-filler-column-cell", "aria-hidden": true },
             component: () => null,
           },
         },
@@ -146,8 +126,11 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
       header: {
         wrapper:
           (cols, i, { length }) =>
-          (_, { slots }) =>
-            renderWrapper(slots, cols, i === length - 1),
+          (_, { slots }) => {
+            const isLastColumn = i === length - 1;
+            const isFillerColumn = cols.type.name === FILLER_COLUMN;
+            return renderWrapper(slots, cols, isLastColumn || isFillerColumn);
+          },
       },
     };
   });

@@ -1,5 +1,11 @@
 # playground
 
+## 1.0.0-beta.272
+
+### Patch Changes
+
+- c9bb6d7: fix(import-map): Fix "failed to resolve module specifier" error caused by missing import-map entries
+
 ## 1.0.0-beta.271
 
 ### Patch Changes

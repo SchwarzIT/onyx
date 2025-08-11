@@ -5,7 +5,7 @@ import { computed, ref, type ComponentInstance, type VNodeRef } from "vue";
 import { useVModel } from "../../../../composables/useVModel.js";
 import type { Nullable } from "../../../../types/index.js";
 import { mergeVueProps } from "../../../../utils/attrs.js";
-import OnyxPopover from "../../../OnyxPopover/OnyxPopover.vue";
+import OnyxBasicPopover from "../../../OnyxBasicPopover/OnyxBasicPopover.vue";
 import type { OnyxFlyoutMenuProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxFlyoutMenuProps>(), {
@@ -55,7 +55,7 @@ const slots = defineSlots<{
   footer?(): unknown;
 }>();
 
-const popover = ref<ComponentInstance<typeof OnyxPopover>>();
+const popover = ref<ComponentInstance<typeof OnyxBasicPopover>>();
 const actualPosition = computed(() => popover.value?.popoverPosition);
 
 const {
@@ -70,7 +70,7 @@ const {
 </script>
 
 <template>
-  <OnyxPopover
+  <OnyxBasicPopover
     v-bind="mergeVueProps(root, { ref: popover as VNodeRef | undefined })"
     class="onyx-component onyx-flyout-menu"
     :open="isExpanded"
@@ -101,7 +101,7 @@ const {
         <slot name="footer"></slot>
       </div>
     </template>
-  </OnyxPopover>
+  </OnyxBasicPopover>
 </template>
 
 <style lang="scss">

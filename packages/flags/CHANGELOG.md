@@ -1,5 +1,11 @@
 # @sit-onyx/flags
 
+## 1.0.0-beta.7
+
+### Minor Changes
+
+- b4d113a: feat: add `getFlagImportName` utility
+
 ## 1.0.0-beta.6
 
 ### Patch Changes

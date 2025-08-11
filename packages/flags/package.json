@@ -1,7 +1,7 @@
 {
   "name": "@sit-onyx/flags",
   "description": "SVG country flags for the onyx design system",
-  "version": "1.0.0-beta.6",
+  "version": "1.0.0-beta.7",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
@@ -38,7 +38,6 @@
     "@sit-onyx/shared": "workspace:^",
     "@sit-onyx/vite-plugin-svg": "workspace:^",
     "tsx": "^4.20.3",
-    "vite-plugin-dts": "^4.5.4",
     "vite-plugin-static-copy": "^3.1.1"
   }
 }

@@ -37,15 +37,14 @@
     "test:playwright": "playwright install && playwright test"
   },
   "peerDependencies": {
-    "typescript": ">= 5",
-    "vue": ">= 3.5.0",
     "@playwright/experimental-ct-vue": "catalog:",
-    "@playwright/test": "catalog:"
+    "@playwright/test": "catalog:",
+    "typescript": ">= 5",
+    "vue": ">= 3.5.0"
   },
   "devDependencies": {
     "@sit-onyx/shared": "workspace:^",
     "@vue/compiler-dom": "catalog:",
-    "vite-plugin-dts": "^4.5.4",
     "vue": "catalog:"
   }
 }

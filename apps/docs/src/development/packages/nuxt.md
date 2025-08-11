@@ -42,12 +42,18 @@ Afterwards you're able to just use all onyx components inside your app and the g
 
 ## Integration with @nuxtjs/i18n
 
-onyx features built in translations and the nuxt module extends on that by offering an out of the box integration with [@nuxtjs/i18n](https://i18n.nuxtjs.org/).
+onyx features built in translations and the Nuxt module extends on that by offering an out of the box integration with [@nuxtjs/i18n](https://i18n.nuxtjs.org/).
 If your Nuxt project uses both modules, onyx will automatically detect it and use @nuxtjs/i18n to handle all the translations. This gives you all the bells and whistles of vue-i18n like lazy loading of translations.
+
+Also, the onyx locales will automatically be registered depending on which locales you are using / defining in your project.
+
+::: warning
+You must register the `@sit-onyx/nuxt` **before** `@nuxtjs/i18n`. Otherwise the translations for onyx won't be picked up by @nuxtjs/i18n.
+:::
 
 ### Setup
 
-To merge the locales provided by onyx with your own, you need to define a mapping.
+In order for the onyx module to detect which locales to register, you must define your locales either by defining the `code` as IETF's BCP47 name (e.g. en-US, de-DE etc.) or by providing the `language` property. So any of the following configs will work correctly:
 
 ::: code-group
 
@@ -55,26 +61,18 @@ To merge the locales provided by onyx with your own, you need to define a mappin
 export default defineNuxtConfig({
   modules: ["@sit-onyx/nuxt", "@nuxtjs/i18n"],
   i18n: {
-    defaultLocale: "en_US",
+    defaultLocale: "en-US",
     locales: [
-      { code: "en_US", file: "en-US.json", name: "English (US)" },
-      { code: "de", file: "de-DE.json", name: "Deutsch" },
+      { code: "en-US", file: "en-US.json", name: "English" },
+      // in the "de" example, the langauge property is necessary because the "de" code is not a valid IETF's BCP47 code
+      // alternatively, you could remove the language property and change to code to "de-DE"
+      { code: "de", language: "de-DE", file: "de-DE.json", name: "Deutsch" },
     ],
-  },
-  onyx: {
-    i18n: {
-      registerLocales: {
-        en_US: "en-US",
-        de: "de-DE",
-      },
-    },
   },
 });
 ```
 
 :::
-
-> Please register @sit-onyx/nuxt **before** @nuxtjs/i18n. Otherwise the translations for onyx won't be picked up by @nuxtjs/i18n.
 
 ### Customizing onyx translations
 

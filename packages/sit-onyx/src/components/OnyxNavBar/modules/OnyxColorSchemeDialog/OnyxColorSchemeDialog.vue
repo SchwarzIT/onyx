@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { computed } from "vue";
 import { injectI18n } from "../../../../i18n/index.js";
+import type { Nullable } from "../../../../types/utils.js";
 import OnyxSelectDialog from "../../../OnyxSelectDialog/OnyxSelectDialog.vue";
 import type { SelectDialogOption } from "../../../OnyxSelectDialog/types.js";
 import autoImage from "./auto.svg?raw";
@@ -20,7 +21,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the dialog should be closed.
    */
-  close: [];
+  "update:open": [value: Nullable<boolean>];
 }>();
 
 const { t } = injectI18n();
@@ -55,7 +56,8 @@ const options = computed<SelectDialogOption<ColorSchemeValue>[]>(() => {
     v-bind="props"
     :label="t('colorScheme.headline')"
     :options
-    @close="emit('close')"
+    :open="props.open"
+    @update:open="emit('update:open', $event)"
     @update:model-value="emit('update:modelValue', $event)"
   >
     <template #description> {{ t("colorScheme.subtitle") }} </template>

@@ -30,7 +30,7 @@
     "sass-embedded": "catalog:",
     "sit-onyx": "workspace:^",
     "vite": "catalog:",
-    "vitepress": "^1.6.3",
+    "vitepress": "^1.6.4",
     "vue": "catalog:",
     "vue-chartjs": "^5.3.2"
   },
