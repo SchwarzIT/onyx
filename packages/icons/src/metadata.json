@@ -947,6 +947,10 @@
     "category": "Car Parts",
     "aliases": []
   },
+  "enter": {
+    "category": "Arrows",
+    "aliases": []
+  },
   "error-flag": {
     "category": "Action & Interface",
     "aliases": ["warning-sign", "mistake-indicator", "Fehlerflagge", "Warnzeichen"]
