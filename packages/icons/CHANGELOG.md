@@ -1,5 +1,14 @@
 # @sit-onyx/icons
 
+## 1.0.0-beta.25
+
+### Minor Changes
+
+- 1ed4c6b: feat: update icons
+
+  #### New
+  - enter
+
 ## 1.0.0-beta.24
 
 ### Major Changes
