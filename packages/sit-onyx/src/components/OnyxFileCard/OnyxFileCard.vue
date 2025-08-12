@@ -89,7 +89,7 @@ const link = computed(() => {
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
-@use "./OnyxFileCard.scss" as OnyxFileCard;
+@use "./OnyxFileCard.scss";
 
 .onyx-file-card,
 .onyx-file-card-skeleton {
