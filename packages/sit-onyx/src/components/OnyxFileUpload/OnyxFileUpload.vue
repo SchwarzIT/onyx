@@ -243,7 +243,7 @@ const createFileURL = (file: File) => {
       ref="inputRef"
       aria-hidden="true"
       tabindex="-1"
-      class="onyx-file-upload-input"
+      class="onyx-file-upload__input"
       type="file"
       :accept="props.accept?.length ? props.accept.join(',') : undefined"
       :multiple="props.multiple"
@@ -298,75 +298,75 @@ const createFileURL = (file: File) => {
 @include layers.component() {
   .onyx-file-upload-wrapper {
     display: grid;
+  }
 
-    .onyx-file-upload-input {
-      display: none;
+  .onyx-file-upload {
+    all: unset;
+    grid-area: 1/1;
+    font-family: var(--onyx-font-family);
+    color: var(--onyx-color-text-icons-neutral-intense);
+    border-radius: var(--onyx-radius-md);
+    border: var(--onyx-1px-in-rem) dashed var(--onyx-color-component-border-neutral);
+    background-color: var(--onyx-color-base-background-blank);
+    padding: var(--onyx-density-xl);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    text-align: center;
+
+    &--medium {
+      padding: var(--onyx-density-xs);
+      gap: var(--onyx-density-xs);
+    }
+    &--small {
+      padding: var(--onyx-density-sm);
+      border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-200);
     }
 
-    .onyx-file-upload {
-      all: unset;
-      grid-area: 1/1;
-      font-family: var(--onyx-font-family);
+    &__icon {
+      display: flex;
+      gap: var(--onyx-density-2xs);
       color: var(--onyx-color-text-icons-neutral-intense);
-      border-radius: var(--onyx-radius-md);
-      border: var(--onyx-1px-in-rem) dashed var(--onyx-color-component-border-neutral);
-      background-color: var(--onyx-color-base-background-blank);
-      padding: var(--onyx-density-xl);
+      font-family: var(--onyx-font-family-h3);
+      font-size: var(--onyx-font-size-md);
+      font-weight: var(--onyx-font-weight-semibold);
+      line-height: var(--onyx-font-line-height-md);
+    }
 
+    &--dragging {
+      border-color: var(--onyx-color-component-border-primary-hover);
+      background-color: var(--onyx-color-base-primary-100);
+
+      * {
+        // needed to not emit "dragleave" event when hovering over children (e.g. text)
+        pointer-events: none;
+      }
+
+      .onyx-file-upload__label {
+        color: var(--onyx-color-text-icons-primary-intense);
+      }
+    }
+
+    .onyx-file-upload-svg {
+      margin-bottom: var(--onyx-density-md);
+    }
+
+    &__content {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      max-width: 100%;
-      text-align: center;
-
-      &--medium {
-        padding: var(--onyx-density-xs);
-        gap: var(--onyx-density-xs);
-      }
-      &--small {
-        padding: var(--onyx-density-sm);
-        border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-200);
-      }
-
-      &__icon {
-        display: flex;
-        gap: var(--onyx-density-2xs);
-        color: var(--onyx-color-text-icons-neutral-intense);
-        font-family: var(--onyx-font-family-h3);
-        font-size: var(--onyx-font-size-md);
-        font-weight: var(--onyx-font-weight-semibold);
-        line-height: var(--onyx-font-line-height-md);
-      }
-
-      &--dragging {
-        border-color: var(--onyx-color-component-border-primary-hover);
-        background-color: var(--onyx-color-base-primary-100);
-
-        * {
-          // needed to not emit "dragleave" event when hovering over children (e.g. text)
-          pointer-events: none;
-        }
-
-        .onyx-file-upload__label {
-          color: var(--onyx-color-text-icons-primary-intense);
-        }
-      }
-
-      .onyx-file-upload-svg {
-        margin-bottom: var(--onyx-density-md);
-      }
-
-      &__content {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: var(--onyx-density-2xs);
-      }
+      gap: var(--onyx-density-2xs);
     }
 
-    &:has(.onyx-file-upload-input:enabled) .onyx-file-upload {
+    &__input {
+      display: none;
+    }
+
+    &:has(.onyx-file-upload__input:enabled) {
       cursor: pointer;
 
       &:hover,
@@ -391,7 +391,7 @@ const createFileURL = (file: File) => {
         color: var(--onyx-color-text-icons-neutral-medium);
       }
 
-      &--small {
+      .onyx-file-upload--small {
         padding: var(--onyx-density-sm);
         border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-200);
         &:hover {
@@ -402,16 +402,17 @@ const createFileURL = (file: File) => {
           border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-400);
           outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-neutral);
         }
-      }
-      &--small.onyx-file-upload--dragging {
-        border: var(--onyx-1px-in-rem) dashed var(--onyx-color-component-border-primary-hover);
-        .onyx-file-upload__icon {
-          color: var(--onyx-color-text-icons-primary-bold);
+
+        &.onyx-file-upload--dragging {
+          border: var(--onyx-1px-in-rem) dashed var(--onyx-color-component-border-primary-hover);
+          .onyx-file-upload__icon {
+            color: var(--onyx-color-text-icons-primary-bold);
+          }
         }
       }
     }
 
-    &:has(.onyx-file-upload-input:disabled) .onyx-file-upload {
+    &:has(.onyx-file-upload__input:disabled) {
       background-color: var(--onyx-color-base-background-tinted);
       color: var(--onyx-color-text-icons-neutral-soft);
       .onyx-file-upload__icon {
