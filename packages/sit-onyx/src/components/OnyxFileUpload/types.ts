@@ -69,7 +69,7 @@ export type OnyxFileUploadProps<TMultiple extends boolean> = DensityProp &
      * For `maxHeight`: set `--onyx-file-upload-max-files` to the desired number of visible items (default: 3).
      * @default list
      */
-    listType: "list" | "maxHeight" | "button";
+    listType?: "list" | "maxHeight" | "button";
   };
 
 /**

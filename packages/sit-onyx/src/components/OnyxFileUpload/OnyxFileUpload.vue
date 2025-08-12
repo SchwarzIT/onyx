@@ -21,6 +21,7 @@ import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import type { Nullable } from "../../types/utils.js";
 import { useRootAttrs } from "../../utils/attrs.js";
+import { userConsole } from "../../utils/console.js";
 import { convertBinaryPrefixToBytes } from "../../utils/numbers.js";
 import { asArray } from "../../utils/objects.js";
 import { OnyxFileUploadSVG } from "../illustrations/index.js";
@@ -166,7 +167,12 @@ const handleDragEnter = () => {
 };
 
 const createFileURL = (file: File) => {
-  return URL.createObjectURL(file);
+  try {
+    return URL.createObjectURL(file);
+  } catch (error) {
+    userConsole?.error("Error while creating URL for file", file, error);
+    return undefined;
+  }
 };
 </script>
 
