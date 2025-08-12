@@ -239,6 +239,7 @@ const createFileURL = (file: File) => {
         </p>
       </div>
     </button>
+
     <input
       ref="inputRef"
       aria-hidden="true"
@@ -252,6 +253,7 @@ const createFileURL = (file: File) => {
       v-bind="restAttrs"
       @change="handleChange"
     />
+
     <div
       v-if="props.listType !== 'hidden'"
       :class="[
