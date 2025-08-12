@@ -164,6 +164,7 @@ const showSkeleton = computed(() => skeleton.value || accordionContext?.skeleton
 
     &--card {
       --onyx-accordion-item-background: var(--onyx-color-base-background-blank);
+      --onyx-accordion-item-color-open: var(--onyx-accordion-item-color);
     }
   }
 }
@@ -247,6 +248,10 @@ const showSkeleton = computed(() => skeleton.value || accordionContext?.skeleton
         .onyx-accordion-item__header {
           background-color: var(--onyx-accordion-item-background-hover);
         }
+
+        &[open] .onyx-accordion-item__header {
+          color: var(--onyx-accordion-item-color-hover);
+        }
       }
 
       &:has(.onyx-accordion-item__header:focus-visible) {
@@ -284,13 +289,14 @@ const showSkeleton = computed(() => skeleton.value || accordionContext?.skeleton
 
     &__panel {
       padding: var(--onyx-accordion-item-padding);
+      color: var(--onyx-color-text-icons-neutral-intense);
     }
 
     &:has(&__header[aria-disabled="true"]) {
-      color: var(--onyx-color-text-icons-neutral-soft);
       pointer-events: none;
 
-      .onyx-accordion-item__header {
+      .onyx-accordion-item__header,
+      .onyx-accordion-item__panel {
         color: var(--onyx-color-text-icons-neutral-soft);
       }
     }

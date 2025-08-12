@@ -18,7 +18,8 @@
     "@sit-onyx/playwright-utils": "0.0.0",
     "@sit-onyx/shared": "1.0.0",
     "@sit-onyx/nuxt-docs": "0.0.0",
-    "@sit-onyx/vite-plugin-svg": "0.0.0"
+    "@sit-onyx/vite-plugin-svg": "0.0.0",
+    "figma-plugin-sync-icons": "1.0.0"
   },
   "changesets": [
     "afraid-avocados-hear",
@@ -122,6 +123,7 @@
     "empty-hats-look",
     "empty-moose-flow",
     "empty-trees-scream",
+    "fair-hotels-smile",
     "fair-poets-return",
     "fair-scissors-notice",
     "fair-zoos-promise",
