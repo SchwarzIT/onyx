@@ -395,7 +395,7 @@ const createFileURL = (file: File) => {
         color: var(--onyx-color-text-icons-neutral-medium);
       }
 
-      .onyx-file-upload--small {
+      &.onyx-file-upload--small {
         padding: var(--onyx-density-sm);
         border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-200);
         &:hover {
