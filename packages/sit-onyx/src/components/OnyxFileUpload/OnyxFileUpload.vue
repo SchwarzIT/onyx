@@ -267,6 +267,7 @@ const createFileURL = (file: File) => {
         :label="hideFiles ? t('fileUpload.revealFilesButton') : t('fileUpload.hideFilesButton')"
         @click="hideFiles = !hideFiles"
       />
+
       <template v-if="!hideFiles">
         <template v-for="(file, index) in currentFiles" :key="file.name">
           <slot :file :status="fileStatuses[index]">
