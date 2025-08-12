@@ -268,7 +268,7 @@ const createFileURL = (file: File) => {
         { 'onyx-file-upload__list--max-height': props.listType === 'maxHeight' },
       ]"
     >
-      <template v-if="!hideFiles">
+      <template v-if="props.listType !== 'button' || !hideFiles">
         <template v-for="(file, index) in currentFiles" :key="file.name">
           <slot :file :status="fileStatuses[index]">
             <OnyxFileCard
