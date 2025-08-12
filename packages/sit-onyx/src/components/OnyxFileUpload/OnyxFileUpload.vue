@@ -428,6 +428,10 @@ const createFileURL = (file: File) => {
       }
       &--max-height {
         overflow-y: scroll;
+        /*
+        * Default height + 2 * padding-icons + 2* padding-card + gap 
+        * The text height in the "cozy" variant is larger than the icon + padding. A fallback to 2.625rem is used to prevent misalignment.
+        */
         max-height: calc(
           (var(--onyx-file-upload-max-files, 3) + 0.5) *
             (
