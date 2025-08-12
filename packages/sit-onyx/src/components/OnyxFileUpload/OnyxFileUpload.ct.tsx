@@ -3,6 +3,7 @@ import type { MatrixScreenshotTestOptions } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
+import type { Nullable } from "../../types/utils.js";
 import OnyxFileUpload from "./OnyxFileUpload.vue";
 import type { FileUploadSize } from "./types.js";
 
@@ -89,7 +90,7 @@ const dragAndDropFiles = async (page: Page, button: Locator, count: number) => {
 
 test("should select a single file", async ({ mount, page }) => {
   // ARRANGE
-  let file: File | undefined;
+  let file: Nullable<File>;
 
   const component = await mount(
     <OnyxFileUpload
@@ -203,7 +204,7 @@ test("should replace files", async ({ mount, page }) => {
 
 test("should not support drag and drop when disabled", async ({ mount, page }) => {
   // ARRANGE
-  let file: File | undefined;
+  let file: Nullable<File>;
 
   const component = await mount(
     <OnyxFileUpload onUpdate:modelValue={(newFile) => (file = newFile)} disabled />,
