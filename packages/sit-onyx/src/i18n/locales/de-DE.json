@@ -214,7 +214,7 @@
     "allowedFileTypes": "Erlaubte Dateien: {types}",
     "hideFilesButton": "Alle Dateien ausblenden",
     "revealFilesButton": "Alle Dateien anzeigen",
-    "deleteButton": "Datei löschen",
+    "removeFile": "Datei entfernen",
     "status": {
       "fileSizeError": "Datei überschreitet die maximal zulässige Größe von {size}",
       "maxFileSizeError": "Gesamtgröße der Dateien überschreitet das zulässige Maximum von {size}",

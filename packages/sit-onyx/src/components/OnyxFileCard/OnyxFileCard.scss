@@ -1,0 +1,14 @@
+@function height($icon-padding, $card-padding) {
+  $icon-size: 1.5rem;
+  $border-width: var(--onyx-1px-in-rem);
+  $line-height: var(--onyx-font-line-height-sm);
+
+  $icon-height: calc($icon-size + 2 * $icon-padding + 2 * $border-width);
+
+  // line height of filename + file size
+  $text-height: calc(2 * $line-height);
+
+  $file-card-height: calc(max($icon-height, $text-height) + 2 * $card-padding + 2 * $border-width);
+
+  @return $file-card-height;
+}

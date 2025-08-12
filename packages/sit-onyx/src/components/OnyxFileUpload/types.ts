@@ -61,15 +61,22 @@ export type OnyxFileUploadProps<TMultiple extends boolean> = DensityProp &
      */
     size?: FileUploadSize;
     /**
-     * Whether to show a skeleton fileUpload.
+     * Whether to show a skeleton upload.
      */
     skeleton?: SkeletonInjected;
     /**
-     * How to display the uploaded files.
-     * For `maxHeight`: set `--onyx-file-upload-max-files` to the desired number of visible items (default: 3).
+     * How to display the selected files.
+     * - list: Shows a list of all files (no height limit)
+     * - maxHeight: Shows a list of files with a max height that when exceeding, the list becomes scrollable
+     * By default the max height is set to 3 files but can be customized by setting the `--onyx-file-upload-max-files` CSS variable to
+     * the desired number of visible items. Note: The list will always display half of the next invisible file to visually indicate
+     * that there are more files available.
+     * - button: Shows a show/hide all files button. By default all files are visible (same behavior as "list" type).
+     * - hidden: Hides the list completely. Useful when implementing a custom solution.
+     *
      * @default list
      */
-    listType?: "list" | "maxHeight" | "button";
+    listType?: FileUploadListType;
   };
 
 /**
@@ -87,3 +94,5 @@ export type MediaType =
   `${"application" | "audio" | "font" | "image" | "model" | "text" | "video"}/${string}`;
 
 export type FileUploadSize = "large" | "medium" | "small";
+
+export type FileUploadListType = "list" | "maxHeight" | "button" | "hidden";

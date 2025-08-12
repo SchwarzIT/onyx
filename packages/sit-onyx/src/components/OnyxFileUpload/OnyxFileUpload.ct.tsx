@@ -132,7 +132,7 @@ test("should select multiple files", async ({ mount, page }) => {
     />,
   );
   const button = component.getByRole("button", { name: "Click to select" });
-  const removeFirstFileButton = component.getByRole("button", { name: "Delete file" }).first();
+  const removeFirstFileButton = component.getByRole("button", { name: "Remove file" }).first();
 
   // ACT
   selectFiles(page, button, 2);

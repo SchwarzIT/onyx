@@ -89,10 +89,13 @@ const link = computed(() => {
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
+@use "./OnyxFileCard.scss" as OnyxFileCard;
 
 .onyx-file-card,
 .onyx-file-card-skeleton {
   @include layers.component() {
+    // when changing these variables in the future, make sure to
+    // also change them inside the OnyxFileUpload where OnyxFileCard.height() is used
     --onyx-card-padding: var(--onyx-density-xs);
     --onyx-file-card-icon-padding: var(--onyx-density-xs);
   }
@@ -100,20 +103,11 @@ const link = computed(() => {
 
 .onyx-file-card-skeleton {
   @include layers.component() {
-    // icon size + padding + border
-    --onyx-file-card-skeleton-icon-height: calc(
-      1.5rem + 2 * var(--onyx-file-card-icon-padding) + 2 * var(--onyx-1px-in-rem)
-    );
-
-    // line height of filename + file size
-    --onyx-file-card-skeleton-text-height: calc(2 * var(--onyx-font-line-height-sm));
-
-    height: calc(
-      max(var(--onyx-file-card-skeleton-icon-height), var(--onyx-file-card-skeleton-text-height)) +
-        2 * var(--onyx-card-padding) + 2 * var(--onyx-1px-in-rem)
-    );
-
     width: 16rem;
+    height: OnyxFileCard.height(
+      $icon-padding: var(--onyx-file-card-icon-padding),
+      $card-padding: var(--onyx-card-padding)
+    );
   }
 }
 
@@ -193,7 +187,6 @@ const link = computed(() => {
     &__actions {
       display: flex;
       align-items: center;
-      flex-wrap: wrap;
       gap: var(--onyx-spacing-2xs);
     }
 
