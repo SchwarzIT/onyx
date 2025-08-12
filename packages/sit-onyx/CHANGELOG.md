@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.295
+
+### Minor Changes
+
+- 2c6fbd3: bug(OnyxBreadcrumb): fixed onyx-grid for onyx-grid-max-\*
+
 ## 1.0.0-beta.294
 
 ### Patch Changes
