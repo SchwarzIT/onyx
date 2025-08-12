@@ -211,7 +211,15 @@
     "maxFileSize": "Maximum file size",
     "inTotal": "in total",
     "maxFileCount": "Maximum {n} files to select in total",
-    "allowedFileTypes": "Allowed file types: {types}"
+    "allowedFileTypes": "Allowed file types: {types}",
+    "hideFilesButton": "Hide all files",
+    "revealFilesButton": "Show all files",
+    "removeFile": "Remove file",
+    "status": {
+      "fileSizeError": "File exceeds maximum allowed size of {size}",
+      "maxFileSizeError": "Total file size exceeds maximum allowed of {size}",
+      "maxCountError": "Number of files exceeds maximum allowed of {count}"
+    }
   },
   "globalFAB": {
     "label": "Global actions"

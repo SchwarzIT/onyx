@@ -211,7 +211,15 @@
     "maxFileSize": "Maximale Dateigröße",
     "inTotal": "insgesamt",
     "maxFileCount": "Maximal {n} Dateien auswählbar",
-    "allowedFileTypes": "Erlaubte Dateien: {types}"
+    "allowedFileTypes": "Erlaubte Dateien: {types}",
+    "hideFilesButton": "Alle Dateien ausblenden",
+    "revealFilesButton": "Alle Dateien anzeigen",
+    "removeFile": "Datei entfernen",
+    "status": {
+      "fileSizeError": "Datei überschreitet die maximal zulässige Größe von {size}",
+      "maxFileSizeError": "Gesamtgröße der Dateien überschreitet das zulässige Maximum von {size}",
+      "maxCountError": "Die Anzahl der Dateien überschreitet das zulässige Maximum von {count}"
+    }
   },
   "globalFAB": {
     "label": "Globale Aktionen"

@@ -66,7 +66,10 @@ export type IECPrefixSymbol = (typeof IEC_PREFIX_SYMBOLS)[number];
 /**
  * Converts a [binary prefixed size](https://en.wikipedia.org/wiki/Binary_prefix) to its decimal representation in bytes.
  */
-export const convertBinaryPrefixToBytes = (size: BinaryPrefixedSize): number => {
+export const convertBinaryPrefixToBytes = (size: BinaryPrefixedSize | number): number => {
+  if (typeof size === "number") {
+    return size;
+  }
   const prefixSymbol = size.substring(size.length - 3, size.length - 1) as IECPrefixSymbol;
   const power = IEC_PREFIX_SYMBOLS.indexOf(prefixSymbol) + 1;
   const multiplier = +size.substring(0, size.length - 3);

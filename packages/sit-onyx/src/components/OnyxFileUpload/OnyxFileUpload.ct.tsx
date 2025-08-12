@@ -3,6 +3,7 @@ import type { MatrixScreenshotTestOptions } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
+import type { Nullable } from "../../types/utils.js";
 import OnyxFileUpload from "./OnyxFileUpload.vue";
 import type { FileUploadSize } from "./types.js";
 
@@ -89,10 +90,13 @@ const dragAndDropFiles = async (page: Page, button: Locator, count: number) => {
 
 test("should select a single file", async ({ mount, page }) => {
   // ARRANGE
-  let file: File | undefined;
+  let file: Nullable<File>;
 
   const component = await mount(
-    <OnyxFileUpload onUpdate:modelValue={(newFile) => (file = newFile)} />,
+    <OnyxFileUpload
+      onUpdate:modelValue={(newFile) => (file = newFile)}
+      style={{ padding: "1rem", width: "32rem" }}
+    />,
   );
   const button = component.getByRole("button", { name: "Click to select" });
 
@@ -113,6 +117,7 @@ test("should select a single file", async ({ mount, page }) => {
 
   // ASSERT
   await expect(() => expect(file).toBeDefined()).toPass();
+  await expect(component).toHaveScreenshot("one-file-selected.png");
 });
 
 test("should select multiple files", async ({ mount, page }) => {
@@ -120,15 +125,22 @@ test("should select multiple files", async ({ mount, page }) => {
   let files: File[] = [];
 
   const component = await mount(
-    <OnyxFileUpload multiple onUpdate:modelValue={(newFiles) => (files = newFiles)} />,
+    <OnyxFileUpload
+      multiple
+      listType="maxHeight"
+      style={{ padding: "1rem", width: "32rem", "--onyx-file-upload-max-files": "2" }}
+      onUpdate:modelValue={(newFiles) => (files = newFiles)}
+    />,
   );
   const button = component.getByRole("button", { name: "Click to select" });
+  const removeFirstFileButton = component.getByRole("button", { name: "Remove file" }).first();
 
   // ACT
   selectFiles(page, button, 2);
 
   // ASSERT
   await expect(() => expect(files).toHaveLength(2)).toPass();
+  await expect(component).toHaveScreenshot("multiple-file-selected.png");
 
   // ACT
   files = [];
@@ -141,6 +153,13 @@ test("should select multiple files", async ({ mount, page }) => {
 
   // ASSERT
   await expect(() => expect(files).toHaveLength(4)).toPass();
+  await expect(component).toHaveScreenshot("max-height.png");
+
+  // ACT
+  await removeFirstFileButton.click();
+
+  // ASSERT
+  await expect(() => expect(files).toHaveLength(3)).toPass();
 });
 
 test("should replace files", async ({ mount, page }) => {
@@ -185,7 +204,7 @@ test("should replace files", async ({ mount, page }) => {
 
 test("should not support drag and drop when disabled", async ({ mount, page }) => {
   // ARRANGE
-  let file: File | undefined;
+  let file: Nullable<File>;
 
   const component = await mount(
     <OnyxFileUpload onUpdate:modelValue={(newFile) => (file = newFile)} disabled />,
@@ -197,4 +216,40 @@ test("should not support drag and drop when disabled", async ({ mount, page }) =
 
   // ASSERT
   await expect(() => expect(file).not.toBeDefined()).toPass();
+});
+
+test("should have hide button", async ({ mount, page }) => {
+  // ARRANGE
+  let files: File[] = [];
+
+  const component = await mount(
+    <OnyxFileUpload
+      multiple
+      listType="button"
+      style={{ padding: "1rem", width: "32rem" }}
+      onUpdate:modelValue={(newFiles) => (files = newFiles)}
+    />,
+  );
+  const button = component.getByRole("button", { name: "Click to select" });
+  const hideButton = component.getByRole("button", { name: "Hide all files" });
+  const revealButton = component.getByRole("button", { name: "Show all files" });
+  //ASSERT
+  await expect(hideButton).toBeHidden();
+  await expect(revealButton).toBeHidden();
+  // ACT
+  selectFiles(page, button, 2);
+
+  // ASSERT
+  await expect(() => expect(files).toHaveLength(2)).toPass();
+  await expect(component).toHaveScreenshot("hide-button.png");
+  await expect(hideButton).toBeVisible();
+  await expect(revealButton).toBeHidden();
+
+  // ACT
+  await hideButton.click();
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("reveal-button.png");
+  await expect(hideButton).toBeHidden();
+  await expect(revealButton).toBeVisible();
 });

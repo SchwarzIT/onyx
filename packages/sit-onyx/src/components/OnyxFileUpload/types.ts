@@ -1,5 +1,6 @@
 import type { DensityProp } from "../../composables/density.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
+import type { Nullable } from "../../types/utils.js";
 import type { BinaryPrefixedSize } from "../../utils/numbers.js";
 import type { FormInjected } from "../OnyxForm/OnyxForm.core.js";
 import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
@@ -10,7 +11,7 @@ export type OnyxFileUploadProps<TMultiple extends boolean> = DensityProp &
      * Currently selected file(s).
      * If `multiple` property is enabled, this value is an array, otherwise a single file.
      */
-    modelValue?: TMultiple extends true ? File[] : File;
+    modelValue?: TMultiple extends true ? File[] : Nullable<File>;
     /**
      * Whether multiple files can be selected.
      * If `true`, the `modelValue` property will be an array, otherwise a single value.
@@ -60,9 +61,22 @@ export type OnyxFileUploadProps<TMultiple extends boolean> = DensityProp &
      */
     size?: FileUploadSize;
     /**
-     * Whether to show a skeleton fileUpload.
+     * Whether to show a skeleton upload.
      */
     skeleton?: SkeletonInjected;
+    /**
+     * How to display the selected files.
+     * - list: Shows a list of all files (no height limit)
+     * - maxHeight: Shows a list of files with a max height that when exceeding, the list becomes scrollable
+     * By default the max height is set to 3 files but can be customized by setting the `--onyx-file-upload-max-files` CSS variable to
+     * the desired number of visible items. Note: The list will always display half of the next invisible file to visually indicate
+     * that there are more files available.
+     * - button: Shows a show/hide all files button. By default all files are visible (same behavior as "list" type).
+     * - hidden: Hides the list completely. Useful when implementing a custom solution.
+     *
+     * @default list
+     */
+    listType?: FileUploadListType;
   };
 
 /**
@@ -80,3 +94,5 @@ export type MediaType =
   `${"application" | "audio" | "font" | "image" | "model" | "text" | "video"}/${string}`;
 
 export type FileUploadSize = "large" | "medium" | "small";
+
+export type FileUploadListType = "list" | "maxHeight" | "button" | "hidden";

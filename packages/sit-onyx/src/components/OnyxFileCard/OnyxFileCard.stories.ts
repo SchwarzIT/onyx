@@ -45,7 +45,7 @@ export const Default = {
           ],
         },
       ),
-      h(OnyxIconButton, { label: "Delete file", icon: iconTrash, color: "danger" }),
+      h(OnyxIconButton, { label: "Remove file", icon: iconTrash, color: "danger" }),
     ],
   },
 } satisfies Story;

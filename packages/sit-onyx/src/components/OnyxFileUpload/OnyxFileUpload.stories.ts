@@ -13,7 +13,7 @@ export const Default = {
   args: {
     maxSize: "4MiB",
     accept: [".jpg", ".png", ".mp4"],
-    style: "width: 20rem",
+    style: "width: 30rem; max-width: 100%",
   },
 } satisfies Story;
 
@@ -44,5 +44,20 @@ export const Disabled = {
   args: {
     ...Default.args,
     disabled: true,
+  },
+} satisfies Story;
+
+export const MaxHeight = {
+  args: {
+    ...Default.args,
+    multiple: true,
+    listType: "maxHeight",
+  },
+} satisfies Story;
+export const HideButton = {
+  args: {
+    ...Default.args,
+    multiple: true,
+    listType: "button",
   },
 } satisfies Story;
