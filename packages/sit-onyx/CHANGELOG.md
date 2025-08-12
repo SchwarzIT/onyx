@@ -1,5 +1,14 @@
 # sit-onyx
 
+## 1.0.0-beta.296
+
+### Minor Changes
+
+- 30c816b: feat(OnyxFileUpload): added a file-card area where all selected file are displayed
+  - implemented new `listType` property to define how the selected files are displayed
+  - added `default` slot to customize how to render a single file card
+  - by default, each file will be displayed with a remove button
+
 ## 1.0.0-beta.295
 
 ### Minor Changes
