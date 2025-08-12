@@ -425,10 +425,10 @@ const createFileURL = (file: File) => {
     }
 
     &__list {
-      --onyx-file-upload-list-gap: var(--onyx-density-sm);
+      --onyx-file-upload-list-gap: var(--onyx-density-2xs);
       display: flex;
       flex-direction: column;
-      margin-top: var(--onyx-file-upload-list-gap);
+      margin-top: var(--onyx-density-xs);
       gap: var(--onyx-file-upload-list-gap);
 
       &--max-height {
