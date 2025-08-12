@@ -19,7 +19,7 @@ jobs:
       id-token: write
       contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ssh-key: ${{ secrets.GH_PUSH_PROTECTED_KEY }}
           # needed when building VitePress docs so timestamps can be calculated correctly
@@ -91,7 +91,7 @@ jobs:
     needs: release
     environment: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Download Storybook artifact
         uses: actions/download-artifact@v5
@@ -115,7 +115,7 @@ jobs:
     needs: release
     environment: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Download Storybook artifact
         uses: actions/download-artifact@v5
@@ -139,7 +139,7 @@ jobs:
     needs: release
     environment: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Download artifact
         uses: actions/download-artifact@v5
