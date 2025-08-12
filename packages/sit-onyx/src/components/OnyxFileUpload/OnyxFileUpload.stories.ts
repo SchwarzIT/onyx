@@ -13,7 +13,7 @@ export const Default = {
   args: {
     maxSize: "4MiB",
     accept: [".jpg", ".png", ".mp4"],
-    style: "width: 30rem",
+    style: "width: 30rem; max-width: 100%",
   },
 } satisfies Story;
 

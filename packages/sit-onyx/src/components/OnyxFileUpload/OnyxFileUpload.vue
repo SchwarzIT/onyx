@@ -53,9 +53,12 @@ const emit = defineEmits<{
 
 defineSlots<{
   /**
-   * Displays OnyxFileCards.
+   * Optional slot to override the displayed file card for each file.
+   *
+   * @param file The current file being rendered
+   * @param status Current file status of the error validation (e.g. max size etc.)
    */
-  default(): unknown;
+  default?(props: { file: File; status?: FileCardStatus }): unknown;
 }>();
 
 const skeleton = useSkeletonContext(props as { skeleton: SkeletonInjected });
@@ -74,12 +77,11 @@ const modelValue = useVModel<TModelValue, "modelValue", typeof props, undefined>
 
 const input = useTemplateRef<HTMLInputElement>("inputRef");
 
-// const currentFiles = computed<File[]>(() => asArray(modelValue.value ?? []) as unknown as File[]);
-const currentFiles = computed<File[]>(() =>
-  (asArray(modelValue.value ?? []) as (File | null | undefined)[]).filter(
-    (file): file is File => file != null,
-  ),
-);
+const currentFiles = computed<File[]>(() => {
+  const files = asArray<Nullable<File>>(modelValue.value ?? []);
+  return files.filter((file) => file != null);
+});
+
 const hideFiles = ref(false);
 
 const fileStatuses = computed((): (FileCardStatus | undefined)[] => {
@@ -132,7 +134,7 @@ const removeFile = (fileToRemove: File) => {
     const newFiles = currentFiles.value.filter((file) => file !== fileToRemove);
     modelValue.value = newFiles as TModelValue;
   } else {
-    modelValue.value = null as TModelValue;
+    modelValue.value = undefined as TModelValue;
   }
 };
 
@@ -174,6 +176,12 @@ const createFileURL = (file: File) => {
     return undefined;
   }
 };
+
+const shouldShowFileList = computed(() => {
+  if (props.listType === "hidden" || !currentFiles.value.length) return false;
+  if (props.listType === "button") return !hideFiles.value;
+  return true;
+});
 </script>
 
 <template>
@@ -237,11 +245,12 @@ const createFileURL = (file: File) => {
         </p>
       </div>
     </button>
+
     <input
       ref="inputRef"
       aria-hidden="true"
       tabindex="-1"
-      class="onyx-file-upload-input"
+      class="onyx-file-upload__input"
       type="file"
       :accept="props.accept?.length ? props.accept.join(',') : undefined"
       :multiple="props.multiple"
@@ -250,39 +259,39 @@ const createFileURL = (file: File) => {
       v-bind="restAttrs"
       @change="handleChange"
     />
+
+    <OnyxSystemButton
+      v-if="props.listType === 'button' && currentFiles.length"
+      class="onyx-file-upload__list-button"
+      :label="hideFiles ? t('fileUpload.revealFilesButton') : t('fileUpload.hideFilesButton')"
+      @click="hideFiles = !hideFiles"
+    />
+
     <div
-      :class="['onyx-file-area', props.listType === 'maxHeight' && 'onyx-file-area--max-height']"
+      v-if="shouldShowFileList"
+      :class="[
+        'onyx-file-upload__list',
+        { 'onyx-file-upload__list--max-height': props.listType === 'maxHeight' },
+      ]"
     >
-      <OnyxSystemButton
-        v-if="props.listType === 'button' && currentFiles.length"
-        class="onyx-file-area__hide-button"
-        :label="hideFiles ? t('fileUpload.revealFilesButton') : t('fileUpload.hideFilesButton')"
-        @click="() => (hideFiles = !hideFiles)"
-      />
-      <template v-if="!hideFiles">
-        <template v-for="(file, index) in currentFiles" :key="file.name">
-          <slot :file :status="fileStatuses[index]">
-            <OnyxFileCard
-              :filename="file.name"
-              :size="file.size"
-              :status="fileStatuses[index]"
-              :link="createFileURL(file)"
-            >
-              <template #actions>
-                <OnyxIconButton
-                  color="danger"
-                  :icon="iconTrash"
-                  :label="t('fileUpload.deleteButton')"
-                  @click="
-                    () => {
-                      removeFile(file);
-                    }
-                  "
-                />
-              </template>
-            </OnyxFileCard>
-          </slot>
-        </template>
+      <template v-for="(file, index) in currentFiles" :key="file.name">
+        <slot :file :status="fileStatuses[index]">
+          <OnyxFileCard
+            :filename="file.name"
+            :size="file.size"
+            :status="fileStatuses[index]"
+            :link="createFileURL(file)"
+          >
+            <template #actions>
+              <OnyxIconButton
+                color="danger"
+                :icon="iconTrash"
+                :label="t('fileUpload.removeFile')"
+                @click="removeFile(file)"
+              />
+            </template>
+          </OnyxFileCard>
+        </slot>
       </template>
     </div>
   </div>
@@ -291,78 +300,82 @@ const createFileURL = (file: File) => {
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
 @use "../../styles/mixins/input.scss";
+@use "../OnyxFileCard/OnyxFileCard.scss";
 
 @include layers.component() {
   .onyx-file-upload-wrapper {
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    gap: var(--onyx-density-xs);
+  }
 
-    .onyx-file-upload-input {
-      display: none;
+  .onyx-file-upload {
+    --onyx-file-upload-max-files: 3;
+    all: unset;
+    font-family: var(--onyx-font-family);
+    color: var(--onyx-color-text-icons-neutral-intense);
+    border-radius: var(--onyx-radius-md);
+    border: var(--onyx-1px-in-rem) dashed var(--onyx-color-component-border-neutral);
+    background-color: var(--onyx-color-base-background-blank);
+    padding: var(--onyx-density-xl);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    text-align: center;
+
+    &--medium {
+      padding: var(--onyx-density-xs);
+      gap: var(--onyx-density-xs);
+    }
+    &--small {
+      padding: var(--onyx-density-sm);
+      border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-200);
     }
 
-    .onyx-file-upload {
-      all: unset;
-      grid-area: 1/1;
-      font-family: var(--onyx-font-family);
+    &__icon {
+      display: flex;
+      gap: var(--onyx-density-2xs);
       color: var(--onyx-color-text-icons-neutral-intense);
-      border-radius: var(--onyx-radius-md);
-      border: var(--onyx-1px-in-rem) dashed var(--onyx-color-component-border-neutral);
-      background-color: var(--onyx-color-base-background-blank);
-      padding: var(--onyx-density-xl);
+      font-family: var(--onyx-font-family-h3);
+      font-size: var(--onyx-font-size-md);
+      font-weight: var(--onyx-font-weight-semibold);
+      line-height: var(--onyx-font-line-height-md);
+    }
 
+    &--dragging {
+      border-color: var(--onyx-color-component-border-primary-hover);
+      background-color: var(--onyx-color-base-primary-100);
+
+      * {
+        // needed to not emit "dragleave" event when hovering over children (e.g. text)
+        pointer-events: none;
+      }
+
+      .onyx-file-upload__label {
+        color: var(--onyx-color-text-icons-primary-intense);
+      }
+    }
+
+    .onyx-file-upload-svg {
+      margin-bottom: var(--onyx-density-md);
+    }
+
+    &__content {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      max-width: 100%;
-
-      &--medium {
-        padding: var(--onyx-density-xs);
-        gap: var(--onyx-density-xs);
-      }
-      &--small {
-        padding: var(--onyx-density-sm);
-        border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-200);
-      }
-
-      &__icon {
-        display: flex;
-        gap: var(--onyx-density-2xs);
-        color: var(--onyx-color-text-icons-neutral-intense);
-        font-family: var(--onyx-font-family-h3);
-        font-size: var(--onyx-font-size-md);
-        font-weight: var(--onyx-font-weight-semibold);
-        line-height: var(--onyx-font-line-height-md);
-      }
-
-      &--dragging {
-        border-color: var(--onyx-color-component-border-primary-hover);
-        background-color: var(--onyx-color-base-primary-100);
-
-        * {
-          // needed to not emit "dragleave" event when hovering over children (e.g. text)
-          pointer-events: none;
-        }
-
-        .onyx-file-upload__label {
-          color: var(--onyx-color-text-icons-primary-intense);
-        }
-      }
-
-      .onyx-file-upload-svg {
-        margin-bottom: var(--onyx-density-md);
-      }
-
-      &__content {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: var(--onyx-density-2xs);
-      }
+      gap: var(--onyx-density-2xs);
     }
 
-    &:has(.onyx-file-upload-input:enabled) .onyx-file-upload {
+    &__input {
+      display: none;
+    }
+
+    &:enabled {
       cursor: pointer;
 
       &:hover,
@@ -387,7 +400,7 @@ const createFileURL = (file: File) => {
         color: var(--onyx-color-text-icons-neutral-medium);
       }
 
-      &--small {
+      &.onyx-file-upload--small {
         padding: var(--onyx-density-sm);
         border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-200);
         &:hover {
@@ -398,50 +411,51 @@ const createFileURL = (file: File) => {
           border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-400);
           outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-neutral);
         }
-      }
-      &--small.onyx-file-upload--dragging {
-        border: var(--onyx-1px-in-rem) dashed var(--onyx-color-component-border-primary-hover);
-        .onyx-file-upload__icon {
-          color: var(--onyx-color-text-icons-primary-bold);
+
+        &.onyx-file-upload--dragging {
+          border: var(--onyx-1px-in-rem) dashed var(--onyx-color-component-border-primary-hover);
+          .onyx-file-upload__icon {
+            color: var(--onyx-color-text-icons-primary-bold);
+          }
         }
       }
     }
 
-    &:has(.onyx-file-upload-input:disabled) .onyx-file-upload {
-      background-color: var(--onyx-color-base-background-tinted);
+    &:disabled {
+      background-color: var(--onyx-color-base-background-tinted) !important;
       color: var(--onyx-color-text-icons-neutral-soft);
       .onyx-file-upload__icon {
         color: var(--onyx-color-text-icons-neutral-soft);
       }
     }
 
-    // Onyx file area
-    .onyx-file-area {
+    &__list {
+      --onyx-file-upload-list-gap: var(--onyx-density-2xs);
       display: flex;
       flex-direction: column;
+      gap: var(--onyx-file-upload-list-gap);
 
-      .onyx-file-card {
-        margin-top: var(--onyx-density-sm);
-      }
-      &__hide-button {
-        margin: var(--onyx-density-xs) auto 0 auto;
-      }
       &--max-height {
         overflow-y: scroll;
-        /*
-        * Default height + 2 * padding-icons + 2* padding-card + gap 
-        * The text height in the "cozy" variant is larger than the icon + padding. A fallback to 2.625rem is used to prevent misalignment.
-        */
+
+        // the variable values here are given by the OnyxFileCard component
+        $file-card-height: OnyxFileCard.height(
+          $icon-padding: var(--onyx-density-xs),
+          $card-padding: var(--onyx-density-xs),
+        );
+
         max-height: calc(
-          (var(--onyx-file-upload-max-files, 3) + 0.5) *
-            (
-              max(1.74rem + var(--onyx-density-xs) * 2, 2.625rem) + var(--onyx-density-xs) * 2 +
-                var(--onyx-density-sm)
-            )
+          (var(--onyx-file-upload-max-files) + 0.5) * $file-card-height +
+            (var(--onyx-file-upload-max-files)) * var(--onyx-file-upload-list-gap)
         );
       }
     }
+
+    &__list-button {
+      margin-inline: auto;
+    }
   }
+
   .onyx-file-upload-skeleton {
     height: 7.5rem;
     width: 20rem;
