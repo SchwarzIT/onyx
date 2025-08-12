@@ -176,6 +176,12 @@ const createFileURL = (file: File) => {
     return undefined;
   }
 };
+
+const shouldShowFileList = computed(() => {
+  if (props.listType === "hidden" || !currentFiles.value.length) return false;
+  if (props.listType === "button") return !hideFiles.value;
+  return true;
+});
 </script>
 
 <template>
@@ -262,32 +268,30 @@ const createFileURL = (file: File) => {
     />
 
     <div
-      v-if="props.listType !== 'hidden' && currentFiles.length"
+      v-if="shouldShowFileList"
       :class="[
         'onyx-file-upload__list',
         { 'onyx-file-upload__list--max-height': props.listType === 'maxHeight' },
       ]"
     >
-      <template v-if="props.listType !== 'button' || !hideFiles">
-        <template v-for="(file, index) in currentFiles" :key="file.name">
-          <slot :file :status="fileStatuses[index]">
-            <OnyxFileCard
-              :filename="file.name"
-              :size="file.size"
-              :status="fileStatuses[index]"
-              :link="createFileURL(file)"
-            >
-              <template #actions>
-                <OnyxIconButton
-                  color="danger"
-                  :icon="iconTrash"
-                  :label="t('fileUpload.removeFile')"
-                  @click="removeFile(file)"
-                />
-              </template>
-            </OnyxFileCard>
-          </slot>
-        </template>
+      <template v-for="(file, index) in currentFiles" :key="file.name">
+        <slot :file :status="fileStatuses[index]">
+          <OnyxFileCard
+            :filename="file.name"
+            :size="file.size"
+            :status="fileStatuses[index]"
+            :link="createFileURL(file)"
+          >
+            <template #actions>
+              <OnyxIconButton
+                color="danger"
+                :icon="iconTrash"
+                :label="t('fileUpload.removeFile')"
+                @click="removeFile(file)"
+              />
+            </template>
+          </OnyxFileCard>
+        </slot>
       </template>
     </div>
   </div>
