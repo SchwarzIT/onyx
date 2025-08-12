@@ -254,20 +254,20 @@ const createFileURL = (file: File) => {
       @change="handleChange"
     />
 
+    <OnyxSystemButton
+      v-if="props.listType === 'button' && currentFiles.length"
+      class="onyx-file-upload__list-button"
+      :label="hideFiles ? t('fileUpload.revealFilesButton') : t('fileUpload.hideFilesButton')"
+      @click="hideFiles = !hideFiles"
+    />
+
     <div
-      v-if="props.listType !== 'hidden'"
+      v-if="props.listType !== 'hidden' && currentFiles.length"
       :class="[
         'onyx-file-upload__list',
         { 'onyx-file-upload__list--max-height': props.listType === 'maxHeight' },
       ]"
     >
-      <OnyxSystemButton
-        v-if="props.listType === 'button' && currentFiles.length"
-        class="onyx-file-upload__list-button"
-        :label="hideFiles ? t('fileUpload.revealFilesButton') : t('fileUpload.hideFilesButton')"
-        @click="hideFiles = !hideFiles"
-      />
-
       <template v-if="!hideFiles">
         <template v-for="(file, index) in currentFiles" :key="file.name">
           <slot :file :status="fileStatuses[index]">
@@ -300,13 +300,14 @@ const createFileURL = (file: File) => {
 
 @include layers.component() {
   .onyx-file-upload-wrapper {
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    gap: var(--onyx-density-xs);
   }
 
   .onyx-file-upload {
     --onyx-file-upload-max-files: 3;
     all: unset;
-    grid-area: 1/1;
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
     border-radius: var(--onyx-radius-md);
@@ -428,7 +429,6 @@ const createFileURL = (file: File) => {
       --onyx-file-upload-list-gap: var(--onyx-density-2xs);
       display: flex;
       flex-direction: column;
-      margin-top: var(--onyx-density-xs);
       gap: var(--onyx-file-upload-list-gap);
 
       &--max-height {
