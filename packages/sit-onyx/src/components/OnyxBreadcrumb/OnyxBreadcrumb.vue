@@ -29,13 +29,12 @@ provideSkeletonContext(props);
     :class="[
       'onyx-component',
       'onyx-breadcrumb',
-      'onyx-grid-container',
       densityClass,
       { 'onyx-breadcrumb--container': props.container },
     ]"
     :aria-label="t('breadcrumb.label')"
   >
-    <ol class="onyx-breadcrumb__list">
+    <ol class="onyx-breadcrumb__list onyx-grid-container">
       <OnyxBreadcrumbItem
         class="onyx-breadcrumb__home"
         :href="props.home?.link ?? '/'"
