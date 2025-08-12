@@ -23,7 +23,7 @@ jobs:
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_REMOTE_CACHE__TURBO_TOKEN }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: ./.github/templates/node-setup
 
@@ -75,7 +75,7 @@ jobs:
     name: Collect Playwright result
     needs: playwright
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Merge Screenshots
         uses: actions/upload-artifact/merge@v4
