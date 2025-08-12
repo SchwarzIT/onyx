@@ -304,6 +304,7 @@ const createFileURL = (file: File) => {
   }
 
   .onyx-file-upload {
+    --onyx-file-upload-max-files: 3;
     all: unset;
     grid-area: 1/1;
     font-family: var(--onyx-font-family);
@@ -369,7 +370,7 @@ const createFileURL = (file: File) => {
       display: none;
     }
 
-    &:has(.onyx-file-upload__input:enabled) {
+    &:enabled {
       cursor: pointer;
 
       &:hover,
@@ -415,8 +416,8 @@ const createFileURL = (file: File) => {
       }
     }
 
-    &:has(.onyx-file-upload__input:disabled) {
-      background-color: var(--onyx-color-base-background-tinted);
+    &:disabled {
+      background-color: var(--onyx-color-base-background-tinted) !important;
       color: var(--onyx-color-text-icons-neutral-soft);
       .onyx-file-upload__icon {
         color: var(--onyx-color-text-icons-neutral-soft);
@@ -431,7 +432,6 @@ const createFileURL = (file: File) => {
       gap: var(--onyx-file-upload-list-gap);
 
       &--max-height {
-        --onyx-file-upload-max-files: 3;
         overflow-y: scroll;
 
         // the variable values here are given by the OnyxFileCard component
