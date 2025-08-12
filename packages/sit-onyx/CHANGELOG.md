@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.293
+
+### Patch Changes
+
+- 4e2c5fb: fix(OnyxAccordionItem): align colors with UX
+
 ## 1.0.0-beta.292
 
 ### Minor Changes
