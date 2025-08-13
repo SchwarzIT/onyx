@@ -218,6 +218,21 @@ test("should not support drag and drop when disabled", async ({ mount, page }) =
   await expect(() => expect(file).not.toBeDefined()).toPass();
 });
 
+test("should disable file card remove action when upload is disabled", async ({ mount, page }) => {
+  // ARRANGE
+  const component = await mount(OnyxFileUpload);
+  const button = component.getByRole("button", { name: "Click to select" });
+
+  // ACT
+  await selectFiles(page, button, 1);
+  await component.update({ props: { disabled: true } });
+
+  // ASSERT
+  const removeButton = component.getByRole("button", { name: "Remove file" });
+  await expect(removeButton).toBeVisible();
+  await expect(removeButton).toBeDisabled();
+});
+
 test("should have hide button", async ({ mount, page }) => {
   // ARRANGE
   let files: File[] = [];
