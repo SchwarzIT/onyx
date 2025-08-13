@@ -445,8 +445,8 @@ const shouldShowFileList = computed(() => {
         );
 
         max-height: calc(
-          (var(--onyx-file-upload-max-files) + 0.5) * $file-card-height +
-            (var(--onyx-file-upload-max-files)) * var(--onyx-file-upload-list-gap)
+          (var(--onyx-file-upload-max-files, 3) + 0.5) * $file-card-height +
+            (var(--onyx-file-upload-max-files, 3)) * var(--onyx-file-upload-list-gap)
         );
       }
     }
