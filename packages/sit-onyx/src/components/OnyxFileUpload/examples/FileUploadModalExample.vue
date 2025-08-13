@@ -1,14 +1,11 @@
 <script lang="ts" setup>
 import { iconTrash } from "@sit-onyx/icons";
 import { ref } from "vue";
-import { injectI18n } from "../../../i18n.js";
 import OnyxFileCard from "../../OnyxFileCard/OnyxFileCard.vue";
 import OnyxIconButton from "../../OnyxIconButton/OnyxIconButton.vue";
 import OnyxModal from "../../OnyxModal/OnyxModal.vue";
 import OnyxSystemButton from "../../OnyxSystemButton/OnyxSystemButton.vue";
 import OnyxFileUpload from "../OnyxFileUpload.vue";
-
-const { t } = injectI18n();
 
 const allFiles = ref<File[]>([]);
 const isOpen = ref(false);
@@ -33,7 +30,7 @@ const removeFile = (fileToRemove: File) => {
             <OnyxIconButton
               color="danger"
               :icon="iconTrash"
-              :label="t('fileUpload.removeFile')"
+              label="Remove File"
               @click="
                 () => {
                   removeFile(file);
