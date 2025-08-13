@@ -32,7 +32,7 @@ import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
-import type { OnyxFileUploadProps } from "./types.js";
+import type { MediaType, OnyxFileUploadProps } from "./types.js";
 
 defineOptions({ inheritAttrs: false });
 
@@ -281,6 +281,7 @@ const shouldShowFileList = computed(() => {
             :size="file.size"
             :status="fileStatuses[index]"
             :link="createFileURL(file)"
+            :type="file.type as MediaType"
           >
             <template #actions>
               <OnyxIconButton

@@ -61,8 +61,8 @@ test.describe("Screenshot tests (max. file sizes)", () => {
 });
 
 const getFile = () => ({
-  name: "file.txt",
-  mimeType: "text/plain",
+  name: "file.pdf",
+  mimeType: "application/pdf",
   buffer: Buffer.from("this is a test"),
 });
 
