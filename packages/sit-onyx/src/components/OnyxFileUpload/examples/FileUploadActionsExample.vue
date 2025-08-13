@@ -16,7 +16,7 @@ const removeFile = (fileToRemove: File) => {
 </script>
 
 <template>
-  <OnyxFileUpload v-model="allFiles" :multiple="true" list-type="hidden">
+  <OnyxFileUpload v-model="allFiles" :multiple="true">
     <template #default="{ file, status }">
       <OnyxFileCard :filename="file.name" :size="file.size" :status="status">
         <template #actions>
@@ -35,11 +35,7 @@ const removeFile = (fileToRemove: File) => {
             color="danger"
             :icon="iconTrash"
             label="Remove File"
-            @click="
-              () => {
-                removeFile(file);
-              }
-            "
+            @click="removeFile(file)"
           />
         </template>
       </OnyxFileCard>

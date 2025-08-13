@@ -304,13 +304,13 @@ const shouldShowFileList = computed(() => {
 
 @include layers.component() {
   .onyx-file-upload-wrapper {
+    --onyx-file-upload-max-files: 3;
     display: flex;
     flex-direction: column;
     gap: var(--onyx-density-xs);
   }
 
   .onyx-file-upload {
-    --onyx-file-upload-max-files: 3;
     all: unset;
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
@@ -445,8 +445,8 @@ const shouldShowFileList = computed(() => {
         );
 
         max-height: calc(
-          (var(--onyx-file-upload-max-files, 3) + 0.5) * $file-card-height +
-            (var(--onyx-file-upload-max-files, 3)) * var(--onyx-file-upload-list-gap)
+          (var(--onyx-file-upload-max-files) + 0.5) * $file-card-height +
+            (var(--onyx-file-upload-max-files)) * var(--onyx-file-upload-list-gap)
         );
       }
     }
