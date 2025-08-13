@@ -282,12 +282,14 @@ const shouldShowFileList = computed(() => {
             :status="fileStatuses[index]"
             :link="createFileURL(file)"
             :type="file.type as MediaType"
+            :skeleton="skeleton"
           >
             <template #actions>
               <OnyxIconButton
                 color="danger"
                 :icon="iconTrash"
                 :label="t('fileUpload.removeFile')"
+                :disabled="disabled"
                 @click="removeFile(file)"
               />
             </template>
