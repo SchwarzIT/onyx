@@ -1,5 +1,11 @@
 # docs
 
+## 1.0.0-beta.7
+
+### Patch Changes
+
+- 92c0c9a: test version 1 release pipeline
+
 ## 1.0.0-beta.6
 
 ### Major Changes
