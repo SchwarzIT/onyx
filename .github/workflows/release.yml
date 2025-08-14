@@ -25,9 +25,6 @@ jobs:
       id-token: write
       contents: write
       packages: write
-    outputs:
-      # We can use the `published` boolean in other steps to decide, when we deployments
-      published: ${{ steps.PublishOrCreatePR.outputs.published }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -57,21 +54,14 @@ jobs:
           git config user.name "Release Bot[bot]"
           git config user.email "bot@example.com"
 
-      - name: Create release versions
-        # When manually dispatched, a minor release should be performed:
-        # The `version`ing is done by the `changesets/action@v1`, which will also create a PR
-        if: ${{ github.event_name != 'workflow_dispatch' }}
-        run: |
-          set -ex
-          pnpm exec changeset version ${{ env.STAGE == 'dev' && '--snapshot dev --no-git-tag' || '' }}
-
-      # -> Publishes available versions, if no changesets are available (=> "Version" step before has been run, or "PublishOrCreatePR" PR has been merged)
-      # -> Otherwise creates PR with new versions
-      - name: Public or create PR
-        id: PublishOrCreatePR
+      # if changesets exist, a PR will be created with the changed versions so we can review the changes before actually releasing
+      # otherwise (e.g. the PR has been merged), the packages will be published to npm
+      - name: Create Release Pull Request or Publish to npm
         uses: changesets/action@v1
         with:
+          version: pnpm exec changeset version ${{ env.STAGE == 'dev' && '--snapshot dev --no-git-tag' || '' }}
           publish: pnpm exec changeset publish
+          createGithubReleases: ${{ env.STAGE == 'prod' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -79,7 +69,6 @@ jobs:
       # documentation build
       - name: 🛠️ Build docs
         run: pnpm build:all --filter=docs
-        if: steps.PublishOrCreatePR.outputs.published == 'true'
         env:
           # needed for increase rate limit for the GitHub API that is used when building
           # the VitePress documentation
@@ -87,7 +76,6 @@ jobs:
 
       - name: Upload documentation artifact
         uses: actions/upload-artifact@v4
-        if: steps.PublishOrCreatePR.outputs.published == 'true'
         with:
           name: documentation
           path: apps/docs/src/.vitepress/dist
@@ -96,7 +84,6 @@ jobs:
     name: Deploy Storybook
     runs-on: ubuntu-latest
     needs: release
-    if: needs.release.outputs.published
     environment: ${{ inputs.environment || 'dev' }}
     steps:
       - uses: actions/checkout@v4
@@ -121,7 +108,6 @@ jobs:
     name: Deploy documentation
     runs-on: ubuntu-latest
     needs: release
-    if: needs.release.outputs.published
     environment: ${{ inputs.environment || 'dev' }}
     steps:
       - uses: actions/checkout@v4
@@ -146,7 +132,6 @@ jobs:
     name: Deploy Playground
     runs-on: ubuntu-latest
     needs: release
-    if: needs.release.outputs.published
     environment: ${{ inputs.environment || 'dev' }}
     steps:
       - uses: actions/checkout@v4
