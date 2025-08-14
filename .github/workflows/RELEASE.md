@@ -15,7 +15,7 @@ These releases are mainly for testing and development purposes.
 
 ## Major Releases
 
-_TBD_
+_To be defined..._
 
 ## Minor Release
 
@@ -29,7 +29,7 @@ We use the [Changesets Release Action](https://github.com/changesets/action) her
 
 ## Patch Release
 
-Patch (_"Fix"_) releases are merged to main as usual and released as snapshot.
+Patch (_"Fix"_) releases are merged to the `main` branch as usual and released as snapshot.
 For prior major releases the fix is cherry-picked onto the release branches.
 From there an automatic fix release is performed.
 
