@@ -18,7 +18,8 @@
     "publint:all": "pnpm -r --parallel --no-reporter-hide-prefix exec publint",
     "prepare": "simple-git-hooks",
     "gh:show-report": "./scripts/show-last-test-report.sh",
-    "preinstall": "npx only-allow pnpm"
+    "preinstall": "npx only-allow pnpm",
+    "version:prod": "pnpm exec changeset pre exit && pnpm exec changeset version && pnpm exec changeset pre enter beta"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.5",

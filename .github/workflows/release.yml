@@ -70,7 +70,7 @@ jobs:
         id: PublishOrCreatePR
         uses: changesets/action@v1
         with:
-          version: ${{ env.STAGE == 'prod' && 'pnpm exec changeset pre exit && ' || '' }} pnpm exec changeset version ${{ env.STAGE == 'prod' && ' && pnpm exec changeset pre enter beta' || '' }}
+          version: ${{ env.STAGE == 'prod' && 'pnpm run version:prod' || 'pnpm exec changeset version' }}
           # publish: pnpm exec changeset publish
           createGithubReleases: ${{ env.STAGE == 'prod' }}
           title: "release: update onyx versions and changelogs" # PR title
