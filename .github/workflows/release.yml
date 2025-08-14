@@ -60,7 +60,7 @@ jobs:
       # if environment is "dev", we will create the versions manually so no extra PR is created by the "changesets/action" below
       # and the changes are published immediately
       - name: Create DEV package versions
-        if: env.STAGE == 'dev'
+        if: env.STAGE != 'prod'
         run: |
           set -ex
           pnpm exec changeset version --snapshot dev --no-git-tag
@@ -80,7 +80,7 @@ jobs:
       # documentation build
       - name: 🛠️ Build docs
         run: pnpm build:all --filter=docs
-        if: env.STAGE == 'dev' || steps.PublishOrCreatePR.outputs.published == 'true'
+        if: env.STAGE != 'prod' || steps.PublishOrCreatePR.outputs.published == 'true'
         env:
           # needed for increase rate limit for the GitHub API that is used when building
           # the VitePress documentation
@@ -88,7 +88,7 @@ jobs:
 
       - name: Upload documentation artifact
         uses: actions/upload-artifact@v4
-        if: env.STAGE == 'dev' || steps.PublishOrCreatePR.outputs.published == 'true'
+        if: env.STAGE != 'prod' || steps.PublishOrCreatePR.outputs.published == 'true'
         with:
           name: documentation
           path: apps/docs/src/.vitepress/dist
@@ -97,7 +97,7 @@ jobs:
     name: Deploy Storybook
     runs-on: ubuntu-latest
     needs: release
-    if: env.STAGE == 'dev' || needs.release.outputs.published == 'true'
+    if: inputs.environment != 'prod' || needs.release.outputs.published == 'true'
     environment: ${{ inputs.environment || 'dev' }}
     steps:
       - uses: actions/checkout@v4
@@ -122,7 +122,7 @@ jobs:
     name: Deploy documentation
     runs-on: ubuntu-latest
     needs: release
-    if: env.STAGE == 'dev' || needs.release.outputs.published == 'true'
+    if: inputs.environment != 'prod' || needs.release.outputs.published == 'true'
     environment: ${{ inputs.environment || 'dev' }}
     steps:
       - uses: actions/checkout@v4
@@ -147,7 +147,7 @@ jobs:
     name: Deploy Playground
     runs-on: ubuntu-latest
     needs: release
-    if: env.STAGE == 'dev' || needs.release.outputs.published == 'true'
+    if: inputs.environment != 'prod' || needs.release.outputs.published == 'true'
     environment: ${{ inputs.environment || 'dev' }}
     steps:
       - uses: actions/checkout@v4
