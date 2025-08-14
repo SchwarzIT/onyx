@@ -22,7 +22,7 @@ Our technical vision describes the goals that we as the development team of **on
 
 1. 🔮 All packages use one of two release channels:
    - `dev`: automated [snapshot release](https://github.com/changesets/changesets/blob/main/docs/snapshot-releases.md) on each merge to the `main` branch
-   - `latest` (prod): released after the [current sprint](https://github.com/orgs/SchwarzIT/projects/5/views/1) has ended. Requires manual approval.
+   - `latest` (prod): released after specific time periods (e.g. after the [current sprint](https://github.com/orgs/SchwarzIT/projects/5/views/1) has ended, left up to the onyx team to decide). Requires manual approval.
 
 ## Pull Requests
 
