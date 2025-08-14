@@ -65,7 +65,7 @@ jobs:
         # TODO: remove the [ -f ".changesets/pre.json" ] && exit 0 if the pipeline was tested to work as intended
         run: |
           set -ex
-          [ -f ".changesets/pre.json" ] && exit 0
+          [ -f ".changeset/pre.json" ] && exit 0
           pnpm exec changeset version --snapshot dev --no-git-tag
 
       # if (prod) changesets exist, a PR will be created with the changed versions so we can review the changes before actually releasing
