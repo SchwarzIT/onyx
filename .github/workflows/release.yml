@@ -74,7 +74,7 @@ jobs:
             ${{ env.STAGE == 'prod' && 'pnpm exec changeset pre exit && ' || '' }}
             pnpm exec changeset version
             ${{ env.STAGE == 'prod' && ' && pnpm exec changeset pre enter beta' || '' }}
-          publish: pnpm exec changeset publish
+          # publish: pnpm exec changeset publish
           createGithubReleases: ${{ env.STAGE == 'prod' }}
           title: "release: update onyx versions and changelogs" # PR title
         env:
