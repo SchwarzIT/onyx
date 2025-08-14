@@ -1,5 +1,18 @@
 # sit-onyx
 
+## 1.0.0-beta.298
+
+### Patch Changes
+
+- a60abca: fix(OnyxFileUpload): apply `--onyx-file-upload-max-files` correctly
+
+## 1.0.0-beta.297
+
+### Patch Changes
+
+- 11e393c: - fix(OnyxFileUpload): show correct file card type icon
+  - fix(OnyxFileUpload): disable remove button of file cards when upload is disabled
+
 ## 1.0.0-beta.296
 
 ### Minor Changes
