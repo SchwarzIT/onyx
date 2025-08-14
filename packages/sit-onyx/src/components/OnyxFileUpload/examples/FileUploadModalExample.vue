@@ -27,6 +27,7 @@ const removeFile = (fileToRemove: File) => {
             :key="file.name"
             :filename="file.name"
             :size="file.size"
+            :type="file.type"
           >
             <template #actions>
               <OnyxIconButton
@@ -44,7 +45,7 @@ const removeFile = (fileToRemove: File) => {
         </div>
       </template>
     </OnyxModal>
-    <div class="button-wrapper">
+    <div v-if="allFiles.length" class="button-wrapper">
       <OnyxSystemButton class="open-modal-button" label="Show Files" @click="isOpen = true" />
     </div>
   </div>
