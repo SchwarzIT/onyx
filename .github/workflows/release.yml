@@ -60,13 +60,9 @@ jobs:
 
       # if environment is "dev", we will create the versions manually so no extra PR is created by the "changesets/action" below
       # and the changes are published immediately
-      - name: Create DEV package versions
+      - name: Create package versions (DEV)
         if: env.STAGE != 'prod'
-        # TODO: remove the [ -f ".changesets/pre.json" ] && exit 0 if the pipeline was tested to work as intended
-        run: |
-          set -ex
-          [ -f ".changeset/pre.json" ] && exit 0
-          pnpm exec changeset version --snapshot dev --no-git-tag
+        run: pnpm exec changeset version
 
       # if (prod) changesets exist, a PR will be created with the changed versions so we can review the changes before actually releasing
       # otherwise (e.g. the PR has been merged), the packages will be published to npm (if changes exist)
@@ -74,6 +70,10 @@ jobs:
         id: PublishOrCreatePR
         uses: changesets/action@v1
         with:
+          version: |
+            ${{ env.STAGE == 'prod' && 'pnpm exec changeset pre exit && ' || '' }}
+            pnpm exec changeset version
+            ${{ env.STAGE == 'prod' && ' && pnpm exec changeset pre enter next' || '' }}
           publish: pnpm exec changeset publish
           createGithubReleases: ${{ env.STAGE == 'prod' }}
           title: "release: update onyx versions and changelogs" # PR title
