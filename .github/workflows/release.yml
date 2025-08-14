@@ -25,6 +25,7 @@ jobs:
       id-token: write
       contents: write
       packages: write
+      pull-requests: write
     outputs:
       # We can use the `published` boolean in other steps to decide, when we do deployments
       published: ${{ steps.PublishOrCreatePR.outputs.published }}
