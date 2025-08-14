@@ -74,6 +74,7 @@ jobs:
         with:
           publish: pnpm exec changeset publish
           createGithubReleases: ${{ env.STAGE == 'prod' }}
+          title: "release: update onyx versions and changelogs" # PR title
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
