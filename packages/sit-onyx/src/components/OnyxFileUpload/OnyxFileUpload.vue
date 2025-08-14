@@ -306,13 +306,13 @@ const shouldShowFileList = computed(() => {
 
 @include layers.component() {
   .onyx-file-upload-wrapper {
+    --onyx-file-upload-max-files: 3;
     display: flex;
     flex-direction: column;
     gap: var(--onyx-density-xs);
   }
 
   .onyx-file-upload {
-    --onyx-file-upload-max-files: 3;
     all: unset;
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);

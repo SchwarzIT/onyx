@@ -128,7 +128,7 @@ test("should select multiple files", async ({ mount, page }) => {
     <OnyxFileUpload
       multiple
       listType="maxHeight"
-      style={{ padding: "1rem", width: "32rem", "--onyx-file-upload-max-files": "2" }}
+      style={{ padding: "1rem", width: "32rem" }}
       onUpdate:modelValue={(newFiles) => (files = newFiles)}
     />,
   );
@@ -149,7 +149,7 @@ test("should select multiple files", async ({ mount, page }) => {
   await expect(() => expect(files).toHaveLength(0)).toPass();
 
   // ACT
-  await dragAndDropFiles(page, button, 2);
+  await dragAndDropFiles(page, button, 4);
 
   // ASSERT
   await expect(() => expect(files).toHaveLength(4)).toPass();
