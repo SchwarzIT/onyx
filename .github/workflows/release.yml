@@ -54,12 +54,19 @@ jobs:
           git config user.name "Release Bot[bot]"
           git config user.email "bot@example.com"
 
-      # if changesets exist, a PR will be created with the changed versions so we can review the changes before actually releasing
-      # otherwise (e.g. the PR has been merged), the packages will be published to npm
+      # if environment is "dev", we will create the versions manually so no extra PR is created by the "changesets/action" below
+      # and the changes are published immediately
+      - name: Create DEV package versions
+        if: ${{ env.STAGE == 'dev' }}
+        run: |
+          set -ex
+          pnpm exec changeset version --snapshot dev --no-git-tag
+
+      # if (prod) changesets exist, a PR will be created with the changed versions so we can review the changes before actually releasing
+      # otherwise (e.g. the PR has been merged), the packages will be published to npm (if changes exist)
       - name: Create Release Pull Request or Publish to npm
         uses: changesets/action@v1
         with:
-          version: pnpm exec changeset version ${{ env.STAGE == 'dev' && '--snapshot dev --no-git-tag' || '' }}
           publish: pnpm exec changeset publish
           createGithubReleases: ${{ env.STAGE == 'prod' }}
         env:
