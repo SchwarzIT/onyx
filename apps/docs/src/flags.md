@@ -13,15 +13,15 @@ To get started, install the npm package with your corresponding package manager:
 ::: code-group
 
 ```sh [pnpm]
-pnpm add -D @sit-onyx/flags@beta
+pnpm add -D @sit-onyx/flags
 ```
 
 ```sh [npm]
-npm install -D @sit-onyx/flags@beta
+npm install -D @sit-onyx/flags
 ```
 
 ```sh [yarn]
-yarn install -D @sit-onyx/flags@beta
+yarn install -D @sit-onyx/flags
 ```
 
 :::
@@ -33,8 +33,6 @@ Afterwards, you can import and use flags as needed. Please see the [OnyxIcon](ht
 There are two different ways of using / importing flags from this package:
 
 ### Option 1: JavaScript import <Badge text="recommended" />
-
-> **Requires @sit-onyx/flags version >= 1.0.0-beta.5**
 
 For the best developer experience, it is recommended to use JavaScript imports. This approach also supports IDE intellisense, so you can e.g. just start typing "flag" in your editor and all available flags will be suggested to you.
 
@@ -97,7 +95,7 @@ console.log(FLAG_METADATA.DE);
 You can hover over a flag to see its name. Click on it or press enter when selecting it via keyboard to copy the import statement for the selected flag.
 
 <script lang="ts" setup>
-import OnyxFlagLibrary from ".vitepress/components/OnyxFlagLibrary.vue"
+import OnyxFlagLibrary from "./.vitepress/components/OnyxFlagLibrary.vue"
 </script>
 
 <OnyxFlagLibrary />

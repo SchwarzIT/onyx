@@ -59,7 +59,7 @@ export default defineLoader({
       },
       {
         name: "Floating Action Button",
-        status: "in-progress",
+        status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/buttons-fab--docs",
       },
       {
@@ -74,7 +74,7 @@ export default defineLoader({
       },
       {
         name: "Table",
-        status: getImplementedStatus("OnyxTable"),
+        status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/data-table--docs",
       },
       {
@@ -84,13 +84,13 @@ export default defineLoader({
       },
       {
         name: "Headline",
-        status: getImplementedStatus("OnyxHeadline"),
-        href: "https://storybook.onyx.schwarz/?path=/docs/basic-headline--docs",
+        status: "implemented",
+        href: "https://storybook.onyx.schwarz/?path=/docs/navigation-headline--docs",
       },
 
       {
         name: "Nav bar",
-        status: "in-progress",
+        status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/navigation-navbar--docs",
       },
       {
@@ -124,6 +124,11 @@ export default defineLoader({
         href: "/icons",
       },
       {
+        name: "Flags",
+        status: "implemented",
+        href: "/flags",
+      },
+      {
         name: "Loading indicator",
         status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/support-loadingindicator--docs",
@@ -154,9 +159,13 @@ export default defineLoader({
         href: "https://storybook.onyx.schwarz/?path=/docs/basic-avatar--docs",
       },
       {
-        name: "Modal/Dialog",
+        name: "Modal",
         status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/feedback-modal--docs",
+      },
+      {
+        name: "Dialog",
+        status: getImplementedStatus("OnyxDialog"),
       },
       {
         name: "Toast",
@@ -165,18 +174,13 @@ export default defineLoader({
       },
       {
         name: "Sidebar",
-        status: "in-progress",
+        status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/navigation-sidebar--docs",
       },
       {
         name: "Card",
         status: "implemented",
-        href: "https://storybook.onyx.schwarz/?path=/docs/basic-card--docs",
-      },
-      {
-        name: "Drawer",
-        status: "implemented",
-        href: "https://storybook.onyx.schwarz/?path=/docs/feedback-drawer--docs",
+        href: "https://storybook.onyx.schwarz/?path=/docs/cards-card--docs",
       },
       {
         name: "Pagination",
@@ -185,7 +189,7 @@ export default defineLoader({
       },
       {
         name: "Datepicker",
-        status: "in-progress",
+        status: "planned",
         href: "https://storybook.onyx.schwarz/?path=/docs/form-elements-datepicker--docs",
       },
       { name: "Timepicker", status: getImplementedStatus("OnyxTimepicker") },
@@ -202,8 +206,8 @@ export default defineLoader({
         href: "https://storybook.onyx.schwarz/?path=/docs/form-elements-stepper--docs",
       },
       {
-        name: "FileUpload",
-        status: "in-progress",
+        name: "File upload",
+        status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/form-elements-fileupload--docs",
       },
       {
@@ -212,9 +216,9 @@ export default defineLoader({
         href: "https://storybook.onyx.schwarz/?path=/docs/form-elements-form--docs",
       },
       {
-        name: "Grid Layout",
+        name: "Grid layout",
         status: "implemented",
-        href: "https://storybook.onyx.schwarz/iframe.html?id=examples-gridplayground--default",
+        href: "https://storybook.onyx.schwarz/?path=/story/examples-gridplayground--default",
       },
       {
         name: "Breadcrumb",
@@ -223,7 +227,7 @@ export default defineLoader({
       },
       { name: "Table of Content", status: getImplementedStatus("OnyxTableOfContent") },
       {
-        name: "ProgressSteps",
+        name: "Progress steps",
         status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/progress-progresssteps--docs",
       },
@@ -233,8 +237,8 @@ export default defineLoader({
         status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/navigation-tabs--docs",
       },
-      { name: "Search", status: "planned" },
-      { name: "Filters", status: "planned" },
+      { name: "Search", status: getImplementedStatus("OnyxSearch") },
+      { name: "Filters", status: getImplementedStatus("OnyxFilters") },
       {
         name: "Bottom bar",
         status: "implemented",
@@ -243,8 +247,19 @@ export default defineLoader({
       {
         name: "Notifications",
         status: "implemented",
-        href: "https://storybook.onyx.schwarz/?path=/docs/notifications-notifications--docs",
+        href: "https://storybook.onyx.schwarz/?path=/story/notifications-notificationcenter--default",
       },
+      {
+        name: "Image",
+        status: "implemented",
+        href: "https://storybook.onyx.schwarz/?path=/docs/basic-image--docs",
+      },
+      { name: "Split button", status: getImplementedStatus("OnyxSplitButton") },
+      { name: "Shortcut", status: getImplementedStatus("OnyxShortcut") },
+      { name: "Feed", status: getImplementedStatus("OnyxFeed") },
+      { name: "List", status: getImplementedStatus("OnyxList") },
+      { name: "Segmented control", status: getImplementedStatus("OnyxSegmentedControl") },
+      { name: "Global search", status: getImplementedStatus("OnyxGlobalSearch") },
     ];
 
     return {

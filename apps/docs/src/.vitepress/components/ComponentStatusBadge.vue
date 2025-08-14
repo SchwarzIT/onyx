@@ -6,6 +6,7 @@ export type ComponentStatus = "implemented" | "in-progress" | "planned";
 
 const props = defineProps<{
   status: ComponentStatus;
+  count?: number;
   /** If true, a status label will be shown. */
   showLabel?: boolean;
 }>();
@@ -32,7 +33,10 @@ const icons = {
 <template>
   <div class="status" :aria-label="props.showLabel ? undefined : icons[props.status].label">
     <OnyxIcon :icon="icons[props.status].icon" size="24px" :color="icons[props.status].color" />
-    <span v-if="props.showLabel">{{ icons[props.status].label }}</span>
+    <span v-if="props.showLabel">
+      {{ icons[props.status].label }}
+      <template v-if="props.count"> ({{ props.count }})</template>
+    </span>
   </div>
 </template>
 

@@ -4,7 +4,8 @@ import OnyxDatePicker from "./OnyxDatePicker.vue";
 
 /**
  * The DatePicker component can be used to select a date or date + time.
- * **Note**: For now, the calendar flyout will use the native browser calendar. This might be replaced with a custom implementation in the future.
+ *
+ * **Note: For now, the calendar flyout will use the native browser calendar. This will be replaced with a custom and more advanced implementation in the future.**
  */
 const meta: Meta<typeof OnyxDatePicker> = {
   title: "Form Elements/DatePicker",

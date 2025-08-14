@@ -12,7 +12,7 @@ export const useStore = () => {
 
   const query = new URLSearchParams(location.search);
 
-  const INITIAL_ONYX_VERSION = "beta" as const;
+  const INITIAL_ONYX_VERSION = "latest" as const;
 
   /**
    * Currently selected onyx version.
@@ -53,9 +53,9 @@ export const useStore = () => {
         mergeImportMap(importMap.value, {
           imports: {
             "sit-onyx": `https://cdn.jsdelivr.net/npm/sit-onyx@${onyxVersion.value}/dist/index.js`,
-            "@sit-onyx/icons": `https://cdn.jsdelivr.net/npm/@sit-onyx/icons@beta/dist/index.js`,
-            "@sit-onyx/flags": `https://cdn.jsdelivr.net/npm/@sit-onyx/flags@beta/dist/index.js`,
-            "@sit-onyx/shared": `https://cdn.jsdelivr.net/npm/@sit-onyx/shared@beta/dist/index.js`,
+            "@sit-onyx/icons": `https://cdn.jsdelivr.net/npm/@sit-onyx/icons@latest/dist/index.js`,
+            "@sit-onyx/flags": `https://cdn.jsdelivr.net/npm/@sit-onyx/flags@latest/dist/index.js`,
+            "@sit-onyx/shared": `https://cdn.jsdelivr.net/npm/@sit-onyx/shared@latest/dist/index.js`,
           },
         }),
       ),

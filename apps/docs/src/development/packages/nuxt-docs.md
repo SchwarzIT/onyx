@@ -74,15 +74,15 @@ Install the onyx documentation layer by running
 ::: code-group
 
 ```sh [pnpm]
-pnpm add @sit-onyx/nuxt-docs@beta
+pnpm add @sit-onyx/nuxt-docs
 ```
 
 ```sh [npm]
-npm install @sit-onyx/nuxt-docs@beta
+npm install @sit-onyx/nuxt-docs
 ```
 
 ```sh [yarn]
-yarn install @sit-onyx/nuxt-docs@beta
+yarn install @sit-onyx/nuxt-docs
 ```
 
 :::
