@@ -1,5 +1,193 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0
+
+### Major Changes
+
+- ccb1b89: feat: support Storybook 9
+
+  This package now supports (and requires) Storybook version `>= 9.0.0`. When updating, please look into the official [Storybook migration guide](https://storybook.js.org/docs/migration-guide) and make all relevant changes to your project.
+
+  In addition, the following breaking changes need to be migrate when using this `@sit-onyx/storybook-utils` package:
+
+  #### Replaced storybook-dark-mode package
+
+  The `storybook-dark-mode` package was replaced with the maintenance fork `@vueless/storybook-dark-mode`. See [this issue](https://github.com/hipstersmoothie/storybook-dark-mode/issues/295#issuecomment-2938151892) for further information. To migrate:
+  - replace `storybook-dark-mode` with `@vueless/storybook-dark-mode` in your `.storybook/main.ts` file
+  - install `@vueless/storybook-dark-mode` (as devDependency)
+  - uninstall package `storybook-dark-mode`
+
+- bf3ea0a: release beta version
+
+  🎉 onyx is now beta! There are no breaking changes to the last `1.0.0.-alpha.*` version
+
+- e0fbc12: fix(createPreview): revert unintentional breaking change
+
+  We unintentionally introduced a breaking change in version `@sit-onyx/storybook-utils@1.0.0.beta.71` that forced you to pass a required first parameter with brand details when calling `createPreview()`.
+
+  This was reverted now. The brand details are optional and can be passed as second parameter to `createPreview`.
+
+- ec217c0: chore: update Storybook dependencies
+
+  bump minimum Storybook version to `>= 8.2.0`
+
+- e2648b6: bump minimum Storybook version to `8.3.0-alpha.5`
+
+  Storybook version `8.3.0-alpha.5` now official supports the improved source code generation, see [changelog](https://github.com/storybookjs/storybook/blob/next/CHANGELOG.prerelease.md#830-alpha3) so we removed our temporarily forked source code generator from `@sit-onyx/storybook-utils`.
+
+  Therefore, the minimum Storybook version was bumped to `8.3.0-alpha.5` which also includes a bug fix that significantly reduces the bundle size when building the Storybook.
+
+- 612d117: remove support for setting theme via query parameter
+- 99b2089: use experimental source code generator
+  - port the improved source code generator from [this Storybook PR](https://github.com/storybookjs/storybook/pull/27194).
+  - globally replace onyx icons with their corresponding imports from `@sit-onyx/icons`
+
+- 1911f6c: feat(dist)!: Removed commonjs builds
+  - **BREAKING CHANGE:** We dropped commonjs (cjs) builds and packages are now shipped as a [pure esm package](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c#pure-esm-package). Node >= 18 is required.
+
+- d85b6e2: bump min `storybook-dark-mode` to `>= 4`
+- f0bcd9c: fix(background): Fix missing background color on fullscreen stories and sometimes on general page.
+
+  BREAKING CHANGE: `storybook/background` addon is not disabled anymore. If you don't plan on providing additional, custom backgrounds you should hide the background select from the toolbar:
+
+  ```ts
+  // manager.ts
+  addons.setConfig({
+    toolbar: {
+      "storybook/background": { hidden: true },
+    },
+  });
+  ```
+
+- b2b3700: - **BREAKING CHANGE**: `defineStorybookActionsAndVModels` and `defineActions` was removed: Replace by using the `withVModelDecorator` as a global decorator and the `enhanceEventArgTypes` global argTypesEnhancer.
+  - **BREAKING CHANGE**: `withVModelDecorator`: the event array parameter was removed: It is not necessary anymore to define the events manually.
+- 7332525: **BREAKING**: Removed brand defaults, `createPreview` now expects a new first parameter which requires brand details to be set.
+  **BREAKING**: Removed brand defaults, `createTheme` now requires brand details to be set, `base: "light" | "dark"` is now the secondary parameter.
+  feat: Added `getCustomProperty` function which is used to load color values for theme.
+- 980d3bc: - fix(storybook-utils): fix viewports not applied correctly
+  - remove type `StorybookBreakpoint`, use the `Viewport` type from `storybook/internal/viewport` instead
+
+### Minor Changes
+
+- 778bc7d: feat: set browser color scheme depending on selected theme
+- 48dedc3: feat: add imports for used onyx components to generated source code
+- 124ae10: feat: add breakpoints / viewports
+- bb24466: feat(storybook-utils): format code snippets with prettier
+
+  Since Storybook version 9, the code snippets are no longer formatted by Storybook itself (see [Storybook migration guide](https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#parametersdocssourceformat-removal)).
+
+  We re-added the Vue source code formatting using prettier
+
+- 4c49760: feat: add `walkTree` function that is able to traverse the storybook type tree
+- 9f7e8d1: feat: update default "onyx" theme
+- afe7e21: feat: improve code snippet generation
+- df86e6d: feat: Implemented Light-Dark mode using native CSS API. Users no longer need to import separate light and dark mode files; now, all styles are combined into a single file with the light-dark function.
+  E.g.: @import lidl-light.css; @import lidl-dark.css -> @import lidl.css
+
+  #### Renamed CSS Variables
+
+  | Old                  | New                         |
+  | -------------------- | --------------------------- |
+  | --onyx-color-steel   | --onyx-color-neutral-steel  |
+  | --onyx-color-stone   | --onyx-color-neutral-stone  |
+  | --onyx-color-steel   | --onyx-color-digits-mint    |
+  | --onyx-color-gray    | --onyx-color-kl-gray        |
+  | --onyx-color-lidl    | --onyx-color-lidl-blue      |
+  | --onyx-color-prezero | --onyx-color-prezero-green  |
+  | --onyx-color-petrol  | --onyx-color-prezero-petrol |
+  | --onyx-color-scos    | --onyx-color-scos-blue      |
+  | --onyx-color-lemon   | --onyx-color-scos-lemon     |
+  | --onyx-color-lime    | --onyx-color-scos-lime      |
+  | --onyx-color-green   | --onyx-color-system-green   |
+  | --onyx-color-orange  | --onyx-color-system-orange  |
+  | --onyx-color-purple  | --onyx-color-system-purple  |
+  | --onyx-color-red     | --onyx-color-system-red     |
+
+- a18d955: feat: update onyx icon code replacement to use JavaScript instead of raw SVG imports
+- 0142958: feat: imported font-variables from figma
+- 0429341: pass all filter parameters to withVModelDecorator filter function
+- 5d8349c: New createSymbolArgTypeEnhancer which adds description text to symbols used as default props
+- b4c466f: feat: Added createActionLoggerWrapper util
+- 889383b: feat: added withNativeEventLogging to log and document native events
+- b4d113a: feat: replace flags in source code snippets that are imported from `@sit-onyx/flags` with corresponding import statements
+- 5689fb0: feat: add onyx logo
+- abaefa6: feat: support custom onyx theme for `createPreview` and `createTheme`
+
+### Patch Changes
+
+- 56b364e: fix: generate correct code for slot bindings
+- 642dd24: remove imports from `@storybook/vue3` in favor of `@storybook/vue3-vite`
+- c7f55e5: fix(storybook): exclude unwanted controls
+
+  This includes: "ref", "ref_for", "ref_key", "class", "style", "key" and "$slots"
+
+- a190f80: fix: prevent type error when importing as library
+- 5c5bb15: docs: fix Storybook code snippets
+  - remove unnecessary new line before `import { ref } from "vue";`
+  - fix onyx component imports when component has no props, e.g. `<OnyxComponent>Test</OnyxComponent>`
+
+- 08a9d76: fix(enhanceEventArgTypes): log actions/events without "on" prefix
+- f703e4e: refactor: rename breakpoints
+
+  | Old     | New |
+  | ------- | --- |
+  | 2xsmall | 2xs |
+  | sxmall  | xs  |
+  | small   | sm  |
+  | medium  | md  |
+  | large   | lg  |
+  | xlarge  | xl  |
+
+- b9fd3bc: chore: update to Storybook 8.3
+
+  Fix Storybook peer dependency to version `>= 8.3.0` since the version we specified in `@sit-onyx/storybook-utils@1.0.0-beta.44` did not exist.
+
+- 530af96: fix: prevent unresolvable imports due to missing files
+- Updated dependencies [eb481fe]
+- Updated dependencies [79033ac]
+- Updated dependencies [80d36ec]
+- Updated dependencies [ad93142]
+- Updated dependencies [33700f9]
+- Updated dependencies [41eb73c]
+- Updated dependencies [d1df993]
+- Updated dependencies [6755052]
+- Updated dependencies [bf3ea0a]
+- Updated dependencies [9319044]
+- Updated dependencies [188c94d]
+- Updated dependencies [f6f01c6]
+- Updated dependencies [c235692]
+- Updated dependencies [0f045f0]
+- Updated dependencies [8b48c62]
+- Updated dependencies [3288513]
+- Updated dependencies [be5b415]
+- Updated dependencies [de2a1e8]
+- Updated dependencies [16723a6]
+- Updated dependencies [5a27c6a]
+- Updated dependencies [3e49c73]
+- Updated dependencies [07549b9]
+- Updated dependencies [88e1af3]
+- Updated dependencies [99b2089]
+- Updated dependencies [1911f6c]
+- Updated dependencies [d40b149]
+- Updated dependencies [c235692]
+- Updated dependencies [be50701]
+- Updated dependencies [b4d113a]
+- Updated dependencies [ad447e9]
+- Updated dependencies [cc46754]
+- Updated dependencies [fad8140]
+- Updated dependencies [e9ef809]
+- Updated dependencies [b525ca5]
+- Updated dependencies [b6b4573]
+- Updated dependencies [f471335]
+- Updated dependencies [b4d113a]
+- Updated dependencies [5ac259d]
+- Updated dependencies [00ca133]
+- Updated dependencies [ee0fcd2]
+- Updated dependencies [a18d955]
+  - @sit-onyx/icons@1.0.0
+  - @sit-onyx/flags@1.0.0
+  - @sit-onyx/shared@1.0.0
+
 ## 1.0.0-beta.102
 
 ### Minor Changes
