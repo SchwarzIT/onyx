@@ -13,15 +13,15 @@ To get started, install the npm package with your corresponding package manager:
 ::: code-group
 
 ```sh [pnpm]
-pnpm add -D @sit-onyx/icons@beta
+pnpm add -D @sit-onyx/icons
 ```
 
 ```sh [npm]
-npm install -D @sit-onyx/icons@beta
+npm install -D @sit-onyx/icons
 ```
 
 ```sh [yarn]
-yarn install -D @sit-onyx/icons@beta
+yarn install -D @sit-onyx/icons
 ```
 
 :::
@@ -33,8 +33,6 @@ Afterwards, you can import and use icons as needed. Please see the [OnyxIcon](ht
 There are two different ways of using / importing icons from this package:
 
 ### Option 1: JavaScript import <Badge text="recommended" />
-
-> **Requires @sit-onyx/icons version >= 1.0.0-beta.22**
 
 For the best developer experience, it is recommended to use JavaScript imports. This approach also supports IDE intellisense, so you can e.g. just start typing "icon" in your editor and all available icons will be suggested to you.
 
@@ -61,7 +59,7 @@ import iconPlaceholder from "@sit-onyx/icons/placeholder.svg?raw";
 You can hover over an icon to see its name. Click on it or press enter when selecting it via keyboard to copy the import statement for the selected icon.
 
 <script lang="ts" setup>
-import OnyxIconLibrary from ".vitepress/components/OnyxIconLibrary.vue"
+import OnyxIconLibrary from "./.vitepress/components/OnyxIconLibrary.vue"
 </script>
 
 <OnyxIconLibrary />
