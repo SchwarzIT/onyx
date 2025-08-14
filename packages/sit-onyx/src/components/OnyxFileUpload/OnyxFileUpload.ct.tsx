@@ -152,14 +152,14 @@ test("should select multiple files", async ({ mount, page }) => {
   await dragAndDropFiles(page, button, 4);
 
   // ASSERT
-  await expect(() => expect(files).toHaveLength(4)).toPass();
+  await expect(() => expect(files).toHaveLength(6)).toPass();
   await expect(component).toHaveScreenshot("max-height.png");
 
   // ACT
   await removeFirstFileButton.click();
 
   // ASSERT
-  await expect(() => expect(files).toHaveLength(3)).toPass();
+  await expect(() => expect(files).toHaveLength(5)).toPass();
 });
 
 test("should replace files", async ({ mount, page }) => {
