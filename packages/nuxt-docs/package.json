@@ -39,6 +39,7 @@
     "@nuxtjs/i18n": ">= 10",
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/nuxt": "workspace:^",
+    "nuxt-auth-utils": ">= 0.5.23",
     "sass-embedded": ">= 1",
     "sit-onyx": "workspace:^"
   },
@@ -55,6 +56,7 @@
     "@sit-onyx/nuxt": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
     "nuxt": "^4.0.3",
+    "nuxt-auth-utils": ">= 0.5.23",
     "sass-embedded": "catalog:",
     "sit-onyx": "workspace:^",
     "typescript": "catalog:",

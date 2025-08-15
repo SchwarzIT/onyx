@@ -2,6 +2,15 @@
 import { iconCircleContrast } from "@sit-onyx/icons";
 import type { ColorSchemeValue } from "sit-onyx";
 
+const props = withDefaults(
+  defineProps<{
+    type?: "button" | "menuItem";
+  }>(),
+  {
+    type: "button",
+  },
+);
+
 const colorMode = useColorMode();
 const isColorSchemeDialogOpen = ref(false);
 
@@ -16,12 +25,16 @@ const colorScheme = computed({
 </script>
 
 <template>
-  <OnyxIconButton
-    label="Toggle color scheme"
-    :icon="iconCircleContrast"
-    color="neutral"
-    @click="isColorSchemeDialogOpen = true"
-  />
+  <OnyxColorSchemeMenuItem v-if="props.type === 'menuItem'" v-model="colorScheme" />
 
-  <OnyxColorSchemeDialog v-model="colorScheme" v-model:open="isColorSchemeDialogOpen" />
+  <template v-else>
+    <OnyxIconButton
+      label="Toggle color scheme"
+      :icon="iconCircleContrast"
+      color="neutral"
+      @click="isColorSchemeDialogOpen = true"
+    />
+
+    <OnyxColorSchemeDialog v-model="colorScheme" v-model:open="isColorSchemeDialogOpen" />
+  </template>
 </template>

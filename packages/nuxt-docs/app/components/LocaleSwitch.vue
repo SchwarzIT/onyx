@@ -2,6 +2,15 @@
 import { iconTranslate } from "@sit-onyx/icons";
 import type { SelectDialogOption } from "sit-onyx";
 
+const props = withDefaults(
+  defineProps<{
+    type?: "button" | "menuItem";
+  }>(),
+  {
+    type: "button",
+  },
+);
+
 const { locale, setLocale, locales } = useI18n();
 const isLanguageDialogOpen = ref(false);
 
@@ -21,21 +30,30 @@ const currentLocaleLabel = computed(() => {
 </script>
 
 <template>
-  <OnyxButton
-    :label="currentLocaleLabel"
-    :icon="iconTranslate"
-    color="neutral"
-    mode="plain"
-    @click="isLanguageDialogOpen = true"
-  />
-
-  <OnyxSelectDialog
-    v-model:open="isLanguageDialogOpen"
-    :label="$t('onyx.languageSelect.headline')"
+  <OnyxLanguageMenuItem
+    v-if="props.type === 'menuItem'"
     :model-value="locale"
     :options="languageOptions"
-    @update:model-value="setLocale($event)"
-  >
-    <template #description> {{ $t("onyx.languageSelect.subtitle") }} </template>
-  </OnyxSelectDialog>
+    @update:model-value="setLocale"
+  />
+
+  <template v-else>
+    <OnyxButton
+      :label="currentLocaleLabel"
+      :icon="iconTranslate"
+      color="neutral"
+      mode="plain"
+      @click="isLanguageDialogOpen = true"
+    />
+
+    <OnyxSelectDialog
+      v-model:open="isLanguageDialogOpen"
+      :label="$t('onyx.languageSelect.headline')"
+      :model-value="locale"
+      :options="languageOptions"
+      @update:model-value="setLocale($event)"
+    >
+      <template #description> {{ $t("onyx.languageSelect.subtitle") }} </template>
+    </OnyxSelectDialog>
+  </template>
 </template>
