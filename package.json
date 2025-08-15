@@ -19,6 +19,7 @@
     "prepare": "simple-git-hooks",
     "gh:show-report": "./scripts/show-last-test-report.sh",
     "preinstall": "npx only-allow pnpm",
+    "version": "pnpm exec changeset version",
     "version:prod": "pnpm exec changeset pre exit && pnpm exec changeset version && pnpm exec changeset pre enter beta"
   },
   "devDependencies": {
