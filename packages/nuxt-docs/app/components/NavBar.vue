@@ -12,6 +12,7 @@ const slots = defineSlots<OnyxNavBarSlots>();
 const router = useRouter();
 const { locales } = useI18n();
 const localePath = useLocalePath();
+const { loggedIn } = useUserSession();
 </script>
 
 <template>
@@ -38,8 +39,9 @@ const localePath = useLocalePath();
     <template #contextArea>
       <slot name="contextArea">
         <!-- using lazy here so the locale switch code is not loaded when only one locale exists -->
-        <LazyLocaleSwitch v-if="locales.length > 1" />
-        <ColorSchemeSwitch />
+        <LazyLocaleSwitch v-if="!loggedIn && locales.length > 1" />
+        <ColorSchemeSwitch v-if="!loggedIn" />
+        <UserMenu />
       </slot>
     </template>
     <!-- eslint-enable vue/require-explicit-slots -->
