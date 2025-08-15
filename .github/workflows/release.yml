@@ -64,14 +64,22 @@ jobs:
         if: env.STAGE != 'prod'
         run: pnpm exec changeset version
 
+      - name: Determine if pre-release version
+        run: echo "IS_PRE_RELEASE_VERSION=$(cd packages/sit-onyx && pnpm pkg get version | grep -q '\-' && echo 'true' || echo 'false')" >> $GITHUB_ENV
+
       # if (prod) changesets exist, a PR will be created with the changed versions so we can review the changes before actually releasing
       # otherwise (e.g. the PR has been merged), the packages will be published to npm (if changes exist)
       - name: Create Release Pull Request or Publish to npm
         id: PublishOrCreatePR
         uses: changesets/action@v1
         with:
-          version: ${{ env.STAGE == 'prod' && 'pnpm run version:prod' || 'pnpm exec changeset version' }}
-          # publish: pnpm exec changeset publish
+          version: ${{ env.STAGE == 'prod' && 'pnpm run version:prod' || 'pnpm run version' }}
+          # we only include the publish command if either:
+          # 1. version is a pre-release version (contains a "-" dash, e.g. 1.0.0-beta.0)
+          # 2. version is a non-pre-release version AND stage is prod. This check is needed in the case a "prod" release is triggered and then the created PR is merged.
+          # In this case, the versions are "prod" versions but the automated run after the merge runs on stage "dev" by default so e.g. 1.0.0 would be published as "beta" tag
+          # which is not intended
+          publish: ${{ env.IS_PRE_RELEASE_VERSION || env.STAGE == 'prod' && 'pnpm exec changeset publish' || '' }}
           createGithubReleases: ${{ env.STAGE == 'prod' }}
           title: "release: update onyx versions and changelogs" # PR title
         env:
