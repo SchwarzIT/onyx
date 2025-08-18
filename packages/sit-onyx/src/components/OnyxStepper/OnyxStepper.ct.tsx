@@ -565,6 +565,6 @@ test("should format with formatNumber", async ({ page, mount }) => {
   const display = component.locator(".onyx-stepper__display");
   // // ASSERT
   await expect(input).toHaveValue("1000000");
-  await expect(display).toHaveText("1.000.000");
+  await expect(display).toHaveText("1,000,000");
   await expect(page).toHaveScreenshot("formatNumber.png");
 });
