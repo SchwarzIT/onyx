@@ -31,7 +31,8 @@ export type PluginOptions = {
  */
 export default function vitePluginSVG(options: PluginOptions): Plugin {
   const virtualModuleId = "virtual:vite-plugin-svg";
-  const typeDefinitionPath = "virtual__vite-plugin-svg.d.ts"; // path must not contain spaces or special characters, to work on Windows systems
+  // To work on Windows systems, the path must not contain spaces or special characters.
+  const typeDefinitionPath = "virtual__vite-plugin-svg.d.ts";
   const resolvedVirtualModuleId = "\0" + virtualModuleId;
 
   /** Gets the given path while ensuring cross-platform and correct decoding */
