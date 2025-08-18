@@ -71,7 +71,7 @@ export default function vitePluginSVG(options: PluginOptions): Plugin {
       });
 
       return {
-        code: exports.join(";\n"),
+        code: exports.join("\n"),
       };
     },
     async closeBundle() {
