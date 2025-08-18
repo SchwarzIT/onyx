@@ -73,7 +73,7 @@ const modelValue = useVModel({
  * We use string to be able to control the number of decimal places.
  */
 const inputValue = ref<string>();
-
+const displayValue = ref<string | number>();
 const getFormattedValue = computed(() => {
   return (value?: Nullable<number>) => {
     // using "!=" here to check for both undefined and null
@@ -84,9 +84,20 @@ const getFormattedValue = computed(() => {
     }
   };
 });
+const getDisplayValue = (inputNumber: number): string => {
+  if (props.formatNumber) {
+    if (typeof props.formatNumber === "boolean") {
+      return inputNumber.toLocaleString();
+    } else {
+      return props.formatNumber(inputNumber);
+    }
+  }
+  return String(inputNumber);
+};
 
 watchEffect(() => {
   inputValue.value = getFormattedValue.value(modelValue.value);
+  if (modelValue.value) displayValue.value = getDisplayValue(modelValue.value);
 });
 
 const handleClick = (direction: "stepUp" | "stepDown") => {
@@ -95,17 +106,20 @@ const handleClick = (direction: "stepUp" | "stepDown") => {
   const stepValue = (direction === "stepUp" ? 1 : -1) * props.stepSize;
   const newValue = parseFloat(getFormattedValue.value(currentValue + stepValue));
   modelValue.value = applyLimits(newValue, props.min, props.max);
+  displayValue.value = getDisplayValue(applyLimits(newValue, props.min, props.max));
 };
 
 const handleChange = () => {
   wasTouched.value = true;
-  if (inputValue.value == undefined) {
+  if (inputValue.value == undefined || inputValue.value == "") {
     modelValue.value = undefined;
+    displayValue.value = undefined;
     return;
   }
-
   inputValue.value = getFormattedValue.value(parseFloat(inputValue.value));
-  modelValue.value = parseFloat(inputValue.value);
+  const parsedValue = parseFloat(inputValue.value);
+  modelValue.value = parsedValue;
+  displayValue.value = getDisplayValue(parsedValue);
 };
 
 const incrementLabel = computed(() => t.value("stepper.increment", { stepSize: props.stepSize }));
@@ -180,6 +194,9 @@ useAutofocus(input, props);
           @keydown.up.prevent="handleClick('stepUp')"
           @keydown.down.prevent="handleClick('stepDown')"
         />
+        <p class="onyx-stepper__display" aria-hidden="true">
+          {{ displayValue }}
+        </p>
         <button
           v-if="!props.hideButtons"
           type="button"
@@ -230,6 +247,13 @@ useAutofocus(input, props);
       gap: 0;
       padding: 0;
       justify-content: space-between;
+      position: relative;
+
+      &:has(.onyx-stepper__native:focus-visible) {
+        .onyx-stepper__display {
+          display: none;
+        }
+      }
     }
 
     &__counter {
@@ -273,12 +297,31 @@ useAutofocus(input, props);
     &__native {
       -moz-appearance: textfield;
       text-align: center;
+      &:not(:focus-visible) {
+        color: transparent;
+      }
 
       &::-webkit-outer-spin-button,
       &::-webkit-inner-spin-button {
         -webkit-appearance: none;
         margin: 0;
       }
+    }
+    &__display {
+      position: absolute;
+
+      height: 100%;
+
+      pointer-events: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      box-sizing: border-box;
+      width: calc(100% - 2 * (var(--onyx-stepper-padding-vertical) * 2 + 1.5rem));
+      margin-inline: calc(var(--onyx-stepper-padding-vertical) * 2 + 1.5rem);
+      overflow: hidden;
+      white-space: nowrap;
     }
   }
 }

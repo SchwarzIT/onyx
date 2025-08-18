@@ -47,6 +47,13 @@ export type OnyxStepperProps = Omit<
    */
   hideButtons?: boolean;
   /**
+   * Controls number formatting when the input is not focused:
+   * - `true`: format number with default locale formatting (e.g. "1,000")
+   * - `false` or `undefined`: no formatting
+   * - function: custom formatter receives the numeric value and returns a string
+   */
+  formatNumber?: boolean | ((modalValue: number) => string);
+  /**
    * current number input
    */
   modelValue?: Nullable<number>;
