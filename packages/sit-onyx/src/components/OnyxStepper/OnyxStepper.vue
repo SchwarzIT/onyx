@@ -191,6 +191,7 @@ useAutofocus(input, props);
           :title="props.hideLabel ? props.label : undefined"
           v-bind="restAttrs"
           @change="handleChange"
+          @focusin="(e) => (e.target as HTMLInputElement)?.select()"
           @keydown.up.prevent="handleClick('stepUp')"
           @keydown.down.prevent="handleClick('stepDown')"
         />
