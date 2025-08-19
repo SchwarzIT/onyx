@@ -2,6 +2,7 @@
 import circleAttention from "@sit-onyx/icons/circle-attention.svg?raw";
 import { computed } from "vue";
 import { useDensity } from "../../composables/density.js";
+import { useCustomValidity } from "../../composables/useCustomValidity.js";
 import { useFileSize } from "../../composables/useFileSize.js";
 import {
   SKELETON_INJECTED_SYMBOL,
@@ -13,11 +14,19 @@ import OnyxFileTypeIcon from "../OnyxFileTypeIcon/OnyxFileTypeIcon.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLink from "../OnyxLink/OnyxLink.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
+import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import type { OnyxFileCardProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxFileCardProps>(), {
   skeleton: SKELETON_INJECTED_SYMBOL,
 });
+
+const emit = defineEmits<{
+  /**
+   * Emitted when the validity state of the input changes.
+   */
+  validityChange: [validity: ValidityState];
+}>();
 
 const slots = defineSlots<{
   /**
@@ -31,6 +40,11 @@ const { densityClass } = useDensity(props);
 const { formatFileSize } = useFileSize();
 const skeleton = useSkeletonContext(props);
 
+const customError = computed(() =>
+  props.status?.color === "danger" && props.status?.text ? props.status.text : undefined,
+);
+const { vCustomValidity } = useCustomValidity({ props, emit, customError });
+
 const link = computed(() => {
   if (!props.link) return;
   return extractLinkProps(props.link);
@@ -41,6 +55,9 @@ const link = computed(() => {
   <OnyxSkeleton v-if="skeleton" :class="['onyx-file-card-skeleton', densityClass]" />
 
   <OnyxCard v-else :class="['onyx-component', 'onyx-file-card', densityClass]">
+    <OnyxVisuallyHidden class="onyx-file-card__show-error">
+      <input v-custom-validity />
+    </OnyxVisuallyHidden>
     <div class="onyx-file-card__content">
       <div class="onyx-file-card__wrapper onyx-truncation-ellipsis">
         <div class="onyx-file-card__icon" aria-hidden="true">
@@ -124,6 +141,11 @@ const link = computed(() => {
 
 .onyx-file-card {
   @include layers.component() {
+    position: relative;
+    &__show-error {
+      bottom: var(--onyx-file-card-icon-padding);
+      left: 50%;
+    }
     &__content {
       display: flex;
       flex-direction: row;
