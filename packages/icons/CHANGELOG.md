@@ -1,5 +1,11 @@
 # @sit-onyx/icons
 
+## 1.0.0-beta.26
+
+### Patch Changes
+
+- b3cad33: fix(@sit-onyx/vite-plugin-svg): Failing module resolution on Windows systems
+
 ## 1.0.0-beta.25
 
 ### Minor Changes
