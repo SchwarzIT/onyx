@@ -88,7 +88,7 @@ test.describe("Screenshot tests (progress)", () => {
         type="application/pdf"
         size="42MiB"
         style={{ width: column === "truncated" ? "7rem" : undefined }}
-        status={{ color: "primary", text: "32%", progress: 32 }}
+        status={{ color: "primary", text: "32%", progress: { progress: 32, color: "primary" } }}
         icon={column === "custom-icon" ? mockPlaywrightIcon : undefined}
       />
     ),

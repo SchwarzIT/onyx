@@ -86,13 +86,13 @@ const link = computed(() => {
         <slot name="actions"></slot>
       </div>
     </div>
-    <div v-if="props.status?.progress" class="onyx-file-card__progress">
+    <div v-if="props.status?.progress?.progress" class="onyx-file-card__progress">
       <div
         :class="[
           'onyx-file-card__progress-bar',
-          `onyx-file-card__progress-bar--${props.status.color}`,
+          `onyx-file-card__progress-bar--${props.status.progress.color}`,
         ]"
-        :style="{ width: props.status?.progress + '%' }"
+        :style="{ width: props.status?.progress.progress + '%' }"
       ></div>
     </div>
   </OnyxCard>
@@ -217,10 +217,14 @@ const link = computed(() => {
       background: var(--onyx-color-base-neutral-200);
       &-bar {
         height: 100%;
-        transition: width 0.3s ease;
+        transition: width 0.1s ease;
         @each $color in $colors {
           &--#{$color} {
-            background-color: var(--onyx-color-text-icons-#{$color}-intense);
+            @if ($color == "neutral") {
+              background-color: var(--onyx-color-base-neutral-400);
+            } @else {
+              background-color: var(--onyx-color-text-icons-#{$color}-intense);
+            }
           }
         }
       }

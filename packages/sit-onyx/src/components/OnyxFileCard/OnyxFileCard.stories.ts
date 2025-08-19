@@ -1,7 +1,7 @@
 import { iconMoreVerticalSmall, iconTrash } from "@sit-onyx/icons";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
-import { defineIconSelectArgType } from "../../utils/storybook.js";
+import { createAdvancedStoryExample, defineIconSelectArgType } from "../../utils/storybook.js";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxFlyoutMenu from "../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxMenuItem from "../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
@@ -66,16 +66,8 @@ export const Status = {
     },
   },
 } satisfies Story;
-export const ProgressBar = {
-  args: {
-    ...Default.args,
-    status: {
-      text: "31%",
-      color: "primary",
-      progress: 31,
-    },
-  },
-} satisfies Story;
+
+export const ProgressBar = createAdvancedStoryExample("OnyxFileCard", "ProgressExample");
 
 export const Skeleton = {
   args: {

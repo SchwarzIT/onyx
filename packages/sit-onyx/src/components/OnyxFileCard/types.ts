@@ -1,6 +1,7 @@
 import type { DensityProp } from "../../composables/density.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 import type { OnyxColor } from "../../types/colors.js";
+import type { Nullable } from "../../types/utils.js";
 import type { BinaryPrefixedSize } from "../../utils/numbers.js";
 import type { OnyxFileTypeIconProps } from "../OnyxFileTypeIcon/types.js";
 import type { SharedLinkProps } from "../OnyxRouterLink/types.js";
@@ -48,5 +49,14 @@ export type FileCardStatus = {
   /**
    * Displayes the upload progress as a bar in %
    */
-  progress?: number;
+  progress?: {
+    /**
+     * Progress displayed in %
+     */
+    progress: Nullable<number>;
+    /**
+     * Progress bar color
+     */
+    color: OnyxColor;
+  };
 };
