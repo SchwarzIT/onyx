@@ -66,6 +66,16 @@ export const Status = {
     },
   },
 } satisfies Story;
+export const ProgressBar = {
+  args: {
+    ...Default.args,
+    status: {
+      text: "31%",
+      color: "primary",
+      progress: 31,
+    },
+  },
+} satisfies Story;
 
 export const Skeleton = {
   args: {

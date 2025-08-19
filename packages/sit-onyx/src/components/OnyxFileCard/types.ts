@@ -39,10 +39,14 @@ export type FileCardStatus = {
   /**
    * Status text to show.
    */
-  text: string;
+  text?: string;
   /**
    * Text color.
    * If set to "danger", an error icon will be displayed instead of the regular file icon.
    */
-  color: OnyxColor;
+  color?: OnyxColor;
+  /**
+   * Displayes the upload progress as a bar in %
+   */
+  progress?: number;
 };
