@@ -115,7 +115,7 @@ const radioOptions: RadioButtonOption[] = [
       class="onyx-grid-span-4"
       label="Example select"
       list-label="List label"
-      multiple
+      :multiple="true"
       :options="selectOptions"
       placeholder="Placeholder..."
       required
