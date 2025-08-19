@@ -2,4 +2,7 @@
 "sit-onyx": minor
 ---
 
-feat(OnyxFileCard): - added progress bar for FileCard
+feat(OnyxFileCard):
+
+- added progress bar
+- added form validation
