@@ -559,7 +559,12 @@ test("should format zero with precision", async ({ mount }) => {
 test("should format with formatNumber", async ({ page, mount }) => {
   // ARRANGE
   const component = await mount(
-    <OnyxStepper label="Label" modelValue={1000000} formatNumber={true} />,
+    <OnyxStepper
+      label="Label"
+      modelValue={1000000}
+      formatNumber={true}
+      style={{ width: "16rem" }}
+    />,
   );
   const input = component.getByLabel("Label");
   const display = component.locator(".onyx-stepper__display");
