@@ -43,7 +43,7 @@ const skeleton = useSkeletonContext(props);
 const customError = computed(() =>
   props.status?.color === "danger" && props.status?.text ? props.status.text : undefined,
 );
-const { vCustomValidity } = useCustomValidity({ props, emit, customError });
+const { vCustomValidity } = useCustomValidity({ props: {}, emit, customError });
 
 const link = computed(() => {
   if (!props.link) return;
