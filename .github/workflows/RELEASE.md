@@ -2,7 +2,7 @@
 
 We use _Trunk Based Development_ with the _[Release from trunk](https://trunkbaseddevelopment.com/release-from-trunk/)_ approach.
 
-## Prereleases vs. snapshots
+## Snapshots vs. Prereleases
 
 Every releasable commit to the default `main` branch is released automatically so the onyx team and early adopters can tests out the latest development version before the next official stable version is published.
 
@@ -11,11 +11,11 @@ There are two different approaches that are supported by changesets for this:
 1. [Prereleases](https://github.com/changesets/changesets/blob/main/docs/prereleases.md)
 2. [Snapshot releases](https://github.com/changesets/changesets/blob/main/docs/snapshot-releases.md)
 
-> Decision: We are using **snapshots** instead of pre-releases which has the following main reasons:
+> Decision: We are using **snapshots** instead of prereleases which has the following main reasons:
 
-- pre-releases require more complex setup / pipelines because it has to be entered / exited manually
-- we do not want to have changelogs for the dev releases so that they are not "spammed" by several intermediate versions. Snapshot releases support this out-of-the-box since they are NOT be merged back to the main branch (unlike pre-releases)
-- we want to be able to introduce breaking changes within the dev versions so if we implement and release a feature as dev version, we should be able to e.g. change its API before doing a regular release. Snapshot release to do not have a linear version bump like pre-releases (beta.0, beta.1 etc.) so they are ideal for this
+- prereleases require more complex setup / pipelines because it has to be entered / exited manually
+- we do not want to have changelogs for the dev releases so that they are not "spammed" by several intermediate versions. Snapshot releases support this out-of-the-box since they are NOT be merged back to the main branch (unlike prereleases)
+- we want to be able to introduce breaking changes within the dev versions so if we implement and release a feature as dev version, we should be able to e.g. change its API before doing a regular release. Snapshot release to do not have a linear version bump like prereleases (beta.0, beta.1 etc.) so they are ideal for this
 
 ## Release types
 
