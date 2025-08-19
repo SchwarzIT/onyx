@@ -31,6 +31,8 @@ export type PluginOptions = {
  */
 export default function vitePluginSVG(options: PluginOptions): Plugin {
   const virtualModuleId = "virtual:vite-plugin-svg";
+  // To work on Windows systems, the path must not contain spaces or special characters.
+  const typeDefinitionPath = "virtual__vite-plugin-svg.d.ts";
   const resolvedVirtualModuleId = "\0" + virtualModuleId;
 
   /** Gets the given path while ensuring cross-platform and correct decoding */
@@ -65,12 +67,12 @@ export default function vitePluginSVG(options: PluginOptions): Plugin {
       // to support intellisense when using the exports
       this.emitFile({
         type: "asset",
-        fileName: `${virtualModuleId}.d.ts`,
+        fileName: typeDefinitionPath,
         source: files.map(({ exportName }) => `export const ${exportName}: string`).join(";\n"),
       });
 
       return {
-        code: exports.join(";\n"),
+        code: exports.join("\n"),
       };
     },
     async closeBundle() {
@@ -83,7 +85,7 @@ export default function vitePluginSVG(options: PluginOptions): Plugin {
 
       const newContent = content.replace(
         `from '${virtualModuleId}'`,
-        `from './${virtualModuleId}.d.ts'`,
+        `from './${typeDefinitionPath}'`,
       );
 
       await this.fs.writeFile(dTsPath, newContent, { encoding: "utf8" });
