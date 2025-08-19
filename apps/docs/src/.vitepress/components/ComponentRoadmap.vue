@@ -40,11 +40,11 @@ const componentsByStatus = computed(() => {
     </p>
 
     <div class="components__legend">
-      <template v-for="(components, status) in componentsByStatus" :key="status">
+      <template v-for="(_components, status) in componentsByStatus" :key="status">
         <ComponentStatusBadge
-          v-if="components.length"
+          v-if="_components.length"
           :status="status"
-          :count="components.length"
+          :count="_components.length"
           show-label
         />
       </template>
