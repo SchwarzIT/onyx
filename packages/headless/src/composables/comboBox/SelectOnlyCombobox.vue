@@ -12,15 +12,15 @@ const selectedIndex = computed<number | undefined>(() => {
   return index !== -1 ? index : undefined;
 });
 
-const onActivateFirst = () => (activeOption.value = options[0]);
-const onActivateLast = () => (activeOption.value = options[options.length - 1]);
+const onActivateFirst = () => (activeOption.value = options[0]!);
+const onActivateLast = () => (activeOption.value = options[options.length - 1]!);
 const onActivateNext = () => {
   if (selectedIndex.value === undefined) {
     return onActivateFirst();
   }
-  activeOption.value = options[selectedIndex.value + (1 % (options.length - 1))];
+  activeOption.value = options[selectedIndex.value + (1 % (options.length - 1))]!;
 };
-const onActivatePrevious = () => (activeOption.value = options[(selectedIndex.value ?? 0) - 1]);
+const onActivatePrevious = () => (activeOption.value = options[(selectedIndex.value ?? 0) - 1]!);
 const onSelect = (newValue: string) => (selectedOption.value = newValue);
 const onToggle = () => (isExpanded.value = !isExpanded.value);
 const onTypeAhead = () => {};

@@ -146,8 +146,8 @@ const plugin: Plugin<ChartType, undefined> = {
    */
   afterInit: (chart) => {
     const darkModeObserver = new MutationObserver((mutations) => {
-      const oldClasses = mutations[0].oldValue ?? "";
-      const newClasses = (mutations[0].target as HTMLElement).className;
+      const oldClasses = mutations[0]?.oldValue ?? "";
+      const newClasses = (mutations[0]?.target as HTMLElement | undefined)?.className ?? "";
 
       const oldTheme = oldClasses.includes("dark") ? "dark" : "light";
       const newTheme = newClasses.includes("dark") ? "dark" : "light";
@@ -214,7 +214,7 @@ const COLORS = QUANTITATIVE_COLOR_STEPS.map(
 /**
  * Gets a border color.
  */
-const getBorderColor = (i: number) => getCSSVariableValue(COLORS[i % COLORS.length]);
+const getBorderColor = (i: number) => getCSSVariableValue(COLORS[i % COLORS.length]!);
 
 /**
  * Gets a background color (same as border color + 30% transparency).

@@ -26,15 +26,17 @@ export const useResizeObserver = (
   const height = ref(0);
 
   const callback: ResizeObserverCallback = (entries) => {
+    const entry = entries[0];
+
     const boxSize =
       box === "content-box"
-        ? entries[0].contentBoxSize
+        ? entry?.contentBoxSize
         : box === "border-box"
-          ? entries[0].borderBoxSize
-          : entries[0].devicePixelContentBoxSize;
+          ? entry?.borderBoxSize
+          : entry?.devicePixelContentBoxSize;
 
-    width.value = boxSize.reduce((acc, { inlineSize }) => acc + inlineSize, 0);
-    height.value = boxSize.reduce((acc, { blockSize }) => acc + blockSize, 0);
+    width.value = (boxSize ?? []).reduce((acc, { inlineSize }) => acc + inlineSize, 0);
+    height.value = (boxSize ?? []).reduce((acc, { blockSize }) => acc + blockSize, 0);
   };
 
   // ensure ResizeObserver is only called on mount to support server side rendering

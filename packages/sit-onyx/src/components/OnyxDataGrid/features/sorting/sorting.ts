@@ -52,7 +52,7 @@ export const useSorting = <TEntry extends DataGridEntry>(options?: SortOptions<T
         return customSort;
       }
       const columnType = finalConfig.find(({ key }) => col === key)?.type.name ?? "";
-      return columnType in DEFAULT_COMPARES ? DEFAULT_COMPARES[columnType] : STRING_COMPARE;
+      return columnType in DEFAULT_COMPARES ? DEFAULT_COMPARES[columnType]! : STRING_COMPARE;
     };
 
     const sortData = (data: Readonly<TEntry>[]) => {

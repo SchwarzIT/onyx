@@ -90,8 +90,8 @@ export function createAdvancedStoryExample(componentName: string, exampleName: s
   );
 
   const path = `../components/${componentName}/examples/${exampleName}.vue`;
-  const Component = allExamples[path];
-  const codeSnippet = allCodeSnippets[path];
+  const Component = allExamples[path]!;
+  const codeSnippet = allCodeSnippets[path]!;
 
   return {
     render: (args) => ({

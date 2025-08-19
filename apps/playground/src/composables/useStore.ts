@@ -36,7 +36,7 @@ export const useStore = () => {
       // we use a specific version here so if users share playground links for bug reproductions
       // the exact same onyx version is used even if there are newer versions
       if (onyxVersion.value === INITIAL_ONYX_VERSION && versions.length) {
-        onyxVersion.value = versions[0];
+        onyxVersion.value = versions[0]!;
       }
     })
     .finally(() => (isLoadingOnyxVersions.value = false));
@@ -67,7 +67,7 @@ export const useStore = () => {
         const version =
           onyxVersion.value.includes(".") || !availableOnyxVersions.value.length
             ? onyxVersion.value
-            : availableOnyxVersions.value[0];
+            : availableOnyxVersions.value[0]!;
         return { "sit-onyx": version };
       }),
     },

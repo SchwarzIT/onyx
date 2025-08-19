@@ -13,18 +13,18 @@ const selectedIndex = computed<number | undefined>(() => {
   return index !== -1 ? index : undefined;
 });
 
-const onActivateFirst = () => (activeOption.value = filteredOptions.value[0]);
+const onActivateFirst = () => (activeOption.value = filteredOptions.value[0]!);
 const onActivateLast = () =>
-  (activeOption.value = filteredOptions.value[filteredOptions.value.length - 1]);
+  (activeOption.value = filteredOptions.value[filteredOptions.value.length - 1]!);
 const onActivateNext = () => {
   if (selectedIndex.value === undefined) {
     return onActivateFirst();
   }
   activeOption.value =
-    filteredOptions.value[selectedIndex.value + (1 % (filteredOptions.value.length - 1))];
+    filteredOptions.value[selectedIndex.value + (1 % (filteredOptions.value.length - 1))]!;
 };
 const onActivatePrevious = () =>
-  (activeOption.value = filteredOptions.value[(selectedIndex.value ?? 0) - 1]);
+  (activeOption.value = filteredOptions.value[(selectedIndex.value ?? 0) - 1]!);
 const onSelect = (newValue: string) => (searchTerm.value = newValue);
 const onAutocomplete = (input: string) => (searchTerm.value = input);
 const onToggle = () => (isExpanded.value = !isExpanded.value);

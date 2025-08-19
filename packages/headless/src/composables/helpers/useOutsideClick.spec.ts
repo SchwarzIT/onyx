@@ -54,8 +54,8 @@ describe("useOutsideClick", () => {
     useOutsideClick({ inside, onOutsideClick });
     // ACT
     const event = new MouseEvent("mousedown", { bubbles: true });
-    inside[0].dispatchEvent(event);
-    inside[1].dispatchEvent(event);
+    inside[0]?.dispatchEvent(event);
+    inside[1]?.dispatchEvent(event);
     // ASSERT
     expect(onOutsideClick).not.toHaveBeenCalled();
 

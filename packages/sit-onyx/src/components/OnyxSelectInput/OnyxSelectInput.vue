@@ -70,7 +70,7 @@ const selectionCount = computed(() => {
 const selectionText = computed<string>(() => {
   const numberOfSelections = props.modelValue?.length;
   if (!props.modelValue || !numberOfSelections) return "";
-  if (numberOfSelections === 1) return props.modelValue[0];
+  if (numberOfSelections === 1) return props.modelValue[0]!;
 
   switch (props.textMode) {
     case "preview":

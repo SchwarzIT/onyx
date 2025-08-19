@@ -114,7 +114,7 @@ const densityOptions = DENSITIES.map((value: string) => ({
   skeleton: false,
 })) satisfies SelectOption[];
 
-const activeDensityOption = ref(densityOptions[1].value);
+const activeDensityOption = ref(densityOptions[1]!.value);
 
 const useSkeleton = ref(false);
 const skeletonNumber = computed(() => (useSkeleton.value ? 3 : undefined));

@@ -144,7 +144,9 @@ export const sourceCodeTransformer = async (originalSourceCode: string): Promise
   // add imports for all used onyx components
   // Set is used here to only include unique components if they are used multiple times
   const usedOnyxComponents = new Set(
-    Array.from(code.matchAll(/<(Onyx\w+)(?:\s*\/?)/g)).map((match) => match[1]),
+    Array.from(code.matchAll(/<(Onyx\w+)(?:\s*\/?)/g))
+      .map((match) => match[1])
+      .filter((match) => match != undefined),
   );
   additionalImports.set("sit-onyx", usedOnyxComponents);
 

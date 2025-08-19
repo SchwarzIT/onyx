@@ -116,7 +116,7 @@ const fileStatuses = computed((): (FileCardStatus | undefined)[] => {
  * Sets the currently selected files by considering all relevant props (e.g. replace etc.).
  */
 const setFiles = (files: File[]) => {
-  let newFiles: File | File[];
+  let newFiles: File | File[] | undefined;
 
   if (!props.multiple) {
     newFiles = files[0];
