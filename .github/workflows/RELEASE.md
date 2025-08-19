@@ -11,21 +11,16 @@ There are two different approaches that are supported by changesets for this:
 1. [Prereleases](https://github.com/changesets/changesets/blob/main/docs/prereleases.md)
 2. [Snapshot releases](https://github.com/changesets/changesets/blob/main/docs/snapshot-releases.md)
 
-> Decision: We are using **prereleases** instead of snapshot releases which has the following main reasons:
+> Decision: We are using **snapshots** instead of pre-releases which has the following main reasons:
 
-- From the [prelease docs](https://github.com/changesets/changesets/blob/main/docs/prereleases.md): "You might want to release a version of your packages before you do an actual release" which is exactly what we are looking for
-- From the [snapshot docs](https://github.com/changesets/changesets/blob/main/docs/snapshot-releases.md#what-to-do-with-the-snapshot-branch): "the snapshot is intended for installation only, not to represent the correct published state of the repo". This is NOT what we are looking for. The released development version should always represent the latest published version of our packages
-- we still want to have a changelog for the dev releases so that the changes can be tracked by the onyx team and users. However, snapshot releases are intended to NOT be merged back to the main branch so this does not work
-- Since snapshot releases are just a "snapshot" of time, they loose the relation / history to the previous stable version. Example:
-  - Current version: 1.1.0
-  - Snapshot release is created: e.g. 0.0.0-dev.DATETIMESTAMP
-  - If we now want to release the next stable minor version (which would be 1.2.0), changesets can not determine the next version automatically because the current version is 0.0.0-dev.DATETIMESTAMP, so the relation to 1.1.0 is lost
-- the changesets used while releasing the dev versions should be kept so once the next stable version should be published, changeset can generate a correct changelog with all relevant changes. This is not possible with snapshots since they will delete the changeset .md files during the publishing. Prereleases will keep the files until the next production release.
+- pre-releases require more complex setup / pipelines because it has to be entered / exited manually
+- we do not want to have changelogs for the dev releases so that they are not "spammed" by several intermediate versions. Snapshot releases support this out-of-the-box since they are NOT be merged back to the main branch (unlike pre-releases)
+- we want to be able to introduce breaking changes within the dev versions so if we implement and release a feature as dev version, we should be able to e.g. change its API before doing a regular release. Snapshot release to do not have a linear version bump like pre-releases (beta.0, beta.1 etc.) so they are ideal for this
 
 ## Release types
 
 The following release types are documented for production / stable releases.
-Prereleases are always released automatically as described above.
+Snapshots are always released automatically as described above.
 
 ### Major Releases
 
@@ -47,10 +42,10 @@ We use the [Changesets Release Action](https://github.com/changesets/action) her
 
 Example: `1.0.x`
 
-The patches / fixes are cherry-picked from the `main` branch (which is already released as pre-release) onto a dedicated release branch.
+The patches / fixes are cherry-picked from the `main` branch (which is already released as snapshot) onto a dedicated release branch.
 
-1. Assume the current stable version is 1.1.0-next.42
-2. Create a release branch `release/v1` from git tab `v1.0.0`
+1. Assume the current stable version is 1.1.0-dev.DATETIMESTAMP
+2. Create a release branch `release/v1` from git tag `v1.0.0`
 3. Cherry-pick all relevant fixes onto the `release/v1` branch. **Only patches are allowed here, not minor or major changes!**
 4. Trigger a production release for the `release/v1` branch so `1.0.1` is released
 
