@@ -323,8 +323,8 @@ useAutofocus(input, props);
     }
     &__display {
       position: absolute;
-
       height: 100%;
+      color: var(--onyx-color-text-icons-neutral-intense);
 
       pointer-events: none;
       display: flex;
