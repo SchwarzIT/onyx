@@ -110,7 +110,7 @@ const getDisplayValue = computed(() => {
 watchEffect(() => {
   const formattedNumber = getFormattedValue.value(modelValue.value);
   inputValue.value = formattedNumber;
-  displayValue.value = getDisplayValue.value(parseFloat(formattedNumber));
+  if (formattedNumber) displayValue.value = getDisplayValue.value(parseFloat(formattedNumber));
 });
 
 const handleClick = (direction: "stepUp" | "stepDown") => {
