@@ -17,7 +17,7 @@ const removeFile = (fileToRemove: File) => {
 </script>
 
 <template>
-  <div class="example-wrapper">
+  <div class="example-file-wrapper">
     <OnyxFileUpload v-model="allFiles" :multiple="true" list-type="hidden" />
     <OnyxModal v-model:open="isOpen" label="Files">
       <template #default>
@@ -52,30 +52,30 @@ const removeFile = (fileToRemove: File) => {
 </template>
 
 <style lang="scss">
-.example-wrapper {
+.example-file-wrapper {
   width: 30rem;
   .button-wrapper {
     display: flex;
     justify-content: center;
   }
-}
-.onyx-basic-dialog__content {
-  min-width: 20rem;
-  min-height: 10rem;
-}
-.open-modal-button {
-  margin: var(--onyx-density-md) 0;
-}
-.file-list {
-  padding: var(--onyx-density-sm) var(--onyx-modal-padding-inline);
-  display: flex;
-  flex-direction: column;
-  gap: var(--onyx-density-sm);
-  &--empty {
-    height: 100%;
+  .onyx-basic-dialog__content {
+    min-width: 20rem;
+    min-height: 10rem;
+  }
+  .open-modal-button {
+    margin: var(--onyx-density-md) 0;
+  }
+  .file-list {
+    padding: var(--onyx-density-sm) var(--onyx-modal-padding-inline);
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    gap: var(--onyx-density-sm);
+    &--empty {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 }
 </style>

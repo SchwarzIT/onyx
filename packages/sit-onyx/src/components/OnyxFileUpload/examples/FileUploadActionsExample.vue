@@ -43,7 +43,7 @@ const removeFile = (fileToRemove: File) => {
   </OnyxFileUpload>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .example-file-upload {
   width: 30rem;
 }
