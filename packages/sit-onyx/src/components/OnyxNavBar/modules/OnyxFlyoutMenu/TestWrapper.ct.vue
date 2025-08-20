@@ -5,7 +5,9 @@ import OnyxMenuItem from "../OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxFlyoutMenu from "./OnyxFlyoutMenu.vue";
 import type { OnyxFlyoutMenuProps } from "./types.js";
 
-const props = defineProps<OnyxFlyoutMenuProps>();
+const props = withDefaults(defineProps<OnyxFlyoutMenuProps>(), {
+  open: undefined,
+});
 </script>
 
 <template>

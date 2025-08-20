@@ -20,6 +20,18 @@ const { t } = injectI18n();
 
 const { rootAttrs, restAttrs } = useRootAttrs();
 
+const props = withDefaults(defineProps<OnyxMenuItemProps>(), {
+  active: "auto",
+  open: undefined,
+});
+
+const emit = defineEmits<{
+  /**
+   * Emitted when the open state should update.
+   */
+  "update:open": [value: NullableBoolean];
+}>();
+
 const slots = defineSlots<{
   /**
    * Button/link text and additional inline content.
@@ -29,17 +41,6 @@ const slots = defineSlots<{
    * Children menuitems.
    */
   children(): unknown;
-}>();
-
-const props = withDefaults(defineProps<OnyxMenuItemProps>(), {
-  active: "auto",
-});
-
-const emit = defineEmits<{
-  /**
-   * Emitted when the open state should update.
-   */
-  "update:open": [value: NullableBoolean];
 }>();
 
 /**

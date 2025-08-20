@@ -13,6 +13,7 @@ const props = defineProps<{
   /** We don't show an error if the content is not interactive */
   disabled?: boolean;
 }>();
+
 defineSlots<{
   /**
    * Any component. Will be wrapped in an OnyxTooltip showing
