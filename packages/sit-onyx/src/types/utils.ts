@@ -98,6 +98,6 @@ export type Nullable<T = never> = T | undefined | null;
 /**
  * A boolean type that can also be null or undefined.
  *
- * @deprecated TODO: replace with `Nullable<boolean>` once https://github.com/SchwarzIT/onyx/issues/2741 is fixed
+ * @deprecated TODO: delete this type and replace with `Nullable<boolean>` once https://github.com/SchwarzIT/onyx/issues/2741 is fixed
  */
 export type NullableBoolean = boolean | undefined | null;
