@@ -16,6 +16,7 @@ import type { OnyxFABProps } from "./types.js";
 const props = withDefaults(defineProps<OnyxFABProps>(), {
   alignment: "right",
   skeleton: SKELETON_INJECTED_SYMBOL,
+  open: undefined,
 });
 
 const emit = defineEmits<{

@@ -188,6 +188,8 @@ const currentProgressStep = ref(3);
       </OnyxSidebar>
     </template>
 
+    <OnyxBasicDialog modal label="">Dialog</OnyxBasicDialog>
+
     <div :class="`onyx-density-${activeDensityOption}`">
       <section class="page__intro">
         <OnyxHeadline is="h1" :skeleton="false">Component usages</OnyxHeadline>
@@ -396,11 +398,7 @@ const currentProgressStep = ref(3);
           color="primary"
         />
         <OnyxTag v-if="show('OnyxTag')" label="Example interactive tag" clickable="clickable" />
-        <OnyxFilterTag
-          v-if="show('OnyxTag')"
-          label="Example filter tag"
-          clickable="remove Filter"
-        />
+        <OnyxFilterTag v-if="show('OnyxTag')" label="Example filter tag" />
 
         <OnyxTextarea
           v-if="show('OnyxTextarea')"
