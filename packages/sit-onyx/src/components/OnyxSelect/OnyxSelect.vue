@@ -182,14 +182,14 @@ const filteredOptions = computed(() => {
 const isMultiple = computed(() => {
   // currently there is a Vue bug that when setting multiple as boolean shorthand, e.g. "<OnyxSelect multiple />"
   // it is not applied correctly and instead passed as empty string
-  // see: https://github.com/SchwarzIT/onyx/issues/2741
+  // see: https://github.com/SchwarzIT/onyx/issues/3958
   return props.multiple || (props.multiple as typeof props.multiple | string) === "";
 });
 
 const hasCheckAll = computed(() => {
   // currently there is a Vue bug that when setting withCheckAll as boolean shorthand, e.g. "<OnyxSelect with-check-all />"
   // it is not applied correctly and instead passed as empty string
-  // see: https://github.com/SchwarzIT/onyx/issues/2741
+  // see: https://github.com/SchwarzIT/onyx/issues/3958
   return props.withCheckAll || (props.withCheckAll as typeof props.withCheckAll | string) === "";
 });
 

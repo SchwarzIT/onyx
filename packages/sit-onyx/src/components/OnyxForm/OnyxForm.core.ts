@@ -102,7 +102,7 @@ export type FORM_INJECTED = symbol; // we can't use `typeof FORM_INJECTED_SYMBOL
 export type FormInjected<T> = T | FORM_INJECTED;
 
 /**
- * @deprecated TODO: delete this type and replace with `Nullable<boolean>` once https://github.com/SchwarzIT/onyx/issues/2741 is fixed
+ * @deprecated TODO: delete this type and replace with `Nullable<boolean>` once https://github.com/SchwarzIT/onyx/issues/3958 is fixed
  */
 export type FormInjectedBoolean = boolean | FORM_INJECTED;
 
