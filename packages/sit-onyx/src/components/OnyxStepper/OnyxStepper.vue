@@ -108,8 +108,7 @@ const getDisplayValue = computed(() => {
 });
 
 watchEffect(() => {
-  const formattedNumber = getFormattedValue.value(modelValue.value);
-  inputValue.value = formattedNumber;
+  inputValue.value = getFormattedValue.value(modelValue.value);
 });
 
 const handleClick = (direction: "stepUp" | "stepDown") => {
@@ -127,8 +126,7 @@ const handleChange = () => {
     return;
   }
   inputValue.value = getFormattedValue.value(parseFloat(inputValue.value));
-  const parsedValue = parseFloat(inputValue.value);
-  modelValue.value = parsedValue;
+  modelValue.value = parseFloat(inputValue.value);
 };
 
 const incrementLabel = computed(() => t.value("stepper.increment", { stepSize: props.stepSize }));
