@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.299
+
+### Minor Changes
+
+- 5c4d84f: feat(OnyxStepper): implement formatNumber, which is shonw if the stepper is not focused
+
 ## 1.0.0-beta.298
 
 ### Patch Changes
