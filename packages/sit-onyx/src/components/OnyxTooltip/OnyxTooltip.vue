@@ -4,7 +4,6 @@ import {
   computed,
   nextTick,
   onMounted,
-  ref,
   shallowRef,
   toValue,
   useId,
@@ -20,7 +19,9 @@ import { useAnchorPositionPolyfill } from "../../composables/useAnchorPositionPo
 import { useOpenAlignment } from "../../composables/useOpenAlignment.js";
 import { useOpenDirection } from "../../composables/useOpenDirection.js";
 import { useResizeObserver } from "../../composables/useResizeObserver.js";
+import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
+import type { Nullable } from "../../types/utils.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxTooltipProps } from "./types.js";
 
@@ -41,10 +42,17 @@ const props = withDefaults(defineProps<OnyxTooltipProps>(), {
   color: "neutral",
   position: "auto",
   fitParent: false,
-  open: "hover",
+  trigger: "hover",
   alignment: "auto",
   alignsWithEdge: false,
 });
+
+const emit = defineEmits<{
+  /**
+   * Emitted when the open state of the tooltip changes.
+   */
+  "update:open": [open: Nullable<boolean>];
+}>();
 
 defineSlots<{
   /**
@@ -66,28 +74,28 @@ defineSlots<{
 const { densityClass } = useDensity(props);
 const { t } = injectI18n();
 
-const _isVisible = ref(false);
-const isVisible = computed({
-  set: (newVal) => (_isVisible.value = newVal),
-  get: () => (typeof props.open === "boolean" ? props.open : _isVisible.value),
+const isVisible = useVModel({
+  props,
+  emit,
+  key: "open",
+  default: false,
 });
 
 const tooltipOptions = computed<CreateTooltipOptions>(() => ({
   debounce: 200,
-  ...((typeof props.open === "object" && props.open.type === "hover" && props.open) || {}),
+  ...((typeof props.trigger === "object" && props.trigger.type === "hover" && props.trigger) || {}),
   isVisible,
 }));
 
 const toggletipOptions = computed<CreateToggletipOptions>(() => ({
   toggleLabel: t.value(`tooltip.${props.color}`),
-  ...((typeof props.open === "object" && props.open.type === "click" && props.open) || {}),
+  ...((typeof props.trigger === "object" && props.trigger.type === "click" && props.trigger) || {}),
   isVisible,
 }));
 
-const type = computed(() => {
-  if (typeof props.open === "object") return props.open.type;
-  if (typeof props.open === "string") return props.open;
-  return "hover";
+const triggerType = computed(() => {
+  if (typeof props.trigger === "object") return props.trigger.type;
+  return props.trigger;
 });
 const toolTipPosition = computed(() =>
   props.position === "auto" ? openDirection.value : props.position,
@@ -113,15 +121,15 @@ const positionAndAlignment = computed(() => {
 });
 
 const createPattern = () =>
-  type.value === "hover"
+  triggerType.value === "hover"
     ? createTooltip(tooltipOptions.value)
     : createToggletip(toggletipOptions.value);
 
 const ariaPattern = shallowRef(createPattern());
-watch(type, () => (ariaPattern.value = createPattern()));
+watch(triggerType, () => (ariaPattern.value = createPattern()));
 
 const tooltip = computed(() => ariaPattern.value?.elements.tooltip);
-const trigger = computed(() => toValue<object>(ariaPattern.value?.elements.trigger));
+const triggerElementProps = computed(() => toValue<object>(ariaPattern.value?.elements.trigger));
 const alignsWithEdge = computed(() => props.alignsWithEdge);
 const fitParent = computed(() => props.fitParent);
 
@@ -238,7 +246,7 @@ const tooltipStyles = computed(() => {
       </div>
     </div>
 
-    <slot :trigger="trigger"></slot>
+    <slot :trigger="triggerElementProps"></slot>
   </div>
 </template>
 

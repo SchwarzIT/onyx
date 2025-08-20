@@ -2,7 +2,7 @@ import type { MaybeRefOrGetter } from "vue";
 import type { DensityProp } from "../../composables/density.js";
 import type { AnchorPosition } from "../../composables/useAnchorPositionPolyfill.js";
 import type { OpenAlignment } from "../../composables/useOpenAlignment.js";
-import type { OnyxColor } from "../../types/index.js";
+import type { Nullable, OnyxColor } from "../../types/index.js";
 
 export type TooltipOptions = {
   /**
@@ -25,6 +25,9 @@ export type OnyxTooltipProps = DensityProp & {
    * Optional icon to show on the left of the text.
    */
   icon?: string;
+  /**
+   * Tooltip color.
+   */
   color?: Extract<OnyxColor, "neutral" | "danger" | "success">;
   /**
    * How to position the tooltip relative to the parent element.
@@ -40,15 +43,19 @@ export type OnyxTooltipProps = DensityProp & {
    */
   fitParent?: boolean;
   /**
-   * How to open/trigger the tooltip. You can set a boolean to force show/hide the tooltip.
-   * When open is not the default value `hover`, the component will act as an "toggletip":
-   * - tooltip: Describes the associated element
-   * - toggletip: Gives additional information about in the current context
+   * Whether the tooltip is currently open/visible. If unset, the state will be managed internally.
+   */
+  open?: Nullable<boolean>;
+  /**
+   * Whether the tooltip is triggered on hover or click. Can also be an object with additional options.
+   *
+   * - hover: tooltip - describes the associated element
+   * - click: toggletip - gives additional information about in the current context
    *
    * The "toggletip" is implemented using an aria-live region.
    * See also: https://inclusive-components.design/tooltips-toggletips/
    */
-  open?: TooltipOpen;
+  trigger?: TooltipTrigger;
   /**
    * Determines whether the tooltip aligns with the edge of the parent element,
    * depending on the specified alignment.
@@ -59,10 +66,10 @@ export type OnyxTooltipProps = DensityProp & {
    */
   withoutWedge?: boolean;
 };
-export type TooltipOpen =
+
+export type TooltipTrigger =
   | "hover"
   | "click"
-  | boolean
   | ({
       type: "hover";
     } & Partial<TooltipOptions>)
