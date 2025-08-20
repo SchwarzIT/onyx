@@ -72,10 +72,11 @@
   <template>
     <!-- OLD -->
     <OnyxComponent :open="isOpen" @close="isOpen = false" />
-    <OnyxComponent open @close="onClose" />
+    <OnyxComponent :open="isOpen" @close="onClose" />
+
     <!-- is now NEW -->
     <OnyxComponent v-model:open="isOpen" />
-    <OnyxComponent open @update:open="$event && onClose($event)" />
+    <OnyxComponent :open="isOpen" @update:open="!$event && onClose()" />
   </template>
   ```
 
