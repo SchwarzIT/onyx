@@ -42,7 +42,7 @@ const emit = defineEmits<{
   "update:modelValue": [value?: Nullable<number>];
 }>();
 
-const { t } = injectI18n();
+const { t, locale } = injectI18n();
 const input = useTemplateRef("inputRef");
 
 const { disabled, showError } = useFormContext(props);
@@ -73,7 +73,7 @@ const modelValue = useVModel({
  * We use string to be able to control the number of decimal places.
  */
 const inputValue = ref<string>();
-const displayValue = ref<string | number>();
+const displayValue = computed(() => getDisplayValue.value(modelValue.value));
 const getFormattedValue = computed(() => {
   return (value?: Nullable<number>) => {
     // using "!=" here to check for both undefined and null
@@ -90,12 +90,12 @@ const getDisplayValue = computed(() => {
     if (props.formatNumber) {
       if (typeof props.formatNumber === "boolean") {
         if (props.precision) {
-          return value.toLocaleString(undefined, {
+          return value.toLocaleString(locale.value, {
             minimumFractionDigits: props.precision,
             maximumFractionDigits: props.precision,
           });
         }
-        return value.toLocaleString();
+        return value.toLocaleString(locale.value);
       } else {
         return props.formatNumber(value);
       }
@@ -110,7 +110,6 @@ const getDisplayValue = computed(() => {
 watchEffect(() => {
   const formattedNumber = getFormattedValue.value(modelValue.value);
   inputValue.value = formattedNumber;
-  if (formattedNumber) displayValue.value = getDisplayValue.value(parseFloat(formattedNumber));
 });
 
 const handleClick = (direction: "stepUp" | "stepDown") => {
@@ -119,20 +118,17 @@ const handleClick = (direction: "stepUp" | "stepDown") => {
   const stepValue = (direction === "stepUp" ? 1 : -1) * props.stepSize;
   const newValue = parseFloat(getFormattedValue.value(currentValue + stepValue));
   modelValue.value = applyLimits(newValue, props.min, props.max);
-  displayValue.value = getDisplayValue.value(applyLimits(newValue, props.min, props.max));
 };
 
 const handleChange = () => {
   wasTouched.value = true;
-  if (inputValue.value === undefined || inputValue.value === null || inputValue.value === "") {
+  if (inputValue.value == undefined) {
     modelValue.value = undefined;
-    displayValue.value = undefined;
     return;
   }
   inputValue.value = getFormattedValue.value(parseFloat(inputValue.value));
   const parsedValue = parseFloat(inputValue.value);
   modelValue.value = parsedValue;
-  displayValue.value = getDisplayValue.value(parsedValue);
 };
 
 const incrementLabel = computed(() => t.value("stepper.increment", { stepSize: props.stepSize }));
