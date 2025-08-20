@@ -525,7 +525,6 @@ test("should switch to mobile correctly", async ({ mount, page }) => {
   ] as TestCase[];
 
   for (const { setting, expectedMobile, viewportWidth } of testCases) {
-    // eslint-disable-next-line playwright/no-conditional-in-test -- conditional is only used in test title
     await test.step(`should${expectedMobile ? "" : " not"} render in mobile for mobile prop "${setting}" and a viewport width of ${viewportWidth}px`, async () => {
       await page.setViewportSize({ width: viewportWidth, height: 400 });
       await component.update({

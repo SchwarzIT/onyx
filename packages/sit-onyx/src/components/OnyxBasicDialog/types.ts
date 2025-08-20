@@ -1,5 +1,5 @@
 import type { DensityProp } from "../../composables/density.js";
-import type { Nullable } from "../../types/index.js";
+import type { NullableBoolean } from "../../types/index.js";
 
 export type OnyxBasicDialogProps = DensityProp & {
   /**
@@ -9,7 +9,7 @@ export type OnyxBasicDialogProps = DensityProp & {
   /**
    * Whether the dialog is open.
    */
-  open?: Nullable<boolean>;
+  open?: NullableBoolean;
   /**
    * Whether the dialog is a modal.
    * If `true`, interaction with the rest of the page is prevented and a backdrop is displayed.

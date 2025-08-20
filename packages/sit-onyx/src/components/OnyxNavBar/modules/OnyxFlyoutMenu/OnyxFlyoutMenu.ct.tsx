@@ -158,9 +158,7 @@ test.describe("Disabled Screenshot tests", () => {
 
 test("should behave correctly with nested items (via mouse)", async ({ page, mount }) => {
   // ARRANGE
-  await mount(TestWrapperNestedCt, {
-    props: { label: "Choose item" },
-  });
+  await mount(<TestWrapperNestedCt />);
 
   const trigger = page.getByRole("button", { name: "Trigger" });
   const firstItem = page.getByRole("menuitem", { name: "Item 1", exact: true });

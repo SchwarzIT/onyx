@@ -174,21 +174,21 @@ const currentProgressStep = ref(3);
 
           <OnyxSwitch v-model="useSkeleton" label="All as Skeleton" :skeleton="false" />
 
-          <!-- eslint-disable vue/prefer-true-attribute-shorthand -- shorthand does not work here, see: https://github.com/SchwarzIT/onyx/issues/2741 -->
           <OnyxSelect
             v-model="componentsToShow"
             :options="configOptions"
             label="Visible examples"
             list-label="Available components"
             text-mode="preview"
-            :multiple="true"
-            :with-check-all="true"
+            multiple
+            with-check-all
             with-search
           />
-          <!-- eslint-enable vue/prefer-true-attribute-shorthand -->
         </div>
       </OnyxSidebar>
     </template>
+
+    <OnyxBasicDialog modal label="">Dialog</OnyxBasicDialog>
 
     <div :class="`onyx-density-${activeDensityOption}`">
       <section class="page__intro">
@@ -398,11 +398,7 @@ const currentProgressStep = ref(3);
           color="primary"
         />
         <OnyxTag v-if="show('OnyxTag')" label="Example interactive tag" clickable="clickable" />
-        <OnyxFilterTag
-          v-if="show('OnyxTag')"
-          label="Example filter tag"
-          clickable="remove Filter"
-        />
+        <OnyxFilterTag v-if="show('OnyxTag')" label="Example filter tag" />
 
         <OnyxTextarea
           v-if="show('OnyxTextarea')"

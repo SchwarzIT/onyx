@@ -15,6 +15,9 @@ export type OnyxSelectInputProps = Omit<SharedFormElementProps, "maxlength" | "w
    *            A number-badge appears next to it including a tooltip with all selected names.
    */
   textMode?: MultiselectTextMode;
+  /**
+   * Whether to hide the check icon when the input is in a success state.
+   */
   hideSuccessIcon?: boolean;
   /**
    * Highlight input as if it has focus.

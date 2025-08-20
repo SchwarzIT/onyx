@@ -7,7 +7,7 @@ import {
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
-import type { Nullable } from "../../types/index.js";
+import type { NullableBoolean } from "../../types/index.js";
 import { mergeVueProps } from "../../utils/attrs.js";
 import OnyxFABButton from "../OnyxFABButton/OnyxFABButton.vue";
 import OnyxFlyoutMenu from "../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
@@ -16,13 +16,14 @@ import type { OnyxFABProps } from "./types.js";
 const props = withDefaults(defineProps<OnyxFABProps>(), {
   alignment: "right",
   skeleton: SKELETON_INJECTED_SYMBOL,
+  open: undefined,
 });
 
 const emit = defineEmits<{
   /**
    * Emitted when the isExpanded state changes.
    */
-  "update:open": [value?: Nullable<boolean>];
+  "update:open": [value?: NullableBoolean];
 }>();
 
 const slots = defineSlots<{

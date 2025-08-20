@@ -1,4 +1,4 @@
-import type { Nullable } from "../../../../types/index.js";
+import type { NullableBoolean } from "../../../../types/index.js";
 import type { WithLinkProp } from "../../../OnyxRouterLink/types.js";
 
 export type OnyxNavItemProps = WithLinkProp<true> & {
@@ -16,5 +16,5 @@ export type OnyxNavItemProps = WithLinkProp<true> & {
   /**
    * Controls whether child elements are open.
    */
-  open?: Nullable<boolean>;
+  open?: NullableBoolean;
 };

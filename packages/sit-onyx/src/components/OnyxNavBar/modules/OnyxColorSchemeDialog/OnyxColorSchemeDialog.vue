@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed } from "vue";
 import { injectI18n } from "../../../../i18n/index.js";
-import type { Nullable } from "../../../../types/utils.js";
+import type { NullableBoolean } from "../../../../types/utils.js";
 import OnyxSelectDialog from "../../../OnyxSelectDialog/OnyxSelectDialog.vue";
 import type { SelectDialogOption } from "../../../OnyxSelectDialog/types.js";
 import autoImage from "./auto.svg?raw";
@@ -21,7 +21,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the dialog should be closed.
    */
-  "update:open": [value: Nullable<boolean>];
+  "update:open": [value: NullableBoolean];
 }>();
 
 const { t } = injectI18n();

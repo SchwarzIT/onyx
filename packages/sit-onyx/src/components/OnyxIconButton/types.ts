@@ -2,7 +2,7 @@ import type { DensityProp } from "../../composables/density.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 import type { AutofocusProp } from "../../types/index.js";
 import type { ButtonColor, ButtonType, OnyxButtonProps } from "../OnyxButton/types.js";
-import type { FormInjected } from "../OnyxForm/OnyxForm.core.js";
+import type { FormInjectedBoolean } from "../OnyxForm/OnyxForm.core.js";
 
 export type OnyxIconButtonProps = DensityProp &
   AutofocusProp &
@@ -14,7 +14,7 @@ export type OnyxIconButtonProps = DensityProp &
     /**
      * If the button should be disabled or not.
      */
-    disabled?: FormInjected<boolean>;
+    disabled?: FormInjectedBoolean;
     /**
      * The button type.
      */
