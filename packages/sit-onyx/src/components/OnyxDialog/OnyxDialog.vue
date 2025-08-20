@@ -108,8 +108,7 @@ const { densityClass } = useDensity(props);
       align-items: center;
       gap: inherit;
       position: relative;
-      left: 50%;
-      transform: translateX(-50%);
+      margin: 0 auto;
     }
 
     &__body {
