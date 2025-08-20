@@ -3,7 +3,7 @@
 // to easily switch between mobile and desktop layout
 import { useVModel } from "../../../../composables/useVModel.js";
 import { injectI18n } from "../../../../i18n/index.js";
-import type { Nullable, SelectOptionValue } from "../../../../types/index.js";
+import type { NullableBoolean, SelectOptionValue } from "../../../../types/index.js";
 import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
 import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 
@@ -16,7 +16,7 @@ const props = withDefaults(
     /**
      * Controls whether the flyout menu is open.
      */
-    flyoutOpen?: Nullable<boolean>;
+    flyoutOpen?: NullableBoolean;
     /**
      * Whether the flyout is disabled and can not be opened.
      */
@@ -30,7 +30,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the state of flyoutOpen changes.
    */
-  "update:flyoutOpen": [value?: Nullable<boolean>];
+  "update:flyoutOpen": [value?: NullableBoolean];
 }>();
 
 /**

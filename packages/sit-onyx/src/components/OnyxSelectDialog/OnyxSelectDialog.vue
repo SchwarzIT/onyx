@@ -1,7 +1,7 @@
 <script lang="ts" setup generic="TValue extends string">
 import { ref, useId, watchEffect } from "vue";
 import { injectI18n } from "../../i18n/index.js";
-import type { Nullable } from "../../types/index.js";
+import type { NullableBoolean } from "../../types/index.js";
 import OnyxBottomBar from "../OnyxBottomBar/OnyxBottomBar.vue";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxCard from "../OnyxCard/OnyxCard.vue";
@@ -22,7 +22,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the dialog should be closed.
    */
-  "update:open": [open: Nullable<boolean>];
+  "update:open": [open: NullableBoolean];
 }>();
 
 const slots = defineSlots<{

@@ -2,7 +2,7 @@ import type { DensityProp } from "../../composables/density.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 import type { Nullable } from "../../types/utils.js";
 import type { BinaryPrefixedSize } from "../../utils/numbers.js";
-import type { FormInjected } from "../OnyxForm/OnyxForm.core.js";
+import type { FormInjectedBoolean } from "../OnyxForm/OnyxForm.core.js";
 import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
 
 export type OnyxFileUploadProps<TMultiple extends boolean> = DensityProp &
@@ -54,7 +54,7 @@ export type OnyxFileUploadProps<TMultiple extends boolean> = DensityProp &
     /**
      * Whether the upload is disabled.
      */
-    disabled?: FormInjected<boolean>;
+    disabled?: FormInjectedBoolean;
     /**
      * The size of the upload container
      * @default large

@@ -7,7 +7,7 @@ import {
 } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
-import type { Nullable } from "../../types/index.js";
+import type { NullableBoolean } from "../../types/index.js";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
 import type { OnyxTagProps } from "../OnyxTag/types.js";
 
@@ -17,7 +17,7 @@ const props = withDefaults(
       /**
        * If `true` the filter is selected, shows an 'x' icon and can be removed on click.
        */
-      active?: Nullable<boolean>;
+      active?: NullableBoolean;
     }
   >(),
   {
@@ -27,7 +27,7 @@ const props = withDefaults(
 
 const emit = defineEmits<{
   /** Emitted when the active state changes. */
-  "update:active": [value: Nullable<boolean>];
+  "update:active": [value: NullableBoolean];
 }>();
 
 const { t } = injectI18n();

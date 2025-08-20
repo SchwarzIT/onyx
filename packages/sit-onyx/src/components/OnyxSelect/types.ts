@@ -3,9 +3,10 @@ import type {
   AutofocusProp,
   BaseSelectOption,
   Nullable,
+  NullableBoolean,
   SelectOptionValue,
 } from "../../types/index.js";
-import type { FormInjected } from "../OnyxForm/OnyxForm.core.js";
+import type { FormInjectedBoolean } from "../OnyxForm/OnyxForm.core.js";
 import type { OnyxSelectInputProps } from "../OnyxSelectInput/types.js";
 import type { OnyxSelectOptionProps } from "../OnyxSelectOption/types.js";
 
@@ -48,11 +49,10 @@ export type OnyxSelectProps<
               label?: string;
             }
       : never;
-
     /**
      * Whether the select should be disabled.
      */
-    disabled?: FormInjected<boolean>;
+    disabled?: FormInjectedBoolean;
     /**
      * Label that will be shown in the input of OnyxSelect.
      * If unset, will be managed internally by comparing `modelValue` with `options`.
@@ -84,7 +84,6 @@ export type OnyxSelectProps<
      * If you want to use a button instead, use the `optionsEnd` slot.
      */
     lazyLoading?: SelectLazyLoading;
-
     /**
      * Whether to preserve the selection order when reopening the dropdown.
      */
@@ -94,7 +93,13 @@ export type OnyxSelectProps<
      * Currently selected options. Can be either a single value or an array of values.
      */
     modelValue?: Nullable<TModelValue>;
-    open?: Nullable<boolean>;
+    /**
+     * Whether the flyout is currently open.
+     */
+    open?: NullableBoolean;
+    /**
+     * Current search term when `withSearch` is enabled.
+     */
     searchTerm?: Nullable<string>;
   };
 

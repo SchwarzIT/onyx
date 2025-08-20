@@ -3,7 +3,7 @@
 import { createMenuButton } from "@sit-onyx/headless";
 import { computed, ref, type ComponentInstance, type VNodeRef } from "vue";
 import { useVModel } from "../../../../composables/useVModel.js";
-import type { Nullable } from "../../../../types/index.js";
+import type { NullableBoolean } from "../../../../types/index.js";
 import { mergeVueProps } from "../../../../utils/attrs.js";
 import OnyxBasicPopover from "../../../OnyxBasicPopover/OnyxBasicPopover.vue";
 import type { OnyxFlyoutMenuProps } from "./types.js";
@@ -18,7 +18,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the isExpanded state changes.
    */
-  "update:open": [value?: Nullable<boolean>];
+  "update:open": [value?: NullableBoolean];
 }>();
 
 /**
