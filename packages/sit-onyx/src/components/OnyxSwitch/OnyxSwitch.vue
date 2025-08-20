@@ -25,6 +25,7 @@ const props = withDefaults(defineProps<OnyxSwitchProps>(), {
   truncation: "ellipsis",
   requiredMarker: FORM_INJECTED_SYMBOL,
   skeleton: SKELETON_INJECTED_SYMBOL,
+  showError: FORM_INJECTED_SYMBOL,
   modelValue: undefined,
 });
 
