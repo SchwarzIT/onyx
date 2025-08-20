@@ -56,7 +56,7 @@ const link = computed(() => {
 
   <OnyxCard v-else :class="['onyx-component', 'onyx-file-card', densityClass]">
     <OnyxVisuallyHidden class="onyx-file-card__show-error">
-      <input v-custom-validity />
+      <input v-custom-validity aria-label="form-validation" tabindex="-1" />
     </OnyxVisuallyHidden>
     <div class="onyx-file-card__content">
       <div class="onyx-file-card__wrapper onyx-truncation-ellipsis">
@@ -145,6 +145,7 @@ const link = computed(() => {
     &__show-error {
       bottom: var(--onyx-file-card-icon-padding);
       left: 50%;
+      pointer-events: none;
     }
     &__content {
       display: flex;
