@@ -42,7 +42,7 @@ const emit = defineEmits<{
   "update:modelValue": [value?: Nullable<number>];
 }>();
 
-const { t } = injectI18n();
+const { t, locale } = injectI18n();
 const input = useTemplateRef("inputRef");
 
 const { disabled, showError } = useFormContext(props);
@@ -73,7 +73,7 @@ const modelValue = useVModel({
  * We use string to be able to control the number of decimal places.
  */
 const inputValue = ref<string>();
-
+const displayValue = computed(() => getDisplayValue.value(modelValue.value));
 const getFormattedValue = computed(() => {
   return (value?: Nullable<number>) => {
     // using "!=" here to check for both undefined and null
@@ -82,6 +82,28 @@ const getFormattedValue = computed(() => {
     } else {
       return value?.toString() ?? "";
     }
+  };
+});
+const getDisplayValue = computed(() => {
+  return (value: Nullable<number>) => {
+    if (value == undefined) return "";
+    if (props.formatNumber) {
+      if (typeof props.formatNumber === "boolean") {
+        if (props.precision) {
+          return value.toLocaleString(locale.value, {
+            minimumFractionDigits: props.precision,
+            maximumFractionDigits: props.precision,
+          });
+        }
+        return value.toLocaleString(locale.value);
+      } else {
+        return props.formatNumber(value);
+      }
+    }
+    if (props.precision) {
+      return roundToPrecision(value, props.precision);
+    }
+    return String(value);
   };
 });
 
@@ -103,7 +125,6 @@ const handleChange = () => {
     modelValue.value = undefined;
     return;
   }
-
   inputValue.value = getFormattedValue.value(parseFloat(inputValue.value));
   modelValue.value = parseFloat(inputValue.value);
 };
@@ -177,9 +198,13 @@ useAutofocus(input, props);
           :title="props.hideLabel ? props.label : undefined"
           v-bind="restAttrs"
           @change="handleChange"
+          @focusin="(e) => (e.target as HTMLInputElement)?.select()"
           @keydown.up.prevent="handleClick('stepUp')"
           @keydown.down.prevent="handleClick('stepDown')"
         />
+        <p class="onyx-stepper__display" aria-hidden="true">
+          {{ displayValue }}
+        </p>
         <button
           v-if="!props.hideButtons"
           type="button"
@@ -230,6 +255,13 @@ useAutofocus(input, props);
       gap: 0;
       padding: 0;
       justify-content: space-between;
+      position: relative;
+
+      &:has(.onyx-stepper__native:focus-visible) {
+        .onyx-stepper__display {
+          display: none;
+        }
+      }
     }
 
     &__counter {
@@ -273,12 +305,31 @@ useAutofocus(input, props);
     &__native {
       -moz-appearance: textfield;
       text-align: center;
+      &:not(:focus-visible) {
+        color: transparent;
+      }
 
       &::-webkit-outer-spin-button,
       &::-webkit-inner-spin-button {
         -webkit-appearance: none;
         margin: 0;
       }
+    }
+    &__display {
+      position: absolute;
+      height: 100%;
+      color: var(--onyx-color-text-icons-neutral-intense);
+
+      pointer-events: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      box-sizing: border-box;
+      width: calc(100% - 2 * (var(--onyx-stepper-padding-vertical) * 2 + 1.5rem));
+      margin-inline: calc(var(--onyx-stepper-padding-vertical) * 2 + 1.5rem);
+      overflow: hidden;
+      white-space: nowrap;
     }
   }
 }
