@@ -36,17 +36,17 @@ const triggerType = computed(() => {
 <template>
   <span class="onyx-component onyx-info-tooltip">
     <OnyxTooltip v-if="triggerType === 'click'" v-bind="props" v-model:open="isVisible">
-      <template #default="{ trigger }">
+      <template #default="{ trigger: _trigger }">
         <!--  -->
         <OnyxSystemButton
           :label="
             // if type is `click` aria-label will always be defined
-            trigger['aria-label']!
+            _trigger['aria-label']!
           "
           :icon="iconCircleInformation"
           class="onyx-info-tooltip__trigger"
           color="soft"
-          v-bind="trigger"
+          v-bind="_trigger"
         />
       </template>
     </OnyxTooltip>
@@ -54,8 +54,8 @@ const triggerType = computed(() => {
     <!-- The info tooltip is not accessible when it's triggered on hover. Its trigger element ist not focusable, so instead we provide it's text visually hidden -->
     <template v-else>
       <OnyxTooltip v-bind="props" v-model:open="isVisible" aria-hidden="true">
-        <template #default="{ trigger }">
-          <span class="onyx-info-tooltip__trigger" v-bind="trigger">
+        <template #default="{ trigger: _trigger }">
+          <span class="onyx-info-tooltip__trigger" v-bind="_trigger">
             <OnyxIcon :icon="iconCircleInformation" />
           </span>
         </template>
