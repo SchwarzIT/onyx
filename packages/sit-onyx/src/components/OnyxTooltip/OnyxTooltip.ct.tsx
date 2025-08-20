@@ -26,12 +26,7 @@ test("should trigger with boolean", async ({ mount }) => {
 
 test("should trigger with hover", async ({ mount, page }) => {
   // ARRANGE
-  const component = await mount(TestWrapper, {
-    props: {
-      text: "Test tooltip",
-      open: "hover",
-    },
-  });
+  const component = await mount(<TestWrapper text="Test tooltip" />);
 
   const tooltip = component.getByRole("tooltip");
 
@@ -64,12 +59,7 @@ test("should trigger with hover", async ({ mount, page }) => {
 
 test("should trigger with click", async ({ mount, page }) => {
   // ARRANGE
-  const component = await mount(TestWrapper, {
-    props: {
-      text: "Test tooltip",
-      open: "click",
-    },
-  });
+  const component = await mount(<TestWrapper text="Test tooltip" trigger="click" />);
 
   const tooltip = component.getByRole("status");
 

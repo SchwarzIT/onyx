@@ -84,7 +84,7 @@ defineExpose({
   >
     <legend v-if="!props.hideLabel" class="onyx-checkbox-group__label">
       <OnyxHeadline is="h3">{{ props.label }}</OnyxHeadline>
-      <OnyxInfoTooltip v-if="props.labelTooltip" open="hover" :text="props.labelTooltip" />
+      <OnyxInfoTooltip v-if="props.labelTooltip" trigger="hover" :text="props.labelTooltip" />
     </legend>
 
     <div

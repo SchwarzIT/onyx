@@ -8,8 +8,8 @@ const props = defineProps<OnyxTooltipProps>();
 
 <template>
   <OnyxTooltip v-bind="props">
-    <template #default="{ trigger }">
-      <button type="button" v-bind="trigger">test slot</button>
+    <template #default="{ trigger: _trigger }">
+      <button type="button" v-bind="_trigger">test slot</button>
     </template>
   </OnyxTooltip>
 </template>

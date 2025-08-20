@@ -74,7 +74,7 @@ defineExpose({
       <OnyxHeadline is="h3" :class="requiredMarkerClass">
         {{ props.label }}
       </OnyxHeadline>
-      <OnyxInfoTooltip v-if="props.labelTooltip" open="hover" :text="props.labelTooltip" />
+      <OnyxInfoTooltip v-if="props.labelTooltip" trigger="hover" :text="props.labelTooltip" />
     </legend>
 
     <div

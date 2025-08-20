@@ -27,7 +27,7 @@ const props = defineProps<{
       v-if="props.messages.longMessage"
       class="onyx-form-message__tooltip"
       position="bottom"
-      open="hover"
+      trigger="hover"
       :color="props.type"
       :text="props.messages.longMessage"
     />
