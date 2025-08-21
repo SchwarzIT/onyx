@@ -31,23 +31,21 @@ export type OnyxSelectProps<
     /**
      * Allows the selection of multiple options
      */
-    multiple?: TMultiple;
+    multiple?: boolean & TMultiple;
     /**
      * If true, a checkbox will be displayed to check/uncheck all options.
      * Disabled and skeleton checkboxes will be excluded from the check/uncheck behavior.
      * Only available if "multiple" is true and no `searchTerm` is provided.
      */
-    withCheckAll?: TMultiple extends true
-      ?
-          | boolean
-          | {
-              /**
-               * Label for the `select all` checkbox.
-               * If unset, a default label will be shown depending on the current locale/language.
-               */
-              label?: string;
-            }
-      : never;
+    withCheckAll?:
+      | boolean
+      | {
+          /**
+           * Label for the `select all` checkbox.
+           * If unset, a default label will be shown depending on the current locale/language.
+           */
+          label?: string;
+        };
     /**
      * Whether the select should be disabled.
      */
