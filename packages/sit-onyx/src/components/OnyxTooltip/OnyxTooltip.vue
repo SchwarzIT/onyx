@@ -45,6 +45,7 @@ const props = withDefaults(defineProps<OnyxTooltipProps>(), {
   trigger: "hover",
   alignment: "auto",
   alignsWithEdge: false,
+  open: undefined,
 });
 
 const emit = defineEmits<{
