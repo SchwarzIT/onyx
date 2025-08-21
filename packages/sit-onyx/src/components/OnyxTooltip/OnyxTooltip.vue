@@ -211,7 +211,7 @@ const id = useId();
 const anchorName = computed(() => `--anchor-${id}`);
 
 const tooltipStyles = computed(() => {
-  if (useragentSupportsAnchorApi.value) {
+  if (userAgentSupportsAnchorApi.value) {
     return {
       width: tooltipWidth.value,
       "position-anchor": anchorName.value,
