@@ -5,18 +5,12 @@ export type UseVModelOptions<
   TProps extends object,
   TKey extends keyof TProps & string,
   TValue extends TProps[TKey] = TProps[TKey],
-  TDefaultValue extends
-    | undefined
-    | (TValue extends PrimitiveType | undefined ? TValue : () => TValue) =
-    | undefined
-    | (TValue extends PrimitiveType | undefined ? TValue : () => TValue),
-  TComputed extends TDefaultValue extends undefined | null
+  TDefaultValue = undefined | (TValue extends Nullable<PrimitiveType> ? TValue : () => TValue),
+  TComputed extends Nullable<TValue> = TDefaultValue extends undefined | null
     ? TValue
-    : NonNullable<TValue> = TDefaultValue extends undefined | null ? TValue : NonNullable<TValue>,
-  TEmit extends (evt: `update:${TKey}`, value: TComputed) => void = (
-    evt: `update:${TKey}`,
-    value: TComputed,
-  ) => void,
+    : NonNullable<TValue>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- required for type inference
+  TEmit extends (...args: any[]) => void = (evt: `update:${TKey}`, value: TComputed) => void,
 > = {
   key: TKey;
   props: TProps;
@@ -54,18 +48,12 @@ export const useVModel = <
   TProps extends object,
   TKey extends keyof TProps & string,
   TValue extends TProps[TKey] = TProps[TKey],
-  TDefaultValue extends
-    | undefined
-    | (TValue extends PrimitiveType | undefined ? TValue : () => TValue) =
-    | undefined
-    | (TValue extends PrimitiveType | undefined ? TValue : () => TValue),
-  TComputed extends TDefaultValue extends undefined | null
+  TDefaultValue = undefined | (TValue extends Nullable<PrimitiveType> ? TValue : () => TValue),
+  TComputed extends Nullable<TValue> = TDefaultValue extends undefined | null
     ? TValue
-    : NonNullable<TValue> = TDefaultValue extends undefined | null ? TValue : NonNullable<TValue>,
-  TEmit extends (evt: `update:${TKey}`, value: TComputed) => void = (
-    evt: `update:${TKey}`,
-    value: TComputed,
-  ) => void,
+    : NonNullable<TValue>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- required for type inference
+  TEmit extends (...args: any[]) => void = (evt: `update:${TKey}`, value: TComputed) => void,
 >(
   options: UseVModelOptions<TProps, TKey, TValue, TDefaultValue, TComputed, TEmit>,
 ) => {
