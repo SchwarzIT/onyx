@@ -92,7 +92,7 @@ const { openAlignment, updateOpenAlignment } = useOpenAlignment(
   popoverRef,
   "left",
 );
-const { leftPosition, topPosition, updateAnchorPositionPolyfill, useragentSupportsAnchorApi } =
+const { leftPosition, topPosition, updateAnchorPositionPolyfill, userAgentSupportsAnchorApi } =
   useAnchorPositionPolyfill({
     positionedRef: popoverRef,
     targetRef: popoverWrapperRef,
@@ -133,14 +133,14 @@ useGlobalEventListener({
 onMounted(() => {
   handleOpening(isVisible.value);
   updateDirections();
-  if (!useragentSupportsAnchorApi.value) updateAnchorPositionPolyfill();
+  if (!userAgentSupportsAnchorApi.value) updateAnchorPositionPolyfill();
 });
 
 watch(isVisible, async (newVal) => {
   await nextTick();
   handleOpening(newVal);
   updateDirections();
-  if (!useragentSupportsAnchorApi.value) updateAnchorPositionPolyfill();
+  if (!userAgentSupportsAnchorApi.value) updateAnchorPositionPolyfill();
 });
 
 const toggle = () => {
@@ -167,7 +167,7 @@ const popoverClasses = computed(() => {
     "onyx-basic-popover__dialog--fitparent": props.fitParent,
     "onyx-basic-popover__dialog--disabled": disabled.value,
     "onyx-basic-popover__dialog--sticky": isSticky.value,
-    "onyx-basic-popover__dialog--dont-support-anchor": !useragentSupportsAnchorApi.value,
+    "onyx-basic-popover__dialog--dont-support-anchor": !userAgentSupportsAnchorApi.value,
   };
 });
 watch(disabled, () => {
@@ -176,7 +176,7 @@ watch(disabled, () => {
   }
 });
 watch([popoverPosition, popoverAlignment, width], async () => {
-  if (!useragentSupportsAnchorApi.value) {
+  if (!userAgentSupportsAnchorApi.value) {
     await nextTick();
     updateDirections();
     updateAnchorPositionPolyfill();
@@ -186,7 +186,7 @@ watch([popoverPosition, popoverAlignment, width], async () => {
 const popoverStyles = computed(() => {
   const _width = props.fitParent ? `${width.value}px` : undefined;
 
-  if (useragentSupportsAnchorApi.value) {
+  if (userAgentSupportsAnchorApi.value) {
     return {
       width: _width,
       "position-anchor": anchorName.value,
