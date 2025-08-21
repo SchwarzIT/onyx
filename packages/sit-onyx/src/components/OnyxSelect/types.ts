@@ -31,6 +31,7 @@ export type OnyxSelectProps<
     /**
      * Allows the selection of multiple options
      */
+    // "boolean &" is needed to correctly generate the runtime prop value, see: https://github.com/vuejs/core/issues/13787#issuecomment-3209755164
     multiple?: boolean & TMultiple;
     /**
      * If true, a checkbox will be displayed to check/uncheck all options.
