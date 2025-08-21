@@ -71,12 +71,10 @@ const emit = defineEmits<{
    * Emitted when a search term is inputted
    */
   "update:searchTerm": [value: string];
-
   /**
    * Emitted when an option is selected
    */
   "update:modelValue": [value?: Nullable<TModelValue>];
-
   /**
    * Emitted when the open state changes
    */
@@ -107,7 +105,7 @@ const { densityClass } = useDensity(props);
 
 /**
  * Value of the currently selected option or an array of values when the `multiple` prop is `true`.
- */ const modelValue = useVModel<TModelValue, "modelValue", Props, undefined>({
+ */ const modelValue = useVModel<Props, "modelValue">({
   props,
   emit,
   key: "modelValue",
@@ -118,7 +116,7 @@ const { densityClass } = useDensity(props);
  *
  * Hint: Cover `valueLabel` to prevent the disappearance of the current selections label
  */
-const searchTerm = useVModel<string, "searchTerm", Props, string>({
+const searchTerm = useVModel<Props, "searchTerm", string>({
   props,
   emit,
   key: "searchTerm",
@@ -128,7 +126,7 @@ const searchTerm = useVModel<string, "searchTerm", Props, string>({
 /**
  * If true, the select popover is expanded and visible.
  */
-const open = useVModel<boolean, "open", Props, false>({
+const open = useVModel<Props, "open", boolean>({
   props,
   emit,
   key: "open",
