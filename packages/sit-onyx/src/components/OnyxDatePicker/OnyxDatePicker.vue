@@ -79,7 +79,6 @@ const modelValue = useVModel({
   props,
   emit,
   key: "modelValue",
-  default: "",
 });
 const value = computed({
   get: () => getNormalizedDate.value(modelValue.value),

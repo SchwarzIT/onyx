@@ -5,7 +5,6 @@ import { computed, nextTick, useTemplateRef, withModifiers } from "vue";
 import { useLink } from "../../../../composables/useLink.js";
 import { useVModel } from "../../../../composables/useVModel.js";
 import { injectI18n } from "../../../../i18n/index.js";
-import type { Nullable } from "../../../../types/index.js";
 import { mergeVueProps, useRootAttrs } from "../../../../utils/attrs.js";
 import { extractLinkProps } from "../../../../utils/router.js";
 import ButtonOrLinkLayout from "../../../OnyxButton/ButtonOrLinkLayout.vue";
@@ -29,7 +28,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the open state should update.
    */
-  "update:open": [value: Nullable<boolean>];
+  "update:open": [value: boolean];
 }>();
 
 const slots = defineSlots<{

@@ -42,7 +42,7 @@ const emit = defineEmits<{
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
 
-const isChecked = useVModel<boolean, "modelValue", Props, false>({
+const isChecked = useVModel<Props, "modelValue", boolean>({
   props,
   emit,
   key: "modelValue",
