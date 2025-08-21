@@ -214,7 +214,7 @@ export const useAnchorPositionPolyfill = ({
   onBeforeMount(() => {
     const isSafari = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
 
-    useragentSupportsAnchorApi.value =
+    userAgentSupportsAnchorApi.value =
       "CSS" in globalThis &&
       typeof CSS !== "undefined" &&
       CSS.supports("anchor-name: --test") &&
