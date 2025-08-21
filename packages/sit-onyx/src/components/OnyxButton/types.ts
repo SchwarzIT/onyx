@@ -1,7 +1,7 @@
 import type { DensityProp } from "../../composables/density.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 import type { AutofocusProp } from "../../types/index.js";
-import type { FormInjectedBoolean } from "../OnyxForm/OnyxForm.core.js";
+import type { FormInjected } from "../OnyxForm/OnyxForm.core.js";
 import type { WithLinkProp } from "../OnyxRouterLink/types.js";
 
 export type OnyxButtonProps = DensityProp &
@@ -13,7 +13,7 @@ export type OnyxButtonProps = DensityProp &
     /**
      * If the button should be disabled or not.
      */
-    disabled?: FormInjectedBoolean;
+    disabled?: FormInjected<boolean>;
     /**
      * Shows a loading indicator.
      */

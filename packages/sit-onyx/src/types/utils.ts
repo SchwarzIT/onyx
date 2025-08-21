@@ -94,10 +94,3 @@ export type PrimitiveType = null | number | string | boolean | symbol;
  * A type that can also be null or undefined.
  */
 export type Nullable<T = never> = T | undefined | null;
-
-/**
- * A boolean type that can also be null or undefined.
- *
- * @deprecated TODO: delete this type and replace with `Nullable<boolean>` once https://github.com/SchwarzIT/onyx/issues/3958 is fixed
- */
-export type NullableBoolean = boolean | undefined | null;
