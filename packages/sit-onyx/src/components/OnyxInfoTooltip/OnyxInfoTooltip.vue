@@ -12,6 +12,7 @@ import type { OnyxInfoTooltipProps } from "./types.js";
 const props = withDefaults(defineProps<OnyxInfoTooltipProps>(), {
   trigger: "click",
   color: "neutral",
+  open: undefined,
 });
 
 const emit = defineEmits<{
