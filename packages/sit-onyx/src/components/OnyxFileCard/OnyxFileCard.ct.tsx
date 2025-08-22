@@ -81,7 +81,7 @@ test.describe("Screenshot tests (progress)", () => {
   executeMatrixScreenshotTest({
     name: "File card (progress)",
     columns: ["default", "custom-icon", "truncated"],
-    rows: ["primary", "neutral", "danger", "warning", "success", "info"],
+    rows: ONYX_COLORS,
     component: (column, row) => (
       <OnyxFileCard
         filename="filename.pdf"
