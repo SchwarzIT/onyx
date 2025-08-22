@@ -7,13 +7,14 @@ import { useUnsupportedPopoverAPI } from "./useUnsupportedPopoverAPI.js";
 
 const props = withDefaults(defineProps<OnyxSupportPopoverProps>(), {
   position: "bottom span-all",
+  open: undefined,
 });
 
 const emit = defineEmits<{
   /**
    * Emitted when the open state changes.
    */
-  "update:open": [isOpen: Nullable<boolean>];
+  "update:open": [open: Nullable<boolean>];
 }>();
 
 defineSlots<{
