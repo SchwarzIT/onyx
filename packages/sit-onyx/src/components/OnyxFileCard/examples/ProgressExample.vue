@@ -7,84 +7,88 @@ import {
   iconMoreVerticalSmall,
   iconTrash,
 } from "@sit-onyx/icons";
-import { computed, ref } from "vue";
+import { computed, onUnmounted, ref } from "vue";
 import OnyxIconButton from "../../OnyxIconButton/OnyxIconButton.vue";
 import OnyxFlyoutMenu from "../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxFileCard from "../OnyxFileCard.vue";
+import type { FileCardStatus } from "../types.js";
 
-const colors = {
-  ready: { color: "warning", progressColor: "neutral" },
-  paused: { color: "warning", progressColor: "neutral" },
-  canceled: { color: "danger", progressColor: "neutral" },
-  proccessing: { color: "primary", progressColor: "primary" },
-  done: { color: "primary", progressColor: "primary" },
-};
-const status = ref("ready");
-const progress = ref(0);
-const intervalId = ref<number | null>(null);
+type UploadStatus = "ready" | "paused" | "canceled" | "processing" | "done";
+/**
+ * Re-usable composable for managing the file upload state.
+ */
+const useFileUpload = () => {
+  const progress = ref(0);
+  const status = ref<UploadStatus>("ready");
 
-const start = () => {
-  if (intervalId.value !== null) return;
-  status.value = "proccessing";
-  intervalId.value = window.setInterval(() => {
-    progress.value += 1;
-    if (progress.value >= 100) {
-      clearInterval(intervalId.value!);
-      intervalId.value = null;
-      status.value = "done";
-      progress.value = 0;
-    }
-  }, 50);
-};
+  let intervalId: ReturnType<typeof setInterval> | undefined;
 
-const pause = () => {
-  if (intervalId.value !== null) {
-    clearInterval(intervalId.value);
-    intervalId.value = null;
+  const removeInterval = () => {
+    clearInterval(intervalId);
+    intervalId = undefined;
+  };
+
+  onUnmounted(removeInterval);
+
+  const start = () => {
+    if (intervalId != undefined) return;
+    status.value = "processing";
+
+    // usually the upload progress would be given e.g. by the server ar the upload request
+    // for this demo purpose, we will just use a interval
+    intervalId = setInterval(() => {
+      progress.value++;
+
+      if (progress.value >= 100) {
+        removeInterval();
+        status.value = "done";
+        progress.value = 0;
+      }
+    }, 50);
+  };
+
+  const pause = () => {
+    removeInterval();
     status.value = "paused";
-  }
+  };
+
+  const cancel = () => {
+    removeInterval();
+    status.value = "canceled";
+    progress.value = 0;
+  };
+
+  return { progress, status, start, pause, cancel };
 };
 
-const cancel = () => {
-  if (intervalId.value !== null) {
-    clearInterval(intervalId.value);
-    intervalId.value = null;
-  }
-  status.value = "canceled";
-  progress.value = 0;
-};
+const { status, progress, start, pause, cancel } = useFileUpload();
 
-const statusText = computed(() => {
-  if (status.value === "proccessing") {
-    return `${progress.value}%`;
+const cardStatus = computed<FileCardStatus>(() => {
+  let _status: FileCardStatus;
+
+  switch (status.value) {
+    case "ready":
+      _status = { text: "Ready to upload", color: "neutral" };
+      break;
+    case "paused":
+      _status = { text: "Paused", color: "neutral" };
+      break;
+    case "canceled":
+      _status = { text: "Canceled", color: "danger" };
+      break;
+    case "done":
+      _status = { text: "Uploaded", color: "success" };
+      break;
+    default:
+      _status = { text: `${progress.value}%`, color: "primary" };
   }
-  if (status.value === "ready") {
-    return "Ready to Upload";
-  }
-  if (status.value === "paused") {
-    return "Paused";
-  }
-  if (status.value === "canceled") {
-    return "Canceled";
-  }
-  if (status.value === "done") {
-    return "File Uploaded";
-  }
-  return "";
+
+  return { ..._status, progress: progress.value };
 });
 </script>
 
 <template>
-  <OnyxFileCard
-    filename="example.pdf"
-    type="application/pdf"
-    size="42MiB"
-    :status="{
-      color: colors[status].color,
-      text: statusText,
-      progress: { progress: progress, color: colors[status].progressColor },
-    }"
-  >
+  <OnyxFileCard filename="example.pdf" type="application/pdf" size="42MiB" :status="cardStatus">
     <template #actions>
       <OnyxIconButton
         v-if="status === 'ready' || status === 'canceled'"
@@ -94,7 +98,7 @@ const statusText = computed(() => {
         @click="start()"
       />
       <OnyxIconButton
-        v-if="status === 'proccessing'"
+        v-if="status === 'processing'"
         color="neutral"
         :icon="iconMediaPause"
         label="pause"
@@ -108,7 +112,7 @@ const statusText = computed(() => {
         @click="start()"
       />
       <OnyxIconButton
-        v-if="status === 'proccessing' || status === 'paused'"
+        v-if="status === 'processing' || status === 'paused'"
         color="neutral"
         :icon="iconCircleX"
         label="cancel"

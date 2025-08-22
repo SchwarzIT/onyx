@@ -1,7 +1,6 @@
 import type { DensityProp } from "../../composables/density.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 import type { OnyxColor } from "../../types/colors.js";
-import type { Nullable } from "../../types/utils.js";
 import type { BinaryPrefixedSize } from "../../utils/numbers.js";
 import type { OnyxFileTypeIconProps } from "../OnyxFileTypeIcon/types.js";
 import type { SharedLinkProps } from "../OnyxRouterLink/types.js";
@@ -40,23 +39,14 @@ export type FileCardStatus = {
   /**
    * Status text to show.
    */
-  text?: string;
+  text: string;
   /**
    * Text color.
    * If set to "danger", an error icon will be displayed instead of the regular file icon.
    */
-  color?: OnyxColor;
+  color: OnyxColor;
   /**
-   * Displayes the upload progress as a bar in %
+   * Progress in percentage (0-100%). Displays a progress bar accordingly.
    */
-  progress?: {
-    /**
-     * Progress displayed in %
-     */
-    progress: Nullable<number>;
-    /**
-     * Progress bar color
-     */
-    color: OnyxColor;
-  };
+  progress?: number;
 };

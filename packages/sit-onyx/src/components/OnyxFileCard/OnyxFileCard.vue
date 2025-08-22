@@ -8,13 +8,13 @@ import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
+import { applyLimits } from "../../utils/numbers.js";
 import { extractLinkProps } from "../../utils/router.js";
 import OnyxCard from "../OnyxCard/OnyxCard.vue";
 import OnyxFileTypeIcon from "../OnyxFileTypeIcon/OnyxFileTypeIcon.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLink from "../OnyxLink/OnyxLink.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import type { OnyxFileCardProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxFileCardProps>(), {
@@ -41,7 +41,7 @@ const { formatFileSize } = useFileSize();
 const skeleton = useSkeletonContext(props);
 
 const customError = computed(() =>
-  props.status?.color === "danger" && props.status?.text ? props.status.text : undefined,
+  props.status?.color === "danger" ? props.status.text : undefined,
 );
 const { vCustomValidity } = useCustomValidity({ props: {}, emit, customError });
 
@@ -55,9 +55,12 @@ const link = computed(() => {
   <OnyxSkeleton v-if="skeleton" :class="['onyx-file-card-skeleton', densityClass]" />
 
   <OnyxCard v-else :class="['onyx-component', 'onyx-file-card', densityClass]">
-    <OnyxVisuallyHidden class="onyx-file-card__show-error">
-      <input v-custom-validity aria-label="form-validation" tabindex="-1" />
-    </OnyxVisuallyHidden>
+    <input
+      v-custom-validity
+      :aria-label="props.filename"
+      tabindex="-1"
+      class="onyx-file-card__show-error"
+    />
     <div class="onyx-file-card__content">
       <div class="onyx-file-card__wrapper onyx-truncation-ellipsis">
         <div class="onyx-file-card__icon" aria-hidden="true">
@@ -86,7 +89,7 @@ const link = computed(() => {
             </div>
 
             <span
-              v-if="props.status?.text"
+              v-if="props.status"
               :class="[
                 'onyx-file-card__status',
                 `onyx-file-card__status--${props.status.color}`,
@@ -103,13 +106,13 @@ const link = computed(() => {
         <slot name="actions"></slot>
       </div>
     </div>
-    <div v-if="props.status?.progress?.progress" class="onyx-file-card__progress">
+    <div v-if="props.status?.progress" class="onyx-file-card__progress">
       <div
         :class="[
           'onyx-file-card__progress-bar',
-          `onyx-file-card__progress-bar--${props.status.progress.color}`,
+          `onyx-file-card__progress-bar--${props.status.color}`,
         ]"
-        :style="{ width: props.status?.progress.progress + '%' }"
+        :style="{ width: applyLimits(props.status.progress, 0, 100) + '%' }"
       ></div>
     </div>
   </OnyxCard>
@@ -143,9 +146,15 @@ const link = computed(() => {
   @include layers.component() {
     position: relative;
     &__show-error {
+      // position the input for the native error message & make it visually hidden
       bottom: var(--onyx-file-card-icon-padding);
       left: 50%;
       pointer-events: none;
+      position: absolute;
+      border: 0;
+      height: 0;
+      width: 0;
+      outline: none;
     }
     &__content {
       display: flex;
@@ -225,7 +234,11 @@ const link = computed(() => {
     &__status {
       @each $color in $colors {
         &--#{$color} {
-          color: var(--onyx-color-text-icons-#{$color}-intense);
+          @if ($color == "neutral") {
+            color: var(--onyx-color-text-icons-neutral-medium);
+          } @else {
+            color: var(--onyx-color-text-icons-#{$color}-intense);
+          }
         }
       }
     }

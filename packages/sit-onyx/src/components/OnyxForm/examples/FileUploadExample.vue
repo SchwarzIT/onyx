@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import { OnyxButton, OnyxForm, OnyxInput, useToast } from "../../../index.js";
-import OnyxFileUpload from "../../OnyxFileUpload/OnyxFileUpload.vue";
+import { OnyxButton, OnyxFileUpload, OnyxForm, OnyxInput, useToast } from "../../../index.js";
 
 type State = {
   band?: string;
