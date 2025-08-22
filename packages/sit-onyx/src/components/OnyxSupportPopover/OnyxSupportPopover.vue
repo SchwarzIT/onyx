@@ -3,6 +3,7 @@ import { computed, toRef, useId, useTemplateRef, watch, type AriaAttributes } fr
 import { useVModel } from "../../composables/useVModel.js";
 import type { Nullable } from "../../types/utils.js";
 import type { OnyxSupportPopoverProps } from "./types.js";
+import { usePopoverAutoPosition } from "./usePopoverAutoPosition.js";
 import { useUnsupportedPopoverAPI } from "./useUnsupportedPopoverAPI.js";
 
 const props = withDefaults(defineProps<OnyxSupportPopoverProps>(), {
@@ -57,15 +58,24 @@ const triggerAttributes = computed<AriaAttributes>(() => ({
   "aria-controls": id,
 }));
 
-// polyfill for browsers that do not support the Popover API
-// DELETE ONCE ITS SUPPORTED IN ALL MAJOR BROWSERS
 const wrapper = useTemplateRef("wrapperRef");
 
+// using this composable for auto position for now since native CSS position-try
+// is still experimental
+const { position } = usePopoverAutoPosition({
+  position: toRef(props, "position"),
+  wrapperRef: wrapper,
+  dialogRef: dialog,
+  open: isOpen,
+});
+
+// polyfill for browsers that do not support the Popover API
+// DELETE ONCE ITS SUPPORTED IN ALL MAJOR BROWSERS
 const { dialogAttributes } = useUnsupportedPopoverAPI({
   wrapperRef: wrapper,
   dialogRef: dialog,
   open: isOpen,
-  position: toRef(props, "position"),
+  position,
 });
 </script>
 
@@ -86,19 +96,17 @@ const { dialogAttributes } = useUnsupportedPopoverAPI({
       :aria-label="props.label"
       popover="manual"
       :style="
-        dialogAttributes
-          ? undefined
-          : `position-area: ${props.position}; position-anchor: ${anchorName}`
+        dialogAttributes ? undefined : `position-area: ${position}; position-anchor: ${anchorName}`
       "
       :class="{
         'onyx-support-popover__dialog': true,
         'onyx-support-popover__dialog--top':
-          props.position.includes('top') && !props.position.includes('span-top'),
+          position.includes('top') && !position.includes('span-top'),
         'onyx-support-popover__dialog--bottom':
-          props.position.includes('bottom') && !props.position.includes('span-bottom'),
+          position.includes('bottom') && !position.includes('span-bottom'),
         'onyx-support-popover__dialog--left':
-          props.position.includes('left') && !props.position.includes('span-left'),
-        'onyx-support-popover__dialog--right': props.position.includes('right'),
+          position.includes('left') && !position.includes('span-left'),
+        'onyx-support-popover__dialog--right': position.includes('right'),
       }"
     >
       <slot></slot>
@@ -129,14 +137,14 @@ const { dialogAttributes } = useUnsupportedPopoverAPI({
 
       // see: https://developer.mozilla.org/en-US/docs/Web/CSS/position-try-fallbacks#combining_multiple_values_into_one_option
       // TODO: extend polyfill to support fallbacks
-      position-try:
-        flip-block,
-        flip-inline,
-        flip-block flip-inline;
-      position-try-fallbacks:
-        flip-block,
-        flip-inline,
-        flip-block flip-inline;
+      // position-try:
+      //   flip-block,
+      //   flip-inline,
+      //   flip-block flip-inline;
+      // position-try-fallbacks:
+      //   flip-block,
+      //   flip-inline,
+      //   flip-block flip-inline;
 
       // apply gap spacing depending on the position
       &--top {
