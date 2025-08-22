@@ -13,7 +13,7 @@ test.describe("Screenshot tests", () => {
           style={{ padding: `3rem 5rem` }} // set paddings to fit the full tooltip in the screenshot
           text={column === "long-text" ? "Lorem ipsum dolor sit amet " : "Test tooltip"}
           position={column === "bottom" ? "bottom" : "top"}
-          open={row === "hover" ? "hover" : "click"}
+          trigger={row === "hover" ? "hover" : "click"}
         />
       );
     },

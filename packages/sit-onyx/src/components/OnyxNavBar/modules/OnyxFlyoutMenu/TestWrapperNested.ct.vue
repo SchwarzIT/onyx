@@ -4,11 +4,11 @@ import OnyxMenuItem from "../OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxFlyoutMenu from "./OnyxFlyoutMenu.vue";
 import type { OnyxFlyoutMenuProps } from "./types.js";
 
-const props = defineProps<OnyxFlyoutMenuProps>();
+const props = defineProps<Pick<OnyxFlyoutMenuProps, "trigger">>();
 </script>
 
 <template>
-  <OnyxFlyoutMenu v-bind="props">
+  <OnyxFlyoutMenu v-bind="props" label="Choose item">
     <template #button="{ trigger: _trigger }">
       <button type="button" v-bind="_trigger">Trigger</button>
     </template>

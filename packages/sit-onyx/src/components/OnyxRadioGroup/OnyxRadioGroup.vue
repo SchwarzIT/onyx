@@ -41,7 +41,8 @@ const emit = defineEmits<{
    */
   "update:modelValue": [selected?: Nullable<TValue>];
 }>();
-const modelValue = useVModel<TValue, "modelValue", Props, undefined>({
+
+const modelValue = useVModel<Props, "modelValue">({
   props,
   emit,
   key: "modelValue",
@@ -74,7 +75,7 @@ defineExpose({
       <OnyxHeadline is="h3" :class="requiredMarkerClass">
         {{ props.label }}
       </OnyxHeadline>
-      <OnyxInfoTooltip v-if="props.labelTooltip" open="hover" :text="props.labelTooltip" />
+      <OnyxInfoTooltip v-if="props.labelTooltip" trigger="hover" :text="props.labelTooltip" />
     </legend>
 
     <div

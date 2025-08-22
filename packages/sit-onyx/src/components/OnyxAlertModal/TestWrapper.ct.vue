@@ -13,7 +13,7 @@ const emit = defineEmits<{
   <OnyxAlertModal
     label="Confirm deletion"
     :icon="{ icon: iconCircleAttention, color: 'danger' }"
-    :open="true"
+    open
     @update:open="emit('update:open', $event)"
   >
     Are you sure that you want to delete the selected item? This action can not be reverted.

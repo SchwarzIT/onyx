@@ -10,11 +10,10 @@ import type OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
 import type OnyxStepper from "../OnyxStepper/OnyxStepper.vue";
 import OnyxSwitch from "../OnyxSwitch/OnyxSwitch.vue";
 import type OnyxTextarea from "../OnyxTextarea/OnyxTextarea.vue";
-import { type __DONT_USE_VUE_FIX_KeyOfFormProps, type FormProps } from "./OnyxForm.core.js";
+import { type FormInjectedProps, type FormProps } from "./OnyxForm.core.js";
 
-it("should be ensured that _KeyofFormProps includes all keys of FormProps", async () => {
-  expectTypeOf<keyof FormProps>().toExtend<__DONT_USE_VUE_FIX_KeyOfFormProps>();
-  expectTypeOf<__DONT_USE_VUE_FIX_KeyOfFormProps>().toExtend<keyof FormProps>();
+it("should be ensured that FormInjectedProps includes all keys of FormProps", async () => {
+  expectTypeOf<keyof FormProps>().toExtend<keyof FormInjectedProps>();
 });
 
 type AllOnyxFormElements =

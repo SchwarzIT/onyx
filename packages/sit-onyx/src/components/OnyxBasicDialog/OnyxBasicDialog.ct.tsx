@@ -140,7 +140,7 @@ test("should close correctly when clicking outside the dialog", async ({ mount, 
 test("tooltip inside dialog", async ({ mount, makeAxeBuilder, page }) => {
   await mount(
     <OnyxBasicDialog label="Label" open modal>
-      <TestWrapper text="Test tooltip" open="hover" />
+      <TestWrapper text="Test tooltip" trigger="hover" />
     </OnyxBasicDialog>,
   );
 

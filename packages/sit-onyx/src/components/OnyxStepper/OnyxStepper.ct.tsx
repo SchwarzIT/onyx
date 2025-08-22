@@ -542,6 +542,7 @@ test("should format zero with precision", async ({ mount }) => {
     />,
   );
   const input = component.getByLabel("Label");
+  const display = component.locator(".onyx-stepper__display");
 
   // ASSERT
   await expect(input).toHaveValue("");
@@ -553,5 +554,25 @@ test("should format zero with precision", async ({ mount }) => {
 
   // ASSERT
   await expect(input).toHaveValue("0.00");
+  await expect(display).toHaveText("0.00");
+
   await expect(() => expect(modelValue).toBe(0)).toPass();
+});
+
+test("should format with formatNumber", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxStepper
+      label="Label"
+      modelValue={1000000.04}
+      formatNumber={true}
+      style={{ width: "16rem" }}
+    />,
+  );
+  const input = component.getByLabel("Label");
+  const display = component.locator(".onyx-stepper__display");
+  // // ASSERT
+  await expect(input).toHaveValue("1000000.04");
+  await expect(display).toHaveText("1,000,000.04");
+  await expect(component).toHaveScreenshot("formatNumber.png");
 });

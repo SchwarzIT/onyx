@@ -7,27 +7,17 @@ import {
 } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
-import type { Nullable } from "../../types/index.js";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
-import type { OnyxTagProps } from "../OnyxTag/types.js";
+import type { OnyxFilterTagProps } from "./types.js";
 
-const props = withDefaults(
-  defineProps<
-    Omit<OnyxTagProps, "color" | "clickable"> & {
-      /**
-       * If `true` the filter is selected, shows an 'x' icon and can be removed on click.
-       */
-      active?: Nullable<boolean>;
-    }
-  >(),
-  {
-    skeleton: SKELETON_INJECTED_SYMBOL,
-  },
-);
+const props = withDefaults(defineProps<OnyxFilterTagProps>(), {
+  skeleton: SKELETON_INJECTED_SYMBOL,
+  active: undefined,
+});
 
 const emit = defineEmits<{
   /** Emitted when the active state changes. */
-  "update:active": [value: Nullable<boolean>];
+  "update:active": [value: boolean];
 }>();
 
 const { t } = injectI18n();
@@ -52,11 +42,7 @@ const skeleton = useSkeletonContext(props);
     :clickable="{ label: tooltipLabel, actionIcon: active ? iconXSmall : undefined }"
     class="onyx-filter-tag"
     :skeleton="skeleton"
-    @click="
-      () => {
-        active = !active;
-      }
-    "
+    @click="active = !active"
   />
 </template>
 

@@ -3,13 +3,15 @@
 import OnyxTooltip from "./OnyxTooltip.vue";
 import type { OnyxTooltipProps } from "./types.js";
 
-const props = defineProps<OnyxTooltipProps>();
+const props = withDefaults(defineProps<OnyxTooltipProps>(), {
+  open: undefined,
+});
 </script>
 
 <template>
   <OnyxTooltip v-bind="props">
-    <template #default="{ trigger }">
-      <button type="button" v-bind="trigger">test slot</button>
+    <template #default="{ trigger: _trigger }">
+      <button type="button" v-bind="_trigger">test slot</button>
     </template>
   </OnyxTooltip>
 </template>
