@@ -31,7 +31,7 @@ const handleSubmit = () => {
 <template>
   <OnyxForm class="form" @reset="handleReset" @submit.prevent="handleSubmit">
     <OnyxInput v-model="state.band" label="Favorite band" :pattern="/[A-Za-z ]+/" />
-    <OnyxFileUpload :multiple="true" :max-count="2" max-size="1MiB" size="medium" />
+    <OnyxFileUpload multiple :max-count="2" max-size="1MiB" size="medium" />
 
     <div class="form__actions">
       <OnyxButton label="Reset" mode="outline" type="reset" />
