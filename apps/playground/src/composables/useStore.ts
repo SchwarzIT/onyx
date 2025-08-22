@@ -35,7 +35,7 @@ export const useStore = () => {
 
       // we use a specific version here so if users share playground links for bug reproductions
       // the exact same onyx version is used even if there are newer versions
-      if (onyxVersion.value === INITIAL_ONYX_VERSION && versions.length) {
+      if (onyxVersion.value === INITIAL_ONYX_VERSION && versions[0]) {
         onyxVersion.value = versions[0];
       }
     })
@@ -65,7 +65,7 @@ export const useStore = () => {
       dependencyVersion: computed(() => {
         // the dependencyVersion must be a real version number and not a range like "alpha"
         const version =
-          onyxVersion.value.includes(".") || !availableOnyxVersions.value.length
+          onyxVersion.value.includes(".") || !availableOnyxVersions.value[0]
             ? onyxVersion.value
             : availableOnyxVersions.value[0];
         return { "sit-onyx": version };
