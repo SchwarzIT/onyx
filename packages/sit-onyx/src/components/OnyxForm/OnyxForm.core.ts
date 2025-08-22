@@ -57,7 +57,7 @@ export type FormInjectedProps = {
    *
    * @default Inherits value from closest `<OnyxForm>` component or `false` if none exists
    */
-  disabled?: FormInjectedBoolean;
+  disabled?: FormInjected<boolean>;
   /**
    * Configures if and when errors are shown.
    * - `true`: errors will be shown initially.
@@ -66,7 +66,7 @@ export type FormInjectedProps = {
    *
    * @default Inherits value from closest `<OnyxForm>` component or `touched` if none exists
    */
-  showError?: FormInjectedBoolean | FormInjected<ShowErrorMode>;
+  showError?: FormInjected<ShowErrorMode>;
   /**
    * How to display the required / optional marker.
    * - optional: will show an `(optional)` text after the label for optional form elements.
@@ -100,11 +100,6 @@ export type FORM_INJECTED = symbol; // we can't use `typeof FORM_INJECTED_SYMBOL
  * ```
  */
 export type FormInjected<T> = T | FORM_INJECTED;
-
-/**
- * @deprecated TODO: delete this type and replace with `Nullable<boolean>` once https://github.com/SchwarzIT/onyx/issues/3958 is fixed
- */
-export type FormInjectedBoolean = boolean | FORM_INJECTED;
 
 const createCompute = <TKey extends keyof FormProps>(
   formProps: Ref<FormProps> | undefined,

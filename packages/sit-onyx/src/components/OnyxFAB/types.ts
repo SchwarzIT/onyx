@@ -1,4 +1,4 @@
-import type { NullableBoolean } from "../../types/index.js";
+import type { Nullable } from "../../types/index.js";
 import type { OnyxFABButtonProps } from "../OnyxFABButton/types.js";
 
 export type OnyxFABProps = OnyxFABButtonProps & {
@@ -10,5 +10,5 @@ export type OnyxFABProps = OnyxFABButtonProps & {
    * Whether the element is expanded or collapsed.
    * If unset, the open state is manged internally.
    */
-  open?: NullableBoolean;
+  open?: Nullable<boolean>;
 };

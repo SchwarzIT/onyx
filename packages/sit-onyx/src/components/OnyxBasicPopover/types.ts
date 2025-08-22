@@ -1,6 +1,6 @@
 import type { AnchorPosition } from "../../composables/useAnchorPositionPolyfill.js";
 import type { OpenAlignment } from "../../composables/useOpenAlignment.js";
-import type { NullableBoolean } from "../../types/utils.js";
+import type { Nullable } from "../../types/utils.js";
 
 export type OnyxBasicPopoverProps = {
   /**
@@ -10,7 +10,7 @@ export type OnyxBasicPopoverProps = {
   /**
    * Indicates whether the element is expanded or collapsed.
    */
-  open?: NullableBoolean;
+  open?: Nullable<boolean>;
   /**
    * How to position the popover relative to the parent element.
    */

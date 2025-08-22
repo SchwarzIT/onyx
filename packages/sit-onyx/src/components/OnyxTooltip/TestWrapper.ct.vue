@@ -3,7 +3,9 @@
 import OnyxTooltip from "./OnyxTooltip.vue";
 import type { OnyxTooltipProps } from "./types.js";
 
-const props = defineProps<OnyxTooltipProps>();
+const props = withDefaults(defineProps<OnyxTooltipProps>(), {
+  open: undefined,
+});
 </script>
 
 <template>

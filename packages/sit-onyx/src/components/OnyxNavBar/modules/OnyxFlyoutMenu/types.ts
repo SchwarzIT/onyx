@@ -1,4 +1,4 @@
-import type { NullableBoolean } from "../../../../types/index.js";
+import type { Nullable } from "../../../../types/index.js";
 import type { OnyxBasicPopoverProps } from "../../../OnyxBasicPopover/types.js";
 
 export type OnyxFlyoutMenuProps = Pick<OnyxBasicPopoverProps, "alignment"> & {
@@ -14,7 +14,7 @@ export type OnyxFlyoutMenuProps = Pick<OnyxBasicPopoverProps, "alignment"> & {
   /**
    * Indicates whether the element is expanded or collapsed.
    */
-  open?: NullableBoolean;
+  open?: Nullable<boolean>;
   /**
    * Whether the flyout is disabled and can not be opened.
    */

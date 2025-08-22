@@ -179,27 +179,13 @@ const filteredOptions = computed(() => {
   );
 });
 
-const isMultiple = computed(() => {
-  // currently there is a Vue bug that when setting multiple as boolean shorthand, e.g. "<OnyxSelect multiple />"
-  // it is not applied correctly and instead passed as empty string
-  // see: https://github.com/SchwarzIT/onyx/issues/3958
-  return props.multiple || (props.multiple as typeof props.multiple | string) === "";
-});
-
-const hasCheckAll = computed(() => {
-  // currently there is a Vue bug that when setting withCheckAll as boolean shorthand, e.g. "<OnyxSelect with-check-all />"
-  // it is not applied correctly and instead passed as empty string
-  // see: https://github.com/SchwarzIT/onyx/issues/3958
-  return props.withCheckAll || (props.withCheckAll as typeof props.withCheckAll | string) === "";
-});
-
 /**
  * Sync the active option with the selected option on single select.
  */
 watch(
   arrayValue,
   () => {
-    if (!isMultiple.value) {
+    if (!props.multiple) {
       activeValue.value = arrayValue.value.at(0);
     }
   },
@@ -214,7 +200,7 @@ const CHECK_ALL_ID = useId() as TValue;
  * Includes "select all" up front if it is used.
  */
 const allKeyboardOptionIds = computed(() => {
-  return (isMultiple.value && hasCheckAll.value && !searchTerm.value ? [CHECK_ALL_ID] : []).concat(
+  return (props.multiple && props.withCheckAll && !searchTerm.value ? [CHECK_ALL_ID] : []).concat(
     enabledOptionValues.value,
   );
 });
@@ -292,7 +278,7 @@ const onSelect = (selectedOption: TValue) => {
   if (!newValue) {
     return;
   }
-  if (!isMultiple.value) {
+  if (!props.multiple) {
     modelValue.value = selectedOption as unknown as TModelValue;
     return;
   }
@@ -310,7 +296,7 @@ const onSelect = (selectedOption: TValue) => {
 
 const autocomplete = computed<ComboboxAutoComplete>(() => (props.withSearch ? "list" : "none"));
 
-const { label, listLabel, listDescription } = toRefs(props);
+const { label, listLabel, listDescription, multiple } = toRefs(props);
 
 const {
   elements: { input, option: headlessOption, group: headlessGroup, listbox },
@@ -319,7 +305,7 @@ const {
   label,
   listLabel,
   listDescription,
-  multiple: isMultiple,
+  multiple,
   activeOption: computed(() => activeValue.value),
   isExpanded: open,
   templateRef: select,
@@ -373,7 +359,7 @@ const enabledOptionValues = computed(() =>
  * Only available when multiple and withCheckAll are set.
  */
 const checkAll = computed(() => {
-  if (!isMultiple.value || !hasCheckAll.value) return undefined;
+  if (!props.multiple || !props.withCheckAll) return undefined;
   return useCheckAll(enabledOptionValues, arrayValue, (newValues: TValue[]) => {
     // with selectedOptions we verify that the options all still exist
     const selectedOptions: TValue[] = newValues
@@ -384,7 +370,7 @@ const checkAll = computed(() => {
 });
 
 const checkAllLabel = computed<string>(() => {
-  if (!isMultiple.value) {
+  if (!props.multiple) {
     return "";
   }
   const defaultText = t.value("selections.selectAll");
@@ -475,7 +461,7 @@ watch(
             <template v-else>
               <!-- select-all option for "multiple" -->
               <ul
-                v-if="isMultiple && hasCheckAll && !searchTerm"
+                v-if="props.multiple && props.withCheckAll && !searchTerm"
                 class="onyx-select__check-all"
                 v-bind="headlessGroup({ label: checkAllLabel })"
               >
@@ -522,7 +508,7 @@ watch(
                       selected: arrayValue.some((value: TValue) => value === option.value),
                     })
                   "
-                  :multiple="isMultiple"
+                  :multiple="props.multiple"
                   :active="option.value === activeValue"
                   :icon="option.icon"
                   :density="props.density"
