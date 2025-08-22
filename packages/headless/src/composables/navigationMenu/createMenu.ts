@@ -31,7 +31,7 @@ export const createNavigationMenu = createBuilder(({ navigationName }: CreateNav
       0,
       menuButtons.length - 1,
     );
-    menuButtons[nextIndex].focus();
+    menuButtons[nextIndex]?.focus();
   };
 
   return {
