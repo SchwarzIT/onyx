@@ -94,7 +94,7 @@ const teamMembers = [
           list-label="List of options"
           placeholder="Select"
           :options="selectOptions"
-          :multiple="true"
+          multiple
           with-search
           hide-label
         />
