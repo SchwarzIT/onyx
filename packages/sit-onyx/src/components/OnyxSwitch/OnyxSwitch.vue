@@ -10,7 +10,6 @@ import {
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
-import type { Nullable } from "../../types/index.js";
 import { useRootAttrs } from "../../utils/attrs.js";
 import OnyxErrorTooltip from "../OnyxErrorTooltip/OnyxErrorTooltip.vue";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
@@ -31,7 +30,7 @@ const props = withDefaults(defineProps<OnyxSwitchProps>(), {
 
 const emit = defineEmits<{
   /** Emitted when the checked state changes. */
-  "update:modelValue": [value?: Nullable<boolean>];
+  "update:modelValue": [value: boolean];
   /**
    * Emitted when the validity state of the input changes.
    */

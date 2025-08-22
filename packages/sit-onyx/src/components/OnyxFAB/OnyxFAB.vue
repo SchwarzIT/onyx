@@ -7,7 +7,6 @@ import {
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
-import type { Nullable } from "../../types/index.js";
 import { mergeVueProps } from "../../utils/attrs.js";
 import OnyxFABButton from "../OnyxFABButton/OnyxFABButton.vue";
 import OnyxFlyoutMenu from "../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
@@ -23,7 +22,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the isExpanded state changes.
    */
-  "update:open": [value?: Nullable<boolean>];
+  "update:open": [value: boolean];
 }>();
 
 const slots = defineSlots<{

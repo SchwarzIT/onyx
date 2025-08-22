@@ -13,6 +13,7 @@ const props = withDefaults(defineProps<OnyxFormElementProps<T>>(), {
   requiredMarker: FORM_INJECTED_SYMBOL,
   id: () => useId(),
 });
+
 const emit = defineEmits<{
   "update:modelValue": [value?: Nullable<T>];
 }>();

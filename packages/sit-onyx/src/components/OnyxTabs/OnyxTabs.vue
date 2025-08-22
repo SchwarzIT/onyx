@@ -20,7 +20,7 @@ const emit = defineEmits<{
 
 const { densityClass } = useDensity(props);
 
-const modelValue = useVModel<TValue, "modelValue", Props, undefined>({
+const modelValue = useVModel<Props, "modelValue">({
   props,
   emit,
   key: "modelValue",
