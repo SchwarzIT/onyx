@@ -6,10 +6,10 @@ const options = ["a", "b", "c", "d"];
 const isExpanded = ref(false);
 const searchTerm = ref("");
 const comboboxRef = useTemplateRef("combobox");
-const activeOption = ref("");
+const activeOption = ref<string | undefined>("");
 const filteredOptions = computed(() => options.filter((v) => v.includes(searchTerm.value)));
 const selectedIndex = computed<number | undefined>(() => {
-  const index = filteredOptions.value.indexOf(activeOption.value);
+  const index = filteredOptions.value.findIndex((option) => option === activeOption.value);
   return index !== -1 ? index : undefined;
 });
 

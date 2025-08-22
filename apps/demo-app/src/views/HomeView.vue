@@ -46,6 +46,7 @@ import {
   OnyxTooltip,
   useToast,
   type DateValue,
+  type Density,
   type SelectOption,
 } from "sit-onyx";
 import { capitalize, computed, ref } from "vue";
@@ -108,13 +109,13 @@ const show = computed(() => {
   };
 });
 
-const densityOptions = DENSITIES.map((value: string) => ({
+const densityOptions = DENSITIES.map((value) => ({
   value,
   label: capitalize(value),
   skeleton: false,
 })) satisfies SelectOption[];
 
-const activeDensityOption = ref(densityOptions[1].value);
+const activeDensityOption = ref<Density>("default");
 
 const useSkeleton = ref(false);
 const skeletonNumber = computed(() => (useSkeleton.value ? 3 : undefined));

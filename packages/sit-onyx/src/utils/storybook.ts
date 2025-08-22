@@ -93,6 +93,10 @@ export function createAdvancedStoryExample(componentName: string, exampleName: s
   const Component = allExamples[path];
   const codeSnippet = allCodeSnippets[path];
 
+  if (!Component || !codeSnippet) {
+    throw new Error(`Example component ${exampleName} for component ${componentName} not found!`);
+  }
+
   return {
     render: (args) => ({
       components: { Component, OnyxToast },
