@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.304
+
+### Minor Changes
+
+- 4ef837e: feat(OnyxFileCard):
+  - added progress bar
+  - added form validation
+
 ## 1.0.0-beta.303
 
 ### Patch Changes
