@@ -387,7 +387,7 @@ export const createTableColumnGroups = <
 
   for (let i = 1; i <= columns.length; i++) {
     const element = columns[i];
-    const currentKey = columns[currentStart].columnGroupKey ?? "";
+    const currentKey = columns[currentStart]?.columnGroupKey ?? "";
     // When it's the last iteration or the current group key changed:
     if (i === columns.length || element?.columnGroupKey !== currentKey) {
       // add a new TableColumnGroup
