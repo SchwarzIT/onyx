@@ -6,14 +6,14 @@ import { computed, ref, type ComponentInstance, type VNodeRef } from "vue";
 import { useVModel } from "../../../../composables/useVModel.js";
 import { injectI18n } from "../../../../i18n/index.js";
 import { mergeVueProps } from "../../../../utils/attrs.js";
-import OnyxBasicPopover from "../../../OnyxBasicPopover/OnyxBasicPopover.vue";
+import OnyxSupportPopover from "../../../OnyxSupportPopover/OnyxSupportPopover.vue";
 import OnyxSystemButton from "../../../OnyxSystemButton/OnyxSystemButton.vue";
 import type { OnyxFlyoutMenuProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxFlyoutMenuProps>(), {
   trigger: "hover",
   open: undefined,
-  alignment: "auto",
+  position: "bottom span-x-end",
 });
 
 const emit = defineEmits<{
@@ -57,8 +57,8 @@ const slots = defineSlots<{
   footer?(): unknown;
 }>();
 
-const popover = ref<ComponentInstance<typeof OnyxBasicPopover>>();
-const actualPosition = computed(() => popover.value?.popoverPosition);
+const popover = ref<ComponentInstance<typeof OnyxSupportPopover>>();
+const actualPosition = computed(() => popover.value?.position);
 
 const { t } = injectI18n();
 
@@ -74,16 +74,16 @@ const {
 </script>
 
 <template>
-  <OnyxBasicPopover
+  <OnyxSupportPopover
+    v-model:open="isExpanded"
     v-bind="mergeVueProps(root, { ref: popover as VNodeRef | undefined })"
     class="onyx-component onyx-flyout-menu"
-    :open="isExpanded"
     :label="props.label"
     :alignment="props.alignment"
     :position="props.position"
     :disabled="disabled"
   >
-    <template v-if="slots.options || slots.header || slots.footer" #default>
+    <template v-if="slots.options || slots.header || slots.footer" #trigger>
       <slot name="button" :trigger="button">
         <OnyxSystemButton
           v-bind="button"
@@ -92,27 +92,25 @@ const {
         />
       </slot>
     </template>
-    <!-- `v-show` instead of `v-if` is necessary, so that we can allow (teleported) dialogs to be shown -->
-    <template #content>
-      <!-- We always want to render the header so that we can render the padding here -->
-      <div class="onyx-flyout-menu__list-header">
-        <slot name="header"></slot>
-      </div>
 
-      <ul
-        v-if="slots.options"
-        v-bind="menu"
-        class="onyx-flyout-menu__wrapper onyx-flyout-menu__group"
-      >
-        <slot name="options"></slot>
-      </ul>
+    <!-- We always want to render the header so that we can render the padding here -->
+    <div class="onyx-flyout-menu__list-header">
+      <slot name="header"></slot>
+    </div>
 
-      <!-- We always want to render the footer so that we can render the padding here -->
-      <div class="onyx-flyout-menu__list-footer">
-        <slot name="footer"></slot>
-      </div>
-    </template>
-  </OnyxBasicPopover>
+    <ul
+      v-if="slots.options"
+      v-bind="menu"
+      class="onyx-flyout-menu__wrapper onyx-flyout-menu__group"
+    >
+      <slot name="options"></slot>
+    </ul>
+
+    <!-- We always want to render the footer so that we can render the padding here -->
+    <div class="onyx-flyout-menu__list-footer">
+      <slot name="footer"></slot>
+    </div>
+  </OnyxSupportPopover>
 </template>
 
 <style lang="scss">
@@ -121,9 +119,22 @@ const {
 .onyx-flyout-menu {
   @include layers.component() {
     --onyx-flyout-menu-gap: var(--onyx-spacing-2xs);
+    --onyx-flyout-min-width: var(--onyx-spacing-4xl);
+    --onyx-flyout-max-width: 20rem;
     display: inline-flex;
     width: min-content;
     position: relative;
+
+    .onyx-support-popover__dialog {
+      border-radius: var(--onyx-radius-md);
+      outline: none;
+      box-shadow: var(--onyx-shadow-medium-bottom);
+      background-color: var(--onyx-color-base-background-blank);
+      min-width: var(--onyx-flyout-min-width);
+      max-width: var(--onyx-flyout-max-width);
+      max-height: 100%;
+      width: max-content;
+    }
 
     &__list {
       &-header {
@@ -162,7 +173,8 @@ const {
     }
   }
 }
-.dark .onyx-flyout-menu__list {
+
+.dark .onyx-flyout-menu .onyx-support-popover__dialog {
   @include layers.component() {
     outline: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
   }
