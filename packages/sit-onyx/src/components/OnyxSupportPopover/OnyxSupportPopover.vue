@@ -76,6 +76,13 @@ const { dialogAttributes } = useUnsupportedPopoverAPI({
   open: isOpen,
   position,
 });
+
+defineExpose({
+  /**
+   * Actual position used by the popover (after considering overflow fallbacks).
+   */
+  position,
+});
 </script>
 
 <template>
