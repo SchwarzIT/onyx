@@ -76,3 +76,21 @@ test.describe("Screenshot tests (status)", () => {
     ),
   });
 });
+
+test.describe("Screenshot tests (progress)", () => {
+  executeMatrixScreenshotTest({
+    name: "File card (progress)",
+    columns: ["default", "custom-icon", "truncated"],
+    rows: ONYX_COLORS,
+    component: (column, row) => (
+      <OnyxFileCard
+        filename="filename.pdf"
+        type="application/pdf"
+        size="42MiB"
+        style={{ width: column === "truncated" ? "7rem" : undefined }}
+        status={{ color: row, text: "32%", progress: 32 }}
+        icon={column === "custom-icon" ? mockPlaywrightIcon : undefined}
+      />
+    ),
+  });
+});

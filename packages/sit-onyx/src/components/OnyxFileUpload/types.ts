@@ -16,7 +16,8 @@ export type OnyxFileUploadProps<TMultiple extends boolean> = DensityProp &
      * Whether multiple files can be selected.
      * If `true`, the `modelValue` property will be an array, otherwise a single value.
      */
-    multiple?: TMultiple;
+    // "boolean &" is needed to correctly generate the runtime prop value, see: https://github.com/vuejs/core/issues/13787#issuecomment-3209755164
+    multiple?: boolean & TMultiple;
     /**
      * File types to accept/allow for the upload.
      * If undefined or an empty array, all types will be allowed.
@@ -50,7 +51,8 @@ export type OnyxFileUploadProps<TMultiple extends boolean> = DensityProp &
      * Whether to replace all existing files when `multiple` is enabled.
      * By default, newly selected files will be added to the current selection.
      */
-    replace?: TMultiple extends true ? boolean : never;
+    // "boolean &" is needed to correctly generate the runtime prop value, see: https://github.com/vuejs/core/issues/13787#issuecomment-3209755164
+    replace?: boolean & (TMultiple extends true ? boolean : never);
     /**
      * Whether the upload is disabled.
      */

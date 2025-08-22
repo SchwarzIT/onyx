@@ -45,4 +45,8 @@ export type FileCardStatus = {
    * If set to "danger", an error icon will be displayed instead of the regular file icon.
    */
   color: OnyxColor;
+  /**
+   * Progress in percentage (0-100%). Displays a progress bar accordingly.
+   */
+  progress?: number;
 };
