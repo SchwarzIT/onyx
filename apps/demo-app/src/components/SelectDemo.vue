@@ -75,7 +75,7 @@ const filteredOptions = computed(() =>
         v-model="multiselectState"
         label="Example multiselect"
         list-label="Example listbox list"
-        :multiple="true"
+        multiple
         with-check-all
         :options="selectOptions"
         :skeleton="useSkeleton"

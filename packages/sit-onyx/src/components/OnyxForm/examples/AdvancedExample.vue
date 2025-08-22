@@ -106,7 +106,7 @@ const legalTerms: CheckboxGroupOption<LegalTerm>[] = [
       class="onyx-grid-span-4"
       label="Favorite fruits"
       list-label="List of fruits"
-      :multiple="true"
+      multiple
       with-search
       required
       :options="fruitOptions"

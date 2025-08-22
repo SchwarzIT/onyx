@@ -472,7 +472,7 @@ watch(
                       selected: checkAll?.state.value.modelValue,
                     })
                   "
-                  :multiple="true"
+                  multiple
                   :active="CHECK_ALL_ID === activeValue"
                   :indeterminate="checkAll?.state.value.indeterminate"
                   :density="props.density"
