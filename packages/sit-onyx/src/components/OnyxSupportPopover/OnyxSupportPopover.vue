@@ -127,6 +127,17 @@ const { dialogAttributes } = useUnsupportedPopoverAPI({
       max-width: var(--onyx-support-popover-max-width);
       max-height: 100%;
 
+      // see: https://developer.mozilla.org/en-US/docs/Web/CSS/position-try-fallbacks#combining_multiple_values_into_one_option
+      // TODO: extend polyfill to support fallbacks
+      position-try:
+        flip-block,
+        flip-inline,
+        flip-block flip-inline;
+      position-try-fallbacks:
+        flip-block,
+        flip-inline,
+        flip-block flip-inline;
+
       // apply gap spacing depending on the position
       &--top {
         margin-bottom: var(--onyx-support-popover-gap);
