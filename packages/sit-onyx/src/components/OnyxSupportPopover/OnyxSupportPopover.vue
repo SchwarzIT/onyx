@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { computed, toRef, useId, useTemplateRef, watch, type AriaAttributes } from "vue";
 import { useVModel } from "../../composables/useVModel.js";
-import type { Nullable } from "../../types/utils.js";
 import type { OnyxSupportPopoverProps } from "./types.js";
 import { usePopoverAutoPosition } from "./usePopoverAutoPosition.js";
 import { useUnsupportedPopoverAPI } from "./useUnsupportedPopoverAPI.js";
@@ -15,7 +14,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the open state changes.
    */
-  "update:open": [open: Nullable<boolean>];
+  "update:open": [open: boolean];
 }>();
 
 defineSlots<{
