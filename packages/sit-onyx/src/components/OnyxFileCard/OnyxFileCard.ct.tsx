@@ -81,14 +81,14 @@ test.describe("Screenshot tests (progress)", () => {
   executeMatrixScreenshotTest({
     name: "File card (progress)",
     columns: ["default", "custom-icon", "truncated"],
-    rows: ["default"],
-    component: (column) => (
+    rows: ["primary", "neutral", "danger", "warning", "success", "info"],
+    component: (column, row) => (
       <OnyxFileCard
         filename="filename.pdf"
         type="application/pdf"
         size="42MiB"
         style={{ width: column === "truncated" ? "7rem" : undefined }}
-        status={{ color: "primary", text: "32%", progress: { progress: 32, color: "primary" } }}
+        status={{ color: row, text: "32%", progress: 32 }}
         icon={column === "custom-icon" ? mockPlaywrightIcon : undefined}
       />
     ),
