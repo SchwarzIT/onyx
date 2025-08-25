@@ -30,9 +30,7 @@ const prevSlide = () => {
 
 <template>
   <div>
-    <OnyxButton label="Show Dialog" @click="isOpen = true" />
-
-    <OnyxDialog v-model:open="isOpen" label="Description" class="dialog">
+    <OnyxDialog v-model:open="isOpen" label="Description" class="dialog" button-text="Open Dialog">
       <div class="main-container">
         <div
           v-for="(slide, index) in slides"
@@ -77,7 +75,7 @@ const prevSlide = () => {
 
 <style lang="scss" scoped>
 .dialog {
-  width: 25rem;
+  width: 28rem;
 
   .onyx-bottom-bar__content--left {
     align-items: center;
@@ -88,7 +86,7 @@ const prevSlide = () => {
 }
 .main-container {
   position: relative;
-  width: 100%;
+  width: 26rem;
 
   height: 10.5rem;
   overflow: hidden;

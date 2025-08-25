@@ -99,13 +99,8 @@ const hasDescription = computed(() => !!slots.description);
     --onyx-basic-dialog-padding: 0;
     display: flex;
 
-    .onyx-basic-dialog__content {
-      display: flex;
-      flex-direction: column;
-    }
-
     &__header {
-      display: flex;
+      width: 100%;
       flex-direction: column;
       gap: var(--onyx-density-2xs);
       padding: var(--onyx-density-sm) var(--onyx-modal-padding-inline);

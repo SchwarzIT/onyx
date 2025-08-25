@@ -8,7 +8,7 @@ import OnyxDialog from "../OnyxDialog.vue";
 
 <template>
   <div>
-    <OnyxDialog :open="true" label="Url" non-dismissible>
+    <OnyxDialog label="Url" non-dismissible button-text="Open Dialog">
       <template #headline>
         <OnyxInput label="Url" placeholder="https://onyx.schwarz">
           <template #leading><OnyxIcon :icon="iconLink" /></template>

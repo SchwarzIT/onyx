@@ -1,9 +1,12 @@
 <script lang="ts" setup>
 import { iconXSmall } from "@sit-onyx/icons";
+import { computed } from "vue";
 import { useDensity } from "../../composables/density.js";
+import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import type { Nullable } from "../../types/index.js";
-import OnyxBasicDialog from "../OnyxBasicDialog/OnyxBasicDialog.vue";
+import OnyxBasicPopover from "../OnyxBasicPopover/OnyxBasicPopover.vue";
+import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import type { OnyxDialogProps } from "./types.js";
@@ -19,6 +22,15 @@ const emit = defineEmits<{
 }>();
 
 const slots = defineSlots<{
+  /**
+   * The trigger for the dialog. Should be an interactive component like a button or link.
+   */
+  trigger?(params: {
+    /**
+     * Attributes and event listeners that must be bound to an interactive element (button or link), that should act as the flyout trigger.
+     */
+    trigger: object;
+  }): unknown;
   /**
    * Dialog content.
    */
@@ -36,40 +48,69 @@ const slots = defineSlots<{
 
 const { t } = injectI18n();
 const { densityClass } = useDensity(props);
+
+/**
+ * If the flyout is expanded or not.
+ */
+const isExpanded = useVModel({
+  props,
+  emit,
+  key: "open",
+  default: false,
+});
+
+const triggerBindings = computed(() => ({
+  onClick: () => (isExpanded.value = !isExpanded.value),
+  "aria-expanded": isExpanded.value,
+  "aria-haspopup": "dialog",
+}));
 </script>
 
 <template>
-  <OnyxBasicDialog
-    v-bind="props"
+  <OnyxBasicPopover
     :class="['onyx-dialog', densityClass]"
+    :open="isExpanded"
+    :label="props.label"
+    :position="props.position"
+    :alignment="props.alignment"
     @update:open="emit('update:open', $event)"
   >
-    <div class="onyx-dialog__header">
-      <div class="onyx-dialog__headline">
-        <div class="onyx-dialog__headline-content">
-          <slot name="headline" :label="props.label">
-            <OnyxHeadline is="h2">{{ props.label }}</OnyxHeadline>
-          </slot>
-        </div>
-
-        <OnyxSystemButton
-          v-if="!props.nonDismissible"
-          class="onyx-alert-dialog__close"
-          :label="t('dialog.close')"
-          :icon="iconXSmall"
-          @click="emit('update:open', false)"
+    <template #default>
+      <slot name="trigger" :trigger="triggerBindings">
+        <OnyxButton
+          :label="props.buttonText ? props.buttonText : props.label"
+          v-bind="triggerBindings"
         />
+      </slot>
+    </template>
+    <template #content>
+      <div class="onyx-dialog__header">
+        <div class="onyx-dialog__headline">
+          <div class="onyx-dialog__headline-content">
+            <slot name="headline" :label="props.label">
+              <OnyxHeadline is="h2">{{ props.label }}</OnyxHeadline>
+            </slot>
+          </div>
+
+          <OnyxSystemButton
+            v-if="!props.nonDismissible"
+            class="onyx-alert-dialog__close"
+            :label="t('dialog.close')"
+            :icon="iconXSmall"
+            @click="() => (isExpanded = !isExpanded)"
+          />
+        </div>
       </div>
-    </div>
 
-    <div class="onyx-dialog__body">
-      <slot></slot>
-    </div>
+      <div class="onyx-dialog__body">
+        <slot></slot>
+      </div>
 
-    <div v-if="!!slots.footer" class="onyx-dialog__footer">
-      <slot name="footer"></slot>
-    </div>
-  </OnyxBasicDialog>
+      <div v-if="!!slots.footer" class="onyx-dialog__footer">
+        <slot name="footer"></slot>
+      </div>
+    </template>
+  </OnyxBasicPopover>
 </template>
 
 <style lang="scss">
@@ -79,9 +120,10 @@ const { densityClass } = useDensity(props);
   @include layers.component() {
     --onyx-dialog-padding-inline: var(--onyx-density-md);
     --onyx-basic-dialog-padding: 0;
-    display: flex;
-    border: none;
-    box-shadow: var(--onyx-shadow-medium-bottom);
+    width: fit-content;
+    .onyx-basic-popover__dialog {
+      --onyx-basic-popover-max-width: calc(100% - 2 * (var(--onyx-density-md)));
+    }
 
     .onyx-basic-dialog__content {
       display: flex;
@@ -91,6 +133,7 @@ const { densityClass } = useDensity(props);
     &__header {
       display: flex;
       flex-direction: column;
+      width: 100%;
       gap: var(--onyx-density-2xs);
       padding: var(--onyx-density-md) var(--onyx-dialog-padding-inline);
     }
@@ -108,12 +151,17 @@ const { densityClass } = useDensity(props);
       align-items: center;
       gap: inherit;
       position: relative;
-      margin: 0 auto;
+      width: 100%;
+      overflow: hidden;
+      justify-content: center;
     }
 
     &__body {
       overflow: auto;
       flex-grow: 1;
+    }
+    &__footer {
+      width: 100%;
     }
   }
 }

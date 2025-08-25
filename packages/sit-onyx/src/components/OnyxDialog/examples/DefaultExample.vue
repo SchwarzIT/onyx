@@ -8,9 +8,7 @@ const isOpen = ref(false);
 
 <template>
   <div>
-    <OnyxButton label="Show Dialog" @click="isOpen = true" />
-
-    <OnyxDialog v-model:open="isOpen" label="Example dialog">
+    <OnyxDialog v-model:open="isOpen" label="Example dialog" button-text="Open Dialog">
       <div class="main">
         <span class="main__description">
           Note: The Dialog component is fully flexible. It can be adjusted with every content the

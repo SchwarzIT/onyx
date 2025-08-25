@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import { OnyxButton } from "../../../index.js";
 import OnyxHeadline from "../../OnyxHeadline/OnyxHeadline.vue";
 import OnyxTab from "../../OnyxTab/OnyxTab.vue";
 import OnyxTabs from "../../OnyxTabs/OnyxTabs.vue";
@@ -12,9 +11,7 @@ const modelValue = ref("tab-1");
 
 <template>
   <div>
-    <OnyxButton label="Show Dialog" @click="isOpen = true" />
-
-    <OnyxDialog v-model:open="isOpen" label="Help" alignment="right">
+    <OnyxDialog v-model:open="isOpen" label="Help" button-text="Open Dialog">
       <div class="main">
         <OnyxHeadline is="h1">Title</OnyxHeadline>
         <p>
@@ -55,6 +52,9 @@ const modelValue = ref("tab-1");
 </template>
 
 <style lang="scss" scoped>
+.onyx-dialog {
+  float: inline-end;
+}
 .main {
   padding: var(--onyx-density-md) var(--onyx-dialog-padding-inline);
   max-width: 20rem;
