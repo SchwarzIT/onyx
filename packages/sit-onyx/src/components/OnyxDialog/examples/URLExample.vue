@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { iconCopy, iconLink } from "@sit-onyx/icons";
+import OnyxIcon from "../../OnyxIcon/OnyxIcon.vue";
 import OnyxInput from "../../OnyxInput/OnyxInput.vue";
 import OnyxSystemButton from "../../OnyxSystemButton/OnyxSystemButton.vue";
 import OnyxDialog from "../OnyxDialog.vue";
@@ -10,13 +11,8 @@ import OnyxDialog from "../OnyxDialog.vue";
     <OnyxDialog :open="true" label="Url" non-dismissible>
       <template #headline>
         <OnyxInput label="Url" placeholder="https://onyx.schwarz">
-          <template #leading
-            ><OnyxSystemButton label="next" class="navigation-button" :icon="iconLink"
-          /></template>
-
-          <template #trailing
-            ><OnyxSystemButton label="next" class="navigation-button" :icon="iconCopy" />
-          </template>
+          <template #leading><OnyxIcon :icon="iconLink" /></template>
+          <template #trailing><OnyxSystemButton label="copy" :icon="iconCopy" /> </template>
         </OnyxInput>
       </template>
     </OnyxDialog>

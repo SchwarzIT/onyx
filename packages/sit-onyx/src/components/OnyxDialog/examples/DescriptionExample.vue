@@ -63,7 +63,7 @@ const prevSlide = () => {
               label="next"
               class="navigation-button"
               :icon="iconChevronRightSmall"
-              :disabled="currentSlide === 2"
+              :disabled="currentSlide >= slides.length - 1"
               @click="nextSlide"
             />
           </template>

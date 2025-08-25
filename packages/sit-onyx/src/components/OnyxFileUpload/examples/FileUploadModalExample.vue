@@ -51,7 +51,7 @@ const removeFile = (fileToRemove: File) => {
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .example-file-wrapper {
   width: 30rem;
   .button-wrapper {
