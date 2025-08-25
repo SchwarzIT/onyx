@@ -9,6 +9,7 @@ import OnyxSegmentedControl from "./OnyxSegmentedControl.vue";
  */
 const meta: Meta<typeof OnyxSegmentedControl> = {
   title: "Navigation/SegmentedControl",
+  tags: ["new:component"],
   component: OnyxSegmentedControl,
   argTypes: {},
 };
