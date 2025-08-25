@@ -1,6 +1,7 @@
-name: Create a UX story 🎨
-description: Story template for design tasks. Exclusively used by the onyx core team for project management,
+name: "[Team] Create a UX task 🎨"
+description: Template for design tasks. Exclusively used by the onyx core team for project management.
 title: "Concept|Adjust|Research"
+type: Task
 projects:
   - SchwarzIT/5
 labels:
@@ -10,61 +11,33 @@ body:
   - type: textarea
     id: description
     attributes:
-      label: Create Component
-      description: Add, adapt and remove the following as necessary
-      value: |
-        - [ ] _if needed_ variation
-        - [ ] density
-        - [ ] states
-        - [ ] dark mode
-        - [ ] keyboard support
-    validations:
-      required: true
+      label: Description
+      description: Briefly describe what the UX task is about.
 
   - type: textarea
-    id: functions
+    id: dev-handover
     attributes:
-      label: Functions
-      description: Add possible Functions
+      label: DEV handover checklist
+      description: This checklist must be completed when the UX task is done and its handed over to the developer. You can shorten / extend the checklist as needed.
       value: |
-        - [ ] function 1
-        - [ ] function 2
-        - [ ] function 3
+        DEV handover done with: @ADD_DEV_NAME_HERE
 
-  - type: textarea
-    id: figma
-    attributes:
-      label: Figma
-      value: |
-        - [ ] UX component
+        **Component**
+        - [ ] defined main component name
+        - [ ] defined which support components are used and how they are named
+        - [ ] component has been hidden from publishing (until its implemented)
+        - the following is explained to the DEV and documented:
+            - [ ] all properties
+            - [ ] truncation
+            - [ ] responsiveness / wrapping behavior
+            - [ ] min / max width
 
-  - type: textarea
-    id: documentation
-    attributes:
-      label: Documentation
-      value: |
-        - [ ] keyboard support
-        - [ ] property description
-        - [ ] textual documentation
-        - [ ] component grouping
-    validations:
-      required: true
+        **Documentation**
+        - [ ] category for Figma and Storybook is defined
+        - [ ] examples that should be shown in Storybook are defined and documented
+        - [ ] component status "planned" has been added to the [docs overview](https://onyx.schwarz/#components)
 
-  - type: textarea
-    id: comparison
-    attributes:
-      label: Comparison
-      value: |
-        - link 1
-        - link 2
-
-  - type: textarea
-    id: finalizing
-    attributes:
-      label: Finalizing
-      description: "The issue is approved by the following designers and developers:"
-      value: |
-        - [ ] approved by designer <!-- add your @username -->
-        - [ ] handed over and approved by dev <!-- add your @username -->
+        **Other**
+        - [ ] DEV has either refined an implementation ticket or at least created a blank issue with a title
     validations:
       required: true
