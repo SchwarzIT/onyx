@@ -1,17 +1,18 @@
-name: Create a development story 📗
-description: Story template for development tasks. Exclusively used by the onyx core team for project management.
+name: "[Team] Create a development task 📗"
+description: Template for development tasks. Exclusively used by the onyx core team for project management.
 title: "Implement|Fix|Define"
 projects:
   - SchwarzIT/5
 labels:
   - dev
+  - 0-refinement
 
 body:
   - type: textarea
     id: description
     attributes:
       label: Why?
-      description: Add a short description and motivation for the story.
+      description: Briefly describe what the DEV task is about and whats the motivation behind it.
     validations:
       required: true
 
@@ -19,6 +20,7 @@ body:
     id: open-questions
     attributes:
       label: Open questions / TODOs
+      description: Are there any open questions or TODOs that need to be clarified before the task can be worked on?
       value: <!-- Add questions if there are any, use `@` to tag people. -->
 
   - type: textarea
@@ -32,14 +34,14 @@ body:
     id: design
     attributes:
       label: Design
-      value: <!-- Add Figma link and comments here -->
+      description: UX design information, e.g. Figma link, screenshots etc.
+      value: "[Figma](ADD_FIGMA_LINK_HERE)"
 
   - type: textarea
     id: acceptance-criteria
     attributes:
       label: Acceptance criteria
-      description: Ticket specific AC, e.g., the expected behavior of a component.
-      value: <!--  Add ticket specific AC, e.g., the expected behavior of a component -->
+      description: Which criteria have to be implemented to consider the task as completed?
     validations:
       required: true
 
@@ -71,39 +73,63 @@ body:
     id: aria-pattern
     attributes:
       label: Applicable ARIA Pattern
+      description: For a list of available patters, see [W3C ARIA patterns](https://www.w3.org/WAI/ARIA/apg/patterns/).
       value: <!-- Add link to ARIA pattern if applicable, see [W3C ARIA patterns](https://www.w3.org/WAI/ARIA/apg/patterns/) -->
 
   - type: textarea
-    id: definition-of-done
+    id: dev-handover
     attributes:
-      label: Definition of Done
-      description: For more details, please refer to our [documentation](https://onyx.schwarz/principles/definition-of-done.html).
+      label: DEV handover checklist
+      description: This checklist must be completed when the DEV task is done and is reviewed by another developer. You can shorten / extend the checklist as needed.
       value: |
-        - The following component requirements are implemented:
-          - [ ] skeleton
-          - [ ] density
-          - [ ] example usage added to `apps/demo-app/src/views/HomeView.vue`
+        [Storybook](ADD_LINK_HERE)
 
-        - Should be covered by tests:
-          - [ ] functional tests (Playwright or unit test)
-          - [ ] visual tests (Playwright screenshots)
+        DEV handover done with: @ADD_DEV_NAME_HERE
 
-        - Make sure, that
-          - [ ] follow-up tickets were created if necessary
-          - [ ] updated version + documentation is deployed
-          - [ ] Storybook can show the feature
-          - [ ] Storybook code snippet of new/changed examples are checked that they are generated correctly
-          - [ ] Namings are aligned with Figma
-          - [ ] Storybook sidebar badge for "New" is added on component or story level if needed. See: https://github.com/Sidnioulz/storybook-addon-tag-badges/?tab=readme-ov-file
+        **Testing**
+        - [ ] covered by visual screenshot tests
+        - [ ] covered by functional tests (Playwright or unit test)
 
+        **Documentation**
+        - [ ] "New" badge in Storybook is added, see [storybook-addon-tag-badges](https://github.com/Sidnioulz/storybook-addon-tag-badges/?tab=readme-ov-file#-usage)
+        - [ ] auto-generated Storybook code snippets are checked
+        - [ ] example usage added to `apps/demo-app/src/views/HomeView.vue`
+        - [ ] component status has been updated in the [docs overview](https://onyx.schwarz/#components)
+        - [ ] updated version is released
+        - [ ] updated documentation is deployed
 
-        #### Approval
+        **Other**
+        - [ ] follow-up tickets were created if necessary (add links below)
+    validations:
+      required: true
 
-        [Storybook](<!-- LINK HERE -->)
-        [Documentation](<!-- LINK HERE -->)
+  - type: textarea
+    id: ux-handover
+    attributes:
+      label: UX handover checklist
+      description: This checklist must be completed when the DEV task is done and is reviewed by a designer. You can shorten / extend the checklist as needed.
+      value: |
+        UX handover done with: @ADD_UX_NAME_HERE
 
-        - Checked and approved by
-          - [ ] designer <!-- add your @username -->
-          - [ ] dev <!-- add your @username -->
+        **Naming is aligned with Figma**
+        - [ ] component name
+        - [ ] which support components are used and how they are named
+        - [ ] all property names and types
+
+        **Implementation is checked**
+        - [ ] all features of Figma are implemented or a follow-up ticket is refined
+        - [ ] skeleton
+        - [ ] densities
+        - [ ] light and dark mode
+        - [ ] truncation
+        - [ ] responsiveness / wrapping behavior
+        - [ ] min / max width
+
+        **Figma**
+        - [ ] Figma component is published
+
+        **Documentation**
+        - [ ] Storybook category is aligned with Figma
+        - [ ] Storybook examples are checked
     validations:
       required: true
