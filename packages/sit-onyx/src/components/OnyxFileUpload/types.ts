@@ -2,7 +2,7 @@ import type { DensityProp } from "../../composables/density.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 import type { Nullable } from "../../types/utils.js";
 import type { BinaryPrefixedSize } from "../../utils/numbers.js";
-import type { FormInjectedBoolean } from "../OnyxForm/OnyxForm.core.js";
+import type { FormInjected } from "../OnyxForm/OnyxForm.core.js";
 import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
 
 export type OnyxFileUploadProps<TMultiple extends boolean> = DensityProp &
@@ -16,7 +16,8 @@ export type OnyxFileUploadProps<TMultiple extends boolean> = DensityProp &
      * Whether multiple files can be selected.
      * If `true`, the `modelValue` property will be an array, otherwise a single value.
      */
-    multiple?: TMultiple;
+    // "boolean &" is needed to correctly generate the runtime prop value, see: https://github.com/vuejs/core/issues/13787#issuecomment-3209755164
+    multiple?: boolean & TMultiple;
     /**
      * File types to accept/allow for the upload.
      * If undefined or an empty array, all types will be allowed.
@@ -50,11 +51,12 @@ export type OnyxFileUploadProps<TMultiple extends boolean> = DensityProp &
      * Whether to replace all existing files when `multiple` is enabled.
      * By default, newly selected files will be added to the current selection.
      */
-    replace?: TMultiple extends true ? boolean : never;
+    // "boolean &" is needed to correctly generate the runtime prop value, see: https://github.com/vuejs/core/issues/13787#issuecomment-3209755164
+    replace?: boolean & (TMultiple extends true ? boolean : never);
     /**
      * Whether the upload is disabled.
      */
-    disabled?: FormInjectedBoolean;
+    disabled?: FormInjected<boolean>;
     /**
      * The size of the upload container
      * @default large

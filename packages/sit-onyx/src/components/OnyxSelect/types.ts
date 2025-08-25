@@ -3,10 +3,9 @@ import type {
   AutofocusProp,
   BaseSelectOption,
   Nullable,
-  NullableBoolean,
   SelectOptionValue,
 } from "../../types/index.js";
-import type { FormInjectedBoolean } from "../OnyxForm/OnyxForm.core.js";
+import type { FormInjected } from "../OnyxForm/OnyxForm.core.js";
 import type { OnyxSelectInputProps } from "../OnyxSelectInput/types.js";
 import type { OnyxSelectOptionProps } from "../OnyxSelectOption/types.js";
 
@@ -32,27 +31,26 @@ export type OnyxSelectProps<
     /**
      * Allows the selection of multiple options
      */
-    multiple?: TMultiple;
+    // "boolean &" is needed to correctly generate the runtime prop value, see: https://github.com/vuejs/core/issues/13787#issuecomment-3209755164
+    multiple?: boolean & TMultiple;
     /**
      * If true, a checkbox will be displayed to check/uncheck all options.
      * Disabled and skeleton checkboxes will be excluded from the check/uncheck behavior.
      * Only available if "multiple" is true and no `searchTerm` is provided.
      */
-    withCheckAll?: TMultiple extends true
-      ?
-          | boolean
-          | {
-              /**
-               * Label for the `select all` checkbox.
-               * If unset, a default label will be shown depending on the current locale/language.
-               */
-              label?: string;
-            }
-      : never;
+    withCheckAll?:
+      | boolean
+      | {
+          /**
+           * Label for the `select all` checkbox.
+           * If unset, a default label will be shown depending on the current locale/language.
+           */
+          label?: string;
+        };
     /**
      * Whether the select should be disabled.
      */
-    disabled?: FormInjectedBoolean;
+    disabled?: FormInjected<boolean>;
     /**
      * Label that will be shown in the input of OnyxSelect.
      * If unset, will be managed internally by comparing `modelValue` with `options`.
@@ -96,7 +94,7 @@ export type OnyxSelectProps<
     /**
      * Whether the flyout is currently open.
      */
-    open?: NullableBoolean;
+    open?: Nullable<boolean>;
     /**
      * Current search term when `withSearch` is enabled.
      */

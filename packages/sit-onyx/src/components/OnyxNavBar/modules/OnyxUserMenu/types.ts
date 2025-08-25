@@ -1,4 +1,4 @@
-import type { NullableBoolean } from "../../../../types/index.js";
+import type { Nullable } from "../../../../types/index.js";
 import type { OnyxAvatarProps } from "../../../OnyxAvatar/types.js";
 
 export type OnyxUserMenuProps = {
@@ -19,7 +19,7 @@ export type OnyxUserMenuProps = {
   /**
    * Controls whether the flyout menu is open.
    */
-  flyoutOpen?: NullableBoolean;
+  flyoutOpen?: Nullable<boolean>;
   /**
    * Whether the user menu is disabled and can not be opened.
    */

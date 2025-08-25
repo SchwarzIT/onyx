@@ -1,4 +1,4 @@
-import type { BaseSelectOption, NullableBoolean, SelectOptionValue } from "../../types/index.js";
+import type { BaseSelectOption, Nullable, SelectOptionValue } from "../../types/index.js";
 
 export type OnyxSwitchProps<TValue extends SelectOptionValue = SelectOptionValue> = Omit<
   BaseSelectOption<TValue>,
@@ -7,5 +7,5 @@ export type OnyxSwitchProps<TValue extends SelectOptionValue = SelectOptionValue
   /**
    * Whether the switch should be checked or not.
    */
-  modelValue?: NullableBoolean;
+  modelValue?: Nullable<boolean>;
 };

@@ -25,7 +25,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the highest visited step/value changes.
    */
-  "update:highestValue": [value?: number];
+  "update:highestValue": [value: number];
 }>();
 
 const { densityClass } = useDensity(props);

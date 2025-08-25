@@ -16,7 +16,7 @@ const props = defineProps<{
 defineSlots<{ default: unknown }>();
 
 const emit = defineEmits<{
-  "update:modelValue": [Nullable<string>];
+  "update:modelValue": [string];
   "update:noDefault": [Nullable<string>];
 }>();
 

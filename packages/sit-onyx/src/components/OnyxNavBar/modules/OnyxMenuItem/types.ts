@@ -1,11 +1,11 @@
-import type { NullableBoolean, OnyxColor } from "../../../../types/index.js";
+import type { Nullable, OnyxColor } from "../../../../types/index.js";
 import type { WithLinkProp } from "../../../OnyxRouterLink/types.js";
 
 export type OnyxMenuItemProps = WithLinkProp & {
   /**
    * If the children of the menu item are visible.
    */
-  open?: NullableBoolean;
+  open?: Nullable<boolean>;
   /**
    * Label text for the menu item.
    */

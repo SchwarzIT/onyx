@@ -3,7 +3,7 @@
 // to easily switch between mobile and desktop layout
 import { useVModel } from "../../../../composables/useVModel.js";
 import { injectI18n } from "../../../../i18n/index.js";
-import type { NullableBoolean, SelectOptionValue } from "../../../../types/index.js";
+import type { Nullable, SelectOptionValue } from "../../../../types/index.js";
 import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
 import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 
@@ -16,7 +16,7 @@ const props = withDefaults(
     /**
      * Controls whether the flyout menu is open.
      */
-    flyoutOpen?: NullableBoolean;
+    flyoutOpen?: Nullable<boolean>;
     /**
      * Whether the flyout is disabled and can not be opened.
      */
@@ -30,18 +30,9 @@ const emit = defineEmits<{
   /**
    * Emitted when the state of flyoutOpen changes.
    */
-  "update:flyoutOpen": [value?: NullableBoolean];
+  "update:flyoutOpen": [value: boolean];
 }>();
 
-/**
- * Controls the open state of the user menu flyout.
- */
-const flyoutOpen = useVModel({
-  props,
-  emit,
-  key: "flyoutOpen",
-  default: false,
-});
 const slots = defineSlots<{
   /**
    * The trigger for the flyout menu. Must be an interactive component like a button or link.
@@ -56,6 +47,16 @@ const slots = defineSlots<{
   options?(): unknown;
   footer?(): unknown;
 }>();
+
+/**
+ * Controls the open state of the user menu flyout.
+ */
+const flyoutOpen = useVModel({
+  props,
+  emit,
+  key: "flyoutOpen",
+  default: false,
+});
 
 const { t } = injectI18n();
 </script>

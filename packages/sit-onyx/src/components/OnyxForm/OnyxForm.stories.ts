@@ -50,3 +50,4 @@ export const Disabled = {
 } satisfies Story;
 
 export const AdvancedExample = createAdvancedStoryExample("OnyxForm", "AdvancedExample");
+export const FileUploadExample = createAdvancedStoryExample("OnyxForm", "FileUploadExample");

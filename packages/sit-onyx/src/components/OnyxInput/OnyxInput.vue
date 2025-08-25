@@ -12,7 +12,6 @@ import {
 } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
-import type { Nullable } from "../../types/index.js";
 import { useRootAttrs } from "../../utils/attrs.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
@@ -44,7 +43,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the input changes
    */
-  "update:modelValue": [value?: Nullable<string>];
+  "update:modelValue": [value: string];
 }>();
 
 const slots = defineSlots<{

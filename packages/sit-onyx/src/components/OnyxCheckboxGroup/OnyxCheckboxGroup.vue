@@ -8,7 +8,7 @@ import {
 } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
-import type { Nullable, SelectOptionValue } from "../../types/index.js";
+import type { SelectOptionValue } from "../../types/index.js";
 import OnyxCheckbox from "../OnyxCheckbox/OnyxCheckbox.vue";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
@@ -30,7 +30,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the checked checkboxes change.
    */
-  "update:modelValue": [value?: Nullable<TValue[]>];
+  "update:modelValue": [value: TValue[]];
 }>();
 
 const { t } = injectI18n();
