@@ -1,7 +1,11 @@
 <script lang="ts" setup>
 import { provide, ref, watch } from "vue";
-import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState.js";
-import type { Nullable } from "../../types.js";
+import { useDensity } from "../../composables/density.js";
+import {
+  SKELETON_INJECTED_SYMBOL,
+  useSkeletonContext,
+} from "../../composables/useSkeletonState.js";
+import type { Nullable } from "../../types/utils.js";
 import type { SegmentedControlElement } from "../OnyxSegmentedControlElement/types.js";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import { type OnyxSegmentedControlProps, type SegmentedControlInject } from "./types.js";
@@ -17,8 +21,11 @@ defineSlots<{
 const emit = defineEmits(["update:modelValue"]);
 
 const skeleton = useSkeletonContext(props);
+const { densityClass } = useDensity(props);
+
 const elements = ref<SegmentedControlElement[]>([]);
 const activeElement = ref<Nullable<SegmentedControlElement>>(null);
+
 const setActive = (el: SegmentedControlElement) => {
   activeElement.value = el;
   emit("update:modelValue", el.value);
@@ -26,6 +33,7 @@ const setActive = (el: SegmentedControlElement) => {
 const addElement = (el: SegmentedControlElement) => {
   elements.value.push(el);
 };
+
 provide<SegmentedControlInject>("segmented-control-config", {
   setActive,
   activeElement,
@@ -47,8 +55,8 @@ watch(
 </script>
 
 <template>
-  <OnyxSkeleton v-if="skeleton" class="onyx-segmented-control-skeleton" />
-  <div v-else class="onyx-component onyx-segmented-control">
+  <OnyxSkeleton v-if="skeleton" :class="['onyx-segmented-control-skeleton', densityClass]" />
+  <div v-else :class="['onyx-component', 'onyx-segmented-control', densityClass]">
     <slot></slot>
   </div>
 </template>
@@ -64,7 +72,7 @@ watch(
     background-color: var(--onyx-color-base-neutral-200);
     border-radius: var(--onyx-radius-sm);
 
-    &:has(.onyx-segmented-control-element__icon):not(:has(.onyx-segmented-control-element__text)) {
+    &:has(.onyx-segmented-control-element__icon):not(:has(.onyx-segmented-control-element__label)) {
       width: fit-content;
     }
     &-skeleton {

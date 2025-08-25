@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { computed, inject, onMounted, ref, useTemplateRef } from "vue";
+import { useDensity } from "../../composables/density.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { SegmentedControlInject } from "../OnyxSegmentedControl/types.js";
 import type { SegmentedControlElement, SegmentedControlElementProps } from "./types.js";
@@ -22,6 +23,7 @@ const { elements, setActive, activeElement, addElement } = inject<SegmentedContr
 );
 
 const segmentedControlElement = useTemplateRef("elementRef");
+const { densityClass } = useDensity(props);
 
 const isFocuseable = computed(() => {
   if (props.disabled) return false;
@@ -33,11 +35,13 @@ const isFocuseable = computed(() => {
     (!activeElement.value && firstEnabled?.value === props.value)
   );
 });
+
 const getElement = () => ({
   value: props.value,
   element: segmentedControlElement.value,
   disabled: props.disabled,
 });
+
 const handleKeydown = (event: KeyboardEvent) => {
   const currentIndex = elements.value.findIndex(
     (el: SegmentedControlElement) => el.value === props.value,
@@ -84,8 +88,10 @@ onMounted(() => {
       'onyx-component': true,
       'onyx-segmented-control-element': true,
       'onyx-segmented-control-element--active': activeElement?.value === props.value,
+      ...densityClass,
     }"
     type="button"
+    :aria-label="props.label ? props.label : props.value"
     :tabindex="isFocuseable ? '0' : '-1'"
     :disabled="disabled"
     @click="setActive(getElement())"
@@ -93,8 +99,8 @@ onMounted(() => {
   >
     <slot>
       <OnyxIcon v-if="props.icon" :icon="props.icon" class="onyx-segmented-control-element__icon" />
-      <p v-if="props.text || !props.icon" class="onyx-segmented-control-element__text">
-        {{ props.text ? props.text : props.value }}
+      <p v-if="props.label || !props.icon" class="onyx-segmented-control-element__label">
+        {{ props.label ? props.label : props.value }}
       </p>
     </slot>
   </button>
@@ -131,7 +137,7 @@ onMounted(() => {
     }
 
     &:has(> .onyx-segmented-control-element__icon):not(
-        :has(> .onyx-segmented-control-element__text)
+        :has(> .onyx-segmented-control-element__label)
       ) {
       width: auto;
     }

@@ -1,7 +1,9 @@
-export type SegmentedControlElementProps = {
+import type { DensityProp } from "../../composables/density.js";
+
+export type SegmentedControlElementProps = DensityProp & {
   value: string;
   icon?: string;
-  text?: string;
+  label?: string;
   disabled?: boolean;
 };
 export type SegmentedControlElement = {

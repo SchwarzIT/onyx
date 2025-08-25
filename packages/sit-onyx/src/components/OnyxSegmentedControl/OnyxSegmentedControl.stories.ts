@@ -22,11 +22,11 @@ export const Default = {
       const children = [
         h(OnyxSegmentedControlElement, {
           value: "option-1",
-          text: "Option 1",
+          label: "Option 1",
         }),
         h(OnyxSegmentedControlElement, {
           value: "option-2",
-          text: "Option 2",
+          label: "Option 2",
         }),
       ];
       return () => h(OnyxSegmentedControl, args, () => children);
@@ -59,13 +59,13 @@ export const TextAndIcon = {
       const children = [
         h(OnyxSegmentedControlElement, {
           value: "option-1",
-          text: "Option 1",
+          label: "Option 1",
           icon: iconPlaceholder,
         }),
 
         h(OnyxSegmentedControlElement, {
           value: "option-2",
-          text: "Option 2",
+          label: "Option 2",
           icon: iconPlaceholder,
         }),
       ];
@@ -115,16 +115,16 @@ export const Disabled = {
       const children = [
         h(OnyxSegmentedControlElement, {
           value: "option-1",
-          text: "Option 1",
+          label: "Option 1",
           disabled: true,
         }),
         h(OnyxSegmentedControlElement, {
           value: "option-2",
-          text: "Option 2",
+          label: "Option 2",
         }),
         h(OnyxSegmentedControlElement, {
           value: "option-3",
-          text: "Option 2",
+          label: "Option 2",
         }),
       ];
       return () => h(OnyxSegmentedControl, args, () => children);

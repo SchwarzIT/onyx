@@ -17,7 +17,7 @@ type Story = StoryObj<typeof OnyxSegmentedControlElement>;
 export const Default = {
   args: {
     value: "option",
-    text: "Option",
+    label: "Option",
   },
 } satisfies Story;
 
@@ -30,14 +30,14 @@ export const Icon = {
 export const TextAndIcon = {
   args: {
     value: "option",
-    text: "Option",
+    label: "Option",
     icon: iconPlaceholder,
   },
 } satisfies Story;
 export const Disabled = {
   args: {
     value: "option",
-    text: "Option",
+    label: "Option",
     disabled: true,
   },
 } satisfies Story;
