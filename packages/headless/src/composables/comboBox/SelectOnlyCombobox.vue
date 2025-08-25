@@ -5,10 +5,10 @@ import { createComboBox } from "./createComboBox.js";
 const options = ["a", "b", "c", "d"];
 const isExpanded = ref(false);
 const comboboxRef = useTemplateRef("combobox");
-const activeOption = ref("");
+const activeOption = ref<string | undefined>("");
 const selectedOption = ref("");
 const selectedIndex = computed<number | undefined>(() => {
-  const index = options.indexOf(activeOption.value);
+  const index = options.findIndex((option) => option === activeOption.value);
   return index !== -1 ? index : undefined;
 });
 

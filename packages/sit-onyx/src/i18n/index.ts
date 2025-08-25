@@ -90,10 +90,8 @@ export const createI18n = (options: ProvideI18nOptions = {}) => {
   const locale = readonly(toRef(options?.locale ?? "en-US"));
 
   const messages = computed(() => {
-    if (options?.messages && locale.value in options.messages) {
-      return options.messages[locale.value];
-    }
-    return enUS;
+    const localeMessages = options.messages?.[locale.value];
+    return localeMessages ?? enUS;
   });
 
   /**
@@ -195,10 +193,10 @@ const resolvePluralization = (message: string, value?: number) => {
   if (value && (value <= 0 || value > 1)) pluralization = 2;
 
   if (formats.length === 2) {
-    return pluralization === 1 ? formats[0] : formats[1];
+    return pluralization === 1 ? formats[0]! : formats[1]!;
   }
 
-  return formats[pluralization];
+  return formats[pluralization]!;
 };
 
 /**

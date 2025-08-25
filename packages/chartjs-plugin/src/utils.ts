@@ -46,7 +46,7 @@ export const getCSSVariableValue = (variableName: string): string => {
   const lightDarkMatch = /^light-dark\(([^,]+),\s*([^)]+)\)$/.exec(computedValue);
 
   if (lightDarkMatch) {
-    return lightDarkMatch[isDark ? 2 : 1].trim();
+    return lightDarkMatch[isDark ? 2 : 1]!.trim();
   } else {
     return computedValue;
   }

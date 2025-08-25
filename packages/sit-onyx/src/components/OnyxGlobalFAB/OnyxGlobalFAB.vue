@@ -14,7 +14,7 @@ const alignment = computed(() =>
 </script>
 
 <template>
-  <OnyxFAB v-if="globalFAB.items.value.length === 1" v-bind="globalFAB.items.value[0].value" />
+  <OnyxFAB v-if="globalFAB.items.value.length === 1" v-bind="globalFAB.items.value[0]!.value" />
 
   <OnyxFAB v-else-if="globalFAB.items.value.length > 1" :label="t('globalFAB.label')" :alignment>
     <OnyxFABItem
