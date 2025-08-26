@@ -21,8 +21,8 @@ Our technical vision describes the goals that we as the development team of **on
 ## Release process
 
 1. 🔮 All packages use one of two release channels:
-   - `beta`: automatically released on each merge to the `main` branch
-   - `default` / `prod`: released after the [current sprint](https://github.com/orgs/SchwarzIT/projects/5/views/1) has ended. Requires manual approval.
+   - `dev`: automated [snapshot release](https://github.com/changesets/changesets/blob/main/docs/snapshot-releases.md) on `dev` tag on each merge to the `main` branch. Will always be the newest development state but is considered to be NOT stable which means bugs may exist or we might implement breaking changes. Mainly used for development and testing purposes.
+   - `latest` (prod): Latest stable version. Released after specific time periods (e.g. after the [current sprint](https://github.com/orgs/SchwarzIT/projects/5/views/1) has ended, left up to the onyx team to decide). Requires manual approval.
 
 ## Pull Requests
 
