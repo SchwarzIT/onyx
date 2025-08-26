@@ -1,5 +1,6 @@
 import type { DensityProp } from "../../composables/density.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
+import type { BaseSelectOption } from "../../types/components.js";
 import type { Nullable } from "../../types/utils.js";
 
 export type OnyxSegmentedControlProps = DensityProp & {
@@ -22,19 +23,10 @@ export type OnyxSegmentedControlProps = DensityProp & {
   name?: string;
 };
 
-export type OnyxSegmentedControlOption = {
-  /**
-   * unique identifier for the option
-   */
-  value: string;
-  /**
-   * Label for the option.
-   */
-  label: string;
-  /**
-   * Whether to visually hide the label.
-   */
-  hideLabel?: boolean;
+export type OnyxSegmentedControlOption = Pick<
+  BaseSelectOption,
+  "value" | "label" | "hideLabel" | "autofocus"
+> & {
   /**
    * Icon for the option. If an icon without a label is provided the width of the control will be `fit-content`.
    */

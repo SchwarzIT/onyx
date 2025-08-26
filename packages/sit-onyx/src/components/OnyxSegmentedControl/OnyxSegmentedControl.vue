@@ -35,10 +35,14 @@ const modelValue = useVModel<OnyxSegmentedControlProps, "modelValue">({
 <template>
   <OnyxSkeleton v-if="skeleton" :class="['onyx-segmented-control-skeleton', densityClass]" />
   <div v-else :class="['onyx-component', 'onyx-segmented-control', densityClass]">
-    <div v-for="option in options" :key="option.value" class="onyx-segmented-control-element">
+    <div
+      v-for="option in options"
+      :key="option.value.toString()"
+      class="onyx-segmented-control-element"
+    >
       <OnyxVisuallyHidden>
         <input
-          :id="option.value"
+          :id="option.value.toString()"
           v-model="modelValue"
           :name="props.name"
           type="radio"
@@ -46,9 +50,10 @@ const modelValue = useVModel<OnyxSegmentedControlProps, "modelValue">({
           :disabled="option.disabled"
           class="onyx-segmented-control-element__input"
           :aria-label="option.label"
+          :autofocus="option.autofocus"
         />
       </OnyxVisuallyHidden>
-      <label :for="option.value" class="onyx-segmented-control-element__label">
+      <label :for="option.value.toString()" class="onyx-segmented-control-element__label">
         <OnyxIcon
           v-if="option.icon"
           :icon="option.icon"
