@@ -17,6 +17,7 @@ test("should behave correctly", async ({ mount, makeAxeBuilder, page }) => {
   // ARRANGE
   const component = await mount(<TestWrapperCt onUpdate:open={onOpenUpdate} />);
   const closeButton = component.getByRole("button", { name: "Close dialog" });
+  closeButton.focus();
 
   // ASSERT
   await expect(page).toHaveScreenshot("default.png");
@@ -36,7 +37,7 @@ test("should behave correctly", async ({ mount, makeAxeBuilder, page }) => {
 
 test("Screenshot test (custom headline)", async ({ mount, page, makeAxeBuilder }) => {
   // ARRANGE
-  await mount(
+  const component = await mount(
     <TestWrapperCt style={{ width: "100%" }}>
       <template v-slot:headline>
         <OnyxHeadline is="h2">Headline</OnyxHeadline>
@@ -45,7 +46,8 @@ test("Screenshot test (custom headline)", async ({ mount, page, makeAxeBuilder }
       </template>
     </TestWrapperCt>,
   );
-
+  const closeButton = component.getByRole("button", { name: "Close dialog" });
+  closeButton.focus();
   // ASSERT
   await expect(page).toHaveScreenshot("custom-headline.png");
 

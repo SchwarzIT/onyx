@@ -11,7 +11,7 @@ const modelValue = ref("tab-1");
 
 <template>
   <div>
-    <OnyxDialog v-model:open="isOpen" label="Help" button-text="Open Dialog">
+    <OnyxDialog v-model:open="isOpen" label="Help" button-text="Open Dialog" alignment="right">
       <div class="main">
         <OnyxHeadline is="h1">Title</OnyxHeadline>
         <p>
@@ -53,7 +53,7 @@ const modelValue = ref("tab-1");
 
 <style lang="scss" scoped>
 .onyx-dialog {
-  float: inline-end;
+  float: right;
 }
 .main {
   padding: var(--onyx-density-md) var(--onyx-dialog-padding-inline);

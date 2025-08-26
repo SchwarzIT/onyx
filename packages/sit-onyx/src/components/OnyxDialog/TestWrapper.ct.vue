@@ -23,7 +23,7 @@ const emit = defineEmits<{
   <OnyxDialog
     label="Example Dialog"
     :alignment="props.alignment"
-    :open="true"
+    open
     @update:open="emit('update:open', $event)"
   >
     <template #headline>

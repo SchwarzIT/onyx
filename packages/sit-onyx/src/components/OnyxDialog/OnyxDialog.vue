@@ -158,6 +158,7 @@ const triggerBindings = computed(() => ({
 
     &__body {
       overflow: auto;
+      width: 100%;
       flex-grow: 1;
     }
     &__footer {
