@@ -17,12 +17,14 @@ test.describe("Screenshot tests", () => {
             options={[
               {
                 value: "option-1",
-                label: row !== "icon" ? "Option 1" : undefined,
+                label: "Option 1",
+                hideLabel: row === "icon",
                 icon: row === "icon" || row === "labelAndIcon" ? mockPlaywrightIcon : undefined,
               },
               {
                 value: "option-2",
-                label: row !== "icon" ? "Option 2" : undefined,
+                label: "Option 2",
+                hideLabel: row === "icon",
                 icon: row === "icon" || row === "labelAndIcon" ? mockPlaywrightIcon : undefined,
                 disabled: row === "disabled",
               },
