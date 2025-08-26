@@ -2,4 +2,4 @@
 "sit-onyx": minor
 ---
 
-feat(OnyxSegmentedControl): implemented new component: OnyxSegmentedControl
+feat(OnyxSegmentedControl): implemented new components: OnyxSegmentedControl & OnyxSegmentedControlElement
