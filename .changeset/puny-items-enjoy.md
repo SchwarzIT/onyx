@@ -2,4 +2,4 @@
 "sit-onyx": minor
 ---
 
-feat(OnyxDialog): -implemented OnyxDialog
+feat: implemented OnyxDialog component

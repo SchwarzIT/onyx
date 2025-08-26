@@ -7,23 +7,21 @@ const isOpen = ref(false);
 </script>
 
 <template>
-  <div>
-    <OnyxDialog v-model:open="isOpen" label="Example dialog" button-text="Open Dialog">
-      <div class="main">
-        <span class="main__description">
-          Note: The Dialog component is fully flexible. It can be adjusted with every content the
-          project needs.
-        </span>
-      </div>
+  <OnyxDialog v-model:open="isOpen" label="Example dialog" button-text="Open Dialog">
+    <div class="main">
+      <span class="main__description">
+        Note: The Dialog component is fully flexible. It can be adjusted with every content the
+        project needs.
+      </span>
+    </div>
 
-      <template #footer>
-        <OnyxBottomBar hide-border>
-          <OnyxButton label="Close" color="neutral" mode="plain" @click="isOpen = false" />
-          <OnyxButton label="Save" @click="isOpen = false" />
-        </OnyxBottomBar>
-      </template>
-    </OnyxDialog>
-  </div>
+    <template #footer>
+      <OnyxBottomBar hide-border>
+        <OnyxButton label="Close" color="neutral" mode="plain" @click="isOpen = false" />
+        <OnyxButton label="Save" @click="isOpen = false" />
+      </OnyxBottomBar>
+    </template>
+  </OnyxDialog>
 </template>
 
 <style lang="scss" scope>

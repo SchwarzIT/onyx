@@ -4,21 +4,21 @@ import { computed } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
-import type { Nullable } from "../../types/index.js";
 import OnyxBasicPopover from "../OnyxBasicPopover/OnyxBasicPopover.vue";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import type { OnyxDialogProps } from "./types.js";
 
-const props = defineProps<OnyxDialogProps>();
+const props = withDefaults(defineProps<OnyxDialogProps>(), {
+  open: undefined,
+});
 
 const emit = defineEmits<{
   /**
    * Emitted when the dialog should be closed.
-   * Opening is always controlled via the `open` prop.
    */
-  "update:open": [open: Nullable<boolean>];
+  "update:open": [open: boolean];
 }>();
 
 const slots = defineSlots<{
@@ -67,14 +67,7 @@ const triggerBindings = computed(() => ({
 </script>
 
 <template>
-  <OnyxBasicPopover
-    :class="['onyx-dialog', densityClass]"
-    :open="isExpanded"
-    :label="props.label"
-    :position="props.position"
-    :alignment="props.alignment"
-    @update:open="emit('update:open', $event)"
-  >
+  <OnyxBasicPopover :class="['onyx-dialog', densityClass]" v-bind="props" :open="isExpanded">
     <template #default>
       <slot name="trigger" :trigger="triggerBindings">
         <OnyxButton

@@ -7,14 +7,12 @@ import OnyxDialog from "../OnyxDialog.vue";
 </script>
 
 <template>
-  <div>
-    <OnyxDialog label="Url" non-dismissible button-text="Open Dialog">
-      <template #headline>
-        <OnyxInput label="Url" placeholder="https://onyx.schwarz">
-          <template #leading><OnyxIcon :icon="iconLink" /></template>
-          <template #trailing><OnyxSystemButton label="copy" :icon="iconCopy" /> </template>
-        </OnyxInput>
-      </template>
-    </OnyxDialog>
-  </div>
+  <OnyxDialog label="Url" non-dismissible button-text="Open Dialog">
+    <template #headline>
+      <OnyxInput label="Url" placeholder="https://onyx.schwarz">
+        <template #leading><OnyxIcon :icon="iconLink" /></template>
+        <template #trailing><OnyxSystemButton label="copy" :icon="iconCopy" /> </template>
+      </OnyxInput>
+    </template>
+  </OnyxDialog>
 </template>

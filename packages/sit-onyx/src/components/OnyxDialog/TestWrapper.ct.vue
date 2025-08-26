@@ -42,8 +42,7 @@ const emit = defineEmits<{
   </OnyxDialog>
 </template>
 
-<!-- eslint-disable-next-line vue-scoped-css/enforce-style-type -->
-<style lang="scss" scoped>
+<style lang="scss">
 .content {
   padding: var(--onyx-density-xl) var(--onyx-modal-padding-inline);
 }
