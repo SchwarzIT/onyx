@@ -1,7 +1,7 @@
 import { iconCircleInformation } from "@sit-onyx/icons";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import { computed, h, ref } from "vue";
-import { defineIconSelectArgType } from "../../utils/storybook.js";
+import { h } from "vue";
+import { createAdvancedStoryExample, defineIconSelectArgType } from "../../utils/storybook.js";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxTooltip from "./OnyxTooltip.vue";
 
@@ -18,9 +18,6 @@ const meta: Meta<typeof OnyxTooltip> = {
     },
     tooltip: {
       control: { disable: true },
-    },
-    open: {
-      options: ["hover", "click", true, false],
     },
   },
   decorators: [
@@ -53,39 +50,16 @@ export const Default = {
  * This tooltip is triggered on hover and it describes what the associated button does.
  * It will use a short debounce/delay when showing/hiding.
  */
-export const Hover = {
-  render: (args) => ({
-    setup: () => {
-      const count = ref(0);
-      const label = computed(() => `Clicked ${count.value} times`);
-
-      return () =>
-        h(OnyxTooltip, args, {
-          default: ({ trigger }: { trigger: object }) =>
-            h(OnyxButton, {
-              label: label.value,
-              ...trigger,
-              onClick: () => count.value++,
-            }),
-        });
-    },
-  }),
-  args: {
-    ...Default.args,
-    text: "Clicking this button won't do anything substantial, but will give the actor a slight sense of gratification.",
-    open: "hover",
-  },
-} satisfies Story;
+export const Hover = createAdvancedStoryExample("OnyxTooltip", "HoverExample") satisfies Story;
 
 /**
  * This example tooltip (or rather toggletip) is toggled by a click and provides contextual information.
  */
 export const Click = {
   args: {
-    ...Default.args,
     text: "Storybook is a frontend workshop for building UI components and pages in isolation.",
-    default: ({ trigger }) => h(OnyxButton, { label: "Info", ...trigger }),
-    open: "click",
+    default: ({ trigger }) => h(OnyxButton, { label: "Click for info", ...trigger }),
+    trigger: "click",
   },
 } satisfies Story;
 
@@ -104,10 +78,8 @@ export const MatchParentWidth = {
  */
 export const Danger = {
   args: {
-    ...Default.args,
-    open: "hover",
     text: "Clicking this button will delete the internet!",
-    default: ({ trigger }) => h(OnyxButton, { label: "Delete", ...trigger }),
+    default: ({ trigger }) => h(OnyxButton, { label: "Delete", color: "danger", ...trigger }),
     color: "danger",
   },
 } satisfies Story;

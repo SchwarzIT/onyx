@@ -210,6 +210,7 @@ export { default as OnyxFileUpload } from "./components/OnyxFileUpload/OnyxFileU
 export * from "./components/OnyxFileUpload/types.js";
 
 export { default as OnyxFilterTag } from "./components/OnyxFilterTag/OnyxFilterTag.vue";
+export * from "./components/OnyxFilterTag/types.js";
 
 export { default as OnyxBasicPopover } from "./components/OnyxBasicPopover/OnyxBasicPopover.vue";
 export * from "./components/OnyxBasicPopover/types.js";

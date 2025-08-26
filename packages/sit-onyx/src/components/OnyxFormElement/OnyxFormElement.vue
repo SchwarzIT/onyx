@@ -13,6 +13,7 @@ const props = withDefaults(defineProps<OnyxFormElementProps<T>>(), {
   requiredMarker: FORM_INJECTED_SYMBOL,
   id: () => useId(),
 });
+
 const emit = defineEmits<{
   "update:modelValue": [value?: Nullable<T>];
 }>();
@@ -68,7 +69,7 @@ defineSlots<{
       <OnyxInfoTooltip
         v-if="props.labelTooltip"
         class="onyx-form-element__label-tooltip"
-        open="hover"
+        trigger="hover"
         :text="props.labelTooltip"
       />
       <span

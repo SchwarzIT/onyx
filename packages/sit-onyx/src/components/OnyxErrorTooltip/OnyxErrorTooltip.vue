@@ -10,9 +10,12 @@ const props = defineProps<{
    * component will not be rendered inside a slot.
    */
   errorMessages?: FormMessages;
-  /** We don't show an error if the content is not interactive */
+  /**
+   * We don't show an error if the content is not interactive
+   */
   disabled?: boolean;
 }>();
+
 defineSlots<{
   /**
    * Any component. Will be wrapped in an OnyxTooltip showing
@@ -35,7 +38,7 @@ const target = useTemplateRef("targetRef");
     <OnyxTooltip
       v-if="tooltipError && !props.disabled"
       class="onyx-error-tooltip"
-      open="hover"
+      trigger="hover"
       :text="tooltipError"
       color="danger"
     >

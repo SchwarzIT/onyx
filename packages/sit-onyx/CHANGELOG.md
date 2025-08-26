@@ -1,5 +1,83 @@
 # sit-onyx
 
+## 1.0.0-beta.304
+
+### Minor Changes
+
+- 4ef837e: feat(OnyxFileCard):
+  - added progress bar
+  - added form validation
+
+## 1.0.0-beta.303
+
+### Patch Changes
+
+- d86d759: fix: use correct types for emitted "update:" events for v-models
+
+  Some v-model "update:" events where typed incorrectly which also allowed null / undefined values.
+  This made it harder to work the emitted values because nullish checks had to be implemented by the user, although the actually emitted value is always defined.
+
+  The following events are updated:
+
+  For reference: `type Nullable<T> = T | null | undefined`
+
+  | Component         | Event name            | New type   | Old type             |
+  | ----------------- | --------------------- | ---------- | -------------------- |
+  | OnyxAccordion     | "update:modelValue"   | `TValue[]` | `Nullable<TValue[]>` |
+  | OnyxBasicDialog   | "update:open"         | `boolean`  | `Nullable<boolean>`  |
+  | OnyxCheckboxGroup | "update:modelValue"   | `TValue[]` | `Nullable<TValue[]>` |
+  | OnyxFAB           | "update:open"         | `boolean`  | `Nullable<boolean>`  |
+  | OnyxFilterTag     | "update:active"       | `boolean`  | `Nullable<boolean>`  |
+  | OnyxInput         | "update:modelValue"   | `string`   | `Nullable<string>`   |
+  | OnyxMiniSearch    | "update:modelValue"   | `string`   | `Nullable<string>`   |
+  | OnyxFlyoutMenu    | "update:open"         | `boolean`  | `Nullable<boolean>`  |
+  | OnyxMenuItem      | "update:open"         | `boolean`  | `Nullable<boolean>`  |
+  | OnyxNavItem       | "update:open"         | `boolean`  | `Nullable<boolean>`  |
+  | OnyxUserMenu      | "update:flyoutOpen"   | `boolean`  | `Nullable<boolean>`  |
+  | OnyxProgressSteps | "update:highestValue" | `number`   | `Nullable<number>`   |
+  | OnyxSwitch        | "update:modelValue"   | `boolean`  | `Nullable<boolean>`  |
+  | OnyxTextarea      | "update:modelValue"   | `string`   | `Nullable<string>`   |
+
+## 1.0.0-beta.302
+
+### Patch Changes
+
+- 0bb15a6: refactor: revert workaround for boolean casting
+
+  The issue described [here](https://github.com/SchwarzIT/onyx/issues/3958) that boolean shorthands / boolean casting is not working for some properties has been officially fixed with Vue 3.5.19.
+
+  We removed the onyx internal workarounds in this version which were originally implemented in onyx version [1.0.0-beta.301](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html#_1-0-0-beta-301).
+
+  Note: You can use a Vue version <= 3.5.19 in your project. The fix will still be included because onyx itself is build with the correct >= 3.5.19 version since its a compile-time fix.
+
+## 1.0.0-beta.301
+
+### Patch Changes
+
+- 329de48: fix: implement workaround for boolean shorthands not working
+
+  Previously, some boolean properties did not work when used as shorthand, e.g. `<OnyxSelect multiple />` so they had to be explicitly set to `true`.
+
+  We've implemented an internal workaround to fix this until the [issue](https://github.com/SchwarzIT/onyx/issues/3958) is officially fixed by the Vue core team.
+
+## 1.0.0-beta.300
+
+### Major Changes
+
+- 6ce11e4: feat(OnyxTooltip, OnyxInfoTooltip)!: split up open and trigger property
+
+  Previously, the `open` property of the OnyxTooltip and OnyxInfoTooltip was used to both define the trigger type (hover, click) and set a boolean for the open state.
+
+  This is changed now so:
+  - the `open` property is now just a boolean to control the open state. Supports `v-model:open`.
+  - the new `trigger` property can be used to set the trigger type (hover, click)
+
+## 1.0.0-beta.299
+
+### Minor Changes
+
+- 5c4d84f: feat(OnyxStepper): implement formatNumber, which is shonw if the stepper is not focused
+
 ## 1.0.0-beta.298
 
 ### Patch Changes
@@ -72,10 +150,11 @@
   <template>
     <!-- OLD -->
     <OnyxComponent :open="isOpen" @close="isOpen = false" />
-    <OnyxComponent open @close="onClose" />
+    <OnyxComponent :open="isOpen" @close="onClose" />
+
     <!-- is now NEW -->
     <OnyxComponent v-model:open="isOpen" />
-    <OnyxComponent open @update:open="$event && onClose($event)" />
+    <OnyxComponent :open="isOpen" @update:open="!$event && onClose()" />
   </template>
   ```
 

@@ -69,7 +69,7 @@ const { densityClass } = useDensity(props);
 const { restAttrs, rootAttrs } = useRootAttrs();
 const { formatFileSize } = useFileSize();
 
-const modelValue = useVModel<TModelValue, "modelValue", typeof props, undefined>({
+const modelValue = useVModel<typeof props, "modelValue", TModelValue>({
   props,
   emit,
   key: "modelValue",

@@ -31,24 +31,22 @@ export type OnyxSelectProps<
     /**
      * Allows the selection of multiple options
      */
-    multiple?: TMultiple;
+    // "boolean &" is needed to correctly generate the runtime prop value, see: https://github.com/vuejs/core/issues/13787#issuecomment-3209755164
+    multiple?: boolean & TMultiple;
     /**
      * If true, a checkbox will be displayed to check/uncheck all options.
      * Disabled and skeleton checkboxes will be excluded from the check/uncheck behavior.
      * Only available if "multiple" is true and no `searchTerm` is provided.
      */
-    withCheckAll?: TMultiple extends true
-      ?
-          | boolean
-          | {
-              /**
-               * Label for the `select all` checkbox.
-               * If unset, a default label will be shown depending on the current locale/language.
-               */
-              label?: string;
-            }
-      : never;
-
+    withCheckAll?:
+      | boolean
+      | {
+          /**
+           * Label for the `select all` checkbox.
+           * If unset, a default label will be shown depending on the current locale/language.
+           */
+          label?: string;
+        };
     /**
      * Whether the select should be disabled.
      */
@@ -84,7 +82,6 @@ export type OnyxSelectProps<
      * If you want to use a button instead, use the `optionsEnd` slot.
      */
     lazyLoading?: SelectLazyLoading;
-
     /**
      * Whether to preserve the selection order when reopening the dropdown.
      */
@@ -94,7 +91,13 @@ export type OnyxSelectProps<
      * Currently selected options. Can be either a single value or an array of values.
      */
     modelValue?: Nullable<TModelValue>;
+    /**
+     * Whether the flyout is currently open.
+     */
     open?: Nullable<boolean>;
+    /**
+     * Current search term when `withSearch` is enabled.
+     */
     searchTerm?: Nullable<string>;
   };
 

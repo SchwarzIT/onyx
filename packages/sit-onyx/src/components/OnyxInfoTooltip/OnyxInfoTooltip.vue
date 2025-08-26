@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { iconCircleInformation } from "@sit-onyx/icons";
 import { computed } from "vue";
+import { useVModel } from "../../composables/useVModel.js";
+import type { Nullable } from "../../types/utils.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
@@ -8,41 +10,53 @@ import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import type { OnyxInfoTooltipProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxInfoTooltipProps>(), {
-  open: "click",
+  trigger: "click",
   color: "neutral",
+  open: undefined,
 });
 
-const type = computed(() => {
-  if (typeof props.open === "object") return props.open.type;
-  if (typeof props.open === "string") return props.open;
-  return "click";
+const emit = defineEmits<{
+  /**
+   * Emitted when the open state of the tooltip changes.
+   */
+  "update:open": [open: Nullable<boolean>];
+}>();
+
+const isVisible = useVModel({
+  props,
+  emit,
+  key: "open",
+});
+
+const triggerType = computed(() => {
+  if (typeof props.trigger === "object") return props.trigger.type;
+  return props.trigger;
 });
 </script>
 
 <template>
   <span class="onyx-component onyx-info-tooltip">
-    <template v-if="type === 'click'">
-      <OnyxTooltip v-bind="props">
-        <template #default="{ trigger }">
-          <!--  -->
-          <OnyxSystemButton
-            :label="
-              // if type is `click` aria-label will always be defined
-              trigger['aria-label']!
-            "
-            :icon="iconCircleInformation"
-            class="onyx-info-tooltip__trigger"
-            color="soft"
-            v-bind="trigger"
-          />
-        </template>
-      </OnyxTooltip>
-    </template>
+    <OnyxTooltip v-if="triggerType === 'click'" v-bind="props" v-model:open="isVisible">
+      <template #default="{ trigger: _trigger }">
+        <!--  -->
+        <OnyxSystemButton
+          :label="
+            // if type is `click` aria-label will always be defined
+            _trigger['aria-label']!
+          "
+          :icon="iconCircleInformation"
+          class="onyx-info-tooltip__trigger"
+          color="soft"
+          v-bind="_trigger"
+        />
+      </template>
+    </OnyxTooltip>
+
+    <!-- The info tooltip is not accessible when it's triggered on hover. Its trigger element ist not focusable, so instead we provide it's text visually hidden -->
     <template v-else>
-      <!-- The info tooltip is not accessible when it's triggered on hover. Its trigger element ist not focusable, so instead we provide it's text visually hidden -->
-      <OnyxTooltip aria-hidden="true" v-bind="props">
-        <template #default="{ trigger }">
-          <span class="onyx-info-tooltip__trigger" v-bind="trigger">
+      <OnyxTooltip v-bind="props" v-model:open="isVisible" aria-hidden="true">
+        <template #default="{ trigger: _trigger }">
+          <span class="onyx-info-tooltip__trigger" v-bind="_trigger">
             <OnyxIcon :icon="iconCircleInformation" />
           </span>
         </template>

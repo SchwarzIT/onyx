@@ -5,7 +5,6 @@ import { useLink } from "../../../../composables/useLink.js";
 import { useMoreListChild } from "../../../../composables/useMoreList.js";
 import { useVModel } from "../../../../composables/useVModel.js";
 import { injectI18n } from "../../../../i18n/index.js";
-import type { Nullable } from "../../../../types/index.js";
 import { mergeVueProps, useRootAttrs } from "../../../../utils/attrs.js";
 import OnyxButton from "../../../OnyxButton/OnyxButton.vue";
 import OnyxSeparator from "../../../OnyxSeparator/OnyxSeparator.vue";
@@ -30,7 +29,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the state of mobile children visibility changes.
    */
-  "update:open": [value: Nullable<boolean>];
+  "update:open": [value: boolean];
 }>();
 
 const slots = defineSlots<{

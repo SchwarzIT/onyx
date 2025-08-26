@@ -16,7 +16,7 @@ const removeFile = (fileToRemove: File) => {
 </script>
 
 <template>
-  <OnyxFileUpload v-model="allFiles" :multiple="true" class="example-file-upload">
+  <OnyxFileUpload v-model="allFiles" multiple class="example-file-upload">
     <template #default="{ file, status }">
       <OnyxFileCard :filename="file.name" :size="file.size" :status="status">
         <template #actions>

@@ -6,7 +6,6 @@ import {
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
-import type { Nullable } from "../../types/index.js";
 import {
   ACCORDION_INJECTION_KEY,
   type AccordionInjectionKey,
@@ -24,7 +23,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the list of open items changes.
    */
-  "update:modelValue": [value: Nullable<TValue[]>];
+  "update:modelValue": [value: TValue[]];
 }>();
 
 defineSlots<{
@@ -45,7 +44,7 @@ const openItems = useVModel({
   props,
   emit,
   key: "modelValue",
-  default: () => [] as TValue[],
+  default: () => [],
 });
 
 const { disabled, exclusive } = toRefs(props);

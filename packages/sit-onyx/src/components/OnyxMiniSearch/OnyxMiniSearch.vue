@@ -5,7 +5,6 @@ import { useDensity } from "../../composables/density.js";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
-import type { Nullable } from "../../types/index.js";
 import { useRootAttrs } from "../../utils/attrs.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxMiniSearchProps } from "./types.js";
@@ -22,7 +21,7 @@ const emit = defineEmits<{
   /**
    * Updates the current value
    */
-  "update:modelValue": [value?: Nullable<string>];
+  "update:modelValue": [value: string];
 }>();
 
 /**

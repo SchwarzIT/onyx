@@ -3,7 +3,6 @@ import { useGlobalEventListener, useOutsideClick, wasKeyPressed } from "@sit-ony
 import { computed, useTemplateRef, watch } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useVModel } from "../../composables/useVModel.js";
-import type { Nullable } from "../../types/index.js";
 import type { OnyxBasicDialogProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxBasicDialogProps>(), {
@@ -18,7 +17,7 @@ const emit = defineEmits<{
    * Emitted when the dialog should be closed.
    * Opening is always controlled via the `open` prop.
    */
-  "update:open": [open: Nullable<boolean>];
+  "update:open": [open: boolean];
 }>();
 
 defineSlots<{

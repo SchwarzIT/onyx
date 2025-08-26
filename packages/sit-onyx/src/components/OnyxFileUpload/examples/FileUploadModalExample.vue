@@ -7,6 +7,7 @@ import OnyxIconButton from "../../OnyxIconButton/OnyxIconButton.vue";
 import OnyxModal from "../../OnyxModal/OnyxModal.vue";
 import OnyxSystemButton from "../../OnyxSystemButton/OnyxSystemButton.vue";
 import OnyxFileUpload from "../OnyxFileUpload.vue";
+import type { MediaType } from "../types.js";
 
 const allFiles = ref<File[]>([]);
 const isOpen = ref(false);
@@ -18,7 +19,7 @@ const removeFile = (fileToRemove: File) => {
 
 <template>
   <div class="example-file-wrapper">
-    <OnyxFileUpload v-model="allFiles" :multiple="true" list-type="hidden" />
+    <OnyxFileUpload v-model="allFiles" multiple list-type="hidden" />
     <OnyxModal v-model:open="isOpen" label="Files">
       <template #default>
         <div v-if="allFiles.length" class="file-list">
@@ -27,7 +28,7 @@ const removeFile = (fileToRemove: File) => {
             :key="file.name"
             :filename="file.name"
             :size="file.size"
-            :type="file.type"
+            :type="file.type as MediaType"
           >
             <template #actions>
               <OnyxIconButton

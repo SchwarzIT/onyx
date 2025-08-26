@@ -123,3 +123,29 @@ export const HiddenButtons = {
     hideButtons: true,
   },
 } satisfies Story;
+
+/**
+ * This example shows a stepper with formatted Number
+ */
+export const FormattedNumber = {
+  args: {
+    ...Default.args,
+    formatNumber: true,
+  },
+} satisfies Story;
+
+/**
+ * This example shows a stepper with a custom formatted Number
+ */
+export const CustomFormattedNumber = {
+  args: {
+    ...Default.args,
+    formatNumber(value: number): string {
+      return new Intl.NumberFormat("de-DE", {
+        useGrouping: true,
+      })
+        .format(value)
+        .replace(/\./g, " ");
+    },
+  },
+} satisfies Story;
