@@ -2,6 +2,7 @@
 import { useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
+import { useRootAttrs } from "../../utils/attrs.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
@@ -11,24 +12,25 @@ const props = withDefaults(defineProps<OnyxSegmentedControlElement>(), {
   disabled: FORM_INJECTED_SYMBOL,
 });
 
-const emit = defineEmits<{
-  (e: "inputChange", value: Event): void;
-}>();
-
 const { densityClass } = useDensity(props);
 const { disabled } = useFormContext(props);
 
 const input = useTemplateRef("inputRef");
-defineExpose({ input });
+
 useAutofocus(input, props);
 
 defineOptions({ inheritAttrs: false });
+const { rootAttrs, restAttrs } = useRootAttrs();
 </script>
 
 <template>
-  <div :class="['onyx-component', 'onyx-segmented-control-element', densityClass]">
+  <div
+    v-bind="rootAttrs"
+    :class="['onyx-component', 'onyx-segmented-control-element', densityClass]"
+  >
     <OnyxVisuallyHidden>
       <input
+        v-bind="restAttrs"
         :id="props.value.toString()"
         ref="inputRef"
         :name="props.name"
@@ -39,7 +41,6 @@ defineOptions({ inheritAttrs: false });
         :aria-label="props.label"
         :autofocus="props.autofocus"
         :checked="props.checked"
-        @change="(e) => emit('inputChange', e)"
       />
     </OnyxVisuallyHidden>
     <label :for="props.value.toString()" class="onyx-segmented-control-element__label">

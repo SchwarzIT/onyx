@@ -28,7 +28,7 @@ export type OnyxSegmentedControlOption = Pick<
   "value" | "label" | "hideLabel" | "autofocus" | "disabled"
 > & {
   /**
-   * Icon for the option. If an icon without a label is provided the width of the control will be `fit-content`.
+   * Icon for the option. If an icon is provided and `hideLabel` is set the width of the control will be `fit-content`.
    */
   icon?: string;
 };

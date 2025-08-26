@@ -45,7 +45,7 @@ const handleChange = (selected: Event, value: SelectOptionValue) => {
       v-bind="option"
       :name="props.name"
       :checked="option.value === modelValue"
-      @input-change="handleChange($event, option.value)"
+      @change="handleChange($event, option.value)"
     />
   </div>
 </template>
