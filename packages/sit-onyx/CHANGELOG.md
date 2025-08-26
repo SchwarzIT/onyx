@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.306
+
+### Minor Changes
+
+- 4834b5e: feat(OnyxSegmentedControl): implemented new components: OnyxSegmentedControl & OnyxSegmentedControlElement
+
 ## 1.0.0-beta.305
 
 ### Patch Changes
