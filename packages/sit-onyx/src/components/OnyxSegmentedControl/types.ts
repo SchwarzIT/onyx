@@ -25,14 +25,10 @@ export type OnyxSegmentedControlProps = DensityProp & {
 
 export type OnyxSegmentedControlOption = Pick<
   BaseSelectOption,
-  "value" | "label" | "hideLabel" | "autofocus"
+  "value" | "label" | "hideLabel" | "autofocus" | "disabled"
 > & {
   /**
    * Icon for the option. If an icon without a label is provided the width of the control will be `fit-content`.
    */
   icon?: string;
-  /**
-   * Whether the option is disabled or not.
-   */
-  disabled?: boolean;
 };

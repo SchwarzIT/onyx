@@ -6,9 +6,9 @@ import {
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
-import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import type { SelectOptionValue } from "../../types/components.js";
+import OnyxSegmentedControlElement from "../OnyxSegmentedControlElement/OnyxSegmentedControlElement.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import { type OnyxSegmentedControlProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxSegmentedControlProps>(), {
@@ -30,40 +30,23 @@ const modelValue = useVModel<OnyxSegmentedControlProps, "modelValue">({
   emit,
   key: "modelValue",
 });
+const handleChange = (selected: Event, value: SelectOptionValue) => {
+  if (!selected) return;
+  modelValue.value = value.toString();
+};
 </script>
 
 <template>
   <OnyxSkeleton v-if="skeleton" :class="['onyx-segmented-control-skeleton', densityClass]" />
   <div v-else :class="['onyx-component', 'onyx-segmented-control', densityClass]">
-    <div
+    <OnyxSegmentedControlElement
       v-for="option in options"
       :key="option.value.toString()"
-      class="onyx-segmented-control-element"
-    >
-      <OnyxVisuallyHidden>
-        <input
-          :id="option.value.toString()"
-          v-model="modelValue"
-          :name="props.name"
-          type="radio"
-          :value="option.value"
-          :disabled="option.disabled"
-          class="onyx-segmented-control-element__input"
-          :aria-label="option.label"
-          :autofocus="option.autofocus"
-        />
-      </OnyxVisuallyHidden>
-      <label :for="option.value.toString()" class="onyx-segmented-control-element__label">
-        <OnyxIcon
-          v-if="option.icon"
-          :icon="option.icon"
-          class="onyx-segmented-control-element__icon"
-        />
-        <p v-if="!option.hideLabel" class="onyx-segmented-control-element__text">
-          {{ option.label }}
-        </p>
-      </label>
-    </div>
+      v-bind="option"
+      :name="props.name"
+      :checked="option.value === modelValue"
+      @input-change="handleChange($event, option.value)"
+    />
   </div>
 </template>
 
@@ -74,7 +57,7 @@ const modelValue = useVModel<OnyxSegmentedControlProps, "modelValue">({
     --outline-color: var(--onyx-color-component-focus-primary);
 
     display: flex;
-    gap: var(--onyx-density-2xs);
+    gap: var(--onyx-density-xs);
     padding: var(--onyx-density-2xs);
     background-color: var(--onyx-color-base-neutral-200);
     border-radius: var(--onyx-radius-md);
@@ -85,43 +68,6 @@ const modelValue = useVModel<OnyxSegmentedControlProps, "modelValue">({
     &-skeleton {
       height: calc(var(--onyx-font-line-height-md) + 4 * var(--onyx-density-2xs));
       border-radius: var(--onyx-radius-sm);
-    }
-    &-element {
-      box-sizing: border-box;
-
-      border-radius: var(--onyx-radius-sm);
-      color: var(--onyx-color-text-icons-neutral-medium);
-      font-weight: var(--onyx-font-weight-regular);
-      font-family: var(--onyx-font-family);
-      line-height: var(--onyx-font-line-height-md);
-      width: 100%;
-
-      &__label {
-        padding: var(--onyx-density-2xs);
-        cursor: pointer;
-
-        height: 100%;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        gap: var(--onyx-density-xs);
-      }
-      &:hover {
-        color: var(--onyx-color-text-icons-primary-bold);
-      }
-      &:has(.onyx-segmented-control-element__input:checked) {
-        background-color: var(--onyx-color-base-background-blank);
-        font-weight: var(--onyx-font-weight-semibold);
-      }
-      &:has(.onyx-segmented-control-element__input:focus-visible) {
-        outline: var(--onyx-outline-width) solid var(--outline-color);
-      }
-      &:has(.onyx-segmented-control-element__input:disabled) {
-        color: var(--onyx-color-text-icons-neutral-soft);
-        .onyx-segmented-control-element__label {
-          cursor: default;
-        }
-      }
     }
   }
 }

@@ -3,7 +3,8 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import OnyxSegmentedControl from "./OnyxSegmentedControl.vue";
 
 /**
- * The select option is only intended to be used within the `OnyxSelect` component.
+ * SegmentedControl is an interactive element that allow users to make a single selection from a set of mutually exclusive options.
+ * Users can choose only one option at the time.
  */
 const meta: Meta<typeof OnyxSegmentedControl> = {
   title: "Navigation/SegmentedControl",
