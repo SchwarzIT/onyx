@@ -27,7 +27,7 @@ const slots = defineSlots<{
    */
   trigger?(params: {
     /**
-     * Attributes and event listeners that must be bound to an interactive element (button or link), that should act as the flyout trigger.
+     * Attributes and event listeners that must be bound to an interactive element (button or link), that should act as the dialog trigger.
      */
     trigger: object;
   }): unknown;
@@ -50,7 +50,7 @@ const { t } = injectI18n();
 const { densityClass } = useDensity(props);
 
 /**
- * If the flyout is expanded or not.
+ * If the dialog is expanded or not.
  */
 const isExpanded = useVModel({
   props,
