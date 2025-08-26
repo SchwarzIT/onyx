@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.305
+
+### Patch Changes
+
+- c2695f9: fix(OnyxTooltip): prevent gap between tooltip and wedge when page is zoomed
+
 ## 1.0.0-beta.304
 
 ### Minor Changes
