@@ -30,9 +30,13 @@ export type OnyxSegmentedControlOption = {
   /**
    * Label for the option.
    */
-  label?: string;
+  label: string;
   /**
-   * Icon for the option. If an icon widthout a label is provided the width of tie control will be `fit-content`
+   * Whether to visually hide the label.
+   */
+  hideLabel?: boolean;
+  /**
+   * Icon for the option. If an icon without a label is provided the width of the control will be `fit-content`.
    */
   icon?: string;
   /**

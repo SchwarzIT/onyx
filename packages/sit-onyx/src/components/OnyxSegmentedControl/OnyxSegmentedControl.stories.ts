@@ -38,11 +38,15 @@ export const Icon = {
     options: [
       {
         value: "option-1",
+        label: "Option 1",
         icon: iconPlaceholder,
+        hideLabel: true,
       },
       {
         value: "option-2",
         icon: iconPlaceholder,
+        label: "Option 2",
+        hideLabel: true,
       },
     ],
   },
