@@ -72,7 +72,7 @@ const modelValue = useVModel<OnyxSegmentedControlProps, "modelValue">({
     gap: var(--onyx-density-2xs);
     padding: var(--onyx-density-2xs);
     background-color: var(--onyx-color-base-neutral-200);
-    border-radius: var(--onyx-radius-sm);
+    border-radius: var(--onyx-radius-md);
 
     &:has(.onyx-segmented-control-element__icon):not(:has(.onyx-segmented-control-element__text)) {
       width: fit-content;
