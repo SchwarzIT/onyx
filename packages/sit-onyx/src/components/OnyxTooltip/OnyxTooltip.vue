@@ -308,8 +308,8 @@ $wedge-size: 0.5rem;
         /* At the bottom of the tooltip */
         top: 100%;
         left: 50%;
-        width: 0;
-        height: 0;
+        width: 2 * $wedge-size;
+        height: 2 * $wedge-size;
         margin-left: -$wedge-size;
         border-width: $wedge-size;
         border-style: solid;
