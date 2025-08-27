@@ -1,5 +1,5 @@
 ---
-"sit-onyx": patch
+"sit-onyx": major
 ---
 
-feat(OnyxSegmentedControl): made modelValue requried for segmentedControl
+feat(OnyxSegmentedControl): made modelValue required for segmentedControl
