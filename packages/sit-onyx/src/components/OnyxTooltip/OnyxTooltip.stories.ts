@@ -69,7 +69,8 @@ export const Click = {
 export const MatchParentWidth = {
   args: {
     ...Default.args,
-    fitParent: true,
+    text: "This is an example tooltip",
+    position: "bottom center",
   },
 } satisfies Story;
 
