@@ -20,7 +20,12 @@ defineSlots<{
   default?: unknown;
 }>();
 
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits<{
+  /**
+   * Emitted when the selected value changes.
+   */
+  "update:modelValue": [value: string];
+}>();
 
 const skeleton = useSkeletonContext(props);
 const { densityClass } = useDensity(props);
