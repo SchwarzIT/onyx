@@ -1,5 +1,13 @@
 # @sit-onyx/nuxt-docs
 
+## 1.0.0-beta.116
+
+### Patch Changes
+
+- Updated dependencies [9571f60]
+  - sit-onyx@1.0.0-beta.309
+  - @sit-onyx/nuxt@1.0.0-beta.300
+
 ## 1.0.0-beta.115
 
 ### Patch Changes

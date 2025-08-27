@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.309
+
+### Major Changes
+
+- 9571f60: feat(OnyxSegmentedControl): made modelValue required for segmentedControl
+
 ## 1.0.0-beta.308
 
 ### Patch Changes
