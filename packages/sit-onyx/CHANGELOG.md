@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.308
+
+### Patch Changes
+
+- dba1f8f: feat(OnyxCard): support `link` property
+
 ## 1.0.0-beta.307
 
 ### Patch Changes
