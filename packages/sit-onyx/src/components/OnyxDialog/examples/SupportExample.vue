@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { ref } from "vue";
+import OnyxButton from "../../OnyxButton/OnyxButton.vue";
 import OnyxHeadline from "../../OnyxHeadline/OnyxHeadline.vue";
 import OnyxTab from "../../OnyxTab/OnyxTab.vue";
 import OnyxTabs from "../../OnyxTabs/OnyxTabs.vue";
@@ -11,6 +12,9 @@ const modelValue = ref("tab-1");
 
 <template>
   <OnyxDialog v-model:open="isOpen" label="Help" button-text="Open Dialog" alignment="right">
+    <template #trigger="{ trigger }">
+      <OnyxButton label="Open Dialog" v-bind="trigger" />
+    </template>
     <div class="onyx-dialog__main">
       <OnyxHeadline is="h1">Title</OnyxHeadline>
       <p>

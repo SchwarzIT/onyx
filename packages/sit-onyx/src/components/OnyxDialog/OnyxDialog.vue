@@ -5,7 +5,6 @@ import { useDensity } from "../../composables/density.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import OnyxBasicPopover from "../OnyxBasicPopover/OnyxBasicPopover.vue";
-import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import type { OnyxDialogProps } from "./types.js";
@@ -69,12 +68,7 @@ const triggerBindings = computed(() => ({
 <template>
   <OnyxBasicPopover :class="['onyx-dialog', densityClass]" v-bind="props" :open="isExpanded">
     <template #default>
-      <slot name="trigger" :trigger="triggerBindings">
-        <OnyxButton
-          :label="props.buttonText ? props.buttonText : props.label"
-          v-bind="triggerBindings"
-        />
-      </slot>
+      <slot name="trigger" :trigger="triggerBindings"> </slot>
     </template>
     <template #content>
       <div class="onyx-dialog__header">

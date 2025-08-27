@@ -1,12 +1,7 @@
 <script lang="ts" setup>
+import { ref } from "vue";
 import type { Nullable } from "../../types/utils.js";
-import type { DialogAlignment } from "../OnyxBasicDialog/types.js";
 import OnyxDialog from "./OnyxDialog.vue";
-
-const props = defineProps<{
-  /** Dialog alignment */
-  alignment?: DialogAlignment;
-}>();
 
 defineSlots<{
   default?(): unknown;
@@ -17,13 +12,13 @@ defineSlots<{
 const emit = defineEmits<{
   "update:open": [open: Nullable<boolean>];
 }>();
+const isOpen = ref(true);
 </script>
 
 <template>
   <OnyxDialog
+    v-model:open="isOpen"
     label="Example Dialog"
-    :alignment="props.alignment"
-    open
     @update:open="emit('update:open', $event)"
   >
     <template #headline>
@@ -45,5 +40,7 @@ const emit = defineEmits<{
 <style lang="scss">
 .content {
   padding: var(--onyx-density-xl) var(--onyx-modal-padding-inline);
+  max-height: 10rem;
+  max-width: 20rem;
 }
 </style>

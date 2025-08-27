@@ -30,6 +30,9 @@ const prevSlide = () => {
 
 <template>
   <OnyxDialog v-model:open="isOpen" label="Description" class="dialog" button-text="Open Dialog">
+    <template #trigger="{ trigger }">
+      <OnyxButton label="Open Dialog" v-bind="trigger" />
+    </template>
     <div class="dialog__main-container">
       <div
         v-for="(slide, index) in slides"
@@ -87,6 +90,9 @@ const prevSlide = () => {
     width: 100%;
     width: 26rem;
     height: 10.5rem;
+    padding-inline: var(--onyx-density-md);
+    transition: all 0.5s ease-in-out;
+
     &__navigation-button {
       margin-block: auto;
     }

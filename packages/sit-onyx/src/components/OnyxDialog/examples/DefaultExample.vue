@@ -8,6 +8,9 @@ const isOpen = ref(false);
 
 <template>
   <OnyxDialog v-model:open="isOpen" label="Example dialog" button-text="Open Dialog">
+    <template #trigger="{ trigger }">
+      <OnyxButton label="Open Dialog" v-bind="trigger" />
+    </template>
     <div class="main">
       <span class="main__description">
         Note: The Dialog component is fully flexible. It can be adjusted with every content the

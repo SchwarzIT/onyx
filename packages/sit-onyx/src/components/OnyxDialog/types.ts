@@ -4,6 +4,4 @@ import type { OnyxBasicPopoverProps } from "../OnyxBasicPopover/types.js";
 
 export type OnyxDialogProps = DensityProp &
   Omit<OnyxBasicPopoverProps, "role" | "fitParent"> &
-  Pick<OnyxBasicDialogProps, "nonDismissible"> & {
-    buttonText?: string;
-  };
+  Pick<OnyxBasicDialogProps, "nonDismissible">;

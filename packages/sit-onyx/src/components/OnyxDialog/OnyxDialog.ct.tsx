@@ -84,7 +84,7 @@ test("Screenshot test (footer)", async ({ mount, page, makeAxeBuilder }) => {
 });
 
 test("Screenshot test (overflowing content)", async ({ mount, page, makeAxeBuilder }) => {
-  await page.setViewportSize({ width: ONYX_BREAKPOINTS.sm + 1, height: 320 });
+  await page.setViewportSize({ width: ONYX_BREAKPOINTS.sm + 1, height: 350 });
 
   // ARRANGE
   await mount(
