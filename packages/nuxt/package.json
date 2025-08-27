@@ -1,6 +1,6 @@
 {
   "name": "@sit-onyx/nuxt",
-  "version": "1.0.0-beta.298",
+  "version": "1.0.0-beta.299",
   "description": "A Nuxt module to easily integrate onyx into Nuxt projects",
   "type": "module",
   "author": "Schwarz IT KG",
@@ -37,12 +37,12 @@
     "test:coverage": "vitest run --coverage"
   },
   "devDependencies": {
-    "@nuxt/devtools": "^2.6.2",
+    "@nuxt/devtools": "^2.6.3",
     "@nuxt/kit": "^4.0.3",
     "@nuxt/module-builder": "^1.0.2",
     "@nuxt/schema": "^4.0.3",
     "@nuxt/test-utils": "^3.19.2",
-    "@nuxtjs/i18n": "^10.0.5",
+    "@nuxtjs/i18n": "^10.0.6",
     "nuxt": "^4.0.3",
     "sit-onyx": "workspace:^",
     "typescript": "catalog:",

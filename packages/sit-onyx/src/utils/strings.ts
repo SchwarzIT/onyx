@@ -37,7 +37,7 @@ export const getInitials = (username: string, locale: string) => {
   const wordSegments = Array.from(wordSegmenter.segment(name)).filter((s) => s.isWordLike);
   if (wordSegments.length === 0) return;
 
-  const firstWord = wordSegments[0].segment;
+  const firstWord = wordSegments[0]!.segment;
   const lastWord = wordSegments.length === 1 ? undefined : wordSegments.at(-1)?.segment;
 
   if (!lastWord) {

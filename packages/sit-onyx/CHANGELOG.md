@@ -1,5 +1,17 @@
 # sit-onyx
 
+## 1.0.0-beta.306
+
+### Minor Changes
+
+- 4834b5e: feat(OnyxSegmentedControl): implemented new components: OnyxSegmentedControl & OnyxSegmentedControlElement
+
+## 1.0.0-beta.305
+
+### Patch Changes
+
+- c2695f9: fix(OnyxTooltip): prevent gap between tooltip and wedge when page is zoomed
+
 ## 1.0.0-beta.304
 
 ### Minor Changes
