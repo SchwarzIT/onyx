@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import type { Nullable } from "../../types/utils.js";
+import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxDialog from "./OnyxDialog.vue";
 
 defineSlots<{
@@ -21,6 +22,9 @@ const isOpen = ref(true);
     label="Example Dialog"
     @update:open="emit('update:open', $event)"
   >
+    <template #trigger="{ trigger }">
+      <OnyxButton label="Example Dialog" v-bind="trigger" />
+    </template>
     <template #headline>
       <slot name="headline"></slot>
     </template>
