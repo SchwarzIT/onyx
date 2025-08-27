@@ -54,6 +54,7 @@ const { rootAttrs, restAttrs } = useRootAttrs();
 
 <style lang="scss">
 @use "../../styles/mixins/layers";
+
 .onyx-segmented-control-element {
   @include layers.component() {
     box-sizing: border-box;
@@ -68,9 +69,9 @@ const { rootAttrs, restAttrs } = useRootAttrs();
     &__label {
       padding: var(--onyx-density-2xs);
       cursor: pointer;
-
       height: 100%;
       width: 100%;
+      min-width: max-content;
       display: flex;
       justify-content: center;
       gap: var(--onyx-density-xs);
