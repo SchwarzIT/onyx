@@ -1,6 +1,7 @@
 import { iconCart } from "@sit-onyx/icons";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
+import { createAdvancedStoryExample } from "../../utils/storybook.js";
 import OnyxProgressItem from "./OnyxProgressItem.vue";
 
 const meta: Meta<typeof OnyxProgressItem> = {
@@ -68,4 +69,9 @@ export const Skeleton = {
     ...Default.args,
     skeleton: true,
   },
+} satisfies Story;
+
+export const CustomLabel = {
+  tags: ["new:feature"],
+  ...createAdvancedStoryExample("OnyxProgressItem", "CustomContentExample"),
 } satisfies Story;

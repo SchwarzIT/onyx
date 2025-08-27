@@ -15,6 +15,14 @@ const props = withDefaults(defineProps<OnyxProgressItemProps>(), {
   skeleton: SKELETON_INJECTED_SYMBOL,
 });
 
+defineSlots<{
+  /**
+   * Optionally override the label slot with custom content.
+   * By default, the `label` property will be displayed.
+   */
+  default?(props: Pick<OnyxProgressItemProps, "label">): unknown;
+}>();
+
 const { densityClass } = useDensity(props);
 const skeleton = useSkeletonContext(props);
 
@@ -48,7 +56,9 @@ const icon = computed(() => {
       <template v-else>{{ props.value }}</template>
     </span>
 
-    <span> {{ props.label }} </span>
+    <div class="onyx-progress-item__label">
+      <slot :label="props.label"> {{ props.label }} </slot>
+    </div>
   </button>
 </template>
 
@@ -76,9 +86,11 @@ const icon = computed(() => {
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
     display: inline-flex;
+    text-align: left;
     align-items: center;
     gap: var(--onyx-progress-item-gap);
-    font-weight: 600;
+    font-weight: var(--onyx-font-weight-semibold);
+    line-height: var(--onyx-font-line-height-md);
 
     // reset button styles
     border: none;
@@ -102,6 +114,10 @@ const icon = computed(() => {
       color: var(--onyx-progress-item-color);
       min-width: 1.5rem;
       box-sizing: content-box;
+    }
+
+    &__label {
+      white-space: pre-line;
     }
 
     &:focus-visible {
