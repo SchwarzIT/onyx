@@ -41,3 +41,14 @@ export const Clickable = {
     clickable: true,
   },
 } satisfies Story;
+
+export const Link = {
+  tags: ["new:feature"],
+  args: {
+    ...Default.args,
+    link: {
+      href: "https://onyx.schwarz",
+      target: "_blank",
+    },
+  },
+} satisfies Story;
