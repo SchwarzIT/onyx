@@ -6,7 +6,7 @@ export type OnyxSegmentedControlProps = DensityProp & {
   /**
    * value of the active control element
    */
-  "update:modelValue": [value: string];
+  modelValue: string;
   /**
    * Whether to show a skeleton segmented control.
    */
