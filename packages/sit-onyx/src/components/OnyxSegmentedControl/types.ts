@@ -1,29 +1,30 @@
 import type { DensityProp } from "../../composables/density.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
-import type { BaseSelectOption } from "../../types/components.js";
+import type { BaseSelectOption, SelectOptionValue } from "../../types/components.js";
 
-export type OnyxSegmentedControlProps = DensityProp & {
-  /**
-   * value of the active control element
-   */
-  modelValue: string;
-  /**
-   * Whether to show a skeleton segmented control.
-   */
-  skeleton?: SkeletonInjected;
-  /**
-   * Array of options for the segmented control.
-   */
-  options: OnyxSegmentedControlOption[];
-  /**
-   * Same as the native `name` attribute of `<input>`.
-   * Used to reference the input in JavaScript or in submitted form data.
-   */
-  name?: string;
-};
+export type OnyxSegmentedControlProps<TValue extends SelectOptionValue = SelectOptionValue> =
+  DensityProp & {
+    /**
+     * Value of the active control element.
+     */
+    modelValue: TValue;
+    /**
+     * Whether to show a skeleton segmented control.
+     */
+    skeleton?: SkeletonInjected;
+    /**
+     * Array of options for the segmented control.
+     */
+    options: OnyxSegmentedControlOption<TValue>[];
+    /**
+     * Same as the native `name` attribute of `<input>`.
+     * Used to reference the input in JavaScript or in submitted form data.
+     */
+    name?: string;
+  };
 
-export type OnyxSegmentedControlOption = Pick<
-  BaseSelectOption,
+export type OnyxSegmentedControlOption<TValue extends SelectOptionValue = SelectOptionValue> = Pick<
+  BaseSelectOption<TValue>,
   "value" | "label" | "hideLabel" | "autofocus" | "disabled"
 > & {
   /**

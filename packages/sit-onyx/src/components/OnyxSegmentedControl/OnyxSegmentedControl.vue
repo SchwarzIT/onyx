@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script lang="ts" setup generic="TValue extends SelectOptionValue">
 import { useId } from "vue";
 import { useDensity } from "../../composables/density.js";
 import {
@@ -11,33 +11,31 @@ import OnyxSegmentedControlElement from "../OnyxSegmentedControlElement/OnyxSegm
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import { type OnyxSegmentedControlProps } from "./types.js";
 
-const props = withDefaults(defineProps<OnyxSegmentedControlProps>(), {
+type Props = OnyxSegmentedControlProps<TValue>;
+
+const props = withDefaults(defineProps<Props>(), {
   name: () => useId(), // the name must be globally unique
   skeleton: SKELETON_INJECTED_SYMBOL,
 });
-
-defineSlots<{
-  default?: unknown;
-}>();
 
 const emit = defineEmits<{
   /**
    * Emitted when the selected value changes.
    */
-  "update:modelValue": [value: string];
+  "update:modelValue": [value: TValue];
 }>();
 
 const skeleton = useSkeletonContext(props);
 const { densityClass } = useDensity(props);
 
-const modelValue = useVModel<OnyxSegmentedControlProps, "modelValue">({
+const modelValue = useVModel<Props, "modelValue", TValue>({
   props,
   emit,
   key: "modelValue",
 });
-const handleChange = (selected: Event, value: SelectOptionValue) => {
-  if (!selected) return;
-  modelValue.value = value.toString();
+
+const handleChange = (value: TValue) => {
+  modelValue.value = value;
 };
 </script>
 
@@ -50,17 +48,17 @@ const handleChange = (selected: Event, value: SelectOptionValue) => {
       v-bind="option"
       :name="props.name"
       :checked="option.value === modelValue"
-      @change="handleChange($event, option.value)"
+      @change="handleChange(option.value)"
     />
   </div>
 </template>
 
 <style lang="scss">
 @use "../../styles/mixins/layers";
+
 .onyx-segmented-control {
   @include layers.component() {
     --outline-color: var(--onyx-color-component-focus-primary);
-
     display: flex;
     gap: var(--onyx-density-xs);
     padding: var(--onyx-density-2xs);
@@ -70,6 +68,7 @@ const handleChange = (selected: Event, value: SelectOptionValue) => {
     &:has(.onyx-segmented-control-element__icon):not(:has(.onyx-segmented-control-element__text)) {
       width: fit-content;
     }
+
     &-skeleton {
       height: calc(var(--onyx-font-line-height-md) + 4 * var(--onyx-density-2xs));
       border-radius: var(--onyx-radius-sm);
