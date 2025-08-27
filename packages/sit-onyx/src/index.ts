@@ -158,6 +158,12 @@ export * from "./components/OnyxRadioGroup/types.js";
 export { default as OnyxRouterLink } from "./components/OnyxRouterLink/OnyxRouterLink.vue";
 export * from "./components/OnyxRouterLink/types.js";
 
+export { default as OnyxSegmentedControl } from "./components/OnyxSegmentedControl/OnyxSegmentedControl.vue";
+export * from "./components/OnyxSegmentedControl/types.js";
+
+export { default as OnyxSegmentedControlElement } from "./components/OnyxSegmentedControlElement/OnyxSegmentedControlElement.vue";
+export * from "./components/OnyxSegmentedControlElement/types.js";
+
 export { default as OnyxSelect } from "./components/OnyxSelect/OnyxSelect.vue";
 export * from "./components/OnyxSelect/types.js";
 
