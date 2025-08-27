@@ -1,5 +1,6 @@
 import { expect, test } from "../../playwright/a11y.js";
-import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots.js";
+import { POPOVER_POSITION_TEST_CASES } from "../../playwright/index.js";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import OnyxTooltip from "./OnyxTooltip.vue";
 import TestWrapper from "./TestWrapper.ct.vue";
 
@@ -105,81 +106,37 @@ test("should render custom tooltip content", async ({ mount }) => {
   await expect(tooltip).toContainText("Custom slot content");
 });
 
-test.describe("Screenshot tests", () => {
-  executeMatrixScreenshotTest({
-    name: "Tooltip",
-    columns: ["default", "fit-parent", "long-text"],
-    rows: ["default", "bottom", "icon", "danger"],
-    component: (column, row) => {
-      return (
-        <div
-          class="container"
-          style={{
-            marginTop: row !== "bottom" ? "5rem" : undefined,
-            marginBottom: row === "bottom" ? "5rem" : undefined,
-            marginLeft: column === "long-text" ? "5rem" : undefined,
-            marginRight: column === "long-text" ? "5rem" : undefined,
-          }}
-        >
-          <OnyxTooltip
-            text={column === "long-text" ? "Lorem ipsum dolor sit amet ".repeat(3) : "Test tooltip"}
-            color={row === "danger" ? "danger" : undefined}
-            position={row === "bottom" ? "bottom" : "top"}
-            icon={row === "icon" ? mockPlaywrightIcon : undefined}
-            fitParent={column === "fit-parent"}
-            open={true}
-            alignment="center"
-          >
-            <span
-              style={{
-                fontFamily: "var(--onyx-font-family)",
-                color: "var(--onyx-color-text-icons-neutral-intense)",
-              }}
+for (const value in POPOVER_POSITION_TEST_CASES) {
+  test.describe(`Screenshot tests (${value})`, () => {
+    executeMatrixScreenshotTest({
+      name: `Tooltip (${value})`,
+      columns: ["default", "long-text"],
+      rows: POPOVER_POSITION_TEST_CASES[value as keyof typeof POPOVER_POSITION_TEST_CASES],
+      component: (column, row) => {
+        return (
+          <div class="container" style={{ margin: "8rem" }}>
+            <OnyxTooltip
+              text={
+                column === "long-text" ? "Lorem ipsum dolor sit amet ".repeat(3) : "Test tooltip"
+              }
+              position={row}
+              open={true}
             >
-              Here goes the slot content
-            </span>
-          </OnyxTooltip>
-        </div>
-      );
-    },
+              <span
+                style={{
+                  fontFamily: "var(--onyx-font-family)",
+                  color: "var(--onyx-color-text-icons-neutral-intense)",
+                }}
+              >
+                Trigger content
+              </span>
+            </OnyxTooltip>
+          </div>
+        );
+      },
+    });
   });
-});
-
-test.describe("Alignment screenshot tests", () => {
-  executeMatrixScreenshotTest({
-    name: "Aligned tooltip",
-    columns: ["left", "center", "right"],
-    rows: ["top", "bottom"],
-    component: (column, row) => {
-      return (
-        <div
-          class="container"
-          style={{
-            marginTop: row === "top" ? "2rem" : undefined,
-            marginBottom: row === "bottom" ? "2rem" : undefined,
-          }}
-        >
-          <OnyxTooltip
-            text="Test tooltip"
-            position={row}
-            open={true}
-            alignment={column}
-            style={{ marginTop: "1rem" }}
-          >
-            <span
-              style={{
-                fontFamily: "var(--onyx-font-family)",
-                color: "var(--onyx-color-text-icons-neutral-intense)",
-              }}
-            >
-              Here goes the slot content
-            </span>
-          </OnyxTooltip>
-        </div>
-      );
-    },
-  });
-});
+}
 
 test.describe("Positioning Screenshot tests", () => {
   executeMatrixScreenshotTest({

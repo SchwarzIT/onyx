@@ -1,4 +1,5 @@
 import type { Locator, Page } from "@playwright/test";
+import type { PopoverPosition } from "../components/OnyxSupportPopover/types.js";
 
 export type DragResizeHandleOptions = {
   /**
@@ -36,3 +37,17 @@ export const dragResizeHandle = async ({
   await page.mouse.move(to, 0);
   if (!preventUp) await page.mouse.up();
 };
+
+export const POPOVER_POSITION_TEST_CASES = {
+  top: ["top left", "top center", "top right", "top span-left", "top span-x-end", "top span-all"],
+  bottom: [
+    "bottom left",
+    "bottom center",
+    "bottom right",
+    "bottom span-left",
+    "bottom span-x-end",
+    "bottom span-all",
+  ],
+  left: ["center left", "left span-top", "left span-bottom", "left span-all"],
+  right: ["center right", "right span-top", "right span-bottom", "right span-all"],
+} satisfies Record<string, PopoverPosition[]>;
