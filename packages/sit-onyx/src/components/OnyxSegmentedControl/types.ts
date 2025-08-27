@@ -1,13 +1,12 @@
 import type { DensityProp } from "../../composables/density.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 import type { BaseSelectOption } from "../../types/components.js";
-import type { Nullable } from "../../types/utils.js";
 
 export type OnyxSegmentedControlProps = DensityProp & {
   /**
    * value of the active control element
    */
-  modelValue?: Nullable<string>;
+  modelValue: string;
   /**
    * Whether to show a skeleton segmented control.
    */
