@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.307
+
+### Patch Changes
+
+- 35e4430: fix(OnyxStepper): Fix id prop not being applied to the native input element
+
 ## 1.0.0-beta.306
 
 ### Minor Changes
