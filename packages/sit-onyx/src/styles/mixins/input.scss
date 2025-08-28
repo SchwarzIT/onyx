@@ -104,7 +104,6 @@
       1lh + 2 * var(--onyx-input-padding-vertical) - 2 * var(--onyx-1px-in-rem)
     );
     $margin: calc(var(--onyx-density-sm) - var(--onyx-density-xs));
-    min-width: var(--onyx-separator-size);
 
     &--leading {
       margin-left: $margin;
