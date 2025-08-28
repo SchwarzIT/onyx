@@ -1,6 +1,6 @@
 /* eslint-disable no-console -- we want to be able to log output to the console */
 import { mkdir, readFile, writeFile } from "fs/promises";
-import * as crypto from "node:crypto";
+import { hash } from "node:crypto";
 import { resolve } from "path";
 
 const CACHE_DIR = resolve(import.meta.dirname, "..", "node_modules", ".cache", "onyx-docs-fetch");
@@ -8,8 +8,8 @@ const CACHE_DIR = resolve(import.meta.dirname, "..", "node_modules", ".cache", "
 type CachedWrapper<T> = { timestamp: number; body: T };
 
 const buildPathForUrl = (url: URL) => {
-  const hash = crypto.hash("sha1", url.toString());
-  return resolve(CACHE_DIR, `${hash}.json`);
+  const hashed = hash("sha1", url.toString());
+  return resolve(CACHE_DIR, `${hashed}.json`);
 };
 
 const writeCache = async <T>(url: URL, body: T) => {
