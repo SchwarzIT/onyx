@@ -1,9 +1,4 @@
 {
-  "extends": ["@vue/tsconfig/tsconfig.dom.json", "@sit-onyx/shared/tsconfig.json"],
-  "include": ["src/**/*"],
-  "compilerOptions": {
-    "lib": ["ES2022", "DOM"],
-    "rootDir": "./src",
-    "baseUrl": "."
-  }
+  // https://nuxt.com/docs/guide/concepts/typescript
+  "extends": "./.nuxt/tsconfig.json"
 }

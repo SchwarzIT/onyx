@@ -9,21 +9,23 @@
     "node": ">=20"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc && vite build",
-    "preview": "vite preview"
+    "dev": "pnpm dev:prepare && nuxt dev",
+    "dev:prepare": "nuxt prepare",
+    "build": "pnpm dev:prepare && nuxt build",
+    "preview": "nuxt preview"
   },
   "dependencies": {
+    "@nuxtjs/color-mode": "^3.5.2",
+    "@nuxtjs/i18n": "^10.0.6",
+    "@pinia/nuxt": "~0.11.2",
     "@sit-onyx/icons": "workspace:^",
+    "@sit-onyx/nuxt": "workspace:^",
     "@vueuse/core": "^13.8.0",
+    "@vueuse/nuxt": "^13.8.0",
+    "nuxt": "^4.0.3",
     "pinia": "^3.0.3",
     "sit-onyx": "workspace:^",
-    "vue-i18n": "^11.1.11",
+    "vue": "catalog:",
     "vue-router": "^4.5.1"
-  },
-  "devDependencies": {
-    "@sit-onyx/shared": "workspace:^",
-    "sass-embedded": "catalog:",
-    "vue": "catalog:"
   }
 }

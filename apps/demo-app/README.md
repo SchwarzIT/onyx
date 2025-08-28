@@ -1,27 +1,40 @@
-# Demo App
+# onyx demo app
 
-During the pre-release phase of onyx, we use this minimalistic app to try out onyx components in a user-near environment and detect problems that Storybook can not show.
-This app will be removed once onyx leaves the pre-release phase. As it is temporary, it will not be mentioned in our documentation app.
+This is a demonstration application that can be used to showcase onyx features.
 
-**Important**: To see changes that you implemented in onyx, make sure to run `pnpm dev` again which includes the build command for onyx. Only then will the changes be reflected in the Demo App.
+## Prerequisites
 
-## Vue 3 + TypeScript + Vite
+- [Node.js](https://nodejs.org/en) version as specified in [.node-version](./.node-version) file
+- [pnpm](https://pnpm.io/) version as specified in [`package.json`](./package.json) field `packageManager`
 
-This app was created with `pnpm create vite demo-app --template vue-ts`.
+## Setup
 
-Below documentation was kept from the starter-app.
+Make sure to install the dependencies:
 
-## Recommended IDE Setup
+```bash
+pnpm install
+```
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## Development Server
 
-## Type Support For `.vue` Imports in TS
+Start the development server on `http://localhost:3000`:
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+```bash
+# run this command in the monorepo root, not in the demo app folder
+pnpm run dev demo-app
+```
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+## Production
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+Build the application for production:
+
+```bash
+# run this command in the monorepo root, not in the demo app folder
+pnpm run build:all --filter demo-app
+```
+
+Locally preview production build:
+
+```bash
+pnpm run preview
+```

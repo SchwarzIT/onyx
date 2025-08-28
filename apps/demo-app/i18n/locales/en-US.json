@@ -1,0 +1,13 @@
+{
+  "app": {
+    "version": "App version"
+  },
+  "auth": {
+    "logout": "Logout"
+  },
+  "density": {
+    "change": "Change density",
+    "description": "Select the density of the application to change the spacings between elements"
+  },
+  "home": "Home"
+}

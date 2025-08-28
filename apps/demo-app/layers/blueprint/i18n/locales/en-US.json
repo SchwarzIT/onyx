@@ -1,0 +1,9 @@
+{
+  "blueprint": {
+    "changeColorScheme": "Change color scheme",
+    "errors": {
+      "backToHome": "Back to home",
+      "technicalDetails": "Technical error details"
+    }
+  }
+}
