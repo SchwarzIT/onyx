@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { iconLogout } from "@sit-onyx/icons";
-import { version } from "~/../package.json";
+import { version } from "~/../../../packages/sit-onyx/package.json";
 </script>
 
 <template>
