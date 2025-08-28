@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.314
+
+### Minor Changes
+
+- a715969: feat(OnyxFileUpload): add file type validation for accept property
+
 ## 1.0.0-beta.313
 
 ### Minor Changes
