@@ -10,7 +10,6 @@ const meta: Meta<typeof OnyxSegmentedControl> = {
   title: "Navigation/SegmentedControl",
   tags: ["new:component"],
   component: OnyxSegmentedControl,
-  argTypes: {},
 };
 
 export default meta;
@@ -20,21 +19,13 @@ export const Default = {
   args: {
     modelValue: "option-1",
     options: [
-      {
-        value: "option-1",
-        label: "Option 1",
-      },
-      {
-        value: "option-2",
-        label: "Option 2",
-      },
-      {
-        value: "option-3",
-        label: "Option 3",
-      },
+      { value: "option-1", label: "Option 1" },
+      { value: "option-2", label: "Option 2" },
+      { value: "option-3", label: "Option 3" },
     ],
   },
 } satisfies Story;
+
 export const Icon = {
   args: {
     modelValue: "option-1",
@@ -54,6 +45,7 @@ export const Icon = {
     ],
   },
 } satisfies Story;
+
 export const TextAndIcon = {
   args: {
     modelValue: "option-1",
@@ -71,23 +63,14 @@ export const TextAndIcon = {
     ],
   },
 } satisfies Story;
+
 export const Disabled = {
   args: {
     modelValue: "option-1",
     options: [
-      {
-        value: "option-1",
-        label: "Option 1",
-      },
-      {
-        value: "option-2",
-        label: "Option 2",
-      },
-      {
-        value: "option-3",
-        label: "Option 3",
-        disabled: true,
-      },
+      { value: "option-1", label: "Option 1" },
+      { value: "option-2", label: "Option 2" },
+      { value: "option-3", label: "Option 3", disabled: true },
     ],
   },
 } satisfies Story;

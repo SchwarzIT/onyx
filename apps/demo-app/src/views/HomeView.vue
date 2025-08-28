@@ -32,6 +32,7 @@ import {
   OnyxPagination,
   OnyxProgressSteps,
   OnyxRadioGroup,
+  OnyxSegmentedControl,
   OnyxSelect,
   OnyxSidebar,
   OnyxSkeleton,
@@ -47,6 +48,7 @@ import {
   useToast,
   type DateValue,
   type Density,
+  type OnyxSegmentedControlOption,
   type SelectOption,
 } from "sit-onyx";
 import { capitalize, computed, ref } from "vue";
@@ -75,6 +77,7 @@ const COMPONENTS = [
   "OnyxInfoCard",
   "OnyxInput",
   "OnyxLink",
+  "OnyxSegmentedControl",
   "OnyxSelect",
   "OnyxLoadingIndicator",
   "OnyxPagination",
@@ -163,6 +166,13 @@ const selectedDate = ref<DateValue>();
 const isDialogOpen = ref(false);
 const openAccordionItems = ref<string[]>([]);
 const currentProgressStep = ref(3);
+
+const segmentedControlOptions: OnyxSegmentedControlOption[] = [
+  { label: "Option 1", value: "option-1" },
+  { label: "Option 2", value: "option-2" },
+  { label: "Option 3", value: "option-3" },
+];
+const selectedSegmentedControlValue = ref(segmentedControlOptions[0]!.value);
 </script>
 
 <template>
@@ -302,6 +312,12 @@ const currentProgressStep = ref(3);
             Internal link (should be navigated with Vue Router)
           </OnyxLink>
         </template>
+
+        <OnyxSegmentedControl
+          v-if="show('OnyxSegmentedControl')"
+          v-model="selectedSegmentedControlValue"
+          :options="segmentedControlOptions"
+        />
 
         <SelectDemo
           v-if="show('OnyxSelect')"

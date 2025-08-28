@@ -216,6 +216,18 @@ const COMPONENTS: Components = {
       type: "application/pdf",
     },
   },
+  OnyxSegmentedControl: {
+    props: {
+      options: [{ label: "Option 1", value: "option-1" }],
+      modelValue: "option-1",
+    },
+  },
+  OnyxSegmentedControlElement: {
+    props: {
+      label: "Option 1",
+      value: "option-1",
+    },
+  },
 };
 
 describe("components", () => {

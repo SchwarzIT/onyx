@@ -7,11 +7,11 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Segmented Control",
     columns: DENSITIES,
-    rows: ["default", "icon", "labelAndIcon", "hover", "focus", "disabled"],
+    rows: ["default", "icon", "labelAndIcon", "hover", "focus", "disabled", "truncated"],
     component: (column, row) => {
       const modelValue = "option-1";
       return (
-        <div style={{ width: "30rem" }}>
+        <div style={{ width: row === "truncated" ? "6rem" : "30rem" }}>
           <OnyxSegmentedControl
             modelValue={modelValue}
             options={[
