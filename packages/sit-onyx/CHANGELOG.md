@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.310
+
+### Patch Changes
+
+- 7882ece: bug(OnyxStepper): handle NaN in displayValue
+
 ## 1.0.0-beta.309
 
 ### Major Changes
