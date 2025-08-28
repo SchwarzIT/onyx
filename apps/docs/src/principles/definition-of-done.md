@@ -11,4 +11,4 @@ A **component** ticket must fulfil the following aspects to be considered **done
 | Known open points are either fixed or a ticket was created                                        |   -   | 🧑‍💻  | 🧑‍💼  |
 | The **onyx** version was updated and the documentation is deployed <br> _=> Docs approved by DEV_ |   -   | 🧑‍💻  |  -  |
 | StoryBook can show the feature <br> _=> approved by UX/UI_                                        |  🧑‍🎨   | 🧑‍💻  |  -  |
-| Our [guidelines](/principles/technical-vision) were followed                                      |  🧑‍🎨   | 🧑‍💻  |  -  |
+| Our [guidelines](/principles/technical-guidelines) were followed                                  |  🧑‍🎨   | 🧑‍💻  |  -  |

@@ -9,7 +9,7 @@ import nodeVersion from "../../../../../.node-version?raw";
 
 # Contribution Guide
 
-When contributing to onyx, please respect the [Schwarz IT Code of Conduct](https://github.com/SchwarzIT/.github/blob/main/CODE_OF_CONDUCT.md) and our [technical vision/guidelines](/principles/technical-vision).
+When contributing to onyx, please respect the [Schwarz IT Code of Conduct](https://github.com/SchwarzIT/.github/blob/main/CODE_OF_CONDUCT.md) and our [technical guidelines](/principles/technical-guidelines).
 
 ::: info Target audience
 This document is directed at people that are developing **for** onyx.
@@ -196,7 +196,7 @@ export * from "./components/OnyxExampleComponent/types";
 ### Step 8: Create pull request
 
 Once you are done with your changes, [create a pull request](https://github.com/SchwarzIT/onyx/compare) and describe the changes that you did.
-Please consider our [technical guidelines](/principles/technical-vision) when contributing to onyx.
+Please consider our [technical guidelines](/principles/technical-guidelines) when contributing to onyx.
 
 If you are contributing multiple components, features or your contributing is big, please split up the contribution and create multiple PRs!
 

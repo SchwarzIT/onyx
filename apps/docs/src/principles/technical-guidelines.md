@@ -1,13 +1,6 @@
-# Technical vision & guidelines
+# Technical guidelines
 
-Our technical vision describes the goals that we as the development team of **onyx** want to achieve as well as the boundaries we want to respect when developing **onyx**.
-
-**Legend:**
-
-|     | Name   | Description                                               |
-| --- | ------ | --------------------------------------------------------- |
-| 📜  | Rule   | Must be followed. Contributions may be rejected otherwise |
-| 🔮  | Vision | Our long-term goal for **onyx**                           |
+Our technical guidelines describes the goals and rules that contributors and we (the development team of **onyx**) must adhere to.
 
 ## Global Architecture
 
@@ -16,13 +9,7 @@ Our technical vision describes the goals that we as the development team of **on
    - We use third-party dependencies sparingly. The need for each dependency must be well justified and documented in this wiki.
 2. 📜 We rely on browser / native features as much as possible.
 3. 📜 Frequently used code is extracted into utils / composables.
-4. 🔮 We provide custom eslint rules for principles and best practices where needed.
-
-## Release process
-
-1. 🔮 All packages use one of two release channels:
-   - `beta`: automatically released on each merge to the `main` branch
-   - `default` / `prod`: released after the [current sprint](https://github.com/orgs/SchwarzIT/projects/5/views/1) has ended. Requires manual approval.
+4. 📜 We provide custom eslint rules for principles and best practices where needed.
 
 ## Pull Requests
 
@@ -36,25 +23,24 @@ Our technical vision describes the goals that we as the development team of **on
 
 1. 📜 Everything we publish (features, packages, ...) must be documented
 2. 📜 The documentation explains everything the users need to know and do not expect implicit knowledge. E.g. all variants that a component offers are showcased and explained when they are used
-3. 📜 We have a well understandable changelog which includes all relevant information on the usage of the changes
-4. 🔮 We provide an overview page which shows previews of all of our components on one page
-5. 🔮 Our documentation supports fuzzy/keyword search for finding components
+3. 📜 We have a well written changelog which includes all relevant information on the usage of the changes
 
 ## Usability
 
 1. 📜 The DX _(Developer Experience)_ of our users is our top priority
-2. 📜 We only support modern technologies [(ES202x)](https://tc39.es/ecma262/)/ESM
-3. 📜 **onyx** components work in all of the three big browsers: Chromium, Firefox and Safari
-4. 📜 We offer excellent typing support
-5. 📜 We only use Web APIs that match our browserlist [support](https://github.com/SchwarzIT/onyx/blob/47c2c8f28aa19fa859c01067934d772d196d6271/apps/docs/src/principles/technical-vision.md)
+2. 📜 We offer excellent typing support
+3. 📜 We only support modern technologies [(ES202x)](https://tc39.es/ecma262/)/ESM
+4. 📜 **onyx** components must work in the three big browser (engines): Chromium, Firefox and Safari
+   - Support is limited to versions up to one year old
+5. 📜 We only use Web APIs that match our [browserlist](https://github.com/SchwarzIT/onyx/blob/joca96/chore-update-principles/.browserslistrc)
 
 ## Component Interface
 
-1. 📜 Component variants that differ in regards to their [aria pattern](https://www.w3.org/WAI/ARIA/apg/patterns) are separate components #TODO
+1. 📜 Component variants that differ in regards to their [aria pattern](https://www.w3.org/WAI/ARIA/apg/patterns) are separate components
 1. 📜 When Prop/Attr names of the (wrapped) native element are being used for component properties,
-   - they must mirror the expected behavior of the native attribute
+   - they must mirror or extend the expected behavior of the native attribute
    - they may limit the natives attribute accepted values (e.g. `type` property of the input could be limited to only support type `text` and `password`)
-1. 📜 [Fallthrough attributes](https://vuejs.org/guide/components/attrs.html) should be passed to the most relevant (interactive) native element of the component.
+1. 📜 [Fallthrough attributes](https://vuejs.org/guide/components/attrs.html) should be passed to the relevant (interactive) native element of the component. (See [Root Attribute Forwarding documentation](https://onyx.schwarz/principles/contributing/patterns.html#root-attribute-forwarding))
    - we use the `useRootAttrs` composable
 1. 📜 All boolean properties default to `false` (falsy)
 1. 📜 We prevent complex conditions due to big union modelValue types.
@@ -74,14 +60,13 @@ Our technical vision describes the goals that we as the development team of **on
 1. 📜 All (public) components are prefixed with `Onyx`, e.g. `OnyxButton`
 2. 📜 We use [v-model](https://vuejs.org/guide/components/v-model.html) for two-way-data-binding wherever possible
 3. 📜 Component variants are named after what they are, not where they are used (e.g. a link variant "fullWidth" instead of "sideBar")
-4. 📜 Boolean properties are prefixed with `is-` or `has-`. Exceptions are made to align with default html properties, e.g. `required` #TODO
-5. 📜 All CSS class names are prefixed with `onyx-`
-6. 📜 All CSS variables are prefixed with `--onyx-`
+4. 📜 All CSS class names are prefixed with `onyx-`
+5. 📜 All CSS variables are prefixed with `--onyx-`
 
 ## Component Implementation
 
 1. 📜 We don't clone DOM nodes. Instead, we can place slots in different places depending on the breakpoint
-2. 📜 We only use as much JavaScript as necessary (e.g. prefer CSS over JavaScript)
+2. 📜 We only use as much JavaScript as necessary (e.g. prefer CSS solutions over JavaScript)
 3. 📜 Property types are declared and exported as standalone type and referenced in the `defineProps`
    - the property type can still be declared (and exported) inside the component file to which it belongs
 4. 📜 We always use the notation `props.foo` instead of accessing `foo` directly in the `<template>` section
@@ -98,16 +83,17 @@ Our technical vision describes the goals that we as the development team of **on
 1. 📜 We use [semantic HTML](https://developer.mozilla.org/en-US/docs/Web/HTML/Element)
 2. 📜 We keep the DOM tree as flat as possible
 3. 📜 We follow [A11y best practices](https://www.w3.org/WAI/fundamentals/accessibility-principles/) (level AA)
-4. 📜 We define aria relevant attributes as **required**
-   - e.g. an image component would have a required `alt` property
-   - We offer an alternative `inaccessible` or `no-a11y` property, e.g. for declaring decorative images #TODO
+4. 📜 We define aria relevant properties as **required**
+   - e.g. the `alt` property of the `OnyxImage` component is required
 
 ### Typescript
 
-1. 📜 We use types instead of interfaces and enums
-2. 📜 We use strict undefined/null checks when implementing the **onyx** ecosystem
+1. 📜 We use `type`s instead of `interface`s
+2. 📜 We **don't** use [typescript enums](https://www.typescriptlang.org/docs/handbook/enums.html)
+3. 📜 We use strict undefined/null checks when implementing the **onyx** ecosystem
 
 ###########
+
 ### CSS
 
 1. 📜 Instead of using `scoped`/`module` for `<style>`, we rely on meaningful class structures
@@ -119,14 +105,10 @@ Our technical vision describes the goals that we as the development team of **on
    - Instead of copying Figma styles, we evaluate what is needed
 4. 📜 Component styles are limited to the component internals
    - We don't set opinionated margins on the components that define how they are spaced in the page layout.
-5. 📜 We use `flex` for 1 dimensional layouts and `grid` for 2 dimensional layouts
-6. 📜 We avoid writing styles on a parent component that are applied to children that are placed in a slot
+5. 📜 We avoid writing styles on a parent component that are applied to children that are placed in a slot
    - _Exception: When the alternative would over-complicate the interface, e.g. by requiring extra properties_
-7. 📜 We prefer pseudo-classes over class names we set ourselves
-8. 📜 We prefer styles that don't rely on `:not()`
-9. 📜 We can use `::before` and `::after` for styling
-10. 📜 We use `rem` for **everything**. This includes borders, font-sizes, ...
-11. 📜 We don't infer the device type by the window width
+6. 📜 We prefer styles that don't rely on `:not()`
+7. 📜 We use [`rem`](https://developer.mozilla.org/en-US/docs/Web/CSS/length#rem) for **everything**. This includes borders, font-sizes etc.
 
 ### Testing
 
@@ -134,17 +116,9 @@ Our technical vision describes the goals that we as the development team of **on
 2. 📜 All defined component behavior is covered by a playwright test (`.ct.tsx` file)
 3. 📜 Utils and composables are covered by Vitest tests (`.spec.ts` file)
 4. 📜 We structure our tests by using the [arrange-act-assert pattern](https://automationpanda.com/2020/07/07/arrange-act-assert-a-pattern-for-writing-good-tests/)<br>
+
    ```ts
    // ARRANGE
    // ACT
    // ASSERT
    ```
-
-## Things the future might hold
-
-The following points might be discussed when their use-case gets more concrete.
-
-- Offer package with test-utils
-- Measure the performance of components which contain a lot of content
-- We provide SSR support / compatibility
-- We use [progressive enhancement](https://developer.mozilla.org/de/docs/Glossary/Progressive_Enhancement) where possible

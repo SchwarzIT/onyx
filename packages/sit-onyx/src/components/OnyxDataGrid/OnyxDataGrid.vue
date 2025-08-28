@@ -38,7 +38,7 @@ const props = withDefaults(
   {
     features: () => [] as TFeatures,
     skeleton: SKELETON_INJECTED_SYMBOL,
-    // usually we default all boolean props to false (see https://onyx.schwarz/principles/technical-vision.html#component-interface).
+    // usually we default all boolean props to false (see https://onyx.schwarz/principles/technical-guidelines.html#component-interface).
     // However, here for striped and withVerticalBorders this makes sense from UX perspective
     striped: true,
     withVerticalBorders: true,

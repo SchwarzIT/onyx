@@ -6,7 +6,7 @@ Any valid CSS is also valid SCSS, that should make it easy to get started.
 All our design variables are provided as [CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties).
 An overview can be found [here](/variables/introduction.html).
 
-For a general overview of our (S)CSS guidelines refer to our [CSS Principles](/principles/technical-vision.html#css).
+For a general overview of our (S)CSS guidelines refer to our [CSS Principles](/principles/technical-guidelines.html#css).
 
 ## CSS Layers
 

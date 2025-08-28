@@ -187,7 +187,7 @@ export const CONFIG = {
           base: "/principles",
           items: [
             { text: "Introduction", link: "/" },
-            { text: "Technical vision & guidelines", link: "/technical-vision" },
+            { text: "Technical guidelines", link: "/technical-guidelines" },
             { text: "Component quality stages", link: "/component-quality-stages" },
           ],
         },
