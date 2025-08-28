@@ -9,5 +9,10 @@
     "change": "Change density",
     "description": "Select the density of the application to change the spacings between elements"
   },
-  "home": "Home"
+  "overview": "Overview",
+  "action": "Action | Actions",
+  "dataGrid": "Data grid / Table",
+  "forms": "Forms",
+  "charts": "Charts",
+  "onyxDocs": "onyx documentation"
 }

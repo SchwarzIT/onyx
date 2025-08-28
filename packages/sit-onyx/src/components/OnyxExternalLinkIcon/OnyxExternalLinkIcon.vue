@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { iconArrowSmallUpRight } from "@sit-onyx/icons";
 import { computed } from "vue";
-import { isInternalLink } from "../../utils/index.js";
+import { isInternalLink } from "../../utils/router.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxExternalLinkIconProps } from "./types.js";
 
