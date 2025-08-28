@@ -216,9 +216,10 @@
     "revealFilesButton": "Alle Dateien anzeigen",
     "removeFile": "Datei entfernen",
     "status": {
+      "fileTypeError": "Datei mit der Endung '.{extension}' ist nicht zulässig",
       "fileSizeError": "Datei überschreitet die maximal zulässige Größe von {size}",
-      "maxFileSizeError": "Gesamtgröße der Dateien überschreitet das zulässige Maximum von {size}",
-      "maxCountError": "Die Anzahl der Dateien überschreitet das zulässige Maximum von {count}"
+      "maxFileSizeError": "Die Gesamtgröße aller Dateien überschreitet das zulässige Maximum von {size}",
+      "maxCountError": "Es sind maximal {count} Dateien erlaubt"
     }
   },
   "globalFAB": {
