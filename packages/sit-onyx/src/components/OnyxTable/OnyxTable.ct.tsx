@@ -1,3 +1,4 @@
+import { iconMoreVertical } from "@sit-onyx/icons";
 import { DENSITIES } from "../../composables/density.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots.js";
@@ -6,6 +7,7 @@ import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxPagination from "../OnyxPagination/OnyxPagination.vue";
+import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import OnyxTable from "./OnyxTable.vue";
 
 const tableHead = (
@@ -302,4 +304,44 @@ test("should set table aria label when headline is passed", async ({ mount }) =>
   // ASSERT
   await expect(component.getByRole("heading", { name: "Example headline" })).toBeAttached();
   await expect(component.getByRole("table", { name: "Example headline" })).toBeAttached();
+});
+
+test("header height should not change when system button is shown/hidden", async ({ mount }) => {
+  // ARRANGE
+  let component = await mount(
+    <OnyxTable>
+      <template v-slot:head>
+        <tr>
+          <th scope="col">A</th>
+        </tr>
+      </template>
+    </OnyxTable>,
+  );
+
+  const headerBox = await component.getByRole("columnheader", { name: "A" }).boundingBox();
+
+  component = await mount(
+    <OnyxTable>
+      <template v-slot:head>
+        <tr>
+          <th scope="col">
+            <div style={{ display: "flex", alignItems: "center" }}>
+              B
+              <OnyxSystemButton label="Test" icon={iconMoreVertical} />
+            </div>
+          </th>
+        </tr>
+      </template>
+    </OnyxTable>,
+  );
+
+  const headerBoxWithButton = await component
+    .getByRole("columnheader", { name: "B" })
+    .boundingBox();
+
+  // EXPECT
+  expect(headerBox?.height).toBe(41); // 40px height + 1px border bottom
+  expect(headerBox?.height, "header height should be the same with and without system button").toBe(
+    headerBoxWithButton?.height,
+  );
 });
