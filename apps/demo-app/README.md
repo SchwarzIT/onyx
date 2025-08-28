@@ -1,11 +1,6 @@
-# Nuxt 3 Template
+# onyx demo app
 
-Build upon the official [Nuxt 3 starter application](https://nuxt.com/docs/getting-started/introduction).
-
-Additional features:
-
-- [nuxt i18n](https://nuxt.com/modules/i18n)
-- [eslint](https://nuxt.com/modules/eslint) and [prettier](https://prettier.io/) setup (also runs pre-commit)
+This is a demonstration application that can be used to showcase onyx features.
 
 ## Prerequisites
 
@@ -25,7 +20,8 @@ pnpm install
 Start the development server on `http://localhost:3000`:
 
 ```bash
-pnpm run dev
+# run this command in the monorepo root, not in the demo app folder
+pnpm run dev demo-app
 ```
 
 ## Production
@@ -33,7 +29,8 @@ pnpm run dev
 Build the application for production:
 
 ```bash
-pnpm run build
+# run this command in the monorepo root, not in the demo app folder
+pnpm run build:all --filter demo-app
 ```
 
 Locally preview production build:
@@ -41,5 +38,3 @@ Locally preview production build:
 ```bash
 pnpm run preview
 ```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
