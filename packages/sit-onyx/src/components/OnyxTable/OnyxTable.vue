@@ -244,13 +244,13 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
       font-weight: var(--onyx-font-weight-semibold);
       font-family: var(--onyx-font-family-h4);
 
-      // in tables: height = min height
-      // set min height to fit a 1.5rem element (e.g. system button) so it does not jump around when the button is shown/hidden
-      height: calc(1.5rem + 2 * var(--onyx-table-padding-vertical) + var(--onyx-1px-in-rem));
-
       &:not(.onyx-table__colgroup) {
         background-color: var(--onyx-color-base-neutral-200);
         color: var(--onyx-color-text-icons-neutral-medium);
+
+        // in tables: height = min height
+        // set min height to fit a 1.5rem element (e.g. system button) so it does not jump around when the button is shown/hidden
+        height: calc(1.5rem + 2 * var(--onyx-table-padding-vertical) + var(--onyx-1px-in-rem));
 
         &:hover {
           background: var(--onyx-color-base-neutral-300);
