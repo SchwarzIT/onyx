@@ -86,7 +86,7 @@ const getFormattedValue = computed(() => {
 });
 const getDisplayValue = computed(() => {
   return (value: Nullable<number>) => {
-    if (value == undefined) return "";
+    if (value == undefined || Number.isNaN(value)) return "";
     if (props.formatNumber) {
       if (typeof props.formatNumber === "boolean") {
         if (props.precision) {
