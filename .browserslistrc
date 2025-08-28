@@ -13,5 +13,8 @@ Firefox ESR,
 Safari > 1 and last 1 year,
 ios_saf > 1 and last 1 year,
 
+# EDGE (CHROMIUM) - monthly release
+last 12 Edge versions,
+
 not dead,
 not unreleased versions,
