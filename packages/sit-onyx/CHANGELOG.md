@@ -1,5 +1,29 @@
 # sit-onyx
 
+## 1.0.0-beta.310
+
+### Patch Changes
+
+- 7882ece: bug(OnyxStepper): handle NaN in displayValue
+
+## 1.0.0-beta.309
+
+### Major Changes
+
+- 9571f60: feat(OnyxSegmentedControl): made modelValue required for segmentedControl
+
+## 1.0.0-beta.308
+
+### Patch Changes
+
+- dba1f8f: feat(OnyxCard): support `link` property
+
+## 1.0.0-beta.307
+
+### Patch Changes
+
+- 35e4430: fix(OnyxStepper): Fix id prop not being applied to the native input element
+
 ## 1.0.0-beta.306
 
 ### Minor Changes

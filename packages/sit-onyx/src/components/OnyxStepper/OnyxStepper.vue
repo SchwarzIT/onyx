@@ -86,7 +86,7 @@ const getFormattedValue = computed(() => {
 });
 const getDisplayValue = computed(() => {
   return (value: Nullable<number>) => {
-    if (value == undefined) return "";
+    if (value == undefined || Number.isNaN(value)) return "";
     if (props.formatNumber) {
       if (typeof props.formatNumber === "boolean") {
         if (props.precision) {
@@ -156,75 +156,78 @@ useAutofocus(input, props);
       :success-messages="successMessages"
       :error-messages="errorMessages"
     >
-      <div class="onyx-stepper__wrapper">
-        <button
-          v-if="!props.hideButtons"
-          type="button"
-          class="onyx-stepper__counter"
-          :disabled="
-            disabled ||
-            readonly ||
-            props.loading ||
-            (props.min !== undefined &&
-              modelValue !== undefined &&
-              modelValue !== null &&
-              modelValue <= props.min)
-          "
-          :aria-label="decrementLabel"
-          tabindex="-1"
-          @click="handleClick('stepDown')"
-        >
-          <OnyxIcon :icon="iconMinus" />
-        </button>
-        <OnyxLoadingIndicator v-if="props.loading" class="onyx-stepper__loading" type="circle" />
-        <input
-          v-else
-          ref="inputRef"
-          v-model="inputValue"
-          v-custom-validity
-          class="onyx-stepper__native"
-          :class="{ 'onyx-stepper__native--touched': wasTouched }"
-          type="number"
-          :aria-label="props.label"
-          :autofocus="props.autofocus"
-          :disabled="disabled || props.loading"
-          :min="props.min"
-          :max="props.max"
-          :name="props.name"
-          :placeholder="props.placeholder"
-          :readonly="props.readonly"
-          :required="props.required"
-          :step="props.validStepSize ?? 'any'"
-          :title="props.hideLabel ? props.label : undefined"
-          v-bind="restAttrs"
-          @change="handleChange"
-          @focusin="(e) => (e.target as HTMLInputElement)?.select()"
-          @keydown.up.prevent="handleClick('stepUp')"
-          @keydown.down.prevent="handleClick('stepDown')"
-        />
-        <p class="onyx-stepper__display" aria-hidden="true">
-          {{ displayValue }}
-        </p>
-        <button
-          v-if="!props.hideButtons"
-          type="button"
-          class="onyx-stepper__counter"
-          :disabled="
-            disabled ||
-            readonly ||
-            props.loading ||
-            (props.max !== undefined &&
-              modelValue !== undefined &&
-              modelValue !== null &&
-              modelValue >= props.max)
-          "
-          :aria-label="incrementLabel"
-          tabindex="-1"
-          @click="handleClick('stepUp')"
-        >
-          <OnyxIcon :icon="iconPlus" />
-        </button>
-      </div>
+      <template #default="{ id: inputId }">
+        <div class="onyx-stepper__wrapper">
+          <button
+            v-if="!props.hideButtons"
+            type="button"
+            class="onyx-stepper__counter"
+            :disabled="
+              disabled ||
+              readonly ||
+              props.loading ||
+              (props.min !== undefined &&
+                modelValue !== undefined &&
+                modelValue !== null &&
+                modelValue <= props.min)
+            "
+            :aria-label="decrementLabel"
+            tabindex="-1"
+            @click="handleClick('stepDown')"
+          >
+            <OnyxIcon :icon="iconMinus" />
+          </button>
+          <OnyxLoadingIndicator v-if="props.loading" class="onyx-stepper__loading" type="circle" />
+          <input
+            v-else
+            :id="inputId"
+            ref="inputRef"
+            v-model="inputValue"
+            v-custom-validity
+            class="onyx-stepper__native"
+            :class="{ 'onyx-stepper__native--touched': wasTouched }"
+            type="number"
+            :aria-label="props.label"
+            :autofocus="props.autofocus"
+            :disabled="disabled || props.loading"
+            :min="props.min"
+            :max="props.max"
+            :name="props.name"
+            :placeholder="props.placeholder"
+            :readonly="props.readonly"
+            :required="props.required"
+            :step="props.validStepSize ?? 'any'"
+            :title="props.hideLabel ? props.label : undefined"
+            v-bind="restAttrs"
+            @change="handleChange"
+            @focusin="(e) => (e.target as HTMLInputElement)?.select()"
+            @keydown.up.prevent="handleClick('stepUp')"
+            @keydown.down.prevent="handleClick('stepDown')"
+          />
+          <p class="onyx-stepper__display" aria-hidden="true">
+            {{ displayValue }}
+          </p>
+          <button
+            v-if="!props.hideButtons"
+            type="button"
+            class="onyx-stepper__counter"
+            :disabled="
+              disabled ||
+              readonly ||
+              props.loading ||
+              (props.max !== undefined &&
+                modelValue !== undefined &&
+                modelValue !== null &&
+                modelValue >= props.max)
+            "
+            :aria-label="incrementLabel"
+            tabindex="-1"
+            @click="handleClick('stepUp')"
+          >
+            <OnyxIcon :icon="iconPlus" />
+          </button>
+        </div>
+      </template>
     </OnyxFormElement>
   </div>
 </template>

@@ -1,5 +1,8 @@
 <script lang="ts" setup>
+import { computed } from "vue";
 import { useDensity } from "../../composables/density.js";
+import { extractLinkProps } from "../../utils/router.js";
+import OnyxRouterLink from "../OnyxRouterLink/OnyxRouterLink.vue";
 import type { OnyxCardProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxCardProps>(), {
@@ -14,11 +17,16 @@ defineSlots<{
 }>();
 
 const { densityClass } = useDensity(props);
+
+const linkProps = computed(() =>
+  props.link != undefined ? extractLinkProps(props.link) : undefined,
+);
 </script>
 
 <template>
   <component
-    :is="props.clickable ? 'button' : 'div'"
+    :is="linkProps ? OnyxRouterLink : props.clickable ? 'button' : 'div'"
+    v-bind="linkProps"
     :class="['onyx-component', 'onyx-card', densityClass, 'onyx-truncation-multiline', 'onyx-text']"
   >
     <slot></slot>
@@ -44,7 +52,7 @@ const { densityClass } = useDensity(props);
     color: var(--onyx-color-text-icons-neutral-intense);
     max-width: 100%;
 
-    &:is(button) {
+    &:is(button, a) {
       cursor: pointer;
       text-align: initial;
 

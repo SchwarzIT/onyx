@@ -7,9 +7,9 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Segmented Control",
     columns: DENSITIES,
-    rows: ["default", "icon", "labelAndIcon", "hover", "focus", "selected", "disabled"],
+    rows: ["default", "icon", "labelAndIcon", "hover", "focus", "disabled"],
     component: (column, row) => {
-      const modelValue = row === "selected" ? "option-1" : null;
+      const modelValue = "option-1";
       return (
         <div style={{ width: "30rem" }}>
           <OnyxSegmentedControl
@@ -48,7 +48,7 @@ test.describe("Screenshot tests", () => {
 
 test("should behave correctly", async ({ mount }) => {
   // ARRANGE
-  let modelValue = null;
+  let modelValue = "option-2";
   const component = await mount(
     <OnyxSegmentedControl
       modelValue={modelValue}
@@ -75,7 +75,7 @@ test("should behave correctly", async ({ mount }) => {
 
   // ACT
 
-  expect(modelValue).toBe(null);
+  expect(modelValue).toBe("option-2");
   await expect(radio).not.toBeChecked();
 
   // ASSERT
