@@ -99,20 +99,17 @@
   }
 
   &__separator {
-    all: initial;
-    line-height: inherit;
     // should have full height, but not overlap actual border
-    height: calc(1lh + 2 * var(--onyx-input-padding-vertical) - 2 * var(--onyx-1px-in-rem));
-    border-width: var(--onyx-1px-in-rem);
-    border-color: var(--onyx-color-component-border-neutral);
+    --onyx-separator-min-size: calc(
+      1lh + 2 * var(--onyx-input-padding-vertical) - 2 * var(--onyx-1px-in-rem)
+    );
+    $margin: calc(var(--onyx-density-sm) - var(--onyx-density-xs));
 
-    &--trailing {
-      border-inline-start-style: solid;
-      padding-inline-end: calc(var(--onyx-density-sm) - var(--onyx-density-xs));
-    }
     &--leading {
-      border-inline-end-style: solid;
-      padding-inline-start: calc(var(--onyx-density-sm) - var(--onyx-density-xs));
+      margin-left: $margin;
+    }
+    &--trailing {
+      margin-right: $margin;
     }
   }
 

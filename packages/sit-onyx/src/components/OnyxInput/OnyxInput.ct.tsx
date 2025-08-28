@@ -457,3 +457,17 @@ test("should hide/show password", async ({ mount }) => {
   await expect(component).toHaveScreenshot(`input-password-shown.png`);
 });
 testMaxLengthBehavior(OnyxInput);
+
+test.describe("Screenshot test (slots dark mode)", () => {
+  executeMatrixScreenshotTest({
+    name: "Input (slots dark mode)",
+    columns: ["default"],
+    rows: ["light", "dark"],
+    component: (column, row) => (
+      <OnyxInput label="Test label" modelValue="Value" style={{ width: "12rem", colorScheme: row }}>
+        <template v-slot:leading>https://</template>
+        <template v-slot:trailing>.com</template>,
+      </OnyxInput>
+    ),
+  });
+});
