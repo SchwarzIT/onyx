@@ -1,0 +1,13 @@
+{
+  "app": {
+    "version": "App Version"
+  },
+  "auth": {
+    "logout": "Abmelden"
+  },
+  "density": {
+    "change": "Dichte ändern",
+    "description": "Wähle die Dichte der Anwendung, um die Abstände zwischen Elementen anzupassen"
+  },
+  "home": "Startseite"
+}
