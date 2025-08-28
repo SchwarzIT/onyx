@@ -93,7 +93,6 @@ body:
         **Documentation**
         - [ ] "New" badge in Storybook is added, see [storybook-addon-tag-badges](https://github.com/Sidnioulz/storybook-addon-tag-badges/?tab=readme-ov-file#-usage)
         - [ ] auto-generated Storybook code snippets are checked
-        - [ ] example usage added to `apps/demo-app/src/views/HomeView.vue`
         - [ ] component status has been updated in the [docs overview](https://onyx.schwarz/#components)
         - [ ] updated version is released
         - [ ] updated documentation is deployed
