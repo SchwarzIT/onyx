@@ -131,5 +131,8 @@ body:
         **Documentation**
         - [ ] Storybook category is aligned with Figma
         - [ ] Storybook examples are checked
+
+        **Other**
+        - [ ] follow-up tickets were created if necessary (add links below)
     validations:
       required: true

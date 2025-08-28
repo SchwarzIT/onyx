@@ -34,10 +34,11 @@ body:
 
         **Documentation**
         - [ ] category for Figma and Storybook is defined
-        - [ ] examples that should be shown in Storybook are defined and documented
+        - [ ] examples that should be shown in Storybook are defined and documented in Figma (documentation file)
         - [ ] component status "planned" has been added to the [docs overview](https://onyx.schwarz/#components)
 
         **Other**
         - [ ] DEV has either refined an implementation ticket or at least created a blank issue with a title
+        - [ ] follow-up UX tickets were created if necessary (add links below)
     validations:
       required: true
