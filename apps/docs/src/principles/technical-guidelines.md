@@ -32,7 +32,7 @@ Our technical guidelines describes the goals and rules that contributors and we 
 3. 📜 We only support modern technologies [(ES202x)](https://tc39.es/ecma262/)/ESM
 4. 📜 **onyx** components must work in the three big browser (engines): Chromium, Firefox and Safari
    - Support is limited to versions up to one year old
-5. 📜 We only use Web APIs that match our [browserlist](https://github.com/SchwarzIT/onyx/blob/joca96/chore-update-principles/.browserslistrc)
+5. 📜 We only use Web APIs that match our [browserlist](https://onyx.schwarz/development/#browser-support)
 
 ## Component Interface
 
