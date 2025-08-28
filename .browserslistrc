@@ -1,4 +1,17 @@
 # Browsers that we support
+# The big three, up to 1 year old
 
-> 1%, last 2 versions, Firefox ESR,
-not dead, not op_mini all, not KaiOS < 4.0, not and_qq > 0, not and_uc > 0
+# CHROME - monthly release
+last 12 Chrome versions
+last 12 ChromeAndroid versions
+
+# FIREFOX - monthly release
+last 12 Firefox versions
+Firefox ESR
+
+# SAFARI - no regular schedule
+Safari > 1 and last 1 year
+ios_saf > 1 and last 1 year
+
+not dead
+not unreleased versions
