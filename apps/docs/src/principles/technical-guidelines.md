@@ -32,7 +32,7 @@ Our technical guidelines describes the goals and rules that contributors and we 
 3. 📜 We only support modern technologies [(ES202x)](https://tc39.es/ecma262/)/ESM
 4. 📜 **onyx** components must work in the three big browser (engines): Chromium, Firefox and Safari
    - Support is limited to versions up to one year old
-5. 📜 We only use Web APIs that match our [browserlist](https://onyx.schwarz/development/#browser-support)
+5. 📜 We only use Web APIs that match our [browserlist](/development/#browser-support)
 
 ## Component Interface
 
@@ -40,7 +40,7 @@ Our technical guidelines describes the goals and rules that contributors and we 
 1. 📜 When Prop/Attr names of the (wrapped) native element are being used for component properties,
    - they must mirror or extend the expected behavior of the native attribute
    - they may limit the natives attribute accepted values (e.g. `type` property of the input could be limited to only support type `text` and `password`)
-1. 📜 [Fallthrough attributes](https://vuejs.org/guide/components/attrs.html) should be passed to the relevant (interactive) native element of the component. (See [Root Attribute Forwarding documentation](https://onyx.schwarz/principles/contributing/patterns.html#root-attribute-forwarding))
+1. 📜 [Fallthrough attributes](https://vuejs.org/guide/components/attrs.html) should be passed to the relevant (interactive) native element of the component. (See [Root Attribute Forwarding documentation](/principles/contributing/patterns.html#root-attribute-forwarding))
    - we use the `useRootAttrs` composable
 1. 📜 All boolean properties default to `false` (falsy)
 1. 📜 We prevent complex conditions due to big union modelValue types.
