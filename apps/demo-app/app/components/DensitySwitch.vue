@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { iconToolRuler } from "@sit-onyx/icons";
-import { capitalize } from "@sit-onyx/icons/utils";
 import { DENSITIES, type SelectDialogOption } from "sit-onyx";
+import { capitalize } from "vue";
 
 const settingsStore = useSettingsStore();
 
