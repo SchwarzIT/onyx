@@ -115,3 +115,13 @@ test("should behave correctly", async ({ mount }) => {
   await expect(buttons[2]).toBeEnabled();
   await expect(buttons[3]).toBeEnabled();
 });
+
+test("should render custom content", async ({ mount }) => {
+  const component = await mount(
+    <OnyxProgressSteps steps={STEPS}>
+      <template v-slot:step>Custom content</template>
+    </OnyxProgressSteps>,
+  );
+
+  await expect(component.getByRole("button", { name: "Custom content" })).toHaveCount(STEPS.length);
+});

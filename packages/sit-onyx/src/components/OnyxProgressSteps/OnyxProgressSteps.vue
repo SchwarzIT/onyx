@@ -28,6 +28,13 @@ const emit = defineEmits<{
   "update:highestValue": [value: number];
 }>();
 
+defineSlots<{
+  /**
+   * Optional slot to override the label content for an item (can be used to add custom content).
+   */
+  step?(props: { step: OnyxProgressItemProps }): unknown;
+}>();
+
 const { densityClass } = useDensity(props);
 const skeleton = useSkeletonContext(props);
 
@@ -82,7 +89,10 @@ const mappedSteps = computed(() => {
   >
     <div class="onyx-progress-steps__scroll-container">
       <template v-for="step in mappedSteps" :key="step.value">
-        <OnyxProgressItem v-bind="step" @click="emit('update:modelValue', step.value)" />
+        <OnyxProgressItem v-bind="step" @click="emit('update:modelValue', step.value)">
+          <slot name="step" :step></slot>
+        </OnyxProgressItem>
+
         <OnyxSeparator
           v-if="step.value < mappedSteps.length"
           aria-hidden="true"

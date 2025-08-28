@@ -39,3 +39,17 @@ test.describe("Screenshot tests (density)", () => {
     ),
   });
 });
+
+test.describe("Screenshot tests (custom content)", () => {
+  executeMatrixScreenshotTest({
+    name: "Progress item (custom content)",
+    columns: ["default"],
+    rows: ["default"],
+    component: () => (
+      <OnyxProgressItem label="Custom content" value={1}>
+        Custom content
+        <div style={{ color: "var(--onyx-color-text-icons-neutral-soft)" }}>Description</div>
+      </OnyxProgressItem>
+    ),
+  });
+});
