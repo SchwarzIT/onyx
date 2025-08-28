@@ -7,16 +7,12 @@ export default {
       {
         // ignore CSS features that are not supported by some browser but we in onyx decide to still use
         ignore: [
-          "css-overscroll-behavior",
-          "css-container-query-units",
-          "css-container-queries",
           "css-selection",
           "text-size-adjust",
           "css-resize",
           "css-scrollbar",
           "css-touch-action",
           "css3-cursors",
-          "css-subgrid",
         ],
         ignorePartialSupport: true,
       },

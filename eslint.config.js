@@ -174,7 +174,7 @@ const sitOnyxConfig = {
     "sitOnyx/require-root-class": "error",
     "vue/require-prop-comment": "error",
     // disallow scoped or module CSS for components
-    // see https://onyx.schwarz/principles/technical-vision.html#css
+    // see https://onyx.schwarz/principles/technical-guidelines.html#css
     "vue-scoped-css/enforce-style-type": ["error", { allows: ["plain"] }],
   },
   ignores: ["**/examples/**"],
