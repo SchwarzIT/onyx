@@ -22,6 +22,7 @@ import { injectI18n } from "../../i18n/index.js";
 import type { Nullable } from "../../types/utils.js";
 import { useRootAttrs } from "../../utils/attrs.js";
 import { userConsole } from "../../utils/console.js";
+import { validateFileType } from "../../utils/file.js";
 import { convertBinaryPrefixToBytes } from "../../utils/numbers.js";
 import { asArray } from "../../utils/objects.js";
 import { OnyxFileUploadSVG } from "../illustrations/index.js";
@@ -86,6 +87,14 @@ const hideFiles = ref(false);
 
 const fileStatuses = computed((): (FileCardStatus | undefined)[] => {
   return currentFiles.value.map((file, index) => {
+    if (props.accept && !validateFileType(file, props.accept)) {
+      return {
+        text: t.value("fileUpload.status.fileTypeError", {
+          extension: file.name.split(".").at(-1),
+        }),
+        color: "danger",
+      };
+    }
     if (props.maxSize && file.size > convertBinaryPrefixToBytes(props.maxSize)) {
       return {
         text: t.value("fileUpload.status.fileSizeError", {
