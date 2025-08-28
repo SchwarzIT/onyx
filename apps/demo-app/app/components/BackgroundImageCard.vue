@@ -30,7 +30,7 @@
   }
 
   &__overlay {
-    background: rgba(0, 0, 0, 0.65);
+    background: var(--onyx-color-opacity-medium);
     padding: var(--onyx-card-padding);
     height: 100%;
     width: 100%;
