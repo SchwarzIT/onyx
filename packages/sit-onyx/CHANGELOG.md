@@ -1,5 +1,14 @@
 # sit-onyx
 
+## 1.0.0-beta.313
+
+### Minor Changes
+
+- fa3ccdc: feat: support custom label content for OnyxProgressSteps and OnyxProgressItem
+  - OnyxProgressSteps: add new `step` slot to provide custom label content for each step
+  - OnyxProgressItem: add new `default` slot to provide custom label content
+  - OnyxProgressItem: render white-space in label to support multiline text when passing strings
+
 ## 1.0.0-beta.312
 
 ### Minor Changes
