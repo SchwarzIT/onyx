@@ -2,16 +2,16 @@
 # The big three, up to 1 year old
 
 # CHROME - monthly release
-last 12 Chrome versions
-last 12 ChromeAndroid versions
+last 12 Chrome versions,
+last 12 ChromeAndroid versions,
 
 # FIREFOX - monthly release
-last 12 Firefox versions
-Firefox ESR
+last 12 Firefox versions,
+Firefox ESR,
 
 # SAFARI - no regular schedule
-Safari > 1 and last 1 year
-ios_saf > 1 and last 1 year
+Safari > 1 and last 1 year,
+ios_saf > 1 and last 1 year,
 
-not dead
-not unreleased versions
+not dead,
+not unreleased versions,

@@ -1,20 +1,15 @@
 /* eslint-disable no-console -- we want to be able to log output to the console */
 import { mkdir, readFile, writeFile } from "fs/promises";
+import * as crypto from "node:crypto";
 import { resolve } from "path";
 
 const CACHE_DIR = resolve(import.meta.dirname, "..", "node_modules", ".cache", "onyx-docs-fetch");
 
 type CachedWrapper<T> = { timestamp: number; body: T };
 
-/**
- * Converts a given string or stringifyable object to a file system compatible string.
- */
-const makeFileSystemFriendly = (input: string | { toString: () => string }) =>
-  input.toString().replace(/\W/gi, "_");
-
 const buildPathForUrl = (url: URL) => {
-  const fsFriendly = makeFileSystemFriendly(url);
-  return resolve(CACHE_DIR, `${fsFriendly}.json`);
+  const hash = crypto.hash("sha1", url.toString());
+  return resolve(CACHE_DIR, `${hash}.json`);
 };
 
 const writeCache = async <T>(url: URL, body: T) => {
