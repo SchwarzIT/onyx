@@ -172,7 +172,7 @@ const segmentedControlOptions: OnyxSegmentedControlOption[] = [
   { label: "Option 2", value: "option-2" },
   { label: "Option 3", value: "option-3" },
 ];
-const selectedSegmentedControlValue = ref(segmentedControlOptions[0].value);
+const selectedSegmentedControlValue = ref(segmentedControlOptions[0]?.value);
 </script>
 
 <template>
