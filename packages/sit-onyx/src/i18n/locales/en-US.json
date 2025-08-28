@@ -216,8 +216,9 @@
     "revealFilesButton": "Show all files",
     "removeFile": "Remove file",
     "status": {
+      "fileTypeError": "File with extension '.{extension}' is invalid",
       "fileSizeError": "File exceeds maximum allowed size of {size}",
-      "maxFileSizeError": "Total file size exceeds maximum allowed of {size}",
+      "maxFileSizeError": "Total size of all files exceeds maximum allowed of {size}",
       "maxCountError": "Number of files exceeds maximum allowed of {count}"
     }
   },
