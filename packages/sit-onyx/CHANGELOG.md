@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.311
+
+### Minor Changes
+
+- 2ec9012: feat: implemented OnyxDialog component
+
 ## 1.0.0-beta.310
 
 ### Patch Changes
