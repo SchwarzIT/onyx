@@ -92,10 +92,9 @@ const prevSlide = () => {
     height: 10.5rem;
     padding-inline: var(--onyx-density-md);
     transition: all 0.5s ease-in-out;
-
-    &__navigation-button {
-      margin-block: auto;
-    }
+  }
+  &__footer-navigation-button {
+    margin-block: auto;
   }
 }
 </style>
