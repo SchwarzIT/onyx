@@ -172,12 +172,6 @@ importers:
 
   apps/demo-app:
     dependencies:
-      '@fontsource-variable/source-code-pro':
-        specifier: ^5.2.6
-        version: 5.2.6
-      '@fontsource-variable/source-sans-3':
-        specifier: ^5.2.8
-        version: 5.2.8
       '@nuxtjs/color-mode':
         specifier: ^3.5.2
         version: 3.5.2(magicast@0.3.5)
