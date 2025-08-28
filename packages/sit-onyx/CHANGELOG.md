@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.312
+
+### Minor Changes
+
+- 8626ee2: - feat(OnyxSegmentedControl): type value and options with generic
+  - fix: export OnyxSegmentedControl and OnyxSegmentedControlElement component and types
+  - fix(OnyxSegmentedControl): hide overflow and make component scrollable instead
+
 ## 1.0.0-beta.311
 
 ### Minor Changes
