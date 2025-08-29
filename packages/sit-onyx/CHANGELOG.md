@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.315
+
+### Patch Changes
+
+- 7321967: fix(OnyxInput): update leading/trailing slot separator color in dark mode
+
 ## 1.0.0-beta.314
 
 ### Minor Changes
