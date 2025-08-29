@@ -90,6 +90,9 @@ jobs:
         with:
           name: demo-app
           path: apps/demo-app/.output
+          # we need to include hidden files because the folder name starts with a dot
+          # see: https://github.com/actions/upload-artifact?tab=readme-ov-file#uploading-hidden-files
+          include-hidden-files: true
 
   deploy_storybook:
     name: Deploy Storybook
