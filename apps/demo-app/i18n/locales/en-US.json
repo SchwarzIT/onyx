@@ -16,5 +16,8 @@
   "charts": "Charts",
   "onyxDocs": "onyx documentation",
   "like": "Like",
-  "dislike": "Dislike"
+  "dislike": "Dislike",
+  "personalData": "Personal data",
+  "role": "Role | Roles",
+  "document": "Document | Documents"
 }

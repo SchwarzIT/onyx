@@ -4,6 +4,10 @@
     "errors": {
       "backToHome": "Back to home",
       "technicalDetails": "Technical error details"
-    }
+    },
+    "sidebar": "Sidebar",
+    "search": "Search",
+    "noItemsFound": "No items found",
+    "toggleSidebar": "Show/hide sidebar"
   }
 }
