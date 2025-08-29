@@ -28,7 +28,7 @@ jobs:
       - uses: ./.github/templates/node-setup
 
       - name: 🛠️ Build packages
-        run: pnpm build:all --filter=!docs
+        run: pnpm build:all --filter=!docs --filter=!demo-app
 
       - name: Upload Storybook artifact
         uses: actions/upload-artifact@v4
@@ -72,8 +72,8 @@ jobs:
 
       # the docs need to be build AFTER the release because there the changelogs are generated which need to be included in the
       # documentation build
-      - name: 🛠️ Build docs
-        run: pnpm build:all --filter=docs
+      - name: 🛠️ Build docs and demo app
+        run: pnpm build:all --filter=docs --filter demo-app
         env:
           # needed for increase rate limit for the GitHub API that is used when building
           # the VitePress documentation
@@ -84,6 +84,12 @@ jobs:
         with:
           name: documentation
           path: apps/docs/src/.vitepress/dist
+
+      - name: Upload demo app artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: demo-app
+          path: apps/demo-app/.output
 
   deploy_storybook:
     name: Deploy Storybook
@@ -156,3 +162,31 @@ jobs:
           password: ${{ secrets.CF_PASSWORD }}
           space: ${{ env.STAGE }}
           working-directory: apps/playground/.cloud-foundry
+
+  deploy_demo_app:
+    name: Deploy demo app
+    runs-on: ubuntu-latest
+    needs: release
+    environment: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Download artifact
+        uses: actions/download-artifact@v5
+        with:
+          name: demo-app
+          path: apps/demo-app/.cloud-foundry/.output
+
+      - name: Copy .node-version file
+        # Cloud Foundry requires a ".nvmrc" file for defining the node version to use
+        run: cp .node-version apps/demo-app/.cloud-foundry/.nvmrc
+
+      - name: Deploy to Cloud Foundry
+        uses: ./.github/templates/cf-push
+        with:
+          endpoint: ${{ vars.CF_ENDPOINT }}
+          org: ${{ vars.CF_ORG }}
+          username: ${{ vars.CF_USERNAME }}
+          password: ${{ secrets.CF_PASSWORD }}
+          space: ${{ env.STAGE }}
+          working-directory: apps/demo-app/.cloud-foundry
