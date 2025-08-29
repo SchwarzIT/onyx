@@ -8,7 +8,7 @@ const localePath = useLocalePath();
 <template>
   <NavBar app-name="onyx demo" :logo-url>
     <OnyxNavItem :label="$t('overview')" :link="localePath('/')" />
-    <OnyxNavItem :label="$t('dataGrid')" :link="localePath('/data-grid')" />
+    <OnyxNavItem :label="$t('dataGrid.pageName')" :link="localePath('/data-grid')" />
     <OnyxNavItem :label="$t('forms')" :link="localePath('/forms')" />
     <OnyxNavItem :label="$t('charts')" :link="localePath('/charts')" />
 
