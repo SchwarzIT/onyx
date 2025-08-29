@@ -3,7 +3,10 @@ import OnyxNavItem from "./modules/OnyxNavItem/OnyxNavItem.vue";
 import OnyxNavBar from "./OnyxNavBar.vue";
 import { type OnyxNavBarProps } from "./types.js";
 
-const props = defineProps<OnyxNavBarProps>();
+const props = withDefaults(defineProps<OnyxNavBarProps>(), {
+  // Vue defaults booleans to false so this explicit "undefined" is needed to correctly set the default breakpoint
+  mobile: undefined,
+});
 </script>
 
 <template>
