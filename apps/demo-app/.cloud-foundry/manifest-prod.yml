@@ -5,5 +5,7 @@ applications:
     instances: 2
     buildpack: https://github.com/cloudfoundry/nodejs-buildpack
     command: node .output/server/index.mjs
+    # we can omit the default (random) route here since we define a custom route below
+    default-route: false
     routes:
       - route: demo.onyx.schwarz

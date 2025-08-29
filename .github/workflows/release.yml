@@ -36,18 +36,11 @@ jobs:
           # the VitePress documentation
           VITEPRESS_GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: |
-          ls -la apps/demo-app
-          ls -la apps/demo-app/.output
-
       - name: Upload demo app artifact
         uses: actions/upload-artifact@v4
         with:
           name: demo-app
           path: apps/demo-app/.output
-          # we need to include hidden files because the folder name starts with a dot
-          # see: https://github.com/actions/upload-artifact?tab=readme-ov-file#uploading-hidden-files
-          include-hidden-files: true
 
   deploy_demo_app:
     name: Deploy demo app
