@@ -49,12 +49,12 @@ const dislikes = ref(1);
 
     <div class="card__buttons">
       <div class="card__button">
-        <OnyxSystemButton label="Like" :icon="iconThumbsUp" @click="likes++" />
+        <OnyxSystemButton :label="$t('like')" :icon="iconThumbsUp" @click="likes++" />
         <span class="card__count card__count--success"> {{ likes }} </span>
       </div>
 
       <div class="card__button">
-        <OnyxSystemButton label="Dislike" :icon="iconThumbsDown" @click="dislikes++" />
+        <OnyxSystemButton :label="$t('dislike')" :icon="iconThumbsDown" @click="dislikes++" />
         <span class="card__count card__count--danger"> {{ dislikes }} </span>
       </div>
     </div>

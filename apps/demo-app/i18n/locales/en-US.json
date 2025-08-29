@@ -14,5 +14,7 @@
   "dataGrid": "Data grid / Table",
   "forms": "Forms",
   "charts": "Charts",
-  "onyxDocs": "onyx documentation"
+  "onyxDocs": "onyx documentation",
+  "like": "Like",
+  "dislike": "Dislike"
 }
