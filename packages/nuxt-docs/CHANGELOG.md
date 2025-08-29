@@ -1,5 +1,11 @@
 # @sit-onyx/nuxt-docs
 
+## 1.0.0-beta.121
+
+### Patch Changes
+
+- 417a4ee: fix: mobile nav bar not working
+
 ## 1.0.0-beta.120
 
 ### Patch Changes
