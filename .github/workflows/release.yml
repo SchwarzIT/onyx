@@ -177,6 +177,10 @@ jobs:
           name: demo-app
           path: apps/demo-app/.cloud-foundry/.output
 
+      - name: Copy .node-version file
+        # Cloud Foundry requires a ".nvmrc" file for defining the node version to use
+        run: cp .node-version apps/demo-app/.cloud-foundry/.nvmrc
+
       - name: Deploy to Cloud Foundry
         uses: ./.github/templates/cf-push
         with:
