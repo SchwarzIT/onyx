@@ -17,6 +17,7 @@ import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
+import OnyxSeparator from "../OnyxSeparator/OnyxSeparator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import type { OnyxInputProps } from "./types.js";
@@ -126,7 +127,11 @@ const displayType = computed(() => {
       <template #default="{ id: inputId }">
         <div class="onyx-input__wrapper">
           <slot name="leading"></slot>
-          <hr v-if="slots.leading" class="onyx-input__separator onyx-input__separator--leading" />
+          <OnyxSeparator
+            v-if="slots.leading"
+            orientation="vertical"
+            class="onyx-input__separator onyx-input__separator--leading"
+          />
           <OnyxLoadingIndicator v-if="props.loading" class="onyx-input__loading" type="circle" />
           <input
             :id="inputId"
@@ -169,8 +174,9 @@ const displayType = computed(() => {
             color="success"
           />
 
-          <hr
+          <OnyxSeparator
             v-if="slots.trailing || props.type === 'password'"
+            orientation="vertical"
             class="onyx-input__separator onyx-input__separator--trailing"
           />
           <slot name="trailing">

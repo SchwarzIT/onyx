@@ -8,6 +8,7 @@ import {
   OnyxSystemButton,
   OnyxTag,
 } from "../../../index.js";
+import OnyxSeparator from "../../OnyxSeparator/OnyxSeparator.vue";
 </script>
 
 <template>
@@ -25,7 +26,7 @@ import {
       </div>
     </div>
 
-    <hr class="card__separator" />
+    <OnyxSeparator />
 
     <div class="card__details">
       <div class="detail">
@@ -75,9 +76,6 @@ import {
     border-radius: var(--onyx-radius-full);
     background: var(--onyx-color-base-success-100);
     padding: var(--onyx-density-lg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     width: max-content;
   }
 
@@ -86,18 +84,14 @@ import {
     border-radius: var(--onyx-radius-full);
     background: var(--onyx-color-base-success-400);
     padding: var(--onyx-density-2xs);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   &__description {
     color: var(--onyx-color-text-icons-neutral-medium);
     margin-top: var(--onyx-density-3xs);
-  }
-
-  &__separator {
-    all: initial;
-    line-height: inherit;
-    height: var(--onyx-1px-in-rem);
-    background-color: var(--onyx-color-component-border-neutral);
   }
 
   &__details {
