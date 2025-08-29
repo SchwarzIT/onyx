@@ -7,6 +7,7 @@ import {
   OnyxDataGrid,
   OnyxSystemButton,
   type ColumnConfig,
+  type ColumnGroupConfig,
   type TypeRenderMap,
 } from "sit-onyx";
 import { useI18n } from "vue-i18n";
@@ -46,7 +47,11 @@ type UserEntry = {
   country: string;
 };
 
-const userColumns: ColumnConfig<UserEntry>[] = [
+const userColumns: ColumnConfig<
+  UserEntry,
+  ColumnGroupConfig,
+  keyof ReturnType<typeof userCustomType>["typeRenderer"]
+>[] = [
   { key: "avatar", label: t("dataGrid.userTable.avatar"), type: "avatar", width: "min-content" },
   { key: "firstName", label: t("dataGrid.userTable.firstName") },
   { key: "lastName", label: t("dataGrid.userTable.lastName") },
