@@ -8,13 +8,23 @@ const { t } = useI18n();
 </script>
 
 <template>
-  <OnyxHeadline is="h1"> {{ t("dataGrid.pageName") }}</OnyxHeadline>
-  <OnyxTabs v-model="modelValue" label="Data tabs">
-    <OnyxTab :label="t('dataGrid.userTab')" value="user-tab">
-      <UserDataGrid />
-    </OnyxTab>
-    <OnyxTab :label="t('dataGrid.systemTab')" value="system-data">
-      <SystemDataGrid />
-    </OnyxTab>
-  </OnyxTabs>
+  <div class="page">
+    <OnyxHeadline is="h1"> {{ t("dataGrid.pageName") }}</OnyxHeadline>
+    <OnyxTabs v-model="modelValue" :label="t('dataGrid.tabs')">
+      <OnyxTab :label="t('dataGrid.userTab')" value="user-tab">
+        <UserDataGrid />
+      </OnyxTab>
+      <OnyxTab :label="t('dataGrid.systemTab')" value="system-data">
+        <SystemDataGrid />
+      </OnyxTab>
+    </OnyxTabs>
+  </div>
 </template>
+
+<style lang="scss" scoped>
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--onyx-grid-gutter);
+}
+</style>

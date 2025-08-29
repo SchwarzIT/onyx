@@ -6,6 +6,7 @@ import {
   OnyxAvatar,
   OnyxDataGrid,
   OnyxSystemButton,
+  useToast,
   type ColumnConfig,
   type ColumnGroupConfig,
   type TypeRenderMap,
@@ -14,9 +15,7 @@ import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
 
-const userData = ref<UserEntry[]>([]);
-const isLoading = ref(true);
-const error = ref<string | null>(null);
+const toast = useToast();
 
 type TUserFromApi = {
   id: number;
@@ -33,19 +32,11 @@ type TUserFromApi = {
   };
 };
 
-type UserEntry = {
-  id: number;
-  avatar: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  age: number;
-  role: string;
-  isAdmin: boolean;
-  address: string;
-  city: string;
-  country: string;
-};
+type UserEntry = Omit<TUserFromApi, "address" | "image"> &
+  TUserFromApi["address"] & {
+    isAdmin: boolean;
+    avatar: string;
+  };
 
 const userColumns: ColumnConfig<
   UserEntry,
@@ -65,15 +56,10 @@ const userColumns: ColumnConfig<
   { key: "id", label: "", type: "detailsButton", width: "min-content" },
 ];
 
-async function fetchData() {
-  try {
-    const response = await fetch("https://dummyjson.com/users");
-    if (!response.ok) {
-      throw new Error("Failed to fetch data.");
-    }
-    const result = await response.json();
-
-    const transformedUserData: UserEntry[] = result.users.map((user: TUserFromApi) => ({
+const { state: userData, isLoading } = useAsyncState(
+  async () => {
+    const { users } = await $fetch<{ users: TUserFromApi[] }>("https://dummyjson.com/users");
+    return users.map<UserEntry>((user) => ({
       id: user.id,
       avatar: user.image,
       firstName: user.firstName,
@@ -81,42 +67,52 @@ async function fetchData() {
       email: user.email,
       age: user.age,
       role: user.role,
-      isAdmin: user.role === "admin",
+      isAdmin: user.role.toLowerCase() === "admin",
       address: user.address.address,
       city: user.address.city,
       country: user.address.country,
     }));
-
-    userData.value = transformedUserData;
-  } catch (err) {
-    if (err instanceof Error) {
-      error.value = err.message;
-    } else {
-      error.value = "An unknown error occurred.";
-    }
-  } finally {
-    isLoading.value = false;
-  }
-}
+  },
+  [],
+  {
+    delay: 1000, // add a fake delay so the skeleton state can be showcased
+    onError: (e) => {
+      const errorMsg = ref();
+      if (e instanceof Error) {
+        errorMsg.value = e.message;
+      } else {
+        errorMsg.value = t("dataGrid.userTable.error.unknownError");
+      }
+      toast.show({
+        headline: t("dataGrid.userTable.error.errorTitle"),
+        description: errorMsg.value,
+        color: "danger",
+      });
+    },
+  },
+);
 
 const userCustomType = createFeature(() => ({
   name: Symbol("User Types"),
   typeRenderer: {
     avatar: DataGridFeatures.createTypeRenderer({
       cell: {
-        component: ({ modelValue }) => {
-          return h(OnyxAvatar, { fullName: "Test", src: modelValue?.toString(), size: "32px" });
+        component: ({ modelValue, row }) => {
+          return h(OnyxAvatar, {
+            fullName: `${row.firstName} ${row.lastName}`,
+            src: modelValue?.toString(),
+            size: "32px",
+          });
         },
       },
     }),
     detailsButton: DataGridFeatures.createTypeRenderer({
       cell: {
-        component: (props) => {
+        component: () => {
           return h(OnyxSystemButton, {
-            label: "Show details",
+            label: t("dataGrid.userTable.detailsButton"),
             icon: iconForward,
-            link: `#some-page-${props.row.id}`,
-            onClick: () => alert(JSON.stringify(props)),
+            link: "/forms",
             style: { verticalAlign: "middle" },
           });
         },
@@ -127,43 +123,25 @@ const userCustomType = createFeature(() => ({
 const userPagination = DataGridFeatures.usePagination({
   pageSize: 8,
 });
-const userHiddenColumns = DataGridFeatures.useHideColumns<UserEntry>({
-  columns: {
-    id: { enabled: false },
-    avatar: { enabled: false },
-  },
-});
-const userFiltering = DataGridFeatures.useFiltering<UserEntry>({
-  columns: {
-    id: { enabled: false },
-    isAdmin: { enabled: false },
-    avatar: { enabled: false },
-  },
-});
-const userSorting = DataGridFeatures.useSorting<UserEntry>({
-  columns: {
-    id: { enabled: false },
-    avatar: { enabled: false },
-  },
-});
-
+const userHiddenColumns = DataGridFeatures.useHideColumns<UserEntry>();
+const userFiltering = DataGridFeatures.useFiltering<UserEntry>();
+const userSorting = DataGridFeatures.useSorting<UserEntry>();
 const userStickyColumns = DataGridFeatures.useStickyColumns<UserEntry>({
   columns: ["id"],
   position: "right",
 });
 
+const userSelection = DataGridFeatures.useSelection<UserEntry>();
+
 const userFeatures = [
   userCustomType,
   userPagination,
-  userHiddenColumns,
   userFiltering,
   userSorting,
+  userHiddenColumns,
   userStickyColumns,
+  userSelection,
 ];
-
-onMounted(() => {
-  fetchData();
-});
 </script>
 
 <template>
@@ -173,7 +151,4 @@ onMounted(() => {
     :skeleton="isLoading"
     :features="userFeatures"
   />
-  <p v-if="error">{{ error }}</p>
 </template>
-
-<style lang="scss" scoped></style>

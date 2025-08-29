@@ -94,7 +94,7 @@ const systemCustomType = createFeature(() => ({
                     ? "warning"
                     : "danger",
             },
-            modelValue?.toString(),
+            () => modelValue?.toString(),
           );
         },
       },
@@ -102,13 +102,7 @@ const systemCustomType = createFeature(() => ({
   } satisfies TypeRenderMap<SystemEntry>,
 }));
 
-const systemSorting = DataGridFeatures.useSorting<SystemEntry>({
-  columns: {
-    unit: { enabled: false },
-    description: { enabled: false },
-    last_check_at: { sortFunc: (a, b) => a.getTime() - b.getTime() },
-  },
-});
+const systemSorting = DataGridFeatures.useSorting<SystemEntry>();
 const systemResizing = DataGridFeatures.useResizing<SystemEntry>();
 const systemFeatures = [systemCustomType, systemSorting, systemResizing];
 </script>
@@ -116,5 +110,3 @@ const systemFeatures = [systemCustomType, systemSorting, systemResizing];
 <template>
   <OnyxDataGrid :columns="systemColumns" :data="systemData" :features="systemFeatures" />
 </template>
-
-<style lang="scss" scoped></style>

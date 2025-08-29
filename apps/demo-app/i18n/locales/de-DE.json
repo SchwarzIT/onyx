@@ -28,7 +28,8 @@
       "unit": "Einheit",
       "value": "Wert"
     },
-    "userTab": "Nuterdaten",
+    "userTab": "Nutzerdaten",
+    "tabs": "Daten Tabs",
     "userTable": {
       "address": "Addresse",
       "age": "Alter",
@@ -37,9 +38,14 @@
       "country": "Land",
       "email": "Email",
       "firstName": "Vorname",
-      "isAdmin": "Ist Admin ?",
+      "isAdmin": "Ist Admin?",
       "lastName": "Nachname",
-      "role": "Rolle"
+      "role": "Rolle",
+      "detailsButton": "Details anzeigen",
+      "error": {
+        "errorTitle": "Ein Fehler ist beim laden der Daten aufgetreten ",
+        "unknownError": "Ein unbekannter Fehler ist aufgetreten"
+      }
     }
   }
 }

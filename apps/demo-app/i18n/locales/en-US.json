@@ -20,26 +20,32 @@
     "pageName": "Data grid / Table",
     "systemTab": "System data",
     "systemTable": {
-      "component_name": "component name",
-      "description": "description",
-      "last_check_at": "last check at",
-      "metric_name": "metric name",
-      "status": "status",
-      "unit": "unit",
-      "value": "value"
+      "component_name": "Component name",
+      "description": "Description",
+      "last_check_at": "Last check at",
+      "metric_name": "Metric name",
+      "status": "Status",
+      "unit": "Unit",
+      "value": "Value"
     },
+    "tabs": "Data Tabs",
     "userTab": "User data",
     "userTable": {
-      "address": "address",
-      "age": "age",
-      "avatar": "avatar",
-      "city": "city",
-      "country": "country",
-      "email": "email",
-      "firstName": "first Name",
-      "isAdmin": "is admin?",
-      "lastName": "last Name",
-      "role": "role"
+      "address": "Address",
+      "age": "Age",
+      "avatar": "Avatar",
+      "city": "City",
+      "country": "Country",
+      "email": "Email",
+      "firstName": "First Name",
+      "isAdmin": "Is admin?",
+      "lastName": "Last Name",
+      "role": "Role",
+      "detailsButton": "Show Details",
+      "error": {
+        "errorTitle": "Error occurred while fetching Data",
+        "unknownError": "An unknown error occurred"
+      }
     }
   }
 }
