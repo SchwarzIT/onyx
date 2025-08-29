@@ -11,10 +11,35 @@
   },
   "overview": "Übersicht",
   "action": "Aktion | Aktionen",
-  "dataGrid": "Data Grid / Tabelle",
   "forms": "Formulare",
   "charts": "Diagramme",
   "onyxDocs": "Onyx Dokumentation",
   "like": "Gefällt mir",
-  "dislike": "Gefällt mir nicht"
+  "dislike": "Gefällt mir nicht",
+  "dataGrid": {
+    "pageName": "Data Grid / Tabelle",
+    "systemTab": "Systemdaten",
+    "systemTable": {
+      "component_name": "Komponentenname",
+      "description": "Beschreibung",
+      "last_check_at": "Zuletzt geprüft",
+      "metric_name": "Metrikname",
+      "status": "Status",
+      "unit": "Einheit",
+      "value": "Wert"
+    },
+    "userTab": "Nuterdaten",
+    "userTable": {
+      "address": "Addresse",
+      "age": "Alter",
+      "avatar": "Avatar",
+      "city": "Stadt",
+      "country": "Land",
+      "email": "Email",
+      "firstName": "Vorname",
+      "isAdmin": "Ist Admin ?",
+      "lastName": "Nachname",
+      "role": "Rolle"
+    }
+  }
 }

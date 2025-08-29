@@ -11,10 +11,35 @@
   },
   "overview": "Overview",
   "action": "Action | Actions",
-  "dataGrid": "Data grid / Table",
   "forms": "Forms",
   "charts": "Charts",
   "onyxDocs": "onyx documentation",
   "like": "Like",
-  "dislike": "Dislike"
+  "dislike": "Dislike",
+  "dataGrid": {
+    "pageName": "Data grid / Table",
+    "systemTab": "System data",
+    "systemTable": {
+      "component_name": "component name",
+      "description": "description",
+      "last_check_at": "last check at",
+      "metric_name": "metric name",
+      "status": "status",
+      "unit": "unit",
+      "value": "value"
+    },
+    "userTab": "User data",
+    "userTable": {
+      "address": "address",
+      "age": "age",
+      "avatar": "avatar",
+      "city": "city",
+      "country": "country",
+      "email": "email",
+      "firstName": "first Name",
+      "isAdmin": "is admin?",
+      "lastName": "last Name",
+      "role": "role"
+    }
+  }
 }
