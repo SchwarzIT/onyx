@@ -1,5 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  $meta: {
+    // see: https://nuxt.com/docs/4.x/guide/going-further/layers#named-layer-aliases
+    name: "blueprint",
+  },
   compatibilityDate: "2025-06-28",
   devtools: { enabled: true },
   typescript: { typeCheck: "build" },
