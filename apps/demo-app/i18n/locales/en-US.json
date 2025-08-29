@@ -47,5 +47,8 @@
         "unknownError": "An unknown error occurred"
       }
     }
-  }
+  },
+  "personalData": "Personal data",
+  "role": "Role | Roles",
+  "document": "Document | Documents"
 }

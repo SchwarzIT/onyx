@@ -47,5 +47,8 @@
         "unknownError": "Ein unbekannter Fehler ist aufgetreten"
       }
     }
-  }
+  },
+  "personalData": "Persönliche Daten",
+  "role": "Rolle | Rollen",
+  "document": "Dokument | Dokumente"
 }
