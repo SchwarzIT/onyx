@@ -7,5 +7,6 @@ applications:
     command: node .output/server/index.mjs
     # we can omit the default (random) route here since we define a custom route below
     default-route: false
+    random-route: false
     routes:
       - route: demo.onyx.schwarz
