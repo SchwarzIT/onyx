@@ -9,5 +9,12 @@
     "change": "Dichte ändern",
     "description": "Wähle die Dichte der Anwendung, um die Abstände zwischen Elementen anzupassen"
   },
-  "home": "Startseite"
+  "overview": "Übersicht",
+  "action": "Aktion | Aktionen",
+  "dataGrid": "Data Grid / Tabelle",
+  "forms": "Formulare",
+  "charts": "Diagramme",
+  "onyxDocs": "Onyx Dokumentation",
+  "like": "Gefällt mir",
+  "dislike": "Gefällt mir nicht"
 }

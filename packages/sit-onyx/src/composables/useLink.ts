@@ -1,7 +1,6 @@
 import { computed, inject, unref, type InjectionKey, type Ref } from "vue";
 import type { SharedLinkProps } from "../components/OnyxRouterLink/types.js";
-import { isInternalLink } from "../utils/index.js";
-import { extractLinkProps } from "../utils/router.js";
+import { extractLinkProps, isInternalLink } from "../utils/router.js";
 
 /**
  * Internal behavior of the `OnyxRouterLink`. Should be used for navigation. Considers the user provided [router](https://onyx.schwarz/development/router.html).
