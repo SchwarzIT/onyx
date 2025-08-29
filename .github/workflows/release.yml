@@ -7,14 +7,14 @@ on:
 
 env:
   # The release + deployment will be done on "prod" stage if on main branch, on "dev" stage otherwise
-  STAGE: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
+  STAGE: prod
   TURBO_TOKEN: ${{ secrets.TURBO_REMOTE_CACHE__TURBO_TOKEN }}
 
 jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
-    environment: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
+    environment: prod
     permissions:
       id-token: write
       contents: write
@@ -27,63 +27,18 @@ jobs:
 
       - uses: ./.github/templates/node-setup
 
-      - name: 🛠️ Build packages
-        run: pnpm build:all --filter=!docs --filter=!demo-app
-
-      - name: Upload Storybook artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: storybook-static
-          path: packages/sit-onyx/storybook-static
-
-      - name: Upload playground artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: playground
-          path: apps/playground/dist
-
-      - name: 🤖 Configure Git Bot
-        run: |
-          git config user.name "Release Bot[bot]"
-          git config user.email "bot@example.com"
-
-      - name: ⛴️ Version and Publish
-        if: ${{ env.STAGE == 'prod' }}
-        run: |
-          pnpm exec changeset version
-          pnpm exec changeset publish
-          git add --all
-          if [[ `git status --porcelain` ]]; then
-            git commit --amend --no-edit
-            git push --follow-tags
-          else
-            echo "No new version. Nothing to commit."
-          fi
-
-      - name: 📸 Snapshot and Publish
-        if: ${{ env.STAGE != 'prod' }}
-        run: |
-          # [Snapshot release fails if repository is in pre-release mode](https://github.com/changesets/changesets/issues/1195)
-          rm -f .changeset/pre.json
-          # Add empty changeset so we always have a new snapshot release for each new run
-          pnpm exec changeset add --empty
-          pnpm exec changeset version --snapshot
-          pnpm exec changeset publish --tag snapshot
-
       # the docs need to be build AFTER the release because there the changelogs are generated which need to be included in the
       # documentation build
       - name: 🛠️ Build docs and demo app
-        run: pnpm build:all --filter=docs --filter demo-app
+        run: pnpm build:all --filter demo-app
         env:
           # needed for increase rate limit for the GitHub API that is used when building
           # the VitePress documentation
           VITEPRESS_GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload documentation artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: documentation
-          path: apps/docs/src/.vitepress/dist
+      - run: |
+          ls -la apps/demo-app
+          ls -la apps/demo-app/.output
 
       - name: Upload demo app artifact
         uses: actions/upload-artifact@v4
@@ -94,83 +49,11 @@ jobs:
           # see: https://github.com/actions/upload-artifact?tab=readme-ov-file#uploading-hidden-files
           include-hidden-files: true
 
-  deploy_storybook:
-    name: Deploy Storybook
-    runs-on: ubuntu-latest
-    needs: release
-    environment: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
-    steps:
-      - uses: actions/checkout@v5
-
-      - name: Download Storybook artifact
-        uses: actions/download-artifact@v5
-        with:
-          name: storybook-static
-          path: packages/sit-onyx/.cloud-foundry/storybook-static
-
-      - name: Deploy to Cloud Foundry
-        uses: ./.github/templates/cf-push
-        with:
-          endpoint: ${{ vars.CF_ENDPOINT }}
-          org: ${{ vars.CF_ORG }}
-          username: ${{ vars.CF_USERNAME }}
-          password: ${{ secrets.CF_PASSWORD }}
-          space: ${{ env.STAGE }}
-          working-directory: packages/sit-onyx/.cloud-foundry
-
-  deploy_documentation:
-    name: Deploy documentation
-    runs-on: ubuntu-latest
-    needs: release
-    environment: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
-    steps:
-      - uses: actions/checkout@v5
-
-      - name: Download Storybook artifact
-        uses: actions/download-artifact@v5
-        with:
-          name: documentation
-          path: apps/docs/.cloud-foundry/dist
-
-      - name: Deploy to Cloud Foundry
-        uses: ./.github/templates/cf-push
-        with:
-          endpoint: ${{ vars.CF_ENDPOINT }}
-          org: ${{ vars.CF_ORG }}
-          username: ${{ vars.CF_USERNAME }}
-          password: ${{ secrets.CF_PASSWORD }}
-          space: ${{ env.STAGE }}
-          working-directory: apps/docs/.cloud-foundry
-
-  deploy_playground:
-    name: Deploy Playground
-    runs-on: ubuntu-latest
-    needs: release
-    environment: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
-    steps:
-      - uses: actions/checkout@v5
-
-      - name: Download artifact
-        uses: actions/download-artifact@v5
-        with:
-          name: playground
-          path: apps/playground/.cloud-foundry/dist
-
-      - name: Deploy to Cloud Foundry
-        uses: ./.github/templates/cf-push
-        with:
-          endpoint: ${{ vars.CF_ENDPOINT }}
-          org: ${{ vars.CF_ORG }}
-          username: ${{ vars.CF_USERNAME }}
-          password: ${{ secrets.CF_PASSWORD }}
-          space: ${{ env.STAGE }}
-          working-directory: apps/playground/.cloud-foundry
-
   deploy_demo_app:
     name: Deploy demo app
     runs-on: ubuntu-latest
     needs: release
-    environment: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
+    environment: prod
     steps:
       - uses: actions/checkout@v5
 
