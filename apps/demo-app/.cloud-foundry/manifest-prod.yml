@@ -1,0 +1,7 @@
+---
+applications:
+  - name: onyx-demo-prod
+    memory: 96M
+    instances: 2
+    buildpack: https://github.com/cloudfoundry/nodejs-buildpack
+    command: node .output/server/index.mjs
