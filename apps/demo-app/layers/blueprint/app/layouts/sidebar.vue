@@ -6,11 +6,15 @@ const props = defineProps<{
   sidebarItems: SidebarItem[];
 }>();
 
-defineSlots<{
+const slots = defineSlots<{
   /**
    * Page content.
    */
   default(): unknown;
+  /**
+   * Optional footer content.
+   */
+  footer?(): unknown;
 }>();
 
 const search = ref("");
@@ -65,6 +69,10 @@ const isOpen = ref(true);
       hide-label
       @click="isOpen = !isOpen"
     />
+
+    <template v-if="!!slots.footer" #footer>
+      <slot name="footer"></slot>
+    </template>
   </OnyxPageLayout>
 </template>
 

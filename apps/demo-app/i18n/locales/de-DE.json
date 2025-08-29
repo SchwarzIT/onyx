@@ -50,5 +50,39 @@
   },
   "personalData": "Persönliche Daten",
   "role": "Rolle | Rollen",
-  "document": "Dokument | Dokumente"
+  "document": "Dokument | Dokumente",
+  "save": "Speichern",
+  "user": {
+    "fullName": "Vollständiger Name",
+    "country": "Land",
+    "countryOfResidence": "Dein Wohnsitz",
+    "availableCountries": "Verfügbare Länder",
+    "phone": "Telefonnummer",
+    "email": "E-Mail Adresse",
+    "birthday": "Geburtstag",
+    "subscribeNewsletter": "Newsletter abonnieren",
+    "notes": "Bemerkungen",
+    "gender": "Geschlecht",
+    "genders": {
+      "female": "Weiblich",
+      "male": "Männlich",
+      "diverse": "Divers"
+    },
+    "confirmDelete": {
+      "headline": "Löschen bestätigen",
+      "description": "Bist du sicher, dass du diesen Benutzer und alle dazugehörigen Daten löschen möchtest? Diese Aktion kann NICHT rückgängig gemacht werden."
+    },
+    "toasts": {
+      "save": {
+        "success": "Benutzerdaten erfolgreich aktualisiert"
+      },
+      "delete": {
+        "error": "Du bist nicht berechtigt, um diesen Benutzer zu löschen"
+      }
+    }
+  },
+  "delete": "Löschen",
+  "reset": "Zurücksetzen",
+  "noDemoDataUpdated": "Dies ist nur eine Demo-Anwendung, daher wurden keine Daten tatsächlcih geändert.",
+  "cancel": "Abbrechen"
 }
