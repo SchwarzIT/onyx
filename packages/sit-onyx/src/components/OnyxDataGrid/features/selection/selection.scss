@@ -7,8 +7,9 @@
     }
 
     .onyx-data-grid-selection-cell {
+      --onyx-table-padding-vertical: 0;
+      --onyx-table-padding-inline: 0;
       box-sizing: content-box;
-      padding: 0;
     }
 
     .onyx-data-grid-selection-cell__checkbox--hover {
