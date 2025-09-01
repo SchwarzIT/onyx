@@ -5,3 +5,5 @@ applications:
     instances: 2
     buildpack: https://github.com/cloudfoundry/nodejs-buildpack
     command: node .output/server/index.mjs
+    routes:
+      - route: demo.onyx.schwarz
