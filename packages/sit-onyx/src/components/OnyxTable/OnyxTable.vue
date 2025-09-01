@@ -202,6 +202,8 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
 
 .onyx-table {
   @include layers.component() {
+    --onyx-table-padding-block: var(--onyx-density-xs);
+    --onyx-table-padding-inline: var(--onyx-density-md);
     text-align: left;
     width: 100%;
 
@@ -223,7 +225,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
     th,
     td {
       position: relative;
-      padding: var(--onyx-density-xs) var(--onyx-density-md);
+      padding: var(--onyx-table-padding-block) var(--onyx-table-padding-inline);
 
       // max width for skeleton, so it looks better
       > .onyx-skeleton {
@@ -245,6 +247,11 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
       &:not(.onyx-table__colgroup) {
         background-color: var(--onyx-color-base-neutral-200);
         color: var(--onyx-color-text-icons-neutral-medium);
+
+        // in tables: height = min height
+        // set min height to fit a 1.5rem element (e.g. system button) so it does not jump around when the button is shown/hidden
+        height: calc(1.5rem + 2 * var(--onyx-table-padding-block) + var(--onyx-1px-in-rem));
+        align-content: center;
 
         &:hover {
           background: var(--onyx-color-base-neutral-300);
