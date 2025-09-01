@@ -14,7 +14,7 @@
   "dataGrid": "Data grid / Table",
   "forms": "Forms",
   "charts": {
-    "pageName": "Data",
+    "pageName": "Charts",
     "rangeAndType": "Please select range and type",
     "range": "Range",
     "type": "Type",

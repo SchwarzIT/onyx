@@ -14,7 +14,7 @@
   "dataGrid": "Data Grid / Tabelle",
   "forms": "Formulare",
   "charts": {
-    "pageName": "Daten",
+    "pageName": "Diagramme",
     "rangeAndType": "Bitte Bereich und Typ auswählen",
     "range": "Zeitraum",
     "type": "Typ",
