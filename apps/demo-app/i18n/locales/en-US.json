@@ -33,7 +33,7 @@
     "userTable": {
       "address": "Address",
       "age": "Age",
-      "avatar": "Avatar",
+      "image": "Avatar",
       "city": "City",
       "country": "Country",
       "email": "Email",
@@ -43,7 +43,7 @@
       "role": "Role",
       "detailsButton": "Show Details",
       "error": {
-        "errorTitle": "Error occurred while fetching Data",
+        "errorTitle": "Error while fetching data",
         "unknownError": "An unknown error occurred"
       }
     }

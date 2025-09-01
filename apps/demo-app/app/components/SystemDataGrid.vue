@@ -103,8 +103,18 @@ const systemCustomType = createFeature(() => ({
 }));
 
 const systemSorting = DataGridFeatures.useSorting<SystemEntry>();
+const systemHiddenColumns = DataGridFeatures.useHideColumns<SystemEntry>();
+const systemFiltering = DataGridFeatures.useFiltering<SystemEntry>({});
+const systemSelection = DataGridFeatures.useSelection<SystemEntry>();
 const systemResizing = DataGridFeatures.useResizing<SystemEntry>();
-const systemFeatures = [systemCustomType, systemSorting, systemResizing];
+const systemFeatures = [
+  systemSelection,
+  systemCustomType,
+  systemFiltering,
+  systemSorting,
+  systemResizing,
+  systemHiddenColumns,
+];
 </script>
 
 <template>

@@ -32,10 +32,9 @@ type TUserFromApi = {
   };
 };
 
-type UserEntry = Omit<TUserFromApi, "address" | "image"> &
+type UserEntry = Omit<TUserFromApi, "address"> &
   TUserFromApi["address"] & {
     isAdmin: boolean;
-    avatar: string;
   };
 
 const userColumns: ColumnConfig<
@@ -43,7 +42,7 @@ const userColumns: ColumnConfig<
   ColumnGroupConfig,
   keyof ReturnType<typeof userCustomType>["typeRenderer"]
 >[] = [
-  { key: "avatar", label: t("dataGrid.userTable.avatar"), type: "avatar", width: "min-content" },
+  { key: "image", label: t("dataGrid.userTable.image"), type: "image", width: "min-content" },
   { key: "firstName", label: t("dataGrid.userTable.firstName") },
   { key: "lastName", label: t("dataGrid.userTable.lastName") },
   { key: "email", label: t("dataGrid.userTable.email") },
@@ -61,7 +60,7 @@ const { state: userData, isLoading } = useAsyncState(
     const { users } = await $fetch<{ users: TUserFromApi[] }>("https://dummyjson.com/users");
     return users.map<UserEntry>((user) => ({
       id: user.id,
-      avatar: user.image,
+      image: user.image,
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
@@ -77,15 +76,9 @@ const { state: userData, isLoading } = useAsyncState(
   {
     delay: 1000, // add a fake delay so the skeleton state can be showcased
     onError: (e) => {
-      const errorMsg = ref();
-      if (e instanceof Error) {
-        errorMsg.value = e.message;
-      } else {
-        errorMsg.value = t("dataGrid.userTable.error.unknownError");
-      }
       toast.show({
         headline: t("dataGrid.userTable.error.errorTitle"),
-        description: errorMsg.value,
+        description: (e as Error).message,
         color: "danger",
       });
     },
@@ -95,7 +88,7 @@ const { state: userData, isLoading } = useAsyncState(
 const userCustomType = createFeature(() => ({
   name: Symbol("User Types"),
   typeRenderer: {
-    avatar: DataGridFeatures.createTypeRenderer({
+    image: DataGridFeatures.createTypeRenderer({
       cell: {
         component: ({ modelValue, row }) => {
           return h(OnyxAvatar, {
@@ -124,12 +117,23 @@ const userPagination = DataGridFeatures.usePagination({
   pageSize: 8,
 });
 const userHiddenColumns = DataGridFeatures.useHideColumns<UserEntry>();
-const userFiltering = DataGridFeatures.useFiltering<UserEntry>();
-const userSorting = DataGridFeatures.useSorting<UserEntry>();
+const userFiltering = DataGridFeatures.useFiltering<UserEntry>({
+  columns: {
+    id: { enabled: false },
+    image: { enabled: false },
+  },
+});
+const userSorting = DataGridFeatures.useSorting<UserEntry>({
+  columns: {
+    id: { enabled: false },
+    image: { enabled: false },
+  },
+});
 const userStickyColumns = DataGridFeatures.useStickyColumns<UserEntry>({
   columns: ["id"],
   position: "right",
 });
+const userResizing = DataGridFeatures.useResizing<UserEntry>();
 
 const userSelection = DataGridFeatures.useSelection<UserEntry>();
 
@@ -141,6 +145,7 @@ const userFeatures = [
   userHiddenColumns,
   userStickyColumns,
   userSelection,
+  userResizing,
 ];
 </script>
 

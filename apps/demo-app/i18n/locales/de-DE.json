@@ -33,7 +33,7 @@
     "userTable": {
       "address": "Addresse",
       "age": "Alter",
-      "avatar": "Avatar",
+      "image": "Avatar",
       "city": "Stadt",
       "country": "Land",
       "email": "Email",
@@ -43,7 +43,7 @@
       "role": "Rolle",
       "detailsButton": "Details anzeigen",
       "error": {
-        "errorTitle": "Ein Fehler ist beim laden der Daten aufgetreten ",
+        "errorTitle": "Fehler beim Laden der Daten",
         "unknownError": "Ein unbekannter Fehler ist aufgetreten"
       }
     }
