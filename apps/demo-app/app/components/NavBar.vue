@@ -10,7 +10,7 @@ const localePath = useLocalePath();
     <OnyxNavItem :label="$t('overview')" :link="localePath('/')" />
     <OnyxNavItem :label="$t('dataGrid')" :link="localePath('/data-grid')" />
     <OnyxNavItem :label="$t('forms')" :link="localePath('/forms')" />
-    <OnyxNavItem :label="$t('charts')" :link="localePath('/charts')" />
+    <OnyxNavItem :label="$t('charts.pageName')" :link="localePath('/charts')" />
 
     <template #contextArea>
       <ColorSchemeSwitch />

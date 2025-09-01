@@ -13,7 +13,42 @@
   "action": "Aktion | Aktionen",
   "dataGrid": "Data Grid / Tabelle",
   "forms": "Formulare",
-  "charts": "Diagramme",
+  "charts": {
+    "pageName": "Daten",
+    "rangeAndType": "Bitte Bereich und Typ auswählen",
+    "range": "Zeitraum",
+    "type": "Typ",
+    "submit": "Absenden",
+    "trends": "Trends",
+    "fullStats": "Alle Statistiken",
+    "customerDistribution": "Kundenverteilung",
+    "revenue": "Umsatz",
+    "productLines": {
+      "title": "Produktlinien",
+      "a": "Produktlinie A",
+      "b": "Produktlinie B"
+    },
+    "customerSegments": {
+      "enterprise": "Großkunden",
+      "mid-sized": "Mittelständische Unternehmen",
+      "small": "Kleinunternehmen",
+      "private": "Privatkunden"
+    },
+    "metrics": {
+      "revenue": "Umsatz (in Tsd. €)",
+      "netProfit": "Nettogewinn (in Tsd. €)"
+    },
+    "kpi": {
+      "title": "KPI",
+      "roi": "Return on Investment",
+      "clv": "Customer Lifetime Value"
+    },
+    "selectOptions": {
+      "all": "Alle",
+      "products": "Produkte",
+      "services": "Dienstleistungen"
+    }
+  },
   "onyxDocs": "Onyx Dokumentation",
   "like": "Gefällt mir",
   "dislike": "Gefällt mir nicht"
