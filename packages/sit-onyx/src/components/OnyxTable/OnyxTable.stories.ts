@@ -28,7 +28,7 @@ type Story = StoryObj<typeof OnyxTable>;
 
 const getTableHeaderRow = () =>
   h("tr", [
-    h("th", "Fruit\nTest"),
+    h("th", "Fruit"),
     h("th", "Price (€/kg)"),
     h("th", "Inventory (kg)"),
     h("th", "Inventory (pieces)"),
