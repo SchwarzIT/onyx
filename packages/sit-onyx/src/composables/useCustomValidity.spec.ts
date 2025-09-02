@@ -26,7 +26,7 @@ const getDefaultValidityState = (): ValidityState => ({
   tooShort: false,
   typeMismatch: false,
   valueMissing: false,
-  error: false,
+  customError: false,
   valid: true,
 });
 
@@ -38,7 +38,7 @@ describe("useCustomValidity", () => {
   test("should set custom error", async () => {
     const initialValidity: ValidityState = {
       ...getDefaultValidityState(),
-      error: true,
+      customError: true,
       valid: false,
     };
 
@@ -94,7 +94,7 @@ describe("useCustomValidity", () => {
 
     props.error = undefined;
     error.value = undefined;
-    const newValidity = { ...initialValidity, error: false, valid: true };
+    const newValidity: ValidityState = { ...initialValidity, customError: false, valid: true };
     mockInput.validity = newValidity;
     await nextTick();
     expect(mockInput.setCustomValidity).toBeCalledWith("");
@@ -132,7 +132,7 @@ describe("useCustomValidity", () => {
     expect(errorMessages.value).toBeUndefined();
 
     // ACT set custom error
-    mockInput.validity = { ...getDefaultValidityState(), error: true, valid: false };
+    mockInput.validity = { ...getDefaultValidityState(), customError: true, valid: false };
     props.modelValue = "Test";
     error.value = "custom error";
     await nextTick();
