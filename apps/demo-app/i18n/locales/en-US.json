@@ -47,5 +47,15 @@
         "unknownError": "An unknown error occurred"
       }
     }
+  },
+  "notification": {
+    "fab": "trigger Notification",
+    "headline": "Notifications",
+    "description": "See all notifications from all touchpoints here.",
+    "unread": "Unread",
+    "read": "Read",
+    "markAllAsRead": "Mark all as read",
+    "notificationTitle": "Example notification",
+    "noNewMessages": "No new messages in your inbox"
   }
 }

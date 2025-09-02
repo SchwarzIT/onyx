@@ -47,5 +47,15 @@
         "unknownError": "Ein unbekannter Fehler ist aufgetreten"
       }
     }
+  },
+  "notification": {
+    "fab": "Benachrichtigung auslösen",
+    "headline": "Benachrichtigungen",
+    "description": "Sehen Sie hier alle Benachrichtigungen von allen Kontaktpunkten.",
+    "unread": "Ungelesen",
+    "read": "Gelesen",
+    "markAllAsRead": "Alle als gelesen markieren",
+    "notificationTitle": "Beispiel Benachrichtigung",
+    "noNewMessages": "Keine neuen Benachrichtigungen"
   }
 }

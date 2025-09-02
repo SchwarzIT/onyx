@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { OnyxAppLayoutProps } from "sit-onyx";
+import { OnyxNotifications, type OnyxAppLayoutProps } from "sit-onyx";
 
 const props = defineProps<OnyxAppLayoutProps>();
 
@@ -11,6 +11,7 @@ defineSlots<{
 
 <template>
   <OnyxAppLayout v-bind="props" class="onyx-grid-max-lg onyx-grid-center">
+    <OnyxNotifications />
     <template #navBar>
       <slot name="navBar">
         <NavBar />
