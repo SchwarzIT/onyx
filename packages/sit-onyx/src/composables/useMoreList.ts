@@ -202,7 +202,6 @@ export const useMoreListChild = (injectionKey: MoreListInjectionKey) => {
   const componentRef = ref<VueTemplateRefElement>();
   const moreContext = inject(injectionKey, undefined);
   const { width } = useResizeObserver(componentRef, { box: "border-box" });
-  const wasMounted = ref(false);
 
   watch(
     width,
@@ -217,7 +216,6 @@ export const useMoreListChild = (injectionKey: MoreListInjectionKey) => {
   );
 
   onBeforeUnmount(() => moreContext?.componentMap.delete(id));
-  onMounted(() => (wasMounted.value = true));
 
   const isVisible = computed(() => moreContext?.visibleElements.value?.includes(id) ?? true);
 
