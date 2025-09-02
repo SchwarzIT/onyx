@@ -171,14 +171,21 @@ const { componentRef, isVisible } = isTopLevel
   </OnyxNavItemFacade>
 
   <!-- Desktop top-level nav item in more list -->
-  <template v-else>
-    <Teleport :disabled="!moreListTargetRef" :to="moreListTargetRef">
-      <OnyxNavItemFacade v-bind="mergeVueProps(props, $attrs)" :active context="list">
-        <slot></slot>
+  <Teleport
+    v-if="isTopLevel && !isMobile && moreListTargetRef"
+    :disabled="!moreListTargetRef"
+    :to="moreListTargetRef"
+  >
+    <OnyxNavItemFacade
+      v-if="!isVisible"
+      v-bind="mergeVueProps(props, $attrs)"
+      :active
+      context="list"
+    >
+<slot></slot>
         <template v-if="slots.children" #children> <slot name="children"></slot> </template>
-      </OnyxNavItemFacade>
-    </Teleport>
-  </template>
+    </OnyxNavItemFacade>
+  </Teleport>
 </template>
 
 <style lang="scss">
