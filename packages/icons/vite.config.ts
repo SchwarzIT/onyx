@@ -33,9 +33,6 @@ export default defineConfig({
       formats: ["es"],
       fileName: (format, entryName) => `${entryName}.js`,
     },
-    // using terser instead of esbuild because it has export name conflicts when used inside Nuxt
-    // because inside utils.js, a variable is named "h" which conflicts with the Nuxt auto import from "vue"
-    minify: "terser",
   },
 });
 
