@@ -16,51 +16,57 @@ const { t } = useI18n();
  * Charts
  */
 
-const barChartData: ChartData<"bar"> = {
-  labels: ["01.01.2024", "01.02.2024", "01.03.2024", "01.04.2024", "01.05.2024"],
-  datasets: [
-    {
-      label: t("charts.productLines.a"),
-      data: [15000, 18000, 16500, 20000, 19500],
-      borderWidth: 2,
-    },
-    {
-      label: t("charts.productLines.b"),
-      data: [12000, 13500, 14000, 11800, 15200],
-      borderWidth: 2,
-    },
-  ],
-};
-const pieChartData: ChartData<"pie"> = {
-  labels: [
-    t("charts.customerSegments.enterprise"),
-    t("charts.customerSegments.mid-sized"),
-    t("charts.customerSegments.small"),
-    t("charts.customerSegments.private"),
-  ],
-  datasets: [{ data: [55, 25, 15, 5] }],
-};
-const lineChartData: ChartData<"line"> = {
-  labels: ["01.01.2025", "01.02.2025", "01.03.2025", "01.04.2025", "01.05.2025"],
-  datasets: [
-    {
-      label: t("charts.metrics.revenue"),
-      fill: true,
-      data: [150, 165, 180, 200, 215],
-    },
-    {
-      label: t("charts.metrics.netProfit"),
-      fill: true,
-      data: [25, 30, 32, 38, 102],
-    },
-  ],
-};
+const barChartData: Ref<ChartData<"bar">> = computed(() => {
+  return {
+    labels: ["01.01.2024", "01.02.2024", "01.03.2024", "01.04.2024", "01.05.2024"],
+    datasets: [
+      {
+        label: t("charts.productLines.a"),
+        data: [15000, 18000, 16500, 20000, 19500],
+        borderWidth: 2,
+      },
+      {
+        label: t("charts.productLines.b"),
+        data: [12000, 13500, 14000, 11800, 15200],
+        borderWidth: 2,
+      },
+    ],
+  };
+});
+const pieChartData: Ref<ChartData<"pie">> = computed(() => {
+  return {
+    labels: [
+      t("charts.customerSegments.enterprise"),
+      t("charts.customerSegments.mid-sized"),
+      t("charts.customerSegments.small"),
+      t("charts.customerSegments.private"),
+    ],
+    datasets: [{ data: [55, 25, 15, 5] }],
+  };
+});
+const lineChartData: Ref<ChartData<"line">> = computed(() => {
+  return {
+    labels: ["01.01.2025", "01.02.2025", "01.03.2025", "01.04.2025", "01.05.2025"],
+    datasets: [
+      {
+        label: t("charts.metrics.revenue"),
+        fill: true,
+        data: [150, 165, 180, 200, 215],
+      },
+      {
+        label: t("charts.metrics.netProfit"),
+        fill: true,
+        data: [25, 30, 32, 38, 102],
+      },
+    ],
+  };
+});
 
 /**
  * Select
  */
 
-const options = [
+const options = computed(() => [
   {
     value: "all",
     label: t("charts.selectOptions.all"),
@@ -73,7 +79,7 @@ const options = [
     value: "services",
     label: t("charts.selectOptions.services"),
   },
-];
+]);
 const chartOptions = { maintainAspectRatio: false };
 </script>
 
