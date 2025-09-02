@@ -76,7 +76,7 @@ test.describe("Screenshot tests", () => {
     columns: ["unchecked", "indeterminate", "checked", "hideLabel", "longError", "disabled"],
     rows: ["default", "hover", "focus-visible"],
     component: (column, row) => {
-      const customError =
+      const error =
         column === "longError"
           ? { shortMessage: "Error", longMessage: "Further info" }
           : "Test error";
@@ -91,7 +91,7 @@ test.describe("Screenshot tests", () => {
           indeterminate={column === "indeterminate"}
           hideLabel={column === "hideLabel"}
           disabled={column === "disabled"}
-          customError={customError}
+          error={error}
           value="test-value"
         />
       );

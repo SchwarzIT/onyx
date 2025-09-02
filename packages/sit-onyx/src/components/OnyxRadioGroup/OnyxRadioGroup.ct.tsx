@@ -69,7 +69,7 @@ test.describe("screenshot tests (invalid)", () => {
         modelValue={EXAMPLE_OPTIONS[0].value}
         label="Test headline"
         options={EXAMPLE_OPTIONS}
-        customError="Example error"
+        error="Example error"
       />
     ),
     hooks: {

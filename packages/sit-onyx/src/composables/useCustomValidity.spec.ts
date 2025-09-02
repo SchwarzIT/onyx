@@ -26,7 +26,7 @@ const getDefaultValidityState = (): ValidityState => ({
   tooShort: false,
   typeMismatch: false,
   valueMissing: false,
-  customError: false,
+  error: false,
   valid: true,
 });
 
@@ -38,7 +38,7 @@ describe("useCustomValidity", () => {
   test("should set custom error", async () => {
     const initialValidity: ValidityState = {
       ...getDefaultValidityState(),
-      customError: true,
+      error: true,
       valid: false,
     };
 
@@ -50,13 +50,13 @@ describe("useCustomValidity", () => {
     } satisfies InputValidationElement;
 
     const props = reactive<UseCustomValidityOptions["props"]>({
-      customError: "Test error",
+      error: "Test error",
     });
 
-    const customError = ref<CustomMessageType>();
+    const error = ref<CustomMessageType>();
 
     const { vCustomValidity, errorMessages } = useCustomValidity({
-      customError,
+      error,
       props,
       emit: (_, validity) => (currentValidity = validity),
     });
@@ -77,24 +77,24 @@ describe("useCustomValidity", () => {
     expect(mockInput.setCustomValidity).toBeCalledWith("Test error");
     expect(currentValidity).toStrictEqual(initialValidity);
 
-    props.customError = "Changed error";
+    props.error = "Changed error";
     await nextTick();
     expect(mockInput.setCustomValidity).toBeCalledWith("Changed error");
     expect(currentValidity).toStrictEqual(initialValidity);
 
-    customError.value = "explicit custom error";
+    error.value = "explicit custom error";
     await nextTick();
     expect(mockInput.setCustomValidity).toBeCalledWith("Changed error");
     expect(currentValidity).toStrictEqual(initialValidity);
 
-    props.customError = undefined;
+    props.error = undefined;
     await nextTick();
     expect(mockInput.setCustomValidity).toBeCalledWith("explicit custom error");
     expect(currentValidity).toStrictEqual(initialValidity);
 
-    props.customError = undefined;
-    customError.value = undefined;
-    const newValidity = { ...initialValidity, customError: false, valid: true };
+    props.error = undefined;
+    error.value = undefined;
+    const newValidity = { ...initialValidity, error: false, valid: true };
     mockInput.validity = newValidity;
     await nextTick();
     expect(mockInput.setCustomValidity).toBeCalledWith("");
@@ -113,12 +113,12 @@ describe("useCustomValidity", () => {
     } satisfies InputValidationElement;
 
     const props = reactive<UseCustomValidityOptions["props"]>({
-      customError: "",
+      error: "",
     });
 
-    const customError = ref<CustomMessageType>();
+    const error = ref<CustomMessageType>();
     const { vCustomValidity, errorMessages } = useCustomValidity({
-      customError,
+      error,
       props,
       emit: (_, validity) => (currentValidity = validity),
     });
@@ -132,9 +132,9 @@ describe("useCustomValidity", () => {
     expect(errorMessages.value).toBeUndefined();
 
     // ACT set custom error
-    mockInput.validity = { ...getDefaultValidityState(), customError: true, valid: false };
+    mockInput.validity = { ...getDefaultValidityState(), error: true, valid: false };
     props.modelValue = "Test";
-    customError.value = "custom error";
+    error.value = "custom error";
     await nextTick();
 
     // ASSERT everything is updated as expected
@@ -162,7 +162,7 @@ describe("useCustomValidity", () => {
     };
     const props = reactive<UseCustomValidityOptions["props"]>({});
     const { vCustomValidity, errorMessages } = useCustomValidity({
-      customError: undefined,
+      error: undefined,
       props,
       emit: () => ({}),
     });

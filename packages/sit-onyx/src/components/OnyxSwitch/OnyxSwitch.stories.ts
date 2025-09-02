@@ -93,7 +93,7 @@ export const CustomError = {
   args: {
     ...Default.args,
     hideLabel: true,
-    customError: {
+    error: {
       shortMessage: "Custom error",
       longMessage: "Further explanation.",
     },

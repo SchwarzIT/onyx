@@ -115,7 +115,7 @@ test.describe("Screenshot tests", () => {
           style="width: 12rem"
           label={label}
           message={message}
-          customError={row !== "messageTooltip" ? errorMessage : undefined}
+          error={row !== "messageTooltip" ? errorMessage : undefined}
           modelValue={10}
         />
       );
@@ -200,7 +200,7 @@ test.describe("Screenshot tests", () => {
       <OnyxStepper
         style="width: 12rem"
         label="Test label"
-        customError={{ shortMessage: "Test error", longMessage: "Test long message error" }}
+        error={{ shortMessage: "Test error", longMessage: "Test long message error" }}
         modelValue={10}
       />
     ),

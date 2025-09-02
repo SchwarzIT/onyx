@@ -27,7 +27,7 @@ const DEMO_OPTIONS = [
   {
     label: "Invalid",
     value: 7,
-    customError: {
+    error: {
       shortMessage: "Custom error",
       longMessage: "Further explanation.",
     },
