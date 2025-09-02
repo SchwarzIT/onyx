@@ -116,7 +116,11 @@ const userCustomType = createFeature(() => ({
 const userPagination = DataGridFeatures.usePagination({
   pageSize: 8,
 });
-const userHiddenColumns = DataGridFeatures.useHideColumns<UserEntry>();
+const userHiddenColumns = DataGridFeatures.useHideColumns<UserEntry>({
+  columns: {
+    id: { enabled: false },
+  },
+});
 const userFiltering = DataGridFeatures.useFiltering<UserEntry>({
   columns: {
     id: { enabled: false },
