@@ -11,10 +11,41 @@
   },
   "overview": "Overview",
   "action": "Action | Actions",
-  "dataGrid": "Data grid / Table",
   "forms": "Forms",
   "charts": "Charts",
   "onyxDocs": "onyx documentation",
   "like": "Like",
-  "dislike": "Dislike"
+  "dislike": "Dislike",
+  "dataGrid": {
+    "pageName": "Data grid / Table",
+    "systemTab": "System data",
+    "systemTable": {
+      "component_name": "Component name",
+      "description": "Description",
+      "last_check_at": "Last check at",
+      "metric_name": "Metric name",
+      "status": "Status",
+      "unit": "Unit",
+      "value": "Value"
+    },
+    "tabs": "Data Tabs",
+    "userTab": "User data",
+    "userTable": {
+      "address": "Address",
+      "age": "Age",
+      "image": "Avatar",
+      "city": "City",
+      "country": "Country",
+      "email": "Email",
+      "firstName": "First Name",
+      "isAdmin": "Is admin?",
+      "lastName": "Last Name",
+      "role": "Role",
+      "detailsButton": "Show Details",
+      "error": {
+        "errorTitle": "Error while fetching data",
+        "unknownError": "An unknown error occurred"
+      }
+    }
+  }
 }
