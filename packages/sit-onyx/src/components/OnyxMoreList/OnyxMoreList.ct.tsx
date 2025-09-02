@@ -2,7 +2,7 @@ import { expect, test } from "../../playwright/a11y.js";
 import TestWrapperCt from "./TestWrapper.ct.vue";
 import type { MoreListSlotBindings } from "./types.js";
 
-test("should render", async ({ mount, makeAxeBuilder, page }) => {
+test("should behave correctly", async ({ mount, makeAxeBuilder, page }) => {
   const events: MoreListSlotBindings[] = [];
 
   page.setViewportSize({ width: 1200, height: 200 });
@@ -20,10 +20,10 @@ test("should render", async ({ mount, makeAxeBuilder, page }) => {
   });
 
   const expectVisible = (name: string) =>
-    expect(component.getByRole("menuitem", { name, exact: true })).toBeVisible();
+    expect(component.getByText(name, { exact: true })).toBeVisible();
 
   const expectHidden = (name: string) =>
-    expect(component.getByRole("menuitem", { name, exact: true })).toBeHidden();
+    expect(component.getByText(name, { exact: true })).toBeHidden();
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
@@ -52,5 +52,19 @@ test("should render", async ({ mount, makeAxeBuilder, page }) => {
   await expectVisible("Element 3");
   await expectVisible("Element 4");
   await expectHidden("Element 5");
+  expect(events.at(-1)).toStrictEqual({ visibleElements: 4, hiddenElements: 20 });
+
+  // ACT
+  await component.update({
+    props: { count: 4.25, passThroughProps: { direction: "ltr" } },
+    on: eventHandlers,
+  });
+
+  // ASSERT
+  await expectHidden("Element 20");
+  await expectVisible("Element 21");
+  await expectVisible("Element 22");
+  await expectVisible("Element 23");
+  await expectVisible("Element 24");
   expect(events.at(-1)).toStrictEqual({ visibleElements: 4, hiddenElements: 20 });
 });

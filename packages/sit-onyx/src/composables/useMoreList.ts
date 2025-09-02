@@ -5,10 +5,12 @@ import {
   onMounted,
   reactive,
   ref,
+  toRef,
+  toValue,
   useId,
   watch,
-  watchEffect,
   type InjectionKey,
+  type MaybeRefOrGetter,
   type Ref,
 } from "vue";
 import {
@@ -35,6 +37,12 @@ export type UseMoreListOptions = {
    * Vue template ref for the more indicator element that might be shown if not all elements are visible.
    */
   moreIndicatorRef: Ref<VueTemplateRefElement>;
+  /**
+   * From which direction the list items should start to be hidden, when space is limited.
+   *
+   * @default "rtl"
+   */
+  direction: MaybeRefOrGetter<"rtl" | "ltr">;
 };
 
 /**
@@ -103,36 +111,44 @@ export const useMoreList = (options: UseMoreListOptions) => {
   const componentMap = reactive(new Map<string, number>());
 
   onMounted(() => {
-    watchEffect(() => {
-      let availableWidth = parentWidth.value;
-      if (availableWidth <= 0) return; // parent width is not initialized yet
+    watch(
+      [parentWidth, moreIndicatorWidth, componentMap, toRef(options.direction)],
+      () => {
+        let availableWidth = parentWidth.value;
+        if (availableWidth <= 0) return; // parent width is not initialized yet
 
-      const parentGap = getColumnGap(options.parentRef.value);
-      const listGap = getColumnGap(options.listRef.value);
+        const parentGap = getColumnGap(options.parentRef.value);
+        const listGap = getColumnGap(options.listRef.value);
 
-      if (moreIndicatorWidth.value > 0) {
-        availableWidth -= moreIndicatorWidth.value + parentGap;
-      }
-
-      // calculate which components currently fully fit into the available parent width
-      // we don't need to worry about changing the refs multiple times here since Vue batches changes
-      visibleElements.value = [];
-      hiddenElements.value = [];
-
-      Array.from(componentMap.entries()).forEach(([id, componentWidth], index) => {
-        availableWidth -= componentWidth + (index > 0 ? listGap : 0);
-
-        if (
-          availableWidth >= 0 ||
-          // check if last element fits if more indicator would be hidden
-          (index === componentMap.size - 1 && availableWidth + moreIndicatorWidth.value >= 0)
-        ) {
-          visibleElements.value!.push(id);
-        } else {
-          hiddenElements.value!.push(id);
+        if (moreIndicatorWidth.value > 0) {
+          availableWidth -= moreIndicatorWidth.value + parentGap;
         }
-      });
-    });
+
+        // calculate which components currently fully fit into the available parent width
+        // we don't need to worry about changing the refs multiple times here since Vue batches changes
+        visibleElements.value = [];
+        hiddenElements.value = [];
+
+        const allComponents = Array.from(componentMap.entries());
+        if (toValue(options.direction) === "ltr") {
+          allComponents.reverse();
+        }
+        allComponents.forEach(([id, componentWidth], index, { length }) => {
+          availableWidth -= componentWidth + (index > 0 ? listGap : 0);
+
+          if (
+            availableWidth >= 0 ||
+            // check if last element fits if more indicator would be hidden
+            (index === length - 1 && availableWidth + moreIndicatorWidth.value >= 0)
+          ) {
+            visibleElements.value!.push(id);
+          } else {
+            hiddenElements.value!.push(id);
+          }
+        });
+      },
+      { flush: "post" },
+    );
   });
 
   return {
@@ -185,7 +201,8 @@ export const useMoreListChild = (injectionKey: MoreListInjectionKey) => {
   const id = useId();
   const componentRef = ref<VueTemplateRefElement>();
   const moreContext = inject(injectionKey, undefined);
-  const { width } = useResizeObserver(componentRef);
+  const { width } = useResizeObserver(componentRef, { box: "border-box" });
+  const wasMounted = ref(false);
 
   watch(
     width,
@@ -200,6 +217,7 @@ export const useMoreListChild = (injectionKey: MoreListInjectionKey) => {
   );
 
   onBeforeUnmount(() => moreContext?.componentMap.delete(id));
+  onMounted(() => (wasMounted.value = true));
 
   const isVisible = computed(() => moreContext?.visibleElements.value?.includes(id) ?? true);
 
