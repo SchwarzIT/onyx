@@ -112,8 +112,12 @@
         "pause": "Pause",
         "continue": "Continue",
         "cancel": "Cancel",
-        "remove": "Remove"
-      }
+        "remove": "Remove",
+        "show": "Show file"
+      },
+      "filename": "Filename",
+      "size": "Size",
+      "type": "Type"
     },
     "toasts": {
       "upload": {

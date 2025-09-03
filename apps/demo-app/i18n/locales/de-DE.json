@@ -113,7 +113,10 @@
         "continue": "Fortsetzen",
         "cancel": "Abbrechen",
         "remove": "Entfernen"
-      }
+      },
+      "filename": "Dateiname",
+      "size": "Größe",
+      "type": "Typ"
     },
     "toasts": {
       "upload": {

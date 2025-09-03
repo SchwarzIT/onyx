@@ -29,7 +29,7 @@ const handleFileUploaded = (file: File) => {
 
     <div class="onyx-grid">
       <OnyxInfoCard
-        class="onyx-grid-span-4"
+        class="onyx-grid-span-8 onyx-grid-lg-span-4"
         :headline="$t('documents.disclaimer.headline')"
         color="warning"
       >
@@ -40,7 +40,7 @@ const handleFileUploaded = (file: File) => {
     <div class="onyx-grid">
       <OnyxFileUpload
         v-model="selectedFiles"
-        class="onyx-grid-span-4"
+        class="onyx-grid-span-8 onyx-grid-lg-span-4"
         max-size="12MiB"
         list-type="maxHeight"
         multiple
@@ -54,5 +54,7 @@ const handleFileUploaded = (file: File) => {
         </template>
       </OnyxFileUpload>
     </div>
+
+    <FileDataGrid :files="uploadedFiles" />
   </div>
 </template>
