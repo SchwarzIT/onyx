@@ -1,7 +1,42 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import type { OnyxCheckboxProps } from "sit-onyx";
+
+const { t } = useI18n();
+
+const selectedRoles = ref(new Set<string>(["manager", "productOwner"]));
+
+const roles = computed(() => {
+  return [
+    "manager",
+    "assistant",
+    "deputy",
+    "employee",
+    "productOwner",
+    "productManager",
+    "engineeringLead",
+    "designLead",
+  ].map<OnyxCheckboxProps<string>>((role) => ({
+    label: t(`roles.${role}`),
+    value: role,
+  }));
+});
+</script>
 
 <template>
-  <OnyxHeadline is="h1">{{ $t("role", 2) }}</OnyxHeadline>
-</template>
+  <div class="page">
+    <OnyxHeadline is="h1">{{ $t("roles.role", 2) }}</OnyxHeadline>
 
-<style lang="scss" scoped></style>
+    <div class="onyx-grid">
+      <UserRoleCard
+        v-for="role in roles"
+        :key="role.value"
+        v-bind="role"
+        :model-value="selectedRoles.has(role.value)"
+        class="onyx-grid-span-4"
+        @update:model-value="
+          $event ? selectedRoles.add(role.value) : selectedRoles.delete(role.value)
+        "
+      />
+    </div>
+  </div>
+</template>

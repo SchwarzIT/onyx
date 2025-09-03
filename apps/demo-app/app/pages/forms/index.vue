@@ -209,10 +209,6 @@ const handleDelete = () => {
 
 <style lang="scss" scoped>
 .page {
-  display: flex;
-  flex-direction: column;
-  gap: var(--onyx-grid-gutter);
-
   &__headline {
     display: flex;
     align-items: center;

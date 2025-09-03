@@ -49,7 +49,17 @@
     }
   },
   "personalData": "Personal data",
-  "role": "Role | Roles",
+  "roles": {
+    "role": "Role | Roles",
+    "manager": "Manager",
+    "assistant": "Assistant",
+    "deputy": "Deputy",
+    "employee": "Employee",
+    "productOwner": "Product owner",
+    "productManager": "Product manager",
+    "engineeringLead": "Engineering lead",
+    "designLead": "Design lead"
+  },
   "document": "Document | Documents",
   "save": "Save",
   "user": {

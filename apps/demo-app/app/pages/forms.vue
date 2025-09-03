@@ -9,7 +9,7 @@ provide(FORM_PAGE_INJECTION_KEY, { footerRef: footer });
 
 const sidebarItems = computed<SidebarItem[]>(() => [
   { label: t("personalData"), icon: iconUserId, link: "/forms" },
-  { label: t("role", 2), icon: iconUserGroup, link: "/forms/roles" },
+  { label: t("roles.role", 2), icon: iconUserGroup, link: "/forms/roles" },
   { label: t("document", 2), icon: iconFile, link: "/forms/documents" },
 ]);
 </script>
