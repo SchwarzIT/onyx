@@ -49,7 +49,17 @@
     }
   },
   "personalData": "Persönliche Daten",
-  "role": "Rolle | Rollen",
+  "roles": {
+    "role": "Rolle | Rollen",
+    "manager": "Führungskraft",
+    "assistant": "Assistent",
+    "deputy": "Stellvertreter",
+    "employee": "Mitarbeiter",
+    "productOwner": "Product Owner",
+    "productManager": "Product Manager",
+    "engineeringLead": "Engineering Lead",
+    "designLead": "Design Lead"
+  },
   "document": "Dokument | Dokumente",
   "save": "Speichern",
   "user": {
