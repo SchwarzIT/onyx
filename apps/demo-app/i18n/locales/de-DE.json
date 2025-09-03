@@ -96,7 +96,31 @@
     "engineeringLead": "Engineering Lead",
     "designLead": "Design Lead"
   },
-  "document": "Dokument | Dokumente",
+  "documents": {
+    "document": "Dokument | Dokumente",
+    "disclaimer": {
+      "headline": "Datei-Upload",
+      "description": "Dies ist nur eine Demo-Anwendung, es werden keine Dateien tatsächlich hochgeladen."
+    },
+    "file": {
+      "ready": "Bereit zum Hochladen",
+      "paused": "Pausiert",
+      "canceled": "Abgebrochen",
+      "done": "Hochgeladen",
+      "actions": {
+        "upload": "Hochladen",
+        "pause": "Pausieren",
+        "continue": "Fortsetzen",
+        "cancel": "Abbrechen",
+        "remove": "Entfernen"
+      }
+    },
+    "toasts": {
+      "upload": {
+        "success": "Datei erfolgreich hochgeladen"
+      }
+    }
+  },
   "save": "Speichern",
   "user": {
     "fullName": "Vollständiger Name",
@@ -129,6 +153,6 @@
   },
   "delete": "Löschen",
   "reset": "Zurücksetzen",
-  "noDemoDataUpdated": "Dies ist nur eine Demo-Anwendung, daher wurden keine Daten tatsächlcih geändert.",
+  "noDemoDataUpdated": "Dies ist nur eine Demo-Anwendung, daher wurden keine Daten tatsächlich geändert.",
   "cancel": "Abbrechen"
 }

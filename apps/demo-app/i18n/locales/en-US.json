@@ -96,7 +96,31 @@
     "engineeringLead": "Engineering lead",
     "designLead": "Design lead"
   },
-  "document": "Document | Documents",
+  "documents": {
+    "document": "Document | Documents",
+    "disclaimer": {
+      "headline": "File upload",
+      "description": "This is just a demo application, nothing will actually be uploaded."
+    },
+    "file": {
+      "ready": "Ready to upload",
+      "paused": "Paused",
+      "canceled": "Canceled",
+      "done": "Uploaded",
+      "actions": {
+        "upload": "Upload",
+        "pause": "Pause",
+        "continue": "Continue",
+        "cancel": "Cancel",
+        "remove": "Remove"
+      }
+    },
+    "toasts": {
+      "upload": {
+        "success": "File uploaded successfully"
+      }
+    }
+  },
   "save": "Save",
   "user": {
     "fullName": "Full name",
