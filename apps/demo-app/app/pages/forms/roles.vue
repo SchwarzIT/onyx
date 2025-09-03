@@ -20,6 +20,11 @@ const roles = computed(() => {
     value: role,
   }));
 });
+
+const updateRoleSelection = (checked: boolean, role: string) => {
+  if (checked) selectedRoles.value.add(role);
+  else selectedRoles.value.delete(role);
+};
 </script>
 
 <template>
@@ -33,9 +38,7 @@ const roles = computed(() => {
         v-bind="role"
         :model-value="selectedRoles.has(role.value)"
         class="onyx-grid-span-4"
-        @update:model-value="
-          $event ? selectedRoles.add(role.value) : selectedRoles.delete(role.value)
-        "
+        @update:model-value="updateRoleSelection($event, role.value)"
       />
     </div>
   </div>
