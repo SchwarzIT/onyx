@@ -122,7 +122,9 @@ const { componentRef, isVisible } = isTopLevel
     @click="hasChildren && (open = true)"
   >
     <slot></slot>
-    <template v-if="slots.children" #children><slot name="children"></slot></template>
+    <template v-if="slots.children" #children>
+      <slot name="children"></slot>
+    </template>
   </OnyxNavItemFacade>
 
   <!-- Desktop parent item in navbar with children in a flyout -->
@@ -139,7 +141,9 @@ const { componentRef, isVisible } = isTopLevel
         context="navbar"
       >
         <slot></slot>
-        <template v-if="slots.children" #children><slot name="children"></slot></template>
+        <template v-if="slots.children" #children>
+          <slot name="children"></slot>
+        </template>
       </OnyxNavItemFacade>
     </template>
 
@@ -167,7 +171,9 @@ const { componentRef, isVisible } = isTopLevel
     context="list"
   >
     <slot></slot>
-    <template v-if="slots.children" #children><slot name="children"></slot></template>
+    <template v-if="slots.children" #children>
+      <slot name="children"></slot>
+    </template>
   </OnyxNavItemFacade>
 
   <!-- Desktop top-level nav item in more list -->
@@ -187,8 +193,10 @@ const { componentRef, isVisible } = isTopLevel
       :active
       context="list"
     >
-<slot></slot>
-        <template v-if="slots.children" #children> <slot name="children"></slot> </template>
+      <slot></slot>
+      <template v-if="slots.children" #children>
+        <slot name="children"></slot>
+      </template>
     </OnyxNavItemFacade>
   </Teleport>
 </template>
