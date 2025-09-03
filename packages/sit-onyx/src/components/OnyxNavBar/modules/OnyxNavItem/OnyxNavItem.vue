@@ -176,6 +176,11 @@ const { componentRef, isVisible } = isTopLevel
     :disabled="!moreListTargetRef"
     :to="moreListTargetRef"
   >
+    <!-- 
+      We even render the Teleport when there is nothing to teleport,
+      so that the original order of the OnyxNavItem's is preserved.
+      Otherwise the order would be based on the time when an OnyxNavItem becomes invisible.
+    -->
     <OnyxNavItemFacade
       v-if="!isVisible"
       v-bind="mergeVueProps(props, $attrs)"
