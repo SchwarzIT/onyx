@@ -147,7 +147,10 @@ export const useMoreList = (options: UseMoreListOptions) => {
           }
         });
       },
-      { flush: "post" },
+      {
+        // The rendering should happen before we calculated the visible elements. This way we can ensure, that the widths are already up-to-date.
+        flush: "post",
+      },
     );
   });
 
