@@ -86,9 +86,7 @@ test.describe("Screenshot tests", () => {
     name: "Textarea (invalid)",
     columns: ["default"],
     rows: ["default", "hover", "focus"],
-    component: () => (
-      <OnyxTextarea style="width: 12rem" label="Test label" customError="Test error" />
-    ),
+    component: () => <OnyxTextarea style="width: 12rem" label="Test label" error="Test error" />,
     hooks: {
       beforeEach: async (component, page, column, row) => {
         const input = component.getByLabel("Test label");

@@ -145,7 +145,7 @@ test.describe("Screenshot tests", () => {
           style="width: 12rem"
           label={label}
           message={message}
-          customError={row !== "messageTooltip" ? errorMessage : undefined}
+          error={row !== "messageTooltip" ? errorMessage : undefined}
           withCounter={column === "with-counter"}
           maxlength={column === "with-counter" ? 15 : undefined}
         />
@@ -228,7 +228,7 @@ test.describe("Screenshot tests", () => {
     name: "Input (invalid)",
     columns: ["default", "autofill"],
     rows: ["default", "hover", "focus"],
-    component: () => <OnyxInput style="width: 12rem" label="Test label" customError="Test error" />,
+    component: () => <OnyxInput style="width: 12rem" label="Test label" error="Test error" />,
     hooks: {
       beforeEach: async (component, _page, column, row) => {
         const input = component.getByLabel("Test label");

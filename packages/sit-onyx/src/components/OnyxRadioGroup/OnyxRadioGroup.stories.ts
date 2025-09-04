@@ -105,7 +105,7 @@ export const Required = {
 export const CustomError = {
   args: {
     ...Default.args,
-    customError: {
+    error: {
       shortMessage: "Custom error",
       longMessage: "Further explanation.",
     },

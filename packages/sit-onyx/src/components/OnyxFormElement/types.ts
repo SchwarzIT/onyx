@@ -67,10 +67,6 @@ export type SharedFormElementProps = FormInjectedProps &
      */
     skeleton?: SkeletonInjected;
     /**
-     * Error messages that gives details about the cause of a form elements invalidity.
-     */
-    error?: CustomMessageType;
-    /**
      * Message / help text to display below the form element.
      * Will be replaced by an error message if the form element is invalid.
      */

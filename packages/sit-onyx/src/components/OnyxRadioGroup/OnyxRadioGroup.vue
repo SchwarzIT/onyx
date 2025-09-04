@@ -89,7 +89,7 @@ defineExpose({
           v-bind="option"
           ref="radiobuttonsRef"
           :name="props.name"
-          :custom-error="props.customError"
+          :error="props.error"
           :checked="option.value === modelValue"
           :required="props.required"
           :truncation="option.truncation ?? props.truncation"
