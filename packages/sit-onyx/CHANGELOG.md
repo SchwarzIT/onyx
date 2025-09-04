@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.318
+
+### Major Changes
+
+- c3e27ca: bug(OnyxFormElements):
+  - Renamed `customError` to `error` for consistency.
+  - Removed duplicate `error` prop from `onyxInput`.
+
 ## 1.0.0-beta.317
 
 ### Patch Changes
