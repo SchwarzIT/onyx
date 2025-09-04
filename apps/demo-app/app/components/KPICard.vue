@@ -32,8 +32,6 @@ const props = defineProps<{
 
 <style lang="scss" scoped>
 .card {
-  width: 16rem;
-
   &__header {
     color: var(--onyx-color-text-icons-neutral-medium);
     display: flex;

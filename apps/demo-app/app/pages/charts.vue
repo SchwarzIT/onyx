@@ -16,7 +16,7 @@ const { t } = useI18n();
  * Charts
  */
 
-const barChartData: Ref<ChartData<"bar">> = computed(() => {
+const barChartData = computed<ChartData<"bar">>(() => {
   return {
     labels: ["01.01.2024", "01.02.2024", "01.03.2024", "01.04.2024", "01.05.2024"],
     datasets: [
@@ -33,7 +33,7 @@ const barChartData: Ref<ChartData<"bar">> = computed(() => {
     ],
   };
 });
-const pieChartData: Ref<ChartData<"pie">> = computed(() => {
+const pieChartData = computed<ChartData<"pie">>(() => {
   return {
     labels: [
       t("charts.customerSegments.enterprise"),
@@ -44,7 +44,7 @@ const pieChartData: Ref<ChartData<"pie">> = computed(() => {
     datasets: [{ data: [55, 25, 15, 5] }],
   };
 });
-const lineChartData: Ref<ChartData<"line">> = computed(() => {
+const lineChartData = computed<ChartData<"line">>(() => {
   return {
     labels: ["01.01.2025", "01.02.2025", "01.03.2025", "01.04.2025", "01.05.2025"],
     datasets: [
@@ -85,17 +85,17 @@ const chartOptions = { maintainAspectRatio: false };
 
 <template>
   <OnyxHeadline is="h1">{{ t("charts.pageName") }}</OnyxHeadline>
-
   <OnyxHeadline is="h3" class="headline">{{ t("charts.rangeAndType") }}</OnyxHeadline>
-  <OnyxForm>
-    <OnyxDatePicker :label="t('charts.range')" />
+  <OnyxForm class="onyx-grid" @submit.prevent>
+    <OnyxDatePicker class="onyx-grid-span-3" :label="t('charts.range')" />
     <OnyxSelect
+      class="onyx-grid-span-3"
       :label="t('charts.type')"
       list-label="List label"
       :options="options"
       placeholder="Placeholder..."
     />
-    <OnyxButton :label="t('charts.submit')" type="submit" />
+    <OnyxButton class="onyx-grid-span-2" :label="t('charts.submit')" type="submit" />
   </OnyxForm>
   <OnyxHeadline is="h2" class="headline">{{ t("charts.kpi.title") }}</OnyxHeadline>
   <div class="onyx-grid">
@@ -119,7 +119,9 @@ const chartOptions = { maintainAspectRatio: false };
 
   <OnyxHeadline is="h2" class="headline">{{ t("charts.trends") }}</OnyxHeadline>
   <div class="onyx-grid">
-    <div class="onyx-grid-span-4 onyx-grid-md-span-6 chart-wrapper">
+    <div
+      class="onyx-grid-span-8 onyx-grid-md-span-6 onyx-grid-lg-span-6 onyx-grid-xl-span-6 chart-wrapper"
+    >
       <OnyxCard class="chart chart--bar">
         <OnyxHeadline is="h3" class="chart__headline"
           >{{ t("charts.productLines.title") }}
@@ -136,7 +138,9 @@ const chartOptions = { maintainAspectRatio: false };
         </div>
       </OnyxCard>
     </div>
-    <div class="onyx-grid-span-4 onyx-grid-md-span-6 chart-wrapper">
+    <div
+      class="onyx-grid-span-8 onyx-grid-md-span-6 onyx-grid-lg-span-6 onyx-grid-xl-span-6 chart-wrapper"
+    >
       <OnyxCard class="card--pie">
         <OnyxHeadline is="h3" class="chart__headline"
           >{{ t("charts.customerDistribution") }}
@@ -173,17 +177,11 @@ const chartOptions = { maintainAspectRatio: false };
 
 <style lang="scss" scoped>
 .headline {
-  margin-top: var(--onyx-density-xl);
+  margin-top: var(--onyx-grid-gutter);
   margin-bottom: var(--onyx-density-sm);
 }
-.content {
-  display: flex;
-  flex-direction: column;
-  gap: var(--onyx-grid-gutter);
-}
+
 .onyx-form {
-  display: flex;
-  gap: var(--onyx-density-md);
   align-items: end;
 }
 .chart {
