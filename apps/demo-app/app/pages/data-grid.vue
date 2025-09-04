@@ -20,11 +20,3 @@ const { t } = useI18n();
     </OnyxTabs>
   </div>
 </template>
-
-<style lang="scss" scoped>
-.page {
-  display: flex;
-  flex-direction: column;
-  gap: var(--onyx-grid-gutter);
-}
-</style>

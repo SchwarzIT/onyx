@@ -1,5 +1,11 @@
 # @sit-onyx/nuxt
 
+## 1.0.0-beta.305
+
+### Patch Changes
+
+- 4804cec: fix(@sit-onyx/nuxt): fix themes not working with nuxt module and layers
+
 ## 1.0.0-beta.304
 
 ### Patch Changes

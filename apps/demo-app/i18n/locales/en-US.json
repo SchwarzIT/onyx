@@ -58,4 +58,51 @@
     "notificationTitle": "Example notification",
     "noNewMessages": "No new messages in your inbox"
   }
+  "personalData": "Personal data",
+  "roles": {
+    "role": "Role | Roles",
+    "manager": "Manager",
+    "assistant": "Assistant",
+    "deputy": "Deputy",
+    "employee": "Employee",
+    "productOwner": "Product owner",
+    "productManager": "Product manager",
+    "engineeringLead": "Engineering lead",
+    "designLead": "Design lead"
+  },
+  "document": "Document | Documents",
+  "save": "Save",
+  "user": {
+    "fullName": "Full name",
+    "country": "Country",
+    "countryOfResidence": "Your country of residence",
+    "availableCountries": "Available countries",
+    "phone": "Phone",
+    "email": "Email",
+    "birthday": "Birthday",
+    "subscribeNewsletter": "Subscribe to newsletter",
+    "notes": "Notes",
+    "gender": "Gender",
+    "genders": {
+      "female": "Female",
+      "male": "Male",
+      "diverse": "Diverse"
+    },
+    "confirmDelete": {
+      "headline": "Confirm deletion",
+      "description": "Are you sure you want to delete this user and all related data? This action can NOT be undone."
+    },
+    "toasts": {
+      "save": {
+        "success": "Successfully updated user profile"
+      },
+      "delete": {
+        "error": "You are not authorized to delete this user"
+      }
+    }
+  },
+  "delete": "Delete",
+  "reset": "Reset",
+  "noDemoDataUpdated": "This is just a demo app so no data is actually changed.",
+  "cancel": "Cancel"
 }

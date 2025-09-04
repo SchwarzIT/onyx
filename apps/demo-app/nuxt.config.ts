@@ -16,4 +16,11 @@ export default defineNuxtConfig({
       { code: "de-DE", file: "de-DE.json", name: "Deutsch" },
     ],
   },
+  imports: {
+    transform: {
+      // fix "Identifier 'h' has already been declared" error which occurs only inside this monorepo
+      // see: https://github.com/nuxt/nuxt/issues/18823#issuecomment-1419704343
+      exclude: [/\bpackages\/flags\b/, /\bpackages\/icons\b/],
+    },
+  },
 });
