@@ -1,5 +1,12 @@
 # sit-onyx
 
+## 1.0.0-beta.319
+
+### Minor Changes
+
+- 64788a0: - feat(useMoreList, OnyxMoreList): support "ltr" hiding direction
+  - fix(useMoreListChild): fix `useMoreListChild` ResizeObserver only considering border-box instead of content-box
+
 ## 1.0.0-beta.318
 
 ### Major Changes
