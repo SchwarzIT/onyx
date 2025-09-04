@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.317
+
+### Patch Changes
+
+- 475502f: fix(OnyxNavItem): correctly show nested children when used inside nav bar more flyout
+
 ## 1.0.0-beta.316
 
 ### Patch Changes

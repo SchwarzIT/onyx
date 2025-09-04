@@ -27,11 +27,12 @@ export default defineNuxtModule<ModuleOptions>({
     const logger = useLogger("@sit-onyx/nuxt");
     const { resolve } = createResolver(import.meta.url);
 
-    nuxt.options.css.push("sit-onyx/style.css");
-
+    // Add CSS to the the beginning of the list, so it is easier to overwrite them and apply themes (e.g. in layers).
     if (!options.disableGlobalStyles) {
-      nuxt.options.css.push("sit-onyx/global.css");
+      nuxt.options.css.unshift("sit-onyx/global.css");
     }
+
+    nuxt.options.css.unshift("sit-onyx/style.css");
 
     Object.keys(onyx)
       .filter((namedExport) => namedExport.startsWith("Onyx"))

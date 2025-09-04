@@ -11,7 +11,7 @@ const { t } = useI18n();
 
 const cards = computed<LinkCardProps[]>(() => [
   {
-    headline: t("dataGrid"),
+    headline: t("dataGrid.pageName"),
     link: "/data-grid",
     icon: iconToolTable,
   },

@@ -11,10 +11,88 @@
   },
   "overview": "Overview",
   "action": "Action | Actions",
-  "dataGrid": "Data grid / Table",
   "forms": "Forms",
   "charts": "Charts",
   "onyxDocs": "onyx documentation",
   "like": "Like",
-  "dislike": "Dislike"
+  "dislike": "Dislike",
+  "dataGrid": {
+    "pageName": "Data grid / Table",
+    "systemTab": "System data",
+    "systemTable": {
+      "component_name": "Component name",
+      "description": "Description",
+      "last_check_at": "Last check at",
+      "metric_name": "Metric name",
+      "status": "Status",
+      "unit": "Unit",
+      "value": "Value"
+    },
+    "tabs": "Data Tabs",
+    "userTab": "User data",
+    "userTable": {
+      "address": "Address",
+      "age": "Age",
+      "image": "Avatar",
+      "city": "City",
+      "country": "Country",
+      "email": "Email",
+      "firstName": "First Name",
+      "isAdmin": "Is admin?",
+      "lastName": "Last Name",
+      "role": "Role",
+      "detailsButton": "Show Details",
+      "error": {
+        "errorTitle": "Error while fetching data",
+        "unknownError": "An unknown error occurred"
+      }
+    }
+  },
+  "personalData": "Personal data",
+  "roles": {
+    "role": "Role | Roles",
+    "manager": "Manager",
+    "assistant": "Assistant",
+    "deputy": "Deputy",
+    "employee": "Employee",
+    "productOwner": "Product owner",
+    "productManager": "Product manager",
+    "engineeringLead": "Engineering lead",
+    "designLead": "Design lead"
+  },
+  "document": "Document | Documents",
+  "save": "Save",
+  "user": {
+    "fullName": "Full name",
+    "country": "Country",
+    "countryOfResidence": "Your country of residence",
+    "availableCountries": "Available countries",
+    "phone": "Phone",
+    "email": "Email",
+    "birthday": "Birthday",
+    "subscribeNewsletter": "Subscribe to newsletter",
+    "notes": "Notes",
+    "gender": "Gender",
+    "genders": {
+      "female": "Female",
+      "male": "Male",
+      "diverse": "Diverse"
+    },
+    "confirmDelete": {
+      "headline": "Confirm deletion",
+      "description": "Are you sure you want to delete this user and all related data? This action can NOT be undone."
+    },
+    "toasts": {
+      "save": {
+        "success": "Successfully updated user profile"
+      },
+      "delete": {
+        "error": "You are not authorized to delete this user"
+      }
+    }
+  },
+  "delete": "Delete",
+  "reset": "Reset",
+  "noDemoDataUpdated": "This is just a demo app so no data is actually changed.",
+  "cancel": "Cancel"
 }
