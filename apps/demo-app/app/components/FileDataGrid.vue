@@ -17,10 +17,18 @@ type FileEntry = {
   name: string;
   size: number;
   type: MediaType;
+  file: File;
 };
 
 const props = defineProps<{
   files: File[];
+}>();
+
+const emit = defineEmits<{
+  /**
+   * Emitted when a given file should be removed.
+   */
+  remove: [file: File];
 }>();
 
 const { t } = useI18n();
@@ -31,6 +39,7 @@ const data = computed(() =>
     type: file.type as MediaType,
     name: file.name,
     size: file.size,
+    file,
   })),
 );
 
@@ -70,6 +79,14 @@ const withSelection = DataGridFeatures.useSelection<FileEntry>({
 
 const { formatFileSize } = useFileSize();
 
+const createFileURL = (file: File) => {
+  try {
+    return URL.createObjectURL(file);
+  } catch {
+    return undefined;
+  }
+};
+
 const customColumnTypes = createFeature(() => ({
   name: Symbol("customTypes"),
   watch: [formatFileSize],
@@ -98,19 +115,23 @@ const customColumnTypes = createFeature(() => ({
     }),
     fileActions: DataGridFeatures.createTypeRenderer({
       cell: {
-        component: ({ modelValue }) => {
+        component: ({ modelValue, row }) => {
           if (typeof modelValue !== "string") return;
 
           return h("div", { class: "actions-cell onyx-density-compact" }, [
             h(OnyxIconButton, {
               label: t("documents.file.actions.show"),
               icon: iconEye,
-              color: "neutral",
+              link: {
+                href: createFileURL(row.file),
+                target: "_blank",
+              },
             }),
             h(OnyxIconButton, {
               label: t("documents.file.actions.remove"),
               icon: iconTrash,
               color: "danger",
+              onClick: () => emit("remove", row.file),
             }),
           ]);
         },

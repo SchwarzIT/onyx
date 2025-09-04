@@ -7,12 +7,16 @@ const { t } = useI18n();
 const selectedFiles = ref<File[]>([]);
 const uploadedFiles = ref<File[]>([]);
 
-const removeFile = (file: File) => {
+const removeSelectedFile = (file: File) => {
   selectedFiles.value = selectedFiles.value.filter((f) => f !== file);
 };
 
+const removeUploadedFile = (file: File) => {
+  uploadedFiles.value = uploadedFiles.value.filter((f) => f !== file);
+};
+
 const handleFileUploaded = (file: File) => {
-  removeFile(file);
+  removeSelectedFile(file);
   uploadedFiles.value.push(file);
 
   toast.show({
@@ -49,12 +53,12 @@ const handleFileUploaded = (file: File) => {
           <UploadFileCard
             v-bind="props"
             @done="handleFileUploaded(file)"
-            @remove="removeFile(file)"
+            @remove="removeSelectedFile(file)"
           />
         </template>
       </OnyxFileUpload>
     </div>
 
-    <FileDataGrid :files="uploadedFiles" />
+    <FileDataGrid :files="uploadedFiles" @remove="removeUploadedFile" />
   </div>
 </template>

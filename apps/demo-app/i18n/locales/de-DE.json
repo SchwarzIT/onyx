@@ -112,7 +112,8 @@
         "pause": "Pausieren",
         "continue": "Fortsetzen",
         "cancel": "Abbrechen",
-        "remove": "Entfernen"
+        "remove": "Entfernen",
+        "show": "Anzeigen"
       },
       "filename": "Dateiname",
       "size": "Größe",
