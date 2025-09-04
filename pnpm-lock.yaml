@@ -182,8 +182,11 @@ importers:
         specifier: ~0.11.2
         version: 0.11.2(magicast@0.3.5)(pinia@3.0.3(typescript@5.9.2)(vue@3.5.20(typescript@5.9.2)))
       '@sit-onyx/chartjs-plugin':
-        specifier: 1.0.0-beta.299
-        version: 1.0.0-beta.299(chart.js@4.5.0)(sit-onyx@packages+sit-onyx)
+        specifier: workspace:^
+        version:  link:../../packages/chartjs-plugin
+      '@sit-onyx/flags':
+        specifier: workspace:^
+        version: link:../../packages/flags
       '@sit-onyx/icons':
         specifier: workspace:^
         version: link:../../packages/icons

@@ -379,7 +379,12 @@ test("should display More Items correctly", async ({ mount, page }) => {
       <OnyxNavItem link="#2" label="Menuitem 2" />
       <OnyxNavItem link="#3" label="Menuitem 3" />
       <OnyxNavItem link="#4" label="Menuitem 4" />
-      <OnyxNavItem link="#5" label="Menuitem 5" />
+      <OnyxNavItem link="#5" label="Menuitem 5">
+        <template v-slot:children>
+          <OnyxNavItem label="Nested item 1" link="#5-1" />
+          <OnyxNavItem label="Nested item 2" link="#5-2" />
+        </template>
+      </OnyxNavItem>
       <OnyxNavItem link="#6" onClick={() => navItemClickEvents++} label="Menuitem 6" />
     </OnyxNavBar>,
   );
@@ -406,6 +411,7 @@ test("should display More Items correctly", async ({ mount, page }) => {
     // ASSERT
     expect(navItemClickEvents).toBe(1);
     await expect(moreMenuItem).toBeVisible();
+    await expect(moreMenuItem).toContainText("+2 More");
     await expect(lastMenuItem).toBeHidden();
     await expectNMenuItemsToBeVisible(4, page);
 
@@ -427,6 +433,16 @@ test("should display More Items correctly", async ({ mount, page }) => {
     await expect(moreMenuItem).toHaveAttribute("aria-haspopup", "true");
     await expect(lastMenuItem).toBeHidden();
     expect(navItemClickEvents).toBe(2);
+
+    // ACT
+    await moreMenuItem.hover();
+    await component.getByRole("menuitem", { name: "Menuitem 5" }).click();
+
+    // ASSERT
+    await expect(moreMenuItem).toHaveAttribute("aria-expanded", "true");
+    await expect(moreMenuItem).toHaveAttribute("aria-haspopup", "true");
+    await expect(component.getByRole("menuitem", { name: "Nested item 1" })).toBeVisible();
+    await expect(lastMenuItem).toBeHidden();
   });
 
   await test.step("on mobile breakpoint the mobile menu should work as expected", async () => {

@@ -175,6 +175,7 @@ const { componentRef, isVisible } = isTopLevel
     <Teleport :disabled="!moreListTargetRef" :to="moreListTargetRef">
       <OnyxNavItemFacade v-bind="mergeVueProps(props, $attrs)" :active context="list">
         <slot></slot>
+        <template v-if="slots.children" #children> <slot name="children"></slot> </template>
       </OnyxNavItemFacade>
     </Teleport>
   </template>
@@ -217,7 +218,9 @@ const { componentRef, isVisible } = isTopLevel
      * Hide siblings before and after an opened item.
      */
     &:has(~ .onyx-nav-item-wrapper--open),
-    .onyx-nav-item-wrapper--open ~ & {
+    .onyx-nav-item-wrapper--open ~ &,
+    &:has(~ .onyx-menu-item--open),
+    .onyx-menu-item--open ~ & {
       display: none;
     }
   }

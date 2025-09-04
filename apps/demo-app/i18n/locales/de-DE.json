@@ -11,7 +11,6 @@
   },
   "overview": "Übersicht",
   "action": "Aktion | Aktionen",
-  "dataGrid": "Data Grid / Tabelle",
   "forms": "Formulare",
   "charts": {
     "pageName": "Diagramme",
@@ -51,5 +50,84 @@
   },
   "onyxDocs": "Onyx Dokumentation",
   "like": "Gefällt mir",
-  "dislike": "Gefällt mir nicht"
+  "dislike": "Gefällt mir nicht",
+  "dataGrid": {
+    "pageName": "Data Grid / Tabelle",
+    "systemTab": "Systemdaten",
+    "systemTable": {
+      "component_name": "Komponentenname",
+      "description": "Beschreibung",
+      "last_check_at": "Zuletzt geprüft",
+      "metric_name": "Metrikname",
+      "status": "Status",
+      "unit": "Einheit",
+      "value": "Wert"
+    },
+    "userTab": "Nutzerdaten",
+    "tabs": "Daten Tabs",
+    "userTable": {
+      "address": "Addresse",
+      "age": "Alter",
+      "image": "Avatar",
+      "city": "Stadt",
+      "country": "Land",
+      "email": "Email",
+      "firstName": "Vorname",
+      "isAdmin": "Ist Admin?",
+      "lastName": "Nachname",
+      "role": "Rolle",
+      "detailsButton": "Details anzeigen",
+      "error": {
+        "errorTitle": "Fehler beim Laden der Daten",
+        "unknownError": "Ein unbekannter Fehler ist aufgetreten"
+      }
+    }
+  },
+  "personalData": "Persönliche Daten",
+  "roles": {
+    "role": "Rolle | Rollen",
+    "manager": "Führungskraft",
+    "assistant": "Assistent",
+    "deputy": "Stellvertreter",
+    "employee": "Mitarbeiter",
+    "productOwner": "Product Owner",
+    "productManager": "Product Manager",
+    "engineeringLead": "Engineering Lead",
+    "designLead": "Design Lead"
+  },
+  "document": "Dokument | Dokumente",
+  "save": "Speichern",
+  "user": {
+    "fullName": "Vollständiger Name",
+    "country": "Land",
+    "countryOfResidence": "Dein Wohnsitz",
+    "availableCountries": "Verfügbare Länder",
+    "phone": "Telefonnummer",
+    "email": "E-Mail Adresse",
+    "birthday": "Geburtstag",
+    "subscribeNewsletter": "Newsletter abonnieren",
+    "notes": "Bemerkungen",
+    "gender": "Geschlecht",
+    "genders": {
+      "female": "Weiblich",
+      "male": "Männlich",
+      "diverse": "Divers"
+    },
+    "confirmDelete": {
+      "headline": "Löschen bestätigen",
+      "description": "Bist du sicher, dass du diesen Benutzer und alle dazugehörigen Daten löschen möchtest? Diese Aktion kann NICHT rückgängig gemacht werden."
+    },
+    "toasts": {
+      "save": {
+        "success": "Benutzerdaten erfolgreich aktualisiert"
+      },
+      "delete": {
+        "error": "Du bist nicht berechtigt, um diesen Benutzer zu löschen"
+      }
+    }
+  },
+  "delete": "Löschen",
+  "reset": "Zurücksetzen",
+  "noDemoDataUpdated": "Dies ist nur eine Demo-Anwendung, daher wurden keine Daten tatsächlcih geändert.",
+  "cancel": "Abbrechen"
 }
