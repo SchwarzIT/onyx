@@ -4,7 +4,7 @@ import { getFirstInvalidType } from "./validity.js";
 const getTestState = (overrideData: Partial<ValidityState>): ValidityState => ({
   valid: false,
   badInput: false,
-  error: false,
+  customError: false,
   patternMismatch: false,
   rangeOverflow: false,
   rangeUnderflow: false,
