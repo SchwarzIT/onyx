@@ -118,14 +118,13 @@ const customColumnTypes = createFeature(() => ({
         component: ({ modelValue, row }) => {
           if (typeof modelValue !== "string") return;
 
+          const href = createFileURL(row.file);
+
           return h("div", { class: "actions-cell onyx-density-compact" }, [
             h(OnyxIconButton, {
               label: t("documents.file.actions.show"),
               icon: iconEye,
-              link: {
-                href: createFileURL(row.file),
-                target: "_blank",
-              },
+              link: href ? { href, target: "_blank" } : undefined,
             }),
             h(OnyxIconButton, {
               label: t("documents.file.actions.remove"),
