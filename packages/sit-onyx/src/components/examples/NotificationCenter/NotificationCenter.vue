@@ -6,7 +6,7 @@ import {
   iconInbox,
   iconSettings,
 } from "@sit-onyx/icons";
-import { computed, ref } from "vue";
+import { ref } from "vue";
 import {
   OnyxAccordion,
   OnyxAccordionItem,
@@ -47,42 +47,6 @@ const props = withDefaults(defineProps<MyNotification>(), {
 });
 
 const skeleton = useSkeletonContext(props);
-
-/**
- * Store that will persist all user notifications of the application.
- * In a real project, this could e.g. be a pinia store.
- */
-const useNotificationStore = () => {
-  const notifications = ref<MyNotification[]>([]);
-
-  const unreadNotifications = computed(() => notifications.value.filter(({ unread }) => unread));
-  const readNotifications = computed(() => notifications.value.filter(({ unread }) => !unread));
-
-  /**
-   * Marks all existing notifications as read.
-   */
-  const markAllAsRead = () => {
-    notifications.value = notifications.value.map((notification) => ({
-      ...notification,
-      unread: false,
-    }));
-  };
-
-  /**
-   * Adds a new unread notification.
-   */
-  const add = (notification: Omit<MyNotification, "unread">) => {
-    notifications.value.unshift({ ...notification, unread: true });
-  };
-
-  return {
-    notifications,
-    unreadNotifications,
-    readNotifications,
-    markAllAsRead,
-    add,
-  };
-};
 
 const { show } = useNotification();
 const store = useNotificationStore();
