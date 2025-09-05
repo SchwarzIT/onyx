@@ -1,13 +1,31 @@
 <script lang="ts" setup>
 import type { ContentNavigationItem } from "@nuxt/content";
 import { iconSearch } from "@sit-onyx/icons";
-import { normalizedIncludes } from "sit-onyx";
+import { normalizedIncludes, type OnyxPageLayoutProps, type OnyxSidebarProps } from "sit-onyx";
+
+const props = defineProps<
+  OnyxPageLayoutProps & {
+    sidebar?: OnyxSidebarProps;
+  }
+>();
 
 const slots = defineSlots<{
   /**
    * Main page content.
    */
   default(): unknown;
+  /**
+   * Page footer content.
+   */
+  footer?(): unknown;
+  /**
+   * Optional right sidebar.
+   */
+  sidebarRight?(): unknown;
+  /**
+   * Optionally override the main sidebar body content.
+   */
+  sidebarBody?(props: { items: ContentNavigationItem[] }): unknown;
   /**
    * Optionally override the sidebar header content.
    */
@@ -61,9 +79,13 @@ const filteredSidebarItems = computed(() => {
 </script>
 
 <template>
-  <OnyxPageLayout no-padding>
+  <OnyxPageLayout v-bind="props">
     <template #sidebar>
-      <OnyxSidebar class="sidebar" :label="$t('onyx.navigation.navigationHeadline')">
+      <OnyxSidebar
+        class="sidebar"
+        v-bind="props.sidebar"
+        :label="$t('onyx.navigation.navigationHeadline')"
+      >
         <template #header>
           <slot name="sidebarHeader">
             <OnyxInput
@@ -79,11 +101,17 @@ const filteredSidebarItems = computed(() => {
           </slot>
         </template>
 
-        <SidebarItem
-          v-for="item in filteredSidebarItems"
-          :key="localePath(item.path)"
-          :item="item"
-        />
+        <slot name="sidebarBody" :items="filteredSidebarItems">
+          <SidebarItem
+            v-for="item in filteredSidebarItems"
+            :key="localePath(item.path)"
+            :item="item"
+          />
+
+          <OnyxEmpty v-if="!filteredSidebarItems.length" class="sidebar__empty">
+            {{ $t("onyx.select.empty") }}
+          </OnyxEmpty>
+        </slot>
 
         <template v-if="!!slots.sidebarFooter" #footer>
           <slot name="sidebarFooter"></slot>
@@ -91,14 +119,26 @@ const filteredSidebarItems = computed(() => {
       </OnyxSidebar>
     </template>
 
-    <div class="onyx-grid-layout content">
-      <slot></slot>
-    </div>
+    <slot></slot>
+
+    <template v-if="!!slots.footer" #footer>
+      <slot name="footer"></slot>
+    </template>
+
+    <template v-if="!!slots.sidebarRight" #sidebarRight>
+      <slot name="sidebarRight"></slot>
+    </template>
   </OnyxPageLayout>
 </template>
 
 <style lang="scss" scoped>
 .content {
   white-space: pre-line;
+}
+
+.sidebar {
+  &__empty {
+    max-width: 100%;
+  }
 }
 </style>
