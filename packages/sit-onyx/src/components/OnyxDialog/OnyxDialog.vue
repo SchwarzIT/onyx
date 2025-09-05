@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { iconXSmall } from "@sit-onyx/icons";
-import { computed } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
@@ -57,18 +56,13 @@ const isExpanded = useVModel({
   key: "open",
   default: false,
 });
-
-const triggerBindings = computed(() => ({
-  onClick: () => (isExpanded.value = !isExpanded.value),
-  "aria-expanded": isExpanded.value,
-  "aria-haspopup": "dialog",
-}));
 </script>
 
 <template>
   <OnyxBasicPopover :class="['onyx-dialog', densityClass]" v-bind="props" :open="isExpanded">
-    <template #default>
-      <slot name="trigger" :trigger="triggerBindings"> </slot>
+    <template #default="{ trigger }">
+      <slot name="trigger" :trigger="{ ...trigger, onClick: () => (isExpanded = !isExpanded) }">
+      </slot>
     </template>
     <template #content>
       <div class="onyx-dialog__header">
@@ -152,8 +146,5 @@ const triggerBindings = computed(() => ({
       width: 100%;
     }
   }
-}
-.dark .onyx-dialog {
-  outline: var(--onyx-spacing-5xs) solid var(--onyx-color-component-border-neutral);
 }
 </style>
