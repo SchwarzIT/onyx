@@ -8,12 +8,15 @@ import {
   iconTrash,
 } from "@sit-onyx/icons";
 import { computed, onUnmounted, ref } from "vue";
-import OnyxIconButton from "../../OnyxIconButton/OnyxIconButton.vue";
-import OnyxFlyoutMenu from "../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
-import OnyxFileCard from "../OnyxFileCard.vue";
-import type { FileCardStatus } from "../types.js";
+import {
+  OnyxFileCard,
+  OnyxFlyoutMenu,
+  OnyxIconButton,
+  type FileCardStatus,
+} from "../../../index.js";
 
 type UploadStatus = "ready" | "paused" | "canceled" | "processing" | "done";
+
 /**
  * Re-usable composable for managing the file upload state.
  */

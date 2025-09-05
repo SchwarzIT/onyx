@@ -244,6 +244,7 @@ export { default as OnyxComponentShowcase } from "./components/examples/Componen
 export * from "./composables/density.js";
 export * from "./composables/scrollEnd.js";
 export * from "./composables/themeTransition.js";
+export * from "./composables/useFileSize.js";
 export * from "./composables/useLink.js";
 export * from "./composables/useSkeletonState.js";
 

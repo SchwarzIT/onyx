@@ -27,7 +27,7 @@ import { convertBinaryPrefixToBytes } from "../../utils/numbers.js";
 import { asArray } from "../../utils/objects.js";
 import { OnyxFileUploadSVG } from "../illustrations/index.js";
 import OnyxFileCard from "../OnyxFileCard/OnyxFileCard.vue";
-import type { FileCardStatus } from "../OnyxFileCard/types.js";
+import type { FileCardStatus, OnyxFileCardProps } from "../OnyxFileCard/types.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
@@ -57,9 +57,9 @@ defineSlots<{
    * Optional slot to override the displayed file card for each file.
    *
    * @param file The current file being rendered
-   * @param status Current file status of the error validation (e.g. max size etc.)
+   * @param props File card props that would originally be passed to the OnyxFileCard if this slot would not be used
    */
-  default?(props: { file: File; status?: FileCardStatus }): unknown;
+  default?(props: { file: File; props: OnyxFileCardProps }): unknown;
 }>();
 
 const skeleton = useSkeletonContext(props as { skeleton: SkeletonInjected });
@@ -119,6 +119,19 @@ const fileStatuses = computed((): (FileCardStatus | undefined)[] => {
       };
     }
   });
+});
+
+const currentFileProps = computed(() => {
+  return currentFiles.value.map((file, index) => ({
+    file,
+    props: {
+      filename: file.name,
+      size: file.size,
+      type: file.type as MediaType,
+      link: createFileURL(file),
+      status: fileStatuses.value[index],
+    } satisfies OnyxFileCardProps,
+  }));
 });
 
 /**
@@ -283,22 +296,16 @@ const shouldShowFileList = computed(() => {
         { 'onyx-file-upload__list--max-height': props.listType === 'maxHeight' },
       ]"
     >
-      <template v-for="(file, index) in currentFiles" :key="file.name">
-        <slot :file :status="fileStatuses[index]">
-          <OnyxFileCard
-            :filename="file.name"
-            :size="file.size"
-            :status="fileStatuses[index]"
-            :link="createFileURL(file)"
-            :type="file.type as MediaType"
-          >
+      <template v-for="fileProps in currentFileProps" :key="fileProps.props.filename">
+        <slot :file="fileProps.file" :props="fileProps.props">
+          <OnyxFileCard v-bind="fileProps.props">
             <template #actions>
               <OnyxIconButton
                 color="danger"
                 :icon="iconTrash"
                 :label="t('fileUpload.removeFile')"
                 :disabled="disabled"
-                @click="removeFile(file)"
+                @click="removeFile(fileProps.file)"
               />
             </template>
           </OnyxFileCard>

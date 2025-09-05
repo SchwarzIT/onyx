@@ -16,7 +16,7 @@ const columnStyle = computed(() => {
     "--onyx-data-grid-row-count": Math.max(props.rows.length + 2, 3),
     "--onyx-data-grid-template-columns": props.columns
       .map(({ key, width }) => {
-        const name = `--onyx-data-grid-column-${escapeCSS(String(key))}`;
+        const name = `--onyx-data-grid-column-${escapeCSS(key)}`;
         const value = width ?? "minmax(min-content, 1fr)";
         return `var(${name}, ${value})`;
       })

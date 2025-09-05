@@ -21,31 +21,30 @@ const removeFile = (fileToRemove: File) => {
   <div class="example-file-wrapper">
     <OnyxFileUpload v-model="allFiles" multiple list-type="hidden" />
     <OnyxModal v-model:open="isOpen" label="Files">
-      <template #default>
-        <div v-if="allFiles.length" class="file-list">
-          <OnyxFileCard
-            v-for="file in allFiles"
-            :key="file.name"
-            :filename="file.name"
-            :size="file.size"
-            :type="file.type as MediaType"
-          >
-            <template #actions>
-              <OnyxIconButton
-                color="danger"
-                :icon="iconTrash"
-                label="Remove File"
-                @click="removeFile(file)"
-              />
-            </template>
-          </OnyxFileCard>
-        </div>
+      <div v-if="allFiles.length" class="file-list">
+        <OnyxFileCard
+          v-for="file in allFiles"
+          :key="file.name"
+          :filename="file.name"
+          :size="file.size"
+          :type="file.type as MediaType"
+        >
+          <template #actions>
+            <OnyxIconButton
+              color="danger"
+              :icon="iconTrash"
+              label="Remove File"
+              @click="removeFile(file)"
+            />
+          </template>
+        </OnyxFileCard>
+      </div>
 
-        <div v-else class="file-list--empty">
-          <OnyxEmpty>No File Selected</OnyxEmpty>
-        </div>
-      </template>
+      <div v-else class="file-list--empty">
+        <OnyxEmpty>No File Selected</OnyxEmpty>
+      </div>
     </OnyxModal>
+
     <div v-if="allFiles.length" class="button-wrapper">
       <OnyxSystemButton class="open-modal-button" label="Show Files" @click="isOpen = true" />
     </div>
@@ -55,22 +54,27 @@ const removeFile = (fileToRemove: File) => {
 <style lang="scss" scoped>
 .example-file-wrapper {
   width: 30rem;
+
   .button-wrapper {
     display: flex;
     justify-content: center;
   }
+
   .onyx-basic-dialog__content {
     min-width: 20rem;
     min-height: 10rem;
   }
+
   .open-modal-button {
     margin: var(--onyx-density-md) 0;
   }
+
   .file-list {
     padding: var(--onyx-density-sm) var(--onyx-modal-padding-inline);
     display: flex;
     flex-direction: column;
     gap: var(--onyx-density-sm);
+
     &--empty {
       height: 100%;
       display: flex;
