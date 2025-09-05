@@ -123,7 +123,7 @@ export const HiddenLabel = {
 export const CustomError: Story = {
   args: {
     ...Default.args,
-    customError: {
+    error: {
       shortMessage: "Example custom error",
       longMessage: "This text might inform the users what they can do to fix the error.",
     },

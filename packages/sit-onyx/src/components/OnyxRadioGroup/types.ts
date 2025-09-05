@@ -19,7 +19,7 @@ export type OnyxRadioGroupProps<TValue extends SelectOptionValue = SelectOptionV
     | "hideLabel"
     | "name"
     | "density"
-    | "customError"
+    | "error"
     | "required"
     | "requiredMarker"
     | "disabled"

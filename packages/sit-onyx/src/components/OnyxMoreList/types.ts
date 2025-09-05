@@ -11,6 +11,10 @@ export type OnyxMoreListProps = {
    * What the component should render as. Defaults to `div`.
    */
   is?: Component | string;
+  /**
+   * From which direction the more list items should be collapsed. Defaults to `rtl`.
+   */
+  direction?: "rtl" | "ltr";
 };
 
 export type MoreListSlotBindings = {

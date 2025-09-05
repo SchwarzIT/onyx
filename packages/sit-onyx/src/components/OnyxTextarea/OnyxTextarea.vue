@@ -52,8 +52,8 @@ defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
 
 const { maxLength, maxLengthError } = useLenientMaxLengthValidation({ props, modelValue });
-const customError = computed(() => props.customError ?? maxLengthError.value);
-const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit, customError });
+const error = computed(() => props.error ?? maxLengthError.value);
+const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit, error });
 
 const { densityClass } = useDensity(props);
 const successMessages = computed(() => getFormMessages(props.success));

@@ -1,5 +1,20 @@
 # sit-onyx
 
+## 1.0.0-beta.319
+
+### Minor Changes
+
+- 64788a0: - feat(useMoreList, OnyxMoreList): support "ltr" hiding direction
+  - fix(useMoreListChild): fix `useMoreListChild` ResizeObserver only considering border-box instead of content-box
+
+## 1.0.0-beta.318
+
+### Major Changes
+
+- c3e27ca: bug(OnyxFormElements):
+  - Renamed `customError` to `error` for consistency.
+  - Removed duplicate `error` prop from `onyxInput`.
+
 ## 1.0.0-beta.317
 
 ### Patch Changes
