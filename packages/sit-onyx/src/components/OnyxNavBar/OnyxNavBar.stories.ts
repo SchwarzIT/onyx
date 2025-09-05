@@ -132,8 +132,9 @@ export const Nested = {
 } satisfies Story;
 
 export const WithMoreListItem = {
-  parameters: {
-    viewport: { defaultViewport: "sm" },
+  globals: {
+    // Set viewport to sm to show the more menu
+    viewport: { value: "sm" },
   },
   args: {
     logoUrl: "/onyx-logo.svg",
@@ -146,9 +147,9 @@ export const WithMoreListItem = {
       h(OnyxNavItem, { label: "Menuitem 4" }),
       h(
         OnyxNavItem,
-        { label: "Item 2" },
+        { label: "Menuitem 5" },
         {
-          default: () => ["Item 2", h(OnyxBadge, { dot: true, color: "warning" })],
+          default: () => ["Menuitem 5", h(OnyxBadge, { dot: true, color: "warning" })],
           children: () => [
             h(
               OnyxNavItem,

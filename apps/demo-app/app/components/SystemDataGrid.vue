@@ -65,11 +65,13 @@ const systemData = ref<SystemEntry[]>([
   },
 ]);
 
-const systemColumns: ColumnConfig<
-  SystemEntry,
-  ColumnGroupConfig,
-  keyof ReturnType<typeof systemCustomType>["typeRenderer"]
->[] = [
+const systemColumns = computed<
+  ColumnConfig<
+    SystemEntry,
+    ColumnGroupConfig,
+    keyof ReturnType<typeof systemCustomType>["typeRenderer"]
+  >[]
+>(() => [
   { key: "component_name", label: t("dataGrid.systemTable.component_name") },
   { key: "status", label: t("dataGrid.systemTable.status"), type: "status" },
   { key: "last_check_at", label: t("dataGrid.systemTable.last_check_at"), type: "date" },
@@ -77,7 +79,7 @@ const systemColumns: ColumnConfig<
   { key: "value", label: t("dataGrid.systemTable.value") },
   { key: "unit", label: t("dataGrid.systemTable.unit") },
   { key: "description", label: t("dataGrid.systemTable.description") },
-];
+]);
 const systemCustomType = createFeature(() => ({
   name: Symbol("System Types"),
   typeRenderer: {

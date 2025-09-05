@@ -40,3 +40,19 @@ export const Default = {
       ),
   },
 } satisfies Story;
+
+export const LeftToRight = {
+  args: {
+    ...Default.args,
+    direction: "ltr",
+    more: ({ hiddenElements, attributes }) =>
+      h(
+        "span",
+        {
+          style: `font-family: var(--onyx-font-family); color: var(--onyx-color-text-icons-neutral-soft)`,
+          ...attributes,
+        },
+        `${hiddenElements} before`,
+      ),
+  },
+} satisfies Story;

@@ -40,10 +40,8 @@ const { densityClass } = useDensity(props);
 const { formatFileSize } = useFileSize();
 const skeleton = useSkeletonContext(props);
 
-const customError = computed(() =>
-  props.status?.color === "danger" ? props.status.text : undefined,
-);
-const { vCustomValidity } = useCustomValidity({ props: {}, emit, customError });
+const error = computed(() => (props.status?.color === "danger" ? props.status.text : undefined));
+const { vCustomValidity } = useCustomValidity({ props: {}, emit, error });
 
 const link = computed(() => {
   if (!props.link) return;

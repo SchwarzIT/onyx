@@ -14,21 +14,21 @@ export type CustomValidityProp = {
   /**
    * Custom error message to show. Takes precedence over intrinsic error messages.
    */
-  customError?: CustomMessageType;
+  error?: CustomMessageType;
 };
 
 export type UseCustomValidityOptions = {
   /**
    * Explicitly set custom error. Any non-nullish value will set the input to be invalid.
-   * If both, `options.customError` and `options.props.customError` are provided, the message from the props will take precedence.
+   * If both, `options.customError` and `options.props.error` are provided, the message from the props will take precedence.
    */
-  customError?: MaybeRefOrGetter<CustomMessageType | undefined>;
+  error?: MaybeRefOrGetter<CustomMessageType | undefined>;
   /**
    * Component props as defined with `const props = defineProps()`.
    * These prop values are used for the error messages of the native validation errors.
    */
   props: {
-    customError?: CustomMessageType;
+    error?: CustomMessageType;
     modelValue?: unknown;
     type?: InputType | OnyxDatePickerProps["type"];
     maxlength?: MaxLength;
@@ -91,15 +91,15 @@ export const getFormMessages = (customMessage?: CustomMessageType): FormMessages
  * Returns a string combining short + long message or just the customMessage if it was provided as single string.
  * Will be used e.g. for customInvalidity and showing a tooltip e.g. in RadioButtons
  */
-export const getFormMessageText = (customError?: CustomMessageType): string | undefined => {
-  if (!customError) return;
-  if (typeof customError === "string") {
-    return customError;
+export const getFormMessageText = (error?: CustomMessageType): string | undefined => {
+  if (!error) return;
+  if (typeof error === "string") {
+    return error;
   }
-  if (customError.shortMessage === customError.longMessage) {
-    return customError.shortMessage;
+  if (error.shortMessage === error.longMessage) {
+    return error.shortMessage;
   }
-  const { shortMessage, longMessage } = customError;
+  const { shortMessage, longMessage } = error;
   return `${shortMessage}: ${longMessage}`;
 };
 
@@ -128,7 +128,7 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
   const validityState = ref<Record<keyof ValidityState, boolean>>();
   const isDirty = ref(false);
 
-  const customError = computed(() => options.props.customError || toValue(options.customError));
+  const error = computed(() => options.props.error || toValue(options.error));
 
   /**
    * Sync isDirty state. The component is "dirty" when the value was modified at least once.
@@ -144,10 +144,10 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
       watch(
         // we need to watch all props instead of only modelValue so the validity is re-checked
         // when the validation rules change
-        [() => options.props, customError],
+        [() => options.props, error],
         () => {
           // Sync custom error with the native input validity.
-          el.setCustomValidity(getFormMessageText(customError.value) ?? "");
+          el.setCustomValidity(getFormMessageText(error.value) ?? "");
           const newValidityState = transformValidityStateToObject(el.validity);
 
           // do not emit update if input is valid and has never been invalid
@@ -168,7 +168,7 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
        * Update validityState ref when the input changes.
        */
       watch(
-        [customError, validityState, isDirty],
+        [error, validityState, isDirty],
         () => {
           // do not emit validityChange event if the value was never changed
           if (!isDirty.value || !validityState.value) return;
@@ -184,11 +184,11 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
     if (!validityState.value || validityState.value.valid) return;
 
     const errorType = getFirstInvalidType(validityState.value);
-    const customErrors = getFormMessages(customError.value);
+    const errors = getFormMessages(error.value);
     // a custom error message always is considered first
-    if (customErrors || errorType === "customError") {
-      if (!customErrors) return;
-      return customErrors;
+    if (errors || errorType === "customError") {
+      if (!errors) return;
+      return errors;
     }
     if (!errorType) return;
 

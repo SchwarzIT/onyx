@@ -122,7 +122,9 @@ const { componentRef, isVisible } = isTopLevel
     @click="hasChildren && (open = true)"
   >
     <slot></slot>
-    <template v-if="slots.children" #children><slot name="children"></slot></template>
+    <template v-if="slots.children" #children>
+      <slot name="children"></slot>
+    </template>
   </OnyxNavItemFacade>
 
   <!-- Desktop parent item in navbar with children in a flyout -->
@@ -139,7 +141,9 @@ const { componentRef, isVisible } = isTopLevel
         context="navbar"
       >
         <slot></slot>
-        <template v-if="slots.children" #children><slot name="children"></slot></template>
+        <template v-if="slots.children" #children>
+          <slot name="children"></slot>
+        </template>
       </OnyxNavItemFacade>
     </template>
 
@@ -167,18 +171,34 @@ const { componentRef, isVisible } = isTopLevel
     context="list"
   >
     <slot></slot>
-    <template v-if="slots.children" #children><slot name="children"></slot></template>
+    <template v-if="slots.children" #children>
+      <slot name="children"></slot>
+    </template>
   </OnyxNavItemFacade>
 
   <!-- Desktop top-level nav item in more list -->
-  <template v-else>
-    <Teleport :disabled="!moreListTargetRef" :to="moreListTargetRef">
-      <OnyxNavItemFacade v-bind="mergeVueProps(props, $attrs)" :active context="list">
-        <slot></slot>
-        <template v-if="slots.children" #children> <slot name="children"></slot> </template>
-      </OnyxNavItemFacade>
-    </Teleport>
-  </template>
+  <Teleport
+    v-if="isTopLevel && !isMobile && moreListTargetRef"
+    :disabled="!moreListTargetRef"
+    :to="moreListTargetRef"
+  >
+    <!-- 
+      We even render the Teleport when there is nothing to teleport,
+      so that the original order of the OnyxNavItem's is preserved.
+      Otherwise the order would be based on the time when an OnyxNavItem becomes invisible.
+    -->
+    <OnyxNavItemFacade
+      v-if="!isVisible"
+      v-bind="mergeVueProps(props, $attrs)"
+      :active
+      context="list"
+    >
+      <slot></slot>
+      <template v-if="slots.children" #children>
+        <slot name="children"></slot>
+      </template>
+    </OnyxNavItemFacade>
+  </Teleport>
 </template>
 
 <style lang="scss">

@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { provide, ref, useTemplateRef, watch } from "vue";
+import { provide, ref, toRef, useTemplateRef, watch } from "vue";
 import { useMoreList } from "../../composables/useMoreList.js";
 import type { VueTemplateRefElement } from "../../composables/useResizeObserver.js";
 import type { MoreListSlotBindings, OnyxMoreListProps } from "./types.js";
 
-const props = withDefaults(defineProps<OnyxMoreListProps>(), { is: "div" });
+const props = withDefaults(defineProps<OnyxMoreListProps>(), { is: "div", direction: "rtl" });
 
 const emit = defineEmits<{
   /**
@@ -28,7 +28,12 @@ const parentRef = useTemplateRef<HTMLElement>("parentRefEl");
 const listRef = ref<VueTemplateRefElement>();
 const moreIndicatorRef = ref<VueTemplateRefElement>();
 
-const more = useMoreList({ parentRef, listRef, moreIndicatorRef });
+const more = useMoreList({
+  parentRef,
+  listRef,
+  moreIndicatorRef,
+  direction: toRef(() => props.direction),
+});
 
 // eslint-disable-next-line vue/no-setup-props-reactivity-loss -- provide does not support reactive symbols, this reactivity loss is mentioned in the property docs
 provide(props.injectionKey, more);
@@ -44,6 +49,7 @@ watch(
 <template>
   <component :is="props.is" ref="parentRefEl" class="onyx-component onyx-more-list">
     <slot
+      v-if="props.direction === 'rtl'"
       :attributes="{
         ref: (el?: VueTemplateRefElement) => (listRef = el),
         class: 'onyx-more-list__elements',
@@ -59,6 +65,14 @@ watch(
       }"
       :hidden-elements="more.hiddenElements.value?.length"
       :visible-elements="more.visibleElements.value?.length"
+    ></slot>
+
+    <slot
+      v-if="props.direction === 'ltr'"
+      :attributes="{
+        ref: (el?: VueTemplateRefElement) => (listRef = el),
+        class: 'onyx-more-list__elements',
+      }"
     ></slot>
   </component>
 </template>
