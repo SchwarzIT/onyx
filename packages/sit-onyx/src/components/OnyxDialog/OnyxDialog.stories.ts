@@ -4,6 +4,7 @@ import OnyxDialog from "./OnyxDialog.vue";
 
 /**
  * The Dialog is used to provide information to the user.
+ * It needs always a parent to align with.
  *
  * You can also implement a custom dialog using the [OnyxBasicDialog](/docs/support-dialog--docs) component.
  */
