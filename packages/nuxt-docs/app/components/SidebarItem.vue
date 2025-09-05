@@ -7,7 +7,6 @@ const props = defineProps<{
 }>();
 
 const localePath = useLocalePath();
-const route = useRoute();
 
 const isAccordionOpen = ref(true);
 </script>
@@ -17,7 +16,6 @@ const isAccordionOpen = ref(true);
     v-if="!props.item.children"
     class="sidebar-item"
     :link="localePath(props.item.path)"
-    :active="localePath(props.item.path) === route.path"
   >
     {{ props.item.title }}
   </OnyxSidebarItem>
