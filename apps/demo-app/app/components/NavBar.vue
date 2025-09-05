@@ -1,11 +1,14 @@
 <script lang="ts" setup>
 import NavBar from "#layers/blueprint/app/components/NavBar.vue";
+import { iconBell } from "@sit-onyx/icons";
 import type { OnyxNavBarSlots } from "sit-onyx";
+import { OnyxIconButton, OnyxNotificationDot } from "sit-onyx";
 import logoUrl from "~/assets/images/onyx-logo.svg";
 
 defineSlots<Pick<OnyxNavBarSlots, "contextArea">>();
 
 const localePath = useLocalePath();
+const store = useNotificationStore();
 </script>
 
 <template>
@@ -24,7 +27,14 @@ const localePath = useLocalePath();
       <LocaleSwitch />
 
       <OnyxSeparator orientation="vertical" />
-
+      <OnyxNotificationDot :hidden="!store.unreadNotifications.length">
+        <OnyxIconButton
+          label="Notifications"
+          color="neutral"
+          :icon="iconBell"
+          @click="store.isSidebarOpen = true"
+        />
+      </OnyxNotificationDot>
       <UserMenu />
     </template>
   </NavBar>
