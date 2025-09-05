@@ -17,6 +17,7 @@
     "rangeAndType": "Bitte Bereich und Typ auswählen",
     "range": "Zeitraum",
     "type": "Typ",
+
     "submit": "Absenden",
     "trends": "Trends",
     "fullStats": "Alle Statistiken",
@@ -38,14 +39,14 @@
       "netProfit": "Nettogewinn (in Tsd. €)"
     },
     "kpi": {
-      "title": "KPI",
-      "roi": "Return on Investment",
-      "clv": "Customer Lifetime Value"
+      "roi": "Kapitalrendite",
+      "clv": "Kundenertragswert"
     },
     "selectOptions": {
       "all": "Alle",
       "products": "Produkte",
-      "services": "Dienstleistungen"
+      "services": "Dienstleistungen",
+      "placeholder": "Filtern nach..."
     }
   },
   "onyxDocs": "Onyx Dokumentation",

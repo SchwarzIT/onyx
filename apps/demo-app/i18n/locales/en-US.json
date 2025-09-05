@@ -45,7 +45,8 @@
     "selectOptions": {
       "all": "All",
       "products": "Products",
-      "services": "Services"
+      "services": "Services",
+      "placeholder": "Filter by..."
     }
   },
   "onyxDocs": "onyx documentation",

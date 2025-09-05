@@ -91,9 +91,9 @@ const chartOptions = { maintainAspectRatio: false };
     <OnyxSelect
       class="onyx-grid-span-3"
       :label="t('charts.type')"
-      list-label="List label"
+      :list-label="t('charts.type')"
       :options="options"
-      placeholder="Placeholder..."
+      :placeholder="t('charts.selectOptions.placeholder')"
     />
     <OnyxButton class="onyx-grid-span-2" :label="t('charts.submit')" type="submit" />
   </OnyxForm>
