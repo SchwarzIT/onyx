@@ -58,9 +58,8 @@ const actualIsMobile = computed(() => {
   return props.mobile;
 });
 
-const moreListTarget = useTemplateRef("moreListRef");
 provide(MOBILE_NAV_BAR_INJECTION_KEY, actualIsMobile);
-provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, moreListTarget);
+provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreListRef"));
 
 const closeMobileMenus = () => {
   isBurgerOpen.value = false;

@@ -1,13 +1,19 @@
 <script lang="ts" setup>
-import { computed } from "vue";
+import { computed, inject } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useLink } from "../../composables/useLink.js";
+import { useMoreListChild } from "../../composables/useMoreList.js";
 import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
 import { useRootAttrs } from "../../utils/attrs.js";
-import OnyxRouterLink from "../OnyxRouterLink/OnyxRouterLink.vue";
+import {
+  BREADCRUMB_MORE_LIST_INJECTION_KEY,
+  BREADCRUMB_MORE_LIST_TARGET_INJECTION_KEY,
+} from "../OnyxBreadcrumb/types.js";
+import ButtonOrLinkLayout from "../OnyxButton/ButtonOrLinkLayout.vue";
+import OnyxMenuItem from "../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxBreadcrumbItemProps } from "./types.js";
 
@@ -23,18 +29,27 @@ defineSlots<{
   default(): unknown;
 }>();
 
+defineOptions({ inheritAttrs: false });
+const { restAttrs, rootAttrs } = useRootAttrs();
+
 const { densityClass } = useDensity(props);
 const { currentRoute } = useLink();
-const { restAttrs, rootAttrs } = useRootAttrs();
 const skeleton = useSkeletonContext(props);
 
+const { componentRef, isVisible } = useMoreListChild(BREADCRUMB_MORE_LIST_INJECTION_KEY);
+const moreListTargetRef = inject(BREADCRUMB_MORE_LIST_TARGET_INJECTION_KEY, undefined);
+
 const isActive = computed(() => {
-  return props.active === "auto" ? props.href === currentRoute.value?.path : props.active;
+  return props.href && props.active === "auto"
+    ? props.href === currentRoute.value?.path
+    : props.active;
 });
 </script>
 
 <template>
   <li
+    v-if="isVisible || isActive"
+    ref="componentRef"
     :class="[
       'onyx-component',
       'onyx-breadcrumb-item',
@@ -49,16 +64,21 @@ const isActive = computed(() => {
       class="onyx-breadcrumb-item__link onyx-breadcrumb-item__skeleton"
     />
 
-    <OnyxRouterLink
+    <ButtonOrLinkLayout
       v-else
       class="onyx-breadcrumb-item__link"
-      :href="props.href"
+      :link="props.href"
       :aria-current="isActive ? 'page' : undefined"
       v-bind="restAttrs"
     >
       <slot></slot>
-    </OnyxRouterLink>
+    </ButtonOrLinkLayout>
   </li>
+  <Teleport :to="moreListTargetRef" :disabled="!moreListTargetRef">
+    <OnyxMenuItem v-if="!isVisible" :link="props.href" :active="isActive" v-bind="restAttrs">
+      <slot></slot>
+    </OnyxMenuItem>
+  </Teleport>
 </template>
 
 <style lang="scss">
@@ -89,21 +109,17 @@ const isActive = computed(() => {
       padding: var(--onyx-breadcrumb-item-padding-vertical)
         var(--onyx-breadcrumb-item-padding-inline);
       border-radius: var(--onyx-radius-sm);
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
 
-      &:not(:has(.onyx-breadcrumb-item__skeleton)) {
-        &:hover {
-          color: var(--onyx-breadcrumb-item-color-hover);
-          background-color: var(--onyx-breadcrumb-item-background-hover);
-        }
-
-        &:focus-visible {
-          outline: var(--onyx-outline-width) solid var(--onyx-breadcrumb-item-outline-color);
-        }
+      &:hover {
+        color: var(--onyx-breadcrumb-item-color-hover);
+        background-color: var(--onyx-breadcrumb-item-background-hover);
       }
 
-      &:has(.onyx-breadcrumb-item__skeleton) {
-        padding: 0;
-        cursor: initial;
+      &:focus-visible {
+        outline: var(--onyx-outline-width) solid var(--onyx-breadcrumb-item-outline-color);
       }
     }
 
@@ -125,13 +141,9 @@ const isActive = computed(() => {
       --onyx-breadcrumb-item-padding-inline: var(--onyx-breadcrumb-item-padding-vertical);
     }
 
-    &:first-of-type {
-      &::before {
-        display: none;
-      }
-    }
-
     &__skeleton {
+      padding: 0;
+      cursor: initial;
       height: calc(1lh + 2 * var(--onyx-breadcrumb-item-padding-vertical));
       width: calc(1.5rem + 2 * var(--onyx-breadcrumb-item-padding-inline));
     }

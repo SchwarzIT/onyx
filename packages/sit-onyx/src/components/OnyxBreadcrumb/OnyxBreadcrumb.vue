@@ -1,11 +1,18 @@
 <script lang="ts" setup>
-import { iconHome } from "@sit-onyx/icons";
+import { iconHome, iconMoreHorizontal } from "@sit-onyx/icons";
+import { provide, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { provideSkeletonContext } from "../../composables/useSkeletonState.js";
 import { injectI18n } from "../../i18n/index.js";
 import OnyxBreadcrumbItem from "../OnyxBreadcrumbItem/OnyxBreadcrumbItem.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import type { OnyxBreadcrumbProps } from "./types.js";
+import OnyxMoreList from "../OnyxMoreList/OnyxMoreList.vue";
+import OnyxFlyoutMenu from "../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
+import {
+  BREADCRUMB_MORE_LIST_INJECTION_KEY,
+  BREADCRUMB_MORE_LIST_TARGET_INJECTION_KEY,
+  type OnyxBreadcrumbProps,
+} from "./types.js";
 
 const props = withDefaults(defineProps<OnyxBreadcrumbProps>(), {
   container: false,
@@ -22,6 +29,8 @@ const { t } = injectI18n();
 const { densityClass } = useDensity(props);
 
 provideSkeletonContext(props);
+
+provide(BREADCRUMB_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreListRef"));
 </script>
 
 <template>
@@ -45,7 +54,30 @@ provideSkeletonContext(props);
         <template v-else>{{ props.home.label }}</template>
       </OnyxBreadcrumbItem>
 
-      <slot></slot>
+      <OnyxMoreList :injection-key="BREADCRUMB_MORE_LIST_INJECTION_KEY" direction="ltr">
+        <template #default="{ attributes }">
+          <div v-bind="attributes">
+            <slot></slot>
+          </div>
+        </template>
+        <template #more="{ attributes }">
+          <OnyxFlyoutMenu
+            v-bind="attributes"
+            :label="t('navigation.showMoreNavItemsLabel')"
+            trigger="click"
+          >
+            <template #button="{ trigger }">
+              <OnyxBreadcrumbItem v-bind="trigger" :icon="iconMoreHorizontal">
+                <OnyxIcon :icon="iconMoreHorizontal" size="16px" />
+              </OnyxBreadcrumbItem>
+            </template>
+
+            <template #options>
+              <div ref="moreListRef"></div>
+            </template>
+          </OnyxFlyoutMenu>
+        </template>
+      </OnyxMoreList>
     </ol>
   </nav>
 </template>
@@ -76,6 +108,10 @@ provideSkeletonContext(props);
     &__home {
       .onyx-breadcrumb-item__skeleton {
         width: 1.5rem;
+      }
+
+      &::before {
+        display: none;
       }
     }
   }
