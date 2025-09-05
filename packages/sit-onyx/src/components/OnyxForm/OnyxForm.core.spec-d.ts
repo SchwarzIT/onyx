@@ -29,7 +29,7 @@ it("should be ensured that all onyx form elements support the basic input props"
   expectTypeOf<ComponentProps<AllOnyxFormElements>>().toExtend<{
     modelValue?: unknown;
     label: string;
-    customError?: CustomMessageType;
+    error?: CustomMessageType;
   }>();
 });
 

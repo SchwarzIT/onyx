@@ -37,11 +37,13 @@ type UserEntry = Omit<TUserFromApi, "address"> &
     isAdmin: boolean;
   };
 
-const userColumns: ColumnConfig<
-  UserEntry,
-  ColumnGroupConfig,
-  keyof ReturnType<typeof userCustomType>["typeRenderer"]
->[] = [
+const userColumns = computed<
+  ColumnConfig<
+    UserEntry,
+    ColumnGroupConfig,
+    keyof ReturnType<typeof userCustomType>["typeRenderer"]
+  >[]
+>(() => [
   { key: "image", label: t("dataGrid.userTable.image"), type: "image", width: "min-content" },
   { key: "firstName", label: t("dataGrid.userTable.firstName") },
   { key: "lastName", label: t("dataGrid.userTable.lastName") },
@@ -53,7 +55,7 @@ const userColumns: ColumnConfig<
   { key: "role", label: t("dataGrid.userTable.role") },
   { key: "isAdmin", label: t("dataGrid.userTable.isAdmin"), type: "boolean", width: "max-content" },
   { key: "id", label: "", type: "detailsButton", width: "min-content" },
-];
+]);
 
 const { state: userData, isLoading } = useAsyncState(
   async () => {

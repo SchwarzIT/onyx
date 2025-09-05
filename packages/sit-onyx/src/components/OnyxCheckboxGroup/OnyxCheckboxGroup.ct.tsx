@@ -114,7 +114,7 @@ test.describe("Screenshot tests", () => {
     columns: ["default", "checked", "indeterminate"],
     rows: ["default", "interacted"],
     component: (column, row) => {
-      const options = [...mockOptions, { label: "Invalid", value: 4, customError: "Invalid" }];
+      const options = [...mockOptions, { label: "Invalid", value: 4, error: "Invalid" }];
       const modelValue: number[] = [];
       if (column === "checked") {
         modelValue.push(...[1, 2, 4]);

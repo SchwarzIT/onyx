@@ -53,7 +53,7 @@ test.describe("Screenshot tests", () => {
     columns: ["unchecked", "checked", "longError"],
     rows: ["default", "hover", "focus-visible"],
     component: (column, row) => {
-      const customError =
+      const error =
         column === "longError"
           ? { shortMessage: "Error", longMessage: "Further info" }
           : "Test error";
@@ -62,7 +62,7 @@ test.describe("Screenshot tests", () => {
           style={row !== "default" ? "padding-bottom: 3rem;" : ""}
           label="Test label"
           modelValue={column === "checked"}
-          customError={customError}
+          error={error}
         />
       );
     },
