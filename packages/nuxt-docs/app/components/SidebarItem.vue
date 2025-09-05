@@ -25,7 +25,7 @@ const isAccordionOpen = ref(true);
   <OnyxAccordion
     v-else
     :model-value="isAccordionOpen ? [localePath(item.path)] : undefined"
-    :class="['sidebar-accordion', { 'sidebar-accordion--has-parent': props.hasParent }]"
+    class="sidebar-accordion"
     :type="props.hasParent ? 'nested-small' : 'nested-large'"
     @update:model-value="isAccordionOpen = !isAccordionOpen"
   >
@@ -64,8 +64,8 @@ const isAccordionOpen = ref(true);
 }
 
 .sidebar-accordion {
-  &:not(&--has-parent) {
-    > .onyx-accordion-item {
+  > .onyx-accordion-item {
+    &:not(.onyx-accordion-item--nested-small) {
       :deep(> .onyx-accordion-item__panel) {
         padding-top: 0;
       }
