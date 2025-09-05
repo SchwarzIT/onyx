@@ -54,8 +54,10 @@ const skeleton = useSkeletonContext(props);
  */
 const useNotificationStore = () => {
   const notifications = ref<MyNotification[]>([]);
+
   const unreadNotifications = computed(() => notifications.value.filter(({ unread }) => unread));
   const readNotifications = computed(() => notifications.value.filter(({ unread }) => !unread));
+
   /**
    * Marks all existing notifications as read.
    */
@@ -65,12 +67,14 @@ const useNotificationStore = () => {
       unread: false,
     }));
   };
+
   /**
    * Adds a new unread notification.
    */
   const add = (notification: Omit<MyNotification, "unread">) => {
     notifications.value.unshift({ ...notification, unread: true });
   };
+
   return {
     notifications,
     unreadNotifications,
@@ -82,6 +86,9 @@ const useNotificationStore = () => {
 
 const { show } = useNotification();
 const store = useNotificationStore();
+
+const openAccordions = ref(["unread"]);
+const isSidebarOpen = ref(false);
 
 /**
  * Adds a new example notifications. Usually this should be provided by your backend / API
