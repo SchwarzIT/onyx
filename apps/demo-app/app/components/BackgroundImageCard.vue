@@ -1,3 +1,11 @@
+<script lang="ts" setup>
+// we are using an JavaScript import here instead of putting it into the CSS
+// so the image is correctly resolved when this demo app is used/extended as Nuxt layer
+import coverUrl from "~/assets/images/news-cover.webp";
+
+const backgroundImage = `url("${coverUrl}")`;
+</script>
+
 <template>
   <OnyxCard class="card">
     <div class="card__overlay">
@@ -18,7 +26,7 @@
 <style lang="scss" scoped>
 .card {
   --onyx-card-gap: var(--onyx-density-md);
-  background-image: url("~/assets/images/news-cover.webp");
+  background-image: v-bind("backgroundImage");
   background-position: center;
   background-size: cover;
   color: var(--onyx-color-base-grayscale-white);

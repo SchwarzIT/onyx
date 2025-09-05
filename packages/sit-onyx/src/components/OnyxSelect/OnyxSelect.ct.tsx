@@ -363,7 +363,7 @@ test.describe("Invalidity handling screenshots", () => {
           style={{ width: "12rem", marginRight: column === "long-text" ? "6rem" : undefined }}
           label={label}
           message={message}
-          customError={row !== "messageTooltip" ? errorMessages : undefined}
+          error={row !== "messageTooltip" ? errorMessages : undefined}
           listLabel="List label"
           options={MOCK_VARIED_OPTIONS}
         />
@@ -397,7 +397,7 @@ test.describe("Invalidity handling screenshots", () => {
         style="width: 12rem"
         label="Test label"
         placeholder={column === "placeholder" ? "Test placeholder" : undefined}
-        customError={{ shortMessage: "Test error" }}
+        error={{ shortMessage: "Test error" }}
         listLabel="List label"
         options={MOCK_VARIED_OPTIONS}
         modelValue={column === "with-value" ? MOCK_VARIED_OPTIONS_VALUES[0] : undefined}
