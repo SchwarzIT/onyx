@@ -1,22 +1,18 @@
 <script lang="ts" setup>
-const props = defineProps<{
-  id?: string;
-}>();
-
 defineSlots<{
   default(): unknown;
 }>();
 </script>
 
 <template>
-  <OnyxHeadline is="h4" :hash="props.id">
-    <slot />
-  </OnyxHeadline>
+  <ol>
+    <slot></slot>
+  </ol>
 </template>
 
 <style lang="scss" scoped>
-.onyx-headline {
-  margin-top: var(--onyx-density-lg);
+ol {
+  margin-top: var(--onyx-density-xs);
   margin-bottom: var(--onyx-density-xs);
 }
 </style>
