@@ -60,7 +60,7 @@ export const useLink = () => {
 
       if (href === "/") return path === href;
       if (hash && hash === href) return true;
-      return path.startsWith(href);
+      return path === href;
     };
   });
 
