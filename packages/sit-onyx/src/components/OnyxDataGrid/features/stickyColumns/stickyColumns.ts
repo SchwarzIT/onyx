@@ -42,7 +42,7 @@ export const useStickyColumns = <TEntry extends DataGridEntry>(
           resizeObserver.disconnect();
           Object.values(elementsToStyle.value).forEach((el) => resizeObserver.observe(el));
         },
-        { deep: true },
+        { deep: true, immediate: true },
       );
       onUnmounted(() => resizeObserver.disconnect());
     });
