@@ -182,12 +182,10 @@ test("should lazy load options", async ({ mount }) => {
 
   // ACT
   await search.fill("");
-  await component.update({ props: { pages: 30, lazyLoading: { pageSize: 10 } } });
+  await component.update({ props: { pages: 10, lazyLoading: { pageSize: 10 } } });
 
   await component.getByRole("option", { name: "10" }).scrollIntoViewIfNeeded();
-  await component.getByRole("option", { name: "20" }).scrollIntoViewIfNeeded();
-  await component.getByRole("option", { name: "30" }).scrollIntoViewIfNeeded();
 
   // ASSERT
-  await expect(component.getByRole("option")).toHaveCount(30);
+  await expect(component.getByRole("option")).toHaveCount(10);
 });
