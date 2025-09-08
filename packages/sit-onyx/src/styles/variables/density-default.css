@@ -4,7 +4,7 @@
  * Imported from Figma API on Tue, 29 Jul 2025 06:23:24 GMT
  */
 :where(:root),
-:where(.onyx-density-default) {
+.onyx-density-default {
   --onyx-density-2xl: var(--onyx-number-spacing-700);
   --onyx-density-2xs: var(--onyx-number-spacing-200);
   --onyx-density-3xl: var(--onyx-number-spacing-800);
