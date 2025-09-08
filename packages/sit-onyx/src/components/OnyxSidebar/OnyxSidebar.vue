@@ -67,7 +67,7 @@ const resizeHandleProps = computed(
 const { width: windowWidth } = useResizeObserver();
 
 const shouldCollapse = computed(() => {
-  if (!props.collapseSidebar) return false;
+  if (!props.collapseSidebar || windowWidth.value === 0) return false;
   const breakpointWidth =
     typeof props.collapseSidebar === "number"
       ? props.collapseSidebar

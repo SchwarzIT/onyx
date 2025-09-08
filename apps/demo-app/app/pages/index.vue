@@ -21,7 +21,7 @@ const cards = computed<LinkCardProps[]>(() => [
     icon: iconTextSelector,
   },
   {
-    headline: t("charts"),
+    headline: t("charts.pageName"),
     link: "/charts",
     icon: iconChart,
   },
