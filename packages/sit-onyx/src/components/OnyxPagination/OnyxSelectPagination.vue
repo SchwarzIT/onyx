@@ -40,7 +40,7 @@ const pageSize = computed(() => props.lazyLoading?.pageSize ?? 50);
 const optionsToRender = ref(pageSize.value);
 watch([searchTerm, pageSize], () => (optionsToRender.value = pageSize.value));
 
-const handleLoadMore = async () => {
+const handleLoadMore = () => {
   optionsToRender.value = Math.min(props.pages, optionsToRender.value + pageSize.value);
 };
 
