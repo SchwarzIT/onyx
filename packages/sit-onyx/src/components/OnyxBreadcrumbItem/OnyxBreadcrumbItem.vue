@@ -57,6 +57,7 @@ const isActive = computed(() => {
       densityClass,
       { 'onyx-breadcrumb-item--active': isActive },
     ]"
+    role="menuitem"
     v-bind="rootAttrs"
   >
     <OnyxSkeleton

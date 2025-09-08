@@ -43,7 +43,7 @@ provide(BREADCRUMB_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreListRef")
     ]"
     :aria-label="t('breadcrumb.label')"
   >
-    <ol class="onyx-breadcrumb__list onyx-grid-container">
+    <ol class="onyx-breadcrumb__list onyx-grid-container" role="menu">
       <OnyxBreadcrumbItem
         class="onyx-breadcrumb__home"
         :href="props.home?.link ?? '/'"
