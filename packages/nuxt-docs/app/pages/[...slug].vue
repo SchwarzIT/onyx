@@ -1,4 +1,6 @@
 <script setup lang="ts">
+definePageMeta({ layout: "sidebar" });
+
 const route = useRoute();
 const { locale } = useI18n();
 
