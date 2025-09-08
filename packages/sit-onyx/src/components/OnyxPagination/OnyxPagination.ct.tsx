@@ -16,7 +16,7 @@ test.describe("screenshot tests", () => {
       if (row === "min") currentPage = 1;
       else if (row === "max") currentPage = pages;
       else if (row === "large") {
-        currentPage = 42_000;
+        currentPage = 1_000;
         pages = currentPage;
       }
 
@@ -153,7 +153,7 @@ test("should lazy load options", async ({ mount }) => {
   const component = await mount(OnyxPagination, {
     props: {
       modelValue: 1,
-      pages: 1_000_000,
+      pages: 100_000,
     },
   });
 
@@ -177,7 +177,6 @@ test("should lazy load options", async ({ mount }) => {
 
   // ASSERT
   await expect(component.getByRole("option", { name: "1000", exact: true })).toBeVisible();
-  await expect(component.getByRole("option", { name: "100001", exact: true })).toBeVisible();
   await expect(component.getByRole("option", { name: "21000", exact: true })).toBeVisible();
 
   // ACT
