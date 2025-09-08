@@ -3,20 +3,20 @@ import type { ContentNavigationItem } from "@nuxt/content";
 
 const props = defineProps<{
   item: ContentNavigationItem;
-  hasParent?: boolean;
 }>();
 
 const localePath = useLocalePath();
 
 const isAccordionOpen = ref(true);
+
+const children = computed(() => {
+  // filter out children that are directories
+  return props.item.children?.filter((child) => child.page !== false);
+});
 </script>
 
 <template>
-  <OnyxSidebarItem
-    v-if="!props.item.children"
-    class="sidebar-item"
-    :link="localePath(props.item.path)"
-  >
+  <OnyxSidebarItem v-if="!children" class="sidebar-item" :link="localePath(props.item.path)">
     {{ props.item.title }}
   </OnyxSidebarItem>
 
@@ -24,19 +24,20 @@ const isAccordionOpen = ref(true);
     v-else
     :model-value="isAccordionOpen ? [localePath(item.path)] : undefined"
     class="sidebar-accordion"
-    :type="props.hasParent ? 'nested-small' : 'nested-large'"
+    type="nested-large"
     @update:model-value="isAccordionOpen = !isAccordionOpen"
   >
     <OnyxAccordionItem :value="localePath(item.path)">
       <template #header>{{ props.item.title }}</template>
 
       <div class="sidebar-item__children">
-        <SidebarItem
-          v-for="child in item.children"
+        <OnyxSidebarItem
+          v-for="child in children"
           :key="localePath(child.path)"
-          :item="child"
-          has-parent
-        />
+          :link="localePath(child.path)"
+        >
+          {{ child.title }}
+        </OnyxSidebarItem>
       </div>
     </OnyxAccordionItem>
   </OnyxAccordion>
@@ -54,19 +55,13 @@ const isAccordionOpen = ref(true);
     display: flex;
     flex-direction: column;
     gap: var(--onyx-density-2xs);
-
-    .sidebar-item {
-      margin: 0;
-    }
   }
 }
 
 .sidebar-accordion {
   > .onyx-accordion-item {
-    &:not(.onyx-accordion-item--nested-small) {
-      :deep(> .onyx-accordion-item__panel) {
-        padding-top: 0;
-      }
+    :deep(> .onyx-accordion-item__panel) {
+      padding-top: 0;
     }
   }
 }
