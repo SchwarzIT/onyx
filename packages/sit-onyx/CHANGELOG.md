@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.321
+
+### Patch Changes
+
+- 1f671dd: fix: correctly apply density when using `.onyx-density-*` classes
+
+  When using CSS classes to set densities, the `compact` density was not applied due to CSS selector specificity which caused the default density to be always used
+
 ## 1.0.0-beta.320
 
 ### Major Changes
