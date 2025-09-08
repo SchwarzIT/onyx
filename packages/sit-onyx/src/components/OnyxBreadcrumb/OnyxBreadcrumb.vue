@@ -63,11 +63,16 @@ provide(BREADCRUMB_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreListRef")
         <template #more="{ attributes }">
           <OnyxFlyoutMenu
             v-bind="attributes"
-            :label="t('navigation.showMoreNavItemsLabel')"
+            :label="t('navigation.moreNavItemsLabel')"
             trigger="click"
           >
             <template #button="{ trigger }">
-              <OnyxBreadcrumbItem v-bind="trigger" :icon="iconMoreHorizontal">
+              <OnyxBreadcrumbItem
+                v-bind="trigger"
+                :aria-label="t('navigation.showMoreNavItemsLabel')"
+                :title="t('navigation.showMoreNavItemsLabel')"
+                :icon="iconMoreHorizontal"
+              >
                 <OnyxIcon :icon="iconMoreHorizontal" size="16px" />
               </OnyxBreadcrumbItem>
             </template>
