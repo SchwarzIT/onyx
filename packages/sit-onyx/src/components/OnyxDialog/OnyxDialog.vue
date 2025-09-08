@@ -59,10 +59,9 @@ const isExpanded = useVModel({
 </script>
 
 <template>
-  <OnyxBasicPopover :class="['onyx-dialog', densityClass]" v-bind="props" :open="isExpanded">
+  <OnyxBasicPopover v-bind="props" v-model:open="isExpanded" :class="['onyx-dialog', densityClass]">
     <template #default="{ trigger }">
-      <slot name="trigger" :trigger="{ ...trigger, onClick: () => (isExpanded = !isExpanded) }">
-      </slot>
+      <slot name="trigger" :trigger="{ ...trigger }"> </slot>
     </template>
     <template #content>
       <div class="onyx-dialog__header">
