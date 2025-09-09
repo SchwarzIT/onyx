@@ -1,17 +1,20 @@
 <script setup lang="ts">
-import type { Collections } from "@nuxt/content";
+definePageMeta({ layout: "sidebar" });
 
 const route = useRoute();
 const { locale } = useI18n();
+
 const slug = computed(() => {
-  const value = String(route.params.slug);
-  return value.startsWith("/") ? value : `/${value}`;
+  const path = Array.isArray(route.params.slug)
+    ? route.params.slug.join("/")
+    : (route.params.slug ?? "");
+  return path.startsWith("/") ? path : `/${path}`;
 });
 
 const collection = await useAsyncData(
   () => `page-${slug.value}-${locale.value}`,
   () => {
-    const collection = `content_${locale.value}` as keyof Collections;
+    const collection = `content_${locale.value}` as const;
     return queryCollection(collection).path(slug.value).first();
   },
 );
