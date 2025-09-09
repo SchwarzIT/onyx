@@ -39,6 +39,7 @@
       "netProfit": "Nettogewinn (in Tsd. €)"
     },
     "kpi": {
+      "title": "KPI",
       "roi": "Kapitalrendite",
       "clv": "Kundenertragswert"
     },
