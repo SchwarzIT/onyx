@@ -12,7 +12,7 @@ import OnyxNotifications from "./OnyxNotifications.vue";
  * ### Setup
  *
  * #### Step 1: Use the `<OnyxNotifications />` component
- *
+ * **If you are using `OnyxAppLayout`, you can skip this step since this will already be set up for you.**
  * Place the `<OnyxNotifications />` component once anywhere in your application (e.g. in your App.vue file).
  * It will take care of displaying the notifications correctly.
  *

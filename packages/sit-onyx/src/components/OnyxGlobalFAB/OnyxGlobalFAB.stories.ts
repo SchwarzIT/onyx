@@ -8,7 +8,7 @@ import OnyxGlobalFAB from "./OnyxGlobalFAB.vue";
  * ### Setup
  *
  * #### Step 1: Use the `<OnyxGlobalFAB />` component
- * **If you are using `OnyxAppLayout`, you can skip this step since this will alread be set up for you.**
+ * **If you are using `OnyxAppLayout`, you can skip this step since this will already be set up for you.**
  * Place the `<OnyxGlobalFAB />` component once anywhere in your application (e.g. in your App.vue file).
  * It will take care of displaying the global FAB correctly.
  *
