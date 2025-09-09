@@ -34,6 +34,10 @@ defineSlots<{
   content(): unknown;
 }>();
 
+const emit = defineEmits<{
+  "update:open": [value: boolean];
+}>();
+
 const _isVisible = ref(false);
 const isVisible = computed({
   set: (newVal) => (_isVisible.value = newVal),
@@ -126,6 +130,7 @@ watch(isVisible, async (newVal) => {
 
 const toggle = () => {
   _isVisible.value = !_isVisible.value;
+  emit("update:open", !isVisible.value);
 };
 
 const trigger = computed(() => ({
