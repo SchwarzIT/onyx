@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.324
+
+### Minor Changes
+
+- bfecb83: feat(OnyxAppLayout):
+  Integrated the `OnyxNotifications` component directly into the `OnyxAppLayout`.
+  - simplifies the developer experience by removing the need for manual implementation.
+
 ## 1.0.0-beta.323
 
 ### Minor Changes
