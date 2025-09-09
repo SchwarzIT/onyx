@@ -1,32 +1,32 @@
 import { defineStore } from "pinia";
-import type { MyNotification } from "../components/NotificationCenter.vue";
+import type { OnyxNotificationCardProps } from "sit-onyx";
 
-export const useNotificationStore = defineStore("notification", {
-  state: () => ({
-    notifications: [] as MyNotification[],
-    isSidebarOpen: false,
-  }),
+export type MyNotification = OnyxNotificationCardProps & {
+  description: string;
+};
 
-  getters: {
-    unreadNotifications: (state) => state.notifications.filter(({ unread }) => unread),
-    readNotifications: (state) => state.notifications.filter(({ unread }) => !unread),
-  },
+export const useNotificationStore = defineStore("notification", () => {
+  const notifications = ref<MyNotification[]>([]);
 
-  actions: {
-    /**
-     * Marks all existing notifications as read.
-     */
-    markAllAsRead() {
-      this.notifications = this.notifications.map((notification) => ({
-        ...notification,
-        unread: false,
-      }));
-    },
-    /**
-     * Adds a new unread notification.
-     */
-    add(notification: Omit<MyNotification, "unread">) {
-      this.notifications.unshift({ ...notification, unread: true });
-    },
-  },
+  const unreadNotifications = computed(() => notifications.value.filter(({ unread }) => unread));
+  const readNotifications = computed(() => notifications.value.filter(({ unread }) => !unread));
+
+  /**
+   * Marks all existing notifications as read.
+   */
+  const markAllAsRead = () => {
+    notifications.value = notifications.value.map((notification) => ({
+      ...notification,
+      unread: false,
+    }));
+  };
+
+  /**
+   * Adds a new unread notification.
+   */
+  const add = (notification: Omit<MyNotification, "unread">) => {
+    notifications.value.unshift({ ...notification, unread: true });
+  };
+
+  return { notifications, unreadNotifications, readNotifications, markAllAsRead, add };
 });

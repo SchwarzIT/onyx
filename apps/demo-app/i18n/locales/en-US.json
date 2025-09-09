@@ -49,7 +49,7 @@
     }
   },
   "notification": {
-    "fab": "trigger Notification",
+    "fab": "Trigger notification",
     "headline": "Notifications",
     "description": "See all notifications from all touchpoints here.",
     "unread": "Unread",

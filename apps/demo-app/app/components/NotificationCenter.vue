@@ -1,5 +1,11 @@
 <script lang="ts" setup>
-import { iconCheckRead, iconInbox } from "@sit-onyx/icons";
+import {
+  iconBell,
+  iconBellRing,
+  iconCheckRead,
+  iconCircleAttention,
+  iconInbox,
+} from "@sit-onyx/icons";
 import {
   OnyxAccordion,
   OnyxAccordionItem,
@@ -9,21 +15,20 @@ import {
   OnyxHeadline,
   OnyxNotificationCard,
   OnyxSidebar,
-  type OnyxNotificationCardProps,
+  useGlobalFAB,
+  useNotification,
 } from "sit-onyx";
 import { ref } from "vue";
-
-export type MyNotification = OnyxNotificationCardProps & {
-  description: string;
-};
 
 const store = useNotificationStore();
 const { t } = useI18n();
 
+const isSidebarOpen = ref(false);
+
 // simulate loading notifications
 const skeleton = ref(0);
 watch(
-  () => store.isSidebarOpen,
+  () => isSidebarOpen,
   (isNewValue) => {
     if (isNewValue) {
       skeleton.value = store.unreadNotifications.length;
@@ -35,15 +40,57 @@ watch(
 );
 
 const openAccordions = ref(["unread"]);
+
+// Add Global Fab
+const { show } = useNotification();
+
+const addExampleNotification = () => {
+  const icon = Math.random() < 0.5 ? iconCircleAttention : undefined;
+
+  const notification: MyNotification = {
+    headline: `${t("notification.notificationTitle")} ${store.notifications.length + 1}`,
+    createdAt: Date.now(),
+    icon,
+    description:
+      "Lorem ipsum dolor sit amet consectetur. Dui purus quisque est varius vulputate. Ut odio dui diam pulvinar velit mollis cursus eu ut.",
+  };
+
+  store.add(notification);
+  show({ ...notification, icon });
+};
+const globalFAB = useGlobalFAB();
+
+const id = useId();
+
+onMounted(() => {
+  globalFAB.add(
+    computed(() => ({
+      id,
+      label: t("notification.fab"),
+      icon: iconBellRing,
+      onClick: () => addExampleNotification(),
+    })),
+  );
+});
+onUnmounted(globalFAB.remove(id));
 </script>
 
 <template>
+  <OnyxNotificationDot :hidden="!store.unreadNotifications.length">
+    <OnyxIconButton
+      :label="$t('notification.headline')"
+      color="neutral"
+      :icon="iconBell"
+      @click="isSidebarOpen = true"
+    />
+  </OnyxNotificationDot>
+
   <OnyxSidebar
     class="notification-center"
     :label="t('notification.headline')"
     alignment="right"
-    :temporary="{ open: store.isSidebarOpen, floating: true }"
-    @close="store.isSidebarOpen = false"
+    :temporary="{ open: isSidebarOpen, floating: true }"
+    @close="isSidebarOpen = false"
   >
     <template #headline="{ label }">
       <OnyxHeadline is="h2">{{ label }}</OnyxHeadline>

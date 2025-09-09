@@ -51,7 +51,7 @@
   "notification": {
     "fab": "Benachrichtigung auslösen",
     "headline": "Benachrichtigungen",
-    "description": "Sehen Sie hier alle Benachrichtigungen von allen Kontaktpunkten.",
+    "description": "Hier sind alle Benachrichtigungen zu finden.",
     "unread": "Ungelesen",
     "read": "Gelesen",
     "markAllAsRead": "Alle als gelesen markieren",
