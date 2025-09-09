@@ -42,6 +42,7 @@ provide(BREADCRUMB_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreListRef")
       { 'onyx-breadcrumb--container': props.container },
     ]"
     :aria-label="t('breadcrumb.label')"
+    :aria-hidden="props.skeleton"
   >
     <ol class="onyx-breadcrumb__list onyx-grid-container" role="menu">
       <OnyxBreadcrumbItem

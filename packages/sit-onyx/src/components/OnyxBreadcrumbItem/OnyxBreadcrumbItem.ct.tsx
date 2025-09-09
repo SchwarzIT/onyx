@@ -50,7 +50,7 @@ test.describe("Screenshot tests", () => {
     columns: DENSITIES,
     rows: ["default", "hover", "focus-visible"],
     component: (column) => (
-      <ul role="menu" style={{ display: "contents" }}>
+      <ul aria-hidden="true" style={{ display: "contents" }}>
         <OnyxBreadcrumbItem href="#" density={column} aria-label="Item" skeleton>
           Item
         </OnyxBreadcrumbItem>
