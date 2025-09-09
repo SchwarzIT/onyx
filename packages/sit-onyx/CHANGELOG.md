@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.323
+
+### Minor Changes
+
+- 695c82a: feat(useStickyColumns): support passing refs as options
+
 ## 1.0.0-beta.322
 
 ### Patch Changes
