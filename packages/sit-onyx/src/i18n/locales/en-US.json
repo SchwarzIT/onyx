@@ -165,7 +165,7 @@
   },
   "pagination": {
     "label": "Pagination",
-    "ofPages": "of 1 page | of {n} pages",
+    "ofPages": "of {pages} page | of {pages} pages",
     "previous": "previous page",
     "next": "next page",
     "select": {
