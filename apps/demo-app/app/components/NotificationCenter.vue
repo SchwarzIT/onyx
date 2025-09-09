@@ -12,6 +12,7 @@ import {
   useNotification,
 } from "sit-onyx";
 import { ref } from "vue";
+import type { MyNotification } from "~/stores/notification-store";
 
 const store = useNotificationStore();
 const { t } = useI18n();
