@@ -13,3 +13,9 @@ defineSlots<{
     <slot />
   </OnyxHeadline>
 </template>
+
+<style lang="scss" scoped>
+.onyx-headline {
+  margin-bottom: var(--onyx-density-lg);
+}
+</style>

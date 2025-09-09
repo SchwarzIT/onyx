@@ -7,7 +7,7 @@ test("should render prose components with onyx", async ({ page, goto }) => {
 
   // HEADLINES
   for (const headlineLevel of [1, 2, 3, 4, 5, 6] as const) {
-    const headline = page.getByRole("heading", { level: headlineLevel });
+    const headline = page.getByRole("heading", { level: headlineLevel }).first();
 
     await expect(
       headline,
@@ -21,7 +21,7 @@ test("should render prose components with onyx", async ({ page, goto }) => {
   }
 
   // LINK
-  const link = page.getByRole("link", { name: "This is a link" });
+  const link = page.getByRole("link", { name: "example link" });
   await expect(link, "should replace links with <OnyxLink>").toContainClass("onyx-link");
 
   // IMAGE
