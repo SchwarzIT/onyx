@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.327
+
+### Minor Changes
+
+- af5c373: feat(OnyxDialog): export OnyxDialog
+
 ## 1.0.0-beta.326
 
 ### Patch Changes
