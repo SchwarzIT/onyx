@@ -1,5 +1,6 @@
 import { createResolver } from "nuxt/kit";
 
+// using a resolver here so path are correctly resolved when extending this app as Nuxt layer
 const { resolve } = createResolver(import.meta.url);
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
