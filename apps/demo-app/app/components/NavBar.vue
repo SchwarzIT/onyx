@@ -22,7 +22,7 @@ const localePath = useLocalePath();
       <ColorSchemeSwitch />
       <DensitySwitch />
       <LocaleSwitch />
-
+      <NotificationCenter />
       <OnyxSeparator orientation="vertical" />
 
       <UserMenu />

@@ -84,6 +84,16 @@
       }
     }
   },
+  "notification": {
+    "fab": "Trigger notification",
+    "headline": "Notifications",
+    "description": "See all notifications from all touchpoints here.",
+    "unread": "Unread",
+    "read": "Read",
+    "markAllAsRead": "Mark all as read",
+    "notificationTitle": "Example notification",
+    "noNewMessages": "No new messages in your inbox"
+  },
   "personalData": "Personal data",
   "roles": {
     "role": "Role | Roles",
