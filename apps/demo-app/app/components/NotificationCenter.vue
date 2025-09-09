@@ -12,8 +12,6 @@ import {
   useNotification,
 } from "sit-onyx";
 import { ref } from "vue";
-import { useNotificationStore } from "../stores/notification-store.js";
-import NotificationAccordionItem from "./NotificationAccordionItem.vue";
 
 const store = useNotificationStore();
 const { t } = useI18n();
@@ -93,7 +91,7 @@ onUnmounted(globalFAB.remove(id));
 
     <div v-if="skeleton" class="notification-center__skeletons">
       <OnyxNotificationCard
-        v-for="n in typeof skeleton === 'number' ? skeleton : 6"
+        v-for="n in skeleton"
         :key="n"
         headline="Loading"
         created-at="Loading"
