@@ -31,17 +31,15 @@ const skeleton = useSkeletonContext(props);
 
 const searchTerm = ref("");
 
-const pageSize = computed(() => props.lazyLoading?.pageSize ?? 50);
-
 /**
  * We are using lazy loading to prevent performance issues when a lot of pages exists.
  */
-// eslint-disable-next-line vue/no-ref-object-reactivity-loss -- reactivity is ensured with the watcher below
-const optionsToRender = ref(pageSize.value);
-watch([searchTerm, pageSize], () => (optionsToRender.value = pageSize.value));
+const pageSize = 100;
+const optionsToRender = ref(pageSize);
+watch([searchTerm, pageSize], () => (optionsToRender.value = pageSize));
 
 const handleLoadMore = () => {
-  optionsToRender.value = Math.min(props.pages, optionsToRender.value + pageSize.value);
+  optionsToRender.value = Math.min(props.pages, optionsToRender.value + pageSize);
 };
 
 const allOptions = computed(() => {
@@ -93,7 +91,7 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
       alignment="left"
       with-search
       no-filter
-      :lazy-loading="{ ...props.lazyLoading, enabled: true }"
+      :lazy-loading="{ enabled: true }"
       @update:model-value="
         emit('update:modelValue', $event as (typeof filteredOptions)[number]['value'])
       "
