@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.326
+
+### Patch Changes
+
+- bcddeeb: fix "window not defined" error in Nuxt / server side rendering when using the data grid
+
 ## 1.0.0-beta.325
 
 ### Minor Changes
