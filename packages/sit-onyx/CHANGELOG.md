@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.322
+
+### Patch Changes
+
+- 0fcd73f: fix: links are now only marked as active if the link matches the current route exactly
+
+  This fixes the issue that parent links are always active when using nested routes
+
 ## 1.0.0-beta.321
 
 ### Patch Changes
