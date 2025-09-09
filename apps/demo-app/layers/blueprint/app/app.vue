@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { type OnyxAppLayoutProps } from "sit-onyx";
+import type { OnyxAppLayoutProps } from "sit-onyx";
 
 const props = defineProps<OnyxAppLayoutProps>();
 

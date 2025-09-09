@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { type OnyxPageLayoutProps } from "sit-onyx";
+import type { OnyxPageLayoutProps } from "sit-onyx";
 
 const props = defineProps<OnyxPageLayoutProps>();
 
