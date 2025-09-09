@@ -32,6 +32,10 @@ const props = defineProps<{
       v-bind="notification"
     >
       {{ notification.description }}
+      <template #actions>
+        <OnyxButton label="Button" color="neutral" @click="() => (notification.unread = false)" />
+        <OnyxButton label="Button" @click="() => (notification.unread = false)" />
+      </template>
     </OnyxNotificationCard>
   </OnyxAccordionItem>
 </template>
