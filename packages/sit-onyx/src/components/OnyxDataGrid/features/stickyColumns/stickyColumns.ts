@@ -1,4 +1,4 @@
-import { computed, nextTick, onMounted, onUnmounted, ref, useId, watch } from "vue";
+import { computed, nextTick, onMounted, onUnmounted, ref, toValue, useId, watch } from "vue";
 import { createFeature, type ModifyColumns } from "../index.js";
 
 import { mergeVueProps } from "../../../../utils/attrs.js";
@@ -13,8 +13,8 @@ export const useStickyColumns = <TEntry extends DataGridEntry>(
   options?: StickyColumnsOptions<TEntry>,
 ) =>
   createFeature(() => {
-    const stickyColumns = computed(() => options?.columns ?? []);
-    const position = computed(() => options?.position ?? "left");
+    const stickyColumns = computed(() => toValue(options?.columns) ?? []);
+    const position = computed(() => toValue(options?.position) ?? "left");
     const elementWidths = ref<Record<PropertyKey, number>>({});
     const elementsToStyle = ref<Record<PropertyKey, HTMLElement>>({});
     const stickyId = useId();
