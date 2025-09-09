@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { iconCircleContrast } from "@sit-onyx/icons";
-import type { ColorSchemeValue } from "sit-onyx";
+import { useThemeTransition, type ColorSchemeValue } from "sit-onyx";
 
 const colorMode = useColorMode();
 const isColorSchemeDialogOpen = ref(false);
@@ -13,6 +13,8 @@ const colorScheme = computed({
     colorMode.preference = newValue === "auto" ? "system" : newValue;
   },
 });
+
+useThemeTransition(colorScheme);
 </script>
 
 <template>

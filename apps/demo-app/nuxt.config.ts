@@ -1,10 +1,14 @@
+import { createResolver } from "nuxt/kit";
+
+const { resolve } = createResolver(import.meta.url);
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   $meta: {
     // see: https://nuxt.com/docs/4.x/guide/going-further/layers#named-layer-aliases
     name: "app",
   },
-  css: ["~/assets/css/index.scss"],
+  css: [resolve("./app/assets/css/index.scss")],
   app: {
     head: {
       title: "onyx demo",
