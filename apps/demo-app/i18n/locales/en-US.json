@@ -12,7 +12,43 @@
   "overview": "Overview",
   "action": "Action | Actions",
   "forms": "Forms",
-  "charts": "Charts",
+  "charts": {
+    "pageName": "Charts",
+    "rangeAndType": "Please select range and type",
+    "range": "Range",
+    "type": "Type",
+    "submit": "Submit",
+    "trends": "Trends",
+    "fullStats": "Full stats",
+    "customerDistribution": "Customer Distribution",
+    "revenue": "Revenue",
+    "productLines": {
+      "title": "Product Lines",
+      "a": "Product Line A",
+      "b": "Product Line B"
+    },
+    "customerSegments": {
+      "enterprise": "Enterprise Customers",
+      "mid-sized": "Mid-sized Businesses",
+      "small": "Small Businesses",
+      "private": "Private Customers"
+    },
+    "metrics": {
+      "revenue": "Revenue (in Tsd. €)",
+      "netProfit": "Net Profit (in Tsd. €)"
+    },
+    "kpi": {
+      "title": "KPI",
+      "roi": "Return on Investment",
+      "clv": "Customer Lifetime Value"
+    },
+    "selectOptions": {
+      "all": "All",
+      "products": "Products",
+      "services": "Services",
+      "placeholder": "Filter by..."
+    }
+  },
   "onyxDocs": "onyx documentation",
   "like": "Like",
   "dislike": "Dislike",
@@ -70,7 +106,35 @@
     "engineeringLead": "Engineering lead",
     "designLead": "Design lead"
   },
-  "document": "Document | Documents",
+  "documents": {
+    "document": "Document | Documents",
+    "disclaimer": {
+      "headline": "File upload",
+      "description": "This is just a demo application, nothing will actually be uploaded."
+    },
+    "file": {
+      "ready": "Ready to upload",
+      "paused": "Paused",
+      "canceled": "Canceled",
+      "done": "Uploaded",
+      "actions": {
+        "upload": "Upload",
+        "pause": "Pause",
+        "continue": "Continue",
+        "cancel": "Cancel",
+        "remove": "Remove",
+        "show": "Show file"
+      },
+      "filename": "Filename",
+      "size": "Size",
+      "type": "Type"
+    },
+    "toasts": {
+      "upload": {
+        "success": "File uploaded successfully"
+      }
+    }
+  },
   "save": "Save",
   "user": {
     "fullName": "Full name",

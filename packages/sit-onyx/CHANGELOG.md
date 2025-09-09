@@ -1,5 +1,31 @@
 # sit-onyx
 
+## 1.0.0-beta.322
+
+### Patch Changes
+
+- 0fcd73f: fix: links are now only marked as active if the link matches the current route exactly
+
+  This fixes the issue that parent links are always active when using nested routes
+
+## 1.0.0-beta.321
+
+### Patch Changes
+
+- 1f671dd: fix: correctly apply density when using `.onyx-density-*` classes
+
+  When using CSS classes to set densities, the `compact` density was not applied due to CSS selector specificity which caused the default density to be always used
+
+## 1.0.0-beta.320
+
+### Major Changes
+
+- 0d7f0c8: - fix(OnyxDataGrid): prevent "Cannot use in to search for 'ResizeObserver' / 'CSS' in undefined" errors
+  - fix(OnyxDataGrid): preventSR hydration errors when using SSR / Nuxt
+  - fix(OnyxSidebar): check if should be collapsed only onMounted to support SSR / prevent hydration errors
+  - OnyxFileCard: BREAKING CHANGE - remove default slot prop `status` in favor of new `props` that also contains other useful file card properties
+  - export `useFileSize` composable that can be used to format a file size in a user-friendly format
+
 ## 1.0.0-beta.319
 
 ### Minor Changes

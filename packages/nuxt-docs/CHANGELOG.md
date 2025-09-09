@@ -1,5 +1,29 @@
 # @sit-onyx/nuxt-docs
 
+## 1.0.0-beta.125
+
+### Major Changes
+
+- 0fcd73f: feat: implement `sidebar` layout
+
+  By default, the new `sidebar` layout will be used to render the (markdown / content) pages.
+  It will generate a sidebar navigation based on the content structure.
+
+  Also default vertical margins have been added to prose markdown components (h1-h6, ol and ul)
+
+### Patch Changes
+
+- Updated dependencies [0fcd73f]
+  - sit-onyx@1.0.0-beta.322
+
+## 1.0.0-beta.124
+
+### Patch Changes
+
+- Updated dependencies [0d7f0c8]
+  - sit-onyx@1.0.0-beta.320
+  - @sit-onyx/nuxt@1.0.0-beta.308
+
 ## 1.0.0-beta.123
 
 ### Patch Changes

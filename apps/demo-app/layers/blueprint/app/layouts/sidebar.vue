@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { iconSearch, iconSidebarArrowLeft, iconSidebarArrowRight } from "@sit-onyx/icons";
-import { extractLinkProps, normalizedIncludes } from "sit-onyx";
+import { normalizedIncludes } from "sit-onyx";
 
 const props = defineProps<{
   sidebarItems: SidebarItem[];
@@ -18,7 +18,6 @@ const slots = defineSlots<{
 }>();
 
 const search = ref("");
-const route = useRoute();
 
 const filteredItems = computed(() => {
   const searchTerm = search.value.trim();
@@ -49,12 +48,7 @@ const isOpen = ref(true);
         </template>
 
         <div class="sidebar__content">
-          <OnyxSidebarItem
-            v-for="item in filteredItems"
-            :key="item.label"
-            v-bind="item"
-            :active="item.link ? extractLinkProps(item.link).href === route.path : undefined"
-          >
+          <OnyxSidebarItem v-for="item in filteredItems" :key="item.label" v-bind="item">
             <OnyxIcon v-if="item.icon" :icon="item.icon" />
             {{ item.label }}
           </OnyxSidebarItem>

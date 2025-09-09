@@ -23,7 +23,7 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
       () => {
         // Changing the width directly is needed to avoid re-rendering the table too often.
         headers.value.forEach((th, columnKey) => {
-          const property = `--onyx-data-grid-column-${escapeCSS(String(columnKey))}`;
+          const property = `--onyx-data-grid-column-${escapeCSS(columnKey)}`;
           const container = th.closest<HTMLElement>(".onyx-table-wrapper__container");
           const width = colWidths.value.get(columnKey);
           if (width) {

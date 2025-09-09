@@ -12,7 +12,43 @@
   "overview": "Übersicht",
   "action": "Aktion | Aktionen",
   "forms": "Formulare",
-  "charts": "Diagramme",
+  "charts": {
+    "pageName": "Diagramme",
+    "rangeAndType": "Bitte Bereich und Typ auswählen",
+    "range": "Zeitraum",
+    "type": "Typ",
+
+    "submit": "Absenden",
+    "trends": "Trends",
+    "fullStats": "Alle Statistiken",
+    "customerDistribution": "Kundenverteilung",
+    "revenue": "Umsatz",
+    "productLines": {
+      "title": "Produktlinien",
+      "a": "Produktlinie A",
+      "b": "Produktlinie B"
+    },
+    "customerSegments": {
+      "enterprise": "Großkunden",
+      "mid-sized": "Mittelständische Unternehmen",
+      "small": "Kleinunternehmen",
+      "private": "Privatkunden"
+    },
+    "metrics": {
+      "revenue": "Umsatz (in Tsd. €)",
+      "netProfit": "Nettogewinn (in Tsd. €)"
+    },
+    "kpi": {
+      "roi": "Kapitalrendite",
+      "clv": "Kundenertragswert"
+    },
+    "selectOptions": {
+      "all": "Alle",
+      "products": "Produkte",
+      "services": "Dienstleistungen",
+      "placeholder": "Filtern nach..."
+    }
+  },
   "onyxDocs": "Onyx Dokumentation",
   "like": "Gefällt mir",
   "dislike": "Gefällt mir nicht",
@@ -70,7 +106,35 @@
     "engineeringLead": "Engineering Lead",
     "designLead": "Design Lead"
   },
-  "document": "Dokument | Dokumente",
+  "documents": {
+    "document": "Dokument | Dokumente",
+    "disclaimer": {
+      "headline": "Datei-Upload",
+      "description": "Dies ist nur eine Demo-Anwendung, es werden keine Dateien tatsächlich hochgeladen."
+    },
+    "file": {
+      "ready": "Bereit zum Hochladen",
+      "paused": "Pausiert",
+      "canceled": "Abgebrochen",
+      "done": "Hochgeladen",
+      "actions": {
+        "upload": "Hochladen",
+        "pause": "Pausieren",
+        "continue": "Fortsetzen",
+        "cancel": "Abbrechen",
+        "remove": "Entfernen",
+        "show": "Anzeigen"
+      },
+      "filename": "Dateiname",
+      "size": "Größe",
+      "type": "Typ"
+    },
+    "toasts": {
+      "upload": {
+        "success": "Datei erfolgreich hochgeladen"
+      }
+    }
+  },
   "save": "Speichern",
   "user": {
     "fullName": "Vollständiger Name",
@@ -103,6 +167,6 @@
   },
   "delete": "Löschen",
   "reset": "Zurücksetzen",
-  "noDemoDataUpdated": "Dies ist nur eine Demo-Anwendung, daher wurden keine Daten tatsächlcih geändert.",
+  "noDemoDataUpdated": "Dies ist nur eine Demo-Anwendung, daher wurden keine Daten tatsächlich geändert.",
   "cancel": "Abbrechen"
 }

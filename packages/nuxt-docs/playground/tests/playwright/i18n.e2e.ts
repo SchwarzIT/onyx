@@ -4,7 +4,7 @@ test("should show language select in nav bar", async ({ page, goto }) => {
   // ACT
   await goto("/foo", { waitUntil: "hydration" });
 
-  const languageSwitch = page.getByRole("button", { name: "EN" });
+  const languageSwitch = page.getByRole("button", { name: "EN", exact: true });
   const fooMenuItem = page.getByRole("menuitem", { name: "Foo" });
 
   // ASSERT
@@ -24,6 +24,6 @@ test("should show language select in nav bar", async ({ page, goto }) => {
   // ASSERT
   await expect(page).toHaveURL(/\/de\/foo/);
   await expect(languageSwitch).toBeHidden();
-  await expect(page.getByRole("button", { name: "DE" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "DE", exact: true })).toBeVisible();
   await expect(fooMenuItem, "should localize nav item links").toHaveAttribute("href", "/de/foo");
 });
