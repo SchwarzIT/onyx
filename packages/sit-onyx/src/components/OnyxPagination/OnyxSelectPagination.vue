@@ -36,7 +36,7 @@ const searchTerm = ref("");
  */
 const pageSize = 100;
 const optionsToRender = ref(pageSize);
-watch([searchTerm, pageSize], () => (optionsToRender.value = pageSize));
+watch(searchTerm, () => (optionsToRender.value = pageSize));
 
 const handleLoadMore = () => {
   optionsToRender.value = Math.min(props.pages, optionsToRender.value + pageSize);
