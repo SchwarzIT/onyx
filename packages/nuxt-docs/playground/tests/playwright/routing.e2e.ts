@@ -5,7 +5,7 @@ test("should update page content when navigating", async ({ page, goto }) => {
   await goto("/", { waitUntil: "hydration" });
 
   // ASSERT
-  await expect(page.getByRole("heading", { level: 1, name: "H1" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "Home" })).toBeVisible();
 
   // ACT
   await page.getByRole("menuitem", { name: "Foo" }).click();
