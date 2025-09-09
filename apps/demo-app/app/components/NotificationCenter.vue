@@ -1,17 +1,10 @@
 <script lang="ts" setup>
-import {
-  iconBell,
-  iconBellRing,
-  iconCheckRead,
-  iconCircleAttention,
-  iconInbox,
-} from "@sit-onyx/icons";
+import { iconBell, iconBellRing, iconCheckRead, iconCircleAttention } from "@sit-onyx/icons";
+import { promiseTimeout } from "@vueuse/core";
 import {
   OnyxAccordion,
-  OnyxAccordionItem,
   OnyxBadge,
   OnyxBottomBar,
-  OnyxEmpty,
   OnyxHeadline,
   OnyxNotificationCard,
   OnyxSidebar,
@@ -19,6 +12,8 @@ import {
   useNotification,
 } from "sit-onyx";
 import { ref } from "vue";
+import { useNotificationStore } from "../stores/notification-store.js";
+import NotificationAccordionItem from "./NotificationAccordionItem.vue";
 
 const store = useNotificationStore();
 const { t } = useI18n();
@@ -27,17 +22,12 @@ const isSidebarOpen = ref(false);
 
 // simulate loading notifications
 const skeleton = ref(0);
-watch(
-  () => isSidebarOpen,
-  (isNewValue) => {
-    if (isNewValue) {
-      skeleton.value = store.unreadNotifications.length;
-      setTimeout(() => {
-        skeleton.value = 0;
-      }, 1000);
-    }
-  },
-);
+watch(isSidebarOpen, async (open) => {
+  if (!open) return;
+  skeleton.value = 3;
+  await promiseTimeout(1000);
+  skeleton.value = 0;
+});
 
 const openAccordions = ref(["unread"]);
 
@@ -56,7 +46,7 @@ const addExampleNotification = () => {
   };
 
   store.add(notification);
-  show({ ...notification, icon });
+  show(notification);
 };
 const globalFAB = useGlobalFAB();
 
@@ -68,7 +58,7 @@ onMounted(() => {
       id,
       label: t("notification.fab"),
       icon: iconBellRing,
-      onClick: () => addExampleNotification(),
+      onClick: addExampleNotification,
     })),
   );
 });
@@ -101,8 +91,6 @@ onUnmounted(globalFAB.remove(id));
 
     <template #description> {{ t("notification.description") }} </template>
 
-    <!-- unread notifications -->
-
     <div v-if="skeleton" class="notification-center__skeletons">
       <OnyxNotificationCard
         v-for="n in typeof skeleton === 'number' ? skeleton : 6"
@@ -118,49 +106,17 @@ onUnmounted(globalFAB.remove(id));
       class="notification-center__accordions"
       type="nested-small"
     >
-      <OnyxAccordionItem value="unread">
-        <template #header>{{ t("notification.unread") }}</template>
+      <NotificationAccordionItem
+        value="unread"
+        :notifications="store.unreadNotifications"
+        :header="t('notification.unread')"
+      />
 
-        <OnyxEmpty v-if="!store.unreadNotifications.length" class="notification-center__empty">
-          <template #icon>
-            <OnyxIcon :icon="iconInbox" size="48px" />
-          </template>
-          {{ t("notification.noNewMessages") }}
-        </OnyxEmpty>
-
-        <OnyxNotificationCard
-          v-for="notification in store.unreadNotifications"
-          :key="notification.createdAt.toString()"
-          v-bind="notification"
-        >
-          {{ notification.description }}
-
-          <template #actions>
-            <OnyxButton label="Button" color="neutral" />
-            <OnyxButton label="Button" />
-          </template>
-        </OnyxNotificationCard>
-      </OnyxAccordionItem>
-
-      <!-- read notifications -->
-      <OnyxAccordionItem value="read">
-        <template #header>{{ t("notification.read") }}</template>
-
-        <OnyxEmpty v-if="!store.readNotifications.length" class="notification-center__empty">
-          <template #icon>
-            <OnyxIcon :icon="iconInbox" size="48px" />
-          </template>
-          {{ t("notification.noNewMessages") }}
-        </OnyxEmpty>
-
-        <OnyxNotificationCard
-          v-for="notification in store.readNotifications"
-          :key="notification.createdAt.toString()"
-          v-bind="notification"
-        >
-          {{ notification.description }}
-        </OnyxNotificationCard>
-      </OnyxAccordionItem>
+      <NotificationAccordionItem
+        value="read"
+        :notifications="store.readNotifications"
+        :header="t('notification.read')"
+      />
     </OnyxAccordion>
 
     <template #footer>
@@ -183,10 +139,6 @@ onUnmounted(globalFAB.remove(id));
     :deep(.onyx-accordion-item__panel) {
       padding: 0;
     }
-  }
-
-  &__empty {
-    margin-inline: auto;
   }
 
   &__skeletons {
