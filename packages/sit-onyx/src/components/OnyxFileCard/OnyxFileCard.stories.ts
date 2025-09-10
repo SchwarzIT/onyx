@@ -10,7 +10,6 @@ import OnyxFileCard from "./OnyxFileCard.vue";
 const meta: Meta<typeof OnyxFileCard> = {
   title: "Cards/FileCard",
   component: OnyxFileCard,
-  tags: ["new:component"],
   argTypes: {
     actions: { control: { disable: true } },
     icon: defineIconSelectArgType(),

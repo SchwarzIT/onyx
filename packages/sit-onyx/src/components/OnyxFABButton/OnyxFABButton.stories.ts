@@ -7,7 +7,6 @@ import OnyxFABButton from "./OnyxFABButton.vue";
 const meta: Meta<typeof OnyxFABButton> = {
   title: "Support/FABButton",
   component: OnyxFABButton,
-  tags: ["new:component"],
   argTypes: {
     ...withNativeEventLogging(["onClick"]),
     icon: defineIconSelectArgType(),

@@ -40,7 +40,6 @@ export const Default = {
 } satisfies Story;
 
 export const Grid = {
-  tags: ["new:feature"],
   ...createAdvancedStoryExample("OnyxPageLayout", "GridExample"),
 } satisfies Story;
 
