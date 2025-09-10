@@ -1,7 +1,7 @@
 import type { Events } from "vue";
 
 // prettier-ignore
-type EventName<T extends Event> = 
+type EventName<T extends Event> =
   T extends ClipboardEvent ? "ClipboardEvent"
 : T extends WheelEvent ? "WheelEvent"
 : T extends PointerEvent ? "PointerEvent"
@@ -311,8 +311,8 @@ export const EVENT_DOC_MAP: EventDocMap = {
   },
   onAuxclick: {
     constructor: {
-      name: "MouseEvent",
-      url: "https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent",
+      name: "PointerEvent",
+      url: "https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent",
     },
     event: {
       name: "auxclick",
@@ -321,8 +321,8 @@ export const EVENT_DOC_MAP: EventDocMap = {
   },
   onClick: {
     constructor: {
-      name: "MouseEvent",
-      url: "https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent",
+      name: "PointerEvent",
+      url: "https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent",
     },
     event: {
       name: "click",
@@ -331,8 +331,8 @@ export const EVENT_DOC_MAP: EventDocMap = {
   },
   onContextmenu: {
     constructor: {
-      name: "MouseEvent",
-      url: "https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent",
+      name: "PointerEvent",
+      url: "https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent",
     },
     event: {
       name: "contextmenu",
