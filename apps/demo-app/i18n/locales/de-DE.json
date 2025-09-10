@@ -21,22 +21,25 @@
     "submit": "Absenden",
     "trends": "Trends",
     "fullStats": "Alle Statistiken",
-    "customerDistribution": "Kundenverteilung",
-    "revenue": "Umsatz",
     "productLines": {
-      "title": "Produktlinien",
+      "headline": "Produktlinien",
       "a": "Produktlinie A",
-      "b": "Produktlinie B"
+      "b": "Produktlinie B",
+      "c": "Produktlinie C",
+      "d": "Produktlinie D"
     },
     "customerSegments": {
+      "headline": "Kundenverteilung",
       "enterprise": "Großkunden",
       "mid-sized": "Mittelständische Unternehmen",
       "small": "Kleinunternehmen",
       "private": "Privatkunden"
     },
     "metrics": {
+      "headline": "Umsatz",
       "revenue": "Umsatz (in Tsd. €)",
-      "netProfit": "Nettogewinn (in Tsd. €)"
+      "netProfit": "Nettogewinn (in Tsd. €)",
+      "investments": "Investitionen (in Tsd. €)"
     },
     "kpi": {
       "title": "KPI",
@@ -68,7 +71,7 @@
     "userTab": "Nutzerdaten",
     "tabs": "Daten Tabs",
     "userTable": {
-      "address": "Addresse",
+      "address": "Adresse",
       "age": "Alter",
       "image": "Avatar",
       "city": "Stadt",
