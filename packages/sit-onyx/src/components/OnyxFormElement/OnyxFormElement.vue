@@ -80,11 +80,7 @@ defineSlots<{
 
     <slot :id="props.id"></slot>
 
-    <!-- the "v-if" here is imported so the footer is not renderer when its empty. This is needed so that other elements (e.g. buttons) are vertically aligned correctly -->
-    <div
-      v-if="props.errorMessages || props.successMessages || props.message || counter"
-      class="onyx-form-element__footer onyx-text--small"
-    >
+    <div class="onyx-form-element__footer onyx-text--small">
       <span class="onyx-form-element__footer-messages">
         <FormMessage
           v-if="props.errorMessages"
