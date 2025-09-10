@@ -73,3 +73,56 @@ test("should be aligned with the grid when in container mode", async ({ page, mo
 
   await expect(page).toHaveScreenshot("grid-max-width.png");
 });
+test("should show more button, when there is not enough space", async ({ page, mount }) => {
+  // ARRANGE
+  await page.addStyleTag({
+    content: `body { margin: 0; }`,
+  });
+
+  await page.setViewportSize({ width: ONYX_BREAKPOINTS.md, height: 500 });
+
+  const component = await mount(
+    <OnyxBreadcrumb>
+      {Array.from({ length: 6 }, (_, index) => (
+        <OnyxBreadcrumbItem href="#">Item {index + 1}</OnyxBreadcrumbItem>
+      ))}
+    </OnyxBreadcrumb>,
+  );
+
+  // ASSERT
+  await expect(component.getByRole("link", { name: `Home` })).toBeVisible();
+  for (let i = 0; i < 6; i++) {
+    const item = page.getByRole("link", { name: `Item ${i + 1}` });
+    await expect(item).toBeVisible();
+  }
+
+  // ACT
+  await page.setViewportSize({ width: ONYX_BREAKPOINTS["2xs"], height: 256 });
+
+  // ASSERT
+  await expect(component.getByRole("link", { name: `Home` })).toBeVisible();
+  for (let i = 0; i < 3; i++) {
+    const item = page.getByRole("link", { name: `Item ${i + 1}` });
+    await expect(item).toBeHidden();
+  }
+  for (let i = 3; i < 6; i++) {
+    const item = page.getByRole("link", { name: `Item ${i + 1}` });
+    await expect(item).toBeVisible();
+  }
+
+  await expect(page).toHaveScreenshot("truncated-more-list.png");
+
+  // ACT
+  await component.getByRole("button", { name: "Show more items" }).click();
+
+  // ASSERT
+  await expect(page.getByRole("link", { name: `Home` })).toBeVisible();
+  for (let i = 0; i < 6; i++) {
+    const item = page.getByText(`Item ${i + 1}`);
+    await expect(item).toBeEnabled();
+    await expect(item).toBeVisible();
+  }
+
+  // ASSERT
+  await expect(page).toHaveScreenshot("truncated-more-list-opened-flyout.png");
+});

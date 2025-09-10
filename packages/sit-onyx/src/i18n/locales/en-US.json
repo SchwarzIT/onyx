@@ -133,6 +133,7 @@
     "goToHome": "Go to home page",
     "goBack": "Go back",
     "moreNavItems": "+{n} More",
+    "moreNavItemsLabel": "More Items",
     "showMoreNavItemsLabel": "Show more items",
     "userMenuLabel": "User options",
     "toggleBurgerMenu": "Toggle burger menu",

@@ -11,7 +11,7 @@ test.describe("Screenshot tests", () => {
       columns: DENSITIES,
       rows: ["default", "hover", "focus-visible"],
       component: (column) => (
-        <ul style={{ display: "contents" }}>
+        <ul role="menu" style={{ display: "contents" }}>
           <OnyxBreadcrumbItem href="#" density={column} aria-label="Item">
             {type === "icon" ? <OnyxIcon icon={mockPlaywrightIcon} /> : "Item"}
           </OnyxBreadcrumbItem>
@@ -30,7 +30,7 @@ test.describe("Screenshot tests", () => {
       columns: DENSITIES,
       rows: ["default", "hover", "focus-visible"],
       component: (column) => (
-        <ul style={{ display: "contents" }}>
+        <ul role="menu" style={{ display: "contents" }}>
           <OnyxBreadcrumbItem href="#" density={column} active aria-label="Item">
             {type === "icon" ? <OnyxIcon icon={mockPlaywrightIcon} /> : "Item"}
           </OnyxBreadcrumbItem>
@@ -50,7 +50,7 @@ test.describe("Screenshot tests", () => {
     columns: DENSITIES,
     rows: ["default", "hover", "focus-visible"],
     component: (column) => (
-      <ul style={{ display: "contents" }}>
+      <ul aria-hidden="true" style={{ display: "contents" }}>
         <OnyxBreadcrumbItem href="#" density={column} aria-label="Item" skeleton>
           Item
         </OnyxBreadcrumbItem>

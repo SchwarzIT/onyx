@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import OnyxBreadcrumbItem from "./OnyxBreadcrumbItem.vue";
 
+/**
+ * A single breadcrumb item component. Should be used with the [OnyxBreadcrumb](/docs/navigation-breadcrumb--docs) component.
+ * When the `href` prop is provided, the breadcrumb item will be a clickable link. Otherwise it will be a button.
+ */
 const meta: Meta<typeof OnyxBreadcrumbItem> = {
   title: "Support/BreadcrumbItem",
   component: OnyxBreadcrumbItem,
