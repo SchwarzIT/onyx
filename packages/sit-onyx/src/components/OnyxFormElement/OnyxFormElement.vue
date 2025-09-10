@@ -49,6 +49,30 @@ defineSlots<{
   /** The place for the actual form element */
   default(props: { id: string }): unknown;
 }>();
+
+/**
+ * All footer related props. Used as convenience because if all properties are undefined, undefined itself will be returned instead of an empty object.
+ * So the footer can easily be hidden when no relevant props are set.
+ */
+const footer = computed(() => {
+  const { errorMessages, successMessages, message } = props;
+
+  const data = {
+    counter: counter.value,
+    errorMessages,
+    successMessages,
+    message,
+  };
+
+  for (const key in data) {
+    const _key = key as keyof typeof data;
+    // remove nullish keys from object
+    if (data[_key] == undefined) delete data[_key];
+  }
+
+  if (Object.keys(data).length === 0) return undefined;
+  return data;
+});
 </script>
 
 <template>
@@ -77,36 +101,39 @@ defineSlots<{
         :class="[!props.required ? requiredMarkerClass : undefined]"
       ></span>
     </div>
+
     <slot :id="props.id"></slot>
-    <div class="onyx-form-element__footer onyx-text--small">
+
+    <!-- the "v-if" here is imported so the footer is not renderer when its empty. This is needed so that other elements (e.g. buttons) are vertically aligned correctly -->
+    <div v-if="footer" class="onyx-form-element__footer onyx-text--small">
       <span class="onyx-form-element__footer-messages">
         <FormMessage
-          v-if="props.errorMessages"
+          v-if="footer.errorMessages"
           class="onyx-form-element__error-message"
-          :messages="props.errorMessages"
+          :messages="footer.errorMessages"
           type="danger"
         />
         <FormMessage
-          v-if="props.successMessages"
+          v-if="footer.successMessages"
           class="onyx-form-element__success-message"
-          :messages="props.successMessages"
+          :messages="footer.successMessages"
           type="success"
         />
         <FormMessage
-          v-if="props.message"
+          v-if="footer.message"
           class="onyx-form-element__message"
-          :messages="props.message"
+          :messages="footer.message"
           type="neutral"
         />
       </span>
       <span
-        v-if="counter"
+        v-if="footer.counter"
         :class="{
           'onyx-form-element__counter': true,
-          'onyx-form-element__counter--violated': counter.violated,
+          'onyx-form-element__counter--violated': footer.counter.violated,
         }"
       >
-        {{ counter.length }}/{{ counter.maxLength }}
+        {{ footer.counter.length }}/{{ footer.counter.maxLength }}
       </span>
     </div>
   </div>
