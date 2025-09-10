@@ -24,7 +24,7 @@ const data = computed<ChartData<"line">>(() => {
         ...getDatasetColors("primary"),
       },
       {
-        label: t("charts.metrics.netProfit"),
+        label: t("charts.metrics.investments"),
         data: [20, 48, 25, 26, 5, 42],
         fill: true,
         tension: 0.4,

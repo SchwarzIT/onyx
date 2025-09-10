@@ -58,18 +58,18 @@ const selectOptions = computed(() => [
     <div
       class="onyx-grid-span-8 onyx-grid-md-span-6 onyx-grid-lg-span-6 onyx-grid-xl-span-6 chart-wrapper"
     >
-      <ChartCard :headline="$t('charts.productLines.title')" class="chart">
+      <ChartCard :headline="$t('charts.productLines.headline')" class="chart">
         <BarChart />
       </ChartCard>
     </div>
     <div
       class="onyx-grid-span-8 onyx-grid-md-span-6 onyx-grid-lg-span-6 onyx-grid-xl-span-6 chart-wrapper"
     >
-      <ChartCard :headline="$t('charts.customerDistribution')" class="chart chart__pie">
+      <ChartCard :headline="$t('charts.customerSegments.headline')" class="chart chart__pie">
         <PieChart />
       </ChartCard>
 
-      <ChartCard :headline="$t('charts.revenue')" class="chart chart__line">
+      <ChartCard :headline="$t('charts.metrics.headline')" class="chart chart__line">
         <LineChart />
       </ChartCard>
     </div>

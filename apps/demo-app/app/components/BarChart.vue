@@ -16,19 +16,19 @@ const data = computed<ChartData<"bar">>(() => {
         ...getDatasetColors("info"),
       },
       {
-        label: "Metric B (Green)",
+        label: t("charts.productLines.b"),
         data: [-15, 45, -10, 0, 0, 25],
         borderWidth: 1,
         ...getDatasetColors("success"),
       },
       {
-        label: "Metric C (Pink)",
+        label: t("charts.productLines.c"),
         data: [0, 0, 0, 50, 20, 0],
         borderWidth: 1,
         ...getDatasetColors("danger"),
       },
       {
-        label: "Metric D (Orange)",
+        label: t("charts.productLines.d"),
         data: [15, -25, 10, -35, -10, -15],
         borderWidth: 1,
         ...getDatasetColors("warning"),
