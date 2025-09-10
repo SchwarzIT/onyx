@@ -57,6 +57,9 @@ export * from "./components/OnyxDatePicker/types.js";
 export { default as OnyxBasicDialog } from "./components/OnyxBasicDialog/OnyxBasicDialog.vue";
 export * from "./components/OnyxBasicDialog/types.js";
 
+export { default as OnyxDialog } from "./components/OnyxDialog/OnyxDialog.vue";
+export * from "./components/OnyxDialog/types.js";
+
 export { default as OnyxEmpty } from "./components/OnyxEmpty/OnyxEmpty.vue";
 
 export { default as OnyxFAB } from "./components/OnyxFAB/OnyxFAB.vue";

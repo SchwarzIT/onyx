@@ -12,8 +12,7 @@ import {
   useNotification,
 } from "sit-onyx";
 import { ref } from "vue";
-import { useNotificationStore } from "../stores/notification-store.js";
-import NotificationAccordionItem from "./NotificationAccordionItem.vue";
+import type { MyNotification } from "~/stores/notification-store";
 
 const store = useNotificationStore();
 const { t } = useI18n();
@@ -34,17 +33,23 @@ const openAccordions = ref(["unread"]);
 // Add Global Fab
 const { show } = useNotification();
 
-const addExampleNotification = () => {
+/**
+ * Creates a new notification with dummy data.
+ */
+const createDummyNotification = (): MyNotification => {
   const icon = Math.random() < 0.5 ? iconCircleAttention : undefined;
 
-  const notification: MyNotification = {
+  return {
     headline: `${t("notification.notificationTitle")} ${store.notifications.length + 1}`,
     createdAt: Date.now(),
     icon,
     description:
       "Lorem ipsum dolor sit amet consectetur. Dui purus quisque est varius vulputate. Ut odio dui diam pulvinar velit mollis cursus eu ut.",
   };
+};
 
+const addExampleNotification = () => {
+  const notification = createDummyNotification();
   store.add(notification);
   show(notification);
 };
@@ -93,7 +98,7 @@ onUnmounted(globalFAB.remove(id));
 
     <div v-if="skeleton" class="notification-center__skeletons">
       <OnyxNotificationCard
-        v-for="n in typeof skeleton === 'number' ? skeleton : 6"
+        v-for="n in skeleton"
         :key="n"
         headline="Loading"
         created-at="Loading"

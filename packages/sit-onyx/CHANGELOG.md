@@ -1,5 +1,25 @@
 # sit-onyx
 
+## 1.0.0-beta.327
+
+### Minor Changes
+
+- af5c373: feat(OnyxDialog): export OnyxDialog
+
+## 1.0.0-beta.326
+
+### Patch Changes
+
+- bcddeeb: fix "window not defined" error in Nuxt / server side rendering when using the data grid
+
+## 1.0.0-beta.325
+
+### Minor Changes
+
+- c10f849: perf(OnyxPagination): lazy load select options to improve performance for large page counts
+
+  Also the page count inside the "of N pages" text is now formatted using the current locale for better readability
+
 ## 1.0.0-beta.324
 
 ### Minor Changes

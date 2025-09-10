@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import { OnyxBottomBar, OnyxButton } from "../../../index.js";
-import OnyxDialog from "../OnyxDialog.vue";
+import { OnyxBottomBar, OnyxButton, OnyxDialog } from "../../../index.js";
 
 const isOpen = ref(false);
 </script>

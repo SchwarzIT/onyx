@@ -1,12 +1,13 @@
 <script lang="ts" setup>
 import { iconChevronLeftSmall, iconChevronRightSmall } from "@sit-onyx/icons";
-import { computed } from "vue";
+import { computed, ref, watch } from "vue";
 import { useDensity } from "../../composables/density.js";
 import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
 import { injectI18n } from "../../i18n/index.js";
+import { normalizedIncludes } from "../../utils/strings.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
 import type { SelectOption } from "../OnyxSelect/types.js";
@@ -24,11 +25,24 @@ const emit = defineEmits<{
   "update:modelValue": [page: number];
 }>();
 
-const { t } = injectI18n();
+const { t, n } = injectI18n();
 const { densityClass } = useDensity(props);
 const skeleton = useSkeletonContext(props);
 
-const selectOptions = computed(() => {
+const searchTerm = ref("");
+
+/**
+ * We are using lazy loading to prevent performance issues when a lot of pages exists.
+ */
+const pageSize = 100;
+const optionsToRender = ref(pageSize);
+watch(searchTerm, () => (optionsToRender.value = pageSize));
+
+const handleLoadMore = () => {
+  optionsToRender.value = Math.min(props.pages, optionsToRender.value + pageSize);
+};
+
+const allOptions = computed(() => {
   return Array.from({ length: props.pages }, (_, index) => {
     const pageNumber = index + 1;
     return {
@@ -36,6 +50,17 @@ const selectOptions = computed(() => {
       value: pageNumber,
     } satisfies SelectOption;
   });
+});
+
+const filteredOptions = computed(() => {
+  let options = allOptions.value;
+
+  const search = searchTerm.value.trim().toLowerCase();
+  if (search) {
+    options = options.filter((option) => normalizedIncludes(option.label, search));
+  }
+
+  return options.slice(0, optionsToRender.value);
 });
 
 const hasReachedMin = computed(() => props.modelValue <= 1);
@@ -54,23 +79,27 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
   >
     <!-- value label is used to still show the current page if its grater than the page count -->
     <OnyxSelect
+      v-model:search-term="searchTerm"
       class="onyx-pagination__select"
       :label="t('pagination.select.label')"
       :list-label="t('pagination.select.listLabel')"
-      :options="selectOptions"
+      :options="filteredOptions"
       :model-value="props.modelValue"
       :value-label="props.modelValue.toString()"
       hide-label
       :disabled="props.disabled || props.pages <= 1"
       alignment="left"
       with-search
+      no-filter
+      :lazy-loading="{ enabled: true }"
       @update:model-value="
-        emit('update:modelValue', $event as (typeof selectOptions)[number]['value'])
+        emit('update:modelValue', $event as (typeof filteredOptions)[number]['value'])
       "
+      @lazy-load="handleLoadMore"
     />
 
     <div class="onyx-pagination__count">
-      {{ t("pagination.ofPages", { n: props.pages }) }}
+      {{ t("pagination.ofPages", { n: props.pages, pages: n(props.pages, "decimal") }) }}
     </div>
 
     <button
