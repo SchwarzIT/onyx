@@ -86,6 +86,7 @@
       "@vue/compiler-sfc": "catalog:",
       "@vue/compiler-ssr": "catalog:",
       "@vue/shared": "catalog:",
+      "nuxt": "catalog:",
       "playwright": "catalog:",
       "playwright-core": "catalog:",
       "vite": "catalog:",
