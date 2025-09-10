@@ -72,7 +72,6 @@ export const CONFIG = {
         text: "Resources",
         items: [
           { text: "About", link: "/about/team", activeMatch: "/about/" },
-          { text: "Demo application", link: "https://demo.onyx.schwarz" },
           { text: "Playground", link: "https://playground.onyx.schwarz" },
           { text: "Report a bug", link: packageJson.bugs.url },
           { text: "Q&A", link: "https://github.com/SchwarzIT/onyx/discussions/categories/q-a" },

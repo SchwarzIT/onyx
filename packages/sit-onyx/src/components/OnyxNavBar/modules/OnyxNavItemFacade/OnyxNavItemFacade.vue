@@ -75,8 +75,8 @@ const hasChildren = computed(() => !!slots.children);
     &:has(.onyx-nav-item--active),
     &.onyx-nav-item--active {
       font-weight: var(--onyx-font-weight-semibold);
-      color: var(--onyx-color-component-nav-label);
-      --onyx-list-item-color-selected: var(--onyx-color-component-nav-label);
+      color: var(--onyx-color-text-icons-primary-intense);
+      --onyx-list-item-color-selected: var(--onyx-color-text-icons-primary-intense);
 
       &::after {
         content: " ";
@@ -85,7 +85,7 @@ const hasChildren = computed(() => !!slots.children);
         height: 0.125rem;
         bottom: calc(-1 * var(--onyx-spacing-2xs));
         border-radius: var(--onyx-radius-full) var(--onyx-radius-full) 0 0;
-        background: var(--onyx-color-component-nav-stroke);
+        background: var(--onyx-color-component-cta-default);
         z-index: 1;
       }
     }
@@ -114,7 +114,7 @@ const hasChildren = computed(() => !!slots.children);
     &:has(.onyx-nav-item--active),
     &.onyx-nav-item--active {
       --onyx-list-item-background-selected: var(--onyx-color-base-primary-100);
-      --onyx-list-item-color-selected: var(--onyx-color-component-nav-label);
+      --onyx-list-item-color-selected: var(--onyx-color-text-icons-primary-intense);
       background-color: var(--onyx-list-item-background-selected);
       border-color: var(--onyx-color-base-primary-200);
       color: var(--onyx-color-text-icons-primary-bold);
