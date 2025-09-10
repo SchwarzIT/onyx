@@ -30,7 +30,6 @@ import OnyxGlobalFAB from "./OnyxGlobalFAB.vue";
 const meta: Meta<typeof OnyxGlobalFAB> = {
   title: "Buttons/GlobalFAB",
   component: OnyxGlobalFAB,
-  tags: ["new:component"],
   decorators: [
     (story) => ({
       components: { story },

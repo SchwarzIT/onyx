@@ -8,7 +8,6 @@ import OnyxFileTypeIcon from "./OnyxFileTypeIcon.vue";
 const meta: Meta<typeof OnyxFileTypeIcon> = {
   title: "Support/FileTypeIcon",
   component: OnyxFileTypeIcon,
-  tags: ["new:component"],
 };
 
 export default meta;
