@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.329
+
+### Patch Changes
+
+- c52dc34: fix(OnyxFormElement): do render empty footer
+
 ## 1.0.0-beta.328
 
 ### Minor Changes
