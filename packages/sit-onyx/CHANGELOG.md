@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.328
+
+### Minor Changes
+
+- 313aac8: feat(OnyxBreadcrumb): implement hiding of breadcrumb items when width is too small
+
 ## 1.0.0-beta.327
 
 ### Minor Changes
