@@ -77,9 +77,7 @@ defineSlots<{
         :class="[!props.required ? requiredMarkerClass : undefined]"
       ></span>
     </div>
-
     <slot :id="props.id"></slot>
-
     <div class="onyx-form-element__footer onyx-text--small">
       <span class="onyx-form-element__footer-messages">
         <FormMessage
