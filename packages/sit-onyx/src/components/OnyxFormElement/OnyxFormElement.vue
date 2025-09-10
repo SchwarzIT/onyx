@@ -50,6 +50,10 @@ defineSlots<{
   default(props: { id: string }): unknown;
 }>();
 
+/**
+ * All footer related props. Used as convenience because if all properties are undefined, undefined itself will be returned instead of an empty object.
+ * So the footer can easily be hidden when no relevant props are set.
+ */
 const footer = computed(() => {
   const { errorMessages, successMessages, message } = props;
 
