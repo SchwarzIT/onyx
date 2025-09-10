@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.330
+
+### Patch Changes
+
+- 28ff5b6: fix(OnyxNavItem): use correct CSS variables for the active state colors
+
+  Previously, the active nav item did not use the correct colors in some themes (e.g. Kaufland) so the text and indicator color was incorrect
+
 ## 1.0.0-beta.329
 
 ### Patch Changes
