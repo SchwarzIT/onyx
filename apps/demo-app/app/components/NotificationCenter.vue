@@ -67,7 +67,7 @@ onMounted(() => {
     })),
   );
 });
-onUnmounted(globalFAB.remove(id));
+onUnmounted(() => globalFAB.remove(id));
 </script>
 
 <template>
