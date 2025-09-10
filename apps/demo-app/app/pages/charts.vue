@@ -90,7 +90,7 @@ const selectOptions = computed(() => [
   display: flex;
   flex-direction: column;
   gap: var(--onyx-grid-gutter);
-  height: 40rem;
+  height: 48rem;
 }
 
 .chart {
