@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { getDatasetColors } from "@sit-onyx/chartjs-plugin";
-import type { ChartData, ChartOptions, Color } from "chart.js";
+import type { ChartData, Color } from "chart.js";
 import { Pie } from "vue-chartjs";
 
 const { t } = useI18n();
@@ -34,14 +34,12 @@ const data = computed<ChartData<"pie">>(() => {
     ],
   };
 });
-
-const options: ChartOptions<"pie"> = { maintainAspectRatio: false };
 </script>
 
 <template>
   <div class="chart">
     <ClientOnly>
-      <Pie :data :options />
+      <Pie :data :options="commonChartOptions" />
     </ClientOnly>
   </div>
 </template>

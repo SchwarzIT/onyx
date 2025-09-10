@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { getDatasetColors } from "@sit-onyx/chartjs-plugin";
-import type { ChartData, ChartOptions } from "chart.js";
+import type { ChartData } from "chart.js";
 import { Bar } from "vue-chartjs";
 
 const { t } = useI18n();
@@ -36,14 +36,12 @@ const data = computed<ChartData<"bar">>(() => {
     ],
   };
 });
-
-const options: ChartOptions<"bar"> = { maintainAspectRatio: false };
 </script>
 
 <template>
   <div class="chart">
     <ClientOnly>
-      <Bar :data :options />
+      <Bar :data :options="commonChartOptions" />
     </ClientOnly>
   </div>
 </template>
