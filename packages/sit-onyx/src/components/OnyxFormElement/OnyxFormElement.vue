@@ -104,6 +104,7 @@ const footer = computed(() => {
 
     <slot :id="props.id"></slot>
 
+    <!-- the "v-if" here is imported so the footer is not renderer when its empty. This is needed so that other elements (e.g. buttons) are vertically aligned correctly -->
     <div v-if="footer" class="onyx-form-element__footer onyx-text--small">
       <span class="onyx-form-element__footer-messages">
         <FormMessage
