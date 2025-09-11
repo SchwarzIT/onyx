@@ -7,7 +7,7 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": [],
+  "ignore": ["@sit-onyx/nuxt-docs"],
   "snapshot": {
     "useCalculatedVersion": true
   }
