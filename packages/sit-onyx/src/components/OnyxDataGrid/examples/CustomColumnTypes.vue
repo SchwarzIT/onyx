@@ -19,7 +19,9 @@ type Entry = {
 };
 
 // add your custom features with types here so the custom column types are inferred correctly
-type CustomColumnTypes = ColumnTypesFromFeatures<[typeof withCustomType]>;
+type CustomColumnTypes = ColumnTypesFromFeatures<typeof withCustomTypes>;
+// you can also pass multiple features:
+// type CustomColumnTypes = ColumnTypesFromFeatures<[typeof withCustomTypes, typeof someOtherFeature]>;
 
 const data: Entry[] = [
   { id: 1, name: "Alice", age: 10 },
@@ -36,7 +38,7 @@ const columns: ColumnConfig<Entry, ColumnGroupConfig, CustomColumnTypes>[] = [
 ];
 
 // create a custom reusable data grid feature for custom types that you can also e.g. share / re-use in your project to be used in multiple data grids
-const withCustomType = createFeature(() => ({
+const withCustomTypes = createFeature(() => ({
   name: Symbol("example feature name"),
   typeRenderer: {
     // use the `createTypeRenderer` function to create a type renderer with custom column type options
@@ -71,7 +73,7 @@ const withCustomType = createFeature(() => ({
   } satisfies TypeRenderMap<Entry>,
 }));
 
-const features = [withCustomType];
+const features = [withCustomTypes];
 </script>
 
 <template>
