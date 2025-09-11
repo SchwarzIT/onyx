@@ -44,15 +44,15 @@ export const useSelection = <TEntry extends DataGridEntry>(options?: SelectionOp
       }
     };
 
-    const isIndeterminate = () =>
+    const isHeaderIndeterminate = () =>
       selectionState.value.contingent.size !== 0 &&
       selectionState.value.contingent.size !== rowsCount.value;
 
-    const isChecked = () =>
-      (selectionState.value.selectMode === "exclude" &&
-        selectionState.value.contingent.size !== rowsCount.value) ||
-      (selectionState.value.selectMode === "include" &&
-        selectionState.value.contingent.size === rowsCount.value);
+    const isHeaderChecked = () => {
+      const { contingent, selectMode } = selectionState.value;
+      if (selectMode === "exclude") return contingent.size === 0;
+      return contingent.size > 0 && contingent.size === rowsCount.value;
+    };
 
     const modifyColumns: ModifyColumns<TEntry> = {
       func: (cols) => {
@@ -92,9 +92,10 @@ export const useSelection = <TEntry extends DataGridEntry>(options?: SelectionOp
                     : ctx.i18n.t.value("dataGrid.head.selection.deselectAll"),
                 value: `selection-all-rows`,
                 hideLabel: true,
-                indeterminate: isIndeterminate(),
+                indeterminate: isHeaderIndeterminate(),
+                disabled: rowsCount.value === 0,
                 "onUpdate:modelValue": (checked) => updateSelectMode(checked),
-                modelValue: isChecked(),
+                modelValue: isHeaderChecked(),
               }),
           },
           cell: {

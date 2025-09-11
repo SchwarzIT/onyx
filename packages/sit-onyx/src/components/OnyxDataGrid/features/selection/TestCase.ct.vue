@@ -16,7 +16,7 @@ const { dataGrid, selectionOption } = defineProps<{
   /**
    * props passed through to the feature
    */
-  selectionOption: DataGridFeatures.SelectionOptions;
+  selectionOption?: DataGridFeatures.SelectionOptions;
 }>();
 
 const emit = defineEmits<{
