@@ -13,4 +13,6 @@
 "@sit-onyx/storybook-utils": major
 ---
 
-Release v1
+Release version 1 🎉
+
+There are no changes to the latest `beta` version.
