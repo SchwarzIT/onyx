@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.336
+
+### Patch Changes
+
+- 91efcde: fix(OnyxStepper): prevent limited value width when `hideButtons` property is set
+
 ## 1.0.0-beta.335
 
 ### Major Changes
