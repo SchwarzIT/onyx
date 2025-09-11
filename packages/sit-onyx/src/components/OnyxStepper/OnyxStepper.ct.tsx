@@ -238,17 +238,23 @@ test.describe("Screenshot tests", () => {
 
   executeMatrixScreenshotTest({
     name: "Stepper (hidden buttons)",
-    columns: ["default"],
+    columns: ["default", "formatNumber"],
     rows: ["default", "placeholder", "value"],
-    component: (column, row) => (
-      <OnyxStepper
-        style="width: 12rem"
-        label="Test label"
-        placeholder={row === "placeholder" ? "0" : undefined}
-        modelValue={row === "value" ? 42 : undefined}
-        hideButtons
-      />
-    ),
+    component: (column, row) => {
+      let modelValue = row === "value" ? 42 : undefined;
+      if (column === "formatNumber") modelValue = 123456789;
+
+      return (
+        <OnyxStepper
+          style="width: 6rem"
+          label="Test label"
+          placeholder={row === "placeholder" ? "0" : undefined}
+          modelValue={modelValue}
+          hideButtons
+          formatNumber={column === "formatNumber"}
+        />
+      );
+    },
     hooks: {
       beforeEach: async (component) => {
         const decrementButton = component.getByRole("button", { name: "Decrement" });
