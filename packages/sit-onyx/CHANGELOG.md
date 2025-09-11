@@ -1,5 +1,13 @@
 # sit-onyx
 
+## 1.0.0-beta.335
+
+### Major Changes
+
+- 57133e8: refactor!: rename type RenderTypesFromFeature to ColumnTypesFromFeatures
+
+  Additionally, the type now also supports passing a single feature instead of an array.
+
 ## 1.0.0-beta.334
 
 ### Patch Changes
