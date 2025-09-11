@@ -67,20 +67,11 @@ const copyLink = async (hash: string) => {
 @use "../../styles/mixins/layers";
 @use "../../styles/mixins/sizes";
 
-.onyx-headline,
-.onyx-headline-skeleton {
-  @include layers.component() {
-    @include sizes.define-headline-sizes();
-  }
-}
-
 .onyx-headline {
   @include layers.component() {
     --onyx-headline-scroll-margin: var(--onyx-spacing-xl);
     --border-radius: var(--onyx-radius-sm);
-
     font-weight: var(--onyx-font-weight-semibold);
-    font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
     position: relative;
     border-radius: var(--border-radius);
@@ -138,6 +129,13 @@ const copyLink = async (hash: string) => {
     height: 1lh;
     width: 10rem;
     max-width: 100%;
+  }
+}
+
+.onyx-headline,
+.onyx-headline-skeleton {
+  @include layers.component() {
+    @include sizes.define-headline-sizes();
   }
 }
 </style>
