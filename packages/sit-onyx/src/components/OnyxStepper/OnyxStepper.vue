@@ -318,6 +318,7 @@ useAutofocus(input, props);
         margin: 0;
       }
     }
+
     &__display {
       position: absolute;
       height: 100%;
@@ -327,12 +328,18 @@ useAutofocus(input, props);
       display: flex;
       justify-content: center;
       align-items: center;
-
       box-sizing: border-box;
-      width: calc(100% - 2 * (var(--onyx-stepper-padding-vertical) * 2 + 1.5rem));
-      margin-inline: calc(var(--onyx-stepper-padding-vertical) * 2 + 1.5rem);
       overflow: hidden;
       white-space: nowrap;
+      width: 100%;
+    }
+
+    &:has(&__counter) {
+      .onyx-stepper__display {
+        $button-width: calc(2 * var(--onyx-stepper-padding-vertical) + 1.5rem);
+        width: calc(100% - 2 * $button-width);
+        margin-inline: $button-width;
+      }
     }
   }
 }
