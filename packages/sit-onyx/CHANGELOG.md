@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.334
+
+### Patch Changes
+
+- 814dbd5: fix: remove `@sit-onyx/shared` peerDependency
+
 ## 1.0.0-beta.333
 
 ### Patch Changes

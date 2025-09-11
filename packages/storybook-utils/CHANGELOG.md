@@ -1,5 +1,11 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-beta.104
+
+### Patch Changes
+
+- 814dbd5: fix: remove `@sit-onyx/shared` peerDependency
+
 ## 1.0.0-beta.103
 
 ### Patch Changes
