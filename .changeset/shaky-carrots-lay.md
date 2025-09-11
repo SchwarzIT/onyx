@@ -4,7 +4,7 @@
 "@sit-onyx/vitepress-theme": major
 "@sit-onyx/chartjs-plugin": major
 "@sit-onyx/figma-utils": major
-"@sit-onyx/nuxt-docs": minor
+"@sit-onyx/nuxt-docs": major
 "@sit-onyx/headless": major
 "@sit-onyx/shared": major
 "@sit-onyx/flags": major

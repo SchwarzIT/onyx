@@ -1,5 +1,5 @@
 ---
-"@sit-onyx/nuxt-docs": minor
+"@sit-onyx/nuxt-docs": major
 "@sit-onyx/nuxt": major
 ---
 
