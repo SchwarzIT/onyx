@@ -33,10 +33,16 @@ export type MapTypeRenderOptions<T> = {
 };
 
 /**
- * Unwraps the defined typeRenderers
+ * A type that can either be the type itself or an array of it.
+ */
+export type MaybeArray<T> = T | Array<T>;
+
+/**
+ * Unwraps the typeRenderers from the given feature(s).
+ *
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- we use any for simplicity
-export type RenderTypesFromFeature<TFeatures extends DataGridFeature<any, any, any>[]> =
+export type ColumnTypesFromFeatures<TFeatures extends MaybeArray<DataGridFeature<any, any, any>>> =
   // 8. Safeguard against unwanted types
   IfExtends<
     // 7. Union type of all column types
@@ -52,7 +58,8 @@ export type RenderTypesFromFeature<TFeatures extends DataGridFeature<any, any, a
               // 2. Take the feature description object
               ReturnType<
                 // 1. For each feature
-                TFeatures[number]
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any -- we use any for simplicity
+                TFeatures extends any[] ? TFeatures[number] : TFeatures
               >
             >,
             "typeRenderer"
@@ -72,7 +79,7 @@ export type OnyxDataGridProps<
   TTypeRenderer extends TypeRenderMap<TEntry>,
   TFeatureName extends symbol,
   TFeatures extends DataGridFeature<TEntry, TTypeRenderer, TFeatureName>[] = never,
-  TTypes extends ColumnConfigTypeOption<PropertyKey, unknown> = RenderTypesFromFeature<
+  TTypes extends ColumnConfigTypeOption<PropertyKey, unknown> = ColumnTypesFromFeatures<
     [ReturnType<typeof BASE_FEATURE>, ...TFeatures]
   >,
 > = {
