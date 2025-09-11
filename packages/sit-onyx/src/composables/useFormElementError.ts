@@ -66,7 +66,7 @@ export type TranslatedInputType = (typeof TRANSLATED_INPUT_TYPES)[number];
  * const props = defineProps<CustomValidityProp>();
  * const emit = defineEmits<{ validityChange: [validity: ValidityState] }>();
  *
- * const { vCustomValidity } = useCustomValidity({ props, emit });
+ * const { vCustomValidity } = useFormValidity({ props, emit });
  * </script>
  *
  * <template>
