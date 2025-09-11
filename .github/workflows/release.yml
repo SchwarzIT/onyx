@@ -188,7 +188,7 @@ jobs:
     name: Deploy demo app
     runs-on: ubuntu-latest
     needs: release
-    if: needs.release.outputs.published
+    if: inputs.environment != 'prod' || needs.release.outputs.published == 'true'
     environment: ${{ inputs.environment || 'dev' }}
     steps:
       - uses: actions/checkout@v5
