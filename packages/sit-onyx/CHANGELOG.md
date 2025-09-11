@@ -1,5 +1,12 @@
 # sit-onyx
 
+## 1.0.0-beta.332
+
+### Patch Changes
+
+- 858ba1f: - fix(theme): add missing `--onyx-color-kaufland-red-*` CSS variables
+  - fix(OnyxHeadline): correctly apply font family CSS variables
+
 ## 1.0.0-beta.331
 
 ### Patch Changes
