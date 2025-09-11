@@ -19,7 +19,7 @@ it("should be ensured that RenderTypesFromFeature unwraps correctly", async () =
   expectTypeOf<RenderTypesFromFeature<never>>().toBeNever();
   expectTypeOf<RenderTypesFromFeature<[]>>().toBeNever();
 
-  expectTypeOf<RenderTypesFromFeature<[ReturnType<typeof BASE_FEATURE>]>>().toEqualTypeOf<
+  type ExpectedType =
     | ColumnConfigTypeOption<"number", NumberCellOptions>
     | ColumnConfigTypeOption<"string", StringCellOptions>
     | ColumnConfigTypeOption<"date", DateCellOptions>
@@ -27,8 +27,17 @@ it("should be ensured that RenderTypesFromFeature unwraps correctly", async () =
     | ColumnConfigTypeOption<"time", DateCellOptions>
     | ColumnConfigTypeOption<"timestamp", DateCellOptions>
     | ColumnConfigTypeOption<"skeleton", StringCellOptions>
-    | ColumnConfigTypeOption<"boolean", BooleanCellOptions>
-  >();
+    | ColumnConfigTypeOption<"boolean", BooleanCellOptions>;
+
+  // should support passing a single feature
+  expectTypeOf<
+    RenderTypesFromFeature<ReturnType<typeof BASE_FEATURE>>
+  >().toEqualTypeOf<ExpectedType>();
+
+  // should support passing multiple features
+  expectTypeOf<
+    RenderTypesFromFeature<[ReturnType<typeof BASE_FEATURE>]>
+  >().toEqualTypeOf<ExpectedType>();
 
   type SingleFeature = [
     () => {

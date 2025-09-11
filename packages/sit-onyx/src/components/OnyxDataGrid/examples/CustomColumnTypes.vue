@@ -6,6 +6,9 @@ import {
   DataGridFeatures,
   OnyxDataGrid,
   OnyxSystemButton,
+  type ColumnConfig,
+  type ColumnGroupConfig,
+  type RenderTypesFromFeature,
   type TypeRenderMap,
 } from "../../../index.js";
 
@@ -21,6 +24,15 @@ const data: Entry[] = [
   { id: 3, name: "Bob", age: 71 },
   { id: 4, name: "Robin", age: 4 },
   { id: 5, name: "John", age: 42 },
+];
+
+// add your custom features with types here so the custom column types are inferred correctly
+type CustomColumnTypes = RenderTypesFromFeature<[typeof withCustomType]>;
+
+const columns: ColumnConfig<Entry, ColumnGroupConfig, CustomColumnTypes>[] = [
+  { key: "name", label: "Name", type: "string" },
+  { key: "age", label: "Age", type: { name: "ageIcon", options: { offset: -5 } } },
+  { key: "id", label: "", type: "detailsButton", width: "min-content" },
 ];
 
 // create a custom reusable data grid feature for custom types that you can also e.g. share / re-use in your project to be used in multiple data grids
@@ -63,14 +75,5 @@ const features = [withCustomType];
 </script>
 
 <template>
-  <OnyxDataGrid
-    headline="Example headline"
-    :columns="[
-      { key: 'name', label: 'Name', type: 'string' },
-      { key: 'age', label: 'Age', type: { name: 'ageIcon', options: { offset: -5 } } },
-      { key: 'id', label: '', type: 'detailsButton', width: 'min-content' },
-    ]"
-    :data
-    :features
-  />
+  <OnyxDataGrid headline="Example headline" :columns :data :features />
 </template>

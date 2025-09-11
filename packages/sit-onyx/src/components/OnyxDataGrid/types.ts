@@ -33,10 +33,15 @@ export type MapTypeRenderOptions<T> = {
 };
 
 /**
+ * A type that can be wrapped in an array.
+ */
+export type MaybeArray<T> = T | Array<T>;
+
+/**
  * Unwraps the defined typeRenderers
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- we use any for simplicity
-export type RenderTypesFromFeature<TFeatures extends DataGridFeature<any, any, any>[]> =
+export type RenderTypesFromFeature<TFeatures extends MaybeArray<DataGridFeature<any, any, any>>> =
   // 8. Safeguard against unwanted types
   IfExtends<
     // 7. Union type of all column types
@@ -52,7 +57,8 @@ export type RenderTypesFromFeature<TFeatures extends DataGridFeature<any, any, a
               // 2. Take the feature description object
               ReturnType<
                 // 1. For each feature
-                TFeatures[number]
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any -- we use any for simplicity
+                TFeatures extends any[] ? TFeatures[number] : TFeatures
               >
             >,
             "typeRenderer"
