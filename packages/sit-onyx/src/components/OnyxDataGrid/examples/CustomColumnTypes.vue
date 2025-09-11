@@ -8,7 +8,7 @@ import {
   OnyxSystemButton,
   type ColumnConfig,
   type ColumnGroupConfig,
-  type RenderTypesFromFeature,
+  type ColumnTypesFromFeatures,
   type TypeRenderMap,
 } from "../../../index.js";
 
@@ -18,6 +18,9 @@ type Entry = {
   age: number;
 };
 
+// add your custom features with types here so the custom column types are inferred correctly
+type CustomColumnTypes = ColumnTypesFromFeatures<[typeof withCustomType]>;
+
 const data: Entry[] = [
   { id: 1, name: "Alice", age: 10 },
   { id: 2, name: "Charlie", age: 35 },
@@ -25,9 +28,6 @@ const data: Entry[] = [
   { id: 4, name: "Robin", age: 4 },
   { id: 5, name: "John", age: 42 },
 ];
-
-// add your custom features with types here so the custom column types are inferred correctly
-type CustomColumnTypes = RenderTypesFromFeature<[typeof withCustomType]>;
 
 const columns: ColumnConfig<Entry, ColumnGroupConfig, CustomColumnTypes>[] = [
   { key: "name", label: "Name", type: "string" },

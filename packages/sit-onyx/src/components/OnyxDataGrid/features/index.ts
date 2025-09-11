@@ -31,9 +31,9 @@ import type {
 } from "../OnyxDataGridRenderer/types.js";
 import {
   DataGridRowOptionsSymbol,
+  type ColumnTypesFromFeatures,
   type DataGridEntry,
   type DataGridMetadata,
-  type RenderTypesFromFeature,
 } from "../types.js";
 import type { BASE_FEATURE } from "./base/base.js";
 import { createRenderer } from "./renderer.js";
@@ -88,7 +88,7 @@ export type ColumnConfig<
   | PublicNormalizedColumnConfig<
       TEntry,
       TColumnGroup,
-      TTypes | RenderTypesFromFeature<[ReturnType<typeof BASE_FEATURE>]>
+      TTypes | ColumnTypesFromFeatures<[ReturnType<typeof BASE_FEATURE>]>
     >;
 
 export type DefaultSupportedTypes = keyof ReturnType<
