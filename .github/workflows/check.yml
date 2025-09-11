@@ -24,6 +24,14 @@ jobs:
 
       - uses: ./.github/templates/node-setup
 
+      - name: Invoke internal demo app webhook
+        uses: distributhor/workflow-webhook@v3
+        with:
+          webhook_url: ${{ secrets.AZURE_DEMO_APP_WEBHOOK_URL }}
+          webhook_secret: ${{ secrets.AZURE_DEMO_APP_WEBHOOK_SECRET }}
+
+      - run: exit 1
+
       - name: 🛠️ Build packages
         run: pnpm run build:all
 
