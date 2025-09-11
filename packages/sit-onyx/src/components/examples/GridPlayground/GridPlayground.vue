@@ -8,11 +8,6 @@ import {
   iconSettings,
 } from "@sit-onyx/icons";
 import {
-  ONYX_BREAKPOINTS,
-  ONYX_MAX_WIDTHS,
-  type OnyxBreakpoint,
-} from "@sit-onyx/shared/breakpoints";
-import {
   computed,
   nextTick,
   onMounted,
@@ -23,6 +18,11 @@ import {
   watch,
 } from "vue";
 import { useResizeObserver } from "../../../composables/useResizeObserver.js";
+import {
+  ONYX_BREAKPOINTS,
+  ONYX_MAX_WIDTHS,
+  type OnyxBreakpoint,
+} from "../../../utils/breakpoints.js";
 import OnyxHeadline from "../../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIcon from "../../OnyxIcon/OnyxIcon.vue";
 import OnyxIconButton from "../../OnyxIconButton/OnyxIconButton.vue";

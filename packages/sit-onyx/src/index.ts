@@ -1,8 +1,8 @@
 import "./styles/index.scss";
 
-export { ONYX_BREAKPOINTS, type OnyxBreakpoint } from "@sit-onyx/shared/breakpoints";
 export { default as OnyxAccordion } from "./components/OnyxAccordion/OnyxAccordion.vue";
 export * from "./components/OnyxAccordion/types.js";
+export { ONYX_BREAKPOINTS, type OnyxBreakpoint } from "./utils/breakpoints.js";
 
 export { default as OnyxAccordionItem } from "./components/OnyxAccordionItem/OnyxAccordionItem.vue";
 export * from "./components/OnyxAccordionItem/types.js";

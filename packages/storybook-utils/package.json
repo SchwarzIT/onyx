@@ -34,7 +34,6 @@
   "peerDependencies": {
     "@sit-onyx/flags": "workspace:^",
     "@sit-onyx/icons": "workspace:^",
-    "@sit-onyx/shared": "workspace:^",
     "@storybook/vue3-vite": ">= 9.0.0",
     "@vueless/storybook-dark-mode": ">= 9.0.0",
     "prettier": ">= 3.0.0",

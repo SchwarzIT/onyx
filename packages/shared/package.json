@@ -1,5 +1,6 @@
 {
   "name": "@sit-onyx/shared",
+  "private": true,
   "version": "1.0.0-beta.4",
   "description": "",
   "type": "module",

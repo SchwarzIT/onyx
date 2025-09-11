@@ -1,8 +1,8 @@
 import { iconBrowserTerminal, iconSearch, iconSettings } from "@sit-onyx/icons";
-import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { action } from "storybook/actions";
 import { h } from "vue";
+import { ONYX_BREAKPOINTS } from "../../utils/breakpoints.js";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
