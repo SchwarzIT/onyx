@@ -61,25 +61,6 @@ export const getFormMessageText = (error?: CustomMessageType): string | undefine
   return `${shortMessage}: ${longMessage}`;
 };
 
-/**
- * Composable for unified handling of custom messages for form components.
- * Will call `setCustomValidity()` accordingly and emit the "validityChange" event
- * whenever the input value / error changes.
- *
- * @example
- * ```html
- * <script lang="ts" setup>
- * const props = defineProps<CustomValidityProp>();
- * const emit = defineEmits<{ validityChange: [validity: ValidityState] }>();
- *
- * const { vCustomValidity } = useCustomValidity({ props, emit });
- * </script>
- *
- * <template>
- *  <input v-custom-validity />
- * </template>
- * ```
- */
 export const useCustomValidity = (options: UseCustomValidityOptions) => {
   const validityState = ref<Record<keyof ValidityState, boolean>>();
 
