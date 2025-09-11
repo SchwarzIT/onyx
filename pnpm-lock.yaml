@@ -183,7 +183,7 @@ importers:
         version: 0.11.2(magicast@0.3.5)(pinia@3.0.3(typescript@5.9.2)(vue@3.5.20(typescript@5.9.2)))
       '@sit-onyx/chartjs-plugin':
         specifier: workspace:^
-        version:  link:../../packages/chartjs-plugin
+        version: link:../../packages/chartjs-plugin
       '@sit-onyx/flags':
         specifier: workspace:^
         version: link:../../packages/flags
@@ -550,9 +550,6 @@ importers:
       '@sit-onyx/icons':
         specifier: workspace:^
         version: link:../icons
-      '@sit-onyx/shared':
-        specifier: workspace:^
-        version: link:../shared
       typescript:
         specifier: '>= 5.2.2'
         version: 5.9.2
@@ -575,6 +572,9 @@ importers:
       '@sit-onyx/playwright-utils':
         specifier: workspace:^
         version: link:../playwright-utils
+      '@sit-onyx/shared':
+        specifier: workspace:^
+        version: link:../shared
       '@sit-onyx/storybook-utils':
         specifier: workspace:^
         version: link:../storybook-utils
@@ -2668,13 +2668,6 @@ packages:
   '@sindresorhus/merge-streams@2.3.0':
     resolution: {integrity: sha512-LtoMMhxAlorcGhmFYI+LhPgbPZCkgP6ra1YL604EeF6U98pLlQ3iWIGMdWSC+vWmPBWBNgmDBAhnAobLROJmwg==}
     engines: {node: '>=18'}
-
-  '@sit-onyx/chartjs-plugin@1.0.0-beta.299':
-    resolution: {integrity: sha512-JoEWSrOaiwehCkH9DXLwo7hV2olPUWfv7CI/TeXJv0pmLDc1tfRkQO3FzGjNAbgTE992cNWoi2M7PQi0mSLqZg==}
-    engines: {node: '>=20'}
-    peerDependencies:
-      chart.js: '>= 4.0.0'
-      sit-onyx: ^1.0.0-beta.314
 
   '@socket.io/component-emitter@3.1.2':
     resolution: {integrity: sha512-9BCxFwvbGg/RsZK9tjXd8s4UcwR0MWeFQ1XEKIQVVvAGJyINdrqKMcTRyLoK8Rse1GjzLV9cwjWV1olXRWEXVA==}
@@ -10629,11 +10622,6 @@ snapshots:
   '@sindresorhus/is@7.0.2': {}
 
   '@sindresorhus/merge-streams@2.3.0': {}
-
-  '@sit-onyx/chartjs-plugin@1.0.0-beta.299(chart.js@4.5.0)(sit-onyx@packages+sit-onyx)':
-    dependencies:
-      chart.js: 4.5.0
-      sit-onyx: link:packages/sit-onyx
 
   '@socket.io/component-emitter@3.1.2': {}
 

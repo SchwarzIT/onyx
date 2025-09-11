@@ -1,13 +1,9 @@
 /* eslint playwright/expect-expect: ["error", { "assertFunctionNames": ["expectComputedGridSpan", "expectComputedColumnCount"] }] -- We have some assertions in extra functions */
 import type { Locator, Page } from "@playwright/test";
-import {
-  ONYX_BREAKPOINTS,
-  ONYX_MAX_WIDTHS,
-  type OnyxBreakpoint,
-} from "@sit-onyx/shared/breakpoints";
 import OnyxPageLayout from "../components/OnyxPageLayout/OnyxPageLayout.vue";
 import OnyxSidebar from "../components/OnyxSidebar/OnyxSidebar.vue";
 import { expect, test } from "../playwright/a11y.js";
+import { ONYX_BREAKPOINTS, ONYX_MAX_WIDTHS, type OnyxBreakpoint } from "../utils/breakpoints.js";
 
 /**
  * Map of column count per breakpoint.

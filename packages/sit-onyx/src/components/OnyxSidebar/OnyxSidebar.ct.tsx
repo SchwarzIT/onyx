@@ -1,6 +1,6 @@
-import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
 import { expect, test } from "../../playwright/a11y.js";
 import { dragResizeHandle } from "../../playwright/index.js";
+import { ONYX_BREAKPOINTS } from "../../utils/breakpoints.js";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxSidebar from "./OnyxSidebar.vue";
 import PlaywrightTest from "./PlaywrightTest.vue";

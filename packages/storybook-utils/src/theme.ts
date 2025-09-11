@@ -1,9 +1,6 @@
-import {
-  ONYX_BREAKPOINTS as RAW_ONYX_BREAKPOINTS,
-  type OnyxBreakpoint,
-} from "@sit-onyx/shared/breakpoints";
 import { create, type ThemeVars } from "storybook/internal/theming";
 import type { Viewport } from "storybook/internal/viewport";
+import { ONYX_BREAKPOINTS as RAW_ONYX_BREAKPOINTS, type OnyxBreakpoint } from "./breakpoints.js";
 
 export type BrandDetails = Pick<ThemeVars, "brandTitle" | "brandImage" | "brandUrl">;
 

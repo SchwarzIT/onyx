@@ -1,5 +1,5 @@
-import type { OnyxBreakpoint } from "@sit-onyx/shared/breakpoints";
 import type { DensityProp } from "../../composables/density.js";
+import type { OnyxBreakpoint } from "../../utils/breakpoints.js";
 import type { OnyxModalProps } from "../OnyxModal/types.js";
 
 export type OnyxSidebarProps = DensityProp & {

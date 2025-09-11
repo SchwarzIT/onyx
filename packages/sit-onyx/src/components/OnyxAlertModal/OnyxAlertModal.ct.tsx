@@ -1,6 +1,6 @@
 import { createEmitSpy, expectEmit } from "@sit-onyx/playwright-utils";
-import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
 import { expect, test } from "../../playwright/a11y.js";
+import { ONYX_BREAKPOINTS } from "../../utils/breakpoints.js";
 import TestWrapperCt from "./TestWrapper.ct.vue";
 
 test.describe("Screenshot tests", () => {
