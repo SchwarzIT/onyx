@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.331
+
+### Patch Changes
+
+- d9845a3: fix(OnyxAccordionItem): apply hover background color for card type only to header
+
 ## 1.0.0-beta.330
 
 ### Patch Changes
