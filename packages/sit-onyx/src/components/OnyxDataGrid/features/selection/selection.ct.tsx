@@ -1,5 +1,5 @@
 import { expect, test } from "../../../../playwright/a11y.js";
-import TestCase, { type TransferableEmit } from "./TestCase.vue";
+import TestCase, { type TransferableEmit } from "./TestCase.ct.vue";
 
 const getTestData = () => [
   { id: 3, a: "4", b: "3-Start" },
@@ -141,4 +141,16 @@ test("useSelection with disabled", async ({ mount }) => {
     const columns = component.locator("th");
     await expect(columns).toHaveCount(3);
   });
+});
+
+test("should not check header checkbox when table is empty", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(<TestCase dataGrid={{ data: [], columns: ["a", "b"] }} />);
+
+  const headerCheckbox = component.getByRole("checkbox", { name: "Select all rows" });
+
+  // ASSERT
+  await expect(headerCheckbox).not.toBeChecked();
+  await expect(headerCheckbox).toBeDisabled();
+  await expect(headerCheckbox).toHaveJSProperty("indeterminate", false);
 });

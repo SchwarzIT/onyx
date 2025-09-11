@@ -73,9 +73,7 @@ const withStickyColumns = DataGridFeatures.useStickyColumns<FileEntry>({
   position: "left",
 });
 const withResizing = DataGridFeatures.useResizing<FileEntry>();
-const withSelection = DataGridFeatures.useSelection<FileEntry>({
-  enabled: computed(() => props.files.length > 0),
-});
+const withSelection = DataGridFeatures.useSelection<FileEntry>();
 
 const { formatFileSize } = useFileSize();
 
