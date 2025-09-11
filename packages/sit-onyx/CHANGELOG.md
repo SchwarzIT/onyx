@@ -1,5 +1,14 @@
 # sit-onyx
 
+## 1.0.0-beta.333
+
+### Patch Changes
+
+- 2bc24ce: fix(OnyxDataGrid): do not check header checkbox when empty and no data is selected
+
+  When using the `useSelection` feature of the OnyxDataGrid, the header checkbox is now no longer checked when the data is empty and no rows are checked (e.g. while loading async data from an API and showing skeleton or when data was found at all).
+  Also, the checkbox is disabled when no data exists.
+
 ## 1.0.0-beta.332
 
 ### Patch Changes
