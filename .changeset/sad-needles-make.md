@@ -1,8 +1,5 @@
 ---
 "sit-onyx": minor
-"playground": minor
-"docs": minor
-"demo-app": minor
 "@sit-onyx/chartjs-plugin": minor
 "@sit-onyx/eslint-plugin": minor
 "figma-plugin-sync-icons": minor

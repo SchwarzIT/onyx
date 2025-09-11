@@ -1,8 +1,5 @@
 ---
 "sit-onyx": major
-"playground": major
-"docs": major
-"demo-app": major
 "@sit-onyx/figma-utils": major
 "@sit-onyx/flags": major
 "@sit-onyx/icons": major
