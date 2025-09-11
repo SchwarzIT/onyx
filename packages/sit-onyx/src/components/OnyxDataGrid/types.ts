@@ -33,7 +33,7 @@ export type MapTypeRenderOptions<T> = {
 };
 
 /**
- * A type that can be wrapped in an array.
+ * A type that can either be the type itself or an array of it.
  */
 export type MaybeArray<T> = T | Array<T>;
 

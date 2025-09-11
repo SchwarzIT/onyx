@@ -88,7 +88,7 @@ export type ColumnConfig<
   | PublicNormalizedColumnConfig<
       TEntry,
       TColumnGroup,
-      TTypes | ColumnTypesFromFeatures<[ReturnType<typeof BASE_FEATURE>]>
+      TTypes | ColumnTypesFromFeatures<ReturnType<typeof BASE_FEATURE>>
     >;
 
 export type DefaultSupportedTypes = keyof ReturnType<
