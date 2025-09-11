@@ -172,8 +172,6 @@ jobs:
     needs: release
     environment: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
     steps:
-      - uses: actions/checkout@v5
-
       - name: 🪝 Invoke internal demo app webhook
         uses: distributhor/workflow-webhook@v3
         # since the webhook is an external dependency, we still want to continue deploying the public demo app
@@ -182,6 +180,8 @@ jobs:
         with:
           webhook_url: ${{ secrets.AZURE_DEMO_APP_WEBHOOK_URL }}
           webhook_secret: ${{ secrets.AZURE_DEMO_APP_WEBHOOK_SECRET }}
+
+      - uses: actions/checkout@v5
 
       - name: Download artifact
         uses: actions/download-artifact@v5
