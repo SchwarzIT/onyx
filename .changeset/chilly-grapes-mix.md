@@ -1,5 +1,5 @@
 ---
-"@sit-onyx/nuxt-docs": major
+"@sit-onyx/nuxt-docs": minor
 ---
 
 release initial version

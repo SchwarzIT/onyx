@@ -1,5 +1,5 @@
 ---
-"@sit-onyx/nuxt-docs": major
+"@sit-onyx/nuxt-docs": minor
 ---
 
 refactor(nuxt-docs): remove app config in favor of Nuxt overrides
