@@ -3,8 +3,9 @@ import { iconMinus, iconPlus } from "@sit-onyx/icons";
 import { computed, ref, useTemplateRef, watchEffect } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
-import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity.js";
+import { getFormMessages } from "../../composables/useCustomValidity.js";
 import { useErrorClass } from "../../composables/useErrorClass.js";
+import { useFormValidity } from "../../composables/useFormElementError.js";
 import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
@@ -49,7 +50,7 @@ const { disabled, showError } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
 const errorClass = useErrorClass(showError);
 const { densityClass } = useDensity(props);
-const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
+const { vCustomValidity, errorMessages } = useFormValidity({ props, emit });
 const successMessages = computed(() => getFormMessages(props.success));
 const messages = computed(() => getFormMessages(props.message));
 
