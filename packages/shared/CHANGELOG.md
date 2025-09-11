@@ -1,5 +1,11 @@
 # @sit-onyx/shared
 
+## 1.0.0-beta.5
+
+### Patch Changes
+
+- c8bf3e4: fix build warning for scss obsolete deprecations
+
 ## 1.0.0-beta.4
 
 ### Major Changes

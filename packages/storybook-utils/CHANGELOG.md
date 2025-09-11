@@ -1,5 +1,11 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.0-beta.105
+
+### Patch Changes
+
+- c8bf3e4: fix: updatae event type to "PointerEvent" for onClick, onContextmenu and onAuxclick events
+
 ## 1.0.0-beta.104
 
 ### Patch Changes
