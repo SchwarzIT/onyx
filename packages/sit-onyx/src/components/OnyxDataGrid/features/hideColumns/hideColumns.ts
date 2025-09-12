@@ -1,5 +1,5 @@
 import { iconEyeDisabled, iconPlusSmall } from "@sit-onyx/icons";
-import { computed, h, ref, unref, watchEffect, type Ref } from "vue";
+import { computed, h, ref, toRef, type Ref } from "vue";
 import type { ComponentSlots } from "vue-component-type-helpers";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxFlyoutMenu from "../../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
@@ -13,7 +13,7 @@ import {
   type ModifyColumns,
 } from "../index.js";
 import "./hideColumns.scss";
-import type { HideColumnsOptions } from "./types.js";
+import type { HideColumnsOptions, HideColumnsState } from "./types.js";
 
 export const HIDE_COLUMNS_FEATURE = Symbol("HideColumnsFeature");
 export const HIDDEN_COLUMN = Symbol("HiddenColumn");
@@ -26,21 +26,10 @@ export const useHideColumns = <TEntry extends DataGridEntry>(
     const { isEnabled } = useFeatureContext(ctx, options);
 
     const columnConfig = ref([]) as Ref<Readonly<InternalColumnConfig<TEntry>[]>>;
-    const hiddenColumnKeys = ref(new Set()) as Ref<Set<keyof TEntry>>;
+    const hiddenColumnKeys: Ref<HideColumnsState<TEntry>> = toRef(options?.state ?? new Set());
     const hiddenColumns = computed(() =>
       columnConfig.value.filter((c) => hiddenColumnKeys.value.has(c.key)),
     );
-
-    watchEffect(() => {
-      // sync hidden columns with user provided options
-      Object.entries(unref(options?.columns) ?? {}).forEach(([key, value]) => {
-        if (value?.hidden) {
-          hiddenColumnKeys.value.add(key);
-        } else {
-          hiddenColumnKeys.value.delete(key);
-        }
-      });
-    });
 
     const flyoutMenu = () =>
       h(
@@ -98,7 +87,7 @@ export const useHideColumns = <TEntry extends DataGridEntry>(
            */
           func: (newConfig) => {
             columnConfig.value = newConfig;
-            return newConfig as InternalColumnConfig<TEntry>[];
+            return newConfig;
           },
         },
         {

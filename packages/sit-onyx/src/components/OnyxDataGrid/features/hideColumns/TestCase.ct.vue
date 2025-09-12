@@ -1,17 +1,35 @@
 <script setup lang="ts" generic="TEntry extends DataGridEntry">
-import { computed } from "vue";
-import type { DataGridEntry, OnyxDataGridProps } from "../../../../index.js";
+import { computed, ref, watchEffect } from "vue";
+import type { ColumnConfig, DataGridEntry } from "../../../../index.js";
 import { DataGridFeatures, OnyxDataGrid } from "../../../../index.js";
-import type { HideColumnsOptions } from "./types.js";
+import type { HideColumnsState } from "./types.js";
 
-const { columns, data, hideColumnsOptions } = defineProps<
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- for simplicity we use any here
-  Pick<OnyxDataGridProps<TEntry, any, any, any, any, any>, "columns" | "data"> & {
-    hideColumnsOptions?: HideColumnsOptions<TEntry>;
-  }
->();
+export type Entry = {
+  id: number;
+  a: string;
+  b: string;
+  c: string;
+  d: string;
+};
 
-const withHideColumns = computed(() => DataGridFeatures.useHideColumns(hideColumnsOptions));
+const emit = defineEmits<{
+  "update:state": [newState: (keyof Entry)[]];
+}>();
+
+const data: Entry[] = [
+  { id: 1, a: "1", b: "a", c: "aa", d: "dd" },
+  { id: 2, a: "2", b: "B", c: "bb", d: "dd" },
+  { id: 3, a: "3", b: "C", c: "cc", d: "dd" },
+];
+
+const columns: ColumnConfig<Entry>[] = ["a", "b", "c", { key: "d", label: "Labelled Column" }];
+
+const state = ref<HideColumnsState<Entry>>(new Set(["b"]));
+watchEffect(() => emit("update:state", Array.from(state.value.values())));
+
+const withHideColumns = computed(() =>
+  DataGridFeatures.useHideColumns({ state, columns: { c: { enabled: false } } }),
+);
 const features = computed(() => [withHideColumns.value]);
 </script>
 
