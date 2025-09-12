@@ -165,7 +165,8 @@ export default defineLoader({
       },
       {
         name: "Dialog",
-        status: getImplementedStatus("OnyxDialog"),
+        status: "implemented",
+        href: "https://storybook.onyx.schwarz/?path=/docs/feedback-dialog--docs",
       },
       {
         name: "Toast",
@@ -258,7 +259,11 @@ export default defineLoader({
       { name: "Shortcut", status: getImplementedStatus("OnyxShortcut") },
       { name: "Feed", status: getImplementedStatus("OnyxFeed") },
       { name: "List", status: getImplementedStatus("OnyxList") },
-      { name: "Segmented control", status: getImplementedStatus("OnyxSegmentedControl") },
+      {
+        name: "Segmented control",
+        status: "implemented",
+        href: "https://storybook.onyx.schwarz/?path=/docs/navigation-segmentedcontrol--docs",
+      },
       { name: "Global search", status: getImplementedStatus("OnyxGlobalSearch") },
     ];
 
