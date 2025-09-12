@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.0.0-beta.337
+
+### Patch Changes
+
+- 5dd3ea1: fix(OnyxButton): Fix OnyxButton with Icon changes size in loading state
+
 ## 1.0.0-beta.336
 
 ### Patch Changes
