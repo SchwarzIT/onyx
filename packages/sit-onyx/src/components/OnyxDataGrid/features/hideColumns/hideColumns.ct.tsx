@@ -1,31 +1,18 @@
 import type { Locator } from "@playwright/test";
+import { ref } from "vue";
 import { expect, test } from "../../../../playwright/a11y.js";
-import TestCase from "./TestCase.ct.vue";
-
-const getTestData = () => [
-  { id: 1, a: "1", b: "a", c: "aa", d: "dd" },
-  { id: 2, a: "2", b: "B", c: "bb", d: "dd" },
-  { id: 3, a: "3", b: "C", c: "cc", d: "dd" },
-];
+import TestCase, { type Entry } from "./TestCase.ct.vue";
 
 const expectColumnCount = async (dataGrid: Locator, count: number) => {
   await expect(dataGrid.getByRole("columnheader")).toHaveCount(count);
 };
 
 test("should hide and show columns", async ({ mount }) => {
+  const state = ref<(keyof Entry)[]>([]);
+
   // ARRANGE
-  const data = getTestData();
   const component = await mount(
-    <TestCase
-      data={data}
-      columns={["a", "b", "c", { key: "d", label: "Labelled Column" }]}
-      hideColumnsOptions={{
-        columns: {
-          b: { hidden: true },
-          c: { enabled: false },
-        },
-      }}
-    />,
+    <TestCase onUpdate:state={(newState) => (state.value = newState)} />,
   );
 
   const revealButton = component.getByRole("button", { name: "Show hidden columns" });
@@ -45,6 +32,7 @@ test("should hide and show columns", async ({ mount }) => {
     await expect(revealButton).toBeVisible();
     await expectColumnCount(component, 4); // 3 Visible + Reveal column
     await expect(component).toHaveScreenshot("data-grid-hide-columns-initial.png");
+    expect(state.value).toStrictEqual(["b"]);
   });
 
   await test.step("Hide multiple columns", async () => {
@@ -59,10 +47,11 @@ test("should hide and show columns", async ({ mount }) => {
     // ACT
     await expect(revealButton).toBeVisible();
     await expectColumnCount(component, 2); // 1 Visible + Reveal column
+    expect(state.value).toStrictEqual(["b", "a", "d"]);
   });
 
   await test.step("Reveal all Columns", async () => {
-    // ARRANGE
+    // ACT
     await revealButton.click();
     await expect(component).toHaveScreenshot("data-grid-hide-columns-reveal-button.png");
     await reveal("a");
@@ -71,11 +60,12 @@ test("should hide and show columns", async ({ mount }) => {
     await revealButton.click();
     await reveal("Labelled Column");
 
-    // ACT
+    // ASSERT
     await expectColumnCount(component, 4); // 4 Visible
     await expect(revealButton).toBeHidden();
     await expect(component).toHaveScreenshot(
       "data-grid-hide-columns-revealed-columns-should-be-last.png",
     );
+    expect(state.value).toStrictEqual([]);
   });
 });
