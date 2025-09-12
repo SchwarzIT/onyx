@@ -4,7 +4,7 @@ import { computed, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useRequired } from "../../composables/required.js";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
-import { useCustomValidity } from "../../composables/useCustomValidity.js";
+import { useFormValidity } from "../../composables/useFormElementError.js";
 import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
@@ -44,7 +44,7 @@ const { densityClass } = useDensity(props);
 
 const { disabled, showError, requiredMarker } = useFormContext(props);
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props, requiredMarker);
-const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
+const { vCustomValidity, errorMessages } = useFormValidity({ props, emit });
 const shownErrorMessages = computed(() =>
   showError.value !== false ? errorMessages.value : undefined,
 );

@@ -1,14 +1,10 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
-import { nextTick, reactive, ref } from "vue";
-import {
-  useCustomValidity,
-  type CustomMessageType,
-  type InputValidationElement,
-  type UseCustomValidityOptions,
-} from "./useCustomValidity.js";
+import { nextTick, ref } from "vue";
+import { useCustomValidity, type CustomMessageType } from "./useCustomValidity.js";
 
 const tFunctionMock = vi.fn();
 
+// Mock the i18n translation function
 vi.mock("../i18n", () => ({
   injectI18n: () => ({
     t: { value: tFunctionMock },
@@ -30,262 +26,121 @@ const getDefaultValidityState = (): ValidityState => ({
   valid: true,
 });
 
+/**
+ * Creates a mock input element that more realistically simulates native validity behavior.
+ * Calling `setCustomValidity` will dynamically update the `validity` object.
+ */
+const createMockInput = (initialCustomValidity = "") => {
+  let customValidity = initialCustomValidity;
+  const validityState = {
+    ...getDefaultValidityState(),
+    get customError() {
+      return !!customValidity;
+    },
+    get valid(): boolean {
+      return !this.customError;
+    },
+  };
+
+  return {
+    get validity() {
+      return validityState;
+    },
+    setCustomValidity: vi.fn((message: string) => {
+      customValidity = message;
+    }),
+  };
+};
+
 describe("useCustomValidity", () => {
   beforeEach(() => {
     tFunctionMock.mockReset();
   });
 
-  test("should set custom error", async () => {
-    const initialValidity: ValidityState = {
+  test("should set custom error via options", async () => {
+    // ARRANGE
+    const mockInput = createMockInput();
+    const error = ref<CustomMessageType>("Test error");
+    const { vCustomValidity, validityState } = useCustomValidity({ error });
+
+    // ACT
+    vCustomValidity.mounted(mockInput);
+    await nextTick();
+
+    // ASSERT
+    expect(mockInput.setCustomValidity).toHaveBeenCalledWith("Test error");
+    expect(validityState.value).toEqual({
       ...getDefaultValidityState(),
       customError: true,
       valid: false,
-    };
-
-    let currentValidity: ValidityState | undefined;
-
-    const mockInput = {
-      validity: initialValidity,
-      setCustomValidity: vi.fn(),
-    } satisfies InputValidationElement;
-
-    const props = reactive<UseCustomValidityOptions["props"]>({
-      error: "Test error",
     });
-
-    const error = ref<CustomMessageType>();
-
-    const { vCustomValidity, errorMessages } = useCustomValidity({
-      error,
-      props,
-      emit: (_, validity) => (currentValidity = validity),
-    });
-
-    vCustomValidity.mounted(mockInput);
-
-    await nextTick(); // wait for watchers to be called
-    expect(currentValidity).toBeUndefined(); // should not be emitted initially
-    expect(errorMessages.value).toEqual({
-      longMessage: "Test error",
-      shortMessage: "Test error",
-      hidden: false,
-    });
-
-    props.modelValue = "Test";
-    await nextTick();
-
-    expect(mockInput.setCustomValidity).toBeCalledWith("Test error");
-    expect(currentValidity).toStrictEqual(initialValidity);
-
-    props.error = "Changed error";
-    await nextTick();
-    expect(mockInput.setCustomValidity).toBeCalledWith("Changed error");
-    expect(currentValidity).toStrictEqual(initialValidity);
-
-    error.value = "explicit custom error";
-    await nextTick();
-    expect(mockInput.setCustomValidity).toBeCalledWith("Changed error");
-    expect(currentValidity).toStrictEqual(initialValidity);
-
-    props.error = undefined;
-    await nextTick();
-    expect(mockInput.setCustomValidity).toBeCalledWith("explicit custom error");
-    expect(currentValidity).toStrictEqual(initialValidity);
-
-    props.error = undefined;
-    error.value = undefined;
-    const newValidity: ValidityState = { ...initialValidity, customError: false, valid: true };
-    mockInput.validity = newValidity;
-    await nextTick();
-    expect(mockInput.setCustomValidity).toBeCalledWith("");
-    expect(currentValidity).toStrictEqual(newValidity);
-    expect(tFunctionMock).toHaveBeenCalledTimes(0);
   });
 
-  test("should set custom error immediately, so that element validity and errorMessages are in sync", async () => {
+  test("should update custom error when the value changes", async () => {
     // ARRANGE
-    const initialValidity: ValidityState = getDefaultValidityState();
-    let currentValidity: ValidityState | undefined;
-
-    const mockInput = {
-      validity: initialValidity,
-      setCustomValidity: vi.fn(),
-    } satisfies InputValidationElement;
-
-    const props = reactive<UseCustomValidityOptions["props"]>({
-      error: "",
-    });
-
-    const error = ref<CustomMessageType>();
-    const { vCustomValidity, errorMessages } = useCustomValidity({
-      error,
-      props,
-      emit: (_, validity) => (currentValidity = validity),
-    });
+    const mockInput = createMockInput();
+    const error = ref<CustomMessageType>("Initial error");
+    const { vCustomValidity, validityState } = useCustomValidity({ error });
 
     // ACT
     vCustomValidity.mounted(mockInput);
     await nextTick();
-
-    // ASSERT initial conditions
-    expect(currentValidity).toBeUndefined();
-    expect(errorMessages.value).toBeUndefined();
-
-    // ACT set custom error
-    mockInput.validity = { ...getDefaultValidityState(), customError: true, valid: false };
-    props.modelValue = "Test";
-    error.value = "custom error";
-    await nextTick();
-
-    // ASSERT everything is updated as expected
-    expect(errorMessages.value).toBeDefined();
-    expect(mockInput.setCustomValidity).toBeCalledWith("custom error");
-    expect(currentValidity).toStrictEqual(mockInput.validity);
-  });
-
-  test.each([
-    { cause: "badInput", key: "validations.badInput" },
-    { cause: "patternMismatch", key: "validations.patternMismatch" },
-    { cause: "rangeOverflow", key: "validations.rangeOverflow" },
-    { cause: "rangeUnderflow", key: "validations.rangeUnderflow" },
-    { cause: "stepMismatch", key: "validations.stepMismatch" },
-    { cause: "tooLong", key: "validations.tooLong" },
-    { cause: "tooShort", key: "validations.tooShort" },
-    { cause: "typeMismatch", key: "validations.typeMismatch.generic" },
-    { cause: "valueMissing", key: "validations.valueMissing" },
-  ])("should create a default error translation for $cause", async ({ cause, key }) => {
-    // ARRANGE
-    const initialInvalidEmpty: ValidityState = {
+    expect(mockInput.setCustomValidity).toHaveBeenCalledWith("Initial error");
+    expect(validityState.value).toEqual({
       ...getDefaultValidityState(),
-      [cause]: true,
+      customError: true,
       valid: false,
-    };
-    const props = reactive<UseCustomValidityOptions["props"]>({});
-    const { vCustomValidity, errorMessages } = useCustomValidity({
-      error: undefined,
-      props,
-      emit: () => ({}),
     });
-    tFunctionMock.mockReturnValueOnce("Test");
-    tFunctionMock.mockReturnValueOnce("This is a test");
-    const mockInput = {
-      validity: initialInvalidEmpty,
-      setCustomValidity: vi.fn(),
-    } satisfies InputValidationElement;
-
-    // ACT
-    vCustomValidity.mounted(mockInput);
-    await nextTick(); // wait for watchers to be called
-
-    // ASSERT
-    expect(errorMessages.value).toEqual({ longMessage: "Test", shortMessage: "This is a test" });
-    expect(tFunctionMock).toBeCalledWith(`${key}.preview`, expect.any(Object));
-    expect(tFunctionMock).toBeCalledWith(`${key}.fullError`, expect.any(Object));
-  });
-
-  test("should format date min errors", async () => {
-    // ARRANGE
-    const initialValidity: ValidityState = {
-      ...getDefaultValidityState(),
-      rangeUnderflow: true,
-      valid: false,
-    };
-
-    const mockInput = {
-      validity: initialValidity,
-      setCustomValidity: vi.fn(),
-    } satisfies InputValidationElement;
-
-    const props = reactive<UseCustomValidityOptions["props"]>({
-      type: "date",
-      min: new Date(2024, 11, 10, 14, 42),
-    });
-
-    const { vCustomValidity, errorMessages } = useCustomValidity({
-      props,
-      emit: () => ({}),
-    });
-
-    tFunctionMock.mockImplementationOnce(
-      (translationKey, params) => `${translationKey}: ${params.min}`,
-    );
-    tFunctionMock.mockReturnValueOnce("Too low");
-
-    vCustomValidity.mounted(mockInput);
-    await nextTick(); // wait for watchers to be called
-
-    // ASSERT
-    expect(errorMessages.value).toStrictEqual({
-      shortMessage: "Too low",
-      longMessage: "validations.rangeUnderflow.fullError: 12/10/2024",
-    });
-
-    // ACT
-    tFunctionMock.mockImplementationOnce(
-      (translationKey, params) => `${translationKey}: ${params.min}`,
-    );
-    tFunctionMock.mockReturnValueOnce("Too low");
-
-    props.type = "datetime-local";
+    error.value = "Updated error";
     await nextTick();
 
     // ASSERT
-    expect(errorMessages.value).toStrictEqual({
-      shortMessage: "Too low",
-      longMessage: "validations.rangeUnderflow.fullError: 12/10/2024, 02:42 PM",
+    expect(mockInput.setCustomValidity).toHaveBeenCalledWith("Updated error");
+    expect(validityState.value).toEqual({
+      ...getDefaultValidityState(),
+      customError: true,
+      valid: false,
     });
   });
 
-  test("should format date max errors", async () => {
+  test("should clear custom error when the value is undefined", async () => {
     // ARRANGE
-    const initialValidity: ValidityState = {
-      ...getDefaultValidityState(),
-      rangeOverflow: true,
-      valid: false,
-    };
-
-    const mockInput = {
-      validity: initialValidity,
-      setCustomValidity: vi.fn(),
-    } satisfies InputValidationElement;
-
-    const props = reactive<UseCustomValidityOptions["props"]>({
-      type: "date",
-      max: new Date(2024, 11, 10, 14, 42),
-    });
-
-    const { vCustomValidity, errorMessages } = useCustomValidity({
-      props,
-      emit: () => ({}),
-    });
-
-    tFunctionMock.mockImplementationOnce(
-      (translationKey, params) => `${translationKey}: ${params.max}`,
-    );
-    tFunctionMock.mockReturnValueOnce("Too high");
+    const mockInput = createMockInput("Initial error");
+    const error = ref<CustomMessageType>("Initial error");
+    const { vCustomValidity, validityState } = useCustomValidity({ error });
 
     vCustomValidity.mounted(mockInput);
-    await nextTick(); // wait for watchers to be called
-
-    // ASSERT
-    expect(errorMessages.value).toStrictEqual({
-      shortMessage: "Too high",
-      longMessage: "validations.rangeOverflow.fullError: 12/10/2024",
-    });
+    await nextTick();
 
     // ACT
-    tFunctionMock.mockImplementationOnce(
-      (translationKey, params) => `${translationKey}: ${params.max}`,
-    );
-    tFunctionMock.mockReturnValueOnce("Too high");
-
-    props.type = "datetime-local";
+    error.value = "";
     await nextTick();
 
     // ASSERT
-    expect(errorMessages.value).toStrictEqual({
-      shortMessage: "Too high",
-      longMessage: "validations.rangeOverflow.fullError: 12/10/2024, 02:42 PM",
+    expect(mockInput.setCustomValidity).toHaveBeenCalledWith("");
+    expect(validityState.value).toEqual({
+      ...getDefaultValidityState(),
+      customError: false,
+      valid: true,
     });
+  });
+
+  test("should not update validity state if nothing changes", async () => {
+    // ARRANGE
+    const mockInput = createMockInput();
+    const error = ref<CustomMessageType>("Test error");
+    const { vCustomValidity, validityState } = useCustomValidity({ error });
+
+    vCustomValidity.mounted(mockInput);
+    await nextTick();
+
+    const initialValidityStateValue = validityState.value;
+
+    // ACT
+    error.value = "Test error";
+    await nextTick();
+
+    // ASSERT
+    expect(validityState.value).toBe(initialValidityStateValue);
   });
 });

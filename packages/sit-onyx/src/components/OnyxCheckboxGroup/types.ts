@@ -1,5 +1,5 @@
 import type { RequiredProp } from "../../composables/required.js";
-import type { CustomValidityProp } from "../../composables/useCustomValidity.js";
+import type { CustomValidityProp } from "../../composables/useFormElementError.js";
 import type {
   AutofocusProp,
   BaseSelectOption,
