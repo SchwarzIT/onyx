@@ -1,7 +1,7 @@
 {
   "name": "@sit-onyx/vite-plugin-svg",
   "description": "A Vite plugin to generate JavaScript exports for SVG files",
-  "version": "0.0.1-beta.0",
+  "version": "0.0.0",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
