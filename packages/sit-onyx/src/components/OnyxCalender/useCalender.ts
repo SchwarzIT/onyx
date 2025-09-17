@@ -1,4 +1,4 @@
-import { computed, nextTick, ref, watch } from "vue";
+import { computed, nextTick, ref, toValue, watch, type MaybeRefOrGetter } from "vue";
 import type { OnyxCalderProps, OnyxWeekDays } from "./types.js";
 
 const getDayIndex = (dayName: OnyxWeekDays) => {
@@ -12,7 +12,7 @@ const getMidnightDate = (date: Date): Date => {
   return newDate;
 };
 
-export function useCalendar(props: OnyxCalderProps) {
+export function useCalendar(props: OnyxCalderProps & { dayNames: MaybeRefOrGetter<string[]> }) {
   const currentDate = ref(getMidnightDate(new Date()));
   const selectedDate = ref<Date | null>(null);
   const focusedDate = ref<Date | null>(getMidnightDate(new Date()));
@@ -193,10 +193,9 @@ export function useCalendar(props: OnyxCalderProps) {
       }
     }
   };
-
   const weekdays = computed(() => {
     if (!props.startDay) return;
-    const days = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
+    const days = toValue(props.dayNames);
     const start = getDayIndex(props.startDay);
     return days.slice(start).concat(days.slice(0, start));
   });

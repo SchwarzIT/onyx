@@ -3,7 +3,11 @@ import { iconChevronLeftSmall, iconChevronRightSmall } from "@sit-onyx/icons";
 import { computed, useTemplateRef, watch } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useResizeObserver } from "../../composables/useResizeObserver.js";
-import { SKELETON_INJECTED_SYMBOL, useSkeletonContext } from "../../composables/useSkeletonState.js";
+import {
+  SKELETON_INJECTED_SYMBOL,
+  useSkeletonContext,
+} from "../../composables/useSkeletonState.js";
+import { injectI18n } from "../../i18n/index.js";
 import { ONYX_BREAKPOINTS } from "../../utils/breakpoints.js";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
@@ -30,7 +34,33 @@ defineSlots<{
    */
   actions?(): unknown;
 }>();
+const calenderSize = computed(() => {
+  return props.size !== "auto" ? props.size : width.value < ONYX_BREAKPOINTS.xs ? "small" : "big";
+});
+const { t } = injectI18n();
 
+const dayNames = computed(() => {
+  const shortNames = [
+    t.value("days.monday.short"),
+    t.value("days.tuesday.short"),
+    t.value("days.wednesday.short"),
+    t.value("days.thursday.short"),
+    t.value("days.friday.short"),
+    t.value("days.saturday.short"),
+    t.value("days.sunday.short"),
+  ];
+  const longNames = [
+    t.value("days.monday.long"),
+    t.value("days.tuesday.long"),
+    t.value("days.wednesday.long"),
+    t.value("days.thursday.long"),
+    t.value("days.friday.long"),
+    t.value("days.saturday.long"),
+    t.value("days.sunday.long"),
+  ];
+
+  return calenderSize.value === "big" ? longNames : shortNames;
+});
 const {
   currentYear,
   currentMonth,
@@ -46,7 +76,7 @@ const {
   goToToday,
   goToDate,
   handleKeyNavigation,
-} = useCalendar(props);
+} = useCalendar({ ...props, dayNames });
 
 const { densityClass } = useDensity(props);
 
@@ -60,9 +90,7 @@ watch(selectedDate, (newDate) => {
 const calenderRef = useTemplateRef("calender");
 
 const { width } = useResizeObserver(calenderRef);
-const calenderSize = computed(() => {
-  return props.size !== "auto" ? props.size : width.value < ONYX_BREAKPOINTS.xs ? "small" : "big";
-});
+
 const sizeClass = computed(() => {
   return `onyx-calender--${calenderSize.value}`;
 });
@@ -197,21 +225,25 @@ const sizeClass = computed(() => {
         width: 100%;
         border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
         border-radius: var(--onyx-radius-md);
+        table-layout: fixed;
         overflow: hidden;
         box-sizing: border-box;
         border-spacing: 0;
         background-color: var(--onyx-color-base-background-blank);
 
         th {
-          color: var(--onyx-color-text-icons-neutral-intense);
+          color: var(--onyx-color-text-icons-neutral-medium);
           padding: var(--onyx-density-xs);
           justify-content: center;
           align-items: center;
           background: var(--onyx-color-base-neutral-200);
           border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+          font-family: var(--onyx-font-family-h4);
+          font-weight: var(--onyx-font-weight-semibold);
         }
 
         td {
+          font-family: var(--onyx-font-family);
           cursor: pointer;
 
           &:hover:not(.other-month, .is-disabled) {

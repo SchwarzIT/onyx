@@ -10,7 +10,7 @@ const meta: Meta<typeof OnyxCalender> = {
   component: OnyxCalender,
   args: {
     style: {
-      maxWidth: "40rem",
+      maxWidth: "45rem",
     },
   },
 };
