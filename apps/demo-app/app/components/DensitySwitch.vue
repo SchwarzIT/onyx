@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { iconToolRuler } from "@sit-onyx/icons";
-import { DENSITIES, type SelectDialogOption } from "sit-onyx";
+import { DENSITIES, type Density, type SelectDialogOption } from "sit-onyx";
 import { capitalize } from "vue";
 
 const settingsStore = useSettingsStore();
@@ -21,13 +21,15 @@ const options = DENSITIES.map((density) => {
   } satisfies SelectDialogOption;
 });
 
+const getCSSClassName = (density: Density) => `onyx-density-${density}`;
+
 onMounted(() => {
   watch(
     density,
     (newValue, oldValue) => {
       const classList = document.documentElement.classList;
-      classList.remove(`onyx-density-${oldValue}`);
-      classList.add(`onyx-density-${newValue}`);
+      if (oldValue) classList.remove(getCSSClassName(oldValue));
+      classList.add(getCSSClassName(newValue));
     },
     { immediate: true },
   );

@@ -7,7 +7,6 @@ import OnyxFABItem from "./OnyxFABItem.vue";
 const meta: Meta<typeof OnyxFABItem> = {
   title: "Support/FABItem",
   component: OnyxFABItem,
-  tags: ["new:component"],
   argTypes: {
     ...withNativeEventLogging(["onClick"]),
     icon: defineIconSelectArgType(),

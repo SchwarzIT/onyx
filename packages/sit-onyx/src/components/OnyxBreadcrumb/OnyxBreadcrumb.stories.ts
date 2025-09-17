@@ -1,3 +1,4 @@
+import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h, provide, ref } from "vue";
 import { ROUTER_INJECTION_KEY } from "../../composables/useLink.js";
@@ -9,6 +10,7 @@ const meta: Meta<typeof OnyxBreadcrumb> = {
   component: OnyxBreadcrumb,
   argTypes: {
     default: { control: { disable: true } },
+    ...withNativeEventLogging(["onClick"]),
   },
   decorators: [
     (story) => ({
@@ -33,6 +35,14 @@ export const Default = {
     default: () => [
       h(OnyxBreadcrumbItem, { href: "/foo" }, () => "Foo"),
       h(OnyxBreadcrumbItem, { href: "/foo/bar" }, () => "Bar"),
+      h(OnyxBreadcrumbItem, { href: "/foo/bar/baz1" }, () => "Baz1"),
+      h(OnyxBreadcrumbItem, { href: "/foo/bar/baz2" }, () => "Baz2"),
+      h(OnyxBreadcrumbItem, { href: "/foo/bar/baz3" }, () => "Baz3"),
+      h(OnyxBreadcrumbItem, { href: "/foo/bar/baz4" }, () => "Baz4"),
+      h(OnyxBreadcrumbItem, { href: "/foo/bar/baz5" }, () => "Baz5"),
+      h(OnyxBreadcrumbItem, { href: "/foo/bar/baz6" }, () => "Baz6"),
+      h(OnyxBreadcrumbItem, { href: "/foo/bar/baz7" }, () => "Baz7"),
+      h(OnyxBreadcrumbItem, { href: "/foo/bar/baz8" }, () => "Baz8"),
       h(OnyxBreadcrumbItem, { href: "/foo/bar/baz" }, () => "Baz"),
     ],
   },

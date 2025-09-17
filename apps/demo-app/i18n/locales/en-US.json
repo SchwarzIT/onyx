@@ -20,22 +20,25 @@
     "submit": "Submit",
     "trends": "Trends",
     "fullStats": "Full stats",
-    "customerDistribution": "Customer Distribution",
-    "revenue": "Revenue",
     "productLines": {
-      "title": "Product Lines",
-      "a": "Product Line A",
-      "b": "Product Line B"
+      "headline": "Product lines",
+      "a": "Product line A",
+      "b": "Product line B",
+      "c": "Product line C",
+      "d": "Product line D"
     },
     "customerSegments": {
+      "headline": "Customer Distribution",
       "enterprise": "Enterprise Customers",
       "mid-sized": "Mid-sized Businesses",
       "small": "Small Businesses",
       "private": "Private Customers"
     },
     "metrics": {
-      "revenue": "Revenue (in Tsd. €)",
-      "netProfit": "Net Profit (in Tsd. €)"
+      "headline": "Revenue",
+      "revenue": "Revenue (in Tsd. $)",
+      "netProfit": "Net Profit (in Tsd. $)",
+      "investments": "Investments (in Tsd. $)"
     },
     "kpi": {
       "title": "KPI",
@@ -84,6 +87,16 @@
       }
     }
   },
+  "notification": {
+    "fab": "Trigger notification",
+    "headline": "Notifications",
+    "description": "See all notifications from all touchpoints here.",
+    "unread": "Unread",
+    "read": "Read",
+    "markAllAsRead": "Mark all as read",
+    "notificationTitle": "Example notification",
+    "noNewMessages": "No new messages in your inbox"
+  },
   "personalData": "Personal data",
   "roles": {
     "role": "Role | Roles",
@@ -96,7 +109,35 @@
     "engineeringLead": "Engineering lead",
     "designLead": "Design lead"
   },
-  "document": "Document | Documents",
+  "documents": {
+    "document": "Document | Documents",
+    "disclaimer": {
+      "headline": "File upload",
+      "description": "This is just a demo application, nothing will actually be uploaded."
+    },
+    "file": {
+      "ready": "Ready to upload",
+      "paused": "Paused",
+      "canceled": "Canceled",
+      "done": "Uploaded",
+      "actions": {
+        "upload": "Upload",
+        "pause": "Pause",
+        "continue": "Continue",
+        "cancel": "Cancel",
+        "remove": "Remove",
+        "show": "Show file"
+      },
+      "filename": "Filename",
+      "size": "Size",
+      "type": "Type"
+    },
+    "toasts": {
+      "upload": {
+        "success": "File uploaded successfully"
+      }
+    }
+  },
   "save": "Save",
   "user": {
     "fullName": "Full name",

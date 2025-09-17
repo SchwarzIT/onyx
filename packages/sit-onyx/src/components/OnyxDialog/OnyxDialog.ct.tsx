@@ -1,6 +1,6 @@
 import { createEmitSpy, expectEmit } from "@sit-onyx/playwright-utils";
-import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
 import { DEFAULT_DISABLED_AXE_RULES, expect, test } from "../../playwright/a11y.js";
+import { ONYX_BREAKPOINTS } from "../../utils/breakpoints.js";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxBottomBar from "../OnyxBottomBar/OnyxBottomBar.vue";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";

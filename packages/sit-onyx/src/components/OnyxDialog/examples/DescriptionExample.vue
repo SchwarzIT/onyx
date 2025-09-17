@@ -1,10 +1,13 @@
 <script lang="ts" setup>
 import { iconChevronLeftSmall, iconChevronRightSmall } from "@sit-onyx/icons";
 import { ref } from "vue";
-import { OnyxBottomBar, OnyxButton } from "../../../index.js";
-import OnyxHeadline from "../../OnyxHeadline/OnyxHeadline.vue";
-import OnyxSystemButton from "../../OnyxSystemButton/OnyxSystemButton.vue";
-import OnyxDialog from "../OnyxDialog.vue";
+import {
+  OnyxBottomBar,
+  OnyxButton,
+  OnyxDialog,
+  OnyxHeadline,
+  OnyxSystemButton,
+} from "../../../index.js";
 
 const isOpen = ref(false);
 

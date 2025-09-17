@@ -31,3 +31,7 @@ export const Skeleton = {
 export const Slots = {
   ...createAdvancedStoryExample("OnyxDataGrid", "SlotsExample"),
 } satisfies Story;
+
+export const GroupedData = {
+  ...createAdvancedStoryExample("OnyxDataGrid", "GroupedDataExample"),
+} satisfies Story;

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { type OnyxBreakpoint, ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
 import { ref, toRaw, watch } from "vue";
+import { type OnyxBreakpoint, ONYX_BREAKPOINTS } from "../../../../utils/breakpoints.js";
 import OnyxBasicDialog from "../../../OnyxBasicDialog/OnyxBasicDialog.vue";
 import OnyxButton from "../../../OnyxButton/OnyxButton.vue";
 import OnyxCheckbox from "../../../OnyxCheckbox/OnyxCheckbox.vue";

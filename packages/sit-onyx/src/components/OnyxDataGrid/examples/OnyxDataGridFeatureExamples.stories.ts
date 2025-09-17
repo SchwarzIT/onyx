@@ -24,12 +24,10 @@ export const Pagination: Story = {
 };
 
 export const LazyLoading: Story = {
-  tags: ["new:feature"],
   ...createAdvancedStoryExample("OnyxDataGrid", "LazyLoadingExample"),
 };
 
 export const ButtonLoading: Story = {
-  tags: ["new:feature"],
   ...createAdvancedStoryExample("OnyxDataGrid", "ButtonLoadingExample"),
 };
 

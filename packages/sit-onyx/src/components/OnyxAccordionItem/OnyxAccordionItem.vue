@@ -242,24 +242,15 @@ const showSkeleton = computed(() => skeleton.value || accordionContext?.skeleton
       border-radius: var(--onyx-accordion-item-border-radius);
       background-color: var(--onyx-accordion-item-background);
 
-      &:hover {
-        background-color: var(--onyx-accordion-item-background-hover);
-
-        .onyx-accordion-item__header {
-          background-color: var(--onyx-accordion-item-background-hover);
-        }
-
-        &[open] .onyx-accordion-item__header {
-          color: var(--onyx-accordion-item-color-hover);
-        }
-      }
-
-      &:has(.onyx-accordion-item__header:focus-visible) {
-        background-color: var(--onyx-accordion-item-background-focus);
-      }
-
       .onyx-accordion-item__header {
         border-radius: var(--onyx-accordion-item-border-radius);
+      }
+
+      &[open] {
+        .onyx-accordion-item__header {
+          border-bottom-left-radius: 0;
+          border-bottom-right-radius: 0;
+        }
       }
     }
 
@@ -280,6 +271,11 @@ const showSkeleton = computed(() => skeleton.value || accordionContext?.skeleton
 
     &[open] &__header {
       color: var(--onyx-accordion-item-color-open);
+
+      &:hover,
+      &:focus-visible {
+        color: var(--onyx-accordion-item-color-hover);
+      }
 
       &:focus-visible {
         border-radius: var(--onyx-accordion-item-border-radius)

@@ -9,7 +9,7 @@ export const VITE_BASE_CONFIG = {
       scss: {
         // error for all warnings
         fatalDeprecations: (Object.values(deprecations) as Deprecation[]).filter(
-          ({ status }) => status !== "future",
+          ({ status }) => status !== "future" && status !== "obsolete",
         ),
       },
     },

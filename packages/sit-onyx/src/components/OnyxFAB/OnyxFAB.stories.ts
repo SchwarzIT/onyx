@@ -12,7 +12,6 @@ import OnyxFAB from "./OnyxFAB.vue";
 const meta: Meta<typeof OnyxFAB> = {
   title: "Buttons/FAB",
   component: OnyxFAB,
-  tags: ["new:component"],
   argTypes: {
     ...withNativeEventLogging(["onClick"]),
     default: { control: { disable: true } },

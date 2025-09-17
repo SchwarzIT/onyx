@@ -25,7 +25,7 @@ const columns: ColumnConfig<TEntry>[] = [
 
 const selectionState = ref<DataGridFeatures.SelectionState>({
   selectMode: "include",
-  contingent: new Set([data[1].id]),
+  contingent: new Set(),
 });
 
 const withSelection = DataGridFeatures.useSelection<TEntry>({

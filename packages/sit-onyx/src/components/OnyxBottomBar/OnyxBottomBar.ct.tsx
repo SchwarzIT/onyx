@@ -1,6 +1,6 @@
-import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
+import { ONYX_BREAKPOINTS } from "../../utils/breakpoints.js";
 import OnyxAppLayout from "../OnyxAppLayout/OnyxAppLayout.vue";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxPageLayout from "../OnyxPageLayout/OnyxPageLayout.vue";

@@ -29,10 +29,6 @@ const skeleton = useSkeletonContext(props);
 
 const ripple = useTemplateRef("rippleRef");
 const rippleEvents = computed(() => ripple.value?.events ?? {});
-
-const icon = computed(() => {
-  return props.icon && !props.loading ? props.icon : undefined;
-});
 </script>
 
 <template>
@@ -52,13 +48,17 @@ const icon = computed(() => {
     v-on="rippleEvents"
   >
     <OnyxRipple v-if="!disabled && !props.loading" ref="rippleRef" />
-    <OnyxIcon v-if="icon && props.iconPosition === 'left'" class="onyx-button__icon" :icon="icon" />
+    <OnyxIcon
+      v-if="props.icon && props.iconPosition === 'left'"
+      class="onyx-button__icon"
+      :icon="props.icon"
+    />
     <OnyxLoadingIndicator v-if="props.loading" class="onyx-button__loading" />
     <span class="onyx-button__label onyx-truncation-ellipsis">{{ props.label }}</span>
     <OnyxIcon
-      v-if="icon && props.iconPosition === 'right'"
+      v-if="props.icon && props.iconPosition === 'right'"
       class="onyx-button__icon"
-      :icon="icon"
+      :icon="props.icon"
     />
   </ButtonOrLinkLayout>
 </template>
@@ -227,7 +227,8 @@ const icon = computed(() => {
       position: relative;
     }
 
-    &--loading &__label {
+    &--loading &__label,
+    &--loading &__icon {
       visibility: hidden;
     }
 

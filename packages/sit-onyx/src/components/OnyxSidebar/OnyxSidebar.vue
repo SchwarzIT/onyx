@@ -3,10 +3,10 @@ import arrowSmallLeft from "@sit-onyx/icons/arrow-small-left.svg?raw";
 import arrowSmallRight from "@sit-onyx/icons/arrow-small-right.svg?raw";
 import sidebarArrowLeft from "@sit-onyx/icons/sidebar-arrow-left.svg?raw";
 import sidebarArrowRight from "@sit-onyx/icons/sidebar-arrow-right.svg?raw";
-import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
 import { computed, onUnmounted, ref, useId, useTemplateRef, watch } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useResizeObserver } from "../../composables/useResizeObserver.js";
+import { ONYX_BREAKPOINTS } from "../../utils/breakpoints.js";
 import { useGlobalFAB } from "../OnyxGlobalFAB/useGlobalFAB.js";
 import OnyxModal from "../OnyxModal/OnyxModal.vue";
 import OnyxResizeHandle from "../OnyxResizeHandle/OnyxResizeHandle.vue";
@@ -67,7 +67,7 @@ const resizeHandleProps = computed(
 const { width: windowWidth } = useResizeObserver();
 
 const shouldCollapse = computed(() => {
-  if (!props.collapseSidebar) return false;
+  if (!props.collapseSidebar || windowWidth.value === 0) return false;
   const breakpointWidth =
     typeof props.collapseSidebar === "number"
       ? props.collapseSidebar

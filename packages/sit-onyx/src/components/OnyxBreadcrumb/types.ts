@@ -1,4 +1,11 @@
+import type { InjectionKey, Ref, TeleportProps } from "vue";
 import type { DensityProp } from "../../composables/density.js";
+import type { MoreListInjectionKey } from "../../composables/useMoreList.js";
+
+export const BREADCRUMB_MORE_LIST_INJECTION_KEY = Symbol() as MoreListInjectionKey;
+export const BREADCRUMB_MORE_LIST_TARGET_INJECTION_KEY = Symbol() as InjectionKey<
+  Ref<TeleportProps["to"]>
+>;
 
 export type OnyxBreadcrumbProps = DensityProp & {
   /**

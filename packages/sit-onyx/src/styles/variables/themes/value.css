@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "value" theme.
- * Imported from Figma API on Tue, 29 Jul 2025 06:22:05 GMT
+ * Imported from Figma API on Thu, 11 Sep 2025 09:27:42 GMT
  */
 :where(:root),
 .onyx-theme-default {
@@ -29,6 +29,18 @@
   --onyx-color-kaufland-gray-1000: #424242;
   --onyx-color-kaufland-gray-1100: #363636;
   --onyx-color-kaufland-gray-1200: #252525;
+  --onyx-color-kaufland-red-100: #fdf3f4;
+  --onyx-color-kaufland-red-200: #ffe3e5;
+  --onyx-color-kaufland-red-300: #ffc5c9;
+  --onyx-color-kaufland-red-400: #ff9aa1;
+  --onyx-color-kaufland-red-500: #fd5d67;
+  --onyx-color-kaufland-red-600: #e10915;
+  --onyx-color-kaufland-red-700: #c7000d;
+  --onyx-color-kaufland-red-800: #a8000b;
+  --onyx-color-kaufland-red-900: #8b0009;
+  --onyx-color-kaufland-red-1000: #730007;
+  --onyx-color-kaufland-red-1100: #5e0006;
+  --onyx-color-kaufland-red-1200: #4a0005;
   --onyx-color-lidl-blue-100: #f0f7ff;
   --onyx-color-lidl-blue-200: #c2dfff;
   --onyx-color-lidl-blue-300: #61b5e8;

@@ -1,8 +1,8 @@
 import "./styles/index.scss";
 
-export { ONYX_BREAKPOINTS, type OnyxBreakpoint } from "@sit-onyx/shared/breakpoints";
 export { default as OnyxAccordion } from "./components/OnyxAccordion/OnyxAccordion.vue";
 export * from "./components/OnyxAccordion/types.js";
+export { ONYX_BREAKPOINTS, type OnyxBreakpoint } from "./utils/breakpoints.js";
 
 export { default as OnyxAccordionItem } from "./components/OnyxAccordionItem/OnyxAccordionItem.vue";
 export * from "./components/OnyxAccordionItem/types.js";
@@ -56,6 +56,9 @@ export * from "./components/OnyxDatePicker/types.js";
 
 export { default as OnyxBasicDialog } from "./components/OnyxBasicDialog/OnyxBasicDialog.vue";
 export * from "./components/OnyxBasicDialog/types.js";
+
+export { default as OnyxDialog } from "./components/OnyxDialog/OnyxDialog.vue";
+export * from "./components/OnyxDialog/types.js";
 
 export { default as OnyxEmpty } from "./components/OnyxEmpty/OnyxEmpty.vue";
 
@@ -244,6 +247,7 @@ export { default as OnyxComponentShowcase } from "./components/examples/Componen
 export * from "./composables/density.js";
 export * from "./composables/scrollEnd.js";
 export * from "./composables/themeTransition.js";
+export * from "./composables/useFileSize.js";
 export * from "./composables/useLink.js";
 export * from "./composables/useSkeletonState.js";
 

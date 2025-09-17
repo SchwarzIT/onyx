@@ -1,5 +1,84 @@
 # @sit-onyx/vitepress-theme
 
+## 1.0.0
+
+### Major Changes
+
+- 7fde5eb: We proudly announce:
+
+  ## 🎉 Major release of version 1.0.0 🎉
+
+  _There are no changes to the latest `beta` version._
+
+  Thanks for all your help, bug reports and feature requests that made this possible.
+  Our work still continues, we are actively working on new and more features and bug-fixes.
+
+  Meet us at the [SITCON.perform](https://sitcon.schwarz/) in our UXDS Design room.
+
+  With the **1.0.0** release the package API is stable and there won't be any breaking changes until the next major release.
+  We don't expect more then one major release per year.
+
+### Patch Changes
+
+- Updated dependencies [7fde5eb]
+  - sit-onyx@1.0.0
+
+## 1.0.0-beta.310
+
+### Patch Changes
+
+- Updated dependencies [e282ded]
+  - sit-onyx@1.0.0-beta.338
+
+## 1.0.0-beta.309
+
+### Patch Changes
+
+- Updated dependencies [57133e8]
+  - sit-onyx@1.0.0-beta.335
+
+## 1.0.0-beta.308
+
+### Patch Changes
+
+- Updated dependencies [313aac8]
+  - sit-onyx@1.0.0-beta.328
+
+## 1.0.0-beta.307
+
+### Patch Changes
+
+- Updated dependencies [af5c373]
+  - sit-onyx@1.0.0-beta.327
+
+## 1.0.0-beta.306
+
+### Patch Changes
+
+- Updated dependencies [c10f849]
+  - sit-onyx@1.0.0-beta.325
+
+## 1.0.0-beta.305
+
+### Patch Changes
+
+- Updated dependencies [bfecb83]
+  - sit-onyx@1.0.0-beta.324
+
+## 1.0.0-beta.304
+
+### Patch Changes
+
+- Updated dependencies [695c82a]
+  - sit-onyx@1.0.0-beta.323
+
+## 1.0.0-beta.303
+
+### Patch Changes
+
+- Updated dependencies [0d7f0c8]
+  - sit-onyx@1.0.0-beta.320
+
 ## 1.0.0-beta.302
 
 ### Patch Changes

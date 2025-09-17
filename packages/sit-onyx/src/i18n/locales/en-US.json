@@ -133,6 +133,7 @@
     "goToHome": "Go to home page",
     "goBack": "Go back",
     "moreNavItems": "+{n} More",
+    "moreNavItemsLabel": "More Items",
     "showMoreNavItemsLabel": "Show more items",
     "userMenuLabel": "User options",
     "toggleBurgerMenu": "Toggle burger menu",
@@ -165,7 +166,7 @@
   },
   "pagination": {
     "label": "Pagination",
-    "ofPages": "of 1 page | of {n} pages",
+    "ofPages": "of {pages} page | of {pages} pages",
     "previous": "previous page",
     "next": "next page",
     "select": {

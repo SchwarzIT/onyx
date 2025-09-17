@@ -1,11 +1,8 @@
 import type { DensityProp } from "../../composables/density.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
+import type { SharedLinkProps } from "../OnyxRouterLink/types.js";
 
 export type OnyxBreadcrumbItemProps = DensityProp & {
-  /**
-   * Link to the corresponding page.
-   */
-  href: string;
   /**
    * Whether the nav item is currently active.
    * If any nested option is active, the parent nav item will also be marked as active.
@@ -16,4 +13,4 @@ export type OnyxBreadcrumbItemProps = DensityProp & {
    * Whether to show a skeleton item.
    */
   skeleton?: SkeletonInjected;
-};
+} & Partial<Pick<SharedLinkProps, "href">>;

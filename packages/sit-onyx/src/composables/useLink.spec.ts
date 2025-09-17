@@ -24,9 +24,9 @@ describe("useLink", () => {
     { current: "/test/", link: "/test", active: true },
     { current: "/test", link: "/test/", active: true },
     { current: "/test   ", link: "   /test", active: true },
-    // nested links: parent should be active if child page is currently active
+    // nested links: only exact match should be active, parent should NOT be active if child page is currently active
     { current: "/parent/child", link: "/parent/child", active: true },
-    { current: "/parent/child", link: "/parent", active: true },
+    { current: "/parent/child", link: "/parent", active: false },
     { current: "/parent", link: "/parent/child", active: false },
     // hashes
     { current: "#some-hash", link: "#some-hash", active: true },

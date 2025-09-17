@@ -6,6 +6,9 @@ import {
   DataGridFeatures,
   OnyxDataGrid,
   OnyxSystemButton,
+  type ColumnConfig,
+  type ColumnGroupConfig,
+  type ColumnTypesFromFeatures,
   type TypeRenderMap,
 } from "../../../index.js";
 
@@ -15,6 +18,11 @@ type Entry = {
   age: number;
 };
 
+// add your custom features with types here so the custom column types are inferred correctly
+type CustomColumnTypes = ColumnTypesFromFeatures<typeof withCustomTypes>;
+// you can also pass multiple features:
+// type CustomColumnTypes = ColumnTypesFromFeatures<[typeof withCustomTypes, typeof someOtherFeature]>;
+
 const data: Entry[] = [
   { id: 1, name: "Alice", age: 10 },
   { id: 2, name: "Charlie", age: 35 },
@@ -23,8 +31,14 @@ const data: Entry[] = [
   { id: 5, name: "John", age: 42 },
 ];
 
+const columns: ColumnConfig<Entry, ColumnGroupConfig, CustomColumnTypes>[] = [
+  { key: "name", label: "Name", type: "string" },
+  { key: "age", label: "Age", type: { name: "ageIcon", options: { offset: -5 } } },
+  { key: "id", label: "", type: "detailsButton", width: "min-content" },
+];
+
 // create a custom reusable data grid feature for custom types that you can also e.g. share / re-use in your project to be used in multiple data grids
-const withCustomType = createFeature(() => ({
+const withCustomTypes = createFeature(() => ({
   name: Symbol("example feature name"),
   typeRenderer: {
     // use the `createTypeRenderer` function to create a type renderer with custom column type options
@@ -59,18 +73,9 @@ const withCustomType = createFeature(() => ({
   } satisfies TypeRenderMap<Entry>,
 }));
 
-const features = [withCustomType];
+const features = [withCustomTypes];
 </script>
 
 <template>
-  <OnyxDataGrid
-    headline="Example headline"
-    :columns="[
-      { key: 'name', label: 'Name', type: 'string' },
-      { key: 'age', label: 'Age', type: { name: 'ageIcon', options: { offset: -5 } } },
-      { key: 'id', label: '', type: 'detailsButton', width: 'min-content' },
-    ]"
-    :data
-    :features
-  />
+  <OnyxDataGrid headline="Example headline" :columns :data :features />
 </template>

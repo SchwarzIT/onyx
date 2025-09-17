@@ -16,7 +16,7 @@ test.describe("screenshot tests", () => {
       if (row === "min") currentPage = 1;
       else if (row === "max") currentPage = pages;
       else if (row === "large") {
-        currentPage = 10000;
+        currentPage = 1_000;
         pages = currentPage;
       }
 
@@ -146,4 +146,45 @@ test("should disable controls", async ({ mount }) => {
   await expect(component.getByLabel("Page selection")).toBeDisabled();
   await expect(component.getByLabel("previous page")).toBeDisabled();
   await expect(component.getByLabel("next page")).toBeDisabled();
+});
+
+test("should lazy load options", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(OnyxPagination, {
+    props: {
+      modelValue: 1,
+      pages: 100_000,
+    },
+  });
+
+  const select = component.getByLabel("Page selection");
+  const search = component.getByRole("combobox", { name: "Filter the list items" });
+
+  // ACT
+  await select.click();
+
+  // ASSERT
+  await expect(component.getByRole("option")).toHaveCount(100);
+
+  // ACT
+  await component.getByRole("option", { name: "100" }).scrollIntoViewIfNeeded();
+
+  // ASSERT
+  await expect(component.getByRole("option")).toHaveCount(200);
+
+  // ACT
+  await search.fill("1000");
+
+  // ASSERT
+  await expect(component.getByRole("option", { name: "1000", exact: true })).toBeVisible();
+  await expect(component.getByRole("option", { name: "21000", exact: true })).toBeVisible();
+
+  // ACT
+  await search.fill("");
+  await component.update({ props: { pages: 10 } });
+
+  await component.getByRole("option", { name: "10" }).scrollIntoViewIfNeeded();
+
+  // ASSERT
+  await expect(component.getByRole("option")).toHaveCount(10);
 });

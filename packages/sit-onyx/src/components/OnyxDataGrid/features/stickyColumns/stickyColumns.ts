@@ -1,4 +1,4 @@
-import { computed, nextTick, onUnmounted, ref, useId, watch } from "vue";
+import { computed, nextTick, onMounted, onUnmounted, ref, toValue, useId, watch } from "vue";
 import { createFeature, type ModifyColumns } from "../index.js";
 
 import { mergeVueProps } from "../../../../utils/attrs.js";
@@ -13,17 +13,20 @@ export const useStickyColumns = <TEntry extends DataGridEntry>(
   options?: StickyColumnsOptions<TEntry>,
 ) =>
   createFeature(() => {
-    const stickyColumns = computed(() => options?.columns ?? []);
-    const position = computed(() => options?.position ?? "left");
+    const stickyColumns = computed(() => toValue(options?.columns) ?? []);
+    const position = computed(() => toValue(options?.position) ?? "left");
     const elementWidths = ref<Record<PropertyKey, number>>({});
     const elementsToStyle = ref<Record<PropertyKey, HTMLElement>>({});
     const stickyId = useId();
     const isScrolled = ref(false);
 
     const createStickyPositionCssVar = (key: PropertyKey) =>
-      `--onyx-data-grid-sticky-column-position-${stickyId}-${escapeCSS(String(key))}`;
+      `--onyx-data-grid-sticky-column-position-${stickyId}-${escapeCSS(key)}`;
 
-    if ("ResizeObserver" in window) {
+    // ensure ResizeObserver is only called on mount to support server side rendering
+    onMounted(() => {
+      if (!("ResizeObserver" in window)) return;
+
       const resizeObserver = new ResizeObserver(() => {
         Object.entries(elementsToStyle.value).forEach(
           ([column, el]: [PropertyKey, HTMLElement]) =>
@@ -39,10 +42,10 @@ export const useStickyColumns = <TEntry extends DataGridEntry>(
           resizeObserver.disconnect();
           Object.values(elementsToStyle.value).forEach((el) => resizeObserver.observe(el));
         },
-        { deep: true },
+        { deep: true, immediate: true },
       );
       onUnmounted(() => resizeObserver.disconnect());
-    }
+    });
 
     const setElementStyles = (key: PropertyKey, index: number) => {
       if (!options) return;

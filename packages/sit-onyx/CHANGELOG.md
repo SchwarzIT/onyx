@@ -1,5 +1,184 @@
 # sit-onyx
 
+## 1.0.0
+
+### Major Changes
+
+- 7fde5eb: We proudly announce:
+
+  ## 🎉 Major release of version 1.0.0 🎉
+
+  _There are no changes to the latest `beta` version._
+
+  Thanks for all your help, bug reports and feature requests that made this possible.
+  Our work still continues, we are actively working on new and more features and bug-fixes.
+
+  Meet us at the [SITCON.perform](https://sitcon.schwarz/) in our UXDS Design room.
+
+  With the **1.0.0** release the package API is stable and there won't be any breaking changes until the next major release.
+  We don't expect more then one major release per year.
+
+### Patch Changes
+
+- Updated dependencies [7fde5eb]
+  - @sit-onyx/icons@1.0.0
+
+## 1.0.0-beta.338
+
+### Major Changes
+
+- e282ded: feat(OnyxDataGrid)!: support accessing the state for `useHideColumns` state
+
+  You can now pass in a ref to the `useHideColumns` feature which allows you to access the state for which columns are currently hidden. This is useful if the state should be stored e.g. in the local storage.
+
+  Breaking change: Remove the `hidden` property for the individual column options in favor of the new `state` option
+
+  **Before**
+
+  ```ts
+  const withHiddenColumns = DataGridFeatures.useHideColumns<TEntry>({
+    columns: { age: { hidden: true } },
+  });
+  ```
+
+  **After**
+
+  ```ts
+  const hiddenColumns = ref<DataGridFeatures.HideColumnsState<TEntry>>(new Set(["age"]));
+
+  const withHiddenColumns = DataGridFeatures.useHideColumns<TEntry>({
+    state: hiddenColumns,
+  });
+  ```
+
+## 1.0.0-beta.337
+
+### Patch Changes
+
+- 5dd3ea1: fix(OnyxButton): Fix OnyxButton with Icon changes size in loading state
+
+## 1.0.0-beta.336
+
+### Patch Changes
+
+- 91efcde: fix(OnyxStepper): prevent limited value width when `hideButtons` property is set
+
+## 1.0.0-beta.335
+
+### Major Changes
+
+- 57133e8: refactor!: rename type RenderTypesFromFeature to ColumnTypesFromFeatures
+
+  Additionally, the type now also supports passing a single feature instead of an array.
+
+## 1.0.0-beta.334
+
+### Patch Changes
+
+- 814dbd5: fix: remove `@sit-onyx/shared` peerDependency
+
+## 1.0.0-beta.333
+
+### Patch Changes
+
+- 2bc24ce: fix(OnyxDataGrid): do not check header checkbox when empty and no data is selected
+
+  When using the `useSelection` feature of the OnyxDataGrid, the header checkbox is now no longer checked when the data is empty and no rows are checked (e.g. while loading async data from an API and showing skeleton or when data was found at all).
+  Also, the checkbox is disabled when no data exists.
+
+## 1.0.0-beta.332
+
+### Patch Changes
+
+- 858ba1f: - fix(theme): add missing `--onyx-color-kaufland-red-*` CSS variables
+  - fix(OnyxHeadline): correctly apply font family CSS variables
+
+## 1.0.0-beta.331
+
+### Patch Changes
+
+- d9845a3: fix(OnyxAccordionItem): apply hover background color for card type only to header
+
+## 1.0.0-beta.330
+
+### Patch Changes
+
+- 28ff5b6: fix(OnyxNavItem): use correct CSS variables for the active state colors
+
+  Previously, the active nav item did not use the correct colors in some themes (e.g. Kaufland) so the text and indicator color was incorrect
+
+## 1.0.0-beta.329
+
+### Patch Changes
+
+- c52dc34: fix(OnyxFormElement): do render empty footer
+
+## 1.0.0-beta.328
+
+### Minor Changes
+
+- 313aac8: feat(OnyxBreadcrumb): implement hiding of breadcrumb items when width is too small
+
+## 1.0.0-beta.327
+
+### Minor Changes
+
+- af5c373: feat(OnyxDialog): export OnyxDialog
+
+## 1.0.0-beta.326
+
+### Patch Changes
+
+- bcddeeb: fix "window not defined" error in Nuxt / server side rendering when using the data grid
+
+## 1.0.0-beta.325
+
+### Minor Changes
+
+- c10f849: perf(OnyxPagination): lazy load select options to improve performance for large page counts
+
+  Also the page count inside the "of N pages" text is now formatted using the current locale for better readability
+
+## 1.0.0-beta.324
+
+### Minor Changes
+
+- bfecb83: feat(OnyxAppLayout):
+  Integrated the `OnyxNotifications` component directly into the `OnyxAppLayout`.
+  - simplifies the developer experience by removing the need for manual implementation.
+
+## 1.0.0-beta.323
+
+### Minor Changes
+
+- 695c82a: feat(useStickyColumns): support passing refs as options
+
+## 1.0.0-beta.322
+
+### Patch Changes
+
+- 0fcd73f: fix: links are now only marked as active if the link matches the current route exactly
+
+  This fixes the issue that parent links are always active when using nested routes
+
+## 1.0.0-beta.321
+
+### Patch Changes
+
+- 1f671dd: fix: correctly apply density when using `.onyx-density-*` classes
+
+  When using CSS classes to set densities, the `compact` density was not applied due to CSS selector specificity which caused the default density to be always used
+
+## 1.0.0-beta.320
+
+### Major Changes
+
+- 0d7f0c8: - fix(OnyxDataGrid): prevent "Cannot use in to search for 'ResizeObserver' / 'CSS' in undefined" errors
+  - fix(OnyxDataGrid): preventSR hydration errors when using SSR / Nuxt
+  - fix(OnyxSidebar): check if should be collapsed only onMounted to support SSR / prevent hydration errors
+  - OnyxFileCard: BREAKING CHANGE - remove default slot prop `status` in favor of new `props` that also contains other useful file card properties
+  - export `useFileSize` composable that can be used to format a file size in a user-friendly format
+
 ## 1.0.0-beta.319
 
 ### Minor Changes

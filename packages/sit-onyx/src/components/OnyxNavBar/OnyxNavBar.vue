@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import { createNavigationMenu } from "@sit-onyx/headless";
 import { iconChevronLeftSmall, iconMenu, iconMoreVertical } from "@sit-onyx/icons";
-import { ONYX_BREAKPOINTS } from "@sit-onyx/shared/breakpoints";
 import { computed, provide, ref, toRef, useTemplateRef, watch } from "vue";
 import { useLink } from "../../composables/useLink.js";
 import { useResizeObserver } from "../../composables/useResizeObserver.js";
 import { injectI18n } from "../../i18n/index.js";
+import { ONYX_BREAKPOINTS } from "../../utils/breakpoints.js";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxMobileNavButton from "../OnyxMobileNavButton/OnyxMobileNavButton.vue";
 import OnyxMoreList from "../OnyxMoreList/OnyxMoreList.vue";
@@ -58,9 +58,8 @@ const actualIsMobile = computed(() => {
   return props.mobile;
 });
 
-const moreListTarget = useTemplateRef("moreListRef");
 provide(MOBILE_NAV_BAR_INJECTION_KEY, actualIsMobile);
-provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, moreListTarget);
+provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreListRef"));
 
 const closeMobileMenus = () => {
   isBurgerOpen.value = false;

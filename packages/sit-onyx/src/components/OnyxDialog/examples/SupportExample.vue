@@ -1,10 +1,6 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import OnyxButton from "../../OnyxButton/OnyxButton.vue";
-import OnyxHeadline from "../../OnyxHeadline/OnyxHeadline.vue";
-import OnyxTab from "../../OnyxTab/OnyxTab.vue";
-import OnyxTabs from "../../OnyxTabs/OnyxTabs.vue";
-import OnyxDialog from "../OnyxDialog.vue";
+import { OnyxButton, OnyxDialog, OnyxHeadline, OnyxTab, OnyxTabs } from "../../../index.js";
 
 const isOpen = ref(false);
 const modelValue = ref("tab-1");

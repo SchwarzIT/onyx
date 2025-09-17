@@ -25,7 +25,7 @@ A full changelog can be found [here](/development/packages/changelogs/figma-util
 For a list of supported commands and options, run:
 
 ```sh
-npx @sit-onyx/figma-utils@beta --help
+npx @sit-onyx/figma-utils --help
 ```
 
 ::: tip Usage in CI
@@ -48,15 +48,15 @@ Install the npm package with your corresponding package manager:
 ::: code-group
 
 ```sh [pnpm]
-pnpm add @sit-onyx/figma-utils@beta
+pnpm add @sit-onyx/figma-utils
 ```
 
 ```sh [npm]
-npm install @sit-onyx/figma-utils@beta
+npm install @sit-onyx/figma-utils
 ```
 
 ```sh [yarn]
-yarn install @sit-onyx/figma-utils@beta
+yarn install @sit-onyx/figma-utils
 ```
 
 :::
@@ -67,7 +67,7 @@ yarn install @sit-onyx/figma-utils@beta
 Importing variables is also supported via CLI. For more information, run:
 
 ```sh
-npx @sit-onyx/figma-utils@beta import-variables --help
+npx @sit-onyx/figma-utils import-variables --help
 ```
 
 :::
@@ -109,7 +109,7 @@ parsedVariables.forEach((mode) => {
 Importing icons is also supported via CLI. For more information, run:
 
 ```sh
-npx @sit-onyx/figma-utils@beta import-icons --help
+npx @sit-onyx/figma-utils import-icons --help
 ```
 
 :::
@@ -168,7 +168,7 @@ await writeIconMetadata(path.join(outputDirectory, "metadata.json"), parsedIcons
 Importing flags is also supported via CLI. For more information, run:
 
 ```sh
-npx @sit-onyx/figma-utils@beta import-flags --help
+npx @sit-onyx/figma-utils import-flags --help
 ```
 
 :::

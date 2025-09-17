@@ -13,13 +13,13 @@ import type {
   NumberCellOptions,
   StringCellOptions,
 } from "./features/renderer.js";
-import type { DataGridEntry, RenderTypesFromFeature } from "./types.js";
+import type { ColumnTypesFromFeatures, DataGridEntry } from "./types.js";
 
-it("should be ensured that RenderTypesFromFeature unwraps correctly", async () => {
-  expectTypeOf<RenderTypesFromFeature<never>>().toBeNever();
-  expectTypeOf<RenderTypesFromFeature<[]>>().toBeNever();
+it("should be ensured that ColumnTypesFromFeatures unwraps correctly", async () => {
+  expectTypeOf<ColumnTypesFromFeatures<never>>().toBeNever();
+  expectTypeOf<ColumnTypesFromFeatures<[]>>().toBeNever();
 
-  expectTypeOf<RenderTypesFromFeature<[ReturnType<typeof BASE_FEATURE>]>>().toEqualTypeOf<
+  type ExpectedType =
     | ColumnConfigTypeOption<"number", NumberCellOptions>
     | ColumnConfigTypeOption<"string", StringCellOptions>
     | ColumnConfigTypeOption<"date", DateCellOptions>
@@ -27,8 +27,17 @@ it("should be ensured that RenderTypesFromFeature unwraps correctly", async () =
     | ColumnConfigTypeOption<"time", DateCellOptions>
     | ColumnConfigTypeOption<"timestamp", DateCellOptions>
     | ColumnConfigTypeOption<"skeleton", StringCellOptions>
-    | ColumnConfigTypeOption<"boolean", BooleanCellOptions>
-  >();
+    | ColumnConfigTypeOption<"boolean", BooleanCellOptions>;
+
+  // should support passing a single feature
+  expectTypeOf<
+    ColumnTypesFromFeatures<ReturnType<typeof BASE_FEATURE>>
+  >().toEqualTypeOf<ExpectedType>();
+
+  // should support passing multiple features
+  expectTypeOf<
+    ColumnTypesFromFeatures<[ReturnType<typeof BASE_FEATURE>]>
+  >().toEqualTypeOf<ExpectedType>();
 
   type SingleFeature = [
     () => {
@@ -37,7 +46,7 @@ it("should be ensured that RenderTypesFromFeature unwraps correctly", async () =
       typeRenderer?: { a: TypeRenderer<DataGridEntry, { anOption?: number }> };
     },
   ];
-  expectTypeOf<RenderTypesFromFeature<SingleFeature>>().toEqualTypeOf<
+  expectTypeOf<ColumnTypesFromFeatures<SingleFeature>>().toEqualTypeOf<
     ColumnConfigTypeOption<"a", { anOption?: number }>
   >();
 
@@ -48,7 +57,7 @@ it("should be ensured that RenderTypesFromFeature unwraps correctly", async () =
       typeRenderer?: { a: TypeRenderer<DataGridEntry> };
     },
   ];
-  expectTypeOf<RenderTypesFromFeature<SingleFeatureNoOptions>>().toEqualTypeOf<
+  expectTypeOf<ColumnTypesFromFeatures<SingleFeatureNoOptions>>().toEqualTypeOf<
     ColumnConfigTypeOption<"a", undefined>
   >();
 
@@ -62,7 +71,7 @@ it("should be ensured that RenderTypesFromFeature unwraps correctly", async () =
       };
     },
   ];
-  expectTypeOf<RenderTypesFromFeature<SingleFeatureWithMultiple>>().toEqualTypeOf<
+  expectTypeOf<ColumnTypesFromFeatures<SingleFeatureWithMultiple>>().toEqualTypeOf<
     ColumnConfigTypeOption<"a", { someOption: string }> | ColumnConfigTypeOption<"b", undefined>
   >();
 
@@ -76,7 +85,7 @@ it("should be ensured that RenderTypesFromFeature unwraps correctly", async () =
       };
     },
   ];
-  expectTypeOf<RenderTypesFromFeature<SingleFeatureWithMultipleNoOptions>>().toEqualTypeOf<
+  expectTypeOf<ColumnTypesFromFeatures<SingleFeatureWithMultipleNoOptions>>().toEqualTypeOf<
     ColumnConfigTypeOption<"a", undefined> | ColumnConfigTypeOption<"b", undefined>
   >();
 
@@ -113,7 +122,7 @@ it("should be ensured that RenderTypesFromFeature unwraps correctly", async () =
     },
   ];
 
-  expectTypeOf<RenderTypesFromFeature<MultipleFeatures>>().toEqualTypeOf<
+  expectTypeOf<ColumnTypesFromFeatures<MultipleFeatures>>().toEqualTypeOf<
     | ColumnConfigTypeOption<"a", number>
     | ColumnConfigTypeOption<"b", undefined>
     | ColumnConfigTypeOption<"c", undefined>
@@ -121,7 +130,7 @@ it("should be ensured that RenderTypesFromFeature unwraps correctly", async () =
 });
 
 type GenericFeature = DataGridFeature<DataGridEntry, TypeRenderMap<DataGridEntry>, symbol>[];
-expectTypeOf<RenderTypesFromFeature<GenericFeature>>().toEqualTypeOf<
+expectTypeOf<ColumnTypesFromFeatures<GenericFeature>>().toEqualTypeOf<
   | ColumnConfigTypeOption<string, unknown>
   | ColumnConfigTypeOption<number, unknown>
   | ColumnConfigTypeOption<symbol, unknown>

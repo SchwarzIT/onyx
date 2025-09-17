@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import { DataGridFeatures, OnyxDataGrid, type ColumnConfig } from "../../../index.js";
 
 type TEntry = {
@@ -22,10 +23,10 @@ const columns: ColumnConfig<TEntry>[] = [
   { key: "birthday", label: "Birthday", type: "date" },
 ];
 
+const hiddenColumns = ref<DataGridFeatures.HideColumnsState<TEntry>>(new Set(["age"]));
+
 const withHiddenColumns = DataGridFeatures.useHideColumns<TEntry>({
-  columns: {
-    age: { hidden: true },
-  },
+  state: hiddenColumns,
 });
 
 const features = [withHiddenColumns];

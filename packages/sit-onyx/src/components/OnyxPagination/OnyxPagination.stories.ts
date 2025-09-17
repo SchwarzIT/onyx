@@ -26,6 +26,13 @@ export const Default = {
   },
 } satisfies Story;
 
+export const ManyPages = {
+  args: {
+    modelValue: 1,
+    pages: 1_000_000,
+  },
+} satisfies Story;
+
 export const Disabled = {
   args: {
     ...Default.args,
