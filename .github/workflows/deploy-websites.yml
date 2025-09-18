@@ -1,15 +1,24 @@
 # Deploys all onyx websites - Docs, Storybook etc.
 name: Deploy websites
 on:
-  push:
-    tags:
-      - v**
+  workflow_call:
+    inputs:
+      environment_docs:
+        type: string
+      environment_sit-onyx:
+        required: true
+        type: string
+      environment_playground:
+        required: true
+        type: string
+      environment_demo-app:
+        required: true
+        type: string
   workflow_dispatch:
     inputs:
       environment:
         type: environment
         required: true
-        default: dev
         description: Environment to release to
 
 env:
@@ -19,7 +28,8 @@ jobs:
   deploy_storybook:
     name: Deploy Storybook
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment || contains(github.ref_name, 'dev') && 'dev' || 'prod' }}
+    if: ${{ (inputs.environment || inputs.environment_sit-onyx) != '' }}
+    environment: ${{ inputs.environment || inputs.environment_sit-onyx }}
     steps:
       - uses: actions/checkout@v5
 
@@ -44,7 +54,8 @@ jobs:
   deploy_documentation:
     name: Deploy documentation
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment || contains(github.ref_name, 'dev') && 'dev' || 'prod' }}
+    if: ${{ (inputs.environment || inputs.environment_docs) != '' }}
+    environment: ${{ inputs.environment || inputs.environment_docs }}
     steps:
       - uses: actions/checkout@v5
 
@@ -73,7 +84,8 @@ jobs:
   deploy_playground:
     name: Deploy Playground
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment || contains(github.ref_name, 'dev') && 'dev' || 'prod' }}
+    if: ${{ (inputs.environment || inputs.environment_playground) != '' }}
+    environment: ${{ inputs.environment || inputs.environment_playground }}
     steps:
       - uses: actions/checkout@v5
 
@@ -98,7 +110,8 @@ jobs:
   deploy_demo_app:
     name: Deploy demo app
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment || contains(github.ref_name, 'dev') && 'dev' || 'prod' }}
+    if: ${{ (inputs.environment || inputs.environment_demo-app) != '' }}
+    environment: ${{ inputs.environment || inputs.environment_demo-app }}
     steps:
       - uses: actions/checkout@v5
 
