@@ -5,4 +5,4 @@ applications:
     memory: 96M
     buildpacks:
       - https://github.com/cloudfoundry/nodejs-buildpack
-    command: node .output/server/index.mjs
+    command: node server/index.mjs
