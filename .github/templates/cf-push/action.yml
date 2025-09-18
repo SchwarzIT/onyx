@@ -46,5 +46,6 @@ runs:
       working-directory: ${{ inputs.working-directory }}
 
     - name: Logout from Cloud Foundry
+      if: ${{ always() }}
       shell: bash
       run: cf logout
