@@ -1,13 +1,13 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@3.0.0/schema.json",
   "changelog": "@changesets/cli/changelog",
-  "commit": false,
+  "commit": true,
   "fixed": [],
   "linked": [],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["@sit-onyx/nuxt-docs", "demo-app", "docs", "playground"],
+  "ignore": ["@sit-onyx/nuxt-docs"],
   "snapshot": {
     "useCalculatedVersion": true
   }
