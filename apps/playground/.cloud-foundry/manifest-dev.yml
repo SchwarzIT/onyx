@@ -1,5 +1,7 @@
+# yaml-language-server: $schema=https://www.schemastore.org/cloudfoundry-application-manifest.json
 ---
 applications:
   - name: onyx-playground-dev
     memory: 64M
-    buildpack: https://github.com/cloudfoundry/staticfile-buildpack
+    buildpacks:
+      - https://github.com/cloudfoundry/staticfile-buildpack
