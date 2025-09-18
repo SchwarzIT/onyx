@@ -29,7 +29,7 @@ jobs:
         run: pnpm build:all --filter=sit-onyx
 
       - name: ⛓️ Link Sources
-        run: ln -s packages/sit-onyx/storybook-static packages/sit-onyx/.cloud-foundry/www
+        run: mv packages/sit-onyx/storybook-static packages/sit-onyx/.cloud-foundry/www
 
       - name: ⛅️ Deploy to Cloud Foundry
         uses: ./.github/templates/cf-push
@@ -58,7 +58,7 @@ jobs:
           VITEPRESS_GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: ⛓️ Link Sources
-        run: ln -s apps/docs/src/.vitepress/dist apps/docs/.cloud-foundry/www
+        run: mv apps/docs/src/.vitepress/dist apps/docs/.cloud-foundry/www
 
       - name: ⛅️ Deploy to Cloud Foundry
         uses: ./.github/templates/cf-push
@@ -83,7 +83,7 @@ jobs:
         run: pnpm build:all --filter=playground
 
       - name: ⛓️ Link Sources
-        run: ln -s apps/playground/dist apps/playground/.cloud-foundry/www
+        run: mv apps/playground/dist apps/playground/.cloud-foundry/www
 
       - name: ⛅️ Deploy to Cloud Foundry
         uses: ./.github/templates/cf-push
@@ -112,7 +112,7 @@ jobs:
         run: cp .node-version apps/demo-app/.cloud-foundry/.nvmrc
 
       - name: ⛓️ Link Sources
-        run: ln -s apps/demo-app/.output apps/demo-app/.cloud-foundry/server
+        run: mv apps/demo-app/.output apps/demo-app/.cloud-foundry/server
 
       - name: ⛅️ Deploy to Cloud Foundry
         uses: ./.github/templates/cf-push
