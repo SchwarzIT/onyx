@@ -1,7 +1,6 @@
-name: Deploy websites
 # Deploys all onyx websites - Docs, Storybook etc.
+name: Deploy websites
 on:
-  pull_request:
   push:
     tags:
       - v**
@@ -12,6 +11,9 @@ on:
         required: true
         default: dev
         description: Environment to release to
+
+env:
+  TURBO_TOKEN: ${{ secrets.TURBO_REMOTE_CACHE__TURBO_TOKEN }}
 
 jobs:
   deploy_storybook:
@@ -46,6 +48,8 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      - uses: ./.github/templates/node-setup
+
       - name: 🛠️ Build Documentation
         run: pnpm build:all --filter=docs
         env:
@@ -73,6 +77,8 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      - uses: ./.github/templates/node-setup
+
       - name: 🛠️ Build Documentation
         run: pnpm build:all --filter=playground
 
@@ -95,6 +101,8 @@ jobs:
     environment: ${{ inputs.environment || contains(github.ref_name, 'dev') && 'dev' || 'prod' }}
     steps:
       - uses: actions/checkout@v5
+
+      - uses: ./.github/templates/node-setup
 
       - name: 🛠️ Build Documentation
         run: pnpm build:all --filter=demo-app
