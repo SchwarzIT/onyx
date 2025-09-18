@@ -38,7 +38,7 @@ jobs:
           org: ${{ vars.CF_ORG }}
           username: ${{ vars.CF_USERNAME }}
           password: ${{ secrets.CF_PASSWORD }}
-          space: ${{ env.STAGE }}
+          space: ${{ inputs.environment }}
           working-directory: packages/sit-onyx/.cloud-foundry
 
   deploy_documentation:
@@ -67,7 +67,7 @@ jobs:
           org: ${{ vars.CF_ORG }}
           username: ${{ vars.CF_USERNAME }}
           password: ${{ secrets.CF_PASSWORD }}
-          space: ${{ env.STAGE }}
+          space: ${{ inputs.environment }}
           working-directory: apps/docs/.cloud-foundry
 
   deploy_playground:
@@ -92,7 +92,7 @@ jobs:
           org: ${{ vars.CF_ORG }}
           username: ${{ vars.CF_USERNAME }}
           password: ${{ secrets.CF_PASSWORD }}
-          space: ${{ env.STAGE }}
+          space: ${{ inputs.environment }}
           working-directory: apps/playground/.cloud-foundry
 
   deploy_demo_app:
@@ -121,5 +121,5 @@ jobs:
           org: ${{ vars.CF_ORG }}
           username: ${{ vars.CF_USERNAME }}
           password: ${{ secrets.CF_PASSWORD }}
-          space: ${{ env.STAGE }}
+          space: ${{ inputs.environment }}
           working-directory: apps/demo-app/.cloud-foundry
