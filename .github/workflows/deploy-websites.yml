@@ -1,6 +1,7 @@
 name: Deploy websites
 # Deploys all onyx websites - Docs, Storybook etc.
 on:
+  pull_request:
   push:
     tags:
       - v**
