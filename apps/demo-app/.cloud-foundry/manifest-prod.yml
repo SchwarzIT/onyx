@@ -6,6 +6,6 @@ applications:
     instances: 2
     buildpacks:
       - https://github.com/cloudfoundry/nodejs-buildpack
-    command: node server/index.mjs
+    command: node dist/server/index.mjs
     routes:
       - route: demo.onyx.schwarz
