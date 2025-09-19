@@ -86,3 +86,4 @@ jobs:
       environment_sit-onyx: ${{ needs.release.outputs.environment_sit-onyx }}
       environment_playground: ${{ needs.release.outputs.environment_playground }}
       environment_demo-app: ${{ needs.release.outputs.environment_demo-app }}
+    secrets: inherit
