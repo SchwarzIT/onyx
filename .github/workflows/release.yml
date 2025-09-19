@@ -64,7 +64,7 @@ jobs:
         run: |
           # Maps [{"name": "docs", "version": "1.2.0"}, {"name": "demo-app", "version": "0.8.9"}] 
           # to [{ "name": "docs", "deploy": "prod" }, { "name": "demo-app", "deploy": "dev" }]
-          export mapped=echo '${{ steps.Publish.outputs.publishedPackages }}' | jq -c 'map_values({ name: .name, deploy: (if .version | test("^\\d+.\\d+.\\d+$") then "prod" else "dev" end) })'
+          export mapped=$(echo '${{ steps.Publish.outputs.publishedPackages }}' | jq -c 'map_values({ name: .name, deploy: (if .version | test("^\\d+.\\d+.\\d+$") then "prod" else "dev" end) })')
 
           # Expose the deploy environment ("prod", "dev" or "") for each package as output.
           ENVIRONMENT_DOCS=$(echo $mapped | jq -c '.[] | select(.name == "@sit-onyx/docs-app") | .deploy')
