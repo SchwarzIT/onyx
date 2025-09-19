@@ -67,10 +67,10 @@ jobs:
           export mapped=$(echo '${{ steps.Publish.outputs.publishedPackages }}' | jq -c 'map_values({ name: .name, deploy: (if .version | test("^\\d+.\\d+.\\d+$") then "prod" else "dev" end) })')
 
           # Expose the deploy environment ("prod", "dev" or "") for each package as output.
-          ENVIRONMENT_DOCS=$(echo $mapped | jq -c '.[] | select(.name == "@sit-onyx/docs-app") | .deploy')
-          ENVIRONMENT_STORYBOOK=$(echo $mapped | jq -c '.[] | select(.name == "sit-onyx") | .deploy')
-          ENVIRONMENT_PLAYGROUND=$(echo $mapped | jq -c '.[] | select(.name == "@sit-onyx/playground-app") | .deploy')
-          ENVIRONMENT_DEMO_APP=$(echo $mapped | jq -c '.[] | select(.name == "@sit-onyx/demo-app") | .deploy')
+          ENVIRONMENT_DOCS=$(echo $mapped | jq -rc '.[] | select(.name == "@sit-onyx/docs-app") | .deploy')
+          ENVIRONMENT_STORYBOOK=$(echo $mapped | jq -rc '.[] | select(.name == "sit-onyx") | .deploy')
+          ENVIRONMENT_PLAYGROUND=$(echo $mapped | jq -rc '.[] | select(.name == "@sit-onyx/playground-app") | .deploy')
+          ENVIRONMENT_DEMO_APP=$(echo $mapped | jq -rc '.[] | select(.name == "@sit-onyx/demo-app") | .deploy')
           echo "ENVIRONMENT_DOCS=$ENVIRONMENT_DOCS" >> "$GITHUB_OUTPUT"
           echo "ENVIRONMENT_STORYBOOK=$ENVIRONMENT_STORYBOOK" >> "$GITHUB_OUTPUT"
           echo "ENVIRONMENT_PLAYGROUND=$ENVIRONMENT_PLAYGROUND" >> "$GITHUB_OUTPUT"
