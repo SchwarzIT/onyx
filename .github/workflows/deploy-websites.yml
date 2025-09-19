@@ -92,7 +92,7 @@ jobs:
       - uses: ./.github/templates/node-setup
 
       - name: 🛠️ Build Documentation
-        run: pnpm build:all --filter=playground
+        run: pnpm build:all --filter=@sit-onyx/playground-app
 
       - name: ⛴️ Prepare Dist
         run: mv apps/playground/dist apps/playground/.cloud-foundry/dist
@@ -118,7 +118,7 @@ jobs:
       - uses: ./.github/templates/node-setup
 
       - name: 🛠️ Build Documentation
-        run: pnpm build:all --filter=demo-app
+        run: pnpm build:all --filter=@sit-onyx/demo-app
 
       - name: Copy .node-version file
         # Cloud Foundry requires a ".nvmrc" file for defining the node version to use
