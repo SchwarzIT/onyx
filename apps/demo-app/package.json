@@ -1,16 +1,21 @@
 {
-  "name": "demo-app",
-  "version": "1.0.0",
-  "type": "module",
-  "author": "Schwarz IT KG",
-  "license": "Apache-2.0",
-  "engines": {
-    "node": ">=20"
+  "name": "@sit-onyx/demo-app",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SchwarzIT/onyx",
+    "directory": "apps/demo-app"
   },
+  "license": "Apache-2.0",
+  "author": "Schwarz IT KG",
+  "type": "module",
+  "files": [
+    ".output"
+  ],
   "scripts": {
+    "build": "pnpm dev:prepare && nuxt build",
     "dev": "pnpm dev:prepare && nuxt dev",
     "dev:prepare": "nuxt prepare",
-    "build": "pnpm dev:prepare && nuxt build",
     "preview": "nuxt preview"
   },
   "dependencies": {
@@ -30,5 +35,8 @@
     "vue": "catalog:",
     "vue-chartjs": "^5.3.2",
     "vue-router": "^4.5.1"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }
