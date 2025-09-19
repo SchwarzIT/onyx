@@ -37,7 +37,7 @@ jobs:
       - uses: ./.github/templates/node-setup
 
       - name: 🛠️ Build packages
-        run: pnpm build:all --filter=!docs --filter=!demo-app
+        run: pnpm build:all --filter=!@sit-onyx/docs-app --filter=!@sit-onyx/demo-app
 
       - name: 🤖 Configure Git Bot
         run: |
@@ -67,10 +67,10 @@ jobs:
           export mapped=echo "${{ steps.Publish.outputs.publishedPackages }}" | jq -c 'map_values({ name: .name, deploy: if .version | test("^\\d+.\\d+.\\d+$") then "prod" else "dev" end })'
 
           # Expose the deploy environment ("prod", "dev" or "") for each package as output.
-          echo ENVIRONMENT_DOCS=$(echo $mapped | jq -c '.[] | select(.name == "docs") | .deploy') >> "$GITHUB_OUTPUT"
+          echo ENVIRONMENT_DOCS=$(echo $mapped | jq -c '.[] | select(.name == "@sit-onyx/docs-app") | .deploy') >> "$GITHUB_OUTPUT"
           echo ENVIRONMENT_STORYBOOK=$(echo $mapped | jq -c '.[] | select(.name == "sit-onyx") | .deploy') >> "$GITHUB_OUTPUT"
-          echo ENVIRONMENT_PLAYGROUND=$(echo $mapped | jq -c '.[] | select(.name == "playground") | .deploy') >> "$GITHUB_OUTPUT"
-          echo ENVIRONMENT_DEMO_APP=$(echo $mapped | jq -c '.[] | select(.name == "demo-app") | .deploy') >> "$GITHUB_OUTPUT"
+          echo ENVIRONMENT_PLAYGROUND=$(echo $mapped | jq -c '.[] | select(.name == "@sit-onyx/playground-app") | .deploy') >> "$GITHUB_OUTPUT"
+          echo ENVIRONMENT_DEMO_APP=$(echo $mapped | jq -c '.[] | select(.name == "@sit-onyx/demo-app") | .deploy') >> "$GITHUB_OUTPUT"
 
   deploy-websites:
     name: deploy-websites

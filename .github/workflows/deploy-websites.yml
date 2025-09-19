@@ -62,7 +62,7 @@ jobs:
       - uses: ./.github/templates/node-setup
 
       - name: 🛠️ Build Documentation
-        run: pnpm build:all --filter=docs
+        run: pnpm build:all --filter=@sit-onyx/docs-app
         env:
           # needed for increase rate limit for the GitHub API that is used when building
           # the VitePress documentation
