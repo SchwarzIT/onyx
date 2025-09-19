@@ -268,10 +268,13 @@ importers:
         version: 5.3.2(chart.js@4.5.0)(vue@3.5.21(typescript@5.9.2))
 
   apps/playground:
-    dependencies:
+    devDependencies:
       '@sit-onyx/icons':
         specifier: workspace:^
         version: link:../../packages/icons
+      '@sit-onyx/shared':
+        specifier: workspace:^
+        version: link:../../packages/shared
       '@vue/repl':
         specifier: ~4.2.1
         version: 4.2.1
@@ -281,10 +284,6 @@ importers:
       sit-onyx:
         specifier: workspace:^
         version: link:../../packages/sit-onyx
-    devDependencies:
-      '@sit-onyx/shared':
-        specifier: workspace:^
-        version: link:../../packages/shared
       vue:
         specifier: 3.5.21
         version: 3.5.21(typescript@5.9.2)
@@ -7556,6 +7555,9 @@ packages:
   vue-component-type-helpers@3.0.6:
     resolution: {integrity: sha512-6CRM8X7EJqWCJOiKPvSLQG+hJPb/Oy2gyJx3pLjUEhY7PuaCthQu3e0zAGI1lqUBobrrk9IT0K8sG2GsCluxoQ==}
 
+  vue-component-type-helpers@3.0.7:
+    resolution: {integrity: sha512-TvyUcFXmjZcXUvU+r1MOyn4/vv4iF+tPwg5Ig33l/FJ3myZkxeQpzzQMLMFWcQAjr6Xs7BRwVy/TwbmNZUA/4w==}
+
   vue-devtools-stub@0.1.0:
     resolution: {integrity: sha512-RutnB7X8c5hjq39NceArgXg28WZtZpGc3+J16ljMiYnFhKvd8hITxSWQSQ5bvldxMDU6gG5mkxl1MTQLXckVSQ==}
 
@@ -10109,7 +10111,7 @@ snapshots:
       storybook: 9.1.5(@testing-library/dom@10.4.0)(prettier@3.6.2)(vite@7.1.5(@types/node@24.3.1)(jiti@2.5.1)(sass-embedded@1.92.1)(sass@1.92.1)(stylus@0.57.0)(terser@5.44.0)(tsx@4.20.5)(yaml@2.8.1))
       type-fest: 2.19.0
       vue: 3.5.21(typescript@5.9.2)
-      vue-component-type-helpers: 3.0.6
+      vue-component-type-helpers: 3.0.7
 
   '@testing-library/dom@10.4.0':
     dependencies:
@@ -16400,6 +16402,8 @@ snapshots:
   vue-component-type-helpers@2.2.12: {}
 
   vue-component-type-helpers@3.0.6: {}
+
+  vue-component-type-helpers@3.0.7: {}
 
   vue-devtools-stub@0.1.0: {}
 
