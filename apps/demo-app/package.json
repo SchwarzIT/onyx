@@ -1,7 +1,6 @@
 {
   "name": "demo-app",
-  "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",

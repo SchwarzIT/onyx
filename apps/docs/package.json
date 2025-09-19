@@ -1,13 +1,12 @@
 {
   "name": "docs",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
   "engines": {
     "node": ">=20"
   },
-  "private": true,
   "scripts": {
     "dev": "vitepress dev src",
     "build": "pnpm run '/type-check|build-only/'",
