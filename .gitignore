@@ -53,3 +53,4 @@ packages/figma-utils/variables*.css
 packages/figma-utils/variables*.scss
 packages/figma-utils/variables*.json
 *.sqlite
+snapshot.json

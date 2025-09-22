@@ -1,6 +1,8 @@
+# yaml-language-server: $schema=https://www.schemastore.org/cloudfoundry-application-manifest.json
 ---
 applications:
   - name: onyx-demo-dev
     memory: 96M
-    buildpack: https://github.com/cloudfoundry/nodejs-buildpack
-    command: node .output/server/index.mjs
+    buildpacks:
+      - https://github.com/cloudfoundry/nodejs-buildpack
+    command: node dist/server/index.mjs

@@ -1,22 +1,33 @@
 {
-  "name": "docs",
-  "version": "0.0.0",
-  "type": "module",
-  "author": "Schwarz IT KG",
-  "license": "Apache-2.0",
-  "engines": {
-    "node": ">=20"
-  },
+  "name": "@sit-onyx/docs-app",
+  "version": "0.0.1",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SchwarzIT/onyx",
+    "directory": "apps/docs"
+  },
+  "license": "Apache-2.0",
+  "author": "Schwarz IT KG",
+  "type": "module",
+  "imports": {
+    "#src/.vitepress/browser-loader.data": {
+      "storybook": "./src/.vitepress/browser-loader.data.mock.ts",
+      "default": "./src/.vitepress/browser-loader.data.ts"
+    }
+  },
+  "files": [
+    "src/.vitepress"
+  ],
   "scripts": {
-    "dev": "vitepress dev src",
     "build": "pnpm run '/type-check|build-only/'",
     "build-only": "vitepress build src",
-    "type-check": "vue-tsc --noEmit",
+    "dev": "vitepress dev src",
     "preview": "vitepress preview src",
     "storybook": "storybook dev -p 6006 --no-open",
+    "stylelint": "stylelint \"src/.vitepress/dist/**/*.css\"",
     "test:playwright": "playwright install && playwright test",
-    "stylelint": "stylelint \"src/.vitepress/dist/**/*.css\""
+    "type-check": "vue-tsc --noEmit"
   },
   "devDependencies": {
     "@sit-onyx/chartjs-plugin": "workspace:^",
@@ -34,10 +45,7 @@
     "vue": "catalog:",
     "vue-chartjs": "^5.3.2"
   },
-  "imports": {
-    "#src/.vitepress/browser-loader.data": {
-      "storybook": "./src/.vitepress/browser-loader.data.mock.ts",
-      "default": "./src/.vitepress/browser-loader.data.ts"
-    }
+  "engines": {
+    "node": ">=20"
   }
 }
