@@ -10,9 +10,6 @@
   "license": "Apache-2.0",
   "author": "Schwarz IT KG",
   "type": "module",
-  "files": [
-    ".output"
-  ],
   "scripts": {
     "build": "pnpm dev:prepare && nuxt build",
     "dev": "pnpm dev:prepare && nuxt dev",
