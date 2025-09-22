@@ -4,12 +4,24 @@ import { transformValidityStateToObject } from "../utils/validity.js";
 
 export type CustomMessageType = string | FormMessages;
 
-export type UseCustomValidityOptions = {
+export type UseFormValidityOptions<
+  TProps extends Record<string, MaybeRefOrGetter<unknown>> = Record<
+    string,
+    MaybeRefOrGetter<unknown>
+  >,
+> = {
   /**
    * Explicitly set custom error. Any non-nullish value will set the input to be invalid.
-   * If both, `options.customError` and `options.props.error` are provided, the message from the props will take precedence.
    */
   error?: MaybeRefOrGetter<CustomMessageType | undefined>;
+  /**
+   * Props that influence native validation state.
+   */
+  props: TProps;
+  /**
+   * Component emit as defined with `const emit = defineEmits()`
+   */
+  emit: (evt: "validityChange", validity: ValidityState) => void;
 };
 
 export type InputValidationElement = Pick<HTMLInputElement, "validity" | "setCustomValidity">;
@@ -61,7 +73,9 @@ export const getFormMessageText = (error?: CustomMessageType): string | undefine
   return `${shortMessage}: ${longMessage}`;
 };
 
-export const useCustomValidity = (options: UseCustomValidityOptions) => {
+export const useCustomValidity = <TProps extends Record<string, MaybeRefOrGetter<unknown>>>(
+  options: Omit<UseFormValidityOptions<TProps>, "emit">,
+) => {
   const validityState = ref<Record<keyof ValidityState, boolean>>();
 
   const vCustomValidity = {
@@ -69,9 +83,8 @@ export const useCustomValidity = (options: UseCustomValidityOptions) => {
       watch(
         // we need to watch all props instead of only modelValue so the validity is re-checked
         // when the validation rules change
-        () => toValue(options.error),
+        [() => toValue(options.error), () => toValue(options.props)],
         () => {
-          // Sync custom error with the native input validity.
           el.setCustomValidity(getFormMessageText(toValue(options.error)) ?? "");
           const newValidityState = transformValidityStateToObject(el.validity);
 

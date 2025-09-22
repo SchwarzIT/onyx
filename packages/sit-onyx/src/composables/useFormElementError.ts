@@ -1,18 +1,16 @@
-import { computed, ref, toValue, watch, type Directive, type MaybeRefOrGetter } from "vue";
+import { computed, ref, toValue, watch } from "vue";
 import type { DateValue, OnyxDatePickerProps } from "../components/OnyxDatePicker/types.js";
 import type { InputType } from "../components/OnyxInput/types.js";
 import { injectI18n } from "../i18n/index.js";
 import enUS from "../i18n/locales/en-US.json";
 import { isValidDate } from "../utils/date.js";
-import { areObjectsFlatEqual } from "../utils/objects.js";
-import { getFirstInvalidType, transformValidityStateToObject } from "../utils/validity.js";
+import { getFirstInvalidType } from "../utils/validity.js";
 import {
   getFormMessages,
-  getFormMessageText,
+  useCustomValidity,
   type CustomMessageType,
   type FormMessages,
-  type InputValidationElement,
-  type UseCustomValidityOptions,
+  type UseFormValidityOptions,
 } from "./useCustomValidity.js";
 import type { MaxLength } from "./useLenientMaxLengthValidation.js";
 
@@ -23,31 +21,19 @@ export type CustomValidityProp = {
   error?: CustomMessageType;
 };
 
-export type UseFormElementErrorOptions = UseCustomValidityOptions & {
-  /**
-   * Explicitly set custom error. Any non-nullish value will set the input to be invalid.
-   * If both, `options.customError` and `options.props.error` are provided, the message from the props will take precedence.
-   */
-  error?: MaybeRefOrGetter<CustomMessageType | undefined>;
-  /**
-   * Component props as defined with `const props = defineProps()`.
-   * These prop values are used for the error messages of the native validation errors.
-   */
-  props: {
-    error?: CustomMessageType;
-    modelValue?: unknown;
-    type?: InputType | OnyxDatePickerProps["type"];
-    maxlength?: MaxLength;
-    minlength?: number;
-    min?: DateValue;
-    max?: DateValue;
-    validStepSize?: number;
-  };
-  /**
-   * Component emit as defined with `const emit = defineEmits()`
-   */
-  emit: (evt: "validityChange", validity: ValidityState) => void;
+export type FormValidationProps = {
+  error?: CustomMessageType;
+  modelValue?: unknown;
+  type?: InputType | OnyxDatePickerProps["type"];
+  maxlength?: MaxLength;
+  minlength?: number;
+  min?: DateValue;
+  max?: DateValue;
+  validStepSize?: number;
 };
+
+export type UseFormElementErrorOptions = UseFormValidityOptions<FormValidationProps>;
+
 /**
  * Input types that have a translation for their validation error message.
  */
@@ -55,30 +41,16 @@ export const TRANSLATED_INPUT_TYPES = Object.keys(
   enUS.validations.typeMismatch,
 ) as (keyof typeof enUS.validations.typeMismatch)[];
 export type TranslatedInputType = (typeof TRANSLATED_INPUT_TYPES)[number];
-/**
- * Composable for unified handling of custom messages for form components.
- * Will call `setCustomValidity()` accordingly and emit the "validityChange" event
- * whenever the input value / error changes.
- *
- * @example
- * ```html
- * <script lang="ts" setup>
- * const props = defineProps<CustomValidityProp>();
- * const emit = defineEmits<{ validityChange: [validity: ValidityState] }>();
- *
- * const { vCustomValidity } = useFormValidity({ props, emit });
- * </script>
- *
- * <template>
- * <input v-custom-validity />
- * </template>
- * ```
- */
+
 export const useFormValidity = (options: UseFormElementErrorOptions) => {
   const { t, locale } = injectI18n();
-  const validityState = ref<Record<keyof ValidityState, boolean>>();
   const isDirty = ref(false);
-  const error = computed(() => options.props.error || toValue(options.error));
+
+  const { vCustomValidity, validityState } = useCustomValidity({
+    error: computed(() => options.props.error || toValue(options.error)),
+    props: options.props,
+  });
+
   /**
    * Sync isDirty state. The component is "dirty" when the value was modified at least once.
    */
@@ -87,45 +59,22 @@ export const useFormValidity = (options: UseFormElementErrorOptions) => {
     () => (isDirty.value = true),
     { once: true },
   );
-  const vCustomValidity = {
-    mounted: (el) => {
-      watch(
-        // we need to watch all props instead of only modelValue so the validity is re-checked
-        // when the validation rules change
-        [() => options.props, error],
-        () => {
-          // Sync custom error with the native input validity.
-          el.setCustomValidity(getFormMessageText(error.value) ?? "");
-          const newValidityState = transformValidityStateToObject(el.validity);
-          // do not emit update if input is valid and has never been invalid
-          if (!validityState.value && newValidityState.valid) return;
-          // ignore if actual validity state value is unchanged
-          if (validityState.value && areObjectsFlatEqual(newValidityState, validityState.value)) {
-            return;
-          }
-          validityState.value = newValidityState;
-        },
-        // We use "post" flush timing, to ensure the DOM is up-to-date and the elements validity state is in sync.
-        { immediate: true, deep: true, flush: "post" },
-      );
-      /**
-       * Update validityState ref when the input changes.
-       */
-      watch(
-        [error, validityState, isDirty],
-        () => {
-          // do not emit validityChange event if the value was never changed
-          if (!isDirty.value || !validityState.value) return;
-          options.emit("validityChange", validityState.value);
-        },
-        { immediate: true },
-      );
+
+  watch(
+    [validityState, isDirty],
+    () => {
+      // do not emit validityChange event if the value was never changed
+      if (!isDirty.value || !validityState.value) return;
+      options.emit("validityChange", validityState.value);
     },
-  } satisfies Directive<InputValidationElement, undefined>;
+    { immediate: true },
+  );
+
   const errorMessages = computed<FormMessages | undefined>(() => {
     if (!validityState.value || validityState.value.valid) return;
     const errorType = getFirstInvalidType(validityState.value);
-    const errors = getFormMessages(error.value);
+    const errors = getFormMessages(options.props.error || toValue(options.error));
+
     // a custom error message always is considered first
     if (errors || errorType === "customError") {
       if (!errors) return;
@@ -171,6 +120,7 @@ export const useFormValidity = (options: UseFormElementErrorOptions) => {
     errorMessages,
   };
 };
+
 const formatMinMax = (
   locale: string,
   type: UseFormElementErrorOptions["props"]["type"],
