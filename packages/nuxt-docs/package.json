@@ -25,7 +25,7 @@
   "scripts": {
     "dev": "pnpm dev:prepare && nuxi dev playground",
     "dev:prepare": "nuxt prepare playground",
-    "build": "nuxt build playground",
+    "build": "pnpm dev:prepare && nuxt build playground",
     "generate": "nuxt generate playground",
     "preview": "nuxt preview playground",
     "test:playwright": "pnpm dev:prepare && (cd playground && pnpm test:playwright)"
