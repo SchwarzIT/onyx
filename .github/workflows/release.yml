@@ -47,14 +47,22 @@ jobs:
       # All existing changesets are applied for a snapshot release.
       # In case of a "real" release all changesets will already have been applied through a PR, so this step won't have an effect.
       - name: Determine snapshot versions
-        run: pnpm exec changeset version --snapshot dev
+        id: DetermineSnapshotVersions
+        run: |
+          pnpm exec changeset status --output=snapshot.json
+          HAS_SNAPSHOT_RELEASES=$(cat snapshot.json | jq -r '(.releases | length) > 0')
+          rm snapshot.json
+          if [[ $HAS_SNAPSHOT_RELEASES == "true" ]]; then
+            pnpm exec changeset version --snapshot dev
+            echo "HAS_SNAPSHOT_RELEASES=true >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Publish
         id: Publish
         uses: changesets/action@v1
         with:
-          publish: "pnpm exec changeset publish"
-          createGithubReleases: true
+          publish: pnpm exec changeset publish ${{ (steps.DetermineSnapshotVersions.outputs.HAS_SNAPSHOT_RELEASES && '--tag dev') || '' }}
+          createGithubReleases: ${{ steps.DetermineSnapshotVersions.outputs.HAS_SNAPSHOT_RELEASES == 'true' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
