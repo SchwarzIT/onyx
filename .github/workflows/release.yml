@@ -4,17 +4,10 @@ on:
     branches:
       - "main"
   workflow_dispatch:
-    inputs:
-      environment:
-        type: environment
-        required: true
-        default: dev
-        description: Environment to release to
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 env:
-  STAGE: ${{ inputs.environment || 'dev' }}
   TURBO_TOKEN: ${{ secrets.TURBO_REMOTE_CACHE__TURBO_TOKEN }}
 
 jobs:
@@ -28,7 +21,9 @@ jobs:
       pull-requests: write
     outputs:
       # We can use the `published` boolean in other steps to decide, when we do deployments
-      published: ${{ steps.PublishOrCreatePR.outputs.published }}
+      published: ${{ steps.Publish.outputs.published }}
+      is_snapshot_release: ${{ steps.DetermineSnapshotVersions.outputs.IS_SNAPSHOT_RELEASE }}
+
     steps:
       - uses: actions/checkout@v5
         with:
@@ -39,176 +34,40 @@ jobs:
       - uses: ./.github/templates/node-setup
 
       - name: 🛠️ Build packages
-        run: pnpm build:all --filter=!docs --filter=!demo-app
-
-      - name: Upload Storybook artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: storybook-static
-          path: packages/sit-onyx/storybook-static
-
-      - name: Upload playground artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: playground
-          path: apps/playground/dist
+        run: pnpm build:all --filter=!./apps/*
 
       - name: 🤖 Configure Git Bot
         run: |
           git config user.name "Release Bot[bot]"
           git config user.email "bot@example.com"
 
-      # if environment is "dev", we will create the versions manually so no extra PR is created by the "changesets/action" below
-      # and the changes are published immediately
-      - name: Create package versions (DEV)
-        if: env.STAGE != 'prod'
-        run: pnpm exec changeset version --snapshot dev --no-git-tag
+      # All existing changesets are applied for a snapshot release.
+      # In case of a "real" release all changesets will already have been applied through a PR, so this step won't have an effect.
+      - name: Determine snapshot versions
+        id: DetermineSnapshotVersions
+        run: |
+          pnpm exec changeset status --since origin/main --output=snapshot.json
+          IS_SNAPSHOT_RELEASE=$(cat snapshot.json | jq -r '(.releases | length) > 0')
+          rm snapshot.json
+          if [[ $IS_SNAPSHOT_RELEASE == "true" ]]; then
+            pnpm exec changeset version --snapshot dev
+            echo "IS_SNAPSHOT_RELEASE=true" >> "$GITHUB_OUTPUT"
+          fi
 
-      - name: Determine if is snapshot version
-        run: echo "IS_SNAPSHOT_VERSION=$(cd packages/sit-onyx && pnpm pkg get version | grep -q '\-' && echo 'true' || echo 'false')" >> $GITHUB_ENV
-
-      # if (prod) changesets exist, a PR will be created with the changed versions so we can review the changes before actually releasing
-      # otherwise (e.g. the PR has been merged), the packages will be published to npm (if changes exist)
-      - name: Create release pull request or publish to npm
-        id: PublishOrCreatePR
+      - name: Publish
+        id: Publish
         uses: changesets/action@v1
         with:
-          # we only include the publish command if either:
-          # 1. version is a snapshot version (contains a "-" dash, e.g. 1.1.0-dev.DATETIMESTAMP)
-          # 2. version is a regular version AND stage is prod. This check is needed in the case a "prod" release is triggered and then the created PR is merged.
-          # In this case, the versions are "prod" versions but the automated run after the merge runs on stage "dev" by default which is not intended
-          publish: ${{ (env.IS_SNAPSHOT_VERSION || env.STAGE == 'prod') && 'pnpm exec changeset publish' || '' }}
-          createGithubReleases: ${{ env.STAGE == 'prod' }}
-          title: "release: update onyx versions and changelogs" # PR title
+          publish: pnpm exec changeset publish ${{ (steps.DetermineSnapshotVersions.outputs.IS_SNAPSHOT_RELEASE && '--tag dev') || '' }}
+          createGithubReleases: ${{ steps.DetermineSnapshotVersions.outputs.IS_SNAPSHOT_RELEASE != 'true' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # the docs need to be build AFTER the release because there the changelogs are generated which need to be included in the
-      # documentation build
-      - name: 🛠️ Build docs and demo app
-        run: pnpm build:all --filter=docs --filter demo-app
-        if: env.STAGE != 'prod' || steps.PublishOrCreatePR.outputs.published == 'true'
-        env:
-          # needed for increase rate limit for the GitHub API that is used when building
-          # the VitePress documentation
-          VITEPRESS_GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload documentation artifact
-        uses: actions/upload-artifact@v4
-        if: env.STAGE != 'prod' || steps.PublishOrCreatePR.outputs.published == 'true'
-        with:
-          name: documentation
-          path: apps/docs/src/.vitepress/dist
-
-      - name: Upload demo app artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: demo-app
-          path: apps/demo-app/.output
-          # we need to include hidden files because the folder name starts with a dot
-          # see: https://github.com/actions/upload-artifact?tab=readme-ov-file#uploading-hidden-files
-          include-hidden-files: true
-
-  deploy_storybook:
-    name: Deploy Storybook
-    runs-on: ubuntu-latest
+  deploy-websites:
+    name: deploy-websites
     needs: release
-    if: inputs.environment != 'prod' || needs.release.outputs.published == 'true'
-    environment: ${{ inputs.environment || 'dev' }}
-    steps:
-      - uses: actions/checkout@v5
-
-      - name: Download Storybook artifact
-        uses: actions/download-artifact@v5
-        with:
-          name: storybook-static
-          path: packages/sit-onyx/.cloud-foundry/storybook-static
-
-      - name: Deploy to Cloud Foundry
-        uses: ./.github/templates/cf-push
-        with:
-          endpoint: ${{ vars.CF_ENDPOINT }}
-          org: ${{ vars.CF_ORG }}
-          username: ${{ vars.CF_USERNAME }}
-          password: ${{ secrets.CF_PASSWORD }}
-          space: ${{ env.STAGE }}
-          working-directory: packages/sit-onyx/.cloud-foundry
-
-  deploy_documentation:
-    name: Deploy documentation
-    runs-on: ubuntu-latest
-    needs: release
-    if: inputs.environment != 'prod' || needs.release.outputs.published == 'true'
-    environment: ${{ inputs.environment || 'dev' }}
-    steps:
-      - uses: actions/checkout@v5
-
-      - name: Download Storybook artifact
-        uses: actions/download-artifact@v5
-        with:
-          name: documentation
-          path: apps/docs/.cloud-foundry/dist
-
-      - name: Deploy to Cloud Foundry
-        uses: ./.github/templates/cf-push
-        with:
-          endpoint: ${{ vars.CF_ENDPOINT }}
-          org: ${{ vars.CF_ORG }}
-          username: ${{ vars.CF_USERNAME }}
-          password: ${{ secrets.CF_PASSWORD }}
-          space: ${{ env.STAGE }}
-          working-directory: apps/docs/.cloud-foundry
-
-  deploy_playground:
-    name: Deploy Playground
-    runs-on: ubuntu-latest
-    needs: release
-    if: inputs.environment != 'prod' || needs.release.outputs.published == 'true'
-    environment: ${{ inputs.environment || 'dev' }}
-    steps:
-      - uses: actions/checkout@v5
-
-      - name: Download artifact
-        uses: actions/download-artifact@v5
-        with:
-          name: playground
-          path: apps/playground/.cloud-foundry/dist
-
-      - name: Deploy to Cloud Foundry
-        uses: ./.github/templates/cf-push
-        with:
-          endpoint: ${{ vars.CF_ENDPOINT }}
-          org: ${{ vars.CF_ORG }}
-          username: ${{ vars.CF_USERNAME }}
-          password: ${{ secrets.CF_PASSWORD }}
-          space: ${{ env.STAGE }}
-          working-directory: apps/playground/.cloud-foundry
-
-  deploy_demo_app:
-    name: Deploy demo app
-    runs-on: ubuntu-latest
-    needs: release
-    if: inputs.environment != 'prod' || needs.release.outputs.published == 'true'
-    environment: ${{ inputs.environment || 'dev' }}
-    steps:
-      - uses: actions/checkout@v5
-
-      - name: Download artifact
-        uses: actions/download-artifact@v5
-        with:
-          name: demo-app
-          path: apps/demo-app/.cloud-foundry/.output
-
-      - name: Copy .node-version file
-        # Cloud Foundry requires a ".nvmrc" file for defining the node version to use
-        run: cp .node-version apps/demo-app/.cloud-foundry/.nvmrc
-
-      - name: Deploy to Cloud Foundry
-        uses: ./.github/templates/cf-push
-        with:
-          endpoint: ${{ vars.CF_ENDPOINT }}
-          org: ${{ vars.CF_ORG }}
-          username: ${{ vars.CF_USERNAME }}
-          password: ${{ secrets.CF_PASSWORD }}
-          space: ${{ env.STAGE }}
-          working-directory: apps/demo-app/.cloud-foundry
+    if: needs.release.outputs.published == 'true'
+    uses: ./.github/workflows/deploy-websites.yml
+    with:
+      environment: ${{ needs.release.outputs.is_snapshot_release && 'dev' || 'prod' }}
+    secrets: inherit
