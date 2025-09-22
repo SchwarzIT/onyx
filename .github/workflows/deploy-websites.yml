@@ -3,16 +3,7 @@ name: Deploy websites
 on:
   workflow_call:
     inputs:
-      environment_docs:
-        type: string
-      environment_sit-onyx:
-        required: true
-        type: string
-      environment_playground:
-        required: true
-        type: string
-      environment_demo-app:
-        required: true
+      environment:
         type: string
   workflow_dispatch:
     inputs:
@@ -28,8 +19,8 @@ jobs:
   deploy_storybook:
     name: Deploy Storybook
     runs-on: ubuntu-latest
-    if: ${{ (inputs.environment || inputs.environment_sit-onyx) != '' }}
-    environment: ${{ inputs.environment || inputs.environment_sit-onyx }}
+    if: ${{ (inputs.environment || inputs.environment) != '' }}
+    environment: ${{ inputs.environment || inputs.environment }}
     steps:
       - uses: actions/checkout@v5
 
@@ -48,14 +39,14 @@ jobs:
           org: ${{ vars.CF_ORG }}
           username: ${{ vars.CF_USERNAME }}
           password: ${{ secrets.CF_PASSWORD }}
-          space: ${{ inputs.environment || inputs.environment_sit-onyx }}
+          space: ${{ inputs.environment || inputs.environment }}
           working-directory: packages/sit-onyx/.cloud-foundry
 
   deploy_documentation:
     name: Deploy documentation
     runs-on: ubuntu-latest
-    if: ${{ (inputs.environment || inputs.environment_docs) != '' }}
-    environment: ${{ inputs.environment || inputs.environment_docs }}
+    if: ${{ (inputs.environment || inputs.environment) != '' }}
+    environment: ${{ inputs.environment || inputs.environment }}
     steps:
       - uses: actions/checkout@v5
 
@@ -78,14 +69,14 @@ jobs:
           org: ${{ vars.CF_ORG }}
           username: ${{ vars.CF_USERNAME }}
           password: ${{ secrets.CF_PASSWORD }}
-          space: ${{ inputs.environment || inputs.environment_docs }}
+          space: ${{ inputs.environment || inputs.environment }}
           working-directory: apps/docs/.cloud-foundry
 
   deploy_playground:
     name: Deploy Playground
     runs-on: ubuntu-latest
-    if: ${{ (inputs.environment || inputs.environment_playground) != '' }}
-    environment: ${{ inputs.environment || inputs.environment_playground }}
+    if: ${{ (inputs.environment || inputs.environment) != '' }}
+    environment: ${{ inputs.environment || inputs.environment }}
     steps:
       - uses: actions/checkout@v5
 
@@ -104,14 +95,14 @@ jobs:
           org: ${{ vars.CF_ORG }}
           username: ${{ vars.CF_USERNAME }}
           password: ${{ secrets.CF_PASSWORD }}
-          space: ${{ inputs.environment || inputs.environment_playground }}
+          space: ${{ inputs.environment || inputs.environment }}
           working-directory: apps/playground/.cloud-foundry
 
   deploy_demo_app:
     name: Deploy demo app
     runs-on: ubuntu-latest
-    if: ${{ (inputs.environment || inputs.environment_demo-app) != '' }}
-    environment: ${{ inputs.environment || inputs.environment_demo-app }}
+    if: ${{ (inputs.environment || inputs.environment) != '' }}
+    environment: ${{ inputs.environment || inputs.environment }}
     steps:
       - uses: actions/checkout@v5
 
@@ -134,5 +125,5 @@ jobs:
           org: ${{ vars.CF_ORG }}
           username: ${{ vars.CF_USERNAME }}
           password: ${{ secrets.CF_PASSWORD }}
-          space: ${{ inputs.environment || inputs.environment_demo-app }}
+          space: ${{ inputs.environment || inputs.environment }}
           working-directory: apps/demo-app/.cloud-foundry

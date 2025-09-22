@@ -22,10 +22,7 @@ jobs:
     outputs:
       # We can use the `published` boolean in other steps to decide, when we do deployments
       published: ${{ steps.Publish.outputs.published }}
-      environment_docs: ${{ steps.DetermineDeployTargets.outputs.ENVIRONMENT_DOCS }}
-      environment_sit-onyx: ${{ steps.DetermineDeployTargets.outputs.ENVIRONMENT_STORYBOOK }}
-      environment_playground: ${{ steps.DetermineDeployTargets.outputs.ENVIRONMENT_PLAYGROUND }}
-      environment_demo-app: ${{ steps.DetermineDeployTargets.outputs.ENVIRONMENT_DEMO_APP }}
+      is_snapshot_release: ${{ steps.DetermineSnapshotVersions.outputs.IS_SNAPSHOT_RELEASE }}
 
     steps:
       - uses: actions/checkout@v5
@@ -50,39 +47,21 @@ jobs:
         id: DetermineSnapshotVersions
         run: |
           pnpm exec changeset status --since origin/main --output=snapshot.json
-          HAS_SNAPSHOT_RELEASES=$(cat snapshot.json | jq -r '(.releases | length) > 0')
+          IS_SNAPSHOT_RELEASE=$(cat snapshot.json | jq -r '(.releases | length) > 0')
           rm snapshot.json
-          if [[ $HAS_SNAPSHOT_RELEASES == "true" ]]; then
+          if [[ $IS_SNAPSHOT_RELEASE == "true" ]]; then
             pnpm exec changeset version --snapshot dev
-            echo "HAS_SNAPSHOT_RELEASES=true" >> "$GITHUB_OUTPUT"
+            echo "IS_SNAPSHOT_RELEASE=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Publish
         id: Publish
         uses: changesets/action@v1
         with:
-          publish: pnpm exec changeset publish ${{ (steps.DetermineSnapshotVersions.outputs.HAS_SNAPSHOT_RELEASES && '--tag dev') || '' }}
-          createGithubReleases: ${{ steps.DetermineSnapshotVersions.outputs.HAS_SNAPSHOT_RELEASES == 'true' }}
+          publish: pnpm exec changeset publish ${{ (steps.DetermineSnapshotVersions.outputs.IS_SNAPSHOT_RELEASE && '--tag dev') || '' }}
+          createGithubReleases: ${{ steps.DetermineSnapshotVersions.outputs.IS_SNAPSHOT_RELEASE != 'true' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Determine Deploy Targets
-        id: DetermineDeployTargets
-        if: steps.Publish.outputs.published == 'true'
-        run: |
-          # Maps [{"name": "docs", "version": "1.2.0"}, {"name": "demo-app", "version": "0.8.9"}] 
-          # to [{ "name": "docs", "deploy": "prod" }, { "name": "demo-app", "deploy": "dev" }]
-          export mapped=$(echo '${{ steps.Publish.outputs.publishedPackages }}' | jq -c 'map_values({ name: .name, deploy: (if .version | test("^\\d+.\\d+.\\d+$") then "prod" else "dev" end) })')
-
-          # Expose the deploy environment ("prod", "dev" or "") for each package as output.
-          ENVIRONMENT_DOCS=$(echo $mapped | jq -rc '.[] | select(.name == "@sit-onyx/docs-app") | .deploy')
-          ENVIRONMENT_STORYBOOK=$(echo $mapped | jq -rc '.[] | select(.name == "sit-onyx") | .deploy')
-          ENVIRONMENT_PLAYGROUND=$(echo $mapped | jq -rc '.[] | select(.name == "@sit-onyx/playground-app") | .deploy')
-          ENVIRONMENT_DEMO_APP=$(echo $mapped | jq -rc '.[] | select(.name == "@sit-onyx/demo-app") | .deploy')
-          echo "ENVIRONMENT_DOCS=$ENVIRONMENT_DOCS" >> "$GITHUB_OUTPUT"
-          echo "ENVIRONMENT_STORYBOOK=$ENVIRONMENT_STORYBOOK" >> "$GITHUB_OUTPUT"
-          echo "ENVIRONMENT_PLAYGROUND=$ENVIRONMENT_PLAYGROUND" >> "$GITHUB_OUTPUT"
-          echo "ENVIRONMENT_DEMO_APP=$ENVIRONMENT_DEMO_APP" >> "$GITHUB_OUTPUT"
 
   deploy-websites:
     name: deploy-websites
@@ -90,8 +69,5 @@ jobs:
     if: needs.release.outputs.published == 'true'
     uses: ./.github/workflows/deploy-websites.yml
     with:
-      environment_docs: ${{ needs.release.outputs.environment_docs }}
-      environment_sit-onyx: ${{ needs.release.outputs.environment_sit-onyx }}
-      environment_playground: ${{ needs.release.outputs.environment_playground }}
-      environment_demo-app: ${{ needs.release.outputs.environment_demo-app }}
+      environment: ${{ needs.release.outputs.is_snapshot_release && 'dev' || 'prod' }}
     secrets: inherit
