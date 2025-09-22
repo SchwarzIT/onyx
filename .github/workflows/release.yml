@@ -54,7 +54,7 @@ jobs:
           rm snapshot.json
           if [[ $HAS_SNAPSHOT_RELEASES == "true" ]]; then
             pnpm exec changeset version --snapshot dev
-            echo "HAS_SNAPSHOT_RELEASES=true >> "$GITHUB_OUTPUT"
+            echo "HAS_SNAPSHOT_RELEASES=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Publish
