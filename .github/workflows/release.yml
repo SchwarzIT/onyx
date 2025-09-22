@@ -34,7 +34,7 @@ jobs:
       - uses: ./.github/templates/node-setup
 
       - name: 🛠️ Build packages
-        run: pnpm build:all --filter=!@sit-onyx/docs-app --filter=!@sit-onyx/demo-app
+        run: pnpm build:all --filter=!./apps/*
 
       - name: 🤖 Configure Git Bot
         run: |
