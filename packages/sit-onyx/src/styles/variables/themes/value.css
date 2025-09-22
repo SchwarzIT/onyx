@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "value" theme.
- * Imported from Figma API on Thu, 11 Sep 2025 09:27:42 GMT
+ * Imported from Figma API on Mon, 22 Sep 2025 10:31:50 GMT
  */
 :where(:root),
 .onyx-theme-default {
@@ -237,9 +237,11 @@
   --onyx-color-system-red-1000: #691714;
   --onyx-color-system-red-1100: #55120e;
   --onyx-color-system-red-1200: #400c09;
+  --onyx-font-family-Archivo: "Archivo";
   --onyx-font-family-DIN-2014: "DIN 2014";
   --onyx-font-family-Helsinki: "Helsinki";
   --onyx-font-family-Helvetica-Now-Var: "Helvetica Now Var";
+  --onyx-font-family-IBM-Plex-Sans: "IBM Plex Sans";
   --onyx-font-family-Kaufland: "Kaufland";
   --onyx-font-family-Lidl-Font-Pro: "Lidl Font Pro";
   --onyx-font-family-OCR-A-Std: "OCR A Std";
@@ -259,6 +261,7 @@
   --onyx-font-weight-500: 500;
   --onyx-font-weight-600: 600;
   --onyx-font-weight-700: 700;
+  --onyx-font-weight-800: 800;
   --onyx-number-radius-100: 0.125rem;
   --onyx-number-radius-200: 0.25rem;
   --onyx-number-radius-300: 0.5rem;
