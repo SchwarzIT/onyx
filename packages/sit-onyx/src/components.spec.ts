@@ -1,12 +1,15 @@
 import { iconPlaceholder } from "@sit-onyx/icons";
 import { mount } from "@vue/test-utils";
 import { describe, expect, test, vi } from "vitest";
+import { createSSRApp, h, type Component, type VNode } from "vue";
 import type { ComponentProps } from "vue-component-type-helpers";
+import { renderToString } from "vue/server-renderer";
 import * as ALL_EXPORTS from "./index.js";
 
 type Components = {
   [TKey in Extract<keyof typeof ALL_EXPORTS, `Onyx${string}`>]: {
     props?: ComponentProps<(typeof ALL_EXPORTS)[TKey]>;
+    render?: () => VNode;
   };
 };
 
@@ -28,6 +31,30 @@ const COMPONENTS: Components = {
       label: "Timer",
       endTime: new Date(),
     },
+  },
+  OnyxNavBar: {
+    render: () =>
+      h(ALL_EXPORTS.OnyxNavBar, {
+        appName: "App name",
+        default: () => [
+          h(ALL_EXPORTS.OnyxNavItem, { label: "Router Link", link: "#router-link" }),
+          h(
+            ALL_EXPORTS.OnyxNavItem,
+            { label: "Nesting" },
+            {
+              children: () => [
+                h(ALL_EXPORTS.OnyxNavItem, {
+                  label: "Nested Router Link",
+                  link: "#nested-router-link",
+                }),
+                h(ALL_EXPORTS.OnyxNavItem, {
+                  label: "Nested Button",
+                }),
+              ],
+            },
+          ),
+        ],
+      }),
   },
   OnyxNavItemFacade: {
     props: {
@@ -194,6 +221,15 @@ const COMPONENTS: Components = {
       href: "#link",
     },
   },
+  OnyxBreadcrumb: {
+    render: () =>
+      h(ALL_EXPORTS.OnyxBreadcrumb, null, {
+        default: () => [
+          h(ALL_EXPORTS.OnyxBreadcrumbItem, { href: "/foo" }, () => "Foo"),
+          h(ALL_EXPORTS.OnyxBreadcrumbItem, { href: "/foo/bar" }, () => "Bar"),
+        ],
+      }),
+  },
   OnyxAvatar: {
     props: {
       fullName: "John Doe",
@@ -236,27 +272,53 @@ describe("components", () => {
       name: name as keyof typeof COMPONENTS,
       options,
     })),
-  )("should mount $name without errors and console logs", ({ name, options }) => {
+  )("should mount $name without errors and console logs", async ({ name, options }) => {
     // ARRANGE
     const errorSpy = vi.spyOn(console, "error");
     const warningSpy = vi.spyOn(console, "warn");
+    const render =
+      options.render ??
+      (() =>
+        h(ALL_EXPORTS[name] as Component, {
+          // label is a common prop for many components, so we add it here by defaults
+          label: name,
+          ...options.props,
+        }));
 
     // ACT
     expect(
-      () =>
-        mount(ALL_EXPORTS[name], {
-          ...options,
-          props: {
-            // label is a common prop for many components, so we add it here by defaults
-            label: name,
-            ...options.props,
-          },
-        }),
-      `should not throw error when mounting ${name}`,
-    ).not.toThrowError();
+      () => mount(render),
+      `should not throw error when mounting ${name} client-side app`,
+    ).not.toThrow();
 
     // ASSERT
     expect(errorSpy).not.toHaveBeenCalled();
     expect(warningSpy).not.toHaveBeenCalled();
+
+    // ACT
+    await expect(
+      createSsrTest(render),
+      `should not throw error when mounting and hydrating ${name} server-side rendered app`,
+    ).resolves.not.toThrow();
+
+    // ASSERT
+    // TODO: [Fix hydration mismatch errors #4139](https://github.com/SchwarzIT/onyx/issues/4139)
+    expect(
+      errorSpy.mock.calls.filter((c) => c.at(0) !== "Hydration completed but contains mismatches."),
+    ).toMatchObject([]);
+    expect(
+      warningSpy.mock.calls.filter((c) => !c.at(0).startsWith("[Vue warn]: Hydration")),
+    ).toMatchObject([]);
   });
 });
+
+const createSsrTest = (render: Component) =>
+  (async () => {
+    const appServer = createSSRApp(render);
+    const result = await renderToString(appServer);
+
+    document.write(`<div id="app">${result}</div>`);
+
+    const appBrowser = createSSRApp(render);
+    appBrowser.mount("#app");
+  })();

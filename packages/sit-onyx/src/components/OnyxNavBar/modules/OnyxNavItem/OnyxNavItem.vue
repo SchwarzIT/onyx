@@ -177,11 +177,7 @@ const { componentRef, isVisible } = isTopLevel
   </OnyxNavItemFacade>
 
   <!-- Desktop top-level nav item in more list -->
-  <Teleport
-    v-if="isTopLevel && !isMobile && moreListTargetRef"
-    :disabled="!moreListTargetRef"
-    :to="moreListTargetRef"
-  >
+  <Teleport v-if="isTopLevel && !isMobile && moreListTargetRef" :to="moreListTargetRef">
     <!-- 
       We even render the Teleport when there is nothing to teleport,
       so that the original order of the OnyxNavItem's is preserved.
