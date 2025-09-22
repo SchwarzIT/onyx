@@ -99,7 +99,7 @@ export const useCustomValidity = <TProps extends Record<string, MaybeRefOrGetter
           validityState.value = newValidityState;
         },
         // We use "post" flush timing, to ensure the DOM is up-to-date and the elements validity state is in sync.
-        { immediate: true, flush: "post" },
+        { immediate: true, deep: true, flush: "post" },
       );
     },
   } satisfies Directive<InputValidationElement, undefined>;
