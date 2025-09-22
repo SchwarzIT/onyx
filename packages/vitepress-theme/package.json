@@ -35,7 +35,7 @@
     "vitepress": ">= 1.0.0"
   },
   "dependencies": {
-    "@fontsource-variable/source-code-pro": "^5.2.6",
+    "@fontsource-variable/source-code-pro": "^5.2.7",
     "@fontsource-variable/source-sans-3": "^5.2.9"
   },
   "devDependencies": {
