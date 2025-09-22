@@ -3,7 +3,7 @@ set -ex
 
 PKG_NAME=$1
 
-# if is not string "sit-onyx"
+# Add the @sit-onyx scope if the package is not sit-onyx itself. 
 if [ "$PKG_NAME" != "sit-onyx" ]; then
     PKG_NAME="@sit-onyx/$PKG_NAME"
 fi
