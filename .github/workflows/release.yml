@@ -49,7 +49,7 @@ jobs:
       - name: Determine snapshot versions
         id: DetermineSnapshotVersions
         run: |
-          pnpm exec changeset status --output=snapshot.json
+          pnpm exec changeset status --since origin/main --output=snapshot.json
           HAS_SNAPSHOT_RELEASES=$(cat snapshot.json | jq -r '(.releases | length) > 0')
           rm snapshot.json
           if [[ $HAS_SNAPSHOT_RELEASES == "true" ]]; then
