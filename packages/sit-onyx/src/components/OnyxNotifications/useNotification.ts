@@ -104,7 +104,7 @@ export const useNotification = () => {
         notifications: computed(() => []),
         show: () => {
           logWarning();
-          return 0;
+          return -1;
         },
         remove: logWarning,
       } satisfies NotificationsProvider;
