@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "value" theme.
- * Imported from Figma API on Thu, 11 Sep 2025 09:27:42 GMT
+ * Imported from Figma API on Mon, 22 Sep 2025 14:28:07 GMT
  */
 :where(:root),
 .onyx-theme-default {
@@ -237,9 +237,85 @@
   --onyx-color-system-red-1000: #691714;
   --onyx-color-system-red-1100: #55120e;
   --onyx-color-system-red-1200: #400c09;
+  --onyx-color-tailwind-core-blue-100: #e7e9ec;
+  --onyx-color-tailwind-core-blue-200: #d0d3da;
+  --onyx-color-tailwind-core-blue-300: #b9bec8;
+  --onyx-color-tailwind-core-blue-400: #a3a9b6;
+  --onyx-color-tailwind-core-blue-500: #8d94a5;
+  --onyx-color-tailwind-core-blue-600: #788094;
+  --onyx-color-tailwind-core-blue-700: #646d83;
+  --onyx-color-tailwind-core-blue-800: #505a72;
+  --onyx-color-tailwind-core-blue-900: #3d4861;
+  --onyx-color-tailwind-core-blue-1000: #2b3651;
+  --onyx-color-tailwind-core-blue-1100: #1a2541;
+  --onyx-color-tailwind-core-blue-1200-2: #0a1432;
+  --onyx-color-tailwind-dynamic-blue-100: #e3fcff;
+  --onyx-color-tailwind-dynamic-blue-200: #c6f9ff;
+  --onyx-color-tailwind-dynamic-blue-300: #a6f5ff;
+  --onyx-color-tailwind-dynamic-blue-400: #80f1ff;
+  --onyx-color-tailwind-dynamic-blue-500: #4dedff;
+  --onyx-color-tailwind-dynamic-blue-600: #42cede;
+  --onyx-color-tailwind-dynamic-blue-700: #37b0be;
+  --onyx-color-tailwind-dynamic-blue-800: #2c939e;
+  --onyx-color-tailwind-dynamic-blue-900: #227780;
+  --onyx-color-tailwind-dynamic-blue-1000: #185c63;
+  --onyx-color-tailwind-dynamic-blue-1100: #0f4248;
+  --onyx-color-tailwind-dynamic-blue-1200-2: #072a2e;
+  --onyx-color-tailwind-green-100: #e5ffdd;
+  --onyx-color-tailwind-green-200: #c9ffba;
+  --onyx-color-tailwind-green-300: #acff93;
+  --onyx-color-tailwind-green-400: #8bff65;
+  --onyx-color-tailwind-green-500: #61ff00;
+  --onyx-color-tailwind-green-600: #53de00;
+  --onyx-color-tailwind-green-700: #46be00;
+  --onyx-color-tailwind-green-800: #399e00;
+  --onyx-color-tailwind-green-900: #2d8000;
+  --onyx-color-tailwind-green-1000: #216300;
+  --onyx-color-tailwind-green-1100: #154800;
+  --onyx-color-tailwind-green-1200: #0b2e00;
+  --onyx-color-tailwind-orange-100: #ffecde;
+  --onyx-color-tailwind-orange-200: #ffd9bc;
+  --onyx-color-tailwind-orange-300: #fdc69a;
+  --onyx-color-tailwind-orange-400: #fbb277;
+  --onyx-color-tailwind-orange-500: #f89d4f;
+  --onyx-color-tailwind-orange-600: #f48809;
+  --onyx-color-tailwind-orange-700: #cc7106;
+  --onyx-color-tailwind-orange-800: #a65b04;
+  --onyx-color-tailwind-orange-900: #814502;
+  --onyx-color-tailwind-orange-1000: #5e3101;
+  --onyx-color-tailwind-orange-1100: #3e1e00;
+  --onyx-color-tailwind-orange-1200: #200c00;
+  --onyx-color-tailwind-smart-blue-100: #dee7f7;
+  --onyx-color-tailwind-smart-blue-1200-2: #001041;
+  --onyx-color-tailwind-smart-blue-200: #becfee;
+  --onyx-color-tailwind-smart-blue-300: #9eb7e5;
+  --onyx-color-tailwind-smart-blue-400: #7f9fdb;
+  --onyx-color-tailwind-smart-blue-500: #6087d0;
+  --onyx-color-tailwind-smart-blue-600: #436fc5;
+  --onyx-color-tailwind-smart-blue-700: #2456b9;
+  --onyx-color-tailwind-smart-blue-800: #003aad;
+  --onyx-color-tailwind-smart-blue-900: #002f90;
+  --onyx-color-tailwind-smart-blue-1000: #002475;
+  --onyx-color-tailwind-smart-blue-1100: #001a5a;
+  --onyx-color-tailwind-yellow-100: #fefdde;
+  --onyx-color-tailwind-yellow-1200-2: #2e2a00;
+  --onyx-color-tailwind-yellow-200: #fefbbc;
+  --onyx-color-tailwind-yellow-300: #fef896;
+  --onyx-color-tailwind-yellow-400: #fff468;
+  --onyx-color-tailwind-yellow-500: #fff000;
+  --onyx-color-tailwind-yellow-600: #ded100;
+  --onyx-color-tailwind-yellow-700: #beb200;
+  --onyx-color-tailwind-yellow-800: #9e9500;
+  --onyx-color-tailwind-yellow-900: #807800;
+  --onyx-color-tailwind-yellow-1000: #635d00;
+  --onyx-color-tailwind-yellow-1100: #484300;
+  --onyx-font-family-Archivo: "Archivo";
+  --onyx-font-family-Archivo-Variable: "Archivo Variable";
   --onyx-font-family-DIN-2014: "DIN 2014";
   --onyx-font-family-Helsinki: "Helsinki";
   --onyx-font-family-Helvetica-Now-Var: "Helvetica Now Var";
+  --onyx-font-family-IBM-Plex-Sans: "IBM Plex Sans";
+  --onyx-font-family-IBM-Plex-Sans-Variable: "IBM Plex Sans Variable";
   --onyx-font-family-Kaufland: "Kaufland";
   --onyx-font-family-Lidl-Font-Pro: "Lidl Font Pro";
   --onyx-font-family-OCR-A-Std: "OCR A Std";
@@ -259,6 +335,7 @@
   --onyx-font-weight-500: 500;
   --onyx-font-weight-600: 600;
   --onyx-font-weight-700: 700;
+  --onyx-font-weight-800: 800;
   --onyx-number-radius-100: 0.125rem;
   --onyx-number-radius-200: 0.25rem;
   --onyx-number-radius-300: 0.5rem;
