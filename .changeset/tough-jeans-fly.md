@@ -2,4 +2,4 @@
 "sit-onyx": minor
 ---
 
-feat(OnyxNotifications): return notification id after it is created
+feat(useNotification): return notification id when showing a new notification
