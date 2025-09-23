@@ -46,6 +46,10 @@ const emit = defineEmits<{
    * Emitted when the input changes
    */
   "update:modelValue": [value: string];
+  /**
+   * Emitted when the password visibility changes
+   */
+  "update:showPassword": [showPassword: boolean];
 }>();
 
 const slots = defineSlots<{
@@ -109,6 +113,12 @@ const displayType = computed(() => {
   }
   return props.type;
 });
+
+const togglePasswordVisibility = () => {
+  const value = !showPassword.value;
+  showPassword.value = value;
+  emit("update:showPassword", value);
+};
 </script>
 
 <template>
@@ -194,7 +204,7 @@ const displayType = computed(() => {
               :label="props.showPassword ? t('input.hidePassword') : t('input.showPassword')"
               tabindex="-1"
               color="soft"
-              @click="showPassword = !showPassword"
+              @click="togglePasswordVisibility"
             />
           </slot>
         </div>
