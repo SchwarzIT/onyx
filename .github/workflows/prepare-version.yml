@@ -1,12 +1,12 @@
-name: Prepare Release
+name: Prepare Version
 on:
   workflow_dispatch:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  trigger-release:
-    name: Trigger Release
+  changeset-action:
+    name: Run Changeset Action
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
@@ -19,7 +19,7 @@ jobs:
 
       - uses: ./.github/templates/node-setup
 
-      - name: Create Pull-Request
+      - name: Create Pull Request
         uses: changesets/action@v1
         with:
           publish: "exit 1" # Fail on publish - Should always only create a PR
