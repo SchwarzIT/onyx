@@ -40,4 +40,9 @@ describe("useNotification", () => {
 
     expect(provider.notifications.value).toStrictEqual([]);
   });
+  test("should return item id", () => {
+    const provider = createNotificationsProvider();
+    expect(provider.show({ headline: "Test 1", description: "Description 1" })).toBe(1);
+    expect(provider.show({ headline: "Test 2", description: "Description 2" })).toBe(2);
+  });
 });

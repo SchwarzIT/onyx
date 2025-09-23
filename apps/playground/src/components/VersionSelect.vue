@@ -18,7 +18,7 @@ const props = defineProps<{
 }>();
 
 const version = defineModel<string | null>();
-const versions = ref<string[]>();
+const versions = ref<string[]>([]);
 
 watchEffect(async () => {
   versions.value = await fetchVersions(props.pkg);
@@ -26,23 +26,49 @@ watchEffect(async () => {
 
 const filteredVersions = computed(() => {
   if (props.includePreReleases) return versions.value;
-  return versions.value?.filter((v) => !v.includes("-"));
+  return versions.value.filter((v) => !v.includes("-"));
 });
 
-const options = computed<SelectOption<string>[]>(() => {
-  return filteredVersions.value?.map((i) => ({ value: i, label: i })) ?? [];
+const options = computed(() => {
+  const versionOptions = filteredVersions.value.map<SelectOption<string>>((i) => ({
+    value: i,
+    label: i,
+  }));
+  if (!props.includePreReleases) return versionOptions;
+
+  const SORT_ORDER = ["stable", "dev", "beta"];
+
+  return versionOptions
+    .map((option) => {
+      const tag = props.includePreReleases ? getPreReleaseTagFromVersion(option.label) : undefined;
+      return { ...option, group: tag };
+    })
+    .sort((a, b) => {
+      const aIndex = SORT_ORDER.indexOf(a.group ?? "");
+      const bIndex = SORT_ORDER.indexOf(b.group ?? "");
+      if (aIndex === -1) return 1;
+      if (bIndex === -1) return -1;
+      return aIndex - bIndex;
+    });
 });
+
+const getPreReleaseTagFromVersion = (version: string) => {
+  const regex = /-(\w+)\./;
+  const match = version.match(regex);
+  if (match) return match[1]!;
+  if (version.includes("-")) return "dev";
+  return "stable";
+};
 </script>
 
 <template>
   <OnyxSelect
-    :model-value="version ?? undefined"
+    v-model="version"
     :label="props.label"
     :list-label="`Select ${props.pkg} version`"
     :placeholder="version || 'Select version'"
     :options="options"
     density="compact"
     with-search
-    @update:model-value="version = $event as Exclude<typeof $event, string[]>"
   />
 </template>

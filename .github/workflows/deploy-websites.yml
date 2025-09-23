@@ -1,0 +1,129 @@
+# Deploys all onyx websites - Docs, Storybook etc.
+name: Deploy websites
+on:
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: environment
+        required: true
+        description: Environment to release to
+
+env:
+  TURBO_TOKEN: ${{ secrets.TURBO_REMOTE_CACHE__TURBO_TOKEN }}
+
+jobs:
+  deploy_storybook:
+    name: Deploy Storybook
+    runs-on: ubuntu-latest
+    if: ${{ (inputs.environment || inputs.environment) != '' }}
+    environment: ${{ inputs.environment || inputs.environment }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: ./.github/templates/node-setup
+
+      - name: 🛠️ Build Storybook
+        run: pnpm build:all --filter=sit-onyx
+
+      - name: ⛴️ Prepare Dist
+        run: mv packages/sit-onyx/storybook-static packages/sit-onyx/.cloud-foundry/dist
+
+      - name: ⛅️ Deploy to Cloud Foundry
+        uses: ./.github/templates/cf-push
+        with:
+          endpoint: ${{ vars.CF_ENDPOINT }}
+          org: ${{ vars.CF_ORG }}
+          username: ${{ vars.CF_USERNAME }}
+          password: ${{ secrets.CF_PASSWORD }}
+          space: ${{ inputs.environment || inputs.environment }}
+          working-directory: packages/sit-onyx/.cloud-foundry
+
+  deploy_documentation:
+    name: Deploy documentation
+    runs-on: ubuntu-latest
+    if: ${{ (inputs.environment || inputs.environment) != '' }}
+    environment: ${{ inputs.environment || inputs.environment }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: ./.github/templates/node-setup
+
+      - name: 🛠️ Build Documentation
+        run: pnpm build:all --filter=@sit-onyx/docs-app
+        env:
+          # needed for increase rate limit for the GitHub API that is used when building
+          # the VitePress documentation
+          VITEPRESS_GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: ⛴️ Prepare Dist
+        run: mv apps/docs/src/.vitepress/dist apps/docs/.cloud-foundry/dist
+
+      - name: ⛅️ Deploy to Cloud Foundry
+        uses: ./.github/templates/cf-push
+        with:
+          endpoint: ${{ vars.CF_ENDPOINT }}
+          org: ${{ vars.CF_ORG }}
+          username: ${{ vars.CF_USERNAME }}
+          password: ${{ secrets.CF_PASSWORD }}
+          space: ${{ inputs.environment || inputs.environment }}
+          working-directory: apps/docs/.cloud-foundry
+
+  deploy_playground:
+    name: Deploy Playground
+    runs-on: ubuntu-latest
+    if: ${{ (inputs.environment || inputs.environment) != '' }}
+    environment: ${{ inputs.environment || inputs.environment }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: ./.github/templates/node-setup
+
+      - name: 🛠️ Build Documentation
+        run: pnpm build:all --filter=@sit-onyx/playground-app
+
+      - name: ⛴️ Prepare Dist
+        run: mv apps/playground/dist apps/playground/.cloud-foundry/dist
+
+      - name: ⛅️ Deploy to Cloud Foundry
+        uses: ./.github/templates/cf-push
+        with:
+          endpoint: ${{ vars.CF_ENDPOINT }}
+          org: ${{ vars.CF_ORG }}
+          username: ${{ vars.CF_USERNAME }}
+          password: ${{ secrets.CF_PASSWORD }}
+          space: ${{ inputs.environment || inputs.environment }}
+          working-directory: apps/playground/.cloud-foundry
+
+  deploy_demo_app:
+    name: Deploy demo app
+    runs-on: ubuntu-latest
+    if: ${{ (inputs.environment || inputs.environment) != '' }}
+    environment: ${{ inputs.environment || inputs.environment }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: ./.github/templates/node-setup
+
+      - name: 🛠️ Build Documentation
+        run: pnpm build:all --filter=@sit-onyx/demo-app
+
+      - name: Copy .node-version file
+        # Cloud Foundry requires a ".nvmrc" file for defining the node version to use
+        run: cp .node-version apps/demo-app/.cloud-foundry/.nvmrc
+
+      - name: ⛴️ Prepare Dist
+        run: mv apps/demo-app/.output apps/demo-app/.cloud-foundry/dist
+
+      - name: ⛅️ Deploy to Cloud Foundry
+        uses: ./.github/templates/cf-push
+        with:
+          endpoint: ${{ vars.CF_ENDPOINT }}
+          org: ${{ vars.CF_ORG }}
+          username: ${{ vars.CF_USERNAME }}
+          password: ${{ secrets.CF_PASSWORD }}
+          space: ${{ inputs.environment || inputs.environment }}
+          working-directory: apps/demo-app/.cloud-foundry
