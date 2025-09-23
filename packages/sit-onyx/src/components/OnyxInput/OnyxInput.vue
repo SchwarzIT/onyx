@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { iconCheckSmall, iconEye, iconEyeClosed, iconXSmall } from "@sit-onyx/icons";
-import { computed, ref, useTemplateRef } from "vue";
+import { computed, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
 import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity.js";
@@ -30,6 +30,7 @@ const props = withDefaults(defineProps<OnyxInputProps>(), {
   loading: false,
   hideClearIcon: false,
   hideSuccessIcon: false,
+  showPassword: false,
   skeleton: SKELETON_INJECTED_SYMBOL,
   disabled: FORM_INJECTED_SYMBOL,
   showError: FORM_INJECTED_SYMBOL,
@@ -94,7 +95,14 @@ const { disabled, showError } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
 const errorClass = useErrorClass(showError);
 useAutofocus(input, props);
-const showPassword = ref(false);
+
+const showPassword = useVModel({
+  props,
+  emit,
+  key: "showPassword",
+  default: false,
+});
+
 const displayType = computed(() => {
   if (props.type === "password" && showPassword.value) {
     return "text";
@@ -182,8 +190,8 @@ const displayType = computed(() => {
           <slot name="trailing">
             <OnyxSystemButton
               v-if="props.type === 'password'"
-              :icon="showPassword ? iconEyeClosed : iconEye"
-              :label="showPassword ? t('input.hidePassword') : t('input.showPassword')"
+              :icon="props.showPassword ? iconEyeClosed : iconEye"
+              :label="props.showPassword ? t('input.hidePassword') : t('input.showPassword')"
               tabindex="-1"
               color="soft"
               @click="showPassword = !showPassword"
