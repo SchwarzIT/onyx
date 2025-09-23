@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { iconCheckSmall, iconEye, iconEyeClosed, iconXSmall } from "@sit-onyx/icons";
-import { computed, useTemplateRef } from "vue";
+import { computed, useTemplateRef, watch } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
 import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity.js";
@@ -114,11 +114,7 @@ const displayType = computed(() => {
   return props.type;
 });
 
-const togglePasswordVisibility = () => {
-  const value = !showPassword.value;
-  showPassword.value = value;
-  emit("update:showPassword", value);
-};
+watch(showPassword, (value) => emit("update:showPassword", value));
 </script>
 
 <template>
@@ -204,7 +200,7 @@ const togglePasswordVisibility = () => {
               :label="showPassword ? t('input.hidePassword') : t('input.showPassword')"
               tabindex="-1"
               color="soft"
-              @click="togglePasswordVisibility"
+              @click="showPassword = !showPassword"
             />
           </slot>
         </div>
