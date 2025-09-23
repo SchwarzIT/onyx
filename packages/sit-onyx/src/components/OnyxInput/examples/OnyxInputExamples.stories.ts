@@ -10,4 +10,7 @@ const meta: Meta<typeof OnyxInput> = {
 
 export default meta;
 
-export const MangePassword = createAdvancedStoryExample("OnyxInput", "PasswordVisibilityExample");
+export const PasswordVisibility = createAdvancedStoryExample(
+  "OnyxInput",
+  "PasswordVisibilityExample",
+);
