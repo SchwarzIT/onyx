@@ -5,17 +5,34 @@ import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxCalender from "./OnyxCalender.vue";
 
 test.describe("OnyxCalender screenshots", () => {
+  const testDate = new Date(2024, 9, 23);
+
   executeMatrixScreenshotTest({
     name: "OnyxCalender",
     columns: ["small", "big"],
-    rows: ["default", "select", "hover", "focus-visible", "actions", "skeleton", "disabled"],
+    rows: [
+      "default",
+      "select",
+      "hover",
+      "focus-visible",
+      "actions",
+      "min-max",
+      "skeleton",
+      "disabled",
+    ],
     component: (column, row) => {
+      const minDate = new Date(testDate.getFullYear(), testDate.getMonth(), 20);
+      const maxDate = new Date(testDate.getFullYear(), testDate.getMonth(), 26);
+
       return (
         <OnyxCalender
+          initialDate={testDate}
           size={column}
           style={{ width: column === "small" ? "20rem" : "40rem" }}
           skeleton={row === "skeleton"}
           disabled={row === "disabled"}
+          min={row === "min-max" ? minDate : undefined}
+          max={row === "min-max" ? maxDate : undefined}
         >
           {row === "actions" && (
             <template v-slot:actions>
@@ -27,7 +44,9 @@ test.describe("OnyxCalender screenshots", () => {
     },
     hooks: {
       beforeEach: async (component, page, _column, row) => {
-        const dayToInteract = component.getByRole("gridcell", { name: "27" });
+        const dayToInteract = component.getByRole("button", {
+          name: testDate.getDate().toString(),
+        });
         switch (row) {
           case "select":
             await dayToInteract.click();
@@ -37,8 +56,7 @@ test.describe("OnyxCalender screenshots", () => {
             break;
           case "focus-visible":
             await dayToInteract.click();
-            await dayToInteract.focus();
-            await page.keyboard.press("Enter");
+            await page.keyboard.press("ArrowLeft");
             break;
           default:
         }

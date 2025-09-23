@@ -21,7 +21,7 @@ export type OnyxCalderProps = DensityProp & {
   /**
    * The first day of the week to be displayed.
    */
-  startDay?: OnyxWeekDays;
+  weekStartDay?: OnyxWeekDays;
   /**
    * The earliest selectable date.
    */
@@ -34,6 +34,10 @@ export type OnyxCalderProps = DensityProp & {
    * Whether to display calendar week numbers.
    */
   displayCalendarWeek?: boolean;
+  /**
+   * The Date that should initially displayed
+   */
+  initialDate?: Date;
 };
 export type OnyxCalderSelection = "single" | "multi" | "range";
 export type OnyxCalderSize = "big" | "small" | "auto";

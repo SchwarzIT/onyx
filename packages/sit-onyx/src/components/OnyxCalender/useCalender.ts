@@ -1,9 +1,17 @@
-import { computed, nextTick, ref, toValue, watch, type MaybeRefOrGetter } from "vue";
+import { computed, nextTick, ref, toValue, watch, type MaybeRefOrGetter, type Ref } from "vue";
 import type { OnyxCalderProps, OnyxWeekDays } from "./types.js";
 
 const getDayIndex = (dayName: OnyxWeekDays) => {
   const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
   return days.indexOf(dayName);
+};
+
+const getNormalizedDayIndex = (date: Date, weekStartDay: OnyxWeekDays) => {
+  const day = date.getDay();
+  const start = getDayIndex(weekStartDay);
+  // normalize: 0 = Sunday, 1 = Monday ... 6 = Saturday
+  const normalizedDay = day === 0 ? 6 : day - 1;
+  return (normalizedDay - start + 7) % 7;
 };
 
 const getMidnightDate = (date: Date): Date => {
@@ -12,10 +20,33 @@ const getMidnightDate = (date: Date): Date => {
   return newDate;
 };
 
-export function useCalendar(props: OnyxCalderProps & { dayNames: MaybeRefOrGetter<string[]> }) {
-  const currentDate = ref(getMidnightDate(new Date()));
+const initializeDate = (props: OnyxCalderProps) => {
+  const min = props.min ? getMidnightDate(new Date(props.min)) : null;
+  const max = props.max ? getMidnightDate(new Date(props.max)) : null;
+  const today = getMidnightDate(new Date());
+
+  let initialDate = props.initialDate ? getMidnightDate(new Date(props.initialDate)) : today;
+
+  if (min && initialDate < min) {
+    initialDate = min;
+  }
+  if (max && initialDate > max) {
+    initialDate = max;
+  }
+
+  return initialDate;
+};
+
+export function useCalendar(
+  props: OnyxCalderProps & {
+    dayNames: MaybeRefOrGetter<string[]>;
+    calenderRef: Ref<HTMLElement | null>;
+  },
+) {
+  const initialValue = initializeDate(props);
+  const currentDate = ref(initialValue);
+  const focusedDate = ref(initialValue);
   const selectedDate = ref<Date | null>(null);
-  const focusedDate = ref<Date | null>(getMidnightDate(new Date()));
 
   const currentYear = computed(() => currentDate.value.getFullYear());
   const currentMonth = computed(() => currentDate.value.getMonth());
@@ -52,8 +83,8 @@ export function useCalendar(props: OnyxCalderProps & { dayNames: MaybeRefOrGette
     const firstDay = new Date(year, month, 1);
     const lastDay = new Date(year, month + 1, 0);
 
-    if (!props.startDay) return;
-    const startDayIndex = getDayIndex(props.startDay);
+    if (!props.weekStartDay) return;
+    const startDayIndex = getDayIndex(props.weekStartDay);
     const firstDayOfWeek = firstDay.getDay();
     const offset = (firstDayOfWeek + 6) % 7;
     const startOffset = (offset - startDayIndex + 7) % 7;
@@ -114,7 +145,7 @@ export function useCalendar(props: OnyxCalderProps & { dayNames: MaybeRefOrGette
   };
 
   const handleKeyNavigation = async (event: KeyboardEvent) => {
-    if (!focusedDate.value) return;
+    if (!focusedDate.value || props.disabled) return;
 
     const { min, max } = props;
     const newDate = new Date(focusedDate.value);
@@ -138,13 +169,17 @@ export function useCalendar(props: OnyxCalderProps & { dayNames: MaybeRefOrGette
         handled = true;
         break;
       case "Home":
-        if (props.startDay)
-          newDate.setDate(newDate.getDate() - newDate.getDay() + getDayIndex(props.startDay));
+        if (props.weekStartDay) {
+          const currentDayIndex = getNormalizedDayIndex(newDate, props.weekStartDay);
+          newDate.setDate(newDate.getDate() - currentDayIndex);
+        }
         handled = true;
         break;
       case "End":
-        if (props.startDay)
-          newDate.setDate(newDate.getDate() + (6 - newDate.getDay() + getDayIndex(props.startDay)));
+        if (props.weekStartDay) {
+          const currentDayIndex = getNormalizedDayIndex(newDate, props.weekStartDay);
+          newDate.setDate(newDate.getDate() + (6 - currentDayIndex));
+        }
         handled = true;
         break;
       case "PageUp":
@@ -181,11 +216,11 @@ export function useCalendar(props: OnyxCalderProps & { dayNames: MaybeRefOrGette
           currentDate.value = getMidnightDate(
             new Date(newDate.getFullYear(), newDate.getMonth(), 1),
           );
-          await nextTick();
+          await nextTick(); // wait for rendering new Month
         }
 
-        const nextDayButton = document.querySelector(
-          `.cell-content__button[data-date="${focusedDate.value.toISOString().slice(0, 10)}"]`,
+        const nextDayButton = props.calenderRef.value?.querySelector(
+          `.cell-content[data-date="${focusedDate.value.toISOString().slice(0, 10)}"]`,
         ) as HTMLElement;
         if (nextDayButton) {
           nextDayButton.focus();
@@ -194,9 +229,9 @@ export function useCalendar(props: OnyxCalderProps & { dayNames: MaybeRefOrGette
     }
   };
   const weekdays = computed(() => {
-    if (!props.startDay) return;
+    if (!props.weekStartDay) return;
     const days = toValue(props.dayNames);
-    const start = getDayIndex(props.startDay);
+    const start = getDayIndex(props.weekStartDay);
     return days.slice(start).concat(days.slice(0, start));
   });
 

@@ -44,6 +44,12 @@ export const MinMaxDate = {
   },
 } satisfies Story;
 
+export const InitialDay = {
+  args: {
+    initialDate: new Date(2024, 9, 23),
+  },
+} satisfies Story;
+
 export const Skeleton = {
   args: {
     skeleton: true,

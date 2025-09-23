@@ -18,7 +18,7 @@ import { useCalendar } from "./useCalender.js";
 const props = withDefaults(defineProps<OnyxCalderProps>(), {
   size: "auto",
   selection: "single",
-  startDay: "Monday",
+  weekStartDay: "Monday",
   displayCalendarWeek: false,
   disabled: false,
   skeleton: SKELETON_INJECTED_SYMBOL,
@@ -61,6 +61,7 @@ const dayNames = computed(() => {
 
   return calenderSize.value === "big" ? longNames : shortNames;
 });
+const calenderRef = useTemplateRef("calender");
 const {
   currentYear,
   currentMonth,
@@ -76,7 +77,7 @@ const {
   goToToday,
   goToDate,
   handleKeyNavigation,
-} = useCalendar({ ...props, dayNames });
+} = useCalendar({ ...props, dayNames, calenderRef });
 
 const { densityClass } = useDensity(props);
 
@@ -87,7 +88,6 @@ watch(selectedDate, (newDate) => {
     emit("update:selectedDate", newDate);
   }
 });
-const calenderRef = useTemplateRef("calender");
 
 const { width } = useResizeObserver(calenderRef);
 
@@ -170,23 +170,22 @@ const sizeClass = computed(() => {
                 selected: day.date && isSelected(day.date),
                 weekend: day.date && isWeekend(day.date),
               }"
-              type
-              @click="!day.isDisabled ? goToDate(day.date) : null"
             >
-              <div class="cell-content">
-                <button
-                  v-if="day.date"
-                  type="button"
-                  class="cell-content__button"
-                  :tabindex="day.date && isFocused(day.date) && !day.isDisabled ? '0' : '-1'"
-                  :data-date="day.date?.toISOString().slice(0, 10)"
-                  :disabled="day.isDisabled || disabled"
-                >
-                  <span class="cell-content__button-number">
+              <button
+                v-if="day.date"
+                type="button"
+                class="cell-content"
+                :tabindex="day.date && isFocused(day.date) && !day.isDisabled ? '0' : '-1'"
+                :disabled="day.isDisabled || disabled"
+                :data-date="day.date?.toISOString().slice(0, 10)"
+                @click="!day.isDisabled ? goToDate(day.date) : null"
+              >
+                <span class="cell-content__number">
+                  <span class="cell-content__number-display">
                     {{ day.date.getDate() }}
                   </span>
-                </button>
-              </div>
+                </span>
+              </button>
             </td>
           </tr>
         </tbody>
@@ -247,7 +246,7 @@ const sizeClass = computed(() => {
           cursor: pointer;
 
           &:hover:not(.other-month, .is-disabled) {
-            .cell-content__button-number {
+            .cell-content__number-display {
               background-color: var(--onyx-color-base-neutral-300);
             }
           }
@@ -255,31 +254,37 @@ const sizeClass = computed(() => {
             background-color: var(--onyx-color-base-neutral-100);
           }
           .cell-content {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
             padding: var(--onyx-density-2xs);
+            background-color: initial;
+            border: none;
             box-sizing: border-box;
             width: 100%;
             aspect-ratio: 1;
-            &__button {
+            &__number {
               width: 2rem;
               height: 2rem;
               color: inherit;
               display: flex;
-              align-items: center;
-              justify-content: center;
               border: none;
               font-size: 1rem;
               cursor: inherit;
               background-color: transparent;
               padding: 0;
-              &-number {
+              &-display {
                 width: 100%;
                 height: 100%;
-                border-radius: var(--onyx-radius-full);
                 display: flex;
-                justify-content: center;
                 align-items: center;
+                justify-content: center;
+                border-radius: var(--onyx-radius-full);
               }
-              &:focus-visible {
+            }
+            &:focus-visible {
+              outline: none;
+              .cell-content__number {
                 border-radius: var(--onyx-radius-xs);
                 outline: calc(var(--onyx-1px-in-rem) * 4) solid var(--onyx-color-base-primary-200);
                 outline-offset: var(--onyx-density-2xs);
@@ -287,17 +292,17 @@ const sizeClass = computed(() => {
             }
           }
           &.today {
-            .cell-content__button-number {
+            .cell-content__number-display {
               background: var(--onyx-color-base-neutral-500);
               color: var(--onyx-color-text-icons-neutral-inverted);
             }
           }
           &.selected {
-            .cell-content__button-number {
+            .cell-content__number-display {
               background-color: var(--onyx-color-base-primary-500);
               color: var(--onyx-color-text-icons-neutral-inverted);
             }
-            &:hover .cell-content__button-number {
+            &:hover .cell-content__number-display {
               background: var(--onyx-color-base-primary-700);
             }
           }
