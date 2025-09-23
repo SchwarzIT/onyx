@@ -1,3 +1,5 @@
+# ⚠️ DO NOT RENAME FILE - WILL BREAK RELEASES ⚠️
+# This file is used for trusted publishing with npm. Learn more here: https://docs.npmjs.com/trusted-publishers
 name: Release
 on:
   push:
