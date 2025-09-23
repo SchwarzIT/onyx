@@ -104,7 +104,7 @@ const showPassword = useVModel({
 });
 
 const displayType = computed(() => {
-  if (props.type === "password" && showPassword.value) {
+  if (props.type === "password" && props.showPassword) {
     return "text";
   }
   return props.type;
