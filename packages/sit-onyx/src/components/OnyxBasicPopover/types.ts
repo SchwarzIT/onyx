@@ -35,4 +35,6 @@ export type OnyxBasicPopoverProps = {
    * @default "dialog"
    */
   role?: "menu" | "listbox" | "tree" | "grid" | "dialog";
+  /** If true, the popover remains visible within the viewport even if its parent element scrolls out of view. */
+  clipping?: boolean;
 };

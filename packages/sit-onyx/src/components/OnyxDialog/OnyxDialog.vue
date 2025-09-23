@@ -10,6 +10,7 @@ import type { OnyxDialogProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxDialogProps>(), {
   open: undefined,
+  clipping: true,
 });
 
 const emit = defineEmits<{
@@ -59,7 +60,12 @@ const isExpanded = useVModel({
 </script>
 
 <template>
-  <OnyxBasicPopover v-bind="props" v-model:open="isExpanded" :class="['onyx-dialog', densityClass]">
+  <OnyxBasicPopover
+    v-bind="props"
+    v-model:open="isExpanded"
+    :class="['onyx-dialog', densityClass]"
+    :clipping="props.clipping"
+  >
     <template #default="{ trigger }">
       <slot name="trigger" :trigger="trigger"> </slot>
     </template>
