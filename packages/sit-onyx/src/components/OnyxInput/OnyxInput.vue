@@ -30,7 +30,7 @@ const props = withDefaults(defineProps<OnyxInputProps>(), {
   loading: false,
   hideClearIcon: false,
   hideSuccessIcon: false,
-  showPassword: false,
+  showPassword: undefined,
   skeleton: SKELETON_INJECTED_SYMBOL,
   disabled: FORM_INJECTED_SYMBOL,
   showError: FORM_INJECTED_SYMBOL,
