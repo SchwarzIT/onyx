@@ -2,4 +2,4 @@
 "sit-onyx": minor
 ---
 
-feat(OnyxInput): allow to manage `showPassword` state outside of the component
+feat(OnyxInput): support new v-model `showPassword` to control the show password state when used with `type="password"`
