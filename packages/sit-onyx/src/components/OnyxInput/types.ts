@@ -22,7 +22,9 @@ export type OnyxInputProps = SharedFormElementProps &
      */
     hideClearIcon?: boolean;
     /**
-     * Show or hide the password value for input with type "password".
+     * Show or hide the password value for input with `type="password"`.
+     * If unset, the state will be managed internally.
+     
      */
     showPassword?: boolean;
   };
