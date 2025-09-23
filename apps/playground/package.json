@@ -1,31 +1,37 @@
 {
-  "name": "playground",
-  "version": "0.0.0",
-  "description": "Playground for the onyx Vue components",
-  "type": "module",
-  "author": "Schwarz IT KG",
-  "license": "Apache-2.0",
-  "engines": {
-    "node": ">=20"
-  },
+  "name": "@sit-onyx/playground-app",
+  "version": "0.0.1",
   "private": true,
+  "description": "Playground for the onyx Vue components",
   "homepage": "https://playground.onyx.schwarz",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SchwarzIT/onyx",
+    "directory": "apps/playground"
+  },
+  "license": "Apache-2.0",
+  "author": "Schwarz IT KG",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "dev": "vite",
-    "preview": "vite preview",
     "build": "pnpm run '/type-check|build-only/'",
     "build-only": "vite build",
-    "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false",
-    "test:playwright": "playwright install && playwright test"
-  },
-  "dependencies": {
-    "@sit-onyx/icons": "workspace:^",
-    "@vue/repl": "~4.2.1",
-    "@vueuse/core": "^13.9.0",
-    "sit-onyx": "workspace:^"
+    "dev": "vite",
+    "preview": "vite preview",
+    "test:playwright": "playwright install && playwright test",
+    "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false"
   },
   "devDependencies": {
+    "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
+    "@vue/repl": "~4.2.1",
+    "@vueuse/core": "^13.9.0",
+    "sit-onyx": "workspace:^",
     "vue": "catalog:"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

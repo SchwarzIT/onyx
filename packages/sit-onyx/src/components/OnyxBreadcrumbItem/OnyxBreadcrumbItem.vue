@@ -75,7 +75,7 @@ const isActive = computed(() => {
       <slot></slot>
     </ButtonOrLinkLayout>
   </li>
-  <Teleport :to="moreListTargetRef" :disabled="!moreListTargetRef">
+  <Teleport v-if="moreListTargetRef" :to="moreListTargetRef">
     <OnyxMenuItem v-if="!isVisible" :link="props.href" :active="isActive" v-bind="restAttrs">
       <slot></slot>
     </OnyxMenuItem>

@@ -2,12 +2,12 @@ import { expect, test } from "@playwright/test";
 
 test("should persist onyx version in URL", async ({ page }) => {
   // ARRANGE
-  const MOCK_URL = "https://data.jsdelivr.com/v1/package/npm/sit-onyx";
+  const MOCK_URL = "https://registry.npmjs.org/sit-onyx";
 
   await page.route(MOCK_URL, (route) => {
     return route.fulfill({
       json: {
-        versions: ["1.0.0-mock.1", "1.0.0-mock.2"],
+        versions: [{ version: "1.0.0-mock.2" }, { version: "1.0.0-mock.1" }],
       },
     });
   });

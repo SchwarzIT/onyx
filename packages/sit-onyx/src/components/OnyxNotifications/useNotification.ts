@@ -10,8 +10,9 @@ export type NotificationsProvider = {
   notifications: ComputedRef<ProvidedNotification[]>;
   /**
    * Shows a single notification.
+   * @returns the id of the newly created notification.
    */
-  show: (notification: ShowNotificationOptions) => void;
+  show: (notification: ShowNotificationOptions) => number;
   /**
    * Removes the notification with the given `id`.
    */
@@ -71,6 +72,8 @@ export const createNotificationsProvider = (): NotificationsProvider => {
       id,
       onClose: () => remove(id),
     });
+
+    return id;
   };
 
   const remove: NotificationsProvider["remove"] = (id) => {
@@ -99,7 +102,10 @@ export const useNotification = () => {
     () => {
       return {
         notifications: computed(() => []),
-        show: logWarning,
+        show: () => {
+          logWarning();
+          return -1;
+        },
         remove: logWarning,
       } satisfies NotificationsProvider;
     },
