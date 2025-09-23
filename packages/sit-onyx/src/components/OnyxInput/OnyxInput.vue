@@ -200,8 +200,8 @@ const togglePasswordVisibility = () => {
           <slot name="trailing">
             <OnyxSystemButton
               v-if="props.type === 'password'"
-              :icon="props.showPassword ? iconEyeClosed : iconEye"
-              :label="props.showPassword ? t('input.hidePassword') : t('input.showPassword')"
+              :icon="showPassword ? iconEyeClosed : iconEye"
+              :label="showPassword ? t('input.hidePassword') : t('input.showPassword')"
               tabindex="-1"
               color="soft"
               @click="togglePasswordVisibility"
