@@ -113,8 +113,6 @@ const displayType = computed(() => {
   }
   return props.type;
 });
-
-watch(showPassword, (value) => emit("update:showPassword", value));
 </script>
 
 <template>
