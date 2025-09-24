@@ -1,18 +1,31 @@
 import { describe, expect, test, vi } from "vitest";
+import { ref } from "vue";
 import type { OnyxCalderProps } from "./types.js";
 import { useCalendar } from "./useCalender.js";
-
-// Mock the props to be used in the tests
-const mockProps: OnyxCalderProps = {
-  size: "auto",
-  selection: "single",
-  startDay: "Monday",
-};
 
 const createDate = (year: number, month: number, day: number) => {
   const date = new Date(year, month, day);
   date.setHours(0, 0, 0, 0);
   return date;
+};
+
+// Mock the props and other dependencies
+const mockCalenderRef = ref({
+  querySelector: vi.fn(() => ({
+    focus: vi.fn(),
+  })),
+});
+
+// Explicitly define the type for mockProps to resolve the TypeScript error
+const mockProps: OnyxCalderProps & {
+  dayNames: string[];
+  calenderRef: typeof mockCalenderRef;
+} = {
+  size: "auto",
+  selection: "single",
+  weekStartDay: "Monday",
+  dayNames: ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"],
+  calenderRef: mockCalenderRef,
 };
 
 vi.mock("vue", async (importOriginal) => {
@@ -100,8 +113,8 @@ describe("useCalendar", () => {
   test("should handle keyboard navigation correctly", async () => {
     const { handleKeyNavigation, focusedDate } = useCalendar(mockProps);
 
-    const initialDate = createDate(2025, 8, 15);
-    focusedDate.value = initialDate;
+    // Initial state setup for focusedDate
+    focusedDate.value = createDate(2025, 8, 15);
 
     await handleKeyNavigation(new KeyboardEvent("keydown", { key: "ArrowRight" }));
     expect(focusedDate.value?.getDate()).toBe(16);
@@ -115,33 +128,31 @@ describe("useCalendar", () => {
     await handleKeyNavigation(new KeyboardEvent("keydown", { key: "ArrowUp" }));
     expect(focusedDate.value?.getDate()).toBe(15);
 
-    await handleKeyNavigation(new KeyboardEvent("keydown", { key: "Home" }));
-    expect(focusedDate.value?.getDate()).toBe(14); // First Week day
-
     await handleKeyNavigation(new KeyboardEvent("keydown", { key: "End" }));
-    expect(focusedDate.value?.getDate()).toBe(20); // Last Week day
+    expect(focusedDate.value?.getDate()).toBe(21); // Last Week day
+
+    await handleKeyNavigation(new KeyboardEvent("keydown", { key: "Home" }));
+    expect(focusedDate.value?.getDate()).toBe(15); // First Week day
 
     await handleKeyNavigation(new KeyboardEvent("keydown", { key: "PageUp" }));
-    expect(focusedDate.value?.getMonth()).toBe(7); // Previous month
+    expect(focusedDate.value?.getMonth()).toBe(7); // Previous month (July)
 
     await handleKeyNavigation(new KeyboardEvent("keydown", { key: "PageDown" }));
-    expect(focusedDate.value?.getMonth()).toBe(8); // Next month
+    expect(focusedDate.value?.getMonth()).toBe(8); // Next month (August)
 
     await handleKeyNavigation(new KeyboardEvent("keydown", { key: "PageUp", shiftKey: true }));
     expect(focusedDate.value?.getFullYear()).toBe(2024); // Previous year
 
     await handleKeyNavigation(new KeyboardEvent("keydown", { key: "PageDown", shiftKey: true }));
     expect(focusedDate.value?.getFullYear()).toBe(2025); // Next year
-
-    focusedDate.value = createDate(2025, 8, 18);
   });
 
   test("should generate correct calendar grid", () => {
-    const { weeks } = useCalendar({ ...mockProps, startDay: "Sunday" });
+    const { weeks } = useCalendar({ ...mockProps, weekStartDay: "Sunday" });
 
     // The first day of the month is not a Sunday, so there should be offset days from the previous month
     // September 2025 starts on a Monday.
-    // So for startDay: "Sunday", the calendar should show days from August 2025.
+    // So for weekStartDay: "Sunday", the calendar should show days from August 2025.
     const firstWeek = weeks.value?.[0];
 
     // August 31, 2025 is a Sunday, so we expect the first day to be August 31.
