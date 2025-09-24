@@ -11,7 +11,7 @@ describe("auto imports", async () => {
     // Get response to a server-rendered page with `$fetch`.
     const html = await $fetch<string>("/");
 
-    const cssFilePath = /(_nuxt\/[\w.]+\.css)/g.exec(html)?.[0];
+    const cssFilePath = /(_nuxt\/[\w\d.\-_]+\.css)/g.exec(html)?.[0];
     const css = await $fetch<string>(`/${cssFilePath}`);
 
     // There should be a style definition for the onyx css variable if the styles were added globally
