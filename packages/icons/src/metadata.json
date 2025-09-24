@@ -217,6 +217,10 @@
     "category": "Objects",
     "aliases": ["Besen", "aufräumen", "entleeren", "tidyup"]
   },
+  "browser-API": {
+    "category": "Network & Infrastructure",
+    "aliases": []
+  },
   "browser-domain": {
     "category": "Network & Infrastructure",
     "aliases": []
