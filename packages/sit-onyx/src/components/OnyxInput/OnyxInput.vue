@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { iconCheckSmall, iconEye, iconEyeClosed, iconXSmall } from "@sit-onyx/icons";
-import { computed, useTemplateRef, watch } from "vue";
+import { computed, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
 import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity.js";
