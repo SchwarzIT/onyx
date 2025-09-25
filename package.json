@@ -60,7 +60,7 @@
     "storybook": "^9.1.8",
     "stylelint": "^16.24.0",
     "stylelint-no-unsupported-browser-features": "^8.0.4",
-    "turbo": "^2.5.7",
+    "turbo": "^2.5.8",
     "typescript": "catalog:",
     "typescript-eslint": "^8.44.1",
     "vite": "catalog:",
