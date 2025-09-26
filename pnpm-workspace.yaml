@@ -5,11 +5,11 @@ packages:
 catalog:
   "@playwright/experimental-ct-vue": 1.55.1
   "@playwright/test": 1.55.1
-  "@vue/compiler-core": 3.5.21
-  "@vue/compiler-dom": 3.5.21
-  "@vue/compiler-sfc": 3.5.21
-  "@vue/compiler-ssr": 3.5.21
-  "@vue/shared": 3.5.21
+  "@vue/compiler-core": 3.5.22
+  "@vue/compiler-dom": 3.5.22
+  "@vue/compiler-sfc": 3.5.22
+  "@vue/compiler-ssr": 3.5.22
+  "@vue/shared": 3.5.22
   chart.js: 4.5.0
   nuxt: 4.1.2
   playwright: 1.55.1
@@ -17,7 +17,7 @@ catalog:
   sass-embedded: 1.93.2
   typescript: 5.9.2
   vite: 7.1.7
-  vue: 3.5.21
+  vue: 3.5.22
 
 onlyBuiltDependencies:
   - "@parcel/watcher"
