@@ -2,9 +2,8 @@
 import { computed, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
-import { getFormMessages } from "../../composables/useCustomValidity.js";
 import { useErrorClass } from "../../composables/useErrorClass.js";
-import { useFormValidity } from "../../composables/useFormElementError.js";
+import { getFormMessages, useFormElementError } from "../../composables/useFormElementError.js";
 import { useLenientMaxLengthValidation } from "../../composables/useLenientMaxLengthValidation.js";
 import {
   SKELETON_INJECTED_SYMBOL,
@@ -54,7 +53,7 @@ const { rootAttrs, restAttrs } = useRootAttrs();
 
 const { maxLength, maxLengthError } = useLenientMaxLengthValidation({ props, modelValue });
 const error = computed(() => props.error ?? maxLengthError.value);
-const { vCustomValidity, errorMessages } = useFormValidity({ props, emit, error });
+const { vCustomValidity, errorMessages } = useFormElementError({ props, emit, error });
 
 const { densityClass } = useDensity(props);
 const successMessages = computed(() => getFormMessages(props.success));

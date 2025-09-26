@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { nextTick, reactive, ref } from "vue";
 import type { InputValidationElement } from "./useCustomValidity.js";
-import { useFormValidity, type UseFormElementErrorOptions } from "./useFormElementError.js";
+import { useFormElementError, type UseFormElementErrorOptions } from "./useFormElementError.js";
 
 const tFunctionMock = vi.fn();
 
@@ -52,7 +52,7 @@ const createMockInput = (initialCustomValidity = "") => {
   };
 };
 
-describe("useFormValidity", () => {
+describe("useFormElementError", () => {
   beforeEach(() => {
     tFunctionMock.mockReset();
   });
@@ -65,7 +65,7 @@ describe("useFormValidity", () => {
       error: "This is a custom error.",
     });
 
-    const { vCustomValidity, errorMessages } = useFormValidity({ props, emit: vi.fn() });
+    const { vCustomValidity, errorMessages } = useFormElementError({ props, emit: vi.fn() });
 
     // ACT
     vCustomValidity.mounted(mockInput);
@@ -100,7 +100,7 @@ describe("useFormValidity", () => {
       valid: false,
     };
     const props = reactive<UseFormElementErrorOptions["props"]>({});
-    const { vCustomValidity, errorMessages } = useFormValidity({
+    const { vCustomValidity, errorMessages } = useFormElementError({
       error: undefined,
       props,
       emit: () => ({}),
@@ -141,7 +141,7 @@ describe("useFormValidity", () => {
       min: new Date(2024, 11, 10, 14, 42),
     });
 
-    const { vCustomValidity, errorMessages } = useFormValidity({
+    const { vCustomValidity, errorMessages } = useFormElementError({
       props,
       emit: () => ({}),
     });
@@ -194,7 +194,7 @@ describe("useFormValidity", () => {
       max: new Date(2024, 11, 10, 14, 42),
     });
 
-    const { vCustomValidity, errorMessages } = useFormValidity({
+    const { vCustomValidity, errorMessages } = useFormElementError({
       props,
       emit: () => ({}),
     });

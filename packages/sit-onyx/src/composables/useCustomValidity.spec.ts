@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { nextTick, ref } from "vue";
-import { useCustomValidity, type CustomMessageType } from "./useCustomValidity.js";
+import { useCustomValidity } from "./useCustomValidity.js";
 
 const tFunctionMock = vi.fn();
 
@@ -60,8 +60,8 @@ describe("useCustomValidity", () => {
   test("should set custom error via options", async () => {
     // ARRANGE
     const mockInput = createMockInput();
-    const error = ref<CustomMessageType>("Test error");
-    const { vCustomValidity, validityState } = useCustomValidity({ error });
+    const error = ref<string>("Test error");
+    const { vCustomValidity, validityState } = useCustomValidity({ error, props: {} });
 
     // ACT
     vCustomValidity.mounted(mockInput);
@@ -79,8 +79,8 @@ describe("useCustomValidity", () => {
   test("should update custom error when the value changes", async () => {
     // ARRANGE
     const mockInput = createMockInput();
-    const error = ref<CustomMessageType>("Initial error");
-    const { vCustomValidity, validityState } = useCustomValidity({ error });
+    const error = ref<string>("Initial error");
+    const { vCustomValidity, validityState } = useCustomValidity({ error, props: {} });
 
     // ACT
     vCustomValidity.mounted(mockInput);
@@ -106,8 +106,8 @@ describe("useCustomValidity", () => {
   test("should clear custom error when the value is undefined", async () => {
     // ARRANGE
     const mockInput = createMockInput("Initial error");
-    const error = ref<CustomMessageType>("Initial error");
-    const { vCustomValidity, validityState } = useCustomValidity({ error });
+    const error = ref<string>("Initial error");
+    const { vCustomValidity, validityState } = useCustomValidity({ error, props: {} });
 
     vCustomValidity.mounted(mockInput);
     await nextTick();
@@ -128,8 +128,8 @@ describe("useCustomValidity", () => {
   test("should not update validity state if nothing changes", async () => {
     // ARRANGE
     const mockInput = createMockInput();
-    const error = ref<CustomMessageType>("Test error");
-    const { vCustomValidity, validityState } = useCustomValidity({ error });
+    const error = ref<string>("Test error");
+    const { vCustomValidity, validityState } = useCustomValidity({ error, props: {} });
 
     vCustomValidity.mounted(mockInput);
     await nextTick();

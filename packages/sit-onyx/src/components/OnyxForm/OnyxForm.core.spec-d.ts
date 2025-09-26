@@ -1,6 +1,6 @@
 import { expectTypeOf, it } from "vitest";
 import type { ComponentExposed, ComponentProps } from "vue-component-type-helpers";
-import type { CustomMessageType } from "../../composables/useCustomValidity.js";
+import type { CustomMessageType } from "../../composables/useFormElementError.js";
 import type OnyxCheckbox from "../OnyxCheckbox/OnyxCheckbox.vue";
 import type OnyxCheckboxGroup from "../OnyxCheckboxGroup/OnyxCheckboxGroup.vue";
 import type OnyxInput from "../OnyxInput/OnyxInput.vue";
