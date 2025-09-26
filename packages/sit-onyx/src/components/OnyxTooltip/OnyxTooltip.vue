@@ -2,9 +2,9 @@
 import { createToggletip, createTooltip, useGlobalEventListener } from "@sit-onyx/headless";
 import {
   computed,
-  nextTick,
   onMounted,
   shallowRef,
+  toRef,
   toValue,
   useId,
   useTemplateRef,
@@ -106,19 +106,21 @@ const alignment = computed(() =>
 );
 
 const positionAndAlignment = computed(() => {
-  let returnPosition = toolTipPosition.value;
   if (
     (toolTipPosition.value === "top" || toolTipPosition.value === "bottom") &&
-    alignsWithEdge.value
+    props.alignsWithEdge
   ) {
     if (alignment.value === "left") {
-      returnPosition = toolTipPosition.value + " " + "x-start";
+      return `${toolTipPosition.value} x-start`;
     }
     if (alignment.value === "right") {
-      returnPosition = toolTipPosition.value + " " + "x-end";
+      return `${toolTipPosition.value} x-end`;
     }
   }
-  return returnPosition;
+  if (toolTipPosition.value.includes(" ")) {
+    return toolTipPosition.value;
+  }
+  return `${toolTipPosition.value} center`;
 });
 
 const createPattern = () =>
@@ -131,8 +133,9 @@ watch(triggerType, () => (ariaPattern.value = createPattern()));
 
 const tooltip = computed(() => ariaPattern.value?.elements.tooltip);
 const triggerElementProps = computed(() => toValue<object>(ariaPattern.value?.elements.trigger));
-const alignsWithEdge = computed(() => props.alignsWithEdge);
-const fitParent = computed(() => props.fitParent);
+
+const alignsWithEdge = toRef(() => props.alignsWithEdge);
+const fitParent = toRef(() => props.fitParent);
 
 const tooltipWrapperRef = useTemplateRef("tooltipWrapperRefEl");
 const tooltipRef = useTemplateRef("tooltipRefEl");
@@ -191,30 +194,38 @@ const tooltipWidth = computed(() =>
 onMounted(() => {
   handleOpening(isVisible.value);
   updateDirections();
-  if (!useragentSupportsAnchorApi.value) updateAnchorPositionPolyfill();
-});
-// update open direction when visibility changes to ensure the tooltip is always visible
-watch(isVisible, async (newVal) => {
-  await nextTick();
-  handleOpening(newVal);
-  updateDirections();
-  if (!useragentSupportsAnchorApi.value) updateAnchorPositionPolyfill();
-});
-watch([tooltipWidth, toolTipPosition, alignment, alignsWithEdge], async () => {
-  if (!useragentSupportsAnchorApi.value) {
-    await nextTick();
-    updateAnchorPositionPolyfill();
-  }
 });
 
-const id = useId();
-const anchorName = computed(() => `--anchor-${id}`);
+// Setup polyfill
+onMounted(() => {
+  if (useragentSupportsAnchorApi.value) {
+    return;
+  }
+
+  watch(
+    [tooltipWidth, toolTipPosition, alignment, alignsWithEdge, isVisible],
+    () => updateAnchorPositionPolyfill(),
+    { flush: "post", immediate: true },
+  );
+});
+
+// update open direction when visibility changes to ensure the tooltip is always visible
+watch(
+  isVisible,
+  async (newVal) => {
+    handleOpening(newVal);
+    updateDirections();
+  },
+  { flush: "post" },
+);
+
+const anchorName = `--anchor-${useId()}`;
 
 const tooltipStyles = computed(() => {
   if (useragentSupportsAnchorApi.value) {
     return {
       width: tooltipWidth.value,
-      "position-anchor": anchorName.value,
+      "position-anchor": anchorName,
       "position-area": positionAndAlignment.value,
     };
   }
