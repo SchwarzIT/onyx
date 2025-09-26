@@ -1,5 +1,5 @@
 import { DENSITIES } from "../../composables/density.js";
-import type { FormMessages } from "../../composables/useCustomValidity.js";
+import type { FormMessages } from "../../composables/useFormElementError.js";
 import { testMaxLengthBehavior } from "../../composables/useLenientMaxLengthValidation.ct-utils";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";

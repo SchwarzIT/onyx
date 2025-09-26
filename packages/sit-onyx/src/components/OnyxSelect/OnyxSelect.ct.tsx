@@ -1,7 +1,7 @@
 import type { MountResultJsx } from "@playwright/experimental-ct-vue";
 import { comboboxSelectOnlyTesting, comboboxTesting } from "@sit-onyx/headless/playwright";
 import { DENSITIES } from "../../composables/density.js";
-import type { FormMessages } from "../../composables/useCustomValidity.js";
+import type { FormMessages } from "../../composables/useFormElementError.js";
 import { expect, test } from "../../playwright/a11y.js";
 import {
   executeMatrixScreenshotTest,
