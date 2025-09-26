@@ -27,8 +27,7 @@ const getDefaultValidityState = (): ValidityState => ({
 });
 
 /**
- * Creates a mock input element that more realistically simulates native validity behavior.
- * Calling `setCustomValidity` will dynamically update the `validity` object.
+ * Creates a mock input element
  */
 const createMockInput = (initialCustomValidity = "") => {
   let customValidity = initialCustomValidity;

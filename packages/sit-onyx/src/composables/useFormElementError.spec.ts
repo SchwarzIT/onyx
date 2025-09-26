@@ -28,8 +28,7 @@ const getDefaultValidityState = (): ValidityState => ({
 });
 
 /**
- * Creates a mock input element that more realistically simulates native validity behavior.
- * Calling `setCustomValidity` will dynamically update the `validity` object.
+ * Creates a mock input element.
  */
 const createMockInput = (initialCustomValidity = "") => {
   const _validityState = reactive({
@@ -105,7 +104,6 @@ describe("useFormElementError", () => {
       props,
       emit: () => ({}),
     });
-    // This is the correct way to mock the t function for each test case
     tFunctionMock.mockReturnValueOnce("This is a test");
     tFunctionMock.mockReturnValueOnce("Test");
     const mockInput = {
