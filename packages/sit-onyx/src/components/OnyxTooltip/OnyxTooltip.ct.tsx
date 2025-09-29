@@ -24,6 +24,36 @@ test("should trigger with boolean", async ({ mount }) => {
   await expect(tooltip).toBeVisible();
 });
 
+// Checks against regression of https://github.com/SchwarzIT/onyx/issues/4188
+test("should be aligned correctly when page was scrolled with left/right position", async ({
+  mount,
+  page,
+}) => {
+  // ARRANGE
+  const component = await mount(
+    <TestWrapper
+      style="margin-block: 500px"
+      trigger="hover"
+      open={true}
+      position="right"
+      text="Test tooltip"
+    />,
+  );
+
+  const tooltip = component.getByRole("tooltip");
+  const button = component.getByRole("button");
+
+  await page.mouse.wheel(0, 200);
+  // Clicking the tooltip seems to be a reliable way to force the user agent to recalculate the position
+  await tooltip.click();
+
+  // ASSERT
+  const tooltipBox = await tooltip.boundingBox();
+  const buttonBox = await button.boundingBox();
+
+  expect(tooltipBox?.y).toBeCloseTo(buttonBox?.y ?? Infinity, -1);
+});
+
 test("should trigger with hover", async ({ mount, page }) => {
   // ARRANGE
   const component = await mount(<TestWrapper text="Test tooltip" />);
