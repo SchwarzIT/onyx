@@ -49,7 +49,7 @@ describe("createCalendar", () => {
     expect(currentYear.value).toBe(today.getFullYear());
     expect(currentMonth.value).toBe(today.getMonth());
     expect(weeks.value).toBeDefined();
-    expect(weekdays.value).toStrictEqual(["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]);
+    expect(weekdays.value).toStrictEqual(["Mo", "Tu", "We", "Th", "Fr", "Sa", "So"]);
   });
 
   test("should correctly navigate between months", () => {
