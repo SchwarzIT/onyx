@@ -41,7 +41,7 @@ const isExpanded = ref(true);
     </template>
   </OnyxBasicPopover>
   <!-- Extra Space to test clipping -->
-  <div class="space"></div>
+  <div v-if="props.clipping" class="space"></div>
 </template>
 
 <style lang="scss">
