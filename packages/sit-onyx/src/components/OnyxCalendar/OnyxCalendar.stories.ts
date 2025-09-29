@@ -6,7 +6,7 @@ import OnyxCalendar from "./OnyxCalendar.vue";
 
 const meta: Meta<typeof OnyxCalendar> = {
   title: "Form/Calendar",
-  tags: ["new:component"],
+  tags: ["unstable"],
   component: OnyxCalendar,
   args: {
     style: {
