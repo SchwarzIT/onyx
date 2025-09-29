@@ -1,9 +1,9 @@
-import type { OnyxHeadlessCalderProps } from "@sit-onyx/headless";
+import type { OnyxHeadlessCalendarOptions } from "@sit-onyx/headless";
 import type { DensityProp } from "../../composables/density.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 
 export type OnyxCalderProps = DensityProp &
-  OnyxHeadlessCalderProps & {
+  OnyxHeadlessCalendarOptions & {
     /**
      * The size of the calendar.
      */

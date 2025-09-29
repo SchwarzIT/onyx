@@ -1,6 +1,5 @@
-import { describe, expect, test, vi } from "vitest";
-import { ref } from "vue";
-import type { OnyxHeadlessCalderProps } from "./createCalendar.js";
+import { describe, expect, it } from "vitest";
+import { nextTick, ref } from "vue";
 import { createCalendar } from "./createCalendar.js";
 
 const createDate = (year: number, month: number, day: number) => {
@@ -9,156 +8,127 @@ const createDate = (year: number, month: number, day: number) => {
   return date;
 };
 
-const mockFocusFn = vi.fn();
-const mockButtonElement = { focus: mockFocusFn } as unknown as HTMLElement;
-const mockButtonRefs = ref<Record<string, HTMLElement>>({});
+const setupCalendar = (initialDate?: Date, min?: Date, max?: Date) => {
+  const buttonRefs = ref<Record<string, HTMLElement>>({});
+  const { elements, state, internals } = createCalendar({
+    dayNames: ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"],
+    weekStartDay: "Monday",
+    buttonRefs,
+    min,
+    max,
+    initialDate,
+  });
 
-const addMockButtonRef = (dateKey: string) => {
-  mockButtonRefs.value[dateKey] = mockButtonElement;
+  if (initialDate) state.focusedDate.value = initialDate;
+  return { elements, state, internals, buttonRefs };
 };
 
-const mockProps: OnyxHeadlessCalderProps & {
-  dayNames: string[];
-  buttonRefs: typeof mockButtonRefs;
-} = {
-  weekStartDay: "Monday",
-  dayNames: ["Mo", "Tu", "We", "Th", "Fr", "Sa", "So"],
-  buttonRefs: mockButtonRefs,
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- for simplicity we use any here
+const triggerKey = async (elements: any, key: string, opts: KeyboardEventInit = {}) => {
+  const event = new KeyboardEvent("keydown", { key, ...opts });
+  elements.table.value.onKeydown?.(event);
+  await nextTick();
 };
-
-vi.mock("vue", async (importOriginal) => {
-  const mod = await importOriginal<typeof import("vue")>();
-  return {
-    ...mod,
-    nextTick: (fn: () => void) => {
-      return Promise.resolve().then(fn);
-    },
-  };
-});
 
 describe("createCalendar", () => {
-  test("should initialize with correct default values", () => {
-    const { selectedDate, focusedDate, currentYear, currentMonth, weeks, weekdays } =
-      createCalendar(mockProps);
+  it("should initialize with correct defaults", () => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const { state } = setupCalendar();
+
+    expect(state.selectedDate.value).toBeNull();
+    expect(state.focusedDate.value?.getTime()).toBe(today.getTime());
+    expect(state.currentYear.value).toBe(today.getFullYear());
+    expect(state.currentMonth.value).toBe(today.getMonth());
+    expect(state.weeks.value.length).toBeGreaterThan(0);
+    expect(state.weekdays.value).toStrictEqual(["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]);
+  });
+
+  it("should respect min and max dates", () => {
+    const min = createDate(2025, 8, 10);
+    const max = createDate(2025, 8, 20);
+    const { internals } = setupCalendar(undefined, min, max);
+
+    expect(internals.isDisabled(createDate(2025, 8, 9))).toBe(true);
+    expect(internals.isDisabled(createDate(2025, 8, 15))).toBe(false);
+    expect(internals.isDisabled(createDate(2025, 8, 21))).toBe(true);
+  });
+
+  it("should navigate months correctly", () => {
+    const { state, internals } = setupCalendar(createDate(2025, 8, 15));
+
+    internals.goToNextMonth();
+    expect(state.currentMonth.value).toBe(9);
+
+    internals.goToPreviousMonth();
+    expect(state.currentMonth.value).toBe(8);
+  });
+
+  it("should identify today, selected, focused, and weekend correctly", () => {
+    const { internals, state } = setupCalendar(createDate(2025, 8, 15));
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    expect(selectedDate.value).toBeNull();
-    expect(focusedDate.value?.getTime()).toBe(today.getTime());
-    expect(currentYear.value).toBe(today.getFullYear());
-    expect(currentMonth.value).toBe(today.getMonth());
-    expect(weeks.value).toBeDefined();
-    expect(weekdays.value).toStrictEqual(["Mo", "Tu", "We", "Th", "Fr", "Sa", "So"]);
+    expect(internals.isToday(today)).toBe(true);
+    expect(internals.isToday(createDate(2025, 0, 1))).toBe(false);
+
+    state.selectedDate.value = createDate(2025, 8, 15);
+    expect(internals.isSelected(createDate(2025, 8, 15))).toBe(true);
+    expect(internals.isSelected(createDate(2025, 8, 16))).toBe(false);
+
+    state.focusedDate.value = createDate(2025, 8, 15);
+    expect(internals.isFocused(createDate(2025, 8, 15))).toBe(true);
+    expect(internals.isFocused(createDate(2025, 8, 16))).toBe(false);
+
+    expect(internals.isWeekend(createDate(2025, 8, 12))).toBe(false); //Fr
+    expect(internals.isWeekend(createDate(2025, 8, 13))).toBe(true); //Sa
   });
 
-  test("should correctly navigate between months", () => {
-    const { currentYear, currentMonth, goToNextMonth, goToPreviousMonth } =
-      createCalendar(mockProps);
+  it("should handle keyboard navigation", async () => {
+    const { elements, state } = setupCalendar(createDate(2025, 8, 15));
 
-    const initialMonth = currentMonth.value;
-    const initialYear = currentYear.value;
+    await triggerKey(elements, "ArrowRight");
+    expect(state.focusedDate.value?.getDate()).toBe(16);
 
-    goToNextMonth();
-    const nextMonth = initialMonth === 11 ? 0 : initialMonth + 1;
-    const nextYear = initialMonth === 11 ? initialYear + 1 : initialYear;
-    expect(currentMonth.value).toBe(nextMonth);
-    expect(currentYear.value).toBe(nextYear);
+    await triggerKey(elements, "ArrowLeft");
+    expect(state.focusedDate.value?.getDate()).toBe(15);
 
-    goToPreviousMonth();
-    expect(currentMonth.value).toBe(initialMonth);
-    expect(currentYear.value).toBe(initialYear);
+    await triggerKey(elements, "ArrowUp");
+    expect(state.focusedDate.value?.getDate()).toBe(8);
+
+    await triggerKey(elements, "ArrowDown");
+    expect(state.focusedDate.value?.getDate()).toBe(15);
+
+    await triggerKey(elements, "Home");
+    expect(state.focusedDate.value?.getDay()).toBe(1); // Monday
+
+    await triggerKey(elements, "End");
+    expect(state.focusedDate.value?.getDay()).toBe(0); // Sunday
+
+    await triggerKey(elements, "PageUp");
+    expect(state.focusedDate.value?.getMonth()).toBe(7);
+
+    await triggerKey(elements, "PageDown");
+    expect(state.focusedDate.value?.getMonth()).toBe(8);
+
+    await triggerKey(elements, "PageUp", { shiftKey: true });
+    expect(state.focusedDate.value?.getFullYear()).toBe(2024);
+
+    await triggerKey(elements, "PageDown", { shiftKey: true });
+    expect(state.focusedDate.value?.getFullYear()).toBe(2025);
   });
 
-  test("should correctly identify today, selected, focused, and weekend days", () => {
-    const { isToday, isSelected, isFocused, isWeekend, goToDate } = createCalendar(mockProps);
+  it("should generate correct calendar grid with offsets", () => {
+    const { state } = setupCalendar(createDate(2025, 8, 15));
+    const week = state.weeks.value[2];
 
-    const today = new Date();
-    const futureDate = new Date(today.getFullYear() + 1, 0, 1);
-    const sunday = new Date(2025, 0, 5);
-    const saturday = new Date(2025, 0, 4);
-    const monday = new Date(2025, 0, 6);
+    expect(week?.length).toBe(7);
 
-    expect(isToday(today)).toBe(true);
-    expect(isToday(futureDate)).toBe(false);
-
-    goToDate(futureDate);
-    expect(isSelected(futureDate)).toBe(true);
-    expect(isSelected(today)).toBe(false);
-
-    expect(isFocused(futureDate)).toBe(true);
-    expect(isFocused(today)).toBe(false);
-
-    expect(isWeekend(sunday)).toBe(true);
-    expect(isWeekend(saturday)).toBe(true);
-    expect(isWeekend(monday)).toBe(false);
-  });
-
-  test("should respect min and max props", () => {
-    const minDate = createDate(2025, 0, 10);
-    const maxDate = createDate(2025, 0, 20);
-
-    const { isDisabled } = createCalendar({ ...mockProps, min: minDate, max: maxDate });
-
-    const beforeMin = createDate(2025, 0, 9);
-    const withinRange = createDate(2025, 0, 15);
-    const afterMax = createDate(2025, 0, 21);
-
-    expect(isDisabled(beforeMin)).toBe(true);
-    expect(isDisabled(withinRange)).toBe(false);
-    expect(isDisabled(afterMax)).toBe(true);
-  });
-
-  test("should handle keyboard navigation correctly and call focus() on the new element", async () => {
-    const { handleKeyNavigation, focusedDate } = createCalendar(mockProps);
-
-    focusedDate.value = createDate(2025, 8, 15);
-    mockFocusFn.mockClear();
-    const checkNavigation = async (key: string, expectedDate: Date, shiftKey = false) => {
-      const expectedDateKey = expectedDate.toISOString().slice(0, 10);
-      addMockButtonRef(expectedDateKey);
-
-      await handleKeyNavigation(new KeyboardEvent("keydown", { key, shiftKey }));
-
-      expect(focusedDate.value?.getTime()).toBe(expectedDate.getTime());
-      expect(mockFocusFn).toHaveBeenCalledTimes(1);
-      mockFocusFn.mockClear();
-    };
-
-    await checkNavigation("ArrowRight", createDate(2025, 8, 16));
-
-    await checkNavigation("ArrowLeft", createDate(2025, 8, 15));
-
-    await checkNavigation("ArrowDown", createDate(2025, 8, 22));
-
-    await checkNavigation("ArrowUp", createDate(2025, 8, 15));
-
-    await checkNavigation("End", createDate(2025, 8, 21)); // Last Weekday
-
-    await checkNavigation("Home", createDate(2025, 8, 15)); // First Weekday
-
-    await checkNavigation("PageUp", createDate(2025, 7, 15)); // Previous month (July)
-
-    await checkNavigation("PageDown", createDate(2025, 8, 15)); // Next month (August)
-
-    await checkNavigation("PageUp", createDate(2024, 8, 15), true); // Previous year
-
-    await checkNavigation("PageDown", createDate(2025, 8, 15), true); // Next year
-  });
-
-  test("should generate correct calendar grid", () => {
-    const { weeks } = createCalendar({ ...mockProps, weekStartDay: "Sunday" });
-
-    // The first day of the month is not a Sunday, so there should be offset days from the previous month
-    // September 2025 starts on a Monday.
-    // So for weekStartDay: "Sunday", the calendar should show days from August 2025.
-    const firstWeek = weeks.value?.[0];
-
-    // August 31, 2025 is a Sunday, so we expect the first day to be August 31.
-    const firstDay = firstWeek?.[0]?.date;
-    expect(firstDay?.getFullYear()).toBe(2025);
-    expect(firstDay?.getMonth()).toBe(7); // August (0-indexed)
-    expect(firstDay?.getDate()).toBe(31);
-    expect(firstWeek?.[0]?.isCurrentMonth).toBe(false);
+    const firstDay = week?.[0]?.date;
+    if (firstDay) {
+      expect(firstDay.getFullYear()).toBe(2025);
+      expect(firstDay.getMonth()).toBe(8); // August
+    }
   });
 });

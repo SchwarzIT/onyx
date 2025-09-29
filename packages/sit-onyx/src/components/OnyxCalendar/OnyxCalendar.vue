@@ -45,7 +45,7 @@ const dayNames = computed(() => {
     return date;
   });
   const formatStyle = calendarSize.value === "big" ? "long" : "short";
-  const formatter = new Intl.DateTimeFormat(navigator.language, { weekday: formatStyle });
+  const formatter = new Intl.DateTimeFormat(locale.value, { weekday: formatStyle });
   return days.map((day) => formatter.format(day));
 });
 
@@ -59,18 +59,11 @@ const setButtonRef = (el: HTMLElement | null, dateKey: string) => {
 };
 
 const calendarRef = useTemplateRef("calendar");
+
 const {
-  currentYear,
-  currentMonth,
-  selectedDate,
-  weeks,
-  weekdays,
-  goToPreviousMonth,
-  goToNextMonth,
-  goToToday,
-  tableProps,
-  cellProps,
-  buttonProps,
+  state: { currentYear, currentMonth, selectedDate, weeks, weekdays },
+  elements: { table: tableProps, cell: cellProps, button: buttonProps },
+  internals: { goToPreviousMonth, goToNextMonth, goToToday },
 } = createCalendar({ ...props, dayNames, buttonRefs });
 
 const { densityClass } = useDensity(props);
