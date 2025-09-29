@@ -61,13 +61,13 @@ const setButtonRef = (el: HTMLElement | null, dateKey: string) => {
   }
 };
 
-const { disabled, min, max } = toRefs(props);
+const { disabled, min, max, initialDate } = toRefs(props);
 
 const {
   state: { currentYear, currentMonth, selectedDate, weeks, weekdays },
   elements: { table: tableProps, cell: cellProps, button: buttonProps },
   internals: { goToPreviousMonth, goToNextMonth, goToToday },
-} = _unstableCreateCalendar({ disabled, min, max, locale, calendarSize, buttonRefs });
+} = _unstableCreateCalendar({ disabled, min, max, initialDate, locale, calendarSize, buttonRefs });
 
 watch(selectedDate, (newDate) => {
   if (newDate) {

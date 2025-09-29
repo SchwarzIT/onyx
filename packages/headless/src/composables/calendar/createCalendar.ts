@@ -25,7 +25,7 @@ export type OnyxHeadlessCalendarOptions = {
   weekStartDay?: MaybeRefOrGetter<OnyxWeekDays>;
   min?: MaybeRefOrGetter<Nullable<Date>>;
   max?: MaybeRefOrGetter<Nullable<Date>>;
-  initialDate?: Date;
+  initialDate?: MaybeRefOrGetter<Nullable<Date>>;
   locale: MaybeRefOrGetter<string>;
   calendarSize: MaybeRefOrGetter<string>;
   buttonRefs: Ref<Record<string, HTMLElement>>;
@@ -52,7 +52,7 @@ const getMidnightDate = (date: Date): Date => {
 const initializeDate = (options: {
   min?: Nullable<Date>;
   max?: Nullable<Date>;
-  initialDate?: Date;
+  initialDate?: Nullable<Date>;
 }) => {
   const min = options.min ? getMidnightDate(new Date(options.min)) : null;
   const max = options.max ? getMidnightDate(new Date(options.max)) : null;
@@ -83,7 +83,7 @@ export const _unstableCreateCalendar = createBuilder((options: OnyxHeadlessCalen
   });
 
   const initialValue = initializeDate({
-    ...options,
+    initialDate: toValue(options.initialDate),
     min: toValue(options.min),
     max: toValue(options.max),
   });
