@@ -20,10 +20,10 @@ export type OnyxWeekDays =
   | "Sunday";
 
 export type OnyxHeadlessCalendarOptions = {
-  disabled?: MaybeRefOrGetter<boolean>;
+  disabled?: boolean;
   weekStartDay?: OnyxWeekDays;
-  min?: MaybeRefOrGetter<Date>;
-  max?: MaybeRefOrGetter<Date>;
+  min?: Date;
+  max?: Date;
   initialDate?: Date;
 };
 
@@ -61,14 +61,26 @@ const initializeDate = (options: { min?: Date; max?: Date; initialDate?: Date })
 export const createCalendar = createBuilder(
   (
     options: OnyxHeadlessCalendarOptions & {
-      dayNames: MaybeRefOrGetter<string[]>;
+      locale: MaybeRefOrGetter<string>;
+      calendarSize: MaybeRefOrGetter<string>;
       buttonRefs: Ref<Record<string, HTMLElement>>;
     },
   ) => {
+    const dayNames = computed(() => {
+      const days = Array.from({ length: 7 }, (_, i) => {
+        const date = new Date(2024, 0, 1 + i);
+        return date;
+      });
+
+      const formatStyle = options.calendarSize === "big" ? "long" : "short";
+      const formatter = new Intl.DateTimeFormat(toValue(options.locale), { weekday: formatStyle });
+      return days.map((day) => formatter.format(day));
+    });
+
     const initialValue = initializeDate({
       ...options,
-      min: toValue(options.min),
-      max: toValue(options.max),
+      min: options.min,
+      max: options.max,
     });
 
     const currentDate = ref(initialValue);
@@ -95,9 +107,9 @@ export const createCalendar = createBuilder(
     };
 
     const isDisabled = (date: Date) => {
-      const min = toValue(options.min);
-      const max = toValue(options.max);
-      const disabledFlag = toValue(options.disabled) ?? false;
+      const min = options.min;
+      const max = options.max;
+      const disabledFlag = options.disabled ?? false;
       const dateAtMidnight = getMidnightDate(date);
 
       const minCheck = min ? dateAtMidnight < getMidnightDate(min) : false;
@@ -107,7 +119,7 @@ export const createCalendar = createBuilder(
     };
 
     const generateCalendar = (year: number, month: number) => {
-      const weekStartDay = toValue(options.weekStartDay);
+      const weekStartDay = options.weekStartDay;
       if (!weekStartDay) return [];
 
       const firstDay = new Date(year, month, 1);
@@ -155,7 +167,7 @@ export const createCalendar = createBuilder(
     };
 
     const handleKeyNavigation = async (event: KeyboardEvent) => {
-      if (!focusedDate.value || toValue(options.disabled)) return;
+      if (!focusedDate.value || options.disabled) return;
 
       const { min, max } = options;
       const newDate = new Date(focusedDate.value);
@@ -180,14 +192,14 @@ export const createCalendar = createBuilder(
           break;
         case "Home":
           if (options.weekStartDay) {
-            const idx = getNormalizedDayIndex(newDate, toValue(options.weekStartDay));
+            const idx = getNormalizedDayIndex(newDate, options.weekStartDay);
             newDate.setDate(newDate.getDate() - idx);
           }
           handled = true;
           break;
         case "End":
           if (options.weekStartDay) {
-            const idx = getNormalizedDayIndex(newDate, toValue(options.weekStartDay));
+            const idx = getNormalizedDayIndex(newDate, options.weekStartDay);
             newDate.setDate(newDate.getDate() + (6 - idx));
           }
           handled = true;
@@ -203,12 +215,8 @@ export const createCalendar = createBuilder(
       }
 
       const isDateValid = (d: Date) => {
-        const minDate = toValue(min);
-        const maxDate = toValue(max);
         const md = getMidnightDate(d);
-        return (
-          !(minDate && md < getMidnightDate(minDate)) && !(maxDate && md > getMidnightDate(maxDate))
-        );
+        return !(min && md < getMidnightDate(min)) && !(max && md > getMidnightDate(max));
       };
 
       if (handled) {
@@ -230,11 +238,10 @@ export const createCalendar = createBuilder(
     };
 
     const weekdays = computed(() => {
-      const weekStartDay = toValue(options.weekStartDay);
+      const weekStartDay = options.weekStartDay;
       if (!weekStartDay) return [];
-      const days = toValue(options.dayNames);
       const start = getDayIndex(weekStartDay);
-      return days.slice(start).concat(days.slice(0, start));
+      return dayNames.value.slice(start).concat(dayNames.value.slice(0, start));
     });
 
     watch(selectedDate, (newDate) => {
@@ -256,7 +263,7 @@ export const createCalendar = createBuilder(
               ? {
                   role: "gridcell",
                   "aria-selected": isSelected(day.date),
-                  "aria-disabled": day.isDisabled || toValue(options.disabled),
+                  "aria-disabled": day.isDisabled || options.disabled,
                   class: {
                     "other-month": !day.isCurrentMonth,
                     "is-disabled": day.isDisabled,
@@ -272,7 +279,7 @@ export const createCalendar = createBuilder(
             day.date
               ? {
                   tabindex: isFocused(day.date) && !day.isDisabled ? "0" : "-1",
-                  disabled: day.isDisabled || toValue(options.disabled),
+                  disabled: day.isDisabled || options.disabled,
                   class: "cell-content",
                   "data-date": day.date.toISOString().slice(0, 10),
                   onClick: () => !day.isDisabled && goToDate(day.date),

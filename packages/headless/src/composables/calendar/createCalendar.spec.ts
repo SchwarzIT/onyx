@@ -11,7 +11,8 @@ const createDate = (year: number, month: number, day: number) => {
 const setupCalendar = (initialDate?: Date, min?: Date, max?: Date) => {
   const buttonRefs = ref<Record<string, HTMLElement>>({});
   const { elements, state, internals } = createCalendar({
-    dayNames: ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"],
+    locale: "en",
+    calendarSize: "small",
     weekStartDay: "Monday",
     buttonRefs,
     min,
@@ -41,7 +42,7 @@ describe("createCalendar", () => {
     expect(state.currentYear.value).toBe(today.getFullYear());
     expect(state.currentMonth.value).toBe(today.getMonth());
     expect(state.weeks.value.length).toBeGreaterThan(0);
-    expect(state.weekdays.value).toStrictEqual(["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]);
+    expect(state.weekdays.value).toStrictEqual(["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]);
   });
 
   it("should respect min and max dates", () => {

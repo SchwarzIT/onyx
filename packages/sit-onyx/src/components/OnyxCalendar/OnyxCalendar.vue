@@ -10,6 +10,7 @@ import {
 } from "../../composables/useSkeletonState.js";
 import { injectI18n } from "../../i18n/index.js";
 import { ONYX_BREAKPOINTS } from "../../utils/breakpoints.js";
+import { useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
@@ -39,16 +40,6 @@ const calendarSize = computed(() => {
 });
 const { locale } = injectI18n();
 
-const dayNames = computed(() => {
-  const days = Array.from({ length: 7 }, (_, i) => {
-    const date = new Date(2024, 0, 1 + i);
-    return date;
-  });
-  const formatStyle = calendarSize.value === "big" ? "long" : "short";
-  const formatter = new Intl.DateTimeFormat(locale.value, { weekday: formatStyle });
-  return days.map((day) => formatter.format(day));
-});
-
 const buttonRefs = ref<Record<string, HTMLElement>>({});
 const setButtonRef = (el: HTMLElement | null, dateKey: string) => {
   if (el) {
@@ -64,7 +55,7 @@ const {
   state: { currentYear, currentMonth, selectedDate, weeks, weekdays },
   elements: { table: tableProps, cell: cellProps, button: buttonProps },
   internals: { goToPreviousMonth, goToNextMonth, goToToday },
-} = createCalendar({ ...props, dayNames, buttonRefs });
+} = createCalendar({ ...props, locale, calendarSize, buttonRefs });
 
 const { densityClass } = useDensity(props);
 
@@ -77,6 +68,7 @@ watch(selectedDate, (newDate) => {
 });
 
 const { width } = useResizeObserver(calendarRef);
+const { disabled } = useFormContext(props);
 
 const sizeClass = computed(() => {
   return `onyx-calendar--${calendarSize.value}`;
