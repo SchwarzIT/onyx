@@ -225,35 +225,5 @@
   },
   "globalFAB": {
     "label": "Globale Aktionen"
-  },
-  "days": {
-    "monday": {
-      "short": "Mo",
-      "long": "Montag"
-    },
-    "tuesday": {
-      "short": "Di",
-      "long": "Dienstag"
-    },
-    "wednesday": {
-      "short": "Mi",
-      "long": "Mittwoch"
-    },
-    "thursday": {
-      "short": "Do",
-      "long": "Donnerstag"
-    },
-    "friday": {
-      "short": "Fr",
-      "long": "Freitag"
-    },
-    "saturday": {
-      "short": "Sa",
-      "long": "Samstag"
-    },
-    "sunday": {
-      "short": "So",
-      "long": "Sonntag"
-    }
   }
 }

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { iconChevronLeftSmall, iconChevronRightSmall } from "@sit-onyx/icons";
-import { computed, useTemplateRef, watch } from "vue";
+import { computed, ref, useTemplateRef, watch } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useResizeObserver } from "../../composables/useResizeObserver.js";
 import {
@@ -37,30 +37,27 @@ defineSlots<{
 const calenderSize = computed(() => {
   return props.size !== "auto" ? props.size : width.value < ONYX_BREAKPOINTS.xs ? "small" : "big";
 });
-const { t } = injectI18n();
+const { locale } = injectI18n();
 
 const dayNames = computed(() => {
-  const shortNames = [
-    t.value("days.monday.short"),
-    t.value("days.tuesday.short"),
-    t.value("days.wednesday.short"),
-    t.value("days.thursday.short"),
-    t.value("days.friday.short"),
-    t.value("days.saturday.short"),
-    t.value("days.sunday.short"),
-  ];
-  const longNames = [
-    t.value("days.monday.long"),
-    t.value("days.tuesday.long"),
-    t.value("days.wednesday.long"),
-    t.value("days.thursday.long"),
-    t.value("days.friday.long"),
-    t.value("days.saturday.long"),
-    t.value("days.sunday.long"),
-  ];
-
-  return calenderSize.value === "big" ? longNames : shortNames;
+  const days = Array.from({ length: 7 }, (_, i) => {
+    const date = new Date(2024, 0, 1 + i);
+    return date;
+  });
+  const formatStyle = calenderSize.value === "big" ? "long" : "short";
+  const formatter = new Intl.DateTimeFormat(navigator.language, { weekday: formatStyle });
+  return days.map((day) => formatter.format(day));
 });
+
+const buttonRefs = ref<Record<string, HTMLElement>>({});
+const setButtonRef = (el: HTMLElement | null, dateKey: string) => {
+  if (el) {
+    buttonRefs.value[dateKey] = el;
+  } else {
+    delete buttonRefs.value[dateKey];
+  }
+};
+
 const calenderRef = useTemplateRef("calender");
 const {
   currentYear,
@@ -68,16 +65,13 @@ const {
   selectedDate,
   weeks,
   weekdays,
-  isToday,
-  isSelected,
-  isFocused,
-  isWeekend,
   goToPreviousMonth,
   goToNextMonth,
   goToToday,
-  goToDate,
-  handleKeyNavigation,
-} = useCalendar({ ...props, dayNames, calenderRef });
+  tableProps,
+  cellProps,
+  buttonProps,
+} = useCalendar({ ...props, dayNames, buttonRefs });
 
 const { densityClass } = useDensity(props);
 
@@ -130,7 +124,7 @@ const sizeClass = computed(() => {
         />
         <OnyxHeadline is="h2" class="control-container__date-display">
           {{
-            new Date(currentYear, currentMonth).toLocaleDateString("de-DE", {
+            new Date(currentYear, currentMonth).toLocaleDateString(locale, {
               month: "long",
               year: "numeric",
             })
@@ -149,7 +143,7 @@ const sizeClass = computed(() => {
     </div>
     <div class="onyx-calender__body">
       <!-- eslint-disable-next-line vuejs-accessibility/interactive-supports-focus -->
-      <table role="grid" aria-labelledby="calendar-label" @keydown="handleKeyNavigation">
+      <table v-bind="tableProps">
         <thead>
           <tr>
             <th v-for="(day, index) in weekdays" :key="index" scope="col" :abbr="day">{{ day }}</th>
@@ -157,28 +151,15 @@ const sizeClass = computed(() => {
         </thead>
         <tbody>
           <tr v-for="(week, weekIndex) in weeks" :key="weekIndex">
-            <td
-              v-for="(day, dayIndex) in week"
-              :key="dayIndex"
-              role="gridcell"
-              :aria-selected="day.date && isSelected(day.date) ? 'true' : 'false'"
-              :aria-disabled="day.isDisabled || disabled ? 'true' : 'false'"
-              :class="{
-                'other-month': !day.isCurrentMonth,
-                'is-disabled': day.isDisabled,
-                today: day.date && isToday(day.date),
-                selected: day.date && isSelected(day.date),
-                weekend: day.date && isWeekend(day.date),
-              }"
-            >
+            <td v-for="(day, dayIndex) in week" :key="dayIndex" v-bind="cellProps(day)">
               <button
                 v-if="day.date"
+                v-bind="buttonProps(day)"
+                :ref="
+                  (el) =>
+                    setButtonRef(el as HTMLElement | null, day.date?.toISOString().slice(0, 10))
+                "
                 type="button"
-                class="cell-content"
-                :tabindex="day.date && isFocused(day.date) && !day.isDisabled ? '0' : '-1'"
-                :disabled="day.isDisabled || disabled"
-                :data-date="day.date?.toISOString().slice(0, 10)"
-                @click="!day.isDisabled ? goToDate(day.date) : null"
               >
                 <span class="cell-content__number">
                   <span class="cell-content__number-display">

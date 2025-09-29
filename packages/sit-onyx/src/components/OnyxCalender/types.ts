@@ -39,7 +39,7 @@ export type OnyxCalderProps = DensityProp & {
    */
   initialDate?: Date;
 };
-export type OnyxCalderSelection = "single" | "multi" | "range";
+export type OnyxCalderSelection = "single";
 export type OnyxCalderSize = "big" | "small" | "auto";
 export type OnyxWeekDays =
   | "Monday"

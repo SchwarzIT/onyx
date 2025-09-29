@@ -1,4 +1,13 @@
-import { computed, nextTick, ref, toValue, watch, type MaybeRefOrGetter, type Ref } from "vue";
+import {
+  computed,
+  nextTick,
+  ref,
+  toValue,
+  useId,
+  watch,
+  type MaybeRefOrGetter,
+  type Ref,
+} from "vue";
 import type { OnyxCalderProps, OnyxWeekDays } from "./types.js";
 
 const getDayIndex = (dayName: OnyxWeekDays) => {
@@ -40,7 +49,7 @@ const initializeDate = (props: OnyxCalderProps) => {
 export function useCalendar(
   props: OnyxCalderProps & {
     dayNames: MaybeRefOrGetter<string[]>;
-    calenderRef: Ref<HTMLElement | null>;
+    buttonRefs: Ref<Record<string, HTMLElement>>;
   },
 ) {
   const initialValue = initializeDate(props);
@@ -218,10 +227,8 @@ export function useCalendar(
           );
           await nextTick(); // wait for rendering new Month
         }
-
-        const nextDayButton = props.calenderRef.value?.querySelector(
-          `.cell-content[data-date="${focusedDate.value.toISOString().slice(0, 10)}"]`,
-        ) as HTMLElement;
+        const dateKey = focusedDate.value.toISOString().slice(0, 10);
+        const nextDayButton = props.buttonRefs.value[dateKey];
         if (nextDayButton) {
           nextDayButton.focus();
         }
@@ -241,6 +248,47 @@ export function useCalendar(
     }
   });
 
+  type CalendarDayItem = {
+    date: Date | null;
+    isCurrentMonth: boolean;
+    isDisabled: boolean | undefined;
+  };
+
+  const calenderId = useId();
+  const tableProps = {
+    role: "grid",
+    "aria-labelledby": `calendar-${calenderId}`,
+    onKeydown: (e: KeyboardEvent) => handleKeyNavigation(e),
+  };
+
+  const cellProps = (day: CalendarDayItem) => {
+    if (!day.date) return {};
+    return {
+      role: "gridcell",
+      "aria-selected": isSelected(day.date) ? true : false,
+      "aria-disabled": day.isDisabled || props.disabled ? true : false,
+      class: {
+        "other-month": !day.isCurrentMonth,
+        "is-disabled": day.isDisabled,
+        today: day.date && isToday(day.date),
+        selected: day.date && isSelected(day.date),
+        weekend: day.date && isWeekend(day.date),
+      },
+    };
+  };
+  const buttonProps = (day: CalendarDayItem) => {
+    if (!day.date) return {};
+    return {
+      tabindex: day.date && isFocused(day.date) && !day.isDisabled ? "0" : "-1",
+      disabled: day.isDisabled || props.disabled,
+      class: "cell-content",
+      "data-date": day.date?.toISOString().slice(0, 10),
+      onClick: () => {
+        if (!day.isDisabled) goToDate(day.date!);
+      },
+    };
+  };
+
   return {
     selectedDate,
     focusedDate,
@@ -258,5 +306,8 @@ export function useCalendar(
     goToToday,
     goToDate,
     handleKeyNavigation,
+    tableProps,
+    cellProps,
+    buttonProps,
   };
 }

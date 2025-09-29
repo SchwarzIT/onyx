@@ -225,35 +225,5 @@
   },
   "globalFAB": {
     "label": "Global actions"
-  },
-  "days": {
-    "monday": {
-      "short": "Mo",
-      "long": "Monday"
-    },
-    "tuesday": {
-      "short": "Tu",
-      "long": "Tuesday"
-    },
-    "wednesday": {
-      "short": "We",
-      "long": "Wednesday"
-    },
-    "thursday": {
-      "short": "Th",
-      "long": "Thursday"
-    },
-    "friday": {
-      "short": "Fr",
-      "long": "Friday"
-    },
-    "saturday": {
-      "short": "Sa",
-      "long": "Saturday"
-    },
-    "sunday": {
-      "short": "Su",
-      "long": "Sunday"
-    }
   }
 }
