@@ -3,8 +3,8 @@ import { iconCheckSmall, iconEye, iconEyeClosed, iconXSmall } from "@sit-onyx/ic
 import { computed, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
-import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity.js";
 import { useErrorClass } from "../../composables/useErrorClass.js";
+import { getFormMessages, useFormElementError } from "../../composables/useFormElementError.js";
 import { useLenientMaxLengthValidation } from "../../composables/useLenientMaxLengthValidation.js";
 import {
   SKELETON_INJECTED_SYMBOL,
@@ -81,7 +81,7 @@ const { rootAttrs, restAttrs } = useRootAttrs();
 const { t } = injectI18n();
 const { maxLength, maxLengthError } = useLenientMaxLengthValidation({ modelValue, props });
 const error = computed(() => props.error ?? maxLengthError.value);
-const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit, error });
+const { vCustomValidity, errorMessages } = useFormElementError({ props, emit, error });
 const successMessages = computed(() => getFormMessages(props.success));
 const messages = computed(() => getFormMessages(props.message));
 
