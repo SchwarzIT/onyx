@@ -68,9 +68,9 @@
     "eslint-plugin-vue-scoped-css": "^2.12.0",
     "sass-embedded": "catalog:",
     "storybook-addon-tag-badges": "^2.0.2",
-    "tsx": "^4.20.5",
+    "tsx": "^4.20.6",
     "vue": "catalog:",
-    "vue-component-type-helpers": "^3.0.8",
+    "vue-component-type-helpers": "^3.1.0",
     "vue-i18n": "^11.1.12",
     "vue-router": "^4.5.1"
   }
