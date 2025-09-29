@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "onyx" theme.
- * Imported from Figma API on Thu, 11 Sep 2025 09:27:42 GMT
+ * Imported from Figma API on Mon, 22 Sep 2025 14:40:04 GMT
  */
 :where(:root),
 .onyx-theme-default {
@@ -177,6 +177,39 @@
     var(--onyx-color-quantitatives-1200),
     var(--onyx-color-quantitatives-1250)
   );
+  --onyx-color-base-secondary-100: light-dark(
+    var(--onyx-color-onyx-100),
+    var(--onyx-color-onyx-1100)
+  );
+  --onyx-color-base-secondary-200: light-dark(
+    var(--onyx-color-onyx-200),
+    var(--onyx-color-onyx-1000)
+  );
+  --onyx-color-base-secondary-300: light-dark(
+    var(--onyx-color-onyx-300),
+    var(--onyx-color-onyx-900)
+  );
+  --onyx-color-base-secondary-400: light-dark(
+    var(--onyx-color-onyx-400),
+    var(--onyx-color-onyx-800)
+  );
+  --onyx-color-base-secondary-500: light-dark(
+    var(--onyx-color-onyx-500),
+    var(--onyx-color-onyx-700)
+  );
+  --onyx-color-base-secondary-600: var(--onyx-color-onyx-600);
+  --onyx-color-base-secondary-700: light-dark(
+    var(--onyx-color-onyx-700),
+    var(--onyx-color-onyx-500)
+  );
+  --onyx-color-base-secondary-800: light-dark(
+    var(--onyx-color-onyx-800),
+    var(--onyx-color-onyx-400)
+  );
+  --onyx-color-base-secondary-900: light-dark(
+    var(--onyx-color-onyx-900),
+    var(--onyx-color-onyx-300)
+  );
   --onyx-color-base-success-100: light-dark(
     var(--onyx-color-system-green-100),
     var(--onyx-color-system-green-1100)
@@ -330,6 +363,19 @@
     var(--onyx-color-onyx-700)
   );
   --onyx-color-text-icons-primary-soft: light-dark(
+    var(--onyx-color-onyx-200),
+    var(--onyx-color-onyx-900)
+  );
+  --onyx-color-text-icons-secondary-bold: light-dark(
+    var(--onyx-color-onyx-700),
+    var(--onyx-color-onyx-400)
+  );
+  --onyx-color-text-icons-secondary-intense: var(--onyx-color-onyx-500);
+  --onyx-color-text-icons-secondary-medium: light-dark(
+    var(--onyx-color-onyx-300),
+    var(--onyx-color-onyx-700)
+  );
+  --onyx-color-text-icons-secondary-soft: light-dark(
     var(--onyx-color-onyx-200),
     var(--onyx-color-onyx-900)
   );

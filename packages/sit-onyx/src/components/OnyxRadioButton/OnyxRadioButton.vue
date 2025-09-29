@@ -2,7 +2,7 @@
 import { useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
-import { useCustomValidity } from "../../composables/useCustomValidity.js";
+import { useFormElementError } from "../../composables/useFormElementError.js";
 import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
@@ -34,7 +34,7 @@ const emit = defineEmits<{
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
 
-const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
+const { vCustomValidity, errorMessages } = useFormElementError({ props, emit });
 const { densityClass } = useDensity(props);
 const { disabled } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
