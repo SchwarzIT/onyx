@@ -774,4 +774,114 @@ export const EVENT_DOC_MAP: EventDocMap = {
       url: "https://developer.mozilla.org/en-US/docs/Web/API/Element/transitionstart_event",
     },
   },
+  onAnimationcancel: {
+    constructor: {
+      name: "AnimationEvent",
+      url: "https://developer.mozilla.org/en-US/docs/Web/API/AnimationEvent",
+    },
+    event: {
+      name: "animationcancel",
+      url: "https://developer.mozilla.org/en-US/docs/Web/API/Element/animationcancel_event",
+    },
+  },
+  onBeforetoggle: {
+    constructor: {
+      name: "Event",
+      url: "https://developer.mozilla.org/en-US/docs/Web/API/Event",
+    },
+    event: {
+      name: "beforetoggle",
+      url: "https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/beforetoggle_event",
+    },
+  },
+  onFormdata: {
+    constructor: {
+      name: "Event",
+      url: "https://developer.mozilla.org/en-US/docs/Web/API/Event",
+    },
+    event: {
+      name: "formdata",
+      url: "https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/formdata_event",
+    },
+  },
+  onFullscreenchange: {
+    constructor: {
+      name: "Event",
+      url: "https://developer.mozilla.org/en-US/docs/Web/API/Event",
+    },
+    event: {
+      name: "fullscreenchange",
+      url: "https://developer.mozilla.org/en-US/docs/Web/API/Element/fullscreenchange_event",
+    },
+  },
+  onFullscreenerror: {
+    constructor: {
+      name: "Event",
+      url: "https://developer.mozilla.org/en-US/docs/Web/API/Event",
+    },
+    event: {
+      name: "fullscreenerror",
+      url: "https://developer.mozilla.org/en-US/docs/Web/API/Element/fullscreenerror_event",
+    },
+  },
+  onGotpointercapture: {
+    constructor: {
+      name: "PointerEvent",
+      url: "https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent",
+    },
+    event: {
+      name: "gotpointercapture",
+      url: "https://developer.mozilla.org/en-US/docs/Web/API/Element/gotpointercapture_event",
+    },
+  },
+  onLostpointercapture: {
+    constructor: {
+      name: "PointerEvent",
+      url: "https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent",
+    },
+    event: {
+      name: "lostpointercapture",
+      url: "https://developer.mozilla.org/en-US/docs/Web/API/Element/lostpointercapture_event",
+    },
+  },
+  onSecuritypolicyviolation: {
+    constructor: {
+      name: "Event",
+      url: "https://developer.mozilla.org/en-US/docs/Web/API/Event",
+    },
+    event: {
+      name: "securitypolicyviolation",
+      url: "https://developer.mozilla.org/en-US/docs/Web/API/Element/securitypolicyviolation_event",
+    },
+  },
+  onToggle: {
+    constructor: {
+      name: "Event",
+      url: "https://developer.mozilla.org/en-US/docs/Web/API/Event",
+    },
+    event: {
+      name: "toggle",
+      url: "https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/toggle_event",
+    },
+  },
+  onTransitioncancel: {
+    constructor: {
+      name: "TransitionEvent",
+      url: "https://developer.mozilla.org/en-US/docs/Web/API/TransitionEvent",
+    },
+    event: {
+      name: "transitioncancel",
+      url: "https://developer.mozilla.org/en-US/docs/Web/API/Element/transitioncancel_event",
+    },
+  },
+  onTransitionrun: {
+    constructor: {
+      name: "TransitionEvent",
+      url: "https://developer.mozilla.org/en-US/docs/Web/API/TransitionEvent",
+    },
+    event: {
+      name: "transitionrun",
+      url: "https://developer.mozilla.org/en-US/docs/Web/API/Element/transitionrun_event",
+    },
+  },
 };
