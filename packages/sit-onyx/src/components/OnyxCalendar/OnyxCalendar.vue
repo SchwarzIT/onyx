@@ -14,9 +14,9 @@ import { useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
-import type { OnyxCalderProps } from "./types.js";
+import type { OnyxCalendarProps } from "./types.js";
 
-const props = withDefaults(defineProps<OnyxCalderProps>(), {
+const props = withDefaults(defineProps<OnyxCalendarProps>(), {
   size: "auto",
   selection: "single",
   weekStartDay: "Monday",

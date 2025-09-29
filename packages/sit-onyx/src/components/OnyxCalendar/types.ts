@@ -2,12 +2,12 @@ import type { OnyxHeadlessCalendarOptions } from "@sit-onyx/headless";
 import type { DensityProp } from "../../composables/density.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 
-export type OnyxCalderProps = DensityProp &
+export type OnyxCalendarProps = DensityProp &
   OnyxHeadlessCalendarOptions & {
     /**
      * The size of the calendar.
      */
-    size?: OnyxCalderSize;
+    size?: OnyxCalendarSize;
     /**
      * A skeleton component to be displayed while the calendar is loading.
      */
@@ -15,7 +15,7 @@ export type OnyxCalderProps = DensityProp &
     /**
      * The selection mode for dates (single, multiple, or a date range).
      */
-    selection?: OnyxCalderSelection;
+    selection?: OnyxCalendarSelection;
     /**
      * Whether to display calendar week numbers.
      */
@@ -23,5 +23,5 @@ export type OnyxCalderProps = DensityProp &
     //  displayCalendarWeek?: boolean;
   };
 // TODO: add multi & range
-export type OnyxCalderSelection = "single";
-export type OnyxCalderSize = "big" | "small" | "auto";
+export type OnyxCalendarSelection = "single";
+export type OnyxCalendarSize = "big" | "small" | "auto";
