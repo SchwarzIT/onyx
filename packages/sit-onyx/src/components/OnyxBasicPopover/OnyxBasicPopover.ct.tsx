@@ -46,6 +46,33 @@ test.describe("OnyxBasicPopover", () => {
     // ASSERT
     await expect(popover).toBeHidden();
   });
+
+  test("should stay in view if clipping is active", async ({ mount, page }) => {
+    const component = await mount(OnyxBasicPopoverTestCase, {
+      props: {
+        label: "Popover for testing",
+        open: true,
+        clipping: true,
+      },
+    });
+
+    const popover = component.getByText("Popover Content");
+
+    // ASSERT
+    await expect(popover).toBeVisible();
+
+    // ACT
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+
+    // ASSERT
+    await expect(popover).toBeVisible();
+    const box = await popover.boundingBox();
+    expect(box).not.toBeNull();
+    const viewportHeight = await page.evaluate(() => window.innerHeight);
+    if (box) {
+      expect(box.y + box.height).toBeLessThanOrEqual(viewportHeight);
+    }
+  });
 });
 test.describe("OnyxBasicPopover  Screenshot Tests", () => {
   test.describe("Alignment screenshot tests", () => {
