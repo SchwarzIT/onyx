@@ -66,7 +66,11 @@ const initializeDate = (options: {
   return initialDate;
 };
 
-export const createCalendar = createBuilder((options: OnyxHeadlessCalendarOptions) => {
+/**
+ * @experimental
+ * @deprecated This component is still under active development and its API might change in patch releases.
+ */
+export const _unstableCreateCalendar = createBuilder((options: OnyxHeadlessCalendarOptions) => {
   const dayNames = computed(() => {
     const days = Array.from({ length: 7 }, (_, i) => {
       const date = new Date(2024, 0, 1 + i);

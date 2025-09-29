@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { nextTick, ref } from "vue";
-import { createCalendar } from "./createCalendar.js";
+import { _unstableCreateCalendar } from "./createCalendar.js";
 
 const createDate = (year: number, month: number, day: number) => {
   const date = new Date(year, month, day);
@@ -10,7 +10,7 @@ const createDate = (year: number, month: number, day: number) => {
 
 const setupCalendar = (initialDate?: Date, min?: Date, max?: Date) => {
   const buttonRefs = ref<Record<string, HTMLElement>>({});
-  const { elements, state, internals } = createCalendar({
+  const { elements, state, internals } = _unstableCreateCalendar({
     locale: "en",
     calendarSize: "small",
     weekStartDay: "Monday",

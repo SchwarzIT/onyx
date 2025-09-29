@@ -36,7 +36,7 @@ export * from "./components/OnyxButton/types.js";
 export { default as OnyxCard } from "./components/OnyxCard/OnyxCard.vue";
 export * from "./components/OnyxCard/types.js";
 
-export { default as OnyxCalendar } from "./components/OnyxCalendar/OnyxCalendar.vue";
+export { default as OnyxUnstableCalendar } from "./components/OnyxCalendar/OnyxCalendar.vue";
 export * from "./components/OnyxCalendar/types.js";
 
 export { default as OnyxCheckbox } from "./components/OnyxCheckbox/OnyxCheckbox.vue";

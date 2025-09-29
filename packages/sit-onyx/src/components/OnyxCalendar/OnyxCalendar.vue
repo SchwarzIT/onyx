@@ -1,5 +1,13 @@
+<script lang="ts">
+/**
+ * @experimental
+ * @deprecated This component is still under active development and its API might change in patch releases.
+ */
+export default {};
+</script>
+
 <script lang="ts" setup>
-import { createCalendar } from "@sit-onyx/headless";
+import { _unstableCreateCalendar } from "@sit-onyx/headless";
 import { iconChevronLeftSmall, iconChevronRightSmall } from "@sit-onyx/icons";
 import { computed, ref, toRefs, useTemplateRef, watch } from "vue";
 import { useDensity } from "../../composables/density.js";
@@ -59,7 +67,7 @@ const {
   state: { currentYear, currentMonth, selectedDate, weeks, weekdays },
   elements: { table: tableProps, cell: cellProps, button: buttonProps },
   internals: { goToPreviousMonth, goToNextMonth, goToToday },
-} = createCalendar({ disabled, min, max, locale, calendarSize, buttonRefs });
+} = _unstableCreateCalendar({ disabled, min, max, locale, calendarSize, buttonRefs });
 
 watch(selectedDate, (newDate) => {
   if (newDate) {
