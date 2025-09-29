@@ -24,7 +24,6 @@ export type OnyxInputProps = SharedFormElementProps &
     /**
      * Show or hide the password value for input with `type="password"`.
      * If unset, the state will be managed internally.
-     
      */
     showPassword?: boolean;
   };
