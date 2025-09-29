@@ -2,4 +2,4 @@
 "sit-onyx": minor
 ---
 
-feat(OnyxCalender): implemented Calender component
+feat(OnyxCalendar): implemented Calendar component
