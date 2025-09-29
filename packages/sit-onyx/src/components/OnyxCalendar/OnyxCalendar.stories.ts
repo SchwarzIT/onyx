@@ -2,12 +2,12 @@ import { iconSettings } from "@sit-onyx/icons";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
 import { OnyxButton, OnyxIconButton } from "../../index.js";
-import OnyxCalender from "./OnyxCalender.vue";
+import OnyxCalendar from "./OnyxCalendar.vue";
 
-const meta: Meta<typeof OnyxCalender> = {
-  title: "Form/Calender",
+const meta: Meta<typeof OnyxCalendar> = {
+  title: "Form/Calendar",
   tags: ["new:component"],
-  component: OnyxCalender,
+  component: OnyxCalendar,
   args: {
     style: {
       maxWidth: "45rem",
@@ -16,7 +16,7 @@ const meta: Meta<typeof OnyxCalender> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof OnyxCalender>;
+type Story = StoryObj<typeof OnyxCalendar>;
 export const Default = {} satisfies Story;
 export const Small = {
   args: {

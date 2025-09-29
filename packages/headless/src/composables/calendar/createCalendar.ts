@@ -8,7 +8,37 @@ import {
   type MaybeRefOrGetter,
   type Ref,
 } from "vue";
-import type { OnyxCalderProps, OnyxWeekDays } from "./types.js";
+
+export type OnyxHeadlessCalderProps = {
+  /**
+   * Whether the calendar should be disabled, preventing user interaction.
+   */
+  disabled?: boolean;
+  /**
+   * The first day of the week to be displayed.
+   */
+  weekStartDay?: OnyxWeekDays;
+  /**
+   * The earliest selectable date.
+   */
+  min?: Date;
+  /**
+   * The latest selectable date.
+   */
+  max?: Date;
+  /**
+   * The Date that should initially displayed
+   */
+  initialDate?: Date;
+};
+export type OnyxWeekDays =
+  | "Monday"
+  | "Tuesday"
+  | "Wednesday"
+  | "Thursday"
+  | "Friday"
+  | "Saturday"
+  | "Sunday";
 
 const getDayIndex = (dayName: OnyxWeekDays) => {
   const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
@@ -29,7 +59,7 @@ const getMidnightDate = (date: Date): Date => {
   return newDate;
 };
 
-const initializeDate = (props: OnyxCalderProps) => {
+const initializeDate = (props: OnyxHeadlessCalderProps) => {
   const min = props.min ? getMidnightDate(new Date(props.min)) : null;
   const max = props.max ? getMidnightDate(new Date(props.max)) : null;
   const today = getMidnightDate(new Date());
@@ -46,8 +76,8 @@ const initializeDate = (props: OnyxCalderProps) => {
   return initialDate;
 };
 
-export function useCalendar(
-  props: OnyxCalderProps & {
+export function createCalendar(
+  props: OnyxHeadlessCalderProps & {
     dayNames: MaybeRefOrGetter<string[]>;
     buttonRefs: Ref<Record<string, HTMLElement>>;
   },
@@ -254,10 +284,10 @@ export function useCalendar(
     isDisabled: boolean | undefined;
   };
 
-  const calenderId = useId();
+  const calendarId = useId();
   const tableProps = {
     role: "grid",
-    "aria-labelledby": `calendar-${calenderId}`,
+    "aria-labelledby": `calendar-${calendarId}`,
     onKeydown: (e: KeyboardEvent) => handleKeyNavigation(e),
   };
 

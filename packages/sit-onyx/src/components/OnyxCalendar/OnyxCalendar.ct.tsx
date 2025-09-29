@@ -1,8 +1,8 @@
 import { iconSettings } from "@sit-onyx/icons";
 import { test } from "../../playwright/a11y.js";
-import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots.jsx";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
-import OnyxCalender from "./OnyxCalender.vue";
+import OnyxCalender from "./OnyxCalendar.vue";
 
 test.describe("OnyxCalender screenshots", () => {
   const testDate = new Date(2024, 9, 23);

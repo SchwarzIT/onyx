@@ -1,7 +1,7 @@
 import { describe, expect, test, vi } from "vitest";
 import { ref } from "vue";
-import type { OnyxCalderProps } from "./types.js";
-import { useCalendar } from "./useCalender.js";
+import type { OnyxHeadlessCalderProps } from "./createCalendar.js";
+import { createCalendar } from "./createCalendar.js";
 
 const createDate = (year: number, month: number, day: number) => {
   const date = new Date(year, month, day);
@@ -9,23 +9,21 @@ const createDate = (year: number, month: number, day: number) => {
   return date;
 };
 
-// Mock the props and other dependencies
-const mockCalenderRef = ref({
-  querySelector: vi.fn(() => ({
-    focus: vi.fn(),
-  })),
-});
+const mockFocusFn = vi.fn();
+const mockButtonElement = { focus: mockFocusFn } as unknown as HTMLElement;
+const mockButtonRefs = ref<Record<string, HTMLElement>>({});
 
-// Explicitly define the type for mockProps to resolve the TypeScript error
-const mockProps: OnyxCalderProps & {
+const addMockButtonRef = (dateKey: string) => {
+  mockButtonRefs.value[dateKey] = mockButtonElement;
+};
+
+const mockProps: OnyxHeadlessCalderProps & {
   dayNames: string[];
-  calenderRef: typeof mockCalenderRef;
+  buttonRefs: typeof mockButtonRefs;
 } = {
-  size: "auto",
-  selection: "single",
   weekStartDay: "Monday",
-  dayNames: ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"],
-  calenderRef: mockCalenderRef,
+  dayNames: ["Mo", "Tu", "We", "Th", "Fr", "Sa", "So"],
+  buttonRefs: mockButtonRefs,
 };
 
 vi.mock("vue", async (importOriginal) => {
@@ -38,10 +36,10 @@ vi.mock("vue", async (importOriginal) => {
   };
 });
 
-describe("useCalendar", () => {
+describe("createCalendar", () => {
   test("should initialize with correct default values", () => {
     const { selectedDate, focusedDate, currentYear, currentMonth, weeks, weekdays } =
-      useCalendar(mockProps);
+      createCalendar(mockProps);
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -55,7 +53,8 @@ describe("useCalendar", () => {
   });
 
   test("should correctly navigate between months", () => {
-    const { currentYear, currentMonth, goToNextMonth, goToPreviousMonth } = useCalendar(mockProps);
+    const { currentYear, currentMonth, goToNextMonth, goToPreviousMonth } =
+      createCalendar(mockProps);
 
     const initialMonth = currentMonth.value;
     const initialYear = currentYear.value;
@@ -72,7 +71,7 @@ describe("useCalendar", () => {
   });
 
   test("should correctly identify today, selected, focused, and weekend days", () => {
-    const { isToday, isSelected, isFocused, isWeekend, goToDate } = useCalendar(mockProps);
+    const { isToday, isSelected, isFocused, isWeekend, goToDate } = createCalendar(mockProps);
 
     const today = new Date();
     const futureDate = new Date(today.getFullYear() + 1, 0, 1);
@@ -99,7 +98,7 @@ describe("useCalendar", () => {
     const minDate = createDate(2025, 0, 10);
     const maxDate = createDate(2025, 0, 20);
 
-    const { isDisabled } = useCalendar({ ...mockProps, min: minDate, max: maxDate });
+    const { isDisabled } = createCalendar({ ...mockProps, min: minDate, max: maxDate });
 
     const beforeMin = createDate(2025, 0, 9);
     const withinRange = createDate(2025, 0, 15);
@@ -110,45 +109,45 @@ describe("useCalendar", () => {
     expect(isDisabled(afterMax)).toBe(true);
   });
 
-  test("should handle keyboard navigation correctly", async () => {
-    const { handleKeyNavigation, focusedDate } = useCalendar(mockProps);
+  test("should handle keyboard navigation correctly and call focus() on the new element", async () => {
+    const { handleKeyNavigation, focusedDate } = createCalendar(mockProps);
 
-    // Initial state setup for focusedDate
     focusedDate.value = createDate(2025, 8, 15);
+    mockFocusFn.mockClear();
+    const checkNavigation = async (key: string, expectedDate: Date, shiftKey = false) => {
+      const expectedDateKey = expectedDate.toISOString().slice(0, 10);
+      addMockButtonRef(expectedDateKey);
 
-    await handleKeyNavigation(new KeyboardEvent("keydown", { key: "ArrowRight" }));
-    expect(focusedDate.value?.getDate()).toBe(16);
+      await handleKeyNavigation(new KeyboardEvent("keydown", { key, shiftKey }));
 
-    await handleKeyNavigation(new KeyboardEvent("keydown", { key: "ArrowLeft" }));
-    expect(focusedDate.value?.getDate()).toBe(15);
+      expect(focusedDate.value?.getTime()).toBe(expectedDate.getTime());
+      expect(mockFocusFn).toHaveBeenCalledTimes(1);
+      mockFocusFn.mockClear();
+    };
 
-    await handleKeyNavigation(new KeyboardEvent("keydown", { key: "ArrowDown" }));
-    expect(focusedDate.value?.getDate()).toBe(22);
+    await checkNavigation("ArrowRight", createDate(2025, 8, 16));
 
-    await handleKeyNavigation(new KeyboardEvent("keydown", { key: "ArrowUp" }));
-    expect(focusedDate.value?.getDate()).toBe(15);
+    await checkNavigation("ArrowLeft", createDate(2025, 8, 15));
 
-    await handleKeyNavigation(new KeyboardEvent("keydown", { key: "End" }));
-    expect(focusedDate.value?.getDate()).toBe(21); // Last Week day
+    await checkNavigation("ArrowDown", createDate(2025, 8, 22));
 
-    await handleKeyNavigation(new KeyboardEvent("keydown", { key: "Home" }));
-    expect(focusedDate.value?.getDate()).toBe(15); // First Week day
+    await checkNavigation("ArrowUp", createDate(2025, 8, 15));
 
-    await handleKeyNavigation(new KeyboardEvent("keydown", { key: "PageUp" }));
-    expect(focusedDate.value?.getMonth()).toBe(7); // Previous month (July)
+    await checkNavigation("End", createDate(2025, 8, 21)); // Last Weekday
 
-    await handleKeyNavigation(new KeyboardEvent("keydown", { key: "PageDown" }));
-    expect(focusedDate.value?.getMonth()).toBe(8); // Next month (August)
+    await checkNavigation("Home", createDate(2025, 8, 15)); // First Weekday
 
-    await handleKeyNavigation(new KeyboardEvent("keydown", { key: "PageUp", shiftKey: true }));
-    expect(focusedDate.value?.getFullYear()).toBe(2024); // Previous year
+    await checkNavigation("PageUp", createDate(2025, 7, 15)); // Previous month (July)
 
-    await handleKeyNavigation(new KeyboardEvent("keydown", { key: "PageDown", shiftKey: true }));
-    expect(focusedDate.value?.getFullYear()).toBe(2025); // Next year
+    await checkNavigation("PageDown", createDate(2025, 8, 15)); // Next month (August)
+
+    await checkNavigation("PageUp", createDate(2024, 8, 15), true); // Previous year
+
+    await checkNavigation("PageDown", createDate(2025, 8, 15), true); // Next year
   });
 
   test("should generate correct calendar grid", () => {
-    const { weeks } = useCalendar({ ...mockProps, weekStartDay: "Sunday" });
+    const { weeks } = createCalendar({ ...mockProps, weekStartDay: "Sunday" });
 
     // The first day of the month is not a Sunday, so there should be offset days from the previous month
     // September 2025 starts on a Monday.

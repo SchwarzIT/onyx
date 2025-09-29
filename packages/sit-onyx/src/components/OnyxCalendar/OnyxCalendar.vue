@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { createCalendar } from "@sit-onyx/headless";
 import { iconChevronLeftSmall, iconChevronRightSmall } from "@sit-onyx/icons";
 import { computed, ref, useTemplateRef, watch } from "vue";
 import { useDensity } from "../../composables/density.js";
@@ -13,7 +14,6 @@ import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import type { OnyxCalderProps } from "./types.js";
-import { useCalendar } from "./useCalender.js";
 
 const props = withDefaults(defineProps<OnyxCalderProps>(), {
   size: "auto",
@@ -34,7 +34,7 @@ defineSlots<{
    */
   actions?(): unknown;
 }>();
-const calenderSize = computed(() => {
+const calendarSize = computed(() => {
   return props.size !== "auto" ? props.size : width.value < ONYX_BREAKPOINTS.xs ? "small" : "big";
 });
 const { locale } = injectI18n();
@@ -44,7 +44,7 @@ const dayNames = computed(() => {
     const date = new Date(2024, 0, 1 + i);
     return date;
   });
-  const formatStyle = calenderSize.value === "big" ? "long" : "short";
+  const formatStyle = calendarSize.value === "big" ? "long" : "short";
   const formatter = new Intl.DateTimeFormat(navigator.language, { weekday: formatStyle });
   return days.map((day) => formatter.format(day));
 });
@@ -58,7 +58,7 @@ const setButtonRef = (el: HTMLElement | null, dateKey: string) => {
   }
 };
 
-const calenderRef = useTemplateRef("calender");
+const calendarRef = useTemplateRef("calendar");
 const {
   currentYear,
   currentMonth,
@@ -71,7 +71,7 @@ const {
   tableProps,
   cellProps,
   buttonProps,
-} = useCalendar({ ...props, dayNames, buttonRefs });
+} = createCalendar({ ...props, dayNames, buttonRefs });
 
 const { densityClass } = useDensity(props);
 
@@ -83,34 +83,34 @@ watch(selectedDate, (newDate) => {
   }
 });
 
-const { width } = useResizeObserver(calenderRef);
+const { width } = useResizeObserver(calendarRef);
 
 const sizeClass = computed(() => {
-  return `onyx-calender--${calenderSize.value}`;
+  return `onyx-calendar--${calendarSize.value}`;
 });
 </script>
 
 <template>
-  <div v-if="skeleton" :class="['onyx-component', 'onyx-calender-skeleton', densityClass]">
-    <OnyxSkeleton class="onyx-calender-skeleton__header" />
-    <OnyxSkeleton class="onyx-calender-skeleton__body" />
+  <div v-if="skeleton" :class="['onyx-component', 'onyx-calendar-skeleton', densityClass]">
+    <OnyxSkeleton class="onyx-calendar-skeleton__header" />
+    <OnyxSkeleton class="onyx-calendar-skeleton__body" />
   </div>
 
   <div
     v-else
-    ref="calender"
+    ref="calendar"
     :class="[
       'onyx-component',
-      'onyx-calender',
+      'onyx-calendar',
       sizeClass,
       densityClass,
-      { 'onyx-calender--disabled': disabled },
+      { 'onyx-calendar--disabled': disabled },
     ]"
   >
-    <div class="onyx-calender__header">
+    <div class="onyx-calendar__header">
       <div class="control-container time-control-container">
         <OnyxSystemButton
-          v-if="calenderSize !== 'small'"
+          v-if="calendarSize !== 'small'"
           label="Today"
           class="control-container__today-btn"
           :disabled="disabled"
@@ -141,7 +141,7 @@ const sizeClass = computed(() => {
         <slot name="actions"></slot>
       </div>
     </div>
-    <div class="onyx-calender__body">
+    <div class="onyx-calendar__body">
       <!-- eslint-disable-next-line vuejs-accessibility/interactive-supports-focus -->
       <table v-bind="tableProps">
         <thead>
@@ -178,7 +178,7 @@ const sizeClass = computed(() => {
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
 
-.onyx-calender {
+.onyx-calendar {
   @include layers.component() {
     display: flex;
     flex-direction: column;
@@ -200,7 +200,7 @@ const sizeClass = computed(() => {
       }
     }
 
-    .onyx-calender__body {
+    .onyx-calendar__body {
       table {
         width: 100%;
         border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
