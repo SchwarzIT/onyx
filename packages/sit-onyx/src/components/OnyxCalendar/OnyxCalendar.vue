@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { createCalendar } from "@sit-onyx/headless";
 import { iconChevronLeftSmall, iconChevronRightSmall } from "@sit-onyx/icons";
-import { computed, ref, useTemplateRef, watch } from "vue";
+import { computed, ref, toRefs, useTemplateRef, watch } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useResizeObserver } from "../../composables/useResizeObserver.js";
 import {
@@ -10,7 +10,6 @@ import {
 } from "../../composables/useSkeletonState.js";
 import { injectI18n } from "../../i18n/index.js";
 import { ONYX_BREAKPOINTS } from "../../utils/breakpoints.js";
-import { useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
@@ -35,10 +34,15 @@ defineSlots<{
    */
   actions?(): unknown;
 }>();
-const calendarSize = computed(() => {
-  return props.size !== "auto" ? props.size : width.value < ONYX_BREAKPOINTS.xs ? "small" : "big";
-});
+
+const { densityClass } = useDensity(props);
+
+const skeleton = useSkeletonContext(props);
 const { locale } = injectI18n();
+
+const calendarSize = computed(() =>
+  props.size !== "auto" ? props.size : width.value < ONYX_BREAKPOINTS.xs ? "small" : "big",
+);
 
 const buttonRefs = ref<Record<string, HTMLElement>>({});
 const setButtonRef = (el: HTMLElement | null, dateKey: string) => {
@@ -49,17 +53,13 @@ const setButtonRef = (el: HTMLElement | null, dateKey: string) => {
   }
 };
 
-const calendarRef = useTemplateRef("calendar");
+const { disabled, min, max } = toRefs(props);
 
 const {
   state: { currentYear, currentMonth, selectedDate, weeks, weekdays },
   elements: { table: tableProps, cell: cellProps, button: buttonProps },
   internals: { goToPreviousMonth, goToNextMonth, goToToday },
-} = createCalendar({ ...props, locale, calendarSize, buttonRefs });
-
-const { densityClass } = useDensity(props);
-
-const skeleton = useSkeletonContext(props);
+} = createCalendar({ disabled, min, max, locale, calendarSize, buttonRefs });
 
 watch(selectedDate, (newDate) => {
   if (newDate) {
@@ -67,12 +67,10 @@ watch(selectedDate, (newDate) => {
   }
 });
 
+const calendarRef = useTemplateRef("calendar");
 const { width } = useResizeObserver(calendarRef);
-const { disabled } = useFormContext(props);
 
-const sizeClass = computed(() => {
-  return `onyx-calendar--${calendarSize.value}`;
-});
+const sizeClass = computed(() => `onyx-calendar--${calendarSize.value}`);
 </script>
 
 <template>
@@ -127,7 +125,6 @@ const sizeClass = computed(() => {
       </div>
     </div>
     <div class="onyx-calendar__body">
-      <!-- eslint-disable-next-line vuejs-accessibility/interactive-supports-focus -->
       <table v-bind="tableProps">
         <thead>
           <tr>

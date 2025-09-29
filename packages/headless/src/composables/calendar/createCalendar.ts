@@ -9,6 +9,7 @@ import {
   type Ref,
 } from "vue";
 import { createBuilder, type VBindAttributes } from "../../utils/builder.js";
+import type { Nullable } from "../../utils/types.js";
 
 export type OnyxWeekDays =
   | "Monday"
@@ -22,8 +23,8 @@ export type OnyxWeekDays =
 export type OnyxHeadlessCalendarOptions = {
   disabled?: MaybeRefOrGetter<boolean>;
   weekStartDay?: MaybeRefOrGetter<OnyxWeekDays>;
-  min?: MaybeRefOrGetter<Date>;
-  max?: MaybeRefOrGetter<Date>;
+  min?: MaybeRefOrGetter<Nullable<Date>>;
+  max?: MaybeRefOrGetter<Nullable<Date>>;
   initialDate?: Date;
   locale: MaybeRefOrGetter<string>;
   calendarSize: MaybeRefOrGetter<string>;
@@ -48,7 +49,11 @@ const getMidnightDate = (date: Date): Date => {
   return newDate;
 };
 
-const initializeDate = (options: { min?: Date; max?: Date; initialDate?: Date }) => {
+const initializeDate = (options: {
+  min?: Nullable<Date>;
+  max?: Nullable<Date>;
+  initialDate?: Date;
+}) => {
   const min = options.min ? getMidnightDate(new Date(options.min)) : null;
   const max = options.max ? getMidnightDate(new Date(options.max)) : null;
   const today = getMidnightDate(new Date());
@@ -115,8 +120,7 @@ export const createCalendar = createBuilder((options: OnyxHeadlessCalendarOption
   };
 
   const generateCalendar = (year: number, month: number) => {
-    const weekStartDay = toValue(options.weekStartDay);
-    if (!weekStartDay) return [];
+    const weekStartDay = toValue(options.weekStartDay) ?? "Monday";
 
     const firstDay = new Date(year, month, 1);
     const lastDay = new Date(year, month + 1, 0);
