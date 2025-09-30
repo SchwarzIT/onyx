@@ -1,5 +1,19 @@
 # @sit-onyx/nuxt
 
+## 1.0.1
+
+### Patch Changes
+
+- efab9c7: fix: correctly pass i18n locale to onyx when `language` property is not defined
+- Updated dependencies [d1adb0e]
+- Updated dependencies [32f658a]
+- Updated dependencies [5d0629f]
+- Updated dependencies [1996b68]
+- Updated dependencies [04d5a6a]
+- Updated dependencies [6660e0f]
+- Updated dependencies [5ca066b]
+  - sit-onyx@1.1.0
+
 ## 1.0.0
 
 ### Major Changes

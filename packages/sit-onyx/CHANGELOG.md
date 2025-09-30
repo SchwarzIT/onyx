@@ -1,5 +1,38 @@
 # sit-onyx
 
+## 1.1.0
+
+### Minor Changes
+
+- d1adb0e: feat(OnyxPopover): implemented clipping
+- 32f658a: feat(OnyxInput): support new v-model `showPassword` to control the show password state when used with `type="password"`
+- 6660e0f: feat(useNotification): return notification id when showing a new notification
+
+### Patch Changes
+
+- 5d0629f: The following new global CSS variables have been added:
+  - `--onyx-color-base-secondary-*`
+  - `--onyx-color-text-icons-secondary-soft`
+  - `--onyx-color-text-icons-secondary-medium`
+  - `--onyx-color-text-icons-secondary-intense`
+  - `--onyx-color-text-icons-secondary-bold`
+  - `--onyx-color-tailwind-core-blue-*`
+  - `--onyx-color-tailwind-dynamic-blue-*`
+  - `--onyx-color-tailwind-green-*`
+  - `--onyx-color-tailwind-orange-*`
+  - `--onyx-color-tailwind-smart-blue-*`
+  - `--onyx-color-tailwind-yellow-*`
+  - `--onyx-font-family-Archivo-Variable`
+  - `--onyx-font-family-IBM-Plex-Sans-Variable`
+  - `--onyx-font-weight-800`
+
+- 1996b68: fix(OnyxBreadcrumb): Fix `can't access property "nodeType", container is null` hydration error
+- 04d5a6a: fix(OnyxTab): adjust hover, focus-visible and active colors
+- 5ca066b: fix(OnyxTooltip): Fixed misalignment for tooltips with left/right position when page was scrolled ([#4188](https://github.com/SchwarzIT/onyx/issues/4188))
+- Updated dependencies [9e6bd31]
+- Updated dependencies [16136f2]
+  - @sit-onyx/icons@1.1.0
+
 ## 1.0.0
 
 ### Major Changes

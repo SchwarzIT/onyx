@@ -1,5 +1,17 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.1
+
+### Patch Changes
+
+- 2e43655: feat(events): add latest Vue events to `withNativeEventLogging`
+
+  The new events are: onAnimationcancel, onBeforetoggle, onFormdata, onFullscreenchange, onFullscreenerror, onGotpointercapture, onLostpointercapture, onSecuritypolicyviolation, onToggle, onTransitioncancel, onTransitionrun
+
+- Updated dependencies [9e6bd31]
+- Updated dependencies [16136f2]
+  - @sit-onyx/icons@1.1.0
+
 ## 1.0.0
 
 ### Major Changes

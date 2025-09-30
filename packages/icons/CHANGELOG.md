@@ -1,5 +1,19 @@
 # @sit-onyx/icons
 
+## 1.1.0
+
+### Minor Changes
+
+- 9e6bd31: feat: update icons
+
+  #### Modified
+  - expand-window-small
+
+- 16136f2: feat: update icons
+
+  #### New
+  - browser-API
+
 ## 1.0.0
 
 ### Major Changes
