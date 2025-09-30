@@ -92,4 +92,4 @@ jobs:
     uses: ./.github/workflows/playwright.yml
     secrets: inherit
     with:
-      only-changed: ${{ github.event.pull_request.base.ref }}
+      only-changed: ${{ github.event.pull_request.base.ref && format('origin/{0}', github.event.pull_request.base.ref) }}
