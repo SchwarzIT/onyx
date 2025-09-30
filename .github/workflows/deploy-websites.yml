@@ -104,6 +104,16 @@ jobs:
     if: ${{ (inputs.environment || inputs.environment) != '' }}
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
+      - name: 🪝 Invoke internal demo app webhook
+        uses: distributhor/workflow-webhook@v3
+        # since the webhook is an external dependency, we still want to continue deploying the public demo app
+        # we just call it here already so the internal demo app deployment can run in parallel
+        continue-on-error: true
+        if: ${{ (inputs.environment || inputs.environment) == 'prod' }}
+        with:
+          webhook_url: ${{ secrets.AZURE_DEMO_APP_WEBHOOK_URL }}
+          webhook_secret: ${{ secrets.AZURE_DEMO_APP_WEBHOOK_SECRET }}
+
       - uses: actions/checkout@v5
 
       - uses: ./.github/templates/node-setup
