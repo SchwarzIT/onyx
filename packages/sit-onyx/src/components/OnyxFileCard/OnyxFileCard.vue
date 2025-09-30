@@ -2,8 +2,8 @@
 import circleAttention from "@sit-onyx/icons/circle-attention.svg?raw";
 import { computed } from "vue";
 import { useDensity } from "../../composables/density.js";
-import { useCustomValidity } from "../../composables/useCustomValidity.js";
 import { useFileSize } from "../../composables/useFileSize.js";
+import { useFormElementError } from "../../composables/useFormElementError.js";
 import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
@@ -41,7 +41,7 @@ const { formatFileSize } = useFileSize();
 const skeleton = useSkeletonContext(props);
 
 const error = computed(() => (props.status?.color === "danger" ? props.status.text : undefined));
-const { vCustomValidity } = useCustomValidity({ props: {}, emit, error });
+const { vCustomValidity } = useFormElementError({ props: {}, emit, error });
 
 const link = computed(() => {
   if (!props.link) return;

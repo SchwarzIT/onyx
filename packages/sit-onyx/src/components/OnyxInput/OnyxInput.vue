@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { iconCheckSmall, iconEye, iconEyeClosed, iconXSmall } from "@sit-onyx/icons";
-import { computed, ref, useTemplateRef } from "vue";
+import { computed, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
-import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity.js";
 import { useErrorClass } from "../../composables/useErrorClass.js";
+import { getFormMessages, useFormElementError } from "../../composables/useFormElementError.js";
 import { useLenientMaxLengthValidation } from "../../composables/useLenientMaxLengthValidation.js";
 import {
   SKELETON_INJECTED_SYMBOL,
@@ -30,6 +30,7 @@ const props = withDefaults(defineProps<OnyxInputProps>(), {
   loading: false,
   hideClearIcon: false,
   hideSuccessIcon: false,
+  showPassword: undefined,
   skeleton: SKELETON_INJECTED_SYMBOL,
   disabled: FORM_INJECTED_SYMBOL,
   showError: FORM_INJECTED_SYMBOL,
@@ -45,6 +46,10 @@ const emit = defineEmits<{
    * Emitted when the input changes
    */
   "update:modelValue": [value: string];
+  /**
+   * Emitted when the password visibility changes
+   */
+  "update:showPassword": [showPassword: boolean];
 }>();
 
 const slots = defineSlots<{
@@ -76,7 +81,7 @@ const { rootAttrs, restAttrs } = useRootAttrs();
 const { t } = injectI18n();
 const { maxLength, maxLengthError } = useLenientMaxLengthValidation({ modelValue, props });
 const error = computed(() => props.error ?? maxLengthError.value);
-const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit, error });
+const { vCustomValidity, errorMessages } = useFormElementError({ props, emit, error });
 const successMessages = computed(() => getFormMessages(props.success));
 const messages = computed(() => getFormMessages(props.message));
 
@@ -94,7 +99,14 @@ const { disabled, showError } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
 const errorClass = useErrorClass(showError);
 useAutofocus(input, props);
-const showPassword = ref(false);
+
+const showPassword = useVModel({
+  props,
+  emit,
+  key: "showPassword",
+  default: false,
+});
+
 const displayType = computed(() => {
   if (props.type === "password" && showPassword.value) {
     return "text";

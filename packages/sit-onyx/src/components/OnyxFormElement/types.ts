@@ -4,7 +4,7 @@ import type {
   CustomMessageType,
   CustomValidityProp,
   FormMessages,
-} from "../../composables/useCustomValidity.js";
+} from "../../composables/useFormElementError.js";
 import type { SharedTextInputProps } from "../../composables/useLenientMaxLengthValidation.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 import type { AutofocusProp, Nullable } from "../../types/index.js";

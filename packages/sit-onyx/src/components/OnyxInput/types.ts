@@ -21,6 +21,11 @@ export type OnyxInputProps = SharedFormElementProps &
      * Whether to hide the clear icon when the input is filled and focused.
      */
     hideClearIcon?: boolean;
+    /**
+     * Show or hide the password value for input with `type="password"`.
+     * If unset, the state will be managed internally.
+     */
+    showPassword?: boolean;
   };
 
 export const INPUT_TYPES = ["email", "password", "search", "tel", "text", "url"] as const;
