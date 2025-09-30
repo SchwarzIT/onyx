@@ -4,7 +4,7 @@
 
 ### Minor Changes
 
-- d1adb0e: feat(OnyxPopover): implemented clipping
+- d1adb0e: feat(OnyxPopover): implemented sticky
 - 32f658a: feat(OnyxInput): support new v-model `showPassword` to control the show password state when used with `type="password"`
 - 6660e0f: feat(useNotification): return notification id when showing a new notification
 

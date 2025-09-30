@@ -3,18 +3,18 @@ import { computed, nextTick, onMounted, ref, type CSSProperties, type Ref } from
 import type { AnchorPosition } from "./useAnchorPositionPolyfill.js";
 import type { OpenDirection } from "./useOpenDirection.js";
 
-export type UseClippingOptions = {
+export type UseStickyOptions = {
   popoverRef: Ref<HTMLElement | null>;
   popoverWrapperRef: Ref<HTMLElement | null>;
   popoverPosition: Ref<AnchorPosition | OpenDirection>;
   isVisible: Ref<boolean>;
-  clipping: Ref<boolean>;
+  sticky: Ref<boolean>;
 };
 
-export function useClipping(options: UseClippingOptions) {
-  const clippingStyles = ref<CSSProperties>();
+export function useSticky(options: UseStickyOptions) {
+  const stickyStyles = ref<CSSProperties>();
   const scrolledOut = ref<OpenDirection>();
-  const isClipping = ref(false);
+  const isSticky = ref(false);
 
   const checkVisibilityOnScroll = () => {
     const MIN_DISTANCE_TO_BORDER = 16;
@@ -23,30 +23,30 @@ export function useClipping(options: UseClippingOptions) {
     if (!options.popoverRef.value || !options.popoverWrapperRef.value || !options.isVisible.value)
       return;
 
-    if (isClipping.value) {
+    if (isSticky.value) {
       const popoverRect = options.popoverRef.value.getBoundingClientRect();
       const wrapperRect = options.popoverWrapperRef.value.getBoundingClientRect();
       const requiredHeight = popoverRect.height + MIN_DISTANCE_TO_BORDER + MARGIN;
 
       if (options.popoverPosition.value.includes("top")) {
         if (scrolledOut.value === "top" && wrapperRect.top > requiredHeight) {
-          isClipping.value = false;
+          isSticky.value = false;
           return;
         }
         if (scrolledOut.value === "bottom" && wrapperRect.top + MARGIN < window.innerHeight) {
-          isClipping.value = false;
+          isSticky.value = false;
           return;
         }
       } else if (options.popoverPosition.value.includes("bottom")) {
         if (scrolledOut.value === "top" && wrapperRect.bottom > MARGIN) {
-          isClipping.value = false;
+          isSticky.value = false;
           return;
         }
         if (
           scrolledOut.value === "bottom" &&
           window.innerHeight - wrapperRect.bottom > requiredHeight
         ) {
-          isClipping.value = false;
+          isSticky.value = false;
           return;
         }
       } else {
@@ -54,14 +54,14 @@ export function useClipping(options: UseClippingOptions) {
           scrolledOut.value === "top" &&
           wrapperRect.top + MIN_DISTANCE_TO_BORDER > popoverRect.height
         ) {
-          isClipping.value = false;
+          isSticky.value = false;
           return;
         }
         if (
           scrolledOut.value === "bottom" &&
           wrapperRect.bottom + MIN_DISTANCE_TO_BORDER < window.innerHeight
         ) {
-          isClipping.value = false;
+          isSticky.value = false;
           return;
         }
       }
@@ -70,34 +70,34 @@ export function useClipping(options: UseClippingOptions) {
       const isTooHigh = rect.top < MIN_DISTANCE_TO_BORDER;
       const isTooLow = rect.bottom > window.innerHeight - MIN_DISTANCE_TO_BORDER;
       if (isTooHigh || isTooLow) {
-        isClipping.value = true;
+        isSticky.value = true;
         if (isTooHigh) {
           scrolledOut.value = "top";
-          clippingStyles.value = { left: rect.left + "px", top: "var(--onyx-density-md)" };
+          stickyStyles.value = { left: rect.left + "px", top: "var(--onyx-density-md)" };
         } else if (isTooLow) {
           scrolledOut.value = "bottom";
-          clippingStyles.value = { left: rect.left + "px", bottom: "var(--onyx-density-md)" };
+          stickyStyles.value = { left: rect.left + "px", bottom: "var(--onyx-density-md)" };
         }
       }
     }
   };
-  const disableClipping = computed(() => {
-    return !options.clipping.value || !options.isVisible.value;
+  const disableSticky = computed(() => {
+    return !options.sticky.value || !options.isVisible.value;
   });
   useGlobalEventListener({
     type: "scroll",
     listener: () => checkVisibilityOnScroll(),
-    disabled: disableClipping,
+    disabled: disableSticky,
   });
   useGlobalEventListener({
     type: "resize",
     listener: () => checkVisibilityOnScroll(),
-    disabled: disableClipping,
+    disabled: disableSticky,
   });
   onMounted(async () => {
     await nextTick(); // waiting for DOM
-    if (!disableClipping.value) checkVisibilityOnScroll();
+    if (!disableSticky.value) checkVisibilityOnScroll();
   });
 
-  return { clippingStyles, scrolledOut, isClipping, checkVisibilityOnScroll };
+  return { stickyStyles, scrolledOut, isSticky, checkVisibilityOnScroll };
 }
