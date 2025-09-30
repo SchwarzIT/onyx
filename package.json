@@ -8,7 +8,7 @@
     "dev": "./scripts/dev.sh",
     "build:all": "turbo run build build:storybook",
     "test:all": "vitest --coverage",
-    "test:playwright:all": "turbo run test:playwright --concurrency 1",
+    "test:playwright:all": "turbo run test:playwright",
     "format:all": "prettier --write .",
     "format:check:all": "prettier --check .",
     "stylelint": "turbo run stylelint",
