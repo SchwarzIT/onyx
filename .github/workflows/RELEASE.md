@@ -2,25 +2,32 @@
 
 We use _Trunk Based Development_ with the _[Release from trunk](https://trunkbaseddevelopment.com/release-from-trunk/)_ approach.
 
-## Snapshots vs. Prereleases
+## Release types
 
-Every releasable commit to the default `main` branch is released automatically so the onyx team and early adopters can tests out the latest development version before the next official stable version is published.
+The following release types are documented for production / stable releases.
+Snapshots are always released automatically as described above.
 
+### Dev Releases
+
+Every releasable commit (=> when a changeset exists) to the default `main` branch is released automatically so the onyx team and early adopters can tests out the latest development version before the next official stable version is published.
+These are released as [snapshot releases](https://github.com/changesets/changesets/blob/main/docs/snapshot-releases.md) with the `dev` tag.
+
+Snapshot releases are not stable and will have breaking to the next minor release.
+
+<details>
+<summary>Snapshots vs. Prereleases</summary>
 There are two different approaches that are supported by changesets for this:
 
 1. [Prereleases](https://github.com/changesets/changesets/blob/main/docs/prereleases.md)
 2. [Snapshot releases](https://github.com/changesets/changesets/blob/main/docs/snapshot-releases.md)
 
-> Decision: We are using **snapshots** instead of prereleases which has the following main reasons:
-
 - prereleases require more complex setup / pipelines because it has to be entered / exited manually
 - we do not want to have changelogs for the dev releases so that they are not "spammed" by several intermediate versions. Snapshot releases support this out-of-the-box since they are NOT be merged back to the main branch (unlike prereleases)
-- we want to be able to introduce breaking changes within the dev versions so if we implement and release a feature as dev version, we should be able to e.g. change its API before doing a regular release. Snapshot release to do not have a linear version bump like prereleases (beta.0, beta.1 etc.) so they are ideal for this
+- we want to be able to introduce breaking changes within the dev versions so if we implement and release a feature as dev version, we should be able to e.g. change its API before doing a regular release. Snapshot release to do not have a linear version bump like prereleases (beta.0, beta.1 etc.) so they are ideal for this.
 
-## Release types
+> Decision: We are using **snapshots** releases.
 
-The following release types are documented for production / stable releases.
-Snapshots are always released automatically as described above.
+</details>
 
 ### Major Releases
 
@@ -30,13 +37,15 @@ _To be defined..._
 
 Example: `1.x.0`
 
-Minor releases are triggered manually and are also released from the `main` branch.
-We use the [Changesets Release Action](https://github.com/changesets/action) here:
+Minor releases are triggered manually and are always released from the `main` branch.
 
-1. It applies all changesets, determines the next version for all packages and creates a PR. This allows us to check the version bumps and changelog updates.
-2. After the PR is merged, the version is published.
+A **Minor** release is initiated using the [Prepare Version pipeline](https://github.com/SchwarzIT/onyx/actions/workflows/prepare-version.yml):
 
-**Warning:** New changes **must not** be merged between steps `1.` and `2.`, otherwise the release process might break!
+1. The pipeline applies all changesets, determines the next version for all packages and creates a PR.
+2. The PR is then reviewed and approved by the maintainers. This process allows the verification of the version bumps (e.g. no accidental version bump) and changelog updates.
+3. When the PR is then merged, the [Release pipeline](https://github.com/SchwarzIT/onyx/actions/workflows/release.yml) triggers automatically and publishes the packages.
+
+**⚠️ Warning:** New changesets **must not** be merged between steps `1.` and `2.`, otherwise the release process might break!
 
 ### Patch Release
 
@@ -64,3 +73,14 @@ git push
 ```
 
 This allows as to apply hot-fixes for bugs to "previous" stable versions without having to release all current development changes as next minor version.
+
+## Future Components and `@experimental` Features
+
+Unstable and work-in-progress components might be introduced as part of Minor and Patch releases.
+
+- These components are recognizable by their `OnyxUnstable` prefix, e.g. `import { OnyxUnstableBrainInput } from sit-onyx;`.
+- Features (composables, props etc.) are prefixed with `_unstable`, e.g. `<OnyxInput _unstableColor="olo" />`
+
+::: warning
+Unstable features are **NOT** production ready and only to be used for testing and development. Breaking changes will be introduced in patch releases!
+:::
