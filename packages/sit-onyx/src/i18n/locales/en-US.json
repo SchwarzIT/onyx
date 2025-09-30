@@ -229,9 +229,9 @@
   "calendar": {
     "todayButton": {
       "label": "Today",
-      "tooltip": "Jump to Today"
+      "tooltip": "Jump to today"
     },
-    "previousMonthButton": "Previous Month",
-    "nextMonthButton": "Next Month"
+    "previousMonthButton": "Previous month",
+    "nextMonthButton": "Next month"
   }
 }
