@@ -25,7 +25,10 @@ export default defineNuxtPlugin({
         };
       });
 
-      const locale = computed(() => i18n.localeProperties.value.language ?? "en-US");
+      const locale = computed(
+        // since onyx uses BCP47 language codes, we prefer the language property here but fall back to the code if not specified
+        () => i18n.localeProperties.value.language ?? i18n.localeProperties.value.code ?? "en-US",
+      );
 
       return { t, locale };
     };
