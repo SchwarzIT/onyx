@@ -4,8 +4,8 @@
 
 ### Minor Changes
 
-- d1adb0e: feat(OnyxPopover): implemented sticky
-- 32f658a: feat(OnyxInput): support new v-model `showPassword` to control the show password state when used with `type="password"`
+- d1adb0e: feat(OnyxPopover, OnyxDialog): new `sticky` property, which allows the popover to remain visible and within the viewport even if its parent element scrolls out-of-view.
+- 32f658a: feat(OnyxInput): new v-model `showPassword` to control the show password state when used with `type="password"`
 - 6660e0f: feat(useNotification): return notification id when showing a new notification
 
 ### Patch Changes
@@ -26,7 +26,7 @@
   - `--onyx-font-family-IBM-Plex-Sans-Variable`
   - `--onyx-font-weight-800`
 
-- 1996b68: fix(OnyxBreadcrumb): Fix `can't access property "nodeType", container is null` hydration error
+- 1996b68: fix(OnyxBreadcrumb): Fix `can't access property "nodeType", container is null` hydration error when using SSR
 - 04d5a6a: fix(OnyxTab): adjust hover, focus-visible and active colors
 - 5ca066b: fix(OnyxTooltip): Fixed misalignment for tooltips with left/right position when page was scrolled ([#4188](https://github.com/SchwarzIT/onyx/issues/4188))
 - Updated dependencies:
