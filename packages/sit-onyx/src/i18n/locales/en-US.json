@@ -225,5 +225,10 @@
   },
   "globalFAB": {
     "label": "Global actions"
+  },
+  "calendar": {
+    "todayButton": "Jump to Today",
+    "previousMonthButton": "Previous Month",
+    "nextMonthButton": "Next Month"
   }
 }
