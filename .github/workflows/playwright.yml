@@ -2,6 +2,10 @@ name: Playwright tests
 on:
   workflow_call:
     inputs:
+      only-changed:
+        type: string
+        required: false
+        description: Only run test files changed relative to the passed git ref
       update-snapshots:
         type: boolean
         default: false
@@ -24,6 +28,8 @@ jobs:
       TURBO_TOKEN: ${{ secrets.TURBO_REMOTE_CACHE__TURBO_TOKEN }}
     steps:
       - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - uses: ./.github/templates/node-setup
 
@@ -33,7 +39,7 @@ jobs:
         run: pnpm exec playwright install-deps
 
       - name: 🔎 Run Playwright tests
-        run: pnpm run test:playwright:all
+        run: pnpm run test:playwright:all --concurrency 1 ${{ inputs.only-changed != '' && format('-- --only-changed {0}', inputs.only-changed) }}
         env:
           PW_UPDATE_SNAPSHOTS: "${{ inputs.update-snapshots }}"
           PW_SHARD: "${{ matrix.shard }}"
