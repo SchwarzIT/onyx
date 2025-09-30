@@ -8,8 +8,7 @@
 
   The new events are: onAnimationcancel, onBeforetoggle, onFormdata, onFullscreenchange, onFullscreenerror, onGotpointercapture, onLostpointercapture, onSecuritypolicyviolation, onToggle, onTransitioncancel, onTransitionrun
 
-- Updated dependencies [9e6bd31]
-- Updated dependencies [16136f2]
+- Updated dependencies:
   - @sit-onyx/icons@1.1.0
 
 ## 1.0.0

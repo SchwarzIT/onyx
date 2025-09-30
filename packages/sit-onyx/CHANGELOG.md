@@ -29,8 +29,7 @@
 - 1996b68: fix(OnyxBreadcrumb): Fix `can't access property "nodeType", container is null` hydration error
 - 04d5a6a: fix(OnyxTab): adjust hover, focus-visible and active colors
 - 5ca066b: fix(OnyxTooltip): Fixed misalignment for tooltips with left/right position when page was scrolled ([#4188](https://github.com/SchwarzIT/onyx/issues/4188))
-- Updated dependencies [9e6bd31]
-- Updated dependencies [16136f2]
+- Updated dependencies:
   - @sit-onyx/icons@1.1.0
 
 ## 1.0.0
