@@ -47,12 +47,12 @@ test.describe("OnyxBasicPopover", () => {
     await expect(popover).toBeHidden();
   });
 
-  test("should stay in view if clipping is active", async ({ mount, page }) => {
+  test("should stay in view if sticky is active", async ({ mount, page }) => {
     const component = await mount(OnyxBasicPopoverTestCase, {
       props: {
         label: "Popover for testing",
         open: true,
-        clipping: true,
+        sticky: true,
       },
     });
 

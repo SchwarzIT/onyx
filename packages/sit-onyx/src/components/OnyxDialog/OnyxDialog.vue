@@ -10,7 +10,7 @@ import type { OnyxDialogProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxDialogProps>(), {
   open: undefined,
-  clipping: true,
+  sticky: true,
 });
 
 const emit = defineEmits<{
