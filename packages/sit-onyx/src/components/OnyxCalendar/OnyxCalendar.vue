@@ -145,7 +145,15 @@ const sizeClass = computed(() => `onyx-calendar--${calendarSize.value}`);
       <table v-bind="tableProps">
         <thead>
           <tr>
-            <th v-for="(day, index) in weekdays" :key="index" scope="col" :abbr="day">{{ day }}</th>
+            <th
+              v-for="(day, index) in weekdays"
+              :key="index"
+              scope="col"
+              :abbr="day"
+              class="onyx-text--small"
+            >
+              {{ day }}
+            </th>
           </tr>
         </thead>
         <tbody>

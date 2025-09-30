@@ -27,7 +27,7 @@ export type OnyxHeadlessCalendarOptions = {
   max?: MaybeRefOrGetter<Nullable<Date>>;
   initialDate?: MaybeRefOrGetter<Nullable<Date>>;
   locale: MaybeRefOrGetter<string>;
-  calendarSize: MaybeRefOrGetter<string>;
+  calendarSize: MaybeRefOrGetter<"big" | "small">;
   buttonRefs: Ref<Record<string, HTMLElement>>;
 };
 
@@ -77,7 +77,8 @@ export const _unstableCreateCalendar = createBuilder((options: OnyxHeadlessCalen
       return date;
     });
 
-    const formatStyle = options.calendarSize === "big" ? "long" : "short";
+    const formatStyle = toValue(options.calendarSize) === "big" ? "long" : "short";
+
     const formatter = new Intl.DateTimeFormat(toValue(options.locale), { weekday: formatStyle });
     return days.map((day) => formatter.format(day));
   });
