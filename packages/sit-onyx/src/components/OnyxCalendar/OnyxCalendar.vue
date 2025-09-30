@@ -112,10 +112,10 @@ const sizeClass = computed(() => `onyx-calendar--${calendarSize.value}`);
       <div class="control-container time-control-container">
         <OnyxTag
           v-if="calendarSize !== 'small'"
-          label="Today"
+          :label="t('calendar.todayButton.label')"
           class="control-container__today-btn"
           :disabled="disabled"
-          :clickable="t('calendar.todayButton')"
+          :clickable="t('calendar.todayButton.tooltip')"
           @click="goToToday"
         />
         <OnyxIconButton

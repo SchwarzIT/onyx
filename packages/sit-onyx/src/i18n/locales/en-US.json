@@ -227,7 +227,10 @@
     "label": "Global actions"
   },
   "calendar": {
-    "todayButton": "Jump to Today",
+    "todayButton": {
+      "label": "Today",
+      "tooltip": "Jump to Today"
+    },
     "previousMonthButton": "Previous Month",
     "nextMonthButton": "Next Month"
   }

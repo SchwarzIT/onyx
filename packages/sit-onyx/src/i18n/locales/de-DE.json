@@ -227,7 +227,7 @@
     "label": "Globale Aktionen"
   },
   "calendar": {
-    "todayButton": "Springe zu Heute",
+    "todayButton": { "label": "Heute", "tooltip": "Springe zu Heute" },
     "previousMonthButton": "Vorheriger Monat",
     "nextMonthButton": "Nächster Monat"
   }
