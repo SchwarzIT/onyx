@@ -14,6 +14,7 @@ If you are an Schwarz employee and want to access one the following themes, plea
 - Lidl
 - PreZero
 - Schwarz group and Schwarz corporate solutions
+- Tailwind
 
 If you have any other questions or need support, please get in touch with the [team](/about/team).
 
