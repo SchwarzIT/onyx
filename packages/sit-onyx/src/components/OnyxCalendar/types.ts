@@ -1,4 +1,3 @@
-import type { OnyxWeekDays } from "@sit-onyx/headless";
 import type { DensityProp } from "../../composables/density.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 
@@ -59,3 +58,11 @@ export type OnyxCalendarProps = DensityProp & {
 // TODO: add multi & range support
 export type OnyxCalendarSelection = "single";
 export type OnyxCalendarSize = "big" | "small" | "auto";
+export type OnyxWeekDays =
+  | "Monday"
+  | "Tuesday"
+  | "Wednesday"
+  | "Thursday"
+  | "Friday"
+  | "Saturday"
+  | "Sunday";
