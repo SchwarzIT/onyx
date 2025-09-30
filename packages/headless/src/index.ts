@@ -1,3 +1,4 @@
+export * from "./composables/calendar/createCalendar.js";
 export * from "./composables/comboBox/createComboBox.js";
 export * from "./composables/helpers/useGlobalListener.js";
 export * from "./composables/helpers/useOutsideClick.js";
@@ -8,5 +9,6 @@ export * from "./composables/tabs/createTabs.js";
 export * from "./composables/tooltip/createToggletip.js";
 export * from "./composables/tooltip/createTooltip.js";
 export * from "./utils/builder.js";
+
 export { isPrintableCharacter, wasKeyPressed } from "./utils/keyboard.js";
 export { debounce } from "./utils/timer.js";
