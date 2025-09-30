@@ -225,5 +225,10 @@
   },
   "globalFAB": {
     "label": "Globale Aktionen"
+  },
+  "calendar": {
+    "todayButton": { "label": "Heute", "tooltip": "Springe zu Heute" },
+    "previousMonthButton": "Vorheriger Monat",
+    "nextMonthButton": "Nächster Monat"
   }
 }

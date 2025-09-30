@@ -19,8 +19,9 @@ import {
 import { injectI18n } from "../../i18n/index.js";
 import { ONYX_BREAKPOINTS } from "../../utils/breakpoints.js";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
+import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
+import OnyxTag from "../OnyxTag/OnyxTag.vue";
 import type { OnyxCalendarProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxCalendarProps>(), {
@@ -46,7 +47,7 @@ defineSlots<{
 const { densityClass } = useDensity(props);
 
 const skeleton = useSkeletonContext(props);
-const { locale } = injectI18n();
+const { t, locale } = injectI18n();
 
 const calendarSize = computed(() =>
   props.size !== "auto" ? props.size : width.value < ONYX_BREAKPOINTS.xs ? "small" : "big",
@@ -109,15 +110,17 @@ const sizeClass = computed(() => `onyx-calendar--${calendarSize.value}`);
   >
     <div class="onyx-calendar__header">
       <div class="control-container time-control-container">
-        <OnyxSystemButton
+        <OnyxTag
           v-if="calendarSize !== 'small'"
-          label="Today"
+          :label="t('calendar.todayButton.label')"
           class="control-container__today-btn"
           :disabled="disabled"
+          :clickable="t('calendar.todayButton.tooltip')"
           @click="goToToday"
         />
-        <OnyxSystemButton
-          label="previous Month"
+        <OnyxIconButton
+          :label="t('calendar.previousMonthButton')"
+          color="neutral"
           :icon="iconChevronLeftSmall"
           :disabled="disabled"
           @click="goToPreviousMonth"
@@ -130,8 +133,9 @@ const sizeClass = computed(() => `onyx-calendar--${calendarSize.value}`);
             })
           }}
         </OnyxHeadline>
-        <OnyxSystemButton
-          label="next Month"
+        <OnyxIconButton
+          :label="t('calendar.nextMonthButton')"
+          color="neutral"
           :icon="iconChevronRightSmall"
           :disabled="disabled"
           @click="goToNextMonth"
@@ -145,7 +149,15 @@ const sizeClass = computed(() => `onyx-calendar--${calendarSize.value}`);
       <table v-bind="tableProps">
         <thead>
           <tr>
-            <th v-for="(day, index) in weekdays" :key="index" scope="col" :abbr="day">{{ day }}</th>
+            <th
+              v-for="(day, index) in weekdays"
+              :key="index"
+              scope="col"
+              :abbr="day"
+              class="onyx-text--small"
+            >
+              {{ day }}
+            </th>
           </tr>
         </thead>
         <tbody>

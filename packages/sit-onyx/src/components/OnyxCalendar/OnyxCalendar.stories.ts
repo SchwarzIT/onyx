@@ -5,7 +5,7 @@ import { OnyxButton, OnyxIconButton } from "../../index.js";
 import OnyxCalendar from "./OnyxCalendar.vue";
 
 const meta: Meta<typeof OnyxCalendar> = {
-  title: "Form/Calendar",
+  title: "Data/Calendar",
   tags: ["unstable"],
   component: OnyxCalendar,
   args: {
