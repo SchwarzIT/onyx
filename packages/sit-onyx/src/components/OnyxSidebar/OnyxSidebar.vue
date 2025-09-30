@@ -226,6 +226,7 @@ onUnmounted(() => {
 
     &:has(.onyx-resize-handle) {
       position: relative;
+      overflow: hidden;
     }
 
     &--temporary {
