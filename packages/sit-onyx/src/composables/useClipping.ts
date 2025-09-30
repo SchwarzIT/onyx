@@ -1,33 +1,39 @@
 import { useGlobalEventListener } from "@sit-onyx/headless";
-import { computed, nextTick, onMounted, ref, type Ref } from "vue";
+import { computed, nextTick, onMounted, ref, type CSSProperties, type Ref } from "vue";
+import type { AnchorPosition } from "./useAnchorPositionPolyfill.js";
+import type { OpenDirection } from "./useOpenDirection.js";
 
-export function useClipping(
-  popoverRef: Ref<HTMLElement | null>,
-  popoverWrapperRef: Ref<HTMLElement | null>,
-  popoverPosition: Ref<string>,
-  isVisible: Ref<boolean>,
-  clipping: Ref<boolean>,
-) {
-  const clippingStyles = ref("");
-  const scrolledOut = ref<null | "top" | "bottom">(null);
+export type UseClippingOptions = {
+  popoverRef: Ref<HTMLElement | null>;
+  popoverWrapperRef: Ref<HTMLElement | null>;
+  popoverPosition: Ref<AnchorPosition | OpenDirection>;
+  isVisible: Ref<boolean>;
+  clipping: Ref<boolean>;
+};
+type UseClippingReturn = {
+  clippingStyles: Ref<CSSProperties>;
+  scrolledOut: Ref<undefined | OpenDirection>;
+  isClipping: Ref<boolean>;
+  checkVisibilityOnScroll: () => void;
+};
+export function useClipping(options: UseClippingOptions): UseClippingReturn {
+  const clippingStyles = ref<CSSProperties>({});
+  const scrolledOut = ref<OpenDirection>();
   const isClipping = ref(false);
 
   const checkVisibilityOnScroll = () => {
     const MIN_DISTANCE_TO_BORDER = 16;
     const MARGIN = 8;
 
-    if (!popoverRef.value || !popoverWrapperRef.value || !isVisible.value) return;
+    if (!options.popoverRef.value || !options.popoverWrapperRef.value || !options.isVisible.value)
+      return;
 
     if (isClipping.value) {
-      const popoverRect = popoverRef.value.getBoundingClientRect();
-      const wrapperRect = popoverWrapperRef.value.getBoundingClientRect();
+      const popoverRect = options.popoverRef.value.getBoundingClientRect();
+      const wrapperRect = options.popoverWrapperRef.value.getBoundingClientRect();
       const requiredHeight = popoverRect.height + MIN_DISTANCE_TO_BORDER + MARGIN;
 
-      if (
-        popoverPosition.value === "top" ||
-        popoverPosition.value === "top left" ||
-        popoverPosition.value === "top right"
-      ) {
+      if (options.popoverPosition.value.includes("top")) {
         if (scrolledOut.value === "top" && wrapperRect.top > requiredHeight) {
           isClipping.value = false;
           return;
@@ -36,11 +42,7 @@ export function useClipping(
           isClipping.value = false;
           return;
         }
-      } else if (
-        popoverPosition.value === "bottom" ||
-        popoverPosition.value === "bottom left" ||
-        popoverPosition.value === "bottom right"
-      ) {
+      } else if (options.popoverPosition.value.includes("bottom")) {
         if (scrolledOut.value === "top" && wrapperRect.bottom > MARGIN) {
           isClipping.value = false;
           return;
@@ -52,26 +54,40 @@ export function useClipping(
           isClipping.value = false;
           return;
         }
+      } else {
+        if (
+          scrolledOut.value === "top" &&
+          wrapperRect.top + MIN_DISTANCE_TO_BORDER > popoverRect.height
+        ) {
+          isClipping.value = false;
+          return;
+        }
+        if (
+          scrolledOut.value === "bottom" &&
+          wrapperRect.bottom + MIN_DISTANCE_TO_BORDER < window.innerHeight
+        ) {
+          isClipping.value = false;
+          return;
+        }
       }
     } else {
-      const rect = popoverRef.value.getBoundingClientRect();
+      const rect = options.popoverRef.value.getBoundingClientRect();
       const isTooHigh = rect.top < MIN_DISTANCE_TO_BORDER;
       const isTooLow = rect.bottom > window.innerHeight - MIN_DISTANCE_TO_BORDER;
-
       if (isTooHigh || isTooLow) {
         isClipping.value = true;
         if (isTooHigh) {
           scrolledOut.value = "top";
-          clippingStyles.value = `left: ${rect.left}px; top: 1rem;`;
+          clippingStyles.value = { left: rect.left + "px", top: "var(--onyx-density-md)" };
         } else if (isTooLow) {
           scrolledOut.value = "bottom";
-          clippingStyles.value = `left: ${rect.left}px; bottom: 1rem;`;
+          clippingStyles.value = { left: rect.left + "px", bottom: "var(--onyx-density-md)" };
         }
       }
     }
   };
   const disableClipping = computed(() => {
-    return !clipping.value || !isVisible.value;
+    return !options.clipping.value || !options.isVisible.value;
   });
   useGlobalEventListener({
     type: "scroll",

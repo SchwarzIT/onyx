@@ -112,13 +112,13 @@ const updateDirections = () => {
   updateOpenAlignment();
 };
 
-const { clippingStyles, isClipping } = useClipping(
+const { clippingStyles, isClipping } = useClipping({
   popoverRef,
   popoverWrapperRef,
   popoverPosition,
   isVisible,
-  computed(() => props.clipping),
-);
+  clipping: computed(() => props.clipping),
+});
 
 useGlobalEventListener({
   type: "resize",

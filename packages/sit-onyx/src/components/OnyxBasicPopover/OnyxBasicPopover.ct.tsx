@@ -66,12 +66,9 @@ test.describe("OnyxBasicPopover", () => {
 
     // ASSERT
     await expect(popover).toBeVisible();
-    const box = await popover.boundingBox();
-    expect(box).not.toBeNull();
+    const box = (await popover.boundingBox())!;
     const viewportHeight = await page.evaluate(() => window.innerHeight);
-    if (box) {
-      expect(box.y + box.height).toBeLessThanOrEqual(viewportHeight);
-    }
+    expect(box.y + box.height).toBeLessThanOrEqual(viewportHeight);
   });
 });
 test.describe("OnyxBasicPopover  Screenshot Tests", () => {

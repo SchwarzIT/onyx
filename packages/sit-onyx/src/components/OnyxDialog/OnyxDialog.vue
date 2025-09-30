@@ -60,12 +60,7 @@ const isExpanded = useVModel({
 </script>
 
 <template>
-  <OnyxBasicPopover
-    v-bind="props"
-    v-model:open="isExpanded"
-    :class="['onyx-dialog', densityClass]"
-    :clipping="props.clipping"
-  >
+  <OnyxBasicPopover v-bind="props" v-model:open="isExpanded" :class="['onyx-dialog', densityClass]">
     <template #default="{ trigger }">
       <slot name="trigger" :trigger="trigger"> </slot>
     </template>
