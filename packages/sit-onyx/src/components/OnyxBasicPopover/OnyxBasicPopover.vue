@@ -69,13 +69,13 @@ const disabled = computed(() => props.disabled);
 const positionAndAlignment = computed(() => {
   if (popoverPosition.value === "top" || popoverPosition.value === "bottom") {
     if (popoverAlignment.value === "left") {
-      return popoverPosition.value + " " + "span-right";
+      return popoverPosition.value + " span-right";
     }
     if (popoverAlignment.value === "right") {
-      return popoverPosition.value + " " + "span-left";
+      return popoverPosition.value + " span-left";
     }
   }
-  return popoverPosition.value;
+  return popoverPosition.value + " center";
 });
 
 const popoverRef = useTemplateRef("popover");
