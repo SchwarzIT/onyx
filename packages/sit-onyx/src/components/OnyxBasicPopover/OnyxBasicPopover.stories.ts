@@ -15,7 +15,7 @@ const meta: Meta<typeof OnyxBasicPopover> = {
     (story) => ({
       components: { story },
       template: `
-        <div style="height: 28rem; padding: 6rem 12rem;">
+        <div style="height: 28rem; padding: 32rem 12rem;">
           <story />
         </div>`,
     }),

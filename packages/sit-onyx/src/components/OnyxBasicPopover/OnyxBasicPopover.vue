@@ -11,6 +11,7 @@ import {
   type AriaAttributes,
 } from "vue";
 import { useAnchorPositionPolyfill } from "../../composables/useAnchorPositionPolyfill.js";
+import { useClipping } from "../../composables/useClipping.js";
 import { useOpenAlignment } from "../../composables/useOpenAlignment.js";
 import { useOpenDirection } from "../../composables/useOpenDirection.js";
 import { useResizeObserver } from "../../composables/useResizeObserver.js";
@@ -20,6 +21,7 @@ const props = withDefaults(defineProps<OnyxBasicPopoverProps>(), {
   position: "auto",
   alignment: "auto",
   role: "dialog",
+  clipping: false,
 });
 
 defineSlots<{
@@ -67,13 +69,16 @@ const disabled = computed(() => props.disabled);
 const positionAndAlignment = computed(() => {
   if (popoverPosition.value === "top" || popoverPosition.value === "bottom") {
     if (popoverAlignment.value === "left") {
-      return popoverPosition.value + " " + "span-right";
+      return `${popoverPosition.value} span-right`;
     }
     if (popoverAlignment.value === "right") {
-      return popoverPosition.value + " " + "span-left";
+      return `${popoverPosition.value} span-left`;
     }
   }
-  return popoverPosition.value;
+  if (popoverPosition.value.includes(" ")) {
+    return popoverPosition.value;
+  }
+  return `${popoverPosition.value} center`;
 });
 
 const popoverRef = useTemplateRef("popover");
@@ -109,6 +114,14 @@ const updateDirections = () => {
   updateOpenDirection();
   updateOpenAlignment();
 };
+
+const { clippingStyles, isClipping } = useClipping({
+  popoverRef,
+  popoverWrapperRef,
+  popoverPosition,
+  isVisible,
+  clipping: computed(() => props.clipping),
+});
 
 useGlobalEventListener({
   type: "resize",
@@ -150,6 +163,7 @@ const popoverClasses = computed(() => {
     [`onyx-basic-popover__dialog--alignment-${popoverAlignment.value}`]: true,
     "onyx-basic-popover__dialog--fitparent": props.fitParent,
     "onyx-basic-popover__dialog--disabled": disabled.value,
+    "onyx-basic-popover__dialog--clipping": isClipping.value,
     "onyx-basic-popover__dialog--dont-support-anchor": !useragentSupportsAnchorApi.value,
   };
 });
@@ -201,7 +215,7 @@ const popoverStyles = computed(() => {
       popover="manual"
       class="onyx-basic-popover__dialog"
       :class="popoverClasses"
-      :style="popoverStyles"
+      :style="!isClipping ? popoverStyles : clippingStyles"
     >
       <slot name="content"></slot>
     </div>
@@ -277,6 +291,11 @@ const popoverStyles = computed(() => {
       }
       &--dont-support-anchor {
         margin: 0;
+      }
+      &--clipping {
+        margin: 0;
+        top: auto;
+        bottom: auto;
       }
     }
   }
