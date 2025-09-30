@@ -10,14 +10,9 @@ export type UseClippingOptions = {
   isVisible: Ref<boolean>;
   clipping: Ref<boolean>;
 };
-type UseClippingReturn = {
-  clippingStyles: Ref<CSSProperties>;
-  scrolledOut: Ref<undefined | OpenDirection>;
-  isClipping: Ref<boolean>;
-  checkVisibilityOnScroll: () => void;
-};
-export function useClipping(options: UseClippingOptions): UseClippingReturn {
-  const clippingStyles = ref<CSSProperties>({});
+
+export function useClipping(options: UseClippingOptions) {
+  const clippingStyles = ref<CSSProperties>();
   const scrolledOut = ref<OpenDirection>();
   const isClipping = ref(false);
 
