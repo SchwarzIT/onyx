@@ -61,6 +61,7 @@ jobs:
           path: changed-screenshots
           # prevent warnings if shard does not update any screenshots
           if-no-files-found: ignore
+          retention-days: 1
 
       - name: Upload Reports
         uses: actions/upload-artifact@v4
@@ -90,16 +91,14 @@ jobs:
         with:
           name: screenshots
           pattern: screenshots-*
-          delete-merged: true
+          retention-days: 14
 
-      - name: Merge Reports
-        uses: actions/upload-artifact/merge@v4
+      - name: Download reports
+        uses: actions/download-artifact@v4
         if: ${{ !cancelled() }}
         with:
-          name: blob-reports
           pattern: blob-report-*
-          retention-days: 1
-          delete-merged: true
+          merge-multiple: true
 
       - uses: pnpm/action-setup@v4
 
@@ -110,11 +109,6 @@ jobs:
 
       - name: 📦 Install dependencies
         run: pnpm install
-
-      - name: Download blob reports from GitHub Actions Artifacts
-        uses: actions/download-artifact@v5
-        with:
-          name: blob-reports
 
       # For every blob-report merge its playwright results as html report and move it into its original package
       - name: Merge into HTML Report
