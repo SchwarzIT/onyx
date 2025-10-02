@@ -2,6 +2,7 @@ import { describe, expectTypeOf, it } from "vitest";
 import type {
   IfNotEmpty,
   KeysOfUnion,
+  MaybePick,
   MaybeUnwrap,
   Merge,
   MergeAll,
@@ -172,6 +173,25 @@ describe("MaybeUnwrap", () => {
     expectTypeOf<MaybeUnwrap<{ a: number } | { a: string }, "a">>().toEqualTypeOf<
       number | string
     >();
+  });
+});
+
+describe("MaybePick", () => {
+  it("should result in never type when no matching key", () => {
+    expectTypeOf<MaybePick<{}, never>>().toEqualTypeOf<{}>();
+    expectTypeOf<MaybePick<object, "a">>().toEqualTypeOf<{}>();
+    expectTypeOf<MaybePick<{}, "a">>().toEqualTypeOf<{}>();
+    expectTypeOf<MaybePick<{}, "a" | "b">>().toEqualTypeOf<{}>();
+  });
+
+  it("should pick types correctly", () => {
+    expectTypeOf<MaybePick<Record<string, number>, "a">>().toEqualTypeOf<{ a: number }>();
+    expectTypeOf<MaybePick<{ a?: number }, "a">>().toEqualTypeOf<{ a: number | undefined }>();
+    expectTypeOf<MaybePick<{ a: number }, "a">>().toEqualTypeOf<{ a: number }>();
+    expectTypeOf<MaybePick<{ a: number }, "a" | "b">>().toEqualTypeOf<{ a: number }>();
+    expectTypeOf<MaybePick<{ a: number } | { a: string }, "a">>().toEqualTypeOf<{
+      a: number | string;
+    }>();
   });
 });
 

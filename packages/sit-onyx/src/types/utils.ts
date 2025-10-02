@@ -59,8 +59,8 @@ export type MaybeUnwrap<T, Key, Fallback = never> = Key extends keyof T ? T[Key]
 /**
  * Create a subset of `T` for all keys `Key` that exist in `T`
  */
-export type MaybePick<T extends object, Key extends PropertyKey, Fallback = never> = {
-  [P in Key]: P extends keyof T ? T[P] : Fallback;
+export type MaybePick<T, Key extends PropertyKey> = {
+  [P in Key as P extends keyof T ? P : never]: P extends keyof T ? T[P] : never;
 };
 
 /**
