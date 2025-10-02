@@ -52,9 +52,16 @@ export type MergeAll<T extends unknown[]> = T extends [infer First, ...infer Res
   : never;
 
 /**
- * Pick a value from `T` for the key `K`, if it exists.
+ * Take the value types from `T` for the key `K`, if it exists.
  */
-export type MaybePick<T, Key, Fallback = never> = Key extends keyof T ? T[Key] : Fallback;
+export type MaybeUnwrap<T, Key, Fallback = never> = Key extends keyof T ? T[Key] : Fallback;
+
+/**
+ * Create a subset of `T` for all keys `Key` that exist in `T`
+ */
+export type MaybePick<T extends object, Key extends PropertyKey, Fallback = never> = {
+  [P in Key]: P extends keyof T ? T[P] : Fallback;
+};
 
 /**
  * Recursive / deep implementation of TypeScript's built-in `Partial<T>` type.
