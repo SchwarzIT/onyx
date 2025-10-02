@@ -13,4 +13,7 @@ export type PropsTestCaseProps = {
 defineProps<PropsTestCaseProps>();
 </script>
 
-<template>Test</template>
+<template>
+  <!-- eslint-disable-next-line sitOnyx/require-root-class -->
+  <div>Test</div>
+</template>
