@@ -9,7 +9,6 @@ import {
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
-import type { Nullable } from "../../types/index.js";
 import { useRootAttrs } from "../../utils/attrs.js";
 import { isValidDate } from "../../utils/date.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
@@ -32,7 +31,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the current value changes. Will be a ISO timestamp created by `new Date().toISOString()`.
    */
-  "update:modelValue": [value?: Nullable<DateValue>];
+  "update:modelValue": [value?: string];
   /**
    * Emitted when the validity state of the input changes.
    */
@@ -84,7 +83,7 @@ const value = computed({
   get: () => getNormalizedDate.value(modelValue.value),
   set: (value) => {
     const newDate = new Date(value ?? "");
-    modelValue.value = isValidDate(newDate) ? newDate.toISOString() : "";
+    modelValue.value = isValidDate(newDate) ? newDate.toISOString() : undefined;
   },
 });
 const input = useTemplateRef("inputRef");
