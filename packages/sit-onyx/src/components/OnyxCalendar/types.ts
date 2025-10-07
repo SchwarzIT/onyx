@@ -24,10 +24,10 @@ export type OnyxCalendarProps = DensityProp & {
   weekStartDay?: OnyxWeekDays;
 
   /**
-   * The initial date to display when the calendar is first rendered.
+   * The Month/Year to display
    * @default today
    */
-  initialDate?: Date;
+  viewMonth?: Date;
 
   /**
    * The visual size of the calendar.
@@ -50,13 +50,11 @@ export type OnyxCalendarProps = DensityProp & {
 
   /**
    * Whether to display week numbers in the calendar.
-   * TODO: Implement feature.
    */
-  // displayCalendarWeek?: boolean;
+  displayCalendarWeek?: boolean;
 };
 
-// TODO: add multi & range support
-export type OnyxCalendarSelection = "single";
+export type OnyxCalendarSelection = "view" | "single" | "multiple" | "range";
 export type OnyxCalendarSize = "big" | "small" | "auto";
 export type OnyxWeekDays =
   | "Monday"

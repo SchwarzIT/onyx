@@ -26,6 +26,8 @@ export type OnyxHeadlessCalendarOptions = {
   min?: MaybeRefOrGetter<Nullable<Date>>;
   max?: MaybeRefOrGetter<Nullable<Date>>;
   initialDate?: MaybeRefOrGetter<Nullable<Date>>;
+  viewMonth?: MaybeRefOrGetter<Nullable<Date>>;
+  displayCalendarWeek?: MaybeRefOrGetter<Nullable<boolean>>;
   locale: MaybeRefOrGetter<string>;
   calendarSize: MaybeRefOrGetter<"big" | "small">;
   buttonRefs: Ref<Record<string, HTMLElement>>;
@@ -34,6 +36,15 @@ export type OnyxHeadlessCalendarOptions = {
 const getDayIndex = (dayName: OnyxWeekDays) => {
   const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
   return days.indexOf(dayName);
+};
+
+const getISOWeekNumber = (date: Date): number => {
+  const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  const dayNum = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  const weekNo = Math.ceil(((d.getTime() - yearStart.getTime()) / 86400000 + 1) / 7);
+  return weekNo;
 };
 
 const getNormalizedDayIndex = (date: Date, weekStartDay: OnyxWeekDays) => {
@@ -89,10 +100,21 @@ export const _unstableCreateCalendar = createBuilder((options: OnyxHeadlessCalen
     max: toValue(options.max),
   });
 
-  const currentDate = ref(initialValue);
+  const currentDateInternal = ref(initialValue);
   const focusedDate = ref(initialValue);
   const selectedDate = ref<Date | null>(null);
 
+  watch(
+    () => toValue(options.viewMonth),
+    (newViewMonth) => {
+      if (newViewMonth) {
+        currentDateInternal.value = getMidnightDate(newViewMonth);
+      }
+    },
+    { immediate: true },
+  );
+
+  const currentDate = computed(() => currentDateInternal.value);
   const currentYear = computed(() => currentDate.value.getFullYear());
   const currentMonth = computed(() => currentDate.value.getMonth());
 
@@ -156,7 +178,9 @@ export const _unstableCreateCalendar = createBuilder((options: OnyxHeadlessCalen
 
     const weeks = [];
     for (let i = 0; i < calendarDays.length; i += 7) {
-      weeks.push(calendarDays.slice(i, i + 7));
+      const week = calendarDays.slice(i, i + 7);
+      const weekNumber = String(getISOWeekNumber(week[0]!.date)).padStart(2, "0");
+      weeks.push({ weekNumber, days: week });
     }
 
     return weeks;
@@ -166,7 +190,7 @@ export const _unstableCreateCalendar = createBuilder((options: OnyxHeadlessCalen
 
   const goToDate = (date: Date) => {
     const midnightDate = getMidnightDate(date);
-    currentDate.value = midnightDate;
+    currentDateInternal.value = midnightDate;
     selectedDate.value = midnightDate;
     focusedDate.value = midnightDate;
   };
@@ -234,7 +258,7 @@ export const _unstableCreateCalendar = createBuilder((options: OnyxHeadlessCalen
         focusedDate.value = newDate;
 
         if (newDate.getMonth() !== currentDate.value.getMonth()) {
-          currentDate.value = getMidnightDate(
+          currentDateInternal.value = getMidnightDate(
             new Date(newDate.getFullYear(), newDate.getMonth(), 1),
           );
           await nextTick();
@@ -312,17 +336,27 @@ export const _unstableCreateCalendar = createBuilder((options: OnyxHeadlessCalen
       isWeekend,
       isDisabled,
       goToDate,
-      goToPreviousMonth: () =>
-        (currentDate.value = getMidnightDate(
-          new Date(currentYear.value, currentMonth.value - 1, 1),
-        )),
-      goToNextMonth: () =>
-        (currentDate.value = getMidnightDate(
-          new Date(currentYear.value, currentMonth.value + 1, 1),
-        )),
+      goToPreviousMonth: () => {
+        currentDateInternal.value = getMidnightDate(
+          new Date(
+            currentDateInternal.value.getFullYear(),
+            currentDateInternal.value.getMonth() - 1,
+            1,
+          ),
+        );
+      },
+      goToNextMonth: () => {
+        currentDateInternal.value = getMidnightDate(
+          new Date(
+            currentDateInternal.value.getFullYear(),
+            currentDateInternal.value.getMonth() + 1,
+            1,
+          ),
+        );
+      },
       goToToday: () => {
         const today = getMidnightDate(new Date());
-        currentDate.value = today;
+        currentDateInternal.value = today;
         focusedDate.value = today;
       },
     },

@@ -231,6 +231,7 @@
       "label": "Today",
       "tooltip": "Jump to today"
     },
+    "calenderWeek": "CW",
     "previousMonthButton": "Previous month",
     "nextMonthButton": "Next month"
   }

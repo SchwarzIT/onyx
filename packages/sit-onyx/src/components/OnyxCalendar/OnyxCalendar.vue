@@ -35,13 +35,17 @@ const props = withDefaults(defineProps<OnyxCalendarProps>(), {
 /**
  * Emit selectedDate on Change
  */
-const emit = defineEmits(["update:selectedDate"]);
+const emit = defineEmits<{
+  "update:selectedDate": [newDate: Date];
+  "update:viewMonth": [newDate: Date];
+}>();
 
 defineSlots<{
   /**
    * Optional slot that is displayed below at the right of the Header.
    */
   actions?(): unknown;
+  day?(props: { date: Date; size: "small" | "big" }): unknown;
 }>();
 
 const { densityClass } = useDensity(props);
@@ -62,7 +66,7 @@ const setButtonRef = (el: HTMLElement | null, dateKey: string) => {
   }
 };
 
-const { disabled, min, max, initialDate, weekStartDay } = toRefs(props);
+const { disabled, min, max, weekStartDay, displayCalendarWeek, viewMonth } = toRefs(props);
 
 const {
   state: { currentYear, currentMonth, selectedDate, weeks, weekdays },
@@ -72,11 +76,12 @@ const {
   disabled,
   min,
   max,
-  initialDate,
   locale,
   calendarSize,
   buttonRefs,
   weekStartDay,
+  displayCalendarWeek,
+  viewMonth,
 });
 
 watch(selectedDate, (newDate) => {
@@ -150,6 +155,12 @@ const sizeClass = computed(() => `onyx-calendar--${calendarSize.value}`);
         <thead>
           <tr>
             <th
+              v-if="displayCalendarWeek"
+              class="onyx-calendar-calender-week-header onyx-text--small"
+            >
+              {{ t("calendar.calenderWeek") }}
+            </th>
+            <th
               v-for="(day, index) in weekdays"
               :key="index"
               scope="col"
@@ -162,7 +173,13 @@ const sizeClass = computed(() => `onyx-calendar--${calendarSize.value}`);
         </thead>
         <tbody>
           <tr v-for="(week, weekIndex) in weeks" :key="weekIndex">
-            <td v-for="(day, dayIndex) in week" :key="dayIndex" v-bind="cellProps(day)">
+            <td v-if="displayCalendarWeek" class="onyx-calendar-calender-week-cell">
+              <p>
+                {{ week.weekNumber }}
+              </p>
+            </td>
+
+            <td v-for="(day, dayIndex) in week.days" :key="dayIndex" v-bind="cellProps(day)">
               <button
                 v-if="day.date"
                 v-bind="buttonProps(day)"
@@ -177,6 +194,7 @@ const sizeClass = computed(() => `onyx-calendar--${calendarSize.value}`);
                     {{ day.date.getDate() }}
                   </span>
                 </span>
+                <slot name="day" :date="day.date" :size="calendarSize"></slot>
               </button>
             </td>
           </tr>
@@ -196,6 +214,20 @@ const sizeClass = computed(() => `onyx-calendar--${calendarSize.value}`);
     gap: var(--onyx-density-sm);
     color: var(--onyx-color-text-icons-neutral-medium);
 
+    &-calender-week {
+      &-header {
+        width: 2.5rem; //TODO: change
+      }
+      &-cell {
+        background-color: var(--onyx-color-base-neutral-200);
+        p {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+        }
+      }
+    }
     &__header {
       display: flex;
       justify-content: space-between;
@@ -223,11 +255,10 @@ const sizeClass = computed(() => `onyx-calendar--${calendarSize.value}`);
         background-color: var(--onyx-color-base-background-blank);
 
         th {
-          color: var(--onyx-color-text-icons-neutral-medium);
           padding: var(--onyx-density-xs);
           justify-content: center;
           align-items: center;
-          background: var(--onyx-color-base-neutral-200);
+          background-color: var(--onyx-color-base-neutral-200);
           border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
           font-family: var(--onyx-font-family-h4);
           font-weight: var(--onyx-font-weight-semibold);
@@ -237,17 +268,25 @@ const sizeClass = computed(() => `onyx-calendar--${calendarSize.value}`);
           font-family: var(--onyx-font-family);
           cursor: pointer;
 
-          &:hover:not(.other-month, .is-disabled) {
+          &:hover:not(.is-disabled) {
+            &.other-month {
+              .cell-content__number-display {
+                color: var(--onyx-color-text-icons-neutral-medium);
+              }
+            }
             .cell-content__number-display {
               background-color: var(--onyx-color-base-neutral-300);
             }
           }
+
           &.weekend {
             background-color: var(--onyx-color-base-neutral-100);
           }
           .cell-content {
+            position: relative;
             cursor: pointer;
             display: flex;
+            color: inherit;
             flex-direction: column;
             padding: var(--onyx-density-2xs);
             background-color: initial;
@@ -258,7 +297,6 @@ const sizeClass = computed(() => `onyx-calendar--${calendarSize.value}`);
             &__number {
               width: 2rem;
               height: 2rem;
-              color: inherit;
               display: flex;
               border: none;
               font-size: 1rem;
@@ -305,7 +343,9 @@ const sizeClass = computed(() => `onyx-calendar--${calendarSize.value}`);
             }
           }
           &.is-disabled {
-            cursor: default;
+            * {
+              cursor: default;
+            }
           }
         }
       }

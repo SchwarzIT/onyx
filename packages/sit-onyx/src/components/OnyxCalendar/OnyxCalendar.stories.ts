@@ -2,6 +2,7 @@ import { iconSettings } from "@sit-onyx/icons";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
 import { OnyxButton, OnyxIconButton } from "../../index.js";
+import { createAdvancedStoryExample } from "../../utils/storybook.js";
 import OnyxCalendar from "./OnyxCalendar.vue";
 
 const meta: Meta<typeof OnyxCalendar> = {
@@ -37,6 +38,10 @@ export const CustomActions = {
   },
 } satisfies Story;
 
+export const CustomDayContent = {
+  ...createAdvancedStoryExample("OnyxCalendar", "CustomDayContentExample"),
+} satisfies Story;
+
 export const MinMaxDate = {
   args: {
     min: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
@@ -48,6 +53,10 @@ export const InitialDay = {
   args: {
     initialDate: new Date(2024, 9, 23),
   },
+} satisfies Story;
+
+export const ViewMonth = {
+  ...createAdvancedStoryExample("OnyxCalendar", "ViewMonthExample"),
 } satisfies Story;
 
 export const Skeleton = {
