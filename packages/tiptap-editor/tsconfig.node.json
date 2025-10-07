@@ -1,0 +1,19 @@
+{
+  "extends": "@tsconfig/node24/tsconfig.json",
+  "include": [
+    "env.d.ts",
+    "vite.config.*",
+    "vitest.config.*",
+    "playwright.config.*",
+    "package.json",
+    ".storybook/*.ts",
+    "src/a11yConfig.ts"
+  ],
+  "compilerOptions": {
+    "composite": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "types": ["node", "vite/client"],
+    "lib": ["DOM"]
+  }
+}
