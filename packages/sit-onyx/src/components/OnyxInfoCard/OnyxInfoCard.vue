@@ -37,7 +37,7 @@ const slots = defineSlots<{
    * Please provide a close menu item manually via the header actions then.
    * You must only put [OnyxMenuItem](https://storybook.onyx.schwarz/?path=/docs/basic-menuitem--docs) components here.
    */
-  headerActions?: unknown;
+  headerActions?(): unknown;
 }>();
 
 const { t } = injectI18n();
@@ -84,7 +84,7 @@ const systemButtonColor = computed(() => (props.color === "neutral" ? "soft" : "
 
       <OnyxSystemButton
         v-else-if="props.closable"
-        class="onyx-info-card__action"
+        class="onyx-info-card__close onyx-info-card__action"
         :icon="iconXSmall"
         :label="t('close')"
         :color="systemButtonColor"
