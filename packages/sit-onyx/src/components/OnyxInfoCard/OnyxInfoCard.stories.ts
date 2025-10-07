@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
 import { defineIconSelectArgType } from "../../utils/storybook.js";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
+import OnyxMenuItem from "../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxInfoCard from "./OnyxInfoCard.vue";
 
 const meta: Meta<typeof OnyxInfoCard> = {
@@ -10,6 +11,7 @@ const meta: Meta<typeof OnyxInfoCard> = {
   argTypes: {
     icon: defineIconSelectArgType(),
     buttons: { control: { disable: true } },
+    headerActions: { control: { disable: true } },
   },
 };
 
@@ -47,5 +49,15 @@ export const Minimal = {
     style: Default.args.style,
     headline: Default.args.headline,
     icon: false,
+  },
+} satisfies Story;
+
+export const HeaderActions = {
+  args: {
+    ...Default.args,
+    headerActions: () => [
+      h(OnyxMenuItem, { label: "Action 1" }),
+      h(OnyxMenuItem, { label: "Action 2" }),
+    ],
   },
 } satisfies Story;

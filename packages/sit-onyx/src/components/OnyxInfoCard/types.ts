@@ -17,6 +17,8 @@ export type OnyxInfoCardProps = DensityProp & {
   icon?: string | false;
   /**
    * Whether the info card can be closed. Will show an "x" icon.
+   * If you provide custom `headerActions`, the close button will not be visible.
+   * Please provide a custom menu item inside your header actions then.
    */
   closable?: boolean;
 };
