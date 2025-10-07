@@ -715,6 +715,25 @@ importers:
         specifier: ^3.2.4
         version: 3.2.4
 
+  packages/tiptap-editor:
+    dependencies:
+      vue:
+        specifier: 3.5.23
+        version: 3.5.23(typescript@5.9.3)
+    devDependencies:
+      '@sit-onyx/icons':
+        specifier: workspace:^
+        version: link:../icons
+      '@sit-onyx/shared':
+        specifier: workspace:^
+        version: link:../shared
+      '@sit-onyx/storybook-utils':
+        specifier: workspace:^
+        version: link:../storybook-utils
+      sit-onyx:
+        specifier: workspace:^
+        version: link:../sit-onyx
+
   packages/vite-plugin-svg:
     dependencies:
       vite:
