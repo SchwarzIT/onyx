@@ -82,4 +82,4 @@ jobs:
     with:
       # On PRs: Run tests only for changed files.
       # This means that for merge_groups, which are required to be run before the merge, all tests are executed.
-      only-changed: ${{ github.event.pull_request.base.ref && format('origin/{0}', github.event.pull_request.base.ref) }}
+      only-changed: ${{ (github.event.pull_request.base.ref && format('origin/{0}', github.event.pull_request.base.ref)) }}
