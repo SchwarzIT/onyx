@@ -16,7 +16,7 @@ export type OnyxDatePickerProps = Omit<
   /**
    * Current date value. Supports all data types that are parsable by `new Date()`.
    */
-  modelValue?: Nullable<DateValue>;
+  modelValue?: Nullable<string>;
   /**
    * Whether the user should be able to select only date or date + time.
    */
