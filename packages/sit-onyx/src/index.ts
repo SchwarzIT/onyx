@@ -286,6 +286,7 @@ export * from "./components/OnyxShortcut/types.js";
 
 export { default as OnyxComponentShowcase } from "./components/examples/ComponentShowcase/ComponentShowcase.vue";
 
+export { FORM_INJECTED_SYMBOL } from "./components/OnyxForm/OnyxForm.core.js";
 export * from "./composables/density.js";
 export * from "./composables/scrollEnd.js";
 export * from "./composables/themeTransition.js";
@@ -293,6 +294,7 @@ export * from "./composables/useFileSize.js";
 export * from "./composables/useLink.js";
 export * from "./composables/useShortcut.js";
 export * from "./composables/useSkeletonState.js";
+export { SKELETON_INJECTED_SYMBOL } from "./composables/useSkeletonState.js";
 
 export { provideI18n, type TranslationFunction } from "./i18n/index.js";
 export type { OnyxTranslations, ProvideI18nOptions } from "./i18n/index.js";

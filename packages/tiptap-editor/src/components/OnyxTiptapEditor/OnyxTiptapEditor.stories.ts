@@ -9,4 +9,8 @@ const meta: Meta<typeof OnyxTiptapEditor> = {
 export default meta;
 type Story = StoryObj<typeof OnyxTiptapEditor>;
 
-export const Default = { args: {} } satisfies Story;
+export const Default = {
+  args: {
+    label: "Rich text editor",
+  },
+} satisfies Story;
