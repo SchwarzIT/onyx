@@ -1,5 +1,5 @@
-import type { DensityProp } from "sit-onyx";
+import type { OnyxTextareaProps } from "sit-onyx";
 
-export type OnyxTiptapEditorProps = DensityProp & {
+export type OnyxTiptapEditorProps = OnyxTextareaProps & {
   //
 };
