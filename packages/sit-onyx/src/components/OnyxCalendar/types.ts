@@ -1,7 +1,12 @@
 import type { DensityProp } from "../../composables/density.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
+import type { Nullable } from "../../types/utils.js";
 
 export type OnyxCalendarProps = DensityProp & {
+  /**
+   * Selected Value
+   */
+  modelValue?: Nullable<Date>;
   /**
    * Whether the calendar is disabled. Disables all interactions and prevents date selection.
    */
@@ -27,7 +32,7 @@ export type OnyxCalendarProps = DensityProp & {
    * The Month/Year to display
    * @default today
    */
-  viewMonth?: Date;
+  viewMonth?: Nullable<Date>;
 
   /**
    * The visual size of the calendar.

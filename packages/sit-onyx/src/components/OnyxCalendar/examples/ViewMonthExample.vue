@@ -5,11 +5,16 @@ import OnyxButton from "../../OnyxButton/OnyxButton.vue";
 
 const today = new Date();
 const viewMonth = ref(new Date("02.02.2024"));
+const selected = ref();
 </script>
 
 <template>
   <OnyxButton label="change" @click="() => (viewMonth = today)" />
-  <OnyxUnstableCalendar v-model:view-month="viewMonth" class="calendar" />
+  <OnyxUnstableCalendar
+    v-model:view-month="viewMonth"
+    v-model:model-value="selected"
+    class="calendar"
+  />
 </template>
 
 <style lang="scss" scoped></style>

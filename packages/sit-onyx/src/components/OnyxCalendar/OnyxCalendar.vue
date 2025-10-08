@@ -9,13 +9,14 @@ export default {};
 <script lang="ts" setup>
 import { _unstableCreateCalendar } from "@sit-onyx/headless";
 import { iconChevronLeftSmall, iconChevronRightSmall } from "@sit-onyx/icons";
-import { computed, ref, toRefs, useTemplateRef, watch } from "vue";
+import { computed, ref, toRefs, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useResizeObserver } from "../../composables/useResizeObserver.js";
 import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
+import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import { ONYX_BREAKPOINTS } from "../../utils/breakpoints.js";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
@@ -31,12 +32,13 @@ const props = withDefaults(defineProps<OnyxCalendarProps>(), {
   displayCalendarWeek: false,
   disabled: false,
   skeleton: SKELETON_INJECTED_SYMBOL,
+  modelValue: null,
 });
 /**
  * Emit selectedDate on Change
  */
 const emit = defineEmits<{
-  "update:selectedDate": [newDate: Date];
+  "update:modelValue": [newDate: Date];
   "update:viewMonth": [newDate: Date];
 }>();
 
@@ -47,6 +49,20 @@ defineSlots<{
   actions?(): unknown;
   day?(props: { date: Date; size: "small" | "big" }): unknown;
 }>();
+
+const modelValue = useVModel({
+  key: "modelValue",
+  props,
+  emit,
+  default: null,
+});
+
+const viewMonth = useVModel({
+  key: "viewMonth",
+  props,
+  emit,
+  default: null,
+});
 
 const { densityClass } = useDensity(props);
 
@@ -66,10 +82,10 @@ const setButtonRef = (el: HTMLElement | null, dateKey: string) => {
   }
 };
 
-const { disabled, min, max, weekStartDay, displayCalendarWeek, viewMonth } = toRefs(props);
+const { disabled, min, max, weekStartDay, displayCalendarWeek } = toRefs(props);
 
 const {
-  state: { currentYear, currentMonth, selectedDate, weeks, weekdays },
+  state: { currentYear, currentMonth, weeks, weekdays },
   elements: { table: tableProps, cell: cellProps, button: buttonProps },
   internals: { goToPreviousMonth, goToNextMonth, goToToday },
 } = _unstableCreateCalendar({
@@ -82,12 +98,7 @@ const {
   weekStartDay,
   displayCalendarWeek,
   viewMonth,
-});
-
-watch(selectedDate, (newDate) => {
-  if (newDate) {
-    emit("update:selectedDate", newDate);
-  }
+  modelValue,
 });
 
 const calendarRef = useTemplateRef("calendar");

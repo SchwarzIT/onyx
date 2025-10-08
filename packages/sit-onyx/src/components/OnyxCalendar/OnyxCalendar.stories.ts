@@ -49,12 +49,6 @@ export const MinMaxDate = {
   },
 } satisfies Story;
 
-export const InitialDay = {
-  args: {
-    initialDate: new Date(2024, 9, 23),
-  },
-} satisfies Story;
-
 export const ViewMonth = {
   ...createAdvancedStoryExample("OnyxCalendar", "ViewMonthExample"),
 } satisfies Story;
