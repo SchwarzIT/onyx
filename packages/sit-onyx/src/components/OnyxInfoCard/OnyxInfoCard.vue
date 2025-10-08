@@ -1,9 +1,11 @@
 <script lang="ts" setup>
-import { iconCircleAttention, iconXSmall } from "@sit-onyx/icons";
+import { iconCircleAttention, iconMoreVertical, iconXSmall } from "@sit-onyx/icons";
+import { computed } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { injectI18n } from "../../i18n/index.js";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxFlyoutMenu from "../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import type { OnyxInfoCardProps } from "./types.js";
 
@@ -29,10 +31,19 @@ const slots = defineSlots<{
    * Slot to provide optional buttons/actions.
    */
   buttons?(): unknown;
+  /**
+   * Optional custom header actions to display inside a flyout menu.
+   * Note that the `closable` property will not have any effect when custom header actions are set.
+   * Please provide a close menu item manually via the header actions then.
+   * You must only put [OnyxMenuItem](https://storybook.onyx.schwarz/?path=/docs/basic-menuitem--docs) components here.
+   */
+  headerActions?(): unknown;
 }>();
 
 const { t } = injectI18n();
 const { densityClass } = useDensity(props);
+
+const systemButtonColor = computed(() => (props.color === "neutral" ? "soft" : "medium"));
 </script>
 
 <template>
@@ -50,12 +61,33 @@ const { densityClass } = useDensity(props);
         {{ props.headline }}
       </OnyxHeadline>
 
+      <OnyxFlyoutMenu
+        v-if="slots.headerActions"
+        class="onyx-info-card__action"
+        :label="t('notificationCard.moreActions')"
+        trigger="click"
+        alignment="right"
+      >
+        <template #button="{ trigger }">
+          <OnyxSystemButton
+            v-bind="trigger"
+            :label="t('notificationCard.toggleActions')"
+            :icon="iconMoreVertical"
+            :color="systemButtonColor"
+          />
+        </template>
+
+        <template #options>
+          <slot name="headerActions"></slot>
+        </template>
+      </OnyxFlyoutMenu>
+
       <OnyxSystemButton
-        v-if="props.closable"
-        class="onyx-info-card__close"
+        v-else-if="props.closable"
+        class="onyx-info-card__close onyx-info-card__action"
         :icon="iconXSmall"
         :label="t('close')"
-        :color="props.color === 'neutral' ? 'soft' : 'medium'"
+        :color="systemButtonColor"
         @click="emit('close')"
       />
 
@@ -107,7 +139,7 @@ const { densityClass } = useDensity(props);
       gap: var(--onyx-density-xs);
     }
 
-    &__close {
+    &__action {
       position: absolute;
       top: var(--onyx-info-card-padding);
       right: var(--onyx-info-card-padding);
