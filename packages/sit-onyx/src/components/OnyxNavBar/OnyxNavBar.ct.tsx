@@ -425,6 +425,7 @@ test("should display More Items correctly", async ({ mount, page }) => {
     await expect(lastMenuItem).toBeVisible();
 
     // ACT
+    await lastMenuItem.hover();
     await lastMenuItem.click();
 
     // ASSERT
