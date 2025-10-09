@@ -1,3 +1,4 @@
+import { createEmitSpy, expectEmit } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
@@ -34,20 +35,16 @@ test.describe("Screenshot tests", () => {
 });
 
 test("should emit events", async ({ mount, makeAxeBuilder }) => {
-  const events = {
-    updateModelValue: [] as (string | undefined)[],
-  };
+  const onUpdateModelValue = createEmitSpy<typeof OnyxDatePicker, "onUpdate:modelValue">();
 
   // ARRANGE
   const component = await mount(
-    <OnyxDatePicker
-      label="Label"
-      onUpdate:modelValue={(value) => events.updateModelValue.push(value)}
-    />,
+    <OnyxDatePicker label="Label" onUpdate:modelValue={onUpdateModelValue} />,
   );
 
+  // ASSERT
   // should not emit initial events
-  expect(events).toMatchObject({ updateModelValue: [] });
+  expectEmit(onUpdateModelValue, 0);
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
@@ -62,9 +59,14 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
 
   // ASSERT
   await expect(inputElement).toHaveValue("2024-11-25");
-  expect(events).toMatchObject({
-    updateModelValue: ["2024-11-25T00:00:00.000Z"],
-  });
+  expectEmit(onUpdateModelValue, 1, ["2024-11-25T00:00:00.000Z"]);
+
+  // ACT
+  await inputElement.clear();
+
+  // ASSERT
+  await expect(inputElement).toHaveValue("");
+  expectEmit(onUpdateModelValue, 2, [undefined]);
 });
 
 test("should show min errors", async ({ mount }) => {
