@@ -341,7 +341,7 @@ const removeHoverClass = () => {
               height: $calender-day-number-display-width;
               display: flex;
               border: none;
-              font-size: 1rem;
+              font-size: var(--onyx-font-size-md);
               cursor: inherit;
               background-color: transparent;
               padding: 0;
@@ -424,7 +424,7 @@ const removeHoverClass = () => {
           .cell-content__header {
             &:after {
               display: block;
-              left: 1rem;
+              left: calc(0.5 * $calender-day-number-display-width);
               // 100% - half of number-display-width + button-border + border-space
               width: calc(
                 100% - 0.5 * $calender-day-number-display-width + var(--onyx-density-2xs) +
