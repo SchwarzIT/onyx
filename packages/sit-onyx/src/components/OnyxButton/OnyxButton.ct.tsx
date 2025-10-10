@@ -121,17 +121,20 @@ test("should render button inline aligned with text", async ({ mount }) => {
 });
 
 test("should trigger some ripples", async ({ mount, page }) => {
+  // choose hight duration here to not hide the ripples automatically
+  // so we can expect the count in the Playwright tests
   await page.addStyleTag({
     content: `.onyx-ripple__element {
-    animation-duration: 5s;
+      animation-duration: 999999s;
   }`,
   });
 
   // ARRANGE
   const component = await mount(<OnyxButton label="Button" />);
 
-  await component.click({ clickCount: 2 });
-  await component.click({ clickCount: 1 });
+  await component.click({ position: { x: 8, y: 16 } });
+  await component.click({ position: { x: 16, y: 24 } });
+  await component.click({ position: { x: 24, y: 8 } });
 
   // ASSERT
   await expect(component.locator(".onyx-ripple__element")).toHaveCount(3);
