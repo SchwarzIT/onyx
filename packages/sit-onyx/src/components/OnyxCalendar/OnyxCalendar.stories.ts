@@ -14,6 +14,14 @@ const meta: Meta<typeof OnyxCalendar> = {
       maxWidth: "45rem",
     },
   },
+  argTypes: {
+    viewMonth: {
+      control: { type: "date" },
+    },
+    modelValue: {
+      control: { type: "date" },
+    },
+  },
 };
 
 export default meta;
@@ -25,6 +33,18 @@ export const Small = {
     style: {
       maxWidth: "25rem",
     },
+  },
+} satisfies Story;
+
+export const Multiple = {
+  args: {
+    selection: "multiple",
+  },
+} satisfies Story;
+
+export const Range = {
+  args: {
+    selection: "range",
   },
 } satisfies Story;
 

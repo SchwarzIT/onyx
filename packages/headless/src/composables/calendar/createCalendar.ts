@@ -11,6 +11,15 @@ import {
 import { createBuilder, type VBindAttributes } from "../../utils/builder.js";
 import type { Nullable } from "../../utils/types.js";
 
+export type DateValue = Date | string | number;
+
+export type DateRange = {
+  start: Nullable<DateValue>;
+  end: Nullable<DateValue>;
+};
+
+export type OnyxCalendarSelection = "view" | "single" | "multiple" | "range";
+
 export type OnyxWeekDays =
   | "Monday"
   | "Tuesday"
@@ -21,8 +30,8 @@ export type OnyxWeekDays =
   | "Sunday";
 
 export type OnyxHeadlessCalendarOptions = {
-  modelValue: Ref<Nullable<Date>>;
-  viewMonth: Ref<Nullable<Date>>;
+  modelValue: Ref<Nullable<DateValue> | DateValue[] | DateRange>;
+  viewMonth: Ref<Nullable<DateValue>>;
   disabled?: MaybeRefOrGetter<boolean>;
   weekStartDay?: MaybeRefOrGetter<OnyxWeekDays>;
   min?: MaybeRefOrGetter<Nullable<Date>>;
@@ -31,6 +40,8 @@ export type OnyxHeadlessCalendarOptions = {
   locale: MaybeRefOrGetter<string>;
   calendarSize: MaybeRefOrGetter<"big" | "small">;
   buttonRefs: Ref<Record<string, HTMLElement>>;
+  selection?: MaybeRefOrGetter<OnyxCalendarSelection>;
+  hoveredDate: Ref<Nullable<Date>>;
 };
 
 const getDayIndex = (dayName: OnyxWeekDays) => {
@@ -54,27 +65,70 @@ const getNormalizedDayIndex = (date: Date, weekStartDay: OnyxWeekDays) => {
   return (normalizedDay - start + 7) % 7;
 };
 
-const getMidnightDate = (date: Date): Date => {
+const isDateRange = (value: DateRange | Nullable<DateValue> | DateValue[]): value is DateRange => {
+  return value !== null && typeof value === "object" && "start" in value && "end" in value;
+};
+
+const isDateInstance = (value: DateRange | Nullable<DateValue> | DateValue[]): value is Date => {
+  return value instanceof Date && !isNaN(value.getTime());
+};
+
+const toDate = (value: Nullable<DateValue>): Date | null => {
+  if (isDateInstance(value)) {
+    return value;
+  }
+  if (typeof value === "string" || typeof value === "number") {
+    const date = new Date(value);
+    if (isDateInstance(date)) {
+      return date;
+    }
+  }
+  return null;
+};
+
+const getMidnightDate = (value: DateValue): Date => {
+  const date = toDate(value);
+  if (!date) {
+    return getMidnightDate(new Date());
+  }
   const newDate = new Date(date);
   newDate.setHours(0, 0, 0, 0);
   return newDate;
 };
 
 const initializeDate = (options: {
-  viewMonth: Nullable<Date>;
+  viewMonth: Nullable<DateValue>;
   min?: Nullable<Date>;
   max?: Nullable<Date>;
 }) => {
-  const min = options.min ? getMidnightDate(new Date(options.min)) : null;
-  const max = options.max ? getMidnightDate(new Date(options.max)) : null;
+  const min = options.min ? getMidnightDate(options.min) : null;
+  const max = options.max ? getMidnightDate(options.max) : null;
   const today = getMidnightDate(new Date());
 
-  let initialDate = options.viewMonth ?? today;
+  let initialDate = toDate(options.viewMonth) ?? today;
 
   if (min && initialDate < min) initialDate = min;
   if (max && initialDate > max) initialDate = max;
 
   return initialDate;
+};
+
+const getFocusDateFromModel = (
+  model: Nullable<DateValue | DateValue[] | DateRange>,
+): Nullable<Date> => {
+  if (!model) return null;
+
+  let dateValueToFocus: Nullable<DateValue> = null;
+
+  if (isDateInstance(model) || typeof model === "string" || typeof model === "number") {
+    dateValueToFocus = model;
+  } else if (Array.isArray(model) && model.length > 0) {
+    dateValueToFocus = model.find((v) => toDate(v) !== null) ?? null;
+  } else if (isDateRange(model) && model.start) {
+    dateValueToFocus = model.start;
+  }
+
+  return toDate(dateValueToFocus);
 };
 
 /**
@@ -89,7 +143,7 @@ export const _unstableCreateCalendar = createBuilder((options: OnyxHeadlessCalen
   });
 
   onMounted(() => {
-    if (!options.viewMonth.value) {
+    if (!toDate(options.viewMonth.value)) {
       options.viewMonth.value = initialValue;
     }
   });
@@ -106,22 +160,95 @@ export const _unstableCreateCalendar = createBuilder((options: OnyxHeadlessCalen
     return days.map((day) => formatter.format(day));
   });
 
-  const focusedDate = ref(options.modelValue.value ?? initialValue);
+  const focusedDate = ref(toDate(getFocusDateFromModel(options.modelValue.value)) ?? initialValue);
+
   const currentYear = computed(
-    () => options.viewMonth.value?.getFullYear() ?? new Date().getFullYear(),
+    () => toDate(options.viewMonth.value)?.getFullYear() ?? new Date().getFullYear(),
   );
-  const currentMonth = computed(() => options.viewMonth.value?.getMonth() ?? new Date().getMonth());
+  const currentMonth = computed(
+    () => toDate(options.viewMonth.value)?.getMonth() ?? new Date().getMonth(),
+  );
 
   const isToday = (date: Date) =>
     getMidnightDate(date).getTime() === getMidnightDate(new Date()).getTime();
 
-  const isSelected = (date: Date) =>
-    !!options.modelValue.value &&
-    getMidnightDate(date).getTime() === getMidnightDate(options.modelValue.value).getTime();
+  const isWithinRange = (date: Date, hovering: boolean = false) => {
+    const selected = options.modelValue.value;
 
-  const isFocused = (date: Date) =>
-    !!focusedDate.value &&
-    getMidnightDate(date).getTime() === getMidnightDate(focusedDate.value).getTime();
+    if (!isDateRange(selected) || !selected.start) {
+      return false;
+    }
+
+    const hasPermanentEnd = !!selected.end;
+    const hasHoverEnd = !!options.hoveredDate.value;
+
+    if (hovering) {
+      if (hasPermanentEnd || !hasHoverEnd) {
+        return false;
+      }
+    } else {
+      if (!hasPermanentEnd) {
+        return false;
+      }
+    }
+
+    const start = toDate(selected.start);
+
+    const endValue = hovering ? options.hoveredDate.value : selected.end;
+    const end = toDate(endValue);
+
+    if (!start || !end) return false;
+
+    const dateMidnight = getMidnightDate(date);
+    const startMidnight = getMidnightDate(start);
+    const endMidnight = getMidnightDate(end);
+
+    const [trueStart, trueEnd] = [startMidnight, endMidnight].sort(
+      (a, b) => a.getTime() - b.getTime(),
+    );
+
+    return (
+      dateMidnight.getTime() > trueStart!.getTime() && dateMidnight.getTime() < trueEnd!.getTime()
+    );
+  };
+
+  const isSelected = (date: Date) => {
+    const selected = options.modelValue.value;
+    const dateMidnight = getMidnightDate(date).getTime();
+
+    // Single mode
+    if (isDateInstance(selected) || typeof selected === "string" || typeof selected === "number") {
+      const d = toDate(selected);
+      return d ? dateMidnight === getMidnightDate(d).getTime() : false;
+    }
+
+    // Multiple mode
+    if (Array.isArray(selected)) {
+      const validDates = selected.map(toDate).filter((d): d is Date => d !== null);
+      return validDates.some((d) => getMidnightDate(d).getTime() === dateMidnight);
+    }
+
+    // Range mode
+    if (isDateRange(selected)) {
+      const start = toDate(selected.start);
+      const end = toDate(selected.end);
+
+      const startMs = start ? getMidnightDate(start).getTime() : null;
+      const endMs = end ? getMidnightDate(end).getTime() : null;
+
+      return dateMidnight === startMs || dateMidnight === endMs;
+    }
+
+    return false;
+  };
+
+  const isFocused = (date: Date) => {
+    const focusedDateObj = toDate(focusedDate.value);
+    return (
+      !!focusedDateObj &&
+      getMidnightDate(date).getTime() === getMidnightDate(focusedDateObj).getTime()
+    );
+  };
 
   const isWeekend = (date: Date) => {
     const day = date.getDay();
@@ -183,15 +310,67 @@ export const _unstableCreateCalendar = createBuilder((options: OnyxHeadlessCalen
   const weeks = computed(() => generateCalendar(currentYear.value, currentMonth.value));
 
   const goToDate = (date: Date) => {
-    const midnightDate = getMidnightDate(date);
-    options.modelValue.value = midnightDate;
-    focusedDate.value = midnightDate;
+    const selected = options.modelValue.value;
+    const selectionMode = toValue(options.selection) ?? "single";
+
+    switch (selectionMode) {
+      case "single":
+        options.modelValue.value = getMidnightDate(date);
+        break;
+
+      case "multiple": {
+        const dateMidnight = getMidnightDate(date);
+
+        const selectedDates = Array.isArray(selected)
+          ? selected.map(toDate).filter((d): d is Date => d !== null)
+          : [];
+
+        const isAlreadySelected = selectedDates.some(
+          (d) => getMidnightDate(d).getTime() === dateMidnight.getTime(),
+        );
+
+        if (isAlreadySelected) {
+          options.modelValue.value = selectedDates.filter(
+            (d) => getMidnightDate(d).getTime() !== dateMidnight.getTime(),
+          );
+        } else {
+          options.modelValue.value = [...selectedDates, dateMidnight];
+        }
+        break;
+      }
+
+      case "range": {
+        const dateMidnightRange = getMidnightDate(date);
+        const range: DateRange = isDateRange(selected) ? selected : { start: null, end: null };
+
+        const currentStart = toDate(range.start);
+
+        if (!currentStart || (currentStart && toDate(range.end))) {
+          options.modelValue.value = { start: dateMidnightRange, end: null };
+        } else if (getMidnightDate(currentStart).getTime() > dateMidnightRange.getTime()) {
+          options.modelValue.value = { start: dateMidnightRange, end: currentStart };
+        } else {
+          options.modelValue.value = { ...range, end: dateMidnightRange };
+        }
+        break;
+      }
+
+      case "view":
+        // Do nothing on click
+        break;
+    }
+
+    focusedDate.value = getMidnightDate(date);
 
     if (
-      midnightDate.getMonth() !== currentMonth.value ||
-      midnightDate.getFullYear() !== currentYear.value
+      getMidnightDate(date).getMonth() !== currentMonth.value ||
+      getMidnightDate(date).getFullYear() !== currentYear.value
     ) {
-      options.viewMonth.value = new Date(midnightDate.getFullYear(), midnightDate.getMonth(), 1);
+      options.viewMonth.value = new Date(
+        getMidnightDate(date).getFullYear(),
+        getMidnightDate(date).getMonth(),
+        1,
+      );
     }
   };
 
@@ -199,7 +378,7 @@ export const _unstableCreateCalendar = createBuilder((options: OnyxHeadlessCalen
     if (!focusedDate.value || toValue(options.disabled)) return;
 
     const { min, max } = options;
-    const newDate = new Date(focusedDate.value);
+    const newDate = new Date(focusedDate.value as Date);
     let handled = false;
 
     switch (event.key) {
@@ -280,6 +459,11 @@ export const _unstableCreateCalendar = createBuilder((options: OnyxHeadlessCalen
 
   const calendarId = useId();
 
+  const selectedRange = computed(() => {
+    const selected = options.modelValue.value;
+    return isDateRange(selected) ? selected : null;
+  });
+
   return {
     elements: {
       table: computed<VBindAttributes>(() => ({
@@ -287,23 +471,60 @@ export const _unstableCreateCalendar = createBuilder((options: OnyxHeadlessCalen
         "aria-labelledby": `calendar-${calendarId}`,
         onKeydown: (e: KeyboardEvent) => handleKeyNavigation(e),
       })),
-      cell: computed(
-        () => (day: { date: Date; isCurrentMonth: boolean; isDisabled: boolean }) =>
-          day.date
-            ? {
-                role: "gridcell",
-                "aria-selected": isSelected(day.date),
-                "aria-disabled": day.isDisabled || toValue(options.disabled),
-                class: {
-                  "other-month": !day.isCurrentMonth,
-                  "is-disabled": day.isDisabled,
-                  today: isToday(day.date),
-                  selected: isSelected(day.date),
-                  weekend: isWeekend(day.date),
-                },
-              }
-            : {},
-      ),
+      cell: computed(() => (day: { date: Date; isCurrentMonth: boolean; isDisabled: boolean }) => {
+        const range = selectedRange.value;
+        const isRangeSelection = toValue(options.selection) === "range";
+        const dateMidnightTime = day.date.getTime();
+
+        const rangeStart = toDate(range?.start);
+        const rangeEnd = toDate(range?.end);
+
+        return day.date
+          ? {
+              role: "gridcell",
+              "aria-selected": isSelected(day.date),
+              "aria-disabled": day.isDisabled || toValue(options.disabled),
+              class: {
+                "other-month": !day.isCurrentMonth,
+                "is-disabled": day.isDisabled,
+                today: isToday(day.date),
+                selected: isSelected(day.date),
+                "is-start-date":
+                  isRangeSelection &&
+                  rangeStart &&
+                  rangeEnd &&
+                  dateMidnightTime === getMidnightDate(rangeStart).getTime(),
+                "is-end-date":
+                  isRangeSelection &&
+                  rangeEnd &&
+                  dateMidnightTime === getMidnightDate(rangeEnd).getTime(),
+                "is-within-range": isRangeSelection && rangeEnd && isWithinRange(day.date),
+                weekend: isWeekend(day.date),
+
+                "is-start-date--hover":
+                  isRangeSelection &&
+                  rangeStart &&
+                  !rangeEnd &&
+                  options.hoveredDate.value &&
+                  dateMidnightTime ===
+                    getMidnightDate(
+                      new Date(Math.min(rangeStart.getTime(), options.hoveredDate.value.getTime())),
+                    ).getTime(),
+                "is-end-date--hover":
+                  isRangeSelection &&
+                  rangeStart &&
+                  !rangeEnd &&
+                  options.hoveredDate.value &&
+                  dateMidnightTime ===
+                    getMidnightDate(
+                      new Date(Math.max(rangeStart.getTime(), options.hoveredDate.value.getTime())),
+                    ).getTime(),
+                "is-within-range--hover":
+                  isRangeSelection && rangeStart && !rangeEnd && isWithinRange(day.date, true),
+              },
+            }
+          : {};
+      }),
       button: computed(
         () => (day: { date: Date; isCurrentMonth: boolean; isDisabled: boolean }) =>
           day.date

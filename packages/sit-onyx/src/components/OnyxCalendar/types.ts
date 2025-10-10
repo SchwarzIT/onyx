@@ -1,12 +1,14 @@
 import type { DensityProp } from "../../composables/density.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 import type { Nullable } from "../../types/utils.js";
+import type { DateValue } from "../OnyxDatePicker/types.js";
 
 export type OnyxCalendarProps = DensityProp & {
   /**
    * Selected Value
    */
-  modelValue?: Nullable<Date>;
+  modelValue?: Nullable<Date> | Date[] | { start: Nullable<Date>; end: Nullable<Date> };
+
   /**
    * Whether the calendar is disabled. Disables all interactions and prevents date selection.
    */
@@ -32,7 +34,7 @@ export type OnyxCalendarProps = DensityProp & {
    * The Month/Year to display
    * @default today
    */
-  viewMonth?: Nullable<Date>;
+  viewMonth?: Nullable<DateValue>;
 
   /**
    * The visual size of the calendar.

@@ -18,6 +18,7 @@ import {
 } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
+import type { Nullable } from "../../types/utils.js";
 import { ONYX_BREAKPOINTS } from "../../utils/breakpoints.js";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
@@ -34,11 +35,15 @@ const props = withDefaults(defineProps<OnyxCalendarProps>(), {
   skeleton: SKELETON_INJECTED_SYMBOL,
   modelValue: null,
 });
-/**
- * Emit selectedDate on Change
- */
+
 const emit = defineEmits<{
+  /**
+   * Emitted when the selection changes
+   */
   "update:modelValue": [newDate: Date];
+  /**
+   * Emitted when the viewed Month changes
+   */
   "update:viewMonth": [newDate: Date];
 }>();
 
@@ -47,6 +52,9 @@ defineSlots<{
    * Optional slot that is displayed below at the right of the Header.
    */
   actions?(): unknown;
+  /**
+   * Optional slot that is displayed inside each day, for custom calender content.
+   */
   day?(props: { date: Date; size: "small" | "big" }): unknown;
 }>();
 
@@ -63,7 +71,6 @@ const viewMonth = useVModel({
   emit,
   default: null,
 });
-
 const { densityClass } = useDensity(props);
 
 const skeleton = useSkeletonContext(props);
@@ -82,8 +89,8 @@ const setButtonRef = (el: HTMLElement | null, dateKey: string) => {
   }
 };
 
-const { disabled, min, max, weekStartDay, displayCalendarWeek } = toRefs(props);
-
+const { disabled, min, max, weekStartDay, displayCalendarWeek, selection } = toRefs(props);
+const hoveredDate = ref<Nullable<Date>>();
 const {
   state: { currentYear, currentMonth, weeks, weekdays },
   elements: { table: tableProps, cell: cellProps, button: buttonProps },
@@ -99,12 +106,23 @@ const {
   displayCalendarWeek,
   viewMonth,
   modelValue,
+  selection,
+  hoveredDate,
 });
 
 const calendarRef = useTemplateRef("calendar");
 const { width } = useResizeObserver(calendarRef);
 
 const sizeClass = computed(() => `onyx-calendar--${calendarSize.value}`);
+
+const addHoverClass = (day: { date: Date; isDisabled: boolean }) => {
+  if (selection.value !== "range" || day.isDisabled) return;
+  hoveredDate.value = day.date;
+};
+const removeHoverClass = () => {
+  if (selection.value !== "range") return;
+  hoveredDate.value = null;
+};
 </script>
 
 <template>
@@ -122,6 +140,7 @@ const sizeClass = computed(() => `onyx-calendar--${calendarSize.value}`);
       sizeClass,
       densityClass,
       { 'onyx-calendar--disabled': disabled },
+      `onyx-calendar--${selection}`,
     ]"
   >
     <div class="onyx-calendar__header">
@@ -190,7 +209,15 @@ const sizeClass = computed(() => `onyx-calendar--${calendarSize.value}`);
               </p>
             </td>
 
-            <td v-for="(day, dayIndex) in week.days" :key="dayIndex" v-bind="cellProps(day)">
+            <td
+              v-for="(day, dayIndex) in week.days"
+              :key="dayIndex"
+              v-bind="cellProps(day)"
+              @mouseenter="addHoverClass(day)"
+              @focusin="addHoverClass(day)"
+              @mouseleave="removeHoverClass()"
+              @focusout="removeHoverClass()"
+            >
               <button
                 v-if="day.date"
                 v-bind="buttonProps(day)"
@@ -200,11 +227,13 @@ const sizeClass = computed(() => `onyx-calendar--${calendarSize.value}`);
                 "
                 type="button"
               >
-                <span class="cell-content__number">
-                  <span class="cell-content__number-display">
-                    {{ day.date.getDate() }}
+                <div class="cell-content__header">
+                  <span class="cell-content__number">
+                    <span class="cell-content__number-display">
+                      {{ day.date.getDate() }}
+                    </span>
                   </span>
-                </span>
+                </div>
                 <slot name="day" :date="day.date" :size="calendarSize"></slot>
               </button>
             </td>
@@ -224,10 +253,12 @@ const sizeClass = computed(() => `onyx-calendar--${calendarSize.value}`);
     flex-direction: column;
     gap: var(--onyx-density-sm);
     color: var(--onyx-color-text-icons-neutral-medium);
+    $calender-week-column-width: 2.5rem;
+    $calender-day-number-display-width: 2rem;
 
     &-calender-week {
       &-header {
-        width: 2.5rem; //TODO: change
+        width: $calender-week-column-width;
       }
       &-cell {
         background-color: var(--onyx-color-base-neutral-200);
@@ -306,8 +337,8 @@ const sizeClass = computed(() => `onyx-calendar--${calendarSize.value}`);
             width: 100%;
             aspect-ratio: 1;
             &__number {
-              width: 2rem;
-              height: 2rem;
+              width: $calender-day-number-display-width;
+              height: $calender-day-number-display-width;
               display: flex;
               border: none;
               font-size: 1rem;
@@ -347,6 +378,15 @@ const sizeClass = computed(() => `onyx-calendar--${calendarSize.value}`);
               background: var(--onyx-color-base-primary-700);
             }
           }
+          &.is-within-range:not(.today) {
+            .cell-content__number-display {
+              color: var(--onyx-color-text-icons-primary-bold);
+            }
+            &:hover .cell-content__number-display {
+              background: var(--onyx-color-base-primary-700);
+              color: var(--onyx-color-text-icons-neutral-inverted);
+            }
+          }
           &.other-month,
           &.is-disabled {
             .cell-content {
@@ -356,6 +396,71 @@ const sizeClass = computed(() => `onyx-calendar--${calendarSize.value}`);
           &.is-disabled {
             * {
               cursor: default;
+            }
+          }
+        }
+        // Range
+        .cell-content__number {
+          position: relative;
+          z-index: 1;
+        }
+        .cell-content__header {
+          position: relative;
+          &:after {
+            display: none;
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            // -button-border + border-space
+            left: calc(-1 * (var(--onyx-density-2xs) + var(--onyx-1px-in-rem)));
+            background-color: var(--onyx-color-text-icons-primary-soft);
+          }
+        }
+
+        &:has(.is-end-date) .is-start-date:not(.is-end-date),
+        .is-start-date--hover:not(.is-end-date--hover) {
+          .cell-content__header {
+            &:after {
+              display: block;
+              left: 1rem;
+              // 100% - half of number-display-width + button-border + border-space
+              width: calc(
+                100% - 0.5 * $calender-day-number-display-width + var(--onyx-density-2xs) +
+                  var(--onyx-1px-in-rem)
+              );
+            }
+          }
+        }
+        .is-within-range,
+        .is-within-range--hover {
+          .cell-content__header {
+            &:after {
+              display: block;
+              //100%+ 2 * button-border + 2 * button-space
+              width: calc(100% + 2 * var(--onyx-density-2xs) + 2 * var(--onyx-1px-in-rem));
+            }
+          }
+        }
+        .is-end-date:not(.is-start-date),
+        .is-end-date--hover:not(.is-start-date--hover) {
+          .cell-content__header {
+            &:after {
+              display: block;
+              // half of number-display width + button-border  + border-space
+              width: calc(
+                0.5 * $calender-day-number-display-width + var(--onyx-density-2xs) +
+                  var(--onyx-1px-in-rem)
+              );
+            }
+          }
+        }
+        .is-end-date--hover:not(.is-start-date--hover),
+        .is-start-date--hover:not(.is-end-date--hover) {
+          :focus-visible {
+            .cell-content__number-display {
+              background-color: var(--onyx-color-base-neutral-300);
             }
           }
         }
@@ -384,10 +489,32 @@ const sizeClass = computed(() => `onyx-calendar--${calendarSize.value}`);
     }
 
     &--small {
-      .cell-content {
+      .cell-content__header {
+        width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
+      }
+      .onyx-calendar__body table {
+        &:has(.is-end-date) .is-start-date:not(.is-end-date),
+        .is-start-date--hover:not(.is-end-date--hover) {
+          .cell-content__header {
+            &:after {
+              left: 50%;
+              // 50% + button-border + border-space
+              width: calc(50% + var(--onyx-density-2xs) + var(--onyx-1px-in-rem));
+            }
+          }
+        }
+        .is-end-date:not(.is-start-date),
+        .is-end-date--hover:not(.is-start-date--hover) {
+          .cell-content__header {
+            &:after {
+              // 50% + button-border + border-space
+              width: calc(50% + var(--onyx-density-2xs) + var(--onyx-1px-in-rem));
+            }
+          }
+        }
       }
       .time-control-container {
         justify-content: space-between;
@@ -413,6 +540,32 @@ const sizeClass = computed(() => `onyx-calendar--${calendarSize.value}`);
       &__body {
         width: 100%;
         aspect-ratio: 1;
+      }
+    }
+  }
+  &--view {
+    .onyx-calendar__body table td {
+      cursor: default;
+      .cell-content {
+        cursor: default;
+      }
+      &:hover {
+        .cell-content__number-display {
+          background-color: inherit;
+          color: inherit;
+        }
+        &.today {
+          .cell-content__number-display {
+            background: var(--onyx-color-base-neutral-500);
+            color: var(--onyx-color-text-icons-neutral-inverted);
+          }
+        }
+        &.other-month {
+          cursor: pointer;
+          .cell-content {
+            cursor: pointer;
+          }
+        }
       }
     }
   }
