@@ -24,11 +24,6 @@ const events: EventType[] = [
     color: "success",
     description: "Anna Birthday",
   },
-  {
-    date: new Date(testDate.setDate(testDate.getDate() + 7)).toISOString().slice(0, 10),
-    color: "success",
-    description: "Max Birthday",
-  },
 ];
 
 const getEvent = (date: Date) => {
@@ -38,10 +33,10 @@ const getEvent = (date: Date) => {
 
 <template>
   <OnyxCalendar class="calendar" v-bind="props" :view-month="testDate">
-    <template #day="{ date, size }">
+    <template #day="{ date, size: daySize }">
       <div v-if="date" class="onyx-calendar-event-container">
         <OnyxBadge v-if="getEvent(date)" :color="getEvent(date)?.color" dot> </OnyxBadge>
-        <p v-if="size === 'big'">{{ getEvent(date)?.description }}</p>
+        <p v-if="daySize === 'big'">{{ getEvent(date)?.description }}</p>
       </div>
     </template>
   </OnyxCalendar>
