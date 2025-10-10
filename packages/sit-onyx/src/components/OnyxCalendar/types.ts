@@ -1,7 +1,14 @@
 import type { DensityProp } from "../../composables/density.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
+import type { Nullable } from "../../types/utils.js";
+import type { DateValue } from "../OnyxDatePicker/types.js";
 
 export type OnyxCalendarProps = DensityProp & {
+  /**
+   * Selected Value
+   */
+  modelValue?: Nullable<Date> | Date[] | { start: Nullable<Date>; end: Nullable<Date> };
+
   /**
    * Whether the calendar is disabled. Disables all interactions and prevents date selection.
    */
@@ -24,10 +31,10 @@ export type OnyxCalendarProps = DensityProp & {
   weekStartDay?: OnyxWeekDays;
 
   /**
-   * The initial date to display when the calendar is first rendered.
+   * The Month/Year to display
    * @default today
    */
-  initialDate?: Date;
+  viewMonth?: Nullable<DateValue>;
 
   /**
    * The visual size of the calendar.
@@ -50,13 +57,11 @@ export type OnyxCalendarProps = DensityProp & {
 
   /**
    * Whether to display week numbers in the calendar.
-   * TODO: Implement feature.
    */
-  // displayCalendarWeek?: boolean;
+  displayCalendarWeek?: boolean;
 };
 
-// TODO: add multi & range support
-export type OnyxCalendarSelection = "single";
+export type OnyxCalendarSelection = "view" | "single" | "multiple" | "range";
 export type OnyxCalendarSize = "big" | "small" | "auto";
 export type OnyxWeekDays =
   | "Monday"
