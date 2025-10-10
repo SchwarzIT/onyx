@@ -53,7 +53,7 @@ export const PLAYWRIGHT_BASE_CONFIG: PlaywrightTestConfig = {
    */
   timeout: 20 * 1000,
   forbidOnly: !!process.env.CI, // fail build on CI if we left test.only in the source code
-  retries: process.env.CI ? 1 : 0, // retry on CI only
+  retries: process.env.CI ? 3 : 0, // retry on CI only
 
   /**
    * REPORTERS

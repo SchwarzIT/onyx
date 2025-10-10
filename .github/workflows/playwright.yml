@@ -2,6 +2,10 @@ name: Playwright tests
 on:
   workflow_call:
     inputs:
+      only-changed:
+        type: string
+        required: false
+        description: If set, only tests for changed files are run (based on the passed git ref)
       update-snapshots:
         type: boolean
         default: false
@@ -24,6 +28,8 @@ jobs:
       TURBO_TOKEN: ${{ secrets.TURBO_REMOTE_CACHE__TURBO_TOKEN }}
     steps:
       - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0 # We need the git history for playwright to be able determine the changed files
 
       - uses: ./.github/templates/node-setup
 
@@ -33,7 +39,7 @@ jobs:
         run: pnpm exec playwright install-deps
 
       - name: 🔎 Run Playwright tests
-        run: pnpm run test:playwright:all
+        run: pnpm run test:playwright:all --concurrency 1 ${{ (inputs.only-changed != '' && format('-- --only-changed {0}', inputs.only-changed)) || '' }}
         env:
           PW_UPDATE_SNAPSHOTS: "${{ inputs.update-snapshots }}"
           PW_SHARD: "${{ matrix.shard }}"
@@ -55,6 +61,7 @@ jobs:
           path: changed-screenshots
           # prevent warnings if shard does not update any screenshots
           if-no-files-found: ignore
+          retention-days: 1
 
       - name: Upload Reports
         uses: actions/upload-artifact@v4
@@ -84,16 +91,14 @@ jobs:
         with:
           name: screenshots
           pattern: screenshots-*
-          delete-merged: true
+          retention-days: 14
 
-      - name: Merge Reports
-        uses: actions/upload-artifact/merge@v4
+      - name: Download reports
+        uses: actions/download-artifact@v5
         if: ${{ !cancelled() }}
         with:
-          name: blob-reports
           pattern: blob-report-*
-          retention-days: 1
-          delete-merged: true
+          merge-multiple: true
 
       - uses: pnpm/action-setup@v4
 
@@ -104,11 +109,6 @@ jobs:
 
       - name: 📦 Install dependencies
         run: pnpm install
-
-      - name: Download blob reports from GitHub Actions Artifacts
-        uses: actions/download-artifact@v5
-        with:
-          name: blob-reports
 
       # For every blob-report merge its playwright results as html report and move it into its original package
       - name: Merge into HTML Report

@@ -5,23 +5,24 @@ import {
   nextTick,
   onMounted,
   ref,
+  toRef,
   useId,
   useTemplateRef,
   watch,
   type AriaAttributes,
 } from "vue";
 import { useAnchorPositionPolyfill } from "../../composables/useAnchorPositionPolyfill.js";
-import { useClipping } from "../../composables/useClipping.js";
 import { useOpenAlignment } from "../../composables/useOpenAlignment.js";
 import { useOpenDirection } from "../../composables/useOpenDirection.js";
 import { useResizeObserver } from "../../composables/useResizeObserver.js";
+import { useSticky } from "../../composables/useSticky.js";
 import type { OnyxBasicPopoverProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxBasicPopoverProps>(), {
   position: "auto",
   alignment: "auto",
   role: "dialog",
-  clipping: false,
+  sticky: false,
 });
 
 defineSlots<{
@@ -115,12 +116,12 @@ const updateDirections = () => {
   updateOpenAlignment();
 };
 
-const { clippingStyles, isClipping } = useClipping({
+const { stickyStyles, isSticky } = useSticky({
   popoverRef,
   popoverWrapperRef,
   popoverPosition,
   isVisible,
-  clipping: computed(() => props.clipping),
+  sticky: toRef(() => props.sticky),
 });
 
 useGlobalEventListener({
@@ -163,7 +164,7 @@ const popoverClasses = computed(() => {
     [`onyx-basic-popover__dialog--alignment-${popoverAlignment.value}`]: true,
     "onyx-basic-popover__dialog--fitparent": props.fitParent,
     "onyx-basic-popover__dialog--disabled": disabled.value,
-    "onyx-basic-popover__dialog--clipping": isClipping.value,
+    "onyx-basic-popover__dialog--sticky": isSticky.value,
     "onyx-basic-popover__dialog--dont-support-anchor": !useragentSupportsAnchorApi.value,
   };
 });
@@ -215,7 +216,7 @@ const popoverStyles = computed(() => {
       popover="manual"
       class="onyx-basic-popover__dialog"
       :class="popoverClasses"
-      :style="!isClipping ? popoverStyles : clippingStyles"
+      :style="!isSticky ? popoverStyles : stickyStyles"
     >
       <slot name="content"></slot>
     </div>
@@ -292,7 +293,7 @@ const popoverStyles = computed(() => {
       &--dont-support-anchor {
         margin: 0;
       }
-      &--clipping {
+      &--sticky {
         margin: 0;
         top: auto;
         bottom: auto;

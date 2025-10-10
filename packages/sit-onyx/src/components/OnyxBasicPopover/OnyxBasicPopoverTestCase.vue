@@ -31,7 +31,7 @@ const isExpanded = ref(true);
     :alignment="props.alignment"
     :position="props.position"
     :disabled="props.disabled"
-    :clipping="props.clipping"
+    :sticky="props.sticky"
   >
     <template #default="{ trigger }">
       <OnyxButton v-bind="trigger" label="button" type="button"> Open</OnyxButton>
@@ -40,8 +40,8 @@ const isExpanded = ref(true);
       <div label="content">Popover Content</div>
     </template>
   </OnyxBasicPopover>
-  <!-- Extra Space to test clipping -->
-  <div v-if="props.clipping" class="space"></div>
+  <!-- Extra Space to test sticky -->
+  <div v-if="props.sticky" class="space"></div>
 </template>
 
 <style lang="scss">

@@ -3,6 +3,7 @@ import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import { ONYX_COLORS } from "../../types/index.js";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
+import OnyxMenuItem from "../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxInfoCard from "./OnyxInfoCard.vue";
 
 test.describe("Screenshot tests", () => {
@@ -64,6 +65,36 @@ test.describe("Screenshot tests (slots)", () => {
           "Lorem ipsum dolor sit amet consectetur. Felis euismod sit amet nulla nulla amet libero sed."}
       </OnyxInfoCard>
     ),
+  });
+});
+
+test.describe("Screenshot tests (header actions)", () => {
+  executeMatrixScreenshotTest({
+    name: "Info card (header actions)",
+    columns: ["default", "open"],
+    rows: ["headline", "headline+description", "description"],
+    component: (column, row) => (
+      <OnyxInfoCard
+        headline={row.includes("headline") ? "Headline" : undefined}
+        style={{ width: "24rem", marginBottom: "6rem" }}
+        closable
+      >
+        {row.includes("description") &&
+          "Lorem ipsum dolor sit amet consectetur. Felis euismod sit amet nulla nulla amet libero sed."}
+
+        <template v-slot:headerActions>
+          <OnyxMenuItem label="Action 1" />
+          <OnyxMenuItem label="Action 2" />
+        </template>
+      </OnyxInfoCard>
+    ),
+    hooks: {
+      beforeEach: async (component, page, column) => {
+        if (column === "open") {
+          await component.getByLabel("Toggle actions").click();
+        }
+      },
+    },
   });
 });
 

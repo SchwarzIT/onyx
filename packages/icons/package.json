@@ -1,7 +1,7 @@
 {
   "name": "@sit-onyx/icons",
   "description": "SVG icons for the onyx design system",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
@@ -38,6 +38,6 @@
     "@sit-onyx/shared": "workspace:^",
     "@sit-onyx/vite-plugin-svg": "workspace:^",
     "tsx": "^4.20.6",
-    "vite-plugin-static-copy": "^3.1.2"
+    "vite-plugin-static-copy": "^3.1.3"
   }
 }

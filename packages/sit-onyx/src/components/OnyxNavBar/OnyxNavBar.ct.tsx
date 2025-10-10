@@ -435,6 +435,7 @@ test("should display More Items correctly", async ({ mount, page }) => {
     expect(navItemClickEvents).toBe(2);
 
     // ACT
+    await page.getByRole("document").hover({ position: { x: 0, y: 0 } }); // reset mouse
     await moreMenuItem.hover();
     await component.getByRole("menuitem", { name: "Menuitem 5" }).click();
 

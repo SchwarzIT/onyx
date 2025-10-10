@@ -45,7 +45,7 @@ jobs:
         continue-on-error: true
 
       - name: ⬆️ Upload eslint results to GitHub
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: eslint-results.sarif
           wait-for-processing: true
@@ -74,20 +74,12 @@ jobs:
           name: coverage
           path: coverage
 
-      - name: ⬆️ Upload Storybook artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: storybook-static
-          path: packages/sit-onyx/storybook-static
-
-      - name: ⬆️ Upload documentation artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: documentation
-          path: apps/docs/src/.vitepress/dist
-
   screenshots:
     needs: build
     name: Component tests
     uses: ./.github/workflows/playwright.yml
     secrets: inherit
+    with:
+      # On PRs: Run tests only for changed files.
+      # This means that for merge_groups, which are required to be run before the merge, all tests are executed.
+      only-changed: ${{ (github.event.pull_request.base.ref && format('origin/{0}', github.event.pull_request.base.ref)) }}
