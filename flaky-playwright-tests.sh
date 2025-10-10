@@ -47,24 +47,24 @@
 ✅ pnpm test:playwright src/components/OnyxSegmentedControl/ -x --repeat-each 100 --project webkit
 ✅ pnpm test:playwright src/components/OnyxSegmentedControlElement/ -x --repeat-each 100 --project webkit
 ✅ pnpm test:playwright src/components/OnyxPageLayout/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxTable/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxIconButton/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxBreadcrumbItem/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxBasicDialog/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxBreadcrumb/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxSelectInput/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxIcon/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxFilterTag/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxLoadingIndicator/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/examples/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxGlobalFAB/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxListItem/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxResizeHandle/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxProgressItem/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxTextarea/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxSelect/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxAvatar/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxModal/ -x --repeat-each 100 --project webkit
+✅ pnpm test:playwright src/components/OnyxTable/ -x --repeat-each 100 --project webkit
+✅ pnpm test:playwright src/components/OnyxIconButton/ -x --repeat-each 100 --project webkit
+✅ pnpm test:playwright src/components/OnyxBreadcrumbItem/ -x --repeat-each 100 --project webkit
+✅ pnpm test:playwright src/components/OnyxBasicDialog/ -x --repeat-each 100 --project webkit
+✅ pnpm test:playwright src/components/OnyxBreadcrumb/ -x --repeat-each 100 --project webkit
+✅ pnpm test:playwright src/components/OnyxSelectInput/ -x --repeat-each 100 --project webkit
+✅ pnpm test:playwright src/components/OnyxIcon/ -x --repeat-each 100 --project webkit
+✅ pnpm test:playwright src/components/OnyxFilterTag/ -x --repeat-each 100 --project webkit
+✅ pnpm test:playwright src/components/OnyxLoadingIndicator/ -x --repeat-each 100 --project webkit
+✅ pnpm test:playwright src/components/examples/ -x --repeat-each 100 --project webkit
+✅ pnpm test:playwright src/components/OnyxGlobalFAB/ -x --repeat-each 100 --project webkit
+✅ pnpm test:playwright src/components/OnyxListItem/ -x --repeat-each 100 --project webkit
+✅ pnpm test:playwright src/components/OnyxResizeHandle/ -x --repeat-each 100 --project webkit
+✅ pnpm test:playwright src/components/OnyxProgressItem/ -x --repeat-each 100 --project webkit
+✅ pnpm test:playwright src/components/OnyxTextarea/ -x --repeat-each 100 --project webkit
+✅ pnpm test:playwright src/components/OnyxSelect/ -x --repeat-each 100 --project webkit
+✅ pnpm test:playwright src/components/OnyxAvatar/ -x --repeat-each 100 --project webkit
+✅ pnpm test:playwright src/components/OnyxModal/ -x --repeat-each 100 --project webkit
 pnpm test:playwright src/components/OnyxErrorTooltip/ -x --repeat-each 100 --project webkit
 pnpm test:playwright src/components/OnyxSwitch/ -x --repeat-each 100 --project webkit
 pnpm test:playwright src/components/OnyxCheckboxGroup/ -x --repeat-each 100 --project webkit
