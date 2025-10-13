@@ -234,5 +234,11 @@
     "calenderWeek": "CW",
     "previousMonthButton": "Previous month",
     "nextMonthButton": "Next month"
+  },
+  "flyoutMenu": {
+    "toggleActions": {
+      "click": "Click to toggle action visibility",
+      "hover": "Hover/Focus to toggle action visibility"
+    }
   }
 }

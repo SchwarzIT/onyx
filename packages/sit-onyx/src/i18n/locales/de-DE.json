@@ -231,5 +231,11 @@
     "calenderWeek": "KW",
     "previousMonthButton": "Vorheriger Monat",
     "nextMonthButton": "Nächster Monat"
+  },
+  "flyoutMenu": {
+    "toggleActions": {
+      "click": "Klicken, um die Sichtbarkeit der Aktionen umzuschalten",
+      "hover": "Mit der Maus darüberfahren/fokussieren, um die Sichtbarkeit der Aktionen umzuschalten"
+    }
   }
 }
