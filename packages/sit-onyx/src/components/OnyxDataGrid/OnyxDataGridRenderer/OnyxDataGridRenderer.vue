@@ -104,6 +104,7 @@ const columnStyle = computed(() => {
         display: grid;
         grid-column: 1 / -1;
         grid-template-columns: subgrid;
+        grid-template-rows: subgrid;
       }
 
       // Waiting for :attr support https://developer.mozilla.org/en-US/docs/Web/CSS/attr
