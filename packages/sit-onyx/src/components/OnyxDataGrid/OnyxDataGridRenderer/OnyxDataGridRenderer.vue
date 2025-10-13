@@ -107,6 +107,11 @@ const columnStyle = computed(() => {
         grid-template-rows: subgrid;
       }
 
+      th {
+        // Unset height set by OnyxTable, as it would otherwise interfere with our grid layout
+        height: unset;
+      }
+
       // Waiting for :attr support https://developer.mozilla.org/en-US/docs/Web/CSS/attr
       @for $i from 1 through 99 {
         :is(th, td)[colspan="#{$i}"] {
