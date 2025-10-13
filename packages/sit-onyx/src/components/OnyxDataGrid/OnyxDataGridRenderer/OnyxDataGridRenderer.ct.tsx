@@ -1,6 +1,7 @@
 import { DENSITIES } from "../../../composables/density.js";
 import { test } from "../../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../../playwright/screenshots.js";
+import { ONYX_BREAKPOINTS } from "../../../utils/breakpoints.js";
 import DefaultTestWrapper from "./playwright/DefaultTestWrapper.ct.vue";
 import GroupedDataTestWrapper from "./playwright/GroupedDataTestWrapper.ct.vue";
 
@@ -8,8 +9,13 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Data grid renderer",
     columns: DENSITIES,
-    rows: ["default"],
-    component: (column) => <DefaultTestWrapper density={column} />,
+    rows: ["default", "narrow"],
+    component: (column, row) => (
+      <DefaultTestWrapper
+        density={column}
+        style={row === "narrow" ? { "max-width": `${ONYX_BREAKPOINTS["2xs"]}px` } : {}}
+      />
+    ),
   });
 });
 
