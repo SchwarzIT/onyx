@@ -1,4 +1,5 @@
 import { DENSITIES } from "../../composables/density.js";
+import enUs from "../../i18n/locales/en-US.json" with { type: "json" };
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots.js";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
@@ -138,8 +139,8 @@ test("should show header actions on hover", async ({ mount, page }) => {
     </OnyxNotificationCard>,
   );
 
-  const flyoutTrigger = component.getByLabel("Toggle actions");
-  const flyoutMenu = component.getByLabel("More actions");
+  const flyoutTrigger = component.getByLabel(enUs.flyoutMenu.toggleActions.click);
+  const flyoutMenu = component.getByLabel(enUs.flyoutMenu.moreActions);
 
   // ACT
   await component.hover();
