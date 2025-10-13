@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { iconMoreVertical } from "@sit-onyx/icons";
 import {
   OnyxButton,
   OnyxCard,
@@ -7,7 +6,6 @@ import {
   OnyxHeadline,
   OnyxImage,
   OnyxMenuItem,
-  OnyxSystemButton,
   OnyxTag,
 } from "../../../index.js";
 </script>
@@ -30,10 +28,6 @@ import {
       </div>
 
       <OnyxFlyoutMenu label="Actions" trigger="click">
-        <template #button="{ trigger }">
-          <OnyxSystemButton v-bind="trigger" :icon="iconMoreVertical" label="Open link" />
-        </template>
-
         <template #options>
           <OnyxMenuItem>Action 1</OnyxMenuItem>
           <OnyxMenuItem>Action 2</OnyxMenuItem>
