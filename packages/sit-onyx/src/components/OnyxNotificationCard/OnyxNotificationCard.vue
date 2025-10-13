@@ -64,7 +64,7 @@ const { timeAgo } = useRelativeTimeFormat({
             <OnyxFlyoutMenu
               v-if="!!slots.headerActions"
               class="onyx-notification-card__more-actions"
-              :label="t('notificationCard.moreActions')"
+              :label="t('flyoutMenu.toggleActions.click')"
               trigger="click"
               alignment="right"
             >

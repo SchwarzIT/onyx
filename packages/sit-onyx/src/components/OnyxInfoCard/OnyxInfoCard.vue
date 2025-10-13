@@ -64,14 +64,14 @@ const systemButtonColor = computed(() => (props.color === "neutral" ? "soft" : "
       <OnyxFlyoutMenu
         v-if="slots.headerActions"
         class="onyx-info-card__action"
-        :label="t('notificationCard.moreActions')"
+        :label="t('flyoutMenu.moreActions')"
         trigger="click"
         alignment="right"
       >
         <template #button="{ trigger }">
           <OnyxSystemButton
             v-bind="trigger"
-            :label="t('notificationCard.toggleActions')"
+            :label="t('flyoutMenu.toggleActions.click')"
             :icon="iconMoreVertical"
             :color="systemButtonColor"
           />
