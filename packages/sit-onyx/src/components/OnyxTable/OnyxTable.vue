@@ -250,7 +250,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
 
         // in tables: height = min height
         // set min height to fit a 1.5rem element (e.g. system button) so it does not jump around when the button is shown/hidden
-        height: calc(1.5rem + 2 * var(--onyx-table-padding-block) + var(--onyx-1px-in-rem));
+        min-height: calc(1.5rem + 2 * var(--onyx-table-padding-block) + var(--onyx-1px-in-rem));
         align-content: center;
 
         &:hover {
