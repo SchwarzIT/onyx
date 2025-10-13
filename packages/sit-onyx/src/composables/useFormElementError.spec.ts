@@ -73,7 +73,7 @@ describe("useFormElementError", () => {
     await nextTick();
 
     // ASSERT
-    expect(mockInput.setCustomValidity).toHaveBeenCalledWith("This is a custom error.");
+    expect(mockInput.setCustomValidity).toHaveBeenCalledExactlyOnceWith("This is a custom error.");
     expect(errorMessages.value).toEqual({
       shortMessage: "This is a custom error.",
       longMessage: "This is a custom error.",

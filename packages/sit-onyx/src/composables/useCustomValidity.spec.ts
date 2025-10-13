@@ -67,7 +67,7 @@ describe("useCustomValidity", () => {
     await nextTick();
 
     // ASSERT
-    expect(mockInput.setCustomValidity).toHaveBeenCalledWith("Test error");
+    expect(mockInput.setCustomValidity).toHaveBeenCalledExactlyOnceWith("Test error");
     expect(validityState.value).toEqual({
       ...getDefaultValidityState(),
       customError: true,
@@ -84,7 +84,7 @@ describe("useCustomValidity", () => {
     // ACT
     vCustomValidity.mounted(mockInput);
     await nextTick();
-    expect(mockInput.setCustomValidity).toHaveBeenCalledWith("Initial error");
+    expect(mockInput.setCustomValidity).toHaveBeenCalledExactlyOnceWith("Initial error");
     expect(validityState.value).toEqual({
       ...getDefaultValidityState(),
       customError: true,
@@ -94,7 +94,7 @@ describe("useCustomValidity", () => {
     await nextTick();
 
     // ASSERT
-    expect(mockInput.setCustomValidity).toHaveBeenCalledWith("Updated error");
+    expect(mockInput.setCustomValidity).toHaveBeenLastCalledWith("Updated error");
     expect(validityState.value).toEqual({
       ...getDefaultValidityState(),
       customError: true,
@@ -116,7 +116,7 @@ describe("useCustomValidity", () => {
     await nextTick();
 
     // ASSERT
-    expect(mockInput.setCustomValidity).toHaveBeenCalledWith("");
+    expect(mockInput.setCustomValidity).toHaveBeenLastCalledWith("");
     expect(validityState.value).toEqual({
       ...getDefaultValidityState(),
       customError: false,

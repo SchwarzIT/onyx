@@ -10,12 +10,10 @@ test("useTypeAhead", () => {
   const typeAhead = useTypeAhead(spy);
 
   typeAhead({ key: "a" });
-  expect(spy).toHaveBeenCalledOnce();
-  expect(spy).toHaveBeenLastCalledWith("a");
+  expect(spy).toHaveBeenCalledExactlyOnceWith("a");
 
   typeAhead({ key: "Alt" });
-  expect(spy).toHaveBeenCalledOnce();
-  expect(spy).toHaveBeenLastCalledWith("a");
+  expect(spy).toHaveBeenCalledExactlyOnceWith("a");
 
   typeAhead({ key: "b" });
   expect(spy).toHaveBeenCalledTimes(2);

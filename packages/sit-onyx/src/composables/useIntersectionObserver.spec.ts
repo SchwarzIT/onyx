@@ -42,6 +42,6 @@ describe("useIntersectionObserver", () => {
 
     expect(isIntersecting.value).toBe(false);
 
-    expect(spy.observe).toHaveBeenCalledWith(component.value);
+    expect(spy.observe).toHaveBeenCalledExactlyOnceWith(component.value);
   });
 });
