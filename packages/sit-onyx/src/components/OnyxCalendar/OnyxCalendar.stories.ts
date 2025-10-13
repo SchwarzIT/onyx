@@ -10,9 +10,7 @@ const meta: Meta<typeof OnyxCalendar> = {
   tags: ["unstable"],
   component: OnyxCalendar,
   args: {
-    style: {
-      maxWidth: "45rem",
-    },
+    style: "max-width: 44rem",
   },
   argTypes: {
     viewMonth: {
@@ -26,13 +24,12 @@ const meta: Meta<typeof OnyxCalendar> = {
 
 export default meta;
 type Story = StoryObj<typeof OnyxCalendar>;
+
 export const Default = {} satisfies Story;
-export const Small = {
+
+export const SingleSelect = {
   args: {
-    size: "small",
-    style: {
-      maxWidth: "25rem",
-    },
+    selection: "single",
   },
 } satisfies Story;
 
@@ -64,6 +61,7 @@ export const CustomDayContent = {
 
 export const MinMaxDate = {
   args: {
+    ...SingleSelect.args,
     min: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
     max: new Date(Date.now() + 8 * 24 * 60 * 60 * 1000),
   },
@@ -78,8 +76,17 @@ export const Skeleton = {
     skeleton: true,
   },
 } satisfies Story;
+
 export const Disabled = {
   args: {
+    ...SingleSelect.args,
     disabled: true,
+  },
+} satisfies Story;
+
+export const Small = {
+  args: {
+    size: "small",
+    style: "max-width: 24rem",
   },
 } satisfies Story;

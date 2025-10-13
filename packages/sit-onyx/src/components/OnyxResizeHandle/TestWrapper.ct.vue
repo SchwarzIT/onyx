@@ -27,7 +27,6 @@ const width = ref<number>();
   </div>
 </template>
 
-<!-- eslint-disable-next-line vue-scoped-css/enforce-style-type -->
 <style lang="scss" scoped>
 .container {
   position: relative;

@@ -3,12 +3,11 @@ import { test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.jsx";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxCalendar from "./OnyxCalendar.vue";
-import TestCaseDayContent from "./TestCaseDayContent.vue";
+import TestCaseDayContent from "./TestCaseDayContent.ct.vue";
 
 test.describe("Screenshot tests", () => {
   const testDate = new Date(2024, 9, 23);
-  const date1 = new Date(testDate.getFullYear(), testDate.getMonth(), 20);
-  const date2 = new Date(testDate.getFullYear(), testDate.getMonth(), 26);
+
   executeMatrixScreenshotTest({
     name: "OnyxCalendar",
     columns: ["small", "big"],
@@ -36,7 +35,7 @@ test.describe("Screenshot tests", () => {
           disabled={row === "disabled"}
           min={row === "min-max" ? minDate : undefined}
           max={row === "min-max" ? maxDate : undefined}
-          displayCalendarWeek={row === "calender-weeks"}
+          showCalendarWeek={row === "calender-weeks"}
         >
           {row === "actions" && (
             <template v-slot:actions>
@@ -71,37 +70,32 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "OnyxCalendar (selection)",
     columns: ["small", "big"],
-    rows: ["view", "single", "multiple", "range"],
+    rows: ["default", "single", "multiple", "range"],
     component: (column, row) => {
       return (
         <OnyxCalendar
           viewMonth={testDate}
           size={column}
-          selection={row}
+          selection={row === "default" ? undefined : row}
           style={{ width: column === "small" ? "20rem" : "40rem" }}
         />
       );
     },
     hooks: {
       beforeEach: async (component, page, _column, row) => {
-        const dayToInteract = component.getByRole("button", {
-          name: date1.getDate().toString(),
-        });
-        const day2ToInteract = component.getByRole("button", {
-          name: date2.getDate().toString(),
-        });
+        await component.getByRole("button", { name: "20" }).click();
 
-        await dayToInteract.click();
         if (row === "range" || row === "multiple") {
-          await day2ToInteract.click();
+          await component.getByRole("button", { name: "26" }).click();
         }
       },
     },
   });
+
   executeMatrixScreenshotTest({
-    name: "OnyxCalendar (day-slot)",
+    name: "OnyxCalendar (custom content)",
     columns: ["small", "big"],
-    rows: ["day-slot"],
+    rows: ["default"],
     component: (column) => {
       return (
         <TestCaseDayContent

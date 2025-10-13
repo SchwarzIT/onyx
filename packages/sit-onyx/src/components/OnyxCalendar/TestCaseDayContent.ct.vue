@@ -1,20 +1,29 @@
 <script setup lang="ts">
-import { OnyxBadge, OnyxUnstableCalendar, type OnyxColor } from "../../../index.js";
+import type { OnyxColor } from "../../types/colors.js";
+import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
+import OnyxCalendar from "./OnyxCalendar.vue";
+import type { OnyxCalendarSize } from "./types.js";
 
-type Event = { date: Date; color: OnyxColor; description: string };
+type EventType = { date: Date; color: OnyxColor; description: string };
+
+const props = defineProps<{
+  /**
+   * Calender Size
+   */
+  size: OnyxCalendarSize;
+}>();
+
+const testDate = new Date("2024-10-10T12:00:00Z");
 
 const getDummyDate = (dayOffset: number) => {
-  const today = new Date();
-  today.setDate(today.getDate() + dayOffset);
-  return today;
+  const date = new Date(testDate);
+  date.setDate(date.getDate() + dayOffset);
+  return date;
 };
 
-const events: Event[] = [
+const events: EventType[] = [
   { date: getDummyDate(-2), color: "primary", description: "Meeting" },
   { date: getDummyDate(-7), color: "success", description: "Anna's birthday" },
-  { date: getDummyDate(3), color: "info", description: "Dentist" },
-  { date: getDummyDate(7), color: "success", description: "Max's birthday" },
-  { date: getDummyDate(12), color: "primary", description: "Team-Event" },
 ];
 
 const getEvent = (date: Date) => {
@@ -23,25 +32,23 @@ const getEvent = (date: Date) => {
 </script>
 
 <template>
-  <OnyxUnstableCalendar class="calendar">
-    <template #day="{ date, size }">
+  <OnyxCalendar class="calendar" v-bind="props" :view-month="testDate">
+    <template #day="{ date, size: daySize }">
       <div class="event">
         <OnyxBadge v-if="getEvent(date)" :color="getEvent(date)?.color" dot />
         <span
-          v-if="size === 'big'"
+          v-if="daySize === 'big'"
           class="event__description onyx-text--small onyx-truncation-ellipsis"
         >
           {{ getEvent(date)?.description }}
         </span>
       </div>
     </template>
-  </OnyxUnstableCalendar>
+  </OnyxCalendar>
 </template>
 
 <style lang="scss" scoped>
 .calendar {
-  max-width: 45rem;
-
   &.onyx-calendar--small {
     .event {
       justify-content: center;

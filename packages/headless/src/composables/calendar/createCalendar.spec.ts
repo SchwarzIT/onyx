@@ -37,7 +37,7 @@ const setupCalendar = (options: {
     calendarSize: ref("small"),
     weekStartDay: ref("Monday"),
     disabled: ref(false),
-    displayCalendarWeek: ref(false),
+    showCalendarWeek: ref(false),
     min: ref(options.min ?? null),
     max: ref(options.max ?? null),
     selection: ref(options.selection ?? "single"),
@@ -113,8 +113,8 @@ describe("createCalendar (Headless)", () => {
     const { internals, modelValue } = setupCalendar({ selection: "single" });
 
     modelValue.value = selectedDate;
-    expect(internals.isSelected(selectedDate)).toBe(true);
-    expect(internals.isSelected(createDate(2025, 8, 16))).toBe(false);
+    expect(internals.isSelected.value(selectedDate)).toBe(true);
+    expect(internals.isSelected.value(createDate(2025, 8, 16))).toBe(false);
   });
 
   it("should correctly handle date selection (Single Mode)", () => {
@@ -128,7 +128,7 @@ describe("createCalendar (Headless)", () => {
 
     expect(modelValue.value).toBeInstanceOf(Date);
     expect((modelValue.value as Date).getTime()).toBe(newDate.getTime());
-    expect(internals.isFocused(newDate)).toBe(true);
+    expect(internals.isFocused.value(newDate)).toBe(true);
   });
 
   describe("Multiple Selection Mode", () => {
@@ -140,13 +140,13 @@ describe("createCalendar (Headless)", () => {
 
       // 1. Select dateA
       internals.goToDate(dateA);
-      expect(internals.isSelected(dateA)).toBe(true);
+      expect(internals.isSelected.value(dateA)).toBe(true);
       expect((modelValue.value as DateValue[]).length).toBe(1);
       expect(((modelValue.value as DateValue[])[0] as Date).getTime()).toBe(dateA.getTime());
 
       // 2. Select dateB
       internals.goToDate(dateB);
-      expect(internals.isSelected(dateB)).toBe(true);
+      expect(internals.isSelected.value(dateB)).toBe(true);
       expect((modelValue.value as DateValue[]).length).toBe(2);
       expect(((modelValue.value as DateValue[])[1] as Date).getTime()).toBe(dateB.getTime());
     });
@@ -158,12 +158,12 @@ describe("createCalendar (Headless)", () => {
         modelValue: initialSelection,
       });
 
-      expect(internals.isSelected(dateA)).toBe(true);
+      expect(internals.isSelected.value(dateA)).toBe(true);
 
       // 3. Deselect dateA
       internals.goToDate(dateA);
 
-      expect(internals.isSelected(dateA)).toBe(false);
+      expect(internals.isSelected.value(dateA)).toBe(false);
       expect((modelValue.value as DateValue[]).length).toBe(1);
       // The remaining date should be dateB
       expect(((modelValue.value as DateValue[])[0] as Date).getTime()).toBe(dateB.getTime());
@@ -180,13 +180,13 @@ describe("createCalendar (Headless)", () => {
       internals.goToDate(start);
       expect(((modelValue.value as DateRange).start as Date).getTime()).toBe(start.getTime());
       expect((modelValue.value as DateRange).end).toBeNull();
-      expect(internals.isSelected(start)).toBe(true);
-      expect(internals.isSelected(end)).toBe(false);
+      expect(internals.isSelected.value(start)).toBe(true);
+      expect(internals.isSelected.value(end)).toBe(false);
 
       // 2. Set end
       internals.goToDate(end);
       expect(((modelValue.value as DateRange).end as Date).getTime()).toBe(end.getTime());
-      expect(internals.isSelected(end)).toBe(true);
+      expect(internals.isSelected.value(end)).toBe(true);
     });
 
     it("should correct the order if the end date is before the start date", () => {
