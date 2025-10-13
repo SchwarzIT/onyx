@@ -65,15 +65,15 @@
 ✅ pnpm test:playwright src/components/OnyxSelect/ -x --repeat-each 100 --project webkit
 ✅ pnpm test:playwright src/components/OnyxAvatar/ -x --repeat-each 100 --project webkit
 ✅ pnpm test:playwright src/components/OnyxModal/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxErrorTooltip/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxSwitch/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxCheckboxGroup/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxNavAppArea/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxFormElement/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxNotificationMessage/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxLink/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxSelectOption/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxTag/ -x --repeat-each 100 --project webkit
+✅ pnpm test:playwright src/components/OnyxErrorTooltip/ -x --repeat-each 100 --project webkit
+✅ pnpm test:playwright src/components/OnyxSwitch/ -x --repeat-each 100 --project webkit
+✅ pnpm test:playwright src/components/OnyxCheckboxGroup/ -x --repeat-each 100 --project webkit
+✅ pnpm test:playwright src/components/OnyxNavAppArea/ -x --repeat-each 100 --project webkit
+✅ pnpm test:playwright src/components/OnyxFormElement/ -x --repeat-each 100 --project webkit
+❌ pnpm test:playwright src/components/OnyxNotificationMessage/ -x --repeat-each 100 --project webkit
+✅ pnpm test:playwright src/components/OnyxLink/ -x --repeat-each 100 --project webkit
+✅ pnpm test:playwright src/components/OnyxSelectOption/ -x --repeat-each 100 --project webkit
+✅ pnpm test:playwright src/components/OnyxTag/ -x --repeat-each 100 --project webkit
 pnpm test:playwright src/components/OnyxBadge/ -x --repeat-each 100 --project webkit
 pnpm test:playwright src/components/OnyxAccordion/ -x --repeat-each 100 --project webkit
 pnpm test:playwright src/components/OnyxButton/ -x --repeat-each 100 --project webkit
