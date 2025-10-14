@@ -89,6 +89,7 @@ const contentAttributes = computed(() => {
     --onyx-calendar-cell-date-background: transparent;
     --onyx-calendar-cell-date-background-hover: var(--onyx-color-base-neutral-300);
     --onyx-calendar-cell-date-color: inherit;
+    --onyx-calendar-cell-date-color-hover: var(--onyx-calendar-cell-date-color);
     --onyx-calendar-cell-range-background: var(--onyx-color-text-icons-primary-soft);
     --onyx-calendar-cell-range-color: var(--onyx-color-text-icons-primary-bold);
 
@@ -123,31 +124,35 @@ const contentAttributes = computed(() => {
       text-align: left;
       padding: var(--onyx-calendar-cell-padding);
 
-      &:enabled {
-        cursor: pointer;
-
-        &:not(.onyx-calendar-cell__content--disabled) {
-          &:hover {
-            .onyx-calendar-cell__date {
-              background-color: var(--onyx-calendar-cell-date-background-hover);
-            }
-          }
-
-          &:focus-visible {
-            outline: none;
-
-            .onyx-calendar-cell__date {
-              // TODO: make outline square
-              outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
-              outline-offset: var(--onyx-density-2xs);
-            }
-          }
-        }
-      }
-
       &:disabled,
       &--disabled {
         color: var(--onyx-color-base-neutral-300);
+      }
+
+      &--disabled {
+        --onyx-calendar-cell-date-color-hover: var(--onyx-color-text-icons-neutral-medium);
+      }
+
+      &:enabled {
+        cursor: pointer;
+
+        &:hover {
+          .onyx-calendar-cell__date {
+            color: var(--onyx-calendar-cell-date-color-hover);
+            background-color: var(--onyx-calendar-cell-date-background-hover);
+          }
+        }
+
+        &:focus-visible {
+          outline: none;
+
+          .onyx-calendar-cell__date {
+            color: var(--onyx-calendar-cell-date-color-hover);
+            // TODO: make outline square
+            outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
+            outline-offset: var(--onyx-density-2xs);
+          }
+        }
       }
     }
 
@@ -164,7 +169,6 @@ const contentAttributes = computed(() => {
 
     &--neutral {
       --onyx-calendar-cell-date-background: var(--onyx-color-base-neutral-500);
-      --onyx-calendar-cell-date-background-hover: var(--onyx-calendar-cell-date-background);
       --onyx-calendar-cell-date-color: var(--onyx-color-neutral-grayscale-white);
     }
 

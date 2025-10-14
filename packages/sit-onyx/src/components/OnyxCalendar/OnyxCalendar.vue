@@ -120,7 +120,7 @@ const {
 const hoveredDate = ref<Date>();
 
 const addHoverClass = (day: RenderDay) => {
-  if (selection.value !== "range" || !day.isCurrentMonth) return;
+  if (selection.value !== "range") return;
   hoveredDate.value = day.date;
 };
 const removeHoverClass = () => {
