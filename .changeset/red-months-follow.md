@@ -5,8 +5,8 @@
 
 feat(OnyxCalendar):
 
-- implement view, multiple and range selection-modes
-- replaced initialDate with v-model viewMonth
-- implemented modelValue for selected day
-- implemented day-slot
-- implemented week numbers
+- implement `selectionMode` property for single, multi and range selection
+- replaced `initialDate` property with `v-model:viewMonth`
+- implement `modelValue / v-model` for selection (depending on selectionMode property)
+- implement `day` slot for custom content
+- implement `showCalendarWeeks` property week numbers
