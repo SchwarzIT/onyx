@@ -6,8 +6,8 @@
 export default {};
 </script>
 
-<script lang="ts" setup generic="TSelection extends OnyxCalendarSelection">
-import { _unstableCreateCalendar, type DateRange, type RenderDay } from "@sit-onyx/headless";
+<script lang="ts" setup generic="TSelection extends OnyxCalendarSelectionMode">
+import { _unstableCreateCalendar, type RenderDay } from "@sit-onyx/headless";
 import { iconChevronLeftSmall, iconChevronRightSmall } from "@sit-onyx/icons";
 import { computed, ref, toRefs, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density.js";
@@ -27,8 +27,9 @@ import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
 import type {
+  DateRange,
   OnyxCalendarProps,
-  OnyxCalendarSelection,
+  OnyxCalendarSelectionMode,
   OnyxCalendarSize,
   OnyxCalendarValueBySelection,
 } from "./types.js";
@@ -96,7 +97,7 @@ const calendarSize = computed(() =>
   props.size !== "auto" ? props.size : width.value < ONYX_BREAKPOINTS.xs ? "small" : "big",
 );
 
-const { disabled, min, max, weekStartDay, showCalendarWeek, selection } = toRefs(props);
+const { disabled, min, max, weekStartDay, showCalendarWeeks, selectionMode } = toRefs(props);
 
 const {
   state: { weeksToRender, weekdayNames },
@@ -109,10 +110,10 @@ const {
   locale,
   calendarSize,
   weekStartDay,
-  showCalendarWeek,
+  showCalendarWeeks,
   viewMonth,
   modelValue,
-  selection,
+  selectionMode,
   onUpdateViewMonth: (newDate) => ((viewMonth.value as Date) = newDate),
   onUpdateModelValue: (newValue) => (modelValue.value = newValue as typeof modelValue.value),
 });
@@ -120,23 +121,23 @@ const {
 const hoveredDate = ref<Date>();
 
 const addHoverClass = (day: RenderDay) => {
-  if (selection.value !== "range") return;
+  if (selectionMode.value !== "range") return;
   hoveredDate.value = day.date;
 };
 const removeHoverClass = () => {
-  if (selection.value !== "range") return;
+  if (selectionMode.value !== "range") return;
   hoveredDate.value = undefined;
 };
 
 const tableHeaders = computed(() => {
-  if (!props.showCalendarWeek) return weekdayNames.value;
+  if (!props.showCalendarWeeks) return weekdayNames.value;
   return [t.value("calendar.calenderWeek"), ...weekdayNames.value];
 });
 
 const getDayRangeType = computed(() => {
   return (date: Date): CalendarCellRangeType | undefined => {
     const currentRange =
-      props.selection === "range" ? (modelValue.value as Nullable<DateRange>) : undefined;
+      props.selectionMode === "range" ? (modelValue.value as Nullable<DateRange>) : undefined;
     if (!currentRange || currentRange.end || !hoveredDate.value) return getRangeType.value(date);
 
     return getRangeType.value(date, {
@@ -204,12 +205,12 @@ const getDayRangeType = computed(() => {
 
         <tbody>
           <tr v-for="week in weeksToRender" :key="week.weekNumber">
-            <th v-if="showCalendarWeek" scope="row">
+            <th v-if="showCalendarWeeks" scope="row">
               {{ week.weekNumber }}
             </th>
 
             <OnyxCalendarCell
-              :is="props.selection ? 'button' : 'div'"
+              :is="props.selectionMode ? 'button' : 'div'"
               v-for="day in week.days"
               v-bind="cellProps({ date: day.date })"
               :key="day.date.toDateString()"

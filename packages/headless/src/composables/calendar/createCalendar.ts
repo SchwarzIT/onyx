@@ -12,7 +12,7 @@ import {
 } from "../../utils/dates.js";
 import type { Nullable } from "../../utils/types.js";
 
-export type SelectMode = "single" | "multiple" | "range";
+export type SelectionMode = "single" | "multiple" | "range";
 
 export type CalendarSize = "small" | "big";
 
@@ -25,8 +25,8 @@ export type CreateCalendarOptions = {
   disabled?: MaybeRefOrGetter<boolean>;
   min?: MaybeRefOrGetter<Nullable<DateValue>>;
   max?: MaybeRefOrGetter<Nullable<DateValue>>;
-  showCalendarWeek?: MaybeRefOrGetter<boolean>;
-  selection?: MaybeRefOrGetter<SelectMode>;
+  showCalendarWeeks?: MaybeRefOrGetter<boolean>;
+  selectionMode?: MaybeRefOrGetter<SelectionMode>;
   onUpdateViewMonth?: (date: Date) => unknown;
   onUpdateModelValue?: (newValue: Date | Date[] | DateRange) => unknown;
 };
@@ -194,7 +194,7 @@ export const _unstableCreateCalendar = createBuilder((options: CreateCalendarOpt
       viewMonth.value = new Date(focusedDate.value);
     }
 
-    const selectionMode = toValue(options.selection);
+    const selectionMode = toValue(options.selectionMode);
     if (!selectionMode || preventSelectionUpdate) return;
 
     const selection = toValue(options.modelValue);
@@ -356,7 +356,7 @@ export const _unstableCreateCalendar = createBuilder((options: CreateCalendarOpt
           "aria-label": formatter.format(button.date),
           "data-date": button.date.toDateString(),
         };
-        const selection = toValue(options.selection);
+        const selection = toValue(options.selectionMode);
         if (!selection) return attributes;
 
         const disabled = isDisabled.value(button.date);

@@ -13,7 +13,7 @@ const selected = ref<Date>();
     v-model:view-month="viewMonth"
     v-model="selected"
     class="calendar"
-    selection="single"
+    selection-mode="single"
   />
 </template>
 

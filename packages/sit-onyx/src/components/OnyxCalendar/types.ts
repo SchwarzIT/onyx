@@ -3,7 +3,7 @@ import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 import type { Nullable } from "../../types/utils.js";
 import type { DateValue } from "../OnyxDatePicker/types.js";
 
-export type OnyxCalendarProps<TSelection extends OnyxCalendarSelection> = DensityProp & {
+export type OnyxCalendarProps<TSelection extends OnyxCalendarSelectionMode> = DensityProp & {
   /**
    * Selected Value
    */
@@ -54,15 +54,15 @@ export type OnyxCalendarProps<TSelection extends OnyxCalendarSelection> = Densit
    * Defines how dates are selected in the calendar.
    * If undefined, no selection will be possible.
    */
-  selection?: TSelection;
+  selectionMode?: TSelection;
 
   /**
    * Whether to show week numbers in the calendar.
    */
-  showCalendarWeek?: boolean;
+  showCalendarWeeks?: boolean;
 };
 
-export type OnyxCalendarSelection = "single" | "multiple" | "range";
+export type OnyxCalendarSelectionMode = "single" | "multiple" | "range";
 export type OnyxCalendarSize = "big" | "small" | "auto";
 export type OnyxWeekDays =
   | "Monday"
@@ -75,7 +75,7 @@ export type OnyxWeekDays =
 
 export type DateRange = { start: Date; end: Date };
 
-export type OnyxCalendarValueBySelection<TSelection extends OnyxCalendarSelection> =
+export type OnyxCalendarValueBySelection<TSelection extends OnyxCalendarSelectionMode> =
   TSelection extends "single"
     ? Date
     : TSelection extends "multiple"

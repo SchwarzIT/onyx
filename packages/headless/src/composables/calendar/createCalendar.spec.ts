@@ -4,7 +4,7 @@ import type { DateRange, DateValue } from "../../utils/dates.js";
 import {
   _unstableCreateCalendar,
   type CreateCalendarOptions,
-  type SelectMode,
+  type SelectionMode,
 } from "./createCalendar.js";
 
 const createDate = (year: number, month: number, day: number): Date => {
@@ -23,7 +23,7 @@ const setupCalendar = (options: {
   viewMonth?: DateValue | null;
   min?: Date;
   max?: Date;
-  selection?: SelectMode;
+  selection?: SelectionMode;
 }): SetupResult => {
   const modelValue = ref(options.modelValue ?? null);
   const viewMonth = ref(options.viewMonth ?? new Date());
@@ -33,10 +33,10 @@ const setupCalendar = (options: {
     calendarSize: ref("small"),
     weekStartDay: ref("Monday"),
     disabled: ref(false),
-    showCalendarWeek: ref(false),
+    showCalendarWeeks: ref(false),
     min: ref(options.min ?? null),
     max: ref(options.max ?? null),
-    selection: ref(options.selection ?? "single"),
+    selectionMode: ref(options.selection ?? "single"),
     modelValue,
     viewMonth,
     onUpdateViewMonth: (date) => (viewMonth.value = date),
