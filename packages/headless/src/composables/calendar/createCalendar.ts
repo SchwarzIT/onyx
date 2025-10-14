@@ -4,16 +4,13 @@ import {
   getISOWeekNumber,
   getNormalizedDayIndex,
   isInDateRange,
+  sortDateRange,
   WEEKDAYS,
+  type DateRange,
   type DateValue,
   type Weekday,
 } from "../../utils/dates.js";
 import type { Nullable } from "../../utils/types.js";
-
-export type DateRange<T extends DateValue = DateValue> = {
-  start: T;
-  end?: Nullable<T>;
-};
 
 export type SelectMode = "single" | "multiple" | "range";
 
@@ -238,15 +235,7 @@ export const _unstableCreateCalendar = createBuilder((options: CreateCalendarOpt
           };
         }
 
-        // correct if end date is smaller than start date
-        // TODO: check if new date is equal to start date
-        if (newRange.start && newRange.end && newRange.end.getTime() < newRange.start.getTime()) {
-          newRange = {
-            start: newRange.end,
-            end: newRange.start,
-          };
-        }
-
+        newRange = sortDateRange(newRange);
         options.onUpdateModelValue?.(newRange);
         break;
       }
@@ -306,8 +295,8 @@ export const _unstableCreateCalendar = createBuilder((options: CreateCalendarOpt
   };
 
   const getRangeType = computed(() => {
-    return (date: Date): "start" | "middle" | "end" | undefined => {
-      const selection = toValue(options.modelValue);
+    return (date: Date, range?: DateRange): "start" | "middle" | "end" | undefined => {
+      const selection = range ?? toValue(options.modelValue);
       if (
         !selection ||
         typeof selection !== "object" ||
@@ -317,10 +306,12 @@ export const _unstableCreateCalendar = createBuilder((options: CreateCalendarOpt
         return;
       }
 
-      const start = new Date(selection.start);
+      const sortedRange = sortDateRange(selection);
+
+      const start = new Date(sortedRange.start);
       start.setHours(0, 0, 0, 0);
 
-      const end = selection.end ? new Date(selection.end) : undefined;
+      const end = sortedRange.end ? new Date(sortedRange.end) : undefined;
       end?.setHours(23, 59, 59, 999);
 
       if (date.toDateString() === start.toDateString()) return "start";

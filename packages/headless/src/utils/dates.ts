@@ -1,3 +1,5 @@
+import type { Nullable } from "./types.js";
+
 export function getISOWeekNumber(date: Date): number {
   const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
   const dayNum = d.getUTCDay() || 7;
@@ -40,3 +42,20 @@ export const WEEKDAYS = [
 export type Weekday = (typeof WEEKDAYS)[number];
 
 export type DateValue = Date | string | number;
+
+export type DateRange<T extends DateValue = DateValue> = {
+  start: T;
+  end?: Nullable<T>;
+};
+
+export function sortDateRange(range: DateRange): DateRange<Date> {
+  const start = new Date(range.start);
+  const end = range.end ? new Date(range.end) : undefined;
+
+  // correct if end date is smaller than start date
+  if (end && end.getTime() < start.getTime()) {
+    return { start: end, end: start };
+  }
+
+  return { start, end };
+}

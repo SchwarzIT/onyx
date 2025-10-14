@@ -7,7 +7,7 @@ export default {};
 </script>
 
 <script lang="ts" setup generic="TSelection extends OnyxCalendarSelection">
-import { _unstableCreateCalendar, type RenderDay } from "@sit-onyx/headless";
+import { _unstableCreateCalendar, type DateRange, type RenderDay } from "@sit-onyx/headless";
 import { iconChevronLeftSmall, iconChevronRightSmall } from "@sit-onyx/icons";
 import { computed, ref, toRefs, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density.js";
@@ -21,6 +21,7 @@ import { injectI18n } from "../../i18n/index.js";
 import type { Nullable } from "../../types/utils.js";
 import { ONYX_BREAKPOINTS } from "../../utils/breakpoints.js";
 import OnyxCalendarCell from "../OnyxCalendarCell/OnyxCalendarCell.vue";
+import type { CalendarCellRangeType } from "../OnyxCalendarCell/types.js";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
@@ -96,7 +97,7 @@ const calendarSize = computed(() =>
 );
 
 const { disabled, min, max, weekStartDay, showCalendarWeek, selection } = toRefs(props);
-const hoveredDate = ref<Nullable<Date>>();
+
 const {
   state: { weeksToRender, weekdayNames },
   elements: { table: tableProps, cell: cellProps, button: buttonProps },
@@ -116,18 +117,33 @@ const {
   onUpdateModelValue: (newValue) => (modelValue.value = newValue as typeof modelValue.value),
 });
 
+const hoveredDate = ref<Date>();
+
 const addHoverClass = (day: RenderDay) => {
   if (selection.value !== "range" || !day.isCurrentMonth) return;
   hoveredDate.value = day.date;
 };
 const removeHoverClass = () => {
   if (selection.value !== "range") return;
-  hoveredDate.value = null;
+  hoveredDate.value = undefined;
 };
 
 const tableHeaders = computed(() => {
   if (!props.showCalendarWeek) return weekdayNames.value;
   return [t.value("calendar.calenderWeek"), ...weekdayNames.value];
+});
+
+const getDayRangeType = computed(() => {
+  return (date: Date): CalendarCellRangeType | undefined => {
+    const currentRange =
+      props.selection === "range" ? (modelValue.value as Nullable<DateRange>) : undefined;
+    if (!currentRange || currentRange.end || !hoveredDate.value) return getRangeType.value(date);
+
+    return getRangeType.value(date, {
+      start: currentRange.start,
+      end: hoveredDate.value,
+    });
+  };
 });
 </script>
 
@@ -203,7 +219,7 @@ const tableHeaders = computed(() => {
               :show-as-disabled="!day.isCurrentMonth"
               :color="isSelected(day.date) ? 'primary' : isToday(day.date) ? 'neutral' : undefined"
               :background-color="[0, 6].includes(day.date.getDay()) ? 'tinted' : 'blank'"
-              :range-type="getRangeType(day.date)"
+              :range-type="getDayRangeType(day.date)"
               :size="calendarSize"
               @hover-change="$event ? addHoverClass(day) : removeHoverClass()"
             >
