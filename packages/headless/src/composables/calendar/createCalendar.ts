@@ -149,16 +149,11 @@ export const _unstableCreateCalendar = createBuilder((options: CreateCalendarOpt
       viewMonth.value.getMonth(),
       1,
     );
-    const lastDayInViewMonth = new Date(
-      viewMonth.value.getFullYear(),
-      viewMonth.value.getMonth() + 1,
-      0,
-    );
 
     const startOffset = (firstDayInViewMonth.getDay() + 6) % 7;
     const daysBeforeStart = (startOffset - WEEKDAYS.indexOf(weekStartDay) + 7) % 7;
 
-    const weeksToRender = Math.ceil((lastDayInViewMonth.getDate() + daysBeforeStart) / 7);
+    const weeksToRender = 6;
     const weeks: RenderWeek[] = [];
 
     for (let weekIndex = 0; weekIndex < weeksToRender; weekIndex++) {
