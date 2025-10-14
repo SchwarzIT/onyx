@@ -2,6 +2,7 @@ import { iconSettings } from "@sit-onyx/icons";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
 import { OnyxButton, OnyxIconButton } from "../../index.js";
+import { createAdvancedStoryExample } from "../../utils/storybook.js";
 import OnyxCalendar from "./OnyxCalendar.vue";
 
 const meta: Meta<typeof OnyxCalendar> = {
@@ -9,21 +10,38 @@ const meta: Meta<typeof OnyxCalendar> = {
   tags: ["unstable"],
   component: OnyxCalendar,
   args: {
-    style: {
-      maxWidth: "45rem",
+    style: "max-width: 44rem",
+  },
+  argTypes: {
+    viewMonth: {
+      control: { type: "date" },
+    },
+    modelValue: {
+      control: { type: "date" },
     },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof OnyxCalendar>;
+
 export const Default = {} satisfies Story;
-export const Small = {
+
+export const SingleSelect = {
   args: {
-    size: "small",
-    style: {
-      maxWidth: "25rem",
-    },
+    selectionMode: "single",
+  },
+} satisfies Story;
+
+export const Multiple = {
+  args: {
+    selectionMode: "multiple",
+  },
+} satisfies Story;
+
+export const Range = {
+  args: {
+    selectionMode: "range",
   },
 } satisfies Story;
 
@@ -37,17 +55,20 @@ export const CustomActions = {
   },
 } satisfies Story;
 
+export const CustomDayContent = {
+  ...createAdvancedStoryExample("OnyxCalendar", "CustomDayContentExample"),
+} satisfies Story;
+
 export const MinMaxDate = {
   args: {
+    ...SingleSelect.args,
     min: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
     max: new Date(Date.now() + 8 * 24 * 60 * 60 * 1000),
   },
 } satisfies Story;
 
-export const InitialDay = {
-  args: {
-    initialDate: new Date(2024, 9, 23),
-  },
+export const ViewMonth = {
+  ...createAdvancedStoryExample("OnyxCalendar", "ViewMonthExample"),
 } satisfies Story;
 
 export const Skeleton = {
@@ -55,8 +76,17 @@ export const Skeleton = {
     skeleton: true,
   },
 } satisfies Story;
+
 export const Disabled = {
   args: {
+    ...SingleSelect.args,
     disabled: true,
+  },
+} satisfies Story;
+
+export const Small = {
+  args: {
+    size: "small",
+    style: "max-width: 24rem",
   },
 } satisfies Story;

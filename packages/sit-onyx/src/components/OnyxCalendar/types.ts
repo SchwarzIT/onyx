@@ -1,7 +1,14 @@
 import type { DensityProp } from "../../composables/density.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
+import type { Nullable } from "../../types/utils.js";
+import type { DateValue } from "../OnyxDatePicker/types.js";
 
-export type OnyxCalendarProps = DensityProp & {
+export type OnyxCalendarProps<TSelection extends OnyxCalendarSelectionMode> = DensityProp & {
+  /**
+   * Selected Value
+   */
+  modelValue?: Nullable<OnyxCalendarValueBySelection<TSelection>>;
+
   /**
    * Whether the calendar is disabled. Disables all interactions and prevents date selection.
    */
@@ -24,10 +31,11 @@ export type OnyxCalendarProps = DensityProp & {
   weekStartDay?: OnyxWeekDays;
 
   /**
-   * The initial date to display when the calendar is first rendered.
+   * The month / year that is currently visible. If unset, it will be managed internally.
+   * Useful if you want to switch the view month programmatically.
    * @default today
    */
-  initialDate?: Date;
+  viewMonth?: Nullable<DateValue>;
 
   /**
    * The visual size of the calendar.
@@ -43,20 +51,18 @@ export type OnyxCalendarProps = DensityProp & {
   skeleton?: SkeletonInjected;
 
   /**
-   * The selection mode for dates.
-   * TODO: support "multiple" and "range".
+   * Defines how dates are selected in the calendar.
+   * If undefined, no selection will be possible.
    */
-  selection?: OnyxCalendarSelection;
+  selectionMode?: TSelection;
 
   /**
-   * Whether to display week numbers in the calendar.
-   * TODO: Implement feature.
+   * Whether to show week numbers in the calendar.
    */
-  // displayCalendarWeek?: boolean;
+  showCalendarWeeks?: boolean;
 };
 
-// TODO: add multi & range support
-export type OnyxCalendarSelection = "single";
+export type OnyxCalendarSelectionMode = "single" | "multiple" | "range";
 export type OnyxCalendarSize = "big" | "small" | "auto";
 export type OnyxWeekDays =
   | "Monday"
@@ -66,3 +72,14 @@ export type OnyxWeekDays =
   | "Friday"
   | "Saturday"
   | "Sunday";
+
+export type DateRange = { start: Date; end: Date };
+
+export type OnyxCalendarValueBySelection<TSelection extends OnyxCalendarSelectionMode> =
+  TSelection extends "single"
+    ? Date
+    : TSelection extends "multiple"
+      ? Date[]
+      : TSelection extends "range"
+        ? DateRange
+        : never;

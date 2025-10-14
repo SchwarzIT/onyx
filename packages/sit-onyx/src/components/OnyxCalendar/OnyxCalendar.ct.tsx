@@ -1,10 +1,11 @@
 import { iconSettings } from "@sit-onyx/icons";
 import { test } from "../../playwright/a11y.js";
-import { executeMatrixScreenshotTest } from "../../playwright/screenshots.jsx";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxCalendar from "./OnyxCalendar.vue";
+import TestCaseDayContent from "./TestCaseDayContent.ct.vue";
 
-test.describe("OnyxCalendar screenshots", () => {
+test.describe("Screenshot tests", () => {
   const testDate = new Date(2024, 9, 23);
 
   executeMatrixScreenshotTest({
@@ -15,6 +16,7 @@ test.describe("OnyxCalendar screenshots", () => {
       "select",
       "hover",
       "focus-visible",
+      "calender-weeks",
       "actions",
       "min-max",
       "skeleton",
@@ -26,13 +28,15 @@ test.describe("OnyxCalendar screenshots", () => {
 
       return (
         <OnyxCalendar
-          initialDate={testDate}
+          selectionMode="single"
+          viewMonth={testDate}
           size={column}
           style={{ width: column === "small" ? "20rem" : "40rem" }}
           skeleton={row === "skeleton"}
           disabled={row === "disabled"}
           min={row === "min-max" ? minDate : undefined}
           max={row === "min-max" ? maxDate : undefined}
+          showCalendarWeeks={row === "calender-weeks"}
         >
           {row === "actions" && (
             <template v-slot:actions>
@@ -61,6 +65,47 @@ test.describe("OnyxCalendar screenshots", () => {
           default:
         }
       },
+    },
+  });
+
+  executeMatrixScreenshotTest({
+    name: "OnyxCalendar (selectionMode)",
+    columns: ["small", "big"],
+    rows: ["default", "single", "multiple", "range"],
+    component: (column, row) => {
+      return (
+        <OnyxCalendar
+          viewMonth={testDate}
+          size={column}
+          selectionMode={row === "default" ? undefined : row}
+          style={{ width: column === "small" ? "20rem" : "40rem" }}
+        />
+      );
+    },
+    hooks: {
+      beforeEach: async (component, page, _column, row) => {
+        if (row !== "default") {
+          await component.getByRole("button", { name: "Sunday, October 20," }).click();
+        }
+
+        if (row === "range" || row === "multiple") {
+          await component.getByRole("button", { name: "Saturday, October 26," }).click();
+        }
+      },
+    },
+  });
+
+  executeMatrixScreenshotTest({
+    name: "OnyxCalendar (custom content)",
+    columns: ["small", "big"],
+    rows: ["default"],
+    component: (column) => {
+      return (
+        <TestCaseDayContent
+          size={column}
+          style={{ width: column === "small" ? "20rem" : "40rem" }}
+        />
+      );
     },
   });
 });

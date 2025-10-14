@@ -12,7 +12,6 @@ const ripple = useTemplateRef("rippleRef");
   </button>
 </template>
 
-<!-- eslint-disable-next-line vue-scoped-css/enforce-style-type -->
 <style lang="scss" scoped>
 button {
   position: relative;

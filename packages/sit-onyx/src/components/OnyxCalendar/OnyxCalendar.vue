@@ -6,89 +6,142 @@
 export default {};
 </script>
 
-<script lang="ts" setup>
-import { _unstableCreateCalendar } from "@sit-onyx/headless";
+<script lang="ts" setup generic="TSelection extends OnyxCalendarSelectionMode">
+import { _unstableCreateCalendar, type RenderDay } from "@sit-onyx/headless";
 import { iconChevronLeftSmall, iconChevronRightSmall } from "@sit-onyx/icons";
-import { computed, ref, toRefs, useTemplateRef, watch } from "vue";
+import { computed, ref, toRefs, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useResizeObserver } from "../../composables/useResizeObserver.js";
 import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
+import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
+import type { Nullable } from "../../types/utils.js";
 import { ONYX_BREAKPOINTS } from "../../utils/breakpoints.js";
+import OnyxCalendarCell from "../OnyxCalendarCell/OnyxCalendarCell.vue";
+import type { CalendarCellRangeType } from "../OnyxCalendarCell/types.js";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
-import type { OnyxCalendarProps } from "./types.js";
+import type {
+  DateRange,
+  OnyxCalendarProps,
+  OnyxCalendarSelectionMode,
+  OnyxCalendarSize,
+  OnyxCalendarValueBySelection,
+} from "./types.js";
 
-const props = withDefaults(defineProps<OnyxCalendarProps>(), {
+const props = withDefaults(defineProps<OnyxCalendarProps<TSelection>>(), {
   size: "auto",
-  selection: "single",
   weekStartDay: "Monday",
-  displayCalendarWeek: false,
+  showCalendarWeek: false,
   disabled: false,
   skeleton: SKELETON_INJECTED_SYMBOL,
+  modelValue: undefined,
 });
-/**
- * Emit selectedDate on Change
- */
-const emit = defineEmits(["update:selectedDate"]);
 
-defineSlots<{
+const emit = defineEmits<{
+  /**
+   * Emitted when the selection changes
+   */
+  "update:modelValue": [newDate: OnyxCalendarValueBySelection<TSelection>];
+  /**
+   * Emitted when the viewed Month changes
+   */
+  "update:viewMonth": [newDate: Date];
+}>();
+
+const slots = defineSlots<{
   /**
    * Optional slot that is displayed below at the right of the Header.
    */
   actions?(): unknown;
+  /**
+   * Optional slot that is displayed inside each day, for custom calender content.
+   */
+  day?(props: {
+    /**
+     * Date that the slot is rendered for.
+     */
+    date: Date;
+    /**
+     * Actual size of the calendar.
+     */
+    size: Exclude<OnyxCalendarSize, "auto">;
+  }): unknown;
 }>();
 
+const modelValue = useVModel({
+  key: "modelValue",
+  props,
+  emit,
+});
+
+const viewMonth = useVModel({
+  key: "viewMonth",
+  props,
+  emit,
+  default: () => new Date(),
+});
 const { densityClass } = useDensity(props);
 
 const skeleton = useSkeletonContext(props);
-const { t, locale } = injectI18n();
+const { t, locale, d } = injectI18n();
 
+const calendarRef = useTemplateRef("calendar");
+const { width } = useResizeObserver(calendarRef);
 const calendarSize = computed(() =>
   props.size !== "auto" ? props.size : width.value < ONYX_BREAKPOINTS.xs ? "small" : "big",
 );
 
-const buttonRefs = ref<Record<string, HTMLElement>>({});
-const setButtonRef = (el: HTMLElement | null, dateKey: string) => {
-  if (el) {
-    buttonRefs.value[dateKey] = el;
-  } else {
-    delete buttonRefs.value[dateKey];
-  }
-};
-
-const { disabled, min, max, initialDate, weekStartDay } = toRefs(props);
+const { disabled, min, max, weekStartDay, showCalendarWeeks, selectionMode } = toRefs(props);
 
 const {
-  state: { currentYear, currentMonth, selectedDate, weeks, weekdays },
+  state: { weeksToRender, weekdayNames },
   elements: { table: tableProps, cell: cellProps, button: buttonProps },
-  internals: { goToPreviousMonth, goToNextMonth, goToToday },
+  internals: { goToMonthByOffset, goToToday, isSelected, isToday, getRangeType, isDisabled },
 } = _unstableCreateCalendar({
   disabled,
   min,
   max,
-  initialDate,
   locale,
   calendarSize,
-  buttonRefs,
   weekStartDay,
+  showCalendarWeeks,
+  viewMonth,
+  modelValue,
+  selectionMode,
+  onUpdateViewMonth: (newDate) => ((viewMonth.value as Date) = newDate),
+  onUpdateModelValue: (newValue) => (modelValue.value = newValue as typeof modelValue.value),
 });
 
-watch(selectedDate, (newDate) => {
-  if (newDate) {
-    emit("update:selectedDate", newDate);
-  }
+const hoveredDate = ref<Date>();
+
+const addHoverClass = (day: RenderDay) => {
+  if (selectionMode.value !== "range") return;
+  hoveredDate.value = day.date;
+};
+
+const tableHeaders = computed(() => {
+  if (!props.showCalendarWeeks) return weekdayNames.value;
+  return [t.value("calendar.calenderWeek"), ...weekdayNames.value];
 });
 
-const calendarRef = useTemplateRef("calendar");
-const { width } = useResizeObserver(calendarRef);
+const getDayRangeType = computed(() => {
+  return (date: Date): CalendarCellRangeType | undefined => {
+    const currentRange =
+      props.selectionMode === "range" ? (modelValue.value as Nullable<DateRange>) : undefined;
+    if (!currentRange || currentRange.end || !hoveredDate.value) return getRangeType.value(date);
 
-const sizeClass = computed(() => `onyx-calendar--${calendarSize.value}`);
+    return getRangeType.value(date, {
+      start: currentRange.start,
+      end: hoveredDate.value,
+    });
+  };
+});
 </script>
 
 <template>
@@ -100,13 +153,7 @@ const sizeClass = computed(() => `onyx-calendar--${calendarSize.value}`);
   <div
     v-else
     ref="calendar"
-    :class="[
-      'onyx-component',
-      'onyx-calendar',
-      sizeClass,
-      densityClass,
-      { 'onyx-calendar--disabled': disabled },
-    ]"
+    :class="['onyx-component', 'onyx-calendar', `onyx-calendar--${calendarSize}`, densityClass]"
   >
     <div class="onyx-calendar__header">
       <div class="control-container time-control-container">
@@ -123,62 +170,60 @@ const sizeClass = computed(() => `onyx-calendar--${calendarSize.value}`);
           color="neutral"
           :icon="iconChevronLeftSmall"
           :disabled="disabled"
-          @click="goToPreviousMonth"
+          @click="goToMonthByOffset(-1)"
         />
         <OnyxHeadline is="h2" class="control-container__date-display">
-          {{
-            new Date(currentYear, currentMonth).toLocaleDateString(locale, {
-              month: "long",
-              year: "numeric",
-            })
-          }}
+          {{ d(viewMonth, { month: "long", year: "numeric" }) }}
         </OnyxHeadline>
         <OnyxIconButton
           :label="t('calendar.nextMonthButton')"
           color="neutral"
           :icon="iconChevronRightSmall"
           :disabled="disabled"
-          @click="goToNextMonth"
+          @click="goToMonthByOffset(1)"
         />
       </div>
+
       <div class="control-container">
         <slot name="actions"></slot>
       </div>
     </div>
+
     <div class="onyx-calendar__body">
       <table v-bind="tableProps">
         <thead>
           <tr>
-            <th
-              v-for="(day, index) in weekdays"
-              :key="index"
-              scope="col"
-              :abbr="day"
-              class="onyx-text--small"
-            >
-              {{ day }}
+            <th v-for="header in tableHeaders" :key="header" scope="col" :abbr="header">
+              {{ header }}
             </th>
           </tr>
         </thead>
+
         <tbody>
-          <tr v-for="(week, weekIndex) in weeks" :key="weekIndex">
-            <td v-for="(day, dayIndex) in week" :key="dayIndex" v-bind="cellProps(day)">
-              <button
-                v-if="day.date"
-                v-bind="buttonProps(day)"
-                :ref="
-                  (el) =>
-                    setButtonRef(el as HTMLElement | null, day.date?.toISOString().slice(0, 10))
-                "
-                type="button"
-              >
-                <span class="cell-content__number">
-                  <span class="cell-content__number-display">
-                    {{ day.date.getDate() }}
-                  </span>
-                </span>
-              </button>
-            </td>
+          <tr v-for="week in weeksToRender" :key="week.weekNumber">
+            <th v-if="showCalendarWeeks" scope="row">
+              {{ week.weekNumber }}
+            </th>
+
+            <OnyxCalendarCell
+              :is="props.selectionMode ? 'button' : 'div'"
+              v-for="day in week.days"
+              v-bind="cellProps({ date: day.date })"
+              :key="day.date.toDateString()"
+              :date="day.date.getDate()"
+              :button-attributes="buttonProps({ date: day.date })"
+              :disabled="isDisabled(day.date)"
+              :show-as-disabled="!day.isCurrentMonth"
+              :color="isSelected(day.date) ? 'primary' : isToday(day.date) ? 'neutral' : undefined"
+              :background-color="[0, 6].includes(day.date.getDay()) ? 'tinted' : 'blank'"
+              :range-type="getDayRangeType(day.date)"
+              :size="calendarSize"
+              @hovered="addHoverClass(day)"
+            >
+              <template v-if="!!slots.day" #default>
+                <slot name="day" :date="day.date" :size="calendarSize"></slot>
+              </template>
+            </OnyxCalendarCell>
           </tr>
         </tbody>
       </table>
@@ -195,6 +240,9 @@ const sizeClass = computed(() => `onyx-calendar--${calendarSize.value}`);
     flex-direction: column;
     gap: var(--onyx-density-sm);
     color: var(--onyx-color-text-icons-neutral-medium);
+    font-family: var(--onyx-font-family);
+    $calender-week-column-width: 2.5rem;
+    $calender-day-number-display-width: 2rem;
 
     &__header {
       display: flex;
@@ -223,89 +271,31 @@ const sizeClass = computed(() => `onyx-calendar--${calendarSize.value}`);
         background-color: var(--onyx-color-base-background-blank);
 
         th {
-          color: var(--onyx-color-text-icons-neutral-medium);
           padding: var(--onyx-density-xs);
           justify-content: center;
           align-items: center;
-          background: var(--onyx-color-base-neutral-200);
+          background-color: var(--onyx-color-base-neutral-200);
           border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
           font-family: var(--onyx-font-family-h4);
           font-weight: var(--onyx-font-weight-semibold);
+          font-size: var(--onyx-font-size-sm);
+          line-height: var(--onyx-font-line-height-sm);
+
+          &[scope="row"] {
+            border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+          }
         }
 
-        td {
-          font-family: var(--onyx-font-family);
-          cursor: pointer;
+        // calendar week styles
+        &:has(th[scope="row"]) {
+          th:first-of-type {
+            width: $calender-week-column-width;
+          }
 
-          &:hover:not(.other-month, .is-disabled) {
-            .cell-content__number-display {
-              background-color: var(--onyx-color-base-neutral-300);
+          tr:last-of-type {
+            th[scope="row"] {
+              border-bottom: none;
             }
-          }
-          &.weekend {
-            background-color: var(--onyx-color-base-neutral-100);
-          }
-          .cell-content {
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            padding: var(--onyx-density-2xs);
-            background-color: initial;
-            border: none;
-            box-sizing: border-box;
-            width: 100%;
-            aspect-ratio: 1;
-            &__number {
-              width: 2rem;
-              height: 2rem;
-              color: inherit;
-              display: flex;
-              border: none;
-              font-size: 1rem;
-              cursor: inherit;
-              background-color: transparent;
-              padding: 0;
-              &-display {
-                width: 100%;
-                height: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                border-radius: var(--onyx-radius-full);
-              }
-            }
-            &:focus-visible {
-              outline: none;
-              .cell-content__number {
-                border-radius: var(--onyx-radius-xs);
-                outline: calc(var(--onyx-1px-in-rem) * 4) solid var(--onyx-color-base-primary-200);
-                outline-offset: var(--onyx-density-2xs);
-              }
-            }
-          }
-          &.today {
-            .cell-content__number-display {
-              background: var(--onyx-color-base-neutral-500);
-              color: var(--onyx-color-text-icons-neutral-inverted);
-            }
-          }
-          &.selected {
-            .cell-content__number-display {
-              background-color: var(--onyx-color-base-primary-500);
-              color: var(--onyx-color-text-icons-neutral-inverted);
-            }
-            &:hover .cell-content__number-display {
-              background: var(--onyx-color-base-primary-700);
-            }
-          }
-          &.other-month,
-          &.is-disabled {
-            .cell-content {
-              color: var(--onyx-color-base-neutral-300);
-            }
-          }
-          &.is-disabled {
-            cursor: default;
           }
         }
       }
@@ -324,6 +314,8 @@ const sizeClass = computed(() => `onyx-calendar--${calendarSize.value}`);
           border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
           &:last-of-type {
             border-right: none;
+            // to fix aspect-ratio for last column
+            padding-top: var(--onyx-1px-in-rem);
           }
         }
         tr:last-of-type td {
@@ -333,24 +325,12 @@ const sizeClass = computed(() => `onyx-calendar--${calendarSize.value}`);
     }
 
     &--small {
-      .cell-content {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
       .time-control-container {
         justify-content: space-between;
         width: 100%;
       }
     }
 
-    &--disabled {
-      pointer-events: none;
-      .cell-content {
-        opacity: 0.5;
-      }
-      cursor: default;
-    }
     &-skeleton {
       display: flex;
       flex-direction: column;
