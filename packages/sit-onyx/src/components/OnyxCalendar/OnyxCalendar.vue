@@ -314,6 +314,8 @@ const getDayRangeType = computed(() => {
           border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
           &:last-of-type {
             border-right: none;
+            // to fix aspect-ratio for last column
+            padding-top: var(--onyx-1px-in-rem);
           }
         }
         tr:last-of-type td {
