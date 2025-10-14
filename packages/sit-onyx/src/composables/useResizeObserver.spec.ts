@@ -30,7 +30,7 @@ describe("useResizeObserver", () => {
     const { height, width } = useResizeObserver(component);
 
     expect(ResizeObserver).toHaveBeenCalledOnce();
-    expect(spy.observe).toHaveBeenCalledWith(toValue(component), { box: "content-box" });
+    expect(spy.observe).toHaveBeenCalledExactlyOnceWith(toValue(component), { box: "content-box" });
     expect(callback).toBeDefined();
 
     callback!([{ contentBoxSize: [{ blockSize: 42, inlineSize: 100 }] }]);

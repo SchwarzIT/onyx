@@ -18,7 +18,7 @@ describe("scrollEnd.ts", () => {
 
     vScrollEnd.mounted(mockElement);
 
-    expect(addEventListenerSpy, "should add scroll listener").toHaveBeenCalledWith(
+    expect(addEventListenerSpy, "should add scroll listener").toHaveBeenCalledExactlyOnceWith(
       "scroll",
       expect.any(Function),
     );
@@ -40,10 +40,10 @@ describe("scrollEnd.ts", () => {
 
     loading.value = true;
     await nextTick();
-    expect(removeEventListenerSpy, "should remove event listener if loading").toHaveBeenCalledWith(
-      "scroll",
-      expect.any(Function),
-    );
+    expect(
+      removeEventListenerSpy,
+      "should remove event listener if loading",
+    ).toHaveBeenCalledExactlyOnceWith("scroll", expect.any(Function));
     loading.value = false;
 
     removeEventListenerSpy.mockClear();
@@ -51,10 +51,10 @@ describe("scrollEnd.ts", () => {
 
     enabled.value = false;
     await nextTick();
-    expect(removeEventListenerSpy, "should remove event listener if disabled").toHaveBeenCalledWith(
-      "scroll",
-      expect.any(Function),
-    );
+    expect(
+      removeEventListenerSpy,
+      "should remove event listener if disabled",
+    ).toHaveBeenCalledExactlyOnceWith("scroll", expect.any(Function));
     enabled.value = true;
   });
 
