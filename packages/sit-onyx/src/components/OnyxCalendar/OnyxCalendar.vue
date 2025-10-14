@@ -53,7 +53,7 @@ const emit = defineEmits<{
   "update:viewMonth": [newDate: Date];
 }>();
 
-defineSlots<{
+const slots = defineSlots<{
   /**
    * Optional slot that is displayed below at the right of the Header.
    */
@@ -223,7 +223,9 @@ const getDayRangeType = computed(() => {
               :size="calendarSize"
               @hover-change="$event ? addHoverClass(day) : removeHoverClass()"
             >
-              <slot name="day" :date="day.date" :size="calendarSize"></slot>
+              <template v-if="!!slots.day" #default>
+                <slot name="day" :date="day.date" :size="calendarSize"></slot>
+              </template>
             </OnyxCalendarCell>
           </tr>
         </tbody>

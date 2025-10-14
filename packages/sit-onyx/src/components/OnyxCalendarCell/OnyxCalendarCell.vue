@@ -16,7 +16,7 @@ const emit = defineEmits<{
   hoverChange: [inside: boolean];
 }>();
 
-defineSlots<{
+const slots = defineSlots<{
   /**
    * Optional slot for custom cell content.
    */
@@ -64,7 +64,7 @@ const contentAttributes = computed(() => {
         },
       ]"
     >
-      <div class="onyx-calendar-cell__date-wrapper">
+      <div class="onyx-calendar-cell__header">
         <div class="onyx-calendar-cell__date-container">
           <span class="onyx-calendar-cell__date">
             {{ props.date }}
@@ -72,7 +72,9 @@ const contentAttributes = computed(() => {
         </div>
       </div>
 
-      <slot></slot>
+      <div v-if="!!slots.default" class="onyx-calendar-cell__main">
+        <slot></slot>
+      </div>
     </component>
   </td>
 </template>
@@ -106,23 +108,26 @@ const contentAttributes = computed(() => {
       }
     }
 
-    &__date-wrapper {
+    &__header,
+    &__main {
       width: 100%;
+      padding-inline: var(--onyx-calendar-cell-padding);
     }
 
     &__content {
       background-color: transparent;
       border: none;
-      padding: 0;
+      padding-block: var(--onyx-calendar-cell-padding);
+      padding-inline: 0;
       color: inherit;
       font: inherit;
       display: flex;
       flex-direction: column;
+      gap: var(--onyx-density-2xs);
       height: 100%;
       width: 100%;
       aspect-ratio: 1;
       text-align: left;
-      padding: var(--onyx-calendar-cell-padding);
 
       &:disabled,
       &--disabled {
@@ -180,7 +185,7 @@ const contentAttributes = computed(() => {
 
     // range styles
     &--range-start {
-      .onyx-calendar-cell__content {
+      .onyx-calendar-cell__header {
         padding-right: 0;
       }
 
@@ -196,7 +201,7 @@ const contentAttributes = computed(() => {
       --onyx-calendar-cell-date-background-hover: var(--onyx-calendar-cell-date-background);
       --onyx-calendar-cell-date-color: var(--onyx-calendar-cell-range-color);
 
-      .onyx-calendar-cell__content {
+      .onyx-calendar-cell__header {
         padding-inline: 0;
       }
 
@@ -207,7 +212,7 @@ const contentAttributes = computed(() => {
     }
 
     &--range-end {
-      .onyx-calendar-cell__content {
+      .onyx-calendar-cell__header {
         padding-left: 0;
       }
 
@@ -227,14 +232,14 @@ const contentAttributes = computed(() => {
         align-items: center;
       }
 
-      .onyx-calendar-cell__date-wrapper {
+      .onyx-calendar-cell__header {
         display: flex;
         justify-content: inherit;
         align-items: inherit;
       }
 
       &.onyx-calendar-cell--range-start {
-        .onyx-calendar-cell__date-wrapper {
+        .onyx-calendar-cell__header {
           justify-content: flex-end;
         }
 
@@ -253,7 +258,7 @@ const contentAttributes = computed(() => {
       }
 
       &.onyx-calendar-cell--range-end {
-        .onyx-calendar-cell__date-wrapper {
+        .onyx-calendar-cell__header {
           justify-content: flex-start;
         }
 
