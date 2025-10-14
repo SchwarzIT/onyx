@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref, watch } from "vue";
+import { computed } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { mergeVueProps } from "../../utils/attrs.js";
 import type { OnyxCalendarCellProps } from "./types.js";
@@ -13,7 +13,7 @@ const emit = defineEmits<{
   /**
    * Triggers when the cell hover / focus state is changed.
    */
-  hoverChange: [inside: boolean];
+  hovered: [];
 }>();
 
 const slots = defineSlots<{
@@ -24,9 +24,6 @@ const slots = defineSlots<{
 }>();
 
 const { densityClass } = useDensity(props);
-
-const isHovered = ref(false);
-watch(isHovered, (inside) => emit("hoverChange", inside));
 
 const contentAttributes = computed(() => {
   return props.is === "button"
@@ -48,10 +45,8 @@ const contentAttributes = computed(() => {
         [`onyx-calendar-cell--range-${props.rangeType}`]: props.rangeType,
       },
     ]"
-    @mouseenter="isHovered = true"
-    @focusin="isHovered = true"
-    @mouseleave="isHovered = false"
-    @focusout="isHovered = false"
+    @mouseenter="emit('hovered')"
+    @focusin="emit('hovered')"
   >
     <component
       :is="props.is"

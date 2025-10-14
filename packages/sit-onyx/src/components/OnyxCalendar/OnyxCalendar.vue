@@ -124,10 +124,6 @@ const addHoverClass = (day: RenderDay) => {
   if (selectionMode.value !== "range") return;
   hoveredDate.value = day.date;
 };
-const removeHoverClass = () => {
-  if (selectionMode.value !== "range") return;
-  hoveredDate.value = undefined;
-};
 
 const tableHeaders = computed(() => {
   if (!props.showCalendarWeeks) return weekdayNames.value;
@@ -222,7 +218,7 @@ const getDayRangeType = computed(() => {
               :background-color="[0, 6].includes(day.date.getDay()) ? 'tinted' : 'blank'"
               :range-type="getDayRangeType(day.date)"
               :size="calendarSize"
-              @hover-change="$event ? addHoverClass(day) : removeHoverClass()"
+              @hovered="addHoverClass(day)"
             >
               <template v-if="!!slots.day" #default>
                 <slot name="day" :date="day.date" :size="calendarSize"></slot>
