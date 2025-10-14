@@ -1,10 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { nextTick, ref, type Ref } from "vue";
-import type { DateValue } from "../../utils/dates.js";
+import type { DateRange, DateValue } from "../../utils/dates.js";
 import {
   _unstableCreateCalendar,
   type CreateCalendarOptions,
-  type DateRange,
   type SelectMode,
 } from "./createCalendar.js";
 
