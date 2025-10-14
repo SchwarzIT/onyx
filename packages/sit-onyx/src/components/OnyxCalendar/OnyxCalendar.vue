@@ -7,7 +7,7 @@ export default {};
 </script>
 
 <script lang="ts" setup generic="TSelection extends OnyxCalendarSelection">
-import { _unstableCreateCalendar2, type RenderDay } from "@sit-onyx/headless";
+import { _unstableCreateCalendar, type RenderDay } from "@sit-onyx/headless";
 import { iconChevronLeftSmall, iconChevronRightSmall } from "@sit-onyx/icons";
 import { computed, ref, toRefs, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density.js";
@@ -101,7 +101,7 @@ const {
   state: { weeksToRender, weekdayNames },
   elements: { table: tableProps, cell: cellProps, button: buttonProps },
   internals: { goToMonthByOffset, goToToday, isSelected, isToday, getRangeType, isDisabled },
-} = _unstableCreateCalendar2({
+} = _unstableCreateCalendar({
   disabled,
   min,
   max,
@@ -112,8 +112,8 @@ const {
   viewMonth,
   modelValue,
   selection,
-  onUpdateViewMonth: (newDate) => (viewMonth.value = newDate),
-  onUpdateModelValue: (newValue) => (modelValue.value = newValue),
+  onUpdateViewMonth: (newDate) => ((viewMonth.value as Date) = newDate),
+  onUpdateModelValue: (newValue) => (modelValue.value = newValue as typeof modelValue.value),
 });
 
 const addHoverClass = (day: RenderDay) => {
