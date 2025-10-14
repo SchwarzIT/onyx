@@ -62,9 +62,13 @@ export const _unstableCreateCalendar = createBuilder((options: CreateCalendarOpt
       weekday: toValue(options.calendarSize) === "big" ? "long" : "short",
     });
 
-    return Array.from({ length: 7 }, (_, i) => new Date(2024, 0, 1 + i)).map((day) =>
+    const names = Array.from({ length: 7 }, (_, i) => new Date(2024, 0, 1 + i)).map((day) =>
       formatter.format(day),
     );
+
+    const weekStartDay = toValue(options.weekStartDay);
+    const index = WEEKDAYS.indexOf(weekStartDay);
+    return names.slice(index).concat(names.slice(0, index));
   });
 
   const focusedDate = ref(new Date());
