@@ -6,6 +6,7 @@ import type { OnyxCalendarCellProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxCalendarCellProps>(), {
   is: "div",
+  backgroundColor: "blank",
 });
 
 const emit = defineEmits<{
@@ -39,6 +40,8 @@ const contentAttributes = computed(() => {
     :class="[
       'onyx-component',
       'onyx-calendar-cell',
+      `onyx-calendar-cell--${props.backgroundColor}`,
+      `onyx-calendar-cell--${props.size}`,
       densityClass,
       {
         [`onyx-calendar-cell--${props.color}`]: props.color,
@@ -61,10 +64,12 @@ const contentAttributes = computed(() => {
         },
       ]"
     >
-      <div class="onyx-calendar-cell__date-container">
-        <span class="onyx-calendar-cell__date">
-          {{ props.date }}
-        </span>
+      <div class="onyx-calendar-cell__date-wrapper">
+        <div class="onyx-calendar-cell__date-container">
+          <span class="onyx-calendar-cell__date">
+            {{ props.date }}
+          </span>
+        </div>
       </div>
 
       <slot></slot>
@@ -93,6 +98,16 @@ const contentAttributes = computed(() => {
     font-weight: var(--onyx-font-weight-regular);
     line-height: var(--onyx-font-line-height-md);
     padding: 0;
+
+    &--tinted {
+      .onyx-calendar-cell__content {
+        background-color: var(--onyx-color-base-background-tinted);
+      }
+    }
+
+    &__date-wrapper {
+      width: 100%;
+    }
 
     &__content {
       background-color: transparent;
@@ -198,6 +213,51 @@ const contentAttributes = computed(() => {
         border-top-right-radius: var(--onyx-radius-full);
         border-bottom-right-radius: var(--onyx-radius-full);
         width: calc(var(--onyx-calendar-cell-padding) + var(--onyx-calendar-cell-date-size));
+      }
+    }
+
+    // small styles
+    &--small {
+      .onyx-calendar-cell__content {
+        justify-content: center;
+        align-items: center;
+      }
+
+      .onyx-calendar-cell__date-wrapper {
+        display: flex;
+        justify-content: inherit;
+        align-items: inherit;
+      }
+
+      &.onyx-calendar-cell--range-start {
+        .onyx-calendar-cell__date-wrapper {
+          justify-content: flex-end;
+        }
+
+        .onyx-calendar-cell__date-container {
+          width: calc(50% + 0.5 * var(--onyx-calendar-cell-date-size));
+        }
+      }
+
+      &.onyx-calendar-cell--range-middle {
+        .onyx-calendar-cell__date-container {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+
+      &.onyx-calendar-cell--range-end {
+        .onyx-calendar-cell__date-wrapper {
+          justify-content: flex-start;
+        }
+
+        .onyx-calendar-cell__date-container {
+          display: flex;
+          justify-content: flex-end;
+          width: calc(50% + 0.5 * var(--onyx-calendar-cell-date-size));
+        }
       }
     }
   }

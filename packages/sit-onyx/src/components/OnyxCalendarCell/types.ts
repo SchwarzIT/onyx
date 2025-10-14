@@ -1,12 +1,14 @@
 import type { HTMLAttributes } from "vue";
 import type { DensityProp } from "../../composables/density.js";
 import type { OnyxColor } from "../../types/colors.js";
+import type { OnyxCalendarSize } from "../OnyxCalendar/types.js";
 
 export type OnyxCalendarCellProps = DensityProp & {
   /**
    * Numeric date / day of the month.
    */
   date: number;
+  size: OnyxCalendarSize;
   is?: "div" | "button";
   /**
    * Whether the cell is disabled and can not be interacted with.
@@ -20,6 +22,7 @@ export type OnyxCalendarCellProps = DensityProp & {
    * Optional highlight color.
    */
   color?: Extract<OnyxColor, "neutral" | "primary">;
+  backgroundColor?: "tinted" | "blank";
   /**
    * Optionally define which range selection type the cell is currently active.
    */

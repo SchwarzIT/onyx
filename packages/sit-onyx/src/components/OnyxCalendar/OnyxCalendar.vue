@@ -202,7 +202,9 @@ const tableHeaders = computed(() => {
               :disabled="isDisabled(day.date)"
               :show-as-disabled="!day.isCurrentMonth"
               :color="isSelected(day.date) ? 'primary' : isToday(day.date) ? 'neutral' : undefined"
+              :background-color="[0, 6].includes(day.date.getDay()) ? 'tinted' : 'blank'"
               :range-type="getRangeType(day.date)"
+              :size="calendarSize"
               @hover-change="$event ? addHoverClass(day) : removeHoverClass()"
             >
               <slot name="day" :date="day.date" :size="calendarSize"></slot>
@@ -267,8 +269,6 @@ const tableHeaders = computed(() => {
           &[scope="row"] {
             border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
           }
-
-          // TODO: change weekend background color
         }
 
         // calendar week styles
@@ -308,34 +308,6 @@ const tableHeaders = computed(() => {
     }
 
     &--small {
-      // TODO: check small styles
-      .cell-content__header {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .onyx-calendar__body table {
-        &:has(.is-end-date) .is-start-date:not(.is-end-date),
-        .is-start-date--hover:not(.is-end-date--hover) {
-          .cell-content__header {
-            &:after {
-              left: 50%;
-              // 50% + button-border + border-space
-              width: calc(50% + var(--onyx-density-2xs) + var(--onyx-1px-in-rem));
-            }
-          }
-        }
-        .is-end-date:not(.is-start-date),
-        .is-end-date--hover:not(.is-start-date--hover) {
-          .cell-content__header {
-            &:after {
-              // 50% + button-border + border-space
-              width: calc(50% + var(--onyx-density-2xs) + var(--onyx-1px-in-rem));
-            }
-          }
-        }
-      }
       .time-control-container {
         justify-content: space-between;
         width: 100%;

@@ -46,21 +46,21 @@ export const Primary = {
 
 export const RangeStart = {
   args: {
-    ...Button.args,
+    ...Primary.args,
     rangeType: "start",
   },
 } satisfies Story;
 
 export const RangeMiddle = {
   args: {
-    ...Button.args,
+    ...Primary.args,
     rangeType: "middle",
   },
 } satisfies Story;
 
 export const RangeEnd = {
   args: {
-    ...Button.args,
+    ...Primary.args,
     rangeType: "end",
   },
 } satisfies Story;
