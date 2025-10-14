@@ -79,7 +79,7 @@ describe("mergeVueProps", () => {
     expect(targetRef.value).toBe(newValue);
     expect(ref1.value).toBe(newValue);
     expect(ref2.value).toBe(newValue);
-    expect(fnRef).toHaveBeenCalledWith(newValue, []);
+    expect(fnRef).toHaveBeenCalledExactlyOnceWith(newValue, []);
   });
 
   test("should be able to merge and track reactive dependencies", async () => {
@@ -96,7 +96,7 @@ describe("mergeVueProps", () => {
     expect(sourceRef.value).toBe(newValue);
     expect(ref1.value).toBe(newValue);
     expect(ref2.value).toBe(newValue);
-    expect(fnRef).toHaveBeenCalledWith(newValue, []);
+    expect(fnRef).toHaveBeenCalledExactlyOnceWith(newValue, []);
   });
 
   test("should be able to merge proxied", async () => {

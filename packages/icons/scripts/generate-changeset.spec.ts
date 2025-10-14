@@ -46,7 +46,7 @@ describe("generate-changeset.ts", () => {
     });
 
     // ASSERT
-    expect(writeChangesetSpy).toHaveBeenCalledWith(
+    expect(writeChangesetSpy).toHaveBeenCalledExactlyOnceWith(
       {
         releases: [{ name: "@sit-onyx/test", type: "major" }],
         summary: `Example title
@@ -101,7 +101,7 @@ describe("generate-changeset.ts", () => {
     });
 
     // ASSERT
-    expect(writeChangesetSpy).toHaveBeenCalledWith(
+    expect(writeChangesetSpy).toHaveBeenCalledExactlyOnceWith(
       {
         releases: [{ name: "@sit-onyx/test", type: releaseType }],
         summary: expect.any(String),
@@ -123,7 +123,7 @@ describe("generate-changeset.ts", () => {
     });
 
     // ASSERT
-    expect(writeChangesetSpy).toHaveBeenCalledWith(
+    expect(writeChangesetSpy).toHaveBeenCalledExactlyOnceWith(
       {
         releases: [{ name: "@sit-onyx/test", type: "minor" }],
         summary: `Example title

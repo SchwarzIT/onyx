@@ -62,12 +62,13 @@ describe("import-variables.ts", () => {
     expect(functions.generateAsCSS).toHaveBeenCalledTimes(2);
     expect(fs.writeFileSync).toHaveBeenCalledTimes(2);
 
-    expect(fs.writeFileSync).toHaveBeenCalledWith(
+    expect(fs.writeFileSync).toHaveBeenNthCalledWith(
+      1,
       "test-cwd/test-file-name-test-mode-1.css",
       "mock-css-file-content",
     );
 
-    expect(fs.writeFileSync).toHaveBeenCalledWith(
+    expect(fs.writeFileSync).toHaveBeenLastCalledWith(
       "test-cwd/test-file-name-test-mode-2.css",
       "mock-css-file-content",
     );

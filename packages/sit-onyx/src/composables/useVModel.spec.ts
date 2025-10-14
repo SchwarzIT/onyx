@@ -35,11 +35,11 @@ test("should emit the 'update' event with the new value when the computed value 
 
   modelValue.value = "new value";
   await nextTick();
-  expect(emit).toHaveBeenCalledWith("update:modelValue", "new value");
+  expect(emit).toHaveBeenCalledExactlyOnceWith("update:modelValue", "new value");
 
   modelValue.value = undefined;
   await nextTick();
-  expect(emit).toHaveBeenCalledWith("update:modelValue", undefined);
+  expect(emit).toHaveBeenLastCalledWith("update:modelValue", undefined);
 });
 
 test("should return the internal state value if the prop is controlled, otherwise return the prop value", async () => {
@@ -70,7 +70,7 @@ test("should handle null prop values correctly", async () => {
 
   modelValue.value = "new value";
   await nextTick();
-  expect(emit).toHaveBeenCalledWith("update:modelValue", "new value");
+  expect(emit).toHaveBeenCalledExactlyOnceWith("update:modelValue", "new value");
 
   props.modelValue = "updated value";
   await nextTick();
@@ -89,7 +89,7 @@ test("should handle undefined prop values correctly", async () => {
 
   modelValue.value = "new value";
   await nextTick();
-  expect(emit).toHaveBeenCalledWith("update:modelValue", "new value");
+  expect(emit).toHaveBeenCalledExactlyOnceWith("update:modelValue", "new value");
 
   props.modelValue = "updated value";
   await nextTick();
