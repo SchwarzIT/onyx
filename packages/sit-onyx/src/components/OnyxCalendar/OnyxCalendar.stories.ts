@@ -29,19 +29,19 @@ export const Default = {} satisfies Story;
 
 export const SingleSelect = {
   args: {
-    selection: "single",
+    selectionMode: "single",
   },
 } satisfies Story;
 
 export const Multiple = {
   args: {
-    selection: "multiple",
+    selectionMode: "multiple",
   },
 } satisfies Story;
 
 export const Range = {
   args: {
-    selection: "range",
+    selectionMode: "range",
   },
 } satisfies Story;
 
