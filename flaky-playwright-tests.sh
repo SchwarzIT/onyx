@@ -74,12 +74,12 @@
 ✅ pnpm test:playwright src/components/OnyxLink/ -x --repeat-each 100 --project webkit
 ✅ pnpm test:playwright src/components/OnyxSelectOption/ -x --repeat-each 100 --project webkit
 ✅ pnpm test:playwright src/components/OnyxTag/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxBadge/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxAccordion/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxButton/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxMobileNavButton/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxNotificationDot/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxMiniSearch/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxSeparator/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxDialog/ -x --repeat-each 100 --project webkit
-pnpm test:playwright src/components/OnyxRadioButton/ -x --repeat-each 100 --project webkit
+✅ pnpm test:playwright src/components/OnyxBadge/ -x --repeat-each 100 --project webkit
+✅ pnpm test:playwright src/components/OnyxAccordion/ -x --repeat-each 100 --project webkit
+✅ pnpm test:playwright src/components/OnyxButton/ -x --repeat-each 100 --project webkit
+✅ pnpm test:playwright src/components/OnyxMobileNavButton/ -x --repeat-each 100 --project webkit
+✅ pnpm test:playwright src/components/OnyxNotificationDot/ -x --repeat-each 100 --project webkit
+✅ pnpm test:playwright src/components/OnyxMiniSearch/ -x --repeat-each 100 --project webkit
+✅ pnpm test:playwright src/components/OnyxSeparator/ -x --repeat-each 100 --project webkit
+✅ pnpm test:playwright src/components/OnyxDialog/ -x --repeat-each 100 --project webkit
+❌ pnpm test:playwright src/components/OnyxRadioButton/ -x --repeat-each 100 --project webkit
