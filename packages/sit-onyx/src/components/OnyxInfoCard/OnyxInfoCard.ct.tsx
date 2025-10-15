@@ -1,4 +1,5 @@
 import { DENSITIES } from "../../composables/density.js";
+import enUs from "../../i18n/locales/en-US.json" with { type: "json" };
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import { ONYX_COLORS } from "../../types/index.js";
@@ -91,7 +92,7 @@ test.describe("Screenshot tests (header actions)", () => {
     hooks: {
       beforeEach: async (component, page, column) => {
         if (column === "open") {
-          await component.getByLabel("Toggle actions").click();
+          await component.getByLabel(enUs.flyoutMenu.toggleActions.click).click();
         }
       },
     },

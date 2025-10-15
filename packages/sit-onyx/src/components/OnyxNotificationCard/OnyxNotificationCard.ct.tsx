@@ -80,7 +80,7 @@ test.describe("Screenshot tests (header actions)", () => {
           await component.hover();
         }
         if (row == "open") {
-          await component.getByLabel("Toggle actions").click();
+          await component.getByLabel(enUs.flyoutMenu.toggleActions.click).click();
         }
       },
     },
