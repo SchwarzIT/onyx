@@ -45,7 +45,7 @@ export const useForwardProps = <
 
   if (!(target as ConcreteComponent).props) {
     userConsole?.error(
-      `The provided component does not have props. Please ensure that the target component is a valid Vue component.`,
+      `The provided component does not have props. Please ensure that the target component is a valid Vue component. Functional components without defined properties are not supported.`,
     );
   }
 
