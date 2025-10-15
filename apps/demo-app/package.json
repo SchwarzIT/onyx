@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@nuxtjs/color-mode": "^3.5.2",
-    "@nuxtjs/i18n": "^10.1.0",
+    "@nuxtjs/i18n": "^10.1.1",
     "@pinia/nuxt": "~0.11.2",
     "@sit-onyx/chartjs-plugin": "workspace:^",
     "@sit-onyx/flags": "workspace:^",
@@ -32,7 +32,7 @@
     "sit-onyx": "workspace:^",
     "vue": "catalog:",
     "vue-chartjs": "^5.3.2",
-    "vue-router": "^4.5.1"
+    "vue-router": "^4.6.0"
   },
   "engines": {
     "node": ">=20"
