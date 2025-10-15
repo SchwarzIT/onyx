@@ -106,6 +106,7 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version-file: .node-version
+          cache: pnpm
 
       - name: 📦 Install dependencies
         run: pnpm install
