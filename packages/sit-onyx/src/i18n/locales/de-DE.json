@@ -198,10 +198,6 @@
     "headline": "Sprache ändern",
     "subtitle": "Wähle die Sprache der Anwendung:"
   },
-  "notificationCard": {
-    "moreActions": "Weitere Aktionen",
-    "toggleActions": "Aktionen umschalten"
-  },
   "resizeHandle": {
     "label": "Ziehen, um die Breite zu ändern"
   },
@@ -231,5 +227,12 @@
     "calenderWeek": "KW",
     "previousMonthButton": "Vorheriger Monat",
     "nextMonthButton": "Nächster Monat"
+  },
+  "flyoutMenu": {
+    "moreActions": "Weitere Aktionen",
+    "toggleActions": {
+      "click": "Klicken, um die Sichtbarkeit der Aktionen umzuschalten",
+      "hover": "Mit der Maus darüberfahren/fokussieren, um die Sichtbarkeit der Aktionen umzuschalten"
+    }
   }
 }
