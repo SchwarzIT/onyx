@@ -2,6 +2,7 @@ import { computed, type ConcreteComponent } from "vue";
 import type { ComponentProps } from "vue-component-type-helpers";
 import type { Data, MaybePick } from "../types/utils.js";
 
+// region docs
 /**
  * The computed value is an object, that only contains properties that are defined by the target component.
  * Is useful to forward only a matching subset of properties from a parent component to a wrapped child component.
@@ -38,6 +39,7 @@ export const useForwardProps = <
   props: T,
   target: TComponent,
 ) => {
+  // endregion docs
   const keys = new Set(Object.keys((target as ConcreteComponent).props));
   return computed(
     () => Object.fromEntries(Object.entries(props).filter(([key]) => keys.has(key))) as R,

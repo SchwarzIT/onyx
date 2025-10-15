@@ -11,9 +11,37 @@ The only attributes that are not forwarded are `style` and `class` with the assu
 
 <<< ../../../../../packages/sit-onyx/src/utils/attrs.ts#docs
 
-::: info
-Your use-case is not covered? Head over to our GitHub [discussion page](https://github.com/SchwarzIT/onyx/discussions) to make suggestions or ask questions!
-:::
+## (Shared) Child Props Forwarding
+
+When a parent component is a wrapper for another (support) component, the parent usually extends all or a subset of the child's properties.
+The relevant child props need then to be forwarded to the child component.
+This can easily be achieved by using [`v-bind`](https://vuejs.org/api/built-in-directives.html#v-bind), e.g.
+
+```vue [ParentComponent.vue]
+<script setup lang="ts">
+const props = defineProps<ParentProps & ChildProps>();
+</script>
+<template>
+  <!-- ⚠️ Don't do this -->
+  <ChildComponent v-bind="props" />
+</template>
+```
+
+Unfortunately this has the unwanted side-effect of all extraneous props being applied as attributes.
+So when the parent defines props which do not exist on the child component, they are treated as _[fallthrough attributes](https://vuejs.org/guide/components/attrs.html#fallthrough-attributes)_.
+Besides cluttering the HTML with irrelevant attributes this also can have disruptive side-effects when the prop name accidentally matches a valid html attribute (e.g. [inert](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/inert) or [hidden](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/hidden)).
+
+Which might look like this in the DOM tree:
+
+```html
+<div class="child-component" parent-prop-1="parent-prop-value-1" parent-prop-2="[object Object]">
+  <!-- ... -->
+</div>
+```
+
+To avoid this, our `useForwardProps` composable can be used:
+
+<<< ../../../../../packages/sit-onyx/src/utils/props.ts#docs
 
 ## State Control
 
