@@ -9,8 +9,9 @@ export const useForwardProps = <
 >(
   props: T,
   target: C,
-) =>
-  computed(() => {
-    const keys = new Set(Object.keys((target as ConcreteComponent).props));
-    return Object.fromEntries(Object.entries(props).filter(([key]) => keys.has(key))) as R;
-  });
+) => {
+  const keys = new Set(Object.keys((target as ConcreteComponent).props));
+  return computed(
+    () => Object.fromEntries(Object.entries(props).filter(([key]) => keys.has(key))) as R,
+  );
+};

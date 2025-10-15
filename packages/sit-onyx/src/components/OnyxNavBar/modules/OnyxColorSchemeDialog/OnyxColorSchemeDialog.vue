@@ -2,6 +2,7 @@
 import { computed } from "vue";
 import { injectI18n } from "../../../../i18n/index.js";
 import type { Nullable } from "../../../../types/utils.js";
+import { useForwardProps } from "../../../../utils/props.js";
 import OnyxSelectDialog from "../../../OnyxSelectDialog/OnyxSelectDialog.vue";
 import type { SelectDialogOption } from "../../../OnyxSelectDialog/types.js";
 import autoImage from "./auto.svg?raw";
@@ -25,6 +26,7 @@ const emit = defineEmits<{
 }>();
 
 const { t } = injectI18n();
+const selectDialogProps = useForwardProps(props, OnyxSelectDialog);
 
 const options = computed<SelectDialogOption<ColorSchemeValue>[]>(() => {
   return [
@@ -53,7 +55,7 @@ const options = computed<SelectDialogOption<ColorSchemeValue>[]>(() => {
 <template>
   <OnyxSelectDialog
     class="onyx-color-scheme-dialog"
-    v-bind="props"
+    v-bind="selectDialogProps"
     :label="t('colorScheme.headline')"
     :options
     :open="props.open"

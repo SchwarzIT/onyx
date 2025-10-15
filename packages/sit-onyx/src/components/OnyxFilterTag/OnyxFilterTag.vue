@@ -7,6 +7,7 @@ import {
 } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
+import { useForwardProps } from "../../utils/props.js";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
 import type { OnyxFilterTagProps } from "./types.js";
 
@@ -21,6 +22,7 @@ const emit = defineEmits<{
 }>();
 
 const { t } = injectI18n();
+const tagProps = useForwardProps(props, OnyxTag);
 
 const active = useVModel({
   props,
@@ -38,7 +40,7 @@ const skeleton = useSkeletonContext(props);
 
 <template>
   <OnyxTag
-    v-bind="props"
+    v-bind="tagProps"
     :clickable="{ label: tooltipLabel, actionIcon: active ? iconXSmall : undefined }"
     class="onyx-filter-tag"
     :skeleton="skeleton"

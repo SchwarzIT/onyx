@@ -4,6 +4,7 @@ import { computed, useId } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { injectI18n } from "../../i18n/index.js";
 import type { Nullable } from "../../types/index.js";
+import { useForwardProps } from "../../utils/props.js";
 import OnyxBasicDialog from "../OnyxBasicDialog/OnyxBasicDialog.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
@@ -41,6 +42,7 @@ const slots = defineSlots<{
 
 const { t } = injectI18n();
 const { densityClass } = useDensity(props);
+const basicDialogProps = useForwardProps(props, OnyxBasicDialog);
 
 const descriptionId = useId();
 const hasDescription = computed(() => !!slots.description);
@@ -48,7 +50,7 @@ const hasDescription = computed(() => !!slots.description);
 
 <template>
   <OnyxBasicDialog
-    v-bind="props"
+    v-bind="basicDialogProps"
     modal
     :class="['onyx-modal', densityClass]"
     :aria-describedby="hasDescription ? descriptionId : undefined"

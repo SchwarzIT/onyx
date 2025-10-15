@@ -3,6 +3,7 @@ import { iconXSmall } from "@sit-onyx/icons";
 import { useDensity } from "../../composables/density.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
+import { useForwardProps } from "../../utils/props.js";
 import OnyxBasicPopover from "../OnyxBasicPopover/OnyxBasicPopover.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
@@ -47,6 +48,7 @@ const slots = defineSlots<{
 
 const { t } = injectI18n();
 const { densityClass } = useDensity(props);
+const basicPopoverProps = useForwardProps(props, OnyxBasicPopover);
 
 /**
  * If the dialog is expanded or not.
@@ -60,7 +62,11 @@ const isExpanded = useVModel({
 </script>
 
 <template>
-  <OnyxBasicPopover v-bind="props" v-model:open="isExpanded" :class="['onyx-dialog', densityClass]">
+  <OnyxBasicPopover
+    v-bind="basicPopoverProps"
+    v-model:open="isExpanded"
+    :class="['onyx-dialog', densityClass]"
+  >
     <template #default="{ trigger }">
       <slot name="trigger" :trigger="trigger"> </slot>
     </template>
