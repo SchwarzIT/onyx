@@ -115,6 +115,12 @@ const columnStyle = computed(() => {
         height: unset;
       }
 
+      td {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
       // Waiting for :attr support https://developer.mozilla.org/en-US/docs/Web/CSS/attr
       @for $i from 1 through 99 {
         :is(th, td)[colspan="#{$i}"] {
