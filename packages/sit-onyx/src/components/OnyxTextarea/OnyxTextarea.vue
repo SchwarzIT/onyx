@@ -11,6 +11,7 @@ import {
 } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { useRootAttrs } from "../../utils/attrs.js";
+import { useForwardProps } from "../../utils/props.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
@@ -50,6 +51,7 @@ const modelValue = useVModel({
 
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
+const formElementProps = useForwardProps(props, OnyxFormElement);
 
 const { maxLength, maxLengthError } = useLenientMaxLengthValidation({ props, modelValue });
 const error = computed(() => props.error ?? maxLengthError.value);
@@ -105,7 +107,7 @@ useAutofocus(input, props);
     v-bind="rootAttrs"
   >
     <OnyxFormElement
-      v-bind="props"
+      v-bind="formElementProps"
       :message="messages"
       :success-messages="successMessages"
       :error-messages="errorMessages"
