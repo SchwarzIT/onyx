@@ -1,6 +1,7 @@
 import { computed, type ConcreteComponent } from "vue";
 import type { ComponentProps } from "vue-component-type-helpers";
 import type { Data, MaybePick } from "../types/utils.js";
+import { userConsole } from "./console.js";
 
 // region docs
 /**
@@ -40,7 +41,14 @@ export const useForwardProps = <
   target: TComponent,
 ) => {
   // endregion docs
-  const keys = new Set(Object.keys((target as ConcreteComponent).props));
+  const keys = new Set(Object.keys((target as ConcreteComponent).props ?? {}));
+
+  if (!(target as ConcreteComponent).props) {
+    userConsole?.error(
+      `The provided component does not have props. Please ensure that the target component is a valid Vue component.`,
+    );
+  }
+
   return computed(
     () => Object.fromEntries(Object.entries(props).filter(([key]) => keys.has(key))) as R,
   );
