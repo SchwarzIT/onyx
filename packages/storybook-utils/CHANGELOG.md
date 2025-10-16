@@ -1,5 +1,13 @@
 # @sit-onyx/storybook-utils
 
+## 1.0.2
+
+### Patch Changes
+
+- fc56283: fix: prevent duplicated imports for generated code snippets
+
+  Previously the generated Storybook code snippets on the "Docs" page contained duplicated imports of used onyx components.
+
 ## 1.0.1
 
 ### Patch Changes
