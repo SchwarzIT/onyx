@@ -2,6 +2,7 @@
 import { computed } from "vue";
 import { mergeVueProps } from "../../../utils/attrs.js";
 import { escapeCSS } from "../../../utils/dom.js";
+import { useForwardProps } from "../../../utils/props.js";
 import OnyxTable from "../../OnyxTable/OnyxTable.vue";
 import type { DataGridEntry, DataGridMetadata } from "../types.js";
 import type { DataGridRendererSlots, OnyxDataGridRendererProps } from "./types.js";
@@ -9,6 +10,8 @@ import type { DataGridRendererSlots, OnyxDataGridRendererProps } from "./types.j
 const props = defineProps<OnyxDataGridRendererProps<TEntry, TMetadata>>();
 
 const slots = defineSlots<DataGridRendererSlots>();
+
+const tableProps = useForwardProps(props, OnyxTable);
 
 const columnStyle = computed(() => {
   return {
@@ -28,7 +31,7 @@ const columnStyle = computed(() => {
 <template>
   <OnyxTable
     class="onyx-data-grid"
-    v-bind="props"
+    v-bind="tableProps"
     :scroll-container-attrs="mergeVueProps(props.scrollContainerAttrs, { style: columnStyle })"
   >
     <template #head>

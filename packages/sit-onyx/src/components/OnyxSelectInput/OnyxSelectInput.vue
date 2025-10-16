@@ -13,6 +13,7 @@ import {
 import { injectI18n } from "../../i18n/index.js";
 import type { SelectOptionValue } from "../../types/index.js";
 import { useRootAttrs } from "../../utils/attrs.js";
+import { useForwardProps } from "../../utils/props.js";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
@@ -54,6 +55,7 @@ const messages = computed(() => getFormMessages(props.message));
 const { disabled, showError } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
 const errorClass = useErrorClass(showError);
+const formElementProps = useForwardProps(props, OnyxFormElement);
 
 /**
  * Number of selected options.
@@ -141,7 +143,7 @@ useAutofocus(input, props);
     v-bind="rootAttrs"
   >
     <OnyxFormElement
-      v-bind="props"
+      v-bind="formElementProps"
       :message="messages"
       :success-messages="successMessages"
       :error-messages="errorMessages"

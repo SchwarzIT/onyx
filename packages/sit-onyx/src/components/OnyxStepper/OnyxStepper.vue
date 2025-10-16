@@ -14,6 +14,7 @@ import { injectI18n } from "../../i18n/index.js";
 import type { Nullable } from "../../types/index.js";
 import { useRootAttrs } from "../../utils/attrs.js";
 import { applyLimits, roundToPrecision } from "../../utils/numbers.js";
+import { useForwardProps } from "../../utils/props.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -52,6 +53,7 @@ const { densityClass } = useDensity(props);
 const { vCustomValidity, errorMessages } = useFormElementError({ props, emit });
 const successMessages = computed(() => getFormMessages(props.success));
 const messages = computed(() => getFormMessages(props.message));
+const formElementProps = useForwardProps(props, OnyxFormElement);
 
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
@@ -151,7 +153,7 @@ useAutofocus(input, props);
     v-bind="rootAttrs"
   >
     <OnyxFormElement
-      v-bind="props"
+      v-bind="formElementProps"
       :message="messages"
       :success-messages="successMessages"
       :error-messages="errorMessages"

@@ -8,6 +8,7 @@ import {
 } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { mergeVueProps } from "../../utils/attrs.js";
+import { useForwardProps } from "../../utils/props.js";
 import OnyxFABButton from "../OnyxFABButton/OnyxFABButton.vue";
 import OnyxFlyoutMenu from "../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import type { OnyxFABProps } from "./types.js";
@@ -34,6 +35,7 @@ const slots = defineSlots<{
 
 const { densityClass } = useDensity(props);
 const skeleton = useSkeletonContext(props);
+const fabButtonProps = useForwardProps(props, OnyxFABButton);
 
 /**
  * If the flyout is expanded or not.
@@ -57,7 +59,7 @@ const triggerIcon = computed(() => {
   <OnyxFABButton
     v-if="!hasOptions || skeleton"
     :class="['onyx-fab', `onyx-fab--${props.alignment}`]"
-    v-bind="props"
+    v-bind="fabButtonProps"
     :icon="triggerIcon"
     :skeleton
   />

@@ -3,6 +3,7 @@ import { iconCircleInformation } from "@sit-onyx/icons";
 import { computed } from "vue";
 import { useVModel } from "../../composables/useVModel.js";
 import type { Nullable } from "../../types/utils.js";
+import { useForwardProps } from "../../utils/props.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
@@ -28,6 +29,8 @@ const isVisible = useVModel({
   key: "open",
 });
 
+const tooltipProps = useForwardProps(props, OnyxTooltip);
+
 const triggerType = computed(() => {
   if (typeof props.trigger === "object") return props.trigger.type;
   return props.trigger;
@@ -36,7 +39,7 @@ const triggerType = computed(() => {
 
 <template>
   <span class="onyx-component onyx-info-tooltip">
-    <OnyxTooltip v-if="triggerType === 'click'" v-bind="props" v-model:open="isVisible">
+    <OnyxTooltip v-if="triggerType === 'click'" v-bind="tooltipProps" v-model:open="isVisible">
       <template #default="{ trigger: _trigger }">
         <!--  -->
         <OnyxSystemButton
@@ -54,7 +57,7 @@ const triggerType = computed(() => {
 
     <!-- The info tooltip is not accessible when it's triggered on hover. Its trigger element ist not focusable, so instead we provide it's text visually hidden -->
     <template v-else>
-      <OnyxTooltip v-bind="props" v-model:open="isVisible" aria-hidden="true">
+      <OnyxTooltip v-bind="tooltipProps" v-model:open="isVisible" aria-hidden="true">
         <template #default="{ trigger: _trigger }">
           <span class="onyx-info-tooltip__trigger" v-bind="_trigger">
             <OnyxIcon :icon="iconCircleInformation" />
