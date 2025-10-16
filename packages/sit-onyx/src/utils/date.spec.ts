@@ -38,6 +38,19 @@ describe("dateToISOString", () => {
     },
   );
 
+  test.each([
+    { type: "date", expected: "2025-10-16" },
+    { type: "datetime-local", expected: "2025-10-16T09:31" },
+    { type: "datetime-utc", expected: "2025-10-16T09:31:56.200Z" },
+  ] as const)(
+    "should correctly format for type $type with a different timezone date",
+    ({ type, expected }) => {
+      const date = new Date("2025-10-16T11:01:56.200+01:30");
+      expect(process.env.TZ).toBe("UTC"); // globally configured
+      expect(dateToISOString(date, type)).toBe(expected);
+    },
+  );
+
   test.each([{ type: "date" }, { type: "datetime-local" }, { type: "datetime-utc" }] as const)(
     "should return null for type $type with a invalid date",
     ({ type }) => {
