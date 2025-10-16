@@ -24,6 +24,11 @@ const slots = defineSlots<{
 }>();
 
 const { densityClass } = useDensity(props);
+const handleHover = () => {
+  if (!props.disabled) {
+    emit("hovered");
+  }
+};
 
 const contentAttributes = computed(() => {
   return props.is === "button"
@@ -45,8 +50,8 @@ const contentAttributes = computed(() => {
         [`onyx-calendar-cell--range-${props.rangeType}`]: props.rangeType,
       },
     ]"
-    @mouseenter="emit('hovered')"
-    @focusin="emit('hovered')"
+    @mouseenter="handleHover"
+    @focusin="handleHover"
   >
     <component
       :is="props.is"

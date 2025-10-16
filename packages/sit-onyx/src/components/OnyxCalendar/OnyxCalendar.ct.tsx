@@ -21,11 +21,14 @@ test.describe("Screenshot tests", () => {
       "min-max",
       "skeleton",
       "disabled",
+      "disabled-days",
     ],
     component: (column, row) => {
       const minDate = new Date(testDate.getFullYear(), testDate.getMonth(), 20);
       const maxDate = new Date(testDate.getFullYear(), testDate.getMonth(), 26);
-
+      const disabledDays = (date: Date) => {
+        return date.getDay() === 2;
+      };
       return (
         <OnyxCalendar
           selectionMode="single"
@@ -33,7 +36,7 @@ test.describe("Screenshot tests", () => {
           size={column}
           style={{ width: column === "small" ? "20rem" : "40rem" }}
           skeleton={row === "skeleton"}
-          disabled={row === "disabled"}
+          disabled={row === "disabled-days" ? disabledDays : row === "disabled"}
           min={row === "min-max" ? minDate : undefined}
           max={row === "min-max" ? maxDate : undefined}
           showCalendarWeeks={row === "calender-weeks"}
