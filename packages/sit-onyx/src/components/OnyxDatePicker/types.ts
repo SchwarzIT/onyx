@@ -14,9 +14,11 @@ export type OnyxDatePickerProps = Omit<
   | "autocomplete"
 > & {
   /**
-   * Current date value. Supports all data types that are parsable by `new Date()`.
+   * A date string compliant with [ISO8601](https://en.wikipedia.org/wiki/ISO_8601).
+   * @example "date.toISOString()"
+   * @example "2011-10-31"
    */
-  modelValue?: Nullable<DateValue>;
+  modelValue?: Nullable<string>;
   /**
    * Whether the user should be able to select only date or date + time.
    */

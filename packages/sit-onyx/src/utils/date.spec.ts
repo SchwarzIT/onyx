@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
-import { isValidDate } from "./date.js";
+import { dateToISOString, isValidDate } from "./date.js";
 
-describe("date", () => {
+describe("isValidDate", () => {
   test.each([
     { input: "", isValid: false },
     { input: 0, isValid: false },
@@ -14,4 +14,35 @@ describe("date", () => {
   ])("should determine correctly if $input is a valid date", ({ input, isValid }) => {
     expect(isValidDate(input)).toBe(isValid);
   });
+});
+
+describe("dateToISOString", () => {
+  test.each([
+    { type: "date", expected: "2025-10-16" },
+    { type: "datetime-local", expected: "2025-10-16T11:01" },
+    { type: "datetime-utc", expected: "2025-10-16T11:01:00.000Z" },
+  ] as const)("should correctly format for type $type with a valid date", ({ type, expected }) => {
+    const date = new Date("2025-10-16T11:01Z");
+    expect(dateToISOString(date, type)).toBe(expected);
+  });
+
+  test.each([
+    { type: "date", expected: "0025-10-16" },
+    { type: "datetime-local", expected: "0025-10-16T11:01" },
+    { type: "datetime-utc", expected: "0025-10-16T11:01:56.200Z" },
+  ] as const)(
+    "should correctly format for type $type with an awkward date",
+    ({ type, expected }) => {
+      const date = new Date("0025-10-16T11:01:56.200Z");
+      expect(dateToISOString(date, type)).toBe(expected);
+    },
+  );
+
+  test.each([{ type: "date" }, { type: "datetime-local" }, { type: "datetime-utc" }] as const)(
+    "should return null for type $type with a invalid date",
+    ({ type }) => {
+      const date = new Date("invalid-date");
+      expect(dateToISOString(date, type)).toBeNull();
+    },
+  );
 });

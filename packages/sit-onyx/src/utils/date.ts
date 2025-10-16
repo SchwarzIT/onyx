@@ -2,9 +2,41 @@
  * Checks whether the given value is a valid `Date` object.
  *
  * @example isValidDate(new Date()) // true
- * @example isValidDate("not-a-date") // false
+ * @example isValidDate(new Date("not-a-date")) // false
+ * @example isValidDate("definitely-not-a-date") // false
  */
-export const isValidDate = (date: unknown): date is Date => {
-  // isNaN supports Date objects so the type cast here is safe
-  return date instanceof Date && !isNaN(date as unknown as number);
+export const isValidDate = (date: unknown): date is Date =>
+  date instanceof Date && !isNaN(date.getTime());
+
+/**
+ *
+ * @param date The JS Date object to convert
+ * @param type If the formatted string should include the time and if so, with UTC timezone or as local time.
+ * @returns Returns a full date-only ISO8601 complaint string, which is also parsable by new Date()
+ *
+ * @example dateToISOString(new Date("2025-10-16T11:01:09.564Z", "date")) // "2025-10-16"
+ * @example dateToISOString(new Date("2025-10-16T11:01:09.564Z", "datetime-utc")) // "2025-10-16T11:01:09.564Z"
+ * @example dateToISOString(new Date("2025-10-16T13:01:09.564Z", "datetime-local")) // "2025-10-16T13:01:09.564"
+ * @example dateToISOString(new Date("not-a-date")) // null
+ */
+export const dateToISOString = (
+  date: Date | undefined,
+  type: "date" | "datetime-utc" | "datetime-local",
+): string | null => {
+  if (!isValidDate(date)) {
+    return null;
+  }
+  const dateString = date.toISOString();
+  if (type === "datetime-utc") {
+    return dateString;
+  }
+
+  const dateOnlyString = dateString.split("T")[0]!;
+  if (type === "date") {
+    return dateOnlyString;
+  }
+
+  const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+  return `${dateOnlyString}T${hours}:${minutes}`;
 };
