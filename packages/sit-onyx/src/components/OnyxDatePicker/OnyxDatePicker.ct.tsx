@@ -76,14 +76,14 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
 
   // ASSERT
   await expect(inputElement).toHaveValue("2024-11-25T12:34");
-  expectEmit(onUpdateModelValue, 3, ["2024-11-25T12:34:00Z"]);
+  expectEmit(onUpdateModelValue, 3, ["2024-11-25T11:34:00.000Z"]);
 
   // ACT
   await inputElement.clear();
 
   // ASSERT
   await expect(inputElement).toHaveValue("");
-  expectEmit(onUpdateModelValue, 2, [undefined]);
+  expectEmit(onUpdateModelValue, 4, [undefined]);
 });
 
 test("should show min errors", async ({ mount }) => {
