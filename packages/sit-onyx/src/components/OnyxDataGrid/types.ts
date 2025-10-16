@@ -3,7 +3,7 @@ import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 import type {
   IfExtends,
   IfNotEmpty,
-  MaybePick,
+  MaybeUnwrap,
   RecordValues,
   UnionByKey,
 } from "../../types/index.js";
@@ -52,7 +52,7 @@ export type ColumnTypesFromFeatures<TFeatures extends MaybeArray<DataGridFeature
         // 5. Drop all empty records to avoid ending up with `unknown` type
         IfNotEmpty<
           // 4. If defined, take the type of the `typeRenderer` key from the feature
-          MaybePick<
+          MaybeUnwrap<
             // 3. Merge the values together
             UnionByKey<
               // 2. Take the feature description object

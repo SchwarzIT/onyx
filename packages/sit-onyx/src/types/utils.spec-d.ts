@@ -1,5 +1,13 @@
 import { describe, expectTypeOf, it } from "vitest";
-import type { IfNotEmpty, KeysOfUnion, Merge, MergeAll, RecordValues } from "./utils.js";
+import type {
+  IfNotEmpty,
+  KeysOfUnion,
+  MaybePick,
+  MaybeUnwrap,
+  Merge,
+  MergeAll,
+  RecordValues,
+} from "./utils.js";
 
 /* eslint-disable @typescript-eslint/no-empty-object-type -- Used for testing*/
 
@@ -137,6 +145,52 @@ describe("MergeAll", () => {
       a: boolean;
       b: boolean;
       c: unknown;
+    }>();
+  });
+});
+
+describe("MaybeUnwrap", () => {
+  it("should result in never type when no matching key", () => {
+    expectTypeOf<MaybeUnwrap<{}, never>>().toEqualTypeOf<never>();
+    expectTypeOf<MaybeUnwrap<object, "a">>().toEqualTypeOf<never>();
+    expectTypeOf<MaybeUnwrap<{}, "a">>().toEqualTypeOf<never>();
+    expectTypeOf<MaybeUnwrap<{}, "a" | "b">>().toEqualTypeOf<never>();
+  });
+
+  it("should use fallback if key is not matching", () => {
+    expectTypeOf<MaybeUnwrap<{}, null, number>>().toEqualTypeOf<number>();
+    expectTypeOf<MaybeUnwrap<{}, undefined, number>>().toEqualTypeOf<number>();
+    expectTypeOf<MaybeUnwrap<{}, "b", number>>().toEqualTypeOf<number>();
+    expectTypeOf<MaybeUnwrap<{ a: string }, "b", number>>().toEqualTypeOf<number>();
+    expectTypeOf<MaybeUnwrap<object, "a", number>>().toEqualTypeOf<number>();
+    expectTypeOf<MaybeUnwrap<{}, "a", number>>().toEqualTypeOf<number>();
+  });
+
+  it("should unwrap types correctly", () => {
+    expectTypeOf<MaybeUnwrap<Record<string, number>, "a">>().toEqualTypeOf<number>();
+    expectTypeOf<MaybeUnwrap<{ a: number }, "a">>().toEqualTypeOf<number>();
+    expectTypeOf<MaybeUnwrap<{ a: number }, "a" | "b">>().toEqualTypeOf<number>();
+    expectTypeOf<MaybeUnwrap<{ a: number } | { a: string }, "a">>().toEqualTypeOf<
+      number | string
+    >();
+  });
+});
+
+describe("MaybePick", () => {
+  it("should result in never type when no matching key", () => {
+    expectTypeOf<MaybePick<{}, never>>().toEqualTypeOf<{}>();
+    expectTypeOf<MaybePick<object, "a">>().toEqualTypeOf<{}>();
+    expectTypeOf<MaybePick<{}, "a">>().toEqualTypeOf<{}>();
+    expectTypeOf<MaybePick<{}, "a" | "b">>().toEqualTypeOf<{}>();
+  });
+
+  it("should pick types correctly", () => {
+    expectTypeOf<MaybePick<Record<string, number>, "a">>().toEqualTypeOf<{ a: number }>();
+    expectTypeOf<MaybePick<{ a?: number }, "a">>().toEqualTypeOf<{ a: number | undefined }>();
+    expectTypeOf<MaybePick<{ a: number }, "a">>().toEqualTypeOf<{ a: number }>();
+    expectTypeOf<MaybePick<{ a: number }, "a" | "b">>().toEqualTypeOf<{ a: number }>();
+    expectTypeOf<MaybePick<{ a: number } | { a: string }, "a">>().toEqualTypeOf<{
+      a: number | string;
     }>();
   });
 });

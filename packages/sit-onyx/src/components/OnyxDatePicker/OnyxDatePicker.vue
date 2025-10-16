@@ -11,6 +11,7 @@ import {
 import { useVModel } from "../../composables/useVModel.js";
 import { useRootAttrs } from "../../utils/attrs.js";
 import { isValidDate } from "../../utils/date.js";
+import { useForwardProps } from "../../utils/props.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
@@ -47,6 +48,7 @@ const { densityClass } = useDensity(props);
 const { disabled, showError } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
 const errorClass = useErrorClass(showError);
+const formElementProps = useForwardProps(props, OnyxFormElement);
 
 /**
  * Gets the normalized date based on the input type that can be passed to the native HTML `<input />`.
@@ -106,7 +108,7 @@ useAutofocus(input, props);
     v-bind="rootAttrs"
   >
     <OnyxFormElement
-      v-bind="props"
+      v-bind="formElementProps"
       :error-messages="errorMessages"
       :success-messages="successMessages"
       :message="messages"

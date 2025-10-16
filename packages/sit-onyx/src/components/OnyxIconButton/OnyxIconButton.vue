@@ -4,6 +4,7 @@ import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
+import { useForwardProps } from "../../utils/props.js";
 import ButtonOrLinkLayout from "../OnyxButton/ButtonOrLinkLayout.vue";
 import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -20,6 +21,7 @@ const props = withDefaults(defineProps<OnyxIconButtonProps>(), {
 
 const { densityClass } = useDensity(props);
 const skeleton = useSkeletonContext(props);
+const forwardProps = useForwardProps(props, ButtonOrLinkLayout);
 
 defineSlots<{
   /** Slot for an custom icon. Will have no effect if property `icon` is passed. */
@@ -32,7 +34,7 @@ defineSlots<{
 
   <ButtonOrLinkLayout
     v-else
-    v-bind="props"
+    v-bind="forwardProps"
     :aria-label="props.label"
     :title="props.label"
     :class="[

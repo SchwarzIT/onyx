@@ -3,6 +3,7 @@ import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
+import { useForwardProps } from "../../utils/props.js";
 import ButtonOrLinkLayout from "../OnyxButton/ButtonOrLinkLayout.vue";
 import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -16,6 +17,7 @@ const props = withDefaults(defineProps<OnyxSystemButtonProps>(), {
   color: "intense",
 });
 
+const buttonOrLinkLayoutProps = useForwardProps(props, ButtonOrLinkLayout);
 const skeleton = useSkeletonContext(props);
 </script>
 
@@ -27,7 +29,7 @@ const skeleton = useSkeletonContext(props);
 
   <ButtonOrLinkLayout
     v-else
-    v-bind="props"
+    v-bind="buttonOrLinkLayoutProps"
     type="button"
     :class="['onyx-system-button', 'onyx-text--small', `onyx-system-button--${props.color}`]"
     :aria-label="props.label"
