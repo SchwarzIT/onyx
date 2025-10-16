@@ -80,6 +80,7 @@ const value = computed({
   get: () => getNormalizedDate.value(modelValue.value),
   set: (value) => {
     const newDate = new Date(value ?? "");
+    // If the type is `datetime-local`, we always use UTC as a timezone to minimize edge-cases for our users.
     modelValue.value = dateToISOString(newDate, props.type === "date" ? "date" : "datetime-utc");
   },
 });
