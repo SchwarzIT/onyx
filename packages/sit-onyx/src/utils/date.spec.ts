@@ -52,10 +52,10 @@ describe("dateToISOString", () => {
   );
 
   test.each([{ type: "date" }, { type: "datetime-local" }, { type: "datetime-utc" }] as const)(
-    "should return null for type $type with a invalid date",
+    "should return undefined for type $type with a invalid date",
     ({ type }) => {
       const date = new Date("invalid-date");
-      expect(dateToISOString(date, type)).toBeNull();
+      expect(dateToISOString(date, type)).toBeUndefined();
     },
   );
 });
