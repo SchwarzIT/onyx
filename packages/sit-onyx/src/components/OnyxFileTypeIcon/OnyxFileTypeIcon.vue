@@ -16,11 +16,12 @@ import {
   iconVideocam,
 } from "@sit-onyx/icons";
 import { computed } from "vue";
+import { useForwardProps } from "../../utils/props.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxFileTypeIconProps } from "./types.js";
 
 const props = defineProps<OnyxFileTypeIconProps>();
-
+const iconProps = useForwardProps(props, OnyxIcon);
 const FALLBACK_ICON = iconFile;
 
 const icon = computed(() => {
@@ -71,5 +72,5 @@ const icon = computed(() => {
 </script>
 
 <template>
-  <OnyxIcon v-bind="props" :icon="icon" />
+  <OnyxIcon v-bind="iconProps" :icon="icon" />
 </template>

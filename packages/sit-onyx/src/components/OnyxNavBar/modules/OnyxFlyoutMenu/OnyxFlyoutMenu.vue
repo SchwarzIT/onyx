@@ -1,10 +1,13 @@
 <!-- For an unknown reason the generic here is necessary, otherwise the typings of the component break -->
 <script setup lang="ts" generic="_">
 import { createMenuButton } from "@sit-onyx/headless";
+import { iconMoreVertical } from "@sit-onyx/icons";
 import { computed, ref, type ComponentInstance, type VNodeRef } from "vue";
 import { useVModel } from "../../../../composables/useVModel.js";
+import { injectI18n } from "../../../../i18n/index.js";
 import { mergeVueProps } from "../../../../utils/attrs.js";
 import OnyxBasicPopover from "../../../OnyxBasicPopover/OnyxBasicPopover.vue";
+import OnyxSystemButton from "../../../OnyxSystemButton/OnyxSystemButton.vue";
 import type { OnyxFlyoutMenuProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxFlyoutMenuProps>(), {
@@ -57,6 +60,8 @@ const slots = defineSlots<{
 const popover = ref<ComponentInstance<typeof OnyxBasicPopover>>();
 const actualPosition = computed(() => popover.value?.popoverPosition);
 
+const { t } = injectI18n();
+
 const {
   elements: { root, button, menu },
 } = createMenuButton({
@@ -78,7 +83,13 @@ const {
     :disabled="disabled"
   >
     <template v-if="slots.options || slots.header || slots.footer" #default>
-      <slot name="button" :trigger="button"></slot>
+      <slot name="button" :trigger="button">
+        <OnyxSystemButton
+          v-bind="button"
+          :icon="iconMoreVertical"
+          :label="t(`flyoutMenu.toggleActions.${props.trigger}`)"
+        />
+      </slot>
     </template>
     <!-- `v-show` instead of `v-if` is necessary, so that we can allow (teleported) dialogs to be shown -->
     <template #content>

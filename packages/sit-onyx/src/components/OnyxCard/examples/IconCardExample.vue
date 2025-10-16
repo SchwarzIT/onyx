@@ -1,13 +1,6 @@
 <script lang="ts" setup>
-import { iconCalendarClock, iconMoreVertical } from "@sit-onyx/icons";
-import {
-  OnyxCard,
-  OnyxFlyoutMenu,
-  OnyxHeadline,
-  OnyxIcon,
-  OnyxMenuItem,
-  OnyxSystemButton,
-} from "../../../index.js";
+import { iconCalendarClock } from "@sit-onyx/icons";
+import { OnyxCard, OnyxFlyoutMenu, OnyxHeadline, OnyxIcon, OnyxMenuItem } from "../../../index.js";
 </script>
 
 <template>
@@ -19,10 +12,6 @@ import {
         <OnyxHeadline is="h2">Headline</OnyxHeadline>
 
         <OnyxFlyoutMenu label="Actions" trigger="click">
-          <template #button="{ trigger }">
-            <OnyxSystemButton v-bind="trigger" :icon="iconMoreVertical" label="Open link" />
-          </template>
-
           <template #options>
             <OnyxMenuItem>Action 1</OnyxMenuItem>
             <OnyxMenuItem>Action 2</OnyxMenuItem>
