@@ -1,5 +1,26 @@
 # sit-onyx
 
+## 1.2.0
+
+### Minor Changes
+
+- 53fc1d7: feat(OnyxInfoCard): support new `headerActions` slot
+- 86b5fc7: feat(OnyxCalendar):
+  - implement `selectionMode` property for single, multi and range selection
+  - replaced `initialDate` property with `v-model:viewMonth`
+  - implement `modelValue / v-model` for selection (depending on selectionMode property)
+  - implement `day` slot for custom content
+  - implement `showCalendarWeeks` property week numbers
+
+- 139a47f: feat(OnyxFlyoutMenu): Added `OnyxSystemButton` as default slot content for the `button` slot
+
+### Patch Changes
+
+- 50370ff: fix: Fix extraneous props rendered as attributes and cluttering the DOM
+- 6001fcf: fix(OnyxDatePicker): empty undefined instead of empty string when value is cleared
+
+  Also the type for the `update:modelValue` event has been fixed to be `string | undefined` instead of `DateValue | undefined` since its always a string timestamp if a date is selected.
+
 ## 1.1.0
 
 ### Minor Changes
