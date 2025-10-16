@@ -64,7 +64,7 @@ const formElementProps = useForwardProps(props, OnyxFormElement);
 const getNormalizedDate = computed(() => {
   return (value?: DateValue | null) => {
     const date = value != undefined && value != null ? new Date(value) : undefined;
-    return dateToISOString(date, props.type) ?? undefined;
+    return dateToISOString(date, props.type);
   };
 });
 
@@ -84,8 +84,8 @@ const value = computed({
     modelValue.value = dateToISOString(newDate, props.type === "date" ? "date" : "datetime-utc");
   },
 });
-const input = useTemplateRef("inputRef");
-useAutofocus(input, props);
+
+useAutofocus(useTemplateRef("inputRef"), props);
 </script>
 
 <template>

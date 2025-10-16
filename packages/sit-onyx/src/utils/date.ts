@@ -17,14 +17,14 @@ export const isValidDate = (date: unknown): date is Date =>
  * @example dateToISOString(new Date("2025-10-16T11:01:09.564Z", "date")) // "2025-10-16"
  * @example dateToISOString(new Date("2025-10-16T11:01:09.564Z", "datetime-utc")) // "2025-10-16T11:01:09.564Z"
  * @example dateToISOString(new Date("2025-10-16T13:01:09.564Z", "datetime-local")) // "2025-10-16T13:01:09.564"
- * @example dateToISOString(new Date("not-a-date")) // null
+ * @example dateToISOString(new Date("not-a-date")) // undefined
  */
 export const dateToISOString = (
   date: Date | undefined,
   type: "date" | "datetime-utc" | "datetime-local",
-): string | null => {
+): string | undefined => {
   if (!isValidDate(date)) {
-    return null;
+    return undefined;
   }
   const dateString = date.toISOString();
   if (type === "datetime-utc") {
