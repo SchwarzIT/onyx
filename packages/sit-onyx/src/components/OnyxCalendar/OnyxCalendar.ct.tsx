@@ -3,7 +3,7 @@ import { test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxCalendar from "./OnyxCalendar.vue";
-import TestCaseDayContent from "./TestCaseDayContent.ct.vue";
+import TestCase from "./TestCase.ct.vue";
 
 test.describe("Screenshot tests", () => {
   const testDate = new Date(2024, 9, 23);
@@ -21,14 +21,11 @@ test.describe("Screenshot tests", () => {
       "min-max",
       "skeleton",
       "disabled",
-      "disabled-days",
     ],
     component: (column, row) => {
       const minDate = new Date(testDate.getFullYear(), testDate.getMonth(), 20);
       const maxDate = new Date(testDate.getFullYear(), testDate.getMonth(), 26);
-      const disabledDays = (date: Date) => {
-        return date.getDay() === 2;
-      };
+
       return (
         <OnyxCalendar
           selectionMode="single"
@@ -36,7 +33,7 @@ test.describe("Screenshot tests", () => {
           size={column}
           style={{ width: column === "small" ? "20rem" : "40rem" }}
           skeleton={row === "skeleton"}
-          disabled={row === "disabled-days" ? disabledDays : row === "disabled"}
+          disabled={row === "disabled"}
           min={row === "min-max" ? minDate : undefined}
           max={row === "min-max" ? maxDate : undefined}
           showCalendarWeeks={row === "calender-weeks"}
@@ -99,14 +96,16 @@ test.describe("Screenshot tests", () => {
   });
 
   executeMatrixScreenshotTest({
-    name: "OnyxCalendar (custom content)",
+    name: "OnyxCalendar (custom content, custom disabled days)",
     columns: ["small", "big"],
-    rows: ["default"],
-    component: (column) => {
+    rows: ["custom-content", "custom-disabled-days"],
+    component: (column, row) => {
       return (
-        <TestCaseDayContent
+        <TestCase
           size={column}
           style={{ width: column === "small" ? "20rem" : "40rem" }}
+          showContent={row === "custom-content"}
+          disabledDays={row === "custom-disabled-days"}
         />
       );
     },
