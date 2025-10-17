@@ -5,7 +5,9 @@ on:
     branches:
       - "dependabot/npm_and_yarn/*"
     paths:
-      - "package.json"
+      - "**/package.json"
+      - "pnpm-lock.json"
+      - "pnpm-workspace.json"
 
 permissions:
   contents: write
