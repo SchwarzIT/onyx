@@ -32,7 +32,7 @@
     "sit-onyx": "workspace:^",
     "vue": "catalog:",
     "vue-chartjs": "^5.3.2",
-    "vue-router": "^4.6.0"
+    "vue-router": "^4.6.3"
   },
   "engines": {
     "node": ">=20"
