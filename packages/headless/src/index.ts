@@ -5,6 +5,7 @@ export * from "./composables/helpers/useOutsideClick.js";
 export * from "./composables/listbox/createListbox.js";
 export * from "./composables/menuButton/createMenuButton.js";
 export * from "./composables/navigationMenu/createMenu.js";
+export * from "./composables/slider/createSlider.js";
 export * from "./composables/tabs/createTabs.js";
 export * from "./composables/tooltip/createToggletip.js";
 export * from "./composables/tooltip/createTooltip.js";
