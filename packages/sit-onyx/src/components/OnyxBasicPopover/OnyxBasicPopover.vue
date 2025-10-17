@@ -204,7 +204,7 @@ const popoverStyles = computed(() => {
 <template>
   <div
     ref="popoverWrapper"
-    class="onyx-basic-popover"
+    class="onyx-component onyx-basic-popover"
     :style="`anchor-name: ${anchorName}`"
   >
     <slot :trigger="trigger"></slot>

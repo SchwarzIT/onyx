@@ -6,7 +6,7 @@
  * @example isValidDate("definitely-not-a-date") // false
  */
 export const isValidDate = (date: unknown): date is Date =>
-  date instanceof Date && (!isNaN(date.getTime()) as any);
+  date instanceof Date && !isNaN(date.getTime());
 
 /**
  *
