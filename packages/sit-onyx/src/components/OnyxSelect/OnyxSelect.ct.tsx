@@ -510,21 +510,10 @@ test("should unset correctly", async ({ mount }) => {
 });
 
 test("should interact with multiselect and search", async ({ mount }) => {
-  let modelValue: number[] | undefined = [MOCK_VARIED_OPTIONS_VALUES[1]];
-  let searchTerm: string = "";
+  let modelValue: number[] | undefined = [MOCK_VARIED_OPTIONS_VALUES[1]!];
+  let searchTerm = "";
 
-  const eventHandlers = {
-    "update:modelValue": async (value: typeof modelValue) => {
-      modelValue = value;
-      await update();
-    },
-    "update:searchTerm": async (value: typeof searchTerm) => {
-      searchTerm = value;
-      await update();
-    },
-  };
-
-  const update = () => component.update({ props: { modelValue, searchTerm }, on: eventHandlers });
+  const update = () => component.update({ props: { modelValue, searchTerm } });
 
   // ARRANGE
   const component = await mount(OnyxSelect, {
@@ -536,8 +525,15 @@ test("should interact with multiselect and search", async ({ mount }) => {
       withSearch: true,
       multiple: true,
       modelValue,
+      "onUpdate:modelValue": async (value) => {
+        modelValue = value as typeof modelValue;
+        await update();
+      },
+      "onUpdate:searchTerm": async (value) => {
+        searchTerm = value as typeof searchTerm;
+        await update();
+      },
     },
-    on: eventHandlers,
   });
 
   const mainInput = component.getByRole("textbox", { name: "Test select" });
