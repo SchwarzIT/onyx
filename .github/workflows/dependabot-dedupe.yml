@@ -1,0 +1,37 @@
+name: Deduplicate Dependabot PRs
+
+on:
+  push:
+    branches:
+      - "dependabot/npm_and_yarn/*"
+    paths:
+      - "package.json"
+
+permissions:
+  contents: write
+
+jobs:
+  dedupe:
+    name: Deduplicate dependencies
+    runs-on: ubuntu-latest
+    if: github.actor == 'dependabot[bot]'
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: ./.github/templates/node-setup
+        with:
+          pnpm_install_command: "pnpm install --frozen-lockfile --ignore-scripts"
+
+      - name: Deduplicate dependencies
+        run: pnpm dedupe
+
+      - name: Set up Git
+        run: |
+          git config user.name "Dedupe Bot[bot]"
+          git config user.email "bot@example.com"
+
+      - name: Commit and push changes
+        run: |
+          git add pnpm-lock.yaml
+          git commit -m "🧹 Deduplicate dependencies [dependabot skip]" || echo "No changes to commit"
+          git push origin ${{ github.ref_name }}

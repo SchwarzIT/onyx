@@ -1,6 +1,11 @@
 name: Setup node
 description: Custom node setup for onyx
 
+inputs:
+  pnpm_install_command:
+    default: "pnpm install --frozen-lockfile"
+    description: Command to run to install dependencies
+
 runs:
   using: "composite"
   steps:
@@ -40,5 +45,5 @@ runs:
           build-caches-
 
     - name: 📦 Install dependencies
-      run: pnpm install
+      run: ${{ inputs.pnpm_install_command }}
       shell: bash
