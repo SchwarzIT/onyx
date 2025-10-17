@@ -510,21 +510,10 @@ test("should unset correctly", async ({ mount }) => {
 });
 
 test("should interact with multiselect and search", async ({ mount }) => {
-  let modelValue: number[] | undefined = [MOCK_VARIED_OPTIONS_VALUES[1]];
-  let searchTerm: string = "";
+  let modelValue: number[] | undefined = [MOCK_VARIED_OPTIONS_VALUES[1]!];
+  let searchTerm = "";
 
-  const eventHandlers = {
-    "update:modelValue": async (value: typeof modelValue) => {
-      modelValue = value;
-      await update();
-    },
-    "update:searchTerm": async (value: typeof searchTerm) => {
-      searchTerm = value;
-      await update();
-    },
-  };
-
-  const update = () => component.update({ props: { modelValue, searchTerm }, on: eventHandlers });
+  const update = () => component.update({ props: { modelValue, searchTerm } });
 
   // ARRANGE
   const component = await mount(OnyxSelect, {
@@ -536,8 +525,15 @@ test("should interact with multiselect and search", async ({ mount }) => {
       withSearch: true,
       multiple: true,
       modelValue,
+      "onUpdate:modelValue": async (value) => {
+        modelValue = value as typeof modelValue;
+        await update();
+      },
+      "onUpdate:searchTerm": async (value) => {
+        searchTerm = value as typeof searchTerm;
+        await update();
+      },
     },
-    on: eventHandlers,
   });
 
   const mainInput = component.getByRole("textbox", { name: "Test select" });
@@ -937,7 +933,7 @@ test("should manage filtering internally except when filteredOptions are given",
   await component.getByRole("textbox", { name: "Test select" }).click();
   await page.getByRole("option").first().waitFor();
   // ASSERT
-  expect(await page.getByRole("option").count(), "should initially show all options").toBe(
+  await expect(page.getByRole("option"), "should initially show all options").toHaveCount(
     options.length,
   );
   await expect(page.getByLabel("One")).toBeVisible();
@@ -946,9 +942,7 @@ test("should manage filtering internally except when filteredOptions are given",
   const miniSearchInput = component.getByRole("combobox", { name: "Filter the list items" });
   await miniSearchInput.fill("1");
   // ASSERT
-  expect(await page.getByRole("option").count(), "should filter automatically").toBeLessThan(
-    options.length,
-  );
+  await expect(page.getByRole("option"), "should filter automatically").toHaveCount(1);
   await expect(
     page.getByLabel("One"),
     "should not be able to match a search by the ID",
@@ -957,10 +951,10 @@ test("should manage filtering internally except when filteredOptions are given",
   // ACT
   await component.update({ props: { searchTerm: "1", noFilter: true } });
   // ASSERT
-  expect(
-    await page.getByRole("option").count(),
+  await expect(
+    page.getByRole("option"),
     "should not filter with the internal logic when searchTerm is not managed by onyx",
-  ).toBe(options.length);
+  ).toHaveCount(options.length);
 
   // ACT
   await component.update({ props: { options: options.filter(({ value }) => value === 1) } });
