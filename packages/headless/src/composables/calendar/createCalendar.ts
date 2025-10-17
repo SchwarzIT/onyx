@@ -22,7 +22,7 @@ export type CreateCalendarOptions = {
   weekStartDay: MaybeRefOrGetter<Weekday>;
   viewMonth: Ref<DateValue>;
   modelValue?: Ref<Nullable<DateValue | DateValue[] | DateRange>>;
-  disabled?: MaybeRefOrGetter<boolean>;
+  disabled?: MaybeRefOrGetter<boolean | ((date: Date) => boolean)>;
   min?: MaybeRefOrGetter<Nullable<DateValue>>;
   max?: MaybeRefOrGetter<Nullable<DateValue>>;
   showCalendarWeeks?: MaybeRefOrGetter<boolean>;
@@ -130,7 +130,14 @@ export const _unstableCreateCalendar = createBuilder((options: CreateCalendarOpt
 
   const isDisabled = computed(() => {
     return (date: Date): boolean => {
-      if (toValue(options.disabled)) return true;
+      const disabledPropValue = toValue(options.disabled);
+
+      if (typeof disabledPropValue === "boolean") {
+        if (disabledPropValue) return true;
+      }
+      if (typeof disabledPropValue === "function") {
+        if (disabledPropValue(date)) return true;
+      }
 
       const min = toValue(options.min);
       const minDate = min ? new Date(min) : undefined;
@@ -142,6 +149,7 @@ export const _unstableCreateCalendar = createBuilder((options: CreateCalendarOpt
       if (minDate && maxDate) return !isInDateRange(date, minDate, maxDate);
       if (minDate) return date.getTime() < minDate.getTime();
       if (maxDate) return date.getTime() > maxDate.getTime();
+
       return false;
     };
   });

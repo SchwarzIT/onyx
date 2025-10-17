@@ -12,7 +12,7 @@ export type OnyxCalendarProps<TSelection extends OnyxCalendarSelectionMode> = De
   /**
    * Whether the calendar is disabled. Disables all interactions and prevents date selection.
    */
-  disabled?: boolean;
+  disabled?: boolean | ((date: Date) => boolean);
 
   /**
    * The earliest selectable date. Dates before this will be disabled.
@@ -73,7 +73,7 @@ export type OnyxWeekDays =
   | "Saturday"
   | "Sunday";
 
-export type DateRange = { start: Date; end: Date };
+export type DateRange = { start: Date; end?: Date };
 
 export type OnyxCalendarValueBySelection<TSelection extends OnyxCalendarSelectionMode> =
   TSelection extends "single"

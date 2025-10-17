@@ -84,6 +84,10 @@ export const Disabled = {
   },
 } satisfies Story;
 
+export const DisabledDays = {
+  ...createAdvancedStoryExample("OnyxCalendar", "DisabledDaysExample"),
+} satisfies Story;
+
 export const Small = {
   args: {
     size: "small",

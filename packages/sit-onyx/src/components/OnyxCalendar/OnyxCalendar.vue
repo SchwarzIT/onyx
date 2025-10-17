@@ -161,7 +161,7 @@ const getDayRangeType = computed(() => {
           v-if="calendarSize !== 'small'"
           :label="t('calendar.todayButton.label')"
           class="control-container__today-btn"
-          :disabled="disabled"
+          :disabled="disabled === true"
           :clickable="t('calendar.todayButton.tooltip')"
           @click="goToToday"
         />
@@ -169,7 +169,7 @@ const getDayRangeType = computed(() => {
           :label="t('calendar.previousMonthButton')"
           color="neutral"
           :icon="iconChevronLeftSmall"
-          :disabled="disabled"
+          :disabled="disabled === true"
           @click="goToMonthByOffset(-1)"
         />
         <OnyxHeadline is="h2" class="control-container__date-display">
@@ -179,7 +179,7 @@ const getDayRangeType = computed(() => {
           :label="t('calendar.nextMonthButton')"
           color="neutral"
           :icon="iconChevronRightSmall"
-          :disabled="disabled"
+          :disabled="disabled === true"
           @click="goToMonthByOffset(1)"
         />
       </div>
