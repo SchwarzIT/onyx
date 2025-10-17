@@ -40,7 +40,7 @@ jobs:
 
       - name: 🔎 Run Playwright tests
         # TODO: remove repeat-each after testing
-        run: pnpm run test:playwright:all --concurrency 1 ${{ (inputs.only-changed != '' && format('-- --only-changed {0}', inputs.only-changed)) || '' }} -- --repeat-each 5
+        run: pnpm run test:playwright:all --concurrency 1 ${{ (inputs.only-changed != '' && format('-- --only-changed {0}', inputs.only-changed)) || '' }} -- --repeat-each 10
         env:
           PW_UPDATE_SNAPSHOTS: "${{ inputs.update-snapshots }}"
           PW_SHARD: "${{ matrix.shard }}"
