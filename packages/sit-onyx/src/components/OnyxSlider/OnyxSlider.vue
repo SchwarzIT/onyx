@@ -30,7 +30,7 @@ const props = withDefaults(defineProps<OnyxSliderProps>(), {
   step: 1,
   shiftStep: 10,
   marks: false,
-  modelValue: (props) => [props.min] as number[],
+  modelValue: (props) => [props.min ?? 0] as number[],
   orientation: "horizontal",
   trackMode: "default",
   tooltipDisplay: "auto",
@@ -55,7 +55,7 @@ const modelValue = useVModel({
   props,
   emit,
   key: "modelValue",
-  default: () => [props.min] as number[],
+  default: () => [props.min ?? 0] as number[],
 });
 
 defineOptions({ inheritAttrs: false });
@@ -143,7 +143,6 @@ const {
                 (props.tooltipDisplay === 'auto' && activeThumbIndex === index)
               "
               :text="String(value)"
-              aria-hidden="true"
               :position="props.orientation === 'vertical' ? 'right' : 'bottom'"
               alignment="auto"
               class="onyx-slider__thumb-tooltip"
@@ -153,7 +152,7 @@ const {
                   <input
                     v-bind="{ ...thumbInput({ value, index }), ...restAttrs }"
                     :aria-label="props.label || inputId"
-                    :autofocus="index === 0"
+                    :autofocus="props.autofocus && index === 0"
                   />
                 </span>
               </template>

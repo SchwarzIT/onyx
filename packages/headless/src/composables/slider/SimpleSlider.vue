@@ -2,16 +2,11 @@
 import { ref } from "vue";
 import { createSlider } from "./createSlider.js";
 
-const modelValue = ref([25, 75]);
+const modelValue = ref([25]);
 const committed = ref<number[] | null>(null);
 const min = ref(0);
 const max = ref(100);
 const step = ref(1);
-const marks = ref([
-  { value: 0, label: "0%" },
-  { value: 50, label: "50%" },
-  { value: 100, label: "100%" },
-]);
 
 const onChange = (values: number[]) => {
   modelValue.value = values;
@@ -26,14 +21,13 @@ const slider = createSlider({
   min,
   max,
   step,
-  marks,
   onChange,
   onCommit,
 });
 
 const {
-  elements: { root, thumbInput, thumbContainer, track, rail, mark },
-  state: { isDragging, isRange, trackOffset, trackLength },
+  elements: { root, thumbInput, thumbContainer, track, rail },
+  state: { trackOffset, trackLength },
 } = slider;
 
 defineExpose({ slider });
@@ -56,26 +50,8 @@ defineExpose({ slider });
         class="slider-thumb"
         :style="{ left: `${((value - min) / (max - min)) * 100}%` }"
       >
-        <input v-bind="thumbInput({ index, value })" class="visually-hidden" />
+        <input v-bind="thumbInput({ index, value })" />
       </div>
-
-      <div
-        v-for="markItem in marks"
-        :key="markItem.value"
-        v-bind="mark({ value: markItem.value })"
-        class="slider-mark"
-        :style="{ left: `${((markItem.value - min) / (max - min)) * 100}%` }"
-      >
-        {{ markItem.label }}
-      </div>
-    </div>
-
-    <div class="debug">
-      <p>Values: {{ modelValue }}</p>
-      <p>Is Range: {{ isRange }}</p>
-      <p>Is Dragging: {{ isDragging }}</p>
-      <p>Committed: {{ committed }}</p>
-      <p>Committed: {{ committed }}</p>
     </div>
   </div>
 </template>
@@ -124,18 +100,5 @@ defineExpose({ slider });
   justify-content: center;
   color: white;
   font-size: 10px;
-}
-
-.slider-mark {
-  position: absolute;
-  top: 100%;
-  font-size: 12px;
-  transform: translateX(-50%);
-  margin-top: 5px;
-}
-
-.debug {
-  margin-top: 20px;
-  font-family: monospace;
 }
 </style>

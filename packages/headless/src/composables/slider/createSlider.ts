@@ -172,7 +172,7 @@ export const createSlider = createBuilder((options: CreateSliderOptions) => {
   // Computed properties from options
   const min = computed(() => unref(options.min) ?? 0);
   const max = computed(() => unref(options.max) ?? 100);
-  const values = computed(() => unref(options.values) ?? [min.value]);
+  const values = computed(() => unref(options.values) ?? [min.value ?? 0]);
   const step = computed(() =>
     typeof unref(options.step) === "undefined" ? 1 : unref(options.step),
   );
@@ -377,7 +377,7 @@ export const createSlider = createBuilder((options: CreateSliderOptions) => {
     const index = readThumbIndex(event);
     const current = values.value[index];
 
-    if (!current) {
+    if (typeof current !== "number") {
       return;
     }
 
@@ -590,7 +590,7 @@ export const createSlider = createBuilder((options: CreateSliderOptions) => {
     const index = readThumbIndex(event);
     const value = values.value[index];
 
-    if (!value) {
+    if (typeof value !== "number") {
       return;
     }
 
@@ -623,20 +623,21 @@ export const createSlider = createBuilder((options: CreateSliderOptions) => {
       const first = values[0];
       const last = values[lastIndex];
 
-      if (event.key === "Home" && first) return commitValueFromEvent(event, first);
-      if (event.key === "End" && last) return commitValueFromEvent(event, last);
+      if (event.key === "Home" && typeof first === "number")
+        return commitValueFromEvent(event, first);
+      if (event.key === "End" && typeof last === "number") return commitValueFromEvent(event, last);
 
       if (INCREMENT_KEYS.has(event.key)) {
         const nextIdx = currentIndex < 0 ? 0 : Math.min(lastIndex, currentIndex + 1);
         const next = values[nextIdx];
-        if (next !== value && next) commitValueFromEvent(event, next);
+        if (next !== value && typeof next === "number") commitValueFromEvent(event, next);
         return;
       }
 
       if (DECREMENT_KEYS.has(event.key)) {
         const nextIdx = currentIndex < 0 ? 0 : Math.max(0, currentIndex - 1);
         const next = values[nextIdx];
-        if (next !== value && next) commitValueFromEvent(event, next);
+        if (next !== value && typeof next === "number") commitValueFromEvent(event, next);
         return;
       }
     }
@@ -699,7 +700,6 @@ export const createSlider = createBuilder((options: CreateSliderOptions) => {
        * Individual thumb elements for each value (span)
        */
       thumbContainer: computed(() => (data: { index: number; value: number }) => ({
-        "aria-hidden": true,
         "data-index": data.index,
         style: {
           [axis.value.position]: `${MathUtils.valueToPercent(data.value, min.value, max.value)}%`,
@@ -712,6 +712,7 @@ export const createSlider = createBuilder((options: CreateSliderOptions) => {
       thumbInput: computed(() => (data: { index: number; value: number }) => ({
         min: min.value,
         max: max.value,
+        value: data.value,
         role: "slider",
         type: "range",
         "aria-label": label.value,
@@ -720,6 +721,7 @@ export const createSlider = createBuilder((options: CreateSliderOptions) => {
         "aria-valuenow": data.value,
         "aria-orientation": orientation.value,
         "data-index": data.index,
+        tabIndex: isDisabled.value ? -1 : 0,
         step: step.value === null && marks.value ? "any" : (step.value ?? undefined),
         disabled: typeof isDisabled.value === "boolean" ? isDisabled.value : false,
         onChange: handleHiddenInputChange,
