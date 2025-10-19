@@ -1,4 +1,5 @@
 import type { SliderMark, SliderOrientation } from "@sit-onyx/headless";
+import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 import type { OnyxFormElementProps } from "../OnyxFormElement/types.js";
 
 export const SLIDER_CONTROLS = ["icon", "value", "input"] as const;
@@ -63,6 +64,9 @@ export type OnyxSliderProps = Omit<
   /**
    * Defines if and which control to display in addition to the slider.
    * Can be used to e.g. display inputs or icon buttons that can also be used to change the value.
+   *
+   * - `value`: shows min and max value labels.
+   * - `icon`: shows icon buttons to increment/decrement the value. The buttons increment/decrement by the shiftStep value. Available only for 1 or 2 thumbs.
    */
   control?: OnyxSliderControl;
   /**
@@ -81,4 +85,8 @@ export type OnyxSliderProps = Omit<
    * @default "auto"
    */
   tooltipDisplay?: OnyxSliderTooltipDisplay;
+  /**
+   * Whether to show a skeleton slider.
+   */
+  skeleton?: SkeletonInjected;
 };

@@ -18,10 +18,20 @@ const meta: Meta<typeof OnyxSlider> = {
   argTypes: {
     ...withNativeEventLogging(["onChange"]),
     trackMode: {
-      control: { type: "radio", options: ["default", "inverted"] },
+      control: { type: "radio" },
+      options: ["default", "inverted", false],
     },
     orientation: {
-      control: { type: "radio", options: ["horizontal", "vertical"] },
+      control: { type: "radio" },
+      options: ["horizontal", "vertical"],
+    },
+    control: {
+      control: { type: "radio" },
+      options: ["value", "input", "icon"],
+    },
+    tooltipDisplay: {
+      control: { type: "radio" },
+      options: ["auto", "always", "never"],
     },
   },
 };
@@ -35,6 +45,52 @@ type Story = StoryObj<typeof OnyxSlider>;
 export const Default = {
   args: {
     label: "Default",
+  },
+} satisfies Story;
+
+/**
+ * This example shows a slider with a hidden label.
+ */
+export const HiddenLabel = {
+  args: {
+    ...Default.args,
+    hideLabel: true,
+  },
+} satisfies Story;
+
+/**
+ * This example shows a slider with a custom error message.
+ * Will only be shown after interacting with the slider.
+ */
+export const CustomError = {
+  args: {
+    ...Default.args,
+    label: "Custom Error",
+    showError: true,
+    customError: {
+      shortMessage: "Custom error",
+      longMessage: "This text might inform the users what they can do to fix the error.",
+    },
+  },
+} satisfies Story;
+
+/**
+ * This example shows a slider with a message / help text at the bottom.
+ */
+export const WithMessage = {
+  args: {
+    ...Default.args,
+    message: { shortMessage: "Example message" },
+  },
+} satisfies Story;
+
+/**
+ * This example shows a skeleton slider.
+ */
+export const Skeleton = {
+  args: {
+    ...Default.args,
+    skeleton: true,
   },
 } satisfies Story;
 
@@ -94,6 +150,7 @@ export const WithLabelledMarks = {
       { value: 100, label: "100°C" },
     ],
     label: "With Labelled Marks",
+    message: { shortMessage: "Example message" },
   },
 } satisfies Story;
 
@@ -127,7 +184,7 @@ export const AutomaticallyGeneratedMarks = {
     marks: true,
     label: "Automatically Generated Marks",
   },
-};
+} satisfies Story;
 
 /**
  * This example shows the discrete state of the slider with marks.
@@ -151,47 +208,12 @@ export const Discrete = {
 /**
  * This example shows the vertical orientation of the slider.
  */
-export const VerticalSlider = {
+export const Vertical = {
   args: {
     modelValue: [20, 40],
-    label: "Label",
+    label: "Vertical slider",
     hideLabel: true,
     orientation: "vertical",
-  },
-  decorators: [
-    (story) => ({
-      components: { story },
-      template: `<div style="width: 16rem; height: 16rem;"> <story /> </div>`,
-    }),
-  ],
-} satisfies Story;
-
-/**
- * This example shows the vertical orientation of the slider.
- */
-export const VerticalSliderWithMarks = {
-  args: {
-    modelValue: [20, 40],
-    marks: [0, 25, 50, 75, 100],
-    label: "Label",
-    hideLabel: true,
-    orientation: "vertical",
-  },
-  decorators: [
-    (story) => ({
-      components: { story },
-      template: `<div style="width: 16rem; height: 16rem;"> <story /> </div>`,
-    }),
-  ],
-} satisfies Story;
-
-/**
- * This example shows the vertical orientation of the slider with labelled marks.
- */
-export const VerticalSliderWithLabelledMarks = {
-  args: {
-    modelValue: [20, 40],
-    autofocus: true,
     marks: [
       { value: 0, label: "0°C" },
       { value: 25, label: "25°C" },
@@ -199,41 +221,11 @@ export const VerticalSliderWithLabelledMarks = {
       { value: 75, label: "75°C" },
       { value: 100, label: "100°C" },
     ],
-    label: "Label",
-    hideLabel: true,
-    orientation: "vertical",
   },
   decorators: [
     (story) => ({
       components: { story },
-      template: `<div style="width: 16rem; height: 16rem;"> <story /> </div>`,
-    }),
-  ],
-} satisfies Story;
-
-/**
- * This example shows the vertical orientation of the slider with labelled marks and inverted track mode.
- */
-export const VerticalSliderWithLabelledMarksInverted = {
-  args: {
-    modelValue: [20, 80],
-    autofocus: true,
-    trackMode: "inverted",
-    marks: [
-      { value: 0, label: "0°C" },
-      { value: 25, label: "25°C" },
-      { value: 50, label: "50°C" },
-      { value: 75, label: "75°C" },
-      { value: 100, label: "100°C" },
-    ],
-    label: "Label",
-    hideLabel: true,
-    orientation: "vertical",
-  },
-  decorators: [
-    (story) => ({
-      components: { story },
-      template: `<div style="width: 16rem; height: 16rem;"> <story /> </div>`,
+      template: `<div style="width: 4rem; height: 16rem;"> <story /> </div>`,
     }),
   ],
 } satisfies Story;
@@ -271,39 +263,54 @@ export const InvertedTrackWithMarks = {
     label: "Inverted Track with Marks",
     trackMode: "inverted",
     marks: [0, 25, 50, 75, 100],
-    autofocus: true,
   },
 } satisfies Story;
 
-export const TooltipAuto = {
+/**
+ * This example shows the slider with tooltip always visible.
+ */
+export const WithTooltip = {
   args: {
     modelValue: [40],
-    label: "Tooltip Auto",
-    tooltipDisplay: "auto",
-    marks: [0, 25, 50, 75, 100],
-    step: 5,
-    autofocus: true,
-  },
-} satisfies Story;
-
-export const TooltipAlways = {
-  args: {
-    modelValue: [40],
-    label: "Tooltip Always",
+    label: "With tooltip",
     tooltipDisplay: "always",
     marks: [0, 25, 50, 75, 100],
     step: 5,
-    autofocus: true,
   },
 } satisfies Story;
 
-export const TooltipNever = {
+/**
+ * This example shows the slider with value controls (min/max labels).
+ */
+export const WithValueControl = {
   args: {
     modelValue: [40],
-    label: "Tooltip Never",
-    tooltipDisplay: "never",
-    marks: [0, 25, 50, 75, 100],
-    step: 5,
-    autofocus: true,
+    label: "Value control",
+    control: "value",
+    hideLabel: true,
+  },
+} satisfies Story;
+
+/**
+ * This example shows the slider with input controls for precise value entry.
+ */
+export const WithInputControl = {
+  args: {
+    modelValue: [40],
+    label: "Input control",
+    control: "input",
+    hideLabel: true,
+  },
+} satisfies Story;
+
+/**
+ * This example shows the slider with icon controls for increment/decrement.
+ */
+export const WithIconControl = {
+  args: {
+    modelValue: [40],
+    label: "Icon control",
+    control: "icon",
+    hideLabel: true,
   },
 } satisfies Story;

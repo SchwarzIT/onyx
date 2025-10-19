@@ -847,6 +847,15 @@ export const createSlider = createBuilder((options: CreateSliderOptions) => {
        * Main axis properties based on orientation.
        */
       axis,
+      /**
+       * Rounds a value to the nearest valid step.
+       * @param value - value to round
+       * @returns rounded value
+       */
+      roundToStep: (value: number) =>
+        step.value !== null
+          ? roundToStep(value, step.value, min.value)
+          : marksValues.value[findClosestIndex(marksValues.value, value)],
     },
   };
 });
