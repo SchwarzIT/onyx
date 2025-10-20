@@ -21,3 +21,4 @@ const meta: Meta<typeof OnyxModal> = {
 export default meta;
 
 export const Default = createAdvancedStoryExample("OnyxModal", "DefaultExample");
+export const Gird = createAdvancedStoryExample("OnyxModal", "GridExample");
