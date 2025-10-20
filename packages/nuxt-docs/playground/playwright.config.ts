@@ -27,8 +27,8 @@ export default defineConfig<NuxtPlaywrightConfigOptions>({
           // by using a separate/unique database file for each test so the tests do not run / modify the same database
           _localDatabase: {
             type: "sqlite",
-            // using performance here instead of Date.now() because its more accurate. Date.now() still caused errors on local machines that are very fast
-            filename: `.data/playwright/playwright-${performance.now() + performance.timeOrigin}.sqlite`,
+            // see: https://playwright.dev/docs/test-parallel#worker-index-and-parallel-index
+            filename: `.data/playwright/playwright-${process.env.TEST_WORKER_INDEX}.sqlite`,
           },
         },
       },
