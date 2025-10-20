@@ -10,7 +10,7 @@ const props = withDefaults(defineProps<OnyxTableProps>(), {
   striped: false,
   withVerticalBorders: false,
   withPageScrolling: false,
-  truncation: "ellipsis",
+  truncation: "multiline",
 });
 
 const slots = defineSlots<OnyxTableSlots>();
