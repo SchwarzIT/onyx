@@ -1,5 +1,6 @@
 import { expect, test } from "../../playwright/a11y.js";
 import { ONYX_BREAKPOINTS } from "../../utils/breakpoints.js";
+import OnyxSidebar from "../OnyxSidebar/OnyxSidebar.vue";
 import OnyxPageLayout from "./OnyxPageLayout.vue";
 
 const SIDEBAR_ELEMENT = (
@@ -276,7 +277,9 @@ test("should not have inline margin for onyx grid container when sidebar exists"
   const component = await mount(
     <OnyxPageLayout class="onyx-grid-max-md onyx-grid-center" footerAlignment="page">
       Page content
-      <template v-slot:sidebar>{SIDEBAR_ELEMENT}</template>
+      <template v-slot:sidebar>
+        <OnyxSidebar label="sidebar"></OnyxSidebar>
+      </template>
       <template v-slot:footer>
         <footer style={{ height: "4rem", background: "olivedrab" }}>
           <div class="onyx-grid-layout">Footer</div>
@@ -296,4 +299,37 @@ test("should not have inline margin for onyx grid container when sidebar exists"
 
   expect(pageMarginInline).toBe("0px");
   expect(footerMarginInline).toBe("0px");
+});
+test("should have inline margin for onyx grid container when sidebar is temporary", async ({
+  page,
+  mount,
+}) => {
+  await page.setViewportSize({ height: 512, width: ONYX_BREAKPOINTS.xl });
+
+  // ARRANGE
+  const component = await mount(
+    <OnyxPageLayout class="onyx-grid-max-md onyx-grid-center" footerAlignment="page">
+      Page content
+      <template v-slot:sidebar>
+        <OnyxSidebar label="sidebar" temporary={{ open: false }}></OnyxSidebar>
+      </template>
+      <template v-slot:footer>
+        <footer style={{ height: "4rem", background: "olivedrab" }}>
+          <div class="onyx-grid-layout">Footer</div>
+        </footer>
+      </template>
+    </OnyxPageLayout>,
+  );
+
+  // ASSERT
+  const pageMarginInline = await component
+    .locator(".onyx-page__main > .onyx-grid-layout")
+    .evaluate((element) => getComputedStyle(element).marginInline);
+
+  const footerMarginInline = await component
+    .locator("footer > .onyx-grid-layout")
+    .evaluate((element) => getComputedStyle(element).marginInline);
+
+  expect(pageMarginInline).not.toBe("0px");
+  expect(footerMarginInline).not.toBe("0px");
 });

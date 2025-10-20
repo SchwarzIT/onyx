@@ -1,5 +1,16 @@
 # @sit-onyx/headless
 
+## 0.2.0
+
+### Minor Changes
+
+- 86b5fc7: feat(OnyxCalendar):
+  - implement `selectionMode` property for single, multi and range selection
+  - replaced `initialDate` property with `v-model:viewMonth`
+  - implement `modelValue / v-model` for selection (depending on selectionMode property)
+  - implement `day` slot for custom content
+  - implement `showCalendarWeeks` property week numbers
+
 ## 0.1.0
 
 ### Minor Changes

@@ -18,6 +18,10 @@ export const vuePluginOptions: Options = {
  */
 export const PLAYWRIGHT_BASE_CONFIG: PlaywrightTestConfig = {
   /**
+   * General
+   */
+  testMatch: "**/*.@(ct|e2e).?(c|m)[jt]s?(x)",
+  /**
    * SCREENSHOTS
    *
    * See: https://playwright.dev/docs/screenshots
@@ -53,7 +57,11 @@ export const PLAYWRIGHT_BASE_CONFIG: PlaywrightTestConfig = {
    */
   timeout: 20 * 1000,
   forbidOnly: !!process.env.CI, // fail build on CI if we left test.only in the source code
-  retries: process.env.CI ? 3 : 0, // retry on CI only
+
+  // we do not want to retry failing tests because if they fail but work after retry, they are flaky
+  // we don't want to have flaky tests so you must fix the flaky tests immediately instead of increasing the retries!
+  // the same is valid for CI
+  retries: 0,
 
   /**
    * REPORTERS
@@ -83,5 +91,4 @@ export const PLAYWRIGHT_BASE_CONFIG: PlaywrightTestConfig = {
     { name: "firefox", use: { ...devices["Desktop Firefox"] } },
     { name: "webkit", use: { ...devices["Desktop Safari"] } },
   ],
-  testMatch: "**/*.@(ct|e2e).?(c|m)[jt]s?(x)",
 };
