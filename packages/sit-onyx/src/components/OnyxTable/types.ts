@@ -1,5 +1,6 @@
 import type { HTMLAttributes } from "vue";
 import type { DensityProp } from "../../composables/density.js";
+import type { TruncationType } from "../../types/index.js";
 
 export type OnyxTableProps = DensityProp & {
   /**
@@ -27,6 +28,8 @@ export type OnyxTableProps = DensityProp & {
    * Supports attributes like id, class, style, and events.
    */
   scrollContainerAttrs?: HTMLAttributes;
+
+  truncation?: TruncationType;
 };
 
 export type OnyxTableSlots = {
