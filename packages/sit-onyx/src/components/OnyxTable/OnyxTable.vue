@@ -10,6 +10,7 @@ const props = withDefaults(defineProps<OnyxTableProps>(), {
   striped: false,
   withVerticalBorders: false,
   withPageScrolling: false,
+  truncation: "ellipsis",
 });
 
 const slots = defineSlots<OnyxTableSlots>();
@@ -58,6 +59,7 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
           {
             'onyx-table--striped': props.striped,
             'onyx-table--vertical-borders': props.withVerticalBorders,
+            [`onyx-table--cell-truncation-${props.truncation}`]: true,
           },
           densityClass,
         ]"
@@ -135,11 +137,6 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
   th,
   td {
     border-bottom: $border;
-  }
-
-  td {
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   tr:last-of-type td {
@@ -264,6 +261,14 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
       font-size: var(--onyx-font-size-md);
       font-weight: var(--onyx-font-weight-400);
       line-height: var(--onyx-font-line-height-md);
+    }
+
+    &--cell-truncation-ellipsis {
+      td {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
     }
 
     // we need to use ::before to set the row/td background color
