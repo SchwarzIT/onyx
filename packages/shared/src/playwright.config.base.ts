@@ -62,7 +62,6 @@ export const PLAYWRIGHT_BASE_CONFIG: PlaywrightTestConfig = {
   // we don't want to have flaky tests so you must fix the flaky tests immediately instead of increasing the retries!
   // the same is valid for CI
   retries: 0,
-  failOnFlakyTests: true,
 
   /**
    * REPORTERS
