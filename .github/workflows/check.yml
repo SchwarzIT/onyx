@@ -81,6 +81,7 @@ jobs:
           path: coverage
 
   screenshots:
+    if: github.ref != 'refs/heads/main'
     needs: build
     name: Component tests
     uses: ./.github/workflows/playwright.yml
