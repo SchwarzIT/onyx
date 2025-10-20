@@ -9,10 +9,10 @@ import {
 } from "../../playwright/screenshots.js";
 import type { SelectOptionValue } from "../../types/index.js";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
-import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-utils";
+import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-utils.js";
 import OnyxSelect from "./OnyxSelect.vue";
 import TestWrapperCt from "./TestWrapper.ct.vue";
-import { SELECT_ALIGNMENTS, type OnyxSelectProps, type SelectOption } from "./types.js";
+import { SELECT_ALIGNMENTS, type SelectOption } from "./types.js";
 
 const context = {
   disabledAccessibilityRules: [
@@ -147,7 +147,7 @@ test.describe("Truncated options screenshots", () => {
     hooks: {
       beforeEach: async (component) => {
         await openFlyout(component);
-        const option = component.getByLabel(MOCK_MULTILINE_LONG_LABELED_OPTIONS[0].label);
+        const option = component.getByLabel(MOCK_MULTILINE_LONG_LABELED_OPTIONS[0]!.label);
         await option.hover();
       },
     },
@@ -168,7 +168,7 @@ test.describe("Grouped screenshots", () => {
     rows: DENSITIES,
     context: nestedChildrenContext,
     component: (column, row) => {
-      const preselected: SelectOptionValue = GROUPED_OPTIONS[0].value;
+      const preselected: SelectOptionValue = GROUPED_OPTIONS[0]!.value;
       const multiple = column === "with-check-all";
       return multiple ? (
         <div>
@@ -213,7 +213,7 @@ test.describe("Multiple screenshots", () => {
     rows: ["default", "check-all", "search", "preview"],
     context: nestedChildrenContext,
     component: (column, row) => {
-      let modelValue = [MOCK_VARIED_OPTIONS_VALUES[0]];
+      let modelValue = [MOCK_VARIED_OPTIONS_VALUES[0]!];
       if (column === "compact") modelValue = [];
       if (column === "cozy" || row === "preview")
         modelValue = MOCK_VARIED_OPTIONS.map(({ value }) => value);
@@ -450,13 +450,6 @@ test.describe("Other screenshots", () => {
 test("should interact with single select", async ({ mount }) => {
   let modelValue: number | undefined = MOCK_VARIED_OPTIONS_VALUES[1];
 
-  const eventHandlers = {
-    "update:modelValue": async (value: typeof modelValue) => {
-      modelValue = value;
-      await component.update({ props: { modelValue }, on: eventHandlers });
-    },
-  };
-
   // ARRANGE
   const component = await mount(OnyxSelect, {
     props: {
@@ -464,8 +457,11 @@ test("should interact with single select", async ({ mount }) => {
       label: "Test select",
       listLabel: "Select label",
       modelValue,
+      "onUpdate:modelValue": async (value) => {
+        modelValue = value as typeof modelValue;
+        await component.update({ props: { modelValue } });
+      },
     },
-    on: eventHandlers,
   });
 
   const comboboxInput = component.getByRole("combobox", { name: "Test select" });
@@ -475,18 +471,22 @@ test("should interact with single select", async ({ mount }) => {
   // ASSERT
   await expect(component.getByRole("option", { name: "Disabled" })).toBeDisabled();
   expect(modelValue).toStrictEqual(MOCK_VARIED_OPTIONS_VALUES[1]);
+  await expect(comboboxInput).toHaveValue(MOCK_VARIED_OPTIONS[1]!.label);
 
   // ACT
   await component.getByRole("combobox", { name: "Test select" }).click();
+
   // ASSERT
   expect(modelValue).toStrictEqual(MOCK_VARIED_OPTIONS_VALUES[1]);
   await expect(comboboxInput).toBeFocused();
 
-  // // ACT
+  // ACT
   await component.click();
   await component.getByRole("option", { name: "Default" }).click();
+
   // ASSERT
   expect(modelValue).toStrictEqual(MOCK_VARIED_OPTIONS_VALUES[0]);
+  await expect(comboboxInput).toHaveValue(MOCK_VARIED_OPTIONS[0]!.label);
   await expect(comboboxInput).toBeFocused();
 });
 
@@ -576,14 +576,8 @@ test("should interact with multiselect and search", async ({ mount }) => {
 });
 
 test("should interact with multiselect", async ({ mount }) => {
-  let modelValue: number[] | undefined = [MOCK_VARIED_OPTIONS_VALUES[1]];
+  let modelValue: number[] | undefined = [MOCK_VARIED_OPTIONS_VALUES[1]!];
 
-  const eventHandlers = {
-    "update:modelValue": async (value: typeof modelValue) => {
-      modelValue = value;
-      await component.update({ props: { modelValue }, on: eventHandlers });
-    },
-  };
   const EXPECTED_SELECT_ALL_OPTIONS = [
     MOCK_VARIED_OPTIONS_VALUES[0],
     MOCK_VARIED_OPTIONS_VALUES[1],
@@ -599,40 +593,54 @@ test("should interact with multiselect", async ({ mount }) => {
       withCheckAll: { label: "Select all" },
       multiple: true,
       modelValue,
+      "onUpdate:modelValue": async (value) => {
+        modelValue = value as typeof modelValue;
+        await component.update({ props: { modelValue } });
+      },
     },
-    on: eventHandlers,
   });
 
-  await component.getByRole("combobox", { name: "Test select" }).click();
+  const comboboxInput = component.getByRole("combobox", { name: "Test select" });
+
+  // ACT
+  await comboboxInput.click();
 
   // ASSERT
   await expect(component.getByRole("option", { name: "Disabled" })).toBeDisabled();
   expect(modelValue).toStrictEqual([MOCK_VARIED_OPTIONS_VALUES[1]]);
+  await expect(comboboxInput).toHaveValue(MOCK_VARIED_OPTIONS[1]!.label);
 
   // ACT (should de-select current value)
   await component.getByRole("option", { name: "Selected" }).click();
+
   // ASSERT
   expect(modelValue).toEqual([]);
+  await expect(comboboxInput).toHaveValue("");
 
   // ACT (should select all non-disabled values)
   await component.getByRole("option", { name: "Select all" }).click();
 
   // ASSERT
   expect(modelValue).toStrictEqual(EXPECTED_SELECT_ALL_OPTIONS);
+  await expect(comboboxInput).toHaveValue("3 selected");
 
   // ACT (should select all non-disabled values)
   const keyboard = component.getByLabel("Test select");
   await keyboard.press("ArrowDown");
   await keyboard.press("Enter");
+
   // ASSERT
   expect(modelValue, "can toggle the selection with Enter").toStrictEqual([]);
+  await expect(comboboxInput).toHaveValue("");
 
   // ACT
   await keyboard.press("Space");
+
   // ASSERT
   expect(modelValue, "can toggle the selection with Space").toStrictEqual(
     EXPECTED_SELECT_ALL_OPTIONS,
   );
+  await expect(comboboxInput).toHaveValue("3 selected");
 });
 
 test("should pass headless accessibility tests", async ({ mount, page }) => {
@@ -656,20 +664,16 @@ test("should pass headless accessibility tests", async ({ mount, page }) => {
 });
 
 test("should pass headless accessibility tests (select only)", async ({ mount, page }) => {
-  const eventHandlers = {
-    "update:modelValue": async (modelValue: number) => {
-      await component.update({ props: { modelValue }, on: eventHandlers });
-    },
-  };
-
   // ARRANGE
   const component = await mount(OnyxSelect, {
     props: {
       options: MOCK_MANY_OPTIONS,
       label: "Test select",
       listLabel: "List label",
+      "onUpdate:modelValue": async (modelValue) => {
+        await component.update({ props: { modelValue } });
+      },
     },
-    on: eventHandlers,
   });
 
   // ASSERT
@@ -684,10 +688,6 @@ test("should pass headless accessibility tests (select only)", async ({ mount, p
 test("should support lazy loading", async ({ mount }) => {
   let lazyLoadEventCount = 0;
 
-  const eventHandlers = {
-    lazyLoad: () => lazyLoadEventCount++,
-  };
-
   // ARRANGE
   const component = await mount(OnyxSelect, {
     props: {
@@ -695,13 +695,9 @@ test("should support lazy loading", async ({ mount }) => {
       label: "Test select",
       listLabel: "Test listbox",
       lazyLoading: { enabled: true },
+      onLazyLoad: () => lazyLoadEventCount++,
     },
-    on: eventHandlers,
   });
-
-  const updateProps = (props: Partial<OnyxSelectProps>) => {
-    return component.update({ props, on: eventHandlers });
-  };
 
   await component.getByRole("combobox", { name: "Test select" }).click();
 
@@ -728,7 +724,7 @@ test("should support lazy loading", async ({ mount }) => {
   await expect(() => expect(lazyLoadEventCount).toBe(1)).toPass();
 
   // ACT
-  await updateProps({ lazyLoading: { enabled: true, loading: true } });
+  await component.update({ props: { lazyLoading: { enabled: true, loading: true } } });
 
   // ASSERT
   const loadingIndicator = component.locator(".onyx-loading-dots");
@@ -736,14 +732,16 @@ test("should support lazy loading", async ({ mount }) => {
   await expect(loadingIndicator).toBeVisible();
 
   // ACT
-  await updateProps({
-    loading: false,
-    options: MOCK_MANY_OPTIONS.concat(
-      Array.from({ length: 25 }, (_, index) => {
-        const value = MOCK_MANY_OPTIONS.length + index;
-        return { value, label: `Test option ${value + 1}` };
-      }),
-    ),
+  await component.update({
+    props: {
+      loading: false,
+      options: MOCK_MANY_OPTIONS.concat(
+        Array.from({ length: 25 }, (_, index) => {
+          const value = MOCK_MANY_OPTIONS.length + index;
+          return { value, label: `Test option ${value + 1}` };
+        }),
+      ),
+    },
   });
 
   // ASSERT
@@ -753,9 +751,7 @@ test("should support lazy loading", async ({ mount }) => {
 
   // ACT (should support customizing the scroll offset)
 
-  await updateProps({
-    lazyLoading: { enabled: true, scrollOffset: 120 },
-  });
+  await component.update({ props: { lazyLoading: { enabled: true, scrollOffset: 120 } } });
   await scrollToOption("Test option 48");
 
   // ASSERT
