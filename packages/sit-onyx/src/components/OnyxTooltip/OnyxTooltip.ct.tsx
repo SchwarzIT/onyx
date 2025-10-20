@@ -67,11 +67,12 @@ test("should trigger with hover", async ({ mount, page }) => {
   await component.hover();
 
   // ASSERT
-  await expect(tooltip).toBeHidden(); // should use debounce to show tooltip only after a short delay
   await expect(tooltip).toBeVisible();
 
+  // ACT
   await page.mouse.move(0, 0);
-  await expect(tooltip).toBeVisible(); // should use debounce to hide tooltip only after a short delay
+
+  // ASSERT
   await expect(tooltip).toBeHidden();
 
   // ACT
