@@ -28,7 +28,12 @@ export type OnyxTableProps = DensityProp & {
    * Supports attributes like id, class, style, and events.
    */
   scrollContainerAttrs?: HTMLAttributes;
-
+  /**
+   * Defines how overflows of text content in cells (`td`-elements) are handled.
+   * The cell can either grow to multiple lines (`'multiline'`) or truncate the text (`'ellipsis'`).
+   *
+   * @default 'multiline'
+   */
   truncation?: TruncationType;
 };
 
