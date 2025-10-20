@@ -1,11 +1,10 @@
 <script lang="ts" setup>
-import { iconMoreVertical, iconTrash } from "@sit-onyx/icons";
+import { iconTrash } from "@sit-onyx/icons";
 import { ref } from "vue";
 import OnyxFileCard from "../../OnyxFileCard/OnyxFileCard.vue";
 import OnyxIconButton from "../../OnyxIconButton/OnyxIconButton.vue";
 import OnyxFlyoutMenu from "../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxMenuItem from "../../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
-import OnyxSystemButton from "../../OnyxSystemButton/OnyxSystemButton.vue";
 import OnyxFileUpload from "../OnyxFileUpload.vue";
 
 const allFiles = ref<File[]>([]);
@@ -21,10 +20,6 @@ const removeFile = (fileToRemove: File) => {
       <OnyxFileCard v-bind="props">
         <template #actions>
           <OnyxFlyoutMenu label="Actions">
-            <template #button="{ trigger }">
-              <OnyxSystemButton v-bind="trigger" label="Toggle actions" :icon="iconMoreVertical" />
-            </template>
-
             <template #options>
               <OnyxMenuItem>Open</OnyxMenuItem>
               <OnyxMenuItem>Print</OnyxMenuItem>

@@ -13,6 +13,7 @@ import {
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import { useRootAttrs } from "../../utils/attrs.js";
+import { useForwardProps } from "../../utils/props.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -77,6 +78,7 @@ const modelValue = useVModel({
 
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
+const formElementProps = useForwardProps(props, OnyxFormElement);
 
 const { t } = injectI18n();
 const { maxLength, maxLengthError } = useLenientMaxLengthValidation({ modelValue, props });
@@ -131,7 +133,7 @@ const displayType = computed(() => {
     v-bind="rootAttrs"
   >
     <OnyxFormElement
-      v-bind="props"
+      v-bind="formElementProps"
       :error-messages="errorMessages"
       :success-messages="successMessages"
       :message="messages"

@@ -1,5 +1,8 @@
 name: Check code quality
 on:
+  push:
+    branches:
+      - main
   pull_request:
   workflow_dispatch:
   # see: https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue#configuring-continuous-integration-ci-workflows-for-merge-queues
@@ -31,6 +34,9 @@ jobs:
     name: Check code quality
     runs-on: ubuntu-latest
     needs: build
+    permissions:
+      contents: read
+      security-events: write
     steps:
       - uses: actions/checkout@v5
         with:
@@ -75,6 +81,7 @@ jobs:
           path: coverage
 
   screenshots:
+    if: github.ref != 'refs/heads/main'
     needs: build
     name: Component tests
     uses: ./.github/workflows/playwright.yml

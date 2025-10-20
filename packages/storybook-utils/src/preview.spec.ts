@@ -30,4 +30,28 @@ import { flagDE } from "@sit-onyx/flags";
   <OnyxComp>Test</OnyxComp>
 </template>`);
   });
+
+  test("should not add imports twice", async () => {
+    // ACT
+    let sourceCode = await sourceCodeTransformer(`<template>
+  <OnyxTest />
+</template>`);
+
+    // ASSERT
+    const expectedCode = `<script lang="ts" setup>
+import { OnyxTest } from "sit-onyx";
+</script>
+
+<template>
+  <OnyxTest />
+</template>`;
+
+    expect(sourceCode).toBe(expectedCode);
+
+    // ACT (call transformer twice)
+    sourceCode = await sourceCodeTransformer(sourceCode);
+
+    // ASSERT
+    expect(sourceCode).toBe(expectedCode);
+  });
 });

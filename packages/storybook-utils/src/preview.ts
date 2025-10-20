@@ -195,13 +195,12 @@ export const sourceCodeTransformer = async (originalSourceCode: string): Promise
   // generate the source code for the additional imports and add them to the top of the code snippet
   if (additionalImports.size > 0) {
     const additionalImportsCode = Array.from(additionalImports.entries()).reduce(
-      (code, [packageName, imports]) => {
+      (importsCode, [packageName, imports]) => {
         if (imports.size) {
-          code.push(
-            `import { ${Array.from(imports.values()).sort().join(", ")} } from "${packageName}";`,
-          );
+          const newImport = `import { ${Array.from(imports.values()).sort().join(", ")} } from "${packageName}";`;
+          if (!code.includes(newImport)) importsCode.push(newImport);
         }
-        return code;
+        return importsCode;
       },
       [] as string[],
     );

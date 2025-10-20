@@ -4,6 +4,7 @@ import { useId } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { injectI18n } from "../../i18n/index.js";
 import type { Nullable } from "../../types/utils.js";
+import { useForwardProps } from "../../utils/props.js";
 import OnyxBasicDialog from "../OnyxBasicDialog/OnyxBasicDialog.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -13,6 +14,8 @@ import type { OnyxAlertModalProps } from "./types.js";
 const props = withDefaults(defineProps<OnyxAlertModalProps>(), {
   icon: () => ({ icon: iconCircleAttention, color: "danger" }),
 });
+
+const dialogProps = useForwardProps(props, OnyxBasicDialog);
 
 const emit = defineEmits<{
   /**
@@ -55,7 +58,7 @@ const describedById = useId();
 <template>
   <OnyxBasicDialog
     :class="['onyx-alert-modal', densityClass]"
-    v-bind="props"
+    v-bind="dialogProps"
     :aria-describedby="describedById"
     modal
     alert

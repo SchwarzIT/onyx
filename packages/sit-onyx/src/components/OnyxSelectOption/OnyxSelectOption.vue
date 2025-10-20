@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { useForwardProps } from "../../utils/props.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
 import type { OnyxSelectOptionProps } from "./types.js";
@@ -15,12 +16,14 @@ defineSlots<{
    */
   default(): unknown;
 }>();
+
+const listItemProps = useForwardProps(props, OnyxListItem);
 </script>
 
 <template>
   <OnyxListItem
     class="onyx-component onyx-select-option"
-    v-bind="props"
+    v-bind="listItemProps"
     :checked="!!$attrs['aria-checked']"
     :selected="!!$attrs['aria-selected']"
     :disabled="!!$attrs['aria-disabled']"

@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { computed } from "vue";
+import { useForwardProps } from "../../../../utils/props.js";
 import OnyxMenuItem from "../OnyxMenuItem/OnyxMenuItem.vue";
 import type { OnyxMenuItemProps } from "../OnyxMenuItem/types.js";
 
@@ -24,12 +25,13 @@ const slots = defineSlots<{
   children(): unknown;
 }>();
 
+const menuItemProps = useForwardProps(props, OnyxMenuItem);
 const hasChildren = computed(() => !!slots.children);
 </script>
 
 <template>
   <OnyxMenuItem
-    v-bind="props"
+    v-bind="menuItemProps"
     :link="hasChildren && props.context !== 'navbar' ? undefined : props.link"
     :class="{
       'onyx-nav-item': true,

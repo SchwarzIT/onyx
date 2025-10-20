@@ -10,7 +10,8 @@ import {
 } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { useRootAttrs } from "../../utils/attrs.js";
-import { isValidDate } from "../../utils/date.js";
+import { dateToISOString } from "../../utils/date.js";
+import { useForwardProps } from "../../utils/props.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
@@ -29,7 +30,11 @@ const props = withDefaults(defineProps<OnyxDatePickerProps>(), {
 
 const emit = defineEmits<{
   /**
-   * Emitted when the current value changes. Will be a ISO timestamp created by `new Date().toISOString()`.
+   * Emitted when the current value changes. Is a date string based on [ISO8601](https://en.wikipedia.org/wiki/ISO_8601).
+   *
+   * Dependent on `type` the string is either:
+   * - "date": date only string based, e.g. `"2011-10-31"`
+   * - "datetime-local": Full datetime string in UTC timezone, `e.g. "2011-10-31T00:00:00.000Z"`
    */
   "update:modelValue": [value?: string];
   /**
@@ -47,6 +52,7 @@ const { densityClass } = useDensity(props);
 const { disabled, showError } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
 const errorClass = useErrorClass(showError);
+const formElementProps = useForwardProps(props, OnyxFormElement);
 
 /**
  * Gets the normalized date based on the input type that can be passed to the native HTML `<input />`.
@@ -58,16 +64,7 @@ const errorClass = useErrorClass(showError);
 const getNormalizedDate = computed(() => {
   return (value?: DateValue | null) => {
     const date = value != undefined && value != null ? new Date(value) : undefined;
-    if (!isValidDate(date)) return;
-
-    const dateString = date.toISOString().split("T")[0];
-    if (props.type === "date") return dateString;
-
-    // for datetime type, the hour must be in the users local timezone so just returning the string returned by `toISOString()` will be invalid
-    // since the timezone offset is missing then
-    const hours = date.getHours().toString().padStart(2, "0");
-    const minutes = date.getMinutes().toString().padStart(2, "0");
-    return `${dateString}T${hours}:${minutes}`;
+    return dateToISOString(date, props.type);
   };
 });
 
@@ -83,11 +80,12 @@ const value = computed({
   get: () => getNormalizedDate.value(modelValue.value),
   set: (value) => {
     const newDate = new Date(value ?? "");
-    modelValue.value = isValidDate(newDate) ? newDate.toISOString() : undefined;
+    // If the type is `datetime-local`, we always use UTC as a timezone to minimize edge-cases for our users.
+    modelValue.value = dateToISOString(newDate, props.type === "date" ? "date" : "datetime-utc");
   },
 });
-const input = useTemplateRef("inputRef");
-useAutofocus(input, props);
+
+useAutofocus(useTemplateRef("inputRef"), props);
 </script>
 
 <template>
@@ -106,7 +104,7 @@ useAutofocus(input, props);
     v-bind="rootAttrs"
   >
     <OnyxFormElement
-      v-bind="props"
+      v-bind="formElementProps"
       :error-messages="errorMessages"
       :success-messages="successMessages"
       :message="messages"

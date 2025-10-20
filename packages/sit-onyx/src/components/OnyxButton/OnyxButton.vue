@@ -5,6 +5,7 @@ import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
+import { useForwardProps } from "../../utils/props.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
@@ -23,6 +24,8 @@ const props = withDefaults(defineProps<OnyxButtonProps>(), {
   iconPosition: "left",
 });
 
+const forwardProps = useForwardProps(props, ButtonOrLinkLayout);
+
 const { densityClass } = useDensity(props);
 const { disabled } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
@@ -35,7 +38,7 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
   <OnyxSkeleton v-if="skeleton" :class="['onyx-button-skeleton', densityClass]" />
   <ButtonOrLinkLayout
     v-else
-    v-bind="props"
+    v-bind="forwardProps"
     :class="[
       'onyx-component',
       'onyx-button',

@@ -16,9 +16,18 @@ import ScatterChart from "@sit-onyx/chartjs-plugin/examples/ScatterChart/Scatter
 
 import { Chart, registerables } from "chart.js";
 import { registerOnyxPlugin } from "@sit-onyx/chartjs-plugin";
+import { onBeforeMount } from "vue";
 
 // register default Chart.js plugins
 Chart.register(...registerables);
+
+// if running in Playwright, we want to disable the chart animations so stable screenshots can be captured
+onBeforeMount(() => {
+  const isPlaywright = navigator.webdriver === true;
+  if (isPlaywright) {
+    Chart.defaults.animation = false;
+  }
+});
 
 // register custom onyx plugin
 registerOnyxPlugin(Chart);

@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { useForwardProps } from "../../utils/props.js";
 import OnyxExternalLinkIcon from "../OnyxExternalLinkIcon/OnyxExternalLinkIcon.vue";
 import OnyxRouterLink from "../OnyxRouterLink/OnyxRouterLink.vue";
 import type { OnyxLinkProps } from "./types.js";
@@ -7,6 +8,9 @@ const props = withDefaults(defineProps<OnyxLinkProps>(), {
   target: "_self",
   withExternalIcon: "auto",
 });
+
+const routerLinkProps = useForwardProps(props, OnyxRouterLink);
+const externalLinkIconProps = useForwardProps(props, OnyxExternalLinkIcon);
 
 defineSlots<{
   /**
@@ -17,9 +21,9 @@ defineSlots<{
 </script>
 
 <template>
-  <OnyxRouterLink class="onyx-component onyx-link" v-bind="props">
+  <OnyxRouterLink class="onyx-component onyx-link" v-bind="routerLinkProps">
     <slot></slot>
-    <OnyxExternalLinkIcon v-bind="props" />
+    <OnyxExternalLinkIcon v-bind="externalLinkIconProps" />
   </OnyxRouterLink>
 </template>
 

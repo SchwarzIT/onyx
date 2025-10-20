@@ -2,6 +2,7 @@
 import { ref, useId, watchEffect } from "vue";
 import { injectI18n } from "../../i18n/index.js";
 import type { Nullable } from "../../types/index.js";
+import { useForwardProps } from "../../utils/props.js";
 import OnyxBottomBar from "../OnyxBottomBar/OnyxBottomBar.vue";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxCard from "../OnyxCard/OnyxCard.vue";
@@ -32,6 +33,8 @@ const slots = defineSlots<{
   description?(): unknown;
 }>();
 
+const modalProps = useForwardProps(props, OnyxModal);
+
 const currentValue = ref<TValue>();
 watchEffect(() => (currentValue.value = props.modelValue));
 
@@ -52,7 +55,7 @@ const handleApply = () => {
 
 <template>
   <OnyxModal
-    v-bind="props"
+    v-bind="modalProps"
     :open="props.open"
     class="onyx-select-dialog"
     :label="props.label"

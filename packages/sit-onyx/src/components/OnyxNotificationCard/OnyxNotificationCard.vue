@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { iconMoreVertical } from "@sit-onyx/icons";
 import { toRef } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useRelativeTimeFormat } from "../../composables/useRelativeTimeFormat.js";
@@ -13,7 +12,6 @@ import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxFlyoutMenu from "../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import type { OnyxNotificationCardProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxNotificationCardProps>(), {
@@ -66,18 +64,10 @@ const { timeAgo } = useRelativeTimeFormat({
             <OnyxFlyoutMenu
               v-if="!!slots.headerActions"
               class="onyx-notification-card__more-actions"
-              :label="t('notificationCard.moreActions')"
+              :label="t('flyoutMenu.moreActions')"
               trigger="click"
               alignment="right"
             >
-              <template #button="{ trigger }">
-                <OnyxSystemButton
-                  v-bind="trigger"
-                  :label="t('notificationCard.toggleActions')"
-                  :icon="iconMoreVertical"
-                />
-              </template>
-
               <template #options>
                 <slot name="headerActions"></slot>
               </template>
