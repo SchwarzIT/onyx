@@ -1,5 +1,6 @@
 import type { HTMLAttributes } from "vue";
 import type { DensityProp } from "../../composables/density.js";
+import type { TruncationType } from "../../types/index.js";
 
 export type OnyxTableProps = DensityProp & {
   /**
@@ -27,6 +28,13 @@ export type OnyxTableProps = DensityProp & {
    * Supports attributes like id, class, style, and events.
    */
   scrollContainerAttrs?: HTMLAttributes;
+  /**
+   * Defines how overflows of text content in cells (`td`-elements) are handled.
+   * The cell can either grow to multiple lines (`'multiline'`) or truncate the text (`'ellipsis'`).
+   *
+   * @default 'multiline'
+   */
+  truncation?: TruncationType;
 };
 
 export type OnyxTableSlots = {
