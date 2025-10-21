@@ -49,6 +49,7 @@ const handleMousedown = () => {
   window.addEventListener("mousemove", onMouseMove, options);
   window.addEventListener("mouseup", abort, options);
   window.addEventListener("keydown", onKeydown, options);
+  window.addEventListener("selectstart", (e) => e.preventDefault(), { ...options, passive: false });
 
   emit("start");
 };
