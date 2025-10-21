@@ -58,6 +58,21 @@ runClassic(
         </script>
         <template><MyComponent v-bind="c"/></template>`,
       },
+      {
+        filename: "test.vue",
+        code: `
+        <script setup lang="ts">
+          function ref<T>(a: T) {
+            return {};
+          }
+
+          const props = defineProps<{ a: string }>();
+          let a = "a";
+          const b = ref<string>("a");
+          const c = { a:1 };
+        </script>
+        <template><div v-bind="props">Content</div></template>`,
+      },
     ],
     invalid: [
       {

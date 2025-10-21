@@ -64,7 +64,14 @@ module.exports = {
           if (!name) {
             return;
           }
-          if (propsIdentifiers.includes(name)) {
+
+          // Find the parent node which is the vue element
+          let parentNode = node;
+          while (parentNode && parentNode.type !== "VElement") {
+            parentNode = parentNode.parent;
+          }
+
+          if (utils.isCustomComponent(parentNode) && propsIdentifiers.includes(name)) {
             context.report({
               loc: node.value.loc,
               node,
