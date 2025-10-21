@@ -11,13 +11,31 @@ module.exports = {
         "Finds code occurrences, where props are directly passed to a child component. This can be problematic, as excessive props are rendered as attributes and may cause unexpected behavior.",
     },
     fixable: null,
-    schema: [],
+    schema: [
+      {
+        type: "object",
+        properties: {
+          ignores: {
+            type: "array",
+            items: { type: "string" },
+            uniqueItems: true,
+            additionalItems: false,
+          },
+        },
+        additionalProperties: false,
+      },
+    ],
     messages: {
-      boundProps: `All props are bound directly using v-bind="{{ name }}", this is usually a mistake! Props which are not defined by the target, will be rendered as attributes and have unintended side-effects!`,
+      boundProps: `All props are bound directly using v-bind="{{ name }}", this is usually a mistake! Props which are not defined by the target will be rendered as attributes and have unintended side-effects!`,
     },
   },
-  /** @param {RuleContext} context */
+  /** @param {import('eslint').Rule.RuleContext} context */
   create(context) {
+    const ignores = context.options?.[0]?.ignores;
+    if (ignores && new RegExp(ignores).test(context.filename)) {
+      return {};
+    }
+
     /**
      * Used to track the names of the defined props objects
      * @type {string[]}

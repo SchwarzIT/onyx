@@ -14,6 +14,7 @@ module.exports = {
     "no-shadow-native": require("./rules/no-shadow-native-events.cjs"),
     "no-shadow-template-ref": require("./rules/no-shadow-template-ref.cjs"),
     "no-esm-incompatible-imports": require("./rules/no-esm-incompatible-imports.cjs"),
+    "no-v-bind-props": require("./rules/no-v-bind-props.cjs"),
     "require-root-class": require("./rules/require-root-class.cjs"),
   },
 };
