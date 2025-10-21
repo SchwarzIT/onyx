@@ -60,7 +60,7 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
         };
       });
 
-      columns.push({ key: FILLER_COLUMN, type: { name: FILLER_COLUMN }, label: "" });
+      columns.push({ key: FILLER_COLUMN, type: { name: FILLER_COLUMN }, width: "auto", label: "" });
 
       return columns;
     };
