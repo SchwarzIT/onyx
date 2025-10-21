@@ -13,12 +13,16 @@ export type OnyxCalendarProps<TSelection extends OnyxCalendarSelectionMode> = De
    * Whether the calendar is disabled.
    * * This can be a simple boolean to globally disable all interactions and selection,
    * or a **callback function** to disable specific dates individually.
-   * * @example
+   * @example
+   * ```ts
    * // Globally disables the calendar
-   * disabled: true
-   * * @example
+   * { disabled: true }
+   * ```
+   * @example
+   * ```ts
    * // Disables only weekends (Saturday and Sunday)
-   * disabled: (date: Date) => date.getDay() === 0 || date.getDay() === 6
+   * { disabled: (date: Date) => date.getDay() === 0 || date.getDay() === 6 }
+   * ```
    */
   disabled?: boolean | ((date: Date) => boolean);
 
