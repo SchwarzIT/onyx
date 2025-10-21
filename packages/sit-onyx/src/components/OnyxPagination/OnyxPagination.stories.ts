@@ -26,6 +26,7 @@ export const Default = {
   },
 } satisfies Story;
 export const Inline = {
+  tags: ["new:feature"],
   args: {
     ...Default.args,
     mode: "inline",
