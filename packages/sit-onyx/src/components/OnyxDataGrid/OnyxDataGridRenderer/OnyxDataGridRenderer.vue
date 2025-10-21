@@ -78,7 +78,7 @@ const columnStyle = computed(() => {
     .onyx-table-wrapper__container {
       display: grid;
       grid-template-columns: var(--onyx-data-grid-template-columns);
-      grid-template-rows: repeat(var(--onyx-data-grid-row-count), auto);
+      grid-template-rows: repeat(var(--onyx-data-grid-row-count), minmax(min-content, auto));
 
       table {
         display: grid;
@@ -107,6 +107,12 @@ const columnStyle = computed(() => {
         display: grid;
         grid-column: 1 / -1;
         grid-template-columns: subgrid;
+        grid-template-rows: subgrid;
+      }
+
+      th {
+        // Unset height set by OnyxTable, as it would otherwise interfere with our grid layout
+        height: unset;
       }
 
       // Waiting for :attr support https://developer.mozilla.org/en-US/docs/Web/CSS/attr
