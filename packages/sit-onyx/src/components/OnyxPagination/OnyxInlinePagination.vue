@@ -189,6 +189,13 @@ const displayPagesNumbers = computed<Array<number | string>>(() => {
           background-color: var(--onyx-color-base-primary-200);
           color: var(--onyx-color-text-icons-primary-intense);
         }
+        &:focus-visible {
+          background-color: var(--onyx-color-base-primary-300);
+          color: var(--onyx-color-text-icons-neutral-inverted);
+        }
+        &:active {
+          background-color: var(--onyx-color-base-primary-100);
+        }
       }
       &:disabled {
         background-color: var(--onyx-color-base-background-tinted);

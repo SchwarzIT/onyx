@@ -25,4 +25,4 @@ export type OnyxPaginationProps = DensityProp & {
   mode?: OnyxPaginationModes;
 };
 
-type OnyxPaginationModes = "select" | "inline";
+export type OnyxPaginationModes = "select" | "inline";
