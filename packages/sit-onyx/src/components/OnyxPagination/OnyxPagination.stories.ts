@@ -25,6 +25,12 @@ export const Default = {
     pages: 42,
   },
 } satisfies Story;
+export const Inline = {
+  args: {
+    ...Default.args,
+    mode: "inline",
+  },
+} satisfies Story;
 
 export const ManyPages = {
   args: {

@@ -169,6 +169,8 @@
     "ofPages": "von 1 Seite | von {n} Seiten",
     "previous": "vorherige Seite",
     "next": "nächste Seite",
+    "buttonLabel": "Seite {page}",
+    "ellipsis": "Weitere Seiten",
     "select": {
       "label": "Seiten-Auswahl",
       "listLabel": "Verfügbare Seiten"
