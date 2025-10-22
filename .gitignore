@@ -47,6 +47,7 @@ dist
 
 # Development config
 .env*
+!.env.example
 
 # generated files
 packages/figma-utils/variables*.css
