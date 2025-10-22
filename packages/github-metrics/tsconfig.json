@@ -1,6 +1,7 @@
 {
   "extends": ["@tsconfig/node24/tsconfig.json", "@sit-onyx/shared/tsconfig.json"],
   "include": ["src/**/*"],
+  "exclude": ["src/**/*.spec.ts"],
   "compilerOptions": {
     "rootDir": "./src",
     "baseUrl": ".",
