@@ -27,10 +27,13 @@
     }
   },
   "scripts": {
+    "dev": "tsx ./scripts/onyx.ts",
     "build": "rm -rf ./dist && tsc",
     "test": "vitest"
   },
   "devDependencies": {
-    "@sit-onyx/shared": "workspace:^"
+    "@sit-onyx/shared": "workspace:^",
+    "dotenv": "^17.2.3",
+    "tsx": "^4.20.6"
   }
 }
