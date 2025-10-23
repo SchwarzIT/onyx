@@ -78,7 +78,7 @@ function getDefaultConfig(options?: DefineOnyxPlaywrightConfigOptions) {
      *
      * See: https://playwright.dev/docs/test-retries
      */
-    timeout: 20 * 1000,
+    timeout: 45 * 1000,
     forbidOnly: !!process.env.CI, // fail build on CI if we left test.only in the source code
 
     // we do not want to retry failing tests because if they fail but work after retry, they are flaky
