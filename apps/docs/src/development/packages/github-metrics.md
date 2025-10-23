@@ -40,34 +40,54 @@ yarn install @sit-onyx/github-metrics
 
 :::
 
+## Create a client
+
+Since your GitHub project might be set up differently than the ones of other users, this package is designed to be flexible so it is able to work for any project setup.
+
+Before you can start calculation metrics for your project, you need to create and configure a client so it understands the setup of your GitHub project.
+Below is an example configuration, adjust it to fit your specific project.
+
+```ts
+import { createClient } from "@sit-onyx/github-metrics";
+
+const client = createClient({
+  organization: "SchwarzIT",
+  projectId: 5,
+  // see below for how to get a GitHub token
+  authToken: "your-github-token",
+  fieldNames: {
+    effort: "Effort (d)",
+    iteration: "Sprint",
+  },
+});
+```
+
+### GitHub token
+
+The GitHub GraphQL API for accessing projects requires authentication using an personal access token.
+
+To get a new token, go to [https://github.com/settings/tokens](https://github.com/settings/tokens) and create a new personal access token.
+In the permissions section, select "**read:project**"
+
+Copy the generated token and pass it to the client via the `authToken` option when calling `createClient()` (see above). It is recommended to e.g. use an environment variable for this.
+
 ## Metrics
 
 Below you can find a list of available metrics that you can easily collect using this package.
 
-## Authentication
-
-The GitHub GraphQL API for accessing projects requires authentication using an personal access token.
-So before you can use any of the below functions to collect metrics, you need to follow the steps below.
-
-**Step 1: Get GitHub token**
-
-Go to [https://github.com/settings/tokens](https://github.com/settings/tokens) and create a new personal access token.
-In the permissions section, select "**read:project**"
-
-**Step 2: Add token to your environment**
-
-Add the token as `GITHUB_TOKEN` environment variable, e.g. via your terminal or by using the [dotenv](https://www.npmjs.com/package/dotenv) npm package and creating a .env file.
+If you haven't already, [create a client](#create-a-client) first.
 
 ### Mean story size
 
-Calculates the mean / average story size of an item in a given GitHub project.
+Calculates the mean / average story size of an item in the given iteration.
 
 ```ts{4-6}
 import { getMeanStorySize } from "@sit-onyx/github-metrics";
 
 const meanStorySize = await getMeanStorySize({
-  organization: "SchwarzIT",
-  projectId: 5,
-  field: "Effort (d)",
+  client,
+  // by default, the current iteration (today) will be used.
+  // to get data for another iteration, simply pass any date that is in your desired iteration
+  // iteration: new Date(2025, 9, 23),
 });
 ```
