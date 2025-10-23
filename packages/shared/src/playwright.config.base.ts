@@ -126,15 +126,20 @@ function getDefaultConfig(options?: DefineOnyxPlaywrightConfigOptions) {
  * @see: https://playwright.dev/docs/test-configuration
  */
 export const defineOnyxPlaywrightConfigE2E = (options?: DefineOnyxPlaywrightConfigOptions) => {
+  const port = 3200;
+
   return defineConfig(
     getDefaultConfig(options),
     {
       testDir: "./tests",
       /* Run your local dev server before starting the tests */
       webServer: {
-        command: "pnpm preview --port 3200 --mode test",
-        port: 3200,
+        command: `pnpm preview --port ${port} --mode test`,
+        port,
         reuseExistingServer: false,
+      },
+      use: {
+        baseURL: `http://localhost:${port}`,
       },
     },
     options?.overrides ?? {},
