@@ -1,5 +1,6 @@
 import type { BasicProjectsQueryOptions, PageInfo } from "../types.js";
 import { runQuery } from "../utils/graphql.js";
+import { findIterationByDate } from "../utils/iterations.js";
 
 export type GetMeanStorySizeOptions = BasicProjectsQueryOptions & {
   /**
@@ -8,6 +9,11 @@ export type GetMeanStorySizeOptions = BasicProjectsQueryOptions & {
    * @example "Effort"
    */
   field: string;
+  /**
+   * Iteration to consider for the calculation.
+   * If unset, the current iteration will be detected automatically.
+   */
+  iteration?: Date;
 };
 
 /**
@@ -19,7 +25,24 @@ export async function getMeanStorySize(options: GetMeanStorySizeOptions): Promis
     organization: {
       projectV2: {
         items: {
-          nodes: { fieldValueByName?: { number: number } }[];
+          nodes: {
+            fieldValues: {
+              nodes: (
+                | {
+                    title: string;
+                    __typename: "ProjectV2ItemFieldIterationValue";
+                  }
+                | {
+                    number: number;
+                    __typename: "ProjectV2ItemFieldNumberValue";
+                    field: {
+                      name: string;
+                    };
+                  }
+                | { __typename?: never }
+              )[];
+            };
+          }[];
           pageInfo: PageInfo;
         };
       };
@@ -27,14 +50,30 @@ export async function getMeanStorySize(options: GetMeanStorySizeOptions): Promis
   };
 
   const query = `
-query GetAllIssues($org: String!, $projectId: Int!, $fieldName: String!, $after: String) {
+query GetAllIssues(
+  $org: String!
+  $projectId: Int!
+  $after: String
+) {
   organization(login: $org) {
     projectV2(number: $projectId) {
       items(first: 100, after: $after) {
         nodes {
-          fieldValueByName(name: $fieldName) {
-            ... on ProjectV2ItemFieldNumberValue {
-              number
+           fieldValues(first: 100) {
+            nodes {
+              ... on ProjectV2ItemFieldIterationValue {
+                title
+                __typename
+              }
+              ... on ProjectV2ItemFieldNumberValue {
+                number
+                __typename
+                field {
+                  ... on ProjectV2FieldCommon {
+                    name
+                  }
+                }
+              }
             }
           }
         }
@@ -47,6 +86,8 @@ query GetAllIssues($org: String!, $projectId: Int!, $fieldName: String!, $after:
   }
 }`;
 
+  const iteration = await findIterationByDate(options, options.iteration);
+
   const results: QueryResult[] = [];
   let endCursor: string | undefined;
 
@@ -56,7 +97,6 @@ query GetAllIssues($org: String!, $projectId: Int!, $fieldName: String!, $after:
       variables: {
         org: options.organization,
         projectId: options.projectId,
-        fieldName: options.field,
         after: endCursor,
       },
       query,
@@ -70,10 +110,32 @@ query GetAllIssues($org: String!, $projectId: Int!, $fieldName: String!, $after:
     }
   }
 
-  const storySizes = results
-    .flatMap((result) =>
-      result.organization.projectV2.items.nodes.map((node) => node.fieldValueByName?.number),
-    )
+  // filter out all items that are part of the current iteration
+  const iterationItems = results
+    .flatMap((result) => {
+      return result.organization.projectV2.items.nodes.flatMap((item) => {
+        const isCurrentIteration = item.fieldValues.nodes.some(
+          (field) =>
+            field.__typename === "ProjectV2ItemFieldIterationValue" &&
+            field.title === iteration.title,
+        );
+
+        return isCurrentIteration ? item : undefined;
+      });
+    })
+    .filter((item) => item != undefined);
+
+  // filter data
+  const storySizes = iterationItems
+    .map((item) => {
+      const field = item.fieldValues.nodes.find(
+        (field): field is typeof field & { __typename: "ProjectV2ItemFieldNumberValue" } =>
+          field.__typename === "ProjectV2ItemFieldNumberValue" &&
+          field.field.name === options.field,
+      );
+
+      return field?.number;
+    })
     .filter((size) => size != undefined);
 
   if (!storySizes.length) return 0;
