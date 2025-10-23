@@ -170,7 +170,7 @@
     "previous": "previous page",
     "next": "next page",
     "buttonLabel": "Page {page}",
-    "ellipsis": "More pages in between",
+    "morePages": "More pages in between",
     "select": {
       "label": "Page selection",
       "listLabel": "Available pages"
