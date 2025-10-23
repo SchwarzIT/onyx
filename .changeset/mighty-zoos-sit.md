@@ -2,4 +2,4 @@
 "sit-onyx": minor
 ---
 
-feat(OnyxPagination): implement inline pagination
+feat(OnyxPagination): added `type` property that allows to optionally display the pagination in an inline style.

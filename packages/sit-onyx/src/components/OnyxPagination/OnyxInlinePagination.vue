@@ -30,7 +30,7 @@ const skeleton = useSkeletonContext(props);
 const hasReachedMin = computed(() => props.modelValue <= 1);
 const hasReachedMax = computed(() => props.modelValue >= props.pages);
 
-const displayPagesNumbers = computed<Array<number | string>>(() => {
+const displayPagesNumbers = computed(() => {
   const currentPage = props.modelValue;
   const totalPages = props.pages;
 
@@ -50,7 +50,7 @@ const displayPagesNumbers = computed<Array<number | string>>(() => {
     .filter((page) => page >= 1 && page <= totalPages)
     .sort((a, b) => a - b);
 
-  const finalPages: Array<number | string> = [];
+  const finalPages: (number | "ellipsis")[] = [];
   let lastPageAdded: number | null = null;
 
   for (const page of uniqueSortedPages) {
@@ -72,7 +72,7 @@ const displayPagesNumbers = computed<Array<number | string>>(() => {
     :class="[
       'onyx-component',
       'onyx-pagination',
-      'onyx-pagination__inline',
+      'onyx-pagination--inline',
       'onyx-text',
       densityClass,
     ]"
@@ -81,7 +81,7 @@ const displayPagesNumbers = computed<Array<number | string>>(() => {
     :style="{ '--onyx-pagination-character-count': props.modelValue.toString().length }"
   >
     <button
-      class="onyx-pagination__inline__button"
+      class="onyx-pagination--inline__button"
       :aria-label="t('pagination.previous')"
       type="button"
       :disabled="props.disabled || hasReachedMin"
@@ -89,12 +89,12 @@ const displayPagesNumbers = computed<Array<number | string>>(() => {
     >
       <OnyxIcon :icon="iconChevronLeftSmall" />
     </button>
-    <template v-for="pageNumber in displayPagesNumbers" :key="`page-${pageNumber}`">
+    <template v-for="pageNumber in displayPagesNumbers" :key="pageNumber">
       <button
         v-if="typeof pageNumber === 'number'"
         :class="[
-          'onyx-pagination__inline__button',
-          { 'onyx-pagination__inline__button--active': pageNumber === props.modelValue },
+          'onyx-pagination-inline__button',
+          { 'onyx-pagination--inline__button--active': pageNumber === props.modelValue },
         ]"
         :aria-label="t('pagination.buttonLabel', { page: pageNumber })"
         type="button"
@@ -105,10 +105,10 @@ const displayPagesNumbers = computed<Array<number | string>>(() => {
       </button>
       <div
         v-else
-        :class="['onyx-pagination__inline__ellipsis']"
-        :aria-label="t('pagination.ellipsis')"
+        :class="['onyx-pagination--inline__ellipsis']"
+        :aria-label="t('pagination.morePages')"
       >
-        <span aria-hidden="true">&hellip;</span>
+        <span aria-hidden="true">...</span>
         <OnyxVisuallyHidden>
           {{ t("pagination.ellipsis") }}
         </OnyxVisuallyHidden>
@@ -116,7 +116,7 @@ const displayPagesNumbers = computed<Array<number | string>>(() => {
     </template>
 
     <button
-      class="onyx-pagination__inline__button"
+      class="onyx-pagination--inline__button"
       :aria-label="t('pagination.next')"
       type="button"
       :disabled="props.disabled || hasReachedMax"
@@ -130,7 +130,7 @@ const displayPagesNumbers = computed<Array<number | string>>(() => {
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
 
-.onyx-pagination__inline {
+.onyx-pagination--inline {
   @include layers.component() {
     background-color: var(--onyx-color-base-background-blank);
 
@@ -155,12 +155,12 @@ const displayPagesNumbers = computed<Array<number | string>>(() => {
       color: var(--onyx-color-text-icons-neutral-medium);
 
       &:first-of-type {
-        border-radius: var(--onyx-radius-sm) 0 0 var(--onyx-radius-sm);
+        border-radius: var(--onyx-pagination-border-radius) 0 0 var(--onyx-pagination-border-radius);
         border-left: var(--onyx-pagination-border-size) solid
           var(--onyx-color-component-border-neutral);
       }
       &:last-of-type {
-        border-radius: 0 var(--onyx-radius-sm) var(--onyx-radius-sm) 0;
+        border-radius: 0 var(--onyx-pagination-border-radius) var(--onyx-pagination-border-radius) 0;
       }
 
       &:hover,

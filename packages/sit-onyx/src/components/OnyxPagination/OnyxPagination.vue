@@ -18,18 +18,18 @@ const emit = defineEmits<{
   "update:modelValue": [page: number];
 }>();
 
-const selectPaginationProps = useForwardProps(props, OnyxSelectPagination);
+const paginationProps = useForwardProps(props, OnyxSelectPagination);
 </script>
 
 <template>
   <OnyxInlinePagination
-    v-if="props.mode === 'inline'"
-    v-bind="selectPaginationProps"
+    v-if="props.type === 'inline'"
+    v-bind="paginationProps"
     @update:model-value="emit('update:modelValue', $event)"
   />
   <OnyxSelectPagination
     v-else
-    v-bind="selectPaginationProps"
+    v-bind="paginationProps"
     @update:model-value="emit('update:modelValue', $event)"
   />
 </template>

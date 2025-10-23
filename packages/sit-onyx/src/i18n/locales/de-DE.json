@@ -170,7 +170,7 @@
     "previous": "vorherige Seite",
     "next": "nächste Seite",
     "buttonLabel": "Seite {page}",
-    "ellipsis": "Weitere Seiten",
+    "morePages": "Weitere Seiten",
     "select": {
       "label": "Seiten-Auswahl",
       "listLabel": "Verfügbare Seiten"

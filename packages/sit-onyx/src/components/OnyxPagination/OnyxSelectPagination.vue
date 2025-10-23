@@ -146,6 +146,7 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
   @include layers.component() {
     --onyx-pagination-border-size: var(--onyx-1px-in-rem);
     --onyx-pagination-character-count: 1;
+    --onyx-pagination-border-radius: var(--onyx-radius-sm);
 
     display: flex;
     align-items: flex-start;
@@ -227,7 +228,7 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
       }
 
       &:last-of-type {
-        border-radius: 0 var(--onyx-radius-sm) var(--onyx-radius-sm) 0;
+        border-radius: 0 var(--onyx-pagination-border-radius) var(--onyx-pagination-border-radius) 0;
       }
 
       &:enabled {

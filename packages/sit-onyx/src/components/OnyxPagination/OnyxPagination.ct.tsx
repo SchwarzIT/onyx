@@ -3,12 +3,12 @@ import { DENSITIES } from "../../composables/density.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import OnyxPagination from "./OnyxPagination.vue";
-import type { OnyxPaginationModes } from "./types.js";
+import type { PaginationType } from "./types.js";
 
 test.describe("screenshot tests", () => {
-  ["select", "inline"].forEach((mode) => {
+  ["select", "inline"].forEach((type) => {
     executeMatrixScreenshotTest({
-      name: `Pagination (${mode})`,
+      name: `Pagination (${type})`,
       columns: DENSITIES,
       rows: [
         "default",
@@ -17,7 +17,7 @@ test.describe("screenshot tests", () => {
         "max",
         "large",
         "disabled",
-        mode === "select" ? "open" : "middle",
+        type === "select" ? "open" : "middle",
       ],
       component: (column, row) => {
         let currentPage = 2;
@@ -39,7 +39,7 @@ test.describe("screenshot tests", () => {
             disabled={row === "disabled"}
             skeleton={row === "skeleton"}
             style={{ marginBottom: row === "open" ? "20rem" : undefined }}
-            mode={mode as OnyxPaginationModes}
+            type={type as PaginationType}
           />
         );
       },
@@ -56,18 +56,16 @@ test.describe("screenshot tests", () => {
 });
 
 test.describe("screenshot tests (buttons)", () => {
-  ["select", "inline"].forEach((mode) => {
+  ["select", "inline"].forEach((type) => {
     executeMatrixScreenshotTest({
-      name: `Pagination ${mode} (buttons)`,
+      name: `Pagination ${type} (buttons)`,
       columns: [
-        ...(mode === "select" ? ["select"] : ["pageNumber", "activePageNumber"]),
+        ...(type === "select" ? ["select"] : ["pageNumber", "activePageNumber"]),
         "previous",
         "next",
       ],
       rows: ["default", "hover", "active", "focus-visible"],
-      component: () => (
-        <OnyxPagination pages={42} modelValue={2} mode={mode as OnyxPaginationModes} />
-      ),
+      component: () => <OnyxPagination pages={42} modelValue={2} type={type as PaginationType} />,
       hooks: {
         beforeEach: async (component, page, column, row) => {
           let button = page.getByRole("button", {
@@ -177,7 +175,7 @@ test("should select page (inline)", async ({ mount }) => {
     props: {
       pages: 42,
       modelValue: currentPage,
-      mode: "inline",
+      type: "inline",
     },
     on: eventHandlers,
   });

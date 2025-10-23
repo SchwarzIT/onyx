@@ -29,7 +29,7 @@ export const Inline = {
   tags: ["new:feature"],
   args: {
     ...Default.args,
-    mode: "inline",
+    type: "inline",
   },
 } satisfies Story;
 
