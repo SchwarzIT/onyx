@@ -88,7 +88,7 @@ export function createClient(options: CreateClientOptions) {
       variables: {
         org: options.organization,
         projectId: options.projectId,
-        fieldName: options.fieldNames.iteration,
+        fieldName: options.fields.iteration,
       },
     });
 
@@ -207,13 +207,13 @@ query GetAllIssues(
         const iterationField = node.fieldValues.nodes.find(
           (field): field is IterationField =>
             field.__typename === "ProjectV2ItemFieldIterationValue" &&
-            field.field.name === options.fieldNames.iteration,
+            field.field.name === options.fields.iteration,
         );
 
         const effortField = node.fieldValues.nodes.find(
           (field): field is NumberField =>
             field.__typename === "ProjectV2ItemFieldNumberValue" &&
-            field.field.name === options.fieldNames.effort,
+            field.field.name === options.fields.effort,
         );
 
         return {

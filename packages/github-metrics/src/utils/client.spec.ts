@@ -6,7 +6,7 @@ const mockOptions: CreateClientOptions = {
   organization: "test-org",
   projectId: 1,
   authToken: "test-token",
-  fieldNames: {
+  fields: {
     effort: "test-effort",
     iteration: "test-iteration",
   },
@@ -210,7 +210,7 @@ describe("createClient", () => {
                               title: "#1",
                               __typename: "ProjectV2ItemFieldIterationValue",
                               field: {
-                                name: mockOptions.fieldNames.iteration,
+                                name: mockOptions.fields.iteration,
                               },
                             },
                             {
@@ -224,7 +224,7 @@ describe("createClient", () => {
                               number: 1.5,
                               __typename: "ProjectV2ItemFieldNumberValue",
                               field: {
-                                name: mockOptions.fieldNames.effort,
+                                name: mockOptions.fields.effort,
                               },
                             },
                           ],
@@ -253,14 +253,14 @@ describe("createClient", () => {
                               title: "#2",
                               __typename: "ProjectV2ItemFieldIterationValue",
                               field: {
-                                name: mockOptions.fieldNames.iteration,
+                                name: mockOptions.fields.iteration,
                               },
                             },
                             {
                               number: 42,
                               __typename: "ProjectV2ItemFieldNumberValue",
                               field: {
-                                name: mockOptions.fieldNames.effort,
+                                name: mockOptions.fields.effort,
                               },
                             },
                           ],

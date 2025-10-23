@@ -5,7 +5,7 @@ const client = createClient({
   organization: "SchwarzIT",
   projectId: 5,
   authToken: process.env.GITHUB_TOKEN ?? "",
-  fieldNames: {
+  fields: {
     effort: "Effort (d)",
     iteration: "Sprint",
   },
