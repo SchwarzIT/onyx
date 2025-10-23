@@ -1,5 +1,10 @@
 import type { ConfigOptions } from "@nuxt/test-utils/playwright";
-import { defineConfig, devices, type PlaywrightTestConfig } from "@playwright/experimental-ct-vue";
+import {
+  defineConfig as defineConfigCT,
+  devices,
+  type PlaywrightTestConfig,
+} from "@playwright/experimental-ct-vue";
+import { defineConfig } from "@playwright/test";
 import vue, { type Options } from "@vitejs/plugin-vue";
 
 export type DefineOnyxPlaywrightConfigOptions = {
@@ -143,7 +148,7 @@ export const defineOnyxPlaywrightConfigE2E = (options?: DefineOnyxPlaywrightConf
  * @see: https://playwright.dev/docs/test-configuration
  */
 export const defineOnyxPlaywrightConfigCT = (options?: DefineOnyxPlaywrightConfigOptions) => {
-  return defineConfig(
+  return defineConfigCT(
     getDefaultConfig(options),
     {
       testDir: "./src",
