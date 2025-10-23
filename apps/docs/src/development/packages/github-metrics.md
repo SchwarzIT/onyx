@@ -55,7 +55,7 @@ const client = createClient({
   projectId: 5,
   // see below for how to get a GitHub token
   authToken: "your-github-token",
-  fieldNames: {
+  fields: {
     effort: "Effort (d)",
     iteration: "Sprint",
   },

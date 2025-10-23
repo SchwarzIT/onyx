@@ -23,14 +23,17 @@ export type CreateClientOptions = {
   /**
    * Maps your custom project field names to functional names used by this client.
    */
-  fieldNames: ClientFieldNames;
+  fields: ClientProjectFields;
   /**
    * Fetch function to use for making HTTP requests.
+   *
+   * @default `global.fetch``
+   * @private Only intended for internal usage / testing
    */
   fetch?: typeof global.fetch;
 };
 
-export type ClientFieldNames = {
+export type ClientProjectFields = {
   /**
    * Name of the numeric field that represents your Story effort/size/estimation.
    *
