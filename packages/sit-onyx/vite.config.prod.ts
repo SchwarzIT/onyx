@@ -1,7 +1,7 @@
 /// <reference types="vitest" />
+import { vuePluginOptions } from "@sit-onyx/shared/playwright.config.base";
 import vue from "@vitejs/plugin-vue";
 import { defineConfig, mergeConfig, type UserConfig } from "vite";
-import { vuePluginOptions } from "./playwright.config.js";
 import type { DeepPartial } from "./src/index.js";
 import bundlerConfig from "./vite.config.js";
 
