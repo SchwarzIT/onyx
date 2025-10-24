@@ -3,96 +3,132 @@ import { DENSITIES } from "../../composables/density.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import OnyxPagination from "./OnyxPagination.vue";
-import type { PaginationType } from "./types.js";
 
 test.describe("screenshot tests", () => {
-  ["select", "inline"].forEach((type) => {
-    executeMatrixScreenshotTest({
-      name: `Pagination (${type})`,
-      columns: DENSITIES,
-      rows: [
-        "default",
-        "skeleton",
-        "min",
-        "max",
-        "large",
-        "disabled",
-        type === "select" ? "open" : "middle",
-      ],
-      component: (column, row) => {
-        let currentPage = 2;
-        let pages = 7;
+  executeMatrixScreenshotTest({
+    name: `Pagination (select)`,
+    columns: DENSITIES,
+    rows: ["default", "skeleton", "min", "max", "large", "disabled", "open"],
+    component: (column, row) => {
+      let currentPage = 2;
+      let pages = 7;
 
-        if (row === "min") currentPage = 1;
-        else if (row === "max") currentPage = pages;
-        else if (row === "middle") currentPage = 4;
-        else if (row === "large") {
-          currentPage = 1_000;
-          pages = currentPage;
+      if (row === "min") currentPage = 1;
+      else if (row === "max") currentPage = pages;
+      else if (row === "large") {
+        currentPage = 1_000;
+        pages = currentPage;
+      }
+
+      return (
+        <OnyxPagination
+          pages={pages}
+          modelValue={currentPage}
+          density={column}
+          disabled={row === "disabled"}
+          skeleton={row === "skeleton"}
+          style={{ marginBottom: row === "open" ? "20rem" : undefined }}
+        />
+      );
+    },
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        if (row === "open") {
+          await component.getByLabel("Page selection").click();
+          await adjustSizeToAbsolutePosition(component);
         }
+      },
+    },
+  });
 
-        return (
-          <OnyxPagination
-            pages={pages}
-            modelValue={currentPage}
-            density={column}
-            disabled={row === "disabled"}
-            skeleton={row === "skeleton"}
-            style={{ marginBottom: row === "open" ? "20rem" : undefined }}
-            type={type as PaginationType}
-          />
-        );
-      },
-      hooks: {
-        beforeEach: async (component, page, column, row) => {
-          if (row === "open") {
-            await component.getByLabel("Page selection").click();
-            await adjustSizeToAbsolutePosition(component);
-          }
-        },
-      },
-    });
+  executeMatrixScreenshotTest({
+    name: `Pagination (inline)`,
+    columns: DENSITIES,
+    rows: ["default", "skeleton", "min", "max", "large", "disabled", "middle"],
+    component: (column, row) => {
+      let currentPage = 2;
+      let pages = 7;
+
+      if (row === "min") currentPage = 1;
+      else if (row === "max") currentPage = pages;
+      else if (row === "middle") currentPage = 4;
+      else if (row === "large") {
+        currentPage = 1_000;
+        pages = currentPage;
+      }
+
+      return (
+        <OnyxPagination
+          pages={pages}
+          modelValue={currentPage}
+          density={column}
+          disabled={row === "disabled"}
+          skeleton={row === "skeleton"}
+          type="inline"
+        />
+      );
+    },
   });
 });
 
-test.describe("screenshot tests (buttons)", () => {
-  ["select", "inline"].forEach((type) => {
-    executeMatrixScreenshotTest({
-      name: `Pagination ${type} (buttons)`,
-      columns: [
-        ...(type === "select" ? ["select"] : ["pageNumber", "activePageNumber"]),
-        "previous",
-        "next",
-      ],
-      rows: ["default", "hover", "active", "focus-visible"],
-      component: () => <OnyxPagination pages={42} modelValue={2} type={type as PaginationType} />,
-      hooks: {
-        beforeEach: async (component, page, column, row) => {
-          let button = page.getByRole("button", {
-            name: column === "previous" ? "previous page" : "next page",
-          });
+test.describe("screenshot tests (select buttons)", () => {
+  executeMatrixScreenshotTest({
+    name: `Pagination select (buttons)`,
+    columns: ["select", "previous", "next"],
+    rows: ["default", "hover", "active", "focus-visible"],
+    component: () => <OnyxPagination pages={42} modelValue={2} />,
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        let button = page.getByRole("button", {
+          name: column === "previous" ? "previous page" : "next page",
+        });
 
-          if (column === "select") button = component.getByLabel("Page selection");
-          if (column === "pageNumber") {
-            button = component.getByRole("button", { name: "Page 1" });
-          }
-          if (column === "activePageNumber") {
-            button = component.getByRole("button", { name: "Page 2" });
-          }
+        if (column === "select") button = component.getByLabel("Page selection");
 
-          if (row === "hover") await button.hover();
-          if (row === "focus-visible") {
-            await page.keyboard.press("Tab");
-            button.focus();
-          }
-          if (row === "active") {
-            const box = (await button.boundingBox())!;
-            await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
-            await page.mouse.down();
-          }
-        },
+        if (row === "hover") await button.hover();
+        if (row === "focus-visible") {
+          await page.keyboard.press("Tab");
+          button.focus();
+        }
+        if (row === "active") {
+          const box = (await button.boundingBox())!;
+          await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+          await page.mouse.down();
+        }
       },
-    });
+    },
+  });
+
+  executeMatrixScreenshotTest({
+    name: `Pagination inline (buttons)`,
+    columns: ["pageNumber", "activePageNumber", "previous", "next"],
+    rows: ["default", "hover", "active", "focus-visible"],
+    component: () => <OnyxPagination pages={42} modelValue={2} type="inline" />,
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        let button = page.getByRole("button", {
+          name: column === "previous" ? "previous page" : "next page",
+        });
+
+        if (column === "pageNumber") {
+          button = component.getByRole("button", { name: "Page 1" });
+        }
+        if (column === "activePageNumber") {
+          button = component.getByRole("button", { name: "Page 2" });
+        }
+
+        if (row === "hover") await button.hover();
+        if (row === "focus-visible") {
+          await page.keyboard.press("Tab");
+          button.focus();
+        }
+        if (row === "active") {
+          const box = (await button.boundingBox())!;
+          await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+          await page.mouse.down();
+        }
+      },
+    },
   });
 });
 

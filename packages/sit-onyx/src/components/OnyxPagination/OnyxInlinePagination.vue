@@ -50,12 +50,12 @@ const displayPagesNumbers = computed(() => {
     .filter((page) => page >= 1 && page <= totalPages)
     .sort((a, b) => a - b);
 
-  const finalPages: (number | "ellipsis")[] = [];
+  const finalPages: (number | "morePages")[] = [];
   let lastPageAdded: number | null = null;
 
   for (const page of uniqueSortedPages) {
     if (lastPageAdded !== null && page > lastPageAdded + 1) {
-      finalPages.push("ellipsis");
+      finalPages.push("morePages");
     }
     finalPages.push(page);
     lastPageAdded = page;
@@ -93,7 +93,7 @@ const displayPagesNumbers = computed(() => {
       <button
         v-if="typeof pageNumber === 'number'"
         :class="[
-          'onyx-pagination-inline__button',
+          'onyx-pagination--inline__button',
           { 'onyx-pagination--inline__button--active': pageNumber === props.modelValue },
         ]"
         :aria-label="t('pagination.buttonLabel', { page: pageNumber })"
@@ -105,12 +105,12 @@ const displayPagesNumbers = computed(() => {
       </button>
       <div
         v-else
-        :class="['onyx-pagination--inline__ellipsis']"
+        :class="['onyx-pagination--inline__morePages']"
         :aria-label="t('pagination.morePages')"
       >
         <span aria-hidden="true">...</span>
         <OnyxVisuallyHidden>
-          {{ t("pagination.ellipsis") }}
+          {{ t("pagination.morePages") }}
         </OnyxVisuallyHidden>
       </div>
     </template>
@@ -135,7 +135,7 @@ const displayPagesNumbers = computed(() => {
     background-color: var(--onyx-color-base-background-blank);
 
     &__button,
-    &__ellipsis {
+    &__morePages {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -147,7 +147,7 @@ const displayPagesNumbers = computed(() => {
       color: inherit;
       aspect-ratio: 1;
     }
-    &__ellipsis {
+    &__morePages {
       cursor: default;
     }
     &__button {
