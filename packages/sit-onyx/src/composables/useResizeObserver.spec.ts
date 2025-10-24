@@ -21,7 +21,7 @@ describe("useResizeObserver", () => {
       unobserve: vi.fn(),
     } satisfies InstanceType<typeof ResizeObserver>;
 
-    global.ResizeObserver = vi.fn().mockImplementation((_callback) => {
+    global.ResizeObserver = vi.fn().mockImplementation(function (_callback) {
       callback = _callback;
       return spy;
     });
