@@ -1,7 +1,7 @@
-<script setup lang="ts">
+<script setup lang="ts" generic="TSliderMode extends SliderMode = 'single'">
 import { createSlider } from "@sit-onyx/headless";
 import { iconMinusSmall, iconPlusSmall } from "@sit-onyx/icons";
-import { computed, toRefs } from "vue";
+import { computed, toRefs, watch } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity.js";
 import { useErrorClass } from "../../composables/useErrorClass.js";
@@ -10,15 +10,14 @@ import {
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
-import { useRootAttrs } from "../../utils/attrs.js";
+import { applyLimits } from "../../utils/numbers.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
-import type { OnyxSliderProps } from "./types.js";
-
-const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
+import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
+import type { OnyxSliderProps, SliderMode, SliderValue } from "./types.js";
 
 /**
  * Adjusting the position for marks with proper edge offset to prevent overflow because of rounding.
@@ -34,19 +33,26 @@ const adjustMarkPosition = (percentage: number): string => {
   return `${percentage}%`;
 };
 
-const props = withDefaults(defineProps<OnyxSliderProps>(), {
+const props = withDefaults(defineProps<OnyxSliderProps<TSliderMode>>(), {
   min: 0,
   max: 100,
   step: 1,
-  shiftStep: 10,
+  shiftStep: (props) => {
+    const min = props.min ?? 0;
+    const max = props.max ?? 100;
+    const step = props.step ?? 1;
+
+    // Round to the nearest step multiple to ensure it aligns with step boundaries
+    const stepMultiple = Math.max(1, Math.round(((max - min) * 0.1) / step));
+
+    return stepMultiple * step;
+  },
   marks: false,
-  modelValue: (props) => [props.min ?? 0] as number[],
   orientation: "horizontal",
-  trackMode: "default",
-  tooltipDisplay: "auto",
   disabled: FORM_INJECTED_SYMBOL,
   showError: FORM_INJECTED_SYMBOL,
   skeleton: SKELETON_INJECTED_SYMBOL,
+  mode: () => "single" as TSliderMode,
 });
 
 const emit = defineEmits<{
@@ -57,124 +63,116 @@ const emit = defineEmits<{
   /**
    * Emitted when the slider changes
    */
-  "update:modelValue": [value: number[]];
-  /**
-   * Emitted when the slider is committed (e.g. on blur, or on pressing enter)
-   */
-  "update:committed": [value: number[]];
+  "update:modelValue": [value: SliderValue<TSliderMode>];
 }>();
 
 const modelValue = useVModel({
   props,
   emit,
   key: "modelValue",
-  default: () => [props.min ?? 0] as number[],
 });
 
-const customError = computed(() => props.customError);
-const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit, customError });
+const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
 const messages = computed(() => getFormMessages(props.message));
 
-defineOptions({ inheritAttrs: false });
-
-const { rootAttrs, restAttrs } = useRootAttrs();
 const { densityClass } = useDensity(props);
 
 const { disabled, showError } = useFormContext(props);
 const errorClass = useErrorClass(showError);
 const skeleton = useSkeletonContext(props);
 
-const handleChange = (values: number[]) => {
+const handleChange = (values: SliderValue<TSliderMode>) => {
   emit("update:modelValue", values);
-};
-
-const handleCommit = (values: number[]) => {
-  emit("update:committed", values);
 };
 
 const handleDecreaseByIcon = () => {
   if (disabled.value) return;
 
-  if (modelValue.value.length === 1) {
-    const currentValue = modelValue.value[0] ?? props.min;
+  if (props.mode === "single") {
+    const currentValue = Number(modelValue.value ?? props.min);
     const stepValue = props.shiftStep ?? props.step ?? 1;
     const newValue = Math.max(currentValue - stepValue, props.min);
-    const newValues = [newValue];
-    handleChange(newValues);
-    handleCommit(newValues);
+    handleChange(newValue as SliderValue<TSliderMode>);
   }
 };
 
 const handleIncreaseByIcon = () => {
   if (disabled.value) return;
 
-  if (modelValue.value.length === 1) {
-    const currentValue = modelValue.value[0] ?? props.min;
+  if (props.mode === "single") {
+    const currentValue = Number(modelValue.value ?? props.min);
     const stepValue = props.shiftStep ?? props.step ?? 1;
     const newValue = Math.min(currentValue + stepValue, props.max);
-    const newValues = [newValue];
-    handleChange(newValues);
-    handleCommit(newValues);
+    handleChange(newValue as SliderValue<TSliderMode>);
   }
 };
 
-const { min, max, step, marks, orientation } = toRefs(props);
+const { min, max, step, marks, orientation, label, discrete, shiftStep } = toRefs(props);
+
+const thumbs = computed(() =>
+  Array.isArray(modelValue.value) ? modelValue.value : [modelValue.value],
+);
 
 const {
   elements: { root, rail, track, thumbContainer, thumbInput, mark, markLabel },
-  state: { focusedThumbIndex, activeThumbIndex, isDragging, marksList },
-  internals: { isMarkActive, valueToPercent, axis },
+  state: { focusedThumbIndex, activeThumbIndex, marksList },
+  internals: { isMarkActive, valueToPercent, axis, normalizeValues },
 } = createSlider({
-  values: modelValue,
+  value: modelValue,
   min,
   max,
   step,
+  label,
   marks,
   orientation,
+  discrete,
+  disabled,
+  shiftStep,
   onChange: handleChange,
-  onCommit: handleCommit,
 });
+
+// Normalize values when min, max, step changes
+watch(
+  () => [props.min, props.max, props.step, props.mode],
+  () => {
+    const normalized = normalizeValues.value(
+      props.mode === "range" ? [Number(modelValue.value)] : modelValue.value,
+    );
+
+    handleChange((props.mode === "range" ? normalized : normalized[0]) as SliderValue<TSliderMode>);
+  },
+);
 
 const isValueControl = computed(() => props.control === "value");
 /**
  * Icon control works only when there is a single thumb.
  */
-const isIconControl = computed(() => props.control === "icon" && modelValue.value.length === 1);
+const isIconControl = computed(() => props.control === "icon" && props.mode === "single");
 </script>
 
 <template>
   <div
     v-if="skeleton"
-    v-bind="rootAttrs"
-    :class="['onyx-component', 'onyx-slider-skeleton', densityClass]"
+    :class="[
+      'onyx-component',
+      'onyx-slider-skeleton',
+      densityClass,
+      {
+        'onyx-slider-skeleton--vertical': props.orientation === 'vertical',
+      },
+    ]"
   >
-    <div
-      class="onyx-slider-skeleton__container"
-      :class="{
-        'onyx-slider-skeleton__container--vertical': props.orientation === 'vertical',
-      }"
-    >
-      <OnyxSkeleton v-if="isValueControl" class="onyx-slider-skeleton__value-control" />
-      <OnyxSkeleton v-if="isIconControl" class="onyx-slider-skeleton__icon-control" />
-      <div class="onyx-slider-skeleton__root">
-        <OnyxSkeleton class="onyx-slider-skeleton__track" />
-      </div>
-      <OnyxSkeleton v-if="isValueControl" class="onyx-slider-skeleton__value-control" />
-      <OnyxSkeleton v-if="isIconControl" class="onyx-slider-skeleton__icon-control" />
-    </div>
+    <OnyxSkeleton v-if="!props.hideLabel" class="onyx-slider-skeleton__label" />
+    <OnyxSkeleton class="onyx-slider-skeleton__block" />
   </div>
 
   <div
     v-else
-    v-bind="rootAttrs"
     class="onyx-component onyx-slider"
     :class="[
       {
         'onyx-slider--vertical': props.orientation === 'vertical',
-        'onyx-slider--inverted': props.trackMode === 'inverted',
         'onyx-slider--disabled': disabled,
-        'onyx-slider--is-dragging': isDragging,
-        'onyx-slider--is-focused': focusedThumbIndex !== -1,
         'onyx-slider--is-active': activeThumbIndex !== -1,
       },
       densityClass,
@@ -188,12 +186,7 @@ const isIconControl = computed(() => props.control === "icon" && modelValue.valu
       :error-messages="errorMessages"
     >
       <template #default="{ id: inputId }">
-        <div
-          class="onyx-slider__container"
-          :class="{
-            'onyx-slider__container--with-marks': marksList.length > 0,
-          }"
-        >
+        <div class="onyx-slider__container">
           <div
             v-if="isValueControl"
             class="onyx-slider__value-control-container"
@@ -205,7 +198,7 @@ const isIconControl = computed(() => props.control === "icon" && modelValue.valu
 
           <div v-if="isIconControl" class="onyx-slider__icon-control-container">
             <OnyxIconButton
-              :disabled="disabled || (modelValue[0] ?? props.min) <= props.min"
+              :disabled="disabled || Number(modelValue ?? props.min) <= props.min"
               :label="props.label || inputId"
               color="neutral"
               :icon="iconMinusSmall"
@@ -214,9 +207,10 @@ const isIconControl = computed(() => props.control === "icon" && modelValue.valu
             />
           </div>
 
+          <!-- Explicit passive touchstart: v-bind="root" doesn’t support { passive: true } -->
           <span class="onyx-slider__root" v-bind="root" @touchstart.passive="root.onTouchstart">
             <span class="onyx-slider__rail" v-bind="rail"></span>
-            <span v-if="props.trackMode !== false" class="onyx-slider__track" v-bind="track"></span>
+            <span class="onyx-slider__track" v-bind="track"></span>
 
             <template v-for="markItem in marksList" :key="markItem.value">
               <span
@@ -224,7 +218,7 @@ const isIconControl = computed(() => props.control === "icon" && modelValue.valu
                 :class="{ 'onyx-slider__mark--active': isMarkActive(markItem.value) }"
                 v-bind="mark({ value: markItem.value, label: markItem.label })"
                 :style="{
-                  [axis.position]: `${adjustMarkPosition(clamp(valueToPercent(markItem.value), 0, 100))}`,
+                  [axis.position]: `${adjustMarkPosition(applyLimits(valueToPercent(markItem.value), 0, 100))}`,
                 }"
               ></span>
               <span
@@ -237,7 +231,7 @@ const isIconControl = computed(() => props.control === "icon" && modelValue.valu
             </template>
 
             <span
-              v-for="(value, index) in modelValue"
+              v-for="(value, index) in thumbs"
               :key="index"
               v-bind="thumbContainer({ value, index })"
               class="onyx-slider__thumb"
@@ -247,10 +241,7 @@ const isIconControl = computed(() => props.control === "icon" && modelValue.valu
               }"
             >
               <OnyxTooltip
-                :open="
-                  props.tooltipDisplay === 'always' ||
-                  (props.tooltipDisplay === 'auto' && activeThumbIndex === index)
-                "
+                :open="!props.disableTooltip && activeThumbIndex === index"
                 :text="String(value)"
                 :position="props.orientation === 'vertical' ? 'right' : 'bottom'"
                 alignment="auto"
@@ -258,14 +249,16 @@ const isIconControl = computed(() => props.control === "icon" && modelValue.valu
               >
                 <template #default="{ trigger }">
                   <span v-bind="trigger">
-                    <input
-                      v-custom-validity
-                      class="onyx-slider__native"
-                      v-bind="{ ...thumbInput({ value, index }), ...restAttrs }"
-                      :disabled="disabled"
-                      :aria-label="props.label || inputId"
-                      :autofocus="props.autofocus && index === 0"
-                    />
+                    <OnyxVisuallyHidden>
+                      <input
+                        v-custom-validity
+                        class="onyx-slider__native"
+                        v-bind="thumbInput({ value, index })"
+                        :disabled="disabled"
+                        :aria-label="props.label || inputId"
+                        :autofocus="props.autofocus && index === 0"
+                      />
+                    </OnyxVisuallyHidden>
                   </span>
                 </template>
               </OnyxTooltip>
@@ -283,7 +276,7 @@ const isIconControl = computed(() => props.control === "icon" && modelValue.valu
 
           <div v-if="isIconControl" class="onyx-slider__icon-control-container">
             <OnyxIconButton
-              :disabled="disabled || (modelValue[0] ?? props.min) >= props.max"
+              :disabled="disabled || Number(modelValue ?? props.min) >= props.max"
               label="Increase"
               color="neutral"
               :icon="iconPlusSmall"
@@ -335,24 +328,6 @@ const isIconControl = computed(() => props.control === "icon" && modelValue.valu
   --onyx-slider-mark-color-disabled: var(--onyx-color-base-neutral-300);
   --onyx-slider-mark-active-color-disabled: var(--onyx-color-base-neutral-300);
   --onyx-slider-mark-label-color-disabled: var(--onyx-color-text-icons-neutral-soft);
-
-  // Inverted mode colors
-  --onyx-slider-rail-color-inverted: var(--onyx-color-base-neutral-600);
-  --onyx-slider-track-color-inverted: var(--onyx-color-base-neutral-200);
-  --onyx-slider-mark-color-inverted: var(--onyx-color-base-neutral-600);
-  --onyx-slider-mark-active-color-inverted: var(--onyx-color-base-neutral-400);
-
-  // Inverted interactive state colors
-  --onyx-slider-rail-color-inverted-interactive: var(--onyx-color-base-primary-500);
-  --onyx-slider-track-color-inverted-interactive: var(--onyx-color-base-neutral-200);
-  --onyx-slider-mark-color-inverted-interactive: var(--onyx-color-base-primary-500);
-  --onyx-slider-mark-active-color-inverted-interactive: var(--onyx-color-base-neutral-400);
-
-  // Inverted disabled state colors
-  --onyx-slider-rail-color-inverted-disabled: var(--onyx-color-base-neutral-300);
-  --onyx-slider-track-color-inverted-disabled: var(--onyx-color-base-neutral-200);
-  --onyx-slider-mark-color-inverted-disabled: var(--onyx-color-base-neutral-300);
-  --onyx-slider-mark-active-color-inverted-disabled: var(--onyx-color-base-neutral-300);
 }
 
 .onyx-slider {
@@ -373,7 +348,7 @@ const isIconControl = computed(() => props.control === "icon" && modelValue.valu
       align-items: center;
       gap: var(--onyx-density-sm);
 
-      &--with-marks {
+      &:has(.onyx-slider__mark) {
         padding-bottom: var(--onyx-slider-mark-label-offset);
       }
     }
@@ -552,8 +527,6 @@ const isIconControl = computed(() => props.control === "icon" && modelValue.valu
 
     &__root:hover:not(&--disabled),
     &:focus-within,
-    &--is-dragging,
-    &--is-focused,
     &--is-active {
       .onyx-slider {
         &__rail {
@@ -572,60 +545,6 @@ const isIconControl = computed(() => props.control === "icon" && modelValue.valu
         &__mark {
           &--active {
             background-color: var(--onyx-slider-mark-active-color-interactive);
-          }
-        }
-      }
-    }
-
-    &--inverted {
-      .onyx-slider__rail {
-        background-color: var(--onyx-slider-rail-color-inverted);
-      }
-      .onyx-slider__track {
-        background-color: var(--onyx-slider-track-color-inverted);
-      }
-      .onyx-slider__mark {
-        background-color: var(--onyx-slider-mark-color-inverted);
-
-        .onyx-slider__mark--active {
-          background-color: var(--onyx-slider-mark-active-color-inverted);
-        }
-      }
-
-      &.onyx-slider--is-active,
-      &.onyx-slider--is-focused,
-      &.onyx-slider--is-dragging,
-      &:focus-within,
-      .onyx-slider__root:hover:not(.onyx-slider--disabled) {
-        .onyx-slider__rail {
-          background-color: var(--onyx-slider-rail-color-inverted-interactive);
-        }
-        .onyx-slider__track {
-          background-color: var(--onyx-slider-track-color-inverted-interactive);
-        }
-        .onyx-slider__mark {
-          background-color: var(--onyx-slider-mark-color-inverted-interactive);
-        }
-        .onyx-slider__mark--active {
-          background-color: var(--onyx-slider-mark-active-color-inverted-interactive);
-        }
-      }
-
-      &.onyx-slider--disabled {
-        .onyx-slider {
-          &__rail {
-            background-color: var(--onyx-slider-rail-color-inverted-disabled);
-          }
-
-          &__track {
-            background-color: var(--onyx-slider-track-color-inverted-disabled);
-          }
-
-          &__mark {
-            background-color: var(--onyx-slider-mark-color-inverted-disabled);
-            &--active {
-              background-color: var(--onyx-slider-mark-active-color-inverted-disabled);
-            }
           }
         }
       }
@@ -663,63 +582,37 @@ const isIconControl = computed(() => props.control === "icon" && modelValue.valu
 }
 
 .onyx-slider-skeleton {
-  @include layers.component() {
-    display: flex;
-    flex-direction: column;
+  $height: calc(1lh + 2 * var(--onyx-slider-padding-vertical));
+  $adjustment: var(--skeleton-label-density-adjustment, 0rem);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--onyx-density-3xs) + $adjustment);
+  line-height: var(--onyx-font-line-height-md);
 
-    &__container {
-      display: flex;
-      align-items: center;
-      gap: var(--onyx-density-sm);
+  &__label {
+    width: var(--onyx-density-3xl);
+    height: calc(1.25rem - $adjustment);
+  }
 
-      &--vertical {
-        flex-direction: column-reverse;
-        height: 12rem;
-      }
+  &__block {
+    width: 17rem;
+    max-width: 100%;
+    height: $height;
+  }
+
+  &--vertical {
+    height: 12rem;
+
+    .onyx-slider-skeleton__block {
+      width: $height;
+      height: 17rem;
+      max-height: 100%;
     }
+  }
 
-    &__value-control {
-      width: 1.5rem;
-      height: 1.5rem;
-    }
-
-    &__icon-control {
-      width: 1.5rem;
-      height: 1.5rem;
-      border-radius: var(--onyx-radius-sm);
-    }
-
-    &__root {
-      position: relative;
-      flex-grow: 1;
-      height: 0.5rem;
-      padding: var(--onyx-slider-root-padding) 0;
-
-      .onyx-slider-skeleton__container--vertical & {
-        width: 0.5rem;
-        height: 100%;
-        padding: 0 var(--onyx-slider-root-padding);
-      }
-    }
-
-    &__track {
-      position: absolute;
-      top: 50%;
-      left: 0;
-      height: 0.5rem;
-      transform: translateY(-50%);
-      border-radius: var(--onyx-radius-sm);
-
-      .onyx-slider-skeleton__container--vertical & {
-        position: absolute;
-        top: auto;
-        bottom: 0;
-        left: 50%;
-        width: 0.5rem;
-        height: 100%;
-        transform: translateX(-50%);
-      }
-    }
+  @include density.compact {
+    // the skeleton gap would be 0 in compact density so we shrink the label size a bit and increase the gap so it does not look off
+    --skeleton-label-density-adjustment: var(--onyx-spacing-5xs);
   }
 }
 </style>

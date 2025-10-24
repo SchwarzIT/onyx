@@ -1,16 +1,25 @@
-import type { SliderMark, SliderOrientation } from "@sit-onyx/headless";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
+import type { Orientation } from "../../types/index.js";
 import type { OnyxFormElementProps } from "../OnyxFormElement/types.js";
 
 export const SLIDER_CONTROLS = ["icon", "value", "input"] as const;
-export type OnyxSliderControl = (typeof SLIDER_CONTROLS)[number];
-export const SLIDER_TRACK_MODES = ["default", "inverted", false] as const;
-export type OnyxSliderTrackMode = (typeof SLIDER_TRACK_MODES)[number];
-export const SLIDER_TOOLTIP_DISPLAYS = ["auto", "always", "never"] as const;
-export type OnyxSliderTooltipDisplay = (typeof SLIDER_TOOLTIP_DISPLAYS)[number];
+export type SliderControl = (typeof SLIDER_CONTROLS)[number];
 
-export type OnyxSliderProps = Omit<
-  OnyxFormElementProps<number[]>,
+export type SliderMark =
+  | {
+      value: number;
+      label?: string;
+    }
+  | number;
+export const SLIDER_MODES = ["single", "range"] as const;
+export type SliderMode = (typeof SLIDER_MODES)[number];
+
+export type SliderValue<TSliderMode extends SliderMode = "single"> = TSliderMode extends "single"
+  ? number
+  : [number, number];
+
+export type OnyxSliderProps<TSliderMode extends SliderMode = "single"> = Omit<
+  OnyxFormElementProps<SliderValue<TSliderMode>>,
   | "autocapitalize"
   | "autocomplete"
   | "loading"
@@ -21,11 +30,33 @@ export type OnyxSliderProps = Omit<
   | "required"
   | "requiredMarker"
   | "withCounter"
+  | "modelValue"
 > & {
   /**
-   * Currently selected value.
+   * Defines the mode of the slider.
+   *
+   * - `single`: A single-thumb slider for selecting one value.
+   * - `range`: A range slider with two thumbs for selecting a value range.
+   *
+   * @default "single"
    */
-  modelValue: number[];
+  mode?: TSliderMode;
+  /**
+   * Current value(s) of the slider.
+   *
+   * - `single` mode: provide a single value, e.g. `42`.
+   * - `range` mode: provide two values, e.g. `[20, 80]`.
+   *
+   * Constraints:
+   * - Each value must be within `[min, max]`.
+   * - Values should align to `step` (when `discrete` is true they will snap).
+   * - For `range` mode, values should be in ascending order.
+   *
+   * Recommended defaults (if your product has no specific initial value):
+   * - `single` mode: middle of the range → `(min + max) / 2`.
+   * - `range` mode: full range → `[min, max]`.
+   */
+  modelValue: SliderValue<TSliderMode>;
   /**
    * Smallest possible number.
    */
@@ -39,54 +70,52 @@ export type OnyxSliderProps = Omit<
    *
    * @default 1
    */
-  step?: number | null;
+  step?: number;
   /**
-   * Specifies the value increment applied when adjusting the slider using Page Up/Page Down or Shift + Arrow keys.
+   * Step size when holding shift key or using Page Up/Page Down keys.
    *
-   * @default 10
+   * Defaults to 10% of the total range (max - min) multiplied by the step size.
+   * This provides intuitive behavior that automatically scales with different slider ranges.
    */
   shiftStep?: number;
   /**
    * Marks to show for each step.
+   * - If set to `true`, marks will be generated automatically based on `step` prop.
+   * - If an array of `SliderMark` is provided, marks will be shown at the specified values with optional labels.
+   * - If set to `false`, no marks will be displayed.
    *
    * @default false
    */
   marks?: SliderMark[] | boolean;
   /**
-   * The track style to use.
-   * - `default`: The track fills the area between the minimum value and the active thumb(s).
-   * - `inverted`: The track fills the area between the active thumb(s) and the maximum value.
-   * - `false`: No track is rendered.
-   *
-   * @default "default"
-   */
-  trackMode?: OnyxSliderTrackMode;
-  /**
    * Defines if and which control to display in addition to the slider.
    * Can be used to e.g. display inputs or icon buttons that can also be used to change the value.
    *
    * - `value`: shows min and max value labels.
-   * - `icon`: shows icon buttons to increment/decrement the value. The buttons increment/decrement by the shiftStep value. Available only for 1 or 2 thumbs.
+   * - `icon`: shows icon buttons to increment/decrement the value. The buttons increment/decrement by the shiftStep value. Available only for `single` mode.
    */
-  control?: OnyxSliderControl;
+  control?: SliderControl;
   /**
    * Orientation of the slider.
    *
    * @default "horizontal"
    */
-  orientation?: SliderOrientation;
+  orientation?: Orientation;
   /**
    * When to show the tooltip with the current value over the thumb.
    *
-   * - `auto`: Show tooltip when the thumb is focused or being dragged.
-   * - `always`: Always show the tooltip.
-   * - `never`: Never show the tooltip.
-   *
-   * @default "auto"
+   * @default undefined
    */
-  tooltipDisplay?: OnyxSliderTooltipDisplay;
+  disableTooltip?: boolean;
   /**
    * Whether to show a skeleton slider.
    */
   skeleton?: SkeletonInjected;
+  /**
+   * Whether to render the slider in discrete mode.
+   * In discrete mode, the slider will snap to the nearest step/mark.
+   *
+   * @default false
+   */
+  discrete?: boolean;
 };

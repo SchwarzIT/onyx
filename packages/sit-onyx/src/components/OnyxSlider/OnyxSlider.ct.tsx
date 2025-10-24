@@ -8,10 +8,10 @@ const SLIDER_MARKS = [
 ];
 
 test("should interact with single value slider", async ({ mount }) => {
-  let modelValue: number[] = [50];
+  let modelValue: number = 50;
 
   const eventHandlers = {
-    "update:modelValue": async (newValue: number[]) => {
+    "update:modelValue": async (newValue: number) => {
       modelValue = newValue;
       await component.update({ props: { modelValue }, on: eventHandlers });
     },
@@ -43,10 +43,10 @@ test("should interact with single value slider", async ({ mount }) => {
 });
 
 test("should interact with range slider", async ({ mount }) => {
-  let modelValue: number[] = [20, 80];
+  let modelValue: [number, number] = [20, 80];
 
   const eventHandlers = {
-    "update:modelValue": async (newValue: number[]) => {
+    "update:modelValue": async (newValue: [number, number]) => {
       modelValue = newValue;
       await component.update({ props: { modelValue }, on: eventHandlers });
     },
@@ -56,6 +56,7 @@ test("should interact with range slider", async ({ mount }) => {
   const component = await mount(OnyxSlider, {
     props: {
       label: "Range slider",
+      mode: "range",
       modelValue,
       min: 0,
       max: 100,
@@ -88,10 +89,10 @@ test("should interact with range slider", async ({ mount }) => {
 });
 
 test("should handle keyboard navigation", async ({ mount }) => {
-  let modelValue: number[] = [50];
+  let modelValue: number = 50;
 
   const eventHandlers = {
-    "update:modelValue": async (newValue: number[]) => {
+    "update:modelValue": async (newValue: number) => {
       modelValue = newValue;
       await component.update({ props: { modelValue }, on: eventHandlers });
     },
@@ -134,10 +135,10 @@ test("should handle keyboard navigation", async ({ mount }) => {
 });
 
 test("should respect min/max boundaries", async ({ mount }) => {
-  let modelValue: number[] = [50];
+  let modelValue: number = 50;
 
   const eventHandlers = {
-    "update:modelValue": async (newValue: number[]) => {
+    "update:modelValue": async (newValue: number) => {
       modelValue = newValue;
       await component.update({ props: { modelValue }, on: eventHandlers });
     },
@@ -169,7 +170,7 @@ test("should respect min/max boundaries", async ({ mount }) => {
 test("should work with marks", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
-    <OnyxSlider label="Marks slider" modelValue={[50]} marks={SLIDER_MARKS} />,
+    <OnyxSlider label="Marks slider" modelValue={50} marks={SLIDER_MARKS} />,
   );
 
   // ASSERT - Check marks are displayed
@@ -181,7 +182,7 @@ test("should work with marks", async ({ mount }) => {
 test("should be disabled when disabled prop is true", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
-    <OnyxSlider label="Disabled slider" modelValue={[50]} disabled={true} />,
+    <OnyxSlider label="Disabled slider" modelValue={50} disabled={true} />,
   );
 
   const slider = component.getByRole("slider");
@@ -198,7 +199,7 @@ test("should be disabled when disabled prop is true", async ({ mount }) => {
 
 test("should display required indicator", async ({ mount }) => {
   // ARRANGE
-  const component = await mount(<OnyxSlider label="Required slider" modelValue={[50]} />);
+  const component = await mount(<OnyxSlider label="Required slider" modelValue={50} />);
 
   // Since required prop is not available on OnyxSlider, this test is simplified
   // The label should still be visible and properly rendered
@@ -212,7 +213,7 @@ test("should display custom error message", async ({ mount }) => {
   const component = await mount(
     <OnyxSlider
       label="Error slider"
-      modelValue={[30]}
+      modelValue={30}
       showError
       customError={{ shortMessage: errorMessage }}
     />,
@@ -227,7 +228,7 @@ test("should display help message", async ({ mount }) => {
 
   // ARRANGE
   const component = await mount(
-    <OnyxSlider label="Help slider" modelValue={[50]} message={{ shortMessage: helpMessage }} />,
+    <OnyxSlider label="Help slider" modelValue={50} message={{ shortMessage: helpMessage }} />,
   );
 
   // ASSERT
@@ -235,9 +236,9 @@ test("should display help message", async ({ mount }) => {
 });
 
 test("should display value control", async ({ mount }) => {
-  let modelValue = [30];
+  let modelValue = 30;
   const eventHandlers = {
-    "update:modelValue": (value: number[]) => {
+    "update:modelValue": (value: number) => {
       modelValue = value;
     },
   };
@@ -258,10 +259,10 @@ test("should display value control", async ({ mount }) => {
 });
 
 test("should display and interact with icon control buttons", async ({ mount }) => {
-  let modelValue: number[] = [50];
+  let modelValue: number = 50;
 
   const eventHandlers = {
-    "update:modelValue": async (newValue: number[]) => {
+    "update:modelValue": async (newValue: number) => {
       modelValue = newValue;
       await component.update({ props: { modelValue }, on: eventHandlers });
     },

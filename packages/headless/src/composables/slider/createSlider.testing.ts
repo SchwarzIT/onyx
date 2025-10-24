@@ -50,10 +50,8 @@ export const singleThumbSliderTesting = async ({
   step = 1,
   shiftStep = 10,
 }: SliderTestingOptions) => {
-  await expect(slider, "Slider should be visible").toBeVisible();
-
   await test.step("Basic accessibility and initial state", async () => {
-    await expect(slider).toBeVisible();
+    await expect(slider).toBeHidden();
     await expect(slider).toHaveAttribute("role", "slider");
     await expect(slider).toHaveAttribute("aria-valuenow", String(initialValues[0]));
     await expect(slider).toHaveAttribute("aria-valuemin", String(min));
@@ -188,7 +186,7 @@ export const multiThumbSliderTesting = async ({
 
     for (let i = 0; i < initialValues.length; i++) {
       const thumb = slider.nth(i);
-      await expect(thumb).toBeVisible();
+      await expect(thumb).toBeHidden();
       await expect(thumb).toHaveAttribute("role", "slider");
       await expect(thumb).toHaveAttribute("aria-valuenow", String(initialValues[i]));
       await expect(thumb).toHaveAttribute("aria-valuemin", String(min));
