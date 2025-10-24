@@ -5,6 +5,6 @@
     "types": ["node", "vite/client"],
     "rootDir": "./src",
     "baseUrl": ".",
-    "lib": ["es2022"]
+    "lib": ["es2022", "DOM"]
   }
 }
