@@ -24,6 +24,7 @@ const setupCalendar = (options: {
   min?: Date;
   max?: Date;
   selection?: SelectionMode;
+  disabled?: boolean | ((date: Date) => boolean);
 }): SetupResult => {
   const modelValue = ref(options.modelValue ?? null);
   const viewMonth = ref(options.viewMonth ?? new Date());
@@ -32,7 +33,7 @@ const setupCalendar = (options: {
     locale: ref("en"),
     calendarSize: ref("small"),
     weekStartDay: ref("Monday"),
-    disabled: ref(false),
+    disabled: ref(options.disabled ?? false),
     showCalendarWeeks: ref(false),
     min: ref(options.min ?? null),
     max: ref(options.max ?? null),
@@ -86,6 +87,28 @@ describe("createCalendar (Headless)", () => {
     expect(internals.isDisabled.value(createDate(2025, 8, 9))).toBe(true);
     expect(internals.isDisabled.value(createDate(2025, 8, 15))).toBe(false);
     expect(internals.isDisabled.value(createDate(2025, 8, 21))).toBe(true);
+  });
+
+  it("should disable all dates when disabled is true", () => {
+    const { internals } = setupCalendar({
+      disabled: true,
+    });
+    const randomDate = createDate(2050, 0, 1);
+
+    expect(internals.isDisabled.value(randomDate)).toBe(true);
+    expect(internals.isDisabled.value(new Date())).toBe(true);
+  });
+
+  it("should only disable days specified by the disabled function", () => {
+    const disableMondays = (date: Date) => date.getDay() === 1;
+    const mondayDate = createDate(2025, 8, 15);
+    const tuesdayDate = createDate(2025, 8, 16);
+    const { internals } = setupCalendar({
+      disabled: disableMondays,
+      viewMonth: mondayDate,
+    });
+    expect(internals.isDisabled.value(mondayDate)).toBe(true);
+    expect(internals.isDisabled.value(tuesdayDate)).toBe(false);
   });
 
   it("should navigate months correctly", () => {

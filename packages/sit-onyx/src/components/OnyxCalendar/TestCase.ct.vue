@@ -8,9 +8,17 @@ type EventType = { date: Date; color: OnyxColor; description: string };
 
 const props = defineProps<{
   /**
+   * Whether to show custom content
+   */
+  showContent?: boolean;
+  /**
    * Calender Size
    */
   size: OnyxCalendarSize;
+  /**
+   * disabled
+   */
+  disabledDays?: boolean;
 }>();
 
 const testDate = new Date("2024-10-10T12:00:00Z");
@@ -29,12 +37,20 @@ const events: EventType[] = [
 const getEvent = (date: Date) => {
   return events.find((event) => event.date.toDateString() === date.toDateString());
 };
+const isDisabledDays = (date: Date) => {
+  return date.getDay() === 2;
+};
 </script>
 
 <template>
-  <OnyxCalendar class="calendar" v-bind="props" :view-month="testDate">
+  <OnyxCalendar
+    class="calendar"
+    v-bind="props"
+    :view-month="testDate"
+    :disabled="props.disabledDays ? isDisabledDays : false"
+  >
     <template #day="{ date, size: daySize }">
-      <div class="event">
+      <div v-if="showContent" class="event">
         <OnyxBadge v-if="getEvent(date)" :color="getEvent(date)?.color" dot />
         <span
           v-if="daySize === 'big'"
