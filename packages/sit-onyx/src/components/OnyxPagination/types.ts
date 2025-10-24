@@ -18,4 +18,11 @@ export type OnyxPaginationProps = DensityProp & {
    * Whether to show a skeleton pagination.
    */
   skeleton?: SkeletonInjected;
+  /**
+   * The display type of the pagination
+   * @default select
+   */
+  type?: PaginationType;
 };
+
+export type PaginationType = "select" | "inline";
