@@ -17,12 +17,14 @@ export type GetMeanStorySizeOptions = {
  * Items without an assigned size will be ignored.
  */
 export async function getMeanStorySize(options: GetMeanStorySizeOptions) {
-  const allIterations = await options.client.getAllIterations();
-  const currentIteration = findIterationByDate(allIterations, options.iteration ?? new Date());
+  // fetch iterations and items in parallel to speed up the process
+  const [allIterations, allItems] = await Promise.all([
+    options.client.getAllIterations(),
+    options.client.getAllItems(),
+  ]);
 
-  const items = await options.client
-    .getAllItems()
-    .then((items) => items.filter((item) => item.iteration === currentIteration.title));
+  const currentIteration = findIterationByDate(allIterations, options.iteration ?? new Date());
+  const items = allItems.filter((item) => item.iteration === currentIteration.title);
 
   const storySizes = items.map((item) => item.effort).filter((size) => size != undefined);
   const totalCount = storySizes.length;
