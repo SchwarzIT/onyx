@@ -2,27 +2,28 @@
 import { ref } from "vue";
 import { createSlider } from "./createSlider.js";
 
-const modelValue = ref([25]);
-const committed = ref<number[] | null>(null);
+const modelValue = ref(25);
+const committed = ref<number | null>(null);
 const min = ref(0);
 const max = ref(100);
 const step = ref(1);
 
-const onChange = (values: number[]) => {
+const onChange = (values: number) => {
   modelValue.value = values;
 };
 
-const onCommit = (values: number[]) => {
+const onCommit = (values: number) => {
   committed.value = values;
 };
 
 const slider = createSlider({
-  values: modelValue,
+  value: modelValue,
   min,
   max,
   step,
   onChange,
   onCommit,
+  label: "Simple Slider",
 });
 
 const {
@@ -44,13 +45,11 @@ defineExpose({ slider });
       ></div>
 
       <div
-        v-for="(value, index) in modelValue"
-        :key="index"
-        v-bind="thumbContainer({ value, index })"
+        v-bind="thumbContainer({ value: modelValue, index: 0 })"
         class="slider-thumb"
-        :style="{ left: `${((value - min) / (max - min)) * 100}%` }"
+        :style="{ left: `${((modelValue - min) / (max - min)) * 100}%` }"
       >
-        <input v-bind="thumbInput({ index, value })" />
+        <input class="visually-hidden" v-bind="thumbInput({ index: 0, value: modelValue })" />
       </div>
     </div>
   </div>
@@ -100,5 +99,17 @@ defineExpose({ slider });
   justify-content: center;
   color: white;
   font-size: 10px;
+}
+
+.visually-hidden {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 0;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
 }
 </style>

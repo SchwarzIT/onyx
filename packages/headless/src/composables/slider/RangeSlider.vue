@@ -17,12 +17,13 @@ const onCommit = (values: number[]) => {
 };
 
 const slider = createSlider({
-  values: modelValue,
+  value: modelValue,
   min,
   max,
   step,
   onChange,
   onCommit,
+  label: "Range Slider",
 });
 
 const {
@@ -50,7 +51,7 @@ defineExpose({ slider });
         class="slider-thumb"
         :style="{ left: `${((value - min) / (max - min)) * 100}%` }"
       >
-        <input v-bind="thumbInput({ index, value })" />
+        <input class="visually-hidden" v-bind="thumbInput({ index, value })" />
       </div>
     </div>
   </div>
@@ -100,5 +101,17 @@ defineExpose({ slider });
   justify-content: center;
   color: white;
   font-size: 10px;
+}
+
+.visually-hidden {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 0;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
 }
 </style>
