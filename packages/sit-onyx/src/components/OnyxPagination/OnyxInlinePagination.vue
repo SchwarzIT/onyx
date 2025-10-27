@@ -135,7 +135,7 @@ const displayPagesNumbers = computed(() => {
 @use "../../styles/mixins/layers.scss";
 .onyx-pagination-skeleton.onyx-pagination-skeleton--inline {
   @include layers.component() {
-    width: 17.5rem;
+    width: calc(10.5rem + 14 * var(--onyx-pagination-padding-vertical));
   }
 }
 .onyx-pagination {
