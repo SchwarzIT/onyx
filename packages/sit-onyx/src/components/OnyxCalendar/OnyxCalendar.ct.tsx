@@ -5,15 +5,27 @@ import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxCalendar from "./OnyxCalendar.vue";
 import TestCase from "./TestCase.ct.vue";
 
-test.describe("Screenshot tests", () => {
-  const testDate = new Date(2024, 9, 23);
+const MOCK_NOW = new Date(2024, 9, 23);
 
+const getMockDate = (offset: number) => {
+  const date = new Date(MOCK_NOW);
+  date.setDate(date.getDate() + offset);
+  return date;
+};
+
+test.beforeEach(async ({ page }) => {
+  await page.clock.install();
+  await page.clock.setFixedTime(MOCK_NOW);
+});
+
+test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
-    name: "OnyxCalendar",
+    name: "Calendar",
     columns: ["small", "big"],
     rows: [
       "default",
       "select",
+      "hover",
       "focus-visible",
       "calender-weeks",
       "actions",
@@ -22,13 +34,12 @@ test.describe("Screenshot tests", () => {
       "disabled",
     ],
     component: (column, row) => {
-      const minDate = new Date(testDate.getFullYear(), testDate.getMonth(), 20);
-      const maxDate = new Date(testDate.getFullYear(), testDate.getMonth(), 26);
+      const minDate = getMockDate(-3);
+      const maxDate = getMockDate(3);
 
       return (
         <OnyxCalendar
           selectionMode="single"
-          viewMonth={testDate}
           size={column}
           style={{ width: column === "small" ? "20rem" : "40rem" }}
           skeleton={row === "skeleton"}
@@ -47,31 +58,27 @@ test.describe("Screenshot tests", () => {
     },
     hooks: {
       beforeEach: async (component, page, _column, row) => {
-        const dayToInteract = component.getByRole("button", {
-          name: testDate.getDate().toString(),
-        });
-        switch (row) {
-          case "select":
-            await dayToInteract.click();
-            break;
-          case "focus-visible":
-            await dayToInteract.click();
-            await page.keyboard.press("ArrowLeft");
-            break;
-          default:
+        const todayButton = component.getByRole("button", { name: MOCK_NOW.getDate().toString() });
+
+        if (row === "select") await todayButton.click();
+        if (row === "focus-visible") {
+          await todayButton.click();
+          await page.keyboard.press("ArrowLeft");
         }
+        if (row === "hover") await todayButton.hover();
       },
     },
   });
+});
 
+test.describe("Screenshot tests (selection mode)", () => {
   executeMatrixScreenshotTest({
-    name: "OnyxCalendar (selectionMode)",
+    name: "Calendar (selectionMode)",
     columns: ["small", "big"],
     rows: ["default", "single", "multiple", "range"],
     component: (column, row) => {
       return (
         <OnyxCalendar
-          viewMonth={testDate}
           size={column}
           selectionMode={row === "default" ? undefined : row}
           style={{ width: column === "small" ? "20rem" : "40rem" }}
@@ -81,18 +88,20 @@ test.describe("Screenshot tests", () => {
     hooks: {
       beforeEach: async (component, page, _column, row) => {
         if (row !== "default") {
-          await component.getByRole("button", { name: "Sunday, October 20," }).click();
+          await component.getByRole("button", { name: "Sunday, October 20" }).click();
         }
 
         if (row === "range" || row === "multiple") {
-          await component.getByRole("button", { name: "Saturday, October 26," }).click();
+          await component.getByRole("button", { name: "Saturday, October 26" }).click();
         }
       },
     },
   });
+});
 
+test.describe("Screenshot tests (custom content)", () => {
   executeMatrixScreenshotTest({
-    name: "OnyxCalendar (custom content, custom disabled days)",
+    name: "Calendar (custom content + disabled days)",
     columns: ["small", "big"],
     rows: ["custom-content", "custom-disabled-days"],
     component: (column, row) => {
