@@ -161,6 +161,10 @@ const displayPagesNumbers = computed(() => {
       & > .onyx-pagination__more-pages {
         cursor: default;
       }
+      &:has(.onyx-pagination__navigate-button:disabled) {
+        background-color: var(--onyx-color-base-background-tinted);
+        color: var(--onyx-color-text-icons-neutral-soft);
+      }
 
       & > .onyx-pagination__page-button,
       & > .onyx-pagination__navigate-button {
@@ -205,7 +209,7 @@ const displayPagesNumbers = computed(() => {
       }
 
       & > .onyx-pagination__page-button {
-        &.onyx-pagination__page-button--active {
+        &.onyx-pagination__page-button--active:not(:disabled) {
           background-color: var(--onyx-color-base-primary-100);
           color: var(--onyx-color-text-icons-primary-intense);
 
