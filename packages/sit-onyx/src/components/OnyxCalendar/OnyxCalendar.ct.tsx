@@ -6,7 +6,6 @@ import OnyxCalendar from "./OnyxCalendar.vue";
 import TestCase from "./TestCase.ct.vue";
 
 test.describe("Screenshot tests", () => {
-  test.slow(); //Because is failing in Webkit
   const testDate = new Date(2024, 9, 23);
 
   executeMatrixScreenshotTest({
