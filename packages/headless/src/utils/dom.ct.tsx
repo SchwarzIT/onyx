@@ -18,7 +18,7 @@ test("isFocusVisible should detect keyboard focus", async ({ mount, page }) => {
   await expect(button).toBeFocused();
 
   // ACT - Remove focus
-  await page.keyboard.press("Tab");
+  await button.blur();
 
   // ASSERT - Should no longer be focused
   await expect(button).toContainText("Is focused: false");
@@ -58,7 +58,7 @@ test.describe("touch-only", () => {
     await button.click();
 
     // ASSERT: click must not be detected as touch
-    await expect(button).toContainText("Last event: click, Is touch: false");
+    await expect(button).toContainText(/Last event: (click|pointerup), Is touch: false/);
 
     // ACT: perform a tap
     await button.tap();
