@@ -6,12 +6,12 @@ import OnyxPagination from "./OnyxPagination.vue";
 
 test.describe("screenshot tests", () => {
   executeMatrixScreenshotTest({
-    name: "Pagination",
+    name: `Pagination (select)`,
     columns: DENSITIES,
     rows: ["default", "skeleton", "min", "max", "large", "disabled", "open"],
     component: (column, row) => {
       let currentPage = 2;
-      let pages = 6;
+      let pages = 7;
 
       if (row === "min") currentPage = 1;
       else if (row === "max") currentPage = pages;
@@ -40,11 +40,40 @@ test.describe("screenshot tests", () => {
       },
     },
   });
+
+  executeMatrixScreenshotTest({
+    name: `Pagination (inline)`,
+    columns: DENSITIES,
+    rows: ["default", "skeleton", "min", "max", "large", "disabled", "middle"],
+    component: (column, row) => {
+      let currentPage = 2;
+      let pages = 7;
+
+      if (row === "min") currentPage = 1;
+      else if (row === "max") currentPage = pages;
+      else if (row === "middle") currentPage = 4;
+      else if (row === "large") {
+        currentPage = 1_000;
+        pages = currentPage;
+      }
+
+      return (
+        <OnyxPagination
+          pages={pages}
+          modelValue={currentPage}
+          density={column}
+          disabled={row === "disabled"}
+          skeleton={row === "skeleton"}
+          type="inline"
+        />
+      );
+    },
+  });
 });
 
-test.describe("screenshot tests (buttons)", () => {
+test.describe("screenshot tests (select buttons)", () => {
   executeMatrixScreenshotTest({
-    name: "Pagination (buttons)",
+    name: `Pagination select (buttons)`,
     columns: ["select", "previous", "next"],
     rows: ["default", "hover", "active", "focus-visible"],
     component: () => <OnyxPagination pages={42} modelValue={2} />,
@@ -59,12 +88,39 @@ test.describe("screenshot tests (buttons)", () => {
         if (row === "hover") await button.hover();
         if (row === "focus-visible") {
           await page.keyboard.press("Tab");
-          if (column !== "select") {
-            await page.getByRole("button", { name: "previous page" }).focus();
-          }
-          if (column === "next") {
-            await page.getByRole("button", { name: "next page" }).focus();
-          }
+          button.focus();
+        }
+        if (row === "active") {
+          const box = (await button.boundingBox())!;
+          await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+          await page.mouse.down();
+        }
+      },
+    },
+  });
+
+  executeMatrixScreenshotTest({
+    name: `Pagination inline (buttons)`,
+    columns: ["pageNumber", "activePageNumber", "previous", "next"],
+    rows: ["default", "hover", "active", "focus-visible"],
+    component: () => <OnyxPagination pages={42} modelValue={2} type="inline" />,
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        let button = page.getByRole("button", {
+          name: column === "previous" ? "previous page" : "next page",
+        });
+
+        if (column === "pageNumber") {
+          button = component.getByRole("button", { name: "Page 1" });
+        }
+        if (column === "activePageNumber") {
+          button = component.getByRole("button", { name: "Page 2" });
+        }
+
+        if (row === "hover") await button.hover();
+        if (row === "focus-visible") {
+          await page.keyboard.press("Tab");
+          button.focus();
         }
         if (row === "active") {
           const box = (await button.boundingBox())!;
@@ -76,7 +132,7 @@ test.describe("screenshot tests (buttons)", () => {
   });
 });
 
-test("should select page", async ({ mount }) => {
+test("should select page (select)", async ({ mount }) => {
   // ARRANGE
   let currentPage = 1;
 
@@ -136,6 +192,61 @@ test("should select page", async ({ mount }) => {
   // ASSERT
   expect(currentPage).toBe(42);
   await expect(select).toHaveValue("42");
+  await expect(nextButton, "should disable next button if last page is reached").toBeDisabled();
+  await expect(previousButton).toBeEnabled();
+});
+
+test("should select page (inline)", async ({ mount }) => {
+  // ARRANGE
+  let currentPage = 1;
+
+  const eventHandlers = {
+    "update:modelValue": async (newPage: number) => {
+      currentPage = newPage;
+      await component.update({ props: { modelValue: currentPage }, on: eventHandlers });
+    },
+  };
+
+  const component = await mount(OnyxPagination, {
+    props: {
+      pages: 42,
+      modelValue: currentPage,
+      type: "inline",
+    },
+    on: eventHandlers,
+  });
+
+  const previousButton = component.getByRole("button", { name: "previous page" });
+  const nextButton = component.getByRole("button", { name: "next page" });
+
+  // ASSERT
+  await expect(
+    previousButton,
+    "should disable previous button if min page is reached",
+  ).toBeDisabled();
+  await expect(nextButton).toBeEnabled();
+
+  // ASSERT
+  await component.getByRole("button", { name: "Page 2" }).click();
+  expect(currentPage).toBe(2);
+
+  // ACT
+  await nextButton.click();
+
+  // ASSERT
+  expect(currentPage).toBe(3);
+
+  // ACT
+  await previousButton.click();
+
+  // ASSERT
+  expect(currentPage).toBe(2);
+
+  // ACT
+  await component.getByRole("button", { name: "Page 42" }).click();
+
+  // ASSERT
+  expect(currentPage).toBe(42);
   await expect(nextButton, "should disable next button if last page is reached").toBeDisabled();
   await expect(previousButton).toBeEnabled();
 });

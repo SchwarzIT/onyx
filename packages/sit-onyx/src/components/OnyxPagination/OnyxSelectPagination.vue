@@ -138,7 +138,12 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
 .onyx-pagination-skeleton {
   @include layers.component() {
     height: var(--onyx-pagination-height);
-    width: 16rem;
+    // 2 large buttons, 4.25rem width +left/right padding
+    // + 2 buttons, each is 1.5rem wide + left/right padding
+    width: calc(
+      2 * (4.25rem + 2 * var(--onyx-density-sm)) + 2 *
+        (1.5rem + 2 * var(--onyx-pagination-padding-vertical))
+    );
   }
 }
 
@@ -146,6 +151,7 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
   @include layers.component() {
     --onyx-pagination-border-size: var(--onyx-1px-in-rem);
     --onyx-pagination-character-count: 1;
+    --onyx-pagination-border-radius: var(--onyx-radius-sm);
 
     display: flex;
     align-items: flex-start;
@@ -227,7 +233,7 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
       }
 
       &:last-of-type {
-        border-radius: 0 var(--onyx-radius-sm) var(--onyx-radius-sm) 0;
+        border-radius: 0 var(--onyx-pagination-border-radius) var(--onyx-pagination-border-radius) 0;
       }
 
       &:enabled {
