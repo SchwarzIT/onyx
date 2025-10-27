@@ -14,7 +14,7 @@
     "watch": "pnpm run build --watch"
   },
   "devDependencies": {
-    "@figma/plugin-typings": "^1.118.0",
+    "@figma/plugin-typings": "^1.119.0",
     "typescript": "catalog:"
   }
 }
