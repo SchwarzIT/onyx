@@ -202,7 +202,7 @@ test.describe("Screenshot tests (error states)", () => {
         label="Error slider"
         modelValue={30}
         showError
-        customError={
+        error={
           column === "short"
             ? { shortMessage: "Error" }
             : { shortMessage: "Error", longMessage: "This is a detailed error message" }
@@ -460,7 +460,7 @@ test.describe("Interaction tests", () => {
         label="Error slider"
         modelValue={30}
         showError
-        customError={{ shortMessage: errorMessage }}
+        error={{ shortMessage: errorMessage }}
       />,
     );
 

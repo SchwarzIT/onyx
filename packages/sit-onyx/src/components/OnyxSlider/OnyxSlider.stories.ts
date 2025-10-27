@@ -55,7 +55,7 @@ export const CustomError = {
     ...Default.args,
     label: "Custom Error",
     showError: true,
-    customError: {
+    error: {
       shortMessage: "Custom error",
       longMessage: "This text might inform the users what they can do to fix the error.",
     },
