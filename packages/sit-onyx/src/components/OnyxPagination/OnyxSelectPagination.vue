@@ -138,7 +138,12 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
 .onyx-pagination-skeleton {
   @include layers.component() {
     height: var(--onyx-pagination-height);
-    width: calc(11.5rem + 4 * var(--onyx-density-sm) + 4 * var(--onyx-pagination-padding-vertical));
+    // 2 large buttons, 4.25rem width +left/right padding
+    // + 2 buttons, each is 1.5rem wide + left/right padding
+    width: calc(
+      2 * (4.25rem + 2 * var(--onyx-density-sm)) + 2 *
+        (1.5rem + 2 * var(--onyx-pagination-padding-vertical))
+    );
   }
 }
 

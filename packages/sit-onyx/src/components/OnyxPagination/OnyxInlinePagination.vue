@@ -86,7 +86,6 @@ const displayPagesNumbers = computed(() => {
     ]"
     role="group"
     :aria-label="t('pagination.label')"
-    :style="{ '--onyx-pagination-character-count': props.modelValue.toString().length }"
   >
     <button
       class="onyx-pagination__navigate-button"
