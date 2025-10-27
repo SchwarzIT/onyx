@@ -120,4 +120,9 @@ export type OnyxSliderProps<TSliderMode extends SliderMode = "single"> = CustomV
      * @default false
      */
     discrete?: boolean;
+    /**
+     * Label to show above the form element. Required due to accessibility / screen readers.
+     * If you want to visually hide the label, use the `hideLabel` property.
+     */
+    label: string;
   };

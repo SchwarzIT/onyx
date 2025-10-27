@@ -11,6 +11,7 @@ import {
 } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { applyLimits } from "../../utils/numbers.js";
+import { useForwardProps } from "../../utils/props.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
@@ -73,6 +74,7 @@ const modelValue = useVModel({
 });
 
 const { vCustomValidity, errorMessages } = useFormElementError({ props, emit });
+const formElementProps = useForwardProps(props, OnyxFormElement);
 const messages = computed(() => getFormMessages(props.message));
 
 const { densityClass } = useDensity(props);
@@ -180,7 +182,8 @@ const isIconControl = computed(() => props.control === "icon" && props.mode === 
     ]"
   >
     <OnyxFormElement
-      v-bind="props"
+      :label="props.label"
+      v-bind="formElementProps"
       class="onyx-slider__form-element"
       :message="messages"
       :error-messages="errorMessages"
