@@ -81,7 +81,7 @@ const displayPagesNumbers = computed(() => {
     :style="{ '--onyx-pagination-character-count': props.modelValue.toString().length }"
   >
     <button
-      class="onyx-pagination--inline__button"
+      class="onyx-pagination__navigate-button"
       :aria-label="t('pagination.previous')"
       type="button"
       :disabled="props.disabled || hasReachedMin"
@@ -93,8 +93,8 @@ const displayPagesNumbers = computed(() => {
       <button
         v-if="typeof pageNumber === 'number'"
         :class="[
-          'onyx-pagination--inline__button',
-          { 'onyx-pagination--inline__button--active': pageNumber === props.modelValue },
+          'onyx-pagination__page-button',
+          { 'onyx-pagination__page-button--active': pageNumber === props.modelValue },
         ]"
         :aria-label="t('pagination.buttonLabel', { page: pageNumber })"
         type="button"
@@ -103,11 +103,7 @@ const displayPagesNumbers = computed(() => {
       >
         {{ pageNumber }}
       </button>
-      <div
-        v-else
-        :class="['onyx-pagination--inline__morePages']"
-        :aria-label="t('pagination.morePages')"
-      >
+      <div v-else :class="['onyx-pagination__more-pages']" :aria-label="t('pagination.morePages')">
         <span aria-hidden="true">...</span>
         <OnyxVisuallyHidden>
           {{ t("pagination.morePages") }}
@@ -116,7 +112,7 @@ const displayPagesNumbers = computed(() => {
     </template>
 
     <button
-      class="onyx-pagination--inline__button"
+      class="onyx-pagination__navigate-button"
       :aria-label="t('pagination.next')"
       type="button"
       :disabled="props.disabled || hasReachedMax"
@@ -130,76 +126,89 @@ const displayPagesNumbers = computed(() => {
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
 
-.onyx-pagination--inline {
+.onyx-pagination {
   @include layers.component() {
-    background-color: var(--onyx-color-base-background-blank);
+    &--inline {
+      background-color: var(--onyx-color-base-background-blank);
 
-    &__button,
-    &__morePages {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: var(--onyx-pagination-padding-vertical);
-      height: var(--onyx-pagination-height);
-      border: var(--onyx-pagination-border-size) solid var(--onyx-color-component-border-neutral);
-      border-left: none;
-      background-color: inherit;
-      color: inherit;
-      aspect-ratio: 1;
-    }
-    &__morePages {
-      cursor: default;
-    }
-    &__button {
-      cursor: pointer;
-      color: var(--onyx-color-text-icons-neutral-medium);
-
-      &:first-of-type {
-        border-radius: var(--onyx-pagination-border-radius) 0 0 var(--onyx-pagination-border-radius);
-        border-left: var(--onyx-pagination-border-size) solid
-          var(--onyx-color-component-border-neutral);
-      }
-      &:last-of-type {
-        border-radius: 0 var(--onyx-pagination-border-radius) var(--onyx-pagination-border-radius) 0;
+      & > .onyx-pagination__navigate-button,
+      & > .onyx-pagination__page-button,
+      & > .onyx-pagination__more-pages {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: var(--onyx-pagination-padding-vertical);
+        height: var(--onyx-pagination-height);
+        border: var(--onyx-pagination-border-size) solid var(--onyx-color-component-border-neutral);
+        border-left: none;
+        background-color: inherit;
+        color: inherit;
+        aspect-ratio: 1;
       }
 
-      &:hover,
-      &:focus-visible {
-        color: var(--onyx-color-text-icons-neutral-intense);
+      & > .onyx-pagination__more-pages {
+        cursor: default;
       }
 
-      &:hover {
-        background-color: var(--onyx-color-base-neutral-200);
-      }
+      & > .onyx-pagination__page-button,
+      & > .onyx-pagination__navigate-button {
+        cursor: pointer;
+        color: var(--onyx-color-text-icons-neutral-medium);
 
-      &:focus-visible {
-        z-index: 1;
-        background-color: var(--onyx-color-base-neutral-200);
-        outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
-      }
-      &:active {
-        background-color: var(--onyx-color-base-background-blank);
-      }
-
-      &--active {
-        background-color: var(--onyx-color-base-primary-100);
-        color: var(--onyx-color-text-icons-primary-intense);
+        &:hover,
+        &:focus-visible {
+          color: var(--onyx-color-text-icons-neutral-intense);
+        }
 
         &:hover {
-          background-color: var(--onyx-color-base-primary-200);
-          color: var(--onyx-color-text-icons-primary-intense);
+          background-color: var(--onyx-color-base-neutral-200);
         }
+
         &:focus-visible {
-          background-color: var(--onyx-color-base-primary-300);
-          color: var(--onyx-color-text-icons-neutral-inverted);
+          z-index: 1;
+          background-color: var(--onyx-color-base-neutral-200);
+          outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
         }
         &:active {
-          background-color: var(--onyx-color-base-primary-100);
+          background-color: var(--onyx-color-base-background-blank);
+        }
+
+        &:disabled {
+          background-color: var(--onyx-color-base-background-tinted);
+          color: var(--onyx-color-text-icons-neutral-soft);
         }
       }
-      &:disabled {
-        background-color: var(--onyx-color-base-background-tinted);
-        color: var(--onyx-color-text-icons-neutral-soft);
+
+      & > .onyx-pagination__navigate-button {
+        &:first-of-type {
+          border-radius: var(--onyx-pagination-border-radius) 0 0
+            var(--onyx-pagination-border-radius);
+          border-left: var(--onyx-pagination-border-size) solid
+            var(--onyx-color-component-border-neutral);
+        }
+        &:last-of-type {
+          border-radius: 0 var(--onyx-pagination-border-radius) var(--onyx-pagination-border-radius)
+            0;
+        }
+      }
+
+      & > .onyx-pagination__page-button {
+        &.onyx-pagination__page-button--active {
+          background-color: var(--onyx-color-base-primary-100);
+          color: var(--onyx-color-text-icons-primary-intense);
+
+          &:hover {
+            background-color: var(--onyx-color-base-primary-200);
+            color: var(--onyx-color-text-icons-primary-intense);
+          }
+          &:focus-visible {
+            background-color: var(--onyx-color-base-primary-300);
+            color: var(--onyx-color-text-icons-neutral-inverted);
+          }
+          &:active {
+            background-color: var(--onyx-color-base-primary-100);
+          }
+        }
       }
     }
   }
