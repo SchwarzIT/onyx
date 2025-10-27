@@ -65,7 +65,15 @@ const displayPagesNumbers = computed(() => {
 </script>
 
 <template>
-  <OnyxSkeleton v-if="skeleton" :class="['onyx-pagination-skeleton', 'onyx-text', densityClass]" />
+  <OnyxSkeleton
+    v-if="skeleton"
+    :class="[
+      'onyx-pagination-skeleton',
+      'onyx-pagination-skeleton--inline',
+      'onyx-text',
+      densityClass,
+    ]"
+  />
 
   <div
     v-else
@@ -125,7 +133,11 @@ const displayPagesNumbers = computed(() => {
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
-
+.onyx-pagination-skeleton.onyx-pagination-skeleton--inline {
+  @include layers.component() {
+    width: 17.5rem;
+  }
+}
 .onyx-pagination {
   @include layers.component() {
     &--inline {
