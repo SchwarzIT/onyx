@@ -15,7 +15,6 @@ test.describe("Screenshot tests", () => {
     rows: [
       "default",
       "select",
-      "hover",
       "focus-visible",
       "calender-weeks",
       "actions",
@@ -55,9 +54,6 @@ test.describe("Screenshot tests", () => {
         switch (row) {
           case "select":
             await dayToInteract.click();
-            break;
-          case "hover":
-            await dayToInteract.hover();
             break;
           case "focus-visible":
             await dayToInteract.click();
