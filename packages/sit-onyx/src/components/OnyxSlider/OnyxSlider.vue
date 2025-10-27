@@ -1,5 +1,13 @@
-<script setup lang="ts" generic="TSliderMode extends SliderMode = 'single'">
-import { createSlider } from "@sit-onyx/headless";
+<script lang="ts">
+/**
+ * @experimental
+ * @deprecated This component is still under active development and its API might change in patch releases.
+ */
+export default {};
+</script>
+
+<script setup lang="ts" generic="TSliderMode extends SliderMode">
+import { _unstableCreateSlider } from "@sit-onyx/headless";
 import { iconMinusSmall, iconPlusSmall } from "@sit-onyx/icons";
 import { computed, toRefs, watch } from "vue";
 import { useDensity } from "../../composables/density.js";
@@ -111,7 +119,7 @@ const handleIncreaseByIcon = () => {
 
 const { min, max, step, marks, orientation, label, discrete, shiftStep } = toRefs(props);
 
-const thumbs = computed(() =>
+const thumbs = computed<number[]>(() =>
   Array.isArray(modelValue.value) ? modelValue.value : [modelValue.value],
 );
 
@@ -119,7 +127,7 @@ const {
   elements: { root, rail, track, thumbContainer, thumbInput, mark, markLabel },
   state: { focusedThumbIndex, activeThumbIndex, marksList },
   internals: { isMarkActive, valueToPercent, axis, normalizeValues },
-} = createSlider({
+} = _unstableCreateSlider({
   value: modelValue,
   min,
   max,

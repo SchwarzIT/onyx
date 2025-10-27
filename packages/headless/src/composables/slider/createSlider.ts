@@ -189,8 +189,11 @@ const valueToArray = (value: number | number[]) => (Array.isArray(value) ? value
 /**
  * Composable for creating an accessibility-compliant slider.
  * For supported keyboard shortcuts, see: https://www.w3.org/WAI/ARIA/apg/patterns/slider/
+ *
+ *  * @experimental
+ * @deprecated This component is still under active development and its API might change in patch releases.
  */
-export const createSlider = createBuilder(
+export const _unstableCreateSlider = createBuilder(
   <TValue extends number | number[] = number>(options: CreateSliderOptions<TValue>) => {
     const sliderRef = createElRef<HTMLElement>();
 

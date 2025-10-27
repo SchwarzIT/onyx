@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { createSlider } from "./createSlider.js";
+import { _unstableCreateSlider } from "./createSlider.js";
 
 const modelValue = ref(25);
 const committed = ref<number | null>(null);
@@ -16,7 +16,7 @@ const onCommit = (values: number) => {
   committed.value = values;
 };
 
-const slider = createSlider({
+const slider = _unstableCreateSlider({
   value: modelValue,
   min,
   max,

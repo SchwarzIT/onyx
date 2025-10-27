@@ -15,11 +15,11 @@ export type SliderMark =
 export const SLIDER_MODES = ["single", "range"] as const;
 export type SliderMode = (typeof SLIDER_MODES)[number];
 
-export type SliderValue<TSliderMode extends SliderMode = "single"> = TSliderMode extends "single"
+export type SliderValue<TSliderMode extends SliderMode> = TSliderMode extends "single"
   ? number
   : [number, number];
 
-export type OnyxSliderProps<TSliderMode extends SliderMode = "single"> = CustomValidityProp &
+export type OnyxSliderProps<TSliderMode extends SliderMode> = CustomValidityProp &
   Omit<
     OnyxFormElementProps<SliderValue<TSliderMode>>,
     | "autocapitalize"
