@@ -97,7 +97,7 @@ const data = await getMeanStorySize({
 Calculates the bug fixing ratio in the given iteration (how much time is spend on bugs in relation to other stories).
 
 ```ts{4-6}
-import { getMeanStorySize } from "@sit-onyx/github-metrics";
+import { getBugFixingRatio } from "@sit-onyx/github-metrics";
 
 const data = await getBugFixingRatio({
   client,
