@@ -135,7 +135,8 @@ const displayPagesNumbers = computed(() => {
 @use "../../styles/mixins/layers.scss";
 .onyx-pagination-skeleton.onyx-pagination-skeleton--inline {
   @include layers.component() {
-    width: calc(10.5rem + 14 * var(--onyx-pagination-padding-vertical));
+    // 7 buttons, each is 1.5rem wide + left/right padding
+    width: calc(7 * (1.5rem + 2 * var(--onyx-pagination-padding-vertical)));
   }
 }
 .onyx-pagination {
@@ -161,9 +162,11 @@ const displayPagesNumbers = computed(() => {
       & > .onyx-pagination__more-pages {
         cursor: default;
       }
-      &:has(.onyx-pagination__navigate-button:disabled) {
-        background-color: var(--onyx-color-base-background-tinted);
-        color: var(--onyx-color-text-icons-neutral-soft);
+      &:has(.onyx-pagination__page-button:disabled) {
+        .onyx-pagination__more-pages {
+          background-color: var(--onyx-color-base-background-tinted);
+          color: var(--onyx-color-text-icons-neutral-soft);
+        }
       }
 
       & > .onyx-pagination__page-button,
