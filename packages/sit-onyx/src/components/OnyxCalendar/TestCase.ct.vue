@@ -21,10 +21,8 @@ const props = defineProps<{
   disabledDays?: boolean;
 }>();
 
-const testDate = new Date("2024-10-10T12:00:00Z");
-
 const getDummyDate = (dayOffset: number) => {
-  const date = new Date(testDate);
+  const date = new Date();
   date.setDate(date.getDate() + dayOffset);
   return date;
 };
@@ -37,17 +35,15 @@ const events: EventType[] = [
 const getEvent = (date: Date) => {
   return events.find((event) => event.date.toDateString() === date.toDateString());
 };
-const isDisabledDays = (date: Date) => {
-  return date.getDay() === 2;
-};
+
+const isDisabledDay = (date: Date) => date.getDay() === 2;
 </script>
 
 <template>
   <OnyxCalendar
     class="calendar"
     v-bind="props"
-    :view-month="testDate"
-    :disabled="props.disabledDays ? isDisabledDays : false"
+    :disabled="props.disabledDays ? isDisabledDay : false"
   >
     <template #day="{ date, size: daySize }">
       <div v-if="showContent" class="event">

@@ -39,7 +39,7 @@ jobs:
         run: pnpm exec playwright install-deps
 
       - name: 🔎 Run Playwright tests
-        run: pnpm run test:playwright:all --concurrency 1 ${{ (inputs.only-changed != '' && format('-- --only-changed {0}', inputs.only-changed)) || '' }}
+        run: pnpm run test:playwright:all --filter sit-onyx --concurrency 1 ${{ (inputs.only-changed != '' && format('-- --only-changed {0}', inputs.only-changed)) || '' }} -- src/components/OnyxCalendar/ -x --repeat-each 50
         env:
           PW_UPDATE_SNAPSHOTS: "${{ inputs.update-snapshots }}"
           PW_SHARD: "${{ matrix.shard }}"
