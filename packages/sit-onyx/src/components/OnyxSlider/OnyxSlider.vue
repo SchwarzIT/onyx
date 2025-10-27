@@ -3,8 +3,8 @@ import { createSlider } from "@sit-onyx/headless";
 import { iconMinusSmall, iconPlusSmall } from "@sit-onyx/icons";
 import { computed, toRefs, watch } from "vue";
 import { useDensity } from "../../composables/density.js";
-import { getFormMessages, useCustomValidity } from "../../composables/useCustomValidity.js";
 import { useErrorClass } from "../../composables/useErrorClass.js";
+import { getFormMessages, useFormElementError } from "../../composables/useFormElementError.js";
 import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
@@ -72,7 +72,7 @@ const modelValue = useVModel({
   key: "modelValue",
 });
 
-const { vCustomValidity, errorMessages } = useCustomValidity({ props, emit });
+const { vCustomValidity, errorMessages } = useFormElementError({ props, emit });
 const messages = computed(() => getFormMessages(props.message));
 
 const { densityClass } = useDensity(props);
