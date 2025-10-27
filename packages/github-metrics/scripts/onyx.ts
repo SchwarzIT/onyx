@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { createClient, getMeanStorySize } from "../src/index.js";
+import { createClient, getBugFixingRatio, getMeanStorySize } from "../src/index.js";
 
 const client = createClient({
   organization: "SchwarzIT",
@@ -14,6 +14,9 @@ const client = createClient({
 const data: Record<PropertyKey, unknown> = {};
 
 // collect various GitHub metrics
-await Promise.all([getMeanStorySize({ client }).then((size) => (data.meanStorySize = size))]);
+await Promise.all([
+  getMeanStorySize({ client }).then((value) => (data.meanStorySize = value)),
+  getBugFixingRatio({ client }).then((value) => (data.bugFixingRatio = value)),
+]);
 
 console.log(JSON.stringify(data, null, 2));

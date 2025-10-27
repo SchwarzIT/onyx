@@ -77,4 +77,21 @@ export type ProjectItem = {
    * Story effort/size/estimation.
    */
   effort?: number;
+  /**
+   * Type of the issue.
+   */
+  type?: IssueType;
+};
+
+export type IssueType = "Task" | "Feature" | "Bug";
+
+export type IterationBasedMetricOptions = {
+  client: Client;
+  /**
+   * Only items that are assigned to this iteration will be considered.
+   * Any date can be passed, the matching iteration will be determined automatically.
+   *
+   * @default `new Date()`
+   */
+  iteration?: Date;
 };

@@ -1,22 +1,11 @@
-import type { Client } from "../types.js";
+import type { IterationBasedMetricOptions } from "../types.js";
 import { findIterationByDate } from "../utils/github.js";
-
-export type GetMeanStorySizeOptions = {
-  client: Client;
-  /**
-   * Only items that are assigned to this iteration will be considered.
-   * Any date can be passed, the matching iteration will be determined automatically.
-   *
-   * @default `new Date()`
-   */
-  iteration?: Date;
-};
 
 /**
  * Calculates the mean / average story size of an item in the given iteration.
  * Items without an assigned size will be ignored.
  */
-export async function getMeanStorySize(options: GetMeanStorySizeOptions) {
+export async function getMeanStorySize(options: IterationBasedMetricOptions) {
   // fetch iterations and items in parallel to speed up the process
   const [allIterations, allItems] = await Promise.all([
     options.client.getAllIterations(),

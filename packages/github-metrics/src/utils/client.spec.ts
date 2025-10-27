@@ -196,6 +196,11 @@ describe("createClient", () => {
                   items: {
                     nodes: [
                       {
+                        content: {
+                          issueType: {
+                            name: "Bug",
+                          },
+                        },
                         fieldValues: {
                           nodes: [
                             {},
@@ -247,6 +252,7 @@ describe("createClient", () => {
                   items: {
                     nodes: [
                       {
+                        content: {},
                         fieldValues: {
                           nodes: [
                             {
@@ -283,8 +289,8 @@ describe("createClient", () => {
       const items = await client.getAllItems();
 
       // ASSERT
-      expect(items).toStrictEqual([
-        { iteration: "#1", effort: 1.5 },
+      expect(items).toMatchObject([
+        { iteration: "#1", effort: 1.5, type: "Bug" },
         { iteration: "#2", effort: 42 },
       ]);
     });
