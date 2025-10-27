@@ -3,7 +3,7 @@ import { test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxCalendar from "./OnyxCalendar.vue";
-import TestCaseDayContent from "./TestCaseDayContent.ct.vue";
+import TestCase from "./TestCase.ct.vue";
 
 test.describe("Screenshot tests", () => {
   const testDate = new Date(2024, 9, 23);
@@ -14,7 +14,6 @@ test.describe("Screenshot tests", () => {
     rows: [
       "default",
       "select",
-      "hover",
       "focus-visible",
       "calender-weeks",
       "actions",
@@ -55,9 +54,6 @@ test.describe("Screenshot tests", () => {
           case "select":
             await dayToInteract.click();
             break;
-          case "hover":
-            await dayToInteract.hover();
-            break;
           case "focus-visible":
             await dayToInteract.click();
             await page.keyboard.press("ArrowLeft");
@@ -96,14 +92,16 @@ test.describe("Screenshot tests", () => {
   });
 
   executeMatrixScreenshotTest({
-    name: "OnyxCalendar (custom content)",
+    name: "OnyxCalendar (custom content, custom disabled days)",
     columns: ["small", "big"],
-    rows: ["default"],
-    component: (column) => {
+    rows: ["custom-content", "custom-disabled-days"],
+    component: (column, row) => {
       return (
-        <TestCaseDayContent
+        <TestCase
           size={column}
           style={{ width: column === "small" ? "20rem" : "40rem" }}
+          showContent={row === "custom-content"}
+          disabledDays={row === "custom-disabled-days"}
         />
       );
     },
