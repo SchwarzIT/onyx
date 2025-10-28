@@ -3,4 +3,8 @@
 "sit-onyx": minor
 ---
 
-feat(OnyxCalendar): - implemented weekselect for range-select
+feat(OnyxCalendar):
+
+- implemented week select for range select-mode
+- implemented style improvements
+- implemented tests for range select-mode and keyboard navigation
