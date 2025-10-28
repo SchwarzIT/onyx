@@ -169,7 +169,7 @@ const findClosestIndex = (values: number[], currentValue: number) => {
     return acc;
   }, null);
 
-  return result!.closestIndex;
+  return result?.closestIndex ?? -1;
 };
 
 const adjustValueByIndex = ({

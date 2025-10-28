@@ -4,16 +4,16 @@ import OnyxSlider from "./OnyxSlider.vue";
 import type { SliderMode } from "./types.js";
 
 /**
- * The slider component allows users to select a value from a range by dragging a thumb along a track.
+ * The slider component allows users to select a value (or a range of two values) inside a given min/max range by dragging a thumb along a track.
  */
 const meta: Meta<typeof OnyxSlider> = {
   title: "Form Elements/Slider",
-  // @ts-expect-error: Generic component typing is complex with Storybook
-  component: OnyxSlider,
+  component: OnyxSlider as Meta["component"],
+  tags: ["unstable"],
   decorators: [
     (story) => ({
       components: { story },
-      template: `<div style="width: 16rem;"> <story /> </div>`,
+      template: `<div style="max-width: 16rem;"> <story /> </div>`,
     }),
   ],
   argTypes: {
@@ -26,30 +26,62 @@ export default meta;
 // Storybook does not yet support generics in stories well, so we use a non-generic Record here
 type Story<TMode extends SliderMode = "single"> = StoryObj<typeof OnyxSlider<TMode>>;
 
-/**
- * This example shows the default state of the slider.
- */
 export const Default = {
   args: {
-    modelValue: 40,
+    modelValue: 50,
     label: "Default",
   },
 } satisfies Story;
 
-/**
- * This example shows a slider with a hidden label.
- */
-export const HiddenLabel = {
+export const Range = {
+  args: {
+    mode: "range",
+    modelValue: [25, 75],
+    label: "Range mode",
+  },
+} satisfies Story<"range">;
+
+export const Marks = {
   args: {
     ...Default.args,
-    hideLabel: true,
+    label: "With marks",
+    marks: [
+      { value: 0, label: "0°C" },
+      { value: 25, label: "25°C" },
+      { value: 50, label: "50°C" },
+      { value: 75, label: "75°C" },
+      { value: 100, label: "100°C" },
+    ],
   },
 } satisfies Story;
 
-/**
- * This example shows a slider with a custom error message.
- * Will only be shown after interacting with the slider.
- */
+export const Discrete = {
+  args: {
+    label: "Discrete",
+    modelValue: 0,
+    discrete: true,
+    max: 5,
+    // TODO: also support discrete sliders without marks
+    marks: true,
+  },
+} satisfies Story;
+
+export const Disabled = {
+  args: {
+    ...Default.args,
+    label: "Disabled",
+    disabled: true,
+  },
+} satisfies Story;
+
+export const Message = {
+  args: {
+    ...Default.args,
+    label: "Message",
+    message: { shortMessage: "Example message", longMessage: "Example long message" },
+  },
+} satisfies Story;
+
 export const CustomError = {
   args: {
     ...Default.args,
@@ -62,142 +94,17 @@ export const CustomError = {
   },
 } satisfies Story;
 
-/**
- * This example shows a slider with a message / help text at the bottom.
- */
-export const WithMessage = {
-  args: {
-    ...Default.args,
-    message: { shortMessage: "Example message" },
-  },
-} satisfies Story;
-
-/**
- * This example shows a skeleton slider.
- */
 export const Skeleton = {
   args: {
     ...Default.args,
     skeleton: true,
-    hideLabel: true,
   },
 } satisfies Story;
 
-/**
- * This example shows the slider in range mode with two thumbs.
- */
-export const RangeMode = {
-  args: {
-    mode: "range",
-    modelValue: [20, 75],
-    label: "Range mode",
-  },
-} satisfies Story<"range">;
-
-/**
- * This example shows the disabled state of the slider.
- */
-export const Disabled = {
-  args: {
-    mode: "range",
-    disabled: true,
-    modelValue: [20, 40],
-    label: "Disabled",
-  },
-} satisfies Story<"range">;
-
-/**
- * This example shows the slider with marks.
- */
-export const WithMarks = {
-  args: {
-    mode: "range",
-    modelValue: [20, 40],
-    marks: [0, 25, 50, 75, 100],
-    label: "With Marks",
-  },
-} satisfies Story<"range">;
-
-/**
- * This example shows the slider with marks and labels.
- */
-export const WithLabelledMarks = {
-  args: {
-    mode: "range",
-    modelValue: [20, 40],
-    marks: [
-      { value: 0, label: "0°C" },
-      { value: 25, label: "25°C" },
-      { value: 50, label: "50°C" },
-      { value: 75, label: "75°C" },
-      { value: 100, label: "100°C" },
-    ],
-    label: "With Labelled Marks",
-    message: { shortMessage: "Example message" },
-  },
-} satisfies Story<"range">;
-
-/**
- * This example shows the disabled slider with marks and labels.
- */
-export const DisabledWithLabelledMarks = {
-  args: {
-    mode: "range",
-    disabled: true,
-    modelValue: [20, 40],
-    marks: [
-      { value: 0, label: "0°C" },
-      { value: 25, label: "25°C" },
-      { value: 50, label: "50°C" },
-      { value: 75, label: "75°C" },
-      { value: 100, label: "100°C" },
-    ],
-    label: "Disabled With Labelled Marks",
-  },
-} satisfies Story<"range">;
-
-/**
- * This example shows the slider with automatically generated marks.
- * The marks are generated based on the `step` property.
- * If `marks` is `true`, marks will be shown for each step.
- */
-export const AutomaticallyGeneratedMarks = {
-  args: {
-    mode: "range",
-    modelValue: [20, 40],
-    step: 10,
-    marks: true,
-    label: "Automatically Generated Marks",
-  },
-} satisfies Story<"range">;
-
-/**
- * This example shows the discrete state of the slider with marks.
- * The step is set to null, so the thumbs can only be moved to the marks.
- */
-export const Discrete = {
-  args: {
-    modelValue: 0,
-    discrete: true,
-    label: "Discrete",
-    marks: [
-      { value: 0, label: "-2" },
-      { value: 25, label: "-1" },
-      { value: 50, label: "0" },
-      { value: 75, label: "1" },
-      { value: 100, label: "2" },
-    ],
-  },
-} satisfies Story;
-
-/**
- * This example shows the vertical orientation of the slider.
- */
 export const Vertical = {
   args: {
-    mode: "range",
-    modelValue: [20, 40],
-    label: "Vertical slider",
+    ...Default.args,
+    label: "Vertical",
     orientation: "vertical",
     marks: [
       { value: 0, label: "0°C" },
@@ -210,44 +117,23 @@ export const Vertical = {
   decorators: [
     (story) => ({
       components: { story },
-      template: `<div style="width: 5rem; height: 16rem;"> <story /> </div>`,
+      template: `<div style="width: max-content; height: 16rem;"> <story /> </div>`,
     }),
   ],
-} satisfies Story<"range">;
-
-/**
- * This example shows the slider with tooltip always visible.
- */
-export const DisabledTooltip = {
-  args: {
-    modelValue: 40,
-    label: "With tooltip",
-    disableTooltip: true,
-    marks: [0, 25, 50, 75, 100],
-    step: 5,
-  },
 } satisfies Story;
 
-/**
- * This example shows the slider with value controls (min/max labels).
- */
-export const WithValueControl = {
+export const IconControl = {
   args: {
-    modelValue: 40,
-    label: "Value control",
-    control: "value",
-    hideLabel: true,
-  },
-} satisfies Story;
-
-/**
- * This example shows the slider with icon controls for increment/decrement.
- */
-export const WithIconControl = {
-  args: {
-    modelValue: 40,
+    ...Default.args,
     label: "Icon control",
     control: "icon",
-    hideLabel: true,
+  },
+} satisfies Story;
+
+export const ValueControl = {
+  args: {
+    ...Default.args,
+    label: "Value control",
+    control: "value",
   },
 } satisfies Story;
