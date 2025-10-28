@@ -145,12 +145,14 @@ test("range mode", async ({ mount, page }) => {
   // ACT
   await startRange.click();
   await endRange.click();
+  await page.mouse.move(0, 0);
   //ASSERT
   await expect(component).toHaveScreenshot("range.png");
   // Today inside range
   // ACT
   await startRange.click();
   await endRange2.click();
+  await page.mouse.move(0, 0);
   // ASSERT
   await expect(startCell).toHaveClass(/onyx-calendar-cell--range-start/);
   await expect(endCell2).toHaveClass(/onyx-calendar-cell--range-end/);
@@ -171,6 +173,7 @@ test("range mode", async ({ mount, page }) => {
   await expect(component).toHaveScreenshot("range-hover-today.png");
 
   // focus-visible start end middle today
+  await page.mouse.move(0, 0);
   await page.keyboard.press("ArrowLeft");
   await expect(component).toHaveScreenshot("range-focus-outside.png");
 
