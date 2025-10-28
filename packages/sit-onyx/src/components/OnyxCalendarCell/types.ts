@@ -28,6 +28,10 @@ export type OnyxCalendarCellProps = DensityProp & {
    */
   rangeType?: CalendarCellRangeType;
   buttonAttributes?: HTMLAttributes;
+  /**
+   * Optional tooltip text
+   */
+  toolTipText?: string;
 };
 
 export type CalendarCellRangeType = "start" | "middle" | "end";

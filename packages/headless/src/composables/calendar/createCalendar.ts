@@ -313,6 +313,11 @@ export const _unstableCreateCalendar = createBuilder((options: CreateCalendarOpt
       const end = sortedRange.end ? new Date(sortedRange.end) : undefined;
       end?.setHours(23, 59, 59, 999);
 
+      if (
+        date.toDateString() === start.toDateString() &&
+        date.toDateString() === end?.toDateString()
+      )
+        return;
       if (date.toDateString() === start.toDateString()) return "start";
       if (date.toDateString() === end?.toDateString()) return "end";
       if (end && isInDateRange(date, start, end)) return "middle";
