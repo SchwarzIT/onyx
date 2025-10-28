@@ -43,7 +43,6 @@ export const Clickable = {
 } satisfies Story;
 
 export const Link = {
-  tags: ["new:feature"],
   args: {
     ...Default.args,
     link: {
