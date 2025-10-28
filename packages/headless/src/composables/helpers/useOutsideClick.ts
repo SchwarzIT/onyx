@@ -1,6 +1,5 @@
-import type { Arrayable } from "vitest"; // For an unknown reason removing this import will break the build of "demo-app" and "playground"
 import { toValue, type MaybeRefOrGetter, type Ref } from "vue";
-import type { Nullable } from "../../utils/types.js";
+import type { Arrayable, Nullable } from "../../utils/types.js";
 import { useGlobalEventListener } from "./useGlobalListener.js";
 
 export type UseOutsideClickOptions<TCheckOnTab extends boolean | undefined = undefined> = {
