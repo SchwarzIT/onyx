@@ -12,8 +12,6 @@ export type SliderMark =
     }
   | number;
 
-export type SliderOrientation = "horizontal" | "vertical";
-
 export type CreateSliderOptions<TValue extends number | number[] = number> = {
   /**
    * Current value(s) of the slider.
@@ -72,12 +70,6 @@ export type CreateSliderOptions<TValue extends number | number[] = number> = {
    */
   label: MaybeRef<string>;
   /**
-   * Orientation of the slider.
-   *
-   * @default "horizontal"
-   */
-  orientation?: MaybeRef<SliderOrientation>;
-  /**
    * Callback when the value changes during interaction.
    * Note: This is called during interaction (dragging, key press, etc.).
    */
@@ -115,14 +107,6 @@ const NAVIGATION_KEYS = new Set<string>([
 const INCREMENT_KEYS = new Set<string>([KEY.Right, KEY.Up, KEY.PageUp]);
 const DECREMENT_KEYS = new Set<string>([KEY.Left, KEY.Down, KEY.PageDown]);
 
-const TRACK_CALCULATION_STRATEGIES = {
-  horizontal: (rect: DOMRect, coords: { x: number; y: number }) =>
-    MathUtils.clamp((coords.x - rect.left) / rect.width, 0, 1),
-
-  vertical: (rect: DOMRect, coords: { x: number; y: number }) =>
-    MathUtils.clamp((rect.bottom - coords.y) / rect.height, 0, 1),
-};
-
 const readThumbIndex = (event: Event) =>
   Number((event.currentTarget as HTMLElement)?.dataset.index ?? -1);
 
@@ -134,23 +118,6 @@ const readThumbIndex = (event: Event) =>
  */
 const roundToStep = (value: number, step: number, min: number) =>
   Number((Math.round((value - min) / step) * step + min).toFixed(MathUtils.decimalsCount(step)));
-
-/**
- * Normalizes an array of values to ensure they are within min/max bounds,
- * properly stepped, and sorted in ascending order.
- */
-const normalizeValues = (values: number[], min: number, max: number, step: number): number[] => {
-  if (!values.length) return [min];
-
-  return values
-    .map((value) => {
-      // Clamp to min/max bounds
-      const clamped = MathUtils.clamp(value, min, max);
-      // Round to nearest step
-      return roundToStep(clamped, step, min);
-    })
-    .sort((a, b) => a - b); // Ensure ascending order
-};
 
 const findClosestIndex = (values: number[], currentValue: number) => {
   const result = values.reduce<{
@@ -169,7 +136,7 @@ const findClosestIndex = (values: number[], currentValue: number) => {
     return acc;
   }, null);
 
-  return result!.closestIndex;
+  return result?.closestIndex ?? -1;
 };
 
 const adjustValueByIndex = ({
@@ -201,39 +168,38 @@ export const _unstableCreateSlider = createBuilder(
     const min = computed(() => unref(options.min) ?? 0);
     const max = computed(() => unref(options.max) ?? 100);
     const step = computed(() => unref(options.step) ?? 1);
-    const values = computed(() => {
+    const normalizedValues = computed(() => {
       const rawValues = unref(options.value);
 
-      if (Array.isArray(rawValues)) {
-        if (!rawValues?.length) {
-          return [min.value];
-        }
+      const arrayValues: number[] = Array.isArray(rawValues)
+        ? rawValues.sort((a, b) => a - b)
+        : [rawValues];
 
-        return normalizeValues(rawValues, min.value, max.value, step.value);
-      } else {
-        if (typeof rawValues !== "number") {
-          return [min.value];
-        }
+      if (!arrayValues.length) return [min.value];
 
-        return normalizeValues([rawValues], min.value, max.value, step.value);
-      }
+      return arrayValues.map((value) => {
+        // Clamp to min/max bounds
+        const clamped = MathUtils.clamp(value, min.value, max.value);
+        if (isDiscrete.value) {
+          // Round to nearest step
+          return roundToStep(clamped, step.value, min.value);
+        }
+        return clamped;
+      });
     });
+
     const shiftStep = computed(() => {
       const shiftStep = unref(options.shiftStep);
-
-      if (typeof shiftStep !== "undefined") {
-        return shiftStep;
-      }
+      if (shiftStep != undefined) return shiftStep;
 
       // Round to the nearest step multiple to ensure it aligns with step boundaries
       const stepMultiple = Math.max(1, Math.round(((max.value - min.value) * 0.1) / step.value));
-
       return stepMultiple * step.value;
     });
+
     const isDisabled = computed(() => unref(options.disabled) ?? false);
     const marks = computed(() => unref(options.marks) ?? false);
     const label = computed(() => unref(options.label));
-    const orientation = computed(() => unref(options.orientation) ?? "horizontal");
     const isDiscrete = computed(() => unref(options.discrete) ?? false);
 
     // Refs and variables for internal state
@@ -268,10 +234,6 @@ export const _unstableCreateSlider = createBuilder(
      * Thumb could be active even if not dragging (e.g. click on the rail to move the thumb there).
      */
     const activeThumbIndex = ref<number>(-1);
-    /**
-     * Index of the thumb that is currently focused.
-     */
-    const focusedThumbIndex = ref<number>(-1);
     /**
      * Indicates whether the slider is a range slider (with two or more thumbs) or a single value slider (with one thumb).
      */
@@ -314,20 +276,11 @@ export const _unstableCreateSlider = createBuilder(
       return [];
     });
 
-    /**
-     * Defines the main axis (position and size) and cross axis (thickness) based on orientation.
-     */
-    const axis = computed(() =>
-      orientation.value === "vertical"
-        ? { position: "bottom" as const, size: "height" as const, cross: "width" as const }
-        : { position: "left" as const, size: "width" as const, cross: "height" as const },
-    );
-
     const marksValues = computed(() => marksList.value.map((mark) => mark.value));
 
     // Internal methods
     const emitChange = (next: number[]) => {
-      if (!areArraysEqual(values.value, next)) {
+      if (!areArraysEqual(normalizedValues.value, next)) {
         const nextValue = isRange.value ? next : next[0];
 
         if (typeof nextValue !== "undefined") {
@@ -401,10 +354,9 @@ export const _unstableCreateSlider = createBuilder(
       if (!slider) return null;
 
       const rect = slider.getBoundingClientRect();
-      const mainSize = orientation.value === "vertical" ? rect.height : rect.width;
-      if (mainSize <= 0) return null;
+      if (rect.width <= 0) return null;
 
-      const percent = TRACK_CALCULATION_STRATEGIES[orientation.value](rect, coords);
+      const percent = MathUtils.clamp((coords.x - rect.left) / rect.width, 0, 1);
 
       const raw = MathUtils.percentToValue(percent, min.value, max.value);
       const snapped = !isDiscrete.value
@@ -419,11 +371,11 @@ export const _unstableCreateSlider = createBuilder(
         return { newValue: candidate, activeIndex: 0 };
       }
 
-      const closestIndex = findClosestIndex(values.value, candidate);
+      const closestIndex = findClosestIndex(normalizedValues.value, candidate);
       const index = isMoving && previousActiveIndex != null ? previousActiveIndex : closestIndex;
 
       const adjustedValues = adjustValueByIndex({
-        values: values.value,
+        values: normalizedValues.value,
         newValue: candidate,
         index,
       });
@@ -439,7 +391,7 @@ export const _unstableCreateSlider = createBuilder(
      */
     const commitValueFromEvent = (event: KeyboardEvent | Event, input: number) => {
       const index = readThumbIndex(event);
-      const current = values.value[index];
+      const current = normalizedValues.value[index];
 
       if (typeof current !== "number") {
         return;
@@ -474,7 +426,7 @@ export const _unstableCreateSlider = createBuilder(
       const scalar = MathUtils.clamp(useMarks ? snapByMarks(input) : input, min.value, max.value);
 
       const nextValues = isRange.value
-        ? adjustValueByIndex({ values: values.value, newValue: scalar, index })
+        ? adjustValueByIndex({ values: normalizedValues.value, newValue: scalar, index })
         : [scalar];
 
       if (isRange.value) {
@@ -482,9 +434,7 @@ export const _unstableCreateSlider = createBuilder(
         ensureFocusOnThumb({ index: activeIndex, shouldSetActive: true });
       }
 
-      focusedThumbIndex.value = index;
-
-      if (!areArraysEqual(values.value, nextValues)) {
+      if (!areArraysEqual(normalizedValues.value, nextValues)) {
         emitChange(nextValues);
       }
       emitCommit(nextValues);
@@ -634,14 +584,12 @@ export const _unstableCreateSlider = createBuilder(
        * Focus visible is needed to set the focus based on keyboard (Tab/Shift+Tab)
        */
       if (isFocusVisible(event.target as HTMLSpanElement)) {
-        focusedThumbIndex.value = index;
         activeThumbIndex.value = index;
       }
     };
 
     const handleHiddenInputBlur = (event: FocusEvent) => {
       if (!isFocusVisible(event.target as HTMLSpanElement)) {
-        focusedThumbIndex.value = -1;
         activeThumbIndex.value = -1;
       }
     };
@@ -652,7 +600,7 @@ export const _unstableCreateSlider = createBuilder(
       event.preventDefault();
 
       const index = readThumbIndex(event);
-      const value = values.value[index];
+      const value = normalizedValues.value[index];
 
       if (typeof value !== "number") {
         return;
@@ -710,31 +658,20 @@ export const _unstableCreateSlider = createBuilder(
 
     const trackOffset = computed(() =>
       MathUtils.valueToPercent(
-        isRange.value && values.value[0] ? values.value[0] : min.value,
+        isRange.value && normalizedValues.value[0] ? normalizedValues.value[0] : min.value,
         min.value,
         max.value,
       ),
     );
     const trackLength = computed(
       () =>
-        MathUtils.valueToPercent(values.value.at(-1) ?? 0, min.value, max.value) -
+        MathUtils.valueToPercent(normalizedValues.value.at(-1) ?? 0, min.value, max.value) -
         trackOffset.value,
     );
     const trackStyle = computed(() => ({
-      [axis.value.position]: `${trackOffset.value}%`,
-      [axis.value.size]: `${trackLength.value}%`,
+      left: `${trackOffset.value}%`,
+      width: `${trackLength.value}%`,
     }));
-
-    const isMarkActive = computed(() => (markValue: number) => {
-      if (isRange.value) {
-        const minValue = Math.min(...values.value);
-        const maxValue = Math.max(...values.value);
-        return markValue >= minValue && markValue <= maxValue;
-      }
-
-      const currentValue = values.value[0]!;
-      return markValue <= currentValue;
-    });
 
     onBeforeUnmount(stopPointerListening);
 
@@ -744,11 +681,20 @@ export const _unstableCreateSlider = createBuilder(
         if (isDisabled.value) {
           isDragging.value = false;
           activeThumbIndex.value = -1;
-          focusedThumbIndex.value = -1;
           stopPointerListening();
         }
       },
     );
+
+    /**
+     * Adjusting the position for marks with proper edge offset to prevent overflow because of rounding.
+     * For marks at 0% and 100%, applies a 0.25rem offset to keep them within bounds.
+     */
+    const adjustMarkPosition = (percentage: number, offset?: string): string => {
+      if (offset && percentage <= 0) return offset;
+      if (offset && percentage >= 100) return `calc(100% - ${offset})`;
+      return `${percentage}%`;
+    };
 
     return {
       elements: {
@@ -757,7 +703,7 @@ export const _unstableCreateSlider = createBuilder(
          */
         root: computed(() => ({
           ref: sliderRef,
-          style: { touchAction: orientation.value === "vertical" ? "pan-x" : "pan-y" },
+          style: { touchAction: "pan-y" },
           onMousedown: handleRootMousedown,
           onTouchstart: handlePointerStart,
         })),
@@ -768,7 +714,7 @@ export const _unstableCreateSlider = createBuilder(
         thumbContainer: computed(() => (data: { index: number; value: number }) => ({
           "data-index": data.index,
           style: {
-            [axis.value.position]: `${MathUtils.valueToPercent(data.value, min.value, max.value)}%`,
+            left: `${MathUtils.valueToPercent(data.value, min.value, max.value)}%`,
           },
         })),
 
@@ -785,7 +731,7 @@ export const _unstableCreateSlider = createBuilder(
           "aria-valuemin": min.value,
           "aria-valuemax": max.value,
           "aria-valuenow": data.value,
-          "aria-orientation": orientation.value,
+          "aria-orientation": "horizontal",
           "data-index": data.index,
           tabIndex: isDisabled.value ? -1 : 0,
           step: isDiscrete.value && marks.value ? "any" : (step.value ?? undefined),
@@ -799,14 +745,20 @@ export const _unstableCreateSlider = createBuilder(
         /**
          * Mark elements
          */
-        mark: computed(() => (data: { value: number; label?: string }) => ({
-          "data-value": data.value,
-          "aria-hidden": true,
-          style: {
-            [axis.value.position]:
-              `${MathUtils.clamp(MathUtils.valueToPercent(data.value, min.value, max.value), 0, 100)}%`,
-          },
-        })),
+        mark: computed(() => (data: { value: number; label?: string; positionOffset?: string }) => {
+          const percentage = MathUtils.clamp(
+            MathUtils.valueToPercent(data.value, min.value, max.value),
+            0,
+            100,
+          );
+          const position = adjustMarkPosition(percentage, data.positionOffset);
+
+          return {
+            "data-value": data.value,
+            "aria-hidden": true,
+            style: { left: position },
+          };
+        }),
 
         /**
          * Label for each mark
@@ -814,7 +766,7 @@ export const _unstableCreateSlider = createBuilder(
         markLabel: computed(() => (data: { value: number }) => ({
           "data-value": data.value,
           style: {
-            [axis.value.position]: `${MathUtils.valueToPercent(data.value, min.value, max.value)}%`,
+            left: `${MathUtils.valueToPercent(data.value, min.value, max.value)}%`,
           },
           "aria-hidden": true,
         })),
@@ -849,11 +801,6 @@ export const _unstableCreateSlider = createBuilder(
          */
         activeThumbIndex,
         /**
-         * Index of the thumb that is currently focused.
-         * `-1` if no thumb is focused.
-         */
-        focusedThumbIndex,
-        /**
          * `true` if the slider is a range slider (with two or more thumbs).
          */
         isRange,
@@ -872,35 +819,17 @@ export const _unstableCreateSlider = createBuilder(
          * - If marks option is `false`, no marks are shown.
          */
         marksList,
+        shiftStep,
+        normalizedValues,
       },
 
       internals: {
-        /**
-         * Converts a value from the slider's range to a percentage (0-100).
-         * @param value - value to convert
-         * @returns percentage representation of the value
-         */
-        valueToPercent: computed(
-          () => (value: number) => MathUtils.valueToPercent(value, min.value, max.value),
-        ),
-        /**
-         * Checks if a given mark value is active (i.e., within the selected range).
-         * Use case: when rendering marks, to determine if a mark is covered by the selected range.
-         *
-         * @param markValue - value of the mark to check
-         * @returns `true` if the mark is active, `false` otherwise
-         */
-        isMarkActive,
         /**
          * Clamps a value to the slider's range.
          * @param value - value to clamp
          * @returns clamped value
          */
         clampValue: computed(() => (value: number) => MathUtils.clamp(value, min.value, max.value)),
-        /**
-         * Main axis properties based on orientation.
-         */
-        axis,
         /**
          * Rounds a value to the nearest valid step.
          * @param value - value to round
@@ -911,12 +840,6 @@ export const _unstableCreateSlider = createBuilder(
             !isDiscrete.value
               ? roundToStep(value, step.value, min.value)
               : marksValues.value[findClosestIndex(marksValues.value, value)],
-        ),
-        /**
-         * Normalizes an array of values to ensure they are within min/max bounds,
-         */
-        normalizeValues: computed(
-          () => (values: number[]) => normalizeValues(values, min.value, max.value, step.value),
         ),
       },
     };

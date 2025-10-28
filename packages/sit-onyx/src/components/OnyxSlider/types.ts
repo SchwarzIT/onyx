@@ -1,6 +1,5 @@
 import type { CustomValidityProp } from "../../composables/useFormElementError.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
-import type { Orientation } from "../../types/index.js";
 import type { OnyxFormElementProps } from "../OnyxFormElement/types.js";
 
 export const SLIDER_CONTROLS = ["icon", "value", "input"] as const;
@@ -76,7 +75,7 @@ export type OnyxSliderProps<TSliderMode extends SliderMode> = CustomValidityProp
     /**
      * Step size when holding shift key or using Page Up/Page Down keys.
      *
-     * Defaults to 10% of the total range (max - min) multiplied by the step size.
+     * @default 10% of the total range (max - min) multiplied by the step size.
      * This provides intuitive behavior that automatically scales with different slider ranges.
      */
     shiftStep?: number;
@@ -97,12 +96,6 @@ export type OnyxSliderProps<TSliderMode extends SliderMode> = CustomValidityProp
      * - `icon`: shows icon buttons to increment/decrement the value. The buttons increment/decrement by the shiftStep value. Available only for `single` mode.
      */
     control?: SliderControl;
-    /**
-     * Orientation of the slider.
-     *
-     * @default "horizontal"
-     */
-    orientation?: Orientation;
     /**
      * When to show the tooltip with the current value over the thumb.
      *
