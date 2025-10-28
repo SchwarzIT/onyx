@@ -19,7 +19,6 @@ import {
 } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
-import { asArray } from "../../utils/objects.js";
 import { useForwardProps } from "../../utils/props.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
@@ -180,7 +179,7 @@ const isIconControl = computed(() => props.control === "icon" && props.mode === 
             </template>
 
             <span
-              v-for="(value, index) in asArray(normalizedValues)"
+              v-for="(value, index) in normalizedValues"
               :key="index"
               v-bind="thumbContainer({ value, index })"
               :class="[
