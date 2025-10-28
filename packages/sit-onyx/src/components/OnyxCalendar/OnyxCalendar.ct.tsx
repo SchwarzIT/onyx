@@ -117,7 +117,7 @@ test.describe("Screenshot tests (custom content)", () => {
   });
 });
 
-test("range mode", async ({ mount }) => {
+test("range mode", async ({ mount, page }) => {
   const minDate = getMockDate(-12);
 
   // ARRANGE
@@ -171,17 +171,20 @@ test("range mode", async ({ mount }) => {
   await expect(component).toHaveScreenshot("range-hover-today.png");
 
   // focus-visible start end middle today
-  await startRange.focus();
+  await page.keyboard.press("ArrowLeft");
+  await expect(component).toHaveScreenshot("range-focus-outside.png");
+
+  await page.keyboard.press("ArrowRight");
   await expect(component).toHaveScreenshot("range-focus-start.png");
-
-  await endRange2.focus();
-  await expect(component).toHaveScreenshot("range-focus-end.png");
-
-  await middleDate.focus();
+  await page.keyboard.press("ArrowRight");
   await expect(component).toHaveScreenshot("range-focus-middle.png");
 
-  await today.focus();
+  await page.keyboard.press("ArrowDown");
   await expect(component).toHaveScreenshot("range-focus-today.png");
+
+  await page.keyboard.press("ArrowRight");
+  await page.keyboard.press("ArrowRight");
+  await expect(component).toHaveScreenshot("range-focus-end.png");
 
   // week number hovered disabled // inside min
   await weekNumberDisabled.hover();
