@@ -1,10 +1,14 @@
 import type {
+  Client,
   CreateClientOptions,
   GraphQLPageInfo,
+  IssueType,
+  ItemStatus,
   Iteration,
   ProjectItem,
   RunQueryOptions,
 } from "../types.js";
+import { findIterationByDate } from "./github.js";
 
 /**
  * Creates a new client that can be used to collect metrics from a GitHub project / interact with the GitHub GraphQL API.
@@ -122,13 +126,29 @@ export function createClient(options: CreateClientOptions) {
       };
     };
 
+    type SingleSelectField = {
+      __typename: "ProjectV2ItemFieldSingleSelectValue";
+      name: string;
+      field: {
+        name: string;
+      };
+    };
+
     type QueryResult = {
       organization: {
         projectV2: {
           items: {
             nodes: {
+              content: {
+                issueType?: { name: IssueType };
+              };
               fieldValues: {
-                nodes: (IterationField | NumberField | { __typename?: never })[];
+                nodes: (
+                  | IterationField
+                  | NumberField
+                  | SingleSelectField
+                  | { __typename?: never }
+                )[];
               };
             }[];
             pageInfo: GraphQLPageInfo;
@@ -147,6 +167,13 @@ query GetAllIssues(
     projectV2(number: $projectId) {
       items(first: 100, after: $after) {
         nodes {
+          content {
+            ... on Issue {
+              issueType {
+                name
+              }
+            }
+          }
            fieldValues(first: 100) {
             nodes {
               ... on ProjectV2ItemFieldIterationValue {
@@ -161,6 +188,15 @@ query GetAllIssues(
               ... on ProjectV2ItemFieldNumberValue {
                 number
                 __typename
+                field {
+                  ... on ProjectV2FieldCommon {
+                    name
+                  }
+                }
+              }
+              ... on ProjectV2ItemFieldSingleSelectValue {
+                __typename
+                name
                 field {
                   ... on ProjectV2FieldCommon {
                     name
@@ -216,10 +252,32 @@ query GetAllIssues(
             field.field.name === options.fields.effort,
         );
 
-        return {
+        const statusField = node.fieldValues.nodes.find(
+          (field): field is SingleSelectField =>
+            field.__typename === "ProjectV2ItemFieldSingleSelectValue" &&
+            field.field.name === options.fields.status.fieldName,
+        );
+
+        const status = Object.entries(options.fields.status.options).find(
+          ([_status, optionName]) => {
+            return statusField?.name === optionName;
+          },
+        )?.[0] as ItemStatus | undefined;
+
+        const item: ProjectItem = {
           iteration: iterationField?.title,
           effort: effortField?.number,
+          type: node.content.issueType?.name,
+          status,
         };
+
+        // remove "undefined" values
+        for (const key in item) {
+          const _key = key as keyof typeof item;
+          if (item[_key] == undefined) delete item[_key];
+        }
+
+        return item;
       });
     });
   }
@@ -233,4 +291,20 @@ query GetAllIssues(
     getAllIterations,
     getAllItems,
   };
+}
+
+/**
+ * Fetches all items and iterations and returns only the items that are part of the iteration
+ * that the given date is in.
+ */
+export async function getAllItemsByIterationDate(client: Client, date: Date) {
+  // fetch iterations and items in parallel to speed up the process
+  const [allIterations, allItems] = await Promise.all([
+    client.getAllIterations(),
+    client.getAllItems(),
+  ]);
+
+  const iteration = findIterationByDate(allIterations, date);
+  const items = allItems.filter((item) => item.iteration === iteration.title);
+  return { items, iteration };
 }

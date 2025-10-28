@@ -9,6 +9,12 @@ const mockOptions: CreateClientOptions = {
   fields: {
     effort: "test-effort",
     iteration: "test-iteration",
+    status: {
+      fieldName: "test-status",
+      options: {
+        finished: "test-finished",
+      },
+    },
   },
 };
 
@@ -196,6 +202,11 @@ describe("createClient", () => {
                   items: {
                     nodes: [
                       {
+                        content: {
+                          issueType: {
+                            name: "Bug",
+                          },
+                        },
                         fieldValues: {
                           nodes: [
                             {},
@@ -227,6 +238,13 @@ describe("createClient", () => {
                                 name: mockOptions.fields.effort,
                               },
                             },
+                            {
+                              __typename: "ProjectV2ItemFieldSingleSelectValue",
+                              name: mockOptions.fields.status.options.finished,
+                              field: {
+                                name: mockOptions.fields.status.fieldName,
+                              },
+                            },
                           ],
                         },
                       },
@@ -247,6 +265,7 @@ describe("createClient", () => {
                   items: {
                     nodes: [
                       {
+                        content: {},
                         fieldValues: {
                           nodes: [
                             {
@@ -261,6 +280,13 @@ describe("createClient", () => {
                               __typename: "ProjectV2ItemFieldNumberValue",
                               field: {
                                 name: mockOptions.fields.effort,
+                              },
+                            },
+                            {
+                              __typename: "ProjectV2ItemFieldSingleSelectValue",
+                              name: "something-else",
+                              field: {
+                                name: mockOptions.fields.status.fieldName,
                               },
                             },
                           ],
@@ -284,7 +310,7 @@ describe("createClient", () => {
 
       // ASSERT
       expect(items).toStrictEqual([
-        { iteration: "#1", effort: 1.5 },
+        { iteration: "#1", effort: 1.5, type: "Bug", status: "finished" },
         { iteration: "#2", effort: 42 },
       ]);
     });

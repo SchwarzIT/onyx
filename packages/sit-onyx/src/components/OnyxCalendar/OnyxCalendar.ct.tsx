@@ -18,7 +18,8 @@ test.beforeEach(async ({ page }) => {
   await page.clock.setFixedTime(MOCK_NOW);
 });
 
-test.describe("Screenshot tests", () => {
+// eslint-disable-next-line playwright/no-skipped-test -- screenshots are flaky, see: https://github.com/SchwarzIT/onyx/issues/4340
+test.describe.skip("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Calendar",
     columns: ["small", "big"],
