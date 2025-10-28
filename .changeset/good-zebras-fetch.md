@@ -3,3 +3,8 @@
 ---
 
 refactor(createSlider): refactor internal implementation
+
+Since the slider is a unstable / experimental, this change contains breaking changes.
+
+- remove option `orientation`
+- remove focusedThumbIndex, valueToPercent, isMarkActive, axis and normalizeValues. Prefer native CSS selectors instead
