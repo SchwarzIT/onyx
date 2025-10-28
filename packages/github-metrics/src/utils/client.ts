@@ -1,6 +1,7 @@
 import type {
   CreateClientOptions,
   GraphQLPageInfo,
+  IssueType,
   Iteration,
   ProjectItem,
   RunQueryOptions,
@@ -127,6 +128,9 @@ export function createClient(options: CreateClientOptions) {
         projectV2: {
           items: {
             nodes: {
+              content: {
+                issueType?: { name: IssueType };
+              };
               fieldValues: {
                 nodes: (IterationField | NumberField | { __typename?: never })[];
               };
@@ -147,6 +151,13 @@ query GetAllIssues(
     projectV2(number: $projectId) {
       items(first: 100, after: $after) {
         nodes {
+          content {
+            ... on Issue {
+              issueType {
+                name
+              }
+            }
+          }
            fieldValues(first: 100) {
             nodes {
               ... on ProjectV2ItemFieldIterationValue {
@@ -219,6 +230,7 @@ query GetAllIssues(
         return {
           iteration: iterationField?.title,
           effort: effortField?.number,
+          type: node.content.issueType?.name,
         };
       });
     });

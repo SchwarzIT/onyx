@@ -1,8 +1,8 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import { createTestClient } from "../utils/client.spec.js";
-import { getMeanStorySize } from "./meanStorySize.js";
+import { getBugFixingRatio } from "./bugFixingRatio.js";
 
-describe("meanStorySize.ts", () => {
+describe("bugFixingRatio.ts", () => {
   const mockClient = createTestClient();
 
   beforeEach(() => {
@@ -15,7 +15,7 @@ describe("meanStorySize.ts", () => {
     vi.useRealTimers();
   });
 
-  test("should calculate the mean story size for the current sprint", async () => {
+  test("should calculate the bug fixing ratio for the current sprint", async () => {
     // ARRANGE
     const mockDate = new Date(2025, 7, 20);
     vi.setSystemTime(mockDate);
@@ -27,22 +27,24 @@ describe("meanStorySize.ts", () => {
     vi.spyOn(mockClient, "getAllItems").mockResolvedValue([
       { effort: undefined, iteration: "#1" },
       { effort: 1, iteration: "#1" },
-      { effort: 2, iteration: "#1" },
+      { effort: 2, iteration: "#1", type: "Bug" },
+      { effort: 5, iteration: "#1" },
       { effort: 5, iteration: "#2" },
     ]);
 
     // ACT
-    const data = await getMeanStorySize({ client: mockClient });
+    const data = await getBugFixingRatio({ client: mockClient });
 
     // ASSERT
     expect(data).toStrictEqual({
-      mean: 1.5,
-      items: 2,
+      ratio: 0.25,
+      bugs: 1,
+      items: 3,
       iteration: "#1",
     });
   });
 
-  test("should calculate the mean story size for a specific sprint", async () => {
+  test("should calculate the bug fixing ratio for a specific sprint", async () => {
     // ARRANGE
     const mockDate = new Date(2025, 7, 20);
     vi.setSystemTime(mockDate);
@@ -55,21 +57,23 @@ describe("meanStorySize.ts", () => {
       { effort: undefined, iteration: "#1" },
       { effort: 1, iteration: "#1" },
       { effort: 2, iteration: "#1" },
-      { effort: 5, iteration: "#2" },
+      { effort: 4, iteration: "#2" },
+      { effort: 4, iteration: "#2", type: "Bug" },
     ]);
 
     // ACT
-    const data = await getMeanStorySize({ client: mockClient, iteration: new Date(2025, 7, 27) });
+    const data = await getBugFixingRatio({ client: mockClient, iteration: new Date(2025, 7, 27) });
 
     // ASSERT
     expect(data).toStrictEqual({
-      mean: 5,
-      items: 1,
+      ratio: 0.5,
+      bugs: 1,
+      items: 2,
       iteration: "#2",
     });
   });
 
-  test("should calculate the mean story size when the data is empty", async () => {
+  test("should calculate the bug fixing ratio when the data is empty", async () => {
     // ARRANGE
     const mockDate = new Date(2025, 7, 20);
     vi.setSystemTime(mockDate);
@@ -80,11 +84,12 @@ describe("meanStorySize.ts", () => {
     vi.spyOn(mockClient, "getAllItems").mockResolvedValue([{ effort: undefined, iteration: "#1" }]);
 
     // ACT
-    const data = await getMeanStorySize({ client: mockClient });
+    const data = await getBugFixingRatio({ client: mockClient });
 
     // ASSERT
     expect(data).toStrictEqual({
-      mean: 0,
+      ratio: 0,
+      bugs: 0,
       items: 0,
       iteration: "#1",
     });
@@ -101,7 +106,7 @@ describe("meanStorySize.ts", () => {
     vi.spyOn(mockClient, "getAllItems").mockResolvedValue([]);
 
     // ACT
-    const promise = getMeanStorySize({ client: mockClient });
+    const promise = getBugFixingRatio({ client: mockClient });
 
     // ASSERT
     await expect(promise).rejects.toThrowError();
