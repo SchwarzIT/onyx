@@ -46,7 +46,27 @@ export type ClientProjectFields = {
    * @example "Sprint"
    */
   iteration: string;
+  /**
+   * Maps your custom status field names to functional names used by this client.
+   */
+  status: ClientProjectStatusFields;
 };
+
+export type ClientProjectStatusFields = {
+  /**
+   * The field name that represents the status of an item.
+   */
+  fieldName: string;
+  /**
+   * Maps your custom select option values to functional values used by this client.
+   */
+  options: {
+    [key in ItemStatus]: string;
+  };
+};
+
+export const ITEM_STATUS = ["finished"] as const;
+export type ItemStatus = (typeof ITEM_STATUS)[number];
 
 export type RunQueryOptions = {
   query: string;
@@ -81,6 +101,7 @@ export type ProjectItem = {
    * Type of the issue.
    */
   type?: IssueType;
+  status?: ItemStatus;
 };
 
 export type IssueType = "Task" | "Feature" | "Bug";

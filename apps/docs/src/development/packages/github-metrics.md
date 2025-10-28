@@ -58,6 +58,12 @@ const client = createClient({
   fields: {
     effort: "Effort (d)",
     iteration: "Sprint",
+    status: {
+      fieldName: "Status",
+      options: {
+        finished: "Done",
+      },
+    },
   },
 });
 ```
@@ -100,6 +106,21 @@ Calculates the bug fixing ratio in the given iteration (how much time is spend o
 import { getBugFixingRatio } from "@sit-onyx/github-metrics";
 
 const data = await getBugFixingRatio({
+  client,
+  // by default, the current iteration (today) will be used.
+  // to get data for another iteration, simply pass any date that is in your desired iteration
+  // iteration: new Date(2025, 9, 23),
+});
+```
+
+### Throughput
+
+Calculates the throughput in the given iteration (amount of items with status "finished").
+
+```ts{4-6}
+import { getThroughput } from "@sit-onyx/github-metrics";
+
+const data = await getThroughput({
   client,
   // by default, the current iteration (today) will be used.
   // to get data for another iteration, simply pass any date that is in your desired iteration
