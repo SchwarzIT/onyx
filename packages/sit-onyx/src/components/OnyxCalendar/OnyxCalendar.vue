@@ -116,7 +116,7 @@ const {
   modelValue,
   selectionMode,
   onUpdateViewMonth: (newDate: Date) => ((viewMonth.value as Date) = newDate),
-  onUpdateModelValue: (newValue: typeof modelValue.value) => (modelValue.value = newValue),
+  onUpdateModelValue: (newValue) => (modelValue.value = newValue as typeof modelValue.value),
 });
 
 const hoveredDate = ref<Date>();
