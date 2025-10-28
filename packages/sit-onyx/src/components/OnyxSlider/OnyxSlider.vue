@@ -9,7 +9,7 @@ export default {};
 <script setup lang="ts" generic="TSliderMode extends SliderMode">
 import { _unstableCreateSlider } from "@sit-onyx/headless";
 import { iconMinusSmall, iconPlusSmall } from "@sit-onyx/icons";
-import { computed, toRefs } from "vue";
+import { computed, toRef, toRefs } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useErrorClass } from "../../composables/useErrorClass.js";
 import { getFormMessages, useFormElementError } from "../../composables/useFormElementError.js";
@@ -19,7 +19,6 @@ import {
 } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
-import { applyLimits } from "../../utils/numbers.js";
 import { asArray } from "../../utils/objects.js";
 import { useForwardProps } from "../../utils/props.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
@@ -62,30 +61,6 @@ const modelValue = useVModel<Props, "modelValue", SliderValue<TSliderMode>>({
 
 const { t } = injectI18n();
 
-/**
- * Normalized `modelValue` that is limited to fit into the specified min/max range.
- */
-const normalizedValue = computed(() => {
-  let value: number | number[];
-
-  if (typeof modelValue.value === "number") {
-    value = applyLimits(modelValue.value, props.min, props.max);
-  } else {
-    value = modelValue.value.map((value) => applyLimits(value, props.min, props.max));
-  }
-
-  const normalized =
-    props.mode === "single"
-      ? typeof value === "number"
-        ? value
-        : value[0]
-      : typeof value === "number"
-        ? [value, value]
-        : value;
-
-  return normalized as SliderValue<TSliderMode>;
-});
-
 const { vCustomValidity, errorMessages } = useFormElementError({ props, emit });
 const formElementProps = useForwardProps(props, OnyxFormElement);
 const messages = computed(() => getFormMessages(props.message));
@@ -96,19 +71,29 @@ const { disabled, showError } = useFormContext(props);
 const errorClass = useErrorClass(showError);
 const skeleton = useSkeletonContext(props);
 
-const shiftStep = computed(() => {
-  if (props.shiftStep != undefined) return props.shiftStep;
+const { min, max, step, marks, label, discrete } = toRefs(props);
 
-  // Round to the nearest step multiple to ensure it aligns with step boundaries
-  const stepMultiple = Math.max(1, Math.round(((props.max - props.min) * 0.1) / props.step));
-  return stepMultiple * props.step;
+const {
+  elements: { root, rail, track, thumbContainer, thumbInput, mark, markLabel },
+  state: { activeThumbIndex, marksList, shiftStep, normalizedValues },
+} = _unstableCreateSlider({
+  value: modelValue,
+  min,
+  max,
+  step,
+  label,
+  marks,
+  discrete,
+  disabled,
+  shiftStep: toRef(props, "shiftStep"),
+  onChange: (newValue) => (modelValue.value = newValue),
 });
 
 const handleDecreaseByIcon = () => {
   if (disabled.value) return;
-  const currentValue = normalizedValue.value;
+  const currentValue = normalizedValues.value[0];
 
-  if (typeof currentValue === "number") {
+  if (props.mode === "single" && currentValue != undefined) {
     const stepValue = shiftStep.value ?? props.step ?? 1;
     const newValue = Math.max(currentValue - stepValue, props.min);
     modelValue.value = newValue as SliderValue<TSliderMode>;
@@ -117,32 +102,14 @@ const handleDecreaseByIcon = () => {
 
 const handleIncreaseByIcon = () => {
   if (disabled.value) return;
-  const currentValue = normalizedValue.value;
+  const currentValue = normalizedValues.value[0];
 
-  if (typeof currentValue === "number") {
+  if (props.mode === "single" && currentValue != undefined) {
     const stepValue = shiftStep.value ?? props.step ?? 1;
     const newValue = Math.min(currentValue + stepValue, props.max);
     modelValue.value = newValue as SliderValue<TSliderMode>;
   }
 };
-
-const { min, max, step, marks, label, discrete } = toRefs(props);
-
-const {
-  elements: { root, rail, track, thumbContainer, thumbInput, mark, markLabel },
-  state: { activeThumbIndex, marksList },
-} = _unstableCreateSlider({
-  value: normalizedValue,
-  min,
-  max,
-  step,
-  label,
-  marks,
-  discrete,
-  disabled,
-  shiftStep,
-  onChange: (newValue) => (modelValue.value = newValue),
-});
 
 const isValueControl = computed(() => props.control === "value");
 /**
@@ -182,7 +149,7 @@ const isIconControl = computed(() => props.control === "icon" && props.mode === 
 
           <div v-if="isIconControl" class="onyx-slider__control">
             <OnyxIconButton
-              :disabled="disabled || Number(modelValue ?? props.min) <= props.min"
+              :disabled="disabled || (normalizedValues[0] ?? props.min) <= props.min"
               :label="t('slider.decreaseValue', { n: shiftStep })"
               color="neutral"
               :icon="iconMinusSmall"
@@ -213,7 +180,7 @@ const isIconControl = computed(() => props.control === "icon" && props.mode === 
             </template>
 
             <span
-              v-for="(value, index) in asArray(normalizedValue)"
+              v-for="(value, index) in asArray(normalizedValues)"
               :key="index"
               v-bind="thumbContainer({ value, index })"
               :class="[
@@ -251,7 +218,7 @@ const isIconControl = computed(() => props.control === "icon" && props.mode === 
 
           <div v-if="isIconControl" class="onyx-slider__control">
             <OnyxIconButton
-              :disabled="disabled || Number(modelValue ?? props.min) >= props.max"
+              :disabled="disabled || (normalizedValues[0] ?? props.min) >= props.max"
               :label="t('slider.increaseValue', { n: shiftStep })"
               color="neutral"
               :icon="iconPlusSmall"

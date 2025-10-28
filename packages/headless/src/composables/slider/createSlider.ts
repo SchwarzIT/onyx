@@ -168,7 +168,7 @@ export const _unstableCreateSlider = createBuilder(
     const min = computed(() => unref(options.min) ?? 0);
     const max = computed(() => unref(options.max) ?? 100);
     const step = computed(() => unref(options.step) ?? 1);
-    const values = computed(() => {
+    const normalizedValues = computed(() => {
       const rawValues = unref(options.value);
 
       const arrayValues: number[] = Array.isArray(rawValues)
@@ -187,18 +187,16 @@ export const _unstableCreateSlider = createBuilder(
         return clamped;
       });
     });
+
     const shiftStep = computed(() => {
       const shiftStep = unref(options.shiftStep);
-
-      if (typeof shiftStep !== "undefined") {
-        return shiftStep;
-      }
+      if (shiftStep != undefined) return shiftStep;
 
       // Round to the nearest step multiple to ensure it aligns with step boundaries
       const stepMultiple = Math.max(1, Math.round(((max.value - min.value) * 0.1) / step.value));
-
       return stepMultiple * step.value;
     });
+
     const isDisabled = computed(() => unref(options.disabled) ?? false);
     const marks = computed(() => unref(options.marks) ?? false);
     const label = computed(() => unref(options.label));
@@ -282,7 +280,7 @@ export const _unstableCreateSlider = createBuilder(
 
     // Internal methods
     const emitChange = (next: number[]) => {
-      if (!areArraysEqual(values.value, next)) {
+      if (!areArraysEqual(normalizedValues.value, next)) {
         const nextValue = isRange.value ? next : next[0];
 
         if (typeof nextValue !== "undefined") {
@@ -373,11 +371,11 @@ export const _unstableCreateSlider = createBuilder(
         return { newValue: candidate, activeIndex: 0 };
       }
 
-      const closestIndex = findClosestIndex(values.value, candidate);
+      const closestIndex = findClosestIndex(normalizedValues.value, candidate);
       const index = isMoving && previousActiveIndex != null ? previousActiveIndex : closestIndex;
 
       const adjustedValues = adjustValueByIndex({
-        values: values.value,
+        values: normalizedValues.value,
         newValue: candidate,
         index,
       });
@@ -393,7 +391,7 @@ export const _unstableCreateSlider = createBuilder(
      */
     const commitValueFromEvent = (event: KeyboardEvent | Event, input: number) => {
       const index = readThumbIndex(event);
-      const current = values.value[index];
+      const current = normalizedValues.value[index];
 
       if (typeof current !== "number") {
         return;
@@ -428,7 +426,7 @@ export const _unstableCreateSlider = createBuilder(
       const scalar = MathUtils.clamp(useMarks ? snapByMarks(input) : input, min.value, max.value);
 
       const nextValues = isRange.value
-        ? adjustValueByIndex({ values: values.value, newValue: scalar, index })
+        ? adjustValueByIndex({ values: normalizedValues.value, newValue: scalar, index })
         : [scalar];
 
       if (isRange.value) {
@@ -436,7 +434,7 @@ export const _unstableCreateSlider = createBuilder(
         ensureFocusOnThumb({ index: activeIndex, shouldSetActive: true });
       }
 
-      if (!areArraysEqual(values.value, nextValues)) {
+      if (!areArraysEqual(normalizedValues.value, nextValues)) {
         emitChange(nextValues);
       }
       emitCommit(nextValues);
@@ -602,7 +600,7 @@ export const _unstableCreateSlider = createBuilder(
       event.preventDefault();
 
       const index = readThumbIndex(event);
-      const value = values.value[index];
+      const value = normalizedValues.value[index];
 
       if (typeof value !== "number") {
         return;
@@ -660,14 +658,14 @@ export const _unstableCreateSlider = createBuilder(
 
     const trackOffset = computed(() =>
       MathUtils.valueToPercent(
-        isRange.value && values.value[0] ? values.value[0] : min.value,
+        isRange.value && normalizedValues.value[0] ? normalizedValues.value[0] : min.value,
         min.value,
         max.value,
       ),
     );
     const trackLength = computed(
       () =>
-        MathUtils.valueToPercent(values.value.at(-1) ?? 0, min.value, max.value) -
+        MathUtils.valueToPercent(normalizedValues.value.at(-1) ?? 0, min.value, max.value) -
         trackOffset.value,
     );
     const trackStyle = computed(() => ({
@@ -821,6 +819,8 @@ export const _unstableCreateSlider = createBuilder(
          * - If marks option is `false`, no marks are shown.
          */
         marksList,
+        shiftStep,
+        normalizedValues,
       },
 
       internals: {
