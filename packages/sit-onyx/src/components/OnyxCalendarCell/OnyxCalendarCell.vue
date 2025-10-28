@@ -10,13 +10,6 @@ const props = withDefaults(defineProps<OnyxCalendarCellProps>(), {
   backgroundColor: "blank",
 });
 
-const emit = defineEmits<{
-  /**
-   * Triggers when the cell hover / focus state is changed.
-   */
-  hovered: [];
-}>();
-
 const slots = defineSlots<{
   /**
    * Optional slot for custom cell content.
@@ -46,8 +39,6 @@ const contentAttributes = computed(() => {
         [`onyx-calendar-cell--range-${props.rangeType}`]: props.rangeType,
       },
     ]"
-    @mouseenter="emit('hovered')"
-    @focusin="emit('hovered')"
   >
     <component
       :is="props.is"

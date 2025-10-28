@@ -264,6 +264,12 @@ const COMPONENTS: Components = {
       value: "option-1",
     },
   },
+  OnyxUnstableSlider: {
+    props: {
+      label: "Slider",
+      modelValue: 50,
+    },
+  },
 };
 
 describe("components", () => {

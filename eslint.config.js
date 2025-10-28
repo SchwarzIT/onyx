@@ -121,6 +121,9 @@ const playwrightConfig = {
           "comboboxTesting",
           "comboboxSelectOnlyTesting",
           "expectEventCall",
+          "singleThumbSliderTesting",
+          "multiThumbSliderTesting",
+          "discreteSliderTesting",
         ],
       },
     ],
@@ -172,6 +175,7 @@ const sitOnyxConfig = {
     "sitOnyx/import-playwright-a11y": "error",
     "sitOnyx/no-shadow-template-ref": "error",
     "sitOnyx/no-shadow-native": "error",
+    "sitOnyx/no-v-bind-props": ["error", { ignores: ["Test"] }],
     "sitOnyx/require-root-class": "error",
     "vue/require-prop-comment": "error",
     // disallow scoped or module CSS for components

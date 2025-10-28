@@ -9,7 +9,7 @@ export default {};
 <script lang="ts" setup generic="TSelection extends OnyxCalendarSelectionMode">
 import { _unstableCreateCalendar, type RenderDay, type RenderWeek } from "@sit-onyx/headless";
 import { iconChevronLeftSmall, iconChevronRightSmall } from "@sit-onyx/icons";
-import { computed, ref, toRefs, useTemplateRef } from "vue";
+import { computed, ref, toRefs, useTemplateRef, type HTMLAttributes } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useResizeObserver } from "../../composables/useResizeObserver.js";
 import {
@@ -121,9 +121,13 @@ const {
 
 const hoveredDate = ref<Date>();
 
-const addHoverClass = (day: RenderDay) => {
-  if (selectionMode.value !== "range") return;
-  hoveredDate.value = day.date;
+const hoverHandlers = (day: RenderDay) => {
+  if (selectionMode.value !== "range" || isDisabled.value(day.date)) return {};
+
+  return {
+    onMouseenter: () => (hoveredDate.value = day.date),
+    onFocusin: () => (hoveredDate.value = day.date),
+  } satisfies HTMLAttributes;
 };
 
 const tableHeaders = computed(() => {
@@ -187,7 +191,7 @@ const getWeekNumberProps = (week: RenderWeek) => {
         <OnyxSystemButton
           :label="t('calendar.todayButton.label')"
           class="control-container__today-btn"
-          :disabled="disabled"
+          :disabled="disabled === true"
           :clickable="t('calendar.todayButton.tooltip')"
           @click="goToToday"
         />
@@ -205,7 +209,7 @@ const getWeekNumberProps = (week: RenderWeek) => {
           :label="t('calendar.previousMonthButton')"
           color="neutral"
           :icon="iconChevronLeftSmall"
-          :disabled="disabled"
+          :disabled="disabled === true"
           @click="goToMonthByOffset(-1)"
         />
         <OnyxIconButton
@@ -213,7 +217,7 @@ const getWeekNumberProps = (week: RenderWeek) => {
           :label="t('calendar.nextMonthButton')"
           color="neutral"
           :icon="iconChevronRightSmall"
-          :disabled="disabled"
+          :disabled="disabled === true"
           @click="goToMonthByOffset(1)"
         />
       </div>
@@ -247,7 +251,7 @@ const getWeekNumberProps = (week: RenderWeek) => {
             <OnyxCalendarCell
               :is="props.selectionMode ? 'button' : 'div'"
               v-for="day in week.days"
-              v-bind="cellProps({ date: day.date })"
+              v-bind="{ ...cellProps({ date: day.date }), ...hoverHandlers(day) }"
               :key="day.date.toDateString()"
               :date="day.date.getDate()"
               :button-attributes="buttonProps({ date: day.date })"
