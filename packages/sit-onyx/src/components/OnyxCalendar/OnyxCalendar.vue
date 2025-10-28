@@ -115,8 +115,8 @@ const {
   viewMonth,
   modelValue,
   selectionMode,
-  onUpdateViewMonth: (newDate) => ((viewMonth.value as Date) = newDate),
-  onUpdateModelValue: (newValue) => (modelValue.value = newValue as typeof modelValue.value),
+  onUpdateViewMonth: (newDate: Date) => ((viewMonth.value as Date) = newDate),
+  onUpdateModelValue: (newValue: typeof modelValue.value) => (modelValue.value = newValue),
 });
 
 const hoveredDate = ref<Date>();
@@ -152,24 +152,29 @@ const getDayRangeType = computed(() => {
 });
 
 const selectWeek = (week: RenderWeek) => {
-  //TODO: add isDisabled if start or end is disabled
-  if (selectionMode.value !== "range") return;
   const newRange: DateRange = {
     start: week.days[0]!.date,
     end: week.days[6]!.date,
   };
-
   modelValue.value = newRange as unknown as typeof modelValue.value;
 };
 const getWeekNumberProps = (week: RenderWeek) => {
-  const isDisabled = props.disabled;
-  //TODO: add isDisabled if start or end is disabled
+  const startDisabled = isDisabled.value(week.days[0]!.date);
+  const endDisabled = isDisabled.value(week.days[6]!.date);
   if (props.selectionMode === "range") {
-    return {
-      role: "button",
-      tabindex: "0",
-      "aria-disabled": isDisabled,
-    };
+    if (startDisabled || endDisabled) {
+      return {
+        role: "button",
+        tabindex: "-1",
+        "aria-disabled": true,
+      };
+    } else {
+      return {
+        role: "button",
+        "aria-disabled": false,
+        onClick: () => selectWeek(week),
+      };
+    }
   }
   return {};
 };
@@ -239,12 +244,7 @@ const getWeekNumberProps = (week: RenderWeek) => {
 
         <tbody>
           <tr v-for="week in weeksToRender" :key="week.weekNumber">
-            <th
-              v-if="showCalendarWeeks"
-              scope="row"
-              v-bind="getWeekNumberProps(week)"
-              @click="selectWeek(week)"
-            >
+            <th v-if="showCalendarWeeks" scope="row" v-bind="getWeekNumberProps(week)">
               {{ week.weekNumber }}
             </th>
 
@@ -262,7 +262,6 @@ const getWeekNumberProps = (week: RenderWeek) => {
               :range-type="getDayRangeType(day.date)"
               :size="calendarSize"
               :tool-tip-text="isToday(day.date) ? t('calendar.todayButton.label') : undefined"
-              @hovered="addHoverClass(day)"
             >
               <template v-if="!!slots.day" #default>
                 <slot name="day" :date="day.date" :size="calendarSize"></slot>
@@ -334,8 +333,11 @@ const getWeekNumberProps = (week: RenderWeek) => {
         &:has(th[scope="row"]) {
           th:first-of-type {
             width: $calender-week-column-width;
-            &[role="button"] {
+            &[role="button"]:not([aria-disabled="true"]) {
               cursor: pointer;
+              &:hover {
+                background-color: var(--onyx-color-base-neutral-300);
+              }
             }
           }
 

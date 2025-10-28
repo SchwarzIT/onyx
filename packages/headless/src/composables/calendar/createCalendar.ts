@@ -71,7 +71,22 @@ export const _unstableCreateCalendar = createBuilder((options: CreateCalendarOpt
     return names.slice(index).concat(names.slice(0, index));
   });
 
-  const focusedDate = ref(new Date());
+  // check if view month contains today, else default to first day of month
+  const initialFocusedDate = () => {
+    const today = new Date();
+    const view = viewMonth.value;
+
+    const isTodayInViewMonth =
+      today.getFullYear() === view.getFullYear() && today.getMonth() === view.getMonth();
+
+    if (isTodayInViewMonth) {
+      return today;
+    } else {
+      return new Date(view.getFullYear(), view.getMonth(), 1);
+    }
+  };
+
+  const focusedDate = ref(initialFocusedDate());
 
   // sync focusDate with selection
   watch(
@@ -90,6 +105,7 @@ export const _unstableCreateCalendar = createBuilder((options: CreateCalendarOpt
 
       if (newFocusDate) focusedDate.value = newFocusDate;
     },
+    { immediate: true },
   );
 
   const isToday = (date: Date) => {

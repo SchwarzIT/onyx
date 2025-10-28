@@ -1,5 +1,5 @@
 import { iconSettings } from "@sit-onyx/icons";
-import { test } from "../../playwright/a11y.js";
+import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxCalendar from "./OnyxCalendar.vue";
@@ -115,4 +115,90 @@ test.describe("Screenshot tests (custom content)", () => {
       );
     },
   });
+});
+
+test("range mode", async ({ mount }) => {
+  const minDate = getMockDate(-12);
+
+  // ARRANGE
+  const component = await mount(
+    <OnyxCalendar
+      selectionMode="range"
+      style={{ width: "40rem" }}
+      min={minDate}
+      showCalendarWeeks
+    />,
+  );
+  const startRange = component.getByRole("button", { name: "Tuesday, October 15," });
+  const endRange = component.getByRole("button", { name: "Monday, October 21," });
+  const endRange2 = component.getByRole("button", { name: "Friday, October 25," });
+  const middleDate = component.getByRole("button", { name: "Saturday, October 19," });
+  const today = component.getByRole("button", { name: "Wednesday, October 23," });
+  const weekNumber = component.getByRole("button", { name: "43" });
+  const weekNumberDisabled = component.getByRole("button", { name: "40" });
+
+  const startCell = component.getByRole("gridcell", { name: "Tuesday, October 15," });
+  const endCell2 = component.getByRole("gridcell", { name: "Friday, October 25," });
+  const todayCell = component.getByRole("gridcell", { name: "Wednesday, October 23," });
+
+  // Today outside range
+  // ACT
+  await startRange.click();
+  await endRange.click();
+  //ASSERT
+  await expect(component).toHaveScreenshot("range.png");
+  // Today inside range
+  // ACT
+  await startRange.click();
+  await endRange2.click();
+  // ASSERT
+  await expect(startCell).toHaveClass(/onyx-calendar-cell--range-start/);
+  await expect(endCell2).toHaveClass(/onyx-calendar-cell--range-end/);
+  await expect(todayCell).toHaveClass(/onyx-calendar-cell--range-middle/);
+  await expect(component).toHaveScreenshot("range-withToday.png");
+
+  // hover start end middle today
+  await startRange.hover();
+  await expect(component).toHaveScreenshot("range-hover-start.png");
+
+  await endRange2.hover();
+  await expect(component).toHaveScreenshot("range-hover-end.png");
+
+  await middleDate.hover();
+  await expect(component).toHaveScreenshot("range-hover-middle.png");
+
+  await today.hover();
+  await expect(component).toHaveScreenshot("range-hover-today.png");
+
+  // focus-visible start end middle today
+  await startRange.focus();
+  await expect(component).toHaveScreenshot("range-focus-start.png");
+
+  await endRange2.focus();
+  await expect(component).toHaveScreenshot("range-focus-end.png");
+
+  await middleDate.focus();
+  await expect(component).toHaveScreenshot("range-focus-middle.png");
+
+  await today.focus();
+  await expect(component).toHaveScreenshot("range-focus-today.png");
+
+  // week number hovered disabled // inside min
+  await weekNumberDisabled.hover();
+  await expect(weekNumberDisabled).toBeDisabled();
+
+  // week number hovered enabled // inside range
+  await weekNumber.hover();
+  await expect(component).toHaveScreenshot("week-number-hover.png");
+
+  // week number clicked
+  await weekNumber.click();
+  await expect(component).toHaveScreenshot("week-select.png");
+
+  // end start date is the same
+  await startRange.click();
+  await expect(component).toHaveScreenshot("only-start-selected.png");
+
+  await startRange.click();
+  await expect(component).toHaveScreenshot("start-date-same-as-end.png");
 });

@@ -53,7 +53,7 @@ const contentAttributes = computed(() => {
     >
       <div class="onyx-calendar-cell__header">
         <div class="onyx-calendar-cell__date-container">
-          <OnyxTooltip v-if="props.toolTipText" :text="props.toolTipText">
+          <OnyxTooltip v-if="props.toolTipText" :text="props.toolTipText" without-wedge>
             <template #default="{ trigger }">
               <span class="onyx-calendar-cell__date" v-bind="trigger">
                 {{ props.date }}
@@ -223,6 +223,13 @@ const contentAttributes = computed(() => {
       &[aria-disabled="true"] {
         --onyx-calendar-cell-date-background: var(--onyx-color-base-neutral-300);
         --onyx-calendar-cell-date-color: var(--onyx-color-text-icons-neutral-medium);
+      }
+      &.onyx-calendar-cell--range-middle {
+        .onyx-calendar-cell__date {
+          --onyx-calendar-cell-date-background: var(--onyx-color-base-primary-700);
+          --onyx-calendar-cell-date-background-hover: var(--onyx-color-base-neutral-300);
+          --onyx-calendar-cell-date-color: var(--onyx-color-neutral-grayscale-white);
+        }
       }
     }
 
