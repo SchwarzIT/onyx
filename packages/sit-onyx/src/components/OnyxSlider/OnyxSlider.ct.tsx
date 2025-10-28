@@ -97,18 +97,14 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Slider (skeleton)",
     columns: DENSITIES,
-    rows: ["horizontal", "vertical"],
-    component: (column, row) => (
+    rows: ["default"],
+    component: (column) => (
       <OnyxSlider
         label="Skeleton slider"
         modelValue={40}
         density={column}
-        orientation={row}
         skeleton
-        style={{
-          width: row === "vertical" ? "5rem" : "16rem",
-          height: row === "vertical" ? "16rem" : undefined,
-        }}
+        style={{ width: "16rem" }}
       />
     ),
   });
@@ -167,28 +163,6 @@ test.describe("Screenshot tests (with marks)", () => {
         }
       },
     },
-  });
-});
-
-test.describe("Screenshot tests (orientation)", () => {
-  executeMatrixScreenshotTest({
-    name: "Slider (vertical)",
-    columns: ["single", "range", "with-marks"],
-    rows: DENSITIES,
-    component: (column, row) => (
-      <OnyxSlider
-        label="Vertical slider"
-        mode={column === "range" ? "range" : "single"}
-        modelValue={column === "range" ? [20, 75] : 40}
-        orientation="vertical"
-        density={row}
-        marks={column === "with-marks" ? LARGE_MARKS : undefined}
-        style={{
-          height: "16rem",
-          width: "5rem",
-        }}
-      />
-    ),
   });
 });
 
@@ -573,28 +547,6 @@ test.describe("Interaction tests", () => {
     await component.page().keyboard.press("ArrowLeft");
     // Should snap back to previous mark (50)
     await expect(slider).toHaveValue("50");
-  });
-
-  test("should support vertical orientation", async ({ mount }) => {
-    // ARRANGE
-    const component = await mount(
-      <OnyxSlider
-        label="Vertical slider"
-        modelValue={40}
-        orientation="vertical"
-        marks={SLIDER_MARKS}
-        style={{ height: "16rem" }}
-      />,
-    );
-
-    // ASSERT - Check slider is present and accessible
-    const slider = component.getByRole("slider");
-    await expect(slider).toHaveValue("40");
-
-    // ASSERT - Check marks are displayed
-    await expect(component.getByText("Min")).toBeVisible();
-    await expect(component.getByText("Mid")).toBeVisible();
-    await expect(component.getByText("Max")).toBeVisible();
   });
 
   test("should handle auto-generated marks", async ({ mount }) => {

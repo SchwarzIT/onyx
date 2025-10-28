@@ -101,27 +101,6 @@ export const Skeleton = {
   },
 } satisfies Story;
 
-export const Vertical = {
-  args: {
-    ...Default.args,
-    label: "Vertical",
-    orientation: "vertical",
-    marks: [
-      { value: 0, label: "0°C" },
-      { value: 25, label: "25°C" },
-      { value: 50, label: "50°C" },
-      { value: 75, label: "75°C" },
-      { value: 100, label: "100°C" },
-    ],
-  },
-  decorators: [
-    (story) => ({
-      components: { story },
-      template: `<div style="width: max-content; height: 16rem;"> <story /> </div>`,
-    }),
-  ],
-} satisfies Story;
-
 export const IconControl = {
   args: {
     ...Default.args,
