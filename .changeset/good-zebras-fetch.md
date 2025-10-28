@@ -8,3 +8,4 @@ Since the slider is a unstable / experimental, this change contains breaking cha
 
 - remove option `orientation`
 - remove focusedThumbIndex, valueToPercent, isMarkActive, axis and normalizeValues. Prefer native CSS selectors instead
+- fix: do not adjust track length to next step when `discrete` is disabled

@@ -119,23 +119,6 @@ const readThumbIndex = (event: Event) =>
 const roundToStep = (value: number, step: number, min: number) =>
   Number((Math.round((value - min) / step) * step + min).toFixed(MathUtils.decimalsCount(step)));
 
-/**
- * Normalizes an array of values to ensure they are within min/max bounds,
- * properly stepped, and sorted in ascending order.
- */
-const normalizeValues = (values: number[], min: number, max: number, step: number): number[] => {
-  if (!values.length) return [min];
-
-  return values
-    .map((value) => {
-      // Clamp to min/max bounds
-      const clamped = MathUtils.clamp(value, min, max);
-      // Round to nearest step
-      return roundToStep(clamped, step, min);
-    })
-    .sort((a, b) => a - b); // Ensure ascending order
-};
-
 const findClosestIndex = (values: number[], currentValue: number) => {
   const result = values.reduce<{
     closestIndex: number;
@@ -188,19 +171,21 @@ export const _unstableCreateSlider = createBuilder(
     const values = computed(() => {
       const rawValues = unref(options.value);
 
-      if (Array.isArray(rawValues)) {
-        if (!rawValues?.length) {
-          return [min.value];
-        }
+      const arrayValues: number[] = Array.isArray(rawValues)
+        ? rawValues.sort((a, b) => a - b)
+        : [rawValues];
 
-        return normalizeValues(rawValues, min.value, max.value, step.value);
-      } else {
-        if (typeof rawValues !== "number") {
-          return [min.value];
-        }
+      if (!arrayValues.length) return [min.value];
 
-        return normalizeValues([rawValues], min.value, max.value, step.value);
-      }
+      return arrayValues.map((value) => {
+        // Clamp to min/max bounds
+        const clamped = MathUtils.clamp(value, min.value, max.value);
+        if (isDiscrete.value) {
+          // Round to nearest step
+          return roundToStep(clamped, step.value, min.value);
+        }
+        return clamped;
+      });
     });
     const shiftStep = computed(() => {
       const shiftStep = unref(options.shiftStep);

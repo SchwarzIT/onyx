@@ -18,6 +18,7 @@ import {
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
+import { injectI18n } from "../../i18n/index.js";
 import { applyLimits } from "../../utils/numbers.js";
 import { asArray } from "../../utils/objects.js";
 import { useForwardProps } from "../../utils/props.js";
@@ -58,6 +59,8 @@ const modelValue = useVModel<Props, "modelValue", SliderValue<TSliderMode>>({
   emit,
   key: "modelValue",
 });
+
+const { t } = injectI18n();
 
 /**
  * Normalized `modelValue` that is limited to fit into the specified min/max range.
@@ -173,14 +176,14 @@ const isIconControl = computed(() => props.control === "icon" && props.mode === 
     >
       <template #default="{ id: inputId }">
         <div class="onyx-slider__container">
-          <div v-if="isValueControl" class="onyx-slider__control" role="img" tabindex="-1">
+          <div v-if="isValueControl" class="onyx-slider__control" aria-hidden="true">
             {{ min }}
           </div>
 
           <div v-if="isIconControl" class="onyx-slider__control">
             <OnyxIconButton
               :disabled="disabled || Number(modelValue ?? props.min) <= props.min"
-              :label="props.label || inputId"
+              :label="t('slider.decreaseValue', { n: shiftStep })"
               color="neutral"
               :icon="iconMinusSmall"
               tabindex="0"
@@ -242,14 +245,14 @@ const isIconControl = computed(() => props.control === "icon" && props.mode === 
             </span>
           </span>
 
-          <div v-if="isValueControl" class="onyx-slider__control" role="img" tabindex="-1">
+          <div v-if="isValueControl" class="onyx-slider__control" aria-hidden="true">
             {{ max }}
           </div>
 
           <div v-if="isIconControl" class="onyx-slider__control">
             <OnyxIconButton
               :disabled="disabled || Number(modelValue ?? props.min) >= props.max"
-              label="Increase"
+              :label="t('slider.increaseValue', { n: shiftStep })"
               color="neutral"
               :icon="iconPlusSmall"
               tabindex="0"
@@ -317,7 +320,7 @@ const isIconControl = computed(() => props.control === "icon" && props.mode === 
       gap: var(--onyx-density-sm);
       color: var(--onyx-color-text-icons-neutral-intense);
 
-      &:has(.onyx-slider__mark) {
+      &:has(.onyx-slider__mark-label) {
         padding-bottom: var(--onyx-slider-mark-label-offset);
       }
     }
@@ -414,24 +417,22 @@ const isIconControl = computed(() => props.control === "icon" && props.mode === 
         cursor: pointer;
       }
 
-      &.onyx-slider {
-        &__root:hover,
-        &__root:focus-within,
-        // TODO: check if active class is needed or can be replaced with ":active"
-        &--active {
-          .onyx-slider {
-            &__rail {
-              background-color: var(--onyx-slider-rail-background-interactive);
-            }
+      &:has(.onyx-slider__root:hover),
+      &:has(.onyx-slider__root:focus-within),
+      // TODO: check if active class is needed or can be replaced with ":active"
+      &.onyx-slider--active {
+        .onyx-slider {
+          &__rail {
+            background-color: var(--onyx-slider-rail-background-interactive);
+          }
 
-            &__track {
-              background-color: var(--onyx-slider-track-background-interactive);
-            }
+          &__track {
+            background-color: var(--onyx-slider-track-background-interactive);
+          }
 
-            &__thumb {
-              background-color: var(--onyx-slider-thumb-background-interactive);
-              border-color: var(--onyx-slider-thumb-border-color-interactive);
-            }
+          &__thumb {
+            background-color: var(--onyx-slider-thumb-background-interactive);
+            border-color: var(--onyx-slider-thumb-border-color-interactive);
           }
         }
       }
