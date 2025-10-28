@@ -9,6 +9,12 @@ const mockOptions: CreateClientOptions = {
   fields: {
     effort: "test-effort",
     iteration: "test-iteration",
+    status: {
+      fieldName: "test-status",
+      options: {
+        finished: "test-finished",
+      },
+    },
   },
 };
 
@@ -232,6 +238,13 @@ describe("createClient", () => {
                                 name: mockOptions.fields.effort,
                               },
                             },
+                            {
+                              __typename: "ProjectV2ItemFieldSingleSelectValue",
+                              name: mockOptions.fields.status.options.finished,
+                              field: {
+                                name: mockOptions.fields.status.fieldName,
+                              },
+                            },
                           ],
                         },
                       },
@@ -269,6 +282,13 @@ describe("createClient", () => {
                                 name: mockOptions.fields.effort,
                               },
                             },
+                            {
+                              __typename: "ProjectV2ItemFieldSingleSelectValue",
+                              name: "something-else",
+                              field: {
+                                name: mockOptions.fields.status.fieldName,
+                              },
+                            },
                           ],
                         },
                       },
@@ -289,8 +309,8 @@ describe("createClient", () => {
       const items = await client.getAllItems();
 
       // ASSERT
-      expect(items).toMatchObject([
-        { iteration: "#1", effort: 1.5, type: "Bug" },
+      expect(items).toStrictEqual([
+        { iteration: "#1", effort: 1.5, type: "Bug", status: "finished" },
         { iteration: "#2", effort: 42 },
       ]);
     });

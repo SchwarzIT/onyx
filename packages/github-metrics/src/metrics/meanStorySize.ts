@@ -1,19 +1,15 @@
 import type { IterationBasedMetricOptions } from "../types.js";
-import { findIterationByDate } from "../utils/github.js";
+import { getAllItemsByIterationDate } from "../utils/client.js";
 
 /**
  * Calculates the mean / average story size of an item in the given iteration.
  * Items without an assigned size will be ignored.
  */
 export async function getMeanStorySize(options: IterationBasedMetricOptions) {
-  // fetch iterations and items in parallel to speed up the process
-  const [allIterations, allItems] = await Promise.all([
-    options.client.getAllIterations(),
-    options.client.getAllItems(),
-  ]);
-
-  const currentIteration = findIterationByDate(allIterations, options.iteration ?? new Date());
-  const items = allItems.filter((item) => item.iteration === currentIteration.title);
+  const { items, iteration } = await getAllItemsByIterationDate(
+    options.client,
+    options.iteration ?? new Date(),
+  );
 
   const storySizes = items.map((item) => item.effort).filter((size) => size != undefined);
   const totalCount = storySizes.length;
@@ -24,6 +20,6 @@ export async function getMeanStorySize(options: IterationBasedMetricOptions) {
     // prevent division by zero
     mean: totalCount > 0 ? totalSize / totalCount : 0,
     items: totalCount,
-    iteration: currentIteration.title,
+    iteration: iteration.title,
   };
 }
