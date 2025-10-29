@@ -2,6 +2,7 @@
 import { computed } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { mergeVueProps } from "../../utils/attrs.js";
+import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 import type { OnyxCalendarCellProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxCalendarCellProps>(), {
@@ -52,7 +53,14 @@ const contentAttributes = computed(() => {
     >
       <div class="onyx-calendar-cell__header">
         <div class="onyx-calendar-cell__date-container">
-          <span class="onyx-calendar-cell__date">
+          <OnyxTooltip v-if="props.tooltipText" :text="props.tooltipText" without-wedge>
+            <template #default="{ trigger }">
+              <span class="onyx-calendar-cell__date" v-bind="trigger">
+                {{ props.date }}
+              </span>
+            </template>
+          </OnyxTooltip>
+          <span v-else class="onyx-calendar-cell__date">
             {{ props.date }}
           </span>
         </div>
@@ -80,7 +88,7 @@ const contentAttributes = computed(() => {
     --onyx-calendar-cell-date-color-hover: var(--onyx-calendar-cell-date-color);
     --onyx-calendar-cell-range-background: var(--onyx-color-text-icons-primary-soft);
     --onyx-calendar-cell-range-color: var(--onyx-color-text-icons-primary-bold);
-
+    --onyx-calendar-cell-focus-color: var(--onyx-color-component-focus-primary);
     font-family: var(--onyx-font-family-paragraph);
     color: var(--onyx-color-text-icons-neutral-medium);
     font-size: var(--onyx-font-size-md);
@@ -139,9 +147,7 @@ const contentAttributes = computed(() => {
 
           .onyx-calendar-cell__date {
             color: var(--onyx-calendar-cell-date-color-hover);
-            // TODO: make outline square
-            outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
-            outline-offset: var(--onyx-density-2xs);
+            border: var(--onyx-outline-width) solid var(--onyx-calendar-cell-focus-color);
           }
         }
       }
@@ -158,11 +164,6 @@ const contentAttributes = computed(() => {
       color: var(--onyx-calendar-cell-date-color);
     }
 
-    &--neutral {
-      --onyx-calendar-cell-date-background: var(--onyx-color-base-neutral-500);
-      --onyx-calendar-cell-date-color: var(--onyx-color-neutral-grayscale-white);
-    }
-
     &--primary {
       --onyx-calendar-cell-date-background: var(--onyx-color-base-primary-500);
       --onyx-calendar-cell-date-background-hover: var(--onyx-color-base-primary-700);
@@ -170,6 +171,11 @@ const contentAttributes = computed(() => {
     }
 
     // range styles
+    &--range-start,
+    &--range-middle,
+    &--range-end {
+      --onyx-calendar-cell-focus-color: var(--onyx-color-base-primary-600);
+    }
     &--range-start {
       .onyx-calendar-cell__header {
         padding-right: 0;
@@ -208,6 +214,22 @@ const contentAttributes = computed(() => {
         border-top-right-radius: var(--onyx-radius-full);
         border-bottom-right-radius: var(--onyx-radius-full);
         width: calc(var(--onyx-calendar-cell-padding) + var(--onyx-calendar-cell-date-size));
+      }
+    }
+
+    &--neutral {
+      --onyx-calendar-cell-date-background: var(--onyx-color-base-neutral-500);
+      --onyx-calendar-cell-date-color: var(--onyx-color-neutral-grayscale-white);
+      &[aria-disabled="true"] {
+        --onyx-calendar-cell-date-background: var(--onyx-color-base-neutral-300);
+        --onyx-calendar-cell-date-color: var(--onyx-color-text-icons-neutral-medium);
+      }
+      &.onyx-calendar-cell--range-middle {
+        .onyx-calendar-cell__date {
+          --onyx-calendar-cell-date-background: var(--onyx-color-base-primary-700);
+          --onyx-calendar-cell-date-background-hover: var(--onyx-color-base-neutral-300);
+          --onyx-calendar-cell-date-color: var(--onyx-color-neutral-grayscale-white);
+        }
       }
     }
 

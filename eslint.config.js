@@ -115,6 +115,7 @@ const playwrightConfig = {
         assertFunctionNames: [
           "executeChartScreenshotTest",
           "menuButtonTesting",
+          "calendarTesting",
           "navigationTesting",
           "listboxTesting",
           "tabsTesting",

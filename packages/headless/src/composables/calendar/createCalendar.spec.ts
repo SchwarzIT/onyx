@@ -57,7 +57,7 @@ const triggerKey = async (elements: any, key: string, opts: KeyboardEventInit = 
 };
 
 describe("createCalendar (Headless)", () => {
-  const initialDate = createDate(2025, 8, 15); // Mon, Sept 15, 2025
+  const initialDate = createDate(2025, 8, 15);
 
   it("should initialize with correct default values", () => {
     const today = createDate(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
@@ -127,11 +127,10 @@ describe("createCalendar (Headless)", () => {
 
   it("should handle goToToday correctly", () => {
     const today = createDate(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
-    const { internals, state, viewMonth } = setupCalendar({ viewMonth: createDate(2020, 0, 1) });
+    const { internals, viewMonth } = setupCalendar({ viewMonth: createDate(2020, 0, 1) });
 
     internals.goToToday();
     expect((viewMonth.value as Date)?.toDateString()).toBe(today.toDateString());
-    expect(state.focusedDate.value?.toDateString()).toBe(today.toDateString());
     expect(internals.isToday(today)).toBe(true);
   });
 

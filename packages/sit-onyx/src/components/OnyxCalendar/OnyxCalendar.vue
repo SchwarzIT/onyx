@@ -7,7 +7,7 @@ export default {};
 </script>
 
 <script lang="ts" setup generic="TSelection extends OnyxCalendarSelectionMode">
-import { _unstableCreateCalendar, type RenderDay } from "@sit-onyx/headless";
+import { _unstableCreateCalendar, type RenderDay, type RenderWeek } from "@sit-onyx/headless";
 import { iconChevronLeftSmall, iconChevronRightSmall } from "@sit-onyx/icons";
 import { computed, ref, toRefs, useTemplateRef, type HTMLAttributes } from "vue";
 import { useDensity } from "../../composables/density.js";
@@ -25,6 +25,7 @@ import type { CalendarCellRangeType } from "../OnyxCalendarCell/types.js";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
+import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
 import type {
   DateRange,
@@ -60,7 +61,7 @@ const slots = defineSlots<{
    */
   actions?(): unknown;
   /**
-   * Optional slot that is displayed inside each day, for custom calender content.
+   * Optional slot that is displayed inside each day, for custom calendar content.
    */
   day?(props: {
     /**
@@ -114,7 +115,7 @@ const {
   viewMonth,
   modelValue,
   selectionMode,
-  onUpdateViewMonth: (newDate) => ((viewMonth.value as Date) = newDate),
+  onUpdateViewMonth: (newDate: Date) => ((viewMonth.value as Date) = newDate),
   onUpdateModelValue: (newValue) => (modelValue.value = newValue as typeof modelValue.value),
 });
 
@@ -131,7 +132,7 @@ const hoverHandlers = (day: RenderDay) => {
 
 const tableHeaders = computed(() => {
   if (!props.showCalendarWeeks) return weekdayNames.value;
-  return [t.value("calendar.calenderWeek"), ...weekdayNames.value];
+  return [t.value("calendar.calendarWeek"), ...weekdayNames.value];
 });
 
 const getDayRangeType = computed(() => {
@@ -142,10 +143,41 @@ const getDayRangeType = computed(() => {
 
     return getRangeType.value(date, {
       start: currentRange.start,
-      end: hoveredDate.value,
+      end:
+        hoveredDate.value.getTime() === currentRange.start.getTime()
+          ? undefined
+          : hoveredDate.value,
     });
   };
 });
+
+const selectWeek = (week: RenderWeek) => {
+  const newRange: DateRange = {
+    start: week.days[0]!.date,
+    end: week.days.at(-1)!.date,
+  };
+  modelValue.value = newRange as unknown as typeof modelValue.value;
+};
+const getWeekNumberProps = computed(() => {
+  return (week: RenderWeek) => {
+    if (props.selectionMode !== "range") return;
+    const startDisabled = isDisabled.value(week.days[0]!.date);
+    const endDisabled = isDisabled.value(week.days[6]!.date);
+    const disabled = startDisabled || endDisabled;
+
+    return {
+      role: "button",
+      "aria-label": t.value("calendar.calendarWeekButtonLabel", { weekNumber: week.weekNumber }),
+      "aria-disabled": disabled,
+      onClick: disabled ? undefined : () => selectWeek(week),
+    };
+  };
+});
+
+const calendarWeeksDisplay = computed(
+  () =>
+    `${t.value("calendar.calendarWeek")} ${weeksToRender.value[0]?.weekNumber} - ${weeksToRender.value[weeksToRender.value.length - 1]?.weekNumber} `,
+);
 </script>
 
 <template>
@@ -161,25 +193,31 @@ const getDayRangeType = computed(() => {
   >
     <div class="onyx-calendar__header">
       <div class="control-container time-control-container">
-        <OnyxTag
-          v-if="calendarSize !== 'small'"
+        <OnyxSystemButton
           :label="t('calendar.todayButton.label')"
           class="control-container__today-btn"
           :disabled="disabled === true"
-          :clickable="t('calendar.todayButton.tooltip')"
           @click="goToToday"
         />
+
+        <OnyxHeadline is="h2" class="control-container__date-display">
+          {{ d(viewMonth, { month: "long", year: "numeric" }) }}
+        </OnyxHeadline>
+        <OnyxTag
+          v-if="showCalendarWeeks && calendarSize === 'big'"
+          color="primary"
+          :label="calendarWeeksDisplay"
+        />
         <OnyxIconButton
+          class="control-container__prev-month-button"
           :label="t('calendar.previousMonthButton')"
           color="neutral"
           :icon="iconChevronLeftSmall"
           :disabled="disabled === true"
           @click="goToMonthByOffset(-1)"
         />
-        <OnyxHeadline is="h2" class="control-container__date-display">
-          {{ d(viewMonth, { month: "long", year: "numeric" }) }}
-        </OnyxHeadline>
         <OnyxIconButton
+          class="control-container__next-month-button"
           :label="t('calendar.nextMonthButton')"
           color="neutral"
           :icon="iconChevronRightSmall"
@@ -205,7 +243,7 @@ const getDayRangeType = computed(() => {
 
         <tbody>
           <tr v-for="week in weeksToRender" :key="week.weekNumber">
-            <th v-if="showCalendarWeeks" scope="row">
+            <th v-if="showCalendarWeeks" scope="row" v-bind="getWeekNumberProps(week)">
               {{ week.weekNumber }}
             </th>
 
@@ -222,6 +260,7 @@ const getDayRangeType = computed(() => {
               :background-color="[0, 6].includes(day.date.getDay()) ? 'tinted' : 'blank'"
               :range-type="getDayRangeType(day.date)"
               :size="calendarSize"
+              :tooltip-text="isToday(day.date) ? t('calendar.todayButton.label') : undefined"
             >
               <template v-if="!!slots.day" #default>
                 <slot name="day" :date="day.date" :size="calendarSize"></slot>
@@ -244,8 +283,8 @@ const getDayRangeType = computed(() => {
     gap: var(--onyx-density-sm);
     color: var(--onyx-color-text-icons-neutral-medium);
     font-family: var(--onyx-font-family);
-    $calender-week-column-width: 2.5rem;
-    $calender-day-number-display-width: 2rem;
+    $calendar-week-column-width: 2.5rem;
+    $calendar-day-number-display-width: 2rem;
 
     &__header {
       display: flex;
@@ -253,7 +292,7 @@ const getDayRangeType = computed(() => {
       align-items: center;
       .control-container {
         display: flex;
-        gap: var(--onyx-density-xs);
+        gap: var(--onyx-density-2xs);
         align-items: center;
         &__date-display {
           min-width: calc(3 * var(--onyx-density-2xl));
@@ -292,7 +331,13 @@ const getDayRangeType = computed(() => {
         // calendar week styles
         &:has(th[scope="row"]) {
           th:first-of-type {
-            width: $calender-week-column-width;
+            width: $calendar-week-column-width;
+            &[role="button"]:not([aria-disabled="true"]) {
+              cursor: pointer;
+              &:hover {
+                background-color: var(--onyx-color-base-neutral-300);
+              }
+            }
           }
 
           tr:last-of-type {
@@ -329,8 +374,15 @@ const getDayRangeType = computed(() => {
 
     &--small {
       .time-control-container {
-        justify-content: space-between;
         width: 100%;
+      }
+      .control-container__prev-month-button {
+        margin-left: auto;
+      }
+      &:has(th[scope="row"]) {
+        th:first-of-type {
+          border-bottom: none;
+        }
       }
     }
 
