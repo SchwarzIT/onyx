@@ -9,7 +9,7 @@ export default {};
 <script setup lang="ts" generic="TSliderMode extends SliderMode">
 import { _unstableCreateSlider } from "@sit-onyx/headless";
 import { iconMinusSmall, iconPlusSmall } from "@sit-onyx/icons";
-import { computed, toRefs, watch } from "vue";
+import { computed, toRef, toRefs } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useErrorClass } from "../../composables/useErrorClass.js";
 import { getFormMessages, useFormElementError } from "../../composables/useFormElementError.js";
@@ -18,7 +18,7 @@ import {
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
-import { applyLimits } from "../../utils/numbers.js";
+import { injectI18n } from "../../i18n/index.js";
 import { useForwardProps } from "../../utils/props.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
@@ -28,36 +28,13 @@ import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import type { OnyxSliderProps, SliderMode, SliderValue } from "./types.js";
 
-/**
- * Adjusting the position for marks with proper edge offset to prevent overflow because of rounding.
- * For marks at 0% and 100%, applies a 0.25rem offset to keep them within bounds.
- */
-const adjustMarkPosition = (percentage: number): string => {
-  if (percentage <= 0) {
-    return "calc(0.25rem)";
-  }
-  if (percentage >= 100) {
-    return "calc(100% - 0.25rem)";
-  }
-  return `${percentage}%`;
-};
+type Props = OnyxSliderProps<TSliderMode>;
 
-const props = withDefaults(defineProps<OnyxSliderProps<TSliderMode>>(), {
+const props = withDefaults(defineProps<Props>(), {
   min: 0,
   max: 100,
   step: 1,
-  shiftStep: (props) => {
-    const min = props.min ?? 0;
-    const max = props.max ?? 100;
-    const step = props.step ?? 1;
-
-    // Round to the nearest step multiple to ensure it aligns with step boundaries
-    const stepMultiple = Math.max(1, Math.round(((max - min) * 0.1) / step));
-
-    return stepMultiple * step;
-  },
   marks: false,
-  orientation: "horizontal",
   disabled: FORM_INJECTED_SYMBOL,
   showError: FORM_INJECTED_SYMBOL,
   skeleton: SKELETON_INJECTED_SYMBOL,
@@ -66,20 +43,22 @@ const props = withDefaults(defineProps<OnyxSliderProps<TSliderMode>>(), {
 
 const emit = defineEmits<{
   /**
-   * Emitted when the validity state of the slider changes.
-   */
-  validityChange: [validity: ValidityState];
-  /**
    * Emitted when the slider changes
    */
   "update:modelValue": [value: SliderValue<TSliderMode>];
+  /**
+   * Emitted when the validity state of the slider changes.
+   */
+  validityChange: [validity: ValidityState];
 }>();
 
-const modelValue = useVModel({
+const modelValue = useVModel<Props, "modelValue", SliderValue<TSliderMode>>({
   props,
   emit,
   key: "modelValue",
 });
+
+const { t } = injectI18n();
 
 const { vCustomValidity, errorMessages } = useFormElementError({ props, emit });
 const formElementProps = useForwardProps(props, OnyxFormElement);
@@ -91,42 +70,11 @@ const { disabled, showError } = useFormContext(props);
 const errorClass = useErrorClass(showError);
 const skeleton = useSkeletonContext(props);
 
-const handleChange = (values: SliderValue<TSliderMode>) => {
-  emit("update:modelValue", values);
-};
-
-const handleDecreaseByIcon = () => {
-  if (disabled.value) return;
-
-  if (props.mode === "single") {
-    const currentValue = Number(modelValue.value ?? props.min);
-    const stepValue = props.shiftStep ?? props.step ?? 1;
-    const newValue = Math.max(currentValue - stepValue, props.min);
-    handleChange(newValue as SliderValue<TSliderMode>);
-  }
-};
-
-const handleIncreaseByIcon = () => {
-  if (disabled.value) return;
-
-  if (props.mode === "single") {
-    const currentValue = Number(modelValue.value ?? props.min);
-    const stepValue = props.shiftStep ?? props.step ?? 1;
-    const newValue = Math.min(currentValue + stepValue, props.max);
-    handleChange(newValue as SliderValue<TSliderMode>);
-  }
-};
-
-const { min, max, step, marks, orientation, label, discrete, shiftStep } = toRefs(props);
-
-const thumbs = computed<number[]>(() =>
-  Array.isArray(modelValue.value) ? modelValue.value : [modelValue.value],
-);
+const { min, max, step, marks, label, discrete } = toRefs(props);
 
 const {
   elements: { root, rail, track, thumbContainer, thumbInput, mark, markLabel },
-  state: { focusedThumbIndex, activeThumbIndex, marksList },
-  internals: { isMarkActive, valueToPercent, axis, normalizeValues },
+  state: { activeThumbIndex, marksList, shiftStep, normalizedValues },
 } = _unstableCreateSlider({
   value: modelValue,
   min,
@@ -134,24 +82,33 @@ const {
   step,
   label,
   marks,
-  orientation,
   discrete,
   disabled,
-  shiftStep,
-  onChange: handleChange,
+  shiftStep: toRef(props, "shiftStep"),
+  onChange: (newValue) => (modelValue.value = newValue),
 });
 
-// Normalize values when min, max, step changes
-watch(
-  () => [props.min, props.max, props.step, props.mode],
-  () => {
-    const normalized = normalizeValues.value(
-      props.mode === "range" ? [Number(modelValue.value)] : modelValue.value,
-    );
+const handleDecreaseByIcon = () => {
+  if (disabled.value) return;
+  const currentValue = normalizedValues.value[0];
 
-    handleChange((props.mode === "range" ? normalized : normalized[0]) as SliderValue<TSliderMode>);
-  },
-);
+  if (props.mode === "single" && currentValue != undefined) {
+    const stepValue = shiftStep.value ?? props.step ?? 1;
+    const newValue = Math.max(currentValue - stepValue, props.min);
+    modelValue.value = newValue as SliderValue<TSliderMode>;
+  }
+};
+
+const handleIncreaseByIcon = () => {
+  if (disabled.value) return;
+  const currentValue = normalizedValues.value[0];
+
+  if (props.mode === "single" && currentValue != undefined) {
+    const stepValue = shiftStep.value ?? props.step ?? 1;
+    const newValue = Math.min(currentValue + stepValue, props.max);
+    modelValue.value = newValue as SliderValue<TSliderMode>;
+  }
+};
 
 const isValueControl = computed(() => props.control === "value");
 /**
@@ -161,30 +118,17 @@ const isIconControl = computed(() => props.control === "icon" && props.mode === 
 </script>
 
 <template>
-  <div
-    v-if="skeleton"
-    :class="[
-      'onyx-component',
-      'onyx-slider-skeleton',
-      densityClass,
-      {
-        'onyx-slider-skeleton--vertical': props.orientation === 'vertical',
-      },
-    ]"
-  >
+  <div v-if="skeleton" :class="['onyx-component', 'onyx-slider-skeleton', densityClass]">
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-slider-skeleton__label" />
     <OnyxSkeleton class="onyx-slider-skeleton__block" />
   </div>
 
   <div
     v-else
-    class="onyx-component onyx-slider"
     :class="[
-      {
-        'onyx-slider--vertical': props.orientation === 'vertical',
-        'onyx-slider--disabled': disabled,
-        'onyx-slider--is-active': activeThumbIndex !== -1,
-      },
+      'onyx-component',
+      'onyx-slider',
+      { 'onyx-slider--active': activeThumbIndex !== -1 },
       densityClass,
       errorClass,
     ]"
@@ -198,19 +142,14 @@ const isIconControl = computed(() => props.control === "icon" && props.mode === 
     >
       <template #default="{ id: inputId }">
         <div class="onyx-slider__container">
-          <div
-            v-if="isValueControl"
-            class="onyx-slider__value-control-container"
-            role="img"
-            tabindex="-1"
-          >
+          <div v-if="isValueControl" class="onyx-slider__control" aria-hidden="true">
             {{ min }}
           </div>
 
-          <div v-if="isIconControl" class="onyx-slider__icon-control-container">
+          <div v-if="isIconControl" class="onyx-slider__control">
             <OnyxIconButton
-              :disabled="disabled || Number(modelValue ?? props.min) <= props.min"
-              :label="props.label || inputId"
+              :disabled="disabled || (normalizedValues[0] ?? props.min) <= props.min"
+              :label="t('slider.decreaseValue', { n: shiftStep })"
               color="neutral"
               :icon="iconMinusSmall"
               tabindex="0"
@@ -226,11 +165,9 @@ const isIconControl = computed(() => props.control === "icon" && props.mode === 
             <template v-for="markItem in marksList" :key="markItem.value">
               <span
                 class="onyx-slider__mark"
-                :class="{ 'onyx-slider__mark--active': isMarkActive(markItem.value) }"
-                v-bind="mark({ value: markItem.value, label: markItem.label })"
-                :style="{
-                  [axis.position]: `${adjustMarkPosition(applyLimits(valueToPercent(markItem.value), 0, 100))}`,
-                }"
+                v-bind="
+                  mark({ value: markItem.value, label: markItem.label, positionOffset: '0.25rem' })
+                "
               ></span>
               <span
                 v-if="markItem.label"
@@ -242,20 +179,18 @@ const isIconControl = computed(() => props.control === "icon" && props.mode === 
             </template>
 
             <span
-              v-for="(value, index) in thumbs"
+              v-for="(value, index) in normalizedValues"
               :key="index"
               v-bind="thumbContainer({ value, index })"
-              class="onyx-slider__thumb"
-              :class="{
-                'is-focus': focusedThumbIndex === index,
-                'is-active': activeThumbIndex === index,
-              }"
+              :class="[
+                'onyx-slider__thumb',
+                { 'onyx-slider__thumb--active': activeThumbIndex === index },
+              ]"
             >
               <OnyxTooltip
                 :open="!props.disableTooltip && activeThumbIndex === index"
                 :text="String(value)"
-                :position="props.orientation === 'vertical' ? 'right' : 'bottom'"
-                alignment="auto"
+                position="bottom"
                 class="onyx-slider__thumb-tooltip"
               >
                 <template #default="{ trigger }">
@@ -276,19 +211,14 @@ const isIconControl = computed(() => props.control === "icon" && props.mode === 
             </span>
           </span>
 
-          <div
-            v-if="isValueControl"
-            class="onyx-slider__value-control-container"
-            role="img"
-            tabindex="-1"
-          >
+          <div v-if="isValueControl" class="onyx-slider__control" aria-hidden="true">
             {{ max }}
           </div>
 
-          <div v-if="isIconControl" class="onyx-slider__icon-control-container">
+          <div v-if="isIconControl" class="onyx-slider__control">
             <OnyxIconButton
-              :disabled="disabled || Number(modelValue ?? props.min) >= props.max"
-              label="Increase"
+              :disabled="disabled || (normalizedValues[0] ?? props.min) >= props.max"
+              :label="t('slider.increaseValue', { n: shiftStep })"
               color="neutral"
               :icon="iconPlusSmall"
               tabindex="0"
@@ -308,37 +238,31 @@ const isIconControl = computed(() => props.control === "icon" && props.mode === 
 
 .onyx-slider,
 .onyx-slider-skeleton {
-  --onyx-slider-padding-vertical: var(--onyx-density-xs);
+  @include layers.component() {
+    // Colors
+    --onyx-slider-rail-background: var(--onyx-color-base-neutral-200);
+    --onyx-slider-track-background: var(--onyx-color-base-neutral-600);
+    --onyx-slider-thumb-background: var(--onyx-color-base-neutral-600);
+    --onyx-slider-thumb-border-color: var(--onyx-color-base-neutral-800);
+    --onyx-slider-mark-background: var(--onyx-color-base-neutral-400);
+    --onyx-slider-mark-color: var(--onyx-color-text-icons-neutral-medium);
 
-  // Colors
-  --onyx-slider-rail-color: var(--onyx-color-base-neutral-200);
-  --onyx-slider-track-color: var(--onyx-color-base-neutral-600);
-  --onyx-slider-thumb-color: var(--onyx-color-base-neutral-600);
-  --onyx-slider-thumb-border-color: var(--onyx-color-base-neutral-800);
-  --onyx-slider-mark-color: var(--onyx-color-base-neutral-400);
-  --onyx-slider-mark-active-color: var(--onyx-color-base-neutral-600);
-  --onyx-slider-mark-label-color: var(--onyx-color-text-icons-neutral-medium);
-  --onyx-slider-value-control-color: var(--onyx-color-text-icons-neutral-intense);
+    // Spacings
+    --onyx-slider-padding-vertical: var(--onyx-density-xs);
+    --onyx-slider-root-padding: var(--onyx-density-sm);
+    --onyx-slider-mark-label-offset: var(--onyx-density-xl);
+    --onyx-slider-thumb-size: 1.25rem;
 
-  // Density-based spacing
-  --onyx-slider-root-padding: var(--onyx-density-sm);
-  --onyx-slider-mark-label-offset: var(--onyx-density-xl);
-  --onyx-slider-vertical-mark-label-offset: var(--onyx-density-xl);
+    // Interactive state colors
+    --onyx-slider-rail-background-interactive: var(--onyx-color-base-neutral-200);
+    --onyx-slider-track-background-interactive: var(--onyx-color-base-primary-500);
+    --onyx-slider-thumb-background-interactive: var(--onyx-color-base-primary-500);
+    --onyx-slider-thumb-border-color-interactive: var(--onyx-color-base-primary-500);
 
-  // Interactive state colors
-  --onyx-slider-rail-color-interactive: var(--onyx-color-base-neutral-200);
-  --onyx-slider-track-color-interactive: var(--onyx-color-base-primary-500);
-  --onyx-slider-thumb-color-interactive: var(--onyx-color-base-primary-500);
-  --onyx-slider-thumb-border-color-interactive: var(--onyx-color-base-primary-500);
-  --onyx-slider-mark-active-color-interactive: var(--onyx-color-base-primary-500);
-
-  // Disabled state colors
-  --onyx-slider-track-color-disabled: var(--onyx-color-base-neutral-300);
-  --onyx-slider-thumb-color-disabled: var(--onyx-color-base-neutral-300);
-  --onyx-slider-thumb-border-color-disabled: var(--onyx-color-base-neutral-300);
-  --onyx-slider-mark-color-disabled: var(--onyx-color-base-neutral-300);
-  --onyx-slider-mark-active-color-disabled: var(--onyx-color-base-neutral-300);
-  --onyx-slider-mark-label-color-disabled: var(--onyx-color-text-icons-neutral-soft);
+    // Disabled state colors
+    --onyx-slider-background-disabled: var(--onyx-color-base-neutral-300);
+    --onyx-slider-mark-color-disabled: var(--onyx-color-text-icons-neutral-soft);
+  }
 }
 
 .onyx-slider {
@@ -348,18 +272,21 @@ const isIconControl = computed(() => props.control === "icon" && props.mode === 
       $vertical-padding: var(--onyx-slider-padding-vertical)
     );
 
+    $track-z-index: 1;
+
     &__thumb-tooltip {
       pointer-events: none;
-      left: -0.625rem;
-      top: 0.625rem;
+      left: calc(-0.5 * var(--onyx-slider-thumb-size));
+      top: calc(0.5 * var(--onyx-slider-thumb-size));
     }
 
     &__container {
       display: flex;
       align-items: center;
       gap: var(--onyx-density-sm);
+      color: var(--onyx-color-text-icons-neutral-intense);
 
-      &:has(.onyx-slider__mark) {
+      &:has(.onyx-slider__mark-label) {
         padding-bottom: var(--onyx-slider-mark-label-offset);
       }
     }
@@ -371,88 +298,20 @@ const isIconControl = computed(() => props.control === "icon" && props.mode === 
       height: 0.5rem;
       padding: var(--onyx-slider-root-padding) 0;
       user-select: none;
-      cursor: pointer;
+      border-radius: var(--onyx-radius-sm);
     }
 
-    &__value-control-container {
-      color: var(--onyx-slider-value-control-color);
+    &__control {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.5rem;
+      height: 1.5rem;
+
       font-size: var(--onyx-font-size-md);
       font-family: var(--onyx-font-family-paragraph);
       line-height: var(--onyx-font-line-height-sm);
       user-select: none;
-      width: 1.5rem;
-      height: 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    &__icon-control-container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 1.5rem;
-      height: 1.5rem;
-    }
-
-    &--vertical {
-      height: 100%;
-
-      .onyx-slider__thumb-tooltip {
-        pointer-events: none;
-        left: 0.375rem;
-      }
-
-      .onyx-slider__form-element {
-        height: 100%;
-      }
-
-      .onyx-slider__container {
-        flex-direction: column-reverse;
-        height: 100%;
-      }
-
-      .onyx-slider__root {
-        width: 0.5rem;
-        height: 100%;
-        padding: 0 var(--onyx-slider-root-padding);
-      }
-
-      .onyx-slider__rail {
-        left: 50%;
-        right: auto;
-        top: 0;
-        bottom: 0;
-        width: 0.5rem;
-        height: auto;
-        transform: translateX(-50%);
-      }
-
-      .onyx-slider__track {
-        left: 50%;
-        top: auto;
-        width: 0.5rem;
-        height: auto;
-        transform: translateX(-50%);
-      }
-
-      .onyx-slider__thumb {
-        left: 50%;
-        top: unset;
-        transform: translate(-50%, 50%);
-      }
-
-      .onyx-slider__mark {
-        left: 50%;
-        top: unset;
-        transform: translateX(-50%) translateY(50%);
-      }
-
-      .onyx-slider__mark-label {
-        left: var(--onyx-slider-vertical-mark-label-offset);
-        top: auto;
-        transform: translateY(50%);
-      }
     }
 
     &__rail {
@@ -460,53 +319,40 @@ const isIconControl = computed(() => props.control === "icon" && props.mode === 
       left: 0;
       right: 0;
       top: 50%;
-      height: 0.5rem;
       transform: translateY(-50%);
-      background-color: var(--onyx-slider-rail-color);
-      border-radius: var(--onyx-radius-sm);
+      height: inherit;
+      background-color: var(--onyx-slider-rail-background);
+      border-radius: inherit;
     }
 
     &__track {
       position: absolute;
       top: 50%;
-      height: 0.5rem;
       transform: translateY(-50%);
-      background-color: var(--onyx-slider-track-color);
-      border-radius: var(--onyx-radius-sm);
+      height: inherit;
+      background-color: var(--onyx-slider-track-background);
+      border-radius: inherit;
+      z-index: $track-z-index;
     }
 
     &__thumb {
       position: absolute;
       top: 50%;
-      width: 1.25rem;
-      height: 1.25rem;
+      width: var(--onyx-slider-thumb-size);
+      height: var(--onyx-slider-thumb-size);
       transform: translate(-50%, -50%);
-      border-radius: 50%;
-      background-color: var(--onyx-slider-thumb-color);
+      border-radius: var(--onyx-radius-full);
+      background-color: var(--onyx-slider-thumb-background);
       border: 0.25rem solid var(--onyx-slider-thumb-border-color);
       display: flex;
       align-items: center;
       justify-content: center;
+      z-index: $track-z-index + 1;
 
-      &::after {
-        content: "";
-        position: absolute;
-        display: none;
-        pointer-events: none;
-        top: 50%;
-        left: 50%;
-        width: 1.75rem;
-        height: 1.75rem;
-        transform: translate(-50%, -50%);
-        background-color: transparent;
-        border-radius: 50%;
-        border: 0.25rem solid var(--onyx-color-component-focus-primary);
-      }
-
-      &.is-focus,
-      &.is-active {
-        &::after {
-          display: block;
+      &:has(.onyx-slider__native:enabled) {
+        &:focus-within,
+        &.onyx-slider__thumb--active {
+          outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
         }
       }
     }
@@ -516,17 +362,13 @@ const isIconControl = computed(() => props.control === "icon" && props.mode === 
       top: 50%;
       width: 0.375rem;
       height: 0.375rem;
-      transform: translateX(-50%) translateY(-50%);
-      border-radius: 50%;
-      background-color: var(--onyx-slider-mark-color);
-
-      &--active {
-        background-color: var(--onyx-slider-mark-active-color);
-      }
+      transform: translate(-50%, -50%);
+      border-radius: var(--onyx-radius-full);
+      background-color: var(--onyx-slider-mark-background);
     }
 
     &__mark-label {
-      color: var(--onyx-slider-mark-label-color);
+      color: var(--onyx-slider-mark-color);
       font-size: var(--onyx-font-size-sm);
       font-family: var(--onyx-font-family-paragraph);
       line-height: var(--onyx-font-line-height-sm);
@@ -536,56 +378,45 @@ const isIconControl = computed(() => props.control === "icon" && props.mode === 
       transform: translateX(-50%);
     }
 
-    &__root:hover:not(&--disabled),
-    &:focus-within,
-    &--is-active {
-      .onyx-slider {
-        &__rail {
-          background-color: var(--onyx-slider-rail-color-interactive);
-        }
+    &:has(&__native:enabled) {
+      .onyx-slider__root {
+        cursor: pointer;
+      }
 
-        &__track {
-          background-color: var(--onyx-slider-track-color-interactive);
-        }
+      &:has(.onyx-slider__root:hover),
+      &:has(.onyx-slider__root:focus-within),
+      // TODO: check if active class is needed or can be replaced with ":active"
+      &.onyx-slider--active {
+        .onyx-slider {
+          &__rail {
+            background-color: var(--onyx-slider-rail-background-interactive);
+          }
 
-        &__thumb {
-          background-color: var(--onyx-slider-thumb-color-interactive);
-          border-color: var(--onyx-slider-thumb-border-color-interactive);
-        }
+          &__track {
+            background-color: var(--onyx-slider-track-background-interactive);
+          }
 
-        &__mark {
-          &--active {
-            background-color: var(--onyx-slider-mark-active-color-interactive);
+          &__thumb {
+            background-color: var(--onyx-slider-thumb-background-interactive);
+            border-color: var(--onyx-slider-thumb-border-color-interactive);
           }
         }
       }
     }
 
-    &--disabled {
+    &:has(&__native:disabled) {
       .onyx-slider {
-        &__root {
-          cursor: default;
-          pointer-events: none;
-        }
-
         &__track {
-          background-color: var(--onyx-slider-track-color-disabled);
+          background-color: var(--onyx-slider-background-disabled);
         }
 
         &__thumb {
-          background-color: var(--onyx-slider-thumb-color-disabled);
-          border-color: var(--onyx-slider-thumb-border-color-disabled);
-        }
-
-        &__mark {
-          background-color: var(--onyx-slider-mark-color-disabled);
-          &--active {
-            background-color: var(--onyx-slider-mark-active-color-disabled);
-          }
+          background-color: var(--onyx-slider-background-disabled);
+          border-color: var(--onyx-slider-background-disabled);
         }
 
         &__mark-label {
-          color: var(--onyx-slider-mark-label-color-disabled);
+          color: var(--onyx-slider-mark-color-disabled);
         }
       }
     }
@@ -609,16 +440,6 @@ const isIconControl = computed(() => props.control === "icon" && props.mode === 
     width: 17rem;
     max-width: 100%;
     height: $height;
-  }
-
-  &--vertical {
-    height: 12rem;
-
-    .onyx-slider-skeleton__block {
-      width: $height;
-      height: 17rem;
-      max-height: 100%;
-    }
   }
 
   @include density.compact {

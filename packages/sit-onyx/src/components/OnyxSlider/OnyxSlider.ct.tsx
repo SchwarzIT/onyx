@@ -1,8 +1,9 @@
-import type { MatrixScreenshotTestOptions } from "@sit-onyx/playwright-utils";
+import { type MatrixScreenshotTestOptions } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import OnyxSlider from "./OnyxSlider.vue";
+import { SLIDER_CONTROLS } from "./types.js";
 
 const SLIDER_MARKS = [
   { value: 0, label: "Min" },
@@ -22,13 +23,18 @@ const screenshotOptions = {
   rows: ["default", "hover", "focus-visible", "active"] as const,
   hooks: {
     beforeEach: async (component, page, _column, row) => {
-      const sliderContainer = component.locator(".onyx-slider__container").first();
+      const root = component.locator(".onyx-slider__root").first();
       const thumb = component.locator(".onyx-slider__thumb").first();
 
-      if (row === "hover") await sliderContainer.hover();
+      if (row === "hover") await root.hover();
       if (row === "focus-visible") await page.keyboard.press("Tab");
       if (row === "active") {
-        await thumb.click();
+        const box = (await thumb.boundingBox())!;
+        const position = { x: box.x + box.width / 2, y: box.y + box.height / 2 };
+
+        await page.mouse.move(position.x, position.y);
+        await page.mouse.down();
+        await page.mouse.move(position.x, position.y + 64);
       }
     },
   },
@@ -42,11 +48,11 @@ test.describe("Screenshot tests", () => {
     component: (column, row) => (
       <OnyxSlider
         label="Single slider"
-        modelValue={40}
+        modelValue={50}
         density={column}
         style={{
           width: "12rem",
-          marginBottom: row === "focus-visible" ? "3rem" : undefined,
+          marginBottom: row === "focus-visible" || row === "active" ? "3rem" : undefined,
         }}
       />
     ),
@@ -60,206 +66,96 @@ test.describe("Screenshot tests", () => {
       <OnyxSlider
         label="Range slider"
         mode="range"
-        modelValue={[20, 75]}
+        modelValue={[25, 75]}
         density={column}
         style={{
           width: "12rem",
-          marginBottom: row === "focus-visible" ? "3rem" : undefined,
+          marginBottom: row === "focus-visible" || row === "active" ? "3rem" : undefined,
         }}
       />
     ),
   });
 
   executeMatrixScreenshotTest({
+    ...screenshotOptions,
     name: "Slider (disabled)",
     columns: ["single", "range"],
-    rows: ["default", "hover", "focus-visible"],
     component: (column) => (
       <OnyxSlider
         label="Disabled slider"
         mode={column}
-        modelValue={column === "single" ? 40 : [20, 75]}
+        modelValue={column === "single" ? 50 : [25, 75]}
         disabled
-        style={{
-          width: "12rem",
-        }}
-      />
-    ),
-    hooks: {
-      beforeEach: async (component, page, _olumn, row) => {
-        const sliderContainer = component.locator(".onyx-slider__container").first();
-        if (row === "hover") await sliderContainer.hover();
-        if (row === "focus-visible") await page.keyboard.press("Tab");
-      },
-    },
-  });
-
-  executeMatrixScreenshotTest({
-    name: "Slider (skeleton)",
-    columns: DENSITIES,
-    rows: ["horizontal", "vertical"],
-    component: (column, row) => (
-      <OnyxSlider
-        label="Skeleton slider"
-        modelValue={40}
-        density={column}
-        orientation={row}
-        skeleton
-        style={{
-          width: row === "vertical" ? "5rem" : "16rem",
-          height: row === "vertical" ? "16rem" : undefined,
-        }}
+        style={{ width: "12rem" }}
       />
     ),
   });
 });
 
-test.describe("Screenshot tests (with marks)", () => {
+test.describe("Screenshot tests (marks)", () => {
   executeMatrixScreenshotTest({
-    ...screenshotOptions,
     name: "Slider (marks)",
-    columns: ["simple", "labeled", "auto-generated"],
-    component: (column) => {
+    columns: DENSITIES,
+    rows: ["simple", "labeled", "auto-generated"],
+    component: (column, row) => {
       const marks =
-        column === "simple" ? [0, 25, 50, 75, 100] : column === "labeled" ? LARGE_MARKS : true;
-
+        row === "simple" ? [0, 25, 50, 75, 100] : row === "labeled" ? LARGE_MARKS : true;
       return (
         <OnyxSlider
           label="Slider with marks"
-          modelValue={[20, 75]}
-          mode="range"
+          modelValue={50}
           marks={marks}
-          step={column === "auto-generated" ? 25 : undefined}
-          style={{
-            width: "12rem",
-          }}
+          step={row === "auto-generated" ? 25 : undefined}
+          density={column}
+          style={{ width: "12rem" }}
         />
       );
     },
   });
+});
 
+test.describe("Screenshot tests (other)", () => {
   executeMatrixScreenshotTest({
-    name: "Slider (discrete)",
+    name: "Slider (other)",
     columns: DENSITIES,
-    rows: ["default", "hover", "focus-visible", "active"],
+    rows: ["skeleton", "error", "message", "marks+message", "labelled-marks+message"],
     component: (column, row) => (
       <OnyxSlider
-        label="Discrete slider"
+        label="Skeleton slider"
         modelValue={50}
         density={column}
-        discrete
-        marks={SLIDER_MARKS}
-        style={{
-          width: "12rem",
-          marginBottom: row === "focus-visible" ? "3rem" : undefined,
-        }}
+        skeleton={row === "skeleton"}
+        showError={row === "error"}
+        error={row === "error" ? { shortMessage: "Error", longMessage: "Long error" } : undefined}
+        message={
+          row.includes("message")
+            ? { shortMessage: "Message", longMessage: "Long message" }
+            : undefined
+        }
+        marks={
+          row.includes("labelled-marks") ? LARGE_MARKS : row.includes("marks") ? true : undefined
+        }
+        step={25}
+        style={{ width: "12rem" }}
       />
     ),
-    hooks: {
-      beforeEach: async (component, page, _column, row) => {
-        const sliderContainer = component.locator(".onyx-slider__container").first();
-        const thumb = component.locator(".onyx-slider__thumb").first();
-
-        if (row === "hover") await sliderContainer.hover();
-        if (row === "focus-visible") await page.keyboard.press("Tab");
-        if (row === "active") {
-          await thumb.click();
-        }
-      },
-    },
   });
 });
 
-test.describe("Screenshot tests (orientation)", () => {
+test.describe("Screenshot tests (controls)", () => {
   executeMatrixScreenshotTest({
-    name: "Slider (vertical)",
-    columns: ["single", "range", "with-marks"],
-    rows: DENSITIES,
+    name: "Slider (controls)",
+    columns: SLIDER_CONTROLS,
+    rows: ["enabled", "disabled"],
     component: (column, row) => (
       <OnyxSlider
-        label="Vertical slider"
-        mode={column === "range" ? "range" : "single"}
-        modelValue={column === "range" ? [20, 75] : 40}
-        orientation="vertical"
-        density={row}
-        marks={column === "with-marks" ? LARGE_MARKS : undefined}
-        style={{
-          height: "16rem",
-          width: "5rem",
-        }}
+        label="Slider controls"
+        modelValue={50}
+        control={column}
+        disabled={row === "disabled"}
+        style={{ width: "16rem" }}
       />
     ),
-  });
-});
-
-test.describe("Screenshot tests (error states)", () => {
-  executeMatrixScreenshotTest({
-    name: "Slider (error)",
-    columns: ["short", "long"],
-    rows: ["default", "hover", "focus-visible"],
-    component: (column) => (
-      <OnyxSlider
-        label="Error slider"
-        modelValue={30}
-        showError
-        error={
-          column === "short"
-            ? { shortMessage: "Error" }
-            : { shortMessage: "Error", longMessage: "This is a detailed error message" }
-        }
-        style={{
-          width: "12rem",
-        }}
-      />
-    ),
-    hooks: {
-      beforeEach: async (component, page, _column, row) => {
-        const sliderContainer = component.locator(".onyx-slider__container").first();
-        if (row === "hover") await sliderContainer.hover();
-        if (row === "focus-visible") await page.keyboard.press("Tab");
-      },
-    },
-  });
-});
-
-test.describe("Screenshot tests (message)", () => {
-  executeMatrixScreenshotTest({
-    name: "Slider (message)",
-    columns: DENSITIES,
-    rows: ["default"],
-    component: (column) => (
-      <OnyxSlider
-        label="Slider with message"
-        modelValue={40}
-        density={column}
-        message={{ shortMessage: "Adjust the slider to set your preference" }}
-      />
-    ),
-  });
-});
-
-test.describe("Screenshot tests (tooltip)", () => {
-  executeMatrixScreenshotTest({
-    name: "Slider (tooltip)",
-    columns: ["tooltip-enabled", "tooltip-disabled"],
-    rows: ["single", "range"],
-    component: (column, row) => (
-      <OnyxSlider
-        label="Slider tooltip"
-        mode={row}
-        modelValue={row === "single" ? 40 : [20, 75]}
-        disableTooltip={column === "tooltip-disabled"}
-        style={{
-          width: "12rem",
-          marginBottom: "3rem",
-        }}
-      />
-    ),
-    hooks: {
-      beforeEach: async (_component, page) => {
-        await page.keyboard.press("Tab");
-      },
-    },
   });
 });
 
@@ -279,8 +175,6 @@ test.describe("Interaction tests", () => {
       props: {
         label: "Test slider",
         modelValue,
-        min: 0,
-        max: 100,
       },
       on: eventHandlers,
     });
@@ -290,12 +184,12 @@ test.describe("Interaction tests", () => {
     // ASSERT
     await expect(slider).toHaveValue("50");
 
-    // ACT - keyboard interaction
-    await slider.focus();
+    // ACT
     await slider.press("ArrowRight");
 
-    // ASSERT - value should have increased by 1
-    await expect(slider).toHaveValue("51");
+    // ASSERT
+    await expect(slider, "should increase value when pressing arrow right").toHaveValue("51");
+    expect(modelValue).toBe(51);
   });
 
   test("should interact with range slider", async ({ mount }) => {
@@ -314,8 +208,6 @@ test.describe("Interaction tests", () => {
         label: "Range slider",
         mode: "range",
         modelValue,
-        min: 0,
-        max: 100,
       },
       on: eventHandlers,
     });
@@ -328,18 +220,18 @@ test.describe("Interaction tests", () => {
     await expect(lastSlider).toHaveValue("80");
 
     // ACT - adjust first slider
-    await firstSlider.focus();
     await firstSlider.press("ArrowRight");
 
     // ASSERT
     await expect(firstSlider).toHaveValue("21");
+    expect(modelValue).toStrictEqual([21, 80]);
 
     // ACT - adjust second slider
-    await lastSlider.focus();
     await lastSlider.press("ArrowLeft");
 
     // ASSERT
     await expect(lastSlider).toHaveValue("79");
+    expect(modelValue).toStrictEqual([21, 79]);
   });
 
   test("should handle keyboard navigation", async ({ mount }) => {
@@ -357,34 +249,37 @@ test.describe("Interaction tests", () => {
       props: {
         label: "Keyboard test slider",
         modelValue,
-        min: 0,
-        max: 100,
-        step: 10,
+        step: 1,
       },
       on: eventHandlers,
     });
 
     const slider = component.getByRole("slider");
-    await slider.focus();
 
     // ACT & ASSERT - Arrow keys
-    await component.page().keyboard.press("ArrowRight");
+    await slider.press("ArrowRight");
+    await expect(slider).toHaveValue("51");
+
+    await slider.press("Shift+ArrowRight");
+    await expect(slider).toHaveValue("61");
+
+    await slider.press("ArrowLeft");
     await expect(slider).toHaveValue("60");
 
-    await component.page().keyboard.press("ArrowLeft");
+    await slider.press("Shift+ArrowLeft");
     await expect(slider).toHaveValue("50");
 
-    await component.page().keyboard.press("ArrowUp");
-    await expect(slider).toHaveValue("60");
+    await slider.press("ArrowUp");
+    await expect(slider).toHaveValue("51");
 
-    await component.page().keyboard.press("ArrowDown");
+    await slider.press("ArrowDown");
     await expect(slider).toHaveValue("50");
 
     // ACT & ASSERT - Home/End keys
-    await component.page().keyboard.press("Home");
+    await slider.press("Home");
     await expect(slider).toHaveValue("0");
 
-    await component.page().keyboard.press("End");
+    await slider.press("End");
     await expect(slider).toHaveValue("100");
   });
 
@@ -412,90 +307,30 @@ test.describe("Interaction tests", () => {
     const slider = component.getByRole("slider");
 
     // ACT & ASSERT - Try to go below minimum
-    await slider.focus();
-    await component.page().keyboard.press("Home");
+    await slider.press("Home");
     await expect(slider).toHaveValue("20");
 
     // ACT & ASSERT - Try to go above maximum
-    await component.page().keyboard.press("End");
+    await slider.press("End");
     await expect(slider).toHaveValue("80");
-  });
-
-  test("should work with marks", async ({ mount }) => {
-    // ARRANGE
-    const component = await mount(
-      <OnyxSlider label="Marks slider" modelValue={50} marks={SLIDER_MARKS} />,
-    );
-
-    // ASSERT - Check marks are displayed
-    await expect(component.getByText("Min")).toBeVisible();
-    await expect(component.getByText("Mid")).toBeVisible();
-    await expect(component.getByText("Max")).toBeVisible();
   });
 
   test("should be disabled when disabled prop is true", async ({ mount }) => {
     // ARRANGE
-    const component = await mount(
-      <OnyxSlider label="Disabled slider" modelValue={50} disabled={true} />,
-    );
+    const component = await mount(<OnyxSlider label="Disabled slider" modelValue={50} disabled />);
 
     const slider = component.getByRole("slider");
 
     // ASSERT
     await expect(slider).toBeDisabled();
+    await expect(slider).toHaveValue("50");
 
     // ACT & ASSERT - Should not respond to keyboard input
-    await slider.focus();
-    await expect(slider).toHaveValue("50");
-    await component.page().keyboard.press("ArrowRight");
+    await slider.press("ArrowRight");
     await expect(slider).toHaveValue("50");
   });
 
-  test("should display custom error message", async ({ mount }) => {
-    const errorMessage = "Custom error";
-
-    // ARRANGE
-    const component = await mount(
-      <OnyxSlider
-        label="Error slider"
-        modelValue={30}
-        showError
-        error={{ shortMessage: errorMessage }}
-      />,
-    );
-
-    // ASSERT
-    await expect(component.getByText(errorMessage)).toBeVisible();
-  });
-
-  test("should display help message", async ({ mount }) => {
-    const helpMessage = "Adjust the slider to set your preference";
-
-    // ARRANGE
-    const component = await mount(
-      <OnyxSlider label="Help slider" modelValue={50} message={{ shortMessage: helpMessage }} />,
-    );
-
-    // ASSERT
-    await expect(component.getByText(helpMessage)).toBeVisible();
-  });
-
-  test("should display value control", async ({ mount }) => {
-    // ARRANGE
-    const component = await mount(
-      <OnyxSlider label="Control slider" modelValue={30} control="value" />,
-    );
-
-    const valueControls = component.getByRole("img");
-
-    // ASSERT - Value control should be visible
-    await expect(valueControls.first()).toBeVisible();
-    await expect(valueControls.first()).toHaveText("0");
-    await expect(valueControls.last()).toBeVisible();
-    await expect(valueControls.last()).toHaveText("100");
-  });
-
-  test("should display and interact with icon control buttons", async ({ mount }) => {
+  test("should interact with icon control", async ({ mount }) => {
     let modelValue: number = 50;
 
     const eventHandlers = {
@@ -511,33 +346,29 @@ test.describe("Interaction tests", () => {
         label: "Icon control slider",
         modelValue,
         control: "icon",
-        min: 0,
-        max: 100,
-        shiftStep: 10,
       },
       on: eventHandlers,
     });
 
     const slider = component.getByRole("slider");
-    const buttons = component.getByRole("button");
-    const increaseButton = buttons.nth(1);
-    const decreaseButton = buttons.nth(0);
+    const decreaseButton = component.getByRole("button", { name: "Decrease value by 10" });
+    const increaseButton = component.getByRole("button", { name: "Increase value by 10" });
 
-    // ASSERT - Icon buttons should be visible
+    // ASSERT
     await expect(decreaseButton).toBeVisible();
     await expect(increaseButton).toBeVisible();
 
-    // ACT - Click increase button
+    // ACT
     await increaseButton.click();
 
-    // ASSERT - Value should have increased by shiftStep
-    await expect(slider).toHaveValue("60");
+    // ASSERT
+    await expect(slider, "should increase by shiftStep").toHaveValue("60");
 
-    // ACT - Click decrease button
+    // ACT
     await decreaseButton.click();
 
-    // ASSERT - Value should have decreased by shiftStep back to original
-    await expect(slider).toHaveValue("50");
+    // ASSERT
+    await expect(slider, "should decrease by shiftStep").toHaveValue("50");
   });
 
   test("should handle discrete mode", async ({ mount }) => {
@@ -564,66 +395,36 @@ test.describe("Interaction tests", () => {
     const slider = component.getByRole("slider");
 
     // ASSERT - Should snap to mark values
-    await slider.focus();
-    await component.page().keyboard.press("ArrowRight");
+    await slider.press("ArrowRight");
+    await expect(slider, "should snap to the next mark").toHaveValue("100");
 
-    // In discrete mode, it should snap to the next mark (100)
-    await expect(slider).toHaveValue("100");
-
-    await component.page().keyboard.press("ArrowLeft");
-    // Should snap back to previous mark (50)
-    await expect(slider).toHaveValue("50");
-  });
-
-  test("should support vertical orientation", async ({ mount }) => {
-    // ARRANGE
-    const component = await mount(
-      <OnyxSlider
-        label="Vertical slider"
-        modelValue={40}
-        orientation="vertical"
-        marks={SLIDER_MARKS}
-        style={{ height: "16rem" }}
-      />,
-    );
-
-    // ASSERT - Check slider is present and accessible
-    const slider = component.getByRole("slider");
-    await expect(slider).toHaveValue("40");
-
-    // ASSERT - Check marks are displayed
-    await expect(component.getByText("Min")).toBeVisible();
-    await expect(component.getByText("Mid")).toBeVisible();
-    await expect(component.getByText("Max")).toBeVisible();
+    await slider.press("ArrowLeft");
+    await expect(slider, "should snap to the previous mark").toHaveValue("50");
   });
 
   test("should handle auto-generated marks", async ({ mount }) => {
     // ARRANGE
     const component = await mount(
-      <OnyxSlider label="Auto marks slider" modelValue={40} marks step={20} min={0} max={100} />,
+      <OnyxSlider label="Auto marks slider" modelValue={50} marks step={20} min={0} max={100} />,
     );
 
-    // ASSERT - Auto-generated marks should be visible based on step
-    const slider = component.getByRole("slider");
-    await expect(slider).toHaveValue("40");
-
     // Should have marks at 0, 20, 40, 60, 80, 100
-    const markElements = component.locator(".onyx-slider__mark");
-    await expect(markElements).toHaveCount(6);
+    const marks = component.locator(".onyx-slider__mark");
+    await expect(marks).toHaveCount(6);
   });
 
   test("should hide tooltip when disabled", async ({ mount }) => {
     // ARRANGE
     const component = await mount(
-      <OnyxSlider label="No tooltip slider" modelValue={40} disableTooltip={true} />,
+      <OnyxSlider label="No tooltip slider" modelValue={50} disableTooltip />,
     );
 
     const slider = component.getByRole("slider");
 
-    // ACT - Focus to trigger potential tooltip
+    // ACT
     await slider.focus();
 
-    // ASSERT - Tooltip should not be visible
+    // ASSERT
     await expect(component.getByRole("tooltip")).toBeHidden();
   });
 });
