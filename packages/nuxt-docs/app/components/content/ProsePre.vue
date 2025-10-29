@@ -24,6 +24,7 @@ const props = withDefaults(
   }>(),
   {
     code: "",
+    filename: "Code",
   },
 );
 
@@ -36,23 +37,15 @@ defineSlots<{
 </script>
 
 <template>
-  <!-- <pre :class="[props.class, 'pre']">
-    <slot />
-  </pre> -->
-
-  <OnyxCodeGroup
-    :tabs="[
-      {
-        code: props.code,
-        label: props.filename ?? 'Code',
-        language: props.language,
-      },
-    ]"
-  />
+  <OnyxCodeGroup>
+    <OnyxCodeGroupTab :code="props.code" :label="props.filename" :class="props.class">
+      <slot />
+    </OnyxCodeGroupTab>
+  </OnyxCodeGroup>
 </template>
 
 <style lang="scss" scoped>
-.pre code .line {
+:deep(.onyx-code-group-tab__snippet code .line) {
   display: block;
 }
 </style>

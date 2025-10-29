@@ -1,13 +1,4 @@
-import type { DensityProp } from "sit-onyx";
-
-export type OnyxCodeGroupProps = DensityProp & {
-  /**
-   * A list of code tabs / files.
-   */
-  tabs: CodeGroupTab[];
-};
-
-export type CodeGroupTab = {
+export type OnyxCodeGroupTabProps = {
   /**
    * Raw source code. Will be used for copying.
    */

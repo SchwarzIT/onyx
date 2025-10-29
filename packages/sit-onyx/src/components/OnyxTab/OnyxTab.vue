@@ -1,13 +1,16 @@
 <script lang="ts" setup>
-import { computed, inject } from "vue";
+import { computed, inject, useAttrs } from "vue";
 import { useDensity } from "../../composables/density.js";
 import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
+import { mergeVueProps } from "../../utils/attrs.js";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import { TABS_INJECTION_KEY } from "../OnyxTabs/types.js";
 import type { OnyxTabProps } from "./types.js";
+
+defineOptions({ inheritAttrs: false });
 
 const props = withDefaults(defineProps<OnyxTabProps>(), {
   disabled: false,
@@ -29,6 +32,7 @@ const { densityClass } = useDensity(props);
 const tabsContext = inject(TABS_INJECTION_KEY, undefined);
 const skeleton = useSkeletonContext(props);
 const sizeClass = computed(() => `onyx-tab--${tabsContext?.size.value}`);
+const attrs = useAttrs();
 
 const tab = computed(() =>
   tabsContext?.headless.elements.tab.value({
@@ -53,7 +57,7 @@ const tab = computed(() =>
       sizeClass,
       { 'onyx-tab--selected': tab?.['aria-selected'] },
     ]"
-    v-bind="tab"
+    v-bind="mergeVueProps(tab, attrs)"
     type="button"
     :disabled="props.disabled"
   >
