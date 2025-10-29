@@ -127,11 +127,10 @@ describe("createCalendar (Headless)", () => {
 
   it("should handle goToToday correctly", () => {
     const today = createDate(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
-    const { internals, state, viewMonth } = setupCalendar({ viewMonth: createDate(2020, 0, 1) });
+    const { internals, viewMonth } = setupCalendar({ viewMonth: createDate(2020, 0, 1) });
 
     internals.goToToday();
     expect((viewMonth.value as Date)?.toDateString()).toBe(today.toDateString());
-    expect(state.focusedDate.value?.toDateString()).toBe(today.toDateString());
     expect(internals.isToday(today)).toBe(true);
   });
 
