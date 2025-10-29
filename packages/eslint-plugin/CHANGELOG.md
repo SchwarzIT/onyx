@@ -1,5 +1,11 @@
 # @sit-onyx/eslint-plugin
 
+## 0.2.0
+
+### Minor Changes
+
+- 7e78232: feat: implement no-v-bind-props linting rule
+
 ## 0.1.0
 
 ### Minor Changes
