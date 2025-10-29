@@ -1,5 +1,21 @@
 # @sit-onyx/headless
 
+## 0.3.0
+
+### Minor Changes
+
+- a2aa7c7: feat(OnyxCalendar): implemented individual disabled dates
+- 13f8d31: feat: implement `_unstableCreateSlider` composable
+
+  Special thanks to [lovelycentury](https://github.com/lovelycentury) for contributing the slider to onyx 🎉
+
+  For now, the slider is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using the slider.
+
+- 7817640: feat(OnyxCalendar):
+  - implemented week select for range select-mode
+  - implemented style improvements
+  - implemented tests for range select-mode and keyboard navigation
+
 ## 0.2.0
 
 ### Minor Changes

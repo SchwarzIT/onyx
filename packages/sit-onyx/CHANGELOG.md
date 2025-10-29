@@ -1,5 +1,29 @@
 # sit-onyx
 
+## 1.3.0
+
+### Minor Changes
+
+- 13f8d31: feat: implement new `OnyxUnstableSlider` component
+
+  Special thanks to [lovelycentury](https://github.com/lovelycentury) for contributing the slider to onyx 🎉
+
+  For now, the slider is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using the slider.
+
+- 11a8450: fix(onyx-grid): fixed grid-center not working when used with temporary sidebar
+- a2aa7c7: feat(OnyxCalendar): implemented individual disabled dates
+- 0ab7d55: feat(OnyxTable, OnyxDataGrid): Added `truncation` property which allows to define multiline or ellipsis truncation (single line) behaviour of the table rows
+- df8ce8f: feat(OnyxPagination): added `type` property that allows to optionally display the pagination in an inline style.
+- 7817640: feat(OnyxCalendar):
+  - implemented week select for range select-mode
+  - implemented style improvements
+  - implemented tests for range select-mode and keyboard navigation
+
+### Patch Changes
+
+- 0ab7d55: fix(OnyxDataGrid): Webkit specific fix: Resolves issue where a column subgrid doesn't adapt it's height to the content
+- 49bd175: fix(OnyxResizeHandle, OnyxDataGrid, OnyxSidebar): Disable text selection while dragging resize handle
+
 ## 1.2.0
 
 ### Minor Changes
