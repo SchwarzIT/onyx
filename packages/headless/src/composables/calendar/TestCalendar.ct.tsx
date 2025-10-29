@@ -5,8 +5,6 @@ import { calendarTesting } from "./createCalendar.testing.js";
 const getTestOptions = (page: Page) => ({
   page,
   calendarGrid: page.getByRole("grid"),
-  prevMonthButton: page.getByRole("button", { name: "Previous month" }),
-  nextMonthButton: page.getByRole("button", { name: "Next month" }),
   dayButtons: page.locator(".day-button"),
   initialFocusDay: page.getByRole("button", { name: "15" }).first(),
 });

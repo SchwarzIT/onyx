@@ -226,7 +226,8 @@
   },
   "calendar": {
     "todayButton": { "label": "Heute", "tooltip": "Springe zu Heute" },
-    "calenderWeek": "KW",
+    "calendarWeek": "KW",
+    "calendarWeekButtonLabel": "Select calendar week {weekNumber}",
     "previousMonthButton": "Vorheriger Monat",
     "nextMonthButton": "Nächster Monat"
   },

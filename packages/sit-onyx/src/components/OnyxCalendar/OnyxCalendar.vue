@@ -61,7 +61,7 @@ const slots = defineSlots<{
    */
   actions?(): unknown;
   /**
-   * Optional slot that is displayed inside each day, for custom calender content.
+   * Optional slot that is displayed inside each day, for custom calendar content.
    */
   day?(props: {
     /**
@@ -132,7 +132,7 @@ const hoverHandlers = (day: RenderDay) => {
 
 const tableHeaders = computed(() => {
   if (!props.showCalendarWeeks) return weekdayNames.value;
-  return [t.value("calendar.calenderWeek"), ...weekdayNames.value];
+  return [t.value("calendar.calendarWeek"), ...weekdayNames.value];
 });
 
 const getDayRangeType = computed(() => {
@@ -172,6 +172,7 @@ const getWeekNumberProps = (week: RenderWeek) => {
       return {
         role: "button",
         "aria-disabled": false,
+        "aria-label": t.value("calendar.calendarWeekButtonLabel", { weekNumber: week.weekNumber }),
         onClick: () => selectWeek(week),
       };
     }
@@ -180,7 +181,7 @@ const getWeekNumberProps = (week: RenderWeek) => {
 };
 const calendarWeeksDisplay = computed(
   () =>
-    `${t.value("calendar.calenderWeek")} ${weeksToRender.value[0]?.weekNumber} - ${weeksToRender.value[weeksToRender.value.length - 1]?.weekNumber} `,
+    `${t.value("calendar.calendarWeek")} ${weeksToRender.value[0]?.weekNumber} - ${weeksToRender.value[weeksToRender.value.length - 1]?.weekNumber} `,
 );
 </script>
 
@@ -287,8 +288,8 @@ const calendarWeeksDisplay = computed(
     gap: var(--onyx-density-sm);
     color: var(--onyx-color-text-icons-neutral-medium);
     font-family: var(--onyx-font-family);
-    $calender-week-column-width: 2.5rem;
-    $calender-day-number-display-width: 2rem;
+    $calendar-week-column-width: 2.5rem;
+    $calendar-day-number-display-width: 2rem;
 
     &__header {
       display: flex;
@@ -335,7 +336,7 @@ const calendarWeeksDisplay = computed(
         // calendar week styles
         &:has(th[scope="row"]) {
           th:first-of-type {
-            width: $calender-week-column-width;
+            width: $calendar-week-column-width;
             &[role="button"]:not([aria-disabled="true"]) {
               cursor: pointer;
               &:hover {

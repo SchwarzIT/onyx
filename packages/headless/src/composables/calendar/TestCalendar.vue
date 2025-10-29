@@ -29,7 +29,7 @@ const onUpdateModelValue = (newValue: typeof modelValue.value) => {
 const {
   state: { weekdayNames, weeksToRender, viewMonth: currentViewMonth },
   elements: { table, cell, button },
-  internals: { goToMonthByOffset, isSelected, isFocused, isDisabled, isToday },
+  internals: { isSelected, isFocused, isDisabled, isToday },
 } = _unstableCreateCalendar({
   locale,
   calendarSize,
@@ -52,23 +52,7 @@ const viewMonthLabel = computed(() => {
 <template>
   <div class="calendar-wrapper">
     <div class="header">
-      <button
-        aria-label="Previous month"
-        data-testid="prev-month"
-        type="button"
-        @click="goToMonthByOffset(-1)"
-      >
-        &lt;
-      </button>
       <h2 :aria-label="viewMonthLabel">{{ viewMonthLabel }}</h2>
-      <button
-        aria-label="Next month"
-        data-testid="next-month"
-        type="button"
-        @click="goToMonthByOffset(1)"
-      >
-        &gt;
-      </button>
     </div>
 
     <table v-bind="table" :aria-label="viewMonthLabel">

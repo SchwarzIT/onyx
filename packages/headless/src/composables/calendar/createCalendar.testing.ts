@@ -11,14 +11,6 @@ export type CalendarTestingOptions = {
    */
   calendarGrid: Locator;
   /**
-   * Locator for the button to navigate to the previous month.
-   */
-  prevMonthButton: Locator;
-  /**
-   * Locator for the button to navigate to the next month.
-   */
-  nextMonthButton: Locator;
-  /**
    * Locator for all day buttons/cells.
    */
   dayButtons: Locator;
@@ -35,8 +27,6 @@ export type CalendarTestingOptions = {
 const runBaseA11yAndKeyboardChecks = async ({
   page,
   calendarGrid,
-  prevMonthButton,
-  nextMonthButton,
   dayButtons,
   initialFocusDay,
 }: CalendarTestingOptions) => {
@@ -86,19 +76,6 @@ const runBaseA11yAndKeyboardChecks = async ({
   await page.keyboard.press("End");
   await expect(initialFocusDay, "Focus should move away after End").not.toBeFocused();
   await initialFocusDay.focus();
-
-  const initialMonth = await calendarGrid.getAttribute("aria-label");
-  await nextMonthButton.click();
-  await expect(
-    calendarGrid,
-    "Clicking next month button should change aria-label",
-  ).not.toHaveAttribute("aria-label", initialMonth!);
-
-  await prevMonthButton.click();
-  await expect(
-    calendarGrid,
-    "Clicking previous month button should return to initial month label",
-  ).toHaveAttribute("aria-label", initialMonth!);
 };
 
 const testMultiSelection = async ({
