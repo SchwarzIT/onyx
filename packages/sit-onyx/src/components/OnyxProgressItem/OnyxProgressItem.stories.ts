@@ -72,6 +72,5 @@ export const Skeleton = {
 } satisfies Story;
 
 export const CustomLabel = {
-  tags: ["new:feature"],
   ...createAdvancedStoryExample("OnyxProgressItem", "CustomContentExample"),
 } satisfies Story;

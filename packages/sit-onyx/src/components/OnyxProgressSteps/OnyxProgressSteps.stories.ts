@@ -26,6 +26,5 @@ export const Skeleton = createAdvancedStoryExample(
 ) satisfies Story;
 
 export const CustomContent = {
-  tags: ["new:feature"],
   ...createAdvancedStoryExample("OnyxProgressSteps", "CustomContentExample"),
 } satisfies Story;

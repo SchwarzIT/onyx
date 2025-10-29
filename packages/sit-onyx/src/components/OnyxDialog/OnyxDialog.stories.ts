@@ -10,7 +10,6 @@ import OnyxDialog from "./OnyxDialog.vue";
  */
 const meta: Meta<typeof OnyxDialog> = {
   title: "Feedback/Dialog",
-  tags: ["new:component"],
   component: OnyxDialog,
   argTypes: {
     default: { control: { disable: true } },
