@@ -158,27 +158,22 @@ const selectWeek = (week: RenderWeek) => {
   };
   modelValue.value = newRange as unknown as typeof modelValue.value;
 };
-const getWeekNumberProps = (week: RenderWeek) => {
-  const startDisabled = isDisabled.value(week.days[0]!.date);
-  const endDisabled = isDisabled.value(week.days[6]!.date);
-  if (props.selectionMode === "range") {
-    if (startDisabled || endDisabled) {
-      return {
-        role: "button",
-        tabindex: "-1",
-        "aria-disabled": true,
-      };
-    } else {
-      return {
-        role: "button",
-        "aria-disabled": false,
-        "aria-label": t.value("calendar.calendarWeekButtonLabel", { weekNumber: week.weekNumber }),
-        onClick: () => selectWeek(week),
-      };
-    }
-  }
-  return {};
-};
+const getWeekNumberProps = computed(() => {
+  return (week: RenderWeek) => {
+    if (props.selectionMode !== "range") return;
+    const startDisabled = isDisabled.value(week.days[0]!.date);
+    const endDisabled = isDisabled.value(week.days[6]!.date);
+    const disabled = startDisabled || endDisabled;
+
+    return {
+      role: "button",
+      "aria-label": t.value("calendar.calendarWeekButtonLabel", { weekNumber: week.weekNumber }),
+      "aria-disabled": disabled,
+      onClick: disabled ? undefined : () => selectWeek(week),
+    };
+  };
+});
+
 const calendarWeeksDisplay = computed(
   () =>
     `${t.value("calendar.calendarWeek")} ${weeksToRender.value[0]?.weekNumber} - ${weeksToRender.value[weeksToRender.value.length - 1]?.weekNumber} `,
