@@ -16,15 +16,6 @@
   - implemented style improvements
   - implemented tests for range select-mode and keyboard navigation
 
-### Patch Changes
-
-- d512794: refactor(createSlider): refactor internal implementation
-
-  Since the slider is a unstable / experimental, this change contains breaking changes.
-  - remove option `orientation`
-  - remove focusedThumbIndex, valueToPercent, isMarkActive, axis and normalizeValues. Prefer native CSS selectors instead
-  - fix: do not adjust track length to next step when `discrete` is disabled
-
 ## 0.2.0
 
 ### Minor Changes

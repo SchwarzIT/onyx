@@ -21,15 +21,6 @@
 
 ### Patch Changes
 
-- d512794: refactor(OnyxSlider): refactor internal implementation
-
-  Since the slider is a unstable / experimental, this change contains breaking changes.
-  - correctly manage value if no `modelValue` is not set explicitly
-  - remove property `orientation`
-  - renamed, updated and removed some CSS classes and variables
-  - fix: do not adjust track length to next step when `discrete` is disabled
-  - update and translate labels for `icon` controls
-
 - 0ab7d55: fix(OnyxDataGrid): Webkit specific fix: Resolves issue where a column subgrid doesn't adapt it's height to the content
 - 49bd175: fix(OnyxResizeHandle, OnyxDataGrid, OnyxSidebar): Disable text selection while dragging resize handle
 
