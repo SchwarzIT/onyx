@@ -53,7 +53,7 @@ const contentAttributes = computed(() => {
     >
       <div class="onyx-calendar-cell__header">
         <div class="onyx-calendar-cell__date-container">
-          <OnyxTooltip v-if="props.toolTipText" :text="props.toolTipText" without-wedge>
+          <OnyxTooltip v-if="props.tooltipText" :text="props.tooltipText" without-wedge>
             <template #default="{ trigger }">
               <span class="onyx-calendar-cell__date" v-bind="trigger">
                 {{ props.date }}

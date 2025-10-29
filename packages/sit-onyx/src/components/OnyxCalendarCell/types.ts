@@ -31,7 +31,7 @@ export type OnyxCalendarCellProps = DensityProp & {
   /**
    * Optional tooltip text
    */
-  toolTipText?: string;
+  tooltipText?: string;
 };
 
 export type CalendarCellRangeType = "start" | "middle" | "end";

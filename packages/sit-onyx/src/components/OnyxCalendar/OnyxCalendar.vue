@@ -154,7 +154,7 @@ const getDayRangeType = computed(() => {
 const selectWeek = (week: RenderWeek) => {
   const newRange: DateRange = {
     start: week.days[0]!.date,
-    end: week.days[6]!.date,
+    end: week.days.at(-1)!.date,
   };
   modelValue.value = newRange as unknown as typeof modelValue.value;
 };
@@ -178,6 +178,10 @@ const getWeekNumberProps = (week: RenderWeek) => {
   }
   return {};
 };
+const calendarWeeksDisplay = computed(
+  () =>
+    `${t.value("calendar.calenderWeek")} ${weeksToRender.value[0]?.weekNumber} - ${weeksToRender.value[weeksToRender.value.length - 1]?.weekNumber} `,
+);
 </script>
 
 <template>
@@ -197,7 +201,6 @@ const getWeekNumberProps = (week: RenderWeek) => {
           :label="t('calendar.todayButton.label')"
           class="control-container__today-btn"
           :disabled="disabled === true"
-          :clickable="t('calendar.todayButton.tooltip')"
           @click="goToToday"
         />
 
@@ -207,7 +210,7 @@ const getWeekNumberProps = (week: RenderWeek) => {
         <OnyxTag
           v-if="showCalendarWeeks && calendarSize === 'big'"
           color="primary"
-          :label="`${t('calendar.calenderWeek')} ${weeksToRender[0]?.weekNumber} - ${weeksToRender[weeksToRender.length - 1]?.weekNumber} `"
+          :label="calendarWeeksDisplay"
         />
         <OnyxIconButton
           class="control-container__prev-month-button"
@@ -261,7 +264,7 @@ const getWeekNumberProps = (week: RenderWeek) => {
               :background-color="[0, 6].includes(day.date.getDay()) ? 'tinted' : 'blank'"
               :range-type="getDayRangeType(day.date)"
               :size="calendarSize"
-              :tool-tip-text="isToday(day.date) ? t('calendar.todayButton.label') : undefined"
+              :tooltip-text="isToday(day.date) ? t('calendar.todayButton.label') : undefined"
             >
               <template v-if="!!slots.day" #default>
                 <slot name="day" :date="day.date" :size="calendarSize"></slot>

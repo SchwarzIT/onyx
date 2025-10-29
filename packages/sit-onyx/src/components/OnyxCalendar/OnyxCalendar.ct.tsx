@@ -155,9 +155,9 @@ test("range mode", async ({ mount, page }) => {
   await endRange2.click();
   await page.mouse.move(0, 0);
   // ASSERT
-  await expect(startCell).toHaveClass(/onyx-calendar-cell--range-start/);
-  await expect(endCell2).toHaveClass(/onyx-calendar-cell--range-end/);
-  await expect(todayCell).toHaveClass(/onyx-calendar-cell--range-middle/);
+  await expect(startCell).toContainClass("onyx-calendar-cell--range-start");
+  await expect(endCell2).toContainClass("onyx-calendar-cell--range-end");
+  await expect(todayCell).toContainClass("onyx-calendar-cell--range-middle");
   await expect(component).toHaveScreenshot("range-withToday.png");
 
   // hover start end middle today
