@@ -67,6 +67,8 @@ defineSlots<{
     color: var(--onyx-color-text-icons-neutral-inverted);
     font-family: var(--onyx-font-family);
     font-style: normal;
+    vertical-align: middle;
+    max-height: max-content;
 
     &:has(&__icon) {
       padding: var(--onyx-badge-icon-padding);
