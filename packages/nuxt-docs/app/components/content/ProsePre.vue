@@ -37,15 +37,10 @@ defineSlots<{
 </script>
 
 <template>
-  <OnyxCodeGroup>
-    <OnyxCodeGroupTab :code="props.code" :label="props.filename" :class="props.class">
-      <slot />
-    </OnyxCodeGroupTab>
+  <OnyxCodeGroup
+    :class="props.class"
+    :tabs="[{ code: props.code, label: props.filename, language: props.language }]"
+  >
+    <slot></slot>
   </OnyxCodeGroup>
 </template>
-
-<style lang="scss" scoped>
-:deep(.onyx-code-group-tab__snippet code .line) {
-  display: block;
-}
-</style>

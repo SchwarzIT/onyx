@@ -1,4 +1,10 @@
-export type OnyxCodeGroupTabProps = {
+import type { OnyxTabProps } from "sit-onyx";
+
+export type OnyxCodeGroupProps = {
+  tabs: CodeGroupTab[];
+};
+
+export type CodeGroupTab = Pick<OnyxTabProps, "disabled" | "skeleton"> & {
   /**
    * Raw source code. Will be used for copying.
    */
