@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { CodeGroupTab } from "../OnyxCodeGroup/types.js";
+
 const props = withDefaults(
   defineProps<{
     /**
@@ -34,13 +36,17 @@ defineSlots<{
    */
   default(): unknown;
 }>();
+
+const tab = computed<CodeGroupTab>(() => ({
+  code: props.code,
+  label: props.filename,
+  language: props.language,
+  attributes: { class: props.class },
+}));
 </script>
 
 <template>
-  <OnyxCodeGroup
-    :class="props.class"
-    :tabs="[{ code: props.code, label: props.filename, language: props.language }]"
-  >
+  <OnyxCodeGroup :tabs="[tab]">
     <slot></slot>
   </OnyxCodeGroup>
 </template>

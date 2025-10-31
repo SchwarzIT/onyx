@@ -1,4 +1,5 @@
 import type { OnyxTabProps } from "sit-onyx";
+import type { HTMLAttributes } from "vue";
 
 export type OnyxCodeGroupProps = {
   tabs: CodeGroupTab[];
@@ -23,4 +24,8 @@ export type CodeGroupTab = Pick<OnyxTabProps, "disabled" | "skeleton"> & {
    * @example js, ts, html, css, etc.
    */
   language?: string;
+  /**
+   * Custom HTML attributes for the code snippet (e.g. class names coming from the Syntax highlighter).
+   */
+  attributes?: HTMLAttributes;
 };

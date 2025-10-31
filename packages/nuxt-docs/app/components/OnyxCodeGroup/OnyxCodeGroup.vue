@@ -3,8 +3,6 @@ import { iconFileCopy } from "@sit-onyx/icons";
 import type { OnyxTabs } from "sit-onyx";
 import type { OnyxCodeGroupProps } from "./types.js";
 
-defineOptions({ inheritAttrs: false });
-
 const props = defineProps<OnyxCodeGroupProps>();
 
 defineSlots<{
@@ -18,8 +16,6 @@ defineSlots<{
     selectedIndex: number;
   }): unknown;
 }>();
-
-const attrs = useAttrs();
 
 const selectedIndex = ref(0);
 const selectedTab = computed(() => props.tabs.at(selectedIndex.value));
@@ -72,7 +68,7 @@ const handleCopy = async () => {
 
       <pre
         class="onyx-code-group__snippet"
-        v-bind="attrs"
+        v-bind="tab.attributes"
       ><slot :selected-index>{{ tab.code }}</slot></pre>
 
       <span v-if="tab.language" class="onyx-text--small">
@@ -101,7 +97,7 @@ const handleCopy = async () => {
   @include layers.component() {
     --onyx-code-group-border: var(--onyx-1px-in-rem) solid
       var(--onyx-color-component-border-neutral);
-    --onyx-code-group-tablist-padding: var(--onyx-density-2xs);
+    --onyx-code-group-tablist-padding: var(--onyx-density-xs);
     --onyx-tabs-tablist-margin-bottom: 0;
     border-radius: var(--onyx-radius-md);
 
