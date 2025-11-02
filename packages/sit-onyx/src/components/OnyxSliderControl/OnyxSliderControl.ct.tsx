@@ -71,10 +71,10 @@ test.describe("Screenshot tests", () => {
     name: "Slider control (disabled)",
     columns: ["icon", "input"],
     rows: ["default", "hover"],
-    component: () => {
+    component: (column) => {
       return (
         <OnyxSliderControl
-          control="icon"
+          control={column}
           direction="increase"
           modelValue={50}
           shiftStep={10}
