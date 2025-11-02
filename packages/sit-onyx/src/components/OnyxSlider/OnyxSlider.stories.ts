@@ -61,8 +61,6 @@ export const Discrete = {
     modelValue: 0,
     discrete: true,
     max: 5,
-    // TODO: also support discrete sliders without marks
-    marks: true,
   },
 } satisfies Story;
 
@@ -116,3 +114,19 @@ export const ValueControl = {
     control: "value",
   },
 } satisfies Story;
+
+export const InputControl = {
+  args: {
+    ...Default.args,
+    label: "Input control",
+    control: "input",
+    mode: "range",
+    modelValue: [25, 75],
+  },
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `<div style="min-width: 20rem;"> <story /> </div>`,
+    }),
+  ],
+} satisfies Story<"range">;

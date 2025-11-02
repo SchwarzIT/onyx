@@ -241,8 +241,9 @@
       "hover": "Hover/Focus to toggle action visibility"
     }
   },
-  "slider": {
-    "decreaseValue": "Decrease value by {n}",
-    "increaseValue": "Increase value by {n}"
+  "sliderControl": {
+    "decreaseValueBy": "Decrease value by {n}",
+    "increaseValueBy": "Increase value by {n}",
+    "changeValue": "Change value"
   }
 }
