@@ -151,17 +151,11 @@ const handleSliderIconControlChange = (value: number) => {
     >
       <template #default="{ id: inputId }">
         <div class="onyx-slider__container">
-          <OnyxSliderControl
-            v-if="props.control === 'value'"
-            control="value"
-            :mode="props.mode"
-            :value="props.min"
-          />
+          <OnyxSliderControl v-if="props.control === 'value'" control="value" :value="props.min" />
           <OnyxSliderControl
             v-if="props.control === 'icon' && props.mode === 'single'"
             control="icon"
             direction="decrease"
-            :mode="props.mode"
             :shift-step="shiftStep"
             :model-value="normalizedValues[0]"
             :disabled="disabled || (normalizedValues[0] ?? props.min) <= props.min"
@@ -172,10 +166,7 @@ const handleSliderIconControlChange = (value: number) => {
             :key="inputVersion + 0"
             control="input"
             :disabled="disabled"
-            :mode="props.mode"
-            :model-value="normalizedValues[0]"
-            :min="props.min"
-            :max="props.max"
+            :model-value="normalizedValues[0] ?? 0"
             @update:model-value="(value) => handleSliderInputControlChange(0, value)"
           />
 
@@ -233,17 +224,11 @@ const handleSliderIconControlChange = (value: number) => {
             </span>
           </span>
 
-          <OnyxSliderControl
-            v-if="props.control === 'value'"
-            control="value"
-            :mode="props.mode"
-            :value="props.max"
-          />
+          <OnyxSliderControl v-if="props.control === 'value'" control="value" :value="props.max" />
           <OnyxSliderControl
             v-if="props.control === 'icon' && props.mode === 'single'"
             control="icon"
             direction="increase"
-            :mode="props.mode"
             :shift-step="shiftStep"
             :model-value="normalizedValues[0]"
             @update:model-value="handleSliderIconControlChange"
@@ -253,10 +238,7 @@ const handleSliderIconControlChange = (value: number) => {
             :key="inputVersion + 1"
             control="input"
             :disabled="disabled"
-            :min="props.min"
-            :max="props.max"
-            :mode="props.mode"
-            :model-value="normalizedValues[1] ?? normalizedValues[0]"
+            :model-value="normalizedValues[1] ?? normalizedValues[0] ?? 0"
             @update:model-value="
               (value) => handleSliderInputControlChange(props.mode === 'range' ? 1 : 0, value)
             "
