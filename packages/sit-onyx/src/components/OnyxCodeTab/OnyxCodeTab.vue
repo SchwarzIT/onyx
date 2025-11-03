@@ -67,7 +67,7 @@ onUnmounted(() => {
       <pre><code>{{ props.code }}</code></pre>
     </slot>
 
-    <span v-if="props.language" class="onyx-text--small">
+    <span v-if="props.language" class="onyx-code-tab__language onyx-text--small">
       {{ props.language }}
     </span>
   </OnyxTab>
@@ -97,6 +97,10 @@ onUnmounted(() => {
         font-family: inherit;
         white-space: inherit;
       }
+    }
+
+    &__language {
+      user-select: none;
     }
   }
 }
