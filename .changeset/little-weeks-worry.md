@@ -2,4 +2,5 @@
 "sit-onyx": minor
 ---
 
-OnyxTabs updates
+- OnyxTabs: implement new `actions` slot
+- OnyxTab: bind fallthrough attributes to child elements
