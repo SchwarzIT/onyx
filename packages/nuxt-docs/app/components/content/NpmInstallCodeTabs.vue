@@ -36,15 +36,9 @@ const tabs = computed(() => {
 
 <template>
   <UnstableOnyxCodeTabs v-model="selectedTab">
-    <UnstableOnyxCodeTab
-      v-for="tab in tabs"
-      :key="tab.value"
-      :code="tab.code"
-      :label="tab.language"
-      :value="tab.value"
-    >
+    <UnstableOnyxCodeTab v-for="{ icon, ...tab } in tabs" v-bind="tab" :key="tab.value">
       <template #tab>
-        <OnyxIcon :icon="tab.icon" size="16px" />
+        <OnyxIcon :icon="icon" size="16px" />
         {{ tab.value }}
       </template>
     </UnstableOnyxCodeTab>
