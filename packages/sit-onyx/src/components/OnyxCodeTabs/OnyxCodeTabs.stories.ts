@@ -1,3 +1,4 @@
+import { iconBrowserTerminal } from "@sit-onyx/icons";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
 import OnyxCodeTab from "../OnyxCodeTab/OnyxCodeTab.vue";
@@ -40,6 +41,7 @@ export const Default = {
         value: "tab-3",
         label: "Component.vue",
         language: "vue",
+        icon: iconBrowserTerminal,
         code: `<script lang="ts" setup>
 import { ref } from "vue";
 
