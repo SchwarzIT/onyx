@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { UnstableOnyxCodeTab, UnstableOnyxCodeTabs } from "sit-onyx";
-
 const props = withDefaults(
   defineProps<{
     /**
@@ -40,14 +38,14 @@ const value = "tab-1";
 </script>
 
 <template>
-  <UnstableOnyxCodeTabs :model-value="value">
-    <UnstableOnyxCodeTab
+  <OnyxUnstableCodeTabs :model-value="value">
+    <OnyxUnstableCodeTab
       :value
       :code="props.code"
       :language="props.language"
       :label="props.filename"
     >
       <pre :class="props.class"><slot></slot></pre>
-    </UnstableOnyxCodeTab>
-  </UnstableOnyxCodeTabs>
+    </OnyxUnstableCodeTab>
+  </OnyxUnstableCodeTabs>
 </template>

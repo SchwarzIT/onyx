@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { UnstableOnyxCodeTab, UnstableOnyxCodeTabs, type OnyxCodeTabProps } from "sit-onyx";
+import type { OnyxCodeTabProps } from "sit-onyx";
 import bunIcon from "~/assets/icons/bun.svg?raw";
 import npmIcon from "~/assets/icons/npm.svg?raw";
 import pnpmIcon from "~/assets/icons/pnpm.svg?raw";
@@ -31,7 +31,7 @@ const tabs = computed(() => {
 </script>
 
 <template>
-  <UnstableOnyxCodeTabs v-model="selectedTab">
-    <UnstableOnyxCodeTab v-for="tab in tabs" v-bind="tab" :key="tab.value" :label="tab.value" />
-  </UnstableOnyxCodeTabs>
+  <OnyxUnstableCodeTabs v-model="selectedTab">
+    <OnyxUnstableCodeTab v-for="tab in tabs" v-bind="tab" :key="tab.value" :label="tab.value" />
+  </OnyxUnstableCodeTabs>
 </template>
