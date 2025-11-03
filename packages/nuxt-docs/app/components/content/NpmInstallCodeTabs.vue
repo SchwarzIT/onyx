@@ -5,10 +5,6 @@ import npmIcon from "~/assets/icons/npm.svg?raw";
 import pnpmIcon from "~/assets/icons/pnpm.svg?raw";
 import yarnIcon from "~/assets/icons/yarn.svg?raw";
 
-type Tab = OnyxCodeTabProps & {
-  icon: string;
-};
-
 const props = defineProps<{
   /**
    * Package (or space separated multiple packages) to install.
@@ -30,17 +26,12 @@ const tabs = computed(() => {
     { value: "npm", icon: npmIcon, code: `npm install ${command}`, language: "sh" },
     { value: "yarn", icon: yarnIcon, code: `yarn add ${command}`, language: "sh" },
     { value: "bun", icon: bunIcon, code: `bun add ${command}`, language: "sh" },
-  ] satisfies Tab[];
+  ] satisfies OnyxCodeTabProps[];
 });
 </script>
 
 <template>
   <UnstableOnyxCodeTabs v-model="selectedTab">
-    <UnstableOnyxCodeTab v-for="{ icon, ...tab } in tabs" v-bind="tab" :key="tab.value">
-      <template #tab>
-        <OnyxIcon :icon="icon" size="16px" />
-        {{ tab.value }}
-      </template>
-    </UnstableOnyxCodeTab>
+    <UnstableOnyxCodeTab v-for="tab in tabs" v-bind="tab" :key="tab.value" :label="tab.value" />
   </UnstableOnyxCodeTabs>
 </template>

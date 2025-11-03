@@ -7,11 +7,12 @@ export default {};
 </script>
 
 <script lang="ts" setup>
-import { inject, onUnmounted, watch } from "vue";
+import { computed, inject, onUnmounted, watch } from "vue";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { injectI18n } from "../../i18n/index.js";
 import { useForwardProps } from "../../utils/props.js";
 import { CODE_TABS_INJECTION_KEY } from "../OnyxCodeTabs/types.js";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxTab from "../OnyxTab/OnyxTab.vue";
 import type { OnyxCodeTabProps } from "./types.js";
 
@@ -20,13 +21,13 @@ const props = withDefaults(defineProps<OnyxCodeTabProps>(), {
   skeleton: SKELETON_INJECTED_SYMBOL,
 });
 
-const slots = defineSlots<{
+defineSlots<{
   /**
    * Tab panel / content. By default, the `code` property will be used (without syntax highlighting).
    */
   default?(): unknown;
   /**
-   * Optional slot to override the tab content. By default, the `label` property will be displayed.
+   * Optional slot to override the tab content. By default, the `label` and `icon` property will be displayed.
    */
   tab?(): unknown;
 }>();
@@ -34,8 +35,8 @@ const slots = defineSlots<{
 const { t } = injectI18n();
 
 const tabProps = useForwardProps(props, OnyxTab);
-
 const tabsContext = inject(CODE_TABS_INJECTION_KEY, undefined);
+const label = computed(() => props.label ?? t.value("codeTabs.tabLabel"));
 
 watch(
   [() => props.value, () => props.code],
@@ -54,13 +55,12 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <OnyxTab
-    v-bind="tabProps"
-    :label="tabProps.label ?? t('codeTabs.tabLabel')"
-    class="onyx-code-tab"
-  >
-    <template v-if="slots.tab" #tab>
-      <slot name="tab"></slot>
+  <OnyxTab v-bind="tabProps" :label class="onyx-code-tab">
+    <template #tab>
+      <slot name="tab">
+        <OnyxIcon v-if="props.icon" :icon="props.icon" size="16px" />
+        {{ label }}
+      </slot>
     </template>
 
     <slot>

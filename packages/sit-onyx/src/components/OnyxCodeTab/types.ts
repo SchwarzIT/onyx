@@ -7,6 +7,10 @@ export type OnyxCodeTabProps = Omit<OnyxTabProps, "density"> & {
    */
   code: string;
   /**
+   * Icon to display next to the label.
+   */
+  icon?: string;
+  /**
    * Language of the code snippet.
    *
    * @example "ts", "vue", "html", "css"
