@@ -113,6 +113,7 @@ provide(TABS_INJECTION_KEY as TabsInjectionKey<TValue>, {
       display: flex;
       align-items: center;
       gap: var(--onyx-density-2xs);
+      flex-grow: 1;
     }
 
     &__header {
@@ -126,6 +127,7 @@ provide(TABS_INJECTION_KEY as TabsInjectionKey<TValue>, {
     &__actions {
       display: flex;
       align-items: center;
+      gap: var(--onyx-density-xs);
     }
 
     &--stretched {

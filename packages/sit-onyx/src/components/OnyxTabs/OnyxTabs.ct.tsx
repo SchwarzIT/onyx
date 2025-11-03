@@ -1,9 +1,11 @@
 import { tabsTesting } from "@sit-onyx/headless/playwright";
+import { iconPlaceholder } from "@sit-onyx/icons";
 import { DENSITIES } from "../../composables/density.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots.js";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import OnyxTab from "../OnyxTab/OnyxTab.vue";
 import OnyxTabs from "./OnyxTabs.vue";
 import TestWrapperCt from "./TestWrapper.ct.vue";
@@ -118,9 +120,9 @@ for (const type of ["default", "skeleton"] as const) {
 test.describe("Screenshot tests (overflow)", () => {
   executeMatrixScreenshotTest({
     name: "Tabs (overflow)",
-    columns: ["default"],
+    columns: ["default", "actions"],
     rows: ["default", "focus-first", "focus-in-between", "focus-last"],
-    component: () => {
+    component: (column) => {
       return (
         <OnyxTabs label="Example tabs" modelValue="tab-1" style={{ width: "18rem" }}>
           {Array.from({ length: 8 }, (_, index) => {
@@ -131,6 +133,13 @@ test.describe("Screenshot tests (overflow)", () => {
               </OnyxTab>
             );
           })}
+
+          {column === "actions" && (
+            <template v-slot:actions>
+              <OnyxSystemButton label="Action 1" icon={iconPlaceholder} />
+              <OnyxSystemButton label="Action 2" icon={iconPlaceholder} />
+            </template>
+          )}
         </OnyxTabs>
       );
     },
