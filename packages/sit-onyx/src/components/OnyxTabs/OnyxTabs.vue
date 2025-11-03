@@ -90,7 +90,7 @@ provide(TABS_INJECTION_KEY as TabsInjectionKey<TValue>, {
     margin-top: $negative-outline-width;
 
     padding-bottom: var(--onyx-outline-width);
-    margin-bottom: calc(var(--onyx-tabs-tablist-margin-bottom) - var(--onyx-outline-width));
+    margin-bottom: $negative-outline-width;
   }
 
   &:has(.onyx-tab:focus-visible:first-of-type) {
@@ -113,7 +113,6 @@ provide(TABS_INJECTION_KEY as TabsInjectionKey<TValue>, {
       display: flex;
       align-items: center;
       gap: var(--onyx-density-2xs);
-      margin-bottom: var(--onyx-tabs-tablist-margin-bottom);
     }
 
     &__header {
@@ -121,6 +120,7 @@ provide(TABS_INJECTION_KEY as TabsInjectionKey<TValue>, {
       align-items: center;
       justify-content: space-between;
       gap: var(--onyx-density-md);
+      margin-bottom: var(--onyx-tabs-tablist-margin-bottom);
     }
 
     &__actions {
