@@ -3,6 +3,9 @@ import { expect, test } from "@nuxt/test-utils/playwright";
 test("should render prose components with onyx", async ({ page, goto }) => {
   await goto("/", { waitUntil: "hydration" });
 
+  const height = await page.locator(".onyx-page__main").evaluate((el) => el.scrollHeight);
+  await page.setViewportSize({ height, width: 1280 });
+
   await expect(page).toHaveScreenshot("prose.png");
 
   // HEADLINES
