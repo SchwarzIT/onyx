@@ -111,7 +111,7 @@ const disabled = computed(() => {
     // styles if only 1 tab exists in the group
     &:only-of-type:disabled {
       .onyx-tab__label {
-        color: var(--onyx-color-text-icons-neutral-intense);
+        color: var(--onyx-tab-color-selected);
 
         &::after {
           display: none;

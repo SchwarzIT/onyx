@@ -104,8 +104,13 @@ const tab = computed(() =>
 
 .onyx-tab {
   @include layers.component() {
+    --onyx-tab-color: var(--onyx-color-text-icons-neutral-medium);
+    --onyx-tab-color-selected: var(--onyx-color-text-icons-neutral-intense);
+    --onyx-tab-color-active: var(--onyx-color-text-icons-primary-bold);
+    --onyx-tab-color-disabled: var(--onyx-color-text-icons-neutral-soft);
+
     font-family: var(--onyx-font-family);
-    color: var(--onyx-color-text-icons-neutral-medium);
+    color: var(--onyx-tab-color);
     border-radius: var(--onyx-radius-sm);
     padding: var(--onyx-tab-padding-vertical) var(--onyx-density-md);
     font-weight: var(--onyx-font-weight-semibold);
@@ -118,7 +123,7 @@ const tab = computed(() =>
     background-color: transparent;
 
     &--selected {
-      color: var(--onyx-color-text-icons-neutral-intense);
+      color: var(--onyx-tab-color-selected);
 
       .onyx-tab__label {
         &::after {
@@ -143,7 +148,7 @@ const tab = computed(() =>
       &:focus-visible,
       &:active {
         background-color: var(--onyx-color-base-neutral-200);
-        color: var(--onyx-color-text-icons-neutral-intense);
+        color: var(--onyx-tab-color-selected);
       }
 
       &:focus-visible {
@@ -151,12 +156,12 @@ const tab = computed(() =>
       }
 
       &:active {
-        color: var(--onyx-color-text-icons-primary-bold);
+        color: var(--onyx-tab-color-active);
       }
     }
 
     &:disabled {
-      color: var(--onyx-color-text-icons-neutral-soft);
+      color: var(--onyx-tab-color-disabled);
     }
 
     &__label {

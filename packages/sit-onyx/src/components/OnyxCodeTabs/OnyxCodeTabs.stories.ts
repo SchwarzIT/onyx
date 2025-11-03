@@ -53,3 +53,10 @@ const message = ref("Hello World");
     ],
   },
 } satisfies Story;
+
+export const SingleTab = {
+  args: {
+    ...Default.args,
+    default: () => Default.args.default()[0],
+  },
+} satisfies Story;
