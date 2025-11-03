@@ -8,22 +8,24 @@ import OnyxCodeTabs from "./OnyxCodeTabs.vue";
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Code tabs",
-    columns: ["default", "copy"],
+    columns: ["default", "copy", "single"],
     rows: ["default", "hover", "active", "focus-visible"],
-    component: () => (
+    component: (column) => (
       <OnyxCodeTabs modelValue="tab-1">
         <OnyxCodeTab
           value="tab-1"
           code={`console.log("test")\nconst message = "Test"`}
           language="ts"
         />
-        <OnyxCodeTab
-          value="tab-2"
-          code="console.log('test')"
-          language="ts"
-          icon={iconBrowserTerminal}
-          label="With icon"
-        />
+        {column !== "single" && (
+          <OnyxCodeTab
+            value="tab-2"
+            code="console.log('test')"
+            language="ts"
+            icon={iconBrowserTerminal}
+            label="With icon"
+          />
+        )}
       </OnyxCodeTabs>
     ),
     hooks: {

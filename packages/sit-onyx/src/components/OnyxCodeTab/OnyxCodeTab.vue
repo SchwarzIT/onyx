@@ -17,7 +17,7 @@ import OnyxTab from "../OnyxTab/OnyxTab.vue";
 import type { OnyxCodeTabProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxCodeTabProps>(), {
-  disabled: false,
+  disabled: undefined,
   skeleton: SKELETON_INJECTED_SYMBOL,
 });
 
@@ -52,10 +52,15 @@ watch(
 onUnmounted(() => {
   tabsContext?.tabs.value.delete(props.value);
 });
+
+const disabled = computed(() => {
+  if (props.disabled != undefined) return props.disabled;
+  return tabsContext && tabsContext.tabs.value.size <= 1;
+});
 </script>
 
 <template>
-  <OnyxTab v-bind="tabProps" :label class="onyx-code-tab">
+  <OnyxTab v-bind="tabProps" :label class="onyx-code-tab" :disabled>
     <template #tab>
       <slot name="tab">
         <OnyxIcon v-if="props.icon" :icon="props.icon" size="16px" />
@@ -101,6 +106,17 @@ onUnmounted(() => {
 
     &__language {
       user-select: none;
+    }
+
+    // styles if only 1 tab exists in the group
+    &:only-of-type:disabled {
+      .onyx-tab__label {
+        color: var(--onyx-color-text-icons-neutral-intense);
+
+        &::after {
+          display: none;
+        }
+      }
     }
   }
 }

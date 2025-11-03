@@ -123,6 +123,11 @@ provide(TABS_INJECTION_KEY as TabsInjectionKey<TValue>, {
       gap: var(--onyx-density-md);
     }
 
+    &__actions {
+      display: flex;
+      align-items: center;
+    }
+
     &--stretched {
       .onyx-tabs__tablist {
         justify-content: space-between;
