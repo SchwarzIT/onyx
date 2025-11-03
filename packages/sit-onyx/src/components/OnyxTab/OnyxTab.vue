@@ -64,28 +64,25 @@ const tab = computed(() =>
     <div class="onyx-tab__label">
       <slot name="tab">{{ props.label }}</slot>
     </div>
+  </button>
 
-    <!-- The <Teleport> is used because we want to offer a nice API for the user
+  <!-- The <Teleport> is used because we want to offer a nice API for the user
        so they can provide both tab and the panel content in one "OnyxTab" component.
        However, for the accessibility pattern (see https://www.w3.org/WAI/ARIA/apg/patterns/tabs/),
        we need a separated HTML structure where the tab and the panel must not be nested.
        The <Teleport> will allow us to achieve this by moving the panel content to the `OnyxTabs` component.
      -->
-    <Teleport v-if="tabsContext?.panel.value" :to="tabsContext?.panel.value" defer>
-      <div
-        v-if="tab?.['aria-selected']"
-        v-bind="
-          mergeVueProps(
-            tabsContext?.headless.elements.tabpanel.value({ value: props.value }),
-            attrs,
-          )
-        "
-        class="onyx-tab__panel"
-      >
-        <slot></slot>
-      </div>
-    </Teleport>
-  </button>
+  <Teleport v-if="tabsContext?.panel.value" :to="tabsContext?.panel.value" defer>
+    <div
+      v-if="tab?.['aria-selected']"
+      v-bind="
+        mergeVueProps(tabsContext?.headless.elements.tabpanel.value({ value: props.value }), attrs)
+      "
+      class="onyx-tab__panel"
+    >
+      <slot></slot>
+    </div>
+  </Teleport>
 </template>
 
 <style lang="scss">
