@@ -72,8 +72,7 @@ const handleCopy = async () => {
   >
     <slot></slot>
 
-    <!-- TODO: replace once OnyxTabs supports the action slot: https://github.com/SchwarzIT/onyx/issues/4370 -->
-    <div class="onyx-code-tabs__copy">
+    <template #actions>
       <OnyxSystemButton
         v-if="!isCopied"
         :label="t('codeTabs.copySnippet')"
@@ -82,7 +81,7 @@ const handleCopy = async () => {
         @click="handleCopy"
       />
       <OnyxTag v-else :label="t('codeTabs.copied')" color="success" />
-    </div>
+    </template>
   </OnyxTabs>
 </template>
 
@@ -99,22 +98,28 @@ const handleCopy = async () => {
 
     .onyx-tabs {
       &__tablist {
+        padding: 0;
+      }
+
+      &__header {
         background-color: var(--onyx-color-base-background-blank);
         border-top-left-radius: inherit;
         border-top-right-radius: inherit;
-        padding: var(--onyx-code-group-tablist-padding);
-        border-bottom: var(--onyx-code-group-border);
         border: var(--onyx-code-group-border);
+        padding: var(--onyx-code-group-tablist-padding);
 
+        // fix layout shift when outline is shown since the OnyxTabs use a padding/margin workaround when the outline is shown due to the "overflow: hidden"
         &:has(.onyx-tab:focus-visible) {
-          margin: 0;
-          padding: var(--onyx-code-group-tablist-padding);
+          padding-top: 0;
+          padding-left: 0;
+          padding-bottom: 0;
+
+          .onyx-tabs__tablist {
+            margin: 0;
+            padding: var(--onyx-code-group-tablist-padding);
+          }
         }
       }
-    }
-
-    &__copy {
-      margin-left: auto;
     }
   }
 }
