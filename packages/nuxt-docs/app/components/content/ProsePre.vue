@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CodeGroupTab } from "../OnyxCodeGroup/types.js";
+import { UnstableOnyxCodeTab, UnstableOnyxCodeTabs } from "sit-onyx";
 
 const props = withDefaults(
   defineProps<{
@@ -26,7 +26,6 @@ const props = withDefaults(
   }>(),
   {
     code: "",
-    filename: "Code",
   },
 );
 
@@ -37,16 +36,18 @@ defineSlots<{
   default(): unknown;
 }>();
 
-const tab = computed<CodeGroupTab>(() => ({
-  code: props.code,
-  label: props.filename,
-  language: props.language,
-  attributes: { class: props.class },
-}));
+const value = "tab-1";
 </script>
 
 <template>
-  <OnyxCodeGroup :tabs="[tab]">
-    <slot></slot>
-  </OnyxCodeGroup>
+  <UnstableOnyxCodeTabs :model-value="value">
+    <UnstableOnyxCodeTab
+      :value
+      :code="props.code"
+      :language="props.language"
+      :label="props.filename"
+    >
+      <pre :class="props.class"><slot></slot></pre>
+    </UnstableOnyxCodeTab>
+  </UnstableOnyxCodeTabs>
 </template>

@@ -240,5 +240,11 @@
   "slider": {
     "decreaseValue": "Wert um {n} verringern",
     "increaseValue": "Wert um {n} erhöhen"
+  },
+  "codeTabs": {
+    "label": "Codeausschnitte",
+    "copySnippet": "Code kopieren",
+    "copied": "Kopiert!",
+    "tabLabel": "Code"
   }
 }

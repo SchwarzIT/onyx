@@ -1,13 +1,16 @@
 <script lang="ts" setup>
-import { computed, inject } from "vue";
+import { computed, inject, useAttrs } from "vue";
 import { useDensity } from "../../composables/density.js";
 import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
+import { mergeVueProps } from "../../utils/attrs.js";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import { TABS_INJECTION_KEY } from "../OnyxTabs/types.js";
 import type { OnyxTabProps } from "./types.js";
+
+defineOptions({ inheritAttrs: false });
 
 const props = withDefaults(defineProps<OnyxTabProps>(), {
   disabled: false,
@@ -29,6 +32,7 @@ const { densityClass } = useDensity(props);
 const tabsContext = inject(TABS_INJECTION_KEY, undefined);
 const skeleton = useSkeletonContext(props);
 const sizeClass = computed(() => `onyx-tab--${tabsContext?.size.value}`);
+const attrs = useAttrs();
 
 const tab = computed(() =>
   tabsContext?.headless.elements.tab.value({
@@ -42,7 +46,7 @@ const tab = computed(() =>
   <OnyxSkeleton
     v-if="skeleton"
     :class="['onyx-tab-skeleton', densityClass, sizeClass]"
-    v-bind="tab"
+    v-bind="mergeVueProps(tab, attrs)"
   />
   <button
     v-else
@@ -53,30 +57,35 @@ const tab = computed(() =>
       sizeClass,
       { 'onyx-tab--selected': tab?.['aria-selected'] },
     ]"
-    v-bind="tab"
+    v-bind="mergeVueProps(tab, attrs)"
     type="button"
     :disabled="props.disabled"
   >
     <div class="onyx-tab__label">
       <slot name="tab">{{ props.label }}</slot>
     </div>
-  </button>
 
-  <!-- The <Teleport> is used because we want to offer a nice API for the user
+    <!-- The <Teleport> is used because we want to offer a nice API for the user
        so they can provide both tab and the panel content in one "OnyxTab" component.
        However, for the accessibility pattern (see https://www.w3.org/WAI/ARIA/apg/patterns/tabs/),
        we need a separated HTML structure where the tab and the panel must not be nested.
        The <Teleport> will allow us to achieve this by moving the panel content to the `OnyxTabs` component.
      -->
-  <Teleport v-if="tabsContext?.panel.value" :to="tabsContext?.panel.value" defer>
-    <div
-      v-if="tab?.['aria-selected']"
-      v-bind="tabsContext?.headless.elements.tabpanel.value({ value: props.value })"
-      class="onyx-tab__panel"
-    >
-      <slot></slot>
-    </div>
-  </Teleport>
+    <Teleport v-if="tabsContext?.panel.value" :to="tabsContext?.panel.value" defer>
+      <div
+        v-if="tab?.['aria-selected']"
+        v-bind="
+          mergeVueProps(
+            tabsContext?.headless.elements.tabpanel.value({ value: props.value }),
+            attrs,
+          )
+        "
+        class="onyx-tab__panel"
+      >
+        <slot></slot>
+      </div>
+    </Teleport>
+  </button>
 </template>
 
 <style lang="scss">

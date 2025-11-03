@@ -1,0 +1,103 @@
+<script lang="ts">
+/**
+ * @experimental
+ * @deprecated This component is still under active development and its API might change in patch releases.
+ */
+export default {};
+</script>
+
+<script lang="ts" setup>
+import { inject, onUnmounted, watch } from "vue";
+import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
+import { injectI18n } from "../../i18n/index.js";
+import { useForwardProps } from "../../utils/props.js";
+import { CODE_TABS_INJECTION_KEY } from "../OnyxCodeTabs/types.js";
+import OnyxTab from "../OnyxTab/OnyxTab.vue";
+import type { OnyxCodeTabProps } from "./types.js";
+
+const props = withDefaults(defineProps<OnyxCodeTabProps>(), {
+  disabled: false,
+  skeleton: SKELETON_INJECTED_SYMBOL,
+});
+
+const slots = defineSlots<{
+  /**
+   * Tab panel / content. By default, the `code` property will be used (without syntax highlighting).
+   */
+  default?(): unknown;
+  /**
+   * Optional slot to override the tab content. By default, the `label` property will be displayed.
+   */
+  tab?(): unknown;
+}>();
+
+const { t } = injectI18n();
+
+const tabProps = useForwardProps(props, OnyxTab);
+
+const tabsContext = inject(CODE_TABS_INJECTION_KEY, undefined);
+
+watch(
+  [() => props.value, () => props.code],
+  ([newValue, newCode], [oldValue]) => {
+    if (oldValue) {
+      tabsContext?.tabs.value.delete(oldValue);
+    }
+    tabsContext?.tabs.value.set(newValue, newCode);
+  },
+  { immediate: true },
+);
+
+onUnmounted(() => {
+  tabsContext?.tabs.value.delete(props.value);
+});
+</script>
+
+<template>
+  <OnyxTab
+    v-bind="tabProps"
+    :label="tabProps.label ?? t('codeTabs.tabLabel')"
+    class="onyx-code-tab"
+  >
+    <template v-if="slots.tab" #tab>
+      <slot name="tab"></slot>
+    </template>
+
+    <slot>
+      <pre><code>{{ props.code }}</code></pre>
+    </slot>
+
+    <span v-if="props.language" class="onyx-text--small">
+      {{ props.language }}
+    </span>
+  </OnyxTab>
+</template>
+
+<style lang="scss">
+@use "../../styles/mixins/layers.scss";
+
+.onyx-code-tab {
+  @include layers.component() {
+    &.onyx-tab__panel {
+      border-bottom-left-radius: inherit;
+      border-bottom-right-radius: inherit;
+      font-family: var(--onyx-font-family-mono);
+      padding: var(--onyx-density-md);
+      background-color: var(--onyx-color-base-background-tinted);
+      border: var(--onyx-code-group-border);
+      border-top: none;
+
+      display: flex;
+      gap: var(--onyx-density-lg);
+      justify-content: space-between;
+      white-space: pre-wrap;
+
+      pre,
+      code {
+        font-family: inherit;
+        white-space: inherit;
+      }
+    }
+  }
+}
+</style>
