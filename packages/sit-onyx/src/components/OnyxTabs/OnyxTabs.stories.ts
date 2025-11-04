@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
+import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxTab from "../OnyxTab/OnyxTab.vue";
 import OnyxTabs from "./OnyxTabs.vue";
 
@@ -20,6 +21,7 @@ const meta: Meta<typeof OnyxTabs> = {
   component: OnyxTabs,
   argTypes: {
     default: { control: { disable: true } },
+    actions: { control: { disable: true } },
   },
 };
 
@@ -76,5 +78,13 @@ export const ManyTabs = {
           () => `Panel content ${id}`,
         );
       }),
+  },
+} satisfies Story;
+
+export const Actions = {
+  tags: ["new:feature"],
+  args: {
+    ...Default.args,
+    actions: () => [h(OnyxButton, { label: "Example action", color: "neutral" })],
   },
 } satisfies Story;

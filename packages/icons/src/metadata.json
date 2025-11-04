@@ -1180,6 +1180,10 @@
     "category": "Security & Protection",
     "aliases": ["fire-suppressant", "flame-control", "Feuerlöscher", "Brandlöscher"]
   },
+  "firewall": {
+    "category": "Software & Services",
+    "aliases": []
+  },
   "flag-1": {
     "category": "Navigation",
     "aliases": ["banner", "marker", "Fahne", "Markierung", "Flagge"]
@@ -1373,6 +1377,10 @@
   "inbox-out": {
     "category": "Communication",
     "aliases": ["mail-send", "message", "Postausgang", "Nachrichten"]
+  },
+  "intake": {
+    "category": "Software & Services",
+    "aliases": ["arrow-right", "service"]
   },
   "key": {
     "category": "Security & Protection",

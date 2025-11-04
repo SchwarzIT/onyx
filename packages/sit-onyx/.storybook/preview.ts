@@ -71,6 +71,7 @@ const preview: Preview = {
           "Layout",
           "Examples",
           "Illustrations",
+          "Documentation",
           "Support",
         ],
       },
