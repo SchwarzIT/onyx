@@ -436,6 +436,7 @@ $wedge-size: 0.5rem;
   @include layers.component() {
     position: relative;
     width: max-content;
+    height: max-content;
     place-content: center;
   }
 }

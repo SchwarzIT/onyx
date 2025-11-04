@@ -3,6 +3,7 @@ import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots.js";
 import { ONYX_COLORS } from "../../types/colors.js";
 import OnyxBadge from "./OnyxBadge.vue";
+import TestCase from "./TestCase.vue";
 
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
@@ -53,6 +54,12 @@ test.describe("Screenshot tests", () => {
         await expect(component.locator(".onyx-badge__icon")).not.toBeAttached();
       },
     },
+  });
+  executeMatrixScreenshotTest({
+    name: `Badge (alignment)`,
+    columns: ["default"],
+    rows: ["start", "center", "end"],
+    component: (column, row) => <TestCase alignItems={row} />,
   });
 });
 
