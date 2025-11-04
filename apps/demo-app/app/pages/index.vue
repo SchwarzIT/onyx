@@ -38,7 +38,7 @@ const cards = computed<LinkCardProps[]>(() => [
 
 <template>
   <NuxtLayout name="default" no-padding>
-    <OnyxImage class="banner" alt="Hero banner" :src="banner" :width="1920" :height="280" />
+    <Banner :src="banner" />
 
     <div class="content onyx-grid-layout">
       <div class="onyx-grid">
