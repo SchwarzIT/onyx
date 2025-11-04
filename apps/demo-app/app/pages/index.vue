@@ -1,8 +1,9 @@
 <script lang="ts" setup>
 import { iconChart, iconTextSelector, iconToolTable } from "@sit-onyx/icons";
 import { useI18n } from "vue-i18n";
-import banner from "~/assets/images/banner.webp";
+import bannerImg from "~/assets/images/banner.webp";
 import onyxLogo from "~/assets/images/onyx-logo.svg?raw";
+import Banner from "../components/Banner.vue";
 import type { LinkCardProps } from "../components/LinkCard.vue";
 
 definePageMeta({ layout: false });
@@ -38,7 +39,7 @@ const cards = computed<LinkCardProps[]>(() => [
 
 <template>
   <NuxtLayout name="default" no-padding>
-    <Banner :src="banner" />
+    <Banner :src="bannerImg" />
 
     <div class="content onyx-grid-layout">
       <div class="onyx-grid">
