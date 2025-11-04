@@ -32,11 +32,15 @@ const headless = createTabs({
   onSelect: (tab) => (modelValue.value = tab),
 });
 
-defineSlots<{
+const slots = defineSlots<{
   /**
    * Slots for tab components. Only `OnyxTab` should be used here.
    */
   default(): unknown;
+  /**
+   * Optional actions to display in the top right.
+   */
+  actions?(): unknown;
 }>();
 
 const panel = useTemplateRef("panelRef");
@@ -59,9 +63,15 @@ provide(TABS_INJECTION_KEY as TabsInjectionKey<TValue>, {
       { 'onyx-tabs--stretched': props.stretched },
     ]"
   >
-    <div v-bind="headless.elements.tablist.value" class="onyx-tabs__tablist">
-      <!-- TABS -->
-      <slot></slot>
+    <div class="onyx-tabs__header">
+      <div v-bind="headless.elements.tablist.value" class="onyx-tabs__tablist">
+        <!-- TABS -->
+        <slot></slot>
+      </div>
+
+      <div v-if="slots.actions" class="onyx-tabs__actions">
+        <slot name="actions"></slot>
+      </div>
     </div>
   </div>
 </template>
@@ -80,7 +90,7 @@ provide(TABS_INJECTION_KEY as TabsInjectionKey<TValue>, {
     margin-top: $negative-outline-width;
 
     padding-bottom: var(--onyx-outline-width);
-    margin-bottom: calc(var(--onyx-tabs-tablist-margin-bottom) - var(--onyx-outline-width));
+    margin-bottom: $negative-outline-width;
   }
 
   &:has(.onyx-tab:focus-visible:first-of-type) {
@@ -103,7 +113,21 @@ provide(TABS_INJECTION_KEY as TabsInjectionKey<TValue>, {
       display: flex;
       align-items: center;
       gap: var(--onyx-density-2xs);
+      flex-grow: 1;
+    }
+
+    &__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--onyx-density-md);
       margin-bottom: var(--onyx-tabs-tablist-margin-bottom);
+    }
+
+    &__actions {
+      display: flex;
+      align-items: center;
+      gap: var(--onyx-density-xs);
     }
 
     &--stretched {

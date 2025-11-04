@@ -244,5 +244,11 @@
   "slider": {
     "decreaseValue": "Decrease value by {n}",
     "increaseValue": "Increase value by {n}"
+  },
+  "codeTabs": {
+    "label": "Code snippets",
+    "copySnippet": "Copy code",
+    "copied": "Copied!",
+    "tabLabel": "Code"
   }
 }
