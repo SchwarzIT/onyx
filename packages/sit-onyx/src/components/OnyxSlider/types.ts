@@ -92,7 +92,7 @@ export type OnyxSliderProps<TSliderMode extends SliderMode> = CustomValidityProp
      *
      * - `value`: shows min and max value labels. Works in both `single` and `range` modes for discrete and non-discrete sliders.
      * - `icon`: shows icon buttons to increment/decrement the value. Works only in `single` mode for discrete and non-discrete sliders.
-     * - `input`: shows `<OnyxStepper />` components to input the value directly. Works in both `single` and `range` modes for discrete slider only.
+     * - `input`: shows `<OnyxStepper />` components to input the value directly. Works in both `single` and `range` modes for discrete and non-discrete sliders.
      */
     control?: SliderControl;
     /**

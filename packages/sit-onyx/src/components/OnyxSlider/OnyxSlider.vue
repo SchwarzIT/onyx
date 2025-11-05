@@ -114,6 +114,10 @@ const handleSliderInputControlChange = (index: number, value: number) => {
     inputVersion.value++;
   } else {
     modelValue.value = rounded as SliderValue<TSliderMode>;
+
+    if (rounded !== value) {
+      inputVersion.value++;
+    }
   }
 };
 
@@ -151,7 +155,11 @@ const handleSliderIconControlChange = (value: number) => {
     >
       <template #default="{ id: inputId }">
         <div class="onyx-slider__container">
-          <OnyxSliderControl v-if="props.control === 'value'" control="value" :value="props.min" />
+          <OnyxSliderControl
+            v-if="props.control === 'value'"
+            control="value"
+            :model-value="props.min"
+          />
           <OnyxSliderControl
             v-if="props.control === 'icon' && props.mode === 'single'"
             control="icon"
@@ -162,7 +170,7 @@ const handleSliderIconControlChange = (value: number) => {
             @update:model-value="handleSliderIconControlChange"
           />
           <OnyxSliderControl
-            v-if="props.control === 'input' && props.mode === 'range' && !props.discrete"
+            v-if="props.control === 'input' && props.mode === 'range'"
             :key="inputVersion + 0"
             control="input"
             :disabled="disabled"
@@ -234,7 +242,7 @@ const handleSliderIconControlChange = (value: number) => {
             @update:model-value="handleSliderIconControlChange"
           />
           <OnyxSliderControl
-            v-if="props.control === 'input' && !props.discrete"
+            v-if="props.control === 'input'"
             :key="inputVersion + 1"
             control="input"
             :disabled="disabled"

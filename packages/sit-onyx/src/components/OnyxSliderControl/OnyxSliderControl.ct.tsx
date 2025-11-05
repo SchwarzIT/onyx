@@ -9,7 +9,7 @@ const screenshotOptions = {
   hooks: {
     beforeEach: async (component, page, _column, row) => {
       const button = component.getByRole("button").first();
-      const input = component.getByRole("spinbutton").first();
+      const input = component.getByLabel("Change value").first();
 
       if (row === "hover") {
         if (await button.isVisible()) await button.hover();
@@ -27,7 +27,7 @@ test.describe("Screenshot tests", () => {
     ...screenshotOptions,
     name: "Slider control (value)",
     columns: DENSITIES,
-    component: (column) => <OnyxSliderControl control="value" value={50} density={column} />,
+    component: (column) => <OnyxSliderControl control="value" modelValue={50} density={column} />,
   });
 
   executeMatrixScreenshotTest({
@@ -86,7 +86,7 @@ test.describe("Screenshot tests", () => {
       beforeEach: async (component, _page, _column, row) => {
         if (row === "hover") {
           const button = component.getByRole("button").first();
-          const input = component.getByRole("spinbutton").first();
+          const input = component.getByLabel("Change value").first();
           if (await button.isVisible()) await button.hover();
           if (await input.isVisible()) await input.hover();
         }
@@ -180,7 +180,7 @@ test.describe("Interaction tests", () => {
       on: eventHandlers,
     });
 
-    const input = component.getByRole("spinbutton");
+    const input = component.getByLabel("Change value");
 
     // ASSERT
     await expect(input).toBeVisible();
@@ -199,7 +199,7 @@ test.describe("Interaction tests", () => {
     const component = await mount(OnyxSliderControl, {
       props: {
         control: "value",
-        value: 42,
+        modelValue: 42,
       },
     });
 
@@ -219,7 +219,7 @@ test.describe("Interaction tests", () => {
       },
     });
 
-    const input = component.getByRole("spinbutton");
+    const input = component.getByLabel("Change value");
 
     // ASSERT
     await expect(input).toBeDisabled();

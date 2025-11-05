@@ -6,7 +6,7 @@ import OnyxSliderControl from "./OnyxSliderControl.vue";
  * The slider control component intended to be used alongside the OnyxSlider component to provide additional controls for adjusting the slider value.
  */
 const meta: Meta<typeof OnyxSliderControl> = {
-  title: "Support/OnyxSliderControl",
+  title: "Support/SliderControl",
   component: OnyxSliderControl as Meta["component"],
   tags: ["unstable"],
   decorators: [
@@ -22,28 +22,28 @@ const meta: Meta<typeof OnyxSliderControl> = {
 
 export default meta;
 
-export const ValueControl = {
+export const Value = {
   args: {
     control: "value",
-    value: 0,
+    modelValue: 0,
   },
 } satisfies StoryObj<typeof OnyxSliderControl>;
 
-export const IconControlIconDecrease = {
+export const IconDecrease = {
   args: {
     control: "icon",
     direction: "decrease",
   },
 } satisfies StoryObj<typeof OnyxSliderControl>;
 
-export const IconControlIconIncrease = {
+export const IconIncrease = {
   args: {
     control: "icon",
     direction: "increase",
   },
 } satisfies StoryObj<typeof OnyxSliderControl>;
 
-export const IconControlInput = {
+export const Input = {
   args: {
     control: "input",
     modelValue: 0,

@@ -60,7 +60,7 @@ const { t } = injectI18n();
 <template>
   <div :class="['onyx-component', 'onyx-slider-control', densityClass]">
     <template v-if="props.control === 'value'">
-      {{ props.value }}
+      {{ modelValue }}
     </template>
 
     <template v-if="props.control === 'icon'">
@@ -68,7 +68,7 @@ const { t } = injectI18n();
         v-if="props.direction === 'decrease'"
         :disabled="props.disabled"
         color="neutral"
-        :label="t('sliderControl.decreaseValueBy', { n: props.shiftStep })"
+        :label="t('slider.decreaseValueBy', { n: props.shiftStep })"
         :icon="iconMinusSmall"
         tabindex="0"
         @click="handleIconClick"
@@ -77,7 +77,7 @@ const { t } = injectI18n();
         v-if="props.direction === 'increase'"
         :disabled="props.disabled"
         color="neutral"
-        :label="t('sliderControl.increaseValueBy', { n: props.shiftStep })"
+        :label="t('slider.increaseValueBy', { n: props.shiftStep })"
         :icon="iconPlusSmall"
         tabindex="0"
         @click="handleIconClick"
@@ -86,7 +86,7 @@ const { t } = injectI18n();
 
     <template v-if="props.control === 'input'">
       <OnyxStepper
-        :label="t('sliderControl.changeValue')"
+        :label="t('slider.changeValue')"
         hide-label
         hide-buttons
         :disabled="props.disabled"

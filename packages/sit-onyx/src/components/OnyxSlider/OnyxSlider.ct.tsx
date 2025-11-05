@@ -445,12 +445,14 @@ test.describe("Interaction tests", () => {
         label: "Input control slider",
         modelValue,
         control: "input",
+        min: 20,
+        max: 80,
       },
       on: eventHandlers,
     });
 
     const slider = component.getByRole("slider");
-    const input = component.getByRole("spinbutton");
+    const input = component.getByLabel("Change value");
 
     // ASSERT
     await expect(input).toBeVisible();
@@ -465,13 +467,31 @@ test.describe("Interaction tests", () => {
     expect(modelValue).toBe(75);
     await expect(slider).toHaveValue("75");
 
-    // ACT - Change value via input to boundary
-    await input.fill("100");
+    // ACT - Change value via input to max boundary
+    await input.fill("80");
     await input.blur();
 
     // ASSERT
-    expect(modelValue).toBe(100);
-    await expect(slider).toHaveValue("100");
+    expect(modelValue).toBe(80);
+    await expect(slider).toHaveValue("80");
+
+    // ACT - Try to set value above maximum
+    await input.fill("100");
+    await input.blur();
+
+    // ASSERT - Should clamp to maximum
+    await expect(input).toHaveValue("80");
+    await expect(slider).toHaveValue("80");
+    expect(modelValue).toBe(80);
+
+    // ACT - Try to set value below minimum
+    await input.fill("10");
+    await input.blur();
+
+    // ASSERT - Should clamp to minimum
+    expect(modelValue).toBe(20);
+    await expect(input).toHaveValue("20");
+    await expect(slider).toHaveValue("20");
   });
 
   test("should interact with input control in range mode", async ({ mount }) => {

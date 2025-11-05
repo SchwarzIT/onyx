@@ -17,10 +17,6 @@ export type OnyxSliderControlSharedProps = {
    */
   modelValue?: number;
   /**
-   * The read-only value to display inside the control. In the slider context, this is min and max values.
-   */
-  value?: number;
-  /**
    * The direction the icon button represents.
    *
    * - `decrease`: Decreases the slider value and renders a "minus" icon.
@@ -39,7 +35,7 @@ export type OnyxSliderControlSharedProps = {
 
 export type OnyxSliderControlValueProps = {
   control: "value";
-  value: number;
+  modelValue: number;
 };
 
 export type OnyxSliderControlIconProps = {
