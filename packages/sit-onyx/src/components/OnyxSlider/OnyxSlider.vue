@@ -8,7 +8,7 @@ export default {};
 
 <script setup lang="ts" generic="TSliderMode extends SliderMode">
 import { _unstableCreateSlider } from "@sit-onyx/headless";
-import { computed, ref, toRef, toRefs } from "vue";
+import { computed, toRef, toRefs } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useErrorClass } from "../../composables/useErrorClass.js";
 import { getFormMessages, useFormElementError } from "../../composables/useFormElementError.js";
@@ -67,12 +67,6 @@ const skeleton = useSkeletonContext(props);
 
 const { min, max, step, marks, label, discrete } = toRefs(props);
 
-/**
- * During focus value inside of stepper component was not updated.
- * So, we need to manually trigger an update when the control version changes.
- */
-const inputVersion = ref<number>(0);
-
 const {
   elements: { root, rail, track, thumbContainer, thumbInput, mark, markLabel },
   state: { activeThumbIndex, marksList, shiftStep, normalizedValues },
@@ -110,14 +104,8 @@ const handleSliderInputControlChange = (index: number, value: number) => {
 
       return;
     }
-
-    inputVersion.value++;
   } else {
     modelValue.value = rounded as SliderValue<TSliderMode>;
-
-    if (rounded !== value) {
-      inputVersion.value++;
-    }
   }
 };
 
@@ -171,7 +159,6 @@ const handleSliderIconControlChange = (value: number) => {
           />
           <OnyxSliderControl
             v-if="props.control === 'input' && props.mode === 'range'"
-            :key="inputVersion + 0"
             control="input"
             :disabled="disabled"
             :model-value="normalizedValues[0] ?? 0"
@@ -232,7 +219,11 @@ const handleSliderIconControlChange = (value: number) => {
             </span>
           </span>
 
-          <OnyxSliderControl v-if="props.control === 'value'" control="value" :value="props.max" />
+          <OnyxSliderControl
+            v-if="props.control === 'value'"
+            control="value"
+            :model-value="props.max"
+          />
           <OnyxSliderControl
             v-if="props.control === 'icon' && props.mode === 'single'"
             control="icon"
@@ -243,7 +234,6 @@ const handleSliderIconControlChange = (value: number) => {
           />
           <OnyxSliderControl
             v-if="props.control === 'input'"
-            :key="inputVersion + 1"
             control="input"
             :disabled="disabled"
             :model-value="normalizedValues[1] ?? normalizedValues[0] ?? 0"
