@@ -138,9 +138,8 @@ useAutofocus(input, props);
 }
 
 .onyx-checkbox {
-  @include checkbox.variables();
-
   @include layers.component() {
+    @include checkbox.variables();
     --onyx-checkbox-label-padding-vertical: var(--onyx-density-xs);
 
     font-family: var(--onyx-font-family);
@@ -209,9 +208,8 @@ useAutofocus(input, props);
 }
 
 .onyx-checkbox-skeleton {
-  @include checkbox.variables();
-
   @include layers.component() {
+    @include checkbox.variables();
     display: flex;
     align-items: flex-start;
     gap: var(--onyx-checkbox-input-padding);

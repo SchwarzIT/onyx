@@ -96,10 +96,9 @@ const icon = computed(() => {
 @use "../../styles/mixins/layers.scss";
 
 .onyx-toast-message {
-  --onyx-toast-message-padding-vertical: var(--onyx-density-sm);
-  --onyx-toast-message-padding-horizontal: var(--onyx-density-md);
-
   @include layers.component() {
+    --onyx-toast-message-padding-vertical: var(--onyx-density-sm);
+    --onyx-toast-message-padding-horizontal: var(--onyx-density-md);
     --onyx-toast-message-color: var(--onyx-color-text-icons-neutral-inverted);
     --onyx-toast-message-background-color: var(--onyx-color-base-neutral-700);
     --onyx-toast-message-border-color: transparent;
