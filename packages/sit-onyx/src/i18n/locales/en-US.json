@@ -251,5 +251,8 @@
     "copySnippet": "Copy code",
     "copied": "Copied!",
     "tabLabel": "Code"
+  },
+  "globalSearch": {
+    "label": "Global search"
   }
 }
