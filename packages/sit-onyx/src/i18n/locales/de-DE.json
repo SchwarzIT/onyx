@@ -249,5 +249,8 @@
     "copied": "Kopiert!",
     "failed": "Fehlgeschlagen!",
     "tabLabel": "Code"
+  },
+  "globalSearch": {
+    "label": "Globale Suche"
   }
 }
