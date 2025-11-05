@@ -12,11 +12,15 @@ import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import { useForwardProps } from "../../utils/props.js";
 import OnyxBasicDialog from "../OnyxBasicDialog/OnyxBasicDialog.vue";
+import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxInput from "../OnyxInput/OnyxInput.vue";
+import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import type { OnyxGlobalSearchProps } from "./types.js";
 
-const props = defineProps<OnyxGlobalSearchProps>();
+const props = withDefaults(defineProps<OnyxGlobalSearchProps>(), {
+  groups: () => [],
+});
 
 const emit = defineEmits<{
   /**
@@ -60,9 +64,18 @@ const searchTerm = useVModel({
         autofocus
       >
         <template #leading>
-          <OnyxIcon :icon="iconSearch" />
+          <OnyxLoadingIndicator v-if="props.loading" type="circle" />
+          <OnyxIcon v-else :icon="iconSearch" />
         </template>
       </OnyxInput>
+
+      <div v-if="props.groups.length" class="onyx-global-search__body">
+        <section v-for="group in props.groups" :key="group.label" class="onyx-global-search__group">
+          <OnyxHeadline is="h4" class="onyx-global-search__headline">
+            {{ group.label }}
+          </OnyxHeadline>
+        </section>
+      </div>
     </div>
   </OnyxBasicDialog>
 </template>
@@ -91,9 +104,33 @@ const searchTerm = useVModel({
   }
 
   @include layers.component() {
+    --onyx-global-search-border: var(--onyx-1px-in-rem) solid
+      var(--onyx-color-component-border-neutral);
+
     &__content {
       min-width: 420px;
       max-width: 1100px;
+      display: flex;
+      flex-direction: column;
+      gap: var(--onyx-density-xs);
+    }
+
+    &__body {
+      border-radius: var(--onyx-basic-dialog-border-radius);
+      border: var(--onyx-global-search-border);
+      background-color: var(--onyx-color-base-background-blank);
+    }
+
+    &__group {
+      padding: var(--onyx-density-md);
+
+      &:last-of-type {
+        border-top: var(--onyx-global-search-border);
+      }
+    }
+
+    &__headline {
+      color: var(--onyx-color-text-icons-neutral-soft);
     }
   }
 }

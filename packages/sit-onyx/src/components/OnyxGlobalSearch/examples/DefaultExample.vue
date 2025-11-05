@@ -1,16 +1,23 @@
 <script lang="ts" setup>
 import { iconSearch } from "@sit-onyx/icons";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import {
   OnyxAppLayout,
   OnyxIconButton,
   OnyxNavBar,
   OnyxPageLayout,
   OnyxUnstableGlobalSearch,
+  type GlobalSearchGroup,
 } from "../../../index.js";
 
 // TODO: for testing, revert back to false afterwards
 const isSearchOpen = ref(true);
+
+const isLoading = ref(false);
+
+const groups = computed<GlobalSearchGroup[]>(() => {
+  return [{ label: "Search results", options: [] }];
+});
 </script>
 
 <template>
@@ -32,6 +39,11 @@ const isSearchOpen = ref(true);
     <OnyxPageLayout> Your page content would go here... </OnyxPageLayout>
 
     <!-- TODO: remove nonDismissible -->
-    <OnyxUnstableGlobalSearch v-model:open="isSearchOpen" non-dismissible />
+    <OnyxUnstableGlobalSearch
+      v-model:open="isSearchOpen"
+      :loading="isLoading"
+      :groups
+      non-dismissible
+    />
   </OnyxAppLayout>
 </template>
