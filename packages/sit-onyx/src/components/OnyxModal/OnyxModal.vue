@@ -3,7 +3,6 @@ import { iconXSmall } from "@sit-onyx/icons";
 import { computed, useId } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { injectI18n } from "../../i18n/index.js";
-import type { Nullable } from "../../types/index.js";
 import { useForwardProps } from "../../utils/props.js";
 import OnyxBasicDialog from "../OnyxBasicDialog/OnyxBasicDialog.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
@@ -17,7 +16,7 @@ const emit = defineEmits<{
    * Emitted when the modal dialog should be closed.
    * Opening is always controlled via the `open` prop.
    */
-  "update:open": [open: Nullable<boolean>];
+  "update:open": [open: boolean];
 }>();
 
 const slots = defineSlots<{

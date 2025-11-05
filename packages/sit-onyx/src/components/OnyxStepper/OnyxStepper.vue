@@ -240,13 +240,17 @@ useAutofocus(input, props);
 
 .onyx-stepper,
 .onyx-stepper-skeleton {
-  --onyx-stepper-padding-vertical: var(--onyx-density-xs);
+  @include layers.component() {
+    --onyx-stepper-padding-vertical: var(--onyx-density-xs);
+  }
 }
 
 .onyx-stepper-skeleton {
-  @include input.define-skeleton-styles(
-    $height: calc(1lh + 2 * var(--onyx-stepper-padding-vertical))
-  );
+  @include layers.component() {
+    @include input.define-skeleton-styles(
+      $height: calc(1lh + 2 * var(--onyx-stepper-padding-vertical))
+    );
+  }
 }
 
 .onyx-stepper {

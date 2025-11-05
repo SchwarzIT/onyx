@@ -111,13 +111,13 @@ const tagClasses = computed(() => [
         outline: var(--onyx-outline-width) solid var(--onyx-tag-focus-color);
       }
     }
-  }
 
-  &-skeleton {
-    width: var(--onyx-density-2xl);
-    height: calc(1.5rem + 2 * var(--onyx-density-3xs));
-    display: inline-block;
-    vertical-align: middle;
+    &-skeleton {
+      width: var(--onyx-density-2xl);
+      height: calc(1.5rem + 2 * var(--onyx-density-3xs));
+      display: inline-block;
+      vertical-align: middle;
+    }
   }
 }
 </style>

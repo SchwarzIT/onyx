@@ -228,7 +228,9 @@ useAutofocus(input, props);
 
 .onyx-select-input,
 .onyx-select-input-skeleton {
-  --onyx-select-input-padding-vertical: var(--onyx-density-xs);
+  @include layers.component() {
+    --onyx-select-input-padding-vertical: var(--onyx-density-xs);
+  }
 }
 
 .onyx-select-input {
