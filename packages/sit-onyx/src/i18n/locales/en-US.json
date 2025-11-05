@@ -241,9 +241,15 @@
       "hover": "Hover/Focus to toggle action visibility"
     }
   },
-  "sliderControl": {
+  "slider": {
     "decreaseValueBy": "Decrease value by {n}",
     "increaseValueBy": "Increase value by {n}",
     "changeValue": "Change value"
+  },
+  "codeTabs": {
+    "label": "Code snippets",
+    "copySnippet": "Copy code",
+    "copied": "Copied!",
+    "tabLabel": "Code"
   }
 }

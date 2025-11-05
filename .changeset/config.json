@@ -7,12 +7,7 @@
   "access": "public",
   "baseBranch": "origin/main",
   "updateInternalDependencies": "patch",
-  "ignore": [
-    "@sit-onyx/nuxt-docs",
-    "@sit-onyx/demo-app",
-    "@sit-onyx/docs-app",
-    "@sit-onyx/playground-app"
-  ],
+  "ignore": ["@sit-onyx/demo-app", "@sit-onyx/docs-app", "@sit-onyx/playground-app"],
   "snapshot": {
     "useCalculatedVersion": true
   },

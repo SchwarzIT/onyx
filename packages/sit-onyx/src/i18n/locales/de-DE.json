@@ -238,9 +238,15 @@
       "hover": "Mit der Maus darüberfahren/fokussieren, um die Sichtbarkeit der Aktionen umzuschalten"
     }
   },
-  "sliderControl": {
-    "decreaseValueBy": "Decrease value by {n}",
-    "increaseValueBy": "Increase value by {n}",
-    "changeValue": "Change value"
+  "slider": {
+    "decreaseValueBy": "Wert um {n} verringern",
+    "increaseValueBy": "Wert um {n} erhöhen",
+    "changeValue": "Wert ändern"
+  },
+  "codeTabs": {
+    "label": "Codeausschnitte",
+    "copySnippet": "Code kopieren",
+    "copied": "Kopiert!",
+    "tabLabel": "Code"
   }
 }
