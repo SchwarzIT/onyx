@@ -12,7 +12,7 @@ export type UseOutsideClickOptions<TCheckOnTab extends boolean | undefined = und
    * Callback when an outside click occurred.
    */
   onOutsideClick: (
-    event: TCheckOnTab extends true ? MouseEvent | KeyboardEvent : MouseEvent,
+    event: TCheckOnTab extends true ? MouseEvent | KeyboardEvent | FocusEvent : MouseEvent,
   ) => void;
   /**
    * Whether the outside focus should also be checked when pressing the Tab key.
@@ -52,16 +52,59 @@ export const useOutsideClick = <TCheckOnTab extends boolean | undefined>({
   useGlobalEventListener({ type: "mousedown", listener: clickListener, disabled });
 
   if (checkOnTab) {
-    const keydownListener = async (event: KeyboardEvent) => {
+    const keydownListener = (event: KeyboardEvent) => {
       if (event.key !== "Tab") return;
-
-      // using setTimeout here to guarantee that side effects that might change the document.activeElement have run before checking
-      // the activeElement
-      await new Promise((resolve) => setTimeout(resolve));
 
       if (isOutsideClick(document.activeElement)) {
         onOutsideClick(event as Parameters<typeof onOutsideClick>[0]);
       }
+
+      const controller = new AbortController();
+      const { signal } = controller;
+
+      /**
+       * Handles when focus enters a new element after Tab navigation.
+       * Triggers outside click if focus moves outside the component.
+       */
+      const onFocusIn = (event: FocusEvent) => {
+        const target = event.target as Node | null;
+        if (isOutsideClick(target)) {
+          onOutsideClick(event as Parameters<typeof onOutsideClick>[0]);
+        }
+        controller.abort();
+      };
+
+      /**
+       * Handles when the entire window loses focus during Tab navigation.
+       * This covers cases like switching to dev tools or another application.
+       */
+      const onWindowBlur = (event: FocusEvent) => {
+        if (isOutsideClick(document.activeElement)) {
+          onOutsideClick(event as Parameters<typeof onOutsideClick>[0]);
+        }
+
+        controller.abort();
+      };
+
+      /**
+       * Handles the Tab key release event.
+       * Cleans up temporary listeners if Tab navigation is completed.
+       */
+      const onKeyUp = (e: KeyboardEvent) => {
+        if (e.key === "Tab") controller.abort();
+      };
+
+      document.addEventListener("focusin", onFocusIn, {
+        once: true,
+        capture: true, // Capture phase to handle before component focus handlers
+        signal,
+      });
+      window.addEventListener("blur", onWindowBlur, { once: true, signal });
+      document.addEventListener("keyup", onKeyUp, {
+        once: true,
+        capture: true, // Capture phase to prevent conflicts with prevented keydown
+        signal,
+      });
     };
 
     useGlobalEventListener({ type: "keydown", listener: keydownListener, disabled });
