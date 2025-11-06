@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { OnyxImage } from "sit-onyx";
+import { OnyxImage, type OnyxImageProps } from "sit-onyx";
 
-const props = defineProps<{
-  src: string;
-}>();
+const props = defineProps<Pick<OnyxImageProps, "src">>();
 </script>
 
 <template>
