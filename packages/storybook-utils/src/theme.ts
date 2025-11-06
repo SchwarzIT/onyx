@@ -1,5 +1,5 @@
-import { create, type ThemeVars } from "storybook/internal/theming";
-import type { Viewport } from "storybook/internal/viewport";
+import { create, type ThemeVars } from "storybook/theming";
+import type { Viewport } from "storybook/viewport";
 import { ONYX_BREAKPOINTS as RAW_ONYX_BREAKPOINTS, type OnyxBreakpoint } from "./breakpoints.js";
 
 export type BrandDetails = Pick<ThemeVars, "brandTitle" | "brandImage" | "brandUrl">;
