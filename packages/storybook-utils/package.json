@@ -48,6 +48,6 @@
     "@sit-onyx/shared": "workspace:^",
     "storybook": "^9.1.15",
     "vue": "catalog:",
-    "vue-component-type-helpers": "^3.1.2"
+    "vue-component-type-helpers": "^3.1.3"
   }
 }
