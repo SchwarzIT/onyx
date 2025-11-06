@@ -220,7 +220,7 @@ export const createComboBox = createBuilder(
 
     const {
       elements: { option, group, listbox },
-      internals: { getOptionId },
+      internals: { getOptionId, getOptionValueById },
     } = createListbox({
       label: listLabel,
       description: listDescription,
@@ -275,7 +275,7 @@ export const createComboBox = createBuilder(
           onClick: () => onToggle?.(),
         })),
       },
-      internals: { getOptionId },
+      internals: { getOptionId, getOptionValueById },
     };
   },
 );
