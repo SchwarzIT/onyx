@@ -41,5 +41,5 @@ export type GlobalSearchOption = Pick<OnyxGlobalSearchOptionProps, "label" | "ic
 
 export const GLOBAL_SEARCH_INJECTION_KEY = Symbol() as InjectionKey<{
   headless: ReturnType<typeof createComboBox<string, "list", false>>;
-  activeOption: Ref<string | undefined>;
+  activeValue: Ref<string | undefined>;
 }>;

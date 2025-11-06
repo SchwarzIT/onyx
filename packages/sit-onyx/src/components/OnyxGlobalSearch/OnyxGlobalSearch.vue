@@ -38,6 +38,14 @@ const emit = defineEmits<{
   "update:open": [open: boolean];
 }>();
 
+const slots = defineSlots<{
+  /**
+   * Optional slot to pass additional / custom groups.
+   * Note that those custom groups will NOT be automatically filtered depending on the search term.
+   */
+  default?(): unknown;
+}>();
+
 const { t } = injectI18n();
 const basicDialogProps = useForwardProps(props, OnyxBasicDialog);
 
@@ -49,7 +57,11 @@ const searchTerm = useVModel({
 });
 
 const combobox = useTemplateRef("comboboxRef");
-const activeOption = ref<string>();
+
+/**
+ * Value of the currently active/highlighted option.
+ */
+const activeValue = ref<string>();
 
 const filteredGroups = computed(() => {
   // if onyx does not manage the search or no searchTerm is given, we don't filter the options further
@@ -67,16 +79,29 @@ const filteredGroups = computed(() => {
     .filter((group) => group.options.length > 0);
 });
 
-const filteredOptions = computed(() => filteredGroups.value.flatMap((group) => group.options));
+const getAllOptions = () => {
+  // using querySelector here instead of searching in filteredGroups so also options are included that are passed via custom slots
+  const options = Array.from(combobox.value?.querySelectorAll('[role="option"]') ?? []);
+  const activeIndex = activeValue.value
+    ? options.findIndex(
+        (element) => element.id === headless.internals.getOptionId(activeValue.value!),
+      )
+    : -1;
 
-const activeIndex = computed<number>(() => {
-  const index = filteredOptions.value.findIndex((option) => option.value === activeOption.value);
-  return index === -1 ? 0 : index;
-});
+  return { options, activeIndex };
+};
 
-const activateOption = (index: number) => {
-  const newIndex = index < 0 ? -1 : index > filteredOptions.value.length - 1 ? 0 : index;
-  activeOption.value = filteredOptions.value.at(newIndex)?.value;
+const activateOption = (type: "first" | "last" | "previous" | "next") => {
+  const { options, activeIndex } = getAllOptions();
+
+  let index = 0;
+  if (type === "last") index = options.length - 1;
+  else if (type === "previous") index = activeIndex - 1;
+  else if (type === "next") index = activeIndex + 1;
+
+  const normalizedIndex = index < 0 ? -1 : index > options.length - 1 ? 0 : index;
+  const id = options.at(normalizedIndex)?.id;
+  activeValue.value = id ? headless.internals.getOptionValueById(id) : undefined;
 };
 
 const onAutocomplete = (input: string) => (searchTerm.value = input);
@@ -92,18 +117,18 @@ const headless = createComboBox({
   autocomplete: "list",
   label: "some label",
   listLabel: "List",
-  activeOption,
+  activeOption: activeValue,
   isExpanded: true,
   templateRef: combobox,
   onAutocomplete,
-  onActivateFirst: () => activateOption(0),
-  onActivateLast: () => activateOption(-1),
-  onActivateNext: () => activateOption(activeIndex.value + 1),
-  onActivatePrevious: () => activateOption(activeIndex.value - 1),
+  onActivateFirst: () => activateOption("first"),
+  onActivateLast: () => activateOption("last"),
+  onActivateNext: () => activateOption("next"),
+  onActivatePrevious: () => activateOption("previous"),
   onSelect,
 });
 
-provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeOption });
+provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
 </script>
 
 <template>
@@ -131,7 +156,7 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeOption });
       </OnyxInput>
 
       <div
-        v-if="filteredGroups.length"
+        v-if="filteredGroups.length || !!slots.default"
         v-bind="headless.elements.listbox.value"
         class="onyx-global-search__body"
       >
@@ -149,6 +174,8 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeOption });
             :value="option.value"
           />
         </OnyxGlobalSearchGroup>
+
+        <slot></slot>
       </div>
     </div>
   </OnyxBasicDialog>

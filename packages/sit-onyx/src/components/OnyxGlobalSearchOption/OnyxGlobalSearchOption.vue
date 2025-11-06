@@ -42,7 +42,7 @@ const context = inject(GLOBAL_SEARCH_INJECTION_KEY);
         context?.headless.elements.option.value({
           label: props.label,
           value: props.value,
-          selected: context.activeOption.value === props.value,
+          selected: context.activeValue.value === props.value,
         })
       "
     >
