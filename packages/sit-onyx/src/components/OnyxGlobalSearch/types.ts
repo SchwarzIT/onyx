@@ -1,5 +1,5 @@
 import type { createComboBox } from "@sit-onyx/headless";
-import type { InjectionKey } from "vue";
+import type { InjectionKey, Ref } from "vue";
 import type { Nullable } from "../../types/utils.js";
 import type { OnyxBasicDialogProps } from "../OnyxBasicDialog/types.js";
 import type { OnyxGlobalSearchOptionProps } from "../OnyxGlobalSearchOption/types.js";
@@ -41,4 +41,5 @@ export type GlobalSearchOption = Pick<OnyxGlobalSearchOptionProps, "label" | "ic
 
 export const GLOBAL_SEARCH_INJECTION_KEY = Symbol() as InjectionKey<{
   headless: ReturnType<typeof createComboBox<string, "list", false>>;
+  activeOption: Ref<string | undefined>;
 }>;

@@ -7,8 +7,10 @@ export default {};
 </script>
 
 <script lang="ts" setup>
+import { inject } from "vue";
 import { useDensity } from "../../composables/density.js";
 import ButtonOrLinkLayout from "../OnyxButton/ButtonOrLinkLayout.vue";
+import { GLOBAL_SEARCH_INJECTION_KEY } from "../OnyxGlobalSearch/types.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxGlobalSearchOptionProps } from "./types.js";
 
@@ -22,19 +24,31 @@ const slots = defineSlots<{
 }>();
 
 const { densityClass } = useDensity(props);
+
+const context = inject(GLOBAL_SEARCH_INJECTION_KEY);
 </script>
 
 <template>
-  <li :class="['onyx-component', 'onyx-global-search-option', 'onyx-text', densityClass]">
+  <li
+    :class="['onyx-component', 'onyx-global-search-option', 'onyx-text', densityClass]"
+    role="none"
+  >
     <ButtonOrLinkLayout
       class="onyx-global-search-option__content"
       :link="props.link"
       :autofocus="props.autofocus"
       tabindex="-1"
+      v-bind="
+        context?.headless.elements.option.value({
+          label: props.label,
+          value: props.value,
+          selected: context.activeOption.value === props.value,
+        })
+      "
     >
       <OnyxIcon
-        class="onyx-global-search-option__icon"
         v-if="props.icon"
+        class="onyx-global-search-option__icon"
         :icon="props.icon"
         size="16px"
       />
@@ -65,7 +79,7 @@ const { densityClass } = useDensity(props);
     gap: var(--onyx-density-sm);
 
     &:hover,
-    &[aria-selected="true"] {
+    &:has(&__content[aria-selected="true"]) {
       background-color: var(--onyx-color-base-neutral-200);
     }
 

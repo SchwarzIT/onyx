@@ -275,6 +275,7 @@ export const createComboBox = createBuilder(
           onClick: () => onToggle?.(),
         })),
       },
+      internals: { getOptionId },
     };
   },
 );

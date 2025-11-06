@@ -20,7 +20,7 @@ const groups = computed<GlobalSearchGroup[]>(() => {
     {
       label: "Search results",
       options: [
-        { label: "Result 1", value: "1", icon: iconFilePdf },
+        { label: "Result 1", value: "1", icon: iconFilePdf, link: "https://onyx.schwarz" },
         { label: "Result 2", value: "2", icon: iconFilePdf },
         { label: "Result 3", value: "3", icon: iconFilePdf },
       ],

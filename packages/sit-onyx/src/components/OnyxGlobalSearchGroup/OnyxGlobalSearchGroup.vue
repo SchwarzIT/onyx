@@ -1,7 +1,17 @@
+<script lang="ts">
+/**
+ * @experimental
+ * @deprecated This component is still under active development and its API might change in patch releases.
+ */
+export default {};
+</script>
+
 <script lang="ts" setup>
-import { useDensity } from "../../composables/density";
+import { inject } from "vue";
+import { useDensity } from "../../composables/density.js";
+import { GLOBAL_SEARCH_INJECTION_KEY } from "../OnyxGlobalSearch/types.js";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
-import type { OnyxGlobalSearchGroupProps } from "./types";
+import type { OnyxGlobalSearchGroupProps } from "./types.js";
 
 const props = defineProps<OnyxGlobalSearchGroupProps>();
 
@@ -13,10 +23,15 @@ const slots = defineSlots<{
 }>();
 
 const { densityClass } = useDensity(props);
+
+const context = inject(GLOBAL_SEARCH_INJECTION_KEY);
 </script>
 
 <template>
-  <section :class="['onyx-component', 'onyx-global-search-group', densityClass]">
+  <section
+    :class="['onyx-component', 'onyx-global-search-group', densityClass]"
+    v-bind="context?.headless.elements.group.value({ label: props.label })"
+  >
     <OnyxHeadline is="h4" class="onyx-global-search-group__headline">
       {{ props.label }}
     </OnyxHeadline>

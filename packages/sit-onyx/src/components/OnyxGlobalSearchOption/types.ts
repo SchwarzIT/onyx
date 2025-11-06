@@ -6,5 +6,6 @@ export type OnyxGlobalSearchOptionProps = DensityProp &
   WithLinkProp<true> &
   Pick<OnyxButtonProps, "autofocus"> & {
     label: string;
+    value: string;
     icon?: string;
   };

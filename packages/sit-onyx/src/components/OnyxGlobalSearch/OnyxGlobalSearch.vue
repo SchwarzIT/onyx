@@ -79,10 +79,14 @@ const activateOption = (index: number) => {
   activeOption.value = filteredOptions.value.at(newIndex)?.value;
 };
 
-const onSelect = (newValue: string) => {
-  // TODO:
-};
 const onAutocomplete = (input: string) => (searchTerm.value = input);
+
+const onSelect = (value: string) => {
+  const id = headless.internals.getOptionId(value);
+  const option = combobox.value?.querySelector(`#${id}`);
+  if (!option) return;
+  if ("click" in option && typeof option.click === "function") option.click();
+};
 
 const headless = createComboBox({
   autocomplete: "list",
@@ -99,7 +103,7 @@ const headless = createComboBox({
   onSelect,
 });
 
-provide(GLOBAL_SEARCH_INJECTION_KEY, { headless });
+provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeOption });
 </script>
 
 <template>
@@ -112,7 +116,7 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless });
   >
     <div ref="comboboxRef" class="onyx-global-search__content">
       <OnyxInput
-        v-bind="headless.elements.input"
+        v-bind="headless.elements.input.value"
         v-model="searchTerm"
         label="Label"
         placeholder="Search..."
@@ -127,28 +131,22 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless });
       </OnyxInput>
 
       <div
-        v-bind="headless.elements.listbox"
         v-if="filteredGroups.length"
+        v-bind="headless.elements.listbox.value"
         class="onyx-global-search__body"
       >
         <OnyxGlobalSearchGroup
-          v-bind="headless.elements.group.value({ label: group.label })"
           v-for="group in filteredGroups"
           :key="group.label"
           :label="group.label"
         >
           <OnyxGlobalSearchOption
             v-for="option in group.options"
+            :key="option.value"
             :label="option.label"
             :icon="option.icon"
             :link="option.link"
-            v-bind="
-              headless.elements.option.value({
-                label: option.label,
-                value: option.value,
-                selected: activeOption === option.value,
-              })
-            "
+            :value="option.value"
           />
         </OnyxGlobalSearchGroup>
       </div>
