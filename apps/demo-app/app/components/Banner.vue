@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { OnyxImage, type OnyxImageProps } from "sit-onyx";
+import bannerImg from "~/assets/images/banner.webp";
 
-const props = defineProps<Pick<OnyxImageProps, "src">>();
+import { OnyxImage } from "sit-onyx";
 </script>
 
 <template>
-  <OnyxImage class="banner" alt="Hero banner" :src="props.src" :width="1920" :height="280" />
+  <OnyxImage class="banner" alt="Hero banner" :src="bannerImg" :width="1920" :height="280" />
 </template>
 
 <style lang="scss" scoped>
