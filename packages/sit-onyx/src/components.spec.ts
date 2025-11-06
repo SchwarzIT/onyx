@@ -270,6 +270,12 @@ const COMPONENTS: Components = {
       modelValue: 50,
     },
   },
+  OnyxUnstableSliderControl: {
+    props: {
+      control: "value",
+      modelValue: 50,
+    },
+  },
   OnyxUnstableCodeTabs: {
     props: {
       modelValue: "tab-1",
