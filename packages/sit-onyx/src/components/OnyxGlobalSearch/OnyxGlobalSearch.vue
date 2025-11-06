@@ -7,16 +7,20 @@ export default {};
 </script>
 
 <script lang="ts" setup>
+import { createComboBox } from "@sit-onyx/headless";
 import { iconSearch } from "@sit-onyx/icons";
+import { computed, provide, ref, useTemplateRef } from "vue";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import { useForwardProps } from "../../utils/props.js";
+import { normalizedIncludes } from "../../utils/strings.js";
 import OnyxBasicDialog from "../OnyxBasicDialog/OnyxBasicDialog.vue";
-import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
+import OnyxGlobalSearchGroup from "../OnyxGlobalSearchGroup/OnyxGlobalSearchGroup.vue";
+import OnyxGlobalSearchOption from "../OnyxGlobalSearchOption/OnyxGlobalSearchOption.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxInput from "../OnyxInput/OnyxInput.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
-import type { OnyxGlobalSearchProps } from "./types.js";
+import { GLOBAL_SEARCH_INJECTION_KEY, type OnyxGlobalSearchProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxGlobalSearchProps>(), {
   groups: () => [],
@@ -35,7 +39,6 @@ const emit = defineEmits<{
 }>();
 
 const { t } = injectI18n();
-
 const basicDialogProps = useForwardProps(props, OnyxBasicDialog);
 
 const searchTerm = useVModel({
@@ -44,6 +47,59 @@ const searchTerm = useVModel({
   key: "modelValue",
   default: "",
 });
+
+const combobox = useTemplateRef("comboboxRef");
+const activeOption = ref<string>();
+
+const filteredGroups = computed(() => {
+  // if onyx does not manage the search or no searchTerm is given, we don't filter the options further
+  if (props.noFilter || !searchTerm.value) return props.groups;
+
+  return props.groups
+    .map((group) => {
+      return {
+        ...group,
+        options: group.options.filter((option) =>
+          normalizedIncludes(option.label, searchTerm.value),
+        ),
+      };
+    })
+    .filter((group) => group.options.length > 0);
+});
+
+const filteredOptions = computed(() => filteredGroups.value.flatMap((group) => group.options));
+
+const activeIndex = computed<number>(() => {
+  const index = filteredOptions.value.findIndex((option) => option.value === activeOption.value);
+  return index === -1 ? 0 : index;
+});
+
+const activateOption = (index: number) => {
+  const newIndex = index < 0 ? -1 : index > filteredOptions.value.length - 1 ? 0 : index;
+  activeOption.value = filteredOptions.value.at(newIndex)?.value;
+};
+
+const onSelect = (newValue: string) => {
+  // TODO:
+};
+const onAutocomplete = (input: string) => (searchTerm.value = input);
+
+const headless = createComboBox({
+  autocomplete: "list",
+  label: "some label",
+  listLabel: "List",
+  activeOption,
+  isExpanded: true,
+  templateRef: combobox,
+  onAutocomplete,
+  onActivateFirst: () => activateOption(0),
+  onActivateLast: () => activateOption(-1),
+  onActivateNext: () => activateOption(activeIndex.value + 1),
+  onActivatePrevious: () => activateOption(activeIndex.value - 1),
+  onSelect,
+});
+
+provide(GLOBAL_SEARCH_INJECTION_KEY, { headless });
 </script>
 
 <template>
@@ -54,8 +110,9 @@ const searchTerm = useVModel({
     class="onyx-global-search"
     @update:open="emit('update:open', $event)"
   >
-    <div class="onyx-global-search__content">
+    <div ref="comboboxRef" class="onyx-global-search__content">
       <OnyxInput
+        v-bind="headless.elements.input"
         v-model="searchTerm"
         label="Label"
         placeholder="Search..."
@@ -69,12 +126,31 @@ const searchTerm = useVModel({
         </template>
       </OnyxInput>
 
-      <div v-if="props.groups.length" class="onyx-global-search__body">
-        <section v-for="group in props.groups" :key="group.label" class="onyx-global-search__group">
-          <OnyxHeadline is="h4" class="onyx-global-search__headline">
-            {{ group.label }}
-          </OnyxHeadline>
-        </section>
+      <div
+        v-bind="headless.elements.listbox"
+        v-if="filteredGroups.length"
+        class="onyx-global-search__body"
+      >
+        <OnyxGlobalSearchGroup
+          v-bind="headless.elements.group.value({ label: group.label })"
+          v-for="group in filteredGroups"
+          :key="group.label"
+          :label="group.label"
+        >
+          <OnyxGlobalSearchOption
+            v-for="option in group.options"
+            :label="option.label"
+            :icon="option.icon"
+            :link="option.link"
+            v-bind="
+              headless.elements.option.value({
+                label: option.label,
+                value: option.value,
+                selected: activeOption === option.value,
+              })
+            "
+          />
+        </OnyxGlobalSearchGroup>
       </div>
     </div>
   </OnyxBasicDialog>
@@ -119,18 +195,6 @@ const searchTerm = useVModel({
       border-radius: var(--onyx-basic-dialog-border-radius);
       border: var(--onyx-global-search-border);
       background-color: var(--onyx-color-base-background-blank);
-    }
-
-    &__group {
-      padding: var(--onyx-density-md);
-
-      &:last-of-type {
-        border-top: var(--onyx-global-search-border);
-      }
-    }
-
-    &__headline {
-      color: var(--onyx-color-text-icons-neutral-soft);
     }
   }
 }
