@@ -93,5 +93,8 @@
       "vue": "catalog:",
       "sass-embedded": "catalog:"
     }
+  },
+  "dependencies": {
+    "@onyx-internal/digits-theme": "^1.0.2"
   }
 }
