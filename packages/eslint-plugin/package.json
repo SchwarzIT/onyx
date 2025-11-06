@@ -14,7 +14,7 @@
     "eslint": ">= 8"
   },
   "devDependencies": {
-    "@eslint/core": "~0.16.0",
+    "@eslint/core": "~0.17.0",
     "@types/eslint": "^9.6.1",
     "@typescript-eslint/parser": "^8.46.3",
     "eslint-vitest-rule-tester": "^2.3.0",
