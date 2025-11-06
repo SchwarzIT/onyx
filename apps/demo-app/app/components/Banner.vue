@@ -11,10 +11,5 @@ const props = defineProps<Pick<OnyxImageProps, "src">>();
 <style lang="scss" scoped>
 .banner {
   width: 100%;
-  display: block;
-
-  :deep(.onyx-image__source) {
-    display: inherit;
-  }
 }
 </style>
