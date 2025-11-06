@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { iconSearch } from "@sit-onyx/icons";
+import { iconFilePdf, iconSearch } from "@sit-onyx/icons";
 import { computed, ref } from "vue";
 import {
   OnyxAppLayout,
@@ -16,7 +16,24 @@ const isSearchOpen = ref(true);
 const isLoading = ref(false);
 
 const groups = computed<GlobalSearchGroup[]>(() => {
-  return [{ label: "Search results", options: [] }];
+  return [
+    {
+      label: "Search results",
+      options: [
+        { label: "Result 1", value: "1", icon: iconFilePdf },
+        { label: "Result 2", value: "2", icon: iconFilePdf },
+        { label: "Result 3", value: "3", icon: iconFilePdf },
+      ],
+    },
+    {
+      label: "System",
+      options: [
+        { label: "Result 1", value: "4", icon: iconFilePdf },
+        { label: "Result 2", value: "5", icon: iconFilePdf },
+        { label: "Result 3", value: "6", icon: iconFilePdf },
+      ],
+    },
+  ];
 });
 </script>
 

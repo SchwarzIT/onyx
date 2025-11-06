@@ -1,20 +1,25 @@
+import type { createComboBox } from "@sit-onyx/headless";
+import type { InjectionKey } from "vue";
 import type { Nullable } from "../../types/utils.js";
 import type { OnyxBasicDialogProps } from "../OnyxBasicDialog/types.js";
+import type { OnyxGlobalSearchOptionProps } from "../OnyxGlobalSearchOption/types.js";
+import type { OnyxSelectProps } from "../OnyxSelect/types.js";
 
-export type OnyxGlobalSearchProps = Omit<OnyxBasicDialogProps, "modal" | "alignment" | "label"> & {
-  /**
-   * The current search term.
-   */
-  modelValue?: Nullable<string>;
-  /**
-   * Whether the search is currently loading results.
-   */
-  loading?: boolean;
-  /**
-   * Search result groups to display.
-   */
-  groups?: GlobalSearchGroup[];
-};
+export type OnyxGlobalSearchProps = Omit<OnyxBasicDialogProps, "modal" | "alignment" | "label"> &
+  Pick<OnyxSelectProps<string, false>, "noFilter"> & {
+    /**
+     * The current search term.
+     */
+    modelValue?: Nullable<string>;
+    /**
+     * Whether the search is currently loading results.
+     */
+    loading?: boolean;
+    /**
+     * Search result groups to display.
+     */
+    groups?: GlobalSearchGroup[];
+  };
 
 export type GlobalSearchGroup = {
   /**
@@ -27,13 +32,13 @@ export type GlobalSearchGroup = {
   options: GlobalSearchOption[];
 };
 
-export type GlobalSearchOption = {
+export type GlobalSearchOption = Pick<OnyxGlobalSearchOptionProps, "label" | "icon" | "link"> & {
   /**
-   * Label / name of the search option / result.
+   * Unique value / ID of the option.
    */
-  label: string;
-  /**
-   * Optional icon to show.
-   */
-  icon?: string;
+  value: string;
 };
+
+export const GLOBAL_SEARCH_INJECTION_KEY = Symbol() as InjectionKey<{
+  headless: ReturnType<typeof createComboBox<string, "list", false>>;
+}>;
