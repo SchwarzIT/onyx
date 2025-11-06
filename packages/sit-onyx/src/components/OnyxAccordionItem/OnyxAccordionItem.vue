@@ -296,29 +296,29 @@ const showSkeleton = computed(() => skeleton.value || accordionContext?.skeleton
         color: var(--onyx-color-text-icons-neutral-soft);
       }
     }
-  }
 
-  &-skeleton {
-    $icon-size: 1.5rem;
-    padding: var(--onyx-accordion-item-padding);
-    display: flex;
-    gap: var(--onyx-accordion-item-gap);
-    border-bottom: var(--onyx-accordion-item-border);
+    &-skeleton {
+      $icon-size: 1.5rem;
+      padding: var(--onyx-accordion-item-padding);
+      display: flex;
+      gap: var(--onyx-accordion-item-gap);
+      border-bottom: var(--onyx-accordion-item-border);
 
-    &__main {
-      width: 100%;
-      height: $icon-size;
-    }
+      &__main {
+        width: 100%;
+        height: $icon-size;
+      }
 
-    &__icon {
-      height: $icon-size;
-      width: $icon-size;
-      flex-shrink: 0;
-    }
+      &__icon {
+        height: $icon-size;
+        width: $icon-size;
+        flex-shrink: 0;
+      }
 
-    &--card {
-      border: none;
-      height: calc($icon-size + 2 * var(--onyx-accordion-item-padding));
+      &--card {
+        border: none;
+        height: calc($icon-size + 2 * var(--onyx-accordion-item-padding));
+      }
     }
   }
 }

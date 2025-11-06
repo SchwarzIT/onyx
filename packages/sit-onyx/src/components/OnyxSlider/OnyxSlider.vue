@@ -440,27 +440,29 @@ const handleSliderIconControlChange = (value: number) => {
 }
 
 .onyx-slider-skeleton {
-  $height: calc(1lh + 2 * var(--onyx-slider-padding-vertical));
-  $adjustment: var(--skeleton-label-density-adjustment, 0rem);
-  display: flex;
-  flex-direction: column;
-  gap: calc(var(--onyx-density-3xs) + $adjustment);
-  line-height: var(--onyx-font-line-height-md);
+  @include layers.component() {
+    $height: calc(1lh + 2 * var(--onyx-slider-padding-vertical));
+    $adjustment: var(--skeleton-label-density-adjustment, 0rem);
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--onyx-density-3xs) + $adjustment);
+    line-height: var(--onyx-font-line-height-md);
 
-  &__label {
-    width: var(--onyx-density-3xl);
-    height: calc(1.25rem - $adjustment);
-  }
+    &__label {
+      width: var(--onyx-density-3xl);
+      height: calc(1.25rem - $adjustment);
+    }
 
-  &__block {
-    width: 17rem;
-    max-width: 100%;
-    height: $height;
-  }
+    &__block {
+      width: 17rem;
+      max-width: 100%;
+      height: $height;
+    }
 
-  @include density.compact {
-    // the skeleton gap would be 0 in compact density so we shrink the label size a bit and increase the gap so it does not look off
-    --skeleton-label-density-adjustment: var(--onyx-spacing-5xs);
+    @include density.compact {
+      // the skeleton gap would be 0 in compact density so we shrink the label size a bit and increase the gap so it does not look off
+      --skeleton-label-density-adjustment: var(--onyx-spacing-5xs);
+    }
   }
 }
 </style>

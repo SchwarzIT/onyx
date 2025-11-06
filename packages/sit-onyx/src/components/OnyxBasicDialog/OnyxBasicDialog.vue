@@ -169,6 +169,8 @@ useGlobalEventListener({
   }
 }
 .dark .onyx-basic-dialog:modal {
-  outline: var(--onyx-spacing-5xs) solid var(--onyx-color-component-border-neutral);
+  @include layers.component() {
+    outline: var(--onyx-spacing-5xs) solid var(--onyx-color-component-border-neutral);
+  }
 }
 </style>
