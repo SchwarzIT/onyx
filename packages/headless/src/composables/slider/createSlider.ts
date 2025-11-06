@@ -198,9 +198,20 @@ export const _unstableCreateSlider = createBuilder(
     });
 
     const isDisabled = computed(() => unref(options.disabled) ?? false);
-    const marks = computed(() => unref(options.marks) ?? false);
-    const label = computed(() => unref(options.label));
     const isDiscrete = computed(() => unref(options.discrete) ?? false);
+    const marks = computed(() => {
+      const rawMarks = unref(options.marks);
+
+      /**
+       * In case of discrete mode marks must be calculated automatically.
+       */
+      if (isDiscrete.value && !rawMarks) {
+        return true;
+      }
+
+      return rawMarks ?? false;
+    });
+    const label = computed(() => unref(options.label));
 
     // Refs and variables for internal state
     /**
@@ -819,7 +830,13 @@ export const _unstableCreateSlider = createBuilder(
          * - If marks option is `false`, no marks are shown.
          */
         marksList,
+        /**
+         * Step size when holding shift key or using Page Up/Page Down keys.
+         */
         shiftStep,
+        /**
+         * Normalized slider values (clamped to min/max and rounded to nearest step/mark).
+         */
         normalizedValues,
       },
 

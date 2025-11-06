@@ -242,8 +242,9 @@
     }
   },
   "slider": {
-    "decreaseValue": "Decrease value by {n}",
-    "increaseValue": "Increase value by {n}"
+    "decreaseValueBy": "Decrease value by {n}",
+    "increaseValueBy": "Increase value by {n}",
+    "changeValue": "Change value"
   },
   "codeTabs": {
     "label": "Code snippets",

@@ -2,8 +2,8 @@ import { type MatrixScreenshotTestOptions } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
+import { SLIDER_CONTROLS } from "../OnyxSliderControl/types.js";
 import OnyxSlider from "./OnyxSlider.vue";
-import { SLIDER_CONTROLS } from "./types.js";
 
 const SLIDER_MARKS = [
   { value: 0, label: "Min" },
@@ -145,13 +145,14 @@ test.describe("Screenshot tests (other)", () => {
 test.describe("Screenshot tests (controls)", () => {
   executeMatrixScreenshotTest({
     name: "Slider (controls)",
-    columns: SLIDER_CONTROLS,
+    columns: [...SLIDER_CONTROLS, "input-range"],
     rows: ["enabled", "disabled"],
     component: (column, row) => (
       <OnyxSlider
         label="Slider controls"
-        modelValue={50}
-        control={column}
+        modelValue={column === "input-range" ? [30, 70] : 50}
+        mode={column === "input-range" ? "range" : "single"}
+        control={column === "input-range" ? "input" : column}
         disabled={row === "disabled"}
         style={{ width: "16rem" }}
       />
@@ -426,5 +427,131 @@ test.describe("Interaction tests", () => {
 
     // ASSERT
     await expect(component.getByRole("tooltip")).toBeHidden();
+  });
+
+  test("should interact with input control in single mode", async ({ mount }) => {
+    let modelValue: number = 50;
+
+    const eventHandlers = {
+      "update:modelValue": async (newValue: number) => {
+        modelValue = newValue;
+        await component.update({ props: { modelValue }, on: eventHandlers });
+      },
+    };
+
+    // ARRANGE
+    const component = await mount(OnyxSlider, {
+      props: {
+        label: "Input control slider",
+        modelValue,
+        control: "input",
+        min: 20,
+        max: 80,
+      },
+      on: eventHandlers,
+    });
+
+    const slider = component.getByRole("slider");
+    const input = component.getByLabel("Change value");
+
+    // ASSERT
+    await expect(input).toBeVisible();
+    await expect(input).toHaveValue("50");
+    await expect(slider).toHaveValue("50");
+
+    // ACT - Change value via input
+    await input.fill("75");
+    await input.blur();
+
+    // ASSERT
+    expect(modelValue).toBe(75);
+    await expect(slider).toHaveValue("75");
+
+    // ACT - Change value via input to max boundary
+    await input.fill("80");
+    await input.blur();
+
+    // ASSERT
+    expect(modelValue).toBe(80);
+    await expect(slider).toHaveValue("80");
+
+    // ACT - Try to set value above maximum
+    await input.fill("100");
+    await input.blur();
+
+    // ASSERT - Should clamp to maximum
+    await expect(input).toHaveValue("80");
+    await expect(slider).toHaveValue("80");
+    expect(modelValue).toBe(80);
+
+    // ACT - Try to set value below minimum
+    await input.fill("10");
+    await input.blur();
+
+    // ASSERT - Should clamp to minimum
+    expect(modelValue).toBe(20);
+    await expect(input).toHaveValue("20");
+    await expect(slider).toHaveValue("20");
+  });
+
+  test("should interact with input control in range mode", async ({ mount }) => {
+    let modelValue: [number, number] = [25, 75];
+
+    const eventHandlers = {
+      "update:modelValue": async (newValue: [number, number]) => {
+        modelValue = newValue;
+        await component.update({ props: { modelValue }, on: eventHandlers });
+      },
+    };
+
+    // ARRANGE
+    const component = await mount(OnyxSlider, {
+      props: {
+        label: "Range input control slider",
+        mode: "range",
+        modelValue,
+        control: "input",
+      },
+      on: eventHandlers,
+    });
+
+    const sliders = component.getByRole("slider");
+    const firstSlider = sliders.first();
+    const lastSlider = sliders.last();
+    const inputs = component.getByRole("spinbutton");
+    const firstInput = inputs.first();
+    const lastInput = inputs.last();
+
+    // ASSERT
+    await expect(firstInput).toBeVisible();
+    await expect(lastInput).toBeVisible();
+    await expect(firstInput).toHaveValue("25");
+    await expect(lastInput).toHaveValue("75");
+    await expect(firstSlider).toHaveValue("25");
+    await expect(lastSlider).toHaveValue("75");
+
+    // ACT - Change first value via input
+    await firstInput.fill("26");
+    await firstInput.blur();
+
+    // ASSERT
+    await expect(firstInput).toHaveValue("26");
+    expect(modelValue).toStrictEqual([26, 75]);
+
+    // ACT - Change second value via input
+    await lastInput.fill("80");
+    await lastInput.blur();
+
+    // ASSERT
+    await expect(lastSlider).toHaveValue("80");
+    expect(modelValue).toStrictEqual([26, 80]);
+
+    // ACT - Try to set overlapping values (first > second)
+    await firstInput.fill("85");
+    await firstInput.blur();
+
+    // ASSERT - Should not allow crossing over
+    expect(modelValue).toStrictEqual([26, 80]); // Should remain unchanged
+    await expect(firstInput).toHaveValue("26");
   });
 });

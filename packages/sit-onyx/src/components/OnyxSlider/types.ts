@@ -1,9 +1,7 @@
 import type { CustomValidityProp } from "../../composables/useFormElementError.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 import type { OnyxFormElementProps } from "../OnyxFormElement/types.js";
-
-export const SLIDER_CONTROLS = ["icon", "value", "input"] as const;
-export type SliderControl = (typeof SLIDER_CONTROLS)[number];
+import type { SliderControl } from "../OnyxSliderControl/types.js";
 
 export type SliderMark =
   | {
@@ -92,8 +90,9 @@ export type OnyxSliderProps<TSliderMode extends SliderMode> = CustomValidityProp
      * Defines if and which control to display in addition to the slider.
      * Can be used to e.g. display inputs or icon buttons that can also be used to change the value.
      *
-     * - `value`: shows min and max value labels.
-     * - `icon`: shows icon buttons to increment/decrement the value. The buttons increment/decrement by the shiftStep value. Available only for `single` mode.
+     * - `value`: shows min and max value labels. Works in both `single` and `range` modes for discrete and non-discrete sliders.
+     * - `icon`: shows icon buttons to increment/decrement the value. Works only in `single` mode for discrete and non-discrete sliders.
+     * - `input`: shows `<OnyxStepper />` components to input the value directly. Works in both `single` and `range` modes for discrete and non-discrete sliders.
      */
     control?: SliderControl;
     /**

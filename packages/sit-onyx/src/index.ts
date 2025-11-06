@@ -200,6 +200,9 @@ export { default as OnyxSkeleton } from "./components/OnyxSkeleton/OnyxSkeleton.
 export { default as OnyxUnstableSlider } from "./components/OnyxSlider/OnyxSlider.vue";
 export * from "./components/OnyxSlider/types.js";
 
+export { default as OnyxUnstableSliderControl } from "./components/OnyxSliderControl/OnyxSliderControl.vue";
+export * from "./components/OnyxSliderControl/types.js";
+
 export { default as OnyxStepper } from "./components/OnyxStepper/OnyxStepper.vue";
 export * from "./components/OnyxStepper/types.js";
 

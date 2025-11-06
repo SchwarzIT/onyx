@@ -239,8 +239,9 @@
     }
   },
   "slider": {
-    "decreaseValue": "Wert um {n} verringern",
-    "increaseValue": "Wert um {n} erhöhen"
+    "decreaseValueBy": "Wert um {n} verringern",
+    "increaseValueBy": "Wert um {n} erhöhen",
+    "changeValue": "Wert ändern"
   },
   "codeTabs": {
     "label": "Codeausschnitte",

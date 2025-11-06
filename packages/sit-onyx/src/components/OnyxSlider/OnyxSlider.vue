@@ -8,7 +8,6 @@ export default {};
 
 <script setup lang="ts" generic="TSliderMode extends SliderMode">
 import { _unstableCreateSlider } from "@sit-onyx/headless";
-import { iconMinusSmall, iconPlusSmall } from "@sit-onyx/icons";
 import { computed, toRef, toRefs } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useErrorClass } from "../../composables/useErrorClass.js";
@@ -18,12 +17,11 @@ import {
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
-import { injectI18n } from "../../i18n/index.js";
 import { useForwardProps } from "../../utils/props.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
-import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
+import OnyxSliderControl from "../OnyxSliderControl/OnyxSliderControl.vue";
 import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import type { OnyxSliderProps, SliderMode, SliderValue } from "./types.js";
@@ -34,7 +32,6 @@ const props = withDefaults(defineProps<Props>(), {
   min: 0,
   max: 100,
   step: 1,
-  marks: false,
   disabled: FORM_INJECTED_SYMBOL,
   showError: FORM_INJECTED_SYMBOL,
   skeleton: SKELETON_INJECTED_SYMBOL,
@@ -58,8 +55,6 @@ const modelValue = useVModel<Props, "modelValue", SliderValue<TSliderMode>>({
   key: "modelValue",
 });
 
-const { t } = injectI18n();
-
 const { vCustomValidity, errorMessages } = useFormElementError({ props, emit });
 const formElementProps = useForwardProps(props, OnyxFormElement);
 const messages = computed(() => getFormMessages(props.message));
@@ -75,6 +70,7 @@ const { min, max, step, marks, label, discrete } = toRefs(props);
 const {
   elements: { root, rail, track, thumbContainer, thumbInput, mark, markLabel },
   state: { activeThumbIndex, marksList, shiftStep, normalizedValues },
+  internals: { roundToStep, clampValue },
 } = _unstableCreateSlider({
   value: modelValue,
   min,
@@ -88,33 +84,38 @@ const {
   onChange: (newValue) => (modelValue.value = newValue),
 });
 
-const handleDecreaseByIcon = () => {
-  if (disabled.value) return;
-  const currentValue = normalizedValues.value[0];
+const handleSliderInputControlChange = (index: number, value: number) => {
+  const rounded = roundToStep.value(clampValue.value(value));
 
-  if (props.mode === "single" && currentValue != undefined) {
-    const stepValue = shiftStep.value ?? props.step ?? 1;
-    const newValue = Math.max(currentValue - stepValue, props.min);
-    modelValue.value = newValue as SliderValue<TSliderMode>;
+  if (rounded === undefined) return;
+
+  if (Array.isArray(modelValue.value)) {
+    /**
+     * Ensure that input controls in range mode do not cross over each other
+     */
+    if (index === 0 && rounded <= (modelValue.value[1] ?? props.max)) {
+      modelValue.value = [rounded, modelValue.value[1]] as SliderValue<TSliderMode>;
+
+      return;
+    }
+
+    if (index === 1 && rounded >= (modelValue.value[0] ?? props.min)) {
+      modelValue.value = [modelValue.value[0], rounded] as SliderValue<TSliderMode>;
+
+      return;
+    }
+  } else {
+    modelValue.value = rounded as SliderValue<TSliderMode>;
   }
 };
 
-const handleIncreaseByIcon = () => {
-  if (disabled.value) return;
-  const currentValue = normalizedValues.value[0];
+const handleSliderIconControlChange = (value: number) => {
+  const rounded = roundToStep.value(clampValue.value(value));
 
-  if (props.mode === "single" && currentValue != undefined) {
-    const stepValue = shiftStep.value ?? props.step ?? 1;
-    const newValue = Math.min(currentValue + stepValue, props.max);
-    modelValue.value = newValue as SliderValue<TSliderMode>;
-  }
+  if (rounded === undefined) return;
+
+  modelValue.value = rounded as SliderValue<TSliderMode>;
 };
-
-const isValueControl = computed(() => props.control === "value");
-/**
- * Icon control works only when there is a single thumb.
- */
-const isIconControl = computed(() => props.control === "icon" && props.mode === "single");
 </script>
 
 <template>
@@ -142,20 +143,27 @@ const isIconControl = computed(() => props.control === "icon" && props.mode === 
     >
       <template #default="{ id: inputId }">
         <div class="onyx-slider__container">
-          <div v-if="isValueControl" class="onyx-slider__control" aria-hidden="true">
-            {{ min }}
-          </div>
-
-          <div v-if="isIconControl" class="onyx-slider__control">
-            <OnyxIconButton
-              :disabled="disabled || (normalizedValues[0] ?? props.min) <= props.min"
-              :label="t('slider.decreaseValue', { n: shiftStep })"
-              color="neutral"
-              :icon="iconMinusSmall"
-              tabindex="0"
-              @click="handleDecreaseByIcon"
-            />
-          </div>
+          <OnyxSliderControl
+            v-if="props.control === 'value'"
+            control="value"
+            :model-value="props.min"
+          />
+          <OnyxSliderControl
+            v-if="props.control === 'icon' && props.mode === 'single'"
+            control="icon"
+            direction="decrease"
+            :shift-step="shiftStep"
+            :model-value="normalizedValues[0]"
+            :disabled="disabled || (normalizedValues[0] ?? props.min) <= props.min"
+            @update:model-value="handleSliderIconControlChange"
+          />
+          <OnyxSliderControl
+            v-if="props.control === 'input' && props.mode === 'range'"
+            control="input"
+            :disabled="disabled"
+            :model-value="normalizedValues[0] ?? 0"
+            @update:model-value="(value) => handleSliderInputControlChange(0, value)"
+          />
 
           <!-- Explicit passive touchstart: v-bind="root" doesn’t support { passive: true } -->
           <span class="onyx-slider__root" v-bind="root" @touchstart.passive="root.onTouchstart">
@@ -211,20 +219,28 @@ const isIconControl = computed(() => props.control === "icon" && props.mode === 
             </span>
           </span>
 
-          <div v-if="isValueControl" class="onyx-slider__control" aria-hidden="true">
-            {{ max }}
-          </div>
-
-          <div v-if="isIconControl" class="onyx-slider__control">
-            <OnyxIconButton
-              :disabled="disabled || (normalizedValues[0] ?? props.min) >= props.max"
-              :label="t('slider.increaseValue', { n: shiftStep })"
-              color="neutral"
-              :icon="iconPlusSmall"
-              tabindex="0"
-              @click="handleIncreaseByIcon"
-            />
-          </div>
+          <OnyxSliderControl
+            v-if="props.control === 'value'"
+            control="value"
+            :model-value="props.max"
+          />
+          <OnyxSliderControl
+            v-if="props.control === 'icon' && props.mode === 'single'"
+            control="icon"
+            direction="increase"
+            :shift-step="shiftStep"
+            :model-value="normalizedValues[0]"
+            @update:model-value="handleSliderIconControlChange"
+          />
+          <OnyxSliderControl
+            v-if="props.control === 'input'"
+            control="input"
+            :disabled="disabled"
+            :model-value="normalizedValues[1] ?? normalizedValues[0] ?? 0"
+            @update:model-value="
+              (value) => handleSliderInputControlChange(props.mode === 'range' ? 1 : 0, value)
+            "
+          />
         </div>
       </template>
     </OnyxFormElement>
