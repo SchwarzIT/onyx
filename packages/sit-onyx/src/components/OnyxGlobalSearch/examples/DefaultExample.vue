@@ -1,5 +1,11 @@
 <script lang="ts" setup>
-import { iconFilePdf, iconSearch } from "@sit-onyx/icons";
+import {
+  iconCircleContrast,
+  iconFilePdf,
+  iconSearch,
+  iconSettings,
+  iconTranslate,
+} from "@sit-onyx/icons";
 import { computed, ref } from "vue";
 import {
   OnyxAppLayout,
@@ -7,6 +13,8 @@ import {
   OnyxNavBar,
   OnyxPageLayout,
   OnyxUnstableGlobalSearch,
+  OnyxUnstableGlobalSearchGroup,
+  OnyxUnstableGlobalSearchOption,
   type GlobalSearchGroup,
 } from "../../../index.js";
 
@@ -20,17 +28,9 @@ const groups = computed<GlobalSearchGroup[]>(() => {
     {
       label: "Search results",
       options: [
-        { label: "Result 1", value: "1", icon: iconFilePdf, link: "https://onyx.schwarz" },
-        { label: "Result 2", value: "2", icon: iconFilePdf },
-        { label: "Result 3", value: "3", icon: iconFilePdf },
-      ],
-    },
-    {
-      label: "System",
-      options: [
-        { label: "Result 1", value: "4", icon: iconFilePdf },
-        { label: "Result 2", value: "5", icon: iconFilePdf },
-        { label: "Result 3", value: "6", icon: iconFilePdf },
+        { label: "Result 1", value: "1", link: "#link-1", icon: iconFilePdf },
+        { label: "Result 2", value: "2", link: "#link-2", icon: iconFilePdf },
+        { label: "Result 3", value: "3", link: "#link-3", icon: iconFilePdf },
       ],
     },
   ];
@@ -61,6 +61,20 @@ const groups = computed<GlobalSearchGroup[]>(() => {
       :loading="isLoading"
       :groups
       non-dismissible
-    />
+    >
+      <OnyxUnstableGlobalSearchGroup label="System">
+        <OnyxUnstableGlobalSearchOption
+          label="Change language"
+          value="language"
+          :icon="iconTranslate"
+        />
+        <OnyxUnstableGlobalSearchOption
+          label="Change appearance"
+          value="appearance"
+          :icon="iconCircleContrast"
+        />
+        <OnyxUnstableGlobalSearchOption label="Settings" value="settings" :icon="iconSettings" />
+      </OnyxUnstableGlobalSearchGroup>
+    </OnyxUnstableGlobalSearch>
   </OnyxAppLayout>
 </template>
