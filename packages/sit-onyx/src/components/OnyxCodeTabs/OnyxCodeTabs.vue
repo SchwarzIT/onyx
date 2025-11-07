@@ -107,6 +107,7 @@ const handleCopy = async () => {
         border-top-right-radius: inherit;
         border: var(--onyx-code-group-border);
         padding: var(--onyx-code-group-tablist-padding);
+        padding-right: calc(var(--onyx-code-group-tablist-padding) + var(--onyx-density-xs));
 
         // fix layout shift when outline is shown since the OnyxTabs use a padding/margin workaround when the outline is shown due to the "overflow: hidden"
         &:has(.onyx-tab:focus-visible) {
