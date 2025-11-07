@@ -18,6 +18,10 @@ const props = defineProps<OnyxGlobalSearchOptionProps>();
 
 const slots = defineSlots<{
   /**
+   * Optional slot to override the option content. By default the `label` and `icon` property will be displayed.
+   */
+  default?(): unknown;
+  /**
    * Optional slot to insert custom content on the right side / end of the option.
    */
   trailing?(): unknown;
@@ -46,13 +50,15 @@ const context = inject(GLOBAL_SEARCH_INJECTION_KEY);
         })
       "
     >
-      <OnyxIcon
-        v-if="props.icon"
-        class="onyx-global-search-option__icon"
-        :icon="props.icon"
-        size="16px"
-      />
-      {{ props.label }}
+      <slot>
+        <OnyxIcon
+          v-if="props.icon"
+          class="onyx-global-search-option__icon"
+          :icon="props.icon"
+          size="16px"
+        />
+        {{ props.label }}
+      </slot>
     </ButtonOrLinkLayout>
 
     <div v-if="slots.trailing" class="onyx-global-search-option__trailing">
