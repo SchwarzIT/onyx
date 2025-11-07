@@ -254,6 +254,7 @@
   },
   "globalSearch": {
     "label": "Global search",
+    "searchResults": "Search results",
     "input": {
       "label": "Search for content",
       "placeholder": "Search..."

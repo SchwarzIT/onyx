@@ -9,7 +9,7 @@ export default {};
 <script lang="ts" setup>
 import { createComboBox } from "@sit-onyx/headless";
 import { iconSearch } from "@sit-onyx/icons";
-import { provide, ref, useTemplateRef } from "vue";
+import { computed, provide, ref, useTemplateRef } from "vue";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import { useForwardProps } from "../../utils/props.js";
@@ -93,8 +93,8 @@ const onSelect = (value: string) => {
 
 const headless = createComboBox({
   autocomplete: "list",
-  label: "some label",
-  listLabel: "List",
+  label: computed(() => t.value("globalSearch.input.label")),
+  listLabel: computed(() => t.value("globalSearch.searchResults")),
   activeOption: activeValue,
   isExpanded: true,
   templateRef: combobox,
@@ -133,8 +133,9 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
         </template>
       </OnyxInput>
 
+      <!-- using v-show instead of v-if because the input has a aria-controls attribute which needs to point to a existing listbox -->
       <div
-        v-if="!!slots.default"
+        v-show="!!slots.default"
         v-bind="headless.elements.listbox.value"
         class="onyx-global-search__body"
       >
@@ -174,13 +175,17 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
   @include layers.component() {
     --onyx-global-search-border: var(--onyx-1px-in-rem) solid
       var(--onyx-color-component-border-neutral);
+    width: 68rem;
+
+    .onyx-basic-dialog__content {
+      max-width: 100%;
+    }
 
     &__content {
-      min-width: 420px;
-      max-width: 1100px;
       display: flex;
       flex-direction: column;
       gap: var(--onyx-density-xs);
+      max-width: 100%;
     }
 
     &__body {
