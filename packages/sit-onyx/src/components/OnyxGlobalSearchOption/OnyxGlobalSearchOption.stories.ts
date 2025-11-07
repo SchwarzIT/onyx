@@ -44,6 +44,13 @@ export const WithIcon = {
   },
 } satisfies Story;
 
+export const Skeleton = {
+  args: {
+    ...WithIcon.args,
+    skeleton: true,
+  },
+} satisfies Story;
+
 export const TrailingContent = {
   args: {
     ...Default.args,

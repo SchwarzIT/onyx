@@ -252,6 +252,7 @@
   },
   "globalSearch": {
     "label": "Globale Suche",
+    "searchResults": "Suchergebnisse",
     "input": {
       "label": "Nach Inhalten suchen",
       "placeholder": "Suchen..."
