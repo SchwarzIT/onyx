@@ -15,6 +15,12 @@ export type OnyxGlobalSearchProps = Omit<OnyxBasicDialogProps, "modal" | "alignm
 };
 
 export const GLOBAL_SEARCH_INJECTION_KEY = Symbol() as InjectionKey<{
+  /**
+   * Headless elements required for accessibility / keyboard support.
+   */
   headless: ReturnType<typeof createComboBox<string, "list", false>>;
+  /**
+   * Value of the currently active option.
+   */
   activeValue: Ref<string | undefined>;
 }>;
