@@ -45,6 +45,21 @@ test.describe("Screenshot tests", () => {
   });
 });
 
+test.describe("Screenshot tests (skeleton)", () => {
+  executeMatrixScreenshotTest({
+    name: "Code tabs (skeleton)",
+    columns: ["default"],
+    rows: ["default"],
+    component: () => (
+      <OnyxCodeTabs modelValue="tab-1" skeleton>
+        <OnyxCodeTab value="tab-1" code="" language="ts" />
+        <OnyxCodeTab value="tab-2" code="" language="ts" />
+        <OnyxCodeTab value="tab-2" code="" language="ts" />
+      </OnyxCodeTabs>
+    ),
+  });
+});
+
 test("should copy code", async ({ mount, page, context, browserName }) => {
   // eslint-disable-next-line playwright/no-skipped-test -- clipboard permission granting is only supported in chromium
   test.skip(

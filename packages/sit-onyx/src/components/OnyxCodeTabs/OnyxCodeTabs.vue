@@ -55,9 +55,15 @@ const isCopied = ref(false);
 
 const handleCopy = async () => {
   if (!activeTabCode.value) return;
-  await navigator.clipboard.writeText(activeTabCode.value);
-  isCopied.value = true;
-  setTimeout(() => (isCopied.value = false), 3000);
+
+  try {
+    await navigator.clipboard.writeText(activeTabCode.value);
+    isCopied.value = true;
+    setTimeout(() => (isCopied.value = false), 3000);
+  } catch {
+    // noop, the user might not have granted the permission for the browser / application
+    // to access the clipboard
+  }
 };
 </script>
 
