@@ -10,25 +10,20 @@ import { ref, watch } from "vue";
 import {
   OnyxAppLayout,
   OnyxIconButton,
+  OnyxInfoCard,
   OnyxNavBar,
   OnyxPageLayout,
   OnyxUnstableGlobalSearch,
   OnyxUnstableGlobalSearchGroup,
   OnyxUnstableGlobalSearchOption,
-  type OnyxGlobalSearchGroupProps,
   type OnyxGlobalSearchOptionProps,
 } from "../../../index.js";
-import OnyxInfoCard from "../../OnyxInfoCard/OnyxInfoCard.vue";
-
-type SearchResult = OnyxGlobalSearchGroupProps & {
-  options: OnyxGlobalSearchOptionProps[];
-};
 
 const isOpen = ref(false);
 const searchTerm = ref("");
 const isLoading = ref(false);
 
-const searchResults = ref<SearchResult[]>([]);
+const searchResults = ref<OnyxGlobalSearchOptionProps[]>([]);
 
 // in a real project, you probably want to debounce the ref so that your search logic is not triggered on every key stroke
 // you can use a library like VueUse for this: https://vueuse.org/shared/watchDebounced/
@@ -39,14 +34,9 @@ watch(searchTerm, async () => {
 
   if (searchTerm.value) {
     searchResults.value = [
-      {
-        label: "Search results",
-        options: [
-          { label: "Result 1", value: "1", link: "#test-link", icon: iconFilePdf },
-          { label: "Result 2", value: "2", link: "#test-link", icon: iconFilePdf },
-          { label: "Result 3", value: "3", link: "#test-link", icon: iconFilePdf },
-        ],
-      },
+      { label: "Result 1", value: "1", link: "#test-link", icon: iconFilePdf },
+      { label: "Result 2", value: "2", link: "#test-link", icon: iconFilePdf },
+      { label: "Result 3", value: "3", link: "#test-link", icon: iconFilePdf },
     ];
   } else {
     searchResults.value = [];
@@ -82,22 +72,21 @@ watch(searchTerm, async () => {
 
     <OnyxUnstableGlobalSearch v-model:open="isOpen" v-model="searchTerm" :loading="isLoading">
       <!-- if the user hasn't searched anything yet, we propose some default/static options here -->
-      <OnyxUnstableGlobalSearchGroup v-if="!searchResults.length" label="Quick results">
+      <OnyxUnstableGlobalSearchGroup
+        v-if="!searchResults.length && !isLoading"
+        label="Quick results"
+      >
         <OnyxUnstableGlobalSearchOption label="Proposal 1" value="proposal-1" link="#test-link" />
         <OnyxUnstableGlobalSearchOption label="Proposal 2" value="proposal-2" link="#test-link" />
         <OnyxUnstableGlobalSearchOption label="Proposal 3" value="proposal-3" link="#test-link" />
       </OnyxUnstableGlobalSearchGroup>
 
       <template v-else>
-        <OnyxUnstableGlobalSearchGroup
-          v-for="result in searchResults"
-          :key="result.label"
-          v-bind="result"
-        >
+        <OnyxUnstableGlobalSearchGroup label="Search results" :skeleton="isLoading">
           <OnyxUnstableGlobalSearchOption
-            v-for="option in result.options"
-            :key="option.value"
-            v-bind="option"
+            v-for="result in searchResults"
+            :key="result.value"
+            v-bind="result"
           />
         </OnyxUnstableGlobalSearchGroup>
       </template>

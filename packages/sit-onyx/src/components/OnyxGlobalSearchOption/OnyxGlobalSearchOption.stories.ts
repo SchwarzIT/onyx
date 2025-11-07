@@ -14,6 +14,7 @@ const meta: Meta<typeof OnyxGlobalSearchOption> = {
   component: OnyxGlobalSearchOption,
   tags: ["unstable"],
   argTypes: {
+    default: { control: { disable: true } },
     trailing: { control: { disable: true } },
   },
 };
