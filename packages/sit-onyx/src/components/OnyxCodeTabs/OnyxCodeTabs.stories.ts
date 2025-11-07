@@ -66,3 +66,10 @@ export const SingleTab = {
     default: () => Default.args.default()[0],
   },
 } satisfies Story;
+
+export const Skeleton = {
+  args: {
+    ...Default.args,
+    skeleton: true,
+  },
+} satisfies Story;
