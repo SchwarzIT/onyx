@@ -15,7 +15,7 @@ import type { OnyxGlobalSearchGroupProps } from "./types.js";
 
 const props = defineProps<OnyxGlobalSearchGroupProps>();
 
-const slots = defineSlots<{
+defineSlots<{
   /**
    * Group options. Should only use `OnyxGlobalSearchOption` components here.
    */
@@ -28,18 +28,19 @@ const context = inject(GLOBAL_SEARCH_INJECTION_KEY);
 </script>
 
 <template>
-  <section
+  <ul
     :class="['onyx-component', 'onyx-global-search-group', densityClass]"
     v-bind="context?.headless.elements.group.value({ label: props.label })"
   >
-    <OnyxHeadline is="h4" class="onyx-global-search-group__headline">
-      {{ props.label }}
-    </OnyxHeadline>
+    <!-- we use aria-hidden here because the list is already labeled via aria-label -->
+    <li aria-hidden="true">
+      <OnyxHeadline is="h4" class="onyx-global-search-group__headline">
+        {{ props.label }}
+      </OnyxHeadline>
+    </li>
 
-    <ul v-if="slots.default" class="onyx-global-search-group__list">
-      <slot></slot>
-    </ul>
-  </section>
+    <slot></slot>
+  </ul>
 </template>
 
 <style lang="scss">
@@ -48,6 +49,10 @@ const context = inject(GLOBAL_SEARCH_INJECTION_KEY);
 .onyx-global-search-group {
   @include layers.component() {
     padding: var(--onyx-density-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--onyx-density-3xs);
+    list-style: none;
 
     &:last-of-type:not(:only-child) {
       border-top: var(--onyx-global-search-border);
@@ -55,13 +60,6 @@ const context = inject(GLOBAL_SEARCH_INJECTION_KEY);
 
     &__headline {
       color: var(--onyx-color-text-icons-neutral-soft);
-    }
-
-    &__list {
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      gap: var(--onyx-density-3xs);
     }
   }
 }
