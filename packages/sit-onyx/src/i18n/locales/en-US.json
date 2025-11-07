@@ -254,6 +254,10 @@
     "tabLabel": "Code"
   },
   "globalSearch": {
-    "label": "Global search"
+    "label": "Global search",
+    "input": {
+      "label": "Search for content",
+      "placeholder": "Search..."
+    }
   }
 }

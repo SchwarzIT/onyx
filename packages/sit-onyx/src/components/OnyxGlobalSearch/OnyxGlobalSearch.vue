@@ -9,22 +9,17 @@ export default {};
 <script lang="ts" setup>
 import { createComboBox } from "@sit-onyx/headless";
 import { iconSearch } from "@sit-onyx/icons";
-import { computed, provide, ref, useTemplateRef } from "vue";
+import { provide, ref, useTemplateRef } from "vue";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import { useForwardProps } from "../../utils/props.js";
-import { normalizedIncludes } from "../../utils/strings.js";
 import OnyxBasicDialog from "../OnyxBasicDialog/OnyxBasicDialog.vue";
-import OnyxGlobalSearchGroup from "../OnyxGlobalSearchGroup/OnyxGlobalSearchGroup.vue";
-import OnyxGlobalSearchOption from "../OnyxGlobalSearchOption/OnyxGlobalSearchOption.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxInput from "../OnyxInput/OnyxInput.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import { GLOBAL_SEARCH_INJECTION_KEY, type OnyxGlobalSearchProps } from "./types.js";
 
-const props = withDefaults(defineProps<OnyxGlobalSearchProps>(), {
-  groups: () => [],
-});
+const props = defineProps<OnyxGlobalSearchProps>();
 
 const emit = defineEmits<{
   /**
@@ -40,8 +35,7 @@ const emit = defineEmits<{
 
 const slots = defineSlots<{
   /**
-   * Optional slot to pass additional / custom groups.
-   * Note that those custom groups will NOT be automatically filtered depending on the search term.
+   * Slot to pass search results / groups. Only `OnyxGlobalSearchGroup` components should be used.
    */
   default?(): unknown;
 }>();
@@ -62,22 +56,6 @@ const combobox = useTemplateRef("comboboxRef");
  * Value of the currently active/highlighted option.
  */
 const activeValue = ref<string>();
-
-const filteredGroups = computed(() => {
-  // if onyx does not manage the search or no searchTerm is given, we don't filter the options further
-  if (props.noFilter || !searchTerm.value) return props.groups;
-
-  return props.groups
-    .map((group) => {
-      return {
-        ...group,
-        options: group.options.filter((option) =>
-          normalizedIncludes(option.label, searchTerm.value),
-        ),
-      };
-    })
-    .filter((group) => group.options.length > 0);
-});
 
 const getAllOptions = () => {
   // using querySelector here instead of searching in filteredGroups so also options are included that are passed via custom slots
@@ -143,8 +121,8 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
       <OnyxInput
         v-bind="headless.elements.input.value"
         v-model="searchTerm"
-        label="Label"
-        placeholder="Search..."
+        :label="t('globalSearch.input.label')"
+        :placeholder="t('globalSearch.input.placeholder')"
         type="search"
         hide-label
         autofocus
@@ -156,25 +134,10 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
       </OnyxInput>
 
       <div
-        v-if="filteredGroups.length || !!slots.default"
+        v-if="!!slots.default"
         v-bind="headless.elements.listbox.value"
         class="onyx-global-search__body"
       >
-        <OnyxGlobalSearchGroup
-          v-for="group in filteredGroups"
-          :key="group.label"
-          :label="group.label"
-        >
-          <OnyxGlobalSearchOption
-            v-for="option in group.options"
-            :key="option.value"
-            :label="option.label"
-            :icon="option.icon"
-            :link="option.link"
-            :value="option.value"
-          />
-        </OnyxGlobalSearchGroup>
-
         <slot></slot>
       </div>
     </div>
@@ -200,6 +163,10 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
 
       &__wrapper {
         border-radius: var(--onyx-basic-dialog-border-radius);
+      }
+
+      &__native {
+        border-radius: var(--onyx-radius-sm);
       }
     }
   }
