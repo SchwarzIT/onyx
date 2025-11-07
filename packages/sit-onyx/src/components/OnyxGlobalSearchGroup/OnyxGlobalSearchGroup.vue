@@ -7,9 +7,10 @@ export default {};
 </script>
 
 <script lang="ts" setup>
-import { inject } from "vue";
+import { computed, inject } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { GLOBAL_SEARCH_INJECTION_KEY } from "../OnyxGlobalSearch/types.js";
+import OnyxGlobalSearchOption from "../OnyxGlobalSearchOption/OnyxGlobalSearchOption.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import type { OnyxGlobalSearchGroupProps } from "./types.js";
 
@@ -25,6 +26,11 @@ defineSlots<{
 const { densityClass } = useDensity(props);
 
 const context = inject(GLOBAL_SEARCH_INJECTION_KEY);
+
+const skeletonCount = computed(() => {
+  if (!props.skeleton) return 0;
+  return typeof props.skeleton === "number" ? props.skeleton : 3;
+});
 </script>
 
 <template>
@@ -39,7 +45,17 @@ const context = inject(GLOBAL_SEARCH_INJECTION_KEY);
       </OnyxHeadline>
     </li>
 
-    <slot></slot>
+    <slot v-if="skeletonCount <= 0"></slot>
+
+    <template v-else>
+      <OnyxGlobalSearchOption
+        v-for="i in skeletonCount"
+        :key="`skeleton-${i}`"
+        :label="`Skeleton ${i}`"
+        :value="`skeleton-${i}`"
+        skeleton
+      />
+    </template>
   </ul>
 </template>
 

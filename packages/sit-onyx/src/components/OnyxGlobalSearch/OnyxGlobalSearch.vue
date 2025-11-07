@@ -155,6 +155,10 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
     background-color: transparent;
     outline: none;
 
+    .onyx-basic-dialog__content {
+      max-width: 100%;
+    }
+
     .onyx-input {
       --onyx-input-padding-vertical: var(--onyx-density-md);
 
@@ -176,10 +180,6 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
     --onyx-global-search-border: var(--onyx-1px-in-rem) solid
       var(--onyx-color-component-border-neutral);
     width: 68rem;
-
-    .onyx-basic-dialog__content {
-      max-width: 100%;
-    }
 
     &__content {
       display: flex;

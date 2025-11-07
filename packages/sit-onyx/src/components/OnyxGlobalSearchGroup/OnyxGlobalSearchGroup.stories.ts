@@ -23,9 +23,16 @@ export const Default = {
   args: {
     label: "Search results",
     default: () => [
-      h(OnyxGlobalSearchOption, { label: "Result 1", icon: iconFilePdf }),
-      h(OnyxGlobalSearchOption, { label: "Result 2", icon: iconFilePdf }),
-      h(OnyxGlobalSearchOption, { label: "Result 3", icon: iconFilePdf }),
+      h(OnyxGlobalSearchOption, { label: "Result 1", value: "result-1", icon: iconFilePdf }),
+      h(OnyxGlobalSearchOption, { label: "Result 2", value: "result-2", icon: iconFilePdf }),
+      h(OnyxGlobalSearchOption, { label: "Result 3", value: "result-3", icon: iconFilePdf }),
     ],
+  },
+} satisfies Story;
+
+export const Skeleton = {
+  args: {
+    ...Default.args,
+    skeleton: true,
   },
 } satisfies Story;
