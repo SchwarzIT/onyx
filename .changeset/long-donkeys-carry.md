@@ -1,5 +1,5 @@
 ---
-"sit-onyx": major
+"sit-onyx": minor
 ---
 
 feat(OnyxCodeTabs): implement skeleton
