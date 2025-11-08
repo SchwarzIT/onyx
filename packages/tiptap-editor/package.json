@@ -2,7 +2,6 @@
   "name": "@sit-onyx/tiptap-editor",
   "description": "A rich text editor powered by the Tiptap editor and the onyx design system created by Schwarz IT",
   "version": "0.0.0",
-  "private": true,
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
@@ -37,6 +36,9 @@
   },
   "peerDependencies": {
     "@sit-onyx/icons": "workspace:^",
+    "@tiptap/pm": ">= 3",
+    "@tiptap/starter-kit": ">= 3",
+    "@tiptap/vue-3": ">= 3",
     "sit-onyx": "workspace:^",
     "vue": ">= 3.5.0"
   },
@@ -44,6 +46,9 @@
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",
+    "@tiptap/pm": "^3.10.4",
+    "@tiptap/starter-kit": "^3.10.4",
+    "@tiptap/vue-3": "^3.10.4",
     "sit-onyx": "workspace:^"
   }
 }

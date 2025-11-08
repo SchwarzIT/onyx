@@ -1,5 +1,20 @@
 import type { OnyxTextareaProps } from "sit-onyx";
 
-export type OnyxTiptapEditorProps = OnyxTextareaProps & {
-  //
+// TODO: consider the following features if possible:
+// placeholder, required, readonly, min/max length, custom errors, autocapitalize
+export type OnyxTiptapEditorProps = Pick<
+  OnyxTextareaProps,
+  | "label"
+  | "disableManualResize"
+  | "disabled"
+  | "hideLabel"
+  | "autosize"
+  | "autofocus"
+  | "message"
+  | "success"
+> & {
+  /**
+   * Current editor value.
+   */
+  modelValue?: string;
 };

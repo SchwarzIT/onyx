@@ -11,6 +11,6 @@ type Story = StoryObj<typeof OnyxTiptapEditor>;
 
 export const Default = {
   args: {
-    label: "Rich text editor",
+    label: "Example editor",
   },
 } satisfies Story;
