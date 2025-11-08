@@ -672,6 +672,10 @@
     "category": "Devices & Electronics",
     "aliases": ["iMacPC", "machine"]
   },
+  "computer_star": {
+    "category": "Devices & Electronics",
+    "aliases": ["AI", "KI", "Stern"]
+  },
   "computer-audio": {
     "category": "Devices & Electronics",
     "aliases": ["PC-sound", "machine-volume", "Computer-Audio", "PC-Lautstärke"]
@@ -2329,6 +2333,10 @@
   "star-filled": {
     "category": "Various",
     "aliases": ["celebrity", "fame", "Stern", "favorite", "filled", "gefüllt"]
+  },
+  "stars-AI": {
+    "category": "Software & Services",
+    "aliases": ["KI", "Stern"]
   },
   "stopover": {
     "category": "Navigation",
