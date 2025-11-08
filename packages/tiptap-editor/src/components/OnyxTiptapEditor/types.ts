@@ -1,4 +1,4 @@
-import type { OnyxTextareaProps } from "sit-onyx";
+import type { Nullable, OnyxTextareaProps } from "sit-onyx";
 
 // TODO: consider the following features if possible:
 // placeholder, required, readonly, min/max length, custom errors, autocapitalize
@@ -16,5 +16,5 @@ export type OnyxTiptapEditorProps = Pick<
   /**
    * Current editor value.
    */
-  modelValue?: string;
+  modelValue?: Nullable<string>;
 };
