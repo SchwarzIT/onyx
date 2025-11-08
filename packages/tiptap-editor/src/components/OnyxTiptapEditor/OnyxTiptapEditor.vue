@@ -1,7 +1,14 @@
 <script lang="ts" setup>
+import { iconPlaceholder } from "@sit-onyx/icons";
 import StarterKit from "@tiptap/starter-kit";
 import { EditorContent, useEditor } from "@tiptap/vue-3";
-import { getFormMessages, OnyxFormElement, useForwardProps, useVModel } from "sit-onyx";
+import {
+  getFormMessages,
+  OnyxFormElement,
+  OnyxSystemButton,
+  useForwardProps,
+  useVModel,
+} from "sit-onyx";
 import { computed, watch, watchEffect } from "vue";
 import type { OnyxTiptapEditorProps } from "./types.js";
 
@@ -93,7 +100,18 @@ defineExpose({
     :message
     :success-messages
   >
-    <EditorContent class="onyx-tiptap-editor__wrapper" :data-autosize-value="modelValue" :editor />
+    <div>
+      <div class="onyx-tiptap-editor__toolbar">
+        <!-- TODO: replace with actual actions -->
+        <OnyxSystemButton v-for="i in 3" :key="i" :label="`Action ${i}`" :icon="iconPlaceholder" />
+      </div>
+
+      <EditorContent
+        class="onyx-tiptap-editor__wrapper"
+        :data-autosize-value="modelValue"
+        :editor
+      />
+    </div>
   </OnyxFormElement>
 </template>
 
@@ -141,6 +159,8 @@ defineExpose({
       padding: 0;
       height: unset;
       display: grid;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
 
       // auto-resize, based on: https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas
       &::after {
@@ -173,6 +193,20 @@ defineExpose({
       &--no-resize {
         resize: none;
       }
+    }
+
+    &__toolbar {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--onyx-density-xs);
+      padding: var(--onyx-tiptap-editor-padding-block);
+      border: var(--onyx-1px-in-rem) solid var(--border-color);
+      border-bottom: none;
+      background-color: var(--onyx-color-base-background-tinted); // TODO: adjust this in Figma
+      border-top-left-radius: var(--onyx-radius-sm);
+      border-top-right-radius: var(--onyx-radius-sm);
+      color: var(--onyx-color-text-icons-neutral-medium);
     }
   }
 }
