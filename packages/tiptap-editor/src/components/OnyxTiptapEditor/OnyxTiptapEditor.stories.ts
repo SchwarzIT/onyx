@@ -4,6 +4,9 @@ import OnyxTiptapEditor from "./OnyxTiptapEditor.vue";
 const meta: Meta<typeof OnyxTiptapEditor> = {
   title: "TiptapEditor",
   component: OnyxTiptapEditor,
+  argTypes: {
+    toolbar: { control: { disable: true } },
+  },
 };
 
 export default meta;
