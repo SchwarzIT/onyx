@@ -21,6 +21,13 @@ const emit = defineEmits<{
   "update:modelValue": [value: string];
 }>();
 
+defineSlots<{
+  /**
+   * Optional slot to add custom actions to the toolbar.
+   */
+  toolbar?(): unknown;
+}>();
+
 const modelValue = useVModel({
   props,
   emit,
@@ -104,6 +111,7 @@ defineExpose({
       <div class="onyx-tiptap-editor__toolbar">
         <!-- TODO: replace with actual actions -->
         <OnyxSystemButton v-for="i in 3" :key="i" :label="`Action ${i}`" :icon="iconPlaceholder" />
+        <slot name="toolbar"></slot>
       </div>
 
       <EditorContent
