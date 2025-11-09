@@ -17,3 +17,10 @@ export const Default = {
     label: "Example editor",
   },
 } satisfies Story;
+
+export const BottomToolbar = {
+  args: {
+    ...Default.args,
+    toolbar: { position: "bottom" },
+  },
+} satisfies Story;

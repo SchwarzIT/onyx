@@ -12,7 +12,9 @@ import {
 import { computed, watch, watchEffect } from "vue";
 import type { OnyxTiptapEditorProps } from "./types.js";
 
-const props = defineProps<OnyxTiptapEditorProps>();
+const props = withDefaults(defineProps<OnyxTiptapEditorProps>(), {
+  toolbar: () => ({ position: "top" }),
+});
 
 const emit = defineEmits<{
   /**
@@ -107,7 +109,12 @@ defineExpose({
     :message
     :success-messages
   >
-    <div>
+    <div
+      :class="[
+        'onyx-tiptap-editor__body',
+        { 'onyx-tiptap-editor__body--reverse': props.toolbar?.position === 'bottom' },
+      ]"
+    >
       <div class="onyx-tiptap-editor__toolbar">
         <!-- TODO: replace with actual actions -->
         <OnyxSystemButton v-for="i in 3" :key="i" :label="`Action ${i}`" :icon="iconPlaceholder" />
@@ -203,6 +210,31 @@ defineExpose({
       }
     }
 
+    &__body {
+      display: flex;
+      flex-direction: column;
+
+      &--reverse {
+        flex-direction: column-reverse;
+
+        .onyx-tiptap-editor__toolbar {
+          border-top: none;
+          border-bottom: var(--onyx-1px-in-rem) solid var(--border-color);
+          border-top-left-radius: 0;
+          border-top-right-radius: 0;
+          border-bottom-left-radius: var(--border-radius);
+          border-bottom-right-radius: var(--border-radius);
+        }
+
+        .onyx-tiptap-editor__wrapper {
+          border-top-left-radius: var(--border-radius);
+          border-top-right-radius: var(--border-radius);
+          border-bottom-left-radius: 0;
+          border-bottom-right-radius: 0;
+        }
+      }
+    }
+
     &__toolbar {
       display: flex;
       align-items: center;
@@ -211,10 +243,10 @@ defineExpose({
       padding: var(--onyx-tiptap-editor-padding-block);
       border: var(--onyx-1px-in-rem) solid var(--border-color);
       border-bottom: none;
-      background-color: var(--onyx-color-base-background-tinted); // TODO: adjust this in Figma
-      border-top-left-radius: var(--onyx-radius-sm);
-      border-top-right-radius: var(--onyx-radius-sm);
+      border-top-left-radius: var(--border-radius);
+      border-top-right-radius: var(--border-radius);
       color: var(--onyx-color-text-icons-neutral-medium);
+      background-color: var(--onyx-color-base-background-tinted); // TODO: adjust this in Figma
     }
   }
 }

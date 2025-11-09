@@ -17,4 +17,17 @@ export type OnyxTiptapEditorProps = Pick<
    * Current editor value.
    */
   modelValue?: Nullable<string>;
+  /**
+   * Toolbar config.
+   */
+  toolbar?: ToolbarOptions;
+};
+
+export type ToolbarOptions = {
+  /**
+   * How to position the toolbar.
+   *
+   * @default "top"
+   */
+  position?: "top" | "bottom";
 };
