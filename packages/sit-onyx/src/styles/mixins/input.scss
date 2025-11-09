@@ -29,9 +29,10 @@
   --outline-color: var(--onyx-color-component-focus-primary);
   --outline-style: none;
   --button-color: var(--onyx-color-text-icons-neutral-soft);
+  --border-radius: var(--onyx-radius-sm);
 
   &__wrapper {
-    border-radius: var(--onyx-radius-sm);
+    border-radius: var(--border-radius);
     border: var(--onyx-1px-in-rem) solid var(--border-color);
     background-color: var(--background-color);
     color: var(--onyx-color-text-icons-neutral-medium);
