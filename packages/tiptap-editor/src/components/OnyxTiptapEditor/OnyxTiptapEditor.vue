@@ -1,15 +1,10 @@
 <script lang="ts" setup>
-import { iconPlaceholder } from "@sit-onyx/icons";
+import { iconPlaceholder, iconUndo } from "@sit-onyx/icons";
 import StarterKit from "@tiptap/starter-kit";
 import { EditorContent, useEditor } from "@tiptap/vue-3";
-import {
-  getFormMessages,
-  OnyxFormElement,
-  OnyxSystemButton,
-  useForwardProps,
-  useVModel,
-} from "sit-onyx";
+import { getFormMessages, OnyxFormElement, useForwardProps, useVModel } from "sit-onyx";
 import { computed, watch, watchEffect } from "vue";
+import OnyxEditorToolbarAction from "../OnyxEditorToolbarAction/OnyxEditorToolbarAction.vue";
 import type { OnyxTiptapEditorProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxTiptapEditorProps>(), {
@@ -34,7 +29,7 @@ const modelValue = useVModel({
   props,
   emit,
   key: "modelValue",
-  default: "",
+  default: "<p></p>",
 });
 
 const editor = useEditor({
@@ -116,9 +111,25 @@ defineExpose({
       ]"
     >
       <div class="onyx-tiptap-editor__toolbar">
-        <!-- TODO: replace with actual actions -->
-        <OnyxSystemButton v-for="i in 3" :key="i" :label="`Action ${i}`" :icon="iconPlaceholder" />
-        <slot name="toolbar"></slot>
+        <div class="onyx-tiptap-editor__actions">
+          <!-- TODO: replace with actual actions -->
+          <OnyxEditorToolbarAction
+            v-for="i in 4"
+            :key="i"
+            :label="`Action ${i}`"
+            :icon="iconPlaceholder"
+          />
+          <slot name="toolbar"></slot>
+        </div>
+
+        <div class="onyx-tiptap-editor__actions onyx-tiptap-editor__actions--fixed">
+          <OnyxEditorToolbarAction
+            label="Undo"
+            :icon="iconUndo"
+            :disabled="!editor?.can().chain().undo().run()"
+            @click="editor?.chain().focus().undo().run()"
+          />
+        </div>
       </div>
 
       <EditorContent
@@ -236,17 +247,28 @@ defineExpose({
     }
 
     &__toolbar {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: var(--onyx-density-xs);
-      padding: var(--onyx-tiptap-editor-padding-block);
       border: var(--onyx-1px-in-rem) solid var(--border-color);
       border-bottom: none;
       border-top-left-radius: var(--border-radius);
       border-top-right-radius: var(--border-radius);
       color: var(--onyx-color-text-icons-neutral-medium);
       background-color: var(--onyx-color-base-background-tinted); // TODO: adjust this in Figma
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    &__actions {
+      display: flex;
+      align-items: center;
+      gap: var(--onyx-density-xs);
+      overflow: auto;
+      padding: var(--onyx-tiptap-editor-padding-block);
+
+      &--fixed {
+        overflow: visible;
+      }
     }
   }
 }
