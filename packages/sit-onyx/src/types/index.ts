@@ -6,3 +6,6 @@ export * from "./utils.js";
 
 export const ORIENTATIONS = ["horizontal", "vertical"] as const;
 export type Orientation = (typeof ORIENTATIONS)[number];
+
+export const OPERATING_SYSTEMS = ["macOS", "windows", "generic"] as const;
+export type OperatingSystem = (typeof OPERATING_SYSTEMS)[number];
