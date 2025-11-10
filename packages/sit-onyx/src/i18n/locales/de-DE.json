@@ -255,6 +255,10 @@
     "input": {
       "label": "Nach Inhalten suchen",
       "placeholder": "Suchen..."
+    },
+    "shortcuts": {
+      "move": "Navigieren",
+      "select": "Auswählen"
     }
   }
 }

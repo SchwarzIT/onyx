@@ -50,7 +50,8 @@ const searchTerm = useVModel({
   default: "",
 });
 
-const combobox = useTemplateRef("comboboxRef");
+const dialog = useTemplateRef("dialogRef");
+const dialogElement = computed(() => dialog.value?.$el as HTMLElement | undefined);
 
 /**
  * Value of the currently active/highlighted option.
@@ -58,7 +59,7 @@ const combobox = useTemplateRef("comboboxRef");
 const activeValue = ref<string>();
 
 const getAllOptions = () => {
-  const options = Array.from(combobox.value?.querySelectorAll('[role="option"]') ?? []);
+  const options = Array.from(dialogElement.value?.querySelectorAll('[role="option"]') ?? []);
   const activeIndex = activeValue.value
     ? options.findIndex(
         (element) => element.id === headless.internals.getOptionId(activeValue.value!),
@@ -85,7 +86,7 @@ const onAutocomplete = (input: string) => (searchTerm.value = input);
 
 const onSelect = (value: string) => {
   const id = headless.internals.getOptionId(value);
-  const option = combobox.value?.querySelector(`#${id}`);
+  const option = dialogElement.value?.querySelector(`#${id}`);
   if (!option) return;
   if ("click" in option && typeof option.click === "function") option.click();
 };
@@ -96,7 +97,7 @@ const headless = createComboBox({
   listLabel: computed(() => t.value("globalSearch.searchResults")),
   activeOption: activeValue,
   isExpanded: true,
-  templateRef: combobox,
+  templateRef: dialogElement,
   onAutocomplete,
   onActivateFirst: () => activateOption("first"),
   onActivateLast: () => activateOption("last"),
@@ -110,36 +111,54 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
 
 <template>
   <OnyxBasicDialog
+    ref="dialogRef"
     v-bind="basicDialogProps"
     :label="t('globalSearch.label')"
     modal
     class="onyx-global-search"
     @update:open="emit('update:open', $event)"
   >
-    <div ref="comboboxRef" class="onyx-global-search__content">
-      <OnyxInput
-        v-bind="headless.elements.input.value"
-        v-model="searchTerm"
-        :label="t('globalSearch.input.label')"
-        :placeholder="t('globalSearch.input.placeholder')"
-        type="search"
-        hide-label
-        autofocus
-      >
-        <template #leading>
-          <OnyxLoadingIndicator v-if="props.loading" type="circle" />
-          <OnyxIcon v-else :icon="iconSearch" />
-        </template>
-      </OnyxInput>
+    <OnyxInput
+      v-bind="headless.elements.input.value"
+      v-model="searchTerm"
+      :label="t('globalSearch.input.label')"
+      :placeholder="t('globalSearch.input.placeholder')"
+      type="search"
+      hide-label
+      autofocus
+    >
+      <template #leading>
+        <OnyxLoadingIndicator v-if="props.loading" type="circle" />
+        <OnyxIcon v-else :icon="iconSearch" />
+      </template>
+    </OnyxInput>
 
-      <!-- using v-show instead of v-if because the input has a aria-controls attribute which needs to point to a existing listbox -->
-      <div
-        v-show="!!slots.default"
-        v-bind="headless.elements.listbox.value"
-        class="onyx-global-search__body"
-      >
-        <slot></slot>
-      </div>
+    <!-- using v-show instead of v-if because the input has a aria-controls attribute which needs to point to a existing listbox -->
+    <div
+      v-show="!!slots.default"
+      class="onyx-global-search__body"
+      v-bind="headless.elements.listbox.value"
+    >
+      <slot></slot>
+    </div>
+
+    <!-- TODO: replace keyboard shortcuts with OnyxShortcut component once implemented -->
+    <div v-show="!!slots.default" class="onyx-global-search__footer onyx-text--small">
+      <span class="onyx-global-search__shortcut">
+        <kbd>↑</kbd>
+        <kbd>↓</kbd>
+        {{ t("globalSearch.shortcuts.move") }}
+      </span>
+
+      <span class="onyx-global-search__shortcut">
+        <kbd>↵</kbd>
+        {{ t("globalSearch.shortcuts.select") }}
+      </span>
+
+      <span class="onyx-global-search__shortcut">
+        <kbd>ESC</kbd>
+        {{ t("cancel") }}
+      </span>
     </div>
   </OnyxBasicDialog>
 </template>
@@ -148,18 +167,72 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
 @use "../../styles/mixins/layers.scss";
 
 .onyx-global-search {
+  @include layers.component() {
+    --onyx-global-search-padding: var(--onyx-density-md);
+    --onyx-basic-dialog-padding: 0;
+    display: flex;
+    width: 68rem;
+
+    &__body {
+      overflow: auto;
+      flex-grow: 1;
+
+      background-color: var(--onyx-color-base-background-blank);
+      border-radius: var(--onyx-basic-dialog-border-radius) var(--onyx-basic-dialog-border-radius) 0
+        0;
+      margin-top: var(--onyx-density-xs);
+      border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+      max-height: 42rem;
+    }
+
+    &__footer {
+      padding: var(--onyx-density-xs) var(--onyx-global-search-padding);
+      background-color: var(--onyx-color-base-background-tinted);
+      color: var(--onyx-color-text-icons-neutral-soft);
+      border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+      border-top: none;
+      border-radius: 0 0 var(--onyx-basic-dialog-border-radius)
+        var(--onyx-basic-dialog-border-radius);
+
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: var(--onyx-density-sm) var(--onyx-density-xl);
+      flex-wrap: wrap; // TODO: check with UX
+    }
+
+    &__shortcut {
+      display: flex;
+      align-items: center;
+      gap: var(--onyx-density-xs);
+
+      kbd {
+        border-radius: var(--onyx-radius-sm);
+        border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
+        padding-inline: var(--onyx-density-2xs);
+        min-width: 1.25rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+}
+
+.onyx-global-search {
   @include layers.override() {
     // reset OnyxBasicDialog styles
-    --onyx-basic-dialog-padding: var(--onyx-outline-width);
     background-color: transparent;
     outline: none;
+    overflow: visible; // needed to show focus-visible outline on input
 
     .onyx-basic-dialog__content {
-      max-width: 100%;
+      display: flex;
+      flex-direction: column;
     }
 
     .onyx-input {
-      --onyx-input-padding-vertical: var(--onyx-density-md);
+      --onyx-input-padding-vertical: var(--onyx-global-search-padding);
 
       &__separator--leading {
         display: none;
@@ -172,25 +245,6 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
       &__native {
         border-radius: var(--onyx-radius-sm);
       }
-    }
-  }
-
-  @include layers.component() {
-    --onyx-global-search-border: var(--onyx-1px-in-rem) solid
-      var(--onyx-color-component-border-neutral);
-    width: 68rem;
-
-    &__content {
-      display: flex;
-      flex-direction: column;
-      gap: var(--onyx-density-xs);
-      max-width: 100%;
-    }
-
-    &__body {
-      border-radius: var(--onyx-basic-dialog-border-radius);
-      border: var(--onyx-global-search-border);
-      background-color: var(--onyx-color-base-background-blank);
     }
   }
 }
