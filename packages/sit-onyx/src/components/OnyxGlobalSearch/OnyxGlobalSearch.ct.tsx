@@ -33,11 +33,19 @@ test("should render groups and options", async ({ page, mount, makeAxeBuilder })
   await expect(page).toHaveScreenshot("single-group.png");
 
   // ACT
-  await component.update({ props: { loading: false, groupCount: 8 } });
+  await component.update({ props: { loading: false, groupCount: 3 } });
 
   // ASSERT
   await checkAccessibility(axeBuilder);
   await expect(page).toHaveScreenshot("multiple-groups.png");
+
+  // ACT
+  await component.update({ props: { groupCount: 8 } });
+
+  // ASSERT
+  await checkAccessibility(axeBuilder);
+  await component.getByRole("option").last().scrollIntoViewIfNeeded();
+  await expect(page).toHaveScreenshot("max-height.png");
 
   // ACT
   await page.setViewportSize({ width: 400, height: 300 });
