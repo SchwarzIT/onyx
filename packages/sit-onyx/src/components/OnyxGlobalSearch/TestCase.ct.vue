@@ -14,6 +14,10 @@ const props = withDefaults(
      * Whether the search is loading.
      */
     loading?: boolean;
+    /**
+     * Whether to render long option content.
+     */
+    longContent?: boolean;
   }>(),
   {
     groupCount: 0,
@@ -32,7 +36,7 @@ const props = withDefaults(
         <OnyxGlobalSearchOption
           v-for="option in 2"
           :key="`${group}-${option}`"
-          :label="`Result ${group}.${option}`"
+          :label="`Result ${group}.${option} `.repeat(props.longContent ? 8 : 1)"
           :value="`${group}-${option}`"
           :icon="iconPlaceholder"
           :link="`#${group}-${option}`"
