@@ -259,6 +259,10 @@
     "input": {
       "label": "Search for content",
       "placeholder": "Search..."
+    },
+    "shortcuts": {
+      "move": "Navigate",
+      "select": "Select"
     }
   }
 }
