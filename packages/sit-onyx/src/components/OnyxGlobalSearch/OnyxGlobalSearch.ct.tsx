@@ -48,7 +48,8 @@ test("should render groups and options", async ({ page, mount, makeAxeBuilder })
   await expect(page).toHaveScreenshot("max-height.png");
 
   // ACT
-  await page.setViewportSize({ width: 400, height: 300 });
+  await component.update({ props: { longContent: true } });
+  await page.setViewportSize({ width: 400, height: 600 });
   await component.getByRole("option").last().scrollIntoViewIfNeeded();
 
   // ASSERT

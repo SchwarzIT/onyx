@@ -245,6 +245,7 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
     .onyx-basic-dialog__content {
       display: flex;
       flex-direction: column;
+      max-width: 100%;
     }
 
     .onyx-input {
