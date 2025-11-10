@@ -147,17 +147,21 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
       <span class="onyx-global-search__shortcut">
         <kbd>↑</kbd>
         <kbd>↓</kbd>
-        {{ t("globalSearch.shortcuts.move") }}
+        <span class="onyx-global-search__shortcut-label">
+          {{ t("globalSearch.shortcuts.move") }}
+        </span>
       </span>
 
       <span class="onyx-global-search__shortcut">
         <kbd>↵</kbd>
-        {{ t("globalSearch.shortcuts.select") }}
+        <span class="onyx-global-search__shortcut-label">
+          {{ t("globalSearch.shortcuts.select") }}
+        </span>
       </span>
 
       <span class="onyx-global-search__shortcut">
         <kbd>ESC</kbd>
-        {{ t("cancel") }}
+        <span class="onyx-global-search__shortcut-label"> {{ t("cancel") }}</span>
       </span>
     </div>
   </OnyxBasicDialog>
@@ -165,13 +169,15 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
+@use "../../styles/breakpoints.scss";
 
 .onyx-global-search {
   @include layers.component() {
     --onyx-global-search-padding: var(--onyx-density-md);
     --onyx-basic-dialog-padding: 0;
     display: flex;
-    width: 68rem;
+    width: 48rem;
+    container-type: inline-size;
 
     &__body {
       overflow: auto;
@@ -182,7 +188,6 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
         0;
       margin-top: var(--onyx-density-xs);
       border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
-      max-height: 42rem;
     }
 
     &__footer {
@@ -198,7 +203,6 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
       align-items: center;
       justify-content: flex-end;
       gap: var(--onyx-density-sm) var(--onyx-density-xl);
-      flex-wrap: wrap; // TODO: check with UX
     }
 
     &__shortcut {
@@ -216,15 +220,27 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
         justify-content: center;
       }
     }
+
+    &__shortcut-label {
+      @include breakpoints.container(max, xs) {
+        display: none;
+      }
+    }
   }
 }
 
 .onyx-global-search {
   @include layers.override() {
+    --onyx-global-search-top: calc(
+      var(--onyx-nav-bar-height) + var(--onyx-grid-margin-vertical) + var(--onyx-density-md)
+    );
     // reset OnyxBasicDialog styles
     background-color: transparent;
     outline: none;
     overflow: visible; // needed to show focus-visible outline on input
+
+    margin-top: var(--onyx-global-search-top);
+    max-height: calc(100% - var(--onyx-global-search-top) - var(--onyx-basic-dialog-screen-gap));
 
     .onyx-basic-dialog__content {
       display: flex;
