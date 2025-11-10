@@ -36,7 +36,7 @@ const slots = defineSlots<{
 
 const { densityClass } = useDensity(props);
 
-const context = inject(GLOBAL_SEARCH_INJECTION_KEY);
+const context = inject(GLOBAL_SEARCH_INJECTION_KEY, undefined);
 const skeleton = useSkeletonContext(props);
 </script>
 
