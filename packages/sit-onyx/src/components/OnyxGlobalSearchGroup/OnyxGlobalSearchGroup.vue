@@ -72,7 +72,7 @@ const skeletonCount = computed(() => {
     gap: var(--onyx-density-3xs);
     list-style: none;
 
-    &:last-of-type:not(:only-child) {
+    &:not(:first-of-type) {
       border-top: var(--onyx-global-search-border);
     }
 
