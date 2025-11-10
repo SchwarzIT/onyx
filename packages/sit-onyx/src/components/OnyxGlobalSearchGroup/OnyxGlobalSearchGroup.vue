@@ -56,6 +56,8 @@ const skeletonCount = computed(() => {
         skeleton
       />
     </template>
+
+    <!-- TODO: implement empty state -->
   </ul>
 </template>
 

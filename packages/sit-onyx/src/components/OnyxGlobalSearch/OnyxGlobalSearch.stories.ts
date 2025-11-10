@@ -9,15 +9,6 @@ const meta: Meta<typeof OnyxGlobalSearch> = {
   parameters: {
     layout: "fullscreen",
   },
-  decorators: [
-    (story) => ({
-      components: { story },
-      template: `
-  <div style="color: var(--onyx-color-text-icons-neutral-intense); font-family: var(--onyx-font-family)">
-    <story />
-  </div>`,
-    }),
-  ],
 };
 
 export default meta;
