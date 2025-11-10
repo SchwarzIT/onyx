@@ -265,6 +265,11 @@ export default defineLoader({
         href: "https://storybook.onyx.schwarz/?path=/docs/navigation-segmentedcontrol--docs",
       },
       { name: "Global search", status: getImplementedStatus("OnyxGlobalSearch") },
+      {
+        name: "Code tabs",
+        status: "implemented",
+        href: "https://storybook.onyx.schwarz/?path=/docs/documentation-codetabs--docs",
+      },
     ];
 
     return {

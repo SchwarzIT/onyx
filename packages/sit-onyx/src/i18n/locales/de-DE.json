@@ -247,6 +247,7 @@
     "label": "Codeausschnitte",
     "copySnippet": "Code kopieren",
     "copied": "Kopiert!",
+    "failed": "Fehlgeschlagen!",
     "tabLabel": "Code"
   }
 }

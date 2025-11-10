@@ -250,6 +250,7 @@
     "label": "Code snippets",
     "copySnippet": "Copy code",
     "copied": "Copied!",
+    "failed": "Failed!",
     "tabLabel": "Code"
   }
 }
