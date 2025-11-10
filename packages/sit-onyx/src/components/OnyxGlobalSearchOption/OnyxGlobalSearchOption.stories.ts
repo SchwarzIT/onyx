@@ -1,4 +1,4 @@
-import { iconFilePdf } from "@sit-onyx/icons";
+import { iconFile } from "@sit-onyx/icons";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
 import OnyxFlyoutMenu from "../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
@@ -17,6 +17,12 @@ const meta: Meta<typeof OnyxGlobalSearchOption> = {
     default: { control: { disable: true } },
     trailing: { control: { disable: true } },
   },
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `<div style="max-width: 24rem"> <story /> </div>`,
+    }),
+  ],
 };
 
 export default meta;
@@ -41,7 +47,7 @@ export const Link = {
 export const WithIcon = {
   args: {
     ...Default.args,
-    icon: iconFilePdf,
+    icon: iconFile,
   },
 } satisfies Story;
 

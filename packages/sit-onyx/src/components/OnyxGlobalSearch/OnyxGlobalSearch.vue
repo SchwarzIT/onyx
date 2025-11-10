@@ -58,7 +58,6 @@ const combobox = useTemplateRef("comboboxRef");
 const activeValue = ref<string>();
 
 const getAllOptions = () => {
-  // using querySelector here instead of searching in filteredGroups so also options are included that are passed via custom slots
   const options = Array.from(combobox.value?.querySelectorAll('[role="option"]') ?? []);
   const activeIndex = activeValue.value
     ? options.findIndex(

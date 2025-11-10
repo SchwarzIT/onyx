@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import {
   iconCircleContrast,
-  iconFilePdf,
+  iconFile,
   iconSearch,
   iconSettings,
   iconTranslate,
@@ -34,9 +34,9 @@ watch(searchTerm, async () => {
 
   if (searchTerm.value) {
     searchResults.value = [
-      { label: "Result 1", value: "1", link: "#test-link", icon: iconFilePdf },
-      { label: "Result 2", value: "2", link: "#test-link", icon: iconFilePdf },
-      { label: "Result 3", value: "3", link: "#test-link", icon: iconFilePdf },
+      { label: "Result 1", value: "1", link: "#test-link", icon: iconFile },
+      { label: "Result 2", value: "2", link: "#test-link", icon: iconFile },
+      { label: "Result 3", value: "3", link: "#test-link", icon: iconFile },
     ];
   } else {
     searchResults.value = [];
@@ -71,7 +71,10 @@ watch(searchTerm, async () => {
     </OnyxPageLayout>
 
     <OnyxUnstableGlobalSearch v-model:open="isOpen" v-model="searchTerm" :loading="isLoading">
-      <!-- if the user hasn't searched anything yet, we propose some default/static options here -->
+      <!--
+        if the user hasn't searched anything yet, we propose some default/static options here.
+        if your application does not have suggested options, just remove the group below
+      -->
       <OnyxUnstableGlobalSearchGroup
         v-if="!searchResults.length && !isLoading"
         label="Quick results"
@@ -91,11 +94,12 @@ watch(searchTerm, async () => {
         </OnyxUnstableGlobalSearchGroup>
       </template>
 
-      <!-- custom fixed system-wide actions that are always visible -->
+      <!--
+        custom fixed system-wide actions that are always visible
+        the following components might be useful here (when clicking on the options):
+        OnyxColorSchemeDialog, OnyxSelectDialog
+      -->
       <OnyxUnstableGlobalSearchGroup label="System">
-        <!-- you can use the following components when clicking on the options below:
-            OnyxColorSchemeDialog, OnyxSelectDialog
-        -->
         <OnyxUnstableGlobalSearchOption
           label="Change language"
           value="language"

@@ -6,8 +6,14 @@ import OnyxGlobalSearch from "./OnyxGlobalSearch.vue";
 
 const props = withDefaults(
   defineProps<{
-    loading?: boolean;
+    /**
+     * Number of groups that should be displayed.
+     */
     groupCount?: number;
+    /**
+     * Whether the search is loading.
+     */
+    loading?: boolean;
   }>(),
   {
     groupCount: 0,
