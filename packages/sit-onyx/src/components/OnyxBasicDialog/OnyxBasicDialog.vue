@@ -78,6 +78,13 @@ useGlobalEventListener({
   disabled: computed(() => !open.value || props.nonDismissible),
   listener: (event) => wasKeyPressed(event, { key: "Escape" }) && emit("update:open", false),
 });
+
+defineExpose({
+  /**
+   * Template ref to the internal `<dialog>` element.
+   */
+  dialog,
+});
 </script>
 
 <!-- eslint-disable-next-line vue/no-root-v-if -->

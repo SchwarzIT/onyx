@@ -51,7 +51,7 @@ const searchTerm = useVModel({
 });
 
 const dialog = useTemplateRef("dialogRef");
-const dialogElement = computed(() => dialog.value?.$el as HTMLElement | undefined);
+const dialogElement = computed(() => dialog.value?.dialog);
 
 /**
  * Value of the currently active/highlighted option.
@@ -111,8 +111,8 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
 
 <template>
   <OnyxBasicDialog
-    ref="dialogRef"
     v-bind="basicDialogProps"
+    ref="dialogRef"
     :label="t('globalSearch.label')"
     modal
     class="onyx-global-search"
