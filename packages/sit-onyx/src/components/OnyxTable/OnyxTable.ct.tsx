@@ -3,6 +3,7 @@ import { DENSITIES } from "../../composables/density.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots.js";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
+import OnyxCard from "../OnyxCard/OnyxCard.vue";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
@@ -83,14 +84,26 @@ test.describe("Screenshot tests (densities)", () => {
 test.describe("Screenshot tests (hover styles)", () => {
   executeMatrixScreenshotTest({
     name: "Table (hover styles)",
-    columns: ["default", "striped"],
+    columns: ["default", "striped", "nested"],
     rows: ["row-hover", "column-hover"],
-    component: (column) => (
-      <OnyxTable striped={column === "striped"}>
-        {tableHead}
-        {tableBody}
-      </OnyxTable>
-    ),
+    component: (column) => {
+      const table = (
+        <OnyxTable striped={column === "striped"}>
+          {tableHead}
+          {tableBody}
+        </OnyxTable>
+      );
+
+      if (column === "nested") {
+        return (
+          <OnyxCard>
+            <OnyxHeadline is="h2">Inside card</OnyxHeadline>
+            {table}
+          </OnyxCard>
+        );
+      }
+      return table;
+    },
     hooks: {
       beforeEach: async (component, _, __, row) => {
         if (row === "row-hover") await component.getByText("Apple").hover();
