@@ -14,6 +14,14 @@ const addFAB = () => {
     icon: placeholder,
   });
 };
+const addFABwithOffset = () => {
+  globalFAB.add({
+    id: id++,
+    label: "New Item",
+    icon: placeholder,
+    offset: { x: "4rem", y: "1rem" },
+  });
+};
 
 const removeFAB = () => {
   const lastId = globalFAB.items.value.at(-1)?.value.id;
@@ -25,6 +33,8 @@ const removeFAB = () => {
   <div>
     <div class="actions">
       <OnyxButton label="Add example FAB Option" @click="addFAB" />
+      <OnyxButton label="Add example FAB Option with offset" @click="addFABwithOffset" />
+
       <OnyxButton label="Remove example FAB Option" @click="removeFAB" />
     </div>
 

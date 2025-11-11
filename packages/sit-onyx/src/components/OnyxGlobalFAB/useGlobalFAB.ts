@@ -45,6 +45,10 @@ export type ProvidedFABItem = OnyxFABItemProps & {
    */
   ifOption?: Partial<Omit<ProvidedFABItem, "ifOption" | "id">>;
   /**
+   * The offset of the last Item will be used for the whole FAB group.
+   */
+  offset?: { x: string; y: string };
+  /**
    * Callback when the FABItem is clicked.
    */
   onClick?: () => unknown;
