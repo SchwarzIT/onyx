@@ -1,116 +1,6 @@
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 import type { OperatingSystem } from "../../types/index.js";
-
-/**
- * Canonical names of special keys.
- * All custom string values (letters, numbers, F-keys)
- * remain as they are and are not required to be included in this list.
- */
-export const CANONICAL_KEYS = [
-  "meta",
-  "control",
-  "alt",
-  "option",
-  "shift",
-  "enter",
-  "tab",
-  "backspace",
-  "caps-lock",
-  "fn",
-  "space",
-  "esc",
-  "up",
-  "down",
-  "left",
-  "right",
-  "delete",
-  "home",
-  "end",
-  "page-up",
-  "page-down",
-  "unknown",
-] as const;
-
-export type CanonicalKey = (typeof CANONICAL_KEYS)[number];
-
-/**
- * Normalization of special keys from "raw" names to CanonicalKey.
- */
-export const MAP_SPECIAL_KEY_TO_CANONICAL: Record<string, CanonicalKey> = {
-  // Shift
-  shift: "shift",
-
-  // meta / windows / command
-  cmd: "meta",
-  command: "meta",
-  win: "meta",
-  windows: "meta",
-  meta: "meta",
-
-  // control
-  control: "control",
-  ctl: "control",
-  ctrl: "control",
-
-  // alt / option
-  alt: "alt",
-  option: "option",
-
-  // enter / return
-  return: "enter",
-  enter: "enter",
-
-  // backspace
-  bksp: "backspace",
-  back: "backspace",
-  backspace: "backspace",
-
-  // caps lock
-  caps: "caps-lock",
-  "caps-lock": "caps-lock",
-
-  // escape
-  esc: "esc",
-  escape: "esc",
-
-  // tab
-  tab: "tab",
-  tabulator: "tab",
-
-  // space
-  space: "space",
-
-  // delete (forward delete)
-  del: "delete",
-  delete: "delete",
-
-  // navigation
-  home: "home",
-  end: "end",
-  pageup: "page-up",
-  pagedown: "page-down",
-  "page-up": "page-up",
-  "page-down": "page-down",
-
-  up: "up",
-  down: "down",
-  left: "left",
-  right: "right",
-  arrowup: "up",
-  arrowdown: "down",
-  arrowleft: "left",
-  arrowright: "right",
-
-  "↑": "up",
-  "↓": "down",
-  "←": "left",
-  "→": "right",
-
-  // fn
-  fn: "fn",
-
-  unknown: "unknown",
-};
+import type { CanonicalKey } from "../../utils/shortcut.js";
 
 /**
  * Screen reader labels
@@ -277,10 +167,14 @@ export type OnyxKeyProps<TKeyName extends string = CanonicalKey> = {
   keyName: TKeyName;
   /**
    * Key display option depending on Operating System. "auto" detects the OS automatically.
+   *
+   * @default "auto"
    */
   variant?: OperatingSystem | "auto";
   /**
    * Key press state (for visual effect)
+   *
+   * @default false
    */
   pressed?: boolean;
   /**
@@ -288,7 +182,7 @@ export type OnyxKeyProps<TKeyName extends string = CanonicalKey> = {
    */
   label?: string;
   /**
-   * Whether to show a skeleton button.
+   * Whether to show a skeleton key.
    */
   skeleton?: SkeletonInjected;
 };

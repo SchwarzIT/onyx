@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
+import { CANONICAL_KEYS } from "../../utils/shortcut.js";
 import OnyxKey from "./OnyxKey.vue";
-import { CANONICAL_KEYS } from "./types.js";
 
 /**
  * The key component displays keyboard keys with proper OS-specific symbols and accessibility support.
@@ -9,6 +9,7 @@ import { CANONICAL_KEYS } from "./types.js";
 const meta: Meta<typeof OnyxKey> = {
   title: "Support/Key",
   component: OnyxKey as Meta["component"],
+  tags: ["unstable"],
 };
 
 export default meta;
