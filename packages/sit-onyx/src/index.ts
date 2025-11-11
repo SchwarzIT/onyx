@@ -92,6 +92,15 @@ export * from "./components/OnyxForm/types.js";
 export { default as OnyxFormElement } from "./components/OnyxFormElement/OnyxFormElement.vue";
 export * from "./components/OnyxFormElement/types.js";
 
+export { default as OnyxUnstableGlobalSearch } from "./components/OnyxGlobalSearch/OnyxGlobalSearch.vue";
+export * from "./components/OnyxGlobalSearch/types.js";
+
+export { default as OnyxUnstableGlobalSearchGroup } from "./components/OnyxGlobalSearchGroup/OnyxGlobalSearchGroup.vue";
+export * from "./components/OnyxGlobalSearchGroup/types.js";
+
+export { default as OnyxUnstableGlobalSearchOption } from "./components/OnyxGlobalSearchOption/OnyxGlobalSearchOption.vue";
+export * from "./components/OnyxGlobalSearchOption/types.js";
+
 export { default as OnyxHeadline } from "./components/OnyxHeadline/OnyxHeadline.vue";
 export * from "./components/OnyxHeadline/types.js";
 
