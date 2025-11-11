@@ -250,6 +250,19 @@
     "label": "Code snippets",
     "copySnippet": "Copy code",
     "copied": "Copied!",
+    "failed": "Failed!",
     "tabLabel": "Code"
+  },
+  "globalSearch": {
+    "label": "Global search",
+    "searchResults": "Search results",
+    "input": {
+      "label": "Search for content",
+      "placeholder": "Search..."
+    },
+    "shortcuts": {
+      "move": "Navigate",
+      "select": "Select"
+    }
   }
 }

@@ -247,6 +247,19 @@
     "label": "Codeausschnitte",
     "copySnippet": "Code kopieren",
     "copied": "Kopiert!",
+    "failed": "Fehlgeschlagen!",
     "tabLabel": "Code"
+  },
+  "globalSearch": {
+    "label": "Globale Suche",
+    "searchResults": "Suchergebnisse",
+    "input": {
+      "label": "Nach Inhalten suchen",
+      "placeholder": "Suchen..."
+    },
+    "shortcuts": {
+      "move": "Navigieren",
+      "select": "Auswählen"
+    }
   }
 }

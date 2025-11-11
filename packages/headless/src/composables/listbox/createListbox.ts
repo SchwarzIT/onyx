@@ -99,6 +99,11 @@ export const createListbox = createBuilder(
       return descendantKeyIdMap.get(value)!;
     };
 
+    const getOptionValueById = (id: string): TValue | undefined => {
+      const entries = Array.from(descendantKeyIdMap.entries());
+      return entries.find(([_value, key]) => key === id)?.[0];
+    };
+
     /**
      * Whether the listbox element is focused.
      */
@@ -228,6 +233,7 @@ export const createListbox = createBuilder(
       },
       internals: {
         getOptionId,
+        getOptionValueById,
       },
     };
   },

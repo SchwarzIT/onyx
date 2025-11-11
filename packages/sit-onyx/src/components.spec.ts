@@ -287,6 +287,12 @@ const COMPONENTS: Components = {
       code: "test-code",
     },
   },
+  OnyxUnstableGlobalSearchOption: {
+    props: {
+      label: "Test option",
+      value: "test-value",
+    },
+  },
 };
 
 describe("components", () => {
