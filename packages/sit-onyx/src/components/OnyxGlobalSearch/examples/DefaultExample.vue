@@ -23,6 +23,11 @@ const isOpen = ref(false);
 const searchTerm = ref("");
 const isLoading = ref(false);
 
+// clear search term when modal is closed
+watch(isOpen, (newOpen) => {
+  if (!newOpen) searchTerm.value = "";
+});
+
 const searchResults = ref<OnyxGlobalSearchOptionProps[]>([]);
 
 // in a real project, you probably want to debounce the ref so that your search logic is not triggered on every key stroke
@@ -75,13 +80,10 @@ watch(searchTerm, async () => {
         if the user hasn't searched anything yet, we propose some default/static options here.
         if your application does not have suggested options, just remove the group below
       -->
-      <OnyxUnstableGlobalSearchGroup
-        v-if="!searchResults.length && !isLoading"
-        label="Quick results"
-      >
-        <OnyxUnstableGlobalSearchOption label="Proposal 1" value="proposal-1" link="#test-link" />
-        <OnyxUnstableGlobalSearchOption label="Proposal 2" value="proposal-2" link="#test-link" />
-        <OnyxUnstableGlobalSearchOption label="Proposal 3" value="proposal-3" link="#test-link" />
+      <OnyxUnstableGlobalSearchGroup v-if="!searchResults.length && !isLoading" label="Suggestions">
+        <OnyxUnstableGlobalSearchOption label="Suggestion 1" value="value-1" link="#test-link" />
+        <OnyxUnstableGlobalSearchOption label="Suggestion 2" value="value-2" link="#test-link" />
+        <OnyxUnstableGlobalSearchOption label="Suggestion 3" value="value-3" link="#test-link" />
       </OnyxUnstableGlobalSearchGroup>
 
       <template v-else>
