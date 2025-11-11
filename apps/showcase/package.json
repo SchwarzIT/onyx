@@ -1,7 +1,9 @@
 {
   "name": "@sit-onyx/showcase",
-  "type": "module",
   "private": true,
+  "license": "Apache-2.0",
+  "author": "Schwarz IT KG",
+  "type": "module",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
@@ -10,10 +12,14 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@sit-onyx/nuxt-docs": "^0.0.0",
+    "sit-onyx": "workspace:^",
+    "@sit-onyx/nuxt": "workspace:^",
+    "@sit-onyx/nuxt-docs": "workspace:^",
+    "@sit-onyx/flags": "workspace:^",
+    "@sit-onyx/icons": "workspace:^",
     "better-sqlite3": "^12.4.1",
-    "nuxt": "^4.2.1",
-    "vue": "^3.5.24",
+    "nuxt": "catalog:",
+    "vue": "catalog:",
     "vue-router": "^4.6.3"
   }
 }
