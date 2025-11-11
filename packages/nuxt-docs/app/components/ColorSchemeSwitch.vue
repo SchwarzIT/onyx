@@ -17,7 +17,7 @@ const colorScheme = computed({
 
 <template>
   <OnyxIconButton
-    label="Toggle color scheme"
+    :label="$t('onyx.colorScheme.headline')"
     :icon="iconCircleContrast"
     color="neutral"
     @click="isColorSchemeDialogOpen = true"
