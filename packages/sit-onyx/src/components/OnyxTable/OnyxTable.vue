@@ -33,7 +33,7 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
 </script>
 
 <template>
-  <div class="onyx-table-wrapper onyx-component" :style>
+  <div :class="['onyx-component', 'onyx-table-wrapper', densityClass]" :style>
     <div v-if="!!slots.headline || !!slots.actions" class="onyx-table-wrapper__top">
       <div :id="headlineId">
         <slot name="headline"></slot>
@@ -54,14 +54,14 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
     >
       <table
         ref="tableRef"
-        class="onyx-table onyx-text"
         :class="[
+          'onyx-table',
+          'onyx-text',
+          `onyx-table--cell-truncation-${props.truncation}`,
           {
             'onyx-table--striped': props.striped,
             'onyx-table--vertical-borders': props.withVerticalBorders,
-            [`onyx-table--cell-truncation-${props.truncation}`]: true,
           },
-          densityClass,
         ]"
         :aria-labelledby="headlineId"
       >
