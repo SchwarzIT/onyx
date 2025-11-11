@@ -1,3 +1,11 @@
+<script lang="ts">
+/**
+ * @experimental
+ * @deprecated This component is still under active development and its API might change in patch releases.
+ */
+export default {};
+</script>
+
 <script setup lang="ts" generic="TKeyName extends string = CanonicalKey">
 import { computed } from "vue";
 import {
@@ -6,13 +14,11 @@ import {
 } from "../../composables/useSkeletonState.js";
 import type { OperatingSystem } from "../../types/index.js";
 import { detectOperatingSystem } from "../../utils/dom.js";
+import { isCanonicalSpecialKey, toCanonicalKey, type CanonicalKey } from "../../utils/shortcut.js";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import {
-  CANONICAL_KEYS,
   MAP_CANONICAL_TO_DISPLAY_LABEL_BY_OS,
   MAP_CANONICAL_TO_SCREEN_READER_LABEL_BY_OS,
-  MAP_SPECIAL_KEY_TO_CANONICAL,
-  type CanonicalKey,
   type OnyxKeyProps,
 } from "./types.js";
 
@@ -25,25 +31,6 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const skeleton = useSkeletonContext(props);
-
-/**
- * Normalize raw keyName -> CanonicalKey | raw string
- */
-const toCanonicalKey = (raw: string): CanonicalKey | string => {
-  if (!raw) return "unknown";
-  if (raw === " ") return "space";
-
-  const trimmed = raw.trim();
-  if (!trimmed) return "unknown";
-
-  const lower = trimmed.toLowerCase();
-  const fromMap = MAP_SPECIAL_KEY_TO_CANONICAL[lower];
-
-  if (fromMap) return fromMap;
-
-  // not a known special key — return as-is (F-keys, letters, numbers, etc.)
-  return trimmed;
-};
 
 /**
  * Effective OS based on variant / auto-detect
@@ -59,12 +46,6 @@ const effectiveOs = computed<OperatingSystem>(() => {
  * Canonical key for mapping (or raw if not special)
  */
 const canonicalKey = computed<CanonicalKey | string>(() => toCanonicalKey(String(props.keyName)));
-
-/**
- * True if value is one of our known canonical special keys
- */
-const isCanonicalSpecialKey = (key: string): key is CanonicalKey =>
-  (CANONICAL_KEYS as readonly string[]).includes(key);
 
 /**
  * Visible label
@@ -106,7 +87,7 @@ const ariaLabel = computed<string>(() => {
 </script>
 
 <template>
-  <OnyxSkeleton v-if="skeleton" :class="['onyx-key-skeleton']" />
+  <OnyxSkeleton v-if="skeleton" :class="['onyx-component', 'onyx-key-skeleton']" />
   <kbd
     v-else
     :class="['onyx-component', 'onyx-key']"
