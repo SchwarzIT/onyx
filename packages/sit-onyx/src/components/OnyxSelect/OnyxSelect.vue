@@ -545,12 +545,13 @@ watch(
     --max-flyout-height: 20rem;
     position: relative;
     height: max-content;
-  }
-  .onyx-select-input {
-    width: 100%;
-  }
-  .onyx-basic-popover {
-    width: 100%;
+
+    .onyx-select-input {
+      width: 100%;
+    }
+    .onyx-basic-popover {
+      width: 100%;
+    }
   }
 }
 

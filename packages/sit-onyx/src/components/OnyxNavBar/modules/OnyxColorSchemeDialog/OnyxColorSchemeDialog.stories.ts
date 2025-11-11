@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import { useArgs } from "storybook/internal/preview-api";
+import { useArgs } from "storybook/preview-api";
 import { ref, watch, watchEffect } from "vue";
 import OnyxButton from "../../../OnyxButton/OnyxButton.vue";
 import OnyxColorSchemeDialog from "./OnyxColorSchemeDialog.vue";

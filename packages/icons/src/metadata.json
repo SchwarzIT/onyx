@@ -768,6 +768,10 @@
     "category": "Devices & Electronics",
     "aliases": ["PC-protection", "machine-guard", "Computer-Schild", "PC-Schutz"]
   },
+  "computer-star": {
+    "category": "Devices & Electronics",
+    "aliases": ["AI", "KI", "Stern"]
+  },
   "computer-user": {
     "category": "Devices & Electronics",
     "aliases": ["Computer-Benutzer", "Profil"]
@@ -2329,6 +2333,10 @@
   "star-filled": {
     "category": "Various",
     "aliases": ["celebrity", "fame", "Stern", "favorite", "filled", "gefüllt"]
+  },
+  "stars-AI": {
+    "category": "Software & Services",
+    "aliases": ["KI", "Stern"]
   },
   "stopover": {
     "category": "Navigation",

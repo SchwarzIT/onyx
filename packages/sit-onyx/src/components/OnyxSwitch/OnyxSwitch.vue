@@ -135,14 +135,16 @@ useAutofocus(input, props);
 
 .onyx-switch,
 .onyx-switch-skeleton {
-  --onyx-switch-icon-size: 1.25rem;
-  --onyx-switch-container-padding: var(--onyx-1px-in-rem);
-  // icon size + padding top/bottom + border top/bottom
-  --onyx-switch-frame-height: calc(
-    var(--onyx-switch-icon-size) + 2 * var(--onyx-switch-container-padding) + 2 *
-      var(--onyx-1px-in-rem)
-  );
-  --onyx-switch-label-padding-vertical: var(--onyx-density-xs);
+  @include layers.component() {
+    --onyx-switch-icon-size: 1.25rem;
+    --onyx-switch-container-padding: var(--onyx-1px-in-rem);
+    // icon size + padding top/bottom + border top/bottom
+    --onyx-switch-frame-height: calc(
+      var(--onyx-switch-icon-size) + 2 * var(--onyx-switch-container-padding) + 2 *
+        var(--onyx-1px-in-rem)
+    );
+    --onyx-switch-label-padding-vertical: var(--onyx-density-xs);
+  }
 }
 
 $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-container-padding));

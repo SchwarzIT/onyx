@@ -57,15 +57,19 @@ defineSlots<{
 
 .onyx-icon-button,
 .onyx-icon-button-skeleton {
-  --onyx-icon-button-padding: var(--onyx-density-xs);
+  @include layers.component {
+    --onyx-icon-button-padding: var(--onyx-density-xs);
+  }
 }
 
 .onyx-icon-button-skeleton {
-  // icon size + 2 * padding
-  $size: calc(1.5rem + 2 * var(--onyx-icon-button-padding));
-  height: $size;
-  width: $size;
-  border-radius: var(--onyx-radius-full);
+  @include layers.component {
+    // icon size + 2 * padding
+    $size: calc(1.5rem + 2 * var(--onyx-icon-button-padding));
+    height: $size;
+    width: $size;
+    border-radius: var(--onyx-radius-full);
+  }
 }
 
 .onyx-icon-button {

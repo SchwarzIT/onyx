@@ -227,10 +227,9 @@ const popoverStyles = computed(() => {
 @use "../../styles/mixins/layers";
 
 .onyx-basic-popover {
-  --onyx-basic-popover-min-width: var(--onyx-spacing-4xl);
-  --onyx-basic-popover-max-width: 20rem;
-
   @include layers.component() {
+    --onyx-basic-popover-min-width: var(--onyx-spacing-4xl);
+    --onyx-basic-popover-max-width: 20rem;
     --onyx-basic-popover-gap: var(--onyx-spacing-2xs);
     display: inline-flex;
     position: relative;

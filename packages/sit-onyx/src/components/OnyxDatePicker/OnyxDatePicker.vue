@@ -149,13 +149,17 @@ useAutofocus(useTemplateRef("inputRef"), props);
 
 .onyx-datepicker,
 .onyx-datepicker-skeleton {
-  --onyx-datepicker-padding-vertical: var(--onyx-density-xs);
+  @include layers.component() {
+    --onyx-datepicker-padding-vertical: var(--onyx-density-xs);
+  }
 }
 
 .onyx-datepicker-skeleton {
-  @include input.define-skeleton-styles(
-    $height: calc(1lh + 2 * var(--onyx-datepicker-padding-vertical))
-  );
+  @include layers.component() {
+    @include input.define-skeleton-styles(
+      $height: calc(1lh + 2 * var(--onyx-datepicker-padding-vertical))
+    );
+  }
 }
 
 .onyx-datepicker {

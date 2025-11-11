@@ -21,15 +21,19 @@ const slots = defineSlots<{
 </template>
 
 <style lang="scss">
-.onyx-data-grid-header-cell {
-  display: flex;
-  align-items: center;
-  gap: var(--onyx-density-xs);
-  min-height: 1.5rem;
+@use "../../../styles/mixins/layers.scss";
 
-  &__actions {
-    display: inline-flex;
-    gap: var(--onyx-density-2xs);
+.onyx-data-grid-header-cell {
+  @include layers.component() {
+    display: flex;
+    align-items: center;
+    gap: var(--onyx-density-xs);
+    min-height: 1.5rem;
+
+    &__actions {
+      display: inline-flex;
+      gap: var(--onyx-density-2xs);
+    }
   }
 }
 </style>

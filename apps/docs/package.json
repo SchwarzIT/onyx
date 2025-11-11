@@ -43,7 +43,7 @@
     "vite": "catalog:",
     "vitepress": "^1.6.4",
     "vue": "catalog:",
-    "vue-chartjs": "^5.3.2"
+    "vue-chartjs": "^5.3.3"
   },
   "engines": {
     "node": ">=20"

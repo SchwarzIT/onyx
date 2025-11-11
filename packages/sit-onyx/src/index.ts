@@ -92,6 +92,15 @@ export * from "./components/OnyxForm/types.js";
 export { default as OnyxFormElement } from "./components/OnyxFormElement/OnyxFormElement.vue";
 export * from "./components/OnyxFormElement/types.js";
 
+export { default as OnyxUnstableGlobalSearch } from "./components/OnyxGlobalSearch/OnyxGlobalSearch.vue";
+export * from "./components/OnyxGlobalSearch/types.js";
+
+export { default as OnyxUnstableGlobalSearchGroup } from "./components/OnyxGlobalSearchGroup/OnyxGlobalSearchGroup.vue";
+export * from "./components/OnyxGlobalSearchGroup/types.js";
+
+export { default as OnyxUnstableGlobalSearchOption } from "./components/OnyxGlobalSearchOption/OnyxGlobalSearchOption.vue";
+export * from "./components/OnyxGlobalSearchOption/types.js";
+
 export { default as OnyxHeadline } from "./components/OnyxHeadline/OnyxHeadline.vue";
 export * from "./components/OnyxHeadline/types.js";
 
@@ -199,6 +208,9 @@ export { default as OnyxSkeleton } from "./components/OnyxSkeleton/OnyxSkeleton.
 
 export { default as OnyxUnstableSlider } from "./components/OnyxSlider/OnyxSlider.vue";
 export * from "./components/OnyxSlider/types.js";
+
+export { default as OnyxUnstableSliderControl } from "./components/OnyxSliderControl/OnyxSliderControl.vue";
+export * from "./components/OnyxSliderControl/types.js";
 
 export { default as OnyxStepper } from "./components/OnyxStepper/OnyxStepper.vue";
 export * from "./components/OnyxStepper/types.js";

@@ -270,6 +270,12 @@ const COMPONENTS: Components = {
       modelValue: 50,
     },
   },
+  OnyxUnstableSliderControl: {
+    props: {
+      control: "value",
+      modelValue: 50,
+    },
+  },
   OnyxUnstableCodeTabs: {
     props: {
       modelValue: "tab-1",
@@ -279,6 +285,12 @@ const COMPONENTS: Components = {
     props: {
       value: "tab-1",
       code: "test-code",
+    },
+  },
+  OnyxUnstableGlobalSearchOption: {
+    props: {
+      label: "Test option",
+      value: "test-value",
     },
   },
 };

@@ -131,6 +131,11 @@ const handleChange = () => {
   modelValue.value = parseFloat(inputValue.value);
 };
 
+const handleBlur = () => {
+  // Reformat the value on blur
+  inputValue.value = getFormattedValue.value(modelValue.value);
+};
+
 const incrementLabel = computed(() => t.value("stepper.increment", { stepSize: props.stepSize }));
 const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: props.stepSize }));
 
@@ -202,6 +207,7 @@ useAutofocus(input, props);
             :title="props.hideLabel ? props.label : undefined"
             v-bind="restAttrs"
             @change="handleChange"
+            @blur="handleBlur"
             @focusin="(e) => (e.target as HTMLInputElement)?.select()"
             @keydown.up.prevent="handleClick('stepUp')"
             @keydown.down.prevent="handleClick('stepDown')"
@@ -240,13 +246,17 @@ useAutofocus(input, props);
 
 .onyx-stepper,
 .onyx-stepper-skeleton {
-  --onyx-stepper-padding-vertical: var(--onyx-density-xs);
+  @include layers.component() {
+    --onyx-stepper-padding-vertical: var(--onyx-density-xs);
+  }
 }
 
 .onyx-stepper-skeleton {
-  @include input.define-skeleton-styles(
-    $height: calc(1lh + 2 * var(--onyx-stepper-padding-vertical))
-  );
+  @include layers.component() {
+    @include input.define-skeleton-styles(
+      $height: calc(1lh + 2 * var(--onyx-stepper-padding-vertical))
+    );
+  }
 }
 
 .onyx-stepper {

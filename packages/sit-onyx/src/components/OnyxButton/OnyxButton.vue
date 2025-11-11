@@ -175,9 +175,7 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
         --onyx-button-text-color-disabled: var(--onyx-color-text-icons-danger-medium);
       }
     }
-  }
 
-  @include layers.component() {
     position: relative;
     display: inline-flex;
     max-width: 100%;
@@ -238,17 +236,17 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
     &__loading {
       position: absolute;
     }
-  }
 
-  &-skeleton {
-    width: var(--onyx-density-4xl);
-    height: calc(1.5rem + 2 * var(--onyx-button-padding-vertical));
-    display: inline-block;
-    vertical-align: middle;
-  }
+    &-skeleton {
+      width: var(--onyx-density-4xl);
+      height: calc(1.5rem + 2 * var(--onyx-button-padding-vertical));
+      display: inline-block;
+      vertical-align: middle;
+    }
 
-  .onyx-ripple {
-    --onyx-ripple-color: var(--onyx-button-background-color-hover);
+    .onyx-ripple {
+      --onyx-ripple-color: var(--onyx-button-background-color-hover);
+    }
   }
 }
 </style>

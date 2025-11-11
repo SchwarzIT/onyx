@@ -53,9 +53,9 @@ const listItemProps = useForwardProps(props, OnyxListItem);
 @use "../../styles/mixins/checkbox";
 
 .onyx-select-option {
-  @include checkbox.variables();
-
   @include layers.component() {
+    @include checkbox.variables();
+
     &__checkbox {
       // prevent the checkbox to get squished by a long label
       flex-shrink: 0;

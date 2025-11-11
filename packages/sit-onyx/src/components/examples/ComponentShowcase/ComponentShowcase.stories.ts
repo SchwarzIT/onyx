@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { DARK_MODE_EVENT_NAME, UPDATE_DARK_MODE_EVENT_NAME } from "@vueless/storybook-dark-mode";
-import { addons } from "storybook/internal/preview-api";
+import { addons } from "storybook/preview-api";
 import { ref, watch } from "vue";
 import ComponentShowcase from "./ComponentShowcase.vue";
 

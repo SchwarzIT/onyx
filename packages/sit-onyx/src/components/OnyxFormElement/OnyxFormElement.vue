@@ -143,8 +143,10 @@ const footer = computed(() => {
 @use "../../styles/mixins/layers.scss";
 
 .onyx-use-optional:not(:has(.onyx-required-marker)) {
-  .onyx-form-element__optional {
-    display: inline-block;
+  @include layers.component() {
+    .onyx-form-element__optional {
+      display: inline-block;
+    }
   }
 }
 

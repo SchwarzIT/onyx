@@ -78,6 +78,13 @@ useGlobalEventListener({
   disabled: computed(() => !open.value || props.nonDismissible),
   listener: (event) => wasKeyPressed(event, { key: "Escape" }) && emit("update:open", false),
 });
+
+defineExpose({
+  /**
+   * Template ref to the internal `<dialog>` element.
+   */
+  dialog,
+});
 </script>
 
 <!-- eslint-disable-next-line vue/no-root-v-if -->
@@ -169,6 +176,8 @@ useGlobalEventListener({
   }
 }
 .dark .onyx-basic-dialog:modal {
-  outline: var(--onyx-spacing-5xs) solid var(--onyx-color-component-border-neutral);
+  @include layers.component() {
+    outline: var(--onyx-spacing-5xs) solid var(--onyx-color-component-border-neutral);
+  }
 }
 </style>

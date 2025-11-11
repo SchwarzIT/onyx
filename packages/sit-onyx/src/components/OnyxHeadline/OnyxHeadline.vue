@@ -123,12 +123,12 @@ const copyLink = async (hash: string) => {
         }
       }
     }
-  }
 
-  &-skeleton {
-    height: 1lh;
-    width: 10rem;
-    max-width: 100%;
+    &-skeleton {
+      height: 1lh;
+      width: 10rem;
+      max-width: 100%;
+    }
   }
 }
 

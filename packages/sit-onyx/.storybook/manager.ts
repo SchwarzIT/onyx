@@ -1,5 +1,5 @@
 import type { Badge, TagBadgeParameters } from "storybook-addon-tag-badges";
-import { addons } from "storybook/internal/manager-api";
+import { addons } from "storybook/manager-api";
 
 const TAG_TYPES = {
   "new:component": {

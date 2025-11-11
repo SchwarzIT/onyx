@@ -51,13 +51,20 @@ const tabs = ref(new Map<PropertyKey, string>());
 provide(CODE_TABS_INJECTION_KEY, { tabs });
 
 const activeTabCode = computed(() => tabs.value.get(modelValue.value));
-const isCopied = ref(false);
+const copyStatus = ref<"success" | "error">();
 
 const handleCopy = async () => {
   if (!activeTabCode.value) return;
-  await navigator.clipboard.writeText(activeTabCode.value);
-  isCopied.value = true;
-  setTimeout(() => (isCopied.value = false), 3000);
+
+  try {
+    await navigator.clipboard.writeText(activeTabCode.value);
+    copyStatus.value = "success";
+  } catch {
+    // the user might not have granted the permission for the browser / application to access the clipboard
+    copyStatus.value = "error";
+  } finally {
+    setTimeout(() => (copyStatus.value = undefined), 3000);
+  }
 };
 </script>
 
@@ -74,13 +81,14 @@ const handleCopy = async () => {
 
     <template #actions>
       <OnyxSystemButton
-        v-if="!isCopied"
+        v-if="!copyStatus"
         :label="t('codeTabs.copySnippet')"
         :icon="iconFileCopy"
         :disabled="!activeTabCode"
         @click="handleCopy"
       />
-      <OnyxTag v-else :label="t('codeTabs.copied')" color="success" />
+      <OnyxTag v-else-if="copyStatus === 'success'" :label="t('codeTabs.copied')" color="success" />
+      <OnyxTag v-else-if="copyStatus === 'error'" :label="t('codeTabs.failed')" color="danger" />
     </template>
   </OnyxTabs>
 </template>
@@ -107,6 +115,7 @@ const handleCopy = async () => {
         border-top-right-radius: inherit;
         border: var(--onyx-code-group-border);
         padding: var(--onyx-code-group-tablist-padding);
+        padding-right: calc(var(--onyx-code-group-tablist-padding) + var(--onyx-density-xs));
 
         // fix layout shift when outline is shown since the OnyxTabs use a padding/margin workaround when the outline is shown due to the "overflow: hidden"
         &:has(.onyx-tab:focus-visible) {

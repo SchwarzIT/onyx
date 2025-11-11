@@ -31,6 +31,10 @@ $sidebar-breakpoints: (
 );
 
 @layer onyx.utility {
+  :root {
+    --onyx-grid-margin-vertical: var(--onyx-density-3xl);
+  }
+
   /**
   * Grid container base class
   */
@@ -43,7 +47,7 @@ $sidebar-breakpoints: (
   /**
   * Grid container classes for "xl" and "lg" breakpoint variants with 16 or 20 columns
   *
-  * Needs onyx-grid-* to override the --onyx-grid-columns 
+  * Needs onyx-grid-* to override the --onyx-grid-columns
   */
   @include container(min, lg) {
     .onyx-grid,
@@ -91,7 +95,6 @@ $sidebar-breakpoints: (
   .onyx-grid-layout {
     // Note: The --onyx-grid-margin is implemented as padding here so that is also included in e.g. custom background colors
     // but the term "margin" comes from UX/Figma so we decided to keep naming it margin to be aligned
-    --onyx-grid-margin-vertical: var(--onyx-density-3xl);
     padding: var(--onyx-grid-margin-vertical) var(--onyx-grid-margin);
   }
 
@@ -180,10 +183,7 @@ $sidebar-breakpoints: (
   * SIDEBAR GRID
   */
   .onyx-sidebar {
-    .onyx-grid-layout {
-      --onyx-grid-margin-vertical: var(--onyx-density-md);
-      padding: var(--onyx-grid-margin-vertical) var(--onyx-grid-margin);
-    }
+    --onyx-grid-margin-vertical: var(--onyx-density-md);
     container-type: inline-size;
 
     @each $name, $maxVariant, $columns, $gutter, $margin in $sideBarGridVariants {
@@ -204,7 +204,7 @@ $sidebar-breakpoints: (
 
   /**
 * Sets grid variables on root based on viewport size,
-* providing the properties for elements outside of container-queries e.g. popovers, dialogs 
+* providing the properties for elements outside of container-queries e.g. popovers, dialogs
 */
   @each $name, $maxVariant, $columns, $gutter, $margin in $gridVariants {
     @include screen(min, $name) {
