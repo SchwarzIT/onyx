@@ -2,4 +2,4 @@
 "sit-onyx": patch
 ---
 
-fix(OnyxTable): apply density to whole component instead of just the inner table
+fix(OnyxTable, OnyxDataGrid): apply density to the whole component instead of just the inner table
