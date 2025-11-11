@@ -11,4 +11,9 @@ export type OnyxFABProps = OnyxFABButtonProps & {
    * If unset, the open state is manged internally.
    */
   open?: Nullable<boolean>;
+
+  /**
+   * The offset from the aligned position.
+   */
+  offset?: { x: string; y: string };
 };

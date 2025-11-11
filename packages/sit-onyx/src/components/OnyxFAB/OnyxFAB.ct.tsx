@@ -100,6 +100,46 @@ test.describe("Screenshot tests (options, icons only)", () => {
   });
 });
 
+test.describe("FAB offset", () => {
+  test("should correctly apply custom offset", async ({ mount, page }) => {
+    // ARRANGE
+    const customOffset = { x: "42px", y: "10rem" };
+
+    await mount(
+      <div style={{ height: "100vh", width: "50vw" }}>
+        <OnyxFAB label="Test FAB" alignment="right" offset={customOffset} />
+      </div>,
+    );
+
+    const fab = page.getByRole("button", { name: "Test FAB" });
+
+    // ASSERT
+    const rightOffset = await fab.evaluate((el) => window.getComputedStyle(el).right);
+    expect(rightOffset).toBe("42px");
+
+    const variableY = await fab.evaluate((el) => el.style.getPropertyValue("--onyx-fab-offset-y"));
+    expect(variableY).toBe(customOffset.y);
+
+    await expect(page).toHaveScreenshot("webkit-popover-api.png");
+  });
+
+  test("should correctly apply custom offset for left alignment", async ({ mount, page }) => {
+    //ARRANGE
+    const customOffset = { x: "-20px", y: "5rem" };
+
+    await mount(<OnyxFAB label="Test FAB Left" alignment="left" offset={customOffset} />);
+
+    const fab = page.getByRole("button", { name: "Test FAB Left" });
+
+    // ASSERT
+    const variableX = await fab.evaluate((el) => el.style.getPropertyValue("--onyx-fab-offset-x"));
+    expect(variableX).toBe(customOffset.x);
+
+    const leftOffset = await fab.evaluate((el) => window.getComputedStyle(el).left);
+    expect(leftOffset).toBe(customOffset.x);
+  });
+});
+
 test.describe("Popover API (webkit)", () => {
   test.use({ userAgent: "My user agent" });
 

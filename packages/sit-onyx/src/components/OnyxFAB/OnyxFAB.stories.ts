@@ -80,6 +80,14 @@ export const LeftAligned = {
   },
 } satisfies Story;
 
+export const Offset = {
+  args: {
+    ...Items.args,
+    alignment: "left",
+    offset: { x: "3rem", y: "3rem" },
+  },
+} satisfies Story;
+
 export const Skeleton = {
   args: {
     ...Default.args,
