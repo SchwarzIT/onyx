@@ -2,6 +2,7 @@
 import { iconChart, iconTextSelector, iconToolTable } from "@sit-onyx/icons";
 import { useI18n } from "vue-i18n";
 import bannerImg from "~/assets/images/banner.webp";
+import coverImg from "~/assets/images/news-cover.webp";
 import onyxLogo from "~/assets/images/onyx-logo.svg?raw";
 import type { LinkCardProps } from "../components/LinkCard.vue";
 
@@ -54,7 +55,7 @@ const cards = computed<LinkCardProps[]>(() => [
         <OnyxHeadline is="h1">{{ t("overview") }}</OnyxHeadline>
 
         <div class="onyx-grid">
-          <BackgroundImageCard class="onyx-grid-span-8 onyx-grid-md-span-6" />
+          <BackgroundImageCard class="onyx-grid-span-8 onyx-grid-md-span-6" :src="coverImg" />
           <VotingCard class="onyx-grid-span-4 onyx-grid-md-span-3" />
           <VotingCard class="onyx-grid-span-4 onyx-grid-md-span-3" />
         </div>

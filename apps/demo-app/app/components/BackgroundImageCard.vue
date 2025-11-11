@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-// we are using an JavaScript import here instead of putting it into the CSS
-// so the image is correctly resolved when this demo app is used/extended as Nuxt layer
-import coverUrl from "~/assets/images/news-cover.webp";
+import type { OnyxImageProps } from "sit-onyx";
 
-const backgroundImage = `url("${coverUrl}")`;
+const props = defineProps<Pick<OnyxImageProps, "src">>();
+
+const backgroundImage = computed(() => `url("${props.src}")`);
 </script>
 
 <template>
