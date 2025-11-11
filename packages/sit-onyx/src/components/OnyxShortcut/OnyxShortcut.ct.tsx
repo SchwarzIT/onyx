@@ -137,7 +137,7 @@ test.describe("Interaction tests", () => {
     await expect(component).toBeVisible();
 
     // Should contain the keys
-    await expect(keys.nth(0).getByText("ctrl")).toBeVisible();
+    await expect(keys.nth(0).getByText(/^(ctrl|⌃)$/i)).toBeVisible();
     await expect(keys.nth(1).getByText("c")).toBeVisible();
     await expect(keys.nth(2).getByText("v")).toBeVisible();
     await expect(keys.nth(3).getByText("insert")).toBeVisible();
@@ -183,8 +183,8 @@ test.describe("Interaction tests", () => {
     const keys = component.locator("kbd");
 
     // ASSERT
-    await expect(keys.nth(0).getByText("Ctrl")).toBeVisible();
-    await expect(keys.nth(1).getByText("Shift")).toBeVisible();
+    await expect(keys.nth(0).getByText(/^(ctrl|⌃)$/i)).toBeVisible();
+    await expect(keys.nth(1).getByText(/⇧|shift/i)).toBeVisible();
     await expect(keys.nth(2).getByText("F")).toBeVisible();
 
     // Should have ALL separators between keys
@@ -198,9 +198,9 @@ test.describe("Interaction tests", () => {
     const keys = component.locator("kbd");
 
     // ASSERT
-    await expect(keys.nth(0).getByText("Enter")).toBeVisible();
-    await expect(keys.nth(1).getByText("Space")).toBeVisible();
-    await expect(keys.nth(2).getByText("Esc")).toBeVisible();
+    await expect(keys.nth(0).getByText(/↩︎|enter/i)).toBeVisible();
+    await expect(keys.nth(1).getByText(/␣|space/i)).toBeVisible();
+    await expect(keys.nth(2).getByText(/⎋|esc/i)).toBeVisible();
 
     // Should have ANY separators between keys
     const separators = component.locator("text=/");
@@ -217,11 +217,11 @@ test.describe("Interaction tests", () => {
     const keys = component.locator("kbd");
 
     // ASSERT - All keys should be present
-    await expect(keys.nth(0).getByText("Ctrl")).toBeVisible();
+    await expect(keys.nth(0).getByText(/^(ctrl|⌃)$/i)).toBeVisible();
     await expect(keys.nth(1).getByText("X")).toBeVisible();
-    await expect(keys.nth(2).getByText("↑")).toBeVisible();
-    await expect(keys.nth(3).getByText("↓")).toBeVisible();
-    await expect(keys.nth(4).getByText("Enter")).toBeVisible();
+    await expect(keys.nth(2).getByText(/^(↑|up)$/i)).toBeVisible();
+    await expect(keys.nth(3).getByText(/^(↓|down)$/i)).toBeVisible();
+    await expect(keys.nth(4).getByText(/^(enter|↩︎)$/i)).toBeVisible();
 
     // Should have proper separators
     await expect(component.locator("text=+")).toBeVisible(); // ALL separator
@@ -268,7 +268,7 @@ test.describe("Interaction tests", () => {
     await page.keyboard.down("Control");
 
     // ASSERT - Control key should be visually pressed
-    const ctrlKey = component.locator("kbd").filter({ hasText: "Ctrl" });
+    const ctrlKey = component.locator("kbd").filter({ hasText: /^(ctrl|⌃)$/i });
     await expect(ctrlKey).toHaveAttribute("data-pressed", "true");
 
     // ACT - Release Control key
@@ -317,7 +317,7 @@ test.describe("Interaction tests", () => {
 
     // ASSERT - Should still render without errors
     await expect(component).toBeVisible();
-    await expect(component.getByText("Enter")).toBeVisible();
+    await expect(component.getByText(/^(enter|↩︎)$/i)).toBeVisible();
   });
 
   test("should handle duplicate keys in different steps", async ({ mount }) => {
@@ -331,7 +331,7 @@ test.describe("Interaction tests", () => {
 
     // ASSERT - Both ctrl keys should be rendered
     await expect(component).toBeVisible();
-    const ctrlKeys = component.locator("kbd").filter({ hasText: "Ctrl" });
+    const ctrlKeys = component.locator("kbd").filter({ hasText: /^(ctrl|⌃)$/i });
     await expect(ctrlKeys).toHaveCount(2);
   });
 
@@ -344,7 +344,7 @@ test.describe("Interaction tests", () => {
 
     // ASSERT
     await expect(keys.nth(0).getByText("F5")).toBeVisible();
-    await expect(keys.nth(1).getByText("Shift")).toBeVisible();
+    await expect(keys.nth(1).getByText(/⇧|shift/i)).toBeVisible();
     await expect(keys.nth(2).getByText("?")).toBeVisible();
     await expect(keys.nth(3).getByText("!")).toBeVisible();
     await expect(keys.nth(4).getByText("@")).toBeVisible();
