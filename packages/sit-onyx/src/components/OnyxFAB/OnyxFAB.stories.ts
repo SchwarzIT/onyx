@@ -83,8 +83,7 @@ export const LeftAligned = {
 export const Offset = {
   args: {
     ...Items.args,
-    alignment: "left",
-    offset: { x: "3rem", y: "3rem" },
+    style: { "--onyx-fab-offset-x": "5rem", "--onyx-fab-offset-y": "1rem" },
   },
 } satisfies Story;
 

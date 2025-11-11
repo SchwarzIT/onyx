@@ -11,20 +11,12 @@ const { t } = injectI18n();
 const alignment = computed(() =>
   globalFAB.items.value.some((itemRef) => itemRef.value.alignment === "left") ? "left" : "right",
 );
-const offset = computed(() => {
-  return globalFAB.items.value.at(-1)?.value.offset;
-});
 </script>
 
 <template>
   <OnyxFAB v-if="globalFAB.items.value.length === 1" v-bind="globalFAB.items.value[0]!.value" />
 
-  <OnyxFAB
-    v-else-if="globalFAB.items.value.length > 1"
-    :label="t('globalFAB.label')"
-    :alignment
-    :offset
-  >
+  <OnyxFAB v-else-if="globalFAB.items.value.length > 1" :label="t('globalFAB.label')" :alignment>
     <OnyxFABItem
       v-for="item in globalFAB.items.value"
       :key="item.value.id"

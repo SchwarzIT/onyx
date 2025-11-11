@@ -53,21 +53,6 @@ const triggerIcon = computed(() => {
   if (!hasOptions.value) return props.icon;
   return isExpanded.value ? iconX : iconMoreHorizontalSmall;
 });
-
-const offsetStyles = computed(() => {
-  if (!props.offset) return;
-  const styles: Record<string, string> = {};
-
-  const DEFAULT_OFFSET_VALUE = "var(--onyx-density-sm)";
-  if (props.offset.x !== DEFAULT_OFFSET_VALUE) {
-    styles["--onyx-fab-offset-x"] = props.offset.x;
-  }
-  if (props.offset.y !== DEFAULT_OFFSET_VALUE) {
-    styles["--onyx-fab-offset-y"] = props.offset.y;
-  }
-
-  return styles;
-});
 </script>
 
 <template>
@@ -77,7 +62,6 @@ const offsetStyles = computed(() => {
     v-bind="fabButtonProps"
     :icon="triggerIcon"
     :skeleton
-    :style="offsetStyles"
   />
 
   <OnyxFlyoutMenu
@@ -87,7 +71,6 @@ const offsetStyles = computed(() => {
     trigger="click"
     :class="['onyx-fab', `onyx-fab--${props.alignment}`, densityClass]"
     :alignment="props.alignment"
-    :style="offsetStyles"
   >
     <template #button="{ trigger }">
       <OnyxFABButton
@@ -109,15 +92,16 @@ const offsetStyles = computed(() => {
 
 .onyx-fab {
   @include layers.component() {
-    --onyx-fab-offset-x: var(--onyx-density-sm);
-    --onyx-fab-offset-y: var(--onyx-density-sm);
+    --onyx-fab-viewport-gap: var(--onyx-density-sm);
+    --onyx-fab-offset-x: 0px;
+    --onyx-fab-offset-y: 0px;
     --onyx-basic-popover-gap: var(--onyx-density-sm);
 
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-inverted);
     position: fixed;
-    bottom: var(--onyx-fab-offset-y);
-    right: var(--onyx-fab-offset-x);
+    bottom: calc(var(--onyx-fab-viewport-gap) + var(--onyx-fab-offset-y));
+    right: calc(var(--onyx-fab-viewport-gap) + var(--onyx-fab-offset-x));
     z-index: var(--onyx-z-index-notification);
 
     .onyx-flyout-menu__list-header,
