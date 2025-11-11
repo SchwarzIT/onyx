@@ -34,17 +34,15 @@ const id = useId();
 const handleClick = () => {
   isOpen.value = !isOpen.value;
 };
-onMounted(() => {
-  globalFAB.add(
-    computed(() => ({
-      id,
-      label: $t("blueprint.toggleSidebar"),
-      icon: isOpen.value ? iconSidebarArrowLeft : iconSidebarArrowRight,
-      onClick: handleClick,
-      alignment: "left",
-    })),
-  );
-});
+globalFAB.add(
+  computed(() => ({
+    id,
+    label: $t("blueprint.toggleSidebar"),
+    icon: isOpen.value ? iconSidebarArrowLeft : iconSidebarArrowRight,
+    onClick: handleClick,
+    alignment: "left",
+  })),
+);
 onUnmounted(() => {
   globalFAB.remove(id);
 });
