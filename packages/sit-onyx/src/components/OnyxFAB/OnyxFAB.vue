@@ -118,7 +118,7 @@ const triggerIcon = computed(() => {
 
     &--left {
       right: unset;
-      left: var(--onyx-fab-offset-x);
+      left: calc(var(--onyx-fab-viewport-gap) + var(--onyx-fab-offset-x));
 
       .onyx-flyout-menu__wrapper {
         align-items: flex-start;
