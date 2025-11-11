@@ -2,7 +2,7 @@
 import { iconChart, iconTextSelector, iconToolTable } from "@sit-onyx/icons";
 import { useI18n } from "vue-i18n";
 import bannerImg from "~/assets/images/banner.webp";
-import coverImg from "~/assets/images/news-cover.webp";
+import coverImg from "~/assets/images/cover.webp";
 import onyxLogo from "~/assets/images/onyx-logo.svg?raw";
 import type { LinkCardProps } from "../components/LinkCard.vue";
 

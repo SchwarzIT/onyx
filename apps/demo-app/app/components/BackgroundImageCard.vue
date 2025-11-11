@@ -38,7 +38,6 @@ const backgroundImage = computed(() => `url("${props.src}")`);
   }
 
   &__overlay {
-    background: var(--onyx-color-opacity-medium);
     padding: var(--onyx-card-padding);
     height: 100%;
     width: 100%;
