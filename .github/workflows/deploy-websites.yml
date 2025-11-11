@@ -166,4 +166,4 @@ jobs:
           username: ${{ vars.CF_USERNAME }}
           password: ${{ secrets.CF_PASSWORD }}
           space: ${{ inputs.environment || inputs.environment }}
-          working-directory: apps/showcase.cloud-foundry
+          working-directory: apps/showcase/.cloud-foundry
