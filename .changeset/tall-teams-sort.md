@@ -2,4 +2,4 @@
 "sit-onyx": minor
 ---
 
-feat(FAB): implement Offset Prop to position the FAB manully
+feat(FAB): support new CSS variables `--onyx-fab-offset-x` and `--onyx-fab-offset-y`

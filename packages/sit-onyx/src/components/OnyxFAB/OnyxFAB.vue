@@ -93,8 +93,8 @@ const triggerIcon = computed(() => {
 .onyx-fab {
   @include layers.component() {
     --onyx-fab-viewport-gap: var(--onyx-density-sm);
-    --onyx-fab-offset-x: 0px;
-    --onyx-fab-offset-y: 0px;
+    --onyx-fab-offset-x: 0rem;
+    --onyx-fab-offset-y: 0rem;
     --onyx-basic-popover-gap: var(--onyx-density-sm);
 
     font-family: var(--onyx-font-family);
