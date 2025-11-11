@@ -298,6 +298,16 @@ const COMPONENTS: Components = {
       link: "#link",
     },
   },
+  OnyxUnstableKey: {
+    props: {
+      keyName: "ctrl",
+    },
+  },
+  OnyxUnstableShortcut: {
+    props: {
+      sequence: [{ all: ["ctrl", "c"] }],
+    },
+  },
 };
 
 describe("components", () => {
