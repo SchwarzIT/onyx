@@ -8,6 +8,7 @@ type SearchGroup = {
 };
 
 const { t, locale } = useI18n();
+const localePath = useLocalePath();
 
 const isOpen = ref(false);
 const searchTerm = ref("");
@@ -39,7 +40,7 @@ const allGroups = computed<SearchGroup[]>(() => {
     const option: OnyxGlobalSearchOptionProps = {
       label: section.content ? `${section.title} > ${section.content}` : section.title,
       value: section.id,
-      link: section.id,
+      link: localePath(section.id),
       icon,
     };
 
