@@ -70,6 +70,10 @@ test.describe("Screenshot tests (densities)", () => {
       >
         {tableHead}
         {tableBody}
+
+        <template v-slot:pagination>
+          <OnyxPagination pages={42} modelValue={1} />
+        </template>
       </OnyxTable>
     ),
     hooks: {
