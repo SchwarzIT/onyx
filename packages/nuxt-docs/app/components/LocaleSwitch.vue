@@ -2,6 +2,15 @@
 import { iconTranslate } from "@sit-onyx/icons";
 import type { SelectDialogOption } from "sit-onyx";
 
+const props = withDefaults(
+  defineProps<{
+    type?: "button" | "globalSearch";
+  }>(),
+  {
+    type: "button",
+  },
+);
+
 const { locale, setLocale, locales } = useI18n();
 const isLanguageDialogOpen = ref(false);
 
@@ -22,10 +31,18 @@ const currentLocaleLabel = computed(() => {
 
 <template>
   <OnyxButton
+    v-if="props.type === 'button'"
     :label="currentLocaleLabel"
     :icon="iconTranslate"
     color="neutral"
     mode="plain"
+    @click="isLanguageDialogOpen = true"
+  />
+  <OnyxUnstableGlobalSearchOption
+    v-else
+    :label="$t('onyx.languageSelect.headline')"
+    value="locale"
+    :icon="iconTranslate"
     @click="isLanguageDialogOpen = true"
   />
 

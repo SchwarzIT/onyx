@@ -1,11 +1,5 @@
 <script lang="ts" setup>
-import {
-  iconCircleContrast,
-  iconFile,
-  iconSearch,
-  iconToolText,
-  iconTranslate,
-} from "@sit-onyx/icons";
+import { iconFile, iconSearch, iconToolText } from "@sit-onyx/icons";
 import { normalizedIncludes, type OnyxGlobalSearchOptionProps } from "sit-onyx";
 
 type SearchGroup = {
@@ -17,6 +11,9 @@ const { t, locale } = useI18n();
 
 const isOpen = ref(false);
 const searchTerm = ref("");
+watch(isOpen, (open) => {
+  if (!open) searchTerm.value = "";
+});
 
 const { data, status } = await useLazyAsyncData(
   () => `search-sections-${locale.value}`,
@@ -61,7 +58,7 @@ const allGroups = computed<SearchGroup[]>(() => {
 });
 
 const filteredGroups = computed(() => {
-  if (!searchTerm.value) return allGroups.value;
+  if (!searchTerm.value) return [];
 
   return allGroups.value
     .map<SearchGroup>((group) => {
@@ -105,16 +102,8 @@ const filteredGroups = computed(() => {
 
     <!-- custom fixed system-wide actions that are always visible -->
     <OnyxUnstableGlobalSearchGroup :label="$t('onyx.globalSearch.system')">
-      <OnyxUnstableGlobalSearchOption
-        :label="$t('onyx.languageSelect.headline')"
-        value="language"
-        :icon="iconTranslate"
-      />
-      <OnyxUnstableGlobalSearchOption
-        :label="$t('onyx.colorScheme.headline')"
-        value="appearance"
-        :icon="iconCircleContrast"
-      />
+      <LocaleSwitch type="globalSearch" />
+      <ColorSchemeSwitch type="globalSearch" />
     </OnyxUnstableGlobalSearchGroup>
   </OnyxUnstableGlobalSearch>
 </template>
