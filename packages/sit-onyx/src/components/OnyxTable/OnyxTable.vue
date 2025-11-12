@@ -33,7 +33,7 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
 </script>
 
 <template>
-  <div class="onyx-table-wrapper onyx-component" :style>
+  <div :class="['onyx-component', 'onyx-table-wrapper', densityClass]" :style>
     <div v-if="!!slots.headline || !!slots.actions" class="onyx-table-wrapper__top">
       <div :id="headlineId">
         <slot name="headline"></slot>
@@ -54,14 +54,14 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
     >
       <table
         ref="tableRef"
-        class="onyx-table onyx-text"
         :class="[
+          'onyx-table',
+          'onyx-text',
+          `onyx-table--cell-truncation-${props.truncation}`,
           {
             'onyx-table--striped': props.striped,
             'onyx-table--vertical-borders': props.withVerticalBorders,
-            [`onyx-table--cell-truncation-${props.truncation}`]: true,
           },
-          densityClass,
         ]"
         :aria-labelledby="headlineId"
       >
@@ -201,6 +201,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
   @include layers.component() {
     --onyx-table-padding-block: var(--onyx-density-xs);
     --onyx-table-padding-inline: var(--onyx-density-md);
+    --onyx-table-z-index-cell: 0;
     text-align: left;
     width: 100%;
 
@@ -261,6 +262,9 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
       font-size: var(--onyx-font-size-md);
       font-weight: var(--onyx-font-weight-400);
       line-height: var(--onyx-font-line-height-md);
+
+      // needed to correctly show row hover effect when table is nested in other components (e.g. OnyxCard)
+      z-index: var(--onyx-table-z-index-cell);
     }
 
     &--cell-truncation-ellipsis {
@@ -284,7 +288,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: -2;
+      z-index: calc(var(--onyx-table-z-index-cell) - 2);
     }
 
     &--striped {
@@ -315,7 +319,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
         left: 0;
         width: 100%;
         bottom: 0;
-        z-index: -1;
+        z-index: calc(var(--onyx-table-z-index-cell) - 1);
         // needed in order for other components like buttons etc. to be clickable and to prevent showing the column hover effect when hovering down over a row
         pointer-events: none;
       }
