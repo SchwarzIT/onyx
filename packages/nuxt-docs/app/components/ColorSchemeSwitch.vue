@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import { iconCircleContrast } from "@sit-onyx/icons";
-import type { ColorSchemeValue, Data } from "sit-onyx";
+import type { ColorSchemeValue } from "sit-onyx";
 
 defineSlots<{
   /**
    * Optional slot to override the trigger slot.
    */
-  default?(props: { trigger: Data }): unknown;
+  default?(props: { trigger: typeof trigger }): unknown;
 }>();
 
 const colorMode = useColorMode();

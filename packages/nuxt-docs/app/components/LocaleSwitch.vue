@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import { iconTranslate } from "@sit-onyx/icons";
-import type { Data, SelectDialogOption } from "sit-onyx";
+import type { SelectDialogOption } from "sit-onyx";
 
 defineSlots<{
   /**
    * Optional slot to override the trigger slot.
    */
-  default?(props: { trigger: Data }): unknown;
+  default?(props: { trigger: typeof trigger }): unknown;
 }>();
 
 const { locale, setLocale, locales } = useI18n();
