@@ -1,17 +1,14 @@
 <script lang="ts" setup>
 import { iconCircleContrast } from "@sit-onyx/icons";
-import type { ColorSchemeValue } from "sit-onyx";
+import type { ColorSchemeValue, Data } from "sit-onyx";
 
-const props = withDefaults(
-  defineProps<{
-    type?: "button" | "globalSearch";
-  }>(),
-  {
-    type: "button",
-  },
-);
+defineSlots<{
+  /**
+   * Optional slot to override the trigger slot.
+   */
+  default?(props: { trigger: Data }): unknown;
+}>();
 
-const { t } = useI18n();
 const colorMode = useColorMode();
 const isColorSchemeDialogOpen = ref(false);
 
@@ -24,24 +21,20 @@ const colorScheme = computed({
   },
 });
 
-const label = computed(() => t("onyx.colorScheme.headline"));
+const trigger = {
+  onClick: () => (isColorSchemeDialogOpen.value = true),
+};
 </script>
 
 <template>
-  <OnyxIconButton
-    v-if="props.type === 'button'"
-    :label
-    :icon="iconCircleContrast"
-    color="neutral"
-    @click="isColorSchemeDialogOpen = true"
-  />
-  <OnyxUnstableGlobalSearchOption
-    v-else
-    :label
-    value="appearance"
-    :icon="iconCircleContrast"
-    @click="isColorSchemeDialogOpen = true"
-  />
+  <slot :trigger>
+    <OnyxIconButton
+      :label="$t('onyx.colorScheme.headline')"
+      :icon="iconCircleContrast"
+      color="neutral"
+      v-bind="trigger"
+    />
+  </slot>
 
   <OnyxColorSchemeDialog v-model="colorScheme" v-model:open="isColorSchemeDialogOpen" />
 </template>

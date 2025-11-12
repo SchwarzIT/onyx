@@ -1,6 +1,12 @@
 <script lang="ts" setup>
-import { iconFile, iconSearch, iconToolText } from "@sit-onyx/icons";
-import { normalizedIncludes, type OnyxGlobalSearchOptionProps } from "sit-onyx";
+import {
+  iconCircleContrast,
+  iconFile,
+  iconSearch,
+  iconToolText,
+  iconTranslate,
+} from "@sit-onyx/icons";
+import { mergeVueProps, normalizedIncludes, type OnyxGlobalSearchOptionProps } from "sit-onyx";
 
 type SearchGroup = {
   label: string;
@@ -24,7 +30,7 @@ const { data, status } = await useLazyAsyncData(
   },
 );
 
-const allGroups = computed<SearchGroup[]>(() => {
+const searchResults = computed<SearchGroup[]>(() => {
   const map = new Map<string, OnyxGlobalSearchOptionProps[]>();
 
   data.value?.forEach((section) => {
@@ -52,16 +58,28 @@ const allGroups = computed<SearchGroup[]>(() => {
     map.set(parent, options);
   });
 
-  return map
+  const groups = map
     .entries()
     .toArray()
     .map<SearchGroup>(([label, options]) => ({ label, options }));
+
+  // add custom system wide actions
+  groups.push({
+    label: t("onyx.globalSearch.system"),
+    options: [
+      { label: t("onyx.languageSelect.headline"), value: "locale", icon: iconTranslate },
+      { label: t("onyx.colorScheme.headline"), value: "colorScheme", icon: iconCircleContrast },
+    ],
+  });
+
+  return groups;
 });
 
-const filteredGroups = computed(() => {
-  if (!searchTerm.value) return [];
+const filteredSearchResults = computed(() => {
+  // if no search term is entered, we want to show all results so the search is never empty
+  if (!searchTerm.value) return searchResults.value;
 
-  return allGroups.value
+  return searchResults.value
     .map<SearchGroup>((group) => {
       return {
         ...group,
@@ -87,24 +105,29 @@ const filteredGroups = computed(() => {
     v-model:open="isOpen"
     :loading="status === 'pending'"
   >
-    <OnyxUnstableGlobalSearchGroup
-      v-for="group in filteredGroups"
-      :key="group.label"
-      :label="group.label"
-      :skeleton="status === 'pending'"
-    >
-      <OnyxUnstableGlobalSearchOption
-        v-for="option in group.options"
-        :key="option.value"
-        v-bind="option"
-        @click="isOpen = false"
-      />
-    </OnyxUnstableGlobalSearchGroup>
+    <template v-if="filteredSearchResults.length" #default>
+      <OnyxUnstableGlobalSearchGroup
+        v-for="group in filteredSearchResults"
+        :key="group.label"
+        :label="group.label"
+        :skeleton="status === 'pending'"
+      >
+        <template v-for="option in group.options" :key="option.value">
+          <LocaleSwitch v-if="option.value === 'locale'">
+            <template #default="{ trigger }">
+              <OnyxUnstableGlobalSearchOption v-bind="mergeVueProps(trigger, option)" />
+            </template>
+          </LocaleSwitch>
 
-    <!-- custom fixed system-wide actions that are always visible -->
-    <OnyxUnstableGlobalSearchGroup :label="$t('onyx.globalSearch.system')">
-      <LocaleSwitch type="globalSearch" />
-      <ColorSchemeSwitch type="globalSearch" />
-    </OnyxUnstableGlobalSearchGroup>
+          <ColorSchemeSwitch v-else-if="option.value === 'colorScheme'">
+            <template #default="{ trigger }">
+              <OnyxUnstableGlobalSearchOption v-bind="mergeVueProps(trigger, option)" />
+            </template>
+          </ColorSchemeSwitch>
+
+          <OnyxUnstableGlobalSearchOption v-else v-bind="option" @click="isOpen = false" />
+        </template>
+      </OnyxUnstableGlobalSearchGroup>
+    </template>
   </OnyxUnstableGlobalSearch>
 </template>

@@ -282,5 +282,6 @@ export { createOnyx } from "./utils/plugin.js";
 
 export * from "./components/illustrations/index.js";
 export * from "./composables/themeTransition.js";
+export * from "./utils/attrs.js";
 export * from "./utils/router.js";
 export { normalizedIncludes } from "./utils/strings.js";

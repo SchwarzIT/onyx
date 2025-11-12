@@ -1,15 +1,13 @@
 <script lang="ts" setup>
 import { iconTranslate } from "@sit-onyx/icons";
-import type { SelectDialogOption } from "sit-onyx";
+import type { Data, SelectDialogOption } from "sit-onyx";
 
-const props = withDefaults(
-  defineProps<{
-    type?: "button" | "globalSearch";
-  }>(),
-  {
-    type: "button",
-  },
-);
+defineSlots<{
+  /**
+   * Optional slot to override the trigger slot.
+   */
+  default?(props: { trigger: Data }): unknown;
+}>();
 
 const { locale, setLocale, locales } = useI18n();
 const isLanguageDialogOpen = ref(false);
@@ -27,24 +25,22 @@ const currentLocaleLabel = computed(() => {
   // using "!" here is safe since splitting a string will always return at least one string in the returned array
   return locale.value.split("-")[0]!.split("_")[0]!.toUpperCase();
 });
+
+const trigger = {
+  onClick: () => (isLanguageDialogOpen.value = true),
+};
 </script>
 
 <template>
-  <OnyxButton
-    v-if="props.type === 'button'"
-    :label="currentLocaleLabel"
-    :icon="iconTranslate"
-    color="neutral"
-    mode="plain"
-    @click="isLanguageDialogOpen = true"
-  />
-  <OnyxUnstableGlobalSearchOption
-    v-else
-    :label="$t('onyx.languageSelect.headline')"
-    value="locale"
-    :icon="iconTranslate"
-    @click="isLanguageDialogOpen = true"
-  />
+  <slot :trigger>
+    <OnyxButton
+      :label="currentLocaleLabel"
+      :icon="iconTranslate"
+      color="neutral"
+      mode="plain"
+      v-bind="trigger"
+    />
+  </slot>
 
   <OnyxSelectDialog
     v-model:open="isLanguageDialogOpen"

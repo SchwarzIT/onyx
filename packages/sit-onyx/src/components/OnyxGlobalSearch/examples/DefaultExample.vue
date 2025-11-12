@@ -6,8 +6,9 @@ import {
   iconSettings,
   iconTranslate,
 } from "@sit-onyx/icons";
-import { ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import {
+  normalizedIncludes,
   OnyxAppLayout,
   OnyxIconButton,
   OnyxInfoCard,
@@ -18,6 +19,11 @@ import {
   OnyxUnstableGlobalSearchOption,
   type OnyxGlobalSearchOptionProps,
 } from "../../../index.js";
+
+type SearchGroup = {
+  label: string;
+  options: OnyxGlobalSearchOptionProps[];
+};
 
 const isOpen = ref(false);
 const searchTerm = ref("");
@@ -38,16 +44,61 @@ watch(searchTerm, async () => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
   if (searchTerm.value) {
-    searchResults.value = [
-      { label: "Result 1", value: "1", link: "#test-link", icon: iconFile },
-      { label: "Result 2", value: "2", link: "#test-link", icon: iconFile },
-      { label: "Result 3", value: "3", link: "#test-link", icon: iconFile },
-    ];
+    // generate some dummy search results, change this to your project-specific logic
+    searchResults.value = Array.from({ length: 6 }, (_, index) => {
+      const id = index + 1;
+      return {
+        label: `Result ${id} ${searchTerm.value}`,
+        value: `result-${id}`,
+        link: `#result-${id}`,
+        icon: iconFile,
+      };
+    });
   } else {
     searchResults.value = [];
   }
 
   isLoading.value = false;
+});
+
+const searchGroups = computed(() => {
+  const groups: SearchGroup[] = [];
+
+  if (searchTerm.value) {
+    groups.push({
+      label: "Search results",
+      options: searchResults.value,
+    });
+  } else {
+    // if the user hasn't searched anything yet, we want to suggest common options (depending on your specific project)
+    groups.push({
+      label: "Suggestions",
+      options: [
+        { label: "Suggestion 1", value: "suggestion-1", link: "#suggestion-link-1" },
+        { label: "Suggestion 2", value: "suggestion-2", link: "#suggestion-link-2" },
+        { label: "Suggestion 3", value: "suggestion-3", link: "#suggestion-link-3" },
+      ],
+    });
+  }
+
+  // always add some fixed system-wide actions
+  groups.push({
+    label: "System",
+    // for the locale and colorScheme option, you can use/open the following components (when clicking on the options):
+    // OnyxColorSchemeDialog, OnyxSelectDialog
+    options: [
+      { label: "Change language", value: "locale", icon: iconTranslate },
+      { label: "Change appearance", value: "colorScheme", icon: iconCircleContrast },
+      { label: "Settings", value: "settings", icon: iconSettings, link: "#settings" },
+    ],
+  });
+
+  return groups
+    .map((group) => ({
+      ...group,
+      options: group.options.filter((option) => normalizedIncludes(option.label, searchTerm.value)),
+    }))
+    .filter((group) => group.options.length > 0);
 });
 </script>
 
@@ -76,49 +127,22 @@ watch(searchTerm, async () => {
     </OnyxPageLayout>
 
     <OnyxUnstableGlobalSearch v-model:open="isOpen" v-model="searchTerm" :loading="isLoading">
-      <!--
-        if the user hasn't searched anything yet, we propose some default/static options here.
-        if your application does not have suggested options, just remove the group below
-      -->
-      <OnyxUnstableGlobalSearchGroup v-if="!searchResults.length && !isLoading" label="Suggestions">
-        <OnyxUnstableGlobalSearchOption label="Suggestion 1" value="value-1" link="#test-link" />
-        <OnyxUnstableGlobalSearchOption label="Suggestion 2" value="value-2" link="#test-link" />
-        <OnyxUnstableGlobalSearchOption label="Suggestion 3" value="value-3" link="#test-link" />
-      </OnyxUnstableGlobalSearchGroup>
+      <!-- show skeleton while search results are loading -->
+      <OnyxUnstableGlobalSearchGroup v-if="isLoading" label="Search results" skeleton />
 
       <template v-else>
-        <OnyxUnstableGlobalSearchGroup label="Search results" :skeleton="isLoading">
+        <OnyxUnstableGlobalSearchGroup
+          v-for="group in searchGroups"
+          :key="group.label"
+          :label="group.label"
+        >
           <OnyxUnstableGlobalSearchOption
-            v-for="result in searchResults"
-            :key="result.value"
-            v-bind="result"
+            v-for="option in group.options"
+            :key="option.value"
+            v-bind="option"
           />
         </OnyxUnstableGlobalSearchGroup>
       </template>
-
-      <!--
-        custom fixed system-wide actions that are always visible
-        the following components might be useful here (when clicking on the options):
-        OnyxColorSchemeDialog, OnyxSelectDialog
-      -->
-      <OnyxUnstableGlobalSearchGroup label="System">
-        <OnyxUnstableGlobalSearchOption
-          label="Change language"
-          value="language"
-          :icon="iconTranslate"
-        />
-        <OnyxUnstableGlobalSearchOption
-          label="Change appearance"
-          value="appearance"
-          :icon="iconCircleContrast"
-        />
-        <OnyxUnstableGlobalSearchOption
-          label="Settings"
-          value="settings"
-          :icon="iconSettings"
-          link="#test-link"
-        />
-      </OnyxUnstableGlobalSearchGroup>
     </OnyxUnstableGlobalSearch>
   </OnyxAppLayout>
 </template>
