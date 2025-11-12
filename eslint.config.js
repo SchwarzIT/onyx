@@ -140,6 +140,8 @@ const vitestConfig = {
   extends: [pluginVitest.configs.recommended],
   rules: {
     "vue/no-ref-object-reactivity-loss": "off",
+    // enforce using "test" instead of mixed "it"
+    "vitest/consistent-test-it": ["error", { fn: "test", withinDescribe: "test" }],
   },
 };
 

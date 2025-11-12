@@ -1,4 +1,4 @@
-import { expect, it, vi } from "vitest";
+import { expect, test, vi } from "vitest";
 import { reactive, toValue } from "vue";
 import {
   SKELETON_INJECTED_SYMBOL,
@@ -18,7 +18,7 @@ vi.mock("vue", async (importOriginal) => {
   };
 });
 
-it.for([
+test.for([
   {
     pageLayoutProps: { skeleton: true },
     localProps: { skeleton: true },
@@ -65,7 +65,7 @@ it.for([
     expected: false,
   },
 ] as const)(
-  "it should derive expected state when correctly",
+  "should derive expected state when correctly",
   ({ pageLayoutProps, localProps, expected }) => {
     provideSkeletonContext(pageLayoutProps);
     const result = useSkeletonContext(localProps);
@@ -80,7 +80,7 @@ it.for([
   },
 );
 
-it("should update when changed", async () => {
+test("should update when changed", async () => {
   const pageLayoutProps = reactive({ skeleton: false });
   provideSkeletonContext(pageLayoutProps);
 
