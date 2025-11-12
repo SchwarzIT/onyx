@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, test, vi } from "vitest";
 import { ref } from "vue";
 import { mockVueLifecycle } from "../../utils/vitest.js";
 import { useOutsideClick } from "./useOutsideClick.js";
@@ -9,11 +9,11 @@ describe("useOutsideClick", () => {
     mockVueLifecycle();
   });
 
-  it("should be defined", () => {
+  test("should be defined", () => {
     expect(useOutsideClick).toBeDefined();
   });
 
-  it("should detect outside clicks", async () => {
+  test("should detect outside clicks", async () => {
     // ARRANGE
     vi.useFakeTimers();
     const inside = ref(document.createElement("button"));
@@ -43,7 +43,7 @@ describe("useOutsideClick", () => {
     ).toHaveBeenCalledTimes(1);
   });
 
-  it("should detect outside clicks correctly for multiple inside elements", () => {
+  test("should detect outside clicks correctly for multiple inside elements", () => {
     // ARRANGE
     const inside = [document.createElement("button"), document.createElement("button")];
     inside.forEach((e) => document.body.appendChild(e));
@@ -66,7 +66,7 @@ describe("useOutsideClick", () => {
     expect(onOutsideClick).toBeCalledWith(event);
   });
 
-  it("should ignore outside clicks when disabled", async () => {
+  test("should ignore outside clicks when disabled", async () => {
     // ARRANGE
     vi.useFakeTimers();
     const inside = ref(document.createElement("button"));
@@ -94,7 +94,7 @@ describe("useOutsideClick", () => {
     expect(onOutsideClick).toHaveBeenCalledTimes(1);
   });
 
-  it("should detect outside tab via keyboard", async () => {
+  test("should detect outside tab via keyboard", async () => {
     // ARRANGE
     vi.useFakeTimers();
     const inside = ref(document.createElement("button"));

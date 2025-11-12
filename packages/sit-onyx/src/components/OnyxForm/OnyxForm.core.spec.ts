@@ -1,4 +1,4 @@
-import { expect, it, vi } from "vitest";
+import { expect, test, vi } from "vitest";
 import { reactive } from "vue";
 import {
   FORM_INJECTED_SYMBOL,
@@ -19,7 +19,7 @@ vi.mock("vue", async (importOriginal) => {
   };
 });
 
-it.for([
+test.for([
   {
     formProps: { disabled: true, showError: true, requiredMarker: "optional" },
     localProps: { disabled: true, showError: true, requiredMarker: "optional" },
@@ -77,7 +77,7 @@ it.for([
     expected: { disabled: false, showError: false, requiredMarker: "required" },
   },
 ] as const)(
-  "it should derive expected state when correctly",
+  "should derive expected state when correctly",
   ({ formProps, localProps, expected }) => {
     provideFormContext(formProps);
     const result = useFormContext(localProps);
@@ -92,7 +92,7 @@ it.for([
   },
 );
 
-it("should update when changed", async () => {
+test("should update when changed", async () => {
   const formProps = reactive({ disabled: false, showError: true });
   provideFormContext(formProps);
 
