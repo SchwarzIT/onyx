@@ -17,7 +17,7 @@
     "@eslint/core": "~0.17.0",
     "@types/eslint": "^9.6.1",
     "@typescript-eslint/parser": "^8.46.3",
-    "eslint-vitest-rule-tester": "^2.3.0",
+    "eslint-vitest-rule-tester": "^3.0.0",
     "vue-eslint-parser": "^10.2.0"
   }
 }
