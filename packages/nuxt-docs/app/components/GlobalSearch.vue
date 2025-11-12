@@ -64,12 +64,21 @@ const searchResults = computed<SearchGroup[]>(() => {
     .map<SearchGroup>(([label, options]) => ({ label, options }));
 
   // add custom system wide actions
+  const systemOptions: OnyxGlobalSearchOptionProps[] = [
+    { label: t("onyx.colorScheme.headline"), value: "colorScheme", icon: iconCircleContrast },
+  ];
+
+  if (locales.value.length > 1) {
+    systemOptions.unshift({
+      label: t("onyx.languageSelect.headline"),
+      value: "locale",
+      icon: iconTranslate,
+    });
+  }
+
   groups.push({
     label: t("onyx.globalSearch.system"),
-    options: [
-      { label: t("onyx.languageSelect.headline"), value: "locale", icon: iconTranslate },
-      { label: t("onyx.colorScheme.headline"), value: "colorScheme", icon: iconCircleContrast },
-    ],
+    options: systemOptions,
   });
 
   return groups;
@@ -113,7 +122,7 @@ const filteredSearchResults = computed(() => {
         :skeleton="status === 'pending'"
       >
         <template v-for="option in group.options" :key="option.value">
-          <LazyLocaleSwitch v-if="option.value === 'locale' && locales.length > 1">
+          <LazyLocaleSwitch v-if="option.value === 'locale'">
             <template #default="{ trigger }">
               <OnyxUnstableGlobalSearchOption v-bind="mergeVueProps(trigger, option)" />
             </template>
