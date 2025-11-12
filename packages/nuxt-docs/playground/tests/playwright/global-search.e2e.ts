@@ -38,6 +38,7 @@ test("should show global search", async ({ page, goto }) => {
   await expect(page).toHaveScreenshot("global-search-system-options.png");
 
   // ACT
+  await input.clear();
   const colorSchemeOption = dialog.getByRole("option", { name: "Change appearance" });
   await colorSchemeOption.click();
 
@@ -58,7 +59,6 @@ test("should show global search", async ({ page, goto }) => {
   // ACT
   await languageDialog.getByText("Deutsch").click();
   await languageDialog.getByRole("button", { name: "Apply" }).click();
-  await input.clear();
 
   // ASSERT
   await expect(
