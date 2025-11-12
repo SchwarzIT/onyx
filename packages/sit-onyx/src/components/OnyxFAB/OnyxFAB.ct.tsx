@@ -100,6 +100,61 @@ test.describe("Screenshot tests (options, icons only)", () => {
   });
 });
 
+test.describe("FAB offset", () => {
+  test("should correctly apply custom offset", async ({ mount, page }) => {
+    // ARRANGE
+    const customOffset = { x: "42px", y: "10rem" };
+
+    await mount(
+      <div style={{ height: "100vh", width: "50vw" }}>
+        <OnyxFAB
+          label="Test FAB"
+          alignment="right"
+          style={{
+            "--onyx-fab-offset-x": customOffset.x,
+            "--onyx-fab-offset-y": customOffset.y,
+          }}
+        />
+      </div>,
+    );
+
+    const fabContainer = page.locator(".onyx-fab");
+
+    // ASSERT
+    const rightOffset = await fabContainer.evaluate((el) => window.getComputedStyle(el).right);
+    expect(rightOffset).toBe("54px"); // 42px + 0.75rem (12px default viewport gap)
+
+    const bottomOffset = await fabContainer.evaluate((el) => window.getComputedStyle(el).bottom);
+    expect(bottomOffset).toBe("172px"); // 10rem (160px) + 0.75rem (12px default viewport gap)
+
+    await expect(page).toHaveScreenshot("fab-offset.png");
+  });
+
+  test("should correctly apply custom offset for left alignment", async ({ mount, page }) => {
+    const customOffset = { x: "-0.25rem", y: "50px" };
+
+    await mount(
+      <OnyxFAB
+        label="Test FAB Left"
+        alignment="left"
+        style={{
+          "--onyx-fab-offset-x": customOffset.x,
+          "--onyx-fab-offset-y": customOffset.y,
+        }}
+      />,
+    );
+
+    const fabContainer = page.locator(".onyx-fab");
+
+    // ASSERT
+    const leftOffset = await fabContainer.evaluate((el) => window.getComputedStyle(el).left);
+    expect(leftOffset).toBe("8px"); // -0.25rem (4px)  + 0.75rem (12px default viewport gap)
+
+    const bottomOffset = await fabContainer.evaluate((el) => window.getComputedStyle(el).bottom);
+    expect(bottomOffset).toBe("62px"); // 50px + 0.75rem (12px default viewport gap)
+  });
+});
+
 test.describe("Popover API (webkit)", () => {
   test.use({ userAgent: "My user agent" });
 

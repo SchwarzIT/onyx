@@ -93,12 +93,15 @@ const triggerIcon = computed(() => {
 .onyx-fab {
   @include layers.component() {
     --onyx-fab-viewport-gap: var(--onyx-density-sm);
+    --onyx-fab-offset-x: 0rem;
+    --onyx-fab-offset-y: 0rem;
     --onyx-basic-popover-gap: var(--onyx-density-sm);
+
     font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-inverted);
     position: fixed;
-    bottom: var(--onyx-fab-viewport-gap);
-    right: var(--onyx-fab-viewport-gap);
+    bottom: calc(var(--onyx-fab-viewport-gap) + var(--onyx-fab-offset-y));
+    right: calc(var(--onyx-fab-viewport-gap) + var(--onyx-fab-offset-x));
     z-index: var(--onyx-z-index-notification);
 
     .onyx-flyout-menu__list-header,
@@ -115,7 +118,7 @@ const triggerIcon = computed(() => {
 
     &--left {
       right: unset;
-      left: var(--onyx-fab-viewport-gap);
+      left: calc(var(--onyx-fab-viewport-gap) + var(--onyx-fab-offset-x));
 
       .onyx-flyout-menu__wrapper {
         align-items: flex-start;
