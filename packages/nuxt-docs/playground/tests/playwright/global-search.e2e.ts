@@ -19,6 +19,11 @@ test("should show global search", async ({ page, goto }) => {
   await expect(dialog).toBeVisible();
   await expect(page).toHaveScreenshot("global-search.png");
 
+  await expect(dialog.getByRole("option", { name: "Unordered list" })).toHaveAttribute(
+    "href",
+    "/#unordered-list",
+  );
+
   // ACT
   const input = dialog.getByLabel("Search for content");
   await input.fill("Headline");
@@ -33,16 +38,6 @@ test("should show global search", async ({ page, goto }) => {
   await expect(page).toHaveScreenshot("global-search-system-options.png");
 
   // ACT
-  const languageOption = dialog.getByRole("option", { name: "Change language" });
-  await languageOption.click();
-
-  // ASSERT
-  const languageDialog = page.getByRole("dialog", { name: "Change language" });
-  await expect(languageDialog).toBeVisible();
-
-  // ACT
-  await languageDialog.getByRole("button", { name: "Cancel" }).click();
-
   const colorSchemeOption = dialog.getByRole("option", { name: "Change appearance" });
   await colorSchemeOption.click();
 
@@ -52,4 +47,22 @@ test("should show global search", async ({ page, goto }) => {
 
   // ACT
   await colorSchemeDialog.getByRole("button", { name: "Cancel" }).click();
+
+  const languageOption = dialog.getByRole("option", { name: "Change language" });
+  await languageOption.click();
+
+  // ASSERT
+  const languageDialog = page.getByRole("dialog", { name: "Change language" });
+  await expect(languageDialog).toBeVisible();
+
+  // ACT
+  await languageDialog.getByText("Deutsch").click();
+  await languageDialog.getByRole("button", { name: "Apply" }).click();
+  await input.clear();
+
+  // ASSERT
+  await expect(
+    page.getByRole("option", { name: "Ungeordnete Liste" }),
+    "should use locale path for links",
+  ).toHaveAttribute("href", "/de#ungeordnete-liste");
 });
