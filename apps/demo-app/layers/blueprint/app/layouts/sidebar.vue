@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { iconSearch, iconSidebarArrowLeft, iconSidebarArrowRight } from "@sit-onyx/icons";
-import { normalizedIncludes } from "sit-onyx";
+import { normalizedIncludes, useGlobalFAB } from "sit-onyx";
 
 const props = defineProps<{
   sidebarItems: SidebarItem[];
@@ -26,6 +26,26 @@ const filteredItems = computed(() => {
 });
 
 const isOpen = ref(true);
+
+const globalFAB = useGlobalFAB();
+
+const id = useId();
+
+const handleClick = () => {
+  isOpen.value = !isOpen.value;
+};
+globalFAB.add(
+  computed(() => ({
+    id,
+    label: $t("blueprint.toggleSidebar"),
+    icon: isOpen.value ? iconSidebarArrowLeft : iconSidebarArrowRight,
+    onClick: handleClick,
+    alignment: "left",
+  })),
+);
+onUnmounted(() => {
+  globalFAB.remove(id);
+});
 </script>
 
 <template>
@@ -61,14 +81,6 @@ const isOpen = ref(true);
     </template>
 
     <slot></slot>
-
-    <OnyxFAB
-      :label="$t('blueprint.toggleSidebar')"
-      alignment="left"
-      :icon="isOpen ? iconSidebarArrowLeft : iconSidebarArrowRight"
-      hide-label
-      @click="isOpen = !isOpen"
-    />
 
     <template v-if="!!slots.footer" #footer>
       <slot name="footer"></slot>
