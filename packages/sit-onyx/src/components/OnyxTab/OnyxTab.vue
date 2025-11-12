@@ -78,7 +78,7 @@ const tab = computed(() =>
       v-bind="
         mergeVueProps(tabsContext?.headless.elements.tabpanel.value({ value: props.value }), attrs)
       "
-      class="onyx-tab__panel"
+      class="onyx-tab__panel onyx-text"
     >
       <slot></slot>
     </div>
