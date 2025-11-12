@@ -13,7 +13,7 @@ type SearchGroup = {
   options: OnyxGlobalSearchOptionProps[];
 };
 
-const { t, locale } = useI18n();
+const { t, locale, locales } = useI18n();
 const localePath = useLocalePath();
 
 const isOpen = ref(false);
@@ -113,11 +113,11 @@ const filteredSearchResults = computed(() => {
         :skeleton="status === 'pending'"
       >
         <template v-for="option in group.options" :key="option.value">
-          <LocaleSwitch v-if="option.value === 'locale'">
+          <LazyLocaleSwitch v-if="option.value === 'locale' && locales.length > 1">
             <template #default="{ trigger }">
               <OnyxUnstableGlobalSearchOption v-bind="mergeVueProps(trigger, option)" />
             </template>
-          </LocaleSwitch>
+          </LazyLocaleSwitch>
 
           <ColorSchemeSwitch v-else-if="option.value === 'colorScheme'">
             <template #default="{ trigger }">
