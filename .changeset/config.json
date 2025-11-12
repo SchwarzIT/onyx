@@ -7,7 +7,12 @@
   "access": "public",
   "baseBranch": "origin/main",
   "updateInternalDependencies": "patch",
-  "ignore": ["@sit-onyx/demo-app", "@sit-onyx/docs-app", "@sit-onyx/playground-app"],
+  "ignore": [
+    "@sit-onyx/demo-app",
+    "@sit-onyx/docs-app",
+    "@sit-onyx/playground-app",
+    "@sit-onyx/showcase"
+  ],
   "snapshot": {
     "useCalculatedVersion": true
   },
