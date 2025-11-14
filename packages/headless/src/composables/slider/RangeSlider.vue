@@ -1,57 +1,31 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { _unstableCreateSlider } from "./createSlider.js";
+import { _unstableCreateSlider } from "./createSlider2.js";
 
-const modelValue = ref([25, 75]);
-const committed = ref<number[] | null>(null);
-const min = ref(0);
-const max = ref(100);
-const step = ref(1);
-
-const onChange = (values: number[]) => {
-  modelValue.value = values;
-};
-
-const onCommit = (values: number[]) => {
-  committed.value = values;
-};
-
-const slider = _unstableCreateSlider({
-  value: modelValue,
-  min,
-  max,
-  step,
-  onChange,
-  onCommit,
-  label: "Range Slider",
-});
+const value = ref<[number, number]>([25, 75]);
 
 const {
-  elements: { root, thumbInput, thumbContainer, track, rail },
-  state: { trackOffset, trackLength },
-} = slider;
-
-defineExpose({ slider });
+  elements: { root, thumbInput, thumbContainer, track },
+} = _unstableCreateSlider({
+  label: "Range Slider",
+  value,
+  onChange: (newValue) => (value.value = newValue),
+});
 </script>
 
 <template>
   <div class="slider-container">
     <div v-bind="root" class="slider-root">
-      <div v-bind="rail" class="slider-rail"></div>
-      <div
-        v-bind="track"
-        class="slider-track"
-        :style="{ left: `${trackOffset}%`, width: `${trackLength}%` }"
-      ></div>
+      <div class="slider-rail"></div>
+      <div v-bind="track" class="slider-track"></div>
 
       <div
-        v-for="(value, index) in modelValue"
+        v-for="(thumbValue, index) in value"
         :key="index"
-        v-bind="thumbContainer({ value, index })"
+        v-bind="thumbContainer({ value: thumbValue, index })"
         class="slider-thumb"
-        :style="{ left: `${((value - min) / (max - min)) * 100}%` }"
       >
-        <input class="visually-hidden" v-bind="thumbInput({ index, value })" />
+        <input class="visually-hidden" v-bind="thumbInput({ index, value: thumbValue })" />
       </div>
     </div>
   </div>

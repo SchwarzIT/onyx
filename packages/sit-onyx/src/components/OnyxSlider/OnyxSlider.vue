@@ -65,56 +65,31 @@ const { disabled, showError } = useFormContext(props);
 const errorClass = useErrorClass(showError);
 const skeleton = useSkeletonContext(props);
 
-const { min, max, step, marks, label, discrete } = toRefs(props);
+const { min, max, step, label, discrete } = toRefs(props);
 
 const {
-  elements: { root, rail, track, thumbContainer, thumbInput, mark, markLabel },
-  state: { activeThumbIndex, marksList, shiftStep, normalizedValues },
-  internals: { roundToStep, clampValue },
+  elements: { root, track, thumbContainer, thumbInput, mark, markLabel },
+  state: { normalizedValue, marks, shiftStep },
+  internals: { updateValue },
 } = _unstableCreateSlider({
   value: modelValue,
   min,
   max,
   step,
   label,
-  marks,
+  marks: toRef(props, "marks"),
   discrete,
   disabled,
   shiftStep: toRef(props, "shiftStep"),
   onChange: (newValue) => (modelValue.value = newValue),
 });
 
-// TODO: replace with a new function exposed from "createSlider" that changes the value in a normalized way
-const handleSliderInputControlChange = (index: number, value: number) => {
-  const rounded = roundToStep.value(clampValue.value(value));
+const activeThumbIndex = -1;
 
-  if (rounded === undefined) return;
-
-  if (Array.isArray(modelValue.value)) {
-    /**
-     * Ensure that input controls in range mode do not cross over each other
-     */
-    if (index === 0 && rounded <= (modelValue.value[1] ?? props.max)) {
-      modelValue.value = [rounded, modelValue.value[1]] as SliderValue<TSliderMode>;
-
-      return;
-    }
-
-    if (index === 1 && rounded >= (modelValue.value[0] ?? props.min)) {
-      modelValue.value = [modelValue.value[0], rounded] as SliderValue<TSliderMode>;
-
-      return;
-    }
-  } else {
-    modelValue.value = rounded as SliderValue<TSliderMode>;
-  }
-};
-
-// TODO: replace with a new function exposed from "createSlider" that changes the value in a normalized way
-const handleSliderIconControlChange = (value: number) => {
-  const rounded = roundToStep.value(clampValue.value(value));
-  if (rounded === undefined) return;
-  modelValue.value = rounded as SliderValue<TSliderMode>;
+const updateThumbValue = (value: number, index = 0) => {
+  const currentValue = normalizedValue.value.slice() as typeof normalizedValue.value;
+  currentValue[index] = value;
+  updateValue(currentValue);
 };
 </script>
 
@@ -153,25 +128,24 @@ const handleSliderIconControlChange = (value: number) => {
             control="icon"
             direction="decrease"
             :shift-step="shiftStep"
-            :model-value="normalizedValues[0]"
-            :disabled="disabled || (normalizedValues[0] ?? props.min) <= props.min"
-            @update:model-value="handleSliderIconControlChange"
+            :model-value="normalizedValue[0]"
+            :disabled="disabled || (normalizedValue[0] ?? props.min) <= props.min"
+            @update:model-value="updateThumbValue"
           />
           <OnyxSliderControl
             v-else-if="props.control === 'input' && props.mode === 'range'"
             control="input"
             direction="increase"
             :disabled="disabled"
-            :model-value="normalizedValues[0] ?? 0"
-            @update:model-value="(value) => handleSliderInputControlChange(0, value)"
+            :model-value="normalizedValue[0] ?? 0"
+            @update:model-value="updateThumbValue"
           />
 
-          <!-- Explicit passive touchstart: v-bind="root" doesn’t support { passive: true } -->
-          <span class="onyx-slider__root" v-bind="root" @touchstart.passive="root.onTouchstart">
-            <span class="onyx-slider__rail" v-bind="rail"></span>
+          <span class="onyx-slider__root" v-bind="root">
+            <span class="onyx-slider__rail"></span>
             <span class="onyx-slider__track" v-bind="track"></span>
 
-            <template v-for="markItem in marksList" :key="markItem.value">
+            <template v-for="markItem in marks" :key="markItem.value">
               <span
                 class="onyx-slider__mark"
                 v-bind="
@@ -188,7 +162,7 @@ const handleSliderIconControlChange = (value: number) => {
             </template>
 
             <span
-              v-for="(value, index) in normalizedValues"
+              v-for="(value, index) in normalizedValue"
               :key="index"
               v-bind="thumbContainer({ value, index })"
               :class="[
@@ -206,11 +180,12 @@ const handleSliderIconControlChange = (value: number) => {
                   <span v-bind="trigger">
                     <OnyxVisuallyHidden>
                       <input
+                        :id="index === 0 ? inputId : undefined"
                         v-custom-validity
                         class="onyx-slider__native"
                         v-bind="thumbInput({ value, index })"
                         :disabled="disabled"
-                        :aria-label="props.label || inputId"
+                        :aria-label="props.label"
                         :autofocus="props.autofocus && index === 0"
                       />
                     </OnyxVisuallyHidden>
@@ -230,18 +205,16 @@ const handleSliderIconControlChange = (value: number) => {
             control="icon"
             direction="increase"
             :shift-step="shiftStep"
-            :model-value="normalizedValues[0]"
-            @update:model-value="handleSliderIconControlChange"
+            :model-value="normalizedValue[0]"
+            @update:model-value="updateThumbValue"
           />
           <OnyxSliderControl
             v-else-if="props.control === 'input'"
             control="input"
             :direction="props.mode === 'range' ? 'decrease' : undefined"
             :disabled="disabled"
-            :model-value="normalizedValues[1] ?? normalizedValues[0] ?? 0"
-            @update:model-value="
-              (value) => handleSliderInputControlChange(props.mode === 'range' ? 1 : 0, value)
-            "
+            :model-value="normalizedValue[1] ?? normalizedValue[0] ?? 0"
+            @update:model-value="updateThumbValue($event, props.mode === 'range' ? 1 : 0)"
           />
         </div>
       </template>

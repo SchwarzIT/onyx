@@ -16,13 +16,10 @@ test("single-thumb slider", async ({ mount, page }) => {
     slider: page.getByRole("slider"),
     container: component.locator(".slider-root"),
     initialValues: [25],
-    min: 0,
-    max: 100,
-    step: 1,
   });
 });
 
-test("multi-thumb slider", async ({ mount, page }) => {
+test("range slider", async ({ mount, page }) => {
   const component = await mount(<RangeSlider />);
 
   await multiThumbSliderTesting({
@@ -30,9 +27,6 @@ test("multi-thumb slider", async ({ mount, page }) => {
     slider: page.getByRole("slider"),
     container: component.locator(".slider-root"),
     initialValues: [25, 75],
-    min: 0,
-    max: 100,
-    step: 1,
   });
 });
 

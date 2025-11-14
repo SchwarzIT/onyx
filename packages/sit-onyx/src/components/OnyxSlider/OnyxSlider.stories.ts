@@ -55,12 +55,14 @@ export const Marks = {
   },
 } satisfies Story;
 
+// TODO: does discrete make any sense? Consider removing it
 export const Discrete = {
   args: {
-    label: "Discrete",
-    modelValue: 0,
+    label: "Rate your experience",
+    modelValue: 50,
+    step: 25,
+    marks: true,
     discrete: true,
-    max: 5,
   },
 } satisfies Story;
 
