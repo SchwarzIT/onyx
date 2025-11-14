@@ -2,6 +2,13 @@
 import { iconTranslate } from "@sit-onyx/icons";
 import type { SelectDialogOption } from "sit-onyx";
 
+defineSlots<{
+  /**
+   * Optional slot to override the trigger slot.
+   */
+  default?(props: { trigger: typeof trigger }): unknown;
+}>();
+
 const { locale, setLocale, locales } = useI18n();
 const isLanguageDialogOpen = ref(false);
 
@@ -18,16 +25,22 @@ const currentLocaleLabel = computed(() => {
   // using "!" here is safe since splitting a string will always return at least one string in the returned array
   return locale.value.split("-")[0]!.split("_")[0]!.toUpperCase();
 });
+
+const trigger = {
+  onClick: () => (isLanguageDialogOpen.value = true),
+};
 </script>
 
 <template>
-  <OnyxButton
-    :label="currentLocaleLabel"
-    :icon="iconTranslate"
-    color="neutral"
-    mode="plain"
-    @click="isLanguageDialogOpen = true"
-  />
+  <slot :trigger>
+    <OnyxButton
+      :label="currentLocaleLabel"
+      :icon="iconTranslate"
+      color="neutral"
+      mode="plain"
+      v-bind="trigger"
+    />
+  </slot>
 
   <OnyxSelectDialog
     v-model:open="isLanguageDialogOpen"

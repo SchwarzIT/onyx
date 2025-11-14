@@ -29,8 +29,10 @@ const localePath = useLocalePath();
 
     <slot></slot>
 
-    <template v-if="slots.globalContextArea" #globalContextArea>
-      <slot name="globalContextArea"></slot>
+    <template #globalContextArea>
+      <slot name="globalContextArea">
+        <GlobalSearch />
+      </slot>
     </template>
 
     <template v-if="slots.mobileActivePage" #mobileActivePage>

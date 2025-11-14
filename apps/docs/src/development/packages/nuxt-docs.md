@@ -28,11 +28,12 @@ A full changelog can be found [here](/development/packages/changelogs/nuxt-docs)
 
 The package includes the following features:
 
-- pre-defined page layouts (landing page, docs etc.)
+- pre-defined [page layouts](#layouts) (default, sidebar etc.)
 - pre-configured [Nuxt content](https://content.nuxt.com/) module to render markdown pages with onyx components.
 - custom user friendly error page for 404, unexpected errors etc.
 - supports Nuxt 4
 - integration with [Nuxt i18n](https://i18n.nuxtjs.org/)
+- auto generated global search for searching any markdown content
 
 ## Installation
 

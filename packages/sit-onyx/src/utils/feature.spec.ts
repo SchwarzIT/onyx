@@ -1,10 +1,10 @@
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, test, vi } from "vitest";
 import { applyMapping, prepareMapping, type SingleOrderableMapping } from "./feature.js";
 
 describe("prepareMapping", () => {
   const func = <T>(a: T) => a;
 
-  it.each([
+  test.each([
     {
       title: "should work for no features",
       features: [],
@@ -104,13 +104,13 @@ describe("prepareMapping", () => {
 });
 
 describe("applyMapping", () => {
-  it("should work for no mapping", () => {
+  test("should work for no mapping", () => {
     const input = {};
     const mappings = [] as SingleOrderableMapping<unknown, unknown, unknown>[];
     expect(applyMapping(mappings, input)).toBe(input);
   });
 
-  it("should work for a single mapping", () => {
+  test("should work for a single mapping", () => {
     const input = {};
     const func = vi.fn((a) => a);
     const mappings = [{ func }];
@@ -118,7 +118,7 @@ describe("applyMapping", () => {
     expect(func).toBeCalledTimes(1);
   });
 
-  it("should work for a multiple mappings", () => {
+  test("should work for a multiple mappings", () => {
     const input = {};
     const func = vi.fn((a) => a);
     const mappings = [{ func }, { func }];

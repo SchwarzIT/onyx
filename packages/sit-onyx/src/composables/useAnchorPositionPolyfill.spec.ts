@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, test } from "vitest";
 import { ref } from "vue";
 import { useAnchorPositionPolyfill, type AnchorPosition } from "./useAnchorPositionPolyfill.js";
 import type { OpenAlignment } from "./useOpenAlignment.js";
@@ -26,7 +26,7 @@ describe("useAnchorPositionPolyfill", () => {
     };
   });
 
-  it("should initialize positions to -1000px", () => {
+  test("should initialize positions to -1000px", () => {
     const { leftPosition, topPosition } = useAnchorPositionPolyfill({
       positionedRef,
       targetRef,
@@ -40,7 +40,7 @@ describe("useAnchorPositionPolyfill", () => {
     expect(topPosition.value).toBe("-1000px");
   });
 
-  it("should update positions correctly", () => {
+  test("should update positions correctly", () => {
     const { leftPosition, topPosition, updateAnchorPositionPolyfill } = useAnchorPositionPolyfill({
       positionedRef,
       targetRef,

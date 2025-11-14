@@ -1,0 +1,31 @@
+{
+  "name": "@sit-onyx/showcase",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "license": "Apache-2.0",
+  "author": "Schwarz IT KG",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SchwarzIT/onyx",
+    "directory": "apps/showcase"
+  },
+  "scripts": {
+    "build": "nuxt prepare && nuxt build",
+    "dev": "nuxt prepare && nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview"
+  },
+  "dependencies": {
+    "@nuxt/content": "^3.8.0",
+    "@sit-onyx/flags": "workspace:^",
+    "@sit-onyx/icons": "workspace:^",
+    "@sit-onyx/nuxt": "workspace:^",
+    "@sit-onyx/nuxt-docs": "workspace:^",
+    "better-sqlite3": "^12.4.1",
+    "nuxt": "catalog:",
+    "sit-onyx": "workspace:^",
+    "vue": "catalog:",
+    "vue-router": "^4.6.3"
+  }
+}

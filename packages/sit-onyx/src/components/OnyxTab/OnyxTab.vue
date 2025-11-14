@@ -172,6 +172,8 @@ const tab = computed(() =>
     &__panel {
       font-family: var(--onyx-font-family);
       color: var(--onyx-color-text-icons-neutral-intense);
+      font-size: var(--onyx-font-size-md);
+      line-height: var(--onyx-font-line-height-md);
     }
 
     &-skeleton {

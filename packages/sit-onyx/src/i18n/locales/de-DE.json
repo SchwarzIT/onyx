@@ -260,6 +260,7 @@
     "shortcuts": {
       "move": "Navigieren",
       "select": "Auswählen"
-    }
+    },
+    "system": "System"
   }
 }

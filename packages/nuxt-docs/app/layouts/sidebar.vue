@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import type { ContentNavigationItem } from "@nuxt/content";
-import { iconSearch } from "@sit-onyx/icons";
-import { normalizedIncludes, type OnyxPageLayoutProps, type OnyxSidebarProps } from "sit-onyx";
+import { type OnyxPageLayoutProps, type OnyxSidebarProps } from "sit-onyx";
 
 const props = defineProps<
   OnyxPageLayoutProps & {
@@ -47,35 +46,7 @@ const navigation = await useAsyncData(
   },
 );
 
-const searchTerm = ref("");
-
-const allSidebarItems = computed(() => navigation.data.value ?? []);
-
-const filterItem = (
-  item: ContentNavigationItem,
-  search: string,
-): ContentNavigationItem | undefined => {
-  if (!item.children) {
-    return normalizedIncludes(item.title, search) ? item : undefined;
-  }
-
-  const children = item.children
-    .map((child) => filterItem(child, search))
-    .filter((child) => child != undefined);
-
-  if (!children.length) return undefined;
-  return { ...item, children };
-};
-
-const filteredSidebarItems = computed(() => {
-  if (!searchTerm.value) return allSidebarItems.value;
-
-  const items = allSidebarItems.value
-    .map((item) => filterItem(item, searchTerm.value))
-    .filter((item) => item != undefined);
-
-  return items;
-});
+const sidebarItems = computed(() => navigation.data.value ?? []);
 </script>
 
 <template>
@@ -86,29 +57,14 @@ const filteredSidebarItems = computed(() => {
         v-bind="props.sidebar"
         :label="$t('onyx.navigation.navigationHeadline')"
       >
-        <template #header>
-          <slot name="sidebarHeader">
-            <OnyxInput
-              v-model="searchTerm"
-              :label="$t('onyx.select.searchPlaceholder')"
-              hide-label
-              :placeholder="$t('onyx.select.searchPlaceholder')"
-            >
-              <template #leading>
-                <OnyxIcon :icon="iconSearch" />
-              </template>
-            </OnyxInput>
-          </slot>
+        <template v-if="slots.sidebarHeader" #header>
+          <slot name="sidebarHeader"> </slot>
         </template>
 
-        <slot name="sidebarBody" :items="filteredSidebarItems">
-          <SidebarItem
-            v-for="item in filteredSidebarItems"
-            :key="localePath(item.path)"
-            :item="item"
-          />
+        <slot name="sidebarBody" :items="sidebarItems">
+          <SidebarItem v-for="item in sidebarItems" :key="localePath(item.path)" :item="item" />
 
-          <OnyxEmpty v-if="!filteredSidebarItems.length" class="sidebar__empty">
+          <OnyxEmpty v-if="!sidebarItems.length" class="sidebar__empty">
             {{ $t("onyx.select.empty") }}
           </OnyxEmpty>
         </slot>

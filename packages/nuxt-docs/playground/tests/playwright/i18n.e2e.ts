@@ -16,6 +16,8 @@ test("should show language select in nav bar", async ({ page, goto }) => {
 
   // ASSERT
   const dialog = page.getByRole("dialog", { name: "Change language" });
+  await expect(dialog).toBeVisible();
+  await expect(page).toHaveScreenshot("language-switch.png");
 
   // ACT
   await dialog.getByText("Deutsch").click();

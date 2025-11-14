@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, test } from "vitest";
 import { nextTick, ref, type Ref } from "vue";
 import type { DateRange, DateValue } from "../../utils/dates.js";
 import {
@@ -59,7 +59,7 @@ const triggerKey = async (elements: any, key: string, opts: KeyboardEventInit = 
 describe("createCalendar (Headless)", () => {
   const initialDate = createDate(2025, 8, 15);
 
-  it("should initialize with correct default values", () => {
+  test("should initialize with correct default values", () => {
     const today = createDate(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
     const { state, modelValue } = setupCalendar({});
 
@@ -79,7 +79,7 @@ describe("createCalendar (Headless)", () => {
     ]);
   });
 
-  it("should respect min and max dates", () => {
+  test("should respect min and max dates", () => {
     const min = createDate(2025, 8, 10);
     const max = createDate(2025, 8, 20);
     const { internals } = setupCalendar({ min, max });
@@ -89,7 +89,7 @@ describe("createCalendar (Headless)", () => {
     expect(internals.isDisabled.value(createDate(2025, 8, 21))).toBe(true);
   });
 
-  it("should disable all dates when disabled is true", () => {
+  test("should disable all dates when disabled is true", () => {
     const { internals } = setupCalendar({
       disabled: true,
     });
@@ -99,7 +99,7 @@ describe("createCalendar (Headless)", () => {
     expect(internals.isDisabled.value(new Date())).toBe(true);
   });
 
-  it("should only disable days specified by the disabled function", () => {
+  test("should only disable days specified by the disabled function", () => {
     const disableMondays = (date: Date) => date.getDay() === 1;
     const mondayDate = createDate(2025, 8, 15);
     const tuesdayDate = createDate(2025, 8, 16);
@@ -111,7 +111,7 @@ describe("createCalendar (Headless)", () => {
     expect(internals.isDisabled.value(tuesdayDate)).toBe(false);
   });
 
-  it("should navigate months correctly", () => {
+  test("should navigate months correctly", () => {
     const { state, internals, viewMonth } = setupCalendar({ viewMonth: initialDate });
 
     // viewMonth is initialized, state reflects this
@@ -125,7 +125,7 @@ describe("createCalendar (Headless)", () => {
     expect((viewMonth.value as Date).getMonth()).toBe(8);
   });
 
-  it("should handle goToToday correctly", () => {
+  test("should handle goToToday correctly", () => {
     const today = createDate(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
     const { internals, viewMonth } = setupCalendar({ viewMonth: createDate(2020, 0, 1) });
 
@@ -134,7 +134,7 @@ describe("createCalendar (Headless)", () => {
     expect(internals.isToday(today)).toBe(true);
   });
 
-  it("should correctly identify selection states (Single Mode)", () => {
+  test("should correctly identify selection states (Single Mode)", () => {
     const selectedDate = createDate(2025, 8, 15);
     const { internals, modelValue } = setupCalendar({ selection: "single" });
 
@@ -143,7 +143,7 @@ describe("createCalendar (Headless)", () => {
     expect(internals.isSelected.value(createDate(2025, 8, 16))).toBe(false);
   });
 
-  it("should correctly handle date selection (Single Mode)", () => {
+  test("should correctly handle date selection (Single Mode)", () => {
     const { internals, modelValue } = setupCalendar({
       viewMonth: initialDate,
       selection: "single",
@@ -161,7 +161,7 @@ describe("createCalendar (Headless)", () => {
     const dateA = createDate(2025, 8, 15); // Mon
     const dateB = createDate(2025, 8, 16); // Tue
 
-    it("should add dates to the array when selecting multiple", () => {
+    test("should add dates to the array when selecting multiple", () => {
       const { internals, modelValue } = setupCalendar({ selection: "multiple" });
 
       // 1. Select dateA
@@ -177,7 +177,7 @@ describe("createCalendar (Headless)", () => {
       expect(((modelValue.value as DateValue[])[1] as Date).getTime()).toBe(dateB.getTime());
     });
 
-    it("should remove (toggle off) dates that are already selected", () => {
+    test("should remove (toggle off) dates that are already selected", () => {
       const initialSelection: DateValue[] = [dateA, dateB];
       const { internals, modelValue } = setupCalendar({
         selection: "multiple",
@@ -197,7 +197,7 @@ describe("createCalendar (Headless)", () => {
   });
 
   describe("Range Selection Mode", () => {
-    it("should correctly set the start and end points", () => {
+    test("should correctly set the start and end points", () => {
       const { internals, modelValue } = setupCalendar({ selection: "range" });
       const start = createDate(2025, 8, 15);
       const end = createDate(2025, 8, 20);
@@ -215,7 +215,7 @@ describe("createCalendar (Headless)", () => {
       expect(internals.isSelected.value(end)).toBe(true);
     });
 
-    it("should correct the order if the end date is before the start date", () => {
+    test("should correct the order if the end date is before the start date", () => {
       const { internals, modelValue } = setupCalendar({ selection: "range" });
       const start = createDate(2025, 8, 20);
       const end = createDate(2025, 8, 15);
@@ -235,7 +235,7 @@ describe("createCalendar (Headless)", () => {
     });
   });
 
-  it("should handle keyboard navigation correctly", async () => {
+  test("should handle keyboard navigation correctly", async () => {
     const { elements, state, viewMonth } = setupCalendar({ viewMonth: initialDate });
     const startFocusedDate = initialDate; // Mon, Sept 15, 2025
     state.focusedDate.value = startFocusedDate;

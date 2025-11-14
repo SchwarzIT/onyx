@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, test, vi } from "vitest";
 import { ref, type Ref } from "vue";
 import { mockVueLifecycle } from "../../utils/vitest.js";
 import { useGlobalEventListener } from "./useGlobalListener.js";
@@ -15,11 +15,11 @@ describe("useGlobalEventListener", () => {
     document.body.appendChild(target.value);
   });
 
-  it("should be defined", () => {
+  test("should be defined", () => {
     expect(useGlobalEventListener).toBeDefined();
   });
 
-  it("should listen to global events", () => {
+  test("should listen to global events", () => {
     // ARRANGE
     const listener = vi.fn();
     useGlobalEventListener({ type: "click", listener });
@@ -31,7 +31,7 @@ describe("useGlobalEventListener", () => {
     expect(listener).toBeCalledWith(event);
   });
 
-  it("should stop to listen to global events after unmount", async () => {
+  test("should stop to listen to global events after unmount", async () => {
     // ARRANGE
     const listener = vi.fn();
     useGlobalEventListener({ type: "click", listener });
@@ -43,7 +43,7 @@ describe("useGlobalEventListener", () => {
     expect(listener).toHaveBeenCalledTimes(0);
   });
 
-  it("should allow for multiple of the same listener types", async () => {
+  test("should allow for multiple of the same listener types", async () => {
     // ARRANGE
     vi.useFakeTimers();
     const listener = vi.fn();
@@ -66,7 +66,7 @@ describe("useGlobalEventListener", () => {
     expect(listener2).toHaveBeenCalledTimes(2);
   });
 
-  it("should not listen to events when disabled", async () => {
+  test("should not listen to events when disabled", async () => {
     // ARRANGE
     vi.useFakeTimers();
     const disabled = ref(false);
