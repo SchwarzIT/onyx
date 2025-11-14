@@ -162,7 +162,7 @@ test.describe("Screenshot tests (controls)", () => {
 
 test.describe("Interaction tests", () => {
   test("should interact with single value slider", async ({ mount }) => {
-    let modelValue: number = 50;
+    let modelValue = 50;
 
     const eventHandlers = {
       "update:modelValue": async (newValue: number) => {
@@ -236,7 +236,7 @@ test.describe("Interaction tests", () => {
   });
 
   test("should handle keyboard navigation", async ({ mount }) => {
-    let modelValue: number = 50;
+    let modelValue = 50;
 
     const eventHandlers = {
       "update:modelValue": async (newValue: number) => {
@@ -285,7 +285,7 @@ test.describe("Interaction tests", () => {
   });
 
   test("should respect min/max boundaries", async ({ mount }) => {
-    let modelValue: number = 50;
+    let modelValue = 50;
 
     const eventHandlers = {
       "update:modelValue": async (newValue: number) => {
@@ -332,7 +332,7 @@ test.describe("Interaction tests", () => {
   });
 
   test("should interact with icon control", async ({ mount }) => {
-    let modelValue: number = 50;
+    let modelValue = 50;
 
     const eventHandlers = {
       "update:modelValue": async (newValue: number) => {
@@ -373,7 +373,7 @@ test.describe("Interaction tests", () => {
   });
 
   test("should handle discrete mode", async ({ mount }) => {
-    let modelValue: number = 50;
+    let modelValue = 50;
 
     const eventHandlers = {
       "update:modelValue": async (newValue: number) => {
@@ -430,7 +430,7 @@ test.describe("Interaction tests", () => {
   });
 
   test("should interact with input control in single mode", async ({ mount }) => {
-    let modelValue: number = 50;
+    let modelValue = 50;
 
     const eventHandlers = {
       "update:modelValue": async (newValue: number) => {
@@ -518,9 +518,8 @@ test.describe("Interaction tests", () => {
     const sliders = component.getByRole("slider");
     const firstSlider = sliders.first();
     const lastSlider = sliders.last();
-    const inputs = component.getByRole("spinbutton");
-    const firstInput = inputs.first();
-    const lastInput = inputs.last();
+    const firstInput = component.getByLabel("Change start value");
+    const lastInput = component.getByLabel("Change end value");
 
     // ASSERT
     await expect(firstInput).toBeVisible();

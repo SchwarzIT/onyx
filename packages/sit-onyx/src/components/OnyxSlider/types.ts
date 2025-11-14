@@ -3,12 +3,11 @@ import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 import type { OnyxFormElementProps } from "../OnyxFormElement/types.js";
 import type { SliderControl } from "../OnyxSliderControl/types.js";
 
-export type SliderMark =
-  | {
-      value: number;
-      label?: string;
-    }
-  | number;
+export type SliderMark = {
+  value: number;
+  label?: string;
+};
+
 export const SLIDER_MODES = ["single", "range"] as const;
 export type SliderMode = (typeof SLIDER_MODES)[number];
 
@@ -32,26 +31,14 @@ export type OnyxSliderProps<TSliderMode extends SliderMode> = CustomValidityProp
     | "modelValue"
   > & {
     /**
-     * Defines the mode of the slider.
-     *
-     * - `single`: A single-thumb slider for selecting one value.
-     * - `range`: A range slider with two thumbs for selecting a value range.
-     *
-     * @default "single"
+     * Defines the mode of the slider (single or range).
      */
     mode?: TSliderMode;
     /**
-     * Current value(s) of the slider.
+     * Current value(s) of the slider, depending on the `mode`.
+     * For a single mode, pass a single number. For range model pass an array with two numbers.
      *
-     * - `single` mode: provide a single value, e.g. `42`.
-     * - `range` mode: provide two values, e.g. `[20, 80]`.
-     *
-     * Constraints:
-     * - Each value must be within `[min, max]`.
-     * - Values should align to `step` (when `discrete` is true they will snap).
-     * - For `range` mode, values should be in ascending order.
-     *
-     * Recommended defaults (if your product has no specific initial value):
+     * Recommended defaults (if your project has no specific initial value):
      * - `single` mode: middle of the range → `(min + max) / 2`.
      * - `range` mode: full range → `[min, max]`.
      */
@@ -65,40 +52,31 @@ export type OnyxSliderProps<TSliderMode extends SliderMode> = CustomValidityProp
      */
     max?: number;
     /**
-     * Step size.
-     *
-     * @default 1
+     * Step size to increase/decrease the slider value when moving the thumb(s).
      */
     step?: number;
     /**
-     * Step size when holding shift key or using Page Up/Page Down keys.
+     * Step size to increase/decrease the slider value when changing the value via keyboard while pressing the "Shift" key.
      *
-     * @default 10% of the total range (max - min) multiplied by the step size.
-     * This provides intuitive behavior that automatically scales with different slider ranges.
+     * @default 10% of the total range (max - min)
      */
     shiftStep?: number;
     /**
-     * Marks to show for each step.
-     * - If set to `true`, marks will be generated automatically based on `step` prop.
-     * - If an array of `SliderMark` is provided, marks will be shown at the specified values with optional labels.
-     * - If set to `false`, no marks will be displayed.
-     *
-     * @default false
+     * Whether to show marks inside the slider rail.
+     * - `true`: will generate marks automatically based on `step` prop
+     * - array of numbers or `SliderMark` objects: will shown at the specified values with optional labels
      */
-    marks?: SliderMark[] | boolean;
+    marks?: SliderMark[] | number[] | boolean;
     /**
-     * Defines if and which control to display in addition to the slider.
-     * Can be used to e.g. display inputs or icon buttons that can also be used to change the value.
+     * Optional value controls to display in addition to the slider.
      *
-     * - `value`: shows min and max value labels. Works in both `single` and `range` modes for discrete and non-discrete sliders.
-     * - `icon`: shows icon buttons to increment/decrement the value. Works only in `single` mode for discrete and non-discrete sliders.
-     * - `input`: shows `<OnyxStepper />` components to input the value directly. Works in both `single` and `range` modes for discrete and non-discrete sliders.
+     * - `value`: shows min and max value labels (non-interactive)
+     * - `icon`: shows icon buttons to increment/decrement the value. Works only in `single` mode
+     * - `input`: shows stepper(s) to input the value directly
      */
     control?: SliderControl;
     /**
-     * When to show the tooltip with the current value over the thumb.
-     *
-     * @default undefined
+     * Whether to disable/hide the tooltip to show the value when hovering over the thumb.
      */
     disableTooltip?: boolean;
     /**
@@ -106,15 +84,7 @@ export type OnyxSliderProps<TSliderMode extends SliderMode> = CustomValidityProp
      */
     skeleton?: SkeletonInjected;
     /**
-     * Whether to render the slider in discrete mode.
-     * In discrete mode, the slider will snap to the nearest step/mark.
-     *
-     * @default false
+     * Whether the use the discrete mode where only values that are multiples of the `step` property can be selected.
      */
     discrete?: boolean;
-    /**
-     * Label to show above the form element. Required due to accessibility / screen readers.
-     * If you want to visually hide the label, use the `hideLabel` property.
-     */
-    label: string;
   };

@@ -40,7 +40,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<{
   /**
-   * Emitted when the slider changes
+   * Emitted when the current value changes.
    */
   "update:modelValue": [value: SliderValue<TSliderMode>];
   /**
@@ -84,6 +84,7 @@ const {
   onChange: (newValue) => (modelValue.value = newValue),
 });
 
+// TODO: replace with a new function exposed from "createSlider" that changes the value in a normalized way
 const handleSliderInputControlChange = (index: number, value: number) => {
   const rounded = roundToStep.value(clampValue.value(value));
 
@@ -109,11 +110,10 @@ const handleSliderInputControlChange = (index: number, value: number) => {
   }
 };
 
+// TODO: replace with a new function exposed from "createSlider" that changes the value in a normalized way
 const handleSliderIconControlChange = (value: number) => {
   const rounded = roundToStep.value(clampValue.value(value));
-
   if (rounded === undefined) return;
-
   modelValue.value = rounded as SliderValue<TSliderMode>;
 };
 </script>
@@ -149,7 +149,7 @@ const handleSliderIconControlChange = (value: number) => {
             :model-value="props.min"
           />
           <OnyxSliderControl
-            v-if="props.control === 'icon' && props.mode === 'single'"
+            v-else-if="props.control === 'icon' && props.mode === 'single'"
             control="icon"
             direction="decrease"
             :shift-step="shiftStep"
@@ -158,8 +158,9 @@ const handleSliderIconControlChange = (value: number) => {
             @update:model-value="handleSliderIconControlChange"
           />
           <OnyxSliderControl
-            v-if="props.control === 'input' && props.mode === 'range'"
+            v-else-if="props.control === 'input' && props.mode === 'range'"
             control="input"
+            direction="increase"
             :disabled="disabled"
             :model-value="normalizedValues[0] ?? 0"
             @update:model-value="(value) => handleSliderInputControlChange(0, value)"
@@ -225,7 +226,7 @@ const handleSliderIconControlChange = (value: number) => {
             :model-value="props.max"
           />
           <OnyxSliderControl
-            v-if="props.control === 'icon' && props.mode === 'single'"
+            v-else-if="props.control === 'icon' && props.mode === 'single'"
             control="icon"
             direction="increase"
             :shift-step="shiftStep"
@@ -233,8 +234,9 @@ const handleSliderIconControlChange = (value: number) => {
             @update:model-value="handleSliderIconControlChange"
           />
           <OnyxSliderControl
-            v-if="props.control === 'input'"
+            v-else-if="props.control === 'input'"
             control="input"
+            :direction="props.mode === 'range' ? 'decrease' : undefined"
             :disabled="disabled"
             :model-value="normalizedValues[1] ?? normalizedValues[0] ?? 0"
             @update:model-value="

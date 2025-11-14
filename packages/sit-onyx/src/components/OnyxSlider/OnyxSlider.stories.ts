@@ -13,7 +13,7 @@ const meta: Meta<typeof OnyxSlider> = {
   decorators: [
     (story) => ({
       components: { story },
-      template: `<div style="max-width: 16rem;"> <story /> </div>`,
+      template: `<div style="max-width: 20rem;"> <story /> </div>`,
     }),
   ],
   argTypes: {
@@ -117,16 +117,8 @@ export const ValueControl = {
 
 export const InputControl = {
   args: {
-    ...Default.args,
+    ...Range.args,
     label: "Input control",
     control: "input",
-    mode: "range",
-    modelValue: [25, 75],
   },
-  decorators: [
-    (story) => ({
-      components: { story },
-      template: `<div style="min-width: 20rem;"> <story /> </div>`,
-    }),
-  ],
 } satisfies Story<"range">;

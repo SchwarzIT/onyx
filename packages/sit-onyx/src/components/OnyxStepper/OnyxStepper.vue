@@ -127,8 +127,9 @@ const handleChange = () => {
     modelValue.value = undefined;
     return;
   }
-  inputValue.value = getFormattedValue.value(parseFloat(inputValue.value));
-  modelValue.value = parseFloat(inputValue.value);
+  const parsedValue = parseFloat(inputValue.value);
+  inputValue.value = isNaN(parsedValue) ? undefined : getFormattedValue.value(parsedValue);
+  modelValue.value = isNaN(parsedValue) ? undefined : parsedValue;
 };
 
 const handleBlur = () => {
