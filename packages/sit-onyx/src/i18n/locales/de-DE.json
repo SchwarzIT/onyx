@@ -239,7 +239,28 @@
     }
   },
   "slider": {
-    "decreaseValue": "Wert um {n} verringern",
-    "increaseValue": "Wert um {n} erhöhen"
+    "decreaseValueBy": "Wert um {n} verringern",
+    "increaseValueBy": "Wert um {n} erhöhen",
+    "changeValue": "Wert ändern"
+  },
+  "codeTabs": {
+    "label": "Codeausschnitte",
+    "copySnippet": "Code kopieren",
+    "copied": "Kopiert!",
+    "failed": "Fehlgeschlagen!",
+    "tabLabel": "Code"
+  },
+  "globalSearch": {
+    "label": "Globale Suche",
+    "searchResults": "Suchergebnisse",
+    "input": {
+      "label": "Nach Inhalten suchen",
+      "placeholder": "Suchen..."
+    },
+    "shortcuts": {
+      "move": "Navigieren",
+      "select": "Auswählen"
+    },
+    "system": "System"
   }
 }

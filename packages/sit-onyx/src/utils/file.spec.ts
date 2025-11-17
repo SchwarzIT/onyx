@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, test } from "vitest";
 import type { FileType } from "../components/OnyxFileUpload/types.js";
 import { validateFileType } from "./file.js";
 
@@ -6,7 +6,7 @@ const jpegFile = { name: "example.jpg", type: "image/jpeg" };
 
 describe("validateFileType", () => {
   describe("valid cases", () => {
-    it.each([
+    test.each([
       {
         title: "should be valid for no accept list",
         accept: undefined,
@@ -52,7 +52,7 @@ describe("validateFileType", () => {
   });
 
   describe("invalid cases", () => {
-    it.each([
+    test.each([
       {
         title: "should be invalid for non-matching media type",
         accept: ["image/png"],

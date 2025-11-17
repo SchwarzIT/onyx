@@ -1,13 +1,16 @@
 <script lang="ts" setup>
-import { computed, inject } from "vue";
+import { computed, inject, useAttrs } from "vue";
 import { useDensity } from "../../composables/density.js";
 import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
+import { mergeVueProps } from "../../utils/attrs.js";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import { TABS_INJECTION_KEY } from "../OnyxTabs/types.js";
 import type { OnyxTabProps } from "./types.js";
+
+defineOptions({ inheritAttrs: false });
 
 const props = withDefaults(defineProps<OnyxTabProps>(), {
   disabled: false,
@@ -29,6 +32,7 @@ const { densityClass } = useDensity(props);
 const tabsContext = inject(TABS_INJECTION_KEY, undefined);
 const skeleton = useSkeletonContext(props);
 const sizeClass = computed(() => `onyx-tab--${tabsContext?.size.value}`);
+const attrs = useAttrs();
 
 const tab = computed(() =>
   tabsContext?.headless.elements.tab.value({
@@ -42,7 +46,7 @@ const tab = computed(() =>
   <OnyxSkeleton
     v-if="skeleton"
     :class="['onyx-tab-skeleton', densityClass, sizeClass]"
-    v-bind="tab"
+    v-bind="mergeVueProps(tab, attrs)"
   />
   <button
     v-else
@@ -53,7 +57,7 @@ const tab = computed(() =>
       sizeClass,
       { 'onyx-tab--selected': tab?.['aria-selected'] },
     ]"
-    v-bind="tab"
+    v-bind="mergeVueProps(tab, attrs)"
     type="button"
     :disabled="props.disabled"
   >
@@ -71,7 +75,9 @@ const tab = computed(() =>
   <Teleport v-if="tabsContext?.panel.value" :to="tabsContext?.panel.value" defer>
     <div
       v-if="tab?.['aria-selected']"
-      v-bind="tabsContext?.headless.elements.tabpanel.value({ value: props.value })"
+      v-bind="
+        mergeVueProps(tabsContext?.headless.elements.tabpanel.value({ value: props.value }), attrs)
+      "
       class="onyx-tab__panel"
     >
       <slot></slot>
@@ -95,8 +101,13 @@ const tab = computed(() =>
 
 .onyx-tab {
   @include layers.component() {
+    --onyx-tab-color: var(--onyx-color-text-icons-neutral-medium);
+    --onyx-tab-color-selected: var(--onyx-color-text-icons-neutral-intense);
+    --onyx-tab-color-active: var(--onyx-color-text-icons-primary-bold);
+    --onyx-tab-color-disabled: var(--onyx-color-text-icons-neutral-soft);
+
     font-family: var(--onyx-font-family);
-    color: var(--onyx-color-text-icons-neutral-medium);
+    color: var(--onyx-tab-color);
     border-radius: var(--onyx-radius-sm);
     padding: var(--onyx-tab-padding-vertical) var(--onyx-density-md);
     font-weight: var(--onyx-font-weight-semibold);
@@ -109,7 +120,7 @@ const tab = computed(() =>
     background-color: transparent;
 
     &--selected {
-      color: var(--onyx-color-text-icons-neutral-intense);
+      color: var(--onyx-tab-color-selected);
 
       .onyx-tab__label {
         &::after {
@@ -134,7 +145,7 @@ const tab = computed(() =>
       &:focus-visible,
       &:active {
         background-color: var(--onyx-color-base-neutral-200);
-        color: var(--onyx-color-text-icons-neutral-intense);
+        color: var(--onyx-tab-color-selected);
       }
 
       &:focus-visible {
@@ -142,12 +153,12 @@ const tab = computed(() =>
       }
 
       &:active {
-        color: var(--onyx-color-text-icons-primary-bold);
+        color: var(--onyx-tab-color-active);
       }
     }
 
     &:disabled {
-      color: var(--onyx-color-text-icons-neutral-soft);
+      color: var(--onyx-tab-color-disabled);
     }
 
     &__label {
@@ -161,6 +172,8 @@ const tab = computed(() =>
     &__panel {
       font-family: var(--onyx-font-family);
       color: var(--onyx-color-text-icons-neutral-intense);
+      font-size: var(--onyx-font-size-md);
+      line-height: var(--onyx-font-line-height-md);
     }
 
     &-skeleton {

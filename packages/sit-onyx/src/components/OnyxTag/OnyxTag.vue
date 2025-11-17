@@ -36,7 +36,7 @@ const tagClasses = computed(() => [
     <template #default="{ trigger }">
       <button v-bind="trigger" :class="tagClasses" type="button">
         <OnyxIcon v-if="props.icon" :icon="props.icon" inline />
-        <span class="onyx-text onyx-truncation-ellipsis">{{ props.label }}</span>
+        <span class="onyx-text--small onyx-truncation-ellipsis">{{ props.label }}</span>
         <OnyxIcon
           v-if="typeof props.clickable === 'object' && props.clickable.actionIcon"
           :icon="props.clickable.actionIcon"
@@ -47,7 +47,7 @@ const tagClasses = computed(() => [
   </OnyxTooltip>
   <div v-else :class="tagClasses">
     <OnyxIcon v-if="props.icon" :icon="props.icon" inline />
-    <span class="onyx-text onyx-truncation-ellipsis">{{ props.label }}</span>
+    <span class="onyx-text--small onyx-truncation-ellipsis">{{ props.label }}</span>
   </div>
 </template>
 
@@ -111,13 +111,13 @@ const tagClasses = computed(() => [
         outline: var(--onyx-outline-width) solid var(--onyx-tag-focus-color);
       }
     }
-  }
 
-  &-skeleton {
-    width: var(--onyx-density-2xl);
-    height: calc(1.5rem + 2 * var(--onyx-density-3xs));
-    display: inline-block;
-    vertical-align: middle;
+    &-skeleton {
+      width: var(--onyx-density-2xl);
+      height: calc(1.5rem + 2 * var(--onyx-density-3xs));
+      display: inline-block;
+      vertical-align: middle;
+    }
   }
 }
 </style>

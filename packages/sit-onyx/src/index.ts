@@ -45,6 +45,12 @@ export * from "./components/OnyxCheckbox/types.js";
 export { default as OnyxCheckboxGroup } from "./components/OnyxCheckboxGroup/OnyxCheckboxGroup.vue";
 export * from "./components/OnyxCheckboxGroup/types.js";
 
+export { default as OnyxUnstableCodeTab } from "./components/OnyxCodeTab/OnyxCodeTab.vue";
+export * from "./components/OnyxCodeTab/types.js";
+
+export { default as OnyxUnstableCodeTabs } from "./components/OnyxCodeTabs/OnyxCodeTabs.vue";
+export * from "./components/OnyxCodeTabs/types.js";
+
 export { default as OnyxDataGridRenderer } from "./components/OnyxDataGrid/OnyxDataGridRenderer/OnyxDataGridRenderer.vue";
 export * from "./components/OnyxDataGrid/OnyxDataGridRenderer/types.js";
 
@@ -85,6 +91,15 @@ export * from "./components/OnyxForm/types.js";
 
 export { default as OnyxFormElement } from "./components/OnyxFormElement/OnyxFormElement.vue";
 export * from "./components/OnyxFormElement/types.js";
+
+export { default as OnyxUnstableGlobalSearch } from "./components/OnyxGlobalSearch/OnyxGlobalSearch.vue";
+export * from "./components/OnyxGlobalSearch/types.js";
+
+export { default as OnyxUnstableGlobalSearchGroup } from "./components/OnyxGlobalSearchGroup/OnyxGlobalSearchGroup.vue";
+export * from "./components/OnyxGlobalSearchGroup/types.js";
+
+export { default as OnyxUnstableGlobalSearchOption } from "./components/OnyxGlobalSearchOption/OnyxGlobalSearchOption.vue";
+export * from "./components/OnyxGlobalSearchOption/types.js";
 
 export { default as OnyxHeadline } from "./components/OnyxHeadline/OnyxHeadline.vue";
 export * from "./components/OnyxHeadline/types.js";
@@ -194,6 +209,9 @@ export { default as OnyxSkeleton } from "./components/OnyxSkeleton/OnyxSkeleton.
 export { default as OnyxUnstableSlider } from "./components/OnyxSlider/OnyxSlider.vue";
 export * from "./components/OnyxSlider/types.js";
 
+export { default as OnyxUnstableSliderControl } from "./components/OnyxSliderControl/OnyxSliderControl.vue";
+export * from "./components/OnyxSliderControl/types.js";
+
 export { default as OnyxStepper } from "./components/OnyxStepper/OnyxStepper.vue";
 export * from "./components/OnyxStepper/types.js";
 
@@ -264,5 +282,6 @@ export { createOnyx } from "./utils/plugin.js";
 
 export * from "./components/illustrations/index.js";
 export * from "./composables/themeTransition.js";
+export * from "./utils/attrs.js";
 export * from "./utils/router.js";
 export { normalizedIncludes } from "./utils/strings.js";

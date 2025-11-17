@@ -80,6 +80,13 @@ export const LeftAligned = {
   },
 } satisfies Story;
 
+export const Offset = {
+  args: {
+    ...Items.args,
+    style: { "--onyx-fab-offset-x": "5rem", "--onyx-fab-offset-y": "1rem" },
+  },
+} satisfies Story;
+
 export const Skeleton = {
   args: {
     ...Default.args,

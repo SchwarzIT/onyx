@@ -768,6 +768,10 @@
     "category": "Devices & Electronics",
     "aliases": ["PC-protection", "machine-guard", "Computer-Schild", "PC-Schutz"]
   },
+  "computer-star": {
+    "category": "Devices & Electronics",
+    "aliases": ["AI", "KI", "Stern"]
+  },
   "computer-user": {
     "category": "Devices & Electronics",
     "aliases": ["Computer-Benutzer", "Profil"]
@@ -1180,6 +1184,10 @@
     "category": "Security & Protection",
     "aliases": ["fire-suppressant", "flame-control", "Feuerlöscher", "Brandlöscher"]
   },
+  "firewall": {
+    "category": "Software & Services",
+    "aliases": []
+  },
   "flag-1": {
     "category": "Navigation",
     "aliases": ["banner", "marker", "Fahne", "Markierung", "Flagge"]
@@ -1373,6 +1381,10 @@
   "inbox-out": {
     "category": "Communication",
     "aliases": ["mail-send", "message", "Postausgang", "Nachrichten"]
+  },
+  "intake": {
+    "category": "Software & Services",
+    "aliases": ["arrow-right", "service"]
   },
   "key": {
     "category": "Security & Protection",
@@ -2321,6 +2333,10 @@
   "star-filled": {
     "category": "Various",
     "aliases": ["celebrity", "fame", "Stern", "favorite", "filled", "gefüllt"]
+  },
+  "stars-AI": {
+    "category": "Software & Services",
+    "aliases": ["KI", "Stern"]
   },
   "stopover": {
     "category": "Navigation",

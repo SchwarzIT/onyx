@@ -28,11 +28,12 @@ A full changelog can be found [here](/development/packages/changelogs/nuxt-docs)
 
 The package includes the following features:
 
-- pre-defined page layouts (landing page, docs etc.)
+- pre-defined [page layouts](#layouts) (default, sidebar etc.)
 - pre-configured [Nuxt content](https://content.nuxt.com/) module to render markdown pages with onyx components.
 - custom user friendly error page for 404, unexpected errors etc.
 - supports Nuxt 4
 - integration with [Nuxt i18n](https://i18n.nuxtjs.org/)
+- auto generated global search for searching any markdown content
 
 ## Installation
 
@@ -264,14 +265,30 @@ export default defineNuxtConfig({
 
 This documentation layer supports several pre-build [layouts](https://nuxt.com/docs/guide/directory-structure/layouts) that are used by default. You can change the layout per page or add your own layouts if the existing ones do not fit your needs.
 
-::: info Coming soon
-This package is work in progress. More features will be added in the future.
-:::
+### Default layout
+
+Plain / blank [OnyxPageLayout](https://storybook.onyx.schwarz/?path=/story/layout-pagelayout--default). Can be used to build fully custom pages.
+
+### Sidebar layout
+
+Used as default for rendering markdown / content pages. Will automatically generate a sidebar with (nested) nav items, depending on your content structure.
 
 ## Components
 
 There are also several components included in the documentation layer that you can optionally use to easily build e.g. team pages.
 
-::: info Coming soon
-This package is work in progress. More features will be added in the future.
+### NpmInstallCodeTabs
+
+The `NpmInstallCodeTabs` can be used to display a command for installing one or multiple npm packages with common package managers (pnpm, npm, yarn or bun).
+
+::: code-group
+
+```md [example.md]
+::NpmInstallCodeTabs{packages="sit-onyx @sit-onyx/icons"}
+::
+
+::NpmInstallCodeTabs{packages="typescript" :dev=true}
+::
+```
+
 :::

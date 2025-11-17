@@ -215,13 +215,17 @@ const displayType = computed(() => {
 
 .onyx-input,
 .onyx-input-skeleton {
-  --onyx-input-padding-vertical: var(--onyx-density-xs);
+  @include layers.component() {
+    --onyx-input-padding-vertical: var(--onyx-density-xs);
+  }
 }
 
 .onyx-input-skeleton {
-  @include input.define-skeleton-styles(
-    $height: calc(1lh + 2 * var(--onyx-input-padding-vertical))
-  );
+  @include layers.component() {
+    @include input.define-skeleton-styles(
+      $height: calc(1lh + 2 * var(--onyx-input-padding-vertical))
+    );
+  }
 }
 
 .onyx-input {
@@ -230,34 +234,34 @@ const displayType = computed(() => {
       $base-selector: ".onyx-input",
       $vertical-padding: var(--onyx-input-padding-vertical)
     );
-  }
 
-  ::-webkit-search-cancel-button {
-    display: none;
-  }
-
-  &__clear {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-
-    display: flex;
-    align-items: center;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    color: var(--onyx-color-text-icons-neutral-intense);
-
-    &:hover {
-      color: var(--onyx-color-text-icons-primary-intense);
-    }
-  }
-
-  // hide clear icon when input is not focussed
-  &:not(&:has(&__wrapper:focus-within)),
-  &:has(&__native:read-only) {
-    .onyx-input__clear {
+    ::-webkit-search-cancel-button {
       display: none;
+    }
+
+    &__clear {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+
+      display: flex;
+      align-items: center;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      color: var(--onyx-color-text-icons-neutral-intense);
+
+      &:hover {
+        color: var(--onyx-color-text-icons-primary-intense);
+      }
+    }
+
+    // hide clear icon when input is not focussed
+    &:not(&:has(&__wrapper:focus-within)),
+    &:has(&__native:read-only) {
+      .onyx-input__clear {
+        display: none;
+      }
     }
   }
 }

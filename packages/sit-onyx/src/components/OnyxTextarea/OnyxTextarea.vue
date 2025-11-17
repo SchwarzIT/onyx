@@ -147,27 +147,31 @@ useAutofocus(input, props);
 
 .onyx-textarea,
 .onyx-textarea-skeleton {
-  --min-autosize-rows: 3;
-  --max-autosize-rows: 10;
-  --onyx-textarea-padding-vertical: var(--onyx-density-xs);
+  @include layers.component() {
+    --min-autosize-rows: 3;
+    --max-autosize-rows: 10;
+    --onyx-textarea-padding-vertical: var(--onyx-density-xs);
 
-  --min-height: calc(var(--min-autosize-rows) * 1lh + 2 * var(--onyx-textarea-padding-vertical));
-  --max-height: calc(var(--max-autosize-rows) * 1lh + 2 * var(--onyx-textarea-padding-vertical));
+    --min-height: calc(var(--min-autosize-rows) * 1lh + 2 * var(--onyx-textarea-padding-vertical));
+    --max-height: calc(var(--max-autosize-rows) * 1lh + 2 * var(--onyx-textarea-padding-vertical));
 
-  // remove max height and disable auto-sizing if user resizes the textarea manually
-  &:has(.onyx-textarea__native[style*="height"]) {
-    --max-height: unset;
+    // remove max height and disable auto-sizing if user resizes the textarea manually
+    &:has(.onyx-textarea__native[style*="height"]) {
+      --max-height: unset;
 
-    .onyx-textarea__wrapper::after {
-      // workaround for [#1142](https://github.com/SchwarzIT/onyx/issues/1142)
-      // `display: none` or changing "content" causes user resizing to be interrupted
-      height: 0;
+      .onyx-textarea__wrapper::after {
+        // workaround for [#1142](https://github.com/SchwarzIT/onyx/issues/1142)
+        // `display: none` or changing "content" causes user resizing to be interrupted
+        height: 0;
+      }
     }
   }
 }
 
 .onyx-textarea-skeleton {
-  @include input.define-skeleton-styles($height: var(--min-height));
+  @include layers.component() {
+    @include input.define-skeleton-styles($height: var(--min-height));
+  }
 }
 
 .onyx-textarea {
