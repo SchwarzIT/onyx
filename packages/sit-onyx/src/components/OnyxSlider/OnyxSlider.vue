@@ -82,12 +82,6 @@ const {
   shiftStep: toRef(props, "shiftStep"),
   onChange: (newValue) => (modelValue.value = newValue),
 });
-
-const updateThumbValue = (value: number, index = 0) => {
-  const currentValue = normalizedValue.value.slice() as typeof normalizedValue.value;
-  currentValue[index] = value;
-  updateValue(currentValue);
-};
 </script>
 
 <template>
@@ -118,7 +112,7 @@ const updateThumbValue = (value: number, index = 0) => {
             :shift-step="shiftStep"
             :model-value="normalizedValue[0]"
             :disabled="disabled || (normalizedValue[0] ?? props.min) <= props.min"
-            @update:model-value="updateThumbValue"
+            @update:model-value="updateValue($event, 0)"
           />
           <OnyxSliderControl
             v-else-if="props.control === 'input' && props.mode === 'range'"
@@ -126,7 +120,7 @@ const updateThumbValue = (value: number, index = 0) => {
             direction="increase"
             :disabled="disabled"
             :model-value="normalizedValue[0] ?? 0"
-            @update:model-value="updateThumbValue"
+            @update:model-value="updateValue($event, 0)"
           />
 
           <span class="onyx-slider__root" v-bind="root">
@@ -191,7 +185,7 @@ const updateThumbValue = (value: number, index = 0) => {
             direction="increase"
             :shift-step="shiftStep"
             :model-value="normalizedValue[0]"
-            @update:model-value="updateThumbValue"
+            @update:model-value="updateValue($event, 0)"
           />
           <OnyxSliderControl
             v-else-if="props.control === 'input'"
@@ -199,7 +193,7 @@ const updateThumbValue = (value: number, index = 0) => {
             :direction="props.mode === 'range' ? 'decrease' : undefined"
             :disabled="disabled"
             :model-value="normalizedValue[1] ?? normalizedValue[0] ?? 0"
-            @update:model-value="updateThumbValue($event, props.mode === 'range' ? 1 : 0)"
+            @update:model-value="updateValue($event, props.mode === 'range' ? 1 : 0)"
           />
         </div>
       </template>
@@ -350,7 +344,6 @@ const updateThumbValue = (value: number, index = 0) => {
       position: absolute;
       white-space: nowrap;
       top: var(--onyx-slider-mark-label-offset);
-      transform: translateX(-50%);
     }
 
     &:has(&__native:enabled) {

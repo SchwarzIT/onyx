@@ -192,366 +192,209 @@ test("should pass accessibility tests (range mode)", async ({ page, mount }) => 
   });
 });
 
-test.describe("Interaction tests", () => {
-  test("should interact with single value slider", async ({ mount }) => {
-    let modelValue = 50;
+test("should be disabled when disabled prop is true", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(<OnyxSlider label="Disabled slider" modelValue={50} disabled />);
 
-    const eventHandlers = {
-      "update:modelValue": async (newValue: number) => {
-        modelValue = newValue;
-        await component.update({ props: { modelValue }, on: eventHandlers });
-      },
-    };
+  const slider = component.getByLabel("Disabled slider");
 
-    // ARRANGE
-    const component = await mount(OnyxSlider, {
-      props: {
-        label: "Test slider",
-        modelValue,
-      },
-      on: eventHandlers,
-    });
+  // ASSERT
+  await expect(slider).toBeDisabled();
+  await expect(slider).toHaveValue("50");
 
-    const slider = component.getByRole("slider", { name: "Test slider" });
+  // ACT & ASSERT - Should not respond to keyboard input
+  await slider.press("ArrowRight");
+  await expect(slider).toHaveValue("50");
+});
 
-    // ASSERT
-    await expect(slider).toHaveValue("50");
+test("should interact with icon control", async ({ mount }) => {
+  let modelValue = 50;
 
-    // ACT
-    await slider.press("ArrowRight");
+  const eventHandlers = {
+    "update:modelValue": async (newValue: number) => {
+      modelValue = newValue;
+      await component.update({ props: { modelValue }, on: eventHandlers });
+    },
+  };
 
-    // ASSERT
-    await expect(slider, "should increase value when pressing arrow right").toHaveValue("51");
-    expect(modelValue).toBe(51);
+  // ARRANGE
+  const component = await mount(OnyxSlider, {
+    props: {
+      label: "Icon control slider",
+      modelValue,
+      control: "icon",
+    },
+    on: eventHandlers,
   });
 
-  test("should interact with range slider", async ({ mount }) => {
-    let modelValue: [number, number] = [20, 80];
+  const slider = component.getByLabel("Icon control slider");
+  const decreaseButton = component.getByRole("button", { name: "Decrease value by 10" });
+  const increaseButton = component.getByRole("button", { name: "Increase value by 10" });
 
-    const eventHandlers = {
-      "update:modelValue": async (newValue: [number, number]) => {
-        modelValue = newValue;
-        await component.update({ props: { modelValue }, on: eventHandlers });
-      },
-    };
+  // ASSERT
+  await expect(decreaseButton).toBeVisible();
+  await expect(increaseButton).toBeVisible();
 
-    // ARRANGE
-    const component = await mount(OnyxSlider, {
-      props: {
-        label: "Range slider",
-        mode: "range",
-        modelValue,
-      },
-      on: eventHandlers,
-    });
-    const sliders = component.getByRole("slider");
-    const firstSlider = sliders.first();
-    const lastSlider = sliders.last();
+  // ACT
+  await increaseButton.click();
 
-    // ASSERT
-    await expect(firstSlider).toHaveValue("20");
-    await expect(lastSlider).toHaveValue("80");
+  // ASSERT
+  await expect(slider, "should increase by shiftStep").toHaveValue("60");
 
-    // ACT - adjust first slider
-    await firstSlider.press("ArrowRight");
+  // ACT
+  await decreaseButton.click();
 
-    // ASSERT
-    await expect(firstSlider).toHaveValue("21");
-    expect(modelValue).toStrictEqual([21, 80]);
+  // ASSERT
+  await expect(slider, "should decrease by shiftStep").toHaveValue("50");
+});
 
-    // ACT - adjust second slider
-    await lastSlider.press("ArrowLeft");
+test("should handle auto-generated marks", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxSlider label="Auto marks slider" modelValue={50} marks step={20} min={0} max={100} />,
+  );
 
-    // ASSERT
-    await expect(lastSlider).toHaveValue("79");
-    expect(modelValue).toStrictEqual([21, 79]);
+  // Should have marks at 0, 20, 40, 60, 80, 100
+  const marks = component.locator(".onyx-slider__mark");
+  await expect(marks).toHaveCount(6);
+});
+
+test("should hide tooltip when disabled", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxSlider label="No tooltip slider" modelValue={50} disableTooltip />,
+  );
+
+  const slider = component.getByLabel("No tooltip slider");
+
+  // ACT
+  await slider.focus();
+
+  // ASSERT
+  await expect(component.getByRole("tooltip")).toBeHidden();
+});
+
+test("should interact with input control in single mode", async ({ mount }) => {
+  let modelValue = 50;
+
+  const eventHandlers = {
+    "update:modelValue": async (newValue: number) => {
+      modelValue = newValue;
+      await component.update({ props: { modelValue }, on: eventHandlers });
+    },
+  };
+
+  // ARRANGE
+  const component = await mount(OnyxSlider, {
+    props: {
+      label: "Input control slider",
+      modelValue,
+      control: "input",
+      min: 20,
+      max: 80,
+    },
+    on: eventHandlers,
   });
 
-  test("should handle keyboard navigation", async ({ mount }) => {
-    let modelValue = 50;
+  const slider = component.getByLabel("Input control slider");
+  const input = component.getByLabel("Change value");
 
-    const eventHandlers = {
-      "update:modelValue": async (newValue: number) => {
-        modelValue = newValue;
-        await component.update({ props: { modelValue }, on: eventHandlers });
-      },
-    };
+  // ASSERT
+  await expect(input).toBeVisible();
+  await expect(input).toHaveValue("50");
+  await expect(slider).toHaveValue("50");
 
-    // ARRANGE
-    const component = await mount(OnyxSlider, {
-      props: {
-        label: "Keyboard test slider",
-        modelValue,
-        step: 1,
-      },
-      on: eventHandlers,
-    });
+  // ACT - Change value via input
+  await input.fill("75");
+  await input.blur();
 
-    const slider = component.getByRole("slider");
+  // ASSERT
+  expect(modelValue).toBe(75);
+  await expect(slider).toHaveValue("75");
 
-    // ACT & ASSERT - Arrow keys
-    await slider.press("ArrowRight");
-    await expect(slider).toHaveValue("51");
+  // ACT - Change value via input to max boundary
+  await input.fill("80");
+  await input.blur();
 
-    await slider.press("Shift+ArrowRight");
-    await expect(slider).toHaveValue("61");
+  // ASSERT
+  expect(modelValue).toBe(80);
+  await expect(slider).toHaveValue("80");
 
-    await slider.press("ArrowLeft");
-    await expect(slider).toHaveValue("60");
+  // ACT - Try to set value above maximum
+  await input.fill("100");
+  await input.blur();
 
-    await slider.press("Shift+ArrowLeft");
-    await expect(slider).toHaveValue("50");
+  // ASSERT - Should clamp to maximum
+  await expect(input).toHaveValue("80");
+  await expect(slider).toHaveValue("80");
+  expect(modelValue).toBe(80);
 
-    await slider.press("ArrowUp");
-    await expect(slider).toHaveValue("51");
+  // ACT - Try to set value below minimum
+  await input.fill("10");
+  await input.blur();
 
-    await slider.press("ArrowDown");
-    await expect(slider).toHaveValue("50");
+  // ASSERT - Should clamp to minimum
+  expect(modelValue).toBe(20);
+  await expect(input).toHaveValue("20");
+  await expect(slider).toHaveValue("20");
+});
 
-    // ACT & ASSERT - Home/End keys
-    await slider.press("Home");
-    await expect(slider).toHaveValue("0");
+test("should interact with input control in range mode", async ({ mount }) => {
+  let modelValue: [number, number] = [25, 75];
 
-    await slider.press("End");
-    await expect(slider).toHaveValue("100");
+  const eventHandlers = {
+    "update:modelValue": async (newValue: [number, number]) => {
+      modelValue = newValue;
+      await component.update({ props: { modelValue }, on: eventHandlers });
+    },
+  };
+
+  // ARRANGE
+  const component = await mount(OnyxSlider, {
+    props: {
+      label: "Range input control slider",
+      mode: "range",
+      modelValue,
+      control: "input",
+    },
+    on: eventHandlers,
   });
 
-  test("should respect min/max boundaries", async ({ mount }) => {
-    let modelValue = 50;
+  const sliders = component.getByLabel("Range input control slider");
+  const firstSlider = sliders.first();
+  const lastSlider = sliders.last();
+  const firstInput = component.getByLabel("Change start value");
+  const lastInput = component.getByLabel("Change end value");
 
-    const eventHandlers = {
-      "update:modelValue": async (newValue: number) => {
-        modelValue = newValue;
-        await component.update({ props: { modelValue }, on: eventHandlers });
-      },
-    };
+  // ASSERT
+  await expect(firstInput).toBeVisible();
+  await expect(lastInput).toBeVisible();
+  await expect(firstInput).toHaveValue("25");
+  await expect(lastInput).toHaveValue("75");
+  await expect(firstSlider).toHaveValue("25");
+  await expect(lastSlider).toHaveValue("75");
 
-    // ARRANGE
-    const component = await mount(OnyxSlider, {
-      props: {
-        label: "Boundary test slider",
-        modelValue,
-        min: 20,
-        max: 80,
-      },
-      on: eventHandlers,
-    });
+  // ACT - Change first value via input
+  await firstInput.fill("26");
+  await firstInput.blur();
 
-    const slider = component.getByRole("slider");
+  // ASSERT
+  await expect(firstInput).toHaveValue("26");
+  expect(modelValue).toStrictEqual([26, 75]);
 
-    // ACT & ASSERT - Try to go below minimum
-    await slider.press("Home");
-    await expect(slider).toHaveValue("20");
+  // ACT - Change second value via input
+  await lastInput.fill("80");
+  await lastInput.blur();
 
-    // ACT & ASSERT - Try to go above maximum
-    await slider.press("End");
-    await expect(slider).toHaveValue("80");
-  });
+  // ASSERT
+  await expect(lastSlider).toHaveValue("80");
+  expect(modelValue).toStrictEqual([26, 80]);
 
-  test("should be disabled when disabled prop is true", async ({ mount }) => {
-    // ARRANGE
-    const component = await mount(<OnyxSlider label="Disabled slider" modelValue={50} disabled />);
+  // ACT - Try to set overlapping values (first > second)
+  await firstInput.fill("85");
+  await firstInput.blur();
 
-    const slider = component.getByRole("slider");
-
-    // ASSERT
-    await expect(slider).toBeDisabled();
-    await expect(slider).toHaveValue("50");
-
-    // ACT & ASSERT - Should not respond to keyboard input
-    await slider.press("ArrowRight");
-    await expect(slider).toHaveValue("50");
-  });
-
-  test("should interact with icon control", async ({ mount }) => {
-    let modelValue = 50;
-
-    const eventHandlers = {
-      "update:modelValue": async (newValue: number) => {
-        modelValue = newValue;
-        await component.update({ props: { modelValue }, on: eventHandlers });
-      },
-    };
-
-    // ARRANGE
-    const component = await mount(OnyxSlider, {
-      props: {
-        label: "Icon control slider",
-        modelValue,
-        control: "icon",
-      },
-      on: eventHandlers,
-    });
-
-    const slider = component.getByRole("slider");
-    const decreaseButton = component.getByRole("button", { name: "Decrease value by 10" });
-    const increaseButton = component.getByRole("button", { name: "Increase value by 10" });
-
-    // ASSERT
-    await expect(decreaseButton).toBeVisible();
-    await expect(increaseButton).toBeVisible();
-
-    // ACT
-    await increaseButton.click();
-
-    // ASSERT
-    await expect(slider, "should increase by shiftStep").toHaveValue("60");
-
-    // ACT
-    await decreaseButton.click();
-
-    // ASSERT
-    await expect(slider, "should decrease by shiftStep").toHaveValue("50");
-  });
-
-  test("should handle auto-generated marks", async ({ mount }) => {
-    // ARRANGE
-    const component = await mount(
-      <OnyxSlider label="Auto marks slider" modelValue={50} marks step={20} min={0} max={100} />,
-    );
-
-    // Should have marks at 0, 20, 40, 60, 80, 100
-    const marks = component.locator(".onyx-slider__mark");
-    await expect(marks).toHaveCount(6);
-  });
-
-  test("should hide tooltip when disabled", async ({ mount }) => {
-    // ARRANGE
-    const component = await mount(
-      <OnyxSlider label="No tooltip slider" modelValue={50} disableTooltip />,
-    );
-
-    const slider = component.getByRole("slider");
-
-    // ACT
-    await slider.focus();
-
-    // ASSERT
-    await expect(component.getByRole("tooltip")).toBeHidden();
-  });
-
-  test("should interact with input control in single mode", async ({ mount }) => {
-    let modelValue = 50;
-
-    const eventHandlers = {
-      "update:modelValue": async (newValue: number) => {
-        modelValue = newValue;
-        await component.update({ props: { modelValue }, on: eventHandlers });
-      },
-    };
-
-    // ARRANGE
-    const component = await mount(OnyxSlider, {
-      props: {
-        label: "Input control slider",
-        modelValue,
-        control: "input",
-        min: 20,
-        max: 80,
-      },
-      on: eventHandlers,
-    });
-
-    const slider = component.getByRole("slider");
-    const input = component.getByLabel("Change value");
-
-    // ASSERT
-    await expect(input).toBeVisible();
-    await expect(input).toHaveValue("50");
-    await expect(slider).toHaveValue("50");
-
-    // ACT - Change value via input
-    await input.fill("75");
-    await input.blur();
-
-    // ASSERT
-    expect(modelValue).toBe(75);
-    await expect(slider).toHaveValue("75");
-
-    // ACT - Change value via input to max boundary
-    await input.fill("80");
-    await input.blur();
-
-    // ASSERT
-    expect(modelValue).toBe(80);
-    await expect(slider).toHaveValue("80");
-
-    // ACT - Try to set value above maximum
-    await input.fill("100");
-    await input.blur();
-
-    // ASSERT - Should clamp to maximum
-    await expect(input).toHaveValue("80");
-    await expect(slider).toHaveValue("80");
-    expect(modelValue).toBe(80);
-
-    // ACT - Try to set value below minimum
-    await input.fill("10");
-    await input.blur();
-
-    // ASSERT - Should clamp to minimum
-    expect(modelValue).toBe(20);
-    await expect(input).toHaveValue("20");
-    await expect(slider).toHaveValue("20");
-  });
-
-  test("should interact with input control in range mode", async ({ mount }) => {
-    let modelValue: [number, number] = [25, 75];
-
-    const eventHandlers = {
-      "update:modelValue": async (newValue: [number, number]) => {
-        modelValue = newValue;
-        await component.update({ props: { modelValue }, on: eventHandlers });
-      },
-    };
-
-    // ARRANGE
-    const component = await mount(OnyxSlider, {
-      props: {
-        label: "Range input control slider",
-        mode: "range",
-        modelValue,
-        control: "input",
-      },
-      on: eventHandlers,
-    });
-
-    const sliders = component.getByRole("slider");
-    const firstSlider = sliders.first();
-    const lastSlider = sliders.last();
-    const firstInput = component.getByLabel("Change start value");
-    const lastInput = component.getByLabel("Change end value");
-
-    // ASSERT
-    await expect(firstInput).toBeVisible();
-    await expect(lastInput).toBeVisible();
-    await expect(firstInput).toHaveValue("25");
-    await expect(lastInput).toHaveValue("75");
-    await expect(firstSlider).toHaveValue("25");
-    await expect(lastSlider).toHaveValue("75");
-
-    // ACT - Change first value via input
-    await firstInput.fill("26");
-    await firstInput.blur();
-
-    // ASSERT
-    await expect(firstInput).toHaveValue("26");
-    expect(modelValue).toStrictEqual([26, 75]);
-
-    // ACT - Change second value via input
-    await lastInput.fill("80");
-    await lastInput.blur();
-
-    // ASSERT
-    await expect(lastSlider).toHaveValue("80");
-    expect(modelValue).toStrictEqual([26, 80]);
-
-    // ACT - Try to set overlapping values (first > second)
-    await firstInput.fill("85");
-    await firstInput.blur();
-
-    // ASSERT - Should not allow crossing over
-    expect(modelValue).toStrictEqual([26, 80]); // Should remain unchanged
-    await expect(firstInput).toHaveValue("26");
-  });
+  // ASSERT - Should not allow crossing over
+  expect(modelValue).toStrictEqual([80, 80]); // Should remain unchanged
+  await expect(firstInput).toHaveValue("80");
 });

@@ -178,8 +178,24 @@ export const _unstableCreateSlider = createBuilder(
     /**
      * Updates the current value with the given value. Will normalize the value.
      */
-    const updateValue = (value: NormalizedSliderValue) => {
-      const normalized = getNormalizedValue.value(value);
+    const updateValue = (value: number, index: number) => {
+      const currentValue = normalizedValue.value.slice() as typeof normalizedValue.value;
+
+      const otherIndex = index === 0 ? 1 : 0;
+      const otherValue = currentValue[otherIndex];
+
+      // prevent thumbs from overlapping each other
+      if (otherValue != undefined) {
+        if (index < otherIndex && value > otherValue) {
+          value = otherValue;
+        } else if (index > otherIndex && value < otherValue) {
+          value = otherValue;
+        }
+      }
+
+      currentValue[index] = value;
+
+      const normalized = getNormalizedValue.value(currentValue);
       const newValue = normalized.length > 1 ? normalized : normalized[0];
 
       // do not emit an update if the actual value didn't change
@@ -208,21 +224,17 @@ export const _unstableCreateSlider = createBuilder(
       const stepSize = event.shiftKey ? shiftStep.value : step.value;
 
       if (event.key === "Home") {
-        currentValue[thumbIndex] = min.value;
-        return updateValue(currentValue);
+        return updateValue(min.value, thumbIndex);
       }
 
       if (event.key === "End") {
-        currentValue[thumbIndex] = max.value;
-        return updateValue(currentValue);
+        return updateValue(max.value, thumbIndex);
       }
 
       if (INCREMENT_KEYS.has(event.key)) {
-        currentValue[thumbIndex] = currentValue[thumbIndex] + stepSize;
-        updateValue(currentValue);
+        updateValue(currentValue[thumbIndex] + stepSize, thumbIndex);
       } else if (DECREMENT_KEYS.has(event.key)) {
-        currentValue[thumbIndex] = currentValue[thumbIndex] - stepSize;
-        updateValue(currentValue);
+        updateValue(currentValue[thumbIndex] - stepSize, thumbIndex);
       }
     };
 
@@ -242,34 +254,17 @@ export const _unstableCreateSlider = createBuilder(
         { index: 0, distance: Number.POSITIVE_INFINITY },
       );
 
-      const newValue = normalizedValue.value.slice() as typeof normalizedValue.value;
-      newValue[thumb.index] = value;
-      updateValue(newValue);
-
+      updateValue(value, thumb.index);
       draggingThumbIndex.value = thumb.index;
     };
 
     const handlePointermove = (event: PointerEvent) => {
       if (draggingThumbIndex.value == undefined) return;
 
-      let value = getValueFromCoordinates(event.x);
+      const value = getValueFromCoordinates(event.x);
       if (value == undefined) return;
 
-      const otherIndex = draggingThumbIndex.value === 0 ? 1 : 0;
-      const otherValue = normalizedValue.value[otherIndex];
-
-      // prevent thumbs from overlapping each other
-      if (otherValue != undefined) {
-        if (draggingThumbIndex.value < otherIndex && value > otherValue) {
-          value = otherValue;
-        } else if (draggingThumbIndex.value > otherIndex && value < otherValue) {
-          value = otherValue;
-        }
-      }
-
-      const newValue = normalizedValue.value.slice() as typeof normalizedValue.value;
-      newValue[draggingThumbIndex.value] = value;
-      updateValue(newValue);
+      updateValue(value, draggingThumbIndex.value);
     };
 
     useGlobalEventListener({
@@ -373,13 +368,25 @@ export const _unstableCreateSlider = createBuilder(
         /**
          * Label for each mark
          */
-        markLabel: computed(() => (data: { value: number }) => ({
-          "aria-hidden": true,
-          style: {
-            // TODO: check if offset should be applied to first/last label as well
-            left: `${getValueInPercentage.value(data.value)}%`,
-          },
-        })),
+        markLabel: computed(() => (data: { value: number }) => {
+          const left = getValueInPercentage.value(data.value);
+          let translate = "-50%";
+
+          // first and last label should be aligned with the edge of the slider and not overlap
+          if (left === 0) {
+            translate = "0%";
+          } else if (left === 100) {
+            translate = "-100%";
+          }
+
+          return {
+            "aria-hidden": true,
+            style: {
+              left: `${left}%`,
+              transform: translate ? `translateX(${translate})` : undefined,
+            },
+          };
+        }),
 
         /**
          * Track element representing the selected range
