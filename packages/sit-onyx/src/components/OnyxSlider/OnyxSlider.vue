@@ -65,7 +65,7 @@ const { disabled, showError } = useFormContext(props);
 const errorClass = useErrorClass(showError);
 const skeleton = useSkeletonContext(props);
 
-const { min, max, step, label, discrete } = toRefs(props);
+const { min, max, step, label } = toRefs(props);
 
 const {
   elements: { root, track, thumbContainer, thumbInput, mark, markLabel },
@@ -78,7 +78,6 @@ const {
   step,
   label,
   marks: toRef(props, "marks"),
-  discrete,
   disabled,
   shiftStep: toRef(props, "shiftStep"),
   onChange: (newValue) => (modelValue.value = newValue),

@@ -37,12 +37,6 @@ export type CreateSliderOptions<TValue extends SliderValue = SliderValue> = {
    */
   step?: MaybeRef<number>;
   /**
-   * Whether to use the discrete mode where only values that are multiples of the `step` property can be selected.
-   *
-   * @default false
-   */
-  discrete?: MaybeRef<boolean>;
-  /**
    * Step size to increase/decrease the slider value when changing the value via keyboard while pressing the "Shift" key.
    *
    * default 10% of the total range (max - min)
@@ -350,8 +344,7 @@ export const _unstableCreateSlider = createBuilder(
             "aria-valuenow": data.value,
             "aria-orientation": "horizontal",
             "data-index": data.index,
-            // TODO: check step
-            step: toValue(options.discrete) && marks.value.length ? "any" : step.value,
+            step: step.value,
             disabled: toValue(options.disabled),
             ...(toValue(options.disabled) ? undefined : events),
           };

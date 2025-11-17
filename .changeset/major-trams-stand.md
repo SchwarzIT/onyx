@@ -13,3 +13,4 @@ Breaking changes: This change includes breaking changes. Since the `createSlider
 - removed unnecessary exposed states: isDragging, activeThumbIndex, isRange, trackOffset, trackLength
 - renamed exposed states: marksList => marks, normalizedValues => normalizedValues
 - removed unnecessary exposed internals: clampValue and roundToStep, use the new unified `updateValue` instead
+- removed `discrete` option. Pass a corresponding `step` value if you only want to allow certain discrete values

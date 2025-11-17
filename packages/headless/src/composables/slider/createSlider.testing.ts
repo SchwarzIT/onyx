@@ -333,26 +333,3 @@ export const multiThumbSliderTesting = async ({
     expect(maxValue).toBeLessThanOrEqual(max);
   });
 };
-
-/**
- * Test slider with marks (discrete mode).
- */
-export const discreteSliderTesting = async ({ slider }: SliderTestingOptions) => {
-  await test.step("Discrete mode with marks", async () => {
-    await slider.focus();
-
-    await slider.press("ArrowRight");
-
-    // Value should be one of the predefined mark values (0, 25, 50, 75, 100)
-    expect(slider).toHaveAttribute("aria-valuenow", String("75"));
-  });
-
-  await test.step("Keyboard navigation snaps to marks", async () => {
-    await slider.focus();
-    await slider.press("Home");
-    await expect(slider).toHaveValue("0");
-
-    await slider.press("End");
-    await expect(slider).toHaveValue("100");
-  });
-};

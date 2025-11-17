@@ -83,8 +83,4 @@ export type OnyxSliderProps<TSliderMode extends SliderMode> = CustomValidityProp
      * Whether to show a skeleton slider.
      */
     skeleton?: SkeletonInjected;
-    /**
-     * Whether the use the discrete mode where only values that are multiples of the `step` property can be selected.
-     */
-    discrete?: boolean;
   };
