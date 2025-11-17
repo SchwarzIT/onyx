@@ -84,8 +84,6 @@ const {
   onChange: (newValue) => (modelValue.value = newValue),
 });
 
-const activeThumbIndex = -1;
-
 const updateThumbValue = (value: number, index = 0) => {
   const currentValue = normalizedValue.value.slice() as typeof normalizedValue.value;
   currentValue[index] = value;
@@ -99,16 +97,7 @@ const updateThumbValue = (value: number, index = 0) => {
     <OnyxSkeleton class="onyx-slider-skeleton__block" />
   </div>
 
-  <div
-    v-else
-    :class="[
-      'onyx-component',
-      'onyx-slider',
-      { 'onyx-slider--active': activeThumbIndex !== -1 },
-      densityClass,
-      errorClass,
-    ]"
-  >
+  <div v-else :class="['onyx-component', 'onyx-slider', densityClass, errorClass]">
     <OnyxFormElement
       :label="props.label"
       v-bind="formElementProps"
@@ -165,13 +154,10 @@ const updateThumbValue = (value: number, index = 0) => {
               v-for="(value, index) in normalizedValue"
               :key="index"
               v-bind="thumbContainer({ value, index })"
-              :class="[
-                'onyx-slider__thumb',
-                { 'onyx-slider__thumb--active': activeThumbIndex === index },
-              ]"
+              class="onyx-slider__thumb"
             >
               <OnyxTooltip
-                :open="!props.disableTooltip && activeThumbIndex === index"
+                :open="props.disableTooltip ? false : undefined"
                 :text="String(value)"
                 position="bottom"
                 class="onyx-slider__thumb-tooltip"
@@ -341,8 +327,7 @@ const updateThumbValue = (value: number, index = 0) => {
       z-index: $track-z-index + 1;
 
       &:has(.onyx-slider__native:enabled) {
-        &:focus-within,
-        &.onyx-slider__thumb--active {
+        &:focus-within {
           outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
         }
       }
@@ -375,9 +360,7 @@ const updateThumbValue = (value: number, index = 0) => {
       }
 
       &:has(.onyx-slider__root:hover),
-      &:has(.onyx-slider__root:focus-within),
-      // TODO: check if active class is needed or can be replaced with ":active"
-      &.onyx-slider--active {
+      &:has(.onyx-slider__root:focus-within) {
         .onyx-slider {
           &__rail {
             background-color: var(--onyx-slider-rail-background-interactive);

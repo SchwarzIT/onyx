@@ -19,8 +19,8 @@ const {
       <div class="slider-rail"></div>
       <div v-bind="track" class="slider-track"></div>
 
-      <div v-bind="thumbContainer({ value: value, index: 0 })" class="slider-thumb">
-        <input class="visually-hidden" v-bind="thumbInput({ index: 0, value: value })" />
+      <div v-bind="thumbContainer({ value, index: 0 })" class="slider-thumb">
+        <input class="visually-hidden" v-bind="thumbInput({ index: 0, value })" />
       </div>
     </div>
   </div>

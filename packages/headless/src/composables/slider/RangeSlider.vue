@@ -2,14 +2,14 @@
 import { ref } from "vue";
 import { _unstableCreateSlider } from "./createSlider2.js";
 
-const value = ref<[number, number]>([25, 75]);
+const modelValue = ref<[number, number]>([25, 75]);
 
 const {
   elements: { root, thumbInput, thumbContainer, track },
 } = _unstableCreateSlider({
   label: "Range Slider",
-  value,
-  onChange: (newValue) => (value.value = newValue),
+  value: modelValue,
+  onChange: (newValue) => (modelValue.value = newValue),
 });
 </script>
 
@@ -20,12 +20,12 @@ const {
       <div v-bind="track" class="slider-track"></div>
 
       <div
-        v-for="(thumbValue, index) in value"
+        v-for="(value, index) in modelValue"
         :key="index"
-        v-bind="thumbContainer({ value: thumbValue, index })"
+        v-bind="thumbContainer({ value, index })"
         class="slider-thumb"
       >
-        <input class="visually-hidden" v-bind="thumbInput({ index, value: thumbValue })" />
+        <input class="visually-hidden" v-bind="thumbInput({ index, value })" />
       </div>
     </div>
   </div>
