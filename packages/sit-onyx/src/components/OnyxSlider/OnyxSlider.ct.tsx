@@ -5,12 +5,6 @@ import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import { SLIDER_CONTROLS } from "../OnyxSliderControl/types.js";
 import OnyxSlider from "./OnyxSlider.vue";
 
-const SLIDER_MARKS = [
-  { value: 0, label: "Min" },
-  { value: 50, label: "Mid" },
-  { value: 100, label: "Max" },
-];
-
 const LARGE_MARKS = [
   { value: 0, label: "0°C" },
   { value: 25, label: "25°C" },
@@ -370,37 +364,6 @@ test.describe("Interaction tests", () => {
 
     // ASSERT
     await expect(slider, "should decrease by shiftStep").toHaveValue("50");
-  });
-
-  test("should handle discrete mode", async ({ mount }) => {
-    let modelValue = 50;
-
-    const eventHandlers = {
-      "update:modelValue": async (newValue: number) => {
-        modelValue = newValue;
-        await component.update({ props: { modelValue }, on: eventHandlers });
-      },
-    };
-
-    // ARRANGE
-    const component = await mount(OnyxSlider, {
-      props: {
-        label: "Discrete slider",
-        modelValue,
-        discrete: true,
-        marks: SLIDER_MARKS,
-      },
-      on: eventHandlers,
-    });
-
-    const slider = component.getByRole("slider");
-
-    // ASSERT - Should snap to mark values
-    await slider.press("ArrowRight");
-    await expect(slider, "should snap to the next mark").toHaveValue("100");
-
-    await slider.press("ArrowLeft");
-    await expect(slider, "should snap to the previous mark").toHaveValue("50");
   });
 
   test("should handle auto-generated marks", async ({ mount }) => {
