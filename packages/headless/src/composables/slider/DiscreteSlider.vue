@@ -3,16 +3,14 @@ import { ref } from "vue";
 import { _unstableCreateSlider } from "./createSlider.js";
 
 const modelValue = ref(50);
-const discrete = ref(true);
 
-const onChange = (values: number) => {
-  modelValue.value = values;
-};
-
-const slider = _unstableCreateSlider({
+const {
+  elements: { root, thumbInput, thumbContainer, track, mark },
+  state: { marks },
+} = _unstableCreateSlider({
   label: "Discrete Slider",
   value: modelValue,
-  discrete,
+  discrete: true,
   marks: [
     { value: 0, label: "0%" },
     { value: 25, label: "25%" },
@@ -20,13 +18,8 @@ const slider = _unstableCreateSlider({
     { value: 75, label: "75%" },
     { value: 100, label: "100%" },
   ],
-  onChange,
+  onChange: (newValue) => (modelValue.value = newValue),
 });
-
-const {
-  elements: { root, thumbInput, thumbContainer, track, mark },
-  state: { marks },
-} = slider;
 </script>
 
 <template>
