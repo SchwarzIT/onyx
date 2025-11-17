@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { _unstableCreateSlider } from "./createSlider2.js";
+import { _unstableCreateSlider } from "./createSlider.js";
 
 const value = ref(25);
 

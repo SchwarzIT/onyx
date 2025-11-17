@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { _unstableCreateSlider } from "./createSlider2.js";
+import { _unstableCreateSlider } from "./createSlider.js";
 
 const modelValue = ref<[number, number]>([25, 75]);
 
