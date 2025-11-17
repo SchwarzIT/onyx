@@ -37,7 +37,7 @@ export type CreateSliderOptions<TValue extends SliderValue = SliderValue> = {
    */
   step?: MaybeRef<number>;
   /**
-   * Whether the use the discrete mode where only values that are multiples of the `step` property can be selected.
+   * Whether to use the discrete mode where only values that are multiples of the `step` property can be selected.
    *
    * @default false
    */
@@ -144,6 +144,12 @@ export const _unstableCreateSlider = createBuilder(
         .sort((a, b) => a.value - b.value);
     });
 
+    /**
+     * Normalizes the given slider (values) by ensuring that:
+     * 1. Value is between min and max range
+     * 2. Values are matching the `step` property (are multiples of it)
+     * 3. Are sorted ascending (if range mode)
+     */
     const getNormalizedValue = computed(() => {
       return (value: TValue | NormalizedSliderValue) => {
         let values: NormalizedSliderValue = typeof value === "number" ? [value] : value;
@@ -189,7 +195,7 @@ export const _unstableCreateSlider = createBuilder(
     };
 
     /**
-     * Gets teh given value in percentage relative to the sliders min/max range.
+     * Gets the given value in percentage relative to the sliders min/max range.
      */
     const getValueInPercentage = computed(() => {
       return (value: number) => {
@@ -288,13 +294,15 @@ export const _unstableCreateSlider = createBuilder(
       disabled: computed(() => draggingThumbIndex.value == undefined),
     });
 
+    /**
+     * Gets the corresponding slider value for the given x coordinate across the rail.
+     */
     const getValueFromCoordinates = (x: number) => {
       const rect = sliderRef.value.getBoundingClientRect();
       if (rect.width <= 0) return;
 
       const percent = MathUtils.clamp((x - rect.left) / rect.width, 0, 1);
-      const raw = MathUtils.percentToValue(percent, min.value, max.value);
-      return raw;
+      return MathUtils.percentToValue(percent, min.value, max.value);
     };
 
     return {
@@ -313,6 +321,7 @@ export const _unstableCreateSlider = createBuilder(
             ...(toValue(options.disabled) ? undefined : events),
           };
         }),
+
         /**
          * Individual thumb elements for each value (span)
          */
