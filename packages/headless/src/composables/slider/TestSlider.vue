@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import { _unstableCreateSlider } from "./createSlider.js";
 
-const modelValue = ref<[number, number]>([25, 75]);
+const modelValue = defineModel<number | [number, number]>({ required: true });
 
 const {
   elements: { root, thumbInput, thumbContainer, track },
+  state: { normalizedValue },
 } = _unstableCreateSlider({
-  label: "Range Slider",
+  label: "Slider",
   value: modelValue,
   onChange: (newValue) => (modelValue.value = newValue),
 });
@@ -20,7 +20,7 @@ const {
       <div v-bind="track" class="slider-track"></div>
 
       <div
-        v-for="(value, index) in modelValue"
+        v-for="(value, index) in normalizedValue"
         :key="index"
         v-bind="thumbContainer({ value, index })"
         class="slider-thumb"
