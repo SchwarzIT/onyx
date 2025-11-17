@@ -1,3 +1,4 @@
+import { rangeSliderTesting, singleSliderTesting } from "@sit-onyx/headless/playwright";
 import { type MatrixScreenshotTestOptions } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density.js";
 import { expect, test } from "../../playwright/a11y.js";
@@ -151,6 +152,43 @@ test.describe("Screenshot tests (controls)", () => {
         style={{ width: "16rem" }}
       />
     ),
+  });
+});
+
+test("should pass accessibility tests (single mode)", async ({ page, mount }) => {
+  const component = await mount(OnyxSlider, {
+    props: {
+      label: "Label",
+      modelValue: 50,
+      "onUpdate:modelValue": async (newValue) => {
+        await component.update({ props: { modelValue: newValue } });
+      },
+    },
+  });
+
+  await singleSliderTesting({
+    page,
+    slider: page.getByLabel("Label"),
+    rail: component.locator(".onyx-slider__rail"),
+  });
+});
+
+test("should pass accessibility tests (range mode)", async ({ page, mount }) => {
+  const component = await mount(OnyxSlider, {
+    props: {
+      label: "Label",
+      modelValue: [25, 75],
+      mode: "range",
+      "onUpdate:modelValue": async (newValue) => {
+        await component.update({ props: { modelValue: newValue } });
+      },
+    },
+  });
+
+  await rangeSliderTesting({
+    page,
+    slider: page.getByLabel("Label"),
+    rail: component.locator(".onyx-slider__rail"),
   });
 });
 

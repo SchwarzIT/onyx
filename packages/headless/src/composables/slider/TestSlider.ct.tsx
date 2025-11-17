@@ -1,26 +1,24 @@
 import { test } from "@playwright/experimental-ct-vue";
-import { multiThumbSliderTesting, singleThumbSliderTesting } from "./createSlider.testing.js";
+import { rangeSliderTesting, singleSliderTesting } from "./createSlider.testing.js";
 import RangeSlider from "./RangeSlider.vue";
 import SimpleSlider from "./SimpleSlider.vue";
 
 test("single-thumb slider", async ({ mount, page }) => {
   const component = await mount(<SimpleSlider />);
 
-  await singleThumbSliderTesting({
+  await singleSliderTesting({
     page,
-    slider: page.getByRole("slider"),
-    container: component.locator(".slider-root"),
-    initialValues: [25],
+    slider: component.getByRole("slider"),
+    rail: component.locator(".slider-root"),
   });
 });
 
 test("range slider", async ({ mount, page }) => {
   const component = await mount(<RangeSlider />);
 
-  await multiThumbSliderTesting({
+  await rangeSliderTesting({
     page,
-    slider: page.getByRole("slider"),
-    container: component.locator(".slider-root"),
-    initialValues: [25, 75],
+    slider: component.getByRole("slider"),
+    rail: component.locator(".slider-root"),
   });
 });

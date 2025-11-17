@@ -320,7 +320,6 @@ export const _unstableCreateSlider = createBuilder(
          * Individual thumb elements for each value (span)
          */
         thumbContainer: computed(() => (data: { index: number; value: number }) => ({
-          "data-index": data.index,
           style: { left: `${getValueInPercentage.value(data.value)}%` },
         })),
 
@@ -343,7 +342,6 @@ export const _unstableCreateSlider = createBuilder(
             "aria-valuemax": max.value,
             "aria-valuenow": data.value,
             "aria-orientation": "horizontal",
-            "data-index": data.index,
             step: step.value,
             disabled: toValue(options.disabled),
             ...(toValue(options.disabled) ? undefined : events),

@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import { _unstableCreateSlider } from "./createSlider.js";
 
-const value = ref(25);
+const value = ref(50);
 
 const {
   elements: { root, thumbInput, thumbContainer, track },

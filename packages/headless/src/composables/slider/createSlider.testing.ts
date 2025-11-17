@@ -7,236 +7,161 @@ export type SliderTestingOptions = {
    */
   page: Page;
   /**
-   * Locator for the slider element(s).
+   * Locator for the slider element(s) (native `<input>`).
    */
   slider: Locator;
   /**
-   * Optional: Locator for the slider container/root.
+   * Locator to the sliders rail element.
    */
-  container?: Locator;
-  /**
-   * Expected initial value(s) for the slider.
-   */
-  initialValues?: number[];
-  /**
-   * Expected min value.
-   */
-  min?: number;
-  /**
-   * Expected max value.
-   */
-  max?: number;
-  /**
-   * Expected step value.
-   */
-  step?: number;
-  /**
-   * Expected shift step value.
-   */
-  shiftStep?: number;
+  rail: Locator;
+};
+
+const getRailPosition = async (rail: Locator, percentage: number) => {
+  const box = (await rail.boundingBox())!;
+  const x = box.x + box.width * percentage;
+  const y = box.y + box.height * 0.5;
+  return { x, y };
 };
 
 /**
  * Comprehensive testing for single-thumb slider implementation.
  * Tests basic accessibility, keyboard navigation, and interaction patterns.
+ *
+ * Slider must have min=0, max=100, step=1 and initial value of 50.
  */
-export const singleThumbSliderTesting = async ({
-  page,
-  slider,
-  container,
-  initialValues = [25],
-  min = 0,
-  max = 100,
-  step = 1,
-  shiftStep = 10,
-}: SliderTestingOptions) => {
+export const singleSliderTesting = async ({ page, slider, rail }: SliderTestingOptions) => {
   await test.step("Basic accessibility and initial state", async () => {
-    await expect(slider).toBeHidden();
     await expect(slider).toHaveAttribute("role", "slider");
-    await expect(slider).toHaveAttribute("aria-valuenow", String(initialValues[0]));
-    await expect(slider).toHaveAttribute("aria-valuemin", String(min));
-    await expect(slider).toHaveAttribute("aria-valuemax", String(max));
+    await expect(slider).toHaveAttribute("aria-valuenow", "50");
+    await expect(slider).toHaveAttribute("aria-valuemin", "0");
+    await expect(slider).toHaveAttribute("aria-valuemax", "100");
     await expect(slider).toHaveAttribute("aria-orientation", "horizontal");
     await expect(slider).toHaveAttribute("type", "range");
-    if (step !== null) {
-      await expect(slider).toHaveAttribute("step", String(step));
-    }
+    await expect(slider).toHaveAttribute("step", "1");
+
+    await slider.focus();
+    await expect(slider).toBeFocused();
   });
 
   await test.step("Keyboard navigation - Arrow keys", async () => {
-    await slider.focus();
-    await expect(slider).toBeFocused();
-
-    const initialValue = initialValues[0]!;
-
     await slider.press("ArrowRight");
-    await expect(slider).toHaveValue(String(Math.min(initialValue + step, max)));
+    await expect(slider).toHaveValue("51");
 
     await slider.press("ArrowLeft");
-    await expect(slider).toHaveValue(String(initialValue));
+    await expect(slider).toHaveValue("50");
 
     await slider.press("ArrowUp");
-    await expect(slider).toHaveValue(String(Math.min(initialValue + step, max)));
+    await expect(slider).toHaveValue("51");
 
     await slider.press("ArrowDown");
-    await expect(slider).toHaveValue(String(initialValue));
+    await expect(slider).toHaveValue("50");
   });
 
   await test.step("Keyboard navigation - Home and End keys", async () => {
-    await slider.focus();
+    await slider.press("End");
+    await expect(slider).toHaveValue("100");
 
     await slider.press("Home");
-    await expect(slider).toHaveValue(String(min));
-
-    await slider.press("End");
-    await expect(slider).toHaveValue(String(max));
+    await expect(slider).toHaveValue("0");
   });
 
   await test.step("Keyboard navigation - Page Up/Down keys", async () => {
-    await slider.focus();
-
-    await slider.press("Home");
-
     await slider.press("PageUp");
-    const pageUpValue = parseInt(await slider.inputValue());
-    expect(pageUpValue).toBeGreaterThan(min);
+    await expect(slider).toHaveValue("1");
 
     await slider.press("PageDown");
-    await expect(slider).toHaveValue(String(min));
+    await expect(slider).toHaveValue("0");
   });
 
   await test.step("Shift key modifies step size", async () => {
-    await slider.focus();
-    await slider.press("Home");
-
     await slider.press("Shift+ArrowRight");
-    await expect(slider).toHaveValue(String(Math.min(min + shiftStep, max)));
+    await expect(slider).toHaveValue("10");
   });
 
-  if (container) {
-    await test.step("Mouse interaction - Click to set value", async () => {
-      const containerBox = await container.boundingBox();
-      if (containerBox) {
-        // Click at 75% position (should be around 75% of max value)
-        const clickX = containerBox.x + containerBox.width * 0.75;
-        const clickY = containerBox.y + containerBox.height * 0.5;
+  await test.step("Mouse interaction - Click to set value", async () => {
+    await expect(rail).toBeVisible();
+    const { x, y } = await getRailPosition(rail, 0.75);
+    await page.mouse.click(x, y);
+    await expect(slider).toHaveValue("75");
+  });
 
-        await page.mouse.click(clickX, clickY);
+  await test.step("Mouse drag interaction", async () => {
+    // Start drag at 25% position
+    const startPosition = await getRailPosition(rail, 0.25);
 
-        const clickedValue = parseInt(await slider.inputValue());
-        // Should be approximately 75% of the range
-        const expectedValue = min + (max - min) * 0.75;
-        expect(Math.abs(clickedValue - expectedValue)).toBeLessThanOrEqual(step * 2);
-      }
-    });
+    // End drag at 75% position
+    const endPosition = await getRailPosition(rail, 0.75);
 
-    await test.step("Mouse drag interaction", async () => {
-      const containerBox = await container.boundingBox();
-      if (containerBox) {
-        // Start drag at 25% position
-        const startX = containerBox.x + containerBox.width * 0.25;
-        const startY = containerBox.y + containerBox.height * 0.5;
+    await page.mouse.move(startPosition.x, startPosition.y);
+    await page.mouse.down();
+    await expect(slider).toHaveValue("25");
 
-        // End drag at 75% position
-        const endX = containerBox.x + containerBox.width * 0.75;
-        const endY = containerBox.y + containerBox.height * 0.5;
-
-        await page.mouse.move(startX, startY);
-        await page.mouse.down();
-        await page.mouse.move(endX, endY);
-        await page.mouse.up();
-
-        const draggedValue = parseInt(await slider.inputValue());
-        const expectedValue = min + (max - min) * 0.75;
-        expect(Math.abs(draggedValue - expectedValue)).toBeLessThanOrEqual(step * 2);
-      }
-    });
-  }
+    await page.mouse.move(endPosition.x, endPosition.y);
+    await page.mouse.up();
+    await expect(slider).toHaveValue("75");
+  });
 
   await test.step("Boundary value constraints", async () => {
-    await slider.focus();
-
     // Test minimum boundary
     await slider.press("Home");
+    await expect(slider).toHaveValue("0");
+
     await slider.press("ArrowLeft"); // Try to go below min
-    await expect(slider).toHaveValue(String(min));
+    await expect(slider).toHaveValue("0");
 
     // Test maximum boundary
     await slider.press("End");
+    await expect(slider).toHaveValue("100");
+
     await slider.press("ArrowRight"); // Try to go above max
-    await expect(slider).toHaveValue(String(max));
+    await expect(slider).toHaveValue("100");
   });
 };
 
 /**
- * Comprehensive testing for multi-thumb (range) slider implementation.
+ * Comprehensive testing for range slider implementation.
  * Tests range-specific behaviors, thumb independence, and collision handling.
+ *
+ * Slider must have min=0, max=100, step=1 and initial value of [25,75].
  */
-export const multiThumbSliderTesting = async ({
-  page,
-  slider,
-  container,
-  initialValues = [25, 75],
-  min = 0,
-  max = 100,
-  step = 1,
-}: SliderTestingOptions) => {
-  await test.step("Basic accessibility for range slider", async () => {
-    await expect(slider).toHaveCount(initialValues.length);
+export const rangeSliderTesting = async ({ page, slider, rail }: SliderTestingOptions) => {
+  const firstThumb = slider.first();
+  const lastThumb = slider.last();
 
-    for (let i = 0; i < initialValues.length; i++) {
+  await test.step("Basic accessibility for range slider", async () => {
+    await expect(slider).toHaveCount(2);
+
+    for (let i = 0; i < 2; i++) {
       const thumb = slider.nth(i);
-      await expect(thumb).toBeHidden();
       await expect(thumb).toHaveAttribute("role", "slider");
-      await expect(thumb).toHaveAttribute("aria-valuenow", String(initialValues[i]));
-      await expect(thumb).toHaveAttribute("aria-valuemin", String(min));
-      await expect(thumb).toHaveAttribute("aria-valuemax", String(max));
-      await expect(thumb).toHaveAttribute("data-index", String(i));
+      await expect(thumb).toHaveAttribute("aria-valuenow", i === 0 ? "25" : "75");
+      await expect(thumb).toHaveAttribute("aria-valuemin", "0");
+      await expect(thumb).toHaveAttribute("aria-valuemax", "100");
+      await expect(thumb).toHaveAttribute("step", "1");
     }
   });
 
   await test.step("Independent thumb navigation", async () => {
-    const firstThumb = slider.first();
-    const lastThumb = slider.last();
-
     await firstThumb.focus();
     await expect(firstThumb).toBeFocused();
 
-    const initialFirstValue = parseInt(await firstThumb.inputValue());
     await firstThumb.press("ArrowRight");
-    await expect(firstThumb).toHaveAttribute(
-      "aria-valuenow",
-      String(Math.min(initialFirstValue + step, max)),
-    );
+    await expect(firstThumb).toHaveValue("26");
+
+    await firstThumb.press("ArrowLeft");
+    await expect(firstThumb).toHaveValue("25");
 
     await lastThumb.focus();
     await expect(lastThumb).toBeFocused();
 
-    const initialLastValue = parseInt(await lastThumb.inputValue());
+    await lastThumb.press("ArrowRight");
+    await expect(lastThumb).toHaveValue("76");
+
     await lastThumb.press("ArrowLeft");
-    await expect(lastThumb).toHaveAttribute(
-      "aria-valuenow",
-      String(Math.max(initialLastValue - step, min)),
-    );
-  });
-
-  await test.step("Thumb collision and ordering", async () => {
-    const firstThumb = slider.first();
-    const lastThumb = slider.last();
-
-    await firstThumb.focus();
-    await firstThumb.press("End"); // Move first thumb to max
-
-    // Values should maintain order (first <= last)
-    const firstValue = parseInt(await firstThumb.inputValue());
-    const lastValue = parseInt(await lastThumb.inputValue());
-    expect(firstValue).toBeLessThanOrEqual(lastValue);
+    await expect(lastThumb).toHaveValue("75");
   });
 
   await test.step("Tab navigation between thumbs", async () => {
-    const firstThumb = slider.first();
-    const lastThumb = slider.last();
-
     await firstThumb.focus();
     await expect(firstThumb).toBeFocused();
 
@@ -247,89 +172,39 @@ export const multiThumbSliderTesting = async ({
     await expect(firstThumb).toBeFocused();
   });
 
-  if (container) {
-    await test.step("Click interaction selects closest thumb", async () => {
-      const containerBox = await container.boundingBox();
-      if (containerBox) {
-        const testCases = [
-          { clickPercent: 0.0, expectedValue: min },
-          { clickPercent: 0.1, expectedValue: 10 },
-          { clickPercent: 0.25, expectedValue: 25 },
-          { clickPercent: 0.5, expectedValue: 50 },
-        ];
+  await test.step("Click and drag interactions", async () => {
+    let position = await getRailPosition(rail, 0.1);
 
-        for (const { clickPercent, expectedValue } of testCases) {
-          const clickX = containerBox.x + containerBox.width * clickPercent;
-          const clickY = containerBox.y + containerBox.height * 0.5;
+    await page.mouse.click(position.x, position.y);
+    await expect(firstThumb).toHaveValue("10");
+    await expect(lastThumb).toHaveValue("75");
 
-          await page.mouse.click(clickX, clickY);
+    position = await getRailPosition(rail, 0.8);
+    await page.mouse.click(position.x, position.y);
+    await expect(firstThumb).toHaveValue("10");
+    await expect(lastThumb).toHaveValue("80");
 
-          const actualValue = parseInt(await slider.first().inputValue());
-          expect(actualValue).toBe(expectedValue);
-        }
-      }
-    });
+    position = await getRailPosition(rail, 0.1);
+    await page.mouse.move(position.x, position.y);
+    await page.mouse.down();
 
-    await test.step("Drag interaction maintains thumb identity", async () => {
-      const firstThumb = slider.first();
-      const lastThumb = slider.last();
-      const containerBox = await container.boundingBox();
+    position = await getRailPosition(rail, 0.5);
+    await page.mouse.move(position.x, position.y);
+    await expect(firstThumb, "should change value by dragging thumb").toHaveValue("50");
+    await expect(lastThumb).toHaveValue("80");
 
-      if (containerBox) {
-        // Test case 1: Drag first thumb to a safe position (60%)
-        await test.step("Drag to safe position", async () => {
-          const targetValue = 60;
-          const targetPercent = (targetValue - min) / (max - min);
-          const targetX = containerBox.x + containerBox.width * targetPercent;
-          const targetY = containerBox.y + containerBox.height * 0.5;
+    position = await getRailPosition(rail, 0.9);
+    await page.mouse.move(position.x, position.y);
+    await expect(firstThumb, "should not exceed last thumb when dragging").toHaveValue("80");
+    await expect(lastThumb).toHaveValue("80");
+    await page.mouse.up();
+  });
 
-          await page.mouse.click(targetX, targetY);
-          await expect(firstThumb).toHaveValue(String(targetValue));
-        });
-
-        // Test case 2: Try to drag first thumb past the second thumb
-        await test.step("Collision handling", async () => {
-          const initialLastValue = parseInt(await lastThumb.inputValue()); // e.g., 75
-
-          // Try to drag first thumb to 95% (past the second thumb)
-          const beyondTargetX = containerBox.x + containerBox.width * 0.95;
-          const beyondTargetY = containerBox.y + containerBox.height * 0.5;
-
-          const currentFirstPercent = (60 - min) / (max - min);
-          const currentFirstX = containerBox.x + containerBox.width * currentFirstPercent;
-          const currentFirstY = containerBox.y + containerBox.height * 0.5;
-
-          await page.mouse.move(currentFirstX, currentFirstY);
-          await page.mouse.down();
-          await page.mouse.move(beyondTargetX, beyondTargetY);
-          await page.mouse.up();
-
-          // First thumb should be constrained to not exceed second thumb
-          const finalFirstValue = parseInt(await firstThumb.inputValue());
-          const finalLastValue = parseInt(await lastThumb.inputValue());
-
-          expect(finalFirstValue).toBeLessThanOrEqual(initialLastValue);
-          expect(finalLastValue).toBe(initialLastValue); // Second thumb shouldn't move
-        });
-      }
-    });
-  }
-
-  await test.step("Range constraints and validation", async () => {
-    const firstThumb = slider.first();
-    const lastThumb = slider.last();
-
-    // Ensure thumbs maintain proper ordering
-    await firstThumb.focus();
+  await test.step("Home and End navigation", async () => {
     await firstThumb.press("Home");
-    await lastThumb.focus();
+    await expect(firstThumb).toHaveValue("0");
+
     await lastThumb.press("End");
-
-    const minValue = parseInt(await firstThumb.inputValue());
-    const maxValue = parseInt(await lastThumb.inputValue());
-
-    expect(minValue).toBeLessThanOrEqual(maxValue);
-    expect(minValue).toBeGreaterThanOrEqual(min);
-    expect(maxValue).toBeLessThanOrEqual(max);
+    await expect(lastThumb).toHaveValue("100");
   });
 };
