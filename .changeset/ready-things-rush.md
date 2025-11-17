@@ -10,4 +10,5 @@ Breaking changes: This change includes breaking changes. Since the slider is mar
 - prevent thumbs from overlapping each other in range mode
 - removed `discrete` property. Pass a corresponding `step` value if you only want to allow certain discrete values
 - add separate aria labels for input controls in range mode
+- fix label position for first and last label so they are aligned with the slider edges and do not overlap them
 - fix(OnyxStepper): emit undefined instead of NaN when value is cleared
