@@ -3,69 +3,47 @@ import { ref } from "vue";
 import { _unstableCreateSlider } from "./createSlider.js";
 
 const modelValue = ref(50);
-const committed = ref<number | null>(null);
-const min = ref(0);
-const max = ref(100);
 const discrete = ref(true);
-const marks = ref([
-  { value: 0, label: "0%" },
-  { value: 25, label: "25%" },
-  { value: 50, label: "50%" },
-  { value: 75, label: "75%" },
-  { value: 100, label: "100%" },
-]);
 
 const onChange = (values: number) => {
   modelValue.value = values;
 };
 
-const onCommit = (values: number) => {
-  committed.value = values;
-};
-
 const slider = _unstableCreateSlider({
-  value: modelValue,
-  min,
-  max,
-  discrete,
-  marks,
-  onChange,
-  onCommit,
   label: "Discrete Slider",
+  value: modelValue,
+  discrete,
+  marks: [
+    { value: 0, label: "0%" },
+    { value: 25, label: "25%" },
+    { value: 50, label: "50%" },
+    { value: 75, label: "75%" },
+    { value: 100, label: "100%" },
+  ],
+  onChange,
 });
 
 const {
-  elements: { root, thumbInput, thumbContainer, track, rail, mark },
-  state: { trackOffset, trackLength, marksList },
+  elements: { root, thumbInput, thumbContainer, track, mark },
+  state: { marks },
 } = slider;
-
-defineExpose({ slider });
 </script>
 
 <template>
   <div class="slider-container">
     <div v-bind="root" class="slider-root">
-      <div v-bind="rail" class="slider-rail"></div>
-      <div
-        v-bind="track"
-        class="slider-track"
-        :style="{ left: `${trackOffset}%`, width: `${trackLength}%` }"
-      ></div>
+      <div class="slider-rail"></div>
+      <div v-bind="track" class="slider-track"></div>
 
-      <div
-        v-bind="thumbContainer({ value: modelValue, index: 0 })"
-        class="slider-thumb"
-        :style="{ left: `${((modelValue - min) / (max - min)) * 100}%` }"
-      >
+      <div v-bind="thumbContainer({ value: modelValue, index: 0 })" class="slider-thumb">
         <input class="visually-hidden" v-bind="thumbInput({ index: 0, value: modelValue })" />
       </div>
 
       <div
-        v-for="markItem in marksList"
+        v-for="markItem in marks"
         :key="markItem.value"
         v-bind="mark({ value: markItem.value })"
         class="slider-mark"
-        :style="{ left: `${((markItem.value - min) / (max - min)) * 100}%` }"
       >
         {{ markItem.label }}
       </div>
