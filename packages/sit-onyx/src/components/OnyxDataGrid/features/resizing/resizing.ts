@@ -1,4 +1,4 @@
-import { computed, h, ref, unref, watch, type Slots, type ThHTMLAttributes } from "vue";
+import { h, ref, toRef, watch, type Ref, type Slots, type ThHTMLAttributes } from "vue";
 import { mergeVueProps } from "../../../../utils/attrs.js";
 import { escapeCSS } from "../../../../utils/dom.js";
 import OnyxResizeHandle from "../../../OnyxResizeHandle/OnyxResizeHandle.vue";
@@ -15,15 +15,14 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
     const MIN_COLUMN_WIDTH = 3 * 16;
     const headers = ref(new Map<keyof TEntry, HTMLElement>());
     const { isEnabled } = useFeatureContext(ctx, options);
-    const internalColWidths = ref(new Map<keyof TEntry, string>());
-    const externalColWidths = computed<Partial<Record<keyof TEntry, string>>>(
-      () => unref(options?.columnWidths) || {},
+    const externalColWidths: Ref<Partial<Record<keyof TEntry, string>>> = toRef(
+      options?.columnWidths ?? {},
     );
+    const internalColWidths = ref(new Map<keyof TEntry, string>());
     const scrollContainer = ref<HTMLElement>();
-    const isControlled = computed(() => Boolean(unref(options?.columnWidths)));
 
     const getColumnWidthByKey = (key: keyof TEntry): string | undefined => {
-      if (isControlled.value) {
+      if (options?.columnWidths) {
         return externalColWidths.value[key];
       }
 
@@ -31,12 +30,8 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
     };
 
     const setColumnWidthByKey = (key: keyof TEntry, width: string) => {
-      if (isControlled.value) {
-        options?.onColumnWidthsChange?.({ ...externalColWidths.value, [key]: width }, [
-          key,
-          externalColWidths.value[key],
-          width,
-        ]);
+      if (options?.columnWidths) {
+        externalColWidths.value = { ...externalColWidths.value, [key]: width };
       } else {
         internalColWidths.value.set(key, width);
       }

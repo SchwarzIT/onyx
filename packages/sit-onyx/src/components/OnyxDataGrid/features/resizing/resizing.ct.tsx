@@ -78,7 +78,7 @@ test("should resize columns", async ({ page, mount }) => {
 
 test("should resize columns as controlled", async ({ page, mount }) => {
   // ARRANGE
-  let columnWidths: Partial<Record<keyof DataGridEntry, string>> = {
+  const columnWidths = {
     a: "200px",
     b: "100px",
     c: "300px",
@@ -86,34 +86,17 @@ test("should resize columns as controlled", async ({ page, mount }) => {
   const data = getTestData();
   const columns = getTestColumns();
 
-  const updateComponent = async () => {
-    await component.update({
-      props: {
-        data,
-        columns,
-        resizingOptions: {
-          columnWidths,
-          onColumnWidthsChange: (newWidths) => {
-            columnWidths = newWidths;
-          },
-        },
-      },
-    });
-  };
-
   const resizingOptions: ResizingOptions<DataGridEntry> = {
     columnWidths,
-    onColumnWidthsChange: async (newWidths) => {
-      columnWidths = newWidths;
-    },
   };
-  const component = await mount(TestCase, {
-    props: {
-      data,
-      columns,
-      resizingOptions,
-    },
-  });
+  const component = await mount(
+    <TestCase
+      data={data}
+      columns={columns}
+      resizingOptions={resizingOptions}
+      controlledColumnWidths
+    />,
+  );
 
   const aColumn = component.getByRole("columnheader", { name: "Drag to change width a" });
   const bColumn = component.getByRole("columnheader", { name: "Drag to change width b" });
@@ -132,7 +115,6 @@ test("should resize columns as controlled", async ({ page, mount }) => {
 
   // ACT
   await dragResizeHandle({ page, component: aColumn, to: 100 });
-  await updateComponent();
   box = (await aColumn.boundingBox())!;
 
   // ASSERT
@@ -146,7 +128,6 @@ test("should resize columns as controlled", async ({ page, mount }) => {
 
   // ACT
   await dragResizeHandle({ page, component: cColumn, to: 1200 });
-  await updateComponent();
 
   // // ASSERT
   cBox = (await cColumn.boundingBox())!;
@@ -154,7 +135,6 @@ test("should resize columns as controlled", async ({ page, mount }) => {
 
   // ACT
   await cColumn.getByRole("button", { name: "Drag to change width" }).dblclick();
-  await updateComponent();
 
   // ASSERT
   cBox = (await cColumn.boundingBox())!;

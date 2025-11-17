@@ -2,4 +2,4 @@
 "sit-onyx": minor
 ---
 
-feat(OnyxDataGrid): introduce `columnWidths` and `onColumnWidthsChange` options for the `useResizing` feature
+feat(OnyxDataGrid): introduce controllable `columnWidths` option for the `useResizing` feature
