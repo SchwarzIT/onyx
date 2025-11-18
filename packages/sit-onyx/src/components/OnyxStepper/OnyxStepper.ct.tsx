@@ -3,7 +3,7 @@ import type { FormMessages } from "../../composables/useFormElementError.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import type { Nullable } from "../../types/index.js";
-import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-utils";
+import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-utils.js";
 import OnyxStepper from "./OnyxStepper.vue";
 
 test.describe("Screenshot tests", () => {
@@ -270,7 +270,7 @@ test.describe("Screenshot tests", () => {
 
 test("should emit events", async ({ mount }) => {
   const events = {
-    updateModelValue: [] as (number | undefined)[],
+    updateModelValue: [] as Nullable<number>[],
   };
 
   // ARRANGE
@@ -292,14 +292,23 @@ test("should emit events", async ({ mount }) => {
   await inputElement.pressSequentially("10");
 
   // ASSERT
-  // The initial value is 0.
   await expect(inputElement).toHaveValue("10");
 
   // ACT
   await inputElement.blur();
+
   // ASSERT
   expect(events).toMatchObject({
     updateModelValue: [10],
+  });
+
+  // ACT
+  await inputElement.clear();
+  await inputElement.blur();
+
+  // ASSERT
+  expect(events, "should emit undefined instead of NaN when value is cleared").toMatchObject({
+    updateModelValue: [10, undefined],
   });
 });
 

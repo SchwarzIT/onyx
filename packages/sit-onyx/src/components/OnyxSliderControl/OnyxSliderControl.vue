@@ -8,6 +8,7 @@ export default {};
 
 <script setup lang="ts" generic="TSliderMode extends SliderMode">
 import { iconMinusSmall, iconPlusSmall } from "@sit-onyx/icons";
+import { computed } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
@@ -27,9 +28,10 @@ const emit = defineEmits<{
   "update:modelValue": [value: number];
 }>();
 
+const { t } = injectI18n();
 const { densityClass } = useDensity(props);
 
-const modelValue = useVModel<OnyxSliderControlProps, "modelValue", number>({
+const modelValue = useVModel({
   props,
   emit: emit,
   key: "modelValue",
@@ -49,12 +51,15 @@ const handleIconClick = () => {
 };
 
 const handleStepperChange = (value?: Nullable<number>) => {
-  if (typeof value === "number") {
-    modelValue.value = value;
-  }
+  if (value == undefined) return;
+  modelValue.value = value;
 };
 
-const { t } = injectI18n();
+const stepperLabel = computed(() => {
+  if (props.direction === "increase") return t.value("slider.changeStartValue");
+  else if (props.direction === "decrease") return t.value("slider.changeEndValue");
+  return t.value("slider.changeValue");
+});
 </script>
 
 <template>
@@ -70,7 +75,6 @@ const { t } = injectI18n();
         color="neutral"
         :label="t('slider.decreaseValueBy', { n: props.shiftStep })"
         :icon="iconMinusSmall"
-        tabindex="0"
         @click="handleIconClick"
       />
       <OnyxIconButton
@@ -79,21 +83,19 @@ const { t } = injectI18n();
         color="neutral"
         :label="t('slider.increaseValueBy', { n: props.shiftStep })"
         :icon="iconPlusSmall"
-        tabindex="0"
         @click="handleIconClick"
       />
     </template>
 
-    <template v-if="props.control === 'input'">
-      <OnyxStepper
-        :label="t('slider.changeValue')"
-        hide-label
-        hide-buttons
-        :disabled="props.disabled"
-        :model-value="props.modelValue"
-        @update:model-value="handleStepperChange"
-      />
-    </template>
+    <OnyxStepper
+      v-if="props.control === 'input'"
+      :label="stepperLabel"
+      hide-label
+      hide-buttons
+      :disabled="props.disabled"
+      :model-value="props.modelValue"
+      @update:model-value="handleStepperChange"
+    />
   </div>
 </template>
 

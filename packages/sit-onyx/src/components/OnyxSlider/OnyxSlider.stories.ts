@@ -13,7 +13,7 @@ const meta: Meta<typeof OnyxSlider> = {
   decorators: [
     (story) => ({
       components: { story },
-      template: `<div style="max-width: 16rem;"> <story /> </div>`,
+      template: `<div style="max-width: 20rem;"> <story /> </div>`,
     }),
   ],
   argTypes: {
@@ -57,10 +57,16 @@ export const Marks = {
 
 export const Discrete = {
   args: {
-    label: "Discrete",
-    modelValue: 0,
-    discrete: true,
-    max: 5,
+    label: "Rate your experience",
+    modelValue: 50,
+    step: 25,
+    marks: [
+      { value: 0, label: "☹️" },
+      { value: 25, label: "😕" },
+      { value: 50, label: "😐" },
+      { value: 75, label: "😄" },
+      { value: 100, label: "😍" },
+    ],
   },
 } satisfies Story;
 
@@ -117,16 +123,8 @@ export const ValueControl = {
 
 export const InputControl = {
   args: {
-    ...Default.args,
+    ...Range.args,
     label: "Input control",
     control: "input",
-    mode: "range",
-    modelValue: [25, 75],
   },
-  decorators: [
-    (story) => ({
-      components: { story },
-      template: `<div style="min-width: 20rem;"> <story /> </div>`,
-    }),
-  ],
 } satisfies Story<"range">;
