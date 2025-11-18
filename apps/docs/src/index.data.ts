@@ -194,13 +194,21 @@ export default defineLoader({
         href: "https://storybook.onyx.schwarz/?path=/docs/form-elements-datepicker--docs",
       },
       { name: "Timepicker", status: getImplementedStatus("OnyxTimepicker") },
-      { name: "Calendar", status: getImplementedStatus("OnyxCalendar") },
+      {
+        name: "Calendar",
+        status: getImplementedStatus("OnyxCalendar"),
+        href: "https://storybook.onyx.schwarz/?path=/docs/data-calendar--docs",
+      },
       {
         name: "Accordion",
         status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/basic-accordion--docs",
       },
-      { name: "Slider", status: getImplementedStatus("OnyxSlider") },
+      {
+        name: "Slider",
+        status: "implemented",
+        href: "https://storybook.onyx.schwarz/?path=/docs/form-elements-slider--docs",
+      },
       {
         name: "Stepper",
         status: "implemented",
@@ -264,7 +272,11 @@ export default defineLoader({
         status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/navigation-segmentedcontrol--docs",
       },
-      { name: "Global search", status: getImplementedStatus("OnyxGlobalSearch") },
+      {
+        name: "Global search",
+        status: getImplementedStatus("OnyxGlobalSearch"),
+        href: "https://storybook.onyx.schwarz/?path=/docs/search-filter-globalsearch--docs",
+      },
       {
         name: "Code tabs",
         status: "implemented",
