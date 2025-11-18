@@ -241,7 +241,9 @@
   "slider": {
     "decreaseValueBy": "Wert um {n} verringern",
     "increaseValueBy": "Wert um {n} erhöhen",
-    "changeValue": "Wert ändern"
+    "changeValue": "Wert ändern",
+    "changeStartValue": "Startwert ändern",
+    "changeEndValue": "Endwert ändern"
   },
   "codeTabs": {
     "label": "Codeausschnitte",
