@@ -17,25 +17,6 @@
 ### Patch Changes
 
 - 96b22cc: bump peerDependencies version for `@nuxtjs/color-mode` to `>= 4`
-- c58dfc2: fix(nuxt-docs): hide language option from global search if only one language exists
-- Updated dependencies [b4483ea]
-- Updated dependencies [fd6793d]
-- Updated dependencies [0a67f5b]
-- Updated dependencies [f183d40]
-- Updated dependencies [eb8f914]
-- Updated dependencies [0279a01]
-- Updated dependencies [df708d6]
-- Updated dependencies [0a67f5b]
-- Updated dependencies [07f410d]
-- Updated dependencies [4a317f3]
-- Updated dependencies [fe7b384]
-- Updated dependencies [ab27c5f]
-- Updated dependencies [23de6e1]
-- Updated dependencies [523b7b9]
-- Updated dependencies [d86f505]
-- Updated dependencies [eb11cc0]
-- Updated dependencies [390252f]
-- Updated dependencies [8b82c06]
 - Updated dependencies [f7f3eb4]
   - sit-onyx@1.4.0
   - @sit-onyx/icons@1.2.0

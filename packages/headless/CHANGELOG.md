@@ -4,13 +4,6 @@
 
 ### Minor Changes
 
-- fd6793d: feat(OnyxSlider): add `OnyxSliderControl` component and improve discrete mode
-  - Now when passing `discrete: true` to `OnyxSlider`, marks will be generated automatically and there is no need to manually pass `marks: true`
-  - Add unstable `OnyxSliderControl` component for slider input controls
-  - fix(OnyxStepper): ensure formatted display value is in sync with modelValue on blur
-
-  For now, the components are marked as experimental/unstable which means that they are still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using them.
-
 - fe7b384: feat: expose internals.getOptionValueById for createListbox and createComboBox
 - 523b7b9: refactor `createSlider` implementation
 
@@ -27,7 +20,7 @@
 
 ### Patch Changes
 
-- b3cb469: fix: replace setTimeout with event-driven approach in useOutsideClick
+- b3cb469: refactor(useOutsideClick): replace setTimeout with event-driven approach
 
 ## 0.3.0
 

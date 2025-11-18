@@ -4,12 +4,9 @@
 
 ### Minor Changes
 
-- fd6793d: feat(OnyxSlider): add `OnyxSliderControl` component and improve discrete mode
-  - Now when passing `discrete: true` to `OnyxSlider`, marks will be generated automatically and there is no need to manually pass `marks: true`
-  - Add unstable `OnyxSliderControl` component for slider input controls
+- fd6793d: feat(OnyxSlider): add `OnyxSliderControl` component
+  - Add unstable `OnyxSliderControl` component for slider input controls. For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using them.
   - fix(OnyxStepper): ensure formatted display value is in sync with modelValue on blur
-
-  For now, the components are marked as experimental/unstable which means that they are still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using them.
 
 - 0a67f5b: feat: implement new `OnyxUnstableCodeTabs` and `OnyxUnstableCodeTab` component
 
@@ -17,9 +14,6 @@
 
 - 0a67f5b: - OnyxTabs: implement new `actions` slot
   - OnyxTab: bind fallthrough attributes to child elements
-- 07f410d: feat(OnyxCodeTabs): implement skeleton
-  feat(OnyxCodeTabs): show failed tag when copy failed (e.g. because the user did not grant the required browser permissions)
-  fix(OnyxCodeTabs): adjust copy button padding
 - 4a317f3: feat: export `mergeVueProps` utility
 - fe7b384: feat: implement new `OnyxUnstableGlobalSearch` component
 
@@ -63,7 +57,6 @@
   - input: prevent keyboard focus on thumbs when input controls are shown since the value can by changed directly with the inputs via keyboard
 
 - d86f505: fix(OnyxTable): correctly show row hover styles when table is nested inside another component
-- Updated dependencies [eb11cc0]
 - Updated dependencies [f7f3eb4]
   - @sit-onyx/icons@1.2.0
 

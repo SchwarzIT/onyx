@@ -8,7 +8,6 @@
 
 ### Patch Changes
 
-- Updated dependencies [eb11cc0]
 - Updated dependencies [f7f3eb4]
   - @sit-onyx/icons@1.2.0
 
