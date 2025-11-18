@@ -223,6 +223,7 @@ test("should interact with icon control", async ({ mount }) => {
       label: "Icon control slider",
       modelValue,
       control: "icon",
+      step: 10,
     },
     on: eventHandlers,
   });
@@ -239,13 +240,27 @@ test("should interact with icon control", async ({ mount }) => {
   await increaseButton.click();
 
   // ASSERT
-  await expect(slider, "should increase by shiftStep").toHaveValue("60");
+  await expect(slider, "should increase by step").toHaveValue("60");
 
   // ACT
   await decreaseButton.click();
 
   // ASSERT
-  await expect(slider, "should decrease by shiftStep").toHaveValue("50");
+  await expect(slider, "should decrease by step").toHaveValue("50");
+
+  // ACT
+  await component.update({ props: { modelValue: 0 } });
+
+  // ASSERT
+  await expect(decreaseButton, "should disable button when min value is reached").toBeDisabled();
+  await expect(increaseButton).toBeEnabled();
+
+  // ACT
+  await component.update({ props: { modelValue: 100 } });
+
+  // ASSERT
+  await expect(increaseButton, "should disable button when min value is reached").toBeDisabled();
+  await expect(decreaseButton).toBeEnabled();
 });
 
 test("should handle auto-generated marks", async ({ mount }) => {
@@ -337,9 +352,10 @@ test("should interact with input control in single mode", async ({ mount }) => {
   expect(modelValue).toBe(20);
   await expect(input).toHaveValue("20");
   await expect(slider).toHaveValue("20");
+  await expect(input, "should keep input enabled when min value is reached").toBeEnabled();
 });
 
-test("should interact with input control in range mode", async ({ mount }) => {
+test("should interact with input control in range mode", async ({ mount, page }) => {
   let modelValue: [number, number] = [25, 75];
 
   const eventHandlers = {
@@ -397,4 +413,29 @@ test("should interact with input control in range mode", async ({ mount }) => {
   // ASSERT - Should not allow crossing over
   expect(modelValue).toStrictEqual([80, 80]); // Should remain unchanged
   await expect(firstInput).toHaveValue("80");
+
+  // ACT
+  await firstInput.fill("0");
+  await lastInput.fill("100");
+  await lastInput.blur();
+
+  // ASSERT
+  await expect(firstInput, "should keep input enabled when min value is reached").toBeEnabled();
+  await expect(lastInput, "should keep input enabled when max value is reached").toBeEnabled();
+
+  // ACT
+  await page.getByRole("document").click({ position: { x: 0, y: 0 } }); // reset focus
+  await component.press("Tab");
+
+  // ASSERT
+  await expect(firstInput).toBeFocused();
+
+  // ACT
+  await component.press("Tab");
+
+  // ASSERT
+  await expect(
+    lastInput,
+    "should prevent focus on thumbs when input controls are shown",
+  ).toBeFocused();
 });

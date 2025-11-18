@@ -21,31 +21,37 @@ const meta: Meta<typeof OnyxSliderControl> = {
 };
 
 export default meta;
+type Story = StoryObj<typeof OnyxSliderControl>;
 
 export const Value = {
   args: {
     control: "value",
     modelValue: 0,
   },
-} satisfies StoryObj<typeof OnyxSliderControl>;
+} satisfies Story;
 
 export const IconDecrease = {
   args: {
     control: "icon",
     direction: "decrease",
+    modelValue: 50,
+    step: 10,
   },
-} satisfies StoryObj<typeof OnyxSliderControl>;
+} satisfies Story;
 
 export const IconIncrease = {
   args: {
-    control: "icon",
+    ...IconDecrease.args,
     direction: "increase",
   },
-} satisfies StoryObj<typeof OnyxSliderControl>;
+} satisfies Story;
 
 export const Input = {
   args: {
     control: "input",
     modelValue: 0,
+    step: 1,
+    min: 0,
+    max: 100,
   },
-} satisfies StoryObj<typeof OnyxSliderControl>;
+} satisfies Story;
