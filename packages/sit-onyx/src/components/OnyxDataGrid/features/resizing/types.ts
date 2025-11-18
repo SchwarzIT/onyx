@@ -1,4 +1,4 @@
-import type { MaybeRef } from "vue";
+import type { Ref } from "vue";
 import type { DataGridEntry } from "../../types.js";
 import { type DataGridFeatureOptions } from "../index.js";
 
@@ -11,8 +11,14 @@ export type ResizingOptions<TEntry extends DataGridEntry> = DataGridFeatureOptio
   object
 > & {
   /**
-   * Controllable column widths.
-   * If provided, the resizing feature will use these widths as the source of truth.
+   * The current column resizing state.
+   * Can be used to e.g. save the user resized columns and restore them on page load.
    */
-  columnWidths?: MaybeRef<Partial<Record<keyof TEntry, string>>>;
+  resizeState?: Ref<ResizeState<TEntry>>;
 };
+
+/**
+ * Defines the current column resizing state.
+ * Key = Column key, value = resized width.
+ */
+export type ResizeState<TEntry> = Map<keyof TEntry, string>;

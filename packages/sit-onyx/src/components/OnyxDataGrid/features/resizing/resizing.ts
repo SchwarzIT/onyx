@@ -5,7 +5,7 @@ import OnyxResizeHandle from "../../../OnyxResizeHandle/OnyxResizeHandle.vue";
 import type { DataGridEntry } from "../../types.js";
 import { createFeature, useFeatureContext, type InternalColumnConfig } from "../index.js";
 import "./resizing.scss";
-import type { ResizingOptions } from "./types.js";
+import type { ResizeState, ResizingOptions } from "./types.js";
 
 export const RESIZING_FEATURE = Symbol("Resizing");
 export const FILLER_COLUMN = Symbol("FILLER_COLUMN");
@@ -15,36 +15,17 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
     const MIN_COLUMN_WIDTH = 3 * 16;
     const headers = ref(new Map<keyof TEntry, HTMLElement>());
     const { isEnabled } = useFeatureContext(ctx, options);
-    const externalColWidths: Ref<Partial<Record<keyof TEntry, string>>> = toRef(
-      options?.columnWidths ?? {},
-    );
-    const internalColWidths = ref(new Map<keyof TEntry, string>());
+    const resizeState: Ref<ResizeState<TEntry>> = toRef(options?.resizeState ?? new Map());
     const scrollContainer = ref<HTMLElement>();
 
-    const getColumnWidthByKey = (key: keyof TEntry): string | undefined => {
-      if (options?.columnWidths) {
-        return externalColWidths.value[key];
-      }
-
-      return internalColWidths.value.get(key);
-    };
-
-    const setColumnWidthByKey = (key: keyof TEntry, width: string) => {
-      if (options?.columnWidths) {
-        externalColWidths.value = { ...externalColWidths.value, [key]: width };
-      } else {
-        internalColWidths.value.set(key, width);
-      }
-    };
-
     watch(
-      [headers, internalColWidths, externalColWidths],
+      [headers, resizeState],
       () => {
         // Changing the width directly is needed to avoid re-rendering the table too often.
         headers.value.forEach((th, columnKey) => {
           const property = `--onyx-data-grid-column-${escapeCSS(columnKey)}`;
           const container = th.closest<HTMLElement>(".onyx-table-wrapper__container");
-          const width = getColumnWidthByKey(columnKey);
+          const width = resizeState.value.get(columnKey);
           if (width) {
             container?.style.setProperty(property, width);
           } else {
@@ -70,7 +51,7 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
           },
         } as ThHTMLAttributes;
 
-        const resizedWidth = getColumnWidthByKey(column.key);
+        const resizedWidth = resizeState.value.get(column.key);
 
         return {
           ...column,
@@ -102,18 +83,16 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
 
             Array.from(headers.value.entries()).forEach(([col, el]) => {
               const { width } = el.getBoundingClientRect();
-              setColumnWidthByKey(col, `${Math.max(MIN_COLUMN_WIDTH, width)}px`);
+              resizeState.value.set(col, `${Math.max(MIN_COLUMN_WIDTH, width)}px`);
             });
           },
           onEnd: () => {
             resizingCol.value = undefined;
           },
           onUpdateWidth: (width) => {
-            setColumnWidthByKey(column.key, `${width}px`);
+            resizeState.value.set(column.key, `${width}px`);
           },
-          onAutoSize: () => {
-            setColumnWidthByKey(column.key, "max-content");
-          },
+          onAutoSize: () => resizeState.value.set(column.key, "max-content"),
         }),
         slotContent,
       ];
