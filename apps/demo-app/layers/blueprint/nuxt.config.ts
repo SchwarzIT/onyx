@@ -22,9 +22,6 @@ export default defineNuxtConfig({
       { code: "de-DE", file: "de-DE.json", name: "Deutsch" },
     ],
   },
-  colorMode: {
-    classSuffix: "",
-  },
   nitro: {
     compressPublicAssets: true,
   },
