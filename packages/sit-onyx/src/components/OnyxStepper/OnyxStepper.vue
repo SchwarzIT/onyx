@@ -78,6 +78,8 @@ const inputValue = ref<string>();
 const displayValue = computed(() => getDisplayValue.value(modelValue.value));
 const getFormattedValue = computed(() => {
   return (value?: Nullable<number>) => {
+    if (value != undefined && isNaN(value)) return "";
+
     // using "!=" here to check for both undefined and null
     if (props.precision !== undefined && value != undefined) {
       return roundToPrecision(value, props.precision);
@@ -128,7 +130,8 @@ const handleChange = () => {
     return;
   }
   inputValue.value = getFormattedValue.value(parseFloat(inputValue.value));
-  modelValue.value = parseFloat(inputValue.value);
+  const parsedValue = parseFloat(inputValue.value);
+  modelValue.value = isNaN(parsedValue) ? undefined : parsedValue;
 };
 
 const handleBlur = () => {
