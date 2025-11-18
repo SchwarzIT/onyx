@@ -52,6 +52,7 @@
     "eslint-plugin-vuejs-accessibility": "^2.4.1",
     "jsdom": "^27.2.0",
     "lint-staged": "^16.2.6",
+    "nuxt": "catalog:",
     "prettier": "^3.6.2",
     "prettier-plugin-organize-imports": "^4.3.0",
     "publint": "^0.3.15",
