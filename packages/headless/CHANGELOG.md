@@ -1,5 +1,34 @@
 # @sit-onyx/headless
 
+## 0.4.0
+
+### Minor Changes
+
+- fd6793d: feat(OnyxSlider): add `OnyxSliderControl` component and improve discrete mode
+  - Now when passing `discrete: true` to `OnyxSlider`, marks will be generated automatically and there is no need to manually pass `marks: true`
+  - Add unstable `OnyxSliderControl` component for slider input controls
+  - fix(OnyxStepper): ensure formatted display value is in sync with modelValue on blur
+
+  For now, the components are marked as experimental/unstable which means that they are still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using them.
+
+- fe7b384: feat: expose internals.getOptionValueById for createListbox and createComboBox
+- 523b7b9: refactor `createSlider` implementation
+
+  Breaking changes: This change includes breaking changes. Since the `createSlider` is marked as unstable, we allow for breaking changes within minor versions.
+  - update and optimize internal implementation
+  - remove `onCommit` option, use `onChange` instead
+  - prevent thumbs from overlapping each other in range mode
+  - remove `rail` element since it is not needed
+  - removed unnecessary exposed states: isDragging, activeThumbIndex, isRange, trackOffset, trackLength
+  - renamed exposed states: marksList => marks, normalizedValues => normalizedValues
+  - removed unnecessary exposed internals: clampValue and roundToStep, use the new unified `updateValue` instead
+  - removed `discrete` option. Pass a corresponding `step` value if you only want to allow certain discrete values
+  - export `singleSliderTesting` and `rangeSliderTesting` Playwright test utils
+
+### Patch Changes
+
+- b3cb469: fix: replace setTimeout with event-driven approach in useOutsideClick
+
 ## 0.3.0
 
 ### Minor Changes

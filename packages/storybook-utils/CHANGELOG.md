@@ -1,5 +1,17 @@
 # @sit-onyx/storybook-utils
 
+## 1.1.0
+
+### Minor Changes
+
+- 0dec59a: feat: support Storybook 10
+
+### Patch Changes
+
+- Updated dependencies [eb11cc0]
+- Updated dependencies [f7f3eb4]
+  - @sit-onyx/icons@1.2.0
+
 ## 1.0.2
 
 ### Patch Changes
