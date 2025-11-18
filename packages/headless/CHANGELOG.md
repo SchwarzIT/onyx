@@ -1,5 +1,27 @@
 # @sit-onyx/headless
 
+## 0.4.0
+
+### Minor Changes
+
+- fe7b384: feat: expose internals.getOptionValueById for createListbox and createComboBox
+- 523b7b9: refactor `createSlider` implementation
+
+  Breaking changes: This change includes breaking changes. Since the `createSlider` is marked as unstable, we allow for breaking changes within minor versions.
+  - update and optimize internal implementation
+  - remove `onCommit` option, use `onChange` instead
+  - prevent thumbs from overlapping each other in range mode
+  - remove `rail` element since it is not needed
+  - removed unnecessary exposed states: isDragging, activeThumbIndex, isRange, trackOffset, trackLength
+  - renamed exposed states: marksList => marks, normalizedValues => normalizedValues
+  - removed unnecessary exposed internals: clampValue and roundToStep, use the new unified `updateValue` instead
+  - removed `discrete` option. Pass a corresponding `step` value if you only want to allow certain discrete values
+  - export `singleSliderTesting` and `rangeSliderTesting` Playwright test utils
+
+### Patch Changes
+
+- b3cb469: refactor(useOutsideClick): replace setTimeout with event-driven approach
+
 ## 0.3.0
 
 ### Minor Changes
