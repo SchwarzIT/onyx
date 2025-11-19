@@ -116,6 +116,6 @@ const columnGroups = computed(() =>
 
 <style lang="scss">
 .onyx-data-grid {
-  max-width: 500px;
+  max-width: 600px;
 }
 </style>
