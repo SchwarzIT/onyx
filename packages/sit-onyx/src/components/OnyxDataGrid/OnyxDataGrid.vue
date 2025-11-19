@@ -18,6 +18,7 @@ import {
 import { injectI18n } from "../../i18n/index.js";
 import type { DataGridScrollContainerAttributes, InternalDataGridSlots } from "../../index.js";
 import { mergeVueProps } from "../../utils/attrs.js";
+import { useForwardProps } from "../../utils/props.js";
 import type { OnyxTableSlots, TableColumnGroup } from "../OnyxTable/types.js";
 import { BASE_FEATURE } from "./features/base/base.js";
 import {
@@ -48,6 +49,8 @@ const props = withDefaults(
 const i18n = injectI18n();
 
 const slots = defineSlots<Pick<OnyxTableSlots, "empty">>();
+
+const rendererProps = useForwardProps(props, OnyxDataGridRenderer);
 
 const skeleton = useSkeletonContext(props);
 // Using Ref types to avoid `UnwrapRef` issues
@@ -108,18 +111,11 @@ watch(
 
 <template>
   <OnyxDataGridRenderer
+    v-bind="mergeVueProps($attrs, rendererProps)"
     :column-groups="rendererColumnGroups"
     :columns="renderColumns"
     :rows="renderRows"
     :scroll-container-attrs="rendererScrollContainerAttributes"
-    v-bind="
-      mergeVueProps($attrs, {
-        density: props.density,
-        striped: props.striped,
-        withVerticalBorders: props.withVerticalBorders,
-        withPageScrolling: props.withPageScrolling,
-      })
-    "
   >
     <template v-for="(slot, slotName) in rendererSlots" :key="slotName" #[slotName]>
       <component :is="slot" />
