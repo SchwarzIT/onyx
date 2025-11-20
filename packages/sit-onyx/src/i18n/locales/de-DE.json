@@ -175,7 +175,8 @@
     "select": {
       "label": "Seiten-Auswahl",
       "listLabel": "Verfügbare Seiten"
-    }
+    },
+    "currentOfTotalPages": "{current}/{total} Seiten"
   },
   "input": {
     "clear": "Eingabe löschen",
