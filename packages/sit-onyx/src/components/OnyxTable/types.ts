@@ -31,7 +31,7 @@ export type OnyxTableProps = DensityProp & {
   /**
    * Defines how overflows of text content in cells (`td`-elements) are handled.
    * The cell can either grow to multiple lines (`'multiline'`) or truncate the text (`'ellipsis'`).
-   * The `'ellipsis'` mode will show an ellipsis, when a cell/column has a (maximum) width.
+   * The `'ellipsis'` mode will only show an ellipsis, when a (maximum) width has been defined for a cell/column.
    *
    * @default 'multiline'
    */
