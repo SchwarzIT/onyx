@@ -7,7 +7,7 @@ import OnyxPagination from "./OnyxPagination.vue";
  */
 const meta: Meta<typeof OnyxPagination> = {
   title: "Data/Pagination",
-  component: OnyxPagination,
+  component: OnyxPagination as Meta["component"],
   decorators: [
     (story) => ({
       components: { story },
@@ -25,11 +25,20 @@ export const Default = {
     pages: 42,
   },
 } satisfies Story;
+
 export const Inline = {
   tags: ["new:feature"],
   args: {
     ...Default.args,
     type: "inline",
+  },
+} satisfies Story;
+
+export const Compact = {
+  tags: ["new:feature"],
+  args: {
+    ...Default.args,
+    type: "compact",
   },
 } satisfies Story;
 
