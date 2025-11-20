@@ -78,8 +78,8 @@ importers:
         specifier: ^24.10.1
         version: 24.10.1
       '@vitejs/plugin-vue':
-        specifier: ^6.0.1
-        version: 6.0.1(vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1)(sass-embedded@1.93.3)(sass@1.94.1)(stylus@0.57.0)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.1))(vue@3.5.24(typescript@5.9.3))
+        specifier: ^6.0.2
+        version: 6.0.2(vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1)(sass-embedded@1.93.3)(sass@1.94.1)(stylus@0.57.0)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.1))(vue@3.5.24(typescript@5.9.3))
       '@vitest/coverage-v8':
         specifier: ^4.0.10
         version: 4.0.10(vitest@4.0.10(@types/debug@4.1.12)(@types/node@24.10.1)(jiti@2.6.1)(jsdom@27.2.0)(sass-embedded@1.93.3)(sass@1.94.1)(stylus@0.57.0)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.1))
@@ -123,8 +123,8 @@ importers:
         specifier: ^27.2.0
         version: 27.2.0
       lint-staged:
-        specifier: ^16.2.6
-        version: 16.2.6
+        specifier: ^16.2.7
+        version: 16.2.7
       nuxt:
         specifier: 4.2.1
         version: 4.2.1(@netlify/blobs@9.1.2)(@parcel/watcher@2.5.1)(@types/node@24.10.1)(@vue/compiler-sfc@3.5.24)(better-sqlite3@12.4.1)(db0@0.3.4(better-sqlite3@12.4.1))(encoding@0.1.13)(eslint@9.39.1(jiti@2.6.1))(ioredis@5.8.2)(magicast@0.5.1)(meow@13.2.0)(ms@2.1.3)(optionator@0.9.4)(rollup@4.53.2)(sass-embedded@1.93.3)(sass@1.94.1)(stylelint@16.25.0(typescript@5.9.3))(stylus@0.57.0)(terser@5.44.1)(tsx@4.20.6)(typescript@5.9.3)(vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1)(sass-embedded@1.93.3)(sass@1.94.1)(stylus@0.57.0)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.1))(vue-tsc@3.1.4(typescript@5.9.3))(yaml@2.8.1)
@@ -138,8 +138,8 @@ importers:
         specifier: ^0.3.15
         version: 0.3.15
       rimraf:
-        specifier: ^6.1.0
-        version: 6.1.0
+        specifier: ^6.1.2
+        version: 6.1.2
       simple-git-hooks:
         specifier: ^2.13.1
         version: 2.13.1
@@ -379,8 +379,8 @@ importers:
   packages/figma-plugin-sync-icons:
     devDependencies:
       '@figma/plugin-typings':
-        specifier: ^1.119.0
-        version: 1.119.0
+        specifier: ^1.120.0
+        version: 1.120.0
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -593,8 +593,8 @@ importers:
         specifier: 1.56.1
         version: 1.56.1(@types/node@24.10.1)(jiti@2.6.1)(sass-embedded@1.93.3)(sass@1.94.1)(stylus@0.57.0)(terser@5.44.1)(tsx@4.20.6)(vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1)(sass-embedded@1.93.3)(sass@1.94.1)(stylus@0.57.0)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.1))(vue@3.5.24(typescript@5.9.3))(yaml@2.8.1)
       '@vitejs/plugin-vue':
-        specifier: '>= 5'
-        version: 6.0.1(vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1)(sass-embedded@1.93.3)(sass@1.94.1)(stylus@0.57.0)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.1))(vue@3.5.24(typescript@5.9.3))
+        specifier: '>= 6'
+        version: 6.0.2(vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1)(sass-embedded@1.93.3)(sass@1.94.1)(stylus@0.57.0)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.1))(vue@3.5.24(typescript@5.9.3))
       sass-embedded:
         specifier: 1.93.3
         version: 1.93.3
@@ -1343,8 +1343,8 @@ packages:
   '@fastify/busboy@3.2.0':
     resolution: {integrity: sha512-m9FVDXU3GT2ITSe0UaMA5rU3QkfC/UXtCU8y0gSN/GugTqtVldOBWIB5V6V3sbmenVZUIpU6f+mPEO2+m5iTaA==}
 
-  '@figma/plugin-typings@1.119.0':
-    resolution: {integrity: sha512-DxNa0LwOBublet2iXa30Bt8zUmHXDnLrSiJOSHfL8KjyxpZv15GHgV5TIenvGI84QbQTKmXwOMAwmX/QDeDNWw==}
+  '@figma/plugin-typings@1.120.0':
+    resolution: {integrity: sha512-T19KzoWH+/GQAfWDv4Rx1QPYeeOo6P2tb0qaJUD5gCJlfD82QdyHdiNxH6T0GuSttbcKP9ZGc0E8OeTVMmLT8Q==}
 
   '@fontsource-variable/source-code-pro@5.2.7':
     resolution: {integrity: sha512-kZ0VNwnhvSA7vu5MaiO52eicQ4zC+k+8HBLZb+1js0MK/RngLy25NEUFB1y/AKd0ZMwru88T433QBcFf9m/huw==}
@@ -2455,11 +2455,11 @@ packages:
     resolution: {integrity: sha512-S+9ANAvUmjutrshV4jZjaiG8XQyuJIZ8a4utWmN/vW1sgQ9IfBnPndwkmQYw53QmouOIytT874u65HEmu6H5jw==}
     engines: {node: '>=18'}
 
-  '@rolldown/pluginutils@1.0.0-beta.29':
-    resolution: {integrity: sha512-NIJgOsMjbxAXvoGq/X0gD7VPMQ8j9g0BiDaNjVNVjvl+iKXxL3Jre0v31RmBYeLEmkbj2s02v8vFTbUXi5XS2Q==}
-
   '@rolldown/pluginutils@1.0.0-beta.50':
     resolution: {integrity: sha512-5e76wQiQVeL1ICOZVUg4LSOVYg9jyhGCin+icYozhsUzM+fHE7kddi1bdiE0jwVqTfkjba3jUFbEkoC9WkdvyA==}
+
+  '@rolldown/pluginutils@1.0.0-beta.51':
+    resolution: {integrity: sha512-51/8cNXMrqWqX3o8DZidhwz1uYq0BhHDDSfVygAND1Skx5s1TDw3APSSxCMcFFedwgqGcx34gRouwY+m404BBQ==}
 
   '@rollup/plugin-alias@5.1.1':
     resolution: {integrity: sha512-PR9zDb+rOzkRb2VD+EuKB7UC41vU5DIwZ5qqCpk0KJudcWAyi8rvYOhS7+L5aZCspw1stTViLgN5v6FF1p5cgQ==}
@@ -3006,8 +3006,8 @@ packages:
       vite: 7.2.2
       vue: 3.5.24
 
-  '@vitejs/plugin-vue@6.0.1':
-    resolution: {integrity: sha512-+MaE752hU0wfPFJEUAIxqw18+20euHHdxVtMvbFcOEpjEyfqXH/5DCoTHiVJ0J29EhTJdoTkjEv5YBKU9dnoTw==}
+  '@vitejs/plugin-vue@6.0.2':
+    resolution: {integrity: sha512-iHmwV3QcVGGvSC1BG5bZ4z6iwa1SOpAPWmnjOErd4Ske+lZua5K9TtAVdx0gMBClJ28DViCbSmZitjWZsWO3LA==}
     engines: {node: ^20.19.0 || >=22.12.0}
     peerDependencies:
       vite: 7.2.2
@@ -4685,10 +4685,9 @@ packages:
     resolution: {integrity: sha512-DfXN8DfhJ7NH3Oe7cFmu3NCu1wKbkReJ8TorzSAFbSKrlNaQSKfIzqYqVY8zlbs2NLBbWpRiU52GX2PbaBVNkg==}
     hasBin: true
 
-  glob@11.1.0:
-    resolution: {integrity: sha512-vuNwKSaKiqm7g0THUBu2x7ckSs3XJLXE+2ssL7/MfTGPLLcrJQ/4Uq1CjPTtO5cCIiRxqvN6Twy1qOwhL0Xjcw==}
+  glob@13.0.0:
+    resolution: {integrity: sha512-tvZgpqk6fz4BaNZ66ZsRaZnbHvP/jG3uKJvAZOwEVUL4RTA5nJeeLYfyN9/VA8NX/V3IBG+hkeuGpKjvELkVhA==}
     engines: {node: 20 || >=22}
-    hasBin: true
 
   glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
@@ -5122,10 +5121,6 @@ packages:
   jackspeak@3.4.3:
     resolution: {integrity: sha512-OGlZQpz2yfahA/Rd1Y8Cd9SIEsqvXkLVoSw/cgwhnhFMDbsQFeZYoJJ7bIZBS9BcamUW96asq/npPWugM+RQBw==}
 
-  jackspeak@4.1.1:
-    resolution: {integrity: sha512-zptv57P3GpL+O0I7VdMJNBZCu+BPHVQUk55Ft8/QCJjTVxrnJHuVuX/0Bl2A6/+2oyR/ZMEuFKwmzqqZ/U5nPQ==}
-    engines: {node: 20 || >=22}
-
   jiti@1.21.7:
     resolution: {integrity: sha512-/imKNG4EbWNrVjoNC/1H5/9GFy+tqjGBHCaSsN+P2RnPqjsLmv6UD3Ej+Kj8nBWaRAwyk7kK5ZUc+OEatnTR3A==}
     hasBin: true
@@ -5276,8 +5271,8 @@ packages:
   lines-and-columns@1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
 
-  lint-staged@16.2.6:
-    resolution: {integrity: sha512-s1gphtDbV4bmW1eylXpVMk2u7is7YsrLl8hzrtvC70h4ByhcMLZFY01Fx05ZUDNuv1H8HO4E+e2zgejV1jVwNw==}
+  lint-staged@16.2.7:
+    resolution: {integrity: sha512-lDIj4RnYmK7/kXMya+qJsmkRFkGolciXjrsZ6PC25GdTfWOAWetR0ZbsNXRAj1EHHImRSalc+whZFg56F5DVow==}
     engines: {node: '>=20.17'}
     hasBin: true
 
@@ -6612,8 +6607,8 @@ packages:
     deprecated: Rimraf versions prior to v4 are no longer supported
     hasBin: true
 
-  rimraf@6.1.0:
-    resolution: {integrity: sha512-DxdlA1bdNzkZK7JiNWH+BAx1x4tEJWoTofIopFo6qWUU94jYrFZ0ubY05TqH3nWPJ1nKa1JWVFDINZ3fnrle/A==}
+  rimraf@6.1.2:
+    resolution: {integrity: sha512-cFCkPslJv7BAXJsYlK1dZsbP8/ZNLkCAQ0bi1hf5EKX2QHegmDFEFA6QhuYJlk7UDdc+02JjO80YSOrWPpw06g==}
     engines: {node: 20 || >=22}
     hasBin: true
 
@@ -8820,7 +8815,7 @@ snapshots:
   '@fastify/busboy@3.2.0':
     optional: true
 
-  '@figma/plugin-typings@1.119.0': {}
+  '@figma/plugin-typings@1.120.0': {}
 
   '@fontsource-variable/source-code-pro@5.2.7': {}
 
@@ -9617,7 +9612,7 @@ snapshots:
     dependencies:
       '@nuxt/kit': 4.2.1(magicast@0.5.1)
       '@rollup/plugin-replace': 6.0.3(rollup@4.53.2)
-      '@vitejs/plugin-vue': 6.0.1(vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1)(sass-embedded@1.93.3)(sass@1.94.1)(stylus@0.57.0)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.1))(vue@3.5.24(typescript@5.9.3))
+      '@vitejs/plugin-vue': 6.0.2(vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1)(sass-embedded@1.93.3)(sass@1.94.1)(stylus@0.57.0)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.1))(vue@3.5.24(typescript@5.9.3))
       '@vitejs/plugin-vue-jsx': 5.1.1(vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1)(sass-embedded@1.93.3)(sass@1.94.1)(stylus@0.57.0)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.1))(vue@3.5.24(typescript@5.9.3))
       autoprefixer: 10.4.22(postcss@8.5.6)
       consola: 3.4.2
@@ -10165,9 +10160,9 @@ snapshots:
 
   '@publint/pack@0.1.2': {}
 
-  '@rolldown/pluginutils@1.0.0-beta.29': {}
-
   '@rolldown/pluginutils@1.0.0-beta.50': {}
+
+  '@rolldown/pluginutils@1.0.0-beta.51': {}
 
   '@rollup/plugin-alias@5.1.1(rollup@4.53.2)':
     optionalDependencies:
@@ -10753,7 +10748,7 @@ snapshots:
       '@babel/core': 7.28.5
       '@babel/plugin-syntax-typescript': 7.27.1(@babel/core@7.28.5)
       '@babel/plugin-transform-typescript': 7.28.5(@babel/core@7.28.5)
-      '@rolldown/pluginutils': 1.0.0-beta.50
+      '@rolldown/pluginutils': 1.0.0-beta.51
       '@vue/babel-plugin-jsx': 1.5.0(@babel/core@7.28.5)
       vite: 7.2.2(@types/node@24.10.1)(jiti@2.6.1)(sass-embedded@1.93.3)(sass@1.94.1)(stylus@0.57.0)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.1)
       vue: 3.5.24(typescript@5.9.3)
@@ -10765,9 +10760,9 @@ snapshots:
       vite: 7.2.2(@types/node@24.10.1)(jiti@2.6.1)(sass-embedded@1.93.3)(sass@1.94.1)(stylus@0.57.0)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.1)
       vue: 3.5.24(typescript@5.9.3)
 
-  '@vitejs/plugin-vue@6.0.1(vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1)(sass-embedded@1.93.3)(sass@1.94.1)(stylus@0.57.0)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.1))(vue@3.5.24(typescript@5.9.3))':
+  '@vitejs/plugin-vue@6.0.2(vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1)(sass-embedded@1.93.3)(sass@1.94.1)(stylus@0.57.0)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.1))(vue@3.5.24(typescript@5.9.3))':
     dependencies:
-      '@rolldown/pluginutils': 1.0.0-beta.29
+      '@rolldown/pluginutils': 1.0.0-beta.50
       vite: 7.2.2(@types/node@24.10.1)(jiti@2.6.1)(sass-embedded@1.93.3)(sass@1.94.1)(stylus@0.57.0)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.1)
       vue: 3.5.24(typescript@5.9.3)
 
@@ -12610,13 +12605,10 @@ snapshots:
       package-json-from-dist: 1.0.1
       path-scurry: 1.11.1
 
-  glob@11.1.0:
+  glob@13.0.0:
     dependencies:
-      foreground-child: 3.3.1
-      jackspeak: 4.1.1
       minimatch: 10.1.1
       minipass: 7.1.2
-      package-json-from-dist: 1.0.1
       path-scurry: 2.0.1
 
   glob@7.2.3:
@@ -13153,10 +13145,6 @@ snapshots:
     optionalDependencies:
       '@pkgjs/parseargs': 0.11.0
 
-  jackspeak@4.1.1:
-    dependencies:
-      '@isaacs/cliui': 8.0.2
-
   jiti@1.21.7: {}
 
   jiti@2.6.1: {}
@@ -13310,7 +13298,7 @@ snapshots:
 
   lines-and-columns@1.2.4: {}
 
-  lint-staged@16.2.6:
+  lint-staged@16.2.7:
     dependencies:
       commander: 14.0.2
       listr2: 9.0.5
@@ -15187,9 +15175,9 @@ snapshots:
     dependencies:
       glob: 7.2.3
 
-  rimraf@6.1.0:
+  rimraf@6.1.2:
     dependencies:
-      glob: 11.1.0
+      glob: 13.0.0
       package-json-from-dist: 1.0.1
 
   rollup-plugin-dts@6.2.3(rollup@4.53.2)(typescript@5.9.3):
