@@ -27,7 +27,7 @@ jobs:
       is_snapshot_release: ${{ steps.DetermineSnapshotRelease.outputs.IS_SNAPSHOT_RELEASE }}
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           ssh-key: ${{ secrets.GH_PUSH_PROTECTED_KEY }}
           # needed when building VitePress docs so timestamps can be calculated correctly
