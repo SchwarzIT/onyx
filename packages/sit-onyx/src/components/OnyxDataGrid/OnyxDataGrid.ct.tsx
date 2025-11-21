@@ -45,7 +45,7 @@ test("OnyxDataGrid custom type renderer options", async ({ mount }) => {
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: `OnyxDataGrid`,
-    columns: ["empty", "filled", "skeleton"],
+    columns: ["empty", "filled", "skeleton", "ellipsis"],
     rows: ["default", "columnGroups"],
     component: (column, row) => {
       return (
@@ -53,6 +53,7 @@ test.describe("Screenshot tests", () => {
           empty={column === "empty"}
           columnGroups={row === "columnGroups"}
           skeleton={column === "skeleton"}
+          ellipsis={column === "ellipsis"}
         />
       );
     },
