@@ -1,6 +1,7 @@
 import { computed, h, ref, toRef, toValue, watch, type Ref } from "vue";
 import { useScrollEnd } from "../../../../composables/scrollEnd.js";
 import { applyLimits } from "../../../../utils/numbers.js";
+import OnyxItemsPerPage from "../../../OnyxItemsPerPage/OnyxItemsPerPage.vue";
 import OnyxLoadingDots from "../../../OnyxLoadingIndicator/OnyxLoadingDots.vue";
 import OnyxPagination from "../../../OnyxPagination/OnyxPagination.vue";
 import OnyxSystemButton from "../../../OnyxSystemButton/OnyxSystemButton.vue";
@@ -136,6 +137,24 @@ export const usePagination = (options: PaginationOptions = {}) =>
               disabled: isDisabled.value,
               skeleton,
               "onUpdate:modelValue": (newPage) => (state.value.current = newPage),
+            }),
+          ];
+        },
+        bottomLeft: () => {
+          if (!isEnabled.value() || type !== "select" || !options.itemsPerPage?.length) return [];
+          const skeleton = ctx.skeleton.value && !shouldShowPagination.value;
+          if (!shouldShowPagination.value && !skeleton) return [];
+
+          return [
+            h(OnyxItemsPerPage, {
+              modelValue: state.value.pageSize,
+              options: options.itemsPerPage,
+              disabled: isDisabled.value,
+              skeleton,
+              "onUpdate:modelValue": (newPageSize: number) => {
+                state.value.pageSize = newPageSize;
+                state.value.current = 1;
+              },
             }),
           ];
         },
