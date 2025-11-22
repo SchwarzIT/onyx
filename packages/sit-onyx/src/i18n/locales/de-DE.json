@@ -264,5 +264,11 @@
       "select": "Auswählen"
     },
     "system": "System"
+  },
+  "itemsPerPage": {
+    "label": "Ergebnisse pro Seite",
+    "select": {
+      "listLabel": "Anzahl der Ergebnisse pro Seite auswählen"
+    }
   }
 }

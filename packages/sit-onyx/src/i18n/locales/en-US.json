@@ -267,5 +267,11 @@
       "select": "Select"
     },
     "system": "System"
+  },
+  "itemsPerPage": {
+    "label": "Results per Page",
+    "select": {
+      "listLabel": "Select number of results per Page"
+    }
   }
 }
