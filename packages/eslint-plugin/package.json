@@ -11,7 +11,7 @@
     "test": "vitest"
   },
   "peerDependencies": {
-    "eslint": ">= 8"
+    "eslint": ">= 9.10"
   },
   "devDependencies": {
     "@eslint/core": "~1.0.0",

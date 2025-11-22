@@ -24,10 +24,6 @@ const emit = defineEmits<{
    * Emitted when the currently active tab changes.
    */
   "update:modelValue": [value: TValue];
-  /**
-   * Emitted when the copy code button is clicked.
-   */
-  copyCode: [selectedTab: TValue];
 }>();
 
 defineSlots<{
