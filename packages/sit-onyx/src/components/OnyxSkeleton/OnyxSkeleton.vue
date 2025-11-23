@@ -15,6 +15,7 @@ onMounted(() => requestAnimationSync("onyx-skeleton"));
 .onyx-skeleton {
   @include layers.component() {
     border-radius: var(--onyx-radius-sm);
+    pointer-events: none;
 
     // inherit size by default if not set explicitly
     height: 100%;

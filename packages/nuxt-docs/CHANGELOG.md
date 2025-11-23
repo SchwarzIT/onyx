@@ -1,5 +1,26 @@
 # @sit-onyx/nuxt-docs
 
+## 0.1.0
+
+### Minor Changes
+
+- 0a67f5b: feat: add `ProsePre` and `NpmInstallCodeTabs` component
+
+  Markdown code snippets are now rendered with the OnyxCodeTabs component. Also a new `NpmInstallCodeTabs` component can be used in markdown files
+  to display npm package install commands for common package managers (pnpm, npm, yarn and bun).
+
+- 4a317f3: feat: support global search inside nav bar by default
+
+  The default nav bar now features a global search that can be used to search any markdown content as well as changing the app language and color scheme.
+  The previous search inside the sidebar layout has been removed since it is now redundant. If you still want to include a sidebar search, pass custom content / slots to the sidebar layout.
+
+### Patch Changes
+
+- 96b22cc: bump peerDependencies version for `@nuxtjs/color-mode` to `>= 4`
+- Updated dependencies [f7f3eb4]
+  - sit-onyx@1.4.0
+  - @sit-onyx/icons@1.2.0
+
 ## 1.0.0-beta.132
 
 ### Patch Changes

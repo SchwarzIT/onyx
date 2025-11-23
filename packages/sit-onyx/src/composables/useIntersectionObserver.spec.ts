@@ -5,7 +5,7 @@ import { useIntersectionObserver } from "./useIntersectionObserver.js";
 vi.mock("vue", async (importOriginal) => {
   return {
     ...(await importOriginal<typeof import("vue")>()),
-    onMounted: (callback) => callback(),
+    onMounted: vi.fn().mockImplementation((callback) => callback()),
     onBeforeUnmount: vi.fn(),
   } satisfies typeof import("vue");
 });
@@ -24,7 +24,7 @@ describe("useIntersectionObserver", () => {
       takeRecords: vi.fn(),
     } satisfies InstanceType<typeof IntersectionObserver>;
 
-    global.IntersectionObserver = vi.fn().mockImplementation((_callback) => {
+    global.IntersectionObserver = vi.fn().mockImplementation(function (_callback) {
       callback = _callback;
       return spy;
     });

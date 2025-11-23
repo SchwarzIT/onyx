@@ -69,7 +69,7 @@ const { min, max, step, label } = toRefs(props);
 
 const {
   elements: { root, track, thumbContainer, thumbInput, mark, markLabel },
-  state: { normalizedValue, marks, shiftStep },
+  state: { normalizedValue, marks },
   internals: { updateValue },
 } = _unstableCreateSlider({
   value: modelValue,
@@ -109,17 +109,20 @@ const {
             v-else-if="props.control === 'icon' && props.mode === 'single'"
             control="icon"
             direction="decrease"
-            :shift-step="shiftStep"
+            :step="props.step"
             :model-value="normalizedValue[0]"
-            :disabled="disabled || (normalizedValue[0] ?? props.min) <= props.min"
+            :disabled="disabled || normalizedValue[0] <= props.min"
             @update:model-value="updateValue($event, 0)"
           />
           <OnyxSliderControl
             v-else-if="props.control === 'input' && props.mode === 'range'"
             control="input"
             direction="increase"
-            :disabled="disabled"
-            :model-value="normalizedValue[0] ?? 0"
+            :model-value="normalizedValue[0]"
+            :disabled
+            :step="props.step"
+            :min="props.min"
+            :max="props.max"
             @update:model-value="updateValue($event, 0)"
           />
 
@@ -162,6 +165,7 @@ const {
                         :id="index === 0 ? inputId : undefined"
                         v-custom-validity
                         class="onyx-slider__native"
+                        :tabindex="props.control === 'input' ? -1 : undefined"
                         v-bind="thumbInput({ value, index })"
                         :disabled="disabled"
                         :aria-label="props.label"
@@ -183,16 +187,20 @@ const {
             v-else-if="props.control === 'icon' && props.mode === 'single'"
             control="icon"
             direction="increase"
-            :shift-step="shiftStep"
+            :step="props.step"
             :model-value="normalizedValue[0]"
+            :disabled="disabled || normalizedValue[0] >= props.max"
             @update:model-value="updateValue($event, 0)"
           />
           <OnyxSliderControl
             v-else-if="props.control === 'input'"
             control="input"
             :direction="props.mode === 'range' ? 'decrease' : undefined"
-            :disabled="disabled"
-            :model-value="normalizedValue[1] ?? normalizedValue[0] ?? 0"
+            :model-value="normalizedValue[1] ?? normalizedValue[0]"
+            :disabled
+            :step="props.step"
+            :min="props.min"
+            :max="props.max"
             @update:model-value="updateValue($event, props.mode === 'range' ? 1 : 0)"
           />
         </div>

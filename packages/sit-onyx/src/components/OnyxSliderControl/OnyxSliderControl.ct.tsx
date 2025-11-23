@@ -39,7 +39,7 @@ test.describe("Screenshot tests", () => {
         control="icon"
         direction="decrease"
         modelValue={50}
-        shiftStep={10}
+        step={10}
         density={column}
       />
     ),
@@ -54,7 +54,7 @@ test.describe("Screenshot tests", () => {
         control="icon"
         direction="increase"
         modelValue={50}
-        shiftStep={10}
+        step={10}
         density={column}
       />
     ),
@@ -64,7 +64,16 @@ test.describe("Screenshot tests", () => {
     ...screenshotOptions,
     name: "Slider control (input)",
     columns: DENSITIES,
-    component: (column) => <OnyxSliderControl control="input" modelValue={50} density={column} />,
+    component: (column) => (
+      <OnyxSliderControl
+        control="input"
+        modelValue={50}
+        step={1}
+        min={0}
+        max={100}
+        density={column}
+      />
+    ),
   });
 
   executeMatrixScreenshotTest({
@@ -72,13 +81,23 @@ test.describe("Screenshot tests", () => {
     columns: ["icon", "input"],
     rows: ["default", "hover"],
     component: (column) => {
-      return (
+      return column === "icon" ? (
         <OnyxSliderControl
           control={column}
           direction="increase"
           modelValue={50}
-          shiftStep={10}
-          disabled={true}
+          step={10}
+          disabled
+        />
+      ) : (
+        <OnyxSliderControl
+          control={column}
+          direction="increase"
+          modelValue={50}
+          step={10}
+          min={0}
+          max={100}
+          disabled
         />
       );
     },
@@ -95,133 +114,72 @@ test.describe("Screenshot tests", () => {
   });
 });
 
-test.describe("Interaction tests", () => {
-  test("should handle icon control decrease", async ({ mount }) => {
-    let modelValue = 50;
+test("should handle icon control", async ({ mount }) => {
+  let modelValue = 50;
 
-    const eventHandlers = {
-      "update:modelValue": async (newValue: number) => {
+  // ARRANGE
+  const component = await mount(OnyxSliderControl, {
+    props: {
+      control: "icon",
+      direction: "decrease",
+      modelValue,
+      step: 10,
+      "onUpdate:modelValue": (newValue) => (modelValue = newValue),
+    },
+  });
+
+  // ACT
+  await component.getByLabel("Decrease value by 10").click();
+
+  // ASSERT
+  expect(modelValue).toBe(40);
+
+  // ACT
+  await component.update({ props: { direction: "increase", modelValue: 50 } });
+
+  // ACT
+  await component.getByLabel("Increase value by 10").click();
+
+  // ASSERT
+  expect(modelValue).toBe(60);
+});
+
+test("should handle input control changes", async ({ mount }) => {
+  let modelValue = 50;
+
+  // ARRANGE
+  const component = await mount(OnyxSliderControl, {
+    props: {
+      control: "input",
+      modelValue,
+      step: 10,
+      min: 0,
+      max: 1000,
+      "onUpdate:modelValue": async (newValue) => {
         modelValue = newValue;
+        await component.update({ props: { modelValue } });
       },
-    };
-
-    // ARRANGE
-    const component = await mount(OnyxSliderControl, {
-      props: {
-        control: "icon",
-        direction: "decrease",
-        modelValue,
-        shiftStep: 10,
-      },
-      on: eventHandlers,
-    });
-
-    const button = component.getByRole("button");
-
-    // ASSERT
-    await expect(button).toBeVisible();
-    await expect(button).toHaveAccessibleName(/decrease.*10/i);
-
-    // ACT
-    await button.click();
-
-    // ASSERT
-    expect(modelValue).toBe(40);
+    },
   });
 
-  test("should handle icon control increase", async ({ mount }) => {
-    let modelValue = 50;
+  const input = component.getByLabel("Change value");
 
-    const eventHandlers = {
-      "update:modelValue": async (newValue: number) => {
-        modelValue = newValue;
-      },
-    };
+  // ASSERT
+  await expect(input).toBeVisible();
+  await expect(input).toHaveValue("50");
 
-    // ARRANGE
-    const component = await mount(OnyxSliderControl, {
-      props: {
-        control: "icon",
-        direction: "increase",
-        modelValue,
-        shiftStep: 5,
-      },
-      on: eventHandlers,
-    });
+  // ACT
+  await input.fill("75");
+  await input.blur();
 
-    const button = component.getByRole("button");
+  // ASSERT
+  await expect(input).toHaveValue("75");
+  expect(modelValue).toBe(75);
 
-    // ASSERT
-    await expect(button).toBeVisible();
-    await expect(button).toHaveAccessibleName(/increase.*5/i);
+  // ACT
+  await input.press("ArrowUp");
 
-    // ACT
-    await button.click();
-
-    // ASSERT
-    expect(modelValue).toBe(55);
-  });
-
-  test("should handle input control changes", async ({ mount }) => {
-    let modelValue = 50;
-
-    const eventHandlers = {
-      "update:modelValue": async (newValue: number) => {
-        modelValue = newValue;
-      },
-    };
-
-    // ARRANGE
-    const component = await mount(OnyxSliderControl, {
-      props: {
-        control: "input",
-        modelValue,
-      },
-      on: eventHandlers,
-    });
-
-    const input = component.getByLabel("Change value");
-
-    // ASSERT
-    await expect(input).toBeVisible();
-    await expect(input).toHaveValue("50");
-
-    // ACT
-    await input.fill("75");
-    await input.blur();
-
-    // ASSERT
-    expect(modelValue).toBe(75);
-  });
-
-  test("should display value control correctly", async ({ mount }) => {
-    // ARRANGE
-    const component = await mount(OnyxSliderControl, {
-      props: {
-        control: "value",
-        modelValue: 42,
-      },
-    });
-
-    // ASSERT
-    await expect(component).toContainText("42");
-    await expect(component.getByRole("button")).toBeHidden();
-    await expect(component.getByRole("spinbutton")).toBeHidden();
-  });
-
-  test("should handle disabled state for input control", async ({ mount }) => {
-    // ARRANGE
-    const component = await mount(OnyxSliderControl, {
-      props: {
-        control: "input",
-        modelValue: 50,
-        disabled: true,
-      },
-    });
-
-    const input = component.getByLabel("Change value");
-
-    // ASSERT
-    await expect(input).toBeDisabled();
-  });
+  // ASSERT
+  await expect(input).toHaveValue("85");
+  expect(modelValue).toBe(85);
 });

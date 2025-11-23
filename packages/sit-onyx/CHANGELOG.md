@@ -1,5 +1,65 @@
 # sit-onyx
 
+## 1.4.0
+
+### Minor Changes
+
+- fd6793d: feat(OnyxSlider): add `OnyxSliderControl` component
+  - Add unstable `OnyxSliderControl` component for slider input controls. For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using them.
+  - fix(OnyxStepper): ensure formatted display value is in sync with modelValue on blur
+
+- 0a67f5b: feat: implement new `OnyxUnstableCodeTabs` and `OnyxUnstableCodeTab` component
+
+  For now, the components are marked as experimental/unstable which means that they are still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using them.
+
+- 0a67f5b: - OnyxTabs: implement new `actions` slot
+  - OnyxTab: bind fallthrough attributes to child elements
+- 4a317f3: feat: export `mergeVueProps` utility
+- fe7b384: feat: implement new `OnyxUnstableGlobalSearch` component
+
+  For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using the component.
+
+  Other minor changes:
+  - feat(OnyxDialog): expose `dialog` template ref to the internal `<dialog>` element
+  - feat: make CSS variable `--onyx-grid-margin-vertical` globally available. Previously it was just available inside the `.onyx-grid-layout` class
+
+- ab27c5f: fix(OnyxBadge): align the badge correctly in a flex layout
+- 523b7b9: refactor `OnyxSlider` implementation
+
+  Breaking changes: This change includes breaking changes. Since the slider is marked as unstable, we allow for breaking changes within minor versions.
+  - update and optimize internal implementation
+  - prevent thumbs from overlapping each other in range mode
+  - removed `discrete` property. Pass a corresponding `step` value if you only want to allow certain discrete values
+  - add separate aria labels for input controls in range mode
+  - fix label position for first and last label so they are aligned with the slider edges and do not overlap them
+  - fix(OnyxStepper): emit undefined instead of NaN when value is cleared
+
+- 390252f: feat(FAB): support new CSS variables `--onyx-fab-offset-x` and `--onyx-fab-offset-y`
+- 8b82c06: feat(OnyxDataGrid): introduce controllable `resizeState` option for the `useResizing` feature
+
+### Patch Changes
+
+- b4483ea: fix(OnyxTable, OnyxDataGrid): apply density to the whole component instead of just the inner table
+- f183d40: fix(OnyxTag): use small instead of regular font size
+
+  The tag font size and therefore overall height did not match the UX design. It correctly uses the small font size now (used regular previously).
+
+- eb8f914: fix(OnyxInfoTooltip): prevent console warning about invalid label property
+- 0279a01: fix: ensure all component CSS is inside onyx CSS layers
+
+  onyx components apply all their styles inside [CSS layers](https://onyx.schwarz/principles/contributing/styling.html#css-layers) so you can easily override them without needing to care about selector specificity. Some components did not define all their styles in a CSS layer which is fixed with this version.
+
+- df708d6: fix(OnyxTab): define font-size and line-height for panel content
+- 23de6e1: refactor(OnyxSlider): update icon and input control behavior
+  - icon: value is now changed based on the `step` property, not the `shiftStep` value
+  - icon: correctly disable the increase button when max value is reached
+  - input: pass step, min and max to the stepper
+  - input: prevent keyboard focus on thumbs when input controls are shown since the value can by changed directly with the inputs via keyboard
+
+- d86f505: fix(OnyxTable): correctly show row hover styles when table is nested inside another component
+- Updated dependencies [f7f3eb4]
+  - @sit-onyx/icons@1.2.0
+
 ## 1.3.0
 
 ### Minor Changes

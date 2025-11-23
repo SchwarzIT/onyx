@@ -110,14 +110,7 @@ export const IconControl = {
     ...Default.args,
     label: "Icon control",
     control: "icon",
-  },
-} satisfies Story;
-
-export const ValueControl = {
-  args: {
-    ...Default.args,
-    label: "Value control",
-    control: "value",
+    step: 10,
   },
 } satisfies Story;
 
@@ -128,3 +121,11 @@ export const InputControl = {
     control: "input",
   },
 } satisfies Story<"range">;
+
+export const ValueControl = {
+  args: {
+    ...Default.args,
+    label: "Value control",
+    control: "value",
+  },
+} satisfies Story;

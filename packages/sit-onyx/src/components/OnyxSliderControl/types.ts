@@ -3,54 +3,46 @@ import type { DensityProp } from "../../composables/density.js";
 export const SLIDER_CONTROLS = ["icon", "value", "input"] as const;
 export type SliderControl = (typeof SLIDER_CONTROLS)[number];
 
-export type OnyxSliderControlSharedProps = {
-  /**
-   * The type of control to render.
-   *
-   * - `value`: Renders a read-only display of the provided slider value.
-   * - `icon`: Renders an icon button for increasing or decreasing the slider value.
-   * - `input`: Renders an `<OnyxStepper />` component for direct value entry.
-   */
-  control: SliderControl;
-  /**
-   * Slider control model value
-   */
-  modelValue?: number;
-  /**
-   * The direction the icon button represents.
-   *
-   * - `decrease`: Decreases the slider value and renders a "minus" icon.
-   * - `increase`: Increases the slider value and renders a "plus" icon.
-   */
-  direction?: "increase" | "decrease";
-  /**
-   * `shiftStep` of associated slider. Used to determine the amount to increase/decrease the value by when the icon button is clicked.
-   */
-  shiftStep?: number;
-  /**
-   * Indicates whether the control is disabled.
-   */
-  disabled?: boolean;
-};
-
 export type OnyxSliderControlValueProps = {
   control: "value";
-  modelValue: number;
+  // the never types are needed to prevent a console warning about missing required props (although they are not required for this specific union type)
+  step?: never;
+  min?: never;
+  max?: never;
 };
 
 export type OnyxSliderControlIconProps = {
   control: "icon";
-  direction: "increase" | "decrease";
-  shiftStep: number;
-  disabled?: boolean;
+  direction: SliderControlDirection;
+  /**
+   * Step size to change value when clicking the icon button.
+   */
+  step: number;
+  min?: never;
+  max?: never;
 };
 
 export type OnyxSliderControlInputProps = {
   control: "input";
-  disabled?: boolean;
-  modelValue: number;
+  direction?: SliderControlDirection;
+  /**
+   * Step size to use for the stepper.
+   */
+  step: number;
+  min: number;
+  max: number;
 };
 
-export type OnyxSliderControlProps = OnyxSliderControlSharedProps &
-  DensityProp &
-  (OnyxSliderControlValueProps | OnyxSliderControlIconProps | OnyxSliderControlInputProps);
+export type SliderControlDirection = "increase" | "decrease";
+
+export type OnyxSliderControlProps = DensityProp &
+  (OnyxSliderControlValueProps | OnyxSliderControlIconProps | OnyxSliderControlInputProps) & {
+    /**
+     * Current control value.
+     */
+    modelValue: number;
+    /**
+     * Whether the control is disabled.
+     */
+    disabled?: boolean;
+  };
