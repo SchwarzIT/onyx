@@ -8,7 +8,7 @@ import OnyxFileUpload from "./OnyxFileUpload.vue";
 import type { FileUploadSize } from "./types.js";
 
 const hooks: MatrixScreenshotTestOptions["hooks"] = {
-  beforeEach: async (component, page, column, row) => {
+  beforeEach: async (component, page, _column, row) => {
     if (row === "hover") await component.hover();
     if (row === "focus-visible") await page.keyboard.press("Tab");
     if (row === "dragging") {
@@ -66,7 +66,7 @@ test.describe("Screenshot tests (required error states)", () => {
       name: `File upload ${size} (required error states)`,
       columns: ["types", "size", "total", "count", "size-total", "types-size-total-count"],
       rows: ["default", "hover", "focus-visible", "dragging"],
-      component: (column) => (
+      component: (column, row) => (
         <OnyxFileUpload
           size={size}
           accept={column.includes("types") ? [".pdf", ".jpg", ".png"] : undefined}
@@ -76,6 +76,10 @@ test.describe("Screenshot tests (required error states)", () => {
           multiple
           required
           showError
+          style={{
+            marginBottom: row === "focus-visible" || row === "hover" ? "2rem" : undefined,
+            marginRight: row === "focus-visible" || row === "hover" ? "8rem" : undefined,
+          }}
         />
       ),
       hooks,

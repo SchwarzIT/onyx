@@ -52,7 +52,6 @@ export const RequiredError = {
     ...Default.args,
     required: true,
     showError: true,
-    size: "small",
   },
   tags: ["new:feature"],
 } satisfies Story;

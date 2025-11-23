@@ -71,6 +71,10 @@ const props = defineProps<OnyxFileUploadSVGProps>();
     &--error {
       --onyx-file-upload-svg-background-color-bubble: var(--onyx-color-component-border-danger);
 
+      @media (prefers-color-scheme: dark) {
+        --onyx-file-upload-svg-color-bubble: var(--onyx-color-text-icons-neutral-intense);
+      }
+
       &.onyx-file-upload-svg--active {
         --onyx-file-upload-svg-background-color: var(--onyx-color-base-danger-200);
         --onyx-file-upload-svg-border-color: var(--onyx-color-base-danger-600);
