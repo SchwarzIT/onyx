@@ -60,6 +60,29 @@ test.describe("Screenshot tests (max. file sizes)", () => {
   });
 });
 
+test.describe("Screenshot tests (required error states)", () => {
+  FILE_UPLOAD_SIZES.forEach((size) => {
+    executeMatrixScreenshotTest({
+      name: `File upload ${size} (required error states)`,
+      columns: ["types", "size", "total", "count", "size-total", "types-size-total-count"],
+      rows: ["default", "hover", "focus-visible", "dragging"],
+      component: (column) => (
+        <OnyxFileUpload
+          size={size}
+          accept={column.includes("types") ? [".pdf", ".jpg", ".png"] : undefined}
+          maxSize={column.includes("size") ? "4MiB" : undefined}
+          maxTotalSize={column.includes("total") ? "50MiB" : undefined}
+          maxCount={column.includes("count") ? 8 : undefined}
+          multiple
+          required
+          showError
+        />
+      ),
+      hooks,
+    });
+  });
+});
+
 const getFile = () => ({
   name: "file.pdf",
   mimeType: "application/pdf",
@@ -267,4 +290,24 @@ test("should have hide button", async ({ mount, page }) => {
   await expect(component).toHaveScreenshot("reveal-button.png");
   await expect(hideButton).toBeHidden();
   await expect(revealButton).toBeVisible();
+});
+
+test("should show required error message", async ({ mount, page }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxFileUpload required showError style={{ padding: "1rem", width: "32rem" }} />,
+  );
+
+  const button = component.getByRole("button", { name: "Click to select" });
+  const errorMessage = component.locator(".onyx-file-upload__required_error");
+
+  // ASSERT
+  await expect(errorMessage).toBeVisible();
+  await expect(errorMessage).toHaveText("You need to upload at least one file");
+
+  // ACT
+  await selectFiles(page, button, 1);
+
+  // ASSERT
+  await expect(errorMessage).toBeHidden();
 });
