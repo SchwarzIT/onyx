@@ -1,6 +1,7 @@
 import type { Locator, Page } from "@playwright/test";
 import type { MatrixScreenshotTestOptions } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density.js";
+import enUs from "../../i18n/locales/en-US.json";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import type { Nullable } from "../../types/utils.js";
@@ -78,7 +79,7 @@ test.describe("Screenshot tests (required error states)", () => {
           showError
           style={{
             marginBottom: row === "focus-visible" || row === "hover" ? "2rem" : undefined,
-            marginRight: row === "focus-visible" || row === "hover" ? "8rem" : undefined,
+            marginRight: row === "focus-visible" || row === "hover" ? "12rem" : undefined,
           }}
         />
       ),
@@ -307,7 +308,7 @@ test("should show required error message", async ({ mount, page }) => {
 
   // ASSERT
   await expect(errorMessage).toBeVisible();
-  await expect(errorMessage).toHaveText("You need to upload at least one file");
+  await expect(errorMessage).toHaveText(enUs.fileUpload.requiredError);
 
   // ACT
   await selectFiles(page, button, 1);

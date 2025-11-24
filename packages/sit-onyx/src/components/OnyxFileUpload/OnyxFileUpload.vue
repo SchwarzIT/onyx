@@ -315,9 +315,12 @@ const shouldShowFileList = computed(() => {
               {{ t("fileUpload.allowedFileTypes", { types: props.accept.join(", ") }) }}
             </p>
 
-            <p v-if="errorMessages?.longMessage" class="onyx-file-upload__required_error">
+            <p
+              v-if="errorMessages?.longMessage"
+              class="onyx-file-upload__required_error onyx-text--small"
+            >
               {{ errorMessages?.longMessage }}
-              <OnyxIcon :icon="iconCircleInformation" />
+              <OnyxIcon :icon="iconCircleInformation" inline />
             </p>
           </div>
         </button>
@@ -597,13 +600,10 @@ const shouldShowFileList = computed(() => {
 
     &__required_error {
       color: var(--onyx-color-text-icons-danger-intense);
-      font-size: var(--onyx-font-size-sm);
-      margin-top: var(--onyx-density-2xs);
       display: var(--onyx-file-upload-error-message-display, none);
       align-items: center;
 
       .onyx-icon {
-        --icon-size: 1em;
         margin-left: var(--onyx-density-2xs);
       }
     }
