@@ -1,13 +1,12 @@
 import type { Locator, Page } from "@playwright/test";
 import type { MatrixScreenshotTestOptions } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density.js";
-import enUs from "../../i18n/locales/en-US.json";
+import enUs from "../../i18n/locales/en-US.json" with { type: "json" };
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import type { Nullable } from "../../types/utils.js";
 import OnyxFileUpload from "./OnyxFileUpload.vue";
 import type { FileUploadSize } from "./types.js";
-
 const hooks: MatrixScreenshotTestOptions["hooks"] = {
   beforeEach: async (component, page, _column, row) => {
     if (row === "hover") await component.hover();
