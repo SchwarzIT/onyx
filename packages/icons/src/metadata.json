@@ -2398,6 +2398,10 @@
     "category": "Help & Support",
     "aliases": ["assistance", "help", "Unterstützung", "Hilfe", "Rettungsring"]
   },
+  "support-plans": {
+    "category": "Software & Services",
+    "aliases": ["file", "plus", "add"]
+  },
   "switch-horizontal": {
     "category": "Arrows",
     "aliases": [
