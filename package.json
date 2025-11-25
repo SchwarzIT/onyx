@@ -37,7 +37,7 @@
     "@types/jsdom": "^27.0.0",
     "@types/node": "^24.10.1",
     "@vitejs/plugin-vue": "^6.0.2",
-    "@vitest/coverage-v8": "^4.0.12",
+    "@vitest/coverage-v8": "^4.0.13",
     "@vitest/eslint-plugin": "^1.4.3",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/eslint-config-typescript": "^14.6.0",
@@ -47,7 +47,7 @@
     "eslint-plugin-compat": "^6.0.2",
     "eslint-plugin-playwright": "^2.3.0",
     "eslint-plugin-storybook": "^10.0.8",
-    "eslint-plugin-vue": "^10.5.1",
+    "eslint-plugin-vue": "^10.6.0",
     "eslint-plugin-vue-scoped-css": "^2.12.0",
     "eslint-plugin-vuejs-accessibility": "^2.4.1",
     "jsdom": "^27.2.0",
@@ -59,15 +59,15 @@
     "rimraf": "^6.1.2",
     "simple-git-hooks": "^2.13.1",
     "storybook": "^10.0.8",
-    "stylelint": "^16.25.0",
+    "stylelint": "^16.26.0",
     "stylelint-no-unsupported-browser-features": "^8.0.5",
     "turbo": "^2.6.1",
     "typescript": "catalog:",
     "typescript-eslint": "^8.47.0",
     "vite": "catalog:",
     "vite-plugin-dts": "^4.5.4",
-    "vitest": "^4.0.12",
-    "vue-tsc": "^3.1.4"
+    "vitest": "^4.0.13",
+    "vue-tsc": "^3.1.5"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"
