@@ -9,9 +9,13 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "File upload SVG",
     columns: ["light", "dark"],
-    rows: ["default", "disabled", "active"],
-    component: (column, row) => (
-      <OnyxFileUploadSVG disabled={row === "disabled"} active={row === "active"} />
+    rows: ["default", "disabled", "active", "error", "error-active"],
+    component: (_column, row) => (
+      <OnyxFileUploadSVG
+        disabled={row === "disabled"}
+        active={row === "active" || row === "error-active"}
+        error={row === "error" || row === "error-active"}
+      />
     ),
     hooks: illustrationScreenshotHooks,
   });

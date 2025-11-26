@@ -3,7 +3,7 @@ import OnyxFileUpload from "./OnyxFileUpload.vue";
 
 const meta: Meta<typeof OnyxFileUpload> = {
   title: "Form Elements/FileUpload",
-  component: OnyxFileUpload,
+  component: OnyxFileUpload as Meta["component"],
 };
 
 export default meta;
@@ -45,6 +45,15 @@ export const Disabled = {
     ...Default.args,
     disabled: true,
   },
+} satisfies Story;
+
+export const RequiredError = {
+  args: {
+    ...Default.args,
+    required: true,
+    showError: true,
+  },
+  tags: ["new:feature"],
 } satisfies Story;
 
 export const MaxHeight = {

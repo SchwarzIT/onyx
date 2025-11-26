@@ -214,6 +214,7 @@
     "hideFilesButton": "Alle Dateien ausblenden",
     "revealFilesButton": "Alle Dateien anzeigen",
     "removeFile": "Datei entfernen",
+    "requiredError": "Sie müssen mindestens eine Datei hochladen",
     "status": {
       "fileTypeError": "Datei mit der Endung '.{extension}' ist nicht zulässig",
       "fileSizeError": "Datei überschreitet die maximal zulässige Größe von {size}",
