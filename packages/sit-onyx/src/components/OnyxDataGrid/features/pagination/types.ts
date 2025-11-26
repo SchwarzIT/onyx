@@ -37,6 +37,10 @@ export type PaginationOptions = Pick<
    * Should only be used if pagination is async.
    */
   loading?: Ref<boolean>;
+  /**
+   * If defined, `OnyxItemsPerPage` component will be displayed in the bottom left slot of the data grid.
+   */
+  itemsPerPage?: Array<number>;
 };
 
 export type PaginationState = {
@@ -50,6 +54,8 @@ export type PaginationState = {
   pages: number;
   /**
    * How many entries should be displayed per page.
+   *
+   * **NOTE** If the page size is changed, the current page will be reset to 1.
    */
   pageSize: number;
 };

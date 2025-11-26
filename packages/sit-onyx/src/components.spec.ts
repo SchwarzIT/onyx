@@ -293,6 +293,11 @@ const COMPONENTS: Components = {
       value: "test-value",
     },
   },
+  OnyxUnstableItemsPerPage: {
+    props: {
+      modelValue: 5,
+    },
+  },
 };
 
 describe("components", () => {
