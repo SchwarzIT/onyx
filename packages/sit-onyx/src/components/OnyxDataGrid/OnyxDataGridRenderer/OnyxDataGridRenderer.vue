@@ -14,13 +14,15 @@ const slots = defineSlots<DataGridRendererSlots>();
 const tableProps = useForwardProps(props, OnyxTable);
 
 const columnStyle = computed(() => {
+  const defaultWidth = props.truncation === "ellipsis" ? "1fr" : "minmax(min-content, 1fr)";
+
   return {
     "--onyx-data-grid-column-count": props.columns.length,
     "--onyx-data-grid-row-count": Math.max(props.rows.length + 2, 3),
     "--onyx-data-grid-template-columns": props.columns
       .map(({ key, width }) => {
         const name = `--onyx-data-grid-column-${escapeCSS(key)}`;
-        const value = width ?? "minmax(min-content, 1fr)";
+        const value = width ?? defaultWidth;
         return `var(${name}, ${value})`;
       })
       .join(" "),
