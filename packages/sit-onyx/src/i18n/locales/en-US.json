@@ -265,5 +265,17 @@
       "select": "Select"
     },
     "system": "System"
+  },
+  "timepicker": {
+    "placeholder": {
+      "hour": "HH",
+      "minute": "MM",
+      "second": "SS"
+    },
+    "labels": {
+      "hour": "Hour",
+      "minute": "Minute",
+      "second": "Second"
+    }
   }
 }
