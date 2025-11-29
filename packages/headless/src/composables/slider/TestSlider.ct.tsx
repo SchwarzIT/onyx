@@ -1,46 +1,23 @@
 import { test } from "@playwright/experimental-ct-vue";
-import {
-  discreteSliderTesting,
-  multiThumbSliderTesting,
-  singleThumbSliderTesting,
-} from "./createSlider.testing.js";
-import DiscreteSlider from "./DiscreteSlider.vue";
-import RangeSlider from "./RangeSlider.vue";
-import SimpleSlider from "./SimpleSlider.vue";
+import { rangeSliderTesting, singleSliderTesting } from "./createSlider.testing.js";
+import TestSlider from "./TestSlider.vue";
 
-test("single-thumb slider", async ({ mount, page }) => {
-  const component = await mount(<SimpleSlider />);
+test("single slider", async ({ mount, page }) => {
+  const component = await mount(<TestSlider modelValue={50} />);
 
-  await singleThumbSliderTesting({
+  await singleSliderTesting({
     page,
-    slider: page.getByRole("slider"),
-    container: component.locator(".slider-root"),
-    initialValues: [25],
-    min: 0,
-    max: 100,
-    step: 1,
+    slider: component.getByLabel("Slider"),
+    rail: component.locator(".slider-root"),
   });
 });
 
-test("multi-thumb slider", async ({ mount, page }) => {
-  const component = await mount(<RangeSlider />);
+test("range slider", async ({ mount, page }) => {
+  const component = await mount(<TestSlider modelValue={[25, 75]} />);
 
-  await multiThumbSliderTesting({
+  await rangeSliderTesting({
     page,
-    slider: page.getByRole("slider"),
-    container: component.locator(".slider-root"),
-    initialValues: [25, 75],
-    min: 0,
-    max: 100,
-    step: 1,
-  });
-});
-
-test("discrete slider", async ({ mount, page }) => {
-  await mount(<DiscreteSlider />);
-
-  await discreteSliderTesting({
-    page,
-    slider: page.getByRole("slider"),
+    slider: component.getByLabel("Slider"),
+    rail: component.locator(".slider-root"),
   });
 });

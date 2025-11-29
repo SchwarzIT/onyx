@@ -17,12 +17,12 @@
     "preview": "nuxt preview"
   },
   "dependencies": {
-    "@nuxt/content": "^3.8.0",
+    "@nuxt/content": "^3.8.2",
     "@sit-onyx/flags": "workspace:^",
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/nuxt": "workspace:^",
     "@sit-onyx/nuxt-docs": "workspace:^",
-    "better-sqlite3": "^12.4.1",
+    "better-sqlite3": "^12.4.6",
     "nuxt": "catalog:",
     "sit-onyx": "workspace:^",
     "vue": "catalog:",

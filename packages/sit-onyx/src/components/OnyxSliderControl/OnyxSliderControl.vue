@@ -6,55 +6,52 @@
 export default {};
 </script>
 
-<script setup lang="ts" generic="TSliderMode extends SliderMode">
+<script setup lang="ts">
 import { iconMinusSmall, iconPlusSmall } from "@sit-onyx/icons";
+import { computed } from "vue";
 import { useDensity } from "../../composables/density.js";
-import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import type { Nullable } from "../../types/index.js";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
-import type { SliderMode } from "../OnyxSlider/types.js";
 import OnyxStepper from "../OnyxStepper/OnyxStepper.vue";
 import type { OnyxSliderControlProps } from "./types.js";
 
-const props = withDefaults(defineProps<OnyxSliderControlProps>(), {
-  control: "value",
-  skeleton: SKELETON_INJECTED_SYMBOL,
-});
+const props = defineProps<OnyxSliderControlProps>();
 
 const emit = defineEmits<{
+  /**
+   * Emitted when the value changes.
+   */
   "update:modelValue": [value: number];
 }>();
 
+const { t } = injectI18n();
 const { densityClass } = useDensity(props);
 
-const modelValue = useVModel<OnyxSliderControlProps, "modelValue", number>({
+const modelValue = useVModel({
   props,
   emit: emit,
   key: "modelValue",
 });
 
 const handleIconClick = () => {
-  const currentValue = modelValue.value;
-
-  if (props.control !== "icon" || typeof currentValue !== "number") return;
-
-  const newValue =
-    props.direction === "increase"
-      ? currentValue + (props.shiftStep ?? 1)
-      : currentValue - (props.shiftStep ?? 1);
-
-  modelValue.value = newValue;
+  if (props.control !== "icon") return;
+  const offset = props.direction === "increase" ? props.step : -props.step;
+  modelValue.value += offset;
 };
 
 const handleStepperChange = (value?: Nullable<number>) => {
-  if (typeof value === "number") {
-    modelValue.value = value;
-  }
+  if (value == undefined) return;
+  modelValue.value = value;
 };
 
-const { t } = injectI18n();
+const stepperLabel = computed(() => {
+  if (props.control !== "input") return t.value("slider.changeValue");
+  if (props.direction === "increase") return t.value("slider.changeStartValue");
+  else if (props.direction === "decrease") return t.value("slider.changeEndValue");
+  return t.value("slider.changeValue");
+});
 </script>
 
 <template>
@@ -63,37 +60,37 @@ const { t } = injectI18n();
       {{ modelValue }}
     </template>
 
-    <template v-if="props.control === 'icon'">
+    <template v-else-if="props.control === 'icon'">
       <OnyxIconButton
         v-if="props.direction === 'decrease'"
         :disabled="props.disabled"
         color="neutral"
-        :label="t('slider.decreaseValueBy', { n: props.shiftStep })"
+        :label="t('slider.decreaseValueBy', { n: props.step })"
         :icon="iconMinusSmall"
-        tabindex="0"
         @click="handleIconClick"
       />
       <OnyxIconButton
         v-if="props.direction === 'increase'"
         :disabled="props.disabled"
         color="neutral"
-        :label="t('slider.increaseValueBy', { n: props.shiftStep })"
+        :label="t('slider.increaseValueBy', { n: props.step })"
         :icon="iconPlusSmall"
-        tabindex="0"
         @click="handleIconClick"
       />
     </template>
 
-    <template v-if="props.control === 'input'">
-      <OnyxStepper
-        :label="t('slider.changeValue')"
-        hide-label
-        hide-buttons
-        :disabled="props.disabled"
-        :model-value="props.modelValue"
-        @update:model-value="handleStepperChange"
-      />
-    </template>
+    <OnyxStepper
+      v-else-if="props.control === 'input'"
+      :label="stepperLabel"
+      hide-label
+      hide-buttons
+      :disabled="props.disabled"
+      :model-value="props.modelValue"
+      :step-size="props.step"
+      :min="props.min"
+      :max="props.max"
+      @update:model-value="handleStepperChange"
+    />
   </div>
 </template>
 

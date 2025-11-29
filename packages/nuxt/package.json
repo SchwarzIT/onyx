@@ -34,21 +34,23 @@
     "build": "pnpm run dev:prepare && nuxt-module-build build",
     "type-check": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit",
     "test": "vitest",
+    "test:playwright": "playwright install && playwright test",
     "test:coverage": "vitest run --coverage"
-  },
-  "devDependencies": {
-    "@nuxt/devtools": "^3.0.1",
-    "@nuxt/kit": "^4.2.0",
-    "@nuxt/module-builder": "^1.0.2",
-    "@nuxt/schema": "^4.2.0",
-    "@nuxt/test-utils": "^3.20.1",
-    "@nuxtjs/i18n": "^10.2.0",
-    "nuxt": "catalog:",
-    "sit-onyx": "workspace:^",
-    "typescript": "catalog:",
-    "vue-i18n": "^11.1.12"
   },
   "peerDependencies": {
     "sit-onyx": "workspace:^"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "^3.1.0",
+    "@nuxt/kit": "^4.2.1",
+    "@nuxt/module-builder": "^1.0.2",
+    "@nuxt/schema": "^4.2.1",
+    "@nuxt/test-utils": "^3.20.1",
+    "@nuxtjs/i18n": "^10.2.1",
+    "@sit-onyx/shared": "workspace:^",
+    "nuxt": "catalog:",
+    "sit-onyx": "workspace:^",
+    "typescript": "catalog:",
+    "vue-i18n": "^11.2.1"
   }
 }

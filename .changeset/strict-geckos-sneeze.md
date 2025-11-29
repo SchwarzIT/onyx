@@ -6,5 +6,4 @@ feat: update icons
 
 #### New
 
-- computer-star
-- stars-AI
+- support-plans
