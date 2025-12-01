@@ -12,7 +12,7 @@ import {
 } from "vue";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useTimepicker, type Segment } from "../../composables/useTimepicker.js";
-import { injectI18n } from "../../i18n.js";
+import { injectI18n } from "../../i18n/index.js";
 import OnyxBasicPopover from "../OnyxBasicPopover/OnyxBasicPopover.vue";
 import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
