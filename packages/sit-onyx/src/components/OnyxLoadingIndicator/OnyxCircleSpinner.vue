@@ -29,7 +29,8 @@ $radius: 45;
     $default-stroke-dasharray: calculate-stroke-length(100 - $stroke-gap)
       calculate-stroke-length($stroke-gap);
 
-    width: var(--indicator-size);
+    max-width: var(--indicator-size);
+    min-width: var(--indicator-size);
     aspect-ratio: 1;
     animation: onyx-circle-spinner var(--onyx-duration-lg) $timing infinite;
 
