@@ -31,6 +31,7 @@ $radius: 45;
 
     max-width: var(--indicator-size);
     min-width: var(--indicator-size);
+    padding: 1px;
     aspect-ratio: 1;
     animation: onyx-circle-spinner var(--onyx-duration-lg) $timing infinite;
 
