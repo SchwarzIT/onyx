@@ -236,7 +236,7 @@ const inputProps = computed(() => {
                 hide-clear-icon
                 hide-success-icon
                 hide-buttons
-                @click.prevent="handleSegmentFocus(hourInputRef)"
+                @click="handleSegmentFocus(hourInputRef)"
                 @keydown="(e: KeyboardEvent) => handleInputChange('hour', e)"
               />
             </template>
@@ -259,7 +259,7 @@ const inputProps = computed(() => {
                 hide-clear-icon
                 hide-success-icon
                 hide-buttons
-                @click.prevent="handleSegmentFocus(minuteInputRef)"
+                @click="handleSegmentFocus(minuteInputRef)"
                 @keydown="(e: KeyboardEvent) => handleInputChange('minute', e)"
               />
             </template>
@@ -282,7 +282,7 @@ const inputProps = computed(() => {
                 hide-clear-icon
                 hide-success-icon
                 hide-buttons
-                @click.prevent="handleSegmentFocus(secondInputRef)"
+                @click="handleSegmentFocus(secondInputRef)"
                 @keydown="(e: KeyboardEvent) => handleInputChange('second', e)"
               />
             </template>
