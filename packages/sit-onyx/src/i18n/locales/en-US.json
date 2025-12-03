@@ -275,6 +275,8 @@
       "second": "SS"
     },
     "labels": {
+      "iconButton": "Open Timepicker",
+      "popover": "Timepicker Popover",
       "hour": "Hour",
       "minute": "Minute",
       "second": "Second"

@@ -63,6 +63,7 @@ const formElementProps = useForwardProps(props, OnyxFormElement);
  */
 const getNormalizedDate = computed(() => {
   return (value?: DateValue | null) => {
+    if (props.type === "time") return;
     const date = value != undefined && value != null ? new Date(value) : undefined;
     return dateToISOString(date, props.type);
   };
@@ -77,14 +78,30 @@ const modelValue = useVModel({
   key: "modelValue",
 });
 const value = computed({
-  get: () => getNormalizedDate.value(modelValue.value),
+  get: () => {
+    if (props.type === "time") {
+      return modelValue.value;
+    }
+
+    return getNormalizedDate.value(modelValue.value);
+  },
   set: (value) => {
+    if (props.type === "time") {
+      modelValue.value = String(value);
+      return;
+    }
     const newDate = new Date(value ?? "");
     // If the type is `datetime-local`, we always use UTC as a timezone to minimize edge-cases for our users.
     modelValue.value = dateToISOString(newDate, props.type === "date" ? "date" : "datetime-utc");
   },
 });
 
+defineSlots<{
+  /**
+   * Icon content.
+   */
+  icon(): unknown;
+}>();
 useAutofocus(useTemplateRef("inputRef"), props);
 </script>
 
@@ -105,6 +122,7 @@ useAutofocus(useTemplateRef("inputRef"), props);
   >
     <OnyxFormElement
       v-bind="formElementProps"
+      :label="props.label"
       :error-messages="errorMessages"
       :success-messages="successMessages"
       :message="messages"
@@ -133,10 +151,12 @@ useAutofocus(useTemplateRef("inputRef"), props);
             :disabled="disabled || props.loading"
             :aria-label="props.hideLabel ? props.label : undefined"
             :title="props.hideLabel ? props.label : undefined"
+            :step="props.step"
             :min="getNormalizedDate(props.min)"
             :max="getNormalizedDate(props.max)"
             v-bind="restAttrs"
           />
+          <slot name="icon"></slot>
         </div>
       </template>
     </OnyxFormElement>

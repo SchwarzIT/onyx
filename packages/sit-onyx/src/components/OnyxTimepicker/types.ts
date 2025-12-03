@@ -34,5 +34,5 @@ export type OnyxTimepickerProps = Omit<
     /**
      * Time in Seconds since midnight.
      */
-    modelValue?: number;
+    modelValue?: string;
   };
