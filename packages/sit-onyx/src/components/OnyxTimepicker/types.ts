@@ -1,28 +1,13 @@
 import type { AutofocusProp } from "../../types/components.js";
 import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
 
-export type OnyxTimepickerProps = Omit<
-  SharedFormElementProps,
-  "placeholder" | "name" | "readonly"
-> &
+export type OnyxTimepickerProps = Omit<SharedFormElementProps, "placeholder"> &
   AutofocusProp & {
     /**
-     * Segments to display in the timepicker.
+     * Whether to show the seconds segment (:SS).
+     * If true, the format is HH:MM:SS. If false, the format is HH:MM.
      */
-    segments?: {
-      /**
-       * Whether to show the hour segment.
-       */
-      hour?: boolean;
-      /**
-       * Whether to show the minute segment.
-       * */
-      minute?: boolean;
-      /**
-       * Whether to show the second segment.
-       */
-      second?: boolean;
-    };
+    showSeconds?: boolean;
     /**
      * Text describing the timepicker. Will be displayed at the bottom of the flyout.
      */

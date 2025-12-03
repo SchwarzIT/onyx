@@ -11,11 +11,7 @@ test.describe("Screenshot tests", () => {
       return (
         <OnyxTimepicker
           label="Test label"
-          segments={{
-            hour: column.includes("HH"),
-            minute: column.includes("MM"),
-            second: column.includes("SS"),
-          }}
+          showSeconds={column === "HH:MM:SS"}
           style={{ width: "16rem", marginBottom: "6rem" }}
         />
       );

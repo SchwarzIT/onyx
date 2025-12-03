@@ -10,31 +10,38 @@ import {
 } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { useRootAttrs } from "../../utils/attrs.js";
-import { dateToISOString } from "../../utils/date.js";
 import { useForwardProps } from "../../utils/props.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import type { DateValue, OnyxDatePickerProps } from "./types.js";
+import type { OnyxTimepickerProps } from "./types.js";
 
-const props = withDefaults(defineProps<OnyxDatePickerProps>(), {
-  type: "date",
-  required: false,
-  readonly: false,
-  loading: false,
-  skeleton: SKELETON_INJECTED_SYMBOL,
-  disabled: FORM_INJECTED_SYMBOL,
-  showError: FORM_INJECTED_SYMBOL,
-});
+const props = withDefaults(
+  defineProps<
+    OnyxTimepickerProps & {
+      /**
+       * Defines the granularity of the time input in seconds.
+       */
+      step?: number;
+    }
+  >(),
+  {
+    type: "date",
+    required: false,
+    readonly: false,
+    loading: false,
+    skeleton: SKELETON_INJECTED_SYMBOL,
+    disabled: FORM_INJECTED_SYMBOL,
+    showError: FORM_INJECTED_SYMBOL,
+    step: 0,
+  },
+);
 
 const emit = defineEmits<{
   /**
-   * Emitted when the current value changes. Is a date string based on [ISO8601](https://en.wikipedia.org/wiki/ISO_8601).
-   *
-   * Dependent on `type` the string is either:
-   * - "date": date only string based, e.g. `"2011-10-31"`
-   * - "datetime-local": Full datetime string in UTC timezone, `e.g. "2011-10-31T00:00:00.000Z"`
+   * Dependent on `type` the string is:
+   * - "HH:MM:SS"
    */
   "update:modelValue": [value?: string];
   /**
@@ -55,20 +62,6 @@ const errorClass = useErrorClass(showError);
 const formElementProps = useForwardProps(props, OnyxFormElement);
 
 /**
- * Gets the normalized date based on the input type that can be passed to the native HTML `<input />`.
- * Will be checked to be a valid date.
- *
- * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Date_and_time_formats#date_strings
- * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Date_and_time_formats#local_date_and_time_strings
- */
-const getNormalizedDate = computed(() => {
-  return (value?: DateValue | null) => {
-    const date = value != undefined && value != null ? new Date(value) : undefined;
-    return dateToISOString(date, props.type);
-  };
-});
-
-/**
  * Current value (with getter and setter) that can be used as "v-model" for the native input.
  */
 const modelValue = useVModel({
@@ -77,11 +70,11 @@ const modelValue = useVModel({
   key: "modelValue",
 });
 const value = computed({
-  get: () => getNormalizedDate.value(modelValue.value),
+  get: () => {
+    return modelValue.value;
+  },
   set: (value) => {
-    const newDate = new Date(value ?? "");
-    // If the type is `datetime-local`, we always use UTC as a timezone to minimize edge-cases for our users.
-    modelValue.value = dateToISOString(newDate, props.type === "date" ? "date" : "datetime-utc");
+    modelValue.value = String(value);
   },
 });
 
@@ -126,13 +119,13 @@ useAutofocus(useTemplateRef("inputRef"), props);
           <!-- key is needed to keep current value when switching between date and datetime type -->
           <input
             :id="inputId"
-            :key="props.type"
+            key="time"
             ref="inputRef"
             v-model="value"
             v-custom-validity
             class="onyx-datepicker__native"
             :class="{ 'onyx-datepicker__native--success': successMessages }"
-            :type="props.type"
+            type="time"
             :required="props.required"
             :autofocus="props.autofocus"
             :name="props.name"
@@ -140,8 +133,7 @@ useAutofocus(useTemplateRef("inputRef"), props);
             :disabled="disabled || props.loading"
             :aria-label="props.hideLabel ? props.label : undefined"
             :title="props.hideLabel ? props.label : undefined"
-            :min="getNormalizedDate(props.min)"
-            :max="getNormalizedDate(props.max)"
+            :step="props.step"
             v-bind="restAttrs"
           />
           <slot name="icon"></slot>

@@ -6,11 +6,11 @@ import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js"
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import OnyxBasicPopover from "../OnyxBasicPopover/OnyxBasicPopover.vue";
-import OnyxDatePicker from "../OnyxDatePicker/OnyxDatePicker.vue";
 import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxStepper from "../OnyxStepper/OnyxStepper.vue";
+import OnyxTimepickerInput from "./OnyxTimepickerInput.vue";
 import type { OnyxTimepickerProps } from "./types.js";
 
 type Segment = "hour" | "minute" | "second";
@@ -20,7 +20,7 @@ type InputRef = {
 };
 
 const props = withDefaults(defineProps<OnyxTimepickerProps>(), {
-  segments: () => ({ hour: true, minute: true }),
+  showSeconds: false,
   required: false,
   autocapitalize: "sentences",
   readonly: false,
@@ -44,11 +44,14 @@ const minuteInputRef = useTemplateRef<InputRef>("minuteInputTemplateRef");
 const secondInputRef = useTemplateRef<InputRef>("secondInputTemplateRef");
 const rootRef = useTemplateRef("rootTemplateRef");
 
+const isSegmentVisible = (segmentName: Segment) => {
+  if (segmentName === "second") return props.showSeconds;
+  return true;
+};
+
 const availableSegments = computed<Segment[]>(() => {
-  const segments: Segment[] = [];
-  if (props.segments.hour) segments.push("hour");
-  if (props.segments.minute) segments.push("minute");
-  if (props.segments.second) segments.push("second");
+  const segments: Segment[] = ["hour", "minute"];
+  if (props.showSeconds) segments.push("second");
   return segments;
 });
 
@@ -59,9 +62,13 @@ const timeParts = computed<string[]>(() => {
 
 const updateModelValue = (newParts: string[]) => {
   const partsToKeep: string[] = [];
-  if (props.segments.hour) partsToKeep.push(newParts[0] ?? "00");
-  if (props.segments.minute) partsToKeep.push(newParts[1] ?? "00");
-  if (props.segments.second) partsToKeep.push(newParts[2] ?? "00");
+
+  partsToKeep.push(newParts[0] ?? "00");
+  partsToKeep.push(newParts[1] ?? "00");
+
+  if (props.showSeconds) {
+    partsToKeep.push(newParts[2] ?? "00");
+  }
 
   modelValue.value = partsToKeep.join(":");
 };
@@ -71,14 +78,15 @@ const clampValue = (value: number, max: number) => {
   if (value < 0) return 0;
   return value;
 };
+
 const createSegmentComputed = (index: 0 | 1 | 2, segmentName: Segment) =>
   computed<number | null>({
     get: () => {
-      if (!props.segments[segmentName] || !modelValue.value) return null;
+      if (!isSegmentVisible(segmentName) || !modelValue.value) return null;
       return parseInt(timeParts.value[index] ?? "00");
     },
     set: (newValue: number | null) => {
-      if (!props.segments[segmentName] || newValue === null) return;
+      if (!isSegmentVisible(segmentName) || newValue === null) return;
 
       const max = segmentName === "hour" ? 23 : 59;
 
@@ -185,7 +193,13 @@ useOutsideClick({
 });
 
 const inputProps = computed(() => {
-  const { modelValue: _, segments: __, infoLabel: ___, hideInfoLabelIcon: ____, ...others } = props;
+  const {
+    modelValue: _,
+    showSeconds: __,
+    infoLabel: ___,
+    hideInfoLabelIcon: ____,
+    ...others
+  } = props;
   return others;
 });
 </script>
@@ -201,12 +215,11 @@ const inputProps = computed(() => {
       fit-parent
     >
       <template #default>
-        <OnyxDatePicker
-          type="time"
+        <OnyxTimepickerInput
           :model-value="modelValue"
           class="onyx-timepicker__input"
           v-bind="inputProps"
-          :step="props.segments.second ? 1 : 0"
+          :step="props.showSeconds ? 1 : 0"
           @update:model-value="modelValue = $event"
           @click="open = false"
         >
@@ -218,59 +231,47 @@ const inputProps = computed(() => {
               @click.stop="handleOpen"
             />
           </template>
-        </OnyxDatePicker>
+        </OnyxTimepickerInput>
       </template>
 
       <template #content>
         <div class="onyx-timepicker__wrapper" tabindex="-1">
           <div class="onyx-timepicker__group">
-            <template v-if="props.segments?.hour">
-              <OnyxStepper
-                ref="hourInputTemplateRef"
-                v-model="hour"
-                :label="t('timepicker.labels.hour')"
-                :placeholder="t('timepicker.placeholder.hour')"
-                :disabled="props.disabled"
-                :loading="props.loading"
-                hide-label
-                hide-clear-icon
-                hide-success-icon
-                hide-buttons
-                @click="handleSegmentFocus(hourInputRef)"
-                @keydown="(e: KeyboardEvent) => handleInputChange('hour', e)"
-              />
-            </template>
+            <OnyxStepper
+              ref="hourInputTemplateRef"
+              v-model="hour"
+              :label="t('timepicker.labels.hour')"
+              :placeholder="t('timepicker.placeholder.hour')"
+              :disabled="props.disabled"
+              :loading="props.loading"
+              hide-label
+              hide-clear-icon
+              hide-success-icon
+              hide-buttons
+              @click="handleSegmentFocus(hourInputRef)"
+              @keydown="(e: KeyboardEvent) => handleInputChange('hour', e)"
+            />
 
-            <span
-              v-if="props.segments?.minute && props.segments?.hour"
-              class="onyx-timepicker__divider"
-              >:</span
-            >
+            <span class="onyx-timepicker__divider">:</span>
 
-            <template v-if="props.segments?.minute">
-              <OnyxStepper
-                ref="minuteInputTemplateRef"
-                v-model="minute"
-                :label="t('timepicker.labels.minute')"
-                :placeholder="t('timepicker.placeholder.minute')"
-                :disabled="props.disabled"
-                :loading="props.loading"
-                hide-label
-                hide-clear-icon
-                hide-success-icon
-                hide-buttons
-                @click="handleSegmentFocus(minuteInputRef)"
-                @keydown="(e: KeyboardEvent) => handleInputChange('minute', e)"
-              />
-            </template>
+            <OnyxStepper
+              ref="minuteInputTemplateRef"
+              v-model="minute"
+              :label="t('timepicker.labels.minute')"
+              :placeholder="t('timepicker.placeholder.minute')"
+              :disabled="props.disabled"
+              :loading="props.loading"
+              hide-label
+              hide-clear-icon
+              hide-success-icon
+              hide-buttons
+              @click="handleSegmentFocus(minuteInputRef)"
+              @keydown="(e: KeyboardEvent) => handleInputChange('minute', e)"
+            />
 
-            <span
-              v-if="props.segments?.second && (props.segments?.hour || props.segments?.minute)"
-              class="onyx-timepicker__divider"
-              >:</span
-            >
+            <span v-if="props.showSeconds" class="onyx-timepicker__divider">:</span>
 
-            <template v-if="props.segments?.second">
+            <template v-if="props.showSeconds">
               <OnyxStepper
                 ref="secondInputTemplateRef"
                 v-model="second"
