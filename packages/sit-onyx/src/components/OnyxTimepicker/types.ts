@@ -24,11 +24,11 @@ export type OnyxTimepickerProps = Omit<
       second?: boolean;
     };
     /**
-     * Info label text.
+     * Text describing the timepicker. Will be displayed at the bottom of the flyout.
      */
     infoLabel?: string;
     /**
-     * Whether to show the info label.
+     * Whether to hide the info label.
      */
     hideInfoLabelIcon?: boolean;
     /**
