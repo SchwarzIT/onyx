@@ -22,3 +22,9 @@ export const Disabled = {
     disabled: true,
   },
 } satisfies Story;
+
+export const Error = {
+  args: {
+    error: true,
+  },
+} satisfies Story;
