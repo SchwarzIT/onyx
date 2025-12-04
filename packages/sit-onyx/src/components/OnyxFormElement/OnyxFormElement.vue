@@ -199,14 +199,14 @@ const footer = computed(() => {
     }
 
     // only show footer when it has visible content
-    &:has(.onyx-form-message__neutral, .onyx-form-message__success, .onyx-form-element__counter) {
-      .onyx-form-element__footer {
-        display: flex;
-      }
-    }
     &:has(.onyx-form-message__danger) {
       .onyx-form-element__footer {
         display: var(--error-message-display, none);
+      }
+    }
+    &:has(.onyx-form-message__neutral, .onyx-form-message__success, .onyx-form-element__counter) {
+      .onyx-form-element__footer {
+        display: flex;
       }
     }
 
