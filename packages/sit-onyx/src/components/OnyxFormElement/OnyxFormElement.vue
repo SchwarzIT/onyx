@@ -199,7 +199,7 @@ const footer = computed(() => {
     }
 
     // only show footer when it has visible content
-    &:has(.onyx-form-message__neutral, .onyx-form-message__success) {
+    &:has(.onyx-form-message__neutral, .onyx-form-message__success, .onyx-form-element__counter) {
       .onyx-form-element__footer {
         display: flex;
       }
