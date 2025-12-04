@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import { DataGridFeatures, OnyxDataGrid, type ColumnConfig } from "../../../index.js";
+import type { PaginationState } from "../features/all.js";
 
 type TEntry = {
   id: number;
@@ -17,7 +19,16 @@ const columns: ColumnConfig<TEntry>[] = [
   { key: "age", label: "Age" },
 ];
 
-const withPagination = DataGridFeatures.usePagination();
+const paginationState = ref<PaginationState>({
+  current: 1,
+  pages: 6,
+  pageSize: 25,
+});
+
+const withPagination = DataGridFeatures.usePagination({
+  itemsPerPage: [5, 10, 25, 50, 100],
+  paginationState,
+});
 const features = [withPagination];
 </script>
 
