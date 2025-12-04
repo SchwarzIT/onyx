@@ -613,6 +613,10 @@
     "category": "Network & Infrastructure",
     "aliases": ["Wolke", "Einstellungen", "Zahnrad"]
   },
+  "cloud-shield": {
+    "category": "Software & Services",
+    "aliases": []
+  },
   "coffee-cup": {
     "category": "Kitchen & Food",
     "aliases": [
