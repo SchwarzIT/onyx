@@ -85,12 +85,6 @@ const value = computed({
   },
 });
 
-defineSlots<{
-  /**
-   * Icon content.
-   */
-  icon(): unknown;
-}>();
 useAutofocus(useTemplateRef("inputRef"), props);
 </script>
 
@@ -111,7 +105,6 @@ useAutofocus(useTemplateRef("inputRef"), props);
   >
     <OnyxFormElement
       v-bind="formElementProps"
-      :label="props.label"
       :error-messages="errorMessages"
       :success-messages="successMessages"
       :message="messages"
@@ -144,7 +137,6 @@ useAutofocus(useTemplateRef("inputRef"), props);
             :max="getNormalizedDate(props.max)"
             v-bind="restAttrs"
           />
-          <slot name="icon"></slot>
         </div>
       </template>
     </OnyxFormElement>

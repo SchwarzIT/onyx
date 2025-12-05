@@ -20,7 +20,7 @@ export type OnyxDatePickerProps = Omit<
    */
   modelValue?: Nullable<string>;
   /**
-   * Whether the user should be able to select only date, time or date + time.
+   * Whether the user should be able to select only date or date + time.
    */
   type?: "date" | "datetime-local";
   /**
