@@ -31,7 +31,12 @@ const skeleton = useSkeletonContext(props);
     v-else
     v-bind="buttonOrLinkLayoutProps"
     type="button"
-    :class="['onyx-system-button', 'onyx-text--small', `onyx-system-button--${props.color}`]"
+    :class="[
+      'onyx-system-button',
+      'onyx-text--small',
+      `onyx-truncation-ellipsis`,
+      `onyx-system-button--${props.color}`,
+    ]"
     :aria-label="props.label"
     :title="props.label"
   >
