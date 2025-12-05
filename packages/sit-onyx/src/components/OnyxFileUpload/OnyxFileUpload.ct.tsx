@@ -1,14 +1,14 @@
 import type { Locator, Page } from "@playwright/test";
 import type { MatrixScreenshotTestOptions } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density.js";
+import enUs from "../../i18n/locales/en-US.json" with { type: "json" };
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import type { Nullable } from "../../types/utils.js";
 import OnyxFileUpload from "./OnyxFileUpload.vue";
 import type { FileUploadSize } from "./types.js";
-
 const hooks: MatrixScreenshotTestOptions["hooks"] = {
-  beforeEach: async (component, page, column, row) => {
+  beforeEach: async (component, page, _column, row) => {
     if (row === "hover") await component.hover();
     if (row === "focus-visible") await page.keyboard.press("Tab");
     if (row === "dragging") {
@@ -53,6 +53,33 @@ test.describe("Screenshot tests (max. file sizes)", () => {
           maxTotalSize={column.includes("total") ? "50MiB" : undefined}
           maxCount={column.includes("count") ? 8 : undefined}
           multiple
+        />
+      ),
+      hooks,
+    });
+  });
+});
+
+test.describe("Screenshot tests (required error states)", () => {
+  FILE_UPLOAD_SIZES.forEach((size) => {
+    executeMatrixScreenshotTest({
+      name: `File upload ${size} (required error states)`,
+      columns: ["types", "size", "total", "count", "size-total", "types-size-total-count"],
+      rows: ["default", "hover", "focus-visible", "dragging"],
+      component: (column, row) => (
+        <OnyxFileUpload
+          size={size}
+          accept={column.includes("types") ? [".pdf", ".jpg", ".png"] : undefined}
+          maxSize={column.includes("size") ? "4MiB" : undefined}
+          maxTotalSize={column.includes("total") ? "50MiB" : undefined}
+          maxCount={column.includes("count") ? 8 : undefined}
+          multiple
+          required
+          showError
+          style={{
+            marginBottom: row === "focus-visible" || row === "hover" ? "2rem" : undefined,
+            marginRight: row === "focus-visible" || row === "hover" ? "12rem" : undefined,
+          }}
         />
       ),
       hooks,
@@ -267,4 +294,24 @@ test("should have hide button", async ({ mount, page }) => {
   await expect(component).toHaveScreenshot("reveal-button.png");
   await expect(hideButton).toBeHidden();
   await expect(revealButton).toBeVisible();
+});
+
+test("should show required error message", async ({ mount, page }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxFileUpload required showError style={{ padding: "1rem", width: "32rem" }} />,
+  );
+
+  const button = component.getByRole("button", { name: "Click to select" });
+  const errorMessage = component.locator(".onyx-file-upload__required_error");
+
+  // ASSERT
+  await expect(errorMessage).toBeVisible();
+  await expect(errorMessage).toHaveText(enUs.fileUpload.requiredError);
+
+  // ACT
+  await selectFiles(page, button, 1);
+
+  // ASSERT
+  await expect(errorMessage).toBeHidden();
 });
