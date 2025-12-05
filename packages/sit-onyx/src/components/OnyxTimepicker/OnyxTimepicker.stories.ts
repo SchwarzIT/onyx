@@ -24,9 +24,9 @@ export default meta;
 type Story = StoryObj<typeof OnyxTimepicker>;
 
 export const Default = {} satisfies Story;
-export const CustomSegments = {
+export const WithSeconds = {
   args: {
-    segments: { hour: true, minute: true, second: true },
+    showSeconds: true,
   },
 } satisfies Story;
 
