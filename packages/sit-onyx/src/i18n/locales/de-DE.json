@@ -265,5 +265,19 @@
       "select": "Auswählen"
     },
     "system": "System"
+  },
+  "timepicker": {
+    "placeholder": {
+      "hour": "HH",
+      "minute": "MM",
+      "second": "SS"
+    },
+    "labels": {
+      "iconButton": "Öffne Timepicker",
+      "popover": "Timepicker Popover",
+      "hour": "Stunde",
+      "minute": "Minute",
+      "second": "Sekunde"
+    }
   }
 }
