@@ -1,5 +1,19 @@
 # @sit-onyx/icons
 
+## 1.3.0
+
+### Minor Changes
+
+- 81b7248: feat: update icons
+
+  #### New
+  - cloud-shield
+
+- 592893c: feat: update icons
+
+  #### New
+  - support-plans
+
 ## 1.2.0
 
 ### Minor Changes
