@@ -1,20 +1,24 @@
 # @sit-onyx/icons
 
+## 1.3.0
+
+### Minor Changes
+
+#### New
+
+- support-plans
+- cloud-shield
+
 ## 1.2.0
 
 ### Minor Changes
 
-- eb11cc0: feat: update icons
+#### New
 
-  #### New
-  - firewall
-  - intake
-
-- f7f3eb4: feat: update icons
-
-  #### New
-  - computer-star
-  - stars-AI
+- firewall
+- intake
+- computer-star
+- stars-AI
 
 ## 1.1.0
 
