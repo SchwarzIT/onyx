@@ -280,7 +280,8 @@
       "popover": "Timepicker Popover",
       "hour": "Hour",
       "minute": "Minute",
-      "second": "Second"
+      "second": "Second",
+      "listLabel": "Time options"
     }
   }
 }

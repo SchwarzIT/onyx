@@ -368,30 +368,25 @@ const generateTimeOptions = (): SelectOption<string>[] => {
         v-bind="inputProps"
         v-model="modelValue"
         class="onyx-timepicker__input"
-        list-label="Time options"
+        :list-label="t('timepicker.labels.listLabel')"
         :options="generateTimeOptions()"
         :placeholder="placeholderText"
       >
         <template #icon>
           <OnyxIcon
             :class="['onyx-timepicker__icon', { filled: modelValue }]"
-            :label="t('timepicker.labels.iconButton')"
             :icon="iconClock"
             color="neutral"
           />
           <button
             :class="['onyx-timepicker__icon-button', { filled: modelValue }]"
             type="button"
-            :aria-label="t('select.toggleDropDown')"
-            :title="t('select.toggleDropDown')"
+            :aria-label="t('input.clear')"
+            :title="t('input.clear')"
             @mousedown.stop.prevent
             @click="modelValue = undefined"
           >
-            <OnyxIcon
-              :label="t('timepicker.labels.iconButton')"
-              :icon="iconXSmall"
-              color="neutral"
-            />
+            <OnyxIcon :icon="iconXSmall" color="neutral" />
           </button>
         </template>
       </OnyxSelect>

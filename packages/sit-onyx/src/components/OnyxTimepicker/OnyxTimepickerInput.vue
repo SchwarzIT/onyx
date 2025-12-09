@@ -19,7 +19,7 @@ import type { OnyxTimepickerProps } from "./types.js";
 
 const props = withDefaults(
   defineProps<
-    OnyxTimepickerProps & {
+    Omit<OnyxTimepickerProps, "type"> & {
       /**
        * Defines the granularity of the time input in seconds.
        */
@@ -27,6 +27,7 @@ const props = withDefaults(
     }
   >(),
   {
+    type: "time",
     required: false,
     readonly: false,
     loading: false,
