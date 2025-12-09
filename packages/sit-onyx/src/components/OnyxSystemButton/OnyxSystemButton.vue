@@ -31,17 +31,12 @@ const skeleton = useSkeletonContext(props);
     v-else
     v-bind="buttonOrLinkLayoutProps"
     type="button"
-    :class="[
-      'onyx-system-button',
-      'onyx-text--small',
-      `onyx-truncation-ellipsis`,
-      `onyx-system-button--${props.color}`,
-    ]"
+    :class="['onyx-system-button', 'onyx-text--small', `onyx-system-button--${props.color}`]"
     :aria-label="props.label"
     :title="props.label"
   >
     <OnyxIcon v-if="props.icon" :icon="props.icon" />
-    <template v-else>{{ props.label }}</template>
+    <span v-else class="onyx-truncation-ellipsis">{{ props.label }}</span>
   </ButtonOrLinkLayout>
 </template>
 
