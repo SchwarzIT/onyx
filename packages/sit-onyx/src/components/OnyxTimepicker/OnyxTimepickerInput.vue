@@ -27,7 +27,6 @@ const props = withDefaults(
     }
   >(),
   {
-    type: "date",
     required: false,
     readonly: false,
     loading: false,

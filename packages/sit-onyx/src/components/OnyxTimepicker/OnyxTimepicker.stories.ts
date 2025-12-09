@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
+import type { SelectOption } from "../OnyxSelect/types.js";
 import OnyxTimepicker from "./OnyxTimepicker.vue";
 /**
  * The Timepicker component allows users to select a specific time.
@@ -33,5 +34,68 @@ export const WithSeconds = {
 export const InfoLabel = {
   args: {
     infoLabel: "Info label",
+  },
+} satisfies Story;
+
+export const Select = {
+  args: {
+    type: "select",
+    options: {
+      startTime: "08:00",
+      endTime: "17:00",
+      stepSize: 30,
+    },
+  },
+} satisfies Story;
+export const SelectWithCustomTimes = {
+  args: {
+    type: "select",
+    options: {
+      customTimes: (): SelectOption<string>[] => [
+        {
+          value: "09:00",
+          label: "09:00",
+          group: "Morning Slots (09:00 - 11:30)",
+        },
+        {
+          value: "10:00",
+          label: "10:00",
+          group: "Morning Slots (09:00 - 11:30)",
+          disabled: true,
+        },
+        {
+          value: "11:00",
+          label: "11:00",
+          group: "Morning Slots (09:00 - 11:30)",
+        },
+        {
+          value: "12:30",
+          label: "12:30 PM – Lunch Break",
+          disabled: true,
+        },
+        {
+          value: "14:00",
+          label: "14:00",
+          group: "Afternoon Slots (14:00 - 17:00)",
+        },
+        {
+          value: "15:00",
+          label: "15:00",
+          group: "Afternoon Slots (14:00 - 17:00)",
+          disabled: true,
+        },
+        {
+          value: "15:30",
+          label: "15:30",
+          group: "Afternoon Slots (14:00 - 17:00)",
+          disabled: true,
+        },
+        {
+          value: "16:00",
+          label: "16:00",
+          group: "Afternoon Slots (14:00 - 17:00)",
+        },
+      ],
+    },
   },
 } satisfies Story;

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useOutsideClick } from "@sit-onyx/headless";
-import { iconCircleInformation, iconClock } from "@sit-onyx/icons";
+import { iconCircleInformation, iconClock, iconXSmall } from "@sit-onyx/icons";
 import { computed, ref, useTemplateRef, type Ref } from "vue";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
@@ -9,6 +9,8 @@ import OnyxBasicPopover from "../OnyxBasicPopover/OnyxBasicPopover.vue";
 import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
+import OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
+import type { SelectOption } from "../OnyxSelect/types.js";
 import OnyxStepper from "../OnyxStepper/OnyxStepper.vue";
 import OnyxTimepickerInput from "./OnyxTimepickerInput.vue";
 import type { OnyxTimepickerProps } from "./types.js";
@@ -29,6 +31,17 @@ const props = withDefaults(defineProps<OnyxTimepickerProps>(), {
   showError: FORM_INJECTED_SYMBOL,
   skeleton: SKELETON_INJECTED_SYMBOL,
   disableManualResize: false,
+  type: "default",
+});
+
+const placeholderText = computed(() => {
+  const parts = [];
+  parts.push(t.value("timepicker.placeholder.hour"));
+  parts.push(t.value("timepicker.placeholder.minute"));
+  if (props.showSeconds) {
+    parts.push(t.value("timepicker.placeholder.second"));
+  }
+  return parts.join(":");
 });
 
 const emit = defineEmits<{
@@ -202,11 +215,60 @@ const inputProps = computed(() => {
   } = props;
   return others;
 });
+
+/**************Select Timepicker**************** */
+
+const generateTimeOptions = (): SelectOption<string>[] => {
+  if (props.options?.customTimes) {
+    return props.options.customTimes();
+  }
+  const config = props.options || {};
+  const startTime = config.startTime ?? "00:00";
+  const endTime = config.endTime ?? "23:59";
+  const stepSize = config.stepSize ?? 30;
+
+  const options = [];
+
+  const [startHour, startMinute] = startTime.split(":").map(Number);
+  const [endHour, endMinute] = endTime.split(":").map(Number);
+  if (
+    startHour === undefined ||
+    startHour === null ||
+    startMinute === undefined ||
+    startMinute === null ||
+    endHour === undefined ||
+    endHour === null ||
+    endMinute === undefined ||
+    endMinute === null
+  ) {
+    return [];
+  }
+  let currentTimeInMinutes = startHour * 60 + startMinute;
+
+  const endTimeInMinutes = endHour * 60 + endMinute;
+
+  while (currentTimeInMinutes <= endTimeInMinutes) {
+    const hours = Math.floor(currentTimeInMinutes / 60) % 24;
+    const minutes = currentTimeInMinutes % 60;
+
+    const timeString = `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
+
+    options.push({
+      value: timeString,
+      label: timeString,
+    });
+
+    currentTimeInMinutes += stepSize;
+  }
+
+  return options;
+};
 </script>
 
 <template>
   <div ref="rootTemplateRef" class="onyx-component onyx-timepicker">
     <OnyxBasicPopover
+      v-if="props.type === 'default'"
       class="onyx-timepicker__popover"
       :label="t('timepicker.labels.popover')"
       position="bottom"
@@ -300,6 +362,40 @@ const inputProps = computed(() => {
         </div>
       </template>
     </OnyxBasicPopover>
+
+    <div v-else>
+      <OnyxSelect
+        v-bind="inputProps"
+        v-model="modelValue"
+        class="onyx-timepicker__input"
+        list-label="Time options"
+        :options="generateTimeOptions()"
+        :placeholder="placeholderText"
+      >
+        <template #icon>
+          <OnyxIcon
+            :class="['onyx-timepicker__icon', { filled: modelValue }]"
+            :label="t('timepicker.labels.iconButton')"
+            :icon="iconClock"
+            color="neutral"
+          />
+          <button
+            :class="['onyx-timepicker__icon-button', { filled: modelValue }]"
+            type="button"
+            :aria-label="t('select.toggleDropDown')"
+            :title="t('select.toggleDropDown')"
+            @mousedown.stop.prevent
+            @click="modelValue = undefined"
+          >
+            <OnyxIcon
+              :label="t('timepicker.labels.iconButton')"
+              :icon="iconXSmall"
+              color="neutral"
+            />
+          </button>
+        </template>
+      </OnyxSelect>
+    </div>
   </div>
 </template>
 
@@ -354,6 +450,24 @@ const inputProps = computed(() => {
     cursor: pointer;
     &--neutral {
       --icon-color: var(--onyx-color-text-icons-neutral-soft);
+    }
+  }
+  .onyx-timepicker__icon-button {
+    all: initial;
+    display: none;
+    &:hover .onyx-icon {
+      --icon-color: var(--onyx-color-text-icons-primary-intense);
+    }
+  }
+  &:has(.onyx-select-input__native:enabled:focus, .onyx-select-input__native--show-focus) {
+    .onyx-timepicker__icon-button.filled {
+      display: flex;
+    }
+    .onyx-timepicker__icon {
+      --icon-color: var(--onyx-color-text-icons-primary-intense);
+      &.filled {
+        display: none;
+      }
     }
   }
 }
