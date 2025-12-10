@@ -211,6 +211,7 @@ const inputProps = computed(() => {
     showSeconds: __,
     infoLabel: ___,
     hideInfoLabelIcon: ____,
+    type: _____,
     ...others
   } = props;
   return others;

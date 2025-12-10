@@ -36,7 +36,7 @@ export type CustomValidityProp = {
 export type FormValidationProps = {
   error?: CustomMessageType;
   modelValue?: unknown;
-  type?: InputType | OnyxDatePickerProps["type"] | "time";
+  type?: InputType | OnyxDatePickerProps["type"];
   maxlength?: MaxLength;
   minlength?: number;
   min?: DateValue;

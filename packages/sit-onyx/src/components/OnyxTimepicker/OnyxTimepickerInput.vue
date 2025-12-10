@@ -27,7 +27,6 @@ const props = withDefaults(
     }
   >(),
   {
-    type: "time",
     required: false,
     readonly: false,
     loading: false,
@@ -123,9 +122,9 @@ useAutofocus(useTemplateRef("inputRef"), props);
             ref="inputRef"
             v-model="value"
             v-custom-validity
+            type="time"
             class="onyx-datepicker__native"
             :class="{ 'onyx-datepicker__native--success': successMessages }"
-            type="time"
             :required="props.required"
             :autofocus="props.autofocus"
             :name="props.name"
@@ -142,38 +141,3 @@ useAutofocus(useTemplateRef("inputRef"), props);
     </OnyxFormElement>
   </div>
 </template>
-
-<style lang="scss">
-@use "../../styles/mixins/layers.scss";
-@use "../../styles/mixins/input.scss";
-
-.onyx-datepicker,
-.onyx-datepicker-skeleton {
-  @include layers.component() {
-    --onyx-datepicker-padding-vertical: var(--onyx-density-xs);
-  }
-}
-
-.onyx-datepicker-skeleton {
-  @include layers.component() {
-    @include input.define-skeleton-styles(
-      $height: calc(1lh + 2 * var(--onyx-datepicker-padding-vertical))
-    );
-  }
-}
-
-.onyx-datepicker {
-  @include layers.component() {
-    @include input.define-shared-styles(
-      $base-selector: ".onyx-datepicker",
-      $vertical-padding: var(--onyx-datepicker-padding-vertical)
-    );
-
-    &__native {
-      &::-webkit-calendar-picker-indicator {
-        cursor: pointer;
-      }
-    }
-  }
-}
-</style>
