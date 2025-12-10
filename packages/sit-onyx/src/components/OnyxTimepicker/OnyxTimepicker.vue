@@ -291,6 +291,7 @@ const generateTimeOptions = (): SelectOption<string>[] => {
               :label="t('timepicker.labels.iconButton')"
               :icon="iconClock"
               :color="open ? 'primary' : 'neutral'"
+              class="onyx-timepicker__time-icon"
               @click.stop="handleOpen"
             />
           </template>
@@ -440,6 +441,13 @@ const generateTimeOptions = (): SelectOption<string>[] => {
       justify-content: end;
       color: var(--onyx-color-text-icons-neutral-soft);
       font-size: var(--onyx-font-size-2xs);
+    }
+    &__time-icon {
+      --onyx-icon-button-padding: var(--onyx-density-2xs);
+      margin-right: calc(-1 * var(--onyx-icon-button-padding));
+      &.onyx-icon-button--neutral {
+        --icon-button-color: var(--onyx-color-text-icons-neutral-soft);
+      }
     }
   }
   .onyx-icon {
