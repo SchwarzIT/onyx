@@ -92,7 +92,7 @@ useAutofocus(useTemplateRef("inputRef"), props);
     :class="['onyx-component', 'onyx-timepicker-input-skeleton', densityClass]"
     v-bind="rootAttrs"
   >
-    <OnyxSkeleton v-if="!props.hideLabel" class="onyx-timepicker-skeleton__label" />
+    <OnyxSkeleton v-if="!props.hideLabel" class="onyx-timepicker-input-skeleton__label" />
     <OnyxSkeleton class="onyx-timepicker-input-skeleton__input" />
   </div>
 
