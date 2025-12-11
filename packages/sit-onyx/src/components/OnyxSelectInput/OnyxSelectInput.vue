@@ -47,6 +47,13 @@ const emit = defineEmits<{
   validityChange: [validity: ValidityState];
 }>();
 
+defineSlots<{
+  /**
+   * Optional slot to override the input icon.
+   */
+  icon?(): unknown;
+}>();
+
 const { t } = injectI18n();
 
 const { vCustomValidity, errorMessages } = useFormElementError({ props, emit });
@@ -199,16 +206,18 @@ useAutofocus(input, props);
             </template>
           </OnyxTooltip>
 
-          <button
-            class="onyx-select-input__button"
-            type="button"
-            :aria-label="t('select.toggleDropDown')"
-            :title="t('select.toggleDropDown')"
-            tabindex="-1"
-            :disabled="disabled || props.readonly || props.loading"
-          >
-            <OnyxIcon :icon="iconChevronDownUp" />
-          </button>
+          <slot name="icon">
+            <button
+              class="onyx-select-input__button"
+              type="button"
+              :aria-label="t('select.toggleDropDown')"
+              :title="t('select.toggleDropDown')"
+              tabindex="-1"
+              :disabled="disabled || props.readonly || props.loading"
+            >
+              <OnyxIcon :icon="iconChevronDownUp" />
+            </button>
+          </slot>
 
           <OnyxIcon
             v-if="!props.hideSuccessIcon && successMessages"

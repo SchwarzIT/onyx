@@ -98,6 +98,11 @@ const slots = defineSlots<{
    * Optional slot to override the option content.
    */
   option?(props: SelectOption<TValue>): unknown;
+
+  /**
+   * Optional slot to override the input icon.
+   */
+  icon?(): unknown;
 }>();
 
 const { t } = injectI18n();
@@ -431,7 +436,11 @@ watch(
           :autofocus="props.autofocus"
           @input-click="onToggle"
           @validity-change="emit('validityChange', $event)"
-        />
+        >
+          <template v-if="slots.icon" #icon>
+            <slot name="icon"></slot>
+          </template>
+        </OnyxSelectInput>
       </template>
       <template #content>
         <div v-scroll-end class="onyx-select__wrapper" tabindex="-1">
