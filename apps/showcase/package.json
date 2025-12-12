@@ -26,6 +26,6 @@
     "nuxt": "catalog:",
     "sit-onyx": "workspace:^",
     "vue": "catalog:",
-    "vue-router": "^4.6.3"
+    "vue-router": "^4.6.4"
   }
 }
