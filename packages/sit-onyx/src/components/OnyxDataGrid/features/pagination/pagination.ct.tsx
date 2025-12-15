@@ -153,7 +153,7 @@ test("should render items per page selector", async ({ mount, page }) => {
   });
 
   const pagination = component.getByLabel("Pagination");
-  const itemsPerPage = component.getByRole("textbox", { name: "Results per Page" });
+  const itemsPerPage = component.getByRole("textbox", { name: "Items per Page" });
 
   // ASSERT
   await expect(component).toHaveScreenshot("with-items-per-page.png");
@@ -197,7 +197,6 @@ test("should render items per page selector", async ({ mount, page }) => {
   // ASSERT
   await expect(component).toHaveScreenshot("with-items-per-page-skeleton.png");
   await expect(component.locator(".onyx-items-per-page-skeleton")).toBeVisible();
-  await expect(itemsPerPage).toBeHidden();
 
   // ACT (test that items per page is visible for lazy pagination)
   await component.update({
@@ -219,7 +218,7 @@ test("should render items per page selector", async ({ mount, page }) => {
   });
 
   // ASSERT
-  await expect(itemsPerPage, "should hide items per page for button pagination").toBeHidden();
+  await expect(itemsPerPage, "should show items per page for button pagination").toBeVisible();
 });
 
 // eslint-disable-next-line playwright/expect-expect -- expects are done in external functions

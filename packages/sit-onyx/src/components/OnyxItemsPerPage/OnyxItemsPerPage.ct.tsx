@@ -118,6 +118,7 @@ test("should disable select when disabled prop is true", async ({ mount }) => {
     props: {
       modelValue: 10,
       disabled: true,
+      options: PER_PAGE_OPTIONS,
     },
   });
 
