@@ -10,6 +10,12 @@ import {
 } from "vue";
 import type { IfDefined } from "./types.js";
 
+type HTMLDataAttributes = {
+  [x: `data-${string}`]: string | undefined;
+};
+
+type HTMLAttr = HTMLAttributes & HTMLDataAttributes;
+
 /**
  * Properties as they can be used by `v-bind` on an HTML element.
  * This includes generic html attributes and the vue reserved `ref` property.
@@ -18,21 +24,21 @@ import type { IfDefined } from "./types.js";
 export type VBindAttributes<
   A extends HTMLAttributes = HTMLAttributes,
   E extends Element = Element,
-> = A & {
-  ref?: VueTemplateRef<E>;
-};
+> = A &
+  HTMLDataAttributes & {
+    ref?: VueTemplateRef<E>;
+  };
 
-export type IteratedHeadlessElementFunc<
-  A extends HTMLAttributes,
-  T extends Record<string, unknown>,
-> = (opts: T) => VBindAttributes<A>;
+export type IteratedHeadlessElementFunc<A extends HTMLAttr, T extends Record<string, unknown>> = (
+  opts: T,
+) => VBindAttributes<A>;
 
-export type HeadlessElementAttributes<A extends HTMLAttributes> =
+export type HeadlessElementAttributes<A extends HTMLAttr> =
   | VBindAttributes<A>
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- the specific type doesn't matter here
   | IteratedHeadlessElementFunc<A, any>;
 
-export type HeadlessElements = Record<string, MaybeRef<HeadlessElementAttributes<HTMLAttributes>>>;
+export type HeadlessElements = Record<string, MaybeRef<HeadlessElementAttributes<HTMLAttr>>>;
 
 export type HeadlessState = Record<string, Ref>;
 
