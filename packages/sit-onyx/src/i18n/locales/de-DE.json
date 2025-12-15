@@ -266,9 +266,9 @@
     "system": "System"
   },
   "itemsPerPage": {
-    "label": "Ergebnisse pro Seite",
+    "label": "Elemente pro Seite",
     "select": {
-      "listLabel": "Anzahl der Ergebnisse pro Seite auswählen"
+      "listLabel": "Anzahl der Elemente pro Seite auswählen"
     }
   }
 }

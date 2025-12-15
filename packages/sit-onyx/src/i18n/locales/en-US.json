@@ -269,9 +269,9 @@
     "system": "System"
   },
   "itemsPerPage": {
-    "label": "Results per Page",
+    "label": "Items per Page",
     "select": {
-      "listLabel": "Select number of results per Page"
+      "listLabel": "Select number of items per Page"
     }
   }
 }

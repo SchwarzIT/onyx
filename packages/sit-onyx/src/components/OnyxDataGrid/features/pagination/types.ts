@@ -40,7 +40,7 @@ export type PaginationOptions = Pick<
   /**
    * If defined, `OnyxItemsPerPage` component will be displayed in the bottom left slot of the data grid.
    */
-  itemsPerPage?: Array<number>;
+  itemsPerPage?: number[];
 };
 
 export type PaginationState = {

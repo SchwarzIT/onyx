@@ -34,6 +34,7 @@ export const usePagination = (options: PaginationOptions = {}) =>
     );
     const isLastPage = computed(() => state.value.current >= state.value.pages);
     const loading = computed(() => options.loading?.value ?? false);
+    const skeleton = computed(() => ctx.skeleton.value && !shouldShowPagination.value);
 
     const type = options.type ?? "select";
     const scrollContainer = ref<HTMLElement>();
@@ -127,30 +128,28 @@ export const usePagination = (options: PaginationOptions = {}) =>
       slots: {
         pagination: () => {
           if (!isEnabled.value() || type !== "select") return [];
-          const skeleton = ctx.skeleton.value && !shouldShowPagination.value;
-          if (!shouldShowPagination.value && !skeleton) return [];
+          if (!shouldShowPagination.value && !skeleton.value) return [];
 
           return [
             h(OnyxPagination, {
               modelValue: state.value.current,
               pages: state.value.pages,
               disabled: isDisabled.value,
-              skeleton,
+              skeleton: skeleton.value,
               "onUpdate:modelValue": (newPage) => (state.value.current = newPage),
             }),
           ];
         },
         bottomLeft: () => {
-          if (!isEnabled.value() || type !== "select" || !options.itemsPerPage?.length) return [];
-          const skeleton = ctx.skeleton.value && !shouldShowPagination.value;
-          if (!shouldShowPagination.value && !skeleton) return [];
+          if (!isEnabled.value() || !options.itemsPerPage?.length) return [];
+          if (!shouldShowPagination.value && !skeleton.value) return [];
 
           return [
             h(OnyxItemsPerPage, {
               modelValue: state.value.pageSize,
               options: options.itemsPerPage,
               disabled: isDisabled.value,
-              skeleton,
+              skeleton: skeleton.value,
               "onUpdate:modelValue": (newPageSize: number) => {
                 state.value.pageSize = newPageSize;
                 state.value.current = 1;

@@ -22,6 +22,7 @@ type Story = StoryObj<typeof OnyxItemsPerPage>;
 export const Default = {
   args: {
     modelValue: 5,
+    options: [5, 10, 20, 30, 40, 75],
   },
 } satisfies Story;
 
@@ -32,17 +33,9 @@ export const Skeleton = {
   },
 } satisfies Story;
 
-export const CustomLabel = {
-  args: {
-    ...Default.args,
-    label: "Custom items per page",
-  },
-} satisfies Story;
-
 export const RightAlignedLabel = {
   args: {
     ...Default.args,
-    label: "Custom items per page",
     labelAlignment: "right",
   },
 } satisfies Story;

@@ -1,7 +1,10 @@
 import { DENSITIES } from "../../composables/density.js";
+import enUs from "../../i18n/locales/en-US.json" with { type: "json" };
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import OnyxItemsPerPage from "./OnyxItemsPerPage.vue";
+
+const PER_PAGE_OPTIONS = [5, 10, 20, 30, 40, 75];
 
 test.describe("screenshot tests", () => {
   executeMatrixScreenshotTest({
@@ -12,7 +15,7 @@ test.describe("screenshot tests", () => {
       <OnyxItemsPerPage
         modelValue={10}
         density={column}
-        label={row === "custom-label" ? "Custom items per page" : undefined}
+        options={PER_PAGE_OPTIONS}
         hideLabel={row === "hideLabel"}
         skeleton={row === "skeleton"}
         disabled={row === "disabled"}
@@ -22,7 +25,7 @@ test.describe("screenshot tests", () => {
     hooks: {
       beforeEach: async (component, _page, _column, row) => {
         if (row === "open") {
-          await component.getByRole("textbox", { name: "Results per Page" }).click();
+          await component.getByRole("textbox", { name: enUs.itemsPerPage.label }).click();
         }
       },
     },
@@ -35,8 +38,8 @@ test.describe("screenshot tests", () => {
     component: (column, row) => (
       <OnyxItemsPerPage
         modelValue={10}
+        options={PER_PAGE_OPTIONS}
         density={row}
-        label="Items per page"
         labelAlignment={column}
       />
     ),
@@ -48,10 +51,10 @@ test.describe("screenshot tests (states)", () => {
     name: "ItemsPerPage (button states)",
     columns: ["select"],
     rows: ["default", "hover", "focus-visible", "active"],
-    component: () => <OnyxItemsPerPage modelValue={10} />,
+    component: () => <OnyxItemsPerPage options={PER_PAGE_OPTIONS} modelValue={10} />,
     hooks: {
       beforeEach: async (component, page, _column, row) => {
-        const button = component.getByRole("textbox", { name: "Results per Page" });
+        const button = component.getByRole("textbox", { name: enUs.itemsPerPage.label });
 
         if (row === "hover") await button.hover();
         if (row === "focus-visible") {
@@ -87,7 +90,7 @@ test("should select items per page", async ({ mount }) => {
     on: eventHandlers,
   });
 
-  const select = component.getByRole("textbox", { name: "Results per Page" });
+  const select = component.getByRole("textbox", { name: enUs.itemsPerPage.label });
 
   // ASSERT
   await expect(select).toHaveValue("10");
@@ -109,39 +112,6 @@ test("should select items per page", async ({ mount }) => {
   await expect(select).toHaveValue("5");
 });
 
-test("should use custom label", async ({ mount }) => {
-  // ARRANGE
-  const component = await mount(OnyxItemsPerPage, {
-    props: {
-      modelValue: 10,
-      label: "Custom label text",
-    },
-  });
-
-  // ASSERT
-  await expect(component.getByText("Custom label text")).toBeVisible();
-});
-
-test("should render with custom options", async ({ mount }) => {
-  // ARRANGE
-  const component = await mount(OnyxItemsPerPage, {
-    props: {
-      modelValue: 25,
-      options: [10, 25, 50],
-    },
-  });
-
-  const select = component.getByRole("textbox", { name: "Results per Page" });
-
-  // ACT
-  await select.click();
-
-  // ASSERT
-  await expect(component.getByRole("option", { name: "10" })).toBeVisible();
-  await expect(component.getByRole("option", { name: "25" })).toBeVisible();
-  await expect(component.getByRole("option", { name: "50" })).toBeVisible();
-});
-
 test("should disable select when disabled prop is true", async ({ mount }) => {
   // ARRANGE
   const component = await mount(OnyxItemsPerPage, {
@@ -151,7 +121,7 @@ test("should disable select when disabled prop is true", async ({ mount }) => {
     },
   });
 
-  const select = component.getByRole("textbox", { name: "Results per Page" });
+  const select = component.getByRole("textbox", { name: enUs.itemsPerPage.label });
 
   // ASSERT
   await expect(select).toBeDisabled();
@@ -176,12 +146,12 @@ test("should support search functionality", async ({ mount }) => {
     on: eventHandlers,
   });
 
-  const select = component.getByRole("textbox", { name: "Results per Page" });
+  const select = component.getByRole("textbox", { name: enUs.itemsPerPage.label });
 
   // ACT
   await select.click();
 
-  const search = component.getByRole("combobox", { name: "Filter the list items" });
+  const search = component.getByRole("combobox", { name: enUs.select.searchInputLabel });
   await search.fill("75");
 
   // ASSERT

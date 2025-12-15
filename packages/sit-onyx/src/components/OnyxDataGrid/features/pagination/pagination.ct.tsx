@@ -199,7 +199,7 @@ test("should render items per page selector", async ({ mount, page }) => {
   await expect(component.locator(".onyx-items-per-page-skeleton")).toBeVisible();
   await expect(itemsPerPage).toBeHidden();
 
-  // ACT (test that items per page is hidden for lazy pagination)
+  // ACT (test that items per page is visible for lazy pagination)
   await component.update({
     props: {
       style: { maxHeight: "24rem" },
@@ -209,7 +209,7 @@ test("should render items per page selector", async ({ mount, page }) => {
   });
 
   // ASSERT
-  await expect(itemsPerPage, "should hide items per page for lazy pagination").toBeHidden();
+  await expect(itemsPerPage, "should show items per page for lazy pagination").toBeVisible();
 
   // ACT (test that items per page is hidden for button pagination)
   await component.update({

@@ -9,10 +9,8 @@ export type OnyxItemsPerPageProps = DensityProp & {
   /**
    * The options for items per page selection.
    * Each option represents a possible number of items per page.
-   *
-   * @default [5, 10, 20, 30, 40, 75]
    */
-  options?: number[];
+  options: number[];
   /**
    * Whether the items per page selector is disabled.
    * When true, the user cannot change the number of items per page.
@@ -21,15 +19,9 @@ export type OnyxItemsPerPageProps = DensityProp & {
    */
   disabled?: boolean;
   /**
-   * An optional label for the items per page selector.
-   *
-   * @default "Results per Page"
-   */
-  label?: string;
-  /**
    * Alignment of the label.
    *
-   * @default "left"
+   * @default "right"
    */
   labelAlignment?: "left" | "right";
   /**
@@ -42,5 +34,3 @@ export type OnyxItemsPerPageProps = DensityProp & {
    */
   hideLabel?: boolean;
 };
-
-export const DEFAULT_ITEMS_PER_PAGE_OPTIONS = [5, 10, 20, 30, 40, 75];

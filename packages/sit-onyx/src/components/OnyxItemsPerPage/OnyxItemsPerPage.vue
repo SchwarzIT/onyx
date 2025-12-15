@@ -18,11 +18,10 @@ import { injectI18n } from "../../i18n/index.js";
 import OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
 import type { SelectOption } from "../OnyxSelect/types.js";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import { DEFAULT_ITEMS_PER_PAGE_OPTIONS, type OnyxItemsPerPageProps } from "./types.js";
+import { type OnyxItemsPerPageProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxItemsPerPageProps>(), {
-  labelAlignment: "left",
-  options: () => DEFAULT_ITEMS_PER_PAGE_OPTIONS,
+  labelAlignment: "right",
   skeleton: SKELETON_INJECTED_SYMBOL,
 });
 
@@ -50,14 +49,6 @@ const selectOptions = computed<SelectOption<number>[]>(() =>
   props.options.map((option) => ({ label: option.toString(), value: option })),
 );
 
-const actualLabel = computed(() => {
-  if (props.label) {
-    return props.label;
-  }
-
-  return t.value("itemsPerPage.label");
-});
-
 const id = useId();
 </script>
 
@@ -83,7 +74,7 @@ const id = useId();
       :for="id"
       :class="['onyx-items-per-page__label', 'onyx-truncation-ellipsis']"
     >
-      {{ actualLabel }}
+      {{ t("itemsPerPage.label") }}
     </label>
     <OnyxSelect
       :id="id"
@@ -92,7 +83,7 @@ const id = useId();
       :disabled="props.disabled"
       hide-label
       with-search
-      :label="actualLabel"
+      :label="t('itemsPerPage.label')"
       :list-label="t('itemsPerPage.select.listLabel')"
       class="onyx-items-per-page__select"
       :alignment="props.labelAlignment === 'right' || props.hideLabel ? 'left' : 'right'"
@@ -144,7 +135,7 @@ const id = useId();
 
       .onyx-select-input__native {
         // support growing select based on current page character count
-        width: calc(var(--onyx-items-per-page-character-count) * 1ch);
+        width: calc(var(--onyx-items-per-page-character-count) * 1ch + 1ch);
       }
     }
 
