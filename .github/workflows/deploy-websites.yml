@@ -22,7 +22,7 @@ jobs:
     if: ${{ (inputs.environment || inputs.environment) != '' }}
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - uses: ./.github/templates/node-setup
 
@@ -48,7 +48,7 @@ jobs:
     if: ${{ (inputs.environment || inputs.environment) != '' }}
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - uses: ./.github/templates/node-setup
 
@@ -78,7 +78,7 @@ jobs:
     if: ${{ (inputs.environment || inputs.environment) != '' }}
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - uses: ./.github/templates/node-setup
 
@@ -114,7 +114,7 @@ jobs:
           webhook_url: ${{ secrets.AZURE_DEMO_APP_WEBHOOK_URL }}
           webhook_secret: ${{ secrets.AZURE_DEMO_APP_WEBHOOK_SECRET }}
 
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - uses: ./.github/templates/node-setup
 
@@ -144,7 +144,7 @@ jobs:
     if: ${{ (inputs.environment || inputs.environment) != '' }}
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - uses: ./.github/templates/node-setup
 

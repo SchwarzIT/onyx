@@ -613,6 +613,10 @@
     "category": "Network & Infrastructure",
     "aliases": ["Wolke", "Einstellungen", "Zahnrad"]
   },
+  "cloud-shield": {
+    "category": "Software & Services",
+    "aliases": []
+  },
   "coffee-cup": {
     "category": "Kitchen & Food",
     "aliases": [
@@ -2397,6 +2401,10 @@
   "support": {
     "category": "Help & Support",
     "aliases": ["assistance", "help", "Unterstützung", "Hilfe", "Rettungsring"]
+  },
+  "support-plans": {
+    "category": "Software & Services",
+    "aliases": ["file", "plus", "add"]
   },
   "switch-horizontal": {
     "category": "Arrows",

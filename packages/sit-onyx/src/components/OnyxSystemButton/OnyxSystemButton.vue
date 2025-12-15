@@ -36,7 +36,7 @@ const skeleton = useSkeletonContext(props);
     :title="props.label"
   >
     <OnyxIcon v-if="props.icon" :icon="props.icon" />
-    <template v-else>{{ props.label }}</template>
+    <span v-else class="onyx-truncation-ellipsis">{{ props.label }}</span>
   </ButtonOrLinkLayout>
 </template>
 

@@ -6,7 +6,7 @@ import type { FormInjected } from "../OnyxForm/OnyxForm.core.js";
 import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
 
 export type OnyxFileUploadProps<TMultiple extends boolean> = DensityProp &
-  Pick<SharedFormElementProps, "name"> & {
+  Pick<SharedFormElementProps, "name" | "required" | "showError"> & {
     /**
      * Currently selected file(s).
      * If `multiple` property is enabled, this value is an array, otherwise a single file.

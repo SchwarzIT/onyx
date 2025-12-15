@@ -27,7 +27,7 @@ jobs:
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_REMOTE_CACHE__TURBO_TOKEN }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0 # We need the git history for playwright to be able determine the changed files
 
@@ -54,7 +54,7 @@ jobs:
           rsync -R $(git ls-files --others --modified --exclude-standard) ./changed-screenshots/ || echo "no changed files found"
 
       - name: Upload screenshots artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         if: ${{ inputs.update-snapshots == true }}
         with:
           name: screenshots-${{ matrix.shard }}
@@ -64,7 +64,7 @@ jobs:
           retention-days: 1
 
       - name: Upload Reports
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         if: ${{ !cancelled() }}
         with:
           name: blob-report-${{ matrix.shard }}
@@ -82,10 +82,10 @@ jobs:
     name: Collect Playwright result
     needs: playwright
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Merge Screenshots
-        uses: actions/upload-artifact/merge@v5
+        uses: actions/upload-artifact/merge@v6
         if: ${{ !cancelled() }}
         continue-on-error: true
         with:
@@ -94,7 +94,7 @@ jobs:
           retention-days: 14
 
       - name: Download reports
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         if: ${{ !cancelled() }}
         with:
           pattern: blob-report-*
@@ -119,7 +119,7 @@ jobs:
       # A file server is necessary, otherwise not all features are supported.
       # E.g. use `python3 -m http.server` or `npx serve` to quick and easily start one.
       - name: Upload HTML report
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: html-report--attempt-${{ github.run_attempt }}
           path: |

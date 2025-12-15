@@ -201,8 +201,7 @@ useAutofocus(input, props);
 
     &__loading {
       color: var(--onyx-color-text-icons-primary-intense);
-      max-width: var(--onyx-checkbox-input-size);
-      height: var(--onyx-checkbox-input-size);
+      --indicator-size: var(--onyx-checkbox-input-size);
     }
   }
 }

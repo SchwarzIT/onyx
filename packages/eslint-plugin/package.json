@@ -16,8 +16,8 @@
   "devDependencies": {
     "@eslint/core": "~1.0.0",
     "@types/eslint": "^9.6.1",
-    "@typescript-eslint/parser": "^8.47.0",
-    "eslint-vitest-rule-tester": "^3.0.0",
+    "@typescript-eslint/parser": "^8.49.0",
+    "eslint-vitest-rule-tester": "^3.0.1",
     "vue-eslint-parser": "^10.2.0"
   }
 }

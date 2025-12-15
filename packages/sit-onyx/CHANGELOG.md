@@ -1,5 +1,27 @@
 # sit-onyx
 
+## 1.5.0
+
+### Minor Changes
+
+- e5b814a: feat(OnyxTimepicker): Implement component as unstable feature
+- 17f9fb9: feat(OnyxFileUpload): add required validation with error states
+
+### Patch Changes
+
+- f6ac44e: fix(OnyxDataGrid): The `OnyxDataGrid` now forwards all relevant props to the `OnyxTable`. This fixes the issue where props like `truncation` had no effect.
+- 336ed76: fix(OnyxCodeTabs): remove non existing `copyCode` emit
+
+  The `copyCode` emit was a leftover in the code but didn't have any functionality. The source code is automatically copied when clicking the copy button.
+
+- 71f90fc: fix(OnyxSystemButton): fix label overflow
+- a2e92c8: fix(OnyxSkeleton): Fix PointerEvents were able to be triggered even when components where in "skeleton" mode
+- 8a4bd0f: fix(OnyxFormElement): Fix 2px size increase in case of a hidden error message
+- d0ce519: fix(OnyxLoadingSpinner): fix circle variant not having correct width in some contexts
+- Updated dependencies [81b7248]
+- Updated dependencies [592893c]
+  - @sit-onyx/icons@1.3.0
+
 ## 1.4.0
 
 ### Minor Changes

@@ -268,7 +268,8 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
     }
 
     &--cell-truncation-ellipsis {
-      td {
+      td,
+      th {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
