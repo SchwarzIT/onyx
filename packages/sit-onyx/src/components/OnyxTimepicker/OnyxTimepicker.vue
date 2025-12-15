@@ -6,7 +6,7 @@ import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js"
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import OnyxBasicPopover from "../OnyxBasicPopover/OnyxBasicPopover.vue";
-import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core";
+import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxStepper from "../OnyxStepper/OnyxStepper.vue";
