@@ -74,7 +74,7 @@ jobs:
         run: pnpm run stylelint
 
       - name: ⬆️ Upload code coverage artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         if: always() # needed to also upload test results when they failed (useful for debugging)
         with:
           name: coverage
