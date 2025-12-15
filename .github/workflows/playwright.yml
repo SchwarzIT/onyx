@@ -94,7 +94,7 @@ jobs:
           retention-days: 14
 
       - name: Download reports
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         if: ${{ !cancelled() }}
         with:
           pattern: blob-report-*
