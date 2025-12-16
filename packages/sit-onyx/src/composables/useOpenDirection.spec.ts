@@ -47,6 +47,11 @@ describe("useOpenDirection", () => {
   test("should open top when there is more space above (without overflow parent)", () => {
     // ARRANGE - Create element with more space above
     const element = document.createElement("div");
+    // Mock visualViewport.pageTop to ensure that implementation is not relying on it
+    Object.defineProperty(window, "visualViewport", {
+      value: { height: 1000, pageTop: 10000 },
+      configurable: true,
+    });
     Object.defineProperty(element, "getBoundingClientRect", {
       value: () => ({
         top: 800,
