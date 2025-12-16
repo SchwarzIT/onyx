@@ -181,7 +181,7 @@ useAutofocus(input, props);
               'onyx-truncation-ellipsis': true,
               'onyx-select-input__native--touched': wasTouched,
               'onyx-select-input__native--filled':
-                props.modelValue !== undefined && props.modelValue.length,
+                !props.hideClearIcon && props.modelValue !== undefined && props.modelValue.length,
             }"
             v-bind="restAttrs"
             type="text"
@@ -301,14 +301,17 @@ useAutofocus(input, props);
         --icon-color: var(--onyx-color-text-icons-primary-intense);
       }
     }
-    &:has(.onyx-select-input__native:enabled:focus, .onyx-select-input__native--show-focus):has(
-        .onyx-select-input__native--filled
-      ) {
-      .onyx-select-input__button {
-        display: none;
+    &:has(.onyx-select-input__native:enabled:focus, .onyx-select-input__native--show-focus) {
+      .onyx-select-input__button .onyx-icon {
+        --icon-color: var(--onyx-color-text-icons-primary-intense);
       }
-      .onyx-select-input__clear-button {
-        display: flex;
+      &:has(.onyx-select-input__native--filled) {
+        .onyx-select-input__button {
+          display: none;
+        }
+        .onyx-select-input__clear-button {
+          display: flex;
+        }
       }
     }
   }

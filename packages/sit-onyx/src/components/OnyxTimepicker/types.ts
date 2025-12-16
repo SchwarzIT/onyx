@@ -1,5 +1,6 @@
 import type { AutofocusProp } from "../../types/components.js";
 import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
+import type { OnyxInputProps } from "../OnyxInput/types.js";
 import type { SelectOption } from "../OnyxSelect/types.js";
 
 export const TIMEPICKER_TYPES = ["default", "select"] as const;
@@ -21,6 +22,7 @@ export type OnyxTimepickerProps<TType extends TimepickerType = "default"> = Omit
   SharedFormElementProps,
   "placeholder"
 > &
+  Pick<OnyxInputProps, "hideClearIcon"> &
   AutofocusProp & {
     /**
      * Specifies the type of timepicker input.

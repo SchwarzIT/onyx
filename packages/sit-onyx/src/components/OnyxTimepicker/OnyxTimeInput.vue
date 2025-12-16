@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useOutsideClick } from "@sit-onyx/headless";
-import { iconCircleInformation, iconClock } from "@sit-onyx/icons";
+import { iconCircleInformation, iconClock, iconXSmall } from "@sit-onyx/icons";
 import { computed, ref, useTemplateRef, type Ref } from "vue";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
@@ -234,12 +234,25 @@ const inputProps = useForwardProps(props, OnyxTimepickerInput);
         >
           <template #icon>
             <OnyxIconButton
+              v-if="!open || !modelValue"
               :label="t('timepicker.labels.iconButton')"
               :icon="iconClock"
               :color="open ? 'primary' : 'neutral'"
               class="onyx-timepicker__time-icon"
               @click.stop="handleOpen"
             />
+            <button
+              v-else
+              class="onyx-timepicker__clear-button"
+              type="button"
+              :aria-label="t('input.clear')"
+              :title="t('input.clear')"
+              tabindex="-1"
+              @mousedown.prevent
+              @click="modelValue = undefined"
+            >
+              <OnyxIcon :icon="iconXSmall" color="neutral" />
+            </button>
           </template>
         </OnyxTimepickerInput>
       </template>
@@ -364,6 +377,16 @@ const inputProps = useForwardProps(props, OnyxTimepickerInput);
       margin-right: calc(-1 * var(--onyx-icon-button-padding));
       &.onyx-icon-button--neutral {
         --icon-button-color: var(--onyx-color-text-icons-neutral-soft);
+      }
+    }
+    &__clear-button {
+      .onyx-icon {
+        --icon-color: var(--onyx-color-text-icons-neutral-soft);
+      }
+      all: initial;
+      cursor: pointer;
+      &:hover .onyx-icon {
+        --icon-color: var(--onyx-color-text-icons-primary-intense);
       }
     }
   }
