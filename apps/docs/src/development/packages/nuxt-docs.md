@@ -227,7 +227,7 @@ export default defineContentConfig({
     // define a new collection for every additional language here
     content_de: defineCollection({
       type: "page",
-      source: { include: "de/**", prefix: "" },
+      source: { include: "de/**", prefix: "/" },
     }),
   },
 });
