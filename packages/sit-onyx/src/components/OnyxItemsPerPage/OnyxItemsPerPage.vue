@@ -62,24 +62,15 @@ const id = useId();
     :class="[
       'onyx-component',
       'onyx-items-per-page',
-      {
-        'onyx-items-per-page--right': props.labelAlignment === 'right',
-      },
+      { 'onyx-items-per-page--reverse': props.labelAlignment === 'left' },
       densityClass,
     ]"
     :style="{ '--onyx-items-per-page-character-count': modelValue.toString().length }"
   >
-    <label
-      v-if="!props.hideLabel"
-      :for="id"
-      :class="['onyx-items-per-page__label', 'onyx-truncation-ellipsis']"
-    >
-      {{ t("itemsPerPage.label") }}
-    </label>
     <OnyxSelect
       :id="id"
+      v-model="modelValue"
       :options="selectOptions"
-      :model-value="modelValue"
       :disabled="props.disabled"
       hide-label
       with-search
@@ -87,14 +78,14 @@ const id = useId();
       :list-label="t('itemsPerPage.select.listLabel')"
       class="onyx-items-per-page__select"
       :alignment="props.labelAlignment === 'right' || props.hideLabel ? 'left' : 'right'"
-      @update:model-value="
-        (value) => {
-          if (value) {
-            modelValue = value;
-          }
-        }
-      "
     />
+    <label
+      v-if="!props.hideLabel"
+      :for="id"
+      :class="['onyx-items-per-page__label', 'onyx-truncation-ellipsis']"
+    >
+      {{ t("itemsPerPage.label") }}
+    </label>
   </div>
 </template>
 
@@ -121,7 +112,7 @@ const id = useId();
   @include layers.component() {
     display: inline-flex;
     align-items: center;
-    gap: var(--onyx-spacing-sm);
+    gap: var(--onyx-density-xs);
 
     &__label {
       color: var(--onyx-color-text-icons-neutral-soft);
@@ -139,7 +130,7 @@ const id = useId();
       }
     }
 
-    &--right {
+    &--reverse {
       flex-direction: row-reverse;
     }
   }

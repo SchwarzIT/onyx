@@ -8,12 +8,6 @@ const meta: Meta<typeof OnyxItemsPerPage> = {
   title: "Data/ItemsPerPage",
   component: OnyxItemsPerPage,
   tags: ["unstable"],
-  decorators: [
-    (story) => ({
-      components: { story },
-      template: `<div style="max-width: 24rem"> <story /> </div>`,
-    }),
-  ],
 };
 
 export default meta;
@@ -33,9 +27,9 @@ export const Skeleton = {
   },
 } satisfies Story;
 
-export const RightAlignedLabel = {
+export const LeftLabel = {
   args: {
     ...Default.args,
-    labelAlignment: "right",
+    labelAlignment: "left",
   },
 } satisfies Story;
