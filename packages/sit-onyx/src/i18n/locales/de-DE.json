@@ -280,5 +280,11 @@
       "second": "Sekunde",
       "listLabel": "Zeitoptionen"
     }
+  },
+  "itemsPerPage": {
+    "label": "Elemente pro Seite",
+    "select": {
+      "listLabel": "Anzahl der Elemente pro Seite auswählen"
+    }
   }
 }

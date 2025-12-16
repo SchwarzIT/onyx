@@ -283,5 +283,11 @@
       "second": "Second",
       "listLabel": "Time options"
     }
+  },
+  "itemsPerPage": {
+    "label": "Items per page",
+    "select": {
+      "listLabel": "Select number of items per page"
+    }
   }
 }

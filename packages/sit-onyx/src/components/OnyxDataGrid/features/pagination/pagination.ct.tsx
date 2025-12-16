@@ -141,6 +141,86 @@ test("should hide pagination when empty or only one page exists", async ({ mount
   await expect(pagination).toBeVisible();
 });
 
+test("should render items per page selector", async ({ mount, page }) => {
+  // ARRANGE
+  const component = await mount(TestCase, {
+    props: {
+      data: getTestData(128),
+      paginationOptions: {
+        itemsPerPage: [10, 25, 50],
+      },
+    },
+  });
+
+  const pagination = component.getByLabel("Pagination");
+  const itemsPerPage = component.getByRole("textbox", { name: "Items per Page" });
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("with-items-per-page.png");
+  await expect(itemsPerPage).toBeVisible();
+  await expect(itemsPerPage).toHaveValue("25");
+  await expectRowCount(component, 25);
+  await expect(pagination).toContainText("of 6 pages");
+
+  // ACT (change page size to 10)
+  await itemsPerPage.click();
+  await page.getByRole("option", { name: "10", exact: true }).click();
+
+  // ASSERT
+  await expectRowCount(component, 10, "should show 10 rows when page size is 10");
+  await expect(itemsPerPage).toHaveValue("10");
+  await expect(pagination).toContainText("of 13 pages");
+  await expect(component.getByRole("row", { name: "A 1", exact: true })).toBeVisible();
+  await expect(component.getByRole("row", { name: "A 10" })).toBeVisible();
+  await expect(component.getByRole("row", { name: "A 11" })).toBeHidden();
+
+  // ACT (navigate to page 3, then change page size to 50)
+  await pagination.getByRole("button", { name: "next page" }).click();
+  await pagination.getByRole("button", { name: "next page" }).click();
+  await expect(pagination.getByRole("textbox", { name: "Page selection" })).toHaveValue("3");
+
+  await itemsPerPage.click();
+  await page.getByRole("option", { name: "50", exact: true }).click();
+
+  // ASSERT
+  await expect(itemsPerPage).toHaveValue("50");
+  await expect(
+    pagination.getByRole("textbox", { name: "Page selection" }),
+    "should reset to page 1 when page size changes",
+  ).toHaveValue("1");
+  await expect(pagination).toContainText("of 3 pages");
+  await expectRowCount(component, 50, "should show 50 rows when page size is 50");
+
+  // ACT (test skeleton state)
+  await component.update({ props: { skeleton: true, data: [] } });
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("with-items-per-page-skeleton.png");
+  await expect(component.locator(".onyx-items-per-page-skeleton")).toBeVisible();
+
+  // ACT (test that items per page is visible for lazy pagination)
+  await component.update({
+    props: {
+      style: { maxHeight: "24rem" },
+      data: getTestData(52),
+      paginationOptions: { type: "lazy", itemsPerPage: [10, 25, 50] },
+    },
+  });
+
+  // ASSERT
+  await expect(itemsPerPage, "should show items per page for lazy pagination").toBeVisible();
+
+  // ACT (test that items per page is hidden for button pagination)
+  await component.update({
+    props: {
+      paginationOptions: { type: "button", itemsPerPage: [10, 25, 50] },
+    },
+  });
+
+  // ASSERT
+  await expect(itemsPerPage, "should show items per page for button pagination").toBeVisible();
+});
+
 // eslint-disable-next-line playwright/expect-expect -- expects are done in external functions
 test("should handle lazy loading", async ({ mount }) => {
   // ARRANGE
