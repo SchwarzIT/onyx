@@ -2,7 +2,7 @@
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { useForwardProps } from "../../utils/props.js";
-import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core";
+import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core.js";
 import OnyxTimeInput from "./OnyxTimeInput.vue";
 import OnyxTimeSelect from "./OnyxTimeSelect.vue";
 import type { OnyxTimepickerProps, TimepickerType } from "./types.js";
