@@ -282,5 +282,11 @@
       "minute": "Minute",
       "second": "Second"
     }
+  },
+  "itemsPerPage": {
+    "label": "Items per page",
+    "select": {
+      "listLabel": "Select number of items per page"
+    }
   }
 }
