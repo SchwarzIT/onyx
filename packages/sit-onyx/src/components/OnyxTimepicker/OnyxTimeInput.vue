@@ -234,7 +234,7 @@ const inputProps = useForwardProps(props, OnyxTimepickerInput);
         >
           <template #icon>
             <OnyxIconButton
-              v-if="!open || !modelValue"
+              v-if="!open || !modelValue || props.hideClearIcon"
               :label="t('timepicker.labels.iconButton')"
               :icon="iconClock"
               :color="open ? 'primary' : 'neutral'"
