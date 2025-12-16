@@ -109,7 +109,8 @@ defineExpose({
       font-family: var(--onyx-font-family);
       font-style: normal;
       flex-grow: 1;
-      min-width: calc(var(--onyx-placeholder-character-count) * 1ch);
+      // +1 is needed for webkit/safari to not truncate the value
+      min-width: calc((var(--onyx-placeholder-character-count) + 1) * 1ch);
       color: inherit;
 
       &::placeholder {
