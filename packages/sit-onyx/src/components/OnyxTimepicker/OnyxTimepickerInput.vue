@@ -15,11 +15,11 @@ import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import type { OnyxTimepickerProps } from "./types.js";
+import type { OnyxTimepickerProps, TimepickerType } from "./types.js";
 
 const props = withDefaults(
   defineProps<
-    Omit<OnyxTimepickerProps, "type"> & {
+    Omit<OnyxTimepickerProps<TimepickerType>, "type"> & {
       /**
        * Defines the granularity of the time input in seconds.
        */
@@ -122,7 +122,9 @@ useAutofocus(useTemplateRef("inputRef"), props);
             v-custom-validity
             type="time"
             class="onyx-timepicker-input__native"
-            :class="{ 'onyx-timepicker-input__native--success': successMessages }"
+            :class="{
+              'onyx-timepicker-input__native--success': successMessages,
+            }"
             :required="props.required"
             :autofocus="props.autofocus"
             :name="props.name"
@@ -132,6 +134,8 @@ useAutofocus(useTemplateRef("inputRef"), props);
             :title="props.hideLabel ? props.label : undefined"
             :step="props.step"
             v-bind="restAttrs"
+            :max="props.max"
+            :min="props.min"
           />
           <slot name="icon"></slot>
         </div>

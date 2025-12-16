@@ -64,7 +64,8 @@ test.describe("Screenshot tests", () => {
         return (
           <OnyxTimepicker
             type="select"
-            options={{ startTime: "8:00", endTime: "10:00" }}
+            min="8:00"
+            max="10:00"
             label="Test label"
             density={column}
             disabled={row === "disabled"}

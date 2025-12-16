@@ -1,6 +1,6 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue">
 import { CLOSING_KEYS, OPENING_KEYS } from "@sit-onyx/headless";
-import { iconCheckSmall, iconChevronDownUp } from "@sit-onyx/icons";
+import { iconCheckSmall, iconChevronDownUp, iconXSmall } from "@sit-onyx/icons";
 import { computed, ref, useTemplateRef, watch } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
@@ -45,11 +45,15 @@ const emit = defineEmits<{
    * Emitted when the validity state of the input changes.
    */
   validityChange: [validity: ValidityState];
+  /**
+   * Emitted when clear Button is clicked
+   */
+  clearModelValue: [];
 }>();
 
 defineSlots<{
   /**
-   * Optional slot to override the input icon.
+   * Optional slot to override the icon of the toggle button inside the input.
    */
   icon?(): unknown;
 }>();
@@ -176,6 +180,8 @@ useAutofocus(input, props);
               'onyx-select-input__native--show-focus': props.showFocus,
               'onyx-truncation-ellipsis': true,
               'onyx-select-input__native--touched': wasTouched,
+              'onyx-select-input__native--filled':
+                props.modelValue !== undefined && props.modelValue.length,
             }"
             v-bind="restAttrs"
             type="text"
@@ -206,19 +212,29 @@ useAutofocus(input, props);
             </template>
           </OnyxTooltip>
 
-          <slot name="icon">
-            <button
-              class="onyx-select-input__button"
-              type="button"
-              :aria-label="t('select.toggleDropDown')"
-              :title="t('select.toggleDropDown')"
-              tabindex="-1"
-              :disabled="disabled || props.readonly || props.loading"
-            >
+          <button
+            class="onyx-select-input__button"
+            type="button"
+            :aria-label="t('select.toggleDropDown')"
+            :title="t('select.toggleDropDown')"
+            tabindex="-1"
+            :disabled="disabled || props.readonly || props.loading"
+          >
+            <slot name="icon">
               <OnyxIcon :icon="iconChevronDownUp" />
-            </button>
-          </slot>
-
+            </slot>
+          </button>
+          <button
+            v-if="!props.hideClearIcon"
+            class="onyx-select-input__clear-button"
+            type="button"
+            :aria-label="t('input.clear')"
+            :title="t('input.clear')"
+            tabindex="-1"
+            @click.stop.prevent="emit('clearModelValue')"
+          >
+            <OnyxIcon :icon="iconXSmall" color="neutral" />
+          </button>
           <OnyxIcon
             v-if="!props.hideSuccessIcon && successMessages"
             class="onyx-select-input__check-icon"
@@ -271,6 +287,28 @@ useAutofocus(input, props);
       @include input.define-skeleton-styles(
         $height: calc(1lh + 2 * var(--onyx-select-input-padding-vertical))
       );
+    }
+
+    .onyx-select-input__clear-button {
+      .onyx-icon {
+        --icon-color: var(--onyx-color-text-icons-neutral-soft);
+      }
+      all: initial;
+      cursor: pointer;
+      display: none;
+      &:hover .onyx-icon {
+        --icon-color: var(--onyx-color-text-icons-primary-intense);
+      }
+    }
+    &:has(.onyx-select-input__native:enabled:focus, .onyx-select-input__native--show-focus):has(
+        .onyx-select-input__native--filled
+      ) {
+      .onyx-select-input__button {
+        display: none;
+      }
+      .onyx-select-input__clear-button {
+        display: flex;
+      }
     }
   }
 }

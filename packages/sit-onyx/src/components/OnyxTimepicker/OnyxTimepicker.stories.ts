@@ -40,10 +40,10 @@ export const InfoLabel = {
 export const Select = {
   args: {
     type: "select",
+    min: "08:00",
+    max: "17:00",
     options: {
-      startTime: "08:00",
-      endTime: "17:00",
-      stepSize: 30,
+      stepSize: 1800,
     },
   },
 } satisfies Story;
