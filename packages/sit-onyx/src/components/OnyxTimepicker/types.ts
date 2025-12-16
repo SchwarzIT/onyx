@@ -31,41 +31,34 @@ export type OnyxTimepickerProps<TType extends TimepickerType = "default"> = Omit
      * @default 'default'
      */
     type?: TType;
-
     /**
      * Configuration options for the timepicker's option generation.
      * This property is ONLY available when `type` is set to 'select'.
      */
     options?: TType extends "select" ? TimepickerSelectOptions : never;
-
     /**
      * Time in Seconds since midnight.
      */
     modelValue?: string;
-
     /**
      * Minimum time to input in 24-hour format (including the minimum time).
      * @format HH:MM:SS (e.g., "08:00:00")
      */
     min?: `${number}:${number}` | `${number}:${number}:${number}`;
-
     /**
      * Maximum time to input in 24-hour format (including the maximum time).
      * @format HH:MM:ss (e.g., "17:30:00")
      */
     max?: `${number}:${number}` | `${number}:${number}:${number}`;
-
     /**
      * Whether to show the seconds segment (:SS).
      * If true, the format is HH:MM:SS. If false, the format is HH:MM.
      */
     showSeconds?: boolean;
-
     /**
      * Text describing the timepicker. Will be displayed at the bottom of the flyout.
      */
     infoLabel?: string;
-
     /**
      * Whether to hide the info label.
      */
