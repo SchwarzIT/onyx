@@ -284,9 +284,9 @@
     }
   },
   "itemsPerPage": {
-    "label": "Items per Page",
+    "label": "Items per page",
     "select": {
-      "listLabel": "Select number of items per Page"
+      "listLabel": "Select number of items per page"
     }
   }
 }

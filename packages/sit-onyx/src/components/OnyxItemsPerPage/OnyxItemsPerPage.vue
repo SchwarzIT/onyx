@@ -115,7 +115,7 @@ const id = useId();
     gap: var(--onyx-density-xs);
 
     &__label {
-      color: var(--onyx-color-text-icons-neutral-soft);
+      color: var(--onyx-color-text-icons-neutral-medium);
       font-size: var(--onyx-font-size-md);
       font-family: var(--onyx-font-family-paragraph);
       line-height: var(--onyx-font-line-height-md);
