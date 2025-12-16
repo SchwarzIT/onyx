@@ -15,8 +15,8 @@ type Story = StoryObj<typeof OnyxItemsPerPage>;
 
 export const Default = {
   args: {
-    modelValue: 5,
-    options: [5, 10, 20, 30, 40, 75],
+    modelValue: 20,
+    options: [10, 20, 30, 40, 50],
   },
 } satisfies Story;
 
