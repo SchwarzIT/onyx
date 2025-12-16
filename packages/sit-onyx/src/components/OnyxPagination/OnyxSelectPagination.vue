@@ -193,7 +193,8 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
 
       .onyx-select-input__native {
         // support growing select based on current page character count
-        width: calc(var(--onyx-pagination-character-count) * 1ch);
+        // +1 is needed for webkit/safari to not truncate the value
+        width: calc((var(--onyx-pagination-character-count) + 1) * 1ch);
       }
     }
 

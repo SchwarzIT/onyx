@@ -73,7 +73,6 @@ const id = useId();
       :options="selectOptions"
       :disabled="props.disabled"
       hide-label
-      with-search
       :label="t('itemsPerPage.label')"
       :list-label="t('itemsPerPage.select.listLabel')"
       class="onyx-items-per-page__select"
@@ -113,6 +112,7 @@ const id = useId();
     display: inline-flex;
     align-items: center;
     gap: var(--onyx-density-xs);
+    max-width: 100%;
 
     &__label {
       color: var(--onyx-color-text-icons-neutral-medium);
@@ -126,7 +126,8 @@ const id = useId();
 
       .onyx-select-input__native {
         // support growing select based on current page character count
-        width: calc(var(--onyx-items-per-page-character-count) * 1ch + 1ch);
+        // +1 is needed for webkit/safari to not truncate the value
+        width: calc((var(--onyx-items-per-page-character-count) + 1) * 1ch);
       }
     }
 
