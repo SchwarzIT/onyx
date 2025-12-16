@@ -231,7 +231,8 @@ useAutofocus(input, props);
             :aria-label="t('input.clear')"
             :title="t('input.clear')"
             tabindex="-1"
-            @click.stop.prevent="emit('clearModelValue')"
+            @mousedown.prevent
+            @click.stop="emit('clearModelValue')"
           >
             <OnyxIcon :icon="iconXSmall" color="neutral" />
           </button>

@@ -45,13 +45,13 @@ export type OnyxTimepickerProps<TType extends TimepickerType = "default"> = Omit
      * Minimum time to input in 24-hour format (including the minimum time).
      * @format HH:MM:SS (e.g., "08:00:00")
      */
-    min?: string;
+    min?: `${number}:${number}`;
 
     /**
      * Maximum time to input in 24-hour format (including the maximum time).
      * @format HH:MM:ss (e.g., "17:30:00")
      */
-    max?: string;
+    max?: `${number}:${number}`;
 
     /**
      * Whether to show the seconds segment (:SS).

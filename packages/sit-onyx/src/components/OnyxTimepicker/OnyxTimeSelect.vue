@@ -31,11 +31,17 @@ const placeholderText = computed(() => {
   return parts.join(":");
 });
 
-const generateTimeOptions = (): SelectOption<string>[] => {
+const timeOptions = computed<SelectOption<string>[]>(() => {
+  if (props.type !== "select") {
+    return [];
+  }
+
   if (props.options?.customTimes) {
     return props.options.customTimes();
   }
+
   const config = props.options || {};
+  const stepSizeInSeconds = config.stepSize ?? 1800;
 
   const defaultTime = props.showSeconds ? "00:00:00" : "00:00";
   const defaultEndTime = props.showSeconds ? "23:59:59" : "23:59";
@@ -43,40 +49,28 @@ const generateTimeOptions = (): SelectOption<string>[] => {
   const startTime = props.min ?? defaultTime;
   const endTime = props.max ?? defaultEndTime;
 
-  const stepSizeInSeconds = config.stepSize ?? 1800;
-
-  const options = [];
-
   const startParts = startTime.split(":").map(Number);
   const endParts = endTime.split(":").map(Number);
 
-  const startHour = startParts[0];
-  const startMinute = startParts[1];
-  const startSecond = startParts[2] ?? 0;
-
-  const endHour = endParts[0];
-  const endMinute = endParts[1];
-  const endSecond = endParts[2] ?? 0;
-
-  if (
-    startHour === undefined ||
-    startHour === null ||
-    startMinute === undefined ||
-    startMinute === null ||
-    endHour === undefined ||
-    endHour === null ||
-    endMinute === undefined ||
-    endMinute === null
-  ) {
+  if (startParts.some(isNaN) || endParts.some(isNaN)) {
     return [];
   }
+
+  const startHour = startParts[0] ?? 0;
+  const startMinute = startParts[1] ?? 0;
+  const startSecond = startParts[2] ?? 0;
+
+  const endHour = endParts[0] ?? 0;
+  const endMinute = endParts[1] ?? 0;
+  const endSecond = endParts[2] ?? 0;
 
   let currentTimeInSeconds = startHour * 3600 + startMinute * 60 + startSecond;
   const endTimeInSeconds = endHour * 3600 + endMinute * 60 + endSecond;
 
+  const options: SelectOption<string>[] = [];
+
   while (currentTimeInSeconds <= endTimeInSeconds) {
-    const totalHours = Math.floor(currentTimeInSeconds / 3600);
-    const hours = totalHours % 24;
+    const hours = Math.floor(currentTimeInSeconds / 3600) % 24;
     const remainingSecondsFromHour = currentTimeInSeconds % 3600;
     const minutes = Math.floor(remainingSecondsFromHour / 60);
     const seconds = remainingSecondsFromHour % 60;
@@ -100,7 +94,7 @@ const generateTimeOptions = (): SelectOption<string>[] => {
   }
 
   return options;
-};
+});
 
 const inputProps = useForwardProps(props, OnyxSelect);
 </script>
@@ -112,7 +106,7 @@ const inputProps = useForwardProps(props, OnyxSelect);
     :label="props.label"
     class="onyx-timepicker"
     :list-label="t('timepicker.labels.listLabel')"
-    :options="generateTimeOptions()"
+    :options="timeOptions"
     :placeholder="placeholderText"
   >
     <template #toggleIcon>
