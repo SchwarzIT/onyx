@@ -315,8 +315,10 @@ const inputProps = useForwardProps(props, OnyxTimepickerInput);
           <div v-if="props.infoLabel" class="onyx-timepicker__info-label">
             <OnyxIcon
               v-if="!props.hideInfoLabelIcon"
+              class="onyx-timepicker__info-icon"
               :icon="iconCircleInformation"
               color="neutral"
+              size="16px"
             />
             <p>{{ props.infoLabel }}</p>
           </div>
@@ -369,8 +371,12 @@ const inputProps = useForwardProps(props, OnyxTimepickerInput);
       box-sizing: border-box;
       display: flex;
       justify-content: end;
+      align-items: center;
       color: var(--onyx-color-text-icons-neutral-soft);
-      font-size: var(--onyx-font-size-2xs);
+      font-size: var(--onyx-font-size-sm);
+      .onyx-timepicker__info-icon {
+        --icon-color: var(--onyx-color-text-icons-neutral-medium);
+      }
     }
     &__time-icon {
       --onyx-icon-button-padding: var(--onyx-density-2xs);

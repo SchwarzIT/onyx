@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import type { SelectOption } from "../OnyxSelect/types.js";
 import OnyxTimepicker from "./OnyxTimepicker.vue";
 /**
  * The Timepicker component allows users to select a specific time.
@@ -51,27 +50,28 @@ export const SelectWithCustomTimes = {
   args: {
     type: "select",
     options: {
-      customTimes: (): SelectOption<string>[] => [
+      customTimes: [
         {
           value: "09:00",
           label: "09:00",
-          group: "Morning Slots (09:00 - 11:30)",
+          group: "Morning Slots (09:00 - 12:00)",
         },
         {
           value: "10:00",
           label: "10:00",
-          group: "Morning Slots (09:00 - 11:30)",
+          group: "Morning Slots (09:00 - 12:00)",
           disabled: true,
         },
         {
           value: "11:00",
           label: "11:00",
-          group: "Morning Slots (09:00 - 11:30)",
+          group: "Morning Slots (09:00 - 12:00)",
         },
         {
           value: "12:30",
-          label: "12:30 PM – Lunch Break",
+          label: "12:30",
           disabled: true,
+          group: "Lunch Break (12:00 - 14:00)",
         },
         {
           value: "14:00",

@@ -415,23 +415,6 @@ watch(
 
   { deep: true, immediate: true },
 );
-
-const handleClear = () => {
-  searchTerm.value = "";
-  const currentSelection = asArray(modelValue.value);
-
-  const remainingValues = currentSelection.filter((selectedValue) => {
-    const option = props.options.find((o) => o.value === selectedValue);
-    return option?.disabled;
-  });
-
-  if (props.multiple) {
-    modelValue.value = remainingValues as unknown as TModelValue;
-  } else {
-    const newValue = remainingValues.length > 0 ? remainingValues[0] : undefined;
-    modelValue.value = newValue as unknown as TModelValue;
-  }
-};
 </script>
 
 <template>
@@ -452,7 +435,6 @@ const handleClear = () => {
           :autofocus="props.autofocus"
           @input-click="onToggle"
           @validity-change="emit('validityChange', $event)"
-          @clear-model-value="handleClear"
         >
           <template v-if="slots.toggleIcon" #icon>
             <slot name="toggleIcon"></slot>

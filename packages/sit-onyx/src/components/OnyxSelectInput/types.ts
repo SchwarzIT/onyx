@@ -20,10 +20,6 @@ export type OnyxSelectInputProps = Omit<SharedFormElementProps, "maxlength" | "w
    */
   hideSuccessIcon?: boolean;
   /**
-   * Whether to hide the clear icon
-   */
-  hideClearIcon?: boolean;
-  /**
    * Highlight input as if it has focus.
    */
   showFocus?: boolean;

@@ -15,7 +15,7 @@ export type TimepickerSelectOptions = {
   /**
    * A function that provides custom time options.
    */
-  customTimes?: () => SelectOption<string>[];
+  customTimes?: SelectOption<string>[];
 };
 
 export type OnyxTimepickerProps<TType extends TimepickerType = "default"> = Omit<
@@ -47,13 +47,13 @@ export type OnyxTimepickerProps<TType extends TimepickerType = "default"> = Omit
      * Minimum time to input in 24-hour format (including the minimum time).
      * @format HH:MM:SS (e.g., "08:00:00")
      */
-    min?: `${number}:${number}`;
+    min?: `${number}:${number}` | `${number}:${number}:${number}`;
 
     /**
      * Maximum time to input in 24-hour format (including the maximum time).
      * @format HH:MM:ss (e.g., "17:30:00")
      */
-    max?: `${number}:${number}`;
+    max?: `${number}:${number}` | `${number}:${number}:${number}`;
 
     /**
      * Whether to show the seconds segment (:SS).

@@ -37,7 +37,7 @@ const timeOptions = computed<SelectOption<string>[]>(() => {
   }
 
   if (props.options?.customTimes) {
-    return props.options.customTimes();
+    return props.options.customTimes;
   }
 
   const config = props.options || {};
@@ -110,26 +110,7 @@ const inputProps = useForwardProps(props, OnyxSelect);
     :placeholder="placeholderText"
   >
     <template #toggleIcon>
-      <OnyxIcon
-        :class="['onyx-timepicker__icon', { filled: modelValue }]"
-        :icon="iconClock"
-        color="neutral"
-      />
+      <OnyxIcon :class="['onyx-timepicker__icon', { filled: modelValue }]" :icon="iconClock" />
     </template>
   </OnyxSelect>
 </template>
-
-<style lang="scss">
-@use "../../styles/mixins/layers.scss";
-
-.onyx-timepicker {
-  @include layers.component() {
-    .onyx-icon {
-      cursor: pointer;
-      &--neutral {
-        --icon-color: var(--onyx-color-text-icons-neutral-soft);
-      }
-    }
-  }
-}
-</style>
