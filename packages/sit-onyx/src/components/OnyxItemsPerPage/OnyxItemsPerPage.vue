@@ -90,6 +90,7 @@ const id = useId();
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
+@use "../../styles/mixins/text.scss";
 
 .onyx-items-per-page-skeleton {
   @include layers.component() {
@@ -126,8 +127,7 @@ const id = useId();
 
       .onyx-select-input__native {
         // support growing select based on current page character count
-        // +1 is needed for webkit/safari to not truncate the value
-        width: calc((var(--onyx-items-per-page-character-count) + 1) * 1ch);
+        width: text.ch(var(--onyx-items-per-page-character-count));
       }
     }
 
