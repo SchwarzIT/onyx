@@ -88,6 +88,7 @@ defineExpose({
 
 <style lang="scss">
 @use "../../styles/mixins/layers";
+@use "../../styles/mixins/text";
 
 .onyx-mini-search {
   @include layers.component() {
@@ -109,8 +110,7 @@ defineExpose({
       font-family: var(--onyx-font-family);
       font-style: normal;
       flex-grow: 1;
-      // +1 is needed for webkit/safari to not truncate the value
-      min-width: calc((var(--onyx-placeholder-character-count) + 1) * 1ch);
+      min-width: text.ch(var(--onyx-placeholder-character-count));
       color: inherit;
 
       &::placeholder {

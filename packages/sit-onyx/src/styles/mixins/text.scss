@@ -1,0 +1,8 @@
+/**
+* Mixin for getting a calculated CSS "ch" unit value that can be used to e.g. set the width of an element based on the text length.
+* Includes a bug fix for webkit/safari so the text is not truncated.
+*/
+@function ch($length) {
+  // the 1px offset is needed to fix a bug in webkit/safari where the text is truncated
+  @return calc($length * 1ch + var(--onyx-1px-in-rem));
+}
