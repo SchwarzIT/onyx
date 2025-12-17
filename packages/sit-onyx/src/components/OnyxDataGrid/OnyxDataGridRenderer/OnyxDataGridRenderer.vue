@@ -76,7 +76,6 @@ const columnStyle = computed(() => {
   .onyx-data-grid {
     width: 100%;
     max-width: 100%;
-    container-type: inline-size;
 
     .onyx-table-wrapper__container {
       display: grid;

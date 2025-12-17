@@ -13,6 +13,13 @@
       }
     }
 
+    // needed to support the container query below
+    &:has(&__items-per-page) {
+      .onyx-table-wrapper__bottom {
+        container-type: inline-size;
+      }
+    }
+
     &__items-per-page {
       // this element is just a wrapper div that we need for scoping the styles to the class
       // so we set it to display contents to not have any additional layout
