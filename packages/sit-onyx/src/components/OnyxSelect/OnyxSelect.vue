@@ -56,7 +56,6 @@ const props = withDefaults(defineProps<Props>(), {
   open: undefined,
   keepSelectionOrder: false,
 });
-
 const emit = defineEmits<{
   /**
    * Emitted if lazy loading is triggered / the users scrolls to the end of the options.
@@ -98,6 +97,11 @@ const slots = defineSlots<{
    * Optional slot to override the option content.
    */
   option?(props: SelectOption<TValue>): unknown;
+
+  /**
+   * Optional slot to override the icon of the toggle button inside the input.
+   */
+  toggleIcon?(): unknown;
 }>();
 
 const { t } = injectI18n();
@@ -431,7 +435,11 @@ watch(
           :autofocus="props.autofocus"
           @input-click="onToggle"
           @validity-change="emit('validityChange', $event)"
-        />
+        >
+          <template v-if="slots.toggleIcon" #icon>
+            <slot name="toggleIcon"></slot>
+          </template>
+        </OnyxSelectInput>
       </template>
       <template #content>
         <div v-scroll-end class="onyx-select__wrapper" tabindex="-1">

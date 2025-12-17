@@ -15,11 +15,11 @@ import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import type { OnyxTimepickerProps } from "./types.js";
+import type { OnyxTimepickerProps, TimepickerType } from "./types.js";
 
 const props = withDefaults(
   defineProps<
-    OnyxTimepickerProps & {
+    Omit<OnyxTimepickerProps<TimepickerType>, "type"> & {
       /**
        * Defines the granularity of the time input in seconds.
        */
@@ -27,7 +27,6 @@ const props = withDefaults(
     }
   >(),
   {
-    type: "date",
     required: false,
     readonly: false,
     loading: false,
@@ -90,16 +89,16 @@ useAutofocus(useTemplateRef("inputRef"), props);
 <template>
   <div
     v-if="skeleton"
-    :class="['onyx-component', 'onyx-datepicker-skeleton', densityClass]"
+    :class="['onyx-component', 'onyx-timepicker-input-skeleton', densityClass]"
     v-bind="rootAttrs"
   >
-    <OnyxSkeleton v-if="!props.hideLabel" class="onyx-datepicker-skeleton__label" />
-    <OnyxSkeleton class="onyx-datepicker-skeleton__input" />
+    <OnyxSkeleton v-if="!props.hideLabel" class="onyx-timepicker-input-skeleton__label" />
+    <OnyxSkeleton class="onyx-timepicker-input-skeleton__input" />
   </div>
 
   <div
     v-else
-    :class="['onyx-component', 'onyx-datepicker', densityClass, errorClass]"
+    :class="['onyx-component', 'onyx-timepicker-input', densityClass, errorClass]"
     v-bind="rootAttrs"
   >
     <OnyxFormElement
@@ -110,22 +109,22 @@ useAutofocus(useTemplateRef("inputRef"), props);
       :message="messages"
     >
       <template #default="{ id: inputId }">
-        <div class="onyx-datepicker__wrapper">
+        <div class="onyx-timepicker-input__wrapper">
           <OnyxLoadingIndicator
             v-if="props.loading"
-            class="onyx-datepicker__loading"
+            class="onyx-timepicker-input__loading"
             type="circle"
           />
-          <!-- key is needed to keep current value when switching between date and datetime type -->
           <input
             :id="inputId"
-            key="time"
             ref="inputRef"
             v-model="value"
             v-custom-validity
-            class="onyx-datepicker__native"
-            :class="{ 'onyx-datepicker__native--success': successMessages }"
             type="time"
+            class="onyx-timepicker-input__native"
+            :class="{
+              'onyx-timepicker-input__native--success': successMessages,
+            }"
             :required="props.required"
             :autofocus="props.autofocus"
             :name="props.name"
@@ -135,6 +134,8 @@ useAutofocus(useTemplateRef("inputRef"), props);
             :title="props.hideLabel ? props.label : undefined"
             :step="props.step"
             v-bind="restAttrs"
+            :max="props.max"
+            :min="props.min"
           />
           <slot name="icon"></slot>
         </div>
@@ -147,26 +148,26 @@ useAutofocus(useTemplateRef("inputRef"), props);
 @use "../../styles/mixins/layers.scss";
 @use "../../styles/mixins/input.scss";
 
-.onyx-datepicker,
-.onyx-datepicker-skeleton {
+.onyx-timepicker-input,
+.onyx-timepicker-input-skeleton {
   @include layers.component() {
-    --onyx-datepicker-padding-vertical: var(--onyx-density-xs);
+    --onyx-timepicker-padding-vertical: var(--onyx-density-xs);
   }
 }
 
-.onyx-datepicker-skeleton {
+.onyx-timepicker-input-skeleton {
   @include layers.component() {
     @include input.define-skeleton-styles(
-      $height: calc(1lh + 2 * var(--onyx-datepicker-padding-vertical))
+      $height: calc(1lh + 2 * var(--onyx-timepicker-padding-vertical))
     );
   }
 }
 
-.onyx-datepicker {
+.onyx-timepicker-input {
   @include layers.component() {
     @include input.define-shared-styles(
-      $base-selector: ".onyx-datepicker",
-      $vertical-padding: var(--onyx-datepicker-padding-vertical)
+      $base-selector: ".onyx-timepicker-input",
+      $vertical-padding: var(--onyx-timepicker-padding-vertical)
     );
 
     &__native {

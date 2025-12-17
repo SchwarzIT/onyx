@@ -277,7 +277,8 @@
       "popover": "Timepicker Popover",
       "hour": "Stunde",
       "minute": "Minute",
-      "second": "Sekunde"
+      "second": "Sekunde",
+      "listLabel": "Zeitoptionen"
     }
   },
   "itemsPerPage": {

@@ -47,6 +47,13 @@ const emit = defineEmits<{
   validityChange: [validity: ValidityState];
 }>();
 
+defineSlots<{
+  /**
+   * Optional slot to override the icon of the toggle button inside the input.
+   */
+  icon?(): unknown;
+}>();
+
 const { t } = injectI18n();
 
 const { vCustomValidity, errorMessages } = useFormElementError({ props, emit });
@@ -207,9 +214,10 @@ useAutofocus(input, props);
             tabindex="-1"
             :disabled="disabled || props.readonly || props.loading"
           >
-            <OnyxIcon :icon="iconChevronDownUp" />
+            <slot name="icon">
+              <OnyxIcon :icon="iconChevronDownUp" />
+            </slot>
           </button>
-
           <OnyxIcon
             v-if="!props.hideSuccessIcon && successMessages"
             class="onyx-select-input__check-icon"

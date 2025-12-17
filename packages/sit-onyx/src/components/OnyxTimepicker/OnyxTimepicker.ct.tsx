@@ -55,6 +55,39 @@ test.describe("Screenshot tests", () => {
       },
     });
   }
+  for (const state of ["default", "with value"] as const) {
+    executeMatrixScreenshotTest({
+      name: `TimePicker Select(${state})`,
+      columns: DENSITIES,
+      rows: ["default", "hover", "focus", "open", "skeleton", "disabled", "loading"],
+      component: (column, row) => {
+        return (
+          <OnyxTimepicker
+            type="select"
+            min="8:00"
+            max="10:00"
+            label="Test label"
+            density={column}
+            disabled={row === "disabled"}
+            loading={row === "loading"}
+            skeleton={row === "skeleton"}
+            modelValue={state === "with value" ? "09:30" : undefined}
+            style={{ width: "16rem", marginBottom: row === "open" ? "16rem" : "0rem" }}
+          />
+        );
+      },
+      hooks: {
+        beforeEach: async (component, _page, _column, row) => {
+          const input = component.getByRole("combobox", { name: "Test label" });
+          if (row === "hover") await input.hover();
+          if (row === "focus") await input.focus();
+          if (row === "open") {
+            await input.click();
+          }
+        },
+      },
+    });
+  }
 });
 
 test.describe("Keyboard tests", () => {
