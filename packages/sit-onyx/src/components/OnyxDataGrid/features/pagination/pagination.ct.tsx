@@ -229,6 +229,9 @@ test("should render items per page selector", async ({ mount, page }) => {
     },
   });
 
+  // reset hover
+  await page.getByRole("document").hover({ position: { x: 0, y: 0 } });
+
   // ASSERT
   await expect(component).toHaveScreenshot("with-items-per-page-xs.png");
   await expect(
