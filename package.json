@@ -58,7 +58,7 @@
     "publint": "^0.3.16",
     "rimraf": "^6.1.2",
     "simple-git-hooks": "^2.13.1",
-    "storybook": "^10.1.9",
+    "storybook": "^10.1.10",
     "stylelint": "^16.26.1",
     "stylelint-no-unsupported-browser-features": "^8.0.5",
     "turbo": "^2.6.3",
