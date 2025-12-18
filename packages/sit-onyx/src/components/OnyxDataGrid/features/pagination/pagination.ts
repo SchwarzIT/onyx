@@ -145,20 +145,17 @@ export const usePagination = (options: PaginationOptions = {}) =>
           if (!shouldShowPagination.value && !skeleton.value) return [];
 
           return [
-            h(
-              "div",
-              { class: "onyx-data-grid__items-per-page" },
-              h(OnyxItemsPerPage, {
-                modelValue: state.value.pageSize,
-                options: options.itemsPerPage,
-                disabled: isDisabled.value,
-                skeleton: skeleton.value,
-                "onUpdate:modelValue": (newPageSize: number) => {
-                  state.value.pageSize = newPageSize;
-                  state.value.current = 1;
-                },
-              }),
-            ),
+            h(OnyxItemsPerPage, {
+              class: "onyx-data-grid__items-per-page",
+              modelValue: state.value.pageSize,
+              options: options.itemsPerPage,
+              disabled: isDisabled.value,
+              skeleton: skeleton.value,
+              "onUpdate:modelValue": (newPageSize: number) => {
+                state.value.pageSize = newPageSize;
+                state.value.current = 1;
+              },
+            }),
           ];
         },
       },
