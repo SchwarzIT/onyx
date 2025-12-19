@@ -11,7 +11,9 @@ import {
 } from "vue";
 import { createBuilder, createElRef, type VBindAttributes } from "../../utils/builder.js";
 import { wasKeyPressed } from "../../utils/keyboard.js";
-import type { Awaitable, Nullable } from "../../utils/types.js";
+import type { Nullable } from "../../utils/types.js";
+import { useAllSettled } from "../helpers/useAllSettled.js";
+import { useLastSettled } from "../helpers/useLastSettled.js";
 
 const COL_KEY_DATA_ATTR = "data-onyx-col-key";
 const COL_INDEX_ARIA_ATTR = "aria-colindex";
@@ -32,7 +34,7 @@ type IndexResolver = {
     cellIndex: number,
     rowIndex: number,
     table: HTMLTableElement,
-  ) => Awaitable<Nullable<HTMLElement>>;
+  ) => Promise<Nullable<HTMLElement>>;
   getTotalRows: (table: HTMLTableElement) => number | "unknown";
   getTotalCols: (table: HTMLTableElement) => number | "unknown";
 };
@@ -40,7 +42,8 @@ type IndexResolver = {
 const StaticResolver: IndexResolver = {
   mapCellToIndex: (cell) => Array.from(cell.closest("tr")?.cells ?? []).indexOf(cell),
   mapRowToIndex: (row) => Array.from(row.closest("table")?.rows ?? []).indexOf(row),
-  resolveCell: (cellIndex, rowIndex, table) => table.rows.item(rowIndex)?.cells.item(cellIndex),
+  resolveCell: async (cellIndex, rowIndex, table) =>
+    table.rows.item(rowIndex)?.cells.item(cellIndex),
   getTotalRows: (table) => table.rows.length,
   getTotalCols: (table) => table.rows.item(0)?.cells.length ?? 0,
 };
@@ -63,7 +66,7 @@ const LazyResolverFactory = ({
     // TODO: what about infinity
     const getCell = () =>
       table.querySelector<HTMLElement>(
-        `[${ROW_INDEX_ARIA_ATTR}]="${rowIndex}" [${COL_INDEX_ARIA_ATTR}]="${cellIndex}"`,
+        `*[${ROW_INDEX_ARIA_ATTR}="${rowIndex + 1}"] *[${COL_INDEX_ARIA_ATTR}="${cellIndex + 1}"]`,
       );
     let cell = getCell();
     if (cell) {
@@ -140,6 +143,15 @@ export const createDataGrid = createBuilder(
     const labelId = useId();
     const selectedCell = ref<CellIdentifier>();
 
+    const focusQueue = useLastSettled<Nullable<HTMLElement>>((success, cell) => {
+      if (success) {
+        cell?.focus();
+        cell?.scrollIntoView();
+      }
+    });
+
+    const busyQueue = useAllSettled();
+
     onMounted(() => {
       const firstCell = tableElement.value?.rows.item(0)?.cells.item(0);
       if (firstCell) {
@@ -160,7 +172,10 @@ export const createDataGrid = createBuilder(
       }
     };
 
-    const onFocusin = (event: FocusEvent) => setSelected(event.target as HTMLElement);
+    const onFocusin = (event: FocusEvent) => {
+      setSelected(event.target as HTMLElement);
+      focusQueue.cancel();
+    };
 
     const onKeydown = (event: KeyboardEvent) => {
       const cellElement: HTMLTableCellElement | null = (event.target as HTMLElement).closest(
@@ -211,9 +226,9 @@ export const createDataGrid = createBuilder(
       newColIndex = Math.max(Math.min(newColIndex, maxCols), 0);
 
       (async () => {
-        const cell = await resolveCell(newColIndex, newRowIndex, tableElement);
-        cell?.focus();
-        cell?.scrollIntoView();
+        const promiseResolveCell = resolveCell(newColIndex, newRowIndex, tableElement);
+        focusQueue.queue(promiseResolveCell);
+        busyQueue.queue(promiseResolveCell);
       })();
     };
 
@@ -229,6 +244,7 @@ export const createDataGrid = createBuilder(
               onFocusin,
               onKeydown,
               role: "grid",
+              "aria-busy": lazy?.value ? busyQueue.active.value : undefined,
               "aria-labelledby": labelId,
               "aria-rowcount": lazy?.value.totalRows === "unknown" ? -1 : lazy?.value.totalRows,
               "aria-colcount": lazy?.value.totalCols === "unknown" ? -1 : lazy?.value.totalCols,
@@ -236,7 +252,7 @@ export const createDataGrid = createBuilder(
         ),
         tr: ({ rowId, rowIndex }: TrOptions<Lazy>) => ({
           [ROW_ID_DATA_ATTR]: rowId.toString(),
-          "aria-rowindex": rowIndex ? rowIndex + 1 : undefined,
+          "aria-rowindex": rowIndex != undefined ? rowIndex + 1 : undefined,
           role: "row",
         }),
         td: computed(() => ({ rowId, colKey, colIndex }: TdOptions<Lazy>) => {
@@ -251,7 +267,7 @@ export const createDataGrid = createBuilder(
                 ? "0"
                 : "-1",
             [COL_KEY_DATA_ATTR]: colKey,
-            "aria-colindex": colIndex ? colIndex + 1 : undefined,
+            "aria-colindex": colIndex != undefined ? colIndex + 1 : undefined,
             role: "cell",
           };
         }),
