@@ -73,7 +73,6 @@ const id = useId();
       :options="selectOptions"
       :disabled="props.disabled"
       hide-label
-      with-search
       :label="t('itemsPerPage.label')"
       :list-label="t('itemsPerPage.select.listLabel')"
       class="onyx-items-per-page__select"
@@ -91,6 +90,7 @@ const id = useId();
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
+@use "../../styles/mixins/text.scss";
 
 .onyx-items-per-page-skeleton {
   @include layers.component() {
@@ -113,6 +113,7 @@ const id = useId();
     display: inline-flex;
     align-items: center;
     gap: var(--onyx-density-xs);
+    max-width: 100%;
 
     &__label {
       color: var(--onyx-color-text-icons-neutral-medium);
@@ -126,7 +127,7 @@ const id = useId();
 
       .onyx-select-input__native {
         // support growing select based on current page character count
-        width: calc(var(--onyx-items-per-page-character-count) * 1ch + 1ch);
+        width: text.ch(var(--onyx-items-per-page-character-count));
       }
     }
 
