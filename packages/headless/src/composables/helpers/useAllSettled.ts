@@ -1,6 +1,6 @@
 import { ref } from "vue";
 
-export const useAllSettled = (cb: () => void) => {
+export const useAllSettled = (cb?: () => void) => {
   const active = ref(false);
   const allPromises: Promise<unknown>[] = [];
   let latestPromise = Promise.resolve();
@@ -13,7 +13,7 @@ export const useAllSettled = (cb: () => void) => {
       if (newAllSettled === latestPromise) {
         active.value = false;
         allPromises.splice(0, allPromises.length);
-        cb();
+        cb?.();
       }
     });
     latestPromise = newAllSettled;
