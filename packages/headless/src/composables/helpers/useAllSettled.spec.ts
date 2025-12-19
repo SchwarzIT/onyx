@@ -1,0 +1,98 @@
+import { expect, test, vi } from "vitest";
+import { withResolvers } from "../../utils/promise.js";
+import { useAllSettled } from "./useAllSettled.js";
+
+test("should be defined", () => {
+  expect(useAllSettled).toBeDefined();
+});
+
+test("should execute cb after resolved promise", async () => {
+  // ARRANGE
+  vi.useFakeTimers();
+  const spy = vi.fn();
+  const { queue, active } = useAllSettled(spy);
+  expect(active.value).toBe(false);
+
+  // ACT
+  const resolved = Promise.resolve("result");
+  queue(resolved);
+
+  // ASSERT
+  expect(active.value).toBe(true);
+  await vi.runAllTimersAsync();
+  expect(spy).toHaveBeenCalledOnce();
+  expect(active.value).toBe(false);
+});
+
+test("should execute cb after rejected promise", async () => {
+  // ARRANGE
+  vi.useFakeTimers();
+  const spy = vi.fn();
+  const { queue, active } = useAllSettled(spy);
+  expect(active.value).toBe(false);
+
+  // ACT
+  const resolved = Promise.reject("reject");
+  queue(resolved);
+
+  // ASSERT
+  expect(active.value).toBe(true);
+  await vi.runAllTimersAsync();
+  expect(spy).toHaveBeenCalledOnce();
+  expect(active.value).toBe(false);
+});
+
+test("should execute cb only after all queued promise are settled", async () => {
+  // ARRANGE
+  vi.useFakeTimers();
+  const spy = vi.fn();
+  const { queue, active } = useAllSettled(spy);
+
+  const first = withResolvers<string>();
+  queue(first.promise);
+  const second = withResolvers<string>();
+  queue(second.promise);
+  const third = withResolvers<string>();
+  queue(third.promise);
+
+  // ACT
+  first.resolve("first");
+
+  // ASSERT
+  await vi.runAllTimersAsync();
+  expect(active.value).toBe(true);
+  expect(spy).not.toHaveBeenCalled();
+
+  // ACT
+  third.resolve("last");
+
+  // ASSERT
+  await vi.runAllTimersAsync();
+  expect(active.value).toBe(true);
+  expect(spy).not.toHaveBeenCalled();
+
+  // ACT
+  second.resolve("second");
+
+  // ASSERT
+  await vi.runAllTimersAsync();
+  expect(active.value).toBe(false);
+  expect(spy).toHaveBeenCalledOnce();
+
+  // ACT
+  const newPromise = withResolvers<string>();
+  queue(newPromise.promise);
+
+  // ASSERT
+  await vi.runAllTimersAsync();
+  expect(active.value).toBe(true);
+  expect(spy).toHaveBeenCalledOnce();
+
+  // ACT
+  newPromise.resolve("resolved");
+
+  // ASSERT
+  await vi.runAllTimersAsync();
+  expect(active.value).toBe(false);
+  expect(spy).toHaveBeenCalledTimes(2);
+});
