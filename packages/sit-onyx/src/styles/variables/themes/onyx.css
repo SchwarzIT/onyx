@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "onyx" theme.
- * Imported from Figma API on Mon, 22 Sep 2025 14:40:04 GMT
+ * Imported from Figma API on Fri, 19 Dec 2025 11:04:23 GMT
  */
 :where(:root),
 .onyx-theme-default {
@@ -306,9 +306,13 @@
     var(--onyx-color-base-primary-500),
     var(--onyx-color-base-primary-700)
   );
-  --onyx-color-component-opacity-backdrop: light-dark(
-    var(--onyx-color-opacity-soft),
-    var(--onyx-color-opacity-medium)
+  --onyx-color-component-opacity-backdrop-medium: light-dark(
+    var(--onyx-color-opacity-backdrop-600),
+    var(--onyx-color-opacity-backdrop-800)
+  );
+  --onyx-color-component-opacity-backdrop-soft: light-dark(
+    var(--onyx-color-opacity-backdrop-250),
+    var(--onyx-color-opacity-backdrop-450)
   );
   --onyx-color-text-icons-danger-bold: light-dark(
     var(--onyx-color-system-red-700),

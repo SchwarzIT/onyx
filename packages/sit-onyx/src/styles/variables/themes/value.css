@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "value" theme.
- * Imported from Figma API on Mon, 22 Sep 2025 14:40:04 GMT
+ * Imported from Figma API on Fri, 19 Dec 2025 11:04:23 GMT
  */
 :where(:root),
 .onyx-theme-default {
@@ -103,8 +103,10 @@
   --onyx-color-onyx-1000: #005356;
   --onyx-color-onyx-1100: #003c3e;
   --onyx-color-onyx-1200: #002626;
-  --onyx-color-opacity-medium: #00000099;
-  --onyx-color-opacity-soft: #00000026;
+  --onyx-color-opacity-backdrop-250: #0000003f;
+  --onyx-color-opacity-backdrop-450: #00000072;
+  --onyx-color-opacity-backdrop-600: #00000099;
+  --onyx-color-opacity-backdrop-800: #000000cc;
   --onyx-color-prezero-green-100: #e8f3bd;
   --onyx-color-prezero-green-200: #e2f593;
   --onyx-color-prezero-green-300: #d3ed64;
