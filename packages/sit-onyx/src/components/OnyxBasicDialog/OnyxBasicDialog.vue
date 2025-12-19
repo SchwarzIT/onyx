@@ -10,6 +10,7 @@ const props = withDefaults(defineProps<OnyxBasicDialogProps>(), {
   alert: false,
   alignment: "center",
   nonDismissible: false,
+  backdrop: "light",
 });
 
 const emit = defineEmits<{
@@ -99,6 +100,7 @@ defineExpose({
       densityClass,
       'onyx-truncation-multiline',
       'onyx-basic-dialog',
+      `onyx-basic-dialog__backdrop--${props.backdrop}`,
       { [`onyx-basic-dialog--${props.alignment}`]: props.alignment !== 'center' },
     ]"
     :aria-modal="props.modal"
@@ -144,7 +146,10 @@ defineExpose({
     height: fit-content;
 
     &::backdrop {
-      background-color: var(--onyx-color-component-opacity-backdrop);
+      background-color: var(--onyx-color-component-opacity-backdrop-soft);
+    }
+    &__backdrop--intense::backdrop {
+      background-color: var(onyx-color-component-opacity-backdrop-medium);
     }
 
     &:modal {
