@@ -28,5 +28,11 @@ export const useLastSettled = <T>(cb: (success: boolean, resolved?: T) => void) 
 
     promise.then(onFinally(true)).catch(onFinally(false));
   };
-  return { active, queue };
+
+  const cancel = () => {
+    active.value = false;
+    lastId++;
+  };
+
+  return { active, queue, cancel };
 };
