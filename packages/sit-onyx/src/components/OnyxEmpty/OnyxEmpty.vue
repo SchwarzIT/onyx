@@ -1,15 +1,20 @@
 <script lang="ts" setup>
-import { iconCircleX } from "@sit-onyx/icons";
 import { useDensity, type DensityProp } from "../../composables/density.js";
+import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import emptyIcon from "./emptyIcon.svg?raw";
 
 const props = defineProps<DensityProp>();
 
 const slots = defineSlots<{
   /**
-   * Label / text to display.
+   * Label / headline to display.
    */
   default(): unknown;
+  /**
+   * Optional description text to display.
+   */
+  description?(): unknown;
   /**
    * Optional slot to override the default icon.
    */
@@ -26,11 +31,16 @@ const { densityClass } = useDensity(props);
 <template>
   <div :class="['onyx-component', 'onyx-empty', densityClass]">
     <slot name="icon">
-      <OnyxIcon :icon="iconCircleX" size="48px" />
+      <OnyxIcon :icon="emptyIcon" size="48px" class="onyx-empty__icon" />
     </slot>
 
-    <div class="onyx-empty__label onyx-text onyx-truncation-multiline">
-      <slot></slot>
+    <div class="onyx-empty__text-wrapper">
+      <OnyxHeadline is="h3" class="onyx-empty__label onyx-truncation-multiline">
+        <slot></slot>
+      </OnyxHeadline>
+      <p class="onyx-empty__description onyx-truncation-multiline">
+        <slot name="description"></slot>
+      </p>
     </div>
 
     <div v-if="!!slots.buttons" class="onyx-empty__buttons">
@@ -55,10 +65,20 @@ const { densityClass } = useDensity(props);
     justify-content: center;
     align-items: center;
     gap: var(--onyx-density-md);
+    &__text-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: var(--onyx-density-2xs);
+    }
 
-    &__label {
-      font-weight: var(--onyx-font-weight-semibold);
-      white-space: pre-line;
+    &__icon {
+      min-width: none;
+      width: auto;
+    }
+    &__description {
+      color: var(--onyx-color-text-icons-neutral-intense);
+      font-size: var(--onyx-font-size-sm);
+      color: var(--onyx-color-text-icons-neutral-intense);
     }
 
     &__buttons {
