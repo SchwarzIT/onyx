@@ -2,4 +2,7 @@
 "sit-onyx": minor
 ---
 
-feat(OnyxEmpty): -added descriptions Slot and new Styles
+feat(OnyxEmpty):
+
+- added descriptions Slot
+- redesigned Component
