@@ -24,8 +24,9 @@ test("should render", async ({ mount, makeAxeBuilder, page }) => {
 });
 
 test("should render in modal", async ({ mount, makeAxeBuilder, page }) => {
+  let backdrop: "light" | "intense" = "light";
   await mount(
-    <OnyxBasicDialog label="Label" open modal>
+    <OnyxBasicDialog label="Label" open modal backdrop={backdrop}>
       Content
     </OnyxBasicDialog>,
   );
@@ -35,6 +36,8 @@ test("should render in modal", async ({ mount, makeAxeBuilder, page }) => {
   expect(accessibilityScanResults.violations, "should pass accessibility checks").toEqual([]);
 
   await expect(page).toHaveScreenshot("modal.png");
+  backdrop = "intense";
+  await expect(page).toHaveScreenshot("modal-intense-backdrop.png");
 });
 
 test("should render with long content", async ({ mount, makeAxeBuilder, page }) => {

@@ -149,7 +149,7 @@ defineExpose({
       background-color: var(--onyx-color-component-opacity-backdrop-soft);
     }
     &__backdrop--intense::backdrop {
-      background-color: var(onyx-color-component-opacity-backdrop-medium);
+      background-color: var(--onyx-color-component-opacity-backdrop-medium);
     }
 
     &:modal {
