@@ -23,10 +23,29 @@ test("should render", async ({ mount, makeAxeBuilder, page }) => {
   await expect(page).toHaveScreenshot("default.png");
 });
 
-test("should render in modal", async ({ mount, makeAxeBuilder, page }) => {
-  let backdrop: "light" | "intense" = "light";
+const BACKDROPS = ["light", "intense"] as const;
+
+for (const backdrop of BACKDROPS) {
+  test(`should render in modal with ${backdrop} backdrop`, async ({
+    mount,
+    makeAxeBuilder,
+    page,
+  }) => {
+    await mount(
+      <OnyxBasicDialog label="Label" open modal backdrop={backdrop}>
+        Content
+      </OnyxBasicDialog>,
+    );
+
+    const accessibilityScanResults = await makeAxeBuilder().analyze();
+    expect(accessibilityScanResults.violations).toEqual([]);
+
+    await expect(page).toHaveScreenshot(`modal-${backdrop}.png`);
+  });
+}
+test("should render in modal (intense)", async ({ mount, makeAxeBuilder, page }) => {
   await mount(
-    <OnyxBasicDialog label="Label" open modal backdrop={backdrop}>
+    <OnyxBasicDialog label="Label" open modal backdrop="intense">
       Content
     </OnyxBasicDialog>,
   );
@@ -35,9 +54,7 @@ test("should render in modal", async ({ mount, makeAxeBuilder, page }) => {
   const accessibilityScanResults = await makeAxeBuilder().analyze();
   expect(accessibilityScanResults.violations, "should pass accessibility checks").toEqual([]);
 
-  await expect(page).toHaveScreenshot("modal.png");
-  backdrop = "intense";
-  await expect(page).toHaveScreenshot("modal-intense-backdrop.png");
+  await expect(page).toHaveScreenshot("modal-intense.png");
 });
 
 test("should render with long content", async ({ mount, makeAxeBuilder, page }) => {
