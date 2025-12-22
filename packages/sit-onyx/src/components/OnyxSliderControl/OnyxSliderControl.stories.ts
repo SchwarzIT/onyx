@@ -8,7 +8,7 @@ import OnyxSliderControl from "./OnyxSliderControl.vue";
 const meta: Meta<typeof OnyxSliderControl> = {
   title: "Support/SliderControl",
   component: OnyxSliderControl as Meta["component"],
-  tags: ["unstable"],
+  tags: ["new:component"],
   decorators: [
     (story) => ({
       components: { story },

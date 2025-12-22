@@ -82,11 +82,8 @@ const DECREMENT_KEYS = new Set(["ArrowLeft", "ArrowDown", "PageDown"]);
 /**
  * Composable for creating an accessibility-compliant slider.
  * For supported keyboard shortcuts, see: https://www.w3.org/WAI/ARIA/apg/patterns/slider/
- *
- *  * @experimental
- * @deprecated This component is still under active development and its API might change in patch releases.
  */
-export const _unstableCreateSlider = createBuilder(
+export const createSlider = createBuilder(
   <TValue extends SliderValue>(options: CreateSliderOptions<TValue>) => {
     const sliderRef = createElRef<HTMLElement>();
 

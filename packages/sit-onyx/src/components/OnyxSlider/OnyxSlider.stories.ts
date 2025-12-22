@@ -9,7 +9,7 @@ import type { SliderMode } from "./types.js";
 const meta: Meta<typeof OnyxSlider> = {
   title: "Form Elements/Slider",
   component: OnyxSlider as Meta["component"],
-  tags: ["unstable"],
+  tags: ["new:component"],
   decorators: [
     (story) => ({
       components: { story },

@@ -1,11 +1,3 @@
-<script lang="ts">
-/**
- * @experimental
- * @deprecated This component is still under active development and its API might change in patch releases.
- */
-export default {};
-</script>
-
 <script setup lang="ts">
 import { iconMinusSmall, iconPlusSmall } from "@sit-onyx/icons";
 import { computed } from "vue";
