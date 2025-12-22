@@ -22,16 +22,16 @@ const COL_INDEX_ARIA_ATTR = "aria-colindex";
 const ROW_ID_DATA_ATTR = "data-onyx-row-id";
 const ROW_INDEX_ARIA_ATTR = "aria-rowindex";
 
+/**
+ * We support two different render modes for the data grid:
+ *   - `static`: The complete grid is rendered immediately and on first mount, so that all rows, all cells and all data is available in the DOM.
+ *   - `lazy`: The grid only shows a part of the complete data and more parts are rendered as seen fit.
+ *
+ * To accommodate both modes without overhead we use different resolvers for each, as the `StaticResolver` needs way less metadata to work.
+ */
 type IndexResolver = {
   mapCellToIndex: (cell: HTMLTableCellElement) => number;
   mapRowToIndex: (row: HTMLTableRowElement) => number;
-  /**
-   *
-   * @param cellIndex
-   * @param rowIndex
-   * @param table
-   * @returns
-   */
   resolveCell: (
     cellIndex: number,
     rowIndex: number,
