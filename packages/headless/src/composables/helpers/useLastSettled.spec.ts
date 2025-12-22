@@ -1,5 +1,4 @@
 import { expect, test, vi } from "vitest";
-import { withResolvers } from "../../utils/promise.js";
 import { useLastSettled } from "./useLastSettled.js";
 
 test("should be defined", () => {
@@ -47,11 +46,11 @@ test("should execute cb only after last queued promise", async () => {
   const spy = vi.fn();
   const { queue, active } = useLastSettled(spy);
 
-  const first = withResolvers<string>();
+  const first = Promise.withResolvers<string>();
   queue(first.promise);
-  const second = withResolvers<string>();
+  const second = Promise.withResolvers<string>();
   queue(second.promise);
-  const last = withResolvers<string>();
+  const last = Promise.withResolvers<string>();
   queue(last.promise);
 
   // ACT
