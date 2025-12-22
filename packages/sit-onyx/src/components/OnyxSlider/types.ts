@@ -76,11 +76,25 @@ export type OnyxSliderProps<TSliderMode extends SliderMode> = CustomValidityProp
      */
     control?: SliderControl;
     /**
-     * Whether to disable/hide the tooltip to show the value when hovering over the thumb.
-     */
-    disableTooltip?: boolean;
-    /**
      * Whether to show a skeleton slider.
      */
     skeleton?: SkeletonInjected;
+    /**
+     * Options to customize the tooltip behavior.
+     */
+    tooltip?: SliderTooltipOptions;
   };
+
+export type SliderTooltipOptions = {
+  /**
+   * Whether to hide the tooltip.
+   */
+  hidden?: boolean;
+  /**
+   * Optional formatter to customize the displayed tooltip value.
+   *
+   * @param value Thumb value.
+   * @param index Thumb index, will always be 0 for single sliders but can be 0 or 1 for range sliders.
+   */
+  formatter?: (value: number, index: number) => string;
+};
