@@ -11,14 +11,27 @@ const isAccordionOpen = ref(true);
 watch(
   () => props.item.sidebar?.collapsed,
   (collapsed) => {
-    const isActive = (item: SidebarNavigationItem): boolean => {
-      if (item.path === route.path) return true;
-      return item.children?.some(isActive) ?? false;
-    };
+    isAccordionOpen.value = !collapsed;
+  },
+  { immediate: true },
+);
 
+const isChildActive = computed(() => {
+  const isActive = (item: SidebarNavigationItem): boolean => {
+    if (item.path === route.path) return true;
+    return item.children?.some(isActive) ?? false;
+  };
+
+  // ensure accordion is open if any child route is currently active
+  return props.item.children?.some(isActive) ?? false;
+});
+
+watch(
+  isChildActive,
+  (isActive) => {
     // ensure accordion is open if any child route is currently active
-    const isChildActive = props.item.children?.some(isActive);
-    isAccordionOpen.value = isChildActive ? true : !collapsed;
+    // e.g. when reloading the page or navigating via global search
+    if (isActive) isAccordionOpen.value = true;
   },
   { immediate: true },
 );
