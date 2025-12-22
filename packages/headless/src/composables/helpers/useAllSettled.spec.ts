@@ -1,5 +1,4 @@
 import { expect, test, vi } from "vitest";
-import { withResolvers } from "../../utils/promise.js";
 import { useAllSettled } from "./useAllSettled.js";
 
 test("should be defined", () => {
@@ -48,11 +47,11 @@ test("should execute cb only after all queued promise are settled", async () => 
   const spy = vi.fn();
   const { queue, active } = useAllSettled(spy);
 
-  const first = withResolvers<string>();
+  const first = Promise.withResolvers<string>();
   queue(first.promise);
-  const second = withResolvers<string>();
+  const second = Promise.withResolvers<string>();
   queue(second.promise);
-  const third = withResolvers<string>();
+  const third = Promise.withResolvers<string>();
   queue(third.promise);
 
   // ACT
@@ -80,7 +79,7 @@ test("should execute cb only after all queued promise are settled", async () => 
   expect(spy).toHaveBeenCalledOnce();
 
   // ACT
-  const newPromise = withResolvers<string>();
+  const newPromise = Promise.withResolvers<string>();
   queue(newPromise.promise);
 
   // ASSERT
