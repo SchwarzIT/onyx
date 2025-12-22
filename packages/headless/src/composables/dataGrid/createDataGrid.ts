@@ -1,10 +1,12 @@
 import {
   computed,
+  onBeforeUnmount,
   onMounted,
   ref,
   toRef,
   toValue,
   useId,
+  watch,
   type MaybeRefOrGetter,
   type Ref,
   type TableHTMLAttributes,
@@ -64,16 +66,17 @@ const LazyResolverFactory = ({
   mapRowToIndex: (row) => Number(row.getAttribute(ROW_INDEX_ARIA_ATTR)) - 1,
   resolveCell: async (cellIndex, rowIndex, table) => {
     // TODO: what about infinity
-    const getCell = () =>
+    const queryCell = () =>
       table.querySelector<HTMLElement>(
         `*[${ROW_INDEX_ARIA_ATTR}="${rowIndex + 1}"] *[${COL_INDEX_ARIA_ATTR}="${cellIndex + 1}"]`,
       );
-    let cell = getCell();
+
+    let cell = queryCell();
     if (cell) {
       return cell;
     }
     await requestLazyLoad(cellIndex, rowIndex);
-    cell = getCell();
+    cell = queryCell();
     if (cell) {
       return cell;
     }
@@ -126,9 +129,8 @@ export type TrOptions<Lazy extends boolean> = {
   rowId: PropertyKey;
 } & (Lazy extends true ? { rowIndex: number } : { rowIndex?: never });
 
-export type TdOptions<Lazy extends boolean> = CellIdentifier & {
-  defaultSelected?: boolean;
-} & (Lazy extends true ? { colIndex: number } : { colIndex?: never });
+export type TdOptions<Lazy extends boolean> = CellIdentifier &
+  (Lazy extends true ? { colIndex: number } : { colIndex?: never });
 
 export const createDataGrid = createBuilder(
   <Lazy extends boolean = false>(options: CreateDataGridOptions<Lazy>) => {
@@ -146,6 +148,7 @@ export const createDataGrid = createBuilder(
 
     const labelId = useId();
     const selectedCell = ref<CellIdentifier>();
+    const selectedCellEl = createElRef<HTMLElement>();
 
     const focusQueue = useLastSettled<Nullable<HTMLElement>>((success, cell) => {
       if (success) {
@@ -172,14 +175,40 @@ export const createDataGrid = createBuilder(
       }
     };
 
-    onMounted(() => {
-      if (selectedCell.value) {
+    const ensureTabTarget = () => {
+      if (selectedCell.value && selectedCellEl.value && selectedCellEl.value.isConnected) {
         return;
       }
       const firstCell = findFirstCell();
       if (firstCell) {
         setSelected(firstCell);
       }
+    };
+
+    let mutationObserver: MutationObserver;
+
+    onMounted(() => {
+      ensureTabTarget();
+
+      mutationObserver = new MutationObserver(ensureTabTarget);
+
+      watch(
+        tableElement,
+        () => {
+          mutationObserver.disconnect();
+          mutationObserver.observe(tableElement.value, {
+            childList: true,
+            attributes: true,
+            subtree: true,
+            attributeFilter: ["value"],
+          });
+        },
+        { immediate: true },
+      );
+    });
+
+    onBeforeUnmount(() => {
+      mutationObserver.disconnect();
     });
 
     const onFocusin = (event: FocusEvent) => {
@@ -265,17 +294,12 @@ export const createDataGrid = createBuilder(
           "aria-rowindex": rowIndex != undefined ? rowIndex + 1 : undefined,
           role: "row",
         }),
-        td: computed(() => ({ rowId, colKey, colIndex, defaultSelected }: TdOptions<Lazy>) => {
-          if (defaultSelected && !selectedCell.value) {
-            // we always need an initial selected cell
-            // if none was defined, we just use the first cell here
-            selectedCell.value = { rowId, colKey };
-          }
+        td: computed(() => ({ rowId, colKey, colIndex }: TdOptions<Lazy>) => {
+          const isSelected =
+            colKey === selectedCell.value?.colKey && rowId === selectedCell.value?.rowId;
           return {
-            tabindex:
-              colKey === selectedCell.value?.colKey && rowId === selectedCell.value?.rowId
-                ? "0"
-                : "-1",
+            tabindex: isSelected ? "0" : "-1",
+            ref: isSelected ? selectedCellEl : undefined,
             [COL_KEY_DATA_ATTR]: colKey,
             "aria-colindex": colIndex != undefined ? colIndex + 1 : undefined,
             role: "cell",
