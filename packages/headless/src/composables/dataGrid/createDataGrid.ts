@@ -282,7 +282,14 @@ export const createDataGrid = createBuilder(
           };
         }),
       },
-      state: {},
+      state: {
+        /**
+         * Indicates that the data grid expects a content change soon, e.g. because more or other data is loaded.
+         * If `loading` is passed in via the options, this will mirror its value.
+         * Otherwise it will be dynamically set based on the running state of the `requestLazyLoad` promises.
+         */
+        busy,
+      },
       internals: {},
     };
   },
