@@ -11,7 +11,7 @@ export const useLastSettled = <T>(cb: (success: boolean, resolved?: T) => void) 
   const active = ref(false);
   let lastId = -1;
 
-  const queue = (promise: Promise<T>) => {
+  const add = (promise: Promise<T>) => {
     const promiseId = ++lastId;
     active.value = true;
 
@@ -34,5 +34,5 @@ export const useLastSettled = <T>(cb: (success: boolean, resolved?: T) => void) 
     lastId++;
   };
 
-  return { active, queue, cancel };
+  return { active, add, cancel };
 };
