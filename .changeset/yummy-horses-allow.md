@@ -2,7 +2,7 @@
 "sit-onyx": minor
 ---
 
-refactor(OnyxSlider): make component API stable
+feat(OnyxSlider): make component API stable
 
 `OnyxUnstableSlider` and `OnyxUnstableSliderControl` are renamed to `OnyxSlider` and `OnyxSliderControl` and are now considered to have a stable API.
 Therefore, no breaking changes will be introduced from now on within major versions.
