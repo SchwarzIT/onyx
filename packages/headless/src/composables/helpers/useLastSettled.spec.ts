@@ -9,12 +9,12 @@ test("should execute cb after resolved promise", async () => {
   // ARRANGE
   vi.useFakeTimers();
   const spy = vi.fn();
-  const { queue, active } = useLastSettled(spy);
+  const { add, active } = useLastSettled(spy);
   expect(active.value).toBe(false);
 
   // ACT
   const resolved = Promise.resolve("result");
-  queue(resolved);
+  add(resolved);
 
   // ASSERT
   expect(active.value).toBe(true);
@@ -27,11 +27,11 @@ test("should execute cb after rejected promise", async () => {
   // ARRANGE
   vi.useFakeTimers();
   const spy = vi.fn();
-  const { queue, active } = useLastSettled(spy);
+  const { add, active } = useLastSettled(spy);
 
   // ACT
   const rejected = Promise.reject("rejected");
-  queue(rejected);
+  add(rejected);
 
   // ASSERT
   expect(active.value).toBe(true);
@@ -40,18 +40,18 @@ test("should execute cb after rejected promise", async () => {
   expect(active.value).toBe(false);
 });
 
-test("should execute cb only after last queued promise", async () => {
+test("should execute cb only after last added promise", async () => {
   // ARRANGE
   vi.useFakeTimers();
   const spy = vi.fn();
-  const { queue, active } = useLastSettled(spy);
+  const { add, active } = useLastSettled(spy);
 
   const first = Promise.withResolvers<string>();
-  queue(first.promise);
+  add(first.promise);
   const second = Promise.withResolvers<string>();
-  queue(second.promise);
+  add(second.promise);
   const last = Promise.withResolvers<string>();
-  queue(last.promise);
+  add(last.promise);
 
   // ACT
   first.resolve("first");

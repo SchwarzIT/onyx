@@ -9,12 +9,12 @@ test("should execute cb after resolved promise", async () => {
   // ARRANGE
   vi.useFakeTimers();
   const spy = vi.fn();
-  const { queue, active } = useAllSettled(spy);
+  const { add, active } = useAllSettled(spy);
   expect(active.value).toBe(false);
 
   // ACT
   const resolved = Promise.resolve("result");
-  queue(resolved);
+  add(resolved);
 
   // ASSERT
   expect(active.value).toBe(true);
@@ -27,12 +27,12 @@ test("should execute cb after rejected promise", async () => {
   // ARRANGE
   vi.useFakeTimers();
   const spy = vi.fn();
-  const { queue, active } = useAllSettled(spy);
+  const { add, active } = useAllSettled(spy);
   expect(active.value).toBe(false);
 
   // ACT
   const resolved = Promise.reject("reject");
-  queue(resolved);
+  add(resolved);
 
   // ASSERT
   expect(active.value).toBe(true);
@@ -41,18 +41,18 @@ test("should execute cb after rejected promise", async () => {
   expect(active.value).toBe(false);
 });
 
-test("should execute cb only after all queued promise are settled", async () => {
+test("should execute cb only after all added promise are settled", async () => {
   // ARRANGE
   vi.useFakeTimers();
   const spy = vi.fn();
-  const { queue, active } = useAllSettled(spy);
+  const { add, active } = useAllSettled(spy);
 
   const first = Promise.withResolvers<string>();
-  queue(first.promise);
+  add(first.promise);
   const second = Promise.withResolvers<string>();
-  queue(second.promise);
+  add(second.promise);
   const third = Promise.withResolvers<string>();
-  queue(third.promise);
+  add(third.promise);
 
   // ACT
   first.resolve("first");
@@ -80,7 +80,7 @@ test("should execute cb only after all queued promise are settled", async () => 
 
   // ACT
   const newPromise = Promise.withResolvers<string>();
-  queue(newPromise.promise);
+  add(newPromise.promise);
 
   // ASSERT
   await vi.runAllTimersAsync();

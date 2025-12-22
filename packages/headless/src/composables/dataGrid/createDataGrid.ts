@@ -137,7 +137,7 @@ export const createDataGrid = createBuilder(
     const tableElement = createElRef<HTMLTableElement>();
 
     const lazy = options.lazy && toRef(options.lazy);
-    const busy = computed(() => toValue(options.loading) ?? busyQueue.active.value);
+    const busy = computed(() => toValue(options.loading) ?? busySet.active.value);
     const resolver = lazy
       ? LazyResolverFactory({
           cols: () => lazy.value.totalCols,
@@ -157,7 +157,7 @@ export const createDataGrid = createBuilder(
       }
     });
 
-    const busyQueue = useAllSettled();
+    const busySet = useAllSettled();
 
     const findFirstCell = () =>
       tableElement.value.querySelector(
@@ -266,8 +266,8 @@ export const createDataGrid = createBuilder(
 
       (async () => {
         const promiseResolveCell = resolveCell(newColIndex, newRowIndex, tableElement);
-        focusQueue.queue(promiseResolveCell);
-        busyQueue.queue(promiseResolveCell);
+        focusQueue.add(promiseResolveCell);
+        busySet.add(promiseResolveCell);
       })();
     };
 
