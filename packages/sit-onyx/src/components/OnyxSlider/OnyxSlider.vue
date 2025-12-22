@@ -1,13 +1,5 @@
-<script lang="ts">
-/**
- * @experimental
- * @deprecated This component is still under active development and its API might change in patch releases.
- */
-export default {};
-</script>
-
 <script setup lang="ts" generic="TSliderMode extends SliderMode">
-import { _unstableCreateSlider } from "@sit-onyx/headless";
+import { createSlider } from "@sit-onyx/headless";
 import { computed, toRef, toRefs } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useErrorClass } from "../../composables/useErrorClass.js";
@@ -71,7 +63,7 @@ const {
   elements: { root, track, thumbContainer, thumbInput, mark, markLabel },
   state: { normalizedValue, marks },
   internals: { updateValue, focusThumb },
-} = _unstableCreateSlider({
+} = createSlider({
   value: modelValue,
   min,
   max,
