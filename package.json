@@ -38,7 +38,7 @@
     "@types/node": "^24.10.4",
     "@vitejs/plugin-vue": "^6.0.3",
     "@vitest/coverage-v8": "^4.0.16",
-    "@vitest/eslint-plugin": "^1.5.2",
+    "@vitest/eslint-plugin": "^1.5.4",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/eslint-config-typescript": "^14.6.0",
     "@vue/tsconfig": "~0.8.1",
@@ -61,13 +61,13 @@
     "storybook": "^10.1.10",
     "stylelint": "^16.26.1",
     "stylelint-no-unsupported-browser-features": "^8.0.5",
-    "turbo": "^2.6.3",
+    "turbo": "^2.7.1",
     "typescript": "catalog:",
     "typescript-eslint": "^8.50.0",
     "vite": "catalog:",
     "vite-plugin-dts": "^4.5.4",
     "vitest": "^4.0.16",
-    "vue-tsc": "^3.1.8"
+    "vue-tsc": "^3.2.0"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"
