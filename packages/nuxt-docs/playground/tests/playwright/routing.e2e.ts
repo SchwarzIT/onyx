@@ -26,4 +26,12 @@ test("should update page content when navigating", async ({ page, goto }) => {
     page.getByRole("heading", { level: 1, name: "Page not found" }),
     "should show error page when dynamically navigating to a non-existing page",
   ).toBeVisible();
+  await expect(page.getByRole("menuitem", { name: "Deeply nested 2" })).toBeHidden();
+
+  // ACT
+  await page.getByRole("menuitem", { name: "Deeply nested" }).click();
+
+  // ASSERT
+  await expect(page).toHaveScreenshot("deeply-nested.png");
+  await expect(page.getByRole("menuitem", { name: "Deeply nested 2" })).toBeVisible();
 });

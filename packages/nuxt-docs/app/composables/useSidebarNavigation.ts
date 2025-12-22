@@ -1,6 +1,11 @@
 import type { Collections, ContentNavigationItem } from "@nuxt/content";
 
-export type SidebarNavigationItem = Pick<ContentNavigationItem, "title" | "path"> & {
+export type SidebarNavigationItem = {
+  title: string;
+  /**
+   * Item path. Already localized for i18n with `useLocalePath`.
+   */
+  path: string;
   children?: SidebarNavigationItem[];
   sidebar?: SidebarNavigationOptions;
 };
@@ -29,6 +34,7 @@ export type SidebarNavigationOptions = {
 
 export const useSidebarNavigation = async () => {
   const { locale } = useI18n();
+  const localePath = useLocalePath();
   const route = useRoute();
 
   const { data } = await useAsyncData(
@@ -38,27 +44,26 @@ export const useSidebarNavigation = async () => {
       return queryCollectionNavigation(collection as keyof Collections);
     },
     {
-      default: () => [] as SidebarNavigationItem[],
-      transform: (data) => {
-        // map the items from "@nuxt/content" to our custom data scheme for better type support
-        const mapItem = (item: ContentNavigationItem): SidebarNavigationItem => {
-          return {
-            title: item.title,
-            path: item.path,
-            children: item.children?.map(mapItem),
-            sidebar: item.sidebar && typeof item.sidebar === "object" ? item.sidebar : undefined,
-          };
-        };
-
-        return data.map(mapItem);
-      },
+      default: () => [],
     },
   );
 
   const navigation = computed(() => {
+    // map the items from "@nuxt/content" to our custom data scheme for better type support
+    const mapItem = (item: ContentNavigationItem): SidebarNavigationItem => {
+      return {
+        title: item.title,
+        path: localePath(item.path),
+        children: item.children?.map(mapItem),
+        sidebar: item.sidebar && typeof item.sidebar === "object" ? item.sidebar : undefined,
+      };
+    };
+
+    const items = data.value.map(mapItem);
+
     // support multiple sidebars / roots so different pages can have their own sub-sidebar
-    const root = findDeepestRoot(data.value, route.path);
-    if (!root) return data.value;
+    const root = findDeepestRoot(items, route.path);
+    if (!root) return items;
     return root.children ?? [root];
   });
 

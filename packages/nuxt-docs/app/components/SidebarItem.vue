@@ -5,9 +5,6 @@ const props = defineProps<{
   item: SidebarNavigationItem;
 }>();
 
-const localePath = useLocalePath();
-const path = computed(() => localePath(props.item.path));
-
 const isAccordionOpen = ref(true);
 watch(
   () => props.item.sidebar?.collapsed,
@@ -19,26 +16,22 @@ watch(
 </script>
 
 <template>
-  <OnyxSidebarItem v-if="!props.item.children?.length" class="sidebar-item" :link="path">
+  <OnyxSidebarItem v-if="!props.item.children?.length" class="sidebar-item" :link="props.item.path">
     {{ props.item.title }}
   </OnyxSidebarItem>
 
   <OnyxAccordion
     v-else
-    :model-value="isAccordionOpen ? [path] : undefined"
+    :model-value="isAccordionOpen ? [props.item.path] : undefined"
     class="sidebar-accordion"
     type="nested-large"
     @update:model-value="isAccordionOpen = !isAccordionOpen"
   >
-    <OnyxAccordionItem :value="path">
+    <OnyxAccordionItem :value="props.item.path">
       <template #header>{{ props.item.title }}</template>
 
       <div class="sidebar-item__children">
-        <OnyxSidebarItem
-          v-for="child in props.item.children"
-          :key="localePath(child.path)"
-          :link="localePath(child.path)"
-        >
+        <OnyxSidebarItem v-for="child in props.item.children" :key="child.path" :link="child.path">
           {{ child.title }}
         </OnyxSidebarItem>
       </div>
