@@ -155,7 +155,7 @@ const handleControlUpdate = (value: number, index: number, focus?: boolean) => {
             >
               <OnyxTooltip
                 :open="props.tooltip?.hidden ? false : undefined"
-                :text="$props.tooltip?.formatter?.(value, index) ?? String(value)"
+                :text="props.tooltip?.formatter?.(value, index) ?? String(value)"
                 :position="hasMarkLabels ? 'top' : 'bottom'"
                 class="onyx-slider__thumb-tooltip"
               >
