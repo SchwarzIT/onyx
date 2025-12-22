@@ -70,7 +70,7 @@ const { min, max, step, label } = toRefs(props);
 const {
   elements: { root, track, thumbContainer, thumbInput, mark, markLabel },
   state: { normalizedValue, marks },
-  internals: { updateValue },
+  internals: { updateValue, focusThumb },
 } = _unstableCreateSlider({
   value: modelValue,
   min,
@@ -82,6 +82,13 @@ const {
   shiftStep: toRef(props, "shiftStep"),
   onChange: (newValue) => (modelValue.value = newValue),
 });
+
+const hasMarkLabels = computed(() => marks.value.some((mark) => !!mark.label));
+
+const handleControlUpdate = (value: number, index: number, focus?: boolean) => {
+  updateValue(value, index);
+  if (focus) focusThumb(index);
+};
 </script>
 
 <template>
@@ -105,6 +112,7 @@ const {
             control="value"
             :model-value="props.min"
           />
+          <!-- @mousedown.prevent is needed to not loose the tooltip focus when holding down the mouse during a click -->
           <OnyxSliderControl
             v-else-if="props.control === 'icon' && props.mode === 'single'"
             control="icon"
@@ -112,7 +120,8 @@ const {
             :step="props.step"
             :model-value="normalizedValue[0]"
             :disabled="disabled || normalizedValue[0] <= props.min"
-            @update:model-value="updateValue($event, 0)"
+            @update:model-value="handleControlUpdate($event, 0, true)"
+            @mousedown.prevent
           />
           <OnyxSliderControl
             v-else-if="props.control === 'input' && props.mode === 'range'"
@@ -123,7 +132,7 @@ const {
             :step="props.step"
             :min="props.min"
             :max="props.max"
-            @update:model-value="updateValue($event, 0)"
+            @update:model-value="handleControlUpdate($event, 0)"
           />
 
           <span class="onyx-slider__root" v-bind="root">
@@ -153,9 +162,9 @@ const {
               class="onyx-slider__thumb"
             >
               <OnyxTooltip
-                :open="props.disableTooltip ? false : undefined"
-                :text="String(value)"
-                position="bottom"
+                :open="props.tooltip?.hidden ? false : undefined"
+                :text="$props.tooltip?.formatter?.(value, index) ?? String(value)"
+                :position="hasMarkLabels ? 'top' : 'bottom'"
                 class="onyx-slider__thumb-tooltip"
               >
                 <template #default="{ trigger }">
@@ -190,7 +199,8 @@ const {
             :step="props.step"
             :model-value="normalizedValue[0]"
             :disabled="disabled || normalizedValue[0] >= props.max"
-            @update:model-value="updateValue($event, 0)"
+            @mousedown.prevent
+            @update:model-value="handleControlUpdate($event, 0, true)"
           />
           <OnyxSliderControl
             v-else-if="props.control === 'input'"
@@ -201,7 +211,7 @@ const {
             :step="props.step"
             :min="props.min"
             :max="props.max"
-            @update:model-value="updateValue($event, props.mode === 'range' ? 1 : 0)"
+            @update:model-value="handleControlUpdate($event, props.mode === 'range' ? 1 : 0)"
           />
         </div>
       </template>
@@ -255,7 +265,14 @@ const {
     &__thumb-tooltip {
       pointer-events: none;
       left: calc(-0.5 * var(--onyx-slider-thumb-size));
-      top: calc(0.5 * var(--onyx-slider-thumb-size));
+
+      &:has(.onyx-tooltip--position-bottom) {
+        top: calc(0.5 * var(--onyx-slider-thumb-size));
+      }
+
+      &:has(.onyx-tooltip--position-top) {
+        top: calc(-1.5 * var(--onyx-slider-thumb-size));
+      }
     }
 
     &__container {
