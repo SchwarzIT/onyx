@@ -118,6 +118,7 @@ export type CreateDataGridOptions<Lazy extends boolean> = {
    * TODO: Implement support according to https://w3c.github.io/aria/#desc-grid
    */
   multiselectable?: boolean;
+  loading?: MaybeRefOrGetter<boolean>;
   selectedCell?: Ref<CellIdentifier>;
 } & LazyOptions<Lazy>;
 
@@ -125,12 +126,16 @@ export type TrOptions<Lazy extends boolean> = {
   rowId: PropertyKey;
 } & (Lazy extends true ? { rowIndex: number } : { rowIndex?: never });
 
-export type TdOptions<Lazy extends boolean> = CellIdentifier &
-  (Lazy extends true ? { colIndex: number } : { colIndex?: never });
+export type TdOptions<Lazy extends boolean> = CellIdentifier & {
+  defaultSelected?: boolean;
+} & (Lazy extends true ? { colIndex: number } : { colIndex?: never });
 
 export const createDataGrid = createBuilder(
   <Lazy extends boolean = false>(options: CreateDataGridOptions<Lazy>) => {
+    const tableElement = createElRef<HTMLTableElement>();
+
     const lazy = options.lazy && toRef(options.lazy);
+    const busy = computed(() => toValue(options.loading) ?? busyQueue.active.value);
     const resolver = lazy
       ? LazyResolverFactory({
           cols: () => lazy.value.totalCols,
@@ -138,7 +143,6 @@ export const createDataGrid = createBuilder(
           requestLazyLoad: lazy.value.requestLazyLoad,
         })
       : StaticResolver;
-    const tableElement = createElRef<HTMLTableElement>();
 
     const labelId = useId();
     const selectedCell = ref<CellIdentifier>();
@@ -152,14 +156,10 @@ export const createDataGrid = createBuilder(
 
     const busyQueue = useAllSettled();
 
-    onMounted(() => {
-      const firstCell = tableElement.value?.rows.item(0)?.cells.item(0);
-      if (firstCell) {
-        // TODO - allow definition of first item
-        // TODO - allow excluding table header
-        setSelected(firstCell);
-      }
-    });
+    const findFirstCell = () =>
+      tableElement.value.querySelector(
+        `[${ROW_ID_DATA_ATTR}] [${COL_KEY_DATA_ATTR}]`,
+      ) as HTMLElement;
 
     const setSelected = (element: HTMLElement) => {
       const colKey = element.closest(`[${COL_KEY_DATA_ATTR}]`)?.getAttribute(COL_KEY_DATA_ATTR);
@@ -171,6 +171,16 @@ export const createDataGrid = createBuilder(
         };
       }
     };
+
+    onMounted(() => {
+      if (selectedCell.value) {
+        return;
+      }
+      const firstCell = findFirstCell();
+      if (firstCell) {
+        setSelected(firstCell);
+      }
+    });
 
     const onFocusin = (event: FocusEvent) => {
       setSelected(event.target as HTMLElement);
@@ -244,7 +254,7 @@ export const createDataGrid = createBuilder(
               onFocusin,
               onKeydown,
               role: "grid",
-              "aria-busy": lazy?.value ? busyQueue.active.value : undefined,
+              "aria-busy": busy?.value,
               "aria-labelledby": labelId,
               "aria-rowcount": lazy?.value.totalRows === "unknown" ? -1 : lazy?.value.totalRows,
               "aria-colcount": lazy?.value.totalCols === "unknown" ? -1 : lazy?.value.totalCols,
@@ -255,8 +265,8 @@ export const createDataGrid = createBuilder(
           "aria-rowindex": rowIndex != undefined ? rowIndex + 1 : undefined,
           role: "row",
         }),
-        td: computed(() => ({ rowId, colKey, colIndex }: TdOptions<Lazy>) => {
-          if (!selectedCell.value) {
+        td: computed(() => ({ rowId, colKey, colIndex, defaultSelected }: TdOptions<Lazy>) => {
+          if (defaultSelected && !selectedCell.value) {
             // we always need an initial selected cell
             // if none was defined, we just use the first cell here
             selectedCell.value = { rowId, colKey };
