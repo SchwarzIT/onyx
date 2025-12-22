@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { ContentNavigationItem } from "@nuxt/content";
-import { type OnyxPageLayoutProps, type OnyxSidebarProps } from "sit-onyx";
+import type { OnyxPageLayoutProps, OnyxSidebarProps } from "sit-onyx";
 
 const props = defineProps<
   OnyxPageLayoutProps & {
@@ -35,18 +35,9 @@ const slots = defineSlots<{
   sidebarFooter?(): unknown;
 }>();
 
-const { locale } = useI18n();
 const localePath = useLocalePath();
 
-const navigation = await useAsyncData(
-  () => `navigation-${locale.value}`,
-  () => {
-    const collection = `content_${locale.value}` as const;
-    return queryCollectionNavigation(collection);
-  },
-);
-
-const sidebarItems = computed(() => navigation.data.value ?? []);
+const { navigation } = await useSidebarNavigation();
 </script>
 
 <template>
@@ -61,10 +52,10 @@ const sidebarItems = computed(() => navigation.data.value ?? []);
           <slot name="sidebarHeader"> </slot>
         </template>
 
-        <slot name="sidebarBody" :items="sidebarItems">
-          <SidebarItem v-for="item in sidebarItems" :key="localePath(item.path)" :item="item" />
+        <slot name="sidebarBody" :items="navigation">
+          <SidebarItem v-for="item in navigation" :key="localePath(item.path)" :item="item" />
 
-          <OnyxEmpty v-if="!sidebarItems.length" class="sidebar__empty">
+          <OnyxEmpty v-if="!navigation.length" class="sidebar__empty">
             {{ $t("onyx.select.empty") }}
           </OnyxEmpty>
         </slot>

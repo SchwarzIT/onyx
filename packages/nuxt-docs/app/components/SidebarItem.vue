@@ -1,38 +1,41 @@
 <script lang="ts" setup>
-import type { ContentNavigationItem } from "@nuxt/content";
+import type { SidebarNavigationItem } from "../composables/useSidebarNavigation.js";
 
 const props = defineProps<{
-  item: ContentNavigationItem;
+  item: SidebarNavigationItem;
 }>();
 
 const localePath = useLocalePath();
+const path = computed(() => localePath(props.item.path));
 
 const isAccordionOpen = ref(true);
-
-const children = computed(() => {
-  // filter out children that are directories
-  return props.item.children?.filter((child) => child.page !== false);
-});
+watch(
+  () => props.item.sidebar?.collapsed,
+  (collapsed) => {
+    isAccordionOpen.value = !collapsed;
+  },
+  { immediate: true },
+);
 </script>
 
 <template>
-  <OnyxSidebarItem v-if="!children" class="sidebar-item" :link="localePath(props.item.path)">
+  <OnyxSidebarItem v-if="!props.item.children?.length" class="sidebar-item" :link="path">
     {{ props.item.title }}
   </OnyxSidebarItem>
 
   <OnyxAccordion
     v-else
-    :model-value="isAccordionOpen ? [localePath(item.path)] : undefined"
+    :model-value="isAccordionOpen ? [path] : undefined"
     class="sidebar-accordion"
     type="nested-large"
     @update:model-value="isAccordionOpen = !isAccordionOpen"
   >
-    <OnyxAccordionItem :value="localePath(item.path)">
+    <OnyxAccordionItem :value="path">
       <template #header>{{ props.item.title }}</template>
 
       <div class="sidebar-item__children">
         <OnyxSidebarItem
-          v-for="child in children"
+          v-for="child in props.item.children"
           :key="localePath(child.path)"
           :link="localePath(child.path)"
         >
