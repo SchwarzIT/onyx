@@ -1,5 +1,6 @@
 import { expect } from "@playwright/experimental-ct-vue";
 import type { Locator, Page } from "@playwright/test";
+import { createFocusCatcher } from "../../utils/playwright.js";
 
 const expectLabel = async (page: Page, grid: Locator) => {
   const [labelledBy, label] = await Promise.all([
@@ -159,9 +160,11 @@ const expectKeyboardSupport = async (page: Page, grid: Locator) => {
     "First cell in the first row should be focused when pressing Control+Home",
   );
 
+  const { catcher, cleanUp } = await createFocusCatcher(page, grid);
   await page.keyboard.press("Tab");
   await expect(
-    grid.locator("*:focus"),
+    catcher,
     "Only one of the focusable elements contained by the grid is included in the page tab sequence.",
-  ).not.toBeAttached();
+  ).toBeFocused();
+  await cleanUp();
 };
