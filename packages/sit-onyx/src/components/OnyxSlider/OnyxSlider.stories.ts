@@ -13,7 +13,7 @@ const meta: Meta<typeof OnyxSlider> = {
   decorators: [
     (story) => ({
       components: { story },
-      template: `<div style="max-width: 20rem;"> <story /> </div>`,
+      template: `<div style="max-width: 20rem; margin-top: 1rem;"> <story /> </div>`,
     }),
   ],
   argTypes: {

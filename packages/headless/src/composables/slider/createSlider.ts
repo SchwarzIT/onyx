@@ -102,10 +102,14 @@ export const _unstableCreateSlider = createBuilder(
     // ensure focus on thumb while dragging
     watch(draggingThumbIndex, (newThumbIndex) => {
       if (newThumbIndex == undefined) return;
-      Array.from(sliderRef.value?.querySelectorAll<HTMLElement>('[role="slider"]') ?? [])
-        .at(newThumbIndex)
-        ?.focus();
+      focusThumb(newThumbIndex);
     });
+
+    const focusThumb = (index: number) => {
+      Array.from(sliderRef.value.querySelectorAll<HTMLElement>('[role="slider"]'))
+        .at(index)
+        ?.focus();
+    };
 
     const shiftStep = computed(() => {
       const shiftStep = toValue(options.shiftStep);
@@ -414,6 +418,7 @@ export const _unstableCreateSlider = createBuilder(
       },
       internals: {
         updateValue,
+        focusThumb,
       },
     };
   },
