@@ -49,7 +49,7 @@ const expectMaybeDescription = async (page: Page, grid: Locator) => {
 };
 
 /**
- * Test an implementation of the combobox based on https://w3c.github.io/aria/#combobox
+ * Test an implementation of the data grid based on https://www.w3.org/WAI/ARIA/apg/patterns/grid/
  */
 export const dataGridTesting = async (page: Page, grid: Locator, rows: Locator) => {
   // Based on https://www.w3.org/WAI/ARIA/apg/patterns/grid/
