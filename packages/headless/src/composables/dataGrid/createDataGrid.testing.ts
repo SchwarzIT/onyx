@@ -76,12 +76,13 @@ type ExpectNthCellToBeFocusedOptions = {
 const expectNthCellToBeFocused = async (
   { page, nth, row }: ExpectNthCellToBeFocusedOptions,
   message?: string,
-) => {
-  const focused = page.locator("*:focus");
-  const cells = row.getByRole("cell");
-  const targetHandle = await cells.nth(nth).elementHandle();
-  expect(await focused.evaluate((a, b) => a === b, targetHandle), message).toEqual(true);
-};
+) =>
+  expect(async () => {
+    const focused = page.locator("*:focus");
+    const cells = row.getByRole("cell");
+    const targetHandle = await cells.nth(nth).elementHandle();
+    expect(await focused.evaluate((a, b) => a === b, targetHandle), message).toEqual(true);
+  }).toPass();
 
 const expectKeyboardSupport = async (page: Page, grid: Locator) => {
   await page.keyboard.press("Tab");
