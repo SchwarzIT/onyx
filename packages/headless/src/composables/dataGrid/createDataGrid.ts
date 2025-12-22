@@ -176,7 +176,7 @@ export const createDataGrid = createBuilder(
     };
 
     const ensureTabTarget = () => {
-      if (selectedCell.value && selectedCellEl.value && selectedCellEl.value.isConnected) {
+      if (selectedCell.value && selectedCellEl.value?.isConnected) {
         return;
       }
       const firstCell = findFirstCell();
@@ -291,7 +291,7 @@ export const createDataGrid = createBuilder(
         ),
         tr: ({ rowId, rowIndex }: TrOptions<Lazy>) => ({
           [ROW_ID_DATA_ATTR]: rowId.toString(),
-          "aria-rowindex": rowIndex != undefined ? rowIndex + 1 : undefined,
+          "aria-rowindex": rowIndex == undefined ? undefined : rowIndex + 1,
           role: "row",
         }),
         td: computed(() => ({ rowId, colKey, colIndex }: TdOptions<Lazy>) => {
@@ -301,7 +301,7 @@ export const createDataGrid = createBuilder(
             tabindex: isSelected ? "0" : "-1",
             ref: isSelected ? selectedCellEl : undefined,
             [COL_KEY_DATA_ATTR]: colKey,
-            "aria-colindex": colIndex != undefined ? colIndex + 1 : undefined,
+            "aria-colindex": colIndex == undefined ? undefined : colIndex + 1,
             role: "cell",
           };
         }),
