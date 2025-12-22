@@ -158,4 +158,10 @@ const expectKeyboardSupport = async (page: Page, grid: Locator) => {
     { page, row: firstRow, nth: 0 },
     "First cell in the first row should be focused when pressing Control+Home",
   );
+
+  await page.keyboard.press("Tab");
+  await expect(
+    grid.locator("*:focus"),
+    "Only one of the focusable elements contained by the grid is included in the page tab sequence.",
+  ).not.toBeAttached();
 };

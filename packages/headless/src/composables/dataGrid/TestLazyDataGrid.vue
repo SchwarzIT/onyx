@@ -21,7 +21,7 @@ const {
     totalRows: 20,
     totalCols: 20,
     requestLazyLoad: async (x, y) => {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 200));
       await nextTick();
       loaded.value = {
         x: x + 10,
