@@ -150,6 +150,9 @@ export const createDataGrid = createBuilder(
     const selectedCell = ref<CellIdentifier>();
     const selectedCellEl = createElRef<HTMLElement>();
 
+    /**
+     * Tracks if the latest `resolveCell` promise is finished, if successful the focus can be moved to the resolved cell.
+     */
     const focusQueue = useLastSettled<Nullable<HTMLElement>>((success, cell) => {
       if (success) {
         cell?.focus();
@@ -157,6 +160,9 @@ export const createDataGrid = createBuilder(
       }
     });
 
+    /**
+     * Tracks if any `resolveCell` promises are running.
+     */
     const busySet = useAllSettled();
 
     const findFirstCell = () =>
@@ -211,6 +217,9 @@ export const createDataGrid = createBuilder(
       mutationObserver.disconnect();
     });
 
+    /**
+     * when a cell is focused programmatically or by click, it becomes the currently selected cell.
+     */
     const onFocusin = (event: FocusEvent) => {
       setSelected(event.target as HTMLElement);
       focusQueue.cancel();
@@ -283,7 +292,7 @@ export const createDataGrid = createBuilder(
               onFocusin,
               onKeydown,
               role: "grid",
-              "aria-busy": busy?.value,
+              "aria-busy": busy.value,
               "aria-labelledby": labelId,
               "aria-rowcount": lazy?.value.totalRows === "unknown" ? -1 : lazy?.value.totalRows,
               "aria-colcount": lazy?.value.totalCols === "unknown" ? -1 : lazy?.value.totalCols,
