@@ -35,7 +35,7 @@ export type OnyxSidebarProps = DensityProp & {
 export const SIDEBAR_ALIGNMENT = ["left", "right"] as const;
 export type SidebarAlignment = (typeof SIDEBAR_ALIGNMENT)[number];
 
-export type TemporarySidebar = Pick<OnyxModalProps, "open" | "nonDismissible"> & {
+export type TemporarySidebar = Pick<OnyxModalProps, "open" | "nonDismissible" | "backdrop"> & {
   /**
    * If `true`, the sidebar will have a small gap from the viewport and have rounded corners.
    */
