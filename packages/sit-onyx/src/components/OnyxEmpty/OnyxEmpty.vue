@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import { useDensity, type DensityProp } from "../../composables/density.js";
+import OnyxEmptySVG from "../illustrations/OnyxEmptySVG/OnyxEmptySVG.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
-import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import emptyIcon from "./emptyIcon.svg?raw";
 
 const props = defineProps<DensityProp>();
 
@@ -31,7 +30,7 @@ const { densityClass } = useDensity(props);
 <template>
   <div :class="['onyx-component', 'onyx-empty', densityClass]">
     <slot name="icon">
-      <OnyxIcon :icon="emptyIcon" size="48px" class="onyx-empty__icon" />
+      <OnyxEmptySVG class="onyx-empty__image" />
     </slot>
 
     <div class="onyx-empty__text-wrapper">
@@ -71,10 +70,6 @@ const { densityClass } = useDensity(props);
       gap: var(--onyx-density-2xs);
     }
 
-    &__icon {
-      min-width: none;
-      width: auto;
-    }
     &__description {
       color: var(--onyx-color-text-icons-neutral-intense);
       font-size: var(--onyx-font-size-sm);
