@@ -1,1 +1,5 @@
+---
+navigation: false
+---
+
 # Support

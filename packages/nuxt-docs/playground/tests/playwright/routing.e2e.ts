@@ -27,3 +27,18 @@ test("should update page content when navigating", async ({ page, goto }) => {
     "should show error page when dynamically navigating to a non-existing page",
   ).toBeVisible();
 });
+
+test("should correctly show custom sidebar roots", async ({ page, goto }) => {
+  // ACT
+  await goto("/", { waitUntil: "hydration" });
+
+  // ASSERT
+  await expect(page.getByRole("link", { name: "Deeply nested 2" })).toBeHidden();
+
+  // ACT
+  await page.getByRole("link", { name: "Deeply nested", exact: true }).click();
+
+  // ASSERT
+  await expect(page).toHaveScreenshot("deeply-nested.png");
+  await expect(page.getByRole("link", { name: "Deeply nested 2" })).toBeVisible();
+});
