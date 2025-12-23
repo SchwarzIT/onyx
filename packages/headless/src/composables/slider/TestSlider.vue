@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { _unstableCreateSlider } from "./createSlider.js";
+import { createSlider } from "./createSlider.js";
 
 const modelValue = defineModel<number | [number, number]>({ required: true });
 
 const {
   elements: { root, thumbInput, thumbContainer, track },
   state: { normalizedValue },
-} = _unstableCreateSlider({
+} = createSlider({
   label: "Slider",
   value: modelValue,
   onChange: (newValue) => (modelValue.value = newValue),

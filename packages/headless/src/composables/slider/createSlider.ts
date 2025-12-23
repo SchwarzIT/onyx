@@ -82,11 +82,8 @@ const DECREMENT_KEYS = new Set(["ArrowLeft", "ArrowDown", "PageDown"]);
 /**
  * Composable for creating an accessibility-compliant slider.
  * For supported keyboard shortcuts, see: https://www.w3.org/WAI/ARIA/apg/patterns/slider/
- *
- *  * @experimental
- * @deprecated This component is still under active development and its API might change in patch releases.
  */
-export const _unstableCreateSlider = createBuilder(
+export const createSlider = createBuilder(
   <TValue extends SliderValue>(options: CreateSliderOptions<TValue>) => {
     const sliderRef = createElRef<HTMLElement>();
 
@@ -102,10 +99,14 @@ export const _unstableCreateSlider = createBuilder(
     // ensure focus on thumb while dragging
     watch(draggingThumbIndex, (newThumbIndex) => {
       if (newThumbIndex == undefined) return;
-      Array.from(sliderRef.value.querySelectorAll<HTMLElement>('[role="slider"]'))
-        .at(newThumbIndex)
-        ?.focus();
+      focusThumb(newThumbIndex);
     });
+
+    const focusThumb = (index: number) => {
+      Array.from(sliderRef.value.querySelectorAll<HTMLElement>('[role="slider"]'))
+        .at(index)
+        ?.focus();
+    };
 
     const shiftStep = computed(() => {
       const shiftStep = toValue(options.shiftStep);
@@ -414,6 +415,7 @@ export const _unstableCreateSlider = createBuilder(
       },
       internals: {
         updateValue,
+        focusThumb,
       },
     };
   },
