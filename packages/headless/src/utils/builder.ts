@@ -10,6 +10,12 @@ import {
 } from "vue";
 import type { IfDefined } from "./types.js";
 
+type DataAttributes = {
+  [name: `data-${string}`]: string | undefined;
+};
+
+export type HtmlWithDataAttributes = HTMLAttributes & DataAttributes;
+
 /**
  * Properties as they can be used by `v-bind` on an HTML element.
  * This includes generic html attributes and the vue reserved `ref` property.
@@ -18,21 +24,25 @@ import type { IfDefined } from "./types.js";
 export type VBindAttributes<
   A extends HTMLAttributes = HTMLAttributes,
   E extends Element = Element,
-> = A & {
-  ref?: VueTemplateRef<E>;
-};
+> = A &
+  DataAttributes & {
+    ref?: VueTemplateRef<E>;
+  };
 
 export type IteratedHeadlessElementFunc<
-  A extends HTMLAttributes,
+  A extends HtmlWithDataAttributes,
   T extends Record<string, unknown>,
 > = (opts: T) => VBindAttributes<A>;
 
-export type HeadlessElementAttributes<A extends HTMLAttributes> =
+export type HeadlessElementAttributes<A extends HtmlWithDataAttributes> =
   | VBindAttributes<A>
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- the specific type doesn't matter here
   | IteratedHeadlessElementFunc<A, any>;
 
-export type HeadlessElements = Record<string, MaybeRef<HeadlessElementAttributes<HTMLAttributes>>>;
+export type HeadlessElements = Record<
+  string,
+  MaybeRef<HeadlessElementAttributes<HtmlWithDataAttributes>>
+>;
 
 export type HeadlessState = Record<string, Ref>;
 
@@ -128,7 +138,13 @@ export function createElRef<
 
   return computed({
     set: (element: V) => {
-      elementRef.value = element != null && "$el" in element ? element.$el : (element as E);
+      if (Array.isArray(element)) {
+        elementRef.value = element.at(0);
+      } else if (element != null && "$el" in element) {
+        elementRef.value = element.$el;
+      } else {
+        elementRef.value = element as E;
+      }
     },
     get: () => elementRef.value,
   } as WritableComputedOptions<E>);

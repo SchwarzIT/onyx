@@ -125,6 +125,7 @@ const playwrightConfig = {
           "singleSliderTesting",
           "rangeSliderTesting",
           "discreteSliderTesting",
+          "dataGridTesting",
         ],
       },
     ],

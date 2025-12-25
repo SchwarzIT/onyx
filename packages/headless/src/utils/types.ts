@@ -31,3 +31,8 @@ export type Arrayable<T> = T | Array<T>;
  * Either the actual value or a nullish one.
  */
 export type Nullable<T = never> = T | null | undefined;
+
+/**
+ * An awaitable value.
+ */
+export type Awaitable<T = void> = PromiseLike<T> | T;
