@@ -177,13 +177,13 @@ test.describe("Interaction tests", () => {
 
     // ASSERT
     const ctrlKey = component.locator("kbd").filter({ hasText: /^(ctrl|⌃)$/i });
-    await expect(ctrlKey).toContainClass("onyx-key--pressed");
+    await expect(ctrlKey).toContainClass("onyx-key--highlighted");
 
     // ACT
     await page.keyboard.up("Control");
 
     // ASSERT
-    await expect(ctrlKey).not.toContainClass("onyx-key--pressed");
+    await expect(ctrlKey).not.toContainClass("onyx-key--highlighted");
   });
 
   test("should emit sequenceComplete event when sequence is completed", async ({ mount, page }) => {
