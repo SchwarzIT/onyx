@@ -6,31 +6,41 @@
 export default {};
 </script>
 
-<script setup lang="ts" generic="TKeyName extends string = CanonicalKey">
-import { computed } from "vue";
+<script setup lang="ts">
+import { useGlobalEventListener } from "@sit-onyx/headless";
+import { computed, onBeforeMount, ref } from "vue";
 import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
 import type { OperatingSystem } from "../../types/index.js";
 import { detectOperatingSystem } from "../../utils/dom.js";
-import { isCanonicalSpecialKey, toCanonicalKey, type CanonicalKey } from "../../utils/shortcut.js";
+import { keyboardEventToKeyboardKey } from "../../utils/shortcut.js";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import {
-  MAP_CANONICAL_TO_DISPLAY_LABEL_BY_OS,
-  MAP_CANONICAL_TO_SCREEN_READER_LABEL_BY_OS,
+  GENERIC_KEY_SYMBOLS,
+  MAC_KEY_SYMBOLS,
+  WINDOWS_KEY_SYMBOLS,
+  type KeyboardKey,
   type OnyxKeyProps,
 } from "./types.js";
 
-type Props = OnyxKeyProps<TKeyName>;
-
-const props = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<OnyxKeyProps>(), {
   variant: "auto",
   pressed: false,
   skeleton: SKELETON_INJECTED_SYMBOL,
 });
 
+const emit = defineEmits<{
+  /**
+   * Emitted when the pressed key and props key match.
+   */
+  pressMatch: [key: KeyboardKey, event: KeyboardEvent];
+}>();
+
 const skeleton = useSkeletonContext(props);
+
+const detectedOs = ref<OperatingSystem>("generic");
 
 /**
  * Effective OS based on variant / auto-detect
@@ -39,61 +49,52 @@ const effectiveOs = computed<OperatingSystem>(() => {
   if (props.variant !== "auto") {
     return props.variant;
   }
-  return detectOperatingSystem();
+  return detectedOs.value;
 });
 
-/**
- * Canonical key for mapping (or raw if not special)
- */
-const canonicalKey = computed<CanonicalKey | string>(() => toCanonicalKey(String(props.keyName)));
+onBeforeMount(() => {
+  if (props.variant === "auto") {
+    detectedOs.value = detectOperatingSystem();
+  }
+});
 
-/**
- * Visible label
- */
 const visualLabel = computed<string>(() => {
-  const key = canonicalKey.value;
   const os = effectiveOs.value;
+  const key = props.keyName;
+  const fallback = GENERIC_KEY_SYMBOLS[key] ?? String(props.keyName);
 
-  if (typeof key === "string" && isCanonicalSpecialKey(key)) {
-    const osMap = MAP_CANONICAL_TO_DISPLAY_LABEL_BY_OS[os] ?? {};
-    const genericMap = MAP_CANONICAL_TO_DISPLAY_LABEL_BY_OS.generic ?? {};
-
-    return osMap[key] ?? genericMap[key] ?? String(props.keyName);
+  if (os === "macOS") {
+    return MAC_KEY_SYMBOLS[key] ?? fallback;
   }
 
-  // Non-special keys: show as provided (e.g. "A", "F5", "1", "?")
-  return String(props.keyName);
-});
-
-/**
- * Screen reader label.
- * Visible content is overridden by aria-label for assistive tech.
- */
-const ariaLabel = computed<string>(() => {
-  if (props.label) return props.label;
-
-  const key = canonicalKey.value;
-  const os = effectiveOs.value;
-
-  if (typeof key === "string" && isCanonicalSpecialKey(key)) {
-    const osMap = MAP_CANONICAL_TO_SCREEN_READER_LABEL_BY_OS[os] ?? {};
-    const genericMap = MAP_CANONICAL_TO_SCREEN_READER_LABEL_BY_OS.generic ?? {};
-
-    return `${osMap[key] ?? genericMap[key] ?? String(props.keyName)} key`;
+  if (os === "windows") {
+    return WINDOWS_KEY_SYMBOLS[key] ?? fallback;
   }
 
-  return `${String(props.keyName)} key`;
+  return fallback;
 });
+
+const handleKeydown = (event: KeyboardEvent) => {
+  const pressedKey = keyboardEventToKeyboardKey(event);
+  if (pressedKey === props.keyName) {
+    emit("pressMatch", pressedKey, event);
+  }
+};
+
+useGlobalEventListener({ type: "keydown", listener: handleKeydown });
 </script>
 
 <template>
   <OnyxSkeleton v-if="skeleton" :class="['onyx-component', 'onyx-key-skeleton']" />
   <kbd
     v-else
-    :class="['onyx-component', 'onyx-key']"
-    :data-os="effectiveOs"
-    :data-pressed="props.pressed || undefined"
-    :aria-label="ariaLabel"
+    :class="[
+      'onyx-component',
+      'onyx-key',
+      'onyx-text',
+      'onyx-text--monospace',
+      { 'onyx-key--pressed': props.pressed },
+    ]"
   >
     {{ visualLabel }}
   </kbd>
@@ -105,7 +106,6 @@ const ariaLabel = computed<string>(() => {
 .onyx-key-skeleton,
 .onyx-key {
   @include layers.component() {
-    --onyx-key-font-family: monospace;
     --onyx-key-background: var(--onyx-color-base-background-tinted);
     --onyx-key-border-color: var(--onyx-color-base-neutral-300);
     --onyx-key-border-radius: var(--onyx-radius-sm);
@@ -127,7 +127,6 @@ const ariaLabel = computed<string>(() => {
     height: var(--onyx-key-size);
     min-width: var(--onyx-key-size);
 
-    font-family: var(--onyx-key-font-family);
     font-size: 0.9em;
     line-height: 1;
 
@@ -136,7 +135,7 @@ const ariaLabel = computed<string>(() => {
     border-radius: var(--onyx-key-border-radius);
     color: var(--onyx-key-color);
 
-    &[data-pressed="true"] {
+    &--pressed {
       background-color: var(--onyx-key-background-pressed);
       border-color: var(--onyx-key-border-color-pressed);
     }

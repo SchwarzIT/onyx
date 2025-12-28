@@ -1,214 +1,168 @@
-/**
- * Canonical names of special keys.
- * All custom string values (letters, numbers, F-keys)
- * remain as they are and are not required to be included in this list.
- */
-export const CANONICAL_KEYS = [
-  "meta",
-  "control",
-  "alt",
-  "option",
-  "shift",
-  "enter",
-  "tab",
-  "backspace",
-  "caps-lock",
-  "fn",
-  "space",
-  "esc",
-  "up",
-  "down",
-  "left",
-  "right",
-  "delete",
-  "home",
-  "end",
-  "page-up",
-  "page-down",
-  "unknown",
-] as const;
-
-export type CanonicalKey = (typeof CANONICAL_KEYS)[number];
-
-/**
- * Normalization of special keys from "raw" names to CanonicalKey.
- */
-export const MAP_SPECIAL_KEY_TO_CANONICAL: Record<string, CanonicalKey> = {
-  // Shift
-  shift: "shift",
-
-  // meta / windows / command
-  cmd: "meta",
-  command: "meta",
-  win: "meta",
-  windows: "meta",
-  meta: "meta",
-
-  // control
-  control: "control",
-  ctl: "control",
-  ctrl: "control",
-
-  // alt / option
-  alt: "alt",
-  option: "option",
-
-  // enter / return
-  return: "enter",
-  enter: "enter",
-
-  // backspace
-  bksp: "backspace",
-  back: "backspace",
-  backspace: "backspace",
-
-  // caps lock
-  caps: "caps-lock",
-  "caps-lock": "caps-lock",
-
-  // escape
-  esc: "esc",
-  escape: "esc",
-
-  // tab
-  tab: "tab",
-  tabulator: "tab",
-
-  // space
-  space: "space",
-
-  // delete (forward delete)
-  del: "delete",
-  delete: "delete",
-
-  // navigation
-  home: "home",
-  end: "end",
-  pageup: "page-up",
-  pagedown: "page-down",
-  "page-up": "page-up",
-  "page-down": "page-down",
-
-  up: "up",
-  down: "down",
-  left: "left",
-  right: "right",
-  arrowup: "up",
-  arrowdown: "down",
-  arrowleft: "left",
-  arrowright: "right",
-
-  "↑": "up",
-  "↓": "down",
-  "←": "left",
-  "→": "right",
-
-  // fn
-  fn: "fn",
-
-  unknown: "unknown",
-};
-
-/**
- * Normalize raw keyName -> CanonicalKey | raw string
- */
-export const toCanonicalKey = (raw: string): CanonicalKey | string => {
-  if (!raw) return "unknown";
-
-  if (raw === " ") return "space";
-
-  const trimmed = raw.trim();
-  if (!trimmed) return "unknown";
-
-  const lower = trimmed.toLowerCase();
-  const fromMap = MAP_SPECIAL_KEY_TO_CANONICAL[lower];
-
-  if (fromMap) return fromMap;
-
-  if (/^F[1-9][0-9]?$/i.test(lower)) {
-    return lower.toUpperCase();
-  }
-
-  // not a known special key — return as-is (F-keys, letters, numbers, etc.)
-  return lower;
-};
-
-/**
- * True if value is one of our known canonical special keys
- */
-export const isCanonicalSpecialKey = (key: string): key is CanonicalKey =>
-  (CANONICAL_KEYS as readonly string[]).includes(key);
-
-/**
- * Normalizes a KeyboardEvent into a value compatible with OnyxShortcut.
- *
- * Goals:
- * - Use `code` for stable identification of digit keys, so shortcuts like Ctrl+Shift+2
- *   are recognized regardless of layout-specific `event.key` (e.g. "@", "²", etc).
- * - Return simple characters (letters, digits, symbols) as-is when reasonable.
- * - Fall back to `toCanonicalKey(key)` for remaining cases.
- *
- * This function does NOT:
- * - Interpret modifier combinations. It means: this function does not decide what shortcut was pressed, only what single key was pressed.
- * - Handle locale-specific layouts beyond basic Digit/Numpad normalization.
- */
-export const getCanonicalKeyFromEvent = (event: KeyboardEvent): CanonicalKey | string => {
-  const { key, code } = event;
-
-  if (!key) return "unknown";
-
-  if (key === " ") return "space";
-
-  const lowerKey = key.toLowerCase();
-
-  // 1) Direct mapping for known special keys via `key`.
-  const mapped = MAP_SPECIAL_KEY_TO_CANONICAL[lowerKey];
-  if (mapped) return mapped;
-
-  // 2) Top-row digits (Digit0–Digit9).
-  // Use `code` so Ctrl+Shift+2 is still recognized as "2"
-  // even if `key` becomes "@", "²", etc.
-  if (code.startsWith("Digit") && code.length === 6) {
-    const digit = code[5];
-    if (!digit) return "unknown";
-
-    if (/[0-9]/.test(digit)) return digit;
-  }
-
-  // 3) Numpad digits (optional but useful for consistency).
-  if (code.startsWith("Numpad") && code.length === 7) {
-    const digit = code[6];
-    if (!digit) return "unknown";
-    if (/[0-9]/.test(digit)) return digit;
-  }
-
-  // 4) Function keys: keep as-is (F1, F2, ...).
-  if (/^F[1-9][0-9]?$/i.test(key)) {
-    return key.toUpperCase();
-  }
-
-  // 5) Single printable characters (letters, digits, symbols).
-  // Let them pass through as-is.
-  if (key.length === 1) {
-    return key;
-  }
-
-  // 6) Fallback: use shared normalizer for remaining named keys.
-  return toCanonicalKey(key);
-};
-
-export type ShortcutToken = CanonicalKey | string;
+import {
+  ALPHABETIC_KEYS,
+  EDITING_KEYS,
+  FUNCTION_KEYS,
+  MEDIA_KEYS,
+  MISC_KEYS,
+  MODIFIER_KEYS,
+  NAVIGATION_KEYS,
+  NUMERIC_KEYS,
+  NUMPAD_KEYS,
+  SYMBOL_KEYS,
+  type AlphabeticKey,
+  type EditingKey,
+  type FunctionKey,
+  type KeyboardKey,
+  type MediaKey,
+  type MiscKey,
+  type ModifierKey,
+  type NavigationKey,
+  type NumericKey,
+  type NumpadKey,
+  type SymbolKey,
+} from "../components/OnyxKey/types.js";
 
 export type ShortCutAllStep = {
-  all: ShortcutToken[];
+  /**
+   * Shortcut step that requires all keys to be pressed.
+   * For example, Ctrl + S would be represented as `{ all: ["Control", "S"] }`.
+   */
+  all: KeyboardKey[];
 };
 
 export type ShortCutAnyStep = {
-  any: ShortcutToken[];
+  /**
+   * Shortcut step that requires any one of the keys to be pressed.
+   * For example, Ctrl or Command would be represented as `{ any: ["Control", "Meta"] }`.
+   */
+  any: KeyboardKey[];
 };
 
-export type ShortcutStep = ShortCutAllStep | ShortCutAnyStep;
+/**
+ * A shortcut step can be either an `all` step or an `any` step.
+ */
+export type ShortcutStep = (ShortCutAllStep | ShortCutAnyStep) & {};
 
 export const isAllStep = (step: ShortcutStep): step is ShortCutAllStep => "all" in step;
 
 export const isAnyStep = (step: ShortcutStep): step is ShortCutAnyStep => "any" in step;
+
+export const isAlphabeticKey = (key: string): key is AlphabeticKey =>
+  ALPHABETIC_KEYS.includes(key as AlphabeticKey);
+
+export const isSymbolKey = (key: string): key is SymbolKey =>
+  SYMBOL_KEYS.includes(key as SymbolKey);
+
+export const isNavigationKey = (key: string): key is NavigationKey =>
+  NAVIGATION_KEYS.includes(key as NavigationKey);
+
+export const isEditingKey = (key: string): key is EditingKey =>
+  EDITING_KEYS.includes(key as EditingKey);
+
+export const isModifierKey = (key: string): key is ModifierKey =>
+  MODIFIER_KEYS.includes(key as ModifierKey);
+
+export const isFunctionalKey = (key: string): key is FunctionKey =>
+  FUNCTION_KEYS.includes(key as FunctionKey);
+
+export const isNumpadKey = (key: string): key is NumpadKey =>
+  NUMPAD_KEYS.includes(key as NumpadKey);
+
+export const isNumericKey = (key: string): key is NumericKey =>
+  NUMERIC_KEYS.includes(key as NumericKey);
+
+export const isMediaKey = (key: string): key is MediaKey => MEDIA_KEYS.includes(key as MediaKey);
+
+export const isMiscKey = (key: string): key is MiscKey => MISC_KEYS.includes(key as MiscKey);
+
+export const isKeyboardKey = (key: string): key is KeyboardKey =>
+  isAlphabeticKey(key) ||
+  isSymbolKey(key) ||
+  isNavigationKey(key) ||
+  isEditingKey(key) ||
+  isModifierKey(key) ||
+  isFunctionalKey(key) ||
+  isNumpadKey(key) ||
+  isNumericKey(key) ||
+  isMediaKey(key) ||
+  isMiscKey(key);
+
+export const keyboardEventToKeyboardKey = (event: KeyboardEvent): KeyboardKey => {
+  const { key, code } = event;
+
+  if (!key) return "unknown";
+
+  // Special case: space
+  if (key === " ") return "Space";
+
+  // Priority 1: DIGIT KEYS (DigitX) - override symbols like ! @ #
+  // e.g. "Digit0", "Digit1", ..., "Digit9"
+  if (code && code.startsWith("Digit")) {
+    const digit = code.slice(5); // may be "0", "1", or garbage e.g. "A", "99"
+    if (digit.length === 1 && isNumericKey(digit)) return digit;
+    // Invalid code like "DigitA" or "Digit99" - return unknown regardless of key
+    return "unknown";
+  }
+
+  // Priority 2: NUMPAD KEYS (ALWAYS override symbols)
+  // e.g. "Numpad0", "Numpad1", ..., "NumpadAdd", etc.
+  if (code && code.startsWith("Numpad")) {
+    if (isNumpadKey(code)) return code;
+    // Invalid code like "Numpad99" or "NumpadInvalid" - return unknown
+    return "unknown";
+  }
+
+  // Priority 3: FUNCTION KEYS (F1–F12), case-insensitive
+  // e.g. "F1", "F2", ..., "F12"
+  if (/^F[1-9][0-9]?$/i.test(key)) {
+    const fKey = key.toUpperCase();
+    if (isFunctionalKey(fKey)) return fKey;
+    return "unknown";
+  }
+
+  // Priority 4: NUMERIC KEYS (0-9) without code
+  // e.g. "0", "1", ..., "9"
+  if (key.length === 1 && isNumericKey(key)) return key;
+
+  // Priority 5: A–Z letters
+  // e.g. "A", "B", ..., "Z" (case-insensitive)
+  if (key.length === 1) {
+    const upper = key.toUpperCase();
+    if (isAlphabeticKey(upper)) return upper;
+  }
+
+  // Priority 6: symbol keys
+  // e.g. "!", "@", "#", etc.
+  if (key.length === 1 && isSymbolKey(key)) return key;
+
+  // Priority 7: multi-character special keys
+  // e.g. "ArrowUp", "Backspace", "Shift", "VolumeUp", "F1", etc.
+  const categoryLookups = [
+    { guard: isNavigationKey, keys: NAVIGATION_KEYS },
+    { guard: isEditingKey, keys: EDITING_KEYS },
+    { guard: isModifierKey, keys: MODIFIER_KEYS },
+    { guard: isMediaKey, keys: MEDIA_KEYS },
+    { guard: isMiscKey, keys: MISC_KEYS },
+    { guard: isNumpadKey, keys: NUMPAD_KEYS },
+  ];
+
+  // Try exact match first
+  for (const { guard } of categoryLookups) {
+    if (guard(key)) return key;
+  }
+
+  // Try finding the correct casing by checking all keys in each category
+  const lower = key.toLowerCase();
+
+  for (const { keys } of categoryLookups) {
+    // Find case-insensitive match
+    for (const validKey of keys) {
+      if (validKey.toLowerCase() === lower) {
+        return validKey;
+      }
+    }
+  }
+
+  // Priority 8: fallback
+  return "unknown";
+};

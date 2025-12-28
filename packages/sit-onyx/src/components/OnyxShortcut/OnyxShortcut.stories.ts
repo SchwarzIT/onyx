@@ -1,8 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import OnyxShortcut from "./OnyxShortcut.vue";
 
+/**
+ * The Shortcut component displays keyboard shortcut sequences with visual key representations.
+ * It supports multi-step sequences, OS-specific key variants, and interactive highlighting of pressed keys.
+ */
 const meta: Meta<typeof OnyxShortcut> = {
-  title: "Feedback/Shortcut",
+  title: "Basic/Shortcut",
   component: OnyxShortcut as Meta["component"],
   tags: ["unstable"],
 };
@@ -12,67 +16,63 @@ export default meta;
 type Story = StoryObj<typeof OnyxShortcut>;
 
 /**
- * This example shows a default key.
+ * Basic shortcut sequence showing copy and paste commands.
  */
 export const Default = {
   args: {
-    sequence: [
-      {
-        any: ["ctrl"],
-      },
-      {
-        any: ["space"],
-      },
-      {
-        any: ["esc"],
-      },
-    ],
-  },
-} satisfies Story;
-
-export const Skeleton = {
-  args: {
-    ...Default.args,
-    skeleton: true,
+    sequence: [{ all: ["Control", "C"] }, { any: ["V", "Insert"] }],
   },
 } satisfies Story;
 
 /**
- * Example: highlight pressed keys.
+ * Shortcut with pressed key highlighting.
+ * Try pressing the keys to see real-time visual feedback.
  */
 export const HighlightPressed = {
   args: {
-    ...Default.args,
+    sequence: [{ all: ["Control", "Shift", "S"] }],
     highlightPressed: true,
   },
 } satisfies Story;
 
 /**
- * Example: multiple buttons at once.
+ * Multi-step shortcut sequence for more complex operations.
  */
-export const MultipleButtonsAtOnce = {
+export const MultiStep = {
   args: {
+    sequence: [{ all: ["Control", "K"] }, { any: ["Enter", "Space"] }],
     highlightPressed: true,
-    sequence: [{ all: ["cmd", "shift", "2"] }],
   },
 } satisfies Story;
 
 /**
- * Example: button options (down / up).
+ * macOS variant showing OS-specific key symbols.
  */
-export const ButtonOptions = {
+export const MacOS = {
   args: {
+    variant: "macOS",
     highlightPressed: true,
-    sequence: [{ all: ["cmd"] }, { any: ["down", "up"] }],
+    sequence: [{ all: ["Meta", "Shift", "K"] }],
   },
 } satisfies Story;
 
 /**
- * Example: duplicated keys in sequence.
+ * Skeleton loading state.
  */
-export const DuplicatedKeysInSequence = {
+export const Skeleton = {
   args: {
+    skeleton: true,
+    sequence: [{ all: ["Control", "C"] }],
+  },
+} satisfies Story;
+
+/**
+ * Disabled shortcut preventing keyboard interaction.
+ */
+export const Disabled = {
+  args: {
+    sequence: [{ all: ["Control", "S"] }],
+    disabled: true,
     highlightPressed: true,
-    sequence: [{ all: ["ctrl", "c"] }, { all: ["ctrl", "d"] }],
   },
 } satisfies Story;

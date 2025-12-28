@@ -31,3 +31,23 @@ export const detectOperatingSystem = (): OperatingSystem => {
   }
   return "generic";
 };
+
+/**
+ * Checks whether the given element is a typeable element (e.g. input, textarea, or contenteditable).
+ */
+export const isTypeableElement = (element: Element | null): boolean => {
+  if (!(element instanceof HTMLElement)) return false;
+
+  if (element.isContentEditable) return true;
+
+  const tag = element.tagName.toLowerCase();
+
+  if (tag === "textarea") return true;
+
+  if (tag === "input" && "type" in element) {
+    const type = element.type;
+    return !["checkbox", "radio", "button", "submit", "range", "file"].includes(String(type));
+  }
+
+  return false;
+};

@@ -7,14 +7,15 @@ export default {};
 </script>
 
 <script setup lang="ts">
-import { toRef } from "vue";
-import { _unstableUseShortcutSequence } from "../../composables/useShortcutSequence.js";
+import { toRefs } from "vue";
+import { _unstableUseShortcut } from "../../composables/useShortcut.js";
 import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
-import { isAllStep, isAnyStep } from "../../utils/shortcut.js";
+import { isAllStep, isAnyStep, type ShortcutStep } from "../../utils/shortcut.js";
 import OnyxKey from "../OnyxKey/OnyxKey.vue";
+import type { KeyboardKey } from "../OnyxKey/types.js";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxShortcutProps } from "./types.js";
 
@@ -27,6 +28,12 @@ const SEPARATORS = {
 const props = withDefaults(defineProps<OnyxShortcutProps>(), {
   variant: "auto",
   skeleton: SKELETON_INJECTED_SYMBOL,
+  preventDefaultOn: "stepComplete",
+  stopPropagationOn: "stepComplete",
+  disabled: false,
+  listenOnRepeat: false,
+  cleanupDelay: 5000,
+  highlightPressed: false,
 });
 
 const skeleton = useSkeletonContext(props);
@@ -35,13 +42,36 @@ const emit = defineEmits<{
   /**
    * Emitted when the shortcut sequence is successfully completed.
    */
-  shortcutActivated: [];
+  sequenceComplete: [key: KeyboardKey, event: KeyboardEvent];
+  /**
+   * Emitted when a step in the shortcut sequence is completed.
+   */
+  stepComplete: [step: ShortcutStep, stepIndex: number, key: KeyboardKey, event: KeyboardEvent];
 }>();
 
-const { isHighlightedKey } = _unstableUseShortcutSequence({
-  sequence: toRef(props, "sequence"),
-  listener: () => {
-    emit("shortcutActivated");
+const {
+  preventDefaultOn,
+  stopPropagationOn,
+  sequence,
+  listenOnRepeat,
+  disabled,
+  cleanupDelay,
+  element,
+} = toRefs(props);
+
+const { isKeyHighlighted } = _unstableUseShortcut({
+  element,
+  disabled,
+  sequence,
+  cleanupDelay,
+  listenOnRepeat,
+  preventDefaultOn,
+  stopPropagationOn,
+  onStepComplete: (...args) => {
+    emit("stepComplete", ...args);
+  },
+  onSequenceComplete: (...args) => {
+    emit("sequenceComplete", ...args);
   },
 });
 </script>
@@ -55,9 +85,12 @@ const { isHighlightedKey } = _unstableUseShortcutSequence({
           <OnyxKey
             :key-name="key"
             :variant="props.variant"
-            :pressed="props.highlightPressed && isHighlightedKey(key, stepIndex)"
+            :pressed="props.highlightPressed && isKeyHighlighted(key, stepIndex)"
           />
-          <span v-if="keyIndex < step.all.length - 1" class="onyx-shortcut__separator">
+          <span
+            v-if="keyIndex < step.all.length - 1 && !step.separatorHidden"
+            class="onyx-shortcut__separator"
+          >
             {{ SEPARATORS.ALL }}
           </span>
         </template>
@@ -68,9 +101,12 @@ const { isHighlightedKey } = _unstableUseShortcutSequence({
           <OnyxKey
             :key-name="key"
             :variant="props.variant"
-            :pressed="props.highlightPressed && isHighlightedKey(key, stepIndex)"
+            :pressed="props.highlightPressed && isKeyHighlighted(key, stepIndex)"
           />
-          <span v-if="keyIndex < step.any.length - 1" class="onyx-shortcut__separator">
+          <span
+            v-if="keyIndex < step.any.length - 1 && !step.separatorHidden"
+            class="onyx-shortcut__separator"
+          >
             {{ SEPARATORS.ANY }}
           </span>
         </template>
