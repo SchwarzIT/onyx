@@ -34,7 +34,7 @@ test.describe("Screenshot tests", () => {
     component: (column, row) => (
       <OnyxShortcut
         sequence={column === "simple" ? [{ all: simpleKeys }] : [{ all: complexKeys }]}
-        highlightPressed={row === "highlighted"}
+        highlightWhenPressed={row === "highlighted"}
         style={{ margin: "0.5rem" }}
       />
     ),
@@ -47,7 +47,7 @@ test.describe("Screenshot tests", () => {
     component: (column, row) => (
       <OnyxShortcut
         sequence={column === "simple" ? [{ any: simpleKeys }] : [{ any: complexKeys }]}
-        highlightPressed={row === "highlighted"}
+        highlightWhenPressed={row === "highlighted"}
         style={{ margin: "0.5rem" }}
       />
     ),
@@ -166,7 +166,7 @@ test.describe("Interaction tests", () => {
   }) => {
     // ARRANGE
     const component = await mount(
-      <OnyxShortcut sequence={[{ all: ["Control", "C"] }]} highlightPressed />,
+      <OnyxShortcut sequence={[{ all: ["Control", "C"] }]} highlightWhenPressed />,
     );
 
     // ACT
