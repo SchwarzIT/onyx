@@ -37,7 +37,7 @@ export type OnyxShortcutProps = {
    *
    * @default false
    */
-  highlightPressed?: boolean;
+  highlightWhenPressed?: boolean;
   /**
    * Whether to show a skeleton shortcut.
    */

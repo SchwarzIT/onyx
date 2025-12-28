@@ -428,13 +428,17 @@ export type OnyxKeyProps = {
    */
   variant?: OperatingSystem | "auto";
   /**
-   * Key press state (for visual effect)
+   * Key highlight state (for visual effect)
    *
    * @default false
    */
-  pressed?: boolean;
+  highlighted?: boolean;
   /**
    * Whether to show a skeleton key.
    */
   skeleton?: SkeletonInjected;
+  /**
+   * Whether to highlight the key when it is pressed.
+   */
+  highlightWhenPressed?: boolean;
 };
