@@ -209,7 +209,7 @@ const specificIgnoreConfig = {
 };
 
 const nuxtConfig = {
-  files: ["packages/nuxt*/**/*", "apps/demo-app/**/*"],
+  files: ["packages/nuxt*/**/*", "apps/demo-app/**/*", "apps/showcase/**/*"],
   rules: {
     "vue/multi-word-component-names": "off",
   },

@@ -2,8 +2,8 @@
 import { iconTranslate } from "@sit-onyx/icons";
 import { computed, ref } from "vue";
 import { injectI18n } from "../../../../i18n/index.js";
-import { OnyxSelectDialog } from "../../../../index.js";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
+import OnyxSelectDialog from "../../../OnyxSelectDialog/OnyxSelectDialog.vue";
 import OnyxMenuItem from "../OnyxMenuItem/OnyxMenuItem.vue";
 import type { OnyxCountryMenuItemProps } from "./types.js";
 

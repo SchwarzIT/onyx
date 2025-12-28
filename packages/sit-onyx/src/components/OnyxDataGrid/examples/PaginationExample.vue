@@ -17,7 +17,11 @@ const columns: ColumnConfig<TEntry>[] = [
   { key: "age", label: "Age" },
 ];
 
-const withPagination = DataGridFeatures.usePagination();
+const withPagination = DataGridFeatures.usePagination({
+  // optionally you can allow the user to change how many items per page are displayed
+  itemsPerPage: [5, 10, 25, 50, 100],
+});
+
 const features = [withPagination];
 </script>
 

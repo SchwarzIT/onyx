@@ -191,11 +191,23 @@ const footer = computed(() => {
     &__footer {
       width: 100%;
       max-width: 100%;
-      display: flex;
+      display: none;
       justify-content: space-between;
 
       gap: $footer-gap;
       color: var(--onyx-color-text-icons-neutral-soft);
+    }
+
+    // only show footer when it has visible content
+    &:has(.onyx-form-message__danger) {
+      .onyx-form-element__footer {
+        display: var(--error-message-display, none);
+      }
+    }
+    &:has(.onyx-form-message__neutral, .onyx-form-message__success, .onyx-form-element__counter) {
+      .onyx-form-element__footer {
+        display: flex;
+      }
     }
 
     &__footer-messages {

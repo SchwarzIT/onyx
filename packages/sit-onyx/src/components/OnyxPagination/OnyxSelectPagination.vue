@@ -126,6 +126,7 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
+@use "../../styles/mixins/text.scss";
 
 .onyx-pagination,
 .onyx-pagination-skeleton {
@@ -193,7 +194,7 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
 
       .onyx-select-input__native {
         // support growing select based on current page character count
-        width: calc(var(--onyx-pagination-character-count) * 1ch);
+        width: text.ch(var(--onyx-pagination-character-count));
       }
     }
 

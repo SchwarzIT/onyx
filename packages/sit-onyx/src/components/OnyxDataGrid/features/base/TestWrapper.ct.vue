@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import type { OnyxDataGridProps } from "../../../..";
-import { OnyxDataGrid } from "../../../..";
+import OnyxDataGrid from "../../OnyxDataGrid.vue";
+import type { OnyxDataGridProps } from "../../types.js";
 import { useFiltering, usePagination } from "../all.js";
 
 const props = defineProps<

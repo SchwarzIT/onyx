@@ -26,12 +26,12 @@ export const Default = {
 } satisfies Story;
 
 /**
- * Pressed state visualization.
+ * Highlighted state visualization.
  */
-export const Pressed = {
+export const Highlighted = {
   args: {
     keyName: "Enter",
-    pressed: true,
+    highlighted: true,
   },
 } satisfies Story;
 

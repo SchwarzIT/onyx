@@ -285,7 +285,7 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
         }
 
         .onyx-switch__spinner {
-          padding: var(--onyx-1px-in-rem);
+          --indicator-size: var(--onyx-switch-icon-size);
         }
       }
     }

@@ -18,7 +18,11 @@ export const useOpenDirection = (
     const overflowParentRect = findParentWithHiddenOverflow(el)?.getBoundingClientRect();
     const elementRect = el.getBoundingClientRect();
 
-    const parentTop = overflowParentRect?.top ?? window.visualViewport?.pageTop ?? 0;
+    /**
+     * In case there no parent with overflow hidden, we consider top as 0 and bottom as the viewport height,
+     * since `getBoundingClientRect` returns values relative to the viewport and not considering any scrolling.
+     */
+    const parentTop = overflowParentRect?.top ?? 0;
     const parentBottom = overflowParentRect?.bottom ?? window.visualViewport?.height ?? 0;
     const freeSpaceBelow = parentBottom - elementRect.bottom;
     const freeSpaceAbove = elementRect.top - parentTop;

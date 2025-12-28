@@ -1,5 +1,5 @@
-import { OnyxAccordionItem } from "../../index.js";
 import { expect, test } from "../../playwright/a11y.js";
+import OnyxAccordionItem from "../OnyxAccordionItem/OnyxAccordionItem.vue";
 
 test("should apply the disabled state", async ({ mount, page }) => {
   // ARRANGE

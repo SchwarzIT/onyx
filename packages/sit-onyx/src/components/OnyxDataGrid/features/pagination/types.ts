@@ -17,6 +17,8 @@ export type PaginationOptions = Pick<
   pageSize?: number;
   /**
    * The current pagination state. Can be used to e.g. set initial pagination state or pass a custom state (useful when async pagination is used).
+   *
+   * @default `{ current: 1, pageSize: 25, pages: "calculated-automatically" }`
    */
   paginationState?: Ref<PaginationState>;
   /**
@@ -37,6 +39,11 @@ export type PaginationOptions = Pick<
    * Should only be used if pagination is async.
    */
   loading?: Ref<boolean>;
+  /**
+   * A list of page sizes that can be selected by the user.
+   * If defined, a `OnyxItemsPerPage` component will be displayed in the bottom left slot of the data grid.
+   */
+  itemsPerPage?: number[];
 };
 
 export type PaginationState = {
@@ -50,6 +57,8 @@ export type PaginationState = {
   pages: number;
   /**
    * How many entries should be displayed per page.
+   *
+   * **NOTE** If the page size is changed, the current page will be reset to 1.
    */
   pageSize: number;
 };

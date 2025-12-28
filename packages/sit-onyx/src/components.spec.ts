@@ -295,12 +295,18 @@ const COMPONENTS: Components = {
   },
   OnyxUnstableKey: {
     props: {
-      keyName: "ctrl",
+      keyName: "Control",
     },
   },
   OnyxUnstableShortcut: {
     props: {
-      sequence: [{ all: ["ctrl", "c"] }],
+      sequence: [{ all: ["Control", "C"] }],
+    },
+  },
+  OnyxUnstableItemsPerPage: {
+    props: {
+      modelValue: 5,
+      options: [5, 10, 20, 30, 40, 75],
     },
   },
 };

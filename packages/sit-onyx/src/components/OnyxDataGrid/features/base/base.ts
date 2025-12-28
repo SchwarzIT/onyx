@@ -1,5 +1,5 @@
 import { computed, h, ref, toValue } from "vue";
-import { OnyxHeadline } from "../../../../index.js";
+import OnyxHeadline from "../../../OnyxHeadline/OnyxHeadline.vue";
 import type { DataGridHeadline } from "../../types.js";
 import { FILTERING_MUTATION_ORDER } from "../filtering/filtering.js";
 import { createFeature } from "../index.js";

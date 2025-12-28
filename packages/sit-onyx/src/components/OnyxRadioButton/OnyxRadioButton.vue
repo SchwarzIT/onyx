@@ -194,8 +194,7 @@ useAutofocus(input, props);
 
     &__loading {
       color: var(--onyx-color-text-icons-primary-intense);
-      width: var(--onyx-radio-button-selector-size);
-      height: var(--onyx-radio-button-selector-size);
+      --indicator-size: var(--onyx-radio-button-selector-size);
       margin: var(--onyx-radio-button-selector-margin);
     }
   }

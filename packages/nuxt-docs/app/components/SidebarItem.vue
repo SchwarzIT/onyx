@@ -1,41 +1,59 @@
 <script lang="ts" setup>
-import type { ContentNavigationItem } from "@nuxt/content";
+import type { SidebarNavigationItem } from "../composables/useSidebarNavigation.js";
 
 const props = defineProps<{
-  item: ContentNavigationItem;
+  item: SidebarNavigationItem;
 }>();
 
-const localePath = useLocalePath();
+const route = useRoute();
 
 const isAccordionOpen = ref(true);
+watch(
+  () => props.item.sidebar?.collapsed,
+  (collapsed) => {
+    isAccordionOpen.value = !collapsed;
+  },
+  { immediate: true },
+);
 
-const children = computed(() => {
-  // filter out children that are directories
-  return props.item.children?.filter((child) => child.page !== false);
+const isChildActive = computed(() => {
+  const isActive = (item: SidebarNavigationItem): boolean => {
+    if (item.path === route.path) return true;
+    return item.children?.some(isActive) ?? false;
+  };
+
+  // ensure accordion is open if any child route is currently active
+  return props.item.children?.some(isActive) ?? false;
 });
+
+watch(
+  isChildActive,
+  (isActive) => {
+    // ensure accordion is open if any child route is currently active
+    // e.g. when reloading the page or navigating via global search
+    if (isActive) isAccordionOpen.value = true;
+  },
+  { immediate: true },
+);
 </script>
 
 <template>
-  <OnyxSidebarItem v-if="!children" class="sidebar-item" :link="localePath(props.item.path)">
+  <OnyxSidebarItem v-if="!props.item.children?.length" class="sidebar-item" :link="props.item.path">
     {{ props.item.title }}
   </OnyxSidebarItem>
 
   <OnyxAccordion
     v-else
-    :model-value="isAccordionOpen ? [localePath(item.path)] : undefined"
+    :model-value="isAccordionOpen ? [props.item.path] : undefined"
     class="sidebar-accordion"
     type="nested-large"
     @update:model-value="isAccordionOpen = !isAccordionOpen"
   >
-    <OnyxAccordionItem :value="localePath(item.path)">
+    <OnyxAccordionItem :value="props.item.path">
       <template #header>{{ props.item.title }}</template>
 
       <div class="sidebar-item__children">
-        <OnyxSidebarItem
-          v-for="child in children"
-          :key="localePath(child.path)"
-          :link="localePath(child.path)"
-        >
+        <OnyxSidebarItem v-for="child in props.item.children" :key="child.path" :link="child.path">
           {{ child.title }}
         </OnyxSidebarItem>
       </div>

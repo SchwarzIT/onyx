@@ -214,6 +214,7 @@
     "hideFilesButton": "Hide all files",
     "revealFilesButton": "Show all files",
     "removeFile": "Remove file",
+    "requiredError": "You need to upload at least one file",
     "status": {
       "fileTypeError": "File with extension '.{extension}' is invalid",
       "fileSizeError": "File exceeds maximum allowed size of {size}",
@@ -267,5 +268,26 @@
       "select": "Select"
     },
     "system": "System"
+  },
+  "timepicker": {
+    "placeholder": {
+      "hour": "HH",
+      "minute": "MM",
+      "second": "SS"
+    },
+    "labels": {
+      "iconButton": "Open Timepicker",
+      "popover": "Timepicker Popover",
+      "hour": "Hour",
+      "minute": "Minute",
+      "second": "Second",
+      "listLabel": "Time options"
+    }
+  },
+  "itemsPerPage": {
+    "label": "Items per page",
+    "select": {
+      "listLabel": "Select number of items per page"
+    }
   }
 }

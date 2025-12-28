@@ -5,6 +5,10 @@ import OnyxDataGrid from "./OnyxDataGrid.vue";
 
 const props = defineProps<{
   /**
+   * If true, uses ellipsis truncation.
+   */
+  ellipsis: boolean;
+  /**
    * If true, no data is passed to the grid.
    */
   empty: boolean;
@@ -33,7 +37,7 @@ const data = computed<Entry[]>(() =>
     : [
         {
           id: 1,
-          name: "Alice",
+          name: "Pippilotta Delicatessa Windowshade Mackrelmint Efraimsdotter Longstocking",
           age: 30,
           birthday: new Date("1990-01-01"),
           nickname: "Al",
@@ -88,8 +92,14 @@ const columnGroups = computed(() =>
   <OnyxDataGrid
     :skeleton
     :data
+    :truncation="props.ellipsis ? 'ellipsis' : 'multiline'"
     :columns="[
-      { key: 'name', type: 'string', columnGroupKey: props.columnGroups ? 'gdpr' : undefined },
+      {
+        key: 'name',
+        type: 'string',
+        columnGroupKey: props.columnGroups ? 'gdpr' : undefined,
+        width: '200px',
+      },
       'favoriteColor',
       {
         key: 'age',
