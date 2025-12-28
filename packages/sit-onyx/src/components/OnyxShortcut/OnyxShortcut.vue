@@ -85,7 +85,7 @@ const { isKeyHighlighted } = _unstableUseShortcut({
           <OnyxKey
             :key-name="key"
             :variant="props.variant"
-            :pressed="props.highlightWhenPressed && isKeyHighlighted(key, stepIndex)"
+            :highlighted="props.highlightWhenPressed && isKeyHighlighted(key, stepIndex)"
           />
           <span
             v-if="keyIndex < step.all.length - 1 && !step.separatorHidden"
