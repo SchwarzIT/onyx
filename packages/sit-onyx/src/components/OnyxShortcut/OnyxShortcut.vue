@@ -33,7 +33,7 @@ const props = withDefaults(defineProps<OnyxShortcutProps>(), {
   disabled: false,
   listenOnRepeat: false,
   cleanupDelay: 5000,
-  highlightPressed: false,
+  highlightWhenPressed: false,
 });
 
 const skeleton = useSkeletonContext(props);
@@ -85,7 +85,7 @@ const { isKeyHighlighted } = _unstableUseShortcut({
           <OnyxKey
             :key-name="key"
             :variant="props.variant"
-            :pressed="props.highlightPressed && isKeyHighlighted(key, stepIndex)"
+            :pressed="props.highlightWhenPressed && isKeyHighlighted(key, stepIndex)"
           />
           <span
             v-if="keyIndex < step.all.length - 1 && !step.separatorHidden"
@@ -101,7 +101,7 @@ const { isKeyHighlighted } = _unstableUseShortcut({
           <OnyxKey
             :key-name="key"
             :variant="props.variant"
-            :pressed="props.highlightPressed && isKeyHighlighted(key, stepIndex)"
+            :highlighted="props.highlightWhenPressed && isKeyHighlighted(key, stepIndex)"
           />
           <span
             v-if="keyIndex < step.any.length - 1 && !step.separatorHidden"

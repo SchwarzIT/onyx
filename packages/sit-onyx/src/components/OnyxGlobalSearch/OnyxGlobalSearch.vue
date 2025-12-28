@@ -16,6 +16,7 @@ import { useForwardProps } from "../../utils/props.js";
 import OnyxBasicDialog from "../OnyxBasicDialog/OnyxBasicDialog.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxInput from "../OnyxInput/OnyxInput.vue";
+import OnyxKey from "../OnyxKey/OnyxKey.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import { GLOBAL_SEARCH_INJECTION_KEY, type OnyxGlobalSearchProps } from "./types.js";
 
@@ -180,22 +181,26 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
     <!-- TODO: replace keyboard shortcuts with OnyxShortcut component once implemented -->
     <div v-show="!!slots.default" class="onyx-global-search__footer onyx-text--small">
       <span class="onyx-global-search__shortcut">
-        <kbd>↑</kbd>
-        <kbd>↓</kbd>
+        <OnyxKey key-name="ArrowUp" highlight-when-pressed />
+        <OnyxKey key-name="ArrowDown" highlight-when-pressed />
         <span class="onyx-global-search__shortcut-label">
           {{ t("globalSearch.shortcuts.move") }}
         </span>
       </span>
 
       <span class="onyx-global-search__shortcut">
-        <kbd>↵</kbd>
+        <OnyxKey
+          key-name="Enter"
+          highlight-when-pressed
+          @press-match="emit('update:open', false)"
+        />
         <span class="onyx-global-search__shortcut-label">
           {{ t("globalSearch.shortcuts.select") }}
         </span>
       </span>
 
       <span class="onyx-global-search__shortcut">
-        <kbd>ESC</kbd>
+        <OnyxKey key-name="Escape" highlight-when-pressed />
         <span class="onyx-global-search__shortcut-label"> {{ t("cancel") }}</span>
       </span>
     </div>

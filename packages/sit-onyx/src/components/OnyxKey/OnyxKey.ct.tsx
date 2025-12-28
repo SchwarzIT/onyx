@@ -24,7 +24,7 @@ test.describe("Screenshot tests", () => {
     name: "Key (misc keys)",
     columns: MISC_KEYS,
     component: (column, row) => (
-      <OnyxKey keyName={column} pressed={row === "pressed"} style={{ margin: "0.25rem" }} />
+      <OnyxKey keyName={column} highlighted={row === "pressed"} style={{ margin: "0.25rem" }} />
     ),
   });
 
@@ -33,7 +33,7 @@ test.describe("Screenshot tests", () => {
     name: "Key (media keys)",
     columns: MEDIA_KEYS,
     component: (column, row) => (
-      <OnyxKey keyName={column} pressed={row === "pressed"} style={{ margin: "0.25rem" }} />
+      <OnyxKey keyName={column} highlighted={row === "pressed"} style={{ margin: "0.25rem" }} />
     ),
   });
 
@@ -42,7 +42,7 @@ test.describe("Screenshot tests", () => {
     name: "Key (numpad keys)",
     columns: NUMPAD_KEYS,
     component: (column, row) => (
-      <OnyxKey keyName={column} pressed={row === "pressed"} style={{ margin: "0.25rem" }} />
+      <OnyxKey keyName={column} highlighted={row === "pressed"} style={{ margin: "0.25rem" }} />
     ),
   });
 
@@ -51,7 +51,7 @@ test.describe("Screenshot tests", () => {
     name: "Key (symbol keys)",
     columns: SYMBOL_KEYS,
     component: (column, row) => (
-      <OnyxKey keyName={column} pressed={row === "pressed"} style={{ margin: "0.25rem" }} />
+      <OnyxKey keyName={column} highlighted={row === "pressed"} style={{ margin: "0.25rem" }} />
     ),
   });
 
@@ -60,7 +60,7 @@ test.describe("Screenshot tests", () => {
     name: "Key (numeric keys)",
     columns: NUMERIC_KEYS,
     component: (column, row) => (
-      <OnyxKey keyName={column} pressed={row === "pressed"} style={{ margin: "0.25rem" }} />
+      <OnyxKey keyName={column} highlighted={row === "pressed"} style={{ margin: "0.25rem" }} />
     ),
   });
 
@@ -69,7 +69,7 @@ test.describe("Screenshot tests", () => {
     name: "Key (functional keys)",
     columns: FUNCTION_KEYS,
     component: (column, row) => (
-      <OnyxKey keyName={column} pressed={row === "pressed"} style={{ margin: "0.25rem" }} />
+      <OnyxKey keyName={column} highlighted={row === "pressed"} style={{ margin: "0.25rem" }} />
     ),
   });
 
@@ -78,7 +78,7 @@ test.describe("Screenshot tests", () => {
     name: "Key (modifier keys)",
     columns: MODIFIER_KEYS,
     component: (column, row) => (
-      <OnyxKey keyName={column} pressed={row === "pressed"} style={{ margin: "0.25rem" }} />
+      <OnyxKey keyName={column} highlighted={row === "pressed"} style={{ margin: "0.25rem" }} />
     ),
   });
 
@@ -87,7 +87,7 @@ test.describe("Screenshot tests", () => {
     name: "Key (navigation keys)",
     columns: NAVIGATION_KEYS,
     component: (column, row) => (
-      <OnyxKey keyName={column} pressed={row === "pressed"} style={{ margin: "0.25rem" }} />
+      <OnyxKey keyName={column} highlighted={row === "pressed"} style={{ margin: "0.25rem" }} />
     ),
   });
 
@@ -96,7 +96,7 @@ test.describe("Screenshot tests", () => {
     name: "Key (alphabetic keys)",
     columns: ALPHABETIC_KEYS,
     component: (column, row) => (
-      <OnyxKey keyName={column} pressed={row === "pressed"} style={{ margin: "0.25rem" }} />
+      <OnyxKey keyName={column} highlighted={row === "pressed"} style={{ margin: "0.25rem" }} />
     ),
   });
 

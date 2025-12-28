@@ -8,7 +8,7 @@ export default {};
 
 <script setup lang="ts">
 import { useGlobalEventListener } from "@sit-onyx/headless";
-import { computed, onBeforeMount, ref } from "vue";
+import { computed, onBeforeMount, onBeforeUnmount, ref } from "vue";
 import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
@@ -27,8 +27,9 @@ import {
 
 const props = withDefaults(defineProps<OnyxKeyProps>(), {
   variant: "auto",
-  pressed: false,
+  highlighted: false,
   skeleton: SKELETON_INJECTED_SYMBOL,
+  highlightWhenPressed: false,
 });
 
 const emit = defineEmits<{
@@ -42,6 +43,8 @@ const skeleton = useSkeletonContext(props);
 
 const detectedOs = ref<OperatingSystem>("generic");
 
+const isPressed = ref(false);
+
 /**
  * Effective OS based on variant / auto-detect
  */
@@ -51,6 +54,10 @@ const effectiveOs = computed<OperatingSystem>(() => {
   }
   return detectedOs.value;
 });
+
+const isHighlighted = computed<boolean>(
+  () => props.highlighted || (props.highlightWhenPressed && isPressed.value),
+);
 
 onBeforeMount(() => {
   if (props.variant === "auto") {
@@ -78,10 +85,37 @@ const handleKeydown = (event: KeyboardEvent) => {
   const pressedKey = keyboardEventToKeyboardKey(event);
   if (pressedKey === props.keyName) {
     emit("pressMatch", pressedKey, event);
+    isPressed.value = true;
+  }
+};
+
+const resetPressedState = () => {
+  isPressed.value = false;
+};
+
+const handleKeyup = (event: KeyboardEvent) => {
+  const keyboardKey = keyboardEventToKeyboardKey(event);
+
+  if (
+    keyboardKey === props.keyName ||
+    (keyboardKey === "Meta" && (detectedOs.value === "macOS" || detectedOs.value === "generic"))
+  ) {
+    resetPressedState();
   }
 };
 
 useGlobalEventListener({ type: "keydown", listener: handleKeydown });
+useGlobalEventListener({ type: "keyup", listener: handleKeyup });
+
+onBeforeMount(() => {
+  window.addEventListener("blur", resetPressedState);
+  window.addEventListener("focus", resetPressedState);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("blur", resetPressedState);
+  window.removeEventListener("focus", resetPressedState);
+});
 </script>
 
 <template>
@@ -93,7 +127,7 @@ useGlobalEventListener({ type: "keydown", listener: handleKeydown });
       'onyx-key',
       'onyx-text',
       'onyx-text--monospace',
-      { 'onyx-key--pressed': props.pressed },
+      { 'onyx-key--highlighted': isHighlighted },
     ]"
   >
     {{ visualLabel }}
@@ -110,8 +144,8 @@ useGlobalEventListener({ type: "keydown", listener: handleKeydown });
     --onyx-key-border-color: var(--onyx-color-base-neutral-300);
     --onyx-key-border-radius: var(--onyx-radius-sm);
     --onyx-key-color: var(--onyx-color-text-icons-neutral-medium);
-    --onyx-key-background-pressed: var(--onyx-color-base-neutral-200);
-    --onyx-key-border-color-pressed: var(--onyx-color-base-neutral-400);
+    --onyx-key-background-highlighted: var(--onyx-color-base-neutral-200);
+    --onyx-key-border-color-highlighted: var(--onyx-color-base-neutral-400);
     --onyx-key-size: 1.5rem;
   }
 }
@@ -135,9 +169,9 @@ useGlobalEventListener({ type: "keydown", listener: handleKeydown });
     border-radius: var(--onyx-key-border-radius);
     color: var(--onyx-key-color);
 
-    &--pressed {
-      background-color: var(--onyx-key-background-pressed);
-      border-color: var(--onyx-key-border-color-pressed);
+    &--highlighted {
+      background-color: var(--onyx-key-background-highlighted);
+      border-color: var(--onyx-key-border-color-highlighted);
     }
   }
 }
