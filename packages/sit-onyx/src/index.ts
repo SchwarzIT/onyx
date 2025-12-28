@@ -291,7 +291,7 @@ export * from "./composables/scrollEnd.js";
 export * from "./composables/themeTransition.js";
 export * from "./composables/useFileSize.js";
 export * from "./composables/useLink.js";
-export * from "./composables/useShortcutSequence.js";
+export * from "./composables/useShortcut.js";
 export * from "./composables/useSkeletonState.js";
 
 export { provideI18n, type TranslationFunction } from "./i18n/index.js";
@@ -303,4 +303,5 @@ export * from "./components/illustrations/index.js";
 export * from "./composables/themeTransition.js";
 export * from "./utils/attrs.js";
 export * from "./utils/router.js";
+export * from "./utils/shortcut.js";
 export { normalizedIncludes } from "./utils/strings.js";

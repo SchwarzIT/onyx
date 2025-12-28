@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import { CANONICAL_KEYS } from "../../utils/shortcut.js";
+import { createAdvancedStoryExample } from "../../utils/storybook.js";
 import OnyxKey from "./OnyxKey.vue";
 
 /**
@@ -21,7 +21,7 @@ type Story = StoryObj<typeof OnyxKey>;
  */
 export const Default = {
   args: {
-    keyName: "enter",
+    keyName: "Enter",
   },
 } satisfies Story;
 
@@ -30,7 +30,7 @@ export const Default = {
  */
 export const Pressed = {
   args: {
-    keyName: "enter",
+    keyName: "Enter",
     pressed: true,
   },
 } satisfies Story;
@@ -41,56 +41,11 @@ export const Pressed = {
 export const Skeleton = {
   args: {
     skeleton: true,
-    keyName: "enter",
+    keyName: "Enter",
   },
 } satisfies Story;
 
 /**
- * Example: simple shortcut.
+ * Displays all available keys.
  */
-export const Shortcut = {
-  render: (args) => ({
-    components: { OnyxKey },
-    setup: () => ({ args }),
-    template: `
-      <div style="display: flex; gap: 0.5rem; align-items: center; color: var(--onyx-color-text-icons-neutral-medium);">
-        <OnyxKey v-bind="args" keyName="ctrl" />
-        <span>+</span>
-        <OnyxKey v-bind="args" keyName="shift" />
-        <span>+</span>
-        <OnyxKey v-bind="args" keyName="C" />
-      </div>
-    `,
-  }),
-  args: {
-    variant: "auto",
-  },
-} satisfies Story;
-
-/**
- * Displays all supported canonical keys from CANONICAL_KEYS.
- * Useful for visual verification of the mapping.
- */
-export const AllCanonicalKeys = {
-  render: (args) => {
-    const keys = CANONICAL_KEYS.filter((key) => key !== "unknown");
-
-    return {
-      components: { OnyxKey },
-      setup: () => ({ args, keys }),
-      template: `
-        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
-          <OnyxKey
-            v-for="key in keys"
-            :key="key"
-            v-bind="args"
-            :keyName="key"
-          />
-        </div>
-      `,
-    };
-  },
-  args: {
-    variant: "macOS",
-  },
-} satisfies Story;
+export const AllKeys = createAdvancedStoryExample("OnyxKey", "AllKeysExample") satisfies Story;

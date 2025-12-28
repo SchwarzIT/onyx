@@ -1,335 +1,364 @@
-import { describe, expect, it } from "vitest";
-import {
-  CANONICAL_KEYS,
-  MAP_SPECIAL_KEY_TO_CANONICAL,
-  getCanonicalKeyFromEvent,
-  isAllStep,
-  isAnyStep,
-  isCanonicalSpecialKey,
-  toCanonicalKey,
-  type CanonicalKey,
-  type ShortCutAllStep,
-  type ShortCutAnyStep,
-  type ShortcutStep,
-} from "./shortcut.js";
+import { describe, expect, test } from "vitest";
+import type { KeyboardKey } from "../components/OnyxKey/types.js";
+import { keyboardEventToKeyboardKey } from "./shortcut.js";
 
-describe("CANONICAL_KEYS", () => {
-  it("should contain all expected special keys", () => {
-    const expectedKeys = [
-      "meta",
-      "control",
-      "alt",
-      "option",
-      "shift",
-      "enter",
-      "tab",
-      "backspace",
-      "caps-lock",
-      "fn",
-      "space",
-      "esc",
-      "up",
-      "down",
-      "left",
-      "right",
-      "delete",
-      "home",
-      "end",
-      "page-up",
-      "page-down",
-      "unknown",
-    ];
-
-    expect(CANONICAL_KEYS).toEqual(expectedKeys);
+const createKeyboardEvent = (key: string, code?: string): KeyboardEvent => {
+  return new KeyboardEvent("keydown", {
+    key,
+    code: code ?? "",
   });
-});
+};
 
-describe("toCanonicalKey", () => {
-  it.each([
-    // Empty/invalid inputs
-    { input: "", expected: "unknown" },
-    { input: "   ", expected: "unknown" },
-    { input: " ", expected: "space" },
+describe("keyboardEventToKeyboardKey", () => {
+  describe("Numeric keys (0-9)", () => {
+    test.each([
+      // Direct key property
+      { key: "0", code: undefined, expected: "0" },
+      { key: "5", code: undefined, expected: "5" },
+      { key: "9", code: undefined, expected: "9" },
+      // Via DigitX code fallback
+      { key: "0", code: "Digit0", expected: "0" },
+      { key: "!", code: "Digit1", expected: "1" },
+      { key: "@", code: "Digit2", expected: "2" },
+      { key: "9", code: "Digit9", expected: "9" },
+    ] as const)(
+      "should return $expected for key '$key' with code '$code'",
+      ({ key, code, expected }) => {
+        // ACT
+        const result = keyboardEventToKeyboardKey(createKeyboardEvent(key, code));
 
-    // Meta/Command keys
-    { input: "cmd", expected: "meta" },
-    { input: "command", expected: "meta" },
-    { input: "win", expected: "meta" },
-    { input: "windows", expected: "meta" },
-    { input: "meta", expected: "meta" },
-
-    // Control keys
-    { input: "control", expected: "control" },
-    { input: "ctl", expected: "control" },
-    { input: "ctrl", expected: "control" },
-    { input: "CTRL", expected: "control" },
-
-    // Alt/Option keys
-    { input: "alt", expected: "alt" },
-    { input: "option", expected: "option" },
-    { input: "ALT", expected: "alt" },
-
-    // Enter/Return
-    { input: "return", expected: "enter" },
-    { input: "enter", expected: "enter" },
-    { input: "ENTER", expected: "enter" },
-
-    // Backspace
-    { input: "bksp", expected: "backspace" },
-    { input: "back", expected: "backspace" },
-    { input: "backspace", expected: "backspace" },
-
-    // Caps Lock
-    { input: "caps", expected: "caps-lock" },
-    { input: "caps-lock", expected: "caps-lock" },
-
-    // Escape
-    { input: "esc", expected: "esc" },
-    { input: "escape", expected: "esc" },
-
-    // Tab
-    { input: "tab", expected: "tab" },
-    { input: "tabulator", expected: "tab" },
-
-    // Space
-    { input: "space", expected: "space" },
-
-    // Delete
-    { input: "del", expected: "delete" },
-    { input: "delete", expected: "delete" },
-
-    // Navigation
-    { input: "home", expected: "home" },
-    { input: "end", expected: "end" },
-    { input: "pageup", expected: "page-up" },
-    { input: "pagedown", expected: "page-down" },
-    { input: "page-up", expected: "page-up" },
-    { input: "page-down", expected: "page-down" },
-
-    // Arrow keys
-    { input: "up", expected: "up" },
-    { input: "down", expected: "down" },
-    { input: "left", expected: "left" },
-    { input: "right", expected: "right" },
-    { input: "arrowup", expected: "up" },
-    { input: "arrowdown", expected: "down" },
-    { input: "arrowleft", expected: "left" },
-    { input: "arrowright", expected: "right" },
-    { input: "↑", expected: "up" },
-    { input: "↓", expected: "down" },
-    { input: "←", expected: "left" },
-    { input: "→", expected: "right" },
-
-    // Function key
-    { input: "fn", expected: "fn" },
-
-    // Unknown
-    { input: "unknown", expected: "unknown" },
-
-    // Non-special keys (should be lowercased)
-    { input: "A", expected: "a" },
-    { input: "F1", expected: "F1" },
-    { input: "1", expected: "1" },
-    { input: "!", expected: "!" },
-  ])("should normalize '$input' to '$expected'", ({ input, expected }) => {
-    expect(toCanonicalKey(input)).toBe(expected);
-  });
-});
-
-describe("isCanonicalSpecialKey", () => {
-  it.each([
-    { key: "meta", expected: true },
-    { key: "control", expected: true },
-    { key: "alt", expected: true },
-    { key: "shift", expected: true },
-    { key: "enter", expected: true },
-    { key: "space", expected: true },
-    { key: "up", expected: true },
-    { key: "down", expected: true },
-    { key: "left", expected: true },
-    { key: "right", expected: true },
-    { key: "unknown", expected: true },
-  ])("should return $expected for canonical key '$key'", ({ key, expected }) => {
-    expect(isCanonicalSpecialKey(key)).toBe(expected);
+        // ASSERT
+        expect(result).toBe(expected);
+      },
+    );
   });
 
-  it.each([
-    { key: "a", expected: false },
-    { key: "F1", expected: false },
-    { key: "1", expected: false },
-    { key: "!", expected: false },
-    { key: "ctrl", expected: false }, // This is not canonical (should be "control")
-    { key: "", expected: false },
-  ])("should return $expected for non-canonical key '$key'", ({ key, expected }) => {
-    expect(isCanonicalSpecialKey(key)).toBe(expected);
-  });
-});
+  describe("Alphabetic keys (A-Z)", () => {
+    test.each([
+      // Uppercase letters
+      { key: "A", expected: "A" },
+      { key: "M", expected: "M" },
+      { key: "Z", expected: "Z" },
+      // Lowercase to uppercase normalization
+      { key: "a", expected: "A" },
+      { key: "m", expected: "M" },
+      { key: "z", expected: "Z" },
+    ] as const)("should return $expected for key '$key'", ({ key, expected }) => {
+      // ACT
+      const result = keyboardEventToKeyboardKey(createKeyboardEvent(key));
 
-describe("getCanonicalKeyFromEvent", () => {
-  const createKeyboardEvent = (key: string, code?: string): KeyboardEvent => {
-    return new KeyboardEvent("keydown", { key, code });
-  };
-
-  it("should return 'unknown' for empty key", () => {
-    const event = createKeyboardEvent("");
-    expect(getCanonicalKeyFromEvent(event)).toBe("unknown");
-  });
-
-  it("should return 'space' for space character", () => {
-    const event = createKeyboardEvent(" ");
-    expect(getCanonicalKeyFromEvent(event)).toBe("space");
-  });
-
-  it.each([
-    { key: "Control", expected: "control" },
-    { key: "Shift", expected: "shift" },
-    { key: "Alt", expected: "alt" },
-    { key: "Meta", expected: "meta" },
-    { key: "Enter", expected: "enter" },
-    { key: "Tab", expected: "tab" },
-    { key: "Escape", expected: "esc" },
-    { key: "Backspace", expected: "backspace" },
-    { key: "Delete", expected: "delete" },
-    { key: "ArrowUp", expected: "up" },
-    { key: "ArrowDown", expected: "down" },
-    { key: "ArrowLeft", expected: "left" },
-    { key: "ArrowRight", expected: "right" },
-    { key: "Home", expected: "home" },
-    { key: "End", expected: "end" },
-    { key: "PageUp", expected: "page-up" },
-    { key: "PageDown", expected: "page-down" },
-  ])("should map special key '$key' to '$expected'", ({ key, expected }) => {
-    const event = createKeyboardEvent(key);
-    expect(getCanonicalKeyFromEvent(event)).toBe(expected);
-  });
-
-  it.each([
-    { key: "@", code: "Digit2", expected: "2" },
-    { key: "!", code: "Digit1", expected: "1" },
-    { key: "#", code: "Digit3", expected: "3" },
-    { key: "$", code: "Digit4", expected: "4" },
-    { key: "%", code: "Digit5", expected: "5" },
-    { key: "^", code: "Digit6", expected: "6" },
-    { key: "&", code: "Digit7", expected: "7" },
-    { key: "*", code: "Digit8", expected: "8" },
-    { key: "(", code: "Digit9", expected: "9" },
-    { key: ")", code: "Digit0", expected: "0" },
-  ])(
-    "should use code for digit keys: key='$key', code='$code' -> '$expected'",
-    ({ key, code, expected }) => {
-      const event = createKeyboardEvent(key, code);
-      expect(getCanonicalKeyFromEvent(event)).toBe(expected);
-    },
-  );
-
-  it.each([
-    { key: "1", code: "Numpad1", expected: "1" },
-    { key: "2", code: "Numpad2", expected: "2" },
-    { key: "3", code: "Numpad3", expected: "3" },
-    { key: "4", code: "Numpad4", expected: "4" },
-    { key: "5", code: "Numpad5", expected: "5" },
-    { key: "6", code: "Numpad6", expected: "6" },
-    { key: "7", code: "Numpad7", expected: "7" },
-    { key: "8", code: "Numpad8", expected: "8" },
-    { key: "9", code: "Numpad9", expected: "9" },
-    { key: "0", code: "Numpad0", expected: "0" },
-  ])(
-    "should handle numpad keys: key='$key', code='$code' -> '$expected'",
-    ({ key, code, expected }) => {
-      const event = createKeyboardEvent(key, code);
-      expect(getCanonicalKeyFromEvent(event)).toBe(expected);
-    },
-  );
-
-  it.each([
-    { key: "F1", expected: "F1" },
-    { key: "F2", expected: "F2" },
-    { key: "F10", expected: "F10" },
-    { key: "F12", expected: "F12" },
-    { key: "f1", expected: "F1" },
-    { key: "f12", expected: "F12" },
-  ])("should handle function keys: '$key' -> '$expected'", ({ key, expected }) => {
-    const event = createKeyboardEvent(key);
-    expect(getCanonicalKeyFromEvent(event)).toBe(expected);
-  });
-
-  it.each([
-    { key: "a", expected: "a" },
-    { key: "Z", expected: "Z" },
-    { key: "1", expected: "1" },
-    { key: "!", expected: "!" },
-    { key: "@", expected: "@" },
-    { key: "?", expected: "?" },
-  ])(
-    "should pass through single printable characters: '$key' -> '$expected'",
-    ({ key, expected }) => {
-      const event = createKeyboardEvent(key);
-      expect(getCanonicalKeyFromEvent(event)).toBe(expected);
-    },
-  );
-
-  it("should fall back to toCanonicalKey for unknown multi-character keys", () => {
-    const event = createKeyboardEvent("SomeUnknownKey");
-    expect(getCanonicalKeyFromEvent(event)).toBe("someunknownkey");
-  });
-});
-
-describe("isAllStep", () => {
-  it("should return true for all steps", () => {
-    const allStep: ShortCutAllStep = { all: ["ctrl", "c"] };
-    expect(isAllStep(allStep)).toBe(true);
-  });
-
-  it("should return false for any steps", () => {
-    const anyStep: ShortCutAnyStep = { any: ["enter", "space"] };
-    expect(isAllStep(anyStep)).toBe(false);
-  });
-});
-
-describe("isAnyStep", () => {
-  it("should return true for any steps", () => {
-    const anyStep: ShortCutAnyStep = { any: ["enter", "space"] };
-    expect(isAnyStep(anyStep)).toBe(true);
-  });
-
-  it("should return false for all steps", () => {
-    const allStep: ShortCutAllStep = { all: ["ctrl", "c"] };
-    expect(isAnyStep(allStep)).toBe(false);
-  });
-});
-
-describe("MAP_SPECIAL_KEY_TO_CANONICAL", () => {
-  it("should contain all expected mappings", () => {
-    // Test a few key mappings to ensure the map is correctly structured
-    expect(MAP_SPECIAL_KEY_TO_CANONICAL["ctrl"]).toBe("control");
-    expect(MAP_SPECIAL_KEY_TO_CANONICAL["cmd"]).toBe("meta");
-    expect(MAP_SPECIAL_KEY_TO_CANONICAL["alt"]).toBe("alt");
-    expect(MAP_SPECIAL_KEY_TO_CANONICAL["return"]).toBe("enter");
-    expect(MAP_SPECIAL_KEY_TO_CANONICAL["esc"]).toBe("esc");
-    expect(MAP_SPECIAL_KEY_TO_CANONICAL["arrowup"]).toBe("up");
-    expect(MAP_SPECIAL_KEY_TO_CANONICAL["↑"]).toBe("up");
-  });
-
-  it("should have consistent values that are all canonical keys", () => {
-    const values = Object.values(MAP_SPECIAL_KEY_TO_CANONICAL);
-    values.forEach((value) => {
-      expect(CANONICAL_KEYS).toContain(value as CanonicalKey);
+      // ASSERT
+      expect(result).toBe(expected);
     });
   });
-});
 
-describe("Type definitions", () => {
-  it("should correctly type ShortcutStep union", () => {
-    const allStep: ShortcutStep = { all: ["ctrl", "c"] };
-    const anyStep: ShortcutStep = { any: ["enter", "space"] };
+  describe("Symbol keys", () => {
+    test.each([
+      // Space special case
+      { key: " ", expected: "Space" },
+      // Common symbols
+      { key: "!", expected: "!" },
+      { key: "@", expected: "@" },
+      { key: "#", expected: "#" },
+      { key: "$", expected: "$" },
+      { key: "%", expected: "%" },
+      { key: "^", expected: "^" },
+      { key: "&", expected: "&" },
+      { key: "*", expected: "*" },
+      { key: "(", expected: "(" },
+      { key: ")", expected: ")" },
+      // Punctuation symbols
+      { key: "-", expected: "-" },
+      { key: "_", expected: "_" },
+      { key: "=", expected: "=" },
+      { key: "+", expected: "+" },
+      { key: "[", expected: "[" },
+      { key: "]", expected: "]" },
+      { key: "{", expected: "{" },
+      { key: "}", expected: "}" },
+      { key: ";", expected: ";" },
+      { key: ":", expected: ":" },
+      { key: "'", expected: "'" },
+      { key: '"', expected: '"' },
+      { key: ",", expected: "," },
+      { key: ".", expected: "." },
+      { key: "/", expected: "/" },
+      { key: "?", expected: "?" },
+      { key: "`", expected: "`" },
+      { key: "~", expected: "~" },
+      { key: "\\", expected: "\\" },
+    ] as const)("should return $expected for key '$key'", ({ key, expected }) => {
+      // ACT
+      const result = keyboardEventToKeyboardKey(createKeyboardEvent(key));
 
-    // Type guards should work correctly
-    if (isAllStep(allStep)) {
-      expect(allStep.all).toEqual(["ctrl", "c"]);
-    }
+      // ASSERT
+      expect(result).toBe(expected);
+    });
+  });
 
-    if (isAnyStep(anyStep)) {
-      expect(anyStep.any).toEqual(["enter", "space"]);
-    }
+  describe("Navigation keys", () => {
+    test.each([
+      // Arrow keys
+      { key: "ArrowUp", expected: "ArrowUp" },
+      { key: "ArrowDown", expected: "ArrowDown" },
+      { key: "ArrowLeft", expected: "ArrowLeft" },
+      { key: "ArrowRight", expected: "ArrowRight" },
+      // Page navigation
+      { key: "Home", expected: "Home" },
+      { key: "End", expected: "End" },
+      { key: "PageUp", expected: "PageUp" },
+      { key: "PageDown", expected: "PageDown" },
+      // Case-insensitive
+      { key: "arrowup", expected: "ArrowUp" },
+      { key: "home", expected: "Home" },
+      { key: "PAGEDOWN", expected: "PageDown" },
+    ] as const)("should return $expected for key '$key'", ({ key, expected }) => {
+      // ACT
+      const result = keyboardEventToKeyboardKey(createKeyboardEvent(key));
+
+      // ASSERT
+      expect(result).toBe(expected);
+    });
+  });
+
+  describe("Editing keys", () => {
+    test.each([
+      // Standard editing keys
+      { key: "Backspace", expected: "Backspace" },
+      { key: "Delete", expected: "Delete" },
+      { key: "Insert", expected: "Insert" },
+      { key: "Enter", expected: "Enter" },
+      { key: "Tab", expected: "Tab" },
+      { key: "Escape", expected: "Escape" },
+      // Case-insensitive
+      { key: "backspace", expected: "Backspace" },
+      { key: "ENTER", expected: "Enter" },
+      { key: "escape", expected: "Escape" },
+    ] as const)("should return $expected for key '$key'", ({ key, expected }) => {
+      // ACT
+      const result = keyboardEventToKeyboardKey(createKeyboardEvent(key));
+
+      // ASSERT
+      expect(result).toBe(expected);
+    });
+  });
+
+  describe("Modifier keys", () => {
+    test.each([
+      // Standard modifiers
+      { key: "Shift", expected: "Shift" },
+      { key: "Control", expected: "Control" },
+      { key: "Alt", expected: "Alt" },
+      { key: "Meta", expected: "Meta" },
+      { key: "AltGraph", expected: "AltGraph" },
+      { key: "CapsLock", expected: "CapsLock" },
+      { key: "NumLock", expected: "NumLock" },
+      { key: "ScrollLock", expected: "ScrollLock" },
+      // Case-insensitive
+      { key: "shift", expected: "Shift" },
+      { key: "CONTROL", expected: "Control" },
+      { key: "alt", expected: "Alt" },
+    ] as const)("should return $expected for key '$key'", ({ key, expected }) => {
+      // ACT
+      const result = keyboardEventToKeyboardKey(createKeyboardEvent(key));
+
+      // ASSERT
+      expect(result).toBe(expected);
+    });
+  });
+
+  describe("Function keys (F1-F12)", () => {
+    test.each([
+      // Standard function keys
+      { key: "F1", expected: "F1" },
+      { key: "F5", expected: "F5" },
+      { key: "F12", expected: "F12" },
+      // Lowercase
+      { key: "f1", expected: "F1" },
+      { key: "f10", expected: "F10" },
+      { key: "f12", expected: "F12" },
+      // Invalid function keys
+      { key: "F13", expected: "unknown" },
+      { key: "F0", expected: "unknown" },
+      { key: "F99", expected: "unknown" },
+    ] as const)("should return $expected for key '$key'", ({ key, expected }) => {
+      // ACT
+      const result = keyboardEventToKeyboardKey(createKeyboardEvent(key));
+
+      // ASSERT
+      expect(result).toBe(expected);
+    });
+  });
+
+  describe("Numpad keys", () => {
+    test.each([
+      // Numpad numbers via code
+      { key: "0", code: "Numpad0", expected: "Numpad0" },
+      { key: "5", code: "Numpad5", expected: "Numpad5" },
+      { key: "9", code: "Numpad9", expected: "Numpad9" },
+      // Numpad operations via code
+      { key: "+", code: "NumpadAdd", expected: "NumpadAdd" },
+      { key: "-", code: "NumpadSubtract", expected: "NumpadSubtract" },
+      { key: "*", code: "NumpadMultiply", expected: "NumpadMultiply" },
+      { key: "/", code: "NumpadDivide", expected: "NumpadDivide" },
+      { key: ".", code: "NumpadDecimal", expected: "NumpadDecimal" },
+      { key: "Enter", code: "NumpadEnter", expected: "NumpadEnter" },
+      // Direct numpad key values
+      { key: "Numpad0", code: undefined, expected: "Numpad0" },
+      { key: "NumpadAdd", code: undefined, expected: "NumpadAdd" },
+      { key: "NumpadEnter", code: undefined, expected: "NumpadEnter" },
+    ] as const)(
+      "should return $expected for key '$key' with code '$code'",
+      ({ key, code, expected }) => {
+        // ACT
+        const result = keyboardEventToKeyboardKey(createKeyboardEvent(key, code));
+
+        // ASSERT
+        expect(result).toBe(expected);
+      },
+    );
+  });
+
+  describe("Media keys", () => {
+    test.each([
+      // Standard media keys
+      { key: "AudioVolumeMute", expected: "AudioVolumeMute" },
+      { key: "AudioVolumeDown", expected: "AudioVolumeDown" },
+      { key: "AudioVolumeUp", expected: "AudioVolumeUp" },
+      { key: "MediaTrackNext", expected: "MediaTrackNext" },
+      { key: "MediaTrackPrevious", expected: "MediaTrackPrevious" },
+      { key: "MediaStop", expected: "MediaStop" },
+      { key: "MediaPlayPause", expected: "MediaPlayPause" },
+      // Case-insensitive
+      { key: "audiovolumemute", expected: "AudioVolumeMute" },
+      { key: "MEDIATRACKNEXT", expected: "MediaTrackNext" },
+    ] as const)("should return $expected for key '$key'", ({ key, expected }) => {
+      // ACT
+      const result = keyboardEventToKeyboardKey(createKeyboardEvent(key));
+
+      // ASSERT
+      expect(result).toBe(expected);
+    });
+  });
+
+  describe("Misc keys", () => {
+    test.each([
+      // Standard misc keys
+      { key: "PrintScreen", expected: "PrintScreen" },
+      { key: "Pause", expected: "Pause" },
+      { key: "ContextMenu", expected: "ContextMenu" },
+      { key: "Clear", expected: "Clear" },
+      { key: "Select", expected: "Select" },
+      { key: "Undo", expected: "Undo" },
+      { key: "Redo", expected: "Redo" },
+      { key: "Help", expected: "Help" },
+      // Case-insensitive
+      { key: "printscreen", expected: "PrintScreen" },
+      { key: "CONTEXTMENU", expected: "ContextMenu" },
+    ] as const)("should return $expected for key '$key'", ({ key, expected }) => {
+      // ACT
+      const result = keyboardEventToKeyboardKey(createKeyboardEvent(key));
+
+      // ASSERT
+      expect(result).toBe(expected);
+    });
+  });
+
+  describe("Edge cases and unknown keys", () => {
+    test.each([
+      // Empty and unrecognized keys
+      { key: "", code: undefined, expected: "unknown", description: "empty key" },
+      { key: "UnknownKey", code: undefined, expected: "unknown", description: "unrecognized key" },
+      { key: "RandomString", code: undefined, expected: "unknown", description: "random string" },
+      { key: "🎉", code: undefined, expected: "unknown", description: "emoji" },
+      // Multi-character non-keyboard strings
+      { key: "ABC", code: undefined, expected: "unknown", description: "multi-char uppercase" },
+      { key: "hello", code: undefined, expected: "unknown", description: "multi-char lowercase" },
+      // Invalid Digit codes
+      { key: "x", code: "DigitA", expected: "unknown", description: "invalid DigitA code" },
+      { key: "y", code: "Digit", expected: "unknown", description: "incomplete Digit code" },
+      { key: "z", code: "Digit99", expected: "unknown", description: "invalid Digit99 code" },
+      // Invalid Numpad codes
+      { key: "x", code: "NumpadInvalid", expected: "unknown", description: "invalid Numpad code" },
+      { key: "y", code: "Numpad99", expected: "unknown", description: "invalid Numpad99 code" },
+      // Browser-specific variations
+      { key: "Esc", code: undefined, expected: "unknown", description: "browser Esc variant" },
+      { key: "Del", code: undefined, expected: "unknown", description: "browser Del variant" },
+      {
+        key: "Spacebar",
+        code: undefined,
+        expected: "unknown",
+        description: "browser Spacebar variant",
+      },
+      // Dead keys and composition
+      { key: "Dead", code: undefined, expected: "unknown", description: "dead key" },
+      {
+        key: "Unidentified",
+        code: undefined,
+        expected: "unknown",
+        description: "unidentified key",
+      },
+      // Legacy key codes
+      { key: "Left", code: undefined, expected: "unknown", description: "legacy Left" },
+      { key: "Right", code: undefined, expected: "unknown", description: "legacy Right" },
+      { key: "Up", code: undefined, expected: "unknown", description: "legacy Up" },
+      { key: "Down", code: undefined, expected: "unknown", description: "legacy Down" },
+      // International layouts
+      { key: "ä", code: "KeyA", expected: "unknown", description: "German umlaut" },
+      { key: "é", code: "KeyE", expected: "unknown", description: "French accent" },
+    ] as const)("should return $expected for $description", ({ key, code, expected }) => {
+      // ACT
+      const result = keyboardEventToKeyboardKey(createKeyboardEvent(key, code));
+
+      // ASSERT
+      expect(result).toBe(expected);
+    });
+
+    test("should return unknown for events without key property", () => {
+      // ARRANGE
+      const event = new KeyboardEvent("keydown", { code: "KeyA" });
+
+      // ACT
+      const result = keyboardEventToKeyboardKey(event);
+
+      // ASSERT
+      expect(result).toBe("unknown" as KeyboardKey);
+    });
+  });
+
+  describe("Case sensitivity and priority", () => {
+    test.each([
+      // Mixed case normalization
+      { key: "aRrOwUp", expected: "ArrowUp", description: "mixed case arrow" },
+      { key: "cOnTrOl", expected: "Control", description: "mixed case control" },
+      { key: "BaCkSpAcE", expected: "Backspace", description: "mixed case backspace" },
+      // Single character case preservation/normalization
+      { key: "A", expected: "A", description: "uppercase A" },
+      { key: "a", expected: "A", description: "lowercase a to uppercase" },
+      { key: "!", expected: "!", description: "symbol unchanged" },
+    ] as const)("should return $expected for $description", ({ key, expected }) => {
+      // ACT
+      const result = keyboardEventToKeyboardKey(createKeyboardEvent(key));
+
+      // ASSERT
+      expect(result).toBe(expected);
+    });
+  });
+
+  describe("Code fallback scenarios", () => {
+    test.each([
+      // Ambiguous key with code fallback
+      { key: "Process", code: "Digit5", expected: "5", description: "Process with Digit5" },
+      { key: "Process", code: "Numpad3", expected: "Numpad3", description: "Process with Numpad3" },
+      // Key/code priority conflicts (Digit code takes precedence)
+      { key: "!", code: "Digit1", expected: "1", description: "symbol ! with Digit1 code" },
+      { key: "@", code: "Digit2", expected: "2", description: "symbol @ with Digit2 code" },
+    ] as const)("should return $expected for $description", ({ key, code, expected }) => {
+      // ACT
+      const result = keyboardEventToKeyboardKey(createKeyboardEvent(key, code));
+
+      // ASSERT
+      expect(result).toBe(expected);
+    });
   });
 });
