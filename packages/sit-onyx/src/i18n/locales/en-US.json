@@ -294,5 +294,23 @@
   },
   "tableOfContents": {
     "label": "Table of contents"
+  },
+  "editor": {
+    "bold": "Bold",
+    "italic": "Italic",
+    "underline": "Underline",
+    "strike": "Strike through",
+    "alignments": {
+      "left": "Left aligned",
+      "center": "Centered",
+      "right": "Right aligned",
+      "block": "Block aligned"
+    },
+    "link": "Add link",
+    "code": "Code block",
+    "quote": "Quote",
+    "image": "Add image",
+    "undo": "Undo",
+    "redo": "Redo"
   }
 }
