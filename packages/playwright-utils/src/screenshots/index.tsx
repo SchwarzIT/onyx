@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/experimental-ct-vue";
+import { test as _test, expect } from "@playwright/experimental-ct-vue";
 import type { Locator, Page } from "@playwright/test";
 import type { JSX } from "vue/jsx-runtime";
 import { ScreenshotMatrix } from "./ScreenshotMatrix.js";
@@ -13,9 +13,11 @@ import { escapeGridAreaName } from "./utils.js";
  * Creates a screenshot utility that can be used to capture matrix screenshots.
  * Useful for capturing a single screenshot/image that contains multiple variants of a component.
  */
-export const useMatrixScreenshotTest = <TContext extends HookContext = HookContext>({
-  defaults,
-}: UseMatrixScreenshotTestOptions<TContext>) => {
+export const useMatrixScreenshotTest = <TContext extends HookContext = HookContext>(
+  globalOptions: UseMatrixScreenshotTestOptions<TContext>,
+) => {
+  const test = globalOptions.test ?? _test;
+
   const executeMatrixScreenshotTest = async <TColumn extends string, TRow extends string>(
     options: MatrixScreenshotTestOptions<TColumn, TRow, TContext>,
   ) => {
@@ -35,7 +37,13 @@ export const useMatrixScreenshotTest = <TContext extends HookContext = HookConte
         const component = await mount(element);
 
         // BEFORE hook
-        await defaults?.hooks?.beforeEach?.(component, page, column, row, options.context);
+        await globalOptions.defaults?.hooks?.beforeEach?.(
+          component,
+          page,
+          column,
+          row,
+          options.context,
+        );
         await options.hooks?.beforeEach?.(component, page, column, row, options.context);
 
         const screenshot = await component.screenshot({ animations: "disabled" });
@@ -47,7 +55,13 @@ export const useMatrixScreenshotTest = <TContext extends HookContext = HookConte
         const id = `${escapeGridAreaName(row)}-${escapeGridAreaName(column)}`;
 
         // AFTER hook
-        await defaults?.hooks?.afterEach?.(component, page, column, row, options.context);
+        await globalOptions.defaults?.hooks?.afterEach?.(
+          component,
+          page,
+          column,
+          row,
+          options.context,
+        );
         await options.hooks?.afterEach?.(component, page, column, row, options.context);
 
         return { box, id, screenshot };
@@ -58,7 +72,7 @@ export const useMatrixScreenshotTest = <TContext extends HookContext = HookConte
       for (const row of options.rows) {
         for (const column of options.columns) {
           const jsxElement = options.component(column, row);
-          const removePadding = options.removePadding ?? defaults?.removePadding;
+          const removePadding = options.removePadding ?? globalOptions.defaults?.removePadding;
 
           const wrappedElement = (
             <div
