@@ -54,7 +54,6 @@ const options = computed<SelectDialogOption<ColorSchemeValue>[]>(() => {
 <template>
   <OnyxSelectDialog
     class="onyx-color-scheme-dialog"
-    :model-value="props.modelValue"
     v-bind="selectDialogProps"
     :label="t('colorScheme.headline')"
     :options

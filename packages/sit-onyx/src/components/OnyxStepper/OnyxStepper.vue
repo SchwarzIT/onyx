@@ -161,7 +161,6 @@ useAutofocus(input, props);
     v-bind="rootAttrs"
   >
     <OnyxFormElement
-      :label="props.label"
       v-bind="formElementProps"
       :message="messages"
       :success-messages="successMessages"
