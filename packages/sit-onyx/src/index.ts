@@ -298,8 +298,13 @@ export * from "./composables/useSkeletonState.js";
 export { SKELETON_INJECTED_SYMBOL } from "./composables/useSkeletonState.js";
 export * from "./composables/useVModel.js";
 
-export { provideI18n, type TranslationFunction } from "./i18n/index.js";
-export type { OnyxTranslations, ProvideI18nOptions } from "./i18n/index.js";
+export {
+  injectI18n,
+  provideI18n,
+  type OnyxTranslations,
+  type ProvideI18nOptions,
+  type TranslationFunction,
+} from "./i18n/index.js";
 export * from "./types/index.js";
 export { createOnyx } from "./utils/plugin.js";
 

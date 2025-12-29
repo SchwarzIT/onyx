@@ -36,6 +36,7 @@
   },
   "peerDependencies": {
     "@sit-onyx/icons": "workspace:^",
+    "@tiptap/extension-text-align": ">= 3",
     "@tiptap/pm": ">= 3",
     "@tiptap/starter-kit": ">= 3",
     "@tiptap/vue-3": ">= 3",
@@ -46,6 +47,7 @@
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",
+    "@tiptap/extension-text-align": ">= 3",
     "@tiptap/pm": "^3.10.4",
     "@tiptap/starter-kit": "^3.10.4",
     "@tiptap/vue-3": "^3.10.4",

@@ -10,7 +10,10 @@ const systemButtonProps = useForwardProps(props, OnyxSystemButton);
 <template>
   <OnyxTooltip class="onyx-editor-toolbar-action" :text="props.label">
     <template #default="{ trigger }">
-      <OnyxSystemButton v-bind="mergeVueProps(systemButtonProps, trigger)" />
+      <OnyxSystemButton
+        v-bind="mergeVueProps(systemButtonProps, trigger)"
+        :class="{ active: props.active }"
+      />
     </template>
   </OnyxTooltip>
 </template>
@@ -21,6 +24,16 @@ const systemButtonProps = useForwardProps(props, OnyxSystemButton);
 .onyx-editor-toolbar-action {
   @include layers.component() {
     display: flex;
+  }
+
+  @include layers.override() {
+    .onyx-system-button {
+      &.active {
+        --color: var(--onyx-color-text-icons-primary-intense);
+        --hover-background-color: var(--onyx-color-base-primary-200);
+        --focus-active-background-color: var(--onyx-color-base-primary-200);
+      }
+    }
   }
 }
 </style>
