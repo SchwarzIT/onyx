@@ -14,7 +14,7 @@ import { escapeGridAreaName } from "./utils.js";
  * Useful for capturing a single screenshot/image that contains multiple variants of a component.
  */
 export const useMatrixScreenshotTest = <TContext extends HookContext = HookContext>(
-  globalOptions: UseMatrixScreenshotTestOptions<TContext>,
+  globalOptions: UseMatrixScreenshotTestOptions<TContext> = {},
 ) => {
   const test = globalOptions.test ?? _test;
 
