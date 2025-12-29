@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { computed } from "vue";
 import { injectI18n } from "../../../../i18n/index.js";
-import type { Nullable } from "../../../../types/utils.js";
 import { useForwardProps } from "../../../../utils/props.js";
 import OnyxSelectDialog from "../../../OnyxSelectDialog/OnyxSelectDialog.vue";
 import type { SelectDialogOption } from "../../../OnyxSelectDialog/types.js";
@@ -22,7 +21,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the dialog should be closed.
    */
-  "update:open": [value: Nullable<boolean>];
+  "update:open": [value: boolean];
 }>();
 
 const { t } = injectI18n();
@@ -55,6 +54,7 @@ const options = computed<SelectDialogOption<ColorSchemeValue>[]>(() => {
 <template>
   <OnyxSelectDialog
     class="onyx-color-scheme-dialog"
+    :model-value="props.modelValue"
     v-bind="selectDialogProps"
     :label="t('colorScheme.headline')"
     :options
