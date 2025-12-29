@@ -286,5 +286,23 @@
     "select": {
       "listLabel": "Anzahl der Elemente pro Seite auswählen"
     }
+  },
+  "editor": {
+    "bold": "Fett",
+    "italic": "Kursiv",
+    "underline": "Unterstrichen",
+    "strike": "Durchgestrichen",
+    "alignments": {
+      "left": "Linksbündig",
+      "center": "Zentriert",
+      "right": "Rechtsbündig",
+      "block": "Blockausrichtung"
+    },
+    "link": "Link hinzufügen",
+    "code": "Code-Block",
+    "quote": "Zitat",
+    "image": "Bild hinzufügen",
+    "undo": "Rückgängig",
+    "redo": "Wiederherstellen"
   }
 }

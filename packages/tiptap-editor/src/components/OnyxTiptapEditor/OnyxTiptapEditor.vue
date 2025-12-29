@@ -1,8 +1,9 @@
 <script lang="ts" setup>
-import { iconPlaceholder, iconUndo } from "@sit-onyx/icons";
+import { iconPlaceholder, iconToolUnderlined, iconUndo } from "@sit-onyx/icons";
+import TextAlign from "@tiptap/extension-text-align";
 import StarterKit from "@tiptap/starter-kit";
 import { EditorContent, useEditor } from "@tiptap/vue-3";
-import { getFormMessages, OnyxFormElement, useForwardProps, useVModel } from "sit-onyx";
+import { getFormMessages, injectI18n, OnyxFormElement, useForwardProps, useVModel } from "sit-onyx";
 import { computed, watch, watchEffect } from "vue";
 import OnyxEditorToolbarAction from "../OnyxEditorToolbarAction/OnyxEditorToolbarAction.vue";
 import type { OnyxTiptapEditorProps } from "./types.js";
@@ -25,6 +26,8 @@ defineSlots<{
   toolbar?(): unknown;
 }>();
 
+const { t } = injectI18n();
+
 const modelValue = useVModel({
   props,
   emit,
@@ -34,7 +37,7 @@ const modelValue = useVModel({
 
 const editor = useEditor({
   content: modelValue.value,
-  extensions: [StarterKit],
+  extensions: [StarterKit, TextAlign],
   onUpdate: () => {
     if (!editor.value) return;
     const newValue = editor.value.getHTML();
@@ -112,22 +115,69 @@ defineExpose({
     >
       <div class="onyx-tiptap-editor__toolbar">
         <div class="onyx-tiptap-editor__actions">
-          <!-- TODO: replace with actual actions -->
           <OnyxEditorToolbarAction
-            v-for="i in 4"
-            :key="i"
-            :label="`Action ${i}`"
+            :label="t('editor.bold')"
             :icon="iconPlaceholder"
+            :active="editor?.isActive('bold')"
+            @click="editor?.chain().focus().toggleBold().run()"
+          />
+          <OnyxEditorToolbarAction
+            :label="t('editor.italic')"
+            :icon="iconPlaceholder"
+            :active="editor?.isActive('italic')"
+            @click="editor?.chain().focus().toggleItalic().run()"
+          />
+          <OnyxEditorToolbarAction
+            :label="t('editor.underline')"
+            :icon="iconToolUnderlined"
+            :active="editor?.isActive('underline')"
+            @click="editor?.chain().focus().toggleUnderline().run()"
+          />
+          <OnyxEditorToolbarAction
+            :label="t('editor.strike')"
+            :icon="iconPlaceholder"
+            :active="editor?.isActive('strike')"
+            @click="editor?.chain().focus().toggleStrike().run()"
+          />
+          <OnyxEditorToolbarAction
+            :label="t('editor.alignments.left')"
+            :icon="iconPlaceholder"
+            :active="editor?.isActive({ textAlign: 'left' })"
+            @click="editor?.chain().focus().toggleTextAlign('left').run()"
+          />
+          <OnyxEditorToolbarAction
+            :label="t('editor.alignments.right')"
+            :icon="iconPlaceholder"
+            :active="editor?.isActive({ textAlign: 'right' })"
+            @click="editor?.chain().focus().toggleTextAlign('right').run()"
+          />
+          <OnyxEditorToolbarAction
+            :label="t('editor.alignments.center')"
+            :icon="iconPlaceholder"
+            :active="editor?.isActive({ textAlign: 'center' })"
+            @click="editor?.chain().focus().toggleTextAlign('center').run()"
+          />
+          <OnyxEditorToolbarAction
+            :label="t('editor.alignments.block')"
+            :icon="iconPlaceholder"
+            :active="editor?.isActive({ textAlign: 'justify' })"
+            @click="editor?.chain().focus().toggleTextAlign('justify').run()"
           />
           <slot name="toolbar"></slot>
         </div>
 
         <div class="onyx-tiptap-editor__actions onyx-tiptap-editor__actions--fixed">
           <OnyxEditorToolbarAction
-            label="Undo"
+            :label="t('editor.undo')"
             :icon="iconUndo"
             :disabled="!editor?.can().chain().undo().run()"
             @click="editor?.chain().focus().undo().run()"
+          />
+          <OnyxEditorToolbarAction
+            :label="t('editor.redo')"
+            :icon="iconPlaceholder"
+            :disabled="!editor?.can().chain().redo().run()"
+            @click="editor?.chain().focus().redo().run()"
           />
         </div>
       </div>
