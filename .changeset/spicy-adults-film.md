@@ -2,4 +2,4 @@
 "sit-onyx": minor
 ---
 
-feat(OnyxModal): implemented intense mode for the backdrop
+feat(OnyxModal): support `backdrop` property to change the backdrop color

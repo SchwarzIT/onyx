@@ -33,9 +33,9 @@ export type OnyxBasicDialogProps = DensityProp & {
   alignment?: DialogAlignment;
   /**
    * The intensity of the backdrop.
-   * @default "light"
+   * @default "soft"
    */
-  backdrop?: "light" | "intense";
+  backdrop?: "soft" | "medium";
 };
 
 export const DIALOG_ALIGNMENTS = ["left", "center", "right"] as const;
