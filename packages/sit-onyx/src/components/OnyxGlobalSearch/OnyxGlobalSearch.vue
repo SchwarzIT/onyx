@@ -138,17 +138,15 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
     </OnyxInput>
 
     <!-- using v-show instead of v-if because the input has a aria-controls attribute which needs to point to a existing listbox -->
-    <div
-      v-show="!!slots.default"
-      class="onyx-global-search__body"
-      v-bind="headless.elements.listbox.value"
-    >
-      <slot></slot>
+    <div v-show="!!slots.default" class="onyx-global-search__body">
+      <div v-bind="headless.elements.listbox.value">
+        <slot></slot>
+      </div>
+
       <div v-if="!!slots.endOfList" class="onyx-global-search__end-of-list">
         <slot name="endOfList"></slot>
       </div>
     </div>
-
     <!-- TODO: replace keyboard shortcuts with OnyxShortcut component once implemented -->
     <div v-show="!!slots.default" class="onyx-global-search__footer onyx-text--small">
       <span class="onyx-global-search__shortcut">

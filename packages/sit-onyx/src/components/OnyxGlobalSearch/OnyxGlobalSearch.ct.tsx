@@ -40,7 +40,7 @@ test("should render groups and options", async ({ page, mount, makeAxeBuilder })
   await expect(page).toHaveScreenshot("end-of-list.png");
 
   // ACT
-  await component.update({ props: { loading: false, groupCount: 3 } });
+  await component.update({ props: { loading: false, groupCount: 3, showEndOfList: false } });
 
   // ASSERT
   await checkAccessibility(axeBuilder);
