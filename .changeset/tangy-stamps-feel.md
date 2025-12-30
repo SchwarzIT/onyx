@@ -2,7 +2,4 @@
 "sit-onyx": minor
 ---
 
-feat(OnyxEmpty):
-
-- added descriptions Slot
-- redesigned Component
+feat(OnyxEmpty): replace icon with illustration and support new `description` slot

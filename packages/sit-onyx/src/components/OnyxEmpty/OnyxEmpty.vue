@@ -37,7 +37,7 @@ const { densityClass } = useDensity(props);
       <OnyxHeadline is="h3" class="onyx-empty__label onyx-truncation-multiline">
         <slot></slot>
       </OnyxHeadline>
-      <p class="onyx-empty__description onyx-truncation-multiline">
+      <p v-if="!!slots.description" class="onyx-empty__description onyx-truncation-multiline">
         <slot name="description"></slot>
       </p>
     </div>
@@ -73,7 +73,6 @@ const { densityClass } = useDensity(props);
     &__description {
       color: var(--onyx-color-text-icons-neutral-intense);
       font-size: var(--onyx-font-size-sm);
-      color: var(--onyx-color-text-icons-neutral-intense);
     }
 
     &__buttons {
