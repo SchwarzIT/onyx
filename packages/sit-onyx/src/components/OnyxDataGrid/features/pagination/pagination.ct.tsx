@@ -1,5 +1,6 @@
 import type { Locator } from "@playwright/test";
 import { expect, test } from "../../../../playwright/a11y.js";
+import { ONYX_BREAKPOINTS } from "../../../../utils/breakpoints.js";
 import AsyncTestCase from "./AsyncTestCase.ct.vue";
 import TestCase from "./TestCase.ct.vue";
 
@@ -153,7 +154,7 @@ test("should render items per page selector", async ({ mount, page }) => {
   });
 
   const pagination = component.getByLabel("Pagination");
-  const itemsPerPage = component.getByRole("textbox", { name: "Items per Page" });
+  const itemsPerPage = component.getByRole("combobox", { name: "Items per Page" });
 
   // ASSERT
   await expect(component).toHaveScreenshot("with-items-per-page.png");
@@ -196,11 +197,11 @@ test("should render items per page selector", async ({ mount, page }) => {
 
   // ASSERT
   await expect(component).toHaveScreenshot("with-items-per-page-skeleton.png");
-  await expect(component.locator(".onyx-items-per-page-skeleton")).toBeVisible();
 
   // ACT (test that items per page is visible for lazy pagination)
   await component.update({
     props: {
+      skeleton: false,
       style: { maxHeight: "24rem" },
       data: getTestData(52),
       paginationOptions: { type: "lazy", itemsPerPage: [10, 25, 50] },
@@ -219,6 +220,37 @@ test("should render items per page selector", async ({ mount, page }) => {
 
   // ASSERT
   await expect(itemsPerPage, "should show items per page for button pagination").toBeVisible();
+
+  // ACT
+  await component.update({
+    props: {
+      paginationOptions: { pageSize: 10, itemsPerPage: [10, 25, 50] },
+      style: { width: `${ONYX_BREAKPOINTS.xs}px` },
+    },
+  });
+
+  // reset hover
+  await page.getByRole("document").hover({ position: { x: 0, y: 0 } });
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("with-items-per-page-xs.png");
+  await expect(
+    component.locator(".onyx-items-per-page__label"),
+    "should hide label when <= xs breakpoint",
+  ).toBeHidden();
+
+  // ACT
+  await component.update({
+    props: {
+      style: { width: `${ONYX_BREAKPOINTS.xs + 1}px` },
+    },
+  });
+
+  // ASSERT
+  await expect(
+    component.locator(".onyx-items-per-page__label"),
+    "should show label when > xs breakpoint",
+  ).toBeVisible();
 });
 
 // eslint-disable-next-line playwright/expect-expect -- expects are done in external functions

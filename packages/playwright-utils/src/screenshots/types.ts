@@ -9,6 +9,10 @@ export type UseMatrixScreenshotTestOptions<TContext extends HookContext = HookCo
   defaults?: Partial<
     Pick<MatrixScreenshotTestOptions<string, string, TContext>, "removePadding" | "hooks">
   >;
+  /**
+   * Optional custom `test` function to use. Useful when using [fixtures](https://playwright.dev/docs/test-fixtures#creating-a-fixture).
+   */
+  test?: typeof test;
 };
 
 export type MatrixScreenshotTestOptions<

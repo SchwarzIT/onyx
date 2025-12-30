@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Default } from "../OnyxDataGridRenderer.stories";
+import { Default } from "../OnyxDataGridRenderer.stories.js";
 import OnyxDataGridRenderer from "../OnyxDataGridRenderer.vue";
 import type { OnyxDataGridRendererProps } from "../types.js";
 

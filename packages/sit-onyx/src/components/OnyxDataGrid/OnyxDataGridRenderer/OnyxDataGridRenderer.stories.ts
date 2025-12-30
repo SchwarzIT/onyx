@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
-import type { DataGridEntry } from "../types/index.js";
+import type { DataGridEntry } from "../types.js";
 import OnyxDataGridRenderer from "./OnyxDataGridRenderer.vue";
 import type { DataGridRendererCell, DataGridRendererColumn, DataGridRendererRow } from "./types.js";
 
@@ -89,10 +89,10 @@ function getDummyRow(rowNumber: number): DataGridRendererRow<DataGridEntry> {
     id: `row-${rowNumber}`,
     columns,
     cells: {
-      "column-1": getDummyCell(`Row ${rowNumber}, cell 1`, columns[0].key),
-      "column-2": getDummyCell(`Row ${rowNumber}, cell 2`, columns[1].key),
-      "column-3": getDummyCell(`Row ${rowNumber}, cell 3`, columns[2].key),
-      "column-4": getDummyCell(`Row ${rowNumber}, cell 4`, columns[3].key),
+      "column-1": getDummyCell(`Row ${rowNumber}, cell 1`, columns[0]!.key),
+      "column-2": getDummyCell(`Row ${rowNumber}, cell 2`, columns[1]!.key),
+      "column-3": getDummyCell(`Row ${rowNumber}, cell 3`, columns[2]!.key),
+      "column-4": getDummyCell(`Row ${rowNumber}, cell 4`, columns[3]!.key),
     },
   };
 }

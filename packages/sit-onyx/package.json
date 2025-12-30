@@ -61,7 +61,7 @@
     "@sit-onyx/playwright-utils": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",
-    "@storybook/addon-a11y": "^10.1.9",
+    "@storybook/addon-a11y": "^10.1.11",
     "@vue/compiler-dom": "catalog:",
     "@vue/test-utils": "^2.4.6",
     "axe-core": "^4.11.0",
@@ -70,8 +70,8 @@
     "storybook-addon-tag-badges": "^3.0.4",
     "tsx": "^4.21.0",
     "vue": "catalog:",
-    "vue-component-type-helpers": "^3.1.8",
-    "vue-i18n": "^11.2.2",
+    "vue-component-type-helpers": "^3.2.1",
+    "vue-i18n": "^11.2.7",
     "vue-router": "^4.6.4"
   }
 }

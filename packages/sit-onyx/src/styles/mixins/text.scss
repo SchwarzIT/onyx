@@ -1,0 +1,7 @@
+/**
+* Function for getting a approximated CSS "ch" length value that can be used to e.g. set the width of an element based on the text length.
+* Adds 1px of additional space to ensure no overflow for low character counts.
+*/
+@function ch($length) {
+  @return calc($length * 1ch + var(--onyx-1px-in-rem));
+}

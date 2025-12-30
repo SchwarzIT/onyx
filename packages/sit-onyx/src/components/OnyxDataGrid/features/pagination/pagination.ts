@@ -146,6 +146,7 @@ export const usePagination = (options: PaginationOptions = {}) =>
 
           return [
             h(OnyxItemsPerPage, {
+              class: "onyx-data-grid__items-per-page",
               modelValue: state.value.pageSize,
               options: options.itemsPerPage,
               disabled: isDisabled.value,

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { GroupedData } from "../OnyxDataGridRenderer.stories";
+import { GroupedData } from "../OnyxDataGridRenderer.stories.js";
 import OnyxDataGridRenderer from "../OnyxDataGridRenderer.vue";
 import type { OnyxDataGridRendererProps } from "../types.js";
 
