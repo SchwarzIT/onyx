@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import {
+  iconArrowSmallRight,
   iconCircleContrast,
   iconFile,
   iconSearch,
@@ -29,7 +30,6 @@ type SearchGroup = {
 const isOpen = ref(false);
 const searchTerm = ref("");
 const isLoading = ref(false);
-const isLoadingMore = ref(false);
 
 // clear search term when modal is closed
 watch(isOpen, (newOpen) => {
@@ -37,52 +37,36 @@ watch(isOpen, (newOpen) => {
 });
 
 const searchResults = ref<OnyxGlobalSearchOptionProps[]>([]);
-const resultLength = ref(6);
+
 // in a real project, you probably want to debounce the ref so that your search logic is not triggered on every key stroke
 // you can use a library like VueUse for this: https://vueuse.org/shared/watchDebounced/
-watch([searchTerm], async () => {
+watch(searchTerm, async () => {
   // implement your custom search behavior here, we just fake it for this example
   isLoading.value = true;
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
   if (searchTerm.value) {
     // generate some dummy search results, change this to your project-specific logic
-    searchResults.value = Array.from({ length: 6 }, (_, index) => {
+    searchResults.value = Array.from({ length: 20 }, (_, index) => {
       const id = index + 1;
       return {
-        label: `Result ${id} ${searchTerm.value}`,
+        label: `Result ${id} for "${searchTerm.value}"`,
         value: `result-${id}`,
         link: `#result-${id}`,
         icon: iconFile,
       };
     });
   } else {
-    resultLength.value = 6;
     searchResults.value = [];
   }
 
   isLoading.value = false;
 });
 
-// dummy load More function.
-const loadMore = async () => {
-  isLoadingMore.value = true;
-
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  resultLength.value += 6;
-  searchResults.value = Array.from({ length: resultLength.value }, (_, index) => {
-    const id = index + 1;
-    return {
-      label: `Result ${id} ${searchTerm.value}`,
-      value: `result-${id}`,
-      link: `#result-${id}`,
-      icon: iconFile,
-    };
-  });
-
-  isLoadingMore.value = false;
-};
-
+/**
+ * Calculates the groups to be displayed in the search.
+ * Limits the "Search results" to a maximum of 10 entries for the display.
+ */
 const searchGroups = computed(() => {
   const groups: SearchGroup[] = [];
 
@@ -116,11 +100,28 @@ const searchGroups = computed(() => {
   });
 
   return groups
-    .map((group) => ({
-      ...group,
-      options: group.options.filter((option) => normalizedIncludes(option.label, searchTerm.value)),
-    }))
+    .map((group) => {
+      const filtered = group.options.filter((option) =>
+        normalizedIncludes(option.label, searchTerm.value),
+      );
+
+      // Logic: Show only the first 10 options if it is the search results group
+      const isResultGroup = group.label === "Search results";
+      return {
+        ...group,
+        options: isResultGroup ? filtered.slice(0, 10) : filtered,
+        // we store the original length to check if there are "more" items later
+        hasMore: isResultGroup && filtered.length > 10,
+      };
+    })
     .filter((group) => group.options.length > 0);
+});
+
+/**
+ * Checks if the "Show all results" button should be displayed.
+ */
+const showMoreButton = computed(() => {
+  return searchGroups.value.some((group) => group.hasMore);
 });
 </script>
 
@@ -143,6 +144,10 @@ const searchGroups = computed(() => {
     <OnyxPageLayout>
       <OnyxInfoCard headline="Example">
         Click on the search icon button in the nav bar (top right) to trigger the global search.
+        <br />
+        <br />
+        If there are more results than 10, a "Show all results" button will be displayed at the end
+        of the search results.
       </OnyxInfoCard>
 
       <!-- your page content would go here... -->
@@ -163,26 +168,17 @@ const searchGroups = computed(() => {
             :key="option.value"
             v-bind="option"
           />
-          <!-- show skeleton while more results are loading -->
-          <template v-if="isLoadingMore && searchTerm">
-            <OnyxUnstableGlobalSearchOption
-              v-for="i in 6"
-              :key="`loading-${i}`"
-              label="Loading"
-              value="loading"
-              skeleton
-            />
-          </template>
         </OnyxUnstableGlobalSearchGroup>
       </template>
-      <!-- show "show more" button if there are more results to show-->
-      <template v-if="searchTerm && !isLoading && resultLength < 60" #endOfList>
+
+      <!-- show "Show all results" button if there are more results to show -->
+      <template v-if="showMoreButton && !isLoading" #endOfList>
         <OnyxButton
-          label="show more"
+          label="Show all results"
           mode="plain"
-          :loading="isLoadingMore"
-          class="more-button"
-          @click="loadMore"
+          class="show-all-button"
+          :icon="iconArrowSmallRight"
+          icon-position="right"
         />
       </template>
     </OnyxUnstableGlobalSearch>
@@ -190,7 +186,7 @@ const searchGroups = computed(() => {
 </template>
 
 <style lang="scss" scoped>
-.more-button {
+.show-all-button {
   width: 100%;
 }
 </style>

@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { iconPlaceholder } from "@sit-onyx/icons";
+import { iconArrowSmallRight, iconPlaceholder } from "@sit-onyx/icons";
+import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxGlobalSearchGroup from "../OnyxGlobalSearchGroup/OnyxGlobalSearchGroup.vue";
 import OnyxGlobalSearchOption from "../OnyxGlobalSearchOption/OnyxGlobalSearchOption.vue";
 import OnyxGlobalSearch from "./OnyxGlobalSearch.vue";
@@ -18,6 +19,10 @@ const props = withDefaults(
      * Whether to render long option content.
      */
     longContent?: boolean;
+    /**
+     * Whether to show the end of list slot.
+     */
+    showEndOfList?: boolean;
   }>(),
   {
     groupCount: 0,
@@ -43,5 +48,20 @@ const props = withDefaults(
         />
       </OnyxGlobalSearchGroup>
     </template>
+    <template v-if="showEndOfList" #endOfList>
+      <OnyxButton
+        label="Show all results"
+        mode="plain"
+        class="show-all-button"
+        :icon="iconArrowSmallRight"
+        icon-position="right"
+      />
+    </template>
   </OnyxGlobalSearch>
 </template>
+
+<style lang="scss" scoped>
+.show-all-button {
+  width: 100%;
+}
+</style>
