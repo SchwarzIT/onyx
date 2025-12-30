@@ -38,6 +38,10 @@ const slots = defineSlots<{
    * Slot to pass search results / groups. Only `OnyxGlobalSearchGroup` components should be used.
    */
   default?(): unknown;
+  /**
+   * Slot to pass content after search results.
+   */
+  endOfList?(): unknown;
 }>();
 
 const { t } = injectI18n();
@@ -140,6 +144,9 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
       v-bind="headless.elements.listbox.value"
     >
       <slot></slot>
+      <div v-if="!!slots.endOfList" class="onyx-global-search__end-of-list">
+        <slot name="endOfList"></slot>
+      </div>
     </div>
 
     <!-- TODO: replace keyboard shortcuts with OnyxShortcut component once implemented -->
@@ -188,6 +195,9 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
         0;
       margin-top: var(--onyx-density-xs);
       border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+    }
+    &__end-of-list {
+      padding: 0 var(--onyx-density-md) var(--onyx-density-xs) var(--onyx-density-md);
     }
 
     &__footer {

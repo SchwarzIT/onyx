@@ -18,3 +18,8 @@ export const Default = createAdvancedStoryExample(
   "OnyxGlobalSearch",
   "DefaultExample",
 ) satisfies Story;
+
+export const MoreResults = createAdvancedStoryExample(
+  "OnyxGlobalSearch",
+  "MoreResultsExample",
+) satisfies Story;
