@@ -3,7 +3,6 @@ import { iconCircleAttention, iconXSmall } from "@sit-onyx/icons";
 import { useId } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { injectI18n } from "../../i18n/index.js";
-import type { Nullable } from "../../types/utils.js";
 import { useForwardProps } from "../../utils/props.js";
 import OnyxBasicDialog from "../OnyxBasicDialog/OnyxBasicDialog.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
@@ -21,7 +20,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the modal dialog should be closed.
    */
-  "update:open": [open: Nullable<boolean>];
+  "update:open": [open: boolean];
 }>();
 
 defineSlots<{

@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import type { Nullable } from "../../types/utils.js";
 import type { DialogAlignment } from "../OnyxBasicDialog/types.js";
 import OnyxModal from "./OnyxModal.vue";
 
@@ -15,7 +14,7 @@ defineSlots<{
 }>();
 
 const emit = defineEmits<{
-  "update:open": [open: Nullable<boolean>];
+  "update:open": [open: boolean];
 }>();
 </script>
 
