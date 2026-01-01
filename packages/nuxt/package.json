@@ -51,6 +51,6 @@
     "nuxt": "catalog:",
     "sit-onyx": "workspace:^",
     "typescript": "catalog:",
-    "vue-i18n": "^11.2.7"
+    "vue-i18n": "^11.2.8"
   }
 }

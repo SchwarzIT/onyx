@@ -23,7 +23,7 @@
   "devDependencies": {
     "@changesets/cli": "^2.29.8",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.5.0",
-    "@eslint-community/eslint-utils": "^4.9.0",
+    "@eslint-community/eslint-utils": "^4.9.1",
     "@eslint/compat": "^2.0.0",
     "@eslint/js": "^9.39.2",
     "@fontsource-variable/source-code-pro": "^5.2.7",
