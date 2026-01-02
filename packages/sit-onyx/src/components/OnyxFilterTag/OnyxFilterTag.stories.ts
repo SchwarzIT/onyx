@@ -12,6 +12,7 @@ const meta: Meta<typeof OnyxFilterTag> = {
   argTypes: {
     ...withNativeEventLogging(["onClick"]),
     icon: defineIconSelectArgType(),
+    actionIcon: defineIconSelectArgType(),
   },
 };
 

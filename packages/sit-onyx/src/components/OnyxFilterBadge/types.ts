@@ -1,11 +1,16 @@
 import type { Nullable } from "../../types/utils.js";
-import type { OnyxTagProps } from "../OnyxTag/types.js";
+import type { OnyxBadgeProps } from "../OnyxBadge/types.js";
 
-export type OnyxFilterTagProps = Omit<OnyxTagProps, "color" | "clickable"> & {
+export type OnyxFilterBadgeProps = Omit<OnyxBadgeProps, "dot" | "icon" | "clickable"> & {
+  /**
+   * The label for the badge.
+   */
+  label: string;
   /**
    * If `true` the filter is selected, shows an 'x' icon and can be removed on click.
    */
   active?: Nullable<boolean>;
+
   /**
    * An icon displayed on the right side of the label.
    * Should be used to indicate an action (e.g., dismissing).
