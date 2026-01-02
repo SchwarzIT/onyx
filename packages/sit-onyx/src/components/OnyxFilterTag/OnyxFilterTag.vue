@@ -14,6 +14,7 @@ import type { OnyxFilterTagProps } from "./types.js";
 const props = withDefaults(defineProps<OnyxFilterTagProps>(), {
   skeleton: SKELETON_INJECTED_SYMBOL,
   active: undefined,
+  actionIcon: iconXSmall,
 });
 
 const emit = defineEmits<{
@@ -41,7 +42,7 @@ const skeleton = useSkeletonContext(props);
 <template>
   <OnyxTag
     v-bind="tagProps"
-    :clickable="{ label: tooltipLabel, actionIcon: active ? iconXSmall : undefined }"
+    :clickable="{ label: tooltipLabel, actionIcon: active ? props.actionIcon : undefined }"
     class="onyx-filter-tag"
     :skeleton="skeleton"
     @click="active = !active"
