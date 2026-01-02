@@ -1,15 +1,19 @@
 <script lang="ts" setup>
-import { iconCircleX } from "@sit-onyx/icons";
 import { useDensity, type DensityProp } from "../../composables/density.js";
-import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxEmptySVG from "../illustrations/OnyxEmptySVG/OnyxEmptySVG.vue";
+import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 
 const props = defineProps<DensityProp>();
 
 const slots = defineSlots<{
   /**
-   * Label / text to display.
+   * Label / headline to display.
    */
   default(): unknown;
+  /**
+   * Optional description text to display.
+   */
+  description?(): unknown;
   /**
    * Optional slot to override the default icon.
    */
@@ -26,11 +30,16 @@ const { densityClass } = useDensity(props);
 <template>
   <div :class="['onyx-component', 'onyx-empty', densityClass]">
     <slot name="icon">
-      <OnyxIcon :icon="iconCircleX" size="48px" />
+      <OnyxEmptySVG />
     </slot>
 
-    <div class="onyx-empty__label onyx-text onyx-truncation-multiline">
-      <slot></slot>
+    <div class="onyx-empty__text-wrapper">
+      <OnyxHeadline is="h3" class="onyx-empty__label onyx-truncation-multiline">
+        <slot></slot>
+      </OnyxHeadline>
+      <p v-if="!!slots.description" class="onyx-empty__description onyx-truncation-multiline">
+        <slot name="description"></slot>
+      </p>
     </div>
 
     <div v-if="!!slots.buttons" class="onyx-empty__buttons">
@@ -55,10 +64,15 @@ const { densityClass } = useDensity(props);
     justify-content: center;
     align-items: center;
     gap: var(--onyx-density-md);
+    &__text-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: var(--onyx-density-2xs);
+    }
 
-    &__label {
-      font-weight: var(--onyx-font-weight-semibold);
-      white-space: pre-line;
+    &__description {
+      color: var(--onyx-color-text-icons-neutral-intense);
+      font-size: var(--onyx-font-size-sm);
     }
 
     &__buttons {
