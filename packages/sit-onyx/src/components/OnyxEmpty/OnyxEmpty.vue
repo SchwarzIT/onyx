@@ -30,7 +30,7 @@ const { densityClass } = useDensity(props);
 <template>
   <div :class="['onyx-component', 'onyx-empty', densityClass]">
     <slot name="icon">
-      <OnyxEmptySVG class="onyx-empty__image" />
+      <OnyxEmptySVG />
     </slot>
 
     <div class="onyx-empty__text-wrapper">
