@@ -13,6 +13,7 @@ const meta: Meta<typeof OnyxFilterBadge> = {
   argTypes: {
     ...withNativeEventLogging(["onClick"]),
     actionIcon: defineIconSelectArgType(),
+    default: { control: { type: "text" } },
   },
 };
 

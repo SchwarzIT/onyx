@@ -17,6 +17,13 @@ const emit = defineEmits<{
   "update:active": [value: boolean];
 }>();
 
+defineSlots<{
+  /**
+   * Badge content.
+   */
+  default?(): unknown;
+}>();
+
 const { t } = injectI18n();
 const badgeProps = useForwardProps(props, OnyxBadge);
 
@@ -40,7 +47,9 @@ const tooltipLabel = computed(() =>
     :class="{ 'onyx-filter-badge': true, 'onyx-filter-badge--active': active }"
     @click="active = !active"
   >
-    {{ props.label }}
+    <slot>
+      {{ props.label }}
+    </slot>
   </OnyxBadge>
 </template>
 
@@ -49,6 +58,7 @@ const tooltipLabel = computed(() =>
 
 .onyx-filter-badge--active .onyx-badge {
   @include layers.component() {
+    --onyx-badge-active-background-color: var(--onyx-color-base-secondary-700);
     &--neutral {
       --onyx-badge-active-background-color: var(--onyx-color-base-neutral-700);
     }

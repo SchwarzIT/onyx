@@ -92,7 +92,6 @@ defineSlots<{
     --onyx-badge-background-color: var(--onyx-color-component-cta-default);
     --onyx-badge-hover-background-color: var(--onyx-color-component-cta-default-hover);
     --onyx-badge-focus-color: var(--onyx-color-component-focus-primary);
-    --onyx-badge-active-background-color: var(--onyx-color-base-secondary-700);
     display: inline-block;
     max-width: 100%;
     padding: var(--onyx-density-3xs) var(--onyx-density-sm);
@@ -139,35 +138,30 @@ defineSlots<{
       --onyx-badge-background-color: var(--onyx-color-base-neutral-700);
       --onyx-badge-hover-background-color: var(--onyx-color-base-neutral-400);
       --onyx-badge-focus-color: var(--onyx-color-component-focus-neutral);
-      --onyx-badge-active-background-color: var(--onyx-color-base-neutral-700);
     }
 
     &--danger {
       --onyx-badge-background-color: var(--onyx-color-base-danger-500);
       --onyx-badge-hover-background-color: var(--onyx-color-base-danger-200);
       --onyx-badge-focus-color: var(--onyx-color-component-focus-danger);
-      --onyx-badge-active-background-color: var(--onyx-color-base-danger-700);
     }
 
     &--warning {
       --onyx-badge-background-color: var(--onyx-color-base-warning-500);
       --onyx-badge-hover-background-color: var(--onyx-color-base-warning-200);
       --onyx-badge-focus-color: var(--onyx-color-component-focus-warning);
-      --onyx-badge-active-background-color: var(--onyx-color-base-warning-700);
     }
 
     &--success {
       --onyx-badge-background-color: var(--onyx-color-base-success-500);
       --onyx-badge-hover-background-color: var(--onyx-color-base-success-200);
       --onyx-badge-focus-color: var(--onyx-color-component-focus-success);
-      --onyx-badge-active-background-color: var(--onyx-color-base-success-700);
     }
 
     &--info {
       --onyx-badge-background-color: var(--onyx-color-base-info-500);
       --onyx-badge-hover-background-color: var(--onyx-color-base-info-200);
       --onyx-badge-focus-color: var(--onyx-color-base-info-200);
-      --onyx-badge-active-background-color: var(--onyx-color-base-info-700);
     }
 
     &__icon {
