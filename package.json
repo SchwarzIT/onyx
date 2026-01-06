@@ -23,7 +23,7 @@
   "devDependencies": {
     "@changesets/cli": "^2.29.8",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.5.0",
-    "@eslint-community/eslint-utils": "^4.9.0",
+    "@eslint-community/eslint-utils": "^4.9.1",
     "@eslint/compat": "^2.0.0",
     "@eslint/js": "^9.39.2",
     "@fontsource-variable/source-code-pro": "^5.2.7",
@@ -38,7 +38,7 @@
     "@types/node": "^24.10.4",
     "@vitejs/plugin-vue": "^6.0.3",
     "@vitest/coverage-v8": "^4.0.16",
-    "@vitest/eslint-plugin": "^1.6.4",
+    "@vitest/eslint-plugin": "^1.6.5",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/eslint-config-typescript": "^14.6.0",
     "@vue/tsconfig": "~0.8.1",
@@ -61,13 +61,13 @@
     "storybook": "^10.1.11",
     "stylelint": "^16.26.1",
     "stylelint-no-unsupported-browser-features": "^8.0.5",
-    "turbo": "^2.7.2",
+    "turbo": "^2.7.3",
     "typescript": "catalog:",
-    "typescript-eslint": "^8.51.0",
+    "typescript-eslint": "^8.52.0",
     "vite": "catalog:",
     "vite-plugin-dts": "^4.5.4",
     "vitest": "^4.0.16",
-    "vue-tsc": "^3.2.1"
+    "vue-tsc": "^3.2.2"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"
