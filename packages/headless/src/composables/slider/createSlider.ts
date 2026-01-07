@@ -99,14 +99,10 @@ export const createSlider = createBuilder(
     // ensure focus on thumb while dragging
     watch(draggingThumbIndex, (newThumbIndex) => {
       if (newThumbIndex == undefined) return;
-      focusThumb(newThumbIndex);
-    });
-
-    const focusThumb = (index: number) => {
       Array.from(sliderRef.value.querySelectorAll<HTMLElement>('[role="slider"]'))
-        .at(index)
+        .at(newThumbIndex)
         ?.focus();
-    };
+    });
 
     const shiftStep = computed(() => {
       const shiftStep = toValue(options.shiftStep);
@@ -415,7 +411,6 @@ export const createSlider = createBuilder(
       },
       internals: {
         updateValue,
-        focusThumb,
       },
     };
   },
