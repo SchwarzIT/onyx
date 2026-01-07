@@ -1,6 +1,6 @@
 <script setup lang="ts" generic="TSliderMode extends SliderMode">
 import { createSlider } from "@sit-onyx/headless";
-import { computed, toRef, toRefs } from "vue";
+import { computed, ref, toRef, toRefs } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useErrorClass } from "../../composables/useErrorClass.js";
 import { getFormMessages, useFormElementError } from "../../composables/useFormElementError.js";
@@ -73,7 +73,10 @@ const {
   marks: toRef(props, "marks"),
   disabled,
   shiftStep: toRef(props, "shiftStep"),
-  onChange: (newValue) => (modelValue.value = newValue),
+  onChange: (newValue) => {
+    modelValue.value = newValue;
+    wasTouched.value = true;
+  },
 });
 
 const hasMarkLabels = computed(() => marks.value.some((mark) => !!mark.label));
@@ -82,6 +85,12 @@ const handleControlUpdate = (value: number, index: number, focus?: boolean) => {
   updateValue(value, index);
   if (focus) focusThumb(index);
 };
+
+/**
+ * Used to detect user interaction to simulate the behavior of :user-invalid for the native input
+ * because the native browser :user-invalid does not trigger when the value is changed e.g. via slider click.
+ */
+const wasTouched = ref(false);
 </script>
 
 <template>
@@ -167,7 +176,10 @@ const handleControlUpdate = (value: number, index: number, focus?: boolean) => {
                       <input
                         :id="index === 0 ? inputId : undefined"
                         v-custom-validity
-                        class="onyx-slider__native"
+                        :class="[
+                          'onyx-slider__native',
+                          { 'onyx-slider__native--touched': wasTouched },
+                        ]"
                         :tabindex="props.control === 'input' ? -1 : undefined"
                         v-bind="thumbInput({ value, index })"
                         :disabled="disabled"
