@@ -15,12 +15,13 @@ export default defineNuxtConfig({
     locales: [{ code: "en", language: "en-US", file: "en-US.json", name: "English" }],
   },
   studio: {
-    // Git repository configuration (owner and repo are required)
+    // git repository configuration
     repository: {
       provider: "github",
       owner: "SchwarzIT",
       repo: "onyx",
-      private: false,
+      rootDir: "apps/showcase",
+      private: true,
     },
   },
 });
