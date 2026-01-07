@@ -50,6 +50,7 @@ const modelValue = useVModel<Props, "modelValue", SliderValue<TSliderMode>>({
 const { vCustomValidity, errorMessages } = useFormElementError({ props, emit });
 const formElementProps = useForwardProps(props, OnyxFormElement);
 const messages = computed(() => getFormMessages(props.message));
+const successMessages = computed(() => getFormMessages(props.success));
 
 const { densityClass } = useDensity(props);
 
@@ -95,7 +96,8 @@ const handleControlUpdate = (value: number, index: number, focus?: boolean) => {
       v-bind="formElementProps"
       class="onyx-slider__form-element"
       :message="messages"
-      :error-messages="errorMessages"
+      :error-messages
+      :success-messages
     >
       <template #default="{ id: inputId }">
         <div class="onyx-slider__container">
