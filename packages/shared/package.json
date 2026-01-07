@@ -33,6 +33,6 @@
     "@playwright/experimental-ct-vue": "catalog:",
     "@vitejs/plugin-vue": ">= 6",
     "sass-embedded": ">= 1.97.2",
-    "vite": ">= 7.3.0"
+    "vite": ">= 7.3.1"
   }
 }
