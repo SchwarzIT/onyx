@@ -62,7 +62,7 @@ const { min, max, step, label } = toRefs(props);
 const {
   elements: { root, track, thumbContainer, thumbInput, mark, markLabel },
   state: { normalizedValue, marks },
-  internals: { updateValue },
+  internals: { updateValue, focusThumb },
 } = createSlider({
   value: modelValue,
   min,
@@ -76,6 +76,11 @@ const {
 });
 
 const hasMarkLabels = computed(() => marks.value.some((mark) => !!mark.label));
+
+const handleControlUpdate = (value: number, index: number, focus?: boolean) => {
+  updateValue(value, index);
+  if (focus) focusThumb(index);
+};
 </script>
 
 <template>
@@ -107,7 +112,7 @@ const hasMarkLabels = computed(() => marks.value.some((mark) => !!mark.label));
             :step="props.step"
             :model-value="normalizedValue[0]"
             :disabled="disabled || normalizedValue[0] <= props.min"
-            @update:model-value="updateValue($event, 0)"
+            @update:model-value="handleControlUpdate($event, 0, true)"
             @mousedown.prevent
           />
           <OnyxSliderControl
@@ -119,7 +124,7 @@ const hasMarkLabels = computed(() => marks.value.some((mark) => !!mark.label));
             :step="props.step"
             :min="props.min"
             :max="props.max"
-            @update:model-value="updateValue($event, 0)"
+            @update:model-value="handleControlUpdate($event, 0)"
           />
 
           <span class="onyx-slider__root" v-bind="root">
@@ -186,8 +191,8 @@ const hasMarkLabels = computed(() => marks.value.some((mark) => !!mark.label));
             :step="props.step"
             :model-value="normalizedValue[0]"
             :disabled="disabled || normalizedValue[0] >= props.max"
+            @update:model-value="handleControlUpdate($event, 0, true)"
             @mousedown.prevent
-            @update:model-value="updateValue($event, 0)"
           />
           <OnyxSliderControl
             v-else-if="props.control === 'input'"
@@ -198,7 +203,7 @@ const hasMarkLabels = computed(() => marks.value.some((mark) => !!mark.label));
             :step="props.step"
             :min="props.min"
             :max="props.max"
-            @update:model-value="updateValue($event, props.mode === 'range' ? 1 : 0)"
+            @update:model-value="handleControlUpdate($event, props.mode === 'range' ? 1 : 0)"
           />
         </div>
       </template>

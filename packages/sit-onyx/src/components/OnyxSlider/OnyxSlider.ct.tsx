@@ -255,6 +255,10 @@ test("should interact with icon control", async ({ mount }) => {
 
   // ASSERT
   await expect(slider, "should increase by step").toHaveValue("60");
+  await expect(
+    component.getByRole("tooltip"),
+    "should show tooltip when changing value via icon",
+  ).toBeVisible();
 
   // ACT
   await decreaseButton.click();
