@@ -21,7 +21,7 @@ export default defineNuxtConfig({
       owner: "SchwarzIT",
       repo: "onyx",
       rootDir: "apps/showcase",
-      private: true,
+      private: false,
     },
   },
 });
