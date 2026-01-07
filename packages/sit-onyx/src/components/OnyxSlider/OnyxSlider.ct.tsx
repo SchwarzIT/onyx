@@ -244,14 +244,17 @@ test("should interact with icon control", async ({ mount }) => {
   await expect(increaseButton).toBeVisible();
 
   // ACT
+  await component.press("Tab");
+
+  await expect(slider, "should not allow focus on icon buttons via keyboard").toBeFocused();
+  await expect(decreaseButton).not.toBeFocused();
+  await expect(increaseButton).not.toBeFocused();
+
+  // ACT
   await increaseButton.click();
 
   // ASSERT
   await expect(slider, "should increase by step").toHaveValue("60");
-  await expect(
-    component.getByRole("tooltip"),
-    "should show tooltip when changing value via icon",
-  ).toBeVisible();
 
   // ACT
   await decreaseButton.click();

@@ -59,6 +59,7 @@ const stepperLabel = computed(() => {
         color="neutral"
         :label="t('slider.decreaseValueBy', { n: props.step })"
         :icon="iconMinusSmall"
+        tabindex="-1"
         @click="handleIconClick"
       />
       <OnyxIconButton
@@ -67,6 +68,7 @@ const stepperLabel = computed(() => {
         color="neutral"
         :label="t('slider.increaseValueBy', { n: props.step })"
         :icon="iconPlusSmall"
+        tabindex="-1"
         @click="handleIconClick"
       />
     </template>
