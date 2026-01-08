@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useTemplateRef } from "vue";
+import { useId, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
 import { useRootAttrs } from "../../utils/attrs.js";
@@ -8,19 +8,19 @@ import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import type { OnyxSegmentedControlElement } from "./types.js";
 
+defineOptions({ inheritAttrs: false });
+
 const props = withDefaults(defineProps<OnyxSegmentedControlElement>(), {
   disabled: FORM_INJECTED_SYMBOL,
 });
 
 const { densityClass } = useDensity(props);
 const { disabled } = useFormContext(props);
-
-const input = useTemplateRef("inputRef");
+const { rootAttrs, restAttrs } = useRootAttrs();
+const id = useId();
+const input = useTemplateRef<HTMLInputElement>("inputRef");
 
 useAutofocus(input, props);
-
-defineOptions({ inheritAttrs: false });
-const { rootAttrs, restAttrs } = useRootAttrs();
 </script>
 
 <template>
@@ -28,22 +28,21 @@ const { rootAttrs, restAttrs } = useRootAttrs();
     v-bind="rootAttrs"
     :class="['onyx-component', 'onyx-segmented-control-element', densityClass]"
   >
-    <OnyxVisuallyHidden>
-      <input
-        v-bind="restAttrs"
-        :id="props.value.toString()"
-        ref="inputRef"
-        :name="props.name"
-        type="radio"
-        :value="props.value"
-        :disabled="disabled"
-        class="onyx-segmented-control-element__input"
-        :aria-label="props.label"
-        :autofocus="props.autofocus"
-        :checked="props.checked"
-      />
-    </OnyxVisuallyHidden>
-    <label :for="props.value.toString()" class="onyx-segmented-control-element__label">
+    <OnyxVisuallyHidden
+      is="input"
+      v-bind="restAttrs"
+      :id
+      ref="inputRef"
+      :name="props.name"
+      type="radio"
+      :value="props.value"
+      :disabled="disabled"
+      class="onyx-segmented-control-element__input"
+      :aria-label="props.label"
+      :autofocus="props.autofocus"
+      :checked="props.checked"
+    />
+    <label :for="id" class="onyx-segmented-control-element__label">
       <OnyxIcon v-if="props.icon" :icon="props.icon" class="onyx-segmented-control-element__icon" />
       <p v-if="!props.hideLabel" class="onyx-segmented-control-element__text">
         {{ props.label }}
