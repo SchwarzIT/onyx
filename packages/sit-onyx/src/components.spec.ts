@@ -293,6 +293,16 @@ const COMPONENTS: Components = {
       value: "test-value",
     },
   },
+  OnyxUnstableKey: {
+    props: {
+      keyName: "Control",
+    },
+  },
+  OnyxUnstableShortcut: {
+    props: {
+      sequence: [{ all: ["Control", "C"] }],
+    },
+  },
   OnyxUnstableItemsPerPage: {
     props: {
       modelValue: 5,
