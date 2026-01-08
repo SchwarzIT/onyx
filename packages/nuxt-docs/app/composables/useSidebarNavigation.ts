@@ -6,6 +6,7 @@ export type SidebarNavigationItem = {
    * Item path. Already localized for i18n with `useLocalePath`.
    */
   path: string;
+  icon?: string;
   children?: SidebarNavigationItem[];
   sidebar?: SidebarNavigationOptions;
 };
@@ -56,6 +57,7 @@ export const useSidebarNavigation = async () => {
         path: localePath(item.path),
         children: item.children?.map(mapItem),
         sidebar: item.sidebar && typeof item.sidebar === "object" ? item.sidebar : undefined,
+        icon: item.icon && typeof item.icon === "string" ? item.icon : undefined,
       };
     };
 
