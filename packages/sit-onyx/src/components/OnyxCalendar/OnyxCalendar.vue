@@ -7,7 +7,12 @@ export default {};
 </script>
 
 <script lang="ts" setup generic="TSelection extends OnyxCalendarSelectionMode">
-import { _unstableCreateCalendar, type RenderDay, type RenderWeek } from "@sit-onyx/headless";
+import {
+  _unstableCreateCalendar,
+  useOutsideClick,
+  type RenderDay,
+  type RenderWeek,
+} from "@sit-onyx/headless";
 import { iconChevronLeftSmall, iconChevronRightSmall } from "@sit-onyx/icons";
 import { computed, ref, toRefs, useTemplateRef, type HTMLAttributes } from "vue";
 import { useDensity } from "../../composables/density.js";
@@ -20,13 +25,15 @@ import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import type { Nullable } from "../../types/utils.js";
 import { ONYX_BREAKPOINTS } from "../../utils/breakpoints.js";
+import OnyxBasicPopover from "../OnyxBasicPopover/OnyxBasicPopover.vue";
+import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxCalendarCell from "../OnyxCalendarCell/OnyxCalendarCell.vue";
 import type { CalendarCellRangeType } from "../OnyxCalendarCell/types.js";
-import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
+import OnyxMonthYearPickerGrid from "./OnyxMonthYearPickerGrid.vue";
 import type {
   DateRange,
   OnyxCalendarProps,
@@ -87,6 +94,7 @@ const viewMonth = useVModel({
   emit,
   default: () => new Date(),
 });
+
 const { densityClass } = useDensity(props);
 
 const skeleton = useSkeletonContext(props);
@@ -103,7 +111,15 @@ const { disabled, min, max, weekStartDay, showCalendarWeeks, selectionMode } = t
 const {
   state: { weeksToRender, weekdayNames },
   elements: { table: tableProps, cell: cellProps, button: buttonProps },
-  internals: { goToMonthByOffset, goToToday, isSelected, isToday, getRangeType, isDisabled },
+  internals: {
+    goToMonthByOffset,
+    goToToday,
+    isSelected,
+    isToday,
+    getRangeType,
+    isDisabled,
+    goToDate,
+  },
 } = _unstableCreateCalendar({
   disabled,
   min,
@@ -118,6 +134,27 @@ const {
   onUpdateViewMonth: (newDate: Date) => ((viewMonth.value as Date) = newDate),
   onUpdateModelValue: (newValue) => (modelValue.value = newValue as typeof modelValue.value),
 });
+
+const isPickerOpen = ref(false);
+const pickerMode = ref<"year" | "month">("year");
+
+const handlePickerUpdate = (isOpen: boolean) => {
+  if (isOpen) pickerMode.value = "year";
+};
+
+const handleYearSelect = (year: number) => {
+  const newDate = new Date(viewMonth.value);
+  newDate.setFullYear(year);
+  goToDate(newDate, true);
+  pickerMode.value = "month";
+};
+
+const handleMonthSelect = (month: number) => {
+  const newDate = new Date(viewMonth.value);
+  newDate.setMonth(month);
+  goToDate(newDate, true);
+  isPickerOpen.value = false;
+};
 
 const hoveredDate = ref<Date>();
 
@@ -178,6 +215,16 @@ const calendarWeeksDisplay = computed(
   () =>
     `${t.value("calendar.calendarWeek")} ${weeksToRender.value[0]?.weekNumber} - ${weeksToRender.value[weeksToRender.value.length - 1]?.weekNumber} `,
 );
+
+const picker = useTemplateRef("pickerRef");
+const pickerSmall = useTemplateRef("pickerSmallRef");
+const pickerSmallButton = useTemplateRef("pickerSmallButtonRef");
+useOutsideClick({
+  inside: () => [picker.value, pickerSmall.value, pickerSmallButton.value],
+  onOutsideClick: () => {
+    if (isPickerOpen.value) isPickerOpen.value = false;
+  },
+});
 </script>
 
 <template>
@@ -199,10 +246,49 @@ const calendarWeeksDisplay = computed(
           :disabled="disabled === true"
           @click="goToToday"
         />
+        <div v-if="calendarSize === 'small'" ref="pickerSmallButtonRef">
+          <OnyxButton
+            color="neutral"
+            :label="d(viewMonth, { month: 'long', year: 'numeric' })"
+            mode="plain"
+            @click="
+              () => {
+                isPickerOpen = !isPickerOpen;
+                handlePickerUpdate(isPickerOpen);
+              }
+            "
+          />
+        </div>
+        <div v-else ref="pickerRef">
+          <OnyxBasicPopover
+            v-model:open="isPickerOpen"
+            role="grid"
+            :label="t('calendar.monthYearPicker.label')"
+            @update:open="handlePickerUpdate"
+          >
+            <template #default="{ trigger }">
+              <OnyxButton
+                color="neutral"
+                :label="d(viewMonth, { month: 'long', year: 'numeric' })"
+                mode="plain"
+                v-bind="trigger"
+              />
+            </template>
 
-        <OnyxHeadline is="h2" class="control-container__date-display">
-          {{ d(viewMonth, { month: "long", year: "numeric" }) }}
-        </OnyxHeadline>
+            <template #content>
+              <div>
+                <OnyxMonthYearPickerGrid
+                  :mode="pickerMode"
+                  :month-year-picker="props.monthYearPicker"
+                  :view-month="viewMonth"
+                  @select-year="handleYearSelect"
+                  @select-month="handleMonthSelect"
+                />
+              </div>
+            </template>
+          </OnyxBasicPopover>
+        </div>
+
         <OnyxTag
           v-if="showCalendarWeeks && calendarSize === 'big'"
           color="primary"
@@ -232,7 +318,17 @@ const calendarWeeksDisplay = computed(
     </div>
 
     <div class="onyx-calendar__body">
-      <table v-bind="tableProps">
+      <div v-if="calendarSize === 'small' && isPickerOpen" ref="pickerSmallRef">
+        <OnyxMonthYearPickerGrid
+          :mode="pickerMode"
+          :month-year-picker="props.monthYearPicker"
+          :view-month="viewMonth"
+          @select-year="handleYearSelect"
+          @select-month="handleMonthSelect"
+        />
+      </div>
+
+      <table v-else v-bind="tableProps">
         <thead>
           <tr>
             <th v-for="header in tableHeaders" :key="header" scope="col" :abbr="header">
@@ -302,6 +398,8 @@ const calendarWeeksDisplay = computed(
     }
 
     .onyx-calendar__body {
+      container-type: inline-size;
+
       table {
         width: 100%;
         border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
