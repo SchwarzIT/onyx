@@ -3,7 +3,6 @@ import type { OnyxNavBarProps, OnyxNavBarSlots } from "sit-onyx";
 
 const props = withDefaults(defineProps<OnyxNavBarProps>(), {
   logoUrl: "/favicon.svg",
-  withBackButton: true,
   // Vue defaults booleans to false so this explicit "undefined" is needed to correctly set the default breakpoint
   mobile: undefined,
 });
