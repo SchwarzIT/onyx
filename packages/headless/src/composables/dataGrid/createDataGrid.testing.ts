@@ -31,7 +31,7 @@ const expectLabel = async (page: Page, grid: Locator) => {
 
 const expectMaybeDescription = async (page: Page, grid: Locator) => {
   const describedBy = await grid.getAttribute("aria-describedby");
-  const caption = await grid.getByRole("caption");
+  const caption = grid.getByRole("caption");
 
   if (describedBy) {
     expect(

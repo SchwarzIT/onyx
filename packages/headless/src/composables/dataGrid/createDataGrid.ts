@@ -226,11 +226,10 @@ export const createDataGrid = createBuilder(
     };
 
     const onKeydown = (event: KeyboardEvent) => {
-      const cellElement: HTMLTableCellElement | null = (event.target as HTMLElement).closest(
-        "td, th",
-      );
-      const rowElement = (event.target as HTMLElement).closest("tr");
-      const tableElement = (event.target as HTMLElement).closest("table");
+      const target = event.target as HTMLElement;
+      const cellElement: HTMLTableCellElement | null = target.closest("td, th");
+      const rowElement = target.closest("tr");
+      const tableElement = target.closest("table");
 
       if (!cellElement || !rowElement || !tableElement) {
         return;
