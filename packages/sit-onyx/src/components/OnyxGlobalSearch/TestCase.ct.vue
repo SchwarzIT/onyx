@@ -19,10 +19,6 @@ const props = withDefaults(
      * Whether to render long option content.
      */
     longContent?: boolean;
-    /**
-     * Whether to show the end of list slot.
-     */
-    showEndOfList?: boolean;
   }>(),
   {
     groupCount: 0,
