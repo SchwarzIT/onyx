@@ -3,9 +3,9 @@ import { type MatrixScreenshotTestOptions } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
-import { SLIDER_CONTROLS } from "../OnyxSliderControl/types.js";
 import OnyxSlider from "./OnyxSlider.vue";
 import TooltipTestCase from "./TooltipTestCase.ct.vue";
+import { SLIDER_CONTROLS } from "./types.js";
 
 const LARGE_MARKS = [
   { value: 0, label: "0°C" },

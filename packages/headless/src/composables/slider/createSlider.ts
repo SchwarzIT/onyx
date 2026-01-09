@@ -207,6 +207,19 @@ export const createSlider = createBuilder(
     };
 
     /**
+     * Increases / decreases the value by a single step. Will also ensure focus on the thumb.
+     * Useful if e.g. adding custom buttons for changing the slider value.
+     */
+    const updateValueByStep = (direction: "increase" | "decrease") => {
+      const index = 0;
+      const stepValue = direction === "increase" ? step.value : -step.value;
+
+      const currentValue = normalizedValue.value[index];
+      updateValue(currentValue + stepValue, index);
+      focusThumb(index);
+    };
+
+    /**
      * Gets the given value in percentage relative to the sliders min/max range.
      */
     const getValueInPercentage = computed(() => {
@@ -417,7 +430,7 @@ export const createSlider = createBuilder(
       },
       internals: {
         updateValue,
-        focusThumb,
+        updateValueByStep,
       },
     };
   },
