@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { iconMinusSmall, iconPlusSmall } from "@sit-onyx/icons";
-import { computed } from "vue";
+import { computed, type HTMLAttributes } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import type { Nullable } from "../../types/index.js";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
+import type { OnyxIconButtonProps } from "../OnyxIconButton/types.js";
 import OnyxStepper from "../OnyxStepper/OnyxStepper.vue";
 import type { OnyxSliderControlProps } from "./types.js";
 
@@ -44,6 +45,21 @@ const stepperLabel = computed(() => {
   else if (props.direction === "decrease") return t.value("slider.changeEndValue");
   return t.value("slider.changeValue");
 });
+
+const sharedIconButtonProps = computed(() => {
+  return {
+    disabled: props.disabled,
+    color: "neutral",
+    // tabindex is set here because the icon buttons are only relevant for mouse users
+    // so they should be ignored by keyboard / screen readers because the slider itself is already (keyboard) accessible.
+    tabindex: -1,
+    onClick: handleIconClick,
+    onMousedown: (ev) => {
+      // needed to not loose the tooltip focus when holding down the mouse during a click
+      ev.preventDefault();
+    },
+  } satisfies Partial<OnyxIconButtonProps> & HTMLAttributes;
+});
 </script>
 
 <template>
@@ -55,21 +71,15 @@ const stepperLabel = computed(() => {
     <template v-else-if="props.control === 'icon'">
       <OnyxIconButton
         v-if="props.direction === 'decrease'"
-        :disabled="props.disabled"
-        color="neutral"
+        v-bind="sharedIconButtonProps"
         :label="t('slider.decreaseValueBy', { n: props.step })"
         :icon="iconMinusSmall"
-        tabindex="-1"
-        @click="handleIconClick"
       />
       <OnyxIconButton
-        v-if="props.direction === 'increase'"
-        :disabled="props.disabled"
-        color="neutral"
+        v-else-if="props.direction === 'increase'"
+        v-bind="sharedIconButtonProps"
         :label="t('slider.increaseValueBy', { n: props.step })"
         :icon="iconPlusSmall"
-        tabindex="-1"
-        @click="handleIconClick"
       />
     </template>
 
