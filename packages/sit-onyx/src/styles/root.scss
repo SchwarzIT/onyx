@@ -23,6 +23,10 @@
     --onyx-outline-width: 0.25rem;
 
     --onyx-nav-bar-height: 3.5rem;
+
+    // TODO: Remove in v2
+    /** @deprecated Use --onyx-color-component-opacity-backdrop-soft instead */
+    --onyx-color-component-opacity-backdrop: var(--onyx-color-component-opacity-backdrop-soft);
   }
 
   :root {
