@@ -86,13 +86,12 @@ const monthNames = computed(() => {
     grid-template-columns: repeat(3, 1fr);
     gap: var(--onyx-density-2xs);
     padding: var(--onyx-density-xs);
-    max-height: 14rem;
+    aspect-ratio: 1;
     overflow-y: auto;
     min-width: 16rem;
 
     &--inline {
       width: 100%;
-      max-height: none;
       aspect-ratio: 1;
       background-color: var(--onyx-color-base-background-blank);
       border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
@@ -106,13 +105,10 @@ const monthNames = computed(() => {
       border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
       border-radius: var(--onyx-radius-md);
       background-color: var(--onyx-color-base-background-blank);
-      max-height: none;
       width: 100%;
       $header-height: calc(var(--onyx-font-line-height-sm) + 2 * var(--onyx-density-xs));
       // calendar-height + header-height + borders
       height: calc((100cqw / 7 * 6) + #{$header-height} + 1.5px);
-      align-content: center;
-      justify-content: center;
     }
   }
 }
