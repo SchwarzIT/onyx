@@ -48,8 +48,9 @@ const props = withDefaults(
         />
       </OnyxGlobalSearchGroup>
     </template>
-    <template v-if="showEndOfList" #endOfList>
+    <template #endOfList="{ getOptionProps }">
       <OnyxButton
+        v-bind="getOptionProps('show-all')"
         label="Show all results"
         mode="plain"
         class="show-all-button"
@@ -63,5 +64,8 @@ const props = withDefaults(
 <style lang="scss" scoped>
 .show-all-button {
   width: 100%;
+  &.active {
+    outline: var(--onyx-outline-width) solid var(--onyx-button-outline-color);
+  }
 }
 </style>

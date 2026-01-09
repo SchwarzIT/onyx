@@ -41,7 +41,15 @@ const slots = defineSlots<{
   /**
    * Slot to pass content after search results.
    */
-  endOfList?(): unknown;
+  endOfList?(props: {
+    /**
+     * Helper to make an element navigable.
+     * @param value - Must be a unique name (e.g., 'show-all').
+     */
+    getOptionProps: typeof getOptionProps;
+    /** The value of the currently highlighted option. */
+    activeValue?: string;
+  }): unknown;
 }>();
 
 const { t } = injectI18n();
@@ -110,6 +118,23 @@ const headless = createComboBox({
   onSelect,
 });
 
+/**
+ * Generates the necessary props to make a custom element (e.g., a "Show all" button)
+ * navigable via arrow keys.
+ * * @param value - A unique identifier for this option. Must be unique within the entire search component.
+ * @returns An object containing the required ARIA roles, IDs, and the current active state.
+ */
+const getOptionProps = (value: string) => {
+  const isActive = activeValue.value === value;
+
+  return {
+    role: "option",
+    id: headless.internals.getOptionId(value),
+    "aria-selected": isActive,
+    class: isActive ? "active" : undefined,
+  };
+};
+
 provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
 </script>
 
@@ -138,13 +163,15 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
     </OnyxInput>
 
     <!-- using v-show instead of v-if because the input has a aria-controls attribute which needs to point to a existing listbox -->
-    <div v-show="!!slots.default" class="onyx-global-search__body">
-      <div v-bind="headless.elements.listbox.value">
-        <slot></slot>
-      </div>
+    <div
+      v-show="!!slots.default"
+      class="onyx-global-search__body"
+      v-bind="headless.elements.listbox.value"
+    >
+      <slot></slot>
 
-      <div v-if="!!slots.endOfList" class="onyx-global-search__end-of-list">
-        <slot name="endOfList"></slot>
+      <div v-if="!!slots.endOfList" role="none" class="onyx-global-search__end-of-list">
+        <slot name="endOfList" :get-option-props="getOptionProps" :active-value="activeValue"></slot>
       </div>
     </div>
     <!-- TODO: replace keyboard shortcuts with OnyxShortcut component once implemented -->

@@ -99,7 +99,7 @@ test("should support keyboard navigation", async ({ page, mount }) => {
 
   // ACT + ASSERT
   await navigate("End");
-  await expectSelectedOption("Result 2.2");
+  await expectSelectedOption("Show all results");
 
   // ACT + ASSERT
   await navigate("Home");
@@ -107,7 +107,7 @@ test("should support keyboard navigation", async ({ page, mount }) => {
 
   // ACT + ASSERT
   await navigate("ArrowUp");
-  await expectSelectedOption("Result 2.2");
+  await expectSelectedOption("Show all results");
 
   // ACT + ASSERT
   await navigate("ArrowDown");

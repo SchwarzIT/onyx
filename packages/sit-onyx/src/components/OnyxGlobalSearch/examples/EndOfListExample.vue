@@ -171,9 +171,18 @@ const showMoreButton = computed(() => {
         </OnyxUnstableGlobalSearchGroup>
       </template>
 
-      <!-- show "Show all results" button if there are more results to show -->
-      <template v-if="showMoreButton && !isLoading" #endOfList>
+      <!-- 
+  The #endOfList slot provides the 'getOptionProps' helper and 'activeValue' state.
+  
+  - Binding 'getOptionProps' with a unique identifier is required for accessibility (ARIA roles/IDs) 
+    and to enable keyboard navigation (arrow keys + enter).
+    It automatically toggles an active class when the item is highlighted, facilitating custom styling
+
+  - 'activeValue' can be used to implement custom conditional logic or styling.
+-->
+      <template v-if="showMoreButton && !isLoading" #endOfList="{ getOptionProps }">
         <OnyxButton
+          v-bind="getOptionProps('show-all')"
           label="Show all results"
           mode="plain"
           class="show-all-button"
@@ -188,5 +197,15 @@ const showMoreButton = computed(() => {
 <style lang="scss" scoped>
 .show-all-button {
   width: 100%;
+
+  /**
+   * The .active class is applied by getOptionProps when the user 
+   * navigates to this button using the arrow keys.
+   * Since the browser focus stays in the input field, we must 
+   * visually simulate the focus state here.
+   */
+  &.active {
+    outline: var(--onyx-outline-width) solid var(--onyx-button-outline-color);
+  }
 }
 </style>
