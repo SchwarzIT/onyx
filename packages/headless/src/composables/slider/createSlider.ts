@@ -86,6 +86,8 @@ const DECREMENT_KEYS = new Set(["ArrowLeft", "ArrowDown", "PageDown"]);
 export const createSlider = createBuilder(
   <TValue extends SliderValue>(options: CreateSliderOptions<TValue>) => {
     const sliderRef = createElRef<HTMLElement>();
+    const firstThumbRef = createElRef<HTMLElement>();
+    const secondThumbRef = createElRef<HTMLElement>();
 
     const min = computed(() => toValue(options.min) ?? 0);
     const max = computed(() => toValue(options.max) ?? 100);
@@ -103,9 +105,8 @@ export const createSlider = createBuilder(
     });
 
     const focusThumb = (index: number) => {
-      Array.from(sliderRef.value.querySelectorAll<HTMLElement>('[role="slider"]'))
-        .at(index)
-        ?.focus();
+      if (index === 0) firstThumbRef.value.focus();
+      else if (index === 1) secondThumbRef.value.focus();
     };
 
     const shiftStep = computed(() => {
@@ -340,6 +341,7 @@ export const createSlider = createBuilder(
             "aria-orientation": "horizontal",
             step: step.value,
             disabled: toValue(options.disabled),
+            ref: data.index === 0 ? firstThumbRef : data.index === 1 ? secondThumbRef : undefined,
             ...(toValue(options.disabled) ? undefined : events),
           };
         }),
