@@ -227,7 +227,7 @@ export default defineContentConfig({
     // define a new collection for every additional language here
     content_de: defineCollection({
       type: "page",
-      source: { include: "de/**", prefix: "" },
+      source: { include: "de/**", prefix: "/" },
     }),
   },
 });
@@ -272,6 +272,23 @@ Plain / blank [OnyxPageLayout](https://storybook.onyx.schwarz/?path=/story/layou
 ### Sidebar layout
 
 Used as default for rendering markdown / content pages. Will automatically generate a sidebar with (nested) nav items, depending on your content structure.
+
+The sidebar layout can be customized on folder-level by creating a `.navigation.yml` inside the corresponding folder. This allows to e.g. set the initial accordion collapsed state or define multiple roots so you can have multiple sections in your application where each section have their own sidebar hierarchy.
+
+::: code-group
+
+```yml [content/en/about/.navigation.yml]
+title: About
+sidebar:
+  # initially collapse the accordion / child items/pages
+  # collapsed: true
+
+  # define this folder as standalone root so when any child page is opened, the sidebar navigation will start from this folder
+  # and hide any parent navigation
+  # root: true
+```
+
+:::
 
 ## Components
 

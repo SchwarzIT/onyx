@@ -21,7 +21,6 @@ import { useOpenDirection } from "../../composables/useOpenDirection.js";
 import { useResizeObserver } from "../../composables/useResizeObserver.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
-import type { Nullable } from "../../types/utils.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxTooltipProps } from "./types.js";
 
@@ -52,7 +51,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the open state of the tooltip changes.
    */
-  "update:open": [open: Nullable<boolean>];
+  "update:open": [open: boolean];
 }>();
 
 defineSlots<{

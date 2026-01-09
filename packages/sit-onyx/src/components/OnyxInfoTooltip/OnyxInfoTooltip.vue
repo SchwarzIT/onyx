@@ -2,7 +2,6 @@
 import { iconCircleInformation } from "@sit-onyx/icons";
 import { computed } from "vue";
 import { useVModel } from "../../composables/useVModel.js";
-import type { Nullable } from "../../types/utils.js";
 import { useForwardProps } from "../../utils/props.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
@@ -20,7 +19,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the open state of the tooltip changes.
    */
-  "update:open": [open: Nullable<boolean>];
+  "update:open": [open: boolean];
 }>();
 
 const isVisible = useVModel({

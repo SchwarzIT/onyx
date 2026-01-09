@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import type { Nullable } from "../../types/utils.js";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxDialog from "./OnyxDialog.vue";
 
@@ -11,7 +10,7 @@ defineSlots<{
 }>();
 
 const emit = defineEmits<{
-  "update:open": [open: Nullable<boolean>];
+  "update:open": [open: boolean];
 }>();
 const isOpen = ref(true);
 </script>

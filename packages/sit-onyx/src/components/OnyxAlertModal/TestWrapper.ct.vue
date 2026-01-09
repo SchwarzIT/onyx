@@ -1,11 +1,10 @@
 <script lang="ts" setup>
 import { iconCircleAttention } from "@sit-onyx/icons";
-import type { Nullable } from "../../types/utils.js";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxAlertModal from "./OnyxAlertModal.vue";
 
 const emit = defineEmits<{
-  "update:open": [open: Nullable<boolean>];
+  "update:open": [open: boolean];
 }>();
 </script>
 

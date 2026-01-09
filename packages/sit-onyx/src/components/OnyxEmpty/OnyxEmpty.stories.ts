@@ -34,11 +34,30 @@ export const Default = {
 /**
  * This example shows an empty component with custom text and icon with a different color and size.
  */
+export const Buttons = {
+  args: {
+    default: () => ["No data found."],
+    description: () => [
+      "Go to ",
+      h(OnyxLink, { href: "#" }, () => "this page"),
+      " to add some data.",
+    ],
+    buttons: () => [
+      h(OnyxButton, { label: "Button", color: "neutral" }),
+      h(OnyxButton, { label: "Button" }),
+    ],
+  },
+} satisfies Story;
+
+/**
+ * This example shows an empty component with custom text and icon with a different color and size.
+ */
 export const CustomContent = {
   args: {
     icon: () => h(OnyxIcon, { icon: iconFileDisabled, size: "48px", color: "danger" }),
-    default: () => [
-      "No data found. Go to ",
+    default: () => ["No data found."],
+    description: () => [
+      "Go to ",
       h(OnyxLink, { href: "#" }, () => "this page"),
       " to add some data.",
     ],

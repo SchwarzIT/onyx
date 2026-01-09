@@ -1,5 +1,4 @@
-import { useLocalStorage } from "@vueuse/core";
-import { defineStore, skipHydrate } from "pinia";
+import { defineStore } from "pinia";
 import type { Density } from "sit-onyx";
 
 export type UserSettings = {
@@ -7,15 +6,9 @@ export type UserSettings = {
 };
 
 export const useSettingsStore = defineStore("settings", () => {
-  const settings = useLocalStorage<UserSettings>(
-    "settings",
-    {
-      density: "default",
-    } satisfies UserSettings,
-    { writeDefaults: false, initOnMounted: true },
-  );
-
-  return {
-    settings: skipHydrate(settings),
-  };
+  const settings = useCookie<UserSettings>("settings", {
+    default: () => ({ density: "default" }),
+    sameSite: "lax",
+  });
+  return { settings };
 });
