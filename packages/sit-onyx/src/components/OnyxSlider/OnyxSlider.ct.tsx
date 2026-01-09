@@ -3,8 +3,9 @@ import { type MatrixScreenshotTestOptions } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
-import { SLIDER_CONTROLS } from "../OnyxSliderControl/types.js";
 import OnyxSlider from "./OnyxSlider.vue";
+import TooltipTestCase from "./TooltipTestCase.ct.vue";
+import { SLIDER_CONTROLS } from "./types.js";
 
 const LARGE_MARKS = [
   { value: 0, label: "0°C" },
@@ -91,7 +92,7 @@ test.describe("Screenshot tests (marks)", () => {
   executeMatrixScreenshotTest({
     name: "Slider (marks)",
     columns: DENSITIES,
-    rows: ["simple", "labeled", "auto-generated"],
+    rows: ["simple", "auto-generated", "labeled"],
     component: (column, row) => {
       const marks =
         row === "simple" ? [0, 25, 50, 75, 100] : row === "labeled" ? LARGE_MARKS : true;
@@ -102,9 +103,15 @@ test.describe("Screenshot tests (marks)", () => {
           marks={marks}
           step={row === "auto-generated" ? 25 : undefined}
           density={column}
-          style={{ width: "12rem" }}
+          style={{ width: "12rem", paddingBlock: "2rem" }}
         />
       );
+    },
+    hooks: {
+      beforeEach: async (component) => {
+        // show tooltip
+        await component.getByRole("slider").focus();
+      },
     },
   });
 });
@@ -237,10 +244,21 @@ test("should interact with icon control", async ({ mount }) => {
   await expect(increaseButton).toBeVisible();
 
   // ACT
+  await component.press("Tab");
+
+  await expect(slider, "should not allow focus on icon buttons via keyboard").toBeFocused();
+  await expect(decreaseButton).not.toBeFocused();
+  await expect(increaseButton).not.toBeFocused();
+
+  // ACT
   await increaseButton.click();
 
   // ASSERT
   await expect(slider, "should increase by step").toHaveValue("60");
+  await expect(
+    component.getByRole("tooltip"),
+    "should show tooltip when changing value via icon",
+  ).toBeVisible();
 
   // ACT
   await decreaseButton.click();
@@ -274,19 +292,36 @@ test("should handle auto-generated marks", async ({ mount }) => {
   await expect(marks).toHaveCount(6);
 });
 
-test("should hide tooltip when disabled", async ({ mount }) => {
+test("should consider custom tooltip options", async ({ mount }) => {
   // ARRANGE
-  const component = await mount(
-    <OnyxSlider label="No tooltip slider" modelValue={50} disableTooltip />,
-  );
 
-  const slider = component.getByLabel("No tooltip slider");
+  const component = await mount(TooltipTestCase);
+
+  const slider = component.getByLabel("Custom tooltip slider");
+  const tooltip = component.getByRole("tooltip");
 
   // ACT
   await slider.focus();
 
   // ASSERT
-  await expect(component.getByRole("tooltip")).toBeHidden();
+  await expect(tooltip).toBeVisible();
+
+  // ACT
+  await component.update({ props: { tooltip: "hidden" } });
+  await slider.blur();
+  await slider.focus();
+
+  // ASSERT
+  await expect(tooltip).toBeHidden();
+
+  // ACT
+  await component.update({ props: { tooltip: "custom" } });
+  await slider.blur();
+  await slider.focus();
+
+  // ASSERT
+  await expect(tooltip).toBeVisible();
+  await expect(tooltip).toHaveText("Custom value 50");
 });
 
 test("should interact with input control in single mode", async ({ mount }) => {
