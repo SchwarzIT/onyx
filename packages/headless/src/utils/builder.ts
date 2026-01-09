@@ -138,13 +138,8 @@ export function createElRef<
 
   return computed({
     set: (element: V) => {
-      if (Array.isArray(element)) {
-        elementRef.value = element.at(0);
-      } else if (element != null && "$el" in element) {
-        elementRef.value = element.$el;
-      } else {
-        elementRef.value = element as E;
-      }
+      const el = Array.isArray(element) ? element[0] : element;
+      elementRef.value = el != null && "$el" in el ? el.$el : (el as E);
     },
     get: () => elementRef.value,
   } as WritableComputedOptions<E>);

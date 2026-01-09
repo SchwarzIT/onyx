@@ -170,17 +170,21 @@ const wasTouched = ref(false);
                 class="onyx-slider__thumb-tooltip"
               >
                 <template #default="{ trigger }">
-                  <OnyxVisuallyHidden
-                    v-bind="mergeVueProps(thumbInput({ value, index }), trigger)"
-                    is="input"
-                    :id="index === 0 ? inputId : undefined"
-                    v-custom-validity
-                    :class="['onyx-slider__native', { 'onyx-slider__native--touched': wasTouched }]"
-                    :tabindex="props.control === 'input' ? -1 : undefined"
-                    :aria-label="props.label"
-                    :autofocus="props.autofocus && index === 0"
-                    :disabled
-                  />
+                  <OnyxVisuallyHidden>
+                    <input
+                      v-bind="mergeVueProps(thumbInput({ value, index }), trigger)"
+                      :id="index === 0 ? inputId : undefined"
+                      v-custom-validity
+                      :class="[
+                        'onyx-slider__native',
+                        { 'onyx-slider__native--touched': wasTouched },
+                      ]"
+                      :tabindex="props.control === 'input' ? -1 : undefined"
+                      :disabled="disabled"
+                      :aria-label="props.label"
+                      :autofocus="props.autofocus && index === 0"
+                    />
+                  </OnyxVisuallyHidden>
                 </template>
               </OnyxTooltip>
             </span>
