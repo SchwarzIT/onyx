@@ -108,7 +108,7 @@ const monthNames = computed(() => {
       width: 100%;
       $header-height: calc(var(--onyx-font-line-height-sm) + 2 * var(--onyx-density-xs));
       // calendar-height + header-height + borders
-      height: calc((100cqw / 7 * 6) + #{$header-height} + 1.5px);
+      height: calc((100cqw / 7 * 6) + #{$header-height} + var(--onyx-1px-in-rem));
     }
   }
 }

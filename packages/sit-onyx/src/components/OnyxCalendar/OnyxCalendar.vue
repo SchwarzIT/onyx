@@ -29,7 +29,6 @@ import OnyxBasicPopover from "../OnyxBasicPopover/OnyxBasicPopover.vue";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxCalendarCell from "../OnyxCalendarCell/OnyxCalendarCell.vue";
 import type { CalendarCellRangeType } from "../OnyxCalendarCell/types.js";
-import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
@@ -243,7 +242,7 @@ useOutsideClick({
         <OnyxSystemButton
           :label="t('calendar.todayButton.label')"
           class="control-container__today-btn"
-          :disabled="disabled === true"
+          :disabled="disabled === true || isPickerOpen"
           @click="goToToday"
         />
         <div v-if="calendarSize === 'small'" ref="pickerSmallButtonRef">
@@ -294,22 +293,20 @@ useOutsideClick({
           color="primary"
           :label="calendarWeeksDisplay"
         />
-        <OnyxIconButton
-          class="control-container__prev-month-button"
-          :label="t('calendar.previousMonthButton')"
-          color="neutral"
-          :icon="iconChevronLeftSmall"
-          :disabled="disabled === true"
-          @click="goToMonthByOffset(-1)"
-        />
-        <OnyxIconButton
-          class="control-container__next-month-button"
-          :label="t('calendar.nextMonthButton')"
-          color="neutral"
-          :icon="iconChevronRightSmall"
-          :disabled="disabled === true"
-          @click="goToMonthByOffset(1)"
-        />
+        <div class="control-container__month-buttons">
+          <OnyxSystemButton
+            :label="t('calendar.previousMonthButton')"
+            :icon="iconChevronLeftSmall"
+            :disabled="disabled === true || isPickerOpen"
+            @click="goToMonthByOffset(-1)"
+          />
+          <OnyxSystemButton
+            :label="t('calendar.nextMonthButton')"
+            :icon="iconChevronRightSmall"
+            :disabled="disabled === true || isPickerOpen"
+            @click="goToMonthByOffset(1)"
+          />
+        </div>
       </div>
 
       <div class="control-container">
@@ -387,8 +384,11 @@ useOutsideClick({
       justify-content: space-between;
       align-items: center;
       .control-container {
+        &__month-buttons {
+          display: flex;
+        }
         display: flex;
-        gap: var(--onyx-density-2xs);
+        gap: var(--onyx-density-xs);
         align-items: center;
         &__date-display {
           min-width: calc(3 * var(--onyx-density-2xl));
@@ -474,9 +474,13 @@ useOutsideClick({
       .time-control-container {
         width: 100%;
       }
-      .control-container__prev-month-button {
-        margin-left: auto;
+      .control-container {
+        gap: var(--onyx-density-2xs);
+        &__month-buttons {
+          margin-left: auto;
+        }
       }
+
       &:has(th[scope="row"]) {
         th:first-of-type {
           border-bottom: none;
