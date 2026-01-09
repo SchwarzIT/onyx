@@ -9,6 +9,7 @@ import {
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
+import { mergeVueProps } from "../../utils/attrs.js";
 import { useForwardProps } from "../../utils/props.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
@@ -115,7 +116,6 @@ const wasTouched = ref(false);
             control="value"
             :model-value="props.min"
           />
-          <!-- @mousedown.prevent is needed to not loose the tooltip focus when holding down the mouse during a click -->
           <OnyxSliderControl
             v-else-if="props.control === 'icon' && props.mode === 'single'"
             control="icon"
@@ -124,7 +124,6 @@ const wasTouched = ref(false);
             :model-value="normalizedValue[0]"
             :disabled="disabled || normalizedValue[0] <= props.min"
             @update:model-value="handleControlUpdate($event, 0, true)"
-            @mousedown.prevent
           />
           <OnyxSliderControl
             v-else-if="props.control === 'input' && props.mode === 'range'"
@@ -171,23 +170,17 @@ const wasTouched = ref(false);
                 class="onyx-slider__thumb-tooltip"
               >
                 <template #default="{ trigger }">
-                  <span v-bind="trigger">
-                    <OnyxVisuallyHidden>
-                      <input
-                        :id="index === 0 ? inputId : undefined"
-                        v-custom-validity
-                        :class="[
-                          'onyx-slider__native',
-                          { 'onyx-slider__native--touched': wasTouched },
-                        ]"
-                        :tabindex="props.control === 'input' ? -1 : undefined"
-                        v-bind="thumbInput({ value, index })"
-                        :disabled="disabled"
-                        :aria-label="props.label"
-                        :autofocus="props.autofocus && index === 0"
-                      />
-                    </OnyxVisuallyHidden>
-                  </span>
+                  <OnyxVisuallyHidden
+                    v-bind="mergeVueProps(thumbInput({ value, index }), trigger)"
+                    is="input"
+                    :id="index === 0 ? inputId : undefined"
+                    v-custom-validity
+                    :class="['onyx-slider__native', { 'onyx-slider__native--touched': wasTouched }]"
+                    :tabindex="props.control === 'input' ? -1 : undefined"
+                    :aria-label="props.label"
+                    :autofocus="props.autofocus && index === 0"
+                    :disabled
+                  />
                 </template>
               </OnyxTooltip>
             </span>
@@ -206,7 +199,6 @@ const wasTouched = ref(false);
             :model-value="normalizedValue[0]"
             :disabled="disabled || normalizedValue[0] >= props.max"
             @update:model-value="handleControlUpdate($event, 0, true)"
-            @mousedown.prevent
           />
           <OnyxSliderControl
             v-else-if="props.control === 'input'"
