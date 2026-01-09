@@ -171,7 +171,11 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
       <slot></slot>
 
       <div v-if="!!slots.endOfList" role="none" class="onyx-global-search__end-of-list">
-        <slot name="endOfList" :get-option-props="getOptionProps" :active-value="activeValue"></slot>
+        <slot
+          name="endOfList"
+          :get-option-props="getOptionProps"
+          :active-value="activeValue"
+        ></slot>
       </div>
     </div>
     <!-- TODO: replace keyboard shortcuts with OnyxShortcut component once implemented -->
