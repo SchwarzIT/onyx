@@ -63,9 +63,9 @@ export const Interactive = {
 } satisfies Story;
 
 /**
- * This example shows the dismissable tag.
+ * This example shows the dismissible tag.
  */
-export const Dismissable = {
+export const Dismissible = {
   argTypes: {
     ...withNativeEventLogging(["onClick"]),
   },
