@@ -1,6 +1,7 @@
 <script setup lang="ts" generic="TSliderMode extends SliderMode">
 import { createSlider } from "@sit-onyx/headless";
-import { computed, ref, toRef, toRefs } from "vue";
+import { iconMinusSmall, iconPlusSmall } from "@sit-onyx/icons";
+import { computed, ref, toRef, toRefs, type HTMLAttributes } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useErrorClass } from "../../composables/useErrorClass.js";
 import { getFormMessages, useFormElementError } from "../../composables/useFormElementError.js";
@@ -9,12 +10,16 @@ import {
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
+import { injectI18n } from "../../i18n/index.js";
 import { mergeVueProps } from "../../utils/attrs.js";
 import { useForwardProps } from "../../utils/props.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
+import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
+import type { OnyxIconButtonProps } from "../OnyxIconButton/types.js";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import OnyxSliderControl from "../OnyxSliderControl/OnyxSliderControl.vue";
+import OnyxStepper from "../OnyxStepper/OnyxStepper.vue";
+import type { OnyxStepperProps } from "../OnyxStepper/types.js";
 import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import type { OnyxSliderProps, SliderMode, SliderValue } from "./types.js";
@@ -48,6 +53,7 @@ const modelValue = useVModel<Props, "modelValue", SliderValue<TSliderMode>>({
   key: "modelValue",
 });
 
+const { t } = injectI18n();
 const { vCustomValidity, errorMessages } = useFormElementError({ props, emit });
 const formElementProps = useForwardProps(props, OnyxFormElement);
 const messages = computed(() => getFormMessages(props.message));
@@ -64,7 +70,7 @@ const { min, max, step, label } = toRefs(props);
 const {
   elements: { root, track, thumbContainer, thumbInput, mark, markLabel },
   state: { normalizedValue, marks },
-  internals: { updateValue, focusThumb },
+  internals: { updateValue, updateValueByStep },
 } = createSlider({
   value: modelValue,
   min,
@@ -82,16 +88,36 @@ const {
 
 const hasMarkLabels = computed(() => marks.value.some((mark) => !!mark.label));
 
-const handleControlUpdate = (value: number, index: number, focus?: boolean) => {
-  updateValue(value, index);
-  if (focus) focusThumb(index);
-};
-
 /**
  * Used to detect user interaction to simulate the behavior of :user-invalid for the native input
  * because the native browser :user-invalid does not trigger when the value is changed e.g. via slider click.
  */
 const wasTouched = ref(false);
+
+const sharedIconButtonProps = computed(() => {
+  return {
+    color: "neutral",
+    // tabindex is set here because the icon buttons are only relevant for mouse users
+    // so they should be ignored by keyboard / screen readers because the slider itself is already (keyboard) accessible.
+    tabindex: -1,
+    onMousedown: (ev) => {
+      // needed to not loose the tooltip focus when holding down the mouse during a click
+      ev.preventDefault();
+    },
+  } satisfies Partial<OnyxIconButtonProps> & HTMLAttributes;
+});
+
+const sharedStepperProps = computed(() => {
+  return {
+    class: "onyx-slider__control",
+    stepSize: props.step,
+    min: props.min,
+    max: props.max,
+    disabled: disabled.value,
+    hideLabel: true,
+    hideButtons: true,
+  } satisfies Partial<OnyxStepperProps> & HTMLAttributes;
+});
 </script>
 
 <template>
@@ -111,32 +137,27 @@ const wasTouched = ref(false);
     >
       <template #default="{ id: inputId }">
         <div class="onyx-slider__container">
-          <OnyxSliderControl
-            v-if="props.control === 'value'"
-            control="value"
-            :model-value="props.min"
-          />
-          <OnyxSliderControl
+          <!-- left controls -->
+          <span v-if="props.control === 'value'" class="onyx-slider__control">{{ props.min }}</span>
+
+          <OnyxIconButton
             v-else-if="props.control === 'icon' && props.mode === 'single'"
-            control="icon"
-            direction="decrease"
-            :step="props.step"
-            :model-value="normalizedValue[0]"
+            v-bind="sharedIconButtonProps"
+            :label="t('slider.decreaseValueBy', { n: props.step })"
+            :icon="iconMinusSmall"
             :disabled="disabled || normalizedValue[0] <= props.min"
-            @update:model-value="handleControlUpdate($event, 0, true)"
-          />
-          <OnyxSliderControl
-            v-else-if="props.control === 'input' && props.mode === 'range'"
-            control="input"
-            direction="increase"
-            :model-value="normalizedValue[0]"
-            :disabled
-            :step="props.step"
-            :min="props.min"
-            :max="props.max"
-            @update:model-value="handleControlUpdate($event, 0)"
+            @click="updateValueByStep('decrease')"
           />
 
+          <OnyxStepper
+            v-else-if="props.control === 'input' && props.mode === 'range'"
+            v-bind="sharedStepperProps"
+            :label="t('slider.changeStartValue')"
+            :model-value="normalizedValue[0]"
+            @update:model-value="$event != undefined && updateValue($event, 0)"
+          />
+
+          <!-- main slider -->
           <span class="onyx-slider__root" v-bind="root">
             <span class="onyx-slider__rail"></span>
             <span class="onyx-slider__track" v-bind="track"></span>
@@ -190,30 +211,26 @@ const wasTouched = ref(false);
             </span>
           </span>
 
-          <OnyxSliderControl
-            v-if="props.control === 'value'"
-            control="value"
-            :model-value="props.max"
-          />
-          <OnyxSliderControl
+          <!-- right controls -->
+          <span v-if="props.control === 'value'" class="onyx-slider__control">{{ props.max }}</span>
+
+          <OnyxIconButton
             v-else-if="props.control === 'icon' && props.mode === 'single'"
-            control="icon"
-            direction="increase"
-            :step="props.step"
-            :model-value="normalizedValue[0]"
+            v-bind="sharedIconButtonProps"
+            :label="t('slider.increaseValueBy', { n: props.step })"
+            :icon="iconPlusSmall"
             :disabled="disabled || normalizedValue[0] >= props.max"
-            @update:model-value="handleControlUpdate($event, 0, true)"
+            @click="updateValueByStep('increase')"
           />
-          <OnyxSliderControl
+
+          <OnyxStepper
             v-else-if="props.control === 'input'"
-            control="input"
-            :direction="props.mode === 'range' ? 'decrease' : undefined"
+            v-bind="sharedStepperProps"
+            :label="t(`slider.${props.mode === 'range' ? 'changeEndValue' : 'changeValue'}`)"
             :model-value="normalizedValue[1] ?? normalizedValue[0]"
-            :disabled
-            :step="props.step"
-            :min="props.min"
-            :max="props.max"
-            @update:model-value="handleControlUpdate($event, props.mode === 'range' ? 1 : 0)"
+            @update:model-value="
+              $event != undefined && updateValue($event, props.mode === 'range' ? 1 : 0)
+            "
           />
         </div>
       </template>
@@ -302,9 +319,9 @@ const wasTouched = ref(false);
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 1.5rem;
-      height: 1.5rem;
-
+      width: 2.5rem;
+      min-width: 2.5rem;
+      height: 2.5rem;
       font-size: var(--onyx-font-size-md);
       font-family: var(--onyx-font-family-paragraph);
       line-height: var(--onyx-font-line-height-sm);

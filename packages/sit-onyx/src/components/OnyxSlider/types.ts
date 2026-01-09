@@ -1,5 +1,4 @@
 import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
-import type { SliderControl } from "../OnyxSliderControl/types.js";
 
 export type SliderMark = {
   value: number;
@@ -81,3 +80,6 @@ export type SliderTooltipOptions = {
    */
   formatter?: (value: number, index: number) => string;
 };
+
+export const SLIDER_CONTROLS = ["icon", "value", "input"] as const;
+export type SliderControl = (typeof SLIDER_CONTROLS)[number];
