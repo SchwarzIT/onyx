@@ -23,19 +23,26 @@ test("should render", async ({ mount, makeAxeBuilder, page }) => {
   await expect(page).toHaveScreenshot("default.png");
 });
 
-test("should render in modal", async ({ mount, makeAxeBuilder, page }) => {
-  await mount(
-    <OnyxBasicDialog label="Label" open modal>
-      Content
-    </OnyxBasicDialog>,
-  );
+const BACKDROPS = ["soft", "medium"] as const;
 
-  // accessibility tests
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
-  expect(accessibilityScanResults.violations, "should pass accessibility checks").toEqual([]);
+for (const backdrop of BACKDROPS) {
+  test(`should render in modal with ${backdrop} backdrop`, async ({
+    mount,
+    makeAxeBuilder,
+    page,
+  }) => {
+    await mount(
+      <OnyxBasicDialog label="Label" open modal backdrop={backdrop}>
+        Content
+      </OnyxBasicDialog>,
+    );
 
-  await expect(page).toHaveScreenshot("modal.png");
-});
+    const accessibilityScanResults = await makeAxeBuilder().analyze();
+    expect(accessibilityScanResults.violations).toEqual([]);
+
+    await expect(page).toHaveScreenshot(`modal-${backdrop}.png`);
+  });
+}
 
 test("should render with long content", async ({ mount, makeAxeBuilder, page }) => {
   await mount(
