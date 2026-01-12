@@ -131,7 +131,6 @@ const getOptionProps = (value: string) => {
     role: "option",
     id: headless.internals.getOptionId(value),
     "aria-selected": isActive,
-    class: isActive ? "active" : undefined,
   };
 };
 
@@ -170,7 +169,7 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
     >
       <slot></slot>
 
-      <div v-if="!!slots.endOfList" role="none" class="onyx-global-search__end-of-list">
+      <div v-if="!!slots.endOfList" class="onyx-global-search__end-of-list">
         <slot
           name="endOfList"
           :get-option-props="getOptionProps"

@@ -199,12 +199,12 @@ const showMoreButton = computed(() => {
   width: 100%;
 
   /**
-   * The .active class is applied by getOptionProps when the user 
+   * The `aria-selected` attribute is applied by getOptionProps when the user 
    * navigates to this button using the arrow keys.
    * Since the browser focus stays in the input field, we must 
    * visually simulate the focus state here.
    */
-  &.active {
+  &[aria-selected="true"] {
     outline: var(--onyx-outline-width) solid var(--onyx-button-outline-color);
   }
 }
