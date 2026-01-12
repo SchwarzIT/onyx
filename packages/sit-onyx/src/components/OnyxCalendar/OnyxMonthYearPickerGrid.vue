@@ -2,21 +2,20 @@
 import { computed } from "vue";
 import { injectI18n } from "../../i18n/index.js";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
+import type { OnyxCalendarProps } from "./types.js";
 
-const props = defineProps<{
-  /**
-   * mode //TODO:
-   */
-  mode: "year" | "month";
-  /**
-   * viewMonth
-   */
-  viewMonth: Date;
-  /**
-   * monthYearPicker
-   */
-  monthYearPicker?: boolean | { min?: Date; max?: Date };
-}>();
+const props = defineProps<
+  Pick<OnyxCalendarProps<"single">, "monthYearPicker"> & {
+    /**
+     * Mode of the picker.
+     */
+    mode: "year" | "month";
+    /**
+     * The month / year that is currently visible.
+     */
+    viewMonth: Date;
+  }
+>();
 
 const emit = defineEmits<{
   selectYear: [year: number];

@@ -261,8 +261,8 @@ useOutsideClick({
         <div v-else ref="pickerRef">
           <OnyxBasicPopover
             v-model:open="isPickerOpen"
-            role="grid"
-            :label="t('calendar.monthYearPicker.label')"
+            role="dialog"
+            :label="t('calendar.monthYearPicker')"
             @update:open="handlePickerUpdate"
           >
             <template #default="{ trigger }">
