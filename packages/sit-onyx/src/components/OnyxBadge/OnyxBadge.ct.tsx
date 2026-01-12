@@ -75,9 +75,3 @@ test("should truncate text", async ({ mount }) => {
   // ASSERT
   await expect(component).toHaveScreenshot("truncation-ellipsis.png");
 });
-
-test("should render interactive Badge with clickable prop", async ({ mount }) => {
-  const component = await mount(<OnyxBadge clickable="clickable">Badge</OnyxBadge>);
-  const interactiveTag = component.getByRole("button", { name: "Badge" });
-  await expect(interactiveTag).toContainClass("onyx-badge--interactive");
-});

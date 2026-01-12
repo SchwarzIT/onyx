@@ -1,5 +1,4 @@
-import { iconPlaceholder, iconXSmall } from "@sit-onyx/icons";
-import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
+import { iconPlaceholder } from "@sit-onyx/icons";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { defineIconSelectArgType } from "../../utils/storybook.js";
 import OnyxBadge from "./OnyxBadge.vue";
@@ -64,31 +63,5 @@ export const WithTruncation = {
   args: {
     default: "Badge with a very long text that gets truncated",
     style: "max-width: 16rem",
-  },
-} satisfies Story;
-
-/**
- * This example shows the interactive tag.
- */
-export const Interactive = {
-  argTypes: {
-    ...withNativeEventLogging(["onClick"]),
-  },
-  args: {
-    default: "Tag",
-    clickable: "Click to add 'Tag' to the selection.",
-  },
-} satisfies Story;
-
-/**
- * This example shows the dismissible tag.
- */
-export const Dismissible = {
-  argTypes: {
-    ...withNativeEventLogging(["onClick"]),
-  },
-  args: {
-    default: "Tag",
-    clickable: { label: "Click to remove 'Tag' from the selection.", actionIcon: iconXSmall },
   },
 } satisfies Story;
