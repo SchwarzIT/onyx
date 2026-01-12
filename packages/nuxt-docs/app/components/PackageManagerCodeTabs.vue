@@ -29,10 +29,20 @@ const tabs = computed(() => {
 
   return tabs.filter((tab) => tab.code);
 });
+
+const getMDCValue = (code: string, language: string) => {
+  return `
+\`\`\`${language}
+${code}
+\`\`\`
+`;
+};
 </script>
 
 <template>
   <OnyxUnstableCodeTabs v-model="selectedTab">
-    <OnyxUnstableCodeTab v-for="tab in tabs" v-bind="tab" :key="tab.value" :label="tab.value" />
+    <OnyxUnstableCodeTab v-for="tab in tabs" v-bind="tab" :key="tab.value" :label="tab.value">
+      <MDC :value="getMDCValue(tab.code, tab.language)" />
+    </OnyxUnstableCodeTab>
   </OnyxUnstableCodeTabs>
 </template>
