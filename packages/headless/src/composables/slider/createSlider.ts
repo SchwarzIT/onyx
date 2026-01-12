@@ -102,7 +102,7 @@ export const _unstableCreateSlider = createBuilder(
     // ensure focus on thumb while dragging
     watch(draggingThumbIndex, (newThumbIndex) => {
       if (newThumbIndex == undefined) return;
-      Array.from(sliderRef.value.querySelectorAll<HTMLElement>('[role="slider"]'))
+      Array.from(sliderRef.value?.querySelectorAll<HTMLElement>('[role="slider"]') ?? [])
         .at(newThumbIndex)
         ?.focus();
     });
@@ -287,8 +287,8 @@ export const _unstableCreateSlider = createBuilder(
      * Gets the corresponding slider value for the given x coordinate across the rail.
      */
     const getValueFromCoordinates = (x: number) => {
-      const rect = sliderRef.value.getBoundingClientRect();
-      if (rect.width <= 0) return;
+      const rect = sliderRef.value?.getBoundingClientRect();
+      if (!rect || rect.width <= 0) return;
 
       const percent = MathUtils.clamp((x - rect.left) / rect.width, 0, 1);
       return MathUtils.percentToValue(percent, min.value, max.value);
