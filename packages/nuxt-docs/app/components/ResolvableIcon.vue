@@ -9,16 +9,14 @@ const props = defineProps<{
   name: string;
 }>();
 
-const icon = ref<string | undefined>();
+const icon = ref<string>();
 
 watch(
   () => props.name,
   (iconName) => {
-    const resolvedIcon: string | undefined =
-      ALL_ICONS[getIconImportName(iconName) as keyof typeof ALL_ICONS];
-    icon.value = resolvedIcon;
+    icon.value = ALL_ICONS[getIconImportName(iconName) as keyof typeof ALL_ICONS];
 
-    if (import.meta.dev) {
+    if (import.meta.dev && !icon.value) {
       // eslint-disable-next-line no-console -- used only during development environment
       console.warn(`Dynamic icon with name "${iconName}" not found.`);
     }
