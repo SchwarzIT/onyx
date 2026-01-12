@@ -51,7 +51,7 @@ const { navigation } = await useSidebarNavigation();
         </template>
 
         <slot name="sidebarBody" :items="navigation">
-          <SidebarItem v-for="item in navigation" :key="item.path" :item="item" />
+          <NestableSidebarItem v-for="item in navigation" :key="item.path" :item="item" />
 
           <OnyxEmpty v-if="!navigation.length" class="sidebar__empty">
             {{ $t("onyx.select.empty") }}

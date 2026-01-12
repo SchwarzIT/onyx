@@ -10,6 +10,12 @@ import {
 } from "vue";
 import type { IfDefined } from "./types.js";
 
+type DataAttributes = {
+  [name: `data-${string}`]: string | undefined;
+};
+
+export type HtmlWithDataAttributes = HTMLAttributes & DataAttributes;
+
 /**
  * Properties as they can be used by `v-bind` on an HTML element.
  * This includes generic html attributes and the vue reserved `ref` property.
@@ -18,21 +24,25 @@ import type { IfDefined } from "./types.js";
 export type VBindAttributes<
   A extends HTMLAttributes = HTMLAttributes,
   E extends Element = Element,
-> = A & {
-  ref?: VueTemplateRef<E>;
-};
+> = A &
+  DataAttributes & {
+    ref?: VueTemplateRef<E>;
+  };
 
 export type IteratedHeadlessElementFunc<
-  A extends HTMLAttributes,
+  A extends HtmlWithDataAttributes,
   T extends Record<string, unknown>,
 > = (opts: T) => VBindAttributes<A>;
 
-export type HeadlessElementAttributes<A extends HTMLAttributes> =
+export type HeadlessElementAttributes<A extends HtmlWithDataAttributes> =
   | VBindAttributes<A>
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- the specific type doesn't matter here
   | IteratedHeadlessElementFunc<A, any>;
 
-export type HeadlessElements = Record<string, MaybeRef<HeadlessElementAttributes<HTMLAttributes>>>;
+export type HeadlessElements = Record<
+  string,
+  MaybeRef<HeadlessElementAttributes<HtmlWithDataAttributes>>
+>;
 
 export type HeadlessState = Record<string, Ref>;
 
@@ -94,7 +104,7 @@ type VueTemplateRefElement<E extends Element> = E | (ComponentPublicInstance & {
 type VueTemplateRef<E extends Element> = Ref<VueTemplateRefElement<E>>;
 
 export declare const HeadlessElRefSymbol: unique symbol;
-export type HeadlessElRef<E extends Element> = WritableComputedRef<E> & {
+export type HeadlessElRef<E extends Element | null> = WritableComputedRef<E | null> & {
   /**
    * type differentiator
    * ensures that only `createElRef` can be used for headless element ref bindings
@@ -119,17 +129,24 @@ export type HeadlessElRef<E extends Element> = WritableComputedRef<E> & {
  * });
  * ```
  */
-export function createElRef<E extends Element>(): HeadlessElRef<E>;
+export function createElRef<E extends Element>(): HeadlessElRef<E | null>;
 export function createElRef<
   E extends Element,
   V extends VueTemplateRefElement<E> = VueTemplateRefElement<E>,
 >() {
-  const elementRef = shallowRef<E>();
+  // using null here instead of undefined to be aligned with "useTemplateRef" from vue
+  const elementRef = shallowRef<E | null>(null);
 
   return computed({
-    set: (element: V) => {
-      elementRef.value = element != null && "$el" in element ? element.$el : (element as E);
+    set: (ref: V | V[]) => {
+      const element = Array.isArray(ref) ? ref.at(0) : ref;
+
+      if (element != null && "$el" in element) {
+        elementRef.value = element.$el;
+      } else {
+        elementRef.value = element ?? null;
+      }
     },
     get: () => elementRef.value,
-  } as WritableComputedOptions<E>);
+  } as WritableComputedOptions<E | null>);
 }

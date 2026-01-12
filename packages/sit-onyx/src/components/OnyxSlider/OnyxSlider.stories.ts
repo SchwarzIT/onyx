@@ -9,11 +9,11 @@ import type { SliderMode } from "./types.js";
 const meta: Meta<typeof OnyxSlider> = {
   title: "Form Elements/Slider",
   component: OnyxSlider as Meta["component"],
-  tags: ["unstable"],
+  tags: ["new:component"],
   decorators: [
     (story) => ({
       components: { story },
-      template: `<div style="max-width: 20rem;"> <story /> </div>`,
+      template: `<div style="max-width: 20rem; margin-top: 1rem;"> <story /> </div>`,
     }),
   ],
   argTypes: {

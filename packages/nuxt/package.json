@@ -45,12 +45,12 @@
     "@nuxt/kit": "^4.2.2",
     "@nuxt/module-builder": "^1.0.2",
     "@nuxt/schema": "^4.2.2",
-    "@nuxt/test-utils": "^3.21.0",
+    "@nuxt/test-utils": "^3.23.0",
     "@nuxtjs/i18n": "^10.2.1",
     "@sit-onyx/shared": "workspace:^",
     "nuxt": "catalog:",
     "sit-onyx": "workspace:^",
     "typescript": "catalog:",
-    "vue-i18n": "^11.2.7"
+    "vue-i18n": "^11.2.8"
   }
 }

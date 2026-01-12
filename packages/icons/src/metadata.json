@@ -1180,6 +1180,10 @@
     "category": "Action & Interface",
     "aliases": ["sort", "sieve", "Filter", "Sieb"]
   },
+  "filter-x": {
+    "category": "Action & Interface",
+    "aliases": []
+  },
   "fingerprint": {
     "category": "Security & Protection",
     "aliases": ["thumbprint", "print", "Fingerabdruck", "Daumenabdruck"]

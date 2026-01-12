@@ -4,7 +4,6 @@ import ColorSchemeSwitch from "./ColorSchemeSwitch.vue";
 
 const props = withDefaults(defineProps<OnyxNavBarProps>(), {
   appName: "Documentation",
-  withBackButton: true,
   // Vue defaults booleans to false so this explicit "undefined" is needed to correctly set the default breakpoint
   mobile: undefined,
 });

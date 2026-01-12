@@ -6,18 +6,6 @@ const slots = defineSlots<{
 }>();
 
 /**
- * Extracts the table head and body as vnodes from the slot content.
- */
-const extractSlotContent = () => {
-  const [head, body] = slots.default();
-
-  return {
-    headRows: extractTableRows(head),
-    bodyRows: extractTableRows(body),
-  };
-};
-
-/**
  * Extracts all table rows `<tr>` vnodes from the given vnode (e.g. table head or body).
  */
 const extractTableRows = (vnode?: VNode): VNode[] => {
@@ -33,8 +21,15 @@ const extractTableRows = (vnode?: VNode): VNode[] => {
   return vnode.children.default();
 };
 
-const content = shallowRef(extractSlotContent());
-onBeforeUpdate(() => (content.value = extractSlotContent())); // update content when component is updated
+const content = computed(() => {
+  const children = slots.default?.() ?? [];
+  const [head, body] = children;
+
+  return {
+    headRows: extractTableRows(head),
+    bodyRows: extractTableRows(body),
+  };
+});
 </script>
 
 <template>

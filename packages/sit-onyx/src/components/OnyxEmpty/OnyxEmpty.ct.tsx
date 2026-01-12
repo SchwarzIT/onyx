@@ -9,7 +9,7 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Empty",
     columns: DENSITIES,
-    rows: ["default", "custom-icon", "buttons", "multiline"],
+    rows: ["default", "custom-icon", "buttons", "multiline", "description"],
     removePadding: true,
     component: (column, row) => (
       <OnyxEmpty density={column} style={{ width: row === "multiline" ? "12rem" : undefined }}>
@@ -21,6 +21,11 @@ test.describe("Screenshot tests", () => {
           </template>
         )}
 
+        {row === "description" && (
+          <template v-slot:description>
+            <p>This is an example description</p>
+          </template>
+        )}
         {row === "buttons" && (
           <template v-slot:buttons>
             <OnyxButton label="Button" color="neutral" />

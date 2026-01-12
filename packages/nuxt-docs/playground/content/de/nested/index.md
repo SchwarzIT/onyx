@@ -1,1 +1,6 @@
+---
+navigation:
+  icon: user
+---
+
 # Hauptpunkt

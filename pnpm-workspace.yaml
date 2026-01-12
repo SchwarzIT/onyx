@@ -14,9 +14,9 @@ catalog:
   nuxt: 4.2.2
   playwright: 1.57.0
   playwright-core: 1.57.0
-  sass-embedded: 1.97.1
+  sass-embedded: 1.97.2
   typescript: 5.9.3
-  vite: 7.3.0
+  vite: 7.3.1
   vue: 3.5.26
 
 onlyBuiltDependencies:
