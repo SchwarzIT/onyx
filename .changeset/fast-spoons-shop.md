@@ -12,3 +12,4 @@ Other changes:
 
 - remove default back button from the nav bar. If needed, you can re-add it by [customizing the nav bar](https://onyx.schwarz/development/packages/nuxt-docs.html#customization)
 - sidebar items that are new sidebar roots now show an arrow icon to indicate that there is nested content
+- fix "Failed to resolve dependency: @nuxtjs/mdc" warning when running the dev server
