@@ -82,13 +82,12 @@ const DECREMENT_KEYS = new Set(["ArrowLeft", "ArrowDown", "PageDown"]);
 /**
  * Composable for creating an accessibility-compliant slider.
  * For supported keyboard shortcuts, see: https://www.w3.org/WAI/ARIA/apg/patterns/slider/
- *
- *  * @experimental
- * @deprecated This component is still under active development and its API might change in patch releases.
  */
-export const _unstableCreateSlider = createBuilder(
+export const createSlider = createBuilder(
   <TValue extends SliderValue>(options: CreateSliderOptions<TValue>) => {
     const sliderRef = createElRef<HTMLElement>();
+    const firstThumbRef = createElRef<HTMLElement>();
+    const secondThumbRef = createElRef<HTMLElement>();
 
     const min = computed(() => toValue(options.min) ?? 0);
     const max = computed(() => toValue(options.max) ?? 100);
@@ -102,10 +101,13 @@ export const _unstableCreateSlider = createBuilder(
     // ensure focus on thumb while dragging
     watch(draggingThumbIndex, (newThumbIndex) => {
       if (newThumbIndex == undefined) return;
-      Array.from(sliderRef.value?.querySelectorAll<HTMLElement>('[role="slider"]') ?? [])
-        .at(newThumbIndex)
-        ?.focus();
+      focusThumb(newThumbIndex);
     });
+
+    const focusThumb = (index: number) => {
+      if (index === 0) firstThumbRef.value?.focus();
+      else if (index === 1) secondThumbRef.value?.focus();
+    };
 
     const shiftStep = computed(() => {
       const shiftStep = toValue(options.shiftStep);
@@ -202,6 +204,19 @@ export const _unstableCreateSlider = createBuilder(
       if (areArraysEqual(normalized, normalizedValue.value)) return;
 
       options.onChange?.(newValue as TValue);
+    };
+
+    /**
+     * Increases / decreases the value by a single step. Will also ensure focus on the thumb.
+     * Useful if e.g. adding custom buttons for changing the slider value.
+     */
+    const updateValueByStep = (direction: "increase" | "decrease") => {
+      const index = 0;
+      const stepValue = direction === "increase" ? step.value : -step.value;
+
+      const currentValue = normalizedValue.value[index];
+      updateValue(currentValue + stepValue, index);
+      focusThumb(index);
     };
 
     /**
@@ -339,6 +354,7 @@ export const _unstableCreateSlider = createBuilder(
             "aria-orientation": "horizontal",
             step: step.value,
             disabled: toValue(options.disabled),
+            ref: data.index === 0 ? firstThumbRef : data.index === 1 ? secondThumbRef : undefined,
             ...(toValue(options.disabled) ? undefined : events),
           };
         }),
@@ -414,6 +430,7 @@ export const _unstableCreateSlider = createBuilder(
       },
       internals: {
         updateValue,
+        updateValueByStep,
       },
     };
   },

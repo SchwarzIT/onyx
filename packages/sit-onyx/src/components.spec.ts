@@ -264,15 +264,9 @@ const COMPONENTS: Components = {
       value: "option-1",
     },
   },
-  OnyxUnstableSlider: {
+  OnyxSlider: {
     props: {
       label: "Slider",
-      modelValue: 50,
-    },
-  },
-  OnyxUnstableSliderControl: {
-    props: {
-      control: "value",
       modelValue: 50,
     },
   },
