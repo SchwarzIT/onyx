@@ -529,7 +529,7 @@ importers:
         specifier: '>= 4'
         version: 4.0.0(magicast@0.5.1)
       '@nuxtjs/mdc':
-        specifier: '>= 0.13.0'
+        specifier: '>= 0.17.2'
         version: 0.19.2(magicast@0.5.1)
       '@playwright/experimental-ct-vue':
         specifier: 1.57.0
