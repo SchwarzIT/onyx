@@ -1,7 +1,6 @@
 import type { DensityProp } from "../../composables/density.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 import type { OnyxColor } from "../../types/colors.js";
-import type { Nullable } from "../../types/utils.js";
 
 export type OnyxTagProps = DensityProp & {
   /**
@@ -34,7 +33,7 @@ export type OnyxTagProps = DensityProp & {
          * An icon displayed on the right side of the label.
          * Should be used to indicate an action (e.g., dismissing).
          */
-        actionIcon?: Nullable<string>;
+        actionIcon?: string;
       };
 
   /**
