@@ -1,7 +1,7 @@
 import { iconPlaceholder, iconXSmall } from "@sit-onyx/icons";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import { defineIconSelectArgType } from "../../utils/storybook.js";
+import { createAdvancedStoryExample, defineIconSelectArgType } from "../../utils/storybook.js";
 import OnyxBadge from "./OnyxBadge.vue";
 
 /**
@@ -91,4 +91,11 @@ export const Dismissible = {
     default: "Tag",
     clickable: { label: "Click to remove 'Tag' from the selection.", actionIcon: iconXSmall },
   },
+} satisfies Story;
+
+/**
+ * This example shows a toggle badge.
+ */
+export const Toggle = {
+  ...createAdvancedStoryExample("OnyxBadge", "ToggleBadgeExample"),
 } satisfies Story;

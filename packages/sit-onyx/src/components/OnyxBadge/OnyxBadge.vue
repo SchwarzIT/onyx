@@ -8,6 +8,7 @@ import type { OnyxBadgeProps } from "./types.js";
 const props = withDefaults(defineProps<OnyxBadgeProps>(), {
   color: "primary",
   dot: false,
+  selected: false,
 });
 
 const { densityClass } = useDensity(props);
@@ -30,6 +31,7 @@ const badgeClasses = computed(() => [
   "onyx-text",
   `onyx-badge--${props.color}`,
   { "onyx-badge--interactive": props.clickable },
+  { "onyx-badge--selected": props.selected },
   { "onyx-badge--dot": props.dot },
   densityClass.value,
 ]);
@@ -45,7 +47,7 @@ defineSlots<{
 <template>
   <OnyxTooltip v-if="props.clickable" :text="tooltipText">
     <template #default="{ trigger }">
-      <button v-bind="trigger" :class="badgeClasses" type="button">
+      <button v-bind="trigger" :class="badgeClasses" type="button" :aria-pressed="props.selected">
         <template v-if="!props.dot">
           <OnyxIcon v-if="props.icon" class="onyx-badge__icon" :icon="props.icon" />
           <slot v-else></slot>
@@ -92,6 +94,8 @@ defineSlots<{
     --onyx-badge-background-color: var(--onyx-color-component-cta-default);
     --onyx-badge-hover-background-color: var(--onyx-color-component-cta-default-hover);
     --onyx-badge-focus-color: var(--onyx-color-component-focus-primary);
+    --onyx-badge-selected-background-color: var(--onyx-color-base-primary-700);
+
     display: inline-block;
     max-width: 100%;
     padding: var(--onyx-density-3xs) var(--onyx-density-sm);
@@ -134,34 +138,43 @@ defineSlots<{
       }
     }
 
+    &--selected {
+      background-color: var(--onyx-badge-selected-background-color);
+    }
+
     &--neutral {
       --onyx-badge-background-color: var(--onyx-color-base-neutral-700);
       --onyx-badge-hover-background-color: var(--onyx-color-base-neutral-400);
       --onyx-badge-focus-color: var(--onyx-color-component-focus-neutral);
+      --onyx-badge-selected-background-color: var(--onyx-color-base-neutral-900);
     }
 
     &--danger {
       --onyx-badge-background-color: var(--onyx-color-base-danger-500);
       --onyx-badge-hover-background-color: var(--onyx-color-base-danger-200);
       --onyx-badge-focus-color: var(--onyx-color-component-focus-danger);
+      --onyx-badge-selected-background-color: var(--onyx-color-base-danger-700);
     }
 
     &--warning {
       --onyx-badge-background-color: var(--onyx-color-base-warning-500);
       --onyx-badge-hover-background-color: var(--onyx-color-base-warning-200);
       --onyx-badge-focus-color: var(--onyx-color-component-focus-warning);
+      --onyx-badge-selected-background-color: var(--onyx-color-base-warning-700);
     }
 
     &--success {
       --onyx-badge-background-color: var(--onyx-color-base-success-500);
       --onyx-badge-hover-background-color: var(--onyx-color-base-success-200);
       --onyx-badge-focus-color: var(--onyx-color-component-focus-success);
+      --onyx-badge-selected-background-color: var(--onyx-color-base-success-700);
     }
 
     &--info {
       --onyx-badge-background-color: var(--onyx-color-base-info-500);
       --onyx-badge-hover-background-color: var(--onyx-color-base-info-200);
       --onyx-badge-focus-color: var(--onyx-color-base-info-200);
+      --onyx-badge-selected-background-color: var(--onyx-color-base-info-700);
     }
 
     &__icon {

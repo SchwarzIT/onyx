@@ -9,7 +9,6 @@ import type { OnyxFilterBadgeProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxFilterBadgeProps>(), {
   active: undefined,
-  actionIcon: iconXSmall,
 });
 
 const emit = defineEmits<{
@@ -43,8 +42,8 @@ const tooltipLabel = computed(() =>
 <template>
   <OnyxBadge
     v-bind="badgeProps"
-    :clickable="{ label: tooltipLabel, actionIcon: active ? props.actionIcon : undefined }"
-    :class="{ 'onyx-filter-badge': true, 'onyx-filter-badge--active': active }"
+    :clickable="{ label: tooltipLabel, actionIcon: active ? iconXSmall : undefined }"
+    :selected="active"
     @click="active = !active"
   >
     <slot>
@@ -52,33 +51,3 @@ const tooltipLabel = computed(() =>
     </slot>
   </OnyxBadge>
 </template>
-
-<style lang="scss">
-@use "../../styles/mixins/layers.scss";
-
-.onyx-filter-badge--active .onyx-badge {
-  @include layers.component() {
-    --onyx-badge-active-background-color: var(--onyx-color-base-secondary-700);
-    &--neutral {
-      --onyx-badge-active-background-color: var(--onyx-color-base-neutral-700);
-    }
-
-    &--danger {
-      --onyx-badge-active-background-color: var(--onyx-color-base-danger-700);
-    }
-
-    &--warning {
-      --onyx-badge-active-background-color: var(--onyx-color-base-warning-700);
-    }
-
-    &--success {
-      --onyx-badge-active-background-color: var(--onyx-color-base-success-700);
-    }
-
-    &--info {
-      --onyx-badge-active-background-color: var(--onyx-color-base-info-700);
-    }
-    background-color: var(--onyx-badge-active-background-color);
-  }
-}
-</style>

@@ -36,4 +36,9 @@ export type OnyxBadgeProps = DensityProp & {
          */
         actionIcon?: Nullable<string>;
       };
+  /**
+   * Whether the badge should visually marked as selected
+   * If the badge is also clickable, it will automatically handle aria-pressed.
+   */
+  selected?: boolean;
 };

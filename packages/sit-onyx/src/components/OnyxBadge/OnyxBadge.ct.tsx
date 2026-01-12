@@ -81,3 +81,27 @@ test("should render interactive Badge with clickable prop", async ({ mount }) =>
   const interactiveTag = component.getByRole("button", { name: "Badge" });
   await expect(interactiveTag).toContainClass("onyx-badge--interactive");
 });
+test("should render selected-interactive Badge with clickable prop and selectProps", async ({
+  mount,
+}) => {
+  const component = await mount(
+    <OnyxBadge clickable="clickable" selected>
+      Badge
+    </OnyxBadge>,
+  );
+  const badge = component.getByRole("button", { name: "Badge" });
+
+  await expect(badge).toContainClass("onyx-badge--selected");
+  await expect(badge).toHaveAttribute("aria-pressed", "true");
+});
+
+test("should render selected non-interactive Badge", async ({ mount }) => {
+  const component = await mount(<OnyxBadge selected>Badge</OnyxBadge>);
+  const badge = component.getByText("Badge");
+
+  await expect(badge).toContainClass("onyx-badge--selected");
+
+  const tagName = await badge.evaluate((el) => el.tagName.toLowerCase());
+  expect(tagName).toBe("div");
+  await expect(badge).not.toHaveAttribute("aria-pressed", "true");
+});
