@@ -17,6 +17,11 @@ watch(
     const resolvedIcon: string | undefined =
       ALL_ICONS[getIconImportName(iconName) as keyof typeof ALL_ICONS];
     icon.value = resolvedIcon;
+
+    if (import.meta.dev) {
+      // eslint-disable-next-line no-console -- used only during development environment
+      console.warn(`Dynamic icon with name "${iconName}" not found.`);
+    }
   },
   { immediate: true },
 );
