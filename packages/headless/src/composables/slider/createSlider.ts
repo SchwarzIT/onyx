@@ -105,8 +105,8 @@ export const createSlider = createBuilder(
     });
 
     const focusThumb = (index: number) => {
-      if (index === 0) firstThumbRef.value.focus();
-      else if (index === 1) secondThumbRef.value.focus();
+      if (index === 0) firstThumbRef.value?.focus();
+      else if (index === 1) secondThumbRef.value?.focus();
     };
 
     const shiftStep = computed(() => {
