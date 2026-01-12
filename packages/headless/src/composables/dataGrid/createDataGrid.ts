@@ -166,9 +166,9 @@ export const createDataGrid = createBuilder(
     const busySet = useAllSettled();
 
     const findFirstCell = () =>
-      tableElement.value.querySelector(
+      tableElement.value?.querySelector<HTMLElement>(
         `[${ROW_ID_DATA_ATTR}] [${COL_KEY_DATA_ATTR}]`,
-      ) as HTMLElement;
+      );
 
     const setSelected = (element: HTMLElement) => {
       const colKey = element.closest(`[${COL_KEY_DATA_ATTR}]`)?.getAttribute(COL_KEY_DATA_ATTR);
@@ -202,12 +202,14 @@ export const createDataGrid = createBuilder(
         tableElement,
         () => {
           mutationObserver.disconnect();
-          mutationObserver.observe(tableElement.value, {
-            childList: true,
-            attributes: true,
-            subtree: true,
-            attributeFilter: ["value"],
-          });
+          if (tableElement.value) {
+            mutationObserver.observe(tableElement.value, {
+              childList: true,
+              attributes: true,
+              subtree: true,
+              attributeFilter: ["value"],
+            });
+          }
         },
         { immediate: true },
       );
