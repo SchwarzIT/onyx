@@ -220,9 +220,7 @@ const pickerSmall = useTemplateRef("pickerSmallRef");
 const pickerSmallButton = useTemplateRef("pickerSmallButtonRef");
 useOutsideClick({
   inside: () => [picker.value, pickerSmall.value, pickerSmallButton.value],
-  onOutsideClick: () => {
-    if (isPickerOpen.value) isPickerOpen.value = false;
-  },
+  onOutsideClick: () => (isPickerOpen.value = false),
 });
 </script>
 
@@ -290,15 +288,13 @@ useOutsideClick({
           </template>
 
           <template #content>
-            <div>
-              <OnyxMonthYearPickerGrid
-                :open="isPickerOpen"
-                :mode="pickerMode"
-                :view-month="viewMonth"
-                @select-year="handleYearSelect"
-                @select-month="handleMonthSelect"
-              />
-            </div>
+            <OnyxMonthYearPickerGrid
+              :open="isPickerOpen"
+              :mode="pickerMode"
+              :view-month="viewMonth"
+              @select-year="handleYearSelect"
+              @select-month="handleMonthSelect"
+            />
           </template>
         </OnyxBasicPopover>
 

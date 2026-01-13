@@ -30,7 +30,6 @@ export const Default = {} satisfies Story;
 export const SingleSelect = {
   args: {
     selectionMode: "single",
-    monthYearPicker: { max: new Date(2050, 0, 1) },
   },
 } satisfies Story;
 

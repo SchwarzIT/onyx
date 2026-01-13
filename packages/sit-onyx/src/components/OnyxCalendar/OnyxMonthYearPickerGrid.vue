@@ -29,9 +29,10 @@ const currentViewYear = computed(() => props.viewMonth.getFullYear());
 const currentViewMonthIndex = computed(() => props.viewMonth.getMonth());
 
 const years = computed(() => {
+  const count = 100;
   const currentYear = new Date().getFullYear();
-  const start = currentYear - 102;
-  const end = currentYear + 53;
+  const start = currentYear - count;
+  const end = currentYear + count;
 
   return Array.from({ length: end - start + 1 }, (_, i) => start + i);
 });
@@ -42,31 +43,21 @@ const monthNames = computed(() => {
     value: i,
   }));
 });
-const gridRef = useTemplateRef("grid");
 const buttonRefs = useTemplateRef("buttons");
 
 const scrollToActiveYear = async () => {
-  if (props.mode !== "year" || !gridRef.value || !buttonRefs.value) return;
-
+  if (props.mode !== "year") return;
   await nextTick();
   const activeIndex = years.value.indexOf(currentViewYear.value);
-
-  if (activeIndex !== -1 && buttonRefs.value[activeIndex]) {
-    const container = gridRef.value;
-    const element = buttonRefs.value[activeIndex].$el || buttonRefs.value[activeIndex];
-
-    const elementTop = element.offsetTop;
-    const elementHeight = element.offsetHeight;
-    const containerHeight = container.offsetHeight;
-
-    container.scrollTop = elementTop - containerHeight / 2 + elementHeight;
-  }
+  const selectedYearButton: HTMLElement | undefined = buttonRefs.value?.[activeIndex]?.$el;
+  if (!selectedYearButton) return;
+  selectedYearButton.scrollIntoView({ block: "center" });
 };
 
 watch(
   () => props.open,
   (open) => {
-    if (open === true) {
+    if (open) {
       scrollToActiveYear();
     }
   },
@@ -74,7 +65,7 @@ watch(
 </script>
 
 <template>
-  <div ref="grid" class="onyx-component onyx-calendar__picker-grid">
+  <div class="onyx-component onyx-calendar__picker-grid">
     <template v-if="props.mode === 'year'">
       <!-- TODO: Change to SystemButton after styles are implemented -->
       <OnyxButton
