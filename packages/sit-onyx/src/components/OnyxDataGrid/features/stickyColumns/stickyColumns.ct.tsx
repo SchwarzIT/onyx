@@ -49,6 +49,7 @@ test("sticky Column should stay in View", async ({ page, mount }) => {
 
   await expect(component).toHaveScreenshot("data-grid-one-sticky-column.png");
 });
+
 const positions = ["left", "right"] as const;
 
 positions.forEach((position) => {
@@ -77,6 +78,7 @@ positions.forEach((position) => {
     await expect(component).toHaveScreenshot(`data-grid-sticky-columns-${position}.png`);
   });
 });
+
 test("multiple stickyColumns", async ({ page, mount }) => {
   await page.setViewportSize({ width: 400, height: 1000 });
   const data = getTestData();

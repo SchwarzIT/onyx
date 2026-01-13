@@ -456,6 +456,7 @@ test("should hide/show password", async ({ mount }) => {
   await expect(eyeClosedIcon).toBeVisible();
   await expect(component).toHaveScreenshot(`input-password-shown.png`);
 });
+
 testMaxLengthBehavior(OnyxInput);
 
 test.describe("Screenshot test (slots dark mode)", () => {

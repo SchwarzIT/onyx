@@ -71,6 +71,7 @@ test.describe("OnyxBasicPopover", () => {
     expect(box.y + box.height).toBeLessThanOrEqual(viewportHeight);
   });
 });
+
 test.describe("OnyxBasicPopover  Screenshot Tests", () => {
   test.describe("Alignment screenshot tests", () => {
     executeMatrixScreenshotTest({

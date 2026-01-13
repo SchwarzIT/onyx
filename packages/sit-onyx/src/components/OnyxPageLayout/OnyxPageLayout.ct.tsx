@@ -300,6 +300,7 @@ test("should not have inline margin for onyx grid container when sidebar exists"
   expect(pageMarginInline).toBe("0px");
   expect(footerMarginInline).toBe("0px");
 });
+
 test("should have inline margin for onyx grid container when sidebar is temporary", async ({
   page,
   mount,
