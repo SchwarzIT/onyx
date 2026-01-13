@@ -23,7 +23,6 @@ export default defineNuxtConfig({
       rootDir: "apps/showcase",
       private: false,
     },
-    dev: false,
   },
   imports: {
     transform: {
