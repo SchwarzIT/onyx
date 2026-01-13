@@ -124,37 +124,33 @@ export const useSidebarNavigation = async () => {
     rootStack: SidebarNavigationItem[] = [],
   ): SidebarNavigationItem | undefined {
     for (const item of items) {
-      // 1. Determine if current node is a nested root
       const isRoot = item.sidebar?.root === true;
 
-      // 2. Update stack: If this is a root, add to ancestry
+      // 1. update stack: if item is a root, add to ancestry
       const nextRootStack = isRoot ? [...rootStack, item] : rootStack;
 
-      // 3. Check if this is the active item
+      // 2. check if item is the active item
       if (item.path === currentPath) {
-        // Edge Case: If we are physically AT the home page, never show a back button.
-        if (currentPath === "/") return undefined;
-
-        // Case A: Deep nesting (e.g. Stack: [Modules -> Auth])
-        // Return the previous root (Modules)
+        // case A: deep nesting (e.g. Stack: [Home -> Examples -> Example 1])
+        // return the previous root (Examples)
         if (nextRootStack.length >= 2) {
           return nextRootStack[nextRootStack.length - 2];
         }
 
-        // Case B: First level of nesting (e.g. Stack: [Modules])
-        // Return the first item in the navigation (typically a "Home" item)
+        // case B: first level of nesting (e.g. Stack: [Home])
+        // return the first item in the navigation (typically a "Home" item)
         if (nextRootStack.length === 1) {
-          // if the root is parat of the highest navigation level, we want to return undefined
+          // if the root is part of the highest navigation level, we want to return undefined
           // (so no back button is shown), otherwise we return the first available item
           const isSameLevel = allItems.value.some((item) => item.path === nextRootStack[0]?.path);
           return isSameLevel ? undefined : allItems.value[0];
         }
 
-        // Case C: No nested roots active (Standard Sidebar)
+        // case C: no nested roots active
         return undefined;
       }
 
-      // 4. Recursive Step
+      // 3. recursive step for children
       if (item.children) {
         const result = findPreviousRootItem(item.children, currentPath, nextRootStack);
         if (result !== undefined) {
@@ -162,8 +158,6 @@ export const useSidebarNavigation = async () => {
         }
       }
     }
-
-    return undefined;
   }
 
   return { navigation, allItems, previousRootItem };
