@@ -176,8 +176,9 @@ const showMoreButton = computed(() => {
   
   - Binding 'getOptionProps' with a unique identifier is required for accessibility (ARIA roles/IDs) 
     and to enable keyboard navigation (arrow keys + enter).
-    It automatically toggles an active class when the item is highlighted, facilitating custom styling
 
+  - If you use a component other than OnyxButton, you must implement the selection styling yourself using the [aria-selected="true"] CSS selector.
+  
   - 'activeValue' can be used to implement custom conditional logic or styling.
 -->
       <template v-if="showMoreButton && !isLoading" #endOfList="{ getOptionProps }">
@@ -193,19 +194,3 @@ const showMoreButton = computed(() => {
     </OnyxUnstableGlobalSearch>
   </OnyxAppLayout>
 </template>
-
-<style lang="scss" scoped>
-.show-all-button {
-  width: 100%;
-
-  /**
-   * The `aria-selected` attribute is applied by getOptionProps when the user 
-   * navigates to this button using the arrow keys.
-   * Since the browser focus stays in the input field, we must 
-   * visually simulate the focus state here.
-   */
-  &[aria-selected="true"] {
-    outline: var(--onyx-outline-width) solid var(--onyx-button-outline-color);
-  }
-}
-</style>

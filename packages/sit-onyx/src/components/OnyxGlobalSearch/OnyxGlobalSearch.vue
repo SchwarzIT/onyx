@@ -226,6 +226,16 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
     }
     &__end-of-list {
       padding: 0 var(--onyx-density-md) var(--onyx-density-xs) var(--onyx-density-md);
+      display: flex;
+      gap: var(--onyx-density-md);
+      flex-wrap: wrap;
+
+      > .onyx-button {
+        flex-grow: 1;
+        &[aria-selected="true"] {
+          outline: var(--onyx-outline-width) solid var(--onyx-button-outline-color);
+        }
+      }
     }
 
     &__footer {
