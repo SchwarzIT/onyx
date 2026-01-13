@@ -1,5 +1,3 @@
-<script lang="ts" setup></script>
-
 <template>
   <br aria-hidden="true" class="br" />
 </template>
