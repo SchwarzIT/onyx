@@ -6,7 +6,7 @@ import OnyxFilterBadge from "./OnyxFilterBadge.vue";
 test.describe("Screenshot tests", () => {
   const state = ["default", "hover", "focus", "active"];
   executeMatrixScreenshotTest({
-    name: "Badge",
+    name: "Filter Badge",
     columns: DENSITIES,
     rows: state,
     component: (column, row) => (
@@ -22,7 +22,6 @@ test.describe("Screenshot tests", () => {
         const badge = component.getByRole("button", { name: "Badge" });
         if (row === "hover") {
           await badge.hover();
-          await new Promise((resolve) => setTimeout(resolve, 200));
         }
         if (row === "focus") await badge.focus();
       },

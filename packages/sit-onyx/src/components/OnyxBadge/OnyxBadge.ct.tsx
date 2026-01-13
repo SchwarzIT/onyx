@@ -61,6 +61,31 @@ test.describe("Screenshot tests", () => {
     rows: ["start", "center", "end"],
     component: (column, row) => <TestCase alignItems={row} />,
   });
+  executeMatrixScreenshotTest({
+    name: `Badge (selected)`,
+    columns: ONYX_COLORS,
+    rows: ["default", "hover", "focus-visible", "selected"],
+    component: (column, row) => (
+      <OnyxBadge
+        color={column}
+        clickable={{ label: "Test", selected: row === "selected" }}
+        style={{ marginBottom: row === "focus-visible" ? "2rem" : "0" }}
+      >
+        Badge
+      </OnyxBadge>
+    ),
+    hooks: {
+      beforeEach: async (component, _page, _column, row) => {
+        const badge = component.getByRole("button", { name: "Badge" });
+        if (row === "hover") {
+          await badge.hover();
+        }
+        if (row === "focus-visible") {
+          await badge.focus();
+        }
+      },
+    },
+  });
 });
 
 test("should truncate text", async ({ mount }) => {
@@ -79,29 +104,15 @@ test("should truncate text", async ({ mount }) => {
 test("should render interactive Badge with clickable prop", async ({ mount }) => {
   const component = await mount(<OnyxBadge clickable="clickable">Badge</OnyxBadge>);
   const interactiveTag = component.getByRole("button", { name: "Badge" });
-  await expect(interactiveTag).toContainClass("onyx-badge--interactive");
+  await expect(interactiveTag).toBeEnabled();
 });
 test("should render selected-interactive Badge with clickable prop and selectProps", async ({
   mount,
 }) => {
   const component = await mount(
-    <OnyxBadge clickable="clickable" selected>
-      Badge
-    </OnyxBadge>,
+    <OnyxBadge clickable={{ label: "Badge", selected: true }}>Badge</OnyxBadge>,
   );
   const badge = component.getByRole("button", { name: "Badge" });
 
-  await expect(badge).toContainClass("onyx-badge--selected");
   await expect(badge).toHaveAttribute("aria-pressed", "true");
-});
-
-test("should render selected non-interactive Badge", async ({ mount }) => {
-  const component = await mount(<OnyxBadge selected>Badge</OnyxBadge>);
-  const badge = component.getByText("Badge");
-
-  await expect(badge).toContainClass("onyx-badge--selected");
-
-  const tagName = await badge.evaluate((el) => el.tagName.toLowerCase());
-  expect(tagName).toBe("div");
-  await expect(badge).not.toHaveAttribute("aria-pressed", "true");
 });

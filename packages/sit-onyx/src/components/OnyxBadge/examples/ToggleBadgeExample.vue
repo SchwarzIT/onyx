@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { iconXSmall } from "@sit-onyx/icons";
 import { ref } from "vue";
 import OnyxBadge from "../OnyxBadge.vue";
 const selected = ref(false);
@@ -6,8 +7,11 @@ const selected = ref(false);
 
 <template>
   <OnyxBadge
-    :clickable="selected ? 'Select' : 'Deselect'"
-    :selected="selected"
+    :clickable="{
+      label: 'Toggle Selected',
+      selected,
+      actionIcon: selected ? iconXSmall : undefined,
+    }"
     @click="selected = !selected"
   >
     {{ selected ? "Selected" : "Deselected" }}
