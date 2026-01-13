@@ -7,7 +7,7 @@ import {
   type WritableComputedOptions,
   type WritableComputedRef,
 } from "vue";
-import type { IfDefined } from "./types.js";
+import type { Arrayable, IfDefined } from "./types.js";
 
 type DataAttributes = {
   [name: `data-${string}`]: string | undefined;
@@ -128,12 +128,11 @@ export type HeadlessElRef<E extends Element | null> = WritableComputedRef<E | nu
  * });
  * ```
  */
-export function createElRef<E extends Element>(): HeadlessElRef<E | null>;
 export function createElRef<E extends Element>() {
   const elementRef = shallowRef<E | null>(null);
 
   return computed({
-    set: (ref: VueTemplateRefElement<E> | VueTemplateRefElement<E>[]) => {
+    set: (ref: Arrayable<VueTemplateRefElement<E>>) => {
       const element = Array.isArray(ref) ? ref[0] : ref;
       elementRef.value = getNativeElement(element);
     },
@@ -145,7 +144,7 @@ export const getNativeElement = <E extends Element>(
   element?: VueTemplateRefElement<E>,
 ): E | null => {
   if (element && typeof element === "object" && "$el" in element) {
-    return element.$el as E;
+    return element.$el;
   }
-  return (element as E) ?? null;
+  return element ?? null;
 };
