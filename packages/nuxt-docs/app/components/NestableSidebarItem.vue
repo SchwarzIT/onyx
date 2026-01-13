@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { SidebarNavigationItem } from "../composables/useSidebarNavigation.js";
+import type { SidebarItemProps } from "./SidebarItem.vue";
 
 const props = defineProps<{
   item: SidebarNavigationItem;
@@ -35,10 +36,23 @@ watch(
   },
   { immediate: true },
 );
+
+const getSidebarItemProps = (item: SidebarNavigationItem): SidebarItemProps => {
+  return {
+    label: item.title,
+    link: item.path,
+    icon: item.icon,
+    showArrow: item.sidebar?.root,
+  };
+};
 </script>
 
 <template>
-  <SidebarItem v-if="!props.item.children?.length" class="sidebar-item" :item="props.item" />
+  <SidebarItem
+    v-if="!props.item.children?.length"
+    class="sidebar-item"
+    v-bind="getSidebarItemProps(props.item)"
+  />
 
   <OnyxAccordion
     v-else
@@ -56,7 +70,18 @@ watch(
       </template>
 
       <div class="sidebar-item__children">
-        <SidebarItem v-for="child in props.item.children" :key="child.path" :item="child" />
+        <!--
+          When the accordion is used (so the item has children), it does not show the item arrow in the accordion itself.
+          So for the child item, the arrow should also be shown if the parent should show it.
+        -->
+        <SidebarItem
+          v-for="child in props.item.children"
+          :key="child.path"
+          v-bind="getSidebarItemProps(child)"
+          :show-arrow="
+            getSidebarItemProps(child).showArrow || getSidebarItemProps(props.item).showArrow
+          "
+        />
       </div>
     </OnyxAccordionItem>
   </OnyxAccordion>

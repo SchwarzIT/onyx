@@ -1,17 +1,26 @@
 <script lang="ts" setup>
 import { iconArrowSmallRight } from "@sit-onyx/icons";
-import type { SidebarNavigationItem } from "../composables/useSidebarNavigation.js";
+import type { OnyxSidebarItemProps } from "sit-onyx";
 
-const props = defineProps<{
-  item: Omit<SidebarNavigationItem, "children">;
-}>();
+export type SidebarItemProps = {
+  label: string;
+  link: NonNullable<OnyxSidebarItemProps["link"]>;
+  icon?: string;
+  /**
+   * Whether to show an arrow icon indicating that the item link
+   * leads to a deeper nested layer in the navigation tree.
+   */
+  showArrow?: boolean;
+};
+
+const props = defineProps<SidebarItemProps>();
 </script>
 
 <template>
-  <OnyxSidebarItem class="sidebar-item" :link="props.item.path">
-    <ResolvableIcon v-if="props.item.icon" :name="props.item.icon" />
-    {{ props.item.title }}
-    <OnyxIcon v-if="props.item.sidebar?.root" :icon="iconArrowSmallRight" />
+  <OnyxSidebarItem class="sidebar-item" :link="props.link">
+    <ResolvableIcon v-if="props.icon" :name="props.icon" />
+    {{ props.label }}
+    <OnyxIcon v-if="props.showArrow" :icon="iconArrowSmallRight" />
   </OnyxSidebarItem>
 </template>
 
