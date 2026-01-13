@@ -118,6 +118,25 @@ test.describe("Screenshot tests (custom content)", () => {
   });
 });
 
+test.describe("Screenshot tests (YearMonthPicker)", () => {
+  executeMatrixScreenshotTest({
+    name: "Calendar (yearMonthPicker)",
+    columns: ["small", "big"],
+    rows: ["yearSelect", "monthSelect"],
+    component: (column) => {
+      return <TestCase size={column} style={{ width: column === "small" ? "20rem" : "40rem" }} />;
+    },
+    hooks: {
+      beforeEach: async (component, _page, _column, row) => {
+        await component.getByRole("button", { name: "October" }).click();
+        if (row === "monthSelect") {
+          await component.getByRole("button", { name: "2020" }).click();
+        }
+      },
+    },
+  });
+});
+
 test("range mode", async ({ mount, page }) => {
   const minDate = getMockDate(-12);
 

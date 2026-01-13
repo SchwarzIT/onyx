@@ -1,14 +1,13 @@
 import {
   computed,
   shallowRef,
-  type ComponentPublicInstance,
   type HTMLAttributes,
   type MaybeRef,
   type Ref,
   type WritableComputedOptions,
   type WritableComputedRef,
 } from "vue";
-import type { IfDefined } from "./types.js";
+import type { Arrayable, IfDefined } from "./types.js";
 
 type DataAttributes = {
   [name: `data-${string}`]: string | undefined;
@@ -100,7 +99,7 @@ export const createBuilder = <
   builder: (...args: Args) => HeadlessComposable<Elements, State, Internals>,
 ) => builder;
 
-type VueTemplateRefElement<E extends Element> = E | (ComponentPublicInstance & { $el: E }) | null;
+export type VueTemplateRefElement<E extends Element> = E | { $el: E } | null;
 type VueTemplateRef<E extends Element> = Ref<VueTemplateRefElement<E>>;
 
 export declare const HeadlessElRefSymbol: unique symbol;
@@ -129,24 +128,23 @@ export type HeadlessElRef<E extends Element | null> = WritableComputedRef<E | nu
  * });
  * ```
  */
-export function createElRef<E extends Element>(): HeadlessElRef<E | null>;
-export function createElRef<
-  E extends Element,
-  V extends VueTemplateRefElement<E> = VueTemplateRefElement<E>,
->() {
-  // using null here instead of undefined to be aligned with "useTemplateRef" from vue
+export function createElRef<E extends Element>() {
   const elementRef = shallowRef<E | null>(null);
 
   return computed({
-    set: (ref: V | V[]) => {
-      const element = Array.isArray(ref) ? ref.at(0) : ref;
-
-      if (element != null && "$el" in element) {
-        elementRef.value = element.$el;
-      } else {
-        elementRef.value = element ?? null;
-      }
+    set: (ref: Arrayable<VueTemplateRefElement<E>>) => {
+      const element = Array.isArray(ref) ? ref[0] : ref;
+      elementRef.value = getNativeElement(element);
     },
     get: () => elementRef.value,
   } as WritableComputedOptions<E | null>);
 }
+
+export const getNativeElement = <E extends Element>(
+  element?: VueTemplateRefElement<E>,
+): E | null => {
+  if (element && typeof element === "object" && "$el" in element) {
+    return element.$el;
+  }
+  return element ?? null;
+};

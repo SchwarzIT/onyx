@@ -230,7 +230,8 @@
     "calendarWeek": "KW",
     "calendarWeekButtonLabel": "Kalenderwoche {weekNumber} auswählen",
     "previousMonthButton": "Vorheriger Monat",
-    "nextMonthButton": "Nächster Monat"
+    "nextMonthButton": "Nächster Monat",
+    "monthYearPicker": "Monat und Jahr auswählen"
   },
   "flyoutMenu": {
     "moreActions": "Weitere Aktionen",

@@ -233,7 +233,8 @@
     "calendarWeek": "CW",
     "calendarWeekButtonLabel": "Select calendar week {weekNumber}",
     "previousMonthButton": "Previous month",
-    "nextMonthButton": "Next month"
+    "nextMonthButton": "Next month",
+    "monthYearPicker": "Month and year picker"
   },
   "flyoutMenu": {
     "moreActions": "More actions",

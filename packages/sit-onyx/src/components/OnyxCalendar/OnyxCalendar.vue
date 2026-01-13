@@ -7,7 +7,12 @@ export default {};
 </script>
 
 <script lang="ts" setup generic="TSelection extends OnyxCalendarSelectionMode">
-import { _unstableCreateCalendar, type RenderDay, type RenderWeek } from "@sit-onyx/headless";
+import {
+  _unstableCreateCalendar,
+  useOutsideClick,
+  type RenderDay,
+  type RenderWeek,
+} from "@sit-onyx/headless";
 import { iconChevronLeftSmall, iconChevronRightSmall } from "@sit-onyx/icons";
 import { computed, ref, toRefs, useTemplateRef, type HTMLAttributes } from "vue";
 import { useDensity } from "../../composables/density.js";
@@ -20,13 +25,14 @@ import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import type { Nullable } from "../../types/utils.js";
 import { ONYX_BREAKPOINTS } from "../../utils/breakpoints.js";
+import OnyxBasicPopover from "../OnyxBasicPopover/OnyxBasicPopover.vue";
+import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxCalendarCell from "../OnyxCalendarCell/OnyxCalendarCell.vue";
 import type { CalendarCellRangeType } from "../OnyxCalendarCell/types.js";
-import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
-import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
+import OnyxMonthYearPickerGrid from "./OnyxMonthYearPickerGrid.vue";
 import type {
   DateRange,
   OnyxCalendarProps,
@@ -87,6 +93,7 @@ const viewMonth = useVModel({
   emit,
   default: () => new Date(),
 });
+
 const { densityClass } = useDensity(props);
 
 const skeleton = useSkeletonContext(props);
@@ -103,7 +110,15 @@ const { disabled, min, max, weekStartDay, showCalendarWeeks, selectionMode } = t
 const {
   state: { weeksToRender, weekdayNames },
   elements: { table: tableProps, cell: cellProps, button: buttonProps },
-  internals: { goToMonthByOffset, goToToday, isSelected, isToday, getRangeType, isDisabled },
+  internals: {
+    goToMonthByOffset,
+    goToToday,
+    isSelected,
+    isToday,
+    getRangeType,
+    isDisabled,
+    goToDate,
+  },
 } = _unstableCreateCalendar({
   disabled,
   min,
@@ -118,6 +133,27 @@ const {
   onUpdateViewMonth: (newDate: Date) => ((viewMonth.value as Date) = newDate),
   onUpdateModelValue: (newValue) => (modelValue.value = newValue as typeof modelValue.value),
 });
+
+const isPickerOpen = ref(false);
+const pickerMode = ref<"year" | "month">("year");
+
+const handlePickerUpdate = (isOpen: boolean) => {
+  if (isOpen) pickerMode.value = "year";
+};
+
+const handleYearSelect = (year: number) => {
+  const newDate = new Date(viewMonth.value);
+  newDate.setFullYear(year);
+  goToDate(newDate, true);
+  pickerMode.value = "month";
+};
+
+const handleMonthSelect = (month: number) => {
+  const newDate = new Date(viewMonth.value);
+  newDate.setMonth(month);
+  goToDate(newDate, true);
+  isPickerOpen.value = false;
+};
 
 const hoveredDate = ref<Date>();
 
@@ -178,6 +214,14 @@ const calendarWeeksDisplay = computed(
   () =>
     `${t.value("calendar.calendarWeek")} ${weeksToRender.value[0]?.weekNumber} - ${weeksToRender.value[weeksToRender.value.length - 1]?.weekNumber} `,
 );
+
+const picker = useTemplateRef("pickerRef");
+const pickerSmall = useTemplateRef("pickerSmallRef");
+const pickerSmallButton = useTemplateRef("pickerSmallButtonRef");
+useOutsideClick({
+  inside: () => [picker.value, pickerSmall.value, pickerSmallButton.value],
+  onOutsideClick: () => (isPickerOpen.value = false),
+});
 </script>
 
 <template>
@@ -196,33 +240,68 @@ const calendarWeeksDisplay = computed(
         <OnyxSystemButton
           :label="t('calendar.todayButton.label')"
           class="control-container__today-btn"
-          :disabled="disabled === true"
+          :disabled="disabled === true || (isPickerOpen && calendarSize === 'small')"
           @click="goToToday"
         />
+        <div class="control-container__month-buttons">
+          <OnyxSystemButton
+            :label="t('calendar.previousMonthButton')"
+            :icon="iconChevronLeftSmall"
+            :disabled="disabled === true || (isPickerOpen && calendarSize === 'small')"
+            @click="goToMonthByOffset(-1)"
+          />
+          <OnyxSystemButton
+            :label="t('calendar.nextMonthButton')"
+            :icon="iconChevronRightSmall"
+            :disabled="disabled === true || (isPickerOpen && calendarSize === 'small')"
+            @click="goToMonthByOffset(1)"
+          />
+        </div>
+        <OnyxButton
+          v-if="calendarSize === 'small'"
+          ref="pickerSmallButtonRef"
+          color="neutral"
+          :label="d(viewMonth, { month: 'long', year: 'numeric' })"
+          mode="plain"
+          @click="
+            () => {
+              isPickerOpen = !isPickerOpen;
+              handlePickerUpdate(isPickerOpen);
+            }
+          "
+        />
 
-        <OnyxHeadline is="h2" class="control-container__date-display">
-          {{ d(viewMonth, { month: "long", year: "numeric" }) }}
-        </OnyxHeadline>
+        <OnyxBasicPopover
+          v-else
+          ref="pickerRef"
+          v-model:open="isPickerOpen"
+          :label="t('calendar.monthYearPicker')"
+          @update:open="handlePickerUpdate"
+        >
+          <template #default="{ trigger }">
+            <OnyxButton
+              color="neutral"
+              :label="d(viewMonth, { month: 'long', year: 'numeric' })"
+              mode="plain"
+              v-bind="trigger"
+            />
+          </template>
+
+          <template #content>
+            <OnyxMonthYearPickerGrid
+              :open="isPickerOpen"
+              :mode="pickerMode"
+              :view-month="viewMonth"
+              @select-year="handleYearSelect"
+              @select-month="handleMonthSelect"
+            />
+          </template>
+        </OnyxBasicPopover>
+
         <OnyxTag
           v-if="showCalendarWeeks && calendarSize === 'big'"
           color="primary"
           :label="calendarWeeksDisplay"
-        />
-        <OnyxIconButton
-          class="control-container__prev-month-button"
-          :label="t('calendar.previousMonthButton')"
-          color="neutral"
-          :icon="iconChevronLeftSmall"
-          :disabled="disabled === true"
-          @click="goToMonthByOffset(-1)"
-        />
-        <OnyxIconButton
-          class="control-container__next-month-button"
-          :label="t('calendar.nextMonthButton')"
-          color="neutral"
-          :icon="iconChevronRightSmall"
-          :disabled="disabled === true"
-          @click="goToMonthByOffset(1)"
         />
       </div>
 
@@ -232,7 +311,17 @@ const calendarWeeksDisplay = computed(
     </div>
 
     <div class="onyx-calendar__body">
-      <table v-bind="tableProps">
+      <OnyxMonthYearPickerGrid
+        v-if="calendarSize === 'small' && isPickerOpen"
+        ref="pickerSmallRef"
+        :open="isPickerOpen"
+        :mode="pickerMode"
+        :view-month="viewMonth"
+        @select-year="handleYearSelect"
+        @select-month="handleMonthSelect"
+      />
+
+      <table v-else v-bind="tableProps">
         <thead>
           <tr>
             <th v-for="header in tableHeaders" :key="header" scope="col" :abbr="header">
@@ -291,8 +380,12 @@ const calendarWeeksDisplay = computed(
       justify-content: space-between;
       align-items: center;
       .control-container {
+        &__month-buttons {
+          display: flex;
+          margin-left: var(--onyx-density-md);
+        }
         display: flex;
-        gap: var(--onyx-density-2xs);
+        gap: var(--onyx-density-xs);
         align-items: center;
         &__date-display {
           min-width: calc(3 * var(--onyx-density-2xl));
@@ -302,6 +395,8 @@ const calendarWeeksDisplay = computed(
     }
 
     .onyx-calendar__body {
+      container-type: inline-size;
+
       table {
         width: 100%;
         border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
@@ -376,9 +471,10 @@ const calendarWeeksDisplay = computed(
       .time-control-container {
         width: 100%;
       }
-      .control-container__prev-month-button {
-        margin-left: auto;
+      .control-container {
+        gap: var(--onyx-density-2xs);
       }
+
       &:has(th[scope="row"]) {
         th:first-of-type {
           border-bottom: none;
