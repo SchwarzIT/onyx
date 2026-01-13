@@ -192,8 +192,8 @@
     "ariaLabel": "Avatar von {fullName}"
   },
   "filterTag": {
-    "clickToAdd": "{label} Filter hinzufügen",
-    "clickToRemove": "{label} Filter entfernen"
+    "clickToAdd": "Filter hinzufügen: '{label}'",
+    "clickToRemove": "Filter entfernen: '{label}'"
   },
   "languageSelect": {
     "label": "Sprache",

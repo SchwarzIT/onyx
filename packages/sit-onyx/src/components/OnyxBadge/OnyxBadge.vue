@@ -8,20 +8,19 @@ import type { OnyxBadgeProps } from "./types.js";
 const props = withDefaults(defineProps<OnyxBadgeProps>(), {
   color: "primary",
   dot: false,
-  selected: false,
 });
 
 const { densityClass } = useDensity(props);
 
-/**
- * Determines the tooltip text based on the clickable prop.
- * If clickable is a string, it's used directly.
- * If clickable is an object, the 'label' property is used.
- */
-const tooltipText = computed(() => {
-  if (typeof props.clickable === "object") return props.clickable.label;
-  if (typeof props.clickable === "string") return props.clickable;
-  return undefined;
+const clickable = computed(() => {
+  if (!props.clickable) return false;
+  if (typeof props.clickable === "object") return props.clickable;
+  return { label: props.clickable };
+});
+const selected = computed(() => {
+  if (typeof props.clickable === "object" && props.clickable.selected !== undefined) {
+    return props.clickable.selected;
+  } else return false;
 });
 
 const badgeClasses = computed(() => [
@@ -30,8 +29,7 @@ const badgeClasses = computed(() => [
   "onyx-truncation-ellipsis",
   "onyx-text",
   `onyx-badge--${props.color}`,
-  { "onyx-badge--interactive": props.clickable },
-  { "onyx-badge--selected": props.selected },
+  { "onyx-badge--selected": selected.value },
   { "onyx-badge--dot": props.dot },
   densityClass.value,
 ]);
@@ -45,17 +43,17 @@ defineSlots<{
 </script>
 
 <template>
-  <OnyxTooltip v-if="props.clickable" :text="tooltipText">
+  <OnyxTooltip v-if="props.clickable" :text="clickable!.label">
     <template #default="{ trigger }">
-      <button v-bind="trigger" :class="badgeClasses" type="button" :aria-pressed="props.selected">
+      <button v-bind="trigger" :class="badgeClasses" type="button" :aria-pressed="selected">
         <template v-if="!props.dot">
           <OnyxIcon v-if="props.icon" class="onyx-badge__icon" :icon="props.icon" />
           <slot v-else></slot>
 
           <OnyxIcon
-            v-if="typeof props.clickable === 'object' && props.clickable.actionIcon"
+            v-if="clickable!.actionIcon"
             class="onyx-badge__action-icon"
-            :icon="props.clickable.actionIcon"
+            :icon="clickable!.actionIcon"
           />
         </template>
       </button>
@@ -118,7 +116,7 @@ defineSlots<{
       }
     }
 
-    &--interactive {
+    &:is(button) {
       cursor: pointer;
       outline: none;
       transition:

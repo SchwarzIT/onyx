@@ -1,4 +1,4 @@
-import { iconCheck, iconXSmall } from "@sit-onyx/icons";
+import { iconCheck, iconPlaceholder } from "@sit-onyx/icons";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { defineIconSelectArgType } from "../../utils/storybook.js";
@@ -50,27 +50,14 @@ export const WithTruncation = {
 } satisfies Story;
 
 /**
- * This example shows the interactive tag.
+ * This example shows an clickable tag.
  */
-export const Interactive = {
+export const Clickable = {
   argTypes: {
     ...withNativeEventLogging(["onClick"]),
   },
   args: {
     label: "Tag",
-    clickable: "Click to add 'Tag' to the selection.",
-  },
-} satisfies Story;
-
-/**
- * This example shows the dismissible tag.
- */
-export const Dismissible = {
-  argTypes: {
-    ...withNativeEventLogging(["onClick"]),
-  },
-  args: {
-    label: "Tag",
-    clickable: { label: "Click to remove 'Tag' from the selection.", actionIcon: iconXSmall },
+    clickable: { label: "Click me", actionIcon: iconPlaceholder },
   },
 } satisfies Story;

@@ -34,10 +34,9 @@ export type OnyxBadgeProps = DensityProp & {
          * Should be used to indicate an action (e.g., dismissing).
          */
         actionIcon?: string;
+        /**
+         * Whether the badge should visually marked as selected
+         */
+        selected?: boolean;
       };
-  /**
-   * Whether the badge should visually marked as selected
-   * If the badge is also clickable, it will automatically handle aria-pressed.
-   */
-  selected?: boolean;
 };
