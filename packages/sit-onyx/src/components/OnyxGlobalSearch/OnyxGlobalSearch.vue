@@ -38,6 +38,18 @@ const slots = defineSlots<{
    * Slot to pass search results / groups. Only `OnyxGlobalSearchGroup` components should be used.
    */
   default?(): unknown;
+  /**
+   * Slot to pass content after search results.
+   */
+  endOfList?(props: {
+    /**
+     * Helper to make an element navigable.
+     * @param value - Must be a unique name (e.g., 'show-all').
+     */
+    getOptionProps: typeof getOptionProps;
+    /** The value of the currently highlighted option. */
+    activeValue?: string;
+  }): unknown;
 }>();
 
 const { t } = injectI18n();
@@ -106,6 +118,22 @@ const headless = createComboBox({
   onSelect,
 });
 
+/**
+ * Generates the necessary props to make a custom element (e.g., a "Show all" button)
+ * navigable via arrow keys.
+ * * @param value - A unique identifier for this option. Must be unique within the entire search component.
+ * @returns An object containing the required ARIA roles, IDs, and the current active state.
+ */
+const getOptionProps = (value: string) => {
+  const isActive = activeValue.value === value;
+
+  return {
+    role: "option",
+    id: headless.internals.getOptionId(value),
+    "aria-selected": isActive,
+  };
+};
+
 provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
 </script>
 
@@ -140,8 +168,15 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
       v-bind="headless.elements.listbox.value"
     >
       <slot></slot>
-    </div>
 
+      <div v-if="!!slots.endOfList" class="onyx-global-search__end-of-list">
+        <slot
+          name="endOfList"
+          :get-option-props="getOptionProps"
+          :active-value="activeValue"
+        ></slot>
+      </div>
+    </div>
     <!-- TODO: replace keyboard shortcuts with OnyxShortcut component once implemented -->
     <div v-show="!!slots.default" class="onyx-global-search__footer onyx-text--small">
       <span class="onyx-global-search__shortcut">
@@ -188,6 +223,9 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
         0;
       margin-top: var(--onyx-density-xs);
       border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+    }
+    &__end-of-list {
+      padding: 0 var(--onyx-density-md) var(--onyx-density-xs) var(--onyx-density-md);
     }
 
     &__footer {
