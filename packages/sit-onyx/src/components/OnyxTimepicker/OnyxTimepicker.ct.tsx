@@ -2,6 +2,7 @@ import { DENSITIES } from "../../composables/density.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import OnyxTimepicker from "./OnyxTimepicker.vue";
+
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: `TimePicker`,

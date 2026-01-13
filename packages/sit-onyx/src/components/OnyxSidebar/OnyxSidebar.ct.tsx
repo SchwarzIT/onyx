@@ -220,6 +220,7 @@ test("should render fab on small screens (left Sidebar)", async ({ mount, page }
   // ASSERT
   await expect(leftSidebar).toBeVisible();
 });
+
 test("should render fab on small screens (right Sidebar)", async ({ mount, page }) => {
   // ARRANGE
   await page.setViewportSize({ height: ONYX_BREAKPOINTS.sm, width: 320 });
@@ -237,6 +238,7 @@ test("should render fab on small screens (right Sidebar)", async ({ mount, page 
   // ASSERT
   await expect(sidebar).toBeVisible();
 });
+
 test("should render fab on small screens (left & right Sidebar)", async ({ mount, page }) => {
   // ARRANGE
   await page.setViewportSize({ height: ONYX_BREAKPOINTS.sm, width: 320 });

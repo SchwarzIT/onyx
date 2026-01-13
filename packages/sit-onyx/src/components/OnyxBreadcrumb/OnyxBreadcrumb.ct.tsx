@@ -73,6 +73,7 @@ test("should be aligned with the grid when in container mode", async ({ page, mo
 
   await expect(page).toHaveScreenshot("grid-max-width.png");
 });
+
 test("should show more button, when there is not enough space", async ({ page, mount }) => {
   // ARRANGE
   await page.addStyleTag({

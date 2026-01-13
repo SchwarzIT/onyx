@@ -67,6 +67,7 @@ test("should truncate text", async ({ mount }) => {
   // ASSERT
   await expect(component).toHaveScreenshot("truncation.png");
 });
+
 test("should render non-interactive tag without event", async ({ mount }) => {
   const component = await mount(<OnyxTag label="Tag" />);
   await expect(component).not.toContainClass("onyx-tag--interactive");

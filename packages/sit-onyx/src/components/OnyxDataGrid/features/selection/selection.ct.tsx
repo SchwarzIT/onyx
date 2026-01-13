@@ -59,6 +59,7 @@ test("useSelection", async ({ page, mount }) => {
     expect(selectionEvents.at(-1)?.selectMode).toBe("include");
     expect(selectionEvents.at(-1)?.contingent).toMatchObject([]);
   });
+
   await test.step("select all manually", async () => {
     const selectAllCheckbox = page.getByRole("checkbox", { name: "Select all rows" });
 

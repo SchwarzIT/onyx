@@ -259,6 +259,7 @@ Object.entries(ONYX_MAX_WIDTHS).forEach(([breakpoint, size]) => {
 
 Object.entries(ONYX_MAX_WIDTHS).forEach(([breakpoint, size]) => {
   const className = `onyx-grid-max-${breakpoint}`;
+
   test(`page content with max width and centering should be positioned correctly for ${className}`, async ({
     mount,
     page,
