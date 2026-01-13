@@ -130,7 +130,7 @@ test.describe("Screenshot tests (YearMonthPicker)", () => {
       beforeEach: async (component, _page, _column, row) => {
         await component.getByRole("button", { name: "October" }).click();
         if (row === "monthSelect") {
-          component.getByRole("button", { name: "2020" }).click();
+          await component.getByRole("button", { name: "2020" }).click();
         }
       },
     },
