@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { iconArrowSmallLeft } from "@sit-onyx/icons";
 import type { OnyxPageLayoutProps, OnyxSidebarProps } from "sit-onyx";
 import type { SidebarNavigationItem } from "../composables/useSidebarNavigation.js";
 
@@ -27,6 +28,7 @@ const slots = defineSlots<{
   sidebarBody?(props: { items: SidebarNavigationItem[] }): unknown;
   /**
    * Optionally override the sidebar header content.
+   * By default, a back button will be shown if a nested sidebar root is opened.
    */
   sidebarHeader?(): unknown;
   /**
@@ -35,7 +37,7 @@ const slots = defineSlots<{
   sidebarFooter?(): unknown;
 }>();
 
-const { navigation } = await useSidebarNavigation();
+const { navigation, previousRootItem } = await useSidebarNavigation();
 </script>
 
 <template>
@@ -46,8 +48,18 @@ const { navigation } = await useSidebarNavigation();
         v-bind="props.sidebar"
         :label="$t('onyx.navigation.navigationHeadline')"
       >
-        <template v-if="slots.sidebarHeader" #header>
-          <slot name="sidebarHeader"> </slot>
+        <template v-if="slots.sidebarHeader || previousRootItem" #header>
+          <slot name="sidebarHeader">
+            <OnyxButton
+              v-if="previousRootItem"
+              class="sidebar__back"
+              :label="$t('onyx.back')"
+              color="neutral"
+              mode="plain"
+              :link="previousRootItem.path"
+              :icon="iconArrowSmallLeft"
+            />
+          </slot>
         </template>
 
         <slot name="sidebarBody" :items="navigation">
@@ -84,6 +96,11 @@ const { navigation } = await useSidebarNavigation();
 .sidebar {
   &__empty {
     max-width: 100%;
+  }
+
+  &__back {
+    width: 100%;
+    justify-content: flex-start;
   }
 }
 </style>

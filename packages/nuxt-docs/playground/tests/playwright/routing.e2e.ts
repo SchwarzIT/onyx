@@ -29,10 +29,13 @@ test("should update page content when navigating", async ({ page, goto }) => {
 });
 
 test("should correctly show custom sidebar roots", async ({ page, goto }) => {
+  const backButton = page.getByRole("link", { name: "Back" });
+
   // ACT
   await goto("/", { waitUntil: "hydration" });
 
   // ASSERT
+  await expect(backButton, "should hide back button in first layer").toBeHidden();
   await expect(page.getByRole("link", { name: "Deeply nested 2" })).toBeHidden();
 
   // ACT
@@ -41,4 +44,13 @@ test("should correctly show custom sidebar roots", async ({ page, goto }) => {
   // ASSERT
   await expect(page).toHaveScreenshot("deeply-nested.png");
   await expect(page.getByRole("link", { name: "Deeply nested 2" })).toBeVisible();
+  await expect(page).toHaveURL(/\/nested\/deeply-nested/);
+  await expect(backButton, "should show back button in nested root").toBeVisible();
+
+  // ACT
+  await backButton.click();
+  await expect(page).toHaveURL(/\/$/);
+
+  // ASSERT
+  await expect(backButton).toBeHidden();
 });
