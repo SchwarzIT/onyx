@@ -49,7 +49,10 @@ export const useSidebarNavigation = async () => {
     },
   );
 
-  const navigation = computed(() => {
+  /**
+   * All navigation items.
+   */
+  const allItems = computed(() => {
     // map the items from "@nuxt/content" to our custom data scheme for better type support
     const mapItem = (item: ContentNavigationItem): SidebarNavigationItem => {
       return {
@@ -61,18 +64,30 @@ export const useSidebarNavigation = async () => {
       };
     };
 
-    const items = data.value.map(mapItem);
+    return data.value.map(mapItem);
+  });
 
+  const navigation = computed(() => {
     // support multiple sidebars / roots so different pages can have their own sub-sidebar
-    const root = findDeepestRoot(items, route.path);
-    if (!root) return items;
+    const root = findDeepestRoot(allItems.value, route.path);
+    if (!root) return allItems.value;
     return root.children ?? [root];
   });
 
-  const findDeepestRoot = (
+  /**
+   * Finds the "previous root" (parent root) for the currently active route within the navigation tree.
+   * Useful to e.g. display a back button to traverse up the navigation tree.
+   */
+  const previousRootItem = computed(() => findPreviousRootItem(allItems.value, route.path));
+
+  /**
+   * Recursively searches for the deepest item marked as a sidebar root
+   * that contains the `currentPath` within its subtree.
+   */
+  function findDeepestRoot(
     items: SidebarNavigationItem[],
-    activePath: string,
-  ): SidebarNavigationItem | undefined => {
+    currentPath: string,
+  ): SidebarNavigationItem | undefined {
     /** Helper function to check if a path exists anywhere in a node's subtree */
     const containsPath = (node: SidebarNavigationItem, path: string): boolean => {
       if (node.path === path) return true;
@@ -82,16 +97,68 @@ export const useSidebarNavigation = async () => {
     for (const item of items) {
       // 1. Check children first (to find something deeper)
       if (item.children) {
-        const deeperResult = findDeepestRoot(item.children, activePath);
+        const deeperResult = findDeepestRoot(item.children, currentPath);
         if (deeperResult) return deeperResult;
       }
 
       // 2. If no deeper root was found, check if this current node is a match
-      if (item.sidebar?.root && containsPath(item, activePath)) {
+      if (item.sidebar?.root && containsPath(item, currentPath)) {
         return item;
       }
     }
-  };
+  }
 
-  return { navigation };
+  /**
+   * Finds the "previous root" (parent root) for a given current path within the navigation tree.
+   * - If depth >= 2: returns the previous root item
+   * - If depth == 1: returns the first item in the navigation (typically a "Home" item)
+   * - If depth == 0: returns undefined (no back button needed)
+   *
+   * @param items - The full navigation array
+   * @param currentPath - The path of the currently active page
+   * @param rootStack - (Internal) Accumulator for recursion
+   */
+  function findPreviousRootItem(
+    items: SidebarNavigationItem[],
+    currentPath: string,
+    rootStack: SidebarNavigationItem[] = [],
+  ): SidebarNavigationItem | undefined {
+    for (const item of items) {
+      const isRoot = item.sidebar?.root === true;
+
+      // 1. update stack: if item is a root, add to ancestry
+      const nextRootStack = isRoot ? [...rootStack, item] : rootStack;
+
+      // 2. check if item is the active item
+      if (item.path === currentPath) {
+        // case A: deep nesting (e.g. Stack: [Home -> Examples -> Example 1])
+        // return the previous root (Examples)
+        if (nextRootStack.length >= 2) {
+          return nextRootStack[nextRootStack.length - 2];
+        }
+
+        // case B: first level of nesting (e.g. Stack: [Home])
+        // return the first item in the navigation (typically a "Home" item)
+        if (nextRootStack.length === 1) {
+          // if the root is part of the highest navigation level, we want to return undefined
+          // (so no back button is shown), otherwise we return the first available item
+          const isSameLevel = allItems.value.some((item) => item.path === nextRootStack[0]?.path);
+          return isSameLevel ? undefined : allItems.value[0];
+        }
+
+        // case C: no nested roots active
+        return undefined;
+      }
+
+      // 3. recursive step for children
+      if (item.children) {
+        const result = findPreviousRootItem(item.children, currentPath, nextRootStack);
+        if (result !== undefined) {
+          return result;
+        }
+      }
+    }
+  }
+
+  return { navigation, allItems, previousRootItem };
 };
