@@ -1,4 +1,5 @@
 import { toValue, type MaybeRefOrGetter, type Ref } from "vue";
+import { getNativeElement, type VueTemplateRefElement } from "../../utils/builder.js";
 import type { Arrayable, Nullable } from "../../utils/types.js";
 import { useGlobalEventListener } from "./useGlobalListener.js";
 
@@ -6,7 +7,7 @@ export type UseOutsideClickOptions<TCheckOnTab extends boolean | undefined = und
   /**
    * HTML element of the component where clicks should be ignored
    */
-  inside: MaybeRefOrGetter<Arrayable<Nullable<HTMLElement>>>;
+  inside: MaybeRefOrGetter<Arrayable<Nullable<VueTemplateRefElement<HTMLElement>>>>;
   /**
    * Callback when an outside click occurred.
    */
@@ -37,7 +38,10 @@ export const useOutsideClick = <TCheckOnTab extends boolean | undefined>({
     if (!target) return true;
     const raw = toValue(inside);
     const elements = Array.isArray(raw) ? raw : [raw];
-    return !elements.some((element) => element?.contains(target as Node | null));
+    return !elements.some((element) => {
+      const nativeEl = getNativeElement(element);
+      return nativeEl?.contains(target as Node | null);
+    });
   };
 
   /**

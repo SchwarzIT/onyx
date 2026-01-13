@@ -242,71 +242,71 @@ useOutsideClick({
         <OnyxSystemButton
           :label="t('calendar.todayButton.label')"
           class="control-container__today-btn"
-          :disabled="disabled === true || isPickerOpen"
+          :disabled="disabled === true || (isPickerOpen && calendarSize === 'small')"
           @click="goToToday"
         />
-        <div v-if="calendarSize === 'small'" ref="pickerSmallButtonRef">
-          <OnyxButton
-            color="neutral"
-            :label="d(viewMonth, { month: 'long', year: 'numeric' })"
-            mode="plain"
-            @click="
-              () => {
-                isPickerOpen = !isPickerOpen;
-                handlePickerUpdate(isPickerOpen);
-              }
-            "
+        <div class="control-container__month-buttons">
+          <OnyxSystemButton
+            :label="t('calendar.previousMonthButton')"
+            :icon="iconChevronLeftSmall"
+            :disabled="disabled === true || (isPickerOpen && calendarSize === 'small')"
+            @click="goToMonthByOffset(-1)"
+          />
+          <OnyxSystemButton
+            :label="t('calendar.nextMonthButton')"
+            :icon="iconChevronRightSmall"
+            :disabled="disabled === true || (isPickerOpen && calendarSize === 'small')"
+            @click="goToMonthByOffset(1)"
           />
         </div>
-        <div v-else ref="pickerRef">
-          <OnyxBasicPopover
-            v-model:open="isPickerOpen"
-            role="dialog"
-            :label="t('calendar.monthYearPicker')"
-            @update:open="handlePickerUpdate"
-          >
-            <template #default="{ trigger }">
-              <OnyxButton
-                color="neutral"
-                :label="d(viewMonth, { month: 'long', year: 'numeric' })"
-                mode="plain"
-                v-bind="trigger"
-              />
-            </template>
+        <OnyxButton
+          v-if="calendarSize === 'small'"
+          ref="pickerSmallButtonRef"
+          color="neutral"
+          :label="d(viewMonth, { month: 'long', year: 'numeric' })"
+          mode="plain"
+          @click="
+            () => {
+              isPickerOpen = !isPickerOpen;
+              handlePickerUpdate(isPickerOpen);
+            }
+          "
+        />
 
-            <template #content>
-              <div>
-                <OnyxMonthYearPickerGrid
-                  :mode="pickerMode"
-                  :month-year-picker="props.monthYearPicker"
-                  :view-month="viewMonth"
-                  @select-year="handleYearSelect"
-                  @select-month="handleMonthSelect"
-                />
-              </div>
-            </template>
-          </OnyxBasicPopover>
-        </div>
+        <OnyxBasicPopover
+          v-else
+          ref="pickerRef"
+          v-model:open="isPickerOpen"
+          :label="t('calendar.monthYearPicker')"
+          @update:open="handlePickerUpdate"
+        >
+          <template #default="{ trigger }">
+            <OnyxButton
+              color="neutral"
+              :label="d(viewMonth, { month: 'long', year: 'numeric' })"
+              mode="plain"
+              v-bind="trigger"
+            />
+          </template>
+
+          <template #content>
+            <div>
+              <OnyxMonthYearPickerGrid
+                :open="isPickerOpen"
+                :mode="pickerMode"
+                :view-month="viewMonth"
+                @select-year="handleYearSelect"
+                @select-month="handleMonthSelect"
+              />
+            </div>
+          </template>
+        </OnyxBasicPopover>
 
         <OnyxTag
           v-if="showCalendarWeeks && calendarSize === 'big'"
           color="primary"
           :label="calendarWeeksDisplay"
         />
-        <div class="control-container__month-buttons">
-          <OnyxSystemButton
-            :label="t('calendar.previousMonthButton')"
-            :icon="iconChevronLeftSmall"
-            :disabled="disabled === true || isPickerOpen"
-            @click="goToMonthByOffset(-1)"
-          />
-          <OnyxSystemButton
-            :label="t('calendar.nextMonthButton')"
-            :icon="iconChevronRightSmall"
-            :disabled="disabled === true || isPickerOpen"
-            @click="goToMonthByOffset(1)"
-          />
-        </div>
       </div>
 
       <div class="control-container">
@@ -315,15 +315,15 @@ useOutsideClick({
     </div>
 
     <div class="onyx-calendar__body">
-      <div v-if="calendarSize === 'small' && isPickerOpen" ref="pickerSmallRef">
-        <OnyxMonthYearPickerGrid
-          :mode="pickerMode"
-          :month-year-picker="props.monthYearPicker"
-          :view-month="viewMonth"
-          @select-year="handleYearSelect"
-          @select-month="handleMonthSelect"
-        />
-      </div>
+      <OnyxMonthYearPickerGrid
+        v-if="calendarSize === 'small' && isPickerOpen"
+        ref="pickerSmallRef"
+        :open="isPickerOpen"
+        :mode="pickerMode"
+        :view-month="viewMonth"
+        @select-year="handleYearSelect"
+        @select-month="handleMonthSelect"
+      />
 
       <table v-else v-bind="tableProps">
         <thead>
@@ -386,6 +386,7 @@ useOutsideClick({
       .control-container {
         &__month-buttons {
           display: flex;
+          margin-left: var(--onyx-density-md);
         }
         display: flex;
         gap: var(--onyx-density-xs);
@@ -476,9 +477,6 @@ useOutsideClick({
       }
       .control-container {
         gap: var(--onyx-density-2xs);
-        &__month-buttons {
-          margin-left: auto;
-        }
       }
 
       &:has(th[scope="row"]) {

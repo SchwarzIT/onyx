@@ -72,22 +72,6 @@ export type OnyxCalendarProps<TSelection extends OnyxCalendarSelectionMode> = De
    * Whether to show week numbers in the calendar.
    */
   showCalendarWeeks?: boolean;
-
-  /**
-   * Whether to show a month / year picker in the calendar.
-   */
-  monthYearPicker?: {
-    /**
-     * Earliest Year to select
-     * @default 9 years earlier
-     */
-    min?: Date;
-    /**
-     * Latest Year to select
-     * @default 11 years later
-     */
-    max?: Date;
-  };
 };
 
 export type OnyxCalendarSelectionMode = "single" | "multiple" | "range";
