@@ -1,10 +1,11 @@
+import { useFocusStateHooks } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density.js";
 import { test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.jsx";
 import OnyxFilterBadge from "./OnyxFilterBadge.vue";
 
 test.describe("Screenshot tests", () => {
-  const state = ["default", "hover", "focus", "active"];
+  const state = ["default", "hover", "focus-visible", "active"];
   executeMatrixScreenshotTest({
     name: "Filter Badge",
     columns: DENSITIES,
@@ -18,10 +19,8 @@ test.describe("Screenshot tests", () => {
       />
     ),
     hooks: {
-      beforeEach: async (component, _page, _column, row) => {
-        const badge = component.getByRole("button", { name: "Badge" });
-        if (row === "hover") await badge.hover();
-        if (row === "focus") await badge.focus();
+      beforeEach: async (component, page, column, row) => {
+        await useFocusStateHooks({ page, component, state: row });
       },
     },
   });
