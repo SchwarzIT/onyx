@@ -1,6 +1,6 @@
 import { iconPlaceholder } from "@sit-onyx/icons";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import { defineIconSelectArgType } from "../../utils/storybook.js";
+import { createAdvancedStoryExample, defineIconSelectArgType } from "../../utils/storybook.js";
 import OnyxBadge from "./OnyxBadge.vue";
 
 /**
@@ -64,4 +64,11 @@ export const WithTruncation = {
     default: "Badge with a very long text that gets truncated",
     style: "max-width: 16rem",
   },
+} satisfies Story;
+
+/**
+ * This example shows a toggle badge.
+ */
+export const Clickable = {
+  ...createAdvancedStoryExample("OnyxBadge", "ClickableExample"),
 } satisfies Story;

@@ -15,4 +15,28 @@ export type OnyxBadgeProps = DensityProp & {
    * If `true`, only a colored dot will be displayed instead of the icon or slot content.
    */
   dot?: boolean;
+  /**
+   * Determines whether the Badge is clickable or not.
+   * If a string is provided, it is used as tooltip label.
+   * If an object is provided, it contains the tooltip label and an optional action icon.
+   *
+   * The label must describe the on-click action, e.g. "Click to remove the Badge."
+   */
+  clickable?: string | ClickableBadgeOptions;
+};
+
+export type ClickableBadgeOptions = {
+  /**
+   * The label displayed on the Tooltip
+   */
+  label: string;
+  /**
+   * An icon displayed on the right side of the label.
+   * Should be used to indicate an action (e.g., dismissing).
+   */
+  actionIcon?: string;
+  /**
+   * Whether the badge should visually marked as active/selected
+   */
+  active?: boolean;
 };

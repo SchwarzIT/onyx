@@ -1,6 +1,8 @@
 <script lang="ts" setup>
+import { computed } from "vue";
 import { useDensity } from "../../composables/density.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 import type { OnyxBadgeProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxBadgeProps>(), {
@@ -9,6 +11,23 @@ const props = withDefaults(defineProps<OnyxBadgeProps>(), {
 });
 
 const { densityClass } = useDensity(props);
+
+const clickable = computed(() => {
+  if (!props.clickable) return;
+  if (typeof props.clickable === "object") return props.clickable;
+  return { label: props.clickable };
+});
+
+const badgeClasses = computed(() => [
+  "onyx-component",
+  "onyx-badge",
+  "onyx-truncation-ellipsis",
+  "onyx-text",
+  `onyx-badge--${props.color}`,
+  { "onyx-badge--active": clickable.value?.active },
+  { "onyx-badge--dot": props.dot },
+  densityClass.value,
+]);
 
 defineSlots<{
   /**
@@ -19,16 +38,24 @@ defineSlots<{
 </script>
 
 <template>
-  <div
-    class="onyx-component onyx-badge"
-    :class="[
-      'onyx-truncation-ellipsis',
-      'onyx-text',
-      `onyx-badge--${props.color}`,
-      { 'onyx-badge--dot': props.dot },
-      densityClass,
-    ]"
-  >
+  <OnyxTooltip v-if="clickable" :text="clickable.label">
+    <template #default="{ trigger }">
+      <button v-bind="trigger" :class="badgeClasses" type="button" :aria-pressed="clickable.active">
+        <template v-if="!props.dot">
+          <OnyxIcon v-if="props.icon" class="onyx-badge__icon" :icon="props.icon" />
+          <slot v-else></slot>
+
+          <OnyxIcon
+            v-if="clickable.actionIcon"
+            class="onyx-badge__action-icon"
+            :icon="clickable.actionIcon"
+          />
+        </template>
+      </button>
+    </template>
+  </OnyxTooltip>
+
+  <div v-else :class="badgeClasses">
     <template v-if="!props.dot">
       <OnyxIcon v-if="props.icon" class="onyx-badge__icon" :icon="props.icon" />
       <slot v-else></slot>
@@ -58,6 +85,9 @@ defineSlots<{
 
   @include layers.component() {
     --onyx-badge-background-color: var(--onyx-color-component-cta-default);
+    --onyx-badge-hover-background-color: var(--onyx-color-component-cta-default-hover);
+    --onyx-badge-focus-color: var(--onyx-color-component-focus-primary);
+    --onyx-badge-active-background-color: var(--onyx-color-base-primary-700);
 
     display: inline-block;
     max-width: 100%;
@@ -69,6 +99,9 @@ defineSlots<{
     font-style: normal;
     vertical-align: middle;
     max-height: max-content;
+    border: none;
+    text-align: center;
+    cursor: default;
 
     &:has(&__icon) {
       padding: var(--onyx-badge-icon-padding);
@@ -78,24 +111,63 @@ defineSlots<{
       }
     }
 
+    &:is(button) {
+      cursor: pointer;
+      outline: none;
+      transition:
+        background-color var(--onyx-duration-sm),
+        box-shadow var(--onyx-duration-sm);
+
+      &:hover {
+        background-color: var(--onyx-badge-hover-background-color);
+      }
+
+      &:focus-visible {
+        outline: var(--onyx-outline-width) solid var(--onyx-badge-focus-color);
+      }
+
+      &:active {
+        filter: brightness(0.9);
+      }
+    }
+
+    &--active {
+      background-color: var(--onyx-badge-active-background-color);
+    }
+
     &--neutral {
       --onyx-badge-background-color: var(--onyx-color-base-neutral-700);
+      --onyx-badge-hover-background-color: var(--onyx-color-base-neutral-400);
+      --onyx-badge-focus-color: var(--onyx-color-component-focus-neutral);
+      --onyx-badge-active-background-color: var(--onyx-color-base-neutral-900);
     }
 
     &--danger {
       --onyx-badge-background-color: var(--onyx-color-base-danger-500);
+      --onyx-badge-hover-background-color: var(--onyx-color-base-danger-200);
+      --onyx-badge-focus-color: var(--onyx-color-component-focus-danger);
+      --onyx-badge-active-background-color: var(--onyx-color-base-danger-700);
     }
 
     &--warning {
       --onyx-badge-background-color: var(--onyx-color-base-warning-500);
+      --onyx-badge-hover-background-color: var(--onyx-color-base-warning-200);
+      --onyx-badge-focus-color: var(--onyx-color-component-focus-warning);
+      --onyx-badge-active-background-color: var(--onyx-color-base-warning-700);
     }
 
     &--success {
       --onyx-badge-background-color: var(--onyx-color-base-success-500);
+      --onyx-badge-hover-background-color: var(--onyx-color-base-success-200);
+      --onyx-badge-focus-color: var(--onyx-color-component-focus-success);
+      --onyx-badge-active-background-color: var(--onyx-color-base-success-700);
     }
 
     &--info {
       --onyx-badge-background-color: var(--onyx-color-base-info-500);
+      --onyx-badge-hover-background-color: var(--onyx-color-base-info-200);
+      --onyx-badge-focus-color: var(--onyx-color-base-info-200);
+      --onyx-badge-active-background-color: var(--onyx-color-base-info-700);
     }
 
     &__icon {

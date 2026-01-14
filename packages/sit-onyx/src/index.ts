@@ -245,6 +245,9 @@ export * from "./components/OnyxFileTypeIcon/types.js";
 export { default as OnyxFileUpload } from "./components/OnyxFileUpload/OnyxFileUpload.vue";
 export * from "./components/OnyxFileUpload/types.js";
 
+export { default as OnyxUnstableFilterBadge } from "./components/OnyxFilterBadge/OnyxFilterBadge.vue";
+export * from "./components/OnyxFilterBadge/types.js";
+
 export { default as OnyxFilterTag } from "./components/OnyxFilterTag/OnyxFilterTag.vue";
 export * from "./components/OnyxFilterTag/types.js";
 

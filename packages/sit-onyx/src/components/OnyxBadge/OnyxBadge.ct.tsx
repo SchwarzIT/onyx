@@ -7,7 +7,7 @@ import TestCase from "./TestCase.vue";
 
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
-    name: `Badge`,
+    name: "Badge",
     columns: DENSITIES,
     rows: ONYX_COLORS,
     component: (column, row) => (
@@ -23,7 +23,7 @@ test.describe("Screenshot tests", () => {
   });
 
   executeMatrixScreenshotTest({
-    name: `Badge (with icon)`,
+    name: "Badge (with icon)",
     columns: DENSITIES,
     rows: ONYX_COLORS,
     component: (column, row) => (
@@ -40,7 +40,7 @@ test.describe("Screenshot tests", () => {
 
   // we still add an icon and text here to test that they are not displayed in dot mode
   executeMatrixScreenshotTest({
-    name: `Badge (dot)`,
+    name: "Badge (dot)",
     columns: DENSITIES,
     rows: ONYX_COLORS,
     component: (column, row) => (
@@ -55,11 +55,40 @@ test.describe("Screenshot tests", () => {
       },
     },
   });
+
   executeMatrixScreenshotTest({
-    name: `Badge (alignment)`,
+    name: "Badge (alignment)",
     columns: ["default"],
     rows: ["start", "center", "end"],
     component: (column, row) => <TestCase alignItems={row} />,
+  });
+
+  executeMatrixScreenshotTest({
+    name: "Badge (active)",
+    columns: ONYX_COLORS,
+    rows: ["default", "hover", "focus-visible", "active"],
+    component: (column, row) => (
+      <OnyxBadge
+        color={column}
+        clickable={{ label: "Test", active: row === "active" }}
+        style={{ marginBottom: "2rem" }}
+      >
+        Badge
+      </OnyxBadge>
+    ),
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        const badge = component.getByRole("button", { name: "Badge" });
+
+        if (row === "hover") await badge.hover();
+        if (row === "focus-visible") await component.press("Tab");
+
+        if (row === "hover" || row === "focus-visible") {
+          // ensure the tooltip is visible in the screenshot
+          await expect(component.getByRole("tooltip")).toBeVisible();
+        }
+      },
+    },
   });
 });
 
@@ -74,4 +103,24 @@ test("should truncate text", async ({ mount }) => {
 
   // ASSERT
   await expect(component).toHaveScreenshot("truncation-ellipsis.png");
+});
+
+test("should render clickable badge", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(<OnyxBadge clickable="clickable">Badge</OnyxBadge>);
+  const badge = component.getByRole("button", { name: "Badge" });
+
+  // ASSERT
+  await expect(badge).toBeEnabled();
+});
+
+test("should render clickable badge (active)", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxBadge clickable={{ label: "Badge", active: true }}>Badge</OnyxBadge>,
+  );
+  const badge = component.getByRole("button", { name: "Badge" });
+
+  // ASSERT
+  await expect(badge).toHaveAttribute("aria-pressed", "true");
 });

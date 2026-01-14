@@ -19,11 +19,10 @@ export default meta;
 type Story = StoryObj<typeof OnyxFilterTag>;
 
 /**
- * This example shows an filter tag.
+ * This example shows a filter tag.
  */
 export const Default = {
-  argTypes: {},
   args: {
-    label: "Tag",
+    label: "Shirts & Pullovers",
   },
 } satisfies Story;
