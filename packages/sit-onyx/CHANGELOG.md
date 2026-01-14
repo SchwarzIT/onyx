@@ -12,10 +12,10 @@
 
 - 0fbd53f: fix(useOpenDirection): handle viewport boundaries when no overflow parent exists
   feat(OnyxDataGrid): add `OnyxItemsPerPage` component and pagination page size control
-  - Add `OnyxItemsPerPage` component for configurable page size selection
+  - Add `OnyxUnstableItemsPerPage` component for configurable page size selection
   - Add `itemsPerPage` option to `OnyxDataGrid` pagination feature to control visible rows per page
 
-  For now, the components are marked as experimental/unstable which means that they are still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using them.
+  For now, the `OnyxUnstableItemsPerPage` component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using them.
 
 - 5c2bd74: feat(OnyxCalendar): implemented Month/Year selection
 - c0f5aa2: feat(OnyxModal): support `backdrop` property to change the backdrop color
@@ -35,10 +35,7 @@
 
 ### Patch Changes
 
-- a3270f5: - fix(OnyxItemsPerPage): set max-width to prevent overflowing / truncate correctly
-  - refactor(OnyxItemsPerPage): remove search
-  - fix(OnyxDataGrid): hide "Items per page" label for pagination feature for breakpoints <= xs
-  - fix(OnyxMiniSearch and OnyxPagination): ensure correct placeholder min-width in webkit/safari
+- a3270f5: fix(OnyxMiniSearch and OnyxPagination): ensure correct placeholder min-width in webkit/safari
 - 1b53837: fix(OnyxSegmentedControlElement): Fix cases in which the id of the underlying input is not unique
 - 69482bf: fix: remove `Nullable` from some emit types
 

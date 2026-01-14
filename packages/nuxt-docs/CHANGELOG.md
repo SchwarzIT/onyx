@@ -5,7 +5,6 @@
 ### Minor Changes
 
 - fde0cb5: Support syntax highlighting for `PackageManagerCodeTabs` and `NpmInstallCodeTabs` components.
-  Also bump the `@nuxtjs/mdc` version range from `>= 0.13.0` to `0.17.2` to not allow versions with known security vulnerabilities
 - 1f3eeb9: feat: support icon for folders and files
 
   The sidebar layout now supports showing an icon for content folders and pages in the sidebar. Use the "icon" property in the `.navigation.yml` file of a folder or the `navigation.item` frontmatter in your `*.md` files to specify the icon name. For more information, see the [Nuxt Content docs](https://content.nuxt.com/docs/utils/query-collection-navigation#navigation-metadata-with-navigationyml).
@@ -26,7 +25,6 @@
   For further information see our [documentation](https://onyx.schwarz/development/packages/nuxt-docs.html#sidebar-layout)
 
 - 8cd0c85: feat: show back button in sidebar for nested sidebar roots
-- 4c8cf86: Sidebar layout: If a content directory displayed as accordion has set sidebar.root to true, an arrow icon is now shown for every child item to indicate that they navigate to a deeper layer in the navigation tree
 
 ### Patch Changes
 
@@ -36,17 +34,6 @@
 
   **Important**: If you are defining custom collections (e.g. for custom languages), make sure to also fix the prefix if necessary!
 
-- Updated dependencies [a3270f5]
-- Updated dependencies [7003571]
-- Updated dependencies [50d0c26]
-- Updated dependencies [1b53837]
-- Updated dependencies [0fbd53f]
-- Updated dependencies [69482bf]
-- Updated dependencies [5c2bd74]
-- Updated dependencies [d486b6d]
-- Updated dependencies [c0f5aa2]
-- Updated dependencies [5feed50]
-- Updated dependencies [83cd761]
 - Updated dependencies [439809f]
   - sit-onyx@1.6.0
   - @sit-onyx/icons@1.4.0
