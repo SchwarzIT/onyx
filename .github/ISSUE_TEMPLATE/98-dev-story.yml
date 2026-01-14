@@ -24,18 +24,13 @@ body:
       value: <!-- Add questions if there are any, use `@` to tag people. -->
 
   - type: textarea
-    id: dependencies
-    attributes:
-      label: Depends on
-      description: Issues/tickets that this issue depends on.
-      value: "<!-- Add relevant tickets, e.g., #123 -->"
-
-  - type: textarea
     id: design
     attributes:
       label: Design
       description: UX design information, e.g. Figma link, screenshots etc.
-      value: "[Figma](ADD_FIGMA_LINK_HERE)"
+      value: |
+        "[Figma Documentation](ADD_FIGMA_LINK_HERE)"
+        "[Figma Component](ADD_FIGMA_LINK_HERE)"
 
   - type: textarea
     id: acceptance-criteria
@@ -92,10 +87,8 @@ body:
 
         **Documentation**
         - [ ] "New" badge in Storybook is added, see [storybook-addon-tag-badges](https://github.com/Sidnioulz/storybook-addon-tag-badges/?tab=readme-ov-file#-usage)
-        - [ ] auto-generated Storybook code snippets are checked
+        - [ ] Storybook code snippets are checked
         - [ ] component status has been updated in the [docs overview](https://onyx.schwarz/#components)
-        - [ ] updated version is released
-        - [ ] updated documentation is deployed
 
         **Other**
         - [ ] follow-up tickets were created if necessary (add links below)
