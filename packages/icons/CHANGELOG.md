@@ -1,5 +1,14 @@
 # @sit-onyx/icons
 
+## 1.4.0
+
+### Minor Changes
+
+- d486b6d: feat: update icons
+
+  #### New
+  - filter-x
+
 ## 1.3.0
 
 ### Minor Changes

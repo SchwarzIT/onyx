@@ -1,5 +1,56 @@
 # @sit-onyx/nuxt-docs
 
+## 0.2.0
+
+### Minor Changes
+
+- fde0cb5: Support syntax highlighting for `PackageManagerCodeTabs` and `NpmInstallCodeTabs` components.
+  Also bump the `@nuxtjs/mdc` version range from `>= 0.13.0` to `0.17.2` to not allow versions with known security vulnerabilities
+- 1f3eeb9: feat: support icon for folders and files
+
+  The sidebar layout now supports showing an icon for content folders and pages in the sidebar. Use the "icon" property in the `.navigation.yml` file of a folder or the `navigation.item` frontmatter in your `*.md` files to specify the icon name. For more information, see the [Nuxt Content docs](https://content.nuxt.com/docs/utils/query-collection-navigation#navigation-metadata-with-navigationyml).
+
+  You can browse all available icons in our [icon library](https://onyx.schwarz/icons.html). Important: You need the define the icon name in kebab-case, so e.g. for the "User Settings" icon, use "user-settings".
+
+  Other changes:
+  - remove default back button from the nav bar. If needed, you can re-add it by [customizing the nav bar](https://onyx.schwarz/development/packages/nuxt-docs.html#customization)
+  - sidebar items that are new sidebar roots now show an arrow icon to indicate that there is nested content
+  - fix "Failed to resolve dependency: @nuxtjs/mdc" warning when running the dev server
+  - fix: prevent reactivity warning when using markdown tables
+
+- e9e5a8b: - add ProseBr component for accessible line breaks when using `<br />`
+  - fix(packageManagerCodeTabs): prevent "Failed to resolve component: ProsePre" warning.
+  - feat: make `NpmInstallCodeTabs` a global component so its also available in the [Nuxt Studio](https://nuxt.studio/) visual editor
+- d91901d: feat(sidebar): support customizing the sidebar using `.navigation.yml`
+
+  For further information see our [documentation](https://onyx.schwarz/development/packages/nuxt-docs.html#sidebar-layout)
+
+- 8cd0c85: feat: show back button in sidebar for nested sidebar roots
+- 4c8cf86: Sidebar layout: If a content directory displayed as accordion has set sidebar.root to true, an arrow icon is now shown for every child item to indicate that they navigate to a deeper layer in the navigation tree
+
+### Patch Changes
+
+- 48291ec: fix: change collection prefix from "" to "/"
+
+  As documented in the [Nuxt content docs](https://content.nuxt.com/docs/collections/sources#prefix), collection prefixes must start with "/" so we fixed the default collection prefix from "" to "/". This also fixes a bug when using [Nuxt Studio](https://nuxt.studio/) where no files/folders are shown.
+
+  **Important**: If you are defining custom collections (e.g. for custom languages), make sure to also fix the prefix if necessary!
+
+- Updated dependencies [a3270f5]
+- Updated dependencies [7003571]
+- Updated dependencies [50d0c26]
+- Updated dependencies [1b53837]
+- Updated dependencies [0fbd53f]
+- Updated dependencies [69482bf]
+- Updated dependencies [5c2bd74]
+- Updated dependencies [d486b6d]
+- Updated dependencies [c0f5aa2]
+- Updated dependencies [5feed50]
+- Updated dependencies [83cd761]
+- Updated dependencies [439809f]
+  - sit-onyx@1.6.0
+  - @sit-onyx/icons@1.4.0
+
 ## 0.1.0
 
 ### Minor Changes
