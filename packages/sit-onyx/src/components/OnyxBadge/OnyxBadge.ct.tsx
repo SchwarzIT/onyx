@@ -1,4 +1,3 @@
-import { useFocusStateHooks } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots.js";
@@ -65,13 +64,13 @@ test.describe("Screenshot tests", () => {
   });
 
   executeMatrixScreenshotTest({
-    name: "Badge (selected)",
+    name: "Badge (active)",
     columns: ONYX_COLORS,
-    rows: ["default", "hover", "focus-visible", "selected"],
+    rows: ["default", "hover", "focus-visible", "active"],
     component: (column, row) => (
       <OnyxBadge
         color={column}
-        clickable={{ label: "Test", selected: row === "selected" }}
+        clickable={{ label: "Test", active: row === "active" }}
         style={{ marginBottom: "2rem" }}
       >
         Badge
@@ -80,7 +79,9 @@ test.describe("Screenshot tests", () => {
     hooks: {
       beforeEach: async (component, page, column, row) => {
         const badge = component.getByRole("button", { name: "Badge" });
-        await useFocusStateHooks({ page, component: badge, state: row });
+
+        if (row === "hover") await badge.hover();
+        if (row === "focus-visible") await component.press("Tab");
 
         if (row === "hover" || row === "focus-visible") {
           // ensure the tooltip is visible in the screenshot
@@ -113,12 +114,10 @@ test("should render clickable badge", async ({ mount }) => {
   await expect(badge).toBeEnabled();
 });
 
-test("should render selected-interactive Badge with clickable prop and selectProps", async ({
-  mount,
-}) => {
+test("should render clickable badge (active)", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
-    <OnyxBadge clickable={{ label: "Badge", selected: true }}>Badge</OnyxBadge>,
+    <OnyxBadge clickable={{ label: "Badge", active: true }}>Badge</OnyxBadge>,
   );
   const badge = component.getByRole("button", { name: "Badge" });
 

@@ -1,11 +1,10 @@
-import { useFocusStateHooks } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.jsx";
 import OnyxFilterBadge from "./OnyxFilterBadge.vue";
 
 test.describe("Screenshot tests", () => {
-  const state = ["default", "hover", "focus-visible", "selected"];
+  const state = ["default", "hover", "focus-visible", "active"];
   executeMatrixScreenshotTest({
     name: "Filter badge",
     columns: DENSITIES,
@@ -21,7 +20,9 @@ test.describe("Screenshot tests", () => {
     hooks: {
       beforeEach: async (component, page, column, row) => {
         const badge = component.getByRole("button", { name: "Badge" });
-        await useFocusStateHooks({ page, component: badge, state: row });
+
+        if (row === "hover") await badge.hover();
+        if (row === "focus-visible") await component.press("Tab");
 
         if (row === "hover" || row === "focus-visible") {
           // ensure the tooltip is visible in the screenshot

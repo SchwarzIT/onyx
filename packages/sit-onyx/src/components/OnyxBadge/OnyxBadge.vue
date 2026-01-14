@@ -24,7 +24,7 @@ const badgeClasses = computed(() => [
   "onyx-truncation-ellipsis",
   "onyx-text",
   `onyx-badge--${props.color}`,
-  { "onyx-badge--selected": clickable.value?.selected },
+  { "onyx-badge--active": clickable.value?.active },
   { "onyx-badge--dot": props.dot },
   densityClass.value,
 ]);
@@ -40,12 +40,7 @@ defineSlots<{
 <template>
   <OnyxTooltip v-if="clickable" :text="clickable.label">
     <template #default="{ trigger }">
-      <button
-        v-bind="trigger"
-        :class="badgeClasses"
-        type="button"
-        :aria-pressed="clickable.selected"
-      >
+      <button v-bind="trigger" :class="badgeClasses" type="button" :aria-pressed="clickable.active">
         <template v-if="!props.dot">
           <OnyxIcon v-if="props.icon" class="onyx-badge__icon" :icon="props.icon" />
           <slot v-else></slot>
@@ -92,7 +87,7 @@ defineSlots<{
     --onyx-badge-background-color: var(--onyx-color-component-cta-default);
     --onyx-badge-hover-background-color: var(--onyx-color-component-cta-default-hover);
     --onyx-badge-focus-color: var(--onyx-color-component-focus-primary);
-    --onyx-badge-selected-background-color: var(--onyx-color-base-primary-700);
+    --onyx-badge-active-background-color: var(--onyx-color-base-primary-700);
 
     display: inline-block;
     max-width: 100%;
@@ -136,43 +131,43 @@ defineSlots<{
       }
     }
 
-    &--selected {
-      background-color: var(--onyx-badge-selected-background-color);
+    &--active {
+      background-color: var(--onyx-badge-active-background-color);
     }
 
     &--neutral {
       --onyx-badge-background-color: var(--onyx-color-base-neutral-700);
       --onyx-badge-hover-background-color: var(--onyx-color-base-neutral-400);
       --onyx-badge-focus-color: var(--onyx-color-component-focus-neutral);
-      --onyx-badge-selected-background-color: var(--onyx-color-base-neutral-900);
+      --onyx-badge-active-background-color: var(--onyx-color-base-neutral-900);
     }
 
     &--danger {
       --onyx-badge-background-color: var(--onyx-color-base-danger-500);
       --onyx-badge-hover-background-color: var(--onyx-color-base-danger-200);
       --onyx-badge-focus-color: var(--onyx-color-component-focus-danger);
-      --onyx-badge-selected-background-color: var(--onyx-color-base-danger-700);
+      --onyx-badge-active-background-color: var(--onyx-color-base-danger-700);
     }
 
     &--warning {
       --onyx-badge-background-color: var(--onyx-color-base-warning-500);
       --onyx-badge-hover-background-color: var(--onyx-color-base-warning-200);
       --onyx-badge-focus-color: var(--onyx-color-component-focus-warning);
-      --onyx-badge-selected-background-color: var(--onyx-color-base-warning-700);
+      --onyx-badge-active-background-color: var(--onyx-color-base-warning-700);
     }
 
     &--success {
       --onyx-badge-background-color: var(--onyx-color-base-success-500);
       --onyx-badge-hover-background-color: var(--onyx-color-base-success-200);
       --onyx-badge-focus-color: var(--onyx-color-component-focus-success);
-      --onyx-badge-selected-background-color: var(--onyx-color-base-success-700);
+      --onyx-badge-active-background-color: var(--onyx-color-base-success-700);
     }
 
     &--info {
       --onyx-badge-background-color: var(--onyx-color-base-info-500);
       --onyx-badge-hover-background-color: var(--onyx-color-base-info-200);
       --onyx-badge-focus-color: var(--onyx-color-base-info-200);
-      --onyx-badge-selected-background-color: var(--onyx-color-base-info-700);
+      --onyx-badge-active-background-color: var(--onyx-color-base-info-700);
     }
 
     &__icon {
