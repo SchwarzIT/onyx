@@ -15,7 +15,7 @@ test.describe("Screenshot tests", () => {
         label="Badge"
         density={column}
         active={row === "active"}
-        style={{ margin: "0 3rem 2rem 0" }}
+        style={{ margin: "2rem" }}
       />
     ),
     hooks: {
