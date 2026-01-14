@@ -1,3 +1,4 @@
+import { useFocusStateHooks } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots.js";
@@ -75,14 +76,8 @@ test.describe("Screenshot tests", () => {
       </OnyxBadge>
     ),
     hooks: {
-      beforeEach: async (component, _page, _column, row) => {
-        const badge = component.getByRole("button", { name: "Badge" });
-        if (row === "hover") {
-          await badge.hover();
-        }
-        if (row === "focus-visible") {
-          await badge.focus();
-        }
+      beforeEach: async (component, page, column, row) => {
+        await useFocusStateHooks({ page, component, state: row });
       },
     },
   });
@@ -101,18 +96,24 @@ test("should truncate text", async ({ mount }) => {
   await expect(component).toHaveScreenshot("truncation-ellipsis.png");
 });
 
-test("should render interactive Badge with clickable prop", async ({ mount }) => {
+test("should render clickable badge", async ({ mount }) => {
+  // ARRANGE
   const component = await mount(<OnyxBadge clickable="clickable">Badge</OnyxBadge>);
-  const interactiveTag = component.getByRole("button", { name: "Badge" });
-  await expect(interactiveTag).toBeEnabled();
+  const badge = component.getByRole("button", { name: "Badge" });
+
+  // ASSERT
+  await expect(badge).toBeEnabled();
 });
+
 test("should render selected-interactive Badge with clickable prop and selectProps", async ({
   mount,
 }) => {
+  // ARRANGE
   const component = await mount(
     <OnyxBadge clickable={{ label: "Badge", selected: true }}>Badge</OnyxBadge>,
   );
   const badge = component.getByRole("button", { name: "Badge" });
 
+  // ASSERT
   await expect(badge).toHaveAttribute("aria-pressed", "true");
 });
