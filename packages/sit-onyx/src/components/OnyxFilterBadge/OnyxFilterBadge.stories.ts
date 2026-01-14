@@ -1,6 +1,5 @@
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import { defineIconSelectArgType } from "../../utils/storybook.js";
 import OnyxFilterBadge from "./OnyxFilterBadge.vue";
 
 /**
@@ -12,7 +11,6 @@ const meta: Meta<typeof OnyxFilterBadge> = {
   component: OnyxFilterBadge,
   argTypes: {
     ...withNativeEventLogging(["onClick"]),
-    actionIcon: defineIconSelectArgType(),
     default: { control: { type: "text" } },
   },
 };
@@ -21,18 +19,10 @@ export default meta;
 type Story = StoryObj<typeof OnyxFilterBadge>;
 
 /**
- * This example shows an filter badge.
+ * This example shows a filter badge.
  */
 export const Default = {
-  argTypes: {},
   args: {
-    label: "Badge",
-  },
-} satisfies Story;
-
-export const WithoutIcon = {
-  args: {
-    label: "Badge",
-    actionIcon: null,
+    label: "Shirts & Pullovers",
   },
 } satisfies Story;

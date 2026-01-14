@@ -32,6 +32,7 @@ const active = useVModel({
   key: "active",
   default: false,
 });
+
 const tooltipLabel = computed(() =>
   active.value
     ? t.value("filterTag.clickToRemove", { label: props.label })
@@ -42,12 +43,13 @@ const tooltipLabel = computed(() =>
 <template>
   <OnyxBadge
     v-bind="badgeProps"
-    :clickable="{ label: tooltipLabel, actionIcon: active ? iconXSmall : undefined }"
-    :selected="active"
+    :clickable="{
+      label: tooltipLabel,
+      actionIcon: active ? iconXSmall : undefined,
+      selected: active,
+    }"
     @click="active = !active"
   >
-    <slot>
-      {{ props.label }}
-    </slot>
+    <slot> {{ props.label }} </slot>
   </OnyxBadge>
 </template>
