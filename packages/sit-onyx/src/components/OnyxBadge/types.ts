@@ -22,21 +22,21 @@ export type OnyxBadgeProps = DensityProp & {
    *
    * The label must describe the on-click action, e.g. "Click to remove the Badge."
    */
-  clickable?:
-    | string
-    | {
-        /**
-         * The label displayed on the Tooltip
-         */
-        label: string;
-        /**
-         * An icon displayed on the right side of the label.
-         * Should be used to indicate an action (e.g., dismissing).
-         */
-        actionIcon?: string;
-        /**
-         * Whether the badge should visually marked as selected
-         */
-        selected?: boolean;
-      };
+  clickable?: string | ClickableBadgeOptions;
+};
+
+export type ClickableBadgeOptions = {
+  /**
+   * The label displayed on the Tooltip
+   */
+  label: string;
+  /**
+   * An icon displayed on the right side of the label.
+   * Should be used to indicate an action (e.g., dismissing).
+   */
+  actionIcon?: string;
+  /**
+   * Whether the badge should visually marked as selected
+   */
+  selected?: boolean;
 };

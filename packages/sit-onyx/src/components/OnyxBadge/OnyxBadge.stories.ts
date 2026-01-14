@@ -69,7 +69,6 @@ export const WithTruncation = {
 /**
  * This example shows a toggle badge.
  */
-
 export const Clickable = {
-  ...createAdvancedStoryExample("OnyxBadge", "ToggleBadgeExample"),
+  ...createAdvancedStoryExample("OnyxBadge", "ClickableExample"),
 } satisfies Story;

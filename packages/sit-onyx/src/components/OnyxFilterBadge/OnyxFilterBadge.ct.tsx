@@ -20,9 +20,7 @@ test.describe("Screenshot tests", () => {
     hooks: {
       beforeEach: async (component, _page, _column, row) => {
         const badge = component.getByRole("button", { name: "Badge" });
-        if (row === "hover") {
-          await badge.hover();
-        }
+        if (row === "hover") await badge.hover();
         if (row === "focus") await badge.focus();
       },
     },
