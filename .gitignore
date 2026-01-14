@@ -38,6 +38,7 @@ blob-report/
 eslint-results.sarif
 .nuxt
 nuxt.d.ts
+.nuxtrc
 .output
 coverage
 
