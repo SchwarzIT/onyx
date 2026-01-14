@@ -17,4 +17,11 @@ export default defineNuxtConfig({
     // Otherwise if we would e.g. add en here, the project would always be forced to register en, even if it does not plan to add en translations
     // which could conflict with e.g. "const { locales } = useI18n()" to render a language switch which would always include en then
   },
+  mdc: {
+    components: {
+      map: {
+        br: "ProseBr",
+      },
+    },
+  },
 });
