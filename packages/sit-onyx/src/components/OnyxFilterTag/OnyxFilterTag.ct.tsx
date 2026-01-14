@@ -1,12 +1,13 @@
+import { useFocusStateHooks } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density.js";
 import { test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import OnyxFilterTag from "./OnyxFilterTag.vue";
 
 test.describe("Screenshot tests", () => {
-  const state = ["default", "hover", "focus", "active"];
+  const state = ["default", "hover", "focus-visible", "active"];
   executeMatrixScreenshotTest({
-    name: "Tag",
+    name: "Filter tag",
     columns: DENSITIES,
     rows: state,
     component: (column, row) => (
@@ -14,17 +15,13 @@ test.describe("Screenshot tests", () => {
         label="Tag"
         density={column}
         active={row === "active"}
-        style={{ margin: "0 3rem 2rem 0" }}
+        style={{ margin: "2rem 3rem" }}
       />
     ),
     hooks: {
-      beforeEach: async (component, _page, _column, row) => {
+      beforeEach: async (component, page, column, row) => {
         const tag = component.getByRole("button", { name: "Tag" });
-        if (row === "hover") {
-          await tag.hover();
-          await new Promise((resolve) => setTimeout(resolve, 200));
-        }
-        if (row === "focus") await tag.focus();
+        await useFocusStateHooks({ page, component: tag, state: row });
       },
     },
   });
