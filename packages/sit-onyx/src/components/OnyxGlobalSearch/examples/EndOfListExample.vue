@@ -11,6 +11,7 @@ import { computed, ref, watch } from "vue";
 import {
   normalizedIncludes,
   OnyxAppLayout,
+  OnyxButton,
   OnyxIconButton,
   OnyxInfoCard,
   OnyxNavBar,
@@ -20,7 +21,6 @@ import {
   OnyxUnstableGlobalSearchOption,
   type OnyxGlobalSearchOptionProps,
 } from "../../../index.js";
-import OnyxButton from "../../OnyxButton/OnyxButton.vue";
 
 type SearchGroup = {
   label: string;
@@ -171,17 +171,16 @@ const showMoreButton = computed(() => {
         </OnyxUnstableGlobalSearchGroup>
       </template>
 
-      <!-- 
-  The #endOfList slot provides the 'getOptionProps' helper and 'activeValue' state.
-  
-  - Binding 'getOptionProps' with a unique identifier is required for accessibility (ARIA roles/IDs) 
-    and to enable keyboard navigation (arrow keys + enter).
+      <!--
+          The #endOfList slot provides the 'getOptionProps' helper and 'activeValue' state.
+          - Binding 'getOptionProps' with a unique identifier is required for accessibility (ARIA roles/IDs)
+            and to enable keyboard navigation (arrow keys + enter).
+          - 'activeValue' can be used to implement custom conditional logic or styling.
 
-  - If you use a component other than OnyxButton, you must implement the selection styling yourself using the [aria-selected="true"] CSS selector.
-  
-  - 'activeValue' can be used to implement custom conditional logic or styling.
--->
+          If you use a component other than OnyxButton, you must implement the selection styling yourself using the [aria-selected="true"] CSS selector.
+      -->
       <template v-if="showMoreButton && !isLoading" #endOfList="{ getOptionProps }">
+        <!-- you can e.g. either link to a dedicated search results page here or show all results inside the global search itself -->
         <OnyxButton
           v-bind="getOptionProps('show-all')"
           label="Show all results"
@@ -189,6 +188,7 @@ const showMoreButton = computed(() => {
           class="show-all-button"
           :icon="iconArrowSmallRight"
           icon-position="right"
+          link="#search-results-page"
         />
       </template>
     </OnyxUnstableGlobalSearch>
