@@ -3,6 +3,6 @@
 ---
 
 feat(OnyxBadge): add `clickable` and `selected` property to support interactive badges
-feat(OnyxFilterBadge): implemented new OnyxFilterBadge Component
+feat: implemented new OnyxUnstableFilterBadge component
 
-For now, the OnyxFilterBadge is marked as experimental/unstable which means that it's still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using them.
+For now, the OnyxUnstableFilterBadge is marked as experimental/unstable which means that it's still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using them.
