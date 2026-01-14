@@ -8,7 +8,7 @@ import TestCase from "./TestCase.vue";
 
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
-    name: `Badge`,
+    name: "Badge",
     columns: DENSITIES,
     rows: ONYX_COLORS,
     component: (column, row) => (
@@ -24,7 +24,7 @@ test.describe("Screenshot tests", () => {
   });
 
   executeMatrixScreenshotTest({
-    name: `Badge (with icon)`,
+    name: "Badge (with icon)",
     columns: DENSITIES,
     rows: ONYX_COLORS,
     component: (column, row) => (
@@ -41,7 +41,7 @@ test.describe("Screenshot tests", () => {
 
   // we still add an icon and text here to test that they are not displayed in dot mode
   executeMatrixScreenshotTest({
-    name: `Badge (dot)`,
+    name: "Badge (dot)",
     columns: DENSITIES,
     rows: ONYX_COLORS,
     component: (column, row) => (
@@ -56,28 +56,31 @@ test.describe("Screenshot tests", () => {
       },
     },
   });
+
   executeMatrixScreenshotTest({
-    name: `Badge (alignment)`,
+    name: "Badge (alignment)",
     columns: ["default"],
     rows: ["start", "center", "end"],
     component: (column, row) => <TestCase alignItems={row} />,
   });
+
   executeMatrixScreenshotTest({
-    name: `Badge (selected)`,
+    name: "Badge (selected)",
     columns: ONYX_COLORS,
     rows: ["default", "hover", "focus-visible", "selected"],
     component: (column, row) => (
       <OnyxBadge
         color={column}
         clickable={{ label: "Test", selected: row === "selected" }}
-        style={{ marginBottom: row === "focus-visible" ? "2rem" : "0" }}
+        style={{ marginBottom: "2rem" }}
       >
         Badge
       </OnyxBadge>
     ),
     hooks: {
       beforeEach: async (component, page, column, row) => {
-        await useFocusStateHooks({ page, component, state: row });
+        const badge = component.getByRole("button", { name: "Badge" });
+        await useFocusStateHooks({ page, component: badge, state: row });
       },
     },
   });

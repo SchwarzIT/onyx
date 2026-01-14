@@ -38,20 +38,20 @@ defineSlots<{
 </script>
 
 <template>
-  <OnyxTooltip v-if="props.clickable" :text="clickable!.label">
+  <OnyxTooltip v-if="clickable" :text="clickable.label">
     <template #default="{ trigger }">
       <button
         v-bind="trigger"
         :class="badgeClasses"
         type="button"
-        :aria-pressed="clickable?.selected"
+        :aria-pressed="clickable.selected"
       >
         <template v-if="!props.dot">
           <OnyxIcon v-if="props.icon" class="onyx-badge__icon" :icon="props.icon" />
           <slot v-else></slot>
 
           <OnyxIcon
-            v-if="clickable?.actionIcon"
+            v-if="clickable.actionIcon"
             class="onyx-badge__action-icon"
             :icon="clickable.actionIcon"
           />
