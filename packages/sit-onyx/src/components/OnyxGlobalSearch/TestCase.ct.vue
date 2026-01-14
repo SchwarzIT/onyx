@@ -56,12 +56,3 @@ const props = withDefaults(
     </template>
   </OnyxGlobalSearch>
 </template>
-
-<style lang="scss" scoped>
-.show-all-button {
-  width: 100%;
-  &.active {
-    outline: var(--onyx-outline-width) solid var(--onyx-button-outline-color);
-  }
-}
-</style>
