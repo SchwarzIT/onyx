@@ -22,6 +22,15 @@ export default defineNuxtConfig({
       repo: "onyx",
       rootDir: "apps/showcase",
       private: false,
+      // Nuxt Studio does not yet support creating Pull Requests. Since our main branch is protected, we use a
+      // different branch here so Nuxt Studio can push the changes there directly and we can create the PR manually for now
+      branch: "nuxt-studio",
+    },
+    meta: {
+      // see: https://nuxt.studio/setup#components-meta
+      components: {
+        exclude: ["Prose*"],
+      },
     },
   },
   imports: {
