@@ -36,7 +36,7 @@ export type ClickableBadgeOptions = {
    */
   actionIcon?: string;
   /**
-   * Whether the badge should visually marked as selected
+   * Whether the badge should visually marked as active/selected
    */
-  selected?: boolean;
+  active?: boolean;
 };

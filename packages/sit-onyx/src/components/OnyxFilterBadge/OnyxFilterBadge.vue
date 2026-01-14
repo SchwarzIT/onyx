@@ -46,7 +46,7 @@ const tooltipLabel = computed(() =>
     :clickable="{
       label: tooltipLabel,
       actionIcon: active ? iconXSmall : undefined,
-      selected: active,
+      active,
     }"
     @click="active = !active"
   >

@@ -54,11 +54,11 @@ const skeleton = useSkeletonContext(props);
 .onyx-filter-tag .onyx-tag {
   @include layers.component() {
     --onyx-tag-background-color: var(--onyx-color-base-neutral-600);
-    border: none;
     --onyx-tag-color: var(--onyx-color-text-icons-neutral-inverted);
     --onyx-tag-hover-background-color: var(--onyx-color-base-neutral-900);
     --onyx-tag-focus-color: var(--onyx-color-component-focus-neutral);
     --onyx-tag-focus-background-color: var(--onyx-color-base-neutral-600);
+    border: none;
   }
 }
 </style>
