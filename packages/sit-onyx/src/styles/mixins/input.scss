@@ -23,6 +23,7 @@
 
 @mixin define-shared-styles($base-selector, $vertical-padding) {
   --border-color: var(--onyx-color-component-border-neutral);
+  --border-radius: var(--onyx-radius-sm);
   --hover-border-color: var(--onyx-color-component-border-primary-hover);
   --selection-color: var(--onyx-color-base-primary-200);
   --background-color: var(--onyx-color-base-background-blank);
@@ -31,7 +32,7 @@
   --button-color: var(--onyx-color-text-icons-neutral-soft);
 
   &__wrapper {
-    border-radius: var(--onyx-radius-sm);
+    border-radius: var(--border-radius);
     border: var(--onyx-1px-in-rem) solid var(--border-color);
     background-color: var(--background-color);
     color: var(--onyx-color-text-icons-neutral-medium);
