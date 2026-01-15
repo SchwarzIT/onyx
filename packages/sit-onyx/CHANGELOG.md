@@ -1,5 +1,49 @@
 # sit-onyx
 
+## 1.6.0
+
+### Minor Changes
+
+- 7003571: feat(OnyxTimepicker): Implemented `select` type, allowing users to choose a time from a generated dropdown list instead of free text entry.
+- 50d0c26: feat(OnyxBadge): add `clickable` property to support interactive badges
+- 50d0c26: feat(OnyxUnstableFilterBadge): implemented new OnyxUnstableFilterBadge component
+
+  For now, the OnyxUnstableFilterBadge is marked as experimental/unstable which means that it's still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using them.
+
+- 0fbd53f: fix(useOpenDirection): handle viewport boundaries when no overflow parent exists
+- 0fbd53f: feat(OnyxDataGrid): add `OnyxItemsPerPage` component and pagination page size control
+  - Add `OnyxUnstableItemsPerPage` component for configurable page size selection
+  - Add `itemsPerPage` option to `OnyxDataGrid` pagination feature to control visible rows per page
+
+  For now, the `OnyxUnstableItemsPerPage` component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using them.
+
+- 5c2bd74: feat(OnyxCalendar): implemented Month/Year selection
+- c0f5aa2: feat(OnyxModal): support `backdrop` property to change the backdrop color
+- 5feed50: feat(OnyxEmpty): replace icon with illustration and support new `description` slot
+- 83cd761: Feat(GlobalSearch): implemented endOfList slot which is positioned below the searchOptions
+- 439809f: feat(OnyxSlider): make component API stable
+
+  `OnyxUnstableSlider` is renamed to `OnyxSlider` and is now considered to have a stable API.
+  Therefore, no breaking changes will be introduced from now on within major versions. The `OnyxUnstableSliderControl` component has been removed and integrated into the OnyxSlider directly.
+
+  Changes to the last unstable version:
+  - when `control="icon"` is set, the icon buttons will no longer be focusable via keyboard because its redundant (slider can already be changed with arrow keys). When clicking the icon buttons, the tooltip will now be shown automatically
+  - when labelled marks are used, the tooltip will now be positioned top
+  - remove `disableTooltip` property in favor of new `tooltip` property that also allows customizing the tooltip value
+  - removed `errorMessages` and `successMessages` property which were inconsistent with other form components. Use `error` and `success` instead
+  - fix: error message not shown when slider is touched
+
+### Patch Changes
+
+- a3270f5: fix(OnyxMiniSearch, OnyxPagination): ensure correct placeholder min-width in webkit/safari
+- 1b53837: fix(OnyxSegmentedControlElement): Fix cases in which the id of the underlying input is not unique
+- 69482bf: fix: remove `Nullable` from some emit types
+
+  Some component emits where incorrectly types as `Nullable<T>` although the actual emitted value is always defined. This affects the `update:open` event of: OnyxAlertModal, OnyxInfoTooltip, OnyxColorSchemeDialog, OnyxSelectDialog and OnyxTooltip
+
+- Updated dependencies [d486b6d]
+  - @sit-onyx/icons@1.4.0
+
 ## 1.5.0
 
 ### Minor Changes
@@ -18,8 +62,7 @@
 - a2e92c8: fix(OnyxSkeleton): Fix PointerEvents were able to be triggered even when components where in "skeleton" mode
 - 8a4bd0f: fix(OnyxFormElement): Fix 2px size increase in case of a hidden error message
 - d0ce519: fix(OnyxLoadingSpinner): fix circle variant not having correct width in some contexts
-- Updated dependencies [81b7248]
-- Updated dependencies [592893c]
+- Updated dependencies
   - @sit-onyx/icons@1.3.0
 
 ## 1.4.0

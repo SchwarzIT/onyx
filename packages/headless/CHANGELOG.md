@@ -1,5 +1,19 @@
 # @sit-onyx/headless
 
+## 0.5.0
+
+### Minor Changes
+
+- 439809f: `_unstableCreateSlider` is renamed to `createSlider`. Additionally, a new `internals.updateValueByStep` utility is exposed now.
+- 5c2bd74: feat(useOutsideClick): support passing component refs to inside option
+- ff44b67: feat(createDataGrid): first implementation
+
+### Patch Changes
+
+- 4e7daca: fix(createElRef): make returned ref nullable
+
+  When using `createElRef()`, the returned ref was typed to be always defined. This is not true since the element can not be mounted yet. This fix adds `| null` to the type definition. This also aligns with the behavior of Vue's `useTemplateRef`.
+
 ## 0.4.0
 
 ### Minor Changes

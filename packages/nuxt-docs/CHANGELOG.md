@@ -1,5 +1,43 @@
 # @sit-onyx/nuxt-docs
 
+## 0.2.0
+
+### Minor Changes
+
+- fde0cb5: Support syntax highlighting for `PackageManagerCodeTabs` and `NpmInstallCodeTabs` components.
+- 1f3eeb9: feat: support icon for folders and files
+
+  The sidebar layout now supports showing an icon for content folders and pages in the sidebar. Use the "icon" property in the `.navigation.yml` file of a folder or the `navigation.item` frontmatter in your `*.md` files to specify the icon name. For more information, see the [Nuxt Content docs](https://content.nuxt.com/docs/utils/query-collection-navigation#navigation-metadata-with-navigationyml).
+
+  You can browse all available icons in our [icon library](https://onyx.schwarz/icons.html). Important: You need the define the icon name in kebab-case, so e.g. for the "User Settings" icon, use "user-settings".
+
+  Other changes:
+  - remove default back button from the nav bar. If needed, you can re-add it by [customizing the nav bar](https://onyx.schwarz/development/packages/nuxt-docs.html#customization)
+  - sidebar items that are new sidebar roots now show an arrow icon to indicate that there is nested content
+  - fix "Failed to resolve dependency: @nuxtjs/mdc" warning when running the dev server
+  - fix: prevent reactivity warning when using markdown tables
+
+- e9e5a8b: - add ProseBr component for accessible line breaks when using `<br />`
+  - fix(packageManagerCodeTabs): prevent "Failed to resolve component: ProsePre" warning.
+  - feat: make `NpmInstallCodeTabs` a global component so its also available in the [Nuxt Studio](https://nuxt.studio/) visual editor
+- d91901d: feat(sidebar): support customizing the sidebar using `.navigation.yml`
+
+  For further information see our [documentation](https://onyx.schwarz/development/packages/nuxt-docs.html#sidebar-layout)
+
+- 8cd0c85: feat: show back button in sidebar for nested sidebar roots
+
+### Patch Changes
+
+- 48291ec: fix: change collection prefix from "" to "/"
+
+  As documented in the [Nuxt content docs](https://content.nuxt.com/docs/collections/sources#prefix), collection prefixes must start with "/" so we fixed the default collection prefix from "" to "/". This also fixes a bug when using [Nuxt Studio](https://nuxt.studio/) where no files/folders are shown.
+
+  **Important**: If you are defining custom collections (e.g. for custom languages), make sure to also fix the prefix if necessary!
+
+- Updated dependencies [439809f]
+  - sit-onyx@1.6.0
+  - @sit-onyx/icons@1.4.0
+
 ## 0.1.0
 
 ### Minor Changes
