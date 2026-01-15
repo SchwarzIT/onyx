@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.8",
-    "@eslint-community/eslint-plugin-eslint-comments": "^4.5.0",
+    "@eslint-community/eslint-plugin-eslint-comments": "^4.6.0",
     "@eslint-community/eslint-utils": "^4.9.1",
     "@eslint/compat": "^2.0.1",
     "@eslint/js": "^9.39.2",
@@ -53,7 +53,7 @@
     "jsdom": "^27.4.0",
     "lint-staged": "^16.2.7",
     "nuxt": "catalog:",
-    "prettier": "^3.7.4",
+    "prettier": "^3.8.0",
     "prettier-plugin-organize-imports": "^4.3.0",
     "publint": "^0.3.16",
     "rimraf": "^6.1.2",
