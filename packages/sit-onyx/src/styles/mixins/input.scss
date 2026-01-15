@@ -26,6 +26,7 @@
   --border-radius: var(--onyx-radius-sm);
   --hover-border-color: var(--onyx-color-component-border-primary-hover);
   --selection-color: var(--onyx-color-base-primary-200);
+  --caret-color: var(--onyx-color-base-primary-500);
   --background-color: var(--onyx-color-base-background-blank);
   --outline-color: var(--onyx-color-component-focus-primary);
   --outline-style: none;
@@ -69,6 +70,7 @@
     // :read-only is valid for readonly and disabled state so we put shared styles for both states here
     &:has(#{$base-selector}__native:read-only) {
       --selection-color: var(--onyx-color-base-neutral-200);
+      --caret-color: var(--onyx-color-base-neutral-500);
       --background-color: var(--onyx-color-base-background-tinted);
     }
 
@@ -139,6 +141,7 @@
     --border-color: var(--onyx-color-component-border-success);
     --outline-color: var(--onyx-color-component-focus-success);
     --selection-color: var(--onyx-color-base-success-200);
+    --caret-color: var(--onyx-color-base-success-500);
     --focus-border-color: var(--onyx-color-component-border-success);
     --hover-border-color: var(--onyx-color-component-border-success-hover);
     --button-hover-color: var(--onyx-color-text-icons-success-medium);
@@ -152,6 +155,7 @@
     --border-color: var(--onyx-color-component-border-danger);
     --outline-color: var(--onyx-color-component-focus-danger);
     --selection-color: var(--onyx-color-base-danger-200);
+    --caret-color: var(--onyx-color-base-danger-500);
     --focus-border-color: var(--onyx-color-component-border-danger);
     --hover-border-color: var(--onyx-color-component-border-danger-hover);
     --button-hover-color: var(--onyx-color-text-icons-danger-medium);
@@ -171,6 +175,7 @@
     line-height: inherit;
     padding: 0;
     height: 100%;
+    caret-color: var(--caret-color);
 
     &::placeholder {
       color: var(--onyx-color-text-icons-neutral-soft);
