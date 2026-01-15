@@ -7,6 +7,7 @@ export * from "./composables/menuButton/createMenuButton.js";
 export * from "./composables/navigationMenu/createMenu.js";
 export * from "./composables/slider/createSlider.js";
 export * from "./composables/tabs/createTabs.js";
+export * from "./composables/toggleButton/createToggleButton.js";
 export * from "./composables/tooltip/createToggletip.js";
 export * from "./composables/tooltip/createTooltip.js";
 export * from "./utils/builder.js";
