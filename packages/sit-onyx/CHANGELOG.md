@@ -6,12 +6,12 @@
 
 - 7003571: feat(OnyxTimepicker): Implemented `select` type, allowing users to choose a time from a generated dropdown list instead of free text entry.
 - 50d0c26: feat(OnyxBadge): add `clickable` property to support interactive badges
-  feat: implemented new OnyxUnstableFilterBadge component
+- 50d0c26: feat(OnyxUnstableFilterBadge): implemented new OnyxUnstableFilterBadge component
 
   For now, the OnyxUnstableFilterBadge is marked as experimental/unstable which means that it's still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using them.
 
 - 0fbd53f: fix(useOpenDirection): handle viewport boundaries when no overflow parent exists
-  feat(OnyxDataGrid): add `OnyxItemsPerPage` component and pagination page size control
+- 0fbd53f: feat(OnyxDataGrid): add `OnyxItemsPerPage` component and pagination page size control
   - Add `OnyxUnstableItemsPerPage` component for configurable page size selection
   - Add `itemsPerPage` option to `OnyxDataGrid` pagination feature to control visible rows per page
 
@@ -35,7 +35,7 @@
 
 ### Patch Changes
 
-- a3270f5: fix(OnyxMiniSearch and OnyxPagination): ensure correct placeholder min-width in webkit/safari
+- a3270f5: fix(OnyxMiniSearch, OnyxPagination): ensure correct placeholder min-width in webkit/safari
 - 1b53837: fix(OnyxSegmentedControlElement): Fix cases in which the id of the underlying input is not unique
 - 69482bf: fix: remove `Nullable` from some emit types
 
@@ -62,8 +62,7 @@
 - a2e92c8: fix(OnyxSkeleton): Fix PointerEvents were able to be triggered even when components where in "skeleton" mode
 - 8a4bd0f: fix(OnyxFormElement): Fix 2px size increase in case of a hidden error message
 - d0ce519: fix(OnyxLoadingSpinner): fix circle variant not having correct width in some contexts
-- Updated dependencies [81b7248]
-- Updated dependencies [592893c]
+- Updated dependencies
   - @sit-onyx/icons@1.3.0
 
 ## 1.4.0
