@@ -174,7 +174,8 @@
     "select": {
       "label": "Page selection",
       "listLabel": "Available pages"
-    }
+    },
+    "currentOfTotalPages": "{current}/{total} Pages"
   },
   "input": {
     "clear": "Clear input",
