@@ -8,7 +8,8 @@ import OnyxSearch from "./OnyxSearch.vue";
 const meta: Meta<typeof OnyxSearch> = {
   title: "Search & Filter/Search",
   component: OnyxSearch,
-  tags: ["unstable"],
+  // TODO: unhide from storybook after https://github.com/SchwarzIT/onyx/issues/4651
+  tags: ["!autodocs", "!dev", "unstable"],
   decorators: [
     (story) => ({
       components: { story },
