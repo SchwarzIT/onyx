@@ -150,6 +150,12 @@ jobs:
 
       - name: 🛠️ Build Showcase
         run: pnpm build:all --filter=@sit-onyx/showcase
+        env:
+          # the Nuxt Studio env variables currently need to be provided during the build and can not be dynamically injected during runtime
+          # see: https://github.com/nuxt-content/nuxt-studio/issues/139#issuecomment-3749269074
+          # we also added these env variables to our global turbo.json so turborepo correctly passes the env variables to the build process
+          STUDIO_GITHUB_CLIENT_ID: ${{ secrets.NUXT_STUDIO_GITHUB_CLIENT_ID }}
+          STUDIO_GITHUB_CLIENT_SECRET: ${{ secrets.NUXT_STUDIO_GITHUB_CLIENT_SECRET }}
 
       - name: Copy .node-version file
         # Cloud Foundry requires a ".nvmrc" file for defining the node version to use
