@@ -290,5 +290,8 @@
     "select": {
       "listLabel": "Select number of items per page"
     }
+  },
+  "tableOfContents": {
+    "label": "Table of contents"
   }
 }
