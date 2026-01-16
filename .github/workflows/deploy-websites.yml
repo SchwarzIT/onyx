@@ -153,8 +153,8 @@ jobs:
         env:
           # the Nuxt Studio env variables currently need to be provided during the build and can not be dynamically injected during runtime
           # see: https://github.com/nuxt-content/nuxt-studio/issues/139#issuecomment-3749269074
-          STUDIO_GITHUB_CLIENT_ID: ${{ secrets.STUDIO_GITHUB_CLIENT_ID }}
-          STUDIO_GITHUB_CLIENT_SECRET: ${{ secrets.STUDIO_GITHUB_CLIENT_SECRET }}
+          STUDIO_GITHUB_CLIENT_ID: ${{ secrets.NUXT_STUDIO_GITHUB_CLIENT_ID }}
+          STUDIO_GITHUB_CLIENT_SECRET: ${{ secrets.NUXT_STUDIO_GITHUB_CLIENT_SECRET }}
 
       - name: Copy .node-version file
         # Cloud Foundry requires a ".nvmrc" file for defining the node version to use
