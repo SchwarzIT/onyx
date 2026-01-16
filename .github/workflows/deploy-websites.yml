@@ -148,13 +148,22 @@ jobs:
 
       - uses: ./.github/templates/node-setup
 
+      # the Nuxt Studio env variables currently need to be provided during the build and can not be dynamically injected during runtime
+      # see: https://github.com/nuxt-content/nuxt-studio/issues/139#issuecomment-3749269074
+      - name: Create .env file
+        run: |
+          cat <<EOF > .env
+          STUDIO_GITHUB_CLIENT_ID=${{ secrets.NUXT_STUDIO_GITHUB_CLIENT_ID }}
+          STUDIO_GITHUB_CLIENT_SECRET=${{ secrets.NUXT_STUDIO_GITHUB_CLIENT_SECRET }}
+          EOF
+        working-directory: apps/showcase
+
       - name: 🛠️ Build Showcase
         run: pnpm build:all --filter=@sit-onyx/showcase
-        env:
-          # the Nuxt Studio env variables currently need to be provided during the build and can not be dynamically injected during runtime
-          # see: https://github.com/nuxt-content/nuxt-studio/issues/139#issuecomment-3749269074
-          STUDIO_GITHUB_CLIENT_ID: ${{ secrets.NUXT_STUDIO_GITHUB_CLIENT_ID }}
-          STUDIO_GITHUB_CLIENT_SECRET: ${{ secrets.NUXT_STUDIO_GITHUB_CLIENT_SECRET }}
+
+      - name: Remove .env file
+        run: unlink .env
+        working-directory: apps/showcase
 
       - name: Copy .node-version file
         # Cloud Foundry requires a ".nvmrc" file for defining the node version to use
