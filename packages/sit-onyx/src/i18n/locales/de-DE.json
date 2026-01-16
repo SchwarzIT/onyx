@@ -287,5 +287,8 @@
     "select": {
       "listLabel": "Anzahl der Elemente pro Seite auswählen"
     }
+  },
+  "tableOfContents": {
+    "label": "Inhaltsverzeichnis"
   }
 }
