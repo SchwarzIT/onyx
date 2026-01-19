@@ -41,21 +41,31 @@ defineExpose({ input });
 </script>
 
 <template>
-  <OnyxInput
-    ref="inputRef"
-    v-bind="inputProps"
-    v-model="modelValue"
-    :loading="props.loading"
-    :class="['onyx-search', `onyx-search--${props.color}`, `onyx-search--${props.cornerRadius}`]"
-    :label="props.label"
-    :placeholder="props.label"
-    type="search"
-    hide-label
+  <search
+    :class="[
+      'onyx-search',
+      'onyx-component',
+      `onyx-search--${props.color}`,
+      `onyx-search--${props.cornerRadius}`,
+    ]"
   >
-    <template #leading>
-      <OnyxIcon v-if="!props.loading" class="onyx-search__icon" :icon="iconSearch" />
-    </template>
-  </OnyxInput>
+    <form @submit.prevent>
+      <OnyxInput
+        ref="inputRef"
+        v-bind="inputProps"
+        v-model="modelValue"
+        required
+        :placeholder="props.label"
+        :show-error="false"
+        type="search"
+        hide-label
+      >
+        <template #leading>
+          <OnyxIcon v-if="!props.loading" class="onyx-search__icon" :icon="iconSearch" />
+        </template>
+      </OnyxInput>
+    </form>
+  </search>
 </template>
 
 <style lang="scss">
@@ -66,19 +76,19 @@ defineExpose({ input });
   @include layers.component() {
     cursor: pointer;
 
-    &--blank {
+    &--blank .onyx-input {
       --background-color: var(--onyx-color-base-background-blank);
     }
 
-    &--tinted {
+    &--tinted .onyx-input {
       --background-color: var(--onyx-color-base-background-tinted);
     }
 
-    &--soft {
+    &--soft .onyx-input {
       --border-radius: var(--onyx-radius-sm);
     }
 
-    &--strong {
+    &--strong .onyx-input {
       --border-radius: var(--onyx-radius-md);
     }
 

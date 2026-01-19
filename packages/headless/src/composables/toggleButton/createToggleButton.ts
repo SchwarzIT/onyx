@@ -2,7 +2,13 @@ import { computed, toValue, type ButtonHTMLAttributes, type MaybeRefOrGetter } f
 import { createBuilder, type VBindAttributes } from "../../utils/builder.js";
 
 type CreateToggleButtonOptions = {
+  /**
+   * The current state of the toggle button.
+   */
   isPressed: MaybeRefOrGetter<boolean>;
+  /**
+   * Triggered when the toggle button is clicked and the `isPressed` state should be toggled.
+   */
   onToggle: () => void;
 };
 
@@ -20,7 +26,7 @@ export const createToggleButton = createBuilder((options: CreateToggleButtonOpti
           ({
             "aria-pressed": toValue(options.isPressed),
             onClick: options.onToggle,
-          }) as const satisfies VBindAttributes<ButtonHTMLAttributes>,
+          }) satisfies VBindAttributes<ButtonHTMLAttributes>,
       ),
     },
   };

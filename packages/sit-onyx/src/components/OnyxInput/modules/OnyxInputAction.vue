@@ -55,7 +55,7 @@ const toggleAttrs = computed(() =>
 </script>
 
 <template>
-  <OnyxTooltip v-bind="rootAttrs" without-wedge alignment="center">
+  <OnyxTooltip v-bind="rootAttrs" without-wedge alignment="center" :text="props.label">
     <template #default="{ trigger }">
       <button
         v-bind="mergeVueProps(restAttrs.value, toggleAttrs, trigger)"
@@ -74,7 +74,6 @@ const toggleAttrs = computed(() =>
         />
       </button>
     </template>
-    <template #tooltip>{{ props.label }}</template>
   </OnyxTooltip>
 </template>
 
@@ -86,8 +85,6 @@ const toggleAttrs = computed(() =>
     all: initial;
     color: var(--onyx-color-text-icons-neutral-medium);
     padding: var(--onyx-density-xs) var(--onyx-density-sm);
-    margin-right: -12px;
-    margin-left: -12px;
 
     &:enabled {
       cursor: pointer;

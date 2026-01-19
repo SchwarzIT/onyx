@@ -9,7 +9,7 @@ const meta: Meta<typeof OnyxSearch> = {
   title: "Search & Filter/Search",
   component: OnyxSearch,
   // TODO: unhide from storybook after https://github.com/SchwarzIT/onyx/issues/4651
-  tags: ["!autodocs", "!dev", "unstable"],
+  tags: ["unstable"],
   decorators: [
     (story) => ({
       components: { story },
@@ -18,7 +18,7 @@ const meta: Meta<typeof OnyxSearch> = {
   ],
   argTypes: {
     disabled: { control: { type: "boolean" } },
-    ...withNativeEventLogging(["onInput", "onChange", "onFocusin", "onFocusout"]),
+    ...withNativeEventLogging(["onInput", "onSubmit", "onFocusin", "onFocusout"]),
   },
 };
 
