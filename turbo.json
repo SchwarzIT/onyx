@@ -5,7 +5,13 @@
     "teamSlug": "onyx",
     "enabled": true
   },
-  "globalPassThroughEnv": ["PW_SHARD", "PW_TOTAL_SHARDS", "PW_UPDATE_SNAPSHOTS"],
+  "globalPassThroughEnv": [
+    "PW_SHARD",
+    "PW_TOTAL_SHARDS",
+    "PW_UPDATE_SNAPSHOTS",
+    "STUDIO_GITHUB_CLIENT_ID",
+    "STUDIO_GITHUB_CLIENT_SECRET"
+  ],
   "globalDependencies": ["pnpm-lock.yaml", "stylelint.config.js"],
   "tasks": {
     "build": {
