@@ -15,6 +15,9 @@ on:
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_REMOTE_CACHE__TURBO_TOKEN }}
 
+permissions:
+  contents: read
+
 jobs:
   deploy_storybook:
     name: Deploy Storybook
@@ -22,7 +25,7 @@ jobs:
     if: ${{ (inputs.environment || inputs.environment) != '' }}
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
       - uses: ./.github/templates/node-setup
 
@@ -48,7 +51,7 @@ jobs:
     if: ${{ (inputs.environment || inputs.environment) != '' }}
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
       - uses: ./.github/templates/node-setup
 
@@ -78,7 +81,7 @@ jobs:
     if: ${{ (inputs.environment || inputs.environment) != '' }}
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
       - uses: ./.github/templates/node-setup
 
@@ -105,7 +108,7 @@ jobs:
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
       - name: 🪝 Invoke internal demo app webhook
-        uses: distributhor/workflow-webhook@v3
+        uses: distributhor/workflow-webhook@2381f0e9c7b6bf061fb1405bd0804b8706116369 # v3.0.8
         # since the webhook is an external dependency, we still want to continue deploying the public demo app
         # we just call it here already so the internal demo app deployment can run in parallel
         continue-on-error: true
@@ -114,7 +117,7 @@ jobs:
           webhook_url: ${{ secrets.AZURE_DEMO_APP_WEBHOOK_URL }}
           webhook_secret: ${{ secrets.AZURE_DEMO_APP_WEBHOOK_SECRET }}
 
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
       - uses: ./.github/templates/node-setup
 
@@ -144,7 +147,7 @@ jobs:
     if: ${{ (inputs.environment || inputs.environment) != '' }}
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
       - uses: ./.github/templates/node-setup
 
