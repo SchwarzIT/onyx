@@ -10,7 +10,7 @@ export type OnyxTableOfContentsItemProps = DensityProp &
     /**
      * Which headline level the item is representing in the content (h1-h6).
      */
-    level?: 1 | 2 | 3 | 4 | 5 | 6;
+    level?: 1 | 2;
     /**
      * Whether the item is currently active.
      * For "auto", the active state will be determined automatically based on the current route.

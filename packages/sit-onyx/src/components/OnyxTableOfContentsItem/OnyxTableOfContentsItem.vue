@@ -85,13 +85,9 @@ const link = computed(() => extractLinkProps(props.link));
       }
     }
 
-    &--2,
-    &--3,
-    &--4,
-    &--5,
-    &--6 {
+    &--2 {
       .onyx-toc-item__link {
-        padding-left: calc(var(--onyx-density-xs) + var(--indentation));
+        padding-left: calc(var(--onyx-density-xs) + var(--onyx-toc-item-indentation));
 
         &::before {
           content: "";
@@ -101,31 +97,12 @@ const link = computed(() => extractLinkProps(props.link));
           display: block;
           position: absolute;
           left: calc(
-            var(--onyx-toc-item-indicator-width) + var(--onyx-1px-in-rem) + var(--indentation)
+            var(--onyx-toc-item-indicator-width) + var(--onyx-1px-in-rem) +
+              var(--onyx-toc-item-indentation)
           );
           top: calc(-0.5 * var(--onyx-toc-list-gap, 0rem));
         }
       }
-    }
-
-    &--2 {
-      --indentation: var(--onyx-toc-item-indentation);
-    }
-
-    &--3 {
-      --indentation: calc(2 * var(--onyx-toc-item-indentation));
-    }
-
-    &--4 {
-      --indentation: calc(3 * var(--onyx-toc-item-indentation));
-    }
-
-    &--5 {
-      --indentation: calc(4 * var(--onyx-toc-item-indentation));
-    }
-
-    &--6 {
-      --indentation: calc(5 * var(--onyx-toc-item-indentation));
     }
   }
 }
