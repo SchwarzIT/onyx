@@ -6,13 +6,9 @@ title: Chart.js plugin
 
 ---
 
-## outline: [2, 3]
-
 # @sit-onyx/chartjs-plugin
 
-::div{.hide-external-link}
-[![npm version](https://badge.fury.io/js/@sit-onyx%2Fchartjs-plugin.svg)](https://www.npmjs.com/package/@sit-onyx/chartjs-plugin)
-::
+:npm-package-badge{package="@sit-onyx/chartjs-plugin"}
 
 {{ packageJson.description }}.
 
@@ -35,17 +31,7 @@ The following features are included in this plugin:
 
 Install the npm package with your corresponding package manager:
 
-```sh [pnpm]
-pnpm add @sit-onyx/chartjs-plugin chart.js
-```
-
-```sh [npm]
-npm install @sit-onyx/chartjs-plugin chart.js
-```
-
-```sh [yarn]
-yarn install @sit-onyx/chartjs-plugin chart.js
-```
+:npm-install-code-tabs{packages="@sit-onyx/chartjs-plugin chart.js"}
 
 ## Usage
 
@@ -67,65 +53,23 @@ The source code for the chart examples below can be found on [GitHub](https://gi
 
 The following examples assume you have also installed `vue-chartjs`.
 
-```sh [pnpm]
-pnpm add vue-chartjs
-```
-
-```sh [npm]
-npm install vue-chartjs
-```
-
-```sh [yarn]
-yarn install chart.js
-```
+:npm-install-code-tabs{packages="vue-chartjs"}
 
 ### Bar
 
-::client-only
-:bar-chart
-::
-
 ### Bubble
-
-::client-only
-:bubble-chart
-::
 
 ### Doughnut
 
-::client-only
-:doughnut-chart
-::
-
 ### Line
-
-::client-only
-:line-chart
-::
 
 ### Pie
 
-::client-only
-:pie-chart
-::
-
 ### Polar area
-
-::client-only
-:polar-area-chart
-::
 
 ### Radar
 
-::client-only
-:radar-chart
-::
-
 ### Scatter
-
-::client-only
-:scatter-chart
-::
 
 ## Custom dataset colors
 

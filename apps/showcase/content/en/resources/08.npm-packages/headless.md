@@ -6,13 +6,9 @@ title: Headless
 
 ---
 
-## outline: [2, 3]
-
 # @sit-onyx/headless
 
-::div{.hide-external-link}
-[![npm version](https://badge.fury.io/js/@sit-onyx%2Fheadless.svg)](https://www.npmjs.com/package/@sit-onyx/headless)
-::
+:npm-package-badge{package="@sit-onyx/headless"}
 
 {{ packageJson.description }}.
 
@@ -26,21 +22,7 @@ A full changelog can be found [here](/development/packages/changelogs/headless).
 
 Install the npm package with your corresponding package manager:
 
-\::: code-group
-
-```sh [pnpm]
-pnpm add @sit-onyx/headless
-```
-
-```sh [npm]
-npm install @sit-onyx/headless
-```
-
-```sh [yarn]
-yarn install @sit-onyx/headless
-```
-
-\:::
+:npm-install-code-tabs{packages="@sit-onyx/headless"}
 
 ## Composables
 

@@ -6,19 +6,14 @@ title: Vitepress
 
 ---
 
-## outline: [2, 3]
-
 # @sit-onyx/vitepress-theme
 
-::div{.hide-external-link}
-[![npm version](https://badge.fury.io/js/@sit-onyx%2Fvitepress-theme.svg)](https://www.npmjs.com/package/@sit-onyx/vitepress-theme)
-::
+:npm-package-badge{package="@sit-onyx/vitepress-theme"}
 
 Custom [VitePress](https://vitepress.dev) theme that uses the onyx brand colors (which are currently the same as the Schwarz Digits brand colors).
 
-\::: info
+info
 The theme doesn't currently use the entire onyx framework but will be updated in the future.
-\:::
 
 The very documentation you are reading here is also using this exact custom Vitepress theme.
 
@@ -38,27 +33,11 @@ The theme includes the following features:
 
 ## Installation
 
-\::: code-group
-
-```sh [pnpm]
-pnpm add -D @sit-onyx/vitepress-theme
-```
-
-```sh [npm]
-npm install -D @sit-onyx/vitepress-theme
-```
-
-```sh [yarn]
-yarn install -D @sit-onyx/vitepress-theme
-```
-
-\:::
+:npm-install-code-tabs{packages="@sit-onyx/vitepress-theme" dev}
 
 ## Usage
 
 You can check the [VitePress documentation](https://vitepress.dev/guide/custom-theme) for further information.
-
-\::: code-group
 
 ```ts [.vitepress/theme/index.ts]
 import OnyxTheme from "@sit-onyx/vitepress-theme";
@@ -69,8 +48,6 @@ import OnyxTheme from "@sit-onyx/vitepress-theme";
 export default OnyxTheme;
 ```
 
-\:::
-
 ## Utilities
 
 This package also includes some VitePress utilities that you can use on-demand.
@@ -79,7 +56,7 @@ This package also includes some VitePress utilities that you can use on-demand.
 
 Applies CSS only to the given VitePress breakpoint.
 
-\::: details Available VitePress breakpoints
+details Available VitePress breakpoints
 
 | Breakpoint name | Value    |
 | --------------- | -------- |
@@ -89,8 +66,6 @@ Applies CSS only to the given VitePress breakpoint.
 | l               | `960px`  |
 | xl              | `1280px` |
 | xxl             | `1440px` |
-
-\:::
 
 ```scss
 @use "@sit-onyx/vitepress-theme/mixins.scss";

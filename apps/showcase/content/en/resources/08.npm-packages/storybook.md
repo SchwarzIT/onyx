@@ -6,13 +6,9 @@ title: Storybook
 
 ---
 
-## outline: [2, 3]
-
 # @sit-onyx/storybook-utils
 
-::div{.hide-external-link}
-[![npm version](https://badge.fury.io/js/@sit-onyx%2Fstorybook-utils.svg)](https://www.npmjs.com/package/@sit-onyx/storybook-utils)
-::
+:npm-package-badge{package="@sit-onyx/storybook-utils"}
 
 {{ packageJson.description }}.
 
@@ -24,21 +20,7 @@ A full changelog can be found [here](/development/packages/changelogs/storybook-
 
 Install the npm package with your corresponding package manager:
 
-\::: code-group
-
-```sh [pnpm]
-pnpm add -D @sit-onyx/storybook-utils
-```
-
-```sh [npm]
-npm install -D @sit-onyx/storybook-utils
-```
-
-```sh [yarn]
-yarn install -D @sit-onyx/storybook-utils
-```
-
-\:::
+:npm-install-code-tabs{packages="@sit-onyx/storybook-utils" dev}
 
 ## Utilities
 
@@ -52,8 +34,6 @@ Creates a default Storybook preview configuration for a project that uses `onyx`
 - Configure viewports / breakpoints as defined by onyx
 - Logs Vue emits as Storybook actions
 - Source code transformer that formats the code snippets with prettier and adds imports for used icons, flags and onyx components
-
-\::: code-group
 
 ```ts [.storybook/preview.ts]
 import { createPreview } from "@sit-onyx/storybook-utils";
@@ -81,8 +61,6 @@ const config: StorybookConfig = {
 export default config;
 ```
 
-\:::
-
 ### withVModelDecorator
 
 Defines a custom decorator that will implement event handlers for all v-models.
@@ -101,11 +79,8 @@ export default {
 Creates a custom theme for Storybook that uses onyx colors.
 See the [Storybook Theming docs](https://storybook.js.org/docs/configure/theming) for further information.
 
-\::: tip
+tip
 If you are using [`createPreview()`](#createpreview), the custom light and dark theme will already be set up for you.
-\:::
-
-\::: code-group
 
 ```ts [.storybook/manager.ts]
 import { createTheme } from "@sit-onyx/storybook-utils";
@@ -134,8 +109,6 @@ const preview: Preview = {
 
 export default preview;
 ```
-
-\:::
 
 ### withNativeEventLogging
 

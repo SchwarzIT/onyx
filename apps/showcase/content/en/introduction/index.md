@@ -57,122 +57,17 @@ Embrace progressive disclosure to guide users through the interface progressivel
 
 ## Topics to explore
 
-::div{.topic-overview}
-:::topicoverviewcard
-
----
-
-href: /basics/accessibility
-image-src: /images/accessibility-thumbnail.webp
-subtitle: Making applications accessible
-title: Accessibility
-
----
-
-    ::::topicoverviewcard
-    ---
-    href: /basics/breakpoints-grid
-    image-src: /images/grid-thumbnail.webp
-    subtitle: Basics for responsiveness
-    title: Breakpoints & grid
-    ---
-      :::::topicoverviewcard
-      ---
-      href: /basics/colors
-      image-src: /images/colors-thumbnail.webp
-      subtitle: Understanding the color system
-      title: Colors
-      ---
-        ::::::topicoverviewcard
-        ---
-        href: /basics/states
-        image-src: /images/states-thumbnail.webp
-        subtitle: Behavior and interactivity
-        title: Component states
-        ---
-          :::::::topicoverviewcard
-          ---
-          href: /basics/density
-          image-src: /images/density-thumbnail.webp
-          subtitle: Compact and cozy layout variations
-          title: Density
-          ---
-            ::::::::topicoverviewcard
-            ---
-            href: /basics/elevation
-            image-src: /images/elevation-thumbnail.webp
-            subtitle: Hierarchy on the z-axis
-            title: Elevation
-            ---
-              :::::::::topicoverviewcard
-              ---
-              href: /basics/iconography
-              image-src: /images/iconography-thumbnail.webp
-              subtitle: Icon guidelines
-              title: Iconography
-              ---
-                ::::::::::topicoverviewcard
-                ---
-                href: /basics/images
-                image-src: /images/images-thumbnail.webp
-                subtitle: Image guidelines
-                title: Images
-                ---
-                  :::::::::::topicoverviewcard
-                  ---
-                  href: /basics/infographics
-                  image-src: /images/infographics-thumbnail.webp
-                  subtitle: Dealing with statistics
-                  title: Infographics
-                  ---
-                    ::::::::::::topicoverviewcard
-                    ---
-                    href: /basics/layout
-                    image-src: /images/layout-thumbnail.webp
-                    subtitle: Structuring content
-                    title: Layout
-                    ---
-                      :::::::::::::topicoverviewcard
-                      ---
-                      href: /basics/motion
-                      image-src: /images/motion-thumbnail.webp
-                      subtitle: Transitions and animations
-                      title: Motion
-                      ---
-                        ::::::::::::::topicoverviewcard
-                        ---
-                        href: /basics/truncation
-                        image-src: /images/truncation-thumbnail.webp
-                        subtitle: Line break and truncation
-                        title: Truncation
-                        ---
-                          :::::::::::::::topicoverviewcard
-                          ---
-                          href: /basics/typography
-                          image-src: /images/typography-thumbnail.webp
-                          subtitle: Understanding the font system
-                          title: Typography
-                          ---
-                            ::::::::::::::::topicoverviewcard
-                            ---
-                            href: /basics/units
-                            image-src: /images/units-thumbnail.webp
-                            subtitle: Basics for a consistent appearance
-                            title: Units
-                            ---
-                            ::::::::::::::::
-                          :::::::::::::::
-                        ::::::::::::::
-                      :::::::::::::
-                    ::::::::::::
-                  :::::::::::
-                ::::::::::
-              :::::::::
-            ::::::::
-          :::::::
-        ::::::
-      :::::
-    ::::
-
-:::
-::
+- [Accessibility](/introduction/foundation/accessibility)
+- [Breakpoints & Grid](/introduction/foundation/breakpoints-and-grid)
+- [Colors](/introduction/foundation/colors)
+- [Component states](/introduction/foundation/states)
+- [Density](/introduction/foundation/density)
+- Elevation
+- Iconography
+- [Images](/introduction/foundation/images)
+- [Infographics](/introduction/foundation/infographics)
+- [Layout](/introduction/foundation/layout)
+- [Motion](/introduction/foundation/motion)
+- Truncation
+- [Typography](/introduction/foundation/typography)
+- [Units](/introduction/foundation/units)

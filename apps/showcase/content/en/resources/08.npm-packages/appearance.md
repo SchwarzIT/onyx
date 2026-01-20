@@ -9,7 +9,7 @@ onyx supports a dark and a light theme as well as custom color themes. The optio
 
 To learn more about the theming concept of onyx, take a look at our [colors documentation](/basics/colors.html)
 
-\::: warning Schwarz internal themes
+warning Schwarz internal themes
 onyx includes build-in themes for brands of the [Schwarz group](https://gruppe.schwarz/) that are only accessible for internal employees.
 
 If you are an Schwarz employee and want to access one the following themes, please refer to the [Vue Blueprint documentation](https://vue-blueprint.schwarz/guide/onyx-themes.html):
@@ -23,13 +23,9 @@ If you are an Schwarz employee and want to access one the following themes, plea
 
 If you have any other questions or need support, please get in touch with the [team](/about/team).
 
-\:::
-
 ## Themes
 
 To use a different theme, add the corresponding imports to your `main.ts` file (example a theme called "my-theme"):
-
-\::: code-group
 
 ```ts [main.ts]
 // import "sit-onyx/styles.css";
@@ -37,19 +33,13 @@ To use a different theme, add the corresponding imports to your `main.ts` file (
 import "./my-theme.css";
 ```
 
-\:::
-
 or if you are using Nuxt, then import them in your `nuxt.config.ts`:
-
-\::: code-group
 
 ```ts [nuxt.config.ts]
 export default defineNuxtConfig({
   css: ["~/assets/css/my-theme.css"],
 });
 ```
-
-\:::
 
 ## Dark mode
 

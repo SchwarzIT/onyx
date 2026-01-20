@@ -6,13 +6,9 @@ title: Github Metrics
 
 ---
 
-## outline: [2, 3]
-
 # @sit-onyx/github-metrics
 
-::div{.hide-external-link}
-[![npm version](https://badge.fury.io/js/@sit-onyx%2Fgithub-metrics.svg)](https://www.npmjs.com/package/@sit-onyx/github-metrics)
-::
+:npm-package-badge{package="@sit-onyx/github-metrics"}
 
 {{ packageJson.description }}.
 
@@ -24,21 +20,7 @@ A full changelog can be found [here](/development/packages/changelogs/github-met
 
 Install the npm package with your corresponding package manager:
 
-\::: code-group
-
-```sh [pnpm]
-pnpm add @sit-onyx/github-metrics
-```
-
-```sh [npm]
-npm install @sit-onyx/github-metrics
-```
-
-```sh [yarn]
-yarn install @sit-onyx/github-metrics
-```
-
-\:::
+:npm-install-code-tabs{packages="@sit-onyx/github-metrics"}
 
 ## Create a client
 

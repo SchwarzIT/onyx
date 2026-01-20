@@ -97,8 +97,6 @@ Our technical guidelines describes the goals and rules that contributors and we 
 2. 📜 We **don't** use [typescript enums](https://www.typescriptlang.org/docs/handbook/enums.html)
 3. 📜 We use strict undefined/null checks when implementing the **onyx** ecosystem
 
-\###########
-
 ### CSS
 
 1. 📜 Instead of using `scoped`/`module` for `<style>`, we rely on meaningful class structures

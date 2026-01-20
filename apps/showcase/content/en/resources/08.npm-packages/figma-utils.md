@@ -6,13 +6,9 @@ title: Figma utilities
 
 ---
 
-## outline: [2, 3]
-
 # @sit-onyx/figma-utils
 
-::div{.hide-external-link}
-[![npm version](https://badge.fury.io/js/@sit-onyx%2Ffigma-utils.svg)](https://www.npmjs.com/package/@sit-onyx/figma-utils)
-::
+:npm-package-badge{package="@sit-onyx/figma-utils"}
 
 {{ packageJson.description }}.
 
@@ -20,7 +16,7 @@ title: Figma utilities
 
 A full changelog can be found [here](/development/packages/changelogs/figma-utils).
 
-## Use as CLI :badge{text="recommended"}
+## Use as CLI (recommended)
 
 For a list of supported commands and options, run:
 
@@ -44,17 +40,7 @@ This is useful if you want to further customize the CLI commands to have full co
 
 Install the npm package with your corresponding package manager:
 
-```sh [pnpm]
-pnpm add @sit-onyx/figma-utils
-```
-
-```sh [npm]
-npm install @sit-onyx/figma-utils
-```
-
-```sh [yarn]
-yarn install @sit-onyx/figma-utils
-```
+:npm-install-code-tabs{packages="@sit-onyx/figma-utils"}
 
 ### Import variables as CSS
 
