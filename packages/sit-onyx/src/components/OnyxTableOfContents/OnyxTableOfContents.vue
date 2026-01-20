@@ -27,26 +27,6 @@ const { densityClass } = useDensity(props);
       <ul class="onyx-toc__list">
         <OnyxTableOfContentsItem label="Level 2" link="#test" :level="2" />
         <OnyxTableOfContentsItem label="Level 2" link="#test" :level="2" />
-
-        <ul class="onyx-toc__list">
-          <OnyxTableOfContentsItem label="Level 3" link="#test" :level="3" />
-          <OnyxTableOfContentsItem label="Level 3" link="#test" :level="3" />
-
-          <ul class="onyx-toc__list">
-            <OnyxTableOfContentsItem label="Level 4" link="#test" :level="4" />
-            <OnyxTableOfContentsItem label="Level 4" link="#test" :level="4" />
-
-            <ul class="onyx-toc__list">
-              <OnyxTableOfContentsItem label="Level 5" link="#test" :level="5" />
-              <OnyxTableOfContentsItem label="Level 5" link="#test" :level="5" />
-
-              <ul class="onyx-toc__list">
-                <OnyxTableOfContentsItem label="Level 6" link="#test" :level="6" />
-                <OnyxTableOfContentsItem label="Level 6" link="#test" :level="6" />
-              </ul>
-            </ul>
-          </ul>
-        </ul>
       </ul>
     </ul>
   </nav>
