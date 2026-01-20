@@ -19,9 +19,11 @@ catalog:
   vite: 7.3.1
   vue: 3.5.27
 
-onlyBuiltDependencies:
-  - "@parcel/watcher"
-  - better-sqlite3
-  - esbuild
-  - sharp
-  - simple-git-hooks
+trustPolicy: "no-downgrade"
+blockExoticSubdeps: true
+allowBuilds:
+  "@parcel/watcher": true # Downloads binary
+  "better-sqlite3": true # Downloads binary
+  "esbuild": true # Downloads binary
+  "sharp": true # Downloads binary
+  "simple-git-hooks": true # Setup and update git hooks
