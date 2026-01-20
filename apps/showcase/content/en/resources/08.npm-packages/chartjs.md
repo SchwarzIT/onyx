@@ -1,7 +1,3 @@
----
-title: Chart.js plugin
----
-
 # Chart.js plugin
 
 ---

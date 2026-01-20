@@ -1,7 +1,3 @@
----
-title: Github Metrics
----
-
 # Github Metrics
 
 ---
