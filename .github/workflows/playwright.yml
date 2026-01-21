@@ -12,7 +12,7 @@ on:
         description: Whether to update snapshots / screenshots
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   playwright:
@@ -27,6 +27,8 @@ jobs:
         shard: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
     name: Playwright shard
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_REMOTE_CACHE__TURBO_TOKEN }}
     steps:
@@ -82,6 +84,8 @@ jobs:
   playwright-result:
     if: ${{ always() }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     name: Collect Playwright result
     needs: playwright
     steps:
