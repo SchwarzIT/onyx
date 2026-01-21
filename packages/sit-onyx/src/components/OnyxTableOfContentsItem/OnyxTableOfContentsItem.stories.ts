@@ -12,7 +12,7 @@ type Story = StoryObj<typeof OnyxTableOfContentsItem>;
 
 export const Default = {
   args: {
-    label: "Example item",
+    default: "Example item",
     link: "#section-1",
   },
 } satisfies Story;
