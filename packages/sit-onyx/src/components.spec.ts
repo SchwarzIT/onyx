@@ -293,6 +293,11 @@ const COMPONENTS: Components = {
       options: [5, 10, 20, 30, 40, 75],
     },
   },
+  OnyxUnstableTableOfContentsItem: {
+    props: {
+      link: "#link",
+    },
+  },
 };
 
 describe("components", () => {
