@@ -6,7 +6,7 @@ env:
   TURBO_TOKEN: ${{ secrets.TURBO_REMOTE_CACHE__TURBO_TOKEN }}
 
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
 
 jobs:
