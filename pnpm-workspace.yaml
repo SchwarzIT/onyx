@@ -20,6 +20,7 @@ catalog:
   vue: 3.5.27
 
 trustPolicy: "no-downgrade"
+minimumReleaseAge: 2880 # Wait two days after a new version release - This is in sync with the `dependabot.yml` `cooldown` config
 blockExoticSubdeps: true
 allowBuilds:
   "@parcel/watcher": true # Downloads binary
