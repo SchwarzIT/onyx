@@ -1,8 +1,10 @@
+import { iconPlaceholder } from "@sit-onyx/icons";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
-import OnyxButton from "../OnyxButton/OnyxButton.vue";
+import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import OnyxTab from "../OnyxTab/OnyxTab.vue";
+import OnyxTag from "../OnyxTag/OnyxTag.vue";
 import OnyxTabs from "./OnyxTabs.vue";
 
 /**
@@ -85,6 +87,9 @@ export const Actions = {
   tags: ["new:feature"],
   args: {
     ...Default.args,
-    actions: () => [h(OnyxButton, { label: "Example action", color: "neutral" })],
+    actions: () => [
+      h(OnyxTag, { label: "Tag", color: "primary" }),
+      h(OnyxSystemButton, { label: "Example action", icon: iconPlaceholder }),
+    ],
   },
 } satisfies Story;
