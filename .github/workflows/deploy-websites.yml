@@ -25,7 +25,13 @@ jobs:
     if: ${{ (inputs.environment || inputs.environment) != '' }}
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a # v2.13.1
+        with:
+          egress-policy: audit
+
+      - name: "Checkout Repository"
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - uses: ./.github/templates/node-setup
 
@@ -51,7 +57,13 @@ jobs:
     if: ${{ (inputs.environment || inputs.environment) != '' }}
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a # v2.13.1
+        with:
+          egress-policy: audit
+
+      - name: "Checkout Repository"
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - uses: ./.github/templates/node-setup
 
@@ -81,7 +93,13 @@ jobs:
     if: ${{ (inputs.environment || inputs.environment) != '' }}
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a # v2.13.1
+        with:
+          egress-policy: audit
+
+      - name: "Checkout Repository"
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - uses: ./.github/templates/node-setup
 
@@ -107,6 +125,11 @@ jobs:
     if: ${{ (inputs.environment || inputs.environment) != '' }}
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a # v2.13.1
+        with:
+          egress-policy: audit
+
       - name: 🪝 Invoke internal demo app webhook
         uses: distributhor/workflow-webhook@2381f0e9c7b6bf061fb1405bd0804b8706116369 # v3.0.8
         # since the webhook is an external dependency, we still want to continue deploying the public demo app
@@ -147,7 +170,13 @@ jobs:
     if: ${{ (inputs.environment || inputs.environment) != '' }}
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a # v2.13.1
+        with:
+          egress-policy: audit
+
+      - name: "Checkout Repository"
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - uses: ./.github/templates/node-setup
 
