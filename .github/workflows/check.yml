@@ -18,7 +18,7 @@ env:
   TURBO_TOKEN: ${{ secrets.TURBO_REMOTE_CACHE__TURBO_TOKEN }}
 
 permissions:
-  contents: write
+  contents: read
   checks: read
 
 jobs:
@@ -26,6 +26,8 @@ jobs:
   build:
     name: Build and Cache
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
@@ -91,6 +93,8 @@ jobs:
     name: Component tests
     uses: ./.github/workflows/playwright.yml
     secrets: inherit
+    permissions:
+      contents: write
     with:
       # On PRs: Run tests only for changed files.
       # This means that for merge_groups, which are required to be run before the merge, all tests are executed.
