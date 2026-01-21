@@ -10,21 +10,24 @@ const props = withDefaults(defineProps<OnyxTableOfContentsItemProps>(), {
   level: 1,
 });
 
+const slots = defineSlots<{
+  /**
+   * Item content.
+   */
+  default(): unknown;
+  /**
+   * Optional nested children to display. Recommended to use the `OnyxTableOfContentsItem` component here.
+   */
+  children?(): unknown;
+}>();
+
 const { densityClass } = useDensity(props);
 
 const link = computed(() => extractLinkProps(props.link));
 </script>
 
 <template>
-  <li
-    :class="[
-      'onyx-component',
-      'onyx-toc-item',
-      densityClass,
-      'onyx-text',
-      { [`onyx-toc-item--${props.level}`]: props.level > 1 },
-    ]"
-  >
+  <li :class="['onyx-component', 'onyx-toc-item', densityClass, 'onyx-text']">
     <OnyxRouterLink
       :class="[
         'onyx-toc-item__link',
@@ -34,8 +37,12 @@ const link = computed(() => extractLinkProps(props.link));
       :href="link.href"
       :target="link.target"
     >
-      {{ props.label }}
+      <slot></slot>
     </OnyxRouterLink>
+
+    <ul v-if="!!slots.children" class="onyx-toc-item__children">
+      <slot name="children"></slot>
+    </ul>
   </li>
 </template>
 
@@ -85,7 +92,9 @@ const link = computed(() => extractLinkProps(props.link));
       }
     }
 
-    &--2 {
+    &__children {
+      margin-top: var(--onyx-toc-list-gap, 0rem);
+
       .onyx-toc-item__link {
         padding-left: calc(var(--onyx-density-xs) + var(--onyx-toc-item-indentation));
 

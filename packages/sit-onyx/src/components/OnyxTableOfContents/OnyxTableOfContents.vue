@@ -3,10 +3,16 @@ import { useId } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { injectI18n } from "../../i18n/index.js";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
-import OnyxTableOfContentsItem from "../OnyxTableOfContentsItem/OnyxTableOfContentsItem.vue";
 import type { OnyxTableOfContentsProps } from "./types.js";
 
 const props = defineProps<OnyxTableOfContentsProps>();
+
+defineSlots<{
+  /**
+   * Table of content items. Recommended to use the `OnyxTableOfContentsItem` component here.
+   */
+  default(): unknown;
+}>();
 
 const { t } = injectI18n();
 const headlineId = useId();
@@ -16,18 +22,12 @@ const { densityClass } = useDensity(props);
 
 <template>
   <nav :class="['onyx-component', 'onyx-toc', densityClass]" :aria-labelledby="headlineId">
-    <OnyxHeadline is="h3" :id="headlineId">
+    <OnyxHeadline is="h3" :id="headlineId" class="onyx-truncation-ellipsis">
       {{ t("tableOfContents.label") }}
     </OnyxHeadline>
 
-    <ul class="onyx-toc__list">
-      <OnyxTableOfContentsItem label="Level 1" link="#test" />
-      <OnyxTableOfContentsItem label="Level 1" link="#test" />
-
-      <ul class="onyx-toc__list">
-        <OnyxTableOfContentsItem label="Level 2" link="#test" :level="2" />
-        <OnyxTableOfContentsItem label="Level 2" link="#test" :level="2" />
-      </ul>
+    <ul>
+      <slot></slot>
     </ul>
   </nav>
 </template>
@@ -42,7 +42,7 @@ const { densityClass } = useDensity(props);
     flex-direction: column;
     gap: var(--onyx-density-md);
 
-    &__list {
+    ul {
       padding: 0;
       list-style: none;
       display: flex;
