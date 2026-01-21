@@ -17,9 +17,6 @@ concurrency:
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_REMOTE_CACHE__TURBO_TOKEN }}
 
-permissions:
-  contents: read
-
 jobs:
   # We run the build first standalone to ensure everything is cached for all other jobs
   build:
