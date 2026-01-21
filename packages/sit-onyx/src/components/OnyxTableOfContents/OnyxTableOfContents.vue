@@ -22,11 +22,13 @@ const { densityClass } = useDensity(props);
 
 <template>
   <nav :class="['onyx-component', 'onyx-toc', densityClass]" :aria-labelledby="headlineId">
-    <OnyxHeadline is="h3" :id="headlineId" class="onyx-truncation-ellipsis">
-      {{ t("tableOfContents.label") }}
+    <OnyxHeadline is="h3" :id="headlineId">
+      <span class="onyx-truncation-ellipsis">
+        {{ t("tableOfContents.label") }}
+      </span>
     </OnyxHeadline>
 
-    <ul>
+    <ul class="onyx-toc__list">
       <slot></slot>
     </ul>
   </nav>
@@ -48,6 +50,16 @@ const { densityClass } = useDensity(props);
       display: flex;
       flex-direction: column;
       gap: var(--onyx-toc-list-gap);
+    }
+
+    &__list {
+      overflow-y: auto;
+
+      // this "trick" is needed so the outline of items is not cut off due to the overflow-y: auto above
+      &:focus-within {
+        padding: var(--onyx-outline-width);
+        margin: calc(-1 * var(--onyx-outline-width));
+      }
     }
   }
 }

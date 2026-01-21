@@ -46,9 +46,14 @@ test.describe("Screenshot tests (truncated)", () => {
   executeMatrixScreenshotTest({
     name: "Table of contents (truncated)",
     columns: ["default"],
-    rows: ["truncated"],
-    component: () => (
-      <OnyxTableOfContents style={{ width: "6rem" }}>
+    rows: ["width", "height"],
+    component: (column, row) => (
+      <OnyxTableOfContents
+        style={{
+          width: row === "width" ? "6rem" : undefined,
+          height: row === "height" ? "8rem" : undefined,
+        }}
+      >
         <OnyxTableOfContentsItem link="#item-1">Very long item 1</OnyxTableOfContentsItem>
 
         <OnyxTableOfContentsItem link="#item-2">
@@ -57,7 +62,18 @@ test.describe("Screenshot tests (truncated)", () => {
             <OnyxTableOfContentsItem link="#child-1">Very long child 1</OnyxTableOfContentsItem>
           </template>
         </OnyxTableOfContentsItem>
+
+        <OnyxTableOfContentsItem link="#item-3">Very long item 3</OnyxTableOfContentsItem>
+        <OnyxTableOfContentsItem link="#item-4">Very long item 4</OnyxTableOfContentsItem>
+        <OnyxTableOfContentsItem link="#item-5">Very long item 5</OnyxTableOfContentsItem>
       </OnyxTableOfContents>
     ),
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        if (row === "height") {
+          await component.getByText("item 5").scrollIntoViewIfNeeded();
+        }
+      },
+    },
   });
 });
