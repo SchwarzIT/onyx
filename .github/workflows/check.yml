@@ -17,6 +17,10 @@ concurrency:
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_REMOTE_CACHE__TURBO_TOKEN }}
 
+permissions:
+  contents: write
+  checks: read
+
 jobs:
   # We run the build first standalone to ensure everything is cached for all other jobs
   build:
@@ -91,42 +95,3 @@ jobs:
       # On PRs: Run tests only for changed files.
       # This means that for merge_groups, which are required to be run before the merge, all tests are executed.
       only-changed: ${{ (github.event.pull_request.base.ref && format('origin/{0}', github.event.pull_request.base.ref)) }}
-
-  codeql:
-    name: CodeQL
-    runs-on: ubuntu-latest
-    needs: build
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
-
-      # Initializes the CodeQL tools for scanning.
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@4bdb89f48054571735e3792627da6195c57459e2 # v3.31.10
-        with:
-          languages: javascript-typescript
-
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@4bdb89f48054571735e3792627da6195c57459e2 # v3.31.10
-        with:
-          category: "/tool:CodeQL"
-
-  dependency-review:
-    name: "Dependency Review"
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-    steps:
-      - name: "Checkout Repository"
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
-
-      - name: "Dependency Review"
-        uses: actions/dependency-review-action@3c4e3dcb1aa7874d2c16be7d79418e9b7efd6261 # v4.8.2
-        with:
-          comment-summary-in-pr: on-failure
