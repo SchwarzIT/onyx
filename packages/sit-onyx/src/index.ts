@@ -227,6 +227,12 @@ export * from "./components/OnyxTab/types.js";
 export { default as OnyxTable } from "./components/OnyxTable/OnyxTable.vue";
 export * from "./components/OnyxTable/types.js";
 
+export { default as OnyxUnstableTableOfContents } from "./components/OnyxTableOfContents/OnyxTableOfContents.vue";
+export * from "./components/OnyxTableOfContents/types.js";
+
+export { default as OnyxUnstableTableOfContentsItem } from "./components/OnyxTableOfContentsItem/OnyxTableOfContentsItem.vue";
+export * from "./components/OnyxTableOfContentsItem/types.js";
+
 export { default as OnyxTabs } from "./components/OnyxTabs/OnyxTabs.vue";
 export * from "./components/OnyxTabs/types.js";
 

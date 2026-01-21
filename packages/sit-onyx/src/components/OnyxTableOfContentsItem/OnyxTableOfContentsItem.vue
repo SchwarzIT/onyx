@@ -94,6 +94,11 @@ const link = computed(() => extractLinkProps(props.link));
 
     &__children {
       margin-top: var(--onyx-toc-list-gap, 0rem);
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--onyx-toc-list-gap, 0rem);
 
       .onyx-toc-item__link {
         padding-left: calc(var(--onyx-density-xs) + var(--onyx-toc-item-indentation));

@@ -44,15 +44,12 @@ const { densityClass } = useDensity(props);
     flex-direction: column;
     gap: var(--onyx-density-md);
 
-    ul {
+    &__list {
       padding: 0;
       list-style: none;
       display: flex;
       flex-direction: column;
       gap: var(--onyx-toc-list-gap);
-    }
-
-    &__list {
       overflow-y: auto;
 
       // this "trick" is needed so the outline of items is not cut off due to the overflow-y: auto above
