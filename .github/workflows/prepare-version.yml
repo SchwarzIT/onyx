@@ -4,15 +4,16 @@ on:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   changeset-action:
     name: Run Changeset Action
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
-
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           ssh-key: ${{ secrets.GH_PUSH_PROTECTED_KEY }}
           fetch-depth: 0
@@ -20,7 +21,7 @@ jobs:
       - uses: ./.github/templates/node-setup
 
       - name: Create Pull Request
-        uses: changesets/action@v1
+        uses: changesets/action@e0145edc7d9d8679003495b11f87bd8ef63c0cba # v1.5.3
         with:
           publish: "exit 1" # Fail on publish - Should always only create a PR
           createGithubReleases: false
