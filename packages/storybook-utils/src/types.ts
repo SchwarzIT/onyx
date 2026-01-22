@@ -1,11 +1,15 @@
-export type StorybookGlobalType<TValue> = {
-  name: string;
-  description: string;
+import type { GlobalTypes } from "storybook/internal/csf";
+
+type ToolbarArgType = GlobalTypes[number];
+type ToolbarConfig = NonNullable<ToolbarArgType["toolbar"]>;
+type ToolbarItem = Exclude<ToolbarConfig["items"][number], string>;
+
+/**
+ * Same as Storybook's `ToolbarArgType` but with support for generically typed value.
+ */
+export type StorybookGlobalType<TValue> = Omit<ToolbarArgType, "defaultValue" | "toolbar"> & {
   defaultValue?: TValue;
-  toolbar: {
-    icon: string;
-    items: { value: TValue; right?: string; title: string }[];
-    title?: string;
-    dynamicTitle?: boolean;
+  toolbar: Omit<ToolbarConfig, "items"> & {
+    items: (Omit<ToolbarItem, "value"> & { value?: TValue })[];
   };
 };

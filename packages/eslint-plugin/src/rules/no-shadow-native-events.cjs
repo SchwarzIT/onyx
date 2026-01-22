@@ -4,13 +4,13 @@
  */
 "use strict";
 
-const utils = require("eslint-plugin-vue/lib/utils");
+const utils = require("eslint-plugin-vue/dist/utils/index.js").default;
 const domEvents = require("./dom-events.json");
 const { findVariable } = require("@eslint-community/eslint-utils");
 /**
- * @typedef {import('eslint-plugin-vue/lib/utils').ComponentEmit} ComponentEmit
- * @typedef {import('eslint-plugin-vue/lib/utils').ComponentProp} ComponentProp
- * @typedef {import('eslint-plugin-vue/lib/utils').VueObjectData} VueObjectData
+ * @typedef {import('eslint-plugin-vue/dist/utils/index.js').ComponentEmit} ComponentEmit
+ * @typedef {import('eslint-plugin-vue/dist/utils/index.js').ComponentProp} ComponentProp
+ * @typedef {import('eslint-plugin-vue/dist/utils/index.js').VueObjectData} VueObjectData
  * @typedef {import('./require-explicit-emits.js').NameWithLoc} NameWithLoc
  */
 
