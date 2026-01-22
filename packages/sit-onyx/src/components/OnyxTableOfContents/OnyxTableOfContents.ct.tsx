@@ -1,4 +1,5 @@
 import { useFocusStateHooks } from "@sit-onyx/playwright-utils";
+import { DENSITIES } from "../../composables/density.js";
 import { test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import OnyxTableOfContentsItem from "../OnyxTableOfContentsItem/OnyxTableOfContentsItem.vue";
@@ -72,6 +73,42 @@ test.describe("Screenshot tests (truncated)", () => {
       beforeEach: async (component, page, column, row) => {
         if (row === "height") {
           await component.getByText("item 5").scrollIntoViewIfNeeded();
+        }
+      },
+    },
+  });
+});
+
+test.describe("Screenshot tests (densities)", () => {
+  executeMatrixScreenshotTest({
+    name: "Table of contents (densities)",
+    columns: DENSITIES,
+    rows: ["default", "hover", "focus-visible"],
+    component: (column) => (
+      <OnyxTableOfContents density={column}>
+        <OnyxTableOfContentsItem link="#item-1">Item 1</OnyxTableOfContentsItem>
+
+        <OnyxTableOfContentsItem link="#item-2">
+          Item 2
+          <template v-slot:children>
+            <OnyxTableOfContentsItem link="#child-1" active>
+              Child 1
+            </OnyxTableOfContentsItem>
+            <OnyxTableOfContentsItem link="#child-2">Child 2</OnyxTableOfContentsItem>
+          </template>
+        </OnyxTableOfContentsItem>
+
+        <OnyxTableOfContentsItem link="#item-3">Item 3</OnyxTableOfContentsItem>
+      </OnyxTableOfContents>
+    ),
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        const item = component.getByText("Child 1");
+        await useFocusStateHooks({ component: item, page, state: row });
+
+        if (row === "focus-visible") {
+          await page.keyboard.press("Tab");
+          await page.keyboard.press("Tab");
         }
       },
     },

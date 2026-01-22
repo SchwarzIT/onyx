@@ -101,7 +101,7 @@ const link = computed(() => extractLinkProps(props.link));
       gap: var(--onyx-toc-list-gap, 0rem);
 
       .onyx-toc-item__link {
-        padding-left: calc(var(--onyx-density-xs) + var(--onyx-toc-item-indentation));
+        padding-left: calc(var(--onyx-spacing-2xs) + var(--onyx-toc-item-indentation));
 
         &::before {
           content: "";
