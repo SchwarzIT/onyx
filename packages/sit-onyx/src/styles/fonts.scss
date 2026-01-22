@@ -24,7 +24,7 @@
   .onyx-truncation {
     &-ellipsis {
       white-space: nowrap;
-      overflow: hidden;
+      overflow: clip;
       text-overflow: ellipsis;
     }
 
