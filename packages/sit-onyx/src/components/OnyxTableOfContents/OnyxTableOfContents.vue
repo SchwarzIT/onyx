@@ -22,10 +22,8 @@ const { densityClass } = useDensity(props);
 
 <template>
   <nav :class="['onyx-component', 'onyx-toc', densityClass]" :aria-labelledby="headlineId">
-    <OnyxHeadline is="h3" :id="headlineId">
-      <span class="onyx-truncation-ellipsis">
-        {{ t("tableOfContents.label") }}
-      </span>
+    <OnyxHeadline is="h3" :id="headlineId" class="onyx-truncation-ellipsis">
+      {{ t("tableOfContents.label") }}
     </OnyxHeadline>
 
     <ul class="onyx-toc__list">

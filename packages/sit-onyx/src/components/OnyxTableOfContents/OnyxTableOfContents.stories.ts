@@ -26,6 +26,7 @@ type Story = StoryObj<typeof OnyxTableOfContents>;
 
 export const Default = {
   args: {
+    style: "max-width: 15rem",
     default: [
       h(OnyxTableOfContentsItem, { link: "#section-1" }, "Section 1"),
       h(
