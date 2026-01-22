@@ -47,11 +47,11 @@ jobs:
         with:
           results_file: results.sarif
           results_format: sarif
-          # TODO: Enable after we checked first results:
+          # Publish results:
           #   - Publish results to OpenSSF REST API for easy access by consumers
           #   - Allows the repository to include the Scorecard badge.
           #   - See https://github.com/ossf/scorecard-action#publishing-results.
-          publish_results: false
+          publish_results: true
 
       # Upload the results to GitHub's code scanning dashboard.
       - name: "Upload to code-scanning"
