@@ -32,7 +32,7 @@ module.exports = {
      * @private
      */
     function checkNode(node) {
-      if (/.*\.d\.(\w+\.)?tsx?$/.test(context.filename)) {
+      if (/\.d\.(\w+\.)?tsx?$/.test(context.filename)) {
         // ignore definition files: example.d.ts, index.d.vue.ts, index.d.tsx etc.
         return;
       }

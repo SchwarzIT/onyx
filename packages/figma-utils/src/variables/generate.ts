@@ -126,7 +126,7 @@ export const generateTimestampComment = (modeName?: string): string => {
  */
 export const isAliasVariable = (variableValue?: string) => {
   if (!variableValue) return { isAlias: false, aliasName: "" };
-  const isAlias = /{.*}/.exec(variableValue);
+  const isAlias = variableValue.startsWith("{") && variableValue.endsWith("}");
   const aliasName = variableValue.replace("{", "").replace("}", "");
   return { isAlias, aliasName };
 };
