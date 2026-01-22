@@ -1,6 +1,6 @@
 "use strict";
 
-const utils = require("eslint-plugin-vue/lib/utils");
+const utils = require("eslint-plugin-vue/dist/utils/index.js").default;
 
 /** @type {import('eslint').Rule.RuleModule} */
 module.exports = {

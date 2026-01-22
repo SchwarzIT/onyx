@@ -8,7 +8,7 @@
 // Rule Definition
 //------------------------------------------------------------------------------
 
-/** @type {import("eslint-plugin-vue/lib/utils").RuleModule} */
+/** @type {import("eslint-plugin-vue/dist/utils/index.js").RuleModule} */
 module.exports = {
   meta: {
     type: "problem",
