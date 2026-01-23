@@ -1,14 +1,13 @@
-import { adjustSizeToAbsolutePosition } from "@sit-onyx/playwright-utils";
+import { adjustSizeToAbsolutePosition, useFocusStateHooks } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import { ONYX_BREAKPOINTS } from "../../utils/breakpoints.js";
 import OnyxPagination from "./OnyxPagination.vue";
-import type { OnyxPaginationProps } from "./types.js";
 
 test.describe("screenshot tests", () => {
   executeMatrixScreenshotTest({
-    name: `Pagination (select)`,
+    name: "Pagination (select)",
     columns: DENSITIES,
     rows: ["default", "skeleton", "min", "max", "large", "disabled", "open"],
     component: (column, row) => {
@@ -44,7 +43,7 @@ test.describe("screenshot tests", () => {
   });
 
   executeMatrixScreenshotTest({
-    name: `Pagination (inline)`,
+    name: "Pagination (inline)",
     columns: DENSITIES,
     rows: ["default", "skeleton", "min", "max", "large", "disabled", "middle"],
     component: (column, row) => {
@@ -73,9 +72,9 @@ test.describe("screenshot tests", () => {
   });
 
   executeMatrixScreenshotTest({
-    name: `Pagination (compact)`,
+    name: "Pagination (compact)",
     columns: DENSITIES,
-    rows: ["default", "skeleton", "min", "max", "large", "disabled", "open", "flyoutDisabled"],
+    rows: ["default", "skeleton", "min", "max", "large", "disabled", "open", "disableFlyout"],
     component: (column, row) => {
       let currentPage = 2;
       let pages = 7;
@@ -95,7 +94,7 @@ test.describe("screenshot tests", () => {
           disabled={row === "disabled"}
           skeleton={row === "skeleton"}
           type="compact"
-          compactFlyoutDisabled={row === "flyoutDisabled"}
+          disableFlyout={row === "disableFlyout"}
           style={{ marginBottom: row === "open" ? "20rem" : undefined }}
         />
       );
@@ -113,7 +112,7 @@ test.describe("screenshot tests", () => {
 
 test.describe("screenshot tests (select buttons)", () => {
   executeMatrixScreenshotTest({
-    name: `Pagination select (buttons)`,
+    name: "Pagination select (buttons)",
     columns: ["select", "previous", "next"],
     rows: ["default", "hover", "active", "focus-visible"],
     component: () => <OnyxPagination pages={42} modelValue={2} />,
@@ -140,7 +139,7 @@ test.describe("screenshot tests (select buttons)", () => {
   });
 
   executeMatrixScreenshotTest({
-    name: `Pagination inline (buttons)`,
+    name: "Pagination inline (buttons)",
     columns: ["pageNumber", "activePageNumber", "previous", "next"],
     rows: ["default", "hover", "active", "focus-visible"],
     component: () => <OnyxPagination pages={42} modelValue={2} type="inline" />,
@@ -172,27 +171,28 @@ test.describe("screenshot tests (select buttons)", () => {
   });
 
   executeMatrixScreenshotTest({
-    name: `Pagination compact (buttons)`,
+    name: "Pagination compact (buttons)",
     columns: ["select", "previous", "next"],
     rows: ["default", "hover", "active", "focus-visible"],
     component: () => <OnyxPagination pages={42} modelValue={2} type="compact" />,
     hooks: {
       beforeEach: async (component, page, column, row) => {
-        let button = page.getByRole("button", {
-          name: column === "previous" ? "previous page" : "next page",
-        });
+        const element =
+          column === "select"
+            ? component.getByLabel("Page selection")
+            : component.getByRole("button", {
+                name: column === "previous" ? "previous page" : "next page",
+              });
 
-        if (column === "select") button = component.getByLabel("Page selection");
+        await useFocusStateHooks({ component: element, page, state: row });
 
-        if (row === "hover") await button.hover();
-        if (row === "focus-visible") {
+        if (column === "select" && row === "focus-visible") {
           await page.keyboard.press("Tab");
-          button.focus();
         }
-        if (row === "active") {
-          const box = (await button.boundingBox())!;
-          await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
-          await page.mouse.down();
+
+        if (column === "next" && row === "focus-visible") {
+          await page.keyboard.press("Tab");
+          await page.keyboard.press("Tab");
         }
       },
     },
@@ -392,7 +392,7 @@ test("should select page (compact)", async ({ mount }) => {
   const nextButton = component.getByRole("button", { name: "next page" });
 
   // ASSERT
-  await expect(select).toHaveValue("1/42 Pages");
+  await expect(select).toHaveValue("1/42 pages");
   await expect(
     previousButton,
     "should disable previous button if min page is reached",
@@ -405,21 +405,21 @@ test("should select page (compact)", async ({ mount }) => {
 
   // ASSERT
   expect(currentPage).toBe(2);
-  await expect(select).toHaveValue("2/42 Pages");
+  await expect(select).toHaveValue("2/42 pages");
 
   // ACT
   await nextButton.click();
 
   // ASSERT
   expect(currentPage).toBe(3);
-  await expect(select).toHaveValue("3/42 Pages");
+  await expect(select).toHaveValue("3/42 pages");
 
   // ACT
   await previousButton.click();
 
   // ASSERT
   expect(currentPage).toBe(2);
-  await expect(select).toHaveValue("2/42 Pages");
+  await expect(select).toHaveValue("2/42 pages");
 
   // ACT
   await select.click();
@@ -427,69 +427,64 @@ test("should select page (compact)", async ({ mount }) => {
 
   // ASSERT
   expect(currentPage).toBe(42);
-  await expect(select).toHaveValue("42/42 Pages");
+  await expect(select).toHaveValue("42/42 pages");
   await expect(nextButton, "should disable next button if last page is reached").toBeDisabled();
   await expect(previousButton).toBeEnabled();
 });
 
-test("should disable flyout when compactFlyoutDisabled is true", async ({ mount }) => {
+test("should disable flyout", async ({ mount }) => {
   // ARRANGE
   const component = await mount(OnyxPagination, {
     props: {
       pages: 42,
       modelValue: 5,
       type: "compact",
-      compactFlyoutDisabled: true,
+      disableFlyout: true,
     },
   });
 
   const select = component.getByLabel("Page selection");
 
   // ASSERT
-  await expect(select).toHaveAttribute("readonly");
-  await expect(select).toHaveValue("5/42 Pages");
+  await expect(select).toBeDisabled();
+
+  // ACT
+  await component.update({ props: { type: "select" } });
+
+  // ASSERT
+  await expect(select).toBeDisabled();
 });
 
 test("should auto-detect breakpoint and switch to compact", async ({ mount, page }) => {
   // ARRANGE - Start with large viewport
-  await page.setViewportSize({ width: ONYX_BREAKPOINTS.md, height: 400 });
-  const props: OnyxPaginationProps = {
-    pages: 42,
-    modelValue: 1,
-    type: "select",
-    autoTypeDetection: true,
-  };
-
-  const component = await mount(OnyxPagination, {
-    props,
-  });
-
-  // ASSERT - Should show select type (not compact)
-  await expect(component.locator(".onyx-pagination--compact")).toBeHidden();
-  await expect(component.getByText("of 42 pages")).toBeVisible();
-
-  // ACT - Resize to small viewport (below xs breakpoint)
-  await page.setViewportSize({ width: ONYX_BREAKPOINTS.xs - 50, height: 400 });
-  await component.update({ props });
-
-  // ASSERT - Should switch to compact type
-  await expect(component.getByLabel("Page selection")).toHaveValue("1/42 Pages");
-});
-
-test("should not auto-detect when autoTypeDetection is false", async ({ mount, page }) => {
-  // ARRANGE - Start with small viewport
-  await page.setViewportSize({ width: ONYX_BREAKPOINTS.xs - 50, height: 400 });
+  await page.setViewportSize({ width: ONYX_BREAKPOINTS.xs, height: 400 });
 
   const component = await mount(OnyxPagination, {
     props: {
       pages: 42,
       modelValue: 1,
       type: "select",
-      autoTypeDetection: false,
+      autoCompact: true,
     },
   });
 
-  // ASSERT - Should keep select type even on small screen
-  await expect(component.locator(".onyx-pagination--compact")).toBeHidden();
+  const compactPagination = page.locator(".onyx-pagination--compact");
+
+  // ASSERT
+  await expect(component.locator(compactPagination), "should show select type").toBeHidden();
+  await expect(component.getByText("of 42 pages")).toBeVisible();
+
+  // ACT
+  await page.setViewportSize({ width: ONYX_BREAKPOINTS.xs - 1, height: 400 });
+
+  // ASSERT
+  await expect(compactPagination, "should switch to compact type").toBeVisible();
+  await expect(component.getByLabel("Page selection")).toHaveValue("1/42 pages");
+
+  // ACT
+  await component.update({ props: { autoCompact: false } });
+
+  // ASSERT
+  await expect(component.locator(compactPagination)).toBeHidden();
   await expect(component.getByText("of 42 pages")).toBeVisible();
 });

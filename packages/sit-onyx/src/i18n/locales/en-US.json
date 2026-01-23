@@ -176,7 +176,7 @@
       "label": "Page selection",
       "listLabel": "Available pages"
     },
-    "currentOfTotalPages": "{current}/{total} Pages"
+    "currentOfTotalPages": "1/1 page | {current}/{total} pages"
   },
   "input": {
     "clear": "Clear input",

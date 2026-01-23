@@ -7,7 +7,7 @@ import OnyxPagination from "./OnyxPagination.vue";
  */
 const meta: Meta<typeof OnyxPagination> = {
   title: "Data/Pagination",
-  component: OnyxPagination as Meta["component"],
+  component: OnyxPagination,
   decorators: [
     (story) => ({
       components: { story },

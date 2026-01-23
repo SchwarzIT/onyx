@@ -286,7 +286,6 @@ export * from "./composables/themeTransition.js";
 export * from "./composables/useFileSize.js";
 export * from "./composables/useLink.js";
 export * from "./composables/useSkeletonState.js";
-export * from "./composables/useViewportWidth.js";
 
 export { provideI18n, type TranslationFunction } from "./i18n/index.js";
 export type { OnyxTranslations, ProvideI18nOptions } from "./i18n/index.js";

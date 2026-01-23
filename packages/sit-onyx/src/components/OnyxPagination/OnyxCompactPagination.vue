@@ -67,6 +67,7 @@ const valueLabel = computed(() =>
   t.value("pagination.currentOfTotalPages", {
     current: props.modelValue,
     total: props.pages,
+    n: props.pages,
   }),
 );
 </script>
@@ -111,17 +112,14 @@ const valueLabel = computed(() =>
       :list-label="t('pagination.select.listLabel')"
       :options="filteredOptions"
       :model-value="props.modelValue"
-      :readonly="props.compactFlyoutDisabled"
-      :disabled="props.disabled || props.pages <= 1"
+      :disabled="props.disabled || props.pages <= 1 || props.disableFlyout"
       :value-label="valueLabel"
       :lazy-loading="{ enabled: true }"
-      hide-label
       alignment="left"
+      hide-label
       with-search
       no-filter
-      @update:model-value="
-        emit('update:modelValue', $event as (typeof filteredOptions)[number]['value'])
-      "
+      @update:model-value="$event != undefined && emit('update:modelValue', $event)"
       @lazy-load="handleLoadMore"
     />
 
@@ -159,22 +157,42 @@ const valueLabel = computed(() =>
 
       .onyx-pagination__button:last-of-type {
         border-left: unset;
+
+        &:focus-visible {
+          margin-left: var(--onyx-outline-width);
+          border-left: var(--onyx-pagination-border-size) solid
+            var(--onyx-color-component-border-neutral);
+        }
       }
 
       .onyx-pagination__select {
-        min-width: 5rem;
-
         .onyx-select-input__wrapper {
-          border-radius: 0px;
+          border-radius: 0;
         }
 
         .onyx-select-input__button {
           display: none;
         }
+      }
+
+      // fix for button outlines
+      &:has(.onyx-pagination__button:first-of-type:focus-visible) {
+        .onyx-select-input__wrapper {
+          border-left: none;
+        }
 
         .onyx-select-input__native {
-          // support growing select based on current page character count
-          width: calc(var(--onyx-pagination-character-count) * 1ch);
+          margin-left: calc(-1 * var(--onyx-outline-width));
+        }
+      }
+
+      &:has(.onyx-pagination__button:last-of-type:focus-visible) {
+        .onyx-select-input__wrapper {
+          border-right: none;
+        }
+
+        .onyx-select-input__native {
+          margin-right: calc(-1 * var(--onyx-outline-width));
         }
       }
     }
