@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { iconSearch, iconSidebarArrowLeft, iconSidebarArrowRight } from "@sit-onyx/icons";
-import { normalizedIncludes, useGlobalFAB } from "sit-onyx";
+import { normalizedIncludes, ONYX_BREAKPOINTS, useGlobalFAB } from "sit-onyx";
 
 const props = defineProps<{
   sidebarItems: SidebarItem[];
@@ -46,13 +46,21 @@ globalFAB.add(
 onUnmounted(() => {
   globalFAB.remove(id);
 });
+const { width } = useWindowSize();
 </script>
 
 <template>
   <OnyxPageLayout v-bind="props">
     <template #sidebar>
       <!-- using v-show here instead of v-if so the search value is kept when toggling the open state -->
-      <OnyxSidebar v-show="isOpen" class="sidebar" :label="$t('blueprint.sidebar')">
+      <OnyxSidebar
+        v-show="isOpen"
+        :temporary="width < ONYX_BREAKPOINTS.sm ? { open: isOpen } : undefined"
+        class="sidebar"
+        :label="$t('blueprint.sidebar')"
+        :collapse-sidebar="false"
+        @close="isOpen = !isOpen"
+      >
         <template #header>
           <OnyxInput
             v-model="search"
