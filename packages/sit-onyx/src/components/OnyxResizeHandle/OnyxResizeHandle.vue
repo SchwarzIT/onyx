@@ -53,7 +53,12 @@ const handleMousedown = () => {
 
   // prevent infinite loop when e.g. the resize handle is rerendered but the active state has been stored in the parent
   // and passed as props.active. If we would emit the "start" event again, we might cause unintentional side effects / loops
-  if (!props.active) emit("start");
+  if (!props.active) {
+    // ensure to only emit start event when the mouse is actually moved
+    // otherwise this can conflict with the double click event when e.g. the parent component re-renders after
+    // the "start" event. In this case, the double click would never be emitted
+    window.addEventListener("mousemove", () => emit("start"), { ...options, once: true });
+  }
 };
 
 onMounted(() => {

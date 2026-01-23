@@ -11,7 +11,7 @@ export const RESIZING_FEATURE = Symbol("Resizing");
 export const FILLER_COLUMN = Symbol("FILLER_COLUMN");
 export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOptions<TEntry>) =>
   createFeature((ctx) => {
-    const resizingCol = ref<Readonly<InternalColumnConfig<TEntry>>>();
+    const resizingCol = ref<TEntry["id"]>();
     const MIN_COLUMN_WIDTH = 3 * 16;
     const headers = ref(new Map<keyof TEntry, HTMLElement>());
     const { isEnabled } = useFeatureContext(ctx, options);
@@ -40,7 +40,7 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
       const columns = cols.map((column) => {
         if (!isEnabled.value(column.key)) return column;
 
-        const isActive = column.key === resizingCol.value?.key;
+        const isActive = column.key === resizingCol.value;
 
         const thAttributes = {
           class: [
@@ -86,9 +86,9 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
         h(OnyxResizeHandle, {
           min: MIN_COLUMN_WIDTH,
           element: headers.value.get(column.key),
-          active: resizingCol.value?.key === column.key,
+          active: resizingCol.value === column.key,
           onStart: () => {
-            resizingCol.value = column;
+            resizingCol.value = column.key;
 
             Array.from(headers.value.entries()).forEach(([col, el]) => {
               const { width } = el.getBoundingClientRect();
