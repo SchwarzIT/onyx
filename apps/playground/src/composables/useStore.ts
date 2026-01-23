@@ -1,5 +1,5 @@
 import { mergeImportMap, useStore as useOriginalStore, useVueImportMap } from "@vue/repl";
-import { computed, onMounted, ref, watch, watchEffect } from "vue";
+import { computed, ref, watch, watchEffect } from "vue";
 import App from "../template/App.vue?raw";
 import NewFile from "../template/NewFile.vue?raw";
 import { fetchVersions } from "../utils/versions.js";
@@ -24,8 +24,8 @@ export const useStore = () => {
    */
   const availableOnyxVersions = ref<string[]>([]);
 
-  onMounted(async () => {
-    availableOnyxVersions.value = await fetchVersions("sit-onyx");
+  fetchVersions("sit-onyx").then((versions) => {
+    availableOnyxVersions.value = versions;
 
     const firstVersion =
       availableOnyxVersions.value.find((version) => {
