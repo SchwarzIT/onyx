@@ -1,5 +1,5 @@
 import { mergeImportMap, useStore as useOriginalStore, useVueImportMap } from "@vue/repl";
-import { computed, ref, watch, watchEffect } from "vue";
+import { computed, onMounted, ref, watch, watchEffect } from "vue";
 import App from "../template/App.vue?raw";
 import NewFile from "../template/NewFile.vue?raw";
 import { fetchVersions } from "../utils/versions.js";
@@ -24,22 +24,21 @@ export const useStore = () => {
    */
   const availableOnyxVersions = ref<string[]>([]);
 
-  /**
-   * Whether the list of onyx versions is loading.
-   */
-  const isLoadingOnyxVersions = ref(true);
+  onMounted(async () => {
+    availableOnyxVersions.value = await fetchVersions("sit-onyx");
 
-  fetchVersions("sit-onyx")
-    .then((versions) => {
-      availableOnyxVersions.value = versions;
+    const firstVersion =
+      availableOnyxVersions.value.find((version) => {
+        // prefer first stable version
+        return !version.includes("-");
+      }) ?? availableOnyxVersions.value[0];
 
-      // we use a specific version here so if users share playground links for bug reproductions
-      // the exact same onyx version is used even if there are newer versions
-      if (onyxVersion.value === INITIAL_ONYX_VERSION && versions[0]) {
-        onyxVersion.value = versions[0];
-      }
-    })
-    .finally(() => (isLoadingOnyxVersions.value = false));
+    // we use a specific version here so if users share playground links for bug reproductions
+    // the exact same onyx version is used even if there are newer versions
+    if (onyxVersion.value === INITIAL_ONYX_VERSION && firstVersion) {
+      onyxVersion.value = firstVersion;
+    }
+  });
 
   const store = useOriginalStore(
     {
@@ -93,5 +92,5 @@ export const useStore = () => {
   // persist state in URL
   watchEffect(() => history.replaceState({}, "", store.serialize()));
 
-  return { store, onyxVersion, isLoadingOnyxVersions };
+  return { store, onyxVersion };
 };
