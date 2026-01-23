@@ -2,4 +2,4 @@
 "sit-onyx": minor
 ---
 
-fix(OnyxDataGrid:hideColumns): fixed last visable Column to not be hidable
+fix(OnyxDataGrid:hideColumns): fixed last visible Column to not be hidable
