@@ -1,13 +1,19 @@
 <script lang="ts" setup>
 import { computed } from "vue";
 import { useDensity } from "../../composables/density.js";
+import {
+  SKELETON_INJECTED_SYMBOL,
+  useSkeletonContext,
+} from "../../composables/useSkeletonState.js";
 import { extractLinkProps } from "../../utils/router.js";
 import OnyxRouterLink from "../OnyxRouterLink/OnyxRouterLink.vue";
+import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxTableOfContentsItemProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxTableOfContentsItemProps>(), {
   active: "auto",
   level: 1,
+  skeleton: SKELETON_INJECTED_SYMBOL,
 });
 
 const slots = defineSlots<{
@@ -24,10 +30,18 @@ const slots = defineSlots<{
 const { densityClass } = useDensity(props);
 
 const link = computed(() => extractLinkProps(props.link));
+const skeleton = useSkeletonContext(props);
 </script>
 
 <template>
-  <li :class="['onyx-component', 'onyx-toc-item', densityClass, 'onyx-text']">
+  <li
+    v-if="skeleton"
+    :class="['onyx-component', 'onyx-toc-item-skeleton', densityClass, 'onyx-text']"
+  >
+    <OnyxSkeleton class="onyx-toc-item-skeleton__content" />
+  </li>
+
+  <li v-else :class="['onyx-component', 'onyx-toc-item', densityClass, 'onyx-text']">
     <OnyxRouterLink
       :class="[
         'onyx-toc-item__link',
@@ -49,6 +63,25 @@ const link = computed(() => extractLinkProps(props.link));
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
 
+.onyx-toc-item,
+.onyx-toc-item-skeleton {
+  @include layers.component() {
+    --onyx-toc-item-padding-block: var(--onyx-density-2xs);
+    --onyx-toc-item-padding-inline: var(--onyx-density-xs);
+  }
+}
+
+.onyx-toc-item-skeleton {
+  @include layers.component() {
+    list-style: none;
+
+    &__content {
+      height: calc(1lh + 2 * var(--onyx-toc-item-padding-block));
+      width: 100%;
+    }
+  }
+}
+
 .onyx-toc-item {
   @include layers.component() {
     --onyx-toc-item-background-hover: var(--onyx-color-base-neutral-200);
@@ -64,7 +97,7 @@ const link = computed(() => extractLinkProps(props.link));
 
     &__link {
       display: block;
-      padding: var(--onyx-density-2xs) var(--onyx-density-xs);
+      padding: var(--onyx-toc-item-padding-block) var(--onyx-toc-item-padding-inline);
       border-radius: var(--onyx-radius-sm);
       font-family: var(--onyx-font-family-paragraph);
       color: var(--onyx-toc-item-color);

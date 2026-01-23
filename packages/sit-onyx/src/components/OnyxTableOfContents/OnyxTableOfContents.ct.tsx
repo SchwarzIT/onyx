@@ -83,9 +83,9 @@ test.describe("Screenshot tests (densities)", () => {
   executeMatrixScreenshotTest({
     name: "Table of contents (densities)",
     columns: DENSITIES,
-    rows: ["default", "hover", "focus-visible"],
-    component: (column) => (
-      <OnyxTableOfContents density={column}>
+    rows: ["default", "hover", "focus-visible", "skeleton"],
+    component: (column, row) => (
+      <OnyxTableOfContents density={column} skeleton={row === "skeleton"}>
         <OnyxTableOfContentsItem link="#item-1">Item 1</OnyxTableOfContentsItem>
 
         <OnyxTableOfContentsItem link="#item-2">
