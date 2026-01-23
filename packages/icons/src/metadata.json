@@ -11,6 +11,22 @@
     "category": "Devices & Electronics",
     "aliases": ["alarm-off", "clock", "Wecker"]
   },
+  "alignment-block": {
+    "category": "Tools & Shapes",
+    "aliases": []
+  },
+  "alignment-center": {
+    "category": "Tools & Shapes",
+    "aliases": []
+  },
+  "alignment-left": {
+    "category": "Tools & Shapes",
+    "aliases": []
+  },
+  "alignment-right": {
+    "category": "Tools & Shapes",
+    "aliases": []
+  },
   "anchor": {
     "category": "Objects",
     "aliases": ["Anker", "Schiff", "ship"]
@@ -615,6 +631,10 @@
   },
   "cloud-shield": {
     "category": "Software & Services",
+    "aliases": []
+  },
+  "code": {
+    "category": "Tools & Shapes",
     "aliases": []
   },
   "coffee-cup": {
@@ -1292,6 +1312,22 @@
     "category": "Action & Interface",
     "aliases": ["lattice", "matrix", "Gitter", "Raster"]
   },
+  "h1 1": {
+    "category": "Tools & Shapes",
+    "aliases": []
+  },
+  "h2": {
+    "category": "Tools & Shapes",
+    "aliases": []
+  },
+  "h3": {
+    "category": "Tools & Shapes",
+    "aliases": []
+  },
+  "h4": {
+    "category": "Tools & Shapes",
+    "aliases": []
+  },
   "hacker": {
     "category": "Security & Protection",
     "aliases": []
@@ -1830,6 +1866,10 @@
     "category": "School & Education",
     "aliases": []
   },
+  "paragraph-text": {
+    "category": "Tools & Shapes",
+    "aliases": []
+  },
   "parking": {
     "category": "Transport & Travel",
     "aliases": ["car-park", "vehicle-space", "Parkplatz", "Fahrzeug-Stellplatz"]
@@ -1920,6 +1960,10 @@
   "picture": {
     "category": "File & Type",
     "aliases": ["image", "photo", "Bild", "Foto"]
+  },
+  "picture-plus": {
+    "category": "Action & Interface",
+    "aliases": []
   },
   "picture-settings": {
     "category": "File & Type",
@@ -2069,6 +2113,10 @@
     "category": "Various",
     "aliases": ["excellence", "award", "price", "Standard"]
   },
+  "quote ": {
+    "category": "Tools & Shapes",
+    "aliases": []
+  },
   "rabbitmq": {
     "category": "Software & Services",
     "aliases": []
@@ -2092,6 +2140,10 @@
   "redis": {
     "category": "Software & Services",
     "aliases": ["key-value-store", "n-memory-database", "Redis", "In-Memory-Datenbank"]
+  },
+  "redo": {
+    "category": "Arrows",
+    "aliases": []
   },
   "repeat": {
     "category": "Arrows",
@@ -2503,6 +2555,10 @@
     "category": "Tools & Shapes",
     "aliases": ["add-anchor", "anchor-expand", "Ankerpunkt-hinzufügen", "Anker-erweitern"]
   },
+  "tool-bold": {
+    "category": "Tools & Shapes",
+    "aliases": []
+  },
   "tool-circle": {
     "category": "Tools & Shapes",
     "aliases": ["round-tool", "circular-shape", "Kreiswerkzeug", "Runde-Form", "Kreis"]
@@ -2541,6 +2597,10 @@
       "arrows",
       "Pfeile"
     ]
+  },
+  "tool-italic": {
+    "category": "Tools & Shapes",
+    "aliases": []
   },
   "tool-line": {
     "category": "Tools & Shapes",
@@ -2585,6 +2645,10 @@
   "tool-scale": {
     "category": "Tools & Shapes",
     "aliases": ["resizing-tool", "scale-tool", "Skalierungswerkzeug", "Größenänderungswerkzeug"]
+  },
+  "tool-strike": {
+    "category": "Tools & Shapes",
+    "aliases": []
   },
   "tool-table": {
     "category": "Tools & Shapes",
