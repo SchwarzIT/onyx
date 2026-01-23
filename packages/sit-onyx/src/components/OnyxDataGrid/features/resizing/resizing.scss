@@ -15,4 +15,15 @@
       }
     }
   }
+
+  // styles to apply to the whole data grid while actively resizing a column
+  .onyx-data-grid {
+    &:has(.onyx-data-grid-resize-cell--active) {
+      // prevent hover effects on rows and other columns that are not resized
+      tbody,
+      th:not(.onyx-data-grid-resize-cell--active) {
+        pointer-events: none;
+      }
+    }
+  }
 }

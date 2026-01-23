@@ -252,7 +252,9 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
         height: calc(1.5rem + 2 * var(--onyx-table-padding-block) + var(--onyx-1px-in-rem));
         align-content: center;
 
-        &:hover {
+        &:hover,
+        // support forcing hover with a class, useful when e.g. using resize handles
+        &.hover {
           background: var(--onyx-color-base-neutral-300);
         }
       }
@@ -311,19 +313,23 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
     }
 
     // column hover styles
-    th:not(&__colgroup):hover::before {
-      .onyx-table:not(:has(.onyx-table__empty)) & {
-        background-color: color-mix(in srgb, var(--onyx-color-base-neutral-500), transparent 85%);
-        content: "";
-        height: var(--onyx-table-observed-height);
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        bottom: 0;
-        z-index: calc(var(--onyx-table-z-index-cell) - 1);
-        // needed in order for other components like buttons etc. to be clickable and to prevent showing the column hover effect when hovering down over a row
-        pointer-events: none;
+    &:not(:has(.onyx-table__empty)) {
+      th:not(.onyx-table__colgroup):hover,
+      // support forcing hover with a class, useful when e.g. using resize handles
+      th.hover {
+        &::before {
+          background-color: color-mix(in srgb, var(--onyx-color-base-neutral-500), transparent 85%);
+          content: "";
+          height: var(--onyx-table-observed-height);
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          bottom: 0;
+          z-index: calc(var(--onyx-table-z-index-cell) - 1);
+          // needed in order for other components like buttons etc. to be clickable and to prevent showing the column hover effect when hovering down over a row
+          pointer-events: none;
+        }
       }
     }
 

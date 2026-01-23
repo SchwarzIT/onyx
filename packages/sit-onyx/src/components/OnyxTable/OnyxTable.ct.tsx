@@ -89,7 +89,7 @@ test.describe("Screenshot tests (hover styles)", () => {
   executeMatrixScreenshotTest({
     name: "Table (hover styles)",
     columns: ["default", "striped", "nested"],
-    rows: ["row-hover", "column-hover"],
+    rows: ["row-hover", "column-hover", "forced-column-hover"],
     component: (column) => {
       const table = (
         <OnyxTable striped={column === "striped"}>
@@ -112,6 +112,11 @@ test.describe("Screenshot tests (hover styles)", () => {
       beforeEach: async (component, _, __, row) => {
         if (row === "row-hover") await component.getByText("Apple").hover();
         if (row === "column-hover") await component.getByText("Fruit").hover();
+        if (row === "forced-column-hover") {
+          await component.getByText("Fruit").evaluate((element) => {
+            element.classList.add("hover");
+          });
+        }
       },
     },
   });

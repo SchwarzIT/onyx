@@ -40,8 +40,17 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
       const columns = cols.map((column) => {
         if (!isEnabled.value(column.key)) return column;
 
+        const isActive = column.key === resizingCol.value?.key;
+
         const thAttributes = {
-          class: "onyx-data-grid-resize-cell",
+          class: [
+            "onyx-data-grid-resize-cell",
+            {
+              "onyx-data-grid-resize-cell--active": isActive,
+              // the "hover" class is supported by the OnyxTable to force showing the column hover effect
+              hover: isActive,
+            },
+          ],
           ref: (el?: HTMLElement) => {
             if (el) {
               headers.value.set(column.key, el);
@@ -100,6 +109,7 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
 
     return {
       name: RESIZING_FEATURE,
+      watch: [resizingCol],
       modifyColumns: {
         func: modifyColumns,
       },
