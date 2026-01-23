@@ -21,7 +21,7 @@ const emit = defineEmits<{
    */
   autoSize: [];
   /**
-   * Emitted when the resizing has started (onMousedown).
+   * Emitted when the resizing has started (mouse has been moved for the first time).
    */
   start: [];
   /**
