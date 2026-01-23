@@ -69,3 +69,29 @@ test("should hide and show columns", async ({ mount }) => {
     expect(state.value).toStrictEqual([]);
   });
 });
+
+test("last Column should not be hidable", async ({ mount }) => {
+  const state = ref<(keyof Entry)[]>([]);
+
+  // ARRANGE
+  const component = await mount(
+    <TestCase onUpdate:state={(newState) => (state.value = newState)} allHidable />,
+  );
+  const menuItem = component.getByRole("menuitem", { name: "Hide column" });
+  const openMoreActions = async (name: string) =>
+    component
+      .getByRole("columnheader", { name: `${name} Toggle column actions`, exact: true })
+      .getByLabel("Toggle column actions")
+      .click();
+
+  await openMoreActions("a");
+  await menuItem.click();
+
+  await openMoreActions("c");
+  await menuItem.click();
+  await openMoreActions("Labelled Column");
+  await expect(menuItem).toBeDisabled();
+  await menuItem.hover();
+
+  await expect(component).toHaveScreenshot("data-grid-hide-columns-last-column-not-hidable.png");
+});

@@ -1,10 +1,11 @@
-import { iconEyeDisabled, iconPlusSmall } from "@sit-onyx/icons";
-import { computed, h, ref, toRef, type Ref } from "vue";
+import { iconCircleInformation, iconEyeDisabled, iconPlusSmall } from "@sit-onyx/icons";
+import { computed, h, ref, toRef, type AriaAttributes, type Ref } from "vue";
 import type { ComponentSlots } from "vue-component-type-helpers";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxFlyoutMenu from "../../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxMenuItem from "../../../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxSystemButton from "../../../OnyxSystemButton/OnyxSystemButton.vue";
+import OnyxTooltip from "../../../OnyxTooltip/OnyxTooltip.vue";
 import type { DataGridEntry } from "../../types.js";
 import {
   createFeature,
@@ -64,18 +65,37 @@ export const useHideColumns = <TEntry extends DataGridEntry>(
         } satisfies ComponentSlots<typeof OnyxFlyoutMenu>,
       );
 
-    const getMenuItem = (column: keyof TEntry) =>
-      h(
-        OnyxMenuItem,
-        {
-          onClick: () => hiddenColumnKeys.value.add(column),
-        },
-        () => [
-          h(OnyxIcon, { icon: iconEyeDisabled }),
-          i18n.t.value("dataGrid.head.hideColumns.menu.hideButton"),
-        ],
-      );
+    const getMenuItem = (column: keyof TEntry) => {
+      const renderMenuItem = (extraProps = {}) => {
+        return h(
+          OnyxMenuItem,
+          {
+            onClick: () => hiddenColumnKeys.value.add(column),
+            ...extraProps,
+          },
+          () => [
+            h(OnyxIcon, { icon: iconEyeDisabled }),
+            i18n.t.value("dataGrid.head.hideColumns.menu.hideButton"),
+          ],
+        );
+      };
 
+      if (hiddenColumnKeys.value.size + 1 >= columnConfig.value.length) {
+        return h(
+          OnyxTooltip,
+          {
+            icon: iconCircleInformation,
+            text: i18n.t.value("dataGrid.head.hideColumns.menu.lastColumnTooltip"),
+          },
+          {
+            default: ({ trigger }: { trigger: AriaAttributes }) =>
+              renderMenuItem({ ...trigger, disabled: true }),
+          },
+        );
+      }
+
+      return renderMenuItem();
+    };
     return {
       name: HIDE_COLUMNS_FEATURE,
       watch: [hiddenColumnKeys],
