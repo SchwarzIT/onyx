@@ -1,11 +1,18 @@
 <script lang="ts" setup>
-import { useId } from "vue";
+import { computed, useId } from "vue";
 import { useDensity } from "../../composables/density.js";
+import {
+  SKELETON_INJECTED_SYMBOL,
+  useSkeletonContext,
+} from "../../composables/useSkeletonState.js";
 import { injectI18n } from "../../i18n/index.js";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
+import OnyxTableOfContentsItem from "../OnyxTableOfContentsItem/OnyxTableOfContentsItem.vue";
 import type { OnyxTableOfContentsProps } from "./types.js";
 
-const props = defineProps<OnyxTableOfContentsProps>();
+const props = withDefaults(defineProps<OnyxTableOfContentsProps>(), {
+  skeleton: SKELETON_INJECTED_SYMBOL,
+});
 
 defineSlots<{
   /**
@@ -18,6 +25,11 @@ const { t } = injectI18n();
 const headlineId = useId();
 
 const { densityClass } = useDensity(props);
+const skeleton = useSkeletonContext(props);
+const skeletonCount = computed(() => {
+  if (!skeleton.value) return 0;
+  return typeof skeleton.value === "number" ? skeleton.value : 6;
+});
 </script>
 
 <template>
@@ -27,7 +39,10 @@ const { densityClass } = useDensity(props);
     </OnyxHeadline>
 
     <ul class="onyx-toc__list">
-      <slot></slot>
+      <template v-if="skeletonCount">
+        <OnyxTableOfContentsItem v-for="i in skeletonCount" :key="i" link="#skeleton" skeleton />
+      </template>
+      <slot v-else></slot>
     </ul>
   </nav>
 </template>

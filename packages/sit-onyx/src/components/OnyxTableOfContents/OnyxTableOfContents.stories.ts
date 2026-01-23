@@ -19,6 +19,9 @@ const meta: Meta<typeof OnyxTableOfContents> = {
   argTypes: {
     default: { control: { disable: true } },
   },
+  args: {
+    style: "max-width: 15rem",
+  },
 };
 
 export default meta;
@@ -26,7 +29,6 @@ type Story = StoryObj<typeof OnyxTableOfContents>;
 
 export const Default = {
   args: {
-    style: "max-width: 15rem",
     default: [
       h(OnyxTableOfContentsItem, { link: "#section-1" }, "Section 1"),
       h(
@@ -42,5 +44,11 @@ export const Default = {
       ),
       h(OnyxTableOfContentsItem, { link: "#section-3" }, "Section 3"),
     ],
+  },
+} satisfies Story;
+
+export const Skeleton = {
+  args: {
+    skeleton: true,
   },
 } satisfies Story;

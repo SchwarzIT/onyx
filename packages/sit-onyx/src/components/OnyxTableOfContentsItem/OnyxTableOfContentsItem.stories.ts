@@ -5,6 +5,9 @@ const meta: Meta<typeof OnyxTableOfContentsItem> = {
   title: "Support/TableOfContentsItem",
   component: OnyxTableOfContentsItem,
   tags: ["unstable"],
+  argTypes: {
+    children: { control: { disable: true } },
+  },
 };
 
 export default meta;
@@ -22,5 +25,12 @@ export const Active = {
   args: {
     ...Default.args,
     active: true,
+  },
+} satisfies Story;
+
+export const Skeleton = {
+  args: {
+    ...Default.args,
+    skeleton: true,
   },
 } satisfies Story;
