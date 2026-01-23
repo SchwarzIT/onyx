@@ -7,7 +7,7 @@ import { computed, useTemplateRef, type ComponentInstance } from "vue";
 import TheHeader from "./components/TheHeader.vue";
 import { useStore } from "./composables/useStore.js";
 
-const { store, onyxVersion, isLoadingOnyxVersions } = useStore();
+const { store, onyxVersion } = useStore();
 
 const replRef = useTemplateRef("replRef");
 const reloadPage = () => {
@@ -44,7 +44,6 @@ const previewOptions = computed<ComponentInstance<typeof Repl>["previewOptions"]
     <!-- the key is needed here to update the headHTML below correctly so
     the correct style.css for the onyx version is loaded -->
     <Repl
-      v-if="!isLoadingOnyxVersions"
       ref="replRef"
       :editor="Monaco"
       :theme="theme"

@@ -4,6 +4,8 @@
  */
 export const fetchVersions = async (packageName: string): Promise<string[]> => {
   const response = await fetch(`https://registry.npmjs.org/${packageName}`);
+  if (!response.ok) return [];
+
   const json: { versions: Record<string, { version: string; deprecated?: string }> } =
     await response.json();
 
