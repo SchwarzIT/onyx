@@ -51,7 +51,9 @@ const handleMousedown = () => {
   window.addEventListener("keydown", onKeydown, options);
   window.addEventListener("selectstart", (e) => e.preventDefault(), { ...options, passive: false });
 
-  emit("start");
+  // prevent infinite loop when e.g. the resize handle is rerendered but the active state has been stored in the parent
+  // and passed as props.active. If we would emit the "start" event again, we might cause unintentional side effects / loops
+  if (!props.active) emit("start");
 };
 
 onMounted(() => {
