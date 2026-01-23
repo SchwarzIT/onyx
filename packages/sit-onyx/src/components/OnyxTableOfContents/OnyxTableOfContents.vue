@@ -22,10 +22,8 @@ const { densityClass } = useDensity(props);
 
 <template>
   <nav :class="['onyx-component', 'onyx-toc', densityClass]" :aria-labelledby="headlineId">
-    <OnyxHeadline is="h3" :id="headlineId">
-      <span class="onyx-truncation-ellipsis">
-        {{ t("tableOfContents.label") }}
-      </span>
+    <OnyxHeadline is="h3" :id="headlineId" class="onyx-toc__headline onyx-truncation-ellipsis">
+      {{ t("tableOfContents.label") }}
     </OnyxHeadline>
 
     <ul class="onyx-toc__list">
@@ -43,6 +41,12 @@ const { densityClass } = useDensity(props);
     display: flex;
     flex-direction: column;
     gap: var(--onyx-density-md);
+
+    &__headline {
+      // needed due to "onyx-truncation-ellipsis" when both horizontal and vertical size is limited
+      // otherwise, the list will overlap the headline
+      overflow: clip;
+    }
 
     &__list {
       padding: 0;
