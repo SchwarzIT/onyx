@@ -42,7 +42,8 @@
         "revealFlyout": "List of hidden columns",
         "revealTrigger": "Show hidden columns",
         "menu": {
-          "hideButton": "Hide column"
+          "hideButton": "Hide column",
+          "lastColumnTooltip": "The last column cannot be hidden."
         }
       }
     },

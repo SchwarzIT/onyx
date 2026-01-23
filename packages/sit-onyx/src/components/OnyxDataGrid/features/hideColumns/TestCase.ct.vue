@@ -12,6 +12,10 @@ export type Entry = {
   d: string;
 };
 
+const props = defineProps<{
+  allHidable?: boolean;
+}>();
+
 const emit = defineEmits<{
   "update:state": [newState: (keyof Entry)[]];
 }>();
@@ -28,7 +32,7 @@ const state = ref<HideColumnsState<Entry>>(new Set(["b"]));
 watchEffect(() => emit("update:state", Array.from(state.value.values())));
 
 const withHideColumns = computed(() =>
-  DataGridFeatures.useHideColumns({ state, columns: { c: { enabled: false } } }),
+  DataGridFeatures.useHideColumns({ state, columns: { c: { enabled: props.allHidable } } }),
 );
 const features = computed(() => [withHideColumns.value]);
 </script>

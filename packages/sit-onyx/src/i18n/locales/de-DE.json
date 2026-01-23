@@ -42,7 +42,8 @@
         "revealFlyout": "Liste von versteckten Spalten",
         "revealTrigger": "Versteckte Spalten anzeigen",
         "menu": {
-          "hideButton": "Spalte verstecken"
+          "hideButton": "Spalte verstecken",
+          "lastColumnTooltip": "Die letzte Spalte kann nicht ausgeblendet werden."
         }
       }
     },
