@@ -6,6 +6,8 @@ updates:
   - package-ecosystem: npm
     directory: /
     versioning-strategy: increase
+    cooldown:
+      default-days: 2 # Wait two days after a new version release - This is in sync with the `pnpm-workspace.yaml` `minimumReleaseAge` config
     schedule:
       interval: daily
     groups:

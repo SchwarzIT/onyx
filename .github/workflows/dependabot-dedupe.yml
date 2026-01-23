@@ -10,15 +10,20 @@ on:
       - "pnpm-workspace.json"
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   dedupe:
     name: Deduplicate dependencies
     runs-on: ubuntu-latest
     if: github.actor == 'dependabot[bot]'
+    permissions:
+      contents: write
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: "🛃 Harden the runner (Audit all outbound calls)"
+        uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a # v2.13.1
+        with:
+          egress-policy: audit
 
       - uses: ./.github/templates/node-setup
         with:

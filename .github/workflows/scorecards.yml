@@ -11,7 +11,8 @@ on:
     branches: ["main"]
 
 # Declare default permissions as read only.
-permissions: read-all
+permissions:
+  contents: read
 
 jobs:
   analysis:
@@ -31,7 +32,12 @@ jobs:
       checks: read
 
     steps:
-      - name: "Checkout code"
+      - name: "🛃 Harden the runner (Audit all outbound calls)"
+        uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a # v2.13.1
+        with:
+          egress-policy: audit
+
+      - name: "🛒 Checkout Repository"
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
@@ -41,11 +47,11 @@ jobs:
         with:
           results_file: results.sarif
           results_format: sarif
-          # TODO: Enable after we checked first results:
+          # Publish results:
           #   - Publish results to OpenSSF REST API for easy access by consumers
           #   - Allows the repository to include the Scorecard badge.
           #   - See https://github.com/ossf/scorecard-action#publishing-results.
-          publish_results: false
+          publish_results: true
 
       # Upload the results to GitHub's code scanning dashboard.
       - name: "Upload to code-scanning"
