@@ -240,6 +240,7 @@ const handleDelete = () => {
 
     :deep(.onyx-select-input__wrapper) {
       border: none;
+      background-color: transparent;
 
       .onyx-select-input__native {
         width: 6ch;
