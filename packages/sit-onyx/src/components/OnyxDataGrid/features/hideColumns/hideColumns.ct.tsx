@@ -92,6 +92,7 @@ test("last Column should not be hidable", async ({ mount }) => {
   await openMoreActions("Labelled Column");
   await expect(menuItem).toBeDisabled();
   await menuItem.hover();
+  await expect(component.getByRole("tooltip")).toBeVisible();
 
   await expect(component).toHaveScreenshot("data-grid-hide-columns-last-column-not-hidable.png");
 });
