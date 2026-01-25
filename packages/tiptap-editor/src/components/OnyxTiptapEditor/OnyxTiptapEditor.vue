@@ -11,7 +11,7 @@ import {
   iconToolUnderlined,
   iconUndo,
 } from "@sit-onyx/icons";
-import TextAlign from "@tiptap/extension-text-align";
+import TextAlign, { type TextAlignOptions } from "@tiptap/extension-text-align";
 import StarterKit from "@tiptap/starter-kit";
 import { EditorContent, useEditor } from "@tiptap/vue-3";
 import { getFormMessages, injectI18n, OnyxFormElement, useForwardProps, useVModel } from "sit-onyx";
@@ -102,6 +102,22 @@ const autosizeMinMaxStyles = computed(() => {
 const successMessages = computed(() => getFormMessages(props.success));
 const message = computed(() => getFormMessages(props.message));
 
+const hasExtension = computed(() => {
+  return (name: string) => {
+    if (!editor.value) return true;
+    return editor.value.extensionManager.extensions.some((e) => e.name === name);
+  };
+});
+
+const hasTextExtension = computed(() => {
+  return (alignment: TextAlignOptions["alignments"][number]) => {
+    if (!editor.value) return true;
+    const extension = editor.value.extensionManager.extensions.find((e) => e.name === "textAlign");
+    if (!extension) return false;
+    return (extension.options as TextAlignOptions).alignments.includes(alignment);
+  };
+});
+
 defineExpose({
   /**
    * Tiptap editor instance.
@@ -127,51 +143,68 @@ defineExpose({
       <div class="onyx-tiptap-editor__toolbar">
         <div class="onyx-tiptap-editor__actions">
           <OnyxEditorToolbarAction
+            v-if="hasExtension('bold')"
             :label="t('editor.bold')"
             :icon="iconToolBold"
             :active="editor?.isActive('bold')"
+            :disabled="!editor?.can().chain().toggleBold().run()"
             @click="editor?.chain().focus().toggleBold().run()"
           />
           <OnyxEditorToolbarAction
+            v-if="hasExtension('italic')"
             :label="t('editor.italic')"
             :icon="iconToolItalic"
             :active="editor?.isActive('italic')"
+            :disabled="!editor?.can().chain().toggleItalic().run()"
             @click="editor?.chain().focus().toggleItalic().run()"
           />
           <OnyxEditorToolbarAction
+            v-if="hasExtension('underline')"
             :label="t('editor.underline')"
             :icon="iconToolUnderlined"
             :active="editor?.isActive('underline')"
+            :disabled="!editor?.can().chain().toggleUnderline().run()"
             @click="editor?.chain().focus().toggleUnderline().run()"
           />
           <OnyxEditorToolbarAction
+            v-if="hasExtension('strike')"
             :label="t('editor.strike')"
             :icon="iconToolStrike"
             :active="editor?.isActive('strike')"
+            :disabled="!editor?.can().chain().toggleStrike().run()"
             @click="editor?.chain().focus().toggleStrike().run()"
           />
+          <!-- TODO: check why textAlign disabled does not work -->
           <OnyxEditorToolbarAction
+            v-if="hasTextExtension('left')"
             :label="t('editor.alignments.left')"
             :icon="iconAlignmentLeft"
             :active="editor?.isActive({ textAlign: 'left' })"
+            :disabled="!editor?.can().chain().toggleTextAlign('left').run()"
             @click="editor?.chain().focus().toggleTextAlign('left').run()"
           />
           <OnyxEditorToolbarAction
+            v-if="hasTextExtension('right')"
             :label="t('editor.alignments.right')"
             :icon="iconAlignmentRight"
             :active="editor?.isActive({ textAlign: 'right' })"
+            :disabled="!editor?.can().chain().toggleTextAlign('right').run()"
             @click="editor?.chain().focus().toggleTextAlign('right').run()"
           />
           <OnyxEditorToolbarAction
+            v-if="hasTextExtension('center')"
             :label="t('editor.alignments.center')"
             :icon="iconAlignmentCenter"
             :active="editor?.isActive({ textAlign: 'center' })"
+            :disabled="!editor?.can().chain().toggleTextAlign('center').run()"
             @click="editor?.chain().focus().toggleTextAlign('center').run()"
           />
           <OnyxEditorToolbarAction
+            v-if="hasTextExtension('justify')"
             :label="t('editor.alignments.block')"
             :icon="iconAlignmentBlock"
             :active="editor?.isActive({ textAlign: 'justify' })"
+            :disabled="!editor?.can().chain().toggleTextAlign('justify').run()"
             @click="editor?.chain().focus().toggleTextAlign('justify').run()"
           />
           <slot name="toolbar"></slot>
