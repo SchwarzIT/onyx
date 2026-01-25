@@ -1,5 +1,16 @@
 <script lang="ts" setup>
-import { iconPlaceholder, iconToolUnderlined, iconUndo } from "@sit-onyx/icons";
+import {
+  iconAlignmentBlock,
+  iconAlignmentCenter,
+  iconAlignmentLeft,
+  iconAlignmentRight,
+  iconRedo,
+  iconToolBold,
+  iconToolItalic,
+  iconToolStrike,
+  iconToolUnderlined,
+  iconUndo,
+} from "@sit-onyx/icons";
 import TextAlign from "@tiptap/extension-text-align";
 import StarterKit from "@tiptap/starter-kit";
 import { EditorContent, useEditor } from "@tiptap/vue-3";
@@ -117,13 +128,13 @@ defineExpose({
         <div class="onyx-tiptap-editor__actions">
           <OnyxEditorToolbarAction
             :label="t('editor.bold')"
-            :icon="iconPlaceholder"
+            :icon="iconToolBold"
             :active="editor?.isActive('bold')"
             @click="editor?.chain().focus().toggleBold().run()"
           />
           <OnyxEditorToolbarAction
             :label="t('editor.italic')"
-            :icon="iconPlaceholder"
+            :icon="iconToolItalic"
             :active="editor?.isActive('italic')"
             @click="editor?.chain().focus().toggleItalic().run()"
           />
@@ -135,31 +146,31 @@ defineExpose({
           />
           <OnyxEditorToolbarAction
             :label="t('editor.strike')"
-            :icon="iconPlaceholder"
+            :icon="iconToolStrike"
             :active="editor?.isActive('strike')"
             @click="editor?.chain().focus().toggleStrike().run()"
           />
           <OnyxEditorToolbarAction
             :label="t('editor.alignments.left')"
-            :icon="iconPlaceholder"
+            :icon="iconAlignmentLeft"
             :active="editor?.isActive({ textAlign: 'left' })"
             @click="editor?.chain().focus().toggleTextAlign('left').run()"
           />
           <OnyxEditorToolbarAction
             :label="t('editor.alignments.right')"
-            :icon="iconPlaceholder"
+            :icon="iconAlignmentRight"
             :active="editor?.isActive({ textAlign: 'right' })"
             @click="editor?.chain().focus().toggleTextAlign('right').run()"
           />
           <OnyxEditorToolbarAction
             :label="t('editor.alignments.center')"
-            :icon="iconPlaceholder"
+            :icon="iconAlignmentCenter"
             :active="editor?.isActive({ textAlign: 'center' })"
             @click="editor?.chain().focus().toggleTextAlign('center').run()"
           />
           <OnyxEditorToolbarAction
             :label="t('editor.alignments.block')"
-            :icon="iconPlaceholder"
+            :icon="iconAlignmentBlock"
             :active="editor?.isActive({ textAlign: 'justify' })"
             @click="editor?.chain().focus().toggleTextAlign('justify').run()"
           />
@@ -175,7 +186,7 @@ defineExpose({
           />
           <OnyxEditorToolbarAction
             :label="t('editor.redo')"
-            :icon="iconPlaceholder"
+            :icon="iconRedo"
             :disabled="!editor?.can().chain().redo().run()"
             @click="editor?.chain().focus().redo().run()"
           />
