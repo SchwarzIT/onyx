@@ -2,6 +2,10 @@ import type { OnyxInputProps } from "../OnyxInput/types.js";
 
 export type OnyxSearchProps = Pick<
   OnyxInputProps,
+  | "message"
+  | "maxlength"
+  | "error"
+  | "readonly"
   | "disabled"
   | "density"
   | "id"
