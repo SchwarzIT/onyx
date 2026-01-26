@@ -4,3 +4,4 @@ export * from "./composables/menuButton/createMenuButton.testing.js";
 export * from "./composables/navigationMenu/createMenu.testing.js";
 export * from "./composables/slider/createSlider.testing.js";
 export * from "./composables/tabs/createTabs.testing.js";
+export * from "./composables/toggleButton/createToggleButton.testing.js";

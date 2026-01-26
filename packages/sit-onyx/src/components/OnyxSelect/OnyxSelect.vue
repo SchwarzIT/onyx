@@ -28,6 +28,7 @@ import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import type { Nullable, SelectOptionValue } from "../../types/index.js";
 import { asArray, groupByKey, transformGroupedData } from "../../utils/objects.js";
+import { useForwardProps } from "../../utils/props.js";
 import { normalizedIncludes } from "../../utils/strings.js";
 import OnyxBasicPopover from "../OnyxBasicPopover/OnyxBasicPopover.vue";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
@@ -384,9 +385,14 @@ watchEffect(() => {
   if (isScrollEnd.value) emit("lazyLoad");
 });
 
+const forwardedSelectInputProps: ComputedRef<OnyxSelectInputProps> = useForwardProps(
+  props,
+  OnyxSelectInput,
+);
+
 const selectInputProps = computed(() => {
-  const baseProps: OnyxSelectInputProps = {
-    ...props,
+  const baseProps = {
+    ...forwardedSelectInputProps.value,
     open: undefined, // needed to prevent hydration mismatch in SSR when open prop is MANAGED_SYMBOL
     modelValue: selectionLabels.value,
   };
@@ -394,7 +400,6 @@ const selectInputProps = computed(() => {
   return { ...baseProps, ...input.value };
 });
 
-defineExpose({ input: computed(() => selectInput.value?.input) });
 watch(
   [filteredOptions],
   () => {
@@ -415,6 +420,8 @@ watch(
 
   { deep: true, immediate: true },
 );
+
+defineExpose({ input: computed(() => selectInput.value?.input) });
 </script>
 
 <template>
