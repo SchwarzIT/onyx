@@ -23,11 +23,13 @@ const props = defineProps<{
    */
   disabled?: boolean;
   /**
-   *
+   * Which type of button this action is.
+   * Should not be changed dynamically.
    */
   type?: "button" | "toggle";
   /**
    * If the button is currently active (pressed).
+   * Only use with `type="toggle"`.
    */
   active?: boolean;
 }>();
