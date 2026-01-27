@@ -78,6 +78,9 @@ const sanitizeForNativeInput = (val: string | undefined): string => {
   return match ? match[0] : "";
 };
 
+/**
+ * Current value (with getter and setter) that can be used as "v-model" for the native input.
+ */
 const modelValue = useVModel({
   props,
   emit,
