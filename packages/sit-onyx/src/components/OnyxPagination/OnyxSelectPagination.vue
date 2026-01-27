@@ -86,15 +86,13 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
       :options="filteredOptions"
       :model-value="props.modelValue"
       :value-label="props.modelValue.toString()"
-      hide-label
-      :disabled="props.disabled || props.pages <= 1"
+      :disabled="props.disabled || props.pages <= 1 || props.disableFlyout"
       alignment="left"
+      :lazy-loading="{ enabled: true }"
+      hide-label
       with-search
       no-filter
-      :lazy-loading="{ enabled: true }"
-      @update:model-value="
-        emit('update:modelValue', $event as (typeof filteredOptions)[number]['value'])
-      "
+      @update:model-value="$event != undefined && emit('update:modelValue', $event)"
       @lazy-load="handleLoadMore"
     />
 

@@ -42,7 +42,8 @@
         "revealFlyout": "List of hidden columns",
         "revealTrigger": "Show hidden columns",
         "menu": {
-          "hideButton": "Hide column"
+          "hideButton": "Hide column",
+          "lastColumnTooltip": "The last column cannot be hidden."
         }
       }
     },
@@ -174,7 +175,8 @@
     "select": {
       "label": "Page selection",
       "listLabel": "Available pages"
-    }
+    },
+    "currentOfTotalPages": "1/1 page | {current}/{total} pages"
   },
   "input": {
     "clear": "Clear input",
