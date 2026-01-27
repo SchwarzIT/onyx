@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { iconSearch, iconSidebarArrowLeft, iconSidebarArrowRight } from "@sit-onyx/icons";
-import { normalizedIncludes, useGlobalFAB } from "sit-onyx";
+import { normalizedIncludes, ONYX_BREAKPOINTS, useGlobalFAB } from "sit-onyx";
 
 const props = defineProps<{
   sidebarItems: SidebarItem[];
@@ -25,20 +25,28 @@ const filteredItems = computed(() => {
   return props.sidebarItems.filter((item) => normalizedIncludes(item.label, searchTerm));
 });
 
+const { width } = useWindowSize();
+const isMobile = computed(() => width.value < ONYX_BREAKPOINTS.sm);
 const isOpen = ref(true);
+const isMobileOpen = ref(false);
 
 const globalFAB = useGlobalFAB();
 
 const id = useId();
 
 const handleClick = () => {
-  isOpen.value = !isOpen.value;
+  return isMobile.value
+    ? (isMobileOpen.value = !isMobileOpen.value)
+    : (isOpen.value = !isOpen.value);
 };
 globalFAB.add(
   computed(() => ({
     id,
     label: $t("blueprint.toggleSidebar"),
-    icon: isOpen.value ? iconSidebarArrowLeft : iconSidebarArrowRight,
+    icon:
+      (isMobile.value && isMobileOpen.value) || (!isMobile.value && isOpen.value)
+        ? iconSidebarArrowLeft
+        : iconSidebarArrowRight,
     onClick: handleClick,
     alignment: "left",
   })),
@@ -52,7 +60,15 @@ onUnmounted(() => {
   <OnyxPageLayout v-bind="props">
     <template #sidebar>
       <!-- using v-show here instead of v-if so the search value is kept when toggling the open state -->
-      <OnyxSidebar v-show="isOpen" class="sidebar" :label="$t('blueprint.sidebar')">
+      <!-- we turned off the sidebar collapse since we're using our own floating action button -->
+      <OnyxSidebar
+        v-show="isOpen || width < ONYX_BREAKPOINTS.sm"
+        :temporary="isMobile ? { open: isMobileOpen } : undefined"
+        class="sidebar"
+        :label="$t('blueprint.sidebar')"
+        :collapse-sidebar="false"
+        @close="isMobile ? (isMobileOpen = false) : (isOpen = false)"
+      >
         <template #header>
           <OnyxInput
             v-model="search"
