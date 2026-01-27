@@ -25,6 +25,8 @@ const filteredItems = computed(() => {
   return props.sidebarItems.filter((item) => normalizedIncludes(item.label, searchTerm));
 });
 
+const { width } = useWindowSize();
+const isMobile = computed(() => width.value < ONYX_BREAKPOINTS.sm);
 const isOpen = ref(true);
 const isMobileOpen = ref(false);
 
@@ -33,7 +35,7 @@ const globalFAB = useGlobalFAB();
 const id = useId();
 
 const handleClick = () => {
-  return width.value < ONYX_BREAKPOINTS.sm
+  return isMobile.value
     ? (isMobileOpen.value = !isMobileOpen.value)
     : (isOpen.value = !isOpen.value);
 };
@@ -42,8 +44,7 @@ globalFAB.add(
     id,
     label: $t("blueprint.toggleSidebar"),
     icon:
-      (width.value < ONYX_BREAKPOINTS.sm && isMobileOpen.value) ||
-      (isOpen.value && width.value >= ONYX_BREAKPOINTS.sm)
+      (isMobile.value && isMobileOpen.value) || (!isMobile.value && isOpen.value)
         ? iconSidebarArrowLeft
         : iconSidebarArrowRight,
     onClick: handleClick,
@@ -53,7 +54,6 @@ globalFAB.add(
 onUnmounted(() => {
   globalFAB.remove(id);
 });
-const { width } = useWindowSize();
 </script>
 
 <template>
@@ -63,11 +63,11 @@ const { width } = useWindowSize();
       <!-- we turned off the sidebar collapse since we're using our own floating action button -->
       <OnyxSidebar
         v-show="isOpen || width < ONYX_BREAKPOINTS.sm"
-        :temporary="width < ONYX_BREAKPOINTS.sm ? { open: isMobileOpen } : undefined"
+        :temporary="isMobile ? { open: isMobileOpen } : undefined"
         class="sidebar"
         :label="$t('blueprint.sidebar')"
         :collapse-sidebar="false"
-        @close="width < ONYX_BREAKPOINTS.sm ? (isMobileOpen = false) : (isOpen = false)"
+        @close="isMobile ? (isMobileOpen = false) : (isOpen = false)"
       >
         <template #header>
           <OnyxInput
