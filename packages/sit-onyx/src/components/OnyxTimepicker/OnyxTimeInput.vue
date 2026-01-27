@@ -407,7 +407,8 @@ const showClearButton = computed(() => {
     &__clock-icon {
       --icon-color: var(--onyx-color-text-icons-neutral-soft);
     }
-    &:has(.onyx-timepicker-input__native:focus-visible) {
+    &:has(.onyx-timepicker-input__native:focus-visible),
+    &:has(.onyx-timepicker-input__native:hover) {
       .onyx-timepicker {
         &__clock-icon {
           --icon-color: var(--onyx-color-text-icons-primary-intense);
