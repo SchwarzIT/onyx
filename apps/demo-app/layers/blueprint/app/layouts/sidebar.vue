@@ -26,19 +26,26 @@ const filteredItems = computed(() => {
 });
 
 const isOpen = ref(true);
+const isMobileOpen = ref(false);
 
 const globalFAB = useGlobalFAB();
 
 const id = useId();
 
 const handleClick = () => {
-  isOpen.value = !isOpen.value;
+  return width.value < ONYX_BREAKPOINTS.sm
+    ? (isMobileOpen.value = !isMobileOpen.value)
+    : (isOpen.value = !isOpen.value);
 };
 globalFAB.add(
   computed(() => ({
     id,
     label: $t("blueprint.toggleSidebar"),
-    icon: isOpen.value ? iconSidebarArrowLeft : iconSidebarArrowRight,
+    icon:
+      (width.value < ONYX_BREAKPOINTS.sm && isMobileOpen.value) ||
+      (isOpen.value && width.value >= ONYX_BREAKPOINTS.sm)
+        ? iconSidebarArrowLeft
+        : iconSidebarArrowRight,
     onClick: handleClick,
     alignment: "left",
   })),
@@ -53,13 +60,14 @@ const { width } = useWindowSize();
   <OnyxPageLayout v-bind="props">
     <template #sidebar>
       <!-- using v-show here instead of v-if so the search value is kept when toggling the open state -->
+      <!-- we turned off the sidebar collapse since we're using our own floating action button -->
       <OnyxSidebar
-        v-show="isOpen"
-        :temporary="width < ONYX_BREAKPOINTS.sm ? { open: isOpen } : undefined"
+        v-show="isOpen || width < ONYX_BREAKPOINTS.sm"
+        :temporary="width < ONYX_BREAKPOINTS.sm ? { open: isMobileOpen } : undefined"
         class="sidebar"
         :label="$t('blueprint.sidebar')"
         :collapse-sidebar="false"
-        @close="isOpen = !isOpen"
+        @close="width < ONYX_BREAKPOINTS.sm ? (isMobileOpen = false) : (isOpen = false)"
       >
         <template #header>
           <OnyxInput
