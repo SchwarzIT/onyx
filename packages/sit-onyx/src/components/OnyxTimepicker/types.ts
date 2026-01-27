@@ -73,8 +73,4 @@ export type OnyxTimepickerProps<TType extends TimepickerType = "default"> = Omit
      * Text describing the timepicker. Will be displayed at the bottom of the flyout.
      */
     infoLabel?: TType extends "select" ? string : never;
-    /**
-     * Whether to hide the info label.
-     */
-    hideInfoLabelIcon?: boolean;
   };

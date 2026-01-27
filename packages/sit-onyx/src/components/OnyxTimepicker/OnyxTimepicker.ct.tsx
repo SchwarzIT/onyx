@@ -131,41 +131,32 @@ test.describe("Keyboard tests", () => {
   });
 });
 
-test.describe("Time tests", () => {
-  test("should truncate milliseconds and timezones from modelValue, min, and max (HH:MM)", async ({
-    mount,
-  }) => {
-    const component = await mount(
-      <OnyxTimepicker
-        label="Test label"
-        modelValue="08:11:21.30Z"
-        min="07:30:30.30Z"
-        max="17:30:30.11111"
-      />,
-    );
-    const input = component.getByRole("textbox", { name: "Test label" });
-
-    await expect(input).toHaveAttribute("min", "07:30");
-    await expect(input).toHaveAttribute("max", "17:30");
-    await expect(input).toHaveValue("08:11");
+test("should truncate milliseconds and timezones from modelValue, min, and max", async ({
+  mount,
+}) => {
+  // ARRANGE
+  const component = await mount(OnyxTimepicker, {
+    props: {
+      showSeconds: true,
+      label: "Time picker",
+      modelValue: "08:11:21.30Z",
+      min: "07:30:30.30Z",
+      max: "17:30:30.11111",
+    },
   });
 
-  test("should truncate milliseconds and timezones from modelValue, min, and max (HH:MM:SS)", async ({
-    mount,
-  }) => {
-    const component = await mount(
-      <OnyxTimepicker
-        label="Test label"
-        modelValue="08:11:21.30Z"
-        min="07:30:30.30Z"
-        max="17:30:30.11111"
-        showSeconds
-      />,
-    );
-    const input = component.getByRole("textbox", { name: "Test label" });
+  const input = component.getByRole("textbox", { name: "Time picker" });
 
-    await expect(input).toHaveAttribute("min", "07:30:30");
-    await expect(input).toHaveAttribute("max", "17:30:30");
-    await expect(input).toHaveValue("08:11:21");
-  });
+  // ASSERT
+  await expect(input).toHaveAttribute("min", "07:30:30");
+  await expect(input).toHaveAttribute("max", "17:30:30");
+  await expect(input).toHaveValue("08:11:21");
+
+  // ACT
+  await component.update({ props: { showSeconds: false } });
+
+  // ASSERT
+  await expect(input).toHaveAttribute("min", "07:30");
+  await expect(input).toHaveAttribute("max", "17:30");
+  await expect(input).toHaveValue("08:11");
 });

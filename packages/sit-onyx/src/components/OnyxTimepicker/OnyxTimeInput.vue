@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useOutsideClick } from "@sit-onyx/headless";
-import { iconCircleInformation, iconClock, iconXSmall } from "@sit-onyx/icons";
+import { iconClock, iconXSmall } from "@sit-onyx/icons";
 import { computed, ref, useTemplateRef, type Ref } from "vue";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
@@ -193,18 +193,6 @@ const handleInputChange = (currentSegment: Segment, e: KeyboardEvent) => {
   }
 };
 
-const handleOpen = () => {
-  if (!open.value) {
-    open.value = true;
-    const firstSegment = availableSegments.value[0];
-    if (firstSegment) {
-      setTimeout(() => {
-        handleSegmentFocus(getSegmentRef(firstSegment).value);
-      }, 0);
-    }
-  }
-};
-
 useOutsideClick({
   inside: rootRef,
   onOutsideClick: () => (open.value = false),
@@ -250,24 +238,11 @@ const showClearButton = computed(() => {
               <OnyxIcon :icon="iconXSmall" color="neutral" />
             </button>
             <OnyxIcon
-              v-else-if="props.type === 'default'"
+              v-else
               :icon="iconClock"
               color="neutral"
               class="onyx-timepicker__clock-icon"
             />
-
-            <button
-              v-else
-              :aria-label="t('timepicker.labels.iconButton')"
-              :title="t('timepicker.labels.iconButton')"
-              type="button"
-              tabindex="-1"
-              class="onyx-timepicker__flyout-button"
-              @mousedown.prevent
-              @click.stop="handleOpen"
-            >
-              <OnyxIcon :icon="iconClock" color="neutral" class="onyx-timepicker__clock-icon" />
-            </button>
           </template>
         </OnyxTimepickerInput>
       </template>
@@ -328,13 +303,6 @@ const showClearButton = computed(() => {
           </div>
 
           <div v-if="props.infoLabel" class="onyx-timepicker__info-label">
-            <OnyxIcon
-              v-if="!props.hideInfoLabelIcon"
-              class="onyx-timepicker__info-icon"
-              :icon="iconCircleInformation"
-              color="neutral"
-              size="16px"
-            />
             <p>{{ props.infoLabel }}</p>
           </div>
         </div>
@@ -389,12 +357,8 @@ const showClearButton = computed(() => {
       align-items: center;
       color: var(--onyx-color-text-icons-neutral-soft);
       font-size: var(--onyx-font-size-sm);
-      .onyx-timepicker__info-icon {
-        --icon-color: var(--onyx-color-text-icons-neutral-medium);
-      }
     }
-    &__clear-button,
-    &__flyout-button {
+    &__clear-button {
       .onyx-icon {
         --icon-color: var(--onyx-color-text-icons-neutral-soft);
       }
@@ -409,15 +373,8 @@ const showClearButton = computed(() => {
     }
     &:has(.onyx-timepicker-input__native:focus-visible),
     &:has(.onyx-timepicker-input__native:hover) {
-      .onyx-timepicker {
-        &__clock-icon {
-          --icon-color: var(--onyx-color-text-icons-primary-intense);
-        }
-        &__flyout-button {
-          .onyx-icon {
-            --icon-color: var(--onyx-color-text-icons-primary-intense);
-          }
-        }
+      .onyx-timepicker__clock-icon {
+        --icon-color: var(--onyx-color-text-icons-primary-intense);
       }
     }
   }

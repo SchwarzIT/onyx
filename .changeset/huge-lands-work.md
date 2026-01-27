@@ -2,8 +2,8 @@
 "sit-onyx": minor
 ---
 
-feat(OnyxTimePicker): made component stable
+feat(OnyxTimePicker):
 
-- fully support RFC 9557
-- hide flyout in Default mode
 - replaced OnyxIconButton with an accessible input icon button
+- hide flyout in Default mode
+- made it fully support RFC 9557

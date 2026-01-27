@@ -33,8 +33,6 @@ export const WithSeconds = {
 export const InfoLabel = {
   args: {
     type: "select",
-    min: "08:00",
-    max: "17:00",
     infoLabel: "Info label",
   },
 } satisfies Story;
