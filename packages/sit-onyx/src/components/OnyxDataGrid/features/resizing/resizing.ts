@@ -11,7 +11,7 @@ export const RESIZING_FEATURE = Symbol("Resizing");
 export const FILLER_COLUMN = Symbol("FILLER_COLUMN");
 export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOptions<TEntry>) =>
   createFeature((ctx) => {
-    const resizingCol = ref<TEntry["id"]>();
+    const resizingCol = ref<keyof TEntry>();
     const MIN_COLUMN_WIDTH = 3 * 16;
     const headers = ref(new Map<keyof TEntry, HTMLElement>());
     const { isEnabled } = useFeatureContext(ctx, options);
