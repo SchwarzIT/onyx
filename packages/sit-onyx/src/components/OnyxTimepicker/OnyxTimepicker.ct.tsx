@@ -7,7 +7,7 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: `TimePicker`,
     columns: ["HH:MM:SS", "HH:MM"],
-    rows: ["closed", "open"],
+    rows: ["closed"],
     component: (column) => {
       return (
         <OnyxTimepicker
@@ -17,19 +17,13 @@ test.describe("Screenshot tests", () => {
         />
       );
     },
-    hooks: {
-      beforeEach: async (component, _page, _column, row) => {
-        const iconButton = component.getByRole("button", { name: "Open Timepicker" });
-        if (row === "open") await iconButton.click();
-      },
-    },
   });
 
   for (const state of ["default", "with value"] as const) {
     executeMatrixScreenshotTest({
       name: `TimePicker (${state})`,
       columns: DENSITIES,
-      rows: ["default", "hover", "focus", "open", "skeleton", "disabled", "loading"],
+      rows: ["default", "hover", "focus", "skeleton", "disabled", "loading"],
       component: (column, row) => {
         return (
           <OnyxTimepicker
@@ -46,12 +40,8 @@ test.describe("Screenshot tests", () => {
       hooks: {
         beforeEach: async (component, _page, _column, row) => {
           const input = component.getByLabel("Test label");
-          const iconButton = component.getByRole("button", { name: "Open Timepicker" });
           if (row === "hover") await input.hover();
           if (row === "focus") await input.focus();
-          if (row === "open") {
-            await iconButton.click();
-          }
         },
       },
     });
@@ -92,7 +82,9 @@ test.describe("Screenshot tests", () => {
 });
 
 test.describe("Keyboard tests", () => {
-  test("TimePicker keyboard navigation", async ({ mount }) => {
+  // TODO: Skipped because the 'default' type currently uses the native input.
+  // Re-enable this test once the custom flyout is implemented for range selection.
+  test.skip("TimePicker keyboard navigation", async ({ mount }) => {
     const component = await mount(<OnyxTimepicker label="Test label" />);
     const input = component.getByRole("textbox", { name: "Test label" });
     const iconButton = component.getByRole("button", { name: "Open Timepicker" });
@@ -137,4 +129,34 @@ test.describe("Keyboard tests", () => {
     await expect(hourInput).toBeHidden();
     await expect(minuteInput).toBeHidden();
   });
+});
+
+test("should truncate milliseconds and timezones from modelValue, min, and max", async ({
+  mount,
+}) => {
+  // ARRANGE
+  const component = await mount(OnyxTimepicker, {
+    props: {
+      showSeconds: true,
+      label: "Time picker",
+      modelValue: "08:11:21.30Z",
+      min: "07:30:30.30Z",
+      max: "17:30:30.11111",
+    },
+  });
+
+  const input = component.getByRole("textbox", { name: "Time picker" });
+
+  // ASSERT
+  await expect(input).toHaveAttribute("min", "07:30:30");
+  await expect(input).toHaveAttribute("max", "17:30:30");
+  await expect(input).toHaveValue("08:11:21");
+
+  // ACT
+  await component.update({ props: { showSeconds: false } });
+
+  // ASSERT
+  await expect(input).toHaveAttribute("min", "07:30");
+  await expect(input).toHaveAttribute("max", "17:30");
+  await expect(input).toHaveValue("08:11");
 });

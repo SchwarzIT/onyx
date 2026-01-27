@@ -32,6 +32,7 @@ export const WithSeconds = {
 
 export const InfoLabel = {
   args: {
+    type: "select",
     infoLabel: "Info label",
   },
 } satisfies Story;

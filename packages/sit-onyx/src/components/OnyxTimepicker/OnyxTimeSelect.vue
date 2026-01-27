@@ -108,6 +108,7 @@ const inputProps = useForwardProps(props, OnyxSelect);
     :list-label="t('timepicker.labels.listLabel')"
     :options="timeOptions"
     :placeholder="placeholderText"
+    :list-description="props.infoLabel"
   >
     <template #toggleIcon>
       <OnyxIcon :class="['onyx-timepicker__icon', { filled: modelValue }]" :icon="iconClock" />

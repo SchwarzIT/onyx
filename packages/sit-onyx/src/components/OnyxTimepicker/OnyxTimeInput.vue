@@ -1,13 +1,12 @@
 <script lang="ts" setup>
 import { useOutsideClick } from "@sit-onyx/headless";
-import { iconCircleInformation, iconClock, iconXSmall } from "@sit-onyx/icons";
+import { iconClock, iconXSmall } from "@sit-onyx/icons";
 import { computed, ref, useTemplateRef, type Ref } from "vue";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import { useForwardProps } from "../../utils/props.js";
 import OnyxBasicPopover from "../OnyxBasicPopover/OnyxBasicPopover.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxStepper from "../OnyxStepper/OnyxStepper.vue";
 import OnyxTimepickerInput from "./OnyxTimepickerInput.vue";
 import type { OnyxTimepickerProps, TimepickerType } from "./types.js";
@@ -34,6 +33,7 @@ const hourInputRef = useTemplateRef<InputRef>("hourInputTemplateRef");
 const minuteInputRef = useTemplateRef<InputRef>("minuteInputTemplateRef");
 const secondInputRef = useTemplateRef<InputRef>("secondInputTemplateRef");
 const rootRef = useTemplateRef("rootTemplateRef");
+const isFocused = ref(false);
 
 const partsToTotalSeconds = (parts: string[]): number => {
   const h = parseInt(parts[0] || "0", 10);
@@ -193,18 +193,6 @@ const handleInputChange = (currentSegment: Segment, e: KeyboardEvent) => {
   }
 };
 
-const handleOpen = () => {
-  if (!open.value) {
-    open.value = true;
-    const firstSegment = availableSegments.value[0];
-    if (firstSegment) {
-      setTimeout(() => {
-        handleSegmentFocus(getSegmentRef(firstSegment).value);
-      }, 0);
-    }
-  }
-};
-
 useOutsideClick({
   inside: rootRef,
   onOutsideClick: () => (open.value = false),
@@ -212,6 +200,9 @@ useOutsideClick({
 });
 
 const inputProps = useForwardProps(props, OnyxTimepickerInput);
+const showClearButton = computed(() => {
+  return (isFocused.value || open.value) && modelValue.value && !props.hideClearIcon;
+});
 </script>
 
 <template>
@@ -230,19 +221,12 @@ const inputProps = useForwardProps(props, OnyxTimepickerInput);
           v-bind="inputProps"
           :step="props.showSeconds ? 1 : 0"
           @update:model-value="modelValue = $event"
+          @update:is-focused="isFocused = $event"
           @click="open = false"
         >
           <template #icon>
-            <OnyxIconButton
-              v-if="!open || !modelValue || props.hideClearIcon"
-              :label="t('timepicker.labels.iconButton')"
-              :icon="iconClock"
-              :color="open ? 'primary' : 'neutral'"
-              class="onyx-timepicker__time-icon"
-              @click.stop="handleOpen"
-            />
             <button
-              v-else
+              v-if="showClearButton"
               class="onyx-timepicker__clear-button"
               type="button"
               :aria-label="t('input.clear')"
@@ -253,6 +237,12 @@ const inputProps = useForwardProps(props, OnyxTimepickerInput);
             >
               <OnyxIcon :icon="iconXSmall" color="neutral" />
             </button>
+            <OnyxIcon
+              v-else
+              :icon="iconClock"
+              color="neutral"
+              class="onyx-timepicker__clock-icon"
+            />
           </template>
         </OnyxTimepickerInput>
       </template>
@@ -313,13 +303,6 @@ const inputProps = useForwardProps(props, OnyxTimepickerInput);
           </div>
 
           <div v-if="props.infoLabel" class="onyx-timepicker__info-label">
-            <OnyxIcon
-              v-if="!props.hideInfoLabelIcon"
-              class="onyx-timepicker__info-icon"
-              :icon="iconCircleInformation"
-              color="neutral"
-              size="16px"
-            />
             <p>{{ props.infoLabel }}</p>
           </div>
         </div>
@@ -374,16 +357,6 @@ const inputProps = useForwardProps(props, OnyxTimepickerInput);
       align-items: center;
       color: var(--onyx-color-text-icons-neutral-soft);
       font-size: var(--onyx-font-size-sm);
-      .onyx-timepicker__info-icon {
-        --icon-color: var(--onyx-color-text-icons-neutral-medium);
-      }
-    }
-    &__time-icon {
-      --onyx-icon-button-padding: var(--onyx-density-2xs);
-      margin-right: calc(-1 * var(--onyx-icon-button-padding));
-      &.onyx-icon-button--neutral {
-        --icon-button-color: var(--onyx-color-text-icons-neutral-soft);
-      }
     }
     &__clear-button {
       .onyx-icon {
@@ -392,6 +365,15 @@ const inputProps = useForwardProps(props, OnyxTimepickerInput);
       all: initial;
       cursor: pointer;
       &:hover .onyx-icon {
+        --icon-color: var(--onyx-color-text-icons-primary-intense);
+      }
+    }
+    &__clock-icon {
+      --icon-color: var(--onyx-color-text-icons-neutral-soft);
+    }
+    &:has(.onyx-timepicker-input__native:focus-visible),
+    &:has(.onyx-timepicker-input__native:hover) {
+      .onyx-timepicker__clock-icon {
         --icon-color: var(--onyx-color-text-icons-primary-intense);
       }
     }
