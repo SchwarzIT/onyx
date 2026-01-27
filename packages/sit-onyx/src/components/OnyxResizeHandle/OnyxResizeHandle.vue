@@ -38,7 +38,7 @@ let abortController: AbortController | undefined;
 
 const isActive = ref(false);
 
-const handleMousedown = () => {
+const handleMousedown = (preventEmit?: boolean) => {
   if (!currentElement.value) return;
 
   previousWidth.value = currentElement.value.getBoundingClientRect().width;
@@ -51,9 +51,7 @@ const handleMousedown = () => {
   window.addEventListener("keydown", onKeydown, options);
   window.addEventListener("selectstart", (e) => e.preventDefault(), { ...options, passive: false });
 
-  // prevent infinite loop when e.g. the resize handle is rerendered but the active state has been stored in the parent
-  // and passed as props.active. If we would emit the "start" event again, we might cause unintentional side effects / loops
-  if (!props.active) {
+  if (!preventEmit) {
     // ensure to only emit start event when the mouse is actually moved
     // otherwise this can conflict with the double click event when e.g. the parent component re-renders after
     // the "start" event. In this case, the double click would never be emitted
@@ -66,8 +64,11 @@ onMounted(() => {
     () => props.active,
     (newActive) => {
       if (newActive == undefined) return;
-      if (newActive && !isActive.value) handleMousedown();
-      else if (!newActive && isActive.value) abort();
+      if (newActive && !isActive.value) {
+        // prevent infinite loop when e.g. the resize handle is rerendered but the active state has been stored in the parent
+        // and passed as props.active. If we would emit the "start" event again, we might cause unintentional side effects / loops
+        handleMousedown(newActive);
+      } else if (!newActive && isActive.value) abort();
     },
     { immediate: true },
   );
@@ -115,7 +116,7 @@ const onKeydown = (event: KeyboardEvent) => {
         'onyx-resize-handle--left': props.alignment === 'left',
       },
     ]"
-    @mousedown="handleMousedown"
+    @mousedown="handleMousedown()"
     @dblclick="handleDoubleClick"
   >
     <OnyxVisuallyHidden>{{ t("resizeHandle.label") }}</OnyxVisuallyHidden>
