@@ -4,6 +4,10 @@ import type { OnyxInputProps } from "../OnyxInput/types.js";
 import type { SelectOption } from "../OnyxSelect/types.js";
 
 export const TIMEPICKER_TYPES = ["default", "select"] as const;
+type RfcTimeValue =
+  | `${number}:${number}` // HH:MM
+  | `${number}:${number}:${number}` // HH:MM:SS
+  | `${number}:${number}:${number}${string}`; // HH:MM:SS.ssss | HH:MM:SS:ssssZ | HH:MM:SS:ssss+002
 export type TimepickerType = (typeof TIMEPICKER_TYPES)[number];
 
 export type TimepickerSelectOptions = {
@@ -37,19 +41,29 @@ export type OnyxTimepickerProps<TType extends TimepickerType = "default"> = Omit
      */
     options?: TType extends "select" ? TimepickerSelectOptions : never;
     /**
-     * Time in Seconds since midnight.
+     * Current time value in 24-hour format (RFC 9557).
+     * While milliseconds (`.123`) and timezones (`Z`, `+01:00`) are accepted as input,
+     * they are **ignored** (truncated) by the component logic and display.
+     * @example "14:30"
+     * @example "14:30:00"
+     * @example "14:30:00.500Z" (Treated as "14:30:00")
      */
     modelValue?: string;
     /**
-     * Minimum time to input in 24-hour format (including the minimum time).
-     * @format HH:MM:SS (e.g., "08:00:00")
+     * Minimum allowed time (inclusive).
+     * Accepts RFC 9557 formats. Milliseconds and timezones are ignored during validation.
+     * @example "08:00:00"
+     * @example "08:00:00.000Z" (Valid, treated as "08:00:00")
      */
-    min?: `${number}:${number}` | `${number}:${number}:${number}`;
+    min?: RfcTimeValue;
     /**
-     * Maximum time to input in 24-hour format (including the maximum time).
-     * @format HH:MM:ss (e.g., "17:30:00")
+     * Maximum allowed time (inclusive).
+     * Accepts RFC 9557 formats. Milliseconds and timezones are ignored during validation.
+     * @example "08:00:00"
+     * @example "08:00:00.000Z" (Valid, treated as "08:00:00")
      */
-    max?: `${number}:${number}` | `${number}:${number}:${number}`;
+    max?: RfcTimeValue;
+
     /**
      * Whether to show the seconds segment (:SS).
      * If true, the format is HH:MM:SS. If false, the format is HH:MM.
@@ -58,7 +72,7 @@ export type OnyxTimepickerProps<TType extends TimepickerType = "default"> = Omit
     /**
      * Text describing the timepicker. Will be displayed at the bottom of the flyout.
      */
-    infoLabel?: string;
+    infoLabel?: TType extends "select" ? string : never;
     /**
      * Whether to hide the info label.
      */

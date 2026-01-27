@@ -7,7 +7,7 @@ import OnyxTimepicker from "./OnyxTimepicker.vue";
 const meta: Meta<typeof OnyxTimepicker> = {
   title: "Form Elements/Timepicker",
   component: OnyxTimepicker,
-  tags: ["unstable"],
+  tags: ["new"],
   decorators: [
     (story) => ({
       components: { story },
@@ -32,6 +32,9 @@ export const WithSeconds = {
 
 export const InfoLabel = {
   args: {
+    type: "select",
+    min: "08:00",
+    max: "17:00",
     infoLabel: "Info label",
   },
 } satisfies Story;

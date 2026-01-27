@@ -7,7 +7,6 @@ import { injectI18n } from "../../i18n/index.js";
 import { useForwardProps } from "../../utils/props.js";
 import OnyxBasicPopover from "../OnyxBasicPopover/OnyxBasicPopover.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxStepper from "../OnyxStepper/OnyxStepper.vue";
 import OnyxTimepickerInput from "./OnyxTimepickerInput.vue";
 import type { OnyxTimepickerProps, TimepickerType } from "./types.js";
@@ -34,6 +33,7 @@ const hourInputRef = useTemplateRef<InputRef>("hourInputTemplateRef");
 const minuteInputRef = useTemplateRef<InputRef>("minuteInputTemplateRef");
 const secondInputRef = useTemplateRef<InputRef>("secondInputTemplateRef");
 const rootRef = useTemplateRef("rootTemplateRef");
+const isFocused = ref(false);
 
 const partsToTotalSeconds = (parts: string[]): number => {
   const h = parseInt(parts[0] || "0", 10);
@@ -212,6 +212,9 @@ useOutsideClick({
 });
 
 const inputProps = useForwardProps(props, OnyxTimepickerInput);
+const showClearButton = computed(() => {
+  return (isFocused.value || open.value) && modelValue.value && !props.hideClearIcon;
+});
 </script>
 
 <template>
@@ -230,19 +233,12 @@ const inputProps = useForwardProps(props, OnyxTimepickerInput);
           v-bind="inputProps"
           :step="props.showSeconds ? 1 : 0"
           @update:model-value="modelValue = $event"
+          @update:is-focused="isFocused = $event"
           @click="open = false"
         >
           <template #icon>
-            <OnyxIconButton
-              v-if="!open || !modelValue || props.hideClearIcon"
-              :label="t('timepicker.labels.iconButton')"
-              :icon="iconClock"
-              :color="open ? 'primary' : 'neutral'"
-              class="onyx-timepicker__time-icon"
-              @click.stop="handleOpen"
-            />
             <button
-              v-else
+              v-if="showClearButton"
               class="onyx-timepicker__clear-button"
               type="button"
               :aria-label="t('input.clear')"
@@ -252,6 +248,25 @@ const inputProps = useForwardProps(props, OnyxTimepickerInput);
               @click="modelValue = undefined"
             >
               <OnyxIcon :icon="iconXSmall" color="neutral" />
+            </button>
+            <OnyxIcon
+              v-else-if="props.type === 'default'"
+              :icon="iconClock"
+              color="neutral"
+              class="onyx-timepicker__clock-icon"
+            />
+
+            <button
+              v-else
+              :aria-label="t('timepicker.labels.iconButton')"
+              :title="t('timepicker.labels.iconButton')"
+              type="button"
+              tabindex="-1"
+              class="onyx-timepicker__flyout-button"
+              @mousedown.prevent
+              @click.stop="handleOpen"
+            >
+              <OnyxIcon :icon="iconClock" color="neutral" class="onyx-timepicker__clock-icon" />
             </button>
           </template>
         </OnyxTimepickerInput>
@@ -378,14 +393,8 @@ const inputProps = useForwardProps(props, OnyxTimepickerInput);
         --icon-color: var(--onyx-color-text-icons-neutral-medium);
       }
     }
-    &__time-icon {
-      --onyx-icon-button-padding: var(--onyx-density-2xs);
-      margin-right: calc(-1 * var(--onyx-icon-button-padding));
-      &.onyx-icon-button--neutral {
-        --icon-button-color: var(--onyx-color-text-icons-neutral-soft);
-      }
-    }
-    &__clear-button {
+    &__clear-button,
+    &__flyout-button {
       .onyx-icon {
         --icon-color: var(--onyx-color-text-icons-neutral-soft);
       }
@@ -393,6 +402,21 @@ const inputProps = useForwardProps(props, OnyxTimepickerInput);
       cursor: pointer;
       &:hover .onyx-icon {
         --icon-color: var(--onyx-color-text-icons-primary-intense);
+      }
+    }
+    &__clock-icon {
+      --icon-color: var(--onyx-color-text-icons-neutral-soft);
+    }
+    &:has(.onyx-timepicker-input__native:focus-visible) {
+      .onyx-timepicker {
+        &__clock-icon {
+          --icon-color: var(--onyx-color-text-icons-primary-intense);
+        }
+        &__flyout-button {
+          .onyx-icon {
+            --icon-color: var(--onyx-color-text-icons-primary-intense);
+          }
+        }
       }
     }
   }

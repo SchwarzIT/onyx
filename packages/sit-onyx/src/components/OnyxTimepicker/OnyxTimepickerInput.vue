@@ -44,6 +44,10 @@ const emit = defineEmits<{
    */
   "update:modelValue": [value?: string];
   /**
+   * Emitted when the input changes focus.
+   */
+  "update:isFocused": [boolean];
+  /**
    * Emitted when the validity state of the input changes.
    */
   validityChange: [validity: ValidityState];
@@ -61,21 +65,35 @@ const errorClass = useErrorClass(showError);
 const formElementProps = useForwardProps(props, OnyxFormElement);
 
 /**
- * Current value (with getter and setter) that can be used as "v-model" for the native input.
+ * Ensures that the native input only receives "HH:MM" or "HH:MM:SS".
  */
+const sanitizeForNativeInput = (val: string | undefined): string => {
+  if (typeof val !== "string") return "";
+  if (props.showSeconds) {
+    const match = val.match(/^\d{2}:\d{2}(?::\d{2})?/);
+    return match ? match[0] : "";
+  }
+
+  const match = val.match(/^\d{2}:\d{2}/);
+  return match ? match[0] : "";
+};
+
 const modelValue = useVModel({
   props,
   emit,
   key: "modelValue",
 });
+
 const value = computed({
   get: () => {
-    return modelValue.value;
+    return sanitizeForNativeInput(modelValue.value);
   },
-  set: (value) => {
-    modelValue.value = String(value);
+  set: (newValue) => {
+    modelValue.value = String(newValue);
   },
 });
+const sanitizedMin = computed(() => sanitizeForNativeInput(props.min));
+const sanitizedMax = computed(() => sanitizeForNativeInput(props.max));
 
 defineSlots<{
   /**
@@ -134,8 +152,11 @@ useAutofocus(useTemplateRef("inputRef"), props);
             :title="props.hideLabel ? props.label : undefined"
             :step="props.step"
             v-bind="restAttrs"
-            :max="props.max"
-            :min="props.min"
+            :max="sanitizedMax"
+            :min="sanitizedMin"
+            @keydown.space.prevent
+            @focus="emit('update:isFocused', true)"
+            @blur="emit('update:isFocused', false)"
           />
           <slot name="icon"></slot>
         </div>
