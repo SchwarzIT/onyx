@@ -4,6 +4,6 @@
 
 feat(OnyxTimePicker):
 
-- replaced OnyxIconButton with an accessible input icon button
+- replaced clock icon button with plain icon
 - hide flyout in Default mode
 - made it fully support RFC 9557

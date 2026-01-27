@@ -7,7 +7,7 @@ import OnyxTimepicker from "./OnyxTimepicker.vue";
 const meta: Meta<typeof OnyxTimepicker> = {
   title: "Form Elements/Timepicker",
   component: OnyxTimepicker,
-  tags: ["new"],
+  tags: ["unstable"],
   decorators: [
     (story) => ({
       components: { story },

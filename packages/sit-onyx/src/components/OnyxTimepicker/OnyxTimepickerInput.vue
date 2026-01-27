@@ -46,7 +46,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the input changes focus.
    */
-  "update:isFocused": [boolean];
+  "update:isFocused": [focused: boolean];
   /**
    * Emitted when the validity state of the input changes.
    */
