@@ -123,3 +123,38 @@ test("should consider initial resize state", async ({ page, mount }) => {
   expect(aBox.width).toBeCloseTo(100, -1);
   expect(parseFloat(resizeState["a"] ?? "")).toBeCloseTo(100, -1);
 });
+
+test("should correctly show hover effects while resizing", async ({ mount, page }) => {
+  // ARRANGE
+  const component = await mount(
+    <TestCase
+      data={getTestData()}
+      columns={[{ key: "a", width: "100px" }, { key: "b" }, { key: "c" }]}
+    />,
+  );
+
+  const aColumn = component.getByRole("columnheader", { name: "Drag to change width a" });
+  const bColumn = component.getByRole("columnheader", { name: "Drag to change width b" });
+  const resizeButton = bColumn.getByRole("button");
+
+  // ACT (hover other column while resizing)
+  const headerBox = (await aColumn.boundingBox())!;
+  const x = headerBox.x + headerBox.width / 2;
+  let y = headerBox.y + headerBox.height / 2;
+
+  await resizeButton.hover();
+  await page.mouse.down();
+  await page.mouse.move(x, y);
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("hover-column.png");
+
+  // ACT (hover other row while resizing)
+  const cellBox = (await component.getByRole("cell", { name: "2" }).boundingBox())!;
+  y = cellBox.y + cellBox.height / 2;
+
+  await page.mouse.move(x, y);
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("hover-row.png");
+});

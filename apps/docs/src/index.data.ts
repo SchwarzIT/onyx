@@ -234,7 +234,11 @@ export default defineLoader({
         status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/navigation-breadcrumb--docs",
       },
-      { name: "Table of Content", status: getImplementedStatus("OnyxTableOfContent") },
+      {
+        name: "Table of Contents",
+        status: getImplementedStatus("OnyxTableOfContents"),
+        href: "https://storybook.onyx.schwarz/?path=/docs/navigation-tableofcontents--docs",
+      },
       {
         name: "Progress steps",
         status: "implemented",
