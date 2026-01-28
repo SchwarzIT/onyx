@@ -1,5 +1,13 @@
 # @sit-onyx/storybook-utils
 
+## 1.1.1
+
+### Patch Changes
+
+- ffcee8c: fix: update `StorybookGlobalType` type to be based on Storybook's types to prevent type mismatch errors
+- Updated dependencies [058ecb1]
+  - @sit-onyx/icons@1.5.0
+
 ## 1.1.0
 
 ### Minor Changes

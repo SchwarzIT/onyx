@@ -1,5 +1,11 @@
 # @sit-onyx/figma-utils
 
+## 1.0.1
+
+### Patch Changes
+
+- c0fafcd: fix: Fix regex that may run slow on specific strings
+
 ## 1.0.0
 
 ### Major Changes
