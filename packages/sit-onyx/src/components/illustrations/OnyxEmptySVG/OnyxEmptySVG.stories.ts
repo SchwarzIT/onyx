@@ -4,7 +4,6 @@ import OnyxEmptySVG from "./OnyxEmptySVG.vue";
 const meta: Meta<typeof OnyxEmptySVG> = {
   title: "Illustrations/EmptySVG",
   component: OnyxEmptySVG,
-  tags: ["new:component"],
 };
 
 export default meta;
