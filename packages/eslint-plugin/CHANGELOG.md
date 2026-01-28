@@ -1,5 +1,11 @@
 # @sit-onyx/eslint-plugin
 
+## 0.2.1
+
+### Patch Changes
+
+- c0fafcd: fix: Fix regex that may run slow on specific strings
+
 ## 0.2.0
 
 ### Minor Changes

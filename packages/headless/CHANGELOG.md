@@ -1,5 +1,11 @@
 # @sit-onyx/headless
 
+## 0.6.0
+
+### Minor Changes
+
+- 5e70c53: feat(createToggleButton): implement createToggleButton composable and testing helper
+
 ## 0.5.0
 
 ### Minor Changes

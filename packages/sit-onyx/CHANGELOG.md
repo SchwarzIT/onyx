@@ -1,5 +1,37 @@
 # sit-onyx
 
+## 1.7.0
+
+### Minor Changes
+
+- 02153fd: feat: implement new `OnyxUnstableTableOfContents` component
+
+  For now, the `OnyxUnstableTableOfContents` and `OnyxUnstableTableOfContentsItem` components are marked as experimental/unstable which means that they are still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using them.
+
+- b55bffd: feat(OnyxTimePicker):
+  - replaced clock icon button with plain icon
+  - hide flyout in Default mode
+  - made it fully support RFC 9557
+
+- 7763c19: feat(OnyxTableOfContents): implement `skeleton` property
+- b8b653b: feat(OnyxPagination): add compact type and automatic breakpoint detection
+  - add new `type="compact"` pagination with a more space-efficient layout
+  - add `disableFlyout` property to disable the flyout in select or compact mode (useful for cursor-based pagination)
+  - add `autoCompact` property to automatically switch to compact type when viewport is smaller than a given breakpoint
+
+  The compact pagination type provides a more mobile-friendly alternative that supports automatically adapting to smaller screens while maintaining full functionality.
+
+- d22d42c: fix(OnyxDataGrid:hideColumns): fixed last visible Column to not be hidable
+
+### Patch Changes
+
+- efb7b5f: fix(OnyxDataGrid): lock column hover effect while resizing when using the `useResizing` feature
+- 5e70c53: fix(OnyxInput): Fix now all inputs use the themed caret color
+- 5e70c53: chore(OnyxSelect): Removed invalid and extranous attributes that were rendered on the select input element
+- 21edf41: fix(OnyxPagination): center select label for `compact` type
+- Updated dependencies [058ecb1]
+  - @sit-onyx/icons@1.5.0
+
 ## 1.6.0
 
 ### Minor Changes
