@@ -84,7 +84,6 @@ export const ManyTabs = {
 } satisfies Story;
 
 export const Actions = {
-  tags: ["new:feature"],
   args: {
     ...Default.args,
     actions: () => [
