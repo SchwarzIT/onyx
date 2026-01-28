@@ -108,6 +108,7 @@ const valueLabel = computed(() =>
     <OnyxSelect
       v-model:search-term="searchTerm"
       class="onyx-pagination__select"
+      :style="{ '--onyx-pagination-character-count': valueLabel.length }"
       :label="t('pagination.select.label')"
       :list-label="t('pagination.select.listLabel')"
       :options="filteredOptions"
@@ -172,6 +173,10 @@ const valueLabel = computed(() =>
 
         .onyx-select-input__button {
           display: none;
+        }
+
+        .onyx-select-input__native {
+          text-align: center;
         }
       }
 
