@@ -7,7 +7,7 @@ import OnyxCodeTab from "./OnyxCodeTab.vue";
 const meta: Meta<typeof OnyxCodeTab> = {
   title: "Support/CodeTab",
   component: OnyxCodeTab,
-  tags: ["unstable"],
+  tags: ["new:component"],
 };
 
 export default meta;
