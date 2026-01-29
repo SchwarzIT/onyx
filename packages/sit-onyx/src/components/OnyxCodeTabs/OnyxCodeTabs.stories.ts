@@ -13,7 +13,7 @@ import OnyxCodeTabs from "./OnyxCodeTabs.vue";
 const meta: Meta<typeof OnyxCodeTabs> = {
   title: "Documentation/CodeTabs",
   component: OnyxCodeTabs as Meta["component"],
-  tags: ["unstable"],
+  tags: ["new:component"],
   argTypes: {
     default: { control: { disable: true } },
   },

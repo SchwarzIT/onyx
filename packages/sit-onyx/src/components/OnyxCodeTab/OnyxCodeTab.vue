@@ -79,7 +79,7 @@ const disabled = computed(() => {
 
     <template v-else>
       <slot>
-        <pre><code>{{ props.code }}</code></pre>
+        <pre><code class="onyx-text--small">{{ props.code }}</code></pre>
       </slot>
 
       <span v-if="props.language" class="onyx-code-tab__language onyx-text--small">
