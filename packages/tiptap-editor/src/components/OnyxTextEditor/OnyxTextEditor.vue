@@ -17,6 +17,7 @@ import { EditorContent, useEditor } from "@tiptap/vue-3";
 import { getFormMessages, injectI18n, OnyxFormElement, useForwardProps, useVModel } from "sit-onyx";
 import { computed, watch, watchEffect } from "vue";
 import OnyxEditorToolbarAction from "../OnyxEditorToolbarAction/OnyxEditorToolbarAction.vue";
+import LinkToolbarAction from "./LinkToolbarAction.vue";
 import type { OnyxTextEditorProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxTextEditorProps>(), {
@@ -49,7 +50,14 @@ const modelValue = useVModel({
 const editor = useEditor({
   content: modelValue.value,
   extensions: [
-    StarterKit,
+    StarterKit.configure({
+      link: {
+        openOnClick: false,
+        defaultProtocol: "https",
+        autolink: true,
+        enableClickSelection: true,
+      },
+    }),
     TextAlign.configure({
       types: ["heading", "paragraph"],
     }),
@@ -211,6 +219,9 @@ defineExpose({
             :disabled="!editor?.can().chain().toggleTextAlign('justify').run()"
             @click="editor?.chain().focus().toggleTextAlign('justify').run()"
           />
+
+          <LinkToolbarAction v-if="hasExtension('link')" :editor />
+
           <slot name="toolbar"></slot>
         </div>
 
