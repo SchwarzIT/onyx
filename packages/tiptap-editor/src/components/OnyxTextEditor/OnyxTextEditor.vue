@@ -48,7 +48,12 @@ const modelValue = useVModel({
 
 const editor = useEditor({
   content: modelValue.value,
-  extensions: [StarterKit, TextAlign],
+  extensions: [
+    StarterKit,
+    TextAlign.configure({
+      types: ["heading", "paragraph"],
+    }),
+  ],
   onUpdate: () => {
     if (!editor.value) return;
     const newValue = editor.value.getHTML();
@@ -174,7 +179,6 @@ defineExpose({
             :disabled="!editor?.can().chain().toggleStrike().run()"
             @click="editor?.chain().focus().toggleStrike().run()"
           />
-          <!-- TODO: check why textAlign disabled does not work -->
           <OnyxEditorToolbarAction
             v-if="hasTextExtension('left')"
             :label="t('editor.alignments.left')"
@@ -184,20 +188,20 @@ defineExpose({
             @click="editor?.chain().focus().toggleTextAlign('left').run()"
           />
           <OnyxEditorToolbarAction
-            v-if="hasTextExtension('right')"
-            :label="t('editor.alignments.right')"
-            :icon="iconAlignmentRight"
-            :active="editor?.isActive({ textAlign: 'right' })"
-            :disabled="!editor?.can().chain().toggleTextAlign('right').run()"
-            @click="editor?.chain().focus().toggleTextAlign('right').run()"
-          />
-          <OnyxEditorToolbarAction
             v-if="hasTextExtension('center')"
             :label="t('editor.alignments.center')"
             :icon="iconAlignmentCenter"
             :active="editor?.isActive({ textAlign: 'center' })"
             :disabled="!editor?.can().chain().toggleTextAlign('center').run()"
             @click="editor?.chain().focus().toggleTextAlign('center').run()"
+          />
+          <OnyxEditorToolbarAction
+            v-if="hasTextExtension('right')"
+            :label="t('editor.alignments.right')"
+            :icon="iconAlignmentRight"
+            :active="editor?.isActive({ textAlign: 'right' })"
+            :disabled="!editor?.can().chain().toggleTextAlign('right').run()"
+            @click="editor?.chain().focus().toggleTextAlign('right').run()"
           />
           <OnyxEditorToolbarAction
             v-if="hasTextExtension('justify')"
