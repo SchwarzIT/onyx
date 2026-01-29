@@ -17,9 +17,9 @@ import { EditorContent, useEditor } from "@tiptap/vue-3";
 import { getFormMessages, injectI18n, OnyxFormElement, useForwardProps, useVModel } from "sit-onyx";
 import { computed, watch, watchEffect } from "vue";
 import OnyxEditorToolbarAction from "../OnyxEditorToolbarAction/OnyxEditorToolbarAction.vue";
-import type { OnyxTiptapEditorProps } from "./types.js";
+import type { OnyxTextEditorProps } from "./types.js";
 
-const props = withDefaults(defineProps<OnyxTiptapEditorProps>(), {
+const props = withDefaults(defineProps<OnyxTextEditorProps>(), {
   toolbar: () => ({ position: "top" }),
 });
 
