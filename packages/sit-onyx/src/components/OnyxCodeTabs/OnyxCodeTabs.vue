@@ -1,8 +1,4 @@
 <script lang="ts">
-/**
- * @experimental
- * @deprecated This component is still under active development and its API might change in patch releases.
- */
 export default {};
 </script>
 
