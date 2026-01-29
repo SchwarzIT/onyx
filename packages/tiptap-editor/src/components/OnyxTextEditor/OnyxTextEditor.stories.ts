@@ -1,16 +1,16 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import OnyxTiptapEditor from "./OnyxTiptapEditor.vue";
+import OnyxTextEditor from "./OnyxTextEditor.vue";
 
-const meta: Meta<typeof OnyxTiptapEditor> = {
-  title: "TiptapEditor",
-  component: OnyxTiptapEditor,
+const meta: Meta<typeof OnyxTextEditor> = {
+  title: "TextEditor",
+  component: OnyxTextEditor,
   argTypes: {
     toolbar: { control: { disable: true } },
   },
 };
 
 export default meta;
-type Story = StoryObj<typeof OnyxTiptapEditor>;
+type Story = StoryObj<typeof OnyxTextEditor>;
 
 export const Default = {
   args: {

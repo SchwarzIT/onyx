@@ -1,2 +1,2 @@
-export { default as OnyxTiptapEditor } from "./components/OnyxTiptapEditor/OnyxTiptapEditor.vue";
-export * from "./components/OnyxTiptapEditor/types.js";
+export { default as OnyxTextEditor } from "./components/OnyxTextEditor/OnyxTextEditor.vue";
+export * from "./components/OnyxTextEditor/types.js";
