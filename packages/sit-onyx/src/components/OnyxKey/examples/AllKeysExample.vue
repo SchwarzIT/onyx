@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { computed, ref, type ComponentInstance } from "vue";
+import { computed, h, useTemplateRef } from "vue";
 import {
   ALPHABETIC_KEYS,
+  createFeature,
+  DataGridFeatures,
   EDITING_KEYS,
   FUNCTION_KEYS,
   MEDIA_KEYS,
@@ -10,76 +12,106 @@ import {
   NAVIGATION_KEYS,
   NUMERIC_KEYS,
   NUMPAD_KEYS,
-  OnyxHeadline,
+  OnyxDataGrid,
   OnyxUnstableKey,
   SYMBOL_KEYS,
+  type ColumnConfig,
+  type ColumnGroupConfig,
+  type ColumnTypesFromFeatures,
+  type KeyboardKey,
+  type OperatingSystem,
+  type TypeRenderMap,
 } from "../../../index.js";
 
-const keys = [
+const detectedKey = useTemplateRef("keyRef");
+const detectedOS = computed(() => detectedKey.value?.actualOS);
+
+type Entry = {
+  id: string;
+  auto: string;
+  macOS: string;
+  windows: string;
+  generic: string;
+};
+
+type CustomColumnTypes = ColumnTypesFromFeatures<typeof withCustomTypes>;
+
+const columns = computed<ColumnConfig<Entry, ColumnGroupConfig, CustomColumnTypes>[]>(() => {
+  return [
+    { key: "id", label: "Key name", width: "max-content" },
+    { key: "auto", label: `Auto detected (${detectedOS.value})`, type: "key" },
+    { key: "macOS", label: "macOS", type: { name: "key", options: { os: "macOS" } } },
+    { key: "windows", label: "Windows", type: { name: "key", options: { os: "windows" } } },
+    { key: "generic", label: "Generic", type: { name: "key", options: { os: "generic" } } },
+  ];
+});
+
+const data = [
+  ALPHABETIC_KEYS,
+  NUMERIC_KEYS,
+  MODIFIER_KEYS,
+  NAVIGATION_KEYS,
+  SYMBOL_KEYS,
+  NUMPAD_KEYS,
+  FUNCTION_KEYS,
   MISC_KEYS,
   MEDIA_KEYS,
-  NUMPAD_KEYS,
-  SYMBOL_KEYS,
   EDITING_KEYS,
-  NUMERIC_KEYS,
-  FUNCTION_KEYS,
-  MODIFIER_KEYS,
-  ALPHABETIC_KEYS,
-  NAVIGATION_KEYS,
-].flat();
+]
+  .flat()
+  .map<Entry>((key) => ({
+    id: key,
+    auto: key,
+    macOS: key,
+    windows: key,
+    generic: key,
+  }));
 
-const detectedKey = ref<ComponentInstance<typeof OnyxUnstableKey>>();
-const detectedOS = computed(() => detectedKey.value?.actualOS);
+const withCustomTypes = createFeature(() => ({
+  name: Symbol("example feature name"),
+  typeRenderer: {
+    // use the `createTypeRenderer` function to create a type renderer with custom column type options
+    // all properties must be optional
+    key: DataGridFeatures.createTypeRenderer<{ os?: OperatingSystem }, Entry>({
+      cell: {
+        component: ({ modelValue, metadata }) => {
+          const os = metadata?.typeOptions?.os;
+          return h(OnyxUnstableKey, { name: modelValue as KeyboardKey, os });
+        },
+      },
+    }),
+  } satisfies TypeRenderMap<Entry>,
+}));
+
+const withFiltering = DataGridFeatures.useFiltering<Entry>({
+  enabled: false,
+  columns: { id: { enabled: true } },
+});
+
+const withSorting = DataGridFeatures.useSorting<Entry>({
+  enabled: false,
+  columns: { id: { enabled: true } },
+});
+
+const withStickyColumns = DataGridFeatures.useStickyColumns<Entry>({
+  columns: ["id"],
+  position: "left",
+});
+
+const features = [withCustomTypes, withFiltering, withSorting, withStickyColumns];
 </script>
 
 <template>
-  <div class="container">
-    <section>
-      <OnyxHeadline is="h2">Auto detected OS ({{ detectedOS }})</OnyxHeadline>
-      <div class="container__keys">
-        <OnyxUnstableKey
-          v-for="key in keys"
-          :key="key"
-          :ref="(el) => (detectedKey = el as typeof detectedKey)"
-          :name="key"
-        />
-      </div>
-    </section>
+  <div>
+    <OnyxDataGrid class="data-grid" :columns :data :features />
 
-    <section>
-      <OnyxHeadline is="h2">macOS</OnyxHeadline>
-      <div class="container__keys">
-        <OnyxUnstableKey v-for="key in keys" :key="key" :name="key" os="macOS" />
-      </div>
-    </section>
-
-    <section>
-      <OnyxHeadline is="h2">Windows</OnyxHeadline>
-      <div class="container__keys">
-        <OnyxUnstableKey v-for="key in keys" :key="key" :name="key" os="windows" />
-      </div>
-    </section>
-
-    <section>
-      <OnyxHeadline is="h2">Generic</OnyxHeadline>
-      <div class="container__keys">
-        <OnyxUnstableKey v-for="key in keys" :key="key" :name="key" os="generic" />
-      </div>
-    </section>
+    <!-- this key is only used to get the detected OS -->
+    <OnyxUnstableKey v-show="false" ref="keyRef" name="A" />
   </div>
 </template>
 
-<style lang="scss">
-.container {
-  display: flex;
-  flex-direction: column;
-  gap: var(--onyx-grid-gutter);
-
-  &__keys {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--onyx-density-xs);
-    margin-top: var(--onyx-density-xs);
-  }
+<style lang="scss" scoped>
+.data-grid {
+  max-height: 90vh;
 }
 </style>

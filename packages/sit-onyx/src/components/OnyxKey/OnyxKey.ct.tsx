@@ -1,4 +1,8 @@
-import { createEmitSpy, expectEmit } from "@sit-onyx/playwright-utils";
+import {
+  createEmitSpy,
+  expectEmit,
+  type MatrixScreenshotTestOptions,
+} from "@sit-onyx/playwright-utils";
 import { test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import { OPERATING_SYSTEMS } from "../../types/index.js";
@@ -15,6 +19,11 @@ import {
   SYMBOL_KEYS,
 } from "./types.js";
 
+const screenshotOptions = {
+  columns: OPERATING_SYSTEMS,
+  removePadding: true,
+} satisfies Partial<MatrixScreenshotTestOptions>;
+
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Key",
@@ -28,8 +37,8 @@ test.describe("Screenshot tests", () => {
 
 test.describe("Screenshot tests (alphabetic)", () => {
   executeMatrixScreenshotTest({
+    ...screenshotOptions,
     name: "Key (alphabetic)",
-    columns: OPERATING_SYSTEMS,
     rows: ALPHABETIC_KEYS,
     component: (column, row) => <OnyxKey name={row} os={column} />,
   });
@@ -37,17 +46,18 @@ test.describe("Screenshot tests (alphabetic)", () => {
 
 test.describe("Screenshot tests (numeric)", () => {
   executeMatrixScreenshotTest({
+    ...screenshotOptions,
     name: "Key (numeric)",
-    columns: OPERATING_SYSTEMS,
     rows: NUMERIC_KEYS,
+    removePadding: true,
     component: (column, row) => <OnyxKey name={row} os={column} />,
   });
 });
 
 test.describe("Screenshot tests (modifier)", () => {
   executeMatrixScreenshotTest({
+    ...screenshotOptions,
     name: "Key (modifier)",
-    columns: OPERATING_SYSTEMS,
     rows: MODIFIER_KEYS,
     component: (column, row) => <OnyxKey name={row} os={column} />,
   });
@@ -55,8 +65,8 @@ test.describe("Screenshot tests (modifier)", () => {
 
 test.describe("Screenshot tests (navigation)", () => {
   executeMatrixScreenshotTest({
+    ...screenshotOptions,
     name: "Key (navigation)",
-    columns: OPERATING_SYSTEMS,
     rows: NAVIGATION_KEYS,
     component: (column, row) => <OnyxKey name={row} os={column} />,
   });
@@ -64,8 +74,8 @@ test.describe("Screenshot tests (navigation)", () => {
 
 test.describe("Screenshot tests (functional)", () => {
   executeMatrixScreenshotTest({
+    ...screenshotOptions,
     name: "Key (functional)",
-    columns: OPERATING_SYSTEMS,
     rows: FUNCTION_KEYS,
     component: (column, row) => <OnyxKey name={row} os={column} />,
   });
@@ -73,8 +83,8 @@ test.describe("Screenshot tests (functional)", () => {
 
 test.describe("Screenshot tests (misc)", () => {
   executeMatrixScreenshotTest({
+    ...screenshotOptions,
     name: "Key (misc)",
-    columns: OPERATING_SYSTEMS,
     rows: MISC_KEYS,
     component: (column, row) => <OnyxKey name={row} os={column} />,
   });
@@ -82,8 +92,8 @@ test.describe("Screenshot tests (misc)", () => {
 
 test.describe("Screenshot tests (media)", () => {
   executeMatrixScreenshotTest({
+    ...screenshotOptions,
     name: "Key (media)",
-    columns: OPERATING_SYSTEMS,
     rows: MEDIA_KEYS,
     component: (column, row) => <OnyxKey name={row} os={column} />,
   });
@@ -91,8 +101,8 @@ test.describe("Screenshot tests (media)", () => {
 
 test.describe("Screenshot tests (numpad)", () => {
   executeMatrixScreenshotTest({
+    ...screenshotOptions,
     name: "Key (numpad)",
-    columns: OPERATING_SYSTEMS,
     rows: NUMPAD_KEYS,
     component: (column, row) => <OnyxKey name={row} os={column} />,
   });
@@ -100,8 +110,8 @@ test.describe("Screenshot tests (numpad)", () => {
 
 test.describe("Screenshot tests (symbol)", () => {
   executeMatrixScreenshotTest({
+    ...screenshotOptions,
     name: "Key (symbol)",
-    columns: OPERATING_SYSTEMS,
     rows: SYMBOL_KEYS,
     component: (column, row) => <OnyxKey name={row} os={column} />,
   });

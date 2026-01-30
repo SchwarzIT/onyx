@@ -120,7 +120,7 @@ defineExpose({
     align-items: center;
     justify-content: center;
 
-    height: var(--onyx-key-size);
+    min-height: var(--onyx-key-size);
     min-width: var(--onyx-key-size);
     padding-inline: var(--onyx-density-2xs);
 

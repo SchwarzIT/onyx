@@ -3,49 +3,36 @@ import { createAdvancedStoryExample } from "../../utils/storybook.js";
 import OnyxKey from "./OnyxKey.vue";
 
 /**
- * The key component displays keyboard keys with proper OS-specific symbols and accessibility support.
- * Useful for documentation, tutorials, and keyboard shortcut displays.
+ * The key component displays a single keyboard key with support for specific operating system symbols (macOS, Windows).
+ * Useful for documentation, tutorials and displaying keyboard shortcuts.
  */
 const meta: Meta<typeof OnyxKey> = {
   title: "Support/Key",
-  component: OnyxKey as Meta["component"],
+  component: OnyxKey,
   tags: ["unstable"],
 };
 
 export default meta;
-
 type Story = StoryObj<typeof OnyxKey>;
 
-/**
- * This example shows a default key.
- */
 export const Default = {
   args: {
     name: "Enter",
   },
 } satisfies Story;
 
-/**
- * Pressed state visualization.
- */
-export const Pressed = {
+export const Highlighted = {
   args: {
-    name: "Enter",
+    ...Default.args,
     highlighted: true,
   },
 } satisfies Story;
 
-/**
- * This example shows a skeleton key.
- */
 export const Skeleton = {
   args: {
+    ...Default.args,
     skeleton: true,
-    name: "Enter",
   },
 } satisfies Story;
 
-/**
- * Displays all available keys.
- */
 export const AllKeys = createAdvancedStoryExample("OnyxKey", "AllKeysExample") satisfies Story;
