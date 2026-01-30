@@ -21,17 +21,20 @@ const getTestData = () => [
     k: "K",
   },
 ];
+const columns = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k"];
+
+const columnsWithGroups = columns.map((column, index) => ({
+  key: column,
+  label: column,
+  columnGroupKey: index < 2 ? "group1" : "group2",
+}));
 
 test("sticky Column should stay in View", async ({ page, mount }) => {
   await page.setViewportSize({ width: 400, height: 1000 });
   // ARRANGE
   const data = getTestData();
   const component = await mount(
-    <TestCase
-      data={data}
-      columns={["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k"]}
-      stickyColumnsOptions={{ columns: ["a"] }}
-    />,
+    <TestCase data={data} columns={columns} stickyColumnsOptions={{ columns: ["a"] }} />,
   );
 
   // ACT
@@ -84,11 +87,7 @@ test("multiple stickyColumns", async ({ page, mount }) => {
   const data = getTestData();
 
   const component = await mount(
-    <TestCase
-      data={data}
-      columns={["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k"]}
-      stickyColumnsOptions={{ columns: ["a", "b"] }}
-    />,
+    <TestCase data={data} columns={columns} stickyColumnsOptions={{ columns: ["a", "b"] }} />,
   );
 
   // ACT
@@ -111,12 +110,8 @@ test("should allow scrolling the page", async ({ page, mount }) => {
 
   const component = await mount(
     <div>
-      <TestCase
-        data={getTestData()}
-        columns={["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k"]}
-        stickyColumnsOptions={{ columns: ["a"] }}
-      />
-      ,{"Hello World ".repeat(256)}
+      <TestCase data={getTestData()} columns={columns} stickyColumnsOptions={{ columns: ["a"] }} />,
+      {"Hello World ".repeat(256)}
     </div>,
   );
 
@@ -132,4 +127,39 @@ test("should allow scrolling the page", async ({ page, mount }) => {
 
   // ASSERT
   await expect(table, "should scroll page when mouse is over the table").not.toBeInViewport();
+});
+
+positions.forEach((position) => {
+  test(`sticky columns with column groups (${position})`, async ({ page, mount }) => {
+    await page.setViewportSize({ width: 400, height: 1000 });
+    const data = getTestData();
+
+    const component = await mount(
+      <TestCase
+        data={data}
+        columns={columnsWithGroups}
+        stickyColumnsOptions={{ columns: position === "left" ? ["a"] : ["k"], position }}
+      />,
+    );
+
+    // ACT
+    await component
+      .getByRole("columnheader", { name: position === "left" ? "k" : "a" })
+      .scrollIntoViewIfNeeded();
+    // ASSERT
+    const stickyColumn = component.getByRole("columnheader", {
+      name: position === "left" ? "a" : "k",
+    });
+    const stickyGroup =
+      position === "left"
+        ? component.getByRole("columnheader", { name: "group1" }).first()
+        : component.getByRole("columnheader", { name: "group2" }).last();
+
+    await expect(stickyColumn).toContainClass(position);
+    await expect(stickyColumn).toHaveCSS(position, /[0-9]+px/);
+    await expect(stickyGroup).toContainClass(position);
+    await expect(stickyGroup).toHaveCSS(position, /[0-9]+px/);
+
+    await expect(component).toHaveScreenshot(`data-grid-sticky-columnsGroups-${position}.png`);
+  });
 });
