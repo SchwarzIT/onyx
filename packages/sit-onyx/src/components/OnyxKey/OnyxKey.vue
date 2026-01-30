@@ -55,9 +55,9 @@ const actualOS = computed<OperatingSystem>(() => {
 });
 
 const visualLabel = computed<string>(() => {
-  const fallback = GENERIC_KEY_SYMBOLS[props.keyName] ?? props.keyName;
-  if (actualOS.value === "macOS") return MAC_KEY_SYMBOLS[props.keyName] ?? fallback;
-  if (actualOS.value === "windows") return WINDOWS_KEY_SYMBOLS[props.keyName] ?? fallback;
+  const fallback = GENERIC_KEY_SYMBOLS[props.name] ?? props.name;
+  if (actualOS.value === "macOS") return MAC_KEY_SYMBOLS[props.name] ?? fallback;
+  if (actualOS.value === "windows") return WINDOWS_KEY_SYMBOLS[props.name] ?? fallback;
   return fallback;
 });
 
@@ -69,7 +69,7 @@ const isHighlighted = computed(() => {
 
 const handleKeydown = (event: KeyboardEvent) => {
   const pressedKey = keyboardEventToKeyboardKey(event);
-  isPressed.value = pressedKey === props.keyName;
+  isPressed.value = pressedKey === props.name;
   if (isPressed.value) emit("pressMatch", pressedKey, event);
 };
 

@@ -21,7 +21,7 @@ type Story = StoryObj<typeof OnyxKey>;
  */
 export const Default = {
   args: {
-    keyName: "Enter",
+    name: "Enter",
   },
 } satisfies Story;
 
@@ -30,8 +30,8 @@ export const Default = {
  */
 export const Pressed = {
   args: {
-    keyName: "Enter",
-    pressed: true,
+    name: "Enter",
+    highlighted: true,
   },
 } satisfies Story;
 
@@ -41,7 +41,7 @@ export const Pressed = {
 export const Skeleton = {
   args: {
     skeleton: true,
-    keyName: "Enter",
+    name: "Enter",
   },
 } satisfies Story;
 

@@ -83,7 +83,7 @@ const { isKeyHighlighted } = _unstableUseShortcut({
       <template v-if="isAllStep(step)">
         <template v-for="(key, keyIndex) in step.all" :key="keyIndex">
           <OnyxKey
-            :key-name="key"
+            :name="key"
             :os="props.os"
             :highlighted="props.highlight && isKeyHighlighted(key, stepIndex)"
           />
@@ -99,7 +99,7 @@ const { isKeyHighlighted } = _unstableUseShortcut({
       <template v-if="isAnyStep(step)">
         <template v-for="(key, keyIndex) in step.any" :key="keyIndex">
           <OnyxKey
-            :key-name="key"
+            :name="key"
             :os="props.os"
             :highlighted="props.highlight && isKeyHighlighted(key, stepIndex)"
           />

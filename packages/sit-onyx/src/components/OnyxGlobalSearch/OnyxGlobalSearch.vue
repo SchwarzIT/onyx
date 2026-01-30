@@ -181,26 +181,22 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
     <!-- TODO: replace keyboard shortcuts with OnyxShortcut component once implemented -->
     <div v-show="!!slots.default" class="onyx-global-search__footer onyx-text--small">
       <span class="onyx-global-search__shortcut">
-        <OnyxKey key-name="ArrowUp" highlight-when-pressed />
-        <OnyxKey key-name="ArrowDown" highlight-when-pressed />
+        <OnyxKey name="ArrowUp" highlight-when-pressed />
+        <OnyxKey name="ArrowDown" highlight-when-pressed />
         <span class="onyx-global-search__shortcut-label">
           {{ t("globalSearch.shortcuts.move") }}
         </span>
       </span>
 
       <span class="onyx-global-search__shortcut">
-        <OnyxKey
-          key-name="Enter"
-          highlight-when-pressed
-          @press-match="emit('update:open', false)"
-        />
+        <OnyxKey name="Enter" highlight-when-pressed @press-match="emit('update:open', false)" />
         <span class="onyx-global-search__shortcut-label">
           {{ t("globalSearch.shortcuts.select") }}
         </span>
       </span>
 
       <span class="onyx-global-search__shortcut">
-        <OnyxKey key-name="Escape" highlight-when-pressed />
+        <OnyxKey name="Escape" highlight-when-pressed />
         <span class="onyx-global-search__shortcut-label"> {{ t("cancel") }}</span>
       </span>
     </div>

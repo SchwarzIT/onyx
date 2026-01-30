@@ -420,7 +420,7 @@ export type OnyxKeyProps = {
   /**
    * The keyboard key.
    */
-  keyName: KeyboardKey;
+  name: KeyboardKey;
   /**
    * Which operating system to use for displaying the key.
    * When set to "auto", the OS will be detected automatically.

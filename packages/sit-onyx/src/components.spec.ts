@@ -300,7 +300,7 @@ const COMPONENTS: Components = {
   },
   OnyxUnstableKey: {
     props: {
-      keyName: "ctrl",
+      name: "ctrl",
     },
   },
   OnyxUnstableShortcut: {

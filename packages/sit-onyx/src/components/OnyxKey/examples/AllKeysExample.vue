@@ -41,7 +41,7 @@ const detectedOS = computed(() => detectedKey.value?.actualOS);
           v-for="key in keys"
           :key="key"
           :ref="(el) => (detectedKey = el as typeof detectedKey)"
-          :key-name="key"
+          :name="key"
         />
       </div>
     </section>
@@ -49,21 +49,21 @@ const detectedOS = computed(() => detectedKey.value?.actualOS);
     <section>
       <OnyxHeadline is="h2">macOS</OnyxHeadline>
       <div class="container__keys">
-        <OnyxUnstableKey v-for="key in keys" :key="key" :key-name="key" os="macOS" />
+        <OnyxUnstableKey v-for="key in keys" :key="key" :name="key" os="macOS" />
       </div>
     </section>
 
     <section>
       <OnyxHeadline is="h2">Windows</OnyxHeadline>
       <div class="container__keys">
-        <OnyxUnstableKey v-for="key in keys" :key="key" :key-name="key" os="windows" />
+        <OnyxUnstableKey v-for="key in keys" :key="key" :name="key" os="windows" />
       </div>
     </section>
 
     <section>
       <OnyxHeadline is="h2">Generic</OnyxHeadline>
       <div class="container__keys">
-        <OnyxUnstableKey v-for="key in keys" :key="key" :key-name="key" os="generic" />
+        <OnyxUnstableKey v-for="key in keys" :key="key" :name="key" os="generic" />
       </div>
     </section>
   </div>
