@@ -1,6 +1,7 @@
-import type { MatrixScreenshotTestOptions } from "@sit-onyx/playwright-utils";
-import { expect, test } from "../../playwright/a11y.js";
+import { createEmitSpy, expectEmit } from "@sit-onyx/playwright-utils";
+import { test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
+import { OPERATING_SYSTEMS } from "../../types/index.js";
 import OnyxKey from "./OnyxKey.vue";
 import {
   ALPHABETIC_KEYS,
@@ -14,158 +15,113 @@ import {
   SYMBOL_KEYS,
 } from "./types.js";
 
-const screenshotOptions = {
-  rows: ["default", "pressed"] as const,
-} satisfies Partial<MatrixScreenshotTestOptions>;
-
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
-    ...screenshotOptions,
-    name: "Key (misc keys)",
-    columns: MISC_KEYS,
+    name: "Key",
+    columns: ["default"],
+    rows: ["default", "highlighted", "skeleton"],
     component: (column, row) => (
-      <OnyxKey name={column} highlighted={row === "pressed"} style={{ margin: "0.25rem" }} />
+      <OnyxKey name="A" highlighted={row === "highlighted"} skeleton={row === "skeleton"} />
     ),
-  });
-
-  executeMatrixScreenshotTest({
-    ...screenshotOptions,
-    name: "Key (media keys)",
-    columns: MEDIA_KEYS,
-    component: (column, row) => (
-      <OnyxKey name={column} highlighted={row === "pressed"} style={{ margin: "0.25rem" }} />
-    ),
-  });
-
-  executeMatrixScreenshotTest({
-    ...screenshotOptions,
-    name: "Key (numpad keys)",
-    columns: NUMPAD_KEYS,
-    component: (column, row) => (
-      <OnyxKey name={column} highlighted={row === "pressed"} style={{ margin: "0.25rem" }} />
-    ),
-  });
-
-  executeMatrixScreenshotTest({
-    ...screenshotOptions,
-    name: "Key (symbol keys)",
-    columns: SYMBOL_KEYS,
-    component: (column, row) => (
-      <OnyxKey name={column} highlighted={row === "pressed"} style={{ margin: "0.25rem" }} />
-    ),
-  });
-
-  executeMatrixScreenshotTest({
-    ...screenshotOptions,
-    name: "Key (numeric keys)",
-    columns: NUMERIC_KEYS,
-    component: (column, row) => (
-      <OnyxKey name={column} highlighted={row === "pressed"} style={{ margin: "0.25rem" }} />
-    ),
-  });
-
-  executeMatrixScreenshotTest({
-    ...screenshotOptions,
-    name: "Key (functional keys)",
-    columns: FUNCTION_KEYS,
-    component: (column, row) => (
-      <OnyxKey name={column} highlighted={row === "pressed"} style={{ margin: "0.25rem" }} />
-    ),
-  });
-
-  executeMatrixScreenshotTest({
-    ...screenshotOptions,
-    name: "Key (modifier keys)",
-    columns: MODIFIER_KEYS,
-    component: (column, row) => (
-      <OnyxKey name={column} highlighted={row === "pressed"} style={{ margin: "0.25rem" }} />
-    ),
-  });
-
-  executeMatrixScreenshotTest({
-    ...screenshotOptions,
-    name: "Key (navigation keys)",
-    columns: NAVIGATION_KEYS,
-    component: (column, row) => (
-      <OnyxKey name={column} highlighted={row === "pressed"} style={{ margin: "0.25rem" }} />
-    ),
-  });
-
-  executeMatrixScreenshotTest({
-    ...screenshotOptions,
-    name: "Key (alphabetic keys)",
-    columns: ALPHABETIC_KEYS,
-    component: (column, row) => (
-      <OnyxKey name={column} highlighted={row === "pressed"} style={{ margin: "0.25rem" }} />
-    ),
-  });
-
-  executeMatrixScreenshotTest({
-    ...screenshotOptions,
-    name: "Key (skeleton)",
-    rows: ["skeleton"] as const,
-    columns: ["skeleton"] as const,
-    component: () => <OnyxKey name="Enter" skeleton style={{ margin: "0.25rem" }} />,
   });
 });
 
-test.describe("Interaction tests", () => {
-  test("should show OS-specific symbols for keys", async ({ mount }) => {
-    // ARRANGE - macOS
-    const macComponent = await mount(<OnyxKey name="Meta" os="macOS" />);
-
-    // ASSERT - Should show command symbol
-    await expect(macComponent).toContainText("⌘");
-
-    // ARRANGE - Windows
-    const winComponent = await mount(<OnyxKey name="Meta" os="windows" />);
-
-    // ASSERT - Should show Windows symbol
-    await expect(winComponent).toContainText("⊞");
+test.describe("Screenshot tests (alphabetic)", () => {
+  executeMatrixScreenshotTest({
+    name: "Key (alphabetic)",
+    columns: OPERATING_SYSTEMS,
+    rows: ALPHABETIC_KEYS,
+    component: (column, row) => <OnyxKey name={row} os={column} />,
   });
+});
 
-  test("should emit pressMatch event when the matching key is pressed", async ({ mount, page }) => {
-    // ARRANGE
-    let isPressMatchEmitted = false;
-    await mount(OnyxKey, {
-      props: {
-        name: "Enter",
-      },
-      on: {
-        pressMatch: () => {
-          isPressMatchEmitted = true;
-        },
-      },
-    });
-
-    // ACT
-    await page.keyboard.press("Enter");
-
-    // ASSERT
-    expect(isPressMatchEmitted).toBeTruthy();
+test.describe("Screenshot tests (numeric)", () => {
+  executeMatrixScreenshotTest({
+    name: "Key (numeric)",
+    columns: OPERATING_SYSTEMS,
+    rows: NUMERIC_KEYS,
+    component: (column, row) => <OnyxKey name={row} os={column} />,
   });
+});
 
-  test("should not emit pressMatch event when a different key is pressed", async ({
-    mount,
-    page,
-  }) => {
-    // ARRANGE
-    let isPressMatchEmitted = false;
-    await mount(OnyxKey, {
-      props: {
-        name: "Enter",
-      },
-      on: {
-        pressMatch: () => {
-          isPressMatchEmitted = true;
-        },
-      },
-    });
-
-    // ACT
-    await page.keyboard.press("Escape");
-
-    // ASSERT
-    expect(isPressMatchEmitted).toBeFalsy();
+test.describe("Screenshot tests (modifier)", () => {
+  executeMatrixScreenshotTest({
+    name: "Key (modifier)",
+    columns: OPERATING_SYSTEMS,
+    rows: MODIFIER_KEYS,
+    component: (column, row) => <OnyxKey name={row} os={column} />,
   });
+});
+
+test.describe("Screenshot tests (navigation)", () => {
+  executeMatrixScreenshotTest({
+    name: "Key (navigation)",
+    columns: OPERATING_SYSTEMS,
+    rows: NAVIGATION_KEYS,
+    component: (column, row) => <OnyxKey name={row} os={column} />,
+  });
+});
+
+test.describe("Screenshot tests (functional)", () => {
+  executeMatrixScreenshotTest({
+    name: "Key (functional)",
+    columns: OPERATING_SYSTEMS,
+    rows: FUNCTION_KEYS,
+    component: (column, row) => <OnyxKey name={row} os={column} />,
+  });
+});
+
+test.describe("Screenshot tests (misc)", () => {
+  executeMatrixScreenshotTest({
+    name: "Key (misc)",
+    columns: OPERATING_SYSTEMS,
+    rows: MISC_KEYS,
+    component: (column, row) => <OnyxKey name={row} os={column} />,
+  });
+});
+
+test.describe("Screenshot tests (media)", () => {
+  executeMatrixScreenshotTest({
+    name: "Key (media)",
+    columns: OPERATING_SYSTEMS,
+    rows: MEDIA_KEYS,
+    component: (column, row) => <OnyxKey name={row} os={column} />,
+  });
+});
+
+test.describe("Screenshot tests (numpad)", () => {
+  executeMatrixScreenshotTest({
+    name: "Key (numpad)",
+    columns: OPERATING_SYSTEMS,
+    rows: NUMPAD_KEYS,
+    component: (column, row) => <OnyxKey name={row} os={column} />,
+  });
+});
+
+test.describe("Screenshot tests (symbol)", () => {
+  executeMatrixScreenshotTest({
+    name: "Key (symbol)",
+    columns: OPERATING_SYSTEMS,
+    rows: SYMBOL_KEYS,
+    component: (column, row) => <OnyxKey name={row} os={column} />,
+  });
+});
+
+// eslint-disable-next-line playwright/expect-expect -- assertion done by "expectEmit"
+test("should emit event when the matching key is pressed", async ({ mount, page }) => {
+  // ARRANGE
+  const onPressed = createEmitSpy<typeof OnyxKey, "onPressed">();
+  await mount(<OnyxKey name="Enter" onPressed={onPressed} />);
+
+  // ACT
+  await page.keyboard.press("A");
+
+  // ASSERT
+  expectEmit(onPressed, 0);
+
+  // ACT
+  await page.keyboard.press("Enter");
+
+  // ASSERT
+  expectEmit(onPressed, 1, []);
 });

@@ -21,7 +21,6 @@ import {
   GENERIC_KEY_SYMBOLS,
   MAC_KEY_SYMBOLS,
   WINDOWS_KEY_SYMBOLS,
-  type KeyboardKey,
   type OnyxKeyProps,
 } from "./types.js";
 
@@ -33,9 +32,9 @@ const props = withDefaults(defineProps<OnyxKeyProps>(), {
 
 const emit = defineEmits<{
   /**
-   * Emitted when the pressed key and props key match.
+   * Emitted when the given key was pressed.
    */
-  pressMatch: [key: KeyboardKey, event: KeyboardEvent];
+  pressed: [];
 }>();
 
 const skeleton = useSkeletonContext(props);
@@ -70,17 +69,15 @@ const isHighlighted = computed(() => {
 const handleKeydown = (event: KeyboardEvent) => {
   const pressedKey = keyboardEventToKeyboardKey(event);
   isPressed.value = pressedKey === props.name;
-  if (isPressed.value) emit("pressMatch", pressedKey, event);
+  if (isPressed.value) emit("pressed");
 };
 
 const handleKeyup = () => {
   isPressed.value = false;
 };
 
-const disableKeyListeners = computed(() => props.highlighted !== "auto");
-
-useGlobalEventListener({ type: "keydown", listener: handleKeydown, disabled: disableKeyListeners });
-useGlobalEventListener({ type: "keyup", listener: handleKeyup, disabled: disableKeyListeners });
+useGlobalEventListener({ type: "keydown", listener: handleKeydown });
+useGlobalEventListener({ type: "keyup", listener: handleKeyup });
 
 defineExpose({
   /**
