@@ -429,17 +429,16 @@ export type OnyxKeyProps = {
    */
   os?: OperatingSystem | "auto";
   /**
+   * Whether the key is currently (visually) highlighted.
+   * When set to "auto", it is automatically highlighted when pressed.
+   *
    * Key highlight state (for visual effect)
    *
    * @default false
    */
-  highlighted?: boolean;
+  highlighted?: boolean | "auto";
   /**
    * Whether to show a skeleton key.
    */
   skeleton?: SkeletonInjected;
-  /**
-   * Whether to highlight the key when it is pressed.
-   */
-  highlightWhenPressed?: boolean;
 };

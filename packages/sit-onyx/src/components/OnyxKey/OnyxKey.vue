@@ -8,7 +8,7 @@ export default {};
 
 <script setup lang="ts">
 import { useGlobalEventListener } from "@sit-onyx/headless";
-import { computed, onBeforeMount, onBeforeUnmount, ref } from "vue";
+import { computed, onBeforeMount, ref } from "vue";
 import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
@@ -29,7 +29,6 @@ const props = withDefaults(defineProps<OnyxKeyProps>(), {
   os: "auto",
   highlighted: false,
   skeleton: SKELETON_INJECTED_SYMBOL,
-  highlightWhenPressed: false,
 });
 
 const emit = defineEmits<{
@@ -40,7 +39,6 @@ const emit = defineEmits<{
 }>();
 
 const skeleton = useSkeletonContext(props);
-const isPressed = ref(false);
 
 const detectedOs = ref<OperatingSystem>("generic");
 onBeforeMount(() => {
@@ -56,61 +54,33 @@ const actualOS = computed<OperatingSystem>(() => {
   return props.os == "auto" ? detectedOs.value : props.os;
 });
 
-const isHighlighted = computed<boolean>(
-  () => props.highlighted || (props.highlightWhenPressed && isPressed.value),
-);
-
 const visualLabel = computed<string>(() => {
-  const os = actualOS.value;
-  const key = props.keyName;
-  const fallback = GENERIC_KEY_SYMBOLS[key] ?? String(props.keyName);
-
-  if (os === "macOS") {
-    return MAC_KEY_SYMBOLS[key] ?? fallback;
-  }
-
-  if (os === "windows") {
-    return WINDOWS_KEY_SYMBOLS[key] ?? fallback;
-  }
-
+  const fallback = GENERIC_KEY_SYMBOLS[props.keyName] ?? props.keyName;
+  if (actualOS.value === "macOS") return MAC_KEY_SYMBOLS[props.keyName] ?? fallback;
+  if (actualOS.value === "windows") return WINDOWS_KEY_SYMBOLS[props.keyName] ?? fallback;
   return fallback;
+});
+
+const isPressed = ref(false);
+
+const isHighlighted = computed(() => {
+  return props.highlighted === "auto" ? isPressed.value : props.highlighted;
 });
 
 const handleKeydown = (event: KeyboardEvent) => {
   const pressedKey = keyboardEventToKeyboardKey(event);
-  if (pressedKey === props.keyName) {
-    emit("pressMatch", pressedKey, event);
-    isPressed.value = true;
-  }
+  isPressed.value = pressedKey === props.keyName;
+  if (isPressed.value) emit("pressMatch", pressedKey, event);
 };
 
-const resetPressedState = () => {
+const handleKeyup = () => {
   isPressed.value = false;
 };
 
-const handleKeyup = (event: KeyboardEvent) => {
-  const keyboardKey = keyboardEventToKeyboardKey(event);
+const disableKeyListeners = computed(() => props.highlighted !== "auto");
 
-  if (
-    keyboardKey === props.keyName ||
-    (keyboardKey === "Meta" && (detectedOs.value === "macOS" || detectedOs.value === "generic"))
-  ) {
-    resetPressedState();
-  }
-};
-
-useGlobalEventListener({ type: "keydown", listener: handleKeydown });
-useGlobalEventListener({ type: "keyup", listener: handleKeyup });
-
-onBeforeMount(() => {
-  window.addEventListener("blur", resetPressedState);
-  window.addEventListener("focus", resetPressedState);
-});
-
-onBeforeUnmount(() => {
-  window.removeEventListener("blur", resetPressedState);
-  window.removeEventListener("focus", resetPressedState);
-});
+useGlobalEventListener({ type: "keydown", listener: handleKeydown, disabled: disableKeyListeners });
+useGlobalEventListener({ type: "keyup", listener: handleKeyup, disabled: disableKeyListeners });
 
 defineExpose({
   /**
@@ -142,12 +112,7 @@ defineExpose({
 .onyx-key-skeleton,
 .onyx-key {
   @include layers.component() {
-    --onyx-key-background: var(--onyx-color-base-background-tinted);
-    --onyx-key-border-color: var(--onyx-color-base-neutral-300);
     --onyx-key-border-radius: var(--onyx-radius-sm);
-    --onyx-key-color: var(--onyx-color-text-icons-neutral-medium);
-    --onyx-key-background-highlighted: var(--onyx-color-base-neutral-200);
-    --onyx-key-border-color-highlighted: var(--onyx-color-base-neutral-400);
     --onyx-key-size: 1.5rem;
   }
 }
@@ -157,23 +122,19 @@ defineExpose({
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    box-sizing: border-box;
-    padding: 0 0.5em;
 
     height: var(--onyx-key-size);
     min-width: var(--onyx-key-size);
+    padding-inline: var(--onyx-density-2xs);
 
-    font-size: 0.9em;
-    line-height: 1;
-
-    background-color: var(--onyx-key-background);
-    border: 1px solid var(--onyx-key-border-color);
+    background-color: var(--onyx-color-base-background-tinted);
+    border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
     border-radius: var(--onyx-key-border-radius);
-    color: var(--onyx-key-color);
+    color: var(--onyx-color-text-icons-neutral-medium);
 
     &--highlighted {
-      background-color: var(--onyx-key-background-highlighted);
-      border-color: var(--onyx-key-border-color-highlighted);
+      background-color: var(--onyx-color-base-neutral-200);
+      border-color: var(--onyx-color-base-neutral-400);
     }
   }
 }
