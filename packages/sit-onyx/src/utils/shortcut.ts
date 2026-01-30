@@ -75,65 +75,46 @@ export const isMediaKey = (key: string): key is MediaKey => MEDIA_KEYS.includes(
 
 export const isMiscKey = (key: string): key is MiscKey => MISC_KEYS.includes(key as MiscKey);
 
-export const isKeyboardKey = (key: string): key is KeyboardKey =>
-  isAlphabeticKey(key) ||
-  isSymbolKey(key) ||
-  isNavigationKey(key) ||
-  isEditingKey(key) ||
-  isModifierKey(key) ||
-  isFunctionalKey(key) ||
-  isNumpadKey(key) ||
-  isNumericKey(key) ||
-  isMediaKey(key) ||
-  isMiscKey(key);
-
-export const keyboardEventToKeyboardKey = (event: KeyboardEvent): KeyboardKey => {
+/**
+ * Gets and maps the normalized keyboard key from a KeyboardEvent (e.g. emitted by a keyup or keydown event).
+ */
+export const keyboardEventToKey = (event: KeyboardEvent): KeyboardKey => {
   const { key, code } = event;
-
   if (!key) return "unknown";
-
-  // Special case: space
   if (key === " ") return "Space";
 
   // Priority 1: DIGIT KEYS (DigitX) - override symbols like ! @ #
   // e.g. "Digit0", "Digit1", ..., "Digit9"
-  if (code && code.startsWith("Digit")) {
+  if (code.startsWith("Digit")) {
     const digit = code.slice(5); // may be "0", "1", or garbage e.g. "A", "99"
-    if (digit.length === 1 && isNumericKey(digit)) return digit;
-    // Invalid code like "DigitA" or "Digit99" - return unknown regardless of key
-    return "unknown";
+    return isNumericKey(digit) ? digit : "unknown";
   }
 
   // Priority 2: NUMPAD KEYS (ALWAYS override symbols)
   // e.g. "Numpad0", "Numpad1", ..., "NumpadAdd", etc.
-  if (code && code.startsWith("Numpad")) {
-    if (isNumpadKey(code)) return code;
-    // Invalid code like "Numpad99" or "NumpadInvalid" - return unknown
-    return "unknown";
+  if (code.startsWith("Numpad")) {
+    return isNumpadKey(code) ? code : "unknown";
   }
 
   // Priority 3: FUNCTION KEYS (F1–F12), case-insensitive
   // e.g. "F1", "F2", ..., "F12"
   if (/^F[1-9][0-9]?$/i.test(key)) {
     const fKey = key.toUpperCase();
-    if (isFunctionalKey(fKey)) return fKey;
-    return "unknown";
+    return isFunctionalKey(fKey) ? fKey : "unknown";
   }
 
   // Priority 4: NUMERIC KEYS (0-9) without code
   // e.g. "0", "1", ..., "9"
-  if (key.length === 1 && isNumericKey(key)) return key;
+  if (isNumericKey(key)) return key;
 
   // Priority 5: A–Z letters
   // e.g. "A", "B", ..., "Z" (case-insensitive)
-  if (key.length === 1) {
-    const upper = key.toUpperCase();
-    if (isAlphabeticKey(upper)) return upper;
-  }
+  const upperCaseKey = key.toUpperCase();
+  if (isAlphabeticKey(upperCaseKey)) return upperCaseKey;
 
   // Priority 6: symbol keys
   // e.g. "!", "@", "#", etc.
-  if (key.length === 1 && isSymbolKey(key)) return key;
+  if (isSymbolKey(key)) return key;
 
   // Priority 7: multi-character special keys
   // e.g. "ArrowUp", "Backspace", "Shift", "VolumeUp", "F1", etc.
@@ -152,15 +133,12 @@ export const keyboardEventToKeyboardKey = (event: KeyboardEvent): KeyboardKey =>
   }
 
   // Try finding the correct casing by checking all keys in each category
-  const lower = key.toLowerCase();
+  const lowerCaseKey = key.toLowerCase();
 
   for (const { keys } of categoryLookups) {
     // Find case-insensitive match
-    for (const validKey of keys) {
-      if (validKey.toLowerCase() === lower) {
-        return validKey;
-      }
-    }
+    const keyMatch = keys.find((key) => key.toLowerCase() === lowerCaseKey);
+    if (keyMatch) return keyMatch;
   }
 
   // Priority 8: fallback

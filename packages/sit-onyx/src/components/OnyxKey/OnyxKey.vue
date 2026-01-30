@@ -15,7 +15,7 @@ import {
 } from "../../composables/useSkeletonState.js";
 import type { OperatingSystem } from "../../types/index.js";
 import { detectOperatingSystem } from "../../utils/dom.js";
-import { keyboardEventToKeyboardKey } from "../../utils/shortcut.js";
+import { keyboardEventToKey } from "../../utils/shortcut.js";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import {
   GENERIC_KEY_SYMBOLS,
@@ -67,7 +67,7 @@ const isHighlighted = computed(() => {
 });
 
 const handleKeydown = (event: KeyboardEvent) => {
-  const pressedKey = keyboardEventToKeyboardKey(event);
+  const pressedKey = keyboardEventToKey(event);
   isPressed.value = pressedKey === props.name;
   if (isPressed.value) emit("pressed");
 };

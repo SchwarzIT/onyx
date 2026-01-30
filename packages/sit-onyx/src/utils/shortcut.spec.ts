@@ -1,15 +1,12 @@
 import { describe, expect, test } from "vitest";
 import type { KeyboardKey } from "../components/OnyxKey/types.js";
-import { keyboardEventToKeyboardKey } from "./shortcut.js";
+import { keyboardEventToKey } from "./shortcut.js";
 
-const createKeyboardEvent = (key: string, code?: string): KeyboardEvent => {
-  return new KeyboardEvent("keydown", {
-    key,
-    code: code ?? "",
-  });
+const createKeyboardEvent = (key: string, code?: string) => {
+  return new KeyboardEvent("keydown", { key, code });
 };
 
-describe("keyboardEventToKeyboardKey", () => {
+describe("keyboardEventToKey", () => {
   describe("Numeric keys (0-9)", () => {
     test.each([
       // Direct key property
@@ -25,7 +22,7 @@ describe("keyboardEventToKeyboardKey", () => {
       "should return $expected for key '$key' with code '$code'",
       ({ key, code, expected }) => {
         // ACT
-        const result = keyboardEventToKeyboardKey(createKeyboardEvent(key, code));
+        const result = keyboardEventToKey(createKeyboardEvent(key, code));
 
         // ASSERT
         expect(result).toBe(expected);
@@ -45,7 +42,7 @@ describe("keyboardEventToKeyboardKey", () => {
       { key: "z", expected: "Z" },
     ] as const)("should return $expected for key '$key'", ({ key, expected }) => {
       // ACT
-      const result = keyboardEventToKeyboardKey(createKeyboardEvent(key));
+      const result = keyboardEventToKey(createKeyboardEvent(key));
 
       // ASSERT
       expect(result).toBe(expected);
@@ -89,7 +86,7 @@ describe("keyboardEventToKeyboardKey", () => {
       { key: "\\", expected: "\\" },
     ] as const)("should return $expected for key '$key'", ({ key, expected }) => {
       // ACT
-      const result = keyboardEventToKeyboardKey(createKeyboardEvent(key));
+      const result = keyboardEventToKey(createKeyboardEvent(key));
 
       // ASSERT
       expect(result).toBe(expected);
@@ -114,7 +111,7 @@ describe("keyboardEventToKeyboardKey", () => {
       { key: "PAGEDOWN", expected: "PageDown" },
     ] as const)("should return $expected for key '$key'", ({ key, expected }) => {
       // ACT
-      const result = keyboardEventToKeyboardKey(createKeyboardEvent(key));
+      const result = keyboardEventToKey(createKeyboardEvent(key));
 
       // ASSERT
       expect(result).toBe(expected);
@@ -136,7 +133,7 @@ describe("keyboardEventToKeyboardKey", () => {
       { key: "escape", expected: "Escape" },
     ] as const)("should return $expected for key '$key'", ({ key, expected }) => {
       // ACT
-      const result = keyboardEventToKeyboardKey(createKeyboardEvent(key));
+      const result = keyboardEventToKey(createKeyboardEvent(key));
 
       // ASSERT
       expect(result).toBe(expected);
@@ -160,7 +157,7 @@ describe("keyboardEventToKeyboardKey", () => {
       { key: "alt", expected: "Alt" },
     ] as const)("should return $expected for key '$key'", ({ key, expected }) => {
       // ACT
-      const result = keyboardEventToKeyboardKey(createKeyboardEvent(key));
+      const result = keyboardEventToKey(createKeyboardEvent(key));
 
       // ASSERT
       expect(result).toBe(expected);
@@ -183,7 +180,7 @@ describe("keyboardEventToKeyboardKey", () => {
       { key: "F99", expected: "unknown" },
     ] as const)("should return $expected for key '$key'", ({ key, expected }) => {
       // ACT
-      const result = keyboardEventToKeyboardKey(createKeyboardEvent(key));
+      const result = keyboardEventToKey(createKeyboardEvent(key));
 
       // ASSERT
       expect(result).toBe(expected);
@@ -211,7 +208,7 @@ describe("keyboardEventToKeyboardKey", () => {
       "should return $expected for key '$key' with code '$code'",
       ({ key, code, expected }) => {
         // ACT
-        const result = keyboardEventToKeyboardKey(createKeyboardEvent(key, code));
+        const result = keyboardEventToKey(createKeyboardEvent(key, code));
 
         // ASSERT
         expect(result).toBe(expected);
@@ -234,7 +231,7 @@ describe("keyboardEventToKeyboardKey", () => {
       { key: "MEDIATRACKNEXT", expected: "MediaTrackNext" },
     ] as const)("should return $expected for key '$key'", ({ key, expected }) => {
       // ACT
-      const result = keyboardEventToKeyboardKey(createKeyboardEvent(key));
+      const result = keyboardEventToKey(createKeyboardEvent(key));
 
       // ASSERT
       expect(result).toBe(expected);
@@ -257,7 +254,7 @@ describe("keyboardEventToKeyboardKey", () => {
       { key: "CONTEXTMENU", expected: "ContextMenu" },
     ] as const)("should return $expected for key '$key'", ({ key, expected }) => {
       // ACT
-      const result = keyboardEventToKeyboardKey(createKeyboardEvent(key));
+      const result = keyboardEventToKey(createKeyboardEvent(key));
 
       // ASSERT
       expect(result).toBe(expected);
@@ -308,7 +305,7 @@ describe("keyboardEventToKeyboardKey", () => {
       { key: "é", code: "KeyE", expected: "unknown", description: "French accent" },
     ] as const)("should return $expected for $description", ({ key, code, expected }) => {
       // ACT
-      const result = keyboardEventToKeyboardKey(createKeyboardEvent(key, code));
+      const result = keyboardEventToKey(createKeyboardEvent(key, code));
 
       // ASSERT
       expect(result).toBe(expected);
@@ -319,7 +316,7 @@ describe("keyboardEventToKeyboardKey", () => {
       const event = new KeyboardEvent("keydown", { code: "KeyA" });
 
       // ACT
-      const result = keyboardEventToKeyboardKey(event);
+      const result = keyboardEventToKey(event);
 
       // ASSERT
       expect(result).toBe("unknown" as KeyboardKey);
@@ -338,7 +335,7 @@ describe("keyboardEventToKeyboardKey", () => {
       { key: "!", expected: "!", description: "symbol unchanged" },
     ] as const)("should return $expected for $description", ({ key, expected }) => {
       // ACT
-      const result = keyboardEventToKeyboardKey(createKeyboardEvent(key));
+      const result = keyboardEventToKey(createKeyboardEvent(key));
 
       // ASSERT
       expect(result).toBe(expected);
@@ -355,7 +352,7 @@ describe("keyboardEventToKeyboardKey", () => {
       { key: "@", code: "Digit2", expected: "2", description: "symbol @ with Digit2 code" },
     ] as const)("should return $expected for $description", ({ key, code, expected }) => {
       // ACT
-      const result = keyboardEventToKeyboardKey(createKeyboardEvent(key, code));
+      const result = keyboardEventToKey(createKeyboardEvent(key, code));
 
       // ASSERT
       expect(result).toBe(expected);

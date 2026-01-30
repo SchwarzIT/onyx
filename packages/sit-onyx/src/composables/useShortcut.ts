@@ -11,12 +11,7 @@ import {
 import type { KeyboardKey } from "../components/OnyxKey/types.js";
 import type { OperatingSystem } from "../types/index.js";
 import { detectOperatingSystem, isTypeableElement } from "../utils/dom.js";
-import {
-  isAllStep,
-  isAnyStep,
-  keyboardEventToKeyboardKey,
-  type ShortcutStep,
-} from "../utils/shortcut.js";
+import { isAllStep, isAnyStep, keyboardEventToKey, type ShortcutStep } from "../utils/shortcut.js";
 
 /**
  * Check whether the current pressed keys satisfy a step.
@@ -191,7 +186,7 @@ export const _unstableUseShortcut = (options: UseShortcutOptions) => {
       return;
     }
 
-    const keyboardKey = keyboardEventToKeyboardKey(event);
+    const keyboardKey = keyboardEventToKey(event);
 
     if (keyboardKey === "unknown") {
       return;
@@ -249,7 +244,7 @@ export const _unstableUseShortcut = (options: UseShortcutOptions) => {
       return;
     }
 
-    const keyboardKey = keyboardEventToKeyboardKey(event);
+    const keyboardKey = keyboardEventToKey(event);
 
     if (shouldAssignHighlightOnKeyup.value) {
       highlightedStepIndex.value = currentStepIndex.value;
