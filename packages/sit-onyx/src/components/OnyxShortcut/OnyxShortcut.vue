@@ -26,7 +26,7 @@ const SEPARATORS = {
 } as const;
 
 const props = withDefaults(defineProps<OnyxShortcutProps>(), {
-  variant: "auto",
+  os: "auto",
   skeleton: SKELETON_INJECTED_SYMBOL,
   preventDefaultOn: "stepComplete",
   stopPropagationOn: "stepComplete",
@@ -84,7 +84,7 @@ const { isKeyHighlighted } = _unstableUseShortcut({
         <template v-for="(key, keyIndex) in step.all" :key="keyIndex">
           <OnyxKey
             :key-name="key"
-            :variant="props.variant"
+            :os="props.os"
             :highlighted="props.highlightWhenPressed && isKeyHighlighted(key, stepIndex)"
           />
           <span
@@ -100,7 +100,7 @@ const { isKeyHighlighted } = _unstableUseShortcut({
         <template v-for="(key, keyIndex) in step.any" :key="keyIndex">
           <OnyxKey
             :key-name="key"
-            :variant="props.variant"
+            :os="props.os"
             :highlighted="props.highlightWhenPressed && isKeyHighlighted(key, stepIndex)"
           />
           <span

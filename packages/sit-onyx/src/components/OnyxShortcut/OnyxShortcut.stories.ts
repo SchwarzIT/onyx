@@ -3,7 +3,7 @@ import OnyxShortcut from "./OnyxShortcut.vue";
 
 /**
  * The Shortcut component displays keyboard shortcut sequences with visual key representations.
- * It supports multi-step sequences, OS-specific key variants, and interactive highlighting of pressed keys.
+ * It supports multi-step sequences, OS-specific keys, and interactive highlighting of pressed keys.
  */
 const meta: Meta<typeof OnyxShortcut> = {
   title: "Basic/Shortcut",
@@ -50,7 +50,7 @@ export const MultiStep = {
  */
 export const MacOS = {
   args: {
-    variant: "macOS",
+    os: "macOS",
     highlightWhenPressed: true,
     sequence: [{ all: ["Meta", "Shift", "K"] }],
   },

@@ -111,14 +111,14 @@ test.describe("Screenshot tests", () => {
 
 test.describe("Interaction tests", () => {
   test("should show OS-specific symbols for keys", async ({ mount }) => {
-    // ARRANGE - macOS variant
-    const macComponent = await mount(<OnyxKey keyName="Meta" variant="macOS" />);
+    // ARRANGE - macOS
+    const macComponent = await mount(<OnyxKey keyName="Meta" os="macOS" />);
 
     // ASSERT - Should show command symbol
     await expect(macComponent).toContainText("⌘");
 
-    // ARRANGE - Windows variant
-    const winComponent = await mount(<OnyxKey keyName="Meta" variant="windows" />);
+    // ARRANGE - Windows
+    const winComponent = await mount(<OnyxKey keyName="Meta" os="windows" />);
 
     // ASSERT - Should show Windows symbol
     await expect(winComponent).toContainText("⊞");

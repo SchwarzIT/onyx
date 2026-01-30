@@ -80,7 +80,7 @@ test.describe("Screenshot tests", () => {
             ? [{ all: ["Meta", "Shift", "C"] }]
             : [{ all: ["Control", "F"] }, { any: ["1", "2", "3"] }]
         }
-        variant={column}
+        os={column}
         style={{ margin: "0.5rem" }}
       />
     ),
@@ -140,10 +140,10 @@ test.describe("Interaction tests", () => {
     await expect(component.locator("text=→")).toHaveCount(1); // SEQUENCE separator between steps
   });
 
-  test("should display OS-specific variant symbols", async ({ mount }) => {
+  test("should display OS-specific symbols", async ({ mount }) => {
     // ARRANGE
     const macComponent = await mount(
-      <OnyxShortcut sequence={[{ all: ["Meta", "Shift", "C"] }]} variant="macOS" />,
+      <OnyxShortcut sequence={[{ all: ["Meta", "Shift", "C"] }]} os="macOS" />,
     );
 
     // ASSERT
@@ -152,7 +152,7 @@ test.describe("Interaction tests", () => {
 
     // ARRANGE
     const winComponent = await mount(
-      <OnyxShortcut sequence={[{ all: ["Meta", "Shift", "C"] }]} variant="windows" />,
+      <OnyxShortcut sequence={[{ all: ["Meta", "Shift", "C"] }]} os="windows" />,
     );
 
     // ASSERT

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import OnyxKey from "../OnyxKey.vue";
+import { computed, ref, type ComponentInstance } from "vue";
 import {
   ALPHABETIC_KEYS,
   EDITING_KEYS,
@@ -10,8 +10,10 @@ import {
   NAVIGATION_KEYS,
   NUMERIC_KEYS,
   NUMPAD_KEYS,
+  OnyxHeadline,
+  OnyxUnstableKey,
   SYMBOL_KEYS,
-} from "../types.js";
+} from "../../../index.js";
 
 const keys = [
   MISC_KEYS,
@@ -25,29 +27,45 @@ const keys = [
   ALPHABETIC_KEYS,
   NAVIGATION_KEYS,
 ].flat();
+
+const detectedKey = ref<ComponentInstance<typeof OnyxUnstableKey>>();
+const detectedOS = computed(() => detectedKey.value?.actualOS);
 </script>
 
 <template>
   <div class="container">
-    <h2 class="title onyx-text onyx-text--large">Auto variant</h2>
-    <div class="raw">
-      <OnyxKey v-for="key in keys" :key="key" :key-name="key" />
-    </div>
+    <section>
+      <OnyxHeadline is="h2">Auto detected OS ({{ detectedOS }})</OnyxHeadline>
+      <div class="container__keys">
+        <OnyxUnstableKey
+          v-for="key in keys"
+          :key="key"
+          :ref="(el) => (detectedKey = el as typeof detectedKey)"
+          :key-name="key"
+        />
+      </div>
+    </section>
 
-    <h2 class="title onyx-text onyx-text--large">macOS variant</h2>
-    <div class="raw">
-      <OnyxKey v-for="key in keys" :key="key" :key-name="key" variant="macOS" />
-    </div>
+    <section>
+      <OnyxHeadline is="h2">macOS</OnyxHeadline>
+      <div class="container__keys">
+        <OnyxUnstableKey v-for="key in keys" :key="key" :key-name="key" os="macOS" />
+      </div>
+    </section>
 
-    <h2 class="title onyx-text onyx-text--large">Windows variant</h2>
-    <div class="raw">
-      <OnyxKey v-for="key in keys" :key="key" :key-name="key" variant="windows" />
-    </div>
+    <section>
+      <OnyxHeadline is="h2">Windows</OnyxHeadline>
+      <div class="container__keys">
+        <OnyxUnstableKey v-for="key in keys" :key="key" :key-name="key" os="windows" />
+      </div>
+    </section>
 
-    <h2 class="title onyx-text onyx-text--large">Generic variant</h2>
-    <div class="raw">
-      <OnyxKey v-for="key in keys" :key="key" :key-name="key" variant="generic" />
-    </div>
+    <section>
+      <OnyxHeadline is="h2">Generic</OnyxHeadline>
+      <div class="container__keys">
+        <OnyxUnstableKey v-for="key in keys" :key="key" :key-name="key" os="generic" />
+      </div>
+    </section>
   </div>
 </template>
 
@@ -55,16 +73,13 @@ const keys = [
 .container {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-}
+  gap: var(--onyx-grid-gutter);
 
-.raw {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.title {
-  color: var(--onyx-color-text-icons-neutral-medium);
+  &__keys {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--onyx-density-xs);
+    margin-top: var(--onyx-density-xs);
+  }
 }
 </style>

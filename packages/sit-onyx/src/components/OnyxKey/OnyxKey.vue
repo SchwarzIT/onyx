@@ -26,7 +26,7 @@ import {
 } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxKeyProps>(), {
-  variant: "auto",
+  os: "auto",
   highlighted: false,
   skeleton: SKELETON_INJECTED_SYMBOL,
   highlightWhenPressed: false,
@@ -40,33 +40,28 @@ const emit = defineEmits<{
 }>();
 
 const skeleton = useSkeletonContext(props);
-
-const detectedOs = ref<OperatingSystem>("generic");
-
 const isPressed = ref(false);
 
-/**
- * Effective OS based on variant / auto-detect
- */
-const effectiveOs = computed<OperatingSystem>(() => {
-  if (props.variant !== "auto") {
-    return props.variant;
+const detectedOs = ref<OperatingSystem>("generic");
+onBeforeMount(() => {
+  if (props.os === "auto") {
+    detectedOs.value = detectOperatingSystem();
   }
-  return detectedOs.value;
+});
+
+/**
+ * Actually used operating system (considers auto detection).
+ */
+const actualOS = computed<OperatingSystem>(() => {
+  return props.os == "auto" ? detectedOs.value : props.os;
 });
 
 const isHighlighted = computed<boolean>(
   () => props.highlighted || (props.highlightWhenPressed && isPressed.value),
 );
 
-onBeforeMount(() => {
-  if (props.variant === "auto") {
-    detectedOs.value = detectOperatingSystem();
-  }
-});
-
 const visualLabel = computed<string>(() => {
-  const os = effectiveOs.value;
+  const os = actualOS.value;
   const key = props.keyName;
   const fallback = GENERIC_KEY_SYMBOLS[key] ?? String(props.keyName);
 
@@ -115,6 +110,13 @@ onBeforeMount(() => {
 onBeforeUnmount(() => {
   window.removeEventListener("blur", resetPressedState);
   window.removeEventListener("focus", resetPressedState);
+});
+
+defineExpose({
+  /**
+   * Actually used operating system (considers auto detection).
+   */
+  actualOS,
 });
 </script>
 

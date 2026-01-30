@@ -422,11 +422,12 @@ export type OnyxKeyProps = {
    */
   keyName: KeyboardKey;
   /**
-   * Key display option depending on Operating System. "auto" detects the OS automatically.
+   * Which operating system to use for displaying the key.
+   * When set to "auto", the OS will be detected automatically.
    *
    * @default "auto"
    */
-  variant?: OperatingSystem | "auto";
+  os?: OperatingSystem | "auto";
   /**
    * Key highlight state (for visual effect)
    *

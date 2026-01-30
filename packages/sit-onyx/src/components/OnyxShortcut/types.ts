@@ -24,14 +24,10 @@ export type OnyxShortcutProps = {
     separatorHidden?: boolean;
   })[];
   /**
-   * Operating system variant for key rendering.
-   *
-   * - `auto` (default): detect OS from user agent.
-   * - `macOS`: use macOS-style keys.
-   * - `windows`: use Windows-style keys.
-   * - `general`: use general key styles.
+   * Which operating system to use for displaying the key.
+   * When set to "auto", the OS will be detected automatically.
    */
-  variant?: OperatingSystem | "auto";
+  os?: OperatingSystem | "auto";
   /**
    * If `true`, pressed keys in the sequence are visually highlighted.
    *
