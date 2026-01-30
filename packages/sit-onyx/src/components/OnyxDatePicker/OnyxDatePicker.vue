@@ -26,6 +26,8 @@ const props = withDefaults(defineProps<OnyxDatePickerProps>(), {
   skeleton: SKELETON_INJECTED_SYMBOL,
   disabled: FORM_INJECTED_SYMBOL,
   showError: FORM_INJECTED_SYMBOL,
+  requiredMarker: FORM_INJECTED_SYMBOL,
+  reserveMessageSpace: FORM_INJECTED_SYMBOL,
 });
 
 const emit = defineEmits<{
@@ -85,7 +87,9 @@ const value = computed({
   },
 });
 
-useAutofocus(useTemplateRef("inputRef"), props);
+const input = useTemplateRef("inputRef");
+defineExpose({ input });
+useAutofocus(input, props);
 </script>
 
 <template>

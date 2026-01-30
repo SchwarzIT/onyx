@@ -5,14 +5,17 @@ import { expect, test } from "../../playwright/a11y.js";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxCheckbox from "../OnyxCheckbox/OnyxCheckbox.vue";
 import OnyxCheckboxGroup from "../OnyxCheckboxGroup/OnyxCheckboxGroup.vue";
+import OnyxDatePicker from "../OnyxDatePicker/OnyxDatePicker.vue";
 import OnyxInput from "../OnyxInput/OnyxInput.vue";
 import OnyxRadioButton from "../OnyxRadioButton/OnyxRadioButton.vue";
 import OnyxRadioGroup from "../OnyxRadioGroup/OnyxRadioGroup.vue";
 import OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
 import type { SelectOption } from "../OnyxSelect/types.js";
+import OnyxSlider from "../OnyxSlider/OnyxSlider.vue";
 import OnyxStepper from "../OnyxStepper/OnyxStepper.vue";
 import OnyxSwitch from "../OnyxSwitch/OnyxSwitch.vue";
 import OnyxTextarea from "../OnyxTextarea/OnyxTextarea.vue";
+import OnyxTimepicker from "../OnyxTimepicker/OnyxTimepicker.vue";
 import FormElementTestWrapper from "./FormElementTestWrapper.vue";
 import OnyxForm from "./OnyxForm.vue";
 
@@ -33,6 +36,9 @@ test("OnyxForm should inject disabled state", async ({ mount, page }) => {
     inferProps(OnyxInput, { label: "OnyxInput" }),
     inferProps(OnyxSelect, { label: "OnyxSelect", listLabel: "Select options", options }),
     inferProps(OnyxStepper, { label: "OnyxStepper" }),
+    inferProps(OnyxSlider, { label: "OnyxSlider", modelValue: 0 }),
+    inferProps(OnyxDatePicker, { label: "OnyxDatePicker", modelValue: "2011-10-31" }),
+    inferProps(OnyxTimepicker, { label: "OnyxTimepicker", modelValue: "14:30:00" }),
     inferProps(OnyxTextarea, { label: "OnyxTextarea" }),
     inferProps(
       OnyxRadioGroup,
