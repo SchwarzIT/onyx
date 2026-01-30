@@ -1,7 +1,3 @@
-<script lang="ts">
-export default {};
-</script>
-
 <script lang="ts" setup generic="TValue extends PropertyKey = PropertyKey">
 import { iconFileCopy } from "@sit-onyx/icons";
 import { computed, provide, ref } from "vue";

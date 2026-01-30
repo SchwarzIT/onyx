@@ -2,6 +2,9 @@
 "sit-onyx": minor
 ---
 
-feat(OnyxCodeTabs): promote `OnyxCodeTab` and `OnyxCodeTabs` to stable.
+The `OnyxUnstableCodeTabs` and `OnyxUnstableCodeTab` component are now considered stable so they are renamed to `OnyxCodeTabs` and `OnyxCodeTab`.
+There won't be any breaking changes from now on within minor versions.
 
-- changed code font size to `onyx-text-small`.
+Other changes:
+
+- changed code font size from regular to small.
