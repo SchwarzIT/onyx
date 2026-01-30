@@ -1,6 +1,6 @@
+import type { OperatingSystem } from "../../composables/useOperatingSystem.js";
 import type { ShortcutEventTarget } from "../../composables/useShortcut.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
-import type { OperatingSystem } from "../../types/index.js";
 import type { ShortcutStep } from "../../utils/shortcut.js";
 
 export type OnyxShortcutProps = {

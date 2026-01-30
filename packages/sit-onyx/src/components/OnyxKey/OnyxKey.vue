@@ -8,13 +8,12 @@ export default {};
 
 <script setup lang="ts">
 import { useGlobalEventListener } from "@sit-onyx/headless";
-import { computed, onBeforeMount, ref } from "vue";
+import { computed, ref } from "vue";
+import { useOperatingSystem, type OperatingSystem } from "../../composables/useOperatingSystem.js";
 import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
-import type { OperatingSystem } from "../../types/index.js";
-import { detectOperatingSystem } from "../../utils/dom.js";
 import { keyboardEventToKey } from "../../utils/shortcut.js";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import {
@@ -38,13 +37,7 @@ const emit = defineEmits<{
 }>();
 
 const skeleton = useSkeletonContext(props);
-
-const detectedOs = ref<OperatingSystem>("generic");
-onBeforeMount(() => {
-  if (props.os === "auto") {
-    detectedOs.value = detectOperatingSystem();
-  }
-});
+const { os: detectedOs } = useOperatingSystem();
 
 /**
  * Actually used operating system (considers auto detection).

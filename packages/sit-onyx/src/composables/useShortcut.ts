@@ -9,9 +9,9 @@ import {
   type MaybeRef,
 } from "vue";
 import type { KeyboardKey } from "../components/OnyxKey/types.js";
-import type { OperatingSystem } from "../types/index.js";
-import { detectOperatingSystem, isTypeableElement } from "../utils/dom.js";
+import { isTypeableElement } from "../utils/dom.js";
 import { isAllStep, isAnyStep, keyboardEventToKey, type ShortcutStep } from "../utils/shortcut.js";
+import { useOperatingSystem } from "./useOperatingSystem.js";
 
 /**
  * Check whether the current pressed keys satisfy a step.
@@ -128,11 +128,7 @@ export const _unstableUseShortcut = (options: UseShortcutOptions) => {
   const currentStepIndex = ref(0);
   const shouldAssignHighlightOnKeyup = ref(false);
   const highlightedStepIndex = ref(0);
-  const os = ref<OperatingSystem>("generic");
-
-  onBeforeMount(() => {
-    os.value = detectOperatingSystem();
-  });
+  const { os } = useOperatingSystem();
 
   const cleanup = () => {
     pressedKeys.value.clear();
