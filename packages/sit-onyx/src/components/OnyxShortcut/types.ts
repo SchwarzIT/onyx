@@ -29,11 +29,11 @@ export type OnyxShortcutProps = {
    */
   os?: OperatingSystem | "auto";
   /**
-   * If `true`, pressed keys in the sequence are visually highlighted.
+   * Whether to (visually) highlight pressed keys.
    *
    * @default false
    */
-  highlightWhenPressed?: boolean;
+  highlight?: boolean;
   /**
    * Whether to show a skeleton shortcut.
    */

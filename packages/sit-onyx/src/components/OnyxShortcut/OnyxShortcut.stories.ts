@@ -31,7 +31,7 @@ export const Default = {
 export const HighlightPressed = {
   args: {
     sequence: [{ all: ["Control", "Shift", "S"] }],
-    highlightWhenPressed: true,
+    highlight: true,
   },
 } satisfies Story;
 
@@ -41,7 +41,7 @@ export const HighlightPressed = {
 export const MultiStep = {
   args: {
     sequence: [{ all: ["Control", "K"] }, { any: ["Enter", "Space"] }],
-    highlightWhenPressed: true,
+    highlight: true,
   },
 } satisfies Story;
 
@@ -51,7 +51,7 @@ export const MultiStep = {
 export const MacOS = {
   args: {
     os: "macOS",
-    highlightWhenPressed: true,
+    highlight: true,
     sequence: [{ all: ["Meta", "Shift", "K"] }],
   },
 } satisfies Story;
@@ -73,6 +73,6 @@ export const Disabled = {
   args: {
     sequence: [{ all: ["Control", "S"] }],
     disabled: true,
-    highlightWhenPressed: true,
+    highlight: true,
   },
 } satisfies Story;
