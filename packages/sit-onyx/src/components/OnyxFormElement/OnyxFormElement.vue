@@ -10,7 +10,10 @@ import type { OnyxFormElementProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxFormElementProps<T>>(), {
   required: false,
+  disabled: FORM_INJECTED_SYMBOL,
+  showError: FORM_INJECTED_SYMBOL,
   requiredMarker: FORM_INJECTED_SYMBOL,
+  reserveMessageSpace: FORM_INJECTED_SYMBOL,
   id: () => useId(),
 });
 
@@ -18,7 +21,7 @@ const emit = defineEmits<{
   "update:modelValue": [value?: Nullable<T>];
 }>();
 
-const { requiredMarker } = useFormContext(props);
+const { requiredMarker, reserveMessageSpace } = useFormContext(props);
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props, requiredMarker);
 
 /**
@@ -105,29 +108,36 @@ const footer = computed(() => {
     <slot :id="props.id"></slot>
 
     <!-- the "v-if" here is imported so the footer is not renderer when its empty. This is needed so that other elements (e.g. buttons) are vertically aligned correctly -->
-    <div v-if="footer" class="onyx-form-element__footer onyx-text--small">
+    <div
+      v-if="reserveMessageSpace || footer"
+      :class="{
+        'onyx-text--small': true,
+        'onyx-form-element__footer': true,
+        ['onyx-form-element__footer--reserved']: reserveMessageSpace,
+      }"
+    >
       <span class="onyx-form-element__footer-messages">
         <FormMessage
-          v-if="footer.errorMessages"
+          v-if="footer?.errorMessages"
           class="onyx-form-element__error-message"
           :messages="footer.errorMessages"
           type="danger"
         />
         <FormMessage
-          v-if="footer.successMessages"
+          v-if="footer?.successMessages"
           class="onyx-form-element__success-message"
           :messages="footer.successMessages"
           type="success"
         />
         <FormMessage
-          v-if="footer.message"
+          v-if="footer?.message"
           class="onyx-form-element__message"
           :messages="footer.message"
           type="neutral"
         />
       </span>
       <span
-        v-if="footer.counter"
+        v-if="footer?.counter"
         :class="{
           'onyx-form-element__counter': true,
           'onyx-form-element__counter--violated': footer.counter.violated,
@@ -196,6 +206,11 @@ const footer = computed(() => {
 
       gap: $footer-gap;
       color: var(--onyx-color-text-icons-neutral-soft);
+    }
+
+    &__footer--reserved {
+      height: 1lh;
+      display: flex;
     }
 
     // only show footer when it has visible content
