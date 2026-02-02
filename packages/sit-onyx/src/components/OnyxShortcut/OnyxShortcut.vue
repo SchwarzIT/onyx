@@ -28,7 +28,6 @@ const props = withDefaults(defineProps<OnyxShortcutProps>(), {
   os: "auto",
   skeleton: SKELETON_INJECTED_SYMBOL,
   disabled: false,
-  listenOnRepeat: false,
   cleanupDelay: 5000,
   highlight: false,
 });
@@ -46,14 +45,13 @@ const emit = defineEmits<{
   stepComplete: [step: ShortcutStep, stepIndex: number];
 }>();
 
-const { sequence, listenOnRepeat, disabled, cleanupDelay, element } = toRefs(props);
+const { sequence, disabled, cleanupDelay, element } = toRefs(props);
 
 const { isKeyHighlighted } = _unstableUseShortcut({
   element,
   disabled,
   sequence,
   cleanupDelay,
-  listenOnRepeat,
   onStepComplete: (step, stepIndex) => {
     emit("stepComplete", step, stepIndex);
   },

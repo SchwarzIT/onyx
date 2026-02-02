@@ -47,10 +47,4 @@ export type OnyxShortcutProps = {
    * Whether the shortcut handling is disabled.
    */
   disabled?: boolean;
-  /**
-   * Whether to listen to repeated keydown events.
-   *
-   * @default false
-   */
-  listenOnRepeat?: boolean;
 };

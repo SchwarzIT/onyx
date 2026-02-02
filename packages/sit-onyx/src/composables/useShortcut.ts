@@ -64,13 +64,6 @@ type UseShortcutOptions = {
    */
   disabled?: MaybeRef<boolean>;
   /**
-   * Whether to listen to repeated keydown events.
-   *
-   * @default false
-   */
-  // TODO: clarify why this is needed
-  listenOnRepeat?: MaybeRef<boolean>;
-  /**
    * Callback invoked when the full shortcut sequence is completed.
    */
   onComplete?: () => void;
@@ -90,7 +83,6 @@ type UseShortcutOptions = {
 export const _unstableUseShortcut = (options: UseShortcutOptions) => {
   const sequence = computed(() => unref(options.sequence));
   const cleanupDelay = computed(() => unref(options.cleanupDelay) ?? 5000);
-  const listenOnRepeat = computed(() => unref(options.listenOnRepeat) ?? false);
   const element = computed(() => unref(options.element));
   const isDisabled = computed(() => unref(options.disabled) ?? false);
   const isGlobalKeydownDisabled = computed(() => !!element.value || isDisabled.value);
@@ -110,7 +102,9 @@ export const _unstableUseShortcut = (options: UseShortcutOptions) => {
 
   const keydownListener = (event: KeyboardEvent) => {
     if (isDisabled.value) return;
-    if (event.repeat && !listenOnRepeat.value) return;
+
+    // ignore repeated events (e.g. holding down a single key which is then emitted multiple times)
+    if (event.repeat) return;
 
     debouncedCleanup();
 

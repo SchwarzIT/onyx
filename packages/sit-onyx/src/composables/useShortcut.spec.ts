@@ -381,31 +381,20 @@ describe("useShortcut", () => {
   test("should handle repeated keydown events", async () => {
     // ARRANGE
     const onComplete = vi.fn();
-    const listenOnRepeat = ref(false);
 
     _unstableUseShortcut({
       sequence: [{ all: ["Control", "C"] }],
-      listenOnRepeat,
       onComplete,
     });
 
     // ACT
     document.dispatchEvent(new KeyboardEvent("keydown", { key: "Control" }));
     document.dispatchEvent(new KeyboardEvent("keydown", { key: "c" }));
+
+    // repeated keydown event (holding down keyboard key)
     document.dispatchEvent(new KeyboardEvent("keydown", { key: "c", repeat: true }));
 
     // ASSERT
-    expect(
-      onComplete,
-      "should not consider repeated keydown events by default",
-    ).toHaveBeenCalledOnce();
-
-    // ACT
-    listenOnRepeat.value = true;
-    await nextTick();
-    document.dispatchEvent(new KeyboardEvent("keydown", { key: "c", repeat: true }));
-
-    // ASSERT
-    expect(onComplete).toHaveBeenCalledTimes(2);
+    expect(onComplete, "should not consider repeated keydown events").toHaveBeenCalledOnce();
   });
 });
