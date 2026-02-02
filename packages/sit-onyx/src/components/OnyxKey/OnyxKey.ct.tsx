@@ -9,6 +9,7 @@ import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import OnyxKey from "./OnyxKey.vue";
 import {
   ALPHABETIC_KEYS,
+  EDITING_KEYS,
   FUNCTION_KEYS,
   MEDIA_KEYS,
   MISC_KEYS,
@@ -118,6 +119,15 @@ test.describe("Screenshot tests (symbol)", () => {
     ...screenshotOptions,
     name: "Key (symbol)",
     rows: SYMBOL_KEYS,
+    component: (column, row) => <OnyxKey name={row} os={column} />,
+  });
+});
+
+test.describe("Screenshot tests (editing)", () => {
+  executeMatrixScreenshotTest({
+    ...screenshotOptions,
+    name: "Key (editing)",
+    rows: EDITING_KEYS,
     component: (column, row) => <OnyxKey name={row} os={column} />,
   });
 });
