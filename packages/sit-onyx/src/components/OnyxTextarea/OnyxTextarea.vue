@@ -21,10 +21,11 @@ const props = withDefaults(defineProps<OnyxTextareaProps>(), {
   required: false,
   autocapitalize: "sentences",
   readonly: false,
-  requiredMarker: FORM_INJECTED_SYMBOL,
+  skeleton: SKELETON_INJECTED_SYMBOL,
   disabled: FORM_INJECTED_SYMBOL,
   showError: FORM_INJECTED_SYMBOL,
-  skeleton: SKELETON_INJECTED_SYMBOL,
+  requiredMarker: FORM_INJECTED_SYMBOL,
+  reserveMessageSpace: FORM_INJECTED_SYMBOL,
   disableManualResize: false,
 });
 

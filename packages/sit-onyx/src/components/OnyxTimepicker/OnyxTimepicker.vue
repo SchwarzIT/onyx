@@ -25,7 +25,7 @@ const emit = defineEmits<{
 }>();
 const modelValue = useVModel({ props, emit, key: "modelValue" });
 const input = useForwardProps(props, OnyxTimeInput);
-const select = useForwardProps(props, OnyxTimeInput);
+const select = useForwardProps(props, OnyxTimeSelect);
 </script>
 
 <template>

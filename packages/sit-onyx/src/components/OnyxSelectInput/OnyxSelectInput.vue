@@ -33,6 +33,8 @@ const props = withDefaults(defineProps<OnyxSelectInputProps>(), {
   readonly: false,
   loading: false,
   skeleton: SKELETON_INJECTED_SYMBOL,
+  requiredMarker: FORM_INJECTED_SYMBOL,
+  reserveMessageSpace: FORM_INJECTED_SYMBOL,
   hideSuccessIcon: false,
 });
 

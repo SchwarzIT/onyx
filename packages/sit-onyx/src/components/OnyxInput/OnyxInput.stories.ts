@@ -16,7 +16,7 @@ const meta: Meta<typeof OnyxInput> = {
     }),
   ],
   argTypes: {
-    pattern: { control: { type: "text" } },
+    pattern: { type: "string" },
     ...withNativeEventLogging(["onInput", "onChange", "onFocusin", "onFocusout"]),
   },
 };

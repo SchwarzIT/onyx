@@ -1,7 +1,7 @@
 <script setup lang="ts" generic="TSliderMode extends SliderMode">
 import { createSlider } from "@sit-onyx/headless";
 import { iconMinusSmall, iconPlusSmall } from "@sit-onyx/icons";
-import { computed, ref, toRef, toRefs, type HTMLAttributes } from "vue";
+import { computed, ref, toRef, toRefs, useTemplateRef, type HTMLAttributes } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useErrorClass } from "../../composables/useErrorClass.js";
 import { getFormMessages, useFormElementError } from "../../composables/useFormElementError.js";
@@ -30,9 +30,11 @@ const props = withDefaults(defineProps<Props>(), {
   min: 0,
   max: 100,
   step: 1,
+  skeleton: SKELETON_INJECTED_SYMBOL,
   disabled: FORM_INJECTED_SYMBOL,
   showError: FORM_INJECTED_SYMBOL,
-  skeleton: SKELETON_INJECTED_SYMBOL,
+  requiredMarker: FORM_INJECTED_SYMBOL,
+  reserveMessageSpace: FORM_INJECTED_SYMBOL,
   mode: () => "single" as TSliderMode,
 });
 
@@ -118,6 +120,9 @@ const sharedStepperProps = computed(() => {
     hideButtons: true,
   } satisfies Partial<OnyxStepperProps> & HTMLAttributes;
 });
+
+const input = useTemplateRef("inputRef");
+defineExpose({ input });
 </script>
 
 <template>
@@ -195,6 +200,7 @@ const sharedStepperProps = computed(() => {
                     <input
                       v-bind="mergeVueProps(thumbInput({ value, index }), trigger)"
                       :id="index === 0 ? inputId : undefined"
+                      ref="inputRef"
                       v-custom-validity
                       :class="[
                         'onyx-slider__native',

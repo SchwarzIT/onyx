@@ -36,6 +36,7 @@ const props = withDefaults(defineProps<OnyxInputProps>(), {
   disabled: FORM_INJECTED_SYMBOL,
   showError: FORM_INJECTED_SYMBOL,
   requiredMarker: FORM_INJECTED_SYMBOL,
+  reserveMessageSpace: FORM_INJECTED_SYMBOL,
 });
 
 const emit = defineEmits<{
