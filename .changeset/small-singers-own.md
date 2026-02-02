@@ -2,4 +2,4 @@
 "sit-onyx": patch
 ---
 
-chore: deprecate `--onyx-font-family` CSS variable
+Deprecate the `--onyx-font-family` CSS variable. Use `--onyx-font-family-paragraph` instead.
