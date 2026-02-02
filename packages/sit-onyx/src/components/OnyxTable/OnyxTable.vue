@@ -158,7 +158,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
     display: flex;
     flex-direction: column;
     gap: var(--onyx-density-xs);
-    font-family: var(--onyx-font-family);
+    font-family: var(--onyx-font-family-paragraph);
     color: var(--onyx-color-text-icons-neutral-intense);
 
     &__container {

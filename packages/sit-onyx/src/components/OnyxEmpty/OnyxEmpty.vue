@@ -55,7 +55,7 @@ const { densityClass } = useDensity(props);
   @include layers.component() {
     padding: var(--onyx-density-xl);
     max-width: max-content;
-    font-family: var(--onyx-font-family);
+    font-family: var(--onyx-font-family-paragraph);
     text-align: center;
     color: var(--onyx-color-text-icons-neutral-soft);
 

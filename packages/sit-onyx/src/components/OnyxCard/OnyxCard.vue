@@ -48,7 +48,7 @@ const linkProps = computed(() =>
     border-radius: var(--onyx-radius-md);
     border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
     background-color: var(--onyx-color-base-background-blank);
-    font-family: var(--onyx-font-family);
+    font-family: var(--onyx-font-family-paragraph);
     color: var(--onyx-color-text-icons-neutral-intense);
     max-width: 100%;
 

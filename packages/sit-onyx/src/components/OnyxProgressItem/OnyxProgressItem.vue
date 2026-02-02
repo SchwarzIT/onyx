@@ -83,7 +83,7 @@ const icon = computed(() => {
 .onyx-progress-item {
   @include layers.component() {
     --onyx-progress-outline-color: var(--onyx-color-component-focus-neutral);
-    font-family: var(--onyx-font-family);
+    font-family: var(--onyx-font-family-paragraph);
     color: var(--onyx-color-text-icons-neutral-intense);
     display: inline-flex;
     text-align: left;

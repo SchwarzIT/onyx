@@ -299,7 +299,7 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
 
     &__label {
       color: var(--onyx-color-text-icons-neutral-intense);
-      font-family: var(--onyx-font-family);
+      font-family: var(--onyx-font-family-paragraph);
       font-style: normal;
       font-weight: var(--onyx-font-weight-regular);
     }

@@ -95,7 +95,7 @@ const isActive = computed(() => {
     --onyx-breadcrumb-item-padding-vertical: var(--onyx-density-3xs);
     --onyx-breadcrumb-item-padding-inline: var(--onyx-density-xs);
     list-style: none;
-    font-family: var(--onyx-font-family);
+    font-family: var(--onyx-font-family-paragraph);
     color: var(--onyx-breadcrumb-item-color);
     background-color: var(--onyx-breadcrumb-item-background);
     display: inline-flex;

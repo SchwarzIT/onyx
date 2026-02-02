@@ -48,7 +48,7 @@ const { densityClass } = useDensity(props);
     --onyx-list-item-background-selected: var(--onyx-color-base-primary-200);
     --onyx-list-item-padding: var(--onyx-density-xs) var(--onyx-density-sm);
 
-    font-family: var(--onyx-font-family);
+    font-family: var(--onyx-font-family-paragraph);
     color: var(--onyx-list-item-color);
     padding: var(--onyx-list-item-padding);
     background-color: var(--onyx-list-item-background);

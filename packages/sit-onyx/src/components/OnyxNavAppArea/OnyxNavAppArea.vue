@@ -65,7 +65,7 @@ const linkProps = computed(() => extractLinkProps(props.link));
     max-height: 100cqh;
     cursor: pointer;
     text-align: left;
-    font-family: var(--onyx-font-family);
+    font-family: var(--onyx-font-family-paragraph);
     color: var(--onyx-color-text-icons-neutral-intense);
     background-color: var(--onyx-color-base-background-blank);
     overflow-x: hidden;

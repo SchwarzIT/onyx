@@ -187,7 +187,7 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
     gap: var(--onyx-density-2xs);
     border-radius: var(--onyx-radius-sm);
     cursor: pointer;
-    font-family: var(--onyx-font-family);
+    font-family: var(--onyx-font-family-paragraph);
     background-color: var(--onyx-button-background-color);
     border: var(--onyx-button-border-width) solid var(--onyx-button-border-color);
     color: var(--onyx-button-text-color);

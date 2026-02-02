@@ -64,7 +64,7 @@ const skeleton = useSkeletonContext(props);
 
 .onyx-system-button {
   @include layers.component() {
-    font-family: var(--onyx-font-family);
+    font-family: var(--onyx-font-family-paragraph);
     color: var(--color);
     background-color: var(--background-color);
     border-radius: var(--onyx-radius-sm);

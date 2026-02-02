@@ -157,7 +157,7 @@ useAutofocus(input, props);
     }
 
     &__label {
-      font-family: var(--onyx-font-family);
+      font-family: var(--onyx-font-family-paragraph);
       color: var(--onyx-radio-button-label-color);
       line-height: var(--onyx-spacing-lg);
       padding: var(--onyx-density-xs);

@@ -166,7 +166,7 @@ test.describe("Popover API (webkit)", () => {
 
     // ARRANGE
     await mount(
-      <div style={{ fontFamily: "var(--onyx-font-family)" }}>
+      <div style={{ fontFamily: "var(--onyx-font-family-paragraph)" }}>
         <p>
           This test is only executed for the webkit browser since it does currently not
           fully/correctly support the Popover API. We currently apply a fix for this by always using

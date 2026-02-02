@@ -308,7 +308,7 @@ $wedge-size: 0.5rem;
 
       background-color: var(--background-color);
       color: var(--color);
-      font-family: var(--onyx-font-family);
+      font-family: var(--onyx-font-family-paragraph);
       text-align: center;
       white-space: pre-line;
 

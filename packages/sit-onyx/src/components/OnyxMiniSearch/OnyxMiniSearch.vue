@@ -107,7 +107,7 @@ defineExpose({
     }
 
     &__input {
-      font-family: var(--onyx-font-family);
+      font-family: var(--onyx-font-family-paragraph);
       font-style: normal;
       flex-grow: 1;
       min-width: text.ch(var(--onyx-placeholder-character-count));

@@ -21,7 +21,7 @@
   }
 
   .onyx-required-marker::after {
-    font-family: var(--onyx-use-required, var(--onyx-font-family));
+    font-family: var(--onyx-use-required, var(--onyx-font-family-paragraph));
     content: var(--onyx-use-required, "*");
     color: var(--onyx-use-required, var(--onyx-color-text-icons-danger-intense));
     padding-left: var(--onyx-use-required, var(--onyx-spacing-5xs));
@@ -29,7 +29,7 @@
 
   .onyx-optional-marker::after {
     font: {
-      family: var(--onyx-use-optional, var(--onyx-font-family));
+      family: var(--onyx-use-optional, var(--onyx-font-family-paragraph));
       weight: var(--onyx-use-optional, 400);
       style: var(--onyx-use-optional, normal);
     }

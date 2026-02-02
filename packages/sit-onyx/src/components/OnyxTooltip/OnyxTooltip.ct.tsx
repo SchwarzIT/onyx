@@ -163,7 +163,7 @@ test.describe("Screenshot tests", () => {
           >
             <span
               style={{
-                fontFamily: "var(--onyx-font-family)",
+                fontFamily: "var(--onyx-font-family-paragraph)",
                 color: "var(--onyx-color-text-icons-neutral-intense)",
               }}
             >
@@ -199,7 +199,7 @@ test.describe("Alignment screenshot tests", () => {
           >
             <span
               style={{
-                fontFamily: "var(--onyx-font-family)",
+                fontFamily: "var(--onyx-font-family-paragraph)",
                 color: "var(--onyx-color-text-icons-neutral-intense)",
               }}
             >
@@ -238,7 +238,7 @@ test.describe("Positioning Screenshot tests", () => {
         >
           <span
             style={{
-              fontFamily: "var(--onyx-font-family)",
+              fontFamily: "var(--onyx-font-family-paragraph)",
               color: "var(--onyx-color-text-icons-neutral-intense)",
             }}
           >

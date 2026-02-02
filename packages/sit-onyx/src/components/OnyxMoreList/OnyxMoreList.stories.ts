@@ -33,7 +33,7 @@ export const Default = {
       h(
         "span",
         {
-          style: `font-family: var(--onyx-font-family); color: var(--onyx-color-text-icons-neutral-soft)`,
+          style: `font-family: var(--onyx-font-family-paragraph); color: var(--onyx-color-text-icons-neutral-soft)`,
           ...attributes,
         },
         `+${hiddenElements} more`,
@@ -49,7 +49,7 @@ export const LeftToRight = {
       h(
         "span",
         {
-          style: `font-family: var(--onyx-font-family); color: var(--onyx-color-text-icons-neutral-soft)`,
+          style: `font-family: var(--onyx-font-family-paragraph); color: var(--onyx-color-text-icons-neutral-soft)`,
           ...attributes,
         },
         `${hiddenElements} before`,
