@@ -341,10 +341,10 @@ const sharedStepperProps = computed(() => {
       display: grid;
       place-items: center;
       z-index: $track-z-index + 1;
-      pointer-events: none;
 
       .onyx-tooltip {
         --offset: 0.25rem;
+        pointer-events: none;
       }
 
       &:has(.onyx-slider__native:enabled) {
