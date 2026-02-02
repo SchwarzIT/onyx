@@ -209,7 +209,7 @@ onUnmounted(() => {
     max-width: calc(100vw - var(--onyx-grid-margin));
 
     &:not(&--temporary) {
-      font-family: var(--onyx-font-family);
+      font-family: var(--onyx-font-family-paragraph);
       color: var(--onyx-color-text-icons-neutral-intense);
       background-color: var(--onyx-color-base-background-blank);
       border-right: var(--onyx-sidebar-border);

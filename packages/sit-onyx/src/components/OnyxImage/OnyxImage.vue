@@ -153,7 +153,7 @@ const { restAttrs, rootAttrs } = useRootAttrs();
     &__error {
       color: var(--onyx-color-text-icons-neutral-medium);
       padding: var(--onyx-density-xs);
-      font-family: var(--onyx-font-family);
+      font-family: var(--onyx-font-family-paragraph);
       background-color: inherit;
       border-radius: inherit;
       clip-path: inherit;

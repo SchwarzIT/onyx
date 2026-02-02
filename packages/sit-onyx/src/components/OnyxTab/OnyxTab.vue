@@ -106,7 +106,7 @@ const tab = computed(() =>
     --onyx-tab-color-active: var(--onyx-color-text-icons-primary-bold);
     --onyx-tab-color-disabled: var(--onyx-color-text-icons-neutral-soft);
 
-    font-family: var(--onyx-font-family);
+    font-family: var(--onyx-font-family-paragraph);
     color: var(--onyx-tab-color);
     border-radius: var(--onyx-radius-sm);
     padding: var(--onyx-tab-padding-vertical) var(--onyx-density-md);
@@ -170,7 +170,7 @@ const tab = computed(() =>
     }
 
     &__panel {
-      font-family: var(--onyx-font-family);
+      font-family: var(--onyx-font-family-paragraph);
       color: var(--onyx-color-text-icons-neutral-intense);
       font-size: var(--onyx-font-size-md);
       line-height: var(--onyx-font-line-height-md);

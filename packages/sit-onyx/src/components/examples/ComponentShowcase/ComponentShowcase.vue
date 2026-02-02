@@ -286,7 +286,7 @@ const teamMembers = [
 .showcase {
   --checkbox-group-justify-content: flex-end;
 
-  font-family: var(--onyx-font-family);
+  font-family: var(--onyx-font-family-paragraph);
   color: var(--onyx-color-text-icons-neutral-intense);
   background-color: var(--onyx-color-base-background-tinted);
 

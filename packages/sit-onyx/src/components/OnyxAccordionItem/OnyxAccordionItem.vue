@@ -174,7 +174,7 @@ const showSkeleton = computed(() => skeleton.value || accordionContext?.skeleton
     --onyx-accordion-toggle-duration: var(--onyx-duration-sm);
 
     border-bottom: var(--onyx-accordion-item-border);
-    font-family: var(--onyx-font-family);
+    font-family: var(--onyx-font-family-paragraph);
     width: 100%;
 
     @supports selector(::details-content) and (interpolate-size: allow-keywords) {

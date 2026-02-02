@@ -17,7 +17,7 @@ const meta: Meta<typeof OnyxResizeHandle> = {
     textColorDecorator,
     (story) => ({
       components: { story },
-      template: `<div style="font-family: var(--onyx-font-family)"> <story /> </div>`,
+      template: `<div style="font-family: var(--onyx-font-family-paragraph)"> <story /> </div>`,
     }),
   ],
 };

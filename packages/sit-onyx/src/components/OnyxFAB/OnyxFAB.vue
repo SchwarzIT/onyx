@@ -97,7 +97,7 @@ const triggerIcon = computed(() => {
     --onyx-fab-offset-y: 0rem;
     --onyx-basic-popover-gap: var(--onyx-density-sm);
 
-    font-family: var(--onyx-font-family);
+    font-family: var(--onyx-font-family-paragraph);
     color: var(--onyx-color-text-icons-neutral-inverted);
     position: fixed;
     bottom: calc(var(--onyx-fab-viewport-gap) + var(--onyx-fab-offset-y));

@@ -11,7 +11,7 @@ const meta: Meta<typeof NotificationCenter> = {
     textColorDecorator,
     (story) => ({
       components: { story },
-      template: `<story style="font-family: var(--onyx-font-family)" />`,
+      template: `<story style="font-family: var(--onyx-font-family-paragraph)" />`,
     }),
   ],
   parameters: {

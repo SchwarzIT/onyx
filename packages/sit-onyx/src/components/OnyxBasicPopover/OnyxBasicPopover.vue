@@ -249,7 +249,7 @@ const popoverStyles = computed(() => {
       max-width: var(--onyx-basic-popover-max-width);
       max-height: 100%;
       width: max-content;
-      font-family: var(--onyx-font-family);
+      font-family: var(--onyx-font-family-paragraph);
 
       &:popover-open {
         display: flex;

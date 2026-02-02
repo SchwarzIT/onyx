@@ -95,7 +95,7 @@ defineSlots<{
     border-radius: var(--onyx-radius-full);
     background-color: var(--onyx-badge-background-color);
     color: var(--onyx-color-text-icons-neutral-inverted);
-    font-family: var(--onyx-font-family);
+    font-family: var(--onyx-font-family-paragraph);
     font-style: normal;
     vertical-align: middle;
     max-height: max-content;

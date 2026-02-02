@@ -106,7 +106,7 @@ test("should render button inline aligned with text", async ({ mount }) => {
   const component = await mount(
     <p
       class="onyx-text"
-      style="line-height: 60px; width: max-content; font-family: var(--onyx-font-family);"
+      style="line-height: 60px; width: max-content; font-family: var(--onyx-font-family-paragraph);"
     >
       before
       <OnyxButton label="Test label" />

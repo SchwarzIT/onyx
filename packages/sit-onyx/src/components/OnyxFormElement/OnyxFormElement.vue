@@ -152,7 +152,7 @@ const footer = computed(() => {
 
 .onyx-form-element {
   @include layers.component() {
-    font-family: var(--onyx-font-family);
+    font-family: var(--onyx-font-family-paragraph);
     display: flex;
     flex-direction: column;
     gap: var(--onyx-density-3xs);
@@ -173,7 +173,7 @@ const footer = computed(() => {
 
     &__optional {
       display: none;
-      font-family: var(--onyx-font-family);
+      font-family: var(--onyx-font-family-paragraph);
       font-weight: var(--onyx-font-weight-regular);
       font-style: normal;
       color: var(--onyx-color-text-icons-neutral-soft);

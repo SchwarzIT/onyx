@@ -15,7 +15,7 @@
 @layer onyx.utility {
   body {
     margin: 0;
-    font-family: var(--onyx-font-family);
+    font-family: var(--onyx-font-family-paragraph);
     background-color: var(--onyx-color-base-background-tinted);
     color: var(--onyx-color-text-icons-neutral-intense);
 
