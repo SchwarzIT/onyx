@@ -1,6 +1,5 @@
 import { describe, expect, test } from "vitest";
-import type { KeyboardKey } from "../components/OnyxKey/types.js";
-import { keyboardEventToKey } from "./shortcut.js";
+import { keyboardEventToKey, type KeyboardKey } from "./keyboard.js";
 
 const createKeyboardEvent = (key: string, code?: string) => {
   return new KeyboardEvent("keydown", { key, code });

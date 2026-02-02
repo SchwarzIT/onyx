@@ -6,7 +6,6 @@ import {
 import { OPERATING_SYSTEMS } from "../../composables/useOperatingSystem.js";
 import { test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
-import OnyxKey from "./OnyxKey.vue";
 import {
   ALPHABETIC_KEYS,
   EDITING_KEYS,
@@ -18,7 +17,8 @@ import {
   NUMERIC_KEYS,
   NUMPAD_KEYS,
   SYMBOL_KEYS,
-} from "./types.js";
+} from "../../utils/keyboard.js";
+import OnyxKey from "./OnyxKey.vue";
 
 const screenshotOptions = {
   columns: OPERATING_SYSTEMS,

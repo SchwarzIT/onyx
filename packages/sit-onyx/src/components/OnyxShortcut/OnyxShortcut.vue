@@ -13,9 +13,8 @@ import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
-import { isAllStep, isAnyStep, type ShortcutStep } from "../../utils/shortcut.js";
+import { isAllStep, isAnyStep, type KeyboardKey, type ShortcutStep } from "../../utils/keyboard.js";
 import OnyxKey from "../OnyxKey/OnyxKey.vue";
-import type { KeyboardKey } from "../OnyxKey/types.js";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxShortcutProps } from "./types.js";
 

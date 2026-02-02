@@ -2,9 +2,17 @@
 import { computed, h, useTemplateRef } from "vue";
 import type { OperatingSystem } from "../../../composables/useOperatingSystem.js";
 import {
-  ALPHABETIC_KEYS,
   createFeature,
   DataGridFeatures,
+  OnyxDataGrid,
+  OnyxUnstableKey,
+  type ColumnConfig,
+  type ColumnGroupConfig,
+  type ColumnTypesFromFeatures,
+  type TypeRenderMap,
+} from "../../../index.js";
+import {
+  ALPHABETIC_KEYS,
   EDITING_KEYS,
   FUNCTION_KEYS,
   MEDIA_KEYS,
@@ -13,15 +21,9 @@ import {
   NAVIGATION_KEYS,
   NUMERIC_KEYS,
   NUMPAD_KEYS,
-  OnyxDataGrid,
-  OnyxUnstableKey,
   SYMBOL_KEYS,
-  type ColumnConfig,
-  type ColumnGroupConfig,
-  type ColumnTypesFromFeatures,
   type KeyboardKey,
-  type TypeRenderMap,
-} from "../../../index.js";
+} from "../../../utils/keyboard.js";
 
 const detectedKey = useTemplateRef("keyRef");
 const detectedOS = computed(() => detectedKey.value?.actualOS);

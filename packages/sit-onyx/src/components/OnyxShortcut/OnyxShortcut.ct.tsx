@@ -1,7 +1,7 @@
 import type { MatrixScreenshotTestOptions } from "@sit-onyx/playwright-utils";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
-import type { KeyboardKey } from "../OnyxKey/types.js";
+import type { KeyboardKey } from "../../utils/keyboard.js";
 import OnyxShortcut from "./OnyxShortcut.vue";
 
 const simpleKeys = ["Control", "C"] satisfies KeyboardKey[];

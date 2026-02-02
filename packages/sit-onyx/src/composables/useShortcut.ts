@@ -8,9 +8,14 @@ import {
   unref,
   type MaybeRef,
 } from "vue";
-import type { KeyboardKey } from "../components/OnyxKey/types.js";
 import { isTypeableElement } from "../utils/dom.js";
-import { isAllStep, isAnyStep, keyboardEventToKey, type ShortcutStep } from "../utils/shortcut.js";
+import {
+  isAllStep,
+  isAnyStep,
+  keyboardEventToKey,
+  type KeyboardKey,
+  type ShortcutStep,
+} from "../utils/keyboard.js";
 import { useOperatingSystem } from "./useOperatingSystem.js";
 
 /**

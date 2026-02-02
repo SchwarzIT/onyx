@@ -14,14 +14,14 @@ import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
-import { keyboardEventToKey } from "../../utils/shortcut.js";
-import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import {
   GENERIC_KEY_SYMBOLS,
   MAC_KEY_SYMBOLS,
   WINDOWS_KEY_SYMBOLS,
-  type OnyxKeyProps,
-} from "./types.js";
+  keyboardEventToKey,
+} from "../../utils/keyboard.js";
+import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
+import type { OnyxKeyProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxKeyProps>(), {
   os: "auto",
