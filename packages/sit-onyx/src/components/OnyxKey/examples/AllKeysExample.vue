@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, h, useTemplateRef } from "vue";
+import type { OperatingSystem } from "../../../composables/useOperatingSystem.js";
 import {
   ALPHABETIC_KEYS,
   createFeature,
@@ -19,7 +20,6 @@ import {
   type ColumnGroupConfig,
   type ColumnTypesFromFeatures,
   type KeyboardKey,
-  type OperatingSystem,
   type TypeRenderMap,
 } from "../../../index.js";
 
