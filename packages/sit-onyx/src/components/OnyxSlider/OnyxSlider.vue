@@ -325,6 +325,7 @@ const sharedStepperProps = computed(() => {
     }
 
     &__native {
+      // give the native input the same size as the parent
       width: inherit;
       height: inherit;
       border: inherit;
