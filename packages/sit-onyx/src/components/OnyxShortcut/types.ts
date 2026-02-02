@@ -1,5 +1,4 @@
 import type { OperatingSystem } from "../../composables/useOperatingSystem.js";
-import type { ShortcutEventTarget } from "../../composables/useShortcut.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 import type { ShortcutStep } from "../../utils/keyboard.js";
 
@@ -39,28 +38,6 @@ export type OnyxShortcutProps = {
    * @default 5000
    */
   cleanupDelay?: number;
-  /**
-   * Targets on which to call `event.preventDefault()` during keydown event.
-   *
-   * - `sequenceComplete` - prevent default when the full sequence is completed.
-   * - `stepComplete` - prevent default when step is completed.
-   * - `keydown` - prevent default on every keydown event.
-   * - `none` - do not prevent default on any event.
-   *
-   * @default "stepComplete"
-   */
-  preventDefaultOn?: ShortcutEventTarget;
-  /**
-   * Targets on which to call `event.stopPropagation()` during keydown event.
-   *
-   * - `sequenceComplete` - stop propagation when the full sequence is completed.
-   * - `stepComplete` - stop propagation when step is completed.
-   * - `keydown` - stop propagation on every keydown event.
-   * - `none` - do not stop propagation on any event.
-   *
-   * @default "stepComplete"
-   */
-  stopPropagationOn?: ShortcutEventTarget;
   /**
    * Element on which to listen for the shortcut events.
    * If not provided, the events are listened on the global window object.

@@ -27,8 +27,6 @@ const SEPARATORS = {
 const props = withDefaults(defineProps<OnyxShortcutProps>(), {
   os: "auto",
   skeleton: SKELETON_INJECTED_SYMBOL,
-  preventDefaultOn: "stepComplete",
-  stopPropagationOn: "stepComplete",
   disabled: false,
   listenOnRepeat: false,
   cleanupDelay: 5000,
@@ -48,15 +46,7 @@ const emit = defineEmits<{
   stepComplete: [step: ShortcutStep, stepIndex: number];
 }>();
 
-const {
-  preventDefaultOn,
-  stopPropagationOn,
-  sequence,
-  listenOnRepeat,
-  disabled,
-  cleanupDelay,
-  element,
-} = toRefs(props);
+const { sequence, listenOnRepeat, disabled, cleanupDelay, element } = toRefs(props);
 
 const { isKeyHighlighted } = _unstableUseShortcut({
   element,
@@ -64,12 +54,10 @@ const { isKeyHighlighted } = _unstableUseShortcut({
   sequence,
   cleanupDelay,
   listenOnRepeat,
-  preventDefaultOn,
-  stopPropagationOn,
   onStepComplete: (step, stepIndex) => {
     emit("stepComplete", step, stepIndex);
   },
-  onSequenceComplete: () => {
+  onComplete: () => {
     emit("complete");
   },
 });

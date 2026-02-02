@@ -1,14 +1,6 @@
 import { debounce, useGlobalEventListener } from "@sit-onyx/headless";
-import {
-  computed,
-  onBeforeMount,
-  onBeforeUnmount,
-  onMounted,
-  ref,
-  unref,
-  type MaybeRef,
-} from "vue";
-import { isTypeableElement } from "../utils/dom.js";
+import { computed, onBeforeUnmount, ref, unref, watch, type MaybeRef } from "vue";
+import type { Nullable } from "../types/utils.js";
 import {
   isAllStep,
   isAnyStep,
@@ -48,57 +40,25 @@ const isKeyRelevantForStep = (key: KeyboardKey, step: ShortcutStep): boolean => 
   return false;
 };
 
-export type ShortcutEventTarget = "sequenceComplete" | "stepComplete" | "keydown" | "none";
-
 type UseShortcutOptions = {
   /**
    * Sequence of shortcut steps.
    *
-   * @example
-   * [{ all: ["Control", "C"] }, { any: ["V", "Insert"] }]
+   * @example `[{ all: ["Control", "C"] }, { any: ["V", "Insert"] }]`
    */
   sequence: MaybeRef<ShortcutStep[]>;
   /**
-   * Callback invoked when a step in the shortcut sequence is completed.
+   * Element for listening to keyboard events.
+   *
+   * @default Global window object
    */
-  onStepComplete?: (step: ShortcutStep, stepIndex: number) => void;
-  /**
-   * Callback invoked when the shortcut sequence is completed.
-   */
-  onSequenceComplete?: () => void;
-  /**
-   * Element on which to listen for the shortcut events.
-   * If not provided, the events are listened on the global window object.
-   */
-  element?: MaybeRef<HTMLElement | undefined | null>;
+  element?: MaybeRef<Nullable<HTMLElement>>;
   /**
    * Delay in milliseconds before cleaning up the pressed keys after inactivity.
    *
    * @default 5000
    */
   cleanupDelay?: MaybeRef<number>;
-  /**
-   * Targets on which to call `event.preventDefault()` during keydown event.
-   *
-   * - `sequenceComplete` - prevent default when the full sequence is completed.
-   * - `stepComplete` - prevent default when step is completed.
-   * - `keydown` - prevent default on every keydown event.
-   * - `none` - do not prevent default on any event.
-   *
-   * @default "stepComplete"
-   */
-  preventDefaultOn?: MaybeRef<ShortcutEventTarget>;
-  /**
-   * Targets on which to call `event.stopPropagation()` during keydown event.
-   *
-   * - `sequenceComplete` - stop propagation when the full sequence is completed.
-   * - `stepComplete` - stop propagation when step is completed.
-   * - `keydown` - stop propagation on every keydown event.
-   * - `none` - do not stop propagation on any event.
-   *
-   * @default "stepComplete"
-   */
-  stopPropagationOn?: MaybeRef<ShortcutEventTarget>;
   /**
    * Whether the shortcut handling is disabled.
    */
@@ -108,23 +68,33 @@ type UseShortcutOptions = {
    *
    * @default false
    */
+  // TODO: clarify why this is needed
   listenOnRepeat?: MaybeRef<boolean>;
+  /**
+   * Callback invoked when the full shortcut sequence is completed.
+   */
+  onComplete?: () => void;
+  /**
+   * Callback invoked when a single step of the shortcut sequence is completed.
+   */
+  onStepComplete?: (step: ShortcutStep, stepIndex: number) => void;
 };
 
 /**
+ * Composable for managing a keyboard shortcut that can consist of one or multiple steps.
+ * If you want to also visualize the shortcut, use the `OnyxShortcut` component instead.
+ *
  * @experimental
  * @deprecated This API is unstable and might change in patch releases.
  */
 export const _unstableUseShortcut = (options: UseShortcutOptions) => {
-  const sequence = computed(() => unref(options.sequence) ?? []);
+  const sequence = computed(() => unref(options.sequence));
   const cleanupDelay = computed(() => unref(options.cleanupDelay) ?? 5000);
-  const preventDefaultOn = computed(() => unref(options.preventDefaultOn) ?? "stepComplete");
-  const stopPropagationOn = computed(() => unref(options.stopPropagationOn) ?? "stepComplete");
   const listenOnRepeat = computed(() => unref(options.listenOnRepeat) ?? false);
-  const element = computed(() => unref(options.element) ?? null);
+  const element = computed(() => unref(options.element));
   const isDisabled = computed(() => unref(options.disabled) ?? false);
-  const isGlobalKeydownDisabled = computed(() => element.value !== null || isDisabled.value);
-  const pressedKeys = ref<Set<KeyboardKey>>(new Set());
+  const isGlobalKeydownDisabled = computed(() => !!element.value || isDisabled.value);
+  const pressedKeys = ref(new Set<KeyboardKey>());
   const currentStepIndex = ref(0);
   const shouldAssignHighlightOnKeyup = ref(false);
   const highlightedStepIndex = ref(0);
@@ -136,65 +106,23 @@ export const _unstableUseShortcut = (options: UseShortcutOptions) => {
     highlightedStepIndex.value = 0;
   };
 
-  const debouncedCleanup = computed(() => debounce(cleanup, cleanupDelay.value));
+  const debouncedCleanup = debounce(cleanup, cleanupDelay);
 
   const keydownListener = (event: KeyboardEvent) => {
-    const isActive = element.value
-      ? document.activeElement === element.value || element.value.contains(document.activeElement)
-      : true;
+    if (isDisabled.value) return;
+    if (event.repeat && !listenOnRepeat.value) return;
 
-    if (!isActive) {
-      return;
-    }
+    debouncedCleanup();
 
-    if (isDisabled.value) {
-      return;
-    }
-
-    const isTypeableElementActive = isTypeableElement(document.activeElement);
-
-    const isPrintableKey =
-      event.key.length === 1 && !event.ctrlKey && !event.metaKey && !event.altKey;
-
-    /**
-     * When a text-input capable element is focused (input, textarea, contenteditable),
-     * shortcuts are suspended only for printable keys without modifier keys.
-     */
-    if (isTypeableElementActive && isPrintableKey) {
-      return;
-    }
-
-    if (preventDefaultOn.value === "keydown") {
-      event.preventDefault();
-    }
-
-    if (stopPropagationOn.value === "keydown") {
-      event.stopPropagation();
-    }
-
-    if (event.repeat && !listenOnRepeat.value) {
-      return;
-    }
-
-    debouncedCleanup.value();
-
-    if (!sequence.value.length) {
-      return;
-    }
+    if (!sequence.value.length) return;
 
     const keyboardKey = keyboardEventToKey(event);
-
-    if (keyboardKey === "unknown") {
-      return;
-    }
+    if (keyboardKey === "unknown") return;
 
     pressedKeys.value.add(keyboardKey);
 
     const currentStep = sequence.value[currentStepIndex.value];
-
-    if (!currentStep) {
-      return;
-    }
+    if (!currentStep) return;
 
     if (!isKeyRelevantForStep(keyboardKey, currentStep)) {
       cleanup();
@@ -202,43 +130,22 @@ export const _unstableUseShortcut = (options: UseShortcutOptions) => {
     }
 
     const isMatched = matchStep(currentStep, pressedKeys.value);
-
-    if (!isMatched) {
-      return;
-    }
+    if (!isMatched) return;
 
     shouldAssignHighlightOnKeyup.value = true;
 
     if (currentStepIndex.value === sequence.value.length - 1) {
-      if (preventDefaultOn.value === "sequenceComplete") {
-        event.preventDefault();
-      }
-
-      if (stopPropagationOn.value === "sequenceComplete") {
-        event.stopPropagation();
-      }
-
       options.onStepComplete?.(currentStep, currentStepIndex.value);
-      options.onSequenceComplete?.();
+      options.onComplete?.();
       currentStepIndex.value = 0;
     } else {
-      if (preventDefaultOn.value === "stepComplete") {
-        event.preventDefault();
-      }
-
-      if (stopPropagationOn.value === "stepComplete") {
-        event.stopPropagation();
-      }
-
       options.onStepComplete?.(currentStep, currentStepIndex.value);
       currentStepIndex.value += 1;
     }
   };
 
   const keyupListener = (event: KeyboardEvent) => {
-    if (isDisabled.value) {
-      return;
-    }
+    if (isDisabled.value) return;
 
     const keyboardKey = keyboardEventToKey(event);
 
@@ -274,44 +181,35 @@ export const _unstableUseShortcut = (options: UseShortcutOptions) => {
     disabled: isGlobalKeydownDisabled,
   });
 
-  onMounted(() => {
-    if (isDisabled.value) {
-      return;
-    }
+  const addElementListeners = (element: HTMLElement) => {
+    element.addEventListener("keydown", keydownListener);
+    element.addEventListener("keyup", keyupListener);
+  };
 
-    if (element.value) {
-      element.value.addEventListener("keydown", keydownListener);
-      element.value.addEventListener("keyup", keyupListener);
-      element.value.addEventListener("blur", cleanup);
-      element.value.addEventListener("focus", cleanup);
-    }
-  });
+  const removeElementListeners = (element?: Nullable<HTMLElement>) => {
+    element?.removeEventListener("keydown", keydownListener);
+    element?.removeEventListener("keyup", keyupListener);
+  };
 
-  onBeforeMount(() => {
-    if (isDisabled.value) {
-      return;
-    }
+  watch(
+    [element, isDisabled],
+    ([newElement, disabled], [oldElement]) => {
+      if (disabled) {
+        removeElementListeners(newElement);
+        return;
+      }
 
-    window.addEventListener("blur", cleanup);
-    window.addEventListener("focus", cleanup);
-  });
+      if (newElement !== oldElement) {
+        removeElementListeners(oldElement);
+        if (newElement) addElementListeners(newElement);
+      }
+    },
+    { immediate: true },
+  );
 
   onBeforeUnmount(() => {
-    if (isDisabled.value) {
-      return;
-    }
-
-    debouncedCleanup.value.abort();
-
-    if (element.value) {
-      element.value.removeEventListener("keydown", keydownListener);
-      element.value.removeEventListener("keyup", keyupListener);
-      element.value.removeEventListener("blur", cleanup);
-      element.value.removeEventListener("focus", cleanup);
-    }
-
-    window.removeEventListener("blur", cleanup);
-    window.removeEventListener("focus", cleanup);
+    debouncedCleanup.abort();
+    removeElementListeners(element.value);
   });
 
   return {

@@ -1,16 +1,6 @@
-import { useGlobalEventListener } from "@sit-onyx/headless";
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
-import { ref } from "vue";
+import { nextTick, ref } from "vue";
 import { _unstableUseShortcut } from "./useShortcut.js";
-
-vi.mock("@sit-onyx/headless", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("@sit-onyx/headless")>();
-  return {
-    ...actual,
-    useGlobalEventListener: vi.fn(),
-    debounce: vi.fn((fn, delay) => actual.debounce(fn, delay)),
-  };
-});
 
 vi.mock("vue", async (importOriginal) => {
   return {
@@ -21,90 +11,8 @@ vi.mock("vue", async (importOriginal) => {
   } satisfies typeof import("vue");
 });
 
-const mockUseGlobalEventListener = vi.mocked(useGlobalEventListener);
-
 describe("useShortcut", () => {
-  let keydownListeners: ((event: KeyboardEvent) => void)[] = [];
-  let keyupListeners: ((event: KeyboardEvent) => void)[] = [];
-  let blurListeners: (() => void)[] = [];
-  let focusListeners: (() => void)[] = [];
-  let elementListeners: Record<string, ((event: KeyboardEvent | Event) => void)[]> = {};
-
-  const createKeyboardEvent = (
-    type: string,
-    key: string,
-    code?: string,
-    repeat?: boolean,
-  ): KeyboardEvent => {
-    const event = new KeyboardEvent(type, {
-      key,
-      code: code ?? key,
-      bubbles: true,
-      cancelable: true,
-      repeat: repeat ?? false,
-    });
-    vi.spyOn(event, "preventDefault");
-    vi.spyOn(event, "stopPropagation");
-    return event;
-  };
-
-  const triggerKeydown = (key: string, code?: string, repeat?: boolean) => {
-    const event = createKeyboardEvent("keydown", key, code, repeat);
-    keydownListeners.forEach((listener) => listener(event));
-
-    if (elementListeners["keydown"]) {
-      elementListeners["keydown"].forEach((listener) => listener(event));
-    }
-    return event;
-  };
-
-  const triggerKeyup = (key: string, code?: string) => {
-    const event = createKeyboardEvent("keyup", key, code);
-    keyupListeners.forEach((listener) => listener(event));
-
-    if (elementListeners["keyup"]) {
-      elementListeners["keyup"].forEach((listener) => listener(event));
-    }
-    return event;
-  };
-
-  const triggerBlur = () => {
-    const event = new Event("blur");
-    blurListeners.forEach((listener) => listener());
-    if (elementListeners["blur"]) {
-      elementListeners["blur"].forEach((listener) => listener(event));
-    }
-  };
-
-  const triggerFocus = () => {
-    const event = new Event("focus");
-    focusListeners.forEach((listener) => listener());
-    if (elementListeners["focus"]) {
-      elementListeners["focus"].forEach((listener) => listener(event));
-    }
-  };
-
   beforeEach(() => {
-    keydownListeners = [];
-    keyupListeners = [];
-    blurListeners = [];
-    focusListeners = [];
-    elementListeners = {};
-
-    mockUseGlobalEventListener.mockImplementation((options) => {
-      if (options.type === "keydown")
-        keydownListeners.push(options.listener as (event: KeyboardEvent) => void);
-      else if (options.type === "keyup")
-        keyupListeners.push(options.listener as (event: KeyboardEvent) => void);
-      else if (options.type === "blur") blurListeners.push(options.listener as () => void);
-    });
-
-    // Mock window.addEventListener and window.removeEventListener
-    vi.spyOn(window, "addEventListener").mockImplementation((event, listener) => {
-      if (event === "blur") blurListeners.push(listener as () => void);
-      else if (event === "focus") focusListeners.push(listener as () => void);
-    });
-
     vi.clearAllMocks();
     vi.clearAllTimers();
     vi.useFakeTimers();
@@ -115,126 +23,120 @@ describe("useShortcut", () => {
     vi.restoreAllMocks();
   });
 
-  describe("initialization", () => {
-    test("should initialize with correct default values", () => {
-      // ARRANGE
-      const { currentStepIndex, pressedKeys, isKeyHighlighted } = _unstableUseShortcut({
-        sequence: [{ all: ["Control", "C"] }],
-      });
-
-      // ASSERT - Initial state
-      expect(currentStepIndex.value).toBe(0);
-      expect(pressedKeys.value.size).toBe(0);
-      expect(isKeyHighlighted.value("Control", 0)).toBeFalsy();
-      expect(isKeyHighlighted.value("C", 0)).toBeFalsy();
+  test("should initialize with correct default values", () => {
+    // ARRANGE
+    const { currentStepIndex, pressedKeys, isKeyHighlighted } = _unstableUseShortcut({
+      sequence: [{ all: ["Control", "C"] }],
     });
+
+    // ASSERT - Initial state
+    expect(currentStepIndex.value).toBe(0);
+    expect(pressedKeys.value.size).toBe(0);
+    expect(isKeyHighlighted.value("Control", 0)).toBe(false);
+    expect(isKeyHighlighted.value("C", 0)).toBe(false);
   });
 
   describe("single step sequences", () => {
-    test("should handle single 'all' step shortcut and pass key parameter", () => {
+    test("should handle single 'all' step shortcut", () => {
       // ARRANGE
-      const onSequenceComplete = vi.fn();
+      const onComplete = vi.fn();
       const { currentStepIndex, pressedKeys } = _unstableUseShortcut({
         sequence: [{ all: ["Control", "C"] }],
-        onSequenceComplete,
+        onComplete,
       });
 
-      // ACT Press Ctrl
-      triggerKeydown("Control");
+      // ACT
+      document.dispatchEvent(new KeyboardEvent("keydown", { key: "Control" }));
 
-      // ASSERT - Ctrl is pressed, still on step 0
-      expect(pressedKeys.value.has("Control")).toBeTruthy();
+      // ASSERT
+      expect(pressedKeys.value.has("Control")).toBe(true);
       expect(currentStepIndex.value).toBe(0);
-      expect(onSequenceComplete).not.toHaveBeenCalled();
+      expect(onComplete).not.toHaveBeenCalled();
 
-      // ACT Press C
-      triggerKeydown("c");
+      // ACT
+      document.dispatchEvent(new KeyboardEvent("keydown", { key: "a" }));
 
-      // ASSERT - Both keys pressed, sequence completed
-      expect(pressedKeys.value.has("C")).toBeTruthy();
-      expect(onSequenceComplete).toHaveBeenCalledExactlyOnceWith();
+      // ASSERT
+      expect(
+        pressedKeys.value.size,
+        "should reset pressed keys if invalid character is pressed",
+      ).toBe(0);
+      expect(onComplete).not.toHaveBeenCalled();
+
+      // ACT
+      document.dispatchEvent(new KeyboardEvent("keydown", { key: "Control" }));
+      document.dispatchEvent(new KeyboardEvent("keydown", { key: "c" }));
+
+      // ASSERT
+      expect(pressedKeys.value.has("C")).toBe(true);
+      expect(onComplete).toHaveBeenCalledOnce();
     });
 
     test("should handle single 'any' step shortcut and pass key parameter", () => {
       // ARRANGE
-      const onSequenceComplete = vi.fn();
+      const onComplete = vi.fn();
       const { pressedKeys } = _unstableUseShortcut({
         sequence: [{ any: ["Enter", "Space"] }],
-        onSequenceComplete,
+        onComplete,
       });
 
       // ACT
-      triggerKeydown("Enter");
+      document.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter" }));
 
-      // ASSERT - should complete sequence immediately
-      expect(pressedKeys.value.has("Enter")).toBeTruthy();
-      expect(onSequenceComplete).toHaveBeenCalledExactlyOnceWith();
-
-      // ACT Release keys
-      triggerKeyup("Enter");
-
-      // ASSERT - pressedKeys should be cleared
-      expect(pressedKeys.value.size).toBe(0);
-    });
-
-    test("should not ignore irrelevant keys", () => {
-      // ARRANGE
-      const onSequenceComplete = vi.fn();
-      _unstableUseShortcut({
-        sequence: [{ all: ["Control", "C"] }],
-        onSequenceComplete,
-      });
+      // ASSERT
+      expect(pressedKeys.value.has("Enter")).toBe(true);
+      expect(onComplete).toHaveBeenCalledOnce();
 
       // ACT
-      triggerKeydown("Control");
-      triggerKeydown("x");
-      triggerKeydown("c");
+      document.dispatchEvent(new KeyboardEvent("keyup", { key: "Enter" }));
 
-      // ASSERT - should not complete sequence
-      expect(onSequenceComplete).not.toHaveBeenCalledOnce();
+      // ASSERT
+      expect(pressedKeys.value.size, "should clear pressed keys on keyup").toBe(0);
 
       // ACT
-      triggerKeyup("Control");
-      triggerKeyup("x");
-      triggerKeyup("c");
+      document.dispatchEvent(new KeyboardEvent("keydown", { key: "Space" }));
 
-      triggerKeydown("Control");
-      triggerKeydown("c");
+      // ASSERT
+      expect(pressedKeys.value.has("Space")).toBe(true);
+      expect(onComplete).toHaveBeenCalledTimes(2);
 
-      // ASSERT - should complete sequence
-      expect(onSequenceComplete).toHaveBeenCalledOnce();
+      // ACT
+      document.dispatchEvent(new KeyboardEvent("keydown", { key: "A" }));
+
+      // ASSERT
+      expect(pressedKeys.value.has("A")).toBe(false);
+      expect(onComplete).toHaveBeenCalledTimes(2);
     });
   });
 
-  describe("multi-step sequences", () => {
-    test("should handle multi-step sequence and pass key parameter to callbacks", () => {
+  describe("multi step sequences", () => {
+    test("should handle multi step sequences", () => {
       // ARRANGE
       const onStepComplete = vi.fn();
-      const onSequenceComplete = vi.fn();
+      const onComplete = vi.fn();
       const { currentStepIndex } = _unstableUseShortcut({
         sequence: [{ all: ["Control", "C"] }, { any: ["V", "Insert"] }],
         onStepComplete,
-        onSequenceComplete,
+        onComplete,
       });
 
-      // ACT First step: Ctrl+C
-      triggerKeydown("Control");
-      triggerKeydown("c");
-      triggerKeyup("Control");
-      triggerKeyup("c");
+      // ACT
+      document.dispatchEvent(new KeyboardEvent("keydown", { key: "Control" }));
+      document.dispatchEvent(new KeyboardEvent("keydown", { key: "c" }));
+      document.dispatchEvent(new KeyboardEvent("keyup", { key: "Control" }));
+      document.dispatchEvent(new KeyboardEvent("keyup", { key: "c" }));
 
-      // ASSERT - should move to step 1
+      // ASSERT
       expect(currentStepIndex.value).toBe(1);
-      expect(onSequenceComplete).not.toHaveBeenCalled();
-      expect(onStepComplete).toHaveBeenCalledOnce();
+      expect(onComplete).not.toHaveBeenCalled();
       expect(onStepComplete).toHaveBeenCalledExactlyOnceWith({ all: ["Control", "C"] }, 0);
 
       // ACT Second step: V
-      triggerKeydown("v");
-      triggerKeyup("v");
+      document.dispatchEvent(new KeyboardEvent("keydown", { key: "v" }));
+      document.dispatchEvent(new KeyboardEvent("keyup", { key: "v" }));
 
       // ASSERT - should complete sequence
-      expect(onSequenceComplete).toHaveBeenCalledExactlyOnceWith();
+      expect(onComplete).toHaveBeenCalledOnce();
       expect(currentStepIndex.value).toBe(0);
     });
   });
@@ -246,160 +148,105 @@ describe("useShortcut", () => {
         sequence: [{ all: ["Control", "C"] }],
       });
 
-      // ASSERT - No keys pressed initially
-      expect(isKeyHighlighted.value("Control", 0)).toBeFalsy();
-      expect(isKeyHighlighted.value("C", 0)).toBeFalsy();
+      // ASSERT
+      expect(isKeyHighlighted.value("Control", 0)).toBe(false);
+      expect(isKeyHighlighted.value("C", 0)).toBe(false);
 
-      // ACT - Press Ctrl
-      triggerKeydown("Control");
+      // ACT
+      document.dispatchEvent(new KeyboardEvent("keydown", { key: "Control" }));
 
-      // ASSERT - only Ctrl should be highlighted
-      expect(isKeyHighlighted.value("Control", 0)).toBeTruthy();
-      expect(isKeyHighlighted.value("C", 0)).toBeFalsy();
+      // ASSERT
+      expect(isKeyHighlighted.value("Control", 0)).toBe(true);
+      expect(isKeyHighlighted.value("C", 0)).toBe(false);
 
-      // ACT - Press C
-      triggerKeydown("C");
+      // ACT
+      document.dispatchEvent(new KeyboardEvent("keydown", { key: "C" }));
 
-      // ASSERT - both keys should be highlighted
-      expect(isKeyHighlighted.value("Control", 0)).toBeTruthy();
-      expect(isKeyHighlighted.value("C", 0)).toBeTruthy();
+      // ASSERT
+      expect(isKeyHighlighted.value("Control", 0)).toBe(true);
+      expect(isKeyHighlighted.value("C", 0)).toBe(true);
 
-      // ACT - Release Ctrl
-      triggerKeyup("Control");
+      // ACT
+      document.dispatchEvent(new KeyboardEvent("keyup", { key: "Control" }));
 
-      // ASSERT - only C should be highlighted
-      expect(isKeyHighlighted.value("C", 0)).toBeTruthy();
-      expect(isKeyHighlighted.value("Control", 0)).toBeFalsy();
+      // ASSERT
+      expect(isKeyHighlighted.value("C", 0)).toBe(true);
+      expect(isKeyHighlighted.value("Control", 0)).toBe(false);
 
-      // ACT - Release C
-      triggerKeyup("C");
+      // ACT
+      document.dispatchEvent(new KeyboardEvent("keyup", { key: "C" }));
 
-      // ASSERT - No keys should be highlighted
-      expect(isKeyHighlighted.value("Control", 0)).toBeFalsy();
-      expect(isKeyHighlighted.value("C", 0)).toBeFalsy();
+      // ASSERT
+      expect(isKeyHighlighted.value("Control", 0)).toBe(false);
+      expect(isKeyHighlighted.value("C", 0)).toBe(false);
     });
 
     test("should handle key highlighting in multi-step sequences", () => {
       // ARRANGE
-      const onSequenceComplete = vi.fn();
+      const onComplete = vi.fn();
       const { isKeyHighlighted, currentStepIndex } = _unstableUseShortcut({
         sequence: [{ all: ["Control", "K"] }, { all: ["Control", "L"] }],
-        onSequenceComplete,
+        onComplete,
       });
 
       // ACT
-      triggerKeydown("Control");
+      document.dispatchEvent(new KeyboardEvent("keydown", { key: "Control" }));
 
       // ASSERT
-      expect(isKeyHighlighted.value("Control", 0)).toBeTruthy();
+      expect(isKeyHighlighted.value("Control", 0)).toBe(true);
 
       // ACT
-      triggerKeydown("k");
-      expect(isKeyHighlighted.value("K", 0)).toBeTruthy();
+      document.dispatchEvent(new KeyboardEvent("keydown", { key: "k" }));
+      expect(isKeyHighlighted.value("K", 0)).toBe(true);
       expect(currentStepIndex.value).toBe(1);
 
       // ACT
-      triggerKeyup("k");
+      document.dispatchEvent(new KeyboardEvent("keyup", { key: "k" }));
 
       // ASSERT
-      expect(isKeyHighlighted.value("K", 0)).toBeFalsy();
-      expect(isKeyHighlighted.value("Control", 1)).toBeTruthy();
+      expect(isKeyHighlighted.value("K", 0)).toBe(false);
+      expect(isKeyHighlighted.value("Control", 1)).toBe(true);
 
       // ACT
-      triggerKeydown("L");
+      document.dispatchEvent(new KeyboardEvent("keydown", { key: "L" }));
 
       // ASSERT
-      expect(onSequenceComplete).toHaveBeenCalledOnce();
-      expect(isKeyHighlighted.value("Control", 1)).toBeTruthy();
+      expect(onComplete).toHaveBeenCalledOnce();
+      expect(isKeyHighlighted.value("Control", 1)).toBe(true);
 
       // ACT
-      triggerKeyup("L");
-      expect(isKeyHighlighted.value("Control", 0)).toBeTruthy();
-    });
-  });
-
-  describe("key release handling", () => {
-    test("should remove keys from pressed set on keyup", () => {
-      // ARRANGE
-      const { pressedKeys } = _unstableUseShortcut({
-        sequence: [{ all: ["Control", "C"] }],
-      });
-
-      // ACT
-      triggerKeydown("Control");
-
-      // ASSERT
-      expect(pressedKeys.value.has("Control")).toBeTruthy();
-
-      // ACT
-      triggerKeyup("Control");
-
-      // ASSERT
-      expect(pressedKeys.value.has("Control")).toBeFalsy();
-    });
-
-    test("should handle meta/control key edge case", () => {
-      // ARRANGE
-      const { pressedKeys } = _unstableUseShortcut({ sequence: [{ all: ["Meta", "C"] }] });
-
-      // ACT
-      triggerKeydown("Meta");
-      triggerKeydown("c");
-
-      // ASSERT
-      expect(pressedKeys.value.size).toBe(2);
-
-      // ACT
-      triggerKeyup("Meta");
-      triggerKeyup("c");
-
-      // ASSERT
-      expect(pressedKeys.value.size).toBe(0);
-    });
-  });
-
-  describe("edge cases", () => {
-    test("should handle digit keys with layout-specific symbols", () => {
-      // ARRANGE
-      const onSequenceComplete = vi.fn();
-      _unstableUseShortcut({ sequence: [{ all: ["Control", "2"] }], onSequenceComplete });
-
-      // ACT
-      triggerKeydown("Control");
-      triggerKeydown("@", "Digit2");
-
-      // ASSERT Shift+2 might produce "@" but code is "Digit2"
-      expect(onSequenceComplete).toHaveBeenCalledOnce();
+      document.dispatchEvent(new KeyboardEvent("keyup", { key: "L" }));
+      expect(isKeyHighlighted.value("Control", 0)).toBe(true);
     });
 
     test("should correctly be highlighted when ctrl is held across steps", () => {
       // ARRANGE
-      const onSequenceComplete = vi.fn();
+      const onComplete = vi.fn();
       const { isKeyHighlighted, currentStepIndex, pressedKeys } = _unstableUseShortcut({
         sequence: [{ all: ["Control", "C"] }, { all: ["Control", "V"] }],
-        onSequenceComplete: onSequenceComplete,
+        onComplete,
       });
 
       // ACT
-      triggerKeydown("Control");
-      triggerKeydown("c");
+      document.dispatchEvent(new KeyboardEvent("keydown", { key: "Control" }));
+      document.dispatchEvent(new KeyboardEvent("keydown", { key: "c" }));
 
       // ASSERT
       expect(currentStepIndex.value).toBe(1);
-      expect(isKeyHighlighted.value("Control", 0)).toBeTruthy();
+      expect(isKeyHighlighted.value("Control", 0)).toBe(true);
 
       // ACT: Step 1: Ctrl+V (Ctrl still held)
-      triggerKeyup("c");
-      triggerKeydown("v");
-      triggerKeyup("v");
+      document.dispatchEvent(new KeyboardEvent("keyup", { key: "c" }));
+      document.dispatchEvent(new KeyboardEvent("keydown", { key: "v" }));
+      document.dispatchEvent(new KeyboardEvent("keyup", { key: "v" }));
 
       // ASSERT
-      expect(onSequenceComplete).toHaveBeenCalledOnce();
-      expect(pressedKeys.value.has("Control")).toBeTruthy();
+      expect(onComplete).toHaveBeenCalledOnce();
+      expect(pressedKeys.value.has("Control")).toBe(true);
 
       // ACT: NOW: Ctrl still held from the previous step
       // Press C again to match step 0 again
-      triggerKeydown("c");
+      document.dispatchEvent(new KeyboardEvent("keydown", { key: "c" }));
 
       // ASSERT: Ctrl should now belong to step 0 (after reset)
       expect(isKeyHighlighted.value("Control", 0)).toBe(true);
@@ -407,282 +254,158 @@ describe("useShortcut", () => {
     });
   });
 
-  describe("preventDefault and stopPropagation", () => {
-    test("should prevent default and stop propagation on keydown when configured", () => {
+  describe("edge cases", () => {
+    test("should handle meta/control key edge case", () => {
       // ARRANGE
-      _unstableUseShortcut({
-        sequence: [{ all: ["Control", "C"] }],
-        preventDefaultOn: "keydown",
-        stopPropagationOn: "keydown",
-      });
+      const { pressedKeys } = _unstableUseShortcut({ sequence: [{ all: ["Meta", "C"] }] });
 
       // ACT
-      const event = triggerKeydown("Control");
+      document.dispatchEvent(new KeyboardEvent("keydown", { key: "Meta" }));
+      document.dispatchEvent(new KeyboardEvent("keydown", { key: "c" }));
 
       // ASSERT
-      expect(event.preventDefault).toHaveBeenCalled();
-      expect(event.stopPropagation).toHaveBeenCalled();
-    });
-
-    test("should prevent default on stepComplete", () => {
-      // ARRANGE
-      const onStepComplete = vi.fn();
-      _unstableUseShortcut({
-        sequence: [{ all: ["Control", "C"] }, { any: ["V"] }],
-        onStepComplete,
-        preventDefaultOn: "stepComplete",
-      });
+      expect(pressedKeys.value.size).toBe(2);
 
       // ACT
-      const ctrlEvent = triggerKeydown("Control");
-      const cEvent = triggerKeydown("c");
-
-      // ASSERT
-      expect(ctrlEvent.preventDefault).not.toHaveBeenCalled();
-      expect(cEvent.preventDefault).toHaveBeenCalled();
-      expect(onStepComplete).toHaveBeenCalled();
-    });
-
-    test("should prevent default on sequenceComplete", () => {
-      // ARRANGE
-      const onSequenceComplete = vi.fn();
-      _unstableUseShortcut({
-        sequence: [{ all: ["Control", "C"] }],
-        onSequenceComplete,
-        preventDefaultOn: "sequenceComplete",
-      });
-
-      // ACT
-      const ctrlEvent = triggerKeydown("Control");
-      const cEvent = triggerKeydown("c");
-
-      // ASSERT
-      expect(ctrlEvent.preventDefault).not.toHaveBeenCalled();
-      expect(cEvent.preventDefault).toHaveBeenCalled();
-      expect(onSequenceComplete).toHaveBeenCalled();
-    });
-
-    test("should not prevent default when set to 'none'", () => {
-      // ARRANGE
-      _unstableUseShortcut({
-        sequence: [{ all: ["Control", "C"] }],
-        preventDefaultOn: "none",
-      });
-
-      // ACT
-      const event = triggerKeydown("Control");
-
-      // ASSERT
-      expect(event.preventDefault).not.toHaveBeenCalled();
-    });
-
-    test("should stop propagation on stepComplete", () => {
-      // ARRANGE
-      const onStepComplete = vi.fn();
-      _unstableUseShortcut({
-        sequence: [{ all: ["Control", "C"] }, { any: ["V"] }],
-        onStepComplete,
-        stopPropagationOn: "stepComplete",
-      });
-
-      // ACT
-      const ctrlEvent = triggerKeydown("Control");
-      const cEvent = triggerKeydown("c");
-
-      // ASSERT
-      expect(ctrlEvent.stopPropagation).not.toHaveBeenCalled();
-      expect(cEvent.stopPropagation).toHaveBeenCalled();
-    });
-  });
-
-  describe("disabled option", () => {
-    test("should not trigger listeners when disabled", () => {
-      // ARRANGE
-      const onSequenceComplete = vi.fn();
-      const { pressedKeys } = _unstableUseShortcut({
-        sequence: [{ all: ["Control", "C"] }],
-        onSequenceComplete,
-        disabled: true,
-      });
-
-      // ACT
-      triggerKeydown("Control");
-      triggerKeydown("c");
+      document.dispatchEvent(new KeyboardEvent("keyup", { key: "Meta" }));
+      document.dispatchEvent(new KeyboardEvent("keyup", { key: "c" }));
 
       // ASSERT
       expect(pressedKeys.value.size).toBe(0);
-      expect(onSequenceComplete).not.toHaveBeenCalled();
     });
 
-    test("should update behavior when disabled changes", () => {
+    test("should handle digit keys with layout-specific symbols", () => {
       // ARRANGE
-      const onSequenceComplete = vi.fn();
-      const disabled = ref(false);
-      const { pressedKeys } = _unstableUseShortcut({
-        sequence: [{ all: ["Control", "C"] }],
-        onSequenceComplete,
-        disabled,
-      });
-
-      // ACT - Initially enabled
-      triggerKeydown("Control");
-      triggerKeydown("c");
-
-      // ASSERT
-      expect(onSequenceComplete).toHaveBeenCalledOnce();
-      expect(pressedKeys.value.size).toBe(2);
-
-      // ACT - Disable
-      disabled.value = true;
-      vi.clearAllMocks();
-      pressedKeys.value.clear();
-
-      triggerKeydown("Control");
-      triggerKeydown("c");
-
-      // ASSERT
-      expect(onSequenceComplete).not.toHaveBeenCalled();
-      expect(pressedKeys.value.size).toBe(0);
-    });
-  });
-
-  describe("listenOnRepeat option", () => {
-    test("should ignore repeated keydown events by default", () => {
-      // ARRANGE
-      const onSequenceComplete = vi.fn();
+      const onComplete = vi.fn();
       _unstableUseShortcut({
-        sequence: [{ all: ["Control", "C"] }],
-        onSequenceComplete,
+        sequence: [{ all: ["Control", "2"] }],
+        onComplete,
       });
 
       // ACT
-      triggerKeydown("Control");
-      triggerKeydown("c");
-      triggerKeydown("c", undefined, true); // repeated event
+      document.dispatchEvent(new KeyboardEvent("keydown", { key: "Control" }));
+      document.dispatchEvent(new KeyboardEvent("keydown", { key: "@", code: "Digit2" }));
 
-      // ASSERT
-      expect(onSequenceComplete).toHaveBeenCalledOnce();
-    });
-
-    test("should listen to repeated keydown events when enabled", () => {
-      // ARRANGE
-      const onSequenceComplete = vi.fn();
-      _unstableUseShortcut({
-        sequence: [{ any: ["ArrowDown", "ArrowUp"] }],
-        onSequenceComplete,
-        listenOnRepeat: true,
-      });
-
-      // ACT
-      triggerKeydown("ArrowDown");
-      triggerKeydown("ArrowDown", undefined, true); // repeated event
-
-      // ASSERT
-      expect(onSequenceComplete).toHaveBeenCalledTimes(2);
-
-      // ACT
-      triggerKeydown("ArrowUp");
-      triggerKeydown("ArrowUp", undefined, true); // repeated event
-
-      // ASSERT
-      expect(onSequenceComplete).toHaveBeenCalledTimes(4);
+      // ASSERT - Shift+2 might produce "@" but code is "Digit2"
+      expect(onComplete).toHaveBeenCalledOnce();
     });
   });
 
-  describe("cleanup delay", () => {
-    test("should debounce cleanup function", () => {
-      // ARRANGE
-      const { pressedKeys, currentStepIndex } = _unstableUseShortcut({
-        sequence: [{ all: ["Control", "C"] }],
-        cleanupDelay: 300,
-      });
+  test("should not trigger listeners when disabled", async () => {
+    // ARRANGE
+    const onComplete = vi.fn();
+    const disabled = ref(true);
 
-      // ACT
-      triggerKeydown("Control");
-      expect(pressedKeys.value.size).toBe(1);
-
-      // ACT - Trigger keydown again before cleanup delay expires
-      triggerKeydown("c");
-      expect(pressedKeys.value.size).toBe(2);
-
-      // Fast-forward time but not past cleanup delay
-      vi.advanceTimersByTime(200);
-
-      // ASSERT - Keys should still be present
-      expect(pressedKeys.value.size).toBe(2);
-
-      // ACT - Fast-forward past cleanup delay
-      vi.advanceTimersByTime(100);
-
-      // ASSERT - Keys should be cleared
-      expect(pressedKeys.value.size).toBe(0);
-      expect(currentStepIndex.value).toBe(0);
+    const { pressedKeys } = _unstableUseShortcut({
+      sequence: [{ all: ["Control", "C"] }],
+      onComplete,
+      disabled,
     });
+
+    // ACT
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "Control" }));
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "c" }));
+
+    // ASSERT
+    expect(pressedKeys.value.size).toBe(0);
+    expect(onComplete).not.toHaveBeenCalled();
+
+    // ACT
+    disabled.value = false;
+    await nextTick();
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "Control" }));
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "c" }));
+
+    // ASSERT
+    expect(pressedKeys.value.size).toBe(2);
+    expect(onComplete).toHaveBeenCalled();
   });
 
-  describe("element prop", () => {
-    test("should listen to events on specific element", () => {
-      // ARRANGE
-      const element = document.createElement("div");
-      const onSequenceComplete = vi.fn();
-      Object.defineProperty(document, "activeElement", {
-        value: element,
-        configurable: true,
-      });
-
-      const { pressedKeys } = _unstableUseShortcut({
-        sequence: [{ all: ["Control", "C"] }],
-        onSequenceComplete,
-        element,
-      });
-
-      // ACT
-      triggerKeydown("Control");
-      triggerKeydown("c");
-
-      // ASSERT
-      expect(pressedKeys.value.size).toBe(2);
-      expect(onSequenceComplete).toHaveBeenCalledOnce();
+  test("should debounce cleanup function", () => {
+    // ARRANGE
+    const { pressedKeys, currentStepIndex } = _unstableUseShortcut({
+      sequence: [{ all: ["Control", "C"] }],
+      cleanupDelay: 300,
     });
+
+    // ACT
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "Control" }));
+    expect(pressedKeys.value.size).toBe(1);
+
+    // ACT
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "c" }));
+    expect(pressedKeys.value.size).toBe(2);
+
+    // fast-forward time but not past cleanup delay
+    vi.advanceTimersByTime(200);
+
+    // ASSERT - Keys should still be present
+    expect(pressedKeys.value.size).toBe(2);
+
+    // ACT - Fast-forward past cleanup delay
+    vi.advanceTimersByTime(100);
+
+    // ASSERT - Keys should be cleared
+    expect(pressedKeys.value.size).toBe(0);
+    expect(currentStepIndex.value).toBe(0);
   });
 
-  describe("window blur and focus cleanup", () => {
-    test("should clear keys on window blur", () => {
-      // ARRANGE
-      const { pressedKeys, currentStepIndex } = _unstableUseShortcut({
-        sequence: [{ all: ["Control", "C"] }],
-      });
+  test("should listen to events on specific element", () => {
+    // ARRANGE
+    const element = document.createElement("div");
+    const onComplete = vi.fn();
 
-      // ACT
-      triggerKeydown("Control");
-      triggerKeydown("c");
-      expect(pressedKeys.value.size).toBe(2);
-
-      // ACT - Trigger blur
-      triggerBlur();
-
-      // ASSERT
-      expect(pressedKeys.value.size).toBe(0);
-      expect(currentStepIndex.value).toBe(0);
+    const { pressedKeys } = _unstableUseShortcut({
+      sequence: [{ all: ["Control", "C"] }],
+      onComplete,
+      element,
     });
 
-    test("should clear keys on window focus", () => {
-      // ARRANGE
-      const { pressedKeys, currentStepIndex } = _unstableUseShortcut({
-        sequence: [{ all: ["Control", "C"] }],
-      });
+    // ACT
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "Control" }));
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "c" }));
 
-      // ACT
-      triggerKeydown("Control");
-      triggerKeydown("c");
-      expect(pressedKeys.value.size).toBe(2);
+    // ASSERT
+    expect(pressedKeys.value.size, "should disable global listeners").toBe(0);
+    expect(onComplete).not.toHaveBeenCalled();
 
-      // ACT - Trigger focus
-      triggerFocus();
+    // ACT
+    element.dispatchEvent(new KeyboardEvent("keydown", { key: "Control" }));
+    element.dispatchEvent(new KeyboardEvent("keydown", { key: "c" }));
 
-      // ASSERT
-      expect(pressedKeys.value.size).toBe(0);
-      expect(currentStepIndex.value).toBe(0);
+    // ASSERT
+    expect(pressedKeys.value.size).toBe(2);
+    expect(onComplete).toHaveBeenCalledOnce();
+  });
+
+  test("should handle repeated keydown events", async () => {
+    // ARRANGE
+    const onComplete = vi.fn();
+    const listenOnRepeat = ref(false);
+
+    _unstableUseShortcut({
+      sequence: [{ all: ["Control", "C"] }],
+      listenOnRepeat,
+      onComplete,
     });
+
+    // ACT
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "Control" }));
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "c" }));
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "c", repeat: true }));
+
+    // ASSERT
+    expect(
+      onComplete,
+      "should not consider repeated keydown events by default",
+    ).toHaveBeenCalledOnce();
+
+    // ACT
+    listenOnRepeat.value = true;
+    await nextTick();
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "c", repeat: true }));
+
+    // ASSERT
+    expect(onComplete).toHaveBeenCalledTimes(2);
   });
 });
