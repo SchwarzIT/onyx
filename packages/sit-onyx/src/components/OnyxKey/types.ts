@@ -108,6 +108,7 @@ export const FUNCTION_KEYS = [
   "F10",
   "F11",
   "F12",
+  "FN",
 ] as const;
 export type FunctionKey = (typeof FUNCTION_KEYS)[number];
 
@@ -217,6 +218,7 @@ export const MAC_KEY_SYMBOLS: Partial<Record<KeyboardKey, string>> = {
   F10: "F10",
   F11: "F11",
   F12: "F12",
+  FN: "fn",
 
   // Numpad
   Numpad0: "0",
@@ -301,6 +303,7 @@ export const WINDOWS_KEY_SYMBOLS: Partial<Record<KeyboardKey, string>> = {
   F10: "F10",
   F11: "F11",
   F12: "F12",
+  FN: "Fn",
 
   // Numpad
   Numpad0: "Num 0",
@@ -380,6 +383,7 @@ export const GENERIC_KEY_SYMBOLS: Partial<Record<KeyboardKey, string>> = {
   F10: "F10",
   F11: "F11",
   F12: "F12",
+  FN: "Fn",
 
   Numpad0: "Numpad 0",
   Numpad1: "Numpad 1",
