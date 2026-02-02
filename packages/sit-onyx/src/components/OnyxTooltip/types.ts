@@ -34,6 +34,10 @@ export type OnyxTooltipProps = DensityProp & {
    */
   position?: AnchorPosition | "auto";
   /**
+   * CSS [length](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/length) value that should be used to offset the tooltip.
+   */
+  offset?: string;
+  /**
    * Specifies how to align the tooltip relative to the parent element.
    * This is applicable only for top and bottom positioning.
    */

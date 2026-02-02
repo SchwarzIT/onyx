@@ -45,6 +45,7 @@ const props = withDefaults(defineProps<OnyxTooltipProps>(), {
   alignment: "auto",
   alignsWithEdge: false,
   open: undefined,
+  offset: "0px",
 });
 
 const emit = defineEmits<{
@@ -276,6 +277,7 @@ $wedge-size: 0.5rem;
     overflow: hidden;
     padding: 0;
 
+    --offset-with-wedge: calc(v-bind(offset) + #{$wedge-size});
     --background-color: var(--onyx-color-base-neutral-900);
     --color: var(--onyx-color-text-icons-neutral-inverted);
 
@@ -304,7 +306,7 @@ $wedge-size: 0.5rem;
       justify-content: center;
       align-items: center;
       gap: var(--onyx-density-2xs);
-      margin: 0 0 $wedge-size 0;
+      margin: 0 0 var(--offset-with-wedge) 0;
 
       background-color: var(--background-color);
       color: var(--color);
@@ -329,7 +331,7 @@ $wedge-size: 0.5rem;
     }
     &--position-bottom {
       .onyx-tooltip--content {
-        margin: $wedge-size 0 0 0;
+        margin: var(--offset-with-wedge) 0 0 0;
 
         &::after {
           top: -2 * $wedge-size;
@@ -340,7 +342,7 @@ $wedge-size: 0.5rem;
 
     &--position-left {
       .onyx-tooltip--content {
-        margin: 0 $wedge-size 0 0;
+        margin: 0 var(--offset-with-wedge) 0 0;
 
         &::after {
           right: 0;
@@ -355,7 +357,7 @@ $wedge-size: 0.5rem;
 
     &--position-right {
       .onyx-tooltip--content {
-        margin: 0 0 0 $wedge-size;
+        margin: 0 0 0 var(--offset-with-wedge);
 
         &::after {
           left: 0;
@@ -380,13 +382,13 @@ $wedge-size: 0.5rem;
       }
     }
     &--position-top-left .onyx-tooltip--content {
-      margin: 0 $wedge-size $wedge-size 0;
+      margin: 0 var(--offset-with-wedge) var(--offset-with-wedge) 0;
     }
     &--position-top-right .onyx-tooltip--content {
-      margin: 0 0 $wedge-size $wedge-size;
+      margin: 0 0 var(--offset-with-wedge) var(--offset-with-wedge);
     }
     &--position-bottom-left .onyx-tooltip--content {
-      margin: $wedge-size $wedge-size 0 0;
+      margin: var(--offset-with-wedge) var(--offset-with-wedge) 0 0;
     }
     &--position-bottom-right .onyx-tooltip--content {
       margin: $wedge-size 0 0 $wedge-size;
