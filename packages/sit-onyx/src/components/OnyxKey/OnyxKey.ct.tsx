@@ -3,9 +3,9 @@ import {
   expectEmit,
   type MatrixScreenshotTestOptions,
 } from "@sit-onyx/playwright-utils";
+import { OPERATING_SYSTEMS } from "../../composables/useOperatingSystem.js";
 import { test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
-import { OPERATING_SYSTEMS } from "../../types/index.js";
 import OnyxKey from "./OnyxKey.vue";
 import {
   ALPHABETIC_KEYS,
@@ -28,9 +28,14 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Key",
     columns: ["default"],
-    rows: ["default", "highlighted", "skeleton"],
+    rows: ["default", "highlighted", "truncated", "skeleton"],
     component: (column, row) => (
-      <OnyxKey name="A" highlighted={row === "highlighted"} skeleton={row === "skeleton"} />
+      <OnyxKey
+        name={row === "truncated" ? "ScrollLock" : "A"}
+        highlighted={row === "highlighted"}
+        skeleton={row === "skeleton"}
+        style={{ width: row === "truncated" ? "6rem" : 0 }}
+      />
     ),
   });
 });

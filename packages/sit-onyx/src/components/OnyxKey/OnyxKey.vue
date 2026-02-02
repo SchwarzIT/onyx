@@ -92,7 +92,9 @@ defineExpose({
       { 'onyx-key--highlighted': isHighlighted },
     ]"
   >
-    {{ visualLabel }}
+    <span class="onyx-truncation-ellipsis">
+      {{ visualLabel }}
+    </span>
   </kbd>
 </template>
 
@@ -113,7 +115,6 @@ defineExpose({
     align-items: center;
     justify-content: center;
 
-    min-height: var(--onyx-key-size);
     min-width: var(--onyx-key-size);
     padding-inline: var(--onyx-density-2xs);
 
@@ -132,7 +133,9 @@ defineExpose({
 .onyx-key-skeleton {
   @include layers.component() {
     display: inline-block;
+    min-width: var(--onyx-key-size);
     width: var(--onyx-key-size);
+    min-height: var(--onyx-key-size);
     height: var(--onyx-key-size);
     border-radius: var(--onyx-key-border-radius);
   }
