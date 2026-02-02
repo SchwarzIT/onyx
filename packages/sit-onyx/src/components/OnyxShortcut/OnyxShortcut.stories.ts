@@ -5,7 +5,7 @@ import OnyxShortcut from "./OnyxShortcut.vue";
  * The shortcut component displays keyboard shortcut sequences with visual key representations.
  * It supports multi-step sequences, operating system specific symbols (macOS, Windows) and interactive highlighting of pressed keys.
  *
- * If you want to use the shortcut functionality without visualizing the OnyxShortcut component, you can also use the `useShortcut()` composable.
+ * If you want to use the shortcut functionality without visualizing the OnyxShortcut component, you can also use the `_unstableUseShortcut()` composable.
  *
  * For representing a single key, you can also use the [OnyxKey](/docs/basic-key--docs) component.
  */
