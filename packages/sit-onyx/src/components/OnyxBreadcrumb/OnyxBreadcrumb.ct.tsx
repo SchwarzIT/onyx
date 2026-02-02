@@ -56,7 +56,7 @@ test("should be aligned with the grid when in container mode", async ({ page, mo
         <div
           style={{
             backgroundColor: "var(--onyx-color-base-info-300)",
-            fontFamily: "var(--onyx-font-family)",
+            fontFamily: "var(--onyx-font-family-paragraph)",
           }}
         >
           Page content...

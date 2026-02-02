@@ -99,7 +99,7 @@ const { timeAgo } = useRelativeTimeFormat({
 .onyx-notification-card {
   @include layers.component() {
     --onyx-notification-card-padding: var(--onyx-density-md);
-    font-family: var(--onyx-font-family);
+    font-family: var(--onyx-font-family-paragraph);
     padding: var(--onyx-notification-card-padding);
     background-color: var(--onyx-color-base-background-blank);
     max-width: 100%;

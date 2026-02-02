@@ -63,7 +63,7 @@ const tagClasses = computed(() => [
     max-width: 100%;
     padding: var(--onyx-density-3xs) var(--onyx-density-xs);
     border-radius: var(--onyx-radius-xs);
-    font-family: var(--onyx-font-family);
+    font-family: var(--onyx-font-family-paragraph);
 
     color: var(--onyx-tag-color);
     border: var(--onyx-1px-in-rem) solid var(--onyx-tag-border-color);

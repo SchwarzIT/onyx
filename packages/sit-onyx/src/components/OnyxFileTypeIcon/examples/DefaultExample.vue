@@ -16,7 +16,7 @@ import { OnyxFileTypeIcon, SUPPORTED_FILE_TYPE_ICON_MEDIA_TYPES } from "../../..
   display: flex;
   flex-direction: column;
   gap: var(--onyx-density-sm);
-  font-family: var(--onyx-font-family);
+  font-family: var(--onyx-font-family-paragraph);
   color: var(--onyx-color-text-icons-neutral-intense);
 }
 </style>

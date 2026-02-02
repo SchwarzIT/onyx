@@ -60,7 +60,7 @@ defineExpose({
     border: none;
     background: var(--onyx-color-base-background-blank);
     padding: var(--onyx-spacing-2xs) var(--onyx-spacing-md);
-    font-family: var(--onyx-font-family);
+    font-family: var(--onyx-font-family-paragraph);
     color: var(--onyx-color-text-icons-neutral-intense);
     width: max-content;
     max-width: 100%;

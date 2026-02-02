@@ -17,7 +17,7 @@ test.describe("Screenshot tests", () => {
     component: (column) => (
       <OnyxLink
         href={column === "external" ? EXTERNAL_HREF : "#"}
-        style={{ fontFamily: "var(--onyx-font-family)" }}
+        style={{ fontFamily: "var(--onyx-font-family-paragraph)" }}
       >
         Click me
       </OnyxLink>

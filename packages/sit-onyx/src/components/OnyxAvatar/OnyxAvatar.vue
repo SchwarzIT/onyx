@@ -71,7 +71,7 @@ watch(
     background-color: var(--onyx-color-base-primary-200);
 
     color: var(--onyx-color-text-icons-primary-bold);
-    font-family: var(--onyx-font-family);
+    font-family: var(--onyx-font-family-paragraph);
     line-height: normal;
     font-weight: var(--onyx-font-weight-semibold);
 

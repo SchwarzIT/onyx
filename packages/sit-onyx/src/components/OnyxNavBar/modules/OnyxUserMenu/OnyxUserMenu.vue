@@ -101,7 +101,7 @@ const isMobile = inject(
   @include layers.component() {
     --onyx-user-menu-height: 2.5rem;
 
-    font-family: var(--onyx-font-family);
+    font-family: var(--onyx-font-family-paragraph);
     width: max-content;
     position: relative;
 

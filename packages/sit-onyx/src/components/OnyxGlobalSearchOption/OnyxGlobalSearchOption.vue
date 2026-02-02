@@ -119,7 +119,7 @@ const skeleton = useSkeletonContext(props);
 .onyx-global-search-option {
   @include layers.component() {
     list-style: none;
-    font-family: var(--onyx-font-family);
+    font-family: var(--onyx-font-family-paragraph);
     color: var(--onyx-color-text-icons-neutral-intense);
     border-radius: var(--onyx-radius-sm);
     padding: var(--onyx-global-search-option-padding);

@@ -22,7 +22,7 @@ const meta: Meta<typeof OnyxLink> = {
     (story) => ({
       components: { story },
       template: `
-      <div class="onyx-text" style="font-family: var(--onyx-font-family);">
+      <div class="onyx-text" style="font-family: var(--onyx-font-family-paragraph);">
         <story />
       </div>`,
     }),

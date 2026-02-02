@@ -325,7 +325,7 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
 
 <style lang="scss" scoped>
 .playground {
-  font-family: var(--onyx-font-family);
+  font-family: var(--onyx-font-family-paragraph);
   color: var(--onyx-color-text-icons-neutral-intense);
   background-color: var(--onyx-color-base-background-tinted);
   overflow: scroll;

@@ -2,6 +2,8 @@
 
 @layer onyx.utility {
   :root {
+    // TODO: remove in v2
+    /** @deprecated Use --onyx-font-family-paragraph instead */
     --onyx-font-family: var(--onyx-font-family-paragraph), sans-serif;
     --onyx-1px-in-rem: 0.0625rem;
 
