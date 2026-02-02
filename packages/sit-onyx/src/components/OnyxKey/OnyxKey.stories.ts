@@ -7,7 +7,7 @@ import OnyxKey from "./OnyxKey.vue";
  * Useful for documentation, tutorials and displaying keyboard shortcuts.
  */
 const meta: Meta<typeof OnyxKey> = {
-  title: "Support/Key",
+  title: "Basic/Key",
   component: OnyxKey,
   tags: ["unstable"],
 };
