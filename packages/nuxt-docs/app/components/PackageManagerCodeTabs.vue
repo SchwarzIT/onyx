@@ -33,9 +33,9 @@ const tabs = computed(() => {
 </script>
 
 <template>
-  <OnyxUnstableCodeTabs v-model="selectedTab">
-    <OnyxUnstableCodeTab v-for="tab in tabs" v-bind="tab" :key="tab.value" :label="tab.value">
+  <OnyxCodeTabs v-model="selectedTab">
+    <OnyxCodeTab v-for="tab in tabs" v-bind="tab" :key="tab.value" :label="tab.value">
       <HighlightedCode :code="tab.code" :language="tab.language" />
-    </OnyxUnstableCodeTab>
-  </OnyxUnstableCodeTabs>
+    </OnyxCodeTab>
+  </OnyxCodeTabs>
 </template>
