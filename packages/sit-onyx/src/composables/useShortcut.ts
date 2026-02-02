@@ -14,14 +14,8 @@ import { useOperatingSystem } from "./useOperatingSystem.js";
  * Check whether the current pressed keys satisfy a step.
  */
 const matchStep = (step: ShortcutStep, pressed: Set<KeyboardKey>): boolean => {
-  if (isAllStep(step)) {
-    return step.all.every((key) => pressed.has(key));
-  }
-
-  if (isAnyStep(step)) {
-    return step.any.some((key) => pressed.has(key));
-  }
-
+  if (isAllStep(step)) return step.all.every((key) => pressed.has(key));
+  if (isAnyStep(step)) return step.any.some((key) => pressed.has(key));
   return false;
 };
 
@@ -29,14 +23,8 @@ const matchStep = (step: ShortcutStep, pressed: Set<KeyboardKey>): boolean => {
  * Check whether a key is relevant for a given step.
  */
 const isKeyRelevantForStep = (key: KeyboardKey, step: ShortcutStep): boolean => {
-  if (isAllStep(step)) {
-    return step.all.includes(key);
-  }
-
-  if (isAnyStep(step)) {
-    return step.any.includes(key);
-  }
-
+  if (isAllStep(step)) return step.all.includes(key);
+  if (isAnyStep(step)) return step.any.includes(key);
   return false;
 };
 
