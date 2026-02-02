@@ -3,26 +3,21 @@ import type { ShortcutEventTarget } from "../../composables/useShortcut.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 import type { ShortcutStep } from "../../utils/keyboard.js";
 
+export type ShortcutSequenceStep = ShortcutStep & {
+  /**
+   * Whether to hide the separator (`/` or `+`) used to concatenate keys in this step.
+   * Useful when you e.g. want to display `↑↓` instead of `↑/↓`.
+   */
+  hideSeparator?: boolean;
+};
+
 export type OnyxShortcutProps = {
   /**
    * Sequence of shortcut steps.
    *
-   * @example
-   * [{ all: ["Control", "C"] }, { any: ["V", "Insert"] }]
+   * @example `[{ all: ["Control", "C"] }, { any: ["V", "Insert"] }]`
    */
-  sequence: (ShortcutStep & {
-    /**
-     * If `true`, the separator (`/` or `+`) used to concatenate keys in this step is hidden.
-     * Could be useful in you have such sequence:
-     *
-     * `[{ any: ["ArrowDown", "ArrowUp"], separatorHidden: true }]`.
-     *
-     * So that it will render as `↑↓` instead of `↑/↓`.
-     *
-     * @default false
-     */
-    separatorHidden?: boolean;
-  })[];
+  sequence: ShortcutSequenceStep[];
   /**
    * Which operating system to use for displaying the key.
    * When set to "auto", the OS will be detected automatically.

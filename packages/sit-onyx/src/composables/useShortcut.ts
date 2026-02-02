@@ -61,16 +61,11 @@ type UseShortcutOptions = {
   /**
    * Callback invoked when a step in the shortcut sequence is completed.
    */
-  onStepComplete?: (
-    step: ShortcutStep,
-    stepIndex: number,
-    key: KeyboardKey,
-    event: KeyboardEvent,
-  ) => void;
+  onStepComplete?: (step: ShortcutStep, stepIndex: number) => void;
   /**
    * Callback invoked when the shortcut sequence is completed.
    */
-  onSequenceComplete?: (key: KeyboardKey, event: KeyboardEvent) => void;
+  onSequenceComplete?: () => void;
   /**
    * Element on which to listen for the shortcut events.
    * If not provided, the events are listened on the global window object.
@@ -223,8 +218,8 @@ export const _unstableUseShortcut = (options: UseShortcutOptions) => {
         event.stopPropagation();
       }
 
-      options.onStepComplete?.(currentStep, currentStepIndex.value, keyboardKey, event);
-      options.onSequenceComplete?.(keyboardKey, event);
+      options.onStepComplete?.(currentStep, currentStepIndex.value);
+      options.onSequenceComplete?.();
       currentStepIndex.value = 0;
     } else {
       if (preventDefaultOn.value === "stepComplete") {
@@ -235,7 +230,7 @@ export const _unstableUseShortcut = (options: UseShortcutOptions) => {
         event.stopPropagation();
       }
 
-      options.onStepComplete?.(currentStep, currentStepIndex.value, keyboardKey, event);
+      options.onStepComplete?.(currentStep, currentStepIndex.value);
       currentStepIndex.value += 1;
     }
   };

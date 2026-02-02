@@ -13,7 +13,7 @@ import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
-import { isAllStep, isAnyStep, type KeyboardKey, type ShortcutStep } from "../../utils/keyboard.js";
+import { isAllStep, isAnyStep, type ShortcutStep } from "../../utils/keyboard.js";
 import OnyxKey from "../OnyxKey/OnyxKey.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxShortcutProps } from "./types.js";
@@ -39,13 +39,13 @@ const skeleton = useSkeletonContext(props);
 
 const emit = defineEmits<{
   /**
-   * Emitted when the shortcut sequence is successfully completed.
+   * Emitted when the full shortcut sequence is completed successfully.
    */
-  sequenceComplete: [key: KeyboardKey, event: KeyboardEvent];
+  complete: [];
   /**
    * Emitted when a step in the shortcut sequence is completed.
    */
-  stepComplete: [step: ShortcutStep, stepIndex: number, key: KeyboardKey, event: KeyboardEvent];
+  stepComplete: [step: ShortcutStep, stepIndex: number];
 }>();
 
 const {
@@ -66,11 +66,11 @@ const { isKeyHighlighted } = _unstableUseShortcut({
   listenOnRepeat,
   preventDefaultOn,
   stopPropagationOn,
-  onStepComplete: (...args) => {
-    emit("stepComplete", ...args);
+  onStepComplete: (step, stepIndex) => {
+    emit("stepComplete", step, stepIndex);
   },
-  onSequenceComplete: (...args) => {
-    emit("sequenceComplete", ...args);
+  onSequenceComplete: () => {
+    emit("complete");
   },
 });
 </script>
@@ -80,14 +80,14 @@ const { isKeyHighlighted } = _unstableUseShortcut({
   <span v-else :class="['onyx-component', 'onyx-shortcut']">
     <template v-for="(step, stepIndex) in props.sequence" :key="stepIndex">
       <template v-if="isAllStep(step)">
-        <template v-for="(key, keyIndex) in step.all" :key="keyIndex">
+        <template v-for="(key, keyIndex) in step.all" :key>
           <OnyxKey
             :name="key"
             :os="props.os"
             :highlighted="props.highlight && isKeyHighlighted(key, stepIndex)"
           />
           <span
-            v-if="keyIndex < step.all.length - 1 && !step.separatorHidden"
+            v-if="keyIndex < step.all.length - 1 && !step.hideSeparator"
             class="onyx-shortcut__separator"
           >
             {{ SEPARATORS.ALL }}
@@ -95,15 +95,15 @@ const { isKeyHighlighted } = _unstableUseShortcut({
         </template>
       </template>
 
-      <template v-if="isAnyStep(step)">
-        <template v-for="(key, keyIndex) in step.any" :key="keyIndex">
+      <template v-else-if="isAnyStep(step)">
+        <template v-for="(key, keyIndex) in step.any" :key>
           <OnyxKey
             :name="key"
             :os="props.os"
             :highlighted="props.highlight && isKeyHighlighted(key, stepIndex)"
           />
           <span
-            v-if="keyIndex < step.any.length - 1 && !step.separatorHidden"
+            v-if="keyIndex < step.any.length - 1 && !step.hideSeparator"
             class="onyx-shortcut__separator"
           >
             {{ SEPARATORS.ANY }}
@@ -125,7 +125,7 @@ const { isKeyHighlighted } = _unstableUseShortcut({
   @include layers.component() {
     display: inline-flex;
     align-items: center;
-    gap: 0.25rem;
+    gap: var(--onyx-spacing-4xs);
     font-family: monospace;
 
     &__separator {

@@ -1,234 +1,79 @@
-import type { MatrixScreenshotTestOptions } from "@sit-onyx/playwright-utils";
-import { expect, test } from "../../playwright/a11y.js";
+import { createEmitSpy, expectEmit } from "@sit-onyx/playwright-utils";
+import { OPERATING_SYSTEMS } from "../../composables/useOperatingSystem.js";
+import { test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
-import type { KeyboardKey } from "../../utils/keyboard.js";
 import OnyxShortcut from "./OnyxShortcut.vue";
-
-const simpleKeys = ["Control", "C"] satisfies KeyboardKey[];
-const complexKeys = ["Control", "Shift", "Alt", "C"] satisfies KeyboardKey[];
-
-const screenshotOptions = {
-  rows: ["default", "highlighted"] as const,
-  hooks: {
-    beforeEach: async (_component, page, column, row) => {
-      if (row === "highlighted") {
-        if (column === "simple") {
-          simpleKeys.forEach(async (key) => {
-            await page.keyboard.down(key);
-          });
-        } else {
-          complexKeys.forEach(async (key) => {
-            await page.keyboard.down(key);
-          });
-        }
-      }
-    },
-  },
-} satisfies Partial<MatrixScreenshotTestOptions>;
+import type { ShortcutSequenceStep } from "./types.js";
 
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
-    ...screenshotOptions,
-    name: "Shortcut (single step - all)",
-    columns: ["simple", "complex"],
-    component: (column, row) => (
-      <OnyxShortcut
-        sequence={column === "simple" ? [{ all: simpleKeys }] : [{ all: complexKeys }]}
-        highlight={row === "highlighted"}
-        style={{ margin: "0.5rem" }}
-      />
-    ),
-  });
-
-  executeMatrixScreenshotTest({
-    ...screenshotOptions,
-    name: "Shortcut (single step - any)",
-    columns: ["simple", "complex"],
-    component: (column, row) => (
-      <OnyxShortcut
-        sequence={column === "simple" ? [{ any: simpleKeys }] : [{ any: complexKeys }]}
-        highlight={row === "highlighted"}
-        style={{ margin: "0.5rem" }}
-      />
-    ),
-  });
-
-  executeMatrixScreenshotTest({
-    rows: ["default"] as const,
-    name: "Shortcut (multi-step sequence)",
-    columns: ["simple", "complex"],
-    component: (column) => (
-      <OnyxShortcut
-        sequence={
-          column === "simple"
-            ? [{ all: ["Control", "C"] }, { any: ["V", "Insert"] }]
-            : [{ all: ["Control", "Shift"] }, { any: ["ArrowUp", "ArrowDown"] }, { all: ["Enter"] }]
-        }
-        style={{ margin: "0.5rem" }}
-      />
-    ),
-  });
-
-  executeMatrixScreenshotTest({
-    name: "Shortcut (OS variants)",
-    columns: ["macOS", "windows", "generic"],
-    rows: ["modifier-keys", "mixed-keys"],
-    component: (column, row) => (
-      <OnyxShortcut
-        sequence={
-          row === "modifier-keys"
-            ? [{ all: ["Meta", "Shift", "C"] }]
-            : [{ all: ["Control", "F"] }, { any: ["1", "2", "3"] }]
-        }
-        os={column}
-        style={{ margin: "0.5rem" }}
-      />
-    ),
-  });
-
-  executeMatrixScreenshotTest({
-    name: "Shortcut (skeleton)",
+    name: "Shortcut",
     columns: ["default"],
-    rows: ["skeleton"],
-    component: () => (
-      <OnyxShortcut sequence={[{ all: ["Control", "C"] }]} skeleton style={{ margin: "0.5rem" }} />
-    ),
-  });
+    rows: ["all", "any", "mixed", "hideSeparator", "skeleton"],
+    component: (column, row) => {
+      const sequences: Record<typeof row, ShortcutSequenceStep[]> = {
+        all: [{ all: ["Control", "C"] }],
+        any: [{ any: ["A", "B"] }],
+        mixed: [{ all: ["A", "B"] }, { any: ["C", "D"] }],
+        hideSeparator: [{ any: ["A", "B"], hideSeparator: true }],
+        skeleton: [],
+      };
 
-  executeMatrixScreenshotTest({
-    name: "Shortcut (separators)",
-    columns: ["all-separator", "any-separator", "sequence-separator"],
-    rows: ["default"],
-    component: (column) => {
-      if (column === "all-separator") {
-        return (
-          <OnyxShortcut
-            sequence={[{ all: ["Control", "Shift", "Alt", "Delete"] }]}
-            style={{ margin: "0.5rem" }}
-          />
-        );
-      }
-      if (column === "any-separator") {
-        return (
-          <OnyxShortcut
-            sequence={[{ any: ["Enter", "Space", "Tab", "Escape"] }]}
-            style={{ margin: "0.5rem" }}
-          />
-        );
-      }
-      return (
-        <OnyxShortcut
-          sequence={[{ all: ["Control", "C"] }, { any: ["V"] }, { all: ["Enter"] }]}
-          style={{ margin: "0.5rem" }}
-        />
-      );
+      return <OnyxShortcut sequence={sequences[row]} skeleton={row === "skeleton"} />;
     },
   });
 });
 
-test.describe("Interaction tests", () => {
-  test("should render all keys and separators correctly", async ({ mount }) => {
-    // ARRANGE
-    const component = await mount(
-      <OnyxShortcut sequence={[{ all: ["Control", "C"] }, { any: ["V", "Insert"] }]} />,
-    );
-
-    // ASSERT
-    await expect(component.locator("kbd")).toHaveCount(4);
-    await expect(component.locator("text=+")).toHaveCount(1); // ALL separator within first step
-    await expect(component.locator("text=/")).toHaveCount(1); // ANY separator within second step
-    await expect(component.locator("text=→")).toHaveCount(1); // SEQUENCE separator between steps
-  });
-
-  test("should display OS-specific symbols", async ({ mount }) => {
-    // ARRANGE
-    const macComponent = await mount(
-      <OnyxShortcut sequence={[{ all: ["Meta", "Shift", "C"] }]} os="macOS" />,
-    );
-
-    // ASSERT
-    await expect(macComponent.getByText("⌘")).toBeVisible(); // Command key
-    await expect(macComponent.getByText("⇧")).toBeVisible(); // Shift key
-
-    // ARRANGE
-    const winComponent = await mount(
-      <OnyxShortcut sequence={[{ all: ["Meta", "Shift", "C"] }]} os="windows" />,
-    );
-
-    // ASSERT
-    await expect(winComponent.getByText("⊞")).toBeVisible();
-    await expect(winComponent.getByText("⇧")).toBeVisible();
-  });
-
-  test("should correctly integrate highlightPressed prop with composable state", async ({
-    mount,
-    page,
-  }) => {
-    // ARRANGE
-    const component = await mount(
-      <OnyxShortcut sequence={[{ all: ["Control", "C"] }]} highlight />,
-    );
-
-    // ACT
-    await expect(component).toBeVisible();
-
-    // ACT
-    await page.keyboard.down("Control");
-
-    // ASSERT
-    const ctrlKey = component.locator("kbd").filter({ hasText: /^(ctrl|⌃)$/i });
-    await expect(ctrlKey).toContainClass("onyx-key--highlighted");
-
-    // ACT
-    await page.keyboard.up("Control");
-
-    // ASSERT
-    await expect(ctrlKey).not.toContainClass("onyx-key--highlighted");
-  });
-
-  test("should emit sequenceComplete event when sequence is completed", async ({ mount, page }) => {
-    // ARRANGE
-    let isSequenceCompleteEmitted = false;
-    await mount(OnyxShortcut, {
-      props: {
-        sequence: [{ all: ["Control", "C"] }],
+test.describe("Screenshot tests (highlight)", () => {
+  executeMatrixScreenshotTest({
+    name: "Shortcut (highlight)",
+    columns: ["default"],
+    rows: ["default"],
+    component: () => <OnyxShortcut sequence={[{ any: ["A", "B", "C", "D"] }]} highlight />,
+    hooks: {
+      beforeEach: async (component, page) => {
+        await page.keyboard.down("A");
+        await page.keyboard.down("C");
       },
-      on: {
-        sequenceComplete: () => {
-          isSequenceCompleteEmitted = true;
-        },
-      },
-    });
-
-    // ACT
-    await page.keyboard.down("Control");
-    await page.keyboard.press("c");
-    await page.keyboard.up("Control");
-
-    // ASSERT
-    expect(isSequenceCompleteEmitted).toBe(true);
+    },
   });
+});
 
-  test("should emit stepComplete event at intermediate steps", async ({ mount, page }) => {
-    // ARRANGE
-    let isStepCompleteEmitted = false;
-    await mount(OnyxShortcut, {
-      props: {
-        sequence: [{ all: ["Control", "C"] }, { any: ["V"] }],
-      },
-      on: {
-        stepComplete: () => {
-          isStepCompleteEmitted = true;
-        },
-      },
-    });
-
-    // ACT
-    await page.keyboard.down("Control");
-    await page.keyboard.press("c");
-    await page.keyboard.up("Control");
-
-    // ASSERT
-    expect(isStepCompleteEmitted).toBe(true);
+test.describe("Screenshot tests (OS)", () => {
+  executeMatrixScreenshotTest({
+    name: "Shortcut (OS)",
+    columns: OPERATING_SYSTEMS,
+    rows: ["Meta"],
+    component: (column, row) => <OnyxShortcut sequence={[{ all: [row, "S"] }]} os={column} />,
   });
+});
+
+// eslint-disable-next-line playwright/expect-expect -- assertion is done by "expectEmit"
+test("should emit events when step and full sequence is completed", async ({ mount, page }) => {
+  // ARRANGE
+  const onComplete = createEmitSpy<typeof OnyxShortcut, "onComplete">();
+  const onStepComplete = createEmitSpy<typeof OnyxShortcut, "onStepComplete">();
+  await mount(
+    <OnyxShortcut
+      sequence={[{ all: ["Control", "C"] }, { any: ["V"] }]}
+      onComplete={onComplete}
+      onStepComplete={onStepComplete}
+    />,
+  );
+
+  // ACT
+  await page.keyboard.down("Control");
+  await page.keyboard.press("c");
+  await page.keyboard.up("Control");
+
+  // ASSERT
+  expectEmit(onStepComplete, 1, [{ all: ["Control", "C"] }, 0]);
+  expectEmit(onComplete, 0);
+
+  // ACT
+  await page.keyboard.press("v");
+
+  // ASSERT
+  expectEmit(onStepComplete, 2, [{ any: ["V"] }, 1]);
+  expectEmit(onComplete, 1, []);
 });

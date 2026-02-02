@@ -152,7 +152,7 @@ describe("useShortcut", () => {
 
       // ASSERT - Both keys pressed, sequence completed
       expect(pressedKeys.value.has("C")).toBeTruthy();
-      expect(onSequenceComplete).toHaveBeenCalledExactlyOnceWith("C", expect.any(KeyboardEvent));
+      expect(onSequenceComplete).toHaveBeenCalledExactlyOnceWith();
     });
 
     test("should handle single 'any' step shortcut and pass key parameter", () => {
@@ -168,10 +168,7 @@ describe("useShortcut", () => {
 
       // ASSERT - should complete sequence immediately
       expect(pressedKeys.value.has("Enter")).toBeTruthy();
-      expect(onSequenceComplete).toHaveBeenCalledExactlyOnceWith(
-        "Enter",
-        expect.any(KeyboardEvent),
-      );
+      expect(onSequenceComplete).toHaveBeenCalledExactlyOnceWith();
 
       // ACT Release keys
       triggerKeyup("Enter");
@@ -230,19 +227,14 @@ describe("useShortcut", () => {
       expect(currentStepIndex.value).toBe(1);
       expect(onSequenceComplete).not.toHaveBeenCalled();
       expect(onStepComplete).toHaveBeenCalledOnce();
-      expect(onStepComplete).toHaveBeenCalledExactlyOnceWith(
-        expect.objectContaining({ all: ["Control", "C"] }),
-        0,
-        "C",
-        expect.any(KeyboardEvent),
-      );
+      expect(onStepComplete).toHaveBeenCalledExactlyOnceWith({ all: ["Control", "C"] }, 0);
 
       // ACT Second step: V
       triggerKeydown("v");
       triggerKeyup("v");
 
       // ASSERT - should complete sequence
-      expect(onSequenceComplete).toHaveBeenCalledExactlyOnceWith("V", expect.any(KeyboardEvent));
+      expect(onSequenceComplete).toHaveBeenCalledExactlyOnceWith();
       expect(currentStepIndex.value).toBe(0);
     });
   });

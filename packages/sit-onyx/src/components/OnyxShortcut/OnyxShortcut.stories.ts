@@ -2,42 +2,35 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import OnyxShortcut from "./OnyxShortcut.vue";
 
 /**
- * The Shortcut component displays keyboard shortcut sequences with visual key representations.
- * It supports multi-step sequences, OS-specific keys, and interactive highlighting of pressed keys.
+ * The shortcut component displays keyboard shortcut sequences with visual key representations.
+ * It supports multi-step sequences, operating system specific symbols (macOS, Windows) and interactive highlighting of pressed keys.
+ *
+ * If you want to use the shortcut functionality without visualizing the OnyxShortcut component, you can also use the `useShortcut()` composable.
+ *
+ * For representing a single key, you can also use the [OnyxKey](/docs/basic-key--docs) component.
  */
 const meta: Meta<typeof OnyxShortcut> = {
   title: "Basic/Shortcut",
-  component: OnyxShortcut as Meta["component"],
+  component: OnyxShortcut,
   tags: ["unstable"],
 };
 
 export default meta;
-
 type Story = StoryObj<typeof OnyxShortcut>;
 
-/**
- * Basic shortcut sequence showing copy and paste commands.
- */
 export const Default = {
   args: {
     sequence: [{ all: ["Control", "C"] }, { any: ["V", "Insert"] }],
   },
 } satisfies Story;
 
-/**
- * Shortcut with pressed key highlighting.
- * Try pressing the keys to see real-time visual feedback.
- */
-export const HighlightPressed = {
+export const Highlight = {
   args: {
     sequence: [{ all: ["Control", "Shift", "S"] }],
     highlight: true,
   },
 } satisfies Story;
 
-/**
- * Multi-step shortcut sequence for more complex operations.
- */
 export const MultiStep = {
   args: {
     sequence: [{ all: ["Control", "K"] }, { any: ["Enter", "Space"] }],
@@ -45,20 +38,6 @@ export const MultiStep = {
   },
 } satisfies Story;
 
-/**
- * macOS variant showing OS-specific key symbols.
- */
-export const MacOS = {
-  args: {
-    os: "macOS",
-    highlight: true,
-    sequence: [{ all: ["Meta", "Shift", "K"] }],
-  },
-} satisfies Story;
-
-/**
- * Skeleton loading state.
- */
 export const Skeleton = {
   args: {
     skeleton: true,
@@ -66,13 +45,9 @@ export const Skeleton = {
   },
 } satisfies Story;
 
-/**
- * Disabled shortcut preventing keyboard interaction.
- */
 export const Disabled = {
   args: {
-    sequence: [{ all: ["Control", "S"] }],
+    ...Highlight.args,
     disabled: true,
-    highlight: true,
   },
 } satisfies Story;
