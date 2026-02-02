@@ -38,14 +38,9 @@ const value = "tab-1";
 </script>
 
 <template>
-  <OnyxUnstableCodeTabs :model-value="value">
-    <OnyxUnstableCodeTab
-      :value
-      :code="props.code"
-      :language="props.language"
-      :label="props.filename"
-    >
+  <OnyxCodeTabs :model-value="value">
+    <OnyxCodeTab :value :code="props.code" :language="props.language" :label="props.filename">
       <pre :class="props.class"><slot></slot></pre>
-    </OnyxUnstableCodeTab>
-  </OnyxUnstableCodeTabs>
+    </OnyxCodeTab>
+  </OnyxCodeTabs>
 </template>
