@@ -186,7 +186,6 @@ const sharedStepperProps = computed(() => {
               :open="props.tooltip?.hidden ? false : undefined"
               :text="props.tooltip?.formatter?.(value, index) ?? String(value)"
               :position="hasMarkLabels ? 'top' : 'bottom'"
-              offset="0.25rem"
             >
               <template #default="{ trigger }">
                 <OnyxVisuallyHidden
@@ -343,6 +342,10 @@ const sharedStepperProps = computed(() => {
       place-items: center;
       z-index: $track-z-index + 1;
       pointer-events: none;
+
+      &.onyx-tooltip {
+        --offset: 0.25rem;
+      }
 
       &:has(.onyx-slider__native:enabled) {
         &:focus-within {
