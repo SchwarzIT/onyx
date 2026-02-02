@@ -45,7 +45,6 @@ const props = withDefaults(defineProps<OnyxTooltipProps>(), {
   alignment: "auto",
   alignsWithEdge: false,
   open: undefined,
-  offset: "0px",
 });
 
 const emit = defineEmits<{
@@ -269,6 +268,11 @@ $wedge-size: 0.5rem;
 
 .onyx-tooltip {
   @include layers.component() {
+    /**
+     * CSS [length](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/length) value that can be used to add an extra offset/margin the tooltip.
+     */
+    --offset: 0rem;
+
     position: fixed;
     min-width: var(--onyx-spacing-3xl);
     width: max-content;
@@ -277,7 +281,7 @@ $wedge-size: 0.5rem;
     overflow: hidden;
     padding: 0;
 
-    --offset-with-wedge: calc(v-bind(offset) + #{$wedge-size});
+    --offset-with-wedge: calc(var(--offset) + #{$wedge-size});
     --background-color: var(--onyx-color-base-neutral-900);
     --color: var(--onyx-color-text-icons-neutral-inverted);
 
