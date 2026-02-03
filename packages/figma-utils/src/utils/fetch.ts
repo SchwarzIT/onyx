@@ -38,13 +38,15 @@ export const fetchFigmaSVGs = async (
     accessToken,
   );
 
-  await Promise.all(
+  await Promise.allSettled(
     Object.entries(result.images).map(async ([id, imageUrl]) => {
-      const response = await fetch(imageUrl);
-      if (!response.ok) {
-        throw new Error(`Failed to fetch SVG content for component ${id}: ${response.statusText}`);
+      try {
+        const response = await fetch(imageUrl);
+        if (!response.ok) throw new Error(response.statusText);
+        result.images[id] = await response.text();
+      } catch (e) {
+        console.error(`Failed to fetch SVG content for component ${id}: ${e}`);
       }
-      result.images[id] = await response.text();
     }),
   );
 
