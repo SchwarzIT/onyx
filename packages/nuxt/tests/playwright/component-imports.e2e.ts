@@ -24,8 +24,10 @@ test("renders the page containing an auto imported onyx component and it's style
     const style = getComputedStyle(el);
     return {
       fontFamily: style.fontFamily,
-      "--onyx-font-family": style.getPropertyValue("--onyx-font-family").replace(",", ", "),
+      "--onyx-font-family-paragraph": style
+        .getPropertyValue("--onyx-font-family-paragraph")
+        .replace(",", ", "),
     };
   });
-  expect(styles.fontFamily).toBe(styles["--onyx-font-family"]);
+  expect(styles.fontFamily).toBe(styles["--onyx-font-family-paragraph"]);
 });
