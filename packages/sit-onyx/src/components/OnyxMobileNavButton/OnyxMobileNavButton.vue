@@ -117,7 +117,7 @@ const isOpen = computed(() => !props.disabled && props.open);
       background-color: var(--onyx-color-base-background-tinted);
       box-shadow: var(--onyx-shadow-medium-bottom);
       position: relative;
-      font-family: var(--onyx-font-family);
+      font-family: var(--onyx-font-family-paragraph);
       color: var(--onyx-color-text-icons-neutral-intense);
       overflow-y: auto;
 

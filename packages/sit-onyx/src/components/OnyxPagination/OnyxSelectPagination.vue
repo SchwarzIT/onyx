@@ -155,7 +155,7 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
     display: flex;
     align-items: flex-start;
     color: var(--onyx-color-text-icons-neutral-intense);
-    font-family: var(--onyx-font-family);
+    font-family: var(--onyx-font-family-paragraph);
     height: var(--onyx-pagination-height);
     width: max-content;
     max-width: 100%;

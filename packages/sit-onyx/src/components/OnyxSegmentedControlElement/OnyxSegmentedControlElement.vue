@@ -61,7 +61,7 @@ useAutofocus(input, props);
     border-radius: var(--onyx-radius-sm);
     color: var(--onyx-color-text-icons-neutral-medium);
     font-weight: var(--onyx-font-weight-regular);
-    font-family: var(--onyx-font-family);
+    font-family: var(--onyx-font-family-paragraph);
     line-height: var(--onyx-font-line-height-md);
     width: 100%;
 

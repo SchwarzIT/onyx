@@ -203,7 +203,7 @@ $gap: var(--onyx-spacing-md);
     }
 
     background-color: var(--onyx-color-base-background-blank);
-    font-family: var(--onyx-font-family);
+    font-family: var(--onyx-font-family-paragraph);
     color: var(--onyx-color-text-icons-neutral-intense);
     height: var(--onyx-nav-bar-height);
     z-index: var(--onyx-z-index-navigation);

@@ -2,6 +2,8 @@
 
 @layer onyx.utility {
   :root {
+    // TODO: remove in v2 (https://github.com/SchwarzIT/onyx/issues/4560)
+    /** @deprecated Use --onyx-font-family-paragraph instead */
     --onyx-font-family: var(--onyx-font-family-paragraph), sans-serif;
     --onyx-1px-in-rem: 0.0625rem;
 
@@ -24,7 +26,7 @@
 
     --onyx-nav-bar-height: 3.5rem;
 
-    // TODO: Remove in v2
+    // TODO: remove in v2 (https://github.com/SchwarzIT/onyx/issues/4560)
     /** @deprecated Use --onyx-color-component-opacity-backdrop-soft instead */
     --onyx-color-component-opacity-backdrop: var(--onyx-color-component-opacity-backdrop-soft);
   }

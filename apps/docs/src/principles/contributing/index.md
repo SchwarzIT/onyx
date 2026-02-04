@@ -112,7 +112,7 @@ const { densityClass } = useDensity(props);
 .onyx-example-component {
   @include layers.component() {
     // component styles here...
-    font-family: var(--onyx-font-family);
+    font-family: var(--onyx-font-family-paragraph);
   }
 }
 </style>

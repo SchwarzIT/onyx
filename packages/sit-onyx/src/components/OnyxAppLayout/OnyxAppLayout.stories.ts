@@ -21,7 +21,7 @@ const meta: Meta<typeof OnyxAppLayout> = {
     (story) => ({
       components: { story },
       template: `
-        <div style="font-family: var(--onyx-font-family); color: var(--onyx-color-text-icons-neutral-intense);" >
+        <div style="font-family: var(--onyx-font-family-paragraph); color: var(--onyx-color-text-icons-neutral-intense);" >
           <story />
         </div>`,
     }),

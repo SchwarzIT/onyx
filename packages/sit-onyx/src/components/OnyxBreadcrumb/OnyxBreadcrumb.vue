@@ -105,7 +105,7 @@ provide(BREADCRUMB_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreListRef")
     &__list {
       list-style: none;
       padding: 0;
-      font-family: var(--onyx-font-family);
+      font-family: var(--onyx-font-family-paragraph);
       display: flex;
       align-items: center;
       gap: var(--onyx-density-xs);

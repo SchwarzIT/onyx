@@ -41,7 +41,7 @@ Object.entries(ONYX_BREAKPOINTS).forEach(([breakpoint, width]) => {
     await page.addStyleTag({
       content: `body {
         margin: 0;
-        font-family: var(--onyx-font-family);
+        font-family: var(--onyx-font-family-paragraph);
         color: var(--onyx-color-text-icons-neutral-intense);
         background-color: var(--onyx-color-base-background-tinted);
       }`,

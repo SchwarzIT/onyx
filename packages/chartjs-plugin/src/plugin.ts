@@ -49,7 +49,7 @@ export const registerOnyxPlugin = (chart: typeof Chart) => {
   Object.defineProperty(chart.defaults.font, "family", {
     configurable: true,
     enumerable: true,
-    get: () => getCSSVariableValue("--onyx-font-family"),
+    get: () => getCSSVariableValue("--onyx-font-family-paragraph"),
   });
 
   chart.defaults.font.size = 13;

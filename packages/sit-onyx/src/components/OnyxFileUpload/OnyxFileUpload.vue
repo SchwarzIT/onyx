@@ -442,7 +442,7 @@ const shouldShowFileList = computed(() => {
 
   .onyx-file-upload {
     all: unset;
-    font-family: var(--onyx-font-family);
+    font-family: var(--onyx-font-family-paragraph);
     color: var(--onyx-color-text-icons-neutral-intense);
     border-radius: var(--onyx-radius-md);
     border: var(--onyx-1px-in-rem) dashed var(--onyx-file-upload-border-color);

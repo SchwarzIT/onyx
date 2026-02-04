@@ -117,7 +117,7 @@ const systemButtonColor = computed(() => (props.color === "neutral" ? "soft" : "
     border: var(--onyx-1px-in-rem) solid var(--onyx-info-card-border-color);
     background-color: var(--onyx-info-card-background);
     color: var(--onyx-color-text-icons-neutral-intense);
-    font-family: var(--onyx-font-family);
+    font-family: var(--onyx-font-family-paragraph);
     max-width: 100%;
     position: relative;
 

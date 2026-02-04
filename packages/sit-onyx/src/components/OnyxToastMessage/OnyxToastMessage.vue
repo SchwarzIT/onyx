@@ -106,7 +106,7 @@ const icon = computed(() => {
     --onyx-toast-message-progress-bar-color: var(--onyx-color-base-primary-300);
     --onyx-toast-message-close-button-size: 1.5rem;
 
-    font-family: var(--onyx-font-family);
+    font-family: var(--onyx-font-family-paragraph);
     width: 40rem;
     max-width: 100%;
     flex-shrink: 0; // needed so toasts do not shrink if they exceed the max height of the toast provider

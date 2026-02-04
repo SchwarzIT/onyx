@@ -50,7 +50,7 @@ const classes = computed(() => [
 
 .onyx-sidebar-item {
   @include layers.component() {
-    font-family: var(--onyx-font-family);
+    font-family: var(--onyx-font-family-paragraph);
     color: var(--onyx-color-text-icons-neutral-intense);
     background-color: var(--onyx-color-base-background-blank);
     border-radius: var(--onyx-radius-md);

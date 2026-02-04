@@ -56,7 +56,7 @@ const skeleton = useSkeletonContext(props);
 
 .onyx-fab-button {
   @include layers.component() {
-    font-family: var(--onyx-font-family);
+    font-family: var(--onyx-font-family-paragraph);
     background: var(--onyx-fab-button-background);
     border: none;
     cursor: pointer;
