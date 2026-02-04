@@ -278,6 +278,12 @@ export * from "./components/OnyxTooltip/types.js";
 export { default as OnyxVisuallyHidden } from "./components/OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 export * from "./components/OnyxVisuallyHidden/types.js";
 
+export { default as OnyxUnstableKey } from "./components/OnyxKey/OnyxKey.vue";
+export * from "./components/OnyxKey/types.js";
+
+export { default as OnyxUnstableShortcut } from "./components/OnyxShortcut/OnyxShortcut.vue";
+export * from "./components/OnyxShortcut/types.js";
+
 export { default as OnyxComponentShowcase } from "./components/examples/ComponentShowcase/ComponentShowcase.vue";
 
 export * from "./composables/density.js";
@@ -285,6 +291,7 @@ export * from "./composables/scrollEnd.js";
 export * from "./composables/themeTransition.js";
 export * from "./composables/useFileSize.js";
 export * from "./composables/useLink.js";
+export * from "./composables/useShortcut.js";
 export * from "./composables/useSkeletonState.js";
 
 export { provideI18n, type TranslationFunction } from "./i18n/index.js";
