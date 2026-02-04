@@ -166,7 +166,12 @@ const sharedStepperProps = computed(() => {
               <span
                 class="onyx-slider__mark"
                 v-bind="
-                  mark({ value: markItem.value, label: markItem.label, positionOffset: '0.25rem' })
+                  mark({
+                    value: markItem.value,
+                    label: markItem.label,
+                    padding: '0.1rem',
+                    markWidth: '0.375rem',
+                  })
                 "
               ></span>
               <span
@@ -178,37 +183,29 @@ const sharedStepperProps = computed(() => {
               </span>
             </template>
 
-            <span
+            <OnyxTooltip
               v-for="(value, index) in normalizedValue"
               :key="index"
               v-bind="thumbContainer({ value, index })"
               class="onyx-slider__thumb"
+              :open="props.tooltip?.hidden ? false : undefined"
+              :text="props.tooltip?.formatter?.(value, index) ?? String(value)"
+              :position="hasMarkLabels ? 'top' : 'bottom'"
             >
-              <OnyxTooltip
-                :open="props.tooltip?.hidden ? false : undefined"
-                :text="props.tooltip?.formatter?.(value, index) ?? String(value)"
-                :position="hasMarkLabels ? 'top' : 'bottom'"
-                class="onyx-slider__thumb-tooltip"
-              >
-                <template #default="{ trigger }">
-                  <OnyxVisuallyHidden>
-                    <input
-                      v-bind="mergeVueProps(thumbInput({ value, index }), trigger)"
-                      :id="index === 0 ? inputId : undefined"
-                      v-custom-validity
-                      :class="[
-                        'onyx-slider__native',
-                        { 'onyx-slider__native--touched': wasTouched },
-                      ]"
-                      :tabindex="props.control === 'input' ? -1 : undefined"
-                      :disabled="disabled"
-                      :aria-label="props.label"
-                      :autofocus="props.autofocus && index === 0"
-                    />
-                  </OnyxVisuallyHidden>
-                </template>
-              </OnyxTooltip>
-            </span>
+              <template #default="{ trigger }">
+                <OnyxVisuallyHidden
+                  v-bind="mergeVueProps(thumbInput({ value, index }), trigger)"
+                  is="input"
+                  :id="index === 0 ? inputId : undefined"
+                  v-custom-validity
+                  :class="['onyx-slider__native', { 'onyx-slider__native--touched': wasTouched }]"
+                  :tabindex="props.control === 'input' ? -1 : undefined"
+                  :disabled="disabled"
+                  :aria-label="props.label"
+                  :autofocus="props.autofocus && index === 0"
+                />
+              </template>
+            </OnyxTooltip>
           </span>
 
           <!-- right controls -->
@@ -281,19 +278,6 @@ const sharedStepperProps = computed(() => {
 
     $track-z-index: 1;
 
-    &__thumb-tooltip {
-      pointer-events: none;
-      left: calc(-0.5 * var(--onyx-slider-thumb-size));
-
-      &:has(.onyx-tooltip--position-bottom) {
-        top: calc(0.5 * var(--onyx-slider-thumb-size));
-      }
-
-      &:has(.onyx-tooltip--position-top) {
-        top: calc(-1.5 * var(--onyx-slider-thumb-size));
-      }
-    }
-
     &__container {
       display: flex;
       align-items: center;
@@ -307,7 +291,8 @@ const sharedStepperProps = computed(() => {
 
     &__root {
       position: relative;
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
       width: 100%;
       height: 0.5rem;
       padding: var(--onyx-slider-root-padding) 0;
@@ -329,11 +314,7 @@ const sharedStepperProps = computed(() => {
     }
 
     &__rail {
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
+      width: 100%;
       height: inherit;
       background-color: var(--onyx-slider-rail-background);
       border-radius: inherit;
@@ -341,27 +322,35 @@ const sharedStepperProps = computed(() => {
 
     &__track {
       position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
       height: inherit;
       background-color: var(--onyx-slider-track-background);
       border-radius: inherit;
       z-index: $track-z-index;
     }
 
+    &__native {
+      // give the native input the same size as the parent
+      width: inherit;
+      height: inherit;
+      border: inherit;
+    }
+
     &__thumb {
       position: absolute;
-      top: 50%;
       width: var(--onyx-slider-thumb-size);
       height: var(--onyx-slider-thumb-size);
-      transform: translate(-50%, -50%);
+      margin-left: calc(-1 * var(--onyx-slider-thumb-size) / 2);
       border-radius: var(--onyx-radius-full);
       background-color: var(--onyx-slider-thumb-background);
       border: 0.25rem solid var(--onyx-slider-thumb-border-color);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: grid;
+      place-items: center;
       z-index: $track-z-index + 1;
+
+      .onyx-tooltip {
+        --offset: 0.25rem;
+        pointer-events: none;
+      }
 
       &:has(.onyx-slider__native:enabled) {
         &:focus-within {
@@ -372,10 +361,8 @@ const sharedStepperProps = computed(() => {
 
     &__mark {
       position: absolute;
-      top: 50%;
       width: 0.375rem;
       height: 0.375rem;
-      transform: translate(-50%, -50%);
       border-radius: var(--onyx-radius-full);
       background-color: var(--onyx-slider-mark-background);
     }
