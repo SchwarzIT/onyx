@@ -24,6 +24,7 @@
     "@sit-onyx/nuxt-docs": "workspace:^",
     "better-sqlite3": "^12.6.2",
     "nuxt": "catalog:",
+    "nuxt-auth-utils": "~0.5.28",
     "nuxt-studio": "^1.2.0",
     "sit-onyx": "workspace:^",
     "vue": "catalog:",
