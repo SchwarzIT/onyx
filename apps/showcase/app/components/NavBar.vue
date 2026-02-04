@@ -23,5 +23,11 @@ const getLinkProps = computed(() => {
     <OnyxNavItem :label="$t('introduction')" v-bind="getLinkProps('/introduction')" />
     <OnyxNavItem :label="$t('resources')" v-bind="getLinkProps('/resources')" />
     <OnyxNavItem :label="$t('support')" v-bind="getLinkProps('/support')" />
+
+    <template #contextArea>
+      <ColorSchemeSwitch />
+      <OnyxSeparator orientation="vertical" />
+      <UserMenu />
+    </template>
   </NavBar>
 </template>
