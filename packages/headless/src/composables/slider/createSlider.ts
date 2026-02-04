@@ -362,24 +362,18 @@ export const createSlider = createBuilder(
         /**
          * Single Mark element inside the rail
          */
-        mark: computed(() => (data: { value: number; label?: string; positionOffset?: string }) => {
-          const percentage = getValueInPercentage.value(data.value);
-
-          // adjusting the position for marks with proper edge offset to prevent overflow because of rounding.
-          // for marks at 0% and 100%, applies the given offset to keep them within bounds.
-          let position = `${percentage}%`;
-          if (data.positionOffset && percentage <= 0) {
-            position = data.positionOffset;
-          }
-          if (data.positionOffset && percentage >= 100) {
-            position = `calc(100% - ${data.positionOffset})`;
-          }
-
-          return {
-            "aria-hidden": true,
-            style: { left: position },
-          };
-        }),
+        mark: computed(
+          () => (data: { value: number; label?: string; padding: string; markWidth: string }) => {
+            const percentage = getValueInPercentage.value(data.value);
+            return {
+              "aria-hidden": true,
+              style: {
+                // adjusting the position for the marks with consideration to their width and a padding/safe-zone.
+                left: `calc(${data.padding} + (100% - 2 * ${data.padding} - ${data.markWidth}) * ${percentage} / 100)`,
+              },
+            };
+          },
+        ),
 
         /**
          * Label for each mark

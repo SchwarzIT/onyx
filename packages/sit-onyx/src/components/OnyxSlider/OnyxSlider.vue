@@ -166,7 +166,12 @@ const sharedStepperProps = computed(() => {
               <span
                 class="onyx-slider__mark"
                 v-bind="
-                  mark({ value: markItem.value, label: markItem.label, positionOffset: '0.25rem' })
+                  mark({
+                    value: markItem.value,
+                    label: markItem.label,
+                    padding: '0.1rem',
+                    markWidth: '0.375rem',
+                  })
                 "
               ></span>
               <span
