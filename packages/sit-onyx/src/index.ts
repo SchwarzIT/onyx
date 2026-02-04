@@ -45,10 +45,10 @@ export * from "./components/OnyxCheckbox/types.js";
 export { default as OnyxCheckboxGroup } from "./components/OnyxCheckboxGroup/OnyxCheckboxGroup.vue";
 export * from "./components/OnyxCheckboxGroup/types.js";
 
-export { default as OnyxUnstableCodeTab } from "./components/OnyxCodeTab/OnyxCodeTab.vue";
+export { default as OnyxCodeTab } from "./components/OnyxCodeTab/OnyxCodeTab.vue";
 export * from "./components/OnyxCodeTab/types.js";
 
-export { default as OnyxUnstableCodeTabs } from "./components/OnyxCodeTabs/OnyxCodeTabs.vue";
+export { default as OnyxCodeTabs } from "./components/OnyxCodeTabs/OnyxCodeTabs.vue";
 export * from "./components/OnyxCodeTabs/types.js";
 
 export { default as OnyxDataGridRenderer } from "./components/OnyxDataGrid/OnyxDataGridRenderer/OnyxDataGridRenderer.vue";

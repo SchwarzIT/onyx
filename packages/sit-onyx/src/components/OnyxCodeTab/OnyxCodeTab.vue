@@ -1,11 +1,3 @@
-<script lang="ts">
-/**
- * @experimental
- * @deprecated This component is still under active development and its API might change in patch releases.
- */
-export default {};
-</script>
-
 <script lang="ts" setup>
 import { computed, inject, onUnmounted, watch } from "vue";
 import {
@@ -79,7 +71,7 @@ const disabled = computed(() => {
 
     <template v-else>
       <slot>
-        <pre><code>{{ props.code }}</code></pre>
+        <pre><code class="onyx-text--small">{{ props.code }}</code></pre>
       </slot>
 
       <span v-if="props.language" class="onyx-code-tab__language onyx-text--small">
