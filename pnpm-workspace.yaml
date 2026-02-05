@@ -3,11 +3,11 @@ packages:
   - packages/*
 
 allowBuilds:
-  "@parcel/watcher": true
-  better-sqlite3: true
-  esbuild: true
-  sharp: true
-  simple-git-hooks: true
+  "@parcel/watcher": true # downloads binary
+  better-sqlite3: true # downloads binary
+  esbuild: true # downloads binary
+  sharp: true # downloads binary
+  simple-git-hooks: true # setup and update git hooks
 
 blockExoticSubdeps: true
 
@@ -28,10 +28,10 @@ catalog:
   vite: 7.3.1
   vue: 3.5.27
 
-minimumReleaseAge: 2880
+minimumReleaseAge: 2880 # wait two days after a new version release - This is in sync with the `dependabot.yml` `cooldown` config
 
-trustPolicy: no-downgrade
+trustPolicy: no-downgrade # security settings (See: https://pnpm.io/supply-chain-security)
 
 trustPolicyExclude:
-  - chokidar@4.0.3
-  - semver@6.3.1
+  - chokidar@4.0.3 # see https://github.com/paulmillr/chokidar/issues/1440
+  - semver@6.3.1 # see https://github.com/npm/node-semver/issues/838
