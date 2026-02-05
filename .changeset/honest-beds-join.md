@@ -2,4 +2,4 @@
 "sit-onyx": patch
 ---
 
-fix(shortcut, key): correctly auto determine operating system
+fix(OnyxShortcut, OnyxKey): correctly auto determine operating system
