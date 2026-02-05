@@ -1,7 +1,7 @@
 {
   "name": "onyx-monorepo",
   "type": "module",
-  "packageManager": "pnpm@10.28.1",
+  "packageManager": "pnpm@10.28.2",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
   "scripts": {
@@ -61,7 +61,7 @@
     "storybook": "^10.2.4",
     "stylelint": "^17.1.0",
     "stylelint-no-unsupported-browser-features": "^8.0.5",
-    "turbo": "^2.8.1",
+    "turbo": "^2.8.2",
     "typescript": "catalog:",
     "typescript-eslint": "^8.54.0",
     "vite": "catalog:",

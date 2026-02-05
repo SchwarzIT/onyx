@@ -14,7 +14,7 @@
     "eslint": ">= 9.10"
   },
   "devDependencies": {
-    "@eslint/core": "~1.1.0",
+    "@eslint/core": "^1.1.0",
     "@types/eslint": "^9.6.1",
     "@typescript-eslint/parser": "^8.54.0",
     "eslint-vitest-rule-tester": "^3.0.1",
