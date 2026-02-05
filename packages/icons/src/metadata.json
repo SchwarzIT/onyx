@@ -911,6 +911,10 @@
     "category": "Action & Interface",
     "aliases": ["movable", "adjustable", "Verschiebbar", "bewegen", "move"]
   },
+  "dremio": {
+    "category": "Software & Services",
+    "aliases": []
+  },
   "driver": {
     "category": "Transport & Travel",
     "aliases": ["car-driver", "vehicle-operator", "Autofahrer", "Fahrzeugführer"]
@@ -2095,6 +2099,10 @@
   },
   "profile-hook": {
     "category": "People & Users",
+    "aliases": []
+  },
+  "pubsub-service": {
+    "category": "Software & Services",
     "aliases": []
   },
   "puzzle-1": {
