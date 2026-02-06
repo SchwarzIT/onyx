@@ -7,6 +7,7 @@ export default {
       {
         // ignore CSS features that are not supported by some browser but we in onyx decide to still use
         ignore: [
+          "css-autofill",
           "css-selection",
           "text-size-adjust",
           "css-resize",
