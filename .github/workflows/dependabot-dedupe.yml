@@ -25,6 +25,9 @@ jobs:
         with:
           egress-policy: audit
 
+      - name: "🛒 Checkout Repository"
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
       - uses: ./.github/templates/node-setup
         with:
           pnpm_install_command: "pnpm install --frozen-lockfile --ignore-scripts"
