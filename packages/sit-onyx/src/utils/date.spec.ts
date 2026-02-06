@@ -1,4 +1,4 @@
-import { describe, expect, test } from "vitest";
+import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import { dateToISOString, isValidDate } from "./date.js";
 
 describe("isValidDate", () => {
@@ -17,6 +17,27 @@ describe("isValidDate", () => {
 });
 
 describe("dateToISOString", () => {
+  beforeEach(() => {
+    vi.stubEnv("TZ", "UTC");
+  });
+
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  test.each([
+    { type: "date", expected: "2025-10-16" },
+    { type: "datetime-local", expected: "2025-10-16T20:00" },
+    { type: "datetime-utc", expected: "2025-10-17T04:00:00.000Z" },
+  ] as const)(
+    "should correctly handle local timezone correctly for type $type",
+    ({ type, expected }) => {
+      vi.stubEnv("TZ", "Etc/GMT+8");
+      const date = new Date("2025-10-17T04:00Z"); // same as "2025-10-16T20:00-08:00" (using the stubbed timezone's offset)
+      expect(dateToISOString(date, type)).toBe(expected);
+    },
+  );
+
   test.each([
     { type: "date", expected: "2025-10-16" },
     { type: "datetime-local", expected: "2025-10-16T11:01" },
