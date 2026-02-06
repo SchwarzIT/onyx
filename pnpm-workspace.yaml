@@ -11,7 +11,7 @@ catalog:
   "@vue/compiler-ssr": 3.5.27
   "@vue/shared": 3.5.27
   chart.js: 4.5.1
-  nuxt: 4.2.2
+  nuxt: 4.3.0
   playwright: 1.57.0
   playwright-core: 1.57.0
   sass-embedded: 1.97.3

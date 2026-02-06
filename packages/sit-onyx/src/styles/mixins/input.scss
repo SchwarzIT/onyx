@@ -241,7 +241,12 @@
 */
 @function get-autofill-selectors($prefix: "") {
   $output: "";
-  $selectors: (":autofill", "[data-test-autofill]", "[data-com-onepassword-filled]");
+  $selectors: (
+    ":autofill",
+    ":-webkit-autofill",
+    "[data-test-autofill]",
+    "[data-com-onepassword-filled]"
+  );
 
   @each $selector in $selectors {
     $prefixed-selector: $prefix + $selector;
