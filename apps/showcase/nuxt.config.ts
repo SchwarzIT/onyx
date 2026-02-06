@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
   extends: ["@sit-onyx/nuxt-docs"],
-  modules: ["nuxt-studio"],
+  modules: ["nuxt-studio", "nuxt-auth-utils"],
   app: {
     head: {
       titleTemplate: "%s | onyx",

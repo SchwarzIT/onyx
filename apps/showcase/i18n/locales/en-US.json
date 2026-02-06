@@ -2,5 +2,10 @@
   "home": "Home",
   "introduction": "Introduction",
   "resources": "Resources",
-  "support": "Support"
+  "support": "Support",
+  "auth": {
+    "login": "Log in",
+    "logout": "Log out",
+    "informationSchwarz": "The login is only supported for internal employees of the Schwarz Group. When logged in, some information and features of this showcase will be available for logged in users."
+  }
 }
