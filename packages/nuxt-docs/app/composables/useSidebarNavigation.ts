@@ -1,3 +1,4 @@
+import { computed, useAsyncData, useI18n, useLocalePath, useRoute } from "#imports"; // since nuxt 4.3 the auto-imports don't work for this composable anymore; Might be related to https://github.com/nuxt/nuxt/issues/22342
 import type { Collections, ContentNavigationItem } from "@nuxt/content";
 
 export type SidebarNavigationItem = {
