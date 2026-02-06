@@ -1,4 +1,4 @@
-import type { HTMLAttributes } from "vue";
+import type { HTMLAttributes, StyleValue } from "vue";
 import type { DensityProp } from "../../composables/density.js";
 import type { TruncationType } from "../../types/index.js";
 
@@ -90,4 +90,12 @@ export type TableColumnGroup = {
    * Header text to display.
    */
   header?: string;
+  /**
+   * Additional CSS class for the table column group.
+   */
+  class?: string;
+  /**
+   * Additional CSS style for the table column group.
+   */
+  style?: StyleValue;
 };

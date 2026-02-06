@@ -391,17 +391,76 @@ export const createTableColumnGroups = <
     // When it's the last iteration or the current group key changed:
     if (i === columns.length || element?.columnGroupKey !== currentKey) {
       // add a new TableColumnGroup
-      result.push({
-        key: currentKey,
-        span: i - currentStart,
-        header: columnGroups?.[currentKey as string]?.label ?? String(currentKey),
-      });
+      const groupColumns: InternalColumnConfig<TEntry, TColumnGroup>[] = columns.slice(
+        currentStart,
+        i,
+      );
+
+      const stickyClass = "onyx-data-grid-sticky-columns--sticky";
+
+      const stickyColumns = groupColumns.filter((col) =>
+        col.thAttributes?.class?.includes(stickyClass),
+      );
+      const isScrolling = stickyColumns.some((col) =>
+        col.thAttributes?.class?.includes("isScrolled"),
+      );
+
+      const position = stickyColumns.some((col) => col.thAttributes?.class?.includes("left"))
+        ? "left"
+        : "right";
+
+      const stickyColumnIndex = position === "left" ? 0 : stickyColumns.length - 1;
+      const allSticky = groupColumns.every((col) => col.thAttributes?.class?.includes(stickyClass));
+
+      // split the group into a sticky and a non-sticky part
+      const shouldSplit =
+        stickyColumns.length > 0 && stickyColumns.length < groupColumns.length && isScrolling;
+
+      if (shouldSplit) {
+        const stickyPart: TableColumnGroup = {
+          key: Symbol(`${currentKey.toString()}-sticky`),
+          span: stickyColumns.length,
+          header: columnGroups?.[currentKey as string]?.label ?? String(currentKey),
+          class: stickyColumns[stickyColumnIndex]?.thAttributes?.class,
+          style: stickyColumns[stickyColumnIndex]?.thAttributes?.style,
+        };
+
+        const normalPart: TableColumnGroup = {
+          key: currentKey,
+          span: groupColumns.length - stickyColumns.length,
+          header: columnGroups?.[currentKey as string]?.label ?? String(currentKey),
+          class: undefined,
+          style: undefined,
+        };
+
+        // Order depends on the sticky position
+        if (position === "left") {
+          result.push(stickyPart, normalPart);
+        } else {
+          result.push(normalPart, stickyPart);
+        }
+      } else {
+        result.push({
+          key: currentKey,
+          span: groupColumns.length,
+          header: columnGroups?.[currentKey as string]?.label ?? String(currentKey),
+          class:
+            allSticky && groupColumns[stickyColumnIndex]
+              ? groupColumns[stickyColumnIndex].thAttributes?.class
+              : undefined,
+          style:
+            allSticky && groupColumns[stickyColumnIndex]
+              ? groupColumns[stickyColumnIndex].thAttributes?.style
+              : undefined,
+        });
+      }
+
       currentStart = i;
     }
   }
+
   return result;
 };
-
 /**
  * Uses the defined datagrid features to provide factory functions.
  * These factories are to be used to map data and configuration to `OnyxDataGridRenderer` properties.
