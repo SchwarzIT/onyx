@@ -16,8 +16,9 @@ export const useOperatingSystem = () => {
       os.value = "windows";
     } else if (userAgent.includes("macintosh") || userAgent.includes("mac os x")) {
       os.value = "macOS";
+    } else {
+      os.value = "generic";
     }
-    os.value = "generic";
   });
 
   return { os };

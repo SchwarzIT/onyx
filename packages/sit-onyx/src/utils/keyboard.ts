@@ -190,10 +190,10 @@ export const MAC_KEY_SYMBOLS: Partial<Record<KeyboardKey, string>> = {
   Insert: "Insert",
 
   // Navigation
-  ArrowUp: "▲",
-  ArrowDown: "▼",
-  ArrowLeft: "◀",
-  ArrowRight: "▶",
+  ArrowUp: "▴",
+  ArrowDown: "▾",
+  ArrowLeft: "◂",
+  ArrowRight: "▸",
   Home: "⇱",
   End: "⇲",
   PageUp: "⇞",

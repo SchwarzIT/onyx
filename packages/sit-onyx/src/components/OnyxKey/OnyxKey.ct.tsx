@@ -32,7 +32,7 @@ test.describe("Screenshot tests", () => {
     rows: ["default", "highlighted", "truncated", "skeleton"],
     component: (column, row) => (
       <OnyxKey
-        name={row === "truncated" ? "ScrollLock" : "A"}
+        name={row === "truncated" ? "MediaPlayPause" : "A"}
         highlighted={row === "highlighted"}
         skeleton={row === "skeleton"}
         style={{ width: row === "truncated" ? "6rem" : 0 }}
