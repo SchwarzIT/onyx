@@ -186,7 +186,7 @@ export const MAC_KEY_SYMBOLS: Partial<Record<KeyboardKey, string>> = {
   Delete: "⌦",
   Enter: "↩",
   Tab: "⇥",
-  Escape: "⎋",
+  Escape: "Esc",
   Insert: "Insert",
 
   // Navigation
