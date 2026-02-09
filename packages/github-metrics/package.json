@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@sit-onyx/shared": "workspace:^",
-    "dotenv": "^17.2.3",
+    "dotenv": "^17.2.4",
     "tsx": "^4.21.0"
   }
 }
