@@ -5,7 +5,11 @@ import type { DataGridFeatureOptions } from "../index.js";
 /**
  * Configuration for how filtering should behave.
  */
-export type FilterConfig<TEntry extends DataGridEntry> = {
+export type FilterConfig<
+  TEntry extends DataGridEntry,
+  TKey extends keyof TEntry = keyof TEntry,
+  TValue = TEntry[TKey],
+> = {
   /**
    * A custom filtering function for this column.
    * This function is used to filter the column data, instead of using the default filtering behavior.
@@ -18,11 +22,11 @@ export type FilterConfig<TEntry extends DataGridEntry> = {
     /**
      * The current row value to be checked.
      */
-    value: TEntry[keyof TEntry],
+    value: TValue,
     /**
      * The column that is filtered by.
      */
-    column: keyof TEntry,
+    column: TKey,
     /**
      * The complete row data.
      */
@@ -61,7 +65,7 @@ export type FilterOptions<TEntry extends DataGridEntry> = DataGridFeatureOptions
       /**
        * Configuration for how filtering should behave for this column.
        */
-      config?: FilterConfig<TEntry>;
+      config?: FilterConfig<TEntry, TKey>;
     };
   },
   true
