@@ -47,7 +47,7 @@ jobs:
       # install system dependencies for Playwright
       # see: https://playwright.dev/python/docs/browsers#install-system-dependencies
       - name: 📦 Install Playwright system dependencies
-        run: pnpm exec playwright install-deps
+        run: pnpm exec playwright --with-deps
 
       - name: 🔎 Run Playwright tests
         run: pnpm run test:playwright:all --concurrency 1 ${{ (inputs.only-changed != '' && format('-- --only-changed {0}', inputs.only-changed)) || '' }}
