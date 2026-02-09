@@ -78,7 +78,7 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
               :key="group.key"
               :colspan="group.span"
               scope="colgroup"
-              :class="`onyx-table__colgroup ${group.class}`"
+              :class="['onyx-table__colgroup', group.class]"
               :style="group.style"
             >
               {{ group.header }}

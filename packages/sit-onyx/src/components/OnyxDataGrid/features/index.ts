@@ -242,6 +242,24 @@ export type DataGridFeatureDescription<
   modifyColumns?: ModifyColumns<TEntry>;
 
   /**
+   * Allows modification of the column groups.
+   *
+   *  @example
+   * ```ts
+   * {
+   * modifyColumnGroups: {
+   * func: (groups, columns) => {
+   * return groups.flatMap(group => {
+   * return [ { ...group, class: 'my-custom-group-class' } ];
+   * });
+   * }
+   * }
+   * }
+   * ```
+   */
+  modifyColumnGroups?: ModifyColumnGroups<TEntry, ColumnGroupConfig>;
+
+  /**
    * Allows the modification of the headers.
    */
   header?: {
@@ -386,81 +404,32 @@ export const createTableColumnGroups = <
   const result: TableColumnGroup[] = [];
 
   for (let i = 1; i <= columns.length; i++) {
-    const element = columns[i];
     const currentKey = columns[currentStart]?.columnGroupKey ?? "";
-    // When it's the last iteration or the current group key changed:
-    if (i === columns.length || element?.columnGroupKey !== currentKey) {
-      // add a new TableColumnGroup
-      const groupColumns: InternalColumnConfig<TEntry, TColumnGroup>[] = columns.slice(
-        currentStart,
-        i,
-      );
+    const nextKey = columns[i]?.columnGroupKey ?? "";
 
-      const stickyClass = "onyx-data-grid-sticky-columns--sticky";
-
-      const stickyColumns = groupColumns.filter((col) =>
-        col.thAttributes?.class?.includes(stickyClass),
-      );
-      const isScrolling = stickyColumns.some((col) =>
-        col.thAttributes?.class?.includes("isScrolled"),
-      );
-
-      const position = stickyColumns.some((col) => col.thAttributes?.class?.includes("left"))
-        ? "left"
-        : "right";
-
-      const stickyColumnIndex = position === "left" ? 0 : stickyColumns.length - 1;
-      const allSticky = groupColumns.every((col) => col.thAttributes?.class?.includes(stickyClass));
-
-      // split the group into a sticky and a non-sticky part
-      const shouldSplit =
-        stickyColumns.length > 0 && stickyColumns.length < groupColumns.length && isScrolling;
-
-      if (shouldSplit) {
-        const stickyPart: TableColumnGroup = {
-          key: Symbol(`${currentKey.toString()}-sticky`),
-          span: stickyColumns.length,
-          header: columnGroups?.[currentKey as string]?.label ?? String(currentKey),
-          class: stickyColumns[stickyColumnIndex]?.thAttributes?.class,
-          style: stickyColumns[stickyColumnIndex]?.thAttributes?.style,
-        };
-
-        const normalPart: TableColumnGroup = {
-          key: currentKey,
-          span: groupColumns.length - stickyColumns.length,
-          header: columnGroups?.[currentKey as string]?.label ?? String(currentKey),
-          class: undefined,
-          style: undefined,
-        };
-
-        // Order depends on the sticky position
-        if (position === "left") {
-          result.push(stickyPart, normalPart);
-        } else {
-          result.push(normalPart, stickyPart);
-        }
-      } else {
-        result.push({
-          key: currentKey,
-          span: groupColumns.length,
-          header: columnGroups?.[currentKey as string]?.label ?? String(currentKey),
-          class:
-            allSticky && groupColumns[stickyColumnIndex]
-              ? groupColumns[stickyColumnIndex].thAttributes?.class
-              : undefined,
-          style:
-            allSticky && groupColumns[stickyColumnIndex]
-              ? groupColumns[stickyColumnIndex].thAttributes?.style
-              : undefined,
-        });
-      }
-
+    if (i === columns.length || nextKey !== currentKey) {
+      result.push({
+        key: currentKey,
+        span: i - currentStart,
+        header: columnGroups?.[currentKey as string]?.label ?? String(currentKey),
+      });
       currentStart = i;
     }
   }
 
   return result;
 };
+
+export type ModifyColumnGroups<
+  TEntry extends DataGridEntry,
+  TColumnGroup extends ColumnGroupConfig,
+> = {
+  func: (
+    groups: TableColumnGroup[],
+    columns: InternalColumnConfig<TEntry, TColumnGroup>[],
+  ) => TableColumnGroup[];
+};
+
 /**
  * Uses the defined datagrid features to provide factory functions.
  * These factories are to be used to map data and configuration to `OnyxDataGridRenderer` properties.
@@ -524,6 +493,12 @@ export const useDataGridFeatures = <
     ),
   );
 
+  const columnGroupMappings = computed(() =>
+    features
+      .map((f) => f.modifyColumnGroups)
+      .filter((m): m is ModifyColumnGroups<TEntry, TColumnGroup> => !!m),
+  );
+
   const columns = computed(() => {
     const normalized = toValue(columnConfig).map<InternalColumnConfig<TEntry>>((c) => {
       const obj = typeof c !== "object" ? { key: c } : c;
@@ -538,9 +513,16 @@ export const useDataGridFeatures = <
 
   const renderer = computed(() => createRenderer(features));
 
-  const createRendererColumnGroups = () =>
-    createTableColumnGroups(columns.value, toValue(columnGroups));
+  const createRendererColumnGroups = () => {
+    const baseGroups = createTableColumnGroups(columns.value, toValue(columnGroups));
+    if (!baseGroups) return undefined;
 
+    return columnGroupMappings.value.reduce((acc, mapping) => {
+      return (
+        mapping.func(acc, columns.value as InternalColumnConfig<TEntry, TColumnGroup>[]) || acc
+      );
+    }, baseGroups);
+  };
   const createScrollContainerAttributes = () =>
     mergeVueProps(
       ...features.map(({ scrollContainerAttributes }) => scrollContainerAttributes?.()),

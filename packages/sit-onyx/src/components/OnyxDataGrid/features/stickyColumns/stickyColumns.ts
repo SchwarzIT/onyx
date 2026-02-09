@@ -1,9 +1,14 @@
 import { computed, nextTick, onMounted, onUnmounted, ref, toValue, useId, watch } from "vue";
-import { createFeature, type ModifyColumns } from "../index.js";
-
 import { mergeVueProps } from "../../../../utils/attrs.js";
 import { escapeCSS } from "../../../../utils/dom.js";
+import type { TableColumnGroup } from "../../../OnyxTable/types.js";
 import type { DataGridEntry } from "../../types.js";
+import {
+  createFeature,
+  type ColumnGroupConfig,
+  type ModifyColumnGroups,
+  type ModifyColumns,
+} from "../index.js";
 import "./stickyColumns.scss";
 import type { StickyColumnsOptions } from "./types.js";
 
@@ -86,16 +91,19 @@ export const useStickyColumns = <TEntry extends DataGridEntry>(
                       left: "auto",
                       right: `var(${createStickyPositionCssVar(column.key)})`,
                     };
+              const stickyAttrs = {
+                style,
+                class: {
+                  "onyx-data-grid-sticky-columns--sticky": true,
+                  [position.value]: true,
+                  isScrolled: isScrolled.value,
+                },
+              };
               return {
                 ...column,
                 thAttributes: mergeVueProps(
                   {
-                    style,
-                    class: {
-                      "onyx-data-grid-sticky-columns--sticky": true,
-                      [position.value]: true,
-                      isScrolled: isScrolled.value,
-                    },
+                    ...stickyAttrs,
                     ref: (el) => {
                       if (el) {
                         elementsToStyle.value[column.key] = el as HTMLElement;
@@ -106,14 +114,7 @@ export const useStickyColumns = <TEntry extends DataGridEntry>(
                   },
                   column.thAttributes,
                 ),
-                tdAttributes: {
-                  style,
-                  class: {
-                    "onyx-data-grid-sticky-columns--sticky": true,
-                    [position.value]: true,
-                    isScrolled: isScrolled.value,
-                  },
-                },
+                tdAttributes: mergeVueProps(stickyAttrs, column.tdAttributes),
               };
             });
           const nonSticky = columnConfig.filter((col) => !stickyColumns.value.includes(col.key));
@@ -121,7 +122,73 @@ export const useStickyColumns = <TEntry extends DataGridEntry>(
             ? [...sticky, ...nonSticky]
             : [...nonSticky, ...sticky.slice().reverse()];
         },
-      } satisfies ModifyColumns<TEntry> as ModifyColumns<TEntry>,
+      } satisfies ModifyColumns<TEntry>,
+
+      modifyColumnGroups: {
+        func: (groups, columns) => {
+          let currentIdx = 0;
+          const processedGroups: TableColumnGroup[] = [];
+
+          groups.forEach((group) => {
+            const groupColumns = columns.slice(currentIdx, currentIdx + group.span);
+            currentIdx += group.span;
+
+            const stickyCount = groupColumns.filter((col) =>
+              stickyColumns.value.includes(col.key),
+            ).length;
+
+            const allSticky = stickyCount === groupColumns.length;
+            const partiallySticky = stickyCount > 0 && stickyCount < groupColumns.length;
+
+            // Only split if partially sticky and the table is currently scrolled
+            if (partiallySticky && isScrolled.value) {
+              const stickyPartCols = groupColumns.filter((c) =>
+                stickyColumns.value.includes(c.key),
+              );
+              const normalPartCols = groupColumns.filter(
+                (c) => !stickyColumns.value.includes(c.key),
+              );
+
+              const leadStickyCol =
+                position.value === "left"
+                  ? stickyPartCols[0]
+                  : stickyPartCols[stickyPartCols.length - 1];
+
+              const stickyPart: TableColumnGroup = {
+                key: Symbol(`${group.key.toString()}-sticky`),
+                span: stickyPartCols.length,
+                header: group.header,
+                class: leadStickyCol?.thAttributes?.class,
+                style: leadStickyCol?.thAttributes?.style,
+              };
+
+              const normalPart: TableColumnGroup = {
+                key: group.key,
+                span: normalPartCols.length,
+                header: group.header,
+              };
+
+              if (position.value === "left") {
+                processedGroups.push(stickyPart, normalPart);
+              } else {
+                processedGroups.push(normalPart, stickyPart);
+              }
+            } else {
+              // if all columns are sticky, apply the sticky styles to the group header
+              const modifiedGroup = { ...group };
+              if (allSticky) {
+                const leadCol = position.value === "left" ? groupColumns[0] : groupColumns.at(-1);
+                modifiedGroup.class = leadCol?.thAttributes?.class;
+                modifiedGroup.style = leadCol?.thAttributes?.style;
+              }
+              processedGroups.push(modifiedGroup);
+            }
+          });
+
+          return processedGroups;
+        },
+      } satisfies ModifyColumnGroups<TEntry, ColumnGroupConfig>,
+
       scrollContainerAttributes: () => ({
         ref: (el) => {
           if (el) {
