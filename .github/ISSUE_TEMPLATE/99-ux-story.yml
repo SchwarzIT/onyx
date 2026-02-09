@@ -12,7 +12,7 @@ body:
     id: description
     attributes:
       label: Description
-      description: Briefly describe what the UX task is about.
+      description: Briefly describe what the UX task is about!
 
   - type: textarea
     id: dev-handover
