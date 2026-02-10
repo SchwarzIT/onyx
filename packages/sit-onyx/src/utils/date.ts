@@ -31,7 +31,10 @@ export const dateToISOString = (
     return dateString;
   }
 
-  const dateOnlyString = dateString.split("T")[0]!;
+  const yearString = date.getFullYear().toString().padStart(4, "0");
+  const monthString = (date.getMonth() + 1).toString().padStart(2, "0");
+  const dayString = date.getDate().toString().padStart(2, "0");
+  const dateOnlyString = `${yearString}-${monthString}-${dayString}`;
   if (type === "date") {
     return dateOnlyString;
   }

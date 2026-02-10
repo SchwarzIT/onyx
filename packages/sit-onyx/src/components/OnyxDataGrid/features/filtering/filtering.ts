@@ -32,29 +32,28 @@ export const useFiltering = <TEntry extends DataGridEntry>(options?: FilterOptio
 
             if (value == null || value === "") return true;
             let searchTerm = value.toString();
-            let entryValue = entry[column]?.toString() ?? "";
+            const entryValue = entry[column];
             if (filterOptions?.filterFunc) {
-              return filterOptions.filterFunc(
-                searchTerm,
-                entryValue as TEntry[keyof TEntry],
-                column,
-                entry,
-              );
+              return filterOptions.filterFunc(searchTerm, entryValue, column, entry);
             }
-            entryValue = removeDiacritics(entryValue);
+            let stringValue =
+              typeof entryValue === "object"
+                ? JSON.stringify(entryValue)
+                : (entryValue?.toString() ?? "");
+            stringValue = removeDiacritics(stringValue);
             searchTerm = removeDiacritics(searchTerm);
             if (!filterOptions.caseSensitive) {
-              entryValue = entryValue.toLowerCase();
+              stringValue = stringValue.toLowerCase();
               searchTerm = searchTerm.toLowerCase();
             }
             if (filterOptions.searchFromStart) {
-              return entryValue.startsWith(searchTerm);
+              return stringValue.startsWith(searchTerm);
             }
             if (filterOptions.exactMatch) {
-              return entryValue === searchTerm;
+              return stringValue === searchTerm;
             }
 
-            return entryValue.includes(searchTerm);
+            return stringValue.includes(searchTerm);
           },
         ),
       );

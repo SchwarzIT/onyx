@@ -257,16 +257,6 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
       display: flex;
       align-items: center;
       gap: var(--onyx-density-xs);
-
-      kbd {
-        border-radius: var(--onyx-radius-sm);
-        border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-300);
-        padding-inline: var(--onyx-density-2xs);
-        min-width: 1.25rem;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-      }
     }
 
     &__shortcut-label {

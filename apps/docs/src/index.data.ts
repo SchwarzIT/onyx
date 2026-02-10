@@ -193,7 +193,11 @@ export default defineLoader({
         status: "planned",
         href: "https://storybook.onyx.schwarz/?path=/docs/form-elements-datepicker--docs",
       },
-      { name: "Timepicker", status: getImplementedStatus("OnyxTimepicker") },
+      {
+        name: "Timepicker",
+        status: getImplementedStatus("OnyxTimepicker"),
+        href: "https://storybook.onyx.schwarz/?path=/docs/form-elements-timepicker--docs",
+      },
       {
         name: "Calendar",
         status: getImplementedStatus("OnyxCalendar"),
@@ -268,7 +272,11 @@ export default defineLoader({
         href: "https://storybook.onyx.schwarz/?path=/docs/basic-image--docs",
       },
       { name: "Split button", status: getImplementedStatus("OnyxSplitButton") },
-      { name: "Shortcut", status: getImplementedStatus("OnyxShortcut") },
+      {
+        name: "Shortcut",
+        status: getImplementedStatus("OnyxShortcut"),
+        href: "https://storybook.onyx.schwarz/?path=/docs/basic-shortcut--docs",
+      },
       { name: "Feed", status: getImplementedStatus("OnyxFeed") },
       { name: "List", status: getImplementedStatus("OnyxList") },
       {

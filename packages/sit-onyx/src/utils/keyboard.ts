@@ -166,9 +166,8 @@ export type KeyboardKey =
   | "unknown";
 
 /**
- * Uses Unicode characters from tables.
- *
- * https://acrobatfaq.com/atbref10/index/Keyboard_Shortcuts/Unicode_Codes_for_Keyboard_symbols.html
+ * Special characters / symbols for macOS-specific keyboard keys.
+ * Only contains special symbols, regular characters that are equivalent to their name are not included.
  */
 export const MAC_KEY_SYMBOLS: Partial<Record<KeyboardKey, string>> = {
   // Modifiers
@@ -186,14 +185,13 @@ export const MAC_KEY_SYMBOLS: Partial<Record<KeyboardKey, string>> = {
   Delete: "⌦",
   Enter: "↩",
   Tab: "⇥",
-  Escape: "⎋",
-  Insert: "Insert",
+  Escape: "Esc",
 
   // Navigation
-  ArrowUp: "▲",
-  ArrowDown: "▼",
-  ArrowLeft: "◀",
-  ArrowRight: "▶",
+  ArrowUp: "▴",
+  ArrowDown: "▾",
+  ArrowLeft: "◂",
+  ArrowRight: "▸",
   Home: "⇱",
   End: "⇲",
   PageUp: "⇞",
@@ -203,18 +201,6 @@ export const MAC_KEY_SYMBOLS: Partial<Record<KeyboardKey, string>> = {
   Space: "␣",
 
   // Function keys
-  F1: "F1",
-  F2: "F2",
-  F3: "F3",
-  F4: "F4",
-  F5: "F5",
-  F6: "F6",
-  F7: "F7",
-  F8: "F8",
-  F9: "F9",
-  F10: "F10",
-  F11: "F11",
-  F12: "F12",
   FN: "fn",
 
   // Numpad
@@ -246,20 +232,17 @@ export const MAC_KEY_SYMBOLS: Partial<Record<KeyboardKey, string>> = {
 
   // Misc
   PrintScreen: "Print Screen",
-  Pause: "Pause",
   ContextMenu: "Menu",
-  Clear: "Clear",
-  Select: "Select",
-  Undo: "Undo",
-  Redo: "Redo",
-  Help: "Help",
 };
 
+/**
+ * Special characters / symbols for Windows-specific keyboard keys.
+ * Only contains special symbols, regular characters that are equivalent to their name are not included.
+ */
 export const WINDOWS_KEY_SYMBOLS: Partial<Record<KeyboardKey, string>> = {
   // Modifiers
   Shift: "⇧",
   Control: "Ctrl",
-  Alt: "Alt",
   AltGraph: "AltGr",
   Meta: "⊞",
   CapsLock: "Caps",
@@ -279,8 +262,6 @@ export const WINDOWS_KEY_SYMBOLS: Partial<Record<KeyboardKey, string>> = {
   ArrowDown: "↓",
   ArrowLeft: "←",
   ArrowRight: "→",
-  Home: "Home",
-  End: "End",
   PageUp: "PgUp",
   PageDown: "PgDn",
 
@@ -288,18 +269,6 @@ export const WINDOWS_KEY_SYMBOLS: Partial<Record<KeyboardKey, string>> = {
   Space: "␣",
 
   // Function
-  F1: "F1",
-  F2: "F2",
-  F3: "F3",
-  F4: "F4",
-  F5: "F5",
-  F6: "F6",
-  F7: "F7",
-  F8: "F8",
-  F9: "F9",
-  F10: "F10",
-  F11: "F11",
-  F12: "F12",
   FN: "Fn",
 
   // Numpad
@@ -331,57 +300,42 @@ export const WINDOWS_KEY_SYMBOLS: Partial<Record<KeyboardKey, string>> = {
 
   // Misc
   PrintScreen: "PrtSc",
-  Pause: "Pause",
   ContextMenu: "Menu",
-  Clear: "Clear",
-  Select: "Select",
-  Undo: "Undo",
-  Redo: "Redo",
-  Help: "Help",
 };
 
+/**
+ * Special characters / symbols for generic keyboard keys.
+ * Only contains special symbols, regular characters that are equivalent to their name are not included.
+ */
 export const GENERIC_KEY_SYMBOLS: Partial<Record<KeyboardKey, string>> = {
-  Shift: "Shift",
+  // Modifiers
   Control: "Ctrl",
-  Alt: "Alt",
-  Meta: "Meta",
   AltGraph: "AltGraph",
   CapsLock: "Caps Lock",
   NumLock: "Num Lock",
   ScrollLock: "Scroll Lock",
 
+  // Editing
   Backspace: "⌫",
-  Delete: "Delete",
-  Insert: "Insert",
   Enter: "↵",
   Tab: "⇥",
   Escape: "Esc",
 
+  // Navigation
   ArrowUp: "↑",
   ArrowDown: "↓",
   ArrowLeft: "←",
   ArrowRight: "→",
-  Home: "Home",
-  End: "End",
   PageUp: "Page Up",
   PageDown: "Page Down",
 
+  // Space
   Space: "␣",
 
-  F1: "F1",
-  F2: "F2",
-  F3: "F3",
-  F4: "F4",
-  F5: "F5",
-  F6: "F6",
-  F7: "F7",
-  F8: "F8",
-  F9: "F9",
-  F10: "F10",
-  F11: "F11",
-  F12: "F12",
+  // Function
   FN: "Fn",
 
+  // Numpad
   Numpad0: "Numpad 0",
   Numpad1: "Numpad 1",
   Numpad2: "Numpad 2",
@@ -399,6 +353,7 @@ export const GENERIC_KEY_SYMBOLS: Partial<Record<KeyboardKey, string>> = {
   NumpadDecimal: "Numpad .",
   NumpadEnter: "↵",
 
+  // Media
   AudioVolumeMute: "Mute",
   AudioVolumeDown: "Vol ↓",
   AudioVolumeUp: "Vol ↑",
@@ -407,14 +362,9 @@ export const GENERIC_KEY_SYMBOLS: Partial<Record<KeyboardKey, string>> = {
   MediaStop: "Stop",
   MediaPlayPause: "Play/Pause",
 
+  // Misc
   PrintScreen: "Print Screen",
-  Pause: "Pause",
   ContextMenu: "Menu",
-  Clear: "Clear",
-  Select: "Select",
-  Undo: "Undo",
-  Redo: "Redo",
-  Help: "Help",
 };
 
 export type ShortCutAllStep = {

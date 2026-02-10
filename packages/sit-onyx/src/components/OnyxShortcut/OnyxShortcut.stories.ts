@@ -20,13 +20,13 @@ type Story = StoryObj<typeof OnyxShortcut>;
 
 export const Default = {
   args: {
-    sequence: [{ all: ["Control", "C"] }, { any: ["V", "Insert"] }],
+    sequence: [{ all: ["Control", "C"] }],
   },
 } satisfies Story;
 
 export const Highlight = {
   args: {
-    sequence: [{ all: ["Control", "Shift", "S"] }],
+    ...Default.args,
     highlight: true,
   },
 } satisfies Story;
@@ -40,8 +40,8 @@ export const MultiStep = {
 
 export const Skeleton = {
   args: {
+    ...Default.args,
     skeleton: true,
-    sequence: [{ all: ["Control", "C"] }],
   },
 } satisfies Story;
 
