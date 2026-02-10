@@ -21,6 +21,7 @@ import {
   keyboardEventToKey,
 } from "../../utils/keyboard.js";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
+import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import type { OnyxKeyProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxKeyProps>(), {
@@ -92,9 +93,11 @@ defineExpose({
       { 'onyx-key--highlighted': isHighlighted },
     ]"
   >
-    <span class="onyx-truncation-ellipsis">
+    <span aria-hidden="true" class="onyx-truncation-ellipsis">
       {{ visualLabel }}
     </span>
+
+    <OnyxVisuallyHidden>{{ props.name }}</OnyxVisuallyHidden>
   </kbd>
 </template>
 
