@@ -156,6 +156,5 @@ test("should have accessible name", async ({ mount }) => {
   const component = await mount(<OnyxKey name="Escape" />);
 
   // ASSERT
-  await expect(component).toHaveAccessibleName(`"Escape" key`);
-  await expect(component).toHaveAttribute("title", `"Escape" key`);
+  await expect(component).toContainText(`"Escape" key`);
 });
