@@ -6,28 +6,28 @@ import {
   iconSearch,
   iconSettings,
 } from "@sit-onyx/icons";
+import { ref } from "vue";
 import {
   OnyxAppLayout,
   OnyxColorSchemeMenuItem,
   OnyxHeadline,
   OnyxIcon,
   OnyxMenuItem,
+  OnyxNavBar,
+  OnyxNavItem,
   OnyxPageLayout,
+  OnyxTag,
   OnyxUserMenu,
-} from "sit-onyx";
-import { ref } from "vue";
-import OnyxTag from "../../OnyxTag/OnyxTag.vue";
-import OnyxNavBar from "../OnyxNavBar.vue";
-import OnyxNavItem from "../modules/OnyxNavItem/OnyxNavItem.vue";
+} from "../../../index.js";
 
-const collapsed = ref(true);
+const expanded = ref(false);
 </script>
 
 <template>
   <OnyxAppLayout nav-bar-alignment="left">
     <template #navBar>
       <OnyxNavBar
-        v-model:collapsed="collapsed"
+        v-model:expanded="expanded"
         app-name="App name"
         logo-url="/onyx-logo.svg"
         orientation="vertical"
@@ -35,7 +35,7 @@ const collapsed = ref(true);
       >
         <OnyxNavItem label="Router Link" link="#router-link" active :icon="iconPlaceholder" />
 
-        <OnyxNavItem label="Nesting" :icon="iconPlaceholder">
+        <OnyxNavItem label="Nesting123123" :icon="iconPlaceholder">
           <template #children>
             <OnyxNavItem label="Nested Router Link" link="#nested-router-link" />
             <OnyxNavItem label="Nested Button" />
@@ -67,9 +67,8 @@ const collapsed = ref(true);
         </template>
       </OnyxNavBar>
     </template>
-    <OnyxPageLayout>
-      <template #sidebar> </template>
 
+    <OnyxPageLayout>
       <!-- page content -->
       <OnyxHeadline is="h1">Page content</OnyxHeadline>
     </OnyxPageLayout>
