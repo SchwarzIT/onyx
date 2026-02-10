@@ -1,8 +1,9 @@
 import { iconBrowserTerminal, iconSearch, iconSettings } from "@sit-onyx/icons";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { action } from "storybook/actions";
-import { h } from "vue";
+import { h, type Decorator } from "vue";
 import { ONYX_BREAKPOINTS } from "../../utils/breakpoints.js";
+import { createAdvancedStoryExample } from "../../utils/storybook.js";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
@@ -14,6 +15,22 @@ import OnyxTimer from "./modules/OnyxTimer/OnyxTimer.vue";
 import { Default as OnyxUserMenuDefault } from "./modules/OnyxUserMenu/OnyxUserMenu.stories.js";
 import OnyxUserMenu from "./modules/OnyxUserMenu/OnyxUserMenu.vue";
 import OnyxNavBar from "./OnyxNavBar.vue";
+
+const withPaddingDecorator: Decorator = (story) => {
+  return {
+    methods: {
+      handleAnchorClick: (e: MouseEvent & { target: Element }) => {
+        const a = e.target.closest("a") as HTMLAnchorElement | null;
+        if (a) {
+          e.preventDefault();
+          action("link clicked")(a.href);
+        }
+      },
+    },
+    components: { story },
+    template: `<div style="padding-bottom: 20rem;"> <story @click="handleAnchorClick" /> </div>`,
+  };
+};
 
 /**
  * The NavBar is the foundation of an app’s main navigation, allowing users to seamlessly move between pages and sections within the application.
@@ -43,31 +60,13 @@ const meta: Meta<typeof OnyxNavBar> = {
   parameters: {
     layout: "fullscreen",
   },
-  decorators: [
-    // add padding to the story so the nav button and user menu flyouts are shown
-    (story) => {
-      return {
-        methods: {
-          handleAnchorClick: (e: MouseEvent & { target: Element }) => {
-            const a = e.target.closest("a") as HTMLAnchorElement | null;
-            if (a) {
-              // prevent navigate to the link when clicked as it would navigate away from the storybook iframe
-              e.preventDefault();
-              action("link clicked")(a.href);
-            }
-          },
-        },
-        components: { story },
-        template: `<div style="padding-bottom: 20rem;"> <story @click="handleAnchorClick" /> </div>`,
-      };
-    },
-  ],
 };
 
 export default meta;
 type Story = StoryObj<typeof OnyxNavBar>;
 
 export const Default = {
+  decorators: [withPaddingDecorator],
   args: {
     logoUrl: "/onyx-logo.svg",
     appName: "App name",
@@ -89,6 +88,7 @@ export const Default = {
 } satisfies Story;
 
 export const Nested = {
+  decorators: [withPaddingDecorator],
   args: {
     logoUrl: "/onyx-logo.svg",
     appName: "App name",
@@ -132,6 +132,7 @@ export const Nested = {
 } satisfies Story;
 
 export const WithMoreListItem = {
+  decorators: [withPaddingDecorator],
   globals: {
     // Set viewport to sm to show the more menu
     viewport: { value: "sm" },
@@ -171,6 +172,7 @@ export const WithMoreListItem = {
 } satisfies Story;
 
 export const WithBackButton = {
+  decorators: [withPaddingDecorator],
   args: {
     ...Default.args,
     withBackButton: true,
@@ -184,6 +186,7 @@ const getTimerEndDate = () => {
 };
 
 export const WithContextArea = {
+  decorators: [withPaddingDecorator],
   args: {
     ...Default.args,
     globalContextArea: () => [
@@ -205,6 +208,7 @@ export const WithContextArea = {
  * be used to indicate to the user that they will be automatically logged out after a given time.
  */
 export const WithLogoutTimer = {
+  decorators: [withPaddingDecorator],
   args: {
     ...Default.args,
     contextArea: () => [
@@ -223,6 +227,7 @@ export const WithLogoutTimer = {
  * Both the nav area as well as the context area will overflow when opened.
  */
 export const Mobile = {
+  decorators: [withPaddingDecorator],
   args: {
     ...WithContextArea.args,
     mobile: true,
@@ -255,3 +260,5 @@ export const Mobile = {
     ],
   },
 } satisfies Story;
+
+export const Vertical = createAdvancedStoryExample("OnyxNavBar", "VerticalExample");

@@ -10,7 +10,7 @@ const props = defineProps<
      * The render context of the nav item.
      * Styling is changed based on the context prop.
      */
-    context: "mobile" | "list" | "navbar";
+    context: "mobile" | "list" | "navbar" | "vertical-navbar";
   }
 >();
 
@@ -50,7 +50,8 @@ const hasChildren = computed(() => !!slots.children);
 @use "../../../../styles/mixins/layers";
 
 @include layers.override() {
-  .onyx-nav-item--navbar {
+  .onyx-nav-item--navbar,
+  .onyx-nav-item--vertical-navbar {
     position: relative;
     height: 2.5rem;
     width: max-content;
@@ -130,6 +131,20 @@ const hasChildren = computed(() => !!slots.children);
 
     &.onyx-nav-item--open {
       all: unset;
+    }
+  }
+  .onyx-nav-item--vertical-navbar {
+    width: 100%;
+
+    &:has(.onyx-nav-item--active),
+    &.onyx-nav-item--active {
+      &::after {
+        width: 0.125rem;
+        height: 100%;
+        left: calc(-1 * var(--onyx-spacing-2xs));
+        bottom: auto;
+        border-radius: 0 var(--onyx-radius-full) var(--onyx-radius-full) 0;
+      }
     }
   }
 }

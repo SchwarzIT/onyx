@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
+import { defineIconSelectArgType } from "../../../../utils/storybook.js";
 import OnyxBadge from "../../../OnyxBadge/OnyxBadge.vue";
 import OnyxNavItem from "./OnyxNavItem.vue";
 
@@ -12,6 +13,8 @@ const meta: Meta<typeof OnyxNavItem> = {
   title: "Navigation/NavBar/modules/NavItem",
   component: OnyxNavItem,
   argTypes: {
+    icon: defineIconSelectArgType({ required: true }),
+
     default: {
       control: { type: "text" },
     },

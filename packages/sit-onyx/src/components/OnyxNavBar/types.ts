@@ -1,9 +1,14 @@
 import type { ComputedRef, InjectionKey, Ref, TeleportProps } from "vue";
 import type { MoreListInjectionKey } from "../../composables/useMoreList.js";
+import type { Nullable } from "../../types/utils.js";
 import type { OnyxBreakpoint } from "../../utils/breakpoints.js";
 import type { OnyxNavAppAreaProps } from "../OnyxNavAppArea/types.js";
 
-export type OnyxNavBarProps = Pick<OnyxNavAppAreaProps, "appName" | "logoUrl"> & {
+export type NavItemOrientationMode = "horizontal" | "vertical";
+export type OnyxNavBarProps<TNavItemOrientationMode extends NavItemOrientationMode> = Pick<
+  OnyxNavAppAreaProps,
+  "appName" | "logoUrl"
+> & {
   /**
    * Whether to show a back button.
    */
@@ -25,6 +30,20 @@ export type OnyxNavBarProps = Pick<OnyxNavAppAreaProps, "appName" | "logoUrl"> &
    * @see [onyx docs](https://onyx.schwarz/development/breakpoints.html) for more information.
    */
   mobile?: boolean | OnyxBreakpoint | number;
+
+  /**
+   * The orientation of the nav bar.
+   * @ default "horizontal"
+   */
+  orientation?: TNavItemOrientationMode;
+  /**
+   * Whether to render a collapsed version of the nav bar.
+   */
+  collapsed?: Nullable<boolean>;
+  /**
+   * Whether to align the navigation items at the top or center.
+   */
+  alignment?: TNavItemOrientationMode extends "vertical" ? "top" | "center" : never;
 };
 
 /**
@@ -51,7 +70,13 @@ export const NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY = Symbol() as InjectionKey<
   Ref<TeleportProps["to"]>
 >;
 
-export type OnyxNavBarSlots = {
+/**
+ * [Vue injection key](https://vuejs.org/guide/components/provide-inject) that is provided by the nav bar
+ * to communicate child components whether they should render horizontal or vertical.
+ */
+export const NAV_BAR_isCollapsed_INJECTION_KEY = Symbol() as InjectionKey<Ref<boolean>>;
+
+export type OnyxNavBarSlots<TNavItemOrientationMode extends NavItemOrientationMode> = {
   /**
    * [`OnyxNavItem`](/docs/navigation-navbar-modules-navitem--docs) components should be placed and nested here to build the navigation.
    */
@@ -76,4 +101,8 @@ export type OnyxNavBarSlots = {
    * If a child of a nav item is active, it should displayed the child label instead of the parent.
    */
   mobileActivePage?: () => unknown;
+  /**
+   * Optional area to display additional content at the bottom of the vertical nav bar.
+   */
+  footer?: TNavItemOrientationMode extends "vertical" ? () => unknown : never;
 };
