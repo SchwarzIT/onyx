@@ -58,7 +58,9 @@ test.describe("Screenshot tests", () => {
       hooks: {
         beforeEach: async (component) => {
           const button = component.getByRole("button", { name: "Option" });
-          const flyoutButton = component.getByRole("button", { name: "Flyout Menü öffnen" });
+          const flyoutButton = component.getByRole("button", {
+            name: "Hover/Focus to toggle action",
+          });
 
           if (state === "hover") {
             await button.hover();
