@@ -515,13 +515,12 @@ export const useDataGridFeatures = <
 
   const createRendererColumnGroups = () => {
     const baseGroups = createTableColumnGroups(columns.value, toValue(columnGroups));
-    if (!baseGroups) return undefined;
 
     return columnGroupMappings.value.reduce((acc, mapping) => {
       return (
         mapping.func(acc, columns.value as InternalColumnConfig<TEntry, TColumnGroup>[]) || acc
       );
-    }, baseGroups);
+    }, baseGroups || []);
   };
   const createScrollContainerAttributes = () =>
     mergeVueProps(

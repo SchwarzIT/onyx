@@ -150,9 +150,7 @@ export const useStickyColumns = <TEntry extends DataGridEntry>(
               );
 
               const leadStickyCol =
-                position.value === "left"
-                  ? stickyPartCols[0]
-                  : stickyPartCols[stickyPartCols.length - 1];
+                position.value === "left" ? stickyPartCols[0] : stickyPartCols.at(-1);
 
               const stickyPart: TableColumnGroup = {
                 key: Symbol(`${group.key.toString()}-sticky`),
