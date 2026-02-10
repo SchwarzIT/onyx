@@ -1,4 +1,4 @@
-import type { Locator } from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
 import { h, type Component } from "vue";
 import type { ComponentProps } from "vue-component-type-helpers";
 import { expect, test } from "../../playwright/a11y.js";
@@ -22,44 +22,46 @@ import OnyxForm from "./OnyxForm.vue";
 const inferProps = <TComp extends Component, TProps extends ComponentProps<TComp>>(
   component: TComp,
   props: TProps,
-  delegate?: Locator,
+  delegate?: (page: Page) => Locator,
 ) => ({ component, props, delegate });
 
-test("OnyxForm should inject disabled state", async ({ mount, page }) => {
-  const options: SelectOption[] = [
-    {
-      label: "option 1",
-      value: "option 1",
-    },
-  ];
-  const allFormElements = [
-    inferProps(OnyxInput, { label: "OnyxInput" }),
-    inferProps(OnyxSelect, { label: "OnyxSelect", listLabel: "Select options", options }),
-    inferProps(OnyxStepper, { label: "OnyxStepper" }),
-    inferProps(OnyxSlider, { label: "OnyxSlider", modelValue: 0 }),
-    inferProps(OnyxDatePicker, { label: "OnyxDatePicker", modelValue: "2011-10-31" }),
-    inferProps(OnyxTimepicker, { label: "OnyxTimepicker", modelValue: "14:30:00" }),
-    inferProps(OnyxTextarea, { label: "OnyxTextarea" }),
-    inferProps(
-      OnyxRadioGroup,
-      { label: "OnyxRadioGroup", options },
-      page.getByLabel("OnyxRadioGroup").getByText("option 1"),
-    ),
-    inferProps(
-      OnyxCheckboxGroup,
-      { label: "OnyxCheckboxGroup", options },
-      page.getByLabel("OnyxCheckboxGroup").getByText("option 1"),
-    ),
-    inferProps(OnyxCheckbox, { label: "OnyxCheckbox", value: "" }),
-    inferProps(OnyxSwitch, { label: "OnyxSwitch" }),
-    inferProps(OnyxButton, { label: "OnyxButton" }, page.getByText("OnyxButton", { exact: true })),
-  ];
+const SINGLE_OPTION: SelectOption[] = [
+  {
+    label: "option 1",
+    value: "option 1",
+  },
+];
 
+const ALL_FORM_ELEMENTS = [
+  inferProps(OnyxInput, { label: "OnyxInput" }),
+  inferProps(OnyxSelect, {
+    label: "OnyxSelect",
+    listLabel: "Select options",
+    options: SINGLE_OPTION,
+  }),
+  inferProps(OnyxStepper, { label: "OnyxStepper" }),
+  inferProps(OnyxSlider, { label: "OnyxSlider", modelValue: 0 }),
+  inferProps(OnyxDatePicker, { label: "OnyxDatePicker", modelValue: "2011-10-31" }),
+  inferProps(OnyxTimepicker, { label: "OnyxTimepicker", modelValue: "14:30:00" }),
+  inferProps(OnyxTextarea, { label: "OnyxTextarea" }),
+  inferProps(OnyxRadioGroup, { label: "OnyxRadioGroup", options: SINGLE_OPTION }, (page) =>
+    page.getByLabel("OnyxRadioGroup").getByText("option 1"),
+  ),
+  inferProps(OnyxCheckboxGroup, { label: "OnyxCheckboxGroup", options: SINGLE_OPTION }, (page) =>
+    page.getByLabel("OnyxCheckboxGroup").getByText("option 1"),
+  ),
+  inferProps(OnyxCheckbox, { label: "OnyxCheckbox", value: "" }),
+  inferProps(OnyxSwitch, { label: "OnyxSwitch" }),
+  inferProps(OnyxButton, { label: "OnyxButton" }, (page) =>
+    page.getByText("OnyxButton", { exact: true }),
+  ),
+];
+
+test("OnyxForm should inject disabled state", async ({ mount, page }) => {
   const expectForAll = async (expectation: (locator: Locator) => Promise<unknown>) => {
-    for (const { props, delegate } of allFormElements) {
+    for (const { props, delegate } of ALL_FORM_ELEMENTS) {
       const getInputByLabel = page.getByLabel(props.label, { exact: true });
-      // eslint-disable-next-line playwright/no-conditional-in-test -- its easier to have some simple dynamic checks in the test
-      const element = delegate || getInputByLabel;
+      const element = delegate?.(page) || getInputByLabel;
       expect(element).toBeDefined();
       await expectation(element);
     }
@@ -68,7 +70,7 @@ test("OnyxForm should inject disabled state", async ({ mount, page }) => {
   // ARRANGE
   await mount(
     <OnyxForm>
-      {allFormElements.map(({ component, props }) => h(component as Component, props))}
+      {ALL_FORM_ELEMENTS.map(({ component, props }) => h(component as Component, props))}
     </OnyxForm>,
   );
 
@@ -84,12 +86,36 @@ test("OnyxForm should inject disabled state", async ({ mount, page }) => {
   // ARRANGE
   await mount(
     <OnyxForm disabled>
-      {allFormElements.map(({ component, props }) => h(component as Component, props))}
+      {ALL_FORM_ELEMENTS.map(({ component, props }) => h(component as Component, props))}
     </OnyxForm>,
   );
 
   // ASSERT
   await expectForAll((element) => expect(element).toBeDisabled());
+});
+
+test("OnyxForm should inject reservedMessage", async ({ mount, page }) => {
+  const style = { display: "flex", "flex-direction": "column", "max-width": "10rem" } as const;
+
+  // ARRANGE
+  await mount(
+    <OnyxForm reserveMessageSpace style={style}>
+      {ALL_FORM_ELEMENTS.map(({ component, props }) => h(component as Component, props))}
+    </OnyxForm>,
+  );
+
+  // ASSERT
+  await expect(page.locator(".onyx-form")).toHaveScreenshot("form-reserved-messages.png");
+
+  // ARRANGE
+  await mount(
+    <OnyxForm style={style}>
+      {ALL_FORM_ELEMENTS.map(({ component, props }) => h(component as Component, props))}
+    </OnyxForm>,
+  );
+
+  // ASSERT
+  await expect(page.locator(".onyx-form")).toHaveScreenshot("form-default.png");
 });
 
 test("FormElementTestWrapper", async ({ mount, page }) => {

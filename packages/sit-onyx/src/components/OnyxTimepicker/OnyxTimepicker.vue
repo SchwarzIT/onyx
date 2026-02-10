@@ -13,6 +13,7 @@ const props = withDefaults(defineProps<OnyxTimepickerProps<TimepickerType>>(), {
   autocapitalize: "sentences",
   readonly: false,
   requiredMarker: FORM_INJECTED_SYMBOL,
+  reserveMessageSpace: FORM_INJECTED_SYMBOL,
   disabled: FORM_INJECTED_SYMBOL,
   showError: FORM_INJECTED_SYMBOL,
   skeleton: SKELETON_INJECTED_SYMBOL,

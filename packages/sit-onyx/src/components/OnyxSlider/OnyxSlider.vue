@@ -121,8 +121,8 @@ const sharedStepperProps = computed(() => {
   } satisfies Partial<OnyxStepperProps> & HTMLAttributes;
 });
 
-const _input = useTemplateRef("inputRef");
-const input = computed<HTMLInputElement | undefined>(() => _input.value?.at(0)?.$el);
+const inputComponent = useTemplateRef("inputRef");
+const input = computed<HTMLInputElement | undefined>(() => inputComponent.value?.at(0)?.$el);
 
 defineExpose({ input });
 </script>
@@ -204,8 +204,8 @@ defineExpose({ input });
                   v-bind="mergeVueProps(thumbInput({ value, index }), trigger)"
                   is="input"
                   :id="index === 0 ? inputId : undefined"
-                  v-custom-validity
                   ref="inputRef"
+                  v-custom-validity
                   :class="['onyx-slider__native', { 'onyx-slider__native--touched': wasTouched }]"
                   :tabindex="props.control === 'input' ? -1 : undefined"
                   :disabled="disabled"
