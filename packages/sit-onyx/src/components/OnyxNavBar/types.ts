@@ -76,7 +76,7 @@ export const NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY = Symbol() as InjectionKey<
  */
 export const NAV_BAR_isCollapsed_INJECTION_KEY = Symbol() as InjectionKey<Ref<boolean>>;
 
-export type OnyxNavBarSlots<TNavItemOrientationMode extends NavItemOrientationMode> = {
+export type OnyxNavBarSlots = {
   /**
    * [`OnyxNavItem`](/docs/navigation-navbar-modules-navitem--docs) components should be placed and nested here to build the navigation.
    */
@@ -101,8 +101,4 @@ export type OnyxNavBarSlots<TNavItemOrientationMode extends NavItemOrientationMo
    * If a child of a nav item is active, it should displayed the child label instead of the parent.
    */
   mobileActivePage?: () => unknown;
-  /**
-   * Optional area to display additional content at the bottom of the vertical nav bar.
-   */
-  footer?: TNavItemOrientationMode extends "vertical" ? () => unknown : never;
 };

@@ -11,12 +11,13 @@ import {
 } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxNavBarProps<T>>(), {
-  orientation: "horizontal",
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- for simplicity we use any here
+  orientation: "horizontal" as any,
   mobile: "sm",
   collapsed: undefined,
 });
 
-const slots = defineSlots<OnyxNavBarSlots<T>>();
+const slots = defineSlots<OnyxNavBarSlots>();
 
 const emit = defineEmits(["navigateBack", "update:collapsed"]);
 
@@ -39,7 +40,7 @@ const restAttr = useForwardProps(props, activeNavBar);
     v-bind="restAttr"
     v-model:collapsed="isCollapsed"
     class="onyx-component"
-    v-on="$attrs"
+    @navigate-back="emit('navigateBack')"
   >
     <template v-for="(_, name) in slots" #[name]>
       <slot :name="name"></slot>

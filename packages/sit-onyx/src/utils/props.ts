@@ -1,4 +1,4 @@
-import { computed, type ConcreteComponent } from "vue";
+import { computed, isRef, type Component, type ConcreteComponent } from "vue";
 import type { ComponentProps } from "vue-component-type-helpers";
 import type { Data, MaybePick } from "../types/utils.js";
 import { userConsole } from "./console.js";
@@ -41,15 +41,23 @@ export const useForwardProps = <
   target: TComponent,
 ) => {
   // endregion docs
-  const keys = new Set(Object.keys((target as ConcreteComponent).props ?? {}));
+  const getKeys = (comp: Component | undefined): Set<string> => {
+    const concrete = comp as ConcreteComponent;
+    if (!concrete?.props) {
+      if (comp) {
+        userConsole?.error(
+          `The provided component does not have props. Please ensure that the target component is a valid Vue component. Functional components without defined properties are not supported.`,
+        );
+      }
+      return new Set<string>();
+    }
+    return new Set(Object.keys(concrete.props));
+  };
 
-  if (!(target as ConcreteComponent).props) {
-    userConsole?.error(
-      `The provided component does not have props. Please ensure that the target component is a valid Vue component. Functional components without defined properties are not supported.`,
-    );
-  }
+  return computed(() => {
+    const actualTarget = (isRef(target) ? target.value : target) as Component;
+    const keys = getKeys(actualTarget);
 
-  return computed(
-    () => Object.fromEntries(Object.entries(props).filter(([key]) => keys.has(key))) as R,
-  );
+    return Object.fromEntries(Object.entries(props).filter(([key]) => keys.has(key))) as R;
+  });
 };

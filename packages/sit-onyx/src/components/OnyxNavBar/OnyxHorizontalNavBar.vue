@@ -31,7 +31,7 @@ const emit = defineEmits<{
   navigateBack: [event: MouseEvent];
 }>();
 
-const slots = defineSlots<OnyxNavBarSlots<"horizontal">>();
+const slots = defineSlots<OnyxNavBarSlots>();
 
 const navBar = useTemplateRef("navBarRef");
 const { width } = useResizeObserver(navBar);
