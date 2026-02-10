@@ -292,5 +292,8 @@
   },
   "tableOfContents": {
     "label": "Inhaltsverzeichnis"
+  },
+  "key": {
+    "label": "\"{name}\" Taste"
   }
 }

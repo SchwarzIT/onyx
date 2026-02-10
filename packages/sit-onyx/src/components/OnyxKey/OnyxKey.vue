@@ -14,6 +14,7 @@ import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
+import { injectI18n } from "../../i18n/index.js";
 import {
   GENERIC_KEY_SYMBOLS,
   MAC_KEY_SYMBOLS,
@@ -21,6 +22,7 @@ import {
   keyboardEventToKey,
 } from "../../utils/keyboard.js";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
+import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import type { OnyxKeyProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxKeyProps>(), {
@@ -36,8 +38,11 @@ const emit = defineEmits<{
   pressed: [];
 }>();
 
+const { t } = injectI18n();
 const skeleton = useSkeletonContext(props);
 const { os: detectedOs } = useOperatingSystem();
+
+const label = computed(() => t.value("key.label", { name: props.name }));
 
 /**
  * Actually used operating system (considers auto detection).
@@ -92,9 +97,11 @@ defineExpose({
       { 'onyx-key--highlighted': isHighlighted },
     ]"
   >
-    <span class="onyx-truncation-ellipsis">
+    <span aria-hidden="true" class="onyx-truncation-ellipsis">
       {{ visualLabel }}
     </span>
+
+    <OnyxVisuallyHidden>{{ label }}</OnyxVisuallyHidden>
   </kbd>
 </template>
 
