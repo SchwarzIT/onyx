@@ -96,7 +96,6 @@ defineExpose({
       'onyx-text--monospace',
       { 'onyx-key--highlighted': isHighlighted },
     ]"
-    :title="label"
   >
     <span aria-hidden="true" class="onyx-truncation-ellipsis">
       {{ visualLabel }}
