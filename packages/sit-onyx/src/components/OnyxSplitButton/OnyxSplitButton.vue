@@ -6,6 +6,7 @@ import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
+import { injectI18n } from "../../i18n/index.js";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -24,10 +25,12 @@ const props = withDefaults(defineProps<OnyxSplitButtonProps>(), {
 });
 
 const { densityClass } = useDensity(props);
-const aktiveOption = ref();
+const activeOption = ref();
 const { disabled } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
-onMounted(() => (aktiveOption.value = props.splitButtonOptions[0]));
+const { t } = injectI18n();
+
+onMounted(() => (activeOption.value = props.splitButtonOptions[0]));
 </script>
 
 <template>
@@ -43,28 +46,27 @@ onMounted(() => (aktiveOption.value = props.splitButtonOptions[0]));
       'onyx-component',
       `onyx-split-button--${props.color}`,
       `onyx-split-button--${props.mode}`,
-      { 'onyx-split-button--disabled': disabled },
       densityClass,
     ]"
   >
     <OnyxButton
-      :label="aktiveOption!.label"
-      :icon="aktiveOption?.icon"
-      class="onyx-split-button-left"
+      :label="activeOption!.label"
+      :icon="activeOption?.icon"
+      class="onyx-split-button__left"
       :color="props.color"
       :mode="props.mode"
       :disabled="disabled"
       :loading="props.loading"
-      @click="aktiveOption!.onClickFunction"
+      @click="activeOption!.onClickFunction"
     />
 
-    <OnyxFlyoutMenu label="Weitere Optionen" :disabled="disabled || props.loading">
+    <OnyxFlyoutMenu :label="t('flyoutMenu.moreActions')" :disabled="disabled || props.loading">
       <template #button="{ trigger }">
         <OnyxButton
           class="flyout-button"
           :icon="iconChevronDownSmall"
-          label=""
-          aria-label="Flyout Menü öffnen"
+          :label="t('flyoutMenu.toggleActions.hover')"
+          :aria-label="t('flyoutMenu.toggleActions.hover')"
           :color="props.color"
           :mode="props.mode"
           v-bind="trigger"
@@ -74,12 +76,12 @@ onMounted(() => (aktiveOption.value = props.splitButtonOptions[0]));
       <template #options>
         <template v-for="option in props.splitButtonOptions">
           <OnyxMenuItem
-            v-if="aktiveOption!.label !== option.label"
+            v-if="activeOption!.label !== option.label"
             :key="option.label"
             @click="
               () => {
                 option.onClickFunction();
-                aktiveOption = option;
+                activeOption = option;
               }
             "
           >
@@ -98,41 +100,60 @@ onMounted(() => (aktiveOption.value = props.splitButtonOptions[0]));
 .onyx-split-button {
   @include layers.component() {
     display: flex;
-    align-items: center;
-
     &--primary {
       gap: var(--onyx-1px-in-rem);
     }
-  }
 
-  &--neutral {
-    gap: var(--onyx-0px-in-rem);
-  }
+    &--plain,
+    &--outline,
+    &--danger,
+    &--neutral {
+      gap: 0px;
 
-  &--danger {
-    gap: var(--onyx-0px-in-rem);
-  }
-
-  &--plain {
-    .onyx-split-button-left {
-      border-right: var(--onyx-1px-in-rem) solid var(--onyx-button-text-color);
+      .flyout-button {
+        border-left: none;
+      }
     }
-  }
-  .onyx-split-button-left {
-    border-right: var(--onyx-1px-in-rem) solid var(--onyx-button-text-color-disabled);
-  }
 
-  .onyx-split-button-left {
-    border-radius: var(--onyx-radius-sm) 0 0 var(--onyx-radius-sm);
-  }
+    &--plain {
+      --disabled-border-color: var(--onyx-color-base-primary-200);
 
-  .flyout-button {
-    border-radius: 0 var(--onyx-radius-sm) var(--onyx-radius-sm) 0;
-    aspect-ratio: 1;
-    height: calc(2 * (var(--onyx-button-padding-vertical)) + var(--onyx-font-line-height-md));
-  }
-  .flyout-button .flyout-button-label {
-    display: none;
+      &.onyx-split-button {
+        &--danger {
+          --disabled-border-color: var(--onyx-color-base-danger-200);
+        }
+        &--neutral {
+          --disabled-border-color: var(--onyx-color-base-neutral-200);
+        }
+      }
+      .onyx-button--loading {
+        border-right: var(--onyx-1px-in-rem) solid var(--onyx-button-text-color);
+      }
+      .flyout-button {
+        border-left: var(--onyx-1px-in-rem) solid var(--onyx-button-text-color);
+        &:disabled {
+          border-left: var(--onyx-1px-in-rem) solid var(--disabled-border-color);
+        }
+      }
+    }
+    :focus-visible {
+      z-index: 1;
+      border-color: transparent;
+    }
+    &--plain .flyout-button:enabled:hover {
+      border-left: var(--onyx-1px-in-rem) solid var(--onyx-button-text-color);
+    }
+    .onyx-split-button__left {
+      border-radius: var(--onyx-radius-sm) 0 0 var(--onyx-radius-sm);
+    }
+
+    .flyout-button {
+      border-radius: 0 var(--onyx-radius-sm) var(--onyx-radius-sm) 0;
+      padding-inline: var(--onyx-density-xs);
+      .onyx-button__label {
+        display: none;
+      }
+    }
   }
 }
 
