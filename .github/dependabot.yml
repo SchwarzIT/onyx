@@ -29,8 +29,12 @@ updates:
       - dependency-name: "@types/node"
         update-types: [version-update:semver-major]
 
-      # TODO: remove in https://github.com/SchwarzIT/onyx/issues/4810
+      # TODO: remove with https://github.com/SchwarzIT/onyx/issues/4810
       - dependency-name: "eslint"
+        update-types: [version-update:semver-major]
+
+      # TODO: remove with https://github.com/SchwarzIT/onyx/issues/4810
+      - dependency-name: "@eslint/js"
         update-types: [version-update:semver-major]
 
   - package-ecosystem: github-actions
