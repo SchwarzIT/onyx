@@ -34,6 +34,7 @@ const collapsed = ref(true);
         with-back-button
       >
         <OnyxNavItem label="Router Link" link="#router-link" active :icon="iconPlaceholder" />
+
         <OnyxNavItem label="Nesting" :icon="iconPlaceholder">
           <template #children>
             <OnyxNavItem label="Nested Router Link" link="#nested-router-link" />
@@ -43,12 +44,6 @@ const collapsed = ref(true);
 
         <template #contextArea>
           <OnyxTag color="warning" :icon="iconBrowserTerminal" label="QA stage" />
-        </template>
-
-        <template #globalContextArea>
-          <OnyxNavItem color="neutral" :icon="iconSearch" label="Search" />
-        </template>
-        <template #footer>
           <OnyxUserMenu description="Company Name" full-name="Jane Doe">
             <OnyxMenuItem>
               <OnyxIcon :icon="iconSettings" />
@@ -65,6 +60,10 @@ const collapsed = ref(true);
               <span class="onyx-text--monospace">1.0.0</span>
             </template>
           </OnyxUserMenu>
+        </template>
+
+        <template #globalContextArea>
+          <OnyxNavItem color="neutral" :icon="iconSearch" label="Search" />
         </template>
       </OnyxNavBar>
     </template>

@@ -4,13 +4,7 @@ import { iconChevronLeftSmall, iconSidebarArrowLeft, iconSidebarArrowRight } fro
 import { provide, toRef, useTemplateRef } from "vue";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
-import {
-  OnyxIconButton,
-  OnyxMoreList,
-  OnyxNavAppArea,
-  OnyxNavItem,
-  OnyxSidebar,
-} from "../../index.js";
+import { OnyxMoreList, OnyxNavAppArea, OnyxNavItem, OnyxSidebar } from "../../index.js";
 import OnyxSeparator from "../OnyxSeparator/OnyxSeparator.vue";
 import {
   NAV_BAR_isCollapsed_INJECTION_KEY,
@@ -35,7 +29,7 @@ const emit = defineEmits<{
   "update:collapsed": [collapsed: boolean];
 }>();
 
-const slots = defineSlots<OnyxNavBarSlots<"vertical">>();
+const slots = defineSlots<OnyxNavBarSlots>();
 const { t } = injectI18n();
 
 const isCollapsed = useVModel({
@@ -80,13 +74,13 @@ provide(NAV_BAR_isCollapsed_INJECTION_KEY, isCollapsed);
         class="onyx-nav-bar__global-context"
         role="menubar"
       >
-        <OnyxIconButton
-          v-if="props.withBackButton"
+        <OnyxNavItem
           class="onyx-nav-bar__back"
           :label="t('navigation.goBack')"
           :icon="iconChevronLeftSmall"
-          color="neutral"
+          @click="emit('navigateBack', $event)"
         />
+
         <slot name="globalContextArea"></slot>
       </div>
       <OnyxSeparator
@@ -104,18 +98,16 @@ provide(NAV_BAR_isCollapsed_INJECTION_KEY, isCollapsed);
           </OnyxMoreList>
         </nav>
       </template>
-      <div class="onyx-nav-bar__context" role="menubar">
-        <slot v-if="slots.contextArea" name="contextArea"></slot>
-
+      <div v-if="slots.contextArea" class="onyx-nav-bar__context">
+        <slot name="contextArea"></slot>
+      </div>
+      <div class="onyx-nav-bar__footer" role="menubar">
         <OnyxNavItem
           class="onyx-nav-bar__collapse-button"
           :label="isCollapsed ? t('navigation.expand') : t('navigation.collapse')"
           :icon="isCollapsed ? iconSidebarArrowRight : iconSidebarArrowLeft"
           @click="isCollapsed = !isCollapsed"
         />
-      </div>
-      <div v-if="slots.footer" class="onyx-nav-bar__footer">
-        <slot name="footer"></slot>
       </div>
     </div>
   </OnyxSidebar>
