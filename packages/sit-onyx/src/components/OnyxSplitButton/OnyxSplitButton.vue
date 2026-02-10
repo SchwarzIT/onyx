@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { iconChevronDownSmall } from "@sit-onyx/icons";
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import { useDensity } from "../../composables/density.js";
 import {
   SKELETON_INJECTED_SYMBOL,
@@ -25,12 +25,11 @@ const props = withDefaults(defineProps<OnyxSplitButtonProps>(), {
 });
 
 const { densityClass } = useDensity(props);
-const activeOption = ref();
+// eslint-disable-next-line vue/no-setup-props-reactivity-loss -- don't need to be reactive
+const activeOption = ref(props.splitButtonOptions[0]);
 const { disabled } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
 const { t } = injectI18n();
-
-onMounted(() => (activeOption.value = props.splitButtonOptions[0]));
 </script>
 
 <template>
