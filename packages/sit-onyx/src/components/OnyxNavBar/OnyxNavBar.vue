@@ -30,7 +30,7 @@ const isCollapsed = useVModel({
 const activeNavBar = computed(() =>
   props.orientation === "horizontal" ? OnyxHorizontalNavBar : OnyxVerticalNavBar,
 );
-const restAttr = useForwardProps(activeNavBar);
+const restAttr = useForwardProps(props, activeNavBar);
 </script>
 
 <template>
