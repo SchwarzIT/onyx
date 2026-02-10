@@ -25,7 +25,7 @@
     "@eslint-community/eslint-plugin-eslint-comments": "^4.6.0",
     "@eslint-community/eslint-utils": "^4.9.1",
     "@eslint/compat": "^2.0.2",
-    "@eslint/js": "^9.39.2",
+    "@eslint/js": "^10.0.1",
     "@fontsource-variable/source-code-pro": "^5.2.7",
     "@fontsource-variable/source-sans-3": "^5.2.9",
     "@microsoft/eslint-formatter-sarif": "^3.1.0",
