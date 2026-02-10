@@ -7,7 +7,7 @@ import { injectI18n } from "../../i18n/index.js";
 import { OnyxMoreList, OnyxNavAppArea, OnyxNavItem, OnyxSidebar } from "../../index.js";
 import OnyxSeparator from "../OnyxSeparator/OnyxSeparator.vue";
 import {
-  NAV_BAR_isCollapsed_INJECTION_KEY,
+  NAV_BAR_IS_EXPANDED_INJECTION_KEY,
   NAV_BAR_MORE_LIST_INJECTION_KEY,
   NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY,
   type OnyxNavBarProps,
@@ -24,18 +24,18 @@ const emit = defineEmits<{
    */
   navigateBack: [event: MouseEvent];
   /**
-   * Emitted when the collapsed state changes.
+   * Emitted when the expanded state changes.
    */
-  "update:collapsed": [collapsed: boolean];
+  "update:expanded": [expanded: boolean];
 }>();
 
 const slots = defineSlots<OnyxNavBarSlots>();
 const { t } = injectI18n();
 
-const isCollapsed = useVModel({
+const isExpanded = useVModel({
   props,
   emit,
-  key: "collapsed",
+  key: "expanded",
   default: false,
 });
 
@@ -44,7 +44,7 @@ const {
 } = createNavigationMenu({ navigationName: toRef(() => props.appName) });
 
 provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreListRef"));
-provide(NAV_BAR_isCollapsed_INJECTION_KEY, isCollapsed);
+provide(NAV_BAR_IS_EXPANDED_INJECTION_KEY, isExpanded);
 </script>
 
 <template>
@@ -52,7 +52,7 @@ provide(NAV_BAR_isCollapsed_INJECTION_KEY, isCollapsed);
     :label="t('navigation.navigationHeadline')"
     :class="[
       'onyx-nav-bar--vertical',
-      { 'onyx-nav-bar--collapsed': isCollapsed },
+      { 'onyx-nav-bar--expanded': isExpanded },
       `onyx-nav-bar--alignment-${props.alignment}`,
     ]"
     :collapse-sidebar="false"
@@ -62,7 +62,7 @@ provide(NAV_BAR_isCollapsed_INJECTION_KEY, isCollapsed);
       <OnyxNavAppArea
         v-if="props.appName || props.logoUrl || slots.appArea"
         class="onyx-nav-bar__app"
-        :app-name="isCollapsed ? '' : props.appName"
+        :app-name="isExpanded ? undefined : props.appName"
         :logo-url="props.logoUrl"
         v-bind="props.appArea"
       >
@@ -75,13 +75,14 @@ provide(NAV_BAR_isCollapsed_INJECTION_KEY, isCollapsed);
         role="menubar"
       >
         <OnyxNavItem
+          v-if="props.withBackButton"
           class="onyx-nav-bar__back"
           :label="t('navigation.goBack')"
           :icon="iconChevronLeftSmall"
           @click="emit('navigateBack', $event)"
         />
 
-        <slot name="globalContextArea"></slot>
+        <slot v-if="slots.globalContextArea" name="globalContextArea"></slot>
       </div>
       <OnyxSeparator
         v-if="slots.globalContextArea || props.withBackButton"
@@ -104,9 +105,9 @@ provide(NAV_BAR_isCollapsed_INJECTION_KEY, isCollapsed);
       <div class="onyx-nav-bar__footer" role="menubar">
         <OnyxNavItem
           class="onyx-nav-bar__collapse-button"
-          :label="isCollapsed ? t('navigation.expand') : t('navigation.collapse')"
-          :icon="isCollapsed ? iconSidebarArrowRight : iconSidebarArrowLeft"
-          @click="isCollapsed = !isCollapsed"
+          :label="isExpanded ? t('navigation.collapse') : t('navigation.expand')"
+          :icon="isExpanded ? iconSidebarArrowLeft : iconSidebarArrowRight"
+          @click="isExpanded = !isExpanded"
         />
       </div>
     </div>
@@ -115,23 +116,25 @@ provide(NAV_BAR_isCollapsed_INJECTION_KEY, isCollapsed);
 
 <style lang="scss">
 .onyx-nav-bar--vertical {
+  // 2x navItem padding + 2x verticalNavBar padding + item width
+  width: calc(4 * var(--onyx-spacing-2xs) + 24px);
+  min-width: 0;
+  .onyx-nav-bar {
+    &__separator {
+      min-width: 0;
+      width: 0;
+    }
+  }
+  &:not(&.onyx-nav-bar--expanded) .onyx-user-menu {
+    .onyx-user-menu__trigger .onyx-truncation-ellipsis {
+      display: none;
+    }
+  }
   .onyx-menu-item__trigger {
     padding: var(--onyx-spacing-2xs);
   }
-  &.onyx-nav-bar--collapsed {
-    width: calc(4 * var(--onyx-spacing-2xs) + 24px);
-    min-width: 0;
-    .onyx-nav-bar {
-      &__separator {
-        min-width: 0;
-        width: 0;
-      }
-    }
-    .onyx-user-menu {
-      .onyx-truncation-ellipsis {
-        display: none;
-      }
-    }
+  &.onyx-nav-bar--expanded {
+    width: var(--onyx-sidebar-width);
   }
   &.onyx-nav-bar--alignment-center {
     .onyx-nav-bar__nav {

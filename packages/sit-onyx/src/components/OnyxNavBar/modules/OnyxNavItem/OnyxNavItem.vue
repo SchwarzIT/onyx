@@ -1,4 +1,4 @@
-<script lang="ts" setup generic="TNavItemOrientationMode extends NavItemOrientationMode">
+<script lang="ts" setup>
 import { iconArrowSmallLeft } from "@sit-onyx/icons";
 import { computed, inject, provide, toRef } from "vue";
 import { useLink } from "../../../../composables/useLink.js";
@@ -13,11 +13,10 @@ import OnyxTooltip from "../../../OnyxTooltip/OnyxTooltip.vue";
 import OnyxVisuallyHidden from "../../../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import {
   MOBILE_NAV_BAR_INJECTION_KEY,
+  NAV_BAR_IS_EXPANDED_INJECTION_KEY,
   NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY,
-  NAV_BAR_isCollapsed_INJECTION_KEY,
   NAV_BAR_MORE_LIST_INJECTION_KEY,
   NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY,
-  type NavItemOrientationMode,
 } from "../../types.js";
 import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxNavItemFacade from "../OnyxNavItemFacade/OnyxNavItemFacade.vue";
@@ -28,7 +27,7 @@ defineOptions({ inheritAttrs: false });
 const props = withDefaults(defineProps<OnyxNavItemProps>(), {
   active: "auto",
   open: undefined,
-  orientation: () => "horizontal" as TNavItemOrientationMode,
+  orientation: "horizontal",
 });
 
 const emit = defineEmits<{
@@ -75,7 +74,7 @@ const isMobile = inject(
   MOBILE_NAV_BAR_INJECTION_KEY,
   computed(() => false),
 );
-const isCollapsed = inject(NAV_BAR_isCollapsed_INJECTION_KEY);
+const isExpanded = inject(NAV_BAR_IS_EXPANDED_INJECTION_KEY);
 
 const moreListTargetRef = inject(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, undefined);
 
@@ -91,7 +90,7 @@ const { componentRef, isVisible } = isTopLevel
 <template>
   <!-- Desktop parent item in vertical navbar with children in a flyout -->
   <OnyxFlyoutMenu
-    v-if="isCollapsed !== undefined && isTopLevel && hasChildren"
+    v-if="isExpanded !== undefined && isTopLevel && hasChildren"
     v-bind="rootAttrs"
     :label="t('navItemOptionsLabel', { label: props.label })"
     alignment="right"
@@ -104,7 +103,7 @@ const { componentRef, isVisible } = isTopLevel
         context="vertical-navbar"
       >
         <OnyxIcon v-if="props.icon" :icon="props.icon" />
-        <OnyxVisuallyHidden v-if="isCollapsed">
+        <OnyxVisuallyHidden v-if="!isExpanded">
           {{ props.label }}
         </OnyxVisuallyHidden>
         <slot v-else>{{ props.label }}</slot>
@@ -121,7 +120,7 @@ const { componentRef, isVisible } = isTopLevel
 
   <!-- Desktop nav button directly in vertical navbar  -->
   <OnyxTooltip
-    v-if="isCollapsed && isTopLevel"
+    v-else-if="isExpanded === false && isTopLevel"
     alignment="right"
     position="right"
     :text="props.label"
@@ -143,7 +142,7 @@ const { componentRef, isVisible } = isTopLevel
   </OnyxTooltip>
 
   <OnyxNavItemFacade
-    v-else-if="isCollapsed === false && isTopLevel"
+    v-else-if="isExpanded && isTopLevel"
     v-bind="mergeVueProps(props, $attrs)"
     ref="componentRef"
     :active

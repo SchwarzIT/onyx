@@ -4,8 +4,8 @@ import type { Nullable } from "../../types/utils.js";
 import type { OnyxBreakpoint } from "../../utils/breakpoints.js";
 import type { OnyxNavAppAreaProps } from "../OnyxNavAppArea/types.js";
 
-export type NavItemOrientationMode = "horizontal" | "vertical";
-export type OnyxNavBarProps<TNavItemOrientationMode extends NavItemOrientationMode> = Pick<
+export type NavBarOrientation = "horizontal" | "vertical";
+export type OnyxNavBarProps<TOrientation extends NavBarOrientation> = Pick<
   OnyxNavAppAreaProps,
   "appName" | "logoUrl"
 > & {
@@ -33,17 +33,17 @@ export type OnyxNavBarProps<TNavItemOrientationMode extends NavItemOrientationMo
 
   /**
    * The orientation of the nav bar.
-   * @ default "horizontal"
+   * @default "horizontal"
    */
-  orientation?: TNavItemOrientationMode;
+  orientation?: TOrientation;
   /**
-   * Whether to render a collapsed version of the nav bar.
+   * Whether to render a expanded version of the nav bar.
    */
-  collapsed?: Nullable<boolean>;
+  expanded?: Nullable<boolean>;
   /**
    * Whether to align the navigation items at the top or center.
    */
-  alignment?: TNavItemOrientationMode extends "vertical" ? "top" | "center" : never;
+  alignment?: TOrientation extends "vertical" ? "top" | "center" : never;
 };
 
 /**
@@ -74,7 +74,7 @@ export const NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY = Symbol() as InjectionKey<
  * [Vue injection key](https://vuejs.org/guide/components/provide-inject) that is provided by the nav bar
  * to communicate child components whether they should render horizontal or vertical.
  */
-export const NAV_BAR_isCollapsed_INJECTION_KEY = Symbol() as InjectionKey<Ref<boolean>>;
+export const NAV_BAR_IS_EXPANDED_INJECTION_KEY = Symbol() as InjectionKey<Ref<boolean>>;
 
 export type OnyxNavBarSlots = {
   /**
