@@ -1,7 +1,7 @@
 <script setup lang="ts" generic="TSliderMode extends SliderMode">
 import { createSlider } from "@sit-onyx/headless";
 import { iconMinusSmall, iconPlusSmall } from "@sit-onyx/icons";
-import { computed, ref, toRef, toRefs, useTemplateRef, type HTMLAttributes } from "vue";
+import { computed, ref, toRef, toRefs, type HTMLAttributes } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useErrorClass } from "../../composables/useErrorClass.js";
 import { getFormMessages, useFormElementError } from "../../composables/useFormElementError.js";
@@ -120,11 +120,6 @@ const sharedStepperProps = computed(() => {
     hideButtons: true,
   } satisfies Partial<OnyxStepperProps> & HTMLAttributes;
 });
-
-const inputComponent = useTemplateRef("inputRef");
-const input = computed<HTMLInputElement | undefined>(() => inputComponent.value?.at(0)?.$el);
-
-defineExpose({ input });
 </script>
 
 <template>
@@ -204,7 +199,6 @@ defineExpose({ input });
                   v-bind="mergeVueProps(thumbInput({ value, index }), trigger)"
                   is="input"
                   :id="index === 0 ? inputId : undefined"
-                  ref="inputRef"
                   v-custom-validity
                   :class="['onyx-slider__native', { 'onyx-slider__native--touched': wasTouched }]"
                   :tabindex="props.control === 'input' ? -1 : undefined"
