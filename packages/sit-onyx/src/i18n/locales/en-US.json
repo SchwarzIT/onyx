@@ -141,7 +141,9 @@
     "toggleContextMenu": "Toggle context menu",
     "navigationHeadline": "Navigation",
     "moreActionsFlyout": "Choose an action for the column \"{column}\"",
-    "moreActionsTrigger": "Toggle column actions"
+    "moreActionsTrigger": "Toggle column actions",
+    "collapse": "Collapse",
+    "expand": "Expand"
   },
   "tooltip": {
     "neutral": "Toggle info tooltip",

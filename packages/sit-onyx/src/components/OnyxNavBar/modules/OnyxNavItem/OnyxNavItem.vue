@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script lang="ts" setup generic="TNavItemOrientationMode extends NavItemOrientationMode">
 import { iconArrowSmallLeft } from "@sit-onyx/icons";
 import { computed, inject, provide, toRef } from "vue";
 import { useLink } from "../../../../composables/useLink.js";
@@ -7,12 +7,17 @@ import { useVModel } from "../../../../composables/useVModel.js";
 import { injectI18n } from "../../../../i18n/index.js";
 import { mergeVueProps, useRootAttrs } from "../../../../utils/attrs.js";
 import OnyxButton from "../../../OnyxButton/OnyxButton.vue";
+import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxSeparator from "../../../OnyxSeparator/OnyxSeparator.vue";
+import OnyxTooltip from "../../../OnyxTooltip/OnyxTooltip.vue";
+import OnyxVisuallyHidden from "../../../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import {
   MOBILE_NAV_BAR_INJECTION_KEY,
   NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY,
+  NAV_BAR_isCollapsed_INJECTION_KEY,
   NAV_BAR_MORE_LIST_INJECTION_KEY,
   NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY,
+  type NavItemOrientationMode,
 } from "../../types.js";
 import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxNavItemFacade from "../OnyxNavItemFacade/OnyxNavItemFacade.vue";
@@ -23,6 +28,7 @@ defineOptions({ inheritAttrs: false });
 const props = withDefaults(defineProps<OnyxNavItemProps>(), {
   active: "auto",
   open: undefined,
+  orientation: () => "horizontal" as TNavItemOrientationMode,
 });
 
 const emit = defineEmits<{
@@ -69,6 +75,7 @@ const isMobile = inject(
   MOBILE_NAV_BAR_INJECTION_KEY,
   computed(() => false),
 );
+const isCollapsed = inject(NAV_BAR_isCollapsed_INJECTION_KEY);
 
 const moreListTargetRef = inject(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, undefined);
 
@@ -82,9 +89,72 @@ const { componentRef, isVisible } = isTopLevel
 </script>
 
 <template>
+  <!-- Desktop parent item in vertical navbar with children in a flyout -->
+  <OnyxFlyoutMenu
+    v-if="isCollapsed !== undefined && isTopLevel && hasChildren"
+    v-bind="rootAttrs"
+    :label="t('navItemOptionsLabel', { label: props.label })"
+    alignment="right"
+  >
+    <template #button="{ trigger }">
+      <OnyxNavItemFacade
+        v-bind="mergeVueProps(restAttrs, props, trigger)"
+        ref="componentRef"
+        :active
+        context="vertical-navbar"
+      >
+        <OnyxIcon v-if="props.icon" :icon="props.icon" />
+        <OnyxVisuallyHidden v-if="isCollapsed">
+          {{ props.label }}
+        </OnyxVisuallyHidden>
+        <slot v-else>{{ props.label }}</slot>
+        <template v-if="slots.children" #children>
+          <slot name="children"></slot>
+        </template>
+      </OnyxNavItemFacade>
+    </template>
+
+    <template #options>
+      <slot name="children"></slot>
+    </template>
+  </OnyxFlyoutMenu>
+
+  <!-- Desktop nav button directly in vertical navbar  -->
+  <OnyxTooltip
+    v-if="isCollapsed && isTopLevel"
+    alignment="right"
+    position="right"
+    :text="props.label"
+    without-wedge
+  >
+    <template #default="{ trigger }">
+      <OnyxNavItemFacade
+        v-bind="mergeVueProps(props, $attrs, trigger)"
+        ref="componentRef"
+        :active
+        context="vertical-navbar"
+      >
+        <OnyxIcon v-if="props.icon" :icon="props.icon" />
+        <OnyxVisuallyHidden>
+          {{ props.label }}
+        </OnyxVisuallyHidden>
+      </OnyxNavItemFacade>
+    </template>
+  </OnyxTooltip>
+
+  <OnyxNavItemFacade
+    v-else-if="isCollapsed === false && isTopLevel"
+    v-bind="mergeVueProps(props, $attrs)"
+    ref="componentRef"
+    :active
+    context="vertical-navbar"
+  >
+    <OnyxIcon v-if="props.icon" :icon="props.icon" />
+    <slot>{{ props.label }}</slot>
+  </OnyxNavItemFacade>
   <!-- Mobile Parent is open -->
   <div
-    v-if="isMobile && open"
+    v-else-if="isMobile && open"
     :class="{
       'onyx-component': true,
       'onyx-nav-item-wrapper': true,
