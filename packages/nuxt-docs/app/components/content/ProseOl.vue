@@ -12,7 +12,6 @@ defineSlots<{
 
 <style lang="scss" scoped>
 ol {
-  margin-top: var(--onyx-density-xs);
-  margin-bottom: var(--onyx-density-xs);
+  margin-block: var(--onyx-density-xs);
 }
 </style>
