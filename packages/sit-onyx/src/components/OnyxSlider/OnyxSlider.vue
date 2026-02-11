@@ -30,9 +30,11 @@ const props = withDefaults(defineProps<Props>(), {
   min: 0,
   max: 100,
   step: 1,
+  skeleton: SKELETON_INJECTED_SYMBOL,
   disabled: FORM_INJECTED_SYMBOL,
   showError: FORM_INJECTED_SYMBOL,
-  skeleton: SKELETON_INJECTED_SYMBOL,
+  requiredMarker: FORM_INJECTED_SYMBOL,
+  reserveMessageSpace: FORM_INJECTED_SYMBOL,
   mode: () => "single" as TSliderMode,
 });
 

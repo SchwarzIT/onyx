@@ -29,6 +29,8 @@ const props = withDefaults(defineProps<OnyxStepperProps>(), {
   skeleton: SKELETON_INJECTED_SYMBOL,
   disabled: FORM_INJECTED_SYMBOL,
   showError: FORM_INJECTED_SYMBOL,
+  requiredMarker: FORM_INJECTED_SYMBOL,
+  reserveMessageSpace: FORM_INJECTED_SYMBOL,
   hideButtons: false,
 });
 
