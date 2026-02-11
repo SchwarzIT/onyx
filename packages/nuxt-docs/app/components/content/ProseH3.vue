@@ -16,7 +16,7 @@ defineSlots<{
 
 <style lang="scss" scoped>
 .onyx-headline {
-  margin-top: var(--onyx-density-lg);
+  margin-top: var(--onyx-density-xl);
   margin-bottom: var(--onyx-density-2xs);
 }
 </style>
