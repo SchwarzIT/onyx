@@ -45,6 +45,8 @@ const getSidebarItemProps = (item: SidebarNavigationItem): SidebarItemProps => {
     showArrow: item.sidebar?.root,
   };
 };
+
+const { icon } = useIcon(computed(() => props.item.icon));
 </script>
 
 <template>
@@ -64,7 +66,7 @@ const getSidebarItemProps = (item: SidebarNavigationItem): SidebarItemProps => {
     <OnyxAccordionItem :value="props.item.path">
       <template #header>
         <div class="sidebar-accordion__header">
-          <ResolvableIcon v-if="props.item.icon" :name="props.item.icon" />
+          <OnyxIcon v-if="icon" :icon />
           {{ props.item.title }}
         </div>
       </template>

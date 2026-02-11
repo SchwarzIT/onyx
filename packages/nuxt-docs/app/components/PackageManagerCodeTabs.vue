@@ -33,9 +33,15 @@ const tabs = computed(() => {
 </script>
 
 <template>
-  <OnyxCodeTabs v-model="selectedTab">
+  <OnyxCodeTabs v-model="selectedTab" class="tabs">
     <OnyxCodeTab v-for="tab in tabs" v-bind="tab" :key="tab.value" :label="tab.value">
       <HighlightedCode :code="tab.code" :language="tab.language" />
     </OnyxCodeTab>
   </OnyxCodeTabs>
 </template>
+
+<style lang="scss" scoped>
+.tabs {
+  margin-block: var(--onyx-docs-density-paragraph);
+}
+</style>

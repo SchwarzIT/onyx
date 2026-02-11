@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { LinkTarget } from "sit-onyx";
+import { isInternalLink, type LinkTarget } from "sit-onyx";
 
 const props = withDefaults(
   defineProps<{
@@ -21,7 +21,11 @@ onMounted(() => (isMounted.value = true));
 </script>
 
 <template>
-  <OnyxLink v-bind="props" :with-external-icon="isMounted ? 'auto' : false">
+  <OnyxLink
+    v-bind="props"
+    :target="!isInternalLink(props.href) ? '_blank' : props.target"
+    :with-external-icon="isMounted ? 'auto' : false"
+  >
     <slot></slot>
   </OnyxLink>
 </template>

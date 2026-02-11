@@ -5,13 +5,13 @@ defineSlots<{
 </script>
 
 <template>
-  <ul>
+  <p>
     <slot></slot>
-  </ul>
+  </p>
 </template>
 
 <style lang="scss" scoped>
-ul {
-  margin-block: var(--onyx-density-xs);
+p {
+  margin-block: var(--onyx-docs-density-paragraph);
 }
 </style>
