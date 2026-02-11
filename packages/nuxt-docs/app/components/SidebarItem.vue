@@ -14,11 +14,13 @@ export type SidebarItemProps = {
 };
 
 const props = defineProps<SidebarItemProps>();
+
+const { icon } = useIcon(computed(() => props.icon));
 </script>
 
 <template>
   <OnyxSidebarItem class="sidebar-item" :link="props.link">
-    <ResolvableIcon v-if="props.icon" :name="props.icon" />
+    <OnyxIcon v-if="icon" :icon />
     {{ props.label }}
     <OnyxIcon v-if="props.showArrow" :icon="iconArrowSmallRight" />
   </OnyxSidebarItem>
