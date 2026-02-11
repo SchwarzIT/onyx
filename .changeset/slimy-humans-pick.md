@@ -10,3 +10,4 @@ There are now new prose components available for usage in markdown files and exi
 - updated vertical spacings for: h2 and h3 headlines, table, PackageManagerCodeTabs and NpmInstallCodeTabs
 - add `ProseHr` component for horizontal separators
 - add `ProseP` component for regular paragraphs
+- replace `ResolvableIcon` component with `useIcon` composable
