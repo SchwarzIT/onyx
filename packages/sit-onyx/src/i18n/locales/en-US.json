@@ -310,7 +310,11 @@
       "right": "Right aligned",
       "block": "Block aligned"
     },
-    "link": "Add link",
+    "link": {
+      "edit": "Edit link",
+      "link": "Link",
+      "text": "Text"
+    },
     "code": "Code block",
     "quote": "Quote",
     "image": "Add image",

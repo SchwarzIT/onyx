@@ -307,7 +307,11 @@
       "right": "Rechtsbündig",
       "block": "Blockausrichtung"
     },
-    "link": "Link hinzufügen",
+    "link": {
+      "edit": "Link bearbeiten",
+      "link": "Link",
+      "text": "Text"
+    },
     "code": "Code-Block",
     "quote": "Zitat",
     "image": "Bild hinzufügen",
