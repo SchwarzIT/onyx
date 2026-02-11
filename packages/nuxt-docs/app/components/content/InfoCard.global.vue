@@ -9,7 +9,7 @@ const slots = defineSlots<{
 </script>
 
 <template>
-  <OnyxInfoCard class="card" v-bind="props" :icon="props.icon || undefined">
+  <OnyxInfoCard class="card" v-bind="props">
     <template v-if="slots.default" #default>
       <slot mdc-unwrap="p"></slot>
     </template>
@@ -18,6 +18,6 @@ const slots = defineSlots<{
 
 <style lang="scss" scoped>
 .card {
-  margin-block: var(--onyx-density-md);
+  margin-block: var(--onyx-docs-density-paragraph);
 }
 </style>

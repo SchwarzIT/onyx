@@ -42,6 +42,6 @@ const tabs = computed(() => {
 
 <style lang="scss" scoped>
 .tabs {
-  margin-block: var(--onyx-density-md);
+  margin-block: var(--onyx-docs-density-paragraph);
 }
 </style>
