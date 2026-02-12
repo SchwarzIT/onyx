@@ -1,5 +1,3 @@
-import { readdir, readFile } from "node:fs/promises";
-import path from "node:path";
 import { beforeEach, expect, test, vi } from "vitest";
 import * as vue from "vue";
 import { createI18n as createVueI18n } from "vue-i18n";
@@ -242,21 +240,21 @@ test("should use English fallback if translation is missing", () => {
   expect(message).toBe("Hello World");
 });
 
-const LOCALES_PATH = path.join(import.meta.dirname, "locales");
-const LOCALES = await readdir(LOCALES_PATH, "utf-8");
+const LOCALES = import.meta.glob<true, "json", OnyxTranslations>("./locales/*.json", {
+  eager: true,
+  query: "json",
+});
 
-test.each(LOCALES.map((locale) => ({ locale })))(
-  "should be able to compile all messages with vue-i18n for locale $locale",
-  async ({ locale }) => {
+test.each(Object.entries(LOCALES))(
+  "should be able to compile all messages with vue-i18n for $0",
+  async (locale, localeMessages) => {
     const consoleErrorSpy = vi.spyOn(console, "error");
+    const warnErrorSpy = vi.spyOn(console, "warn");
 
-    const localeMessages: OnyxTranslations = JSON.parse(
-      await readFile(path.join(LOCALES_PATH, locale), "utf-8"),
-    );
-
-    const localeName = locale.replace(".json", "");
+    const localeName = locale.replace(/^\.\/locales\//, "").replace(/\.json$/, "");
 
     const vueI18n = createVueI18n({
+      legacy: false,
       locale: localeName,
       messages: { [localeName]: localeMessages },
     });
@@ -270,6 +268,7 @@ test.each(LOCALES.map((locale) => ({ locale })))(
     }
 
     expect(consoleErrorSpy).not.toHaveBeenCalled();
+    expect(warnErrorSpy).not.toHaveBeenCalled();
   },
 );
 

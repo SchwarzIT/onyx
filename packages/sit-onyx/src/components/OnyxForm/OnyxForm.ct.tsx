@@ -32,50 +32,93 @@ const SINGLE_OPTION: SelectOption[] = [
   },
 ];
 
-const ALL_FORM_ELEMENTS = [
-  inferProps(OnyxInput, { label: "OnyxInput" }),
-  inferProps(OnyxSelect, {
+const ALL_FORM_ELEMENTS = {
+  OnyxInput: inferProps(OnyxInput, { label: "OnyxInput" }),
+  OnyxSelect: inferProps(OnyxSelect, {
     label: "OnyxSelect",
     listLabel: "Select options",
     options: SINGLE_OPTION,
   }),
-  inferProps(OnyxStepper, { label: "OnyxStepper" }),
-  inferProps(OnyxSlider, { label: "OnyxSlider", modelValue: 0 }),
-  inferProps(OnyxDatePicker, { label: "OnyxDatePicker", modelValue: "2011-10-31" }),
-  inferProps(OnyxTimepicker, { label: "OnyxTimepicker", modelValue: "14:30:00" }),
-  inferProps(OnyxTextarea, { label: "OnyxTextarea" }),
-  inferProps(OnyxRadioGroup, { label: "OnyxRadioGroup", options: SINGLE_OPTION }, (page) =>
-    page.getByLabel("OnyxRadioGroup").getByText("option 1"),
+  OnyxStepper: inferProps(OnyxStepper, { label: "OnyxStepper" }),
+  OnyxSlider: inferProps(OnyxSlider, { label: "OnyxSlider", modelValue: 0 }),
+  OnyxDatePicker: inferProps(OnyxDatePicker, { label: "OnyxDatePicker", modelValue: "2011-10-31" }),
+  OnyxTimepicker: inferProps(OnyxTimepicker, { label: "OnyxTimepicker", modelValue: "14:30:00" }),
+  OnyxTextarea: inferProps(OnyxTextarea, { label: "OnyxTextarea" }),
+  OnyxRadioGroup: inferProps(
+    OnyxRadioGroup,
+    { label: "OnyxRadioGroup", options: SINGLE_OPTION },
+    (page) => page.getByLabel("OnyxRadioGroup").getByText("option 1"),
   ),
-  inferProps(OnyxCheckboxGroup, { label: "OnyxCheckboxGroup", options: SINGLE_OPTION }, (page) =>
-    page.getByLabel("OnyxCheckboxGroup").getByText("option 1"),
+  OnyxCheckboxGroup: inferProps(
+    OnyxCheckboxGroup,
+    { label: "OnyxCheckboxGroup", options: SINGLE_OPTION },
+    (page) => page.getByLabel("OnyxCheckboxGroup").getByText("option 1"),
   ),
-  inferProps(OnyxCheckbox, { label: "OnyxCheckbox", value: "" }),
-  inferProps(OnyxSwitch, { label: "OnyxSwitch" }),
-  inferProps(OnyxButton, { label: "OnyxButton" }, (page) =>
+  OnyxCheckbox: inferProps(OnyxCheckbox, { label: "OnyxCheckbox", value: "" }),
+  OnyxSwitch: inferProps(OnyxSwitch, { label: "OnyxSwitch" }),
+  OnyxButton: inferProps(OnyxButton, { label: "OnyxButton" }, (page) =>
     page.getByText("OnyxButton", { exact: true }),
   ),
-];
+};
 
-test("OnyxForm should inject disabled state", async ({ mount, page }) => {
-  const expectForAll = async (expectation: (locator: Locator) => Promise<unknown>) => {
-    for (const { props, delegate } of ALL_FORM_ELEMENTS) {
-      const getInputByLabel = page.getByLabel(props.label, { exact: true });
-      const element = delegate?.(page) || getInputByLabel;
-      expect(element).toBeDefined();
-      await expectation(element);
-    }
-  };
+const expectForAll = async (
+  targets: Record<string, { props: { label: string }; delegate?: (page: Page) => Locator }>,
+  page: Page,
+  expectation: (locator: Locator) => Promise<unknown>,
+) => {
+  for (const { props, delegate } of Object.values(targets)) {
+    const getInputByLabel = page.getByLabel(props.label, { exact: true });
+    const element = delegate?.(page) || getInputByLabel;
+    expect(element).toBeDefined();
+    await expectation(element);
+  }
+};
+
+const FORM_ELEMENTS_WITH_MESSAGE_AREA = {
+  OnyxInput: ALL_FORM_ELEMENTS["OnyxInput"],
+  OnyxSelect: ALL_FORM_ELEMENTS["OnyxSelect"],
+  OnyxStepper: ALL_FORM_ELEMENTS["OnyxStepper"],
+  OnyxSlider: ALL_FORM_ELEMENTS["OnyxSlider"],
+  OnyxDatePicker: ALL_FORM_ELEMENTS["OnyxDatePicker"],
+  OnyxTimepicker: ALL_FORM_ELEMENTS["OnyxTimepicker"],
+  OnyxTextarea: ALL_FORM_ELEMENTS["OnyxTextarea"],
+};
+
+test("OnyxForm should inject show-error state", async ({ mount, page }) => {
+  const ERROR_MESSAGE = "errrrrrrrrrror";
 
   // ARRANGE
   await mount(
-    <OnyxForm>
-      {ALL_FORM_ELEMENTS.map(({ component, props }) => h(component as Component, props))}
+    <OnyxForm showError>
+      {Object.values(FORM_ELEMENTS_WITH_MESSAGE_AREA).map(({ component, props }) =>
+        h(component as Component, {
+          ...props,
+          error: ERROR_MESSAGE,
+          class: "data-test-root",
+        }),
+      )}
     </OnyxForm>,
   );
 
   // ASSERT
-  await expectForAll(async (element) => {
+  await expectForAll(FORM_ELEMENTS_WITH_MESSAGE_AREA, page, async (element: Locator) => {
+    const root = page.locator(".data-test-root").filter({ has: element });
+    return expect(root).toContainText(ERROR_MESSAGE);
+  });
+});
+
+test("OnyxForm should inject disabled state", async ({ mount, page }) => {
+  // ARRANGE
+  await mount(
+    <OnyxForm>
+      {Object.values(ALL_FORM_ELEMENTS).map(({ component, props }) =>
+        h(component as Component, props),
+      )}
+    </OnyxForm>,
+  );
+
+  // ASSERT
+  await expectForAll(ALL_FORM_ELEMENTS, page, async (element) => {
     if ((await element.textContent())?.includes("OnyxButton")) {
       // eslint-disable-next-line playwright/no-conditional-expect -- its easier to have some simple dynamic checks in the test
       return expect(element).toBeEnabled();
@@ -86,12 +129,14 @@ test("OnyxForm should inject disabled state", async ({ mount, page }) => {
   // ARRANGE
   await mount(
     <OnyxForm disabled>
-      {ALL_FORM_ELEMENTS.map(({ component, props }) => h(component as Component, props))}
+      {Object.values(ALL_FORM_ELEMENTS).map(({ component, props }) =>
+        h(component as Component, props),
+      )}
     </OnyxForm>,
   );
 
   // ASSERT
-  await expectForAll((element) => expect(element).toBeDisabled());
+  await expectForAll(ALL_FORM_ELEMENTS, page, (element) => expect(element).toBeDisabled());
 });
 
 test("OnyxForm should inject reservedMessage", async ({ mount, page }) => {
@@ -100,7 +145,9 @@ test("OnyxForm should inject reservedMessage", async ({ mount, page }) => {
   // ARRANGE
   await mount(
     <OnyxForm reserveMessageSpace style={style}>
-      {ALL_FORM_ELEMENTS.map(({ component, props }) => h(component as Component, props))}
+      {Object.values(ALL_FORM_ELEMENTS).map(({ component, props }) =>
+        h(component as Component, props),
+      )}
     </OnyxForm>,
   );
 
@@ -110,7 +157,9 @@ test("OnyxForm should inject reservedMessage", async ({ mount, page }) => {
   // ARRANGE
   await mount(
     <OnyxForm style={style}>
-      {ALL_FORM_ELEMENTS.map(({ component, props }) => h(component as Component, props))}
+      {Object.values(ALL_FORM_ELEMENTS).map(({ component, props }) =>
+        h(component as Component, props),
+      )}
     </OnyxForm>,
   );
 

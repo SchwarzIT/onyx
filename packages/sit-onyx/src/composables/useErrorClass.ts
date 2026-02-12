@@ -12,7 +12,7 @@ export const ShowErrorModes = [true, false, "touched"] as const;
  * `"touched"` only shows an error *after* a user has significantly interacted with the input.
  * See [:user-invalid](https://drafts.csswg.org/selectors/#user-invalid-pseudo).
  */
-export type ShowErrorMode = (typeof ShowErrorModes)[number];
+export type ShowErrorMode = boolean | "touched"; // ⚠️ Can't use (typeof ShowErrorModes)[number] will break Vues prop type inference
 
 export const useErrorClass = (showError: Readonly<Ref<ShowErrorMode>>) =>
   computed(() => {
