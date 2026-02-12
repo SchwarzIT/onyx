@@ -35,7 +35,7 @@ const expanded = ref(false);
       >
         <OnyxNavItem label="Router Link" link="#router-link" active :icon="iconPlaceholder" />
 
-        <OnyxNavItem label="Nesting123123" :icon="iconPlaceholder">
+        <OnyxNavItem label="Nesting" :icon="iconPlaceholder">
           <template #children>
             <OnyxNavItem label="Nested Router Link" link="#nested-router-link" />
             <OnyxNavItem label="Nested Button" />

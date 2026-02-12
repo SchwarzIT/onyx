@@ -36,7 +36,4 @@ export const Default = createAdvancedStoryExample(
   "DefaultExample",
 ) satisfies Story;
 
-export const LeftNav = createAdvancedStoryExample(
-  "OnyxAppLayout",
-  "LeftNavExample",
-) satisfies Story;
+export const LeftNav = createAdvancedStoryExample("OnyxNavBar", "VerticalExample") satisfies Story;

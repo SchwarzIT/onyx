@@ -27,7 +27,6 @@ defineOptions({ inheritAttrs: false });
 const props = withDefaults(defineProps<OnyxNavItemProps>(), {
   active: "auto",
   open: undefined,
-  orientation: "horizontal",
 });
 
 const emit = defineEmits<{
@@ -172,6 +171,7 @@ const { componentRef, isVisible } = isTopLevel
 
       <template v-if="props.link">
         <OnyxNavItemFacade v-bind="mergeVueProps(props, restAttrs)" :active context="mobile">
+          <OnyxIcon v-if="props.icon" :icon="props.icon" />
           <slot></slot>
         </OnyxNavItemFacade>
         <OnyxSeparator />
@@ -190,6 +190,7 @@ const { componentRef, isVisible } = isTopLevel
     context="mobile"
     @click="hasChildren && (open = true)"
   >
+    <OnyxIcon v-if="props.icon" :icon="props.icon" />
     <slot></slot>
     <template v-if="slots.children" #children>
       <slot name="children"></slot>
@@ -209,6 +210,7 @@ const { componentRef, isVisible } = isTopLevel
         :active
         context="navbar"
       >
+        <OnyxIcon v-if="props.icon" :icon="props.icon" />
         <slot></slot>
         <template v-if="slots.children" #children>
           <slot name="children"></slot>
@@ -229,6 +231,7 @@ const { componentRef, isVisible } = isTopLevel
     :active
     context="navbar"
   >
+    <OnyxIcon v-if="props.icon" :icon="props.icon" />
     <slot></slot>
   </OnyxNavItemFacade>
 
@@ -239,6 +242,7 @@ const { componentRef, isVisible } = isTopLevel
     :active
     context="list"
   >
+    <OnyxIcon v-if="props.icon" :icon="props.icon" />
     <slot></slot>
     <template v-if="slots.children" #children>
       <slot name="children"></slot>
@@ -258,6 +262,7 @@ const { componentRef, isVisible } = isTopLevel
       :active
       context="list"
     >
+      <OnyxIcon v-if="props.icon" :icon="props.icon" />
       <slot></slot>
       <template v-if="slots.children" #children>
         <slot name="children"></slot>

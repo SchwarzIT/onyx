@@ -73,16 +73,7 @@ defineExpose({
    * Closes the mobile burger and context menu.
    * Useful if you want to e.g. close them when a nav item is clicked.
    * Will be automatically done if a router is provided.
-   *
-   * Example usage:
-   *
-   * ```ts
-   * const route = useRoute();
-   * const navBar = useTemplateRef("navBarRef");
-   *
-   * watch(() => route.path, () => navBar.value?.closeMobileMenus());
-   * ```
-   */
+   **/
   closeMobileMenus,
 });
 </script>

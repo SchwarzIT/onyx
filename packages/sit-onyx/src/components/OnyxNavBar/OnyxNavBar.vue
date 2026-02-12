@@ -1,5 +1,5 @@
 <script setup lang="ts" generic="T extends NavBarOrientation">
-import { computed } from "vue";
+import { computed, useTemplateRef } from "vue";
 import { useVModel } from "../../composables/useVModel.js";
 import { useForwardProps } from "../../utils/props.js";
 import OnyxHorizontalNavBar from "./OnyxHorizontalNavBar.vue";
@@ -37,11 +37,38 @@ const activeNavBar = computed(() =>
   props.orientation === "horizontal" ? OnyxHorizontalNavBar : OnyxVerticalNavBar,
 );
 const restAttr = useForwardProps(props, activeNavBar);
+
+const navBar = useTemplateRef("navBarRef");
+
+const closeMobileMenus = () => {
+  if (navBar.value && "closeMobileMenus" in navBar.value) {
+    navBar.value.closeMobileMenus();
+  }
+};
+
+defineExpose({
+  /**
+   * Closes the mobile burger and context menu.
+   * Useful if you want to e.g. close them when a nav item is clicked.
+   * Will be automatically done if a router is provided.
+   *
+   * Example usage:
+   *
+   * ```ts
+   * const route = useRoute();
+   * const navBar = useTemplateRef("navBarRef");
+   *
+   * watch(() => route.path, () => navBar.value?.closeMobileMenus());
+   * ```
+   */
+  closeMobileMenus,
+});
 </script>
 
 <template>
   <component
     :is="activeNavBar"
+    ref="navBarRef"
     v-bind="restAttr"
     v-model:expanded="isExpanded"
     class="onyx-component"

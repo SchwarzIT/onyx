@@ -5,7 +5,7 @@ import type { OnyxBreakpoint } from "../../utils/breakpoints.js";
 import type { OnyxNavAppAreaProps } from "../OnyxNavAppArea/types.js";
 
 export type NavBarOrientation = "horizontal" | "vertical";
-export type OnyxNavBarProps<TOrientation extends NavBarOrientation> = Pick<
+export type OnyxNavBarProps<TOrientation extends NavBarOrientation = NavBarOrientation> = Pick<
   OnyxNavAppAreaProps,
   "appName" | "logoUrl"
 > & {
@@ -37,11 +37,11 @@ export type OnyxNavBarProps<TOrientation extends NavBarOrientation> = Pick<
    */
   orientation?: TOrientation;
   /**
-   * Whether to render a expanded version of the nav bar.
+   * Whether the nav bar is currently expanded. Only available for `orientation="vertical"`.
    */
   expanded?: Nullable<boolean>;
   /**
-   * Whether to align the navigation items at the top or center.
+   * How to align the navigation items. Only available for `orientation="vertical"`.
    */
   alignment?: TOrientation extends "vertical" ? "top" | "center" : never;
 };
