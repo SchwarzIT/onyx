@@ -397,8 +397,11 @@ defineExpose({
       }
 
       // hide separator for last group
-      &:last-of-type::after {
-        display: none;
+      &:last-of-type,
+      &:has(+ .onyx-text-editor__group:empty) {
+        &::after {
+          display: none;
+        }
       }
     }
   }
