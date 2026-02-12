@@ -19,6 +19,7 @@ import { getFormMessages, injectI18n, OnyxFormElement, useForwardProps, useVMode
 import { computed, watch, watchEffect } from "vue";
 import { useEditorUtils } from "../../composables/useEditorUtils.js";
 import OnyxEditorToolbarAction from "../OnyxEditorToolbarAction/OnyxEditorToolbarAction.vue";
+import OnyxEditorToolbarGroup from "../OnyxEditorToolbarGroup/OnyxEditorToolbarGroup.vue";
 import HeadingToolbarAction from "./actions/HeadingToolbarAction.vue";
 import LinkToolbarAction from "./actions/LinkToolbarAction.vue";
 import ListToolbarAction from "./actions/ListToolbarAction.vue";
@@ -154,16 +155,16 @@ defineExpose({
     >
       <div class="onyx-text-editor__toolbar">
         <div class="onyx-text-editor__actions">
-          <div class="onyx-text-editor__group">
+          <OnyxEditorToolbarGroup>
             <HeadingToolbarAction v-if="hasExtension('heading')" :editor />
 
             <ListToolbarAction
               v-if="hasExtension('bulletList') || hasExtension('orderedList')"
               :editor
             />
-          </div>
+          </OnyxEditorToolbarGroup>
 
-          <div class="onyx-text-editor__group">
+          <OnyxEditorToolbarGroup>
             <OnyxEditorToolbarAction
               v-if="hasExtension('bold')"
               :label="t('editor.bold')"
@@ -196,9 +197,9 @@ defineExpose({
               :disabled="!editor?.can().chain().toggleStrike().run()"
               @click="editor?.chain().focus().toggleStrike().run()"
             />
-          </div>
+          </OnyxEditorToolbarGroup>
 
-          <div class="onyx-text-editor__group">
+          <OnyxEditorToolbarGroup>
             <OnyxEditorToolbarAction
               v-if="hasTextExtension('left')"
               :label="t('editor.alignments.left')"
@@ -231,9 +232,9 @@ defineExpose({
               :disabled="!editor?.can().chain().toggleTextAlign('justify').run()"
               @click="editor?.chain().focus().toggleTextAlign('justify').run()"
             />
-          </div>
+          </OnyxEditorToolbarGroup>
 
-          <div class="onyx-text-editor__group">
+          <OnyxEditorToolbarGroup>
             <LinkToolbarAction v-if="hasExtension('link')" :editor />
 
             <OnyxEditorToolbarAction
@@ -244,11 +245,11 @@ defineExpose({
               :disabled="!editor?.can().chain().toggleBlockquote().run()"
               @click="editor?.chain().focus().toggleBlockquote().run()"
             />
-          </div>
+          </OnyxEditorToolbarGroup>
 
-          <div v-if="slots.toolbar" class="onyx-text-editor__group">
+          <OnyxEditorToolbarGroup v-if="slots.toolbar">
             <slot name="toolbar"></slot>
-          </div>
+          </OnyxEditorToolbarGroup>
         </div>
 
         <div class="onyx-text-editor__actions onyx-text-editor__actions--fixed">
@@ -306,7 +307,6 @@ defineExpose({
 /** Applies styles to the editor (HTML) content */
 @mixin content-styles() {
   blockquote {
-    // TODO: check styles with UX
     border-left: var(--onyx-spacing-5xs) solid var(--onyx-color-component-border-neutral);
     padding-left: var(--onyx-density-xs);
     color: var(--onyx-color-text-icons-neutral-medium);
@@ -408,30 +408,6 @@ defineExpose({
 
       &--fixed {
         overflow: visible;
-      }
-    }
-
-    &__group {
-      display: contents;
-
-      &::after {
-        content: "";
-        background-color: var(--onyx-color-component-border-neutral);
-        height: 1lh;
-        width: var(--onyx-1px-in-rem);
-      }
-
-      // hide group / separator when group is empty / all features are disabled
-      &:empty {
-        display: none;
-      }
-
-      // hide separator for last group
-      &:last-of-type,
-      &:has(+ .onyx-text-editor__group:empty) {
-        &::after {
-          display: none;
-        }
       }
     }
   }
