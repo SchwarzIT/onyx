@@ -13,3 +13,5 @@ type splitButtonOption = {
   icon?: string;
   onClickFunction: () => void;
 } & Pick<OnyxButtonProps, "link" | "type">;
+//* Die erste Option ([0]) dient als permanenter Hauptbutton.
+//* Alle weiteren Optionen werden ausschließlich als Klick-Aktionen im Dropdown gelistet.
