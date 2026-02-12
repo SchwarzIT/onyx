@@ -18,20 +18,20 @@ const { hasExtension } = useEditorUtils(toRef(props, "editor"));
 const options = computed(() => {
   const options: EditorToolbarFlyoutOption[] = [];
 
-  if (hasExtension.value("orderedList")) {
-    options.push({
-      label: t.value("editor.lists.orderedList"),
-      icon: iconBulletList,
-      active: props.editor?.isActive("orderedList"),
-      onClick: () => props.editor?.chain().focus().toggleOrderedList().run(),
-    });
-  }
   if (hasExtension.value("bulletList")) {
     options.push({
       label: t.value("editor.lists.unorderedList"),
       icon: iconBulletList,
       active: props.editor?.isActive("bulletList"),
       onClick: () => props.editor?.chain().focus().toggleBulletList().run(),
+    });
+  }
+  if (hasExtension.value("orderedList")) {
+    options.push({
+      label: t.value("editor.lists.orderedList"),
+      icon: iconBulletList,
+      active: props.editor?.isActive("orderedList"),
+      onClick: () => props.editor?.chain().focus().toggleOrderedList().run(),
     });
   }
 
