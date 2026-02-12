@@ -312,9 +312,7 @@
       "link": "Link",
       "text": "Text"
     },
-    "code": "Code-Block",
     "quote": "Zitat",
-    "image": "Bild hinzufügen",
     "undo": "Rückgängig",
     "redo": "Wiederherstellen",
     "headings": {

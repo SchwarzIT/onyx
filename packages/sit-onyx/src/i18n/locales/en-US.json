@@ -315,9 +315,7 @@
       "link": "Link",
       "text": "Text"
     },
-    "code": "Code block",
     "quote": "Quote",
-    "image": "Add image",
     "undo": "Undo",
     "redo": "Redo",
     "headings": {
