@@ -323,6 +323,11 @@
     "headings": {
       "headlines": "Headlines",
       "level": "Headline {n}"
+    },
+    "lists": {
+      "lists": "Lists",
+      "orderedList": "Numbered list",
+      "unorderedList": "Bullet list"
     }
   }
 }

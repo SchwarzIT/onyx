@@ -320,6 +320,11 @@
     "headings": {
       "headlines": "Überschriften",
       "level": "Überschrift {n}"
+    },
+    "lists": {
+      "lists": "Listen",
+      "orderedList": "Aufzählung",
+      "unorderedList": "Auflistung"
     }
   }
 }

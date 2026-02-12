@@ -11,13 +11,15 @@ import {
   iconToolUnderlined,
   iconUndo,
 } from "@sit-onyx/icons";
-import TextAlign, { type TextAlignOptions } from "@tiptap/extension-text-align";
+import TextAlign from "@tiptap/extension-text-align";
 import StarterKit from "@tiptap/starter-kit";
 import { EditorContent, useEditor } from "@tiptap/vue-3";
 import { getFormMessages, injectI18n, OnyxFormElement, useForwardProps, useVModel } from "sit-onyx";
 import { computed, watch, watchEffect } from "vue";
+import { useEditorUtils } from "../../composables/useEditorUtils.js";
 import OnyxEditorToolbarAction from "../OnyxEditorToolbarAction/OnyxEditorToolbarAction.vue";
 import LinkToolbarAction from "./LinkToolbarAction.vue";
+import ListToolbarAction from "./ListToolbarAction.vue";
 import TextStylesToolbarAction from "./TextStylesToolbarAction.vue";
 import type { OnyxTextEditorProps } from "./types.js";
 
@@ -116,21 +118,7 @@ const autosizeMinMaxStyles = computed(() => {
 const successMessages = computed(() => getFormMessages(props.success));
 const message = computed(() => getFormMessages(props.message));
 
-const hasExtension = computed(() => {
-  return (name: string) => {
-    if (!editor.value) return true;
-    return editor.value.extensionManager.extensions.some((e) => e.name === name);
-  };
-});
-
-const hasTextExtension = computed(() => {
-  return (alignment: TextAlignOptions["alignments"][number]) => {
-    if (!editor.value) return true;
-    const extension = editor.value.extensionManager.extensions.find((e) => e.name === "textAlign");
-    if (!extension) return false;
-    return (extension.options as TextAlignOptions).alignments.includes(alignment);
-  };
-});
+const { hasExtension, hasTextExtension } = useEditorUtils(editor);
 
 defineExpose({
   /**
@@ -157,6 +145,11 @@ defineExpose({
       <div class="onyx-tiptap-editor__toolbar">
         <div class="onyx-tiptap-editor__actions">
           <TextStylesToolbarAction v-if="hasExtension('heading')" :editor />
+
+          <ListToolbarAction
+            v-if="hasExtension('bulletList') || hasExtension('orderedList')"
+            :editor
+          />
 
           <OnyxEditorToolbarAction
             v-if="hasExtension('bold')"
