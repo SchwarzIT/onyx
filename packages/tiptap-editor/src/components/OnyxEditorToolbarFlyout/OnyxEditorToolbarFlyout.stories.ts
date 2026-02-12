@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import OnyxEditorToolbarFlyout from "./OnyxEditorToolbarFlyout.vue";
 
 const meta: Meta<typeof OnyxEditorToolbarFlyout> = {
-  title: "EditorToolbarFlyout",
+  title: "Support/EditorToolbarFlyout",
   component: OnyxEditorToolbarFlyout,
 };
 

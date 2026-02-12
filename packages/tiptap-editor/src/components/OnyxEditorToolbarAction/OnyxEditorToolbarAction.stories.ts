@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import OnyxEditorToolbarAction from "./OnyxEditorToolbarAction.vue";
 
 const meta: Meta<typeof OnyxEditorToolbarAction> = {
-  title: "EditorToolbarAction",
+  title: "Support/EditorToolbarAction",
   component: OnyxEditorToolbarAction,
 };
 
