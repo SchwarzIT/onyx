@@ -325,6 +325,7 @@
       "lists": "Listen",
       "orderedList": "Aufzählung",
       "unorderedList": "Auflistung"
-    }
+    },
+    "blockquote": "Zitat"
   }
 }

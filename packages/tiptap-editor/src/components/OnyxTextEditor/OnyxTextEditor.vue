@@ -4,6 +4,7 @@ import {
   iconAlignmentCenter,
   iconAlignmentLeft,
   iconAlignmentRight,
+  iconQuote,
   iconRedo,
   iconToolBold,
   iconToolItalic,
@@ -225,6 +226,15 @@ defineExpose({
 
           <div class="onyx-text-editor__group">
             <LinkToolbarAction v-if="hasExtension('link')" :editor />
+
+            <OnyxEditorToolbarAction
+              v-if="hasExtension('blockquote')"
+              :label="t('editor.blockquote')"
+              :icon="iconQuote"
+              :active="editor?.isActive('blockquote')"
+              :disabled="!editor?.can().chain().toggleBlockquote().run()"
+              @click="editor?.chain().focus().toggleBlockquote().run()"
+            />
           </div>
 
           <div v-if="slots.toolbar" class="onyx-text-editor__group">
@@ -284,6 +294,16 @@ defineExpose({
   }
 }
 
+/** Applies styles to the editor (HTML) content */
+@mixin content-styles() {
+  blockquote {
+    // TODO: check styles with UX
+    border-left: var(--onyx-spacing-5xs) solid var(--onyx-color-component-border-neutral);
+    padding-left: var(--onyx-density-xs);
+    color: var(--onyx-color-text-icons-neutral-medium);
+  }
+}
+
 .onyx-text-editor {
   @include layers.component() {
     @include input.define-shared-styles(
@@ -323,6 +343,7 @@ defineExpose({
     }
 
     &__native {
+      @include content-styles();
       resize: vertical;
       overflow-y: auto;
 

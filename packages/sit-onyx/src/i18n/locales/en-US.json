@@ -328,6 +328,7 @@
       "lists": "Lists",
       "orderedList": "Numbered list",
       "unorderedList": "Bullet list"
-    }
+    },
+    "blockquote": "Blockquote"
   }
 }
