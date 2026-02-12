@@ -319,6 +319,10 @@
     "quote": "Quote",
     "image": "Add image",
     "undo": "Undo",
-    "redo": "Redo"
+    "redo": "Redo",
+    "headings": {
+      "headlines": "Headlines",
+      "level": "Headline {n}"
+    }
   }
 }

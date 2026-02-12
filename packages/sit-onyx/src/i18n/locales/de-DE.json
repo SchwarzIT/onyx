@@ -316,6 +316,10 @@
     "quote": "Zitat",
     "image": "Bild hinzufügen",
     "undo": "Rückgängig",
-    "redo": "Wiederherstellen"
+    "redo": "Wiederherstellen",
+    "headings": {
+      "headlines": "Überschriften",
+      "level": "Überschrift {n}"
+    }
   }
 }

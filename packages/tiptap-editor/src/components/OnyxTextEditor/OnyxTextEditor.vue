@@ -18,6 +18,7 @@ import { getFormMessages, injectI18n, OnyxFormElement, useForwardProps, useVMode
 import { computed, watch, watchEffect } from "vue";
 import OnyxEditorToolbarAction from "../OnyxEditorToolbarAction/OnyxEditorToolbarAction.vue";
 import LinkToolbarAction from "./LinkToolbarAction.vue";
+import TextStylesToolbarAction from "./TextStylesToolbarAction.vue";
 import type { OnyxTextEditorProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxTextEditorProps>(), {
@@ -155,6 +156,8 @@ defineExpose({
     >
       <div class="onyx-tiptap-editor__toolbar">
         <div class="onyx-tiptap-editor__actions">
+          <TextStylesToolbarAction v-if="hasExtension('heading')" :editor />
+
           <OnyxEditorToolbarAction
             v-if="hasExtension('bold')"
             :label="t('editor.bold')"
