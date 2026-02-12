@@ -9,7 +9,13 @@ import { Preview } from "@storybook/vue3-vite";
 const preview: Preview = {
   // we need to destructure here because as of Storybook 7.6
   // it can not statically analyze that the `preview` variable is an object
-  ...createPreview(),
+  ...createPreview({
+    parameters: {
+      docs: {
+        codePanel: true,
+      },
+    },
+  }),
   tags: ["autodocs"],
   decorators: [withVModelDecorator()],
 };

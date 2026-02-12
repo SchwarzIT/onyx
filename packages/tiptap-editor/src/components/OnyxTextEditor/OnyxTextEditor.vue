@@ -40,7 +40,7 @@ const slots = defineSlots<{
   /**
    * Optional slot to add custom actions to the toolbar.
    */
-  toolbar?(): unknown;
+  actions?(): unknown;
 }>();
 
 const { t } = injectI18n();
@@ -247,8 +247,8 @@ defineExpose({
             />
           </OnyxEditorToolbarGroup>
 
-          <OnyxEditorToolbarGroup v-if="slots.toolbar">
-            <slot name="toolbar"></slot>
+          <OnyxEditorToolbarGroup v-if="slots.actions">
+            <slot name="actions"></slot>
           </OnyxEditorToolbarGroup>
         </div>
 
