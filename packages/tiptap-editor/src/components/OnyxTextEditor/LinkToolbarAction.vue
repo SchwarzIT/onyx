@@ -21,16 +21,14 @@ const { t } = injectI18n();
 const id = useId();
 const open = ref(false);
 
-const initialHref = "https://";
-
-const state = ref({ href: initialHref, text: "" });
+const state = ref({ href: "", text: "" });
 
 watch(
   open,
   (isOpen) => {
     if (!isOpen) {
       // reset state if dialog closes
-      state.value = { href: initialHref, text: "" };
+      state.value = { href: "", text: "" };
       return;
     }
 
