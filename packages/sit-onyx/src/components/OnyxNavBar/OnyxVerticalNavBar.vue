@@ -62,7 +62,7 @@ provide(NAV_BAR_IS_EXPANDED_INJECTION_KEY, isExpanded);
       <OnyxNavAppArea
         v-if="props.appName || props.logoUrl || slots.appArea"
         class="onyx-nav-bar__app"
-        :app-name="isExpanded ? undefined : props.appName"
+        :app-name="isExpanded ? props.appName : undefined"
         :logo-url="props.logoUrl"
         v-bind="props.appArea"
       >
@@ -119,15 +119,17 @@ provide(NAV_BAR_IS_EXPANDED_INJECTION_KEY, isExpanded);
   // 2x navItem padding + 2x verticalNavBar padding + item width
   width: calc(4 * var(--onyx-spacing-2xs) + 24px);
   min-width: 0;
-  .onyx-nav-bar {
-    &__separator {
-      min-width: 0;
-      width: 0;
+  &:not(&.onyx-nav-bar--expanded) {
+    .onyx-user-menu {
+      .onyx-user-menu__trigger .onyx-truncation-ellipsis {
+        display: none;
+      }
     }
-  }
-  &:not(&.onyx-nav-bar--expanded) .onyx-user-menu {
-    .onyx-user-menu__trigger .onyx-truncation-ellipsis {
-      display: none;
+    .onyx-nav-bar {
+      &__separator {
+        min-width: 0;
+        width: 0;
+      }
     }
   }
   .onyx-menu-item__trigger {
@@ -177,6 +179,9 @@ provide(NAV_BAR_IS_EXPANDED_INJECTION_KEY, isExpanded);
     }
     &__footer {
       border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+    }
+    &__collapse-button {
+      color: var(--onyx-color-text-icons-neutral-medium);
     }
     &__separator {
       width: calc(100% - 2 * var(--onyx-density-md));
