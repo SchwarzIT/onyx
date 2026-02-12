@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.app.json",
-  "include": ["src/**/*.spec.*"],
+  "include": ["env.d.ts", "src/**/*.spec.*", "src/**/*.spec-d.*", "src/i18n/locales/*.json"],
   "exclude": [],
   "compilerOptions": {
     "composite": true,

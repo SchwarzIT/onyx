@@ -160,6 +160,13 @@ const footer = computed(() => {
   }
 }
 
+@include layers.override() {
+  .onyx-form-element__footer--reserved {
+    height: 1lh;
+    display: flex;
+  }
+}
+
 .onyx-form-element {
   @include layers.component() {
     font-family: var(--onyx-font-family-paragraph);
@@ -206,11 +213,6 @@ const footer = computed(() => {
 
       gap: $footer-gap;
       color: var(--onyx-color-text-icons-neutral-soft);
-    }
-
-    &__footer--reserved {
-      height: 1lh;
-      display: flex;
     }
 
     // only show footer when it has visible content
