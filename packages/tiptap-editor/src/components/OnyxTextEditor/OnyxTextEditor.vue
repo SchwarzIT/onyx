@@ -19,9 +19,9 @@ import { getFormMessages, injectI18n, OnyxFormElement, useForwardProps, useVMode
 import { computed, watch, watchEffect } from "vue";
 import { useEditorUtils } from "../../composables/useEditorUtils.js";
 import OnyxEditorToolbarAction from "../OnyxEditorToolbarAction/OnyxEditorToolbarAction.vue";
-import LinkToolbarAction from "./LinkToolbarAction.vue";
-import ListToolbarAction from "./ListToolbarAction.vue";
-import TextStylesToolbarAction from "./TextStylesToolbarAction.vue";
+import HeadingToolbarAction from "./actions/HeadingToolbarAction.vue";
+import LinkToolbarAction from "./actions/LinkToolbarAction.vue";
+import ListToolbarAction from "./actions/ListToolbarAction.vue";
 import type { OnyxTextEditorProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxTextEditorProps>(), {
@@ -60,6 +60,15 @@ const editor = useEditor({
         defaultProtocol: "https",
         autolink: true,
         enableClickSelection: true,
+        HTMLAttributes: {
+          class: "onyx-link",
+        },
+      },
+      heading: {
+        HTMLAttributes: {
+          class: "onyx-headline",
+        },
+        levels: [1, 2, 3, 4], // we do not want to support h5 and h6 by default
       },
     }),
     TextAlign.configure({
@@ -146,7 +155,7 @@ defineExpose({
       <div class="onyx-text-editor__toolbar">
         <div class="onyx-text-editor__actions">
           <div class="onyx-text-editor__group">
-            <TextStylesToolbarAction v-if="hasExtension('heading')" :editor />
+            <HeadingToolbarAction v-if="hasExtension('heading')" :editor />
 
             <ListToolbarAction
               v-if="hasExtension('bulletList') || hasExtension('orderedList')"

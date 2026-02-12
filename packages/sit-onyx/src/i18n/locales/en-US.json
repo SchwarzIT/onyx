@@ -322,7 +322,8 @@
     "redo": "Redo",
     "headings": {
       "headlines": "Headlines",
-      "level": "Headline {n}"
+      "level": "Headline {n}",
+      "paragraph": "Text"
     },
     "lists": {
       "lists": "Lists",

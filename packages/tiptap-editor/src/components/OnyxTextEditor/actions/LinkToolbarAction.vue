@@ -11,7 +11,7 @@ import {
   OnyxInput,
 } from "sit-onyx";
 import { ref, useId, watch } from "vue";
-import OnyxEditorToolbarAction from "../OnyxEditorToolbarAction/OnyxEditorToolbarAction.vue";
+import OnyxEditorToolbarAction from "../../OnyxEditorToolbarAction/OnyxEditorToolbarAction.vue";
 
 const props = defineProps<{
   editor?: Editor;
