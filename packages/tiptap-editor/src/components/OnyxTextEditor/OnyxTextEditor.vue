@@ -14,9 +14,17 @@ import {
 } from "@sit-onyx/icons";
 import TextAlign from "@tiptap/extension-text-align";
 import StarterKit from "@tiptap/starter-kit";
-import { EditorContent, useEditor } from "@tiptap/vue-3";
-import { getFormMessages, injectI18n, OnyxFormElement, useForwardProps, useVModel } from "sit-onyx";
-import { computed, watch, watchEffect } from "vue";
+import { EditorContent, mergeAttributes, useEditor } from "@tiptap/vue-3";
+import {
+  FORM_INJECTED_SYMBOL,
+  getFormMessages,
+  injectI18n,
+  OnyxFormElement,
+  useFormContext,
+  useForwardProps,
+  useVModel,
+} from "sit-onyx";
+import { computed, watch } from "vue";
 import { useEditorUtils } from "../../composables/useEditorUtils.js";
 import OnyxEditorToolbarAction from "../OnyxEditorToolbarAction/OnyxEditorToolbarAction.vue";
 import OnyxEditorToolbarGroup from "../OnyxEditorToolbarGroup/OnyxEditorToolbarGroup.vue";
@@ -27,6 +35,7 @@ import type { OnyxTextEditorProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxTextEditorProps>(), {
   toolbar: () => ({ position: "top" }),
+  disabled: FORM_INJECTED_SYMBOL,
 });
 
 const emit = defineEmits<{
@@ -44,6 +53,7 @@ const slots = defineSlots<{
 }>();
 
 const { t } = injectI18n();
+const { disabled } = useFormContext(props);
 
 const modelValue = useVModel({
   props,
@@ -76,6 +86,11 @@ const editor = useEditor({
       types: ["heading", "paragraph"],
     }),
   ],
+  editorProps: {
+    attributes: {
+      class: "onyx-text-editor__native",
+    },
+  },
   onUpdate: () => {
     if (!editor.value) return;
     const newValue = editor.value.getHTML();
@@ -90,26 +105,43 @@ watch([modelValue, editor], ([newValue]) => {
   editor.value.commands.setContent(newValue);
 });
 
-// sync options
-watchEffect(() => {
-  const classes = ["onyx-text-editor__native"];
-  if (props.disableManualResize) {
-    classes.push("onyx-text-editor__native--no-resize");
-  }
+watch(
+  [() => props.autofocus, editor],
+  () => {
+    if (props.autofocus) editor.value?.commands.focus();
+  },
+  { immediate: true },
+);
 
-  editor.value?.setOptions({
-    editable: !props.disabled,
-    editorProps: {
-      attributes: {
-        class: classes.join(" "),
-        "aria-label": props.label,
-        title: props.label,
+watch(
+  [disabled, editor],
+  () => {
+    editor.value?.setEditable(!disabled.value);
+  },
+  { immediate: true },
+);
+
+watch(
+  [() => props.label, () => props.disableManualResize, editor],
+  () => {
+    const attributes = editor.value?.options.editorProps.attributes;
+
+    editor.value?.setOptions({
+      editorProps: {
+        attributes: (state) => {
+          const currentAttributes =
+            typeof attributes === "function" ? attributes(state) : (attributes ?? {});
+
+          return mergeAttributes(currentAttributes, {
+            "aria-label": props.label,
+            class: props.disableManualResize ? "onyx-text-editor__native--no-resize" : undefined,
+          });
+        },
       },
-    },
-  });
-
-  if (props.autofocus) editor.value?.commands.focus();
-});
+    });
+  },
+  { immediate: true },
+);
 
 const formElementProps = useForwardProps(props, OnyxFormElement);
 
@@ -141,8 +173,8 @@ defineExpose({
 
 <template>
   <OnyxFormElement
-    class="onyx-text-editor"
     v-bind="formElementProps"
+    class="onyx-text-editor"
     :style="autosizeMinMaxStyles"
     :message
     :success-messages

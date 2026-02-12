@@ -286,7 +286,7 @@ export * from "./components/OnyxShortcut/types.js";
 
 export { default as OnyxComponentShowcase } from "./components/examples/ComponentShowcase/ComponentShowcase.vue";
 
-export { FORM_INJECTED_SYMBOL } from "./components/OnyxForm/OnyxForm.core.js";
+export { FORM_INJECTED_SYMBOL, useFormContext } from "./components/OnyxForm/OnyxForm.core.js";
 export * from "./composables/density.js";
 export * from "./composables/scrollEnd.js";
 export * from "./composables/themeTransition.js";
