@@ -73,7 +73,7 @@ const isMobile = inject(
   MOBILE_NAV_BAR_INJECTION_KEY,
   computed(() => false),
 );
-const isExpanded = inject(NAV_BAR_IS_EXPANDED_INJECTION_KEY);
+const isExpanded = inject(NAV_BAR_IS_EXPANDED_INJECTION_KEY, undefined);
 
 const moreListTargetRef = inject(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, undefined);
 
