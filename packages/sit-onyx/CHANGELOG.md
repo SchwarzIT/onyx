@@ -4,12 +4,11 @@
 
 ### Minor Changes
 
-- 55835b4: fix(OnyxDatePicker): Fix timezone being considered incorrectly when calculating date
 - 0b13ab6: feat: implement new `OnyxUnstableKey` and `OnyxUnstableShortcut` components as well as `_unstableUseShortcut` composable
 
   For now, the components and composable are marked as experimental/unstable which means that they are still under active development and the API might change in patch or minor releases. Keep an eye on the **[**changelog**]**(**https://onyx.schwarz/development/packages/changelogs/sit-onyx.html**) when using them.
 
-- da2532c: feat(OnyxFormElement, OnyxForm): Add new `reserveMessageSpace` prop, which permanently blocks the message space (used by errors etc.) beneath the input field. Enabling this ensures no layout shifts are happening when the error state of an form element changes.
+- da2532c: feat(OnyxFormElement, OnyxForm): Add new `reserveMessageSpace` prop, which permanently blocks the message space (used by errors etc.) beneath the input field. Enabling this ensures no layout shifts are happening when the error state of an form element changes. This will become the new default behaviour von v2.
 - 7574590: The `OnyxUnstableCodeTabs` and `OnyxUnstableCodeTab` component are now considered stable so they are renamed to `OnyxCodeTabs` and `OnyxCodeTab`.
   There won't be any breaking changes from now on within minor versions.
 
@@ -22,10 +21,11 @@
 
 ### Patch Changes
 
-- 9b56bbb: fix(OnyxForm): Fix shorthand for showError boolean prop not working
+- 55835b4: fix(OnyxDatePicker): Fix timezone being considered incorrectly when calculating date
+- 9b56bbb: fix(OnyxForm): Fix shorthand for `showError` boolean prop not working
 - 4c113d6: fix(OnyxSlider): Tooltip not correctly aligned with thumb
 - d0cdc5d: fix(OnyxDataGrid/filtering): Fix filterFunc value is always passed as string
-- b5a641b: Deprecate the `--onyx-font-family` CSS variable. Use `--onyx-font-family-paragraph` instead.
+- b5a641b: Deprecated the `--onyx-font-family` CSS variable. Use `--onyx-font-family-paragraph` instead.
 - Updated dependencies [3e34b0c]
   - @sit-onyx/icons@1.6.0
 
