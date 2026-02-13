@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { createNavigationMenu } from "@sit-onyx/headless";
 import { iconChevronLeftSmall, iconSidebarArrowLeft, iconSidebarArrowRight } from "@sit-onyx/icons";
-import { provide, toRef, useTemplateRef } from "vue";
+import { provide, toRef } from "vue";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import { OnyxMoreList, OnyxNavAppArea, OnyxNavItem, OnyxSidebar } from "../../index.js";
@@ -9,7 +9,6 @@ import OnyxSeparator from "../OnyxSeparator/OnyxSeparator.vue";
 import {
   NAV_BAR_IS_EXPANDED_INJECTION_KEY,
   NAV_BAR_MORE_LIST_INJECTION_KEY,
-  NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY,
   type OnyxNavBarProps,
   type OnyxNavBarSlots,
 } from "./types.js";
@@ -43,7 +42,6 @@ const {
   elements: { nav },
 } = createNavigationMenu({ navigationName: toRef(() => props.appName) });
 
-provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreListRef"));
 provide(NAV_BAR_IS_EXPANDED_INJECTION_KEY, isExpanded);
 </script>
 
