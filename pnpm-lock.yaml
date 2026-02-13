@@ -718,8 +718,8 @@ importers:
   packages/tiptap-editor:
     dependencies:
       vue:
-        specifier: 3.5.27
-        version: 3.5.27(typescript@5.9.3)
+        specifier: 3.5.28
+        version: 3.5.28(typescript@5.9.3)
     devDependencies:
       '@sit-onyx/icons':
         specifier: workspace:^
@@ -741,7 +741,7 @@ importers:
         version: 3.19.0
       '@tiptap/vue-3':
         specifier: ^3.10.4
-        version: 3.19.0(@floating-ui/dom@1.7.5)(@tiptap/core@3.19.0(@tiptap/pm@3.19.0))(@tiptap/pm@3.19.0)(vue@3.5.27(typescript@5.9.3))
+        version: 3.19.0(@floating-ui/dom@1.7.5)(@tiptap/core@3.19.0(@tiptap/pm@3.19.0))(@tiptap/pm@3.19.0)(vue@3.5.28(typescript@5.9.3))
       sit-onyx:
         specifier: workspace:^
         version: link:../sit-onyx
@@ -3487,7 +3487,7 @@ packages:
       '@floating-ui/dom': ^1.0.0
       '@tiptap/core': ^3.19.0
       '@tiptap/pm': ^3.19.0
-      vue: 3.5.27
+      vue: 3.5.28
 
   '@tsconfig/node24@24.0.4':
     resolution: {integrity: sha512-2A933l5P5oCbv6qSxHs7ckKwobs8BDAe9SJ/Xr2Hy+nDlwmLE1GhFh/g/vXGRZWgxBg9nX/5piDtHR9Dkw/XuA==}
@@ -11886,12 +11886,12 @@ snapshots:
       '@tiptap/extensions': 3.19.0(@tiptap/core@3.19.0(@tiptap/pm@3.19.0))(@tiptap/pm@3.19.0)
       '@tiptap/pm': 3.19.0
 
-  '@tiptap/vue-3@3.19.0(@floating-ui/dom@1.7.5)(@tiptap/core@3.19.0(@tiptap/pm@3.19.0))(@tiptap/pm@3.19.0)(vue@3.5.27(typescript@5.9.3))':
+  '@tiptap/vue-3@3.19.0(@floating-ui/dom@1.7.5)(@tiptap/core@3.19.0(@tiptap/pm@3.19.0))(@tiptap/pm@3.19.0)(vue@3.5.28(typescript@5.9.3))':
     dependencies:
       '@floating-ui/dom': 1.7.5
       '@tiptap/core': 3.19.0(@tiptap/pm@3.19.0)
       '@tiptap/pm': 3.19.0
-      vue: 3.5.27(typescript@5.9.3)
+      vue: 3.5.28(typescript@5.9.3)
     optionalDependencies:
       '@tiptap/extension-bubble-menu': 3.19.0(@tiptap/core@3.19.0(@tiptap/pm@3.19.0))(@tiptap/pm@3.19.0)
       '@tiptap/extension-floating-menu': 3.19.0(@floating-ui/dom@1.7.5)(@tiptap/core@3.19.0(@tiptap/pm@3.19.0))(@tiptap/pm@3.19.0)
