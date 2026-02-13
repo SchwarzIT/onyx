@@ -1,5 +1,36 @@
 # @sit-onyx/nuxt-docs
 
+## 0.3.0
+
+### Minor Changes
+
+- 02318ac: There are now new prose components available for usage in markdown files and existing ones have updated styles.
+  - add `InfoCard` component that uses the `OnyxInfoCard`
+  - external links are opened with target `_blank` by default
+  - add `ProseCode` component for inline code snippets
+  - updated vertical spacings for: h2 and h3 headlines, table, PackageManagerCodeTabs and NpmInstallCodeTabs
+  - add `ProseHr` component for horizontal separators
+  - add `ProseP` component for regular paragraphs
+  - replace `ResolvableIcon` component with `useIcon` composable
+
+### Patch Changes
+
+- Updated dependencies [9b56bbb]
+- Updated dependencies [1d9b1f1]
+- Updated dependencies [55835b4]
+- Updated dependencies [4c113d6]
+- Updated dependencies [d0cdc5d]
+- Updated dependencies [0b13ab6]
+- Updated dependencies [3e34b0c]
+- Updated dependencies [ce8dc98]
+- Updated dependencies [da2532c]
+- Updated dependencies [b5a641b]
+- Updated dependencies [7574590]
+- Updated dependencies [7664b2b]
+- Updated dependencies [3fd9d72]
+  - sit-onyx@1.8.0
+  - @sit-onyx/icons@1.6.0
+
 ## 0.2.0
 
 ### Minor Changes
