@@ -4,7 +4,7 @@
 
 ### Minor Changes
 
-- 55835b4: fix(OnyxDatepicker): Fix timezone being considered incorrectly when caculating date
+- 55835b4: fix(OnyxDatePicker): Fix timezone being considered incorrectly when calculating date
 - 0b13ab6: feat: implement new `OnyxUnstableKey` and `OnyxUnstableShortcut` components as well as `_unstableUseShortcut` composable
 
   For now, the components and composable are marked as experimental/unstable which means that they are still under active development and the API might change in patch or minor releases. Keep an eye on the **[**changelog**]**(**https://onyx.schwarz/development/packages/changelogs/sit-onyx.html**) when using them.
@@ -23,14 +23,9 @@
 ### Patch Changes
 
 - 9b56bbb: fix(OnyxForm): Fix shorthand for showError boolean prop not working
-- 1d9b1f1: fix(OnyxShortcut, OnyxKey): correctly auto determine operating system
 - 4c113d6: fix(OnyxSlider): Tooltip not correctly aligned with thumb
 - d0cdc5d: fix(OnyxDataGrid/filtering): Fix filterFunc value is always passed as string
-- ce8dc98: fix(OnyxKey): use key name for screen readers instead of symbol
 - b5a641b: Deprecate the `--onyx-font-family` CSS variable. Use `--onyx-font-family-paragraph` instead.
-- 3fd9d72: fix(OnyxKey): use "Esc" label for escape key on macOS
-  fix(OnyxGlobalSearch): do not override OnyxKey styles
-  refactor(OnyxKey): remove redundant key mappings
 - Updated dependencies [3e34b0c]
   - @sit-onyx/icons@1.6.0
 
