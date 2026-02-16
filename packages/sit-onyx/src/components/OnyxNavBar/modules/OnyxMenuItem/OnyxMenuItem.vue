@@ -123,6 +123,7 @@ const handleBackButtonKeydown = async (event: KeyboardEvent) => {
     >
       <slot>
         <span>
+          <OnyxIcon v-if="props.icon" :icon="props.icon" size="24px" />
           <span class="onyx-truncation-ellipsis">
             {{ props.label }}
           </span>

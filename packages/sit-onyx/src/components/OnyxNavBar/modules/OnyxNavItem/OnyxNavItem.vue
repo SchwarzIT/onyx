@@ -6,7 +6,9 @@ import { useMoreListChild } from "../../../../composables/useMoreList.js";
 import { useVModel } from "../../../../composables/useVModel.js";
 import { injectI18n } from "../../../../i18n/index.js";
 import { mergeVueProps, useRootAttrs } from "../../../../utils/attrs.js";
+import { extractLinkProps } from "../../../../utils/router.js";
 import OnyxButton from "../../../OnyxButton/OnyxButton.vue";
+import OnyxExternalLinkIcon from "../../../OnyxExternalLinkIcon/OnyxExternalLinkIcon.vue";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxSeparator from "../../../OnyxSeparator/OnyxSeparator.vue";
 import OnyxTooltip from "../../../OnyxTooltip/OnyxTooltip.vue";
@@ -122,9 +124,12 @@ const { componentRef, isVisible } = isTopLevel
     v-else-if="isExpanded === false && isTopLevel"
     alignment="right"
     position="right"
-    :text="props.label"
     without-wedge
   >
+    <template #tooltip>
+      {{ props.label }}
+      <OnyxExternalLinkIcon v-bind="props.link ? extractLinkProps(props.link) : undefined" />
+    </template>
     <template #default="{ trigger }">
       <OnyxNavItemFacade
         v-bind="mergeVueProps(props, $attrs, trigger)"
@@ -133,9 +138,7 @@ const { componentRef, isVisible } = isTopLevel
         context="vertical-navbar"
       >
         <OnyxIcon v-if="props.icon" :icon="props.icon" />
-        <OnyxVisuallyHidden>
-          {{ props.label }}
-        </OnyxVisuallyHidden>
+        <OnyxVisuallyHidden> {{ props.label }}</OnyxVisuallyHidden>
       </OnyxNavItemFacade>
     </template>
   </OnyxTooltip>
@@ -149,8 +152,9 @@ const { componentRef, isVisible } = isTopLevel
   >
     <slot>
       <OnyxIcon v-if="props.icon" :icon="props.icon" />
-      {{ props.label }}</slot
-    >
+      {{ props.label }}
+      <OnyxExternalLinkIcon v-bind="props.link ? extractLinkProps(props.link) : undefined" />
+    </slot>
   </OnyxNavItemFacade>
   <!-- Mobile Parent is open -->
   <div
@@ -173,10 +177,7 @@ const { componentRef, isVisible } = isTopLevel
 
       <template v-if="props.link">
         <OnyxNavItemFacade v-bind="mergeVueProps(props, restAttrs)" :active context="mobile">
-          <slot>
-            <OnyxIcon v-if="props.icon" :icon="props.icon" />
-            {{ props.label }}</slot
-          >
+          <slot></slot>
         </OnyxNavItemFacade>
         <OnyxSeparator />
       </template>
@@ -194,10 +195,7 @@ const { componentRef, isVisible } = isTopLevel
     context="mobile"
     @click="hasChildren && (open = true)"
   >
-    <slot>
-      <OnyxIcon v-if="props.icon" :icon="props.icon" />
-      {{ props.label }}</slot
-    >
+    <slot></slot>
     <template v-if="slots.children" #children>
       <slot name="children"></slot>
     </template>
@@ -216,11 +214,7 @@ const { componentRef, isVisible } = isTopLevel
         :active
         context="navbar"
       >
-        <slot>
-          <OnyxIcon v-if="props.icon" :icon="props.icon" />
-
-          {{ props.label }}
-        </slot>
+        <slot></slot>
         <template v-if="slots.children" #children>
           <slot name="children"></slot>
         </template>
@@ -240,10 +234,7 @@ const { componentRef, isVisible } = isTopLevel
     :active
     context="navbar"
   >
-    <slot>
-      <OnyxIcon v-if="props.icon" :icon="props.icon" />
-      {{ props.label }}</slot
-    >
+    <slot></slot>
   </OnyxNavItemFacade>
 
   <!-- Desktop nav item nested in a list flyout -->
@@ -253,10 +244,7 @@ const { componentRef, isVisible } = isTopLevel
     :active
     context="list"
   >
-    <slot>
-      <OnyxIcon v-if="props.icon" :icon="props.icon" />
-      {{ props.label }}</slot
-    >
+    <slot></slot>
     <template v-if="slots.children" #children>
       <slot name="children"></slot>
     </template>
@@ -275,10 +263,7 @@ const { componentRef, isVisible } = isTopLevel
       :active
       context="list"
     >
-      <slot>
-        <OnyxIcon v-if="props.icon" :icon="props.icon" />
-        {{ props.label }}</slot
-      >
+      <slot></slot>
       <template v-if="slots.children" #children>
         <slot name="children"></slot>
       </template>

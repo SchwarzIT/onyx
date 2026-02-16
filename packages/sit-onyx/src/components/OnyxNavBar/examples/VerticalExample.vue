@@ -34,11 +34,12 @@ const expanded = ref(false);
         with-back-button
       >
         <OnyxNavItem label="Router Link" link="#router-link" active :icon="iconPlaceholder" />
-
+        <OnyxNavItem label="External Link" link="https://it.schwarz/" :icon="iconPlaceholder" />
         <OnyxNavItem label="Nesting" :icon="iconPlaceholder">
           <template #children>
             <OnyxNavItem label="Item 1" link="#nested-router-link" />
             <OnyxNavItem label="Item 2" />
+            <OnyxNavItem label="Item 3" link="https://it.schwarz/" />
           </template>
         </OnyxNavItem>
 
