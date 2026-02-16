@@ -1,6 +1,7 @@
 name: Automate translation
 on:
   workflow_dispatch:
+  workflow_call:
   # issue_comment:
   #   types: [created]
 
