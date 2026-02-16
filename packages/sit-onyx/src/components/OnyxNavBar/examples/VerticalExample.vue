@@ -37,8 +37,8 @@ const expanded = ref(false);
 
         <OnyxNavItem label="Nesting" :icon="iconPlaceholder">
           <template #children>
-            <OnyxNavItem label="Nested Router Link" link="#nested-router-link" />
-            <OnyxNavItem label="Nested Button" />
+            <OnyxNavItem label="Item 1" link="#nested-router-link" />
+            <OnyxNavItem label="Item 2" />
           </template>
         </OnyxNavItem>
 
@@ -74,9 +74,3 @@ const expanded = ref(false);
     </OnyxPageLayout>
   </OnyxAppLayout>
 </template>
-
-<style lang="scss" scoped>
-.onyx-page {
-  height: 100vh;
-}
-</style>
