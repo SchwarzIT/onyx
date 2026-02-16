@@ -147,8 +147,10 @@ const { componentRef, isVisible } = isTopLevel
     :active
     context="vertical-navbar"
   >
-    <OnyxIcon v-if="props.icon" :icon="props.icon" />
-    <slot>{{ props.label }}</slot>
+    <slot>
+      <OnyxIcon v-if="props.icon" :icon="props.icon" />
+      {{ props.label }}</slot
+    >
   </OnyxNavItemFacade>
   <!-- Mobile Parent is open -->
   <div
@@ -171,8 +173,10 @@ const { componentRef, isVisible } = isTopLevel
 
       <template v-if="props.link">
         <OnyxNavItemFacade v-bind="mergeVueProps(props, restAttrs)" :active context="mobile">
-          <OnyxIcon v-if="props.icon" :icon="props.icon" />
-          <slot></slot>
+          <slot>
+            <OnyxIcon v-if="props.icon" :icon="props.icon" />
+            {{ props.label }}</slot
+          >
         </OnyxNavItemFacade>
         <OnyxSeparator />
       </template>
@@ -190,8 +194,10 @@ const { componentRef, isVisible } = isTopLevel
     context="mobile"
     @click="hasChildren && (open = true)"
   >
-    <OnyxIcon v-if="props.icon" :icon="props.icon" />
-    <slot></slot>
+    <slot>
+      <OnyxIcon v-if="props.icon" :icon="props.icon" />
+      {{ props.label }}</slot
+    >
     <template v-if="slots.children" #children>
       <slot name="children"></slot>
     </template>
@@ -210,8 +216,11 @@ const { componentRef, isVisible } = isTopLevel
         :active
         context="navbar"
       >
-        <OnyxIcon v-if="props.icon" :icon="props.icon" />
-        <slot></slot>
+        <slot>
+          <OnyxIcon v-if="props.icon" :icon="props.icon" />
+
+          {{ props.label }}
+        </slot>
         <template v-if="slots.children" #children>
           <slot name="children"></slot>
         </template>
@@ -231,8 +240,10 @@ const { componentRef, isVisible } = isTopLevel
     :active
     context="navbar"
   >
-    <OnyxIcon v-if="props.icon" :icon="props.icon" />
-    <slot></slot>
+    <slot>
+      <OnyxIcon v-if="props.icon" :icon="props.icon" />
+      {{ props.label }}</slot
+    >
   </OnyxNavItemFacade>
 
   <!-- Desktop nav item nested in a list flyout -->
@@ -242,8 +253,10 @@ const { componentRef, isVisible } = isTopLevel
     :active
     context="list"
   >
-    <OnyxIcon v-if="props.icon" :icon="props.icon" />
-    <slot></slot>
+    <slot>
+      <OnyxIcon v-if="props.icon" :icon="props.icon" />
+      {{ props.label }}</slot
+    >
     <template v-if="slots.children" #children>
       <slot name="children"></slot>
     </template>
@@ -262,8 +275,10 @@ const { componentRef, isVisible } = isTopLevel
       :active
       context="list"
     >
-      <OnyxIcon v-if="props.icon" :icon="props.icon" />
-      <slot></slot>
+      <slot>
+        <OnyxIcon v-if="props.icon" :icon="props.icon" />
+        {{ props.label }}</slot
+      >
       <template v-if="slots.children" #children>
         <slot name="children"></slot>
       </template>
