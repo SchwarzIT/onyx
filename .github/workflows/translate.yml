@@ -1,8 +1,8 @@
 name: Automate translation
 on:
   workflow_dispatch:
-  issue_comment:
-    types: [created]
+  # issue_comment:
+  #   types: [created]
 
 permissions:
   contents: read
@@ -10,7 +10,7 @@ permissions:
 jobs:
   translate:
     runs-on: ubuntu-latest
-    if: github.event_name != 'issue_comment' || contains(github.event.comment.body, '/translate')
+    # if: github.event_name != 'issue_comment' || contains(github.event.comment.body, '/translate')
     permissions:
       contents: write
       pull-requests: write
