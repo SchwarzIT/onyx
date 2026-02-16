@@ -10,7 +10,7 @@ permissions:
 jobs:
   translate:
     runs-on: ubuntu-latest
-    if: or(github.event_name != 'issue_comment', contains(github.event.comment.body, '/translate'))
+    if: github.event_name != 'issue_comment' || contains(github.event.comment.body, '/translate')
     permissions:
       contents: write
       pull-requests: write
