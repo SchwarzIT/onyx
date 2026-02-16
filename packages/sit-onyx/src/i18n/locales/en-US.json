@@ -272,15 +272,15 @@
     },
     "system": "System"
   },
-  "timepicker": {
+  "timePicker": {
     "placeholder": {
       "hour": "HH",
       "minute": "MM",
       "second": "SS"
     },
     "labels": {
-      "iconButton": "Open Timepicker",
-      "popover": "Timepicker Popover",
+      "iconButton": "Open time picker",
+      "popover": "Time picker",
       "hour": "Hour",
       "minute": "Minute",
       "second": "Second",

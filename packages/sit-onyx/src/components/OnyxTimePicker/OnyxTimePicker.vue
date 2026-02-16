@@ -5,9 +5,9 @@ import { useForwardProps } from "../../utils/props.js";
 import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core.js";
 import OnyxTimeInput from "./OnyxTimeInput.vue";
 import OnyxTimeSelect from "./OnyxTimeSelect.vue";
-import type { OnyxTimepickerProps, TimepickerType } from "./types.js";
+import type { OnyxTimePickerProps, TimePickerType } from "./types.js";
 
-const props = withDefaults(defineProps<OnyxTimepickerProps<TimepickerType>>(), {
+const props = withDefaults(defineProps<OnyxTimePickerProps<TimePickerType>>(), {
   showSeconds: false,
   required: false,
   autocapitalize: "sentences",
@@ -18,7 +18,7 @@ const props = withDefaults(defineProps<OnyxTimepickerProps<TimepickerType>>(), {
   showError: FORM_INJECTED_SYMBOL,
   skeleton: SKELETON_INJECTED_SYMBOL,
   disableManualResize: false,
-  type: "default" as TimepickerType,
+  type: "default" as TimePickerType,
 });
 
 const emit = defineEmits<{

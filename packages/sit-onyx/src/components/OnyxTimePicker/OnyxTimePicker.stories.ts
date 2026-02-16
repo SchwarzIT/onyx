@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import OnyxTimepicker from "./OnyxTimepicker.vue";
+import OnyxTimePicker from "./OnyxTimePicker.vue";
 /**
- * The Timepicker component allows users to select a specific time.
+ * The time picker component allows users to select a specific time.
  */
 
-const meta: Meta<typeof OnyxTimepicker> = {
-  title: "Form Elements/Timepicker",
-  component: OnyxTimepicker,
+const meta: Meta<typeof OnyxTimePicker> = {
+  title: "Form Elements/TimePicker",
+  component: OnyxTimePicker,
   tags: ["unstable"],
   decorators: [
     (story) => ({
@@ -15,15 +15,16 @@ const meta: Meta<typeof OnyxTimepicker> = {
     }),
   ],
   args: {
-    label: "Select Time",
+    label: "Select time",
   },
 };
 
 export default meta;
 
-type Story = StoryObj<typeof OnyxTimepicker>;
+type Story = StoryObj<typeof OnyxTimePicker>;
 
 export const Default = {} satisfies Story;
+
 export const WithSeconds = {
   args: {
     showSeconds: true,
@@ -47,6 +48,7 @@ export const Select = {
     },
   },
 } satisfies Story;
+
 export const SelectWithCustomTimes = {
   args: {
     type: "select",

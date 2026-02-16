@@ -8,8 +8,8 @@ import { useForwardProps } from "../../utils/props.js";
 import OnyxBasicPopover from "../OnyxBasicPopover/OnyxBasicPopover.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxStepper from "../OnyxStepper/OnyxStepper.vue";
-import OnyxTimepickerInput from "./OnyxTimepickerInput.vue";
-import type { OnyxTimepickerProps, TimepickerType } from "./types.js";
+import OnyxTimePickerInput from "./OnyxTimePickerInput.vue";
+import type { OnyxTimePickerProps, TimePickerType } from "./types.js";
 
 type Segment = "hour" | "minute" | "second";
 
@@ -17,8 +17,8 @@ type InputRef = {
   input: { focus: () => void; select: () => void } & HTMLInputElement;
 };
 
-const props = withDefaults(defineProps<OnyxTimepickerProps<TimepickerType>>(), {
-  type: "default" as TimepickerType,
+const props = withDefaults(defineProps<OnyxTimePickerProps<TimePickerType>>(), {
+  type: "default" as TimePickerType,
 });
 
 const emit = defineEmits<{
@@ -199,25 +199,25 @@ useOutsideClick({
   checkOnTab: true,
 });
 
-const inputProps = useForwardProps(props, OnyxTimepickerInput);
+const inputProps = useForwardProps(props, OnyxTimePickerInput);
 const showClearButton = computed(() => {
   return (isFocused.value || open.value) && modelValue.value && !props.hideClearIcon;
 });
 </script>
 
 <template>
-  <div ref="rootTemplateRef" class="onyx-component onyx-timepicker">
+  <div ref="rootTemplateRef" class="onyx-component onyx-time-picker">
     <OnyxBasicPopover
-      class="onyx-timepicker__popover"
-      :label="t('timepicker.labels.popover')"
+      class="onyx-time-picker__popover"
+      :label="t('timePicker.labels.popover')"
       position="bottom"
       alignment="center"
       :open="open"
       fit-parent
     >
       <template #default>
-        <OnyxTimepickerInput
-          class="onyx-timepicker__input"
+        <OnyxTimePickerInput
+          class="onyx-time-picker__input"
           v-bind="inputProps"
           :step="props.showSeconds ? 1 : 0"
           @update:model-value="modelValue = $event"
@@ -227,7 +227,7 @@ const showClearButton = computed(() => {
           <template #icon>
             <button
               v-if="showClearButton"
-              class="onyx-timepicker__clear-button"
+              class="onyx-time-picker__clear-button"
               type="button"
               :aria-label="t('input.clear')"
               :title="t('input.clear')"
@@ -241,20 +241,20 @@ const showClearButton = computed(() => {
               v-else
               :icon="iconClock"
               color="neutral"
-              class="onyx-timepicker__clock-icon"
+              class="onyx-time-picker__clock-icon"
             />
           </template>
-        </OnyxTimepickerInput>
+        </OnyxTimePickerInput>
       </template>
 
       <template #content>
-        <div class="onyx-timepicker__wrapper" tabindex="-1">
-          <div class="onyx-timepicker__group">
+        <div class="onyx-time-picker__wrapper" tabindex="-1">
+          <div class="onyx-time-picker__group">
             <OnyxStepper
               ref="hourInputTemplateRef"
               v-model="hour"
-              :label="t('timepicker.labels.hour')"
-              :placeholder="t('timepicker.placeholder.hour')"
+              :label="t('timePicker.labels.hour')"
+              :placeholder="t('timePicker.placeholder.hour')"
               :disabled="props.disabled"
               :loading="props.loading"
               hide-label
@@ -265,13 +265,13 @@ const showClearButton = computed(() => {
               @keydown="(e: KeyboardEvent) => handleInputChange('hour', e)"
             />
 
-            <span class="onyx-timepicker__divider">:</span>
+            <span class="onyx-time-picker__divider">:</span>
 
             <OnyxStepper
               ref="minuteInputTemplateRef"
               v-model="minute"
-              :label="t('timepicker.labels.minute')"
-              :placeholder="t('timepicker.placeholder.minute')"
+              :label="t('timePicker.labels.minute')"
+              :placeholder="t('timePicker.placeholder.minute')"
               :disabled="props.disabled"
               :loading="props.loading"
               hide-label
@@ -282,14 +282,14 @@ const showClearButton = computed(() => {
               @keydown="(e: KeyboardEvent) => handleInputChange('minute', e)"
             />
 
-            <span v-if="props.showSeconds" class="onyx-timepicker__divider">:</span>
+            <span v-if="props.showSeconds" class="onyx-time-picker__divider">:</span>
 
             <template v-if="props.showSeconds">
               <OnyxStepper
                 ref="secondInputTemplateRef"
                 v-model="second"
-                :label="t('timepicker.labels.second')"
-                :placeholder="t('timepicker.placeholder.second')"
+                :label="t('timePicker.labels.second')"
+                :placeholder="t('timePicker.placeholder.second')"
                 :disabled="props.disabled"
                 :loading="props.loading"
                 hide-label
@@ -302,7 +302,7 @@ const showClearButton = computed(() => {
             </template>
           </div>
 
-          <div v-if="props.infoLabel" class="onyx-timepicker__info-label">
+          <div v-if="props.infoLabel" class="onyx-time-picker__info-label">
             <p>{{ props.infoLabel }}</p>
           </div>
         </div>
@@ -314,7 +314,7 @@ const showClearButton = computed(() => {
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
 
-.onyx-timepicker {
+.onyx-time-picker {
   @include layers.component() {
     &__popover,
     &__input {
@@ -371,9 +371,9 @@ const showClearButton = computed(() => {
     &__clock-icon {
       --icon-color: var(--onyx-color-text-icons-neutral-soft);
     }
-    &:has(.onyx-timepicker-input__native:focus-visible),
-    &:has(.onyx-timepicker-input__native:hover) {
-      .onyx-timepicker__clock-icon {
+    &:has(.onyx-time-picker-input__native:focus-visible),
+    &:has(.onyx-time-picker-input__native:hover) {
+      .onyx-time-picker__clock-icon {
         --icon-color: var(--onyx-color-text-icons-primary-intense);
       }
     }

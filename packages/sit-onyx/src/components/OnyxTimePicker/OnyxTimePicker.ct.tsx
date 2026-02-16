@@ -1,16 +1,16 @@
 import { DENSITIES } from "../../composables/density.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
-import OnyxTimepicker from "./OnyxTimepicker.vue";
+import OnyxTimePicker from "./OnyxTimePicker.vue";
 
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
-    name: `TimePicker`,
+    name: "Time picker",
     columns: ["HH:MM:SS", "HH:MM"],
     rows: ["closed"],
     component: (column) => {
       return (
-        <OnyxTimepicker
+        <OnyxTimePicker
           label="Test label"
           showSeconds={column === "HH:MM:SS"}
           style={{ width: "16rem", marginBottom: "6rem" }}
@@ -21,12 +21,12 @@ test.describe("Screenshot tests", () => {
 
   for (const state of ["default", "with value"] as const) {
     executeMatrixScreenshotTest({
-      name: `TimePicker (${state})`,
+      name: `Time picker (${state})`,
       columns: DENSITIES,
       rows: ["default", "hover", "focus", "skeleton", "disabled", "loading"],
       component: (column, row) => {
         return (
-          <OnyxTimepicker
+          <OnyxTimePicker
             label="Test label"
             density={column}
             disabled={row === "disabled"}
@@ -46,14 +46,15 @@ test.describe("Screenshot tests", () => {
       },
     });
   }
+
   for (const state of ["default", "with value"] as const) {
     executeMatrixScreenshotTest({
-      name: `TimePicker Select(${state})`,
+      name: `Time picker select (${state})`,
       columns: DENSITIES,
       rows: ["default", "hover", "focus", "open", "skeleton", "disabled", "loading"],
       component: (column, row) => {
         return (
-          <OnyxTimepicker
+          <OnyxTimePicker
             type="select"
             min="8:00"
             max="10:00"
@@ -84,10 +85,10 @@ test.describe("Screenshot tests", () => {
 test.describe("Keyboard tests", () => {
   // TODO: Skipped because the 'default' type currently uses the native input.
   // Re-enable this test once the custom flyout is implemented for range selection.
-  test.skip("TimePicker keyboard navigation", async ({ mount }) => {
-    const component = await mount(<OnyxTimepicker label="Test label" />);
+  test.skip("keyboard navigation", async ({ mount }) => {
+    const component = await mount(<OnyxTimePicker label="Test label" />);
     const input = component.getByRole("textbox", { name: "Test label" });
-    const iconButton = component.getByRole("button", { name: "Open Timepicker" });
+    const iconButton = component.getByRole("button", { name: "Open time picker" });
 
     const hourInput = component.getByRole("spinbutton", { name: "Hour" });
     const minuteInput = component.getByRole("spinbutton", { name: "Minute" });
@@ -135,7 +136,7 @@ test("should truncate milliseconds and timezones from modelValue, min, and max",
   mount,
 }) => {
   // ARRANGE
-  const component = await mount(OnyxTimepicker, {
+  const component = await mount(OnyxTimePicker, {
     props: {
       showSeconds: true,
       label: "Time picker",
