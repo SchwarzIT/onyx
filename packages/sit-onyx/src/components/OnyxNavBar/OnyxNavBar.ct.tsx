@@ -93,7 +93,7 @@ test.describe("Screenshot tests", () => {
   }
   executeMatrixScreenshotTest({
     name: `Navigation bar (vertical)`,
-    columns: ["default", "back", "center", "context", "global-context", "footer"],
+    columns: ["default", "back", "center", "context", "global-context"],
     rows: ["default", "expanded"],
     removePadding: true,
     component: (column, row) => (
@@ -101,7 +101,7 @@ test.describe("Screenshot tests", () => {
         <OnyxNavBar
           appName="App name"
           logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}
-          withBackButton={row.includes("back")}
+          withBackButton={column === "back"}
           alignment={column === "center" ? "center" : "top"}
           orientation="vertical"
           expanded={row === "expanded"}

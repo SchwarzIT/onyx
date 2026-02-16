@@ -97,7 +97,7 @@ provide(NAV_BAR_IS_EXPANDED_INJECTION_KEY, isExpanded);
           </OnyxMoreList>
         </nav>
       </template>
-      <div v-if="slots.contextArea" class="onyx-nav-bar__context">
+      <div v-if="slots.contextArea" class="onyx-nav-bar__context" role="menubar">
         <slot name="contextArea"></slot>
       </div>
       <div class="onyx-nav-bar__footer" role="menubar">
