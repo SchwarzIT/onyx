@@ -7,10 +7,10 @@ import { useForwardProps } from "../../utils/props.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
 import type { SelectOption } from "../OnyxSelect/types.js";
-import type { OnyxTimepickerProps, TimepickerType } from "./types.js";
+import type { OnyxTimePickerProps, TimePickerType } from "./types.js";
 
-const props = withDefaults(defineProps<OnyxTimepickerProps<TimepickerType>>(), {
-  type: "select" as TimepickerType,
+const props = withDefaults(defineProps<OnyxTimePickerProps<TimePickerType>>(), {
+  type: "select" as TimePickerType,
 });
 
 const emit = defineEmits<{
@@ -23,10 +23,10 @@ const { t } = injectI18n();
 
 const placeholderText = computed(() => {
   const parts = [];
-  parts.push(t.value("timepicker.placeholder.hour"));
-  parts.push(t.value("timepicker.placeholder.minute"));
+  parts.push(t.value("timePicker.placeholder.hour"));
+  parts.push(t.value("timePicker.placeholder.minute"));
   if (props.showSeconds) {
-    parts.push(t.value("timepicker.placeholder.second"));
+    parts.push(t.value("timePicker.placeholder.second"));
   }
   return parts.join(":");
 });
@@ -104,14 +104,14 @@ const inputProps = useForwardProps(props, OnyxSelect);
     v-bind="inputProps"
     v-model="modelValue"
     :label="props.label"
-    class="onyx-timepicker"
-    :list-label="t('timepicker.labels.listLabel')"
+    class="onyx-time-picker"
+    :list-label="t('timePicker.labels.listLabel')"
     :options="timeOptions"
     :placeholder="placeholderText"
     :list-description="props.infoLabel"
   >
     <template #toggleIcon>
-      <OnyxIcon :class="['onyx-timepicker__icon', { filled: modelValue }]" :icon="iconClock" />
+      <OnyxIcon :class="['onyx-time-picker__icon', { filled: modelValue }]" :icon="iconClock" />
     </template>
   </OnyxSelect>
 </template>

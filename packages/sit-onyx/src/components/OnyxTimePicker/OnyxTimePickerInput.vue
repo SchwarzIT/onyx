@@ -15,11 +15,11 @@ import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import type { OnyxTimepickerProps, TimepickerType } from "./types.js";
+import type { OnyxTimePickerProps, TimePickerType } from "./types.js";
 
 const props = withDefaults(
   defineProps<
-    Omit<OnyxTimepickerProps<TimepickerType>, "type"> & {
+    Omit<OnyxTimePickerProps<TimePickerType>, "type"> & {
       /**
        * Defines the granularity of the time input in seconds.
        */
@@ -112,16 +112,16 @@ useAutofocus(useTemplateRef("inputRef"), props);
 <template>
   <div
     v-if="skeleton"
-    :class="['onyx-component', 'onyx-timepicker-input-skeleton', densityClass]"
+    :class="['onyx-component', 'onyx-time-picker-input-skeleton', densityClass]"
     v-bind="rootAttrs"
   >
-    <OnyxSkeleton v-if="!props.hideLabel" class="onyx-timepicker-input-skeleton__label" />
-    <OnyxSkeleton class="onyx-timepicker-input-skeleton__input" />
+    <OnyxSkeleton v-if="!props.hideLabel" class="onyx-time-picker-input-skeleton__label" />
+    <OnyxSkeleton class="onyx-time-picker-input-skeleton__input" />
   </div>
 
   <div
     v-else
-    :class="['onyx-component', 'onyx-timepicker-input', densityClass, errorClass]"
+    :class="['onyx-component', 'onyx-time-picker-input', densityClass, errorClass]"
     v-bind="rootAttrs"
   >
     <OnyxFormElement
@@ -132,10 +132,10 @@ useAutofocus(useTemplateRef("inputRef"), props);
       :message="messages"
     >
       <template #default="{ id: inputId }">
-        <div class="onyx-timepicker-input__wrapper">
+        <div class="onyx-time-picker-input__wrapper">
           <OnyxLoadingIndicator
             v-if="props.loading"
-            class="onyx-timepicker-input__loading"
+            class="onyx-time-picker-input__loading"
             type="circle"
           />
           <input
@@ -144,9 +144,9 @@ useAutofocus(useTemplateRef("inputRef"), props);
             v-model="value"
             v-custom-validity
             type="time"
-            class="onyx-timepicker-input__native"
+            class="onyx-time-picker-input__native"
             :class="{
-              'onyx-timepicker-input__native--success': successMessages,
+              'onyx-time-picker-input__native--success': successMessages,
             }"
             :required="props.required"
             :autofocus="props.autofocus"
@@ -174,26 +174,26 @@ useAutofocus(useTemplateRef("inputRef"), props);
 @use "../../styles/mixins/layers.scss";
 @use "../../styles/mixins/input.scss";
 
-.onyx-timepicker-input,
-.onyx-timepicker-input-skeleton {
+.onyx-time-picker-input,
+.onyx-time-picker-input-skeleton {
   @include layers.component() {
-    --onyx-timepicker-padding-vertical: var(--onyx-density-xs);
+    --onyx-time-picker-padding-vertical: var(--onyx-density-xs);
   }
 }
 
-.onyx-timepicker-input-skeleton {
+.onyx-time-picker-input-skeleton {
   @include layers.component() {
     @include input.define-skeleton-styles(
-      $height: calc(1lh + 2 * var(--onyx-timepicker-padding-vertical))
+      $height: calc(1lh + 2 * var(--onyx-time-picker-padding-vertical))
     );
   }
 }
 
-.onyx-timepicker-input {
+.onyx-time-picker-input {
   @include layers.component() {
     @include input.define-shared-styles(
-      $base-selector: ".onyx-timepicker-input",
-      $vertical-padding: var(--onyx-timepicker-padding-vertical)
+      $base-selector: ".onyx-time-picker-input",
+      $vertical-padding: var(--onyx-time-picker-padding-vertical)
     );
 
     &__native {

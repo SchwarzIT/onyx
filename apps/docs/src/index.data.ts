@@ -194,8 +194,8 @@ export default defineLoader({
         href: "https://storybook.onyx.schwarz/?path=/docs/form-elements-datepicker--docs",
       },
       {
-        name: "Timepicker",
-        status: getImplementedStatus("OnyxTimepicker"),
+        name: "TimePicker",
+        status: getImplementedStatus("OnyxTimePicker"),
         href: "https://storybook.onyx.schwarz/?path=/docs/form-elements-timepicker--docs",
       },
       {
