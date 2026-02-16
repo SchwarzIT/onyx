@@ -10,7 +10,8 @@
     "PW_TOTAL_SHARDS",
     "PW_UPDATE_SNAPSHOTS",
     "STUDIO_GITHUB_CLIENT_ID",
-    "STUDIO_GITHUB_CLIENT_SECRET"
+    "STUDIO_GITHUB_CLIENT_SECRET",
+    "NODE_USE_SYSTEM_CA"
   ],
   "globalDependencies": ["pnpm-lock.yaml", "stylelint.config.js"],
   "tasks": {

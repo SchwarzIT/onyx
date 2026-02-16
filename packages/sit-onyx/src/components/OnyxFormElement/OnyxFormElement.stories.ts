@@ -34,7 +34,7 @@ export const Default = {
   args: {
     label: "Label",
     default: () =>
-      h("input", { placeholder: "Demo form element", style: "width: 100%", disabled: true }),
+      h("input", { placeholder: "Demo form element", style: "width: 100%", disabled: false }),
   },
 } satisfies Story;
 
@@ -93,6 +93,7 @@ export const WithLabelTooltip = {
 export const WithErrorMessage = {
   args: {
     ...Default.args,
+    showError: true,
     errorMessages: {
       shortMessage: "Example custom error",
       longMessage: "This text might inform the users what they can do to fix the error.",

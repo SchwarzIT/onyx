@@ -1,13 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
+import { createAdvancedStoryExample } from "../../utils/storybook.js";
 import OnyxShortcut from "./OnyxShortcut.vue";
 
 /**
  * The shortcut component displays keyboard shortcut sequences with visual key representations.
  * It supports multi-step sequences, operating system specific symbols (macOS, Windows) and interactive highlighting of pressed keys.
  *
- * If you want to use the shortcut functionality without visualizing the OnyxShortcut component, you can also use the `_unstableUseShortcut()` composable.
- *
- * For representing a single key, you can also use the [OnyxKey](/docs/basic-key--docs) component.
+ * If you want to use the shortcut functionality without visualizing the OnyxShortcut component, you can also use the [_unstableUseShortcut()](/story/basic-shortcut--composable) composable.
  */
 const meta: Meta<typeof OnyxShortcut> = {
   title: "Basic/Shortcut",
@@ -51,3 +50,8 @@ export const Disabled = {
     disabled: true,
   },
 } satisfies Story;
+
+export const Composable = createAdvancedStoryExample(
+  "OnyxShortcut",
+  "ComposableExample",
+) satisfies Story;

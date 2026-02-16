@@ -33,7 +33,7 @@ const content = computed(() => {
 </script>
 
 <template>
-  <OnyxTable striped with-vertical-borders>
+  <OnyxTable class="table" striped with-vertical-borders>
     <template #head>
       <component :is="tr" v-for="tr in content.headRows" :key="tr.key" />
     </template>
@@ -41,3 +41,9 @@ const content = computed(() => {
     <component :is="tr" v-for="tr in content.bodyRows" :key="tr.key" />
   </OnyxTable>
 </template>
+
+<style lang="scss" scoped>
+.table {
+  margin-block: var(--onyx-docs-density-paragraph);
+}
+</style>

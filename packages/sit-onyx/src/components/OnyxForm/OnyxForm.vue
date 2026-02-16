@@ -7,6 +7,7 @@ import type { OnyxFormProps } from "./types.js";
 const props = withDefaults(defineProps<OnyxFormProps>(), {
   disabled: false,
   showError: "touched",
+  reserveMessageSpace: false,
 });
 
 defineSlots<{

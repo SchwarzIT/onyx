@@ -47,12 +47,11 @@ export default defineConfig({
     root: getFilePath("./"),
     environment: "jsdom",
     passWithNoTests: true,
-    include: ["src/**/*.spec.(ts|tsx)"],
     typecheck: {
       enabled: true,
       checker: "vue-tsc",
       ignoreSourceErrors: true,
-      tsconfig: "tsconfig.app.json",
+      tsconfig: "tsconfig.vitest.json",
     },
     env: {
       TZ: "UTC",

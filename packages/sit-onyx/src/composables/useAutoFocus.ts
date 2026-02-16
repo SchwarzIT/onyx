@@ -1,22 +1,27 @@
 import { onMounted, watch, type Ref } from "vue";
 
 export const useAutofocus = (
-  inputRef: Ref<HTMLElement | null>,
+  ref: Ref<HTMLElement | HTMLElement[] | null>,
   props: { autofocus: boolean; loading?: boolean },
 ) => {
   if (!props.autofocus) {
     return;
   }
 
+  const performAutoFocus = () => {
+    const input = Array.isArray(ref) ? ref[0] : ref;
+    input.value?.focus();
+  };
+
   onMounted(() => {
     if (!props.loading) {
-      inputRef.value?.focus();
+      performAutoFocus();
       return;
     }
 
     watch(
       () => !!props.loading,
-      () => inputRef.value?.focus(),
+      () => performAutoFocus(),
       { once: true },
     );
   });

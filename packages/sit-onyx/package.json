@@ -1,7 +1,7 @@
 {
   "name": "sit-onyx",
   "description": "A design system and Vue.js component library created by Schwarz IT",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
@@ -61,7 +61,7 @@
     "@sit-onyx/playwright-utils": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",
-    "@storybook/addon-a11y": "^10.2.7",
+    "@storybook/addon-a11y": "^10.2.8",
     "@vue/compiler-dom": "catalog:",
     "@vue/test-utils": "^2.4.6",
     "axe-core": "^4.11.1",

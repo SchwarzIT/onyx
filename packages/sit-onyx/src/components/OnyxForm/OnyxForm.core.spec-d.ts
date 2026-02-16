@@ -14,6 +14,7 @@ import { type FormInjectedProps, type FormProps } from "./OnyxForm.core.js";
 
 it("should be ensured that FormInjectedProps includes all keys of FormProps", async () => {
   expectTypeOf<keyof FormProps>().toExtend<keyof FormInjectedProps>();
+  expectTypeOf<keyof FormInjectedProps>().toExtend<keyof FormProps>();
 });
 
 type AllOnyxFormElements =

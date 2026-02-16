@@ -1,5 +1,15 @@
 # @sit-onyx/icons
 
+## 1.6.0
+
+### Minor Changes
+
+- 3e34b0c: feat: update icons
+
+  #### New
+  - dremio
+  - pubsub-service
+
 ## 1.5.0
 
 ### Minor Changes

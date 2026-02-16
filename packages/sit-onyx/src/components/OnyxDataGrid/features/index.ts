@@ -242,6 +242,24 @@ export type DataGridFeatureDescription<
   modifyColumns?: ModifyColumns<TEntry>;
 
   /**
+   * Allows modification of the column groups.
+   *
+   *  @example
+   * ```ts
+   * {
+   * modifyColumnGroups: {
+   * func: (groups, columns) => {
+   * return groups.flatMap(group => {
+   * return [ { ...group, class: 'my-custom-group-class' } ];
+   * });
+   * }
+   * }
+   * }
+   * ```
+   */
+  modifyColumnGroups?: ModifyColumnGroups<TEntry, ColumnGroupConfig>;
+
+  /**
    * Allows the modification of the headers.
    */
   header?: {
@@ -386,11 +404,10 @@ export const createTableColumnGroups = <
   const result: TableColumnGroup[] = [];
 
   for (let i = 1; i <= columns.length; i++) {
-    const element = columns[i];
     const currentKey = columns[currentStart]?.columnGroupKey ?? "";
-    // When it's the last iteration or the current group key changed:
-    if (i === columns.length || element?.columnGroupKey !== currentKey) {
-      // add a new TableColumnGroup
+    const nextKey = columns[i]?.columnGroupKey ?? "";
+
+    if (i === columns.length || nextKey !== currentKey) {
       result.push({
         key: currentKey,
         span: i - currentStart,
@@ -399,7 +416,18 @@ export const createTableColumnGroups = <
       currentStart = i;
     }
   }
+
   return result;
+};
+
+export type ModifyColumnGroups<
+  TEntry extends DataGridEntry,
+  TColumnGroup extends ColumnGroupConfig,
+> = {
+  func: (
+    groups: TableColumnGroup[],
+    columns: InternalColumnConfig<TEntry, TColumnGroup>[],
+  ) => TableColumnGroup[];
 };
 
 /**
@@ -465,6 +493,12 @@ export const useDataGridFeatures = <
     ),
   );
 
+  const columnGroupMappings = computed(() =>
+    features
+      .map((f) => f.modifyColumnGroups)
+      .filter((m): m is ModifyColumnGroups<TEntry, TColumnGroup> => !!m),
+  );
+
   const columns = computed(() => {
     const normalized = toValue(columnConfig).map<InternalColumnConfig<TEntry>>((c) => {
       const obj = typeof c !== "object" ? { key: c } : c;
@@ -479,9 +513,15 @@ export const useDataGridFeatures = <
 
   const renderer = computed(() => createRenderer(features));
 
-  const createRendererColumnGroups = () =>
-    createTableColumnGroups(columns.value, toValue(columnGroups));
+  const createRendererColumnGroups = () => {
+    const baseGroups = createTableColumnGroups(columns.value, toValue(columnGroups));
 
+    return columnGroupMappings.value.reduce((acc, mapping) => {
+      return (
+        mapping.func(acc, columns.value as InternalColumnConfig<TEntry, TColumnGroup>[]) || acc
+      );
+    }, baseGroups || []);
+  };
   const createScrollContainerAttributes = () =>
     mergeVueProps(
       ...features.map(({ scrollContainerAttributes }) => scrollContainerAttributes?.()),

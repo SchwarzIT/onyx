@@ -297,5 +297,8 @@
   },
   "tableOfContents": {
     "label": "Table of contents"
+  },
+  "key": {
+    "label": "\"{name}\" key"
   }
 }

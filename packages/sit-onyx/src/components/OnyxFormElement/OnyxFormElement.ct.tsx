@@ -33,11 +33,7 @@ test("should render success message", async ({ mount }) => {
 });
 
 test("should render error message", async ({ mount }) => {
-  const component = await mount(
-    <OnyxFormElement label="Test Label">
-      <OnyxInput label="Label" required />
-    </OnyxFormElement>,
-  );
+  const component = await mount(<OnyxInput label="Label" required />);
 
   const message = component.getByText("Required");
 
@@ -91,11 +87,7 @@ test.describe("withCounter", () => {
 
 test("should render info message", async ({ mount }) => {
   const message = { shortMessage: "Test short message" };
-  const component = await mount(
-    <OnyxFormElement label="Test Label" message={message}>
-      <OnyxInput label="Label" />
-    </OnyxFormElement>,
-  );
+  const component = await mount(<OnyxInput label="Test Label" message={message} />);
 
   const messageElement = component.getByText("Test short message");
 

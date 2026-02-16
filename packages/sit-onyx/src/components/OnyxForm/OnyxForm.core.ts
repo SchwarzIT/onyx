@@ -21,7 +21,7 @@ export type FormProps = {
   /**
    * Configures if and when errors are shown.
    * - `true`: errors will be shown initially.
-   * - `false`: errors will never be shown. ⚠️ Only the displaying of the error is effected! An error can still block submission!
+   * - `false`: errors will never be shown. ⚠️ Only the displaying of the error is effected! An error will still block submission!
    * - "touched": only shows an error *after* a user has significantly interacted with the input, see [:user-invalid](https://drafts.csswg.org/selectors/#user-invalid-pseudo)
    *
    * @default "touched"
@@ -37,6 +37,14 @@ export type FormProps = {
    * @default undefined By default the parents setting is used, if none is defined on any `required` is the default.
    */
   requiredMarker?: RequiredMarkerType;
+  /**
+   * Always reserves the space required to show `error` or other messages.
+   * Subsequently this will increase the height of the form element permanently.
+   * We recommend to enable this to avoid layout shifts.
+   *
+   * @default `false`
+   */
+  reserveMessageSpace?: boolean;
 };
 
 /**
@@ -55,7 +63,7 @@ export type FormInjectedProps = {
    * Disabled makes the element not mutable, focusable, or even submitted with the form.
    * It will also not be validated.
    *
-   * @default Inherits value from closest `<OnyxForm>` component or `false` if none exists
+   * @default Inherits value from closest `<OnyxForm>` component, defaults to `false` otherwise
    */
   disabled?: FormInjected<boolean>;
   /**
@@ -77,6 +85,14 @@ export type FormInjectedProps = {
    * @default Inherits value from closest `<OnyxForm>` component or `required` if none exists
    */
   requiredMarker?: FormInjected<RequiredMarkerType>;
+  /**
+   * Always reserves the space required to show `error` or other messages.
+   * Subsequently this will increase the height of the form element permanently.
+   * We recommend to enable this to avoid layout shifts.
+   *
+   * @default Inherits value from closest `<OnyxForm>` component, defaults to `false` otherwise
+   */
+  reserveMessageSpace?: FormInjected<boolean>;
 };
 
 /**
@@ -136,6 +152,7 @@ const createFormInjectionContext =
     disabled: createCompute(formProps, props, "disabled", false),
     showError: createCompute(formProps, props, "showError", "touched"),
     requiredMarker: createCompute(formProps, props, "requiredMarker", "required"),
+    reserveMessageSpace: createCompute(formProps, props, "reserveMessageSpace", false),
   });
 
 export const provideFormContext = (formProps: Reactive<FormProps> | undefined) =>

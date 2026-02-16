@@ -1,4 +1,11 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
+import { createResolver } from "nuxt/kit";
+
+// using a resolver here so path are correctly resolved when extending this app as Nuxt layer
+const { resolve } = createResolver(import.meta.url);
+
+/**
+ * @see https://nuxt.com/docs/api/configuration/nuxt-config
+ */
 export default defineNuxtConfig({
   $meta: {
     // the name is used to generate import aliases so the user can easily import
@@ -10,7 +17,11 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-01-20",
   typescript: { typeCheck: "build" },
   modules: ["@sit-onyx/nuxt", "@nuxt/content", "@nuxtjs/color-mode", "@nuxt/image", "@nuxtjs/i18n"],
-  css: ["@fontsource-variable/source-code-pro", "@fontsource-variable/source-sans-3"],
+  css: [
+    "@fontsource-variable/source-code-pro",
+    "@fontsource-variable/source-sans-3",
+    resolve("./app/assets/styles/index.scss"),
+  ],
   i18n: {
     defaultLocale: "en",
     // we explicitly don't define any default locales here so the project is fully in charge if defining which locales to use.
@@ -21,6 +32,7 @@ export default defineNuxtConfig({
     components: {
       map: {
         br: "ProseBr",
+        hr: "ProseHr",
       },
     },
   },

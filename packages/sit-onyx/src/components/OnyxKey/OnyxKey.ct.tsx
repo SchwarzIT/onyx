@@ -4,7 +4,7 @@ import {
   type MatrixScreenshotTestOptions,
 } from "@sit-onyx/playwright-utils";
 import { OPERATING_SYSTEMS } from "../../composables/useOperatingSystem.js";
-import { test } from "../../playwright/a11y.js";
+import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import {
   ALPHABETIC_KEYS,
@@ -149,4 +149,12 @@ test("should emit event when the matching key is pressed", async ({ mount, page 
 
   // ASSERT
   expectEmit(onPressed, 1, []);
+});
+
+test("should have accessible name", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(<OnyxKey name="Escape" />);
+
+  // ASSERT
+  await expect(component).toContainText(`"Escape" key`);
 });
