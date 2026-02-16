@@ -16,14 +16,18 @@ import {
 } from "vue";
 import type { ComponentSlots } from "vue-component-type-helpers";
 import { type OnyxI18n } from "../../../i18n/index.js";
+import { OnyxButton, type OnyxButtonProps, type OnyxIconButtonProps } from "../../../index.js";
 import type { Nullable } from "../../../types/index.js";
 import { mergeVueProps } from "../../../utils/attrs.js";
 import { applyMapping, prepareMapping, type OrderableMapping } from "../../../utils/feature.js";
 import { asArray } from "../../../utils/objects.js";
+import OnyxIconButton from "../../OnyxIconButton/OnyxIconButton.vue";
 import type { OnyxMenuItem } from "../../OnyxNavBar/modules/index.js";
 import OnyxFlyoutMenu from "../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
+import OnyxSeparator from "../../OnyxSeparator/OnyxSeparator.vue";
 import OnyxSystemButton from "../../OnyxSystemButton/OnyxSystemButton.vue";
 import type { OnyxTableSlots, TableColumnGroup } from "../../OnyxTable/types.js";
+import OnyxTooltip from "../../OnyxTooltip/OnyxTooltip.vue";
 import type {
   DataGridRendererCell,
   DataGridRendererColumn,
@@ -131,6 +135,66 @@ export type InternalColumnConfig<
 export type ColumnTypeNormalized<TKey, TOptions> = { name: TKey; options?: TOptions };
 export type ColumnConfigTypeOption<TKey, TOptions> = TKey | ColumnTypeNormalized<TKey, TOptions>;
 
+type ActionGroup =
+  | string
+  | {
+      /**
+       * name of the group.
+       */
+      name: string;
+      /**
+       * order of the group.
+       */
+      order: number;
+    };
+
+type ActionsBase = {
+  /**
+   * label for the action.
+   */
+  label: string;
+  /**
+   * group for the action.
+   *  All actions that should belong to the same group must have the same name.
+   */
+  group?: ActionGroup;
+  /**
+   * order inside the group.
+   */
+  order?: number;
+  /**
+   * callback function to execute when the action is clicked.
+   * @param config
+   */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- TODO: add proper Types
+  func: (config: ColumnConfig<any, any, any>[]) => void;
+};
+
+type ActionsButton = ActionsBase & {
+  type: "button";
+  /**
+   * Icon for the button.
+   */
+  icon?: string;
+  /**
+   * Props for the button.
+   */
+  props?: Omit<OnyxButtonProps, "label" | "icon">;
+};
+
+type ActionsIconButton = ActionsBase & {
+  type?: "iconButton";
+  /**
+   * Icon for the iconButton.
+   */
+  icon: string;
+  /**
+   * Props for the iconButton.
+   */
+  props?: Omit<OnyxIconButtonProps, "label" | "icon">;
+};
+type ActionsProps = ActionsButton | ActionsIconButton;
+
 /**
  * Normalized column config for public/external usage.
  */
@@ -221,6 +285,10 @@ export type DataGridFeatureDescription<
      */
     order?: number;
   };
+  /**
+   * Allows modifying the action Slot above of the dateGrid
+   */
+  actions?: ActionsProps[];
 
   /**
    * Defines a renderer for a column type.
@@ -656,11 +724,86 @@ export const useDataGridFeatures = <
   };
 
   const createSlots = () => {
-    const slots: InternalDataGridSlots = {};
+    const slots: InternalDataGridSlots | { actions?: () => VNode[] } = {};
+    const sortedActions = computed(() => {
+      const actions = features.flatMap((f) => f.actions ?? []);
+
+      const getGroupInfo = (g?: ActionGroup) => {
+        if (!g) return { name: "default", order: 0 };
+        if (typeof g === "string") return { name: g, order: 0 };
+        return { name: g.name, order: g.order };
+      };
+
+      const groups: Record<string, { order: number; actions: ActionsProps[] }> = {};
+      actions.forEach((action) => {
+        const { name, order } = getGroupInfo(action.group);
+
+        if (!groups[name]) {
+          groups[name] = { order, actions: [] };
+        } else if (order !== 0) {
+          groups[name].order = order;
+        }
+
+        groups[name].actions.push(action);
+      });
+      return Object.values(groups)
+        .sort((a, b) => a.order - b.order)
+        .flatMap((group) => {
+          return group.actions.sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+        });
+    });
+
+    slots.actions = () => {
+      const actionsList = sortedActions.value;
+      if (actionsList.length === 0) return [];
+
+      const renderedActions: VNode[] = [];
+
+      actionsList.forEach((action, index) => {
+        if (index > 0) {
+          const getGroupName = (g: ActionGroup | undefined) =>
+            typeof g === "object" && g !== null ? g.name : (g ?? "default");
+
+          const prevGroupName = getGroupName(actionsList[index - 1]?.group);
+          const currGroupName = getGroupName(action.group);
+
+          if (prevGroupName !== currGroupName) {
+            renderedActions.push(h(OnyxSeparator, { orientation: "vertical" }));
+          }
+        }
+
+        // Action Renderer
+        const isButton = action.type === "button";
+        const component = isButton ? OnyxButton : OnyxIconButton;
+
+        const baseProps = {
+          label: action.label,
+          icon: action.icon,
+          onClick: () => action.func(toValue(columnConfig)),
+          ...action.props,
+        };
+
+        if (isButton) {
+          renderedActions.push(h(component, baseProps));
+        } else {
+          renderedActions.push(
+            h(
+              OnyxTooltip,
+              { text: action.label },
+              {
+                default: ({ trigger }: { trigger: object }) =>
+                  h(component, { ...baseProps, ...trigger }),
+              },
+            ),
+          );
+        }
+      });
+
+      return renderedActions;
+    };
 
     features.forEach((feature) => {
       if (!feature.slots) return;
-
       Object.entries(feature.slots).forEach(([_slotName, slotFunc]) => {
         const slotName = _slotName as keyof typeof feature.slots;
         const existingSlot = slots[slotName] ?? (() => []);
