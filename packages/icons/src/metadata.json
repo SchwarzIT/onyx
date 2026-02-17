@@ -1830,6 +1830,10 @@
     "category": "Action & Interface",
     "aliases": ["alert-sign", "warning-banner", "Ausrufezeichen", "Warn-Banner", "Warnung"]
   },
+  "numbered-list": {
+    "category": "Action & Interface",
+    "aliases": []
+  },
   "opactiy": {
     "category": "Tools & Shapes",
     "aliases": ["transparency", "translucence", "Transparenz", "Durchsichtigkeit"]
