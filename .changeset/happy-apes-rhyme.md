@@ -2,7 +2,7 @@
 "sit-onyx": minor
 ---
 
-feat: implement more languages
+feat: support more languages
 
 The following languages are now supported: Bulgarian, Czech, Spanish, French, Croatian, Italian, Korean (updated), Dutch, Polish, Portuguese, Romanian and Slovak
 
