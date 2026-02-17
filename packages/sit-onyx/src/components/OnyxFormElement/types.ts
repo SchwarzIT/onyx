@@ -27,7 +27,7 @@ export type SharedFormElementProps = FormInjectedProps &
   CustomValidityProp &
   AutofocusProp & {
     /**
-     * The id of a labelable form-related element.
+     * The id of a labelled form-related element.
      * If not given an id will be generated.
      * The id is passed as a `default` slot property.
      */
