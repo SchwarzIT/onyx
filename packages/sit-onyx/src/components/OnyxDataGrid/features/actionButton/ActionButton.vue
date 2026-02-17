@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { computed } from "vue";
 import { useMoreListChild } from "../../../../composables/useMoreList.js";
 import { useForwardProps } from "../../../../utils/props.js";
 import OnyxButton from "../../../OnyxButton/OnyxButton.vue";
@@ -23,10 +22,9 @@ const props = withDefaults(
     displayAs: "iconButton",
   },
 );
-const targetComponent = computed(() =>
-  props.displayAs === "button" ? OnyxButton : OnyxIconButton,
-);
-const restAttr = useForwardProps(props, targetComponent);
+
+// eslint-disable-next-line vue/no-setup-props-reactivity-loss -- not relevant for this component
+const restAttr = useForwardProps(props, props.displayAs === "button" ? OnyxButton : OnyxIconButton);
 </script>
 
 <template>
@@ -35,7 +33,6 @@ const restAttr = useForwardProps(props, targetComponent);
 
     <OnyxButton
       ref="componentRef"
-      :label="props.label"
       v-bind="restAttr"
       @click="(config: ColumnConfig<any, any, any>[]) => props.onClick(config)"
     />
@@ -47,7 +44,6 @@ const restAttr = useForwardProps(props, targetComponent);
       <template #default="{ trigger }">
         <OnyxIconButton
           ref="componentRef"
-          :label="props.label"
           v-bind="{ ...restAttr, ...trigger }"
           @click="(config: ColumnConfig<any, any, any>[]) => props.onClick(config)"
         />
