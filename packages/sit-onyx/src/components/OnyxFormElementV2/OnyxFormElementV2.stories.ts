@@ -19,8 +19,12 @@ type Story = StoryObj<typeof OnyxFormElementV2>;
 
 export const Default = {
   args: {
-    label: "Example form element",
+    label: {
+      label: "Example form element",
+      tooltipText: "Tooltip text",
+    },
     default: (props) => h("input", props),
+    required: true,
   },
 } satisfies Story;
 

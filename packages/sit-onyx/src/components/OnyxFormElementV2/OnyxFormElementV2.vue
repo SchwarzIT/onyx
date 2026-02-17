@@ -2,7 +2,9 @@
 import { computed, useId } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
+import { useForwardProps } from "../../utils/props.js";
 import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core.js";
+import OnyxFormElementV2Top from "./OnyxFormElementV2Top.vue";
 import type { OnyxFormElementV2Props } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxFormElementV2Props>(), {
@@ -50,14 +52,13 @@ const inputProps = computed(() => {
     disabled: props.loading,
   };
 });
+
+const topProps = useForwardProps(props, OnyxFormElementV2Top);
 </script>
 
 <template>
   <div :class="['onyx-component', 'onyx-form-element-v2', densityClass]">
-    <div v-if="!props.hideLabel" class="onyx-form-element-v2__top onyx-text--small">
-      <!-- TODO: add top area -->
-      <label :for="props.id">Label</label>
-    </div>
+    <OnyxFormElementV2Top v-if="!props.hideLabel" v-bind="topProps" />
 
     <div class="onyx-form-element-v2__content">
       <div v-if="slots.leading" class="onyx-form-element-v2__slot">
@@ -114,10 +115,6 @@ const inputProps = computed(() => {
     color: var(--onyx-color-text-icons-neutral-intense);
     font-size: var(--onyx-font-size-md);
     line-height: var(--onyx-font-line-height-md);
-
-    &__top {
-      color: var(--onyx-color-text-icons-neutral-medium);
-    }
 
     &__bottom {
       color: var(--onyx-color-text-icons-neutral-soft);
@@ -210,6 +207,10 @@ const inputProps = computed(() => {
         // transition workaround to make the background transparent
         transition: background-color calc(infinity * 1s);
       }
+    }
+
+    &__tooltip {
+      margin-left: var(--onyx-spacing-2xs);
     }
   }
 }
