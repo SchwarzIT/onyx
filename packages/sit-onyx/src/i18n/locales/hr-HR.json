@@ -1,0 +1,302 @@
+{
+  "yes": "Da",
+  "no": "Ne",
+  "optional": "(neobavezno)",
+  "cancel": "Odustani",
+  "apply": "Primijeni",
+  "back": "Natrag",
+  "close": "Zatvori",
+  "now": "Sada",
+  "breadcrumb": {
+    "label": "Navigacijske staze",
+    "home": "Početna"
+  },
+  "dataGrid": {
+    "head": {
+      "selection": {
+        "selectAll": "Odaberi sve retke",
+        "deselectAll": "Poništi odabir svih redaka",
+        "select": "Dodaj redak s ID-jem '{id}' u odabir.",
+        "deselect": "Ukloni redak s ID-jem '{id}' iz odabira."
+      },
+      "sorting": {
+        "action": {
+          "asc": "Sortiraj tablicu uzlazno po stupcu {field}.",
+          "desc": "Sortiraj tablicu silazno po stupcu {field}.",
+          "none": "Poništi sortiranje."
+        },
+        "menu": {
+          "asc": "Sortiraj uzlazno",
+          "desc": "Sortiraj silazno",
+          "none": "Bez sortiranja"
+        }
+      },
+      "filtering": {
+        "removeLabel": "Ukloni pojam za pretraživanje za stupac {column}",
+        "menu": {
+          "label": "Pretraži stupac {column}",
+          "placeholder": "Pretraži stupac"
+        }
+      },
+      "hideColumns": {
+        "revealFlyout": "Popis skrivenih stupaca",
+        "revealTrigger": "Prikaži skrivene stupce",
+        "menu": {
+          "hideButton": "Sakrij stupac",
+          "lastColumnTooltip": "Posljednji stupac se ne može sakriti."
+        }
+      }
+    },
+    "loadMore": "Učitaj više"
+  },
+  "validations": {
+    "tooShort": {
+      "preview": "Prekratko, potrebno je najmanje {minLength} znakova",
+      "fullError": "Produžite uneseni tekst na najmanje {minLength} znakova. Trenutno ima {n} znakova. Neki posebni znakovi mogu se brojati kao više znakova."
+    },
+    "tooLong": {
+      "preview": "Predugo, dopušteno je najviše {maxLength} znakova",
+      "fullError": "Skratite uneseni tekst na {maxLength} znakova ili manje. Trenutno ima {n} znakova. Neki posebni znakovi mogu se brojati kao više znakova."
+    },
+    "rangeUnderflow": {
+      "preview": "Preniska vrijednost",
+      "fullError": "Unesena vrijednost mora biti veća ili jednaka {min}."
+    },
+    "rangeOverflow": {
+      "preview": "Previsoka vrijednost",
+      "fullError": "Unesena vrijednost mora biti manja ili jednaka {max}."
+    },
+    "patternMismatch": {
+      "preview": "Nevažeći format",
+      "fullError": "Molimo, uskladite se sa zatraženim formatom."
+    },
+    "valueMissing": {
+      "preview": "Obavezno",
+      "fullError": "Polje je prazno, obavezno je i mora se ispuniti."
+    },
+    "stepMismatch": {
+      "preview": "Nevažeći broj",
+      "fullError": "Molimo, unesite važeći broj koji je višekratnik od {step}."
+    },
+    "badInput": {
+      "preview": "Nevažeći unos",
+      "fullError": "\"{value}\" ne odgovara očekivanom tipu."
+    },
+    "typeMismatch": {
+      "generic": {
+        "preview": "Nevažeći tip unosa",
+        "fullError": "\"{value}\" ne odgovara očekivanom tipu."
+      },
+      "email": {
+        "preview": "Nevažeći e-mail",
+        "fullError": "\"{value}\" nije važeća e-mail adresa. Trebala bi biti slična \"ime.prezime{'@'}primjer.com\" (mora sadržavati jedan znak {'@'} i točku)."
+      },
+      "number": {
+        "preview": "Nevažeći broj",
+        "fullError": "\"{value}\" nije važeći broj. Provjerite sadrži li samo znamenke i, po želji, jednu decimalnu točku."
+      },
+      "tel": {
+        "preview": "Nevažeći broj telefona",
+        "fullError": "\"{value}\" nije važeći broj telefona."
+      },
+      "url": {
+        "preview": "Nevažeći URL",
+        "fullError": "\"{value}\" nije važeći URL. URL obično pokazuje na web stranicu i trebao bi biti sličan \"https://www.primjer.com\"."
+      }
+    }
+  },
+  "select": {
+    "toggleDropDown": "Otvori/zatvori skočni prozor za odabir",
+    "empty": "Nema dostupnih podataka",
+    "noMatch": "Nijedna stavka ne odgovara vašoj pretrazi",
+    "searchInputLabel": "Filtriraj stavke popisa",
+    "clearSearch": "Očisti filtar pretraživanja",
+    "searchPlaceholder": "Pretraži"
+  },
+  "selections": {
+    "selectAll": "Odaberi sve",
+    "selectGroup": "Odabrano",
+    "currentSelection": "{n} odabrano"
+  },
+  "stepper": {
+    "decrement": "Smanji za {stepSize}",
+    "increment": "Povećaj za {stepSize}"
+  },
+  "table": {
+    "empty": "Ova tablica je prazna."
+  },
+  "link": {
+    "opensExternally": "(otvara se u novoj kartici)"
+  },
+  "navItemOptionsLabel": "Podstranice od {label}",
+  "navigation": {
+    "appLogo": "Logotip aplikacije {appName}",
+    "goToHome": "Idi na početnu stranicu",
+    "goBack": "Idi natrag",
+    "moreNavItems": "+{n} više",
+    "moreNavItemsLabel": "Više stavki",
+    "showMoreNavItemsLabel": "Prikaži više stavki",
+    "userMenuLabel": "Korisničke opcije",
+    "toggleBurgerMenu": "Otvori/zatvori izbornik",
+    "toggleContextMenu": "Otvori/zatvori kontekstni izbornik",
+    "navigationHeadline": "Navigacija",
+    "moreActionsFlyout": "Odaberite radnju za stupac \"{column}\"",
+    "moreActionsTrigger": "Otvori/zatvori radnje stupca"
+  },
+  "tooltip": {
+    "neutral": "Otvori/zatvori informativni oblačić",
+    "danger": "Otvori/zatvori oblačić s pogreškom",
+    "success": "Otvori/zatvori oblačić s uspjehom"
+  },
+  "colorScheme": {
+    "headline": "Promijeni izgled",
+    "subtitle": "Odaberite izgled aplikacije:",
+    "appearance": "Izgled",
+    "auto": {
+      "label": "Automatski",
+      "description": "Aplikacija automatski prilagođava svoj izgled postavkama vašeg sustava."
+    },
+    "light": {
+      "label": "Svijetlo",
+      "description": "Svijetli način rada pruža optimalan kontrast za svijetla okruženja."
+    },
+    "dark": {
+      "label": "Tamno",
+      "description": "Ovaj način boje optimiziran je za tamnija okruženja."
+    }
+  },
+  "pagination": {
+    "label": "Paginacija",
+    "ofPages": "od {pages} stranice | od {pages} stranica",
+    "previous": "prethodna stranica",
+    "next": "sljedeća stranica",
+    "buttonLabel": "Stranica {page}",
+    "morePages": "Više stranica između",
+    "select": {
+      "label": "Odabir stranice",
+      "listLabel": "Dostupne stranice"
+    },
+    "currentOfTotalPages": "1/1 stranica | {current}/{total} stranica"
+  },
+  "input": {
+    "clear": "Očisti unos",
+    "showPassword": "Prikaži lozinku",
+    "hidePassword": "Sakrij lozinku"
+  },
+  "dialog": {
+    "close": "Zatvori dijalog"
+  },
+  "headline": {
+    "copyLink": "Kopiraj poveznicu na ovaj naslov",
+    "copyLinkTo": "Kopiraj poveznicu na naslov:"
+  },
+  "avatar": {
+    "ariaLabel": "Avatar korisnika {fullName}"
+  },
+  "filterTag": {
+    "clickToAdd": "Dodaj filtar \"{label}\"",
+    "clickToRemove": "Ukloni filtar \"{label}\""
+  },
+  "languageSelect": {
+    "label": "Jezik",
+    "headline": "Promijeni jezik",
+    "subtitle": "Odaberite jezik aplikacije:"
+  },
+  "resizeHandle": {
+    "label": "Povucite za promjenu širine"
+  },
+  "fileUpload": {
+    "select": "Odaberi",
+    "clickToUpload": "Kliknite za odabir",
+    "orDragAndDrop": "ili povucite i ispustite datoteku",
+    "maxFileSize": "Maksimalna veličina datoteke",
+    "inTotal": "ukupno",
+    "maxFileCount": "Moguće je odabrati najviše {n} datoteka",
+    "allowedFileTypes": "Dopuštene vrste datoteka: {types}",
+    "hideFilesButton": "Sakrij sve datoteke",
+    "revealFilesButton": "Prikaži sve datoteke",
+    "removeFile": "Ukloni datoteku",
+    "requiredError": "Morate prenijeti barem jednu datoteku",
+    "status": {
+      "fileTypeError": "Datoteka s nastavkom '.{extension}' nije važeća",
+      "fileSizeError": "Datoteka premašuje maksimalnu dopuštenu veličinu od {size}",
+      "maxFileSizeError": "Ukupna veličina svih datoteka premašuje maksimalno dopuštenu od {size}",
+      "maxCountError": "Broj datoteka premašuje maksimalno dopušteni od {count}"
+    }
+  },
+  "globalFAB": {
+    "label": "Globalne radnje"
+  },
+  "calendar": {
+    "todayButton": {
+      "label": "Danas",
+      "tooltip": "Skoči na današnji dan"
+    },
+    "calendarWeek": "TJ",
+    "calendarWeekButtonLabel": "Odaberi kalendarski tjedan {weekNumber}",
+    "previousMonthButton": "Prethodni mjesec",
+    "nextMonthButton": "Sljedeći mjesec",
+    "monthYearPicker": "Birač mjeseca i godine"
+  },
+  "flyoutMenu": {
+    "moreActions": "Više radnji",
+    "toggleActions": {
+      "click": "Kliknite za promjenu vidljivosti radnji",
+      "hover": "Zadržite pokazivač/fokusirajte za promjenu vidljivosti radnji"
+    }
+  },
+  "slider": {
+    "decreaseValueBy": "Smanji vrijednost za {n}",
+    "increaseValueBy": "Povećaj vrijednost za {n}",
+    "changeValue": "Promijeni vrijednost",
+    "changeStartValue": "Promijeni početnu vrijednost",
+    "changeEndValue": "Promijeni završnu vrijednost"
+  },
+  "codeTabs": {
+    "label": "Isječci koda",
+    "copySnippet": "Kopiraj kod",
+    "copied": "Kopirano!",
+    "failed": "Neuspješno!",
+    "tabLabel": "Kod"
+  },
+  "globalSearch": {
+    "label": "Globalno pretraživanje",
+    "searchResults": "Rezultati pretraživanja",
+    "input": {
+      "label": "Pretraži sadržaj",
+      "placeholder": "Pretraži..."
+    },
+    "shortcuts": {
+      "move": "Navigiraj",
+      "select": "Odaberi"
+    },
+    "system": "Sustav"
+  },
+  "timePicker": {
+    "placeholder": {
+      "hour": "HH",
+      "minute": "MM",
+      "second": "SS"
+    },
+    "labels": {
+      "iconButton": "Otvori birač vremena",
+      "popover": "Birač vremena",
+      "hour": "Sat",
+      "minute": "Minuta",
+      "second": "Sekunda",
+      "listLabel": "Opcije vremena"
+    }
+  },
+  "itemsPerPage": {
+    "label": "Stavki po stranici",
+    "select": {
+      "listLabel": "Odaberite broj stavki po stranici"
+    }
+  },
+  "tableOfContents": {
+    "label": "Sadržaj"
+  },
+  "key": {
+    "label": "tipka \"{name}\""
+  }
+}

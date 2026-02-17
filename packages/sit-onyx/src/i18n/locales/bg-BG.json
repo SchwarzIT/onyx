@@ -1,0 +1,302 @@
+{
+  "yes": "Да",
+  "no": "Не",
+  "optional": "(по избор)",
+  "cancel": "Отказ",
+  "apply": "Прилагане",
+  "back": "Назад",
+  "close": "Затваряне",
+  "now": "Сега",
+  "breadcrumb": {
+    "label": "Навигационна пътека",
+    "home": "Начало"
+  },
+  "dataGrid": {
+    "head": {
+      "selection": {
+        "selectAll": "Избор на всички редове",
+        "deselectAll": "Премахване на избора на всички редове",
+        "select": "Добавяне на ред с ID '{id}' към селекцията.",
+        "deselect": "Премахване на ред с ID '{id}' от селекцията."
+      },
+      "sorting": {
+        "action": {
+          "asc": "Сортиране на таблицата във възходящ ред по колона {field}.",
+          "desc": "Сортиране на таблицата в низходящ ред по колона {field}.",
+          "none": "Нулиране на сортирането."
+        },
+        "menu": {
+          "asc": "Сортиране във възходящ ред",
+          "desc": "Сортиране в низходящ ред",
+          "none": "Без сортиране"
+        }
+      },
+      "filtering": {
+        "removeLabel": "Премахване на думата за търсене за колона {column}",
+        "menu": {
+          "label": "Търсене в колона {column}",
+          "placeholder": "Търсене в колона"
+        }
+      },
+      "hideColumns": {
+        "revealFlyout": "Списък на скритите колони",
+        "revealTrigger": "Показване на скритите колони",
+        "menu": {
+          "hideButton": "Скриване на колона",
+          "lastColumnTooltip": "Последната колона не може да бъде скрита."
+        }
+      }
+    },
+    "loadMore": "Зареждане на още"
+  },
+  "validations": {
+    "tooShort": {
+      "preview": "Твърде кратко, изискват се минимум {minLength} знака",
+      "fullError": "Въведете поне {minLength} знака. В момента има {n} знака. Някои специални знаци може да се броят за повече от един знак."
+    },
+    "tooLong": {
+      "preview": "Твърде дълго, позволени са максимум {maxLength} знака",
+      "fullError": "Съкратете въведения текст до {maxLength} знака или по-малко. В момента има {n} знака. Някои специални знаци може да се броят за повече от един знак."
+    },
+    "rangeUnderflow": {
+      "preview": "Твърде ниска стойност",
+      "fullError": "Въведената стойност трябва да бъде по-голяма или равна на {min}."
+    },
+    "rangeOverflow": {
+      "preview": "Твърде висока стойност",
+      "fullError": "Въведената стойност трябва да бъде по-малка или равна на {max}."
+    },
+    "patternMismatch": {
+      "preview": "Невалиден формат",
+      "fullError": "Моля, спазвайте изисквания формат."
+    },
+    "valueMissing": {
+      "preview": "Задължително",
+      "fullError": "Полето е празно, то е задължително и трябва да бъде попълнено."
+    },
+    "stepMismatch": {
+      "preview": "Невалидно число",
+      "fullError": "Моля, въведете валидно число, което е кратно на {step}."
+    },
+    "badInput": {
+      "preview": "Невалиден вход",
+      "fullError": "\"{value}\" не съответства на очаквания тип."
+    },
+    "typeMismatch": {
+      "generic": {
+        "preview": "Невалиден тип на въвеждане",
+        "fullError": "\"{value}\" не съответства на очаквания тип."
+      },
+      "email": {
+        "preview": "Невалиден имейл",
+        "fullError": "\"{value}\" не е валиден имейл адрес. Той трябва да бъде подобен на \"ivanivanov{'@'}primer.com\" (Трябва да съдържа един символ {'@'} и точка)."
+      },
+      "number": {
+        "preview": "Невалидно число",
+        "fullError": "\"{value}\" не е валидно число. Уверете се, че съдържа само цифри и по желание една десетична запетая."
+      },
+      "tel": {
+        "preview": "Невалиден телефонен номер",
+        "fullError": "\"{value}\" не е валиден телефонен номер."
+      },
+      "url": {
+        "preview": "Невалиден URL",
+        "fullError": "\"{value}\" не е валиден URL. URL обикновено сочи към уебсайт и трябва да бъде подобен на \"https://www.primer.com\"."
+      }
+    }
+  },
+  "select": {
+    "toggleDropDown": "Превключване на изскачащия прозорец за избор",
+    "empty": "Няма налични данни",
+    "noMatch": "Няма елемент, който да съответства на вашето търсене",
+    "searchInputLabel": "Филтриране на елементите в списъка",
+    "clearSearch": "Изчистване на филтъра за търсене",
+    "searchPlaceholder": "Търсене"
+  },
+  "selections": {
+    "selectAll": "Избор на всички",
+    "selectGroup": "Избрани",
+    "currentSelection": "{n} избран | {n} избрани"
+  },
+  "stepper": {
+    "decrement": "Намаляване с {stepSize}",
+    "increment": "Увеличаване с {stepSize}"
+  },
+  "table": {
+    "empty": "Тази таблица е празна."
+  },
+  "link": {
+    "opensExternally": "(отваря се в нов раздел)"
+  },
+  "navItemOptionsLabel": "Подстраници на {label}",
+  "navigation": {
+    "appLogo": "Лого на приложението {appName}",
+    "goToHome": "Към началната страница",
+    "goBack": "Назад",
+    "moreNavItems": "+{n} още",
+    "moreNavItemsLabel": "Още елементи",
+    "showMoreNavItemsLabel": "Показване на още елементи",
+    "userMenuLabel": "Потребителски опции",
+    "toggleBurgerMenu": "Превключване на бургер менюто",
+    "toggleContextMenu": "Превключване на контекстното меню",
+    "navigationHeadline": "Навигация",
+    "moreActionsFlyout": "Изберете действие за колона \"{column}\"",
+    "moreActionsTrigger": "Превключване на действията за колона"
+  },
+  "tooltip": {
+    "neutral": "Превключване на информационния съвет",
+    "danger": "Превключване на съвета за грешка",
+    "success": "Превключване на съвета за успех"
+  },
+  "colorScheme": {
+    "headline": "Промяна на облика",
+    "subtitle": "Изберете облика на приложението:",
+    "appearance": "Облик",
+    "auto": {
+      "label": "Автоматично",
+      "description": "Приложението автоматично адаптира облика си към системните ви настройки."
+    },
+    "light": {
+      "label": "Светъл",
+      "description": "Светлият режим осигурява оптимален контраст за светли среди."
+    },
+    "dark": {
+      "label": "Тъмен",
+      "description": "Този цветови режим е оптимизиран за по-тъмни среди."
+    }
+  },
+  "pagination": {
+    "label": "Номериране на страници",
+    "ofPages": "от {pages} страница | от {pages} страници",
+    "previous": "предишна страница",
+    "next": "следваща страница",
+    "buttonLabel": "Страница {page}",
+    "morePages": "Още страници между тях",
+    "select": {
+      "label": "Избор на страница",
+      "listLabel": "Налични страници"
+    },
+    "currentOfTotalPages": "1/1 страница | {current}/{total} страници"
+  },
+  "input": {
+    "clear": "Изчистване на въведеното",
+    "showPassword": "Показване на паролата",
+    "hidePassword": "Скриване на паролата"
+  },
+  "dialog": {
+    "close": "Затваряне на диалоговия прозорец"
+  },
+  "headline": {
+    "copyLink": "Копиране на връзка към това заглавие",
+    "copyLinkTo": "Копиране на връзка към заглавие:"
+  },
+  "avatar": {
+    "ariaLabel": "Аватар на {fullName}"
+  },
+  "filterTag": {
+    "clickToAdd": "Добавяне на филтър \"{label}\"",
+    "clickToRemove": "Премахване на филтър \"{label}\""
+  },
+  "languageSelect": {
+    "label": "Език",
+    "headline": "Промяна на езика",
+    "subtitle": "Изберете езика на приложението:"
+  },
+  "resizeHandle": {
+    "label": "Плъзнете, за да промените ширината"
+  },
+  "fileUpload": {
+    "select": "Избор",
+    "clickToUpload": "Кликнете за избор",
+    "orDragAndDrop": "или плъзнете и пуснете файл",
+    "maxFileSize": "Максимален размер на файла",
+    "inTotal": "общо",
+    "maxFileCount": "Максимум {n} файла за избор общо",
+    "allowedFileTypes": "Позволени типове файлове: {types}",
+    "hideFilesButton": "Скриване на всички файлове",
+    "revealFilesButton": "Показване на всички файлове",
+    "removeFile": "Премахване на файл",
+    "requiredError": "Трябва да качите поне един файл",
+    "status": {
+      "fileTypeError": "Файл с разширение '.{extension}' е невалиден",
+      "fileSizeError": "Файлът надвишава максимално допустимия размер от {size}",
+      "maxFileSizeError": "Общият размер на всички файлове надвишава максимално допустимия от {size}",
+      "maxCountError": "Броят на файловете надвишава максимално допустимия от {count}"
+    }
+  },
+  "globalFAB": {
+    "label": "Глобални действия"
+  },
+  "calendar": {
+    "todayButton": {
+      "label": "Днес",
+      "tooltip": "Преминаване към днес"
+    },
+    "calendarWeek": "С",
+    "calendarWeekButtonLabel": "Избор на календарна седмица {weekNumber}",
+    "previousMonthButton": "Предишен месец",
+    "nextMonthButton": "Следващ месец",
+    "monthYearPicker": "Избор на месец и година"
+  },
+  "flyoutMenu": {
+    "moreActions": "Още действия",
+    "toggleActions": {
+      "click": "Кликнете, за да превключите видимостта на действията",
+      "hover": "Посочете/Фокусирайте, за да превключите видимостта на действията"
+    }
+  },
+  "slider": {
+    "decreaseValueBy": "Намаляване на стойността с {n}",
+    "increaseValueBy": "Увеличаване на стойността с {n}",
+    "changeValue": "Промяна на стойността",
+    "changeStartValue": "Промяна на началната стойност",
+    "changeEndValue": "Промяна на крайната стойност"
+  },
+  "codeTabs": {
+    "label": "Фрагменти от код",
+    "copySnippet": "Копиране на кода",
+    "copied": "Копирано!",
+    "failed": "Неуспешно!",
+    "tabLabel": "Код"
+  },
+  "globalSearch": {
+    "label": "Глобално търсене",
+    "searchResults": "Резултати от търсенето",
+    "input": {
+      "label": "Търсене на съдържание",
+      "placeholder": "Търсене..."
+    },
+    "shortcuts": {
+      "move": "Навигиране",
+      "select": "Избор"
+    },
+    "system": "Система"
+  },
+  "timePicker": {
+    "placeholder": {
+      "hour": "ЧЧ",
+      "minute": "ММ",
+      "second": "СС"
+    },
+    "labels": {
+      "iconButton": "Отваряне на избор на час",
+      "popover": "Избор на час",
+      "hour": "Час",
+      "minute": "Минута",
+      "second": "Секунда",
+      "listLabel": "Опции за време"
+    }
+  },
+  "itemsPerPage": {
+    "label": "Елементи на страница",
+    "select": {
+      "listLabel": "Избор на брой елементи на страница"
+    }
+  },
+  "tableOfContents": {
+    "label": "Съдържание"
+  },
+  "key": {
+    "label": "Клавиш \"{name}\""
+  }
+}

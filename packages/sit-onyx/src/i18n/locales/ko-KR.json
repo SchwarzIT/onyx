@@ -1,27 +1,302 @@
 {
-  "optional": "(선택사항)",
+  "yes": "예",
+  "no": "아니요",
+  "optional": "(선택 사항)",
+  "cancel": "취소",
+  "apply": "적용",
+  "back": "뒤로",
+  "close": "닫기",
+  "now": "지금",
+  "breadcrumb": {
+    "label": "브레드크럼 내비게이션",
+    "home": "홈"
+  },
+  "dataGrid": {
+    "head": {
+      "selection": {
+        "selectAll": "모든 행 선택",
+        "deselectAll": "모든 행 선택 해제",
+        "select": "ID가 '{id}'인 행을 선택 항목에 추가합니다.",
+        "deselect": "ID가 '{id}'인 행을 선택 항목에서 제거합니다."
+      },
+      "sorting": {
+        "action": {
+          "asc": "{field} 열을 기준으로 테이블을 오름차순으로 정렬합니다.",
+          "desc": "{field} 열을 기준으로 테이블을 내림차순으로 정렬합니다.",
+          "none": "정렬을 초기화합니다."
+        },
+        "menu": {
+          "asc": "오름차순 정렬",
+          "desc": "내림차순 정렬",
+          "none": "정렬 없음"
+        }
+      },
+      "filtering": {
+        "removeLabel": "{column} 열의 검색어 제거",
+        "menu": {
+          "label": "{column} 열 검색",
+          "placeholder": "열 검색"
+        }
+      },
+      "hideColumns": {
+        "revealFlyout": "숨겨진 열 목록",
+        "revealTrigger": "숨겨진 열 표시",
+        "menu": {
+          "hideButton": "열 숨기기",
+          "lastColumnTooltip": "마지막 열은 숨길 수 없습니다."
+        }
+      }
+    },
+    "loadMore": "더 불러오기"
+  },
   "validations": {
     "tooShort": {
-      "fullError": "{minLength}자 이상으로 입력하세요. (현재 1글자 입력 중) | {minLength}자 이상으로 입력하세요. (현재 {n}글자 입력 중)"
+      "preview": "너무 짧습니다. 최소 {minLength}자 필요",
+      "fullError": "입력 길이를 {minLength}자 이상으로 해주세요. 현재 {n}자입니다. 특수 문자는 한 자 이상으로 계산될 수 있습니다."
     },
     "tooLong": {
-      "fullError": "{maxLength}자 이하로 입력하세요. (현재 1글자 입력 중) | {maxLength}자 이하로 입력하세요. (현재 {n}글자 입력 중)"
+      "preview": "너무 깁니다. 최대 {maxLength}자 허용",
+      "fullError": "입력 길이를 {maxLength}자 이하로 줄여주세요. 현재 {n}자입니다. 특수 문자는 한 자 이상으로 계산될 수 있습니다."
     },
-    "rangeUnderflow": { "fullError": "입력값이 {min}보다 크거나 동일해야 합니다" },
-    "rangeOverflow": { "fullError": "입력값이 {max}보다 작거나 동일해야 합니다" },
-    "patternMismatch": { "fullError": "올바른 형식을 입력해주세요." },
-    "valueMissing": { "fullError": "입력란에 내용을 입력해주세요." },
-    "stepMismatch": { "fullError": "{step}의 배수에 해당하는 값을 입력해주세요." },
-    "badInput": { "fullError": "\"{value}\"는 올바른 타입이 아닙니다." },
+    "rangeUnderflow": {
+      "preview": "너무 낮음",
+      "fullError": "입력값은 {min}보다 크거나 같아야 합니다."
+    },
+    "rangeOverflow": {
+      "preview": "너무 높음",
+      "fullError": "입력값은 {max}보다 작거나 같아야 합니다."
+    },
+    "patternMismatch": {
+      "preview": "유효하지 않은 형식",
+      "fullError": "요청된 형식에 맞춰주세요."
+    },
+    "valueMissing": {
+      "preview": "필수 항목",
+      "fullError": "필드가 비어 있습니다. 필수 항목이므로 반드시 입력해야 합니다."
+    },
+    "stepMismatch": {
+      "preview": "유효하지 않은 숫자",
+      "fullError": "{step}의 배수인 유효한 숫자를 입력해주세요."
+    },
+    "badInput": {
+      "preview": "유효하지 않은 입력",
+      "fullError": "\"{value}\"은(는) 예상된 유형과 일치하지 않습니다."
+    },
     "typeMismatch": {
-      "generic": { "fullError": "\"{value}\"는 올바른 타입이 아닙니다." },
-      "email": { "fullError": "\"{value}\"는 올바른 이메일 형식이어야 합니다." },
-      "number": { "fullError": "\"{value}\"는 반드시 숫자이어야 합니다." },
-      "tel": { "fullError": "\"{value}\"는 올바른 전화번호 형식이어야 합니다." },
-      "url": { "fullError": "\"{value}\"는 올바른 URL 형식이어야 합니다." }
+      "generic": {
+        "preview": "유효하지 않은 입력 유형",
+        "fullError": "\"{value}\"은(는) 예상된 유형과 일치하지 않습니다."
+      },
+      "email": {
+        "preview": "유효하지 않은 메일",
+        "fullError": "\"{value}\"은(는) 유효한 이메일 주소가 아닙니다. \"johndoe{'@'}example.com\"과 유사한 형식이어야 합니다({'@'} 기호와 마침표 포함)."
+      },
+      "number": {
+        "preview": "유효하지 않은 숫자",
+        "fullError": "\"{value}\"은(는) 유효한 숫자가 아닙니다. 숫자만 포함하고, 필요한 경우 소수점 하나만 포함해야 합니다."
+      },
+      "tel": {
+        "preview": "유효하지 않은 전화번호",
+        "fullError": "\"{value}\"은(는) 유효한 전화번호가 아닙니다."
+      },
+      "url": {
+        "preview": "유효하지 않은 URL",
+        "fullError": "\"{value}\"은(는) 유효한 URL이 아닙니다. URL은 보통 웹사이트를 가리키며 \"https://www.example.com\"과 유사해야 합니다."
+      }
     }
   },
+  "select": {
+    "toggleDropDown": "선택 팝오버 토글",
+    "empty": "사용 가능한 데이터가 없습니다",
+    "noMatch": "검색과 일치하는 항목이 없습니다",
+    "searchInputLabel": "목록 항목 필터링",
+    "clearSearch": "검색 필터 지우기",
+    "searchPlaceholder": "검색"
+  },
   "selections": {
-    "selectAll": "모두 선택"
+    "selectAll": "모두 선택",
+    "selectGroup": "선택됨",
+    "currentSelection": "{n}개 선택됨"
+  },
+  "stepper": {
+    "decrement": "{stepSize}만큼 감소",
+    "increment": "{stepSize}만큼 증가"
+  },
+  "table": {
+    "empty": "이 테이블은 비어 있습니다."
+  },
+  "link": {
+    "opensExternally": "(새 탭에서 열림)"
+  },
+  "navItemOptionsLabel": "{label}의 하위 페이지",
+  "navigation": {
+    "appLogo": "{appName}의 앱 로고",
+    "goToHome": "홈 페이지로 이동",
+    "goBack": "뒤로 가기",
+    "moreNavItems": "+{n} 더보기",
+    "moreNavItemsLabel": "더 많은 항목",
+    "showMoreNavItemsLabel": "더 많은 항목 표시",
+    "userMenuLabel": "사용자 옵션",
+    "toggleBurgerMenu": "버거 메뉴 토글",
+    "toggleContextMenu": "컨텍스트 메뉴 토글",
+    "navigationHeadline": "내비게이션",
+    "moreActionsFlyout": "\"{column}\" 열에 대한 작업 선택",
+    "moreActionsTrigger": "열 작업 토글"
+  },
+  "tooltip": {
+    "neutral": "정보 툴팁 토글",
+    "danger": "오류 툴팁 토글",
+    "success": "성공 툴팁 토글"
+  },
+  "colorScheme": {
+    "headline": "화면 모드 변경",
+    "subtitle": "애플리케이션의 화면 모드를 선택하세요:",
+    "appearance": "화면 모드",
+    "auto": {
+      "label": "자동",
+      "description": "애플리케이션이 시스템 설정에 맞춰 화면 모드를 자동으로 조정합니다."
+    },
+    "light": {
+      "label": "라이트",
+      "description": "라이트 모드는 밝은 환경에 최적화된 대비를 제공합니다."
+    },
+    "dark": {
+      "label": "다크",
+      "description": "이 색상 모드는 어두운 환경에 최적화되어 있습니다."
+    }
+  },
+  "pagination": {
+    "label": "페이지네이션",
+    "ofPages": "총 {pages}페이지",
+    "previous": "이전 페이지",
+    "next": "다음 페이지",
+    "buttonLabel": "{page}페이지",
+    "morePages": "중간 페이지 더보기",
+    "select": {
+      "label": "페이지 선택",
+      "listLabel": "사용 가능한 페이지"
+    },
+    "currentOfTotalPages": "총 {total}페이지 중 {current}페이지"
+  },
+  "input": {
+    "clear": "입력 지우기",
+    "showPassword": "비밀번호 표시",
+    "hidePassword": "비밀번호 숨기기"
+  },
+  "dialog": {
+    "close": "대화상자 닫기"
+  },
+  "headline": {
+    "copyLink": "이 제목 링크 복사",
+    "copyLinkTo": "제목 링크 복사:"
+  },
+  "avatar": {
+    "ariaLabel": "{fullName}의 아바타"
+  },
+  "filterTag": {
+    "clickToAdd": "필터 \"{label}\" 추가",
+    "clickToRemove": "필터 \"{label}\" 제거"
+  },
+  "languageSelect": {
+    "label": "언어",
+    "headline": "언어 변경",
+    "subtitle": "애플리케이션의 언어를 선택하세요:"
+  },
+  "resizeHandle": {
+    "label": "드래그하여 너비 변경"
+  },
+  "fileUpload": {
+    "select": "선택",
+    "clickToUpload": "클릭하여 선택",
+    "orDragAndDrop": "또는 파일을 드래그 앤 드롭",
+    "maxFileSize": "최대 파일 크기",
+    "inTotal": "총",
+    "maxFileCount": "총 최대 {n}개 파일 선택 가능",
+    "allowedFileTypes": "허용된 파일 형식: {types}",
+    "hideFilesButton": "모든 파일 숨기기",
+    "revealFilesButton": "모든 파일 표시",
+    "removeFile": "파일 제거",
+    "requiredError": "하나 이상의 파일을 업로드해야 합니다",
+    "status": {
+      "fileTypeError": "확장자가 '.{extension}'인 파일은 유효하지 않습니다",
+      "fileSizeError": "파일이 허용된 최대 크기 {size}를 초과합니다",
+      "maxFileSizeError": "모든 파일의 총 크기가 허용된 최대 크기 {size}를 초과합니다",
+      "maxCountError": "파일 수가 허용된 최대 개수 {count}를 초과합니다"
+    }
+  },
+  "globalFAB": {
+    "label": "전역 작업"
+  },
+  "calendar": {
+    "todayButton": {
+      "label": "오늘",
+      "tooltip": "오늘로 이동"
+    },
+    "calendarWeek": "주",
+    "calendarWeekButtonLabel": "{weekNumber}주 선택",
+    "previousMonthButton": "이전 달",
+    "nextMonthButton": "다음 달",
+    "monthYearPicker": "월 및 연도 선택기"
+  },
+  "flyoutMenu": {
+    "moreActions": "추가 작업",
+    "toggleActions": {
+      "click": "클릭하여 작업 표시 여부 토글",
+      "hover": "호버/포커스하여 작업 표시 여부 토글"
+    }
+  },
+  "slider": {
+    "decreaseValueBy": "값을 {n}만큼 감소",
+    "increaseValueBy": "값을 {n}만큼 증가",
+    "changeValue": "값 변경",
+    "changeStartValue": "시작 값 변경",
+    "changeEndValue": "종료 값 변경"
+  },
+  "codeTabs": {
+    "label": "코드 스니펫",
+    "copySnippet": "코드 복사",
+    "copied": "복사됨!",
+    "failed": "실패!",
+    "tabLabel": "코드"
+  },
+  "globalSearch": {
+    "label": "전체 검색",
+    "searchResults": "검색 결과",
+    "input": {
+      "label": "콘텐츠 검색",
+      "placeholder": "검색..."
+    },
+    "shortcuts": {
+      "move": "탐색",
+      "select": "선택"
+    },
+    "system": "시스템"
+  },
+  "timePicker": {
+    "placeholder": {
+      "hour": "시",
+      "minute": "분",
+      "second": "초"
+    },
+    "labels": {
+      "iconButton": "시간 선택기 열기",
+      "popover": "시간 선택기",
+      "hour": "시",
+      "minute": "분",
+      "second": "초",
+      "listLabel": "시간 옵션"
+    }
+  },
+  "itemsPerPage": {
+    "label": "페이지당 항목 수",
+    "select": {
+      "listLabel": "페이지당 항목 수 선택"
+    }
+  },
+  "tableOfContents": {
+    "label": "목차"
+  },
+  "key": {
+    "label": "\"{name}\" 키"
   }
 }

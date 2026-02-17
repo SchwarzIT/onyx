@@ -1,0 +1,302 @@
+{
+  "yes": "Oui",
+  "no": "Non",
+  "optional": "(facultatif)",
+  "cancel": "Annuler",
+  "apply": "Appliquer",
+  "back": "Retour",
+  "close": "Fermer",
+  "now": "Maintenant",
+  "breadcrumb": {
+    "label": "Fil d'Ariane",
+    "home": "Accueil"
+  },
+  "dataGrid": {
+    "head": {
+      "selection": {
+        "selectAll": "Sélectionner toutes les lignes",
+        "deselectAll": "Désélectionner toutes les lignes",
+        "select": "Ajouter la ligne avec l'ID '{id}' à la sélection.",
+        "deselect": "Retirer la ligne avec l'ID '{id}' de la sélection."
+      },
+      "sorting": {
+        "action": {
+          "asc": "Trier le tableau par ordre croissant selon la colonne {field}.",
+          "desc": "Trier le tableau par ordre décroissant selon la colonne {field}.",
+          "none": "Réinitialiser le tri."
+        },
+        "menu": {
+          "asc": "Tri croissant",
+          "desc": "Tri décroissant",
+          "none": "Aucun tri"
+        }
+      },
+      "filtering": {
+        "removeLabel": "Supprimer le terme de recherche pour la colonne {column}",
+        "menu": {
+          "label": "Rechercher dans la colonne {column}",
+          "placeholder": "Rechercher dans la colonne"
+        }
+      },
+      "hideColumns": {
+        "revealFlyout": "Liste des colonnes masquées",
+        "revealTrigger": "Afficher les colonnes masquées",
+        "menu": {
+          "hideButton": "Masquer la colonne",
+          "lastColumnTooltip": "La dernière colonne ne peut pas être masquée."
+        }
+      }
+    },
+    "loadMore": "Charger plus"
+  },
+  "validations": {
+    "tooShort": {
+      "preview": "Trop court, minimum {minLength} caractères requis",
+      "fullError": "La saisie doit comporter au moins {minLength} caractères. Elle en compte actuellement {n}. Les caractères spéciaux peuvent compter pour plus d'un caractère."
+    },
+    "tooLong": {
+      "preview": "Trop long, maximum {maxLength} caractères autorisés",
+      "fullError": "Raccourcissez la saisie à {maxLength} caractères ou moins. Elle en compte actuellement {n}. Les caractères spéciaux peuvent compter pour plus d'un caractère."
+    },
+    "rangeUnderflow": {
+      "preview": "Trop faible",
+      "fullError": "La valeur saisie doit être supérieure ou égale à {min}."
+    },
+    "rangeOverflow": {
+      "preview": "Trop élevée",
+      "fullError": "La valeur saisie doit être inférieure ou égale à {max}."
+    },
+    "patternMismatch": {
+      "preview": "Format invalide",
+      "fullError": "Veuillez respecter le format demandé."
+    },
+    "valueMissing": {
+      "preview": "Requis",
+      "fullError": "Le champ est vide, il est obligatoire et doit être rempli."
+    },
+    "stepMismatch": {
+      "preview": "Nombre invalide",
+      "fullError": "Veuillez saisir un nombre valide, qui soit un multiple de {step}."
+    },
+    "badInput": {
+      "preview": "Saisie invalide",
+      "fullError": "\"{value}\" ne correspond pas au type attendu."
+    },
+    "typeMismatch": {
+      "generic": {
+        "preview": "Type de saisie invalide",
+        "fullError": "\"{value}\" ne correspond pas au type attendu."
+      },
+      "email": {
+        "preview": "E-mail invalide",
+        "fullError": "\"{value}\" n'est pas une adresse e-mail valide. Elle devrait être similaire à \"jeandupont{'@'}exemple.com\" (doit contenir un symbole {'@'} et un point)."
+      },
+      "number": {
+        "preview": "Nombre invalide",
+        "fullError": "\"{value}\" n'est pas un nombre valide. Assurez-vous qu'il ne contient que des chiffres et, éventuellement, un seul point décimal."
+      },
+      "tel": {
+        "preview": "Numéro de téléphone invalide",
+        "fullError": "\"{value}\" n'est pas un numéro de téléphone valide."
+      },
+      "url": {
+        "preview": "URL invalide",
+        "fullError": "\"{value}\" n'est pas une URL valide. Une URL pointe généralement vers un site web et devrait être similaire à \"https://www.exemple.com\"."
+      }
+    }
+  },
+  "select": {
+    "toggleDropDown": "Afficher/masquer la fenêtre de sélection",
+    "empty": "Aucune donnée disponible",
+    "noMatch": "Aucun élément ne correspond à votre recherche",
+    "searchInputLabel": "Filtrer les éléments de la liste",
+    "clearSearch": "Effacer le filtre de recherche",
+    "searchPlaceholder": "Rechercher"
+  },
+  "selections": {
+    "selectAll": "Tout sélectionner",
+    "selectGroup": "Sélectionnés",
+    "currentSelection": "{n} sélectionné | {n} sélectionnés"
+  },
+  "stepper": {
+    "decrement": "Diminuer de {stepSize}",
+    "increment": "Augmenter de {stepSize}"
+  },
+  "table": {
+    "empty": "Ce tableau est vide."
+  },
+  "link": {
+    "opensExternally": "(s'ouvre dans un nouvel onglet)"
+  },
+  "navItemOptionsLabel": "Sous-pages de {label}",
+  "navigation": {
+    "appLogo": "Logo de l'application {appName}",
+    "goToHome": "Aller à la page d'accueil",
+    "goBack": "Retour",
+    "moreNavItems": "+{n} de plus",
+    "moreNavItemsLabel": "Plus d'éléments",
+    "showMoreNavItemsLabel": "Afficher plus d'éléments",
+    "userMenuLabel": "Options utilisateur",
+    "toggleBurgerMenu": "Afficher/masquer le menu burger",
+    "toggleContextMenu": "Afficher/masquer le menu contextuel",
+    "navigationHeadline": "Navigation",
+    "moreActionsFlyout": "Choisir une action pour la colonne \"{column}\"",
+    "moreActionsTrigger": "Afficher/masquer les actions de la colonne"
+  },
+  "tooltip": {
+    "neutral": "Afficher/masquer l'info-bulle d'information",
+    "danger": "Afficher/masquer l'info-bulle d'erreur",
+    "success": "Afficher/masquer l'info-bulle de succès"
+  },
+  "colorScheme": {
+    "headline": "Changer l'apparence",
+    "subtitle": "Sélectionnez l'apparence de l'application :",
+    "appearance": "Apparence",
+    "auto": {
+      "label": "Auto",
+      "description": "L'application adapte automatiquement son apparence aux paramètres de votre système."
+    },
+    "light": {
+      "label": "Clair",
+      "description": "Le mode clair offre un contraste optimal pour les environnements lumineux."
+    },
+    "dark": {
+      "label": "Sombre",
+      "description": "Ce mode de couleur est optimisé pour les environnements plus sombres."
+    }
+  },
+  "pagination": {
+    "label": "Pagination",
+    "ofPages": "de {pages} page | de {pages} pages",
+    "previous": "page précédente",
+    "next": "page suivante",
+    "buttonLabel": "Page {page}",
+    "morePages": "Plus de pages entre les deux",
+    "select": {
+      "label": "Sélection de page",
+      "listLabel": "Pages disponibles"
+    },
+    "currentOfTotalPages": "1/1 page | {current}/{total} pages"
+  },
+  "input": {
+    "clear": "Effacer la saisie",
+    "showPassword": "Afficher le mot de passe",
+    "hidePassword": "Masquer le mot de passe"
+  },
+  "dialog": {
+    "close": "Fermer la boîte de dialogue"
+  },
+  "headline": {
+    "copyLink": "Copier le lien vers ce titre",
+    "copyLinkTo": "Copier le lien vers le titre :"
+  },
+  "avatar": {
+    "ariaLabel": "Avatar de {fullName}"
+  },
+  "filterTag": {
+    "clickToAdd": "Ajouter le filtre \"{label}\"",
+    "clickToRemove": "Supprimer le filtre \"{label}\""
+  },
+  "languageSelect": {
+    "label": "Langue",
+    "headline": "Changer de langue",
+    "subtitle": "Sélectionnez la langue de l'application :"
+  },
+  "resizeHandle": {
+    "label": "Faire glisser pour changer la largeur"
+  },
+  "fileUpload": {
+    "select": "Sélectionner",
+    "clickToUpload": "Cliquer pour sélectionner",
+    "orDragAndDrop": "ou glisser-déposer un fichier",
+    "maxFileSize": "Taille maximale du fichier",
+    "inTotal": "au total",
+    "maxFileCount": "Maximum {n} fichiers à sélectionner au total",
+    "allowedFileTypes": "Types de fichiers autorisés : {types}",
+    "hideFilesButton": "Masquer tous les fichiers",
+    "revealFilesButton": "Afficher tous les fichiers",
+    "removeFile": "Supprimer le fichier",
+    "requiredError": "Vous devez téléverser au moins un fichier",
+    "status": {
+      "fileTypeError": "Le fichier avec l'extension '.{extension}' est invalide",
+      "fileSizeError": "Le fichier dépasse la taille maximale autorisée de {size}",
+      "maxFileSizeError": "La taille totale de tous les fichiers dépasse le maximum autorisé de {size}",
+      "maxCountError": "Le nombre de fichiers dépasse le maximum autorisé de {count}"
+    }
+  },
+  "globalFAB": {
+    "label": "Actions globales"
+  },
+  "calendar": {
+    "todayButton": {
+      "label": "Aujourd'hui",
+      "tooltip": "Aller à aujourd'hui"
+    },
+    "calendarWeek": "Sem.",
+    "calendarWeekButtonLabel": "Sélectionner la semaine civile {weekNumber}",
+    "previousMonthButton": "Mois précédent",
+    "nextMonthButton": "Mois suivant",
+    "monthYearPicker": "Sélecteur de mois et d'année"
+  },
+  "flyoutMenu": {
+    "moreActions": "Plus d'actions",
+    "toggleActions": {
+      "click": "Cliquer pour afficher/masquer la visibilité des actions",
+      "hover": "Survoler/focaliser pour afficher/masquer la visibilité des actions"
+    }
+  },
+  "slider": {
+    "decreaseValueBy": "Diminuer la valeur de {n}",
+    "increaseValueBy": "Augmenter la valeur de {n}",
+    "changeValue": "Changer la valeur",
+    "changeStartValue": "Changer la valeur de début",
+    "changeEndValue": "Changer la valeur de fin"
+  },
+  "codeTabs": {
+    "label": "Extraits de code",
+    "copySnippet": "Copier le code",
+    "copied": "Copié !",
+    "failed": "Échec !",
+    "tabLabel": "Code"
+  },
+  "globalSearch": {
+    "label": "Recherche globale",
+    "searchResults": "Résultats de la recherche",
+    "input": {
+      "label": "Rechercher du contenu",
+      "placeholder": "Rechercher..."
+    },
+    "shortcuts": {
+      "move": "Naviguer",
+      "select": "Sélectionner"
+    },
+    "system": "Système"
+  },
+  "timePicker": {
+    "placeholder": {
+      "hour": "HH",
+      "minute": "MM",
+      "second": "SS"
+    },
+    "labels": {
+      "iconButton": "Ouvrir le sélecteur d'heure",
+      "popover": "Sélecteur d'heure",
+      "hour": "Heure",
+      "minute": "Minute",
+      "second": "Seconde",
+      "listLabel": "Options d'heure"
+    }
+  },
+  "itemsPerPage": {
+    "label": "Éléments par page",
+    "select": {
+      "listLabel": "Sélectionner le nombre d'éléments par page"
+    }
+  },
+  "tableOfContents": {
+    "label": "Table des matières"
+  },
+  "key": {
+    "label": "Touche \"{name}\""
+  }
+}
