@@ -239,8 +239,8 @@ export * from "./components/OnyxTabs/types.js";
 export { default as OnyxTag } from "./components/OnyxTag/OnyxTag.vue";
 export * from "./components/OnyxTag/types.js";
 
-export { default as OnyxUnstableTimepicker } from "./components/OnyxTimepicker/OnyxTimepicker.vue";
-export * from "./components/OnyxTimepicker/types.js";
+export { default as OnyxUnstableTimePicker } from "./components/OnyxTimePicker/OnyxTimePicker.vue";
+export * from "./components/OnyxTimePicker/types.js";
 
 export { default as OnyxFileCard } from "./components/OnyxFileCard/OnyxFileCard.vue";
 export * from "./components/OnyxFileCard/types.js";

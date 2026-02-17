@@ -1,5 +1,11 @@
 # @sit-onyx/figma-utils
 
+## 1.0.2
+
+### Patch Changes
+
+- 3761d1f: fix(import-icons): continue import when single icon fails
+
 ## 1.0.1
 
 ### Patch Changes

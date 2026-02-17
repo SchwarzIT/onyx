@@ -106,7 +106,7 @@ function getDefaultConfig(options?: DefineOnyxPlaywrightConfigOptions) {
      * See: https://playwright.dev/docs/test-projects
      */
     projects: [
-      { name: "edge", use: { ...devices["Desktop Edge"], channel: "msedge" } },
+      { name: "chrome", use: { ...devices["Desktop Chrome"] } },
       { name: "firefox", use: { ...devices["Desktop Firefox"] } },
       { name: "webkit", use: { ...devices["Desktop Safari"] } },
     ],
