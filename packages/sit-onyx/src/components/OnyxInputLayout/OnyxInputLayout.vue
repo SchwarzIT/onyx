@@ -1,9 +1,20 @@
 <script lang="ts" setup>
+import { iconXSmall } from "@sit-onyx/icons";
+import { computed } from "vue";
+import { injectI18n } from "../../i18n/index.js";
 import { useForwardProps } from "../../utils/props.js";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxInputLayoutProps } from "./types.js";
 
 const props = defineProps<OnyxInputLayoutProps>();
+
+const emit = defineEmits<{
+  /**
+   * Emitted when the clear button is pressed.
+   */
+  clear: [];
+}>();
 
 const slots = defineSlots<{
   default(props: { id: string }): unknown;
@@ -13,7 +24,14 @@ const slots = defineSlots<{
   trailingIcons?(): unknown;
 }>();
 
+const { t } = injectI18n();
+
 const formElementProps = useForwardProps(props, OnyxFormElement);
+
+const shouldShowClearButton = computed(() => {
+  if (props.hideClearIcon) return false;
+  return typeof props.modelValue === "number" ? props.modelValue != undefined : !!props.modelValue;
+});
 </script>
 
 <template>
@@ -31,6 +49,18 @@ const formElementProps = useForwardProps(props, OnyxFormElement);
         <slot :id="inputId"></slot>
 
         <div v-if="slots.trailingIcons" class="onyx-input-layout__icon-right">
+          <button
+            v-if="shouldShowClearButton"
+            type="button"
+            class="onyx-input-layout__button onyx-input-layout__clear"
+            :aria-label="t('input.clear')"
+            :title="t('input.clear')"
+            tabindex="-1"
+            @click="emit('clear')"
+          >
+            <OnyxIcon :icon="iconXSmall" />
+          </button>
+
           <slot name="trailingIcons"></slot>
         </div>
 
@@ -105,6 +135,14 @@ const formElementProps = useForwardProps(props, OnyxFormElement);
 
     &__trailing {
       border-left: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+    }
+
+    // hide clear icon when input is not focussed
+    &:not(&:has(&__wrapper:focus-within)),
+    &:has(&__native:read-only) {
+      .onyx-input-layout__clear {
+        display: none;
+      }
     }
   }
 }

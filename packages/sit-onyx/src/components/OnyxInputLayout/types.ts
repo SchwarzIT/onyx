@@ -1,7 +1,7 @@
 import type { OnyxFormElementProps } from "../OnyxFormElement/types.js";
 
 export type OnyxInputLayoutProps = Pick<
-  OnyxFormElementProps<string>,
+  OnyxFormElementProps<string | number>,
   | "label"
   | "hideLabel"
   | "density"
@@ -17,4 +17,10 @@ export type OnyxInputLayoutProps = Pick<
   | "withCounter"
   | "maxlength"
   | "message"
->;
+  | "modelValue"
+> & {
+  /**
+   * Whether to hide the clear icon.
+   */
+  hideClearIcon?: boolean;
+};
