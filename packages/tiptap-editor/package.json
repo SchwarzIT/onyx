@@ -49,11 +49,11 @@
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",
-    "@tiptap/extension-heading": ">= 3",
-    "@tiptap/extension-text-align": ">= 3",
-    "@tiptap/pm": ">= 3",
-    "@tiptap/starter-kit": ">= 3",
-    "@tiptap/vue-3": ">= 3",
+    "@tiptap/extension-heading": "^3.19.0",
+    "@tiptap/extension-text-align": "^3.19.0",
+    "@tiptap/pm": "^3.19.0",
+    "@tiptap/starter-kit": "^3.19.0",
+    "@tiptap/vue-3": "^3.19.0",
     "sit-onyx": "workspace:^"
   }
 }
