@@ -18,7 +18,8 @@
       "types": "./dist/index.d.ts",
       "node": "./dist/index.js",
       "default": "./dist/index.js"
-    }
+    },
+    "./style.css": "./dist/style.css"
   },
   "repository": {
     "type": "git",

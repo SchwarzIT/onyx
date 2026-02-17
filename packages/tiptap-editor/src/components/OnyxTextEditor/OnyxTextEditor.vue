@@ -12,8 +12,6 @@ import {
   iconToolUnderlined,
   iconUndo,
 } from "@sit-onyx/icons";
-import TextAlign from "@tiptap/extension-text-align";
-import StarterKit from "@tiptap/starter-kit";
 import { EditorContent, mergeAttributes, useEditor } from "@tiptap/vue-3";
 import {
   FORM_INJECTED_SYMBOL,
@@ -31,12 +29,13 @@ import OnyxEditorToolbarGroup from "../OnyxEditorToolbarGroup/OnyxEditorToolbarG
 import HeadingToolbarAction from "./actions/HeadingToolbarAction.vue";
 import LinkToolbarAction from "./actions/LinkToolbarAction.vue";
 import ListToolbarAction from "./actions/ListToolbarAction.vue";
-import { OnyxHeadingExtension } from "./extensions/heading.js";
+import { OnyxStarterKit } from "./extensions/starterKit.js";
 import type { OnyxTextEditorProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxTextEditorProps>(), {
   toolbar: () => ({ position: "top" }),
   disabled: FORM_INJECTED_SYMBOL,
+  extensions: () => [OnyxStarterKit],
 });
 
 const emit = defineEmits<{
@@ -63,26 +62,10 @@ const modelValue = useVModel({
   default: "<p></p>",
 });
 
+// eslint-disable-next-line vue/no-setup-props-reactivity-loss -- documented in props JSDoc that extensions should not be changed at runtime
 const editor = useEditor({
   content: modelValue.value,
-  extensions: [
-    StarterKit.configure({
-      link: {
-        openOnClick: false,
-        defaultProtocol: "https",
-        autolink: true,
-        enableClickSelection: true,
-        HTMLAttributes: {
-          class: "onyx-link",
-        },
-      },
-      heading: false,
-    }),
-    OnyxHeadingExtension,
-    TextAlign.configure({
-      types: ["heading", "paragraph"],
-    }),
-  ],
+  extensions: props.extensions,
   editorProps: {
     attributes: {
       class: "onyx-text-editor__native",

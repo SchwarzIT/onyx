@@ -1,3 +1,4 @@
+import type { Extensions } from "@tiptap/vue-3";
 import type { Nullable, OnyxTextareaProps } from "sit-onyx";
 
 // TODO: consider the following features if possible:
@@ -21,6 +22,11 @@ export type OnyxTextEditorProps = Pick<
    * Toolbar config.
    */
   toolbar?: ToolbarOptions;
+  /**
+   * Tiptap extensions to use. Should not be changed dynamically.
+   * If set, default extensions will be overridden. Use or configure the OnyxStarterKit in this case.
+   */
+  extensions?: Extensions;
 };
 
 export type ToolbarOptions = {

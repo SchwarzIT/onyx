@@ -16,9 +16,4 @@ export const OnyxHeadingExtension = Heading.extend({
       0, // This '0' represents the content hole where text goes
     ];
   },
-}).configure({
-  HTMLAttributes: {
-    class: "onyx-headline",
-  },
-  levels: [1, 2, 3, 4], // we do not want to support h5 and h6 by default
 });

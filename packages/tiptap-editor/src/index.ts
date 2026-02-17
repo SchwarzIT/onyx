@@ -9,4 +9,5 @@ export * from "./components/OnyxEditorToolbarFlyout/types.js";
 
 export { default as OnyxEditorToolbarGroup } from "./components/OnyxEditorToolbarGroup/OnyxEditorToolbarGroup.vue";
 
+export * from "./components/OnyxTextEditor/extensions/index.js";
 export * from "./composables/useEditorUtils.js";
