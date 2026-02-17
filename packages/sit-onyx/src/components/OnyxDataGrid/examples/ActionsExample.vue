@@ -1,11 +1,6 @@
 <script setup lang="ts">
 import { iconMinus, iconPlaceholder, iconPlus } from "@sit-onyx/icons";
-import {
-  createFeature,
-  DataGridFeatures,
-  OnyxDataGrid,
-  type ColumnConfig,
-} from "../../../index.js";
+import { createFeature, OnyxDataGrid, type ColumnConfig } from "../../../index.js";
 
 type TEntry = {
   id: number;
@@ -27,11 +22,6 @@ const columns: ColumnConfig<TEntry>[] = [
   { key: "age", label: "Age", type: "number" },
   { key: "birthday", label: "Birthday", type: "date" },
 ];
-
-/**
- * @see https://storybook.onyx.schwarz/?path=/story/data-datagrid-features--pagination
- */
-const withPagination = DataGridFeatures.usePagination({ pageSize: 2 });
 
 // create a custom reusable data grid feature that you can also e.g. share / re-use in your project
 const withCustomActions = createFeature(() => ({
@@ -73,7 +63,7 @@ const withCustomActions = createFeature(() => ({
   ],
 }));
 
-const features = [withCustomActions, withPagination];
+const features = [withCustomActions];
 </script>
 
 <template>
