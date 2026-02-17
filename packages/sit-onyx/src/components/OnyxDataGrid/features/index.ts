@@ -1,4 +1,4 @@
-import { iconMoreHorizontalSmall } from "@sit-onyx/icons";
+import { iconMoreHorizontalSmall, iconMoreVertical } from "@sit-onyx/icons";
 import {
   computed,
   h,
@@ -16,18 +16,17 @@ import {
 } from "vue";
 import type { ComponentSlots } from "vue-component-type-helpers";
 import { type OnyxI18n } from "../../../i18n/index.js";
-import { OnyxButton, type OnyxButtonProps, type OnyxIconButtonProps } from "../../../index.js";
 import type { Nullable } from "../../../types/index.js";
 import { mergeVueProps } from "../../../utils/attrs.js";
 import { applyMapping, prepareMapping, type OrderableMapping } from "../../../utils/feature.js";
 import { asArray } from "../../../utils/objects.js";
 import OnyxIconButton from "../../OnyxIconButton/OnyxIconButton.vue";
-import type { OnyxMenuItem } from "../../OnyxNavBar/modules/index.js";
+import OnyxMoreList from "../../OnyxMoreList/OnyxMoreList.vue";
+import { OnyxMenuItem } from "../../OnyxNavBar/modules/index.js";
 import OnyxFlyoutMenu from "../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxSeparator from "../../OnyxSeparator/OnyxSeparator.vue";
 import OnyxSystemButton from "../../OnyxSystemButton/OnyxSystemButton.vue";
 import type { OnyxTableSlots, TableColumnGroup } from "../../OnyxTable/types.js";
-import OnyxTooltip from "../../OnyxTooltip/OnyxTooltip.vue";
 import type {
   DataGridRendererCell,
   DataGridRendererColumn,
@@ -39,6 +38,12 @@ import {
   type DataGridEntry,
   type DataGridMetadata,
 } from "../types.js";
+import ActionButton from "./actionButton/ActionButton.vue";
+import {
+  DATA_GRID_ACTIONS_INJECTION_KEY,
+  type ActionGroup,
+  type ActionProps,
+} from "./actionButton/types.js";
 import type { BASE_FEATURE } from "./base/base.js";
 import { createRenderer } from "./renderer.js";
 
@@ -135,66 +140,6 @@ export type InternalColumnConfig<
 export type ColumnTypeNormalized<TKey, TOptions> = { name: TKey; options?: TOptions };
 export type ColumnConfigTypeOption<TKey, TOptions> = TKey | ColumnTypeNormalized<TKey, TOptions>;
 
-type ActionGroup =
-  | string
-  | {
-      /**
-       * name of the group.
-       */
-      name: string;
-      /**
-       * order of the group.
-       */
-      order: number;
-    };
-
-type ActionsBase = {
-  /**
-   * label for the action.
-   */
-  label: string;
-  /**
-   * group for the action.
-   *  All actions that should belong to the same group must have the same name.
-   */
-  group?: ActionGroup;
-  /**
-   * order inside the group.
-   */
-  order?: number;
-  /**
-   * callback function to execute when the action is clicked.
-   * @param config
-   */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- TODO: add proper Types
-  func: (config: ColumnConfig<any, any, any>[]) => void;
-};
-
-type ActionsButton = ActionsBase & {
-  type: "button";
-  /**
-   * Icon for the button.
-   */
-  icon?: string;
-  /**
-   * Props for the button.
-   */
-  props?: Omit<OnyxButtonProps, "label" | "icon">;
-};
-
-type ActionsIconButton = ActionsBase & {
-  type?: "iconButton";
-  /**
-   * Icon for the iconButton.
-   */
-  icon: string;
-  /**
-   * Props for the iconButton.
-   */
-  props?: Omit<OnyxIconButtonProps, "label" | "icon">;
-};
-type ActionsProps = ActionsButton | ActionsIconButton;
-
 /**
  * Normalized column config for public/external usage.
  */
@@ -288,7 +233,7 @@ export type DataGridFeatureDescription<
   /**
    * Allows modifying the action Slot above of the dateGrid
    */
-  actions?: ActionsProps[];
+  actions?: ActionProps[];
 
   /**
    * Defines a renderer for a column type.
@@ -369,7 +314,7 @@ export type DataGridFeatureDescription<
 export type DataGridScrollContainerAttributes = HTMLAttributes & Pick<VNodeProps, "ref">;
 
 export type DataGridFeatureSlots = Partial<{
-  [TSlotName in keyof Pick<OnyxTableSlots, "headline" | "bottomLeft" | "pagination">]: (
+  [TSlotName in keyof Pick<OnyxTableSlots, "headline" | "bottomLeft" | "pagination" | "actions">]: (
     slotContent: () => VNode[],
   ) => Nullable<VNode>[];
 }>;
@@ -724,7 +669,7 @@ export const useDataGridFeatures = <
   };
 
   const createSlots = () => {
-    const slots: InternalDataGridSlots | { actions?: () => VNode[] } = {};
+    const slots: InternalDataGridSlots = {};
     const sortedActions = computed(() => {
       const actions = features.flatMap((f) => f.actions ?? []);
 
@@ -734,7 +679,7 @@ export const useDataGridFeatures = <
         return { name: g.name, order: g.order };
       };
 
-      const groups: Record<string, { order: number; actions: ActionsProps[] }> = {};
+      const groups: Record<string, { order: number; actions: ActionProps[] }> = {};
       actions.forEach((action) => {
         const { name, order } = getGroupInfo(action.group);
 
@@ -757,49 +702,95 @@ export const useDataGridFeatures = <
       const actionsList = sortedActions.value;
       if (actionsList.length === 0) return [];
 
-      const renderedActions: VNode[] = [];
+      const shouldShowSeparator = (list: ActionProps[], currentIndex: number): boolean => {
+        if (currentIndex <= 0) return false;
 
-      actionsList.forEach((action, index) => {
-        if (index > 0) {
-          const getGroupName = (g: ActionGroup | undefined) =>
-            typeof g === "object" && g !== null ? g.name : (g ?? "default");
+        const getGroupName = (g: ActionGroup | undefined) =>
+          typeof g === "object" && g !== null ? g.name : (g ?? "default");
 
-          const prevGroupName = getGroupName(actionsList[index - 1]?.group);
-          const currGroupName = getGroupName(action.group);
+        const prevGroup = getGroupName(list[currentIndex - 1]?.group);
+        const currGroup = getGroupName(list[currentIndex]?.group);
 
-          if (prevGroupName !== currGroupName) {
-            renderedActions.push(h(OnyxSeparator, { orientation: "vertical" }));
-          }
-        }
+        return prevGroup !== currGroup;
+      };
 
-        // Action Renderer
-        const isButton = action.type === "button";
-        const component = isButton ? OnyxButton : OnyxIconButton;
+      return [
+        h(
+          OnyxMoreList,
+          {
+            injectionKey: DATA_GRID_ACTIONS_INJECTION_KEY,
+            direction: "rtl",
+          },
+          {
+            default: ({ attributes }: { attributes: object }) =>
+              h(
+                "div",
+                { ...attributes },
+                actionsList.flatMap((action, index) => {
+                  const nodes = [];
+                  nodes.push(
+                    h(ActionButton, {
+                      ...action,
+                      onClick: () => action.onClick?.(toValue(columnConfig)),
+                      showSeparator: shouldShowSeparator(actionsList, index),
+                    }),
+                  );
+                  return nodes;
+                }),
+              ),
 
-        const baseProps = {
-          label: action.label,
-          icon: action.icon,
-          onClick: () => action.func(toValue(columnConfig)),
-          ...action.props,
-        };
+            more: ({
+              attributes,
+              hiddenElements,
+            }: {
+              attributes: object;
+              hiddenElements: number;
+            }) => {
+              const startIndex = actionsList.length - hiddenElements;
+              const hiddenActions = actionsList.slice(startIndex);
 
-        if (isButton) {
-          renderedActions.push(h(component, baseProps));
-        } else {
-          renderedActions.push(
-            h(
-              OnyxTooltip,
-              { text: action.label },
-              {
-                default: ({ trigger }: { trigger: object }) =>
-                  h(component, { ...baseProps, ...trigger }),
-              },
-            ),
-          );
-        }
-      });
+              return h(
+                OnyxFlyoutMenu,
+                {
+                  ...attributes,
+                  label: i18n.t.value("navigation.showMoreNavItemsLabel"),
+                },
+                {
+                  button: ({ trigger }: { trigger: object }) =>
+                    h(OnyxIconButton, {
+                      ...trigger,
+                      icon: iconMoreVertical,
+                      label: i18n.t.value("navigation.moreNavItems", { n: hiddenElements }),
+                      color: "neutral",
+                    }),
 
-      return renderedActions;
+                  options: () =>
+                    h(
+                      "div",
+                      { class: "onyx-flyout-menu-content" },
+                      hiddenActions.flatMap((action, index) => {
+                        const nodes = [];
+                        if (shouldShowSeparator(hiddenActions, index)) {
+                          nodes.push(h(OnyxSeparator, { orientation: "horizontal" }));
+                        }
+
+                        nodes.push(
+                          h(OnyxMenuItem, {
+                            icon: action?.icon,
+                            label: action.label,
+                            onClick: () => action.onClick?.(toValue(columnConfig)),
+                          }),
+                        );
+
+                        return nodes;
+                      }),
+                    ),
+                },
+              );
+            },
+          },
+        ),
+      ];
     };
 
     features.forEach((feature) => {
