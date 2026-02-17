@@ -25,6 +25,11 @@ export const Default = {
     },
     default: (props) => h("input", props),
     required: true,
+    message: {
+      label: "Message",
+      tooltipText: "Message tooltip",
+    },
+    bottomRight: () => h("span", "42/64"),
   },
 } satisfies Story;
 
