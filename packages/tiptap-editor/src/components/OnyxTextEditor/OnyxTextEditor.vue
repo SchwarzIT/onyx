@@ -31,6 +31,7 @@ import OnyxEditorToolbarGroup from "../OnyxEditorToolbarGroup/OnyxEditorToolbarG
 import HeadingToolbarAction from "./actions/HeadingToolbarAction.vue";
 import LinkToolbarAction from "./actions/LinkToolbarAction.vue";
 import ListToolbarAction from "./actions/ListToolbarAction.vue";
+import { OnyxHeadingExtension } from "./extensions/heading.js";
 import type { OnyxTextEditorProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxTextEditorProps>(), {
@@ -75,13 +76,9 @@ const editor = useEditor({
           class: "onyx-link",
         },
       },
-      heading: {
-        HTMLAttributes: {
-          class: "onyx-headline",
-        },
-        levels: [1, 2, 3, 4], // we do not want to support h5 and h6 by default
-      },
+      heading: false,
     }),
+    OnyxHeadingExtension,
     TextAlign.configure({
       types: ["heading", "paragraph"],
     }),

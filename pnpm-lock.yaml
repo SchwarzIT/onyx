@@ -730,17 +730,20 @@ importers:
       '@sit-onyx/storybook-utils':
         specifier: workspace:^
         version: link:../storybook-utils
+      '@tiptap/extension-heading':
+        specifier: '>= 3'
+        version: 3.19.0(@tiptap/core@3.19.0(@tiptap/pm@3.19.0))
       '@tiptap/extension-text-align':
         specifier: '>= 3'
         version: 3.19.0(@tiptap/core@3.19.0(@tiptap/pm@3.19.0))
       '@tiptap/pm':
-        specifier: ^3.10.4
+        specifier: '>= 3'
         version: 3.19.0
       '@tiptap/starter-kit':
-        specifier: ^3.10.4
+        specifier: '>= 3'
         version: 3.19.0
       '@tiptap/vue-3':
-        specifier: ^3.10.4
+        specifier: '>= 3'
         version: 3.19.0(@floating-ui/dom@1.7.5)(@tiptap/core@3.19.0(@tiptap/pm@3.19.0))(@tiptap/pm@3.19.0)(vue@3.5.28(typescript@5.9.3))
       sit-onyx:
         specifier: workspace:^
