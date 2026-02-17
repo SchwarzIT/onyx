@@ -1,4 +1,4 @@
-import { iconPlaceholder, iconXSmall } from "@sit-onyx/icons";
+import { iconPlaceholder } from "@sit-onyx/icons";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -21,6 +21,7 @@ export const Default = {
   args: {
     label: "Example label",
     labelTooltip: "Label tooltip",
+    modelValue: "Value",
     withCounter: true,
     maxlength: 64,
     required: true,
@@ -29,10 +30,7 @@ export const Default = {
       longMessage: "Long message",
     },
     leadingIcons: () => [h(OnyxIcon, { icon: iconPlaceholder })],
-    trailingIcons: () => [
-      h(OnyxIcon, { icon: iconXSmall }),
-      h(OnyxIcon, { icon: iconPlaceholder }),
-    ],
+    trailingIcons: () => [h(OnyxIcon, { icon: iconPlaceholder })],
     default: ({ id }) => h("input", { class: "onyx-input-layout__native", id }),
   },
 } satisfies Story;
