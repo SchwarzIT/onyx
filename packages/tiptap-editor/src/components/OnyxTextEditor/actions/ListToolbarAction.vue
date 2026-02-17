@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { iconBulletList, iconList } from "@sit-onyx/icons";
+import { iconBulletList, iconList, iconNumberedList } from "@sit-onyx/icons";
 import type { Editor } from "@tiptap/vue-3";
 import { injectI18n } from "sit-onyx";
 import { computed, toRef } from "vue";
@@ -29,7 +29,7 @@ const options = computed(() => {
   if (hasExtension.value("orderedList")) {
     options.push({
       label: t.value("editor.lists.orderedList"),
-      icon: iconBulletList,
+      icon: iconNumberedList,
       active: props.editor?.isActive("orderedList"),
       onClick: () => props.editor?.chain().focus().toggleOrderedList().run(),
     });

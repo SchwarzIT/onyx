@@ -59,12 +59,12 @@ const options = computed(() => {
 
   return options;
 });
-
-const activeIcon = computed(
-  () => options.value.find((option) => option.active)?.icon ?? iconParagraphText,
-);
 </script>
 
 <template>
-  <OnyxEditorToolbarFlyout :label="t('editor.headings.headlines')" :icon="activeIcon" :options />
+  <OnyxEditorToolbarFlyout
+    :label="t('editor.headings.headlines')"
+    :icon="iconParagraphText"
+    :options
+  />
 </template>

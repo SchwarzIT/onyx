@@ -7,7 +7,7 @@ import type { OnyxEditorToolbarFlyoutProps } from "./types.js";
 
 const props = defineProps<OnyxEditorToolbarFlyoutProps>();
 
-const hasActiveOption = computed(() => props.options.some((option) => option.active));
+const activeOption = computed(() => props.options.find((option) => option.active));
 
 const action = useTemplateRef("actionRef");
 </script>
@@ -19,8 +19,8 @@ const action = useTemplateRef("actionRef");
         ref="actionRef"
         v-bind="trigger"
         :label="props.label"
-        :icon="props.icon"
-        :active="hasActiveOption"
+        :icon="activeOption?.icon ?? props.icon"
+        :active="!!activeOption"
       />
 
       <Teleport :to="action?.button?.$el" :disabled="!action?.button?.$el" defer>
