@@ -31,7 +31,7 @@ export type OnyxFormElementV2Props = DensityProp &
     /**
      * Optional message to show below the form element.
      */
-    message?: FormElementV2Message;
+    message?: string | FormElementV2Message;
     /**
      * Whether the a value for this form element is required.
      */
