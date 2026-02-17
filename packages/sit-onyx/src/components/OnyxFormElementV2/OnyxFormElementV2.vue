@@ -4,6 +4,7 @@ import { useDensity } from "../../composables/density.js";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useForwardProps } from "../../utils/props.js";
 import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core.js";
+import OnyxFormElementV2Bottom from "./OnyxFormElementV2Bottom.vue";
 import OnyxFormElementV2Top from "./OnyxFormElementV2Top.vue";
 import type { OnyxFormElementV2Props } from "./types.js";
 
@@ -40,6 +41,10 @@ const slots = defineSlots<{
    * Optional slot to provide custom trailing content after the actual input (e.g. an `OnyxSelect`).
    */
   trailing?(): unknown;
+  /**
+   * Optional slot to display content on the bottom right (e.g. a character counter).
+   */
+  bottomRight?(): unknown;
 }>();
 
 const { densityClass } = useDensity(props);
@@ -54,6 +59,7 @@ const inputProps = computed(() => {
 });
 
 const topProps = useForwardProps(props, OnyxFormElementV2Top);
+const bottomProps = useForwardProps(props, OnyxFormElementV2Bottom);
 </script>
 
 <template>
@@ -82,10 +88,11 @@ const topProps = useForwardProps(props, OnyxFormElementV2Top);
       </div>
     </div>
 
-    <div class="onyx-form-element-v2__bottom onyx-text--small">
-      <!-- TODO: add bottom area -->
-      Bottom
-    </div>
+    <OnyxFormElementV2Bottom v-bind="bottomProps">
+      <template v-if="slots.bottomRight" #bottomRight>
+        <slot name="bottomRight"></slot>
+      </template>
+    </OnyxFormElementV2Bottom>
   </div>
 </template>
 
@@ -115,10 +122,6 @@ const topProps = useForwardProps(props, OnyxFormElementV2Top);
     color: var(--onyx-color-text-icons-neutral-intense);
     font-size: var(--onyx-font-size-md);
     line-height: var(--onyx-font-line-height-md);
-
-    &__bottom {
-      color: var(--onyx-color-text-icons-neutral-soft);
-    }
 
     &__content {
       border-radius: var(--onyx-form-element-v2-border-radius);
