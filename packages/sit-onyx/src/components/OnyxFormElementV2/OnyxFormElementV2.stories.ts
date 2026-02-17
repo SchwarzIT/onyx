@@ -3,35 +3,35 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
-import OnyxInputLayout from "./OnyxInputLayout.vue";
+import OnyxFormElementV2 from "./OnyxFormElementV2.vue";
 
-const meta: Meta<typeof OnyxInputLayout> = {
-  title: "Support/InputLayout",
-  component: OnyxInputLayout,
+const meta: Meta<typeof OnyxFormElementV2> = {
+  title: "Support/FormElementV2",
+  component: OnyxFormElementV2,
   tags: ["unstable"],
   args: {
-    style: "max-width: 24rem",
+    style: "max-width: 32rem",
   },
 };
 
 export default meta;
-type Story = StoryObj<typeof OnyxInputLayout>;
+type Story = StoryObj<typeof OnyxFormElementV2>;
 
 export const Default = {
   args: {
-    label: "Example label",
-    labelTooltip: "Label tooltip",
-    modelValue: "Value",
-    withCounter: true,
-    maxlength: 64,
-    required: true,
-    message: {
-      shortMessage: "Short message",
-      longMessage: "Long message",
-    },
+    label: "Example form element",
+    default: (props) => h("input", props),
+  },
+} satisfies Story;
+
+export const Icons = {
+  args: {
+    ...Default.args,
     leadingIcons: () => [h(OnyxIcon, { icon: iconPlaceholder })],
-    trailingIcons: () => [h(OnyxIcon, { icon: iconPlaceholder })],
-    default: ({ id }) => h("input", { class: "onyx-input-layout__native", id }),
+    trailingIcons: () => [
+      h(OnyxIcon, { icon: iconPlaceholder }),
+      h(OnyxIcon, { icon: iconPlaceholder }),
+    ],
   },
 } satisfies Story;
 
@@ -43,8 +43,8 @@ export const Slots = {
         label: "Label",
         listLabel: "List label",
         hideLabel: true,
-        options: [{ label: "Option 1", value: 1 }],
-        placeholder: "Leading",
+        options: [{ label: "+49", value: "#49" }],
+        placeholder: "+49",
         alignment: "left",
       }),
     trailing: () =>
@@ -52,9 +52,16 @@ export const Slots = {
         label: "Label",
         listLabel: "List label",
         hideLabel: true,
-        options: [{ label: "Option 1", value: 1 }],
-        placeholder: "Trailing",
+        options: [{ label: "kg", value: "kg" }],
+        placeholder: "kg",
         alignment: "right",
       }),
+  },
+} satisfies Story;
+
+export const AllSlots = {
+  args: {
+    ...Icons.args,
+    ...Slots.args,
   },
 } satisfies Story;
