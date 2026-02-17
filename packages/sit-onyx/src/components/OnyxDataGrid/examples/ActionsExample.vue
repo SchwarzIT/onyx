@@ -41,24 +41,34 @@ const withCustomActions = createFeature(() => ({
       label: "Add New Entry",
       icon: iconPlus,
       group: { name: "main", order: 1 },
-      func: () => {},
-      props: {
-        color: "neutral",
-      },
+      onClick: () => {},
+
+      color: "neutral",
     },
     {
       label: "Remove Entry",
       icon: iconMinus,
+      color: "neutral",
       group: "main",
-      func: () => {},
-      props: {
-        color: "neutral",
-      },
+      onClick: () => {},
+    },
+
+    {
+      label: "Others",
+      icon: iconPlaceholder,
+      onClick: () => {},
     },
     {
       label: "Others",
       icon: iconPlaceholder,
-      func: () => {},
+      onClick: () => {},
+    },
+    {
+      displayAs: "button",
+      label: "Button",
+      order: -1,
+      mode: "plain",
+      onClick: () => {},
     },
   ],
 }));

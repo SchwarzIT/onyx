@@ -76,7 +76,12 @@ const columnStyle = computed(() => {
   .onyx-data-grid {
     width: 100%;
     max-width: 100%;
-
+    .onyx-table-wrapper__actions {
+      flex-grow: 1;
+      .onyx-more-list {
+        justify-content: flex-end;
+      }
+    }
     .onyx-table-wrapper__container {
       display: grid;
       grid-template-columns: var(--onyx-data-grid-template-columns);
