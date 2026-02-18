@@ -1,0 +1,54 @@
+import { iconPlaceholder } from "@sit-onyx/icons";
+import type { Meta, StoryObj } from "@storybook/vue3-vite";
+import { h } from "vue";
+import OnyxEditorToolbarAction from "../OnyxEditorToolbarAction/OnyxEditorToolbarAction.vue";
+import OnyxEditorToolbarFlyout from "../OnyxEditorToolbarFlyout/OnyxEditorToolbarFlyout.vue";
+import OnyxTextEditor from "./OnyxTextEditor.vue";
+
+const meta: Meta<typeof OnyxTextEditor> = {
+  title: "TextEditor",
+  component: OnyxTextEditor,
+  argTypes: {
+    actions: { control: { disable: true } },
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof OnyxTextEditor>;
+
+export const Default = {
+  args: {
+    label: "Example editor",
+  },
+} satisfies Story;
+
+export const BottomToolbar = {
+  args: {
+    ...Default.args,
+    toolbar: { position: "bottom" },
+  },
+} satisfies Story;
+
+export const InitialValue = {
+  args: {
+    ...Default.args,
+    modelValue: `<p><strong>This</strong> is <em>example</em> <a target="_blank" rel="noopener noreferrer nofollow" class="onyx-link" href="https://onyx.schwarz">content</a> <u>for</u> <s><u>testing</u></s>.</p><p></p><ol><li><p>A</p></li><li><p>B</p></li></ol><p></p><ul><li><p>C</p></li><li><p>D</p></li></ul><p></p><h1 class="onyx-headline">Headline 1</h1><p></p><h2 class="onyx-headline">Headline 2</h2><p></p><h3 class="onyx-headline">Headline 3</h3><p></p><h4 class="onyx-headline">Headline 4</h4><p></p><p></p><p style="text-align: left;">Left aligned</p><p style="text-align: center;">Centered</p><p style="text-align: right;">Right aligned</p><p style="text-align: justify;">Block aligned</p><p style="text-align: justify;"></p><blockquote><p style="text-align: justify;">Blockquote</p></blockquote><p></p>`,
+  },
+} satisfies Story;
+
+export const CustomActions = {
+  args: {
+    ...Default.args,
+    actions: () => [
+      h(OnyxEditorToolbarFlyout, {
+        label: "Example action",
+        icon: iconPlaceholder,
+        options: [
+          { label: "Action 1", icon: iconPlaceholder },
+          { label: "Action 2", icon: iconPlaceholder },
+        ],
+      }),
+      h(OnyxEditorToolbarAction, { label: "Example action", icon: iconPlaceholder }),
+    ],
+  },
+} satisfies Story;
