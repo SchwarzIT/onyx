@@ -4,6 +4,7 @@ import { useDensity } from "../../composables/density.js";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useForwardProps } from "../../utils/props.js";
 import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core.js";
+import MaybePopoverLayout from "./MaybePopoverLayout.vue";
 import OnyxFormElementV2Bottom from "./OnyxFormElementV2Bottom.vue";
 import OnyxFormElementV2Top from "./OnyxFormElementV2Top.vue";
 import type { OnyxFormElementV2Props } from "./types.js";
@@ -45,6 +46,11 @@ const slots = defineSlots<{
    * Optional slot to display content on the bottom right (e.g. a character counter).
    */
   bottomRight?(): unknown;
+  /**
+   * Optional popover content. If set, a popover will be wrapped around the main input area.
+   * Note: The input should typically be readonly or disabled when using a popover.
+   */
+  popover?(): unknown;
 }>();
 
 const { densityClass } = useDensity(props);
@@ -60,6 +66,7 @@ const inputProps = computed(() => {
 
 const topProps = useForwardProps(props, OnyxFormElementV2Top);
 const bottomProps = useForwardProps(props, OnyxFormElementV2Bottom);
+const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
 </script>
 
 <template>
@@ -71,17 +78,25 @@ const bottomProps = useForwardProps(props, OnyxFormElementV2Bottom);
         <slot name="leading"></slot>
       </div>
 
-      <div class="onyx-form-element-v2__input-container">
-        <div v-if="slots.leadingIcons" class="onyx-form-element-v2__icons">
-          <slot name="leadingIcons"></slot>
-        </div>
+      <MaybePopoverLayout v-bind="popoverLayoutProps">
+        <template #default="{ trigger }">
+          <div v-bind="trigger" class="onyx-form-element-v2__input-container">
+            <div v-if="slots.leadingIcons" class="onyx-form-element-v2__icons">
+              <slot name="leadingIcons"></slot>
+            </div>
 
-        <slot v-bind="inputProps"></slot>
+            <slot v-bind="inputProps"></slot>
 
-        <div v-if="slots.trailingIcons" class="onyx-form-element-v2__icons">
-          <slot name="trailingIcons"></slot>
-        </div>
-      </div>
+            <div v-if="slots.trailingIcons" class="onyx-form-element-v2__icons">
+              <slot name="trailingIcons"></slot>
+            </div>
+          </div>
+        </template>
+
+        <template v-if="slots.popover" #popover>
+          <slot name="popover"></slot>
+        </template>
+      </MaybePopoverLayout>
 
       <div v-if="slots.trailing" class="onyx-form-element-v2__slot">
         <slot name="trailing"></slot>
@@ -214,6 +229,12 @@ const bottomProps = useForwardProps(props, OnyxFormElementV2Bottom);
 
     &__tooltip {
       margin-left: var(--onyx-spacing-2xs);
+    }
+
+    &:has(&__bottom:not(:empty)) {
+      .onyx-form-element-v2__popover {
+        --onyx-basic-popover-gap: var(--onyx-form-element-v2-bottom-height);
+      }
     }
   }
 }
