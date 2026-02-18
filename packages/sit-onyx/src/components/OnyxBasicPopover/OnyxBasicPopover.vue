@@ -23,6 +23,7 @@ const props = withDefaults(defineProps<OnyxBasicPopoverProps>(), {
   alignment: "auto",
   role: "dialog",
   sticky: false,
+  open: undefined,
 });
 
 defineSlots<{
