@@ -1,31 +1,23 @@
 <script lang="ts" setup>
 import { iconChevronDownSmall } from "@sit-onyx/icons";
 import { OnyxFlyoutMenu, OnyxIcon, OnyxMenuItem } from "sit-onyx";
-import { computed, useTemplateRef } from "vue";
+import { computed } from "vue";
 import OnyxEditorToolbarAction from "../OnyxEditorToolbarAction/OnyxEditorToolbarAction.vue";
 import type { OnyxEditorToolbarFlyoutProps } from "./types.js";
 
 const props = defineProps<OnyxEditorToolbarFlyoutProps>();
 
 const activeOption = computed(() => props.options.find((option) => option.active));
-
-const action = useTemplateRef("actionRef");
+const icon = computed(() => activeOption.value?.icon ?? props.icon);
 </script>
 
 <template>
   <OnyxFlyoutMenu :label="props.label">
     <template #button="{ trigger }">
-      <OnyxEditorToolbarAction
-        ref="actionRef"
-        v-bind="trigger"
-        :label="props.label"
-        :icon="activeOption?.icon ?? props.icon"
-        :active="!!activeOption"
-      />
-
-      <Teleport :to="action?.button?.$el" :disabled="!action?.button?.$el" defer>
+      <OnyxEditorToolbarAction v-bind="trigger" :label="props.label" :icon :active="!!activeOption">
+        <OnyxIcon :icon />
         <OnyxIcon class="onyx-editor-toolbar-flyout__chevron" :icon="iconChevronDownSmall" />
-      </Teleport>
+      </OnyxEditorToolbarAction>
     </template>
 
     <template #options>

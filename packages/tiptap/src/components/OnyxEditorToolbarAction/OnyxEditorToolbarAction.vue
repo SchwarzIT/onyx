@@ -1,19 +1,17 @@
 <script lang="ts" setup>
 import { mergeVueProps, OnyxSystemButton, OnyxTooltip, useForwardProps } from "sit-onyx";
-import { useTemplateRef } from "vue";
 import type { OnyxEditorToolbarActionProps } from "./types.js";
 
 const props = defineProps<OnyxEditorToolbarActionProps>();
 
-const systemButtonProps = useForwardProps(props, OnyxSystemButton);
-const button = useTemplateRef("buttonRef");
-
-defineExpose({
+defineSlots<{
   /**
-   * Template ref to the actual system button.
+   * Optional slot to override the button content.
    */
-  button,
-});
+  default?(): unknown;
+}>();
+
+const systemButtonProps = useForwardProps(props, OnyxSystemButton);
 </script>
 
 <template>
@@ -21,11 +19,12 @@ defineExpose({
     <template #default="{ trigger }">
       <!-- empty title is used to hide the native browser tooltip since we provide a custom tooltip here -->
       <OnyxSystemButton
-        ref="buttonRef"
         v-bind="mergeVueProps(systemButtonProps, trigger)"
         :class="{ active: props.active }"
         title=""
-      />
+      >
+        <slot></slot>
+      </OnyxSystemButton>
     </template>
   </OnyxTooltip>
 </template>
