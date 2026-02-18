@@ -17,7 +17,7 @@ defineExpose({
 </script>
 
 <template>
-  <OnyxTooltip class="onyx-editor-toolbar-action" :text="props.label">
+  <OnyxTooltip class="onyx-editor-toolbar-action" :text="props.label" position="top">
     <template #default="{ trigger }">
       <!-- empty title is used to hide the native browser tooltip since we provide a custom tooltip here -->
       <OnyxSystemButton
