@@ -1,0 +1,302 @@
+{
+  "yes": "Ja",
+  "no": "Nee",
+  "optional": "(optioneel)",
+  "cancel": "Annuleren",
+  "apply": "Toepassen",
+  "back": "Terug",
+  "close": "Sluiten",
+  "now": "Nu",
+  "breadcrumb": {
+    "label": "Kruimelpadnavigatie",
+    "home": "Home"
+  },
+  "dataGrid": {
+    "head": {
+      "selection": {
+        "selectAll": "Selecteer alle rijen",
+        "deselectAll": "Deselecteer alle rijen",
+        "select": "Rij met ID '{id}' toevoegen aan de selectie.",
+        "deselect": "Rij met ID '{id}' verwijderen uit de selectie."
+      },
+      "sorting": {
+        "action": {
+          "asc": "Sorteer de tabel oplopend op de kolom {field}.",
+          "desc": "Sorteer de tabel aflopend op de kolom {field}.",
+          "none": "Sortering resetten."
+        },
+        "menu": {
+          "asc": "Oplopend sorteren",
+          "desc": "Aflopend sorteren",
+          "none": "Geen sortering"
+        }
+      },
+      "filtering": {
+        "removeLabel": "Zoekterm voor kolom {column} verwijderen",
+        "menu": {
+          "label": "Zoek kolom {column}",
+          "placeholder": "Zoek kolom"
+        }
+      },
+      "hideColumns": {
+        "revealFlyout": "Lijst van verborgen kolommen",
+        "revealTrigger": "Toon verborgen kolommen",
+        "menu": {
+          "hideButton": "Verberg kolom",
+          "lastColumnTooltip": "De laatste kolom kan niet worden verborgen."
+        }
+      }
+    },
+    "loadMore": "Meer laden"
+  },
+  "validations": {
+    "tooShort": {
+      "preview": "Te kort, minimaal {minLength} tekens vereist",
+      "fullError": "Maak de invoer minstens {minLength} tekens lang. Het is momenteel {n} tekens lang. Speciale tekens kunnen meer dan één teken in beslag nemen."
+    },
+    "tooLong": {
+      "preview": "Te lang, maximaal {maxLength} tekens toegestaan",
+      "fullError": "Verkort de invoer tot {maxLength} tekens of minder. Het is momenteel {n} tekens lang. Speciale tekens kunnen meer dan één teken in beslag nemen."
+    },
+    "rangeUnderflow": {
+      "preview": "Te laag",
+      "fullError": "Invoerwaarde moet groter dan of gelijk aan {min} zijn."
+    },
+    "rangeOverflow": {
+      "preview": "Te hoog",
+      "fullError": "Invoerwaarde moet kleiner dan of gelijk aan {max} zijn."
+    },
+    "patternMismatch": {
+      "preview": "Ongeldig formaat",
+      "fullError": "Gelieve het gevraagde formaat te gebruiken."
+    },
+    "valueMissing": {
+      "preview": "Verplicht",
+      "fullError": "Het veld is leeg, het is verplicht en moet worden ingevuld."
+    },
+    "stepMismatch": {
+      "preview": "Ongeldig getal",
+      "fullError": "Voer een geldig getal in dat een veelvoud is van {step}."
+    },
+    "badInput": {
+      "preview": "Ongeldige invoer",
+      "fullError": "\"{value}\" komt niet overeen met het verwachte type."
+    },
+    "typeMismatch": {
+      "generic": {
+        "preview": "Ongeldig invoertype",
+        "fullError": "\"{value}\" komt niet overeen met het verwachte type."
+      },
+      "email": {
+        "preview": "Ongeldige e-mail",
+        "fullError": "\"{value}\" is geen geldig e-mailadres. Het moet lijken op \"jan.jansen{'@'}voorbeeld.nl\" (moet één {'@'}-symbool en een punt bevatten)."
+      },
+      "number": {
+        "preview": "Ongeldig getal",
+        "fullError": "\"{value}\" is geen geldig getal. Zorg ervoor dat het alleen cijfers bevat, en eventueel een enkel decimaalteken."
+      },
+      "tel": {
+        "preview": "Ongeldig telefoonnummer",
+        "fullError": "\"{value}\" is geen geldig telefoonnummer."
+      },
+      "url": {
+        "preview": "Ongeldige URL",
+        "fullError": "\"{value}\" is geen geldige URL. Een URL verwijst meestal naar een website en moet lijken op \"https://www.voorbeeld.nl\"."
+      }
+    }
+  },
+  "select": {
+    "toggleDropDown": "Selectiepop-up tonen/verbergen",
+    "empty": "Geen gegevens beschikbaar",
+    "noMatch": "Geen item komt overeen met uw zoekopdracht",
+    "searchInputLabel": "Filter de lijstitems",
+    "clearSearch": "Zoekfilter wissen",
+    "searchPlaceholder": "Zoeken"
+  },
+  "selections": {
+    "selectAll": "Alles selecteren",
+    "selectGroup": "Geselecteerd",
+    "currentSelection": "{n} geselecteerd"
+  },
+  "stepper": {
+    "decrement": "Verlagen met {stepSize}",
+    "increment": "Verhogen met {stepSize}"
+  },
+  "table": {
+    "empty": "Deze tabel is leeg."
+  },
+  "link": {
+    "opensExternally": "(opent in een nieuw tabblad)"
+  },
+  "navItemOptionsLabel": "Subpagina's van {label}",
+  "navigation": {
+    "appLogo": "App-logo van {appName}",
+    "goToHome": "Ga naar de startpagina",
+    "goBack": "Ga terug",
+    "moreNavItems": "+{n} Meer",
+    "moreNavItemsLabel": "Meer items",
+    "showMoreNavItemsLabel": "Toon meer items",
+    "userMenuLabel": "Gebruikersopties",
+    "toggleBurgerMenu": "Hamburgermenu tonen/verbergen",
+    "toggleContextMenu": "Contextmenu tonen/verbergen",
+    "navigationHeadline": "Navigatie",
+    "moreActionsFlyout": "Kies een actie voor de kolom \"{column}\"",
+    "moreActionsTrigger": "Kolomacties tonen/verbergen"
+  },
+  "tooltip": {
+    "neutral": "Info-tooltip tonen/verbergen",
+    "danger": "Fout-tooltip tonen/verbergen",
+    "success": "Succes-tooltip tonen/verbergen"
+  },
+  "colorScheme": {
+    "headline": "Wijzig weergave",
+    "subtitle": "Selecteer de weergave van de applicatie:",
+    "appearance": "Weergave",
+    "auto": {
+      "label": "Auto",
+      "description": "De applicatie past haar uiterlijk automatisch aan uw systeeminstellingen aan."
+    },
+    "light": {
+      "label": "Licht",
+      "description": "De lichte modus biedt optimaal contrast voor lichte omgevingen."
+    },
+    "dark": {
+      "label": "Donker",
+      "description": "Deze kleurmodus is geoptimaliseerd voor donkere omgevingen."
+    }
+  },
+  "pagination": {
+    "label": "Paginering",
+    "ofPages": "van {pages} pagina | van {pages} pagina's",
+    "previous": "vorige pagina",
+    "next": "volgende pagina",
+    "buttonLabel": "Pagina {page}",
+    "morePages": "Meer pagina's ertussen",
+    "select": {
+      "label": "Paginaselectie",
+      "listLabel": "Beschikbare pagina's"
+    },
+    "currentOfTotalPages": "1/1 pagina | {current}/{total} pagina's"
+  },
+  "input": {
+    "clear": "Invoer wissen",
+    "showPassword": "Wachtwoord tonen",
+    "hidePassword": "Wachtwoord verbergen"
+  },
+  "dialog": {
+    "close": "Dialoogvenster sluiten"
+  },
+  "headline": {
+    "copyLink": "Link naar deze kop kopiëren",
+    "copyLinkTo": "Link kopiëren naar kop:"
+  },
+  "avatar": {
+    "ariaLabel": "Avatar van {fullName}"
+  },
+  "filterTag": {
+    "clickToAdd": "Filter \"{label}\" toevoegen",
+    "clickToRemove": "Filter \"{label}\" verwijderen"
+  },
+  "languageSelect": {
+    "label": "Taal",
+    "headline": "Taal wijzigen",
+    "subtitle": "Selecteer de taal van de applicatie:"
+  },
+  "resizeHandle": {
+    "label": "Sleep om de breedte te wijzigen"
+  },
+  "fileUpload": {
+    "select": "Selecteren",
+    "clickToUpload": "Klik om te selecteren",
+    "orDragAndDrop": "of sleep een bestand hierheen",
+    "maxFileSize": "Maximale bestandsgrootte",
+    "inTotal": "in totaal",
+    "maxFileCount": "Maximaal {n} bestanden in totaal te selecteren",
+    "allowedFileTypes": "Toegestane bestandstypen: {types}",
+    "hideFilesButton": "Verberg alle bestanden",
+    "revealFilesButton": "Toon alle bestanden",
+    "removeFile": "Bestand verwijderen",
+    "requiredError": "U moet ten minste één bestand uploaden",
+    "status": {
+      "fileTypeError": "Bestand met extensie '.{extension}' is ongeldig",
+      "fileSizeError": "Bestand overschrijdt de maximaal toegestane grootte van {size}",
+      "maxFileSizeError": "Totale grootte van alle bestanden overschrijdt het toegestane maximum van {size}",
+      "maxCountError": "Aantal bestanden overschrijdt het toegestane maximum van {count}"
+    }
+  },
+  "globalFAB": {
+    "label": "Globale acties"
+  },
+  "calendar": {
+    "todayButton": {
+      "label": "Vandaag",
+      "tooltip": "Spring naar vandaag"
+    },
+    "calendarWeek": "KW",
+    "calendarWeekButtonLabel": "Selecteer kalenderweek {weekNumber}",
+    "previousMonthButton": "Vorige maand",
+    "nextMonthButton": "Volgende maand",
+    "monthYearPicker": "Maand- en jaarkiezer"
+  },
+  "flyoutMenu": {
+    "moreActions": "Meer acties",
+    "toggleActions": {
+      "click": "Klik om de zichtbaarheid van acties te wisselen",
+      "hover": "Beweeg/focus om de zichtbaarheid van acties te wisselen"
+    }
+  },
+  "slider": {
+    "decreaseValueBy": "Waarde verlagen met {n}",
+    "increaseValueBy": "Waarde verhogen met {n}",
+    "changeValue": "Waarde wijzigen",
+    "changeStartValue": "Startwaarde wijzigen",
+    "changeEndValue": "Eindwaarde wijzigen"
+  },
+  "codeTabs": {
+    "label": "Codefragmenten",
+    "copySnippet": "Kopieer code",
+    "copied": "Gekopieerd!",
+    "failed": "Mislukt!",
+    "tabLabel": "Code"
+  },
+  "globalSearch": {
+    "label": "Globaal zoeken",
+    "searchResults": "Zoekresultaten",
+    "input": {
+      "label": "Zoeken naar inhoud",
+      "placeholder": "Zoeken..."
+    },
+    "shortcuts": {
+      "move": "Navigeren",
+      "select": "Selecteren"
+    },
+    "system": "Systeem"
+  },
+  "timePicker": {
+    "placeholder": {
+      "hour": "UU",
+      "minute": "MM",
+      "second": "SS"
+    },
+    "labels": {
+      "iconButton": "Tijdkiezer openen",
+      "popover": "Tijdkiezer",
+      "hour": "Uur",
+      "minute": "Minuut",
+      "second": "Seconde",
+      "listLabel": "Tijdopties"
+    }
+  },
+  "itemsPerPage": {
+    "label": "Items per pagina",
+    "select": {
+      "listLabel": "Selecteer aantal items per pagina"
+    }
+  },
+  "tableOfContents": {
+    "label": "Inhoudsopgave"
+  },
+  "key": {
+    "label": "\"{name}\"-toets"
+  }
+}

@@ -1,0 +1,302 @@
+{
+  "yes": "Sí",
+  "no": "No",
+  "optional": "(opcional)",
+  "cancel": "Cancelar",
+  "apply": "Aplicar",
+  "back": "Atrás",
+  "close": "Cerrar",
+  "now": "Ahora",
+  "breadcrumb": {
+    "label": "Navegación de migas de pan",
+    "home": "Inicio"
+  },
+  "dataGrid": {
+    "head": {
+      "selection": {
+        "selectAll": "Seleccionar todas las filas",
+        "deselectAll": "Deseleccionar todas las filas",
+        "select": "Añadir fila con ID '{id}' a la selección.",
+        "deselect": "Eliminar fila con ID '{id}' de la selección."
+      },
+      "sorting": {
+        "action": {
+          "asc": "Ordenar la tabla de forma ascendente por la columna {field}.",
+          "desc": "Ordenar la tabla de forma descendente por la columna {field}.",
+          "none": "Restablecer ordenación."
+        },
+        "menu": {
+          "asc": "Ordenar ascendentemente",
+          "desc": "Ordenar descendentemente",
+          "none": "Sin ordenación"
+        }
+      },
+      "filtering": {
+        "removeLabel": "Eliminar término de búsqueda para la columna {column}",
+        "menu": {
+          "label": "Buscar en la columna {column}",
+          "placeholder": "Buscar en la columna"
+        }
+      },
+      "hideColumns": {
+        "revealFlyout": "Lista de columnas ocultas",
+        "revealTrigger": "Mostrar columnas ocultas",
+        "menu": {
+          "hideButton": "Ocultar columna",
+          "lastColumnTooltip": "La última columna no se puede ocultar."
+        }
+      }
+    },
+    "loadMore": "Cargar más"
+  },
+  "validations": {
+    "tooShort": {
+      "preview": "Demasiado corto, se requieren un mínimo de {minLength} caracteres",
+      "fullError": "El texto debe tener al menos {minLength} caracteres. Actualmente tiene {n} caracteres. Los caracteres especiales pueden contar como más de un carácter."
+    },
+    "tooLong": {
+      "preview": "Demasiado largo, se permiten un máximo de {maxLength} caracteres",
+      "fullError": "Acorte el texto a {maxLength} caracteres o menos. Actualmente tiene {n} caracteres. Los caracteres especiales pueden contar como más de un carácter."
+    },
+    "rangeUnderflow": {
+      "preview": "Valor demasiado bajo",
+      "fullError": "El valor introducido debe ser mayor o igual que {min}."
+    },
+    "rangeOverflow": {
+      "preview": "Valor demasiado alto",
+      "fullError": "El valor introducido debe ser menor o igual que {max}."
+    },
+    "patternMismatch": {
+      "preview": "Formato no válido",
+      "fullError": "Por favor, utilice el formato solicitado."
+    },
+    "valueMissing": {
+      "preview": "Obligatorio",
+      "fullError": "El campo está vacío, es obligatorio y debe rellenarse."
+    },
+    "stepMismatch": {
+      "preview": "Número no válido",
+      "fullError": "Por favor, introduzca un número válido que sea múltiplo de {step}."
+    },
+    "badInput": {
+      "preview": "Entrada no válida",
+      "fullError": "\"{value}\" no coincide con el tipo esperado."
+    },
+    "typeMismatch": {
+      "generic": {
+        "preview": "Tipo de entrada no válido",
+        "fullError": "\"{value}\" no coincide con el tipo esperado."
+      },
+      "email": {
+        "preview": "Correo no válido",
+        "fullError": "\"{value}\" no es una dirección de correo electrónico válida. Debería ser similar a \"juanperez{'@'}ejemplo.com\" (Debe contener un símbolo {'@'} y un punto)."
+      },
+      "number": {
+        "preview": "Número no válido",
+        "fullError": "\"{value}\" no es un número válido. Asegúrese de que solo contiene dígitos y, opcionalmente, un único punto decimal."
+      },
+      "tel": {
+        "preview": "Número de teléfono no válido",
+        "fullError": "\"{value}\" no es un número de teléfono válido."
+      },
+      "url": {
+        "preview": "URL no válida",
+        "fullError": "\"{value}\" no es una URL válida. Una URL suele apuntar a un sitio web y debería ser similar a \"https://www.ejemplo.com\"."
+      }
+    }
+  },
+  "select": {
+    "toggleDropDown": "Alternar ventana emergente de selección",
+    "empty": "No hay datos disponibles",
+    "noMatch": "Ningún elemento coincide con su búsqueda",
+    "searchInputLabel": "Filtrar los elementos de la lista",
+    "clearSearch": "Borrar filtro de búsqueda",
+    "searchPlaceholder": "Buscar"
+  },
+  "selections": {
+    "selectAll": "Seleccionar todo",
+    "selectGroup": "Seleccionados",
+    "currentSelection": "{n} seleccionado | {n} seleccionados"
+  },
+  "stepper": {
+    "decrement": "Disminuir en {stepSize}",
+    "increment": "Aumentar en {stepSize}"
+  },
+  "table": {
+    "empty": "Esta tabla está vacía."
+  },
+  "link": {
+    "opensExternally": "(se abre en una nueva pestaña)"
+  },
+  "navItemOptionsLabel": "Subpáginas de {label}",
+  "navigation": {
+    "appLogo": "Logo de la aplicación {appName}",
+    "goToHome": "Ir a la página de inicio",
+    "goBack": "Volver",
+    "moreNavItems": "+{n} más",
+    "moreNavItemsLabel": "Más elementos",
+    "showMoreNavItemsLabel": "Mostrar más elementos",
+    "userMenuLabel": "Opciones de usuario",
+    "toggleBurgerMenu": "Alternar menú de hamburguesa",
+    "toggleContextMenu": "Alternar menú contextual",
+    "navigationHeadline": "Navegación",
+    "moreActionsFlyout": "Elija una acción para la columna \"{column}\"",
+    "moreActionsTrigger": "Alternar acciones de columna"
+  },
+  "tooltip": {
+    "neutral": "Alternar información sobre herramientas",
+    "danger": "Alternar información de error",
+    "success": "Alternar información de éxito"
+  },
+  "colorScheme": {
+    "headline": "Cambiar apariencia",
+    "subtitle": "Seleccione la apariencia de la aplicación:",
+    "appearance": "Apariencia",
+    "auto": {
+      "label": "Automático",
+      "description": "La aplicación adapta automáticamente su apariencia a la configuración de su sistema."
+    },
+    "light": {
+      "label": "Claro",
+      "description": "El modo claro proporciona un contraste óptimo para entornos luminosos."
+    },
+    "dark": {
+      "label": "Oscuro",
+      "description": "Este modo de color está optimizado para entornos más oscuros."
+    }
+  },
+  "pagination": {
+    "label": "Paginación",
+    "ofPages": "de {pages} página | de {pages} páginas",
+    "previous": "página anterior",
+    "next": "página siguiente",
+    "buttonLabel": "Página {page}",
+    "morePages": "Más páginas intermedias",
+    "select": {
+      "label": "Selección de página",
+      "listLabel": "Páginas disponibles"
+    },
+    "currentOfTotalPages": "1/1 página | {current}/{total} páginas"
+  },
+  "input": {
+    "clear": "Borrar entrada",
+    "showPassword": "Mostrar contraseña",
+    "hidePassword": "Ocultar contraseña"
+  },
+  "dialog": {
+    "close": "Cerrar diálogo"
+  },
+  "headline": {
+    "copyLink": "Copiar enlace a este titular",
+    "copyLinkTo": "Copiar enlace al titular:"
+  },
+  "avatar": {
+    "ariaLabel": "Avatar de {fullName}"
+  },
+  "filterTag": {
+    "clickToAdd": "Añadir filtro \"{label}\"",
+    "clickToRemove": "Eliminar filtro \"{label}\""
+  },
+  "languageSelect": {
+    "label": "Idioma",
+    "headline": "Cambiar idioma",
+    "subtitle": "Seleccione el idioma de la aplicación:"
+  },
+  "resizeHandle": {
+    "label": "Arrastrar para cambiar el ancho"
+  },
+  "fileUpload": {
+    "select": "Seleccionar",
+    "clickToUpload": "Haga clic para seleccionar",
+    "orDragAndDrop": "o arrastre y suelte el archivo",
+    "maxFileSize": "Tamaño máximo de archivo",
+    "inTotal": "en total",
+    "maxFileCount": "Máximo {n} archivos para seleccionar en total",
+    "allowedFileTypes": "Tipos de archivo permitidos: {types}",
+    "hideFilesButton": "Ocultar todos los archivos",
+    "revealFilesButton": "Mostrar todos los archivos",
+    "removeFile": "Eliminar archivo",
+    "requiredError": "Debe cargar al menos un archivo",
+    "status": {
+      "fileTypeError": "El archivo con la extensión '.{extension}' no es válido",
+      "fileSizeError": "El archivo excede el tamaño máximo permitido de {size}",
+      "maxFileSizeError": "El tamaño total de todos los archivos excede el máximo permitido de {size}",
+      "maxCountError": "El número de archivos excede el máximo permitido de {count}"
+    }
+  },
+  "globalFAB": {
+    "label": "Acciones globales"
+  },
+  "calendar": {
+    "todayButton": {
+      "label": "Hoy",
+      "tooltip": "Saltar a hoy"
+    },
+    "calendarWeek": "S",
+    "calendarWeekButtonLabel": "Seleccionar semana natural {weekNumber}",
+    "previousMonthButton": "Mes anterior",
+    "nextMonthButton": "Mes siguiente",
+    "monthYearPicker": "Selector de mes y año"
+  },
+  "flyoutMenu": {
+    "moreActions": "Más acciones",
+    "toggleActions": {
+      "click": "Haga clic para alternar la visibilidad de las acciones",
+      "hover": "Pase el ratón/Enfoque para alternar la visibilidad de las acciones"
+    }
+  },
+  "slider": {
+    "decreaseValueBy": "Disminuir valor en {n}",
+    "increaseValueBy": "Aumentar valor en {n}",
+    "changeValue": "Cambiar valor",
+    "changeStartValue": "Cambiar valor inicial",
+    "changeEndValue": "Cambiar valor final"
+  },
+  "codeTabs": {
+    "label": "Fragmentos de código",
+    "copySnippet": "Copiar código",
+    "copied": "¡Copiado!",
+    "failed": "¡Falló!",
+    "tabLabel": "Código"
+  },
+  "globalSearch": {
+    "label": "Búsqueda global",
+    "searchResults": "Resultados de la búsqueda",
+    "input": {
+      "label": "Buscar contenido",
+      "placeholder": "Buscar..."
+    },
+    "shortcuts": {
+      "move": "Navegar",
+      "select": "Seleccionar"
+    },
+    "system": "Sistema"
+  },
+  "timePicker": {
+    "placeholder": {
+      "hour": "HH",
+      "minute": "MM",
+      "second": "SS"
+    },
+    "labels": {
+      "iconButton": "Abrir selector de hora",
+      "popover": "Selector de hora",
+      "hour": "Hora",
+      "minute": "Minuto",
+      "second": "Segundo",
+      "listLabel": "Opciones de tiempo"
+    }
+  },
+  "itemsPerPage": {
+    "label": "Elementos por página",
+    "select": {
+      "listLabel": "Seleccionar número de elementos por página"
+    }
+  },
+  "tableOfContents": {
+    "label": "Tabla de contenidos"
+  },
+  "key": {
+    "label": "Tecla \"{name}\""
+  }
+}

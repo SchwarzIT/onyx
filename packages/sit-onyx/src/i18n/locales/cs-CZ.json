@@ -1,0 +1,302 @@
+{
+  "yes": "Ano",
+  "no": "Ne",
+  "optional": "(volitelné)",
+  "cancel": "Zrušit",
+  "apply": "Použít",
+  "back": "Zpět",
+  "close": "Zavřít",
+  "now": "Nyní",
+  "breadcrumb": {
+    "label": "Drobečková navigace",
+    "home": "Domů"
+  },
+  "dataGrid": {
+    "head": {
+      "selection": {
+        "selectAll": "Vybrat všechny řádky",
+        "deselectAll": "Zrušit výběr všech řádků",
+        "select": "Přidat řádek s ID '{id}' do výběru.",
+        "deselect": "Odebrat řádek s ID '{id}' z výběru."
+      },
+      "sorting": {
+        "action": {
+          "asc": "Seřadit tabulku vzestupně podle sloupce {field}.",
+          "desc": "Seřadit tabulku sestupně podle sloupce {field}.",
+          "none": "Resetovat řazení."
+        },
+        "menu": {
+          "asc": "Seřadit vzestupně",
+          "desc": "Seřadit sestupně",
+          "none": "Bez řazení"
+        }
+      },
+      "filtering": {
+        "removeLabel": "Odstranit hledaný výraz pro sloupec {column}",
+        "menu": {
+          "label": "Prohledat sloupec {column}",
+          "placeholder": "Prohledat sloupec"
+        }
+      },
+      "hideColumns": {
+        "revealFlyout": "Seznam skrytých sloupců",
+        "revealTrigger": "Zobrazit skryté sloupce",
+        "menu": {
+          "hideButton": "Skrýt sloupec",
+          "lastColumnTooltip": "Poslední sloupec nelze skrýt."
+        }
+      }
+    },
+    "loadMore": "Načíst další"
+  },
+  "validations": {
+    "tooShort": {
+      "preview": "Příliš krátké, vyžadováno minimálně {minLength} znaků",
+      "fullError": "Zadejte alespoň {minLength} znaků. Aktuálně je zadáno {n} znaků. Speciální znaky mohou zabírat více než jeden znak."
+    },
+    "tooLong": {
+      "preview": "Příliš dlouhé, povoleno maximálně {maxLength} znaků",
+      "fullError": "Zkraťte vstup na {maxLength} znaků nebo méně. Aktuálně je zadáno {n} znaků. Speciální znaky mohou zabírat více než jeden znak."
+    },
+    "rangeUnderflow": {
+      "preview": "Příliš nízká hodnota",
+      "fullError": "Vstupní hodnota musí být větší nebo rovna {min}."
+    },
+    "rangeOverflow": {
+      "preview": "Příliš vysoká hodnota",
+      "fullError": "Vstupní hodnota musí být menší nebo rovna {max}."
+    },
+    "patternMismatch": {
+      "preview": "Neplatný formát",
+      "fullError": "Prosím, dodržte požadovaný formát."
+    },
+    "valueMissing": {
+      "preview": "Povinné",
+      "fullError": "Pole je prázdné, je povinné a musí být vyplněno."
+    },
+    "stepMismatch": {
+      "preview": "Neplatné číslo",
+      "fullError": "Prosím, zadejte platné číslo, které je násobkem {step}."
+    },
+    "badInput": {
+      "preview": "Neplatný vstup",
+      "fullError": "\"{value}\" neodpovídá očekávanému typu."
+    },
+    "typeMismatch": {
+      "generic": {
+        "preview": "Neplatný typ vstupu",
+        "fullError": "\"{value}\" neodpovídá očekávanému typu."
+      },
+      "email": {
+        "preview": "Neplatný e-mail",
+        "fullError": "\"{value}\" není platná e-mailová adresa. Měla by být podobná \"jannovak{'@'}priklad.cz\" (Musí obsahovat jeden symbol {'@'} a tečku)."
+      },
+      "number": {
+        "preview": "Neplatné číslo",
+        "fullError": "\"{value}\" není platné číslo. Ujistěte se, že obsahuje pouze číslice a volitelně jednu desetinnou čárku."
+      },
+      "tel": {
+        "preview": "Neplatné telefonní číslo",
+        "fullError": "\"{value}\" není platné telefonní číslo."
+      },
+      "url": {
+        "preview": "Neplatná URL",
+        "fullError": "\"{value}\" není platná URL. URL obvykle odkazuje na webovou stránku a měla by být podobná \"https://www.priklad.cz\"."
+      }
+    }
+  },
+  "select": {
+    "toggleDropDown": "Přepnout vyskakovací okno výběru",
+    "empty": "Žádná data k dispozici",
+    "noMatch": "Žádná položka neodpovídá vašemu hledání",
+    "searchInputLabel": "Filtrovat položky seznamu",
+    "clearSearch": "Vymazat filtr vyhledávání",
+    "searchPlaceholder": "Hledat"
+  },
+  "selections": {
+    "selectAll": "Vybrat vše",
+    "selectGroup": "Vybrané",
+    "currentSelection": "{n} vybrán | {n} vybrány | {n} vybráno"
+  },
+  "stepper": {
+    "decrement": "Snížit o {stepSize}",
+    "increment": "Zvýšit o {stepSize}"
+  },
+  "table": {
+    "empty": "Tato tabulka je prázdná."
+  },
+  "link": {
+    "opensExternally": "(otevře se v nové záložce)"
+  },
+  "navItemOptionsLabel": "Podstránky {label}",
+  "navigation": {
+    "appLogo": "Logo aplikace {appName}",
+    "goToHome": "Přejít na domovskou stránku",
+    "goBack": "Přejít zpět",
+    "moreNavItems": "+{n} další",
+    "moreNavItemsLabel": "Další položky",
+    "showMoreNavItemsLabel": "Zobrazit další položky",
+    "userMenuLabel": "Uživatelské možnosti",
+    "toggleBurgerMenu": "Přepnout burger menu",
+    "toggleContextMenu": "Přepnout kontextové menu",
+    "navigationHeadline": "Navigace",
+    "moreActionsFlyout": "Vyberte akci pro sloupec \"{column}\"",
+    "moreActionsTrigger": "Přepnout akce sloupce"
+  },
+  "tooltip": {
+    "neutral": "Přepnout informační nápovědu",
+    "danger": "Přepnout chybovou nápovědu",
+    "success": "Přepnout nápovědu o úspěchu"
+  },
+  "colorScheme": {
+    "headline": "Změnit vzhled",
+    "subtitle": "Vyberte vzhled aplikace:",
+    "appearance": "Vzhled",
+    "auto": {
+      "label": "Automaticky",
+      "description": "Aplikace automaticky přizpůsobí svůj vzhled nastavení vašeho systému."
+    },
+    "light": {
+      "label": "Světlý",
+      "description": "Světlý režim poskytuje optimální kontrast pro světlé prostředí."
+    },
+    "dark": {
+      "label": "Tmavý",
+      "description": "Tento barevný režim je optimalizován pro tmavší prostředí."
+    }
+  },
+  "pagination": {
+    "label": "Stránkování",
+    "ofPages": "z {pages} stránky | z {pages} stránek | z {pages} stránek",
+    "previous": "předchozí strana",
+    "next": "další strana",
+    "buttonLabel": "Strana {page}",
+    "morePages": "Další stránky mezi",
+    "select": {
+      "label": "Výběr stránky",
+      "listLabel": "Dostupné stránky"
+    },
+    "currentOfTotalPages": "1/1 strana | {current}/{total} strany | {current}/{total} stran"
+  },
+  "input": {
+    "clear": "Vymazat vstup",
+    "showPassword": "Zobrazit heslo",
+    "hidePassword": "Skrýt heslo"
+  },
+  "dialog": {
+    "close": "Zavřít dialog"
+  },
+  "headline": {
+    "copyLink": "Kopírovat odkaz na tento nadpis",
+    "copyLinkTo": "Kopírovat odkaz na nadpis:"
+  },
+  "avatar": {
+    "ariaLabel": "Avatar uživatele {fullName}"
+  },
+  "filterTag": {
+    "clickToAdd": "Přidat filtr \"{label}\"",
+    "clickToRemove": "Odebrat filtr \"{label}\""
+  },
+  "languageSelect": {
+    "label": "Jazyk",
+    "headline": "Změnit jazyk",
+    "subtitle": "Vyberte jazyk aplikace:"
+  },
+  "resizeHandle": {
+    "label": "Táhnutím změnit šířku"
+  },
+  "fileUpload": {
+    "select": "Vybrat",
+    "clickToUpload": "Klikněte pro výběr",
+    "orDragAndDrop": "nebo přetáhněte soubor",
+    "maxFileSize": "Maximální velikost souboru",
+    "inTotal": "celkem",
+    "maxFileCount": "Maximálně {n} souborů k výběru celkem",
+    "allowedFileTypes": "Povolené typy souborů: {types}",
+    "hideFilesButton": "Skrýt všechny soubory",
+    "revealFilesButton": "Zobrazit všechny soubory",
+    "removeFile": "Odebrat soubor",
+    "requiredError": "Musíte nahrát alespoň jeden soubor",
+    "status": {
+      "fileTypeError": "Soubor s příponou '.{extension}' je neplatný",
+      "fileSizeError": "Soubor překračuje maximální povolenou velikost {size}",
+      "maxFileSizeError": "Celková velikost všech souborů překračuje maximální povolenou velikost {size}",
+      "maxCountError": "Počet souborů překračuje maximální povolený počet {count}"
+    }
+  },
+  "globalFAB": {
+    "label": "Globální akce"
+  },
+  "calendar": {
+    "todayButton": {
+      "label": "Dnes",
+      "tooltip": "Přejít na dnešek"
+    },
+    "calendarWeek": "KT",
+    "calendarWeekButtonLabel": "Vybrat kalendářní týden {weekNumber}",
+    "previousMonthButton": "Předchozí měsíc",
+    "nextMonthButton": "Následující měsíc",
+    "monthYearPicker": "Výběr měsíce a roku"
+  },
+  "flyoutMenu": {
+    "moreActions": "Další akce",
+    "toggleActions": {
+      "click": "Kliknutím přepnete viditelnost akcí",
+      "hover": "Přejetím/Zaměřením přepnete viditelnost akcí"
+    }
+  },
+  "slider": {
+    "decreaseValueBy": "Snížit hodnotu o {n}",
+    "increaseValueBy": "Zvýšit hodnotu o {n}",
+    "changeValue": "Změnit hodnotu",
+    "changeStartValue": "Změnit počáteční hodnotu",
+    "changeEndValue": "Změnit koncovou hodnotu"
+  },
+  "codeTabs": {
+    "label": "Úryvky kódu",
+    "copySnippet": "Kopírovat kód",
+    "copied": "Zkopírováno!",
+    "failed": "Selhalo!",
+    "tabLabel": "Kód"
+  },
+  "globalSearch": {
+    "label": "Globální vyhledávání",
+    "searchResults": "Výsledky vyhledávání",
+    "input": {
+      "label": "Hledat obsah",
+      "placeholder": "Hledat..."
+    },
+    "shortcuts": {
+      "move": "Navigovat",
+      "select": "Vybrat"
+    },
+    "system": "Systém"
+  },
+  "timePicker": {
+    "placeholder": {
+      "hour": "HH",
+      "minute": "MM",
+      "second": "SS"
+    },
+    "labels": {
+      "iconButton": "Otevřít výběr času",
+      "popover": "Výběr času",
+      "hour": "Hodina",
+      "minute": "Minuta",
+      "second": "Sekunda",
+      "listLabel": "Možnosti času"
+    }
+  },
+  "itemsPerPage": {
+    "label": "Položek na stránku",
+    "select": {
+      "listLabel": "Vyberte počet položek na stránku"
+    }
+  },
+  "tableOfContents": {
+    "label": "Obsah"
+  },
+  "key": {
+    "label": "Klávesa \"{name}\""
+  }
+}

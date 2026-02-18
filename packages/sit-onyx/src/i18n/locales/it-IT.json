@@ -1,0 +1,302 @@
+{
+  "yes": "Sì",
+  "no": "No",
+  "optional": "(opzionale)",
+  "cancel": "Annulla",
+  "apply": "Applica",
+  "back": "Indietro",
+  "close": "Chiudi",
+  "now": "Adesso",
+  "breadcrumb": {
+    "label": "Navigazione breadcrumb",
+    "home": "Home"
+  },
+  "dataGrid": {
+    "head": {
+      "selection": {
+        "selectAll": "Seleziona tutte le righe",
+        "deselectAll": "Deseleziona tutte le righe",
+        "select": "Aggiungi la riga con ID '{id}' alla selezione.",
+        "deselect": "Rimuovi la riga con ID '{id}' dalla selezione."
+      },
+      "sorting": {
+        "action": {
+          "asc": "Ordina la tabella in modo crescente per la colonna {field}.",
+          "desc": "Ordina la tabella in modo decrescente per la colonna {field}.",
+          "none": "Reimposta ordinamento."
+        },
+        "menu": {
+          "asc": "Ordina in modo crescente",
+          "desc": "Ordina in modo decrescente",
+          "none": "Nessun ordinamento"
+        }
+      },
+      "filtering": {
+        "removeLabel": "Rimuovi termine di ricerca per la colonna {column}",
+        "menu": {
+          "label": "Cerca colonna {column}",
+          "placeholder": "Cerca colonna"
+        }
+      },
+      "hideColumns": {
+        "revealFlyout": "Elenco delle colonne nascoste",
+        "revealTrigger": "Mostra colonne nascoste",
+        "menu": {
+          "hideButton": "Nascondi colonna",
+          "lastColumnTooltip": "L'ultima colonna non può essere nascosta."
+        }
+      }
+    },
+    "loadMore": "Carica altro"
+  },
+  "validations": {
+    "tooShort": {
+      "preview": "Troppo corto, minimo {minLength} caratteri richiesti",
+      "fullError": "Inserire almeno {minLength} caratteri. Attualmente sono presenti {n} caratteri. I caratteri speciali potrebbero contare più di un carattere."
+    },
+    "tooLong": {
+      "preview": "Troppo lungo, massimo {maxLength} caratteri consentiti",
+      "fullError": "Accorciare l'input a {maxLength} caratteri o meno. Attualmente sono presenti {n} caratteri. I caratteri speciali potrebbero contare più di un carattere."
+    },
+    "rangeUnderflow": {
+      "preview": "Troppo basso",
+      "fullError": "Il valore inserito deve essere maggiore o uguale a {min}."
+    },
+    "rangeOverflow": {
+      "preview": "Troppo alto",
+      "fullError": "Il valore inserito deve essere minore o uguale a {max}."
+    },
+    "patternMismatch": {
+      "preview": "Formato non valido",
+      "fullError": "Si prega di rispettare il formato richiesto."
+    },
+    "valueMissing": {
+      "preview": "Obbligatorio",
+      "fullError": "Il campo è vuoto, è obbligatorio e deve essere compilato."
+    },
+    "stepMismatch": {
+      "preview": "Numero non valido",
+      "fullError": "Si prega di inserire un numero valido, che sia un multiplo di {step}."
+    },
+    "badInput": {
+      "preview": "Input non valido",
+      "fullError": "\"{value}\" non corrisponde al tipo previsto."
+    },
+    "typeMismatch": {
+      "generic": {
+        "preview": "Tipo di input non valido",
+        "fullError": "\"{value}\" non corrisponde al tipo previsto."
+      },
+      "email": {
+        "preview": "Email non valida",
+        "fullError": "\"{value}\" non è un indirizzo email valido. Dovrebbe essere simile a \"mario.rossi{'@'}esempio.com\" (deve contenere un simbolo {'@'} e un punto)."
+      },
+      "number": {
+        "preview": "Numero non valido",
+        "fullError": "\"{value}\" non è un numero valido. Assicurarsi che contenga solo cifre e, opzionalmente, un singolo punto decimale."
+      },
+      "tel": {
+        "preview": "Numero di telefono non valido",
+        "fullError": "\"{value}\" non è un numero di telefono valido."
+      },
+      "url": {
+        "preview": "URL non valido",
+        "fullError": "\"{value}\" non è un URL valido. Un URL di solito punta a un sito web e dovrebbe essere simile a \"https://www.esempio.com\"."
+      }
+    }
+  },
+  "select": {
+    "toggleDropDown": "Attiva/disattiva popover di selezione",
+    "empty": "Nessun dato disponibile",
+    "noMatch": "Nessun elemento corrisponde alla tua ricerca",
+    "searchInputLabel": "Filtra gli elementi dell'elenco",
+    "clearSearch": "Cancella filtro di ricerca",
+    "searchPlaceholder": "Cerca"
+  },
+  "selections": {
+    "selectAll": "Seleziona tutto",
+    "selectGroup": "Selezionati",
+    "currentSelection": "{n} selezionati"
+  },
+  "stepper": {
+    "decrement": "Decrementa di {stepSize}",
+    "increment": "Incrementa di {stepSize}"
+  },
+  "table": {
+    "empty": "Questa tabella è vuota."
+  },
+  "link": {
+    "opensExternally": "(si apre in una nuova scheda)"
+  },
+  "navItemOptionsLabel": "Sottopagine di {label}",
+  "navigation": {
+    "appLogo": "Logo dell'app {appName}",
+    "goToHome": "Vai alla pagina iniziale",
+    "goBack": "Torna indietro",
+    "moreNavItems": "+{n} Altro",
+    "moreNavItemsLabel": "Altri elementi",
+    "showMoreNavItemsLabel": "Mostra altri elementi",
+    "userMenuLabel": "Opzioni utente",
+    "toggleBurgerMenu": "Attiva/disattiva menu hamburger",
+    "toggleContextMenu": "Attiva/disattiva menu contestuale",
+    "navigationHeadline": "Navigazione",
+    "moreActionsFlyout": "Scegli un'azione per la colonna \"{column}\"",
+    "moreActionsTrigger": "Attiva/disattiva azioni colonna"
+  },
+  "tooltip": {
+    "neutral": "Attiva/disattiva tooltip informativo",
+    "danger": "Attiva/disattiva tooltip di errore",
+    "success": "Attiva/disattiva tooltip di successo"
+  },
+  "colorScheme": {
+    "headline": "Cambia aspetto",
+    "subtitle": "Seleziona l'aspetto dell'applicazione:",
+    "appearance": "Aspetto",
+    "auto": {
+      "label": "Auto",
+      "description": "L'applicazione adatta automaticamente il suo aspetto alle impostazioni del tuo sistema."
+    },
+    "light": {
+      "label": "Chiaro",
+      "description": "La modalità chiara offre un contrasto ottimale per ambienti luminosi."
+    },
+    "dark": {
+      "label": "Scuro",
+      "description": "Questa modalità di colore è ottimizzata per ambienti più scuri."
+    }
+  },
+  "pagination": {
+    "label": "Impaginazione",
+    "ofPages": "di {pages} pagina | di {pages} pagine",
+    "previous": "pagina precedente",
+    "next": "pagina successiva",
+    "buttonLabel": "Pagina {page}",
+    "morePages": "Altre pagine intermedie",
+    "select": {
+      "label": "Selezione pagina",
+      "listLabel": "Pagine disponibili"
+    },
+    "currentOfTotalPages": "1/1 pagina | {current}/{total} pagine"
+  },
+  "input": {
+    "clear": "Cancella input",
+    "showPassword": "Mostra password",
+    "hidePassword": "Nascondi password"
+  },
+  "dialog": {
+    "close": "Chiudi finestra di dialogo"
+  },
+  "headline": {
+    "copyLink": "Copia link a questa intestazione",
+    "copyLinkTo": "Copia link a intestazione:"
+  },
+  "avatar": {
+    "ariaLabel": "Avatar di {fullName}"
+  },
+  "filterTag": {
+    "clickToAdd": "Aggiungi filtro \"{label}\"",
+    "clickToRemove": "Rimuovi filtro \"{label}\""
+  },
+  "languageSelect": {
+    "label": "Lingua",
+    "headline": "Cambia lingua",
+    "subtitle": "Seleziona la lingua dell'applicazione:"
+  },
+  "resizeHandle": {
+    "label": "Trascina per modificare la larghezza"
+  },
+  "fileUpload": {
+    "select": "Seleziona",
+    "clickToUpload": "Clicca per selezionare",
+    "orDragAndDrop": "o trascina e rilascia il file",
+    "maxFileSize": "Dimensione massima del file",
+    "inTotal": "in totale",
+    "maxFileCount": "Massimo {n} file da selezionare in totale",
+    "allowedFileTypes": "Tipi di file consentiti: {types}",
+    "hideFilesButton": "Nascondi tutti i file",
+    "revealFilesButton": "Mostra tutti i file",
+    "removeFile": "Rimuovi file",
+    "requiredError": "È necessario caricare almeno un file",
+    "status": {
+      "fileTypeError": "Il file con estensione '.{extension}' non è valido",
+      "fileSizeError": "Il file supera la dimensione massima consentita di {size}",
+      "maxFileSizeError": "La dimensione totale di tutti i file supera il massimo consentito di {size}",
+      "maxCountError": "Il numero di file supera il massimo consentito di {count}"
+    }
+  },
+  "globalFAB": {
+    "label": "Azioni globali"
+  },
+  "calendar": {
+    "todayButton": {
+      "label": "Oggi",
+      "tooltip": "Vai a oggi"
+    },
+    "calendarWeek": "SET",
+    "calendarWeekButtonLabel": "Seleziona la settimana di calendario {weekNumber}",
+    "previousMonthButton": "Mese precedente",
+    "nextMonthButton": "Mese successivo",
+    "monthYearPicker": "Selettore mese e anno"
+  },
+  "flyoutMenu": {
+    "moreActions": "Altre azioni",
+    "toggleActions": {
+      "click": "Clicca per attivare/disattivare la visibilità delle azioni",
+      "hover": "Passa il mouse/focalizza per attivare/disattivare la visibilità delle azioni"
+    }
+  },
+  "slider": {
+    "decreaseValueBy": "Diminuisci il valore di {n}",
+    "increaseValueBy": "Aumenta il valore di {n}",
+    "changeValue": "Cambia valore",
+    "changeStartValue": "Cambia valore iniziale",
+    "changeEndValue": "Cambia valore finale"
+  },
+  "codeTabs": {
+    "label": "Frammenti di codice",
+    "copySnippet": "Copia codice",
+    "copied": "Copiato!",
+    "failed": "Fallito!",
+    "tabLabel": "Codice"
+  },
+  "globalSearch": {
+    "label": "Ricerca globale",
+    "searchResults": "Risultati della ricerca",
+    "input": {
+      "label": "Cerca contenuto",
+      "placeholder": "Cerca..."
+    },
+    "shortcuts": {
+      "move": "Naviga",
+      "select": "Seleziona"
+    },
+    "system": "Sistema"
+  },
+  "timePicker": {
+    "placeholder": {
+      "hour": "HH",
+      "minute": "MM",
+      "second": "SS"
+    },
+    "labels": {
+      "iconButton": "Apri selettore orario",
+      "popover": "Selettore orario",
+      "hour": "Ora",
+      "minute": "Minuto",
+      "second": "Secondo",
+      "listLabel": "Opzioni orario"
+    }
+  },
+  "itemsPerPage": {
+    "label": "Elementi per pagina",
+    "select": {
+      "listLabel": "Seleziona numero di elementi per pagina"
+    }
+  },
+  "tableOfContents": {
+    "label": "Indice"
+  },
+  "key": {
+    "label": "tasto \"{name}\""
+  }
+}

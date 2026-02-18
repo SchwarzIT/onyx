@@ -1,0 +1,302 @@
+{
+  "yes": "Da",
+  "no": "Nu",
+  "optional": "(opțional)",
+  "cancel": "Anulare",
+  "apply": "Aplicare",
+  "back": "Înapoi",
+  "close": "Închidere",
+  "now": "Acum",
+  "breadcrumb": {
+    "label": "Navigare breadcrumb",
+    "home": "Acasă"
+  },
+  "dataGrid": {
+    "head": {
+      "selection": {
+        "selectAll": "Selectare toate rândurile",
+        "deselectAll": "Deselectare toate rândurile",
+        "select": "Adăugare rând cu ID '{id}' la selecție.",
+        "deselect": "Eliminare rând cu ID '{id}' din selecție."
+      },
+      "sorting": {
+        "action": {
+          "asc": "Sortare tabel ascendent după coloana {field}.",
+          "desc": "Sortare tabel descendent după coloana {field}.",
+          "none": "Resetare sortare."
+        },
+        "menu": {
+          "asc": "Sortare ascendentă",
+          "desc": "Sortare descendentă",
+          "none": "Fără sortare"
+        }
+      },
+      "filtering": {
+        "removeLabel": "Eliminare termen de căutare pentru coloana {column}",
+        "menu": {
+          "label": "Căutare în coloana {column}",
+          "placeholder": "Căutare în coloană"
+        }
+      },
+      "hideColumns": {
+        "revealFlyout": "Listă de coloane ascunse",
+        "revealTrigger": "Afișare coloane ascunse",
+        "menu": {
+          "hideButton": "Ascundere coloană",
+          "lastColumnTooltip": "Ultima coloană nu poate fi ascunsă."
+        }
+      }
+    },
+    "loadMore": "Încărcare mai multe"
+  },
+  "validations": {
+    "tooShort": {
+      "preview": "Prea scurt, sunt necesare minimum {minLength} caractere",
+      "fullError": "Textul introdus trebuie să aibă cel puțin {minLength} caractere. În prezent are {n} caractere. Caracterele speciale pot utiliza mai mult de un caracter."
+    },
+    "tooLong": {
+      "preview": "Prea lung, sunt permise maximum {maxLength} caractere",
+      "fullError": "Scurtați textul introdus la {maxLength} caractere sau mai puțin. În prezent are {n} caractere. Caracterele speciale pot utiliza mai mult de un caracter."
+    },
+    "rangeUnderflow": {
+      "preview": "Prea mic",
+      "fullError": "Valoarea introdusă trebuie să fie mai mare sau egală cu {min}."
+    },
+    "rangeOverflow": {
+      "preview": "Prea mare",
+      "fullError": "Valoarea introdusă trebuie să fie mai mică sau egală cu {max}."
+    },
+    "patternMismatch": {
+      "preview": "Format invalid",
+      "fullError": "Vă rugăm să respectați formatul solicitat."
+    },
+    "valueMissing": {
+      "preview": "Obligatoriu",
+      "fullError": "Câmpul este gol, este obligatoriu și trebuie completat."
+    },
+    "stepMismatch": {
+      "preview": "Număr invalid",
+      "fullError": "Vă rugăm să introduceți un număr valid, care este un multiplu de {step}."
+    },
+    "badInput": {
+      "preview": "Intrare invalidă",
+      "fullError": "Valoarea „{value}” nu corespunde tipului așteptat."
+    },
+    "typeMismatch": {
+      "generic": {
+        "preview": "Tip de intrare invalid",
+        "fullError": "Valoarea „{value}” nu corespunde tipului așteptat."
+      },
+      "email": {
+        "preview": "E-mail invalid",
+        "fullError": "„{value}” nu este o adresă de e-mail validă. Ar trebui să fie similară cu „ionpopescu{'@'}exemplu.ro” (trebuie să conțină un simbol {'@'} și un punct)."
+      },
+      "number": {
+        "preview": "Număr invalid",
+        "fullError": "„{value}” nu este un număr valid. Asigurați-vă că conține doar cifre și, opțional, un singur punct zecimal."
+      },
+      "tel": {
+        "preview": "Număr de telefon invalid",
+        "fullError": "„{value}” nu este un număr de telefon valid."
+      },
+      "url": {
+        "preview": "URL invalid",
+        "fullError": "„{value}” nu este un URL valid. Un URL indică de obicei un site web și ar trebui să fie similar cu „https://www.exemplu.ro”."
+      }
+    }
+  },
+  "select": {
+    "toggleDropDown": "Comutare fereastră de selecție",
+    "empty": "Nu sunt date disponibile",
+    "noMatch": "Niciun element nu corespunde căutării dvs.",
+    "searchInputLabel": "Filtrare elemente din listă",
+    "clearSearch": "Ștergere filtru de căutare",
+    "searchPlaceholder": "Căutare"
+  },
+  "selections": {
+    "selectAll": "Selectare totală",
+    "selectGroup": "Selectate",
+    "currentSelection": "{n} selectate"
+  },
+  "stepper": {
+    "decrement": "Scădere cu {stepSize}",
+    "increment": "Creștere cu {stepSize}"
+  },
+  "table": {
+    "empty": "Acest tabel este gol."
+  },
+  "link": {
+    "opensExternally": "(se deschide într-o filă nouă)"
+  },
+  "navItemOptionsLabel": "Subpagini ale {label}",
+  "navigation": {
+    "appLogo": "Logo-ul aplicației {appName}",
+    "goToHome": "Mergi la pagina de pornire",
+    "goBack": "Înapoi",
+    "moreNavItems": "+{n} Mai multe",
+    "moreNavItemsLabel": "Mai multe elemente",
+    "showMoreNavItemsLabel": "Afișare mai multe elemente",
+    "userMenuLabel": "Opțiuni utilizator",
+    "toggleBurgerMenu": "Comutare meniu burger",
+    "toggleContextMenu": "Comutare meniu contextual",
+    "navigationHeadline": "Navigare",
+    "moreActionsFlyout": "Alegeți o acțiune pentru coloana „{column}”",
+    "moreActionsTrigger": "Comutare acțiuni coloană"
+  },
+  "tooltip": {
+    "neutral": "Comutare tooltip informativ",
+    "danger": "Comutare tooltip eroare",
+    "success": "Comutare tooltip succes"
+  },
+  "colorScheme": {
+    "headline": "Schimbare aspect",
+    "subtitle": "Selectați aspectul aplicației:",
+    "appearance": "Aspect",
+    "auto": {
+      "label": "Automat",
+      "description": "Aplicația își adaptează automat aspectul la setările sistemului dvs."
+    },
+    "light": {
+      "label": "Luminos",
+      "description": "Modul luminos oferă un contrast optim pentru medii luminoase."
+    },
+    "dark": {
+      "label": "Întunecat",
+      "description": "Acest mod de culoare este optimizat pentru medii mai întunecate."
+    }
+  },
+  "pagination": {
+    "label": "Paginare",
+    "ofPages": "din {pages} pagină | din {pages} pagini",
+    "previous": "pagina anterioară",
+    "next": "pagina următoare",
+    "buttonLabel": "Pagina {page}",
+    "morePages": "Mai multe pagini între",
+    "select": {
+      "label": "Selecție pagină",
+      "listLabel": "Pagini disponibile"
+    },
+    "currentOfTotalPages": "1/1 pagină | {current}/{total} pagini"
+  },
+  "input": {
+    "clear": "Ștergere intrare",
+    "showPassword": "Afișare parolă",
+    "hidePassword": "Ascundere parolă"
+  },
+  "dialog": {
+    "close": "Închidere dialog"
+  },
+  "headline": {
+    "copyLink": "Copiere link către acest titlu",
+    "copyLinkTo": "Copiere link către titlu:"
+  },
+  "avatar": {
+    "ariaLabel": "Avatarul lui {fullName}"
+  },
+  "filterTag": {
+    "clickToAdd": "Adăugare filtru „{label}”",
+    "clickToRemove": "Eliminare filtru „{label}”"
+  },
+  "languageSelect": {
+    "label": "Limbă",
+    "headline": "Schimbare limbă",
+    "subtitle": "Selectați limba aplicației:"
+  },
+  "resizeHandle": {
+    "label": "Trageți pentru a schimba lățimea"
+  },
+  "fileUpload": {
+    "select": "Selectare",
+    "clickToUpload": "Faceți clic pentru a selecta",
+    "orDragAndDrop": "sau trageți și plasați fișierul",
+    "maxFileSize": "Dimensiune maximă fișier",
+    "inTotal": "în total",
+    "maxFileCount": "Maximum {n} fișiere de selectat în total",
+    "allowedFileTypes": "Tipuri de fișiere permise: {types}",
+    "hideFilesButton": "Ascundere toate fișierele",
+    "revealFilesButton": "Afișare toate fișierele",
+    "removeFile": "Eliminare fișier",
+    "requiredError": "Trebuie să încărcați cel puțin un fișier",
+    "status": {
+      "fileTypeError": "Fișierul cu extensia „.{extension}” este invalid",
+      "fileSizeError": "Fișierul depășește dimensiunea maximă permisă de {size}",
+      "maxFileSizeError": "Dimensiunea totală a tuturor fișierelor depășește maximul permis de {size}",
+      "maxCountError": "Numărul de fișiere depășește maximul permis de {count}"
+    }
+  },
+  "globalFAB": {
+    "label": "Acțiuni globale"
+  },
+  "calendar": {
+    "todayButton": {
+      "label": "Astăzi",
+      "tooltip": "Salt la ziua de azi"
+    },
+    "calendarWeek": "Săpt.",
+    "calendarWeekButtonLabel": "Selectare săptămâna calendaristică {weekNumber}",
+    "previousMonthButton": "Luna precedentă",
+    "nextMonthButton": "Luna următoare",
+    "monthYearPicker": "Selector de lună și an"
+  },
+  "flyoutMenu": {
+    "moreActions": "Mai multe acțiuni",
+    "toggleActions": {
+      "click": "Faceți clic pentru a comuta vizibilitatea acțiunii",
+      "hover": "Treceți cu mouse-ul/Focalizați pentru a comuta vizibilitatea acțiunii"
+    }
+  },
+  "slider": {
+    "decreaseValueBy": "Scădere valoare cu {n}",
+    "increaseValueBy": "Creștere valoare cu {n}",
+    "changeValue": "Schimbare valoare",
+    "changeStartValue": "Schimbare valoare de început",
+    "changeEndValue": "Schimbare valoare de sfârșit"
+  },
+  "codeTabs": {
+    "label": "Fragmente de cod",
+    "copySnippet": "Copiere cod",
+    "copied": "Copiat!",
+    "failed": "Eșuat!",
+    "tabLabel": "Cod"
+  },
+  "globalSearch": {
+    "label": "Căutare globală",
+    "searchResults": "Rezultatele căutării",
+    "input": {
+      "label": "Căutare conținut",
+      "placeholder": "Căutare..."
+    },
+    "shortcuts": {
+      "move": "Navigare",
+      "select": "Selectare"
+    },
+    "system": "Sistem"
+  },
+  "timePicker": {
+    "placeholder": {
+      "hour": "HH",
+      "minute": "MM",
+      "second": "SS"
+    },
+    "labels": {
+      "iconButton": "Deschidere selector de timp",
+      "popover": "Selector de timp",
+      "hour": "Oră",
+      "minute": "Minut",
+      "second": "Secundă",
+      "listLabel": "Opțiuni de timp"
+    }
+  },
+  "itemsPerPage": {
+    "label": "Elemente pe pagină",
+    "select": {
+      "listLabel": "Selectați numărul de elemente pe pagină"
+    }
+  },
+  "tableOfContents": {
+    "label": "Cuprins"
+  },
+  "key": {
+    "label": "Tasta „{name}”"
+  }
+}

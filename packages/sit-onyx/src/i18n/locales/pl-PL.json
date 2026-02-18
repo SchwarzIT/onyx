@@ -1,0 +1,302 @@
+{
+  "yes": "Tak",
+  "no": "Nie",
+  "optional": "(opcjonalnie)",
+  "cancel": "Anuluj",
+  "apply": "Zastosuj",
+  "back": "Wstecz",
+  "close": "Zamknij",
+  "now": "Teraz",
+  "breadcrumb": {
+    "label": "Nawigacja okruszkowa",
+    "home": "Strona główna"
+  },
+  "dataGrid": {
+    "head": {
+      "selection": {
+        "selectAll": "Zaznacz wszystkie wiersze",
+        "deselectAll": "Odznacz wszystkie wiersze",
+        "select": "Dodaj wiersz o ID '{id}' do zaznaczenia.",
+        "deselect": "Usuń wiersz o ID '{id}' z zaznaczenia."
+      },
+      "sorting": {
+        "action": {
+          "asc": "Sortuj tabelę rosnąco według kolumny {field}.",
+          "desc": "Sortuj tabelę malejąco według kolumny {field}.",
+          "none": "Zresetuj sortowanie."
+        },
+        "menu": {
+          "asc": "Sortuj rosnąco",
+          "desc": "Sortuj malejąco",
+          "none": "Brak sortowania"
+        }
+      },
+      "filtering": {
+        "removeLabel": "Usuń wyszukiwany termin dla kolumny {column}",
+        "menu": {
+          "label": "Przeszukaj kolumnę {column}",
+          "placeholder": "Przeszukaj kolumnę"
+        }
+      },
+      "hideColumns": {
+        "revealFlyout": "Lista ukrytych kolumn",
+        "revealTrigger": "Pokaż ukryte kolumny",
+        "menu": {
+          "hideButton": "Ukryj kolumnę",
+          "lastColumnTooltip": "Ostatnia kolumna nie może zostać ukryta."
+        }
+      }
+    },
+    "loadMore": "Załaduj więcej"
+  },
+  "validations": {
+    "tooShort": {
+      "preview": "Zbyt krótkie, wymagane min. {minLength} znaków",
+      "fullError": "Wprowadzony tekst musi mieć co najmniej {minLength} znaków. Obecnie ma {n} znaków. Znaki specjalne mogą być liczone jako więcej niż jeden znak."
+    },
+    "tooLong": {
+      "preview": "Zbyt długie, dozwolone maks. {maxLength} znaków",
+      "fullError": "Skróć wprowadzony tekst do maksymalnie {maxLength} znaków. Obecnie ma {n} znaków. Znaki specjalne mogą być liczone jako więcej niż jeden znak."
+    },
+    "rangeUnderflow": {
+      "preview": "Zbyt niska wartość",
+      "fullError": "Wprowadzona wartość musi być większa lub równa {min}."
+    },
+    "rangeOverflow": {
+      "preview": "Zbyt wysoka wartość",
+      "fullError": "Wprowadzona wartość musi być mniejsza lub równa {max}."
+    },
+    "patternMismatch": {
+      "preview": "Nieprawidłowy format",
+      "fullError": "Proszę dopasować do wymaganego formatu."
+    },
+    "valueMissing": {
+      "preview": "Wymagane",
+      "fullError": "Pole jest puste, jest obowiązkowe i musi zostać wypełnione."
+    },
+    "stepMismatch": {
+      "preview": "Nieprawidłowa liczba",
+      "fullError": "Proszę podać prawidłową liczbę, która jest wielokrotnością {step}."
+    },
+    "badInput": {
+      "preview": "Nieprawidłowe dane",
+      "fullError": "Wartość „{value}” nie pasuje do oczekiwanego typu."
+    },
+    "typeMismatch": {
+      "generic": {
+        "preview": "Nieprawidłowy typ danych",
+        "fullError": "Wartość „{value}” nie pasuje do oczekiwanego typu."
+      },
+      "email": {
+        "preview": "Nieprawidłowy e-mail",
+        "fullError": "„{value}” nie jest prawidłowym adresem e-mail. Powinien być podobny do „jankowalski{'@'}przyklad.com” (musi zawierać symbol {'@'} i kropkę)."
+      },
+      "number": {
+        "preview": "Nieprawidłowa liczba",
+        "fullError": "„{value}” nie jest prawidłową liczbą. Upewnij się, że zawiera tylko cyfry i opcjonalnie jeden separator dziesiętny."
+      },
+      "tel": {
+        "preview": "Nieprawidłowy numer telefonu",
+        "fullError": "„{value}” nie jest prawidłowym numerem telefonu."
+      },
+      "url": {
+        "preview": "Nieprawidłowy URL",
+        "fullError": "„{value}” nie jest prawidłowym adresem URL. Adres URL zwykle wskazuje na stronę internetową i powinien być podobny do „https://www.przyklad.pl”."
+      }
+    }
+  },
+  "select": {
+    "toggleDropDown": "Przełącz okno wyboru",
+    "empty": "Brak danych",
+    "noMatch": "Żaden element nie pasuje do wyszukiwania",
+    "searchInputLabel": "Filtruj elementy listy",
+    "clearSearch": "Wyczyść filtr wyszukiwania",
+    "searchPlaceholder": "Szukaj"
+  },
+  "selections": {
+    "selectAll": "Zaznacz wszystko",
+    "selectGroup": "Zaznaczone",
+    "currentSelection": "Zaznaczono: {n}"
+  },
+  "stepper": {
+    "decrement": "Zmniejsz o {stepSize}",
+    "increment": "Zwiększ o {stepSize}"
+  },
+  "table": {
+    "empty": "Ta tabela jest pusta."
+  },
+  "link": {
+    "opensExternally": "(otwiera się w nowej karcie)"
+  },
+  "navItemOptionsLabel": "Podstrony {label}",
+  "navigation": {
+    "appLogo": "Logo aplikacji {appName}",
+    "goToHome": "Przejdź do strony głównej",
+    "goBack": "Wróć",
+    "moreNavItems": "+{n} więcej",
+    "moreNavItemsLabel": "Więcej elementów",
+    "showMoreNavItemsLabel": "Pokaż więcej elementów",
+    "userMenuLabel": "Opcje użytkownika",
+    "toggleBurgerMenu": "Przełącz menu hamburgerowe",
+    "toggleContextMenu": "Przełącz menu kontekstowe",
+    "navigationHeadline": "Nawigacja",
+    "moreActionsFlyout": "Wybierz akcję dla kolumny „{column}”",
+    "moreActionsTrigger": "Przełącz akcje kolumny"
+  },
+  "tooltip": {
+    "neutral": "Przełącz podpowiedź informacyjną",
+    "danger": "Przełącz podpowiedź o błędzie",
+    "success": "Przełącz podpowiedź o sukcesie"
+  },
+  "colorScheme": {
+    "headline": "Zmień wygląd",
+    "subtitle": "Wybierz wygląd aplikacji:",
+    "appearance": "Wygląd",
+    "auto": {
+      "label": "Automatyczny",
+      "description": "Aplikacja automatycznie dostosuje swój wygląd do ustawień systemowych."
+    },
+    "light": {
+      "label": "Jasny",
+      "description": "Tryb jasny zapewnia optymalny kontrast w jasnym otoczeniu."
+    },
+    "dark": {
+      "label": "Ciemny",
+      "description": "Ten tryb kolorów jest zoptymalizowany dla ciemniejszego otoczenia."
+    }
+  },
+  "pagination": {
+    "label": "Paginacja",
+    "ofPages": "z {pages} strony | z {pages} stron",
+    "previous": "poprzednia strona",
+    "next": "następna strona",
+    "buttonLabel": "Strona {page}",
+    "morePages": "Więcej stron pomiędzy",
+    "select": {
+      "label": "Wybór strony",
+      "listLabel": "Dostępne strony"
+    },
+    "currentOfTotalPages": "1/1 strona | {current}/{total} stron"
+  },
+  "input": {
+    "clear": "Wyczyść pole",
+    "showPassword": "Pokaż hasło",
+    "hidePassword": "Ukryj hasło"
+  },
+  "dialog": {
+    "close": "Zamknij okno dialogowe"
+  },
+  "headline": {
+    "copyLink": "Kopiuj link do tego nagłówka",
+    "copyLinkTo": "Kopiuj link do nagłówka:"
+  },
+  "avatar": {
+    "ariaLabel": "Awatar użytkownika {fullName}"
+  },
+  "filterTag": {
+    "clickToAdd": "Dodaj filtr „{label}”",
+    "clickToRemove": "Usuń filtr „{label}”"
+  },
+  "languageSelect": {
+    "label": "Język",
+    "headline": "Zmień język",
+    "subtitle": "Wybierz język aplikacji:"
+  },
+  "resizeHandle": {
+    "label": "Przeciągnij, aby zmienić szerokość"
+  },
+  "fileUpload": {
+    "select": "Wybierz",
+    "clickToUpload": "Kliknij, aby wybrać",
+    "orDragAndDrop": "lub przeciągnij i upuść plik",
+    "maxFileSize": "Maksymalny rozmiar pliku",
+    "inTotal": "łącznie",
+    "maxFileCount": "Można wybrać maksymalnie {n} plików",
+    "allowedFileTypes": "Dozwolone typy plików: {types}",
+    "hideFilesButton": "Ukryj wszystkie pliki",
+    "revealFilesButton": "Pokaż wszystkie pliki",
+    "removeFile": "Usuń plik",
+    "requiredError": "Musisz przesłać co najmniej jeden plik",
+    "status": {
+      "fileTypeError": "Plik z rozszerzeniem „.{extension}” jest nieprawidłowy",
+      "fileSizeError": "Plik przekracza maksymalny dozwolony rozmiar {size}",
+      "maxFileSizeError": "Całkowity rozmiar wszystkich plików przekracza dozwolone maksimum {size}",
+      "maxCountError": "Liczba plików przekracza dozwolone maksimum {count}"
+    }
+  },
+  "globalFAB": {
+    "label": "Akcje globalne"
+  },
+  "calendar": {
+    "todayButton": {
+      "label": "Dzisiaj",
+      "tooltip": "Przejdź do dzisiaj"
+    },
+    "calendarWeek": "tydz.",
+    "calendarWeekButtonLabel": "Wybierz tydzień kalendarzowy {weekNumber}",
+    "previousMonthButton": "Poprzedni miesiąc",
+    "nextMonthButton": "Następny miesiąc",
+    "monthYearPicker": "Wybór miesiąca i roku"
+  },
+  "flyoutMenu": {
+    "moreActions": "Więcej akcji",
+    "toggleActions": {
+      "click": "Kliknij, aby przełączyć widoczność akcji",
+      "hover": "Najedź/skup się, aby przełączyć widoczność akcji"
+    }
+  },
+  "slider": {
+    "decreaseValueBy": "Zmniejsz wartość o {n}",
+    "increaseValueBy": "Zwiększ wartość o {n}",
+    "changeValue": "Zmień wartość",
+    "changeStartValue": "Zmień wartość początkową",
+    "changeEndValue": "Zmień wartość końcową"
+  },
+  "codeTabs": {
+    "label": "Fragmenty kodu",
+    "copySnippet": "Kopiuj kod",
+    "copied": "Skopiowano!",
+    "failed": "Niepowodzenie!",
+    "tabLabel": "Kod"
+  },
+  "globalSearch": {
+    "label": "Wyszukiwanie globalne",
+    "searchResults": "Wyniki wyszukiwania",
+    "input": {
+      "label": "Szukaj treści",
+      "placeholder": "Szukaj..."
+    },
+    "shortcuts": {
+      "move": "Nawiguj",
+      "select": "Wybierz"
+    },
+    "system": "System"
+  },
+  "timePicker": {
+    "placeholder": {
+      "hour": "GG",
+      "minute": "MM",
+      "second": "SS"
+    },
+    "labels": {
+      "iconButton": "Otwórz selektor czasu",
+      "popover": "Selektor czasu",
+      "hour": "Godzina",
+      "minute": "Minuta",
+      "second": "Sekunda",
+      "listLabel": "Opcje czasu"
+    }
+  },
+  "itemsPerPage": {
+    "label": "Elementów na stronę",
+    "select": {
+      "listLabel": "Wybierz liczbę elementów na stronę"
+    }
+  },
+  "tableOfContents": {
+    "label": "Spis treści"
+  },
+  "key": {
+    "label": "Klawisz „{name}”"
+  }
+}
