@@ -53,5 +53,6 @@ export type FormElementV2Message = FormElementV2Tooltip & {
   /**
    * The color / semantic type of the message.
    */
-  color?: OnyxColor;
+  // TODO: also support the other colors
+  color?: Extract<OnyxColor, "neutral" | "danger" | "success">;
 };
