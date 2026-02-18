@@ -242,6 +242,9 @@ importers:
       '@sit-onyx/storybook-utils':
         specifier: workspace:^
         version: link:../../packages/storybook-utils
+      '@sit-onyx/tiptap':
+        specifier: workspace:^
+        version: link:../../packages/tiptap
       '@sit-onyx/vitepress-theme':
         specifier: workspace:^
         version: link:../../packages/vitepress-theme

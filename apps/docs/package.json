@@ -35,6 +35,7 @@
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",
+    "@sit-onyx/tiptap": "workspace:^",
     "@sit-onyx/vitepress-theme": "workspace:^",
     "chart.js": "catalog:",
     "postcss": "^8.5.6",
