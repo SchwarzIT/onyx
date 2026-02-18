@@ -1,6 +1,7 @@
 import { iconPlaceholder } from "@sit-onyx/icons";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
+import { createAdvancedStoryExample } from "../../utils/storybook.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
 import OnyxFormElementV2 from "./OnyxFormElementV2.vue";
@@ -74,3 +75,8 @@ export const AllSlots = {
     ...Slots.args,
   },
 } satisfies Story;
+
+export const Popover = createAdvancedStoryExample(
+  "OnyxFormElementV2",
+  "PopoverExample",
+) satisfies Story;

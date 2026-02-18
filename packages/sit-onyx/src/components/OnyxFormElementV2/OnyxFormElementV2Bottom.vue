@@ -61,9 +61,11 @@ const message = computed<FormElementV2Message | undefined>(() => {
 
 .onyx-form-element-v2 {
   @include layers.component() {
+    --onyx-form-element-v2-bottom-height: 1lh;
+
     &__bottom {
       color: var(--onyx-color-text-icons-neutral-soft);
-      height: 1lh;
+      height: var(--onyx-form-element-v2-bottom-height);
       display: flex;
       align-items: center;
       justify-content: space-between;
