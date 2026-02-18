@@ -141,7 +141,9 @@
     "toggleContextMenu": "Kontext-Menü umschalten",
     "navigationHeadline": "Navigation",
     "moreActionsFlyout": "Wähle eine Aktion für die Spalte \"{column}\"",
-    "moreActionsTrigger": "Spaltenaktionen umschalten"
+    "moreActionsTrigger": "Spaltenaktionen umschalten",
+    "collapse": "Einklappen",
+    "expand": "Ausklappen"
   },
   "tooltip": {
     "neutral": "Info-Tooltip Sichtbarkeit umschalten",

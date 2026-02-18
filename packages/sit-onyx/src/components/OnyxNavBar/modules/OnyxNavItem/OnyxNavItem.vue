@@ -6,10 +6,16 @@ import { useMoreListChild } from "../../../../composables/useMoreList.js";
 import { useVModel } from "../../../../composables/useVModel.js";
 import { injectI18n } from "../../../../i18n/index.js";
 import { mergeVueProps, useRootAttrs } from "../../../../utils/attrs.js";
+import { extractLinkProps } from "../../../../utils/router.js";
 import OnyxButton from "../../../OnyxButton/OnyxButton.vue";
+import OnyxExternalLinkIcon from "../../../OnyxExternalLinkIcon/OnyxExternalLinkIcon.vue";
+import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxSeparator from "../../../OnyxSeparator/OnyxSeparator.vue";
+import OnyxTooltip from "../../../OnyxTooltip/OnyxTooltip.vue";
+import OnyxVisuallyHidden from "../../../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import {
   MOBILE_NAV_BAR_INJECTION_KEY,
+  NAV_BAR_IS_EXPANDED_INJECTION_KEY,
   NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY,
   NAV_BAR_MORE_LIST_INJECTION_KEY,
   NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY,
@@ -69,6 +75,7 @@ const isMobile = inject(
   MOBILE_NAV_BAR_INJECTION_KEY,
   computed(() => false),
 );
+const isExpanded = inject(NAV_BAR_IS_EXPANDED_INJECTION_KEY, undefined);
 
 const moreListTargetRef = inject(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, undefined);
 
@@ -82,9 +89,76 @@ const { componentRef, isVisible } = isTopLevel
 </script>
 
 <template>
+  <!-- Desktop parent item in vertical navbar with children in a flyout -->
+  <OnyxFlyoutMenu
+    v-if="isExpanded !== undefined && isTopLevel && hasChildren"
+    v-bind="rootAttrs"
+    :label="t('navItemOptionsLabel', { label: props.label })"
+    alignment="right"
+  >
+    <template #button="{ trigger }">
+      <OnyxNavItemFacade
+        v-bind="mergeVueProps(restAttrs, props, trigger)"
+        ref="componentRef"
+        :active
+        context="vertical-navbar"
+      >
+        <OnyxIcon v-if="props.icon" :icon="props.icon" />
+        <OnyxVisuallyHidden v-if="!isExpanded">
+          {{ props.label }}
+        </OnyxVisuallyHidden>
+        <slot v-else>{{ props.label }}</slot>
+        <template v-if="slots.children" #children>
+          <slot name="children"></slot>
+        </template>
+      </OnyxNavItemFacade>
+    </template>
+
+    <template #options>
+      <slot name="children"></slot>
+    </template>
+  </OnyxFlyoutMenu>
+
+  <!-- Desktop nav button directly in vertical navbar  -->
+  <OnyxTooltip
+    v-else-if="isExpanded === false && isTopLevel"
+    alignment="right"
+    position="right"
+    without-wedge
+  >
+    <template #tooltip>
+      {{ props.label }}
+      <OnyxExternalLinkIcon v-bind="props.link ? extractLinkProps(props.link) : undefined" />
+    </template>
+    <template #default="{ trigger }">
+      <OnyxNavItemFacade
+        v-bind="mergeVueProps(props, $attrs, trigger)"
+        ref="componentRef"
+        :active
+        context="vertical-navbar"
+      >
+        <OnyxIcon v-if="props.icon" :icon="props.icon" />
+        <OnyxVisuallyHidden> {{ props.label }}</OnyxVisuallyHidden>
+      </OnyxNavItemFacade>
+    </template>
+  </OnyxTooltip>
+
+  <OnyxNavItemFacade
+    v-else-if="isExpanded && isTopLevel"
+    v-bind="mergeVueProps(props, $attrs)"
+    ref="componentRef"
+    :active
+    context="vertical-navbar"
+  >
+    <slot>
+      <OnyxIcon v-if="props.icon" :icon="props.icon" />
+      {{ props.label }}
+      <OnyxExternalLinkIcon v-bind="props.link ? extractLinkProps(props.link) : undefined" />
+    </slot>
+  </OnyxNavItemFacade>
   <!-- Mobile Parent is open -->
   <div
-    v-if="isMobile && open"
+    v-else-if="isMobile && open"
     :class="{
       'onyx-component': true,
       'onyx-nav-item-wrapper': true,

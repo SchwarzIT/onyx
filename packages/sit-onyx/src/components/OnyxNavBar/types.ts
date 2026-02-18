@@ -1,9 +1,14 @@
 import type { ComputedRef, InjectionKey, Ref, TeleportProps } from "vue";
 import type { MoreListInjectionKey } from "../../composables/useMoreList.js";
+import type { Nullable } from "../../types/utils.js";
 import type { OnyxBreakpoint } from "../../utils/breakpoints.js";
 import type { OnyxNavAppAreaProps } from "../OnyxNavAppArea/types.js";
 
-export type OnyxNavBarProps = Pick<OnyxNavAppAreaProps, "appName" | "logoUrl"> & {
+export type NavBarOrientation = "horizontal" | "vertical";
+export type OnyxNavBarProps<TOrientation extends NavBarOrientation = NavBarOrientation> = Pick<
+  OnyxNavAppAreaProps,
+  "appName" | "logoUrl"
+> & {
   /**
    * Whether to show a back button.
    */
@@ -25,6 +30,20 @@ export type OnyxNavBarProps = Pick<OnyxNavAppAreaProps, "appName" | "logoUrl"> &
    * @see [onyx docs](https://onyx.schwarz/development/breakpoints.html) for more information.
    */
   mobile?: boolean | OnyxBreakpoint | number;
+
+  /**
+   * The orientation of the nav bar.
+   * @default "horizontal"
+   */
+  orientation?: TOrientation;
+  /**
+   * Whether the nav bar is currently expanded. Only available for `orientation="vertical"`.
+   */
+  expanded?: Nullable<boolean>;
+  /**
+   * How to align the navigation items. Only available for `orientation="vertical"`.
+   */
+  alignment?: TOrientation extends "vertical" ? "top" | "center" : never;
 };
 
 /**
@@ -50,6 +69,12 @@ export const NAV_BAR_MORE_LIST_INJECTION_KEY = Symbol() as MoreListInjectionKey;
 export const NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY = Symbol() as InjectionKey<
   Ref<TeleportProps["to"]>
 >;
+
+/**
+ * [Vue injection key](https://vuejs.org/guide/components/provide-inject) that is provided by the nav bar
+ * to communicate child components whether they should render horizontal or vertical.
+ */
+export const NAV_BAR_IS_EXPANDED_INJECTION_KEY = Symbol() as InjectionKey<Ref<boolean>>;
 
 export type OnyxNavBarSlots = {
   /**

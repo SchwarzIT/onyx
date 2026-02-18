@@ -1,9 +1,9 @@
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends NavBarOrientation">
 import OnyxNavItem from "./modules/OnyxNavItem/OnyxNavItem.vue";
 import OnyxNavBar from "./OnyxNavBar.vue";
-import { type OnyxNavBarProps } from "./types.js";
+import { type NavBarOrientation, type OnyxNavBarProps } from "./types.js";
 
-const props = withDefaults(defineProps<OnyxNavBarProps>(), {
+const props = withDefaults(defineProps<OnyxNavBarProps<T>>(), {
   // Vue defaults booleans to false so this explicit "undefined" is needed to correctly set the default breakpoint
   mobile: undefined,
 });
