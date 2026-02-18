@@ -28,7 +28,16 @@ const message = computed<FormElementV2Message | undefined>(() => {
       { 'onyx-form-element-v2__bottom--reserve-empty': reserveMessageSpace },
     ]"
   >
-    <div v-if="message" class="onyx-form-element-v2__message">
+    <div
+      v-if="message"
+      :class="[
+        'onyx-form-element-v2__message',
+        {
+          [`onyx-form-element-v2__message--${message.color}`]:
+            message.color && message.color !== 'neutral',
+        },
+      ]"
+    >
       <!-- TODO: implement different colors -->
       <span>{{ message.label }}</span>
 
@@ -37,6 +46,7 @@ const message = computed<FormElementV2Message | undefined>(() => {
         class="onyx-form-element-v2__tooltip"
         trigger="hover"
         :text="message.tooltipText"
+        :color="message.color"
       />
     </div>
 
@@ -66,6 +76,14 @@ const message = computed<FormElementV2Message | undefined>(() => {
 
     &__message {
       display: flex;
+
+      &--danger {
+        color: var(--onyx-color-text-icons-danger-intense);
+      }
+
+      &--success {
+        color: var(--onyx-color-text-icons-success-intense);
+      }
     }
 
     &__bottom-right {
