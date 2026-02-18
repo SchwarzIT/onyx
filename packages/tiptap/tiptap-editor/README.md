@@ -4,7 +4,7 @@
 
 <br>
 
-# @sit-onyx/tiptap-editor
+# @sit-onyx/tiptap
 
 A rich text editor powered by the Tiptap editor and the onyx design system created by [Schwarz IT](https://it.schwarz).
 
@@ -12,4 +12,4 @@ A rich text editor powered by the Tiptap editor and the onyx design system creat
 
 ## Documentation
 
-You can find our documentation [here](https://onyx.schwarz/development/packages/tiptap-editor.html).
+You can find our documentation [here](https://onyx.schwarz/development/packages/tiptap.html).

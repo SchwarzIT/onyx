@@ -1,5 +1,5 @@
 ---
-"@sit-onyx/tiptap-editor": minor
+"@sit-onyx/tiptap": minor
 ---
 
 Release initial version
