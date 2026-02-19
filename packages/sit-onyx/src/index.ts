@@ -291,20 +291,15 @@ export * from "./composables/density.js";
 export * from "./composables/scrollEnd.js";
 export * from "./composables/themeTransition.js";
 export * from "./composables/useFileSize.js";
-export * from "./composables/useFormElementError.js";
+export { getFormMessages } from "./composables/useFormElementError.js";
 export * from "./composables/useLink.js";
 export * from "./composables/useShortcut.js";
 export * from "./composables/useSkeletonState.js";
 export { SKELETON_INJECTED_SYMBOL } from "./composables/useSkeletonState.js";
-export * from "./composables/useVModel.js";
+export { useVModel, type UseVModelOptions } from "./composables/useVModel.js";
 
-export {
-  injectI18n,
-  provideI18n,
-  type OnyxTranslations,
-  type ProvideI18nOptions,
-  type TranslationFunction,
-} from "./i18n/index.js";
+export { injectI18n, provideI18n } from "./i18n/index.js";
+export type { OnyxTranslations, ProvideI18nOptions } from "./i18n/index.js";
 export * from "./types/index.js";
 export { createOnyx } from "./utils/plugin.js";
 
