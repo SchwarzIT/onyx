@@ -1,5 +1,6 @@
 export * from "./composables/calendar/createCalendar.js";
 export * from "./composables/comboBox/createComboBox.js";
+export * from "./composables/dataGrid/createDataGrid.js";
 export * from "./composables/helpers/useGlobalListener.js";
 export * from "./composables/helpers/useOutsideClick.js";
 export * from "./composables/listbox/createListbox.js";

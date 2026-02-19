@@ -1,3 +1,4 @@
+import { createDataGrid } from "@sit-onyx/headless";
 import { computed, h, ref, toValue } from "vue";
 import OnyxHeadline from "../../../OnyxHeadline/OnyxHeadline.vue";
 import type { DataGridHeadline } from "../../types.js";
@@ -27,6 +28,13 @@ export const BASE_MUTATION_ORDER =
 export const BASE_FEATURE = (options?: BaseFeatureOptions) =>
   createFeature(({ skeleton }) => {
     const rowCount = ref(0);
+    const selectedCell = ref();
+
+    const {
+      elements: { table, td, tr },
+    } = createDataGrid({
+      selectedCell,
+    });
 
     const headline = computed(() => {
       const _headline = toValue(options?.headline);
@@ -39,7 +47,7 @@ export const BASE_FEATURE = (options?: BaseFeatureOptions) =>
 
     return {
       name: BASE_FEATURE_SYMBOL,
-      watch: [skeleton, headline],
+      watch: [skeleton, headline, selectedCell],
       modifyColumns: {
         func: (columns) => {
           if (!skeleton.value) return [...columns];
@@ -56,8 +64,18 @@ export const BASE_FEATURE = (options?: BaseFeatureOptions) =>
           return Array.from({ length: skeletonCount }, () => ({}));
         },
       },
+      enhanceRow: {
+        func: (row) => ({ trAttributes: tr({ rowId: row.id }) }),
+      },
+      enhanceCells: {
+        func: (cell, entry) => ({
+          tdAttributes: td.value({ rowId: entry["id"], colKey: cell.props.key }),
+        }),
+      },
+      tableAttributes: () => table.value,
       scrollContainerAttributes: () => ({
         class: skeleton.value ? "onyx-data-grid--skeleton" : "",
+        tabindex: -1,
       }),
       typeRenderer: {
         number: NUMBER_RENDERER,
