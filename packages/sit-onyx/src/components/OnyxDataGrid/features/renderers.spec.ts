@@ -26,6 +26,7 @@ beforeEach(() => {
   provided = new Map();
   vi.clearAllMocks();
   provideI18n(app, { locale: "en-US" });
+  vi.stubEnv("TZ", "UTC");
 });
 
 describe("renderers", () => {
