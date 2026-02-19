@@ -243,6 +243,11 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
         border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-primary);
       }
 
+      &:focus {
+        outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
+        outline-offset: calc(-1 * var(--onyx-outline-width));
+      }
+
       // max width for skeleton, so it looks better
       > .onyx-skeleton {
         max-width: 8rem;
