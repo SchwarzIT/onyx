@@ -6,9 +6,6 @@ settings:
 
 catalogs:
   default:
-    '@vue/compiler-dom':
-      specifier: 3.5.28
-      version: 3.5.28
     chart.js:
       specifier: 4.5.1
       version: 4.5.1
@@ -754,6 +751,9 @@ importers:
       '@tiptap/extension-text-align':
         specifier: ^3.19.0
         version: 3.19.0(@tiptap/core@3.19.0(@tiptap/pm@3.19.0))
+      '@tiptap/extensions':
+        specifier: ^3.19.0
+        version: 3.19.0(@tiptap/core@3.19.0(@tiptap/pm@3.19.0))(@tiptap/pm@3.19.0)
       '@tiptap/pm':
         specifier: ^3.19.0
         version: 3.19.0
@@ -764,7 +764,7 @@ importers:
         specifier: ^3.19.0
         version: 3.19.0(@floating-ui/dom@1.7.5)(@tiptap/core@3.19.0(@tiptap/pm@3.19.0))(@tiptap/pm@3.19.0)(vue@3.5.28(typescript@5.9.3))
       '@vue/compiler-dom':
-        specifier: 'catalog:'
+        specifier: 3.5.28
         version: 3.5.28
       sit-onyx:
         specifier: workspace:^

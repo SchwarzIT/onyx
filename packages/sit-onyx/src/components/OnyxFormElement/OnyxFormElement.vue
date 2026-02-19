@@ -1,5 +1,6 @@
 <script lang="ts" setup generic="T">
 import { computed, useId } from "vue";
+import { useDensity } from "../../composables/density.js";
 import { useRequired } from "../../composables/required.js";
 import { useVModel } from "../../composables/useVModel.js";
 import type { Nullable } from "../../types/index.js";
@@ -23,6 +24,7 @@ const emit = defineEmits<{
 
 const { requiredMarker, reserveMessageSpace } = useFormContext(props);
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props, requiredMarker);
+const { densityClass } = useDensity(props);
 
 /**
  * Current value of the input.
@@ -85,6 +87,7 @@ const footer = computed(() => {
       'onyx-form-element',
       requiredTypeClass,
       successMessages ? 'onyx-form-element--success' : undefined,
+      densityClass,
     ]"
   >
     <div v-if="!props.hideLabel" class="onyx-form-element__label onyx-text--small">
