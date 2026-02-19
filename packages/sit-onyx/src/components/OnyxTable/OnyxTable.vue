@@ -54,6 +54,7 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
     >
       <table
         ref="table"
+        v-bind="tableAttrs"
         :class="[
           'onyx-table',
           'onyx-text',
@@ -78,8 +79,7 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
               :key="group.key"
               :colspan="group.span"
               scope="colgroup"
-              :class="['onyx-table__colgroup', group.class]"
-              :style="group.style"
+              class="onyx-table__colgroup"
             >
               {{ group.header }}
             </th>
@@ -159,7 +159,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
     display: flex;
     flex-direction: column;
     gap: var(--onyx-density-xs);
-    font-family: var(--onyx-font-family-paragraph);
+    font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
 
     &__container {
@@ -228,6 +228,11 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
     td {
       position: relative;
       padding: var(--onyx-table-padding-block) var(--onyx-table-padding-inline);
+
+      &:focus {
+        outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
+        outline-offset: calc(-1 * var(--onyx-outline-width));
+      }
 
       // max width for skeleton, so it looks better
       > .onyx-skeleton {

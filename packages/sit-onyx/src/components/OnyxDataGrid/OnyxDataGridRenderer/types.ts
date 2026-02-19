@@ -57,6 +57,11 @@ export type DataGridRendererColumn<TEntry extends DataGridEntry, TProps = any> =
   thAttributes?: ThHTMLAttributes;
 };
 
+export type DataGridRendererRowCells<
+  TEntry extends DataGridEntry,
+  TMetadata extends DataGridRendererCellMetadata = DataGridRendererCellMetadata,
+> = Partial<Record<keyof TEntry, DataGridRendererCell<TEntry, TMetadata>>>;
+
 /**
  * Describes how a specific row is rendered in the data grid.
  */
@@ -72,7 +77,7 @@ export type DataGridRendererRow<
    * Describes how a cell in a specific row is rendered in the data grid.
    * Only cells that are defined in the columns will be rendered in the defined order.
    */
-  cells: Partial<Record<keyof TEntry, DataGridRendererCell<TEntry, TMetadata>>>;
+  cells: DataGridRendererRowCells<TEntry, TMetadata>;
   /**
    * Attributes that are bound directly to the `<tr>` element of the row.
    */
