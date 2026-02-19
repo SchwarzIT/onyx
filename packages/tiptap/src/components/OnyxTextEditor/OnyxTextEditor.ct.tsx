@@ -27,18 +27,18 @@ test.describe("Screenshot tests", () => {
 
 test.describe("Screenshot tests (density)", () => {
   executeMatrixScreenshotTest({
-    name: "Text area (densities)",
-    columns: DENSITIES,
-    rows: ["default"],
-    component: (column) => (
-      <OnyxTextEditor label="Test label" density={column} modelValue="Filled value" />
+    name: "Text editor (densities)",
+    columns: ["default"],
+    rows: DENSITIES,
+    component: (column, row) => (
+      <OnyxTextEditor label="Test label" density={row} modelValue="Filled value" />
     ),
   });
 });
 
 test.describe("Screenshot tests (truncation)", () => {
   executeMatrixScreenshotTest({
-    name: "Text area (truncation)",
+    name: "Text editor (truncation)",
     columns: ["default"],
     rows: ["default", "long", "hideLabel"],
     component: (column, row) => {
@@ -125,9 +125,9 @@ test.describe("Screenshot tests (manual resize", () => {
     ),
     hooks: {
       beforeEach: async (component, page, column, row) => {
-        const textarea = component.getByLabel("Test label");
+        const editor = component.getByLabel("Test label");
         if (row === "resized-larger" || row === "resized-smaller") {
-          const box = (await textarea.boundingBox())!;
+          const box = (await editor.boundingBox())!;
 
           const x = box.x + box.width - 4;
           const y = box.y + box.height - 4;
