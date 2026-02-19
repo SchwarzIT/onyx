@@ -2,10 +2,11 @@ import type { Extensions } from "@tiptap/vue-3";
 import type { Nullable, OnyxTextareaProps } from "sit-onyx";
 
 // TODO: consider the following features if possible:
-// required, readonly, min/max length, custom errors, autocapitalize
+// required, min/max length, custom errors, autocapitalize
 export type OnyxTextEditorProps = Pick<
   OnyxTextareaProps,
   | "label"
+  | "labelTooltip"
   | "disableManualResize"
   | "disabled"
   | "hideLabel"
@@ -15,6 +16,7 @@ export type OnyxTextEditorProps = Pick<
   | "success"
   | "density"
   | "placeholder"
+  | "reserveMessageSpace"
 > & {
   /**
    * Current editor value.

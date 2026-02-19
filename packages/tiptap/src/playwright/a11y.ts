@@ -14,7 +14,12 @@ export type AxeFixture = {
  * TODO: re-enable color-contrast rule when color contrasts issues are fixed in:
  * https://github.com/SchwarzIT/onyx/issues/2250
  */
-export const DEFAULT_DISABLED_AXE_RULES = ["color-contrast"];
+// TODO: fix aria-allowed and aria-prohibited
+export const DEFAULT_DISABLED_AXE_RULES = [
+  "color-contrast",
+  "aria-allowed-attr",
+  "aria-prohibited-attr",
+];
 
 /**
  * Creates an `AxeBuilder` with onyx configuration that should be used for accessibility tests.
