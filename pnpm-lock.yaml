@@ -6,6 +6,9 @@ settings:
 
 catalogs:
   default:
+    '@vue/compiler-dom':
+      specifier: 3.5.28
+      version: 3.5.28
     chart.js:
       specifier: 4.5.1
       version: 4.5.1
@@ -721,9 +724,21 @@ importers:
         specifier: 3.5.28
         version: 3.5.28(typescript@5.9.3)
     devDependencies:
+      '@axe-core/playwright':
+        specifier: ^4.11.1
+        version: 4.11.1(playwright-core@1.57.0)
+      '@playwright/experimental-ct-vue':
+        specifier: 1.57.0
+        version: 1.57.0(@types/node@24.10.13)(jiti@2.6.1)(sass-embedded@1.97.3)(sass@1.97.3)(stylus@0.57.0)(terser@5.46.0)(tsx@4.21.0)(vite@7.3.1(@types/node@24.10.13)(jiti@2.6.1)(sass-embedded@1.97.3)(sass@1.97.3)(stylus@0.57.0)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2))(vue@3.5.28(typescript@5.9.3))(yaml@2.8.2)
+      '@playwright/test':
+        specifier: 1.57.0
+        version: 1.57.0
       '@sit-onyx/icons':
         specifier: workspace:^
         version: link:../icons
+      '@sit-onyx/playwright-utils':
+        specifier: workspace:^
+        version: link:../playwright-utils
       '@sit-onyx/shared':
         specifier: workspace:^
         version: link:../shared
@@ -745,6 +760,9 @@ importers:
       '@tiptap/vue-3':
         specifier: ^3.19.0
         version: 3.19.0(@floating-ui/dom@1.7.5)(@tiptap/core@3.19.0(@tiptap/pm@3.19.0))(@tiptap/pm@3.19.0)(vue@3.5.28(typescript@5.9.3))
+      '@vue/compiler-dom':
+        specifier: 'catalog:'
+        version: 3.5.28
       sit-onyx:
         specifier: workspace:^
         version: link:../sit-onyx
