@@ -13,6 +13,7 @@ export type OnyxTextEditorProps = Pick<
   | "autofocus"
   | "message"
   | "success"
+  | "density"
 > & {
   /**
    * Current editor value.
