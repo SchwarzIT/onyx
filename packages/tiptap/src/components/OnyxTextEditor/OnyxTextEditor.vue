@@ -77,6 +77,7 @@ const editor = useEditor({
   editorProps: {
     attributes: {
       class: "onyx-text-editor__native",
+      role: "textbox",
     },
   },
   onUpdate: () => {

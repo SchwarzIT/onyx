@@ -1,6 +1,14 @@
 <script lang="ts" setup>
-import { mergeVueProps, OnyxSystemButton, OnyxTooltip, useForwardProps } from "sit-onyx";
+import {
+  mergeVueProps,
+  OnyxSystemButton,
+  OnyxTooltip,
+  useForwardProps,
+  useRootAttrs,
+} from "sit-onyx";
 import type { OnyxEditorToolbarActionProps } from "./types.js";
+
+defineOptions({ inheritAttrs: false });
 
 const props = defineProps<OnyxEditorToolbarActionProps>();
 
@@ -12,14 +20,21 @@ defineSlots<{
 }>();
 
 const systemButtonProps = useForwardProps(props, OnyxSystemButton);
+
+const { restAttrs, rootAttrs } = useRootAttrs();
 </script>
 
 <template>
-  <OnyxTooltip class="onyx-editor-toolbar-action" :text="props.label" position="top">
+  <OnyxTooltip
+    v-bind="rootAttrs"
+    class="onyx-editor-toolbar-action"
+    :text="props.label"
+    position="top"
+  >
     <template #default="{ trigger }">
       <!-- empty title is used to hide the native browser tooltip since we provide a custom tooltip here -->
       <OnyxSystemButton
-        v-bind="mergeVueProps(systemButtonProps, trigger)"
+        v-bind="mergeVueProps(systemButtonProps, trigger, restAttrs)"
         :class="{ active: props.active }"
         title=""
       >
