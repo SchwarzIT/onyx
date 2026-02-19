@@ -37,6 +37,7 @@ const props = withDefaults(defineProps<OnyxTextEditorProps>(), {
   toolbar: () => ({ position: "top" }),
   disabled: FORM_INJECTED_SYMBOL,
   extensions: () => [OnyxStarterKit],
+  reserveMessageSpace: FORM_INJECTED_SYMBOL,
 });
 
 const emit = defineEmits<{
@@ -157,6 +158,10 @@ const successMessages = computed(() => getFormMessages(props.success));
 const message = computed(() => getFormMessages(props.message));
 
 const { hasExtension, hasTextExtension } = useEditorUtils(editor);
+
+const autosizeValue = computed(() => {
+  return editor.value?.getText({ blockSeparator: "\n" });
+});
 
 defineExpose({
   /**
@@ -295,7 +300,11 @@ defineExpose({
         </div>
       </div>
 
-      <EditorContent class="onyx-text-editor__wrapper" :data-autosize-value="modelValue" :editor />
+      <EditorContent
+        class="onyx-text-editor__wrapper"
+        :data-autosize-value="autosizeValue"
+        :editor
+      />
     </div>
   </OnyxFormElement>
 </template>
