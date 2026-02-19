@@ -110,7 +110,12 @@ describe("renderers", () => {
       { value: Symbol("test-symbol"), expected: FALLBACK_RENDER_VALUE },
     ])(`${rendererType}: should render $expected for input $value`, ({ value, expected }) => {
       // ACT
-      const actual = getRendererCellValue(value, rendererType);
+      let actual = getRendererCellValue(value, rendererType);
+
+      // fix when running in GitHub CI where sometimes "+0" is added
+      if (rendererType === "timestamp" && String(actual).endsWith("GMT+0")) {
+        actual = String(actual).replace("GMT+0", "GMT");
+      }
 
       // ASSERT
       expect(actual).toBe(expected);
