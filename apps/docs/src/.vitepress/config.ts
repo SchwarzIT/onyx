@@ -170,6 +170,7 @@ export const CONFIG = {
             { text: "Nuxt documentation template", link: "/nuxt-docs" },
             { text: "Playwright utilities", link: "/playwright-utils" },
             { text: "Storybook utilities", link: "/storybook-utils" },
+            { text: "Tiptap text editor", link: "/tiptap" },
             { text: "VitePress theme", link: "/vitepress-theme" },
           ].sort((a, b) => a.text.localeCompare(b.text)),
         },
