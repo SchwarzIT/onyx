@@ -1,7 +1,7 @@
 {
   "name": "onyx-monorepo",
   "type": "module",
-  "packageManager": "pnpm@10.29.2",
+  "packageManager": "pnpm@10.30.1",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
   "scripts": {
@@ -45,7 +45,7 @@
     "@vueless/storybook-dark-mode": "^10.0.7",
     "eslint": "^9.39.2",
     "eslint-plugin-compat": "^6.1.0",
-    "eslint-plugin-playwright": "^2.5.1",
+    "eslint-plugin-playwright": "^2.6.0",
     "eslint-plugin-storybook": "^10.2.9",
     "eslint-plugin-vue": "^10.8.0",
     "eslint-plugin-vue-scoped-css": "^2.12.0",
