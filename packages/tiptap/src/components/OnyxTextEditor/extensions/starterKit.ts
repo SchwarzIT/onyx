@@ -4,7 +4,7 @@ import StarterKit, { type StarterKitOptions } from "@tiptap/starter-kit";
 import { Extension, type Extensions } from "@tiptap/vue-3";
 import { OnyxHeadingExtension } from "./heading.js";
 
-type OnyxStarterKitOptions = Partial<
+export type OnyxStarterKitOptions = Partial<
   StarterKitOptions & { textAlign: Partial<TextAlignOptions> | false }
 >;
 

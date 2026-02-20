@@ -75,7 +75,12 @@ const removeLink = () => {
 </script>
 
 <template>
-  <OnyxDialog v-model:open="open" class="dialog" :label="t('editor.link.edit')" density="compact">
+  <OnyxDialog
+    v-model:open="open"
+    class="onyx-editor-link-action"
+    :label="t('editor.link.edit')"
+    density="compact"
+  >
     <template #trigger="{ trigger }">
       <OnyxEditorToolbarAction
         v-bind="trigger"
@@ -87,7 +92,12 @@ const removeLink = () => {
     </template>
 
     <!-- using v-if here so the form validation is reset when the dialog closes -->
-    <OnyxForm v-if="open" :id class="dialog__content" @submit.prevent="handleSubmit">
+    <OnyxForm
+      v-if="open"
+      :id
+      class="onyx-editor-link-action__content"
+      @submit.prevent="handleSubmit"
+    >
       <OnyxInput v-model="state.text" :label="t('editor.link.text')" required />
 
       <OnyxInput v-model="state.href" :label="t('editor.link.link')" type="url" autofocus>
@@ -106,17 +116,25 @@ const removeLink = () => {
   </OnyxDialog>
 </template>
 
-<style lang="scss" scoped>
-.dialog {
-  &__content {
-    padding: var(--onyx-density-md) var(--onyx-dialog-padding-inline);
-    display: flex;
-    flex-direction: column;
-    gap: var(--onyx-density-md);
-  }
+<style lang="scss">
+@use "sit-onyx/src/styles/mixins/layers.scss";
 
-  :deep(.onyx-dialog__headline-content) {
-    justify-content: flex-start;
+.onyx-editor-link-action {
+  @include layers.component() {
+    &__content {
+      padding: var(--onyx-density-md) var(--onyx-dialog-padding-inline);
+      display: flex;
+      flex-direction: column;
+      gap: var(--onyx-density-md);
+    }
+
+    .onyx-basic-popover__dialog {
+      width: 16rem;
+    }
+
+    .onyx-dialog__headline-content {
+      justify-content: flex-start;
+    }
   }
 }
 </style>
