@@ -12,6 +12,7 @@ import {
   iconToolUnderlined,
   iconUndo,
 } from "@sit-onyx/icons";
+import { Placeholder } from "@tiptap/extensions/placeholder";
 import { EditorContent, mergeAttributes, useEditor } from "@tiptap/vue-3";
 import {
   FORM_INJECTED_SYMBOL,
@@ -36,6 +37,7 @@ const props = withDefaults(defineProps<OnyxTextEditorProps>(), {
   toolbar: () => ({ position: "top" }),
   disabled: FORM_INJECTED_SYMBOL,
   extensions: () => [OnyxStarterKit],
+  reserveMessageSpace: FORM_INJECTED_SYMBOL,
 });
 
 const emit = defineEmits<{
@@ -65,10 +67,17 @@ const modelValue = useVModel({
 // eslint-disable-next-line vue/no-setup-props-reactivity-loss -- documented in props JSDoc that extensions should not be changed at runtime
 const editor = useEditor({
   content: modelValue.value,
-  extensions: props.extensions,
+  extensions: [
+    ...props.extensions,
+    Placeholder.configure({
+      showOnlyWhenEditable: false, // same behavior as OnyxTextarea
+      placeholder: () => props.placeholder ?? "",
+    }),
+  ],
   editorProps: {
     attributes: {
       class: "onyx-text-editor__native",
+      role: "textbox",
     },
   },
   onUpdate: () => {
@@ -123,6 +132,14 @@ watch(
   { immediate: true },
 );
 
+// needed to sync the placeholder property with the extension
+watch(
+  () => props.placeholder,
+  () => {
+    editor.value?.view.dispatch(editor.value.state.tr);
+  },
+);
+
 const formElementProps = useForwardProps(props, OnyxFormElement);
 
 /**
@@ -142,6 +159,10 @@ const successMessages = computed(() => getFormMessages(props.success));
 const message = computed(() => getFormMessages(props.message));
 
 const { hasExtension, hasTextExtension } = useEditorUtils(editor);
+
+const autosizeValue = computed(() => {
+  return editor.value?.getText({ blockSeparator: "\n" });
+});
 
 defineExpose({
   /**
@@ -280,7 +301,11 @@ defineExpose({
         </div>
       </div>
 
-      <EditorContent class="onyx-text-editor__wrapper" :data-autosize-value="modelValue" :editor />
+      <EditorContent
+        class="onyx-text-editor__wrapper"
+        :data-autosize-value="autosizeValue"
+        :editor
+      />
     </div>
   </OnyxFormElement>
 </template>
@@ -322,6 +347,17 @@ defineExpose({
     border-left: var(--onyx-spacing-5xs) solid var(--onyx-color-component-border-neutral);
     padding-left: var(--onyx-density-xs);
     color: var(--onyx-color-text-icons-neutral-medium);
+  }
+
+  /* placeholder, see: https://tiptap.dev/docs/editor/extensions/functionality/placeholder#additional-setup */
+  p.is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+
+    color: var(--onyx-color-text-icons-neutral-soft);
+    font-weight: var(--onyx-font-weight-regular);
   }
 }
 

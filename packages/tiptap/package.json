@@ -33,12 +33,14 @@
     "dev": "storybook dev -p 6006 --no-open",
     "build": "vite build",
     "build:storybook": "storybook build",
-    "preview": "vite serve storybook-static"
+    "preview": "vite serve storybook-static",
+    "test:playwright": "playwright install && playwright test"
   },
   "peerDependencies": {
     "@sit-onyx/icons": "workspace:^",
     "@tiptap/extension-heading": ">= 3",
     "@tiptap/extension-text-align": ">= 3",
+    "@tiptap/extensions": ">= 3",
     "@tiptap/pm": ">= 3",
     "@tiptap/starter-kit": ">= 3",
     "@tiptap/vue-3": ">= 3",
@@ -46,14 +48,20 @@
     "vue": ">= 3.5.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.11.1",
+    "@playwright/experimental-ct-vue": "catalog:",
+    "@playwright/test": "catalog:",
     "@sit-onyx/icons": "workspace:^",
+    "@sit-onyx/playwright-utils": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",
     "@tiptap/extension-heading": "^3.19.0",
     "@tiptap/extension-text-align": "^3.19.0",
+    "@tiptap/extensions": "^3.19.0",
     "@tiptap/pm": "^3.19.0",
     "@tiptap/starter-kit": "^3.19.0",
     "@tiptap/vue-3": "^3.19.0",
+    "@vue/compiler-dom": "catalog:",
     "sit-onyx": "workspace:^"
   }
 }
