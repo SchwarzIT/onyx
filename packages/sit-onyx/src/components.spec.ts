@@ -100,6 +100,22 @@ const COMPONENTS: Components = {
       options: [{ label: "Option 1", value: "option-1" }],
     },
   },
+  OnyxUnstableSplitButton: {
+    props: {
+      splitButtonOptions: [
+        {
+          label: "Option1",
+          icon: iconPlaceholder,
+          onClickFunction: () => {},
+        },
+        {
+          label: "Option2",
+          icon: iconPlaceholder,
+          onClickFunction: () => {},
+        },
+      ],
+    },
+  },
   OnyxSelect: {
     props: {
       label: "Select",
