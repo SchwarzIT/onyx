@@ -1,4 +1,4 @@
-import type { Locator, Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
 import { DENSITIES } from "sit-onyx";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
@@ -243,7 +243,7 @@ test.describe("extensions", () => {
       await expect(component).toHaveScreenshot("headlines.png");
 
       // ACT
-      await selectNode(page, editor.getByRole("heading", { level: 1 }));
+      await editor.getByRole("heading", { level: 1 }).selectText();
       await headlineButton.hover();
 
       // ASSERT
@@ -367,7 +367,7 @@ test.describe("extensions", () => {
   });
 
   test.describe("bold", () => {
-    test("should support bold", async ({ mount, page }) => {
+    test("should support bold", async ({ mount }) => {
       // ARRANGE
       const component = await mount(<TestCaseCt label="Test label" />);
       const editor = component.getByLabel("Test label");
@@ -379,7 +379,7 @@ test.describe("extensions", () => {
       await editor.pressSequentially("bold text");
       await button.click();
       await editor.pressSequentially(" test case");
-      await selectNode(page, editor.getByText("bold text"));
+      await editor.getByText("bold text").selectText();
 
       // ASSERT
       await expect(component).toHaveScreenshot("bold.png");
@@ -396,7 +396,7 @@ test.describe("extensions", () => {
   });
 
   test.describe("italic", () => {
-    test("should support italic", async ({ mount, page }) => {
+    test("should support italic", async ({ mount }) => {
       // ARRANGE
       const component = await mount(<TestCaseCt label="Test label" />);
       const editor = component.getByLabel("Test label");
@@ -408,7 +408,7 @@ test.describe("extensions", () => {
       await editor.pressSequentially("italic text");
       await button.click();
       await editor.pressSequentially(" test case");
-      await selectNode(page, editor.getByText("italic text"));
+      await editor.getByText("italic text").selectText();
 
       // ASSERT
       await expect(component).toHaveScreenshot("italic.png");
@@ -425,7 +425,7 @@ test.describe("extensions", () => {
   });
 
   test.describe("underline", () => {
-    test("should support underline", async ({ mount, page }) => {
+    test("should support underline", async ({ mount }) => {
       // ARRANGE
       const component = await mount(<TestCaseCt label="Test label" />);
       const editor = component.getByLabel("Test label");
@@ -437,7 +437,7 @@ test.describe("extensions", () => {
       await editor.pressSequentially("underlined text");
       await button.click();
       await editor.pressSequentially(" test case");
-      await selectNode(page, editor.getByText("underlined text"));
+      await editor.getByText("underlined text").selectText();
 
       // ASSERT
       await expect(component).toHaveScreenshot("underline.png");
@@ -456,7 +456,7 @@ test.describe("extensions", () => {
   });
 
   test.describe("strike", () => {
-    test("should support strike", async ({ mount, page }) => {
+    test("should support strike", async ({ mount }) => {
       // ARRANGE
       const component = await mount(<TestCaseCt label="Test label" />);
       const editor = component.getByLabel("Test label");
@@ -468,7 +468,7 @@ test.describe("extensions", () => {
       await editor.pressSequentially("striked text");
       await button.click();
       await editor.pressSequentially(" test case");
-      await selectNode(page, editor.getByText("striked text"));
+      await editor.getByText("striked text").selectText();
 
       // ASSERT
       await expect(component).toHaveScreenshot("strike.png");
@@ -593,7 +593,7 @@ test.describe("extensions", () => {
       await expect(link).toHaveAttribute("href", "https://example.com");
 
       // ACT
-      await link.dblclick();
+      await link.selectText();
       await button.click();
 
       // ASSERT
@@ -612,7 +612,7 @@ test.describe("extensions", () => {
       await expect(link).toHaveAttribute("href", "https://example.com");
 
       // ACT
-      await link.dblclick();
+      await link.selectText();
       await button.click();
       await linkInput.fill("https://changed.example.com");
       await applyButton.click();
@@ -746,12 +746,4 @@ async function expectFlyoutOptionSelected(page: Page, label: string, optionName:
 
   // ACT
   await page.getByRole("document").hover({ position: { x: 0, y: 0 } }); // reset hover
-}
-
-/**
- * Selects the given locator / node in the editor.
- */
-async function selectNode(page: Page, locator: Locator) {
-  const box = (await locator.boundingBox())!;
-  await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
 }
