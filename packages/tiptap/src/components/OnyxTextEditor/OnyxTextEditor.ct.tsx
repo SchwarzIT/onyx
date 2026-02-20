@@ -733,6 +733,10 @@ test("should disable all actions if editor is disabled", async ({ mount }) => {
  * Expects that the given editor toolbar flyout option is selected.
  */
 async function expectFlyoutOptionSelected(page: Page, label: string, optionName: string) {
+  // ACT
+  // make sure the hover state is reset to fix potential issues
+  await page.getByRole("document").hover({ position: { x: 0, y: 0 } });
+
   // ARRANGE
   const button = page.getByRole("button", { name: label });
   const flyout = page.getByRole("dialog", { name: label });
