@@ -1,4 +1,4 @@
-import { iconMoreHorizontalSmall } from "@sit-onyx/icons";
+import { iconMoreHorizontalSmall, iconMoreVertical } from "@sit-onyx/icons";
 import {
   computed,
   h,
@@ -20,8 +20,11 @@ import type { Nullable } from "../../../types/index.js";
 import { mergeVueProps } from "../../../utils/attrs.js";
 import { applyMapping, prepareMapping, type OrderableMapping } from "../../../utils/feature.js";
 import { asArray } from "../../../utils/objects.js";
-import type { OnyxMenuItem } from "../../OnyxNavBar/modules/index.js";
+import OnyxIconButton from "../../OnyxIconButton/OnyxIconButton.vue";
+import OnyxMoreList from "../../OnyxMoreList/OnyxMoreList.vue";
+import { OnyxMenuItem } from "../../OnyxNavBar/modules/index.js";
 import OnyxFlyoutMenu from "../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
+import OnyxSeparator from "../../OnyxSeparator/OnyxSeparator.vue";
 import OnyxSystemButton from "../../OnyxSystemButton/OnyxSystemButton.vue";
 import type { OnyxTableSlots, TableColumnGroup } from "../../OnyxTable/types.js";
 import type {
@@ -35,6 +38,12 @@ import {
   type DataGridEntry,
   type DataGridMetadata,
 } from "../types.js";
+import ActionButton from "./actionButton/ActionButton.vue";
+import {
+  DATA_GRID_ACTIONS_INJECTION_KEY,
+  type ActionGroup,
+  type ActionProps,
+} from "./actionButton/types.js";
 import type { BASE_FEATURE } from "./base/base.js";
 import { createRenderer } from "./renderer.js";
 
@@ -221,6 +230,10 @@ export type DataGridFeatureDescription<
      */
     order?: number;
   };
+  /**
+   * Allows modifying the action Slot above of the dateGrid
+   */
+  actions?: ActionProps[];
 
   /**
    * Defines a renderer for a column type.
@@ -301,7 +314,7 @@ export type DataGridFeatureDescription<
 export type DataGridScrollContainerAttributes = HTMLAttributes & Pick<VNodeProps, "ref">;
 
 export type DataGridFeatureSlots = Partial<{
-  [TSlotName in keyof Pick<OnyxTableSlots, "headline" | "bottomLeft" | "pagination">]: (
+  [TSlotName in keyof Pick<OnyxTableSlots, "headline" | "bottomLeft" | "pagination" | "actions">]: (
     slotContent: () => VNode[],
   ) => Nullable<VNode>[];
 }>;
@@ -657,10 +670,131 @@ export const useDataGridFeatures = <
 
   const createSlots = () => {
     const slots: InternalDataGridSlots = {};
+    const sortedActions = computed(() => {
+      const actions = features.flatMap((f) => f.actions ?? []);
+
+      const getGroupInfo = (g?: ActionGroup) => {
+        if (!g) return { name: "default", order: 0 };
+        if (typeof g === "string") return { name: g, order: 0 };
+        return { name: g.name, order: g.order };
+      };
+
+      const groups: Record<string, { order: number; actions: ActionProps[] }> = {};
+      actions.forEach((action) => {
+        const { name, order } = getGroupInfo(action.group);
+
+        if (!groups[name]) {
+          groups[name] = { order, actions: [] };
+        } else if (order !== 0) {
+          groups[name].order = order;
+        }
+
+        groups[name].actions.push(action);
+      });
+      return Object.values(groups)
+        .sort((a, b) => a.order - b.order)
+        .flatMap((group) => {
+          return group.actions.sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+        });
+    });
+
+    slots.actions = () => {
+      const actionsList = sortedActions.value;
+      if (actionsList.length === 0) return [];
+
+      const shouldShowSeparator = (list: ActionProps[], currentIndex: number): boolean => {
+        if (currentIndex <= 0) return false;
+
+        const getGroupName = (g: ActionGroup | undefined) =>
+          typeof g === "object" && g !== null ? g.name : (g ?? "default");
+
+        const prevGroup = getGroupName(list[currentIndex - 1]?.group);
+        const currGroup = getGroupName(list[currentIndex]?.group);
+
+        return prevGroup !== currGroup;
+      };
+
+      return [
+        h(
+          OnyxMoreList,
+          {
+            injectionKey: DATA_GRID_ACTIONS_INJECTION_KEY,
+            direction: "rtl",
+          },
+          {
+            default: ({ attributes }: { attributes: object }) =>
+              h(
+                "div",
+                { ...attributes },
+                actionsList.flatMap((action, index) => {
+                  const nodes = [];
+                  nodes.push(
+                    h(ActionButton, {
+                      ...action,
+                      onClick: () => action.onClick?.(toValue(columnConfig)),
+                      showSeparator: shouldShowSeparator(actionsList, index),
+                    }),
+                  );
+                  return nodes;
+                }),
+              ),
+
+            more: ({
+              attributes,
+              hiddenElements,
+            }: {
+              attributes: object;
+              hiddenElements: number;
+            }) => {
+              const startIndex = actionsList.length - hiddenElements;
+              const hiddenActions = actionsList.slice(startIndex);
+
+              return h(
+                OnyxFlyoutMenu,
+                {
+                  ...attributes,
+                  label: i18n.t.value("navigation.showMoreNavItemsLabel"),
+                },
+                {
+                  button: ({ trigger }: { trigger: object }) =>
+                    h(OnyxIconButton, {
+                      ...trigger,
+                      icon: iconMoreVertical,
+                      label: i18n.t.value("navigation.moreNavItems", { n: hiddenElements }),
+                      color: "neutral",
+                    }),
+
+                  options: () =>
+                    h(
+                      "div",
+                      { class: "onyx-flyout-menu-content" },
+                      hiddenActions.flatMap((action, index) => {
+                        const nodes = [];
+                        if (shouldShowSeparator(hiddenActions, index)) {
+                          nodes.push(h(OnyxSeparator, { orientation: "horizontal" }));
+                        }
+
+                        nodes.push(
+                          h(OnyxMenuItem, {
+                            icon: action?.icon,
+                            label: action.label,
+                            onClick: () => action.onClick?.(toValue(columnConfig)),
+                          }),
+                        );
+
+                        return nodes;
+                      }),
+                    ),
+                },
+              );
+            },
+          },
+        ),
+      ];
+    };
 
     features.forEach((feature) => {
       if (!feature.slots) return;
-
       Object.entries(feature.slots).forEach(([_slotName, slotFunc]) => {
         const slotName = _slotName as keyof typeof feature.slots;
         const existingSlot = slots[slotName] ?? (() => []);
