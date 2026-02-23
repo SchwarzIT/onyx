@@ -32,14 +32,14 @@ const message = computed<FormElementV2Message | undefined>(() => {
       v-if="message"
       :class="[
         'onyx-form-element-v2__message',
+        'onyx-truncation-ellipsis',
         {
           [`onyx-form-element-v2__message--${message.color}`]:
             message.color && message.color !== 'neutral',
         },
       ]"
     >
-      <!-- TODO: implement different colors -->
-      <span>{{ message.label }}</span>
+      <span class="onyx-truncation-ellipsis">{{ message.label }}</span>
 
       <OnyxInfoTooltip
         v-if="message.tooltipText"
