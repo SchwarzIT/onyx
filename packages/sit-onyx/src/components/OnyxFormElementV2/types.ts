@@ -1,6 +1,5 @@
 import type { DensityProp } from "../../composables/density.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
-import type { OnyxColor } from "../../types/colors.js";
 import type { FormInjectedProps } from "../OnyxForm/OnyxForm.core.js";
 
 export type OnyxFormElementV2Props = DensityProp &
@@ -31,7 +30,15 @@ export type OnyxFormElementV2Props = DensityProp &
     /**
      * Optional message to show below the form element.
      */
-    message?: string | FormElementV2Message;
+    message?: string | FormElementV2Tooltip;
+    /**
+     * Optional error message to show below the form element.
+     */
+    error?: string | FormElementV2Tooltip;
+    /**
+     * Optional success message to show below the form element.
+     */
+    success?: string | FormElementV2Tooltip;
     /**
      * Whether the a value for this form element is required.
      */
@@ -54,12 +61,4 @@ export type FormElementV2Tooltip = {
    * Actual tooltip text.
    */
   tooltipText?: string;
-};
-
-export type FormElementV2Message = FormElementV2Tooltip & {
-  /**
-   * The color / semantic type of the message.
-   */
-  // TODO: also support the other colors
-  color?: Extract<OnyxColor, "neutral" | "danger" | "success">;
 };

@@ -2,7 +2,8 @@
 import { computed } from "vue";
 import { useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxInfoTooltip from "../OnyxInfoTooltip/OnyxInfoTooltip.vue";
-import type { FormElementV2Message, OnyxFormElementV2Props } from "./types.js";
+import type { OnyxInfoTooltipProps } from "../OnyxInfoTooltip/types.js";
+import type { FormElementV2Tooltip, OnyxFormElementV2Props } from "./types.js";
 
 const props = defineProps<OnyxFormElementV2Props>();
 
@@ -12,10 +13,21 @@ const slots = defineSlots<{
 
 const { reserveMessageSpace } = useFormContext(props);
 
-const message = computed<FormElementV2Message | undefined>(() => {
-  if (!props.message) return;
-  if (typeof props.message === "object") return props.message;
-  return { label: props.message };
+const normalizeMessage = (
+  color: OnyxInfoTooltipProps["color"],
+  message?: string | FormElementV2Tooltip,
+) => {
+  if (!message) return;
+  if (typeof message === "object") return { ...message, color };
+  return { label: message, color };
+};
+
+const message = computed(() => {
+  return (
+    normalizeMessage("danger", props.error) ??
+    normalizeMessage("success", props.success) ??
+    normalizeMessage("neutral", props.message)
+  );
 });
 </script>
 
