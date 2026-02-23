@@ -27,7 +27,7 @@ export const Default = {
     default: (props) => h("input", props),
     required: true,
     message: {
-      label: " ajshd jkahsdjk hajksdh kjahsdjk ahsjkd",
+      label: "Example message",
       tooltipText: "Message tooltip",
     },
     bottomRight: () => h("span", "42/64"),
