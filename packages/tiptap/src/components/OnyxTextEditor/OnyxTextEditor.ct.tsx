@@ -247,11 +247,9 @@ test.describe("extensions", () => {
 
       // ACT
       await editor.getByRole("heading", { level: 1 }).selectText();
-      await headlineButton.hover();
+      await hoverAction(page, "Headlines");
 
       // ASSERT
-      await expect(headlineFlyout).toBeVisible();
-      await expect(component.getByRole("tooltip", { name: "Headlines" })).toBeVisible();
       await expect(component).toHaveScreenshot("headlines-flyout.png");
     });
 
@@ -315,11 +313,9 @@ test.describe("extensions", () => {
       await expect(component).toHaveScreenshot("lists.png");
 
       // ACT
-      await listButton.hover();
+      await hoverAction(page, "Lists");
 
       // ASSERT
-      await expect(listFlyout).toBeVisible();
-      await expect(component.getByRole("tooltip", { name: "Lists" })).toBeVisible();
       await expect(component).toHaveScreenshot("lists-flyout.png");
     });
 
@@ -374,7 +370,7 @@ test.describe("extensions", () => {
   });
 
   test.describe("bold", () => {
-    test("should support bold", async ({ mount }) => {
+    test("should support bold", async ({ mount, page }) => {
       // ARRANGE
       const component = await mount(<TestCase label="Test label" />);
       const editor = component.getByLabel("Test label");
@@ -387,10 +383,9 @@ test.describe("extensions", () => {
       await button.click();
       await editor.pressSequentially(" test case");
       await editor.getByText("bold text").selectText();
-      await button.hover();
+      await hoverAction(page, "Bold");
 
       // ASSERT
-      await expect(component.getByRole("tooltip", { name: "Bold" })).toBeVisible();
       await expect(component).toHaveScreenshot("bold.png");
     });
 
@@ -405,7 +400,7 @@ test.describe("extensions", () => {
   });
 
   test.describe("italic", () => {
-    test("should support italic", async ({ mount }) => {
+    test("should support italic", async ({ mount, page }) => {
       // ARRANGE
       const component = await mount(<TestCase label="Test label" />);
       const editor = component.getByLabel("Test label");
@@ -418,10 +413,9 @@ test.describe("extensions", () => {
       await button.click();
       await editor.pressSequentially(" test case");
       await editor.getByText("italic text").selectText();
-      await button.hover();
+      await hoverAction(page, "Italic");
 
       // ASSERT
-      await expect(component.getByRole("tooltip", { name: "Italic" })).toBeVisible();
       await expect(component).toHaveScreenshot("italic.png");
     });
 
@@ -436,7 +430,7 @@ test.describe("extensions", () => {
   });
 
   test.describe("underline", () => {
-    test("should support underline", async ({ mount }) => {
+    test("should support underline", async ({ mount, page }) => {
       // ARRANGE
       const component = await mount(<TestCase label="Test label" />);
       const editor = component.getByLabel("Test label");
@@ -449,10 +443,9 @@ test.describe("extensions", () => {
       await button.click();
       await editor.pressSequentially(" test case");
       await editor.getByText("underlined text").selectText();
-      await button.hover();
+      await hoverAction(page, "Underline");
 
       // ASSERT
-      await expect(component.getByRole("tooltip", { name: "Underline" })).toBeVisible();
       await expect(component).toHaveScreenshot("underline.png");
     });
 
@@ -467,7 +460,7 @@ test.describe("extensions", () => {
   });
 
   test.describe("strike", () => {
-    test("should support strike", async ({ mount }) => {
+    test("should support strike", async ({ mount, page }) => {
       // ARRANGE
       const component = await mount(<TestCase label="Test label" />);
       const editor = component.getByLabel("Test label");
@@ -480,10 +473,9 @@ test.describe("extensions", () => {
       await button.click();
       await editor.pressSequentially(" test case");
       await editor.getByText("striked text").selectText();
-      await button.hover();
+      await hoverAction(page, "Strike");
 
       // ASSERT
-      await expect(component.getByRole("tooltip", { name: "Strike" })).toBeVisible();
       await expect(component).toHaveScreenshot("strike.png");
     });
 
@@ -552,7 +544,7 @@ test.describe("extensions", () => {
   });
 
   test.describe("blockquote", () => {
-    test("should support blockquote", async ({ mount }) => {
+    test("should support blockquote", async ({ mount, page }) => {
       // ARRANGE
       const component = await mount(<TestCase label="Test label" />);
       const editor = component.getByLabel("Test label");
@@ -561,10 +553,9 @@ test.describe("extensions", () => {
       // ACT
       await button.click();
       await editor.pressSequentially("This is a blockquote text test case");
-      await button.hover();
+      await hoverAction(page, "Blockquote");
 
       // ASSERT
-      await expect(component.getByRole("tooltip", { name: "Blockquote" })).toBeVisible();
       await expect(component).toHaveScreenshot("blockquote.png");
     });
 
@@ -758,4 +749,15 @@ async function expectFlyoutOptionSelected(page: Page, label: string, optionName:
 
   // ACT
   await page.getByRole("document").hover({ position: { x: 0, y: 0 } }); // reset hover
+}
+
+/**
+ * Hovers the given action and waits until the tooltip is visible.
+ * Useful when capturing screenshots.
+ */
+async function hoverAction(page: Page, label: string) {
+  // reset hover
+  await page.getByRole("document").hover({ position: { x: 0, y: 0 } });
+  await page.getByRole("button", { name: label }).hover();
+  await expect(page.getByRole("tooltip", { name: label })).toBeVisible();
 }
