@@ -135,6 +135,47 @@ const label = computed<FormElementV2LabelOptions>(() => {
     --onyx-form-element-v2-padding-inline: var(--onyx-density-sm);
     --onyx-form-element-v2-caret-color: var(--onyx-color-component-cta-default);
     --onyx-form-element-v2-selection-background: var(--onyx-color-base-primary-200);
+    --onyx-form-element-v2-outline-color: var(--onyx-color-component-focus-primary);
+  }
+}
+
+/** Defines styles for the different states (hover, focus etc.) */
+@mixin define-state-styles() {
+  &:has(.onyx-form-element-v2__input:read-write):hover {
+    --onyx-form-element-v2-border-color: var(--onyx-color-component-border-primary-hover);
+  }
+
+  &:has(.onyx-form-element-v2__input:enabled:focus) {
+    --onyx-form-element-v2-border-color: var(--onyx-color-component-border-primary-hover);
+
+    .onyx-form-element-v2__input-container {
+      outline: var(--onyx-outline-width) solid var(--onyx-form-element-v2-outline-color);
+    }
+  }
+
+  // :read-only is valid for readonly and disabled state so we put shared styles for both states here
+  &:has(.onyx-form-element-v2__input:read-only) {
+    --onyx-form-element-v2-selection-background: var(--onyx-color-base-neutral-200);
+    --onyx-form-element-v2-caret-color: var(--onyx-color-base-neutral-700);
+    --onyx-form-element-v2-background: var(--onyx-color-base-background-tinted);
+  }
+
+  // styles for readonly but NOT disabled
+  &:has(.onyx-form-element-v2__input:enabled:read-only) {
+    &:hover {
+      --onyx-form-element-v2-border-color: var(--onyx-color-component-border-neutral-hover);
+    }
+
+    &:has(.onyx-form-element-v2__input:focus) {
+      --onyx-form-element-v2-border-color: var(--onyx-color-component-border-neutral);
+      --onyx-form-element-v2-outline-color: var(--onyx-color-component-focus-neutral);
+    }
+  }
+
+  .onyx-form-element-v2__input-container {
+    &:has(.onyx-form-element-v2__input:autofill) {
+      background-color: var(--onyx-color-base-warning-100);
+    }
   }
 }
 
@@ -148,6 +189,8 @@ const label = computed<FormElementV2LabelOptions>(() => {
     font-size: var(--onyx-font-size-md);
     line-height: var(--onyx-font-line-height-md);
     max-width: 100%;
+
+    @include define-state-styles();
 
     &--label-left,
     &--label-right {
@@ -175,7 +218,8 @@ const label = computed<FormElementV2LabelOptions>(() => {
       flex-direction: column;
       gap: var(--onyx-density-3xs);
       width: 100%;
-      overflow: hidden; // needed to correctly truncate the bottom message
+      // TODO: truncates outline
+      // overflow: hidden; // needed to correctly truncate the bottom message
     }
 
     &__content {
@@ -190,10 +234,7 @@ const label = computed<FormElementV2LabelOptions>(() => {
       display: flex;
       align-items: center;
       flex-grow: 1;
-
-      &:has(.onyx-form-element-v2__input:autofill) {
-        background-color: var(--onyx-color-base-warning-100);
-      }
+      border-radius: inherit;
     }
 
     &__icons {

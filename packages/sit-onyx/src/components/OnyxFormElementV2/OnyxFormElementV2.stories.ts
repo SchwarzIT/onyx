@@ -24,7 +24,7 @@ export const Default = {
       label: "Example form element",
       tooltipText: "Tooltip text",
     },
-    default: (props) => h("input", props),
+    default: (props) => h("input", { ...props }),
     required: true,
     message: {
       label: "Example message",
