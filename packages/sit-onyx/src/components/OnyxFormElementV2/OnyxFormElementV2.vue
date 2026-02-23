@@ -56,7 +56,6 @@ const inputProps = computed(() => {
     id: props.id,
     class: "onyx-form-element-v2__input",
     required: props.required,
-    disabled: props.loading,
   };
 });
 
