@@ -11,6 +11,9 @@ const meta: Meta<typeof OnyxTextEditor> = {
   argTypes: {
     actions: { control: { disable: true } },
   },
+  args: {
+    style: "width: max-content",
+  },
 };
 
 export default meta;
