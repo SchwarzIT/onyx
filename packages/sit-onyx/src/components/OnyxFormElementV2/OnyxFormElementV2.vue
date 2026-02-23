@@ -6,8 +6,8 @@ import { useForwardProps } from "../../utils/props.js";
 import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core.js";
 import MaybePopoverLayout from "./MaybePopoverLayout.vue";
 import OnyxFormElementV2Bottom from "./OnyxFormElementV2Bottom.vue";
-import OnyxFormElementV2Top from "./OnyxFormElementV2Top.vue";
-import type { OnyxFormElementV2Props } from "./types.js";
+import OnyxFormElementV2Label from "./OnyxFormElementV2Label.vue";
+import type { FormElementV2LabelOptions, OnyxFormElementV2Props } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxFormElementV2Props>(), {
   skeleton: SKELETON_INJECTED_SYMBOL,
@@ -16,10 +16,6 @@ const props = withDefaults(defineProps<OnyxFormElementV2Props>(), {
   reserveMessageSpace: FORM_INJECTED_SYMBOL,
   id: () => useId(),
 });
-
-// const emit = defineEmits<{
-//   "update:modelValue": [value: unknown];
-// }>();
 
 const slots = defineSlots<{
   /**
@@ -64,50 +60,65 @@ const inputProps = computed(() => {
   };
 });
 
-const topProps = useForwardProps(props, OnyxFormElementV2Top);
+const topProps = useForwardProps(props, OnyxFormElementV2Label);
 const bottomProps = useForwardProps(props, OnyxFormElementV2Bottom);
 const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
+
+const label = computed<FormElementV2LabelOptions>(() => {
+  if (typeof props.label === "object") return props.label;
+  return { label: props.label };
+});
 </script>
 
 <template>
-  <div :class="['onyx-component', 'onyx-form-element-v2', densityClass]">
-    <OnyxFormElementV2Top v-if="!props.hideLabel" v-bind="topProps" />
+  <div
+    :class="[
+      'onyx-component',
+      'onyx-form-element-v2',
+      densityClass,
+      { 'onyx-form-element-v2--label-left': label.position === 'left' },
+      { 'onyx-form-element-v2--label-right': label.position === 'right' },
+    ]"
+  >
+    <OnyxFormElementV2Label v-if="!props.hideLabel" v-bind="topProps" />
 
-    <div class="onyx-form-element-v2__content">
-      <div v-if="slots.leading" class="onyx-form-element-v2__slot">
-        <slot name="leading"></slot>
+    <div class="onyx-form-element-v2__body">
+      <div class="onyx-form-element-v2__content">
+        <div v-if="slots.leading" class="onyx-form-element-v2__slot">
+          <slot name="leading"></slot>
+        </div>
+
+        <MaybePopoverLayout v-bind="popoverLayoutProps">
+          <template #default="{ trigger }">
+            <div v-bind="trigger" class="onyx-form-element-v2__input-container">
+              <div v-if="slots.leadingIcons" class="onyx-form-element-v2__icons">
+                <slot name="leadingIcons"></slot>
+              </div>
+
+              <slot v-bind="inputProps"></slot>
+
+              <div v-if="slots.trailingIcons" class="onyx-form-element-v2__icons">
+                <slot name="trailingIcons"></slot>
+              </div>
+            </div>
+          </template>
+
+          <template v-if="slots.popover" #popover>
+            <slot name="popover"></slot>
+          </template>
+        </MaybePopoverLayout>
+
+        <div v-if="slots.trailing" class="onyx-form-element-v2__slot">
+          <slot name="trailing"></slot>
+        </div>
       </div>
 
-      <MaybePopoverLayout v-bind="popoverLayoutProps">
-        <template #default="{ trigger }">
-          <div v-bind="trigger" class="onyx-form-element-v2__input-container">
-            <div v-if="slots.leadingIcons" class="onyx-form-element-v2__icons">
-              <slot name="leadingIcons"></slot>
-            </div>
-
-            <slot v-bind="inputProps"></slot>
-
-            <div v-if="slots.trailingIcons" class="onyx-form-element-v2__icons">
-              <slot name="trailingIcons"></slot>
-            </div>
-          </div>
+      <OnyxFormElementV2Bottom v-bind="bottomProps">
+        <template v-if="slots.bottomRight" #bottomRight>
+          <slot name="bottomRight"></slot>
         </template>
-
-        <template v-if="slots.popover" #popover>
-          <slot name="popover"></slot>
-        </template>
-      </MaybePopoverLayout>
-
-      <div v-if="slots.trailing" class="onyx-form-element-v2__slot">
-        <slot name="trailing"></slot>
-      </div>
+      </OnyxFormElementV2Bottom>
     </div>
-
-    <OnyxFormElementV2Bottom v-bind="bottomProps">
-      <template v-if="slots.bottomRight" #bottomRight>
-        <slot name="bottomRight"></slot>
-      </template>
-    </OnyxFormElementV2Bottom>
   </div>
 </template>
 
@@ -137,6 +148,36 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
     color: var(--onyx-color-text-icons-neutral-intense);
     font-size: var(--onyx-font-size-md);
     line-height: var(--onyx-font-line-height-md);
+    max-width: 100%;
+
+    &--label-left,
+    &--label-right {
+      --onyx-form-element-v2-gap: var(--onyx-density-lg);
+      align-items: flex-start;
+      justify-content: space-between;
+
+      > .onyx-form-element-v2__label {
+        width: max-content;
+        padding-block: calc(var(--onyx-form-element-v2-padding-block) + var(--onyx-1px-in-rem));
+        line-height: var(--onyx-font-line-height-md);
+      }
+    }
+
+    &--label-left {
+      flex-direction: row;
+    }
+
+    &--label-right {
+      flex-direction: row-reverse;
+    }
+
+    &__body {
+      display: flex;
+      flex-direction: column;
+      gap: var(--onyx-density-3xs);
+      width: 100%;
+      overflow: hidden; // needed to correctly truncate the bottom message
+    }
 
     &__content {
       border-radius: var(--onyx-form-element-v2-border-radius);
