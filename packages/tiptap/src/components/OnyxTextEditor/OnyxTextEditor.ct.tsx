@@ -251,6 +251,7 @@ test.describe("extensions", () => {
 
       // ASSERT
       await expect(headlineFlyout).toBeVisible();
+      await expect(component.getByRole("tooltip", { name: "Headlines" })).toBeVisible();
       await expect(component).toHaveScreenshot("headlines-flyout.png");
     });
 
@@ -318,6 +319,7 @@ test.describe("extensions", () => {
 
       // ASSERT
       await expect(listFlyout).toBeVisible();
+      await expect(component.getByRole("tooltip", { name: "Lists" })).toBeVisible();
       await expect(component).toHaveScreenshot("lists-flyout.png");
     });
 
@@ -388,6 +390,7 @@ test.describe("extensions", () => {
       await button.hover();
 
       // ASSERT
+      await expect(component.getByRole("tooltip", { name: "Bold" })).toBeVisible();
       await expect(component).toHaveScreenshot("bold.png");
     });
 
@@ -418,6 +421,7 @@ test.describe("extensions", () => {
       await button.hover();
 
       // ASSERT
+      await expect(component.getByRole("tooltip", { name: "Italic" })).toBeVisible();
       await expect(component).toHaveScreenshot("italic.png");
     });
 
@@ -448,6 +452,7 @@ test.describe("extensions", () => {
       await button.hover();
 
       // ASSERT
+      await expect(component.getByRole("tooltip", { name: "Underline" })).toBeVisible();
       await expect(component).toHaveScreenshot("underline.png");
     });
 
@@ -478,6 +483,7 @@ test.describe("extensions", () => {
       await button.hover();
 
       // ASSERT
+      await expect(component.getByRole("tooltip", { name: "Strike" })).toBeVisible();
       await expect(component).toHaveScreenshot("strike.png");
     });
 
@@ -558,6 +564,7 @@ test.describe("extensions", () => {
       await button.hover();
 
       // ASSERT
+      await expect(component.getByRole("tooltip", { name: "Blockquote" })).toBeVisible();
       await expect(component).toHaveScreenshot("blockquote.png");
     });
 
