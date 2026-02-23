@@ -1,9 +1,10 @@
 <script lang="ts" setup>
 import { computed, useId } from "vue";
 import { useDensity } from "../../composables/density.js";
+import { useErrorClass } from "../../composables/useErrorClass.js";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useForwardProps } from "../../utils/props.js";
-import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core.js";
+import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import MaybePopoverLayout from "./MaybePopoverLayout.vue";
 import OnyxFormElementV2Bottom from "./OnyxFormElementV2Bottom.vue";
 import OnyxFormElementV2Label from "./OnyxFormElementV2Label.vue";
@@ -50,6 +51,8 @@ const slots = defineSlots<{
 }>();
 
 const { densityClass } = useDensity(props);
+const formContext = useFormContext(props);
+const errorClass = useErrorClass(formContext.showError);
 
 const inputProps = computed(() => {
   return {
@@ -75,6 +78,7 @@ const label = computed<FormElementV2LabelOptions>(() => {
       'onyx-component',
       'onyx-form-element-v2',
       densityClass,
+      errorClass,
       { 'onyx-form-element-v2--label-left': label.position === 'left' },
       { 'onyx-form-element-v2--label-right': label.position === 'right' },
     ]"
@@ -130,51 +134,53 @@ const label = computed<FormElementV2LabelOptions>(() => {
     --onyx-form-element-v2-gap: var(--onyx-density-3xs);
     --onyx-form-element-v2-border-radius: var(--onyx-radius-sm);
     --onyx-form-element-v2-border-color: var(--onyx-color-component-border-neutral);
+    --onyx-form-element-v2-border-color-hover: var(--onyx-color-component-border-primary-hover);
+    --onyx-form-element-v2-border-color-focus: var(--onyx-color-component-border-primary);
     --onyx-form-element-v2-background: var(--onyx-color-base-background-blank);
+    --onyx-form-element-v2-background-autofill: var(--onyx-color-base-warning-100);
     --onyx-form-element-v2-padding-block: var(--onyx-density-xs);
     --onyx-form-element-v2-padding-inline: var(--onyx-density-sm);
     --onyx-form-element-v2-caret-color: var(--onyx-color-component-cta-default);
     --onyx-form-element-v2-selection-background: var(--onyx-color-base-primary-200);
     --onyx-form-element-v2-outline-color: var(--onyx-color-component-focus-primary);
-  }
-}
 
-/** Defines styles for the different states (hover, focus etc.) */
-@mixin define-state-styles() {
-  &:has(.onyx-form-element-v2__input:read-write):hover {
-    --onyx-form-element-v2-border-color: var(--onyx-color-component-border-primary-hover);
-  }
-
-  &:has(.onyx-form-element-v2__input:enabled:focus) {
-    --onyx-form-element-v2-border-color: var(--onyx-color-component-border-primary-hover);
-
-    .onyx-form-element-v2__input-container {
-      outline: var(--onyx-outline-width) solid var(--onyx-form-element-v2-outline-color);
-    }
-  }
-
-  // :read-only is valid for readonly and disabled state so we put shared styles for both states here
-  &:has(.onyx-form-element-v2__input:read-only) {
-    --onyx-form-element-v2-selection-background: var(--onyx-color-base-neutral-200);
-    --onyx-form-element-v2-caret-color: var(--onyx-color-base-neutral-700);
-    --onyx-form-element-v2-background: var(--onyx-color-base-background-tinted);
-  }
-
-  // styles for readonly but NOT disabled
-  &:has(.onyx-form-element-v2__input:enabled:read-only) {
-    &:hover {
-      --onyx-form-element-v2-border-color: var(--onyx-color-component-border-neutral-hover);
+    // :read-only is valid for readonly and disabled state so we put shared styles for both states here
+    &:has(.onyx-form-element-v2__input:read-only) {
+      --onyx-form-element-v2-selection-background: var(--onyx-color-base-neutral-200);
+      --onyx-form-element-v2-caret-color: var(--onyx-color-base-neutral-700);
+      --onyx-form-element-v2-background: var(--onyx-color-base-background-tinted);
     }
 
-    &:has(.onyx-form-element-v2__input:focus) {
-      --onyx-form-element-v2-border-color: var(--onyx-color-component-border-neutral);
+    // styles for readonly but NOT disabled
+    &:has(.onyx-form-element-v2__input:enabled:read-only) {
+      --onyx-form-element-v2-border-color-hover: var(--onyx-color-component-border-neutral-hover);
+      --onyx-form-element-v2-border-color-focus: var(--onyx-color-component-border-neutral);
       --onyx-form-element-v2-outline-color: var(--onyx-color-component-focus-neutral);
     }
-  }
 
-  .onyx-form-element-v2__input-container {
-    &:has(.onyx-form-element-v2__input:autofill) {
-      background-color: var(--onyx-color-base-warning-100);
+    // see "useErrorClass" composable
+    &:not(.onyx-form-element--suppress-invalid) {
+      &.onyx-form-element--touched-invalid:has(
+          .onyx-form-element-v2__input:user-invalid,
+          .onyx-form-element-v2__input--touched:invalid
+        ),
+      &.onyx-form-element--immediate-invalid:has(.onyx-form-element-v2__input:invalid) {
+        --onyx-form-element-v2-border-color: var(--onyx-color-component-border-danger);
+        --onyx-form-element-v2-border-color-hover: var(--onyx-color-component-border-danger-hover);
+        --onyx-form-element-v2-border-color-focus: var(--onyx-color-component-border-danger);
+        --onyx-form-element-v2-outline-color: var(--onyx-color-component-focus-danger);
+        --onyx-form-element-v2-selection-background: var(--onyx-color-base-danger-200);
+        --onyx-form-element-v2-caret-color: var(--onyx-color-base-neutral-900);
+      }
+    }
+
+    &:has(.onyx-form-element-v2__message--success) {
+      --onyx-form-element-v2-border-color: var(--onyx-color-component-border-success);
+      --onyx-form-element-v2-border-color-hover: var(--onyx-color-component-border-success-hover);
+      --onyx-form-element-v2-border-color-focus: var(--onyx-color-component-border-success);
+      --onyx-form-element-v2-outline-color: var(--onyx-color-component-focus-success);
+      --onyx-form-element-v2-selection-background: var(--onyx-color-base-success-200);
+      --onyx-form-element-v2-caret-color: var(--onyx-color-base-neutral-900);
     }
   }
 }
@@ -189,8 +195,6 @@ const label = computed<FormElementV2LabelOptions>(() => {
     font-size: var(--onyx-font-size-md);
     line-height: var(--onyx-font-line-height-md);
     max-width: 100%;
-
-    @include define-state-styles();
 
     &--label-left,
     &--label-right {
@@ -228,6 +232,18 @@ const label = computed<FormElementV2LabelOptions>(() => {
       background-color: var(--onyx-form-element-v2-background);
       display: flex;
       align-items: center;
+
+      &:has(.onyx-form-element-v2__input:read-write):hover {
+        border-color: var(--onyx-form-element-v2-border-color-hover);
+      }
+
+      &:has(.onyx-form-element-v2__input:enabled:focus) {
+        border-color: var(--onyx-form-element-v2-border-color-focus);
+
+        .onyx-form-element-v2__input-container {
+          outline: var(--onyx-outline-width) solid var(--onyx-form-element-v2-outline-color);
+        }
+      }
     }
 
     &__input-container {
@@ -235,6 +251,10 @@ const label = computed<FormElementV2LabelOptions>(() => {
       align-items: center;
       flex-grow: 1;
       border-radius: inherit;
+
+      &:has(.onyx-form-element-v2__input:autofill) {
+        background-color: var(--onyx-form-element-v2-background-autofill);
+      }
     }
 
     &__icons {
