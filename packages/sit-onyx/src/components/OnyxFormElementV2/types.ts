@@ -15,11 +15,6 @@ export type OnyxFormElementV2Props = DensityProp &
      */
     label: string | FormElementV2LabelOptions;
     /**
-     * If `true`, the label will be visually hidden.
-     * For accessibility / screen readers, the aria-label will still be set.
-     */
-    hideLabel?: boolean;
-    /**
      * Whether to show as skeleton.
      */
     skeleton?: SkeletonInjected;
@@ -46,6 +41,11 @@ export type FormElementV2LabelOptions = FormElementV2Tooltip & {
    * How to position the label relative to the main content.
    */
   position?: "top" | "left" | "right";
+  /**
+   * If `true`, the label will be visually hidden.
+   * For accessibility / screen readers, the aria-label will still be set.
+   */
+  hidden?: boolean;
 };
 
 export type FormElementV2Tooltip = {
