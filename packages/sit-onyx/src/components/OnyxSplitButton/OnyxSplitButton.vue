@@ -81,14 +81,15 @@ const { t } = injectI18n();
       :label="t('flyoutMenu.moreActions')"
       :trigger="props.trigger"
       :disabled="disabled || props.loading"
+      alignment="right"
       @update:open="emit('update:open', $event)"
     >
       <template #button="{ trigger: flyoutTrigger }">
         <OnyxButton
           class="onyx-split-button__flyout-button"
           :icon="iconChevronDownSmall"
-          :label="t('flyoutMenu.toggleActions.hover')"
-          :aria-label="t('flyoutMenu.toggleActions.hover')"
+          :label="t(`flyoutMenu.toggleActions.${props.trigger}`)"
+          :aria-label="t(`flyoutMenu.toggleActions.${props.trigger}`)"
           :color="props.color"
           :mode="props.mode"
           v-bind="flyoutTrigger"
