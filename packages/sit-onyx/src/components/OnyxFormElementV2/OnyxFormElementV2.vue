@@ -87,20 +87,29 @@ const label = computed<FormElementV2LabelOptions>(() => {
 
     <div class="onyx-form-element-v2__body">
       <div class="onyx-form-element-v2__content">
-        <div v-if="slots.leading" class="onyx-form-element-v2__slot">
+        <div
+          v-if="slots.leading"
+          class="onyx-form-element-v2__slot onyx-form-element-v2__slot--leading"
+        >
           <slot name="leading"></slot>
         </div>
 
         <MaybePopoverLayout v-bind="popoverLayoutProps">
           <template #default="{ trigger }">
             <div v-bind="trigger" class="onyx-form-element-v2__input-container">
-              <div v-if="slots.leadingIcons" class="onyx-form-element-v2__icons">
+              <div
+                v-if="slots.leadingIcons"
+                class="onyx-form-element-v2__icons onyx-form-element-v2__icons--leading"
+              >
                 <slot name="leadingIcons"></slot>
               </div>
 
               <slot v-bind="inputProps"></slot>
 
-              <div v-if="slots.trailingIcons" class="onyx-form-element-v2__icons">
+              <div
+                v-if="slots.trailingIcons"
+                class="onyx-form-element-v2__icons onyx-form-element-v2__icons--trailing"
+              >
                 <slot name="trailingIcons"></slot>
               </div>
             </div>
@@ -111,7 +120,10 @@ const label = computed<FormElementV2LabelOptions>(() => {
           </template>
         </MaybePopoverLayout>
 
-        <div v-if="slots.trailing" class="onyx-form-element-v2__slot">
+        <div
+          v-if="slots.trailing"
+          class="onyx-form-element-v2__slot onyx-form-element-v2__slot--trailing"
+        >
           <slot name="trailing"></slot>
         </div>
       </div>
@@ -228,10 +240,17 @@ const label = computed<FormElementV2LabelOptions>(() => {
 
     &__content {
       border-radius: var(--onyx-form-element-v2-border-radius);
-      border: var(--onyx-1px-in-rem) solid var(--onyx-form-element-v2-border-color);
       background-color: var(--onyx-form-element-v2-background);
       display: flex;
       align-items: center;
+    }
+
+    &__input-container {
+      display: flex;
+      align-items: center;
+      flex-grow: 1;
+      border: var(--onyx-1px-in-rem) solid var(--onyx-form-element-v2-border-color);
+      border-radius: inherit;
 
       &:has(.onyx-form-element-v2__input:read-write):hover {
         border-color: var(--onyx-form-element-v2-border-color-hover);
@@ -239,18 +258,8 @@ const label = computed<FormElementV2LabelOptions>(() => {
 
       &:has(.onyx-form-element-v2__input:enabled:focus) {
         border-color: var(--onyx-form-element-v2-border-color-focus);
-
-        .onyx-form-element-v2__input-container {
-          outline: var(--onyx-outline-width) solid var(--onyx-form-element-v2-outline-color);
-        }
+        outline: var(--onyx-outline-width) solid var(--onyx-form-element-v2-outline-color);
       }
-    }
-
-    &__input-container {
-      display: flex;
-      align-items: center;
-      flex-grow: 1;
-      border-radius: inherit;
 
       &:has(.onyx-form-element-v2__input:autofill) {
         background-color: var(--onyx-form-element-v2-background-autofill);
@@ -263,24 +272,29 @@ const label = computed<FormElementV2LabelOptions>(() => {
       padding: var(--onyx-form-element-v2-padding-block) var(--onyx-form-element-v2-padding-inline);
       gap: var(--onyx-density-2xs);
 
-      &:first-of-type {
+      &--leading {
         padding-right: 0;
       }
 
-      &:last-of-type {
+      &--trailing {
         padding-left: 0;
       }
     }
 
     &__slot {
       height: 100%;
+      border: var(--onyx-1px-in-rem) solid var(--onyx-form-element-v2-border-color);
 
-      &:first-of-type {
-        border-right: var(--onyx-1px-in-rem) solid var(--onyx-form-element-v2-border-color);
+      &--leading {
+        border-right: none;
+        border-top-left-radius: inherit;
+        border-bottom-left-radius: inherit;
       }
 
-      &:last-of-type {
-        border-left: var(--onyx-1px-in-rem) solid var(--onyx-form-element-v2-border-color);
+      &--trailing {
+        border-left: none;
+        border-top-right-radius: inherit;
+        border-bottom-right-radius: inherit;
       }
 
       // override OnyxSelect styles to seamlessly integrate into the slots
@@ -292,6 +306,22 @@ const label = computed<FormElementV2LabelOptions>(() => {
       }
       .onyx-select-input__native {
         width: 3ch;
+      }
+    }
+
+    &:not(:has(&__input:focus)) {
+      &:has(.onyx-form-element-v2__slot--leading) {
+        .onyx-form-element-v2__input-container {
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+        }
+      }
+
+      &:has(.onyx-form-element-v2__slot--trailing) {
+        .onyx-form-element-v2__input-container {
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+        }
       }
     }
 
