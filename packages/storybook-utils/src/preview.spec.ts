@@ -9,7 +9,7 @@ describe("preview.ts", () => {
     const sourceCode = await sourceCodeTransformer(`<template>
 <OnyxTest icon='${iconPlaceholder}' test='${iconBellRing}' :obj="{foo:'${replaceAll(iconCalendar, '"', "\\'")}'}" flag='${flagDE}' />
 <OnyxOtherComponent />
-<OnyxComp>Test</OnyxComp>
+<OnyxComp icon='${iconPlaceholder}'>Test</OnyxComp>
 </template>`);
 
     // ASSERT
@@ -27,7 +27,7 @@ import { flagDE } from "@sit-onyx/flags";
     :flag="flagDE"
   />
   <OnyxOtherComponent />
-  <OnyxComp>Test</OnyxComp>
+  <OnyxComp :icon="iconPlaceholder">Test</OnyxComp>
 </template>`);
   });
 
