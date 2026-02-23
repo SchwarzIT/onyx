@@ -20,10 +20,6 @@ export type OnyxFormElementV2Props = DensityProp &
      */
     hideLabel?: boolean;
     /**
-     * Whether the element is loading. User interaction will be disabled.
-     */
-    loading?: boolean;
-    /**
      * Whether to show as skeleton.
      */
     skeleton?: SkeletonInjected;
