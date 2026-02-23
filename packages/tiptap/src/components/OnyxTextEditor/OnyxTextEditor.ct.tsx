@@ -54,13 +54,16 @@ test.describe("Screenshot tests (truncation)", () => {
           label={label}
           labelTooltip="Label tooltip"
           hideLabel={row === "hideLabel"}
-          modelValue="Very long filled value of the text editor"
           message={{ shortMessage: message, longMessage: "Message tooltip" }}
         />
       );
     },
     hooks: {
       beforeEach: async (component) => {
+        const editor = component.getByRole("textbox");
+        await editor.fill("https://example.com/this/is/a/very/long/link/that/should/be/truncated");
+        await editor.press("Space");
+
         await component
           .locator(".onyx-text-editor__actions")
           .first()

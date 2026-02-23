@@ -401,6 +401,7 @@ defineExpose({
       min-height: var(--onyx-text-editor-min-height);
       max-height: var(--onyx-text-editor-max-height);
       padding: var(--onyx-text-editor-padding-block) var(--onyx-density-sm);
+      word-break: break-word;
     }
 
     &__native {
