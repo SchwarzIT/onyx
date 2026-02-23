@@ -2,6 +2,7 @@ import type { Page } from "@playwright/test";
 import { DENSITIES } from "sit-onyx";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
+import OnyxTextEditor from "./OnyxTextEditor.vue";
 import TestCase from "./TestCase.ct.vue";
 
 test.describe("Screenshot tests", () => {
@@ -10,7 +11,7 @@ test.describe("Screenshot tests", () => {
     columns: ["default", "placeholder", "filled"],
     rows: ["default", "hover", "focus"],
     component: (column) => (
-      <TestCase
+      <OnyxTextEditor
         label="Test label"
         modelValue={column === "filled" ? "Filled value" : undefined}
         placeholder={column === "placeholder" ? "Placeholder" : undefined}
@@ -32,7 +33,7 @@ test.describe("Screenshot tests (density)", () => {
     columns: ["default"],
     rows: DENSITIES,
     component: (column, row) => (
-      <TestCase label="Test label" density={row} modelValue="Filled value" />
+      <OnyxTextEditor label="Test label" density={row} modelValue="Filled value" />
     ),
   });
 });
@@ -48,7 +49,7 @@ test.describe("Screenshot tests (truncation)", () => {
         row === "long" ? "Very long message that should be truncated" : "Test message";
 
       return (
-        <TestCase
+        <OnyxTextEditor
           style={{ maxWidth: "12.5rem" }}
           label={label}
           labelTooltip="Label tooltip"
@@ -80,7 +81,11 @@ test.describe("Screenshot tests (disabled)", () => {
     columns: ["disabled"],
     rows: ["default", "hover", "focus"],
     component: (column) => (
-      <TestCase label="Test label" disabled={column === "disabled"} modelValue="Filled value" />
+      <OnyxTextEditor
+        label="Test label"
+        disabled={column === "disabled"}
+        modelValue="Filled value"
+      />
     ),
     hooks: {
       beforeEach: async (component, page, column, row) => {
@@ -97,7 +102,7 @@ test.describe("Screenshot tests (toolbar position)", () => {
     name: "Text editor (toolbar position)",
     columns: ["default"],
     rows: ["top", "bottom"],
-    component: (column, row) => <TestCase label="Test label" toolbar={{ position: row }} />,
+    component: (column, row) => <OnyxTextEditor label="Test label" toolbar={{ position: row }} />,
   });
 });
 
@@ -107,7 +112,7 @@ test.describe("Screenshot tests (success)", () => {
     columns: ["default"],
     rows: ["default"],
     component: () => (
-      <TestCase label="Test label" modelValue="Filled value" success="Success message" />
+      <OnyxTextEditor label="Test label" modelValue="Filled value" success="Success message" />
     ),
   });
 });
@@ -118,7 +123,7 @@ test.describe("Screenshot tests (manual resize", () => {
     columns: ["default"],
     rows: ["default", "resized-larger", "resized-smaller"],
     component: () => (
-      <TestCase
+      <OnyxTextEditor
         label="Test label"
         modelValue={Array.from({ length: 6 }, (_, index) => `<p>${index + 1}</p>`).join("\n")}
       />
@@ -158,7 +163,7 @@ test.describe("Screenshot tests (autosize)", () => {
       ).join("\n");
 
       return (
-        <TestCase
+        <OnyxTextEditor
           label="Test label"
           modelValue={column !== "user-typed" ? modelValue : undefined}
         />
