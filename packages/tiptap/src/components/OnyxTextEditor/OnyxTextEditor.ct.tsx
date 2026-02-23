@@ -2,8 +2,7 @@ import type { Page } from "@playwright/test";
 import { DENSITIES } from "sit-onyx";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
-import OnyxTextEditor from "./OnyxTextEditor.vue";
-import TestCaseCt from "./TestCase.ct.vue";
+import TestCase from "./TestCase.ct.vue";
 
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
@@ -11,7 +10,7 @@ test.describe("Screenshot tests", () => {
     columns: ["default", "placeholder", "filled"],
     rows: ["default", "hover", "focus"],
     component: (column) => (
-      <OnyxTextEditor
+      <TestCase
         label="Test label"
         modelValue={column === "filled" ? "Filled value" : undefined}
         placeholder={column === "placeholder" ? "Placeholder" : undefined}
@@ -33,7 +32,7 @@ test.describe("Screenshot tests (density)", () => {
     columns: ["default"],
     rows: DENSITIES,
     component: (column, row) => (
-      <OnyxTextEditor label="Test label" density={row} modelValue="Filled value" />
+      <TestCase label="Test label" density={row} modelValue="Filled value" />
     ),
   });
 });
@@ -49,7 +48,7 @@ test.describe("Screenshot tests (truncation)", () => {
         row === "long" ? "Very long message that should be truncated" : "Test message";
 
       return (
-        <OnyxTextEditor
+        <TestCase
           style={{ maxWidth: "12.5rem" }}
           label={label}
           labelTooltip="Label tooltip"
@@ -81,11 +80,7 @@ test.describe("Screenshot tests (disabled)", () => {
     columns: ["disabled"],
     rows: ["default", "hover", "focus"],
     component: (column) => (
-      <OnyxTextEditor
-        label="Test label"
-        disabled={column === "disabled"}
-        modelValue="Filled value"
-      />
+      <TestCase label="Test label" disabled={column === "disabled"} modelValue="Filled value" />
     ),
     hooks: {
       beforeEach: async (component, page, column, row) => {
@@ -102,7 +97,7 @@ test.describe("Screenshot tests (toolbar position)", () => {
     name: "Text editor (toolbar position)",
     columns: ["default"],
     rows: ["top", "bottom"],
-    component: (column, row) => <OnyxTextEditor label="Test label" toolbar={{ position: row }} />,
+    component: (column, row) => <TestCase label="Test label" toolbar={{ position: row }} />,
   });
 });
 
@@ -112,7 +107,7 @@ test.describe("Screenshot tests (success)", () => {
     columns: ["default"],
     rows: ["default"],
     component: () => (
-      <OnyxTextEditor label="Test label" modelValue="Filled value" success="Success message" />
+      <TestCase label="Test label" modelValue="Filled value" success="Success message" />
     ),
   });
 });
@@ -123,7 +118,7 @@ test.describe("Screenshot tests (manual resize", () => {
     columns: ["default"],
     rows: ["default", "resized-larger", "resized-smaller"],
     component: () => (
-      <OnyxTextEditor
+      <TestCase
         label="Test label"
         modelValue={Array.from({ length: 6 }, (_, index) => `<p>${index + 1}</p>`).join("\n")}
       />
@@ -163,7 +158,7 @@ test.describe("Screenshot tests (autosize)", () => {
       ).join("\n");
 
       return (
-        <OnyxTextEditor
+        <TestCase
           label="Test label"
           modelValue={column !== "user-typed" ? modelValue : undefined}
         />
@@ -197,7 +192,7 @@ test.describe("Screenshot tests (autosize)", () => {
 
 test("should autofocus", async ({ mount }) => {
   // ARRANGE
-  const component = await mount(OnyxTextEditor, {
+  const component = await mount(TestCase, {
     props: {
       label: "Test label",
     },
@@ -218,7 +213,7 @@ test.describe("extensions", () => {
   test.describe("heading", () => {
     test("should support h1-h4", async ({ mount, page }) => {
       // ARRANGE
-      const component = await mount(<TestCaseCt label="Test label" />);
+      const component = await mount(<TestCase label="Test label" />);
       const editor = component.getByLabel("Test label");
       const headlineButton = component.getByRole("button", { name: "Headlines" });
       const headlineFlyout = component.getByRole("dialog", { name: "Headlines" });
@@ -256,7 +251,7 @@ test.describe("extensions", () => {
     test("should consider level options", async ({ mount }) => {
       // ARRANGE
       const component = await mount(
-        <TestCaseCt label="Test label" options={{ heading: { levels: [1] } }} />,
+        <TestCase label="Test label" options={{ heading: { levels: [1] } }} />,
       );
       const headlineButton = component.getByRole("button", { name: "Headlines" });
       const headlineFlyout = component.getByRole("dialog", { name: "Headlines" });
@@ -274,7 +269,7 @@ test.describe("extensions", () => {
 
     test("should hide action when disabled", async ({ mount }) => {
       // ARRANGE
-      const component = await mount(<TestCaseCt label="Test label" options={{ heading: false }} />);
+      const component = await mount(<TestCase label="Test label" options={{ heading: false }} />);
       const headlineButton = component.getByRole("button", { name: "Headlines" });
 
       // ASSERT
@@ -285,7 +280,7 @@ test.describe("extensions", () => {
   test.describe("lists", () => {
     test("should support bullet and numbered list", async ({ mount, page }) => {
       // ARRANGE
-      const component = await mount(<TestCaseCt label="Test label" />);
+      const component = await mount(<TestCase label="Test label" />);
       const editor = component.getByLabel("Test label");
       const listButton = component.getByRole("button", { name: "Lists" });
       const listFlyout = component.getByRole("dialog", { name: "Lists" });
@@ -322,7 +317,7 @@ test.describe("extensions", () => {
     test("should hide bulletList when disabled", async ({ mount }) => {
       // ARRANGE
       const component = await mount(
-        <TestCaseCt label="Test label" options={{ bulletList: false }} />,
+        <TestCase label="Test label" options={{ bulletList: false }} />,
       );
       const listButton = component.getByRole("button", { name: "Lists" });
       const listFlyout = component.getByRole("dialog", { name: "Lists" });
@@ -341,7 +336,7 @@ test.describe("extensions", () => {
     test("should hide numberedList when disabled", async ({ mount }) => {
       // ARRANGE
       const component = await mount(
-        <TestCaseCt label="Test label" options={{ orderedList: false }} />,
+        <TestCase label="Test label" options={{ orderedList: false }} />,
       );
       const listButton = component.getByRole("button", { name: "Lists" });
       const listFlyout = component.getByRole("dialog", { name: "Lists" });
@@ -360,7 +355,7 @@ test.describe("extensions", () => {
     test("should hide action when disabled", async ({ mount }) => {
       // ARRANGE
       const component = await mount(
-        <TestCaseCt label="Test label" options={{ bulletList: false, orderedList: false }} />,
+        <TestCase label="Test label" options={{ bulletList: false, orderedList: false }} />,
       );
       const listButton = component.getByRole("button", { name: "Lists" });
 
@@ -372,7 +367,7 @@ test.describe("extensions", () => {
   test.describe("bold", () => {
     test("should support bold", async ({ mount }) => {
       // ARRANGE
-      const component = await mount(<TestCaseCt label="Test label" />);
+      const component = await mount(<TestCase label="Test label" />);
       const editor = component.getByLabel("Test label");
       const button = component.getByRole("button", { name: "Bold" });
 
@@ -390,7 +385,7 @@ test.describe("extensions", () => {
 
     test("should hide action when disabled", async ({ mount }) => {
       // ARRANGE
-      const component = await mount(<TestCaseCt label="Test label" options={{ bold: false }} />);
+      const component = await mount(<TestCase label="Test label" options={{ bold: false }} />);
       const button = component.getByRole("button", { name: "Bold" });
 
       // ASSERT
@@ -401,7 +396,7 @@ test.describe("extensions", () => {
   test.describe("italic", () => {
     test("should support italic", async ({ mount }) => {
       // ARRANGE
-      const component = await mount(<TestCaseCt label="Test label" />);
+      const component = await mount(<TestCase label="Test label" />);
       const editor = component.getByLabel("Test label");
       const button = component.getByRole("button", { name: "Italic" });
 
@@ -419,7 +414,7 @@ test.describe("extensions", () => {
 
     test("should hide action when disabled", async ({ mount }) => {
       // ARRANGE
-      const component = await mount(<TestCaseCt label="Test label" options={{ italic: false }} />);
+      const component = await mount(<TestCase label="Test label" options={{ italic: false }} />);
       const button = component.getByRole("button", { name: "Italic" });
 
       // ASSERT
@@ -430,7 +425,7 @@ test.describe("extensions", () => {
   test.describe("underline", () => {
     test("should support underline", async ({ mount }) => {
       // ARRANGE
-      const component = await mount(<TestCaseCt label="Test label" />);
+      const component = await mount(<TestCase label="Test label" />);
       const editor = component.getByLabel("Test label");
       const button = component.getByRole("button", { name: "Underline" });
 
@@ -448,9 +443,7 @@ test.describe("extensions", () => {
 
     test("should hide action when disabled", async ({ mount }) => {
       // ARRANGE
-      const component = await mount(
-        <TestCaseCt label="Test label" options={{ underline: false }} />,
-      );
+      const component = await mount(<TestCase label="Test label" options={{ underline: false }} />);
       const button = component.getByRole("button", { name: "Underline" });
 
       // ASSERT
@@ -461,7 +454,7 @@ test.describe("extensions", () => {
   test.describe("strike", () => {
     test("should support strike", async ({ mount }) => {
       // ARRANGE
-      const component = await mount(<TestCaseCt label="Test label" />);
+      const component = await mount(<TestCase label="Test label" />);
       const editor = component.getByLabel("Test label");
       const button = component.getByRole("button", { name: "Strike" });
 
@@ -479,7 +472,7 @@ test.describe("extensions", () => {
 
     test("should hide action when disabled", async ({ mount }) => {
       // ARRANGE
-      const component = await mount(<TestCaseCt label="Test label" options={{ strike: false }} />);
+      const component = await mount(<TestCase label="Test label" options={{ strike: false }} />);
       const button = component.getByRole("button", { name: "Strike" });
 
       // ASSERT
@@ -490,7 +483,7 @@ test.describe("extensions", () => {
   test.describe("textAlign", () => {
     test("should support textAlign", async ({ mount }) => {
       // ARRANGE
-      const component = await mount(<TestCaseCt label="Test label" />);
+      const component = await mount(<TestCase label="Test label" />);
       const editor = component.getByLabel("Test label");
 
       const buttons = {
@@ -519,10 +512,7 @@ test.describe("extensions", () => {
     test("should consider options", async ({ mount }) => {
       // ARRANGE
       const component = await mount(
-        <TestCaseCt
-          label="Test label"
-          options={{ textAlign: { alignments: ["left", "right"] } }}
-        />,
+        <TestCase label="Test label" options={{ textAlign: { alignments: ["left", "right"] } }} />,
       );
 
       // ASSERT
@@ -534,9 +524,7 @@ test.describe("extensions", () => {
 
     test("should hide action when disabled", async ({ mount }) => {
       // ARRANGE
-      const component = await mount(
-        <TestCaseCt label="Test label" options={{ textAlign: false }} />,
-      );
+      const component = await mount(<TestCase label="Test label" options={{ textAlign: false }} />);
 
       // ASSERT
       await expect(component.getByRole("button", { name: "Left aligned" })).toBeHidden();
@@ -549,7 +537,7 @@ test.describe("extensions", () => {
   test.describe("blockquote", () => {
     test("should support blockquote", async ({ mount }) => {
       // ARRANGE
-      const component = await mount(<TestCaseCt label="Test label" />);
+      const component = await mount(<TestCase label="Test label" />);
       const editor = component.getByLabel("Test label");
       const button = component.getByRole("button", { name: "Blockquote" });
 
@@ -564,7 +552,7 @@ test.describe("extensions", () => {
     test("should hide action when disabled", async ({ mount }) => {
       // ARRANGE
       const component = await mount(
-        <TestCaseCt label="Test label" options={{ blockquote: false }} />,
+        <TestCase label="Test label" options={{ blockquote: false }} />,
       );
       const button = component.getByRole("button", { name: "Blockquote" });
 
@@ -576,7 +564,7 @@ test.describe("extensions", () => {
   test.describe("link", () => {
     test("should support link", async ({ mount }) => {
       // ARRANGE
-      const component = await mount(<TestCaseCt label="Test label" />);
+      const component = await mount(<TestCase label="Test label" />);
       const editor = component.getByLabel("Test label");
       const button = component.getByRole("button", { name: "Link" });
       const dialog = component.getByRole("dialog", { name: "Edit link" });
@@ -635,7 +623,7 @@ test.describe("extensions", () => {
 
     test("should hide action when disabled", async ({ mount }) => {
       // ARRANGE
-      const component = await mount(<TestCaseCt label="Test label" options={{ link: false }} />);
+      const component = await mount(<TestCase label="Test label" options={{ link: false }} />);
       const button = component.getByRole("button", { name: "Edit link" });
 
       // ASSERT
@@ -646,7 +634,7 @@ test.describe("extensions", () => {
   test.describe("undo / redo", () => {
     test("should support undo / redo", async ({ mount }) => {
       // ARRANGE
-      const component = await mount(<TestCaseCt label="Test label" />);
+      const component = await mount(<TestCase label="Test label" />);
       const editor = component.getByLabel("Test label");
       const undo = component.getByRole("button", { name: "Undo" });
       const redo = component.getByRole("button", { name: "Redo" });
@@ -680,9 +668,7 @@ test.describe("extensions", () => {
 
     test("should hide action when disabled", async ({ mount }) => {
       // ARRANGE
-      const component = await mount(
-        <TestCaseCt label="Test label" options={{ undoRedo: false }} />,
-      );
+      const component = await mount(<TestCase label="Test label" options={{ undoRedo: false }} />);
 
       // ASSERT
       await expect(component.getByRole("button", { name: "Undo" })).toBeHidden();
@@ -693,7 +679,7 @@ test.describe("extensions", () => {
 
 test("should disable all actions if editor is disabled", async ({ mount }) => {
   // ARRANGE
-  const component = await mount(OnyxTextEditor, {
+  const component = await mount(TestCase, {
     props: {
       label: "Test label",
     },
