@@ -101,20 +101,17 @@ const COMPONENTS: Components = {
     },
   },
   OnyxUnstableSplitButton: {
-    props: {
-      splitButtonOptions: [
+    render: () =>
+      h(
+        ALL_EXPORTS.OnyxUnstableSplitButton,
+        { label: "Option 1" },
         {
-          label: "Option1",
-          icon: iconPlaceholder,
-          onClickFunction: () => {},
+          options: () => [
+            h(ALL_EXPORTS.OnyxUnstableSplitButton, { label: "Option 2" }),
+            h(ALL_EXPORTS.OnyxUnstableSplitButton, { label: "Option 3" }),
+          ],
         },
-        {
-          label: "Option2",
-          icon: iconPlaceholder,
-          onClickFunction: () => {},
-        },
-      ],
-    },
+      ),
   },
   OnyxSelect: {
     props: {
