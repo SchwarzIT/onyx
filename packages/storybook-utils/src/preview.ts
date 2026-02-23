@@ -169,18 +169,18 @@ export const sourceCodeTransformer = async (originalSourceCode: string): Promise
       if (code.includes(content)) {
         imports.add(name);
 
-        code = code.replace(
-          new RegExp(` (\\S+)=['"]${escapeRegExp(content)}['"]`),
+        code = code.replaceAll(
+          new RegExp(` (\\S+)=['"]${escapeRegExp(content)}['"]`, "g"),
           ` :$1="${name}"`,
         );
       } else if (code.includes(singleQuotedContent)) {
         // support values inside objects
         imports.add(name);
-        code = code.replace(singleQuotedContent, name);
+        code = code.replaceAll(singleQuotedContent, name);
       } else if (code.includes(escapedContent)) {
         // support values inside objects
         imports.add(name);
-        code = code.replace(escapedContent, name);
+        code = code.replaceAll(escapedContent, name);
       }
 
       additionalImports.set(_package.name, imports);
