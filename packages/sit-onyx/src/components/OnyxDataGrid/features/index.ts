@@ -670,7 +670,8 @@ export const useDataGridFeatures = <
 
   const createSlots = () => {
     const slots: InternalDataGridSlots = {};
-    const sortedActions = computed(() => {
+
+    const getSortedActions = (): ActionProps[] => {
       const actions = features.flatMap((f) => f.actions ?? []);
 
       const getGroupInfo = (g?: ActionGroup) => {
@@ -682,116 +683,105 @@ export const useDataGridFeatures = <
       const groups: Record<string, { order: number; actions: ActionProps[] }> = {};
       actions.forEach((action) => {
         const { name, order } = getGroupInfo(action.group);
-
         if (!groups[name]) {
           groups[name] = { order, actions: [] };
         } else if (order !== 0) {
           groups[name].order = order;
         }
-
         groups[name].actions.push(action);
       });
+
       return Object.values(groups)
         .sort((a, b) => a.order - b.order)
-        .flatMap((group) => {
-          return group.actions.sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
-        });
-    });
+        .flatMap((group) => group.actions.sort((a, b) => (a.order ?? 0) - (b.order ?? 0)));
+    };
 
-    slots.actions = () => {
-      const actionsList = sortedActions.value;
-      if (actionsList.length === 0) return [];
+    const initialActions = features.flatMap((f) => f.actions ?? []);
 
-      const shouldShowSeparator = (list: ActionProps[], currentIndex: number): boolean => {
-        if (currentIndex <= 0) return false;
+    if (initialActions.length > 0) {
+      slots.actions = () => {
+        const actionsList = getSortedActions();
+        if (actionsList.length === 0) return [];
 
-        const getGroupName = (g: ActionGroup | undefined) =>
-          typeof g === "object" && g !== null ? g.name : (g ?? "default");
+        const shouldShowSeparator = (list: ActionProps[], currentIndex: number): boolean => {
+          if (currentIndex <= 0) return false;
+          const getGroupName = (g: ActionGroup | undefined) =>
+            typeof g === "object" && g !== null ? g.name : (g ?? "default");
+          return (
+            getGroupName(list[currentIndex - 1]?.group) !== getGroupName(list[currentIndex]?.group)
+          );
+        };
 
-        const prevGroup = getGroupName(list[currentIndex - 1]?.group);
-        const currGroup = getGroupName(list[currentIndex]?.group);
-
-        return prevGroup !== currGroup;
-      };
-
-      return [
-        h(
-          OnyxMoreList,
-          {
-            injectionKey: DATA_GRID_ACTIONS_INJECTION_KEY,
-            direction: "rtl",
-          },
-          {
-            default: ({ attributes }: { attributes: object }) =>
-              h(
-                "div",
-                { ...attributes },
-                actionsList.flatMap((action, index) => {
-                  const nodes = [];
-                  nodes.push(
+        return [
+          h(
+            OnyxMoreList,
+            {
+              injectionKey: DATA_GRID_ACTIONS_INJECTION_KEY,
+              direction: "rtl",
+            },
+            {
+              default: ({ attributes }: { attributes: object }) =>
+                h(
+                  "div",
+                  { ...attributes },
+                  actionsList.map((action, index) =>
                     h(ActionButton, {
                       ...action,
                       onClick: () => action.onClick?.(toValue(columnConfig)),
                       showSeparator: shouldShowSeparator(actionsList, index),
                     }),
-                  );
-                  return nodes;
-                }),
-              ),
-
-            more: ({
-              attributes,
-              hiddenElements,
-            }: {
-              attributes: object;
-              hiddenElements: number;
-            }) => {
-              const startIndex = actionsList.length - hiddenElements;
-              const hiddenActions = actionsList.slice(startIndex);
-
-              return h(
-                OnyxFlyoutMenu,
-                {
-                  ...attributes,
-                  label: i18n.t.value("navigation.showMoreNavItemsLabel"),
-                },
-                {
-                  button: ({ trigger }: { trigger: object }) =>
-                    h(OnyxIconButton, {
-                      ...trigger,
-                      icon: iconMoreVertical,
-                      label: i18n.t.value("navigation.moreNavItems", { n: hiddenElements }),
-                      color: "neutral",
-                    }),
-
-                  options: () =>
-                    h(
-                      "div",
-                      { class: "onyx-flyout-menu-content" },
-                      hiddenActions.flatMap((action, index) => {
-                        const nodes = [];
-                        if (shouldShowSeparator(hiddenActions, index)) {
-                          nodes.push(h(OnyxSeparator, { orientation: "horizontal" }));
-                        }
-
-                        nodes.push(
-                          h(OnyxMenuItem, {
-                            icon: action?.icon,
-                            label: action.label,
-                            onClick: () => action.onClick?.(toValue(columnConfig)),
-                          }),
-                        );
-
-                        return nodes;
+                  ),
+                ),
+              more: ({
+                attributes,
+                hiddenElements,
+              }: {
+                attributes: object;
+                hiddenElements: number;
+              }) => {
+                const startIndex = actionsList.length - hiddenElements;
+                const hiddenActions = actionsList.slice(startIndex);
+                return h(
+                  OnyxFlyoutMenu,
+                  {
+                    ...attributes,
+                    label: i18n.t.value("navigation.showMoreNavItemsLabel"),
+                  },
+                  {
+                    button: ({ trigger }: { trigger: object }) =>
+                      h(OnyxIconButton, {
+                        ...trigger,
+                        icon: iconMoreVertical,
+                        label: i18n.t.value("navigation.moreNavItems", { n: hiddenElements }),
+                        color: "neutral",
                       }),
-                    ),
-                },
-              );
+                    options: () =>
+                      h(
+                        "div",
+                        { class: "onyx-flyout-menu-content" },
+                        hiddenActions.flatMap((action, index) => {
+                          const nodes = [];
+                          if (shouldShowSeparator(hiddenActions, index)) {
+                            nodes.push(h(OnyxSeparator, { orientation: "horizontal" }));
+                          }
+                          nodes.push(
+                            h(OnyxMenuItem, {
+                              icon: action?.icon,
+                              label: action.label,
+                              onClick: () => action.onClick?.(toValue(columnConfig)),
+                            }),
+                          );
+                          return nodes;
+                        }),
+                      ),
+                  },
+                );
+              },
             },
-          },
-        ),
-      ];
-    };
+          ),
+        ];
+      };
+    }
 
     features.forEach((feature) => {
       if (!feature.slots) return;
