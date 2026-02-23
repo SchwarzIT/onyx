@@ -14,7 +14,7 @@ export type OnyxFormElementV2Props = DensityProp &
      * Label to show above the element. Required due to accessibility / screen readers.
      * If you want to visually hide the label, use the `hideLabel` property.
      */
-    label: string | FormElementV2Tooltip;
+    label: string | FormElementV2LabelOptions;
     /**
      * If `true`, the label will be visually hidden.
      * For accessibility / screen readers, the aria-label will still be set.
@@ -37,6 +37,13 @@ export type OnyxFormElementV2Props = DensityProp &
      */
     required?: boolean;
   };
+
+export type FormElementV2LabelOptions = FormElementV2Tooltip & {
+  /**
+   * How to position the label relative to the main content.
+   */
+  position?: "top" | "left" | "right";
+};
 
 export type FormElementV2Tooltip = {
   /**

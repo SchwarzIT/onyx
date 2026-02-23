@@ -18,9 +18,14 @@ const data = computed<FormElementV2Tooltip>(() => {
 
 <template>
   <div
-    :class="['onyx-component', 'onyx-form-element-v2__top', 'onyx-text--small', requiredTypeClass]"
+    :class="[
+      'onyx-component',
+      'onyx-form-element-v2__label',
+      'onyx-text--small',
+      requiredTypeClass,
+    ]"
   >
-    <label :for="props.id">{{ data.label }}</label>
+    <label :for="props.id" class="onyx-truncation-ellipsis">{{ data.label }}</label>
 
     <span v-if="props.required" :class="[props.required ? requiredMarkerClass : undefined]"></span>
 
@@ -41,7 +46,7 @@ const data = computed<FormElementV2Tooltip>(() => {
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
 
-.onyx-form-element-v2__top {
+.onyx-form-element-v2__label {
   @include layers.component() {
     display: flex;
     align-items: center;

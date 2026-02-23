@@ -27,7 +27,7 @@ export const Default = {
     default: (props) => h("input", props),
     required: true,
     message: {
-      label: "Message",
+      label: " ajshd jkahsdjk hajksdh kjahsdjk ahsjkd",
       tooltipText: "Message tooltip",
     },
     bottomRight: () => h("span", "42/64"),
@@ -73,6 +73,26 @@ export const AllSlots = {
   args: {
     ...Icons.args,
     ...Slots.args,
+  },
+} satisfies Story;
+
+export const LeftLabel = {
+  args: {
+    ...Default.args,
+    label: {
+      ...Default.args.label,
+      position: "left",
+    },
+  },
+} satisfies Story;
+
+export const RightLabel = {
+  args: {
+    ...Default.args,
+    label: {
+      ...Default.args.label,
+      position: "right",
+    },
   },
 } satisfies Story;
 
