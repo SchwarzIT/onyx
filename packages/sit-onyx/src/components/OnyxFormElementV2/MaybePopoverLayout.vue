@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { computed, type AriaAttributes } from "vue";
+import { mergeVueProps } from "../../utils/attrs.js";
 import OnyxBasicPopover from "../OnyxBasicPopover/OnyxBasicPopover.vue";
 import type { OnyxFormElementV2Props } from "./types.js";
 
@@ -18,7 +19,7 @@ const label = computed(() => {
 <template>
   <OnyxBasicPopover v-if="slots.popover" class="onyx-form-element-v2__popover" :label fit-parent>
     <template #default="{ trigger }">
-      <slot :trigger></slot>
+      <slot :trigger="mergeVueProps(trigger, { role: 'combobox' })"></slot>
     </template>
 
     <template #content>
@@ -36,6 +37,7 @@ const label = computed(() => {
   @include layers.component() {
     &__popover {
       flex-grow: 1;
+      border-radius: inherit;
     }
   }
 }
