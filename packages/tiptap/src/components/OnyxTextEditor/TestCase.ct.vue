@@ -21,5 +21,13 @@ const props = defineProps<
 <style lang="scss" scoped>
 .editor {
   width: max-content;
+
+  // ensures tooltips / dialogs are part of the screenshots
+  padding-top: 1rem;
+
+  &:has(.onyx-basic-popover__dialog:popover-open) {
+    padding-right: 10rem;
+    padding-bottom: 10rem;
+  }
 }
 </style>
