@@ -8,6 +8,10 @@ export type OnyxNavItemProps = WithLinkProp<true> & {
    */
   label: string;
   /**
+   *Icon to be displayed next to the item label. Required for Items inside a VerticalNavBar to ensure accessibility when collapsed.
+   */
+  icon?: string;
+  /**
    * Whether the nav item is currently active.
    * If any nested option is active, the parent nav item will also be marked as active.
    * If "auto" and a [router](https://onyx.schwarz/development/router.html) is provided, the active state will be determined automatically based on the current route.

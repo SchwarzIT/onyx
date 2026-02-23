@@ -1,5 +1,6 @@
 import type { Page } from "@playwright/test";
 import { navigationTesting } from "@sit-onyx/headless/playwright";
+import { iconPlaceholder, iconSearch } from "@sit-onyx/icons";
 import { expect, test } from "../../playwright/a11y.js";
 import {
   MOCK_PLAYWRIGHT_LOGO_URL,
@@ -90,6 +91,43 @@ test.describe("Screenshot tests", () => {
       },
     });
   }
+  executeMatrixScreenshotTest({
+    name: `Navigation bar (vertical)`,
+    columns: ["default", "back", "center", "context", "global-context"],
+    rows: ["default", "expanded"],
+    removePadding: true,
+    component: (column, row) => (
+      <div style={{ height: "32rem", width: "25rem", border: "1px solid black", display: "flex" }}>
+        <OnyxNavBar
+          appName="App name"
+          logoUrl={MOCK_PLAYWRIGHT_LOGO_URL}
+          withBackButton={column === "back"}
+          alignment={column === "center" ? "center" : "top"}
+          orientation="vertical"
+          expanded={row === "expanded"}
+        >
+          <OnyxNavItem label="Item" icon={iconPlaceholder} active />
+          <OnyxNavItem label="Item" icon={iconPlaceholder} />
+          <OnyxNavItem label="Item" icon={iconPlaceholder} />
+          <OnyxNavItem label="Item" icon={iconPlaceholder} />
+          <OnyxNavItem label="Item" icon={iconPlaceholder} />
+
+          {column === "global-context" && (
+            <template v-slot:globalContextArea>
+              <OnyxNavItem label="Search" icon={iconSearch} />
+            </template>
+          )}
+
+          {column === "context" && (
+            <template v-slot:contextArea>
+              <OnyxNavItem label="Context" icon={iconPlaceholder} />
+              <OnyxNavItem label="Context" icon={iconPlaceholder} />
+            </template>
+          )}
+        </OnyxNavBar>
+      </div>
+    ),
+  });
 });
 
 test("Screenshot tests (mobile)", async ({ mount, page }) => {
@@ -503,7 +541,7 @@ test("should switch to mobile correctly", async ({ mount, page }) => {
   const component = await mount(TestCase);
 
   type TestCase = {
-    setting: OnyxNavBarProps["mobile"];
+    setting: OnyxNavBarProps<"horizontal">["mobile"];
     viewportWidth: number;
     expectedMobile: boolean;
   };

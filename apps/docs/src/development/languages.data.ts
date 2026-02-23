@@ -4,8 +4,6 @@ import { defineLoader } from "vitepress";
 export type Data = {
   /** List of available onyx languages. */
   languages: Language[];
-  /** Total number of available translation keys (from the English file). */
-  totalKeys: number;
 };
 
 export type Language = {
@@ -13,8 +11,8 @@ export type Language = {
   name: string;
   /** JSON content of the translations / messages */
   fileContent: object;
-  /** Number of translated keys */
-  keyCount: number;
+  /** Percentage of translated keys */
+  percentage: number;
 };
 
 declare const data: Data;
@@ -26,27 +24,35 @@ export { data };
  */
 export default defineLoader({
   watch: ["../../../../packages/sit-onyx/src/i18n/locales/*.json"],
-  load(watchedFiles): Data {
+  async load(watchedFiles): Promise<Data> {
+    const enUS = (await import("sit-onyx/locales/en-US.json", { with: { type: "json" } })).default;
+    const enKeys = getNestedKeys(enUS);
+
     const languages = watchedFiles.map((path) => {
       const fileContent = JSON.parse(readFileSync(path, "utf-8"));
       const name = path.split("/").at(-1)!.replace(".json", "");
-      return { name, fileContent, keyCount: countKeys(fileContent) };
+      const keys = getNestedKeys(fileContent);
+      const percentage = Math.floor((keys.length / enKeys.length) * 100);
+      return { name, fileContent, percentage };
     });
 
-    const totalKeys = languages.find((i) => i.name === "en-US")?.keyCount ?? 0;
-
-    return { languages, totalKeys };
+    return { languages };
   },
 });
 
 /**
- * Gets the number of (nested) keys for the given object.
- * Only counts keys whose value is not a nested object.
+ * Extracts all keys of the given object as array.
  */
-const countKeys = (obj: object): number => {
-  return Object.values(obj).reduce((total, value) => {
-    if (!value) return total;
-    if (typeof value === "object") return total + countKeys(value);
-    return total + 1;
-  }, 0);
+const getNestedKeys = (obj: object, prefix = ""): string[] => {
+  return Object.keys(obj).reduce((res, el) => {
+    const value = obj[el as keyof typeof obj];
+    const path = prefix ? `${prefix}.${el}` : el;
+
+    if (typeof value === "object" && value && !Array.isArray(value)) {
+      // Add the current path and then recurse
+      return [...res, path, ...getNestedKeys(value, path)];
+    }
+
+    return [...res, path];
+  }, [] as string[]);
 };

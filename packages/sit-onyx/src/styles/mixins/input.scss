@@ -31,6 +31,7 @@
   --outline-color: var(--onyx-color-component-focus-primary);
   --outline-style: none;
   --button-color: var(--onyx-color-text-icons-neutral-soft);
+  --border-radius: var(--onyx-radius-sm);
 
   &__wrapper {
     border-radius: var(--border-radius);

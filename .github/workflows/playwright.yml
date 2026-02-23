@@ -50,11 +50,12 @@ jobs:
         run: pnpm exec playwright install --no-shell --with-deps firefox webkit chrome
 
       - name: 🔎 Run Playwright tests
-        run: pnpm run test:playwright:all --concurrency 1 ${{ (inputs.only-changed != '' && format('-- --only-changed {0}', inputs.only-changed)) || '' }}
+        run: pnpm run test:playwright:all --concurrency 1 ${{ (inputs.only-changed != '' && format('--affected -- --only-changed {0}', inputs.only-changed)) || '' }}
         env:
           PW_UPDATE_SNAPSHOTS: "${{ inputs.update-snapshots }}"
           PW_SHARD: "${{ matrix.shard }}"
           PW_TOTAL_SHARDS: "${{ strategy.job-total }}"
+          TURBO_SCM_BASE: "${{ inputs.only-changed }}"
 
       # we only want to include actual changed screenshots in the artifact to prevent that old/unchanged screenshots
       # override changed screenshots from other shards when creating the pull request

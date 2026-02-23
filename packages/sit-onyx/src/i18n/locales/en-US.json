@@ -141,7 +141,9 @@
     "toggleContextMenu": "Toggle context menu",
     "navigationHeadline": "Navigation",
     "moreActionsFlyout": "Choose an action for the column \"{column}\"",
-    "moreActionsTrigger": "Toggle column actions"
+    "moreActionsTrigger": "Toggle column actions",
+    "collapse": "Collapse",
+    "expand": "Expand"
   },
   "tooltip": {
     "neutral": "Toggle info tooltip",
@@ -298,5 +300,36 @@
   },
   "key": {
     "label": "\"{name}\" key"
+  },
+  "editor": {
+    "bold": "Bold",
+    "italic": "Italic",
+    "underline": "Underline",
+    "strike": "Strike through",
+    "alignments": {
+      "left": "Left aligned",
+      "center": "Centered",
+      "right": "Right aligned",
+      "block": "Block aligned"
+    },
+    "link": {
+      "edit": "Edit link",
+      "link": "Link",
+      "text": "Text"
+    },
+    "quote": "Quote",
+    "undo": "Undo",
+    "redo": "Redo",
+    "headings": {
+      "headlines": "Headlines",
+      "level": "Headline {n}",
+      "paragraph": "Text"
+    },
+    "lists": {
+      "lists": "Lists",
+      "orderedList": "Numbered list",
+      "unorderedList": "Bullet list"
+    },
+    "blockquote": "Blockquote"
   }
 }

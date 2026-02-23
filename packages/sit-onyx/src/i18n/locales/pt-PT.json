@@ -1,0 +1,302 @@
+{
+  "yes": "Sim",
+  "no": "Não",
+  "optional": "(opcional)",
+  "cancel": "Cancelar",
+  "apply": "Aplicar",
+  "back": "Voltar",
+  "close": "Fechar",
+  "now": "Agora",
+  "breadcrumb": {
+    "label": "Navegação estrutural",
+    "home": "Início"
+  },
+  "dataGrid": {
+    "head": {
+      "selection": {
+        "selectAll": "Selecionar todas as linhas",
+        "deselectAll": "Desmarcar todas as linhas",
+        "select": "Adicionar linha com ID '{id}' à seleção.",
+        "deselect": "Remover linha com ID '{id}' da seleção."
+      },
+      "sorting": {
+        "action": {
+          "asc": "Ordenar a tabela de forma ascendente pela coluna {field}.",
+          "desc": "Ordenar a tabela de forma descendente pela coluna {field}.",
+          "none": "Repor ordenação."
+        },
+        "menu": {
+          "asc": "Ordenar por ordem ascendente",
+          "desc": "Ordenar por ordem descendente",
+          "none": "Sem ordenação"
+        }
+      },
+      "filtering": {
+        "removeLabel": "Remover termo de pesquisa para a coluna {column}",
+        "menu": {
+          "label": "Pesquisar na coluna {column}",
+          "placeholder": "Pesquisar na coluna"
+        }
+      },
+      "hideColumns": {
+        "revealFlyout": "Lista de colunas ocultas",
+        "revealTrigger": "Mostrar colunas ocultas",
+        "menu": {
+          "hideButton": "Ocultar coluna",
+          "lastColumnTooltip": "A última coluna não pode ser ocultada."
+        }
+      }
+    },
+    "loadMore": "Carregar mais"
+  },
+  "validations": {
+    "tooShort": {
+      "preview": "Demasiado curto, mínimo de {minLength} caracteres necessários",
+      "fullError": "O texto introduzido deve ter pelo menos {minLength} caracteres. Atualmente tem {n} caracteres. Os caracteres especiais podem contar como mais do que um caracter."
+    },
+    "tooLong": {
+      "preview": "Demasiado longo, máximo de {maxLength} caracteres permitidos",
+      "fullError": "Encurte o texto introduzido para {maxLength} caracteres ou menos. Atualmente tem {n} caracteres. Os caracteres especiais podem contar como mais do que um caracter."
+    },
+    "rangeUnderflow": {
+      "preview": "Demasiado baixo",
+      "fullError": "O valor introduzido deve ser maior ou igual a {min}."
+    },
+    "rangeOverflow": {
+      "preview": "Demasiado alto",
+      "fullError": "O valor introduzido deve ser menor ou igual a {max}."
+    },
+    "patternMismatch": {
+      "preview": "Formato inválido",
+      "fullError": "Por favor, corresponda ao formato solicitado."
+    },
+    "valueMissing": {
+      "preview": "Obrigatório",
+      "fullError": "O campo está vazio, é obrigatório e deve ser preenchido."
+    },
+    "stepMismatch": {
+      "preview": "Número inválido",
+      "fullError": "Por favor, introduza um número válido, que seja um múltiplo de {step}."
+    },
+    "badInput": {
+      "preview": "Entrada inválida",
+      "fullError": "O valor \"{value}\" não corresponde ao tipo esperado."
+    },
+    "typeMismatch": {
+      "generic": {
+        "preview": "Tipo de entrada inválido",
+        "fullError": "O valor \"{value}\" não corresponde ao tipo esperado."
+      },
+      "email": {
+        "preview": "E-mail inválido",
+        "fullError": "O valor \"{value}\" não é um endereço de e-mail válido. Deve ser semelhante a \"joaosilva{'@'}exemplo.com\" (deve conter um símbolo {'@'} e um ponto)."
+      },
+      "number": {
+        "preview": "Número inválido",
+        "fullError": "O valor \"{value}\" não é um número válido. Certifique-se de que contém apenas dígitos e, opcionalmente, um único ponto decimal."
+      },
+      "tel": {
+        "preview": "Número de telefone inválido",
+        "fullError": "O valor \"{value}\" não é um número de telefone válido."
+      },
+      "url": {
+        "preview": "URL inválido",
+        "fullError": "O valor \"{value}\" não é um URL válido. Um URL geralmente aponta para um site e deve ser semelhante a \"https://www.exemplo.com\"."
+      }
+    }
+  },
+  "select": {
+    "toggleDropDown": "Alternar pop-up de seleção",
+    "empty": "Não há dados disponíveis",
+    "noMatch": "Nenhum item corresponde à sua pesquisa",
+    "searchInputLabel": "Filtrar os itens da lista",
+    "clearSearch": "Limpar filtro de pesquisa",
+    "searchPlaceholder": "Pesquisar"
+  },
+  "selections": {
+    "selectAll": "Selecionar tudo",
+    "selectGroup": "Selecionados",
+    "currentSelection": "{n} selecionados"
+  },
+  "stepper": {
+    "decrement": "Diminuir em {stepSize}",
+    "increment": "Aumentar em {stepSize}"
+  },
+  "table": {
+    "empty": "Esta tabela está vazia."
+  },
+  "link": {
+    "opensExternally": "(abre num novo separador)"
+  },
+  "navItemOptionsLabel": "Subpáginas de {label}",
+  "navigation": {
+    "appLogo": "Logótipo da aplicação {appName}",
+    "goToHome": "Ir para a página inicial",
+    "goBack": "Voltar",
+    "moreNavItems": "+{n} Mais",
+    "moreNavItemsLabel": "Mais Itens",
+    "showMoreNavItemsLabel": "Mostrar mais itens",
+    "userMenuLabel": "Opções do utilizador",
+    "toggleBurgerMenu": "Alternar menu hambúrguer",
+    "toggleContextMenu": "Alternar menu de contexto",
+    "navigationHeadline": "Navegação",
+    "moreActionsFlyout": "Escolha uma ação para a coluna \"{column}\"",
+    "moreActionsTrigger": "Alternar ações da coluna"
+  },
+  "tooltip": {
+    "neutral": "Alternar dica de informação",
+    "danger": "Alternar dica de erro",
+    "success": "Alternar dica de sucesso"
+  },
+  "colorScheme": {
+    "headline": "Alterar aparência",
+    "subtitle": "Selecione a aparência da aplicação:",
+    "appearance": "Aparência",
+    "auto": {
+      "label": "Automático",
+      "description": "A aplicação adapta automaticamente a sua aparência às definições do seu sistema."
+    },
+    "light": {
+      "label": "Claro",
+      "description": "O modo claro oferece um contraste ideal para ambientes luminosos."
+    },
+    "dark": {
+      "label": "Escuro",
+      "description": "Este modo de cor está otimizado para ambientes mais escuros."
+    }
+  },
+  "pagination": {
+    "label": "Paginação",
+    "ofPages": "de {pages} página | de {pages} páginas",
+    "previous": "página anterior",
+    "next": "página seguinte",
+    "buttonLabel": "Página {page}",
+    "morePages": "Mais páginas intermédias",
+    "select": {
+      "label": "Seleção de página",
+      "listLabel": "Páginas disponíveis"
+    },
+    "currentOfTotalPages": "1/1 página | {current}/{total} páginas"
+  },
+  "input": {
+    "clear": "Limpar entrada",
+    "showPassword": "Mostrar Palavra-passe",
+    "hidePassword": "Ocultar Palavra-passe"
+  },
+  "dialog": {
+    "close": "Fechar diálogo"
+  },
+  "headline": {
+    "copyLink": "Copiar ligação para este título",
+    "copyLinkTo": "Copiar ligação para o título:"
+  },
+  "avatar": {
+    "ariaLabel": "Avatar de {fullName}"
+  },
+  "filterTag": {
+    "clickToAdd": "Adicionar filtro \"{label}\"",
+    "clickToRemove": "Remover filtro \"{label}\""
+  },
+  "languageSelect": {
+    "label": "Idioma",
+    "headline": "Alterar idioma",
+    "subtitle": "Selecione o idioma da aplicação:"
+  },
+  "resizeHandle": {
+    "label": "Arrastar para alterar a largura"
+  },
+  "fileUpload": {
+    "select": "Selecionar",
+    "clickToUpload": "Clique para selecionar",
+    "orDragAndDrop": "ou arraste e largue o ficheiro",
+    "maxFileSize": "Tamanho máximo do ficheiro",
+    "inTotal": "no total",
+    "maxFileCount": "Máximo de {n} ficheiros para selecionar no total",
+    "allowedFileTypes": "Tipos de ficheiro permitidos: {types}",
+    "hideFilesButton": "Ocultar todos os ficheiros",
+    "revealFilesButton": "Mostrar todos os ficheiros",
+    "removeFile": "Remover ficheiro",
+    "requiredError": "Precisa de carregar pelo menos um ficheiro",
+    "status": {
+      "fileTypeError": "Ficheiro com extensão '.{extension}' é inválido",
+      "fileSizeError": "O ficheiro excede o tamanho máximo permitido de {size}",
+      "maxFileSizeError": "O tamanho total de todos os ficheiros excede o máximo permitido de {size}",
+      "maxCountError": "O número de ficheiros excede o máximo permitido de {count}"
+    }
+  },
+  "globalFAB": {
+    "label": "Ações globais"
+  },
+  "calendar": {
+    "todayButton": {
+      "label": "Hoje",
+      "tooltip": "Saltar para hoje"
+    },
+    "calendarWeek": "SC",
+    "calendarWeekButtonLabel": "Selecionar semana do calendário {weekNumber}",
+    "previousMonthButton": "Mês anterior",
+    "nextMonthButton": "Mês seguinte",
+    "monthYearPicker": "Seletor de mês e ano"
+  },
+  "flyoutMenu": {
+    "moreActions": "Mais ações",
+    "toggleActions": {
+      "click": "Clique para alternar a visibilidade da ação",
+      "hover": "Paire/Foque para alternar a visibilidade da ação"
+    }
+  },
+  "slider": {
+    "decreaseValueBy": "Diminuir valor em {n}",
+    "increaseValueBy": "Aumentar valor em {n}",
+    "changeValue": "Alterar valor",
+    "changeStartValue": "Alterar valor inicial",
+    "changeEndValue": "Alterar valor final"
+  },
+  "codeTabs": {
+    "label": "Fragmentos de código",
+    "copySnippet": "Copiar código",
+    "copied": "Copiado!",
+    "failed": "Falhou!",
+    "tabLabel": "Código"
+  },
+  "globalSearch": {
+    "label": "Pesquisa global",
+    "searchResults": "Resultados da pesquisa",
+    "input": {
+      "label": "Pesquisar por conteúdo",
+      "placeholder": "Pesquisar..."
+    },
+    "shortcuts": {
+      "move": "Navegar",
+      "select": "Selecionar"
+    },
+    "system": "Sistema"
+  },
+  "timePicker": {
+    "placeholder": {
+      "hour": "HH",
+      "minute": "MM",
+      "second": "SS"
+    },
+    "labels": {
+      "iconButton": "Abrir seletor de hora",
+      "popover": "Seletor de hora",
+      "hour": "Hora",
+      "minute": "Minuto",
+      "second": "Segundo",
+      "listLabel": "Opções de hora"
+    }
+  },
+  "itemsPerPage": {
+    "label": "Itens por página",
+    "select": {
+      "listLabel": "Selecionar número de itens por página"
+    }
+  },
+  "tableOfContents": {
+    "label": "Índice"
+  },
+  "key": {
+    "label": "Tecla \"{name}\""
+  }
+}

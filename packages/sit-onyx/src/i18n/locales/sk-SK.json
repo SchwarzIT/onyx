@@ -1,0 +1,302 @@
+{
+  "yes": "Áno",
+  "no": "Nie",
+  "optional": "(voliteľné)",
+  "cancel": "Zrušiť",
+  "apply": "Použiť",
+  "back": "Späť",
+  "close": "Zavrieť",
+  "now": "Teraz",
+  "breadcrumb": {
+    "label": "Navigácia omrvinkovej navigácie",
+    "home": "Domov"
+  },
+  "dataGrid": {
+    "head": {
+      "selection": {
+        "selectAll": "Vybrať všetky riadky",
+        "deselectAll": "Zrušiť výber všetkých riadkov",
+        "select": "Pridať riadok s ID '{id}' do výberu.",
+        "deselect": "Odstrániť riadok s ID '{id}' z výberu."
+      },
+      "sorting": {
+        "action": {
+          "asc": "Zoradiť tabuľku vzostupne podľa stĺpca {field}.",
+          "desc": "Zoradiť tabuľku zostupne podľa stĺpca {field}.",
+          "none": "Resetovať triedenie."
+        },
+        "menu": {
+          "asc": "Zoradiť vzostupne",
+          "desc": "Zoradiť zostupne",
+          "none": "Bez triedenia"
+        }
+      },
+      "filtering": {
+        "removeLabel": "Odstrániť hľadaný výraz pre stĺpec {column}",
+        "menu": {
+          "label": "Prehľadať stĺpec {column}",
+          "placeholder": "Prehľadať stĺpec"
+        }
+      },
+      "hideColumns": {
+        "revealFlyout": "Zoznam skrytých stĺpcov",
+        "revealTrigger": "Zobraziť skryté stĺpce",
+        "menu": {
+          "hideButton": "Skryť stĺpec",
+          "lastColumnTooltip": "Posledný stĺpec nie je možné skryť."
+        }
+      }
+    },
+    "loadMore": "Načítať viac"
+  },
+  "validations": {
+    "tooShort": {
+      "preview": "Príliš krátke, vyžaduje sa min. {minLength} znakov",
+      "fullError": "Zadaný text musí mať aspoň {minLength} znakov. Momentálne má {n} znakov. Špeciálne znaky môžu byť počítané ako viac ako jeden znak."
+    },
+    "tooLong": {
+      "preview": "Príliš dlhé, povolených je max. {maxLength} znakov",
+      "fullError": "Skráťte zadaný text na {maxLength} znakov alebo menej. Momentálne má {n} znakov. Špeciálne znaky môžu byť počítané ako viac ako jeden znak."
+    },
+    "rangeUnderflow": {
+      "preview": "Príliš nízka hodnota",
+      "fullError": "Vstupná hodnota musí byť väčšia alebo rovná {min}."
+    },
+    "rangeOverflow": {
+      "preview": "Príliš vysoká hodnota",
+      "fullError": "Vstupná hodnota musí byť menšia alebo rovná {max}."
+    },
+    "patternMismatch": {
+      "preview": "Neplatný formát",
+      "fullError": "Prosím, zhodujte sa s požadovaným formátom."
+    },
+    "valueMissing": {
+      "preview": "Povinné",
+      "fullError": "Pole je prázdne, je povinné a musí byť vyplnené."
+    },
+    "stepMismatch": {
+      "preview": "Neplatné číslo",
+      "fullError": "Prosím, zadajte platné číslo, ktoré je násobkom {step}."
+    },
+    "badInput": {
+      "preview": "Neplatný vstup",
+      "fullError": "Hodnota „{value}” nezodpovedá očakávanému typu."
+    },
+    "typeMismatch": {
+      "generic": {
+        "preview": "Neplatný typ vstupu",
+        "fullError": "Hodnota „{value}” nezodpovedá očakávanému typu."
+      },
+      "email": {
+        "preview": "Neplatný e-mail",
+        "fullError": "„{value}” nie je platná e-mailová adresa. Mala by byť podobná „jankovacik{'@'}priklad.sk” (musí obsahovať symbol {'@'} a bodku)."
+      },
+      "number": {
+        "preview": "Neplatné číslo",
+        "fullError": "„{value}” nie je platné číslo. Uistite sa, že obsahuje iba číslice a voliteľne jednu desatinnú čiarku."
+      },
+      "tel": {
+        "preview": "Neplatné telefónne číslo",
+        "fullError": "„{value}” nie je platné telefónne číslo."
+      },
+      "url": {
+        "preview": "Neplatná URL",
+        "fullError": "„{value}” nie je platná URL adresa. URL adresa zvyčajne odkazuje na webovú stránku a mala by byť podobná „https://www.priklad.sk”."
+      }
+    }
+  },
+  "select": {
+    "toggleDropDown": "Prepnúť okno výberu",
+    "empty": "Nie sú k dispozícii žiadne údaje",
+    "noMatch": "Žiadna položka nezodpovedá vášmu vyhľadávaniu",
+    "searchInputLabel": "Filtrovať položky zoznamu",
+    "clearSearch": "Vymazať filter vyhľadávania",
+    "searchPlaceholder": "Hľadať"
+  },
+  "selections": {
+    "selectAll": "Vybrať všetko",
+    "selectGroup": "Vybrané",
+    "currentSelection": "{n} vybraných"
+  },
+  "stepper": {
+    "decrement": "Znížiť o {stepSize}",
+    "increment": "Zvýšiť o {stepSize}"
+  },
+  "table": {
+    "empty": "Táto tabuľka je prázdna."
+  },
+  "link": {
+    "opensExternally": "(otvorí sa na novej karte)"
+  },
+  "navItemOptionsLabel": "Podstránky {label}",
+  "navigation": {
+    "appLogo": "Logo aplikácie {appName}",
+    "goToHome": "Prejsť na domovskú stránku",
+    "goBack": "Späť",
+    "moreNavItems": "+{n} Viac",
+    "moreNavItemsLabel": "Viac položiek",
+    "showMoreNavItemsLabel": "Zobraziť viac položiek",
+    "userMenuLabel": "Možnosti používateľa",
+    "toggleBurgerMenu": "Prepnúť hamburgerové menu",
+    "toggleContextMenu": "Prepnúť kontextové menu",
+    "navigationHeadline": "Navigácia",
+    "moreActionsFlyout": "Vyberte akciu pre stĺpec „{column}”",
+    "moreActionsTrigger": "Prepnúť akcie stĺpca"
+  },
+  "tooltip": {
+    "neutral": "Prepnúť informačný tip",
+    "danger": "Prepnúť tip o chybe",
+    "success": "Prepnúť tip o úspechu"
+  },
+  "colorScheme": {
+    "headline": "Zmeniť vzhľad",
+    "subtitle": "Vyberte vzhľad aplikácie:",
+    "appearance": "Vzhľad",
+    "auto": {
+      "label": "Automatický",
+      "description": "Aplikácia automaticky prispôsobí svoj vzhľad nastaveniam vášho systému."
+    },
+    "light": {
+      "label": "Svetlý",
+      "description": "Svetlý režim poskytuje optimálny kontrast pre svetlé prostredie."
+    },
+    "dark": {
+      "label": "Tmavý",
+      "description": "Tento farebný režim je optimalizovaný pre tmavšie prostredie."
+    }
+  },
+  "pagination": {
+    "label": "Stránkovanie",
+    "ofPages": "z {pages} strany | z {pages} strán",
+    "previous": "predchádzajúca strana",
+    "next": "nasledujúca strana",
+    "buttonLabel": "Strana {page}",
+    "morePages": "Viac strán medzi",
+    "select": {
+      "label": "Výber strany",
+      "listLabel": "Dostupné strany"
+    },
+    "currentOfTotalPages": "1/1 strana | {current}/{total} strán"
+  },
+  "input": {
+    "clear": "Vymazať vstup",
+    "showPassword": "Zobraziť heslo",
+    "hidePassword": "Skryť heslo"
+  },
+  "dialog": {
+    "close": "Zavrieť dialógové okno"
+  },
+  "headline": {
+    "copyLink": "Kopírovať odkaz na tento nadpis",
+    "copyLinkTo": "Kopírovať odkaz na nadpis:"
+  },
+  "avatar": {
+    "ariaLabel": "Avatar používateľa {fullName}"
+  },
+  "filterTag": {
+    "clickToAdd": "Pridať filter „{label}”",
+    "clickToRemove": "Odstrániť filter „{label}”"
+  },
+  "languageSelect": {
+    "label": "Jazyk",
+    "headline": "Zmeniť jazyk",
+    "subtitle": "Vyberte jazyk aplikácie:"
+  },
+  "resizeHandle": {
+    "label": "Potiahnutím zmeníte šírku"
+  },
+  "fileUpload": {
+    "select": "Vybrať",
+    "clickToUpload": "Kliknite pre výber",
+    "orDragAndDrop": "alebo presuňte súbor sem",
+    "maxFileSize": "Maximálna veľkosť súboru",
+    "inTotal": "celkovo",
+    "maxFileCount": "Maximálne {n} súborov na výber celkovo",
+    "allowedFileTypes": "Povolené typy súborov: {types}",
+    "hideFilesButton": "Skryť všetky súbory",
+    "revealFilesButton": "Zobraziť všetky súbory",
+    "removeFile": "Odstrániť súbor",
+    "requiredError": "Musíte nahrať aspoň jeden súbor",
+    "status": {
+      "fileTypeError": "Súbor s príponou „.{extension}” je neplatný",
+      "fileSizeError": "Súbor prekračuje maximálnu povolenú veľkosť {size}",
+      "maxFileSizeError": "Celková veľkosť všetkých súborov prekračuje povolené maximum {size}",
+      "maxCountError": "Počet súborov prekračuje povolené maximum {count}"
+    }
+  },
+  "globalFAB": {
+    "label": "Globálne akcie"
+  },
+  "calendar": {
+    "todayButton": {
+      "label": "Dnes",
+      "tooltip": "Prejsť na dnešok"
+    },
+    "calendarWeek": "KT",
+    "calendarWeekButtonLabel": "Vybrať kalendárny týždeň {weekNumber}",
+    "previousMonthButton": "Predchádzajúci mesiac",
+    "nextMonthButton": "Nasledujúci mesiac",
+    "monthYearPicker": "Výber mesiaca a roku"
+  },
+  "flyoutMenu": {
+    "moreActions": "Viac akcií",
+    "toggleActions": {
+      "click": "Kliknutím prepnete viditeľnosť akcie",
+      "hover": "Prejdením myšou/zameraním prepnete viditeľnosť akcie"
+    }
+  },
+  "slider": {
+    "decreaseValueBy": "Znížiť hodnotu o {n}",
+    "increaseValueBy": "Zvýšiť hodnotu o {n}",
+    "changeValue": "Zmeniť hodnotu",
+    "changeStartValue": "Zmeniť počiatočnú hodnotu",
+    "changeEndValue": "Zmeniť koncovú hodnotu"
+  },
+  "codeTabs": {
+    "label": "Úryvky kódu",
+    "copySnippet": "Kopírovať kód",
+    "copied": "Skopírované!",
+    "failed": "Zlyhalo!",
+    "tabLabel": "Kód"
+  },
+  "globalSearch": {
+    "label": "Globálne vyhľadávanie",
+    "searchResults": "Výsledky vyhľadávania",
+    "input": {
+      "label": "Hľadať obsah",
+      "placeholder": "Hľadať..."
+    },
+    "shortcuts": {
+      "move": "Navigovať",
+      "select": "Vybrať"
+    },
+    "system": "Systém"
+  },
+  "timePicker": {
+    "placeholder": {
+      "hour": "HH",
+      "minute": "MM",
+      "second": "SS"
+    },
+    "labels": {
+      "iconButton": "Otvoriť výber času",
+      "popover": "Výber času",
+      "hour": "Hodina",
+      "minute": "Minúta",
+      "second": "Sekunda",
+      "listLabel": "Možnosti času"
+    }
+  },
+  "itemsPerPage": {
+    "label": "Položiek na stránku",
+    "select": {
+      "listLabel": "Vyberte počet položiek na stránku"
+    }
+  },
+  "tableOfContents": {
+    "label": "Obsah"
+  },
+  "key": {
+    "label": "Kláves „{name}”"
+  }
+}

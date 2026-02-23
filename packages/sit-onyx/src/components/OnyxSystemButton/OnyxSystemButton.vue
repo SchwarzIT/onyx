@@ -17,6 +17,14 @@ const props = withDefaults(defineProps<OnyxSystemButtonProps>(), {
   color: "intense",
 });
 
+defineSlots<{
+  /**
+   * Optional slot to override the button content.
+   * Should only contain either an icon or text.
+   */
+  default?(): unknown;
+}>();
+
 const buttonOrLinkLayoutProps = useForwardProps(props, ButtonOrLinkLayout);
 const skeleton = useSkeletonContext(props);
 </script>
@@ -35,8 +43,10 @@ const skeleton = useSkeletonContext(props);
     :aria-label="props.label"
     :title="props.label"
   >
-    <OnyxIcon v-if="props.icon" :icon="props.icon" />
-    <span v-else class="onyx-truncation-ellipsis">{{ props.label }}</span>
+    <slot>
+      <OnyxIcon v-if="props.icon" :icon="props.icon" />
+      <span v-else class="onyx-truncation-ellipsis">{{ props.label }}</span>
+    </slot>
   </ButtonOrLinkLayout>
 </template>
 

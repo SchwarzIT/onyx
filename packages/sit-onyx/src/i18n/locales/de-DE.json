@@ -141,7 +141,9 @@
     "toggleContextMenu": "Kontext-Menü umschalten",
     "navigationHeadline": "Navigation",
     "moreActionsFlyout": "Wähle eine Aktion für die Spalte \"{column}\"",
-    "moreActionsTrigger": "Spaltenaktionen umschalten"
+    "moreActionsTrigger": "Spaltenaktionen umschalten",
+    "collapse": "Einklappen",
+    "expand": "Ausklappen"
   },
   "tooltip": {
     "neutral": "Info-Tooltip Sichtbarkeit umschalten",
@@ -295,5 +297,36 @@
   },
   "key": {
     "label": "\"{name}\" Taste"
+  },
+  "editor": {
+    "bold": "Fett",
+    "italic": "Kursiv",
+    "underline": "Unterstrichen",
+    "strike": "Durchgestrichen",
+    "alignments": {
+      "left": "Linksbündig",
+      "center": "Zentriert",
+      "right": "Rechtsbündig",
+      "block": "Blockausrichtung"
+    },
+    "link": {
+      "edit": "Link bearbeiten",
+      "link": "Link",
+      "text": "Text"
+    },
+    "quote": "Zitat",
+    "undo": "Rückgängig",
+    "redo": "Wiederherstellen",
+    "headings": {
+      "headlines": "Überschriften",
+      "level": "Überschrift {n}",
+      "paragraph": "Text"
+    },
+    "lists": {
+      "lists": "Listen",
+      "orderedList": "Aufzählung",
+      "unorderedList": "Auflistung"
+    },
+    "blockquote": "Zitat"
   }
 }

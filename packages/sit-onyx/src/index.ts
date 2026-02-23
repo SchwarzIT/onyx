@@ -286,15 +286,19 @@ export * from "./components/OnyxShortcut/types.js";
 
 export { default as OnyxComponentShowcase } from "./components/examples/ComponentShowcase/ComponentShowcase.vue";
 
+export { FORM_INJECTED_SYMBOL, useFormContext } from "./components/OnyxForm/OnyxForm.core.js";
 export * from "./composables/density.js";
 export * from "./composables/scrollEnd.js";
 export * from "./composables/themeTransition.js";
 export * from "./composables/useFileSize.js";
+export { getFormMessages } from "./composables/useFormElementError.js";
 export * from "./composables/useLink.js";
 export * from "./composables/useShortcut.js";
 export * from "./composables/useSkeletonState.js";
+export { SKELETON_INJECTED_SYMBOL } from "./composables/useSkeletonState.js";
+export { useVModel, type UseVModelOptions } from "./composables/useVModel.js";
 
-export { provideI18n, type TranslationFunction } from "./i18n/index.js";
+export { injectI18n, provideI18n } from "./i18n/index.js";
 export type { OnyxTranslations, ProvideI18nOptions } from "./i18n/index.js";
 export * from "./types/index.js";
 export { createOnyx } from "./utils/plugin.js";
@@ -302,5 +306,6 @@ export { createOnyx } from "./utils/plugin.js";
 export * from "./components/illustrations/index.js";
 export * from "./composables/themeTransition.js";
 export * from "./utils/attrs.js";
+export * from "./utils/props.js";
 export * from "./utils/router.js";
 export { normalizedIncludes } from "./utils/strings.js";
