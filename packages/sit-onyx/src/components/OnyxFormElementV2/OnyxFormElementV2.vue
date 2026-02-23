@@ -79,7 +79,7 @@ const label = computed<FormElementV2LabelOptions>(() => {
       { 'onyx-form-element-v2--label-right': label.position === 'right' },
     ]"
   >
-    <OnyxFormElementV2Label v-if="!props.hideLabel" v-bind="topProps" />
+    <OnyxFormElementV2Label v-if="!label.hidden" v-bind="topProps" />
 
     <div class="onyx-form-element-v2__body">
       <div class="onyx-form-element-v2__content">
