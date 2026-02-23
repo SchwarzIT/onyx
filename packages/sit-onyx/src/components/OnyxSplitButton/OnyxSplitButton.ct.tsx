@@ -3,11 +3,12 @@ import { DENSITIES } from "../../composables/density.js";
 import { test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import { BUTTON_COLORS, BUTTON_MODES } from "../OnyxButton/types.js";
+import OnyxMenuItem from "../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxSplitButton from "./OnyxSplitButton.vue";
 
-const OPTIONS = [
-  { label: "Option 1", icon: iconPlaceholder, onClickFunction: () => {} },
-  { label: "Option 2", icon: iconPlaceholder, onClickFunction: () => {} },
+const OPTIONS = () => [
+  <OnyxMenuItem label="Option 2" icon={iconPlaceholder} />,
+  <OnyxMenuItem label="Option 3" icon={iconPlaceholder} />,
 ];
 
 test.describe("Screenshot tests", () => {
@@ -16,7 +17,9 @@ test.describe("Screenshot tests", () => {
     columns: DENSITIES,
     rows: BUTTON_COLORS,
     component: (column, row) => (
-      <OnyxSplitButton splitButtonOptions={OPTIONS} density={column} color={row} />
+      <OnyxSplitButton label="Option 1" density={column} color={row}>
+        {{ options: OPTIONS }}
+      </OnyxSplitButton>
     ),
   });
 
@@ -25,7 +28,9 @@ test.describe("Screenshot tests", () => {
     columns: DENSITIES,
     rows: BUTTON_MODES,
     component: (column, row) => (
-      <OnyxSplitButton splitButtonOptions={OPTIONS} density={column} mode={row} />
+      <OnyxSplitButton label="Option 1" density={column} mode={row}>
+        {{ options: OPTIONS }}
+      </OnyxSplitButton>
     ),
   });
 
@@ -35,7 +40,7 @@ test.describe("Screenshot tests", () => {
     "skeleton",
     "hover",
     "focus",
-    " hover-flyout",
+    "hover-flyout",
     "focus-flyout",
   ];
 
@@ -46,14 +51,16 @@ test.describe("Screenshot tests", () => {
       rows: BUTTON_COLORS,
       component: (column, row) => (
         <OnyxSplitButton
-          splitButtonOptions={OPTIONS}
+          label="Option 1"
           density={column}
           color={row}
           disabled={state === "disabled"}
           loading={state === "loading"}
           skeleton={state === "skeleton"}
           style={{ margin: "0 2rem 2rem 0" }}
-        />
+        >
+          {{ options: OPTIONS }}
+        </OnyxSplitButton>
       ),
       hooks: {
         beforeEach: async (component) => {

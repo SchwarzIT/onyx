@@ -1,17 +1,16 @@
 import { iconPlaceholder } from "@sit-onyx/icons";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
+import { action } from "storybook/actions";
+import { h } from "vue";
 import { defineIconSelectArgType } from "../../utils/storybook.js";
+import OnyxMenuItem from "../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxSplitButton from "./OnyxSplitButton.vue";
 
 /**
- * Buttons serve as fundamental components in UI design,
- * acting as gateways for user interactions and pivotal points for
- * initiating actions within an interface.
- * Whether prompting users to submit forms,
- * navigate through pages, or trigger specific functionalities,
- * buttons play a pivotal role in guiding users through their
- * digital journey.
+ * The SplitButton is used to have multiple actions alongside a group of similar actions.
+ * The main action will be displayed on the left and will be triggered immediately after clicking.
+ * On the right side and behind an icon are multiple actions which can be individual or can extend the functionality of the main action.
  */
 const meta: Meta<typeof OnyxSplitButton> = {
   title: "Buttons/SplitButton",
@@ -31,25 +30,27 @@ type Story = StoryObj<typeof OnyxSplitButton>;
  */
 export const Default = {
   args: {
-    splitButtonOptions: [
-      {
-        label: "Option1",
+    label: "Click me!",
+    options: () => [
+      h(OnyxMenuItem, {
+        label: "Option 1",
         icon: iconPlaceholder,
-        onClickFunction: () => {},
-      },
-      {
-        label: "Option2",
+        onClick: action("click"),
+      }),
+      h(OnyxMenuItem, {
+        label: "Option 2",
         icon: iconPlaceholder,
-        onClickFunction: () => {},
-      },
-      {
-        label: "Option3",
+        onClick: action("click"),
+      }),
+      h(OnyxMenuItem, {
+        label: "Option 3",
         icon: iconPlaceholder,
-        onClickFunction: () => {},
-      },
+        onClick: action("click"),
+      }),
     ],
   },
 } satisfies Story;
+
 export const Neutral = {
   args: {
     ...Default.args,

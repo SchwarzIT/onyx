@@ -91,6 +91,7 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
     --onyx-button-border-color-disabled: transparent;
     --onyx-button-outline-color: var(--onyx-color-component-focus-primary);
     --onyx-button-border-width: var(--onyx-1px-in-rem);
+    --onyx-button-border-radius: var(--onyx-radius-sm);
 
     &--primary {
       &.onyx-button--default {
@@ -180,12 +181,12 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
     display: inline-flex;
     max-width: 100%;
     width: max-content;
-    padding: calc(var(--onyx-button-padding-vertical) - var(--onyx-button-border-width))
-      var(--onyx-button-padding-inline);
+    padding-inline: var(--onyx-button-padding-inline);
+    padding-block: calc(var(--onyx-button-padding-vertical) - var(--onyx-button-border-width));
     justify-content: center;
     align-items: center;
     gap: var(--onyx-density-2xs);
-    border-radius: var(--onyx-radius-sm);
+    border-radius: var(--onyx-button-border-radius);
     cursor: pointer;
     font-family: var(--onyx-font-family-paragraph);
     background-color: var(--onyx-button-background-color);
