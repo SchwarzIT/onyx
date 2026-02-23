@@ -250,6 +250,7 @@ test.describe("extensions", () => {
       await headlineButton.hover();
 
       // ASSERT
+      await expect(headlineFlyout).toBeVisible();
       await expect(component).toHaveScreenshot("headlines-flyout.png");
     });
 
@@ -316,6 +317,7 @@ test.describe("extensions", () => {
       await listButton.hover();
 
       // ASSERT
+      await expect(listFlyout).toBeVisible();
       await expect(component).toHaveScreenshot("lists-flyout.png");
     });
 
@@ -383,6 +385,7 @@ test.describe("extensions", () => {
       await button.click();
       await editor.pressSequentially(" test case");
       await editor.getByText("bold text").selectText();
+      await button.hover();
 
       // ASSERT
       await expect(component).toHaveScreenshot("bold.png");
@@ -412,6 +415,7 @@ test.describe("extensions", () => {
       await button.click();
       await editor.pressSequentially(" test case");
       await editor.getByText("italic text").selectText();
+      await button.hover();
 
       // ASSERT
       await expect(component).toHaveScreenshot("italic.png");
@@ -441,6 +445,7 @@ test.describe("extensions", () => {
       await button.click();
       await editor.pressSequentially(" test case");
       await editor.getByText("underlined text").selectText();
+      await button.hover();
 
       // ASSERT
       await expect(component).toHaveScreenshot("underline.png");
@@ -470,6 +475,7 @@ test.describe("extensions", () => {
       await button.click();
       await editor.pressSequentially(" test case");
       await editor.getByText("striked text").selectText();
+      await button.hover();
 
       // ASSERT
       await expect(component).toHaveScreenshot("strike.png");
@@ -549,6 +555,7 @@ test.describe("extensions", () => {
       // ACT
       await button.click();
       await editor.pressSequentially("This is a blockquote text test case");
+      await button.hover();
 
       // ASSERT
       await expect(component).toHaveScreenshot("blockquote.png");
