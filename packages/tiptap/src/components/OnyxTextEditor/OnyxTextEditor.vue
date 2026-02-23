@@ -372,6 +372,8 @@ defineExpose({
       $vertical-padding: var(--onyx-text-editor-padding-block)
     );
 
+    max-width: 100%;
+
     &__wrapper {
       padding: 0;
       height: unset;
