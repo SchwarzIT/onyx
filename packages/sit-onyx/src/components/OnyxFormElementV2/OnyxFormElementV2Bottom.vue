@@ -5,6 +5,8 @@ import OnyxInfoTooltip from "../OnyxInfoTooltip/OnyxInfoTooltip.vue";
 import type { OnyxInfoTooltipProps } from "../OnyxInfoTooltip/types.js";
 import type { FormElementV2Tooltip, OnyxFormElementV2Props } from "./types.js";
 
+type NormalizedMessage = FormElementV2Tooltip & { color: OnyxInfoTooltipProps["color"] };
+
 const props = defineProps<OnyxFormElementV2Props>();
 
 const slots = defineSlots<{
@@ -16,10 +18,16 @@ const { reserveMessageSpace } = useFormContext(props);
 const normalizeMessage = (
   color: OnyxInfoTooltipProps["color"],
   message?: string | FormElementV2Tooltip,
-) => {
+): NormalizedMessage | undefined => {
   if (!message) return;
-  if (typeof message === "object") return { ...message, color };
-  return { label: message, color };
+  const _message = typeof message === "object" ? { ...message } : { label: message };
+
+  return {
+    ..._message,
+    color,
+    // if tooltipText is unset, use the message label so the tooltip is always shown (so the full text is readable even if label is truncated)
+    tooltipText: _message.tooltipText ?? _message.label,
+  };
 };
 
 const message = computed(() => {
