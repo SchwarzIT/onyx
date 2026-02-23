@@ -8,7 +8,11 @@ import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.
 import MaybePopoverLayout from "./MaybePopoverLayout.vue";
 import OnyxFormElementV2Bottom from "./OnyxFormElementV2Bottom.vue";
 import OnyxFormElementV2Label from "./OnyxFormElementV2Label.vue";
-import type { FormElementV2LabelOptions, OnyxFormElementV2Props } from "./types.js";
+import type {
+  FormElementV2LabelOptions,
+  OnyxFormElementV2Props,
+  OnyxFormElementV2Slots,
+} from "./types.js";
 
 const props = withDefaults(defineProps<OnyxFormElementV2Props>(), {
   skeleton: SKELETON_INJECTED_SYMBOL,
@@ -18,37 +22,7 @@ const props = withDefaults(defineProps<OnyxFormElementV2Props>(), {
   id: () => useId(),
 });
 
-const slots = defineSlots<{
-  /**
-   * Actual native HTML form element (e.g. `<input>` or `<textarea>`).
-   */
-  default(props: typeof inputProps.value): unknown;
-  /**
-   * Optional slot to provide custom leading content before the actual input (e.g. an `OnyxSelect`).
-   */
-  leading?(): unknown;
-  /**
-   * Optional inner icons to display before the input but after the `leading` slot.
-   */
-  leadingIcons?(): unknown;
-  /**
-   * Optional inner icons to display after the input but before the `trailing` slot.
-   */
-  trailingIcons?(): unknown;
-  /**
-   * Optional slot to provide custom trailing content after the actual input (e.g. an `OnyxSelect`).
-   */
-  trailing?(): unknown;
-  /**
-   * Optional slot to display content on the bottom right (e.g. a character counter).
-   */
-  bottomRight?(): unknown;
-  /**
-   * Optional popover content. If set, a popover will be wrapped around the main input area.
-   * Note: The input should typically be readonly or disabled when using a popover.
-   */
-  popover?(): unknown;
-}>();
+const slots = defineSlots<OnyxFormElementV2Slots>();
 
 const { densityClass } = useDensity(props);
 const formContext = useFormContext(props);

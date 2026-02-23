@@ -148,15 +148,16 @@ const toggle = () => {
   emit("update:open", !isVisible.value);
 };
 
+const id = useId();
+
 const trigger = computed(() => ({
   onClick: toggle,
   "aria-expanded": isVisible.value,
-  "aria-controls": popoverRef.value?.id,
+  "aria-controls": id,
   "aria-haspopup": true,
   disabled: disabled.value,
 }));
 
-const id = useId();
 const anchorName = computed(() => `--anchor-${id}`);
 
 const popoverClasses = computed(() => {
@@ -211,6 +212,7 @@ const popoverStyles = computed(() => {
     <slot :trigger="trigger"></slot>
     <!-- we are using inline "style" here since using v-bind causes hydration errors in Nuxt / SSR -->
     <div
+      :id
       ref="popover"
       :role="props.role"
       :aria-label="props.label"

@@ -36,6 +36,38 @@ export type OnyxFormElementV2Props = DensityProp &
     required?: boolean;
   };
 
+export type OnyxFormElementV2Slots = {
+  /**
+   * Actual native HTML form element (e.g. `<input>` or `<textarea>`).
+   */
+  default(props: object): unknown;
+  /**
+   * Optional slot to provide custom leading content before the actual input (e.g. an `OnyxSelect`).
+   */
+  leading?(): unknown;
+  /**
+   * Optional inner icons to display before the input but after the `leading` slot.
+   */
+  leadingIcons?(): unknown;
+  /**
+   * Optional inner icons to display after the input but before the `trailing` slot.
+   */
+  trailingIcons?(): unknown;
+  /**
+   * Optional slot to provide custom trailing content after the actual input (e.g. an `OnyxSelect`).
+   */
+  trailing?(): unknown;
+  /**
+   * Optional slot to display content on the bottom right (e.g. a character counter).
+   */
+  bottomRight?(): unknown;
+  /**
+   * Optional popover content. If set, a popover will be wrapped around the main input area.
+   * Note: The input should typically be readonly or disabled when using a popover.
+   */
+  popover?(): unknown;
+};
+
 export type FormElementV2LabelOptions = FormElementV2Tooltip & {
   /**
    * How to position the label relative to the main content.
