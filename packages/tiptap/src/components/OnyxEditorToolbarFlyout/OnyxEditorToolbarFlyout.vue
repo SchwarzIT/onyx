@@ -1,18 +1,21 @@
 <script lang="ts" setup>
 import { iconChevronDownSmall } from "@sit-onyx/icons";
 import { OnyxFlyoutMenu, OnyxIcon, OnyxMenuItem } from "sit-onyx";
-import { computed } from "vue";
+import { computed, inject } from "vue";
 import OnyxEditorToolbarAction from "../OnyxEditorToolbarAction/OnyxEditorToolbarAction.vue";
+import { TEXT_EDITOR_INJECTION_KEY } from "../OnyxTextEditor/types.js";
 import type { OnyxEditorToolbarFlyoutProps } from "./types.js";
 
 const props = defineProps<OnyxEditorToolbarFlyoutProps>();
+
+const editorContext = inject(TEXT_EDITOR_INJECTION_KEY, undefined);
 
 const activeOption = computed(() => props.options.find((option) => option.active));
 const icon = computed(() => activeOption.value?.icon ?? props.icon);
 </script>
 
 <template>
-  <OnyxFlyoutMenu :label="props.label">
+  <OnyxFlyoutMenu :label="props.label" :disabled="editorContext?.disabled.value">
     <template #button="{ trigger }">
       <OnyxEditorToolbarAction v-bind="trigger" :label="props.label" :icon :active="!!activeOption">
         <OnyxIcon :icon />
