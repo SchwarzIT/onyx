@@ -91,7 +91,7 @@ const { componentRef, isVisible } = isTopLevel
 <template>
   <!-- Desktop parent item in vertical navbar with children in a flyout -->
   <OnyxFlyoutMenu
-    v-if="isExpanded !== undefined && isTopLevel && hasChildren"
+    v-if="isExpanded !== undefined && isTopLevel && hasChildren && isVisible"
     v-bind="rootAttrs"
     :label="t('navItemOptionsLabel', { label: props.label })"
     alignment="right"
@@ -122,7 +122,7 @@ const { componentRef, isVisible } = isTopLevel
 
   <!-- Desktop nav button directly in vertical navbar  -->
   <OnyxTooltip
-    v-else-if="isExpanded === false && isTopLevel"
+    v-else-if="isExpanded === false && isTopLevel && isVisible"
     alignment="right"
     position="right"
     without-wedge
@@ -145,7 +145,7 @@ const { componentRef, isVisible } = isTopLevel
   </OnyxTooltip>
 
   <OnyxNavItemFacade
-    v-else-if="isExpanded && isTopLevel"
+    v-else-if="isExpanded && isTopLevel && isVisible"
     v-bind="mergeVueProps(props, $attrs)"
     ref="componentRef"
     :active
