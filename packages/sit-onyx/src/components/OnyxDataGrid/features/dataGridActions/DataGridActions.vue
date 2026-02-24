@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { iconMoreVertical } from "@sit-onyx/icons";
 import { computed } from "vue";
-import { injectI18n } from "../../../../i18n.js";
+import { injectI18n } from "../../../../i18n/index.js";
 import OnyxIconButton from "../../../OnyxIconButton/OnyxIconButton.vue";
 import OnyxMoreList from "../../../OnyxMoreList/OnyxMoreList.vue";
 import OnyxFlyoutMenu from "../../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
