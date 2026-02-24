@@ -110,6 +110,10 @@ const skeleton = useSkeletonContext(props);
       }
     }
 
+    .onyx-icon {
+      --icon-size: 1rem;
+    }
+
     $is_text_button: "&:not(:has(.onyx-icon))";
 
     #{$is_text_button} {
