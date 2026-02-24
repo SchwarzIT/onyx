@@ -6,18 +6,28 @@ import "sit-onyx/style.css";
 import { createPreview, withVModelDecorator } from "@sit-onyx/storybook-utils";
 import { Preview } from "@storybook/vue3-vite";
 
+const basePreview = createPreview({
+  parameters: {
+    docs: {
+      codePanel: true,
+    },
+  },
+});
+
 const preview: Preview = {
   // we need to destructure here because as of Storybook 7.6
   // it can not statically analyze that the `preview` variable is an object
-  ...createPreview({
-    parameters: {
-      docs: {
-        codePanel: true,
-      },
-    },
-  }),
+  ...basePreview,
   tags: ["autodocs"],
   decorators: [withVModelDecorator()],
+  parameters: {
+    ...basePreview.parameters,
+    options: {
+      storySort: {
+        order: ["Form Elements", "Support"],
+      },
+    },
+  },
 };
 
 export default preview;
