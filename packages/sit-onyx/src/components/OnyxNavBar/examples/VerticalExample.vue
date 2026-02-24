@@ -25,6 +25,10 @@ import {
 const expanded = ref(false);
 
 const { width } = useResizeObserver();
+/**
+ * Reactive state that determines if the view is in mobile mode.
+ * Automatically switches the layout to 'horizontal' / 'top' for small screens.
+ */
 const isMobile = computed(() => width.value <= ONYX_BREAKPOINTS.xs);
 </script>
 
