@@ -44,7 +44,7 @@ const skeleton = useSkeletonContext(props);
     :title="props.label"
   >
     <slot>
-      <OnyxIcon v-if="props.icon" :icon="props.icon" />
+      <OnyxIcon v-if="props.icon" :icon="props.icon" size="16px" />
       <span v-else class="onyx-truncation-ellipsis">{{ props.label }}</span>
     </slot>
   </ButtonOrLinkLayout>
@@ -108,10 +108,6 @@ const skeleton = useSkeletonContext(props);
         --background-color: var(--focus-active-background-color);
         --color: var(--active-color);
       }
-    }
-
-    .onyx-icon {
-      --icon-size: 1.125rem;
     }
 
     $is_text_button: "&:not(:has(.onyx-icon))";
