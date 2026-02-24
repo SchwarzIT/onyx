@@ -40,6 +40,7 @@ const props = defineProps<OnyxIconProps>();
       // display svg as block instead of default inline, to remove vertical alignment
       display: block;
       height: inherit;
+      width: inherit;
     }
 
     &--inline {
