@@ -1,0 +1,28 @@
+import { Meta, Story } from "@storybook/addon-docs/blocks";
+
+{/* workaround for hiding the table of contents, see docs-template.scss file */}
+
+<div className="storybook-hide-toc"></div>
+
+<Meta title="Getting Started/Extensions" />
+
+# Extensions
+
+The editor will automatically adapt depending on your configuration.
+E.g. if you disable specific extensions or options (e.g. heading levels), the displayed editor toolbar will adapt accordingly.
+Please refer to the instructions below for further customizations.
+
+## Configure starter kit
+
+By default, the `OnyxTextEditor` uses the `OnyxStarterKit` as extensions which is based on the [Tiptap starter kit](https://tiptap.dev/docs/editor/extensions/functionality/starterkit) but includes additional commonly used extensions and is configured with onyx-specific options.
+
+To override / customize the extensions used by the editor, use the `extensions` property which will fully replace the default config.
+You can either re-use and configure the default `OnyxStarterKit` here or use your own starter kits / extensions.
+
+Take a look at the [OnyxTextEditor](/story/form-elements-texteditor--customized-starter-kit) for an example implementation.
+
+## Custom extensions
+
+The text editor can be extended with custom extensions / actions. Browse the [Tiptap extensions overview](https://tiptap.dev/docs/editor/extensions/overview) for a full list of extensions.
+
+Take a look at the [OnyxTextEditor](/story/form-elements-texteditor--custom-actions) for an example implementation.
