@@ -36,7 +36,15 @@ const emit = defineEmits<{
 }>();
 
 defineSlots<{
+  /**
+   * The `default` slot can optionally be used to overwrite and customize the default main button.
+   * Usually this should not be necessary, as all button properties can be set via the `OnyxSplitButton`.
+   * @param props The provided `buttonProps` must be bound to a button element.
+   */
   default?: (props: { buttonProps: OnyxButtonProps }) => unknown;
+  /**
+   * Use the `options` slot to provide the `OnyxMenuItem`s that should be displayed in the flyout.
+   */
   options: () => unknown[];
 }>();
 
