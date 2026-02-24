@@ -45,7 +45,15 @@ const expanded = ref(false);
 
         <template #contextArea>
           <OnyxTag color="warning" :icon="iconBrowserTerminal" label="QA stage" />
-          <OnyxUserMenu description="Company Name" full-name="Jane Doe">
+          <OnyxUserMenu description="Company Name" full-name="Jane Doe" position="right">
+            <OnyxMenuItem>
+              <OnyxIcon :icon="iconSettings" />
+              Settings
+            </OnyxMenuItem>
+            <OnyxMenuItem>
+              <OnyxIcon :icon="iconSettings" />
+              Settings
+            </OnyxMenuItem>
             <OnyxMenuItem>
               <OnyxIcon :icon="iconSettings" />
               Settings
@@ -75,3 +83,9 @@ const expanded = ref(false);
     </OnyxPageLayout>
   </OnyxAppLayout>
 </template>
+
+<style lang="scss">
+.onyx-user-menu .onyx-basic-popover__dialog {
+  margin-block: var(--onyx-spacing-xs);
+}
+</style>

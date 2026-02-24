@@ -39,10 +39,11 @@ export type UseMoreListOptions = {
   moreIndicatorRef: Ref<VueTemplateRefElement>;
   /**
    * From which direction the list items should start to be hidden, when space is limited.
-   *
+   * ltr/rtl -> horizontal
+   * ttb/btt -> vertical
    * @default "rtl"
    */
-  direction: MaybeRefOrGetter<"rtl" | "ltr">;
+  direction: MaybeRefOrGetter<"rtl" | "ltr" | "ttb" | "btt">;
 };
 
 /**
@@ -101,27 +102,45 @@ export const useMoreList = (options: UseMoreListOptions) => {
   const visibleElements = ref<string[]>();
   const hiddenElements = ref<string[]>();
 
-  const { width: parentWidth } = useResizeObserver(options.parentRef);
-  const { width: moreIndicatorWidth } = useResizeObserver(options.moreIndicatorRef);
+  const { width: parentWidth, height: parentHeight } = useResizeObserver(options.parentRef);
+  const { width: moreIndicatorWidth, height: moreIndicatorHeight } = useResizeObserver(
+    options.moreIndicatorRef,
+  );
 
   /**
    * Map of all component widths. Key = component ID, value = component width.
    * If component is hidden, this map will still include the previous width.
    */
-  const componentMap = reactive(new Map<string, number>());
+  const componentMap = reactive(new Map<string, { width: number; height: number }>());
 
+  const isVertical = computed(() => {
+    const dir = toValue(options.direction);
+    return dir === "ttb" || dir === "btt";
+  });
   onMounted(() => {
     watch(
-      [parentWidth, moreIndicatorWidth, componentMap, toRef(options.direction)],
+      [
+        parentWidth,
+        parentHeight,
+        moreIndicatorWidth,
+        moreIndicatorHeight,
+        componentMap,
+        toRef(options.direction),
+        isVertical,
+      ],
       () => {
-        let availableWidth = parentWidth.value;
-        if (availableWidth <= 0) return; // parent width is not initialized yet
+        const vertical = isVertical.value;
 
-        const parentGap = getColumnGap(options.parentRef.value);
-        const listGap = getColumnGap(options.listRef.value);
+        let availableSpace = vertical ? parentHeight.value : parentWidth.value;
+        const indicatorSpace = vertical ? moreIndicatorHeight.value : moreIndicatorWidth.value;
 
-        if (moreIndicatorWidth.value > 0) {
-          availableWidth -= moreIndicatorWidth.value + parentGap;
+        if (availableSpace <= 0) return; // parent width is not initialized yet
+
+        const parentGap = getGap(options.parentRef.value, vertical);
+        const listGap = getGap(options.listRef.value, vertical);
+
+        if (indicatorSpace > 0) {
+          availableSpace -= indicatorSpace + parentGap;
         }
 
         // calculate which components currently fully fit into the available parent width
@@ -130,16 +149,20 @@ export const useMoreList = (options: UseMoreListOptions) => {
         hiddenElements.value = [];
 
         const allComponents = Array.from(componentMap.entries());
-        if (toValue(options.direction) === "ltr") {
+        const dir = toValue(options.direction);
+
+        if (dir === "ltr" || dir === "ttb") {
           allComponents.reverse();
         }
-        allComponents.forEach(([id, componentWidth], index, { length }) => {
-          availableWidth -= componentWidth + (index > 0 ? listGap : 0);
+
+        allComponents.forEach(([id, dimensions], index, { length }) => {
+          const componentSize = vertical ? dimensions.height : dimensions.width;
+          availableSpace -= componentSize + (index > 0 ? listGap : 0);
 
           if (
-            availableWidth >= 0 ||
+            availableSpace >= 0 ||
             // check if last element fits if more indicator would be hidden
-            (index === length - 1 && availableWidth + moreIndicatorWidth.value >= 0)
+            (index === length - 1 && availableSpace + indicatorSpace >= 0)
           ) {
             visibleElements.value!.push(id);
           } else {
@@ -176,13 +199,16 @@ export const useMoreList = (options: UseMoreListOptions) => {
 };
 
 /**
- * Gets the CSS column-gap property for the given element or 0 if invalid or unset.
+ * Gets the CSS gap property for the given element or 0 if invalid or unset.
  */
-const getColumnGap = (ref: VueTemplateRefElement) => {
+const getGap = (ref: VueTemplateRefElement, isVertical: boolean) => {
   const element = getTemplateRefElement(ref);
   if (!element) return 0;
+
+  const style = getComputedStyle(element);
+  const gap = isVertical ? style.rowGap : style.columnGap;
   // we use "|| 0" here to fallback to zero for NaN values when no/invalid gap exist
-  return Number.parseFloat(getComputedStyle(element).columnGap) || 0;
+  return Number.parseFloat(gap) || 0;
 };
 
 /**
@@ -204,16 +230,16 @@ export const useMoreListChild = (injectionKey: MoreListInjectionKey) => {
   const id = useId();
   const componentRef = ref<VueTemplateRefElement>();
   const moreContext = inject(injectionKey, undefined);
-  const { width } = useResizeObserver(componentRef, { box: "border-box" });
+  const { width, height } = useResizeObserver(componentRef, { box: "border-box" });
 
   watch(
-    width,
-    (newWidth) => {
+    [width, height],
+    ([newWidth, newHeight]) => {
       const map = moreContext?.componentMap;
-      // do not reset width if width is 0 = component is hidden because the more list still
+      // do not reset width if width or height is 0 = component is hidden because the more list still
       // needs the previous to calculate if component can be shown when resizing the screen larger
-      if (!map || (map.has(id) && newWidth === 0)) return;
-      map.set(id, newWidth);
+      if (!map || (map.has(id) && newWidth === 0 && newHeight === 0)) return;
+      map.set(id, { width: newWidth, height: newHeight });
     },
     { immediate: true },
   );

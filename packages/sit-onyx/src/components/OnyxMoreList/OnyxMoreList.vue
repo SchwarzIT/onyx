@@ -47,9 +47,17 @@ watch(
 </script>
 
 <template>
-  <component :is="props.is" ref="parentRefEl" class="onyx-component onyx-more-list">
+  <component
+    :is="props.is"
+    ref="parentRefEl"
+    :class="[
+      'onyx-component',
+      'onyx-more-list',
+      { 'onyx-more-list--vertical': props.direction === 'btt' || props.direction === 'ttb' },
+    ]"
+  >
     <slot
-      v-if="props.direction === 'rtl'"
+      v-if="props.direction === 'rtl' || props.direction === 'btt'"
       :attributes="{
         ref: (el?: VueTemplateRefElement) => (listRef = el),
         class: 'onyx-more-list__elements',
@@ -68,7 +76,7 @@ watch(
     ></slot>
 
     <slot
-      v-if="props.direction === 'ltr'"
+      v-if="props.direction === 'ltr' || props.direction === 'ttb'"
       :attributes="{
         ref: (el?: VueTemplateRefElement) => (listRef = el),
         class: 'onyx-more-list__elements',
@@ -98,6 +106,26 @@ watch(
     &__indicator {
       min-width: max-content;
       max-width: 100%;
+    }
+    &--vertical {
+      width: auto;
+      height: 100%;
+      flex-direction: column;
+      align-items: inherit;
+      .onyx-more-list {
+        &__elements {
+          display: flex;
+          flex-direction: column;
+          overflow-y: clip;
+          overflow-x: auto;
+        }
+        &__indicator {
+          min-height: max-content;
+          max-height: 100%;
+          min-width: inherit;
+          max-width: inherit;
+        }
+      }
     }
   }
 }

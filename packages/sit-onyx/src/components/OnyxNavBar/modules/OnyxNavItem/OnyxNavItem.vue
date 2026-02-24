@@ -95,6 +95,7 @@ const { componentRef, isVisible } = isTopLevel
     v-bind="rootAttrs"
     :label="t('navItemOptionsLabel', { label: props.label })"
     alignment="right"
+    position="right"
   >
     <template #button="{ trigger }">
       <OnyxNavItemFacade

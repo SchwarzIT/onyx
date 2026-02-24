@@ -1,14 +1,17 @@
 <script lang="ts" setup>
 import { createNavigationMenu } from "@sit-onyx/headless";
 import { iconChevronLeftSmall, iconSidebarArrowLeft, iconSidebarArrowRight } from "@sit-onyx/icons";
-import { provide, toRef } from "vue";
+import { provide, toRef, useTemplateRef } from "vue";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import { OnyxMoreList, OnyxNavAppArea, OnyxNavItem, OnyxSidebar } from "../../index.js";
 import OnyxSeparator from "../OnyxSeparator/OnyxSeparator.vue";
+import OnyxFlyoutMenu from "./modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
+import OnyxNavItemFacade from "./modules/OnyxNavItemFacade/OnyxNavItemFacade.vue";
 import {
   NAV_BAR_IS_EXPANDED_INJECTION_KEY,
   NAV_BAR_MORE_LIST_INJECTION_KEY,
+  NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY,
   type OnyxNavBarProps,
   type OnyxNavBarSlots,
 } from "./types.js";
@@ -43,6 +46,7 @@ const {
 } = createNavigationMenu({ navigationName: toRef(() => props.appName) });
 
 provide(NAV_BAR_IS_EXPANDED_INJECTION_KEY, isExpanded);
+provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreListRef"));
 </script>
 
 <template>
@@ -88,11 +92,35 @@ provide(NAV_BAR_IS_EXPANDED_INJECTION_KEY, isExpanded);
       />
       <template v-if="slots.default">
         <nav class="onyx-nav-bar__nav" v-bind="nav">
-          <OnyxMoreList is="ul" role="menubar" :injection-key="NAV_BAR_MORE_LIST_INJECTION_KEY">
+          <OnyxMoreList
+            is="ul"
+            role="menubar"
+            :injection-key="NAV_BAR_MORE_LIST_INJECTION_KEY"
+            direction="ttb"
+          >
             <template #default="{ attributes }">
               <div v-bind="attributes">
                 <slot></slot>
               </div>
+            </template>
+            <template #more="{ attributes, hiddenElements }">
+              <OnyxFlyoutMenu
+                :label="t('navigation.showMoreNavItemsLabel')"
+                v-bind="attributes"
+                position="right"
+              >
+                <template #button="{ trigger }">
+                  <OnyxNavItemFacade
+                    v-bind="trigger"
+                    :label="t('navigation.moreNavItems', { n: hiddenElements })"
+                    context="navbar"
+                  />
+                </template>
+
+                <template #options>
+                  <div ref="moreListRef"></div>
+                </template>
+              </OnyxFlyoutMenu>
             </template>
           </OnyxMoreList>
         </nav>
@@ -114,6 +142,15 @@ provide(NAV_BAR_IS_EXPANDED_INJECTION_KEY, isExpanded);
 
 <style lang="scss">
 .onyx-nav-bar--vertical {
+  .onyx-tooltip {
+    --offset: var(--onyx-spacing-2xs);
+  }
+  .onyx-basic-popover {
+    --onyx-basic-popover-gap: calc(2 * var(--onyx-spacing-2xs));
+    &__dialog {
+      max-height: fit-content;
+    }
+  }
   // 2x navItem padding + 2x verticalNavBar padding + item width
   width: calc(4 * var(--onyx-spacing-2xs) + 24px);
   min-width: 0;
@@ -138,7 +175,9 @@ provide(NAV_BAR_IS_EXPANDED_INJECTION_KEY, isExpanded);
   }
   &.onyx-nav-bar--alignment-center {
     .onyx-nav-bar__nav {
-      justify-content: center;
+      > ul {
+        justify-content: center;
+      }
     }
   }
   .onyx-nav-bar {
@@ -146,6 +185,9 @@ provide(NAV_BAR_IS_EXPANDED_INJECTION_KEY, isExpanded);
       border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
       border-right: none;
       width: 100%;
+      // 2x padding + hight
+      height: calc(2 * var(--onyx-spacing-md) + 48px);
+      overflow: hidden;
     }
 
     &__content {
@@ -162,6 +204,7 @@ provide(NAV_BAR_IS_EXPANDED_INJECTION_KEY, isExpanded);
       > ul {
         flex-direction: column;
         align-items: start;
+        height: 100%;
       }
     }
     &__global-context {
