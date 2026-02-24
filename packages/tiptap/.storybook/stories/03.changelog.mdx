@@ -1,0 +1,10 @@
+import { Markdown, Meta, Story } from "@storybook/addon-docs/blocks";
+import Changelog from "../../CHANGELOG.md?raw";
+
+{/* workaround for hiding the table of contents, see docs-template.scss file */}
+
+<div className="storybook-hide-toc"></div>
+
+<Meta title="Getting Started/Changelog" />
+
+<Markdown>{Changelog}</Markdown>

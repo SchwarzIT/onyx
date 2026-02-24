@@ -206,3 +206,35 @@ jobs:
           password: ${{ secrets.CF_PASSWORD }}
           space: ${{ inputs.environment || inputs.environment }}
           working-directory: apps/showcase/.cloud-foundry
+
+  deploy_tiptap:
+    name: Deploy Tiptap
+    runs-on: ubuntu-latest
+    if: ${{ (inputs.environment || inputs.environment) != '' }}
+    environment: ${{ inputs.environment || inputs.environment }}
+    steps:
+      - name: "🛃 Harden the runner (Audit all outbound calls)"
+        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+        with:
+          egress-policy: audit
+
+      - name: "🛒 Checkout Repository"
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - uses: ./.github/templates/node-setup
+
+      - name: 🛠️ Build Storybook
+        run: pnpm build:all --filter=@sit-onyx/tiptap
+
+      - name: ⛴️ Prepare Dist
+        run: mv packages/tiptap/storybook-static packages/tiptap/.cloud-foundry/dist
+
+      - name: ⛅️ Deploy to Cloud Foundry
+        uses: ./.github/templates/cf-push
+        with:
+          endpoint: ${{ vars.CF_ENDPOINT }}
+          org: ${{ vars.CF_ORG }}
+          username: ${{ vars.CF_USERNAME }}
+          password: ${{ secrets.CF_PASSWORD }}
+          space: ${{ inputs.environment || inputs.environment }}
+          working-directory: packages/tiptap/.cloud-foundry
