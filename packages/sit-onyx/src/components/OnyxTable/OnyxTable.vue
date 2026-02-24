@@ -195,6 +195,12 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
       display: flex;
       flex-wrap: wrap;
       align-items: center;
+      flex-grow: 1;
+      justify-content: flex-end;
+
+      .onyx-more-list {
+        justify-content: flex-end;
+      }
     }
   }
 }
