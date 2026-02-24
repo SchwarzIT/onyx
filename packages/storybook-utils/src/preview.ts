@@ -177,11 +177,11 @@ export const sourceCodeTransformer = async (originalSourceCode: string): Promise
       } else if (code.includes(singleQuotedContent)) {
         // support values inside objects
         imports.add(name);
-        code = replaceAll(code, singleQuotedContent, name);
+        code = code.replace(singleQuotedContent, name);
       } else if (code.includes(escapedContent)) {
         // support values inside objects
         imports.add(name);
-        code = replaceAll(code, escapedContent, name);
+        code = code.replace(escapedContent, name);
       }
 
       additionalImports.set(_package.name, imports);
