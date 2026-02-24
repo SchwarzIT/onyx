@@ -37,7 +37,7 @@ import {
 } from "../types.js";
 import type { BASE_FEATURE } from "./base/base.js";
 import DataGridActions from "./dataGridActions/DataGridActions.vue";
-import { type ActionProps } from "./dataGridActions/types.js";
+import { type DataGridAction } from "./dataGridActions/types.js";
 import { createRenderer } from "./renderer.js";
 
 /**
@@ -224,9 +224,11 @@ export type DataGridFeatureDescription<
     order?: number;
   };
   /**
-   * Allows modifying the action slot above of the data grid
+   * Allows defining actions that are displayed in the "action" slot above the data grid.
+   * Will be automatically wrapped into a "more" flyout if not all actions fit
+   * into the available width.
    */
-  actions?: ActionProps[];
+  actions?: DataGridAction[];
 
   /**
    * Defines a renderer for a column type.

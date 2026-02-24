@@ -6,12 +6,12 @@ import OnyxButton from "../../../OnyxButton/OnyxButton.vue";
 import OnyxIconButton from "../../../OnyxIconButton/OnyxIconButton.vue";
 import OnyxSeparator from "../../../OnyxSeparator/OnyxSeparator.vue";
 import OnyxTooltip from "../../../OnyxTooltip/OnyxTooltip.vue";
-import { DATA_GRID_ACTIONS_INJECTION_KEY, type ActionProps } from "./types.js";
+import { DATA_GRID_ACTIONS_INJECTION_KEY, type DataGridAction } from "./types.js";
 
 const { componentRef, isVisible } = useMoreListChild(DATA_GRID_ACTIONS_INJECTION_KEY);
 const props = withDefaults(
   defineProps<
-    ActionProps & {
+    DataGridAction & {
       /**
        * Wether to show a Separator
        */

@@ -2,59 +2,53 @@ import type { MoreListInjectionKey } from "../../../../composables/useMoreList.j
 import type { OnyxButtonProps } from "../../../OnyxButton/types.js";
 import type { OnyxIconButtonProps } from "../../../OnyxIconButton/types.js";
 
-export type ActionsBase = {
+export type DataGridAction = DataGridActionButton | DataGridActionIconButton;
+
+export type DataGridActionBase = {
   /**
-   * label for the action.
+   * Label that describes the action.
    */
   label: string;
   /**
    * The group this action belongs to.
    * Actions with the same group name will be visually separated from other groups.
    */
-  group?: ActionGroup;
+  group?: string | DataGridActionGroup;
   /**
-   * order inside the group.
+   * Order inside the group when multiple actions are used (sorted from lowest to highest).
    * @default 0
    */
   order?: number;
   /**
-   * callback function to execute when the action is clicked.
-   * @param config
+   * Callback function to execute when the action is clicked.
    */
   onClick?: () => void;
 };
 
-export type ActionProps = ActionsButton | ActionsIconButton;
-
-type ActionsButton = ActionsBase &
+type DataGridActionButton = DataGridActionBase &
   Omit<OnyxButtonProps, "label"> & {
     displayAs: "button";
   };
 
-type ActionsIconButton = ActionsBase &
+type DataGridActionIconButton = DataGridActionBase &
   Omit<OnyxIconButtonProps, "label"> & {
     displayAs?: "iconButton";
     /**
-     * Icon for the iconButton.
+     * Icon to display.
      */
     icon: string;
   };
 
-export type ActionGroup =
+export type DataGridActionGroup = {
   /**
    * Unique identifier/name of the group.
    */
-  | string
-  | {
-      /**
-       * Unique identifier/name of the group.
-       */
-      name: string;
-      /**
-       * Order of the entire group.
-       * @default 0
-       */
-      order: number;
-    };
+  name: string;
+  /**
+   * Order of the entire group when multiple groups are used (sorted from lowest to highest).
+   * @default 0
+   */
+  order: number;
+};
 
 export const DATA_GRID_ACTIONS_INJECTION_KEY = Symbol() as MoreListInjectionKey;

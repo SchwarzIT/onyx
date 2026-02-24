@@ -122,8 +122,8 @@ const handleBackButtonKeydown = async (event: KeyboardEvent) => {
       v-bind="mergeVueProps(menuItemProps, restAttrs, childrenClickHandler)"
     >
       <slot>
+        <OnyxIcon v-if="props.icon" :icon="props.icon" size="24px" />
         <span>
-          <OnyxIcon v-if="props.icon" :icon="props.icon" size="24px" />
           <span class="onyx-truncation-ellipsis">
             {{ props.label }}
           </span>
