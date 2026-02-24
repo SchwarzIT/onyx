@@ -80,6 +80,7 @@ const {
     :open="isExpanded"
     :label="props.label"
     :alignment="props.alignment"
+    :position="props.position"
     :disabled="disabled"
   >
     <template v-if="slots.options || slots.header || slots.footer" #default>

@@ -1,7 +1,8 @@
 import type { Nullable } from "../../../../types/index.js";
 import type { OnyxAvatarProps } from "../../../OnyxAvatar/types.js";
+import type { OnyxFlyoutMenuProps } from "../OnyxFlyoutMenu/types.js";
 
-export type OnyxUserMenuProps = {
+export type OnyxUserMenuProps = Pick<OnyxFlyoutMenuProps, "alignment" | "position"> & {
   /**
    * Full user name.
    *
