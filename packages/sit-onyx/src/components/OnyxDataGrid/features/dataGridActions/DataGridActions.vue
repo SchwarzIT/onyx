@@ -8,23 +8,27 @@ import OnyxFlyoutMenu from "../../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyou
 import OnyxMenuItem from "../../../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxSeparator from "../../../OnyxSeparator/OnyxSeparator.vue";
 import DataGridActionButton from "./DataGridActionButton.vue";
-import { DATA_GRID_ACTIONS_INJECTION_KEY, type ActionGroup, type ActionProps } from "./types.js";
+import {
+  DATA_GRID_ACTIONS_INJECTION_KEY,
+  type DataGridAction,
+  type DataGridActionGroup,
+} from "./types.js";
 
 const props = defineProps<{
   /**
    * A list of actions to be displayed in the action slot.
    */
-  actions: ActionProps[];
+  actions: DataGridAction[];
 }>();
 
-const getGroupInfo = (g?: string | ActionGroup) => {
+const getGroupInfo = (g?: string | DataGridActionGroup) => {
   if (!g) return { name: "default", order: 0 };
   if (typeof g === "string") return { name: g, order: 0 };
   return { name: g.name, order: g.order };
 };
 
 const sortedActions = computed(() => {
-  const groups: Record<string, { order: number; actions: ActionProps[] }> = {};
+  const groups: Record<string, { order: number; actions: DataGridAction[] }> = {};
 
   props.actions.forEach((action) => {
     const { name, order } = getGroupInfo(action.group);
@@ -41,10 +45,10 @@ const sortedActions = computed(() => {
     .flatMap((group) => [...group.actions].sort((a, b) => (a.order ?? 0) - (b.order ?? 0)));
 });
 
-const getGroupName = (g: string | ActionGroup | undefined) =>
+const getGroupName = (g?: string | DataGridActionGroup) =>
   typeof g === "object" && g !== null ? g.name : (g ?? "default");
 
-const shouldShowSeparator = (list: ActionProps[], index: number): boolean => {
+const shouldShowSeparator = (list: DataGridAction[], index: number): boolean => {
   if (index <= 0) return false;
   return getGroupName(list[index - 1]?.group) !== getGroupName(list[index]?.group);
 };
@@ -53,7 +57,11 @@ const { t } = injectI18n();
 </script>
 
 <template>
-  <OnyxMoreList direction="rtl" :injection-key="DATA_GRID_ACTIONS_INJECTION_KEY">
+  <OnyxMoreList
+    class="onyx-data-grid-actions"
+    direction="rtl"
+    :injection-key="DATA_GRID_ACTIONS_INJECTION_KEY"
+  >
     <template #default="{ attributes }">
       <div v-bind="attributes">
         <DataGridActionButton
@@ -91,3 +99,15 @@ const { t } = injectI18n();
     </template>
   </OnyxMoreList>
 </template>
+
+<style lang="scss">
+@use "../../../../styles/mixins/layers.scss";
+
+.onyx-data-grid-actions {
+  @include layers.component() {
+    width: unset;
+    flex-grow: 1;
+    justify-content: flex-end;
+  }
+}
+</style>

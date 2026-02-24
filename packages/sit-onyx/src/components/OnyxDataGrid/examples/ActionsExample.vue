@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { iconMinus, iconPlaceholder, iconPlus } from "@sit-onyx/icons";
+import { iconPlaceholder } from "@sit-onyx/icons";
 import { createFeature, OnyxDataGrid, type ColumnConfig } from "../../../index.js";
 
 type TEntry = {
@@ -28,37 +28,24 @@ const withCustomActions = createFeature(() => ({
   name: Symbol("custom actions feature"),
   actions: [
     {
-      label: "Add New Entry",
-      icon: iconPlus,
-      group: { name: "main", order: 1 },
-      onClick: () => {},
-
-      color: "neutral",
-    },
-    {
-      label: "Remove Entry",
-      icon: iconMinus,
-      color: "neutral",
-      group: "main",
-      onClick: () => {},
-    },
-
-    {
-      label: "Others",
+      label: "Action 1",
       icon: iconPlaceholder,
-      onClick: () => {},
+      color: "neutral",
+      onClick: () => alert("Action clicked!"),
     },
     {
-      label: "Others",
+      label: "Action 2",
       icon: iconPlaceholder,
-      onClick: () => {},
+      color: "neutral",
+      onClick: () => alert("Action clicked!"),
     },
     {
+      label: "Action 3",
+      icon: iconPlaceholder,
       displayAs: "button",
-      label: "Button",
-      order: -1,
       mode: "plain",
-      onClick: () => {},
+      group: "group-1",
+      onClick: () => alert("Action clicked!"),
     },
   ],
 }));
