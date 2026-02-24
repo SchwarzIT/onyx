@@ -35,6 +35,26 @@ const preview: Preview = {
         order: ["Getting Started", "Form Elements", "Support"],
       },
     },
+    docs: {
+      ...basePreview.parameters.docs,
+      source: {
+        ...basePreview.parameters.docs.source,
+        /**
+         * Use a custom transformer for the story source code to better fit to our
+         * Vue.js code because storybook per default does not render it exactly how
+         * we want it to look.
+         * @see https://storybook.js.org/docs/react/api/doc-block-source
+         */
+        transform: async (raw: string) => {
+          // prevent duplicate transforms
+          if (raw.includes("@sit-onyx/tiptap")) return raw;
+
+          // fix code snippets that show components imported from "sit-onyx" instead of "@sit-onyx/tiptap"
+          const code = await basePreview.parameters.docs.source.transform(raw);
+          return code.replace('from "sit-onyx";', 'from "@sit-onyx/tiptap";');
+        },
+      },
+    },
   },
 };
 
