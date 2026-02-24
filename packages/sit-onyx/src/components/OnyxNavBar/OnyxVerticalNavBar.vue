@@ -96,7 +96,7 @@ provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreListRef"));
             is="ul"
             role="menubar"
             :injection-key="NAV_BAR_MORE_LIST_INJECTION_KEY"
-            direction="ttb"
+            direction="btt"
           >
             <template #default="{ attributes }">
               <div v-bind="attributes">
@@ -112,7 +112,11 @@ provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreListRef"));
                 <template #button="{ trigger }">
                   <OnyxNavItemFacade
                     v-bind="trigger"
-                    :label="t('navigation.moreNavItems', { n: hiddenElements })"
+                    :label="
+                      isExpanded
+                        ? t('navigation.moreNavItems', { n: hiddenElements })
+                        : `+${hiddenElements}`
+                    "
                     context="navbar"
                   />
                 </template>
@@ -185,8 +189,7 @@ provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreListRef"));
       border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
       border-right: none;
       width: 100%;
-      // 2x padding + hight
-      height: calc(2 * var(--onyx-spacing-md) + 48px);
+
       overflow: hidden;
     }
 
@@ -199,12 +202,13 @@ provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreListRef"));
     &__nav {
       display: flex;
       flex-direction: column;
-      height: 100%;
+      flex-grow: 1;
+      flex-basis: 0;
+      overflow: hidden;
       width: 100%;
       > ul {
         flex-direction: column;
         align-items: start;
-        height: 100%;
       }
     }
     &__global-context {
@@ -228,12 +232,13 @@ provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreListRef"));
       width: calc(100% - 2 * var(--onyx-density-md));
     }
   }
-  .onyx-more-list__elements {
-    display: flex;
-    flex-direction: column;
+  .onyx-more-list {
     padding: var(--onyx-spacing-md) var(--onyx-spacing-2xs);
     width: 100%;
-    .onyx-flyout-menu {
+
+    &__elements,
+    .onyx-flyout-menu,
+    .onyx-menu-item {
       width: 100%;
     }
   }
