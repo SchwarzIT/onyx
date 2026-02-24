@@ -1,40 +1,24 @@
-import { iconPlaceholder } from "@sit-onyx/icons";
 import { createEmitSpy, expectEmit } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density.js";
 import enUS from "../../i18n/locales/en-US.json" with { type: "json" };
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import { BUTTON_COLORS, BUTTON_MODES } from "../OnyxButton/types.js";
-import OnyxMenuItem from "../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
-import OnyxSplitButton from "./OnyxSplitButton.vue";
 import TestCase from "./TestCase.vue";
-
-const OPTIONS = () => [
-  <OnyxMenuItem label="Option 2" icon={iconPlaceholder} />,
-  <OnyxMenuItem label="Option 3" icon={iconPlaceholder} />,
-];
 
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Split button",
     columns: DENSITIES,
     rows: BUTTON_COLORS,
-    component: (column, row) => (
-      <OnyxSplitButton label="Option 1" density={column} color={row}>
-        {{ options: OPTIONS }}
-      </OnyxSplitButton>
-    ),
+    component: (column, row) => <TestCase label="Option 1" density={column} color={row} />,
   });
 
   executeMatrixScreenshotTest({
     name: "Split button (modes)",
     columns: DENSITIES,
     rows: BUTTON_MODES,
-    component: (column, row) => (
-      <OnyxSplitButton label="Option 1" density={column} mode={row}>
-        {{ options: OPTIONS }}
-      </OnyxSplitButton>
-    ),
+    component: (column, row) => <TestCase label="Option 1" density={column} mode={row} />,
   });
 
   const states = [
@@ -53,7 +37,7 @@ test.describe("Screenshot tests", () => {
       columns: DENSITIES,
       rows: BUTTON_COLORS,
       component: (column, row) => (
-        <OnyxSplitButton
+        <TestCase
           label="Option 1"
           density={column}
           color={row}
@@ -61,15 +45,13 @@ test.describe("Screenshot tests", () => {
           loading={state === "loading"}
           skeleton={state === "skeleton"}
           style={{ margin: "0 2rem 2rem 0" }}
-        >
-          {{ options: OPTIONS }}
-        </OnyxSplitButton>
+        />
       ),
       hooks: {
         beforeEach: async (component) => {
           const button = component.getByRole("button", { name: "Option 1" });
           const flyoutButton = component.getByRole("button", {
-            name: "Hover/Focus to toggle action",
+            name: enUS.flyoutMenu.toggleActions.click,
           });
 
           if (state === "hover") {
