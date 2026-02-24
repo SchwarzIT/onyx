@@ -6,7 +6,7 @@ import OnyxEditorToolbarFlyout from "../OnyxEditorToolbarFlyout/OnyxEditorToolba
 import OnyxTextEditor from "./OnyxTextEditor.vue";
 
 const meta: Meta<typeof OnyxTextEditor> = {
-  title: "TextEditor",
+  title: "Form Elements/TextEditor",
   component: OnyxTextEditor,
   argTypes: {
     actions: { control: { disable: true } },
