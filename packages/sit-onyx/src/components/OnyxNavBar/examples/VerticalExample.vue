@@ -6,8 +6,10 @@ import {
   iconSearch,
   iconSettings,
 } from "@sit-onyx/icons";
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import { useResizeObserver } from "../../../composables/useResizeObserver.js";
 import {
+  ONYX_BREAKPOINTS,
   OnyxAppLayout,
   OnyxColorSchemeMenuItem,
   OnyxHeadline,
@@ -21,16 +23,19 @@ import {
 } from "../../../index.js";
 
 const expanded = ref(false);
+
+const { width } = useResizeObserver();
+const isMobile = computed(() => width.value <= ONYX_BREAKPOINTS.xs);
 </script>
 
 <template>
-  <OnyxAppLayout nav-bar-alignment="left">
+  <OnyxAppLayout :nav-bar-alignment="isMobile ? 'top' : 'left'">
     <template #navBar>
       <OnyxNavBar
         v-model:expanded="expanded"
         app-name="App name"
         logo-url="/onyx-logo.svg"
-        orientation="vertical"
+        :orientation="isMobile ? 'horizontal' : 'vertical'"
         with-back-button
       >
         <OnyxNavItem label="Router Link" link="#router-link" active :icon="iconPlaceholder" />
