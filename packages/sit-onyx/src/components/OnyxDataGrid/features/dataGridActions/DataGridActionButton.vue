@@ -27,15 +27,19 @@ const buttonProps = useForwardProps(props, OnyxButton);
 const iconButtonProps = useForwardProps(props, OnyxIconButton);
 </script>
 
+<!-- eslint-disable-next-line vue/no-root-v-if -- used for the OnyxMoreList -->
 <template>
-  <OnyxSeparator v-if="props.showSeparator && isVisible" orientation="vertical" />
+  <template v-if="isVisible">
+    <OnyxSeparator v-if="props.showSeparator" orientation="vertical" />
 
-  <template v-if="props.displayAs === 'button' && isVisible">
-    <OnyxButton ref="componentRef" v-bind="buttonProps" @click="props.onClick" />
-  </template>
+    <OnyxButton
+      v-if="props.displayAs === 'button'"
+      ref="componentRef"
+      v-bind="buttonProps"
+      @click="props.onClick"
+    />
 
-  <template v-else-if="isVisible">
-    <OnyxTooltip :text="props.label">
+    <OnyxTooltip v-else :text="props.label">
       <template #default="{ trigger }">
         <OnyxIconButton
           ref="componentRef"
