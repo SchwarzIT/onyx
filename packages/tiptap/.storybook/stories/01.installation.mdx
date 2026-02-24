@@ -1,0 +1,29 @@
+import { Meta, Story } from "@storybook/addon-docs/blocks";
+
+{/* workaround for hiding the table of contents, see docs-template.scss file */}
+
+<div className="storybook-hide-toc"></div>
+
+<Meta title="Getting Started/Installation" />
+
+# Installation
+
+<br />
+
+## Step 1: Install dependencies
+
+Install the npm package with your corresponding package manager:
+
+```sh [pnpm]
+pnpm add @sit-onyx/tiptap
+```
+
+## Step 2: Imports
+
+After that, import the CSS file, either globally or in a single component:
+
+```ts [main.ts]
+import "@sit-onyx/tiptap/style.css";
+```
+
+The editor is now ready to be used. For examples, refer to the [OnyxTextEditor](/docs/form-elements-texteditor--docs).
