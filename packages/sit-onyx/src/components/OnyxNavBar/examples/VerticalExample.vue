@@ -28,7 +28,6 @@ const expanded = ref(false);
     <template #navBar>
       <OnyxNavBar
         v-model:expanded="expanded"
-        alignment="center"
         app-name="App name"
         logo-url="/onyx-logo.svg"
         orientation="vertical"
