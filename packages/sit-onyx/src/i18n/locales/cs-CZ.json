@@ -141,7 +141,9 @@
     "toggleContextMenu": "Přepnout kontextové menu",
     "navigationHeadline": "Navigace",
     "moreActionsFlyout": "Vyberte akci pro sloupec \"{column}\"",
-    "moreActionsTrigger": "Přepnout akce sloupce"
+    "moreActionsTrigger": "Přepnout akce sloupce",
+    "collapse": "Sbalit",
+    "expand": "Rozbalit"
   },
   "tooltip": {
     "neutral": "Přepnout informační nápovědu",
@@ -298,5 +300,36 @@
   },
   "key": {
     "label": "Klávesa \"{name}\""
+  },
+  "editor": {
+    "bold": "Tučné",
+    "italic": "Kurzíva",
+    "underline": "Podtržené",
+    "strike": "Přeškrtnuté",
+    "alignments": {
+      "left": "Zarovnat vlevo",
+      "center": "Zarovnat na střed",
+      "right": "Zarovnat vpravo",
+      "block": "Zarovnat do bloku"
+    },
+    "link": {
+      "edit": "Upravit odkaz",
+      "link": "Odkaz",
+      "text": "Text"
+    },
+    "quote": "Citace",
+    "undo": "Zpět",
+    "redo": "Znovu",
+    "headings": {
+      "headlines": "Nadpisy",
+      "level": "Nadpis {n}",
+      "paragraph": "Text"
+    },
+    "lists": {
+      "lists": "Seznamy",
+      "orderedList": "Číslovaný seznam",
+      "unorderedList": "Seznam s odrážkami"
+    },
+    "blockquote": "Bloková citace"
   }
 }

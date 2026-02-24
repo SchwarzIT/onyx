@@ -141,7 +141,9 @@
     "toggleContextMenu": "Alternar menú contextual",
     "navigationHeadline": "Navegación",
     "moreActionsFlyout": "Elija una acción para la columna \"{column}\"",
-    "moreActionsTrigger": "Alternar acciones de columna"
+    "moreActionsTrigger": "Alternar acciones de columna",
+    "collapse": "Contraer",
+    "expand": "Expandir"
   },
   "tooltip": {
     "neutral": "Alternar información sobre herramientas",
@@ -298,5 +300,36 @@
   },
   "key": {
     "label": "Tecla \"{name}\""
+  },
+  "editor": {
+    "bold": "Negrita",
+    "italic": "Cursiva",
+    "underline": "Subrayado",
+    "strike": "Tachado",
+    "alignments": {
+      "left": "Alineado a la izquierda",
+      "center": "Centrado",
+      "right": "Alineado a la derecha",
+      "block": "Justificado"
+    },
+    "link": {
+      "edit": "Editar enlace",
+      "link": "Enlace",
+      "text": "Texto"
+    },
+    "quote": "Cita",
+    "undo": "Deshacer",
+    "redo": "Rehacer",
+    "headings": {
+      "headlines": "Encabezados",
+      "level": "Encabezado {n}",
+      "paragraph": "Texto"
+    },
+    "lists": {
+      "lists": "Listas",
+      "orderedList": "Lista numerada",
+      "unorderedList": "Lista de viñetas"
+    },
+    "blockquote": "Bloque de cita"
   }
 }

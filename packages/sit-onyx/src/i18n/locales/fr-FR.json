@@ -141,7 +141,9 @@
     "toggleContextMenu": "Afficher/masquer le menu contextuel",
     "navigationHeadline": "Navigation",
     "moreActionsFlyout": "Choisir une action pour la colonne \"{column}\"",
-    "moreActionsTrigger": "Afficher/masquer les actions de la colonne"
+    "moreActionsTrigger": "Afficher/masquer les actions de la colonne",
+    "collapse": "Réduire",
+    "expand": "Développer"
   },
   "tooltip": {
     "neutral": "Afficher/masquer l'info-bulle d'information",
@@ -298,5 +300,36 @@
   },
   "key": {
     "label": "Touche \"{name}\""
+  },
+  "editor": {
+    "bold": "Gras",
+    "italic": "Italique",
+    "underline": "Souligné",
+    "strike": "Barré",
+    "alignments": {
+      "left": "Aligné à gauche",
+      "center": "Centré",
+      "right": "Aligné à droite",
+      "block": "Justifié"
+    },
+    "link": {
+      "edit": "Modifier le lien",
+      "link": "Lien",
+      "text": "Texte"
+    },
+    "quote": "Citation",
+    "undo": "Annuler",
+    "redo": "Rétablir",
+    "headings": {
+      "headlines": "Titres",
+      "level": "Titre {n}",
+      "paragraph": "Texte"
+    },
+    "lists": {
+      "lists": "Listes",
+      "orderedList": "Liste numérotée",
+      "unorderedList": "Liste à puces"
+    },
+    "blockquote": "Bloc de citation"
   }
 }

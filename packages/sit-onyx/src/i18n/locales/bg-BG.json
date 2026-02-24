@@ -141,7 +141,9 @@
     "toggleContextMenu": "Превключване на контекстното меню",
     "navigationHeadline": "Навигация",
     "moreActionsFlyout": "Изберете действие за колона \"{column}\"",
-    "moreActionsTrigger": "Превключване на действията за колона"
+    "moreActionsTrigger": "Превключване на действията за колона",
+    "collapse": "Свиване",
+    "expand": "Разгъване"
   },
   "tooltip": {
     "neutral": "Превключване на информационния съвет",
@@ -298,5 +300,36 @@
   },
   "key": {
     "label": "Клавиш \"{name}\""
+  },
+  "editor": {
+    "bold": "Получер",
+    "italic": "Курсив",
+    "underline": "Подчертан",
+    "strike": "Зачертан",
+    "alignments": {
+      "left": "Ляво подравняване",
+      "center": "Центрирано",
+      "right": "Дясно подравняване",
+      "block": "Двустранно подравняване"
+    },
+    "link": {
+      "edit": "Редактиране на връзка",
+      "link": "Връзка",
+      "text": "Текст"
+    },
+    "quote": "Цитат",
+    "undo": "Отмяна",
+    "redo": "Повтаряне",
+    "headings": {
+      "headlines": "Заглавия",
+      "level": "Заглавие {n}",
+      "paragraph": "Текст"
+    },
+    "lists": {
+      "lists": "Списъци",
+      "orderedList": "Номериран списък",
+      "unorderedList": "Списък с водещи символи"
+    },
+    "blockquote": "Блок с цитат"
   }
 }
