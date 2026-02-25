@@ -64,7 +64,7 @@ jobs:
           do
             sudo dpkg --configure -a
              # 'timeout' ensures the individual attempt doesn't hang
-             timeout $TIMEOUT_LIMIT bash -c playwright_install && break
+             timeout -k 10 $TIMEOUT_LIMIT bash -c playwright_install && break
              
              RETRY_COUNT=$((RETRY_COUNT+1))
              echo "Attempt $RETRY_COUNT failed! Retrying in 10 seconds..."
