@@ -26,7 +26,6 @@ jobs:
         # note: GitHub's limit is 256 parallel (see https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs#using-a-matrix-strategy)
         shard: [1, 2, 3, 4]
     name: Playwright shard
-    container: docker://mcr.microsoft.com/playwright:v1.57.0-noble
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -51,7 +50,7 @@ jobs:
         run: pnpm exec playwright install --no-shell --with-deps firefox webkit chrome
 
       - name: 🔎 Run Playwright tests
-        run: HOME=/root pnpm run test:playwright:all --concurrency 1 ${{ (inputs.only-changed != '' && format('--affected -- --only-changed {0}', inputs.only-changed)) || '' }}
+        run: pnpm run test:playwright:all --concurrency 1 ${{ (inputs.only-changed != '' && format('--affected -- --only-changed {0}', inputs.only-changed)) || '' }}
         env:
           PW_UPDATE_SNAPSHOTS: "${{ inputs.update-snapshots }}"
           PW_SHARD: "${{ matrix.shard }}"
