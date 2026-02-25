@@ -58,10 +58,12 @@ jobs:
             pnpm exec playwright install --no-shell --with-deps firefox webkit chrome
           }
 
+          export -f playwright_install
+
           until [ $RETRY_COUNT -ge $MAX_RETRIES ]
           do
              # 'timeout' ensures the individual attempt doesn't hang
-             timeout $TIMEOUT_LIMIT playwright_install && break
+             timeout $TIMEOUT_LIMIT bash -c playwright_install && break
              
              RETRY_COUNT=$((RETRY_COUNT+1))
              echo "Attempt $RETRY_COUNT failed! Retrying in 10 seconds..."
