@@ -169,8 +169,9 @@ export const sourceCodeTransformer = async (originalSourceCode: string): Promise
       if (code.includes(content)) {
         imports.add(name);
 
-        code = code.replace(
-          new RegExp(` (\\S+)=['"]${escapeRegExp(content)}['"]`),
+        code = replaceAll(
+          code,
+          new RegExp(` (\\S+)=['"]${escapeRegExp(content)}['"]`, "g"),
           ` :$1="${name}"`,
         );
       } else if (code.includes(singleQuotedContent)) {
