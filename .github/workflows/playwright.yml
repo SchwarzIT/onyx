@@ -47,7 +47,31 @@ jobs:
       # install system dependencies for Playwright
       # see: https://playwright.dev/python/docs/browsers#install-system-dependencies
       - name: 📦 Install Playwright system dependencies
-        run: pnpm exec playwright install --no-shell --with-deps firefox webkit chrome
+        run: |
+          set -ex
+
+          RETRY_COUNT=0
+          MAX_RETRIES=3
+          TIMEOUT_LIMIT=180s
+
+          function playwright_install {
+            pnpm exec playwright install --no-shell --with-deps firefox webkit chrome
+          }
+
+          until [ $RETRY_COUNT -ge $MAX_RETRIES ]
+          do
+             # 'timeout' ensures the individual attempt doesn't hang
+             timeout $TIMEOUT_LIMIT playwright_install && break
+             
+             RETRY_COUNT=$((RETRY_COUNT+1))
+             echo "Attempt $RETRY_COUNT failed! Retrying in 10 seconds..."
+             sleep 10
+          done
+
+          if [ $RETRY_COUNT -eq $MAX_RETRIES ]; then
+            echo "Operation failed after $MAX_RETRIES attempts."
+            exit 1
+          fi
 
       - name: 🔎 Run Playwright tests
         run: pnpm run test:playwright:all --concurrency 1 ${{ (inputs.only-changed != '' && format('--affected -- --only-changed {0}', inputs.only-changed)) || '' }}
