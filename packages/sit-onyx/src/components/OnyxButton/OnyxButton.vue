@@ -50,6 +50,7 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
     :aria-label="props.loading ? props.label : undefined"
     v-on="rippleEvents"
   >
+    <!-- TEST CHANGE -->
     <OnyxRipple v-if="!disabled && !props.loading" ref="rippleRef" />
     <OnyxIcon
       v-if="props.icon && props.iconPosition === 'left'"
