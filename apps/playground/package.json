@@ -20,7 +20,7 @@
     "build-only": "vite build",
     "dev": "vite",
     "preview": "vite preview",
-    "test:playwright": "playwright install && playwright test",
+    "test:playwright": "playwright test",
     "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false"
   },
   "devDependencies": {

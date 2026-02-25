@@ -34,7 +34,7 @@
     "build": "pnpm run dev:prepare && nuxt-module-build build",
     "type-check": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit",
     "test": "vitest",
-    "test:playwright": "playwright install && playwright test",
+    "test:playwright": "playwright test",
     "test:coverage": "vitest run --coverage"
   },
   "peerDependencies": {

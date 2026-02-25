@@ -34,7 +34,7 @@
   "scripts": {
     "build": "vite build",
     "test": "vitest",
-    "test:playwright": "playwright install && playwright test"
+    "test:playwright": "playwright test"
   },
   "peerDependencies": {
     "@playwright/experimental-ct-vue": "catalog:",

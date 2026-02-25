@@ -26,7 +26,7 @@
     "preview": "vitepress preview src",
     "storybook": "storybook dev -p 6006 --no-open",
     "stylelint": "stylelint \"src/.vitepress/dist/**/*.css\"",
-    "test:playwright": "playwright install && playwright test",
+    "test:playwright": "playwright test",
     "type-check": "vue-tsc --noEmit"
   },
   "devDependencies": {

@@ -2,6 +2,6 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "test:playwright": "playwright install && playwright test"
+    "test:playwright": "playwright test"
   }
 }

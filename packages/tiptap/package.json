@@ -34,7 +34,7 @@
     "build": "vite build",
     "build:storybook": "storybook build",
     "preview": "vite serve storybook-static",
-    "test:playwright": "playwright install && playwright test"
+    "test:playwright": "playwright test"
   },
   "peerDependencies": {
     "@sit-onyx/icons": "workspace:^",
