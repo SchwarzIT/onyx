@@ -40,5 +40,8 @@ body:
         **Other**
         - [ ] DEV has either refined an implementation ticket or at least created a blank issue with a title
         - [ ] follow-up UX tickets were created if necessary (add links below)
+        - [ ] expand (figma) documentation with new results/decisions
+        - [ ] make sure the results are transferred into the corresponding implementation or concept ticket
+
     validations:
       required: true
