@@ -206,3 +206,30 @@ test.describe("Screenshot tests (label positions)", () => {
     ),
   });
 });
+
+test("should show/hide messages correctly", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <TestCase label="Test label" error="Error" success="Success" message="Message" required />,
+  );
+
+  const input = component.getByLabel("Test label");
+  const message = component.getByText("Message").first();
+  const error = component.getByText("Error").first();
+  const success = component.getByText("Success").first();
+
+  // ASSERT
+  await expect(message).toBeHidden();
+  await expect(error).toBeHidden();
+  await expect(success).toBeVisible();
+
+  // ACT
+  await input.pressSequentially("Value");
+  await input.blur();
+  await input.clear();
+
+  // ASSERT
+  await expect(message).toBeHidden();
+  await expect(error).toBeVisible();
+  await expect(success).toBeHidden();
+});

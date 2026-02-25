@@ -1,8 +1,14 @@
 <script lang="ts" setup>
+import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElementV2 from "./OnyxFormElementV2.vue";
 import type { OnyxFormElementV2Props, OnyxFormElementV2Slots } from "./types.js";
 
-const props = defineProps<OnyxFormElementV2Props & { placeholder?: string; modelValue?: string }>();
+const props = withDefaults(
+  defineProps<OnyxFormElementV2Props & { placeholder?: string; modelValue?: string }>(),
+  {
+    showError: FORM_INJECTED_SYMBOL,
+  },
+);
 
 const slots = defineSlots<OnyxFormElementV2Slots>();
 </script>

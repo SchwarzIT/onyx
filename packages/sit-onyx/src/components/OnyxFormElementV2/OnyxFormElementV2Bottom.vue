@@ -30,13 +30,13 @@ const normalizeMessage = (
   };
 };
 
-const message = computed(() => {
-  return (
-    normalizeMessage("danger", props.error) ??
-    normalizeMessage("success", props.success) ??
-    normalizeMessage("neutral", props.message)
-  );
-});
+const messages = computed(() =>
+  [
+    normalizeMessage("danger", props.error),
+    normalizeMessage("success", props.success),
+    normalizeMessage("neutral", props.message),
+  ].filter((message) => message != undefined),
+);
 </script>
 
 <template>
@@ -48,25 +48,26 @@ const message = computed(() => {
       { 'onyx-form-element-v2__bottom--reserve-empty': reserveMessageSpace },
     ]"
   >
+    <!-- for accessibility / screen readers we always render all messages but visually only show the first / most important one -->
     <div
-      v-if="message"
+      v-for="msg in messages"
+      :key="msg.color"
       :class="[
         'onyx-form-element-v2__message',
         'onyx-truncation-ellipsis',
         {
-          [`onyx-form-element-v2__message--${message.color}`]:
-            message.color && message.color !== 'neutral',
+          [`onyx-form-element-v2__message--${msg.color}`]: msg.color,
         },
       ]"
     >
-      <span class="onyx-truncation-ellipsis">{{ message.label }}</span>
+      <span class="onyx-truncation-ellipsis">{{ msg.label }}</span>
 
       <OnyxInfoTooltip
-        v-if="message.tooltipText"
+        v-if="msg.tooltipText"
         class="onyx-form-element-v2__tooltip"
         trigger="hover"
-        :text="message.tooltipText"
-        :color="message.color"
+        :text="msg.tooltipText"
+        :color="msg.color"
       />
     </div>
 
@@ -99,8 +100,26 @@ const message = computed(() => {
     &__message {
       display: flex;
 
+      &:not(&--danger) {
+        // hide all other messages if error message is shown
+        @container style(--onyx-form-element-v2-show-error: true) {
+          display: none;
+        }
+      }
+
+      // ensure always at most one non-danger (error) message is shown
+      // so e.g. neutral is hidden when success is shown
+      &:not(&--danger) ~ &:not(&--danger) {
+        display: none;
+      }
+
       &--danger {
+        display: none;
         color: var(--onyx-color-text-icons-danger-intense);
+
+        @container style(--onyx-form-element-v2-show-error: true) {
+          display: flex;
+        }
       }
 
       &--success {
