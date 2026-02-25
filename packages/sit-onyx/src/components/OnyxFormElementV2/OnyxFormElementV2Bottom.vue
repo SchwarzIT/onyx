@@ -98,14 +98,7 @@ const messages = computed(() =>
     }
 
     &__message {
-      display: flex;
-
-      &:not(&--danger) {
-        // hide all other messages if error message is shown
-        @container style(--onyx-form-element-v2-show-error: true) {
-          display: none;
-        }
-      }
+      display: var(--onyx-form-element-v2-message-display);
 
       // ensure always at most one non-danger (error) message is shown
       // so e.g. neutral is hidden when success is shown
@@ -114,12 +107,8 @@ const messages = computed(() =>
       }
 
       &--danger {
-        display: none;
+        display: var(--onyx-form-element-v2-error-display);
         color: var(--onyx-color-text-icons-danger-intense);
-
-        @container style(--onyx-form-element-v2-show-error: true) {
-          display: flex;
-        }
       }
 
       &--success {
