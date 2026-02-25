@@ -23,7 +23,7 @@ import {
   useForwardProps,
   useVModel,
 } from "sit-onyx";
-import { computed, watch } from "vue";
+import { computed, provide, watch } from "vue";
 import { useEditorUtils } from "../../composables/useEditorUtils.js";
 import OnyxEditorToolbarAction from "../OnyxEditorToolbarAction/OnyxEditorToolbarAction.vue";
 import OnyxEditorToolbarGroup from "../OnyxEditorToolbarGroup/OnyxEditorToolbarGroup.vue";
@@ -31,7 +31,7 @@ import HeadingToolbarAction from "./actions/HeadingToolbarAction.vue";
 import LinkToolbarAction from "./actions/LinkToolbarAction.vue";
 import ListToolbarAction from "./actions/ListToolbarAction.vue";
 import { OnyxStarterKit } from "./extensions/starterKit.js";
-import type { OnyxTextEditorProps } from "./types.js";
+import { TEXT_EDITOR_INJECTION_KEY, type OnyxTextEditorProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxTextEditorProps>(), {
   toolbar: () => ({ position: "top" }),
@@ -56,6 +56,7 @@ const slots = defineSlots<{
 
 const { t } = injectI18n();
 const { disabled } = useFormContext(props);
+provide(TEXT_EDITOR_INJECTION_KEY, { disabled });
 
 const modelValue = useVModel({
   props,
@@ -285,7 +286,10 @@ defineExpose({
           </OnyxEditorToolbarGroup>
         </div>
 
-        <div class="onyx-text-editor__actions onyx-text-editor__actions--fixed">
+        <div
+          v-if="hasExtension('undoRedo')"
+          class="onyx-text-editor__actions onyx-text-editor__actions--fixed"
+        >
           <OnyxEditorToolbarAction
             :label="t('editor.undo')"
             :icon="iconUndo"
@@ -368,6 +372,8 @@ defineExpose({
       $vertical-padding: var(--onyx-text-editor-padding-block)
     );
 
+    max-width: 100%;
+
     &__wrapper {
       padding: 0;
       height: unset;
@@ -397,6 +403,7 @@ defineExpose({
       min-height: var(--onyx-text-editor-min-height);
       max-height: var(--onyx-text-editor-max-height);
       padding: var(--onyx-text-editor-padding-block) var(--onyx-density-sm);
+      word-break: break-word;
     }
 
     &__native {

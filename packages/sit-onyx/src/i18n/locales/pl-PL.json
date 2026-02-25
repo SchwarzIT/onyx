@@ -80,28 +80,28 @@
     },
     "badInput": {
       "preview": "Nieprawidłowe dane",
-      "fullError": "Wartość „{value}” nie pasuje do oczekiwanego typu."
+      "fullError": "Wartość \"{value}\" nie pasuje do oczekiwanego typu."
     },
     "typeMismatch": {
       "generic": {
         "preview": "Nieprawidłowy typ danych",
-        "fullError": "Wartość „{value}” nie pasuje do oczekiwanego typu."
+        "fullError": "Wartość \"{value}\" nie pasuje do oczekiwanego typu."
       },
       "email": {
         "preview": "Nieprawidłowy e-mail",
-        "fullError": "„{value}” nie jest prawidłowym adresem e-mail. Powinien być podobny do „jankowalski{'@'}przyklad.com” (musi zawierać symbol {'@'} i kropkę)."
+        "fullError": "\"{value}\" nie jest prawidłowym adresem e-mail. Powinien być podobny do \"jankowalski{'@'}przyklad.com\" (musi zawierać symbol {'@'} i kropkę)."
       },
       "number": {
         "preview": "Nieprawidłowa liczba",
-        "fullError": "„{value}” nie jest prawidłową liczbą. Upewnij się, że zawiera tylko cyfry i opcjonalnie jeden separator dziesiętny."
+        "fullError": "\"{value}\" nie jest prawidłową liczbą. Upewnij się, że zawiera tylko cyfry i opcjonalnie jeden separator dziesiętny."
       },
       "tel": {
         "preview": "Nieprawidłowy numer telefonu",
-        "fullError": "„{value}” nie jest prawidłowym numerem telefonu."
+        "fullError": "\"{value}\" nie jest prawidłowym numerem telefonu."
       },
       "url": {
         "preview": "Nieprawidłowy URL",
-        "fullError": "„{value}” nie jest prawidłowym adresem URL. Adres URL zwykle wskazuje na stronę internetową i powinien być podobny do „https://www.przyklad.pl”."
+        "fullError": "\"{value}\" nie jest prawidłowym adresem URL. Adres URL zwykle wskazuje na stronę internetową i powinien być podobny do \"https://www.przyklad.pl\"."
       }
     }
   },
@@ -140,8 +140,10 @@
     "toggleBurgerMenu": "Przełącz menu hamburgerowe",
     "toggleContextMenu": "Przełącz menu kontekstowe",
     "navigationHeadline": "Nawigacja",
-    "moreActionsFlyout": "Wybierz akcję dla kolumny „{column}”",
-    "moreActionsTrigger": "Przełącz akcje kolumny"
+    "moreActionsFlyout": "Wybierz akcję dla kolumny \"{column}\"",
+    "moreActionsTrigger": "Przełącz akcje kolumny",
+    "collapse": "Zwiń",
+    "expand": "Rozwiń"
   },
   "tooltip": {
     "neutral": "Przełącz podpowiedź informacyjną",
@@ -194,8 +196,8 @@
     "ariaLabel": "Awatar użytkownika {fullName}"
   },
   "filterTag": {
-    "clickToAdd": "Dodaj filtr „{label}”",
-    "clickToRemove": "Usuń filtr „{label}”"
+    "clickToAdd": "Dodaj filtr \"{label}\"",
+    "clickToRemove": "Usuń filtr \"{label}\""
   },
   "languageSelect": {
     "label": "Język",
@@ -218,7 +220,7 @@
     "removeFile": "Usuń plik",
     "requiredError": "Musisz przesłać co najmniej jeden plik",
     "status": {
-      "fileTypeError": "Plik z rozszerzeniem „.{extension}” jest nieprawidłowy",
+      "fileTypeError": "Plik z rozszerzeniem '.{extension}' jest nieprawidłowy",
       "fileSizeError": "Plik przekracza maksymalny dozwolony rozmiar {size}",
       "maxFileSizeError": "Całkowity rozmiar wszystkich plików przekracza dozwolone maksimum {size}",
       "maxCountError": "Liczba plików przekracza dozwolone maksimum {count}"
@@ -297,6 +299,37 @@
     "label": "Spis treści"
   },
   "key": {
-    "label": "Klawisz „{name}”"
+    "label": "Klawisz \"{name}\""
+  },
+  "editor": {
+    "bold": "Pogrubienie",
+    "italic": "Kursywa",
+    "underline": "Podkreślenie",
+    "strike": "Przekreślenie",
+    "alignments": {
+      "left": "Wyrównanie do lewej",
+      "center": "Wyśrodkowanie",
+      "right": "Wyrównanie do prawej",
+      "block": "Wyjustowanie"
+    },
+    "link": {
+      "edit": "Edytuj link",
+      "link": "Link",
+      "text": "Tekst"
+    },
+    "quote": "Cytat",
+    "undo": "Cofnij",
+    "redo": "Ponów",
+    "headings": {
+      "headlines": "Nagłówki",
+      "level": "Nagłówek {n}",
+      "paragraph": "Tekst"
+    },
+    "lists": {
+      "lists": "Listy",
+      "orderedList": "Lista numerowana",
+      "unorderedList": "Lista wypunktowana"
+    },
+    "blockquote": "Blok cytatu"
   }
 }

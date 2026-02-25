@@ -141,7 +141,9 @@
     "toggleContextMenu": "Attiva/disattiva menu contestuale",
     "navigationHeadline": "Navigazione",
     "moreActionsFlyout": "Scegli un'azione per la colonna \"{column}\"",
-    "moreActionsTrigger": "Attiva/disattiva azioni colonna"
+    "moreActionsTrigger": "Attiva/disattiva azioni colonna",
+    "collapse": "Comprimi",
+    "expand": "Espandi"
   },
   "tooltip": {
     "neutral": "Attiva/disattiva tooltip informativo",
@@ -297,6 +299,37 @@
     "label": "Indice"
   },
   "key": {
-    "label": "tasto \"{name}\""
+    "label": "Tasto \"{name}\""
+  },
+  "editor": {
+    "bold": "Grassetto",
+    "italic": "Corsivo",
+    "underline": "Sottolineato",
+    "strike": "Barrato",
+    "alignments": {
+      "left": "Allineato a sinistra",
+      "center": "Centrato",
+      "right": "Allineato a destra",
+      "block": "Giustificato"
+    },
+    "link": {
+      "edit": "Modifica link",
+      "link": "Link",
+      "text": "Testo"
+    },
+    "quote": "Citazione",
+    "undo": "Annulla",
+    "redo": "Ripristina",
+    "headings": {
+      "headlines": "Intestazioni",
+      "level": "Intestazione {n}",
+      "paragraph": "Testo"
+    },
+    "lists": {
+      "lists": "Elenchi",
+      "orderedList": "Elenco numerato",
+      "unorderedList": "Elenco puntato"
+    },
+    "blockquote": "Blocco di citazione"
   }
 }

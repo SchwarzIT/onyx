@@ -80,28 +80,28 @@
     },
     "badInput": {
       "preview": "Intrare invalidă",
-      "fullError": "Valoarea „{value}” nu corespunde tipului așteptat."
+      "fullError": "Valoarea \"{value}\" nu corespunde tipului așteptat."
     },
     "typeMismatch": {
       "generic": {
         "preview": "Tip de intrare invalid",
-        "fullError": "Valoarea „{value}” nu corespunde tipului așteptat."
+        "fullError": "Valoarea \"{value}\" nu corespunde tipului așteptat."
       },
       "email": {
         "preview": "E-mail invalid",
-        "fullError": "„{value}” nu este o adresă de e-mail validă. Ar trebui să fie similară cu „ionpopescu{'@'}exemplu.ro” (trebuie să conțină un simbol {'@'} și un punct)."
+        "fullError": "\"{value}\" nu este o adresă de e-mail validă. Ar trebui să fie similară cu \"ionpopescu{'@'}exemplu.ro\" (trebuie să conțină un simbol {'@'} și un punct)."
       },
       "number": {
         "preview": "Număr invalid",
-        "fullError": "„{value}” nu este un număr valid. Asigurați-vă că conține doar cifre și, opțional, un singur punct zecimal."
+        "fullError": "\"{value}\" nu este un număr valid. Asigurați-vă că conține doar cifre și, opțional, un singur punct zecimal."
       },
       "tel": {
         "preview": "Număr de telefon invalid",
-        "fullError": "„{value}” nu este un număr de telefon valid."
+        "fullError": "\"{value}\" nu este un număr de telefon valid."
       },
       "url": {
         "preview": "URL invalid",
-        "fullError": "„{value}” nu este un URL valid. Un URL indică de obicei un site web și ar trebui să fie similar cu „https://www.exemplu.ro”."
+        "fullError": "\"{value}\" nu este un URL valid. Un URL indică de obicei un site web și ar trebui să fie similar cu \"https://www.exemplu.ro\"."
       }
     }
   },
@@ -140,8 +140,10 @@
     "toggleBurgerMenu": "Comutare meniu burger",
     "toggleContextMenu": "Comutare meniu contextual",
     "navigationHeadline": "Navigare",
-    "moreActionsFlyout": "Alegeți o acțiune pentru coloana „{column}”",
-    "moreActionsTrigger": "Comutare acțiuni coloană"
+    "moreActionsFlyout": "Alegeți o acțiune pentru coloana \"{column}\"",
+    "moreActionsTrigger": "Comutare acțiuni coloană",
+    "collapse": "Restrângere",
+    "expand": "Extindere"
   },
   "tooltip": {
     "neutral": "Comutare tooltip informativ",
@@ -194,8 +196,8 @@
     "ariaLabel": "Avatarul lui {fullName}"
   },
   "filterTag": {
-    "clickToAdd": "Adăugare filtru „{label}”",
-    "clickToRemove": "Eliminare filtru „{label}”"
+    "clickToAdd": "Adăugare filtru \"{label}\"",
+    "clickToRemove": "Eliminare filtru \"{label}\""
   },
   "languageSelect": {
     "label": "Limbă",
@@ -218,7 +220,7 @@
     "removeFile": "Eliminare fișier",
     "requiredError": "Trebuie să încărcați cel puțin un fișier",
     "status": {
-      "fileTypeError": "Fișierul cu extensia „.{extension}” este invalid",
+      "fileTypeError": "Fișierul cu extensia '.{extension}' este invalid",
       "fileSizeError": "Fișierul depășește dimensiunea maximă permisă de {size}",
       "maxFileSizeError": "Dimensiunea totală a tuturor fișierelor depășește maximul permis de {size}",
       "maxCountError": "Numărul de fișiere depășește maximul permis de {count}"
@@ -297,6 +299,37 @@
     "label": "Cuprins"
   },
   "key": {
-    "label": "Tasta „{name}”"
+    "label": "Tasta \"{name}\""
+  },
+  "editor": {
+    "bold": "Aldin",
+    "italic": "Cursiv",
+    "underline": "Subliniat",
+    "strike": "Tăiat",
+    "alignments": {
+      "left": "Aliniat la stânga",
+      "center": "Centrat",
+      "right": "Aliniat la dreapta",
+      "block": "Aliniat la ambele capete"
+    },
+    "link": {
+      "edit": "Editare link",
+      "link": "Link",
+      "text": "Text"
+    },
+    "quote": "Citat",
+    "undo": "Anulare",
+    "redo": "Refacere",
+    "headings": {
+      "headlines": "Titluri",
+      "level": "Titlu {n}",
+      "paragraph": "Text"
+    },
+    "lists": {
+      "lists": "Liste",
+      "orderedList": "Listă numerotată",
+      "unorderedList": "Listă cu puncte"
+    },
+    "blockquote": "Bloc de citat"
   }
 }
