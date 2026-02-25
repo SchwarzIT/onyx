@@ -24,7 +24,7 @@ jobs:
         # for further details, see: https://playwright.dev/docs/test-sharding
         # more shards can be added below to speed up the executing time if more screenshots are added in the future
         # note: GitHub's limit is 256 parallel (see https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs#using-a-matrix-strategy)
-        shard: [1, 2, 3, 4]
+        shard: [1, 2, 3, 4, 5, 6, 7, 8]
     name: Playwright shard
     runs-on: ubuntu-latest
     permissions:
