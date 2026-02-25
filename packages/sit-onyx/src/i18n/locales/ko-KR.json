@@ -141,7 +141,9 @@
     "toggleContextMenu": "컨텍스트 메뉴 토글",
     "navigationHeadline": "내비게이션",
     "moreActionsFlyout": "\"{column}\" 열에 대한 작업 선택",
-    "moreActionsTrigger": "열 작업 토글"
+    "moreActionsTrigger": "열 작업 토글",
+    "collapse": "축소",
+    "expand": "확장"
   },
   "tooltip": {
     "neutral": "정보 툴팁 토글",
@@ -298,5 +300,36 @@
   },
   "key": {
     "label": "\"{name}\" 키"
+  },
+  "editor": {
+    "bold": "굵게",
+    "italic": "기울임꼴",
+    "underline": "밑줄",
+    "strike": "취소선",
+    "alignments": {
+      "left": "왼쪽 정렬",
+      "center": "가운데 정렬",
+      "right": "오른쪽 정렬",
+      "block": "양쪽 정렬"
+    },
+    "link": {
+      "edit": "링크 편집",
+      "link": "링크",
+      "text": "텍스트"
+    },
+    "quote": "인용",
+    "undo": "실행 취소",
+    "redo": "다시 실행",
+    "headings": {
+      "headlines": "제목",
+      "level": "제목 {n}",
+      "paragraph": "텍스트"
+    },
+    "lists": {
+      "lists": "목록",
+      "orderedList": "번호 매기기 목록",
+      "unorderedList": "글머리 기호 목록"
+    },
+    "blockquote": "인용 블록"
   }
 }

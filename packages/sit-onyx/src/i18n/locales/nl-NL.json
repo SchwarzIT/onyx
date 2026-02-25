@@ -141,7 +141,9 @@
     "toggleContextMenu": "Contextmenu tonen/verbergen",
     "navigationHeadline": "Navigatie",
     "moreActionsFlyout": "Kies een actie voor de kolom \"{column}\"",
-    "moreActionsTrigger": "Kolomacties tonen/verbergen"
+    "moreActionsTrigger": "Kolomacties tonen/verbergen",
+    "collapse": "Inklappen",
+    "expand": "Uitklappen"
   },
   "tooltip": {
     "neutral": "Info-tooltip tonen/verbergen",
@@ -298,5 +300,36 @@
   },
   "key": {
     "label": "\"{name}\"-toets"
+  },
+  "editor": {
+    "bold": "Vet",
+    "italic": "Cursief",
+    "underline": "Onderstreept",
+    "strike": "Doorgestreept",
+    "alignments": {
+      "left": "Links uitgelijnd",
+      "center": "Gecentreerd",
+      "right": "Rechts uitgelijnd",
+      "block": "Uitgevuld"
+    },
+    "link": {
+      "edit": "Link bewerken",
+      "link": "Link",
+      "text": "Tekst"
+    },
+    "quote": "Citaat",
+    "undo": "Ongedaan maken",
+    "redo": "Opnieuw uitvoeren",
+    "headings": {
+      "headlines": "Koppen",
+      "level": "Kop {n}",
+      "paragraph": "Tekst"
+    },
+    "lists": {
+      "lists": "Lijsten",
+      "orderedList": "Genummerde lijst",
+      "unorderedList": "Lijst met opsommingstekens"
+    },
+    "blockquote": "Citaatblok"
   }
 }

@@ -80,28 +80,28 @@
     },
     "badInput": {
       "preview": "Neplatný vstup",
-      "fullError": "Hodnota „{value}” nezodpovedá očakávanému typu."
+      "fullError": "Hodnota \"{value}\" nezodpovedá očakávanému typu."
     },
     "typeMismatch": {
       "generic": {
         "preview": "Neplatný typ vstupu",
-        "fullError": "Hodnota „{value}” nezodpovedá očakávanému typu."
+        "fullError": "Hodnota \"{value}\" nezodpovedá očakávanému typu."
       },
       "email": {
         "preview": "Neplatný e-mail",
-        "fullError": "„{value}” nie je platná e-mailová adresa. Mala by byť podobná „jankovacik{'@'}priklad.sk” (musí obsahovať symbol {'@'} a bodku)."
+        "fullError": "\"{value}\" nie je platná e-mailová adresa. Mala by byť podobná \"jankovacik{'@'}priklad.sk\" (musí obsahovať symbol {'@'} a bodku)."
       },
       "number": {
         "preview": "Neplatné číslo",
-        "fullError": "„{value}” nie je platné číslo. Uistite sa, že obsahuje iba číslice a voliteľne jednu desatinnú čiarku."
+        "fullError": "\"{value}\" nie je platné číslo. Uistite sa, že obsahuje iba číslice a voliteľne jednu desatinnú čiarku."
       },
       "tel": {
         "preview": "Neplatné telefónne číslo",
-        "fullError": "„{value}” nie je platné telefónne číslo."
+        "fullError": "\"{value}\" nie je platné telefónne číslo."
       },
       "url": {
         "preview": "Neplatná URL",
-        "fullError": "„{value}” nie je platná URL adresa. URL adresa zvyčajne odkazuje na webovú stránku a mala by byť podobná „https://www.priklad.sk”."
+        "fullError": "\"{value}\" nie je platná URL adresa. URL adresa zvyčajne odkazuje na webovú stránku a mala by byť podobná \"https://www.priklad.sk\"."
       }
     }
   },
@@ -140,8 +140,10 @@
     "toggleBurgerMenu": "Prepnúť hamburgerové menu",
     "toggleContextMenu": "Prepnúť kontextové menu",
     "navigationHeadline": "Navigácia",
-    "moreActionsFlyout": "Vyberte akciu pre stĺpec „{column}”",
-    "moreActionsTrigger": "Prepnúť akcie stĺpca"
+    "moreActionsFlyout": "Vyberte akciu pre stĺpec \"{column}\"",
+    "moreActionsTrigger": "Prepnúť akcie stĺpca",
+    "collapse": "Zbaliť",
+    "expand": "Rozbaliť"
   },
   "tooltip": {
     "neutral": "Prepnúť informačný tip",
@@ -194,8 +196,8 @@
     "ariaLabel": "Avatar používateľa {fullName}"
   },
   "filterTag": {
-    "clickToAdd": "Pridať filter „{label}”",
-    "clickToRemove": "Odstrániť filter „{label}”"
+    "clickToAdd": "Pridať filter \"{label}\"",
+    "clickToRemove": "Odstrániť filter \"{label}\""
   },
   "languageSelect": {
     "label": "Jazyk",
@@ -218,7 +220,7 @@
     "removeFile": "Odstrániť súbor",
     "requiredError": "Musíte nahrať aspoň jeden súbor",
     "status": {
-      "fileTypeError": "Súbor s príponou „.{extension}” je neplatný",
+      "fileTypeError": "Súbor s príponou \".{extension}\" je neplatný",
       "fileSizeError": "Súbor prekračuje maximálnu povolenú veľkosť {size}",
       "maxFileSizeError": "Celková veľkosť všetkých súborov prekračuje povolené maximum {size}",
       "maxCountError": "Počet súborov prekračuje povolené maximum {count}"
@@ -297,6 +299,37 @@
     "label": "Obsah"
   },
   "key": {
-    "label": "Kláves „{name}”"
+    "label": "Kláves \"{name}\""
+  },
+  "editor": {
+    "bold": "Tučné",
+    "italic": "Kurzíva",
+    "underline": "Podčiarknuté",
+    "strike": "Prečiarknuté",
+    "alignments": {
+      "left": "Zarovnané doľava",
+      "center": "Na stred",
+      "right": "Zarovnané doprava",
+      "block": "Zarovnané do bloku"
+    },
+    "link": {
+      "edit": "Upraviť odkaz",
+      "link": "Odkaz",
+      "text": "Text"
+    },
+    "quote": "Citát",
+    "undo": "Späť",
+    "redo": "Znova",
+    "headings": {
+      "headlines": "Nadpisy",
+      "level": "Nadpis {n}",
+      "paragraph": "Text"
+    },
+    "lists": {
+      "lists": "Zoznamy",
+      "orderedList": "Číslovaný zoznam",
+      "unorderedList": "Zoznam s odrážkami"
+    },
+    "blockquote": "Blok citátu"
   }
 }

@@ -141,7 +141,9 @@
     "toggleContextMenu": "Otvori/zatvori kontekstni izbornik",
     "navigationHeadline": "Navigacija",
     "moreActionsFlyout": "Odaberite radnju za stupac \"{column}\"",
-    "moreActionsTrigger": "Otvori/zatvori radnje stupca"
+    "moreActionsTrigger": "Otvori/zatvori radnje stupca",
+    "collapse": "Sažmi",
+    "expand": "Proširi"
   },
   "tooltip": {
     "neutral": "Otvori/zatvori informativni oblačić",
@@ -297,6 +299,37 @@
     "label": "Sadržaj"
   },
   "key": {
-    "label": "tipka \"{name}\""
+    "label": "Tipka \"{name}\""
+  },
+  "editor": {
+    "bold": "Podebljano",
+    "italic": "Kurziv",
+    "underline": "Podcrtano",
+    "strike": "Precrtano",
+    "alignments": {
+      "left": "Lijevo poravnanje",
+      "center": "Središnje poravnanje",
+      "right": "Desno poravnanje",
+      "block": "Obostrano poravnanje"
+    },
+    "link": {
+      "edit": "Uredi poveznicu",
+      "link": "Poveznica",
+      "text": "Tekst"
+    },
+    "quote": "Citat",
+    "undo": "Poništi",
+    "redo": "Ponovi",
+    "headings": {
+      "headlines": "Naslovi",
+      "level": "Naslov {n}",
+      "paragraph": "Tekst"
+    },
+    "lists": {
+      "lists": "Popisi",
+      "orderedList": "Numerirani popis",
+      "unorderedList": "Popis s grafičkim oznakama"
+    },
+    "blockquote": "Blok citat"
   }
 }
