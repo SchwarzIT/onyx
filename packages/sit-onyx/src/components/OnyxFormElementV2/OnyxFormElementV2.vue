@@ -129,7 +129,8 @@ const label = computed<FormElementV2LabelOptions>(() => {
     --onyx-form-element-v2-caret-color: var(--onyx-color-component-cta-default);
     --onyx-form-element-v2-selection-background: var(--onyx-color-base-primary-200);
     --onyx-form-element-v2-outline-color: var(--onyx-color-component-focus-primary);
-    --onyx-form-element-v2-show-error: false;
+    --onyx-form-element-v2-error-display: none;
+    --onyx-form-element-v2-message-display: flex;
 
     // :read-only is valid for readonly and disabled state so we put shared styles for both states here
     &:has(.onyx-form-element-v2__input:read-only) {
@@ -158,7 +159,8 @@ const label = computed<FormElementV2LabelOptions>(() => {
         --onyx-form-element-v2-outline-color: var(--onyx-color-component-focus-danger);
         --onyx-form-element-v2-selection-background: var(--onyx-color-base-danger-200);
         --onyx-form-element-v2-caret-color: var(--onyx-color-base-neutral-900);
-        --onyx-form-element-v2-show-error: true;
+        --onyx-form-element-v2-error-display: flex;
+        --onyx-form-element-v2-message-display: none;
       }
     }
 
