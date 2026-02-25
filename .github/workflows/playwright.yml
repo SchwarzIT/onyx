@@ -62,6 +62,7 @@ jobs:
 
           until [ $RETRY_COUNT -ge $MAX_RETRIES ]
           do
+            sudo rm -f /var/lib/dpkg/lock-frontend
             sudo dpkg --configure -a
              # 'timeout' ensures the individual attempt doesn't hang
              timeout -k 10 $TIMEOUT_LIMIT bash -c playwright_install && break
