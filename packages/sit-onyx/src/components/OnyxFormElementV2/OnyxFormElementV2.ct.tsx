@@ -209,9 +209,16 @@ test.describe("Screenshot tests (label positions)", () => {
 
 test("should show/hide messages correctly", async ({ mount }) => {
   // ARRANGE
-  const component = await mount(
-    <TestCase label="Test label" error="Error" success="Success" message="Message" required />,
-  );
+  const component = await mount(TestCase, {
+    props: {
+      label: "Test label",
+      error: "Error",
+      success: "Success",
+      message: "Message",
+      required: true,
+      showError: true,
+    },
+  });
 
   const input = component.getByLabel("Test label");
   const message = component.getByText("Message").first();
@@ -219,9 +226,17 @@ test("should show/hide messages correctly", async ({ mount }) => {
   const success = component.getByText("Success").first();
 
   // ASSERT
+  await expect(error, "should immediately show error when showError prop is set").toBeVisible();
   await expect(message).toBeHidden();
+  await expect(success).toBeHidden();
+
+  // ACT
+  await component.update({ props: { showError: "touched" } });
+
+  // ASSERT
+  await expect(success, "should show only success message").toBeVisible();
   await expect(error).toBeHidden();
-  await expect(success).toBeVisible();
+  await expect(message).toBeHidden();
 
   // ACT
   await input.pressSequentially("Value");
@@ -229,7 +244,47 @@ test("should show/hide messages correctly", async ({ mount }) => {
   await input.clear();
 
   // ASSERT
+  await expect(error, "should show error when touched").toBeVisible();
   await expect(message).toBeHidden();
+  await expect(success).toBeHidden();
+
+  // ACT
+  await component.update({ props: { showError: false } });
+
+  // ASSERT
+  await expect(error, "should hide error when showError prop is false").toBeHidden();
+  await expect(message).toBeHidden();
+  await expect(success, "should show success when error exists but is not shown").toBeVisible();
+
+  // ACT
+  await component.update({ props: { success: undefined } });
+
+  // ASSERT
+  await expect(error, "should hide error when showError prop is false").toBeHidden();
+  await expect(message, "should show message when error exists but is not shown").toBeVisible();
+  await expect(success).toBeHidden();
+
+  // ACT
+  await component.update({ props: { message: undefined } });
+
+  // ASSERT
+  await expect(error).toBeHidden();
+  await expect(message).toBeHidden();
+  await expect(success).toBeHidden();
+
+  // ACT
+  await component.update({ props: { showError: "touched" } });
+
+  // ASSERT
   await expect(error).toBeVisible();
+  await expect(message).toBeHidden();
+  await expect(success).toBeHidden();
+
+  // ACT
+  await input.fill("Value");
+
+  // ASSERT
+  await expect(error).toBeHidden();
+  await expect(message).toBeHidden();
   await expect(success).toBeHidden();
 });
