@@ -276,7 +276,6 @@ test.each<{ format: DatetimeFormat; expected: string }>([
   { format: "date", expected: "Mar 11, 2025" },
   { format: "datetime-local", expected: "Mar 11, 2025, 9:51 AM" },
   { format: "time", expected: "9:51 AM" },
-  { format: "timestamp", expected: "03/11/2025, 09:51:27 AM GMT" },
 ])("should format date with format $format as $expected", ({ format, expected }) => {
   // ARRANGE
   provideI18n(app, { locale: "en-US" });
@@ -287,6 +286,21 @@ test.each<{ format: DatetimeFormat; expected: string }>([
 
   // ASSERT
   expect(d.value(date, format)).toBe(expected);
+});
+
+test("should format date with timestamp format and be lenient", () => {
+  // ARRANGE
+  provideI18n(app, { locale: "en-US" });
+
+  const { d } = injectI18n();
+
+  const date = new Date(2025, 2, 11, 9, 51, 27);
+
+  // ASSERT
+
+  // There are inconsistencies based on the underlying system libraries which lead to flakiness
+  const result = d.value(date, "timestamp").replace("GMT+0", "GMT");
+  expect(result).toBe("03/11/2025, 09:51:27 AM GMT");
 });
 
 test.each<{ format: NumberFormat; value: number; expected: string }>([

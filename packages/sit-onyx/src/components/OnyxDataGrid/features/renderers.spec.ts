@@ -109,10 +109,13 @@ describe("renderers", () => {
       { value: Symbol("test-symbol"), expected: FALLBACK_RENDER_VALUE },
     ])(`${rendererType}: should render $expected for input $value`, ({ value, expected }) => {
       // ACT
-      const actual = getRendererCellValue(value, rendererType);
+      const _result = getRendererCellValue(value, rendererType);
+
+      // There are inconsistencies based on the underlying system libraries which lead to flakiness
+      const result = type === "timestamp" ? _result.replace("GMT+0", "GMT") : _result;
 
       // ASSERT
-      expect(actual).toBe(expected);
+      expect(result).toBe(expected);
     });
   }
 });
