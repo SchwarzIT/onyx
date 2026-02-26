@@ -68,6 +68,7 @@ const skeletonCount = computed(() => {
       list-style: none;
       display: flex;
       flex-direction: column;
+      flex-grow: 1;
       gap: var(--onyx-toc-list-gap);
       overflow-y: auto;
 

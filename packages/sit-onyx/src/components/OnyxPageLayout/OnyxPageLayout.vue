@@ -99,6 +99,7 @@ provideSkeletonContext(props);
       grid-area: main;
       overflow: hidden auto;
       position: relative;
+      scroll-behavior: smooth;
     }
 
     &__footer {
