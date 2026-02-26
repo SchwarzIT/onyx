@@ -46,7 +46,11 @@ export const useMatrixScreenshotTest = <TContext extends HookContext = HookConte
         );
         await options.hooks?.beforeEach?.(component, page, column, row, options.context);
 
-        const screenshot = await component.screenshot({ animations: "disabled" });
+        const screenshot = await component.screenshot({
+          animations: "disabled",
+          ...globalOptions.defaults?.screenshotOptions,
+          ...options.screenshotOptions,
+        });
 
         // some browser (e.g. safari) have different device resolutions which would cause the screenshot
         // to be twice as large (or more) so we need to get the actual size here to set the correct image size below
