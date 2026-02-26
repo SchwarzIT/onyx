@@ -56,3 +56,47 @@ export const LeftToRight = {
       ),
   },
 } satisfies Story;
+
+export const TopToBottom = {
+  args: {
+    ...Default.args,
+    direction: "ttb",
+    more: ({ hiddenElements, attributes }) =>
+      h(
+        "span",
+        {
+          style: `font-family: var(--onyx-font-family-paragraph); color: var(--onyx-color-text-icons-neutral-soft)`,
+          ...attributes,
+        },
+        `${hiddenElements} before`,
+      ),
+  },
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: '<div style="height: 95vh;"><story /></div>',
+    }),
+  ],
+} satisfies Story;
+
+export const BottomToTop = {
+  args: {
+    ...Default.args,
+    direction: "btt",
+    more: ({ hiddenElements, attributes }) =>
+      h(
+        "span",
+        {
+          style: `font-family: var(--onyx-font-family-paragraph); color: var(--onyx-color-text-icons-neutral-soft)`,
+          ...attributes,
+        },
+        `${hiddenElements} after`,
+      ),
+  },
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: '<div style="height: 95vh;"><story /></div>',
+    }),
+  ],
+} satisfies Story;
