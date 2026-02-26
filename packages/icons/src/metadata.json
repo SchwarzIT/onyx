@@ -440,6 +440,14 @@
     "category": "Arrows",
     "aliases": ["Pfeile", "arrows", "hoch-runter", "oben", "unten"]
   },
+  "chevron-first-page": {
+    "category": "Arrows",
+    "aliases": []
+  },
+  "chevron-last-page": {
+    "category": "Arrows",
+    "aliases": []
+  },
   "chevron-left": {
     "category": "Arrows",
     "aliases": ["point-left", "links", "Pfeil"]

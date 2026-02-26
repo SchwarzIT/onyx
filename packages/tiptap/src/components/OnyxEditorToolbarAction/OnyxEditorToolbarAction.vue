@@ -6,6 +6,8 @@ import {
   useForwardProps,
   useRootAttrs,
 } from "sit-onyx";
+import { inject } from "vue";
+import { TEXT_EDITOR_INJECTION_KEY } from "../OnyxTextEditor/types.js";
 import type { OnyxEditorToolbarActionProps } from "./types.js";
 
 defineOptions({ inheritAttrs: false });
@@ -20,6 +22,7 @@ defineSlots<{
 }>();
 
 const systemButtonProps = useForwardProps(props, OnyxSystemButton);
+const editorContext = inject(TEXT_EDITOR_INJECTION_KEY, undefined);
 
 const { restAttrs, rootAttrs } = useRootAttrs();
 </script>
@@ -35,6 +38,7 @@ const { restAttrs, rootAttrs } = useRootAttrs();
       <!-- empty title is used to hide the native browser tooltip since we provide a custom tooltip here -->
       <OnyxSystemButton
         v-bind="mergeVueProps(systemButtonProps, trigger, restAttrs)"
+        :disabled="props.disabled || editorContext?.disabled.value"
         :class="{ active: props.active }"
         title=""
       >
@@ -50,6 +54,10 @@ const { restAttrs, rootAttrs } = useRootAttrs();
 .onyx-editor-toolbar-action {
   @include layers.component() {
     display: flex;
+
+    .onyx-system-button:disabled {
+      pointer-events: none;
+    }
   }
 
   @include layers.override() {

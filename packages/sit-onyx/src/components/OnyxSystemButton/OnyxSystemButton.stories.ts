@@ -1,4 +1,4 @@
-import { iconExpandWindow, iconMoreVerticalSmall } from "@sit-onyx/icons";
+import { iconExpandWindow, iconMoreVertical } from "@sit-onyx/icons";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { defineIconSelectArgType } from "../../utils/storybook.js";
@@ -22,7 +22,7 @@ type Story = StoryObj<typeof OnyxSystemButton>;
 export const Default = {
   args: {
     label: "More options",
-    icon: iconMoreVerticalSmall,
+    icon: iconMoreVertical,
   },
 } satisfies Story;
 
