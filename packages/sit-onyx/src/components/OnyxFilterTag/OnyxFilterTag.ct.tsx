@@ -10,6 +10,9 @@ test.describe("Screenshot tests", () => {
     name: "Filter tag",
     columns: DENSITIES,
     rows: state,
+    screenshotOptions: {
+      style: `.onyx-tooltip { display: none !important; }`,
+    },
     component: (column, row) => (
       <OnyxFilterTag
         label="Tag"
