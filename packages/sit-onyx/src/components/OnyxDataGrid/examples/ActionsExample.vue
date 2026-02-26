@@ -26,7 +26,7 @@ const columns: ColumnConfig<TEntry>[] = [
 // create a custom reusable data grid feature that you can also e.g. share / re-use in your project
 const withCustomActions = createFeature(() => ({
   name: Symbol("custom actions feature"),
-  actions: [
+  actions: () => [
     {
       label: "Action 1",
       icon: iconPlaceholder,

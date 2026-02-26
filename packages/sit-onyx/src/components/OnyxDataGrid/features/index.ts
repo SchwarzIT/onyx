@@ -228,7 +228,7 @@ export type DataGridFeatureDescription<
    * Will be automatically wrapped into a "more" flyout if not all actions fit
    * into the available width.
    */
-  actions?: DataGridAction[];
+  actions?: () => DataGridAction[];
 
   /**
    * Defines a renderer for a column type.
@@ -666,14 +666,23 @@ export const useDataGridFeatures = <
   const createSlots = () => {
     const slots: InternalDataGridSlots = {};
 
-    const allActions = features.flatMap((f) => f.actions ?? []);
+    const hasActions = features.some((f) => f.actions != null);
 
-    if (allActions.length > 0) {
-      slots.actions = () => [
-        h(DataGridActions, {
-          actions: allActions,
-        }),
-      ];
+    if (hasActions) {
+      slots.actions = () => {
+        const allActions = features.flatMap((f) => {
+          if (!f.actions) return [];
+          return f.actions();
+        });
+
+        if (allActions.length === 0) return [];
+
+        return [
+          h(DataGridActions, {
+            actions: allActions,
+          }),
+        ];
+      };
     }
 
     features.forEach((feature) => {
