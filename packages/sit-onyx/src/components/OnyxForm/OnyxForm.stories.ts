@@ -1,10 +1,8 @@
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import { h } from "vue";
 import { ShowErrorModes } from "../../composables/useErrorClass.js";
 import { createAdvancedStoryExample } from "../../utils/storybook.js";
-import OnyxButton from "../OnyxButton/OnyxButton.vue";
-import OnyxInput from "../OnyxInput/OnyxInput.vue";
+import OnyxToast from "../OnyxToast/OnyxToast.vue";
 import OnyxForm from "./OnyxForm.vue";
 
 /**
@@ -22,30 +20,26 @@ const meta: Meta<typeof OnyxForm> = {
     default: { control: { disable: true } },
     ["$slots" as string]: { table: { disable: true } },
   },
+  decorators: [
+    // provide the OnyxToast so toasts are shown correctly in the examples
+    (story) => ({
+      components: { story, OnyxToast },
+      template: `<story /> <OnyxToast />`,
+    }),
+  ],
 };
 
 export default meta;
 type Story = StoryObj<typeof OnyxForm>;
 
-/**
- * This example shows an OnyxForm with some inputs.
- * Play around with the properties of the OnyxForm to see their effect.
- */
-export const Default = {
-  args: {
-    class: "form",
-    style:
-      "display: flex; flex-direction: column; max-width: 20rem; gap: var(--onyx-grid-gutter); ",
-    onSubmit: (e: SubmitEvent) => e.preventDefault(),
-    default: () => [
-      h(OnyxInput, { label: "Favorite band", pattern: "/[A-Za-z ]+/" }),
-      h(OnyxInput, { label: "Favorite password", type: "password", required: true }),
-      h(OnyxInput, { label: "Number of hairs", min: 0 }),
-      h(OnyxButton, { label: "Submit", type: "submit" }),
-    ],
-  },
-} satisfies Story;
+export const Default = createAdvancedStoryExample("OnyxForm", "DefaultExample") satisfies Story;
 
-export const AdvancedExample = createAdvancedStoryExample("OnyxForm", "AdvancedExample");
+export const AdvancedExample = createAdvancedStoryExample(
+  "OnyxForm",
+  "AdvancedExample",
+) satisfies Story;
 
-export const FileUploadExample = createAdvancedStoryExample("OnyxForm", "FileUploadExample");
+export const FileUploadExample = createAdvancedStoryExample(
+  "OnyxForm",
+  "FileUploadExample",
+) satisfies Story;
