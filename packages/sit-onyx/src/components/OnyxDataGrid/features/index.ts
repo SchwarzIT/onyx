@@ -666,23 +666,9 @@ export const useDataGridFeatures = <
   const createSlots = () => {
     const slots: InternalDataGridSlots = {};
 
-    const hasActions = features.some((f) => f.actions != null);
-
-    if (hasActions) {
-      slots.actions = () => {
-        const allActions = features.flatMap((f) => {
-          if (!f.actions) return [];
-          return f.actions();
-        });
-
-        if (allActions.length === 0) return [];
-
-        return [
-          h(DataGridActions, {
-            actions: allActions,
-          }),
-        ];
-      };
+    const actions = features.flatMap((f) => f.actions?.()).filter((action) => action != undefined);
+    if (actions.length) {
+      slots.actions = () => [h(DataGridActions, { actions })];
     }
 
     features.forEach((feature) => {

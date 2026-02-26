@@ -31,14 +31,12 @@ const iconButtonProps = useForwardProps(props, OnyxIconButton);
 <template>
   <template v-if="isVisible">
     <OnyxSeparator v-if="props.showSeparator" orientation="vertical" />
-
     <OnyxButton
       v-if="props.displayAs === 'button'"
       ref="componentRef"
       v-bind="buttonProps"
       @click="props.onClick"
     />
-
     <OnyxTooltip v-else :text="props.label">
       <template #default="{ trigger }">
         <OnyxIconButton
