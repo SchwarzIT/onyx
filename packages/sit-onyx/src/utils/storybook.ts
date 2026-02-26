@@ -1,6 +1,5 @@
 import type { ArgTypes, Decorator, StoryObj } from "@storybook/vue3-vite";
 import type { DefineComponent } from "vue";
-import OnyxToast from "../components/OnyxToast/OnyxToast.vue";
 
 export type DefineIconSelectArgTypeOptions = {
   /**
@@ -68,7 +67,6 @@ export const textColorDecorator: Decorator = (story) => ({
  * The example must be put inside e.g. "src/components/{componentName}/examples/{exampleName}".
  *
  * Make sure to import all onyx components, types etc. from the index file "../../../" so its replaced correctly in the code snippet.
- * Will also make the OnyxToast available to be used inside the example.
  *
  * **Note** The "Controls" and "Actions" panel/tab will be disabled for this story since they will probably be mostly unusable due to the custom example.
  */
@@ -99,9 +97,9 @@ export function createAdvancedStoryExample(componentName: string, exampleName: s
 
   return {
     render: (args) => ({
-      components: { Component, OnyxToast },
+      components: { Component },
       setup: () => ({ args }),
-      template: `<OnyxToast /> <Component />`,
+      template: `<Component /> `,
     }),
     parameters: {
       docs: {
