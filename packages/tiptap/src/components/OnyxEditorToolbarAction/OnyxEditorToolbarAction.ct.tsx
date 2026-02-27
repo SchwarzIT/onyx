@@ -1,6 +1,6 @@
 import { iconPlaceholder } from "@sit-onyx/icons";
 import { useFocusStateHooks } from "@sit-onyx/playwright-utils";
-import { test } from "../../playwright/a11y.js";
+import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import OnyxEditorToolbarAction from "./OnyxEditorToolbarAction.vue";
 
@@ -21,6 +21,9 @@ test.describe("Screenshot tests", () => {
     hooks: {
       beforeEach: async (component, page, column, row) => {
         await useFocusStateHooks({ component, page, state: row });
+        if (row !== "default" && column !== "disabled") {
+          await expect(component.getByRole("tooltip")).toBeVisible();
+        }
       },
     },
   });
