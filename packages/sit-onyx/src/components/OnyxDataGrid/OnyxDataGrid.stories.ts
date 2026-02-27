@@ -32,6 +32,11 @@ export const Slots = {
   ...createAdvancedStoryExample("OnyxDataGrid", "SlotsExample"),
 } satisfies Story;
 
+export const Actions = {
+  tags: ["new:feature"],
+  ...createAdvancedStoryExample("OnyxDataGrid", "ActionsExample"),
+} satisfies Story;
+
 export const GroupedData = {
   ...createAdvancedStoryExample("OnyxDataGrid", "GroupedDataExample"),
 } satisfies Story;

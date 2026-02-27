@@ -20,7 +20,7 @@ import type { Nullable } from "../../../types/index.js";
 import { mergeVueProps } from "../../../utils/attrs.js";
 import { applyMapping, prepareMapping, type OrderableMapping } from "../../../utils/feature.js";
 import { asArray } from "../../../utils/objects.js";
-import type { OnyxMenuItem } from "../../OnyxNavBar/modules/index.js";
+import { OnyxMenuItem } from "../../OnyxNavBar/modules/index.js";
 import OnyxFlyoutMenu from "../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxSystemButton from "../../OnyxSystemButton/OnyxSystemButton.vue";
 import type { OnyxTableSlots, TableColumnGroup } from "../../OnyxTable/types.js";
@@ -36,6 +36,8 @@ import {
   type DataGridMetadata,
 } from "../types.js";
 import type { BASE_FEATURE } from "./base/base.js";
+import DataGridActions from "./dataGridActions/DataGridActions.vue";
+import { type DataGridAction } from "./dataGridActions/types.js";
 import { createRenderer } from "./renderer.js";
 
 /**
@@ -221,6 +223,12 @@ export type DataGridFeatureDescription<
      */
     order?: number;
   };
+  /**
+   * Allows defining actions that are displayed in the "action" slot above the data grid.
+   * Will be automatically wrapped into a "more" flyout if not all actions fit
+   * into the available width.
+   */
+  actions?: () => DataGridAction[];
 
   /**
    * Defines a renderer for a column type.
@@ -301,7 +309,7 @@ export type DataGridFeatureDescription<
 export type DataGridScrollContainerAttributes = HTMLAttributes & Pick<VNodeProps, "ref">;
 
 export type DataGridFeatureSlots = Partial<{
-  [TSlotName in keyof Pick<OnyxTableSlots, "headline" | "bottomLeft" | "pagination">]: (
+  [TSlotName in keyof Pick<OnyxTableSlots, "headline" | "bottomLeft" | "pagination" | "actions">]: (
     slotContent: () => VNode[],
   ) => Nullable<VNode>[];
 }>;
@@ -658,9 +666,13 @@ export const useDataGridFeatures = <
   const createSlots = () => {
     const slots: InternalDataGridSlots = {};
 
+    const actions = features.flatMap((f) => f.actions?.()).filter((action) => action != undefined);
+    if (actions.length) {
+      slots.actions = () => [h(DataGridActions, { actions })];
+    }
+
     features.forEach((feature) => {
       if (!feature.slots) return;
-
       Object.entries(feature.slots).forEach(([_slotName, slotFunc]) => {
         const slotName = _slotName as keyof typeof feature.slots;
         const existingSlot = slots[slotName] ?? (() => []);
