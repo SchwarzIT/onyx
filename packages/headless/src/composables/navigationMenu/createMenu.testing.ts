@@ -27,6 +27,7 @@ export const navigationTesting = async ({ nav, buttons }: NavigationMenuTestingO
    * Focus first button
    */
   await buttons.first().focus();
+  await expect(buttons.nth(0)).toBeFocused();
   /**
    * Move keyboard focus among top-level buttons using arrow keys
    */

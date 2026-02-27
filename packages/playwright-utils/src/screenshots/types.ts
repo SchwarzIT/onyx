@@ -1,4 +1,5 @@
 import type { MountResultJsx, test } from "@playwright/experimental-ct-vue";
+import type { LocatorScreenshotOptions } from "playwright";
 import type { JSX } from "vue/jsx-runtime";
 
 export type UseMatrixScreenshotTestOptions<TContext extends HookContext = HookContext> = {
@@ -7,7 +8,10 @@ export type UseMatrixScreenshotTestOptions<TContext extends HookContext = HookCo
    * Will be merged with the options passed to a single screenshot test.
    */
   defaults?: Partial<
-    Pick<MatrixScreenshotTestOptions<string, string, TContext>, "removePadding" | "hooks">
+    Pick<
+      MatrixScreenshotTestOptions<string, string, TContext>,
+      "removePadding" | "hooks" | "screenshotOptions"
+    >
   >;
   /**
    * Optional custom `test` function to use. Useful when using [fixtures](https://playwright.dev/docs/test-fixtures#creating-a-fixture).
@@ -50,6 +54,11 @@ export type MatrixScreenshotTestOptions<
    * Useful for passing options to (global) hooks per matrix screenshot, e.g. for disabling specific accessibility test rule.
    */
   context?: TContext;
+  /**
+   * LocatorScreenshotOptions that are passed to the playwright `.screenshot(...)` function.
+   * Per default `animations` are `disabled`.
+   */
+  screenshotOptions?: LocatorScreenshotOptions;
 };
 
 export type ScreenshotTestHooks<

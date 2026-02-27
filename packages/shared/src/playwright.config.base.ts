@@ -57,7 +57,6 @@ function getDefaultConfig(options?: DefineOnyxPlaywrightConfigOptions) {
     // https://github.com/SchwarzIT/onyx/actions/workflows/playwright-screenshots.yml
     ignoreSnapshots: !process.env.CI,
     updateSnapshots: process.env.PW_UPDATE_SNAPSHOTS === "true" ? "changed" : "none",
-
     /**
      * SHARDING
      *
@@ -113,7 +112,7 @@ function getDefaultConfig(options?: DefineOnyxPlaywrightConfigOptions) {
   } satisfies PlaywrightTestConfig;
 
   if (options?.browsers === "single") {
-    DEFAULT_CONFIG.projects = [DEFAULT_CONFIG.projects[0]];
+    DEFAULT_CONFIG.projects = DEFAULT_CONFIG.projects.filter(({ name }) => name === "chrome");
   }
 
   return DEFAULT_CONFIG;
