@@ -112,7 +112,7 @@ function getDefaultConfig(options?: DefineOnyxPlaywrightConfigOptions) {
   } satisfies PlaywrightTestConfig;
 
   if (options?.browsers === "single") {
-    DEFAULT_CONFIG.projects = [DEFAULT_CONFIG.projects[0]];
+    DEFAULT_CONFIG.projects = DEFAULT_CONFIG.projects.filter(({ name }) => name === "chrome");
   }
 
   return DEFAULT_CONFIG;
