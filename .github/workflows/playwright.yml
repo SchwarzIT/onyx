@@ -23,8 +23,10 @@ jobs:
         # to split up the tests in smaller chunks and run them in parallel
         # for further details, see: https://playwright.dev/docs/test-sharding
         # more shards can be added below to speed up the executing time if more screenshots are added in the future
-        # note: GitHub's limit is 256 parallel (see https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs#using-a-matrix-strategy)
-        shard: [1, 2, 3, 4, 5, 6, 7, 8]
+        # note:
+        # - GitHub's shard limit is 256 parallel (see https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs#using-a-matrix-strategy)
+        # - Github's job limit is 20 parallel (see https://docs.github.com/en/actions/reference/limits#job-concurrency-limits-for-github-hosted-runners)
+        shard: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     name: Playwright shard
     runs-on: ubuntu-latest
     permissions:
@@ -47,35 +49,8 @@ jobs:
       # install system dependencies for Playwright
       # see: https://playwright.dev/python/docs/browsers#install-system-dependencies
       - name: 📦 Install Playwright system dependencies
-        run: |
-          set -ex
-
-          RETRY_COUNT=0
-          MAX_RETRIES=3
-          TIMEOUT_LIMIT=180s
-
-          function playwright_install {
-            pnpm exec playwright install --no-shell --with-deps firefox webkit chrome
-          }
-
-          export -f playwright_install
-
-          until [ $RETRY_COUNT -ge $MAX_RETRIES ]
-          do
-            sudo rm -f /var/lib/dpkg/lock-frontend
-            sudo dpkg --configure -a
-             # 'timeout' ensures the individual attempt doesn't hang
-             timeout -k 10 $TIMEOUT_LIMIT bash -c playwright_install && break
-             
-             RETRY_COUNT=$((RETRY_COUNT+1))
-             echo "Attempt $RETRY_COUNT failed! Retrying in 10 seconds..."
-             sleep $((10 + (RANDOM / 1000)))
-          done
-
-          if [ $RETRY_COUNT -eq $MAX_RETRIES ]; then
-            echo "Operation failed after $MAX_RETRIES attempts."
-            exit 1
-          fi
+        run: pnpm exec playwright install --no-shell --with-deps firefox webkit chrome
+        timeout-minutes: 10
 
       - name: 🔎 Run Playwright tests
         run: pnpm run test:playwright:all --concurrency 1 ${{ (inputs.only-changed != '' && format('--affected -- --only-changed {0}', inputs.only-changed)) || '' }}
