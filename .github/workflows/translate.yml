@@ -1,0 +1,43 @@
+name: Automate translation
+on:
+  workflow_dispatch:
+  workflow_call:
+  # issue_comment:
+  #   types: [created]
+
+permissions:
+  contents: read
+
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    # if: github.event_name != 'issue_comment' || contains(github.event.comment.body, '/translate')
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: 🛃 Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+        with:
+          egress-policy: audit
+
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - uses: ./.github/templates/node-setup
+
+      - run: pnpx tsx .github/scripts/translate.ts
+        name: Translate
+        env:
+          MY_API_CLIENT_ID: ${{ secrets.MY_API_CLIENT_ID }}
+          MY_API_CLIENT_SECRET: ${{ secrets.MY_API_CLIENT_SECRET }}
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@c0f553fe549906ede9cf27b5156039d195d2ece0 # v8.1.0
+        with:
+          commit-message: "chore: update translations"
+          title: "chore: update translations"
+          body: This is an auto-generated pull request. All missing translations have been updated.
+          branch-suffix: short-commit-hash # needed to not override other pull requests created via workflows
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH_NAME: ${{ github.ref_name }}

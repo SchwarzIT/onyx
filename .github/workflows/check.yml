@@ -42,6 +42,16 @@ jobs:
       - name: 🛠️ Build packages
         run: pnpm run build:all
 
+  # TODO: remove after testing
+  translate:
+    if: github.ref != 'refs/heads/main'
+    name: Translations
+    uses: ./.github/workflows/translate.yml
+    secrets: inherit
+    permissions:
+      contents: write
+      pull-requests: write
+
   check:
     name: Check code quality
     runs-on: ubuntu-latest
