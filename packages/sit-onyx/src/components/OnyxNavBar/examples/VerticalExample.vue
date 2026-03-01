@@ -6,8 +6,10 @@ import {
   iconSearch,
   iconSettings,
 } from "@sit-onyx/icons";
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import { useResizeObserver } from "../../../composables/useResizeObserver.js";
 import {
+  ONYX_BREAKPOINTS,
   OnyxAppLayout,
   OnyxColorSchemeMenuItem,
   OnyxHeadline,
@@ -21,16 +23,23 @@ import {
 } from "../../../index.js";
 
 const expanded = ref(false);
+
+const { width } = useResizeObserver();
+/**
+ * Reactive state that determines if the view is in mobile mode.
+ * Automatically switches the layout to 'horizontal' / 'top' for small screens.
+ */
+const isMobile = computed(() => width.value <= ONYX_BREAKPOINTS.xs);
 </script>
 
 <template>
-  <OnyxAppLayout nav-bar-alignment="left">
+  <OnyxAppLayout :nav-bar-alignment="isMobile ? 'top' : 'left'">
     <template #navBar>
       <OnyxNavBar
         v-model:expanded="expanded"
         app-name="App name"
         logo-url="/onyx-logo.svg"
-        orientation="vertical"
+        :orientation="isMobile ? 'horizontal' : 'vertical'"
         with-back-button
       >
         <OnyxNavItem label="Router Link" link="#router-link" active :icon="iconPlaceholder" />
@@ -45,7 +54,15 @@ const expanded = ref(false);
 
         <template #contextArea>
           <OnyxTag color="warning" :icon="iconBrowserTerminal" label="QA stage" />
-          <OnyxUserMenu description="Company Name" full-name="Jane Doe">
+          <OnyxUserMenu description="Company Name" full-name="Jane Doe" position="right">
+            <OnyxMenuItem>
+              <OnyxIcon :icon="iconSettings" />
+              Settings
+            </OnyxMenuItem>
+            <OnyxMenuItem>
+              <OnyxIcon :icon="iconSettings" />
+              Settings
+            </OnyxMenuItem>
             <OnyxMenuItem>
               <OnyxIcon :icon="iconSettings" />
               Settings
@@ -75,3 +92,9 @@ const expanded = ref(false);
     </OnyxPageLayout>
   </OnyxAppLayout>
 </template>
+
+<style lang="scss">
+.onyx-user-menu .onyx-basic-popover__dialog {
+  margin-block: var(--onyx-spacing-xs);
+}
+</style>

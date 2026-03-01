@@ -1,7 +1,7 @@
 import type { Nullable } from "../../../../types/index.js";
 import type { OnyxBasicPopoverProps } from "../../../OnyxBasicPopover/types.js";
 
-export type OnyxFlyoutMenuProps = Pick<OnyxBasicPopoverProps, "alignment"> & {
+export type OnyxFlyoutMenuProps = Pick<OnyxBasicPopoverProps, "alignment" | "position"> & {
   /**
    * Aria label for the flyout.
    */

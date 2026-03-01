@@ -6,24 +6,27 @@ import { injectI18n } from "../../../../i18n/index.js";
 import type { Nullable, SelectOptionValue } from "../../../../types/index.js";
 import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
 import OnyxFlyoutMenu from "../OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
+import type { OnyxUserMenuProps } from "./types.js";
 
 const props = withDefaults(
-  defineProps<{
-    /**
-     * If the mobile layout should be used instead of the desktop layout.
-     */
-    isMobile: boolean;
-    /**
-     * Controls whether the flyout menu is open.
-     */
-    flyoutOpen?: Nullable<boolean>;
-    /**
-     * Whether the flyout is disabled and can not be opened.
-     */
-    disabled?: boolean;
-  }>(),
+  defineProps<
+    Pick<OnyxUserMenuProps, "alignment" | "position"> & {
+      /**
+       * If the mobile layout should be used instead of the desktop layout.
+       */
+      isMobile: boolean;
+      /**
+       * Controls whether the flyout menu is open.
+       */
+      flyoutOpen?: Nullable<boolean>;
+      /**
+       * Whether the flyout is disabled and can not be opened.
+       */
+      disabled?: boolean;
+    }
+  >(),
   // eslint-disable-next-line vue/no-boolean-default -- to support 'useVModel' we need to know if a value was set or not
-  { flyoutOpen: undefined },
+  { flyoutOpen: undefined, alignment: "right", position: "auto" },
 );
 
 const emit = defineEmits<{
@@ -76,7 +79,8 @@ const { t } = injectI18n();
       <OnyxFlyoutMenu
         v-model:open="flyoutOpen"
         :label="t('navigation.userMenuLabel')"
-        alignment="right"
+        :alignment="props.alignment"
+        :position="props.position"
         :disabled="disabled"
       >
         <template #button="{ trigger }">

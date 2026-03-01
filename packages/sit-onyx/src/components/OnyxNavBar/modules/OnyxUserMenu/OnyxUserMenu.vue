@@ -56,6 +56,8 @@ const isMobile = inject(
     :class="{ 'onyx-user-menu--mobile': isMobile }"
     :is-mobile="isMobile"
     :disabled="disabled"
+    :alignment="props.alignment"
+    :position="props.position"
   >
     <template #button="{ trigger }">
       <button class="onyx-user-menu__trigger onyx-text" type="button" v-bind="trigger">

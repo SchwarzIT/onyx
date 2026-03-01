@@ -14,7 +14,7 @@ export type OnyxMoreListProps = {
   /**
    * From which direction the more list items should be collapsed. Defaults to `rtl`.
    */
-  direction?: "rtl" | "ltr";
+  direction?: "rtl" | "ltr" | "ttb" | "btt";
 };
 
 export type MoreListSlotBindings = {
