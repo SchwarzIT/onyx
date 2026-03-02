@@ -1,5 +1,13 @@
 # @sit-onyx/storybook-utils
 
+## 1.1.2
+
+### Patch Changes
+
+- b1254e8: fix(sourceCodeTransformer): Fix only first occurrence of a flag/icon svg content was being replaced by imported constant
+- Updated dependencies
+  - @sit-onyx/icons@1.7.0
+
 ## 1.1.1
 
 ### Patch Changes
