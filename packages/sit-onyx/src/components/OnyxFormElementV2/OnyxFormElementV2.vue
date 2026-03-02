@@ -54,7 +54,6 @@ const label = computed<FormElementV2LabelOptions>(() => {
       densityClass,
       errorClass,
       { 'onyx-form-element-v2--label-left': label.position === 'left' },
-      { 'onyx-form-element-v2--label-right': label.position === 'right' },
     ]"
   >
     <OnyxFormElementV2Label v-if="!label.hidden" v-bind="topProps" />
@@ -186,25 +185,17 @@ const label = computed<FormElementV2LabelOptions>(() => {
     line-height: var(--onyx-font-line-height-md);
     max-width: 100%;
 
-    &--label-left,
-    &--label-right {
+    &--label-left {
       --onyx-form-element-v2-gap: var(--onyx-density-lg);
       align-items: flex-start;
       justify-content: space-between;
+      flex-direction: row;
 
       > .onyx-form-element-v2__label {
         width: max-content;
         padding-block: calc(var(--onyx-form-element-v2-padding-block) + var(--onyx-1px-in-rem));
         line-height: var(--onyx-font-line-height-md);
       }
-    }
-
-    &--label-left {
-      flex-direction: row;
-    }
-
-    &--label-right {
-      flex-direction: row-reverse;
     }
 
     &__body {
