@@ -122,7 +122,7 @@ const toc = computed(() => collection.data.value?.body.toc?.links ?? []);
   &__toc {
     position: sticky;
     top: var(--onyx-grid-margin-vertical);
-    height: calc(100vh - 3 * var(--onyx-grid-margin-vertical));
+    height: calc(100vh - var(--onyx-nav-bar-height) - 2 * var(--onyx-grid-margin-vertical));
   }
 
   // hide TOC on smaller screens
