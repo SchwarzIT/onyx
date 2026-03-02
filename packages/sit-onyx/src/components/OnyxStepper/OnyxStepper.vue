@@ -46,7 +46,7 @@ const emit = defineEmits<{
 }>();
 
 const { t, locale } = injectI18n();
-const input = useTemplateRef("inputRef");
+const input = useTemplateRef("input");
 
 const { disabled, showError } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
@@ -193,7 +193,7 @@ useAutofocus(input, props);
           <input
             v-else
             :id="inputId"
-            ref="inputRef"
+            ref="input"
             v-model="inputValue"
             v-custom-validity
             class="onyx-stepper__native"

@@ -18,7 +18,7 @@ defineSlots<{
   default(): unknown;
 }>();
 
-const button = useTemplateRef("buttonRef");
+const button = useTemplateRef("button");
 const { disabled } = useFormContext(props);
 
 const linkProps = computed(() =>
@@ -35,7 +35,7 @@ useAutofocus(button, props);
 
   <button
     v-else
-    ref="buttonRef"
+    ref="button"
     :disabled="disabled || props.loading"
     :type="props.type"
     :autofocus="props.autofocus"

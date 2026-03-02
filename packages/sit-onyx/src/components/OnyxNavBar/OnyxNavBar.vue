@@ -38,7 +38,7 @@ const activeNavBar = computed(() =>
 );
 const restAttr = useForwardProps(props, activeNavBar);
 
-const navBar = useTemplateRef("navBarRef");
+const navBar = useTemplateRef("navBar");
 
 const closeMobileMenus = () => {
   if (navBar.value && "closeMobileMenus" in navBar.value) {
@@ -56,7 +56,7 @@ defineExpose({
    *
    * ```ts
    * const route = useRoute();
-   * const navBar = useTemplateRef("navBarRef");
+   * const navBar = useTemplateRef("navBar");
    *
    * watch(() => route.path, () => navBar.value?.closeMobileMenus());
    * ```
@@ -68,7 +68,7 @@ defineExpose({
 <template>
   <component
     :is="activeNavBar"
-    ref="navBarRef"
+    ref="navBar"
     v-bind="restAttr"
     v-model:expanded="isExpanded"
     class="onyx-component"

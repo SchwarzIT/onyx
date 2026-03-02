@@ -43,7 +43,7 @@ const slots = defineSlots<{
   actions?(): unknown;
 }>();
 
-const panel = useTemplateRef("panelRef");
+const panel = useTemplateRef("panel");
 provideSkeletonContext(props);
 
 provide(TABS_INJECTION_KEY as TabsInjectionKey<TValue>, {
@@ -55,7 +55,7 @@ provide(TABS_INJECTION_KEY as TabsInjectionKey<TValue>, {
 
 <template>
   <div
-    ref="panelRef"
+    ref="panel"
     :class="[
       'onyx-component',
       'onyx-tabs',

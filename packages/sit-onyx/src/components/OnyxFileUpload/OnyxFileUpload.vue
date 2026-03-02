@@ -89,7 +89,7 @@ const modelValue = useVModel<typeof props, "modelValue", TModelValue>({
   key: "modelValue",
 });
 
-const input = useTemplateRef<HTMLInputElement>("inputRef");
+const input = useTemplateRef<HTMLInputElement>("input");
 
 const currentFiles = computed<File[]>(() => {
   const files = asArray<Nullable<File>>(modelValue.value ?? []);
@@ -329,7 +329,7 @@ const shouldShowFileList = computed(() => {
 
     <OnyxVisuallyHidden class="onyx-file-upload__visually-hidden-input">
       <input
-        ref="inputRef"
+        ref="input"
         v-custom-validity
         aria-hidden="true"
         tabindex="-1"

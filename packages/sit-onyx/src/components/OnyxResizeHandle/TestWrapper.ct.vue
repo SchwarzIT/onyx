@@ -8,13 +8,13 @@ const props = defineProps<{
   alignment?: ResizeHandleAlignment;
 }>();
 
-const container = useTemplateRef("containerRef");
+const container = useTemplateRef("container");
 const width = ref<number>();
 </script>
 
 <template>
   <div
-    ref="containerRef"
+    ref="container"
     class="onyx-component container"
     :style="{ width: width ? `${width}px` : undefined }"
   >

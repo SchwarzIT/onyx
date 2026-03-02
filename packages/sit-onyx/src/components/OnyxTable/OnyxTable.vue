@@ -20,7 +20,7 @@ const { densityClass } = useDensity(props);
 
 const isEmptyMessage = computed(() => t.value("table.empty"));
 
-const table = useTemplateRef("tableRef");
+const table = useTemplateRef("table");
 const { height, width } = useResizeObserver(table);
 
 const style = computed(() => ({
@@ -53,7 +53,7 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
       v-bind="scrollContainerAttrs"
     >
       <table
-        ref="tableRef"
+        ref="table"
         :class="[
           'onyx-table',
           'onyx-text',

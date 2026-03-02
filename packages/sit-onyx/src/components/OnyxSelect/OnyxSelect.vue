@@ -139,7 +139,7 @@ const open = useVModel<Props, "open", boolean>({
   default: false,
 });
 
-const select = useTemplateRef<HTMLElement>("selectRef");
+const select = useTemplateRef<HTMLElement>("select");
 const { openDirection, updateOpenDirection } = useOpenDirection(select);
 
 /**
@@ -171,8 +171,8 @@ const selectionLabels = computed(() => {
   }, []);
 });
 
-const miniSearch = useTemplateRef("miniSearchRef");
-const selectInput = useTemplateRef("selectInputRef");
+const miniSearch = useTemplateRef("miniSearch");
+const selectInput = useTemplateRef("selectInput");
 
 const filteredOptions = computed(() => {
   // if onyx does not manage the search or no searchTerm is given, we don't filter the options further
@@ -426,7 +426,7 @@ defineExpose({ input: computed(() => selectInput.value?.input) });
 </script>
 
 <template>
-  <div ref="selectRef" class="onyx-component onyx-select-wrapper">
+  <div ref="select" class="onyx-component onyx-select-wrapper">
     <OnyxBasicPopover
       :class="densityClass"
       :label="props.listLabel"
@@ -437,7 +437,7 @@ defineExpose({ input: computed(() => selectInput.value?.input) });
     >
       <template #default>
         <OnyxSelectInput
-          ref="selectInputRef"
+          ref="selectInput"
           v-bind="selectInputProps"
           :show-focus="open"
           :autofocus="props.autofocus"
@@ -454,7 +454,7 @@ defineExpose({ input: computed(() => selectInput.value?.input) });
           <!-- model-value is set here, as it is written by the onAutocomplete callback -->
           <OnyxMiniSearch
             v-if="props.withSearch"
-            ref="miniSearchRef"
+            ref="miniSearch"
             autofocus
             :model-value="searchTerm"
             v-bind="input"

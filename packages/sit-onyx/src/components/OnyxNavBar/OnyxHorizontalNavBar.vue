@@ -33,7 +33,7 @@ const emit = defineEmits<{
 
 const slots = defineSlots<OnyxNavBarSlots>();
 
-const navBar = useTemplateRef("navBarRef");
+const navBar = useTemplateRef("navBar");
 const { width } = useResizeObserver(navBar);
 const { t } = injectI18n();
 const { currentRoute } = useLink();
@@ -59,7 +59,7 @@ const actualIsMobile = computed(() => {
 });
 
 provide(MOBILE_NAV_BAR_INJECTION_KEY, actualIsMobile);
-provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreListRef"));
+provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreList"));
 
 const closeMobileMenus = () => {
   isBurgerOpen.value = false;
@@ -80,7 +80,7 @@ defineExpose({
 
 <template>
   <header
-    ref="navBarRef"
+    ref="navBar"
     class="onyx-component onyx-nav-bar"
     :class="{ 'onyx-nav-bar--mobile': actualIsMobile }"
   >
@@ -146,7 +146,7 @@ defineExpose({
                 </template>
 
                 <template #options>
-                  <div ref="moreListRef"></div>
+                  <div ref="moreList"></div>
                 </template>
               </OnyxFlyoutMenu>
             </template>

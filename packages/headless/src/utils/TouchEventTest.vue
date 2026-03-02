@@ -2,7 +2,7 @@
 import { ref, useTemplateRef } from "vue";
 import { isTouchEvent } from "./dom.js";
 
-const buttonRef = useTemplateRef<HTMLButtonElement>("buttonRef");
+const button = useTemplateRef<HTMLButtonElement>("button");
 const lastEventType = ref<string>("none");
 const isTouchEventResult = ref<boolean>(false);
 
@@ -20,7 +20,7 @@ const handleEvent = (event: Event) => {
 <template>
   <div>
     <button
-      ref="buttonRef"
+      ref="button"
       type="button"
       tabindex="0"
       @click="handleEvent"

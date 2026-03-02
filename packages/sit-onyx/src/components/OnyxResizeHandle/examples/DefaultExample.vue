@@ -2,7 +2,7 @@
 import { ref, useTemplateRef } from "vue";
 import OnyxResizeHandle from "../OnyxResizeHandle.vue";
 
-const container = useTemplateRef("containerRef");
+const container = useTemplateRef("container");
 const width = ref<number>();
 </script>
 
@@ -10,7 +10,7 @@ const width = ref<number>();
   <div>
     Drag the right border to see the resize handler in action.
 
-    <div ref="containerRef" class="container" :style="{ width: width ? `${width}px` : undefined }">
+    <div ref="container" class="container" :style="{ width: width ? `${width}px` : undefined }">
       <OnyxResizeHandle
         :element="container"
         @update-width="width = $event"

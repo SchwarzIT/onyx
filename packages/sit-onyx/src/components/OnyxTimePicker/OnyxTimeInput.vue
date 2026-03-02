@@ -29,10 +29,10 @@ const modelValue = useVModel({ props, emit, key: "modelValue" });
 const { t } = injectI18n();
 const open = ref(false);
 
-const hourInputRef = useTemplateRef<InputRef>("hourInputTemplateRef");
-const minuteInputRef = useTemplateRef<InputRef>("minuteInputTemplateRef");
-const secondInputRef = useTemplateRef<InputRef>("secondInputTemplateRef");
-const rootRef = useTemplateRef("rootTemplateRef");
+const hourInput = useTemplateRef<InputRef>("hourInput");
+const minuteInput = useTemplateRef<InputRef>("minuteInput");
+const secondInput = useTemplateRef<InputRef>("secondInput");
+const root = useTemplateRef("root");
 const isFocused = ref(false);
 
 const partsToTotalSeconds = (parts: string[]): number => {
@@ -125,11 +125,11 @@ const second = createSegmentComputed(2, "second");
 const getSegmentRef = (segment: Segment): Ref<InputRef | null> => {
   switch (segment) {
     case "hour":
-      return hourInputRef;
+      return hourInput;
     case "minute":
-      return minuteInputRef;
+      return minuteInput;
     case "second":
-      return secondInputRef;
+      return secondInput;
   }
 };
 
@@ -194,7 +194,7 @@ const handleInputChange = (currentSegment: Segment, e: KeyboardEvent) => {
 };
 
 useOutsideClick({
-  inside: rootRef,
+  inside: root,
   onOutsideClick: () => (open.value = false),
   checkOnTab: true,
 });
@@ -206,7 +206,7 @@ const showClearButton = computed(() => {
 </script>
 
 <template>
-  <div ref="rootTemplateRef" class="onyx-component onyx-time-picker">
+  <div ref="root" class="onyx-component onyx-time-picker">
     <OnyxBasicPopover
       class="onyx-time-picker__popover"
       :label="t('timePicker.labels.popover')"
@@ -251,7 +251,7 @@ const showClearButton = computed(() => {
         <div class="onyx-time-picker__wrapper" tabindex="-1">
           <div class="onyx-time-picker__group">
             <OnyxStepper
-              ref="hourInputTemplateRef"
+              ref="hourInput"
               v-model="hour"
               :label="t('timePicker.labels.hour')"
               :placeholder="t('timePicker.placeholder.hour')"
@@ -261,14 +261,14 @@ const showClearButton = computed(() => {
               hide-clear-icon
               hide-success-icon
               hide-buttons
-              @click="handleSegmentFocus(hourInputRef)"
+              @click="handleSegmentFocus(hourInput)"
               @keydown="(e: KeyboardEvent) => handleInputChange('hour', e)"
             />
 
             <span class="onyx-time-picker__divider">:</span>
 
             <OnyxStepper
-              ref="minuteInputTemplateRef"
+              ref="minuteInput"
               v-model="minute"
               :label="t('timePicker.labels.minute')"
               :placeholder="t('timePicker.placeholder.minute')"
@@ -278,7 +278,7 @@ const showClearButton = computed(() => {
               hide-clear-icon
               hide-success-icon
               hide-buttons
-              @click="handleSegmentFocus(minuteInputRef)"
+              @click="handleSegmentFocus(minuteInput)"
               @keydown="(e: KeyboardEvent) => handleInputChange('minute', e)"
             />
 
@@ -286,7 +286,7 @@ const showClearButton = computed(() => {
 
             <template v-if="props.showSeconds">
               <OnyxStepper
-                ref="secondInputTemplateRef"
+                ref="secondInput"
                 v-model="second"
                 :label="t('timePicker.labels.second')"
                 :placeholder="t('timePicker.placeholder.second')"
@@ -296,7 +296,7 @@ const showClearButton = computed(() => {
                 hide-clear-icon
                 hide-success-icon
                 hide-buttons
-                @click="handleSegmentFocus(secondInputRef)"
+                @click="handleSegmentFocus(secondInput)"
                 @keydown="(e: KeyboardEvent) => handleInputChange('second', e)"
               />
             </template>

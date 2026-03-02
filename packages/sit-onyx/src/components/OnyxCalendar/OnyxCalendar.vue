@@ -215,9 +215,9 @@ const calendarWeeksDisplay = computed(
     `${t.value("calendar.calendarWeek")} ${weeksToRender.value[0]?.weekNumber} - ${weeksToRender.value[weeksToRender.value.length - 1]?.weekNumber} `,
 );
 
-const picker = useTemplateRef("pickerRef");
-const pickerSmall = useTemplateRef("pickerSmallRef");
-const pickerSmallButton = useTemplateRef("pickerSmallButtonRef");
+const picker = useTemplateRef("picker");
+const pickerSmall = useTemplateRef("pickerSmall");
+const pickerSmallButton = useTemplateRef("pickerSmallButton");
 useOutsideClick({
   inside: () => [picker.value, pickerSmall.value, pickerSmallButton.value],
   onOutsideClick: () => (isPickerOpen.value = false),
@@ -259,7 +259,7 @@ useOutsideClick({
         </div>
         <OnyxButton
           v-if="calendarSize === 'small'"
-          ref="pickerSmallButtonRef"
+          ref="pickerSmallButton"
           color="neutral"
           :label="d(viewMonth, { month: 'long', year: 'numeric' })"
           mode="plain"
@@ -273,7 +273,7 @@ useOutsideClick({
 
         <OnyxBasicPopover
           v-else
-          ref="pickerRef"
+          ref="picker"
           v-model:open="isPickerOpen"
           :label="t('calendar.monthYearPicker')"
           @update:open="handlePickerUpdate"
@@ -313,7 +313,7 @@ useOutsideClick({
     <div class="onyx-calendar__body">
       <OnyxMonthYearPickerGrid
         v-if="calendarSize === 'small' && isPickerOpen"
-        ref="pickerSmallRef"
+        ref="pickerSmall"
         :open="isPickerOpen"
         :mode="pickerMode"
         :view-month="viewMonth"
