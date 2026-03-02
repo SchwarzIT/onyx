@@ -331,8 +331,5 @@
       "unorderedList": "Bullet list"
     },
     "blockquote": "Blockquote"
-  },
-  "test": {
-    "newKey": "This is an example"
   }
 }
