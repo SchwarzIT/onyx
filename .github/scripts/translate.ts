@@ -11,7 +11,7 @@ const config = {
     clientId: process.env.MY_API_CLIENT_ID || "",
     clientSecret: process.env.MY_API_CLIENT_SECRET || "",
   },
-  branch: process.env.GITHUB_REF_NAME || "main",
+  ref: process.env.GITHUB_REF || "refs/heads/main",
 };
 
 console.log("Determining existing onyx locales...");
@@ -41,9 +41,10 @@ async function translate(locales: string[]) {
     },
     body: JSON.stringify({
       templateId: config.api.templateID,
-      variables: [
-        { variableName: "locales", value: locales.join(", ") },
-        { variableName: "branch", value: config.branch },
+      variables: [{ variableName: "locales", value: locales.join(", ") }],
+      websiteLinks: [
+        `https://raw.githubusercontent.com/SchwarzIT/onyx/${config.ref}/packages/sit-onyx/src/i18n/locales/en-US.json`,
+        `https://raw.githubusercontent.com/SchwarzIT/onyx/${config.ref}/packages/sit-onyx/src/i18n/locales/de-DE.json`,
       ],
     }),
   });
