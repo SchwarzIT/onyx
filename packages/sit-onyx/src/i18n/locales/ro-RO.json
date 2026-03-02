@@ -116,7 +116,7 @@
   "selections": {
     "selectAll": "Selectare totală",
     "selectGroup": "Selectate",
-    "currentSelection": "{n} selectate"
+    "currentSelection": "{n} selectat | {n} selectate"
   },
   "stepper": {
     "decrement": "Scădere cu {stepSize}",

@@ -116,7 +116,7 @@
   "selections": {
     "selectAll": "Vybrať všetko",
     "selectGroup": "Vybrané",
-    "currentSelection": "{n} vybraných"
+    "currentSelection": "{n} vybraný | {n} vybrané | {n} vybraných"
   },
   "stepper": {
     "decrement": "Znížiť o {stepSize}",
@@ -169,7 +169,7 @@
   },
   "pagination": {
     "label": "Stránkovanie",
-    "ofPages": "z {pages} strany | z {pages} strán",
+    "ofPages": "z {pages} strany | z {pages} strán | z {pages} strán",
     "previous": "predchádzajúca strana",
     "next": "nasledujúca strana",
     "buttonLabel": "Strana {page}",
@@ -178,7 +178,7 @@
       "label": "Výber strany",
       "listLabel": "Dostupné strany"
     },
-    "currentOfTotalPages": "1/1 strana | {current}/{total} strán"
+    "currentOfTotalPages": "1/1 strana | {current}/{total} strany | {current}/{total} strán"
   },
   "input": {
     "clear": "Vymazať vstup",

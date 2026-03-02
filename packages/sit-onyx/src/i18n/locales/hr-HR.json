@@ -169,7 +169,7 @@
   },
   "pagination": {
     "label": "Paginacija",
-    "ofPages": "od {pages} stranice | od {pages} stranica",
+    "ofPages": "od {pages} stranice | od {pages} stranica | od {pages} stranica",
     "previous": "prethodna stranica",
     "next": "sljedeća stranica",
     "buttonLabel": "Stranica {page}",
@@ -178,7 +178,7 @@
       "label": "Odabir stranice",
       "listLabel": "Dostupne stranice"
     },
-    "currentOfTotalPages": "1/1 stranica | {current}/{total} stranica"
+    "currentOfTotalPages": "1/1 stranica | {current}/{total} stranice | {current}/{total} stranica"
   },
   "input": {
     "clear": "Očisti unos",

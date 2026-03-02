@@ -116,7 +116,7 @@
   "selections": {
     "selectAll": "Zaznacz wszystko",
     "selectGroup": "Zaznaczone",
-    "currentSelection": "Zaznaczono: {n}"
+    "currentSelection": "{n} zaznaczony | {n} zaznaczone | {n} zaznaczonych"
   },
   "stepper": {
     "decrement": "Zmniejsz o {stepSize}",
@@ -169,7 +169,7 @@
   },
   "pagination": {
     "label": "Paginacja",
-    "ofPages": "z {pages} strony | z {pages} stron",
+    "ofPages": "z {pages} strony | z {pages} stron | z {pages} stron",
     "previous": "poprzednia strona",
     "next": "następna strona",
     "buttonLabel": "Strona {page}",
@@ -178,7 +178,7 @@
       "label": "Wybór strony",
       "listLabel": "Dostępne strony"
     },
-    "currentOfTotalPages": "1/1 strona | {current}/{total} stron"
+    "currentOfTotalPages": "1/1 strona | {current}/{total} strony | {current}/{total} stron"
   },
   "input": {
     "clear": "Wyczyść pole",

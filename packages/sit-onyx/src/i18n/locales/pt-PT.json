@@ -116,7 +116,7 @@
   "selections": {
     "selectAll": "Selecionar tudo",
     "selectGroup": "Selecionados",
-    "currentSelection": "{n} selecionados"
+    "currentSelection": "{n} selecionado | {n} selecionados"
   },
   "stepper": {
     "decrement": "Diminuir em {stepSize}",
