@@ -112,6 +112,7 @@ const toc = computed(() => collection.data.value?.body.toc?.links ?? []);
 }
 
 .content {
+  /** Gap between page content and TOC. Equivalent to one grid column + 2 * grid gutter/gap */
   --onyx-content-toc-gap: calc(2 * var(--onyx-grid-gutter) + (100 / var(--onyx-grid-columns)) * 1%);
   display: grid;
   gap: var(--onyx-content-toc-gap);
