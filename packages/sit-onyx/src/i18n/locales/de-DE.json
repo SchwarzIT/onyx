@@ -328,5 +328,8 @@
       "unorderedList": "Auflistung"
     },
     "blockquote": "Zitat"
+  },
+  "test": {
+    "newKey": "Das ist ein Beispiel"
   }
 }
