@@ -126,8 +126,8 @@ function mergeTranslations(base: TranslationJson, update: TranslationJson) {
     // check if both values are objects; if so, recurse
     if (isObject(baseValue) && isObject(updateValue)) {
       output[key] = mergeTranslations(baseValue, updateValue);
-    } else {
-      // otherwise, overwrite the value (handles string updates or type changes)
+    } else if (!output[key]) {
+      // otherwise, overwrite the value (handles string updates or type changes) if no value exists yet
       output[key] = updateValue;
     }
   });
