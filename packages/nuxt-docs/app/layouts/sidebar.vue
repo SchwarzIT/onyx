@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { iconArrowSmallLeft } from "@sit-onyx/icons";
 import type { OnyxPageLayoutProps, OnyxSidebarProps } from "sit-onyx";
+import { useCollection } from "~/composables/useCollection.js";
 import type { SidebarNavigationItem } from "../composables/useSidebarNavigation.js";
 
 const props = defineProps<
@@ -38,6 +39,9 @@ const slots = defineSlots<{
 }>();
 
 const { navigation, previousRootItem } = await useSidebarNavigation();
+
+const collection = await useCollection();
+const toc = computed(() => collection.data.value?.body.toc?.links ?? []);
 </script>
 
 <template>
@@ -76,7 +80,13 @@ const { navigation, previousRootItem } = await useSidebarNavigation();
       </OnyxSidebar>
     </template>
 
-    <slot></slot>
+    <div class="content">
+      <div>
+        <slot></slot>
+      </div>
+
+      <TableOfContents v-if="toc.length" class="content__toc" :links="toc" />
+    </div>
 
     <template v-if="!!slots.footer" #footer>
       <slot name="footer"></slot>
@@ -89,9 +99,7 @@ const { navigation, previousRootItem } = await useSidebarNavigation();
 </template>
 
 <style lang="scss" scoped>
-.content {
-  white-space: pre-line;
-}
+@use "sit-onyx/breakpoints.scss";
 
 .sidebar {
   &__empty {
@@ -101,6 +109,30 @@ const { navigation, previousRootItem } = await useSidebarNavigation();
   &__back {
     width: 100%;
     justify-content: flex-start;
+  }
+}
+
+.content {
+  --onyx-content-toc-gap: calc(2 * var(--onyx-grid-gutter) + (100 / var(--onyx-grid-columns)) * 1%);
+  display: grid;
+  gap: var(--onyx-content-toc-gap);
+
+  // see: https://storybook.onyx.schwarz/?path=/docs/navigation-tableofcontents--docs
+  grid-template-columns: 1fr minmax(8rem, 15rem);
+
+  &__toc {
+    position: sticky;
+    top: var(--onyx-grid-margin-vertical);
+    height: calc(100vh - 3 * var(--onyx-grid-margin-vertical));
+  }
+
+  // hide TOC on smaller screens
+  @include breakpoints.container(max, md) {
+    grid-template-columns: 1fr;
+
+    .content__toc {
+      display: none;
+    }
   }
 }
 </style>
