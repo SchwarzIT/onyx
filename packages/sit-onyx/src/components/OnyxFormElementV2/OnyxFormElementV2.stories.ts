@@ -86,16 +86,6 @@ export const LeftLabel = {
   },
 } satisfies Story;
 
-export const RightLabel = {
-  args: {
-    ...Default.args,
-    label: {
-      ...Default.args.label,
-      position: "right",
-    },
-  },
-} satisfies Story;
-
 export const Popover = createAdvancedStoryExample(
   "OnyxFormElementV2",
   "PopoverExample",
