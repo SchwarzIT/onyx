@@ -21,7 +21,7 @@ jobs:
 
       - uses: ./.github/templates/node-setup
 
-      - run: pnpx tsx .github/scripts/translate.ts
+      - run: node .github/scripts/translate.ts
         name: Translate
         env:
           MY_API_CLIENT_ID: ${{ secrets.MY_API_CLIENT_ID }}
