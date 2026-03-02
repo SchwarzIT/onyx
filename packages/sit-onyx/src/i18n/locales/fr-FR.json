@@ -331,5 +331,8 @@
       "unorderedList": "Liste à puces"
     },
     "blockquote": "Bloc de citation"
+  },
+  "test": {
+    "newKey": "Ceci est un exemple"
   }
 }

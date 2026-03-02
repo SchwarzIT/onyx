@@ -331,5 +331,8 @@
       "unorderedList": "글머리 기호 목록"
     },
     "blockquote": "인용 블록"
+  },
+  "test": {
+    "newKey": "이것은 예시입니다"
   }
 }

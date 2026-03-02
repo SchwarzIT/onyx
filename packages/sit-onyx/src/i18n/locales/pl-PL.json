@@ -331,5 +331,8 @@
       "unorderedList": "Lista wypunktowana"
     },
     "blockquote": "Blok cytatu"
+  },
+  "test": {
+    "newKey": "To jest przykład"
   }
 }

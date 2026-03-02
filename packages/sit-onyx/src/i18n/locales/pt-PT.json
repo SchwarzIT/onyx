@@ -331,5 +331,8 @@
       "unorderedList": "Lista com marcadores"
     },
     "blockquote": "Bloco de citação"
+  },
+  "test": {
+    "newKey": "Isto é um exemplo"
   }
 }

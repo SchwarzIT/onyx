@@ -331,5 +331,8 @@
       "unorderedList": "Lista de viñetas"
     },
     "blockquote": "Bloque de cita"
+  },
+  "test": {
+    "newKey": "Esto es un ejemplo"
   }
 }

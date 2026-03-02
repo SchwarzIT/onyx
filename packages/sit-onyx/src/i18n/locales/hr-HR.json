@@ -331,5 +331,8 @@
       "unorderedList": "Popis s grafičkim oznakama"
     },
     "blockquote": "Blok citat"
+  },
+  "test": {
+    "newKey": "Ovo je primjer"
   }
 }

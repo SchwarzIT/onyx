@@ -331,5 +331,8 @@
       "unorderedList": "Elenco puntato"
     },
     "blockquote": "Blocco di citazione"
+  },
+  "test": {
+    "newKey": "Questo è un esempio"
   }
 }

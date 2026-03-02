@@ -331,5 +331,8 @@
       "unorderedList": "Lijst met opsommingstekens"
     },
     "blockquote": "Citaatblok"
+  },
+  "test": {
+    "newKey": "Dit is een voorbeeld"
   }
 }

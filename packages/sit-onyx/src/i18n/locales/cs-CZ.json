@@ -331,5 +331,8 @@
       "unorderedList": "Seznam s odrážkami"
     },
     "blockquote": "Bloková citace"
+  },
+  "test": {
+    "newKey": "Toto je příklad"
   }
 }
