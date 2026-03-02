@@ -42,10 +42,10 @@ async function translate(locales: string[]) {
     body: JSON.stringify({
       templateId: config.api.templateID,
       variables: [{ variableName: "locales", value: locales.join(", ") }],
-      websiteLinks: [
-        `https://raw.githubusercontent.com/SchwarzIT/onyx/${config.ref}/packages/sit-onyx/src/i18n/locales/en-US.json`,
-        `https://raw.githubusercontent.com/SchwarzIT/onyx/${config.ref}/packages/sit-onyx/src/i18n/locales/de-DE.json`,
-      ],
+      websiteLinks: ["en-US", "de-DE", ...locales].map(
+        (locale) =>
+          `https://raw.githubusercontent.com/SchwarzIT/onyx/${config.ref}/packages/sit-onyx/src/i18n/locales/${locale}.json`,
+      ),
     }),
   });
 
