@@ -1,5 +1,24 @@
 # @sit-onyx/icons
 
+## 1.7.0
+
+### Minor Changes
+
+- a513471: feat: update icons
+
+  #### New
+  - numbered-list
+
+- 1dee330: feat: update icons
+
+  #### New
+  - chevron-first-page
+  - chevron-last-page
+
+  #### Modified
+  - eye-closed
+  - share-android
+
 ## 1.6.0
 
 ### Minor Changes

@@ -1,5 +1,54 @@
 # sit-onyx
 
+## 1.9.0
+
+### Minor Changes
+
+- 71e4f12: feat(OnyxNavBar): implemented new `orientation`, `expanded` and `alignment` properties for supporting a vertical nav bar
+- b1254e8: feat: implemented new `OnyxUnstableSplitButton` component
+
+  For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the **[**changelog**]**(**https://onyx.schwarz/development/packages/changelogs/sit-onyx.html**) when using it.
+
+- bb05353: feat: implement new `OnyxUnstableFormElementV2` component
+
+  This component will replace the `OnyxFormElement` in the future and be the unified foundation for other form elements.
+
+  For now, the `OnyxUnstableFormElementV2` component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using it.
+
+- 9527d87: feat: support more languages
+
+  The following languages are now supported: Bulgarian, Czech, Spanish, French, Croatian, Italian, Korean (updated), Dutch, Polish, Portuguese, Romanian and Slovak
+
+  For a full list, please refer to the [i18n documentation](https://onyx.schwarz/development/i18n.html#build-in-languages).
+
+- 2899011: feat(OnyxNavBar):
+  implemented VerticalNavBar features:
+  - implemented `OnyxMoreList` for automatic item overflow.
+  - feat added tooltip and flyout positions & offset configurations
+
+  feat(OnyxFlyout & OnyxUserMenu):
+  - added left/right position support
+
+- ad676a1: The following utils are now exported: FORM_INJECTED_SYMBOL, useFormContext, getFormMessages, injectI18n and useForwardProps
+- d123fcd: feat: add missing translations
+- 28b2948: feat(OnyxDataGrid): implemented `actions` option for features to pass actions that are displayed above the data grid.
+- ad676a1: feat(OnyxSystemButton): add `default` slot
+
+### Patch Changes
+
+- ecb91f9: refactor: rename the "Timepicker" component, its related types and CSS classes to "TimePicker" (camel case) to be aligned with common naming conventions.
+  This affects:
+  - Component name: `OnyxUnstableTimepicker` to `OnyxUnstableTimePicker`
+  - CSS classes: `.onyx-timepicker-*` to `.onyx-time-picker-*`
+  - types: `OnyxTimepickerProps` to `OnyxTimePickerProps`, `TIMEPICKER_TYPES` to `TIME_PICKER_TYPES` and `TimepickerSelectOptions` to `TimePickerSelectOptions`
+
+- bb05353: fix(OnyxBasicPopover): correctly manage open state internally if `open` property is unset
+- 44564cd: fix(OnyxSystemButton): Fix incorrect icon size from 20px to 16px. The component size itself stays the same.
+- 8e291bb: fix(OnyxFormElement): correctly apply `density` property
+- Updated dependencies [a513471]
+- Updated dependencies [1dee330]
+  - @sit-onyx/icons@1.7.0
+
 ## 1.8.0
 
 ### Minor Changes

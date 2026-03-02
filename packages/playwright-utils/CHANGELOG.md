@@ -1,5 +1,11 @@
 # @sit-onyx/playwright-utils
 
+## 1.2.0
+
+### Minor Changes
+
+- 919731c: feat(executeMatrixScreenshotTest): Added new option `screenshotOptions` to pass playwright LocatorScreenshotOptions
+
 ## 1.1.1
 
 ### Patch Changes
