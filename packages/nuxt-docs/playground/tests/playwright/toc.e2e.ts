@@ -5,6 +5,11 @@ test("should render table of contents", async ({ page, goto }) => {
   // ARRANGE
   await goto("/", { waitUntil: "hydration" });
 
+  // disable smooth scrolling to prevent flaky (screenshot) tests
+  await page.addStyleTag({
+    content: ".onyx-page__main { scroll-behavior: auto; }",
+  });
+
   const sidebar = page.getByLabel("Navigation", { exact: true });
   const sidebarBox = (await sidebar.boundingBox())!;
   const height = 512;
@@ -17,15 +22,15 @@ test("should render table of contents", async ({ page, goto }) => {
   await expect(toc).toBeVisible();
   await expect(page).toHaveScreenshot("toc.png");
 
-  const orderedListLink = toc.getByRole("link", { name: "Ordered list", exact: true });
-  await expect(orderedListLink).toHaveAttribute("href", "#ordered-list");
+  const tocLink = toc.getByRole("link", { name: "Headline 2" });
+  await expect(tocLink).toHaveAttribute("href", "#headline-2");
 
   // ACT
-  await orderedListLink.click();
+  await tocLink.click();
 
   // ASSERT
-  await expect(page).toHaveURL("#ordered-list");
-  await expect(page.getByRole("heading", { name: "Ordered list", exact: true })).toBeInViewport();
+  await expect(page).toHaveURL("#headline-2");
+  await expect(page.getByRole("heading", { name: "Headline 2" })).toBeInViewport();
   await expect(page).toHaveScreenshot("toc-scrolled.png");
 
   // ACT
