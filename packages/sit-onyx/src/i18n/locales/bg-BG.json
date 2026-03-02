@@ -331,5 +331,29 @@
       "unorderedList": "Списък с водещи символи"
     },
     "blockquote": "Блок с цитат"
+  },
+  "common": {
+    "save": "Запази",
+    "cancel": "Отказ",
+    "delete": "Изтрий",
+    "edit": "Редактирай"
+  },
+  "settings": {
+    "title": "Настройки",
+    "profile": {
+      "title": "Потребителски профил",
+      "firstName": "Име",
+      "lastName": "Фамилия",
+      "email": "Имейл адрес"
+    },
+    "notifications": {
+      "title": "Известия",
+      "enablePush": "Активиране на насочени известия",
+      "enableEmail": "Активиране на известия по имейл"
+    }
+  },
+  "validation": {
+    "requiredField": "Това поле е задължително.",
+    "invalidEmail": "Моля, въведете валиден имейл адрес."
   }
 }

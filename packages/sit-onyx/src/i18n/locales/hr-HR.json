@@ -331,5 +331,29 @@
       "unorderedList": "Popis s grafičkim oznakama"
     },
     "blockquote": "Blok citat"
+  },
+  "common": {
+    "save": "Spremi",
+    "cancel": "Odustani",
+    "delete": "Izbriši",
+    "edit": "Uredi"
+  },
+  "settings": {
+    "title": "Postavke",
+    "profile": {
+      "title": "Korisnički profil",
+      "firstName": "Ime",
+      "lastName": "Prezime",
+      "email": "Adresa e-pošte"
+    },
+    "notifications": {
+      "title": "Obavijesti",
+      "enablePush": "Omogući push obavijesti",
+      "enableEmail": "Omogući obavijesti e-poštom"
+    }
+  },
+  "validation": {
+    "requiredField": "Ovo polje je obavezno.",
+    "invalidEmail": "Molimo unesite valjanu adresu e-pošte."
   }
 }

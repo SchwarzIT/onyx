@@ -331,5 +331,29 @@
       "unorderedList": "글머리 기호 목록"
     },
     "blockquote": "인용 블록"
+  },
+  "common": {
+    "save": "저장",
+    "cancel": "취소",
+    "delete": "삭제",
+    "edit": "편집"
+  },
+  "settings": {
+    "title": "설정",
+    "profile": {
+      "title": "사용자 프로필",
+      "firstName": "이름",
+      "lastName": "성",
+      "email": "이메일 주소"
+    },
+    "notifications": {
+      "title": "알림",
+      "enablePush": "푸시 알림 활성화",
+      "enableEmail": "이메일 알림 활성화"
+    }
+  },
+  "validation": {
+    "requiredField": "필수 입력 항목입니다.",
+    "invalidEmail": "유효한 이메일 주소를 입력하세요."
   }
 }

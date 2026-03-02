@@ -331,5 +331,29 @@
       "unorderedList": "Lista com marcadores"
     },
     "blockquote": "Bloco de citação"
+  },
+  "common": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar"
+  },
+  "settings": {
+    "title": "Definições",
+    "profile": {
+      "title": "Perfil de utilizador",
+      "firstName": "Nome próprio",
+      "lastName": "Apelido",
+      "email": "Endereço de e-mail"
+    },
+    "notifications": {
+      "title": "Notificações",
+      "enablePush": "Ativar notificações push",
+      "enableEmail": "Ativar notificações por e-mail"
+    }
+  },
+  "validation": {
+    "requiredField": "Este campo é obrigatório.",
+    "invalidEmail": "Por favor, introduza um endereço de e-mail válido."
   }
 }

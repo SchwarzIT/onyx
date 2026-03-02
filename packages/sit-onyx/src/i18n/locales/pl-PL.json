@@ -331,5 +331,29 @@
       "unorderedList": "Lista wypunktowana"
     },
     "blockquote": "Blok cytatu"
+  },
+  "common": {
+    "save": "Zapisz",
+    "cancel": "Anuluj",
+    "delete": "Usuń",
+    "edit": "Edytuj"
+  },
+  "settings": {
+    "title": "Ustawienia",
+    "profile": {
+      "title": "Profil użytkownika",
+      "firstName": "Imię",
+      "lastName": "Nazwisko",
+      "email": "Adres e-mail"
+    },
+    "notifications": {
+      "title": "Powiadomienia",
+      "enablePush": "Włącz powiadomienia push",
+      "enableEmail": "Włącz powiadomienia e-mail"
+    }
+  },
+  "validation": {
+    "requiredField": "To pole jest wymagane.",
+    "invalidEmail": "Proszę podać prawidłowy adres e-mail."
   }
 }

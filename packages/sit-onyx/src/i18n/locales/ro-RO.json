@@ -331,5 +331,29 @@
       "unorderedList": "Listă cu puncte"
     },
     "blockquote": "Bloc de citat"
+  },
+  "common": {
+    "save": "Salvează",
+    "cancel": "Anulează",
+    "delete": "Șterge",
+    "edit": "Editează"
+  },
+  "settings": {
+    "title": "Setări",
+    "profile": {
+      "title": "Profil utilizator",
+      "firstName": "Prenume",
+      "lastName": "Nume de familie",
+      "email": "Adresă de e-mail"
+    },
+    "notifications": {
+      "title": "Notificări",
+      "enablePush": "Activați notificările push",
+      "enableEmail": "Activați notificările prin e-mail"
+    }
+  },
+  "validation": {
+    "requiredField": "Acest câmp este obligatoriu.",
+    "invalidEmail": "Vă rugăm să introduceți o adresă de e-mail validă."
   }
 }

@@ -331,5 +331,29 @@
       "unorderedList": "Lista de viñetas"
     },
     "blockquote": "Bloque de cita"
+  },
+  "common": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar"
+  },
+  "settings": {
+    "title": "Ajustes",
+    "profile": {
+      "title": "Perfil de usuario",
+      "firstName": "Nombre",
+      "lastName": "Apellidos",
+      "email": "Dirección de correo electrónico"
+    },
+    "notifications": {
+      "title": "Notificaciones",
+      "enablePush": "Habilitar notificaciones push",
+      "enableEmail": "Habilitar notificaciones por correo electrónico"
+    }
+  },
+  "validation": {
+    "requiredField": "Este campo es obligatorio.",
+    "invalidEmail": "Por favor, introduce una dirección de correo electrónico válida."
   }
 }

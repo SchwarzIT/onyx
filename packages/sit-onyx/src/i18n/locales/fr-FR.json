@@ -331,5 +331,29 @@
       "unorderedList": "Liste à puces"
     },
     "blockquote": "Bloc de citation"
+  },
+  "common": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier"
+  },
+  "settings": {
+    "title": "Paramètres",
+    "profile": {
+      "title": "Profil utilisateur",
+      "firstName": "Prénom",
+      "lastName": "Nom de famille",
+      "email": "Adresse e-mail"
+    },
+    "notifications": {
+      "title": "Notifications",
+      "enablePush": "Activer les notifications push",
+      "enableEmail": "Activer les notifications par e-mail"
+    }
+  },
+  "validation": {
+    "requiredField": "Ce champ est obligatoire.",
+    "invalidEmail": "Veuillez saisir une adresse e-mail valide."
   }
 }

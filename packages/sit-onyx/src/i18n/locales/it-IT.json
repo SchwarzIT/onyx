@@ -331,5 +331,29 @@
       "unorderedList": "Elenco puntato"
     },
     "blockquote": "Blocco di citazione"
+  },
+  "common": {
+    "save": "Salva",
+    "cancel": "Annulla",
+    "delete": "Elimina",
+    "edit": "Modifica"
+  },
+  "settings": {
+    "title": "Impostazioni",
+    "profile": {
+      "title": "Profilo utente",
+      "firstName": "Nome",
+      "lastName": "Cognome",
+      "email": "Indirizzo email"
+    },
+    "notifications": {
+      "title": "Notifiche",
+      "enablePush": "Abilita notifiche push",
+      "enableEmail": "Abilita notifiche via email"
+    }
+  },
+  "validation": {
+    "requiredField": "Questo campo è obbligatorio.",
+    "invalidEmail": "Inserisci un indirizzo email valido."
   }
 }

@@ -331,5 +331,29 @@
       "unorderedList": "Lijst met opsommingstekens"
     },
     "blockquote": "Citaatblok"
+  },
+  "common": {
+    "save": "Opslaan",
+    "cancel": "Annuleren",
+    "delete": "Verwijderen",
+    "edit": "Bewerken"
+  },
+  "settings": {
+    "title": "Instellingen",
+    "profile": {
+      "title": "Gebruikersprofiel",
+      "firstName": "Voornaam",
+      "lastName": "Achternaam",
+      "email": "E-mailadres"
+    },
+    "notifications": {
+      "title": "Notificaties",
+      "enablePush": "Pushnotificaties inschakelen",
+      "enableEmail": "E-mailnotificaties inschakelen"
+    }
+  },
+  "validation": {
+    "requiredField": "Dit veld is verplicht.",
+    "invalidEmail": "Voer een geldig e-mailadres in."
   }
 }

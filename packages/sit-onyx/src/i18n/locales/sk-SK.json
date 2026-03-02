@@ -331,5 +331,29 @@
       "unorderedList": "Zoznam s odrážkami"
     },
     "blockquote": "Blok citátu"
+  },
+  "common": {
+    "save": "Uložiť",
+    "cancel": "Zrušiť",
+    "delete": "Odstrániť",
+    "edit": "Upraviť"
+  },
+  "settings": {
+    "title": "Nastavenia",
+    "profile": {
+      "title": "Používateľský profil",
+      "firstName": "Meno",
+      "lastName": "Priezvisko",
+      "email": "E-mailová adresa"
+    },
+    "notifications": {
+      "title": "Oznámenia",
+      "enablePush": "Povoliť oznámenia push",
+      "enableEmail": "Povoliť e-mailové oznámenia"
+    }
+  },
+  "validation": {
+    "requiredField": "Toto pole je povinné.",
+    "invalidEmail": "Zadajte platnú e-mailovú adresu."
   }
 }
