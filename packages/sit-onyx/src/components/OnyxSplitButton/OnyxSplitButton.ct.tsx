@@ -1,5 +1,6 @@
 import { createEmitSpy, expectEmit } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density.js";
+import enUS from "../../i18n/locales/en-US.json" with { type: "json" };
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import { BUTTON_COLORS, BUTTON_MODES } from "../OnyxButton/types.js";
@@ -50,7 +51,7 @@ test.describe("Screenshot tests", () => {
         beforeEach: async (component, page) => {
           const button = component.getByRole("button", { name: "Option 1" });
           const flyoutButton = component.getByRole("button", {
-            name: "Click to toggle action visibility",
+            name: enUS.flyoutMenu.toggleActions.click,
           });
 
           if (state === "hover") {
@@ -68,7 +69,7 @@ test.describe("Screenshot tests", () => {
             await flyoutButton.focus();
 
             // ensure the flyout is visible on the screenshots
-            const flyout = page.getByRole("dialog", { name: "More actions" });
+            const flyout = page.getByRole("dialog", { name: enUS.flyoutMenu.moreActions });
             await expect(flyout).toBeVisible();
           }
         },
@@ -90,8 +91,8 @@ test("Split button interactions", async ({ page, mount }) => {
   expectEmit(onClicked, 1, ["Option 1"]);
 
   // ACT
-  const toggleButton = page.getByRole("button", { name: "Click to toggle action visibility" });
-  const popover = page.getByRole("dialog", { name: "More actions" });
+  const toggleButton = page.getByRole("button", { name: enUS.flyoutMenu.toggleActions.click });
+  const popover = page.getByRole("dialog", { name: enUS.flyoutMenu.moreActions });
   await toggleButton.click();
 
   // ASSERT
