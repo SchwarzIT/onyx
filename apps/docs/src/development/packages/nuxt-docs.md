@@ -271,7 +271,7 @@ Plain / blank [OnyxPageLayout](https://storybook.onyx.schwarz/?path=/story/layou
 
 ### Sidebar layout
 
-Used as default for rendering markdown / content pages. Will automatically generate a sidebar with (nested) nav items, depending on your content structure.
+Used as default for rendering markdown / content pages. Will automatically generate a sidebar with (nested) nav items, table of contents etc. depending on your content structure.
 
 The sidebar layout can be customized on folder-level by creating a `.navigation.yml` inside the corresponding folder. This allows to e.g. set the initial accordion collapsed state or define multiple roots so you can have multiple sections in your application where each section have their own sidebar hierarchy.
 

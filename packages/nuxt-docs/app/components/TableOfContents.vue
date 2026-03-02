@@ -2,6 +2,9 @@
 import type { TocLink } from "@nuxtjs/mdc";
 
 const props = defineProps<{
+  /**
+   * Table of contents links, e.g. received from `queryCollection()`.
+   */
   links: TocLink[];
 }>();
 </script>
