@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { iconArrowSmallLeft } from "@sit-onyx/icons";
 import type { OnyxPageLayoutProps, OnyxSidebarProps } from "sit-onyx";
-import { useCollection } from "~/composables/useCollection.js";
 import type { SidebarNavigationItem } from "../composables/useSidebarNavigation.js";
 
 const props = defineProps<

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useCollection } from "~/composables/useCollection";
-
 definePageMeta({ layout: "sidebar" });
 
 const collection = await useCollection();
