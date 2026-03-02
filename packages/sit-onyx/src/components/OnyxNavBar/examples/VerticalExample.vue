@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import {
+  iconBell,
   iconBrowserTerminal,
   iconLogout,
   iconPlaceholder,
@@ -7,19 +8,20 @@ import {
   iconSettings,
 } from "@sit-onyx/icons";
 import { computed, ref } from "vue";
-import { useResizeObserver } from "../../../composables/useResizeObserver.js";
 import {
   ONYX_BREAKPOINTS,
   OnyxAppLayout,
   OnyxColorSchemeMenuItem,
   OnyxHeadline,
   OnyxIcon,
+  OnyxIconButton,
   OnyxMenuItem,
   OnyxNavBar,
   OnyxNavItem,
   OnyxPageLayout,
   OnyxTag,
   OnyxUserMenu,
+  useResizeObserver,
 } from "../../../index.js";
 
 const expanded = ref(false);
@@ -40,7 +42,6 @@ const isMobile = computed(() => width.value <= ONYX_BREAKPOINTS.xs);
         app-name="App name"
         logo-url="/onyx-logo.svg"
         :orientation="isMobile ? 'horizontal' : 'vertical'"
-        with-back-button
       >
         <OnyxNavItem label="Router Link" link="#router-link" active :icon="iconPlaceholder" />
         <OnyxNavItem label="External Link" link="https://it.schwarz/" :icon="iconPlaceholder" />
@@ -81,7 +82,18 @@ const isMobile = computed(() => width.value <= ONYX_BREAKPOINTS.xs);
         </template>
 
         <template #globalContextArea>
-          <OnyxNavItem color="neutral" :icon="iconSearch" label="Search" />
+          <component
+            :is="isMobile ? OnyxIconButton : OnyxNavItem"
+            :icon="iconSearch"
+            label="Search"
+            color="neutral"
+          />
+          <component
+            :is="isMobile ? OnyxIconButton : OnyxNavItem"
+            color="neutral"
+            :icon="iconBell"
+            label="Notification"
+          />
         </template>
       </OnyxNavBar>
     </template>
@@ -92,9 +104,3 @@ const isMobile = computed(() => width.value <= ONYX_BREAKPOINTS.xs);
     </OnyxPageLayout>
   </OnyxAppLayout>
 </template>
-
-<style lang="scss">
-.onyx-user-menu .onyx-basic-popover__dialog {
-  margin-block: var(--onyx-spacing-xs);
-}
-</style>
