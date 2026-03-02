@@ -5,13 +5,10 @@
 ### Minor Changes
 
 - a513471: feat: update icons
-
-  #### New
-  - numbered-list
-
 - 1dee330: feat: update icons
 
   #### New
+  - numbered-list
   - chevron-first-page
   - chevron-last-page
 

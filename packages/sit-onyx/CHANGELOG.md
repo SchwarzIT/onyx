@@ -4,10 +4,15 @@
 
 ### Minor Changes
 
-- 71e4f12: feat(OnyxNavBar): implemented new `orientation`, `expanded` and `alignment` properties for supporting a vertical nav bar
+- 2899011: feat(OnyxNavBar): vertical navbar support
+  - implemented `OnyxVerticalNavBar`support component
+  - implemented new `orientation`, `expanded` and `alignment` properties for supporting a vertical nav bar
+  - implemented `OnyxMoreList` for automatic item overflow.
+  - feat added tooltip and flyout positions & offset configurations
+
 - b1254e8: feat: implemented new `OnyxUnstableSplitButton` component
 
-  For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the **[**changelog**]**(**https://onyx.schwarz/development/packages/changelogs/sit-onyx.html**) when using it.
+  For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the **[changelog]https://onyx.schwarz/development/packages/changelogs/sit-onyx.html)** when using it.
 
 - bb05353: feat: implement new `OnyxUnstableFormElementV2` component
 
@@ -17,20 +22,14 @@
 
 - 9527d87: feat: support more languages
 
-  The following languages are now supported: Bulgarian, Czech, Spanish, French, Croatian, Italian, Korean (updated), Dutch, Polish, Portuguese, Romanian and Slovak
+  The following languages are now provided: Bulgarian, Czech, Spanish, French, Croatian, Italian, Korean (updated), Dutch, Polish, Portuguese, Romanian and Slovak
 
   For a full list, please refer to the [i18n documentation](https://onyx.schwarz/development/i18n.html#build-in-languages).
 
-- 2899011: feat(OnyxNavBar):
-  implemented VerticalNavBar features:
-  - implemented `OnyxMoreList` for automatic item overflow.
-  - feat added tooltip and flyout positions & offset configurations
-
-  feat(OnyxFlyout & OnyxUserMenu):
+- 2899011: feat(OnyxFlyout & OnyxUserMenu):
   - added left/right position support
 
-- ad676a1: The following utils are now exported: FORM_INJECTED_SYMBOL, useFormContext, getFormMessages, injectI18n and useForwardProps
-- d123fcd: feat: add missing translations
+- ad676a1: The following utils are now exported: `FORM_INJECTED_SYMBOL`, `useFormContext`, `getFormMessages`, `injectI18n` and `useForwardProps`
 - 28b2948: feat(OnyxDataGrid): implemented `actions` option for features to pass actions that are displayed above the data grid.
 - ad676a1: feat(OnyxSystemButton): add `default` slot
 
@@ -45,8 +44,7 @@
 - bb05353: fix(OnyxBasicPopover): correctly manage open state internally if `open` property is unset
 - 44564cd: fix(OnyxSystemButton): Fix incorrect icon size from 20px to 16px. The component size itself stays the same.
 - 8e291bb: fix(OnyxFormElement): correctly apply `density` property
-- Updated dependencies [a513471]
-- Updated dependencies [1dee330]
+- Updated dependencies
   - @sit-onyx/icons@1.7.0
 
 ## 1.8.0
@@ -55,10 +53,10 @@
 
 - 0b13ab6: feat: implement new `OnyxUnstableKey` and `OnyxUnstableShortcut` components as well as `_unstableUseShortcut` composable
 
-  For now, the components and composable are marked as experimental/unstable which means that they are still under active development and the API might change in patch or minor releases. Keep an eye on the **[**changelog**]**(**https://onyx.schwarz/development/packages/changelogs/sit-onyx.html**) when using them.
+  For now, the components and composable are marked as experimental/unstable which means that they are still under active development and the API might change in patch or minor releases. Keep an eye on the **[changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html)** when using them.
 
 - da2532c: feat(OnyxFormElement, OnyxForm): Add new `reserveMessageSpace` prop, which permanently blocks the message space (used by errors etc.) beneath the input field. Enabling this ensures no layout shifts are happening when the error state of an form element changes. This will become the new default behaviour von v2.
-- 7574590: The `OnyxUnstableCodeTabs` and `OnyxUnstableCodeTab` component are now considered stable so they are renamed to `OnyxCodeTabs` and `OnyxCodeTab`.
+- 7574590: The `OnyxUnstableCodeTabs` and `OnyxUnstableCodeTab` component are now considered stable, so they have been renamed to `OnyxCodeTabs` and `OnyxCodeTab`.
   There won't be any breaking changes from now on within minor versions.
 
   Other changes:

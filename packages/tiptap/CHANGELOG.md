@@ -18,20 +18,6 @@
   - wrap words correctly to prevent overflow
   - export type `OnyxStarterKitOptions`
 
-- Updated dependencies [ecb91f9]
-- Updated dependencies [bb05353]
-- Updated dependencies [44564cd]
-- Updated dependencies [a513471]
-- Updated dependencies [71e4f12]
-- Updated dependencies [b1254e8]
-- Updated dependencies [bb05353]
-- Updated dependencies [9527d87]
-- Updated dependencies [2899011]
-- Updated dependencies [1dee330]
-- Updated dependencies [ad676a1]
-- Updated dependencies [d123fcd]
-- Updated dependencies [28b2948]
-- Updated dependencies [ad676a1]
-- Updated dependencies [8e291bb]
+- Updated dependencies
   - sit-onyx@1.9.0
   - @sit-onyx/icons@1.7.0
