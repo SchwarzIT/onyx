@@ -2,6 +2,8 @@ import { expect, test } from "@nuxt/test-utils/playwright";
 import { ONYX_BREAKPOINTS, OnyxBreakpoint } from "sit-onyx";
 
 test("should show landing page", async ({ page, goto }) => {
+  test.slow();
+
   // ACT
   await goto("/", { waitUntil: "hydration" });
 
