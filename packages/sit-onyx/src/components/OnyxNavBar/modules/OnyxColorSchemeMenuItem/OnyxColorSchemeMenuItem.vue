@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { iconCircleContrast } from "@sit-onyx/icons";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { injectI18n } from "../../../../i18n/index.js";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxColorSchemeDialog from "../OnyxColorSchemeDialog/OnyxColorSchemeDialog.vue";
@@ -17,6 +17,10 @@ const emit = defineEmits<{
 const { t } = injectI18n();
 
 const isOpen = ref(false);
+
+// needed to prevent hydration errors in SSR
+const isMounted = ref(false);
+onMounted(() => (isMounted.value = true));
 </script>
 
 <template>
@@ -32,7 +36,7 @@ const isOpen = ref(false);
 
     <!-- the menu button renders a <li> and <button> so we need to teleport the dialog
       to not nest it inside the button -->
-    <Teleport to="body">
+    <Teleport v-if="isMounted" to="body">
       <OnyxColorSchemeDialog
         v-model:open="isOpen"
         :model-value="props.modelValue"

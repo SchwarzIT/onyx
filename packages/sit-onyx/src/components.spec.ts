@@ -34,27 +34,32 @@ const COMPONENTS: Components = {
   },
   OnyxNavBar: {
     render: () =>
-      h(ALL_EXPORTS.OnyxNavBar, {
-        appName: "App name",
-        default: () => [
-          h(ALL_EXPORTS.OnyxNavItem, { label: "Router Link", link: "#router-link" }),
-          h(
-            ALL_EXPORTS.OnyxNavItem,
-            { label: "Nesting" },
-            {
-              children: () => [
-                h(ALL_EXPORTS.OnyxNavItem, {
-                  label: "Nested Router Link",
-                  link: "#nested-router-link",
-                }),
-                h(ALL_EXPORTS.OnyxNavItem, {
-                  label: "Nested Button",
-                }),
-              ],
-            },
-          ),
-        ],
-      }),
+      h(
+        ALL_EXPORTS.OnyxNavBar,
+        {
+          appName: "App name",
+        },
+        {
+          default: () => [
+            h(ALL_EXPORTS.OnyxNavItem, { label: "Router Link", link: "#router-link" }),
+            h(
+              ALL_EXPORTS.OnyxNavItem,
+              { label: "Nesting" },
+              {
+                children: () => [
+                  h(ALL_EXPORTS.OnyxNavItem, {
+                    label: "Nested Router Link",
+                    link: "#nested-router-link",
+                  }),
+                  h(ALL_EXPORTS.OnyxNavItem, {
+                    label: "Nested Button",
+                  }),
+                ],
+              },
+            ),
+          ],
+        },
+      ),
   },
   OnyxNavItemFacade: {
     props: {
@@ -313,12 +318,12 @@ const COMPONENTS: Components = {
   },
   OnyxUnstableKey: {
     props: {
-      name: "ctrl",
+      name: "Control",
     },
   },
   OnyxUnstableShortcut: {
     props: {
-      sequence: [{ all: ["ctrl", "c"] }],
+      sequence: [{ all: ["Control", "C"] }],
     },
   },
 };
@@ -363,13 +368,8 @@ describe("components", () => {
     ).resolves.not.toThrow();
 
     // ASSERT
-    // TODO: [Fix hydration mismatch errors #4139](https://github.com/SchwarzIT/onyx/issues/4139)
-    expect(
-      errorSpy.mock.calls.filter((c) => c.at(0) !== "Hydration completed but contains mismatches."),
-    ).toMatchObject([]);
-    expect(
-      warningSpy.mock.calls.filter((c) => !c.at(0).startsWith("[Vue warn]: Hydration")),
-    ).toMatchObject([]);
+    expect(errorSpy.mock.calls).toMatchObject([]);
+    expect(warningSpy.mock.calls).toMatchObject([]);
   });
 });
 

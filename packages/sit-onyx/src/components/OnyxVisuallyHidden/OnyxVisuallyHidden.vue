@@ -1,18 +1,23 @@
 <script lang="ts" setup>
 import type { OnyxVisuallyHiddenProps } from "./types.js";
 
-defineSlots<{
+const slots = defineSlots<{
   /**
    * Content that should be visually hidden.
    */
-  default: () => unknown;
+  default?: () => unknown;
 }>();
 
 const props = withDefaults(defineProps<OnyxVisuallyHiddenProps>(), { is: "span" });
 </script>
 
 <template>
-  <component :is="props.is" class="onyx-component onyx-visually-hidden"><slot></slot></component>
+  <!-- this v-if check is needed to prevent hydration errors in SSR -->
+  <component :is="props.is" v-if="slots.default" class="onyx-component onyx-visually-hidden">
+    <slot></slot>
+  </component>
+
+  <component :is="props.is" v-else class="onyx-component onyx-visually-hidden" />
 </template>
 
 <style lang="scss">

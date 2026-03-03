@@ -1,5 +1,6 @@
 import {
   onBeforeMount,
+  onMounted,
   onUnmounted,
   ref,
   toValue,
@@ -134,7 +135,7 @@ export const useAnchorPositionPolyfill = ({
    * SSR safe composable for checking whether the browser supports the Anchor API.
    * TODO: can be removed after anchor is implemented in all common browsers.
    */
-  onBeforeMount(() => {
+  onMounted(() => {
     useragentSupportsAnchorApi.value =
       "CSS" in globalThis &&
       typeof CSS !== "undefined" &&
