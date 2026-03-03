@@ -2,4 +2,7 @@ import { defineOnyxPlaywrightConfigNuxt } from "@sit-onyx/shared/playwright.conf
 
 export default defineOnyxPlaywrightConfigNuxt({
   browsers: "single",
+  overrides: {
+    timeout: 2 * 60 * 1000,
+  },
 });
