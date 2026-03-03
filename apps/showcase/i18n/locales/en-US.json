@@ -10,7 +10,7 @@
   "app": {
     "hero": {
       "headline": "Welcome to {onyx}.\nA design system for\nenterprise applications.",
-      "description": "A design system and Vue.js component library created by Schwarz Digits."
+      "description": "A design system and Vue.js component library created by Schwarz Digits IT."
     }
   },
   "components": {

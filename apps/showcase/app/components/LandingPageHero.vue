@@ -34,8 +34,18 @@
 .hero {
   --hero-headline-size: 4.5rem;
   --hero-background-size: 90%;
-  --hero-color-gradient-neutral: rgba(5, 15, 40, 0.6);
-  --hero-color-gradient-primary: rgba(24, 131, 145, 0.26);
+  --hero-color-gradient-neutral: color-mix(
+    in srgb,
+    var(--onyx-color-base-neutral-100) 40%,
+    transparent
+  );
+
+  --hero-color-gradient-primary: color-mix(
+    in srgb,
+    var(--onyx-color-base-primary-300) 40%,
+    transparent
+  );
+
   min-height: calc(100vh - var(--onyx-nav-bar-height));
   background: var(--onyx-color-base-background-blank);
   background: linear-gradient(
