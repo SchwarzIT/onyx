@@ -1,11 +1,21 @@
 <script lang="ts" setup>
-const { t } = useI18n();
+import LandingPageHero from "~/components/LandingPageHero.vue";
+
+definePageMeta({ layout: false });
 
 useHead({
-  title: computed(() => t("home")),
+  bodyAttrs: {
+    // force dark mode
+    class: ["dark"],
+  },
 });
 </script>
 
 <template>
-  <OnyxHeadline is="h1">{{ $t("home") }}</OnyxHeadline>
+  <OnyxPageLayout no-padding>
+    <LandingPageHero />
+
+    <!-- comment in once more content is implemented -->
+    <!-- <div class="onyx-grid-layout"></div> -->
+  </OnyxPageLayout>
 </template>

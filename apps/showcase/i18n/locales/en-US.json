@@ -1,5 +1,4 @@
 {
-  "home": "Home",
   "introduction": "Introduction",
   "resources": "Resources",
   "support": "Support",
@@ -7,5 +6,15 @@
     "login": "Log in",
     "logout": "Log out",
     "informationSchwarz": "The login is only supported for internal employees of the Schwarz Group. When logged in, some information and features of this showcase will be available for logged in users."
-  }
+  },
+  "app": {
+    "hero": {
+      "headline": "Welcome to {onyx}.\nA design system for\nenterprise applications.",
+      "description": "A design system and Vue.js component library created by Schwarz Digits."
+    }
+  },
+  "components": {
+    "component": "Component | Components"
+  },
+  "gettingStarted": "Getting Started"
 }
