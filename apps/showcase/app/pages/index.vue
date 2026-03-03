@@ -1,13 +1,8 @@
 <script lang="ts" setup>
-import LandingPageHero from "~/components/LandingPageHero.vue";
-
-definePageMeta({ layout: false });
-
-useHead({
-  bodyAttrs: {
-    // force dark mode
-    class: ["dark"],
-  },
+definePageMeta({
+  layout: false,
+  // force dark mode
+  colorMode: "dark",
 });
 </script>
 
