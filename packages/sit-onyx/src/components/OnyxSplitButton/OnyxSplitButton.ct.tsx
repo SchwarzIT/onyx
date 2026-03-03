@@ -29,7 +29,7 @@ test.describe("Screenshot tests", () => {
     "focus",
     "hover-flyout",
     "focus-flyout",
-  ];
+  ] as const;
 
   states.forEach((state) => {
     executeMatrixScreenshotTest({
@@ -44,11 +44,11 @@ test.describe("Screenshot tests", () => {
           disabled={state === "disabled"}
           loading={state === "loading"}
           skeleton={state === "skeleton"}
-          style={{ margin: "0 2rem 2rem 0" }}
+          style={{ marginBottom: state === "focus-flyout" ? "8rem" : undefined }}
         />
       ),
       hooks: {
-        beforeEach: async (component) => {
+        beforeEach: async (component, page) => {
           const button = component.getByRole("button", { name: "Option 1" });
           const flyoutButton = component.getByRole("button", {
             name: enUS.flyoutMenu.toggleActions.click,
@@ -67,6 +67,10 @@ test.describe("Screenshot tests", () => {
 
           if (state === "focus-flyout") {
             await flyoutButton.focus();
+
+            // ensure the flyout is visible on the screenshots
+            const flyout = page.getByRole("dialog", { name: enUS.flyoutMenu.moreActions });
+            await expect(flyout).toBeVisible();
           }
         },
       },
