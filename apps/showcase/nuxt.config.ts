@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
   extends: ["@sit-onyx/nuxt-docs"],
-  modules: ["nuxt-studio", "nuxt-auth-utils"],
+  modules: ["nuxt-studio", "nuxt-auth-utils", "@nuxt/test-utils/module"],
   app: {
     head: {
       link: [{ rel: "icon", href: "/onyx-logo.svg" }],
@@ -14,6 +14,7 @@ export default defineNuxtConfig({
     locales: [{ code: "en", language: "en-US", file: "en-US.json", name: "English" }],
   },
   studio: {
+    dev: false,
     // git repository configuration
     repository: {
       provider: "github",
