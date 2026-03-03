@@ -1,7 +1,6 @@
-import type { HTMLAttributes, StyleValue } from "vue";
+import type { ClassValue, HTMLAttributes, StyleValue } from "vue";
 import type { DensityProp } from "../../composables/density.js";
 import type { TruncationType } from "../../types/index.js";
-import type { MaybeArray } from "../OnyxDataGrid/types.js";
 
 export type OnyxTableProps = DensityProp & {
   /**
@@ -94,7 +93,7 @@ export type TableColumnGroup = {
   /**
    * Additional CSS class for the table column group.
    */
-  class?: MaybeArray<string>;
+  class?: ClassValue;
   /**
    * Additional CSS style for the table column group.
    */
