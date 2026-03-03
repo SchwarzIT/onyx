@@ -2,13 +2,13 @@
 import { useTemplateRef } from "vue";
 import OnyxRipple from "./OnyxRipple.vue";
 
-const ripple = useTemplateRef("rippleRef");
+const ripple = useTemplateRef("ripple");
 </script>
 
 <template>
   <button class="onyx-component" type="button" v-on="ripple?.events">
     Test button
-    <OnyxRipple ref="rippleRef" />
+    <OnyxRipple ref="ripple" />
   </button>
 </template>
 

@@ -66,12 +66,12 @@ export type UseMoreListOptions = {
  * </script>
  *
  * <template>
- *   <div ref="parentRef" class="more-list">
- *     <div ref="listRef" class="more-list__elements">
+ *   <div ref="parent" class="more-list">
+ *     <div ref="list" class="more-list__elements">
  *        <OnyxNavItem v-for="i in 16" ref="componentRefs" :key="i" :label="`Nav button ${i}`" />
  *     </div>
  *
- *     <div ref="moreIndicatorRef" class="more-list__indicator">
+ *     <div ref="moreIndicator" class="more-list__indicator">
  *        +{{ more.hiddenElements.value.length }} more
  *     </div>
  *   </div>

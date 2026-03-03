@@ -30,7 +30,7 @@ defineSlots<{
   default(): unknown;
 }>();
 
-const dialog = useTemplateRef("dialogRef");
+const dialog = useTemplateRef("dialog");
 
 const { densityClass } = useDensity(props);
 
@@ -62,7 +62,7 @@ watch(
   },
 );
 
-const content = useTemplateRef("contentRef");
+const content = useTemplateRef("content");
 
 useOutsideClick({
   inside: content,
@@ -94,7 +94,7 @@ defineExpose({
   <!-- also we use cancel.prevent here so the dialog does not close automatically and is fully controlled by the "open" property -->
   <dialog
     v-if="props.open"
-    ref="dialogRef"
+    ref="dialog"
     :class="[
       'onyx-component',
       densityClass,
@@ -108,7 +108,7 @@ defineExpose({
     :role="props.alert ? 'alertdialog' : undefined"
     @cancel.prevent
   >
-    <div ref="contentRef" class="onyx-basic-dialog__content">
+    <div ref="content" class="onyx-basic-dialog__content">
       <slot></slot>
     </div>
   </dialog>

@@ -4,7 +4,7 @@ import { iconFile, iconUserGroup, iconUserId } from "@sit-onyx/icons";
 definePageMeta({ layout: false });
 
 const { t } = useI18n();
-const footer = useTemplateRef("footerRef");
+const footer = useTemplateRef("footer");
 provide(FORM_PAGE_INJECTION_KEY, { footerRef: footer });
 
 const sidebarItems = computed<SidebarItem[]>(() => [
@@ -21,7 +21,7 @@ const sidebarItems = computed<SidebarItem[]>(() => [
     </div>
 
     <template #footer>
-      <div ref="footerRef"></div>
+      <div ref="footer"></div>
     </template>
   </NuxtLayout>
 </template>

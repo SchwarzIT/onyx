@@ -12,7 +12,7 @@ const props = defineProps<{
   is: Component;
 }>();
 
-const formElement = useTemplateRef<{ input: { focus: () => void } }>("formElementRef");
+const formElement = useTemplateRef<{ input: { focus: () => void } }>("formElement");
 </script>
 
 <template>
@@ -22,7 +22,7 @@ const formElement = useTemplateRef<{ input: { focus: () => void } }>("formElemen
   </button>
   <component
     :is="props.is"
-    ref="formElementRef"
+    ref="formElement"
     :label="`form-element-test-wrapper-label-${props.name}`"
     :options="[]"
     :model-value="0"

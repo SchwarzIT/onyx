@@ -30,7 +30,7 @@ const { densityClass } = useDensity(props);
 const { disabled } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
 
-const ripple = useTemplateRef("rippleRef");
+const ripple = useTemplateRef("ripple");
 const rippleEvents = computed(() => ripple.value?.events ?? {});
 </script>
 
@@ -50,7 +50,7 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
     :aria-label="props.loading ? props.label : undefined"
     v-on="rippleEvents"
   >
-    <OnyxRipple v-if="!disabled && !props.loading" ref="rippleRef" />
+    <OnyxRipple v-if="!disabled && !props.loading" ref="ripple" />
     <OnyxIcon
       v-if="props.icon && props.iconPosition === 'left'"
       class="onyx-button__icon"

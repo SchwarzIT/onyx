@@ -26,13 +26,13 @@ defineSlots<{
 
 const tooltipError = computed(() => getFormMessageText(props.errorMessages));
 
-const target = useTemplateRef("targetRef");
+const target = useTemplateRef("target");
 </script>
 
 <template>
   <div class="onyx-component">
     <!-- component will be placed in here if no tooltip should be rendered -->
-    <div v-if="!tooltipError || props.disabled" ref="targetRef"></div>
+    <div v-if="!tooltipError || props.disabled" ref="target"></div>
 
     <!-- component will be placed inside the tooltip if it gets rendered -->
     <OnyxTooltip
@@ -43,7 +43,7 @@ const target = useTemplateRef("targetRef");
       color="danger"
     >
       <template #default="{ trigger }">
-        <div ref="targetRef" v-bind="trigger"></div>
+        <div ref="target" v-bind="trigger"></div>
       </template>
     </OnyxTooltip>
 

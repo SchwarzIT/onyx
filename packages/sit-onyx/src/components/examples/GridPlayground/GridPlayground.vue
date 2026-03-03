@@ -70,7 +70,7 @@ const isAddDialogOpen = ref(false);
 const gridElementIndexToEdit = ref<number>();
 const showGridLines = ref(true);
 
-const grid = useTemplateRef("gridRef");
+const grid = useTemplateRef("grid");
 
 watch(
   [viewportSize.width, grid, gridSettings],
@@ -272,7 +272,7 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
         </OnyxNavBar>
       </div>
       <div class="onyx-grid-layout">
-        <div ref="gridRef" class="onyx-grid">
+        <div ref="grid" class="onyx-grid">
           <GridElement
             v-for="(element, index) in gridElements"
             :key="index"

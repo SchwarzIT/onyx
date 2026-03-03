@@ -43,13 +43,13 @@ const gridSpan = computed(() => {
     : getComputedStyle(button.value).gridColumnEnd.replace("span", "").trim();
 });
 
-const button = useTemplateRef("buttonRef");
+const button = useTemplateRef("button");
 const size = useResizeObserver(button);
 </script>
 
 <template>
   <button
-    ref="buttonRef"
+    ref="button"
     :class="['grid-element', ...gridClasses, { 'grid-element--outline': props.mode === 'outline' }]"
     type="button"
     :aria-label="props.label"

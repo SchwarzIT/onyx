@@ -87,7 +87,7 @@ const value = computed({
   },
 });
 
-const input = useTemplateRef("inputRef");
+const input = useTemplateRef("input");
 defineExpose({ input });
 useAutofocus(input, props);
 </script>
@@ -124,7 +124,7 @@ useAutofocus(input, props);
           <input
             :id="inputId"
             :key="props.type"
-            ref="inputRef"
+            ref="input"
             v-model="value"
             v-custom-validity
             class="onyx-datepicker__native"

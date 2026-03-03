@@ -37,7 +37,7 @@ const modelValue = useVModel({
 const { rootAttrs, restAttrs } = useRootAttrs();
 const { densityClass } = useDensity(props);
 const { t } = injectI18n();
-const input = useTemplateRef("inputRef");
+const input = useTemplateRef("input");
 
 const placeholder = computed(() => t.value("select.searchPlaceholder"));
 useAutofocus(input, props);
@@ -57,7 +57,7 @@ defineExpose({
     :style="{ '--onyx-placeholder-character-count': placeholder.length }"
   >
     <input
-      ref="inputRef"
+      ref="input"
       v-model="modelValue"
       :autofocus="props.autofocus"
       class="onyx-mini-search__input onyx-text"

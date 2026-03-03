@@ -23,7 +23,7 @@ defineSlots<{
   name?(): unknown;
 }>();
 
-const wrapper = useTemplateRef("wrapperRef");
+const wrapper = useTemplateRef("wrapper");
 const isCopied = ref(false);
 
 const { value } = useCssVariableValue({
@@ -40,7 +40,7 @@ const handleCopy = async () => {
 </script>
 
 <template>
-  <div ref="wrapperRef" class="card vp-raw" :class="{ 'card--wide': props.wideName }">
+  <div ref="wrapper" class="card vp-raw" :class="{ 'card--wide': props.wideName }">
     <div class="card__wrapper">
       <div class="card__name">
         <slot name="name">

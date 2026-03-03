@@ -30,7 +30,7 @@ const { densityClass } = useDensity(props);
 
 provideSkeletonContext(props);
 
-provide(BREADCRUMB_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreListRef"));
+provide(BREADCRUMB_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreList"));
 </script>
 
 <template>
@@ -79,7 +79,7 @@ provide(BREADCRUMB_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreListRef")
             </template>
 
             <template #options>
-              <div ref="moreListRef"></div>
+              <div ref="moreList"></div>
             </template>
           </OnyxFlyoutMenu>
         </template>

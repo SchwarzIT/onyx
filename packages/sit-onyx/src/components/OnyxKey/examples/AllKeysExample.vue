@@ -25,7 +25,7 @@ import {
   type KeyboardKey,
 } from "../../../utils/keyboard.js";
 
-const detectedKey = useTemplateRef("keyRef");
+const detectedKey = useTemplateRef("detectedKey");
 const detectedOS = computed(() => detectedKey.value?.actualOS);
 
 type Entry = {
@@ -108,7 +108,7 @@ const features = [withCustomTypes, withFiltering, withSorting, withStickyColumns
     <OnyxDataGrid class="data-grid" :columns :data :features />
 
     <!-- this key is only used to get the detected OS -->
-    <OnyxUnstableKey v-show="false" ref="keyRef" name="A" />
+    <OnyxUnstableKey v-show="false" ref="detectedKey" name="A" />
   </div>
 </template>
 

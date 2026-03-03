@@ -46,7 +46,7 @@ const {
 } = createNavigationMenu({ navigationName: toRef(() => props.appName) });
 
 provide(NAV_BAR_IS_EXPANDED_INJECTION_KEY, isExpanded);
-provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreListRef"));
+provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreList"));
 </script>
 
 <template>
@@ -122,7 +122,7 @@ provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreListRef"));
                 </template>
 
                 <template #options>
-                  <div ref="moreListRef"></div>
+                  <div ref="moreList"></div>
                 </template>
               </OnyxFlyoutMenu>
             </template>

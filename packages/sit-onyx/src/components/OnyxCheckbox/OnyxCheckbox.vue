@@ -59,7 +59,7 @@ const title = computed(() => {
   return props.hideLabel ? props.label : undefined;
 });
 
-const input = useTemplateRef("inputRef");
+const input = useTemplateRef("input");
 defineExpose({ input });
 useAutofocus(input, props);
 </script>
@@ -84,7 +84,7 @@ useAutofocus(input, props);
         <OnyxLoadingIndicator v-if="props.loading" class="onyx-checkbox__loading" type="circle" />
         <input
           v-else
-          ref="inputRef"
+          ref="input"
           v-model="isChecked"
           v-custom-validity
           :aria-label="props.hideLabel ? props.label : undefined"

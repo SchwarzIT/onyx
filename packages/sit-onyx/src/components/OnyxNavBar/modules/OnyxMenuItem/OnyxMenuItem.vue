@@ -52,8 +52,8 @@ const open = useVModel({
   default: false,
 });
 
-const backButton = useTemplateRef("backButtonRef");
-const menuItemElementRef = useTemplateRef("menuItemRef");
+const backButton = useTemplateRef("backButton");
+const menuItemElementRef = useTemplateRef("menuItemElementRef");
 
 const {
   elements: { listItem, menuItem },
@@ -115,7 +115,7 @@ const handleBackButtonKeydown = async (event: KeyboardEvent) => {
   >
     <ButtonOrLinkLayout
       v-show="!open"
-      ref="menuItemRef"
+      ref="menuItemElementRef"
       class="onyx-menu-item__trigger"
       :disabled="props.disabled"
       :link="props.link"
@@ -138,7 +138,7 @@ const handleBackButtonKeydown = async (event: KeyboardEvent) => {
 
     <ul v-if="hasChildren" v-show="open" role="menu" class="onyx-menu-item__children">
       <OnyxMenuItem
-        ref="backButtonRef"
+        ref="backButton"
         class="onyx-menu-item__back"
         @keydown="handleBackButtonKeydown"
         @click.stop="open = false"

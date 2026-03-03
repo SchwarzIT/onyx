@@ -2,12 +2,12 @@
 import { ref, useTemplateRef } from "vue";
 import { isFocusVisible } from "./dom.js";
 
-const buttonRef = useTemplateRef<HTMLButtonElement>("buttonRef");
+const button = useTemplateRef<HTMLButtonElement>("button");
 const isFocused = ref(false);
 
 const updateFocusState = () => {
-  if (buttonRef.value) {
-    isFocused.value = isFocusVisible(buttonRef.value);
+  if (button.value) {
+    isFocused.value = isFocusVisible(button.value);
   }
 };
 </script>
@@ -15,7 +15,7 @@ const updateFocusState = () => {
 <template>
   <div>
     <button
-      ref="buttonRef"
+      ref="button"
       type="button"
       tabindex="0"
       @focus="updateFocusState"

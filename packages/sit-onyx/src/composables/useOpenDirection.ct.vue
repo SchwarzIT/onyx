@@ -2,7 +2,7 @@
 import { onMounted, useTemplateRef } from "vue";
 import { useOpenDirection } from "./useOpenDirection.js";
 
-const element = useTemplateRef("elementRef");
+const element = useTemplateRef("element");
 const { openDirection, updateOpenDirection } = useOpenDirection(element);
 
 onMounted(() => {
@@ -11,7 +11,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div ref="elementRef" class="onyx-component">
+  <div ref="element" class="onyx-component">
     {{ openDirection }}
     <button type="button" aria-label="Update direction" @click="updateOpenDirection">Update</button>
   </div>
