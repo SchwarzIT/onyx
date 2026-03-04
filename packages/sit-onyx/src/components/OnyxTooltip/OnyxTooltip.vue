@@ -2,6 +2,7 @@
 import { createToggletip, createTooltip, useGlobalEventListener } from "@sit-onyx/headless";
 import {
   computed,
+  isRef,
   onMounted,
   shallowRef,
   toRef,
@@ -21,6 +22,7 @@ import { useOpenDirection } from "../../composables/useOpenDirection.js";
 import { useResizeObserver } from "../../composables/useResizeObserver.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
+import { mergeVueProps } from "../../utils/attrs.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxTooltipProps } from "./types.js";
 
@@ -73,6 +75,8 @@ defineSlots<{
 
 const { densityClass } = useDensity(props);
 const { t } = injectI18n();
+
+const anchorName = `--anchor-${useId()}`;
 
 const isVisible = useVModel({
   props,
@@ -131,7 +135,14 @@ const ariaPattern = shallowRef(createPattern());
 watch(triggerType, () => (ariaPattern.value = createPattern()));
 
 const tooltip = computed(() => ariaPattern.value?.elements.tooltip);
-const triggerElementProps = computed(() => toValue<object>(ariaPattern.value?.elements.trigger));
+const triggerElementProps = computed(() => {
+  const trigger = ariaPattern.value.elements.trigger;
+  const triggerProps = isRef(trigger) ? toValue(trigger) : trigger;
+
+  return mergeVueProps(triggerProps, {
+    style: { "anchor-name": anchorName },
+  }) as object;
+});
 
 const alignsWithEdge = toRef(() => props.alignsWithEdge);
 const fitParent = toRef(() => props.fitParent);
@@ -218,8 +229,6 @@ watch(
   { flush: "post" },
 );
 
-const anchorName = `--anchor-${useId()}`;
-
 const tooltipStyles = computed(() => {
   if (useragentSupportsAnchorApi.value) {
     return {
@@ -239,11 +248,9 @@ const tooltipStyles = computed(() => {
 </script>
 
 <template>
-  <div
-    ref="tooltipWrapperRefEl"
-    :class="['onyx-component', 'onyx-tooltip-wrapper', densityClass]"
-    :style="`anchor-name: ${anchorName}`"
-  >
+  <div ref="tooltipWrapperRefEl" :class="['onyx-component', 'onyx-tooltip-wrapper', densityClass]">
+    <slot :trigger="triggerElementProps"></slot>
+
     <!-- we are using inline "style" here since using v-bind causes hydration errors in Nuxt / SSR -->
     <div
       ref="tooltipRefEl"
@@ -256,8 +263,6 @@ const tooltipStyles = computed(() => {
         <slot name="tooltip">{{ props.text }}</slot>
       </div>
     </div>
-
-    <slot :trigger="triggerElementProps"></slot>
   </div>
 </template>
 
@@ -439,10 +444,7 @@ $wedge-size: 0.5rem;
 
 .onyx-tooltip-wrapper {
   @include layers.component() {
-    position: relative;
-    width: max-content;
-    height: max-content;
-    place-content: center;
+    display: contents;
   }
 }
 </style>
