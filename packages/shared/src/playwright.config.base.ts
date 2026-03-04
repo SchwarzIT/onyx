@@ -177,10 +177,9 @@ export const defineOnyxPlaywrightConfigNuxt = (options?: DefineOnyxPlaywrightCon
     getDefaultConfig(options),
     {
       testDir: "./tests/playwright",
-      timeout: 2 * 60 * 1000,
+      timeout: 60 * 1000,
       use: {
         nuxt: {
-          setupTimeout: 2 * 60 * 1000,
           nuxtConfig: {
             content: {
               // prevent flaky tests / general test issues due to parallel execution
