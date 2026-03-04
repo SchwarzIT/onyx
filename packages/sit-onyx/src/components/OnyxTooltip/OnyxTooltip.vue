@@ -4,6 +4,7 @@ import {
   computed,
   isRef,
   onMounted,
+  ref,
   shallowRef,
   toRef,
   toValue,
@@ -19,7 +20,10 @@ import { useDensity } from "../../composables/density.js";
 import { useAnchorPositionPolyfill } from "../../composables/useAnchorPositionPolyfill.js";
 import { useOpenAlignment } from "../../composables/useOpenAlignment.js";
 import { useOpenDirection } from "../../composables/useOpenDirection.js";
-import { useResizeObserver } from "../../composables/useResizeObserver.js";
+import {
+  useResizeObserver,
+  type VueTemplateRefElement,
+} from "../../composables/useResizeObserver.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import { mergeVueProps } from "../../utils/attrs.js";
@@ -134,6 +138,12 @@ const createPattern = () =>
 const ariaPattern = shallowRef(createPattern());
 watch(triggerType, () => (ariaPattern.value = createPattern()));
 
+const triggerRef = ref<VueTemplateRefElement>();
+const triggerRefElement = computed(() => {
+  if (triggerRef.value && "$el" in triggerRef.value) return triggerRef.value.$el;
+  return triggerRef.value;
+});
+
 const tooltip = computed(() => ariaPattern.value?.elements.tooltip);
 const triggerElementProps = computed(() => {
   const trigger = ariaPattern.value.elements.trigger;
@@ -141,20 +151,20 @@ const triggerElementProps = computed(() => {
 
   return mergeVueProps(triggerProps, {
     style: { "anchor-name": anchorName },
+    ref: triggerRef,
   }) as object;
 });
 
 const alignsWithEdge = toRef(() => props.alignsWithEdge);
 const fitParent = toRef(() => props.fitParent);
 
-const tooltipWrapperRef = useTemplateRef("tooltipWrapperRefEl");
 const tooltipRef = useTemplateRef("tooltipRefEl");
-const { openDirection, updateOpenDirection } = useOpenDirection(tooltipWrapperRef, "top");
-const { openAlignment, updateOpenAlignment } = useOpenAlignment(tooltipWrapperRef, tooltipRef);
+const { openDirection, updateOpenDirection } = useOpenDirection(triggerRefElement, "top");
+const { openAlignment, updateOpenAlignment } = useOpenAlignment(triggerRefElement, tooltipRef);
 const { leftPosition, topPosition, updateAnchorPositionPolyfill, useragentSupportsAnchorApi } =
   useAnchorPositionPolyfill({
     positionedRef: tooltipRef,
-    targetRef: tooltipWrapperRef,
+    targetRef: triggerRefElement,
     positionArea: toolTipPosition,
     alignment: alignment,
     alignsWithEdge: alignsWithEdge,
@@ -195,9 +205,9 @@ const tooltipClasses = computed(() => {
   };
 });
 
-const { width } = useResizeObserver(tooltipWrapperRef);
+const { width } = useResizeObserver(triggerRefElement);
 const tooltipWidth = computed(() =>
-  props.fitParent && tooltipWrapperRef.value ? `${width.value}px` : "max-content",
+  props.fitParent && triggerRefElement.value ? `${width.value}px` : "max-content",
 );
 
 // initial update
@@ -248,7 +258,7 @@ const tooltipStyles = computed(() => {
 </script>
 
 <template>
-  <div ref="tooltipWrapperRefEl" :class="['onyx-component', 'onyx-tooltip-wrapper', densityClass]">
+  <div :class="['onyx-component', 'onyx-tooltip-wrapper', densityClass]">
     <slot :trigger="triggerElementProps"></slot>
 
     <!-- we are using inline "style" here since using v-bind causes hydration errors in Nuxt / SSR -->
