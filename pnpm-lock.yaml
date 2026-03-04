@@ -4,15 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-catalogs:
-  default:
-    chart.js:
-      specifier: 4.5.1
-      version: 4.5.1
-    typescript:
-      specifier: 5.9.3
-      version: 5.9.3
-
 overrides:
   '@playwright/experimental-ct-vue': 1.57.0
   '@playwright/test': 1.57.0
@@ -659,9 +650,6 @@ importers:
       axe-core:
         specifier: ^4.11.1
         version: 4.11.1
-      eslint-plugin-vue-scoped-css:
-        specifier: ^3.0.0
-        version: 3.0.0(eslint@9.39.3(jiti@2.6.1))(postcss-scss@4.0.9(postcss@8.5.6))(postcss-styl@0.12.3)(vue-eslint-parser@10.4.0(eslint@9.39.3(jiti@2.6.1)))
       sass-embedded:
         specifier: 1.97.3
         version: 1.97.3
