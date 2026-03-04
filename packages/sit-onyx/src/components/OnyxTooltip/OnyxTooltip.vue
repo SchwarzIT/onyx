@@ -141,7 +141,7 @@ watch(triggerType, () => (ariaPattern.value = createPattern()));
 const triggerRef = ref<VueTemplateRefElement>();
 const triggerRefElement = computed(() => {
   if (triggerRef.value && "$el" in triggerRef.value) return triggerRef.value.$el;
-  return triggerRef.value;
+  return triggerRef.value ?? null;
 });
 
 const tooltip = computed(() => ariaPattern.value?.elements.tooltip);
