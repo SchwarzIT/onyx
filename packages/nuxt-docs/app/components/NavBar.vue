@@ -42,7 +42,7 @@ const localePath = useLocalePath();
       <slot name="contextArea">
         <!-- using lazy here so the locale switch code is not loaded when only one locale exists -->
         <LazyLocaleSwitch v-if="locales.length > 1" />
-        <ColorSchemeSwitch />
+        <ColorSchemeSwitch v-if="!$colorMode.forced" />
       </slot>
     </template>
     <!-- eslint-enable vue/require-explicit-slots -->

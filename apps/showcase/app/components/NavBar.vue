@@ -24,7 +24,7 @@ const getLinkProps = computed(() => {
     <OnyxNavItem :label="$t('support')" v-bind="getLinkProps('/support')" />
 
     <template #contextArea>
-      <ColorSchemeSwitch />
+      <ColorSchemeSwitch v-if="!$colorMode.forced" />
       <OnyxSeparator orientation="vertical" />
       <UserMenu />
     </template>
