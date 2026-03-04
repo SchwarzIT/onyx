@@ -168,7 +168,7 @@ const sitOnyxConfig = {
   extends: [
     compat.configs["flat/recommended"],
     ...defineConfigWithVueTs(vue.configs["flat/recommended"], vueTsConfigs.recommendedTypeChecked),
-    ...vueScopedCss.configs["flat/recommended"],
+    ...vueScopedCss.configs["recommended"],
   ],
   languageOptions: {
     parserOptions: {
