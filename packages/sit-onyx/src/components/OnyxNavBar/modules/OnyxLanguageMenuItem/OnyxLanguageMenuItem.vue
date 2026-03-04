@@ -1,6 +1,6 @@
 <script lang="ts" setup generic="TValue extends string">
 import { iconTranslate } from "@sit-onyx/icons";
-import { computed, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { injectI18n } from "../../../../i18n/index.js";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxSelectDialog from "../../../OnyxSelectDialog/OnyxSelectDialog.vue";
@@ -19,6 +19,10 @@ const isOpen = ref(false);
 const currentValueLabel = computed(() => {
   return props.options.find(({ value }) => value === props.modelValue)?.label ?? props.modelValue;
 });
+
+// needed to prevent hydration errors in SSR
+const isMounted = ref(false);
+onMounted(() => (isMounted.value = true));
 </script>
 
 <template>
@@ -32,7 +36,7 @@ const currentValueLabel = computed(() => {
 
     <!-- the menu button renders a <li> and <button> so we need to teleport the dialog
       to not nest it inside the button -->
-    <Teleport to="body">
+    <Teleport v-if="isMounted" to="body">
       <OnyxSelectDialog
         v-model:open="isOpen"
         :model-value="props.modelValue"
