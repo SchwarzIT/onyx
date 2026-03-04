@@ -12,7 +12,7 @@ const props = withDefaults(defineProps<OnyxVisuallyHiddenProps>(), { is: "span" 
 </script>
 
 <template>
-  <!-- this v-if check is needed to prevent hydration errors in SSR -->
+  <!-- This v-if check is needed to prevent hydration errors in SSR: It ensures that self-closing elements (like `<input />`) are rendered correctly -->
   <component :is="props.is" v-if="slots.default" class="onyx-component onyx-visually-hidden">
     <slot></slot>
   </component>
