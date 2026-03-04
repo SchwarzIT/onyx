@@ -114,8 +114,8 @@ importers:
         specifier: ^10.8.0
         version: 10.8.0(@typescript-eslint/parser@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.3(jiti@2.6.1))(vue-eslint-parser@10.4.0(eslint@9.39.3(jiti@2.6.1)))
       eslint-plugin-vue-scoped-css:
-        specifier: ^2.12.0
-        version: 2.12.0(eslint@9.39.3(jiti@2.6.1))(vue-eslint-parser@10.4.0(eslint@9.39.3(jiti@2.6.1)))
+        specifier: ^3.0.0
+        version: 3.0.0(eslint@9.39.3(jiti@2.6.1))(postcss-scss@4.0.9(postcss@8.5.6))(postcss-styl@0.12.3)(vue-eslint-parser@10.4.0(eslint@9.39.3(jiti@2.6.1)))
       eslint-plugin-vuejs-accessibility:
         specifier: ^2.5.0
         version: 2.5.0(eslint@9.39.3(jiti@2.6.1))(globals@17.3.0)
@@ -660,8 +660,8 @@ importers:
         specifier: ^4.11.1
         version: 4.11.1
       eslint-plugin-vue-scoped-css:
-        specifier: ^2.12.0
-        version: 2.12.0(eslint@9.39.3(jiti@2.6.1))(vue-eslint-parser@10.4.0(eslint@9.39.3(jiti@2.6.1)))
+        specifier: ^3.0.0
+        version: 3.0.0(eslint@9.39.3(jiti@2.6.1))(postcss-scss@4.0.9(postcss@8.5.6))(postcss-styl@0.12.3)(vue-eslint-parser@10.4.0(eslint@9.39.3(jiti@2.6.1)))
       sass-embedded:
         specifier: 1.97.3
         version: 1.97.3
@@ -5044,12 +5044,6 @@ packages:
     engines: {node: '>=6.0'}
     hasBin: true
 
-  eslint-compat-utils@0.6.5:
-    resolution: {integrity: sha512-vAUHYzue4YAa2hNACjB8HvUQj5yehAZgiClyFVVom9cP8z5NSFq3PwB/TtJslN2zAMgRX6FCFCjYBbQh71g5RQ==}
-    engines: {node: '>=12'}
-    peerDependencies:
-      eslint: '>=6.0.0'
-
   eslint-config-prettier@10.1.8:
     resolution: {integrity: sha512-82GZUjRS0p/jganf6q1rEO25VSoHH0hKPCTrgillPjdI/3bgBhAE1QzHrHTizjpRvy6pGAvKjDJtk2pF9NDq8w==}
     hasBin: true
@@ -5088,12 +5082,19 @@ packages:
       eslint: '>=8'
       storybook: ^10.2.13
 
-  eslint-plugin-vue-scoped-css@2.12.0:
-    resolution: {integrity: sha512-gEbuvYetNbsPA0IsmERFkVC2/vOHCInfFekNSOsAxWI/7C/bc8PoLal+fRibWfnzWryY6iL8YoluMtrEqWRj1A==}
-    engines: {node: ^12.22 || ^14.17 || >=16}
+  eslint-plugin-vue-scoped-css@3.0.0:
+    resolution: {integrity: sha512-YNGP0nUBFWFQc//kpvxnGquKjKDkEaWoDFUcZbXCX6L5UIWDlbl34/GXlEEls06bzDJ9ETRpLlmrWgvvZg+yIg==}
+    engines: {node: ^20.19.0 || ^22.13.0 || >=24}
     peerDependencies:
-      eslint: '>=5.0.0'
+      eslint: '>=9.38.0'
+      postcss-scss: ^4.0.3
+      postcss-styl: ^0.12.0
       vue-eslint-parser: '>=7.1.0'
+    peerDependenciesMeta:
+      postcss-scss:
+        optional: true
+      postcss-styl:
+        optional: true
 
   eslint-plugin-vue@10.8.0:
     resolution: {integrity: sha512-f1J/tcbnrpgC8suPN5AtdJ5MQjuXbSU9pGRSSYAuF3SHoiYCOdEX6O22pLaRyLHXvDcOe+O5ENgc1owQ587agA==}
@@ -7112,12 +7113,6 @@ packages:
     engines: {node: ^18.12.0 || ^20.9.0 || >=22.0}
     peerDependencies:
       postcss: ^8.4.32
-
-  postcss-safe-parser@6.0.0:
-    resolution: {integrity: sha512-FARHN8pwH+WiS2OPCxJI8FuRJpTVnn6ZNFiqAM2aeW2LwTHWWmWgIyKC6cUo0L8aeKiF/14MNvnpls6R2PBeMQ==}
-    engines: {node: '>=12.0'}
-    peerDependencies:
-      postcss: ^8.3.3
 
   postcss-safe-parser@7.0.1:
     resolution: {integrity: sha512-0AioNCJZ2DPYz5ABT6bddIqlhgwhpHZ/l65YAYo0BCIn0xiDpsnTHz0gnoTGk0OXZW0JRs+cDwL8u/teRdz+8A==}
@@ -12859,7 +12854,8 @@ snapshots:
 
   async@3.2.6: {}
 
-  atob@2.1.2: {}
+  atob@2.1.2:
+    optional: true
 
   autoprefixer@10.4.24(postcss@8.5.6):
     dependencies:
@@ -13265,6 +13261,7 @@ snapshots:
       inherits: 2.0.4
       source-map: 0.6.1
       source-map-resolve: 0.6.0
+    optional: true
 
   cssesc@3.0.0: {}
 
@@ -13359,7 +13356,8 @@ snapshots:
     dependencies:
       character-entities: 2.0.2
 
-  decode-uri-component@0.2.2: {}
+  decode-uri-component@0.2.2:
+    optional: true
 
   decompress-response@6.0.0:
     dependencies:
@@ -13649,11 +13647,6 @@ snapshots:
     optionalDependencies:
       source-map: 0.6.1
 
-  eslint-compat-utils@0.6.5(eslint@9.39.3(jiti@2.6.1)):
-    dependencies:
-      eslint: 9.39.3(jiti@2.6.1)
-      semver: 7.7.4
-
   eslint-config-prettier@10.1.8(eslint@9.39.3(jiti@2.6.1)):
     dependencies:
       eslint: 9.39.3(jiti@2.6.1)
@@ -13693,20 +13686,18 @@ snapshots:
       - supports-color
       - typescript
 
-  eslint-plugin-vue-scoped-css@2.12.0(eslint@9.39.3(jiti@2.6.1))(vue-eslint-parser@10.4.0(eslint@9.39.3(jiti@2.6.1))):
+  eslint-plugin-vue-scoped-css@3.0.0(eslint@9.39.3(jiti@2.6.1))(postcss-scss@4.0.9(postcss@8.5.6))(postcss-styl@0.12.3)(vue-eslint-parser@10.4.0(eslint@9.39.3(jiti@2.6.1))):
     dependencies:
       '@eslint-community/eslint-utils': 4.9.1(eslint@9.39.3(jiti@2.6.1))
       eslint: 9.39.3(jiti@2.6.1)
-      eslint-compat-utils: 0.6.5(eslint@9.39.3(jiti@2.6.1))
       lodash: 4.17.23
       postcss: 8.5.6
-      postcss-safe-parser: 6.0.0(postcss@8.5.6)
-      postcss-scss: 4.0.9(postcss@8.5.6)
+      postcss-safe-parser: 7.0.1(postcss@8.5.6)
       postcss-selector-parser: 7.1.1
-      postcss-styl: 0.12.3
       vue-eslint-parser: 10.4.0(eslint@9.39.3(jiti@2.6.1))
-    transitivePeerDependencies:
-      - supports-color
+    optionalDependencies:
+      postcss-scss: 4.0.9(postcss@8.5.6)
+      postcss-styl: 0.12.3
 
   eslint-plugin-vue@10.8.0(@typescript-eslint/parser@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.3(jiti@2.6.1))(vue-eslint-parser@10.4.0(eslint@9.39.3(jiti@2.6.1))):
     dependencies:
@@ -14959,7 +14950,8 @@ snapshots:
 
   lodash.merge@4.6.2: {}
 
-  lodash.sortedlastindex@4.1.0: {}
+  lodash.sortedlastindex@4.1.0:
+    optional: true
 
   lodash.startcase@4.4.0: {}
 
@@ -16393,10 +16385,6 @@ snapshots:
       postcss: 8.5.6
       postcss-value-parser: 4.2.0
 
-  postcss-safe-parser@6.0.0(postcss@8.5.6):
-    dependencies:
-      postcss: 8.5.6
-
   postcss-safe-parser@7.0.1(postcss@8.5.6):
     dependencies:
       postcss: 8.5.6
@@ -16404,6 +16392,7 @@ snapshots:
   postcss-scss@4.0.9(postcss@8.5.6):
     dependencies:
       postcss: 8.5.6
+    optional: true
 
   postcss-selector-parser@7.1.1:
     dependencies:
@@ -16419,6 +16408,7 @@ snapshots:
       stylus: 0.57.0
     transitivePeerDependencies:
       - supports-color
+    optional: true
 
   postcss-svgo@7.1.0(postcss@8.5.6):
     dependencies:
@@ -17136,7 +17126,8 @@ snapshots:
     optionalDependencies:
       '@parcel/watcher': 2.5.6
 
-  sax@1.2.4: {}
+  sax@1.2.4:
+    optional: true
 
   sax@1.4.4: {}
 
@@ -17404,6 +17395,7 @@ snapshots:
     dependencies:
       atob: 2.1.2
       decode-uri-component: 0.2.2
+    optional: true
 
   source-map-support@0.5.21:
     dependencies:
@@ -17608,6 +17600,7 @@ snapshots:
       source-map: 0.7.6
     transitivePeerDependencies:
       - supports-color
+    optional: true
 
   superjson@2.2.6:
     dependencies:
