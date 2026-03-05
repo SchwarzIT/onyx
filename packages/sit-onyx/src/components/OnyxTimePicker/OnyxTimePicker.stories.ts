@@ -32,6 +32,7 @@ export const WithSeconds = {
 } satisfies Story;
 
 export const Range = {
+  tags: ["new:feature"],
   args: {
     type: "range",
   },
