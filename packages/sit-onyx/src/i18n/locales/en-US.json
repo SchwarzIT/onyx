@@ -281,12 +281,20 @@
       "second": "SS"
     },
     "labels": {
+      "from": "from",
+      "to": "to",
       "iconButton": "Open time picker",
       "popover": "Time picker",
       "hour": "Hour",
       "minute": "Minute",
       "second": "Second",
       "listLabel": "Time options"
+    },
+    "errors": {
+      "outsideRange": "The time range must be between {min} and {max}.",
+      "timeBeforeMin": "The time range must be start after {min}",
+      "timeAfterMax": "The time range must be end before {max}",
+      "endTimeAfterStartTime": "The end time must be after start time."
     }
   },
   "itemsPerPage": {

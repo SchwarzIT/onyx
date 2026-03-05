@@ -31,7 +31,7 @@ const select = useForwardProps(props, OnyxTimeSelect);
 
 <template>
   <div class="onyx-component">
-    <OnyxTimeInput v-if="props.type === 'default'" v-bind="input" v-model="modelValue" />
-    <OnyxTimeSelect v-else v-bind="select" v-model="modelValue" />
+    <OnyxTimeSelect v-if="props.type === 'select'" v-bind="select" v-model="modelValue" />
+    <OnyxTimeInput v-else v-bind="input" v-model="modelValue" />
   </div>
 </template>

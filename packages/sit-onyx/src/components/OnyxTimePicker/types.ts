@@ -3,7 +3,7 @@ import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
 import type { OnyxInputProps } from "../OnyxInput/types.js";
 import type { SelectOption } from "../OnyxSelect/types.js";
 
-export const TIME_PICKER_TYPES = ["default", "select"] as const;
+export const TIME_PICKER_TYPES = ["default", "select", "range"] as const;
 export type TimePickerType = (typeof TIME_PICKER_TYPES)[number];
 
 type RfcTimeValue =
@@ -72,5 +72,5 @@ export type OnyxTimePickerProps<TType extends TimePickerType = "default"> = Omit
     /**
      * Text describing the time picker. Will be displayed at the bottom of the flyout.
      */
-    infoLabel?: TType extends "select" ? string : never;
+    infoLabel?: TType extends "select" | "range" ? string : never;
   };

@@ -278,12 +278,20 @@
       "second": "SS"
     },
     "labels": {
+      "from": "von",
+      "to": "bis",
       "iconButton": "Uhrzeitauswahl öffnen",
       "popover": "Uhrzeitauswahl",
       "hour": "Stunde",
       "minute": "Minute",
       "second": "Sekunde",
       "listLabel": "Zeitoptionen"
+    },
+    "errors": {
+      "outsideRange": "Der Zeitraum muss zwischen {min} und {max} liegen.",
+      "timeBeforeMin": "Der Zeitraum darf nicht vor {min} liegen.",
+      "timeAfterMax": "Der Zeitraum darf nicht nach {max} liegen.",
+      "endTimeAfterStartTime": "Die Endzeit muss nach der Startzeit liegen."
     }
   },
   "itemsPerPage": {

@@ -31,6 +31,12 @@ export const WithSeconds = {
   },
 } satisfies Story;
 
+export const Range = {
+  args: {
+    type: "range",
+  },
+} satisfies Story;
+
 export const InfoLabel = {
   args: {
     type: "select",
