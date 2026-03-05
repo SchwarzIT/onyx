@@ -9,7 +9,7 @@ onMounted(() => setTimeout(() => (shown.value = true), 50));
 </script>
 
 <template>
-  <OnyxSkeleton data-testid="permanent" />
+  <OnyxSkeleton data-testid="immediate" />
   <OnyxSkeleton v-if="shown" data-testid="delayed" />
 </template>
 

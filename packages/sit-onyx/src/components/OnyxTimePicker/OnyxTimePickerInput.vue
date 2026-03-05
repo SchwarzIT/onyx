@@ -119,7 +119,8 @@ defineSlots<{
    */
   icon(): unknown;
 }>();
-useAutofocus(useTemplateRef("inputRef"), props);
+
+useAutofocus(useTemplateRef("input"), props);
 </script>
 
 <template>
@@ -153,7 +154,7 @@ useAutofocus(useTemplateRef("inputRef"), props);
           />
           <input
             :id="inputId"
-            ref="inputRef"
+            ref="input"
             v-model="value"
             v-custom-validity
             :type="props.type === 'range' ? 'text' : 'time'"

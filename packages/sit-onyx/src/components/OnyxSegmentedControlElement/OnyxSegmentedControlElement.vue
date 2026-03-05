@@ -18,7 +18,7 @@ const { densityClass } = useDensity(props);
 const { disabled } = useFormContext(props);
 const { rootAttrs, restAttrs } = useRootAttrs();
 const id = useId();
-const input = useTemplateRef<HTMLInputElement>("inputRef");
+const input = useTemplateRef<HTMLInputElement>("input");
 
 useAutofocus(input, props);
 </script>
@@ -32,7 +32,7 @@ useAutofocus(input, props);
       is="input"
       v-bind="restAttrs"
       :id
-      ref="inputRef"
+      ref="input"
       :name="props.name"
       type="radio"
       :value="props.value"

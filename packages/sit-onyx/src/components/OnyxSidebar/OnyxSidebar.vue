@@ -48,8 +48,8 @@ const slots = defineSlots<{
 const { densityClass } = useDensity(props);
 const globalFAB = useGlobalFAB();
 
-const sidebarElement = useTemplateRef("sidebarRef");
-const modalElement = useTemplateRef("modalRef");
+const sidebar = useTemplateRef("sidebar");
+const modal = useTemplateRef("modal");
 const width = ref<number>();
 const widthStyle = computed(() => {
   if (!width.value) return;
@@ -129,7 +129,7 @@ onUnmounted(() => {
 <template>
   <aside
     v-if="!props.temporary && !shouldCollapse"
-    ref="sidebarRef"
+    ref="sidebar"
     :class="[
       'onyx-component',
       'onyx-sidebar',
@@ -152,13 +152,13 @@ onUnmounted(() => {
       <slot name="footer"></slot>
     </footer>
 
-    <OnyxResizeHandle v-if="props.resizable" :element="sidebarElement" v-bind="resizeHandleProps" />
+    <OnyxResizeHandle v-if="props.resizable" :element="sidebar" v-bind="resizeHandleProps" />
   </aside>
 
   <OnyxModal
     v-else
     v-bind="props.temporary"
-    ref="modalRef"
+    ref="modal"
     v-model:open="isModalOpen"
     :class="[
       'onyx-sidebar',
@@ -189,7 +189,7 @@ onUnmounted(() => {
       </div>
     </template>
 
-    <OnyxResizeHandle v-if="props.resizable" :element="modalElement" v-bind="resizeHandleProps" />
+    <OnyxResizeHandle v-if="props.resizable" :element="modal" v-bind="resizeHandleProps" />
   </OnyxModal>
 </template>
 

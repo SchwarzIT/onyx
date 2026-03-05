@@ -1,23 +1,7 @@
 <script setup lang="ts">
 definePageMeta({ layout: "sidebar" });
 
-const route = useRoute();
-const { locale } = useI18n();
-
-const slug = computed(() => {
-  const path = Array.isArray(route.params.slug)
-    ? route.params.slug.join("/")
-    : (route.params.slug ?? "");
-  return path.startsWith("/") ? path : `/${path}`;
-});
-
-const collection = await useAsyncData(
-  () => `page-${slug.value}-${locale.value}`,
-  () => {
-    const collection = `content_${locale.value}` as const;
-    return queryCollection(collection).path(slug.value).first();
-  },
-);
+const collection = await useCollection();
 
 watch(
   () => collection.data.value,

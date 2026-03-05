@@ -97,7 +97,7 @@ const wasTouched = ref(false);
 
 const { densityClass } = useDensity(props);
 
-const input = useTemplateRef("inputRef");
+const input = useTemplateRef("input");
 defineExpose({ input });
 
 /**
@@ -171,7 +171,7 @@ useAutofocus(input, props);
 
           <input
             :id="inputId"
-            ref="inputRef"
+            ref="input"
             v-custom-validity
             :class="{
               'onyx-select-input__native': true,

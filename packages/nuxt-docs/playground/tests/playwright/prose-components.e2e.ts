@@ -3,9 +3,19 @@ import { expect, test } from "@nuxt/test-utils/playwright";
 test("should render prose components with onyx", async ({ page, goto }) => {
   await goto("/", { waitUntil: "hydration" });
 
-  const height = await page.locator(".onyx-page__main").evaluate((el) => el.scrollHeight);
+  const main = page.locator(".onyx-page__main");
+
+  // Fix flakiness by explicitly waiting for stable element
+  const waitForStablePageMain = async () => {
+    const mainHandle = await main.elementHandle();
+    await mainHandle?.waitForElementState("stable");
+  };
+
+  await waitForStablePageMain();
+  const height = await main.evaluate((el) => el.scrollHeight);
   await page.setViewportSize({ height, width: 1280 });
 
+  await waitForStablePageMain();
   await expect(page).toHaveScreenshot("prose.png");
 
   // HEADLINES

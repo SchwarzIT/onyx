@@ -1,0 +1,12 @@
+<LifecycleConfiguration>
+    <Rule>
+        <ID>Expiration Rule</ID>
+        <Filter>
+            <Prefix></Prefix>
+        </Filter>
+        <Status>Enabled</Status>
+        <Expiration>
+            <Days>30</Days>
+        </Expiration>
+    </Rule>
+</LifecycleConfiguration>

@@ -9,9 +9,9 @@ import { useStore } from "./composables/useStore.js";
 
 const { store, onyxVersion } = useStore();
 
-const replRef = useTemplateRef("replRef");
+const repl = useTemplateRef("repl");
 const reloadPage = () => {
-  replRef.value?.reload();
+  repl.value?.reload();
   store.reloadLanguageTools?.();
 };
 
@@ -44,7 +44,7 @@ const previewOptions = computed<ComponentInstance<typeof Repl>["previewOptions"]
     <!-- the key is needed here to update the headHTML below correctly so
     the correct style.css for the onyx version is loaded -->
     <Repl
-      ref="replRef"
+      ref="repl"
       :editor="Monaco"
       :theme="theme"
       :store="store"

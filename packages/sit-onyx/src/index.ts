@@ -311,6 +311,7 @@ export { createOnyx } from "./utils/plugin.js";
 
 export * from "./components/illustrations/index.js";
 export * from "./composables/themeTransition.js";
+export { useResizeObserver } from "./composables/useResizeObserver.js";
 export * from "./utils/attrs.js";
 export * from "./utils/props.js";
 export * from "./utils/router.js";

@@ -52,7 +52,7 @@ const handleChange = (selected: boolean, value: TValue) => {
   if (!selected) return;
   modelValue.value = value;
 };
-const radiobuttons = useTemplateRef("radiobuttonsRef");
+const radiobuttons = useTemplateRef("radiobuttons");
 
 defineExpose({
   inputs: computed<HTMLInputElement[]>(() => {
@@ -87,7 +87,7 @@ defineExpose({
           v-for="(option, index) in props.options"
           :key="option.value.toString()"
           v-bind="option"
-          ref="radiobuttonsRef"
+          ref="radiobuttons"
           :name="props.name"
           :error="props.error"
           :checked="option.value === modelValue"

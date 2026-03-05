@@ -117,7 +117,7 @@ watch(
           display: flex;
           flex-direction: column;
           overflow-y: clip;
-          overflow-x: auto;
+          overflow-x: unset;
         }
         &__indicator {
           min-height: max-content;

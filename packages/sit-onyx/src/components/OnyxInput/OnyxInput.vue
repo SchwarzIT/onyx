@@ -95,7 +95,7 @@ const patternSource = computed(() => {
   return props.pattern;
 });
 
-const input = useTemplateRef("inputRef");
+const input = useTemplateRef("input");
 defineExpose({ input });
 
 const { disabled, showError } = useFormContext(props);
@@ -150,7 +150,7 @@ const displayType = computed(() => {
           <OnyxLoadingIndicator v-if="props.loading" class="onyx-input__loading" type="circle" />
           <input
             :id="inputId"
-            ref="inputRef"
+            ref="input"
             v-model="modelValue"
             v-custom-validity
             :placeholder="props.placeholder"

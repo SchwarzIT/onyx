@@ -32,7 +32,7 @@ const modelValue = useVModel({
 
 const inputProps = useForwardProps(props, OnyxInput);
 
-const inputComponent = useTemplateRef("inputRef");
+const inputComponent = useTemplateRef("inputComponent");
 const input = computed(() => inputComponent.value?.input ?? null);
 
 useAutofocus(input, props);
@@ -51,7 +51,7 @@ defineExpose({ input });
   >
     <form @submit.prevent>
       <OnyxInput
-        ref="inputRef"
+        ref="inputComponent"
         v-bind="inputProps"
         v-model="modelValue"
         required

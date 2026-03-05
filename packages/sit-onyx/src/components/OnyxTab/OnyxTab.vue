@@ -126,7 +126,7 @@ const tab = computed(() =>
         &::after {
           content: "";
           height: 0.125rem;
-          background-color: var(--onyx-color-component-cta-default);
+          background-color: var(--onyx-color-component-nav-stroke);
           width: calc(100% - 2 * var(--onyx-density-xs));
           min-width: 1rem;
 

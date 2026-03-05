@@ -63,7 +63,7 @@ const searchTerm = useVModel({
   default: "",
 });
 
-const dialog = useTemplateRef("dialogRef");
+const dialog = useTemplateRef("dialog");
 const dialogElement = computed(() => dialog.value?.dialog);
 
 /**
@@ -141,7 +141,7 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
 <template>
   <OnyxBasicDialog
     v-bind="basicDialogProps"
-    ref="dialogRef"
+    ref="dialog"
     :label="t('globalSearch.label')"
     modal
     class="onyx-global-search"

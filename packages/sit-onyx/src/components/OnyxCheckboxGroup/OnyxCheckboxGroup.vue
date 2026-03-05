@@ -66,7 +66,7 @@ const checkAllLabel = computed(() => {
   return props.withCheckAll?.label ?? defaultText;
 });
 
-const checkboxes = useTemplateRef("checkboxesRef");
+const checkboxes = useTemplateRef("checkboxes");
 
 defineExpose({
   inputs: computed<HTMLInputElement[]>(() => {
@@ -109,7 +109,7 @@ defineExpose({
           v-for="option in props.options"
           :key="option.value.toString()"
           v-bind="option"
-          ref="checkboxesRef"
+          ref="checkboxes"
           :required-marker
           :truncation="option.truncation ?? props.truncation"
           :model-value="modelValue.includes(option.value)"

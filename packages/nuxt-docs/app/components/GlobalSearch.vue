@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import type { Collections } from "@nuxt/content";
 import {
   iconCircleContrast,
   iconFile,
@@ -25,7 +26,7 @@ watch(isOpen, (open) => {
 const { data, status } = await useLazyAsyncData(
   () => `search-sections-${locale.value}`,
   () => {
-    const collection = `content_${locale.value}` as const;
+    const collection = `content_${locale.value}` as keyof Collections;
     return queryCollectionSearchSections(collection);
   },
 );
