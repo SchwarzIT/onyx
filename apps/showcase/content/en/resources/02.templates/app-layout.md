@@ -1,1 +1,3 @@
-# App layout
+---
+title: App layout
+---

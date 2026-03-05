@@ -1,8 +1,7 @@
 ---
+title: Introduction
 navigation: false
 ---
-
-# Introduction
 
 Welcome to the documentation of the onyx design system! We are very delighted, that you decided to work with onyx!
 

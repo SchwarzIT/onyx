@@ -1,4 +1,6 @@
-# Headless
+---
+title: Headless
+---
 
 ---
 

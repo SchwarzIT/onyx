@@ -14,6 +14,7 @@ export default defineNuxtConfig({
     locales: [{ code: "en", language: "en-US", file: "en-US.json", name: "English" }],
   },
   studio: {
+    dev: process.env.NUXT_STUDIO_DEV_DISABLED !== "true",
     // git repository configuration
     repository: {
       provider: "github",
