@@ -1,11 +1,12 @@
 <script lang="ts" setup>
-const { t } = useI18n();
-
-useHead({
-  title: computed(() => t("home")),
+definePageMeta({
+  layout: false,
+  colorMode: "dark", // force dark mode
 });
 </script>
 
 <template>
-  <OnyxHeadline is="h1">{{ $t("home") }}</OnyxHeadline>
+  <OnyxPageLayout no-padding>
+    <LandingPageHero />
+  </OnyxPageLayout>
 </template>

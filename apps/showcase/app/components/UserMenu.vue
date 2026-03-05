@@ -8,16 +8,16 @@ const handleLogin = () => navigateTo("/auth/siam", { external: true });
 </script>
 
 <template>
-  <LazyOnyxTooltip v-if="!user" :text="t('auth.informationSchwarz')">
+  <OnyxTooltip v-if="!user" :text="t('auth.informationSchwarz')">
     <template #default="{ trigger }">
       <OnyxButton v-bind="trigger" :label="t('auth.login')" @click="handleLogin" />
     </template>
-  </LazyOnyxTooltip>
+  </OnyxTooltip>
 
-  <LazyOnyxUserMenu v-else :full-name="user.name">
+  <OnyxUserMenu v-else :full-name="user.name">
     <OnyxMenuItem color="danger" @click="clear">
       <OnyxIcon :icon="iconLogout" />
       {{ t("auth.logout") }}
     </OnyxMenuItem>
-  </LazyOnyxUserMenu>
+  </OnyxUserMenu>
 </template>

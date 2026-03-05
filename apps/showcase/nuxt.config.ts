@@ -6,7 +6,6 @@ export default defineNuxtConfig({
   modules: ["nuxt-studio", "nuxt-auth-utils"],
   app: {
     head: {
-      titleTemplate: "%s | onyx",
       link: [{ rel: "icon", href: "/onyx-logo.svg" }],
     },
   },
