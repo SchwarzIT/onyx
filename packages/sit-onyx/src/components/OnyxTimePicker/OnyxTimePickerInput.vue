@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, useTemplateRef } from "vue";
+import { computed, reactive, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
 import { useErrorClass } from "../../composables/useErrorClass.js";
@@ -67,9 +67,13 @@ const emit = defineEmits<{
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
 const error = computed(() => props.error);
+const mappedProps = reactive({
+  ...props,
 
+  type: computed(() => (props.type === "range" ? "text" : "date")) as unknown as "text",
+});
 const { vCustomValidity, errorMessages } = useFormElementError({
-  props,
+  props: mappedProps,
   emit,
   error,
 });
