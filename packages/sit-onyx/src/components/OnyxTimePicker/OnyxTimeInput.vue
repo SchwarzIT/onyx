@@ -34,7 +34,7 @@ const starttimePickerGroup =
   useTemplateRef<InstanceType<typeof OnyxTimePickerGroup>>("startTimePickerGroupRef");
 const endtimePickerGroup =
   useTemplateRef<InstanceType<typeof OnyxTimePickerGroup>>("endTimePickerGroupRef");
-const rootRef = useTemplateRef("rootTemplateRef");
+const root = useTemplateRef("rootRef");
 const isFocused = ref(false);
 
 const partsToTotalSeconds = (parts: string[]): number => {
@@ -154,7 +154,7 @@ const handleInputClick = async () => {
 };
 
 useOutsideClick({
-  inside: rootRef,
+  inside: root,
   onOutsideClick: () => (open.value = false),
   checkOnTab: true,
 });
@@ -221,7 +221,7 @@ const inputProps = useForwardProps(props, OnyxTimePickerInput);
 </script>
 
 <template>
-  <div ref="rootTemplateRef" :class="['onyx-component', 'onyx-time-picker', densityClass]">
+  <div ref="rootRef" :class="['onyx-component', 'onyx-time-picker', densityClass]">
     <OnyxBasicPopover
       class="onyx-time-picker__popover"
       :label="t('timePicker.labels.popover')"
