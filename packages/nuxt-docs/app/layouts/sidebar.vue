@@ -4,7 +4,7 @@ import type { OnyxPageLayoutProps, OnyxSidebarProps } from "sit-onyx";
 import type { SidebarNavigationItem } from "../composables/useSidebarNavigation.js";
 
 const props = defineProps<
-  OnyxPageLayoutProps & {
+  Omit<OnyxPageLayoutProps, "noPadding"> & {
     sidebar?: OnyxSidebarProps;
   }
 >();
@@ -14,6 +14,10 @@ const slots = defineSlots<{
    * Main page content.
    */
   default(): unknown;
+  /**
+   * Optional hero content above the page content + table of contents.
+   */
+  hero?(): unknown;
   /**
    * Page footer content.
    */
@@ -44,7 +48,7 @@ const toc = computed(() => collection.data.value?.body.toc?.links ?? []);
 </script>
 
 <template>
-  <OnyxPageLayout v-bind="props">
+  <OnyxPageLayout v-bind="props" no-padding>
     <template #sidebar>
       <OnyxSidebar
         class="sidebar"
@@ -79,7 +83,9 @@ const toc = computed(() => collection.data.value?.body.toc?.links ?? []);
       </OnyxSidebar>
     </template>
 
-    <div class="content">
+    <slot name="hero"></slot>
+
+    <div class="content onyx-grid-layout">
       <div>
         <slot></slot>
       </div>

@@ -3,8 +3,6 @@ title: Guidelines
 description: Our technical guidelines describes the goals and rules that contributors and we (the development team of onyx) must adhere to.
 ---
 
-# Technical guidelines
-
 Our technical guidelines describes the goals and rules that contributors and we (the development team of **onyx**) must adhere to.
 
 ## Global Architecture

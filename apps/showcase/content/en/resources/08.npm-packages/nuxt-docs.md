@@ -1,4 +1,6 @@
-# Nuxt Docs
+---
+title: Nuxt Docs
+---
 
 ---
 
