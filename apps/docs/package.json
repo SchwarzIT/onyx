@@ -38,7 +38,7 @@
     "@sit-onyx/tiptap": "workspace:^",
     "@sit-onyx/vitepress-theme": "workspace:^",
     "chart.js": "catalog:",
-    "postcss": "^8.5.6",
+    "postcss": "^8.5.8",
     "sass-embedded": "catalog:",
     "sit-onyx": "workspace:^",
     "vite": "catalog:",
