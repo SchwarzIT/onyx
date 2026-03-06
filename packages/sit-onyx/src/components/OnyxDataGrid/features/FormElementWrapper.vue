@@ -3,29 +3,25 @@
   lang="ts"
   generic="
     TComponent extends Component<{ modelValue?: TModelValue | null | undefined }>,
-    TProps extends { modelValue?: any } = ComponentProps<TComponent>,
-    TModelValue = TProps['modelValue']
+    TModelValue = unknown
   "
 >
 import { computed, type Component } from "vue";
-import type { ComponentProps } from "vue-component-type-helpers";
 
-const props = defineProps<
-  {
-    /**
-     * The component that should be wrapped.
-     */
-    is: Component;
-    /**
-     * The `modelValue` prop for setting the current value of the component.
-     */
-    modelValue?: TModelValue;
-    /**
-     * The label text, which is used for the form element.
-     */
-    label: string;
-  } & TProps
->();
+const props = defineProps<{
+  /**
+   * The component that should be wrapped.
+   */
+  is: Component;
+  /**
+   * The `modelValue` prop for setting the current value of the component.
+   */
+  modelValue?: TModelValue;
+  /**
+   * The label text, which is used for the form element.
+   */
+  label: string;
+}>();
 
 const emit = defineEmits<{
   /**
