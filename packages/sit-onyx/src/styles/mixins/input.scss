@@ -32,10 +32,11 @@
   --outline-style: none;
   --button-color: var(--onyx-color-text-icons-neutral-soft);
   --border-radius: var(--onyx-radius-sm);
+  --border-style: solid;
 
   &__wrapper {
     border-radius: var(--border-radius);
-    border: var(--onyx-1px-in-rem) solid var(--border-color);
+    border: var(--onyx-1px-in-rem) var(--border-style) var(--border-color);
     background-color: var(--background-color);
     color: var(--onyx-color-text-icons-neutral-medium);
 

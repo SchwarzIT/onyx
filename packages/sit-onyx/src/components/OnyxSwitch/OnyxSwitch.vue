@@ -131,7 +131,7 @@ useAutofocus(input, props);
 
 <style lang="scss">
 @use "../../styles/mixins/density.scss";
-@use "../../styles/mixins/layers";
+@use "../../styles/mixins/layers.scss";
 
 .onyx-switch,
 .onyx-switch-skeleton {

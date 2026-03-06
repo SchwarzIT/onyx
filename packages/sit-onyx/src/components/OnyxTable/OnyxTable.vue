@@ -4,7 +4,7 @@ import { useDensity } from "../../composables/density.js";
 import { useResizeObserver } from "../../composables/useResizeObserver.js";
 import { injectI18n } from "../../i18n/index.js";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
-import type { OnyxTableProps, OnyxTableSlots } from "./types.js";
+import { type OnyxTableProps, type OnyxTableSlots } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxTableProps>(), {
   striped: false,
@@ -54,6 +54,7 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
     >
       <table
         ref="table"
+        v-bind="tableAttrs"
         :class="[
           'onyx-table',
           'onyx-text',
@@ -78,8 +79,7 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
               :key="group.key"
               :colspan="group.span"
               scope="colgroup"
-              :class="['onyx-table__colgroup', group.class]"
-              :style="group.style"
+              class="onyx-table__colgroup"
             >
               {{ group.header }}
             </th>
@@ -159,7 +159,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
     display: flex;
     flex-direction: column;
     gap: var(--onyx-density-xs);
-    font-family: var(--onyx-font-family-paragraph);
+    font-family: var(--onyx-font-family);
     color: var(--onyx-color-text-icons-neutral-intense);
 
     &__container {
@@ -228,6 +228,12 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
     td {
       position: relative;
       padding: var(--onyx-table-padding-block) var(--onyx-table-padding-inline);
+      outline: none;
+
+      &:focus::before,
+      &:focus-within::before {
+        border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-primary);
+      }
 
       // max width for skeleton, so it looks better
       > .onyx-skeleton {

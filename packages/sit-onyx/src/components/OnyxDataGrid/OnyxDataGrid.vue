@@ -16,7 +16,11 @@ import {
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
 import { injectI18n } from "../../i18n/index.js";
-import type { DataGridScrollContainerAttributes, InternalDataGridSlots } from "../../index.js";
+import type {
+  DataGridScrollContainerAttributes,
+  DataGridTableAttributes,
+  InternalDataGridSlots,
+} from "../../index.js";
 import { mergeVueProps } from "../../utils/attrs.js";
 import { useForwardProps } from "../../utils/props.js";
 import type { OnyxTableSlots, TableColumnGroup } from "../OnyxTable/types.js";
@@ -58,6 +62,7 @@ const renderColumns = shallowRef<DataGridRendererColumn<TEntry>[]>([]);
 const renderRows = shallowRef<DataGridRendererRow<TEntry, DataGridMetadata>[]>([]);
 const rendererColumnGroups = shallowRef<TableColumnGroup[]>();
 const rendererScrollContainerAttributes = shallowRef<DataGridScrollContainerAttributes>();
+const rendererTableAttributes = shallowRef<DataGridTableAttributes>();
 const rendererSlots = shallowRef<InternalDataGridSlots>();
 
 const { columns: columnConfig, data, features, columnGroups, async } = toRefs(props);
@@ -72,6 +77,7 @@ const createFeatureBuilderWatcher = ({
   watchSources,
   createRendererColumnGroups,
   createScrollContainerAttributes,
+  createTableAttributes,
   createSlots,
 }: ReturnType<
   typeof useDataGridFeatures<TEntry, TFeatureName, TTypeRenderer, TColumnGroup, TTypes, TFeatures>
@@ -83,6 +89,7 @@ const createFeatureBuilderWatcher = ({
       renderRows.value = createRendererRows(data.value);
       rendererColumnGroups.value = createRendererColumnGroups();
       rendererScrollContainerAttributes.value = createScrollContainerAttributes();
+      rendererTableAttributes.value = createTableAttributes();
       rendererSlots.value = createSlots();
     },
     { immediate: true, deep: true },
@@ -100,6 +107,7 @@ watch(
         columnGroups,
         async,
         skeleton,
+        editable: true,
       },
     );
     disposeWatcher?.();
@@ -115,6 +123,7 @@ watch(
     :column-groups="rendererColumnGroups"
     :columns="renderColumns"
     :rows="renderRows"
+    :table-attrs="rendererTableAttributes"
     :scroll-container-attrs="rendererScrollContainerAttributes"
   >
     <template v-for="(slot, slotName) in rendererSlots" :key="slotName" #[slotName]>
