@@ -18,8 +18,7 @@ test.beforeEach(async ({ page }) => {
   await page.clock.setFixedTime(MOCK_NOW);
 });
 
-// eslint-disable-next-line playwright/no-skipped-test -- screenshots are flaky, see: https://github.com/SchwarzIT/onyx/issues/4340
-test.describe.skip("Screenshot tests", () => {
+test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Calendar",
     columns: ["small", "big"],
@@ -59,14 +58,18 @@ test.describe.skip("Screenshot tests", () => {
     },
     hooks: {
       beforeEach: async (component, page, _column, row) => {
-        const todayButton = component.getByRole("button", { name: MOCK_NOW.getDate().toString() });
+        const button = component.getByRole("button", {
+          name: getMockDate(-5).getDate().toString(),
+        });
 
-        if (row === "select") await todayButton.click();
+        if (row === "select") await button.click();
         if (row === "focus-visible") {
-          await todayButton.click();
+          await button.click();
           await page.keyboard.press("ArrowLeft");
         }
-        if (row === "hover") await todayButton.hover();
+        if (row === "hover") {
+          await button.hover();
+        }
       },
     },
   });

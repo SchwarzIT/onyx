@@ -19,13 +19,12 @@ const getLinkProps = computed(() => {
 
 <template>
   <NavBar logo-url="/onyx-logo.svg">
-    <OnyxNavItem :label="$t('home')" :link="localePath('/')" />
     <OnyxNavItem :label="$t('introduction')" v-bind="getLinkProps('/introduction')" />
     <OnyxNavItem :label="$t('resources')" v-bind="getLinkProps('/resources')" />
     <OnyxNavItem :label="$t('support')" v-bind="getLinkProps('/support')" />
 
     <template #contextArea>
-      <ColorSchemeSwitch />
+      <ColorSchemeSwitch v-if="!$colorMode.forced" />
       <OnyxSeparator orientation="vertical" />
       <UserMenu />
     </template>

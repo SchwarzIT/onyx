@@ -4,15 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-catalogs:
-  default:
-    chart.js:
-      specifier: 4.5.1
-      version: 4.5.1
-    typescript:
-      specifier: 5.9.3
-      version: 5.9.3
-
 overrides:
   '@playwright/experimental-ct-vue': 1.57.0
   '@playwright/test': 1.57.0
