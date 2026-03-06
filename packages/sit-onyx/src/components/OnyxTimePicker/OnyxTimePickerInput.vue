@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, useTemplateRef } from "vue";
+import { computed, reactive, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
 import { useErrorClass } from "../../composables/useErrorClass.js";
@@ -19,11 +19,15 @@ import type { OnyxTimePickerProps, TimePickerType } from "./types.js";
 
 const props = withDefaults(
   defineProps<
-    Omit<OnyxTimePickerProps<TimePickerType>, "type"> & {
+    OnyxTimePickerProps<TimePickerType> & {
       /**
        * Defines the granularity of the time input in seconds.
        */
       step?: number;
+      /**
+       * Placeholder for the input
+       */
+      placeholder?: string;
     }
   >(),
   {
@@ -36,6 +40,7 @@ const props = withDefaults(
     requiredMarker: FORM_INJECTED_SYMBOL,
     reserveMessageSpace: FORM_INJECTED_SYMBOL,
     step: 0,
+    placeholder: "",
   },
 );
 
@@ -50,6 +55,10 @@ const emit = defineEmits<{
    */
   "update:isFocused": [focused: boolean];
   /**
+   * Emitted when the input is clicked or focused and enter is pressed.
+   */
+  toggleOpen: [event: MouseEvent | KeyboardEvent];
+  /**
    * Emitted when the validity state of the input changes.
    */
   validityChange: [validity: ValidityState];
@@ -57,15 +66,25 @@ const emit = defineEmits<{
 
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
-const { vCustomValidity, errorMessages } = useFormElementError({ props, emit });
+const error = computed(() => props.error);
+const mappedProps = reactive({
+  ...props,
+
+  type: computed(() => (props.type === "range" ? "text" : "date")) as unknown as "text",
+});
+const { vCustomValidity, errorMessages } = useFormElementError({
+  props: mappedProps,
+  emit,
+  error,
+});
 const successMessages = computed(() => getFormMessages(props.success));
 const messages = computed(() => getFormMessages(props.message));
 const { densityClass } = useDensity(props);
+//TODO: Question: Why is it not working for showError = touched
 const { disabled, showError } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
-const errorClass = useErrorClass(showError);
+const errorClass = useErrorClass(computed(() => (props.type === "range" ? true : showError.value)));
 const formElementProps = useForwardProps(props, OnyxFormElement);
-
 /**
  * Ensures that the native input only receives "HH:MM" or "HH:MM:SS".
  */
@@ -80,9 +99,6 @@ const sanitizeForNativeInput = (val: string | undefined): string => {
   return match ? match[0] : "";
 };
 
-/**
- * Current value (with getter and setter) that can be used as "v-model" for the native input.
- */
 const modelValue = useVModel({
   props,
   emit,
@@ -91,7 +107,9 @@ const modelValue = useVModel({
 
 const value = computed({
   get: () => {
-    return sanitizeForNativeInput(modelValue.value);
+    if (props.type !== "range" || !modelValue.value)
+      return sanitizeForNativeInput(modelValue.value);
+    return modelValue.value.replace("-", " - ");
   },
   set: (newValue) => {
     modelValue.value = String(newValue);
@@ -99,7 +117,6 @@ const value = computed({
 });
 const sanitizedMin = computed(() => sanitizeForNativeInput(props.min));
 const sanitizedMax = computed(() => sanitizeForNativeInput(props.max));
-
 defineSlots<{
   /**
    * Icon content.
@@ -144,11 +161,13 @@ useAutofocus(useTemplateRef("input"), props);
             ref="input"
             v-model="value"
             v-custom-validity
-            type="time"
+            :type="props.type === 'range' ? 'text' : 'time'"
             class="onyx-time-picker-input__native"
             :class="{
               'onyx-time-picker-input__native--success': successMessages,
+              'onyx-time-picker-input__native--readonly': props.readonly,
             }"
+            :placeholder="props.placeholder"
             :required="props.required"
             :autofocus="props.autofocus"
             :name="props.name"
@@ -163,6 +182,22 @@ useAutofocus(useTemplateRef("input"), props);
             @keydown.space.prevent
             @focus="emit('update:isFocused', true)"
             @blur="emit('update:isFocused', false)"
+            @click="emit('toggleOpen', $event)"
+            @paste="(e) => props.type === 'range' && e.preventDefault()"
+            @keydown="
+              (e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  emit('toggleOpen', e);
+                  return;
+                }
+
+                const isNavigation = ['Tab', 'Escape', 'ArrowDown', 'ArrowUp'].includes(e.key);
+                if (props.type === 'range' && !isNavigation) {
+                  e.preventDefault();
+                }
+              }
+            "
           />
           <slot name="icon"></slot>
         </div>
@@ -200,6 +235,15 @@ useAutofocus(useTemplateRef("input"), props);
     &__native {
       &::-webkit-calendar-picker-indicator {
         cursor: pointer;
+      }
+      &[type="text"] {
+        cursor: pointer;
+        user-select: none;
+        caret-color: transparent;
+
+        &:focus {
+          caret-color: transparent;
+        }
       }
     }
   }
