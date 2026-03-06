@@ -292,7 +292,9 @@ useAutofocus(input, props);
       display: inline-flex;
       align-items: center;
       padding: var(--onyx-stepper-padding-vertical);
-      border-radius: 0 var(--onyx-radius-sm) var(--onyx-radius-sm) 0;
+      border-radius: inherit;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
       outline: none;
 
       &:enabled {
@@ -313,7 +315,10 @@ useAutofocus(input, props);
         }
 
         &:first-child {
-          border-radius: var(--onyx-radius-sm) 0 0 var(--onyx-radius-sm);
+          border-top-left-radius: inherit;
+          border-bottom-left-radius: inherit;
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
         }
       }
 
