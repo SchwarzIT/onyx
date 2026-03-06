@@ -107,6 +107,7 @@ watch(
         columnGroups,
         async,
         skeleton,
+        editable: true,
       },
     );
     disposeWatcher?.();
