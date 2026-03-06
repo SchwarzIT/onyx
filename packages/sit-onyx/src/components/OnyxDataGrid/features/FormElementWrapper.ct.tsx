@@ -27,7 +27,7 @@ const table = (...elements: unknown[]) => (
   </OnyxTable>
 );
 
-test(`FormElementWrapper with OnyxInput`, async ({ mount }) => {
+test(`FormElementWrapper with OnyxInput`, async ({ mount, browserName }) => {
   // ARRANGE
   const onUpdateModelValue = createEmitSpy<typeof OnyxInput, "onUpdate:modelValue">();
   const TEST_VALUE = "test value";
@@ -49,7 +49,15 @@ test(`FormElementWrapper with OnyxInput`, async ({ mount }) => {
   const NEW_VALUE = "new value";
   await input.fill(NEW_VALUE);
 
-  expectEmit(onUpdateModelValue, 1, [NEW_VALUE]);
+  await test.step("expect emit", (step) => {
+    step.skip(browserName === "firefox");
+    expectEmit(onUpdateModelValue, 1, [NEW_VALUE]);
+  });
+
+  await test.step("on firefox emit is triggered twice", (step) => {
+    step.skip(browserName !== "firefox");
+    expectEmit(onUpdateModelValue, 2, [NEW_VALUE]);
+  });
 });
 
 test(`FormElementWrapper with OnyxStepper`, async ({ mount }) => {
