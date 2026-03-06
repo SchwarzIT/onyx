@@ -228,6 +228,12 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
     td {
       position: relative;
       padding: var(--onyx-table-padding-block) var(--onyx-table-padding-inline);
+      outline: none;
+
+      &:focus::before,
+      &:focus-within::before {
+        border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-primary);
+      }
 
       // max width for skeleton, so it looks better
       > .onyx-skeleton {
