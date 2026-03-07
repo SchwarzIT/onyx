@@ -1,5 +1,4 @@
 ---
+title: Resources
 navigation: false
 ---
-
-# Resources

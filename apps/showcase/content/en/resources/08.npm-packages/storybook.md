@@ -1,4 +1,6 @@
-# Storybook
+---
+title: Storybook
+---
 
 ---
 

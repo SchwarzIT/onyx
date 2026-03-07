@@ -1,1 +1,3 @@
-# Page layout
+---
+title: Page layout
+---
