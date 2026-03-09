@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import defaultImage from "~/assets/images/colors-and-themes.webp";
+import defaultImage from "~/assets/images/page-hero-fallback.webp";
 
 const props = withDefaults(
   defineProps<{
