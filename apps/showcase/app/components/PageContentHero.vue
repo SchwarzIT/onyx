@@ -30,7 +30,10 @@ const props = withDefaults(
 </template>
 
 <style lang="scss" scoped>
+@use "sit-onyx/breakpoints.scss";
+
 .hero {
+  --hero-headline-size: 3rem;
   padding-bottom: 0;
 
   &__wrapper {
@@ -60,12 +63,29 @@ const props = withDefaults(
   }
 
   &__headline {
-    font-size: 3rem;
-    line-height: 3rem;
+    font-size: var(--hero-headline-size);
+    line-height: var(--hero-headline-size);
+    overflow-wrap: break-word;
   }
 
   &__description {
     color: var(--onyx-color-text-icons-neutral-medium);
+  }
+
+  // responsive styles
+  @include breakpoints.container(max, md) {
+    --hero-headline-size: 2rem;
+
+    .hero__wrapper {
+      flex-direction: column-reverse;
+      gap: var(--onyx-density-xs);
+    }
+
+    .hero__image {
+      width: 100%;
+      border-bottom-right-radius: 0;
+      border-top-left-radius: inherit;
+    }
   }
 }
 </style>
