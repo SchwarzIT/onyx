@@ -286,7 +286,15 @@
       "hour": "시",
       "minute": "분",
       "second": "초",
-      "listLabel": "시간 옵션"
+      "listLabel": "시간 옵션",
+      "from": "시작",
+      "to": "종료"
+    },
+    "errors": {
+      "outsideRange": "시간 범위는 {min}과 {max} 사이여야 합니다.",
+      "timeBeforeMin": "시간 범위는 {min} 이후에 시작해야 합니다.",
+      "timeAfterMax": "시간 범위는 {max} 이전에 끝나야 합니다.",
+      "endTimeAfterStartTime": "종료 시간은 시작 시간 이후여야 합니다."
     }
   },
   "itemsPerPage": {

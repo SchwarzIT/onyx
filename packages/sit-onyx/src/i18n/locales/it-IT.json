@@ -286,7 +286,15 @@
       "hour": "Ora",
       "minute": "Minuto",
       "second": "Secondo",
-      "listLabel": "Opzioni orario"
+      "listLabel": "Opzioni orario",
+      "from": "da",
+      "to": "a"
+    },
+    "errors": {
+      "outsideRange": "L'intervallo di tempo deve essere compreso tra {min} e {max}.",
+      "timeBeforeMin": "L'intervallo di tempo deve iniziare dopo le {min}.",
+      "timeAfterMax": "L'intervallo di tempo deve terminare prima delle {max}.",
+      "endTimeAfterStartTime": "L'ora di fine deve essere successiva all'ora di inizio."
     }
   },
   "itemsPerPage": {
