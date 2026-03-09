@@ -46,7 +46,7 @@
   "devDependencies": {
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
-    "storybook": "^10.2.14",
+    "storybook": "^10.2.16",
     "vue": "catalog:",
     "vue-component-type-helpers": "^3.2.5"
   }
