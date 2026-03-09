@@ -286,7 +286,15 @@
       "hour": "Sat",
       "minute": "Minuta",
       "second": "Sekunda",
-      "listLabel": "Opcije vremena"
+      "listLabel": "Opcije vremena",
+      "from": "od",
+      "to": "do"
+    },
+    "errors": {
+      "outsideRange": "Vremenski raspon mora biti između {min} i {max}.",
+      "timeBeforeMin": "Vremenski raspon mora početi nakon {min}.",
+      "timeAfterMax": "Vremenski raspon mora završiti prije {max}.",
+      "endTimeAfterStartTime": "Vrijeme završetka mora biti nakon vremena početka."
     }
   },
   "itemsPerPage": {
