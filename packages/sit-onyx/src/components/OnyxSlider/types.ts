@@ -48,11 +48,12 @@ export type OnyxSliderProps<TSliderMode extends SliderMode> = Omit<
    */
   shiftStep?: number;
   /**
-   * Whether to show marks inside the slider rail.
+   * Whether to show marks inside the slider rail. Use the `mark` slot to customize the displayed mark label.
+   *
    * - `true`: will generate marks automatically based on `step` prop
    * - array of numbers or `SliderMark` objects: will shown at the specified values with optional labels
    */
-  marks?: SliderMark[] | number[] | boolean;
+  marks?: readonly SliderMark[] | readonly number[] | boolean;
   /**
    * Optional value controls to display in addition to the slider.
    *

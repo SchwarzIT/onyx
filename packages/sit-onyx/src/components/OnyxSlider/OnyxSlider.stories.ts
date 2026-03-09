@@ -1,5 +1,6 @@
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
+import { createAdvancedStoryExample } from "../../utils/storybook.js";
 import OnyxSlider from "./OnyxSlider.vue";
 import type { SliderMode } from "./types.js";
 
@@ -55,20 +56,7 @@ export const Marks = {
   },
 } satisfies Story;
 
-export const Discrete = {
-  args: {
-    label: "Rate your experience",
-    modelValue: 50,
-    step: 25,
-    marks: [
-      { value: 0, label: "☹️" },
-      { value: 25, label: "😕" },
-      { value: 50, label: "😐" },
-      { value: 75, label: "😄" },
-      { value: 100, label: "😍" },
-    ],
-  },
-} satisfies Story;
+export const Discrete = createAdvancedStoryExample("OnyxSlider", "DiscreteExample") satisfies Story;
 
 export const Disabled = {
   args: {
