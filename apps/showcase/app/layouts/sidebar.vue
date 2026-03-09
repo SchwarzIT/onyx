@@ -14,7 +14,11 @@ const { data } = await useCollection();
 <template>
   <SidebarLayout>
     <template #hero>
-      <PageContentHero :headline="data?.title" :description="data?.description" />
+      <PageContentHero
+        :headline="data?.title"
+        :description="data?.description"
+        :image="data?.hero?.image"
+      />
     </template>
 
     <slot></slot>
