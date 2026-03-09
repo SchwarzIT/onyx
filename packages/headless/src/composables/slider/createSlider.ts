@@ -380,20 +380,12 @@ export const createSlider = createBuilder(
          */
         markLabel: computed(() => (data: { value: number }) => {
           const left = getValueInPercentage.value(data.value);
-          let translate = "-50%";
-
-          // first and last label should be aligned with the edge of the slider and not overlap
-          if (left === 0) {
-            translate = "0%";
-          } else if (left === 100) {
-            translate = "-100%";
-          }
 
           return {
             "aria-hidden": true,
             style: {
               left: `${left}%`,
-              transform: translate ? `translateX(${translate})` : undefined,
+              transform: "translateX(-50%)",
             },
           };
         }),

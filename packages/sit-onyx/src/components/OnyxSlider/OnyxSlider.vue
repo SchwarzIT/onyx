@@ -1,5 +1,5 @@
 <script setup lang="ts" generic="TSliderMode extends SliderMode">
-import { createSlider } from "@sit-onyx/headless";
+import { createSlider, type SliderMark } from "@sit-onyx/headless";
 import { iconMinusSmall, iconPlusSmall } from "@sit-onyx/icons";
 import { computed, ref, toRef, toRefs, type HTMLAttributes } from "vue";
 import { useDensity } from "../../composables/density.js";
@@ -47,6 +47,14 @@ const emit = defineEmits<{
    * Emitted when the validity state of the slider changes.
    */
   validityChange: [validity: ValidityState];
+}>();
+
+const slots = defineSlots<{
+  /**
+   * Optional slot to pass in custom content for a mark label (below the slider track).
+   * Useful for showing icons etc.
+   */
+  mark?(props: SliderMark): unknown;
 }>();
 
 const modelValue = useVModel<Props, "modelValue", SliderValue<TSliderMode>>({
@@ -177,11 +185,13 @@ const sharedStepperProps = computed(() => {
                 "
               ></span>
               <span
-                v-if="markItem.label"
+                v-if="markItem.label || slots.mark"
                 class="onyx-slider__mark-label"
                 v-bind="markLabel({ value: markItem.value })"
               >
-                {{ markItem.label }}
+                <slot name="mark" v-bind="markItem">
+                  {{ markItem.label }}
+                </slot>
               </span>
             </template>
 
@@ -377,6 +387,7 @@ const sharedStepperProps = computed(() => {
       position: absolute;
       white-space: nowrap;
       top: var(--onyx-slider-mark-label-offset);
+      display: flex;
     }
 
     &:has(&__native:enabled) {
