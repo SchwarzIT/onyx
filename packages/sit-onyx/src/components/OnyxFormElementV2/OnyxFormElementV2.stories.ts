@@ -90,3 +90,10 @@ export const Popover = createAdvancedStoryExample(
   "OnyxFormElementV2",
   "PopoverExample",
 ) satisfies Story;
+
+export const Skeleton = {
+  args: {
+    ...Default.args,
+    skeleton: true,
+  },
+} satisfies Story;

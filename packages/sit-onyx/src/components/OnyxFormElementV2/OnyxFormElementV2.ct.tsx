@@ -1,4 +1,5 @@
 import { iconPlaceholder } from "@sit-onyx/icons";
+import { DENSITIES } from "../../composables/density.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -207,6 +208,27 @@ test.describe("Screenshot tests (label positions)", () => {
   });
 });
 
+test.describe("Screenshot tests (skeleton)", () => {
+  executeMatrixScreenshotTest({
+    name: "Form element v2 (skeleton)",
+    columns: DENSITIES,
+    rows: ["top", "top+hideLabel", "left"],
+    component: (column, row) => (
+      <TestCase
+        style={{ width: "12rem" }}
+        label={{
+          label: "Test label",
+          position: row === "left" ? "left" : "top",
+          hidden: row.includes("hideLabel"),
+        }}
+        message="Message"
+        density={column}
+        skeleton
+      />
+    ),
+  });
+});
+
 test("should show/hide messages correctly", async ({ mount }) => {
   // ARRANGE
   const component = await mount(TestCase, {
@@ -287,4 +309,29 @@ test("should show/hide messages correctly", async ({ mount }) => {
   await expect(error).toBeHidden();
   await expect(message).toBeHidden();
   await expect(success).toBeHidden();
+});
+
+test("should visually hide bottom when skeleton", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(TestCase, {
+    props: {
+      label: "Test label",
+      skeleton: true,
+    },
+  });
+
+  const bottom = component.locator(".onyx-form-element-v2__bottom");
+
+  // ASSERT
+  await expect(bottom).toBeHidden();
+  let height = await bottom.evaluate((element) => element.clientHeight);
+  expect(height).toBe(0);
+
+  // ACT
+  await component.update({ props: { reserveMessageSpace: true } });
+
+  // ASSERT
+  await expect(bottom).toBeHidden();
+  height = await bottom.evaluate((element) => element.clientHeight);
+  expect(height, "should reserve bottom space when skeleton is set").toBeGreaterThan(0);
 });
