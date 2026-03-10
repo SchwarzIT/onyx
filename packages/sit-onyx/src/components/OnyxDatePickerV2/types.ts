@@ -18,7 +18,7 @@ export type OnyxDatePickerV2Props<TSelection extends OnyxCalendarSelectionMode =
     | "modelValue"
   > &
   AutofocusProp &
-  Pick<OnyxBasicPopoverProps, "open" | "alignment" | "position" | "fitParent" | "sticky"> & {
+  Pick<OnyxBasicPopoverProps, "open" | "alignment" | "position" | "fitParent"> & {
     /**
      * Whether the date picker is loading.
      */
