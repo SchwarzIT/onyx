@@ -11,13 +11,27 @@ import type { OnyxTimePickerProps, TimePickerType } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxTimePickerProps<TimePickerType>>(), {
   type: "select" as TimePickerType,
+  open: undefined,
 });
 
 const emit = defineEmits<{
+  /**
+   * Emitted when modelValue changes
+   */
   "update:modelValue": [value?: string];
+  /**
+   * Emitted when the open state changes
+   */
+  "update:open": [open: boolean];
 }>();
 
 const modelValue = useVModel({ props, emit, key: "modelValue" });
+const open = useVModel({
+  props,
+  emit,
+  key: "open",
+  default: false,
+});
 
 const { t } = injectI18n();
 
@@ -103,6 +117,7 @@ const inputProps = useForwardProps(props, OnyxSelect);
   <OnyxSelect
     v-bind="inputProps"
     v-model="modelValue"
+    :open
     :label="props.label"
     class="onyx-time-picker"
     :list-label="t('timePicker.labels.listLabel')"

@@ -1,4 +1,5 @@
 import type { AutofocusProp } from "../../types/components.js";
+import type { Nullable } from "../../types/utils.js";
 import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
 import type { OnyxInputProps } from "../OnyxInput/types.js";
 import type { SelectOption } from "../OnyxSelect/types.js";
@@ -73,4 +74,8 @@ export type OnyxTimePickerProps<TType extends TimePickerType = "default"> = Omit
      * Text describing the time picker. Will be displayed at the bottom of the flyout.
      */
     infoLabel?: TType extends "select" | "range" ? string : never;
+    /**
+     * Whether the flyout is currently open.
+     */
+    open?: TType extends "default" ? never : Nullable<boolean>;
   };

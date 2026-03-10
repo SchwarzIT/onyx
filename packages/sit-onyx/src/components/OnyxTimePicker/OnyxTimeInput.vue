@@ -1,7 +1,7 @@
 <script lang="ts" setup generic="TType extends TimePickerType = 'default'">
 import { useOutsideClick } from "@sit-onyx/headless";
 import { iconClock, iconXSmall } from "@sit-onyx/icons";
-import { computed, ref, useTemplateRef, watch } from "vue";
+import { computed, ref, useTemplateRef, watch, type Ref } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
@@ -19,17 +19,30 @@ type ModelValueType = TType extends "range" ? { from: string; to: string } : str
 
 const props = withDefaults(defineProps<OnyxTimePickerProps<TType>>(), {
   type: "default" as unknown as TType,
+  open: undefined,
 });
 
 const emit = defineEmits<{
+  /**
+   * Emitted when modelValue changes
+   */
   "update:modelValue": [value?: ModelValueType];
+  /**
+   * Emitted when the open state changes
+   */
+  "update:open": [open: boolean];
 }>();
 
 const modelValue = useVModel({ props, emit, key: "modelValue" });
 
 const { t } = injectI18n();
 const { densityClass } = useDensity(props);
-const open = ref(false);
+const open = useVModel({
+  props,
+  emit,
+  key: "open",
+  default: false,
+}) as unknown as Ref<boolean>;
 
 const timePickerGroup = useTemplateRef("timePickerGroupRef");
 const starttimePickerGroup = useTemplateRef("startTimePickerGroupRef");
