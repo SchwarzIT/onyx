@@ -2,4 +2,4 @@
 "sit-onyx": minor
 ---
 
-feat(OnyxUnstableFormElementV2): implemnet popoverConfig from more controll over it
+feat(OnyxUnstableFormElementV2): add popoverConfig for enhanced control
