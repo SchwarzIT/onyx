@@ -1,6 +1,6 @@
 <script lang="ts" setup>
+import { useOutsideClick } from "@sit-onyx/headless";
 import { computed, useId, useTemplateRef } from "vue";
-import { useOutsideClick } from "../../../../headless/src/composables/helpers/useOutsideClick.js";
 import { useDensity } from "../../composables/density.js";
 import { useErrorClass } from "../../composables/useErrorClass.js";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
