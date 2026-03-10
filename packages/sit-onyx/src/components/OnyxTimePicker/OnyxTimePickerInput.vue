@@ -85,6 +85,7 @@ const { disabled, showError } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
 const errorClass = useErrorClass(computed(() => (props.type === "range" ? true : showError.value)));
 const formElementProps = useForwardProps(props, OnyxFormElement);
+
 /**
  * Ensures that the native input only receives "HH:MM" or "HH:MM:SS".
  */
@@ -107,16 +108,19 @@ const modelValue = useVModel({
 
 const value = computed({
   get: () => {
-    if (props.type !== "range" || !modelValue.value)
-      return sanitizeForNativeInput(modelValue.value);
-    return modelValue.value.replace("-", " - ");
+    const strVal = modelValue.value as string | undefined;
+
+    if (props.type !== "range" || !strVal) return sanitizeForNativeInput(strVal);
+    return strVal.replace("-", " - ");
   },
   set: (newValue) => {
     modelValue.value = String(newValue);
   },
 });
-const sanitizedMin = computed(() => sanitizeForNativeInput(props.min));
-const sanitizedMax = computed(() => sanitizeForNativeInput(props.max));
+
+const sanitizedMin = computed(() => sanitizeForNativeInput(props.min as string | undefined));
+const sanitizedMax = computed(() => sanitizeForNativeInput(props.max as string | undefined));
+
 defineSlots<{
   /**
    * Icon content.

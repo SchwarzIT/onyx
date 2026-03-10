@@ -11,14 +11,14 @@ import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxTimePickerGroup from "./OnyxTimePickerGroup.vue";
 import OnyxTimePickerInput from "./OnyxTimePickerInput.vue";
-import type { OnyxTimePickerProps, TimePickerType } from "./types.js";
+import type { OnyxTimePickerProps, TimePickerType, TimeRange } from "./types.js";
 
 type Segment = "hour" | "minute" | "second";
 
-type ModelValueType = TType extends "range" ? { from: string; to: string } : string;
-
-const props = withDefaults(defineProps<OnyxTimePickerProps<TType>>(), {
-  type: "default" as unknown as TType,
+type ModelValueType = TType extends "range" ? TimeRange : string;
+type Props = OnyxTimePickerProps<TType>;
+const props = withDefaults(defineProps<Props>(), {
+  type: () => "default" as TType,
   open: undefined,
 });
 
@@ -33,7 +33,11 @@ const emit = defineEmits<{
   "update:open": [open: boolean];
 }>();
 
-const modelValue = useVModel({ props, emit, key: "modelValue" });
+const modelValue = useVModel<Props, "modelValue", ModelValueType | undefined>({
+  props,
+  emit,
+  key: "modelValue",
+});
 
 const { t } = injectI18n();
 const { densityClass } = useDensity(props);
@@ -93,7 +97,7 @@ const startTime = computed<string | undefined>({
       typeof modelValue.value === "object" &&
       modelValue.value !== null
     ) {
-      return (modelValue.value as { from: string; to: string }).from;
+      return (modelValue.value as TimeRange).from;
     }
     return undefined;
   },
@@ -101,7 +105,7 @@ const startTime = computed<string | undefined>({
     if (props.type === "range") {
       const currentTo =
         typeof modelValue.value === "object" && modelValue.value !== null
-          ? (modelValue.value as { from: string; to: string }).to
+          ? (modelValue.value as TimeRange).to
           : "";
       modelValue.value = {
         from: newValue || "",
@@ -118,7 +122,7 @@ const endTime = computed<string | undefined>({
       typeof modelValue.value === "object" &&
       modelValue.value !== null
     ) {
-      return (modelValue.value as { from: string; to: string }).to;
+      return (modelValue.value as TimeRange).to;
     }
     return undefined;
   },
@@ -126,7 +130,7 @@ const endTime = computed<string | undefined>({
     if (props.type === "range") {
       const currentFrom =
         typeof modelValue.value === "object" && modelValue.value !== null
-          ? (modelValue.value as { from: string; to: string }).from
+          ? (modelValue.value as TimeRange).from
           : "";
       modelValue.value = { from: currentFrom, to: newValue || "" } as typeof modelValue.value;
     }
@@ -197,7 +201,7 @@ const showClearButton = computed(() => {
 
   if (props.type === "range") {
     if (typeof modelValue.value === "object" && modelValue.value !== null) {
-      const rangeValue = modelValue.value as { from: string; to: string };
+      const rangeValue = modelValue.value as TimeRange;
       hasValue = !!(rangeValue.from || rangeValue.to);
     }
   } else {
@@ -236,7 +240,7 @@ const placeholder = computed(() => {
 
 const inputValue = computed(() => {
   if (props.type === "range" && typeof modelValue.value === "object" && modelValue.value !== null) {
-    const { from, to } = modelValue.value as { from: string; to: string };
+    const { from, to } = modelValue.value as TimeRange;
     if (!from && !to) return undefined;
     return `${from || ""} - ${to || ""}`;
   }
@@ -303,6 +307,7 @@ const inputProps = useForwardProps(props, OnyxTimePickerInput);
           class="onyx-time-picker__input"
           :class="{ 'onyx-time-picker__input--show-focused': open }"
           v-bind="inputProps"
+          :label="props.label"
           :model-value="inputValue"
           :error="error"
           :placeholder="placeholder"

@@ -8,8 +8,9 @@ import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
 import type { SelectOption } from "../OnyxSelect/types.js";
 import type { OnyxTimePickerProps, TimePickerType } from "./types.js";
+type Props = OnyxTimePickerProps<TimePickerType>;
 
-const props = withDefaults(defineProps<OnyxTimePickerProps<TimePickerType>>(), {
+const props = withDefaults(defineProps<Props>(), {
   type: "select" as TimePickerType,
   open: undefined,
 });
@@ -25,7 +26,11 @@ const emit = defineEmits<{
   "update:open": [open: boolean];
 }>();
 
-const modelValue = useVModel({ props, emit, key: "modelValue" });
+const modelValue = useVModel<Props, "modelValue", string | undefined>({
+  props,
+  emit,
+  key: "modelValue",
+});
 const open = useVModel({
   props,
   emit,
@@ -37,8 +42,7 @@ const { t } = injectI18n();
 
 const placeholderText = computed(() => {
   const parts = [];
-  parts.push(t.value("timePicker.placeholder.hour"));
-  parts.push(t.value("timePicker.placeholder.minute"));
+  parts.push(t.value("timePicker.placeholder.hour"), t.value("timePicker.placeholder.minute"));
   if (props.showSeconds) {
     parts.push(t.value("timePicker.placeholder.second"));
   }
