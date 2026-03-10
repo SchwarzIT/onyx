@@ -1,7 +1,6 @@
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
-import { createAdvancedStoryExample } from "../../utils/storybook.js";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxDatePicker from "./OnyxDatePicker.vue";
 
@@ -35,6 +34,7 @@ type Story = StoryObj<typeof OnyxDatePicker>;
 export const Default = {
   args: {
     label: "Date",
+    fitParent: true,
   },
 } satisfies Story;
 
@@ -42,6 +42,7 @@ export const Multiple = {
   args: {
     label: "Date",
     selectionMode: "multiple",
+    fitParent: true,
   },
 } satisfies Story;
 
@@ -49,17 +50,23 @@ export const Range = {
   args: {
     label: "Date",
     selectionMode: "range",
+    fitParent: true,
   },
 } satisfies Story;
 
-export const Test = {
-  ...createAdvancedStoryExample("OnyxDatePickerV2", "defaultExample"),
+export const MultiView = {
+  args: {
+    label: "Date",
+    selectionMode: "range",
+    multiView: true,
+  },
 } satisfies Story;
 
 export const BottomBar = {
   args: {
     label: "Date",
     selectionMode: "range",
+    fitParent: true,
     bottomBar: () => [
       h(OnyxButton, { label: "Cancel", color: "neutral", mode: "plain" }),
       h(OnyxButton, { label: "Save" }),

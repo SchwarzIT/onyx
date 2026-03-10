@@ -1,7 +1,9 @@
 import { DENSITIES } from "../../composables/density.js";
-import { expect, test } from "../../playwright/a11y.js";
+import { test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import OnyxDatePicker from "./OnyxDatePicker.vue";
+
+import TestCaseCt from "./TestCase.ct.vue";
 
 test.describe("Screenshot tests", () => {
   const date = new Date(2024, 9, 23);
@@ -32,6 +34,7 @@ test.describe("Screenshot tests", () => {
                 width: "18rem",
                 marginBottom: row === "open" ? "24rem" : "0",
               }}
+              fitParent={true}
               selectionMode={type}
               open={row === "open"}
             />
@@ -40,47 +43,29 @@ test.describe("Screenshot tests", () => {
       });
     }
   }
-});
 
-test("should show min errors", async ({ mount }) => {
-  // ARRANGE
-
-  const component = await mount(
-    <OnyxDatePicker
-      label="Label"
-      min={new Date(2024, 11, 10)}
-      modelValue={new Date(2024, 11, 5)}
-    />,
-  );
-
-  await expect(component).toBeVisible();
-
-  // error is only shown after interaction so we need to interact first to see the error
-  const input = component.getByRole("textbox", { name: "Label" });
-  await input.click();
-  await input.click();
-
-  await expect(component).toContainText("Too low");
-  await expect(component).toContainText("Input value must be greater than or equal to 12/10/2024");
-});
-
-test("should show max errors", async ({ mount }) => {
-  // ARRANGE
-  const component = await mount(
-    <OnyxDatePicker
-      label="Label"
-      max={new Date(2024, 11, 6)}
-      modelValue={new Date(2024, 11, 20).toISOString()}
-    />,
-  );
-
-  await expect(component).toBeVisible();
-
-  // error is only shown after interaction so we need to interact first to see the error
-  const input = component.getByLabel("Label");
-  await input.click();
-  await input.blur();
-
-  await expect(component).toContainText("Too high");
-  await expect(component).toContainText("Input value must be less than or equal to 12/06/2024");
+  executeMatrixScreenshotTest({
+    name: `DatePicker`,
+    columns: DENSITIES,
+    rows: ["bottomBar", "multiView"],
+    component: (column, row) => {
+      return (
+        <TestCaseCt
+          label="Test label"
+          density={column}
+          modelValue={rangeDate}
+          style={{
+            width: "18rem",
+            marginBottom: row === "multiView" ? "24rem" : "28rem",
+            marginRight: row === "multiView" ? "20rem" : "0",
+          }}
+          selectionMode={"range"}
+          fitParent={row !== "multiView"}
+          bottomBar={row === "bottomBar"}
+          multiView={row === "multiView"}
+          open={true}
+        />
+      );
+    },
+  });
 });
