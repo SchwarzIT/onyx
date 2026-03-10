@@ -1,4 +1,6 @@
-# Github Metrics
+---
+title: GitHub metrics
+---
 
 ---
 

@@ -1,4 +1,6 @@
-# Figma utilities
+---
+title: Figma utilities
+---
 
 ---
 

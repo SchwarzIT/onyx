@@ -1,4 +1,6 @@
-# Vitepress
+---
+title: VitePress
+---
 
 ---
 

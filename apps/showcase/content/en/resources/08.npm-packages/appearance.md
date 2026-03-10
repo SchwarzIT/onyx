@@ -3,8 +3,6 @@ title: Appearance
 description: onyx supports a dark and a light theme as well as custom color themes. The options how to set up the theme for your application are described on this page.
 ---
 
-# Appearance aka Theming
-
 onyx supports a dark and a light theme as well as custom color themes. The options how to set up the theme for your application are described on this page.
 
 To learn more about the theming concept of onyx, take a look at our [colors documentation](/basics/colors.html)

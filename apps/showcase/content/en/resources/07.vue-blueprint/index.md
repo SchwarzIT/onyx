@@ -1,1 +1,3 @@
-# Vue Blueprint
+---
+title: Vue Blueprint
+---
