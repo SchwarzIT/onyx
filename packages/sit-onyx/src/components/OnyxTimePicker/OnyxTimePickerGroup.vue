@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { computed, useTemplateRef, type Ref } from "vue";
 import { injectI18n } from "../../i18n/index.js";
+import type { AutofocusProp } from "../../types/components.js";
 import OnyxStepper from "../OnyxStepper/OnyxStepper.vue";
 import type { OnyxTimePickerProps } from "./types.js";
 
@@ -10,10 +11,10 @@ type InputRef = {
   input: { focus: () => void; select: () => void } & HTMLInputElement;
 };
 
-const props =
-  defineProps<
-    Pick<OnyxTimePickerProps, "modelValue" | "disabled" | "loading" | "readonly" | "showSeconds">
-  >();
+const props = defineProps<
+  Pick<OnyxTimePickerProps, "modelValue" | "disabled" | "loading" | "readonly" | "showSeconds"> &
+    AutofocusProp
+>();
 
 const emit = defineEmits<{
   "update:modelValue": [value?: string];
@@ -54,13 +55,16 @@ const createSegmentComputed = (index: 0 | 1 | 2, segmentName: Segment) =>
       if (!isSegmentVisible(segmentName) || !props.modelValue) return null;
       return Number.parseInt(timeParts.value[index] ?? "00");
     },
-    set: (newValue: number | null) => {
-      if (!isSegmentVisible(segmentName) || newValue === null) return;
+    set: (newValue: number | null | undefined) => {
+      if (!isSegmentVisible(segmentName)) return;
+
+      const numericValue = newValue ?? 0;
 
       const parts = [...timeParts.value];
       const segmentMax = segmentName === "hour" ? 23 : 59;
 
-      const clampedValue = Math.min(Math.max(newValue, 0), segmentMax);
+      const clampedValue = Math.min(Math.max(numericValue, 0), segmentMax);
+
       parts[index] = String(clampedValue).padStart(2, "0");
 
       updateModelValue(parts);
@@ -92,7 +96,7 @@ const handleArrowOrEnterNavigation = (currentSegment: Segment, e: KeyboardEvent)
   emit("jump-segment", currentSegment, e.key === "ArrowRight" || e.key === "Enter" ? 1 : -1);
 };
 
-const handleDigitInput = (currentSegment: Segment, e: KeyboardEvent) => {
+const handleDigitInput = async (currentSegment: Segment, e: KeyboardEvent) => {
   const digit = e.key;
   if (digit < "0" || digit > "9") return;
 
@@ -108,8 +112,8 @@ const handleDigitInput = (currentSegment: Segment, e: KeyboardEvent) => {
   }
 
   setTimeout(() => {
-    const valueString = ref.input.value;
     // Jump if the input has 2 digits
+    const valueString = ref.input.value;
     if (valueString.length >= 2) emit("jump-segment", currentSegment, 1);
   }, 0);
 };
@@ -127,6 +131,8 @@ defineExpose({ getSegmentRef, handleSegmentFocus });
       :disabled="props.disabled"
       :loading="props.loading"
       :readonly="props.readonly"
+      :autofocus="props.autofocus"
+      :format-number="(val) => String(val ?? 0).padStart(2, '0')"
       hide-label
       hide-clear-icon
       hide-success-icon
@@ -148,6 +154,7 @@ defineExpose({ getSegmentRef, handleSegmentFocus });
       :disabled="props.disabled"
       :loading="props.loading"
       :readonly="props.readonly"
+      :format-number="(val) => String(val ?? 0).padStart(2, '0')"
       hide-label
       hide-clear-icon
       hide-success-icon
@@ -169,6 +176,7 @@ defineExpose({ getSegmentRef, handleSegmentFocus });
         :disabled="props.disabled"
         :loading="props.loading"
         :readonly="props.readonly"
+        :format-number="(val) => String(val ?? 0).padStart(2, '0')"
         hide-label
         hide-clear-icon
         hide-success-icon

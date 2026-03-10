@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { CLOSING_KEYS, OPENING_KEYS } from "@sit-onyx/headless";
 import { computed, reactive, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
@@ -57,7 +58,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the input is clicked or focused and enter is pressed.
    */
-  toggleOpen: [event: MouseEvent | KeyboardEvent];
+  "update:open": [];
   /**
    * Emitted when the validity state of the input changes.
    */
@@ -69,8 +70,7 @@ const { rootAttrs, restAttrs } = useRootAttrs();
 const error = computed(() => props.error);
 const mappedProps = reactive({
   ...props,
-
-  type: computed(() => (props.type === "range" ? "text" : "date")) as unknown as "text",
+  type: computed(() => (props.type === "range" ? "text" : "date")),
 });
 const { vCustomValidity, errorMessages } = useFormElementError({
   props: mappedProps,
@@ -125,6 +125,17 @@ defineSlots<{
 }>();
 
 useAutofocus(useTemplateRef("input"), props);
+
+const navigationalKeys = OPENING_KEYS.concat(CLOSING_KEYS);
+const blockTyping = (event: KeyboardEvent) => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    emit("update:open");
+    return;
+  }
+  if (navigationalKeys.includes(event.key) || props.type !== "range") return;
+  event.preventDefault();
+};
 </script>
 
 <template>
@@ -182,22 +193,9 @@ useAutofocus(useTemplateRef("input"), props);
             @keydown.space.prevent
             @focus="emit('update:isFocused', true)"
             @blur="emit('update:isFocused', false)"
-            @click="emit('toggleOpen', $event)"
+            @click="emit('update:open')"
             @paste="(e) => props.type === 'range' && e.preventDefault()"
-            @keydown="
-              (e) => {
-                if (e.key === 'Enter') {
-                  e.preventDefault();
-                  emit('toggleOpen', e);
-                  return;
-                }
-
-                const isNavigation = ['Tab', 'Escape', 'ArrowDown', 'ArrowUp'].includes(e.key);
-                if (props.type === 'range' && !isNavigation) {
-                  e.preventDefault();
-                }
-              }
-            "
+            @keydown="blockTyping"
           />
           <slot name="icon"></slot>
         </div>

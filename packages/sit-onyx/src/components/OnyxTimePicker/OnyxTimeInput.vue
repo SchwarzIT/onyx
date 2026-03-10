@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useOutsideClick } from "@sit-onyx/headless";
 import { iconClock, iconXSmall } from "@sit-onyx/icons";
-import { computed, nextTick, ref, useTemplateRef, watch } from "vue";
+import { computed, ref, useTemplateRef, watch } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
@@ -28,12 +28,9 @@ const { t } = injectI18n();
 const { densityClass } = useDensity(props);
 const open = ref(false);
 
-const timePickerGroup =
-  useTemplateRef<InstanceType<typeof OnyxTimePickerGroup>>("timePickerGroupRef");
-const starttimePickerGroup =
-  useTemplateRef<InstanceType<typeof OnyxTimePickerGroup>>("startTimePickerGroupRef");
-const endtimePickerGroup =
-  useTemplateRef<InstanceType<typeof OnyxTimePickerGroup>>("endTimePickerGroupRef");
+const timePickerGroup = useTemplateRef("timePickerGroupRef");
+const starttimePickerGroup = useTemplateRef("startTimePickerGroupRef");
+const endtimePickerGroup = useTemplateRef("endTimePickerGroupRef");
 const root = useTemplateRef("rootRef");
 const isFocused = ref(false);
 
@@ -61,7 +58,7 @@ const parseTimeSeconds = (timeString?: string): number | null => {
 const minTimeSeconds = computed(() => parseTimeSeconds(props.min));
 const maxTimeSeconds = computed(() => parseTimeSeconds(props.max));
 
-const clampTime = (time: string | undefined): string | undefined => {
+const clampTime = (time?: string): string | undefined => {
   if (!time) return time;
   const currentTotalSeconds = partsToTotalSeconds(time.split(":"));
 
@@ -145,12 +142,6 @@ const handleInputClick = async () => {
   open.value = !open.value;
 
   if (!open.value) return;
-
-  await nextTick();
-  await nextTick();
-
-  const groupRef = props.type === "range" ? starttimePickerGroup.value : timePickerGroup.value;
-  groupRef?.handleSegmentFocus(groupRef.getSegmentRef("hour").value);
 };
 
 useOutsideClick({
@@ -240,7 +231,7 @@ const inputProps = useForwardProps(props, OnyxTimePickerInput);
           :step="props.type === 'range' ? undefined : props.showSeconds ? 1 : 60"
           @update:model-value="modelValue = $event"
           @update:is-focused="isFocused = $event"
-          @toggle-open="handleInputClick"
+          @update:open="handleInputClick"
         >
           <template #icon>
             <button
@@ -277,6 +268,7 @@ const inputProps = useForwardProps(props, OnyxTimePickerInput);
               :disabled="props.disabled"
               :readonly="props.readonly"
               :loading="props.loading"
+              autofocus
               :show-seconds="props.showSeconds"
               @update:model-value="handleRangeModelUpdate('start', $event)"
               @jump-segment="(segment, direction) => jumpSegment(segment, direction, 'start')"
@@ -296,17 +288,17 @@ const inputProps = useForwardProps(props, OnyxTimePickerInput);
             />
           </template>
 
-          <template v-else>
-            <OnyxTimePickerGroup
-              ref="timePickerGroupRef"
-              :model-value="modelValue"
-              :disabled="props.disabled"
-              :loading="props.loading"
-              :show-seconds="props.showSeconds"
-              @update:model-value="handleModelUpdate"
-              @jump-segment="jumpSegment"
-            />
-          </template>
+          <OnyxTimePickerGroup
+            v-else
+            ref="timePickerGroupRef"
+            autofocus
+            :model-value="modelValue"
+            :disabled="props.disabled"
+            :loading="props.loading"
+            :show-seconds="props.showSeconds"
+            @update:model-value="handleModelUpdate"
+            @jump-segment="jumpSegment"
+          />
 
           <div v-if="props.infoLabel" class="onyx-time-picker__info-label">
             <p>{{ props.infoLabel }}</p>
