@@ -2,9 +2,13 @@
 import { computed, useId } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useErrorClass } from "../../composables/useErrorClass.js";
-import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
+import {
+  SKELETON_INJECTED_SYMBOL,
+  useSkeletonContext,
+} from "../../composables/useSkeletonState.js";
 import { useForwardProps } from "../../utils/props.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
+import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import MaybePopoverLayout from "./MaybePopoverLayout.vue";
 import OnyxFormElementV2Bottom from "./OnyxFormElementV2Bottom.vue";
 import OnyxFormElementV2Label from "./OnyxFormElementV2Label.vue";
@@ -27,6 +31,7 @@ const slots = defineSlots<OnyxFormElementV2Slots>();
 const { densityClass } = useDensity(props);
 const formContext = useFormContext(props);
 const errorClass = useErrorClass(formContext.showError);
+const skeleton = useSkeletonContext(props);
 
 const inputProps = computed(() => {
   return {
@@ -56,10 +61,15 @@ const label = computed<FormElementV2LabelOptions>(() => {
       { 'onyx-form-element-v2--label-left': label.position === 'left' },
     ]"
   >
-    <OnyxFormElementV2Label v-if="!label.hidden" v-bind="topProps" />
+    <OnyxFormElementV2Label
+      v-if="!label.hidden && !(skeleton && label.position === 'left')"
+      v-bind="topProps"
+    />
 
     <div class="onyx-form-element-v2__body">
-      <div class="onyx-form-element-v2__content">
+      <OnyxSkeleton v-if="skeleton" class="onyx-form-element-v2__content-skeleton" />
+
+      <div v-else class="onyx-form-element-v2__content">
         <div
           v-if="slots.leading"
           class="onyx-form-element-v2__slot onyx-form-element-v2__slot--leading"
@@ -116,8 +126,9 @@ const label = computed<FormElementV2LabelOptions>(() => {
 .onyx-form-element-v2,
 .onyx-form-element-v2-skeleton {
   @include layers.component() {
-    --onyx-form-element-v2-gap: var(--onyx-density-3xs);
+    --onyx-form-element-v2-gap: max(var(--onyx-density-3xs), var(--onyx-spacing-5xs));
     --onyx-form-element-v2-border-radius: var(--onyx-radius-sm);
+    --onyx-form-element-v2-border-size: var(--onyx-1px-in-rem);
     --onyx-form-element-v2-border-color: var(--onyx-color-component-border-neutral);
     --onyx-form-element-v2-border-color-hover: var(--onyx-color-component-border-primary-hover);
     --onyx-form-element-v2-border-color-focus: var(--onyx-color-component-border-primary);
@@ -130,6 +141,9 @@ const label = computed<FormElementV2LabelOptions>(() => {
     --onyx-form-element-v2-outline-color: var(--onyx-color-component-focus-primary);
     --onyx-form-element-v2-error-display: none;
     --onyx-form-element-v2-message-display: flex;
+
+    /** Base content skeleton height. Useful when e.g. changing the base height for textarea etc. */
+    --onyx-form-element-v2-content-skeleton-height: 1lh;
 
     // :read-only is valid for readonly and disabled state so we put shared styles for both states here
     &:has(.onyx-form-element-v2__input:read-only) {
@@ -193,7 +207,9 @@ const label = computed<FormElementV2LabelOptions>(() => {
 
       > .onyx-form-element-v2__label {
         width: max-content;
-        padding-block: calc(var(--onyx-form-element-v2-padding-block) + var(--onyx-1px-in-rem));
+        padding-block: calc(
+          var(--onyx-form-element-v2-padding-block) + var(--onyx-form-element-v2-border-size)
+        );
         line-height: var(--onyx-font-line-height-md);
       }
     }
@@ -218,7 +234,7 @@ const label = computed<FormElementV2LabelOptions>(() => {
       display: flex;
       align-items: center;
       flex-grow: 1;
-      border: var(--onyx-1px-in-rem) solid var(--onyx-form-element-v2-border-color);
+      border: var(--onyx-form-element-v2-border-size) solid var(--onyx-form-element-v2-border-color);
       border-radius: inherit;
 
       &:has(.onyx-form-element-v2__input:read-write):hover {
@@ -335,6 +351,15 @@ const label = computed<FormElementV2LabelOptions>(() => {
       .onyx-form-element-v2__popover {
         --onyx-basic-popover-gap: var(--onyx-form-element-v2-bottom-height);
       }
+    }
+
+    // skeletons
+    &__content-skeleton {
+      width: 100%;
+      height: calc(
+        var(--onyx-form-element-v2-content-skeleton-height) + 2 *
+          var(--onyx-form-element-v2-padding-block) + 2 * var(--onyx-form-element-v2-border-size)
+      );
     }
   }
 }
