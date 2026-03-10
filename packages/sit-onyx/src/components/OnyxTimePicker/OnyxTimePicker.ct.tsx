@@ -60,7 +60,7 @@ test.describe("Screenshot tests", () => {
             disabled={row === "disabled"}
             loading={row === "loading"}
             skeleton={row === "skeleton"}
-            modelValue={state === "with value" ? "12:11-13:45" : undefined}
+            modelValue={state === "with value" ? { from: "12:11", to: "13:11" } : undefined}
             style={{ width: "16rem", marginBottom: row === "open" ? "18rem" : "0rem" }}
           />
         );

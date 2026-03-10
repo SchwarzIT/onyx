@@ -121,7 +121,7 @@ const inputProps = useForwardProps(props, OnyxSelect);
   <OnyxSelect
     v-bind="inputProps"
     v-model="modelValue"
-    :open
+    v-model:open="open"
     :label="props.label"
     class="onyx-time-picker"
     :list-label="t('timePicker.labels.listLabel')"
