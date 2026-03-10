@@ -49,7 +49,7 @@ export type OnyxTimePickerProps<TType extends TimePickerType = "default"> = Omit
      * @example "14:30:00"
      * @example "14:30:00.500Z" (Treated as "14:30:00")
      */
-    modelValue?: string;
+    modelValue?: TType extends "range" ? { from: string; to: string } : string;
     /**
      * Minimum allowed time (inclusive).
      * Accepts RFC 9557 formats. Milliseconds and timezones are ignored during validation.

@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script lang="ts" setup generic="TType extends TimePickerType = 'default'">
 import { useOutsideClick } from "@sit-onyx/headless";
 import { iconClock, iconXSmall } from "@sit-onyx/icons";
 import { computed, ref, useTemplateRef, watch } from "vue";
@@ -15,13 +15,16 @@ import type { OnyxTimePickerProps, TimePickerType } from "./types.js";
 
 type Segment = "hour" | "minute" | "second";
 
-const props = withDefaults(defineProps<OnyxTimePickerProps<TimePickerType>>(), {
-  type: "default" as TimePickerType,
+type ModelValueType = TType extends "range" ? { from: string; to: string } : string;
+
+const props = withDefaults(defineProps<OnyxTimePickerProps<TType>>(), {
+  type: "default" as unknown as TType,
 });
 
 const emit = defineEmits<{
-  "update:modelValue": [value?: string];
+  "update:modelValue": [value?: ModelValueType];
 }>();
+
 const modelValue = useVModel({ props, emit, key: "modelValue" });
 
 const { t } = injectI18n();
@@ -71,28 +74,56 @@ const clampTime = (time?: string): string | undefined => {
 };
 
 const startTime = computed<string | undefined>({
-  get: () => modelValue.value?.split("-")[0],
+  get: () => {
+    if (
+      props.type === "range" &&
+      typeof modelValue.value === "object" &&
+      modelValue.value !== null
+    ) {
+      return (modelValue.value as { from: string; to: string }).from;
+    }
+    return undefined;
+  },
   set: (newValue) => {
-    const endTimeValue = modelValue.value?.split("-")[1] ?? newValue;
-    modelValue.value = `${newValue}-${endTimeValue}`;
+    if (props.type === "range") {
+      const currentTo =
+        typeof modelValue.value === "object" && modelValue.value !== null
+          ? (modelValue.value as { from: string; to: string }).to
+          : "";
+      modelValue.value = {
+        from: newValue || "",
+        to: currentTo,
+      } as typeof modelValue.value;
+    }
   },
 });
 
 const endTime = computed<string | undefined>({
   get: () => {
-    const parts = modelValue.value?.split("-");
-    return parts?.length === 2 ? parts[1] : undefined;
+    if (
+      props.type === "range" &&
+      typeof modelValue.value === "object" &&
+      modelValue.value !== null
+    ) {
+      return (modelValue.value as { from: string; to: string }).to;
+    }
+    return undefined;
   },
   set: (newValue) => {
-    const startTimeValue = modelValue.value?.split("-")[0] ?? newValue;
-    modelValue.value = `${startTimeValue}-${newValue}`;
+    if (props.type === "range") {
+      const currentFrom =
+        typeof modelValue.value === "object" && modelValue.value !== null
+          ? (modelValue.value as { from: string; to: string }).from
+          : "";
+      modelValue.value = { from: currentFrom, to: newValue || "" } as typeof modelValue.value;
+    }
   },
 });
 
 const updateModelValue = (newParts: string[]) => {
   const timeString = newParts.join(":");
   const clampedTime = clampTime(timeString);
-  modelValue.value = clampedTime;
+  modelValue.value = clampedTime as typeof modelValue.value;
 };
 
 const availableSegments = computed<Segment[]>(() => {
@@ -140,8 +171,6 @@ const handleInputClick = async () => {
     return;
   }
   open.value = !open.value;
-
-  if (!open.value) return;
 };
 
 useOutsideClick({
@@ -151,7 +180,18 @@ useOutsideClick({
 });
 
 const showClearButton = computed(() => {
-  return (isFocused.value || open.value) && modelValue.value && !props.hideClearIcon;
+  let hasValue = false;
+
+  if (props.type === "range") {
+    if (typeof modelValue.value === "object" && modelValue.value !== null) {
+      const rangeValue = modelValue.value as { from: string; to: string };
+      hasValue = !!(rangeValue.from || rangeValue.to);
+    }
+  } else {
+    hasValue = !!modelValue.value;
+  }
+
+  return (isFocused.value || open.value) && hasValue && !props.hideClearIcon;
 });
 
 const handleModelUpdate = (value: string | undefined) => {
@@ -168,6 +208,7 @@ const handleRangeModelUpdate = (group: "start" | "end", value: string | undefine
     endTime.value = value;
   }
 };
+
 const placeholder = computed(() => {
   if (props.type !== "range") return undefined;
 
@@ -179,6 +220,28 @@ const placeholder = computed(() => {
 
   return `${timePlaceholder} - ${timePlaceholder}`;
 });
+
+const inputValue = computed(() => {
+  if (props.type === "range" && typeof modelValue.value === "object" && modelValue.value !== null) {
+    const { from, to } = modelValue.value as { from: string; to: string };
+    if (!from && !to) return undefined;
+    return `${from || ""} - ${to || ""}`;
+  }
+  return modelValue.value as string | undefined;
+});
+const singleModelValue = computed(() => modelValue.value as string | undefined);
+const handleInputUpdate = (val: string | undefined) => {
+  if (props.type === "range") {
+    if (!val) {
+      modelValue.value = undefined as typeof modelValue.value;
+      return;
+    }
+    const [from, to] = val.split("-").map((s) => s.trim());
+    modelValue.value = { from: from || "", to: to || "" } as typeof modelValue.value;
+  } else {
+    modelValue.value = val as typeof modelValue.value;
+  }
+};
 
 const rangeError = ref<string>();
 const error = computed(() => props.error ?? rangeError.value);
@@ -208,6 +271,7 @@ watch(open, (newValue) => {
     rangeError.value = undefined;
   }
 });
+
 const inputProps = useForwardProps(props, OnyxTimePickerInput);
 </script>
 
@@ -226,10 +290,11 @@ const inputProps = useForwardProps(props, OnyxTimePickerInput);
           class="onyx-time-picker__input"
           :class="{ 'onyx-time-picker__input--show-focused': open }"
           v-bind="inputProps"
+          :model-value="inputValue"
           :error="error"
-          :placeholder
+          :placeholder="placeholder"
           :step="props.type === 'range' ? undefined : props.showSeconds ? 1 : 60"
-          @update:model-value="modelValue = $event"
+          @update:model-value="handleInputUpdate"
           @update:is-focused="isFocused = $event"
           @update:open="handleInputClick"
         >
@@ -242,7 +307,7 @@ const inputProps = useForwardProps(props, OnyxTimePickerInput);
               :title="t('input.clear')"
               tabindex="-1"
               @mousedown.prevent
-              @click="modelValue = undefined"
+              @click="modelValue = undefined as typeof modelValue"
             >
               <OnyxIcon :icon="iconXSmall" color="neutral" />
             </button>
@@ -292,7 +357,7 @@ const inputProps = useForwardProps(props, OnyxTimePickerInput);
             v-else
             ref="timePickerGroupRef"
             autofocus
-            :model-value="modelValue"
+            :model-value="singleModelValue"
             :disabled="props.disabled"
             :loading="props.loading"
             :show-seconds="props.showSeconds"
