@@ -141,7 +141,7 @@ useAutofocus(input, props);
           <input
             v-bind="{ ...inputProps, ...restAttrs }"
             ref="inputRef"
-            class="onyx-datepicker-v2__native-input"
+            class="onyx-datepicker-v2__native-input onyx-truncation-ellipsis"
             :value="formattedDate"
           />
         </div>

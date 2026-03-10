@@ -1,7 +1,7 @@
 import { DENSITIES } from "../../composables/density.js";
 import { test } from "../../playwright/a11y.js";
-import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
-import OnyxDatePicker from "./OnyxDatePicker.vue";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots.jsx";
+import OnyxDatePicker from "./OnyxDatePickerV2.vue";
 import TestCaseCt from "./TestCase.ct.vue";
 
 const MOCK_NOW = new Date(2024, 9, 3);
