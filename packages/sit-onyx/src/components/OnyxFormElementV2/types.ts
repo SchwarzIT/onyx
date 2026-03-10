@@ -1,5 +1,6 @@
 import type { DensityProp } from "../../composables/density.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
+import type { OnyxBasicPopoverProps } from "../OnyxBasicPopover/types.js";
 import type { FormInjectedProps } from "../OnyxForm/OnyxForm.core.js";
 
 export type OnyxFormElementV2Props = DensityProp &
@@ -34,6 +35,10 @@ export type OnyxFormElementV2Props = DensityProp &
      * Whether the a value for this form element is required.
      */
     required?: boolean;
+    /**
+     * config of the popover
+     */
+    popoverConfig?: OnyxFormElementV2PopoverConfig;
   };
 
 export type OnyxFormElementV2Slots = {
@@ -89,4 +94,18 @@ export type FormElementV2Tooltip = {
    * Actual tooltip text.
    */
   tooltipText?: string;
+};
+
+export type OnyxFormElementV2PopoverConfig = Pick<
+  OnyxBasicPopoverProps,
+  "open" | "fitParent" | "alignment" | "position"
+> & {
+  /**
+   * Whether to close the popover on outsideClick
+   */
+  closeOnOutsideClick?: boolean;
+  /**
+   * Whether the input keeps the focus effect, when popover is focused
+   */
+  keepFocusEffect?: boolean;
 };

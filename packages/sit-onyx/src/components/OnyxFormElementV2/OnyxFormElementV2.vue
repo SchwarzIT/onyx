@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { computed, useId } from "vue";
+import { computed, useId, useTemplateRef } from "vue";
+import { useOutsideClick } from "../../../../headless/src/composables/helpers/useOutsideClick.js";
 import { useDensity } from "../../composables/density.js";
 import { useErrorClass } from "../../composables/useErrorClass.js";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
@@ -24,6 +25,13 @@ const props = withDefaults(defineProps<OnyxFormElementV2Props>(), {
 
 const slots = defineSlots<OnyxFormElementV2Slots>();
 
+const emit = defineEmits<
+  /**
+   * Emitted when the popoverOpeningState changes
+   */
+  (event: "update:popoverOpen", value: boolean) => void
+>();
+
 const { densityClass } = useDensity(props);
 const formContext = useFormContext(props);
 const errorClass = useErrorClass(formContext.showError);
@@ -44,10 +52,22 @@ const label = computed<FormElementV2LabelOptions>(() => {
   if (typeof props.label === "object") return props.label;
   return { label: props.label };
 });
+
+const root = useTemplateRef("rootRef");
+
+useOutsideClick({
+  inside: root,
+  onOutsideClick: () => {
+    if (props.popoverConfig?.closeOnOutsideClick) emit("update:popoverOpen", false);
+  },
+  disabled: computed(() => !props.popoverConfig?.closeOnOutsideClick || !props.popoverConfig?.open),
+  checkOnTab: true,
+});
 </script>
 
 <template>
   <div
+    ref="rootRef"
     :class="[
       'onyx-component',
       'onyx-form-element-v2',
@@ -67,9 +87,21 @@ const label = computed<FormElementV2LabelOptions>(() => {
           <slot name="leading"></slot>
         </div>
 
-        <MaybePopoverLayout v-bind="popoverLayoutProps">
+        <MaybePopoverLayout
+          v-bind="popoverLayoutProps"
+          @update:popover-open="emit('update:popoverOpen', $event)"
+        >
           <template #default="{ trigger }">
-            <div v-bind="trigger" class="onyx-form-element-v2__input-container">
+            <div
+              v-bind="trigger"
+              :class="[
+                'onyx-form-element-v2__input-container',
+                {
+                  'onyx-form-element-v2__input-container--show-focus':
+                    props.popoverConfig?.open && props.popoverConfig?.keepFocusEffect,
+                },
+              ]"
+            >
               <div
                 v-if="slots.leadingIcons"
                 class="onyx-form-element-v2__icons onyx-form-element-v2__icons--leading"
@@ -225,7 +257,8 @@ const label = computed<FormElementV2LabelOptions>(() => {
         border-color: var(--onyx-form-element-v2-border-color-hover);
       }
 
-      &:has(.onyx-form-element-v2__input:enabled:focus) {
+      &:has(.onyx-form-element-v2__input:enabled:focus),
+      &--show-focus:has(.onyx-form-element-v2__input:enabled) {
         border-color: var(--onyx-form-element-v2-border-color-focus);
         outline: var(--onyx-outline-width) solid var(--onyx-form-element-v2-outline-color);
       }

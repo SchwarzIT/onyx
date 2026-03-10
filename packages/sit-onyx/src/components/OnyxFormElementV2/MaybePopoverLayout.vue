@@ -6,6 +6,13 @@ import type { OnyxFormElementV2Props } from "./types.js";
 
 const props = defineProps<OnyxFormElementV2Props>();
 
+const emit = defineEmits<
+  /**
+   * Emitted when the popoverOpeningState changes
+   */
+  (event: "update:popoverOpen", value: boolean) => void
+>();
+
 const slots = defineSlots<{
   default(props: { trigger?: AriaAttributes }): unknown;
   popover?(): unknown;
@@ -17,7 +24,16 @@ const label = computed(() => {
 </script>
 
 <template>
-  <OnyxBasicPopover v-if="slots.popover" class="onyx-form-element-v2__popover" :label fit-parent>
+  <OnyxBasicPopover
+    v-if="slots.popover"
+    class="onyx-form-element-v2__popover"
+    :label
+    :fit-parent="props.popoverConfig?.fitParent"
+    :alignment="props.popoverConfig?.alignment"
+    :position="props.popoverConfig?.position"
+    :open="props.popoverConfig?.open"
+    @update:open="emit('update:popoverOpen', $event)"
+  >
     <template #default="{ trigger }">
       <slot :trigger="mergeVueProps(trigger, { role: 'combobox' })"></slot>
     </template>
