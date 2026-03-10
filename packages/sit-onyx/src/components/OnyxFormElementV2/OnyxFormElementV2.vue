@@ -319,7 +319,7 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
     }
 
     &__slot {
-      height: 100%;
+      height: var(--onyx-form-element-v2-content-height);
       border: var(--onyx-1px-in-rem) solid var(--onyx-form-element-v2-border-color);
       display: flex;
       align-items: center;
