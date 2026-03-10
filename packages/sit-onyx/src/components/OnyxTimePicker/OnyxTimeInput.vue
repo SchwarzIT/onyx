@@ -1,4 +1,4 @@
-<script lang="ts" setup generic="TType extends TimePickerType = 'default'">
+<script lang="ts" setup generic="TType extends TimePickerType">
 import { useOutsideClick } from "@sit-onyx/headless";
 import { iconClock, iconXSmall } from "@sit-onyx/icons";
 import { computed, ref, useTemplateRef, watch, type Ref } from "vue";
@@ -14,9 +14,9 @@ import OnyxTimePickerInput from "./OnyxTimePickerInput.vue";
 import type { OnyxTimePickerProps, TimePickerType, TimeRange } from "./types.js";
 
 type Segment = "hour" | "minute" | "second";
-
 type ModelValueType = TType extends "range" ? TimeRange : string;
 type Props = OnyxTimePickerProps<TType>;
+
 const props = withDefaults(defineProps<Props>(), {
   type: () => "default" as TType,
   open: undefined,
@@ -87,53 +87,39 @@ const clampTime = (time?: string): string | undefined => {
   const clampedTotalSeconds = Math.min(Math.max(currentTotalSeconds, min), max);
 
   const clampedParts = totalSecondsToParts(clampedTotalSeconds);
-  return props.showSeconds ? clampedParts.join(":") : clampedParts.slice(0, 2).join(":");
+  return clampedParts.slice(0, props.showSeconds ? undefined : 2).join(":");
 };
 
 const startTime = computed<string | undefined>({
   get: () => {
-    if (
-      props.type === "range" &&
-      typeof modelValue.value === "object" &&
-      modelValue.value !== null
-    ) {
-      return (modelValue.value as TimeRange).from;
+    if (modelValue.value && typeof modelValue.value === "object") {
+      return modelValue.value.from;
     }
     return undefined;
   },
   set: (newValue) => {
-    if (props.type === "range") {
-      const currentTo =
-        typeof modelValue.value === "object" && modelValue.value !== null
-          ? (modelValue.value as TimeRange).to
-          : "";
-      modelValue.value = {
-        from: newValue || "",
-        to: currentTo,
-      } as typeof modelValue.value;
-    }
+    if (props.type !== "range") return;
+    const to = modelValue.value && typeof modelValue.value === "object" ? modelValue.value.to : "";
+
+    modelValue.value = {
+      from: newValue || "",
+      to,
+    } as typeof modelValue.value;
   },
 });
 
 const endTime = computed<string | undefined>({
   get: () => {
-    if (
-      props.type === "range" &&
-      typeof modelValue.value === "object" &&
-      modelValue.value !== null
-    ) {
-      return (modelValue.value as TimeRange).to;
+    if (modelValue.value && typeof modelValue.value === "object") {
+      return modelValue.value.to;
     }
     return undefined;
   },
   set: (newValue) => {
-    if (props.type === "range") {
-      const currentFrom =
-        typeof modelValue.value === "object" && modelValue.value !== null
-          ? (modelValue.value as TimeRange).from
-          : "";
-      modelValue.value = { from: currentFrom, to: newValue || "" } as typeof modelValue.value;
-    }
+    if (props.type !== "range") return;
+    const from =
+      modelValue.value && typeof modelValue.value === "object" ? modelValue.value.from : "";
+    modelValue.value = { from, to: newValue || "" } as typeof modelValue.value;
   },
 });
 
@@ -200,9 +186,8 @@ const showClearButton = computed(() => {
   let hasValue = false;
 
   if (props.type === "range") {
-    if (typeof modelValue.value === "object" && modelValue.value !== null) {
-      const rangeValue = modelValue.value as TimeRange;
-      hasValue = !!(rangeValue.from || rangeValue.to);
+    if (typeof modelValue.value === "object" && modelValue.value) {
+      hasValue = !!(modelValue.value.from || modelValue.value.to);
     }
   } else {
     hasValue = !!modelValue.value;
@@ -211,14 +196,13 @@ const showClearButton = computed(() => {
   return (isFocused.value || open.value) && hasValue && !props.hideClearIcon;
 });
 
-const handleModelUpdate = (value: string | undefined) => {
-  if (props.type !== "range") {
-    if (!value) return;
+const handleModelUpdate = (value?: string) => {
+  if (props.type !== "range" && value) {
     updateModelValue(value.split(":"));
   }
 };
 
-const handleRangeModelUpdate = (group: "start" | "end", value: string | undefined) => {
+const handleRangeModelUpdate = (group: "start" | "end", value?: string) => {
   if (group === "start") {
     startTime.value = value;
   } else {
@@ -239,32 +223,36 @@ const placeholder = computed(() => {
 });
 
 const inputValue = computed(() => {
-  if (props.type === "range" && typeof modelValue.value === "object" && modelValue.value !== null) {
-    const { from, to } = modelValue.value as TimeRange;
+  if (props.type === "range" && typeof modelValue.value === "object" && modelValue.value) {
+    const { from, to } = modelValue.value;
     if (!from && !to) return undefined;
     return `${from || ""} - ${to || ""}`;
   }
-  return modelValue.value as string | undefined;
+  return modelValue.value;
 });
-const singleModelValue = computed(() => modelValue.value as string | undefined);
-const handleInputUpdate = (val: string | undefined) => {
+
+const singleModelValue = computed(() => {
+  return typeof modelValue.value === "string" ? modelValue.value : undefined;
+});
+
+const handleInputUpdate = (value?: string) => {
   if (props.type === "range") {
-    if (!val) {
-      modelValue.value = undefined as typeof modelValue.value;
+    if (!value) {
+      modelValue.value = undefined;
       return;
     }
-    const [from, to] = val.split("-").map((s) => s.trim());
+    const [from, to] = value.split("-").map((s) => s.trim());
     modelValue.value = { from: from || "", to: to || "" } as typeof modelValue.value;
   } else {
-    modelValue.value = val as typeof modelValue.value;
+    modelValue.value = value as typeof modelValue.value;
   }
 };
 
 const rangeError = ref<string>();
 const error = computed(() => props.error ?? rangeError.value);
 
-watch(open, (newValue) => {
-  if (newValue || props.type !== "range") return;
+watch(open, (isOpen) => {
+  if (isOpen || props.type !== "range") return;
 
   const start = parseTimeSeconds(startTime.value);
   const end = parseTimeSeconds(endTime.value);
@@ -342,9 +330,10 @@ const inputProps = useForwardProps(props, OnyxTimePickerInput);
       <template #content>
         <div class="onyx-time-picker__wrapper" tabindex="-1">
           <template v-if="props.type === 'range'">
-            <OnyxHeadline is="h3" class="onyx-time-picker__range-label">{{
-              t("timePicker.labels.from")
-            }}</OnyxHeadline>
+            <OnyxHeadline is="h3" class="onyx-time-picker__range-label">
+              {{ t("timePicker.labels.from") }}
+            </OnyxHeadline>
+
             <OnyxTimePickerGroup
               ref="startTimePickerGroupRef"
               :model-value="startTime"
@@ -356,9 +345,9 @@ const inputProps = useForwardProps(props, OnyxTimePickerInput);
               @update:model-value="handleRangeModelUpdate('start', $event)"
               @jump-segment="(segment, direction) => jumpSegment(segment, direction, 'start')"
             />
-            <OnyxHeadline is="h3" class="onyx-time-picker__range-label">{{
-              t("timePicker.labels.to")
-            }}</OnyxHeadline>
+            <OnyxHeadline is="h3" class="onyx-time-picker__range-label">
+              {{ t("timePicker.labels.to") }}
+            </OnyxHeadline>
             <OnyxTimePickerGroup
               ref="endTimePickerGroupRef"
               :model-value="endTime"

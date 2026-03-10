@@ -27,10 +27,12 @@ const hourInputRef = useTemplateRef<InputRef>("hourInputTemplateRef");
 const minuteInputRef = useTemplateRef<InputRef>("minuteInputTemplateRef");
 const secondInputRef = useTemplateRef<InputRef>("secondInputTemplateRef");
 
-const isSegmentVisible = (segmentName: Segment) => {
-  if (segmentName === "second") return props.showSeconds;
-  return true;
-};
+const isSegmentVisible = computed(() => {
+  return (segmentName: Segment) => {
+    if (segmentName === "second") return props.showSeconds;
+    return true;
+  };
+});
 
 const timeParts = computed<string[]>(() => {
   const parts = props.modelValue?.split(":") ?? [];
@@ -38,25 +40,19 @@ const timeParts = computed<string[]>(() => {
 });
 
 const updateModelValue = (newParts: string[]) => {
-  const finalParts: string[] = [];
-
-  finalParts.push(newParts[0]!, newParts[1]!);
-
-  if (props.showSeconds) {
-    finalParts.push(newParts[2]!);
-  }
-
+  const finalParts = [newParts[0]!, newParts[1]!];
+  if (props.showSeconds) finalParts.push(newParts[2]!);
   emit("update:modelValue", finalParts.join(":"));
 };
 
 const createSegmentComputed = (index: 0 | 1 | 2, segmentName: Segment) =>
   computed<number | null>({
     get: () => {
-      if (!isSegmentVisible(segmentName) || !props.modelValue) return null;
+      if (!isSegmentVisible.value(segmentName) || !props.modelValue) return null;
       return Number.parseInt(timeParts.value[index] ?? "00");
     },
     set: (newValue: number | null | undefined) => {
-      if (!isSegmentVisible(segmentName)) return;
+      if (!isSegmentVisible.value(segmentName)) return;
 
       const numericValue = newValue ?? 0;
 
