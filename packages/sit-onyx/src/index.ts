@@ -63,7 +63,7 @@ export * from "./components/OnyxDataGrid/features/index.js";
 export { default as OnyxDatePicker } from "./components/OnyxDatePicker/OnyxDatePicker.vue";
 export * from "./components/OnyxDatePicker/types.js";
 
-export { default as OnyxUnstableDatePickerV2 } from "./components/OnyxDatePickerV2/OnyxDatePicker.vue";
+export { default as OnyxUnstableDatePickerV2 } from "./components/OnyxDatePickerV2/OnyxDatePickerV2.vue";
 export * from "./components/OnyxDatePickerV2/types.js";
 
 export { default as OnyxBasicDialog } from "./components/OnyxBasicDialog/OnyxBasicDialog.vue";

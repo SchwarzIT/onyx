@@ -2,17 +2,17 @@ import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
-import OnyxDatePicker from "./OnyxDatePicker.vue";
+import OnyxDatePickerV2 from "./OnyxDatePickerV2.vue";
 
 /**
  * The DatePicker component can be used to select a date or date + time.
  *
  * **Note: For now, the calendar flyout will use the native browser calendar. This will be replaced with a custom and more advanced implementation in the future.**
  */
-const meta: Meta<typeof OnyxDatePicker> = {
+const meta: Meta<typeof OnyxDatePickerV2> = {
   title: "Form Elements/DatePickerV2",
   tags: ["unstable"],
-  component: OnyxDatePicker,
+  component: OnyxDatePickerV2,
   decorators: [
     (story) => ({
       components: { story },
@@ -29,7 +29,7 @@ const meta: Meta<typeof OnyxDatePicker> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof OnyxDatePicker>;
+type Story = StoryObj<typeof OnyxDatePickerV2>;
 
 export const Default = {
   args: {
