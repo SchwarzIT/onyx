@@ -19,6 +19,7 @@ import type { OnyxDatePickerV2Props } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxDatePickerV2Props<TSelection>>(), {
   modelValue: undefined,
+  open: undefined,
   required: false,
   readonly: false,
   loading: false,
@@ -49,7 +50,7 @@ const { rootAttrs, restAttrs } = useRootAttrs();
 const { d } = injectI18n();
 
 const modelValue = useVModel({ props, emit, key: "modelValue" });
-const popoverOpen = useVModel({ props, emit, key: "open" });
+const popoverOpen = useVModel({ props, emit, key: "open", default: false });
 
 const handleDateSelect = (date: OnyxCalendarValueBySelection<TSelection>) => {
   modelValue.value = date as typeof modelValue.value;
@@ -119,6 +120,7 @@ useAutofocus(input, props);
   <div class="onyx-component onyx-datepicker-v2" v-bind="rootAttrs">
     <OnyxFormElementV2
       v-bind="formElementProps"
+      :label="props.label"
       :popover-config="{
         open: popoverOpen,
         keepFocusEffect: true,
@@ -126,7 +128,6 @@ useAutofocus(input, props);
         fitParent: props.fitParent,
         alignment: props.alignment,
         position: props.position,
-        sticky: props.sticky,
       }"
       @update:popover-open="popoverOpen = $event"
     >
@@ -154,21 +155,19 @@ useAutofocus(input, props);
             :class="{ 'onyx-calendar--multi-view': props.multiView }"
             v-bind="calendarProps"
             size="small"
-            :model-value="modelValue"
             :selection-mode="props.selectionMode"
-            @update:model-value="handleDateSelect as any"
+            @update:model-value="handleDateSelect"
           />
           <OnyxCalendar
             v-if="props.selectionMode === 'range' && props.multiView"
             :class="{ 'onyx-calendar--multi-view': props.multiView }"
             v-bind="calendarProps"
             size="small"
-            :model-value="modelValue as any"
             :selection-mode="props.selectionMode"
-            @update:model-value="handleDateSelect as any"
+            @update:model-value="handleDateSelect"
           />
         </div>
-        <div v-if="slots.bottomBar" class="onyx-datepicker-v2__bottom-bar">
+        <div v-if="!!slots.bottomBar" class="onyx-datepicker-v2__bottom-bar">
           <slot name="bottomBar"></slot>
         </div>
       </template>
