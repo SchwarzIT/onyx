@@ -57,23 +57,17 @@ const toggleAttrs = computed(() =>
 </script>
 
 <template>
-  <OnyxTooltip v-bind="rootAttrs" without-wedge alignment="center" :text="props.label">
+  <OnyxTooltip v-bind="rootAttrs" alignment="center" :text="props.label">
     <template #default="{ trigger }">
       <button
-        v-bind="mergeVueProps(restAttrs.value, toggleAttrs, trigger)"
-        :class="{
-          'onyx-input-action': true,
-        }"
+        v-bind="mergeVueProps(restAttrs, toggleAttrs, trigger)"
+        class="onyx-input-action"
         type="button"
         tabindex="-1"
+        :aria-label="props.label"
         :disabled="props.disabled"
       >
-        <OnyxIcon
-          class="onyx-input-action__icon"
-          size="24px"
-          :icon="props.icon"
-          color="currentColor"
-        />
+        <OnyxIcon class="onyx-input-action__icon" :icon="props.icon" />
       </button>
     </template>
   </OnyxTooltip>
