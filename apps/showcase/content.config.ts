@@ -8,7 +8,15 @@ export default defineContentConfig({
       schema: z.object({
         hero: z
           .object({
-            image: z.string().optional(),
+            image: z
+              .union([
+                z.string(),
+                z.object({
+                  light: z.string(),
+                  dark: z.string(),
+                }),
+              ])
+              .optional(),
           })
           .optional(),
       }),

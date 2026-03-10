@@ -1,20 +1,33 @@
 <script lang="ts" setup>
-import defaultImage from "~/assets/images/page-hero-fallback.webp";
+import type { OnyxImageProps } from "sit-onyx";
+import fallbackDark from "~/assets/images/page-hero-dark.svg";
+import fallbackLight from "~/assets/images/page-hero-light.svg";
 
 const props = withDefaults(
   defineProps<{
     headline?: string;
     description?: string;
-    image?: string;
+    image?: OnyxImageProps["src"];
   }>(),
   {
-    image: defaultImage,
+    image: () => ({ light: fallbackLight, dark: fallbackDark }),
   },
 );
+
+const image = computed(() => {
+  if (typeof props.image === "object") return props.image;
+  return { light: props.image, dark: props.image };
+});
 </script>
 
 <template>
-  <section class="hero onyx-grid-layout">
+  <section
+    class="hero onyx-grid-layout"
+    :style="{
+      '--hero-image-light': `url('${image.light}')`,
+      '--hero-image-dark': `url('${image.dark}')`,
+    }"
+  >
     <div class="hero__wrapper">
       <div class="hero__content">
         <OnyxHeadline is="h1" class="hero__headline">{{ props.headline }}</OnyxHeadline>
@@ -24,7 +37,7 @@ const props = withDefaults(
         </p>
       </div>
 
-      <div class="hero__image" :style="{ backgroundImage: `url('${props.image}')` }"></div>
+      <div class="hero__image"></div>
     </div>
   </section>
 </template>
@@ -34,6 +47,7 @@ const props = withDefaults(
 
 .hero {
   --hero-headline-size: 3rem;
+  --hero-image-height: 12rem;
   padding-bottom: 0;
 
   &__wrapper {
@@ -54,12 +68,17 @@ const props = withDefaults(
 
   &__image {
     width: 40%;
-    min-height: 12rem;
+    min-height: var(--hero-image-height);
     flex-shrink: 0;
     border-top-right-radius: inherit;
     border-bottom-right-radius: inherit;
+    background-image: var(--hero-image-light);
     background-size: cover;
-    background-position: center;
+    background-position: top;
+
+    .dark & {
+      background-image: var(--hero-image-dark);
+    }
   }
 
   &__headline {
@@ -75,6 +94,7 @@ const props = withDefaults(
   // responsive styles
   @include breakpoints.container(max, md) {
     --hero-headline-size: 2rem;
+    --hero-image-height: 8rem;
 
     .hero__wrapper {
       flex-direction: column-reverse;
