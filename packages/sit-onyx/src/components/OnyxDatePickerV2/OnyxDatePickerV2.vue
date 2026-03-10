@@ -12,6 +12,7 @@ import type {
   OnyxCalendarSelectionMode,
   OnyxCalendarValueBySelection,
 } from "../OnyxCalendar/types.js";
+import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
@@ -23,7 +24,7 @@ const props = withDefaults(defineProps<OnyxDatePickerV2Props<TSelection>>(), {
   required: false,
   readonly: false,
   loading: false,
-  disabled: false,
+  disabled: FORM_INJECTED_SYMBOL,
   skeleton: false,
   showCalendarWeeks: false,
   weekStartDay: "Monday",
@@ -46,6 +47,7 @@ const slots = defineSlots<{
 }>();
 
 defineOptions({ inheritAttrs: false });
+const { disabled } = useFormContext(props);
 const { rootAttrs, restAttrs } = useRootAttrs();
 const { d } = injectI18n();
 
@@ -141,6 +143,7 @@ useAutofocus(input, props);
           <input
             v-bind="{ ...inputProps, ...restAttrs }"
             ref="inputRef"
+            :disabled="disabled || props.loading"
             class="onyx-datepicker-v2__native-input onyx-truncation-ellipsis"
             :value="formattedDate"
           />
@@ -154,6 +157,7 @@ useAutofocus(input, props);
           <OnyxCalendar
             :class="{ 'onyx-calendar--multi-view': props.multiView }"
             v-bind="calendarProps"
+            :disabled="false"
             size="small"
             :selection-mode="props.selectionMode"
             @update:model-value="handleDateSelect"
@@ -162,6 +166,7 @@ useAutofocus(input, props);
             v-if="props.selectionMode === 'range' && props.multiView"
             :class="{ 'onyx-calendar--multi-view': props.multiView }"
             v-bind="calendarProps"
+            :disabled="false"
             size="small"
             :selection-mode="props.selectionMode"
             @update:model-value="handleDateSelect"
@@ -183,13 +188,12 @@ useAutofocus(input, props);
     &__wrapper {
       position: relative;
       width: 100%;
+      display: flex;
     }
 
     &__loading {
-      position: absolute;
-      top: 50%;
-      right: var(--onyx-density-sm);
-      transform: translateY(-50%);
+      margin-left: var(--onyx-density-sm);
+      color: var(--onyx-color-text-icons-primary-intense);
     }
   }
   &__bottom-bar {
@@ -207,7 +211,11 @@ useAutofocus(input, props);
   &__native-input {
     cursor: pointer;
     caret-color: transparent;
+    &[disabled] {
+      cursor: default;
+    }
   }
+
   .onyx-basic-popover__dialog {
     max-width: initial;
   }

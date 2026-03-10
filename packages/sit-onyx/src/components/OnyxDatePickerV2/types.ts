@@ -2,20 +2,16 @@ import type { AutofocusProp } from "../../types/components.js";
 import type { OnyxBasicPopoverProps } from "../OnyxBasicPopover/types.js";
 import type { OnyxCalendarProps, OnyxCalendarSelectionMode } from "../OnyxCalendar/types.js";
 import type { OnyxFormElementV2Props } from "../OnyxFormElementV2/types.js";
+import type { OnyxInputProps } from "../OnyxInput/types.js";
 
 export type OnyxDatePickerV2Props<TSelection extends OnyxCalendarSelectionMode = "single"> = Omit<
   OnyxFormElementV2Props,
   "modelValue" | "showError" | "requiredMarker" | "reserveMessageSpace"
 > &
+  Pick<OnyxInputProps, "disabled"> &
   Pick<
     OnyxCalendarProps<TSelection>,
-    | "min"
-    | "max"
-    | "weekStartDay"
-    | "showCalendarWeeks"
-    | "disabled"
-    | "selectionMode"
-    | "modelValue"
+    "min" | "max" | "weekStartDay" | "showCalendarWeeks" | "selectionMode" | "modelValue"
   > &
   AutofocusProp &
   Pick<OnyxBasicPopoverProps, "open" | "alignment" | "position" | "fitParent"> & {
@@ -23,9 +19,8 @@ export type OnyxDatePickerV2Props<TSelection extends OnyxCalendarSelectionMode =
      * Whether the date picker is loading.
      */
     loading?: boolean;
-
     /**
-     * Whether to show 2 Calendars.
+     * Whether to show 2 Calendars
      */
     multiView?: TSelection extends "range" ? boolean : never;
   };
