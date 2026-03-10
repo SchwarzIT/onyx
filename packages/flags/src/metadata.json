@@ -255,6 +255,30 @@
     "continent": "Europe",
     "internationalName": "Spain"
   },
+  "ES-AR": {
+    "continent": "Europe",
+    "internationalName": "Aragon"
+  },
+  "ES-CE": {
+    "continent": "Europe",
+    "internationalName": "Ceuta"
+  },
+  "ES-GA": {
+    "continent": "Europe",
+    "internationalName": "Galicia"
+  },
+  "ES-IB": {
+    "continent": "Europe",
+    "internationalName": "Balearic Islands"
+  },
+  "ES-ML": {
+    "continent": "Europe",
+    "internationalName": "Melilla"
+  },
+  "ES-PV": {
+    "continent": "Europe",
+    "internationalName": "Basque Country"
+  },
   "ET": {
     "continent": "Africa",
     "internationalName": "Ethiopia"
@@ -287,6 +311,14 @@
     "continent": "Europe",
     "internationalName": "France"
   },
+  "FR-20R": {
+    "continent": "Europe",
+    "internationalName": "Corsica"
+  },
+  "FR-BRE": {
+    "continent": "Europe",
+    "internationalName": "Brittany"
+  },
   "GA": {
     "continent": "Africa",
     "internationalName": "Gabon"
@@ -298,6 +330,10 @@
   "GB-ENG": {
     "continent": "Europe",
     "internationalName": "England"
+  },
+  "GB-NIR": {
+    "continent": "Europe",
+    "internationalName": "Northern Ireland"
   },
   "GB-SCT": {
     "continent": "Europe",
