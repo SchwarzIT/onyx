@@ -40,6 +40,13 @@ const emit = defineEmits<{
 
 const slots = defineSlots<OnyxFormElementV2Slots>();
 
+const emit = defineEmits<
+  /**
+   * Emitted when the popoverOpeningState changes
+   */
+  (event: "update:popoverOpen", value: boolean) => void
+>();
+
 const { densityClass } = useDensity(props);
 const formContext = useFormContext(props);
 const errorClass = useErrorClass(formContext.showError);
@@ -73,6 +80,7 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
 
 <template>
   <div
+    ref="rootRef"
     :class="[
       'onyx-component',
       'onyx-form-element-v2',
