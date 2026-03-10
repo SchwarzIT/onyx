@@ -19,7 +19,16 @@ const UNKNOWN_COUNTRY_NAMES: Record<string, string | undefined> = {
   "GB-ENG": "England",
   "GB-SCT": "Scotland",
   "GB-WLS": "Wales",
+  "GB-NIR": "Northern Ireland",
   "US-HI": "Hawaii",
+  "ES-AR": "Aragon",
+  "ES-CE": "Ceuta",
+  "ES-GA": "Galicia",
+  "ES-IB": "Balearic Islands",
+  "ES-ML": "Melilla",
+  "ES-PV": "Basque Country",
+  "FR-20R": "Corsica",
+  "FR-BRE": "Brittany",
 };
 
 export const parseComponentsToFlags = (options: ParseFlagComponentsOptions): ParsedFlag[] => {
