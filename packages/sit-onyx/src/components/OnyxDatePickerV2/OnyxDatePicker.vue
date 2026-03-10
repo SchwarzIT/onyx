@@ -9,7 +9,6 @@ import { useForwardProps } from "../../utils/props.js";
 import OnyxCalendar from "../OnyxCalendar/OnyxCalendar.vue";
 
 import type {
-  DateRange,
   OnyxCalendarSelectionMode,
   OnyxCalendarValueBySelection,
 } from "../OnyxCalendar/types.js";
@@ -27,7 +26,7 @@ const props = withDefaults(defineProps<OnyxDatePickerV2Props<TSelection>>(), {
   skeleton: false,
   showCalendarWeeks: false,
   weekStartDay: "Monday",
-  selectionMode: "single" as TSelection,
+  selectionMode: () => "single" as TSelection,
 });
 
 const emit = defineEmits<{
@@ -47,7 +46,7 @@ const slots = defineSlots<{
 
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
-const { locale } = injectI18n();
+const { d } = injectI18n();
 
 const modelValue = useVModel({ props, emit, key: "modelValue" });
 const popoverOpen = useVModel({ props, emit, key: "open" });
@@ -60,46 +59,10 @@ const handleDateSelect = (date: OnyxCalendarValueBySelection<TSelection>) => {
   }
 };
 
-const formatToISODate = (val: unknown) => {
-  if (!val) return "";
-  const d = val instanceof Date ? val : new Date(val as string);
-  if (Number.isNaN(d.getTime())) return "";
-
-  const year = d.getFullYear();
-  const month = String(d.getMonth() + 1).padStart(2, "0");
-  const day = String(d.getDate()).padStart(2, "0");
-
-  return `${year}-${month}-${day}`;
-};
-
-const handleManualInput = (type: "start" | "end", e: Event) => {
-  const target = e.target as HTMLInputElement;
-  const newVal = target?.value;
-
-  if (!newVal) return;
-  const date = new Date(newVal);
-  if (Number.isNaN(date.getTime())) return;
-
-  const currentValue = modelValue.value as DateRange | undefined;
-
-  let nextValue: DateRange;
-
-  if (!currentValue || typeof currentValue !== "object" || Array.isArray(currentValue)) {
-    nextValue = { start: date, end: date };
-  } else {
-    nextValue = {
-      ...currentValue,
-      [type]: date,
-    };
-  }
-
-  modelValue.value = nextValue as unknown as typeof modelValue.value;
-};
-
 const dateOption: Intl.DateTimeFormatOptions = {
   year: "numeric",
-  month: "numeric",
-  day: "numeric",
+  month: "2-digit",
+  day: "2-digit",
 };
 
 const formattedDate = computed(() => {
@@ -117,14 +80,15 @@ const formattedDate = computed(() => {
 
   if (props.selectionMode === "single") {
     const date = toDate(value);
-    return date ? date.toLocaleDateString(locale.value, dateOption) : "";
+
+    return date ? d.value(date, dateOption) : "";
   }
 
   if (props.selectionMode === "multiple" && Array.isArray(value)) {
     return value
       .map((v) => toDate(v))
-      .filter((d): d is Date => d !== null)
-      .map((d) => d.toLocaleDateString(locale.value, dateOption))
+      .filter((time): time is Date => time !== null)
+      .map((time) => d.value(time, dateOption))
       .join(", ");
   }
 
@@ -133,11 +97,11 @@ const formattedDate = computed(() => {
     const start = toDate(rangeValue.start);
     if (!start) return "";
 
-    const startStr = start.toLocaleDateString(locale.value, dateOption);
+    const startStr = d.value(start, dateOption);
     const end = toDate(rangeValue.end);
 
     if (!end) return startStr;
-    return `${startStr} - ${end.toLocaleDateString(locale.value, dateOption)}`;
+    return `${startStr} - ${d.value(end, dateOption)}`;
   }
 
   return "";
@@ -159,7 +123,10 @@ useAutofocus(input, props);
         open: popoverOpen,
         keepFocusEffect: true,
         closeOnOutsideClick: true,
-        fitParent: !props.multiView,
+        fitParent: props.fitParent,
+        alignment: props.alignment,
+        position: props.position,
+        sticky: props.sticky,
       }"
       @update:popover-open="popoverOpen = $event"
     >
@@ -201,35 +168,6 @@ useAutofocus(input, props);
             @update:model-value="handleDateSelect as any"
           />
         </div>
-
-        <div
-          v-if="props.selectionMode === 'range' && props.showInputFields"
-          class="onyx-datepicker-v2__range-input-wrapper"
-        >
-          <OnyxFormElementV2 :label="{ label: 'start', hidden: true }">
-            <template #default="inputProps">
-              <!-- eslint-disable-next-line vuejs-accessibility/form-control-has-label -->
-              <input
-                v-bind="{ ...inputProps }"
-                type="date"
-                :value="formatToISODate((modelValue as any)?.start)"
-                @change="(e) => handleManualInput('start', e)"
-              />
-            </template>
-          </OnyxFormElementV2>
-          <OnyxFormElementV2 :label="{ label: 'end', hidden: true }">
-            <template #default="inputProps">
-              <!-- eslint-disable-next-line vuejs-accessibility/form-control-has-label -->
-              <input
-                v-bind="{ ...inputProps }"
-                type="date"
-                :value="formatToISODate((modelValue as any)?.end)"
-                @change="(e) => handleManualInput('end', e)"
-              />
-            </template>
-          </OnyxFormElementV2>
-        </div>
-
         <div v-if="slots.bottomBar" class="onyx-datepicker-v2__bottom-bar">
           <slot name="bottomBar"></slot>
         </div>
@@ -292,19 +230,9 @@ useAutofocus(input, props);
     color: var(--onyx-form-element-v2-border-color-focus);
   }
 
-  &__range-input-wrapper {
-    width: 100%;
-
-    padding: var(--onyx-density-md);
-    display: flex;
-    gap: var(--onyx-density-lg);
-    input[type="date"]::-webkit-calendar-picker-indicator {
-      display: none;
-      -webkit-appearance: none;
-    }
-  }
   :has(.onyx-datepicker-v2__bottom-bar) .onyx-calendar,
-  :has(.onyx-datepicker-v2__range-input-wrapper) .onyx-calendar {
+  :has(.onyx-datepicker-v2__range-input-wrapper) .onyx-calendar,
+  .onyx-calendar--multi-view .onyx-calendar {
     &__body table,
     &__picker-grid {
       border-radius: 0;
