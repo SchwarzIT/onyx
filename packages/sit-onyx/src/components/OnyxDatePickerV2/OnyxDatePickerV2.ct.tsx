@@ -70,7 +70,3 @@ test.describe("Screenshot tests (multiView)", () => {
     },
   });
 });
-
-test("asd", () => {
-  //
-});
