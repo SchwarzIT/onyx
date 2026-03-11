@@ -1,5 +1,5 @@
 ---
-"sit-onyx": minor
+"sit-onyx": patch
 ---
 
-feat(OnyxUnstableFormElementV2): add popoverOptions for enhanced control
+refactor: rename type `FormElementPopoverOptions` to `FormElementV2PopoverOptions`
