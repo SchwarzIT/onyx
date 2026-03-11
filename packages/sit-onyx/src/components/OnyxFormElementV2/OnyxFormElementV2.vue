@@ -6,6 +6,8 @@ import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
+import { useVModel } from "../../composables/useVModel.js";
+import { mergeVueProps } from "../../utils/attrs.js";
 import { useForwardProps } from "../../utils/props.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
@@ -24,8 +26,17 @@ const props = withDefaults(defineProps<OnyxFormElementV2Props>(), {
   requiredMarker: FORM_INJECTED_SYMBOL,
   showError: FORM_INJECTED_SYMBOL,
   reserveMessageSpace: FORM_INJECTED_SYMBOL,
+  open: undefined,
+  popoverOptions: () => ({ fitParent: true }),
   id: () => useId(),
 });
+
+const emit = defineEmits<{
+  /**
+   * Emitted when the popover open state changes.
+   */
+  "update:open": [open: boolean];
+}>();
 
 const slots = defineSlots<OnyxFormElementV2Slots>();
 
@@ -33,6 +44,7 @@ const { densityClass } = useDensity(props);
 const formContext = useFormContext(props);
 const errorClass = useErrorClass(formContext.showError);
 const skeleton = useSkeletonContext(props);
+const open = useVModel({ props, emit, key: "open", default: false });
 
 const label = computed<FormElementV2LabelOptions>(() => {
   if (typeof props.label === "object") return props.label;
@@ -85,8 +97,8 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
           <slot name="leading"></slot>
         </div>
 
-        <MaybePopoverLayout v-bind="popoverLayoutProps">
-          <template #default="{ trigger }">
+        <MaybePopoverLayout v-bind="popoverLayoutProps" v-model:open="open">
+          <template #default="{ trigger, input: popoverInputProps }">
             <div v-bind="trigger" class="onyx-form-element-v2__input-container">
               <div
                 v-if="slots.leadingIcons || props.loading"
@@ -100,7 +112,7 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
                 <slot v-else name="leadingIcons"></slot>
               </div>
 
-              <slot v-bind="inputProps"></slot>
+              <slot v-bind="mergeVueProps(inputProps, popoverInputProps)"></slot>
 
               <div
                 v-if="slots.trailingIcons"
@@ -258,13 +270,16 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
         border-color: var(--onyx-form-element-v2-border-color-hover);
       }
 
-      &:has(.onyx-form-element-v2__input:enabled:focus) {
-        border-color: var(--onyx-form-element-v2-border-color-focus);
-        outline: var(--onyx-outline-width) solid var(--onyx-form-element-v2-outline-color);
-      }
-
       &:has(.onyx-form-element-v2__input:autofill) {
         background-color: var(--onyx-form-element-v2-background-autofill);
+      }
+    }
+
+    &:has(.onyx-form-element-v2__input:enabled:focus),
+    &:has(.onyx-form-element-v2__popover .onyx-basic-popover__dialog:popover-open) {
+      .onyx-form-element-v2__input-container {
+        border-color: var(--onyx-form-element-v2-border-color-focus);
+        outline: var(--onyx-outline-width) solid var(--onyx-form-element-v2-outline-color);
       }
     }
 
