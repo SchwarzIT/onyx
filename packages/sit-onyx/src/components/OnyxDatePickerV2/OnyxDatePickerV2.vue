@@ -114,16 +114,15 @@ useAutofocus(input, props);
 
 <template>
   <OnyxFormElementV2
+    v-bind="mergeVueProps(rootAttrs, formElementProps)"
+    v-model:open="popoverOpen"
     class="onyx-component onyx-date-picker-v2"
-    v-bind="mergeVueProps(formElementProps, rootAttrs)"
     :label="props.label"
     :popover-options="{
-      open: popoverOpen,
       fitParent: props.fitParent,
       alignment: props.alignment,
       position: props.position,
     }"
-    @update:open="popoverOpen = $event"
   >
     <template #leadingIcons>
       <OnyxLoadingIndicator
