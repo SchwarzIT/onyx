@@ -394,6 +394,14 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
       margin-left: var(--onyx-spacing-2xs);
     }
 
+    &:has(.onyx-form-element-v2__popover) .onyx-form-element-v2__input {
+      cursor: pointer;
+      caret-color: transparent;
+      &[disabled] {
+        cursor: default;
+      }
+    }
+
     &:has(&__bottom:not(:empty)) {
       .onyx-form-element-v2__popover {
         --onyx-basic-popover-gap: var(--onyx-form-element-v2-bottom-height);

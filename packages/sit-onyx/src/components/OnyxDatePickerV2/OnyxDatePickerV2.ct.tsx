@@ -2,7 +2,6 @@ import { DENSITIES } from "../../composables/density.js";
 import { test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.jsx";
 import OnyxDatePicker from "./OnyxDatePickerV2.vue";
-import TestCaseCt from "./TestCase.ct.vue";
 
 const MOCK_NOW = new Date(2024, 9, 3);
 
@@ -23,57 +22,45 @@ test.describe("Screenshot tests", () => {
   const multipleDates = [date, getMockDate(6)];
 
   for (const type of ["single", "multiple", "range"] as const) {
-    for (const state of ["default", "with value"] as const) {
-      executeMatrixScreenshotTest({
-        name: `DatePicker (${type}, ${state})`,
-        columns: DENSITIES,
-        rows: ["default", "open"],
-        component: (column, row) => {
-          return (
-            <OnyxDatePicker
-              label="Test label"
-              density={column}
-              modelValue={
-                state === "with value"
-                  ? type === "range"
-                    ? rangeDate
-                    : type === "multiple"
-                      ? multipleDates
-                      : date
-                  : undefined
-              }
-              style={{
-                width: "18rem",
-                marginBottom: row === "open" ? "24rem" : "0",
-              }}
-              fitParent={true}
-              selectionMode={type}
-              open={row === "open"}
-            />
-          );
-        },
-      });
-    }
+    executeMatrixScreenshotTest({
+      name: `DatePicker (${type})`,
+      columns: DENSITIES,
+      rows: ["default", "open"],
+      component: (column, row) => {
+        return (
+          <OnyxDatePicker
+            label="Test label"
+            density={column}
+            modelValue={type === "range" ? rangeDate : type === "multiple" ? multipleDates : date}
+            style={{
+              width: "18rem",
+              marginBottom: row === "open" ? "24rem" : "0",
+            }}
+            fitParent={true}
+            selectionMode={type}
+            open={row === "open"}
+          />
+        );
+      },
+    });
   }
 
   executeMatrixScreenshotTest({
-    name: `DatePicker`,
+    name: `DatePicker (multiView)`,
     columns: DENSITIES,
-    rows: ["bottomBar", "multiView"],
+    rows: [],
     component: (column, row) => {
       return (
-        <TestCaseCt
+        <OnyxDatePicker
           label="Test label"
           density={column}
           modelValue={rangeDate}
           style={{
             width: "18rem",
-            marginBottom: row === "multiView" ? "24rem" : "28rem",
-            marginRight: row === "multiView" ? "20rem" : "0",
+            marginBottom: "24rem",
+            marginRight: "20rem",
           }}
           selectionMode={"range"}
-          fitParent={row !== "multiView"}
-          bottomBar={row === "bottomBar"}
           multiView={row === "multiView"}
           open={true}
         />

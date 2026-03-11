@@ -4,14 +4,16 @@ import { computed, useTemplateRef } from "vue";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
-import { useRootAttrs } from "../../utils/attrs.js";
+import { mergeVueProps, useRootAttrs } from "../../utils/attrs.js";
 import { useForwardProps } from "../../utils/props.js";
 import OnyxCalendar from "../OnyxCalendar/OnyxCalendar.vue";
 
+import { isValidDate } from "../../utils/date.js";
 import type {
   OnyxCalendarSelectionMode,
   OnyxCalendarValueBySelection,
 } from "../OnyxCalendar/types.js";
+import type { DateValue } from "../OnyxDatePicker/types.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -29,8 +31,8 @@ const props = withDefaults(defineProps<OnyxDatePickerV2Props<TSelection>>(), {
   showCalendarWeeks: false,
   weekStartDay: "Monday",
   selectionMode: () => "single" as TSelection,
+  fitParent: true,
 });
-
 const emit = defineEmits<{
   /**
    * Emitted when the current value changes.
@@ -40,10 +42,6 @@ const emit = defineEmits<{
    * Emitted when the popover open state changes
    */
   "update:open": [open: boolean];
-}>();
-
-const slots = defineSlots<{
-  bottomBar(): unknown;
 }>();
 
 defineOptions({ inheritAttrs: false });
@@ -62,7 +60,7 @@ const handleDateSelect = (date: OnyxCalendarValueBySelection<TSelection>) => {
   }
 };
 
-const dateOption: Intl.DateTimeFormatOptions = {
+const dateOptions: Intl.DateTimeFormatOptions = {
   year: "numeric",
   month: "2-digit",
   day: "2-digit",
@@ -73,25 +71,21 @@ const formattedDate = computed(() => {
   if (!value) return "";
 
   const toDate = (val: unknown) => {
-    if (val instanceof Date) return val;
-    if (typeof val === "string" || typeof val === "number") {
-      const date = new Date(val);
-      return Number.isNaN(date.getTime()) ? null : date;
-    }
-    return null;
+    const date = new Date(val as DateValue);
+    return isValidDate(date) ? date : null;
   };
 
   if (props.selectionMode === "single") {
     const date = toDate(value);
 
-    return date ? d.value(date, dateOption) : "";
+    return date ? d.value(date, dateOptions) : "";
   }
 
   if (props.selectionMode === "multiple" && Array.isArray(value)) {
     return value
       .map((v) => toDate(v))
       .filter((time): time is Date => time !== null)
-      .map((time) => d.value(time, dateOption))
+      .map((time) => d.value(time, dateOptions))
       .join(", ");
   }
 
@@ -100,11 +94,11 @@ const formattedDate = computed(() => {
     const start = toDate(rangeValue.start);
     if (!start) return "";
 
-    const startStr = d.value(start, dateOption);
+    const startStr = d.value(start, dateOptions);
     const end = toDate(rangeValue.end);
 
     if (!end) return startStr;
-    return `${startStr} - ${d.value(end, dateOption)}`;
+    return `${startStr} - ${d.value(end, dateOptions)}`;
   }
 
   return "";
@@ -123,31 +117,29 @@ useAutofocus(input, props);
     <OnyxFormElementV2
       v-bind="formElementProps"
       :label="props.label"
-      :popover-config="{
+      :popover-options="{
         open: popoverOpen,
-        keepFocusEffect: true,
-        closeOnOutsideClick: true,
         fitParent: props.fitParent,
         alignment: props.alignment,
         position: props.position,
       }"
       @update:popover-open="popoverOpen = $event"
     >
+      <template #leadingIcons>
+        <OnyxLoadingIndicator
+          v-if="props.loading"
+          class="onyx-datepicker-v2__loading"
+          type="circle"
+        />
+      </template>
       <template #default="inputProps">
-        <div class="onyx-datepicker-v2__wrapper">
-          <OnyxLoadingIndicator
-            v-if="props.loading"
-            class="onyx-datepicker-v2__loading"
-            type="circle"
-          />
-          <input
-            v-bind="{ ...inputProps, ...restAttrs }"
-            ref="inputRef"
-            :disabled="disabled || props.loading"
-            class="onyx-datepicker-v2__native-input onyx-truncation-ellipsis"
-            :value="formattedDate"
-          />
-        </div>
+        <input
+          v-bind="mergeVueProps(inputProps, restAttrs)"
+          ref="inputRef"
+          :disabled="disabled || props.loading"
+          class="onyx-datepicker-v2__native-input onyx-truncation-ellipsis"
+          :value="formattedDate"
+        />
       </template>
       <template #trailingIcons>
         <OnyxIcon :icon="iconCalendar" />
@@ -155,7 +147,7 @@ useAutofocus(input, props);
       <template #popover>
         <div class="onyx-datepicker-v2__calendar-wrapper">
           <OnyxCalendar
-            :class="{ 'onyx-calendar--multi-view': props.multiView }"
+            :class="{ 'onyx-datepicker-v2--multi-view': props.multiView }"
             v-bind="calendarProps"
             :disabled="false"
             size="small"
@@ -164,16 +156,13 @@ useAutofocus(input, props);
           />
           <OnyxCalendar
             v-if="props.selectionMode === 'range' && props.multiView"
-            :class="{ 'onyx-calendar--multi-view': props.multiView }"
+            class="onyx-datepicker-v2--multi-view"
             v-bind="calendarProps"
             :disabled="false"
             size="small"
             :selection-mode="props.selectionMode"
             @update:model-value="handleDateSelect"
           />
-        </div>
-        <div v-if="!!slots.bottomBar" class="onyx-datepicker-v2__bottom-bar">
-          <slot name="bottomBar"></slot>
         </div>
       </template>
     </OnyxFormElementV2>
@@ -185,35 +174,13 @@ useAutofocus(input, props);
 
 .onyx-datepicker-v2 {
   @include layers.component() {
-    &__wrapper {
-      position: relative;
-      width: 100%;
-      display: flex;
-    }
-
     &__loading {
-      margin-left: var(--onyx-density-sm);
       color: var(--onyx-color-text-icons-primary-intense);
     }
   }
-  &__bottom-bar {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-    gap: var(--onyx-density-xs);
-    padding: var(--onyx-density-xs) var(--onyx-density-xl);
-  }
-
   &__calendar-wrapper {
     display: flex;
     width: 100%;
-  }
-  &__native-input {
-    cursor: pointer;
-    caret-color: transparent;
-    &[disabled] {
-      cursor: default;
-    }
   }
 
   .onyx-basic-popover__dialog {
@@ -229,17 +196,16 @@ useAutofocus(input, props);
     &__header {
       padding: var(--onyx-density-xs);
     }
-    &--multi-view {
-      width: 18rem;
-    }
+  }
+  &--multi-view {
+    width: 18rem;
   }
   .onyx-form-element-v2__input-container--show-focus .onyx-form-element-v2__icons--trailing {
     color: var(--onyx-form-element-v2-border-color-focus);
   }
 
-  :has(.onyx-datepicker-v2__bottom-bar) .onyx-calendar,
   :has(.onyx-datepicker-v2__range-input-wrapper) .onyx-calendar,
-  .onyx-calendar--multi-view .onyx-calendar {
+  .onyx-datepicker-v2--multi-view .onyx-calendar {
     &__body table,
     &__picker-grid {
       border-radius: 0;
