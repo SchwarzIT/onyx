@@ -20,9 +20,11 @@ const props = withDefaults(defineProps<OnyxFormElementV2Props>(), {
   requiredMarker: FORM_INJECTED_SYMBOL,
   showError: FORM_INJECTED_SYMBOL,
   reserveMessageSpace: FORM_INJECTED_SYMBOL,
+  popoverOptions: () => ({
+    fitParent: true,
+  }),
   id: () => useId(),
 });
-
 const slots = defineSlots<OnyxFormElementV2Slots>();
 
 const emit = defineEmits<
@@ -58,9 +60,9 @@ const root = useTemplateRef("rootRef");
 useOutsideClick({
   inside: root,
   onOutsideClick: () => {
-    if (props.popoverConfig?.closeOnOutsideClick) emit("update:popoverOpen", false);
+    emit("update:popoverOpen", false);
   },
-  disabled: computed(() => !props.popoverConfig?.closeOnOutsideClick || !props.popoverConfig?.open),
+  disabled: computed(() => !props.popoverOptions?.open),
   checkOnTab: true,
 });
 </script>
@@ -92,16 +94,7 @@ useOutsideClick({
           @update:popover-open="emit('update:popoverOpen', $event)"
         >
           <template #default="{ trigger }">
-            <div
-              v-bind="trigger"
-              :class="[
-                'onyx-form-element-v2__input-container',
-                {
-                  'onyx-form-element-v2__input-container--show-focus':
-                    props.popoverConfig?.open && props.popoverConfig?.keepFocusEffect,
-                },
-              ]"
-            >
+            <div v-bind="trigger" :class="['onyx-form-element-v2__input-container']">
               <div
                 v-if="slots.leadingIcons"
                 class="onyx-form-element-v2__icons onyx-form-element-v2__icons--leading"
@@ -246,6 +239,15 @@ useOutsideClick({
       align-items: center;
     }
 
+    &:has(.onyx-form-element-v2__input:enabled:focus) &__input-container,
+    &:has(.onyx-form-element-v2__input:enabled):has(
+        .onyx-form-element-v2__popover .onyx-basic-popover__dialog:popover-open
+      )
+      &__input-container {
+      border-color: var(--onyx-form-element-v2-border-color-focus);
+      outline: var(--onyx-outline-width) solid var(--onyx-form-element-v2-outline-color);
+    }
+
     &__input-container {
       display: flex;
       align-items: center;
@@ -255,12 +257,6 @@ useOutsideClick({
 
       &:has(.onyx-form-element-v2__input:read-write):hover {
         border-color: var(--onyx-form-element-v2-border-color-hover);
-      }
-
-      &:has(.onyx-form-element-v2__input:enabled:focus),
-      &--show-focus:has(.onyx-form-element-v2__input:enabled) {
-        border-color: var(--onyx-form-element-v2-border-color-focus);
-        outline: var(--onyx-outline-width) solid var(--onyx-form-element-v2-outline-color);
       }
 
       &:has(.onyx-form-element-v2__input:autofill) {
@@ -362,6 +358,14 @@ useOutsideClick({
 
     &__tooltip {
       margin-left: var(--onyx-spacing-2xs);
+    }
+
+    &:has(.onyx-form-element-v2__popover) .onyx-form-element-v2__input {
+      cursor: pointer;
+      caret-color: transparent;
+      &[disabled] {
+        cursor: default;
+      }
     }
 
     &:has(&__bottom:not(:empty)) {

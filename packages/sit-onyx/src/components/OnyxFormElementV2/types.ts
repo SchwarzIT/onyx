@@ -38,7 +38,7 @@ export type OnyxFormElementV2Props = DensityProp &
     /**
      * config of the popover
      */
-    popoverConfig?: OnyxFormElementV2PopoverConfig;
+    popoverOptions?: OnyxFormElementV2popoverOptions;
   };
 
 export type OnyxFormElementV2Slots = {
@@ -96,16 +96,7 @@ export type FormElementV2Tooltip = {
   tooltipText?: string;
 };
 
-export type OnyxFormElementV2PopoverConfig = Pick<
+export type OnyxFormElementV2popoverOptions = Pick<
   OnyxBasicPopoverProps,
   "open" | "fitParent" | "alignment" | "position"
-> & {
-  /**
-   * Whether to close the popover on outsideClick
-   */
-  closeOnOutsideClick?: boolean;
-  /**
-   * Whether the input keeps the focus effect, when popover is focused
-   */
-  keepFocusEffect?: boolean;
-};
+>;

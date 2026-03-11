@@ -28,10 +28,7 @@ const label = computed(() => {
     v-if="slots.popover"
     class="onyx-form-element-v2__popover"
     :label
-    :fit-parent="props.popoverConfig?.fitParent"
-    :alignment="props.popoverConfig?.alignment"
-    :position="props.popoverConfig?.position"
-    :open="props.popoverConfig?.open"
+    v-bind="props.popoverOptions"
     @update:open="emit('update:popoverOpen', $event)"
   >
     <template #default="{ trigger }">
