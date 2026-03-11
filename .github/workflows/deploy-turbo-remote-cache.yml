@@ -37,7 +37,9 @@ jobs:
       - name: Apply lifecycle rule
         working-directory: apps/turbo-remote-cache/
         run: |
-          sudo pip install s3cmd
+          echo "s3cmd==2.4.0 --hash=sha256:13ad8a44d44cc0535ba8c878c91fd68cd830dc48f6388722fa44a7aaf3f18017" > requirements.txt
+          sudo pip install -r requirements.txt --require-hashes
+
           s3cmd \
             --host-bucket="%(bucket)s.object.storage.eu01.onstackit.cloud" \
             --host="object.storage.eu01.onstackit.cloud" \
