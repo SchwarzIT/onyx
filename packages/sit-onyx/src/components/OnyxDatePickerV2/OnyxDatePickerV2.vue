@@ -134,7 +134,7 @@ const popoverOptions = computed<FormElementV2PopoverOptions | undefined>(() => {
       <input
         v-bind="mergeVueProps(inputProps, restAttrs)"
         ref="inputRef"
-        class="onyx-date-picker-v2__native-input onyx-truncation-ellipsis"
+        class="onyx-truncation-ellipsis"
         :value="formattedDate"
         :disabled="disabled || props.loading"
         :readonly="props.readonly"
