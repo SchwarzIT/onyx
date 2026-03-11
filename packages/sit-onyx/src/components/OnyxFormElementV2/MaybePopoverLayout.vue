@@ -1,11 +1,6 @@
 <script lang="ts" setup>
-import {
-  CLOSING_KEYS,
-  OPENING_KEYS,
-  useOutsideClick,
-  type VueTemplateRefElement,
-} from "@sit-onyx/headless";
-import { computed, ref, type AriaAttributes } from "vue";
+import { CLOSING_KEYS, OPENING_KEYS, useOutsideClick } from "@sit-onyx/headless";
+import { computed, useTemplateRef, type AriaAttributes } from "vue";
 import { useVModel } from "../../composables/useVModel.js";
 import { mergeVueProps } from "../../utils/attrs.js";
 import OnyxBasicPopover from "../OnyxBasicPopover/OnyxBasicPopover.vue";
@@ -31,10 +26,10 @@ const label = computed(() => {
   return typeof props.label === "object" ? props.label.label : props.label;
 });
 
-const inside = ref<VueTemplateRefElement<Element>>(null);
+const popover = useTemplateRef("popover");
 
 useOutsideClick({
-  inside,
+  inside: popover,
   checkOnTab: true,
   disabled: computed(() => !slots.popover || !open.value),
   onOutsideClick: () => {
@@ -61,6 +56,7 @@ const blockTyping = (event: KeyboardEvent) => {
 <template>
   <OnyxBasicPopover
     v-if="slots.popover"
+    ref="popover"
     v-model:open="open"
     class="onyx-form-element-v2__popover"
     :label
@@ -68,12 +64,7 @@ const blockTyping = (event: KeyboardEvent) => {
   >
     <template #default="{ trigger }">
       <slot
-        :trigger="
-          mergeVueProps(trigger, {
-            role: 'combobox',
-            ref: (el) => (inside = el),
-          })
-        "
+        :trigger="mergeVueProps(trigger, { role: 'combobox' })"
         :input="{ onKeydown: blockTyping }"
       ></slot>
     </template>
