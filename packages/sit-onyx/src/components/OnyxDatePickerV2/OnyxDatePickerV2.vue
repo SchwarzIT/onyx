@@ -123,7 +123,7 @@ useAutofocus(input, props);
         alignment: props.alignment,
         position: props.position,
       }"
-      @update:popover-open="popoverOpen = $event"
+      @update:open="popoverOpen = $event"
     >
       <template #leadingIcons>
         <OnyxLoadingIndicator
@@ -197,7 +197,7 @@ useAutofocus(input, props);
       padding: var(--onyx-density-xs);
     }
   }
-  &--multi-view {
+  &--multi-view.onyx-calendar {
     width: 18rem;
   }
   .onyx-form-element-v2__input-container--show-focus .onyx-form-element-v2__icons--trailing {

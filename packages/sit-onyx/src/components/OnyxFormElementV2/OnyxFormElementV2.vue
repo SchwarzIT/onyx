@@ -31,7 +31,7 @@ const emit = defineEmits<
   /**
    * Emitted when the popoverOpeningState changes
    */
-  (event: "update:popoverOpen", value: boolean) => void
+  (event: "update:open", value: boolean) => void
 >();
 
 const { densityClass } = useDensity(props);
@@ -60,7 +60,7 @@ const root = useTemplateRef("rootRef");
 useOutsideClick({
   inside: root,
   onOutsideClick: () => {
-    emit("update:popoverOpen", false);
+    emit("update:open", false);
   },
   disabled: computed(() => !props.popoverOptions?.open),
   checkOnTab: true,
@@ -89,10 +89,7 @@ useOutsideClick({
           <slot name="leading"></slot>
         </div>
 
-        <MaybePopoverLayout
-          v-bind="popoverLayoutProps"
-          @update:popover-open="emit('update:popoverOpen', $event)"
-        >
+        <MaybePopoverLayout v-bind="popoverLayoutProps" @update:open="emit('update:open', $event)">
           <template #default="{ trigger }">
             <div v-bind="trigger" :class="['onyx-form-element-v2__input-container']">
               <div

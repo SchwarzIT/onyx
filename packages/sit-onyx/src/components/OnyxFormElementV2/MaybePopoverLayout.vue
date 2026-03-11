@@ -10,7 +10,7 @@ const emit = defineEmits<
   /**
    * Emitted when the popoverOpeningState changes
    */
-  (event: "update:popoverOpen", value: boolean) => void
+  (event: "update:open", value: boolean) => void
 >();
 
 const slots = defineSlots<{
@@ -29,7 +29,7 @@ const label = computed(() => {
     class="onyx-form-element-v2__popover"
     :label
     v-bind="props.popoverOptions"
-    @update:open="emit('update:popoverOpen', $event)"
+    @update:open="emit('update:open', $event)"
   >
     <template #default="{ trigger }">
       <slot :trigger="mergeVueProps(trigger, { role: 'combobox' })"></slot>
