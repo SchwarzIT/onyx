@@ -94,12 +94,8 @@ const blockTyping = (event: KeyboardEvent) => {
           caret-color: transparent;
         }
 
-        &:has(.onyx-form-element-v2__input:enabled) {
+        &:has(.onyx-form-element-v2__input:read-write) {
           cursor: pointer;
-
-          .onyx-form-element-v2__input {
-            cursor: inherit;
-          }
         }
       }
     }

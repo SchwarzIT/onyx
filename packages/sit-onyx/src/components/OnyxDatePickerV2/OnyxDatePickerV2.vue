@@ -115,8 +115,10 @@ defineExpose({ input });
 useAutofocus(input, props);
 
 const popoverOptions = computed<FormElementV2PopoverOptions | undefined>(() => {
-  if (props.multiView) return { fitParent: false, ...props.popoverOptions };
-  return props.popoverOptions;
+  const options: FormElementV2PopoverOptions = {};
+  if (props.multiView) options.fitParent = true;
+  if (disabled.value || props.readonly) options.disabled = true;
+  return { ...options, ...props.popoverOptions };
 });
 </script>
 
@@ -132,9 +134,13 @@ const popoverOptions = computed<FormElementV2PopoverOptions | undefined>(() => {
       <input
         v-bind="mergeVueProps(inputProps, restAttrs)"
         ref="inputRef"
-        :disabled="disabled || props.loading"
         class="onyx-date-picker-v2__native-input onyx-truncation-ellipsis"
         :value="formattedDate"
+        :disabled="disabled || props.loading"
+        :readonly="props.readonly"
+        :placeholder="props.placeholder"
+        :autofocus="props.autofocus"
+        :name="props.name"
       />
     </template>
 

@@ -108,5 +108,5 @@ export type FormElementV2Tooltip = {
 
 export type FormElementV2PopoverOptions = Pick<
   OnyxBasicPopoverProps,
-  "alignment" | "fitParent" | "position"
+  "alignment" | "fitParent" | "position" | "disabled"
 >;
