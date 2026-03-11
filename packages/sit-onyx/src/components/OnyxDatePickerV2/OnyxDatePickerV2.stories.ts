@@ -7,14 +7,13 @@ import OnyxDatePickerV2 from "./OnyxDatePickerV2.vue";
 const meta: Meta<typeof OnyxDatePickerV2> = {
   title: "Form Elements/DatePickerV2",
   tags: ["unstable"],
-  component: OnyxDatePickerV2,
+  component: OnyxDatePickerV2 as Meta["component"],
   decorators: [
     (story) => ({
       components: { story },
       template: `<div style="width: 20rem;"> <story /> </div>`,
     }),
   ],
-
   argTypes: {
     modelValue: { control: { type: "date" } },
     min: { control: { type: "date" } },
@@ -57,7 +56,6 @@ export const MultiView = {
 export const MinAndMaxDate = {
   args: {
     label: "With min. and max. date",
-
     min: getRelativeDate(-3),
     max: getRelativeDate(3),
   },

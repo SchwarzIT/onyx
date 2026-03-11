@@ -2,13 +2,13 @@
 import { iconCalendar } from "@sit-onyx/icons";
 import { computed, useTemplateRef } from "vue";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
+import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import { mergeVueProps, useRootAttrs } from "../../utils/attrs.js";
+import { isValidDate } from "../../utils/date.js";
 import { useForwardProps } from "../../utils/props.js";
 import OnyxCalendar from "../OnyxCalendar/OnyxCalendar.vue";
-
-import { isValidDate } from "../../utils/date.js";
 import type {
   OnyxCalendarSelectionMode,
   OnyxCalendarValueBySelection,
@@ -17,7 +17,6 @@ import type { DateValue } from "../OnyxDatePicker/types.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import type { OnyxDatePickerV2Props } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxDatePickerV2Props<TSelection>>(), {
@@ -27,12 +26,15 @@ const props = withDefaults(defineProps<OnyxDatePickerV2Props<TSelection>>(), {
   readonly: false,
   loading: false,
   disabled: FORM_INJECTED_SYMBOL,
-  skeleton: false,
+  requiredMarker: FORM_INJECTED_SYMBOL,
+  reserveMessageSpace: FORM_INJECTED_SYMBOL,
+  showError: FORM_INJECTED_SYMBOL,
+  skeleton: SKELETON_INJECTED_SYMBOL,
   showCalendarWeeks: false,
   weekStartDay: "Monday",
   selectionMode: () => "single" as TSelection,
-  fitParent: true,
 });
+
 const emit = defineEmits<{
   /**
    * Emitted when the current value changes.
@@ -116,21 +118,9 @@ useAutofocus(input, props);
   <OnyxFormElementV2
     v-bind="mergeVueProps(rootAttrs, formElementProps)"
     v-model:open="popoverOpen"
-    class="onyx-component onyx-date-picker-v2"
+    class="onyx-date-picker-v2"
     :label="props.label"
-    :popover-options="{
-      fitParent: props.fitParent,
-      alignment: props.alignment,
-      position: props.position,
-    }"
   >
-    <template #leadingIcons>
-      <OnyxLoadingIndicator
-        v-if="props.loading"
-        class="onyx-date-picker-v2__loading"
-        type="circle"
-      />
-    </template>
     <template #default="inputProps">
       <input
         v-bind="mergeVueProps(inputProps, restAttrs)"
@@ -140,9 +130,11 @@ useAutofocus(input, props);
         :value="formattedDate"
       />
     </template>
+
     <template #trailingIcons>
       <OnyxIcon :icon="iconCalendar" />
     </template>
+
     <template #popover>
       <div class="onyx-date-picker-v2__calendar-wrapper">
         <OnyxCalendar
@@ -172,41 +164,38 @@ useAutofocus(input, props);
 
 .onyx-date-picker-v2 {
   @include layers.component() {
-    &__loading {
-      color: var(--onyx-color-text-icons-primary-intense);
+    &__calendar-wrapper {
+      display: flex;
+      width: 100%;
     }
-  }
-  &__calendar-wrapper {
-    display: flex;
-    width: 100%;
-  }
 
-  .onyx-basic-popover__dialog {
-    max-width: initial;
-  }
-  .onyx-calendar {
-    width: 100%;
-    gap: 0;
-    &__body table,
-    &__picker-grid {
-      border-radius: 0 0 var(--onyx-radius-md) var(--onyx-radius-md);
+    .onyx-basic-popover__dialog {
+      max-width: initial;
     }
-    &__header {
-      padding: var(--onyx-density-xs);
+    .onyx-calendar {
+      width: 100%;
+      gap: 0;
+      &__body table,
+      &__picker-grid {
+        border-radius: 0 0 var(--onyx-radius-md) var(--onyx-radius-md);
+      }
+      &__header {
+        padding: var(--onyx-density-xs);
+      }
     }
-  }
-  &--multi-view.onyx-calendar {
-    width: 18rem;
-  }
-  &:has(.onyx-basic-popover__dialog:popover-open) .onyx-form-element-v2__icons--trailing {
-    color: var(--onyx-form-element-v2-border-color-focus);
-  }
+    &--multi-view.onyx-calendar {
+      width: 18rem;
+    }
+    &:has(.onyx-basic-popover__dialog:popover-open) .onyx-form-element-v2__icons--trailing {
+      color: var(--onyx-form-element-v2-border-color-focus);
+    }
 
-  :has(.onyx-date-picker-v2__range-input-wrapper) .onyx-calendar,
-  .onyx-date-picker-v2--multi-view .onyx-calendar {
-    &__body table,
-    &__picker-grid {
-      border-radius: 0;
+    :has(.onyx-date-picker-v2__range-input-wrapper) .onyx-calendar,
+    .onyx-date-picker-v2--multi-view .onyx-calendar {
+      &__body table,
+      &__picker-grid {
+        border-radius: 0;
+      }
     }
   }
 }
