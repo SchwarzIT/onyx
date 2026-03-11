@@ -16,11 +16,11 @@ test.beforeEach(async ({ page }) => {
   await page.clock.setFixedTime(MOCK_NOW);
 });
 
-test.describe("Screenshot tests", () => {
-  const date = getMockDate(3);
-  const rangeDate = { start: date, end: getMockDate(6) };
-  const multipleDates = [date, getMockDate(6)];
+const date = getMockDate(3);
+const rangeDate = { start: date, end: getMockDate(6) };
+const multipleDates = [date, getMockDate(6)];
 
+test.describe("Screenshot tests", () => {
   for (const type of ["single", "multiple", "range"] as const) {
     executeMatrixScreenshotTest({
       name: `DatePicker (${type})`,
@@ -44,12 +44,14 @@ test.describe("Screenshot tests", () => {
       },
     });
   }
+});
 
+test.describe("Screenshot tests (multiView)", () => {
   executeMatrixScreenshotTest({
-    name: `DatePicker (multiView)`,
+    name: "DatePicker (multiView)",
     columns: DENSITIES,
-    rows: [],
-    component: (column, row) => {
+    rows: ["default"],
+    component: (column) => {
       return (
         <OnyxDatePicker
           label="Test label"
@@ -60,9 +62,9 @@ test.describe("Screenshot tests", () => {
             marginBottom: "24rem",
             marginRight: "20rem",
           }}
-          selectionMode={"range"}
-          multiView={row === "multiView"}
+          selectionMode="range"
           open={true}
+          multiView
         />
       );
     },
