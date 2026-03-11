@@ -200,7 +200,7 @@ useAutofocus(input, props);
   &--multi-view.onyx-calendar {
     width: 18rem;
   }
-  .onyx-form-element-v2__input-container--show-focus .onyx-form-element-v2__icons--trailing {
+  &:has(.onyx-basic-popover__dialog:popover-open) .onyx-form-element-v2__icons--trailing {
     color: var(--onyx-form-element-v2-border-color-focus);
   }
 
