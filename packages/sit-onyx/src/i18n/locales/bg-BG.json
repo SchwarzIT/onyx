@@ -286,7 +286,15 @@
       "hour": "Час",
       "minute": "Минута",
       "second": "Секунда",
-      "listLabel": "Опции за време"
+      "listLabel": "Опции за време",
+      "from": "от",
+      "to": "до"
+    },
+    "errors": {
+      "outsideRange": "Периодът от време трябва да е между {min} и {max}.",
+      "timeBeforeMin": "Периодът от време трябва да започва след {min}.",
+      "timeAfterMax": "Периодът от време трябва да завършва преди {max}.",
+      "endTimeAfterStartTime": "Крайното време трябва да е след началното."
     }
   },
   "itemsPerPage": {

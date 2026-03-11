@@ -1,38 +1,57 @@
-<script lang="ts" setup>
+<script lang="ts" setup generic="TType extends TimePickerType">
 import { useOutsideClick } from "@sit-onyx/headless";
 import { iconClock, iconXSmall } from "@sit-onyx/icons";
-import { computed, ref, useTemplateRef, type Ref } from "vue";
+import { computed, ref, useTemplateRef, watch, type Ref } from "vue";
+import { useDensity } from "../../composables/density.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import { useForwardProps } from "../../utils/props.js";
 import OnyxBasicPopover from "../OnyxBasicPopover/OnyxBasicPopover.vue";
+import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import OnyxStepper from "../OnyxStepper/OnyxStepper.vue";
+import OnyxTimePickerGroup from "./OnyxTimePickerGroup.vue";
 import OnyxTimePickerInput from "./OnyxTimePickerInput.vue";
-import type { OnyxTimePickerProps, TimePickerType } from "./types.js";
+import type { OnyxTimePickerProps, TimePickerType, TimeRange } from "./types.js";
 
 type Segment = "hour" | "minute" | "second";
+type ModelValueType = TType extends "range" ? TimeRange : string;
+type Props = OnyxTimePickerProps<TType>;
 
-type InputRef = {
-  input: { focus: () => void; select: () => void } & HTMLInputElement;
-};
-
-const props = withDefaults(defineProps<OnyxTimePickerProps<TimePickerType>>(), {
-  type: "default" as TimePickerType,
+const props = withDefaults(defineProps<Props>(), {
+  type: () => "default" as TType,
+  open: undefined,
 });
 
 const emit = defineEmits<{
-  "update:modelValue": [value?: string];
+  /**
+   * Emitted when modelValue changes
+   */
+  "update:modelValue": [value?: ModelValueType];
+  /**
+   * Emitted when the open state changes
+   */
+  "update:open": [open: boolean];
 }>();
-const modelValue = useVModel({ props, emit, key: "modelValue" });
+
+const modelValue = useVModel<Props, "modelValue", ModelValueType | undefined>({
+  props,
+  emit,
+  key: "modelValue",
+});
 
 const { t } = injectI18n();
-const open = ref(false);
+const { densityClass } = useDensity(props);
+const open = useVModel({
+  props,
+  emit,
+  key: "open",
+  default: false,
+}) as unknown as Ref<boolean>;
 
-const hourInput = useTemplateRef<InputRef>("hourInput");
-const minuteInput = useTemplateRef<InputRef>("minuteInput");
-const secondInput = useTemplateRef<InputRef>("secondInput");
-const root = useTemplateRef("root");
+const timePickerGroup = useTemplateRef("timePickerGroupRef");
+const starttimePickerGroup = useTemplateRef("startTimePickerGroupRef");
+const endtimePickerGroup = useTemplateRef("endTimePickerGroupRef");
+const root = useTemplateRef("rootRef");
 const isFocused = ref(false);
 
 const partsToTotalSeconds = (parts: string[]): number => {
@@ -59,19 +78,55 @@ const parseTimeSeconds = (timeString?: string): number | null => {
 const minTimeSeconds = computed(() => parseTimeSeconds(props.min));
 const maxTimeSeconds = computed(() => parseTimeSeconds(props.max));
 
-const clampTime = (newParts: string[]): string[] => {
-  const currentTotalSeconds = partsToTotalSeconds(newParts);
+const clampTime = (time?: string): string | undefined => {
+  if (!time) return time;
+  const currentTotalSeconds = partsToTotalSeconds(time.split(":"));
 
   const min = minTimeSeconds.value ?? 0;
-  const max = maxTimeSeconds.value ?? partsToTotalSeconds(["23", "59", "59"]); // 23:59:59
+  const max = maxTimeSeconds.value ?? partsToTotalSeconds(["23", "59", "59"]);
   const clampedTotalSeconds = Math.min(Math.max(currentTotalSeconds, min), max);
 
-  return totalSecondsToParts(clampedTotalSeconds);
+  const clampedParts = totalSecondsToParts(clampedTotalSeconds);
+  return clampedParts.slice(0, props.showSeconds ? undefined : 2).join(":");
 };
 
-const isSegmentVisible = (segmentName: Segment) => {
-  if (segmentName === "second") return props.showSeconds;
-  return true;
+const startTime = computed<string | undefined>({
+  get: () => {
+    if (modelValue.value && typeof modelValue.value === "object") {
+      return modelValue.value.from;
+    }
+    return undefined;
+  },
+  set: (newValue) => {
+    if (props.type !== "range") return;
+    const to = modelValue.value && typeof modelValue.value === "object" ? modelValue.value.to : "";
+
+    modelValue.value = {
+      from: newValue || "",
+      to,
+    } as typeof modelValue.value;
+  },
+});
+
+const endTime = computed<string | undefined>({
+  get: () => {
+    if (modelValue.value && typeof modelValue.value === "object") {
+      return modelValue.value.to;
+    }
+    return undefined;
+  },
+  set: (newValue) => {
+    if (props.type !== "range") return;
+    const from =
+      modelValue.value && typeof modelValue.value === "object" ? modelValue.value.from : "";
+    modelValue.value = { from, to: newValue || "" } as typeof modelValue.value;
+  },
+});
+
+const updateModelValue = (newParts: string[]) => {
+  const timeString = newParts.join(":");
+  const clampedTime = clampTime(timeString);
+  modelValue.value = clampedTime as typeof modelValue.value;
 };
 
 const availableSegments = computed<Segment[]>(() => {
@@ -80,117 +135,45 @@ const availableSegments = computed<Segment[]>(() => {
   return segments;
 });
 
-const timeParts = computed<string[]>(() => {
-  const parts = modelValue.value?.split(":") ?? [];
-  return [parts[0] ?? "00", parts[1] ?? "00", parts[2] ?? "00"];
-});
-
-const updateModelValue = (newParts: string[]) => {
-  const clampedParts = clampTime(newParts);
-  const finalParts: string[] = [];
-
-  finalParts.push(clampedParts[0]!);
-  finalParts.push(clampedParts[1]!);
-
-  if (props.showSeconds) {
-    finalParts.push(clampedParts[2]!);
-  }
-
-  modelValue.value = finalParts.join(":");
-};
-
-const createSegmentComputed = (index: 0 | 1 | 2, segmentName: Segment) =>
-  computed<number | null>({
-    get: () => {
-      if (!isSegmentVisible(segmentName) || !modelValue.value) return null;
-      return parseInt(timeParts.value[index] ?? "00");
-    },
-    set: (newValue: number | null) => {
-      if (!isSegmentVisible(segmentName) || newValue === null) return;
-
-      const parts = [...timeParts.value];
-      const segmentMax = segmentName === "hour" ? 23 : 59;
-
-      const clampedValue = Math.min(Math.max(newValue, 0), segmentMax);
-      parts[index] = String(clampedValue).padStart(2, "0");
-
-      updateModelValue(parts);
-    },
-  });
-
-const hour = createSegmentComputed(0, "hour");
-const minute = createSegmentComputed(1, "minute");
-const second = createSegmentComputed(2, "second");
-
-const getSegmentRef = (segment: Segment): Ref<InputRef | null> => {
-  switch (segment) {
-    case "hour":
-      return hourInput;
-    case "minute":
-      return minuteInput;
-    case "second":
-      return secondInput;
-  }
-};
-
-const handleSegmentFocus = (refElement: InputRef | null) => {
-  if (!refElement) return;
-
-  const nativeInput = refElement.input as HTMLInputElement;
-
-  if (nativeInput) {
-    nativeInput.focus();
-    nativeInput.select();
-  }
-};
-
-const jumpSegment = (currentSegment: Segment, direction: 1 | -1) => {
+const jumpSegment = (
+  currentSegment: Segment,
+  direction: 1 | -1,
+  group: "start" | "end" | "default" = "default",
+) => {
   const segments = availableSegments.value;
   const currentIndex = segments.indexOf(currentSegment);
   const nextIndex = currentIndex + direction;
 
-  if (nextIndex >= 0 && nextIndex < segments.length) {
+  const groupRef =
+    group === "start"
+      ? starttimePickerGroup.value
+      : group === "end"
+        ? endtimePickerGroup.value
+        : timePickerGroup.value;
+
+  if (nextIndex >= 0 && nextIndex < segments.length && groupRef) {
     const nextSegment = segments[nextIndex]!;
-    handleSegmentFocus(getSegmentRef(nextSegment).value);
+    const segmentRef = groupRef.getSegmentRef(nextSegment);
+    groupRef.handleSegmentFocus(segmentRef.value);
+  } else if (direction === 1 && group === "start" && endtimePickerGroup.value) {
+    // Jump from end of start group to start of end group
+    const firstSegmentRef = endtimePickerGroup.value.getSegmentRef(segments[0]!);
+    endtimePickerGroup.value.handleSegmentFocus(firstSegmentRef.value);
+  } else if (direction === -1 && group === "end" && starttimePickerGroup.value) {
+    // Jump from start of end group to end of start group
+    const lastSegment = segments[segments.length - 1]!;
+    const lastSegmentRef = starttimePickerGroup.value.getSegmentRef(lastSegment);
+    starttimePickerGroup.value.handleSegmentFocus(lastSegmentRef.value);
   } else if (direction === 1) {
     open.value = false;
   }
 };
 
-const handleInputChange = (currentSegment: Segment, e: KeyboardEvent) => {
-  e.stopPropagation();
-
-  const ref = getSegmentRef(currentSegment).value;
-  const nativeInput = ref?.input as HTMLInputElement;
-
-  if (e.key === "ArrowLeft") {
-    e.preventDefault();
-    jumpSegment(currentSegment, -1);
+const handleInputClick = async () => {
+  if (props.type !== "range" || props.readonly) {
     return;
   }
-
-  if (e.key === "ArrowRight" || e.key === "Enter") {
-    e.preventDefault();
-    jumpSegment(currentSegment, 1);
-    return;
-  }
-
-  if (e.key === "Tab") {
-    if (currentSegment !== availableSegments.value[availableSegments.value.length - 1]) {
-      e.preventDefault();
-      jumpSegment(currentSegment, 1);
-    }
-    return;
-  }
-
-  if (nativeInput && e.key >= "0" && e.key <= "9") {
-    setTimeout(() => {
-      const valueString = nativeInput.value;
-      if (valueString.length >= 2) {
-        jumpSegment(currentSegment, 1);
-      }
-    }, 0);
-  }
+  open.value = !open.value;
 };
 
 useOutsideClick({
@@ -199,14 +182,106 @@ useOutsideClick({
   checkOnTab: true,
 });
 
-const inputProps = useForwardProps(props, OnyxTimePickerInput);
 const showClearButton = computed(() => {
-  return (isFocused.value || open.value) && modelValue.value && !props.hideClearIcon;
+  let hasValue = false;
+
+  if (props.type === "range") {
+    if (typeof modelValue.value === "object" && modelValue.value) {
+      hasValue = !!(modelValue.value.from || modelValue.value.to);
+    }
+  } else {
+    hasValue = !!modelValue.value;
+  }
+
+  return (isFocused.value || open.value) && hasValue && !props.hideClearIcon;
 });
+
+const handleModelUpdate = (value?: string) => {
+  if (props.type !== "range" && value) {
+    updateModelValue(value.split(":"));
+  }
+};
+
+const handleRangeModelUpdate = (group: "start" | "end", value?: string) => {
+  if (group === "start") {
+    startTime.value = value;
+  } else {
+    endTime.value = value;
+  }
+};
+
+const placeholder = computed(() => {
+  if (props.type !== "range") return undefined;
+
+  const timePlaceholder = [
+    t.value("timePicker.placeholder.hour"),
+    t.value("timePicker.placeholder.minute"),
+    ...(props.showSeconds ? [t.value("timePicker.placeholder.second")] : []),
+  ].join(":");
+
+  return `${timePlaceholder} - ${timePlaceholder}`;
+});
+
+const inputValue = computed(() => {
+  if (props.type === "range" && typeof modelValue.value === "object" && modelValue.value) {
+    const { from, to } = modelValue.value;
+    if (!from && !to) return undefined;
+    return `${from || ""} - ${to || ""}`;
+  }
+  return modelValue.value;
+});
+
+const singleModelValue = computed(() => {
+  return typeof modelValue.value === "string" ? modelValue.value : undefined;
+});
+
+const handleInputUpdate = (value?: string) => {
+  if (props.type === "range") {
+    if (!value) {
+      modelValue.value = undefined;
+      return;
+    }
+    const [from, to] = value.split("-").map((s) => s.trim());
+    modelValue.value = { from: from || "", to: to || "" } as typeof modelValue.value;
+  } else {
+    modelValue.value = value as typeof modelValue.value;
+  }
+};
+
+const rangeError = ref<string>();
+const error = computed(() => props.error ?? rangeError.value);
+
+watch(open, (isOpen) => {
+  if (isOpen || props.type !== "range") return;
+
+  const start = parseTimeSeconds(startTime.value);
+  const end = parseTimeSeconds(endTime.value);
+  const min = parseTimeSeconds(props.min);
+  const max = parseTimeSeconds(props.max);
+
+  if (start === null || end === null) return;
+
+  if (start > end) {
+    rangeError.value = t.value("timePicker.errors.endTimeAfterStartTime");
+  } else if (min && max && (start < min || end > max)) {
+    rangeError.value = t.value("timePicker.errors.outsideRange", {
+      min: props.min,
+      max: props.max,
+    });
+  } else if (min && start < min) {
+    rangeError.value = t.value("timePicker.errors.timeBeforeMin", { min: props.min });
+  } else if (max && end > max) {
+    rangeError.value = t.value("timePicker.errors.timeAfterMax", { max: props.max });
+  } else {
+    rangeError.value = undefined;
+  }
+});
+
+const inputProps = useForwardProps(props, OnyxTimePickerInput);
 </script>
 
 <template>
-  <div ref="root" class="onyx-component onyx-time-picker">
+  <div ref="rootRef" :class="['onyx-component', 'onyx-time-picker', densityClass]">
     <OnyxBasicPopover
       class="onyx-time-picker__popover"
       :label="t('timePicker.labels.popover')"
@@ -218,11 +293,16 @@ const showClearButton = computed(() => {
       <template #default>
         <OnyxTimePickerInput
           class="onyx-time-picker__input"
+          :class="{ 'onyx-time-picker__input--show-focused': open }"
           v-bind="inputProps"
-          :step="props.showSeconds ? 1 : 0"
-          @update:model-value="modelValue = $event"
+          :label="props.label"
+          :model-value="inputValue"
+          :error="error"
+          :placeholder="placeholder"
+          :step="props.type === 'range' ? undefined : props.showSeconds ? 1 : 60"
+          @update:model-value="handleInputUpdate"
           @update:is-focused="isFocused = $event"
-          @click="open = false"
+          @update:open="handleInputClick"
         >
           <template #icon>
             <button
@@ -233,7 +313,7 @@ const showClearButton = computed(() => {
               :title="t('input.clear')"
               tabindex="-1"
               @mousedown.prevent
-              @click="modelValue = undefined"
+              @click="modelValue = undefined as typeof modelValue"
             >
               <OnyxIcon :icon="iconXSmall" color="neutral" />
             </button>
@@ -249,58 +329,48 @@ const showClearButton = computed(() => {
 
       <template #content>
         <div class="onyx-time-picker__wrapper" tabindex="-1">
-          <div class="onyx-time-picker__group">
-            <OnyxStepper
-              ref="hourInput"
-              v-model="hour"
-              :label="t('timePicker.labels.hour')"
-              :placeholder="t('timePicker.placeholder.hour')"
+          <template v-if="props.type === 'range'">
+            <OnyxHeadline is="h3" class="onyx-time-picker__range-label">
+              {{ t("timePicker.labels.from") }}
+            </OnyxHeadline>
+
+            <OnyxTimePickerGroup
+              ref="startTimePickerGroupRef"
+              :model-value="startTime"
               :disabled="props.disabled"
+              :readonly="props.readonly"
               :loading="props.loading"
-              hide-label
-              hide-clear-icon
-              hide-success-icon
-              hide-buttons
-              @click="handleSegmentFocus(hourInput)"
-              @keydown="(e: KeyboardEvent) => handleInputChange('hour', e)"
+              autofocus
+              :show-seconds="props.showSeconds"
+              @update:model-value="handleRangeModelUpdate('start', $event)"
+              @jump-segment="(segment, direction) => jumpSegment(segment, direction, 'start')"
             />
-
-            <span class="onyx-time-picker__divider">:</span>
-
-            <OnyxStepper
-              ref="minuteInput"
-              v-model="minute"
-              :label="t('timePicker.labels.minute')"
-              :placeholder="t('timePicker.placeholder.minute')"
+            <OnyxHeadline is="h3" class="onyx-time-picker__range-label">
+              {{ t("timePicker.labels.to") }}
+            </OnyxHeadline>
+            <OnyxTimePickerGroup
+              ref="endTimePickerGroupRef"
+              :model-value="endTime"
               :disabled="props.disabled"
+              :readonly="props.readonly"
               :loading="props.loading"
-              hide-label
-              hide-clear-icon
-              hide-success-icon
-              hide-buttons
-              @click="handleSegmentFocus(minuteInput)"
-              @keydown="(e: KeyboardEvent) => handleInputChange('minute', e)"
+              :show-seconds="props.showSeconds"
+              @update:model-value="handleRangeModelUpdate('end', $event)"
+              @jump-segment="(segment, direction) => jumpSegment(segment, direction, 'end')"
             />
+          </template>
 
-            <span v-if="props.showSeconds" class="onyx-time-picker__divider">:</span>
-
-            <template v-if="props.showSeconds">
-              <OnyxStepper
-                ref="secondInput"
-                v-model="second"
-                :label="t('timePicker.labels.second')"
-                :placeholder="t('timePicker.placeholder.second')"
-                :disabled="props.disabled"
-                :loading="props.loading"
-                hide-label
-                hide-clear-icon
-                hide-success-icon
-                hide-buttons
-                @click="handleSegmentFocus(secondInput)"
-                @keydown="(e: KeyboardEvent) => handleInputChange('second', e)"
-              />
-            </template>
-          </div>
+          <OnyxTimePickerGroup
+            v-else
+            ref="timePickerGroupRef"
+            autofocus
+            :model-value="singleModelValue"
+            :disabled="props.disabled"
+            :loading="props.loading"
+            :show-seconds="props.showSeconds"
+            @update:model-value="handleModelUpdate"
+            @jump-segment="jumpSegment"
+          />
 
           <div v-if="props.infoLabel" class="onyx-time-picker__info-label">
             <p>{{ props.infoLabel }}</p>
@@ -321,6 +391,12 @@ const showClearButton = computed(() => {
       width: 100%;
     }
     &__input {
+      &--show-focused .onyx-time-picker-input__wrapper {
+        outline-style: solid;
+        &:not(:has(.onyx-time-picker-input__native:invalid)) {
+          --border-color: var(--onyx-color-component-border-primary-hover);
+        }
+      }
       input::-webkit-calendar-picker-indicator {
         display: none;
       }
@@ -368,6 +444,10 @@ const showClearButton = computed(() => {
         --icon-color: var(--onyx-color-text-icons-primary-intense);
       }
     }
+    &__range-label {
+      padding: var(--onyx-density-xs) var(--onyx-density-sm);
+    }
+
     &__clock-icon {
       --icon-color: var(--onyx-color-text-icons-neutral-soft);
     }

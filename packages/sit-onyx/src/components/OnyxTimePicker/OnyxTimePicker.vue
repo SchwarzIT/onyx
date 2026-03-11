@@ -19,19 +19,28 @@ const props = withDefaults(defineProps<OnyxTimePickerProps<TimePickerType>>(), {
   skeleton: SKELETON_INJECTED_SYMBOL,
   disableManualResize: false,
   type: "default" as TimePickerType,
+  open: undefined,
 });
 
 const emit = defineEmits<{
   "update:modelValue": [value?: string];
+  "update:open": [open: boolean];
 }>();
 const modelValue = useVModel({ props, emit, key: "modelValue" });
+const open = useVModel({ props, emit, key: "open", default: false });
+
 const input = useForwardProps(props, OnyxTimeInput);
 const select = useForwardProps(props, OnyxTimeSelect);
 </script>
 
 <template>
   <div class="onyx-component">
-    <OnyxTimeInput v-if="props.type === 'default'" v-bind="input" v-model="modelValue" />
-    <OnyxTimeSelect v-else v-bind="select" v-model="modelValue" />
+    <OnyxTimeSelect
+      v-if="props.type === 'select'"
+      v-bind="select"
+      v-model="modelValue"
+      v-model:open="open"
+    />
+    <OnyxTimeInput v-else v-bind="input" v-model="modelValue" v-model:open="open" />
   </div>
 </template>

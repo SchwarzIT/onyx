@@ -286,7 +286,15 @@
       "hour": "Hora",
       "minute": "Minuto",
       "second": "Segundo",
-      "listLabel": "Opciones de tiempo"
+      "listLabel": "Opciones de tiempo",
+      "from": "desde",
+      "to": "hasta"
+    },
+    "errors": {
+      "outsideRange": "El rango de tiempo debe estar entre {min} y {max}.",
+      "timeBeforeMin": "El rango de tiempo debe comenzar después de {min}.",
+      "timeAfterMax": "El rango de tiempo debe terminar antes de {max}.",
+      "endTimeAfterStartTime": "La hora de finalización debe ser posterior a la hora de inicio."
     }
   },
   "itemsPerPage": {

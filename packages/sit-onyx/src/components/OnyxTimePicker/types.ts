@@ -1,9 +1,10 @@
 import type { AutofocusProp } from "../../types/components.js";
+import type { Nullable } from "../../types/utils.js";
 import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
 import type { OnyxInputProps } from "../OnyxInput/types.js";
 import type { SelectOption } from "../OnyxSelect/types.js";
 
-export const TIME_PICKER_TYPES = ["default", "select"] as const;
+export const TIME_PICKER_TYPES = ["default", "select", "range"] as const;
 export type TimePickerType = (typeof TIME_PICKER_TYPES)[number];
 
 type RfcTimeValue =
@@ -49,7 +50,7 @@ export type OnyxTimePickerProps<TType extends TimePickerType = "default"> = Omit
      * @example "14:30:00"
      * @example "14:30:00.500Z" (Treated as "14:30:00")
      */
-    modelValue?: string;
+    modelValue?: TType extends "range" ? TimeRange : string;
     /**
      * Minimum allowed time (inclusive).
      * Accepts RFC 9557 formats. Milliseconds and timezones are ignored during validation.
@@ -72,5 +73,11 @@ export type OnyxTimePickerProps<TType extends TimePickerType = "default"> = Omit
     /**
      * Text describing the time picker. Will be displayed at the bottom of the flyout.
      */
-    infoLabel?: TType extends "select" ? string : never;
+    infoLabel?: TType extends "select" | "range" ? string : never;
+    /**
+     * Whether the flyout is currently open.
+     */
+    open?: TType extends "default" ? never : Nullable<boolean>;
   };
+
+export type TimeRange = { from: string; to: string };

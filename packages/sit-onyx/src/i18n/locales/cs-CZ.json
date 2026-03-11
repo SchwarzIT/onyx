@@ -286,7 +286,15 @@
       "hour": "Hodina",
       "minute": "Minuta",
       "second": "Sekunda",
-      "listLabel": "Možnosti času"
+      "listLabel": "Možnosti času",
+      "from": "od",
+      "to": "do"
+    },
+    "errors": {
+      "outsideRange": "Časový rozsah musí být mezi {min} a {max}.",
+      "timeBeforeMin": "Časový rozsah musí začínat po {min}.",
+      "timeAfterMax": "Časový rozsah musí končit před {max}.",
+      "endTimeAfterStartTime": "Koncový čas musí být po počátečním čase."
     }
   },
   "itemsPerPage": {

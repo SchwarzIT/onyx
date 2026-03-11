@@ -286,7 +286,15 @@
       "hour": "Oră",
       "minute": "Minut",
       "second": "Secundă",
-      "listLabel": "Opțiuni de timp"
+      "listLabel": "Opțiuni de timp",
+      "from": "de la",
+      "to": "până la"
+    },
+    "errors": {
+      "outsideRange": "Intervalul de timp trebuie să fie între {min} și {max}.",
+      "timeBeforeMin": "Intervalul de timp trebuie să înceapă după {min}.",
+      "timeAfterMax": "Intervalul de timp trebuie să se termine înainte de {max}.",
+      "endTimeAfterStartTime": "Ora de sfârșit trebuie să fie după ora de început."
     }
   },
   "itemsPerPage": {

@@ -286,7 +286,15 @@
       "hour": "Uur",
       "minute": "Minuut",
       "second": "Seconde",
-      "listLabel": "Tijdopties"
+      "listLabel": "Tijdopties",
+      "from": "van",
+      "to": "tot"
+    },
+    "errors": {
+      "outsideRange": "Het tijdsbereik moet tussen {min} en {max} liggen.",
+      "timeBeforeMin": "Het tijdsbereik moet na {min} beginnen.",
+      "timeAfterMax": "Het tijdsbereik moet voor {max} eindigen.",
+      "endTimeAfterStartTime": "De eindtijd moet na de starttijd liggen."
     }
   },
   "itemsPerPage": {

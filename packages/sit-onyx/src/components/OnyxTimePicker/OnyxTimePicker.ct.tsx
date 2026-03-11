@@ -33,7 +33,7 @@ test.describe("Screenshot tests", () => {
             loading={row === "loading"}
             skeleton={row === "skeleton"}
             modelValue={state === "with value" ? "12:11" : undefined}
-            style={{ width: "16rem", marginBottom: "6rem" }}
+            style={{ width: "16rem" }}
           />
         );
       },
@@ -42,6 +42,37 @@ test.describe("Screenshot tests", () => {
           const input = component.getByLabel("Test label");
           if (row === "hover") await input.hover();
           if (row === "focus") await input.focus();
+        },
+      },
+    });
+  }
+  for (const state of ["default", "with value"] as const) {
+    executeMatrixScreenshotTest({
+      name: `Time picker range (${state})`,
+      columns: DENSITIES,
+      rows: ["default", "hover", "focus", "open", "skeleton", "disabled", "loading"],
+      component: (column, row) => {
+        return (
+          <OnyxTimePicker
+            label="Test label"
+            type="range"
+            density={column}
+            disabled={row === "disabled"}
+            loading={row === "loading"}
+            skeleton={row === "skeleton"}
+            modelValue={state === "with value" ? { from: "12:11", to: "13:11" } : undefined}
+            style={{ width: "16rem", marginBottom: row === "open" ? "18rem" : "0rem" }}
+          />
+        );
+      },
+      hooks: {
+        beforeEach: async (component, _page, _column, row) => {
+          const input = component.getByLabel("Test label");
+          if (row === "hover") await input.hover();
+          if (row === "focus") await input.focus();
+          if (row === "open") {
+            await input.click();
+          }
         },
       },
     });
@@ -83,17 +114,14 @@ test.describe("Screenshot tests", () => {
 });
 
 test.describe("Keyboard tests", () => {
-  // TODO: Skipped because the 'default' type currently uses the native input.
-  // Re-enable this test once the custom flyout is implemented for range selection.
-  test.skip("keyboard navigation", async ({ mount }) => {
-    const component = await mount(<OnyxTimePicker label="Test label" />);
+  test("keyboard navigation", async ({ mount }) => {
+    const component = await mount(<OnyxTimePicker label="Test label" type="range" />);
     const input = component.getByRole("textbox", { name: "Test label" });
-    const iconButton = component.getByRole("button", { name: "Open time picker" });
 
-    const hourInput = component.getByRole("spinbutton", { name: "Hour" });
-    const minuteInput = component.getByRole("spinbutton", { name: "Minute" });
+    const hourInput = component.getByRole("spinbutton", { name: "Hour" }).first();
+    const minuteInput = component.getByRole("spinbutton", { name: "Minute" }).first();
 
-    await iconButton.click();
+    await input.click();
 
     await expect(hourInput).toBeVisible();
     await expect(minuteInput).toBeVisible();
@@ -117,11 +145,14 @@ test.describe("Keyboard tests", () => {
 
     await component.press("ArrowRight");
     await component.press("ArrowRight");
+    await component.press("ArrowRight");
+    await component.press("ArrowRight");
+
     await expect(hourInput).toBeHidden();
     await expect(minuteInput).toBeHidden();
 
     //should close if input is clicked
-    await iconButton.click();
+    await input.click();
     await expect(hourInput).toBeVisible();
     await expect(minuteInput).toBeVisible();
     await expect(hourInput).toBeFocused();

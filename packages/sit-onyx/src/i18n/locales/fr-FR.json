@@ -286,7 +286,15 @@
       "hour": "Heure",
       "minute": "Minute",
       "second": "Seconde",
-      "listLabel": "Options d'heure"
+      "listLabel": "Options d'heure",
+      "from": "de",
+      "to": "à"
+    },
+    "errors": {
+      "outsideRange": "La plage horaire doit être comprise entre {min} et {max}.",
+      "timeBeforeMin": "La plage horaire doit commencer après {min}.",
+      "timeAfterMax": "La plage horaire doit se terminer avant {max}.",
+      "endTimeAfterStartTime": "L'heure de fin doit être postérieure à l'heure de début."
     }
   },
   "itemsPerPage": {
