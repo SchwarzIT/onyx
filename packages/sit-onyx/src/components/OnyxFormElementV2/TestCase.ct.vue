@@ -7,6 +7,7 @@ const props = withDefaults(
   defineProps<OnyxFormElementV2Props & { placeholder?: string; modelValue?: string }>(),
   {
     showError: FORM_INJECTED_SYMBOL,
+    open: undefined,
   },
 );
 

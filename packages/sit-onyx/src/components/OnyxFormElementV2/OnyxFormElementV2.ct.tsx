@@ -130,12 +130,13 @@ test.describe("Screenshot tests (popover)", () => {
   executeMatrixScreenshotTest({
     name: "Form element v2 (popover)",
     columns: ["default", "message", "slots"],
-    rows: ["default", "hover", "focus"],
-    component: (column) => (
+    rows: ["default", "hover", "focus", "open"],
+    component: (column, row) => (
       <TestCase
         label="Test label"
         style={{ marginBottom: "2rem" }}
         message={column === "message" ? "Example message" : undefined}
+        open={row === "open" ? true : undefined}
       >
         <template v-slot:popover>Popover content</template>
 
@@ -363,4 +364,35 @@ test("should visually hide bottom when skeleton", async ({ mount }) => {
   await expect(bottom).toBeHidden();
   height = await bottom.evaluate((element) => element.clientHeight);
   expect(height, "should reserve bottom space when skeleton is set").toBeGreaterThan(0);
+});
+
+test("should open popover via keyboard", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <TestCase label="Test label">
+      <template v-slot:popover>Popover content</template>{" "}
+    </TestCase>,
+  );
+
+  const input = component.getByRole("textbox", { name: "Test label" });
+  const popover = component.getByRole("dialog", { name: "Test label" });
+
+  // ACT
+  await input.click();
+
+  // ASSERT
+  await expect(popover, "should open with click").toBeVisible();
+
+  // ACT
+  await input.press("Enter");
+
+  // ASSERT
+  await expect(popover, "should close with enter").toBeHidden();
+
+  // ACT
+  await input.press("Space");
+
+  // ASSERT
+  await expect(popover, "should open with space").toBeVisible();
+  await expect(input, "should block typing").toHaveValue("");
 });

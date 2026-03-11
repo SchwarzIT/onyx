@@ -1,5 +1,6 @@
 import type { DensityProp } from "../../composables/density.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
+import type { OnyxBasicPopoverProps } from "../OnyxBasicPopover/types.js";
 import type { FormInjectedProps } from "../OnyxForm/OnyxForm.core.js";
 
 export type OnyxFormElementV2Props = DensityProp &
@@ -39,6 +40,14 @@ export type OnyxFormElementV2Props = DensityProp &
      * Will hide the `leadingIcons` slot if set.
      */
     loading?: boolean;
+    /**
+     * Whether the popover is currently open.
+     */
+    open?: boolean;
+    /**
+     * Additional popover options.
+     */
+    popoverOptions?: FormElementPopoverOptions;
   };
 
 export type OnyxFormElementV2Slots = {
@@ -96,3 +105,8 @@ export type FormElementV2Tooltip = {
    */
   tooltipText?: string;
 };
+
+export type FormElementPopoverOptions = Pick<
+  OnyxBasicPopoverProps,
+  "alignment" | "fitParent" | "position"
+>;

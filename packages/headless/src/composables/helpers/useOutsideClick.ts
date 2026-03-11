@@ -7,7 +7,7 @@ export type UseOutsideClickOptions<TCheckOnTab extends boolean | undefined = und
   /**
    * HTML element of the component where clicks should be ignored
    */
-  inside: MaybeRefOrGetter<Arrayable<Nullable<VueTemplateRefElement<HTMLElement>>>>;
+  inside: MaybeRefOrGetter<Arrayable<Nullable<VueTemplateRefElement<Element>>>>;
   /**
    * Callback when an outside click occurred.
    */
