@@ -365,4 +365,5 @@ test("should open popover via keyboard", async ({ mount }) => {
 
   // ASSERT
   await expect(popover, "should open with space").toBeVisible();
+  await expect(input, "should block typing").toHaveValue("");
 });
