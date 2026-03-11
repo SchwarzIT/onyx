@@ -130,12 +130,13 @@ test.describe("Screenshot tests (popover)", () => {
   executeMatrixScreenshotTest({
     name: "Form element v2 (popover)",
     columns: ["default", "message", "slots"],
-    rows: ["default", "hover", "focus"],
-    component: (column) => (
+    rows: ["default", "hover", "focus", "open"],
+    component: (column, row) => (
       <TestCase
         label="Test label"
         style={{ marginBottom: "2rem" }}
         message={column === "message" ? "Example message" : undefined}
+        open={row === "open" ? true : undefined}
       >
         <template v-slot:popover>Popover content</template>
 
