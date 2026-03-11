@@ -154,22 +154,22 @@ test("should render items per page selector", async ({ mount, page }) => {
   });
 
   const pagination = component.getByLabel("Pagination");
-  const itemsPerPage = component.getByRole("combobox", { name: "Items per Page" });
+  const sizeSelect = component.getByRole("combobox", { name: "Items per Page" });
 
   // ASSERT
   await expect(component).toHaveScreenshot("with-items-per-page.png");
-  await expect(itemsPerPage).toBeVisible();
-  await expect(itemsPerPage).toHaveValue("25");
+  await expect(sizeSelect).toBeVisible();
+  await expect(sizeSelect).toHaveValue("25");
   await expectRowCount(component, 25);
   await expect(pagination).toContainText("of 6 pages");
 
   // ACT (change page size to 10)
-  await itemsPerPage.click();
+  await sizeSelect.click();
   await page.getByRole("option", { name: "10", exact: true }).click();
 
   // ASSERT
   await expectRowCount(component, 10, "should show 10 rows when page size is 10");
-  await expect(itemsPerPage).toHaveValue("10");
+  await expect(sizeSelect).toHaveValue("10");
   await expect(pagination).toContainText("of 13 pages");
   await expect(component.getByRole("row", { name: "A 1", exact: true })).toBeVisible();
   await expect(component.getByRole("row", { name: "A 10" })).toBeVisible();
@@ -180,11 +180,11 @@ test("should render items per page selector", async ({ mount, page }) => {
   await pagination.getByRole("button", { name: "next page" }).click();
   await expect(pagination.getByRole("textbox", { name: "Page selection" })).toHaveValue("3");
 
-  await itemsPerPage.click();
+  await sizeSelect.click();
   await page.getByRole("option", { name: "50", exact: true }).click();
 
   // ASSERT
-  await expect(itemsPerPage).toHaveValue("50");
+  await expect(sizeSelect).toHaveValue("50");
   await expect(
     pagination.getByRole("textbox", { name: "Page selection" }),
     "should reset to page 1 when page size changes",
@@ -209,7 +209,7 @@ test("should render items per page selector", async ({ mount, page }) => {
   });
 
   // ASSERT
-  await expect(itemsPerPage, "should show items per page for lazy pagination").toBeVisible();
+  await expect(sizeSelect, "should show items per page for lazy pagination").toBeVisible();
 
   // ACT (test that items per page is hidden for button pagination)
   await component.update({
@@ -219,7 +219,7 @@ test("should render items per page selector", async ({ mount, page }) => {
   });
 
   // ASSERT
-  await expect(itemsPerPage, "should show items per page for button pagination").toBeVisible();
+  await expect(sizeSelect, "should show items per page for button pagination").toBeVisible();
 
   // ACT
   await component.update({

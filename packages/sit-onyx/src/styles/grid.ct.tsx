@@ -50,8 +50,8 @@ const expectComputedColumnCount = async (page: Page, count: number) => {
 };
 
 const getAllGridElements = async (page: Page) => {
-  const allGridElements = await page.locator(".onyx-grid > div").all();
-  expect(allGridElements).not.toHaveLength(0);
+  const allGridElements = page.locator(".onyx-grid > div");
+  await expect(allGridElements).not.toHaveCount(0);
   return allGridElements;
 };
 

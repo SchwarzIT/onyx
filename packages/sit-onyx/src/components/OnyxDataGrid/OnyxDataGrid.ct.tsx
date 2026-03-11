@@ -10,8 +10,8 @@ test("OnyxDataGrid", async ({ mount }) => {
 
   await test.step("should display header labels as expected", async () => {
     // ASSERT
-    const headers = await component.locator("th").all();
-    expect(headers).toHaveLength(3);
+    const headers = component.locator("th");
+    await expect(headers).toHaveCount(3);
     await expect(component).toHaveScreenshot("data-grid-with-header-labels.png");
   });
 
