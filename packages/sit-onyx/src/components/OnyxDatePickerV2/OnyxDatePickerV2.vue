@@ -115,8 +115,8 @@ defineExpose({ input });
 useAutofocus(input, props);
 
 const popoverOptions = computed<FormElementV2PopoverOptions | undefined>(() => {
-  const options: FormElementV2PopoverOptions = {};
-  if (props.multiView) options.fitParent = true;
+  const options: FormElementV2PopoverOptions = { fitParent: true };
+  if (props.multiView) options.fitParent = false;
   if (disabled.value || props.readonly) options.disabled = true;
   return { ...options, ...props.popoverOptions };
 });
