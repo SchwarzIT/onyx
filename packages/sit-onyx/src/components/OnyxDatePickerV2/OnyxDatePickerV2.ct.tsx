@@ -34,7 +34,7 @@ test.describe("Screenshot tests", () => {
             modelValue={type === "range" ? rangeDate : type === "multiple" ? multipleDates : date}
             style={{
               width: "18rem",
-              marginBottom: row === "open" ? "24rem" : "0",
+              marginBottom: row === "open" ? "26rem" : "0",
             }}
             fitParent={true}
             selectionMode={type}
@@ -69,4 +69,8 @@ test.describe("Screenshot tests (multiView)", () => {
       );
     },
   });
+});
+
+test("asd", () => {
+  //
 });
