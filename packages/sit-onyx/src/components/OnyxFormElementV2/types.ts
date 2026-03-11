@@ -34,6 +34,11 @@ export type OnyxFormElementV2Props = DensityProp &
      * Whether the a value for this form element is required.
      */
     required?: boolean;
+    /**
+     * Whether a loading indicator should be shown.
+     * Will hide the `leadingIcons` slot if set.
+     */
+    loading?: boolean;
   };
 
 export type OnyxFormElementV2Slots = {
@@ -47,6 +52,7 @@ export type OnyxFormElementV2Slots = {
   leading?(): unknown;
   /**
    * Optional inner icons to display before the input but after the `leading` slot.
+   * Will be hidden when `loading` property is set.
    */
   leadingIcons?(): unknown;
   /**

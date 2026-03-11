@@ -8,6 +8,7 @@ import {
 } from "../../composables/useSkeletonState.js";
 import { useForwardProps } from "../../utils/props.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
+import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import MaybePopoverLayout from "./MaybePopoverLayout.vue";
 import OnyxFormElementV2Bottom from "./OnyxFormElementV2Bottom.vue";
@@ -33,22 +34,29 @@ const formContext = useFormContext(props);
 const errorClass = useErrorClass(formContext.showError);
 const skeleton = useSkeletonContext(props);
 
+const label = computed<FormElementV2LabelOptions>(() => {
+  if (typeof props.label === "object") return props.label;
+  return { label: props.label };
+});
+
 const inputProps = computed(() => {
   return {
     id: props.id,
     class: "onyx-form-element-v2__input",
     required: props.required,
+    disabled: props.loading,
+    ...(label.value.hidden
+      ? {
+          title: label.value.label,
+          "aria-label": label.value.label,
+        }
+      : {}),
   };
 });
 
 const topProps = useForwardProps(props, OnyxFormElementV2Label);
 const bottomProps = useForwardProps(props, OnyxFormElementV2Bottom);
 const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
-
-const label = computed<FormElementV2LabelOptions>(() => {
-  if (typeof props.label === "object") return props.label;
-  return { label: props.label };
-});
 </script>
 
 <template>
@@ -81,10 +89,15 @@ const label = computed<FormElementV2LabelOptions>(() => {
           <template #default="{ trigger }">
             <div v-bind="trigger" class="onyx-form-element-v2__input-container">
               <div
-                v-if="slots.leadingIcons"
+                v-if="slots.leadingIcons || props.loading"
                 class="onyx-form-element-v2__icons onyx-form-element-v2__icons--leading"
               >
-                <slot name="leadingIcons"></slot>
+                <OnyxLoadingIndicator
+                  v-if="props.loading"
+                  class="onyx-form-element-v2__loading"
+                  type="circle"
+                />
+                <slot v-else name="leadingIcons"></slot>
               </div>
 
               <slot v-bind="inputProps"></slot>
@@ -142,8 +155,8 @@ const label = computed<FormElementV2LabelOptions>(() => {
     --onyx-form-element-v2-error-display: none;
     --onyx-form-element-v2-message-display: flex;
 
-    /** Base content skeleton height. Useful when e.g. changing the base height for textarea etc. */
-    --onyx-form-element-v2-content-skeleton-height: 1lh;
+    /** Base content and skeleton height. Useful when e.g. changing the base height for textarea etc. */
+    --onyx-form-element-v2-content-height: 1lh;
 
     // :read-only is valid for readonly and disabled state so we put shared styles for both states here
     &:has(.onyx-form-element-v2__input:read-only) {
@@ -228,6 +241,9 @@ const label = computed<FormElementV2LabelOptions>(() => {
       background-color: var(--onyx-form-element-v2-background);
       display: flex;
       align-items: center;
+      height: calc(
+        var(--onyx-form-element-v2-content-height) + 2 * var(--onyx-form-element-v2-padding-block)
+      );
     }
 
     &__input-container {
@@ -236,6 +252,7 @@ const label = computed<FormElementV2LabelOptions>(() => {
       flex-grow: 1;
       border: var(--onyx-form-element-v2-border-size) solid var(--onyx-form-element-v2-border-color);
       border-radius: inherit;
+      height: 100%;
 
       &:has(.onyx-form-element-v2__input:read-write):hover {
         border-color: var(--onyx-form-element-v2-border-color-hover);
@@ -269,6 +286,8 @@ const label = computed<FormElementV2LabelOptions>(() => {
     &__slot {
       height: 100%;
       border: var(--onyx-1px-in-rem) solid var(--onyx-form-element-v2-border-color);
+      display: flex;
+      align-items: center;
 
       &--leading {
         border-right: none;
@@ -316,6 +335,7 @@ const label = computed<FormElementV2LabelOptions>(() => {
       background-color: transparent;
       color: inherit;
       width: 100%;
+      height: 100%;
       outline: none;
       font-family: inherit;
       font-size: inherit;
@@ -331,6 +351,10 @@ const label = computed<FormElementV2LabelOptions>(() => {
 
       &::selection {
         background: var(--onyx-form-element-v2-selection-background);
+      }
+
+      &::-webkit-search-cancel-button {
+        display: none;
       }
 
       &:autofill {
@@ -353,12 +377,15 @@ const label = computed<FormElementV2LabelOptions>(() => {
       }
     }
 
+    &__loading {
+      color: var(--onyx-color-text-icons-primary-intense);
+    }
+
     // skeletons
     &__content-skeleton {
       width: 100%;
       height: calc(
-        var(--onyx-form-element-v2-content-skeleton-height) + 2 *
-          var(--onyx-form-element-v2-padding-block) + 2 * var(--onyx-form-element-v2-border-size)
+        var(--onyx-form-element-v2-content-height) + 2 * var(--onyx-form-element-v2-padding-block)
       );
     }
   }
