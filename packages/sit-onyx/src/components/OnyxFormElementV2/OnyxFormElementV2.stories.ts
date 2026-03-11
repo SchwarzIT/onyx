@@ -91,6 +91,13 @@ export const Popover = createAdvancedStoryExample(
   "PopoverExample",
 ) satisfies Story;
 
+export const Loading = {
+  args: {
+    ...Default.args,
+    loading: true,
+  },
+} satisfies Story;
+
 export const Skeleton = {
   args: {
     ...Default.args,

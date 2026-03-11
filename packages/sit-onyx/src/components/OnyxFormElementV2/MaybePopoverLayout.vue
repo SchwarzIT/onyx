@@ -38,6 +38,7 @@ const label = computed(() => {
     &__popover {
       flex-grow: 1;
       border-radius: inherit;
+      height: 100%;
     }
   }
 }

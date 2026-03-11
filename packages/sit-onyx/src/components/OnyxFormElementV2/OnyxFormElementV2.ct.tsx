@@ -229,6 +229,35 @@ test.describe("Screenshot tests (skeleton)", () => {
   });
 });
 
+test.describe("Screenshot tests (loading)", () => {
+  executeMatrixScreenshotTest({
+    name: "Form element v2 (loading)",
+    columns: DENSITIES,
+    rows: ["default", "icons"],
+    component: (column, row) => (
+      <TestCase
+        label="Test label"
+        message="Message"
+        modelValue="Filled value"
+        density={column}
+        loading
+      >
+        {row === "icons" && (
+          <template v-slot:leadingIcons>
+            <OnyxIcon icon={iconPlaceholder} />
+          </template>
+        )}
+
+        {row === "icons" && (
+          <template v-slot:trailingIcons>
+            <OnyxIcon icon={iconPlaceholder} />
+          </template>
+        )}
+      </TestCase>
+    ),
+  });
+});
+
 test("should show/hide messages correctly", async ({ mount }) => {
   // ARRANGE
   const component = await mount(TestCase, {
