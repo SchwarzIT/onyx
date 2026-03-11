@@ -6,7 +6,7 @@ import type { OnyxInputProps } from "../OnyxInput/types.js";
 
 export type OnyxDatePickerV2Props<TSelection extends OnyxCalendarSelectionMode = "single"> = Omit<
   OnyxFormElementV2Props,
-  "modelValue" | "showError" | "requiredMarker" | "reserveMessageSpace"
+  "modelValue" | "popoverOptions"
 > &
   Pick<OnyxInputProps, "disabled"> &
   Pick<
