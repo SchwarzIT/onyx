@@ -1,7 +1,7 @@
 import { DENSITIES } from "../../composables/density.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
-import { ORIENTATIONS, type SelectOptionValue } from "../../types/index.js";
+import { ORIENTATIONS, type Nullable, type SelectOptionValue } from "../../types/index.js";
 import OnyxRadioGroup from "./OnyxRadioGroup.vue";
 import type { RadioButtonOption } from "./types.js";
 
@@ -11,7 +11,7 @@ const EXAMPLE_OPTIONS = [
   { label: "Dummy 3", value: 3, loading: true },
   { label: "Dummy 4", value: 4, disabled: true },
   { label: "Dummy 5", value: 5, skeleton: true },
-] satisfies RadioButtonOption[];
+] as const satisfies RadioButtonOption[];
 
 test.describe("screenshot tests", () => {
   for (const orientation of ORIENTATIONS) {
@@ -89,7 +89,7 @@ test.describe("screenshot tests (invalid)", () => {
 });
 
 test("should behave correctly", async ({ mount }) => {
-  const modelValueEvents: SelectOptionValue[] = [];
+  const modelValueEvents: Nullable<SelectOptionValue>[] = [];
 
   // ARRANGE
   const component = await mount(
@@ -127,12 +127,12 @@ test("should display correctly when disabled", async ({ mount, makeAxeBuilder })
     <OnyxRadioGroup label="Test headline" options={EXAMPLE_OPTIONS} disabled />,
   );
 
-  const radioButtons = await component.getByRole("radio", { disabled: true }).all();
+  const radioButtons = component.getByRole("radio", { disabled: true });
 
   // ASSERT
-  expect(radioButtons).toHaveLength(3); // loading and skeleton are no radio buttons so length is 3 and not 5
+  await expect(radioButtons).toHaveCount(3); // loading and skeleton are no radio buttons so length is 3 and not 5
 
-  for (const radio of radioButtons) {
+  for (const radio of await radioButtons.all()) {
     await expect(radio).toBeDisabled();
   }
 

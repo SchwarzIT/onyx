@@ -151,14 +151,15 @@ positions.forEach((position) => {
       name: position === "left" ? "a" : "k",
     });
     const stickyGroup =
+      // eslint-disable-next-line playwright/no-conditional-in-test -- simple test case
       position === "left"
         ? component.getByRole("columnheader", { name: "group1" }).first()
         : component.getByRole("columnheader", { name: "group2" }).last();
 
     await expect(stickyColumn).toContainClass(position);
-    await expect(stickyColumn).toHaveCSS(position, /[0-9]+px/);
+    await expect(stickyColumn).toHaveCSS(position, /\d+px/);
     await expect(stickyGroup).toContainClass(position);
-    await expect(stickyGroup).toHaveCSS(position, /[0-9]+px/);
+    await expect(stickyGroup).toHaveCSS(position, /\d+px/);
 
     await expect(component).toHaveScreenshot(`data-grid-sticky-columnsGroups-${position}.png`);
   });
