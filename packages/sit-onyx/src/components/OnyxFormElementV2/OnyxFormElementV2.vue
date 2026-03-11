@@ -44,7 +44,7 @@ const emit = defineEmits<
   /**
    * Emitted when the popoverOpeningState changes
    */
-  (event: "update:popoverOpen", value: boolean) => void
+  (event: "update:open", value: boolean) => void
 >();
 
 const { densityClass } = useDensity(props);
