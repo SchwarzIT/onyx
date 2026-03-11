@@ -113,66 +113,65 @@ useAutofocus(input, props);
 </script>
 
 <template>
-  <div class="onyx-component onyx-datepicker-v2" v-bind="rootAttrs">
-    <OnyxFormElementV2
-      v-bind="formElementProps"
-      :label="props.label"
-      :popover-options="{
-        open: popoverOpen,
-        fitParent: props.fitParent,
-        alignment: props.alignment,
-        position: props.position,
-      }"
-      @update:open="popoverOpen = $event"
-    >
-      <template #leadingIcons>
-        <OnyxLoadingIndicator
-          v-if="props.loading"
-          class="onyx-datepicker-v2__loading"
-          type="circle"
+  <OnyxFormElementV2
+    class="onyx-component onyx-date-picker-v2"
+    v-bind="mergeVueProps(formElementProps, rootAttrs)"
+    :label="props.label"
+    :popover-options="{
+      open: popoverOpen,
+      fitParent: props.fitParent,
+      alignment: props.alignment,
+      position: props.position,
+    }"
+    @update:open="popoverOpen = $event"
+  >
+    <template #leadingIcons>
+      <OnyxLoadingIndicator
+        v-if="props.loading"
+        class="onyx-date-picker-v2__loading"
+        type="circle"
+      />
+    </template>
+    <template #default="inputProps">
+      <input
+        v-bind="mergeVueProps(inputProps, restAttrs)"
+        ref="inputRef"
+        :disabled="disabled || props.loading"
+        class="onyx-date-picker-v2__native-input onyx-truncation-ellipsis"
+        :value="formattedDate"
+      />
+    </template>
+    <template #trailingIcons>
+      <OnyxIcon :icon="iconCalendar" />
+    </template>
+    <template #popover>
+      <div class="onyx-date-picker-v2__calendar-wrapper">
+        <OnyxCalendar
+          :class="{ 'onyx-date-picker-v2--multi-view': props.multiView }"
+          v-bind="calendarProps"
+          :disabled="false"
+          size="small"
+          :selection-mode="props.selectionMode"
+          @update:model-value="handleDateSelect"
         />
-      </template>
-      <template #default="inputProps">
-        <input
-          v-bind="mergeVueProps(inputProps, restAttrs)"
-          ref="inputRef"
-          :disabled="disabled || props.loading"
-          class="onyx-datepicker-v2__native-input onyx-truncation-ellipsis"
-          :value="formattedDate"
+        <OnyxCalendar
+          v-if="props.selectionMode === 'range' && props.multiView"
+          class="onyx-date-picker-v2--multi-view"
+          v-bind="calendarProps"
+          :disabled="false"
+          size="small"
+          :selection-mode="props.selectionMode"
+          @update:model-value="handleDateSelect"
         />
-      </template>
-      <template #trailingIcons>
-        <OnyxIcon :icon="iconCalendar" />
-      </template>
-      <template #popover>
-        <div class="onyx-datepicker-v2__calendar-wrapper">
-          <OnyxCalendar
-            :class="{ 'onyx-datepicker-v2--multi-view': props.multiView }"
-            v-bind="calendarProps"
-            :disabled="false"
-            size="small"
-            :selection-mode="props.selectionMode"
-            @update:model-value="handleDateSelect"
-          />
-          <OnyxCalendar
-            v-if="props.selectionMode === 'range' && props.multiView"
-            class="onyx-datepicker-v2--multi-view"
-            v-bind="calendarProps"
-            :disabled="false"
-            size="small"
-            :selection-mode="props.selectionMode"
-            @update:model-value="handleDateSelect"
-          />
-        </div>
-      </template>
-    </OnyxFormElementV2>
-  </div>
+      </div>
+    </template>
+  </OnyxFormElementV2>
 </template>
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
 
-.onyx-datepicker-v2 {
+.onyx-date-picker-v2 {
   @include layers.component() {
     &__loading {
       color: var(--onyx-color-text-icons-primary-intense);
@@ -204,8 +203,8 @@ useAutofocus(input, props);
     color: var(--onyx-form-element-v2-border-color-focus);
   }
 
-  :has(.onyx-datepicker-v2__range-input-wrapper) .onyx-calendar,
-  .onyx-datepicker-v2--multi-view .onyx-calendar {
+  :has(.onyx-date-picker-v2__range-input-wrapper) .onyx-calendar,
+  .onyx-date-picker-v2--multi-view .onyx-calendar {
     &__body table,
     &__picker-grid {
       border-radius: 0;
