@@ -151,7 +151,10 @@ const popoverOptions = computed<FormElementV2PopoverOptions | undefined>(() => {
     <template #popover>
       <div class="onyx-date-picker-v2__calendar-wrapper">
         <OnyxCalendar
-          :class="{ 'onyx-date-picker-v2--multi-view': props.multiView }"
+          :class="[
+            'onyx-date-picker-v2__calendar',
+            { 'onyx-date-picker-v2__calendar--multi-view': props.multiView },
+          ]"
           v-bind="calendarProps"
           :disabled="false"
           size="small"
@@ -160,7 +163,7 @@ const popoverOptions = computed<FormElementV2PopoverOptions | undefined>(() => {
         />
         <OnyxCalendar
           v-if="props.selectionMode === 'range' && props.multiView"
-          class="onyx-date-picker-v2--multi-view"
+          class="onyx-date-picker-v2__calendar onyx-date-picker-v2__calendar--multi-view"
           v-bind="calendarProps"
           :disabled="false"
           size="small"
@@ -185,30 +188,41 @@ const popoverOptions = computed<FormElementV2PopoverOptions | undefined>(() => {
     .onyx-basic-popover__dialog {
       max-width: initial;
     }
-    .onyx-calendar {
+
+    &__calendar {
       width: 100%;
       gap: 0;
-      &__body table,
-      &__picker-grid {
+
+      &--multi-view {
+        width: 18rem;
+
+        &:first-child {
+          .onyx-calendar__body table,
+          .onyx-calendar__picker-grid {
+            border-bottom-right-radius: 0;
+          }
+        }
+
+        &:last-child {
+          .onyx-calendar__body table,
+          .onyx-calendar__picker-grid {
+            border-bottom-left-radius: 0;
+          }
+        }
+      }
+
+      .onyx-calendar__body table,
+      .onyx-calendar__picker-grid {
         border-radius: 0 0 var(--onyx-radius-md) var(--onyx-radius-md);
       }
-      &__header {
+
+      .onyx-calendar__header {
         padding: var(--onyx-density-xs);
       }
     }
-    &--multi-view.onyx-calendar {
-      width: 18rem;
-    }
+
     &:has(.onyx-basic-popover__dialog:popover-open) .onyx-form-element-v2__icons--trailing {
       color: var(--onyx-form-element-v2-border-color-focus);
-    }
-
-    :has(.onyx-date-picker-v2__range-input-wrapper) .onyx-calendar,
-    .onyx-date-picker-v2--multi-view .onyx-calendar {
-      &__body table,
-      &__picker-grid {
-        border-radius: 0;
-      }
     }
   }
 }
