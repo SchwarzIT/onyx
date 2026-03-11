@@ -16,6 +16,7 @@ import type {
 import type { DateValue } from "../OnyxDatePicker/types.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
+import type { FormElementV2PopoverOptions } from "../OnyxFormElementV2/types.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxDatePickerV2Props } from "./types.js";
 
@@ -112,6 +113,11 @@ const calendarProps = useForwardProps(props, OnyxCalendar);
 const input = useTemplateRef("inputRef");
 defineExpose({ input });
 useAutofocus(input, props);
+
+const popoverOptions = computed<FormElementV2PopoverOptions | undefined>(() => {
+  if (props.multiView) return { fitParent: false, ...props.popoverOptions };
+  return props.popoverOptions;
+});
 </script>
 
 <template>
@@ -120,6 +126,7 @@ useAutofocus(input, props);
     v-model:open="popoverOpen"
     class="onyx-date-picker-v2"
     :label="props.label"
+    :popover-options
   >
     <template #default="inputProps">
       <input

@@ -49,7 +49,6 @@ export const MultiView = {
     label: "Date",
     selectionMode: "range",
     multiView: true,
-    fitParent: false,
   },
 } satisfies Story;
 
