@@ -357,6 +357,7 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
       line-height: inherit;
       caret-color: var(--onyx-form-element-v2-caret-color);
       padding: var(--onyx-form-element-v2-padding-block) var(--onyx-form-element-v2-padding-inline);
+      cursor: inherit;
 
       &::placeholder {
         color: var(--onyx-color-text-icons-neutral-soft);

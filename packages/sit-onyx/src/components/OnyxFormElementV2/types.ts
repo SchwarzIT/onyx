@@ -47,7 +47,7 @@ export type OnyxFormElementV2Props = DensityProp &
     /**
      * Additional popover options.
      */
-    popoverOptions?: FormElementPopoverOptions;
+    popoverOptions?: FormElementV2PopoverOptions;
   };
 
 export type OnyxFormElementV2Slots = {
@@ -106,7 +106,7 @@ export type FormElementV2Tooltip = {
   tooltipText?: string;
 };
 
-export type FormElementPopoverOptions = Pick<
+export type FormElementV2PopoverOptions = Pick<
   OnyxBasicPopoverProps,
-  "alignment" | "fitParent" | "position"
+  "alignment" | "fitParent" | "position" | "disabled"
 >;

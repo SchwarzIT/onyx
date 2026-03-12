@@ -96,8 +96,10 @@ watch(
 </template>
 
 <style lang="scss">
-.onyx-calendar {
-  &__picker-grid {
+@use "../../styles/mixins/layers.scss";
+
+.onyx-calendar__picker-grid {
+  @include layers.component() {
     display: grid;
     scroll-behavior: auto;
     grid-template-columns: repeat(3, 1fr);

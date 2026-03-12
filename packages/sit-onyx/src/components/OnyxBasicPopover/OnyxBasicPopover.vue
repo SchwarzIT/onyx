@@ -144,6 +144,7 @@ watch(isVisible, async (newVal) => {
 });
 
 const toggle = () => {
+  if (disabled.value) return;
   _isVisible.value = !_isVisible.value;
   emit("update:open", !isVisible.value);
 };
