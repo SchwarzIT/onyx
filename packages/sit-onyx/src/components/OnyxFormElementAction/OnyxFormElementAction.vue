@@ -14,6 +14,8 @@ const { rootAttrs, restAttrs } = useRootAttrs();
 const props = withDefaults(defineProps<OnyxFormElementActionProps>(), {
   pressed: undefined,
   disabled: FORM_INJECTED_SYMBOL,
+  size: "default",
+  showOnFocus: false,
 });
 
 const emit = defineEmits<{
@@ -47,7 +49,13 @@ const toggleAttrs = computed(() =>
     <template #default="{ trigger }">
       <button
         v-bind="mergeVueProps(restAttrs, toggleAttrs, trigger)"
-        class="onyx-form-element-action"
+        :class="[
+          'onyx-form-element-action',
+          {
+            'onyx-form-element-action--small': props.size === 'small',
+            'onyx-form-element-action--show-on-focus': props.showOnFocus,
+          },
+        ]"
         type="button"
         tabindex="-1"
         :aria-label="props.label"
@@ -85,6 +93,16 @@ const toggleAttrs = computed(() =>
 
     &:disabled {
       color: var(--onyx-color-text-icons-neutral-soft);
+    }
+
+    &--small {
+      padding: 0;
+    }
+
+    &--show-on-focus {
+      .onyx-form-element-v2:has(.onyx-form-element-v2__input-container:not(:focus-within)) & {
+        display: none;
+      }
     }
   }
 }

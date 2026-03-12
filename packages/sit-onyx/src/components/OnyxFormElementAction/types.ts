@@ -20,8 +20,18 @@ export type OnyxFormElementActionProps = DensityProp & {
    */
   type?: "button" | "toggle";
   /**
+   * Visual size.
+   * - default: Useful for standalone actions, e.g. inside leading/trialing slot of form elements
+   * - small: Useful for inline actions, e.g. inside the leadingIcons/trailingIcons slot of form elements (clear button etc.)
+   */
+  size?: "default" | "small";
+  /**
    * If the button is currently pressed / active.
    * Only use with `type="toggle"`.
    */
   pressed?: boolean;
+  /**
+   * If `true`, the button will be only be shown visually if the parent form element has focus.
+   */
+  showOnFocus?: boolean;
 };
