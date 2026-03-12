@@ -1,7 +1,8 @@
 import { iconPlaceholder } from "@sit-onyx/icons";
-import { useFocusStateHooks } from "@sit-onyx/playwright-utils";
+import { createEmitSpy, expectEmit, useFocusStateHooks } from "@sit-onyx/playwright-utils";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
+import FocusTestCase from "./FocusTestCase.ct.vue";
 import OnyxFormElementAction from "./OnyxFormElementAction.vue";
 
 test.describe("Screenshot tests", () => {
@@ -80,4 +81,29 @@ test.describe("Screenshot tests (toggle, pressed)", () => {
       },
     },
   });
+});
+
+test("should show when form element is focused", async ({ mount }) => {
+  // ARRANGE
+  const actionClickSpy = createEmitSpy<typeof FocusTestCase, "onActionClick">();
+  const component = await mount(<FocusTestCase onActionClick={actionClickSpy} />);
+
+  const input = component.getByLabel("Test label");
+  const actionButton = component.getByRole("button", { name: "Test action" });
+
+  // ASSERT
+  await expect(actionButton, "should hide when input is not focused").toBeHidden();
+
+  // ACT
+  await input.focus();
+
+  // ASSERT
+  await expect(actionButton, "should show when input is focused").toBeVisible();
+
+  // ACT
+  await actionButton.click();
+
+  // ASSERT
+  expectEmit(actionClickSpy, 1, []);
+  await expect(actionButton).toBeVisible();
 });
