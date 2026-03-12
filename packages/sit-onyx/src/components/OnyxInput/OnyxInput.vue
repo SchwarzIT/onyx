@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { iconEye, iconEyeClosed } from "@sit-onyx/icons";
+import { iconEye, iconEyeClosed, iconXSmall } from "@sit-onyx/icons";
 import { computed, useTemplateRef } from "vue";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
 import {
@@ -145,28 +145,41 @@ const counter = computed(() => {
       />
     </template>
 
-    <!-- <template #leadingIcons> -->
-    <!-- TODO: show clear button -->
-    <!-- TODO: check success icon - maybe implement in FormElementV2 -->
-    <!-- </template> -->
+    <template v-if="slots.leading" #leading>
+      <slot name="leading"></slot>
+    </template>
+
+    <template v-if="slots.leadingIcons" #leadingIcons>
+      <slot name="leadingIcons"></slot>
+    </template>
+
+    <template v-if="modelValue || slots.trailingIcons" #trailingIcons>
+      <OnyxFormElementAction
+        v-if="modelValue"
+        :label="t('input.clear')"
+        :icon="iconXSmall"
+        size="small"
+        show-on-focus
+        @click="modelValue = ''"
+      />
+      <slot name="trailingIcons"></slot>
+    </template>
+
+    <template v-if="slots.trailing || props.type === 'password'" #trailing>
+      <slot name="trailing">
+        <OnyxFormElementAction
+          :icon="showPassword ? iconEyeClosed : iconEye"
+          :label="showPassword ? t('input.hidePassword') : t('input.showPassword')"
+          @click="showPassword = !showPassword"
+        />
+      </slot>
+    </template>
 
     <!-- pre-defined slots, will be overridden with the v-for below if user has passed a custom slot -->
     <template v-if="counter" #bottomRight>
       <span :class="['onyx-input__counter', { 'onyx-input__counter--violated': counter.violated }]">
         {{ counter.length }}/{{ counter.maxLength }}
       </span>
-    </template>
-
-    <template v-if="props.type === 'password'" #trailing>
-      <OnyxFormElementAction
-        :icon="showPassword ? iconEyeClosed : iconEye"
-        :label="showPassword ? t('input.hidePassword') : t('input.showPassword')"
-        @click="showPassword = !showPassword"
-      />
-    </template>
-
-    <template v-for="(slot, slotName) in slots" :key="slotName" #[slotName]>
-      <component :is="slot" />
     </template>
   </OnyxFormElementV2>
 </template>
