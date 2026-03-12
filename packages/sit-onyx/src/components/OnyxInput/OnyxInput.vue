@@ -145,10 +145,10 @@ const counter = computed(() => {
       />
     </template>
 
-    <template #leadingIcons>
-      <!-- TODO: show clear button -->
-      <!-- TODO: check success icon - maybe implement in FormElementV2 -->
-    </template>
+    <!-- <template #leadingIcons> -->
+    <!-- TODO: show clear button -->
+    <!-- TODO: check success icon - maybe implement in FormElementV2 -->
+    <!-- </template> -->
 
     <!-- pre-defined slots, will be overridden with the v-for below if user has passed a custom slot -->
     <template v-if="counter" #bottomRight>
