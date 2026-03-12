@@ -61,7 +61,7 @@ export const BASE_FEATURE = (options?: BaseFeatureOptions) =>
           if (!skeleton.value) return [...rows];
           let skeletonCount = typeof skeleton.value === "number" ? skeleton.value : 5;
           if (rows.length) skeletonCount = rows.length; // if previously rows were displayed, use the same row count for skeletons so the layout does not shift
-          return Array.from({ length: skeletonCount }, () => ({}));
+          return Array.from({ length: skeletonCount }, (_, i) => ({ id: i }));
         },
       },
       enhanceRow: {
