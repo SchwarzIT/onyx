@@ -47,7 +47,10 @@
         }
       }
     },
-    "loadMore": "Încărcare mai multe"
+    "loadMore": "Încărcare mai multe",
+    "editing": {
+      "label": "{column} cu ID {id}"
+    }
   },
   "validations": {
     "tooShort": {
