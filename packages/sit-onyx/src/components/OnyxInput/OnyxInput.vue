@@ -49,7 +49,7 @@ const emit = defineEmits<{
   "update:showPassword": [showPassword: boolean];
 }>();
 
-const slots = defineSlots<Omit<OnyxFormElementV2Slots, "default" | "popover">>();
+const slots = defineSlots<Omit<OnyxFormElementV2Slots, "default" | "popover" | "bottomRight">>();
 
 /**
  * Current value of the input.
@@ -98,7 +98,7 @@ const messageToFormElementProps = (
 ): string | FormElementV2Tooltip | undefined => {
   if (!message) return;
   if (typeof message === "string") return message;
-  // TODO: check how to handle message.hidden
+  if (message.hidden) return;
   return { label: message.shortMessage, tooltipText: message.longMessage };
 };
 
@@ -107,12 +107,7 @@ const counter = computed(() => {
   const length = modelValue.value.toString().length;
   const maxLength = typeof props.maxlength === "object" ? props.maxlength.max : props.maxlength;
   const violated = length > maxLength;
-
-  return {
-    length,
-    maxLength,
-    violated,
-  };
+  return { length, maxLength, violated };
 });
 </script>
 
@@ -148,6 +143,11 @@ const counter = computed(() => {
         :maxlength="maxLength"
         :minlength="props.minlength"
       />
+    </template>
+
+    <template #leadingIcons>
+      <!-- TODO: show clear button -->
+      <!-- TODO: check success icon - maybe implement in FormElementV2 -->
     </template>
 
     <!-- pre-defined slots, will be overridden with the v-for below if user has passed a custom slot -->
