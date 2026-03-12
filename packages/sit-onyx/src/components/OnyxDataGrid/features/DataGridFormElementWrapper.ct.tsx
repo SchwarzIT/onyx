@@ -10,7 +10,7 @@ import OnyxStepper from "../../OnyxStepper/OnyxStepper.vue";
 import OnyxSwitch from "../../OnyxSwitch/OnyxSwitch.vue";
 import OnyxTable from "../../OnyxTable/OnyxTable.vue";
 import OnyxTimePicker from "../../OnyxTimePicker/OnyxTimePicker.vue";
-import FormElementWrapper from "./FormElementWrapper.vue";
+import DataGridFormElementWrapper from "./DataGridFormElementWrapper.vue";
 
 const table = (...elements: unknown[]) => (
   <OnyxTable style={{ width: "10rem" }}>
@@ -27,14 +27,14 @@ const table = (...elements: unknown[]) => (
   </OnyxTable>
 );
 
-test(`FormElementWrapper with OnyxInput`, async ({ mount, browserName }) => {
+test(`DataGridFormElementWrapper with OnyxInput`, async ({ mount, browserName }) => {
   // ARRANGE
   const onUpdateModelValue = createEmitSpy<typeof OnyxInput, "onUpdate:modelValue">();
   const TEST_VALUE = "test value";
   const LABEL = "test-label";
   const mounted = await mount(
     table(
-      <FormElementWrapper
+      <DataGridFormElementWrapper
         is={OnyxInput}
         label={LABEL}
         modelValue={TEST_VALUE}
@@ -60,14 +60,14 @@ test(`FormElementWrapper with OnyxInput`, async ({ mount, browserName }) => {
   });
 });
 
-test(`FormElementWrapper with OnyxStepper`, async ({ mount }) => {
+test(`DataGridFormElementWrapper with OnyxStepper`, async ({ mount }) => {
   // ARRANGE
   const onUpdateModelValue = createEmitSpy<typeof OnyxStepper, "onUpdate:modelValue">();
   const TEST_VALUE = 42;
   const LABEL = "test-label";
   const mounted = await mount(
     table(
-      <FormElementWrapper
+      <DataGridFormElementWrapper
         is={OnyxStepper}
         label={LABEL}
         modelValue={TEST_VALUE}
@@ -86,14 +86,14 @@ test(`FormElementWrapper with OnyxStepper`, async ({ mount }) => {
   expectEmit(onUpdateModelValue, 1, [NEW_VALUE]);
 });
 
-test(`FormElementWrapper with OnyxDatePicker`, async ({ mount }) => {
+test(`DataGridFormElementWrapper with OnyxDatePicker`, async ({ mount }) => {
   // ARRANGE
   const onUpdateModelValue = createEmitSpy<typeof OnyxDatePicker, "onUpdate:modelValue">();
   const TEST_VALUE = "2020-12-31";
   const LABEL = "test-label";
   const mounted = await mount(
     table(
-      <FormElementWrapper
+      <DataGridFormElementWrapper
         is={OnyxDatePicker}
         label={LABEL}
         modelValue={TEST_VALUE}
@@ -112,14 +112,14 @@ test(`FormElementWrapper with OnyxDatePicker`, async ({ mount }) => {
   expectEmit(onUpdateModelValue, 1, [NEW_VALUE]);
 });
 
-test(`FormElementWrapper with OnyxTimePicker`, async ({ mount }) => {
+test(`DataGridFormElementWrapper with OnyxTimePicker`, async ({ mount }) => {
   // ARRANGE
   const onUpdateModelValue = createEmitSpy<typeof OnyxTimePicker, "onUpdate:modelValue">();
   const TEST_VALUE = "01:02";
   const LABEL = "test-label";
   const mounted = await mount(
     table(
-      <FormElementWrapper
+      <DataGridFormElementWrapper
         is={OnyxTimePicker}
         label={LABEL}
         modelValue={TEST_VALUE}
@@ -138,14 +138,14 @@ test(`FormElementWrapper with OnyxTimePicker`, async ({ mount }) => {
   expectEmit(onUpdateModelValue, 1, [NEW_VALUE]);
 });
 
-test(`FormElementWrapper with OnyxSwitch`, async ({ mount }) => {
+test(`DataGridFormElementWrapper with OnyxSwitch`, async ({ mount }) => {
   // ARRANGE
   const onUpdateModelValue = createEmitSpy<typeof OnyxSwitch, "onUpdate:modelValue">();
   const TEST_VALUE = true;
   const LABEL = "test-label";
   const mounted = await mount(
     table(
-      <FormElementWrapper
+      <DataGridFormElementWrapper
         is={OnyxSwitch}
         label={LABEL}
         modelValue={TEST_VALUE}
@@ -162,7 +162,7 @@ test(`FormElementWrapper with OnyxSwitch`, async ({ mount }) => {
   expectEmit(onUpdateModelValue, 1, [false]);
 });
 
-test(`FormElementWrapper with OnyxSlider`, async ({ mount }) => {
+test(`DataGridFormElementWrapper with OnyxSlider`, async ({ mount }) => {
   // ARRANGE
   const onUpdateModelValue: ReturnType<typeof createEmitSpy> = createEmitSpy();
   const TEST_VALUE = 0;
@@ -170,7 +170,7 @@ test(`FormElementWrapper with OnyxSlider`, async ({ mount }) => {
 
   const mounted = await mount(
     table(
-      <FormElementWrapper
+      <DataGridFormElementWrapper
         is={OnyxSlider as Component}
         label={LABEL}
         modelValue={TEST_VALUE}
@@ -189,7 +189,7 @@ test(`FormElementWrapper with OnyxSlider`, async ({ mount }) => {
   expectEmit(onUpdateModelValue, 1, [50]);
 });
 
-test(`FormElementWrapper with OnyxSelect`, async ({ mount }) => {
+test(`DataGridFormElementWrapper with OnyxSelect`, async ({ mount }) => {
   // ARRANGE
   const onUpdateModelValue: ReturnType<typeof createEmitSpy> = createEmitSpy();
   const TEST_VALUE = 0;
@@ -202,7 +202,7 @@ test(`FormElementWrapper with OnyxSelect`, async ({ mount }) => {
 
   const mounted = await mount(
     table(
-      <FormElementWrapper
+      <DataGridFormElementWrapper
         is={OnyxSelect as Component}
         label={LABEL}
         listLabel={"test options"}
@@ -222,23 +222,23 @@ test(`FormElementWrapper with OnyxSelect`, async ({ mount }) => {
   expectEmit(onUpdateModelValue, 1, [1]);
 });
 
-test("FormElementWrapper Screenshot Test", async ({ mount }) => {
+test("DataGridFormElementWrapper Screenshot Test", async ({ mount }) => {
   const LABEL = "test-label";
   const mounted = await mount(
     table(
-      <FormElementWrapper
+      <DataGridFormElementWrapper
         is={OnyxSelect as Component}
         label={LABEL}
         listLabel={"test options"}
         modelValue={0}
         options={[{ value: 0, label: `Test option 0` }]}
       />,
-      <FormElementWrapper is={OnyxSlider as Component} label={LABEL} modelValue={33} />,
-      <FormElementWrapper is={OnyxSwitch} label={LABEL} modelValue={true} />,
-      <FormElementWrapper is={OnyxTimePicker} label={LABEL} modelValue={"01:02"} />,
-      <FormElementWrapper is={OnyxDatePicker} label={LABEL} modelValue={"2020-12-31"} />,
-      <FormElementWrapper is={OnyxStepper} label={LABEL} modelValue={12} />,
-      <FormElementWrapper is={OnyxInput} label={LABEL} modelValue={"some text"} />,
+      <DataGridFormElementWrapper is={OnyxSlider as Component} label={LABEL} modelValue={33} />,
+      <DataGridFormElementWrapper is={OnyxSwitch} label={LABEL} modelValue={true} />,
+      <DataGridFormElementWrapper is={OnyxTimePicker} label={LABEL} modelValue={"01:02"} />,
+      <DataGridFormElementWrapper is={OnyxDatePicker} label={LABEL} modelValue={"2020-12-31"} />,
+      <DataGridFormElementWrapper is={OnyxStepper} label={LABEL} modelValue={12} />,
+      <DataGridFormElementWrapper is={OnyxInput} label={LABEL} modelValue={"some text"} />,
     ),
   );
   await expect(mounted).toHaveScreenshot("form-element-wrapper-all-inputs.png");
