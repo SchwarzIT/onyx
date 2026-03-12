@@ -84,31 +84,30 @@ const toggleAttrs = computed(() =>
 
     &:enabled {
       cursor: pointer;
+
+      &:hover,
+      &:focus-visible {
+        color: var(--onyx-color-text-icons-primary-intense);
+      }
+
+      &[aria-pressed="true"],
+      &:active {
+        background-color: var(--onyx-color-component-cta-default);
+        color: var(--onyx-color-text-icons-neutral-inverted);
+
+        &:hover {
+          background-color: var(--onyx-color-component-cta-default-hover);
+          color: var(--onyx-color-text-icons-neutral-inverted);
+        }
+      }
     }
 
     &:disabled {
       color: var(--onyx-color-text-icons-neutral-soft);
-    }
 
-    &:enabled:hover,
-    &:enabled:focus-visible {
-      color: var(--onyx-color-text-icons-primary-intense);
-    }
-
-    &[aria-pressed="true"],
-    &:active {
-      background-color: var(--onyx-color-component-cta-default);
-      color: var(--onyx-color-text-icons-neutral-inverted);
-    }
-
-    &[aria-pressed="true"]:hover,
-    &:active:hover {
-      background-color: var(--onyx-color-component-cta-default-hover);
-      color: var(--onyx-color-text-icons-neutral-inverted);
-    }
-
-    &[aria-pressed="true"]:disabled {
-      background-color: var(--onyx-color-base-primary-200);
+      &[aria-pressed="true"] {
+        background-color: var(--onyx-color-base-primary-200);
+      }
     }
   }
 }
