@@ -53,3 +53,13 @@ export const timeToDurationString = (timeLeft: number): `PT${number}H${number}M$
   const { hours, minutes, seconds } = getTimeFragments(timeLeft);
   return `PT${hours}H${minutes}M${seconds}S`;
 };
+
+/**
+ * Parses an RFC 9557 time string (`HH:mm:ss.sssssssss`) and converts it into seconds.
+ */
+export const parseTimeSeconds = (timeString?: string): number | null => {
+  if (!timeString) return null;
+  const parts = timeString.split(":").map((p) => Number.parseInt(p, 10));
+  if (parts.length < 2 || parts.some(Number.isNaN)) return null;
+  return parts[0]! * 3600 + parts[1]! * 60 + (parts[2] || 0);
+};
