@@ -13,9 +13,9 @@ import { injectI18n } from "../../i18n/index.js";
 import { mergeVueProps, useRootAttrs } from "../../utils/attrs.js";
 import { useForwardProps } from "../../utils/props.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
+import OnyxFormElementAction from "../OnyxFormElementAction/OnyxFormElementAction.vue";
 import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
 import type { FormElementV2Tooltip, OnyxFormElementV2Slots } from "../OnyxFormElementV2/types.js";
-import OnyxInputAction from "./modules/OnyxInputAction.vue";
 import type { OnyxInputProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxInputProps>(), {
@@ -158,7 +158,7 @@ const counter = computed(() => {
     </template>
 
     <template v-if="props.type === 'password'" #trailing>
-      <OnyxInputAction
+      <OnyxFormElementAction
         :icon="showPassword ? iconEyeClosed : iconEye"
         :label="showPassword ? t('input.hidePassword') : t('input.showPassword')"
         @click="showPassword = !showPassword"

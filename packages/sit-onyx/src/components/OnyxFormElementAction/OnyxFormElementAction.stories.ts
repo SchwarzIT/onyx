@@ -1,16 +1,16 @@
 import { iconAnchor, iconTrash } from "@sit-onyx/icons";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import { defineIconSelectArgType } from "../../../utils/storybook.js";
-import OnyxInputAction from "./OnyxInputAction.vue";
+import { defineIconSelectArgType } from "../../utils/storybook.js";
+import OnyxFormElementAction from "./OnyxFormElementAction.vue";
 
 /**
- * A support component, to be used inside of the OnyxInput component.
+ * A support component, to be used inside of form element component.
  * Exists as normal button and as toggle button variant.
  */
-const meta: Meta<typeof OnyxInputAction> = {
-  title: "Support/InputAction",
-  component: OnyxInputAction,
+const meta: Meta<typeof OnyxFormElementAction> = {
+  title: "Support/FormElementAction",
+  component: OnyxFormElementAction,
   argTypes: {
     icon: defineIconSelectArgType(),
     ...withNativeEventLogging(["onClick"]),
@@ -18,7 +18,7 @@ const meta: Meta<typeof OnyxInputAction> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof OnyxInputAction>;
+type Story = StoryObj<typeof OnyxFormElementAction>;
 
 /**
  * This example shows the default button variant.
