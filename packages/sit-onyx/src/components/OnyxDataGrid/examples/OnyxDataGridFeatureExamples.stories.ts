@@ -23,6 +23,10 @@ export const Pagination: Story = {
   ...createAdvancedStoryExample("OnyxDataGrid", "PaginationExample"),
 };
 
+export const Editing: Story = {
+  ...createAdvancedStoryExample("OnyxDataGrid", "EditingExample"),
+};
+
 export const LazyLoading: Story = {
   ...createAdvancedStoryExample("OnyxDataGrid", "LazyLoadingExample"),
 };

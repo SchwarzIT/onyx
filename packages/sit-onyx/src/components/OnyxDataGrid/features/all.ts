@@ -7,6 +7,7 @@ export * from "./sorting/types.js";
 export * from "./stickyColumns/types.js";
 
 export { useFiltering } from "./filtering/filtering.js";
+export { useEditing } from "./editing/editing.js";
 export { useHideColumns } from "./hideColumns/hideColumns.js";
 export { usePagination } from "./pagination/pagination.js";
 export * from "./renderer.js";

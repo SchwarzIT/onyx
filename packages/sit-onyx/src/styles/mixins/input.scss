@@ -33,6 +33,7 @@
   --button-color: var(--onyx-color-text-icons-neutral-soft);
   --border-radius: var(--onyx-radius-sm);
   --border-style: solid;
+  --padding-horizontal: var(--onyx-density-sm);
 
   &__wrapper {
     border-radius: var(--border-radius);
@@ -48,7 +49,7 @@
 
     font-size: var(--onyx-font-size-md);
     line-height: var(--onyx-font-line-height-md);
-    padding: $vertical-padding var(--onyx-density-sm);
+    padding: $vertical-padding var(--padding-horizontal);
     height: calc(1lh + 2 * #{$vertical-padding});
 
     #{$base-selector}__native {
