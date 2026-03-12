@@ -83,6 +83,7 @@ const blockTyping = (event: KeyboardEvent) => {
 .onyx-form-element-v2 {
   @include layers.component() {
     &__popover {
+      --onyx-basic-popover-max-width: 100%;
       flex-grow: 1;
       border-radius: inherit;
       height: 100%;

@@ -185,10 +185,6 @@ const popoverOptions = computed<FormElementV2PopoverOptions | undefined>(() => {
       width: 100%;
     }
 
-    .onyx-basic-popover__dialog {
-      max-width: initial;
-    }
-
     &__calendar {
       width: 100%;
       gap: 0;
