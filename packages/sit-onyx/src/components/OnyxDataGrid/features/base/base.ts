@@ -10,6 +10,7 @@ import {
   DATE_RENDERER,
   DATETIME_RENDERER,
   NUMBER_RENDERER,
+  SELECT_RENDERER,
   SKELETON_RENDERER,
   STRING_RENDERER,
   TIME_RENDERER,
@@ -69,7 +70,7 @@ export const BASE_FEATURE = (options?: BaseFeatureOptions) =>
       },
       enhanceCells: {
         func: (cell, entry) => ({
-          tdAttributes: td.value({ rowId: entry["id"], colKey: cell.props.key }),
+          tdAttributes: td.value({ rowId: entry["id"], colKey: cell.props.column }),
         }),
       },
       tableAttributes: () => table.value,
@@ -80,6 +81,7 @@ export const BASE_FEATURE = (options?: BaseFeatureOptions) =>
       typeRenderer: {
         number: NUMBER_RENDERER,
         string: STRING_RENDERER,
+        select: SELECT_RENDERER,
         date: DATE_RENDERER,
         "datetime-local": DATETIME_RENDERER,
         time: TIME_RENDERER,

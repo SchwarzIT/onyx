@@ -127,7 +127,7 @@ export type DataGridRendererCellComponentProps<
   /**
    * The key of the column for which the cell is rendered.
    */
-  key: keyof TEntry;
+  column: keyof TEntry;
   /**
    * Complete row data.
    */

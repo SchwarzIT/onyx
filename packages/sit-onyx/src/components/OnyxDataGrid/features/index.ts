@@ -60,7 +60,10 @@ export type TypeRendererHeaderDef<TEntry extends DataGridEntry, TOptions = undef
   "key" | "props"
 >;
 
-export type CellMetadata<TOptions = unknown> = { typeOptions?: TOptions };
+export type CellMetadata<TOptions = unknown> = {
+  typeOptions?: TOptions;
+  editable?: Nullable<boolean>;
+};
 
 export type TypeRendererCell<TEntry extends DataGridEntry, TOptions = undefined> = Omit<
   DataGridRendererCell<TEntry, CellMetadata<TOptions>>,
@@ -233,7 +236,11 @@ export type DataGridFeatureDescription<
       cell: Readonly<DataGridRendererCell<TEntry>>,
       entry: Readonly<TEntry>,
       index: number,
-    ) => Partial<DataGridRendererCell<TEntry>>;
+    ) => {
+      component?: DataGridRendererCell<TEntry>["component"];
+      props?: Partial<DataGridRendererCell<TEntry>["props"]>;
+      tdAttributes?: Partial<DataGridRendererCell<TEntry>["tdAttributes"]>;
+    };
   } & Orderable;
 
   /**
@@ -419,6 +426,7 @@ export type UseDataGridFeaturesOptions<
   i18n: OnyxI18n;
   columnGroups: MaybeRefOrGetter<TColumnGroup>;
   async: Readonly<Ref<boolean>>;
+  editable: MaybeRefOrGetter<boolean>;
   skeleton: DataGridFeatureContext["skeleton"];
 };
 
@@ -678,13 +686,14 @@ export const useDataGridFeatures = <
 
       const cells = columnsToRender.reduce((acc, { key, type, tdAttributes }, colIndex) => {
         const cellRenderer = renderer.value.getFor("cell", type.name);
-        const cell = {
+
+        const cell: DataGridRendererCell<TEntry> = {
           component: cellRenderer.component,
           props: {
-            key,
+            column: key,
             row: entry,
             modelValue: entry[key],
-            metadata: { typeOptions: type.options },
+            metadata: { typeOptions: type.options, ...entry[DataGridRowOptionsSymbol]?.metadata },
           },
           tdAttributes: mergeVueProps(tdAttributes, cellRenderer.tdAttributes),
         };

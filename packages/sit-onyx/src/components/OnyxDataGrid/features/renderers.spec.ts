@@ -125,7 +125,7 @@ function getRendererCellValue(value: unknown, type?: DefaultSupportedTypes) {
   return renderer
     .getFor("cell", type)
     .component(
-      { modelValue: value, row: { id: 1 }, key: "key" },
+      { modelValue: value, row: { id: 1 }, column: "key" },
       { attrs: {}, slots: {}, emit: () => ({}) },
     );
 }
