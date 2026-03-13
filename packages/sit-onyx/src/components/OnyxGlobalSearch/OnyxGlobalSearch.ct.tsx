@@ -1,4 +1,3 @@
-import type AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "../../playwright/a11y.js";
 import TestCase from "./TestCase.ct.vue";
 
@@ -27,6 +26,7 @@ test("should render groups and options", async ({ page, mount, makeAxeBuilder })
 
   // ACT
   await component.update({ props: { loading: false, groupCount: 1 } });
+  await input.focus();
 
   // ASSERT
   await checkAccessibility(axeBuilder);
