@@ -396,3 +396,16 @@ test("should open popover via keyboard", async ({ mount }) => {
   await expect(popover, "should open with space").toBeVisible();
   await expect(input, "should block typing").toHaveValue("");
 });
+
+test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder }) => {
+  // ARRANGE
+  const component = await mount(<TestCase label={{ label: "Test label", hidden: true }} />);
+
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
+  await expect(component).not.toContainText("Test label");
+  await expect(component.getByLabel("Test label")).toBeVisible();
+});
