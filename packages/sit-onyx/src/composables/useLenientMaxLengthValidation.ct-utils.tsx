@@ -10,7 +10,9 @@ export const testMaxLengthBehavior = (FormElement: typeof OnyxInput | typeof Ony
       );
 
       const input = component.getByLabel("Label");
-      const errorMessageElement = component.locator(".onyx-form-element__error-message");
+      const errorMessageElement = component.locator(
+        ".onyx-form-element__error-message,.onyx-form-element-v2__message--danger",
+      );
 
       // ASSERT
       await expect(errorMessageElement).toBeHidden();
@@ -29,7 +31,9 @@ export const testMaxLengthBehavior = (FormElement: typeof OnyxInput | typeof Ony
       const component = await mount(<FormElement label="Label" maxlength={5} />);
 
       const input = component.getByLabel("Label");
-      const errorMessageElement = component.locator(".onyx-form-element__error-message");
+      const errorMessageElement = component.locator(
+        ".onyx-form-element__error-message,.onyx-form-element-v2__message--danger",
+      );
 
       // ASSERT
       await expect(errorMessageElement).toBeHidden();
