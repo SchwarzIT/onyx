@@ -1,5 +1,9 @@
+import { iconPlaceholder } from "@sit-onyx/icons";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
+import { h } from "vue";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
 import OnyxInput from "./OnyxInput.vue";
 
 /**
@@ -12,11 +16,15 @@ const meta: Meta<typeof OnyxInput> = {
   decorators: [
     (story) => ({
       components: { story },
-      template: `<div style="width: 16rem;"> <story /> </div>`,
+      template: `<div style="max-width: 24rem;"> <story /> </div>`,
     }),
   ],
   argTypes: {
     pattern: { type: "string" },
+    leading: { control: { disable: true } },
+    leadingIcons: { control: { disable: true } },
+    trailing: { control: { disable: true } },
+    trailingIcons: { control: { disable: true } },
     ...withNativeEventLogging(["onInput", "onChange", "onFocusin", "onFocusout"]),
   },
 };
@@ -207,8 +215,25 @@ export const WithMessageTooltip = {
 export const WithSlotContent = {
   args: {
     ...Default.args,
-    modelValue: "example",
-    leading: "https://",
-    trailing: ".com",
+    leading: () =>
+      h(OnyxSelect, {
+        label: "Label",
+        listLabel: "List label",
+        hideLabel: true,
+        options: [{ label: "+49", value: "#49" }],
+        placeholder: "+49",
+        alignment: "left",
+      }),
+    trailing: () =>
+      h(OnyxSelect, {
+        label: "Label",
+        listLabel: "List label",
+        hideLabel: true,
+        options: [{ label: "kg", value: "kg" }],
+        placeholder: "kg",
+        alignment: "right",
+      }),
+    leadingIcons: () => [h(OnyxIcon, { icon: iconPlaceholder })],
+    trailingIcons: () => [h(OnyxIcon, { icon: iconPlaceholder })],
   },
 } satisfies Story;
