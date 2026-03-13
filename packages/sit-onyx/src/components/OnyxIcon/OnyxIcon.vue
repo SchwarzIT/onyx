@@ -34,6 +34,7 @@ const props = defineProps<OnyxIconProps>();
     min-width: var(--icon-size);
     height: var(--icon-size);
     fill: var(--icon-color);
+    vertical-align: middle;
 
     & > svg {
       // display svg as block instead of default inline, to remove vertical alignment
