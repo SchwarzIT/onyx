@@ -196,15 +196,15 @@ export const timeFormatter = <TEntry extends DataGridEntry>(
   opts?: DateCellOptions,
 ): string => {
   // using loose "==" here to catch both undefined and null
-  if (value == undefined || typeof value !== "string") return fallback(opts);
+  if (value == undefined || typeof value === "boolean") return fallback(opts);
 
   const { d } = injectI18n();
 
   const seconds = parseTimeSeconds(value);
   if (seconds) {
-    const now = new Date();
+    const base = new Date(0);
     return d.value(
-      new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, seconds),
+      new Date(base.getFullYear(), base.getMonth(), base.getDate(), 0, 0, seconds),
       "time",
     );
   }

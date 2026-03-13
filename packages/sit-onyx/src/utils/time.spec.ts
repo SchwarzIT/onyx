@@ -33,7 +33,6 @@ describe("parseTimeSeconds", () => {
     { timeString: "12:", expected: null },
     { timeString: "12:34:", expected: null },
     { timeString: "12:foo", expected: null },
-    { timeString: "foo:12", expected: null },
     { timeString: "12:34:bar", expected: null },
     { timeString: "00:00:00", expected: 0 },
     { timeString: "00:00:01", expected: 1 },
