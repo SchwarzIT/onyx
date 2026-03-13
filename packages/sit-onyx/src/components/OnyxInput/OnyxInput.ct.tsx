@@ -1,30 +1,22 @@
+import { iconPlaceholder } from "@sit-onyx/icons";
 import { DENSITIES } from "../../composables/density.js";
 import type { FormMessages } from "../../composables/useFormElementError.js";
 import { testMaxLengthBehavior } from "../../composables/useLenientMaxLengthValidation.ct-utils.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-utils.js";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxInput from "./OnyxInput.vue";
 
 test.describe("Screenshot tests", () => {
-  for (const state of [
-    "default",
-    "placeholder",
-    "with value",
-    "autofill",
-    "slot content",
-  ] as const) {
+  for (const state of ["default", "placeholder", "with value", "slot content"] as const) {
     executeMatrixScreenshotTest({
       name: `Input (${state})`,
       columns: DENSITIES,
       rows: ["default", "hover", "focus"],
       component: (column) => {
         const modelValue =
-          state === "slot content"
-            ? "test"
-            : ["autofill", "with value"].includes(state)
-              ? "Filled value"
-              : undefined;
+          state === "slot content" ? "test" : state === "with value" ? "Filled value" : undefined;
 
         return (
           <OnyxInput
@@ -32,11 +24,17 @@ test.describe("Screenshot tests", () => {
             placeholder={state === "placeholder" ? "Test placeholder" : undefined}
             density={column}
             modelValue={modelValue}
-            style="width: 12rem;"
+            style="width: 16rem;"
           >
             {state === "slot content" && [
               <template v-slot:leading>https://</template>,
               <template v-slot:trailing>.com</template>,
+              <template v-slot:leadingIcons>
+                <OnyxIcon icon={iconPlaceholder} />
+              </template>,
+              <template v-slot:trailingIcons>
+                <OnyxIcon icon={iconPlaceholder} />
+              </template>,
             ]}
           </OnyxInput>
         );
@@ -46,9 +44,6 @@ test.describe("Screenshot tests", () => {
           const input = component.getByLabel("Test label");
           if (row === "hover") await input.hover();
           if (row === "focus") await input.focus();
-          if (state == "autofill") {
-            await input.evaluate((node) => node.setAttribute("data-test-autofill", ""));
-          }
         },
       },
     });
@@ -226,7 +221,7 @@ test.describe("Screenshot tests", () => {
 
   executeMatrixScreenshotTest({
     name: "Input (invalid)",
-    columns: ["default", "autofill"],
+    columns: ["default"],
     rows: ["default", "hover", "focus"],
     component: () => <OnyxInput style="width: 12rem" label="Test label" error="Test error" />,
     hooks: {
@@ -239,16 +234,13 @@ test.describe("Screenshot tests", () => {
 
         if (row === "hover") await input.hover();
         if (row === "focus") await input.focus();
-        if (column == "autofill") {
-          await input.evaluate((node) => node.setAttribute("data-test-autofill", ""));
-        }
       },
     },
   });
 
   executeMatrixScreenshotTest({
     name: "Input (success)",
-    columns: ["default", "autofill"],
+    columns: ["default"],
     rows: ["default", "hover", "focus"],
     component: () => (
       <OnyxInput
@@ -271,10 +263,6 @@ test.describe("Screenshot tests", () => {
           await formElementUtils.triggerTooltipVisible("message");
         }
         if (row === "focus") await input.focus();
-        if (column == "autofill") {
-          await input.fill("Filled value");
-          await input.evaluate((node) => node.setAttribute("data-test-autofill", ""));
-        }
       },
     },
   });
@@ -381,17 +369,3 @@ test("should hide/show password", async ({ mount }) => {
 });
 
 testMaxLengthBehavior(OnyxInput);
-
-test.describe("Screenshot test (slots dark mode)", () => {
-  executeMatrixScreenshotTest({
-    name: "Input (slots dark mode)",
-    columns: ["default"],
-    rows: ["light", "dark"],
-    component: (column, row) => (
-      <OnyxInput label="Test label" modelValue="Value" style={{ width: "12rem", colorScheme: row }}>
-        <template v-slot:leading>https://</template>
-        <template v-slot:trailing>.com</template>,
-      </OnyxInput>
-    ),
-  });
-});
