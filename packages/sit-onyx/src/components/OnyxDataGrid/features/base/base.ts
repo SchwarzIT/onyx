@@ -1,4 +1,3 @@
-import { createDataGrid } from "@sit-onyx/headless";
 import { computed, h, ref, toValue } from "vue";
 import OnyxHeadline from "../../../OnyxHeadline/OnyxHeadline.vue";
 import type { DataGridHeadline } from "../../types.js";
@@ -31,12 +30,6 @@ export const BASE_FEATURE = (options?: BaseFeatureOptions) =>
     const rowCount = ref(0);
     const selectedCell = ref();
 
-    const {
-      elements: { table, td, tr },
-    } = createDataGrid({
-      selectedCell,
-    });
-
     const headline = computed(() => {
       const _headline = toValue(options?.headline);
       if (!_headline) return;
@@ -65,15 +58,6 @@ export const BASE_FEATURE = (options?: BaseFeatureOptions) =>
           return Array.from({ length: skeletonCount }, (_, i) => ({ id: i }));
         },
       },
-      enhanceRow: {
-        func: (row) => ({ trAttributes: tr({ rowId: row.id }) }),
-      },
-      enhanceCells: {
-        func: (cell, entry) => ({
-          tdAttributes: td.value({ rowId: entry["id"], colKey: cell.props.column }),
-        }),
-      },
-      tableAttributes: () => table.value,
       scrollContainerAttributes: () => ({
         class: skeleton.value ? "onyx-data-grid--skeleton" : "",
         tabindex: -1,
