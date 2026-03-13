@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, toRaw, watch } from "vue";
+import { computed, ref } from "vue";
 import { DataGridFeatures, OnyxDataGrid, type ColumnConfig } from "../../../index.js";
 import OnyxButton from "../../OnyxButton/OnyxButton.vue";
 import OnyxCodeTab from "../../OnyxCodeTab/OnyxCodeTab.vue";
@@ -100,21 +100,11 @@ const features = [
   }),
 ];
 
-const log = ref("");
+const log = computed(() => JSON.stringify(editState.value, null, 2));
+
 const reset = () => {
   editState.value = {};
-  log.value = "";
 };
-
-watch(
-  editState,
-  () => {
-    log.value = JSON.stringify(toRaw(editState.value), null, 2);
-  },
-  {
-    deep: true,
-  },
-);
 </script>
 
 <template>

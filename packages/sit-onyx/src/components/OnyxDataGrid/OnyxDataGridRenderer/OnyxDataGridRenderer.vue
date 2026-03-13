@@ -34,7 +34,6 @@ const columnStyle = computed(() => {
   <OnyxTable
     class="onyx-data-grid"
     v-bind="tableProps"
-    :style="columnStyle"
     :scroll-container-attrs="mergeVueProps(props.scrollContainerAttrs, { style: columnStyle })"
   >
     <template #head>

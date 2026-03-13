@@ -24,6 +24,7 @@ export const Pagination: Story = {
 };
 
 export const Editing: Story = {
+  tags: ["new:feature"],
   ...createAdvancedStoryExample("OnyxDataGrid", "EditingExample"),
 };
 

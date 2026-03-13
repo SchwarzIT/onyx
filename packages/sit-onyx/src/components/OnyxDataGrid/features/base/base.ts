@@ -28,7 +28,6 @@ export const BASE_MUTATION_ORDER =
 export const BASE_FEATURE = (options?: BaseFeatureOptions) =>
   createFeature(({ skeleton }) => {
     const rowCount = ref(0);
-    const selectedCell = ref();
 
     const headline = computed(() => {
       const _headline = toValue(options?.headline);
@@ -41,7 +40,7 @@ export const BASE_FEATURE = (options?: BaseFeatureOptions) =>
 
     return {
       name: BASE_FEATURE_SYMBOL,
-      watch: [skeleton, headline, selectedCell],
+      watch: [skeleton, headline],
       modifyColumns: {
         func: (columns) => {
           if (!skeleton.value) return [...columns];

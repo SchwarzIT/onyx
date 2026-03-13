@@ -426,7 +426,6 @@ export type UseDataGridFeaturesOptions<
   i18n: OnyxI18n;
   columnGroups: MaybeRefOrGetter<TColumnGroup>;
   async: Readonly<Ref<boolean>>;
-  editable: MaybeRefOrGetter<boolean>;
   skeleton: DataGridFeatureContext["skeleton"];
 };
 

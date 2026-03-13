@@ -68,7 +68,7 @@ function getDummyCell(
   return {
     component: (props) => h("span", props.row.id.toString()),
     props: {
-      column: column,
+      column,
       row: {
         id,
       },

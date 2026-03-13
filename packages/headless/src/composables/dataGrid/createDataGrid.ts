@@ -291,7 +291,6 @@ export const createDataGrid = createBuilder(
           () =>
             ({
               ref: tableElement,
-              // onFocusinCapture,
               onFocusin,
               onKeydown,
               role: "grid",

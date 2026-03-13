@@ -54,7 +54,7 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
     >
       <table
         ref="table"
-        v-bind="tableAttrs"
+        v-bind="props.tableAttrs"
         :class="[
           'onyx-table',
           'onyx-text',
@@ -79,7 +79,8 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
               :key="group.key"
               :colspan="group.span"
               scope="colgroup"
-              class="onyx-table__colgroup"
+              :class="['onyx-table__colgroup', group.class]"
+              :style="group.style"
             >
               {{ group.header }}
             </th>
@@ -159,7 +160,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
     display: flex;
     flex-direction: column;
     gap: var(--onyx-density-xs);
-    font-family: var(--onyx-font-family);
+    font-family: var(--onyx-font-family-paragraph);
     color: var(--onyx-color-text-icons-neutral-intense);
 
     &__container {
