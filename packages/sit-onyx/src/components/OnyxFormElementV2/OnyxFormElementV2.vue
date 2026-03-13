@@ -155,11 +155,12 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
+@use "../../styles/mixins/density.scss";
 
 .onyx-form-element-v2,
 .onyx-form-element-v2-skeleton {
   @include layers.component() {
-    --onyx-form-element-v2-gap: max(var(--onyx-density-3xs), var(--onyx-spacing-5xs));
+    --onyx-form-element-v2-gap: var(--onyx-density-3xs);
     --onyx-form-element-v2-border-radius: var(--onyx-radius-sm);
     --onyx-form-element-v2-border-size: var(--onyx-1px-in-rem);
     --onyx-form-element-v2-border-color: var(--onyx-color-component-border-neutral);
@@ -178,6 +179,7 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
 
     /** Base content and skeleton height. Useful when e.g. changing the base height for textarea etc. */
     --onyx-form-element-v2-content-height: 1lh;
+    --onyx-form-element-v2-label-skeleton-height: 1lh;
 
     // :read-only is valid for readonly and disabled state so we put shared styles for both states here
     &:has(.onyx-form-element-v2__input:read-only) {
@@ -219,6 +221,12 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
       --onyx-form-element-v2-selection-background: var(--onyx-color-base-success-200);
       --onyx-form-element-v2-caret-color: var(--onyx-color-base-neutral-900);
     }
+  }
+
+  @include density.compact {
+    // the skeleton gap would be 0 in compact density so we shrink the label size a bit and increase the gap so it does not look off
+    --onyx-form-element-v2-gap: var(--onyx-spacing-5xs);
+    --onyx-form-element-v2-label-skeleton-height: calc(1lh - var(--onyx-form-element-v2-gap));
   }
 }
 

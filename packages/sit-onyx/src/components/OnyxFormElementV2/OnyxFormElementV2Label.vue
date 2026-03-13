@@ -78,7 +78,7 @@ const data = computed<FormElementV2Tooltip>(() => {
     }
 
     &__label-skeleton {
-      height: 1lh;
+      height: var(--onyx-form-element-v2-label-skeleton-height);
       width: var(--onyx-density-3xl);
     }
   }
