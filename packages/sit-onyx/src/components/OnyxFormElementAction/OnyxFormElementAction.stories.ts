@@ -11,6 +11,7 @@ import OnyxFormElementAction from "./OnyxFormElementAction.vue";
 const meta: Meta<typeof OnyxFormElementAction> = {
   title: "Support/FormElementAction",
   component: OnyxFormElementAction,
+  tags: ["unstable"],
   argTypes: {
     icon: defineIconSelectArgType(),
     ...withNativeEventLogging(["onClick"]),
