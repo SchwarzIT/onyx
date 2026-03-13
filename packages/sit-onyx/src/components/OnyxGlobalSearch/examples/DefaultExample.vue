@@ -126,7 +126,7 @@ const searchGroups = computed(() => {
       <!-- your page content would go here... -->
     </OnyxPageLayout>
 
-    <OnyxUnstableGlobalSearch v-model:open="isOpen" v-model="searchTerm" :loading="isLoading">
+    <OnyxUnstableGlobalSearch v-model:open="isOpen" v-model="searchTerm">
       <!-- show skeleton while search results are loading -->
       <OnyxUnstableGlobalSearchGroup v-if="isLoading" label="Search results" skeleton />
 
