@@ -169,6 +169,7 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
     --onyx-form-element-v2-background-autofill: var(--onyx-color-base-warning-100);
     --onyx-form-element-v2-padding-block: var(--onyx-density-xs);
     --onyx-form-element-v2-padding-inline: var(--onyx-density-sm);
+    --onyx-form-element-v2-padding-inline-icons: var(--onyx-density-xs);
     --onyx-form-element-v2-caret-color: var(--onyx-color-component-cta-default);
     --onyx-form-element-v2-selection-background: var(--onyx-color-base-primary-200);
     --onyx-form-element-v2-outline-color: var(--onyx-color-component-focus-primary);
@@ -388,6 +389,18 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
         // many browsers use "!important" to set the autofill background so we need this
         // transition workaround to make the background transparent
         transition: background-color calc(infinity * 1s);
+      }
+    }
+
+    &:has(&__icons--leading) {
+      .onyx-form-element-v2__input {
+        padding-left: var(--onyx-form-element-v2-padding-inline-icons);
+      }
+    }
+
+    &:has(&__icons--trailing) {
+      .onyx-form-element-v2__input {
+        padding-right: var(--onyx-form-element-v2-padding-inline-icons);
       }
     }
 
