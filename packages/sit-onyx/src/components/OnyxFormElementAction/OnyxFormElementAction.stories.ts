@@ -1,4 +1,4 @@
-import { iconAnchor, iconTrash } from "@sit-onyx/icons";
+import { iconEye, iconTrash, iconXSmall } from "@sit-onyx/icons";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { defineIconSelectArgType } from "../../utils/storybook.js";
@@ -20,23 +20,25 @@ const meta: Meta<typeof OnyxFormElementAction> = {
 export default meta;
 type Story = StoryObj<typeof OnyxFormElementAction>;
 
-/**
- * This example shows the default button variant.
- */
 export const Default = {
   args: {
-    label: "Throw Anchor",
-    icon: iconAnchor,
+    label: "Clear value",
+    icon: iconXSmall,
   },
 } satisfies Story;
 
-/**
- * This example shows the toggle variant
- */
 export const Toggle = {
   args: {
-    label: "Toggle Trash",
+    label: "Toggle trash",
     icon: iconTrash,
     type: "toggle",
+  },
+} satisfies Story;
+
+export const Large = {
+  args: {
+    label: "Show password",
+    icon: iconEye,
+    size: "lg",
   },
 } satisfies Story;

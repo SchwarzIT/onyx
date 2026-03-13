@@ -10,17 +10,18 @@ test.describe("Screenshot tests", () => {
     name: "Form element action",
     columns: ["default", "disabled"],
     rows: ["default", "hover", "active"],
-    component: (column, row) => (
+    component: (column) => (
       <OnyxFormElementAction
         label="Test label"
         icon={iconPlaceholder}
         disabled={column === "disabled"}
-        style={{ marginBottom: row !== "default" ? "2rem" : undefined }}
+        style={{ margin: "2rem" }}
       />
     ),
     hooks: {
       beforeEach: async (component, page, column, row) => {
-        await useFocusStateHooks({ component, page, state: row });
+        const button = component.getByRole("button", { name: "Test label" });
+        await useFocusStateHooks({ component: button, page, state: row });
 
         if (row !== "default") {
           await expect(component.getByRole("tooltip")).toBeVisible();
@@ -35,18 +36,19 @@ test.describe("Screenshot tests (toggle)", () => {
     name: "Form element action (toggle)",
     columns: ["default", "disabled"],
     rows: ["default", "hover", "active"],
-    component: (column, row) => (
+    component: (column) => (
       <OnyxFormElementAction
         label="Test label"
         icon={iconPlaceholder}
         disabled={column === "disabled"}
         type="toggle"
-        style={{ marginBottom: row !== "default" ? "2rem" : undefined }}
+        style={{ margin: "2rem" }}
       />
     ),
     hooks: {
       beforeEach: async (component, page, column, row) => {
-        await useFocusStateHooks({ component, page, state: row });
+        const button = component.getByRole("button", { name: "Test label" });
+        await useFocusStateHooks({ component: button, page, state: row });
 
         if (row !== "default") {
           await expect(component.getByRole("tooltip")).toBeVisible();
@@ -61,19 +63,20 @@ test.describe("Screenshot tests (toggle, pressed)", () => {
     name: "Form element action (toggle, pressed)",
     columns: ["pressed", "disabled"],
     rows: ["default", "hover", "active"],
-    component: (column, row) => (
+    component: (column) => (
       <OnyxFormElementAction
         label="Test label"
         icon={iconPlaceholder}
         disabled={column === "disabled"}
         type="toggle"
         pressed
-        style={{ marginBottom: row !== "default" ? "2rem" : undefined }}
+        style={{ margin: "2rem" }}
       />
     ),
     hooks: {
       beforeEach: async (component, page, column, row) => {
-        await useFocusStateHooks({ component, page, state: row });
+        const button = component.getByRole("button", { name: "Test label" });
+        await useFocusStateHooks({ component: button, page, state: row });
 
         if (row !== "default") {
           await expect(component.getByRole("tooltip")).toBeVisible();
