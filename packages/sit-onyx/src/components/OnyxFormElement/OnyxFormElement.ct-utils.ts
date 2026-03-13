@@ -41,5 +41,3 @@ export const createFormElementUtils = function (page: PageOrLocator) {
   };
   return context;
 };
-
-// .onyx-form-element-v2__${type} .onyx-form-element-v2__tooltip figure
