@@ -287,7 +287,9 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
         border-color: var(--onyx-form-element-v2-border-color-hover);
       }
 
-      &:has(.onyx-form-element-v2__input:autofill) {
+      &:has(.onyx-form-element-v2__input:autofill),
+      // used for Playwright screenshot tests
+      &:has(.onyx-form-element-v2__input[data-test-autofill]) {
         background-color: var(--onyx-form-element-v2-background-autofill);
       }
     }

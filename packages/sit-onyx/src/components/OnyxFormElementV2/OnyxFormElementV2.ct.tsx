@@ -259,6 +259,39 @@ test.describe("Screenshot tests (loading)", () => {
   });
 });
 
+test.describe("Screenshot tests (autofill)", () => {
+  executeMatrixScreenshotTest({
+    name: "Form element v2 (autofill)",
+    columns: ["default", "error", "success"],
+    rows: ["default", "hover", "focus"],
+    component: (column) => (
+      <TestCase
+        label="Test label"
+        modelValue="Filled value"
+        message="Message"
+        showError
+        error={column === "error" ? "Error message" : undefined}
+        success={column === "success" ? "Success message" : undefined}
+      >
+        <template v-slot:leadingIcons>
+          <OnyxIcon icon={iconPlaceholder} />
+        </template>
+        <template v-slot:trailingIcons>
+          <OnyxIcon icon={iconPlaceholder} />
+        </template>
+      </TestCase>
+    ),
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        const input = component.getByLabel("Test label");
+        await input.evaluate((node) => node.setAttribute("data-test-autofill", ""));
+        if (row === "hover") await input.hover();
+        if (row === "focus") await input.focus();
+      },
+    },
+  });
+});
+
 test("should show/hide messages correctly", async ({ mount }) => {
   // ARRANGE
   const component = await mount(TestCase, {
