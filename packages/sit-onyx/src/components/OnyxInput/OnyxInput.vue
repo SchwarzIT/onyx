@@ -158,7 +158,6 @@ const counter = computed(() => {
         v-if="modelValue"
         :label="t('input.clear')"
         :icon="iconXSmall"
-        size="small"
         show-on-focus
         @click="modelValue = ''"
       />
@@ -170,6 +169,7 @@ const counter = computed(() => {
         <OnyxFormElementAction
           :icon="showPassword ? iconEyeClosed : iconEye"
           :label="showPassword ? t('input.hidePassword') : t('input.showPassword')"
+          size="lg"
           @click="showPassword = !showPassword"
         />
       </slot>
