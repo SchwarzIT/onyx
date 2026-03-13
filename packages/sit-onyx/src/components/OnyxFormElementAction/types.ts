@@ -24,7 +24,7 @@ export type OnyxFormElementActionProps = DensityProp & {
    * - default: Useful for standalone actions, e.g. inside leading/trialing slot of form elements
    * - small: Useful for inline actions, e.g. inside the leadingIcons/trailingIcons slot of form elements (clear button etc.)
    */
-  size?: "default" | "small";
+  size?: "sm" | "lg";
   /**
    * If the button is currently pressed / active.
    * Only use with `type="toggle"`.
