@@ -6,7 +6,7 @@ import type { EditOptions, EditState } from "./types.js";
 export const EDITING_FEATURE = Symbol("Editing");
 export const EDITING_MUTATION_ORDER = -1;
 
-export const useEditing = <TEntry extends DataGridEntry>(options?: EditOptions<TEntry>) =>
+export const useEditing = <TEntry extends DataGridEntry>(options: EditOptions<TEntry>) =>
   createFeature((ctx) => {
     const editState = toRef(options?.editState ?? {}) as Ref<EditState<DataGridEntry>>;
     const config = toRef(options?.columns);

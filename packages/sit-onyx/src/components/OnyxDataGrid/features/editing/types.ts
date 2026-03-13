@@ -4,18 +4,7 @@ import type { DataGridEntry } from "../../types.js";
 import type { DataGridFeatureOptions } from "../index.js";
 
 /**
- * Configuration for how editing should behave.
- */
-export type EditConfig<
-  TEntry extends DataGridEntry,
-  TKey extends keyof TEntry = keyof TEntry,
-  TValue = TEntry[TKey],
-> = {
-  todo: string | TValue;
-};
-
-/**
- * Defines the current edit state per row
+ * Contains changes that have been performed using the edit mode.
  */
 export type EditState<TEntry extends DataGridEntry> = Partial<
   Record<TEntry["id"], Partial<TEntry>>
@@ -27,21 +16,20 @@ export type EditState<TEntry extends DataGridEntry> = Partial<
  */
 export type EditOptions<TEntry extends DataGridEntry> = DataGridFeatureOptions<
   TEntry,
-  {
-    [TKey in keyof TEntry]?: {
-      /**
-       * Configuration for how editing should behave for this column.
-       */
-      config?: EditConfig<TEntry, TKey>;
-    };
-  },
-  true
+  object,
+  false
 > & {
+  /**
+   * The `editState` contains all performed edits.
+   */
   editState?: Ref<EditState<TEntry>>;
   /**
-   * Configuration for how the editing should behave across all columns.
+   * In `manual` mode the all cells are rendered in their editable state per default. They don't swap automatically between display and editing.
+   * The `isCellEditable` option can be used to configure the edit mode for specific cells and rows.
+   *
+   * More edit modes will follow in future updates.
    */
-  editConfig?: EditConfig<TEntry>;
+  mode: "manual";
 
   isCellEditable?: (entry: TEntry, columnKey: keyof TEntry) => Nullable<boolean>;
 };

@@ -1,6 +1,9 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, toRaw, watch } from "vue";
 import { DataGridFeatures, OnyxDataGrid, type ColumnConfig } from "../../../index.js";
+import OnyxButton from "../../OnyxButton/OnyxButton.vue";
+import OnyxCodeTab from "../../OnyxCodeTab/OnyxCodeTab.vue";
+import OnyxCodeTabs from "../../OnyxCodeTabs/OnyxCodeTabs.vue";
 import OnyxSwitch from "../../OnyxSwitch/OnyxSwitch.vue";
 import type { EditState } from "../features/editing/types.js";
 
@@ -87,18 +90,56 @@ const columns: ColumnConfig<TEntry>[] = [
 const isEditable = ref(false);
 const editState = ref<EditState<TEntry>>({});
 const features = [
-  DataGridFeatures.useSorting<TEntry>(),
   DataGridFeatures.useEditing<TEntry>({
     enabled: isEditable,
+    mode: "manual",
     editState,
     columns: {
       id: { enabled: false },
     },
   }),
 ];
+
+const log = ref("");
+const reset = () => {
+  editState.value = {};
+  log.value = "";
+};
+
+watch(
+  editState,
+  () => {
+    log.value = JSON.stringify(toRaw(editState.value), null, 2);
+  },
+  {
+    deep: true,
+  },
+);
 </script>
 
 <template>
-  <OnyxSwitch v-model="isEditable" label="Is Editable" />
-  <OnyxDataGrid headline="Example headline" :columns :data :features />
+  <div class="example">
+    <div class="options">
+      <OnyxButton label="Reset Changes" @click="reset" />
+      <OnyxSwitch v-model="isEditable" label="Is Editable" />
+    </div>
+    <OnyxDataGrid :columns :data :features />
+
+    <OnyxCodeTabs model-value="log">
+      <OnyxCodeTab value="log" label="Edit State" language="json" :code="log"></OnyxCodeTab>
+    </OnyxCodeTabs>
+  </div>
 </template>
+
+<style scoped>
+.example {
+  display: flex;
+  flex-direction: column;
+  gap: var(--onyx-density-sm);
+  max-width: 64rem;
+
+  .options {
+    display: flex;
+  }
+}
+</style>
