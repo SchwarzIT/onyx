@@ -1,5 +1,5 @@
-import { expect } from "@playwright/test";
-import type { Component } from "vue";
+import { expect, test } from "@playwright/test";
+import type { Component, Events } from "vue";
 import type { ComponentEmitProps } from "./types.js";
 
 export const EMIT_SPY_SYMBOL = Symbol("EMIT_SPY_SYMBOL");
@@ -19,9 +19,13 @@ export const EMIT_SPY_SYMBOL = Symbol("EMIT_SPY_SYMBOL");
  */
 export const createEmitSpy = <
   C extends Component,
-  Key extends keyof Emits,
+  Key extends keyof Emits | keyof Events | string,
   Emits = ComponentEmitProps<C>,
-  Handler = NonNullable<Emits[Key]>,
+  Handler = Key extends keyof Emits
+    ? NonNullable<Emits[Key]>
+    : Key extends keyof Events
+      ? (arg: Events[Key]) => void
+      : unknown,
   Args extends unknown[] = Handler extends (...args: infer _Args) => unknown ? _Args : unknown[],
 >() => {
   const calls: Args[] = [];
@@ -41,13 +45,18 @@ export const expectEmit = <Handler extends { [EMIT_SPY_SYMBOL]: unknown[][] }>(
   emitSpy: Handler,
   n: number,
   matches?: unknown[],
-) => {
-  const calls = emitSpy[EMIT_SPY_SYMBOL];
-  expect(calls).toHaveLength(n);
+) =>
+  test.step(
+    "check emitted events",
+    async () => {
+      const calls = emitSpy[EMIT_SPY_SYMBOL];
+      expect(calls, "Should have emitted at least n times.").toHaveLength(n);
 
-  const nthCall = calls[n - 1];
-  if (matches) {
-    expect(nthCall).toMatchObject(matches);
-  }
-  return nthCall;
-};
+      const nthCall = calls[n - 1];
+      if (matches) {
+        expect(nthCall, "Should match expected emit details.").toMatchObject(matches);
+      }
+      return nthCall;
+    },
+    { box: true },
+  );

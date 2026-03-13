@@ -107,6 +107,7 @@ defineExpose({
     :aria-label="props.label"
     :role="props.alert ? 'alertdialog' : undefined"
     @cancel.prevent
+    @keydown.escape.prevent
   >
     <div ref="content" class="onyx-basic-dialog__content">
       <slot></slot>
