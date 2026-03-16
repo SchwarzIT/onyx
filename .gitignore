@@ -24,6 +24,7 @@ vite.*.timestamp*
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
+!.vscode/*.code-snippets
 .idea
 *.suo
 *.ntvs*
