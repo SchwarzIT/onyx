@@ -1,7 +1,9 @@
 import type { SharedTextInputProps } from "../../composables/useLenientMaxLengthValidation.js";
 import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
+import type { OnyxFormElementV2Props } from "../OnyxFormElementV2/types.js";
 
-export type OnyxInputProps = SharedFormElementProps &
+export type OnyxInputProps = Omit<SharedFormElementProps, "label"> &
+  Pick<OnyxFormElementV2Props, "label"> &
   SharedTextInputProps & {
     /**
      * Input type.

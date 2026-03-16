@@ -15,7 +15,11 @@ import { useForwardProps } from "../../utils/props.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElementAction from "../OnyxFormElementAction/OnyxFormElementAction.vue";
 import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
-import type { FormElementV2Tooltip, OnyxFormElementV2Slots } from "../OnyxFormElementV2/types.js";
+import type {
+  FormElementV2LabelOptions,
+  FormElementV2Tooltip,
+  OnyxFormElementV2Slots,
+} from "../OnyxFormElementV2/types.js";
 import type { OnyxInputProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxInputProps>(), {
@@ -114,16 +118,18 @@ const showClearButton = computed(() => {
   if (props.hideClearIcon) return false;
   return !!modelValue.value;
 });
+
+const labelOptions = computed(() => {
+  const options: FormElementV2LabelOptions =
+    typeof props.label === "object" ? props.label : { label: props.label };
+  return { hidden: props.hideLabel, tooltipText: props.labelTooltip, ...options };
+});
 </script>
 
 <template>
   <OnyxFormElementV2
     v-bind="mergeVueProps(formElementV2Props, rootAttrs)"
-    :label="{
-      label: props.label,
-      tooltipText: props.labelTooltip,
-      hidden: props.hideLabel,
-    }"
+    :label="labelOptions"
     :message="messageToFormElementProps(props.message)"
     :error="messageToFormElementProps(errorMessages)"
     :success="messageToFormElementProps(props.success)"
