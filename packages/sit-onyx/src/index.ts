@@ -155,6 +155,9 @@ export * from "./components/OnyxNavBar/modules/index.js";
 export { default as OnyxNavBar } from "./components/OnyxNavBar/OnyxNavBar.vue";
 export * from "./components/OnyxNavBar/types.js";
 
+export { default as OnyxUnstableNavButton } from "./components/OnyxNavButton/OnyxNavButton.vue";
+export * from "./components/OnyxNavButton/types.js";
+
 export { default as OnyxNotificationCard } from "./components/OnyxNotificationCard/OnyxNotificationCard.vue";
 export * from "./components/OnyxNotificationCard/types.js";
 
