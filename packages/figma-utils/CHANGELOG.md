@@ -1,5 +1,11 @@
 # @sit-onyx/figma-utils
 
+## 1.1.0
+
+### Minor Changes
+
+- ef0ba45: feat(import-flags): add additional country names
+
 ## 1.0.2
 
 ### Patch Changes

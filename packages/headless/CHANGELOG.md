@@ -1,5 +1,12 @@
 # @sit-onyx/headless
 
+## 0.7.1
+
+### Patch Changes
+
+- f61969f: fix(createSlider): correctly center first and last mark label
+- 3084837: refactor(useOutsideClick): update `inside` type to also allow `Element`
+
 ## 0.7.0
 
 ### Minor Changes
