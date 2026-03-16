@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { useTemplateRef, watchEffect } from "vue";
 import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElementV2 from "./OnyxFormElementV2.vue";
 import type { OnyxFormElementV2Props, OnyxFormElementV2Slots } from "./types.js";
@@ -12,12 +13,25 @@ const props = withDefaults(
 );
 
 const slots = defineSlots<OnyxFormElementV2Slots>();
+
+const input = useTemplateRef("input");
+
+watchEffect(() => {
+  const error = typeof props.error === "string" ? props.error : props.error?.label;
+  if (!error) return;
+  input.value?.setCustomValidity(error);
+});
 </script>
 
 <template>
   <OnyxFormElementV2 v-bind="props">
     <template #default="inputProps">
-      <input v-bind="inputProps" :placeholder="props.placeholder" :value="props.modelValue" />
+      <input
+        v-bind="inputProps"
+        ref="input"
+        :placeholder="props.placeholder"
+        :value="props.modelValue"
+      />
     </template>
 
     <template v-if="slots.leading" #leading>
