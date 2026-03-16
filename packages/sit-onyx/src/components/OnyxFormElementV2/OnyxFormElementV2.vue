@@ -230,10 +230,12 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
     }
   }
 
+  // the skeleton gap would be 0 in compact density so we shrink the label size a bit and increase the gap so it does not look off
   @include density.compact {
-    // the skeleton gap would be 0 in compact density so we shrink the label size a bit and increase the gap so it does not look off
-    --onyx-form-element-v2-gap: var(--onyx-spacing-5xs);
-    --onyx-form-element-v2-label-skeleton-height: calc(1lh - var(--onyx-form-element-v2-gap));
+    &:has(.onyx-form-element-v2__content-skeleton) {
+      --onyx-form-element-v2-gap: var(--onyx-spacing-5xs);
+      --onyx-form-element-v2-label-skeleton-height: calc(1lh - var(--onyx-form-element-v2-gap));
+    }
   }
 }
 
