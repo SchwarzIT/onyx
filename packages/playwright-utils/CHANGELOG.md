@@ -1,5 +1,11 @@
 # @sit-onyx/playwright-utils
 
+## 1.2.1
+
+### Patch Changes
+
+- b62e57c: fix(expectEmit): Improve error/failure messages
+
 ## 1.2.0
 
 ### Minor Changes

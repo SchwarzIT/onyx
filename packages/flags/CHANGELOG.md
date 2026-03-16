@@ -1,5 +1,37 @@
 # @sit-onyx/flags
 
+## 1.1.0
+
+### Minor Changes
+
+- ef0ba45: feat: update flags
+
+  #### New
+  - ES-AR
+  - ES-CE
+  - ES-GA
+  - ES-IB
+  - ES-ML
+  - ES-PV
+  - FR-20R
+  - FR-BRE
+  - GB-NIR
+
+  #### Modified
+  - CY
+  - DK
+  - FO
+  - GB-WLS
+  - HR
+  - IS
+  - LI
+  - LV
+  - ME
+  - NO
+  - RS
+  - SE
+  - SM
+
 ## 1.0.0
 
 ### Major Changes
