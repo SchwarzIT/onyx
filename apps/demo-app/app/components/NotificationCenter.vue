@@ -72,10 +72,10 @@ onUnmounted(() => globalFAB.remove(id));
 
 <template>
   <OnyxNotificationDot :hidden="!store.unreadNotifications.length">
-    <OnyxIconButton
+    <OnyxUnstableNavButton
       :label="$t('notification.headline')"
-      color="neutral"
       :icon="iconBell"
+      hide-label
       @click="isSidebarOpen = true"
     />
   </OnyxNotificationDot>

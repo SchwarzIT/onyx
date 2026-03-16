@@ -6,10 +6,10 @@ import { useLink } from "../../composables/useLink.js";
 import { useResizeObserver } from "../../composables/useResizeObserver.js";
 import { injectI18n } from "../../i18n/index.js";
 import { ONYX_BREAKPOINTS } from "../../utils/breakpoints.js";
-import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxMobileNavButton from "../OnyxMobileNavButton/OnyxMobileNavButton.vue";
 import OnyxMoreList from "../OnyxMoreList/OnyxMoreList.vue";
 import OnyxNavAppArea from "../OnyxNavAppArea/OnyxNavAppArea.vue";
+import OnyxNavButton from "../OnyxNavButton/OnyxNavButton.vue";
 import OnyxFlyoutMenu from "./modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxNavItemFacade from "./modules/OnyxNavItemFacade/OnyxNavItemFacade.vue";
 import {
@@ -102,12 +102,12 @@ defineExpose({
         <slot name="appArea"></slot>
       </OnyxNavAppArea>
 
-      <OnyxIconButton
+      <OnyxNavButton
         v-if="props.withBackButton"
         class="onyx-nav-bar__back"
         :label="t('navigation.goBack')"
         :icon="iconChevronLeftSmall"
-        color="neutral"
+        hide-label
         @click="emit('navigateBack', $event)"
       />
 

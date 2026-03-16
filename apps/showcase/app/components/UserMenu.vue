@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { iconLogout } from "@sit-onyx/icons";
+import { iconLogin, iconLogout } from "@sit-onyx/icons";
 
 const { t } = useI18n();
 const { user, clear } = useUserSession();
@@ -10,7 +10,13 @@ const handleLogin = () => navigateTo("/auth/siam", { external: true });
 <template>
   <OnyxTooltip v-if="!user" :text="t('auth.informationSchwarz')">
     <template #default="{ trigger }">
-      <OnyxButton v-bind="trigger" :label="t('auth.login')" @click="handleLogin" />
+      <OnyxUnstableNavButton
+        v-bind="trigger"
+        :label="t('auth.login')"
+        :icon="iconLogin"
+        color="primary"
+        @click="handleLogin"
+      />
     </template>
   </OnyxTooltip>
 
