@@ -1,3 +1,4 @@
+import { createEmitSpy, expectEmit } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
@@ -147,6 +148,29 @@ test.describe("Screenshot tests", () => {
       },
     },
   });
+});
+
+test("should be clickable", async ({ mount, page }) => {
+  const onUpdateModelValue = createEmitSpy<typeof OnyxSwitch, "onUpdate:modelValue">();
+
+  // ARRANGE
+  const label = "Demo Label";
+  await mount(<OnyxSwitch label={label} onUpdate:modelValue={onUpdateModelValue} />);
+  const input = page.getByRole("switch", { name: "Demo Label" });
+
+  // ACT
+  await input.check();
+
+  // ASSERT
+  await expect(input).toBeChecked();
+  expectEmit(onUpdateModelValue, 1, [true]);
+
+  // ACT
+  await input.click({ timeout: 2000 });
+
+  // ASSERT
+  await expect(input).not.toBeChecked();
+  expectEmit(onUpdateModelValue, 2, [false]);
 });
 
 test("should have the title show the label as title if hideLabel is set", async ({
