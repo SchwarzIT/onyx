@@ -53,6 +53,7 @@ const bind = computed(() => ({
 @include layers.override() {
   .onyx-data-grid-form-wrapper,
   .onyx-data-grid-form-wrapper :is(.onyx-select-input, .onyx-time-picker-input) {
+    // OnyxFormeElement based components
     --border-color: transparent;
     --border-style: none;
     --border-radius: 0;
@@ -60,6 +61,12 @@ const bind = computed(() => ({
     --outline-style: none;
     --onyx-outline-width: 0;
     --padding-horizontal: 0;
+
+    // OnyxFormeElementV2 based components
+    --onyx-form-element-v2-border-size: 0;
+    --onyx-form-element-v2-border-radius: 0;
+    --onyx-form-element-v2-background: transparent;
+    --onyx-outline-width: 0;
 
     .onyx-table :is(td, th):has(&) {
       padding-block: 0;
