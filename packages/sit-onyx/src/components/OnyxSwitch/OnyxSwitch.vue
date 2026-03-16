@@ -86,19 +86,6 @@ useAutofocus(input, props);
       :class="[requiredTypeClass, densityClass]"
       :title="title"
     >
-      <input
-        ref="input"
-        v-model="isChecked"
-        v-custom-validity
-        type="checkbox"
-        role="switch"
-        :class="{ 'onyx-switch__input': true, 'onyx-switch__loading': props.loading }"
-        :aria-label="props.hideLabel ? props.label : undefined"
-        :disabled="disabled || props.loading"
-        :required="props.required"
-        :autofocus="props.autofocus"
-        v-bind="restAttrs"
-      />
       <span class="onyx-switch__click-area">
         <span class="onyx-switch__container">
           <span class="onyx-switch__icon">
@@ -107,6 +94,19 @@ useAutofocus(input, props);
           </span>
           <div class="onyx-switch__frame"></div>
         </span>
+        <input
+          ref="input"
+          v-model="isChecked"
+          v-custom-validity
+          type="checkbox"
+          role="switch"
+          :class="{ 'onyx-switch__input': true, 'onyx-switch__loading': props.loading }"
+          :aria-label="props.hideLabel ? props.label : undefined"
+          :disabled="disabled || props.loading"
+          :required="props.required"
+          :autofocus="props.autofocus"
+          v-bind="restAttrs"
+        />
       </span>
       <span
         v-if="!props.hideLabel"
@@ -163,93 +163,36 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
   }
 
   @include layers.component() {
+    --background-color: var(--onyx-color-base-neutral-300);
+    --color: var(--onyx-color-text-icons-neutral-intense);
+    --cursor: pointer;
+    --transform: initial;
+    --icon-background-color: var(--onyx-color-base-neutral-100);
+    --icon-color: var(--onyx-color-text-icons-neutral-soft);
+    --spinner-color: var(--onyx-color-text-icons-primary-intense);
+    --outline: none;
+
     display: inline-flex;
     align-items: flex-start;
-    cursor: pointer;
     max-width: 100%;
+    cursor: var(--cursor);
 
     &__input {
       // position: absolute is needed here in order to hide the native checkbox.
       position: absolute;
-      opacity: 0;
+      appearance: none;
       cursor: inherit;
-      width: 0;
-      height: 0;
-      margin: 0;
-
-      &:checked + .onyx-switch__click-area .onyx-switch__container {
-        background-color: var(--onyx-color-component-cta-default);
-
-        .onyx-switch__icon {
-          background-color: var(--onyx-color-base-neutral-100);
-          transform: translateX(calc(75% - var(--onyx-switch-transform)));
-          color: var(--onyx-color-text-icons-primary-intense);
-        }
-
-        .onyx-switch__spinner {
-          color: var(--onyx-color-text-icons-primary-intense);
-        }
-      }
-
-      &:checked:disabled:not(.onyx-switch__loading)
-        + .onyx-switch__click-area
-        .onyx-switch__container {
-        background-color: var(--onyx-color-base-primary-200);
-
-        .onyx-switch__icon {
-          background-color: var(--onyx-color-base-background-blank);
-          color: var(--onyx-color-text-icons-primary-soft);
-        }
-      }
-
-      &:disabled:not(.onyx-switch__loading) + .onyx-switch__click-area .onyx-switch__container {
-        background-color: var(--onyx-color-base-neutral-200);
-
-        .onyx-switch__icon {
-          background-color: var(--onyx-color-base-neutral-300);
-          color: var(--onyx-color-text-icons-neutral-inverted);
-        }
-      }
-
-      &:user-invalid {
-        & + .onyx-switch__click-area .onyx-switch__container {
-          background-color: var(--onyx-color-base-danger-200);
-          position: relative;
-
-          .onyx-switch__icon {
-            background-color: var(--onyx-color-base-danger-500);
-            color: var(--onyx-color-text-icons-neutral-inverted);
-          }
-
-          // The frame is needed instead of setting a border directly on __container
-          // because when zooming in, some browsers will mess up the center-alignment of the __icon
-          // by resizing the 1px border to fractions.
-          // for more info, see https://github.com/SchwarzIT/onyx/issues/503
-          .onyx-switch__frame {
-            position: absolute;
-            border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-danger);
-            height: var(--onyx-switch-frame-height);
-            border-radius: var(--onyx-radius-full);
-            width: $input-width;
-            box-sizing: border-box;
-            top: 0;
-            left: 0;
-          }
-        }
-
-        &:checked + .onyx-switch__click-area .onyx-switch__container {
-          background-color: var(--onyx-color-component-cta-danger);
-
-          .onyx-switch__icon {
-            background-color: var(--onyx-color-base-background-blank);
-            color: var(--onyx-color-text-icons-danger-intense);
-          }
-        }
-      }
+      width: 100%;
+      height: 100%;
+      padding: inherit;
+      margin: calc(-1 * var(--onyx-switch-label-padding-vertical));
+      border: 0;
+      outline: var(--outline);
     }
 
     &__click-area,
     &-skeleton__click-area {
+      position: relative;
       padding: var(--onyx-switch-label-padding-vertical);
       display: flex;
       align-items: center;
@@ -261,7 +204,7 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
       min-width: $input-width;
       padding: var(--onyx-switch-container-padding);
       box-sizing: border-box;
-      background-color: var(--onyx-color-base-neutral-300);
+      background-color: var(--background-color);
       border-radius: var(--onyx-radius-full);
       transition: background-color var(--onyx-duration-sm) ease;
 
@@ -270,13 +213,14 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
         display: flex;
         align-self: center;
         justify-content: center;
-        background-color: var(--onyx-color-base-neutral-100);
+        background-color: var(--icon-background-color);
         border-radius: var(--onyx-radius-full);
+        transform: var(--transform);
         transition:
           transform var(--onyx-duration-sm) ease,
           background-color var(--onyx-duration-sm) ease;
         overflow: hidden;
-        color: var(--onyx-color-text-icons-neutral-soft);
+        color: var(--icon-color);
         height: var(--onyx-switch-icon-size);
         width: var(--onyx-switch-icon-size);
 
@@ -285,6 +229,7 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
         }
 
         .onyx-switch__spinner {
+          color: var(--spinner-color);
           --indicator-size: var(--onyx-switch-icon-size);
         }
       }
@@ -298,52 +243,97 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
     }
 
     &__label {
-      color: var(--onyx-color-text-icons-neutral-intense);
+      color: var(--color);
       font-family: var(--onyx-font-family-paragraph);
       font-style: normal;
       font-weight: var(--onyx-font-weight-regular);
     }
 
-    &:hover {
-      &:has(.onyx-switch__input:enabled) .onyx-switch__container {
-        background-color: var(--onyx-color-base-neutral-400);
-      }
+    :has(.onyx-switch__input:checked) {
+      --background-color: var(--onyx-color-component-cta-default);
+      --icon-background-color: var(--onyx-color-base-neutral-100);
+      --transform: translateX(calc(75% - var(--onyx-switch-transform)));
+      --icon-color: var(--onyx-color-text-icons-primary-intense);
+      --spinner-color: var(--onyx-color-text-icons-primary-intense);
+    }
 
-      &:has(.onyx-switch__input:enabled:checked) .onyx-switch__container {
-        background-color: var(--onyx-color-component-cta-default-hover);
-      }
+    :has(.onyx-switch__input:checked:disabled:not(.onyx-switch__loading)) {
+      --background-color: var(--onyx-color-base-primary-200);
+      --icon-background-color: var(--onyx-color-base-background-blank);
+      --icon-color: var(--onyx-color-text-icons-primary-soft);
+    }
 
-      &:has(.onyx-switch__input:user-invalid:enabled) .onyx-switch__container {
-        background-color: var(--onyx-color-base-danger-300);
-      }
+    :has(.onyx-switch__input:disabled:not(.onyx-switch__loading)) {
+      --background-color: var(--onyx-color-base-neutral-200);
+      --icon-background-color: var(--onyx-color-base-neutral-300);
+      --icon-color: var(--onyx-color-text-icons-neutral-inverted);
+    }
 
-      &:has(.onyx-switch__input:user-invalid:enabled:checked) .onyx-switch__container {
-        background-color: var(--onyx-color-component-cta-danger-hover);
+    :has(.onyx-switch__input:user-invalid) {
+      --background-color: var(--onyx-color-base-danger-200);
+
+      --icon-background-color: var(--onyx-color-base-danger-500);
+      --icon-color: var(--onyx-color-text-icons-neutral-inverted);
+
+      // The frame is needed instead of setting a border directly on __container
+      // because when zooming in, some browsers will mess up the center-alignment of the __icon
+      // by resizing the 1px border to fractions.
+      // for more info, see https://github.com/SchwarzIT/onyx/issues/503
+      .onyx-switch__container {
+        position: relative;
+
+        .onyx-switch__frame {
+          position: absolute;
+          border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-danger);
+          height: var(--onyx-switch-frame-height);
+          border-radius: var(--onyx-radius-full);
+          width: $input-width;
+          box-sizing: border-box;
+          top: 0;
+          left: 0;
+        }
       }
     }
 
-    &:has(&__input:focus-visible) {
-      outline: none;
+    :has(.onyx-switch__input:user-invalid:checked) {
+      --background-color: var(--onyx-color-component-cta-danger);
+      --icon-background-color: var(--onyx-color-base-background-blank);
+      --icon-color: var(--onyx-color-text-icons-danger-intense);
+    }
 
-      &:has(.onyx-switch__input:enabled) .onyx-switch__container {
-        outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-neutral);
+    &:hover {
+      &:has(.onyx-switch__input:enabled) {
+        --background-color: var(--onyx-color-base-neutral-400);
       }
 
-      &:has(.onyx-switch__input:checked:enabled) .onyx-switch__container {
-        outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
+      &:has(.onyx-switch__input:enabled:checked) {
+        --background-color: var(--onyx-color-component-cta-default-hover);
       }
 
-      &:has(.onyx-switch__input:user-invalid:enabled) .onyx-switch__container {
-        outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-danger);
+      &:has(.onyx-switch__input:user-invalid:enabled) {
+        --background-color: var(--onyx-color-base-danger-300);
       }
+
+      &:has(.onyx-switch__input:user-invalid:enabled:checked) {
+        --background-color: var(--onyx-color-component-cta-danger-hover);
+      }
+    }
+
+    &:has(.onyx-switch__input:focus-visible:enabled) {
+      --outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-neutral);
+    }
+
+    &:has(.onyx-switch__input:focus-visible:checked:enabled) {
+      --outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
+    }
+
+    &:has(.onyx-switch__input:focus-visible:user-invalid:enabled) {
+      --outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-danger);
     }
 
     &:has(.onyx-switch__input:disabled) {
-      cursor: default;
-
-      .onyx-switch__label {
-        color: var(--onyx-color-text-icons-neutral-soft);
-      }
+      --cursor: default;
+      --color: var(--onyx-color-text-icons-neutral-soft);
     }
   }
 }
