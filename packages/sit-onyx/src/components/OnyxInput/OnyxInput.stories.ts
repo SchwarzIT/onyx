@@ -144,8 +144,10 @@ export const Autocomplete = {
  */
 export const HiddenLabel = {
   args: {
-    label: "Label",
-    hideLabel: true,
+    label: {
+      label: "Label",
+      hidden: true,
+    },
   },
 } satisfies Story;
 
@@ -194,8 +196,20 @@ export const Password: Story = {
  */
 export const WithLabelTooltip: Story = {
   args: {
-    label: "Label",
-    labelTooltip: "More information",
+    label: {
+      label: "Label",
+      tooltipText: "More information",
+    },
+  },
+};
+
+export const LeftLabel: Story = {
+  tags: ["new:feature"],
+  args: {
+    label: {
+      label: "Label",
+      position: "left",
+    },
   },
 };
 
@@ -213,6 +227,7 @@ export const WithMessageTooltip = {
 } satisfies Story;
 
 export const WithSlotContent = {
+  tags: ["new:feature"],
   args: {
     ...Default.args,
     leading: () =>
