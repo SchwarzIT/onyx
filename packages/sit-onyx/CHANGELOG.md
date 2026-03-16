@@ -20,7 +20,7 @@
 - 79b76de: feat(OnyxFormElementV2): support `loading` property and fix height to align with other form elements
 - db6f050: feat(OnyxPageLayout): add smooth scroll behavior to main content / scroll area
 - 984ce9e: feat(OnyxDataGrid): Added base row type 'select'
-- 984ce9e: feat(OnyxDataGrid): Implemented basic inline editing feature.
+- 984ce9e: feat(OnyxDataGrid): Implemented basic `useEditing()` inline editing feature
 
   For all base column `typeRenderers` editing is supported.
   To enable editing with custom types, you will need to implement two things:
@@ -60,11 +60,10 @@
 ### Patch Changes
 
 - 7e193bd: fix(OnyxTab): fix incorrect underline color
-- fbcdf10: refactor(OnyxUnstableFormElementV2): remove support for right aligned label
 - 0f03aa9: fix: prevent hydration mismatch errors in SSR
 - b62e57c: fix(OnyxBasicDialog): Fix 'nonDismissible' modal dialogs loosing their background after pressing escape twice
 - 984ce9e: fix(OnyxDataGrid): Fix increased row height for columnType "boolean" caused by icon
-- e76203e: - refactor(OnyxUnstableFormElementV2): rename type `FormElementPopoverOptions` to `FormElementV2PopoverOptions`
+- e76203e: refactor(OnyxUnstableFormElementV2): rename type `FormElementPopoverOptions` to `FormElementV2PopoverOptions`
   - fix(OnyxUnstableFormElementV2): correctly determine inside elements for closing on outside click
   - fix(OnyxBasicPopover): prevent toggle when disabled
 - 4b31bbd: fix(OnyxPageLayout): correctly disable centering of nested `onyx-grid-layout` when a sidebar exsists

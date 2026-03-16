@@ -10,22 +10,6 @@
 ### Patch Changes
 
 - 9ea853e: fix(nav-bar): hide color scheme switch when forced
-- Updated dependencies [e76203e]
-- Updated dependencies [7e193bd]
-- Updated dependencies [fbcdf10]
-- Updated dependencies [0f03aa9]
-- Updated dependencies [661b343]
-- Updated dependencies [b62e57c]
-- Updated dependencies [984ce9e]
-- Updated dependencies [5ffe689]
-- Updated dependencies [79b76de]
-- Updated dependencies [db6f050]
-- Updated dependencies [984ce9e]
-- Updated dependencies [984ce9e]
-- Updated dependencies [984ce9e]
-- Updated dependencies [e76203e]
-- Updated dependencies [f61969f]
-- Updated dependencies [4b31bbd]
 - Updated dependencies [3084837]
   - sit-onyx@1.10.0
 
