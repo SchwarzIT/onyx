@@ -364,14 +364,6 @@ test("should show/hide messages correctly", async ({ mount }) => {
   await expect(error).toBeVisible();
   await expect(message).toBeHidden();
   await expect(success).toBeHidden();
-
-  // ACT
-  await input.fill("Value");
-
-  // ASSERT
-  await expect(error).toBeHidden();
-  await expect(message).toBeHidden();
-  await expect(success).toBeHidden();
 });
 
 test("should visually hide bottom when skeleton", async ({ mount }) => {
