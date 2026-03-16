@@ -14,12 +14,12 @@ import {
   OnyxColorSchemeMenuItem,
   OnyxHeadline,
   OnyxIcon,
-  OnyxIconButton,
   OnyxMenuItem,
   OnyxNavBar,
   OnyxNavItem,
   OnyxPageLayout,
   OnyxTag,
+  OnyxUnstableNavButton,
   OnyxUserMenu,
   useResizeObserver,
 } from "../../../index.js";
@@ -83,14 +83,14 @@ const isMobile = computed(() => width.value <= ONYX_BREAKPOINTS.xs);
 
         <template #globalContextArea>
           <component
-            :is="isMobile ? OnyxIconButton : OnyxNavItem"
+            :is="isMobile ? OnyxUnstableNavButton : OnyxNavItem"
             :icon="iconSearch"
             label="Search"
-            color="neutral"
+            hide-label
           />
           <component
-            :is="isMobile ? OnyxIconButton : OnyxNavItem"
-            color="neutral"
+            :is="isMobile ? OnyxUnstableNavButton : OnyxNavItem"
+            hide-label
             :icon="iconBell"
             label="Notification"
           />

@@ -40,7 +40,7 @@ const buttonOrLinkLayoutProps = useForwardProps(props, ButtonOrLinkLayout);
 
 .onyx-nav-button {
   @include layers.component() {
-    --onyx-nav-button-background: var(--onyx-color-base-background-blank);
+    --onyx-nav-button-background: transparent;
     --onyx-nav-button-background-hover: var(--onyx-color-base-neutral-200);
     --onyx-nav-button-color: var(--onyx-color-text-icons-neutral-intense);
     --onyx-nav-button-outline-color: var(--onyx-color-component-focus-primary);
