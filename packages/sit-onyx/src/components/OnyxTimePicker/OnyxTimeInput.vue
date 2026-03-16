@@ -6,6 +6,7 @@ import { useDensity } from "../../composables/density.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import { useForwardProps } from "../../utils/props.js";
+import { parseTimeSeconds } from "../../utils/time.js";
 import OnyxBasicPopover from "../OnyxBasicPopover/OnyxBasicPopover.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -66,13 +67,6 @@ const totalSecondsToParts = (totalSeconds: number): string[] => {
   const m = Math.floor((totalSeconds % 3600) / 60);
   const s = totalSeconds % 60;
   return [String(h).padStart(2, "0"), String(m).padStart(2, "0"), String(s).padStart(2, "0")];
-};
-
-const parseTimeSeconds = (timeString?: string): number | null => {
-  if (!timeString) return null;
-  const parts = timeString.split(":").map((p) => parseInt(p, 10));
-  if (parts.length < 2) return null;
-  return parts[0]! * 3600 + parts[1]! * 60 + (parts[2] || 0);
 };
 
 const minTimeSeconds = computed(() => parseTimeSeconds(props.min));

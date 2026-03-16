@@ -47,6 +47,9 @@
         }
       }
     },
+    "editing": {
+      "label": "{column} mit der ID {id}"
+    },
     "loadMore": "Mehr laden"
   },
   "validations": {

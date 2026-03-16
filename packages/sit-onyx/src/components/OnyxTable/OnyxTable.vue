@@ -4,7 +4,7 @@ import { useDensity } from "../../composables/density.js";
 import { useResizeObserver } from "../../composables/useResizeObserver.js";
 import { injectI18n } from "../../i18n/index.js";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
-import type { OnyxTableProps, OnyxTableSlots } from "./types.js";
+import { type OnyxTableProps, type OnyxTableSlots } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxTableProps>(), {
   striped: false,
@@ -54,6 +54,7 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
     >
       <table
         ref="table"
+        v-bind="props.tableAttrs"
         :class="[
           'onyx-table',
           'onyx-text',

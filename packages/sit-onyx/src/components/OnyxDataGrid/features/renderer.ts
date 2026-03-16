@@ -6,12 +6,19 @@ import {
   type OnyxDateFormatOptions,
   type OnyxNumberFormatOptions,
 } from "../../../i18n/index.js";
+import { OnyxIcon, OnyxVisuallyHidden, type SelectOption } from "../../../index.js";
 import { allObjectEntries } from "../../../utils/objects.js";
+import { parseTimeSeconds } from "../../../utils/time.js";
+import OnyxDatePicker from "../../OnyxDatePicker/OnyxDatePicker.vue";
 import type { DateValue } from "../../OnyxDatePicker/types.js";
-import OnyxIcon from "../../OnyxIcon/OnyxIcon.vue";
 import type { OnyxIconProps } from "../../OnyxIcon/types.js";
-import OnyxVisuallyHidden from "../../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
+import OnyxInput from "../../OnyxInput/OnyxInput.vue";
+import OnyxSelect from "../../OnyxSelect/OnyxSelect.vue";
+import OnyxStepper from "../../OnyxStepper/OnyxStepper.vue";
+import OnyxSwitch from "../../OnyxSwitch/OnyxSwitch.vue";
+import OnyxTimePicker from "../../OnyxTimePicker/OnyxTimePicker.vue";
 import type { DataGridEntry } from "../types.js";
+import DataGridFormElementWrapper from "./DataGridFormElementWrapper.vue";
 import HeaderCell from "./HeaderCell.vue";
 import { type DataGridFeatureDescription, type TypeRenderer, type TypeRenderMap } from "./index.js";
 import "./renderer.scss";
@@ -19,6 +26,12 @@ import "./renderer.scss";
 export const FALLBACK_RENDER_VALUE = "-";
 
 const fallback = (opts?: { fallback?: string }) => opts?.fallback ?? FALLBACK_RENDER_VALUE;
+
+const getEditingLabel = (id: PropertyKey, column: PropertyKey) =>
+  injectI18n().t.value("dataGrid.editing.label", {
+    column: column.toString(),
+    id: id.toString(),
+  });
 
 /**
  * Allows for creating `TypeRenderer` with typed options.
@@ -66,8 +79,49 @@ export const numberFormatter = <TEntry extends DataGridEntry>(
 export const NUMBER_RENDERER = createTypeRenderer<NumberCellOptions>({
   header: { component: HeaderCell },
   cell: {
-    component: ({ metadata, modelValue }) => numberFormatter(modelValue, metadata?.typeOptions),
+    component: ({ column: columnKey, row, metadata, modelValue, ...rest }) =>
+      metadata?.editable
+        ? h(DataGridFormElementWrapper, {
+            ...rest,
+            is: OnyxStepper,
+            label: getEditingLabel(row.id, columnKey),
+            showError: false,
+            modelValue,
+          })
+        : numberFormatter(modelValue, metadata?.typeOptions),
     tdAttributes: { class: "onyx-data-grid-number-cell" },
+  },
+});
+
+export type SelectCellOptions = {
+  listLabel?: string;
+  options?: SelectOption[];
+  /**
+   * Fallback value to display when the value is undefined or invalid.
+   * Defaults to "-" if not provided.
+   */
+  fallback?: string;
+};
+
+export const SELECT_RENDERER = createTypeRenderer<SelectCellOptions>({
+  header: { component: HeaderCell },
+  cell: {
+    component: ({ column: columnKey, row, metadata, modelValue, ...rest }) => {
+      const options = metadata?.typeOptions?.options || [];
+      return metadata?.editable
+        ? h(DataGridFormElementWrapper, {
+            ...rest,
+            is: OnyxSelect,
+            listLabel: metadata?.typeOptions?.listLabel || "",
+            label: getEditingLabel(row.id, columnKey),
+            modelValue,
+            options,
+          })
+        : stringFormatter(
+            options.find((option) => option.value === modelValue)?.label,
+            metadata?.typeOptions,
+          );
+    },
   },
 });
 
@@ -99,7 +153,15 @@ export const stringFormatter = <TEntry extends DataGridEntry>(
 export const STRING_RENDERER = createTypeRenderer<StringCellOptions>({
   header: { component: HeaderCell },
   cell: {
-    component: (props) => stringFormatter(props.modelValue, props.metadata?.typeOptions),
+    component: ({ column: columnKey, row, metadata, modelValue, ...rest }) =>
+      metadata?.editable
+        ? h(DataGridFormElementWrapper, {
+            ...rest,
+            label: getEditingLabel(row.id, columnKey),
+            is: OnyxInput,
+            modelValue,
+          })
+        : stringFormatter(modelValue, metadata?.typeOptions),
   },
 });
 
@@ -129,27 +191,69 @@ export const dateFormatter = <TEntry extends DataGridEntry>(
   }
 };
 
+export const timeFormatter = <TEntry extends DataGridEntry>(
+  value: TEntry[keyof TEntry] | undefined,
+  opts?: DateCellOptions,
+): string => {
+  // using loose "==" here to catch both undefined and null
+  if (value == undefined || typeof value === "boolean") return fallback(opts);
+
+  const { d } = injectI18n();
+
+  const seconds = parseTimeSeconds(value);
+  if (seconds) {
+    const base = new Date(0);
+    return d.value(
+      new Date(base.getFullYear(), base.getMonth(), base.getDate(), 0, 0, seconds),
+      "time",
+    );
+  }
+  return fallback(opts);
+};
+
 export const DATE_RENDERER = createTypeRenderer<DateCellOptions>({
   header: { component: HeaderCell },
   cell: {
-    component: (props) =>
-      dateFormatter(props.modelValue, { format: "date", ...props.metadata?.typeOptions }),
+    component: ({ column: columnKey, row, metadata, modelValue, ...rest }) =>
+      metadata?.editable
+        ? h(DataGridFormElementWrapper, {
+            ...rest,
+            label: getEditingLabel(row.id, columnKey),
+            is: OnyxDatePicker,
+            modelValue,
+          })
+        : dateFormatter(modelValue, { format: "date", ...metadata?.typeOptions }),
   },
 });
 
 export const DATETIME_RENDERER = createTypeRenderer<DateCellOptions>({
   header: { component: HeaderCell },
   cell: {
-    component: (props) =>
-      dateFormatter(props.modelValue, { format: "datetime-local", ...props.metadata?.typeOptions }),
+    component: ({ column: columnKey, row, metadata, modelValue, ...rest }) =>
+      metadata?.editable
+        ? h(DataGridFormElementWrapper, {
+            ...rest,
+            label: getEditingLabel(row.id, columnKey),
+            is: OnyxDatePicker,
+            type: "datetime-local",
+            modelValue,
+          })
+        : dateFormatter(modelValue, { format: "datetime-local", ...metadata?.typeOptions }),
   },
 });
 
 export const TIME_RENDERER = createTypeRenderer<DateCellOptions>({
   header: { component: HeaderCell },
   cell: {
-    component: (props) =>
-      dateFormatter(props.modelValue, { format: "time", ...props.metadata?.typeOptions }),
+    component: ({ column: columnKey, row, metadata, modelValue, ...rest }) =>
+      metadata?.editable
+        ? h(DataGridFormElementWrapper, {
+            ...rest,
+            label: getEditingLabel(row.id, columnKey),
+            is: OnyxTimePicker,
+            modelValue,
+          })
+        : timeFormatter(modelValue, { format: "time", ...metadata?.typeOptions }),
   },
 });
 
@@ -192,7 +296,16 @@ export const BOOLEAN_RENDERER = createTypeRenderer<BooleanCellOptions>({
     tdAttributes: {
       class: "onyx-data-grid-boolean-cell",
     },
-    component: ({ modelValue, metadata }) => {
+    component: ({ column: columnKey, row, metadata, modelValue, ...rest }) => {
+      if (metadata?.editable) {
+        return h(DataGridFormElementWrapper, {
+          ...rest,
+          label: getEditingLabel(row.id, columnKey),
+          is: OnyxSwitch,
+          modelValue,
+        });
+      }
+
       const value = Boolean(modelValue);
       const { t } = injectI18n();
 

@@ -36,6 +36,7 @@ export const TIME_COMPARE = (a: unknown, b: unknown, collator: Intl.Collator) =>
 
 export const DEFAULT_COMPARES: Record<PropertyKey, Compare<unknown>> = Object.freeze({
   string: STRING_COMPARE,
+  select: STRING_COMPARE,
   number: NUMBER_COMPARE,
   date: NUMBER_COMPARE,
   "datetime-local": NUMBER_COMPARE,

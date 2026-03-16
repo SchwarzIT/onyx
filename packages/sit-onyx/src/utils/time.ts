@@ -1,3 +1,5 @@
+import type { DateValue } from "../components/OnyxDatePicker/types.js";
+
 /**
  * Calculate seconds, minutes and hours for a given number of milliseconds.
  */
@@ -52,4 +54,27 @@ const getRelativeTimeFormatLiteralValue = (parts: Intl.RelativeTimeFormatPart[])
 export const timeToDurationString = (timeLeft: number): `PT${number}H${number}M${number}S` => {
   const { hours, minutes, seconds } = getTimeFragments(timeLeft);
   return `PT${hours}H${minutes}M${seconds}S`;
+};
+
+/**
+ * Parses an RFC 9557 time string (`HH:mm:ss.sssssssss`) and converts it into seconds.
+ */
+export const parseTimeSeconds = (value?: unknown): number | null => {
+  if (!value) return null;
+
+  if (typeof value === "string" && /^(\d+:)*\d+(\.\d+)?$/.test(value)) {
+    const parts = value.split(":").map((p) => Number.parseInt(p, 10));
+    if (parts.length < 2 || parts.some(Number.isNaN)) return null;
+    return parts[0]! * 3600 + parts[1]! * 60 + (parts[2] || 0);
+  }
+
+  try {
+    const date = new Date(typeof value === "bigint" ? Number(value) : (value as DateValue));
+    if (!Number.isNaN(date.getTime())) {
+      return date.getTime() / 1000;
+    }
+    return null;
+  } catch {
+    return null;
+  }
 };

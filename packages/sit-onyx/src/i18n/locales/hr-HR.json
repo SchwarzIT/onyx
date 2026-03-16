@@ -47,7 +47,10 @@
         }
       }
     },
-    "loadMore": "Učitaj više"
+    "loadMore": "Učitaj više",
+    "editing": {
+      "label": "{column} s ID-jem {id}"
+    }
   },
   "validations": {
     "tooShort": {

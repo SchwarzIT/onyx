@@ -18,7 +18,12 @@ import type { ComponentSlots } from "vue-component-type-helpers";
 import { type OnyxI18n } from "../../../i18n/index.js";
 import type { Nullable } from "../../../types/index.js";
 import { mergeVueProps } from "../../../utils/attrs.js";
-import { applyMapping, prepareMapping, type OrderableMapping } from "../../../utils/feature.js";
+import {
+  applyMapping,
+  prepareMapping,
+  type Orderable,
+  type OrderableMapping,
+} from "../../../utils/feature.js";
 import { asArray } from "../../../utils/objects.js";
 import { OnyxMenuItem } from "../../OnyxNavBar/modules/index.js";
 import OnyxFlyoutMenu from "../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
@@ -28,6 +33,7 @@ import type {
   DataGridRendererCell,
   DataGridRendererColumn,
   DataGridRendererRow,
+  DataGridRendererRowCells,
 } from "../OnyxDataGridRenderer/types.js";
 import {
   DataGridRowOptionsSymbol,
@@ -54,7 +60,10 @@ export type TypeRendererHeaderDef<TEntry extends DataGridEntry, TOptions = undef
   "key" | "props"
 >;
 
-export type CellMetadata<TOptions = unknown> = { typeOptions?: TOptions };
+export type CellMetadata<TOptions = unknown> = {
+  typeOptions?: TOptions;
+  editable?: Nullable<boolean>;
+};
 
 export type TypeRendererCell<TEntry extends DataGridEntry, TOptions = undefined> = Omit<
   DataGridRendererCell<TEntry, CellMetadata<TOptions>>,
@@ -190,6 +199,10 @@ export type DataGridFeature<
   ctx: DataGridFeatureContext,
 ) => DataGridFeatureDescription<TEntry, TTypeRenderer, TFeatureName>;
 
+export type DataGridFeatureMutation<TEntry extends DataGridEntry> = {
+  func: (state: Readonly<TEntry>[]) => Readonly<TEntry>[] | void;
+} & Orderable;
+
 /**
  * Object that describes the hooks and properties of a datagrid feature.
  */
@@ -209,20 +222,39 @@ export type DataGridFeatureDescription<
   watch?: WatchSource[];
 
   /**
-   * Allows modifying the datagrid state as a whole.
+   * Use mutations to modify the dataset before it is mapped to the rendered rows and cells.
    */
-  mutation?: {
-    func: (state: Readonly<TEntry>[]) => Readonly<TEntry>[] | void;
-    /**
-     * Defines the order in which the mutation is handled.
-     * This can be used to control the sequence of operations when multiple mutations are applied.
-     *
-     * The higher the order, the earlier the mutation is applied.
-     *
-     * @default 0
-     */
-    order?: number;
-  };
+  mutation?: DataGridFeatureMutation<TEntry>;
+
+  /**
+   * With `enhanceCell` the render details for a cell can be modified.
+   * The provided function is called for every cell, after the matching typeRenderer was applied.
+   *
+   */
+  enhanceCells?: {
+    func: (
+      cell: Readonly<DataGridRendererCell<TEntry>>,
+      entry: Readonly<TEntry>,
+      index: number,
+    ) => {
+      component?: DataGridRendererCell<TEntry>["component"];
+      props?: Partial<DataGridRendererCell<TEntry>["props"]>;
+      tdAttributes?: Partial<DataGridRendererCell<TEntry>["tdAttributes"]>;
+    };
+  } & Orderable;
+
+  /**
+   * Use `enhanceRow` the render details for a complete row can be modified.
+   * The provided function is called for every row that is supposed to be rendered.
+   */
+  enhanceRow?: {
+    func: (
+      row: Readonly<DataGridRendererRow<TEntry>>,
+      entry: Readonly<TEntry>,
+      index: number,
+    ) => Partial<DataGridRendererRow<TEntry>>;
+  } & Orderable;
+
   /**
    * Allows defining actions that are displayed in the "action" slot above the data grid.
    * Will be automatically wrapped into a "more" flyout if not all actions fit
@@ -300,6 +332,7 @@ export type DataGridFeatureDescription<
     ) => Component;
   };
   scrollContainerAttributes?: () => DataGridScrollContainerAttributes;
+  tableAttributes?: () => DataGridTableAttributes;
   /**
    * Optional table slots.
    */
@@ -307,6 +340,7 @@ export type DataGridFeatureDescription<
 };
 
 export type DataGridScrollContainerAttributes = HTMLAttributes & Pick<VNodeProps, "ref">;
+export type DataGridTableAttributes = HTMLAttributes & Pick<VNodeProps, "ref">;
 
 export type DataGridFeatureSlots = Partial<{
   [TSlotName in keyof Pick<OnyxTableSlots, "headline" | "bottomLeft" | "pagination" | "actions">]: (
@@ -535,6 +569,9 @@ export const useDataGridFeatures = <
       ...features.map(({ scrollContainerAttributes }) => scrollContainerAttributes?.()),
     );
 
+  const createTableAttributes = () =>
+    mergeVueProps(...features.map(({ tableAttributes }) => tableAttributes?.()));
+
   const createRendererColumns = (): DataGridRendererColumn<TEntry>[] => {
     const headerFeatures = features.map((feature) => feature.header).filter((header) => !!header);
     const headerActions = headerFeatures
@@ -622,8 +659,18 @@ export const useDataGridFeatures = <
     entries: TEntry[],
   ): DataGridRendererRow<TEntry, DataGridMetadata>[] => {
     const mutations = features
-      .map((feature) => feature.mutation)
+      .flatMap((feature) => feature.mutation)
       .filter((mutation) => !!mutation)
+      .sort((a, b) => (b.order ?? 0) - (a.order ?? 0));
+
+    const enhanceCells = features
+      .flatMap((feature) => feature.enhanceCells)
+      .filter((enhanceCells) => !!enhanceCells)
+      .sort((a, b) => (b.order ?? 0) - (a.order ?? 0));
+
+    const enhanceRows = features
+      .flatMap((feature) => feature.enhanceRow)
+      .filter((enhanceRow) => !!enhanceRow)
       .sort((a, b) => (b.order ?? 0) - (a.order ?? 0));
 
     // make a copy of entries and apply all mutations to it
@@ -633,33 +680,51 @@ export const useDataGridFeatures = <
       if (result) shallowCopy = result;
     });
 
-    return shallowCopy.map((row) => {
-      const columnsToRender = row[DataGridRowOptionsSymbol]?.columns ?? columns.value;
+    return shallowCopy.map((entry, rowIndex) => {
+      const columnsToRender = entry[DataGridRowOptionsSymbol]?.columns ?? columns.value;
 
-      const cells = columnsToRender.reduce<DataGridRendererRow<TEntry, DataGridMetadata>["cells"]>(
-        (cells, { key, type, tdAttributes }) => {
-          const cellRenderer = renderer.value.getFor("cell", type.name);
-          cells[key] = {
-            component: cellRenderer.component,
-            props: {
-              key,
-              row,
-              modelValue: row[key],
-              metadata: { typeOptions: type.options },
-            },
-            tdAttributes: mergeVueProps(tdAttributes, cellRenderer.tdAttributes),
+      const cells = columnsToRender.reduce((acc, { key, type, tdAttributes }, colIndex) => {
+        const cellRenderer = renderer.value.getFor("cell", type.name);
+
+        const cell: DataGridRendererCell<TEntry> = {
+          component: cellRenderer.component,
+          props: {
+            column: key,
+            row: entry,
+            modelValue: entry[key],
+            metadata: { typeOptions: type.options, ...entry[DataGridRowOptionsSymbol]?.metadata },
+          },
+          tdAttributes: mergeVueProps(tdAttributes, cellRenderer.tdAttributes),
+        };
+
+        acc[key] = enhanceCells.reduce((prev, { func }) => {
+          const { component, props, tdAttributes } = func(prev, entry, colIndex);
+          return {
+            component: component || prev.component,
+            props: mergeVueProps(prev.props, props),
+            tdAttributes: mergeVueProps(prev.tdAttributes, tdAttributes),
           };
-          return cells;
-        },
-        {},
-      );
+        }, cell);
 
-      return {
-        id: row.id,
-        trAttributes: row[DataGridRowOptionsSymbol]?.trAttributes,
+        return acc;
+      }, {} as DataGridRendererRowCells<TEntry>);
+
+      const row: DataGridRendererRow<TEntry> = {
+        id: entry.id,
+        trAttributes: entry[DataGridRowOptionsSymbol]?.trAttributes,
         columns: columnsToRender,
         cells,
       };
+
+      return enhanceRows.reduce((prev, { func }) => {
+        const { id, trAttributes, columns, cells } = func(prev, entry, rowIndex);
+        return {
+          id: id || prev.id,
+          trAttributes: mergeVueProps(prev.trAttributes, trAttributes),
+          columns: columns || prev.columns,
+          cells: cells || prev.cells,
+        };
+      }, row);
     });
   };
 
@@ -690,9 +755,13 @@ export const useDataGridFeatures = <
 
   return {
     /**
-     * Takes the table attributes and maps all
+     * Returns the merged attributes that should be applied to the tables scroll-container.
      */
     createScrollContainerAttributes,
+    /**
+     * Returns the merged attributes that should be applied to the native <table> element.
+     */
+    createTableAttributes,
     /** Uses the column definition and available column group config to generate the column groups for the underlying OnyxTable */
     createRendererColumnGroups,
     /** Takes the column definition and maps all, calls mutation func and maps at the end to RendererCell */

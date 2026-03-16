@@ -47,7 +47,10 @@
         }
       }
     },
-    "loadMore": "Meer laden"
+    "loadMore": "Meer laden",
+    "editing": {
+      "label": "{column} met ID {id}"
+    }
   },
   "validations": {
     "tooShort": {

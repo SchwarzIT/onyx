@@ -1,5 +1,16 @@
 export type SingleOrderableMapping<T, TOutput = T, TInput = Readonly<TOutput>> = {
   func: (input: TInput) => TInput | TOutput;
+} & Orderable;
+
+export type Orderable = {
+  /**
+   * Defines the order in which is function is applied.
+   * This can be used to control the sequence of operations when multiple are applied.
+   *
+   * The higher the order, the earlier it is applied.
+   *
+   * @default 0
+   */
   order?: number;
 };
 

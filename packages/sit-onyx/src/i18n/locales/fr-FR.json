@@ -47,7 +47,10 @@
         }
       }
     },
-    "loadMore": "Charger plus"
+    "loadMore": "Charger plus",
+    "editing": {
+      "label": "{column} avec l'ID {id}"
+    }
   },
   "validations": {
     "tooShort": {

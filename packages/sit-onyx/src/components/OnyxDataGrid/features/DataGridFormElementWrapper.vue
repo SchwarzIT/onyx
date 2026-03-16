@@ -38,6 +38,7 @@ const bind = computed(() => ({
   hideLabel: true,
   label: props.label,
   modelValue: props.modelValue,
+  showError: false,
   "onUpdate:modelValue": (v: TModelValue) => emit("update:modelValue", v),
 }));
 </script>
@@ -58,9 +59,10 @@ const bind = computed(() => ({
     --background-color: transparent;
     --outline-style: none;
     --onyx-outline-width: 0;
+    --padding-horizontal: 0;
 
     .onyx-table :is(td, th):has(&) {
-      padding: 0;
+      padding-block: 0;
     }
   }
 

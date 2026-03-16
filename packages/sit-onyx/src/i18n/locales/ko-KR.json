@@ -47,7 +47,10 @@
         }
       }
     },
-    "loadMore": "더 불러오기"
+    "loadMore": "더 불러오기",
+    "editing": {
+      "label": "ID가 {id}인 {column}"
+    }
   },
   "validations": {
     "tooShort": {
