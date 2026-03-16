@@ -109,6 +109,11 @@ const counter = computed(() => {
   const violated = length > maxLength;
   return { length, maxLength, violated };
 });
+
+const showClearButton = computed(() => {
+  if (props.hideClearIcon) return false;
+  return !!modelValue.value;
+});
 </script>
 
 <template>
@@ -153,9 +158,9 @@ const counter = computed(() => {
       <slot name="leadingIcons"></slot>
     </template>
 
-    <template v-if="modelValue || slots.trailingIcons" #trailingIcons>
+    <template v-if="slots.trailingIcons || showClearButton" #trailingIcons>
       <OnyxFormElementAction
-        v-if="modelValue"
+        v-if="showClearButton"
         :label="t('input.clear')"
         :icon="iconXSmall"
         show-on-focus
