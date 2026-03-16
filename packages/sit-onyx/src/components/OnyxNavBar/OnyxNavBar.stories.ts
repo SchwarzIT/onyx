@@ -1,12 +1,12 @@
 import { iconBrowserTerminal, iconSearch, iconSettings } from "@sit-onyx/icons";
-import type { Meta, StoryObj } from "@storybook/vue3-vite";
+import type { Decorator, Meta, StoryObj } from "@storybook/vue3-vite";
 import { action } from "storybook/actions";
-import { h, type Decorator } from "vue";
+import { h } from "vue";
 import { ONYX_BREAKPOINTS } from "../../utils/breakpoints.js";
 import { createAdvancedStoryExample } from "../../utils/storybook.js";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
+import OnyxNavButton from "../OnyxNavButton/OnyxNavButton.vue";
 import OnyxSeparator from "../OnyxSeparator/OnyxSeparator.vue";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
 import OnyxMenuItem from "./modules/OnyxMenuItem/OnyxMenuItem.vue";
@@ -37,7 +37,7 @@ const withPaddingDecorator: Decorator = (story) => {
  */
 const meta: Meta<typeof OnyxNavBar> = {
   title: "Navigation/NavBar",
-  component: OnyxNavBar,
+  component: OnyxNavBar as Meta["component"],
   argTypes: {
     default: { control: { disable: true } },
     contextArea: { control: { disable: true } },
@@ -190,7 +190,7 @@ export const WithContextArea = {
   args: {
     ...Default.args,
     globalContextArea: () => [
-      h(OnyxIconButton, { label: "Search", icon: iconSearch, color: "neutral" }),
+      h(OnyxNavButton, { label: "Search", icon: iconSearch, color: "neutral", hideLabel: true }),
     ],
     contextArea: () => [
       h(OnyxTag, { label: "QA stage", color: "warning", icon: iconBrowserTerminal }),

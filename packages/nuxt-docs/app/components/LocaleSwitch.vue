@@ -33,13 +33,7 @@ const trigger = {
 
 <template>
   <slot :trigger>
-    <OnyxButton
-      :label="currentLocaleLabel"
-      :icon="iconTranslate"
-      color="neutral"
-      mode="plain"
-      v-bind="trigger"
-    />
+    <OnyxUnstableNavButton :label="currentLocaleLabel" :icon="iconTranslate" v-bind="trigger" />
   </slot>
 
   <OnyxSelectDialog
