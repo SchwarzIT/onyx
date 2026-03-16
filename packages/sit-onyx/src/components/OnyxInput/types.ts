@@ -15,6 +15,9 @@ export type OnyxInputProps = SharedFormElementProps &
     pattern?: string | RegExp;
     /**
      * Whether to hide the check icon when the input is in a success state.
+     *
+     * @deprecated This property is obsolete since the "success" state will no longer automatically show a "check" icon.
+     * The "check" icon is intended as temporary feedback after a user action (e.g. clicking a copy button). Use the `trailingIcons` slot to manually show the icon if needed.
      */
     hideSuccessIcon?: boolean;
     /**
