@@ -59,7 +59,6 @@ export const BASE_FEATURE = (options?: BaseFeatureOptions) =>
       },
       scrollContainerAttributes: () => ({
         class: skeleton.value ? "onyx-data-grid--skeleton" : "",
-        tabindex: -1,
       }),
       typeRenderer: {
         number: NUMBER_RENDERER,
