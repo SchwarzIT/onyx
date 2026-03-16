@@ -369,3 +369,52 @@ test("should hide/show password", async ({ mount }) => {
 });
 
 testMaxLengthBehavior(OnyxInput);
+
+test("should show/hide clear button", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(OnyxInput, {
+    props: {
+      label: "Test label",
+    },
+  });
+
+  const input = component.getByLabel("Test label");
+  const clearButton = component.getByRole("button", { name: "Clear input" });
+
+  // ASSERT
+  await expect(clearButton, "should hide clear button when empty").toBeHidden();
+
+  // ACT
+  await input.fill("Filled value");
+  await input.blur();
+
+  // ASSERT
+  await expect(input).toHaveValue("Filled value");
+  await expect(clearButton, "should hide clear button when filled but not focused").toBeHidden();
+
+  // ACT
+  await input.focus();
+
+  // ASSERT
+  await expect(clearButton, "should show clear button when filled and focused").toBeVisible();
+
+  // ACT
+  await component.update({ props: { hideClearIcon: true } });
+  await input.focus();
+
+  // ASSERT
+  await expect(
+    clearButton,
+    "should hide clear button when filled but and focused but hideClearIcon is set",
+  ).toBeHidden();
+
+  // ACT
+  await component.update({ props: { hideClearIcon: false } });
+  await input.focus();
+  await clearButton.click();
+  await input.focus();
+
+  // ASSERT
+  await expect(input, "should clear value when clear button is clicked").toHaveValue("");
+  await expect(clearButton).toBeHidden();
+});
