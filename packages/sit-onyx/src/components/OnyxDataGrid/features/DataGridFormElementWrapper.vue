@@ -67,6 +67,7 @@ const bind = computed(() => ({
     --onyx-form-element-v2-border-radius: 0;
     --onyx-form-element-v2-background: transparent;
     --onyx-outline-width: 0;
+    --onyx-form-element-v2-padding-inline: 0;
 
     .onyx-table :is(td, th):has(&) {
       padding-block: 0;
