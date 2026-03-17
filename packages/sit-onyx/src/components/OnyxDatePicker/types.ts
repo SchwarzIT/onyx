@@ -1,18 +1,7 @@
 import type { Nullable } from "../../types/index.js";
-import type { OnyxInputProps } from "../OnyxInput/types.js";
+import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
 
-export type OnyxDatePickerProps = Omit<
-  OnyxInputProps,
-  | "type"
-  | "modelValue"
-  | "autocapitalize"
-  | "maxlength"
-  | "minlength"
-  | "pattern"
-  | "withCounter"
-  | "placeholder"
-  | "autocomplete"
-> & {
+export type OnyxDatePickerProps = Omit<SharedFormElementProps, "placeholder"> & {
   /**
    * A date string compliant with [ISO8601](https://en.wikipedia.org/wiki/ISO_8601).
    * @example "date.toISOString()"
