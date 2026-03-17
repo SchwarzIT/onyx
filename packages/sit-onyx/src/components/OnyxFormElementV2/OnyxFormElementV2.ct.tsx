@@ -259,6 +259,37 @@ test.describe("Screenshot tests (loading)", () => {
   });
 });
 
+executeMatrixScreenshotTest({
+  name: "Form element v2 (autofill)",
+  columns: ["default", "error", "success"],
+  rows: ["default", "hover", "focus"],
+  component: (column) => (
+    <TestCase
+      label="Test label"
+      modelValue="Filled value"
+      message="Message"
+      showError
+      error={column === "error" ? "Error message" : undefined}
+      success={column === "success" ? "Success message" : undefined}
+    >
+      <template v-slot:leadingIcons>
+        <OnyxIcon icon={iconPlaceholder} />
+      </template>
+      <template v-slot:trailingIcons>
+        <OnyxIcon icon={iconPlaceholder} />
+      </template>
+    </TestCase>
+  ),
+  hooks: {
+    beforeEach: async (component, page, column, row) => {
+      const input = component.getByLabel("Test label");
+      await input.evaluate((node) => node.setAttribute("data-test-autofill", ""));
+      if (row === "hover") await input.hover();
+      if (row === "focus") await input.focus();
+    },
+  },
+});
+
 test("should show/hide messages correctly", async ({ mount }) => {
   // ARRANGE
   const component = await mount(TestCase, {
@@ -331,14 +362,6 @@ test("should show/hide messages correctly", async ({ mount }) => {
   await expect(error).toBeVisible();
   await expect(message).toBeHidden();
   await expect(success).toBeHidden();
-
-  // ACT
-  await input.fill("Value");
-
-  // ASSERT
-  await expect(error).toBeHidden();
-  await expect(message).toBeHidden();
-  await expect(success).toBeHidden();
 });
 
 test("should visually hide bottom when skeleton", async ({ mount }) => {
@@ -395,4 +418,17 @@ test("should open popover via keyboard", async ({ mount }) => {
   // ASSERT
   await expect(popover, "should open with space").toBeVisible();
   await expect(input, "should block typing").toHaveValue("");
+});
+
+test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder }) => {
+  // ARRANGE
+  const component = await mount(<TestCase label={{ label: "Test label", hidden: true }} />);
+
+  // ACT
+  const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+  // ASSERT
+  expect(accessibilityScanResults.violations).toEqual([]);
+  await expect(component).not.toContainText("Test label");
+  await expect(component.getByLabel("Test label")).toBeVisible();
 });

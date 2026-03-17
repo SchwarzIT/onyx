@@ -11,8 +11,8 @@ export type OnyxFormElementV2Props = DensityProp &
      */
     id?: string;
     /**
-     * Label to show above the element. Required due to accessibility / screen readers.
-     * If you want to visually hide the label, use the `hideLabel` property.
+     * Label to show for the element. Required due to accessibility / screen readers.
+     * If you want to visually hide the label, use the `label.hidden` property.
      */
     label: string | FormElementV2LabelOptions;
     /**
