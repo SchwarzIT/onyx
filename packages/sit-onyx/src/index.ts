@@ -95,6 +95,9 @@ export * from "./components/OnyxForm/types.js";
 export { default as OnyxFormElement } from "./components/OnyxFormElement/OnyxFormElement.vue";
 export * from "./components/OnyxFormElement/types.js";
 
+export { default as OnyxUnstableFormElementAction } from "./components/OnyxFormElementAction/OnyxFormElementAction.vue";
+export * from "./components/OnyxFormElementAction/types.js";
+
 export { default as OnyxUnstableFormElementV2 } from "./components/OnyxFormElementV2/OnyxFormElementV2.vue";
 export * from "./components/OnyxFormElementV2/types.js";
 
