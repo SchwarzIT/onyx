@@ -1,8 +1,9 @@
 <script lang="ts" setup>
-import { computed, useTemplateRef, type Ref } from "vue";
+import { computed, ref, useTemplateRef, watch, type Ref } from "vue";
 import { injectI18n } from "../../i18n/index.js";
 import type { AutofocusProp } from "../../types/components.js";
 import OnyxStepper from "../OnyxStepper/OnyxStepper.vue";
+import TimeSuffixToggle, { type ToggleOption } from "./TimeSuffixToggle.vue";
 import type { OnyxTimePickerProps } from "./types.js";
 
 type Segment = "hour" | "minute" | "second";
@@ -12,7 +13,10 @@ type InputRef = {
 };
 
 const props = defineProps<
-  Pick<OnyxTimePickerProps, "modelValue" | "disabled" | "loading" | "readonly" | "showSeconds"> &
+  Pick<
+    OnyxTimePickerProps,
+    "modelValue" | "disabled" | "loading" | "readonly" | "showSeconds" | "showAmPm"
+  > &
     AutofocusProp
 >();
 
@@ -26,6 +30,49 @@ const { t } = injectI18n();
 const hourInputRef = useTemplateRef<InputRef>("hourInputTemplateRef");
 const minuteInputRef = useTemplateRef<InputRef>("minuteInputTemplateRef");
 const secondInputRef = useTemplateRef<InputRef>("secondInputTemplateRef");
+
+const timeSuffix = ref("am");
+
+watch(
+  () => props.modelValue,
+  (newVal) => {
+    if (!props.showAmPm || !newVal) return;
+
+    const hourString = newVal.split(":")[0];
+    if (!hourString) return;
+
+    const h = Number.parseInt(hourString, 10);
+    if (!Number.isNaN(h)) {
+      const expectedSuffix = h >= 12 ? "pm" : "am";
+      if (timeSuffix.value !== expectedSuffix) {
+        timeSuffix.value = expectedSuffix;
+      }
+    }
+  },
+  { immediate: true },
+);
+
+watch(timeSuffix, (newSuffix) => {
+  if (!props.modelValue || !props.showAmPm) return;
+
+  const parts = props.modelValue.split(":");
+  if (!parts || !parts[0]) return;
+  let h = Number.parseInt(parts[0], 10);
+  let changed = false;
+
+  if (newSuffix === "pm" && h < 12) {
+    h += 12;
+    changed = true;
+  } else if (newSuffix === "am" && h >= 12) {
+    h -= 12;
+    changed = true;
+  }
+
+  if (changed) {
+    parts[0] = h.toString().padStart(2, "0");
+    updateModelValue(parts);
+  }
+});
 
 const isSegmentVisible = computed(() => {
   return (segmentName: Segment) => {
@@ -49,20 +96,40 @@ const createSegmentComputed = (index: 0 | 1 | 2, segmentName: Segment) =>
   computed<number | null>({
     get: () => {
       if (!isSegmentVisible.value(segmentName) || !props.modelValue) return null;
-      return Number.parseInt(timeParts.value[index] ?? "00");
+      let val = Number.parseInt(timeParts.value[index] ?? "00");
+
+      if (segmentName === "hour" && props.showAmPm) {
+        val = val % 12;
+        if (val === 0) val = 12;
+      }
+
+      return val;
     },
     set: (newValue: number | null | undefined) => {
       if (!isSegmentVisible.value(segmentName)) return;
 
       const numericValue = newValue ?? 0;
-
       const parts = [...timeParts.value];
-      const segmentMax = segmentName === "hour" ? 23 : 59;
 
-      const clampedValue = Math.min(Math.max(numericValue, 0), segmentMax);
+      let segmentMax = 59;
+      let segmentMin = 0;
+
+      if (segmentName === "hour") {
+        segmentMax = props.showAmPm ? 12 : 23;
+        segmentMin = props.showAmPm ? 1 : 0;
+      }
+
+      let clampedValue = Math.min(Math.max(numericValue, segmentMin), segmentMax);
+
+      if (segmentName === "hour" && props.showAmPm) {
+        if (timeSuffix.value === "pm" && clampedValue < 12) {
+          clampedValue += 12;
+        } else if (timeSuffix.value === "am" && clampedValue === 12) {
+          clampedValue = 0;
+        }
+      }
 
       parts[index] = String(clampedValue).padStart(2, "0");
-
       updateModelValue(parts);
     },
   });
@@ -101,7 +168,8 @@ const handleDigitInput = async (currentSegment: Segment, e: KeyboardEvent) => {
 
   // Jump immediately if the first digit is greater than the max possible first digit
   // e.g. for hours, if the user types "3", it can only be "03", so we can jump.
-  const maxFirstDigit = currentSegment === "hour" ? 2 : 5;
+  const maxFirstDigit = currentSegment === "hour" ? (props.showAmPm ? 1 : 2) : 5;
+
   if (Number.parseInt(digit, 10) > maxFirstDigit) {
     setTimeout(() => emit("jump-segment", currentSegment, 1), 0);
     return;
@@ -115,6 +183,11 @@ const handleDigitInput = async (currentSegment: Segment, e: KeyboardEvent) => {
 };
 
 defineExpose({ getSegmentRef, handleSegmentFocus });
+
+const toggleOptions: [ToggleOption, ToggleOption] = [
+  { label: t.value("timePicker.labels.am"), value: "am" },
+  { label: t.value("timePicker.labels.pm"), value: "pm" },
+];
 </script>
 
 <template>
@@ -184,5 +257,7 @@ defineExpose({ getSegmentRef, handleSegmentFocus });
         @keydown="handleDigitInput('second', $event)"
       />
     </template>
+
+    <TimeSuffixToggle v-if="props.showAmPm" v-model="timeSuffix" :options="toggleOptions" />
   </div>
 </template>
