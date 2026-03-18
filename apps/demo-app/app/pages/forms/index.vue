@@ -60,7 +60,7 @@ const phoneAreaCodeOptions = Array.from({ length: 99 }, (_, index) => {
   } satisfies SelectOption;
 });
 
-const phoneAreaCode = ref(phoneAreaCodeOptions[0]?.value);
+const phoneAreaCode = ref(49);
 
 const genderOptions = computed<RadioButtonOption<Gender>[]>(() => [
   { label: t("user.genders.female"), value: "f" },
@@ -149,14 +149,14 @@ const handleDelete = () => {
         type="email"
         required
       >
-        <template #leading>
+        <template #leadingIcons>
           <OnyxIcon :icon="iconMail" />
         </template>
       </OnyxInput>
 
       <OnyxInput
         v-model="state.phone"
-        class="onyx-grid-span-4 page__phone"
+        class="onyx-grid-span-4"
         :label="$t('user.phone')"
         type="tel"
         :minlength="4"
@@ -226,26 +226,6 @@ const handleDelete = () => {
 
   &__email {
     color: var(--onyx-color-text-icons-neutral-medium);
-  }
-
-  &__phone {
-    :deep(.onyx-input__wrapper) {
-      padding-left: 0;
-      gap: 0;
-    }
-
-    :deep(.onyx-input__native) {
-      padding: var(--onyx-input-padding-vertical) var(--onyx-density-sm);
-    }
-
-    :deep(.onyx-select-input__wrapper) {
-      border: none;
-      background-color: transparent;
-
-      .onyx-select-input__native {
-        width: 6ch;
-      }
-    }
   }
 }
 </style>
