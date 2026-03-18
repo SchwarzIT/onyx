@@ -2,24 +2,17 @@
 import { iconEye, iconEyeClosed, iconXSmall } from "@sit-onyx/icons";
 import { computed, useTemplateRef } from "vue";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
-import {
-  useFormElementError,
-  type CustomMessageType,
-} from "../../composables/useFormElementError.js";
+import { useFormElementError } from "../../composables/useFormElementError.js";
 import { useLenientMaxLengthValidation } from "../../composables/useLenientMaxLengthValidation.js";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import { mergeVueProps, useRootAttrs } from "../../utils/attrs.js";
-import { useForwardProps } from "../../utils/props.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElementAction from "../OnyxFormElementAction/OnyxFormElementAction.vue";
 import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
-import type {
-  FormElementV2LabelOptions,
-  FormElementV2Tooltip,
-  OnyxFormElementV2Slots,
-} from "../OnyxFormElementV2/types.js";
+import type { OnyxFormElementV2Slots } from "../OnyxFormElementV2/types.js";
+import { useLegacyFormElementProps } from "../OnyxFormElementV2/useLegacyFormElementProps.js";
 import type { OnyxInputProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxInputProps>(), {
@@ -67,12 +60,12 @@ const modelValue = useVModel({
 
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
-const formElementV2Props = useForwardProps(props, OnyxFormElementV2);
 const { t } = injectI18n();
 
 const { maxLength, maxLengthError } = useLenientMaxLengthValidation({ modelValue, props });
 const error = computed(() => props.error ?? maxLengthError.value);
 const { vCustomValidity, errorMessages } = useFormElementError({ props, emit, error });
+const { formElementV2Props } = useLegacyFormElementProps({ props, errorMessages });
 
 const patternSource = computed(() => {
   if (props.pattern instanceof RegExp) return props.pattern.source;
@@ -97,15 +90,6 @@ const displayType = computed(() => {
   return props.type;
 });
 
-const messageToFormElementProps = (
-  message?: CustomMessageType,
-): string | FormElementV2Tooltip | undefined => {
-  if (!message) return;
-  if (typeof message === "string") return message;
-  if (message.hidden) return;
-  return { label: message.shortMessage, tooltipText: message.longMessage };
-};
-
 const counter = computed(() => {
   if (!props.withCounter || !props.maxlength) return;
   const length = modelValue.value.toString().length;
@@ -118,22 +102,10 @@ const showClearButton = computed(() => {
   if (props.hideClearIcon) return false;
   return !!modelValue.value;
 });
-
-const labelOptions = computed(() => {
-  const options: FormElementV2LabelOptions =
-    typeof props.label === "object" ? props.label : { label: props.label };
-  return { hidden: props.hideLabel, tooltipText: props.labelTooltip, ...options };
-});
 </script>
 
 <template>
-  <OnyxFormElementV2
-    v-bind="mergeVueProps(formElementV2Props, rootAttrs)"
-    :label="labelOptions"
-    :message="messageToFormElementProps(props.message)"
-    :error="messageToFormElementProps(errorMessages)"
-    :success="messageToFormElementProps(props.success)"
-  >
+  <OnyxFormElementV2 v-bind="mergeVueProps(formElementV2Props, rootAttrs)">
     <template #default="inputProps">
       <!-- eslint-disable-next-line vuejs-accessibility/form-control-has-label -- label is associated by "inputProps" -->
       <input
