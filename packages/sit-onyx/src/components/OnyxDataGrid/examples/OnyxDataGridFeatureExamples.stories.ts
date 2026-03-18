@@ -28,6 +28,10 @@ export const Editing: Story = {
   ...createAdvancedStoryExample("OnyxDataGrid", "EditingExample"),
 };
 
+export const ExpandableRow: Story = {
+  ...createAdvancedStoryExample("OnyxDataGrid", "ExpandableRowExample"),
+};
+
 export const LazyLoading: Story = {
   ...createAdvancedStoryExample("OnyxDataGrid", "LazyLoadingExample"),
 };

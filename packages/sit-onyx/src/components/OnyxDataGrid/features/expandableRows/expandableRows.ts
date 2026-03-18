@@ -1,7 +1,7 @@
 import { iconChevronDown, iconChevronUp } from "@sit-onyx/icons";
-import OnyxSystemButton from "src/components/OnyxSystemButton/OnyxSystemButton.vue";
-import { DataGridFeatures } from "src/index.js";
-import { h, ref, type Ref } from "vue";
+import { h, ref } from "vue";
+import { DataGridFeatures } from "../../../../index.js";
+import OnyxSystemButton from "../../../OnyxSystemButton/OnyxSystemButton.vue";
 import { DataGridRowOptionsSymbol, type DataGridEntry } from "../../types.js";
 import { createFeature, type DataGridFeature, type InternalColumnConfig } from "../index.js";
 import type { UseExpandableRowsOptions } from "./types.js";
@@ -16,22 +16,28 @@ export const useExpandableRows = <TEntry extends DataGridEntry>(
   options: UseExpandableRowsOptions<TEntry>,
 ) =>
   createFeature(() => {
-    const expandedRows = ref<TEntry["id"][]>([]) as Ref<TEntry["id"][]>;
-    const baseCols = ref<Readonly<InternalColumnConfig<TEntry>[]>>([]);
-    const expandCol = {
-      key: EXPAND_BUTTON_COLUMN,
-      label: "",
-      type: { name: EXPAND_BUTTON_RENDERER },
-      width: "min-content",
+    const columnConfig = ref<Readonly<InternalColumnConfig<TEntry>[]>>([]);
+
+    const expandedRows = ref<Set<PropertyKey>>(new Set());
+    const toggleExpanded = (id: PropertyKey) => {
+      if (expandedRows.value.has(id)) {
+        expandedRows.value.delete(id);
+      } else {
+        expandedRows.value.add(id);
+      }
     };
 
+    /**
+     * Adds the detail row for expandedd columns
+     */
     const mapRow = (row: TEntry) => {
-      if (!expandedRows.value.includes(row.id))
+      if (!expandedRows.value.has(row.id))
         return [
+          // don't change anything
           {
             ...row,
             [DataGridRowOptionsSymbol]: {
-              columns: baseCols.value,
+              columns: columnConfig.value,
             },
           },
         ];
@@ -40,9 +46,10 @@ export const useExpandableRows = <TEntry extends DataGridEntry>(
           {
             ...row,
             [DataGridRowOptionsSymbol]: {
-              columns: baseCols.value,
+              columns: columnConfig.value,
             },
           },
+          // add hidden row to keep striped pattern
           {
             [DataGridRowOptionsSymbol]: {
               trAttributes: {
@@ -50,6 +57,7 @@ export const useExpandableRows = <TEntry extends DataGridEntry>(
               },
             },
           },
+          // add row for details
           {
             ...row,
             id: row.id,
@@ -62,12 +70,21 @@ export const useExpandableRows = <TEntry extends DataGridEntry>(
 
     return {
       name: EXPANDABLE_ROWS_FEATURE,
-      watch: [expandedRows, baseCols],
+      watch: [expandedRows, columnConfig],
       modifyColumns: {
         func: (cols) => {
-          const config = [...cols, expandCol] as InternalColumnConfig<TEntry>[];
-          baseCols.value = config;
+          const config = [
+            {
+              key: EXPAND_BUTTON_COLUMN,
+              label: "",
+              type: { name: EXPAND_BUTTON_RENDERER },
+              width: "min-content",
+            },
+            ...cols,
+          ] as InternalColumnConfig<TEntry>[];
 
+          // Store the column configuration with column for expand button for later reference
+          columnConfig.value = config;
           return config;
         },
       },
@@ -80,21 +97,14 @@ export const useExpandableRows = <TEntry extends DataGridEntry>(
       typeRenderer: {
         [EXPAND_BUTTON_RENDERER]: DataGridFeatures.createTypeRenderer<object, TEntry>({
           cell: {
-            component: ({ row }) => {
-              const isExpanded = expandedRows.value.includes(row.id);
-
-              return h(OnyxSystemButton, {
-                icon: isExpanded ? iconChevronUp : iconChevronDown,
+            component: ({ row }) =>
+              h(OnyxSystemButton, {
+                icon: expandedRows.value.has(row.id) ? iconChevronUp : iconChevronDown,
                 label: "",
                 onClick: () => {
-                  if (isExpanded) {
-                    expandedRows.value = expandedRows.value.filter((id) => id !== row.id);
-                  } else {
-                    expandedRows.value = [...expandedRows.value, row.id];
-                  }
+                  toggleExpanded(row.id);
                 },
-              });
-            },
+              }),
           },
         }),
         [DETAILS_RENDERER]: DataGridFeatures.createTypeRenderer<object, TEntry>({
@@ -102,7 +112,7 @@ export const useExpandableRows = <TEntry extends DataGridEntry>(
             tdAttributes: {
               colspan: 99,
             },
-            component: ({ row }) => options.renderDetails(row),
+            component: ({ row }) => options.detailsComponent(row),
           },
         }),
       },
