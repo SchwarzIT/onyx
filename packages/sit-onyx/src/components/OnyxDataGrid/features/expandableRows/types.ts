@@ -1,5 +1,11 @@
-import type { h } from "vue";
+import type { Component } from "vue";
 
+/**
+ * Options for rendering detail content for expanded rows.
+ */
 export type UseExpandableRowsOptions<TEntry> = {
-  renderDetails: (row: TEntry) => ReturnType<typeof h>;
+  /**
+   * Function to render the detail content.
+   */
+  detailsComponent: (row: TEntry) => Component;
 };
