@@ -1,6 +1,6 @@
 import type { AutofocusProp } from "../../types/components.js";
-import type { Nullable } from "../../types/utils.js";
 import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
+import type { OnyxFormElementV2Props } from "../OnyxFormElementV2/types.js";
 import type { OnyxInputProps } from "../OnyxInput/types.js";
 import type { SelectOption } from "../OnyxSelect/types.js";
 
@@ -24,10 +24,11 @@ export type TimePickerSelectOptions = {
   customTimes?: SelectOption<string>[];
 };
 
-export type OnyxTimePickerProps<TType extends TimePickerType = "default"> = Omit<
+export type OnyxTimePickerProps<TType extends TimePickerType = "default"> = Pick<
   SharedFormElementProps,
-  "placeholder"
+  "readonly" | "name" | "error" | "disabled"
 > &
+  Omit<OnyxFormElementV2Props, "error"> &
   Pick<OnyxInputProps, "hideClearIcon"> &
   AutofocusProp & {
     /**
@@ -75,9 +76,9 @@ export type OnyxTimePickerProps<TType extends TimePickerType = "default"> = Omit
      */
     infoLabel?: TType extends "select" | "range" ? string : never;
     /**
-     * Whether the flyout is currently open.
+     * Whether to use am/pm
      */
-    open?: TType extends "default" ? never : Nullable<boolean>;
+    showAmPm?: boolean;
   };
 
 export type TimeRange = { from: string; to: string };

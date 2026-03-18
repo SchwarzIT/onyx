@@ -285,7 +285,10 @@
       "hour": "Stunde",
       "minute": "Minute",
       "second": "Sekunde",
-      "listLabel": "Zeitoptionen"
+      "listLabel": "Zeitoptionen",
+      "am": "AM",
+      "pm": "PM",
+      "timeSuffix": "Auswahl Vormittag/Nachmittag"
     },
     "errors": {
       "outsideRange": "Der Zeitraum muss zwischen {min} und {max} liegen.",
