@@ -160,6 +160,7 @@ const handleDelete = () => {
         :label="$t('user.phone')"
         type="tel"
         :minlength="4"
+        disable-slot-padding
       >
         <template #leading>
           <OnyxSelect

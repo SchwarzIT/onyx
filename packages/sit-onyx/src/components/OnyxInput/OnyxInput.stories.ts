@@ -230,15 +230,13 @@ export const WithSlotContent = {
   tags: ["new:feature"],
   args: {
     ...Default.args,
+    disableSlotPadding: true,
     leading: () =>
-      h(OnyxSelect, {
-        label: "Label",
-        listLabel: "List label",
-        hideLabel: true,
-        options: [{ label: "+49", value: "+49" }],
-        modelValue: "+49",
-        alignment: "left",
-      }),
+      h(
+        "span",
+        { style: "padding-inline: var(--onyx-form-element-v2-padding-inline)" },
+        "https://",
+      ),
     trailing: () =>
       h(OnyxSelect, {
         label: "Label",

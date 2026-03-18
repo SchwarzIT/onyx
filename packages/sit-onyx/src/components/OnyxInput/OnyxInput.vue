@@ -29,6 +29,7 @@ const props = withDefaults(defineProps<OnyxInputProps>(), {
   showError: FORM_INJECTED_SYMBOL,
   requiredMarker: FORM_INJECTED_SYMBOL,
   reserveMessageSpace: FORM_INJECTED_SYMBOL,
+  disableSlotPadding: false,
 });
 
 const emit = defineEmits<{
@@ -105,7 +106,10 @@ const showClearButton = computed(() => {
 </script>
 
 <template>
-  <OnyxFormElementV2 v-bind="mergeVueProps(formElementV2Props, rootAttrs)">
+  <OnyxFormElementV2
+    v-bind="mergeVueProps(formElementV2Props, rootAttrs)"
+    :class="['onyx-input', { 'onyx-input--no-slot-padding': props.disableSlotPadding }]"
+  >
     <template #default="inputProps">
       <!-- eslint-disable-next-line vuejs-accessibility/form-control-has-label -- label is associated by "inputProps" -->
       <input
@@ -150,6 +154,7 @@ const showClearButton = computed(() => {
     <template v-if="slots.trailing || props.type === 'password'" #trailing>
       <slot name="trailing">
         <OnyxFormElementAction
+          class="onyx-input__password"
           :icon="showPassword ? iconEyeClosed : iconEye"
           :label="showPassword ? t('input.hidePassword') : t('input.showPassword')"
           size="lg"
@@ -175,6 +180,12 @@ const showClearButton = computed(() => {
     &__counter {
       &--violated {
         color: var(--onyx-color-text-icons-danger-intense);
+      }
+    }
+
+    &:not(&--no-slot-padding) {
+      .onyx-form-element-v2__slot:not(:has(.onyx-input__password)) {
+        padding-inline: var(--onyx-form-element-v2-padding-inline);
       }
     }
   }

@@ -31,6 +31,14 @@ export type OnyxInputProps = Omit<SharedFormElementProps, "label"> &
      * If unset, the state will be managed internally.
      */
     showPassword?: boolean;
+    /**
+     * Whether to disable the inline padding for the leading and trailing slot.
+     * Useful when placing full-size components like OnyxSelect or OnyxFormElementAction inside.
+     * When set to `true`, use custom CSS with the `var(--onyx-form-element-v2-padding-inline)` to apply padding if needed.
+     *
+     * Will become the default in version 2.
+     */
+    disableSlotPadding?: boolean;
   };
 
 export const INPUT_TYPES = ["email", "password", "search", "tel", "text", "url"] as const;
