@@ -31,6 +31,12 @@ export const WithSeconds = {
   },
 } satisfies Story;
 
+export const WithAmPm = {
+  args: {
+    showAmPm: true,
+  },
+} satisfies Story;
+
 export const Range = {
   tags: ["new:feature"],
   args: {
