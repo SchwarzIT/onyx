@@ -326,6 +326,12 @@ const COMPONENTS: Components = {
       sequence: [{ all: ["Control", "C"] }],
     },
   },
+  OnyxUnstableFormElementAction: {
+    props: {
+      label: "Label",
+      icon: iconPlaceholder,
+    },
+  },
 };
 
 describe("components", () => {
