@@ -24,7 +24,7 @@ test.describe("Screenshot tests", () => {
             placeholder={state === "placeholder" ? "Test placeholder" : undefined}
             density={column}
             modelValue={modelValue}
-            style={{ width: state === "slot content" ? "16rem" : "12rem" }}
+            style={{ width: state === "slot content" ? "20rem" : "12rem" }}
           >
             {state === "slot content" && [
               <template v-slot:leading>https://</template>,
