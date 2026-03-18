@@ -287,7 +287,7 @@ const timePickerGroupProps = useForwardProps(props, OnyxTimePickerGroup);
       <template #default>
         <OnyxTimePickerInput
           class="onyx-time-picker__input"
-          :class="{ 'onyx-time-picker__input--show-focused': open }"
+          :class="{ 'onyx-time-picker__input--show-focused': open || isFocused }"
           v-bind="inputProps"
           :label="props.label"
           :model-value="inputValue"
@@ -315,7 +315,7 @@ const timePickerGroupProps = useForwardProps(props, OnyxTimePickerGroup);
               v-else
               :icon="iconClock"
               color="neutral"
-              class="onyx-time-picker__clock-icon"
+              :class="['onyx-time-picker__clock-icon']"
             />
           </template>
         </OnyxTimePickerInput>
@@ -438,10 +438,13 @@ const timePickerGroupProps = useForwardProps(props, OnyxTimePickerGroup);
     &__clock-icon {
       --icon-color: var(--onyx-color-text-icons-neutral-soft);
     }
-    &:has(.onyx-time-picker-input__native:focus-visible),
-    &:has(.onyx-time-picker-input__native:hover) {
+    :has(.onyx-time-picker__input--show-focused) {
       .onyx-time-picker__clock-icon {
         --icon-color: var(--onyx-color-text-icons-primary-intense);
+      }
+      .onyx-form-element-v2__input-container {
+        border-color: var(--onyx-form-element-v2-border-color-focus);
+        outline: var(--onyx-outline-width) solid var(--onyx-form-element-v2-outline-color);
       }
     }
   }
