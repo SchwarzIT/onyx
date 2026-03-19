@@ -4,7 +4,10 @@ import { computed } from "vue";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import { useForwardProps } from "../../utils/props.js";
-import type { FormElementV2LabelOptions } from "../OnyxFormElementV2/types.js";
+import type {
+  FormElementV2LabelOptions,
+  FormElementV2Tooltip,
+} from "../OnyxFormElementV2/types.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
 import type { SelectOption } from "../OnyxSelect/types.js";
@@ -121,6 +124,16 @@ const labelOptions = computed<FormElementV2LabelOptions>(() => {
   if (typeof props.label === "string") return { label: props.label };
   return props.label;
 });
+
+const mapToText = (value?: string | FormElementV2Tooltip) => {
+  if (!value) return undefined;
+  return typeof value === "string" ? value : value.label;
+};
+
+const messageProps = computed(() => ({
+  message: mapToText(props.message),
+  success: mapToText(props.success),
+}));
 </script>
 
 <template>
@@ -128,6 +141,8 @@ const labelOptions = computed<FormElementV2LabelOptions>(() => {
     v-bind="inputProps"
     v-model="modelValue"
     v-model:open="open"
+    :message="messageProps.message"
+    :success="messageProps.success"
     :label="labelOptions.label"
     :hide-label="labelOptions.hidden"
     :label-tooltip="labelOptions.tooltipText"
