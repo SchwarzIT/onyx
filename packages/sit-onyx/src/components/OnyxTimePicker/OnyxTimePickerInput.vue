@@ -265,16 +265,16 @@ const messageToFormElementProps = (
       <!-- eslint-disable-next-line vuejs-accessibility/form-control-has-label -- is provided via inputProps -->
       <input
         v-bind="mergeVueProps(inputProps, restAttrs)"
+        ref="input"
+        v-model="value"
+        v-custom-validity
         :type="props.type === 'range' ? 'text' : 'time'"
         :placeholder="props.placeholder"
         :required="props.required"
         :autofocus="props.autofocus"
         :name="props.name"
-        ref="input"
         :readonly="props.readonly"
-        v-model="value"
         :disabled="disabled || props.loading"
-        v-custom-validity
         :step="props.step"
         :max="sanitizedMax"
         :min="sanitizedMin"
