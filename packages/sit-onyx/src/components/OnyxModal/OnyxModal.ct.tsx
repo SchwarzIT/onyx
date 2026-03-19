@@ -113,3 +113,40 @@ test("Screenshot test (overflowing content)", async ({ mount, page, makeAxeBuild
   // ASSERT
   expect(accessibilityScanResults.violations).toEqual([]);
 });
+
+test("should handle nonDismissible", async ({ mount, page }) => {
+  // ARRANGE
+  const onOpenUpdate = createEmitSpy<typeof TestWrapperCt, "onUpdate:open">();
+  const component = await mount(TestWrapperCt, {
+    props: {
+      "onUpdate:open": onOpenUpdate,
+    },
+  });
+
+  const closeButton = component.getByRole("button", { name: "Close" });
+
+  // ASSERT
+  await expect(component).toBeVisible();
+  await expect(closeButton).toBeVisible();
+
+  // ACT
+  await component.update({ props: { nonDismissible: true } });
+
+  // ASSERT
+  await expect(closeButton).toBeHidden();
+
+  // ACT
+  await page.keyboard.press("Escape");
+
+  // ASSERT
+  expectEmit(onOpenUpdate, 0);
+
+  // ACT
+  await component.update({ props: { nonDismissible: false } });
+
+  // ACT
+  await page.keyboard.press("Escape");
+
+  // ASSERT
+  expectEmit(onOpenUpdate, 1, [false]);
+});
