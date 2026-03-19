@@ -63,12 +63,12 @@ function getDummyColumn(columnNumber: number): DataGridRendererColumn<DataGridEn
  */
 function getDummyCell(
   id: string,
-  columnKey: keyof DataGridEntry,
+  column: keyof DataGridEntry,
 ): DataGridRendererCell<DataGridEntry> {
   return {
     component: (props) => h("span", props.row.id.toString()),
     props: {
-      key: columnKey,
+      column,
       row: {
         id,
       },

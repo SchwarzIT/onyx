@@ -89,8 +89,8 @@ const LazyResolverFactory = ({
 });
 
 type CellIdentifier = {
-  rowId: string;
-  colKey: string;
+  rowId: PropertyKey;
+  colKey: PropertyKey;
 };
 
 export type LazyOptions<Lazy extends boolean> = Lazy extends true
@@ -122,7 +122,7 @@ export type CreateDataGridOptions<Lazy extends boolean> = {
    */
   multiselectable?: boolean;
   loading?: MaybeRefOrGetter<boolean>;
-  selectedCell?: Ref<CellIdentifier>;
+  selectedCell?: Ref<CellIdentifier | undefined>;
 } & LazyOptions<Lazy>;
 
 export type TrOptions<Lazy extends boolean> = {
@@ -147,7 +147,7 @@ export const createDataGrid = createBuilder(
       : StaticResolver;
 
     const labelId = useId();
-    const selectedCell = ref<CellIdentifier>();
+    const selectedCell = options.selectedCell || ref<CellIdentifier>();
     const selectedCellEl = createElRef<HTMLElement>();
 
     /**
@@ -156,7 +156,6 @@ export const createDataGrid = createBuilder(
     const focusQueue = useLastSettled<Nullable<HTMLElement>>((success, cell) => {
       if (success) {
         cell?.focus();
-        cell?.scrollIntoView();
       }
     });
 
@@ -166,7 +165,7 @@ export const createDataGrid = createBuilder(
     const busySet = useAllSettled();
 
     const findFirstCell = () =>
-      tableElement.value?.querySelector<HTMLElement>(
+      tableElement.value?.querySelector?.<HTMLElement>(
         `[${ROW_ID_DATA_ATTR}] [${COL_KEY_DATA_ATTR}]`,
       );
 
@@ -191,7 +190,7 @@ export const createDataGrid = createBuilder(
       }
     };
 
-    let mutationObserver: MutationObserver;
+    let mutationObserver: Nullable<MutationObserver>;
 
     onMounted(() => {
       ensureTabTarget();
@@ -201,22 +200,23 @@ export const createDataGrid = createBuilder(
       watch(
         tableElement,
         () => {
-          mutationObserver.disconnect();
-          if (tableElement.value) {
-            mutationObserver.observe(tableElement.value, {
-              childList: true,
-              attributes: true,
-              subtree: true,
-              attributeFilter: ["value"],
-            });
+          if (!tableElement.value) {
+            return;
           }
+          mutationObserver?.disconnect();
+          mutationObserver?.observe(tableElement.value, {
+            childList: true,
+            attributes: true,
+            subtree: true,
+            attributeFilter: ["value"],
+          });
         },
         { immediate: true },
       );
     });
 
     onBeforeUnmount(() => {
-      mutationObserver.disconnect();
+      mutationObserver?.disconnect();
     });
 
     /**
@@ -267,6 +267,7 @@ export const createDataGrid = createBuilder(
       } else {
         return;
       }
+      event.preventDefault();
 
       // apply bounds
       const maxRows = totalRows === "unknown" ? Infinity : totalRows - 1;
@@ -306,11 +307,12 @@ export const createDataGrid = createBuilder(
         }),
         td: computed(() => ({ rowId, colKey, colIndex }: TdOptions<Lazy>) => {
           const isSelected =
-            colKey === selectedCell.value?.colKey && rowId === selectedCell.value?.rowId;
+            colKey.toString() === selectedCell.value?.colKey.toString() &&
+            rowId.toString() === selectedCell.value?.rowId.toString();
           return {
             tabindex: isSelected ? "0" : "-1",
             ref: isSelected ? selectedCellEl : undefined,
-            [COL_KEY_DATA_ATTR]: colKey,
+            [COL_KEY_DATA_ATTR]: colKey.toString(), // TODO: handle symbols
             "aria-colindex": colIndex == undefined ? undefined : colIndex + 1,
             role: "cell",
           };

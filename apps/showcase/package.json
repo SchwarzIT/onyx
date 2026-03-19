@@ -22,7 +22,7 @@
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/nuxt": "workspace:^",
     "@sit-onyx/nuxt-docs": "workspace:^",
-    "better-sqlite3": "^12.6.2",
+    "better-sqlite3": "^12.8.0",
     "nuxt": "catalog:",
     "nuxt-auth-utils": "~0.5.29",
     "nuxt-studio": "^1.4.0",

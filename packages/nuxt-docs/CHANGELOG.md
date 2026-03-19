@@ -1,5 +1,18 @@
 # @sit-onyx/nuxt-docs
 
+## 0.4.0
+
+### Minor Changes
+
+- 4b31bbd: feat(sidebar-layout): support `hero` slot, remove `noPadding` property since it collides with the TOC
+- db6f050: feat: support table of contents for `sidebar` layout
+
+### Patch Changes
+
+- 9ea853e: fix(nav-bar): hide color scheme switch when forced
+- Updated dependencies [3084837]
+  - sit-onyx@1.10.0
+
 ## 0.3.0
 
 ### Minor Changes

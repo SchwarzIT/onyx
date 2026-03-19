@@ -4,7 +4,7 @@ import { useDensity } from "../../composables/density.js";
 import { useResizeObserver } from "../../composables/useResizeObserver.js";
 import { injectI18n } from "../../i18n/index.js";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
-import type { OnyxTableProps, OnyxTableSlots } from "./types.js";
+import { type OnyxTableProps, type OnyxTableSlots } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxTableProps>(), {
   striped: false,
@@ -54,6 +54,7 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
     >
       <table
         ref="table"
+        v-bind="props.tableAttrs"
         :class="[
           'onyx-table',
           'onyx-text',
@@ -228,6 +229,20 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
     td {
       position: relative;
       padding: var(--onyx-table-padding-block) var(--onyx-table-padding-inline);
+      outline: none;
+
+      &:focus::after,
+      &:focus-visible::after,
+      &:focus-within::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: calc(var(--onyx-table-z-index-cell) - 2);
+        border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-primary);
+      }
 
       // max width for skeleton, so it looks better
       > .onyx-skeleton {

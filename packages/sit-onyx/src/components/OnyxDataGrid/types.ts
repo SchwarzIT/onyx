@@ -11,6 +11,7 @@ import type { OnyxHeadlineProps } from "../OnyxHeadline/types.js";
 import type { OnyxTableProps } from "../OnyxTable/types.js";
 import type { BASE_FEATURE } from "./features/base/base.js";
 import type {
+  CellMetadata,
   ColumnConfig,
   ColumnConfigTypeOption,
   ColumnGroupConfig,
@@ -142,6 +143,7 @@ export type DataGridEntryOptions = {
    * Useful if e.g. adding a custom full-width row inside a data grid feature.
    */
   columns?: Omit<InternalColumnConfig<{ id: PropertyKey }>, "label">[];
+  metadata?: Partial<CellMetadata>;
 };
 
 export const DataGridRowOptionsSymbol = Symbol("RowOptions");

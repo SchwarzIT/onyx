@@ -11,6 +11,7 @@ import type {
   BooleanCellOptions,
   DateCellOptions,
   NumberCellOptions,
+  SelectCellOptions,
   StringCellOptions,
 } from "./features/renderer.js";
 import type { ColumnTypesFromFeatures, DataGridEntry } from "./types.js";
@@ -22,6 +23,7 @@ it("should be ensured that ColumnTypesFromFeatures unwraps correctly", async () 
   type ExpectedType =
     | ColumnConfigTypeOption<"number", NumberCellOptions>
     | ColumnConfigTypeOption<"string", StringCellOptions>
+    | ColumnConfigTypeOption<"select", SelectCellOptions>
     | ColumnConfigTypeOption<"date", DateCellOptions>
     | ColumnConfigTypeOption<"datetime-local", DateCellOptions>
     | ColumnConfigTypeOption<"time", DateCellOptions>

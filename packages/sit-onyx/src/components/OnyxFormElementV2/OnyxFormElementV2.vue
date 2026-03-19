@@ -1,3 +1,11 @@
+<script lang="ts">
+/**
+ * @experimental
+ * @deprecated This component is still under active development and its API might change in patch releases.
+ */
+export default {};
+</script>
+
 <script lang="ts" setup>
 import { computed, useId } from "vue";
 import { useDensity } from "../../composables/density.js";
@@ -147,11 +155,11 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
+@use "../../styles/mixins/density.scss";
 
-.onyx-form-element-v2,
-.onyx-form-element-v2-skeleton {
+.onyx-form-element-v2 {
   @include layers.component() {
-    --onyx-form-element-v2-gap: max(var(--onyx-density-3xs), var(--onyx-spacing-5xs));
+    --onyx-form-element-v2-gap: var(--onyx-density-3xs);
     --onyx-form-element-v2-border-radius: var(--onyx-radius-sm);
     --onyx-form-element-v2-border-size: var(--onyx-1px-in-rem);
     --onyx-form-element-v2-border-color: var(--onyx-color-component-border-neutral);
@@ -161,6 +169,7 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
     --onyx-form-element-v2-background-autofill: var(--onyx-color-base-warning-100);
     --onyx-form-element-v2-padding-block: var(--onyx-density-xs);
     --onyx-form-element-v2-padding-inline: var(--onyx-density-sm);
+    --onyx-form-element-v2-padding-inline-icons: var(--onyx-density-xs);
     --onyx-form-element-v2-caret-color: var(--onyx-color-component-cta-default);
     --onyx-form-element-v2-selection-background: var(--onyx-color-base-primary-200);
     --onyx-form-element-v2-outline-color: var(--onyx-color-component-focus-primary);
@@ -169,6 +178,7 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
 
     /** Base content and skeleton height. Useful when e.g. changing the base height for textarea etc. */
     --onyx-form-element-v2-content-height: 1lh;
+    --onyx-form-element-v2-label-skeleton-height: 1lh;
 
     // :read-only is valid for readonly and disabled state so we put shared styles for both states here
     &:has(.onyx-form-element-v2__input:read-only) {
@@ -209,6 +219,14 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
       --onyx-form-element-v2-outline-color: var(--onyx-color-component-focus-success);
       --onyx-form-element-v2-selection-background: var(--onyx-color-base-success-200);
       --onyx-form-element-v2-caret-color: var(--onyx-color-base-neutral-900);
+    }
+
+    // the skeleton gap would be 0 in compact density so we shrink the label size a bit and increase the gap so it does not look off
+    @include density.compact {
+      &:has(.onyx-form-element-v2__content-skeleton) {
+        --onyx-form-element-v2-gap: var(--onyx-spacing-5xs);
+        --onyx-form-element-v2-label-skeleton-height: calc(1lh - var(--onyx-form-element-v2-gap));
+      }
     }
   }
 }
@@ -270,7 +288,9 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
         border-color: var(--onyx-form-element-v2-border-color-hover);
       }
 
-      &:has(.onyx-form-element-v2__input:autofill) {
+      &:has(.onyx-form-element-v2__input:autofill),
+      // used for Playwright screenshot tests
+      &:has(.onyx-form-element-v2__input[data-test-autofill]) {
         background-color: var(--onyx-form-element-v2-background-autofill);
       }
     }
@@ -357,6 +377,7 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
       line-height: inherit;
       caret-color: var(--onyx-form-element-v2-caret-color);
       padding: var(--onyx-form-element-v2-padding-block) var(--onyx-form-element-v2-padding-inline);
+      cursor: inherit;
 
       &::placeholder {
         color: var(--onyx-color-text-icons-neutral-soft);
@@ -379,6 +400,18 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
         // many browsers use "!important" to set the autofill background so we need this
         // transition workaround to make the background transparent
         transition: background-color calc(infinity * 1s);
+      }
+    }
+
+    &:has(&__icons--leading) {
+      .onyx-form-element-v2__input {
+        padding-left: var(--onyx-form-element-v2-padding-inline-icons);
+      }
+    }
+
+    &:has(&__icons--trailing) {
+      .onyx-form-element-v2__input {
+        padding-right: var(--onyx-form-element-v2-padding-inline-icons);
       }
     }
 

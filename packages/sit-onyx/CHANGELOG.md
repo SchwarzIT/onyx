@@ -1,5 +1,71 @@
 # sit-onyx
 
+## 1.10.0
+
+### Minor Changes
+
+- e76203e: feat: implement new OnyxUnstableDatePickerV2 component
+
+  This component will replace the `OnyxDatePicker` in the future.
+
+  For now, the OnyxUnstableDatePickerV2 component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using it.
+
+- 661b343: feat(OnyxTimePicker): implemented range mode
+- 5ffe689: feat(OnyxFormElementV2): implement `skeleton` property
+- 79b76de: feat(OnyxFormElementV2): support `loading` property and fix height to align with other form elements
+- 3084837: feat(OnyxFormElementV2): improve popover handling and styles
+  - block input typing when popover exists
+  - manage open state + close on outside click
+  - support `popoverOptions` property
+  - apply focus styles when popover is open
+- db6f050: feat(OnyxPageLayout): add smooth scroll behavior to main content / scroll area
+- 984ce9e: feat(OnyxDataGrid): Added base row type 'select'
+- 984ce9e: feat(OnyxDataGrid): Extended feature API with new 'enhanceCells' and 'enhanceRow' hooks
+  These allow modifying render details per cell/row.
+  The provided function is called for each cell/row, after the matching typeRenderer was applied.
+- 984ce9e: feat(OnyxDataGrid): Implemented basic `useEditing()` inline editing feature
+
+  For all base column `typeRenderers` editing is supported.
+  To enable editing with custom types, you will need to implement two things:
+  1. Check for the `editable` prop in the metadata to decide if the cell should render in "display" or "edit" mode.
+  2. Implement or call the `onUpdate:modelValue` when the value is supposed to change through an edit.
+
+  Example
+
+  ```ts
+  export const MY_CUSTOM_RENDERER = DataGridFeatures.createTypeRenderer({
+    header: { component: HeaderCell },
+    cell: {
+      // The *rest* property includes `modelValue` and the `onUpdate:modelValue` event handler
+      component: ({ column, row, metadata, ...rest }) =>
+        metadata?.editable
+          ? h(EditingComponent, {
+              label: `${column} with id ${row.id}`,
+              ...rest,
+            })
+          : h(DisplayComponent, { ...metadata?.typeOptions, ...rest }),
+    },
+  });
+  ```
+
+  **Caveats:**
+  - Currently only basic editing is supported.
+  - Managing `editable` for individual cells or columns state must currently performed in the application. Per default all cells and rows are either editable or not editable.
+  - Filtering and Sorting features are always using the original value, not the edited value.
+
+- f61969f: feat(OnyxSlider): support new `mark` slot for custom mark label content
+
+### Patch Changes
+
+- 7e193bd: fix(OnyxTab): fix incorrect underline color
+- 0f03aa9: fix: Resolve hydration mismatch errors in SSR
+- b62e57c: fix(OnyxBasicDialog): Fix 'nonDismissible' modal dialogs loosing their background after pressing escape twice
+- 984ce9e: fix(OnyxDataGrid): Fix increased row height for columnType "boolean" caused by icon
+- e76203e: refactor(OnyxUnstableFormElementV2): rename type `FormElementPopoverOptions` to `FormElementV2PopoverOptions`
+  - fix(OnyxUnstableFormElementV2): Correctly determine inside elements for closing on outside click
+  - fix(OnyxBasicPopover): Prevent toggle when disabled
+- 4b31bbd: fix(OnyxPageLayout): Correctly disable centering of nested `onyx-grid-layout` when a sidebar exsists
+
 ## 1.9.0
 
 ### Minor Changes

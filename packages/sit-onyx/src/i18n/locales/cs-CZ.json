@@ -47,7 +47,10 @@
         }
       }
     },
-    "loadMore": "Načíst další"
+    "loadMore": "Načíst další",
+    "editing": {
+      "label": "{column} s ID {id}"
+    }
   },
   "validations": {
     "tooShort": {

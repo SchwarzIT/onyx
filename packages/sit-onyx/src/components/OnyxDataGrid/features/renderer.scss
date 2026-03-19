@@ -10,6 +10,10 @@
     .onyx-data-grid-boolean-cell {
       color: var(--onyx-color-text-icons-neutral-medium);
       text-align: center;
+
+      .onyx-icon {
+        vertical-align: top;
+      }
     }
   }
 }
