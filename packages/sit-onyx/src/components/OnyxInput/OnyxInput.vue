@@ -163,7 +163,6 @@ const showClearButton = computed(() => {
       </slot>
     </template>
 
-    <!-- pre-defined slots, will be overridden with the v-for below if user has passed a custom slot -->
     <template v-if="counter" #bottomRight>
       <span :class="['onyx-input__counter', { 'onyx-input__counter--violated': counter.violated }]">
         {{ counter.length }}/{{ counter.maxLength }}
