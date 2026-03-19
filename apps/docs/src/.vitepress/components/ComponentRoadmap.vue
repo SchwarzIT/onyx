@@ -3,7 +3,7 @@ import { OnyxHeadline, OnyxSeparator } from "sit-onyx";
 import { computed } from "vue";
 import type { ComponentCardProps } from "./ComponentCard.vue";
 import ComponentCard from "./ComponentCard.vue";
-import ComponentStatusBadge, { ComponentStatus } from "./ComponentStatusBadge.vue";
+import ComponentStatusBadge, { type ComponentStatus } from "./ComponentStatusBadge.vue";
 
 const props = defineProps<{
   components: ComponentCardProps[];
