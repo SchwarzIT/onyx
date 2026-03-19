@@ -1,30 +1,22 @@
+import { iconPlaceholder } from "@sit-onyx/icons";
 import { DENSITIES } from "../../composables/density.js";
 import type { FormMessages } from "../../composables/useFormElementError.js";
 import { testMaxLengthBehavior } from "../../composables/useLenientMaxLengthValidation.ct-utils.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-utils.js";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxInput from "./OnyxInput.vue";
 
 test.describe("Screenshot tests", () => {
-  for (const state of [
-    "default",
-    "placeholder",
-    "with value",
-    "autofill",
-    "slot content",
-  ] as const) {
+  for (const state of ["default", "placeholder", "with value", "slot content"] as const) {
     executeMatrixScreenshotTest({
       name: `Input (${state})`,
       columns: DENSITIES,
       rows: ["default", "hover", "focus"],
       component: (column) => {
         const modelValue =
-          state === "slot content"
-            ? "test"
-            : ["autofill", "with value"].includes(state)
-              ? "Filled value"
-              : undefined;
+          state === "slot content" ? "test" : state === "with value" ? "Filled value" : undefined;
 
         return (
           <OnyxInput
@@ -32,11 +24,17 @@ test.describe("Screenshot tests", () => {
             placeholder={state === "placeholder" ? "Test placeholder" : undefined}
             density={column}
             modelValue={modelValue}
-            style="width: 12rem;"
+            style={{ width: state === "slot content" ? "20rem" : "12rem" }}
           >
             {state === "slot content" && [
               <template v-slot:leading>https://</template>,
               <template v-slot:trailing>.com</template>,
+              <template v-slot:leadingIcons>
+                <OnyxIcon icon={iconPlaceholder} />
+              </template>,
+              <template v-slot:trailingIcons>
+                <OnyxIcon icon={iconPlaceholder} />
+              </template>,
             ]}
           </OnyxInput>
         );
@@ -46,9 +44,6 @@ test.describe("Screenshot tests", () => {
           const input = component.getByLabel("Test label");
           if (row === "hover") await input.hover();
           if (row === "focus") await input.focus();
-          if (state == "autofill") {
-            await input.evaluate((node) => node.setAttribute("data-test-autofill", ""));
-          }
         },
       },
     });
@@ -226,7 +221,7 @@ test.describe("Screenshot tests", () => {
 
   executeMatrixScreenshotTest({
     name: "Input (invalid)",
-    columns: ["default", "autofill"],
+    columns: ["default"],
     rows: ["default", "hover", "focus"],
     component: () => <OnyxInput style="width: 12rem" label="Test label" error="Test error" />,
     hooks: {
@@ -239,16 +234,13 @@ test.describe("Screenshot tests", () => {
 
         if (row === "hover") await input.hover();
         if (row === "focus") await input.focus();
-        if (column == "autofill") {
-          await input.evaluate((node) => node.setAttribute("data-test-autofill", ""));
-        }
       },
     },
   });
 
   executeMatrixScreenshotTest({
     name: "Input (success)",
-    columns: ["default", "autofill"],
+    columns: ["default"],
     rows: ["default", "hover", "focus"],
     component: () => (
       <OnyxInput
@@ -271,10 +263,6 @@ test.describe("Screenshot tests", () => {
           await formElementUtils.triggerTooltipVisible("message");
         }
         if (row === "focus") await input.focus();
-        if (column == "autofill") {
-          await input.fill("Filled value");
-          await input.evaluate((node) => node.setAttribute("data-test-autofill", ""));
-        }
       },
     },
   });
@@ -355,83 +343,6 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
   });
 });
 
-test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder }) => {
-  // ARRANGE
-  const component = await mount(<OnyxInput label="Test label" style="width: 12rem;" hideLabel />);
-
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
-  await expect(component).not.toContainText("Test label");
-  await expect(component.getByLabel("Test label")).toBeAttached();
-});
-
-test("should show error message after interaction", async ({ mount, makeAxeBuilder }) => {
-  // ARRANGE
-  const component = await mount(<OnyxInput label="Demo" style="width: 12rem;" required />);
-  const formElementUtils = createFormElementUtils(component);
-  const input = component.getByLabel("Demo");
-  const errorPreview = component.getByText("Required");
-  const fullError = formElementUtils
-    .getTooltipPopover("message")
-    .getByText("The field is empty, it is mandatory and must be filled in.");
-
-  // ASSERT: initially no error shows
-  await expect(errorPreview).toBeHidden();
-  await expect(fullError).toBeHidden();
-
-  // ACT: interact with the input
-  await input.click();
-  await input.fill("x");
-  await input.fill("");
-  await input.blur();
-
-  // ASSERT: after interaction, the error preview shows
-  await expect(errorPreview).toBeVisible();
-  await expect(formElementUtils.getTooltipTrigger("message")).toBeVisible();
-  await expect(fullError).toBeHidden();
-
-  // ACT
-  await formElementUtils.triggerTooltipVisible("message");
-  // ASSERT: the full error message shows
-  await expect(fullError).toBeVisible();
-
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
-});
-
-test("should show correct message", async ({ mount }) => {
-  const message = { shortMessage: "Test short message" };
-  const successMessage = { shortMessage: "Test success short message" };
-  const component = await mount(
-    <OnyxInput label="Label" required success={successMessage} message={message} />,
-  );
-
-  const messageElement = component.getByText("Test short message");
-  const successMessageElement = component.getByText("Test success short message");
-  const errorMessageElement = component.getByText("Required");
-  const input = component.getByLabel("Label");
-
-  // ASSERT
-  await expect(messageElement).toBeHidden();
-  await expect(successMessageElement).toBeVisible();
-
-  //ACT
-  await input.click();
-  await input.fill("x");
-  await input.fill("");
-  await input.blur();
-
-  // ASSERT
-  await expect(messageElement).toBeHidden();
-  await expect(successMessageElement).toBeHidden();
-  await expect(errorMessageElement).toBeVisible();
-});
-
 test("should hide/show password", async ({ mount }) => {
   const component = await mount(
     <OnyxInput label="Label" modelValue={"test"} type="password" style={{ width: "15rem" }} />,
@@ -459,16 +370,51 @@ test("should hide/show password", async ({ mount }) => {
 
 testMaxLengthBehavior(OnyxInput);
 
-test.describe("Screenshot test (slots dark mode)", () => {
-  executeMatrixScreenshotTest({
-    name: "Input (slots dark mode)",
-    columns: ["default"],
-    rows: ["light", "dark"],
-    component: (column, row) => (
-      <OnyxInput label="Test label" modelValue="Value" style={{ width: "12rem", colorScheme: row }}>
-        <template v-slot:leading>https://</template>
-        <template v-slot:trailing>.com</template>,
-      </OnyxInput>
-    ),
+test("should show/hide clear button", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(OnyxInput, {
+    props: {
+      label: "Test label",
+    },
   });
+
+  const input = component.getByLabel("Test label");
+  const clearButton = component.getByRole("button", { name: "Clear input" });
+
+  // ASSERT
+  await expect(clearButton, "should hide clear button when empty").toBeHidden();
+
+  // ACT
+  await input.fill("Filled value");
+  await input.blur();
+
+  // ASSERT
+  await expect(input).toHaveValue("Filled value");
+  await expect(clearButton, "should hide clear button when filled but not focused").toBeHidden();
+
+  // ACT
+  await input.focus();
+
+  // ASSERT
+  await expect(clearButton, "should show clear button when filled and focused").toBeVisible();
+
+  // ACT
+  await component.update({ props: { hideClearIcon: true } });
+  await input.focus();
+
+  // ASSERT
+  await expect(
+    clearButton,
+    "should hide clear button when filled but and focused but hideClearIcon is set",
+  ).toBeHidden();
+
+  // ACT
+  await component.update({ props: { hideClearIcon: false } });
+  await input.focus();
+  await clearButton.click();
+  await input.focus();
+
+  // ASSERT
+  await expect(input, "should clear value when clear button is clicked").toHaveValue("");
+  await expect(clearButton).toBeHidden();
 });

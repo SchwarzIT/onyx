@@ -1,4 +1,11 @@
-import { computed, isRef, type Component, type ConcreteComponent } from "vue";
+import {
+  computed,
+  isRef,
+  toValue,
+  type Component,
+  type ConcreteComponent,
+  type MaybeRef,
+} from "vue";
 import type { ComponentProps } from "vue-component-type-helpers";
 import type { Data, MaybePick } from "../types/utils.js";
 import { userConsole } from "./console.js";
@@ -37,7 +44,7 @@ export const useForwardProps = <
   TProps = ComponentProps<TComponent>,
   R = MaybePick<T, keyof TProps>,
 >(
-  props: T,
+  props: MaybeRef<T>,
   target: TComponent,
 ) => {
   // endregion docs
@@ -58,6 +65,6 @@ export const useForwardProps = <
     const actualTarget = (isRef(target) ? target.value : target) as Component;
     const keys = getKeys(actualTarget);
 
-    return Object.fromEntries(Object.entries(props).filter(([key]) => keys.has(key))) as R;
+    return Object.fromEntries(Object.entries(toValue(props)).filter(([key]) => keys.has(key))) as R;
   });
 };
