@@ -262,28 +262,28 @@ const messageToFormElementProps = (
     class="onyx-time-picker-input"
   >
     <template #default="inputProps">
+      <!-- eslint-disable-next-line vuejs-accessibility/form-control-has-label -- is provided via inputProps -->
       <input
         v-bind="mergeVueProps(inputProps, restAttrs)"
-        :aria-label="props.label"
         :type="props.type === 'range' ? 'text' : 'time'"
         :placeholder="props.placeholder"
         :required="props.required"
         :autofocus="props.autofocus"
         :name="props.name"
-        :readonly="props.readonly"
-        @keydown.space.prevent
-        :disabled="disabled || props.loading"
-        @focus="emit('update:isFocused', true)"
-        :step="props.step"
-        @blur="emit('update:isFocused', false)"
-        :max="sanitizedMax"
-        @click="emit('update:open')"
-        :min="sanitizedMin"
-        @paste="(e) => props.type === 'range' && e.preventDefault()"
         ref="input"
-        @keydown="blockTyping"
+        :readonly="props.readonly"
         v-model="value"
+        :disabled="disabled || props.loading"
         v-custom-validity
+        :step="props.step"
+        :max="sanitizedMax"
+        :min="sanitizedMin"
+        @keydown.space.prevent
+        @focus="emit('update:isFocused', true)"
+        @blur="emit('update:isFocused', false)"
+        @click="emit('update:open')"
+        @paste="(e) => props.type === 'range' && e.preventDefault()"
+        @keydown="blockTyping"
       />
     </template>
     <template #trailingIcons>
