@@ -459,7 +459,8 @@ const blockTyping = (event: KeyboardEvent) => {
 };
 
 const clearValue = () => {
-  modelValue.value = undefined;
+  const value = props.multiple ? [] : undefined;
+  modelValue.value = value as typeof modelValue.value;
 };
 
 defineExpose({ input: inputRef });
