@@ -393,13 +393,13 @@ test("should visually hide bottom when skeleton", async ({ mount }) => {
 test("should open popover via keyboard", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
-    <TestCase label="Test label">
-      <template v-slot:popover>Popover content</template>{" "}
+    <TestCase label="Test label" popoverOptions={{ label: "Popover label" }}>
+      <template v-slot:popover>Popover content</template>
     </TestCase>,
   );
 
-  const input = component.getByRole("textbox", { name: "Test label" });
-  const popover = component.getByRole("dialog", { name: "Test label" });
+  const input = component.getByLabel("Test label");
+  const popover = component.getByRole("dialog", { name: "Popover label" });
 
   // ACT
   await input.click();

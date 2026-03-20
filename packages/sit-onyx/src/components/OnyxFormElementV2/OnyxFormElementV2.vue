@@ -156,6 +156,7 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
 @use "../../styles/mixins/density.scss";
+@use "../../styles/mixins/text.scss";
 
 .onyx-form-element-v2 {
   @include layers.component() {
@@ -339,7 +340,7 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
 
       // override OnyxSelect styles to seamlessly integrate into the slots
       .onyx-select {
-        --onyx-form-element-v2-input-width: 2ch;
+        --onyx-form-element-v2-input-width: text.ch(2);
         --onyx-form-element-v2-border-size: 0;
         --onyx-form-element-v2-background: transparent;
       }
