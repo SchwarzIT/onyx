@@ -149,8 +149,8 @@ const open = useVModel<Props, "open", boolean>({
   default: false,
 });
 
-const select = useTemplateRef("select");
-const selectElement = computed(() => select.value?.$el as HTMLElement | undefined);
+const select = useTemplateRef<{ $el?: HTMLElement }>("select");
+const selectElement = computed(() => select.value?.$el);
 const { openDirection, updateOpenDirection } = useOpenDirection(selectElement);
 
 /**
@@ -455,6 +455,10 @@ const blockTyping = (event: KeyboardEvent) => {
   event.preventDefault();
 };
 
+const clearValue = () => {
+  modelValue.value = undefined;
+};
+
 defineExpose({ input: inputRef });
 </script>
 
@@ -506,7 +510,7 @@ defineExpose({ input: inputRef });
         :label="t('input.clear')"
         :icon="iconXSmall"
         show-on-focus
-        @click="modelValue = undefined"
+        @click="clearValue"
       />
 
       <OnyxTooltip v-if="showPreviewBadge" :text="selection.value" position="bottom">
@@ -519,7 +523,7 @@ defineExpose({ input: inputRef });
               :label="t('input.clear')"
               :icon="iconXSmall"
               show-on-focus
-              @click="modelValue = undefined"
+              @click="clearValue"
             />
           </OnyxBadge>
         </template>
