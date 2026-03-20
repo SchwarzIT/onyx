@@ -92,6 +92,7 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
       hide-label
       with-search
       no-filter
+      hide-clear-icon
       @update:model-value="$event != undefined && emit('update:modelValue', $event)"
       @lazy-load="handleLoadMore"
     />
@@ -161,39 +162,9 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
     max-width: 100%;
 
     &__select {
-      min-width: 5rem;
-
-      .onyx-select-input__wrapper {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-        justify-content: space-between;
-
-        $hover-selector: "&:has(.onyx-select-input__native:enabled:read-write):hover";
-        $focus-selector: "&:has(.onyx-select-input__native:enabled:focus, .onyx-select-input__native--show-focus)";
-
-        #{$focus-selector},
-        #{$hover-selector} {
-          background-color: var(--onyx-color-base-neutral-200);
-          --border-color: unset;
-        }
-
-        // select input chevron icon color
-        .onyx-select-input__button {
-          color: var(--onyx-color-text-icons-neutral-medium);
-        }
-
-        #{$hover-selector},
-        #{$focus-selector} {
-          .onyx-select-input__button {
-            color: var(--onyx-color-text-icons-neutral-intense);
-          }
-        }
-      }
-
-      .onyx-select-input__native {
-        // support growing select based on current page character count
-        width: text.ch(var(--onyx-pagination-character-count));
-      }
+      --onyx-form-element-v2-border-radius: var(--onyx-pagination-border-radius) 0 0
+        var(--onyx-pagination-border-radius);
+      --onyx-form-element-v2-input-width: #{text.ch(var(--onyx-pagination-character-count))};
     }
 
     &__count {
