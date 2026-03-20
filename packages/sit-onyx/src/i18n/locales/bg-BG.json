@@ -291,7 +291,10 @@
       "second": "Секунда",
       "listLabel": "Опции за време",
       "from": "от",
-      "to": "до"
+      "to": "до",
+      "am": "AM",
+      "pm": "PM",
+      "timeSuffix": "Избор на AM или PM"
     },
     "errors": {
       "outsideRange": "Периодът от време трябва да е между {min} и {max}.",

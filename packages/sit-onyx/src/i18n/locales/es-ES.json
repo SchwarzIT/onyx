@@ -291,7 +291,10 @@
       "second": "Segundo",
       "listLabel": "Opciones de tiempo",
       "from": "desde",
-      "to": "hasta"
+      "to": "hasta",
+      "am": "AM",
+      "pm": "PM",
+      "timeSuffix": "Seleccionar AM o PM"
     },
     "errors": {
       "outsideRange": "El rango de tiempo debe estar entre {min} y {max}.",
