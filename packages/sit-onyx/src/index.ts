@@ -203,6 +203,7 @@ export * from "./components/OnyxItemsPerPage/types.js";
 export { default as OnyxSelectDialog } from "./components/OnyxSelectDialog/OnyxSelectDialog.vue";
 export * from "./components/OnyxSelectDialog/types.js";
 
+// TODO: deprecate or delete
 export { default as OnyxSelectInput } from "./components/OnyxSelectInput/OnyxSelectInput.vue";
 export * from "./components/OnyxSelectInput/types.js";
 
