@@ -3,6 +3,7 @@ import type { ComponentExposed, ComponentProps } from "vue-component-type-helper
 import type { CustomMessageType } from "../../composables/useFormElementError.js";
 import type OnyxCheckbox from "../OnyxCheckbox/OnyxCheckbox.vue";
 import type OnyxCheckboxGroup from "../OnyxCheckboxGroup/OnyxCheckboxGroup.vue";
+import type { FormElementV2LabelOptions } from "../OnyxFormElementV2/types.js";
 import type OnyxInput from "../OnyxInput/OnyxInput.vue";
 import type OnyxRadioButton from "../OnyxRadioButton/OnyxRadioButton.vue";
 import type OnyxRadioGroup from "../OnyxRadioGroup/OnyxRadioGroup.vue";
@@ -29,7 +30,7 @@ type AllOnyxFormElements =
 it("should be ensured that all onyx form elements support the basic input props", async () => {
   expectTypeOf<ComponentProps<AllOnyxFormElements>>().toExtend<{
     modelValue?: unknown;
-    label: string;
+    label: string | FormElementV2LabelOptions;
     error?: CustomMessageType;
   }>();
 });

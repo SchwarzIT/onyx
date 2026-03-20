@@ -1,11 +1,9 @@
 <script lang="ts" setup>
-import type { DialogAlignment } from "../OnyxBasicDialog/types.js";
+import { useForwardProps } from "../../utils/props.js";
 import OnyxModal from "./OnyxModal.vue";
+import type { OnyxModalProps } from "./types.js";
 
-const props = defineProps<{
-  /** Dialog alignment */
-  alignment?: DialogAlignment;
-}>();
+const props = defineProps<Pick<OnyxModalProps, "nonDismissible">>();
 
 defineSlots<{
   default?(): unknown;
@@ -16,12 +14,14 @@ defineSlots<{
 const emit = defineEmits<{
   "update:open": [open: boolean];
 }>();
+
+const modalProps = useForwardProps(props, OnyxModal);
 </script>
 
 <template>
   <OnyxModal
+    v-bind="modalProps"
     label="Example modal dialog"
-    :alignment="props.alignment"
     open
     @update:open="emit('update:open', $event)"
   >

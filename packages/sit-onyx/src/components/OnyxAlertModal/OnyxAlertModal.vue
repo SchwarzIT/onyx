@@ -73,6 +73,7 @@ const describedById = useId();
           </slot>
 
           <OnyxSystemButton
+            v-if="!props.nonDismissible"
             class="onyx-alert-modal__close"
             :label="t('dialog.close')"
             :icon="iconXSmall"

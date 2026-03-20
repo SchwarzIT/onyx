@@ -1,21 +1,23 @@
-import type { OnyxInputProps } from "../OnyxInput/types.js";
+import type { SharedTextInputProps } from "../../composables/useLenientMaxLengthValidation.js";
+import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
 
-export type OnyxTextareaProps = Omit<
-  OnyxInputProps,
-  "autocomplete" | "hideClearIcon" | "hideSuccessIcon" | "loading" | "pattern" | "type"
-> & {
-  /**
-   * Override the default autosize behavior (height adjusts based on the current value).
-   * By default, the textarea will autosize while maintaining at least 3 and at most 10 rows.
-   * If the user resizes the textarea manually, the autosize will no longer work and the height
-   * set by the user is used.
-   */
-  autosize?: TextareaAutosize;
-  /**
-   * If `true`, the user will not be able to manually resize the textarea by dragging the bottom right corner.
-   */
-  disableManualResize?: boolean;
-};
+export type OnyxTextareaProps = Omit<SharedFormElementProps, "loading"> &
+  Pick<
+    SharedTextInputProps,
+    "modelValue" | "autocapitalize" | "minlength" | "maxlength" | "withCounter"
+  > & {
+    /**
+     * Override the default autosize behavior (height adjusts based on the current value).
+     * By default, the textarea will autosize while maintaining at least 3 and at most 10 rows.
+     * If the user resizes the textarea manually, the autosize will no longer work and the height
+     * set by the user is used.
+     */
+    autosize?: TextareaAutosize;
+    /**
+     * If `true`, the user will not be able to manually resize the textarea by dragging the bottom right corner.
+     */
+    disableManualResize?: boolean;
+  };
 
 export type TextareaAutosize = {
   /**
