@@ -7,7 +7,7 @@ export default {};
 </script>
 
 <script lang="ts" setup generic="TSelection extends OnyxCalendarSelectionMode = 'single'">
-import { iconCalendar } from "@sit-onyx/icons";
+import { iconCalendar, iconXSmall } from "@sit-onyx/icons";
 import { computed, useTemplateRef } from "vue";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
 import { useFormElementError } from "../../composables/useFormElementError.js";
@@ -24,6 +24,7 @@ import type {
 } from "../OnyxCalendar/types.js";
 import type { DateValue } from "../OnyxDatePicker/types.js";
 import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core.js";
+import OnyxFormElementAction from "../OnyxFormElementAction/OnyxFormElementAction.vue";
 import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
 import type { FormElementV2PopoverOptions } from "../OnyxFormElementV2/types.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -130,6 +131,7 @@ const calendarProps = useForwardProps(props, OnyxCalendar);
 const input = useTemplateRef("inputRef");
 defineExpose({ input });
 useAutofocus(input, props);
+const { t } = injectI18n();
 const isDisabled = computed(() => {
   return typeof props.disabled === "boolean" && props.disabled;
 });
@@ -165,7 +167,13 @@ const popoverOptions = computed<FormElementV2PopoverOptions | undefined>(() => {
     </template>
 
     <template #trailingIcons>
-      <OnyxIcon :icon="iconCalendar" />
+      <OnyxFormElementAction
+        v-if="popoverOpen && modelValue"
+        :label="t('input.clear')"
+        :icon="iconXSmall"
+        @click.stop="modelValue = undefined"
+      />
+      <OnyxIcon v-else :icon="iconCalendar" />
     </template>
 
     <template #popover>
