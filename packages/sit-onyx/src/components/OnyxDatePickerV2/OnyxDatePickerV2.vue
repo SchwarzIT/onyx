@@ -10,6 +10,7 @@ export default {};
 import { iconCalendar } from "@sit-onyx/icons";
 import { computed, useTemplateRef } from "vue";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
+import { useFormElementError } from "../../composables/useFormElementError.js";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
@@ -46,6 +47,10 @@ const props = withDefaults(defineProps<OnyxDatePickerV2Props<TSelection>>(), {
 
 const emit = defineEmits<{
   /**
+   * Emitted when the validity state of the input changes.
+   */
+  validityChange: [validity: ValidityState];
+  /**
    * Emitted when the current value changes.
    */
   "update:modelValue": [value?: OnyxCalendarValueBySelection<TSelection>];
@@ -54,6 +59,8 @@ const emit = defineEmits<{
    */
   "update:open": [open: boolean];
 }>();
+const error = computed(() => props.error);
+const { vCustomValidity } = useFormElementError({ props, emit, error });
 
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
@@ -146,6 +153,7 @@ const popoverOptions = computed<FormElementV2PopoverOptions | undefined>(() => {
       <input
         v-bind="mergeVueProps(inputProps, restAttrs)"
         ref="inputRef"
+        v-custom-validity
         class="onyx-truncation-ellipsis"
         :value="formattedDate"
         :disabled="isDisabled || props.loading"
