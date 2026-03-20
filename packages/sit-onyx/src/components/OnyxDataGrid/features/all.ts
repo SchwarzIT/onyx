@@ -1,3 +1,4 @@
+export * from "./editing/types.js";
 export * from "./filtering/types.js";
 export * from "./hideColumns/types.js";
 export * from "./pagination/types.js";
