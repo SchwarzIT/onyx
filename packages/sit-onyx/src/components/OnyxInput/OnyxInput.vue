@@ -1,26 +1,18 @@
 <script lang="ts" setup>
-import { iconCheckSmall, iconEye, iconEyeClosed, iconXSmall } from "@sit-onyx/icons";
+import { iconEye, iconEyeClosed, iconXSmall } from "@sit-onyx/icons";
 import { computed, useTemplateRef } from "vue";
-import { useDensity } from "../../composables/density.js";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
-import { useErrorClass } from "../../composables/useErrorClass.js";
-import { getFormMessages, useFormElementError } from "../../composables/useFormElementError.js";
+import { useFormElementError } from "../../composables/useFormElementError.js";
 import { useLenientMaxLengthValidation } from "../../composables/useLenientMaxLengthValidation.js";
-import {
-  SKELETON_INJECTED_SYMBOL,
-  useSkeletonContext,
-} from "../../composables/useSkeletonState.js";
+import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
-import { useRootAttrs } from "../../utils/attrs.js";
-import { useForwardProps } from "../../utils/props.js";
+import { mergeVueProps, useRootAttrs } from "../../utils/attrs.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
-import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
-import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
-import OnyxSeparator from "../OnyxSeparator/OnyxSeparator.vue";
-import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
+import OnyxFormElementAction from "../OnyxFormElementAction/OnyxFormElementAction.vue";
+import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
+import type { OnyxFormElementV2Slots } from "../OnyxFormElementV2/types.js";
+import { useLegacyFormElementProps } from "../OnyxFormElementV2/useLegacyFormElementProps.js";
 import type { OnyxInputProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxInputProps>(), {
@@ -37,6 +29,7 @@ const props = withDefaults(defineProps<OnyxInputProps>(), {
   showError: FORM_INJECTED_SYMBOL,
   requiredMarker: FORM_INJECTED_SYMBOL,
   reserveMessageSpace: FORM_INJECTED_SYMBOL,
+  disableSlotPadding: false,
 });
 
 const emit = defineEmits<{
@@ -54,18 +47,7 @@ const emit = defineEmits<{
   "update:showPassword": [showPassword: boolean];
 }>();
 
-const slots = defineSlots<{
-  /**
-   * Inline content rendered before the actual input area.
-   * Careful when using this slot, as it will shrink the space of the input.
-   */
-  leading?(): unknown;
-  /**
-   * Inline content rendered after the actual input area.
-   * Careful when using this slot, as it will shrink the space of the input.
-   */
-  trailing?(): unknown;
-}>();
+const slots = defineSlots<Omit<OnyxFormElementV2Slots, "default" | "popover" | "bottomRight">>();
 
 /**
  * Current value of the input.
@@ -79,16 +61,12 @@ const modelValue = useVModel({
 
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
-const formElementProps = useForwardProps(props, OnyxFormElement);
-
 const { t } = injectI18n();
+
 const { maxLength, maxLengthError } = useLenientMaxLengthValidation({ modelValue, props });
 const error = computed(() => props.error ?? maxLengthError.value);
 const { vCustomValidity, errorMessages } = useFormElementError({ props, emit, error });
-const successMessages = computed(() => getFormMessages(props.success));
-const messages = computed(() => getFormMessages(props.message));
-
-const { densityClass } = useDensity(props);
+const { formElementV2Props } = useLegacyFormElementProps({ props, errorMessages });
 
 const patternSource = computed(() => {
   if (props.pattern instanceof RegExp) return props.pattern.source;
@@ -98,9 +76,7 @@ const patternSource = computed(() => {
 const input = useTemplateRef("input");
 defineExpose({ input });
 
-const { disabled, showError } = useFormContext(props);
-const skeleton = useSkeletonContext(props);
-const errorClass = useErrorClass(showError);
+const { disabled } = useFormContext(props);
 useAutofocus(input, props);
 
 const showPassword = useVModel({
@@ -111,157 +87,104 @@ const showPassword = useVModel({
 });
 
 const displayType = computed(() => {
-  if (props.type === "password" && showPassword.value) {
-    return "text";
-  }
+  if (props.type === "password" && showPassword.value) return "text";
   return props.type;
+});
+
+const counter = computed(() => {
+  if (!props.withCounter || !props.maxlength) return;
+  const length = modelValue.value.toString().length;
+  const maxLength = typeof props.maxlength === "object" ? props.maxlength.max : props.maxlength;
+  const violated = length > maxLength;
+  return { length, maxLength, violated };
+});
+
+const showClearButton = computed(() => {
+  if (props.hideClearIcon) return false;
+  return !!modelValue.value;
 });
 </script>
 
 <template>
-  <div
-    v-if="skeleton"
-    :class="['onyx-component', 'onyx-input-skeleton', densityClass]"
-    v-bind="rootAttrs"
+  <OnyxFormElementV2
+    v-bind="mergeVueProps(formElementV2Props, rootAttrs)"
+    :class="['onyx-input', { 'onyx-input--no-slot-padding': props.disableSlotPadding }]"
   >
-    <OnyxSkeleton v-if="!props.hideLabel" class="onyx-input-skeleton__label" />
-    <OnyxSkeleton class="onyx-input-skeleton__input" />
-  </div>
+    <template #default="inputProps">
+      <!-- eslint-disable-next-line vuejs-accessibility/form-control-has-label -- label is associated by "inputProps" -->
+      <input
+        v-bind="mergeVueProps(inputProps, restAttrs)"
+        ref="input"
+        v-model="modelValue"
+        v-custom-validity
+        :placeholder="props.placeholder"
+        :type="displayType"
+        :required="props.required"
+        :autocapitalize="props.autocapitalize"
+        :autocomplete="props.autocomplete"
+        :autofocus="props.autofocus"
+        :name="props.name"
+        :pattern="patternSource"
+        :readonly="props.readonly"
+        :disabled="disabled || props.loading"
+        :maxlength="maxLength"
+        :minlength="props.minlength"
+      />
+    </template>
 
-  <div
-    v-else
-    :class="['onyx-component', 'onyx-input', densityClass, errorClass]"
-    v-bind="rootAttrs"
-  >
-    <OnyxFormElement
-      v-bind="formElementProps"
-      :error-messages="errorMessages"
-      :success-messages="successMessages"
-      :message="messages"
-    >
-      <template #default="{ id: inputId }">
-        <div class="onyx-input__wrapper">
-          <slot name="leading"></slot>
-          <OnyxSeparator
-            v-if="slots.leading"
-            orientation="vertical"
-            class="onyx-input__separator onyx-input__separator--leading"
-          />
-          <OnyxLoadingIndicator v-if="props.loading" class="onyx-input__loading" type="circle" />
-          <input
-            :id="inputId"
-            ref="input"
-            v-model="modelValue"
-            v-custom-validity
-            :placeholder="props.placeholder"
-            class="onyx-input__native"
-            :type="displayType"
-            :required="props.required"
-            :autocapitalize="props.autocapitalize"
-            :autocomplete="props.autocomplete"
-            :autofocus="props.autofocus"
-            :name="props.name"
-            :pattern="patternSource"
-            :readonly="props.readonly"
-            :disabled="disabled || props.loading"
-            :maxlength="maxLength"
-            :minlength="props.minlength"
-            :aria-label="props.hideLabel ? props.label : undefined"
-            :title="props.hideLabel ? props.label : undefined"
-            v-bind="restAttrs"
-          />
-          <button
-            v-if="!props.hideClearIcon && modelValue !== ''"
-            type="button"
-            class="onyx-input__clear"
-            :aria-label="t('input.clear')"
-            :title="t('input.clear')"
-            tabindex="-1"
-            @click="() => (modelValue = '')"
-          >
-            <OnyxIcon :icon="iconXSmall" />
-          </button>
+    <template v-if="slots.leading" #leading>
+      <slot name="leading"></slot>
+    </template>
 
-          <OnyxIcon
-            v-if="!props.hideSuccessIcon && successMessages"
-            class="onyx-input__check-icon"
-            :icon="iconCheckSmall"
-            color="success"
-          />
+    <template v-if="slots.leadingIcons" #leadingIcons>
+      <slot name="leadingIcons"></slot>
+    </template>
 
-          <OnyxSeparator
-            v-if="slots.trailing || props.type === 'password'"
-            orientation="vertical"
-            class="onyx-input__separator onyx-input__separator--trailing"
-          />
-          <slot name="trailing">
-            <OnyxSystemButton
-              v-if="props.type === 'password'"
-              :icon="showPassword ? iconEyeClosed : iconEye"
-              :label="showPassword ? t('input.hidePassword') : t('input.showPassword')"
-              tabindex="-1"
-              color="soft"
-              @click="showPassword = !showPassword"
-            />
-          </slot>
-        </div>
-      </template>
-    </OnyxFormElement>
-  </div>
+    <template v-if="slots.trailingIcons || showClearButton" #trailingIcons>
+      <OnyxFormElementAction
+        v-if="showClearButton"
+        :label="t('input.clear')"
+        :icon="iconXSmall"
+        show-on-focus
+        @click="modelValue = ''"
+      />
+      <slot name="trailingIcons"></slot>
+    </template>
+
+    <template v-if="slots.trailing || props.type === 'password'" #trailing>
+      <slot name="trailing">
+        <OnyxFormElementAction
+          class="onyx-input__password"
+          :icon="showPassword ? iconEyeClosed : iconEye"
+          :label="showPassword ? t('input.hidePassword') : t('input.showPassword')"
+          size="lg"
+          @click="showPassword = !showPassword"
+        />
+      </slot>
+    </template>
+
+    <template v-if="counter" #bottomRight>
+      <span :class="['onyx-input__counter', { 'onyx-input__counter--violated': counter.violated }]">
+        {{ counter.length }}/{{ counter.maxLength }}
+      </span>
+    </template>
+  </OnyxFormElementV2>
 </template>
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
-@use "../../styles/mixins/input.scss";
-
-.onyx-input,
-.onyx-input-skeleton {
-  @include layers.component() {
-    --onyx-input-padding-vertical: var(--onyx-density-xs);
-  }
-}
-
-.onyx-input-skeleton {
-  @include layers.component() {
-    @include input.define-skeleton-styles(
-      $height: calc(1lh + 2 * var(--onyx-input-padding-vertical))
-    );
-  }
-}
 
 .onyx-input {
   @include layers.component() {
-    @include input.define-shared-styles(
-      $base-selector: ".onyx-input",
-      $vertical-padding: var(--onyx-input-padding-vertical)
-    );
-
-    ::-webkit-search-cancel-button {
-      display: none;
-    }
-
-    &__clear {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-
-      display: flex;
-      align-items: center;
-      background-color: transparent;
-      border: none;
-      cursor: pointer;
-      color: var(--onyx-color-text-icons-neutral-intense);
-
-      &:hover {
-        color: var(--onyx-color-text-icons-primary-intense);
+    &__counter {
+      &--violated {
+        color: var(--onyx-color-text-icons-danger-intense);
       }
     }
 
-    // hide clear icon when input is not focussed
-    &:not(&:has(&__wrapper:focus-within)),
-    &:has(&__native:read-only) {
-      .onyx-input__clear {
-        display: none;
+    &:not(&--no-slot-padding) {
+      .onyx-form-element-v2__slot:not(:has(.onyx-input__password)) {
+        padding-inline: var(--onyx-form-element-v2-padding-inline);
       }
     }
   }

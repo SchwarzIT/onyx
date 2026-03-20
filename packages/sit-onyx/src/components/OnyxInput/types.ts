@@ -1,7 +1,9 @@
 import type { SharedTextInputProps } from "../../composables/useLenientMaxLengthValidation.js";
 import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
+import type { OnyxFormElementV2Props } from "../OnyxFormElementV2/types.js";
 
-export type OnyxInputProps = SharedFormElementProps &
+export type OnyxInputProps = Omit<SharedFormElementProps, "label"> &
+  Pick<OnyxFormElementV2Props, "label"> &
   SharedTextInputProps & {
     /**
      * Input type.
@@ -15,6 +17,9 @@ export type OnyxInputProps = SharedFormElementProps &
     pattern?: string | RegExp;
     /**
      * Whether to hide the check icon when the input is in a success state.
+     *
+     * @deprecated This property is obsolete since the "success" state will no longer automatically show a "check" icon.
+     * The "check" icon is intended as temporary feedback after a user action (e.g. clicking a copy button). Use the `trailingIcons` slot to manually show the icon if needed.
      */
     hideSuccessIcon?: boolean;
     /**
@@ -26,6 +31,14 @@ export type OnyxInputProps = SharedFormElementProps &
      * If unset, the state will be managed internally.
      */
     showPassword?: boolean;
+    /**
+     * Whether to disable the inline padding for the leading and trailing slot.
+     * Useful when placing full-size components like OnyxSelect or OnyxFormElementAction inside.
+     * When set to `true`, use custom CSS with the `var(--onyx-form-element-v2-padding-inline)` to apply padding if needed.
+     *
+     * Will become the default in version 2.
+     */
+    disableSlotPadding?: boolean;
   };
 
 export const INPUT_TYPES = ["email", "password", "search", "tel", "text", "url"] as const;

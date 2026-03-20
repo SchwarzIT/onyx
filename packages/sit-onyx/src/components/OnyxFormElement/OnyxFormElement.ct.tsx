@@ -87,7 +87,7 @@ test.describe("withCounter", () => {
 
 test("should render info message", async ({ mount }) => {
   const message = { shortMessage: "Test short message" };
-  const component = await mount(<OnyxInput label="Test Label" message={message} />);
+  const component = await mount(<OnyxFormElement label="Test Label" message={message} />);
 
   const messageElement = component.getByText("Test short message");
 

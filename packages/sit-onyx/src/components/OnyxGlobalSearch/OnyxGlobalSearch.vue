@@ -17,7 +17,6 @@ import OnyxBasicDialog from "../OnyxBasicDialog/OnyxBasicDialog.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxInput from "../OnyxInput/OnyxInput.vue";
 import OnyxKey from "../OnyxKey/OnyxKey.vue";
-import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import { GLOBAL_SEARCH_INJECTION_KEY, type OnyxGlobalSearchProps } from "./types.js";
 
 const props = defineProps<OnyxGlobalSearchProps>();
@@ -150,15 +149,16 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
     <OnyxInput
       v-bind="headless.elements.input.value"
       v-model="searchTerm"
+      class="onyx-global-search__input"
       :label="t('globalSearch.input.label')"
       :placeholder="t('globalSearch.input.placeholder')"
       type="search"
+      :loading="props.loading"
       hide-label
       autofocus
     >
-      <template #leading>
-        <OnyxLoadingIndicator v-if="props.loading" type="circle" />
-        <OnyxIcon v-else :icon="iconSearch" />
+      <template #leadingIcons>
+        <OnyxIcon :icon="iconSearch" />
       </template>
     </OnyxInput>
 
@@ -286,20 +286,9 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
       max-width: 100%;
     }
 
-    .onyx-input {
-      --onyx-input-padding-vertical: var(--onyx-global-search-padding);
-
-      &__separator--leading {
-        display: none;
-      }
-
-      &__wrapper {
-        border-radius: var(--onyx-basic-dialog-border-radius);
-      }
-
-      &__native {
-        border-radius: var(--onyx-radius-sm);
-      }
+    &__input {
+      --onyx-form-element-v2-padding-block: var(--onyx-global-search-padding);
+      --onyx-form-element-v2-border-radius: var(--onyx-basic-dialog-border-radius);
     }
   }
 }

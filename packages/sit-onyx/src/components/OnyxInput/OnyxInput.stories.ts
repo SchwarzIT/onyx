@@ -1,5 +1,9 @@
+import { iconPlaceholder } from "@sit-onyx/icons";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
+import { h } from "vue";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
 import OnyxInput from "./OnyxInput.vue";
 
 /**
@@ -12,11 +16,15 @@ const meta: Meta<typeof OnyxInput> = {
   decorators: [
     (story) => ({
       components: { story },
-      template: `<div style="width: 16rem;"> <story /> </div>`,
+      template: `<div style="max-width: 24rem;"> <story /> </div>`,
     }),
   ],
   argTypes: {
     pattern: { type: "string" },
+    leading: { control: { disable: true } },
+    leadingIcons: { control: { disable: true } },
+    trailing: { control: { disable: true } },
+    trailingIcons: { control: { disable: true } },
     ...withNativeEventLogging(["onInput", "onChange", "onFocusin", "onFocusout"]),
   },
 };
@@ -115,7 +123,7 @@ export const Maxlength: Story = {
 export const WithMessage = {
   args: {
     ...Default.args,
-    message: { shortMessage: "Example message" },
+    message: { shortMessage: "Example message", longMessage: "More detailed tooltip message" },
   },
 } satisfies Story;
 
@@ -136,8 +144,10 @@ export const Autocomplete = {
  */
 export const HiddenLabel = {
   args: {
-    label: "Label",
-    hideLabel: true,
+    label: {
+      label: "Label",
+      hidden: true,
+    },
   },
 } satisfies Story;
 
@@ -186,8 +196,20 @@ export const Password: Story = {
  */
 export const WithLabelTooltip: Story = {
   args: {
-    label: "Label",
-    labelTooltip: "More information",
+    label: {
+      label: "Label",
+      tooltipText: "More information",
+    },
+  },
+};
+
+export const LeftLabel: Story = {
+  tags: ["new:feature"],
+  args: {
+    label: {
+      label: "Label",
+      position: "left",
+    },
   },
 };
 
@@ -205,10 +227,26 @@ export const WithMessageTooltip = {
 } satisfies Story;
 
 export const WithSlotContent = {
+  tags: ["new:feature"],
   args: {
     ...Default.args,
-    modelValue: "example",
-    leading: "https://",
-    trailing: ".com",
+    disableSlotPadding: true,
+    leading: () =>
+      h(
+        "span",
+        { style: "padding-inline: var(--onyx-form-element-v2-padding-inline)" },
+        "https://",
+      ),
+    trailing: () =>
+      h(OnyxSelect, {
+        label: "Label",
+        listLabel: "List label",
+        hideLabel: true,
+        options: [{ label: "kg", value: "kg" }],
+        modelValue: "kg",
+        alignment: "right",
+      }),
+    leadingIcons: () => [h(OnyxIcon, { icon: iconPlaceholder })],
+    trailingIcons: () => [h(OnyxIcon, { icon: iconPlaceholder })],
   },
 } satisfies Story;

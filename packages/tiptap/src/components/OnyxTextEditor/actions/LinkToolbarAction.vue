@@ -101,7 +101,7 @@ const removeLink = () => {
       <OnyxInput v-model="state.text" :label="t('editor.link.text')" required />
 
       <OnyxInput v-model="state.href" :label="t('editor.link.link')" type="url" autofocus>
-        <template #leading>
+        <template #leadingIcons>
           <OnyxIcon :icon="iconLink" />
         </template>
       </OnyxInput>

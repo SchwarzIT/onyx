@@ -225,6 +225,10 @@
     "category": "Action & Interface",
     "aliases": ["checkbox", "selected", "auswählen"]
   },
+  "box-gift": {
+    "category": "Objects",
+    "aliases": ["present", "Geschenk", "surprise"]
+  },
   "bread": {
     "category": "Kitchen & Food",
     "aliases": ["loaf", "bakery", "Brot", "Gebäck", "Bernd-das-Brot", "Toast"]
