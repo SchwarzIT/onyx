@@ -108,9 +108,7 @@ const timeSuffix = ref("am");
 watch(
   modelValue,
   (newVal) => {
-    if (props.type === "range") return;
-
-    if (!props.showAmPm || !newVal) return;
+    if (props.type === "range" || !newVal) return;
 
     const timeString = newVal as string;
     const h = parseInt(timeString.split(":")[0] || "0", 10);
@@ -202,16 +200,15 @@ const value = computed({
   },
   set: (newValue) => {
     const inputVal = String(newValue);
-
     const match = inputVal.match(/^(\d{1,2}):(\d{2})(?::(\d{2}))?/);
     if (match && match[1]) {
       let h = Number.parseInt(match[1], 10);
       const m = match[2];
       const s = match[3] || "00";
 
-      if (timeSuffix.value === "pm" && h < 12) {
+      if (props.showAmPm && timeSuffix.value === "pm" && h < 12) {
         h += 12;
-      } else if (timeSuffix.value === "am" && h === 12) {
+      } else if (props.showAmPm && timeSuffix.value === "am" && h === 12) {
         h = 0;
       }
 
