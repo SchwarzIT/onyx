@@ -175,6 +175,7 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
     --onyx-form-element-v2-outline-color: var(--onyx-color-component-focus-primary);
     --onyx-form-element-v2-error-display: none;
     --onyx-form-element-v2-message-display: flex;
+    --onyx-form-element-v2-input-width: 100%;
 
     /** Base content and skeleton height. Useful when e.g. changing the base height for textarea etc. */
     --onyx-form-element-v2-content-height: 1lh;
@@ -337,14 +338,10 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
       }
 
       // override OnyxSelect styles to seamlessly integrate into the slots
-      .onyx-select-input__wrapper {
-        border: none;
-        background-color: transparent;
-        padding-block: var(--onyx-form-element-v2-padding-block);
-        padding-inline: var(--onyx-form-element-v2-padding-inline);
-      }
-      .onyx-select-input__native {
-        width: 3ch;
+      .onyx-select {
+        --onyx-form-element-v2-input-width: 2ch;
+        --onyx-form-element-v2-border-size: 0;
+        --onyx-form-element-v2-background: transparent;
       }
     }
 
@@ -369,7 +366,10 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
       border-radius: inherit;
       background-color: transparent;
       color: inherit;
-      width: 100%;
+      width: calc(
+        var(--onyx-form-element-v2-input-width) + 2 * var(--onyx-form-element-v2-padding-inline)
+      );
+      max-width: 100%;
       height: 100%;
       outline: none;
       font-family: inherit;
