@@ -118,8 +118,14 @@ const toggleAttrs = computed(() =>
     }
 
     &--show-on-focus {
-      .onyx-form-element-v2:has(.onyx-form-element-v2__input-container:not(:focus-within)) & {
-        display: none;
+      display: none;
+
+      .onyx-form-element-v2:has(.onyx-form-element-v2__input-container:focus-within) &,
+      .onyx-form-element-v2:has(
+          .onyx-form-element-v2__popover .onyx-basic-popover__dialog:popover-open
+        )
+        & {
+        display: unset;
       }
     }
   }
