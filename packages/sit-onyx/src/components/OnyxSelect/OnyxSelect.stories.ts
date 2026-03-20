@@ -380,3 +380,14 @@ export const WithRightAlignment = {
     placeholder: "Right alignment...",
   },
 } satisfies Story;
+
+export const LeftLabel = {
+  tags: ["new:feature"],
+  args: {
+    ...Default.args,
+    label: {
+      label: Default.args.label,
+      position: "left",
+    },
+  },
+} satisfies Story;
