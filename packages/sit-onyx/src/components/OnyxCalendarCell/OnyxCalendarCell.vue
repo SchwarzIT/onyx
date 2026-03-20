@@ -205,7 +205,7 @@ const contentAttributes = computed(() => {
 
     &--range-end {
       .onyx-calendar-cell__header {
-        padding-left: 0;
+        padding-inline: 0;
       }
 
       .onyx-calendar-cell__date-container {
@@ -214,6 +214,7 @@ const contentAttributes = computed(() => {
         border-top-right-radius: var(--onyx-radius-full);
         border-bottom-right-radius: var(--onyx-radius-full);
         width: calc(var(--onyx-calendar-cell-padding) + var(--onyx-calendar-cell-date-size));
+        min-width: var(--onyx-calendar-cell-date-size);
       }
     }
 

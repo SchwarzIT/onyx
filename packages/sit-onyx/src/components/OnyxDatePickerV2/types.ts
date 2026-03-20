@@ -5,10 +5,16 @@ import type { OnyxInputProps } from "../OnyxInput/types.js";
 
 export type OnyxDatePickerV2Props<TSelection extends OnyxCalendarSelectionMode = "single"> =
   OnyxFormElementV2Props &
-    Pick<OnyxInputProps, "disabled" | "name" | "placeholder" | "readonly"> &
+    Pick<OnyxInputProps, "name" | "placeholder" | "readonly"> &
     Pick<
       OnyxCalendarProps<TSelection>,
-      "min" | "max" | "weekStartDay" | "showCalendarWeeks" | "selectionMode" | "modelValue"
+      | "min"
+      | "max"
+      | "weekStartDay"
+      | "showCalendarWeeks"
+      | "selectionMode"
+      | "modelValue"
+      | "disabled"
     > &
     AutofocusProp & {
       /**

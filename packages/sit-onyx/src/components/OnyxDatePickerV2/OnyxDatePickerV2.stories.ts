@@ -60,6 +60,12 @@ export const MinAndMaxDate = {
   },
 } satisfies Story;
 
+export const DisabledDays = {
+  args: {
+    disabled: (date: Date) => date.getDay() === 0 || date.getDay() === 6,
+  },
+};
+
 function getRelativeDate(offsetDays: number) {
   const date = new Date();
   date.setDate(date.getDate() + offsetDays);

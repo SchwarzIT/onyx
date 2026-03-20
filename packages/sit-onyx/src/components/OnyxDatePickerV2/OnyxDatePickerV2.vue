@@ -22,7 +22,7 @@ import type {
   OnyxCalendarValueBySelection,
 } from "../OnyxCalendar/types.js";
 import type { DateValue } from "../OnyxDatePicker/types.js";
-import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
+import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
 import type { FormElementV2PopoverOptions } from "../OnyxFormElementV2/types.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -34,7 +34,7 @@ const props = withDefaults(defineProps<OnyxDatePickerV2Props<TSelection>>(), {
   required: false,
   readonly: false,
   loading: false,
-  disabled: FORM_INJECTED_SYMBOL,
+  disabled: false,
   requiredMarker: FORM_INJECTED_SYMBOL,
   reserveMessageSpace: FORM_INJECTED_SYMBOL,
   showError: FORM_INJECTED_SYMBOL,
@@ -56,7 +56,6 @@ const emit = defineEmits<{
 }>();
 
 defineOptions({ inheritAttrs: false });
-const { disabled } = useFormContext(props);
 const { rootAttrs, restAttrs } = useRootAttrs();
 const { d } = injectI18n();
 
@@ -66,7 +65,10 @@ const popoverOpen = useVModel({ props, emit, key: "open", default: false });
 const handleDateSelect = (date: OnyxCalendarValueBySelection<TSelection>) => {
   modelValue.value = date as typeof modelValue.value;
 
-  if (props.selectionMode === "single") {
+  if (
+    props.selectionMode === "single" ||
+    (props.selectionMode === "range" && "end" in date && date.end)
+  ) {
     popoverOpen.value = false;
   }
 };
@@ -121,11 +123,13 @@ const calendarProps = useForwardProps(props, OnyxCalendar);
 const input = useTemplateRef("inputRef");
 defineExpose({ input });
 useAutofocus(input, props);
-
+const isDisabled = computed(() => {
+  return typeof props.disabled === "boolean" && props.disabled;
+});
 const popoverOptions = computed<FormElementV2PopoverOptions | undefined>(() => {
   const options: FormElementV2PopoverOptions = { fitParent: true };
   if (props.multiView) options.fitParent = false;
-  if (disabled.value || props.readonly) options.disabled = true;
+  if (isDisabled.value || props.readonly) options.disabled = true;
   return { ...options, ...props.popoverOptions };
 });
 </script>
@@ -144,7 +148,7 @@ const popoverOptions = computed<FormElementV2PopoverOptions | undefined>(() => {
         ref="inputRef"
         class="onyx-truncation-ellipsis"
         :value="formattedDate"
-        :disabled="disabled || props.loading"
+        :disabled="isDisabled || props.loading"
         :readonly="props.readonly"
         :placeholder="props.placeholder"
         :autofocus="props.autofocus"
@@ -164,7 +168,7 @@ const popoverOptions = computed<FormElementV2PopoverOptions | undefined>(() => {
             { 'onyx-date-picker-v2__calendar--multi-view': props.multiView },
           ]"
           v-bind="calendarProps"
-          :disabled="false"
+          :disabled="props.disabled"
           size="small"
           :selection-mode="props.selectionMode"
           @update:model-value="handleDateSelect"
@@ -173,7 +177,7 @@ const popoverOptions = computed<FormElementV2PopoverOptions | undefined>(() => {
           v-if="props.selectionMode === 'range' && props.multiView"
           class="onyx-date-picker-v2__calendar onyx-date-picker-v2__calendar--multi-view"
           v-bind="calendarProps"
-          :disabled="false"
+          :disabled="props.disabled"
           size="small"
           :selection-mode="props.selectionMode"
           @update:model-value="handleDateSelect"
