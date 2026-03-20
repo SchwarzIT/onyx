@@ -313,13 +313,16 @@ const onSelect = (selectedOption: TValue) => {
 
 const autocomplete = computed<ComboboxAutoComplete>(() => (props.withSearch ? "list" : "none"));
 
-const { label, listLabel, listDescription, multiple } = toRefs(props);
+const { listLabel, listDescription, multiple } = toRefs(props);
 
 const {
   elements: { input, option: headlessOption, group: headlessGroup, listbox },
 } = createComboBox({
   autocomplete,
-  label,
+  label: computed(() => {
+    if (typeof props.label === "string") return props.label;
+    return props.label.label;
+  }),
   listLabel,
   listDescription,
   multiple,
