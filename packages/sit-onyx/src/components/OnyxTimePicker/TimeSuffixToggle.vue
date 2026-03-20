@@ -96,7 +96,7 @@ const isChecked = computed({
       height: calc(50% - var(--track-padding));
       background-color: var(--onyx-color-base-background-blank);
       border-radius: var(--onyx-radius-sm);
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: transform var(--onyx-duration-sm) cubic-bezier(0.4, 0, 0.2, 1);
 
       &.is-checked {
         transform: translateY(100%);
