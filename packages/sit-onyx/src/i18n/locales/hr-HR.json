@@ -291,7 +291,10 @@
       "second": "Sekunda",
       "listLabel": "Opcije vremena",
       "from": "od",
-      "to": "do"
+      "to": "do",
+      "am": "AM",
+      "pm": "PM",
+      "timeSuffix": "Odaberite AM ili PM"
     },
     "errors": {
       "outsideRange": "Vremenski raspon mora biti između {min} i {max}.",
