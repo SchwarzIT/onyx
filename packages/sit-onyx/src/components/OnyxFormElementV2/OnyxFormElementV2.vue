@@ -62,7 +62,7 @@ const label = computed<FormElementV2LabelOptions>(() => {
 const inputProps = computed(() => {
   return {
     id: props.id,
-    class: "onyx-form-element-v2__input",
+    class: ["onyx-form-element-v2__input", "onyx-truncation-ellipsis"],
     required: props.required,
     disabled: props.loading,
     ...(label.value.hidden
