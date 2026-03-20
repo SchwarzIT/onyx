@@ -291,7 +291,10 @@
       "second": "Seconde",
       "listLabel": "Tijdopties",
       "from": "van",
-      "to": "tot"
+      "to": "tot",
+      "am": "AM",
+      "pm": "PM",
+      "timeSuffix": "Selecteer AM of PM"
     },
     "errors": {
       "outsideRange": "Het tijdsbereik moet tussen {min} en {max} liggen.",

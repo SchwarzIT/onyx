@@ -291,7 +291,10 @@
       "second": "초",
       "listLabel": "시간 옵션",
       "from": "시작",
-      "to": "종료"
+      "to": "종료",
+      "am": "오전",
+      "pm": "오후",
+      "timeSuffix": "오전 또는 오후 선택"
     },
     "errors": {
       "outsideRange": "시간 범위는 {min}과 {max} 사이여야 합니다.",

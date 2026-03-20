@@ -291,7 +291,10 @@
       "second": "Secondo",
       "listLabel": "Opzioni orario",
       "from": "da",
-      "to": "a"
+      "to": "a",
+      "am": "AM",
+      "pm": "PM",
+      "timeSuffix": "Seleziona AM o PM"
     },
     "errors": {
       "outsideRange": "L'intervallo di tempo deve essere compreso tra {min} e {max}.",
