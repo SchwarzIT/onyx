@@ -374,7 +374,7 @@ test.describe("Invalidity handling screenshots", () => {
         const input = component.getByLabel("Test label");
 
         // invalid is only triggered after open/closing the flyout
-        await input.click();
+        await input.click({ clickCount: 2 });
         await page.getByRole("document").click(); // reset mouse
 
         await component.evaluate((element) => {
