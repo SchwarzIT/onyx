@@ -137,6 +137,7 @@ test.describe("Screenshot tests (popover)", () => {
         style={{ marginBottom: "2rem" }}
         message={column === "message" ? "Example message" : undefined}
         open={row === "open" ? true : undefined}
+        popoverOptions={{ label: "Popover label", fitParent: true }}
       >
         <template v-slot:popover>Popover content</template>
 
@@ -181,12 +182,12 @@ test.describe("Screenshot tests (popover)", () => {
     ),
     hooks: {
       beforeEach: async (component, page, column, row) => {
-        const input = component.getByRole("textbox", { name: "Test label" });
+        const input = component.getByLabel("Test label");
         if (row === "hover") await input.hover();
         if (row === "focus") await input.click();
 
         if (row === "focus") {
-          await expect(component.getByRole("dialog", { name: "Test label" })).toBeVisible();
+          await expect(component.getByRole("dialog", { name: "Popover label" })).toBeVisible();
         }
       },
     },

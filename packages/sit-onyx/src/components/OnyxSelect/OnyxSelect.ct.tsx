@@ -536,7 +536,7 @@ test("should interact with multiselect and search", async ({ mount }) => {
     },
   });
 
-  const mainInput = component.getByRole("textbox", { name: "Test select" });
+  const mainInput = component.getByRole("combobox", { name: "Test select" });
   const miniSearchInput = component.getByRole("combobox", { name: "Filter the list items" });
 
   await mainInput.click();
@@ -772,7 +772,7 @@ test("should handle onUpdate:searchTerm correctly when searching", async ({ moun
     },
   });
 
-  await component.getByRole("textbox", { name: "Test label" }).click();
+  await component.getByRole("combobox", { name: "Test label" }).click();
   const searchInput = component.getByLabel("Filter the list items");
 
   // ACT
@@ -926,7 +926,7 @@ test("should manage filtering internally except when filteredOptions are given",
   });
 
   // ACT
-  await component.getByRole("textbox", { name: "Test select" }).click();
+  await component.getByRole("combobox", { name: "Test select" }).click();
   await page.getByRole("option").first().waitFor();
   // ASSERT
   await expect(page.getByRole("option"), "should initially show all options").toHaveCount(
@@ -981,7 +981,7 @@ test("should render a separate group for selected options", async ({ mount, page
   });
 
   // ACT
-  await component.getByRole("textbox", { name: "Test select" }).click();
+  await component.getByRole("combobox", { name: "Test select" }).click();
   await page.getByRole("option").first().waitFor();
   // ASSERT
   await expect(page.getByText("Selected")).toBeVisible();
@@ -1010,8 +1010,19 @@ test("should not render a separate group for selected options (keepSelectionOrde
   });
 
   // ACT
-  await component.getByRole("textbox", { name: "Test select" }).click();
+  await component.getByRole("combobox", { name: "Test select" }).click();
   await page.getByRole("option").first().waitFor();
   // ASSERT
   await expect(page.getByText("Selected")).toBeHidden();
+});
+
+test("should be focused when autofocus is set", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxSelect label="Test label" listLabel="List label" options={[]} autofocus />,
+  );
+  const input = component.getByLabel("Test label");
+
+  // ACT
+  await expect(input).toBeFocused();
 });
