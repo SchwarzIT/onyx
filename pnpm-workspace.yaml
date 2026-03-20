@@ -30,5 +30,4 @@ allowBuilds:
   "@parcel/watcher": true # Downloads binary
   "better-sqlite3": true # Downloads binary
   "esbuild": true # Downloads binary
-  "sharp": true # Downloads binary
   "simple-git-hooks": true # Setup and update git hooks
