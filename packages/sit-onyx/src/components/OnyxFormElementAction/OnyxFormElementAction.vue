@@ -53,17 +53,23 @@ const toggleAttrs = computed(() =>
 </script>
 
 <template>
-  <OnyxTooltip v-bind="rootAttrs" alignment="center" :text="props.label" :density="props.density">
+  <OnyxTooltip
+    v-bind="rootAttrs"
+    alignment="center"
+    :text="props.label"
+    :density="props.density"
+    :class="[
+      'onyx-form-element-action',
+      {
+        'onyx-form-element-action--lg': props.size === 'lg',
+        'onyx-form-element-action--show-on-focus': props.showOnFocus,
+      },
+    ]"
+  >
     <template #default="{ trigger }">
       <button
         v-bind="mergeVueProps(restAttrs, toggleAttrs, trigger)"
-        :class="[
-          'onyx-form-element-action',
-          {
-            'onyx-form-element-action--lg': props.size === 'lg',
-            'onyx-form-element-action--show-on-focus': props.showOnFocus,
-          },
-        ]"
+        class="onyx-form-element-action__button"
         type="button"
         tabindex="-1"
         :aria-label="props.label"
@@ -82,28 +88,33 @@ const toggleAttrs = computed(() =>
   @include layers.component() {
     --onyx-form-element-action-color: var(--onyx-color-text-icons-neutral-medium);
     --onyx-form-element-action-color-hover: var(--onyx-color-text-icons-primary-intense);
-    all: initial;
-    color: var(--onyx-form-element-action-color);
 
-    &[aria-pressed="true"] {
-      --onyx-form-element-action-color: var(--onyx-color-text-icons-neutral-intense);
-    }
+    &__button {
+      all: initial;
+      color: var(--onyx-form-element-action-color);
 
-    &:enabled {
-      cursor: pointer;
+      &[aria-pressed="true"] {
+        --onyx-form-element-action-color: var(--onyx-color-text-icons-neutral-intense);
+      }
 
-      &:hover,
-      &:focus-visible {
-        color: var(--onyx-form-element-action-color-hover);
+      &:enabled {
+        cursor: pointer;
+
+        &:hover,
+        &:focus-visible {
+          color: var(--onyx-form-element-action-color-hover);
+        }
+      }
+
+      &:disabled {
+        color: var(--onyx-color-text-icons-neutral-soft);
       }
     }
 
-    &:disabled {
-      color: var(--onyx-color-text-icons-neutral-soft);
-    }
-
     &--lg {
-      padding: var(--onyx-density-xs) var(--onyx-density-sm);
+      .onyx-form-element-action__button {
+        padding: var(--onyx-density-xs) var(--onyx-density-sm);
+      }
     }
 
     &--show-on-focus {

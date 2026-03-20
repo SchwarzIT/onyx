@@ -6,6 +6,7 @@ import type {
   SelectOptionValue,
 } from "../../types/index.js";
 import type { FormInjected } from "../OnyxForm/OnyxForm.core.js";
+import type { OnyxInputProps } from "../OnyxInput/types.js";
 import type { OnyxSelectInputProps } from "../OnyxSelectInput/types.js";
 import type { OnyxSelectOptionProps } from "../OnyxSelectOption/types.js";
 
@@ -16,7 +17,8 @@ export type OnyxSelectProps<
 > = DensityProp &
   Omit<OnyxSelectInputProps, "density" | "modelValue" | "showFocus" | "disabled"> &
   AutofocusProp &
-  Pick<BaseSelectOption, "truncation"> & {
+  Pick<BaseSelectOption, "truncation"> &
+  Pick<OnyxInputProps, "hideClearIcon"> & {
     /**
      * Disables the implicit options filtering when the user changes the search term.
      */

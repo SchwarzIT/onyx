@@ -106,8 +106,8 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
         </div>
 
         <MaybePopoverLayout v-bind="popoverLayoutProps" v-model:open="open">
-          <template #default="{ trigger, input: popoverInputProps }">
-            <div v-bind="trigger" class="onyx-form-element-v2__input-container">
+          <template #default="{ input: popoverInputProps }">
+            <div class="onyx-form-element-v2__input-container">
               <div
                 v-if="slots.leadingIcons || props.loading"
                 class="onyx-form-element-v2__icons onyx-form-element-v2__icons--leading"
