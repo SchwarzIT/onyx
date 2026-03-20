@@ -1,5 +1,6 @@
 import type { DensityProp } from "../../composables/density.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
+import type { Nullable } from "../../types/utils.js";
 import type { OnyxBasicPopoverProps } from "../OnyxBasicPopover/types.js";
 import type { FormInjectedProps } from "../OnyxForm/OnyxForm.core.js";
 
@@ -43,7 +44,7 @@ export type OnyxFormElementV2Props = DensityProp &
     /**
      * Whether the popover is currently open.
      */
-    open?: boolean;
+    open?: Nullable<boolean>;
     /**
      * Additional popover options.
      */
