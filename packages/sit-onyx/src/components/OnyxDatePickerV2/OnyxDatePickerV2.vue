@@ -171,7 +171,7 @@ const popoverOptions = computed<FormElementV2PopoverOptions | undefined>(() => {
         v-if="popoverOpen && modelValue"
         :label="t('input.clear')"
         :icon="iconXSmall"
-        @click.stop="modelValue = undefined"
+        @click.stop="modelValue = null as unknown as typeof modelValue"
       />
       <OnyxIcon v-else :icon="iconCalendar" />
     </template>
