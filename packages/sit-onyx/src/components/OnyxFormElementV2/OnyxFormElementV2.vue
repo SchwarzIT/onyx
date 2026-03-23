@@ -297,9 +297,16 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
       }
     }
 
-    &:has(.onyx-form-element-v2__input:enabled:focus),
-    &:has(.onyx-form-element-v2__popover .onyx-basic-popover__dialog:popover-open) {
-      .onyx-form-element-v2__input-container {
+    // the nested selectors here are needed so the styles are NOT applied if the OnyxFormElementV2 contains other form elements in its leading/trailing
+    // slot such as OnyxSelect
+    $contentSelector: "> .onyx-form-element-v2__body > .onyx-form-element-v2__content";
+    $inputContainerSelector: "#{$contentSelector} > .onyx-form-element-v2__input-container";
+    $popoverSelector: "#{$contentSelector} > .onyx-form-element-v2__popover";
+
+    &:has(#{$inputContainerSelector} .onyx-form-element-v2__input:enabled:focus),
+    &:has(#{$popoverSelector} .onyx-basic-popover__dialog:popover-open) {
+      #{$inputContainerSelector},
+      #{$popoverSelector} > .onyx-form-element-v2__input-container {
         border-color: var(--onyx-form-element-v2-border-color-focus);
         outline: var(--onyx-outline-width) solid var(--onyx-form-element-v2-outline-color);
       }
@@ -340,22 +347,22 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
 
       // override OnyxSelect styles to seamlessly integrate into the slots
       .onyx-select {
-        --onyx-form-element-v2-input-width: text.ch(2);
+        --onyx-form-element-v2-input-width: #{text.ch(3)};
         --onyx-form-element-v2-border-size: 0;
         --onyx-form-element-v2-background: transparent;
       }
     }
 
-    &:not(:has(&__input:focus)) {
-      &:has(.onyx-form-element-v2__slot--leading) {
-        .onyx-form-element-v2__input-container {
+    &:not(:has(#{$inputContainerSelector} &__input:focus)) {
+      &:has(#{$contentSelector} > .onyx-form-element-v2__slot--leading) {
+        #{$inputContainerSelector} {
           border-top-left-radius: 0;
           border-bottom-left-radius: 0;
         }
       }
 
-      &:has(.onyx-form-element-v2__slot--trailing) {
-        .onyx-form-element-v2__input-container {
+      &:has(#{$contentSelector} > .onyx-form-element-v2__slot--trailing) {
+        #{$inputContainerSelector} {
           border-top-right-radius: 0;
           border-bottom-right-radius: 0;
         }
@@ -404,14 +411,14 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
       }
     }
 
-    &:has(&__icons--leading) {
-      .onyx-form-element-v2__input {
+    &:has(#{$inputContainerSelector} &__icons--leading) {
+      #{$inputContainerSelector} .onyx-form-element-v2__input {
         padding-left: var(--onyx-form-element-v2-padding-inline-icons);
       }
     }
 
-    &:has(&__icons--trailing) {
-      .onyx-form-element-v2__input {
+    &:has(#{$inputContainerSelector} &__icons--trailing) {
+      #{$inputContainerSelector} .onyx-form-element-v2__input {
         padding-right: var(--onyx-form-element-v2-padding-inline-icons);
       }
     }

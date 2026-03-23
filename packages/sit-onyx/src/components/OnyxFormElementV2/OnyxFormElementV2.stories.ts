@@ -56,6 +56,7 @@ export const Slots = {
         options: [{ label: "+49", value: "+49" }],
         modelValue: "+49",
         alignment: "left",
+        hideClearIcon: true,
       }),
     trailing: () =>
       h(OnyxSelect, {
@@ -65,6 +66,7 @@ export const Slots = {
         options: [{ label: "kg", value: "kg" }],
         modelValue: "kg",
         alignment: "right",
+        hideClearIcon: true,
       }),
   },
 } satisfies Story;
