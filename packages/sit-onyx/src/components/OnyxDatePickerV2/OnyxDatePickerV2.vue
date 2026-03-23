@@ -43,6 +43,7 @@ const props = withDefaults(defineProps<OnyxDatePickerV2Props<TSelection>>(), {
   skeleton: SKELETON_INJECTED_SYMBOL,
   showCalendarWeeks: false,
   weekStartDay: "Monday",
+  disabledDays: () => false,
   selectionMode: () => "single" as TSelection,
 });
 

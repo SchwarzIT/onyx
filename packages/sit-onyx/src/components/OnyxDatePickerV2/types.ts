@@ -24,5 +24,5 @@ export type OnyxDatePickerV2Props<TSelection extends OnyxCalendarSelectionMode =
        * { disabled: (date: Date) => date.getDay() === 0 || date.getDay() === 6 }
        * ```
        */
-      disabledDays: (date: Date) => boolean;
+      disabledDays?: (date: Date) => boolean;
     };
