@@ -72,10 +72,10 @@ const bind = computed(() => ({
     .onyx-table :is(td, th):has(&) {
       padding-block: 0;
     }
-  }
 
-  .onyx-slider {
-    padding: var(--onyx-density-xs) var(--onyx-density-sm);
+    .onyx-slider {
+      padding: var(--onyx-density-xs) var(--onyx-density-sm);
+    }
   }
 }
 </style>
