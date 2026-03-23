@@ -119,7 +119,13 @@ const toggleAttrs = computed(() =>
       }
     }
 
-    $focus-selector: ".onyx-form-element-v2:has(.onyx-form-element-v2__input-container:focus-within) &, .onyx-form-element-v2:has(.onyx-form-element-v2__popover .onyx-basic-popover__dialog:popover-open) &";
+    // the nested selectors here are needed so the styles are NOT applied if the OnyxFormElementV2 contains other form elements in its leading/trailing
+    // slot such as OnyxSelect
+    $contentSelector: "> .onyx-form-element-v2__body > .onyx-form-element-v2__content";
+    $inputContainerSelector: "#{$contentSelector} > .onyx-form-element-v2__input-container";
+    $popoverSelector: "#{$contentSelector} > .onyx-form-element-v2__popover";
+
+    $focus-selector: ".onyx-form-element-v2:has(#{$inputContainerSelector}:focus-within) #{$popoverSelector} &, .onyx-form-element-v2:has(#{$popoverSelector} .onyx-basic-popover__dialog:popover-open) #{$popoverSelector} &";
 
     &--show-on-focus {
       display: none;
