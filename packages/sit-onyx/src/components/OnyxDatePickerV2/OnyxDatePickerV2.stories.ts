@@ -62,7 +62,7 @@ export const MinAndMaxDate = {
 
 export const DisabledDays = {
   args: {
-    disabled: (date: Date) => date.getDay() === 0 || date.getDay() === 6,
+    disabledDays: (date: Date) => date.getDay() === 0 || date.getDay() === 6,
   },
 };
 

@@ -1,7 +1,7 @@
 import { DENSITIES } from "../../composables/density.js";
-import { test } from "../../playwright/a11y.js";
+import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.jsx";
-import OnyxDatePicker from "./OnyxDatePickerV2.vue";
+import OnyxDatePickerV2 from "./OnyxDatePickerV2.vue";
 
 const MOCK_NOW = new Date(2024, 9, 3);
 
@@ -28,7 +28,7 @@ test.describe("Screenshot tests", () => {
       rows: ["default", "open"],
       component: (column, row) => {
         return (
-          <OnyxDatePicker
+          <OnyxDatePickerV2
             label="Test label"
             density={column}
             modelValue={type === "range" ? rangeDate : type === "multiple" ? multipleDates : date}
@@ -46,27 +46,117 @@ test.describe("Screenshot tests", () => {
   }
 });
 
-test.describe("Screenshot tests (multiView)", () => {
-  executeMatrixScreenshotTest({
-    name: "DatePicker (multiView)",
-    columns: DENSITIES,
-    rows: ["default"],
-    component: (column) => {
-      return (
-        <OnyxDatePicker
-          label="Test label"
-          density={column}
-          modelValue={rangeDate}
-          style={{
-            width: "18rem",
-            marginBottom: "24rem",
-            marginRight: "20rem",
-          }}
-          selectionMode="range"
-          open={true}
-          multiView
-        />
-      );
-    },
+test.describe("OnyxDatePickerV2 Interactions", () => {
+  test("should select single date", async ({ mount }) => {
+    // ARRANGE
+    let emittedValue;
+    const component = await mount(
+      <OnyxDatePickerV2
+        label="Test label"
+        selectionMode="single"
+        open={true}
+        onUpdate:modelValue={(val) => (emittedValue = val)}
+        style={{
+          width: "18rem",
+        }}
+      />,
+    );
+
+    // ACT
+    const targetDay = component.getByRole("button", { name: "Tuesday, October 15," });
+    await targetDay.click();
+
+    // ASSERT
+    expect(emittedValue).toEqual(new Date(2024, 9, 15));
+  });
+
+  test("should select multiple dates", async ({ mount }) => {
+    // ARRANGE
+    let emittedValue;
+    const component = await mount(
+      <OnyxDatePickerV2
+        label="Test label"
+        selectionMode="multiple"
+        open={true}
+        onUpdate:modelValue={(val) => (emittedValue = val)}
+        style={{
+          width: "18rem",
+        }}
+      />,
+    );
+
+    // ACT
+    const targetDay = component.getByRole("button", { name: "Tuesday, October 15," });
+    const targetDay2 = component.getByRole("button", { name: "Wednesday, October 16," });
+
+    await targetDay.click();
+    await targetDay2.click();
+
+    expect(emittedValue).toEqual([new Date(2024, 9, 15), new Date(2024, 9, 16)]);
+  });
+
+  test("should select date range", async ({ mount }) => {
+    // ARRANGE
+    let emittedValue;
+    const component = await mount(
+      <OnyxDatePickerV2
+        label="Test label"
+        selectionMode="range"
+        open={true}
+        onUpdate:modelValue={(val) => (emittedValue = val)}
+        style={{
+          width: "18rem",
+        }}
+      />,
+    );
+
+    const startDate = component.getByRole("button", { name: "Saturday, October 5," });
+    await startDate.click();
+
+    expect(emittedValue).toEqual({ start: new Date(2024, 9, 5), end: undefined });
+
+    const endDate = component.getByRole("button", { name: "Tuesday, October 15," });
+    await endDate.click();
+
+    // ASSERT
+    expect(emittedValue).toEqual({
+      start: new Date(2024, 9, 5),
+      end: new Date(2024, 9, 15),
+    });
+  });
+
+  test("should not allow selection of disabled days", async ({ mount }) => {
+    // ARRANGE
+
+    let emittedValue = null;
+    const component = await mount(
+      <OnyxDatePickerV2
+        label="Test label"
+        selectionMode="single"
+        open={true}
+        disabledDays={(date) => date.getDay() === 0 || date.getDay() === 6}
+        onUpdate:modelValue={(val) => (emittedValue = val)}
+        style={{
+          width: "18rem",
+        }}
+      />,
+    );
+
+    // ACT
+    const disabledDay = component.getByRole("button", { name: "Saturday, October 5," });
+
+    await expect(disabledDay).toBeDisabled();
+
+    await disabledDay.click();
+
+    // ASSERT
+    expect(emittedValue).toBeNull();
+
+    const validDay = component.getByRole("button", { name: "Tuesday, October 15," });
+    await expect(validDay).toBeEnabled();
+    await validDay.click();
+
+    // ASSERT
+    expect(emittedValue).toEqual(new Date(2024, 9, 15));
   });
 });
