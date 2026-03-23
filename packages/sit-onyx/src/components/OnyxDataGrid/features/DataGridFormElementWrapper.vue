@@ -72,8 +72,10 @@ const bind = computed(() => ({
     .onyx-table :is(td, th):has(&) {
       padding-block: 0;
     }
+  }
 
-    .onyx-slider {
+  .onyx-data-grid-form-wrapper {
+    &.onyx-slider {
       padding: var(--onyx-density-xs) var(--onyx-density-sm);
     }
   }
