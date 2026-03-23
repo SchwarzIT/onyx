@@ -84,6 +84,7 @@ const toggleAttrs = computed(() =>
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
+@use "../OnyxFormElementV2/OnyxFormElementV2.scss";
 
 .onyx-form-element-action {
   @include layers.component() {
@@ -129,33 +130,25 @@ const toggleAttrs = computed(() =>
 
 .onyx-form-element-v2 {
   @include layers.component() {
-    // the nested selectors here are needed so the styles are NOT applied if the OnyxFormElementV2 contains other form elements in its leading/trailing
-    // slot such as OnyxSelect
-    $contentSelector: "> .onyx-form-element-v2__body > .onyx-form-element-v2__content";
-    $inputContainerSelector: "#{$contentSelector} > .onyx-form-element-v2__input-container";
-    $popoverSelector: "#{$contentSelector} > .onyx-form-element-v2__popover";
+    @include OnyxFormElementV2.input-focus-or-popover-open() {
+      .onyx-form-element-action {
+        &--show-on-focus {
+          display: var(--onyx-form-element-action-display);
+        }
 
-    // TODO: check with UX if clear icon should also be shown on hover
-    // has input focus
-    &:has(#{$inputContainerSelector}:focus-within),
-    // has input hover
-    // TODO: only apply when input is enabled
-    &:has(#{$inputContainerSelector}:hover),
-    // has popover input
-    &:has(#{$popoverSelector}:hover),
-    // has open popover
-    &:has(#{$popoverSelector} .onyx-basic-popover__dialog:popover-open) {
-      #{$popoverSelector},
-      #{$inputContainerSelector} {
-        .onyx-form-element-action {
-          &--show-on-focus {
-            display: var(--onyx-form-element-action-display);
+        &--highlight-on-focus {
+          .onyx-form-element-action__button {
+            color: var(--onyx-form-element-action-color-highlight);
           }
+        }
+      }
+    }
 
-          &--highlight-on-focus {
-            .onyx-form-element-action__button {
-              color: var(--onyx-form-element-action-color-highlight);
-            }
+    @include OnyxFormElementV2.input-container-hover() {
+      .onyx-form-element-action {
+        &--highlight-on-focus {
+          .onyx-form-element-action__button {
+            color: var(--onyx-form-element-action-color-highlight);
           }
         }
       }
