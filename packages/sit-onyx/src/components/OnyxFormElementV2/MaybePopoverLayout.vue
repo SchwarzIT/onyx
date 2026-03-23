@@ -106,14 +106,16 @@ const inputProps = computed(() => {
       height: 100%;
     }
 
-    &:has(&__popover) {
-      .onyx-form-element-v2__input-container {
-        .onyx-form-element-v2__input {
-          caret-color: transparent;
+    // the nested selectors here are needed so the styles are NOT applied if the OnyxFormElementV2 contains other form elements in its leading/trailing
+    // slot such as OnyxSelect
+    $selector: "> .onyx-form-element-v2__body > .onyx-form-element-v2__content > .onyx-form-element-v2__popover";
 
-          &:read-write {
-            cursor: pointer;
-          }
+    &:has(#{$selector}) {
+      #{$selector} > .onyx-form-element-v2__input-container .onyx-form-element-v2__input {
+        caret-color: transparent;
+
+        &:read-write {
+          cursor: pointer;
         }
       }
     }
