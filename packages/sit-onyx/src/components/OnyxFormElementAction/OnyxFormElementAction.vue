@@ -119,25 +119,40 @@ const toggleAttrs = computed(() =>
       }
     }
 
+    &--show-on-focus {
+      display: none;
+    }
+  }
+}
+
+.onyx-form-element-v2 {
+  @include layers.component() {
     // the nested selectors here are needed so the styles are NOT applied if the OnyxFormElementV2 contains other form elements in its leading/trailing
     // slot such as OnyxSelect
     $contentSelector: "> .onyx-form-element-v2__body > .onyx-form-element-v2__content";
     $inputContainerSelector: "#{$contentSelector} > .onyx-form-element-v2__input-container";
     $popoverSelector: "#{$contentSelector} > .onyx-form-element-v2__popover";
 
-    $focus-selector: ".onyx-form-element-v2:has(#{$inputContainerSelector}:focus-within) #{$popoverSelector} &, .onyx-form-element-v2:has(#{$popoverSelector} .onyx-basic-popover__dialog:popover-open) #{$popoverSelector} &";
+    // TODO: check with UX if clear icon should also be shown on hover
+    // has input focus
+    &:has(#{$inputContainerSelector}:focus-within),
+    // has input hover
+    &:has(#{$inputContainerSelector}:hover),
+    // has popover input
+    &:has(#{$popoverSelector}:hover),
+    // has open popover
+    &:has(#{$popoverSelector} .onyx-basic-popover__dialog:popover-open) {
+      #{$popoverSelector},
+      #{$inputContainerSelector} {
+        .onyx-form-element-action {
+          &--show-on-focus {
+            display: inline-flex;
+          }
 
-    &--show-on-focus {
-      display: none;
-
-      #{$focus-selector} {
-        display: inline-flex;
-      }
-    }
-
-    &--highlight-on-focus {
-      #{$focus-selector} {
-        --onyx-form-element-action-color: var(--onyx-form-element-action-color-hover);
+          &--highlight-on-focus {
+            --onyx-form-element-action-color: var(--onyx-form-element-action-color-hover);
+          }
+        }
       }
     }
   }
