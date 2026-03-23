@@ -222,13 +222,13 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
       --onyx-form-element-v2-selection-background: var(--onyx-color-base-success-200);
       --onyx-form-element-v2-caret-color: var(--onyx-color-base-neutral-900);
     }
+  }
 
-    // the skeleton gap would be 0 in compact density so we shrink the label size a bit and increase the gap so it does not look off
-    @include density.compact {
-      &:has(.onyx-form-element-v2__content-skeleton) {
-        --onyx-form-element-v2-gap: var(--onyx-spacing-5xs);
-        --onyx-form-element-v2-label-skeleton-height: calc(1lh - var(--onyx-form-element-v2-gap));
-      }
+  // the skeleton gap would be 0 in compact density so we shrink the label size a bit and increase the gap so it does not look off
+  @include density.compact {
+    &:has(.onyx-form-element-v2__content-skeleton) {
+      --onyx-form-element-v2-gap: var(--onyx-spacing-5xs);
+      --onyx-form-element-v2-label-skeleton-height: calc(1lh - var(--onyx-form-element-v2-gap));
     }
   }
 }
