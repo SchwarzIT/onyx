@@ -5,6 +5,10 @@ export type SliderMark = {
   label?: string;
 };
 
+export type NormalizedSliderMark = SliderMark & {
+  percentage: number;
+};
+
 export const SLIDER_MODES = ["single", "range"] as const;
 export type SliderMode = (typeof SLIDER_MODES)[number];
 

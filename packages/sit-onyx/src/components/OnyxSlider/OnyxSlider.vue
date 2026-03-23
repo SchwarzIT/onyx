@@ -1,5 +1,5 @@
 <script setup lang="ts" generic="TSliderMode extends SliderMode">
-import { createSlider, type SliderMark } from "@sit-onyx/headless";
+import { createSlider } from "@sit-onyx/headless";
 import { iconMinusSmall, iconPlusSmall } from "@sit-onyx/icons";
 import { computed, ref, toRef, toRefs, type HTMLAttributes } from "vue";
 import { useDensity } from "../../composables/density.js";
@@ -22,7 +22,13 @@ import OnyxStepper from "../OnyxStepper/OnyxStepper.vue";
 import type { OnyxStepperProps } from "../OnyxStepper/types.js";
 import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
-import type { OnyxSliderProps, SliderMode, SliderValue } from "./types.js";
+import type {
+  NormalizedSliderMark,
+  OnyxSliderProps,
+  SliderMark,
+  SliderMode,
+  SliderValue,
+} from "./types.js";
 
 type Props = OnyxSliderProps<TSliderMode>;
 
@@ -78,22 +84,50 @@ const skeleton = useSkeletonContext(props);
 const { min, max, step, label } = toRefs(props);
 
 const {
-  elements: { root, track, thumbContainer, thumbInput, mark, markLabel },
-  state: { normalizedValue, marks },
-  internals: { updateValue, updateValueByStep },
+  elements: { root, thumbInput },
+  state: { normalizedValue, track },
+  internals: { updateValue, updateValueByStep, getValueInPercentage },
 } = createSlider({
   value: modelValue,
   min,
   max,
   step,
   label,
-  marks: toRef(props, "marks"),
   disabled,
   shiftStep: toRef(props, "shiftStep"),
   onChange: (newValue) => {
     modelValue.value = newValue;
     wasTouched.value = true;
   },
+});
+
+const marks = computed<NormalizedSliderMark[]>(() => {
+  const _marks = props.marks;
+  if (!_marks) return [];
+
+  let normalizedMarks: SliderMark[] = [];
+  if (_marks === true) {
+    // auto-generate marks based on step
+    const markCount = Math.floor((max.value - min.value) / step.value) + 1;
+    normalizedMarks = Array.from({ length: markCount }, (_, index) => ({
+      value: min.value + step.value * index,
+    }));
+  } else {
+    // normalize user provided marks
+    normalizedMarks = _marks
+      .map((mark) => {
+        if (typeof mark === "number") return { value: mark };
+        return mark;
+      })
+      .sort((a, b) => a.value - b.value);
+  }
+
+  return normalizedMarks.map((mark) => {
+    return {
+      ...mark,
+      percentage: getValueInPercentage.value(mark.value),
+    };
+  });
 });
 
 const hasMarkLabels = computed(() => marks.value.some((mark) => !!mark.label));
@@ -170,24 +204,20 @@ const sharedStepperProps = computed(() => {
           <!-- main slider -->
           <span class="onyx-slider__root" v-bind="root">
             <span class="onyx-slider__rail"></span>
-            <span class="onyx-slider__track" v-bind="track"></span>
 
             <template v-for="markItem in marks" :key="markItem.value">
               <span
                 class="onyx-slider__mark"
-                v-bind="
-                  mark({
-                    value: markItem.value,
-                    label: markItem.label,
-                    padding: '0.1rem',
-                    markWidth: '0.375rem',
-                  })
-                "
+                :style="{
+                  left: `${getValueInPercentage(markItem.value)}%`,
+                }"
               ></span>
               <span
                 v-if="markItem.label || slots.mark"
                 class="onyx-slider__mark-label"
-                v-bind="markLabel({ value: markItem.value })"
+                :style="{
+                  left: `${getValueInPercentage(markItem.value)}%`,
+                }"
               >
                 <slot name="mark" v-bind="markItem">
                   {{ markItem.label }}
@@ -198,7 +228,7 @@ const sharedStepperProps = computed(() => {
             <OnyxTooltip
               v-for="(value, index) in normalizedValue"
               :key="index"
-              v-bind="thumbContainer({ value, index })"
+              :style="{ left: `${getValueInPercentage(value)}%` }"
               class="onyx-slider__thumb"
               :open="props.tooltip?.hidden ? false : undefined"
               :text="props.tooltip?.formatter?.(value, index) ?? String(value)"
@@ -278,6 +308,8 @@ const sharedStepperProps = computed(() => {
     // Disabled state colors
     --onyx-slider-background-disabled: var(--onyx-color-base-neutral-300);
     --onyx-slider-mark-color-disabled: var(--onyx-color-text-icons-neutral-soft);
+
+    --onyx-slider-offset: calc(0.375rem + 2 * var(--onyx-1px-in-rem));
   }
 }
 
@@ -309,6 +341,7 @@ const sharedStepperProps = computed(() => {
       height: 0.5rem;
       padding: var(--onyx-slider-root-padding) 0;
       user-select: none;
+      margin-inline: calc(0.5 * var(--onyx-slider-offset));
       border-radius: var(--onyx-radius-sm);
     }
 
@@ -328,16 +361,28 @@ const sharedStepperProps = computed(() => {
     &__rail {
       width: 100%;
       height: inherit;
-      background-color: var(--onyx-slider-rail-background);
-      border-radius: inherit;
-    }
 
-    &__track {
-      position: absolute;
-      height: inherit;
-      background-color: var(--onyx-slider-track-background);
-      border-radius: inherit;
-      z-index: $track-z-index;
+      &::before,
+      &::after {
+        position: absolute;
+        display: block;
+        height: inherit;
+        content: "";
+        border-radius: var(--onyx-radius-sm);
+        margin-left: calc(-0.5 * var(--onyx-slider-offset));
+      }
+
+      &::before {
+        width: calc(100% + var(--onyx-slider-offset));
+        background-color: var(--onyx-slider-rail-background);
+      }
+
+      &::after {
+        left: v-bind("`${track.startPercentage}%`");
+        right: v-bind("`${100 - track.endPercentage}%`");
+        background-color: var(--onyx-slider-track-background);
+        z-index: $track-z-index;
+      }
     }
 
     &__native {
@@ -377,6 +422,7 @@ const sharedStepperProps = computed(() => {
       height: 0.375rem;
       border-radius: var(--onyx-radius-full);
       background-color: var(--onyx-slider-mark-background);
+      transform: translateX(-50%);
     }
 
     &__mark-label {
@@ -388,6 +434,7 @@ const sharedStepperProps = computed(() => {
       white-space: nowrap;
       top: var(--onyx-slider-mark-label-offset);
       display: flex;
+      transform: translateX(-50%);
     }
 
     &:has(&__native:enabled) {
@@ -397,38 +444,18 @@ const sharedStepperProps = computed(() => {
 
       &:has(.onyx-slider__root:hover),
       &:has(.onyx-slider__root:focus-within) {
-        .onyx-slider {
-          &__rail {
-            background-color: var(--onyx-slider-rail-background-interactive);
-          }
-
-          &__track {
-            background-color: var(--onyx-slider-track-background-interactive);
-          }
-
-          &__thumb {
-            background-color: var(--onyx-slider-thumb-background-interactive);
-            border-color: var(--onyx-slider-thumb-border-color-interactive);
-          }
-        }
+        --onyx-slider-rail-background: var(--onyx-slider-rail-background-interactive);
+        --onyx-slider-track-background: var(--onyx-slider-track-background-interactive);
+        --onyx-slider-thumb-background: var(--onyx-slider-thumb-background-interactive);
+        --onyx-slider-thumb-border-color: var(--onyx-slider-thumb-border-color-interactive);
       }
     }
 
     &:has(&__native:disabled) {
-      .onyx-slider {
-        &__track {
-          background-color: var(--onyx-slider-background-disabled);
-        }
-
-        &__thumb {
-          background-color: var(--onyx-slider-background-disabled);
-          border-color: var(--onyx-slider-background-disabled);
-        }
-
-        &__mark-label {
-          color: var(--onyx-slider-mark-color-disabled);
-        }
-      }
+      --onyx-slider-track-background: var(--onyx-slider-background-disabled);
+      --onyx-slider-thumb-background: var(--onyx-slider-background-disabled);
+      --onyx-slider-thumb-border-color: var(--onyx-slider-background-disabled);
+      --onyx-slider-mark-color: var(--onyx-slider-mark-color-disabled);
     }
   }
 }

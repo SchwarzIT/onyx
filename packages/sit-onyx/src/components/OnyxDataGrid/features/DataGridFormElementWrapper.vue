@@ -74,8 +74,10 @@ const bind = computed(() => ({
     }
   }
 
-  .onyx-slider {
-    padding: var(--onyx-density-xs) var(--onyx-density-sm);
+  .onyx-data-grid-form-wrapper {
+    &.onyx-slider {
+      padding: var(--onyx-density-xs) var(--onyx-density-sm);
+    }
   }
 }
 </style>
