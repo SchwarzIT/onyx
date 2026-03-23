@@ -7,7 +7,7 @@ export default {};
 </script>
 
 <script setup lang="ts">
-import { toRefs } from "vue";
+import { computed, toRefs } from "vue";
 import { _unstableUseShortcut } from "../../composables/useShortcut.js";
 import {
   SKELETON_INJECTED_SYMBOL,
@@ -45,11 +45,12 @@ const emit = defineEmits<{
   stepComplete: [step: ShortcutStep, stepIndex: number];
 }>();
 
-const { sequence, disabled, cleanupDelay, element } = toRefs(props);
+const { sequence, cleanupDelay, element } = toRefs(props);
 
+const isShortcutHighlightingDisabled = computed(() => props.disabled || props.highlight !== "auto");
 const { isKeyHighlighted } = _unstableUseShortcut({
   element,
-  disabled,
+  disabled: isShortcutHighlightingDisabled,
   sequence,
   cleanupDelay,
   onStepComplete: (step, stepIndex) => {
@@ -70,7 +71,10 @@ const { isKeyHighlighted } = _unstableUseShortcut({
           <OnyxKey
             :name="key"
             :os="props.os"
-            :highlighted="props.highlight && isKeyHighlighted(key, stepIndex)"
+            :highlight="
+              props.highlight === true ||
+              (!isShortcutHighlightingDisabled && isKeyHighlighted(key, stepIndex))
+            "
           />
           <span
             v-if="keyIndex < step.all.length - 1 && !step.hideSeparator"
@@ -86,7 +90,10 @@ const { isKeyHighlighted } = _unstableUseShortcut({
           <OnyxKey
             :name="key"
             :os="props.os"
-            :highlighted="props.highlight && isKeyHighlighted(key, stepIndex)"
+            :highlight="
+              props.highlight === true ||
+              (!isShortcutHighlightingDisabled && isKeyHighlighted(key, stepIndex))
+            "
           />
           <span
             v-if="keyIndex < step.any.length - 1 && !step.hideSeparator"

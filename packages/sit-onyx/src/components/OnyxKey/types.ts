@@ -22,7 +22,7 @@ export type OnyxKeyProps = {
    *
    * @default false
    */
-  highlighted?: boolean | "auto";
+  highlight?: boolean | "auto";
   /**
    * Whether to show a skeleton key.
    */
