@@ -89,7 +89,9 @@ const toggleAttrs = computed(() =>
   @include layers.component() {
     --onyx-form-element-action-color: var(--onyx-color-text-icons-neutral-medium);
     --onyx-form-element-action-color-hover: var(--onyx-color-text-icons-primary-intense);
-    display: inline-flex;
+    --onyx-form-element-action-color-highlight: var(--onyx-form-element-action-color-hover);
+    --onyx-form-element-action-display: inline-flex;
+    display: var(--onyx-form-element-action-display);
 
     &__button {
       all: initial;
@@ -137,6 +139,7 @@ const toggleAttrs = computed(() =>
     // has input focus
     &:has(#{$inputContainerSelector}:focus-within),
     // has input hover
+    // TODO: only apply when input is enabled
     &:has(#{$inputContainerSelector}:hover),
     // has popover input
     &:has(#{$popoverSelector}:hover),
@@ -146,11 +149,13 @@ const toggleAttrs = computed(() =>
       #{$inputContainerSelector} {
         .onyx-form-element-action {
           &--show-on-focus {
-            display: inline-flex;
+            display: var(--onyx-form-element-action-display);
           }
 
           &--highlight-on-focus {
-            --onyx-form-element-action-color: var(--onyx-form-element-action-color-hover);
+            .onyx-form-element-action__button {
+              color: var(--onyx-form-element-action-color-highlight);
+            }
           }
         }
       }
