@@ -263,6 +263,10 @@
     "continent": "Europe",
     "internationalName": "Ceuta"
   },
+  "ES-CN": {
+    "continent": "Europe",
+    "internationalName": "Canary Islands"
+  },
   "ES-GA": {
     "continent": "Europe",
     "internationalName": "Galicia"
