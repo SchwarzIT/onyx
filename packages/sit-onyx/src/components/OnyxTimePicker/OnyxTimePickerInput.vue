@@ -9,11 +9,11 @@ import {
 } from "../../composables/useFormElementError.js";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
-import { injectI18n, OnyxUnstableFormElementV2, type FormElementV2Tooltip } from "../../index.js";
+import { injectI18n, type FormElementV2Tooltip } from "../../index.js";
 import { mergeVueProps, useRootAttrs } from "../../utils/attrs.js";
 import { useForwardProps } from "../../utils/props.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
-import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
+import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
 import type { OnyxTimePickerProps, TimePickerType } from "./types.js";
@@ -81,7 +81,7 @@ const { vCustomValidity, errorMessages } = useFormElementError({
 const { t } = injectI18n();
 //TODO: Question: Why is it not working for showError = touched
 const { disabled } = useFormContext(props);
-const formElementProps = useForwardProps(props, OnyxFormElement);
+const formElementProps = useForwardProps(props, OnyxFormElementV2);
 
 /**
  * Ensures that the native input only receives "HH:MM" or "HH:MM:SS".
@@ -252,7 +252,7 @@ const messageToFormElementProps = (
 </script>
 
 <template>
-  <OnyxUnstableFormElementV2
+  <OnyxFormElementV2
     v-bind="mergeVueProps(rootAttrs, formElementProps)"
     :label="props.label"
     :error="messageToFormElementProps(errorMessages)"
@@ -283,9 +283,11 @@ const messageToFormElementProps = (
         @keydown="blockTyping"
       />
     </template>
+
     <template #trailingIcons>
       <slot name="icon"></slot>
     </template>
+
     <template v-if="props.showAmPm && props.type === 'default'" #trailing>
       <OnyxSelect
         v-model="timeSuffix"
@@ -302,7 +304,7 @@ const messageToFormElementProps = (
         </template>
       </OnyxSelect>
     </template>
-  </OnyxUnstableFormElementV2>
+  </OnyxFormElementV2>
 </template>
 
 <style lang="scss">

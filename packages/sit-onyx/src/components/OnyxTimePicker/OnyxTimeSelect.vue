@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { iconClock } from "@sit-onyx/icons";
 import { computed } from "vue";
+import type { CustomMessageType } from "../../composables/useFormElementError.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import { useForwardProps } from "../../utils/props.js";
@@ -125,15 +126,13 @@ const labelOptions = computed<FormElementV2LabelOptions>(() => {
   return props.label;
 });
 
-const mapToText = (value?: string | FormElementV2Tooltip) => {
-  if (!value) return undefined;
-  return typeof value === "string" ? value : value.label;
+const mapToCustomMessage = (
+  value?: string | FormElementV2Tooltip,
+): CustomMessageType | undefined => {
+  if (!value) return;
+  if (typeof value === "string") return value;
+  return { shortMessage: value.label, longMessage: value.tooltipText };
 };
-
-const messageProps = computed(() => ({
-  message: mapToText(props.message),
-  success: mapToText(props.success),
-}));
 </script>
 
 <template>
@@ -141,8 +140,8 @@ const messageProps = computed(() => ({
     v-bind="inputProps"
     v-model="modelValue"
     v-model:open="open"
-    :message="messageProps.message"
-    :success="messageProps.success"
+    :message="mapToCustomMessage(props.message)"
+    :success="mapToCustomMessage(props.success)"
     :label="labelOptions.label"
     :hide-label="labelOptions.hidden"
     :label-tooltip="labelOptions.tooltipText"
