@@ -9,3 +9,4 @@ fix(OnyxFormElementV2): correctly set popover trigger
 - also support passing `popoverOptions.label` to correctly define a different label for the popover than for the input itself
 - fix: truncate input value if its too long
 - fix: prevent popover from overlapping label if opened to the top
+- fix: use correct label gap when using skeleton in compact density
