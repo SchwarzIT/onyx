@@ -1,0 +1,27 @@
+// the nested selectors here are needed so the styles are NOT applied if the OnyxFormElementV2 contains other form elements in its leading/trailing
+// slot such as OnyxSelect
+$contentSelector: "> .onyx-form-element-v2__body > .onyx-form-element-v2__content";
+$inputContainerSelector: "#{$contentSelector} > .onyx-form-element-v2__input-container";
+$popoverSelector: "#{$contentSelector} > .onyx-form-element-v2__popover";
+
+/** Defines styles when the form element input container is hovered */
+@mixin input-container-hover() {
+  &:has(#{$inputContainerSelector} .onyx-form-element-v2__input:enabled),
+  &:has(#{$popoverSelector} .onyx-form-element-v2__input:enabled) {
+    #{$inputContainerSelector}:hover,
+    #{$popoverSelector} > .onyx-form-element-v2__input-container:hover {
+      @content;
+    }
+  }
+}
+
+/** Defines styles when the form element input container is focused or the popover is opened */
+@mixin input-focus-or-popover-open() {
+  &:has(#{$inputContainerSelector}:focus-within),
+  &:has(#{$popoverSelector} .onyx-basic-popover__dialog:popover-open) {
+    #{$inputContainerSelector},
+    #{$popoverSelector} > .onyx-form-element-v2__input-container {
+      @content;
+    }
+  }
+}
