@@ -4,7 +4,7 @@ import { computed } from "vue";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import { useForwardProps } from "../../utils/props.js";
-import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxFormElementAction from "../OnyxFormElementAction/OnyxFormElementAction.vue";
 import OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
 import type { SelectOption } from "../OnyxSelect/types.js";
 import type { OnyxTimePickerProps, TimePickerType } from "./types.js";
@@ -130,7 +130,12 @@ const inputProps = useForwardProps(props, OnyxSelect);
     :list-description="props.infoLabel"
   >
     <template #toggleIcon>
-      <OnyxIcon :class="['onyx-time-picker__icon', { filled: modelValue }]" :icon="iconClock" />
+      <OnyxFormElementAction
+        :label="t('select.toggleDropDown')"
+        :icon="iconClock"
+        :disabled="disabled || props.readonly || props.loading"
+        @click="open = !open"
+      />
     </template>
   </OnyxSelect>
 </template>

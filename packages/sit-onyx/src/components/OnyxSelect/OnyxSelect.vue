@@ -112,6 +112,7 @@ const slots = defineSlots<{
   option?(props: SelectOption<TValue>): unknown;
   /**
    * Optional slot to override the icon of the toggle button inside the input.
+   * Recommended to use the `OnyxFormElementAction` component here.
    */
   toggleIcon?(): unknown;
 }>();
@@ -533,12 +534,14 @@ defineExpose({ input: inputRef });
         </template>
       </OnyxTooltip>
 
-      <OnyxFormElementAction
-        :label="t('select.toggleDropDown')"
-        :icon="iconChevronDownUp"
-        :disabled="disabled || props.readonly || props.loading"
-        @click="onToggle"
-      />
+      <slot name="toggleIcon">
+        <OnyxFormElementAction
+          :label="t('select.toggleDropDown')"
+          :icon="iconChevronDownUp"
+          :disabled="disabled || props.readonly || props.loading"
+          @click="onToggle"
+        />
+      </slot>
     </template>
 
     <template #popover>
