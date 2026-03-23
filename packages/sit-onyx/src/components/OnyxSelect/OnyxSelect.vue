@@ -539,6 +539,7 @@ defineExpose({ input: inputRef });
           :label="t('select.toggleDropDown')"
           :icon="iconChevronDownUp"
           :disabled="disabled || props.readonly || props.loading"
+          highlight-on-focus
           @click="onToggle"
         />
       </slot>

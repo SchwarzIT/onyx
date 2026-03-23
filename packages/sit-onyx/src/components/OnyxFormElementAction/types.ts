@@ -34,4 +34,8 @@ export type OnyxFormElementActionProps = DensityProp & {
    * If `true`, the button will be only be shown visually if the parent form element has focus.
    */
   showOnFocus?: boolean;
+  /**
+   * If `true`, the button will be visually highlighted when the parent form element has focus.
+   */
+  highlightOnFocus?: boolean;
 };
