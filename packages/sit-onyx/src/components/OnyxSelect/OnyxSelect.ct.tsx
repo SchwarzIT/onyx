@@ -70,6 +70,7 @@ test.describe("Default screenshots", () => {
           required={row === "required"}
           hideLabel={row === "hideLabel"}
           style={{
+            width: "16rem",
             marginBottom: row === "open" ? "15rem" : undefined,
           }}
           open={row === "open"}
