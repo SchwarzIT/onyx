@@ -88,6 +88,7 @@ const toggleAttrs = computed(() =>
   @include layers.component() {
     --onyx-form-element-action-color: var(--onyx-color-text-icons-neutral-medium);
     --onyx-form-element-action-color-hover: var(--onyx-color-text-icons-primary-intense);
+    display: inline-flex;
 
     &__button {
       all: initial;
