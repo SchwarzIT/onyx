@@ -16,7 +16,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   compatibilityDate: "2025-01-20",
   typescript: { typeCheck: "build" },
-  modules: ["@sit-onyx/nuxt", "@nuxt/content", "@nuxtjs/color-mode", "@nuxt/image", "@nuxtjs/i18n"],
+  modules: ["@sit-onyx/nuxt", "@nuxt/content", "@nuxtjs/color-mode", "@nuxtjs/i18n"],
   css: [
     "@fontsource-variable/source-code-pro",
     "@fontsource-variable/source-sans-3",

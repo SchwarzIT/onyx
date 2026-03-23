@@ -49,7 +49,6 @@ When using another package manager, you can skip this step.
 # needed to correctly install the Nuxt content and Nuxt image module
 onlyBuiltDependencies:
   - better-sqlite3
-  - sharp
 ```
 
 ```properties [.npmrc]

@@ -27,6 +27,7 @@ const UNKNOWN_COUNTRY_NAMES: Record<string, string | undefined> = {
   "ES-IB": "Balearic Islands",
   "ES-ML": "Melilla",
   "ES-PV": "Basque Country",
+  "ES-CN": "Canary Islands",
   "FR-20R": "Corsica",
   "FR-BRE": "Brittany",
 };

@@ -37,10 +37,6 @@ test("should render prose components with onyx", async ({ page, goto }) => {
   const link = page.getByRole("link", { name: "example link" });
   await expect(link, "should replace links with <OnyxLink>").toContainClass("onyx-link");
 
-  // IMAGE
-  const image = page.getByRole("img", { name: "Image alt" });
-  await expect(image, "should replace images with <NuxtImg>").toHaveAttribute("data-nuxt-img", "");
-
   // TABLE
   const table = page.getByRole("table");
   await expect(table, "should replace tables with <OnyxTable>").toContainClass("onyx-table");
