@@ -47,6 +47,8 @@ test.describe("Screenshot tests", () => {
 });
 
 test.describe("OnyxDatePickerV2 Interactions", () => {
+  test.use({ timezoneId: "UTC" });
+
   test("should select single date", async ({ mount }) => {
     // ARRANGE
     let emittedValue;
