@@ -386,6 +386,7 @@ test.describe("Other screenshots", () => {
     context,
     component: (column) => (
       <OnyxSelect
+        style="width: 12rem"
         label="Label"
         listLabel="List label"
         options={MOCK_MANY_OPTIONS}
