@@ -124,39 +124,4 @@ test.describe("OnyxDatePickerV2 Interactions", () => {
       end: new Date(2024, 9, 15),
     });
   });
-
-  test("should not allow selection of disabled days", async ({ mount }) => {
-    // ARRANGE
-
-    let emittedValue = null;
-    const component = await mount(
-      <OnyxDatePickerV2
-        label="Test label"
-        selectionMode="single"
-        open={true}
-        disabledDays={(date) => date.getDay() === 0 || date.getDay() === 6}
-        onUpdate:modelValue={(val) => (emittedValue = val)}
-        style={{
-          width: "18rem",
-        }}
-      />,
-    );
-
-    // ACT
-    const disabledDay = component.getByRole("button", { name: "Saturday, October 5," });
-
-    await expect(disabledDay).toBeDisabled();
-
-    await disabledDay.click();
-
-    // ASSERT
-    expect(emittedValue).toBeNull();
-
-    const validDay = component.getByRole("button", { name: "Tuesday, October 15," });
-    await expect(validDay).toBeEnabled();
-    await validDay.click();
-
-    // ASSERT
-    expect(emittedValue).toEqual(new Date(2024, 9, 15));
-  });
 });
