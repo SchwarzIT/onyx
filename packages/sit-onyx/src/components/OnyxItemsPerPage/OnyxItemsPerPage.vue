@@ -76,6 +76,7 @@ const id = useId();
       :label="t('itemsPerPage.label')"
       :list-label="t('itemsPerPage.select.listLabel')"
       class="onyx-items-per-page__select"
+      hide-clear-icon
       :alignment="props.labelAlignment === 'right' || props.hideLabel ? 'left' : 'right'"
     />
     <label
@@ -123,12 +124,9 @@ const id = useId();
     }
 
     &__select {
+      // support growing select based on current page character count
+      --onyx-form-element-v2-input-width: #{text.ch(var(--onyx-items-per-page-character-count))};
       width: auto;
-
-      .onyx-select-input__native {
-        // support growing select based on current page character count
-        width: text.ch(var(--onyx-items-per-page-character-count));
-      }
     }
 
     &--reverse {
