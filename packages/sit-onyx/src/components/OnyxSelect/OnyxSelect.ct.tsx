@@ -250,10 +250,14 @@ test.describe("Alignment screenshots", () => {
           listLabel="List label"
           options={MOCK_MANY_OPTIONS}
           alignment={column}
-          open
         />
       </div>
     ),
+    hooks: {
+      beforeEach: async (component) => {
+        await component.getByLabel("Label", { exact: true }).click();
+      },
+    },
   });
 });
 
