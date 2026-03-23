@@ -1,4 +1,3 @@
-import type { MountResultJsx } from "@playwright/experimental-ct-vue";
 import { comboboxSelectOnlyTesting, comboboxTesting } from "@sit-onyx/headless/playwright";
 import { DENSITIES } from "../../composables/density.js";
 import type { FormMessages } from "../../composables/useFormElementError.js";
@@ -54,12 +53,6 @@ const MOCK_MULTILINE_LONG_LABELED_OPTIONS = MOCK_LONG_LABELED_OPTIONS.map((optio
   truncation: "multiline",
 })) satisfies SelectOption[];
 
-const openFlyout = async (component: MountResultJsx) => {
-  const toggleButton = component.getByLabel("Toggle selection popover");
-
-  if (await toggleButton.isEnabled()) await toggleButton.click();
-};
-
 test.describe("Default screenshots", () => {
   executeMatrixScreenshotTest({
     name: "Select",
@@ -79,14 +72,10 @@ test.describe("Default screenshots", () => {
           style={{
             marginBottom: row === "open" ? "15rem" : undefined,
           }}
+          open={row === "open"}
         />
       </div>
     ),
-    hooks: {
-      beforeEach: async (component, _page, _column, row) => {
-        if (row === "open") await openFlyout(component);
-      },
-    },
   });
 });
 
@@ -98,32 +87,17 @@ test.describe("Empty screenshots", () => {
     context,
     component: (column, row) => (
       <div>
-        {row === "empty" ? (
-          <OnyxSelect
-            label="Label"
-            listLabel="List label"
-            options={[]}
-            density={column}
-            style={{ marginBottom: "15rem" }}
-          />
-        ) : (
-          <OnyxSelect
-            label="Label"
-            listLabel="List label"
-            options={[]}
-            density={column}
-            withSearch={true}
-            searchTerm="search term"
-            style={{ marginBottom: "18rem" }}
-          />
-        )}
+        <OnyxSelect
+          label="Label"
+          listLabel="List label"
+          options={[]}
+          density={column}
+          style={{ marginBottom: "18rem" }}
+          {...(row === "search-empty" ? { withSearch: true, searchTerm: "search term" } : {})}
+          open
+        />
       </div>
     ),
-    hooks: {
-      beforeEach: async (component) => {
-        await openFlyout(component);
-      },
-    },
   });
 });
 
@@ -142,11 +116,11 @@ test.describe("Truncated options screenshots", () => {
         }
         density={column}
         style={{ marginBottom: "22rem" }}
+        open
       />
     ),
     hooks: {
       beforeEach: async (component) => {
-        await openFlyout(component);
         const option = component.getByLabel(MOCK_MULTILINE_LONG_LABELED_OPTIONS[0]!.label);
         await option.hover();
       },
@@ -181,6 +155,7 @@ test.describe("Grouped screenshots", () => {
             multiple={true}
             withCheckAll={true}
             style={{ marginBottom: "22rem" }}
+            open
           />
         </div>
       ) : (
@@ -194,14 +169,10 @@ test.describe("Grouped screenshots", () => {
             multiple={false}
             withSearch={column === "with-search"}
             style={{ marginBottom: "20rem" }}
+            open
           />
         </div>
       );
-    },
-    hooks: {
-      beforeEach: async (component) => {
-        await openFlyout(component);
-      },
     },
   });
 });
@@ -230,15 +201,11 @@ test.describe("Multiple screenshots", () => {
             withSearch={row === "search"}
             withCheckAll={row === "check-all"}
             textMode={row === "preview" ? "preview" : undefined}
-            style={{ marginBottom: row !== "preview" ? "20rem" : undefined }}
+            style={{ marginBottom: "20rem" }}
+            open
           />
         </div>
       );
-    },
-    hooks: {
-      beforeEach: async (component, _page, _column, row) => {
-        if (row !== "preview") await openFlyout(component);
-      },
     },
   });
 });
@@ -258,14 +225,10 @@ test.describe("List description screenshots", () => {
           density={column}
           listDescription="List description"
           style={{ marginBottom: "25rem" }}
+          open
         />
       </div>
     ),
-    hooks: {
-      beforeEach: async (component, _page, _column) => {
-        await openFlyout(component);
-      },
-    },
   });
 });
 
@@ -287,14 +250,10 @@ test.describe("Alignment screenshots", () => {
           listLabel="List label"
           options={MOCK_MANY_OPTIONS}
           alignment={column}
+          open
         />
       </div>
     ),
-    hooks: {
-      beforeEach: async (component) => {
-        await openFlyout(component);
-      },
-    },
   });
 });
 
@@ -313,6 +272,7 @@ test.describe("Loading screenshots", () => {
           loading={column === "loading"}
           lazyLoading={column === "lazy-loading" ? { enabled: true, loading: true } : undefined}
           style={{ marginBottom: "25rem" }}
+          open
         >
           {column === "custom-button" && (
             <template v-slot:optionsEnd>
@@ -324,8 +284,6 @@ test.describe("Loading screenshots", () => {
     ),
     hooks: {
       beforeEach: async (component, _page, column) => {
-        await openFlyout(component);
-
         if (column !== "loading") {
           await component.getByLabel(MOCK_MANY_OPTIONS.at(-1)!.label).scrollIntoViewIfNeeded();
         }
