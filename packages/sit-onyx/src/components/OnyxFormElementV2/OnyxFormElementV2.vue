@@ -420,7 +420,9 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
       margin-left: var(--onyx-spacing-2xs);
     }
 
-    &:has(&__bottom:not(:empty)) {
+    // ensure popover does not overlap label or bottom area
+    &:has(&__bottom:not(:empty)),
+    &:has(&__popover .onyx-basic-popover__dialog--position-top) {
       .onyx-form-element-v2__popover {
         --onyx-basic-popover-gap: var(--onyx-form-element-v2-bottom-height);
       }
