@@ -335,9 +335,7 @@ const teamMembers = [
   }
 
   &__select {
-    :deep(.onyx-select-input__native) {
-      width: 10ch;
-    }
+    --onyx-form-element-v2-input-width: 10ch;
   }
 }
 
