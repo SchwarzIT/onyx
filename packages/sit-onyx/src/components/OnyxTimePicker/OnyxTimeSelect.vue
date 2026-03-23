@@ -156,6 +156,7 @@ const mapToCustomMessage = (
         :label="t('select.toggleDropDown')"
         :icon="iconClock"
         :disabled="disabled || props.readonly || props.loading"
+        highlight-on-focus
         @click="open = !open"
       />
     </template>
