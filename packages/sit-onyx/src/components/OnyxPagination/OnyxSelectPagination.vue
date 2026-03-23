@@ -165,6 +165,11 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
       --onyx-form-element-v2-border-radius: var(--onyx-pagination-border-radius) 0 0
         var(--onyx-pagination-border-radius);
       --onyx-form-element-v2-input-width: #{text.ch(var(--onyx-pagination-character-count))};
+      --onyx-form-element-v2-background-hover: var(--onyx-color-base-neutral-200);
+
+      .onyx-form-element-action {
+        --onyx-form-element-action-color-highlight: var(--onyx-color-text-icons-neutral-intense);
+      }
     }
 
     &__count {

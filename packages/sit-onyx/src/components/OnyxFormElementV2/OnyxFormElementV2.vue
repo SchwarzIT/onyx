@@ -167,6 +167,7 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
     --onyx-form-element-v2-border-color-hover: var(--onyx-color-component-border-primary-hover);
     --onyx-form-element-v2-border-color-focus: var(--onyx-color-component-border-primary);
     --onyx-form-element-v2-background: var(--onyx-color-base-background-blank);
+    --onyx-form-element-v2-background-hover: var(--onyx-form-element-v2-background);
     --onyx-form-element-v2-background-autofill: var(--onyx-color-base-warning-100);
     --onyx-form-element-v2-padding-block: var(--onyx-density-xs);
     --onyx-form-element-v2-padding-inline: var(--onyx-density-sm);
@@ -309,6 +310,15 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
       #{$popoverSelector} > .onyx-form-element-v2__input-container {
         border-color: var(--onyx-form-element-v2-border-color-focus);
         outline: var(--onyx-outline-width) solid var(--onyx-form-element-v2-outline-color);
+        background-color: var(--onyx-form-element-v2-background-hover);
+      }
+    }
+
+    &:has(#{$inputContainerSelector} .onyx-form-element-v2__input:enabled),
+    &:has(#{$popoverSelector} .onyx-form-element-v2__input:enabled) {
+      #{$inputContainerSelector}:hover,
+      #{$popoverSelector} > .onyx-form-element-v2__input-container:hover {
+        background-color: var(--onyx-form-element-v2-background-hover);
       }
     }
 
