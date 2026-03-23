@@ -63,6 +63,7 @@ const toggleAttrs = computed(() =>
       {
         'onyx-form-element-action--lg': props.size === 'lg',
         'onyx-form-element-action--show-on-focus': props.showOnFocus,
+        'onyx-form-element-action--highlight-on-focus': props.highlightOnFocus,
       },
     ]"
   >
@@ -118,15 +119,19 @@ const toggleAttrs = computed(() =>
       }
     }
 
+    $focus-selector: ".onyx-form-element-v2:has(.onyx-form-element-v2__input-container:focus-within) &, .onyx-form-element-v2:has(.onyx-form-element-v2__popover .onyx-basic-popover__dialog:popover-open) &";
+
     &--show-on-focus {
       display: none;
 
-      .onyx-form-element-v2:has(.onyx-form-element-v2__input-container:focus-within) &,
-      .onyx-form-element-v2:has(
-          .onyx-form-element-v2__popover .onyx-basic-popover__dialog:popover-open
-        )
-        & {
-        display: unset;
+      #{$focus-selector} {
+        display: inline-flex;
+      }
+    }
+
+    &--highlight-on-focus {
+      #{$focus-selector} {
+        --onyx-form-element-action-color: var(--onyx-form-element-action-color-hover);
       }
     }
   }
