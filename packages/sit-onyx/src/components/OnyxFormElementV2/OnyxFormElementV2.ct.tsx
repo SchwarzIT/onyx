@@ -130,17 +130,17 @@ test.describe("Screenshot tests (popover)", () => {
   executeMatrixScreenshotTest({
     name: "Form element v2 (popover)",
     columns: ["default", "message", "slots"],
-    rows: ["default", "hover", "focus", "open", "open-top"],
+    rows: ["default", "hover", "focus", "open", "open-top", "open-top-hideLabel"],
     component: (column, row) => (
       <TestCase
-        label="Test label"
+        label={{ label: "Test label", hidden: row === "open-top-hideLabel" }}
         style={{ marginBlock: "2rem" }}
         message={column === "message" ? "Example message" : undefined}
         open={row.includes("open") ? true : undefined}
         popoverOptions={{
           label: "Popover label",
           fitParent: true,
-          position: row === "open-top" ? "top" : undefined,
+          position: row.includes("open-top") ? "top" : undefined,
         }}
       >
         <template v-slot:popover>Popover content</template>
