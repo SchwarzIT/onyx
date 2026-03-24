@@ -479,7 +479,7 @@ defineExpose({ input: inputRef });
       fitParent: props.alignment === 'full',
       position: openDirection,
     }"
-    @update:open="$event && onToggle()"
+    @update:open="onToggle()"
   >
     <template #default="inputProps">
       <!-- eslint-disable-next-line vuejs-accessibility/form-control-has-label -- provided by "inputProps" -->
