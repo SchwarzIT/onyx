@@ -342,8 +342,8 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
         border-bottom-right-radius: inherit;
       }
 
-      // override OnyxSelect styles to seamlessly integrate into the slots
-      .onyx-select {
+      // override nested styles in slots to seamlessly integrate e.g. OnyxSelect
+      .onyx-form-element-v2 {
         --onyx-form-element-v2-input-width: #{text.ch(3)};
         --onyx-form-element-v2-border-size: 0;
         --onyx-form-element-v2-background: transparent;
