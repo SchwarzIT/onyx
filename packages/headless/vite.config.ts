@@ -36,8 +36,10 @@ export default defineConfig({
       external: [...Object.keys(packageJson.peerDependencies)],
     },
   },
-  esbuild: {
-    jsx: "automatic",
+  oxc: {
+    jsx: {
+      runtime: "automatic",
+    },
   },
 });
 
