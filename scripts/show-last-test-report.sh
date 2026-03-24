@@ -2,22 +2,27 @@
 set -ex
 
 # check if gh cli is installed
-if ! command -v gh &>/dev/null; then
-    echo "gh CLI is not installed. Please install it first: https://github.com/cli/cli#installation"
-    exit 1
+if ! command -v gh >/dev/null; then
+	echo "gh CLI is not installed. Please install it first: https://github.com/cli/cli#installation"
+	exit 1
 fi
 
 # Create temporary directory
 TMP_DIR=$(mktemp -d)
 
 # Create shell trap to clean up temporary directory
-function cleanup {
-    rm -r ${TMP_DIR}
+cleanup() {
+	rm -r ${TMP_DIR}
 }
 trap cleanup EXIT
 
-# query the id of the last failed run for the current branch
-GH_LAST_RUN_ID=$(gh run list -s failure -b $(git branch --show-current) --json "createdAt,databaseId" --jq "sort_by(.createdAt) | last.databaseId")
+# if argument was passed to the shell script, use it as run id
+if [[ -n $1 ]]; then
+	GH_LAST_RUN_ID=$1
+else
+	# query the id of the last failed run for the current branch
+	GH_LAST_RUN_ID=$(gh run list -s failure -b $(git branch --show-current) --json "createdAt,databaseId" --jq "sort_by(.createdAt) | last.databaseId")
+fi
 
 # download report
 gh run download $GH_LAST_RUN_ID -D $TMP_DIR -p "html-report--attempt-1"
