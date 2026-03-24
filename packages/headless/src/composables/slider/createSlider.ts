@@ -4,11 +4,6 @@ import { createBuilder, createElRef } from "../../utils/builder.js";
 import { MathUtils } from "../../utils/math.js";
 import { useGlobalEventListener } from "../helpers/useGlobalListener.js";
 
-export type SliderMark = {
-  value: number;
-  label?: string;
-};
-
 type SliderValue = number | [number, number];
 
 export type NormalizedSliderValue = [number] | [number, number];
@@ -48,14 +43,6 @@ export type CreateSliderOptions<TValue extends SliderValue = SliderValue> = {
    * @default false
    */
   disabled?: MaybeRef<boolean>;
-  /**
-   * Whether to show marks inside the slider rail.
-   * - `true`: will generate marks automatically based on `step` prop
-   * - array of numbers or `SliderMark` objects: will shown at the specified values with optional labels
-   *
-   * @default false
-   */
-  marks?: MaybeRef<SliderMark[] | number[] | boolean>;
   /**
    * Aria label for the slider.
    */
@@ -116,28 +103,6 @@ export const createSlider = createBuilder(
       // Round to the nearest step multiple to ensure it aligns with step boundaries
       const stepMultiple = Math.max(1, Math.round(((max.value - min.value) * 0.1) / step.value));
       return stepMultiple * step.value;
-    });
-
-    const marks = computed<SliderMark[]>(() => {
-      const _marks = toValue(options.marks);
-      if (!_marks) return [];
-
-      if (_marks === true) {
-        // auto-generate marks based on step
-        const markCount = Math.floor((max.value - min.value) / step.value) + 1;
-
-        return Array.from({ length: markCount }, (_, index) => {
-          return { value: min.value + step.value * index } satisfies SliderMark;
-        });
-      }
-
-      // normalize user provided marks
-      return _marks
-        .map((mark) => {
-          if (typeof mark === "number") return { value: mark };
-          return mark;
-        })
-        .sort((a, b) => a.value - b.value);
     });
 
     /**
@@ -327,13 +292,6 @@ export const createSlider = createBuilder(
         }),
 
         /**
-         * Individual thumb elements for each value (span)
-         */
-        thumbContainer: computed(() => (data: { index: number; value: number }) => ({
-          style: { left: `${getValueInPercentage.value(data.value)}%` },
-        })),
-
-        /**
          * Input inside each thumb for accessibility
          */
         thumbInput: computed(() => (data: { index: number; value: number }) => {
@@ -358,63 +316,31 @@ export const createSlider = createBuilder(
             ...(toValue(options.disabled) ? undefined : events),
           };
         }),
-
-        /**
-         * Single Mark element inside the rail
-         */
-        mark: computed(
-          () => (data: { value: number; label?: string; padding: string; markWidth: string }) => {
-            const percentage = getValueInPercentage.value(data.value);
-            return {
-              "aria-hidden": true,
-              style: {
-                // adjusting the position for the marks with consideration to their width and a padding/safe-zone.
-                left: `calc(${data.padding} + (100% - 2 * ${data.padding} - ${data.markWidth}) * ${percentage} / 100)`,
-              },
-            };
-          },
-        ),
-
-        /**
-         * Label for each mark
-         */
-        markLabel: computed(() => (data: { value: number }) => {
-          const left = getValueInPercentage.value(data.value);
-
-          return {
-            "aria-hidden": true,
-            style: {
-              left: `${left}%`,
-              transform: "translateX(-50%)",
-            },
-          };
-        }),
-
+      },
+      state: {
+        normalizedValue,
+        shiftStep,
         /**
          * Track element representing the selected range
          */
         track: computed(() => {
           const isRange = normalizedValue.value.length > 1;
-          const offsetValue = isRange ? normalizedValue.value[0] : min.value;
-          const left = getValueInPercentage.value(offsetValue);
+          const start = isRange ? normalizedValue.value[0] : min.value;
+          const startPercentage = getValueInPercentage.value(start);
 
-          const lengthValue = normalizedValue.value.at(-1)!;
-          const width = getValueInPercentage.value(lengthValue) - left;
+          const end = normalizedValue.value.at(-1)!;
+          const endPercentage = getValueInPercentage.value(end);
 
           return {
-            style: {
-              left: `${left}%`,
-              width: `${width}%`,
-            },
+            start,
+            startPercentage,
+            end,
+            endPercentage,
           };
         }),
       },
-      state: {
-        normalizedValue,
-        shiftStep,
-        marks,
-      },
       internals: {
+        getValueInPercentage,
         updateValue,
         updateValueByStep,
       },

@@ -4,8 +4,9 @@ import { createSlider } from "./createSlider.js";
 const modelValue = defineModel<number | [number, number]>({ required: true });
 
 const {
-  elements: { root, thumbInput, thumbContainer, track },
-  state: { normalizedValue },
+  elements: { root, thumbInput },
+  state: { normalizedValue, track },
+  internals: { getValueInPercentage },
 } = createSlider({
   label: "Slider",
   value: modelValue,
@@ -22,7 +23,7 @@ const {
       <div
         v-for="(value, index) in normalizedValue"
         :key="index"
-        v-bind="thumbContainer({ value, index })"
+        :style="{ left: getValueInPercentage(value) }"
         class="slider-thumb"
       >
         <input class="visually-hidden" v-bind="thumbInput({ index, value })" />
