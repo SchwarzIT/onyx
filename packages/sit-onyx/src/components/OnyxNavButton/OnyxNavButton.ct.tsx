@@ -24,7 +24,7 @@ test.describe("Screenshot tests", () => {
   });
 });
 
-test.describe("Screenshot tests (primary)", () => {
+test.describe("Screenshot tests (icon)", () => {
   executeMatrixScreenshotTest({
     name: "Nav button (icon)",
     columns: ["button", "link"],
@@ -45,9 +45,9 @@ test.describe("Screenshot tests (primary)", () => {
   });
 });
 
-test.describe("Screenshot tests (icon)", () => {
+test.describe("Screenshot tests (colors)", () => {
   executeMatrixScreenshotTest({
-    name: "Nav button (icon)",
+    name: "Nav button (colors)",
     columns: ["neutral", "primary"],
     rows: ["default", "hover", "focus-visible", "active"],
     component: (column) => (
