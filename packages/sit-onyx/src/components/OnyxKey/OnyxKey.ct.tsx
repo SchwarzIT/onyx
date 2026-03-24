@@ -29,11 +29,11 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Key",
     columns: ["default"],
-    rows: ["default", "highlighted", "truncated", "skeleton"],
+    rows: ["default", "highlight", "truncated", "skeleton"],
     component: (column, row) => (
       <OnyxKey
         name={row === "truncated" ? "MediaPlayPause" : "A"}
-        highlighted={row === "highlighted"}
+        highlight={row === "highlight"}
         skeleton={row === "skeleton"}
         style={{ width: row === "truncated" ? "6rem" : 0 }}
       />
@@ -136,7 +136,7 @@ test.describe("Screenshot tests (editing)", () => {
 test("should emit event when the matching key is pressed", async ({ mount, page }) => {
   // ARRANGE
   const onPressed = createEmitSpy<typeof OnyxKey, "onPressed">();
-  await mount(<OnyxKey name="Enter" onPressed={onPressed} />);
+  await mount(<OnyxKey name="Enter" highlight="auto" onPressed={onPressed} />);
 
   // ACT
   await page.keyboard.press("A");
