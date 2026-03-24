@@ -8,13 +8,14 @@ import OnyxFormElementAction from "./OnyxFormElementAction.vue";
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Form element action",
-    columns: ["default", "disabled"],
+    columns: ["default", "disabled", "highlighted"],
     rows: ["default", "hover", "active"],
     component: (column) => (
       <OnyxFormElementAction
         label="Test label"
         icon={iconPlaceholder}
         disabled={column === "disabled"}
+        highlighted={column === "highlighted"}
         style={{ margin: "2rem" }}
       />
     ),
