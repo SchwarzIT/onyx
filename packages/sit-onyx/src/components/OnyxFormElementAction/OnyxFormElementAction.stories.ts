@@ -1,4 +1,4 @@
-import { iconEye, iconTrash, iconXSmall } from "@sit-onyx/icons";
+import { iconChevronDownUp, iconEye, iconTrash, iconXSmall } from "@sit-onyx/icons";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { defineIconSelectArgType } from "../../utils/storybook.js";
@@ -41,5 +41,13 @@ export const Large = {
     label: "Show password",
     icon: iconEye,
     size: "lg",
+  },
+} satisfies Story;
+
+export const Highlighted = {
+  args: {
+    label: "Toggle popover",
+    icon: iconChevronDownUp,
+    highlighted: true,
   },
 } satisfies Story;
