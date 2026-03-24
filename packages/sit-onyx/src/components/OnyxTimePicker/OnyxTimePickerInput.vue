@@ -293,6 +293,7 @@ const messageToFormElementProps = (
         :label="t('timePicker.labels.timeSuffix')"
         :list-label="t('timePicker.labels.timeSuffix')"
         hide-label
+        hide-clear-icon
         :options="[
           { label: t('timePicker.labels.am'), value: 'am' },
           { label: t('timePicker.labels.pm'), value: 'pm' },
