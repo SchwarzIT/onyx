@@ -990,3 +990,41 @@ test("should be focused when autofocus is set", async ({ mount }) => {
   // ACT
   await expect(input).toBeFocused();
 });
+
+test("should show clear button", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(OnyxSelect, {
+    props: {
+      label: "Test label",
+      listLabel: "List label",
+      options: MOCK_VARIED_OPTIONS,
+    },
+  });
+
+  const input = component.getByLabel("Test label");
+  const flyout = component.getByLabel("List label");
+  const clearButton = component.getByRole("button", { name: "Clear input" });
+
+  // ACT
+  await input.click();
+  await flyout.getByRole("option", { name: MOCK_VARIED_OPTIONS[0]!.label }).click();
+  await input.blur();
+
+  // ASSERT
+  await expect(input).toHaveValue(String(MOCK_VARIED_OPTIONS[0]!.label));
+  await expect(clearButton).toBeHidden();
+
+  // ACT
+  await input.focus();
+
+  // ASSERT
+  await expect(clearButton).toBeVisible();
+
+  // ACT
+  await clearButton.click();
+  await input.focus();
+
+  // ASSERT
+  await expect(input).toHaveValue("");
+  await expect(clearButton).toBeHidden();
+});
