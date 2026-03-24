@@ -42,7 +42,9 @@ import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElementAction from "../OnyxFormElementAction/OnyxFormElementAction.vue";
 import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
+import type { OnyxFormElementV2Slots } from "../OnyxFormElementV2/types.js";
 import { useLegacyFormElementProps } from "../OnyxFormElementV2/useLegacyFormElementProps.js";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxMiniSearch from "../OnyxMiniSearch/OnyxMiniSearch.vue";
 import OnyxSelectOption from "../OnyxSelectOption/OnyxSelectOption.vue";
@@ -93,29 +95,31 @@ const emit = defineEmits<{
   "update:open": [value: boolean];
 }>();
 
-const slots = defineSlots<{
-  /**
-   * Optional slot to customize the empty state when no options exist.
-   * It is recommended to use the `<OnyxEmpty>` component here.
-   *
-   * If unset, a default translated message will be displayed for the current locale.
-   */
-  empty?(props: { defaultMessage: string }): unknown;
-  /**
-   * Optional slot that is displayed below all options that can be used
-   * to e.g. show a button to load more options instead of lazy loading on scroll.
-   */
-  optionsEnd?(): unknown;
-  /**
-   * Optional slot to override the option content.
-   */
-  option?(props: SelectOption<TValue>): unknown;
-  /**
-   * Optional slot to override the icon of the toggle button inside the input.
-   * Recommended to use the `OnyxFormElementAction` component here.
-   */
-  toggleIcon?(): unknown;
-}>();
+const slots = defineSlots<
+  Pick<OnyxFormElementV2Slots, "leading" | "leadingIcons" | "trailing" | "trailingIcons"> & {
+    /**
+     * Optional slot to customize the empty state when no options exist.
+     * It is recommended to use the `<OnyxEmpty>` component here.
+     *
+     * If unset, a default translated message will be displayed for the current locale.
+     */
+    empty?(props: { defaultMessage: string }): unknown;
+    /**
+     * Optional slot that is displayed below all options that can be used
+     * to e.g. show a button to load more options instead of lazy loading on scroll.
+     */
+    optionsEnd?(): unknown;
+    /**
+     * Optional slot to override the option content.
+     */
+    option?(props: SelectOption<TValue>): unknown;
+    /**
+     * Optional slot to override the icon of the toggle button inside the input.
+     * Recommended to use the `OnyxFormElementAction` component here.
+     */
+    toggleIcon?(): unknown;
+  }
+>();
 
 const { t } = injectI18n();
 
@@ -464,6 +468,15 @@ const clearValue = () => {
   modelValue.value = value as typeof modelValue.value;
 };
 
+/**
+ * The icon of the currently selected option (in single select)
+ * to be shown in the leadingIcons slot.
+ */
+const selectedOptionIcon = computed(() => {
+  if (props.multiple) return;
+  return props.options.find((option) => option.value === modelValue.value)?.icon;
+});
+
 defineExpose({ input: inputRef });
 </script>
 
@@ -509,7 +522,23 @@ defineExpose({ input: inputRef });
       />
     </template>
 
+    <template v-if="slots.leading" #leading>
+      <slot name="leading"></slot>
+    </template>
+
+    <template v-if="slots.leadingIcons || selectedOptionIcon" #leadingIcons>
+      <slot name="leadingIcons">
+        <OnyxIcon v-if="selectedOptionIcon" :icon="selectedOptionIcon" />
+      </slot>
+    </template>
+
+    <template v-if="slots.trailing" #trailing>
+      <slot name="trailing"></slot>
+    </template>
+
     <template #trailingIcons>
+      <slot name="trailingIcons"></slot>
+
       <OnyxFormElementAction
         v-if="!showPreviewBadge && showClearButton"
         :label="t('input.clear')"
