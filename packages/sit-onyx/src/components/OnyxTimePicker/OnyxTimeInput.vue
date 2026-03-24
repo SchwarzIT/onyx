@@ -21,6 +21,7 @@ type Props = OnyxTimePickerProps<TType>;
 const props = withDefaults(defineProps<Props>(), {
   type: () => "default" as TType,
   open: undefined,
+  popoverOptions: () => ({ fitParent: true }),
 });
 
 const emit = defineEmits<{
@@ -272,6 +273,7 @@ watch(open, (isOpen) => {
 });
 
 const inputProps = useForwardProps(props, OnyxTimePickerInput);
+const timePickerGroupProps = useForwardProps(props, OnyxTimePickerGroup);
 </script>
 
 <template>
@@ -279,15 +281,13 @@ const inputProps = useForwardProps(props, OnyxTimePickerInput);
     <OnyxBasicPopover
       class="onyx-time-picker__popover"
       :label="t('timePicker.labels.popover')"
-      position="bottom"
-      alignment="center"
+      v-bind="props.popoverOptions"
       :open="open"
-      fit-parent
     >
       <template #default>
         <OnyxTimePickerInput
           class="onyx-time-picker__input"
-          :class="{ 'onyx-time-picker__input--show-focused': open }"
+          :class="{ 'onyx-time-picker__input--show-focused': open || isFocused }"
           v-bind="inputProps"
           :label="props.label"
           :model-value="inputValue"
@@ -315,7 +315,7 @@ const inputProps = useForwardProps(props, OnyxTimePickerInput);
               v-else
               :icon="iconClock"
               color="neutral"
-              class="onyx-time-picker__clock-icon"
+              :class="['onyx-time-picker__clock-icon']"
             />
           </template>
         </OnyxTimePickerInput>
@@ -330,10 +330,8 @@ const inputProps = useForwardProps(props, OnyxTimePickerInput);
 
             <OnyxTimePickerGroup
               ref="startTimePickerGroupRef"
+              v-bind="timePickerGroupProps"
               :model-value="startTime"
-              :disabled="props.disabled"
-              :readonly="props.readonly"
-              :loading="props.loading"
               autofocus
               :show-seconds="props.showSeconds"
               @update:model-value="handleRangeModelUpdate('start', $event)"
@@ -344,11 +342,8 @@ const inputProps = useForwardProps(props, OnyxTimePickerInput);
             </OnyxHeadline>
             <OnyxTimePickerGroup
               ref="endTimePickerGroupRef"
+              v-bind="timePickerGroupProps"
               :model-value="endTime"
-              :disabled="props.disabled"
-              :readonly="props.readonly"
-              :loading="props.loading"
-              :show-seconds="props.showSeconds"
               @update:model-value="handleRangeModelUpdate('end', $event)"
               @jump-segment="(segment, direction) => jumpSegment(segment, direction, 'end')"
             />
@@ -358,10 +353,8 @@ const inputProps = useForwardProps(props, OnyxTimePickerInput);
             v-else
             ref="timePickerGroupRef"
             autofocus
+            v-bind="timePickerGroupProps"
             :model-value="singleModelValue"
-            :disabled="props.disabled"
-            :loading="props.loading"
-            :show-seconds="props.showSeconds"
             @update:model-value="handleModelUpdate"
             @jump-segment="jumpSegment"
           />
@@ -445,10 +438,13 @@ const inputProps = useForwardProps(props, OnyxTimePickerInput);
     &__clock-icon {
       --icon-color: var(--onyx-color-text-icons-neutral-soft);
     }
-    &:has(.onyx-time-picker-input__native:focus-visible),
-    &:has(.onyx-time-picker-input__native:hover) {
+    :has(.onyx-time-picker__input--show-focused) {
       .onyx-time-picker__clock-icon {
         --icon-color: var(--onyx-color-text-icons-primary-intense);
+      }
+      .onyx-form-element-v2__input-container {
+        border-color: var(--onyx-form-element-v2-border-color-focus);
+        outline: var(--onyx-outline-width) solid var(--onyx-form-element-v2-outline-color);
       }
     }
   }

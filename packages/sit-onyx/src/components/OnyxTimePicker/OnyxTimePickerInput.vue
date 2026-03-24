@@ -1,21 +1,21 @@
 <script lang="ts" setup>
 import { CLOSING_KEYS, OPENING_KEYS } from "@sit-onyx/headless";
-import { computed, reactive, useTemplateRef } from "vue";
-import { useDensity } from "../../composables/density.js";
+import { iconChevronDownSmall } from "@sit-onyx/icons";
+import { computed, reactive, ref, useTemplateRef, watch } from "vue";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
-import { useErrorClass } from "../../composables/useErrorClass.js";
-import { getFormMessages, useFormElementError } from "../../composables/useFormElementError.js";
 import {
-  SKELETON_INJECTED_SYMBOL,
-  useSkeletonContext,
-} from "../../composables/useSkeletonState.js";
+  useFormElementError,
+  type CustomMessageType,
+} from "../../composables/useFormElementError.js";
+import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
-import { useRootAttrs } from "../../utils/attrs.js";
+import { injectI18n, type FormElementV2Tooltip } from "../../index.js";
+import { mergeVueProps, useRootAttrs } from "../../utils/attrs.js";
 import { useForwardProps } from "../../utils/props.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
-import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
-import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
-import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
+import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
 import type { OnyxTimePickerProps, TimePickerType } from "./types.js";
 
 const props = withDefaults(
@@ -35,6 +35,7 @@ const props = withDefaults(
     required: false,
     readonly: false,
     loading: false,
+    showAmPm: false,
     skeleton: SKELETON_INJECTED_SYMBOL,
     disabled: FORM_INJECTED_SYMBOL,
     showError: FORM_INJECTED_SYMBOL,
@@ -77,14 +78,10 @@ const { vCustomValidity, errorMessages } = useFormElementError({
   emit,
   error,
 });
-const successMessages = computed(() => getFormMessages(props.success));
-const messages = computed(() => getFormMessages(props.message));
-const { densityClass } = useDensity(props);
+const { t } = injectI18n();
 //TODO: Question: Why is it not working for showError = touched
-const { disabled, showError } = useFormContext(props);
-const skeleton = useSkeletonContext(props);
-const errorClass = useErrorClass(computed(() => (props.type === "range" ? true : showError.value)));
-const formElementProps = useForwardProps(props, OnyxFormElement);
+const { disabled } = useFormContext(props);
+const formElementProps = useForwardProps(props, OnyxFormElementV2);
 
 /**
  * Ensures that the native input only receives "HH:MM" or "HH:MM:SS".
@@ -106,15 +103,118 @@ const modelValue = useVModel({
   key: "modelValue",
 });
 
+const timeSuffix = ref("am");
+
+watch(
+  modelValue,
+  (newVal) => {
+    if (props.type === "range" || !newVal) return;
+
+    const timeString = newVal as string;
+    const h = parseInt(timeString.split(":")[0] || "0", 10);
+
+    if (!Number.isNaN(h)) {
+      const expectedSuffix = h >= 12 ? "pm" : "am";
+      if (timeSuffix.value !== expectedSuffix) {
+        timeSuffix.value = expectedSuffix;
+      }
+    }
+  },
+  { immediate: true },
+);
+
+watch(timeSuffix, (newSuffix) => {
+  if (props.type === "range") return;
+  if (!modelValue.value || !props.showAmPm) return;
+
+  const parts = (modelValue.value as string).split(":");
+  if (!parts || !parts[0]) return;
+  let h = parseInt(parts[0], 10);
+  const m = parts[1] || "00";
+  const s = parts[2] || "00";
+
+  let changed = false;
+  if (newSuffix === "pm" && h < 12) {
+    h += 12;
+    changed = true;
+  } else if (newSuffix === "am" && h >= 12) {
+    h -= 12;
+    changed = true;
+  }
+
+  if (changed) {
+    const hh = h.toString().padStart(2, "0");
+    modelValue.value = `${hh}:${m}${props.showSeconds ? `:${s}` : ""}`;
+  }
+});
+
 const value = computed({
   get: () => {
     const strVal = modelValue.value as string | undefined;
+    if (!strVal) return "";
+    if (props.type === "range") {
+      if (props.showAmPm) {
+        const times = strVal.split("-").map((t) => t.trim());
 
-    if (props.type !== "range" || !strVal) return sanitizeForNativeInput(strVal);
-    return strVal.replace("-", " - ");
+        const formattedTimes = times.map((timeStr) => {
+          if (!timeStr) return "";
+          const parts = timeStr.split(":");
+          if (!parts || !parts[0]) return timeStr;
+
+          const h = Number.parseInt(parts[0], 10);
+          if (Number.isNaN(h)) return timeStr;
+
+          const suffix =
+            h >= 12 ? t.value("timePicker.labels.pm") : t.value("timePicker.labels.am");
+          let displayHours = h % 12;
+          if (displayHours === 0) displayHours = 12;
+
+          const hh = displayHours.toString().padStart(2, "0");
+          const mm = parts[1] || "00";
+          const ss = props.showSeconds && parts[2] ? `:${parts[2]}` : "";
+
+          return `${hh}:${mm}${ss}${suffix}`;
+        });
+
+        return formattedTimes.join(" - ");
+      }
+      return strVal.replace("-", " - ");
+    }
+
+    if (!props.showAmPm) return sanitizeForNativeInput(strVal);
+
+    const parts = strVal.split(":");
+    if (!parts || !parts[0]) return;
+    const h = Number.parseInt(parts[0], 10);
+    const m = parts[1] || "00";
+    const s = parts[2] || "00";
+
+    let displayHours = h % 12;
+    if (displayHours === 0) displayHours = 12;
+
+    const hh = displayHours.toString().padStart(2, "0");
+    const mm = m.padStart(2, "0");
+    const ss = props.showSeconds ? `:${s.padStart(2, "0")}` : "";
+
+    return `${hh}:${mm}${ss}`;
   },
   set: (newValue) => {
-    modelValue.value = String(newValue);
+    const inputVal = String(newValue);
+    const match = inputVal.match(/^(\d{1,2}):(\d{2})(?::(\d{2}))?/);
+    if (match && match[1]) {
+      let h = Number.parseInt(match[1], 10);
+      const m = match[2];
+      const s = match[3] || "00";
+
+      if (props.showAmPm && timeSuffix.value === "pm" && h < 12) {
+        h += 12;
+      } else if (props.showAmPm && timeSuffix.value === "am" && h === 12) {
+        h = 0;
+      }
+
+      const hh = h.toString().padStart(2, "0");
+      modelValue.value = `${hh}:${m}${props.showSeconds ? `:${s}` : ""}`;
+    }
   },
 });
 
@@ -130,82 +230,81 @@ defineSlots<{
 
 useAutofocus(useTemplateRef("input"), props);
 
-const navigationalKeys = OPENING_KEYS.concat(CLOSING_KEYS);
+const navigationalKeys = new Set(OPENING_KEYS.concat(CLOSING_KEYS));
 const blockTyping = (event: KeyboardEvent) => {
   if (event.key === "Enter") {
     event.preventDefault();
     emit("update:open");
     return;
   }
-  if (navigationalKeys.includes(event.key) || props.type !== "range") return;
+  if (navigationalKeys.has(event.key) || props.type !== "range") return;
   event.preventDefault();
+};
+
+const messageToFormElementProps = (
+  message?: CustomMessageType,
+): string | FormElementV2Tooltip | undefined => {
+  if (!message) return;
+  if (typeof message === "string") return message;
+  if (message.hidden) return;
+  return { label: message.shortMessage, tooltipText: message.longMessage };
 };
 </script>
 
 <template>
-  <div
-    v-if="skeleton"
-    :class="['onyx-component', 'onyx-time-picker-input-skeleton', densityClass]"
-    v-bind="rootAttrs"
+  <OnyxFormElementV2
+    v-bind="mergeVueProps(rootAttrs, formElementProps)"
+    :label="props.label"
+    :error="messageToFormElementProps(errorMessages)"
+    class="onyx-time-picker-input"
   >
-    <OnyxSkeleton v-if="!props.hideLabel" class="onyx-time-picker-input-skeleton__label" />
-    <OnyxSkeleton class="onyx-time-picker-input-skeleton__input" />
-  </div>
+    <template #default="inputProps">
+      <!-- eslint-disable-next-line vuejs-accessibility/form-control-has-label -- is provided via inputProps -->
+      <input
+        v-bind="mergeVueProps(inputProps, restAttrs)"
+        ref="input"
+        v-model="value"
+        v-custom-validity
+        :type="props.type === 'range' ? 'text' : 'time'"
+        :placeholder="props.placeholder"
+        :required="props.required"
+        :autofocus="props.autofocus"
+        :name="props.name"
+        :readonly="props.readonly"
+        :disabled="disabled || props.loading"
+        :step="props.step"
+        :max="sanitizedMax"
+        :min="sanitizedMin"
+        @keydown.space.prevent
+        @focus="emit('update:isFocused', true)"
+        @blur="emit('update:isFocused', false)"
+        @click="emit('update:open')"
+        @paste="(e) => props.type === 'range' && e.preventDefault()"
+        @keydown="blockTyping"
+      />
+    </template>
 
-  <div
-    v-else
-    :class="['onyx-component', 'onyx-time-picker-input', densityClass, errorClass]"
-    v-bind="rootAttrs"
-  >
-    <OnyxFormElement
-      v-bind="formElementProps"
-      :label="props.label"
-      :error-messages="errorMessages"
-      :success-messages="successMessages"
-      :message="messages"
-    >
-      <template #default="{ id: inputId }">
-        <div class="onyx-time-picker-input__wrapper">
-          <OnyxLoadingIndicator
-            v-if="props.loading"
-            class="onyx-time-picker-input__loading"
-            type="circle"
-          />
-          <input
-            :id="inputId"
-            ref="input"
-            v-model="value"
-            v-custom-validity
-            :type="props.type === 'range' ? 'text' : 'time'"
-            class="onyx-time-picker-input__native"
-            :class="{
-              'onyx-time-picker-input__native--success': successMessages,
-              'onyx-time-picker-input__native--readonly': props.readonly,
-            }"
-            :placeholder="props.placeholder"
-            :required="props.required"
-            :autofocus="props.autofocus"
-            :name="props.name"
-            :readonly="props.readonly"
-            :disabled="disabled || props.loading"
-            :aria-label="props.hideLabel ? props.label : undefined"
-            :title="props.hideLabel ? props.label : undefined"
-            :step="props.step"
-            v-bind="restAttrs"
-            :max="sanitizedMax"
-            :min="sanitizedMin"
-            @keydown.space.prevent
-            @focus="emit('update:isFocused', true)"
-            @blur="emit('update:isFocused', false)"
-            @click="emit('update:open')"
-            @paste="(e) => props.type === 'range' && e.preventDefault()"
-            @keydown="blockTyping"
-          />
-          <slot name="icon"></slot>
-        </div>
-      </template>
-    </OnyxFormElement>
-  </div>
+    <template #trailingIcons>
+      <slot name="icon"></slot>
+    </template>
+
+    <template v-if="props.showAmPm && props.type === 'default'" #trailing>
+      <OnyxSelect
+        v-model="timeSuffix"
+        :label="t('timePicker.labels.timeSuffix')"
+        :list-label="t('timePicker.labels.timeSuffix')"
+        hide-label
+        :options="[
+          { label: t('timePicker.labels.am'), value: 'am' },
+          { label: t('timePicker.labels.pm'), value: 'pm' },
+        ]"
+      >
+        <template #toggleIcon>
+          <OnyxIcon :icon="iconChevronDownSmall" />
+        </template>
+      </OnyxSelect>
+    </template>
+  </OnyxFormElementV2>
 </template>
 
 <style lang="scss">
@@ -233,7 +332,9 @@ const blockTyping = (event: KeyboardEvent) => {
       $base-selector: ".onyx-time-picker-input",
       $vertical-padding: var(--onyx-time-picker-padding-vertical)
     );
-
+    &__wrapper {
+      width: 100%;
+    }
     &__native {
       &::-webkit-calendar-picker-indicator {
         cursor: pointer;

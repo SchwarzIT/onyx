@@ -291,7 +291,10 @@
       "second": "Secundă",
       "listLabel": "Opțiuni de timp",
       "from": "de la",
-      "to": "până la"
+      "to": "până la",
+      "am": "AM",
+      "pm": "PM",
+      "timeSuffix": "Selectați AM sau PM"
     },
     "errors": {
       "outsideRange": "Intervalul de timp trebuie să fie între {min} și {max}.",

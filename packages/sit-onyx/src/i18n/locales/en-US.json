@@ -291,7 +291,10 @@
       "hour": "Hour",
       "minute": "Minute",
       "second": "Second",
-      "listLabel": "Time options"
+      "listLabel": "Time options",
+      "am": "AM",
+      "pm": "PM",
+      "timeSuffix": "Select AM or PM"
     },
     "errors": {
       "outsideRange": "The time range must be between {min} and {max}.",
