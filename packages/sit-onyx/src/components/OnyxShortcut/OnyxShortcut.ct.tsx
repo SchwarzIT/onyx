@@ -58,6 +58,7 @@ test("should emit events when step and full sequence is completed", async ({ mou
       sequence={[{ all: ["Control", "C"] }, { any: ["V"] }]}
       onComplete={onComplete}
       onStepComplete={onStepComplete}
+      highlight="auto"
     />,
   );
 
