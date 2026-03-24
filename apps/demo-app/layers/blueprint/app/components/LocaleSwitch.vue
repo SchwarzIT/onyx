@@ -21,11 +21,9 @@ const currentLocaleLabel = computed(() => {
 </script>
 
 <template>
-  <OnyxButton
+  <OnyxUnstableNavButton
     :label="currentLocaleLabel"
     :icon="iconTranslate"
-    color="neutral"
-    mode="plain"
     @click="isLanguageDialogOpen = true"
   />
 

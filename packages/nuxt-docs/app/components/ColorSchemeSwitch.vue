@@ -28,10 +28,10 @@ const trigger = {
 
 <template>
   <slot :trigger>
-    <OnyxIconButton
+    <OnyxUnstableNavButton
       :label="$t('onyx.colorScheme.headline')"
       :icon="iconCircleContrast"
-      color="neutral"
+      hide-label
       v-bind="trigger"
     />
   </slot>

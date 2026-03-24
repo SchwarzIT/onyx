@@ -103,10 +103,10 @@ const filteredSearchResults = computed(() => {
 </script>
 
 <template>
-  <OnyxIconButton
+  <OnyxUnstableNavButton
     :label="$t('onyx.globalSearch.label')"
     :icon="iconSearch"
-    color="neutral"
+    hide-label
     @click="isOpen = true"
   />
 
