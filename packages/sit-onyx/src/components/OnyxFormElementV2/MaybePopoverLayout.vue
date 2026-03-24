@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { CLOSING_KEYS, OPENING_KEYS, useOutsideClick } from "@sit-onyx/headless";
-import { computed, ref, useTemplateRef, watch } from "vue";
+import { computed, nextTick, ref, useTemplateRef, watch } from "vue";
 import { useVModel } from "../../composables/useVModel.js";
 import { mergeVueProps } from "../../utils/attrs.js";
 import OnyxBasicPopover from "../OnyxBasicPopover/OnyxBasicPopover.vue";
@@ -32,7 +32,10 @@ useOutsideClick({
   inside: popover,
   checkOnTab: true,
   disabled: computed(() => !slots.popover || !open.value),
-  onOutsideClick: () => {
+  onOutsideClick: async () => {
+    // nextTick() is needed to prevent duplicate open toggles for e.g. the OnyxSelect
+    // where the outside click might be handled externally (e.g. in headless composable)
+    await nextTick();
     open.value = false;
   },
 });
