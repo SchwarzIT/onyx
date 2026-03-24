@@ -96,21 +96,16 @@ export const _unstableCreateCalendar = createBuilder((options: CreateCalendarOpt
       let newFocusDate: Date | undefined;
 
       if (Array.isArray(newValue)) {
-        newFocusDate = newValue.length ? new Date(newValue.at(-1)!) : undefined;
+        newFocusDate = newValue.length ? new Date(newValue[0]!) : undefined;
       } else if (typeof newValue === "object" && !(newValue instanceof Date)) {
-        newFocusDate = newValue.end ? new Date(newValue.end) : new Date(newValue.start);
+        newFocusDate = new Date(newValue.start);
       } else {
         newFocusDate = new Date(newValue);
       }
 
       if (newFocusDate) {
         focusedDate.value = newFocusDate;
-        if (
-          newFocusDate.getFullYear() !== viewMonth.value.getFullYear() ||
-          newFocusDate.getMonth() !== viewMonth.value.getMonth()
-        ) {
-          viewMonth.value = new Date(newFocusDate);
-        }
+        viewMonth.value = newFocusDate;
       }
     },
     { immediate: true },

@@ -149,7 +149,6 @@ test("range mode", async ({ mount, page }) => {
       selectionMode="range"
       style={{ width: "40rem" }}
       min={minDate}
-      viewMonth={MOCK_NOW}
       showCalendarWeeks
     />,
   );
