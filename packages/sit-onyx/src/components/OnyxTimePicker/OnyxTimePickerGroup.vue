@@ -184,10 +184,12 @@ const handleDigitInput = async (currentSegment: Segment, e: KeyboardEvent) => {
 
 defineExpose({ getSegmentRef, handleSegmentFocus });
 
-const toggleOptions: [ToggleOption, ToggleOption] = [
-  { label: t.value("timePicker.labels.am"), value: "am" },
-  { label: t.value("timePicker.labels.pm"), value: "pm" },
-];
+const toggleOptions = computed<[ToggleOption, ToggleOption]>(() => {
+  return [
+    { label: t.value("timePicker.labels.am"), value: "am" },
+    { label: t.value("timePicker.labels.pm"), value: "pm" },
+  ];
+});
 </script>
 
 <template>
