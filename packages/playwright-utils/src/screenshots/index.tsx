@@ -97,6 +97,8 @@ export const useMatrixScreenshotTest = <TContext extends HookContext = HookConte
 
       const SCREENSHOT_ROUTE = "/_playwright-matrix-screenshot";
 
+      const getScreenshotRoute = (id: string) => `${SCREENSHOT_ROUTE}}?id=${id}`;
+
       await context.route(`${SCREENSHOT_ROUTE}*`, (route, request) => {
         const url = new URL(request.url());
         const wantedId = url.searchParams.get("id") ?? "";
@@ -113,10 +115,13 @@ export const useMatrixScreenshotTest = <TContext extends HookContext = HookConte
           width={box?.width}
           height={box?.height}
           style={{ gridArea: id }}
-          src={`${SCREENSHOT_ROUTE}?id=${id}`}
+          src={getScreenshotRoute(id)}
           alt={id}
         />
       ));
+      const waitForResponses = Array.from(screenshotMap.values()).map(({ id }) =>
+        page.waitForResponse(getScreenshotRoute(id)),
+      );
 
       const rowLabels = options.rows.map((row) => GridLabel({ name: row, type: "row" }));
 
@@ -133,6 +138,7 @@ export const useMatrixScreenshotTest = <TContext extends HookContext = HookConte
       });
 
       const component = await mount(html);
+      await Promise.all(waitForResponses);
       await expect(component).toHaveScreenshot(`${options.name}.png`);
 
       await page.unroute(`${SCREENSHOT_ROUTE}*`);
