@@ -1,4 +1,5 @@
 import { iconMoreVertical } from "@sit-onyx/icons";
+import { createEmitSpy, expectEmit } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots.js";
@@ -273,14 +274,16 @@ test("should keep components be clickable even with active column hover effect",
   page,
   mount,
 }) => {
-  let buttonClickCount = 0;
+  // ARRANGE
+  const onClickHeader = createEmitSpy<typeof OnyxButton, "click">();
+  const onClickRow = createEmitSpy<typeof OnyxButton, "click">();
 
   const component = await mount(
     <OnyxTable>
       <template v-slot:head>
         <tr>
           <th>
-            <OnyxButton label="Header button" onClick={() => buttonClickCount++} />
+            <OnyxButton label="Header button" onClick={onClickHeader} />
           </th>
           <th>Column 2</th>
         </tr>
@@ -288,7 +291,7 @@ test("should keep components be clickable even with active column hover effect",
 
       <tr>
         <td>
-          <OnyxButton label="Row button" onClick={() => buttonClickCount++} />
+          <OnyxButton label="Row button" onClick={onClickRow} />
         </td>
         <td>Test 2</td>
       </tr>
@@ -299,18 +302,25 @@ test("should keep components be clickable even with active column hover effect",
     </OnyxTable>,
   );
 
+  // ACT
   await component.getByRole("button", { name: "Header button" }).click();
-  expect(buttonClickCount).toBe(1);
 
+  // ASSERT
+  await expectEmit(onClickHeader, 1);
+
+  // ACT
   // simulate moving the mouse down on the column hover effect to test that it will be hidden when moving
   // outside of the table header
   let box = (await component.getByRole("button", { name: "Header button" }).boundingBox())!;
-  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2, { steps: 10 });
 
   box = (await component.getByRole("button", { name: "Row button" }).boundingBox())!;
-  await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2, { steps: 10 });
+  await page.mouse.down();
+  await page.mouse.up();
 
-  expect(buttonClickCount).toBe(2);
+  // ASSERT
+  await expectEmit(onClickRow, 1);
 });
 
 test("should set table aria label when headline is passed", async ({ mount }) => {
