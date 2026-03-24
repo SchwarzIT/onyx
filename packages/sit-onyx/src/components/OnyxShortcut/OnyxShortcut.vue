@@ -13,15 +13,22 @@ import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
-import { isAllStep, isAnyStep, type ShortcutStep } from "../../utils/keyboard.js";
+import type { KeyboardKey } from "../../utils/keyboard.js";
 import OnyxKey from "../OnyxKey/OnyxKey.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import type { OnyxShortcutProps } from "./types.js";
+import type {
+  OnyxShortcutProps,
+  ShortcutItemAll,
+  ShortcutItemAny,
+  ShortcutSequenceStep,
+} from "./types.js";
 
 const SEPARATORS = {
   ALL: "+",
   ANY: "/",
   SEQUENCE: "→",
+  GROUP_OPEN: "(",
+  GROUP_CLOSE: ")",
 } as const;
 
 const props = withDefaults(defineProps<OnyxShortcutProps>(), {
@@ -42,8 +49,28 @@ const emit = defineEmits<{
   /**
    * Emitted when a step in the shortcut sequence is completed.
    */
-  stepComplete: [step: ShortcutStep, stepIndex: number];
+  stepComplete: [step: ShortcutSequenceStep, stepIndex: number];
 }>();
+
+const isGroupAny = (item: unknown): item is ShortcutItemAny => {
+  return typeof item === "object" && item !== null && "any" in item;
+};
+
+const isGroupAll = (item: unknown): item is ShortcutItemAll => {
+  return typeof item === "object" && item !== null && "all" in item;
+};
+
+const isStepAll = (
+  step: ShortcutSequenceStep,
+): step is Extract<ShortcutSequenceStep, { all: unknown }> => {
+  return "all" in step;
+};
+
+const isStepAny = (
+  step: ShortcutSequenceStep,
+): step is Extract<ShortcutSequenceStep, { any: unknown }> => {
+  return "any" in step;
+};
 
 const { sequence, cleanupDelay, element } = toRefs(props);
 
@@ -66,18 +93,42 @@ const { isKeyHighlighted } = _unstableUseShortcut({
   <OnyxSkeleton v-if="skeleton" :class="['onyx-component', 'onyx-shortcut-skeleton']" />
   <span v-else :class="['onyx-component', 'onyx-shortcut']">
     <template v-for="(step, stepIndex) in props.sequence" :key="stepIndex">
-      <template v-if="isAllStep(step)">
-        <template v-for="(key, keyIndex) in step.all" :key>
+      <template v-if="isStepAll(step)">
+        <template v-for="(item, itemIndex) in step.all" :key="itemIndex">
+          <template v-if="isGroupAny(item)">
+            <span class="onyx-shortcut__group">
+              <span class="onyx-shortcut__separator">{{ SEPARATORS.GROUP_OPEN }}</span>
+              <template v-for="(subKey, subKeyIndex) in item.any" :key="subKeyIndex">
+                <OnyxKey
+                  :name="subKey"
+                  :os="props.os"
+                  :highlight="
+                    props.highlight === true ||
+                    (!isShortcutHighlightingDisabled && isKeyHighlighted(subKey, stepIndex))
+                  "
+                />
+                <span
+                  v-if="subKeyIndex < item.any.length - 1 && !item.hideSeparator"
+                  class="onyx-shortcut__separator"
+                >
+                  {{ SEPARATORS.ANY }}
+                </span>
+              </template>
+              <span class="onyx-shortcut__separator">{{ SEPARATORS.GROUP_CLOSE }}</span>
+            </span>
+          </template>
+
           <OnyxKey
-            :name="key"
+            v-else
+            :name="item as KeyboardKey"
             :os="props.os"
             :highlight="
               props.highlight === true ||
-              (!isShortcutHighlightingDisabled && isKeyHighlighted(key, stepIndex))
+              (!isShortcutHighlightingDisabled && isKeyHighlighted(item as KeyboardKey, stepIndex))
             "
           />
           <span
-            v-if="keyIndex < step.all.length - 1 && !step.hideSeparator"
+            v-if="itemIndex < step.all.length - 1 && !step.hideSeparator"
             class="onyx-shortcut__separator"
           >
             {{ SEPARATORS.ALL }}
@@ -85,18 +136,42 @@ const { isKeyHighlighted } = _unstableUseShortcut({
         </template>
       </template>
 
-      <template v-else-if="isAnyStep(step)">
-        <template v-for="(key, keyIndex) in step.any" :key>
+      <template v-else-if="isStepAny(step)">
+        <template v-for="(item, itemIndex) in step.any" :key="itemIndex">
+          <template v-if="isGroupAll(item)">
+            <span class="onyx-shortcut__group">
+              <span class="onyx-shortcut__separator">{{ SEPARATORS.GROUP_OPEN }}</span>
+              <template v-for="(subKey, subKeyIndex) in item.all" :key="subKeyIndex">
+                <OnyxKey
+                  :name="subKey"
+                  :os="props.os"
+                  :highlight="
+                    props.highlight === true ||
+                    (!isShortcutHighlightingDisabled && isKeyHighlighted(subKey, stepIndex))
+                  "
+                />
+                <span
+                  v-if="subKeyIndex < item.all.length - 1 && !item.hideSeparator"
+                  class="onyx-shortcut__separator"
+                >
+                  {{ SEPARATORS.ALL }}
+                </span>
+              </template>
+              <span class="onyx-shortcut__separator">{{ SEPARATORS.GROUP_CLOSE }}</span>
+            </span>
+          </template>
+
           <OnyxKey
-            :name="key"
+            v-else
+            :name="item as KeyboardKey"
             :os="props.os"
             :highlight="
               props.highlight === true ||
-              (!isShortcutHighlightingDisabled && isKeyHighlighted(key, stepIndex))
+              (!isShortcutHighlightingDisabled && isKeyHighlighted(item as KeyboardKey, stepIndex))
             "
           />
           <span
-            v-if="keyIndex < step.any.length - 1 && !step.hideSeparator"
+            v-if="itemIndex < step.any.length - 1 && !step.hideSeparator"
             class="onyx-shortcut__separator"
           >
             {{ SEPARATORS.ANY }}
@@ -124,6 +199,12 @@ const { isKeyHighlighted } = _unstableUseShortcut({
     &__separator {
       color: var(--onyx-color-text-icons-neutral-medium);
       user-select: none;
+    }
+    &__group {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--onyx-spacing-4xs);
+      font-family: monospace;
     }
   }
 }

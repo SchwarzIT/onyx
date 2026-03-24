@@ -1,40 +1,63 @@
 import { debounce, useGlobalEventListener } from "@sit-onyx/headless";
 import { computed, onBeforeUnmount, ref, unref, watch, type MaybeRef } from "vue";
+import type { ShortcutSequenceStep } from "../components/OnyxShortcut/types.js";
 import type { Nullable } from "../types/utils.js";
-import {
-  isAllStep,
-  isAnyStep,
-  keyboardEventToKey,
-  type KeyboardKey,
-  type ShortcutStep,
-} from "../utils/keyboard.js";
+import { keyboardEventToKey, type KeyboardKey } from "../utils/keyboard.js";
 import { useOperatingSystem } from "./useOperatingSystem.js";
 
 /**
  * Check whether the current pressed keys satisfy a step.
  */
-const matchStep = (step: ShortcutStep, pressed: Set<KeyboardKey>): boolean => {
-  if (isAllStep(step)) return step.all.every((key) => pressed.has(key));
-  if (isAnyStep(step)) return step.any.some((key) => pressed.has(key));
+const matchStep = (step: ShortcutSequenceStep, pressed: Set<KeyboardKey>): boolean => {
+  if ("all" in step && Array.isArray(step.all)) {
+    return step.all.every((item) => {
+      if (typeof item === "object" && item !== null && "any" in item) {
+        return item.any.some((key) => pressed.has(key));
+      }
+      return pressed.has(item as KeyboardKey);
+    });
+  }
+  if ("any" in step && Array.isArray(step.any)) {
+    return step.any.some((item) => {
+      if (typeof item === "object" && item !== null && "all" in item) {
+        return item.all.every((key) => pressed.has(key));
+      }
+      return pressed.has(item as KeyboardKey);
+    });
+  }
   return false;
 };
 
 /**
  * Check whether a key is relevant for a given step.
  */
-const isKeyRelevantForStep = (key: KeyboardKey, step: ShortcutStep): boolean => {
-  if (isAllStep(step)) return step.all.includes(key);
-  if (isAnyStep(step)) return step.any.includes(key);
+const isKeyRelevantForStep = (key: KeyboardKey, step: ShortcutSequenceStep): boolean => {
+  if ("all" in step && Array.isArray(step.all)) {
+    return step.all.some((item) => {
+      if (typeof item === "object" && item !== null && "any" in item) {
+        return item.any.includes(key);
+      }
+      return item === key;
+    });
+  }
+  if ("any" in step && Array.isArray(step.any)) {
+    return step.any.some((item) => {
+      if (typeof item === "object" && item !== null && "all" in item) {
+        return item.all.includes(key);
+      }
+      return item === key;
+    });
+  }
   return false;
 };
 
-type UseShortcutOptions = {
+type UseShortcutOptions<TStep extends ShortcutSequenceStep> = {
   /**
    * Sequence of shortcut steps.
    *
    * @example `[{ all: ["Control", "C"] }, { any: ["V", "Insert"] }]`
    */
-  sequence: MaybeRef<ShortcutStep[]>;
+  sequence: MaybeRef<TStep[]>;
   /**
    * Element for listening to keyboard events.
    *
@@ -58,7 +81,7 @@ type UseShortcutOptions = {
   /**
    * Callback invoked when a single step of the shortcut sequence is completed.
    */
-  onStepComplete?: (step: ShortcutStep, stepIndex: number) => void;
+  onStepComplete?: (step: TStep, stepIndex: number) => void;
 };
 
 /**
@@ -68,7 +91,9 @@ type UseShortcutOptions = {
  * @experimental
  * @deprecated This API is unstable and might change in patch releases.
  */
-export const _unstableUseShortcut = (options: UseShortcutOptions) => {
+export const _unstableUseShortcut = <TStep extends ShortcutSequenceStep>(
+  options: UseShortcutOptions<TStep>,
+) => {
   const sequence = computed(() => unref(options.sequence));
   const cleanupDelay = computed(() => unref(options.cleanupDelay) ?? 5000);
   const element = computed(() => unref(options.element));
