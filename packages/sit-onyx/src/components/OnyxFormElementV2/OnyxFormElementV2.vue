@@ -408,14 +408,18 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
       }
     }
 
-    &:has(#{OnyxFormElementV2.$inputContainerSelector} &__icons--leading) {
-      #{OnyxFormElementV2.$inputContainerSelector} .onyx-form-element-v2__input {
+    &:has(#{OnyxFormElementV2.$inputContainerSelector} &__icons--leading),
+    &:has(#{OnyxFormElementV2.$popoverSelector} &__icons--leading) {
+      #{OnyxFormElementV2.$inputContainerSelector} .onyx-form-element-v2__input,
+      #{OnyxFormElementV2.$popoverSelector} .onyx-form-element-v2__input {
         padding-left: var(--onyx-form-element-v2-padding-inline-icons);
       }
     }
 
-    &:has(#{OnyxFormElementV2.$inputContainerSelector} &__icons--trailing) {
-      #{OnyxFormElementV2.$inputContainerSelector} .onyx-form-element-v2__input {
+    &:has(#{OnyxFormElementV2.$inputContainerSelector} &__icons--trailing),
+    &:has(#{OnyxFormElementV2.$popoverSelector} &__icons--leading) {
+      #{OnyxFormElementV2.$inputContainerSelector} .onyx-form-element-v2__input,
+      #{OnyxFormElementV2.$popoverSelector} .onyx-form-element-v2__input {
         padding-right: var(--onyx-form-element-v2-padding-inline-icons);
       }
     }
