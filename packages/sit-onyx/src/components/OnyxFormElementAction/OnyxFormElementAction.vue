@@ -24,6 +24,7 @@ const props = withDefaults(defineProps<OnyxFormElementActionProps>(), {
   disabled: FORM_INJECTED_SYMBOL,
   size: "sm",
   showOnFocus: false,
+  highlighted: false,
 });
 
 const emit = defineEmits<{
@@ -63,7 +64,8 @@ const toggleAttrs = computed(() =>
       {
         'onyx-form-element-action--lg': props.size === 'lg',
         'onyx-form-element-action--show-on-focus': props.showOnFocus,
-        'onyx-form-element-action--highlight-on-focus': props.highlightOnFocus,
+        'onyx-form-element-action--auto-highlight': props.highlighted === 'auto',
+        'onyx-form-element-action--highlighted': props.highlighted === true,
       },
     ]"
   >
@@ -125,6 +127,12 @@ const toggleAttrs = computed(() =>
     &--show-on-focus {
       display: none;
     }
+
+    &--highlighted {
+      .onyx-form-element-action__button {
+        color: var(--onyx-form-element-action-color-highlight);
+      }
+    }
   }
 }
 
@@ -136,7 +144,7 @@ const toggleAttrs = computed(() =>
           display: var(--onyx-form-element-action-display);
         }
 
-        &--highlight-on-focus {
+        &--auto-highlight {
           .onyx-form-element-action__button {
             color: var(--onyx-form-element-action-color-highlight);
           }
@@ -146,7 +154,7 @@ const toggleAttrs = computed(() =>
 
     @include OnyxFormElementV2.input-container-hover() {
       .onyx-form-element-action {
-        &--highlight-on-focus {
+        &--auto-highlight {
           .onyx-form-element-action__button {
             color: var(--onyx-form-element-action-color-highlight);
           }

@@ -35,7 +35,8 @@ export type OnyxFormElementActionProps = DensityProp & {
    */
   showOnFocus?: boolean;
   /**
-   * If `true`, the button will be visually highlighted when the parent form element has focus.
+   * Whether the button is (visually) highlighted.
+   * If set to "auto", it is automatically highlighted when the parent form element has focus, open popover or is hovered.
    */
-  highlightOnFocus?: boolean;
+  highlighted?: boolean | "auto";
 };
