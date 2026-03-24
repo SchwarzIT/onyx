@@ -269,7 +269,10 @@ test.describe("Screenshot tests (slots)", () => {
   });
 });
 
-test("should focus components with active column hover effect", async ({ page, mount }) => {
+test("should keep components be clickable even with active column hover effect", async ({
+  page,
+  mount,
+}) => {
   let buttonClickCount = 0;
 
   const component = await mount(
@@ -305,10 +308,7 @@ test("should focus components with active column hover effect", async ({ page, m
   await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
 
   box = (await component.getByRole("button", { name: "Row button" }).boundingBox())!;
-  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
-
-  await page.mouse.down();
-  await page.mouse.up();
+  await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
 
   expect(buttonClickCount).toBe(2);
 });
