@@ -17,7 +17,6 @@ import {
   OnyxEmpty,
   OnyxHeadline,
   OnyxIcon,
-  OnyxIconButton,
   OnyxMenuItem,
   OnyxNavBar,
   OnyxNavItem,
@@ -25,6 +24,7 @@ import {
   OnyxNotificationDot,
   OnyxNotifications,
   OnyxSidebar,
+  OnyxUnstableNavButton,
   OnyxUserMenu,
   SKELETON_INJECTED_SYMBOL,
   useNotification,
@@ -122,10 +122,10 @@ const addExampleNotification = () => {
 
         <template #globalContextArea>
           <OnyxNotificationDot :hidden="!store.unreadNotifications.value.length">
-            <OnyxIconButton
+            <OnyxUnstableNavButton
               label="Notifications"
-              color="neutral"
               :icon="iconBell"
+              hide-label
               @click="isSidebarOpen = true"
             />
           </OnyxNotificationDot>

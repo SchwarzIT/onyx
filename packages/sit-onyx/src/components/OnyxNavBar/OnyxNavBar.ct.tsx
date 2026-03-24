@@ -12,7 +12,7 @@ import { ONYX_BREAKPOINTS } from "../../utils/breakpoints.js";
 import OnyxAppLayout from "../OnyxAppLayout/OnyxAppLayout.vue";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
+import OnyxNavButton from "../OnyxNavButton/OnyxNavButton.vue";
 import OnyxPageLayout from "../OnyxPageLayout/OnyxPageLayout.vue";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
 import AsyncTestCase from "./AsyncTestCase.vue";
@@ -152,11 +152,11 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
       <template v-slot:mobileActivePage>Nested item 2</template>
 
       <template v-slot:globalContextArea>
-        <OnyxIconButton label="Search" icon={mockPlaywrightIcon} color="neutral" />
+        <OnyxNavButton label="Search" icon={mockPlaywrightIcon} hideLabel />
       </template>
 
       <template v-slot:contextArea>
-        <OnyxIconButton label="Notification center" icon={mockPlaywrightIcon} color="neutral" />
+        <OnyxNavButton label="Notification center" icon={mockPlaywrightIcon} hideLabel />
         <OnyxTag icon={mockPlaywrightIcon} color="warning" label="QA stage" />
 
         <OnyxUserMenu fullName="John Doe" description="Company name">
@@ -243,7 +243,7 @@ test("Screenshot tests (mobile)", async ({ mount, page }) => {
 
         {showContext && (
           <template v-slot:globalContextArea>
-            <OnyxIconButton label="Search" icon={mockPlaywrightIcon} color="neutral" />
+            <OnyxNavButton label="Search" icon={mockPlaywrightIcon} hideLabel />
           </template>
         )}
         {showContext && <template v-slot:contextArea> test </template>}

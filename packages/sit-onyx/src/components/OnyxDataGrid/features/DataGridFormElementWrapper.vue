@@ -34,13 +34,21 @@ const emit = defineEmits<{
   "update:modelValue": [value: TModelValue];
 }>();
 
-const bind = computed(() => ({
-  hideLabel: true,
-  label: props.label,
-  modelValue: props.modelValue,
-  showError: false,
-  "onUpdate:modelValue": (v: TModelValue) => emit("update:modelValue", v),
-}));
+const bind = computed(() => {
+  // for now some components already use the new OnyxFormElementV2 props so we need to check them
+  // here so we can use the correct properties below
+  const isFormElementV2 = ["OnyxTimePicker"].includes(
+    ("__name" in props.is ? props.is.__name : props.is.name) ?? "",
+  );
+
+  return {
+    hideLabel: true,
+    label: isFormElementV2 ? { label: props.label, hidden: true } : props.label,
+    modelValue: props.modelValue,
+    showError: false,
+    "onUpdate:modelValue": (v: TModelValue) => emit("update:modelValue", v),
+  };
+});
 </script>
 
 <template>

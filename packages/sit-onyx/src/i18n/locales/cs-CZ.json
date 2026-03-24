@@ -291,7 +291,10 @@
       "second": "Sekunda",
       "listLabel": "Možnosti času",
       "from": "od",
-      "to": "do"
+      "to": "do",
+      "am": "AM",
+      "pm": "PM",
+      "timeSuffix": "Vyberte AM nebo PM"
     },
     "errors": {
       "outsideRange": "Časový rozsah musí být mezi {min} a {max}.",

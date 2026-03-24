@@ -1,9 +1,14 @@
 <script lang="ts" setup>
 import { iconClock } from "@sit-onyx/icons";
 import { computed } from "vue";
+import type { CustomMessageType } from "../../composables/useFormElementError.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import { useForwardProps } from "../../utils/props.js";
+import type {
+  FormElementV2LabelOptions,
+  FormElementV2Tooltip,
+} from "../OnyxFormElementV2/types.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
 import type { SelectOption } from "../OnyxSelect/types.js";
@@ -115,6 +120,19 @@ const timeOptions = computed<SelectOption<string>[]>(() => {
 });
 
 const inputProps = useForwardProps(props, OnyxSelect);
+
+const labelOptions = computed<FormElementV2LabelOptions>(() => {
+  if (typeof props.label === "string") return { label: props.label };
+  return props.label;
+});
+
+const mapToCustomMessage = (
+  value?: string | FormElementV2Tooltip,
+): CustomMessageType | undefined => {
+  if (!value) return;
+  if (typeof value === "string") return value;
+  return { shortMessage: value.label, longMessage: value.tooltipText };
+};
 </script>
 
 <template>
@@ -122,7 +140,11 @@ const inputProps = useForwardProps(props, OnyxSelect);
     v-bind="inputProps"
     v-model="modelValue"
     v-model:open="open"
-    :label="props.label"
+    :message="mapToCustomMessage(props.message)"
+    :success="mapToCustomMessage(props.success)"
+    :label="labelOptions.label"
+    :hide-label="labelOptions.hidden"
+    :label-tooltip="labelOptions.tooltipText"
     class="onyx-time-picker"
     :list-label="t('timePicker.labels.listLabel')"
     :options="timeOptions"

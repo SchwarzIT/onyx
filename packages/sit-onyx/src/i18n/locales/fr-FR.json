@@ -291,7 +291,10 @@
       "second": "Seconde",
       "listLabel": "Options d'heure",
       "from": "de",
-      "to": "à"
+      "to": "à",
+      "am": "AM",
+      "pm": "PM",
+      "timeSuffix": "Sélectionner AM ou PM"
     },
     "errors": {
       "outsideRange": "La plage horaire doit être comprise entre {min} et {max}.",

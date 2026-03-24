@@ -23,7 +23,7 @@ test.describe("Screenshot tests", () => {
     executeMatrixScreenshotTest({
       name: `Time picker (${state})`,
       columns: DENSITIES,
-      rows: ["default", "hover", "focus", "skeleton", "disabled", "loading"],
+      rows: ["default", "hover", "focus", "skeleton", "disabled", "loading", "withAmPm"],
       component: (column, row) => {
         return (
           <OnyxTimePicker
@@ -32,6 +32,7 @@ test.describe("Screenshot tests", () => {
             disabled={row === "disabled"}
             loading={row === "loading"}
             skeleton={row === "skeleton"}
+            showAmPm={row === "withAmPm"}
             modelValue={state === "with value" ? "12:11" : undefined}
             style={{ width: "16rem" }}
           />
@@ -50,7 +51,7 @@ test.describe("Screenshot tests", () => {
     executeMatrixScreenshotTest({
       name: `Time picker range (${state})`,
       columns: DENSITIES,
-      rows: ["default", "hover", "focus", "open", "skeleton", "disabled", "loading"],
+      rows: ["default", "hover", "focus", "open", "skeleton", "disabled", "loading", "withAmPm"],
       component: (column, row) => {
         return (
           <OnyxTimePicker
@@ -60,8 +61,12 @@ test.describe("Screenshot tests", () => {
             disabled={row === "disabled"}
             loading={row === "loading"}
             skeleton={row === "skeleton"}
+            showAmPm={row === "withAmPm"}
             modelValue={state === "with value" ? { from: "12:11", to: "13:11" } : undefined}
-            style={{ width: "16rem", marginBottom: row === "open" ? "18rem" : "0rem" }}
+            style={{
+              width: "16rem",
+              marginBottom: row === "open" || row === "withAmPm" ? "18rem" : "0rem",
+            }}
           />
         );
       },
@@ -70,7 +75,7 @@ test.describe("Screenshot tests", () => {
           const input = component.getByLabel("Test label");
           if (row === "hover") await input.hover();
           if (row === "focus") await input.focus();
-          if (row === "open") {
+          if (row === "open" || row === "withAmPm") {
             await input.click();
           }
         },
