@@ -14,7 +14,6 @@ export default defineConfig({
     {
       build: {
         sourcemap: false,
-        minify: "esbuild",
         lib: {
           fileName: "index",
         },

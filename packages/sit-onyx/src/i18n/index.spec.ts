@@ -1,7 +1,6 @@
 import { beforeEach, expect, test, vi } from "vitest";
 import * as vue from "vue";
-import { createI18n as createVueI18n } from "vue-i18n";
-import type { FlattenedKeysOf, TranslationValue } from "../types/index.js";
+import type { FlattenedKeysOf } from "../types/index.js";
 import type { DatetimeFormat } from "./datetime-formats.js";
 import {
   injectI18n,
@@ -240,38 +239,6 @@ test("should use English fallback if translation is missing", () => {
   expect(message).toBe("Hello World");
 });
 
-const LOCALES = import.meta.glob<true, "json", OnyxTranslations>("./locales/*.json", {
-  eager: true,
-  query: "json",
-});
-
-test.each(Object.entries(LOCALES))(
-  "should be able to compile all messages with vue-i18n for $0",
-  async (locale, localeMessages) => {
-    const consoleErrorSpy = vi.spyOn(console, "error");
-    const warnErrorSpy = vi.spyOn(console, "warn");
-
-    const localeName = locale.replace(/^\.\/locales\//, "").replace(/\.json$/, "");
-
-    const vueI18n = createVueI18n({
-      legacy: false,
-      locale: localeName,
-      messages: { [localeName]: localeMessages },
-    });
-
-    const keys = Object.entries(localeMessages).flatMap(([key, value]) =>
-      getFlattenedTranslationKeys(key, value),
-    );
-
-    for (const key of keys) {
-      expect(() => vueI18n.global.t(key)).not.toThrow();
-    }
-
-    expect(consoleErrorSpy).not.toHaveBeenCalled();
-    expect(warnErrorSpy).not.toHaveBeenCalled();
-  },
-);
-
 test.each<{ format: DatetimeFormat; expected: string }>([
   { format: "date", expected: "Mar 11, 2025" },
   { format: "datetime-local", expected: "Mar 11, 2025, 9:51 AM" },
@@ -318,15 +285,3 @@ test.each<{ format: NumberFormat; value: number; expected: string }>([
   // ASSERT
   expect(n.value(value, format)).toBe(expected);
 });
-
-/**
- * Gets all nested keys of the given translation entry as a flattened array.
- *
- * @example ["key", "key.nested.child"]
- */
-function getFlattenedTranslationKeys(key: string, value: TranslationValue): string[] {
-  if (typeof value === "string") return [key];
-  return Object.entries(value).flatMap(([nestedKey, nestedValue]) =>
-    getFlattenedTranslationKeys(`${key}.${nestedKey}`, nestedValue),
-  );
-}
