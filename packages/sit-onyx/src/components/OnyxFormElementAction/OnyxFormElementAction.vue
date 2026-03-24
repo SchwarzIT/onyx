@@ -91,7 +91,10 @@ const toggleAttrs = computed(() =>
 .onyx-form-element-action {
   @include layers.component() {
     --onyx-form-element-action-color: var(--onyx-color-text-icons-neutral-medium);
-    --onyx-form-element-action-color-hover: var(--onyx-form-element-v2-border-color-focus);
+    --onyx-form-element-action-color-hover: var(
+      --onyx-form-element-v2-border-color-focus,
+      var(--onyx-color-text-icons-primary-intense)
+    );
     --onyx-form-element-action-color-highlight: var(--onyx-form-element-action-color-hover);
     --onyx-form-element-action-display: inline-flex;
     display: var(--onyx-form-element-action-display);
