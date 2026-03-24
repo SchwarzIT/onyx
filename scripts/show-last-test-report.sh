@@ -18,14 +18,14 @@ trap cleanup EXIT
 
 # if argument was passed to the shell script, use it as run id
 if [[ -n $1 ]]; then
-	GH_LAST_RUN_ID=$1
+	RUN_ID=$1
 else
 	# query the id of the last failed run for the current branch
-	GH_LAST_RUN_ID=$(gh run list -s failure -b $(git branch --show-current) --json "createdAt,databaseId" --jq "sort_by(.createdAt) | last.databaseId")
+	RUN_ID=$(gh run list -s failure -b $(git branch --show-current) --json "createdAt,databaseId" --jq "sort_by(.createdAt) | last.databaseId")
 fi
 
 # download report
-gh run download $GH_LAST_RUN_ID -D $TMP_DIR -p "html-report--attempt-1"
+gh run download $RUN_ID -D $TMP_DIR -p "html-report--attempt-1"
 
 # show report
 (cd $TMP_DIR/html-report--attempt-1/packages/sit-onyx && pnpm dlx playwright show-report)
