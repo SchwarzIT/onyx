@@ -17,7 +17,6 @@ import type { OnyxTimePickerProps, TimePickerType } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxTimePickerProps<TimePickerType>>(), {
   showSeconds: false,
-  showAmPm: "auto",
   required: false,
   autocapitalize: "sentences",
   readonly: false,
