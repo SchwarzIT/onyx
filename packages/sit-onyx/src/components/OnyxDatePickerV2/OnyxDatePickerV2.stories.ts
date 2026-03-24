@@ -16,6 +16,7 @@ const meta: Meta<typeof OnyxDatePickerV2> = {
   ],
   argTypes: {
     modelValue: { control: { type: "date" } },
+    viewMonth: { control: { type: "date" } },
     min: { control: { type: "date" } },
     max: { control: { type: "date" } },
   },

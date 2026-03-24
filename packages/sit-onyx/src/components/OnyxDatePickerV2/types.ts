@@ -8,7 +8,13 @@ export type OnyxDatePickerV2Props<TSelection extends OnyxCalendarSelectionMode =
     Pick<OnyxInputProps, "name" | "placeholder" | "readonly" | "disabled"> &
     Pick<
       OnyxCalendarProps<TSelection>,
-      "min" | "max" | "weekStartDay" | "showCalendarWeeks" | "selectionMode" | "modelValue"
+      | "min"
+      | "max"
+      | "weekStartDay"
+      | "showCalendarWeeks"
+      | "selectionMode"
+      | "modelValue"
+      | "viewMonth"
     > &
     AutofocusProp & {
       /**
