@@ -21,9 +21,11 @@ export default defineConfig({
       external: [...Object.keys(packageJson.peerDependencies), `${jsxImportSource}/jsx-runtime`],
     },
   },
-  esbuild: {
-    jsx: "automatic",
-    jsxImportSource,
+  oxc: {
+    jsx: {
+      runtime: "automatic",
+      importSource: jsxImportSource,
+    },
   },
 });
 
