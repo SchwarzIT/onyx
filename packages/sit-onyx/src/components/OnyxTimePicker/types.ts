@@ -77,8 +77,9 @@ export type OnyxTimePickerProps<TType extends TimePickerType = "default"> = Pick
     infoLabel?: TType extends "select" | "range" ? string : never;
     /**
      * Whether to use am/pm
+     * @default "auto"
      */
-    showAmPm?: boolean;
+    showAmPm?: boolean | "auto";
   };
 
 export type TimeRange = { from: string; to: string };

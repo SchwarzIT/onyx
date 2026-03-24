@@ -35,7 +35,6 @@ const props = withDefaults(
     required: false,
     readonly: false,
     loading: false,
-    showAmPm: false,
     skeleton: SKELETON_INJECTED_SYMBOL,
     disabled: FORM_INJECTED_SYMBOL,
     showError: FORM_INJECTED_SYMBOL,
