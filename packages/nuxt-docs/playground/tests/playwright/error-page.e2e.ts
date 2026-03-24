@@ -12,9 +12,10 @@ test("should render prose components with onyx", async ({ page, goto }) => {
   await expect(page.getByRole("heading", { level: 1, name: "Page not found" })).toBeVisible();
 
   // ACT
-  await page.evaluate(() => document.body.classList.add("dark"));
+  const htmlElement = page.locator(":root");
+  await htmlElement.evaluate((root) => root.classList.add("dark"));
   await expect(page).toHaveScreenshot("error-dark.png");
-  await page.evaluate(() => document.body.classList.remove("dark"));
+  await htmlElement.evaluate((root) => root.classList.remove("dark"));
 
   // ACT
   page.getByRole("button", { name: "Technical error details" }).click();
