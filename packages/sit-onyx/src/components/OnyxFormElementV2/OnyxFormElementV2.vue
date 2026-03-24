@@ -351,15 +351,19 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
     }
 
     &:not(:has(#{OnyxFormElementV2.$inputContainerSelector} &__input:focus)) {
-      &:has(#{OnyxFormElementV2.$contentSelector} > .onyx-form-element-v2__slot--leading) {
-        #{OnyxFormElementV2.$inputContainerSelector} {
+      &:has(#{OnyxFormElementV2.$contentSelector} > .onyx-form-element-v2__slot--leading),
+      &:has(#{OnyxFormElementV2.$popoverSelector} > .onyx-form-element-v2__slot--leading) {
+        #{OnyxFormElementV2.$inputContainerSelector},
+        #{OnyxFormElementV2.$popoverSelector} {
           border-top-left-radius: 0;
           border-bottom-left-radius: 0;
         }
       }
 
-      &:has(#{OnyxFormElementV2.$contentSelector} > .onyx-form-element-v2__slot--trailing) {
-        #{OnyxFormElementV2.$inputContainerSelector} {
+      &:has(#{OnyxFormElementV2.$contentSelector} > .onyx-form-element-v2__slot--trailing),
+      &:has(#{OnyxFormElementV2.$popoverSelector} > .onyx-form-element-v2__slot--leading) {
+        #{OnyxFormElementV2.$inputContainerSelector},
+        #{OnyxFormElementV2.$popoverSelector} {
           border-top-right-radius: 0;
           border-bottom-right-radius: 0;
         }
