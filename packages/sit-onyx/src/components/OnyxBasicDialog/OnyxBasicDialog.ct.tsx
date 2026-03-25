@@ -136,10 +136,7 @@ test("modal should be closeable", async ({ mount, page }) => {
 
   // ASSERT
   await expect(select).toHaveValue("Option 1");
-  await expect(
-    () => expectEmit(onUpdateOpen, 0),
-    "should not close when clicking inside the select flyout",
-  ).toPass();
+  await expectEmit(onUpdateOpen, 0);
 
   await test.step("Close on backdrop click", async () => {
     // ACT
@@ -147,8 +144,8 @@ test("modal should be closeable", async ({ mount, page }) => {
 
     // ASSERT
     await expect(dialog).toBeVisible();
-    expectEmit(onClose, 0);
-    expectEmit(onUpdateOpen, 1, [false]);
+    await expectEmit(onClose, 0);
+    await expectEmit(onUpdateOpen, 1, [false]);
   });
 
   await test.step("Close on Escape press", async () => {
@@ -157,8 +154,8 @@ test("modal should be closeable", async ({ mount, page }) => {
 
     // ASSERT
     await expect(dialog).toBeVisible();
-    expectEmit(onClose, 0);
-    expectEmit(onUpdateOpen, 2, [false]);
+    await expectEmit(onClose, 0);
+    await expectEmit(onUpdateOpen, 2, [false]);
   });
 });
 
@@ -195,10 +192,7 @@ test(`dialog should be closeable`, async ({ mount, page }) => {
 
   // ASSERT
   await expect(select).toHaveValue("Option 1");
-  await expect(
-    () => expectEmit(onUpdateOpen, 0),
-    "should not close when clicking inside the select flyout",
-  ).toPass();
+  await expectEmit(onUpdateOpen, 0);
 
   await test.step("Do not close on backdrop click", async () => {
     // ACT
@@ -206,8 +200,8 @@ test(`dialog should be closeable`, async ({ mount, page }) => {
 
     // ASSERT
     await expect(dialog).toBeVisible();
-    expectEmit(onClose, 0);
-    expectEmit(onUpdateOpen, 0);
+    await expectEmit(onClose, 0);
+    await expectEmit(onUpdateOpen, 0);
   });
 
   await test.step("Close on Escape press", async () => {
@@ -216,8 +210,8 @@ test(`dialog should be closeable`, async ({ mount, page }) => {
 
     // ASSERT
     await expect(dialog).toBeVisible();
-    expectEmit(onClose, 0);
-    expectEmit(onUpdateOpen, 1, [false]);
+    await expectEmit(onClose, 0);
+    await expectEmit(onUpdateOpen, 1, [false]);
   });
 });
 
@@ -259,8 +253,8 @@ test.describe("should not be closable when nonDismissible is set", () => {
 
         // ASSERT
         await expect(dialog).toBeVisible();
-        expectEmit(onClose, 0);
-        expectEmit(onUpdateOpen, 0);
+        await expectEmit(onClose, 0);
+        await expectEmit(onUpdateOpen, 0);
       });
 
       await test.step("Don't close on backdrop click", async () => {
@@ -269,8 +263,8 @@ test.describe("should not be closable when nonDismissible is set", () => {
 
         // ASSERT
         await expect(dialog).toBeVisible();
-        expectEmit(onClose, 0);
-        expectEmit(onUpdateOpen, 0);
+        await expectEmit(onClose, 0);
+        await expectEmit(onUpdateOpen, 0);
       });
     }),
   );

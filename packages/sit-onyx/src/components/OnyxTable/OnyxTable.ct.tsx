@@ -313,7 +313,7 @@ test("should keep components be clickable even with active column hover effect",
   });
 
   // ASSERT
-  await expectEmit(onClickHeader, 1);
+  await await expectEmit(onClickHeader, 1);
 
   // ACT
   // simulate moving the mouse down on the column hover effect to test that it will be hidden when moving
@@ -329,7 +329,7 @@ test("should keep components be clickable even with active column hover effect",
   });
 
   // ASSERT
-  await expectEmit(onClickRow, 1);
+  await await expectEmit(onClickRow, 1);
 });
 
 test("should set table aria label when headline is passed", async ({ mount }) => {
