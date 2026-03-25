@@ -271,7 +271,6 @@ test.describe("Screenshot tests (slots)", () => {
 });
 
 test("should keep components be clickable even with active column hover effect", async ({
-  page,
   mount,
 }) => {
   // ARRANGE
@@ -303,7 +302,15 @@ test("should keep components be clickable even with active column hover effect",
   );
 
   // ACT
-  await component.getByRole("button", { name: "Header button" }).click();
+  const headerButton = component.getByRole("button", { name: "Header button" });
+  let box = (await headerButton.boundingBox())!;
+  await headerButton.click({
+    position: {
+      x: box.width / 2,
+      y: box.height / 2,
+    },
+    steps: 10,
+  });
 
   // ASSERT
   await expectEmit(onClickHeader, 1);
@@ -311,13 +318,15 @@ test("should keep components be clickable even with active column hover effect",
   // ACT
   // simulate moving the mouse down on the column hover effect to test that it will be hidden when moving
   // outside of the table header
-  let box = (await component.getByRole("button", { name: "Header button" }).boundingBox())!;
-  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2, { steps: 10 });
-
-  box = (await component.getByRole("button", { name: "Row button" }).boundingBox())!;
-  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2, { steps: 10 });
-  await page.mouse.down();
-  await page.mouse.up();
+  const rowButton = component.getByRole("button", { name: "Row button" });
+  box = (await rowButton.boundingBox())!;
+  await rowButton.click({
+    position: {
+      x: box.width / 2,
+      y: box.height / 2,
+    },
+    steps: 10,
+  });
 
   // ASSERT
   await expectEmit(onClickRow, 1);
