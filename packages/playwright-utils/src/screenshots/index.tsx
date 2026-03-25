@@ -97,7 +97,7 @@ export const useMatrixScreenshotTest = <TContext extends HookContext = HookConte
 
       const SCREENSHOT_ROUTE = "/_playwright-matrix-screenshot";
 
-      const getScreenshotRoute = (id: string) => `${SCREENSHOT_ROUTE}}?id=${id}`;
+      const getScreenshotRoute = (id: string) => `${SCREENSHOT_ROUTE}?id=${id}`;
 
       await context.route(`${SCREENSHOT_ROUTE}*`, (route, request) => {
         const url = new URL(request.url());
