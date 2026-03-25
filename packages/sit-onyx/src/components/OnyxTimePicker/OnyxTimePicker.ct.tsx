@@ -14,6 +14,7 @@ test.describe("Screenshot tests", () => {
           label="Test label"
           showSeconds={column === "HH:MM:SS"}
           style={{ width: "16rem", marginBottom: "6rem" }}
+          showAmPm={false}
         />
       );
     },
@@ -99,6 +100,7 @@ test.describe("Screenshot tests", () => {
             disabled={row === "disabled"}
             loading={row === "loading"}
             skeleton={row === "skeleton"}
+            showAmPm={false}
             modelValue={state === "with value" ? "09:30" : undefined}
             style={{ width: "16rem", marginBottom: row === "open" ? "16rem" : "0rem" }}
           />
@@ -120,7 +122,9 @@ test.describe("Screenshot tests", () => {
 
 test.describe("Keyboard tests", () => {
   test("keyboard navigation", async ({ mount }) => {
-    const component = await mount(<OnyxTimePicker label="Test label" type="range" />);
+    const component = await mount(
+      <OnyxTimePicker label="Test label" type="range" showAmPm={false} />,
+    );
     const input = component.getByRole("textbox", { name: "Test label" });
 
     const hourInput = component.getByRole("spinbutton", { name: "Hour" }).first();
@@ -175,6 +179,7 @@ test("should truncate milliseconds and timezones from modelValue, min, and max",
   const component = await mount(OnyxTimePicker, {
     props: {
       showSeconds: true,
+      showAmPm: false,
       label: "Time picker",
       modelValue: "08:11:21.30Z",
       min: "07:30:30.30Z",

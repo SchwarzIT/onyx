@@ -76,7 +76,9 @@ export type OnyxTimePickerProps<TType extends TimePickerType = "default"> = Pick
      */
     infoLabel?: TType extends "select" | "range" ? string : never;
     /**
-     * Whether to use am/pm
+     * Whether to use am/pm.
+     * If set to "auto", the current locale will be used to determine if it is am/pm.
+     * @default "auto"
      */
     showAmPm?: boolean | "auto";
   };
