@@ -157,6 +157,7 @@ const contentAttributes = computed(() => {
       display: flex;
       align-items: center;
       justify-content: center;
+      min-width: var(--onyx-calendar-cell-date-size);
       width: var(--onyx-calendar-cell-date-size);
       height: var(--onyx-calendar-cell-date-size);
       border-radius: var(--onyx-radius-full);
