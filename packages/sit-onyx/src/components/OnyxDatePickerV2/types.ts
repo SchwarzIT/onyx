@@ -28,7 +28,7 @@ export type OnyxDatePickerV2Props<TSelection extends OnyxCalendarSelectionMode =
     /**
      * Disable specific dates to select individually.
      *
-     *   * @example
+     * @example
      * ```ts
      * // Disables only weekends (Saturday and Sunday)
      * { disabled: (date: Date) => date.getDay() === 0 || date.getDay() === 6 }
