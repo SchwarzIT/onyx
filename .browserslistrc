@@ -1,20 +1,23 @@
 # Browsers that we support
 # The big three, up to 1 year old
 
-# CHROME - monthly release
-last 12 Chrome versions,
-last 12 ChromeAndroid versions,
+# CHROME
+Chrome > 1 and last 1 year,
+ChromeAndroid > 1 and last 1 year,
 
-# FIREFOX - monthly release
-last 12 Firefox versions,
+# FIREFOX
+Firefox > 1 and last 1 year,
 Firefox ESR,
 
-# SAFARI - no regular schedule
+# SAFARI
 Safari > 1 and last 1 year,
 ios_saf > 1 and last 1 year,
 
-# EDGE (CHROMIUM) - monthly release
-last 12 Edge versions,
+# EDGE (CHROMIUM)
+Edge > 1 and last 1 year,
+
+# Node.js
+maintained node versions,
 
 not dead,
 not unreleased versions,
