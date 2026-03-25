@@ -183,7 +183,7 @@ const popoverOptions = computed<FormElementV2PopoverOptions | undefined>(() => {
         :label="t('input.clear')"
         :icon="iconXSmall"
         show-on-focus
-        @click.stop="modelValue = undefined"
+        @click.stop="modelValue = null as unknown as typeof modelValue"
       />
       <OnyxIcon :icon="iconCalendar" />
     </template>
