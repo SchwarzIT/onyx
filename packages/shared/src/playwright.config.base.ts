@@ -71,7 +71,7 @@ function getDefaultConfig(options?: DefineOnyxPlaywrightConfigOptions) {
             total: +process.env.PW_TOTAL_SHARDS,
           }
         : null,
-    workers: "75%",
+    workers: process.env.CI ? "100%" : undefined,
     /**
      * FAILURE HANDLING
      *
