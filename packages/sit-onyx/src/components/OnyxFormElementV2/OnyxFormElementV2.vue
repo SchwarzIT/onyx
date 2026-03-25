@@ -297,6 +297,14 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
       &:has(.onyx-form-element-v2__input[data-test-autofill]) {
         background-color: var(--onyx-form-element-v2-background-autofill);
       }
+
+      &:has(.onyx-form-element-v2__icons--leading) .onyx-form-element-v2__input {
+        padding-left: var(--onyx-form-element-v2-padding-inline-icons);
+      }
+
+      &:has(.onyx-form-element-v2__icons--trailing) .onyx-form-element-v2__input {
+        padding-right: var(--onyx-form-element-v2-padding-inline-icons);
+      }
     }
 
     @include OnyxFormElementV2.input-focus-or-popover-open() {
@@ -350,22 +358,24 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
       }
     }
 
-    &:not(:has(#{OnyxFormElementV2.$inputContainerSelector} &__input:focus)) {
-      &:has(#{OnyxFormElementV2.$contentSelector} > .onyx-form-element-v2__slot--leading),
-      &:has(#{OnyxFormElementV2.$popoverSelector} > .onyx-form-element-v2__slot--leading) {
-        #{OnyxFormElementV2.$inputContainerSelector},
-        #{OnyxFormElementV2.$popoverSelector} {
-          border-top-left-radius: 0;
-          border-bottom-left-radius: 0;
+    &__content {
+      &:has(> .onyx-form-element-v2__slot--leading) {
+        > .onyx-form-element-v2__popover,
+        > .onyx-form-element-v2__input-container {
+          &:not(:has(.onyx-form-element-v2__input:focus)) {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+          }
         }
       }
 
-      &:has(#{OnyxFormElementV2.$contentSelector} > .onyx-form-element-v2__slot--trailing),
-      &:has(#{OnyxFormElementV2.$popoverSelector} > .onyx-form-element-v2__slot--leading) {
-        #{OnyxFormElementV2.$inputContainerSelector},
-        #{OnyxFormElementV2.$popoverSelector} {
-          border-top-right-radius: 0;
-          border-bottom-right-radius: 0;
+      &:has(> .onyx-form-element-v2__slot--trailing) {
+        > .onyx-form-element-v2__popover,
+        > .onyx-form-element-v2__input-container {
+          &:not(:has(.onyx-form-element-v2__input:focus)) {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+          }
         }
       }
     }
@@ -409,22 +419,6 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
         // many browsers use "!important" to set the autofill background so we need this
         // transition workaround to make the background transparent
         transition: background-color calc(infinity * 1s);
-      }
-    }
-
-    &:has(#{OnyxFormElementV2.$inputContainerSelector} &__icons--leading),
-    &:has(#{OnyxFormElementV2.$popoverSelector} &__icons--leading) {
-      #{OnyxFormElementV2.$inputContainerSelector} .onyx-form-element-v2__input,
-      #{OnyxFormElementV2.$popoverSelector} .onyx-form-element-v2__input {
-        padding-left: var(--onyx-form-element-v2-padding-inline-icons);
-      }
-    }
-
-    &:has(#{OnyxFormElementV2.$inputContainerSelector} &__icons--trailing),
-    &:has(#{OnyxFormElementV2.$popoverSelector} &__icons--leading) {
-      #{OnyxFormElementV2.$inputContainerSelector} .onyx-form-element-v2__input,
-      #{OnyxFormElementV2.$popoverSelector} .onyx-form-element-v2__input {
-        padding-right: var(--onyx-form-element-v2-padding-inline-icons);
       }
     }
 

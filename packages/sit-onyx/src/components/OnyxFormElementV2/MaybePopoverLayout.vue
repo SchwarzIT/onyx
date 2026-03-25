@@ -99,7 +99,6 @@ const inputProps = computed(() => {
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
-@use "./OnyxFormElementV2.scss";
 
 .onyx-form-element-v2 {
   @include layers.component() {
@@ -108,12 +107,8 @@ const inputProps = computed(() => {
       flex-grow: 1;
       border-radius: inherit;
       height: 100%;
-    }
 
-    &:has(#{OnyxFormElementV2.$popoverSelector}) {
-      #{OnyxFormElementV2.$popoverSelector}
-        > .onyx-form-element-v2__input-container
-        .onyx-form-element-v2__input {
+      .onyx-form-element-v2__input {
         caret-color: transparent;
 
         &:read-write {
