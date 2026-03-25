@@ -320,6 +320,7 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
     &__icons {
       color: var(--onyx-color-text-icons-neutral-medium);
       display: flex;
+      align-items: center;
       padding: var(--onyx-form-element-v2-padding-block) var(--onyx-form-element-v2-padding-inline);
       gap: var(--onyx-density-2xs);
 
@@ -358,11 +359,14 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
       }
     }
 
+    // if the form element has no input focus or no open popover, the border radius is set to 0 if it has leading/trailing slot
     &__content {
       &:has(> .onyx-form-element-v2__slot--leading) {
         > .onyx-form-element-v2__popover,
         > .onyx-form-element-v2__input-container {
-          &:not(:has(.onyx-form-element-v2__input:focus)) {
+          &:not(:has(.onyx-form-element-v2__input:focus)):not(
+              :has(.onyx-basic-popover__dialog:popover-open)
+            ) {
             border-top-left-radius: 0;
             border-bottom-left-radius: 0;
           }
@@ -372,7 +376,9 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
       &:has(> .onyx-form-element-v2__slot--trailing) {
         > .onyx-form-element-v2__popover,
         > .onyx-form-element-v2__input-container {
-          &:not(:has(.onyx-form-element-v2__input:focus)) {
+          &:not(:has(.onyx-form-element-v2__input:focus)):not(
+              :has(.onyx-basic-popover__dialog:popover-open)
+            ) {
             border-top-right-radius: 0;
             border-bottom-right-radius: 0;
           }

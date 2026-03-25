@@ -169,6 +169,7 @@ const valueLabel = computed(() =>
 
       .onyx-pagination__select {
         --onyx-form-element-v2-border-radius: 0;
+        --onyx-form-element-v2-padding-inline-icons: var(--onyx-form-element-v2-padding-inline);
 
         .onyx-form-element-v2__icons--trailing {
           display: none;
