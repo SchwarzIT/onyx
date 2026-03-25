@@ -59,5 +59,5 @@ test("should trigger onClick", async ({ mount }) => {
   await component.getByRole("menuitem", { name: "Option 2" }).click();
 
   // ASSERT
-  expectEmit(onClick, 1, []);
+  await expectEmit(onClick, 1, []);
 });

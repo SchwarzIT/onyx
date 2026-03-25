@@ -14,7 +14,7 @@ export const EMIT_SPY_SYMBOL = Symbol("EMIT_SPY_SYMBOL");
  * // add spy
  * const component = await mount(<OnyxColorSchemeDialog onUpdate:open={onUpdateOpen} />);
  * // check spy
- * expectEmit(onUpdateOpen, 1, [false]);
+ * await expectEmit(onUpdateOpen, 1, [false]);
  * ```
  */
 export const createEmitSpy = <
