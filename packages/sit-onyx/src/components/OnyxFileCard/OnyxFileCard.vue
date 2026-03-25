@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import circleAttention from "@sit-onyx/icons/circle-attention.svg?raw";
+import { iconCircleAttention } from "@sit-onyx/icons";
 import { computed } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useFileSize } from "../../composables/useFileSize.js";
@@ -63,7 +63,7 @@ const link = computed(() => {
       <div class="onyx-file-card__wrapper onyx-truncation-ellipsis">
         <div class="onyx-file-card__icon" aria-hidden="true">
           <OnyxIcon v-if="props.icon" :icon="props.icon" />
-          <OnyxIcon v-else-if="props.status?.color === 'danger'" :icon="circleAttention" />
+          <OnyxIcon v-else-if="props.status?.color === 'danger'" :icon="iconCircleAttention" />
           <OnyxFileTypeIcon v-else :type="props.type" />
         </div>
 

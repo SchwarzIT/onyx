@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import placeholder from "@sit-onyx/icons/placeholder.svg?raw";
+import { iconPlaceholder } from "@sit-onyx/icons";
 import OnyxButton from "../../OnyxButton/OnyxButton.vue";
 import { useGlobalFAB } from "../../OnyxGlobalFAB/useGlobalFAB.js";
 import OnyxGlobalFAB from "../OnyxGlobalFAB.vue";
@@ -11,7 +11,7 @@ const addFAB = () => {
   globalFAB.add({
     id: id++,
     label: "New Item",
-    icon: placeholder,
+    icon: iconPlaceholder,
   });
 };
 
