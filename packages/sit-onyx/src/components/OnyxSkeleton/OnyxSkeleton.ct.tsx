@@ -23,5 +23,5 @@ test("should render", async ({ mount, makeAxeBuilder }) => {
   await component.click({ force: true });
 
   // ASSERT
-  expectEmit(onClick, 0);
+  await expectEmit(onClick, 0);
 });
