@@ -131,7 +131,7 @@ test(`DataGridFormElementWrapper with OnyxTimePicker`, async ({ mount }) => {
   const input = mounted.getByLabel(LABEL);
   await expect(input).toHaveValue(TEST_VALUE);
 
-  const NEW_VALUE = "11:34";
+  const NEW_VALUE = "12:34";
   await input.fill(NEW_VALUE);
   await input.blur();
 
