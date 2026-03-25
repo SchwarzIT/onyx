@@ -1,5 +1,6 @@
 import { computed, ref, toValue, watch, type MaybeRefOrGetter } from "vue";
 import type { DateValue, OnyxDatePickerProps } from "../components/OnyxDatePicker/types.js";
+import type { FormElementV2Tooltip } from "../components/OnyxFormElementV2/types.js";
 import type { InputType } from "../components/OnyxInput/types.js";
 import { injectI18n } from "../i18n/index.js";
 import enUS from "../i18n/locales/en-US.json";
@@ -44,12 +45,13 @@ export type FormValidationProps = {
   validStepSize?: number;
 };
 
+export type AnyFormError = CustomMessageType | FormElementV2Tooltip;
 export type UseFormElementErrorOptions = Omit<
   UseFormValidityOptions<FormValidationProps>,
-  "error"
+  "error" | "props"
 > & {
-  props: FormValidationProps;
-  error?: MaybeRefOrGetter<CustomMessageType | undefined>;
+  props: Omit<FormValidationProps, "error"> & { error?: AnyFormError };
+  error?: MaybeRefOrGetter<AnyFormError | undefined>;
 };
 
 /**
@@ -90,13 +92,29 @@ export const getFormMessageText = (error?: CustomMessageType): string | undefine
   return `${shortMessage}: ${longMessage}`;
 };
 
+const normalizeError = (err?: AnyFormError): CustomMessageType | undefined => {
+  if (!err) return undefined;
+  if (typeof err === "string") return err;
+  if ("label" in err) {
+    return {
+      shortMessage: err.label,
+      longMessage: err.tooltipText,
+    };
+  }
+
+  return err;
+};
+
 export const useFormElementError = (options: UseFormElementErrorOptions) => {
   const { t, locale } = injectI18n();
   const isDirty = ref(false);
 
   const { vCustomValidity, validityState } = useCustomValidity({
-    error: computed(() => getFormMessageText(options.props.error || toValue(options.error))),
-    props: options.props,
+    error: computed(() => {
+      const rawError = options.props.error || toValue(options.error);
+      return getFormMessageText(normalizeError(rawError));
+    }),
+    props: options.props as unknown as FormValidationProps,
   });
 
   /**
@@ -121,7 +139,8 @@ export const useFormElementError = (options: UseFormElementErrorOptions) => {
   const errorMessages = computed<FormMessages | undefined>(() => {
     if (!validityState.value || validityState.value.valid) return;
     const errorType = getFirstInvalidType(validityState.value);
-    const errors = getFormMessages(options.props.error || toValue(options.error));
+    const rawError = options.props.error || toValue(options.error);
+    const errors = getFormMessages(normalizeError(rawError));
 
     // a custom error message always is considered first
     if (errors || errorType === "customError") {

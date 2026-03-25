@@ -16,6 +16,7 @@ const meta: Meta<typeof OnyxDatePickerV2> = {
   ],
   argTypes: {
     modelValue: { control: { type: "date" } },
+    viewMonth: { control: { type: "date" } },
     min: { control: { type: "date" } },
     max: { control: { type: "date" } },
   },
@@ -57,6 +58,14 @@ export const MinAndMaxDate = {
     label: "With min. and max. date",
     min: getRelativeDate(-3),
     max: getRelativeDate(3),
+  },
+} satisfies Story;
+
+export const DisabledDays = {
+  args: {
+    ...Default.args,
+    disabledDays: (date: Date) => date.getDay() === 0 || date.getDay() === 6,
+    message: "Weekends are disabled",
   },
 } satisfies Story;
 

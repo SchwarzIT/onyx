@@ -88,7 +88,7 @@ export const _unstableCreateCalendar = createBuilder((options: CreateCalendarOpt
 
   const focusedDate = ref(initialFocusedDate());
 
-  // sync focusDate with selection
+  // sync focusDate and viewMonth with selection
   watch(
     () => toValue(options.modelValue),
     (newValue) => {
@@ -103,7 +103,10 @@ export const _unstableCreateCalendar = createBuilder((options: CreateCalendarOpt
         newFocusDate = new Date(newValue);
       }
 
-      if (newFocusDate) focusedDate.value = newFocusDate;
+      if (newFocusDate) {
+        focusedDate.value = newFocusDate;
+        viewMonth.value = newFocusDate;
+      }
     },
     { immediate: true },
   );

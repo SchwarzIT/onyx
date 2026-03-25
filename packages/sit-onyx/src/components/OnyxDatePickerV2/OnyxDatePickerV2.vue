@@ -7,9 +7,10 @@ export default {};
 </script>
 
 <script lang="ts" setup generic="TSelection extends OnyxCalendarSelectionMode = 'single'">
-import { iconCalendar } from "@sit-onyx/icons";
+import { iconCalendar, iconXSmall } from "@sit-onyx/icons";
 import { computed, useTemplateRef } from "vue";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
+import { useFormElementError } from "../../composables/useFormElementError.js";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
@@ -23,8 +24,10 @@ import type {
 } from "../OnyxCalendar/types.js";
 import type { DateValue } from "../OnyxDatePicker/types.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
+import OnyxFormElementAction from "../OnyxFormElementAction/OnyxFormElementAction.vue";
 import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
 import type { FormElementV2PopoverOptions } from "../OnyxFormElementV2/types.js";
+import { useLegacyFormElementProps } from "../OnyxFormElementV2/useLegacyFormElementProps.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import type { OnyxDatePickerV2Props } from "./types.js";
 
@@ -41,32 +44,53 @@ const props = withDefaults(defineProps<OnyxDatePickerV2Props<TSelection>>(), {
   skeleton: SKELETON_INJECTED_SYMBOL,
   showCalendarWeeks: false,
   weekStartDay: "Monday",
+  disabledDays: undefined,
   selectionMode: () => "single" as TSelection,
 });
 
 const emit = defineEmits<{
   /**
+   * Emitted when the validity state of the input changes.
+   */
+  validityChange: [validity: ValidityState];
+  /**
    * Emitted when the current value changes.
    */
   "update:modelValue": [value?: OnyxCalendarValueBySelection<TSelection>];
+  /**
+   * Emitted when the viewed Month changes
+   */
+  "update:viewMonth": [newDate: Date];
   /**
    * Emitted when the popover open state changes
    */
   "update:open": [open: boolean];
 }>();
-
+const error = computed(() => props.error);
+const { vCustomValidity, errorMessages } = useFormElementError({ props, emit, error });
+const { formElementV2Props } = useLegacyFormElementProps({ props, errorMessages });
 defineOptions({ inheritAttrs: false });
-const { disabled } = useFormContext(props);
 const { rootAttrs, restAttrs } = useRootAttrs();
 const { d } = injectI18n();
 
 const modelValue = useVModel({ props, emit, key: "modelValue" });
+const viewMonth = useVModel({
+  key: "viewMonth",
+  props,
+  emit,
+  default: () => new Date(),
+});
+
 const popoverOpen = useVModel({ props, emit, key: "open", default: false });
+const { disabled } = useFormContext(props);
 
 const handleDateSelect = (date: OnyxCalendarValueBySelection<TSelection>) => {
   modelValue.value = date as typeof modelValue.value;
 
-  if (props.selectionMode === "single") {
+  if (
+    props.selectionMode === "single" ||
+    (props.selectionMode === "range" && "end" in date && date.end)
+  ) {
     popoverOpen.value = false;
   }
 };
@@ -115,12 +139,16 @@ const formattedDate = computed(() => {
   return "";
 });
 
-const formElementProps = useForwardProps(props, OnyxFormElementV2);
-const calendarProps = useForwardProps(props, OnyxCalendar);
+const calendarForwardProps = useForwardProps(props, OnyxCalendar);
+const calendarProps = computed(() => {
+  const { viewMonth: _, ...rest } = calendarForwardProps.value as Record<string, unknown>;
+  return rest;
+});
 
 const input = useTemplateRef("inputRef");
 defineExpose({ input });
 useAutofocus(input, props);
+const { t } = injectI18n();
 
 const popoverOptions = computed<FormElementV2PopoverOptions | undefined>(() => {
   const options: FormElementV2PopoverOptions = { fitParent: true };
@@ -132,7 +160,7 @@ const popoverOptions = computed<FormElementV2PopoverOptions | undefined>(() => {
 
 <template>
   <OnyxFormElementV2
-    v-bind="mergeVueProps(rootAttrs, formElementProps)"
+    v-bind="mergeVueProps(rootAttrs, formElementV2Props)"
     v-model:open="popoverOpen"
     class="onyx-date-picker-v2"
     :label="props.label"
@@ -142,6 +170,7 @@ const popoverOptions = computed<FormElementV2PopoverOptions | undefined>(() => {
       <input
         v-bind="mergeVueProps(inputProps, restAttrs)"
         ref="inputRef"
+        v-custom-validity
         class="onyx-truncation-ellipsis"
         :value="formattedDate"
         :disabled="disabled || props.loading"
@@ -153,27 +182,35 @@ const popoverOptions = computed<FormElementV2PopoverOptions | undefined>(() => {
     </template>
 
     <template #trailingIcons>
+      <OnyxFormElementAction
+        v-if="modelValue"
+        :label="t('input.clear')"
+        :icon="iconXSmall"
+        show-on-focus
+        @click.stop="modelValue = null as unknown as typeof modelValue"
+      />
       <OnyxIcon :icon="iconCalendar" />
     </template>
 
     <template #popover>
       <div class="onyx-date-picker-v2__calendar-wrapper">
         <OnyxCalendar
+          v-bind="calendarProps"
+          v-model:view-month="viewMonth"
           :class="[
             'onyx-date-picker-v2__calendar',
             { 'onyx-date-picker-v2__calendar--multi-view': props.multiView },
           ]"
-          v-bind="calendarProps"
-          :disabled="false"
+          :disabled="props.disabledDays"
           size="small"
           :selection-mode="props.selectionMode"
           @update:model-value="handleDateSelect"
         />
         <OnyxCalendar
           v-if="props.selectionMode === 'range' && props.multiView"
-          class="onyx-date-picker-v2__calendar onyx-date-picker-v2__calendar--multi-view"
           v-bind="calendarProps"
-          :disabled="false"
+          class="onyx-date-picker-v2__calendar onyx-date-picker-v2__calendar--multi-view"
+          :disabled="props.disabledDays"
           size="small"
           :selection-mode="props.selectionMode"
           @update:model-value="handleDateSelect"
