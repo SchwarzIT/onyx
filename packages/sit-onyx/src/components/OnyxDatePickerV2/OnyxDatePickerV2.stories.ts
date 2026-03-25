@@ -63,9 +63,11 @@ export const MinAndMaxDate = {
 
 export const DisabledDays = {
   args: {
+    ...Default.args,
     disabledDays: (date: Date) => date.getDay() === 0 || date.getDay() === 6,
+    message: "Weekends are disabled",
   },
-};
+} satisfies Story;
 
 function getRelativeDate(offsetDays: number) {
   const date = new Date();

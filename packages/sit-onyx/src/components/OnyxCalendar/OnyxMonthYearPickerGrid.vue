@@ -61,6 +61,7 @@ watch(
       scrollToActiveYear();
     }
   },
+  { immediate: true },
 );
 </script>
 

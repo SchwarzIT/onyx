@@ -8,3 +8,4 @@ feat(OnyxDatePickerV2): enhanced component functionality
 - updated `disabled` prop to support disabling specific dates or ranges
 - the popover now automatically closes after a date range is selected
 - implemented form validation
+- support new `viewMonth` property
