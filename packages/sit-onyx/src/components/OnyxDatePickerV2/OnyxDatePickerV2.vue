@@ -139,9 +139,9 @@ const formattedDate = computed(() => {
   return "";
 });
 
-const calendarProps = useForwardProps(props, OnyxCalendar);
-const calendarPropsWithoutViewMonth = computed(() => {
-  const { viewMonth: _, ...rest } = calendarProps.value;
+const calendarForwardProps = useForwardProps(props, OnyxCalendar);
+const calendarProps = computed(() => {
+  const { viewMonth: _, ...rest } = calendarForwardProps.value as Record<string, unknown>;
   return rest;
 });
 
@@ -208,7 +208,7 @@ const popoverOptions = computed<FormElementV2PopoverOptions | undefined>(() => {
         />
         <OnyxCalendar
           v-if="props.selectionMode === 'range' && props.multiView"
-          v-bind="calendarPropsWithoutViewMonth"
+          v-bind="calendarProps"
           class="onyx-date-picker-v2__calendar onyx-date-picker-v2__calendar--multi-view"
           :disabled="props.disabledDays"
           size="small"
