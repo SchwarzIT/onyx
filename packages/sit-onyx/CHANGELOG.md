@@ -1,5 +1,67 @@
 # sit-onyx
 
+## 1.11.0
+
+### Minor Changes
+
+- 5466d27: feat(OnyxTimePicker): added `showAmPm` property to support 12-hour time format.
+- 1b47fae: refactor(OnyxInput): use `OnyxFormElementV2` internally
+  - feat(OnyxInput): support new `leadingIcons` and `trailingIcons` slot
+  - feat(OnyxInput): support left aligned label using `label.position` property
+  - feat(OnyxInput): add new `disableSlotPadding` property (will become the default in version 2.x)
+  - chore(OnyxInput): deprecate obsolete `hideSuccessIcon` property
+
+- 8551d9a: feat(OnyxDatePickerV2): enhanced component functionality
+  - added a clear button to remove the current selection
+  - add new `disabledDays ` prop to support disabling specific dates or ranges
+  - the popover now automatically closes after a date range is selected
+  - implemented form validation
+  - support new `viewMonth` property
+
+- 9819e34: feat: implement new `OnyxUnstableFormElementAction` component
+
+  For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using it.
+
+- c20ef71: feat: implement new `OnyxUnstableNavButton` component
+
+  For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the **[changelog]https://onyx.schwarz/development/packages/changelogs/sit-onyx.html)** when using it.
+
+- a0aafe8: refactor(OnyxSelect): use `OnyxFormElementV2` internally
+  - feat(OnyxSelect): support left aligned label using `label.position` property
+  - feat(OnyxSelect): support clear icon to clear the value. Can be disabled with `hideClearIcon`
+  - feat(OnyxSelect): support new slots: `leading`, `leadingIcons`, `trailingIcons`, `trailing`
+  - feat(OnyxSelect): show icon of selected option (in single select) in the `leadingIcons` slot by default
+  - chore(OnyxSelect): deprecate obsolete `hideSuccessIcon` property
+
+### Patch Changes
+
+- a0aafe8: fix(OnyxFormElementV2): correctly set popover trigger
+  - set popover trigger correctly on the `<input />` element instead of the input wrapper
+  - correctly show error state when "touched" and a popover is used
+  - also support passing `popoverOptions.label` to correctly define a different label for the popover than for the input itself
+  - fix: truncate input value if its too long
+  - fix: prevent popover from overlapping label if opened to the top
+  - fix: use correct label gap when using skeleton in compact density
+
+- fc16972: fix(OnyxSlider): Remove unintended root padding
+- 1b47fae: The following properties were removed because they were non-existent / not functional and only added by accident.
+  - OnyxDatePicker: hideClearIcon, hideSuccessIcon, showPassword
+  - OnyxTextarea: showPassword
+
+- 8b02aed: fix(OnyxDataGrid): export missing types for `useEditing`
+- a0aafe8: fix(OnyxPagination,OnyxItemsPerPage): set select width to active value length to prevent unused whitespace
+- b1912d2: fix(OnyxAlertModal): correctly hide close button when `nonDismissible` is set
+- a0aafe8: - fix(OnyxFormElementAction): correctly hide whole component (including tooltip) when `showOnFocus` property is set
+  - fix(OnyxFormElementAction): limit component height to the content height
+  - feat(OnyxFormElementAction): support new `highlighted` property which will visually highlight the button, e.g. when the parent form element is focused
+- 4b55515: fix(OnyxFormElementV2): fix styles
+  - use correct label gap when skeleton is in compact density
+  - use correct inline padding for input when leading/trailing icons exist
+
+- fc16972: fix(OnyxSlider): Fixed misaligned marks
+- Updated dependencies [0e552d7]
+  - @sit-onyx/icons@1.8.0
+
 ## 1.10.0
 
 ### Minor Changes

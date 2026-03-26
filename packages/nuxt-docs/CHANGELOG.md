@@ -1,5 +1,38 @@
 # @sit-onyx/nuxt-docs
 
+## 0.5.0
+
+### Minor Changes
+
+- b818852: perf(nuxt-docs): remove `@nuxt/image` due to performance issues
+
+  We've experienced performance issues / "out of memory" issues for some deployment providers when using `@nuxt/image`.
+  The `@nuxt/image` module and `ProseImg` was now removed by default so images are no longer automatically optimized.
+  Also, you now no longer need to include the `sharp` onlyBuiltDependencies in your `pnpm-workspace.yaml`.
+
+  If you still want to use `@nuxt/image`, simply install the module in your project and create a `app/components/content/ProseImg.vue` file where you are using the `<NuxtImg />` component.
+
+### Patch Changes
+
+- Updated dependencies [a0aafe8]
+- Updated dependencies [fc16972]
+- Updated dependencies [5466d27]
+- Updated dependencies [1b47fae]
+- Updated dependencies [1b47fae]
+- Updated dependencies [8551d9a]
+- Updated dependencies [0e552d7]
+- Updated dependencies [8b02aed]
+- Updated dependencies [9819e34]
+- Updated dependencies [a0aafe8]
+- Updated dependencies [b1912d2]
+- Updated dependencies [c20ef71]
+- Updated dependencies [a0aafe8]
+- Updated dependencies [a0aafe8]
+- Updated dependencies [4b55515]
+- Updated dependencies [fc16972]
+  - sit-onyx@1.11.0
+  - @sit-onyx/icons@1.8.0
+
 ## 0.4.0
 
 ### Minor Changes

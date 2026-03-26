@@ -1,5 +1,19 @@
 # @sit-onyx/flags
 
+## 1.2.0
+
+### Minor Changes
+
+- 6259abe: feat: add country name for `ES-CN` (Canary Islands)
+- 6259abe: feat: update flags
+
+  #### New
+  - ES-CN
+
+  #### Modified
+  - SE
+  - VA
+
 ## 1.1.0
 
 ### Minor Changes
