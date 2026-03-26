@@ -1,0 +1,10 @@
+{
+  "codeConnect": {
+    "include": ["src/components/**"],
+    "parser": "html",
+    "label": "Vue",
+    "documentUrlSubstitutions": {
+      "<BASE_URL>": "https://www.figma.com/design/YfEUBOHk4J4nYrk04geswG/Onyx-Components"
+    }
+  }
+}

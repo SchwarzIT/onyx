@@ -95,5 +95,8 @@
       "vue": "catalog:",
       "sass-embedded": "catalog:"
     }
+  },
+  "dependencies": {
+    "@figma/code-connect": "^1.4.2"
   }
 }
