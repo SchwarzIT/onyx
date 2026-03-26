@@ -1,0 +1,33 @@
+<script lang="ts" setup>
+import { isInternalLink, OnyxLink, type LinkTarget } from "sit-onyx";
+import { onMounted, ref } from "vue";
+
+const props = withDefaults(
+  defineProps<{
+    href?: string;
+    target?: LinkTarget;
+  }>(),
+  {
+    href: "",
+  },
+);
+
+defineSlots<{
+  default(): unknown;
+}>();
+
+// needed to show external link icon only on mounted to prevent hydration errors
+// TODO: check if this can be fixed inside "sit-onyx"
+const isMounted = ref(false);
+onMounted(() => (isMounted.value = true));
+</script>
+
+<template>
+  <OnyxLink
+    v-bind="props"
+    :target="!isInternalLink(props.href) ? '_blank' : props.target"
+    :with-external-icon="isMounted ? 'auto' : false"
+  >
+    <slot></slot>
+  </OnyxLink>
+</template>

@@ -6,6 +6,9 @@ settings:
 
 catalogs:
   default:
+    chart.js:
+      specifier: 4.5.1
+      version: 4.5.1
     typescript:
       specifier: 5.9.3
       version: 5.9.3
@@ -470,6 +473,37 @@ importers:
       vite-plugin-static-copy:
         specifier: ^3.3.0
         version: 3.3.0(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(sass-embedded@1.98.0)(sass@1.98.0)(stylus@0.57.0)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2))
+
+  packages/mdc:
+    dependencies:
+      vue:
+        specifier: 3.5.30
+        version: 3.5.30(typescript@5.9.3)
+    devDependencies:
+      '@axe-core/playwright':
+        specifier: ^4.11.1
+        version: 4.11.1(playwright-core@1.57.0)
+      '@nuxtjs/mdc':
+        specifier: '>= 0.20.2'
+        version: 0.20.2(magicast@0.5.2)
+      '@playwright/experimental-ct-vue':
+        specifier: 1.57.0
+        version: 1.57.0(@types/node@24.12.0)(jiti@2.6.1)(sass-embedded@1.98.0)(sass@1.98.0)(stylus@0.57.0)(terser@5.46.0)(tsx@4.21.0)(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(sass-embedded@1.98.0)(sass@1.98.0)(stylus@0.57.0)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2))(vue@3.5.30(typescript@5.9.3))(yaml@2.8.2)
+      '@playwright/test':
+        specifier: 1.57.0
+        version: 1.57.0
+      '@sit-onyx/playwright-utils':
+        specifier: workspace:^
+        version: link:../playwright-utils
+      '@sit-onyx/shared':
+        specifier: workspace:^
+        version: link:../shared
+      '@vue/compiler-dom':
+        specifier: 3.5.30
+        version: 3.5.30
+      sit-onyx:
+        specifier: workspace:^
+        version: link:../sit-onyx
 
   packages/nuxt:
     devDependencies:
@@ -8654,6 +8688,9 @@ packages:
   vue-component-type-helpers@3.2.5:
     resolution: {integrity: sha512-tkvNr+bU8+xD/onAThIe7CHFvOJ/BO6XCOrxMzeytJq40nTfpGDJuVjyCM8ccGZKfAbGk2YfuZyDMXM56qheZQ==}
 
+  vue-component-type-helpers@3.2.6:
+    resolution: {integrity: sha512-O02tnvIfOQVmnvoWwuSydwRoHjZVt8UEBR+2p4rT35p8GAy5VTlWP8o5qXfJR/GWCN0nVZoYWsVUvx2jwgdBmQ==}
+
   vue-devtools-stub@0.1.0:
     resolution: {integrity: sha512-RutnB7X8c5hjq39NceArgXg28WZtZpGc3+J16ljMiYnFhKvd8hITxSWQSQ5bvldxMDU6gG5mkxl1MTQLXckVSQ==}
 
@@ -11536,7 +11573,7 @@ snapshots:
       storybook: 10.2.19(@testing-library/dom@10.4.0)(prettier@3.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       type-fest: 2.19.0
       vue: 3.5.30(typescript@5.9.3)
-      vue-component-type-helpers: 3.2.5
+      vue-component-type-helpers: 3.2.6
 
   '@testing-library/dom@10.4.0':
     dependencies:
@@ -18089,6 +18126,8 @@ snapshots:
   vue-component-type-helpers@2.2.12: {}
 
   vue-component-type-helpers@3.2.5: {}
+
+  vue-component-type-helpers@3.2.6: {}
 
   vue-devtools-stub@0.1.0: {}
 

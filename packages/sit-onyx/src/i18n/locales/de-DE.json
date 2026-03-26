@@ -342,5 +342,8 @@
       "unorderedList": "Auflistung"
     },
     "blockquote": "Zitat"
+  },
+  "accordion": {
+    "toggle": "Klicke, um den Inhalt umzuschalten"
   }
 }
