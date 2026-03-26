@@ -38,6 +38,7 @@
     "@nuxtjs/i18n": ">= 10",
     "@nuxtjs/mdc": ">= 0.20.2",
     "@sit-onyx/icons": "workspace:^",
+    "@sit-onyx/mdc": "workspace:^",
     "@sit-onyx/nuxt": "workspace:^",
     "sass-embedded": ">= 1",
     "sit-onyx": "workspace:^"
@@ -52,6 +53,7 @@
     "@playwright/experimental-ct-vue": "catalog:",
     "@playwright/test": "catalog:",
     "@sit-onyx/icons": "workspace:^",
+    "@sit-onyx/mdc": "workspace:^",
     "@sit-onyx/nuxt": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
     "nuxt": "catalog:",

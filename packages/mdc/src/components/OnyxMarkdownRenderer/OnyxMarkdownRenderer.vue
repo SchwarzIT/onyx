@@ -1,10 +1,24 @@
 <script lang="ts" setup>
 import type { MDCParserResult } from "@nuxtjs/mdc";
-import { parseMarkdown } from "@nuxtjs/mdc/runtime";
-import MDCRenderer from "@nuxtjs/mdc/runtime/components/MDCRenderer.vue";
 import { useDensity } from "sit-onyx";
-import { ref, watch } from "vue";
-import { proseComponents } from "../prose/prose.js";
+import { defineAsyncComponent, ref, watch } from "vue";
+import ProseA from "../prose/ProseA.vue";
+import ProseBr from "../prose/ProseBr.vue";
+import ProseCode from "../prose/ProseCode.vue";
+import ProseDetails from "../prose/ProseDetails.vue";
+import ProseH1 from "../prose/ProseH1.vue";
+import ProseH2 from "../prose/ProseH2.vue";
+import ProseH3 from "../prose/ProseH3.vue";
+import ProseH4 from "../prose/ProseH4.vue";
+import ProseH5 from "../prose/ProseH5.vue";
+import ProseH6 from "../prose/ProseH6.vue";
+import ProseHr from "../prose/ProseHr.vue";
+import ProseOl from "../prose/ProseOl.vue";
+import ProseP from "../prose/ProseP.vue";
+import ProsePre from "../prose/ProsePre.vue";
+import ProseSummary from "../prose/ProseSummary.vue";
+import ProseTable from "../prose/ProseTable.vue";
+import ProseUl from "../prose/ProseUl.vue";
 import type { OnyxMarkdownRendererProps } from "./types.js";
 
 const props = defineProps<OnyxMarkdownRendererProps>();
@@ -21,11 +35,22 @@ const { densityClass } = useDensity(props);
 const isLoading = ref(false);
 const parserResult = ref<MDCParserResult>();
 
+// dynamic imports are needed due to conflicts when used within Nuxt
+const getParser = async () => {
+  const { parseMarkdown } = await import("@nuxtjs/mdc/runtime");
+  return parseMarkdown;
+};
+
+const MDCRenderer = defineAsyncComponent(
+  () => import("@nuxtjs/mdc/runtime/components/MDCRenderer.vue"),
+);
+
 watch(
   () => props.markdown,
   async () => {
     isLoading.value = true;
     try {
+      const parseMarkdown = await getParser();
       parserResult.value = await parseMarkdown(props.markdown);
     } finally {
       isLoading.value = false;
@@ -33,6 +58,26 @@ watch(
   },
   { immediate: true },
 );
+
+const components = {
+  a: ProseA,
+  br: ProseBr,
+  code: ProseCode,
+  details: ProseDetails,
+  h1: ProseH1,
+  h2: ProseH2,
+  h3: ProseH3,
+  h4: ProseH4,
+  h5: ProseH5,
+  h6: ProseH6,
+  hr: ProseHr,
+  ol: ProseOl,
+  p: ProseP,
+  pre: ProsePre,
+  summary: ProseSummary,
+  table: ProseTable,
+  ul: ProseUl,
+};
 </script>
 
 <template>
@@ -44,7 +89,7 @@ watch(
       :class="['onyx-component', 'onyx-markdown-renderer', densityClass]"
       :body="parserResult.body"
       :data="parserResult.data"
-      :components="proseComponents"
+      :components
     />
 
     <template #fallback>
@@ -58,7 +103,6 @@ watch(
 
 .onyx-markdown-renderer {
   @include layers.component() {
-    --onyx-markdown-renderer-margin-block: var(--onyx-density-md);
     font-family: var(--onyx-font-family-paragraph);
   }
 }
