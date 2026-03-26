@@ -3,9 +3,9 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import OnyxDatePicker from "./OnyxDatePicker.vue";
 
 /**
- * The DatePicker component can be used to select a date or date + time.
+ * @deprecated Use the new [OnyxDatePickerV2](/docs/form-elements-datepickerv2--docs) component which will replace the `OnyxDatePicker` in onyx version 2.
  *
- * **Note: For now, the calendar flyout will use the native browser calendar. This will be replaced with a custom and more advanced implementation in the future.**
+ * The DatePicker component can be used to select a date or date + time.
  */
 const meta: Meta<typeof OnyxDatePicker> = {
   title: "Form Elements/DatePicker",
