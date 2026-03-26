@@ -14,21 +14,6 @@
 
 ### Patch Changes
 
-- Updated dependencies [a0aafe8]
-- Updated dependencies [fc16972]
-- Updated dependencies [5466d27]
-- Updated dependencies [1b47fae]
-- Updated dependencies [1b47fae]
-- Updated dependencies [8551d9a]
-- Updated dependencies [0e552d7]
-- Updated dependencies [8b02aed]
-- Updated dependencies [9819e34]
-- Updated dependencies [a0aafe8]
-- Updated dependencies [b1912d2]
-- Updated dependencies [c20ef71]
-- Updated dependencies [a0aafe8]
-- Updated dependencies [a0aafe8]
-- Updated dependencies [4b55515]
 - Updated dependencies [fc16972]
   - sit-onyx@1.11.0
   - @sit-onyx/icons@1.8.0

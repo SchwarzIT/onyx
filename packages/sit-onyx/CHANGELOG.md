@@ -24,7 +24,7 @@
 
 - c20ef71: feat: implement new `OnyxUnstableNavButton` component
 
-  For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the **[changelog]https://onyx.schwarz/development/packages/changelogs/sit-onyx.html)** when using it.
+  For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using it.
 
 - a0aafe8: refactor(OnyxSelect): use `OnyxFormElementV2` internally
   - feat(OnyxSelect): support left aligned label using `label.position` property
