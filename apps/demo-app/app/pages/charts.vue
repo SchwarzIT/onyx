@@ -22,7 +22,11 @@ const selectOptions = computed(() => [
   <OnyxHeadline is="h3" class="headline">{{ t("charts.rangeAndType") }}</OnyxHeadline>
 
   <OnyxForm class="form onyx-grid" @submit.prevent>
-    <OnyxDatePicker class="onyx-grid-span-4 onyx-grid-lg-span-3" :label="t('charts.range')" />
+    <OnyxUnstableDatePickerV2
+      class="onyx-grid-span-4 onyx-grid-lg-span-3"
+      :label="t('charts.range')"
+      selection-mode="range"
+    />
     <OnyxSelect
       class="onyx-grid-span-4 onyx-grid-lg-span-3"
       :label="t('charts.type')"
