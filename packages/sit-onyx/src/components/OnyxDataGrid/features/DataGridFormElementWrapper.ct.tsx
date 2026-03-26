@@ -2,6 +2,7 @@ import { createEmitSpy, expectEmit } from "@sit-onyx/playwright-utils";
 import type { Component } from "vue";
 import { expect, test } from "../../../playwright/a11y.js";
 import OnyxDatePicker from "../../OnyxDatePicker/OnyxDatePicker.vue";
+import OnyxDatePickerV2 from "../../OnyxDatePickerV2/OnyxDatePickerV2.vue";
 import OnyxInput from "../../OnyxInput/OnyxInput.vue";
 import OnyxSelect from "../../OnyxSelect/OnyxSelect.vue";
 import type { SelectOption } from "../../OnyxSelect/types.js";
@@ -110,6 +111,35 @@ test(`DataGridFormElementWrapper with OnyxDatePicker`, async ({ mount }) => {
   await input.blur();
 
   expectEmit(onUpdateModelValue, 1, [NEW_VALUE]);
+});
+
+test(`DataGridFormElementWrapper with OnyxDatePickerV2`, async ({ mount }) => {
+  // ARRANGE
+  const onUpdateModelValue = createEmitSpy<typeof OnyxDatePickerV2, "onUpdate:modelValue">();
+  const TEST_VALUE = "2020-12-31";
+  const LABEL = "test-label";
+  const mounted = await mount(
+    table(
+      <DataGridFormElementWrapper
+        is={OnyxDatePickerV2}
+        label={LABEL}
+        modelValue={TEST_VALUE}
+        onUpdate:modelValue={onUpdateModelValue}
+      />,
+    ),
+  );
+
+  const input = mounted.getByLabel(LABEL);
+  await expect(input).toHaveValue("12/31/2020");
+
+  await input.click();
+
+  await mounted
+    .getByRole("dialog", { name: "Calendar" })
+    .getByRole("button", { name: "Monday, December 21" })
+    .click();
+
+  expectEmit(onUpdateModelValue, 1, ["12/21/2020"]);
 });
 
 test(`DataGridFormElementWrapper with OnyxTimePicker`, async ({ mount }) => {
@@ -237,6 +267,7 @@ test("DataGridFormElementWrapper Screenshot Test", async ({ mount }) => {
       <DataGridFormElementWrapper is={OnyxSwitch} label={LABEL} modelValue={true} />,
       <DataGridFormElementWrapper is={OnyxTimePicker} label={LABEL} modelValue={"01:02"} />,
       <DataGridFormElementWrapper is={OnyxDatePicker} label={LABEL} modelValue={"2020-12-31"} />,
+      <DataGridFormElementWrapper is={OnyxDatePickerV2} label={LABEL} modelValue={"2020-12-31"} />,
       <DataGridFormElementWrapper is={OnyxStepper} label={LABEL} modelValue={12} />,
       <DataGridFormElementWrapper is={OnyxInput} label={LABEL} modelValue={"some text"} />,
     ),

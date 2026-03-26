@@ -170,7 +170,7 @@ const input = useTemplateRef("inputRef");
 useAutofocus(input, props);
 
 const popoverOptions = computed<FormElementV2PopoverOptions | undefined>(() => {
-  const options: FormElementV2PopoverOptions = { fitParent: true };
+  const options: FormElementV2PopoverOptions = { label: t.value("datePicker.popoverLabel") };
   if (props.multiView) options.fitParent = false;
   if (disabled.value || props.readonly) options.disabled = true;
   return { ...options, ...props.popoverOptions };
