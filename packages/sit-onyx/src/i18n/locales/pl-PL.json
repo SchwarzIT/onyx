@@ -348,5 +348,8 @@
   },
   "datePicker": {
     "popoverLabel": "Kalendarz"
+  },
+  "accordion": {
+    "toggle": "Kliknij, aby przełączyć zawartość"
   }
 }

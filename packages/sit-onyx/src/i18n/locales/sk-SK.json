@@ -348,5 +348,8 @@
   },
   "datePicker": {
     "popoverLabel": "Kalendár"
+  },
+  "accordion": {
+    "toggle": "Kliknutím prepnete obsah"
   }
 }

@@ -348,5 +348,8 @@
   },
   "datePicker": {
     "popoverLabel": "Calendario"
+  },
+  "accordion": {
+    "toggle": "Haga clic para mostrar/ocultar el contenido"
   }
 }

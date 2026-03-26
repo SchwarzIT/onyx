@@ -348,5 +348,8 @@
   },
   "datePicker": {
     "popoverLabel": "Calendar"
+  },
+  "accordion": {
+    "toggle": "Faceți clic pentru a comuta conținutul"
   }
 }
