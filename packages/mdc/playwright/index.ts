@@ -2,3 +2,4 @@
 import "@fontsource-variable/source-code-pro";
 import "@fontsource-variable/source-sans-3";
 import "sit-onyx/style.css";
+import "../src/styles/index.scss";

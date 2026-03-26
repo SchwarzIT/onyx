@@ -572,6 +572,9 @@ importers:
       '@sit-onyx/icons':
         specifier: workspace:^
         version: link:../icons
+      '@sit-onyx/mdc':
+        specifier: workspace:^
+        version: link:../mdc
       '@sit-onyx/nuxt':
         specifier: workspace:^
         version: link:../nuxt
