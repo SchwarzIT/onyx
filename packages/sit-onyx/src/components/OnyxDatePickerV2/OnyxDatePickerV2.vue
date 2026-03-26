@@ -6,7 +6,7 @@
 export default {};
 </script>
 
-<script lang="ts" setup generic="TSelection extends OnyxCalendarSelectionMode = 'single'">
+<script lang="ts" setup generic="TSelection extends OnyxCalendarSelectionMode">
 import { iconCalendar, iconXSmall } from "@sit-onyx/icons";
 import { computed, useTemplateRef, type HTMLAttributes } from "vue";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
