@@ -345,5 +345,8 @@
       "unorderedList": "Lista wypunktowana"
     },
     "blockquote": "Blok cytatu"
+  },
+  "accordion": {
+    "toggle": "Kliknij, aby przełączyć zawartość"
   }
 }

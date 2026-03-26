@@ -345,5 +345,8 @@
       "unorderedList": "Popis s grafičkim oznakama"
     },
     "blockquote": "Blok citat"
+  },
+  "accordion": {
+    "toggle": "Kliknite za prikaz/skrivanje sadržaja"
   }
 }

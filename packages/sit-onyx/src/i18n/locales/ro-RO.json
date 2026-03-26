@@ -345,5 +345,8 @@
       "unorderedList": "Listă cu puncte"
     },
     "blockquote": "Bloc de citat"
+  },
+  "accordion": {
+    "toggle": "Faceți clic pentru a comuta conținutul"
   }
 }

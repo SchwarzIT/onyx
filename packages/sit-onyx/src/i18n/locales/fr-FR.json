@@ -345,5 +345,8 @@
       "unorderedList": "Liste à puces"
     },
     "blockquote": "Bloc de citation"
+  },
+  "accordion": {
+    "toggle": "Cliquer pour afficher/masquer le contenu"
   }
 }

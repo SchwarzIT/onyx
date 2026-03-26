@@ -345,5 +345,8 @@
       "unorderedList": "Lista de viñetas"
     },
     "blockquote": "Bloque de cita"
+  },
+  "accordion": {
+    "toggle": "Haga clic para mostrar/ocultar el contenido"
   }
 }
