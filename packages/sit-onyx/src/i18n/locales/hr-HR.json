@@ -349,5 +349,8 @@
   },
   "datePicker": {
     "popoverLabel": "Kalendar"
+  },
+  "accordion": {
+    "toggle": "Kliknite za prikaz/skrivanje sadržaja"
   }
 }

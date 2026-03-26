@@ -349,5 +349,8 @@
   },
   "datePicker": {
     "popoverLabel": "Kalender"
+  },
+  "accordion": {
+    "toggle": "Klik om de inhoud te tonen/verbergen"
   }
 }
