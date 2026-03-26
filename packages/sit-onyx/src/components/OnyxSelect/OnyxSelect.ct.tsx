@@ -1021,6 +1021,12 @@ test("should show clear button", async ({ mount }) => {
   await expect(clearButton).toBeVisible();
 
   // ACT
+  await clearButton.hover();
+
+  // ASSERT
+  await expect(component.getByRole("tooltip", { name: "Clear input" })).toBeVisible();
+
+  // ACT
   await clearButton.click();
   await input.focus();
 
@@ -1036,6 +1042,16 @@ test("should show clear button", async ({ mount }) => {
 
   // ASSERT
   await expect(input).toHaveValue("Default, Selected option");
+  await expect(clearButton).toBeVisible();
+
+  // ACT
+  await clearButton.hover();
+
+  // ASSERT
+  await expect(
+    component.getByRole("tooltip", { name: "Clear input" }),
+    "should hide clear button tooltip inside preview badge",
+  ).toBeHidden();
 
   // ACT
   await clearButton.click();

@@ -25,6 +25,7 @@ const props = withDefaults(defineProps<OnyxFormElementActionProps>(), {
   size: "sm",
   showOnFocus: false,
   highlighted: false,
+  open: undefined,
 });
 
 const emit = defineEmits<{
@@ -32,12 +33,23 @@ const emit = defineEmits<{
    * Emitted when the pressed state of the toggle button changes.
    */
   "update:pressed": [value: boolean];
+  /**
+   * Emitted when the open state of the tooltip changes.
+   */
+  "update:open": [open: boolean];
 }>();
 
 const pressed = useVModel({
   props,
   emit,
   key: "pressed",
+  default: false,
+});
+
+const isOpen = useVModel({
+  props,
+  emit,
+  key: "open",
   default: false,
 });
 
@@ -55,6 +67,7 @@ const toggleAttrs = computed(() =>
 
 <template>
   <OnyxTooltip
+    v-model:open="isOpen"
     v-bind="rootAttrs"
     alignment="center"
     :text="props.label"

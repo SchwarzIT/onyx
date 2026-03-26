@@ -556,6 +556,7 @@ defineExpose({ input: inputRef });
               v-if="showClearButton"
               :label="t('input.clear')"
               :icon="iconXSmall"
+              :open="false"
               show-on-focus
               @click="clearValue"
             />
