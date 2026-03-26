@@ -168,8 +168,9 @@ const handleDelete = () => {
             label="Area code"
             list-label="Available area codes"
             :options="phoneAreaCodeOptions"
-            hide-label
             density="compact"
+            hide-label
+            hide-clear-icon
           />
         </template>
       </OnyxInput>

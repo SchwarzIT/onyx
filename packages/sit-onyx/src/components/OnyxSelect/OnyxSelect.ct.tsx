@@ -1,4 +1,3 @@
-import type { MountResultJsx } from "@playwright/experimental-ct-vue";
 import { comboboxSelectOnlyTesting, comboboxTesting } from "@sit-onyx/headless/playwright";
 import { DENSITIES } from "../../composables/density.js";
 import type { FormMessages } from "../../composables/useFormElementError.js";
@@ -54,12 +53,6 @@ const MOCK_MULTILINE_LONG_LABELED_OPTIONS = MOCK_LONG_LABELED_OPTIONS.map((optio
   truncation: "multiline",
 })) satisfies SelectOption[];
 
-const openFlyout = async (component: MountResultJsx) => {
-  const toggleButton = component.getByLabel("Toggle selection popover");
-
-  if (await toggleButton.isEnabled()) await toggleButton.click();
-};
-
 test.describe("Default screenshots", () => {
   executeMatrixScreenshotTest({
     name: "Select",
@@ -77,16 +70,13 @@ test.describe("Default screenshots", () => {
           required={row === "required"}
           hideLabel={row === "hideLabel"}
           style={{
+            width: "16rem",
             marginBottom: row === "open" ? "15rem" : undefined,
           }}
+          open={row === "open"}
         />
       </div>
     ),
-    hooks: {
-      beforeEach: async (component, _page, _column, row) => {
-        if (row === "open") await openFlyout(component);
-      },
-    },
   });
 });
 
@@ -98,32 +88,17 @@ test.describe("Empty screenshots", () => {
     context,
     component: (column, row) => (
       <div>
-        {row === "empty" ? (
-          <OnyxSelect
-            label="Label"
-            listLabel="List label"
-            options={[]}
-            density={column}
-            style={{ marginBottom: "15rem" }}
-          />
-        ) : (
-          <OnyxSelect
-            label="Label"
-            listLabel="List label"
-            options={[]}
-            density={column}
-            withSearch={true}
-            searchTerm="search term"
-            style={{ marginBottom: "18rem" }}
-          />
-        )}
+        <OnyxSelect
+          label="Label"
+          listLabel="List label"
+          options={[]}
+          density={column}
+          style={{ marginBottom: "18rem" }}
+          {...(row === "search-empty" ? { withSearch: true, searchTerm: "search term" } : {})}
+          open
+        />
       </div>
     ),
-    hooks: {
-      beforeEach: async (component) => {
-        await openFlyout(component);
-      },
-    },
   });
 });
 
@@ -142,11 +117,11 @@ test.describe("Truncated options screenshots", () => {
         }
         density={column}
         style={{ marginBottom: "22rem" }}
+        open
       />
     ),
     hooks: {
       beforeEach: async (component) => {
-        await openFlyout(component);
         const option = component.getByLabel(MOCK_MULTILINE_LONG_LABELED_OPTIONS[0]!.label);
         await option.hover();
       },
@@ -181,6 +156,7 @@ test.describe("Grouped screenshots", () => {
             multiple={true}
             withCheckAll={true}
             style={{ marginBottom: "22rem" }}
+            open
           />
         </div>
       ) : (
@@ -194,14 +170,10 @@ test.describe("Grouped screenshots", () => {
             multiple={false}
             withSearch={column === "with-search"}
             style={{ marginBottom: "20rem" }}
+            open
           />
         </div>
       );
-    },
-    hooks: {
-      beforeEach: async (component) => {
-        await openFlyout(component);
-      },
     },
   });
 });
@@ -230,15 +202,11 @@ test.describe("Multiple screenshots", () => {
             withSearch={row === "search"}
             withCheckAll={row === "check-all"}
             textMode={row === "preview" ? "preview" : undefined}
-            style={{ marginBottom: row !== "preview" ? "20rem" : undefined }}
+            style={{ marginBottom: "20rem" }}
+            open
           />
         </div>
       );
-    },
-    hooks: {
-      beforeEach: async (component, _page, _column, row) => {
-        if (row !== "preview") await openFlyout(component);
-      },
     },
   });
 });
@@ -258,14 +226,10 @@ test.describe("List description screenshots", () => {
           density={column}
           listDescription="List description"
           style={{ marginBottom: "25rem" }}
+          open
         />
       </div>
     ),
-    hooks: {
-      beforeEach: async (component, _page, _column) => {
-        await openFlyout(component);
-      },
-    },
   });
 });
 
@@ -292,7 +256,7 @@ test.describe("Alignment screenshots", () => {
     ),
     hooks: {
       beforeEach: async (component) => {
-        await openFlyout(component);
+        await component.getByLabel("Label", { exact: true }).click();
       },
     },
   });
@@ -313,6 +277,7 @@ test.describe("Loading screenshots", () => {
           loading={column === "loading"}
           lazyLoading={column === "lazy-loading" ? { enabled: true, loading: true } : undefined}
           style={{ marginBottom: "25rem" }}
+          open
         >
           {column === "custom-button" && (
             <template v-slot:optionsEnd>
@@ -324,8 +289,6 @@ test.describe("Loading screenshots", () => {
     ),
     hooks: {
       beforeEach: async (component, _page, column) => {
-        await openFlyout(component);
-
         if (column !== "loading") {
           await component.getByLabel(MOCK_MANY_OPTIONS.at(-1)!.label).scrollIntoViewIfNeeded();
         }
@@ -374,7 +337,7 @@ test.describe("Invalidity handling screenshots", () => {
         const input = component.getByLabel("Test label");
 
         // invalid is only triggered after open/closing the flyout
-        await input.click();
+        await input.click({ clickCount: 2 });
         await page.getByRole("document").click(); // reset mouse
 
         await component.evaluate((element) => {
@@ -428,6 +391,7 @@ test.describe("Other screenshots", () => {
     context,
     component: (column) => (
       <OnyxSelect
+        style="width: 12rem"
         label="Label"
         listLabel="List label"
         options={MOCK_MANY_OPTIONS}
@@ -536,7 +500,7 @@ test("should interact with multiselect and search", async ({ mount }) => {
     },
   });
 
-  const mainInput = component.getByRole("textbox", { name: "Test select" });
+  const mainInput = component.getByRole("combobox", { name: "Test select" });
   const miniSearchInput = component.getByRole("combobox", { name: "Filter the list items" });
 
   await mainInput.click();
@@ -772,7 +736,7 @@ test("should handle onUpdate:searchTerm correctly when searching", async ({ moun
     },
   });
 
-  await component.getByRole("textbox", { name: "Test label" }).click();
+  await component.getByRole("combobox", { name: "Test label" }).click();
   const searchInput = component.getByLabel("Filter the list items");
 
   // ACT
@@ -926,7 +890,7 @@ test("should manage filtering internally except when filteredOptions are given",
   });
 
   // ACT
-  await component.getByRole("textbox", { name: "Test select" }).click();
+  await component.getByRole("combobox", { name: "Test select" }).click();
   await page.getByRole("option").first().waitFor();
   // ASSERT
   await expect(page.getByRole("option"), "should initially show all options").toHaveCount(
@@ -981,7 +945,7 @@ test("should render a separate group for selected options", async ({ mount, page
   });
 
   // ACT
-  await component.getByRole("textbox", { name: "Test select" }).click();
+  await component.getByRole("combobox", { name: "Test select" }).click();
   await page.getByRole("option").first().waitFor();
   // ASSERT
   await expect(page.getByText("Selected")).toBeVisible();
@@ -1010,8 +974,88 @@ test("should not render a separate group for selected options (keepSelectionOrde
   });
 
   // ACT
-  await component.getByRole("textbox", { name: "Test select" }).click();
+  await component.getByRole("combobox", { name: "Test select" }).click();
   await page.getByRole("option").first().waitFor();
   // ASSERT
   await expect(page.getByText("Selected")).toBeHidden();
+});
+
+test("should be focused when autofocus is set", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxSelect label="Test label" listLabel="List label" options={[]} autofocus />,
+  );
+  const input = component.getByLabel("Test label");
+
+  // ACT
+  await expect(input).toBeFocused();
+});
+
+test("should show clear button", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(OnyxSelect, {
+    props: {
+      label: "Test label",
+      listLabel: "List label",
+      options: MOCK_VARIED_OPTIONS,
+    },
+  });
+
+  const input = component.getByLabel("Test label");
+  const flyout = component.getByLabel("List label");
+  const clearButton = component.getByRole("button", { name: "Clear input" });
+
+  // ACT
+  await input.click();
+  await flyout.getByRole("option", { name: "Default" }).click();
+  await input.blur();
+
+  // ASSERT
+  await expect(input).toHaveValue("Default");
+  await expect(clearButton).toBeHidden();
+
+  // ACT
+  await input.focus();
+
+  // ASSERT
+  await expect(clearButton).toBeVisible();
+
+  // ACT
+  await clearButton.hover();
+
+  // ASSERT
+  await expect(component.getByRole("tooltip", { name: "Clear input" })).toBeVisible();
+
+  // ACT
+  await clearButton.click();
+  await input.focus();
+
+  // ASSERT
+  await expect(input).toHaveValue("");
+  await expect(clearButton).toBeHidden();
+
+  // ACT
+  await component.update({ props: { multiple: true, textMode: "preview" } });
+  await input.click();
+  await flyout.getByRole("option", { name: "Default" }).click();
+  await flyout.getByRole("option", { name: "Selected option" }).click();
+
+  // ASSERT
+  await expect(input).toHaveValue("Default, Selected option");
+  await expect(clearButton).toBeVisible();
+
+  // ACT
+  await clearButton.hover();
+
+  // ASSERT
+  await expect(
+    component.getByRole("tooltip", { name: "Clear input" }),
+    "should hide clear button tooltip inside preview badge",
+  ).toBeHidden();
+
+  // ACT
+  await clearButton.click();
+
+  // ASSERT
+  await expect(input).toHaveValue("");
 });

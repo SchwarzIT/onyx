@@ -1,5 +1,8 @@
+import { iconPlaceholder } from "@sit-onyx/icons";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
+import { h } from "vue";
 import { createAdvancedStoryExample } from "../../utils/storybook.js";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSelect from "./OnyxSelect.vue";
 import type { SelectOption } from "./types.js";
 
@@ -378,5 +381,33 @@ export const WithRightAlignment = {
     options: DEMO_OPTIONS,
     alignment: "right",
     placeholder: "Right alignment...",
+  },
+} satisfies Story;
+
+export const LeftLabel = {
+  tags: ["new:feature"],
+  args: {
+    ...Default.args,
+    label: {
+      label: Default.args.label,
+      position: "left",
+    },
+  },
+} satisfies Story;
+
+export const Slots = {
+  tags: ["new:feature"],
+  args: {
+    ...Default.args,
+    leadingIcons: () => h(OnyxIcon, { icon: iconPlaceholder }),
+    trailingIcons: () => h(OnyxIcon, { icon: iconPlaceholder }),
+    leading: () =>
+      h("span", { style: "padding-inline: var(--onyx-form-element-v2-padding-inline)" }, "Leading"),
+    trailing: () =>
+      h(
+        "span",
+        { style: "padding-inline: var(--onyx-form-element-v2-padding-inline)" },
+        "Trailing",
+      ),
   },
 } satisfies Story;

@@ -24,6 +24,8 @@ const props = withDefaults(defineProps<OnyxFormElementActionProps>(), {
   disabled: FORM_INJECTED_SYMBOL,
   size: "sm",
   showOnFocus: false,
+  highlighted: false,
+  open: undefined,
 });
 
 const emit = defineEmits<{
@@ -31,12 +33,23 @@ const emit = defineEmits<{
    * Emitted when the pressed state of the toggle button changes.
    */
   "update:pressed": [value: boolean];
+  /**
+   * Emitted when the open state of the tooltip changes.
+   */
+  "update:open": [open: boolean];
 }>();
 
 const pressed = useVModel({
   props,
   emit,
   key: "pressed",
+  default: false,
+});
+
+const isOpen = useVModel({
+  props,
+  emit,
+  key: "open",
   default: false,
 });
 
@@ -53,17 +66,26 @@ const toggleAttrs = computed(() =>
 </script>
 
 <template>
-  <OnyxTooltip v-bind="rootAttrs" alignment="center" :text="props.label" :density="props.density">
+  <OnyxTooltip
+    v-model:open="isOpen"
+    v-bind="rootAttrs"
+    alignment="center"
+    :text="props.label"
+    :density="props.density"
+    :class="[
+      'onyx-form-element-action',
+      {
+        'onyx-form-element-action--lg': props.size === 'lg',
+        'onyx-form-element-action--show-on-focus': props.showOnFocus,
+        'onyx-form-element-action--auto-highlight': props.highlighted === 'auto',
+        'onyx-form-element-action--highlighted': props.highlighted === true,
+      },
+    ]"
+  >
     <template #default="{ trigger }">
       <button
         v-bind="mergeVueProps(restAttrs, toggleAttrs, trigger)"
-        :class="[
-          'onyx-form-element-action',
-          {
-            'onyx-form-element-action--lg': props.size === 'lg',
-            'onyx-form-element-action--show-on-focus': props.showOnFocus,
-          },
-        ]"
+        class="onyx-form-element-action__button"
         type="button"
         tabindex="-1"
         :aria-label="props.label"
@@ -77,38 +99,82 @@ const toggleAttrs = computed(() =>
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
+@use "../OnyxFormElementV2/OnyxFormElementV2.scss";
 
 .onyx-form-element-action {
   @include layers.component() {
     --onyx-form-element-action-color: var(--onyx-color-text-icons-neutral-medium);
-    --onyx-form-element-action-color-hover: var(--onyx-color-text-icons-primary-intense);
-    all: initial;
-    color: var(--onyx-form-element-action-color);
+    --onyx-form-element-action-color-hover: var(
+      --onyx-form-element-v2-border-color-focus,
+      var(--onyx-color-text-icons-primary-intense)
+    );
+    --onyx-form-element-action-color-highlight: var(--onyx-form-element-action-color-hover);
+    --onyx-form-element-action-display: inline-flex;
+    display: var(--onyx-form-element-action-display);
 
-    &[aria-pressed="true"] {
-      --onyx-form-element-action-color: var(--onyx-color-text-icons-neutral-intense);
-    }
+    &__button {
+      all: initial;
+      color: var(--onyx-form-element-action-color);
 
-    &:enabled {
-      cursor: pointer;
+      &[aria-pressed="true"] {
+        --onyx-form-element-action-color: var(--onyx-color-text-icons-neutral-intense);
+      }
 
-      &:hover,
-      &:focus-visible {
-        color: var(--onyx-form-element-action-color-hover);
+      &:enabled {
+        cursor: pointer;
+
+        &:hover,
+        &:focus-visible {
+          color: var(--onyx-form-element-action-color-hover);
+        }
+      }
+
+      &:disabled {
+        color: var(--onyx-color-text-icons-neutral-soft);
       }
     }
 
-    &:disabled {
-      color: var(--onyx-color-text-icons-neutral-soft);
-    }
-
     &--lg {
-      padding: var(--onyx-density-xs) var(--onyx-density-sm);
+      .onyx-form-element-action__button {
+        padding: var(--onyx-density-xs) var(--onyx-density-sm);
+      }
     }
 
     &--show-on-focus {
-      .onyx-form-element-v2:has(.onyx-form-element-v2__input-container:not(:focus-within)) & {
-        display: none;
+      display: none;
+    }
+
+    &--highlighted {
+      .onyx-form-element-action__button {
+        color: var(--onyx-form-element-action-color-highlight);
+      }
+    }
+  }
+}
+
+.onyx-form-element-v2 {
+  @include layers.component() {
+    @include OnyxFormElementV2.input-focus-or-popover-open() {
+      .onyx-form-element-action {
+        &--show-on-focus {
+          display: var(--onyx-form-element-action-display);
+        }
+
+        &--auto-highlight {
+          .onyx-form-element-action__button {
+            color: var(--onyx-form-element-action-color-highlight);
+          }
+        }
+      }
+    }
+
+    @include OnyxFormElementV2.input-container-hover() {
+      .onyx-form-element-action {
+        &--auto-highlight {
+          .onyx-form-element-action__button {
+            color: var(--onyx-form-element-action-color-highlight);
+          }
+        }
       }
     }
   }

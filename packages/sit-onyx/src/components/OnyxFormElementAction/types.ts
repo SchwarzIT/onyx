@@ -34,4 +34,13 @@ export type OnyxFormElementActionProps = DensityProp & {
    * If `true`, the button will be only be shown visually if the parent form element has focus.
    */
   showOnFocus?: boolean;
+  /**
+   * Whether the button is (visually) highlighted.
+   * If set to "auto", it is automatically highlighted when the parent form element has focus, open popover or is hovered.
+   */
+  highlighted?: boolean | "auto";
+  /**
+   * Whether the tooltip is currently open. If unset, the state will be managed internally.
+   */
+  open?: boolean;
 };

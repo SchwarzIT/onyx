@@ -120,6 +120,7 @@ const valueLabel = computed(() =>
       hide-label
       with-search
       no-filter
+      hide-clear-icon
       @update:model-value="$event != undefined && emit('update:modelValue', $event)"
       @lazy-load="handleLoadMore"
     />
@@ -167,36 +168,29 @@ const valueLabel = computed(() =>
       }
 
       .onyx-pagination__select {
-        .onyx-select-input__wrapper {
-          border-radius: 0;
-        }
+        --onyx-form-element-v2-border-radius: 0;
+        --onyx-form-element-v2-padding-inline-icons: var(--onyx-form-element-v2-padding-inline);
 
-        .onyx-select-input__button {
+        .onyx-form-element-v2__icons--trailing {
           display: none;
         }
 
-        .onyx-select-input__native {
+        .onyx-form-element-v2__input {
           text-align: center;
         }
       }
 
       // fix for button outlines
       &:has(.onyx-pagination__button:first-of-type:focus-visible) {
-        .onyx-select-input__wrapper {
+        .onyx-form-element-v2__input-container {
           border-left: none;
-        }
-
-        .onyx-select-input__native {
           margin-left: calc(-1 * var(--onyx-outline-width));
         }
       }
 
       &:has(.onyx-pagination__button:last-of-type:focus-visible) {
-        .onyx-select-input__wrapper {
+        .onyx-form-element-v2__input-container {
           border-right: none;
-        }
-
-        .onyx-select-input__native {
           margin-right: calc(-1 * var(--onyx-outline-width));
         }
       }

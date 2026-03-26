@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { CLOSING_KEYS, OPENING_KEYS, useOutsideClick } from "@sit-onyx/headless";
-import { computed, useTemplateRef, type AriaAttributes } from "vue";
+import { computed, nextTick, ref, useTemplateRef, watch } from "vue";
 import { useVModel } from "../../composables/useVModel.js";
 import { mergeVueProps } from "../../utils/attrs.js";
 import OnyxBasicPopover from "../OnyxBasicPopover/OnyxBasicPopover.vue";
@@ -16,7 +16,7 @@ const emit = defineEmits<{
 }>();
 
 const slots = defineSlots<{
-  default(props: { trigger?: AriaAttributes; input?: object }): unknown;
+  default(props: { input?: object }): unknown;
   popover?(): unknown;
 }>();
 
@@ -32,7 +32,10 @@ useOutsideClick({
   inside: popover,
   checkOnTab: true,
   disabled: computed(() => !slots.popover || !open.value),
-  onOutsideClick: () => {
+  onOutsideClick: async () => {
+    // nextTick() is needed to prevent duplicate open toggles for e.g. the OnyxSelect
+    // where the outside click might be handled externally (e.g. in headless composable)
+    await nextTick();
     open.value = false;
   },
 });
@@ -51,6 +54,26 @@ const blockTyping = (event: KeyboardEvent) => {
     open.value = false;
   }
 };
+
+/**
+ * When using a popover, the native input is effectively readonly, so the :user-invalid CSS will never apply.
+ * To workaround this, the track if the select has ever been closed and consider this as "touched" / interacted.
+ */
+const isTouched = ref(false);
+const stopWatch = watch(open, (newOpen, oldOpen) => {
+  if (oldOpen && !newOpen) {
+    isTouched.value = true;
+    stopWatch();
+  }
+});
+
+const inputProps = computed(() => {
+  return {
+    role: "combobox",
+    onKeydown: blockTyping,
+    class: [{ "onyx-form-element-v2__input--touched": isTouched.value }],
+  };
+});
 </script>
 
 <template>
@@ -63,10 +86,7 @@ const blockTyping = (event: KeyboardEvent) => {
     v-bind="props.popoverOptions"
   >
     <template #default="{ trigger }">
-      <slot
-        :trigger="mergeVueProps(trigger, { role: 'combobox' })"
-        :input="{ onKeydown: blockTyping }"
-      ></slot>
+      <slot :input="mergeVueProps(trigger, inputProps)"></slot>
     </template>
 
     <template #content>
@@ -87,15 +107,11 @@ const blockTyping = (event: KeyboardEvent) => {
       flex-grow: 1;
       border-radius: inherit;
       height: 100%;
-    }
 
-    &:has(&__popover) {
-      .onyx-form-element-v2__input-container {
-        .onyx-form-element-v2__input {
-          caret-color: transparent;
-        }
+      .onyx-form-element-v2__input {
+        caret-color: transparent;
 
-        &:has(.onyx-form-element-v2__input:read-write) {
+        &:read-write {
           cursor: pointer;
         }
       }

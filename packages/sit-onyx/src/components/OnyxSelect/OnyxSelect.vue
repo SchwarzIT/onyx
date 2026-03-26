@@ -7,7 +7,13 @@
     TValue extends TModelValue extends (infer TInner)[] ? TInner : TModelValue
   "
 >
-import { createComboBox, type ComboboxAutoComplete } from "@sit-onyx/headless";
+import {
+  CLOSING_KEYS,
+  createComboBox,
+  OPENING_KEYS,
+  type ComboboxAutoComplete,
+} from "@sit-onyx/headless";
+import { iconChevronDownUp, iconXSmall } from "@sit-onyx/icons";
 import {
   computed,
   nextTick,
@@ -20,24 +26,29 @@ import {
   type ComputedRef,
 } from "vue";
 import { useCheckAll } from "../../composables/checkAll.js";
-import { useDensity } from "../../composables/density.js";
 import { useScrollEnd } from "../../composables/scrollEnd.js";
+import { useAutofocus } from "../../composables/useAutoFocus.js";
+import { useFormElementError } from "../../composables/useFormElementError.js";
 import { useOpenDirection } from "../../composables/useOpenDirection.js";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import type { Nullable, SelectOptionValue } from "../../types/index.js";
+import { mergeVueProps } from "../../utils/attrs.js";
 import { asArray, groupByKey, transformGroupedData } from "../../utils/objects.js";
-import { useForwardProps } from "../../utils/props.js";
 import { normalizedIncludes } from "../../utils/strings.js";
-import OnyxBasicPopover from "../OnyxBasicPopover/OnyxBasicPopover.vue";
+import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxEmpty from "../OnyxEmpty/OnyxEmpty.vue";
-import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core.js";
+import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
+import OnyxFormElementAction from "../OnyxFormElementAction/OnyxFormElementAction.vue";
+import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
+import type { OnyxFormElementV2Slots } from "../OnyxFormElementV2/types.js";
+import { useLegacyFormElementProps } from "../OnyxFormElementV2/useLegacyFormElementProps.js";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxMiniSearch from "../OnyxMiniSearch/OnyxMiniSearch.vue";
-import OnyxSelectInput from "../OnyxSelectInput/OnyxSelectInput.vue";
-import type { OnyxSelectInputProps } from "../OnyxSelectInput/types.js";
 import OnyxSelectOption from "../OnyxSelectOption/OnyxSelectOption.vue";
+import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 import type { OnyxSelectProps, SelectOption } from "./types.js";
 
 type Props = OnyxSelectProps<TModelValue, TMultiple, TValue>;
@@ -57,7 +68,9 @@ const props = withDefaults(defineProps<Props>(), {
   alignment: "full",
   open: undefined,
   keepSelectionOrder: false,
+  textMode: "summary",
 });
+
 const emit = defineEmits<{
   /**
    * Emitted if lazy loading is triggered / the users scrolls to the end of the options.
@@ -82,36 +95,38 @@ const emit = defineEmits<{
   "update:open": [value: boolean];
 }>();
 
-const slots = defineSlots<{
-  /**
-   * Optional slot to customize the empty state when no options exist.
-   * It is recommended to use the `<OnyxEmpty>` component here.
-   *
-   * If unset, a default translated message will be displayed for the current locale.
-   */
-  empty?(props: { defaultMessage: string }): unknown;
-  /**
-   * Optional slot that is displayed below all options that can be used
-   * to e.g. show a button to load more options instead of lazy loading on scroll.
-   */
-  optionsEnd?(): unknown;
-  /**
-   * Optional slot to override the option content.
-   */
-  option?(props: SelectOption<TValue>): unknown;
-
-  /**
-   * Optional slot to override the icon of the toggle button inside the input.
-   */
-  toggleIcon?(): unknown;
-}>();
+const slots = defineSlots<
+  Pick<OnyxFormElementV2Slots, "leading" | "leadingIcons" | "trailing" | "trailingIcons"> & {
+    /**
+     * Optional slot to customize the empty state when no options exist.
+     * It is recommended to use the `<OnyxEmpty>` component here.
+     *
+     * If unset, a default translated message will be displayed for the current locale.
+     */
+    empty?(props: { defaultMessage: string }): unknown;
+    /**
+     * Optional slot that is displayed below all options that can be used
+     * to e.g. show a button to load more options instead of lazy loading on scroll.
+     */
+    optionsEnd?(): unknown;
+    /**
+     * Optional slot to override the option content.
+     */
+    option?(props: SelectOption<TValue>): unknown;
+    /**
+     * Optional slot to override the icon of the toggle button inside the input.
+     * Recommended to use the `OnyxFormElementAction` component here.
+     */
+    toggleIcon?(): unknown;
+  }
+>();
 
 const { t } = injectI18n();
-const { densityClass } = useDensity(props);
 
 /**
  * Value of the currently selected option or an array of values when the `multiple` prop is `true`.
- */ const modelValue = useVModel<Props, "modelValue">({
+ */
+const modelValue = useVModel<Props, "modelValue">({
   props,
   emit,
   key: "modelValue",
@@ -139,8 +154,9 @@ const open = useVModel<Props, "open", boolean>({
   default: false,
 });
 
-const select = useTemplateRef<HTMLElement>("select");
-const { openDirection, updateOpenDirection } = useOpenDirection(select);
+const select = useTemplateRef<{ $el?: HTMLElement }>("select");
+const selectElement = computed(() => select.value?.$el);
+const { openDirection, updateOpenDirection } = useOpenDirection(selectElement);
 
 /**
  * Currently (visually) active value.
@@ -154,7 +170,7 @@ const activeValue = ref<TValue>();
 const arrayValue = computed(() => asArray(modelValue.value)) as ComputedRef<TValue[]>;
 
 /**
- * Contains an array of labels that will be shown in the OnyxSelectInput.
+ * Contains an array of labels that will be shown in the input.
  * - contains props.valueLabel as array if it is set
  * - else, contains all found labels of the options that match the current modelValue
  */
@@ -172,7 +188,7 @@ const selectionLabels = computed(() => {
 });
 
 const miniSearch = useTemplateRef("miniSearch");
-const selectInput = useTemplateRef("selectInput");
+const inputRef = useTemplateRef("input");
 
 const filteredOptions = computed(() => {
   // if onyx does not manage the search or no searchTerm is given, we don't filter the options further
@@ -240,7 +256,7 @@ const onToggle = async (preventFocus?: boolean) => {
   if (wasOpen !== open.value) {
     if (wasOpen) {
       if (searchTerm.value) searchTerm.value = "";
-      if (!preventFocus) selectInput.value?.input?.focus();
+      if (!preventFocus) inputRef.value?.focus();
     } else {
       // make sure search is focused after the flyout opened
       miniSearch.value?.focus();
@@ -248,7 +264,9 @@ const onToggle = async (preventFocus?: boolean) => {
   }
 };
 
-const onActivateFirst = () => (activeValue.value = allKeyboardOptionIds.value.at(0));
+const onActivateFirst = () => {
+  activeValue.value = allKeyboardOptionIds.value.at(0);
+};
 const onActivateLast = () => (activeValue.value = allKeyboardOptionIds.value.at(-1));
 
 const onActivateNext = (currentValue: TValue) => {
@@ -300,19 +318,22 @@ const onSelect = (selectedOption: TValue) => {
 
 const autocomplete = computed<ComboboxAutoComplete>(() => (props.withSearch ? "list" : "none"));
 
-const { label, listLabel, listDescription, multiple } = toRefs(props);
+const { listLabel, listDescription, multiple } = toRefs(props);
 
 const {
   elements: { input, option: headlessOption, group: headlessGroup, listbox },
 } = createComboBox({
   autocomplete,
-  label,
+  label: computed(() => {
+    if (typeof props.label === "string") return props.label;
+    return props.label.label;
+  }),
   listLabel,
   listDescription,
   multiple,
   activeOption: computed(() => activeValue.value),
   isExpanded: open,
-  templateRef: select,
+  templateRef: selectElement,
   onToggle,
   onActivateFirst,
   onActivateLast,
@@ -386,21 +407,6 @@ watchEffect(() => {
   if (isScrollEnd.value) emit("lazyLoad");
 });
 
-const forwardedSelectInputProps: ComputedRef<OnyxSelectInputProps> = useForwardProps(
-  props,
-  OnyxSelectInput,
-);
-
-const selectInputProps = computed(() => {
-  const baseProps = {
-    ...forwardedSelectInputProps.value,
-    open: undefined, // needed to prevent hydration mismatch in SSR when open prop is MANAGED_SYMBOL
-    modelValue: selectionLabels.value,
-  };
-  if (props.withSearch) return { ...baseProps, onKeydown: input.value.onKeydown };
-  return { ...baseProps, ...input.value };
-});
-
 watch(
   [filteredOptions],
   () => {
@@ -422,162 +428,316 @@ watch(
   { deep: true, immediate: true },
 );
 
-defineExpose({ input: computed(() => selectInput.value?.input) });
+const { disabled } = useFormContext(props);
+const { vCustomValidity, errorMessages } = useFormElementError({ props, emit });
+const { formElementV2Props } = useLegacyFormElementProps({ props, errorMessages });
+
+useAutofocus(inputRef, props);
+
+const selection = computed<{ count: number; value: string }>(() => {
+  const labels = selectionLabels.value;
+
+  const getValue = () => {
+    if (!labels.length) return "";
+    if (labels.length === 1) return labels[0]!;
+    if (props.textMode === "summary") {
+      return t.value("selections.currentSelection", { n: labels.length });
+    }
+    return labels.join(", ");
+  };
+
+  return { count: labels.length, value: getValue() };
+});
+
+const showPreviewBadge = computed(() => props.textMode === "preview" && selection.value.count > 0);
+const showClearButton = computed(() => selection.value.count > 0 && !props.hideClearIcon);
+
+const navigationalKeys = OPENING_KEYS.concat(CLOSING_KEYS);
+/**
+ * We prevent manual user input. The native input inside OnyxSelectInput only represents
+ * the label(s) of what is selected in OnyxSelect and shouldn't be overwritten manually.
+ * We only allow all pressed keys that handle interaction with the select.
+ */
+const blockTyping = (event: KeyboardEvent) => {
+  if (navigationalKeys.includes(event.key)) return;
+  event.preventDefault();
+};
+
+const clearValue = () => {
+  const value = props.multiple ? [] : undefined;
+  modelValue.value = value as typeof modelValue.value;
+};
+
+/**
+ * The icon of the currently selected option (in single select)
+ * to be shown in the leadingIcons slot.
+ */
+const selectedOptionIcon = computed(() => {
+  if (props.multiple) return;
+  return props.options.find((option) => option.value === modelValue.value)?.icon;
+});
+
+defineExpose({ input: inputRef });
 </script>
 
 <template>
-  <div ref="select" class="onyx-component onyx-select-wrapper">
-    <OnyxBasicPopover
-      :class="densityClass"
-      :label="props.listLabel"
-      :position="openDirection"
-      :alignment="props.alignment === 'full' ? 'center' : props.alignment"
-      :fit-parent="props.alignment === 'full'"
-      :open="open"
-    >
-      <template #default>
-        <OnyxSelectInput
-          ref="selectInput"
-          v-bind="selectInputProps"
-          :show-focus="open"
-          :autofocus="props.autofocus"
-          @input-click="onToggle"
-          @validity-change="emit('validityChange', $event)"
-        >
-          <template v-if="slots.toggleIcon" #icon>
-            <slot name="toggleIcon"></slot>
-          </template>
-        </OnyxSelectInput>
-      </template>
-      <template #content>
-        <div v-scroll-end class="onyx-select__wrapper" tabindex="-1">
-          <!-- model-value is set here, as it is written by the onAutocomplete callback -->
-          <OnyxMiniSearch
-            v-if="props.withSearch"
-            ref="miniSearch"
-            autofocus
-            :model-value="searchTerm"
-            v-bind="input"
-            :label="t('select.searchInputLabel')"
-            class="onyx-select__search"
-            @clear="searchTerm = ''"
-          />
+  <OnyxFormElementV2
+    ref="select"
+    v-bind="formElementV2Props"
+    :open="open"
+    class="onyx-select"
+    :popover-options="{
+      label: props.listLabel,
+      alignment: props.alignment === 'full' ? 'center' : props.alignment,
+      fitParent: props.alignment === 'full',
+      position: openDirection,
+    }"
+    @update:open="onToggle()"
+  >
+    <template #default="inputProps">
+      <!-- eslint-disable-next-line vuejs-accessibility/form-control-has-label -- provided by "inputProps" -->
+      <input
+        v-bind="
+          mergeVueProps(
+            {
+              ...inputProps,
+              // the OnyxFormElementV2 defaults input typing blocking conflicts with the custom handling
+              // from 'createCombobox' so we remove the form element onKeydown handler here
+              onKeydown: undefined,
+            },
+            input,
+          )
+        "
+        ref="input"
+        v-custom-validity
+        type="text"
+        :readonly="props.readonly"
+        :placeholder="props.placeholder"
+        :required="props.required"
+        :disabled="disabled || props.loading"
+        :value="selection.value"
+        :autofocus="props.autofocus"
+        autocomplete="off"
+        @keydown="blockTyping"
+      />
+    </template>
 
-          <div v-bind="listbox">
-            <ul v-if="isEmptyMessage" role="group" class="onyx-select__group">
-              <li role="option" aria-selected="false">
-                <slot name="empty" :default-message="isEmptyMessage">
-                  <OnyxEmpty :density="props.density">{{ isEmptyMessage }}</OnyxEmpty>
-                </slot>
-              </li>
+    <template v-if="slots.leading" #leading>
+      <slot name="leading"></slot>
+    </template>
+
+    <template v-if="slots.leadingIcons || selectedOptionIcon" #leadingIcons>
+      <slot name="leadingIcons">
+        <OnyxIcon v-if="selectedOptionIcon" :icon="selectedOptionIcon" />
+      </slot>
+    </template>
+
+    <template v-if="slots.trailing" #trailing>
+      <slot name="trailing"></slot>
+    </template>
+
+    <template #trailingIcons>
+      <slot name="trailingIcons"></slot>
+
+      <OnyxFormElementAction
+        v-if="!showPreviewBadge && showClearButton"
+        :label="t('input.clear')"
+        :icon="iconXSmall"
+        show-on-focus
+        @click="clearValue"
+      />
+
+      <OnyxTooltip v-if="showPreviewBadge" :text="selection.value" position="bottom">
+        <template #default="{ trigger }">
+          <OnyxBadge class="onyx-select__badge" v-bind="trigger" color="neutral">
+            {{ selection.count }}
+
+            <OnyxFormElementAction
+              v-if="showClearButton"
+              :label="t('input.clear')"
+              :icon="iconXSmall"
+              :open="false"
+              show-on-focus
+              @click="clearValue"
+            />
+          </OnyxBadge>
+        </template>
+      </OnyxTooltip>
+
+      <slot name="toggleIcon">
+        <OnyxFormElementAction
+          :label="t('select.toggleDropDown')"
+          :icon="iconChevronDownUp"
+          :disabled="disabled || props.readonly || props.loading"
+          highlighted="auto"
+          @click="onToggle"
+        />
+      </slot>
+    </template>
+
+    <template #popover>
+      <div v-scroll-end class="onyx-select__flyout" tabindex="-1">
+        <!-- model-value is set here, as it is written by the onAutocomplete callback -->
+        <OnyxMiniSearch
+          v-if="props.withSearch"
+          ref="miniSearch"
+          v-bind="input"
+          :model-value="searchTerm"
+          :label="t('select.searchInputLabel')"
+          class="onyx-select__search"
+          autofocus
+          @clear="searchTerm = ''"
+        />
+
+        <div v-bind="listbox">
+          <ul v-if="isEmptyMessage" role="group" class="onyx-select__group">
+            <li role="option" aria-selected="false">
+              <slot name="empty" :default-message="isEmptyMessage">
+                <OnyxEmpty :density="props.density">{{ isEmptyMessage }}</OnyxEmpty>
+              </slot>
+            </li>
+          </ul>
+
+          <template v-else>
+            <!-- select-all option for "multiple" -->
+            <ul
+              v-if="props.multiple && props.withCheckAll && !searchTerm"
+              class="onyx-select__check-all"
+              v-bind="headlessGroup({ label: checkAllLabel })"
+            >
+              <OnyxSelectOption
+                v-bind="
+                  headlessOption({
+                    value: CHECK_ALL_ID as TValue,
+                    label: checkAllLabel,
+                    selected: checkAll?.state.value.modelValue,
+                  })
+                "
+                multiple
+                :active="CHECK_ALL_ID === activeValue"
+                :indeterminate="checkAll?.state.value.indeterminate"
+                :density="props.density"
+              >
+                {{ checkAllLabel }}
+              </OnyxSelectOption>
             </ul>
 
-            <template v-else>
-              <!-- select-all option for "multiple" -->
-              <ul
-                v-if="props.multiple && props.withCheckAll && !searchTerm"
-                class="onyx-select__check-all"
-                v-bind="headlessGroup({ label: checkAllLabel })"
+            <ul
+              v-for="group in groupedOptions"
+              :key="group.name"
+              class="onyx-select__group"
+              v-bind="headlessGroup({ label: group.name })"
+            >
+              <li v-if="group.name" role="presentation" class="onyx-select__group-name">
+                {{ group.name }}
+              </li>
+              <OnyxSelectOption
+                v-for="option in group.items"
+                :key="option.value.toString()"
+                v-bind="
+                  headlessOption({
+                    value: option.value,
+                    label: option.label,
+                    disabled: option.disabled,
+                    selected: arrayValue.some((value) => value === option.value),
+                  })
+                "
+                :multiple="props.multiple"
+                :active="option.value === activeValue"
+                :icon="option.icon"
+                :density="props.density"
+                :truncation="option.truncation ?? props.truncation"
               >
-                <OnyxSelectOption
-                  v-bind="
-                    headlessOption({
-                      value: CHECK_ALL_ID as TValue,
-                      label: checkAllLabel,
-                      // TODO: remove type cast once its fixed in Vue / vue-tsc version
-                      selected: checkAll?.state.value.modelValue,
-                    })
-                  "
-                  multiple
-                  :active="CHECK_ALL_ID === activeValue"
-                  :indeterminate="checkAll?.state.value.indeterminate"
-                  :density="props.density"
-                >
-                  {{ checkAllLabel }}
-                </OnyxSelectOption>
-              </ul>
-
-              <!-- TODO: remove type cast once its fixed in Vue / vue-tsc version -->
-              <ul
-                v-for="group in groupedOptions"
-                :key="group.name"
-                class="onyx-select__group"
-                v-bind="headlessGroup({ label: group.name })"
-              >
-                <li
-                  v-if="group.name !== ''"
-                  role="presentation"
-                  class="onyx-select__group-name onyx-text--small"
-                >
-                  {{ group.name }}
-                </li>
-                <OnyxSelectOption
-                  v-for="option in group.items"
-                  :key="option.value.toString()"
-                  v-bind="
-                    headlessOption({
-                      value: option.value,
-                      label: option.label,
-                      disabled: option.disabled,
-                      selected: arrayValue.some((value: TValue) => value === option.value),
-                    })
-                  "
-                  :multiple="props.multiple"
-                  :active="option.value === activeValue"
-                  :icon="option.icon"
-                  :density="props.density"
-                  :truncation="option.truncation ?? props.truncation"
-                >
-                  <slot name="option" v-bind="option">
-                    {{ option.label }}
-                  </slot>
-                </OnyxSelectOption>
-              </ul>
-            </template>
-          </div>
-
-          <div v-if="props.lazyLoading?.loading" class="onyx-select__slot">
-            <OnyxLoadingIndicator class="onyx-select__loading" />
-          </div>
-
-          <div v-if="slots.optionsEnd" class="onyx-select__slot">
-            <slot name="optionsEnd"></slot>
-          </div>
+                <slot name="option" v-bind="option">
+                  {{ option.label }}
+                </slot>
+              </OnyxSelectOption>
+            </ul>
+          </template>
         </div>
-        <div v-if="props.listDescription" class="onyx-select__description onyx-text--small">
-          {{ props.listDescription }}
+
+        <div v-if="props.lazyLoading?.loading" class="onyx-select__slot">
+          <OnyxLoadingIndicator class="onyx-select__loading" />
         </div>
-      </template>
-    </OnyxBasicPopover>
-  </div>
+
+        <div v-if="slots.optionsEnd" class="onyx-select__slot">
+          <slot name="optionsEnd"></slot>
+        </div>
+      </div>
+
+      <div v-if="props.listDescription" class="onyx-select__description">
+        {{ props.listDescription }}
+      </div>
+    </template>
+  </OnyxFormElementV2>
 </template>
 
 <style lang="scss">
 @use "../../styles/mixins/layers";
-@use "../../styles/mixins/list";
-
-.onyx-select-wrapper {
-  @include layers.component() {
-    --max-flyout-height: 20rem;
-    position: relative;
-    height: max-content;
-
-    .onyx-select-input {
-      width: 100%;
-    }
-    .onyx-basic-popover {
-      width: 100%;
-    }
-  }
-}
 
 .onyx-select {
   @include layers.component() {
-    @include list.styles();
+    /** @deprecated Use --onyx-select-flyout-max-height instead */
+    --max-flyout-height: 20rem;
+    --onyx-select-flyout-max-height: var(--max-flyout-height, 20rem);
 
-    &--open {
-      visibility: visible;
-      opacity: 1;
+    &__badge {
+      display: flex;
+      align-items: center;
+      gap: var(--onyx-density-2xs);
+      cursor: pointer;
+
+      .onyx-form-element-action {
+        --onyx-form-element-action-color: currentColor;
+      }
+    }
+
+    &__flyout {
+      width: 100%;
+      margin-block: var(--onyx-spacing-2xs);
+      max-height: var(--onyx-select-flyout-max-height);
+      overflow: auto;
+
+      .onyx-empty {
+        max-width: 100%;
+      }
+
+      // if a group name is below a search field or a "Select all" option,
+      // there needs to be spacing between them.
+      &:has(.onyx-select__search),
+      &:has(.onyx-select__check-all) {
+        .onyx-select__group-name:first-child {
+          margin-top: var(--onyx-density-xs);
+        }
+      }
+
+      &:has(.onyx-select__search) {
+        // Add scroll padding, so items are not hidden beneath the search input
+        // var(--onyx-density-xs) = vertical padding of select option
+        scroll-padding-top: calc(1lh + 2 * var(--onyx-density-xs));
+      }
+    }
+
+    &__group,
+    &__check-all {
+      padding: 0;
+      list-style: none;
+
+      &:not(:last-of-type) {
+        border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+      }
+    }
+    &__group:not(:last-of-type) {
+      margin-bottom: var(--onyx-density-xs);
+    }
+
+    &__group-name {
+      display: block;
+      padding-inline: var(--onyx-density-sm);
+      color: var(--onyx-color-text-icons-neutral-medium);
+      font-weight: var(--onyx-font-weight-semibold);
+      font-size: var(--onyx-font-size-sm);
+      line-height: var(--onyx-font-line-height-sm);
     }
 
     &__search {
@@ -586,42 +746,16 @@ defineExpose({ input: computed(() => selectInput.value?.input) });
       border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
     }
 
-    &__wrapper {
-      margin: var(--onyx-spacing-2xs) 0;
-      width: 100%;
-      .onyx-empty {
-        max-width: 100%;
-      }
-    }
-    &:has(&__wrapper:focus-visible) {
-      outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
-    }
-
-    &__wrapper:has(.onyx-mini-search) {
-      // Add scroll padding, so items are not hidden beneath the search input
-      // var(--onyx-density-xs) = vertical padding of select option
-      scroll-padding-top: calc(1lh + 2 * var(--onyx-density-xs));
-    }
-
-    // if a group name is below a search field or a "Select all" option,
-    // there needs to be spacing between them.
-    &__wrapper:has(.onyx-mini-search),
-    &__wrapper:has(.onyx-select__check-all) {
-      .onyx-select__group-name:first-child {
-        margin-top: var(--onyx-density-xs);
-      }
+    &__loading {
+      color: var(--onyx-color-text-icons-primary-intense);
     }
 
     &__slot {
-      padding: 0 var(--onyx-density-sm);
+      padding-inline: var(--onyx-density-sm);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-    }
-
-    &__loading {
-      color: var(--onyx-color-text-icons-primary-intense);
     }
 
     &__description {
@@ -633,10 +767,8 @@ defineExpose({ input: computed(() => selectInput.value?.input) });
       align-items: center;
       gap: var(--onyx-spacing-md);
       color: var(--onyx-color-text-icons-neutral-soft);
-    }
-
-    &:has(.onyx-select__description) {
-      padding-bottom: 0;
+      font-size: var(--onyx-font-size-sm);
+      line-height: var(--onyx-font-line-height-sm);
     }
   }
 }

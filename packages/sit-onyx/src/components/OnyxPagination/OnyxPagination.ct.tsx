@@ -17,8 +17,7 @@ test.describe("screenshot tests", () => {
       if (row === "min") currentPage = 1;
       else if (row === "max") currentPage = pages;
       else if (row === "large") {
-        currentPage = 1_000;
-        pages = currentPage;
+        pages = 1000;
       }
 
       return (
@@ -82,8 +81,7 @@ test.describe("screenshot tests", () => {
       if (row === "min") currentPage = 1;
       else if (row === "max") currentPage = pages;
       else if (row === "large") {
-        currentPage = 1_000;
-        pages = currentPage;
+        pages = 1000;
       }
 
       return (

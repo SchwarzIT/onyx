@@ -20,7 +20,7 @@ test("should paginate rows", async ({ mount, page }) => {
   });
 
   const pagination = component.getByLabel("Pagination");
-  const paginationSelect = pagination.getByRole("textbox", { name: "Page selection" });
+  const paginationSelect = pagination.getByLabel("Page selection");
   const nextButton = pagination.getByRole("button", { name: "next page" });
   const previousButton = pagination.getByRole("button", { name: "previous page" });
 
@@ -154,6 +154,7 @@ test("should render items per page selector", async ({ mount, page }) => {
   });
 
   const pagination = component.getByLabel("Pagination");
+  const pageSelect = pagination.getByLabel("Page selection");
   const sizeSelect = component.getByRole("combobox", { name: "Items per Page" });
 
   // ASSERT
@@ -178,17 +179,14 @@ test("should render items per page selector", async ({ mount, page }) => {
   // ACT (navigate to page 3, then change page size to 50)
   await pagination.getByRole("button", { name: "next page" }).click();
   await pagination.getByRole("button", { name: "next page" }).click();
-  await expect(pagination.getByRole("textbox", { name: "Page selection" })).toHaveValue("3");
+  await expect(pageSelect).toHaveValue("3");
 
   await sizeSelect.click();
   await page.getByRole("option", { name: "50", exact: true }).click();
 
   // ASSERT
   await expect(sizeSelect).toHaveValue("50");
-  await expect(
-    pagination.getByRole("textbox", { name: "Page selection" }),
-    "should reset to page 1 when page size changes",
-  ).toHaveValue("1");
+  await expect(pageSelect, "should reset to page 1 when page size changes").toHaveValue("1");
   await expect(pagination).toContainText("of 3 pages");
   await expectRowCount(component, 50, "should show 50 rows when page size is 50");
 

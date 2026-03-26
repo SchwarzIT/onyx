@@ -1,0 +1,15 @@
+/** Defines styles when the form element input container is hovered */
+@mixin input-container-hover() {
+  .onyx-form-element-v2__input-container:hover:has(.onyx-form-element-v2__input:enabled) {
+    @content;
+  }
+}
+
+/** Defines styles when the form element input container is focused or the popover is opened */
+@mixin input-focus-or-popover-open() {
+  .onyx-form-element-v2__input-container:focus-within,
+  .onyx-form-element-v2__popover:has(.onyx-basic-popover__dialog:popover-open)
+    .onyx-form-element-v2__input-container {
+    @content;
+  }
+}

@@ -130,13 +130,18 @@ test.describe("Screenshot tests (popover)", () => {
   executeMatrixScreenshotTest({
     name: "Form element v2 (popover)",
     columns: ["default", "message", "slots"],
-    rows: ["default", "hover", "focus", "open"],
+    rows: ["default", "hover", "focus", "open", "open-top", "open-top-hideLabel"],
     component: (column, row) => (
       <TestCase
-        label="Test label"
-        style={{ marginBottom: "2rem" }}
+        label={{ label: "Test label", hidden: row === "open-top-hideLabel" }}
+        style={{ marginBlock: "2rem" }}
         message={column === "message" ? "Example message" : undefined}
-        open={row === "open" ? true : undefined}
+        open={row.includes("open") ? true : undefined}
+        popoverOptions={{
+          label: "Popover label",
+          fitParent: true,
+          position: row.includes("open-top") ? "top" : undefined,
+        }}
       >
         <template v-slot:popover>Popover content</template>
 
@@ -181,12 +186,12 @@ test.describe("Screenshot tests (popover)", () => {
     ),
     hooks: {
       beforeEach: async (component, page, column, row) => {
-        const input = component.getByRole("textbox", { name: "Test label" });
+        const input = component.getByLabel("Test label");
         if (row === "hover") await input.hover();
         if (row === "focus") await input.click();
 
         if (row === "focus") {
-          await expect(component.getByRole("dialog", { name: "Test label" })).toBeVisible();
+          await expect(component.getByRole("dialog", { name: "Popover label" })).toBeVisible();
         }
       },
     },
@@ -392,13 +397,13 @@ test("should visually hide bottom when skeleton", async ({ mount }) => {
 test("should open popover via keyboard", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
-    <TestCase label="Test label">
-      <template v-slot:popover>Popover content</template>{" "}
+    <TestCase label="Test label" popoverOptions={{ label: "Popover label" }}>
+      <template v-slot:popover>Popover content</template>
     </TestCase>,
   );
 
-  const input = component.getByRole("textbox", { name: "Test label" });
-  const popover = component.getByRole("dialog", { name: "Test label" });
+  const input = component.getByLabel("Test label");
+  const popover = component.getByRole("dialog", { name: "Popover label" });
 
   // ACT
   await input.click();

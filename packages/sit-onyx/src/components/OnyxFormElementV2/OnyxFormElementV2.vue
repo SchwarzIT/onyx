@@ -62,7 +62,7 @@ const label = computed<FormElementV2LabelOptions>(() => {
 const inputProps = computed(() => {
   return {
     id: props.id,
-    class: "onyx-form-element-v2__input",
+    class: ["onyx-form-element-v2__input", "onyx-truncation-ellipsis"],
     required: props.required,
     disabled: props.loading,
     ...(label.value.hidden
@@ -106,8 +106,8 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
         </div>
 
         <MaybePopoverLayout v-bind="popoverLayoutProps" v-model:open="open">
-          <template #default="{ trigger, input: popoverInputProps }">
-            <div v-bind="trigger" class="onyx-form-element-v2__input-container">
+          <template #default="{ input: popoverInputProps }">
+            <div class="onyx-form-element-v2__input-container">
               <div
                 v-if="slots.leadingIcons || props.loading"
                 class="onyx-form-element-v2__icons onyx-form-element-v2__icons--leading"
@@ -156,6 +156,8 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
 @use "../../styles/mixins/density.scss";
+@use "../../styles/mixins/text.scss";
+@use "./OnyxFormElementV2.scss";
 
 .onyx-form-element-v2 {
   @include layers.component() {
@@ -166,6 +168,7 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
     --onyx-form-element-v2-border-color-hover: var(--onyx-color-component-border-primary-hover);
     --onyx-form-element-v2-border-color-focus: var(--onyx-color-component-border-primary);
     --onyx-form-element-v2-background: var(--onyx-color-base-background-blank);
+    --onyx-form-element-v2-background-hover: var(--onyx-form-element-v2-background);
     --onyx-form-element-v2-background-autofill: var(--onyx-color-base-warning-100);
     --onyx-form-element-v2-padding-block: var(--onyx-density-xs);
     --onyx-form-element-v2-padding-inline: var(--onyx-density-sm);
@@ -175,6 +178,7 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
     --onyx-form-element-v2-outline-color: var(--onyx-color-component-focus-primary);
     --onyx-form-element-v2-error-display: none;
     --onyx-form-element-v2-message-display: flex;
+    --onyx-form-element-v2-input-width: 100%;
 
     /** Base content and skeleton height. Useful when e.g. changing the base height for textarea etc. */
     --onyx-form-element-v2-content-height: 1lh;
@@ -220,13 +224,13 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
       --onyx-form-element-v2-selection-background: var(--onyx-color-base-success-200);
       --onyx-form-element-v2-caret-color: var(--onyx-color-base-neutral-900);
     }
+  }
 
-    // the skeleton gap would be 0 in compact density so we shrink the label size a bit and increase the gap so it does not look off
-    @include density.compact {
-      &:has(.onyx-form-element-v2__content-skeleton) {
-        --onyx-form-element-v2-gap: var(--onyx-spacing-5xs);
-        --onyx-form-element-v2-label-skeleton-height: calc(1lh - var(--onyx-form-element-v2-gap));
-      }
+  // the skeleton gap would be 0 in compact density so we shrink the label size a bit and increase the gap so it does not look off
+  @include density.compact {
+    &:has(.onyx-form-element-v2__content-skeleton) {
+      --onyx-form-element-v2-gap: var(--onyx-spacing-5xs);
+      --onyx-form-element-v2-label-skeleton-height: calc(1lh - var(--onyx-form-element-v2-gap));
     }
   }
 }
@@ -293,19 +297,30 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
       &:has(.onyx-form-element-v2__input[data-test-autofill]) {
         background-color: var(--onyx-form-element-v2-background-autofill);
       }
+
+      &:has(.onyx-form-element-v2__icons--leading) .onyx-form-element-v2__input {
+        padding-left: var(--onyx-form-element-v2-padding-inline-icons);
+      }
+
+      &:has(.onyx-form-element-v2__icons--trailing) .onyx-form-element-v2__input {
+        padding-right: var(--onyx-form-element-v2-padding-inline-icons);
+      }
     }
 
-    &:has(.onyx-form-element-v2__input:enabled:focus),
-    &:has(.onyx-form-element-v2__popover .onyx-basic-popover__dialog:popover-open) {
-      .onyx-form-element-v2__input-container {
-        border-color: var(--onyx-form-element-v2-border-color-focus);
-        outline: var(--onyx-outline-width) solid var(--onyx-form-element-v2-outline-color);
-      }
+    @include OnyxFormElementV2.input-focus-or-popover-open() {
+      border-color: var(--onyx-form-element-v2-border-color-focus);
+      outline: var(--onyx-outline-width) solid var(--onyx-form-element-v2-outline-color);
+      background-color: var(--onyx-form-element-v2-background-hover);
+    }
+
+    @include OnyxFormElementV2.input-container-hover() {
+      background-color: var(--onyx-form-element-v2-background-hover);
     }
 
     &__icons {
       color: var(--onyx-color-text-icons-neutral-medium);
       display: flex;
+      align-items: center;
       padding: var(--onyx-form-element-v2-padding-block) var(--onyx-form-element-v2-padding-inline);
       gap: var(--onyx-density-2xs);
 
@@ -336,30 +351,37 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
         border-bottom-right-radius: inherit;
       }
 
-      // override OnyxSelect styles to seamlessly integrate into the slots
-      .onyx-select-input__wrapper {
-        border: none;
-        background-color: transparent;
-        padding-block: var(--onyx-form-element-v2-padding-block);
-        padding-inline: var(--onyx-form-element-v2-padding-inline);
-      }
-      .onyx-select-input__native {
-        width: 3ch;
+      // override nested styles in slots to seamlessly integrate e.g. OnyxSelect
+      .onyx-form-element-v2 {
+        --onyx-form-element-v2-input-width: #{text.ch(3)};
+        --onyx-form-element-v2-border-size: 0;
+        --onyx-form-element-v2-background: transparent;
       }
     }
 
-    &:not(:has(&__input:focus)) {
-      &:has(.onyx-form-element-v2__slot--leading) {
-        .onyx-form-element-v2__input-container {
-          border-top-left-radius: 0;
-          border-bottom-left-radius: 0;
+    // if the form element has no input focus or no open popover, the border radius is set to 0 if it has leading/trailing slot
+    &__content {
+      &:has(> .onyx-form-element-v2__slot--leading) {
+        > .onyx-form-element-v2__popover,
+        > .onyx-form-element-v2__input-container {
+          &:not(:has(.onyx-form-element-v2__input:focus)):not(
+              :has(.onyx-basic-popover__dialog:popover-open)
+            ) {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+          }
         }
       }
 
-      &:has(.onyx-form-element-v2__slot--trailing) {
-        .onyx-form-element-v2__input-container {
-          border-top-right-radius: 0;
-          border-bottom-right-radius: 0;
+      &:has(> .onyx-form-element-v2__slot--trailing) {
+        > .onyx-form-element-v2__popover,
+        > .onyx-form-element-v2__input-container {
+          &:not(:has(.onyx-form-element-v2__input:focus)):not(
+              :has(.onyx-basic-popover__dialog:popover-open)
+            ) {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+          }
         }
       }
     }
@@ -369,7 +391,10 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
       border-radius: inherit;
       background-color: transparent;
       color: inherit;
-      width: 100%;
+      width: calc(
+        var(--onyx-form-element-v2-input-width) + 2 * var(--onyx-form-element-v2-padding-inline)
+      );
+      max-width: 100%;
       height: 100%;
       outline: none;
       font-family: inherit;
@@ -403,23 +428,15 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
       }
     }
 
-    &:has(&__icons--leading) {
-      .onyx-form-element-v2__input {
-        padding-left: var(--onyx-form-element-v2-padding-inline-icons);
-      }
-    }
-
-    &:has(&__icons--trailing) {
-      .onyx-form-element-v2__input {
-        padding-right: var(--onyx-form-element-v2-padding-inline-icons);
-      }
-    }
-
     &__tooltip {
       margin-left: var(--onyx-spacing-2xs);
     }
 
-    &:has(&__bottom:not(:empty)) {
+    // ensure popover does not overlap label or bottom area
+    &:has(&__bottom:not(:empty)):has(&__popover .onyx-basic-popover__dialog--position-bottom),
+    &:has(> .onyx-form-element-v2__label):has(
+        &__popover .onyx-basic-popover__dialog--position-top
+      ) {
       .onyx-form-element-v2__popover {
         --onyx-basic-popover-gap: var(--onyx-form-element-v2-bottom-height);
       }

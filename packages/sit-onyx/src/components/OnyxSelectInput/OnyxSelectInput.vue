@@ -1,3 +1,10 @@
+<script lang="ts">
+/**
+ * @deprecated This component should no longer be used. Use the OnyxSelect or OnyxFormElementV2.
+ */
+export default {};
+</script>
+
 <script lang="ts" setup generic="TValue extends SelectOptionValue">
 import { CLOSING_KEYS, OPENING_KEYS } from "@sit-onyx/headless";
 import { iconCheckSmall, iconChevronDownUp } from "@sit-onyx/icons";

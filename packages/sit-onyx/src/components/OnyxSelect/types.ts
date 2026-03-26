@@ -1,22 +1,18 @@
-import type { DensityProp } from "../../composables/density.js";
-import type {
-  AutofocusProp,
-  BaseSelectOption,
-  Nullable,
-  SelectOptionValue,
-} from "../../types/index.js";
+import type { BaseSelectOption, Nullable, SelectOptionValue } from "../../types/index.js";
 import type { FormInjected } from "../OnyxForm/OnyxForm.core.js";
-import type { OnyxSelectInputProps } from "../OnyxSelectInput/types.js";
+import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
+import type { OnyxFormElementV2Props } from "../OnyxFormElementV2/types.js";
+import type { OnyxInputProps } from "../OnyxInput/types.js";
 import type { OnyxSelectOptionProps } from "../OnyxSelectOption/types.js";
 
 export type OnyxSelectProps<
   TModelValue,
   TMultiple extends boolean | undefined,
   TValue extends SelectOptionValue = SelectOptionValue,
-> = DensityProp &
-  Omit<OnyxSelectInputProps, "density" | "modelValue" | "showFocus" | "disabled"> &
-  AutofocusProp &
-  Pick<BaseSelectOption, "truncation"> & {
+> = Omit<SharedFormElementProps, "label"> &
+  Pick<OnyxFormElementV2Props, "label" | "open"> &
+  Pick<BaseSelectOption, "truncation"> &
+  Pick<OnyxInputProps, "hideClearIcon" | "hideSuccessIcon"> & {
     /**
      * Disables the implicit options filtering when the user changes the search term.
      */
@@ -86,19 +82,21 @@ export type OnyxSelectProps<
      * Whether to preserve the selection order when reopening the dropdown.
      */
     keepSelectionOrder?: boolean;
-  } & {
     /**
      * Currently selected options. Can be either a single value or an array of values.
      */
     modelValue?: Nullable<TModelValue>;
     /**
-     * Whether the flyout is currently open.
-     */
-    open?: Nullable<boolean>;
-    /**
      * Current search term when `withSearch` is enabled.
      */
     searchTerm?: Nullable<string>;
+    /**
+     * How multiselect labels will be displayed in the input.
+     * - summary (default): will show "x Selected" if more than 1 is selected.
+     * - preview: will show the names of the selection as a truncated list.
+     *            A number-badge appears next to it including a tooltip with all selected names.
+     */
+    textMode?: MultiselectTextMode;
   };
 
 export type SelectOption<TValue extends SelectOptionValue = SelectOptionValue> = Pick<
@@ -136,3 +134,6 @@ export type SelectLazyLoading = {
 
 export const SELECT_ALIGNMENTS = ["full", "left", "right"] as const;
 export type SelectAlignment = (typeof SELECT_ALIGNMENTS)[number];
+
+export const MULTISELECT_TEXT_MODE = ["summary", "preview"] as const;
+export type MultiselectTextMode = (typeof MULTISELECT_TEXT_MODE)[number];
