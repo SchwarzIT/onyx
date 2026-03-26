@@ -34,8 +34,7 @@ const extractTableRows = (vnode?: VNode): VNode[] => {
 
 const content = computed(() => {
   const children = slots.default?.() ?? [];
-  const head = children.find((v) => v.type === "thead");
-  const body = children.find((v) => v.type === "tbody");
+  const [head, body] = children;
 
   return {
     headRows: extractTableRows(head),
