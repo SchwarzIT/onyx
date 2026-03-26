@@ -74,8 +74,15 @@ const isChecked = computed({
       border-radius: var(--onyx-radius-sm);
       padding: var(--track-padding);
       width: fit-content;
+      border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-200);
     }
 
+    &:has(.onyx-toggle__input:focus-visible) {
+      .onyx-toggle__track {
+        border-color: var(--onyx-color-component-border-primary);
+        outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
+      }
+    }
     &__option {
       position: relative;
       font-size: var(--onyx-font-size-sm);

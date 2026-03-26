@@ -24,6 +24,14 @@ const props = withDefaults(defineProps<Props>(), {
   popoverOptions: () => ({ fitParent: true }),
 });
 
+const { locale } = injectI18n();
+const showAmPm = computed(() => {
+  if (props.showAmPm !== "auto") {
+    return props.showAmPm;
+  }
+  return new Intl.DateTimeFormat(locale.value, { hour: "numeric" }).resolvedOptions().hour12;
+});
+
 const emit = defineEmits<{
   /**
    * Emitted when modelValue changes
@@ -289,6 +297,7 @@ const timePickerGroupProps = useForwardProps(props, OnyxTimePickerGroup);
           class="onyx-time-picker__input"
           :class="{ 'onyx-time-picker__input--show-focused': open || isFocused }"
           v-bind="inputProps"
+          :show-am-pm="showAmPm"
           :label="props.label"
           :model-value="inputValue"
           :error="error"
@@ -331,6 +340,7 @@ const timePickerGroupProps = useForwardProps(props, OnyxTimePickerGroup);
             <OnyxTimePickerGroup
               ref="startTimePickerGroupRef"
               v-bind="timePickerGroupProps"
+              :show-am-pm="showAmPm"
               :model-value="startTime"
               autofocus
               :show-seconds="props.showSeconds"
@@ -343,6 +353,7 @@ const timePickerGroupProps = useForwardProps(props, OnyxTimePickerGroup);
             <OnyxTimePickerGroup
               ref="endTimePickerGroupRef"
               v-bind="timePickerGroupProps"
+              :show-am-pm="showAmPm"
               :model-value="endTime"
               @update:model-value="handleRangeModelUpdate('end', $event)"
               @jump-segment="(segment, direction) => jumpSegment(segment, direction, 'end')"
@@ -354,6 +365,7 @@ const timePickerGroupProps = useForwardProps(props, OnyxTimePickerGroup);
             ref="timePickerGroupRef"
             autofocus
             v-bind="timePickerGroupProps"
+            :show-am-pm="showAmPm"
             :model-value="singleModelValue"
             @update:model-value="handleModelUpdate"
             @jump-segment="jumpSegment"

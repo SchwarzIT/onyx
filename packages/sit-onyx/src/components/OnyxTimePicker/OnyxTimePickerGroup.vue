@@ -115,12 +115,11 @@ const createSegmentComputed = (index: 0 | 1 | 2, segmentName: Segment) =>
       let segmentMin = 0;
 
       if (segmentName === "hour") {
-        segmentMax = props.showAmPm ? 12 : 23;
-        segmentMin = props.showAmPm ? 1 : 0;
+        segmentMax = 23;
+        segmentMin = 0;
       }
 
       let clampedValue = Math.min(Math.max(numericValue, segmentMin), segmentMax);
-
       if (segmentName === "hour" && props.showAmPm) {
         if (timeSuffix.value === "pm" && clampedValue < 12) {
           clampedValue += 12;
