@@ -77,6 +77,13 @@ Details content
 
   // ASSERT
   await expect(component).toHaveScreenshot("details-summary.png");
+
+  // ACT
+  await component.getByRole("button", { name: "Click to toggle content" }).click();
+
+  // ASSERT
+  await expect(component.getByText("Details content").first()).toBeVisible();
+  await expect(component).toHaveScreenshot("details-summary-open.png");
 });
 
 test("should render headlines", async ({ mount }) => {
