@@ -1,5 +1,14 @@
 # @sit-onyx/icons
 
+## 1.8.0
+
+### Minor Changes
+
+- 0e552d7: feat: update icons
+
+  #### New
+  - box-gift
+
 ## 1.7.0
 
 ### Minor Changes
