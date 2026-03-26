@@ -37,7 +37,7 @@ const emit = defineEmits<{
 const bind = computed(() => {
   // for now some components already use the new OnyxFormElementV2 props so we need to check them
   // here so we can use the correct properties below
-  const isFormElementV2 = ["OnyxTimePicker"].includes(
+  const isFormElementV2 = ["OnyxTimePicker", "OnyxDatePickerV2"].includes(
     ("__name" in props.is ? props.is.__name : props.is.name) ?? "",
   );
 
