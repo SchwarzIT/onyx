@@ -688,11 +688,6 @@ defineExpose({ input: inputRef });
 
       .onyx-form-element-action {
         --onyx-form-element-action-color: currentColor;
-
-        &__button {
-          // prevent tooltip because the badge itself already has a tooltip
-          pointer-events: none;
-        }
       }
     }
 

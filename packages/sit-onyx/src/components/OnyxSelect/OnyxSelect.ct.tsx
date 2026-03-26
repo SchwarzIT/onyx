@@ -1007,11 +1007,11 @@ test("should show clear button", async ({ mount }) => {
 
   // ACT
   await input.click();
-  await flyout.getByRole("option", { name: MOCK_VARIED_OPTIONS[0]!.label }).click();
+  await flyout.getByRole("option", { name: "Default" }).click();
   await input.blur();
 
   // ASSERT
-  await expect(input).toHaveValue(String(MOCK_VARIED_OPTIONS[0]!.label));
+  await expect(input).toHaveValue("Default");
   await expect(clearButton).toBeHidden();
 
   // ACT
@@ -1027,4 +1027,19 @@ test("should show clear button", async ({ mount }) => {
   // ASSERT
   await expect(input).toHaveValue("");
   await expect(clearButton).toBeHidden();
+
+  // ACT
+  await component.update({ props: { multiple: true, textMode: "preview" } });
+  await input.click();
+  await flyout.getByRole("option", { name: "Default" }).click();
+  await flyout.getByRole("option", { name: "Selected option" }).click();
+
+  // ASSERT
+  await expect(input).toHaveValue("Default, Selected option");
+
+  // ACT
+  await clearButton.click();
+
+  // ASSERT
+  await expect(input).toHaveValue("");
 });
