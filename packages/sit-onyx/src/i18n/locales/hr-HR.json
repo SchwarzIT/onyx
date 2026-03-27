@@ -345,5 +345,8 @@
       "unorderedList": "Popis s grafičkim oznakama"
     },
     "blockquote": "Blok citat"
+  },
+  "datePicker": {
+    "popoverLabel": "Kalendar"
   }
 }
