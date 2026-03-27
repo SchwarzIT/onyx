@@ -43,7 +43,7 @@ const open = useVModel({
 
 const { t } = injectI18n();
 
-const placeholderText = computed(() => {
+const placeholder = computed(() => {
   const parts = [t.value("timePicker.placeholder.hour"), t.value("timePicker.placeholder.minute")];
   if (props.showSeconds) parts.push(t.value("timePicker.placeholder.second"));
   return parts.join(":");
@@ -107,7 +107,6 @@ const mapToCustomMessage = (
 </script>
 
 <template>
-  <!-- TODO: handle error -->
   <OnyxSelect
     v-bind="selectProps"
     v-model="modelValue"
@@ -118,8 +117,8 @@ const mapToCustomMessage = (
     :message="mapToCustomMessage(props.message)"
     :success="mapToCustomMessage(props.success)"
     :options="timeOptions"
-    :placeholder="placeholderText"
-    :list-description="props.infoLabel"
+    :placeholder
+    :list-description="props.popoverOptions?.description"
   >
     <template #toggleIcon>
       <OnyxFormElementAction

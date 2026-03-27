@@ -91,6 +91,13 @@ const inputProps = computed(() => {
 
     <template #content>
       <slot name="popover"></slot>
+
+      <div
+        v-if="props.popoverOptions?.description"
+        class="onyx-form-element-v2__popover-description"
+      >
+        {{ props.popoverOptions.description }}
+      </div>
     </template>
   </OnyxBasicPopover>
 
@@ -115,6 +122,19 @@ const inputProps = computed(() => {
           cursor: pointer;
         }
       }
+    }
+
+    &__popover-description {
+      display: flex;
+      width: 100%;
+      padding: var(--onyx-density-3xs) var(--onyx-density-sm);
+      justify-content: flex-end;
+      text-align: right;
+      align-items: center;
+      gap: var(--onyx-spacing-md);
+      color: var(--onyx-color-text-icons-neutral-soft);
+      font-size: var(--onyx-font-size-sm);
+      line-height: var(--onyx-font-line-height-sm);
     }
   }
 }

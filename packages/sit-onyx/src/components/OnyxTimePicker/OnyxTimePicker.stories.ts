@@ -23,7 +23,7 @@ export default meta;
 
 type Story = StoryObj<typeof OnyxTimePicker>;
 
-export const Default = {} satisfies Story;
+export const Default = { args: {} } satisfies Story;
 
 export const WithSeconds = {
   args: {
@@ -48,7 +48,9 @@ export const Range = {
 export const InfoLabel = {
   args: {
     type: "select",
-    infoLabel: "Info label",
+    popoverOptions: {
+      description: "Info label",
+    },
   },
 } satisfies Story;
 
@@ -60,6 +62,7 @@ export const Select = {
     options: {
       stepSize: 1800,
     },
+    infoLabel: "Info label",
   },
 } satisfies Story;
 
