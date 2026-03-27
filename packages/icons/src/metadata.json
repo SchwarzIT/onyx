@@ -103,6 +103,10 @@
     "category": "Arrows",
     "aliases": ["Kleiner Pfeil links", "west"]
   },
+  "arrow-small-left-right": {
+    "category": "Arrows",
+    "aliases": []
+  },
   "arrow-small-right": {
     "category": "Arrows",
     "aliases": ["Kleiner Pfeil rechts", "ost"]
@@ -914,6 +918,10 @@
   "download": {
     "category": "Network & Infrastructure",
     "aliases": ["fetch", "receive", "herunterladen", "empfangen", "Pfeil", "Arrow", "export"]
+  },
+  "drag-and-drop": {
+    "category": "Action & Interface",
+    "aliases": []
   },
   "draggable": {
     "category": "Action & Interface",
