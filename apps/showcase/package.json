@@ -25,9 +25,9 @@
     "better-sqlite3": "^12.8.0",
     "nuxt": "catalog:",
     "nuxt-auth-utils": "~0.5.29",
-    "nuxt-studio": "^1.4.0",
+    "nuxt-studio": "^1.5.1",
     "sit-onyx": "workspace:^",
     "vue": "catalog:",
-    "vue-router": "^5.0.3"
+    "vue-router": "^5.0.4"
   }
 }
