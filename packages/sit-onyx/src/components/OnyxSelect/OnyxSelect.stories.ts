@@ -409,5 +409,6 @@ export const Slots = {
         { style: "padding-inline: var(--onyx-form-element-v2-padding-inline)" },
         "Trailing",
       ),
+    bottomRight: () => h("span", {}, "Bottom right"),
   },
 } satisfies Story;

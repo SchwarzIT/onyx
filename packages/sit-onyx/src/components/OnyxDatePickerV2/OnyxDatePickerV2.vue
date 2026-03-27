@@ -31,6 +31,7 @@ import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
 import type {
   FormElementV2PopoverOptions,
   FormElementV2Tooltip,
+  OnyxFormElementV2Slots,
 } from "../OnyxFormElementV2/types.js";
 import type { OnyxDatePickerV2Props } from "./types.js";
 
@@ -69,6 +70,14 @@ const emit = defineEmits<{
    */
   "update:open": [open: boolean];
 }>();
+
+const slots =
+  defineSlots<
+    Pick<
+      OnyxFormElementV2Slots,
+      "leading" | "leadingIcons" | "trailingIcons" | "trailing" | "bottomRight"
+    >
+  >();
 
 const error = computed(() => props.error);
 const { vCustomValidity, errorMessages } = useFormElementError({ props, emit, error });
@@ -213,6 +222,8 @@ defineExpose({ input });
     </template>
 
     <template #trailingIcons>
+      <slot name="trailingIcons"></slot>
+
       <OnyxFormElementAction
         v-if="modelValue && !props.hideClearIcon"
         :label="t('input.clear')"
@@ -238,6 +249,22 @@ defineExpose({ input });
           v-bind="calendarProps"
         />
       </div>
+    </template>
+
+    <template v-if="slots.leading" #leading>
+      <slot name="leading"></slot>
+    </template>
+
+    <template v-if="slots.leadingIcons" #leadingIcons>
+      <slot name="leadingIcons"></slot>
+    </template>
+
+    <template v-if="slots.trailing" #trailing>
+      <slot name="trailing"></slot>
+    </template>
+
+    <template v-if="slots.bottomRight" #bottomRight>
+      <slot name="bottomRight"></slot>
     </template>
   </OnyxFormElementV2>
 </template>

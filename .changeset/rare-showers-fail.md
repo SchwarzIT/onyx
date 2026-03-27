@@ -1,5 +1,5 @@
 ---
-"sit-onyx": patch
+"sit-onyx": minor
 ---
 
 fix(OnyxDatePickerV2): implement several bug fixes
@@ -9,3 +9,4 @@ fix(OnyxDatePickerV2): implement several bug fixes
 - remove default `popoverOptions.fitParent` so the calendar popover is always displayed correctly, even when the date picker width is very small
 - use correct aria-label for calendar popover
 - support new property `hideClearIcon`
+- support new slots: leading, leadingIcons, trailingIcons, trailing and bottomRight
