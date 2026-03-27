@@ -6,3 +6,4 @@
 - fix(OnyxDatePickerV2): correctly type `selectionMode` property
 - feat(OnyxDatePickerV2): support new property `hideClearIcon`
 - fix(OnyxDatePickerV2): use correct type for `message`, `error` and `success` property
+- fix(OnyxDatePickerV2): remove default `popoverOptions.fitParent` so the calendar popover is always displayed correctly, even when the date picker width is very small
