@@ -345,5 +345,8 @@
       "unorderedList": "Elenco puntato"
     },
     "blockquote": "Blocco di citazione"
+  },
+  "datePicker": {
+    "popoverLabel": "Calendario"
   }
 }

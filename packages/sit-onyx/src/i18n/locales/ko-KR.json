@@ -345,5 +345,8 @@
       "unorderedList": "글머리 기호 목록"
     },
     "blockquote": "인용 블록"
+  },
+  "datePicker": {
+    "popoverLabel": "캘린더"
   }
 }
