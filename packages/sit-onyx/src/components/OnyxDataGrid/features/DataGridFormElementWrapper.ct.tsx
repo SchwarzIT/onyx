@@ -113,35 +113,6 @@ test(`DataGridFormElementWrapper with OnyxDatePicker`, async ({ mount }) => {
   expectEmit(onUpdateModelValue, 1, [NEW_VALUE]);
 });
 
-test(`DataGridFormElementWrapper with OnyxDatePickerV2`, async ({ mount }) => {
-  // ARRANGE
-  const onUpdateModelValue = createEmitSpy<typeof OnyxDatePickerV2, "onUpdate:modelValue">();
-  const TEST_VALUE = "2020-12-31";
-  const LABEL = "test-label";
-  const mounted = await mount(
-    table(
-      <DataGridFormElementWrapper
-        is={OnyxDatePickerV2}
-        label={LABEL}
-        modelValue={TEST_VALUE}
-        onUpdate:modelValue={onUpdateModelValue}
-      />,
-    ),
-  );
-
-  const input = mounted.getByLabel(LABEL);
-  await expect(input).toHaveValue("12/31/2020");
-
-  await input.click();
-
-  await mounted
-    .getByRole("dialog", { name: "Calendar" })
-    .getByRole("button", { name: "Monday, December 21" })
-    .click();
-
-  expectEmit(onUpdateModelValue, 1, [new Date(2020, 11, 21)]);
-});
-
 test(`DataGridFormElementWrapper with OnyxTimePicker`, async ({ mount }) => {
   // ARRANGE
   const onUpdateModelValue = createEmitSpy<typeof OnyxTimePicker, "onUpdate:modelValue">();
@@ -273,4 +244,25 @@ test("DataGridFormElementWrapper Screenshot Test", async ({ mount }) => {
     ),
   );
   await expect(mounted).toHaveScreenshot("form-element-wrapper-all-inputs.png");
+});
+
+test("Screenshot test (open DatePickerV2)", async ({ mount, page }) => {
+  // ARRANGE
+  await page.setViewportSize({ width: 512, height: 512 });
+
+  const LABEL = "test-label";
+  const mounted = await mount(
+    table(
+      <DataGridFormElementWrapper is={OnyxDatePickerV2} label={LABEL} modelValue={"2020-12-31"} />,
+    ),
+  );
+
+  const datePicker = mounted.getByLabel(LABEL);
+
+  // ACT
+  await datePicker.click();
+
+  // ASSERT
+  await expect(mounted.getByRole("dialog", { name: "Calendar" })).toBeVisible();
+  await expect(page).toHaveScreenshot("form-element-wrapper-date-picker-open.png");
 });

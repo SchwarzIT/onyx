@@ -1,19 +1,12 @@
 import { iconCheck, iconX } from "@sit-onyx/icons";
 import { h } from "vue";
-import OnyxDatePickerV2 from "../../../components/OnyxDatePickerV2/OnyxDatePickerV2.vue";
 import OnyxSkeleton from "../../../components/OnyxSkeleton/OnyxSkeleton.vue";
 import {
   injectI18n,
   type OnyxDateFormatOptions,
   type OnyxNumberFormatOptions,
 } from "../../../i18n/index.js";
-import {
-  OnyxIcon,
-  OnyxVisuallyHidden,
-  type OnyxDatePickerV2Props,
-  type SelectOption,
-} from "../../../index.js";
-import { isValidDate } from "../../../utils/date.js";
+import { OnyxIcon, OnyxVisuallyHidden, type SelectOption } from "../../../index.js";
 import { allObjectEntries } from "../../../utils/objects.js";
 import { parseTimeSeconds } from "../../../utils/time.js";
 import OnyxDatePicker from "../../OnyxDatePicker/OnyxDatePicker.vue";
@@ -221,21 +214,15 @@ export const timeFormatter = <TEntry extends DataGridEntry>(
 export const DATE_RENDERER = createTypeRenderer<DateCellOptions>({
   header: { component: HeaderCell },
   cell: {
-    component: ({ column: columnKey, row, metadata, modelValue, ...rest }) => {
-      if (!metadata?.editable) {
-        return dateFormatter(modelValue, { format: "date", ...metadata?.typeOptions });
-      }
-
-      const dateValue = new Date(modelValue as DateValue);
-
-      return h(DataGridFormElementWrapper, {
-        ...rest,
-        label: getEditingLabel(row.id, columnKey),
-        is: OnyxDatePickerV2,
-        modelValue: isValidDate(dateValue) ? dateValue : undefined,
-        popoverOptions: { fitParent: false },
-      } satisfies OnyxDatePickerV2Props & Record<PropertyKey, unknown>);
-    },
+    component: ({ column: columnKey, row, metadata, modelValue, ...rest }) =>
+      metadata?.editable
+        ? h(DataGridFormElementWrapper, {
+            ...rest,
+            label: getEditingLabel(row.id, columnKey),
+            is: OnyxDatePicker,
+            modelValue,
+          })
+        : dateFormatter(modelValue, { format: "date", ...metadata?.typeOptions }),
   },
 });
 
