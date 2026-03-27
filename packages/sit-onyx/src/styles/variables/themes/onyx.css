@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "onyx" theme.
- * Imported from Figma API on Fri, 19 Dec 2025 11:04:23 GMT
+ * Imported from Figma API on Fri, 27 Mar 2026 07:44:54 GMT
  */
 :where(:root),
 .onyx-theme-default {
@@ -410,7 +410,6 @@
     var(--onyx-color-system-orange-900)
   );
   --onyx-font-family-data: var(--onyx-font-family-Source-Sans-3-Variable);
-  --onyx-font-family-description: var(--onyx-font-family-OCR-A-Std);
   --onyx-font-family-h1: var(--onyx-font-family-Source-Sans-3-Variable);
   --onyx-font-family-h2: var(--onyx-font-family-Source-Sans-3-Variable);
   --onyx-font-family-h3: var(--onyx-font-family-Source-Sans-3-Variable);
@@ -428,9 +427,24 @@
   --onyx-font-size-xl: var(--onyx-font-values-500);
   --onyx-font-weight-regular: var(--onyx-font-weight-400);
   --onyx-font-weight-semibold: var(--onyx-font-weight-600);
+  --onyx-radius-component-badge: var(--onyx-number-radius-600);
+  --onyx-radius-component-button: var(--onyx-number-radius-200);
+  --onyx-radius-component-checkbox: var(--onyx-number-radius-200);
+  --onyx-radius-component-container-sharp: var(--onyx-number-radius-200);
+  --onyx-radius-component-container-soft: var(--onyx-number-radius-300);
+  --onyx-radius-component-flyout: var(--onyx-number-radius-300);
+  --onyx-radius-component-icon-button: var(--onyx-number-radius-600);
+  --onyx-radius-component-input: var(--onyx-number-radius-200);
+  --onyx-radius-component-search-sharp: var(--onyx-number-radius-200);
+  --onyx-radius-component-search-soft: var(--onyx-number-radius-300);
+  --onyx-radius-component-segmented-control-inside: var(--onyx-number-radius-200);
+  --onyx-radius-component-segmented-control-outside: var(--onyx-number-radius-300);
+  --onyx-radius-component-skeleton: var(--onyx-number-radius-200);
+  --onyx-radius-component-system-button: var(--onyx-number-radius-200);
   --onyx-radius-full: var(--onyx-number-radius-600);
   --onyx-radius-lg: var(--onyx-number-radius-400);
   --onyx-radius-md: var(--onyx-number-radius-300);
+  --onyx-radius-none: var(--onyx-number-radius-none);
   --onyx-radius-sm: var(--onyx-number-radius-200);
   --onyx-radius-xl: var(--onyx-number-radius-500);
   --onyx-radius-xs: var(--onyx-number-radius-100);
