@@ -91,7 +91,7 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
     --onyx-button-border-color-disabled: transparent;
     --onyx-button-outline-color: var(--onyx-color-component-focus-primary);
     --onyx-button-border-width: var(--onyx-1px-in-rem);
-    --onyx-button-border-radius: var(--onyx-radius-sm);
+    --onyx-button-border-radius: var(--onyx-radius-component-button);
 
     &--primary {
       &.onyx-button--default {

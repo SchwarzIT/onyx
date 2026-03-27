@@ -162,7 +162,7 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
 .onyx-form-element-v2 {
   @include layers.component() {
     --onyx-form-element-v2-gap: var(--onyx-density-3xs);
-    --onyx-form-element-v2-border-radius: var(--onyx-radius-sm);
+    --onyx-form-element-v2-border-radius: var(--onyx-radius-component-input);
     --onyx-form-element-v2-border-size: var(--onyx-1px-in-rem);
     --onyx-form-element-v2-border-color: var(--onyx-color-component-border-neutral);
     --onyx-form-element-v2-border-color-hover: var(--onyx-color-component-border-primary-hover);

@@ -240,7 +240,7 @@ const popoverStyles = computed(() => {
 
     &__dialog {
       position: fixed;
-      border-radius: var(--onyx-radius-md);
+      border-radius: var(--onyx-radius-component-flyout);
       border: none;
       outline: none;
       box-shadow: var(--onyx-shadow-medium-bottom);

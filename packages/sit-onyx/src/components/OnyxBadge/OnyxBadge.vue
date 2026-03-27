@@ -92,7 +92,7 @@ defineSlots<{
     display: inline-block;
     max-width: 100%;
     padding: var(--onyx-density-3xs) var(--onyx-density-sm);
-    border-radius: var(--onyx-radius-full);
+    border-radius: var(--onyx-radius-component-badge);
     background-color: var(--onyx-badge-background-color);
     color: var(--onyx-color-text-icons-neutral-inverted);
     font-family: var(--onyx-font-family-paragraph);
