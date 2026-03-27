@@ -41,12 +41,12 @@
     "sit-onyx": "workspace:^"
   },
   "devDependencies": {
-    "@nuxt/devtools": "^3.2.3",
+    "@nuxt/devtools": "^3.2.4",
     "@nuxt/kit": "^4.4.2",
     "@nuxt/module-builder": "^1.0.2",
     "@nuxt/schema": "^4.4.2",
     "@nuxt/test-utils": "^4.0.0",
-    "@nuxtjs/i18n": "^10.2.3",
+    "@nuxtjs/i18n": "^10.2.4",
     "@sit-onyx/shared": "workspace:^",
     "nuxt": "catalog:",
     "sit-onyx": "workspace:^",
