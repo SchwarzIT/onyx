@@ -37,6 +37,18 @@ updates:
       - dependency-name: "@eslint/js"
         update-types: [version-update:semver-major]
 
+      # TODO: remove with https://github.com/SchwarzIT/onyx/issues/5167
+      - dependency-name: "typescript"
+        update-types: [version-update:semver-major]
+
+      # TODO: remove with https://github.com/SchwarzIT/onyx/issues/4815
+      - dependency-name: "playwright"
+        update-types: [version-update:semver-minor]
+
+      # TODO: remove with https://github.com/SchwarzIT/onyx/issues/4815
+      - dependency-name: "@playwright/"
+        update-types: [version-update:semver-minor]
+
   - package-ecosystem: github-actions
     directory: /
     schedule:

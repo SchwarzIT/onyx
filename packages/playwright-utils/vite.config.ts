@@ -16,14 +16,16 @@ export default defineConfig({
       formats: ["es"],
       fileName: "index",
     },
-    rollupOptions: {
+    rolldownOptions: {
       // make sure to externalize dependencies that shouldn't be bundled into the library
       external: [...Object.keys(packageJson.peerDependencies), `${jsxImportSource}/jsx-runtime`],
     },
   },
-  esbuild: {
-    jsx: "automatic",
-    jsxImportSource,
+  oxc: {
+    jsx: {
+      runtime: "automatic",
+      importSource: jsxImportSource,
+    },
   },
 });
 

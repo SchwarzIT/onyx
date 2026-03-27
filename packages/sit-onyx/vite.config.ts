@@ -40,7 +40,7 @@ export default defineConfig({
       fileName: "index.esm-bundler",
       cssFileName: "style",
     },
-    rollupOptions: {
+    rolldownOptions: {
       // make sure to externalize dependencies that shouldn't be bundled into the library
       external: Object.keys(packageJson.peerDependencies),
     },

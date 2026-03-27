@@ -34,7 +34,7 @@ export default defineConfig({
       fileName: "index",
       cssFileName: "style",
     },
-    rollupOptions: {
+    rolldownOptions: {
       // make sure to externalize dependencies that shouldn't be bundled into the library
       external: Object.keys(packageJson.peerDependencies),
     },

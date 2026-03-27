@@ -31,13 +31,15 @@ export default defineConfig({
       entry: [getFilePath("./src/index.ts"), getFilePath("./src/playwright.ts")],
       formats: ["es"],
     },
-    rollupOptions: {
+    rolldownOptions: {
       // make sure to externalize dependencies that shouldn't be bundled into the library
       external: [...Object.keys(packageJson.peerDependencies)],
     },
   },
-  esbuild: {
-    jsx: "automatic",
+  oxc: {
+    jsx: {
+      runtime: "automatic",
+    },
   },
 });
 

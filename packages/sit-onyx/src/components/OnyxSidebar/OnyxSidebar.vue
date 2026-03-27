@@ -1,8 +1,10 @@
 <script lang="ts" setup>
-import arrowSmallLeft from "@sit-onyx/icons/arrow-small-left.svg?raw";
-import arrowSmallRight from "@sit-onyx/icons/arrow-small-right.svg?raw";
-import sidebarArrowLeft from "@sit-onyx/icons/sidebar-arrow-left.svg?raw";
-import sidebarArrowRight from "@sit-onyx/icons/sidebar-arrow-right.svg?raw";
+import {
+  iconArrowSmallLeft,
+  iconArrowSmallRight,
+  iconSidebarArrowLeft,
+  iconSidebarArrowRight,
+} from "@sit-onyx/icons";
 import { computed, onUnmounted, ref, useId, useTemplateRef, watch } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useResizeObserver } from "../../composables/useResizeObserver.js";
@@ -106,10 +108,10 @@ watch(
         id,
         label: props.label,
         hideLabel: true,
-        icon: props.alignment === "right" ? sidebarArrowLeft : sidebarArrowRight,
+        icon: props.alignment === "right" ? iconSidebarArrowLeft : iconSidebarArrowRight,
         ifOption: {
           hideLabel: false,
-          icon: props.alignment === "right" ? arrowSmallLeft : arrowSmallRight,
+          icon: props.alignment === "right" ? iconArrowSmallLeft : iconArrowSmallRight,
         },
         alignment: props.alignment,
         onClick: () => {
