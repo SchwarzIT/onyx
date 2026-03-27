@@ -13,20 +13,22 @@ export default defineConfig({
   ...VITE_BASE_CONFIG,
   mode: "development",
   plugins: [
-    dts({
-      tsconfigPath: "./tsconfig.app.json",
-      compilerOptions: { composite: false },
-      beforeWriteFile: (filePath) => {
-        if (filePath.endsWith(".vue.d.ts")) {
-          return { filePath: filePath.replace(".vue.d.ts", ".d.vue.ts") };
-        }
-      },
-      afterDiagnostic: async (diagnostics) => {
-        if (diagnostics.some((d) => d.category === DiagnosticCategory.Error)) {
-          throw new Error("Build aborted due to TypeScript errors in the library!");
-        }
-      },
-    }),
+    process.env.STORYBOOK === "true"
+      ? undefined
+      : dts({
+          tsconfigPath: "./tsconfig.app.json",
+          compilerOptions: { composite: false },
+          beforeWriteFile: (filePath) => {
+            if (filePath.endsWith(".vue.d.ts")) {
+              return { filePath: filePath.replace(".vue.d.ts", ".d.vue.ts") };
+            }
+          },
+          afterDiagnostic: async (diagnostics) => {
+            if (diagnostics.some((d) => d.category === DiagnosticCategory.Error)) {
+              throw new Error("Build aborted due to TypeScript errors in the library!");
+            }
+          },
+        }),
     vue(vuePluginOptions),
   ],
   build: {
