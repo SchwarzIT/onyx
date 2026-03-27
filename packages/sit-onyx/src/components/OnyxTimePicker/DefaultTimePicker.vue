@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { iconChevronDownSmall, iconClock, iconXSmall } from "@sit-onyx/icons";
-import { computed, reactive, ref, useTemplateRef } from "vue";
+import { computed, reactive, useTemplateRef } from "vue";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
 import { useFormElementError } from "../../composables/useFormElementError.js";
 import { useVModel } from "../../composables/useVModel.js";
@@ -14,11 +14,14 @@ import { customMessageToFormElementV2Message } from "../OnyxFormElementV2/useLeg
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
 import type { OnyxTimePickerProps } from "./types.js";
-import { sanitizeTimeForNativeInput } from "./utils.js";
+import {
+  createTimeString,
+  parseTimeString,
+  sanitizeTimeForNativeInput,
+  useAmPmValue,
+} from "./utils.js";
 
-const props = withDefaults(defineProps<OnyxTimePickerProps>(), {
-  open: undefined,
-});
+const props = defineProps<OnyxTimePickerProps>();
 
 const emit = defineEmits<{
   /**
@@ -62,14 +65,8 @@ const inputValue = computed({
     return sanitizeTimeForNativeInput(modelValue.value, props.showSeconds);
   },
   set: (newValue) => {
-    const time = sanitizeTimeForNativeInput(newValue, props.showSeconds);
-
-    const [hours = 0, minutes = 0, seconds = 0] = time.split(":");
-    const hh = hours.toString().padStart(2, "0");
-    const mm = minutes.toString().padStart(2, "0");
-    const ss = seconds.toString().padStart(2, "0");
-
-    modelValue.value = `${hh}:${mm}${props.showSeconds ? `:${ss}` : ""}`;
+    const { hours, minutes, seconds } = parseTimeString(props.showSeconds, newValue);
+    modelValue.value = createTimeString(hours, minutes, seconds, props.showSeconds);
   },
 });
 
@@ -81,8 +78,10 @@ const handleIconClick = () => {
   }
 };
 
-// TODO: handle AM/PM change
-const timeSuffix = ref<"am" | "pm">("am");
+const { timeSuffix } = useAmPmValue(
+  inputValue,
+  computed(() => props.showSeconds),
+);
 
 defineExpose({ input });
 </script>
@@ -144,6 +143,7 @@ defineExpose({ input });
         ]"
       >
         <template #toggleIcon>
+          <!-- TODO: fix this to toggle thw select -->
           <OnyxIcon :icon="iconChevronDownSmall" />
         </template>
       </OnyxSelect>

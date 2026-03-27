@@ -10,9 +10,11 @@ export default {};
 import { computed, useTemplateRef } from "vue";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
+import { injectI18n } from "../../i18n/index.js";
 import { useForwardProps } from "../../utils/props.js";
 import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core.js";
 import DefaultTimePicker from "./DefaultTimePicker.vue";
+import RangeTimePicker from "./RangeTimePicker.vue";
 import SelectTimePicker from "./SelectTimePicker.vue";
 import type { OnyxTimePickerProps, TimePickerType } from "./types.js";
 
@@ -47,12 +49,21 @@ const emit = defineEmits<{
 const modelValue = useVModel({ props, emit, key: "modelValue" });
 const open = useVModel({ props, emit, key: "open", default: false });
 
-const selectProps = useForwardProps(props, SelectTimePicker);
-const defaultProps = useForwardProps(props, DefaultTimePicker);
+const { locale } = injectI18n();
 
-const select = useTemplateRef("select");
+const defaultProps = useForwardProps(props, DefaultTimePicker);
+const selectProps = useForwardProps(props, SelectTimePicker);
+const rangeProps = useForwardProps(props, RangeTimePicker);
+
+const showAmPm = computed(() => {
+  if (props.showAmPm !== "auto") return props.showAmPm;
+  return new Intl.DateTimeFormat(locale.value, { hour: "numeric" }).resolvedOptions().hour12;
+});
+
 const timePicker = useTemplateRef("timePicker");
-const input = computed(() => select.value?.input || timePicker.value?.input);
+const select = useTemplateRef("select");
+const range = useTemplateRef("range");
+const input = computed(() => timePicker.value?.input || select.value?.input || range.value?.input);
 defineExpose({ input });
 </script>
 
@@ -65,8 +76,8 @@ defineExpose({ input });
     ref="timePicker"
     v-bind="defaultProps"
     v-model="modelValue"
-    v-model:open="open"
     :label="props.label"
+    :show-am-pm
     @validity-change="emit('validityChange', $event)"
   />
   <SelectTimePicker
@@ -76,7 +87,17 @@ defineExpose({ input });
     v-model="modelValue"
     v-model:open="open"
     :label="props.label"
+    :show-am-pm
     @validity-change="emit('validityChange', $event)"
   />
-  <!-- TODO: implement range mode -->
+  <RangeTimePicker
+    v-else-if="props.type === 'range'"
+    ref="range"
+    v-bind="rangeProps"
+    v-model="modelValue"
+    v-model:open="open"
+    :label="props.label"
+    :show-am-pm
+    @validity-change="emit('validityChange', $event)"
+  />
 </template>
