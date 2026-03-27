@@ -139,7 +139,7 @@ test(`DataGridFormElementWrapper with OnyxDatePickerV2`, async ({ mount }) => {
     .getByRole("button", { name: "Monday, December 21" })
     .click();
 
-  expectEmit(onUpdateModelValue, 1, ["12/21/2020"]);
+  expectEmit(onUpdateModelValue, 1, [new Date(2020, 11, 21)]);
 });
 
 test(`DataGridFormElementWrapper with OnyxTimePicker`, async ({ mount }) => {
