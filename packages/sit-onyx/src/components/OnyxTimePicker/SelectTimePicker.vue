@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { iconClock } from "@sit-onyx/icons";
-import { computed } from "vue";
+import { computed, useTemplateRef } from "vue";
 import type { CustomMessageType } from "../../composables/useFormElementError.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
@@ -12,7 +12,6 @@ import type { SelectOption } from "../OnyxSelect/types.js";
 import type { OnyxTimePickerProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxTimePickerProps>(), {
-  type: "select",
   open: undefined,
   options: () => ({}),
 });
@@ -26,9 +25,13 @@ const emit = defineEmits<{
    * Emitted when the open state changes.
    */
   "update:open": [open: boolean];
+  /**
+   * Emitted when the validity state of the input changes.
+   */
+  validityChange: [validity: ValidityState];
 }>();
 
-const modelValue = useVModel<OnyxTimePickerProps, "modelValue", string | undefined>({
+const modelValue = useVModel({
   props,
   emit,
   key: "modelValue",
@@ -42,6 +45,14 @@ const open = useVModel({
 });
 
 const { t } = injectI18n();
+
+const selectValue = computed({
+  get: () => {
+    if (typeof modelValue.value !== "string") return;
+    return modelValue.value;
+  },
+  set: (newValue) => (modelValue.value = newValue),
+});
 
 const placeholder = computed(() => {
   const parts = [t.value("timePicker.placeholder.hour"), t.value("timePicker.placeholder.minute")];
@@ -104,12 +115,17 @@ const mapToCustomMessage = (
   if (typeof value === "string") return value;
   return { shortMessage: value.label, longMessage: value.tooltipText };
 };
+
+const select = useTemplateRef("select");
+const input = computed(() => select.value?.input);
+defineExpose({ input });
 </script>
 
 <template>
   <OnyxSelect
     v-bind="selectProps"
-    v-model="modelValue"
+    ref="select"
+    v-model="selectValue"
     v-model:open="open"
     class="onyx-time-picker"
     :label="props.label"
@@ -119,6 +135,7 @@ const mapToCustomMessage = (
     :options="timeOptions"
     :placeholder
     :list-description="props.popoverOptions?.description"
+    @validity-change="emit('validityChange', $event)"
   >
     <template #toggleIcon>
       <OnyxFormElementAction
