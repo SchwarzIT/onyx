@@ -7,7 +7,7 @@ import type { SelectOption } from "../OnyxSelect/types.js";
 export const TIME_PICKER_TYPES = ["default", "select", "range"] as const;
 export type TimePickerType = (typeof TIME_PICKER_TYPES)[number];
 
-type RfcTimeValue =
+export type RfcTimeValue =
   | `${number}:${number}` // HH:MM
   | `${number}:${number}:${number}` // HH:MM:SS
   | `${number}:${number}:${number}${string}`; // HH:MM:SS.ssss | HH:MM:SS:ssssZ | HH:MM:SS:ssss+002

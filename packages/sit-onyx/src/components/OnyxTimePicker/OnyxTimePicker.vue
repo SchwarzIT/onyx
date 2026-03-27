@@ -7,12 +7,13 @@ export default {};
 </script>
 
 <script lang="ts" setup generic="TType extends TimePickerType">
+import { computed, useTemplateRef } from "vue";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { useForwardProps } from "../../utils/props.js";
 import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core.js";
-import OnyxTimeInput from "./OnyxTimeInput.vue";
-import OnyxTimeSelect from "./OnyxTimeSelect.vue";
+import DefaultTimePicker from "./DefaultTimePicker.vue";
+import SelectTimePicker from "./SelectTimePicker.vue";
 import type { OnyxTimePickerProps, TimePickerType } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxTimePickerProps<TType>>(), {
@@ -37,30 +38,45 @@ const emit = defineEmits<{
    * Emitted when the open state changes.
    */
   "update:open": [open: boolean];
+  /**
+   * Emitted when the validity state of the input changes.
+   */
+  validityChange: [validity: ValidityState];
 }>();
 
 const modelValue = useVModel({ props, emit, key: "modelValue" });
 const open = useVModel({ props, emit, key: "open", default: false });
 
-const inputProps = useForwardProps(props, OnyxTimeInput);
-const selectProps = useForwardProps(props, OnyxTimeSelect);
+const selectProps = useForwardProps(props, SelectTimePicker);
+const defaultProps = useForwardProps(props, DefaultTimePicker);
+
+const select = useTemplateRef("select");
+const timePicker = useTemplateRef("timePicker");
+const input = computed(() => select.value?.input || timePicker.value?.input);
+defineExpose({ input });
 </script>
 
+<!-- eslint-disable sitOnyx/require-root-class -- added internally -->
 <template>
-  <div class="onyx-component">
-    <OnyxTimeSelect
-      v-if="props.type === 'select'"
-      v-bind="selectProps"
-      v-model="modelValue"
-      v-model:open="open"
-      :label="props.label"
-    />
-    <OnyxTimeInput
-      v-else
-      v-bind="inputProps"
-      v-model="modelValue"
-      v-model:open="open"
-      :label="props.label"
-    />
-  </div>
+  <!-- TODO: add slots -->
+  <!-- TODO: check validityChange event -->
+  <DefaultTimePicker
+    v-if="props.type === 'default'"
+    ref="timePicker"
+    v-bind="defaultProps"
+    v-model="modelValue"
+    v-model:open="open"
+    :label="props.label"
+    @validity-change="emit('validityChange', $event)"
+  />
+  <SelectTimePicker
+    v-else-if="props.type === 'select'"
+    ref="select"
+    v-bind="selectProps"
+    v-model="modelValue"
+    v-model:open="open"
+    :label="props.label"
+    @validity-change="emit('validityChange', $event)"
+  />
+  <!-- TODO: implement range mode -->
 </template>
