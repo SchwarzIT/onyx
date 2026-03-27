@@ -51,12 +51,12 @@ const isChecked = computed({
 
 .onyx-toggle {
   @include layers.component() {
+    --track-padding: min(var(--onyx-density-2xs), var(--onyx-number-spacing-200));
     display: inline-block;
     cursor: pointer;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
 
-    --track-padding: min(var(--onyx-density-2xs), var(--onyx-number-spacing-200));
     &__input {
       position: absolute;
       opacity: 0;
