@@ -111,4 +111,9 @@ export type FormElementV2PopoverOptions = Pick<
   OnyxBasicPopoverProps,
   "alignment" | "fitParent" | "position" | "disabled"
 > &
-  Partial<Pick<OnyxBasicPopoverProps, "label">>;
+  Partial<Pick<OnyxBasicPopoverProps, "label">> & {
+    /**
+     * Description text that is displayed at the bottom of the popover.
+     */
+    description?: string;
+  };

@@ -69,11 +69,6 @@ export type OnyxTimePickerProps<TType extends TimePickerType = TimePickerType> =
        * If true, the format is HH:MM:SS. If false, the format is HH:MM.
        */
       showSeconds?: boolean;
-      // TODO: move to popoverOptions
-      /**
-       * Text describing the time picker. Will be displayed at the bottom of the flyout.
-       */
-      infoLabel?: TType extends "select" | "range" ? string : never;
       /**
        * Whether to use am/pm.
        * If set to "auto", the current locale will be used to determine if it is am/pm.

@@ -371,8 +371,8 @@ const timePickerGroupProps = useForwardProps(props, OnyxTimePickerGroup);
             @jump-segment="jumpSegment"
           />
 
-          <div v-if="props.infoLabel" class="onyx-time-picker__info-label">
-            <p>{{ props.infoLabel }}</p>
+          <div v-if="props.popoverOptions.description" class="onyx-time-picker__info-label">
+            <p>{{ props.popoverOptions.description }}</p>
           </div>
         </div>
       </template>
