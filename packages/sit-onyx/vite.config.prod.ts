@@ -1,4 +1,4 @@
-/// <reference types="vitest" />
+/// <reference types="vitest/config" />
 import { vuePluginOptions } from "@sit-onyx/shared/playwright.config.base";
 import vue from "@vitejs/plugin-vue";
 import { defineConfig, mergeConfig, type UserConfig } from "vite";

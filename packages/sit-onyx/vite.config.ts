@@ -1,4 +1,4 @@
-/// <reference types="vitest" />
+/// <reference types="vitest/config" />
 import { vuePluginOptions } from "@sit-onyx/shared/playwright.config.base";
 import { VITE_BASE_CONFIG } from "@sit-onyx/shared/vite.config.base";
 import vue from "@vitejs/plugin-vue";
@@ -6,7 +6,7 @@ import { fileURLToPath, URL } from "node:url";
 import { DiagnosticCategory } from "typescript";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
-import packageJson from "./package.json";
+import packageJson from "./package.json" with { type: "json" };
 
 // https://vitejs.dev/config
 export default defineConfig({
