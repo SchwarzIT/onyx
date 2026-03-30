@@ -5,5 +5,5 @@ export type BaseFeatureOptions = {
   /**
    * Optional headline to show.
    */
-  headline?: Readonly<MaybeRef<string | DataGridHeadline>>;
+  headline?: Readonly<MaybeRef<string | DataGridHeadline | undefined>>;
 };

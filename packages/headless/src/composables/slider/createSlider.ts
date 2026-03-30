@@ -36,7 +36,7 @@ export type CreateSliderOptions<TValue extends SliderValue = SliderValue> = {
    *
    * default 10% of the total range (max - min)
    */
-  shiftStep?: MaybeRef<number>;
+  shiftStep?: MaybeRef<number | undefined>;
   /**
    * Whether the slider is disabled.
    *

@@ -100,7 +100,7 @@ watch(
   features,
   () => {
     const featureBuilder = useDataGridFeatures(
-      [BASE_FEATURE({ headline: toRef(props, "headline") }), ...features.value],
+      [BASE_FEATURE({ headline: toRef(() => props.headline) }), ...features.value],
       {
         i18n,
         columnConfig,
