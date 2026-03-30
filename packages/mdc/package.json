@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.1",
-    "@nuxtjs/mdc": ">= 0.20.2",
+    "@nuxtjs/mdc": "~0.21.0",
     "@playwright/experimental-ct-vue": "catalog:",
     "@playwright/test": "catalog:",
     "@sit-onyx/playwright-utils": "workspace:^",
