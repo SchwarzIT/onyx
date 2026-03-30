@@ -43,12 +43,12 @@
     "sit-onyx": "workspace:^"
   },
   "devDependencies": {
-    "@fontsource-variable/source-code-pro": ">= 5",
-    "@fontsource-variable/source-sans-3": ">= 5",
-    "@nuxt/content": ">= 3",
+    "@fontsource-variable/source-code-pro": "^5.2.7",
+    "@fontsource-variable/source-sans-3": "^5.2.9",
+    "@nuxt/content": "^3.12.0",
     "@nuxt/test-utils": "^4.0.0",
-    "@nuxtjs/color-mode": ">= 4",
-    "@nuxtjs/mdc": ">= 0.20.2",
+    "@nuxtjs/color-mode": "^4.0.0",
+    "@nuxtjs/mdc": "~0.21.0",
     "@playwright/experimental-ct-vue": "catalog:",
     "@playwright/test": "catalog:",
     "@sit-onyx/icons": "workspace:^",
