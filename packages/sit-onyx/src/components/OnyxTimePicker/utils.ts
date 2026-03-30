@@ -14,6 +14,9 @@ export const sanitizeTimeForNativeInput = (value?: string, showSeconds?: boolean
   return match ? match[0] : "";
 };
 
+/**
+ * Creates an RFC time value (HH:MM or HH:MM:SS) from the given times.
+ */
 export const createTimeString = (
   hours: number,
   minutes: number,
@@ -26,12 +29,19 @@ export const createTimeString = (
   return `${hh}:${mm}${showSeconds ? `:${ss}` : ""}`;
 };
 
+/**
+ * Parses the time parts (hours, minutes etc.) from the given time string.
+ */
 export const parseTimeString = (showSeconds: boolean, string?: string) => {
   const time = sanitizeTimeForNativeInput(string, showSeconds);
   const [hours = 0, minutes = 0, seconds = 0] = time.split(":").map((value) => Number(value) || 0);
   return { hours, minutes, seconds };
 };
 
+/**
+ * Composable for managing a time value with AM/PM formatting.
+ * While derive the time format (am or pm) from the given time and update the value when the am/pm toggle is switched.
+ */
 export const useAmPmValue = (value: Ref<string | undefined>, showSeconds: Ref<boolean>) => {
   const timeSuffix = computed({
     // always derive the suffix directly from the current 24h value
@@ -48,9 +58,9 @@ export const useAmPmValue = (value: Ref<string | undefined>, showSeconds: Ref<bo
       const { hours, minutes, seconds } = parseTimeString(showSeconds.value, value.value);
       const currentSuffix = hours >= 12 ? "pm" : "am";
 
-      // Only update if the suffix is actually changing
+      // only update if the suffix is actually changing
       if (currentSuffix !== newSuffix) {
-        // Use modulo math to handle the 12 o'clock edge cases automatically
+        // use modulo math to handle the 12 o'clock edge cases automatically
         const newHours = newSuffix === "pm" ? (hours % 12) + 12 : hours % 12;
         value.value = createTimeString(newHours, minutes, seconds, showSeconds.value);
       }
