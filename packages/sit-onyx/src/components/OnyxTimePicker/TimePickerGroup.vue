@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { computed, useTemplateRef, watch } from "vue";
 import { injectI18n } from "../../i18n/index.js";
+import type { Nullable } from "../../types/utils.js";
+import { applyLimits } from "../../utils/numbers.js";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxStepper from "../OnyxStepper/OnyxStepper.vue";
 import TimeSuffixToggle, { type ToggleOption } from "./TimeSuffixToggle.vue";
@@ -48,13 +50,7 @@ const value = computed({
     if (!props.modelValue) return {};
     const { hours, minutes, seconds } = parseTimeString(props.showSeconds, props.modelValue);
     const displayHours = props.showAmPm ? hours % 12 || 12 : hours;
-
-    // prevent showing "00" everywhere when the segments are empty
-    return {
-      hours: displayHours || undefined,
-      minutes: minutes || undefined,
-      seconds: seconds || undefined,
-    };
+    return { hours: displayHours, minutes: minutes, seconds: seconds };
   },
   set: (newValue) => {
     const newTime = createTimeString(
@@ -67,14 +63,12 @@ const value = computed({
   },
 });
 
-const handleInput = (segment: keyof typeof value.value, event: InputEvent) => {
-  const target = event.target as HTMLInputElement | null;
-  if (!target) return;
+const handleInput = (segment: keyof typeof value.value, segmentValue?: Nullable<number>) => {
+  const min = 0;
+  const max = segment === "hours" ? 23 : 59;
+  const newValue = applyLimits(segmentValue || 0, min, max);
 
-  const newValue = target.valueAsNumber || undefined;
   value.value = { ...value.value, [segment]: newValue };
-
-  // automatically jump to next segment
 
   // Jump immediately if the first digit is greater than the max possible first digit
   // e.g. for hours, if the user types "3", it can only be "03", so we can jump.
@@ -144,7 +138,8 @@ const { timeSuffix } = useAmPmValue(
         :format-number
         hide-label
         hide-buttons
-        @input="handleInput('hours', $event)"
+        @update:model-value="handleInput('hours', $event)"
+        @input="handleInput('hours', $event.target?.valueAsNumber)"
         @keydown="handleKeydown"
         @focus="emit('update:focusedSegment', 'hours')"
       />
@@ -157,7 +152,8 @@ const { timeSuffix } = useAmPmValue(
         :format-number
         hide-label
         hide-buttons
-        @input="handleInput('minutes', $event)"
+        @update:model-value="handleInput('minutes', $event)"
+        @input="handleInput('minutes', $event.target?.valueAsNumber)"
         @keydown="handleKeydown"
         @focus="emit('update:focusedSegment', 'minutes')"
       />
@@ -171,7 +167,8 @@ const { timeSuffix } = useAmPmValue(
         :format-number
         hide-label
         hide-buttons
-        @input="handleInput('seconds', $event)"
+        @update:model-value="handleInput('seconds', $event)"
+        @input="handleInput('seconds', $event.target?.valueAsNumber)"
         @keydown="handleKeydown"
         @focus="emit('update:focusedSegment', 'seconds')"
       />
