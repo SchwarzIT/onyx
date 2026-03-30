@@ -13,6 +13,7 @@ import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
 import { customMessageToFormElementV2Message } from "../OnyxFormElementV2/useLegacyFormElementProps.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
+import type { SelectOption } from "../OnyxSelect/types.js";
 import type { OnyxTimePickerProps, OnyxTimePickerSlots } from "./types.js";
 import {
   createTimeString,
@@ -85,6 +86,13 @@ const { timeSuffix } = useAmPmValue(
   computed(() => props.showSeconds),
 );
 
+const amPmOptions = computed<SelectOption<"am" | "pm">[]>(() => {
+  return [
+    { label: t.value("timePicker.labels.am"), value: "am" },
+    { label: t.value("timePicker.labels.pm"), value: "pm" },
+  ];
+});
+
 defineExpose({ input });
 </script>
 
@@ -143,10 +151,7 @@ defineExpose({ input });
           :list-label="t('timePicker.labels.timeSuffix')"
           hide-label
           hide-clear-icon
-          :options="[
-            { label: t('timePicker.labels.am'), value: 'am' },
-            { label: t('timePicker.labels.pm'), value: 'pm' },
-          ]"
+          :options="amPmOptions"
         >
           <template #toggleIcon>
             <!-- TODO: fix this to toggle the select -->
