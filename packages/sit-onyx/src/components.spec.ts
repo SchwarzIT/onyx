@@ -184,7 +184,7 @@ const COMPONENTS: Components = {
   },
   OnyxLink: {
     props: {
-      href: "#link",
+      href: "https://example.com",
     },
   },
   OnyxInfoTooltip: {
