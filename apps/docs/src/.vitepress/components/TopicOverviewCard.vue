@@ -8,7 +8,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <a class="topic" tabindex="0" :href="props.href">
+  <a class="topic vp-raw" tabindex="0" :href="props.href">
     <img :src="props.imageSrc" :alt="props.title" width="7rem" height="7rem" class="topic__image" />
 
     <div class="topic__content">

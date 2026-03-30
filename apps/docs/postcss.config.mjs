@@ -7,7 +7,7 @@ export default {
   plugins: [
     postcssIsolateStyles({
       // see: https://vitepress.dev/guide/markdown#raw
-      includeFiles: [/vp-doc\.css/, /base\.css/, "@sit-onyx/tiptap/style.css"],
+      includeFiles: [/vp-doc\.css/, /base\.css/, /@sit-onyx\/tiptap\/style.css/],
     }),
   ],
 };
