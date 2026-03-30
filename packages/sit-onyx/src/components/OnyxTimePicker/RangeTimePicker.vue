@@ -123,6 +123,13 @@ watch(open, (newOpen) => {
   }
 });
 
+watch(focusedFromSegment, (newValue) => {
+  if (newValue) focusedToSegment.value = undefined;
+});
+watch(focusedToSegment, (newValue) => {
+  if (newValue) focusedFromSegment.value = undefined;
+});
+
 const handleJumpSegmentFocus = (direction: "next" | "previous") => {
   const segments: Segment[] = ["hours", "minutes"];
   if (props.showSeconds) segments.push("seconds");
@@ -215,8 +222,8 @@ defineExpose({ input });
     <template #popover>
       <div class="onyx-time-picker__wrapper" tabindex="-1">
         <TimePickerGroup
+          v-model:focused-segment="focusedFromSegment"
           :headline="t('timePicker.labels.from')"
-          :focused-segment="focusedFromSegment"
           :show-seconds="props.showSeconds"
           :show-am-pm="props.showAmPm"
           :model-value="range?.from"
@@ -225,8 +232,8 @@ defineExpose({ input });
         />
 
         <TimePickerGroup
+          v-model:focused-segment="focusedToSegment"
           :headline="t('timePicker.labels.to')"
-          :focused-segment="focusedToSegment"
           :show-seconds="props.showSeconds"
           :show-am-pm="props.showAmPm"
           :model-value="range?.to"

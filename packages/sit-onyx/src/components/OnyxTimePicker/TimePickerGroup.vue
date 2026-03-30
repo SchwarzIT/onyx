@@ -35,6 +35,10 @@ const emit = defineEmits<{
    * Emitted when the another segment should be focused.
    */
   jumpSegmentFocus: [direction: "next" | "previous"];
+  /**
+   * Emitted when the currently focused segment changes.
+   */
+  "update:focusedSegment": [segment: Segment];
 }>();
 
 const { t } = injectI18n();
@@ -142,6 +146,7 @@ const { timeSuffix } = useAmPmValue(
         hide-buttons
         @input="handleInput('hours', $event)"
         @keydown="handleKeydown"
+        @focus="emit('update:focusedSegment', 'hours')"
       />
 
       <OnyxStepper
@@ -154,6 +159,7 @@ const { timeSuffix } = useAmPmValue(
         hide-buttons
         @input="handleInput('minutes', $event)"
         @keydown="handleKeydown"
+        @focus="emit('update:focusedSegment', 'minutes')"
       />
 
       <OnyxStepper
@@ -167,6 +173,7 @@ const { timeSuffix } = useAmPmValue(
         hide-buttons
         @input="handleInput('seconds', $event)"
         @keydown="handleKeydown"
+        @focus="emit('update:focusedSegment', 'seconds')"
       />
 
       <TimeSuffixToggle v-if="props.showAmPm" v-model="timeSuffix" :options="amPmOptions" />
