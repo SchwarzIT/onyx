@@ -96,7 +96,10 @@ const emit = defineEmits<{
 }>();
 
 const slots = defineSlots<
-  Pick<OnyxFormElementV2Slots, "leading" | "leadingIcons" | "trailing" | "trailingIcons"> & {
+  Pick<
+    OnyxFormElementV2Slots,
+    "leading" | "leadingIcons" | "trailing" | "trailingIcons" | "bottomRight"
+  > & {
     /**
      * Optional slot to customize the empty state when no options exist.
      * It is recommended to use the `<OnyxEmpty>` component here.
@@ -534,6 +537,10 @@ defineExpose({ input: inputRef });
 
     <template v-if="slots.trailing" #trailing>
       <slot name="trailing"></slot>
+    </template>
+
+    <template v-if="slots.bottomRight" #bottomRight>
+      <slot name="bottomRight"></slot>
     </template>
 
     <template #trailingIcons>

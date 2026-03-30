@@ -115,7 +115,7 @@ watch(
       aspect-ratio: 1;
       background-color: var(--onyx-color-base-background-blank);
       border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
-      border-radius: var(--onyx-radius-md);
+      border-radius: var(--onyx-calendar-border-radius);
     }
 
     .onyx-button {
@@ -123,7 +123,7 @@ watch(
     }
     .onyx-calendar--small & {
       border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
-      border-radius: var(--onyx-radius-md);
+      border-radius: var(--onyx-calendar-border-radius);
       background-color: var(--onyx-color-base-background-blank);
       width: 100%;
       $header-height: calc(var(--onyx-font-line-height-sm) + 2 * var(--onyx-density-xs));

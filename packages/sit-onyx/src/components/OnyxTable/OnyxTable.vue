@@ -124,8 +124,6 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
 <style lang="scss">
 @use "../../styles/mixins/layers";
 
-$border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
-
 /**
 * Defines all border styles for the table.
 * info: most borders are handled on cell level, not on the table itself
@@ -135,21 +133,31 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
   border-spacing: 0;
   border-collapse: separate;
 
-  // border styles
-  th,
-  td {
-    border-bottom: $border;
-  }
+  > thead,
+  > tbody {
+    > tr {
+      &:last-of-type > td {
+        border-bottom: none;
+      }
 
-  tr:last-of-type td {
-    border-bottom: none;
+      // border styles
+      > th,
+      > td {
+        border-bottom: var(--onyx-table-border);
+      }
+    }
   }
 
   &--vertical-borders {
-    td,
-    th {
-      &:not(:last-child) {
-        border-right: $border;
+    > thead,
+    > tbody {
+      > tr {
+        > td,
+        > th {
+          &:not(:last-child) {
+            border-right: var(--onyx-table-border);
+          }
+        }
       }
     }
   }
@@ -157,6 +165,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
 
 .onyx-table-wrapper {
   @include layers.component() {
+    --onyx-table-border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
     display: flex;
     flex-direction: column;
     gap: var(--onyx-density-xs);
@@ -170,7 +179,7 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
       max-height: inherit;
       max-width: inherit;
       overscroll-behavior-x: none; // fix bouncy scroll behavior in safari
-      border: $border;
+      border: var(--onyx-table-border);
 
       &:focus-visible {
         outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
@@ -225,97 +234,144 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
       z-index: var(--onyx-z-index-sticky-content);
     }
 
-    th,
-    td {
-      position: relative;
-      padding: var(--onyx-table-padding-block) var(--onyx-table-padding-inline);
-      outline: none;
+    > thead,
+    > tbody {
+      > tr {
+        // row hover styles
+        // hover styles are disabled when the table is empty.
+        &:hover:not(.onyx-table__empty) > td::before {
+          background-color: var(--onyx-color-base-neutral-200);
+        }
 
-      &:focus::after,
-      &:focus-visible::after,
-      &:focus-within::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: calc(var(--onyx-table-z-index-cell) - 2);
-        border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-primary);
+        > th,
+        > td {
+          position: relative;
+          padding: var(--onyx-table-padding-block) var(--onyx-table-padding-inline);
+          outline: none;
+
+          &:focus::after,
+          &:focus-visible::after,
+          &:focus-within::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: calc(var(--onyx-table-z-index-cell) - 2);
+            border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-primary);
+          }
+
+          // max width for skeleton, so it looks better
+          > .onyx-skeleton {
+            max-width: 8rem;
+          }
+
+          &.onyx-table__colgroup {
+            padding-top: var(--onyx-density-3xs);
+            padding-bottom: var(--onyx-density-3xs);
+          }
+        }
+
+        > th {
+          font-size: var(--onyx-font-size-sm);
+          line-height: var(--onyx-font-line-height-sm);
+          font-weight: var(--onyx-font-weight-semibold);
+          font-family: var(--onyx-font-family-h4);
+
+          &:not(.onyx-table__colgroup) {
+            background-color: var(--onyx-color-base-neutral-200);
+            color: var(--onyx-color-text-icons-neutral-medium);
+
+            // in tables: height = min height
+            // set min height to fit a 1.5rem element (e.g. system button) so it does not jump around when the button is shown/hidden
+            height: calc(1.5rem + 2 * var(--onyx-table-padding-block) + var(--onyx-1px-in-rem));
+            align-content: center;
+
+            &:hover,
+            // support forcing hover with a class, useful when e.g. using resize handles
+            &.hover {
+              background: var(--onyx-color-base-neutral-300);
+            }
+          }
+        }
+
+        > td {
+          font-family: var(--onyx-font-family-data);
+          font-size: var(--onyx-font-size-md);
+          font-weight: var(--onyx-font-weight-400);
+          line-height: var(--onyx-font-line-height-md);
+
+          // needed to correctly show row hover effect when table is nested in other components (e.g. OnyxCard)
+          z-index: var(--onyx-table-z-index-cell);
+
+          // we need to use ::before to set the row/td background color
+          // so the column hover effects works correctly with plain CSS
+          &::before {
+            content: "";
+            background-color: var(
+              --onyx-table-row-background-color,
+              var(--onyx-color-base-background-blank)
+            );
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: calc(var(--onyx-table-z-index-cell) - 2);
+          }
+
+          > .onyx-skeleton {
+            height: 0.5rem;
+            margin: var(--onyx-density-xs) 0;
+            border-radius: var(--onyx-radius-full);
+          }
+        }
       }
 
-      // max width for skeleton, so it looks better
-      > .onyx-skeleton {
-        max-width: 8rem;
-      }
-
-      &.onyx-table__colgroup {
-        padding-top: var(--onyx-density-3xs);
-        padding-bottom: var(--onyx-density-3xs);
-      }
-    }
-
-    th {
-      font-size: var(--onyx-font-size-sm);
-      line-height: var(--onyx-font-line-height-sm);
-      font-weight: var(--onyx-font-weight-semibold);
-      font-family: var(--onyx-font-family-h4);
-
-      &:not(.onyx-table__colgroup) {
-        background-color: var(--onyx-color-base-neutral-200);
-        color: var(--onyx-color-text-icons-neutral-medium);
-
-        // in tables: height = min height
-        // set min height to fit a 1.5rem element (e.g. system button) so it does not jump around when the button is shown/hidden
-        height: calc(1.5rem + 2 * var(--onyx-table-padding-block) + var(--onyx-1px-in-rem));
-        align-content: center;
-
-        &:hover,
-        // support forcing hover with a class, useful when e.g. using resize handles
-        &.hover {
-          background: var(--onyx-color-base-neutral-300);
+      // column hover styles
+      &:not(:has(.onyx-table__empty)) {
+        > tr > th:not(.onyx-table__colgroup):hover,
+      // support forcing hover with a class, useful when e.g. using resize handles
+      > tr > th.hover {
+          &::before {
+            background-color: color-mix(
+              in srgb,
+              var(--onyx-color-base-neutral-500),
+              transparent 85%
+            );
+            content: "";
+            height: var(--onyx-table-observed-height);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            bottom: 0;
+            z-index: calc(var(--onyx-table-z-index-cell) - 1);
+            // needed in order for other components like buttons etc. to be clickable and to prevent showing the column hover effect when hovering down over a row
+            pointer-events: none;
+          }
         }
       }
     }
 
-    td {
-      font-family: var(--onyx-font-family-data);
-      font-size: var(--onyx-font-size-md);
-      font-weight: var(--onyx-font-weight-400);
-      line-height: var(--onyx-font-line-height-md);
-
-      // needed to correctly show row hover effect when table is nested in other components (e.g. OnyxCard)
-      z-index: var(--onyx-table-z-index-cell);
-    }
-
     &--cell-truncation-ellipsis {
-      td,
-      th {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+      > thead,
+      > tbody {
+        > tr {
+          td,
+          th {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+        }
       }
     }
 
-    // we need to use ::before to set the row/td background color
-    // so the column hover effects works correctly with plain CSS
-    td::before {
-      content: "";
-      background-color: var(
-        --onyx-table-row-background-color,
-        var(--onyx-color-base-background-blank)
-      );
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: calc(var(--onyx-table-z-index-cell) - 2);
-    }
-
     &--striped {
-      tbody {
-        tr:nth-child(even) td::before {
+      > tbody {
+        > tr:nth-child(even) > td::before {
           background-color: var(
             --onyx-table-row-background-color,
             var(--onyx-color-base-background-tinted)
@@ -324,42 +380,9 @@ $border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral)
       }
     }
 
-    // row hover styles
-    // hover styles are disabled when the table is empty.
-    tr:hover:not(.onyx-table__empty) td::before {
-      background-color: var(--onyx-color-base-neutral-200);
-    }
-
-    // column hover styles
-    &:not(:has(.onyx-table__empty)) {
-      th:not(.onyx-table__colgroup):hover,
-      // support forcing hover with a class, useful when e.g. using resize handles
-      th.hover {
-        &::before {
-          background-color: color-mix(in srgb, var(--onyx-color-base-neutral-500), transparent 85%);
-          content: "";
-          height: var(--onyx-table-observed-height);
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          bottom: 0;
-          z-index: calc(var(--onyx-table-z-index-cell) - 1);
-          // needed in order for other components like buttons etc. to be clickable and to prevent showing the column hover effect when hovering down over a row
-          pointer-events: none;
-        }
-      }
-    }
-
     &__colgroup {
       background-color: var(--onyx-color-base-primary-100);
       color: var(--onyx-color-text-icons-primary-intense);
-    }
-
-    td > .onyx-skeleton {
-      height: 0.5rem;
-      margin: var(--onyx-density-xs) 0;
-      border-radius: var(--onyx-radius-full);
     }
   }
 }

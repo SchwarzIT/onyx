@@ -82,39 +82,42 @@ const columnStyle = computed(() => {
       grid-template-columns: var(--onyx-data-grid-template-columns);
       grid-template-rows: repeat(var(--onyx-data-grid-row-count), minmax(min-content, auto));
 
-      table {
+      > table {
         display: grid;
         grid-template-columns: subgrid;
         grid-template-rows: subgrid;
         grid-column: 1 / -1;
         grid-row: 1 / -1;
-      }
 
-      thead {
-        display: grid;
-        grid-template-columns: subgrid;
-        grid-column: 1 / -1;
-        grid-row: 1 / 3;
-      }
+        > thead {
+          display: grid;
+          grid-template-columns: subgrid;
+          grid-column: 1 / -1;
+          grid-row: 1 / 3;
+        }
 
-      tbody {
-        display: grid;
-        grid-column: 1 / -1;
-        grid-row: 3 / -1;
-        grid-template-columns: subgrid;
-        grid-template-rows: subgrid;
-      }
+        > tbody {
+          display: grid;
+          grid-column: 1 / -1;
+          grid-row: 3 / -1;
+          grid-template-columns: subgrid;
+          grid-template-rows: subgrid;
+        }
 
-      tr {
-        display: grid;
-        grid-column: 1 / -1;
-        grid-template-columns: subgrid;
-        grid-template-rows: subgrid;
-      }
+        > thead,
+        > tbody {
+          > tr {
+            display: grid;
+            grid-column: 1 / -1;
+            grid-template-columns: subgrid;
+            grid-template-rows: subgrid;
+          }
 
-      th {
-        // Unset height set by OnyxTable, as it would otherwise interfere with our grid layout
-        height: unset;
+          > tr > th {
+            // Unset height set by OnyxTable, as it would otherwise interfere with our grid layout
+            height: unset;
+          }
+        }
       }
 
       // Waiting for :attr support https://developer.mozilla.org/en-US/docs/Web/CSS/attr

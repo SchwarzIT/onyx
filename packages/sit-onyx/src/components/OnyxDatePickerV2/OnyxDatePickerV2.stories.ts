@@ -1,4 +1,7 @@
+import { iconPlaceholder } from "@sit-onyx/icons";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
+import { h } from "vue";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxDatePickerV2 from "./OnyxDatePickerV2.vue";
 
 /**
@@ -11,7 +14,7 @@ const meta: Meta<typeof OnyxDatePickerV2> = {
   decorators: [
     (story) => ({
       components: { story },
-      template: `<div style="width: 20rem;"> <story /> </div>`,
+      template: `<div style="max-width: 24rem;"> <story /> </div>`,
     }),
   ],
   argTypes: {
@@ -66,6 +69,23 @@ export const DisabledDays = {
     ...Default.args,
     disabledDays: (date: Date) => date.getDay() === 0 || date.getDay() === 6,
     message: "Weekends are disabled",
+  },
+} satisfies Story;
+
+export const Slots = {
+  args: {
+    ...Default.args,
+    leading: () =>
+      h("span", { style: "padding-inline: var(--onyx-form-element-v2-padding-inline)" }, "Leading"),
+    trailing: () =>
+      h(
+        "span",
+        { style: "padding-inline: var(--onyx-form-element-v2-padding-inline)" },
+        "Trailing",
+      ),
+    leadingIcons: () => h(OnyxIcon, { icon: iconPlaceholder }),
+    trailingIcons: () => h(OnyxIcon, { icon: iconPlaceholder }),
+    bottomRight: () => h("span", {}, "Bottom right"),
   },
 } satisfies Story;
 

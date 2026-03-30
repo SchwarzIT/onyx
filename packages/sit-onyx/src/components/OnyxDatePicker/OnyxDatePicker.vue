@@ -1,3 +1,10 @@
+<script lang="ts">
+/**
+ * @deprecated Use the new `OnyxDatePickerV2` component which will replace the `OnyxDatePicker` in onyx version 2.
+ */
+export default {};
+</script>
+
 <script lang="ts" setup>
 import { computed, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density.js";

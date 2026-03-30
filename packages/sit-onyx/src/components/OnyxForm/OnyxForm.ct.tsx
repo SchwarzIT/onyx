@@ -6,6 +6,7 @@ import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxCheckbox from "../OnyxCheckbox/OnyxCheckbox.vue";
 import OnyxCheckboxGroup from "../OnyxCheckboxGroup/OnyxCheckboxGroup.vue";
 import OnyxDatePicker from "../OnyxDatePicker/OnyxDatePicker.vue";
+import OnyxDatePickerV2 from "../OnyxDatePickerV2/OnyxDatePickerV2.vue";
 import OnyxInput from "../OnyxInput/OnyxInput.vue";
 import OnyxRadioButton from "../OnyxRadioButton/OnyxRadioButton.vue";
 import OnyxRadioGroup from "../OnyxRadioGroup/OnyxRadioGroup.vue";
@@ -42,6 +43,10 @@ const ALL_FORM_ELEMENTS = {
   OnyxStepper: inferProps(OnyxStepper, { label: "OnyxStepper" }),
   OnyxSlider: inferProps(OnyxSlider, { label: "OnyxSlider", modelValue: 0 }),
   OnyxDatePicker: inferProps(OnyxDatePicker, { label: "OnyxDatePicker", modelValue: "2011-10-31" }),
+  OnyxDatePickerV2: inferProps(OnyxDatePickerV2, {
+    label: "OnyxDatePickerV2",
+    modelValue: new Date("2011-10-31"),
+  }),
   OnyxTimePicker: inferProps(OnyxTimePicker, { label: "OnyxTimePicker", modelValue: "14:30:00" }),
   OnyxTextarea: inferProps(OnyxTextarea, { label: "OnyxTextarea" }),
   OnyxRadioGroup: inferProps(
@@ -80,6 +85,7 @@ const FORM_ELEMENTS_WITH_MESSAGE_AREA = {
   OnyxStepper: ALL_FORM_ELEMENTS["OnyxStepper"],
   OnyxSlider: ALL_FORM_ELEMENTS["OnyxSlider"],
   OnyxDatePicker: ALL_FORM_ELEMENTS["OnyxDatePicker"],
+  OnyxDatePickerV2: ALL_FORM_ELEMENTS["OnyxDatePickerV2"],
   OnyxTimePicker: ALL_FORM_ELEMENTS["OnyxTimePicker"],
   OnyxTextarea: ALL_FORM_ELEMENTS["OnyxTextarea"],
 };

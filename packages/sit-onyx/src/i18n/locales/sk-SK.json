@@ -345,5 +345,8 @@
       "unorderedList": "Zoznam s odrážkami"
     },
     "blockquote": "Blok citátu"
+  },
+  "datePicker": {
+    "popoverLabel": "Kalendár"
   }
 }

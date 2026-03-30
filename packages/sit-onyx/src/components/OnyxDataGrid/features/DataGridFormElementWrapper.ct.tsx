@@ -2,6 +2,7 @@ import { createEmitSpy, expectEmit } from "@sit-onyx/playwright-utils";
 import type { Component } from "vue";
 import { expect, test } from "../../../playwright/a11y.js";
 import OnyxDatePicker from "../../OnyxDatePicker/OnyxDatePicker.vue";
+import OnyxDatePickerV2 from "../../OnyxDatePickerV2/OnyxDatePickerV2.vue";
 import OnyxInput from "../../OnyxInput/OnyxInput.vue";
 import OnyxSelect from "../../OnyxSelect/OnyxSelect.vue";
 import type { SelectOption } from "../../OnyxSelect/types.js";
@@ -237,9 +238,31 @@ test("DataGridFormElementWrapper Screenshot Test", async ({ mount }) => {
       <DataGridFormElementWrapper is={OnyxSwitch} label={LABEL} modelValue={true} />,
       <DataGridFormElementWrapper is={OnyxTimePicker} label={LABEL} modelValue={"01:02"} />,
       <DataGridFormElementWrapper is={OnyxDatePicker} label={LABEL} modelValue={"2020-12-31"} />,
+      <DataGridFormElementWrapper is={OnyxDatePickerV2} label={LABEL} modelValue={"2020-12-31"} />,
       <DataGridFormElementWrapper is={OnyxStepper} label={LABEL} modelValue={12} />,
       <DataGridFormElementWrapper is={OnyxInput} label={LABEL} modelValue={"some text"} />,
     ),
   );
   await expect(mounted).toHaveScreenshot("form-element-wrapper-all-inputs.png");
+});
+
+test("Screenshot test (open DatePickerV2)", async ({ mount, page }) => {
+  // ARRANGE
+  await page.setViewportSize({ width: 512, height: 512 });
+
+  const LABEL = "test-label";
+  const mounted = await mount(
+    table(
+      <DataGridFormElementWrapper is={OnyxDatePickerV2} label={LABEL} modelValue={"2020-12-31"} />,
+    ),
+  );
+
+  const datePicker = mounted.getByLabel(LABEL);
+
+  // ACT
+  await datePicker.click();
+
+  // ASSERT
+  await expect(mounted.getByRole("dialog", { name: "Calendar" })).toBeVisible();
+  await expect(page).toHaveScreenshot("form-element-wrapper-date-picker-open.png");
 });

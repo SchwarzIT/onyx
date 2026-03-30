@@ -345,5 +345,8 @@
       "unorderedList": "Lista com marcadores"
     },
     "blockquote": "Bloco de citação"
+  },
+  "datePicker": {
+    "popoverLabel": "Calendário"
   }
 }
