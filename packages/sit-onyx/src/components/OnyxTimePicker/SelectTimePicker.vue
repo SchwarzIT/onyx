@@ -9,7 +9,7 @@ import OnyxFormElementAction from "../OnyxFormElementAction/OnyxFormElementActio
 import type { FormElementV2Tooltip } from "../OnyxFormElementV2/types.js";
 import OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
 import type { SelectOption } from "../OnyxSelect/types.js";
-import type { OnyxTimePickerProps } from "./types.js";
+import type { OnyxTimePickerProps, OnyxTimePickerSlots } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxTimePickerProps>(), {
   open: undefined,
@@ -30,6 +30,8 @@ const emit = defineEmits<{
    */
   validityChange: [validity: ValidityState];
 }>();
+
+const slots = defineSlots<OnyxTimePickerSlots>();
 
 const modelValue = useVModel({
   props,
@@ -146,6 +148,13 @@ defineExpose({ input });
         highlighted="auto"
         @click="open = !open"
       />
+    </template>
+
+    <!-- pass through slots -->
+    <template v-for="(slot, slotName) in slots" :key="slotName" #[slotName]>
+      <slot :name="slotName">
+        <component :is="slot"></component>
+      </slot>
     </template>
   </OnyxSelect>
 </template>
