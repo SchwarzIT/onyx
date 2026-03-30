@@ -121,7 +121,7 @@ test.describe("Screenshot tests", () => {
 test.describe("Keyboard tests", () => {
   test("keyboard navigation", async ({ mount }) => {
     const component = await mount(<OnyxTimePicker label="Test label" type="range" />);
-    const input = component.getByRole("textbox", { name: "Test label" });
+    const input = component.getByLabel("Test label");
 
     const hourInput = component.getByRole("spinbutton", { name: "Hour" }).first();
     const minuteInput = component.getByRole("spinbutton", { name: "Minute" }).first();
