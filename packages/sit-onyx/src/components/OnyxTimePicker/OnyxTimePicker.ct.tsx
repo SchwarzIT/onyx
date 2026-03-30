@@ -1,4 +1,5 @@
 import { iconPlaceholder } from "@sit-onyx/icons";
+import { createEmitSpy, expectEmit } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
@@ -234,4 +235,29 @@ test("should truncate milliseconds and timezones from modelValue, min, and max",
   await expect(input).toHaveAttribute("min", "07:30");
   await expect(input).toHaveAttribute("max", "17:30");
   await expect(input).toHaveValue("08:11");
+});
+
+test("should emit validityChange", async ({ mount }) => {
+  // ARRANGE
+  const onValidityChange = createEmitSpy<typeof OnyxTimePicker, "validityChange">();
+
+  const component = await mount(OnyxTimePicker, {
+    props: {
+      label: "Test label",
+      required: true,
+      onValidityChange,
+    },
+  });
+
+  // ACT
+  await component.update({ props: { modelValue: "12:30" } });
+
+  // ASSERT
+  await expectEmit(onValidityChange, 2, [expect.objectContaining({ valid: true })]);
+
+  // ACT
+  await component.update({ props: { modelValue: "" } });
+
+  // ASSERT
+  await expectEmit(onValidityChange, 3, [expect.objectContaining({ valid: false })]);
 });

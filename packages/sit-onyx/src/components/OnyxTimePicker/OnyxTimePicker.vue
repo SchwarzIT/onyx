@@ -71,7 +71,6 @@ defineExpose({ input });
 
 <!-- eslint-disable sitOnyx/require-root-class -- added internally -->
 <template>
-  <!-- TODO: check validityChange event -->
   <DefaultTimePicker
     v-if="props.type === 'default'"
     ref="timePicker"

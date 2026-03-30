@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { iconChevronDownSmall, iconClock, iconXSmall } from "@sit-onyx/icons";
-import { computed, reactive, useTemplateRef } from "vue";
+import { computed, useTemplateRef } from "vue";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
 import { useFormElementError } from "../../composables/useFormElementError.js";
 import { useVModel } from "../../composables/useVModel.js";
@@ -48,7 +48,7 @@ const { rootAttrs, restAttrs } = useRootAttrs();
 const formElementV2Props = useForwardProps(props, OnyxFormElementV2);
 
 const { vCustomValidity, errorMessages } = useFormElementError({
-  props: reactive({ ...props, type: "date" }),
+  props: computed(() => ({ ...props, type: "date" })),
   emit,
   error: computed(() => props.error),
 });
