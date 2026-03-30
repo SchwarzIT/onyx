@@ -132,6 +132,7 @@ defineExpose({ input });
     :list-label="t('timePicker.labels.listLabel')"
     :message="mapToCustomMessage(props.message)"
     :success="mapToCustomMessage(props.success)"
+    :error="mapToCustomMessage(props.error)"
     :options="timeOptions"
     :placeholder
     :list-description="props.popoverOptions?.description"
