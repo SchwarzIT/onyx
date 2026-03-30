@@ -142,7 +142,6 @@ export const usePagination = (options: PaginationOptions = {}) =>
         },
         bottomLeft: () => {
           if (!isEnabled.value() || !options.itemsPerPage?.length) return [];
-          if (!shouldShowPagination.value && !skeleton.value) return [];
 
           return [
             h(OnyxItemsPerPage, {
