@@ -16,7 +16,7 @@ import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core.js";
 import DefaultTimePicker from "./DefaultTimePicker.vue";
 import RangeTimePicker from "./RangeTimePicker.vue";
 import SelectTimePicker from "./SelectTimePicker.vue";
-import type { OnyxTimePickerProps, TimePickerType } from "./types.js";
+import type { OnyxTimePickerProps, OnyxTimePickerSlots, TimePickerType } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxTimePickerProps<TType>>(), {
   showSeconds: false,
@@ -45,6 +45,8 @@ const emit = defineEmits<{
    */
   validityChange: [validity: ValidityState];
 }>();
+
+const slots = defineSlots<OnyxTimePickerSlots>();
 
 const modelValue = useVModel({ props, emit, key: "modelValue" });
 const open = useVModel({ props, emit, key: "open", default: false });
@@ -79,7 +81,14 @@ defineExpose({ input });
     :label="props.label"
     :show-am-pm
     @validity-change="emit('validityChange', $event)"
-  />
+  >
+    <template v-for="(slot, slotName) in slots" :key="slotName" #[slotName]>
+      <slot :name="slotName">
+        <component :is="slot"></component>
+      </slot>
+    </template>
+  </DefaultTimePicker>
+
   <SelectTimePicker
     v-else-if="props.type === 'select'"
     ref="select"
@@ -89,7 +98,14 @@ defineExpose({ input });
     :label="props.label"
     :show-am-pm
     @validity-change="emit('validityChange', $event)"
-  />
+  >
+    <template v-for="(slot, slotName) in slots" :key="slotName" #[slotName]>
+      <slot :name="slotName">
+        <component :is="slot"></component>
+      </slot>
+    </template>
+  </SelectTimePicker>
+
   <RangeTimePicker
     v-else-if="props.type === 'range'"
     ref="range"
@@ -99,5 +115,11 @@ defineExpose({ input });
     :label="props.label"
     :show-am-pm
     @validity-change="emit('validityChange', $event)"
-  />
+  >
+    <template v-for="(slot, slotName) in slots" :key="slotName" #[slotName]>
+      <slot :name="slotName">
+        <component :is="slot"></component>
+      </slot>
+    </template>
+  </RangeTimePicker>
 </template>

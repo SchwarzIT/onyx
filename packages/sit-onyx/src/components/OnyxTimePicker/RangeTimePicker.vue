@@ -13,7 +13,7 @@ import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
 import type { FormElementV2PopoverOptions } from "../OnyxFormElementV2/types.js";
 import { customMessageToFormElementV2Message } from "../OnyxFormElementV2/useLegacyFormElementProps.js";
 import TimePickerGroup, { type Segment } from "./TimePickerGroup.vue";
-import type { OnyxTimePickerProps } from "./types.js";
+import type { OnyxTimePickerProps, OnyxTimePickerSlots } from "./types.js";
 import { createTimeString, parseTimeString } from "./utils.js";
 
 const props = withDefaults(defineProps<OnyxTimePickerProps>(), {
@@ -34,6 +34,8 @@ const emit = defineEmits<{
    */
   validityChange: [validity: ValidityState];
 }>();
+
+const slots = defineSlots<OnyxTimePickerSlots>();
 
 const modelValue = useVModel({
   props,
@@ -202,6 +204,8 @@ defineExpose({ input });
     </template>
 
     <template #trailingIcons>
+      <slot name="trailingIcons"></slot>
+
       <OnyxFormElementAction
         v-if="modelValue && !props.hideClearIcon"
         :label="t('input.clear')"
@@ -241,6 +245,22 @@ defineExpose({ input });
           @jump-segment-focus="handleJumpSegmentFocus"
         />
       </div>
+    </template>
+
+    <template v-if="slots.leading" #leading>
+      <slot name="leading"></slot>
+    </template>
+
+    <template v-if="slots.leadingIcons" #leadingIcons>
+      <slot name="leadingIcons"></slot>
+    </template>
+
+    <template v-if="slots.trailing" #trailing>
+      <slot name="trailing"></slot>
+    </template>
+
+    <template v-if="slots.bottomRight" #bottomRight>
+      <slot name="bottomRight"></slot>
     </template>
   </OnyxFormElementV2>
 </template>

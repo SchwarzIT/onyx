@@ -13,7 +13,7 @@ import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
 import { customMessageToFormElementV2Message } from "../OnyxFormElementV2/useLegacyFormElementProps.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
-import type { OnyxTimePickerProps } from "./types.js";
+import type { OnyxTimePickerProps, OnyxTimePickerSlots } from "./types.js";
 import {
   createTimeString,
   parseTimeString,
@@ -33,6 +33,8 @@ const emit = defineEmits<{
    */
   validityChange: [validity: ValidityState];
 }>();
+
+const slots = defineSlots<OnyxTimePickerSlots>();
 
 const modelValue = useVModel({
   props,
@@ -113,6 +115,8 @@ defineExpose({ input });
     </template>
 
     <template #trailingIcons>
+      <slot name="trailingIcons"></slot>
+
       <OnyxFormElementAction
         v-if="modelValue && !props.hideClearIcon"
         :label="t('input.clear')"
@@ -130,23 +134,38 @@ defineExpose({ input });
       />
     </template>
 
-    <template v-if="props.showAmPm" #trailing>
-      <OnyxSelect
-        v-model="timeSuffix"
-        :label="t('timePicker.labels.timeSuffix')"
-        :list-label="t('timePicker.labels.timeSuffix')"
-        hide-label
-        hide-clear-icon
-        :options="[
-          { label: t('timePicker.labels.am'), value: 'am' },
-          { label: t('timePicker.labels.pm'), value: 'pm' },
-        ]"
-      >
-        <template #toggleIcon>
-          <!-- TODO: fix this to toggle thw select -->
-          <OnyxIcon :icon="iconChevronDownSmall" />
-        </template>
-      </OnyxSelect>
+    <template v-if="props.showAmPm || slots.trailing" #trailing>
+      <slot name="trailing">
+        <OnyxSelect
+          v-if="props.showAmPm"
+          v-model="timeSuffix"
+          :label="t('timePicker.labels.timeSuffix')"
+          :list-label="t('timePicker.labels.timeSuffix')"
+          hide-label
+          hide-clear-icon
+          :options="[
+            { label: t('timePicker.labels.am'), value: 'am' },
+            { label: t('timePicker.labels.pm'), value: 'pm' },
+          ]"
+        >
+          <template #toggleIcon>
+            <!-- TODO: fix this to toggle the select -->
+            <OnyxIcon :icon="iconChevronDownSmall" />
+          </template>
+        </OnyxSelect>
+      </slot>
+    </template>
+
+    <template v-if="slots.leading" #leading>
+      <slot name="leading"></slot>
+    </template>
+
+    <template v-if="slots.leadingIcons" #leadingIcons>
+      <slot name="leadingIcons"></slot>
+    </template>
+
+    <template v-if="slots.bottomRight" #bottomRight>
+      <slot name="bottomRight"></slot>
     </template>
   </OnyxFormElementV2>
 </template>

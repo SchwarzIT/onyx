@@ -1,4 +1,7 @@
+import { iconPlaceholder } from "@sit-onyx/icons";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
+import { h } from "vue";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxTimePicker from "./OnyxTimePicker.vue";
 /**
  * The time picker component allows users to select a specific time.
@@ -8,14 +11,9 @@ const meta: Meta<typeof OnyxTimePicker> = {
   title: "Form Elements/TimePicker",
   component: OnyxTimePicker,
   tags: ["unstable"],
-  decorators: [
-    (story) => ({
-      components: { story },
-      template: `<div style="width: 16rem;"> <story /> </div>`,
-    }),
-  ],
   args: {
     label: "Select time",
+    style: "max-width: 16rem;",
   },
 };
 
@@ -117,5 +115,23 @@ export const SelectWithCustomTimes = {
         },
       ],
     },
+  },
+} satisfies Story;
+
+export const Slots = {
+  args: {
+    ...Default.args,
+    style: "max-width: 24rem;",
+    leading: () =>
+      h("span", { style: "padding-inline: var(--onyx-form-element-v2-padding-inline)" }, "Leading"),
+    trailing: () =>
+      h(
+        "span",
+        { style: "padding-inline: var(--onyx-form-element-v2-padding-inline)" },
+        "Trailing",
+      ),
+    leadingIcons: () => h(OnyxIcon, { icon: iconPlaceholder }),
+    trailingIcons: () => h(OnyxIcon, { icon: iconPlaceholder }),
+    bottomRight: () => h("span", {}, "Bottom right"),
   },
 } satisfies Story;

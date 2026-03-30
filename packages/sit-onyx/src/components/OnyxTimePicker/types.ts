@@ -1,6 +1,6 @@
 import type { AutofocusProp } from "../../types/components.js";
 import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
-import type { OnyxFormElementV2Props } from "../OnyxFormElementV2/types.js";
+import type { OnyxFormElementV2Props, OnyxFormElementV2Slots } from "../OnyxFormElementV2/types.js";
 import type { OnyxInputProps } from "../OnyxInput/types.js";
 import type { SelectOption } from "../OnyxSelect/types.js";
 
@@ -77,3 +77,8 @@ export type OnyxTimePickerProps<TType extends TimePickerType = TimePickerType> =
     };
 
 export type TimeRange = { from: string; to: string };
+
+export type OnyxTimePickerSlots = Pick<
+  OnyxFormElementV2Slots,
+  "leading" | "leadingIcons" | "trailingIcons" | "trailing" | "bottomRight"
+>;
