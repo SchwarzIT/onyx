@@ -60,7 +60,6 @@ export const Select = {
     options: {
       stepSize: 1800,
     },
-    infoLabel: "Info label",
   },
 } satisfies Story;
 
