@@ -119,7 +119,8 @@
   "selections": {
     "selectAll": "모두 선택",
     "selectGroup": "선택됨",
-    "currentSelection": "{n}개 선택됨"
+    "currentSelection": "{n}개 선택됨",
+    "selectFiltered": "필터링된 항목 선택"
   },
   "stepper": {
     "decrement": "{stepSize}만큼 감소",
