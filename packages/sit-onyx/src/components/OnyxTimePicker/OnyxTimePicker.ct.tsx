@@ -1,7 +1,10 @@
+import { iconPlaceholder } from "@sit-onyx/icons";
 import { DENSITIES } from "../../composables/density.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxTimePicker from "./OnyxTimePicker.vue";
+import { TIME_PICKER_TYPES } from "./types.js";
 
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
@@ -116,6 +119,41 @@ test.describe("Screenshot tests", () => {
       },
     });
   }
+});
+
+test.describe("Screenshot tests (slots)", () => {
+  executeMatrixScreenshotTest({
+    name: "Time picker (slots)",
+    columns: ["default"],
+    rows: TIME_PICKER_TYPES,
+    component: (column, row) => {
+      return (
+        <OnyxTimePicker label="Test label" style={{ width: "24rem" }} type={row}>
+          <template v-slot:leading>
+            <span style={{ paddingInline: "var(--onyx-form-element-v2-padding-inline)" }}>
+              Leading
+            </span>
+          </template>
+
+          <template v-slot:leadingIcons>
+            <OnyxIcon icon={iconPlaceholder} />
+          </template>
+
+          <template v-slot:trailingIcons>
+            <OnyxIcon icon={iconPlaceholder} />
+          </template>
+
+          <template v-slot:trailing>
+            <span style={{ paddingInline: "var(--onyx-form-element-v2-padding-inline)" }}>
+              Leading
+            </span>
+          </template>
+
+          <template v-slot:bottomRight>Bottom right</template>
+        </OnyxTimePicker>
+      );
+    },
+  });
 });
 
 test.describe("Keyboard tests", () => {
