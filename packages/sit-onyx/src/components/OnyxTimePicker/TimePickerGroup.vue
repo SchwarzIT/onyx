@@ -144,6 +144,8 @@ const { timeSuffix } = useAmPmValue(
         @focus="emit('update:focusedSegment', 'hours')"
       />
 
+      <span class="onyx-time-picker__segment-separator">:</span>
+
       <OnyxStepper
         ref="minutes"
         :model-value="value.minutes"
@@ -158,20 +160,23 @@ const { timeSuffix } = useAmPmValue(
         @focus="emit('update:focusedSegment', 'minutes')"
       />
 
-      <OnyxStepper
-        v-if="props.showSeconds"
-        ref="seconds"
-        :model-value="value.seconds"
-        :label="t('timePicker.labels.second')"
-        :placeholder="t('timePicker.placeholder.second')"
-        :format-number
-        hide-label
-        hide-buttons
-        @update:model-value="handleInput('seconds', $event)"
-        @input="handleInput('seconds', $event.target?.valueAsNumber)"
-        @keydown="handleKeydown"
-        @focus="emit('update:focusedSegment', 'seconds')"
-      />
+      <template v-if="props.showSeconds">
+        <span class="onyx-time-picker__segment-separator">:</span>
+
+        <OnyxStepper
+          ref="seconds"
+          :model-value="value.seconds"
+          :label="t('timePicker.labels.second')"
+          :placeholder="t('timePicker.placeholder.second')"
+          :format-number
+          hide-label
+          hide-buttons
+          @update:model-value="handleInput('seconds', $event)"
+          @input="handleInput('seconds', $event.target?.valueAsNumber)"
+          @keydown="handleKeydown"
+          @focus="emit('update:focusedSegment', 'seconds')"
+        />
+      </template>
 
       <TimeSuffixToggle v-if="props.showAmPm" v-model="timeSuffix" :options="amPmOptions" />
     </div>
@@ -194,6 +199,13 @@ const { timeSuffix } = useAmPmValue(
       display: flex;
       gap: var(--onyx-density-xs);
       align-items: center;
+    }
+
+    &__segment-separator {
+      font-size: var(--onyx-font-size-xl);
+      pointer-events: none;
+      -webkit-user-select: none;
+      user-select: none;
     }
   }
 }
