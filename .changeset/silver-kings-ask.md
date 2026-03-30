@@ -8,6 +8,7 @@ feat(OnyxTimePicker): update implementation and use `OnyxFormElementV2` internal
 - fix: use correct component height (previously it was slightly bigger than other form elements)
 - fix: update spacings for "range" mode popover
 - fix: for "select" mode, use default values for min/max property when they contain invalid values (previously no options were shown)
+- fix: correctly type properties depending on the `type`
 - fix!: remove `infoLabel` property in favor of `popoverOptions.description`
 - fix!: use correct type for `error` property
 - feat: support new slots: `leading`, `leadingIcons`, `trailingIcons`, `trailing` and `bottomRight`
