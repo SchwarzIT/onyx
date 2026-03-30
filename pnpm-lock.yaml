@@ -303,6 +303,9 @@ importers:
       '@sit-onyx/icons':
         specifier: workspace:^
         version: link:../../packages/icons
+      '@sit-onyx/mdc':
+        specifier: workspace:^
+        version: link:../../packages/mdc
       '@sit-onyx/nuxt':
         specifier: workspace:^
         version: link:../../packages/nuxt
@@ -544,6 +547,9 @@ importers:
       '@nuxtjs/i18n':
         specifier: '>= 10'
         version: 10.2.4(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.1)(@netlify/blobs@9.1.2)(@vue/compiler-dom@3.5.31)(db0@0.3.4(better-sqlite3@12.8.0))(eslint@9.39.4(jiti@2.6.1))(ioredis@5.10.1)(magicast@0.5.2)(pinia@3.0.4(typescript@5.9.3)(vue@3.5.31(typescript@5.9.3)))(rollup@4.60.0)(typescript@5.9.3)(vue@3.5.31(typescript@5.9.3))
+      '@sit-onyx/mdc':
+        specifier: workspace:^
+        version: link:../mdc
     devDependencies:
       '@fontsource-variable/source-code-pro':
         specifier: ^5.2.7
@@ -572,9 +578,6 @@ importers:
       '@sit-onyx/icons':
         specifier: workspace:^
         version: link:../icons
-      '@sit-onyx/mdc':
-        specifier: workspace:^
-        version: link:../mdc
       '@sit-onyx/nuxt':
         specifier: workspace:^
         version: link:../nuxt
