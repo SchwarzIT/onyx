@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, useTemplateRef } from "vue";
+import { computed, useTemplateRef, type StyleValue } from "vue";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
 import { useFormElementError } from "../../composables/useFormElementError.js";
 import { useLenientMaxLengthValidation } from "../../composables/useLenientMaxLengthValidation.js";
@@ -55,11 +55,14 @@ const { formElementV2Props } = useLegacyFormElementProps({ props, errorMessages 
 /**
  * Current CSS variables for the autosize min/max height.
  */
-const autosizeMinMaxStyles = computed(() => {
+const autosizeMinMaxStyles = computed<StyleValue>(() => {
   if (!props.autosize) return;
   const min = props.autosize.min ? Math.max(props.autosize.min, 2) : undefined; // ensure min is not smaller than 2
   const max = props.autosize.max;
-  return [min ? `--min-autosize-rows: ${min}` : "", `--max-autosize-rows: ${max ?? "unset"}`];
+  return {
+    "--onyx-textarea-autosize-min-rows": min,
+    "--onyx-textarea-autosize-max-rows": max ?? "unset",
+  };
 });
 
 /**
@@ -117,20 +120,23 @@ useAutofocus(input, props);
 
 .onyx-textarea {
   @include layers.component() {
-    --min-autosize-rows: 3;
-    --max-autosize-rows: 10;
-    --min-height: calc(
-      var(--min-autosize-rows) * 1lh + 2 * var(--onyx-form-element-v2-padding-block)
+    --onyx-textarea-autosize-min-rows: 3;
+    --onyx-textarea-autosize-max-rows: 10;
+
+    // calculated values
+    --onyx-textarea-autosize-min-height: calc(
+      var(--onyx-textarea-autosize-min-rows) * 1lh + 2 * var(--onyx-form-element-v2-padding-block)
     );
-    --max-height: calc(
-      var(--max-autosize-rows) * 1lh + 2 * var(--onyx-form-element-v2-padding-block)
+    --onyx-textarea-autosize-max-height: calc(
+      var(--onyx-textarea-autosize-max-rows) * 1lh + 2 * var(--onyx-form-element-v2-padding-block)
     );
 
-    --onyx-form-element-v2-content-height: calc(1lh * var(--min-autosize-rows));
+    // needed for correct skeleton height
+    --onyx-form-element-v2-content-height: calc(1lh * var(--onyx-textarea-autosize-min-rows));
 
     // remove max height and disable auto-sizing if user resizes the textarea manually
     &:has(.onyx-textarea__native[style*="height"]) {
-      --max-height: unset;
+      --onyx-textarea-autosize-max-height: unset;
 
       .onyx-textarea__wrapper::after {
         // workaround for [#1142](https://github.com/SchwarzIT/onyx/issues/1142)
@@ -160,6 +166,11 @@ useAutofocus(input, props);
       }
     }
 
+    // needed for autosize to work
+    .onyx-form-element-v2__content {
+      height: unset;
+    }
+
     /**
      * Styles that are shared between the <textarea> and the ::after element of the wrapper
      * that is used for the autosize feature.
@@ -168,13 +179,14 @@ useAutofocus(input, props);
     &__native {
       grid-area: 1 / 1;
       height: 100%;
-      min-height: var(--min-height);
-      max-height: var(--max-height);
+      min-height: var(--onyx-textarea-autosize-min-height);
+      max-height: var(--onyx-textarea-autosize-max-height);
       padding: var(--onyx-form-element-v2-padding-block) var(--onyx-form-element-v2-padding-inline);
     }
 
     &__native {
       resize: vertical;
+      overflow: unset;
 
       &--no-resize {
         resize: none;
