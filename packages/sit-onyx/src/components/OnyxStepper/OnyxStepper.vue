@@ -260,8 +260,6 @@ useAutofocus(input, props);
       align-items: center;
       padding: var(--onyx-form-element-v2-padding-block);
       border-radius: inherit;
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
       outline: none;
 
       &:enabled {
@@ -279,13 +277,6 @@ useAutofocus(input, props);
 
         &:active {
           background-color: var(--onyx-color-base-primary-100);
-        }
-
-        &:first-child {
-          border-top-left-radius: inherit;
-          border-bottom-left-radius: inherit;
-          border-top-right-radius: 0;
-          border-bottom-right-radius: 0;
         }
       }
 

@@ -335,7 +335,7 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
 
     &__slot {
       height: 100%;
-      border: var(--onyx-1px-in-rem) solid var(--onyx-form-element-v2-border-color);
+      border: var(--onyx-form-element-v2-border-size) solid var(--onyx-form-element-v2-border-color);
       display: flex;
       align-items: center;
 
@@ -418,10 +418,14 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
         display: none;
       }
 
+      // remove stepper arrows
       &::-webkit-outer-spin-button,
       &::-webkit-inner-spin-button {
         -webkit-appearance: none;
         margin: 0;
+      }
+      &[type="number"] {
+        -moz-appearance: textfield;
       }
 
       &:autofill {
