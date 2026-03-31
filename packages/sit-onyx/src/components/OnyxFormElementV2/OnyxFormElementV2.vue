@@ -287,6 +287,7 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
       border: var(--onyx-form-element-v2-border-size) solid var(--onyx-form-element-v2-border-color);
       border-radius: inherit;
       height: 100%;
+      max-width: 100%;
 
       &:has(.onyx-form-element-v2__input:read-write):hover {
         border-color: var(--onyx-form-element-v2-border-color-hover);
