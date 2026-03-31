@@ -68,6 +68,8 @@ const handleInput = (segment: keyof typeof value.value, segmentValue?: Nullable<
   const max = segment === "hours" ? 23 : 59;
   const newValue = applyLimits(segmentValue || 0, min, max);
 
+  if (newValue === value.value[segment]) return;
+
   value.value = { ...value.value, [segment]: newValue };
 
   // Jump immediately if the first digit is greater than the max possible first digit

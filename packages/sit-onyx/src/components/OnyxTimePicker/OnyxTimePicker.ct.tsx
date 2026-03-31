@@ -204,6 +204,13 @@ test.describe("Keyboard tests", () => {
     await input.click();
     await expect(hourInput).toBeHidden();
     await expect(minuteInput).toBeHidden();
+
+    // ACT
+    await input.click();
+    await hourInput.fill("15");
+
+    // ASSERT
+    await expect(minuteInput, "should focus next segment after entering a value").toBeFocused();
   });
 });
 
