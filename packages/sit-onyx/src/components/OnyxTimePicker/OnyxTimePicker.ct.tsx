@@ -268,3 +268,43 @@ test("should emit validityChange", async ({ mount }) => {
   // ASSERT
   await expectEmit(onValidityChange, 3, [expect.objectContaining({ valid: false })]);
 });
+
+test("should show custom range errors", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(OnyxTimePicker, {
+    props: {
+      label: "Test label",
+      type: "range",
+    },
+  });
+
+  const input = component.getByLabel("Test label");
+  const popover = component.getByRole("dialog", { name: "Time picker" });
+  const error = component.locator(".onyx-form-element-v2__message--danger");
+
+  // ACT
+  await input.click();
+
+  await component.getByLabel("Hour").first().fill("15");
+  await component.getByLabel("Minute").first().fill("00");
+  await component.getByLabel("Hour").nth(1).fill("12");
+
+  // ASSERT
+  await expect(input).toHaveValue("15:00 - 12:00");
+  await expect(error, "should hide error while popover is still open").toBeHidden();
+
+  // ACT
+  await component.getByLabel("Minute").nth(1).press("Enter");
+
+  // ASSERT
+  await expect(popover).toBeHidden();
+  await expect(input).toHaveValue("15:00 - 12:00");
+  await expect(error).toContainText("The end time must be after start time");
+
+  // ACT
+  await input.click();
+
+  // ASSERT
+  await expect(popover).toBeVisible();
+  await expect(error, "should still show error when re-opening the popover").toBeVisible();
+});

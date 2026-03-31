@@ -7,6 +7,7 @@ import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import { mergeVueProps, useRootAttrs } from "../../utils/attrs.js";
 import { useForwardProps } from "../../utils/props.js";
+import { parseTimeSeconds } from "../../utils/time.js";
 import { useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElementAction from "../OnyxFormElementAction/OnyxFormElementAction.vue";
 import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
@@ -54,10 +55,44 @@ defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
 const formElementV2Props = useForwardProps(props, OnyxFormElementV2);
 
+const range = computed(() => {
+  if (!modelValue.value || typeof modelValue.value !== "object") return;
+  return modelValue.value;
+});
+
+/** Custom error message for range (start-end) validation. */
+const rangeError = computed<string | undefined>((previousError) => {
+  // error should only be shown after closing the popover (or if an error existed previously)
+  // so the popover does not jump around while entering values
+  if (open.value && !previousError) return;
+
+  const from = parseTimeSeconds(range.value?.from);
+  const to = parseTimeSeconds(range.value?.to);
+  const min = parseTimeSeconds(props.min);
+  const max = parseTimeSeconds(props.max);
+
+  if (!from || !to) return;
+
+  if (from > to) {
+    return t.value("timePicker.errors.endTimeAfterStartTime");
+  } else if (min && max && (from < min || to > max)) {
+    return t.value("timePicker.errors.outsideRange", {
+      min: props.min,
+      max: props.max,
+    });
+  } else if (min && from < min) {
+    return t.value("timePicker.errors.timeBeforeMin", { min: props.min });
+  } else if (max && to > max) {
+    return t.value("timePicker.errors.timeAfterMax", { max: props.max });
+  }
+
+  return undefined;
+});
+
 const { vCustomValidity, errorMessages } = useFormElementError({
   props: reactive({ ...props, type: "text" }),
   emit,
-  error: computed(() => props.error),
+  error: computed(() => props.error ?? rangeError.value),
 });
 
 const { t } = injectI18n();
@@ -161,11 +196,6 @@ const handleJumpSegmentFocus = (direction: "next" | "previous") => {
     focusedToSegment.value = target.group === "to" ? target.segment : undefined;
   }
 };
-
-const range = computed(() => {
-  if (!modelValue.value || typeof modelValue.value !== "object") return;
-  return modelValue.value;
-});
 
 const handleUpdateValue = (type: "from" | "to", newValue?: string) => {
   const currentValue = structuredClone(toRaw(range.value)) ?? { from: "", to: "" };
