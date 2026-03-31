@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, useTemplateRef, watch } from "vue";
+import { computed, nextTick, useTemplateRef, watch } from "vue";
 import { injectI18n } from "../../i18n/index.js";
 import type { Nullable } from "../../types/utils.js";
 import { applyLimits } from "../../utils/numbers.js";
@@ -63,20 +63,27 @@ const value = computed({
   },
 });
 
-const handleInput = (segment: keyof typeof value.value, segmentValue?: Nullable<number>) => {
+const handleUpdateValue = (segment: keyof typeof value.value, segmentValue?: Nullable<number>) => {
   const min = 0;
   const max = segment === "hours" ? 23 : 59;
   const newValue = applyLimits(segmentValue || 0, min, max);
-
   if (newValue === value.value[segment]) return;
-
   value.value = { ...value.value, [segment]: newValue };
+};
+
+/**
+ * Check if the focus should be moved automatically on input.
+ */
+const handleInput = (segment: keyof typeof value.value, event: InputEvent) => {
+  if (!event.target) return;
+  const target = event.target as HTMLInputElement;
 
   // Jump immediately if the first digit is greater than the max possible first digit
   // e.g. for hours, if the user types "3", it can only be "03", so we can jump.
   const maxFirstDigit = segment === "hours" ? (props.showAmPm ? 1 : 2) : 5;
+  const valueAsNumber = target.valueAsNumber || 0;
 
-  if (newValue && (newValue >= 10 || newValue > maxFirstDigit)) {
+  if (target.value.length >= 2 || valueAsNumber > maxFirstDigit) {
     emit("jumpSegmentFocus", "next");
   }
 };
@@ -109,10 +116,15 @@ const seconds = useTemplateRef("seconds");
 
 watch(
   () => props.focusedSegment,
-  (segment) => {
-    if (segment === "hours") hours.value?.input?.focus();
-    if (segment === "minutes") minutes.value?.input?.focus();
-    if (segment === "seconds") seconds.value?.input?.focus();
+  async (segment) => {
+    let element: Nullable<HTMLInputElement>;
+    if (segment === "hours") element = hours.value?.input;
+    if (segment === "minutes") element = minutes.value?.input;
+    if (segment === "seconds") element = seconds.value?.input;
+
+    element?.focus();
+    await nextTick();
+    element?.select();
   },
 );
 
@@ -140,8 +152,8 @@ const { timeSuffix } = useAmPmValue(
         :format-number
         hide-label
         hide-buttons
-        @update:model-value="handleInput('hours', $event)"
-        @input="handleInput('hours', $event.target?.valueAsNumber)"
+        @update:model-value="handleUpdateValue('hours', $event)"
+        @input="handleInput('hours', $event)"
         @keydown="handleKeydown"
         @focus="emit('update:focusedSegment', 'hours')"
       />
@@ -156,8 +168,8 @@ const { timeSuffix } = useAmPmValue(
         :format-number
         hide-label
         hide-buttons
-        @update:model-value="handleInput('minutes', $event)"
-        @input="handleInput('minutes', $event.target?.valueAsNumber)"
+        @update:model-value="handleUpdateValue('minutes', $event)"
+        @input="handleInput('minutes', $event)"
         @keydown="handleKeydown"
         @focus="emit('update:focusedSegment', 'minutes')"
       />
@@ -173,8 +185,8 @@ const { timeSuffix } = useAmPmValue(
           :format-number
           hide-label
           hide-buttons
-          @update:model-value="handleInput('seconds', $event)"
-          @input="handleInput('seconds', $event.target?.valueAsNumber)"
+          @update:model-value="handleUpdateValue('seconds', $event)"
+          @input="handleInput('seconds', $event)"
           @keydown="handleKeydown"
           @focus="emit('update:focusedSegment', 'seconds')"
         />
