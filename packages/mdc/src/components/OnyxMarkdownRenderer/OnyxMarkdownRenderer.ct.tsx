@@ -1,10 +1,17 @@
 import { expect, test } from "@playwright/experimental-ct-vue";
+import type { StyleValue } from "vue";
 import OnyxMarkdownRenderer from "./OnyxMarkdownRenderer.vue";
+
+const STYLE: StyleValue = {
+  width: "max-content",
+  padding: "1rem",
+};
 
 test("should render link", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
     <OnyxMarkdownRenderer
+      style={STYLE}
       markdown={`
 [Internal link](#test)
 
@@ -32,6 +39,7 @@ test("should render hard break", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
     <OnyxMarkdownRenderer
+      style={STYLE}
       markdown={`
 A
 <br />
@@ -50,7 +58,10 @@ B
 test("should render code", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
-    <OnyxMarkdownRenderer markdown={"This is an `console.log('inline code')` snippet"} />,
+    <OnyxMarkdownRenderer
+      style={STYLE}
+      markdown={"This is an `console.log('inline code')` snippet"}
+    />,
   );
 
   // ASSERT
@@ -61,6 +72,7 @@ test("should render details / summary", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
     <OnyxMarkdownRenderer
+      style={STYLE}
       markdown={`
 <details>
 Details content
@@ -90,6 +102,7 @@ test("should render headlines", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
     <OnyxMarkdownRenderer
+      style={STYLE}
       markdown={`
 # Headline 1
 ## Headline 2
@@ -117,7 +130,7 @@ test("should render headlines", async ({ mount }) => {
 
 test("should render hr", async ({ mount }) => {
   // ARRANGE
-  const component = await mount(<OnyxMarkdownRenderer markdown={`---`} />);
+  const component = await mount(<OnyxMarkdownRenderer style={STYLE} markdown={`---`} />);
   const hr = component.getByRole("separator");
 
   // ASSERT
@@ -129,6 +142,7 @@ test("should render ol", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
     <OnyxMarkdownRenderer
+      style={STYLE}
       markdown={`
 1. Option A
 2. Option B
@@ -145,6 +159,7 @@ test("should render p", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
     <OnyxMarkdownRenderer
+      style={STYLE}
       markdown={`
 Hello World
 
@@ -163,6 +178,7 @@ test("should render pre", async ({ mount, page, context }) => {
 
   const component = await mount(
     <OnyxMarkdownRenderer
+      style={STYLE}
       markdown={`
 \`\`\`ts
 console.log("Hello World");
@@ -192,6 +208,7 @@ test("should render table", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
     <OnyxMarkdownRenderer
+      style={STYLE}
       markdown={`
 | Left aligned | Centered | Right aligned |
 | ------------ | :------: | ------------: |
@@ -213,6 +230,7 @@ test("should render ul", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
     <OnyxMarkdownRenderer
+      style={STYLE}
       markdown={`
 - Option A
 - Option B
@@ -223,4 +241,15 @@ test("should render ul", async ({ mount }) => {
 
   // ASSERT
   await expect(component).toHaveScreenshot("ul.png");
+});
+
+test("should forward attrs", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxMarkdownRenderer markdown="Markdown" class="test-class" data-testid="test-id" />,
+  );
+
+  // ASSERT
+  await expect(component).toContainClass("onyx-markdown-renderer test-class");
+  await expect(component).toHaveAttribute("data-testid", "test-id");
 });

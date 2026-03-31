@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { MDCParserResult } from "@nuxtjs/mdc";
 import { useDensity } from "sit-onyx";
-import { defineAsyncComponent, ref, watch } from "vue";
+import { defineAsyncComponent, ref, useAttrs, watch } from "vue";
 import ProseA from "../prose/ProseA.vue";
 import ProseBr from "../prose/ProseBr.vue";
 import ProseCode from "../prose/ProseCode.vue";
@@ -78,6 +78,8 @@ const components = {
   table: ProseTable,
   ul: ProseUl,
 };
+
+const attrs = useAttrs();
 </script>
 
 <template>
@@ -86,6 +88,7 @@ const components = {
 
     <MDCRenderer
       v-else-if="parserResult"
+      v-bind="attrs"
       :class="['onyx-component', 'onyx-markdown-renderer', densityClass]"
       :body="parserResult.body"
       :data="parserResult.data"
