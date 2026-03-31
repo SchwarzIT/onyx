@@ -1,20 +1,14 @@
 <script lang="ts" setup>
 import { computed, useTemplateRef } from "vue";
-import { useDensity } from "../../composables/density.js";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
-import { useErrorClass } from "../../composables/useErrorClass.js";
-import { getFormMessages, useFormElementError } from "../../composables/useFormElementError.js";
+import { useFormElementError } from "../../composables/useFormElementError.js";
 import { useLenientMaxLengthValidation } from "../../composables/useLenientMaxLengthValidation.js";
-import {
-  SKELETON_INJECTED_SYMBOL,
-  useSkeletonContext,
-} from "../../composables/useSkeletonState.js";
+import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
-import { useRootAttrs } from "../../utils/attrs.js";
-import { useForwardProps } from "../../utils/props.js";
+import { mergeVueProps, useRootAttrs } from "../../utils/attrs.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
-import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
-import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
+import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
+import { useLegacyFormElementProps } from "../OnyxFormElementV2/useLegacyFormElementProps.js";
 import type { OnyxTextareaProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxTextareaProps>(), {
@@ -52,15 +46,11 @@ const modelValue = useVModel({
 
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
-const formElementProps = useForwardProps(props, OnyxFormElement);
 
 const { maxLength, maxLengthError } = useLenientMaxLengthValidation({ props, modelValue });
 const error = computed(() => props.error ?? maxLengthError.value);
 const { vCustomValidity, errorMessages } = useFormElementError({ props, emit, error });
-
-const { densityClass } = useDensity(props);
-const successMessages = computed(() => getFormMessages(props.success));
-const messages = computed(() => getFormMessages(props.message));
+const { formElementV2Props } = useLegacyFormElementProps({ props, errorMessages });
 
 /**
  * Current CSS variables for the autosize min/max height.
@@ -81,9 +71,7 @@ const handleInput = (event: Event) => {
   target.parentElement?.setAttribute("data-autosize-value", target.value);
 };
 
-const { disabled, showError } = useFormContext(props);
-const skeleton = useSkeletonContext(props);
-const errorClass = useErrorClass(showError);
+const { disabled } = useFormContext(props);
 
 const input = useTemplateRef("input");
 defineExpose({ input });
@@ -91,71 +79,54 @@ useAutofocus(input, props);
 </script>
 
 <template>
-  <div
-    v-if="skeleton"
-    :class="['onyx-component', 'onyx-textarea-skeleton', densityClass]"
+  <OnyxFormElementV2
+    class="onyx-textarea"
+    v-bind="mergeVueProps(formElementV2Props, rootAttrs)"
     :style="autosizeMinMaxStyles"
-    v-bind="rootAttrs"
   >
-    <OnyxSkeleton v-if="!props.hideLabel" class="onyx-textarea-skeleton__label" />
-    <OnyxSkeleton class="onyx-textarea-skeleton__input" />
-  </div>
-
-  <div
-    v-else
-    :class="['onyx-component', 'onyx-textarea', errorClass, densityClass]"
-    :style="autosizeMinMaxStyles"
-    v-bind="rootAttrs"
-  >
-    <OnyxFormElement
-      v-bind="formElementProps"
-      :label="props.label"
-      :message="messages"
-      :success-messages="successMessages"
-      :error-messages="errorMessages"
-    >
-      <template #default="{ id: textareaId }">
-        <div class="onyx-textarea__wrapper" :data-autosize-value="modelValue">
-          <textarea
-            :id="textareaId"
-            ref="input"
-            v-model="modelValue"
-            v-custom-validity
-            class="onyx-textarea__native"
-            :class="{ 'onyx-textarea__native--no-resize': props.disableManualResize }"
-            :placeholder="props.placeholder"
-            :required="props.required"
-            :autocapitalize="props.autocapitalize"
-            :autofocus="props.autofocus"
-            :name="props.name"
-            :readonly="props.readonly"
-            :disabled="disabled"
-            :minlength="props.minlength"
-            :maxlength="maxLength"
-            :aria-label="props.hideLabel ? props.label : undefined"
-            :title="props.hideLabel ? props.label : undefined"
-            v-bind="restAttrs"
-            @input="handleInput"
-          ></textarea>
-        </div>
-      </template>
-    </OnyxFormElement>
-  </div>
+    <template #default="inputProps">
+      <div class="onyx-textarea__wrapper" :data-autosize-value="modelValue">
+        <!-- eslint-disable-next-line vuejs-accessibility/form-control-has-label -- provided by "inputProps" -->
+        <textarea
+          v-bind="mergeVueProps(inputProps, restAttrs)"
+          v-model="modelValue"
+          v-custom-validity
+          :class="[
+            'onyx-textarea__native',
+            { 'onyx-textarea__native--no-resize': props.disableManualResize },
+          ]"
+          :placeholder="props.placeholder"
+          :required="props.required"
+          :autocapitalize="props.autocapitalize"
+          :autofocus="props.autofocus"
+          :name="props.name"
+          :readonly="props.readonly"
+          :disabled
+          :minlength="props.minlength"
+          :maxlength="maxLength"
+          @input="handleInput"
+        />
+      </div>
+    </template>
+  </OnyxFormElementV2>
 </template>
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
 @use "../../styles/mixins/input.scss";
 
-.onyx-textarea,
-.onyx-textarea-skeleton {
+.onyx-textarea {
   @include layers.component() {
     --min-autosize-rows: 3;
     --max-autosize-rows: 10;
-    --onyx-textarea-padding-vertical: var(--onyx-density-xs);
+    --min-height: calc(
+      var(--min-autosize-rows) * 1lh + 2 * var(--onyx-form-element-v2-padding-block)
+    );
+    --max-height: calc(
+      var(--max-autosize-rows) * 1lh + 2 * var(--onyx-form-element-v2-padding-block)
+    );
 
-    --min-height: calc(var(--min-autosize-rows) * 1lh + 2 * var(--onyx-textarea-padding-vertical));
-    --max-height: calc(var(--max-autosize-rows) * 1lh + 2 * var(--onyx-textarea-padding-vertical));
+    --onyx-form-element-v2-content-height: calc(1lh * var(--min-autosize-rows));
 
     // remove max height and disable auto-sizing if user resizes the textarea manually
     &:has(.onyx-textarea__native[style*="height"]) {
@@ -170,23 +141,13 @@ useAutofocus(input, props);
   }
 }
 
-.onyx-textarea-skeleton {
-  @include layers.component() {
-    @include input.define-skeleton-styles($height: var(--min-height));
-  }
-}
-
 .onyx-textarea {
   @include layers.component() {
-    @include input.define-shared-styles(
-      $base-selector: ".onyx-textarea",
-      $vertical-padding: var(--onyx-textarea-padding-vertical)
-    );
-
     &__wrapper {
       padding: 0;
-      height: unset;
       display: grid;
+      width: 100%;
+      height: 100%;
 
       // auto-resize, based on: https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas
       &::after {
@@ -209,7 +170,7 @@ useAutofocus(input, props);
       height: 100%;
       min-height: var(--min-height);
       max-height: var(--max-height);
-      padding: var(--onyx-textarea-padding-vertical) var(--onyx-density-sm);
+      padding: var(--onyx-form-element-v2-padding-block) var(--onyx-form-element-v2-padding-inline);
     }
 
     &__native {
