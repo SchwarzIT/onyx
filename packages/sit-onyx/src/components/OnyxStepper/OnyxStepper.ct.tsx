@@ -1,9 +1,12 @@
+import { iconPlaceholder } from "@sit-onyx/icons";
+import { useFocusStateHooks } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density.js";
 import type { FormMessages } from "../../composables/useFormElementError.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import type { Nullable } from "../../types/index.js";
 import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-utils.js";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxStepper from "./OnyxStepper.vue";
 
 test.describe("Screenshot tests", () => {
@@ -263,6 +266,44 @@ test.describe("Screenshot tests", () => {
         // ASSERT
         await expect(decrementButton).toBeHidden();
         await expect(incrementButton).toBeHidden();
+      },
+    },
+  });
+});
+
+test.describe("Screenshot tests (slots", () => {
+  executeMatrixScreenshotTest({
+    name: "Stepper (slots)",
+    columns: ["default", "slots"],
+    rows: ["default", "hover", "focus-visible"],
+    component: (column) => {
+      return (
+        <OnyxStepper style="width: 20rem" label="Test label" modelValue={42}>
+          {column === "slots" && [
+            <template v-slot:leading>
+              <span style={{ paddingInline: "var(--onyx-form-element-v2-padding-inline)" }}>
+                Leading
+              </span>
+            </template>,
+            <template v-slot:leadingIcons>
+              <OnyxIcon icon={iconPlaceholder} />
+            </template>,
+            <template v-slot:trailingIcons>
+              <OnyxIcon icon={iconPlaceholder} />
+            </template>,
+            <template v-slot:trailing>
+              <span style={{ paddingInline: "var(--onyx-form-element-v2-padding-inline)" }}>
+                Trailing
+              </span>
+            </template>,
+            <template v-slot:bottomRight>Bottom right</template>,
+          ]}
+        </OnyxStepper>
+      );
+    },
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        await useFocusStateHooks({ component, page, state: row });
       },
     },
   });
