@@ -1,25 +1,19 @@
 <script lang="ts" setup>
 import { iconMinus, iconPlus } from "@sit-onyx/icons";
 import { computed, ref, useTemplateRef, watchEffect } from "vue";
-import { useDensity } from "../../composables/density.js";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
-import { useErrorClass } from "../../composables/useErrorClass.js";
-import { getFormMessages, useFormElementError } from "../../composables/useFormElementError.js";
-import {
-  SKELETON_INJECTED_SYMBOL,
-  useSkeletonContext,
-} from "../../composables/useSkeletonState.js";
+import { useFormElementError } from "../../composables/useFormElementError.js";
+import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import type { Nullable } from "../../types/index.js";
-import { useRootAttrs } from "../../utils/attrs.js";
+import { mergeVueProps, useRootAttrs } from "../../utils/attrs.js";
 import { applyLimits, roundToPrecision } from "../../utils/numbers.js";
-import { useForwardProps } from "../../utils/props.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
-import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
+import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
+import type { OnyxFormElementV2Slots } from "../OnyxFormElementV2/types.js";
+import { useLegacyFormElementProps } from "../OnyxFormElementV2/useLegacyFormElementProps.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
-import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import type { OnyxStepperProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxStepperProps>(), {
@@ -45,17 +39,20 @@ const emit = defineEmits<{
   "update:modelValue": [value?: Nullable<number>];
 }>();
 
+const slots =
+  defineSlots<
+    Pick<
+      OnyxFormElementV2Slots,
+      "leading" | "leadingIcons" | "trailingIcons" | "trailing" | "bottomRight"
+    >
+  >();
+
 const { t, locale } = injectI18n();
 const input = useTemplateRef("input");
 
-const { disabled, showError } = useFormContext(props);
-const skeleton = useSkeletonContext(props);
-const errorClass = useErrorClass(showError);
-const { densityClass } = useDensity(props);
+const { disabled } = useFormContext(props);
 const { vCustomValidity, errorMessages } = useFormElementError({ props, emit });
-const successMessages = computed(() => getFormMessages(props.success));
-const messages = computed(() => getFormMessages(props.message));
-const formElementProps = useForwardProps(props, OnyxFormElement);
+const { formElementV2Props } = useLegacyFormElementProps({ props, errorMessages });
 
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
@@ -144,145 +141,115 @@ const handleBlur = () => {
 const incrementLabel = computed(() => t.value("stepper.increment", { stepSize: props.stepSize }));
 const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: props.stepSize }));
 
+const showButtons = computed(() => {
+  if (props.hideButtons || slots.leading || slots.trailing) return false;
+  return true;
+});
+
 defineExpose({ input });
 useAutofocus(input, props);
 </script>
 
 <template>
-  <div
-    v-if="skeleton"
-    :class="['onyx-component', 'onyx-stepper-skeleton', densityClass]"
-    v-bind="rootAttrs"
-  >
-    <OnyxSkeleton v-if="!props.hideLabel" class="onyx-stepper-skeleton__label" />
-    <OnyxSkeleton class="onyx-stepper-skeleton__input" />
-  </div>
-  <div
-    v-else
-    :class="['onyx-component', 'onyx-stepper', densityClass, errorClass]"
-    v-bind="rootAttrs"
-  >
-    <OnyxFormElement
-      v-bind="formElementProps"
-      :message="messages"
-      :success-messages="successMessages"
-      :error-messages="errorMessages"
-    >
-      <template #default="{ id: inputId }">
-        <div class="onyx-stepper__wrapper">
-          <button
-            v-if="!props.hideButtons"
-            type="button"
-            class="onyx-stepper__counter"
-            :disabled="
-              disabled ||
-              readonly ||
-              props.loading ||
-              (props.min !== undefined &&
-                modelValue !== undefined &&
-                modelValue !== null &&
-                modelValue <= props.min)
-            "
-            :aria-label="decrementLabel"
-            tabindex="-1"
-            @click="handleClick('stepDown')"
-          >
-            <OnyxIcon :icon="iconMinus" />
-          </button>
-          <OnyxLoadingIndicator v-if="props.loading" class="onyx-stepper__loading" type="circle" />
-          <input
-            v-else
-            :id="inputId"
-            ref="input"
-            v-model="inputValue"
-            v-custom-validity
-            class="onyx-stepper__native"
-            :class="{ 'onyx-stepper__native--touched': wasTouched }"
-            type="number"
-            :aria-label="props.label"
-            :autofocus="props.autofocus"
-            :disabled="disabled || props.loading"
-            :min="props.min"
-            :max="props.max"
-            :name="props.name"
-            :placeholder="props.placeholder"
-            :readonly="props.readonly"
-            :required="props.required"
-            :step="props.validStepSize ?? 'any'"
-            :title="props.hideLabel ? props.label : undefined"
-            v-bind="restAttrs"
-            @change="handleChange"
-            @blur="handleBlur"
-            @focusin="(e) => (e.target as HTMLInputElement)?.select()"
-            @keydown.up.prevent="handleClick('stepUp')"
-            @keydown.down.prevent="handleClick('stepDown')"
-          />
-          <p class="onyx-stepper__display" aria-hidden="true">
-            {{ displayValue }}
-          </p>
-          <button
-            v-if="!props.hideButtons"
-            type="button"
-            class="onyx-stepper__counter"
-            :disabled="
-              disabled ||
-              readonly ||
-              props.loading ||
-              (props.max !== undefined &&
-                modelValue !== undefined &&
-                modelValue !== null &&
-                modelValue >= props.max)
-            "
-            :aria-label="incrementLabel"
-            tabindex="-1"
-            @click="handleClick('stepUp')"
-          >
-            <OnyxIcon :icon="iconPlus" />
-          </button>
-        </div>
-      </template>
-    </OnyxFormElement>
-  </div>
+  <OnyxFormElementV2 v-bind="mergeVueProps(formElementV2Props, rootAttrs)" class="onyx-stepper">
+    <template #default="inputProps">
+      <div class="onyx-stepper__display-wrapper">
+        <p class="onyx-stepper__display" aria-hidden="true">
+          {{ displayValue }}
+        </p>
+
+        <!-- eslint-disable-next-line vuejs-accessibility/form-control-has-label -- provided by inputProps -->
+        <input
+          v-bind="mergeVueProps(inputProps, restAttrs)"
+          ref="input"
+          v-model="inputValue"
+          v-custom-validity
+          :class="['onyx-stepper__input', { 'onyx-form-element-v2__input--touched': wasTouched }]"
+          type="number"
+          :autofocus="props.autofocus"
+          :disabled="disabled || props.loading"
+          :min="props.min"
+          :max="props.max"
+          :name="props.name"
+          :placeholder="props.placeholder"
+          :readonly="props.readonly"
+          :required="props.required"
+          :step="props.validStepSize ?? 'any'"
+          @change="handleChange"
+          @blur="handleBlur"
+          @focusin="(e) => (e.target as HTMLInputElement)?.select()"
+          @keydown.up.prevent="handleClick('stepUp')"
+          @keydown.down.prevent="handleClick('stepDown')"
+        />
+      </div>
+    </template>
+
+    <template v-if="showButtons || slots.leading" #leading>
+      <slot name="leading">
+        <button
+          type="button"
+          class="onyx-stepper__counter"
+          :disabled="
+            disabled ||
+            readonly ||
+            props.loading ||
+            (props.min !== undefined &&
+              modelValue !== undefined &&
+              modelValue !== null &&
+              modelValue <= props.min)
+          "
+          :aria-label="decrementLabel"
+          tabindex="-1"
+          @click="handleClick('stepDown')"
+        >
+          <OnyxIcon :icon="iconMinus" />
+        </button>
+      </slot>
+    </template>
+
+    <template v-if="showButtons || slots.trailing" #trailing>
+      <slot name="trailing">
+        <button
+          type="button"
+          class="onyx-stepper__counter"
+          :disabled="
+            disabled ||
+            readonly ||
+            props.loading ||
+            (props.max !== undefined &&
+              modelValue !== undefined &&
+              modelValue !== null &&
+              modelValue >= props.max)
+          "
+          :aria-label="incrementLabel"
+          tabindex="-1"
+          @click="handleClick('stepUp')"
+        >
+          <OnyxIcon :icon="iconPlus" />
+        </button>
+      </slot>
+    </template>
+
+    <template v-if="slots.leadingIcons" #leadingIcons>
+      <slot name="leadingIcons"></slot>
+    </template>
+
+    <template v-if="slots.trailingIcons" #trailingIcons>
+      <slot name="trailingIcons"></slot>
+    </template>
+
+    <template v-if="slots.bottomRight" #bottomRight>
+      <slot name="bottomRight"></slot>
+    </template>
+  </OnyxFormElementV2>
 </template>
 
 <style lang="scss">
 @use "../../styles/mixins/layers";
-@use "../../styles/mixins/input.scss";
-
-.onyx-stepper,
-.onyx-stepper-skeleton {
-  @include layers.component() {
-    --onyx-stepper-padding-vertical: var(--onyx-density-xs);
-  }
-}
-
-.onyx-stepper-skeleton {
-  @include layers.component() {
-    @include input.define-skeleton-styles(
-      $height: calc(1lh + 2 * var(--onyx-stepper-padding-vertical))
-    );
-  }
-}
 
 .onyx-stepper {
   @include layers.component() {
-    @include input.define-shared-styles(
-      $base-selector: ".onyx-stepper",
-      $vertical-padding: var(--onyx-stepper-padding-vertical)
-    );
-
-    &__wrapper {
-      gap: 0;
-      padding: 0;
-      justify-content: space-between;
-      position: relative;
-
-      &:has(.onyx-stepper__native:focus-visible) {
-        .onyx-stepper__display {
-          display: none;
-        }
-      }
-    }
+    --onyx-stepper-text-align: center;
 
     &__counter {
       border: none;
@@ -291,7 +258,7 @@ useAutofocus(input, props);
       color: var(--onyx-color-text-icons-neutral-medium);
       display: inline-flex;
       align-items: center;
-      padding: var(--onyx-stepper-padding-vertical);
+      padding: var(--onyx-form-element-v2-padding-block);
       border-radius: inherit;
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
@@ -327,40 +294,44 @@ useAutofocus(input, props);
       }
     }
 
-    &__native {
-      -moz-appearance: textfield;
-      text-align: center;
+    &__input {
+      text-align: var(--onyx-stepper-text-align);
+
       &:not(:focus-visible) {
         color: transparent;
       }
+    }
 
-      &::-webkit-outer-spin-button,
-      &::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
+    .onyx-form-element-v2__input-container {
+      &:has(.onyx-form-element-v2__icons--leading) .onyx-stepper__display {
+        padding-left: var(--onyx-form-element-v2-padding-inline-icons);
       }
+
+      &:has(.onyx-form-element-v2__icons--trailing) .onyx-stepper__display {
+        padding-right: var(--onyx-form-element-v2-padding-inline-icons);
+      }
+    }
+
+    &__display-wrapper {
+      position: relative;
+      width: 100%;
     }
 
     &__display {
       position: absolute;
       height: 100%;
+      width: 100%;
       color: var(--onyx-color-text-icons-neutral-intense);
-
       pointer-events: none;
       display: flex;
-      justify-content: center;
+      justify-content: var(--onyx-stepper-text-align);
       align-items: center;
-      box-sizing: border-box;
       overflow: hidden;
       white-space: nowrap;
-      width: 100%;
-    }
+      padding: var(--onyx-form-element-v2-padding-block) var(--onyx-form-element-v2-padding-inline);
 
-    &:has(&__counter) {
-      .onyx-stepper__display {
-        $button-width: calc(2 * var(--onyx-stepper-padding-vertical) + 1.5rem);
-        width: calc(100% - 2 * $button-width);
-        margin-inline: $button-width;
+      &:has(+ .onyx-stepper__input:focus-visible) {
+        display: none;
       }
     }
   }
