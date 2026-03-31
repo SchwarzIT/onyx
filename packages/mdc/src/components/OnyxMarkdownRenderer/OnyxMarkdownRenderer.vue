@@ -51,7 +51,7 @@ watch(
     isLoading.value = true;
     try {
       const parseMarkdown = await getParser();
-      parserResult.value = await parseMarkdown(props.markdown);
+      parserResult.value = await parseMarkdown(props.markdown, props.options);
     } finally {
       isLoading.value = false;
     }
@@ -80,6 +80,8 @@ const components = {
 };
 
 const attrs = useAttrs();
+
+defineExpose({ parserResult });
 </script>
 
 <template>
