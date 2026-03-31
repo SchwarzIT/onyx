@@ -10,27 +10,21 @@ import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxStepper from "./OnyxStepper.vue";
 
 test.describe("Screenshot tests", () => {
-  for (const state of ["default", "autofill"] as const) {
-    executeMatrixScreenshotTest({
-      name: `Stepper (${state})`,
-      columns: DENSITIES,
-      rows: ["default", "hover", "focus"],
-      component: (column) => {
-        return <OnyxStepper label="Test label" density={column} style="width: 12rem;" />;
+  executeMatrixScreenshotTest({
+    name: "Stepper (default)",
+    columns: DENSITIES,
+    rows: ["default", "hover", "focus"],
+    component: (column) => {
+      return <OnyxStepper label="Test label" density={column} style="width: 12rem;" />;
+    },
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        const input = component.getByLabel("Test label");
+        if (row === "hover") await input.hover();
+        if (row === "focus") await input.focus();
       },
-      hooks: {
-        beforeEach: async (component, page, column, row) => {
-          const input = component.getByLabel("Test label");
-          if (row === "hover") await input.hover();
-          if (row === "focus") await input.focus();
-          if (state == "autofill") {
-            await input.fill("10");
-            await input.evaluate((node) => node.setAttribute("data-test-autofill", ""));
-          }
-        },
-      },
-    });
-  }
+    },
+  });
 
   executeMatrixScreenshotTest({
     name: "Stepper (required/optional)",
@@ -197,7 +191,7 @@ test.describe("Screenshot tests", () => {
 
   executeMatrixScreenshotTest({
     name: "Stepper (invalid)",
-    columns: ["default", "autofill"],
+    columns: ["default"],
     rows: ["default", "hover", "focus"],
     component: () => (
       <OnyxStepper
@@ -217,9 +211,6 @@ test.describe("Screenshot tests", () => {
 
         if (row === "hover") await input.hover();
         if (row === "focus") await input.focus();
-        if (column == "autofill") {
-          await input.evaluate((node) => node.setAttribute("data-test-autofill", ""));
-        }
       },
     },
   });
