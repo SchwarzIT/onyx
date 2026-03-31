@@ -173,7 +173,7 @@ export async function extractComponentMeta(
       this.emitFile({
         type: "asset",
         fileName,
-        source: JSON.stringify(json),
+        source: JSON.stringify(json, null, 2),
       });
     },
   };
