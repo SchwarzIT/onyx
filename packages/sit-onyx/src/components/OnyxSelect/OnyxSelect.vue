@@ -494,6 +494,7 @@ defineExpose({ input: inputRef });
       alignment: props.alignment === 'full' ? 'center' : props.alignment,
       fitParent: props.alignment === 'full',
       position: openDirection,
+      description: props.listDescription,
     }"
     @update:open="onToggle()"
   >
@@ -671,10 +672,6 @@ defineExpose({ input: inputRef });
           <slot name="optionsEnd"></slot>
         </div>
       </div>
-
-      <div v-if="props.listDescription" class="onyx-select__description">
-        {{ props.listDescription }}
-      </div>
     </template>
   </OnyxFormElementV2>
 </template>
@@ -763,19 +760,6 @@ defineExpose({ input: inputRef });
       flex-direction: column;
       align-items: center;
       justify-content: center;
-    }
-
-    &__description {
-      display: flex;
-      width: 100%;
-      padding: var(--onyx-density-3xs) var(--onyx-density-sm);
-      justify-content: flex-end;
-      text-align: right;
-      align-items: center;
-      gap: var(--onyx-spacing-md);
-      color: var(--onyx-color-text-icons-neutral-soft);
-      font-size: var(--onyx-font-size-sm);
-      line-height: var(--onyx-font-line-height-sm);
     }
   }
 }

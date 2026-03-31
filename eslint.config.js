@@ -127,6 +127,7 @@ const playwrightConfig = {
           "discreteSliderTesting",
           "dataGridTesting",
           "toggleButtonTesting",
+          "expectEmit",
         ],
       },
     ],

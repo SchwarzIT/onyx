@@ -39,7 +39,6 @@ test.describe("Screenshot tests", () => {
   });
 });
 
-// eslint-disable-next-line playwright/expect-expect -- assertion done by "expectEmit"
 test("should trigger onClick", async ({ mount }) => {
   const onClick = createEmitSpy();
 

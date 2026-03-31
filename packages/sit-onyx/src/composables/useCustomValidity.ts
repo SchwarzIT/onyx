@@ -1,4 +1,4 @@
-import { ref, toValue, watch, type Directive, type MaybeRefOrGetter } from "vue";
+import { ref, toValue, watch, type Directive, type MaybeRef, type MaybeRefOrGetter } from "vue";
 import { areObjectsFlatEqual } from "../utils/objects.js";
 import { transformValidityStateToObject } from "../utils/validity.js";
 
@@ -16,7 +16,7 @@ export type UseFormValidityOptions<
    * Props that influence native validation state. These are not used directly, but watched to trigger a re-evaluation of validation state.
    * E.g. when `required` is changed from `true` to `false` the state needs to be re-evaluated.
    */
-  props: TProps;
+  props: MaybeRef<TProps>;
   /**
    * Component emit as defined with `const emit = defineEmits()`
    */

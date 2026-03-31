@@ -48,7 +48,6 @@ test.describe("Screenshot tests (OS)", () => {
   });
 });
 
-// eslint-disable-next-line playwright/expect-expect -- assertion is done by "expectEmit"
 test("should emit events when step and full sequence is completed", async ({ mount, page }) => {
   // ARRANGE
   const onComplete = createEmitSpy<typeof OnyxShortcut, "onComplete">();
