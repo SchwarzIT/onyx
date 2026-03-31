@@ -1059,3 +1059,44 @@ test("should show clear button", async ({ mount }) => {
   // ASSERT
   await expect(input).toHaveValue("");
 });
+
+test("should show correct check-all label when filtering", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(OnyxSelect, {
+    props: {
+      options: MOCK_VARIED_OPTIONS,
+      label: "Test select",
+      listLabel: "Select label",
+      multiple: true,
+      withSearch: true,
+      withCheckAll: true,
+    },
+  });
+
+  const mainInput = component.getByRole("combobox", { name: "Test select" });
+  const selectAll = component.getByRole("option", { name: "Select all" });
+  const selectFiltered = component.getByRole("option", { name: "Select filtered" });
+
+  // ACT
+  await mainInput.click();
+
+  // ASSERT
+  await expect(selectAll).toBeVisible();
+
+  // ACT
+  const miniSearchInput = component.getByRole("combobox", { name: "Filter the list items" });
+  await miniSearchInput.fill("Default");
+
+  // ASSERT
+  await expect(selectAll).toBeHidden();
+  await expect(selectFiltered).toBeVisible();
+
+  // ACT
+  await selectFiltered.click();
+  await component.getByLabel("Clear search filter").click();
+
+  // ASSERT
+  await expect(selectAll).toBeVisible();
+  await expect(component.getByRole("option", { name: "Default" })).toBeChecked();
+  await expect(component.getByRole("option", { name: "Selected option" })).not.toBeChecked();
+});
