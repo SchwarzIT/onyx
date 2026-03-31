@@ -565,7 +565,7 @@ test("Should display an error if the value is not a multiple of validStepSize", 
   });
 
   const input = component.getByLabel("Test label");
-  const errorMessage = component.locator(".onyx-form-element__error-message");
+  const errorMessage = component.locator(".onyx-form-element-v2__message--danger");
 
   // ACT
   await input.fill("1");
