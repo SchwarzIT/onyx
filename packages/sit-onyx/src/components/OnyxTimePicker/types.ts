@@ -1,13 +1,13 @@
 import type { AutofocusProp } from "../../types/components.js";
 import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
-import type { OnyxFormElementV2Props } from "../OnyxFormElementV2/types.js";
+import type { OnyxFormElementV2Props, OnyxFormElementV2Slots } from "../OnyxFormElementV2/types.js";
 import type { OnyxInputProps } from "../OnyxInput/types.js";
 import type { SelectOption } from "../OnyxSelect/types.js";
 
 export const TIME_PICKER_TYPES = ["default", "select", "range"] as const;
 export type TimePickerType = (typeof TIME_PICKER_TYPES)[number];
 
-type RfcTimeValue =
+export type RfcTimeValue =
   | `${number}:${number}` // HH:MM
   | `${number}:${number}:${number}` // HH:MM:SS
   | `${number}:${number}:${number}${string}`; // HH:MM:SS.ssss | HH:MM:SS:ssssZ | HH:MM:SS:ssss+002
@@ -24,62 +24,61 @@ export type TimePickerSelectOptions = {
   customTimes?: SelectOption<string>[];
 };
 
-export type OnyxTimePickerProps<TType extends TimePickerType = "default"> = Pick<
-  SharedFormElementProps,
-  "readonly" | "name" | "error" | "disabled"
-> &
-  Omit<OnyxFormElementV2Props, "error"> &
-  Pick<OnyxInputProps, "hideClearIcon"> &
-  AutofocusProp & {
-    /**
-     * Specifies the type of time picker input.
-     * - 'default': Free text input with validation.
-     * - 'select': Displays a dropdown list with pre-generated time options.
-     * @default 'default'
-     */
-    type?: TType;
-    /**
-     * Configuration options for the time picker's option generation.
-     * This property is ONLY available when `type` is set to 'select'.
-     */
-    options?: TType extends "select" ? TimePickerSelectOptions : never;
-    /**
-     * Current time value in 24-hour format (RFC 9557).
-     * While milliseconds (`.123`) and timezones (`Z`, `+01:00`) are accepted as input,
-     * they are **ignored** (truncated) by the component logic and display.
-     * @example "14:30"
-     * @example "14:30:00"
-     * @example "14:30:00.500Z" (Treated as "14:30:00")
-     */
-    modelValue?: TType extends "range" ? TimeRange : string;
-    /**
-     * Minimum allowed time (inclusive).
-     * Accepts RFC 9557 formats. Milliseconds and timezones are ignored during validation.
-     * @example "08:00:00"
-     * @example "08:00:00.000Z" (Valid, treated as "08:00:00")
-     */
-    min?: RfcTimeValue;
-    /**
-     * Maximum allowed time (inclusive).
-     * Accepts RFC 9557 formats. Milliseconds and timezones are ignored during validation.
-     * @example "08:00:00"
-     * @example "08:00:00.000Z" (Valid, treated as "08:00:00")
-     */
-    max?: RfcTimeValue;
-    /**
-     * Whether to show the seconds segment (:SS).
-     * If true, the format is HH:MM:SS. If false, the format is HH:MM.
-     */
-    showSeconds?: boolean;
-    /**
-     * Text describing the time picker. Will be displayed at the bottom of the flyout.
-     */
-    infoLabel?: TType extends "select" | "range" ? string : never;
-    /**
-     * Whether to use am/pm.
-     * If set to "auto", the current locale will be used to determine if it is am/pm.
-     */
-    showAmPm?: boolean | "auto";
-  };
+export type OnyxTimePickerProps<TType extends TimePickerType = TimePickerType> =
+  OnyxFormElementV2Props &
+    Pick<SharedFormElementProps, "readonly" | "name" | "disabled"> &
+    Pick<OnyxInputProps, "hideClearIcon"> &
+    AutofocusProp & {
+      /**
+       * Specifies the type of time picker input.
+       * - 'default': Free text input with validation.
+       * - 'select': Displays a dropdown list with pre-generated time options.
+       * @default 'default'
+       */
+      type?: TType;
+      /**
+       * Configuration options for the time picker's option generation.
+       * This property is ONLY available when `type` is set to 'select'.
+       */
+      options?: TType extends "select" ? TimePickerSelectOptions : never;
+      /**
+       * Current time value in 24-hour format (RFC 9557).
+       * While milliseconds (`.123`) and timezones (`Z`, `+01:00`) are accepted as input,
+       * they are **ignored** (truncated) by the component logic and display.
+       * @example "14:30"
+       * @example "14:30:00"
+       * @example "14:30:00.500Z" (Treated as "14:30:00")
+       */
+      modelValue?: TType extends "range" ? TimeRange : string;
+      /**
+       * Minimum allowed time (inclusive).
+       * Accepts RFC 9557 formats. Milliseconds and timezones are ignored during validation.
+       * @example "08:00:00"
+       * @example "08:00:00.000Z" (Valid, treated as "08:00:00")
+       */
+      min?: RfcTimeValue;
+      /**
+       * Maximum allowed time (inclusive).
+       * Accepts RFC 9557 formats. Milliseconds and timezones are ignored during validation.
+       * @example "08:00:00"
+       * @example "08:00:00.000Z" (Valid, treated as "08:00:00")
+       */
+      max?: RfcTimeValue;
+      /**
+       * Whether to show the seconds segment (:SS).
+       * If true, the format is HH:MM:SS. If false, the format is HH:MM.
+       */
+      showSeconds?: boolean;
+      /**
+       * Whether to use am/pm.
+       * If set to "auto", the current locale will be used to determine if it is am/pm.
+       */
+      showAmPm?: boolean | "auto";
+    };
 
 export type TimeRange = { from: string; to: string };
+
+export type OnyxTimePickerSlots = Pick<
+  OnyxFormElementV2Slots,
+  "leading" | "leadingIcons" | "trailingIcons" | "trailing" | "bottomRight"
+>;

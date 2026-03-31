@@ -31,25 +31,25 @@ export const useLegacyFormElementProps = ({
     return { hidden: props.hideLabel, tooltipText: props.labelTooltip, ...options };
   });
 
-  const messageToFormElementProps = (
-    message?: CustomMessageType,
-  ): string | FormElementV2Tooltip | undefined => {
-    if (!message) return;
-    if (typeof message === "string") return message;
-    if (message.hidden) return;
-    return { label: message.shortMessage, tooltipText: message.longMessage };
-  };
-
   const mappedProps = computed<OnyxFormElementV2Props>(() => {
     return {
       ...props,
       label: labelOptions.value,
-      message: messageToFormElementProps(props.message),
-      success: messageToFormElementProps(props.success),
-      error: messageToFormElementProps(errorMessages.value),
+      message: customMessageToFormElementV2Message(props.message),
+      success: customMessageToFormElementV2Message(props.success),
+      error: customMessageToFormElementV2Message(errorMessages.value),
     };
   });
 
   const formElementV2Props = useForwardProps(mappedProps, OnyxFormElementV2);
   return { formElementV2Props };
+};
+
+export const customMessageToFormElementV2Message = (
+  message?: CustomMessageType,
+): string | FormElementV2Tooltip | undefined => {
+  if (!message) return;
+  if (typeof message === "string") return message;
+  if (message.hidden) return;
+  return { label: message.shortMessage, tooltipText: message.longMessage };
 };

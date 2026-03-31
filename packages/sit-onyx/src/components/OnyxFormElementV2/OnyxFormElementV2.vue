@@ -414,7 +414,9 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
         background: var(--onyx-form-element-v2-selection-background);
       }
 
-      &::-webkit-search-cancel-button {
+      // hide default browser icons
+      &::-webkit-search-cancel-button,
+      &::-webkit-calendar-picker-indicator {
         display: none;
       }
 

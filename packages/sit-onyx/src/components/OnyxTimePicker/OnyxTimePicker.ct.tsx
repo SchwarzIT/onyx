@@ -1,7 +1,11 @@
+import { iconPlaceholder } from "@sit-onyx/icons";
+import { createEmitSpy, expectEmit } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxTimePicker from "./OnyxTimePicker.vue";
+import { TIME_PICKER_TYPES } from "./types.js";
 
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
@@ -118,10 +122,45 @@ test.describe("Screenshot tests", () => {
   }
 });
 
+test.describe("Screenshot tests (slots)", () => {
+  executeMatrixScreenshotTest({
+    name: "Time picker (slots)",
+    columns: ["default"],
+    rows: TIME_PICKER_TYPES,
+    component: (column, row) => {
+      return (
+        <OnyxTimePicker label="Test label" style={{ width: "24rem" }} type={row}>
+          <template v-slot:leading>
+            <span style={{ paddingInline: "var(--onyx-form-element-v2-padding-inline)" }}>
+              Leading
+            </span>
+          </template>
+
+          <template v-slot:leadingIcons>
+            <OnyxIcon icon={iconPlaceholder} />
+          </template>
+
+          <template v-slot:trailingIcons>
+            <OnyxIcon icon={iconPlaceholder} />
+          </template>
+
+          <template v-slot:trailing>
+            <span style={{ paddingInline: "var(--onyx-form-element-v2-padding-inline)" }}>
+              Leading
+            </span>
+          </template>
+
+          <template v-slot:bottomRight>Bottom right</template>
+        </OnyxTimePicker>
+      );
+    },
+  });
+});
+
 test.describe("Keyboard tests", () => {
   test("keyboard navigation", async ({ mount }) => {
     const component = await mount(<OnyxTimePicker label="Test label" type="range" />);
-    const input = component.getByRole("textbox", { name: "Test label" });
+    const input = component.getByLabel("Test label");
 
     const hourInput = component.getByRole("spinbutton", { name: "Hour" }).first();
     const minuteInput = component.getByRole("spinbutton", { name: "Minute" }).first();
@@ -165,6 +204,13 @@ test.describe("Keyboard tests", () => {
     await input.click();
     await expect(hourInput).toBeHidden();
     await expect(minuteInput).toBeHidden();
+
+    // ACT
+    await input.click();
+    await hourInput.pressSequentially("15");
+
+    // ASSERT
+    await expect(minuteInput, "should focus next segment after entering a value").toBeFocused();
   });
 });
 
@@ -196,4 +242,69 @@ test("should truncate milliseconds and timezones from modelValue, min, and max",
   await expect(input).toHaveAttribute("min", "07:30");
   await expect(input).toHaveAttribute("max", "17:30");
   await expect(input).toHaveValue("08:11");
+});
+
+test("should emit validityChange", async ({ mount }) => {
+  // ARRANGE
+  const onValidityChange = createEmitSpy<typeof OnyxTimePicker, "validityChange">();
+
+  const component = await mount(OnyxTimePicker, {
+    props: {
+      label: "Test label",
+      required: true,
+      onValidityChange,
+    },
+  });
+
+  // ACT
+  await component.update({ props: { modelValue: "12:30" } });
+
+  // ASSERT
+  await expectEmit(onValidityChange, 2, [expect.objectContaining({ valid: true })]);
+
+  // ACT
+  await component.update({ props: { modelValue: "" } });
+
+  // ASSERT
+  await expectEmit(onValidityChange, 3, [expect.objectContaining({ valid: false })]);
+});
+
+test("should show custom range errors", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(OnyxTimePicker, {
+    props: {
+      label: "Test label",
+      type: "range",
+    },
+  });
+
+  const input = component.getByLabel("Test label");
+  const popover = component.getByRole("dialog", { name: "Time picker" });
+  const error = component.locator(".onyx-form-element-v2__message--danger");
+
+  // ACT
+  await input.click();
+
+  await component.getByLabel("Hour").first().pressSequentially("15");
+  await component.getByLabel("Minute").first().pressSequentially("00");
+  await component.getByLabel("Hour").nth(1).pressSequentially("12");
+
+  // ASSERT
+  await expect(input).toHaveValue("15:00 - 12:00");
+  await expect(error, "should hide error while popover is still open").toBeHidden();
+
+  // ACT
+  await component.getByLabel("Minute").nth(1).pressSequentially("00");
+
+  // ASSERT
+  await expect(popover).toBeHidden();
+  await expect(input).toHaveValue("15:00 - 12:00");
+  await expect(error).toContainText("The end time must be after start time");
+
+  // ACT
+  await input.click();
+
+  // ASSERT
+  await expect(popover).toBeVisible();
+  await expect(error, "should still show error when re-opening the popover").toBeVisible();
 });
