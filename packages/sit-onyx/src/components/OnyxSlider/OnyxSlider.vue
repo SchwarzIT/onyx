@@ -94,7 +94,7 @@ const {
   step,
   label,
   disabled,
-  shiftStep: toRef(props, "shiftStep"),
+  shiftStep: toRef(() => props.shiftStep),
   onChange: (newValue) => {
     modelValue.value = newValue;
     wasTouched.value = true;

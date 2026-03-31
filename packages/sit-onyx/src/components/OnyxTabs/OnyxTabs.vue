@@ -27,7 +27,7 @@ const modelValue = useVModel<Props, "modelValue">({
 });
 
 const headless = createTabs({
-  label: toRef(props, "label"),
+  label: toRef(() => props.label),
   selectedTab: toRef(() => modelValue.value),
   onSelect: (tab) => (modelValue.value = tab),
 });
@@ -49,7 +49,7 @@ provideSkeletonContext(props);
 provide(TABS_INJECTION_KEY as TabsInjectionKey<TValue>, {
   headless,
   panel,
-  size: toRef(props, "size"),
+  size: toRef(() => props.size),
 });
 </script>
 
