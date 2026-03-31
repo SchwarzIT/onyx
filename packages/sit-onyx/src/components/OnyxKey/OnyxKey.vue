@@ -126,7 +126,8 @@ defineExpose({
   @include layers.component() {
     --onyx-key-border-radius: var(--onyx-radius-sm);
     --onyx-key-size: 1.5rem;
-    --onyx-key-width: calc(var(--onyx-key-size) + 2 * var(--onyx-1px-in-rem)) display: inline-flex;
+    --onyx-key-width: calc(var(--onyx-key-size) + 2 * var(--onyx-1px-in-rem));
+    display: inline-flex;
   }
 }
 
