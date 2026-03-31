@@ -23,7 +23,6 @@ import {
 } from "../../utils/keyboard.js";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
-import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import type { OnyxKeyProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxKeyProps>(), {
@@ -111,11 +110,9 @@ defineExpose({
           { 'onyx-key--highlighted': isHighlighted },
         ]"
       >
-        <span aria-hidden="true" class="onyx-truncation-ellipsis">
+        <span class="onyx-truncation-ellipsis">
           {{ visualLabel }}
         </span>
-
-        <OnyxVisuallyHidden>{{ label }}</OnyxVisuallyHidden>
       </kbd>
     </template>
   </OnyxTooltip>
@@ -129,16 +126,16 @@ defineExpose({
   @include layers.component() {
     --onyx-key-border-radius: var(--onyx-radius-sm);
     --onyx-key-size: 1.5rem;
+    --onyx-key-width: calc(var(--onyx-key-size) + 2 * var(--onyx-1px-in-rem)) display: inline-flex;
   }
 }
 
 .onyx-key {
   @include layers.component() {
-    display: inline-flex;
     align-items: center;
     justify-content: center;
 
-    min-width: calc(var(--onyx-key-size) + 2 * var(--onyx-1px-in-rem));
+    min-width: var(--onyx-key-width);
     padding-inline: var(--onyx-density-2xs);
 
     background-color: var(--onyx-color-base-background-tinted);
@@ -156,9 +153,9 @@ defineExpose({
 .onyx-key-skeleton {
   @include layers.component() {
     display: inline-block;
-    min-width: calc(var(--onyx-key-size) + 2 * var(--onyx-1px-in-rem));
+    min-width: var(--onyx-key-width);
     width: var(--onyx-key-size);
-    min-height: calc(var(--onyx-key-size) + 2 * var(--onyx-1px-in-rem));
+    min-height: var(--onyx-key-width);
     height: var(--onyx-key-size);
     border-radius: var(--onyx-key-border-radius);
   }

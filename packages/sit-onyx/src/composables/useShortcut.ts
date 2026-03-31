@@ -14,7 +14,7 @@ const matchStep = (step: ShortcutSequenceStep, pressed: Set<KeyboardKey>): boole
       if (typeof item === "object" && item !== null && "any" in item) {
         return item.any.some((key) => pressed.has(key));
       }
-      return pressed.has(item as KeyboardKey);
+      return pressed.has(item);
     });
   }
   if ("any" in step && Array.isArray(step.any)) {
@@ -22,7 +22,7 @@ const matchStep = (step: ShortcutSequenceStep, pressed: Set<KeyboardKey>): boole
       if (typeof item === "object" && item !== null && "all" in item) {
         return item.all.every((key) => pressed.has(key));
       }
-      return pressed.has(item as KeyboardKey);
+      return pressed.has(item);
     });
   }
   return false;

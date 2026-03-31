@@ -4,6 +4,10 @@
  * @deprecated This component is still under active development and its API might change in patch releases.
  */
 export default {};
+
+type FlatShortcutItem =
+  | { type: "key"; name: KeyboardKey; stepIndex: number }
+  | { type: "separator"; label: string };
 </script>
 
 <script setup lang="ts">
@@ -60,18 +64,6 @@ const isGroupAll = (item: unknown): item is ShortcutItemAll => {
   return typeof item === "object" && item !== null && "all" in item;
 };
 
-const isStepAll = (
-  step: ShortcutSequenceStep,
-): step is Extract<ShortcutSequenceStep, { all: unknown }> => {
-  return "all" in step;
-};
-
-const isStepAny = (
-  step: ShortcutSequenceStep,
-): step is Extract<ShortcutSequenceStep, { any: unknown }> => {
-  return "any" in step;
-};
-
 const { sequence, cleanupDelay, element } = toRefs(props);
 
 const isShortcutHighlightingDisabled = computed(() => props.disabled || props.highlight !== "auto");
@@ -87,100 +79,67 @@ const { isKeyHighlighted } = _unstableUseShortcut({
     emit("complete");
   },
 });
+
+const flattenedItems = computed(() => {
+  const result: FlatShortcutItem[] = [];
+
+  props.sequence.forEach((step, stepIndex) => {
+    // Determine if it's an 'all' or 'any' step
+    const items = "all" in step ? step.all : step.any;
+    const stepSeparator = "all" in step ? SEPARATORS.ALL : SEPARATORS.ANY;
+
+    items.forEach((item, itemIndex) => {
+      if (isGroupAny(item) || isGroupAll(item)) {
+        const subKeys = isGroupAny(item) ? item.any : item.all;
+        const subSeparator = isGroupAny(item) ? SEPARATORS.ANY : SEPARATORS.ALL;
+
+        result.push({ type: "separator", label: SEPARATORS.GROUP_OPEN });
+
+        subKeys.forEach((subKey, subIdx) => {
+          result.push({ type: "key", name: subKey as KeyboardKey, stepIndex });
+          if (subIdx < subKeys.length - 1 && !item.hideSeparator) {
+            result.push({ type: "separator", label: subSeparator });
+          }
+        });
+
+        result.push({ type: "separator", label: SEPARATORS.GROUP_CLOSE });
+      } else {
+        // Simple key
+        result.push({ type: "key", name: item as KeyboardKey, stepIndex });
+      }
+
+      // Add separator between items in the same step
+      if (itemIndex < items.length - 1 && !step.hideSeparator) {
+        result.push({ type: "separator", label: stepSeparator });
+      }
+    });
+
+    // Add sequence separator between steps
+    if (stepIndex < props.sequence.length - 1) {
+      result.push({ type: "separator", label: SEPARATORS.SEQUENCE });
+    }
+  });
+
+  return result;
+});
 </script>
 
 <template>
   <OnyxSkeleton v-if="skeleton" :class="['onyx-component', 'onyx-shortcut-skeleton']" />
   <span v-else :class="['onyx-component', 'onyx-shortcut']">
-    <template v-for="(step, stepIndex) in props.sequence" :key="stepIndex">
-      <template v-if="isStepAll(step)">
-        <template v-for="(item, itemIndex) in step.all" :key="itemIndex">
-          <template v-if="isGroupAny(item)">
-            <span class="onyx-shortcut__group">
-              <span class="onyx-shortcut__separator">{{ SEPARATORS.GROUP_OPEN }}</span>
-              <template v-for="(subKey, subKeyIndex) in item.any" :key="subKeyIndex">
-                <OnyxKey
-                  :name="subKey"
-                  :os="props.os"
-                  :highlight="
-                    props.highlight === true ||
-                    (!isShortcutHighlightingDisabled && isKeyHighlighted(subKey, stepIndex))
-                  "
-                />
-                <span
-                  v-if="subKeyIndex < item.any.length - 1 && !item.hideSeparator"
-                  class="onyx-shortcut__separator"
-                >
-                  {{ SEPARATORS.ANY }}
-                </span>
-              </template>
-              <span class="onyx-shortcut__separator">{{ SEPARATORS.GROUP_CLOSE }}</span>
-            </span>
-          </template>
+    <template v-for="(item, index) in flattenedItems" :key="index">
+      <OnyxKey
+        v-if="item.type === 'key'"
+        :name="item.name"
+        :os="props.os"
+        :highlight="
+          props.highlight === true ||
+          (!isShortcutHighlightingDisabled && isKeyHighlighted(item.name, item.stepIndex))
+        "
+      />
 
-          <OnyxKey
-            v-else
-            :name="item as KeyboardKey"
-            :os="props.os"
-            :highlight="
-              props.highlight === true ||
-              (!isShortcutHighlightingDisabled && isKeyHighlighted(item as KeyboardKey, stepIndex))
-            "
-          />
-          <span
-            v-if="itemIndex < step.all.length - 1 && !step.hideSeparator"
-            class="onyx-shortcut__separator"
-          >
-            {{ SEPARATORS.ALL }}
-          </span>
-        </template>
-      </template>
-
-      <template v-else-if="isStepAny(step)">
-        <template v-for="(item, itemIndex) in step.any" :key="itemIndex">
-          <template v-if="isGroupAll(item)">
-            <span class="onyx-shortcut__group">
-              <span class="onyx-shortcut__separator">{{ SEPARATORS.GROUP_OPEN }}</span>
-              <template v-for="(subKey, subKeyIndex) in item.all" :key="subKeyIndex">
-                <OnyxKey
-                  :name="subKey"
-                  :os="props.os"
-                  :highlight="
-                    props.highlight === true ||
-                    (!isShortcutHighlightingDisabled && isKeyHighlighted(subKey, stepIndex))
-                  "
-                />
-                <span
-                  v-if="subKeyIndex < item.all.length - 1 && !item.hideSeparator"
-                  class="onyx-shortcut__separator"
-                >
-                  {{ SEPARATORS.ALL }}
-                </span>
-              </template>
-              <span class="onyx-shortcut__separator">{{ SEPARATORS.GROUP_CLOSE }}</span>
-            </span>
-          </template>
-
-          <OnyxKey
-            v-else
-            :name="item as KeyboardKey"
-            :os="props.os"
-            :highlight="
-              props.highlight === true ||
-              (!isShortcutHighlightingDisabled && isKeyHighlighted(item as KeyboardKey, stepIndex))
-            "
-          />
-          <span
-            v-if="itemIndex < step.any.length - 1 && !step.hideSeparator"
-            class="onyx-shortcut__separator"
-          >
-            {{ SEPARATORS.ANY }}
-          </span>
-        </template>
-      </template>
-
-      <span v-if="stepIndex < props.sequence.length - 1" class="onyx-shortcut__separator">
-        {{ SEPARATORS.SEQUENCE }}
+      <span v-else class="onyx-shortcut__separator">
+        {{ item.label }}
       </span>
     </template>
   </span>
@@ -198,8 +157,8 @@ const { isKeyHighlighted } = _unstableUseShortcut({
 
     &__separator {
       color: var(--onyx-color-text-icons-neutral-medium);
-      user-select: none;
     }
+
     &__group {
       display: inline-flex;
       align-items: center;
