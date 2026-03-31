@@ -420,6 +420,12 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
         display: none;
       }
 
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
       &:autofill {
         background-color: transparent;
         -webkit-text-fill-color: var(--onyx-color-text-icons-neutral-intense);
