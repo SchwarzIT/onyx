@@ -49,7 +49,9 @@ const isVisible = computed({
 });
 
 const popoverPosition = computed(() =>
-  props.position === "auto" ? openDirection.value : props.position,
+  props.position === "auto" || props.position === "auto-inline"
+    ? openDirection.value
+    : props.position,
 );
 const popoverAlignment = computed(() =>
   props.alignment === "auto" ? openAlignment.value : props.alignment,
@@ -69,28 +71,39 @@ defineExpose({
 const disabled = computed(() => props.disabled);
 
 const positionAndAlignment = computed(() => {
-  if (popoverPosition.value === "top" || popoverPosition.value === "bottom") {
-    if (popoverAlignment.value === "left") {
-      return `${popoverPosition.value} span-right`;
-    }
-    if (popoverAlignment.value === "right") {
-      return `${popoverPosition.value} span-left`;
-    }
+  const position = popoverPosition.value;
+  const alignment = popoverAlignment.value;
+  if (position === "top" || position === "bottom") {
+    if (alignment === "left") return `${position} span-right`;
+    if (alignment === "right") return `${position} span-left`;
+    return `${position} center`;
   }
-  if (popoverPosition.value.includes(" ")) {
-    return popoverPosition.value;
+
+  if (position === "left" || position === "right") {
+    if (alignment === "top") return `span-bottom ${position}`;
+    if (alignment === "bottom") return `span-top ${position}`;
+    return `center ${position}`;
   }
-  return `${popoverPosition.value} center`;
+  if (position.includes(" ")) {
+    return position;
+  }
+  return `${position} center`;
 });
 
 const popoverRef = useTemplateRef("popover");
 const popoverWrapperRef = useTemplateRef("popoverWrapper");
-const { openDirection, updateOpenDirection } = useOpenDirection(popoverWrapperRef, "bottom");
+const isOpenDirectionHorizontal = computed(() => props.position === "auto-inline");
+const { openDirection, updateOpenDirection } = useOpenDirection(
+  popoverWrapperRef,
+  "bottom",
+  isOpenDirectionHorizontal,
+);
 
 const { openAlignment, updateOpenAlignment } = useOpenAlignment(
   popoverWrapperRef,
   popoverRef,
   "left",
+  popoverPosition,
 );
 const { leftPosition, topPosition, updateAnchorPositionPolyfill, useragentSupportsAnchorApi } =
   useAnchorPositionPolyfill({
@@ -103,7 +116,7 @@ const { leftPosition, topPosition, updateAnchorPositionPolyfill, useragentSuppor
     offset: 8,
   });
 
-const { width } = useResizeObserver(popoverWrapperRef);
+const { width, height } = useResizeObserver(popoverWrapperRef);
 
 const handleOpening = (open: boolean) => {
   if (open) {
@@ -176,7 +189,7 @@ watch(disabled, () => {
     _isVisible.value = false;
   }
 });
-watch([popoverPosition, popoverAlignment, width], async () => {
+watch([popoverPosition, popoverAlignment, width, height], async () => {
   if (!useragentSupportsAnchorApi.value) {
     await nextTick();
     updateDirections();
@@ -185,11 +198,14 @@ watch([popoverPosition, popoverAlignment, width], async () => {
 });
 
 const popoverStyles = computed(() => {
-  const _width = props.fitParent ? `${width.value}px` : undefined;
+  const isHorizontal = popoverPosition.value === "left" || popoverPosition.value === "right";
+  const _width = props.fitParent && !isHorizontal ? `${width.value}px` : undefined;
+  const _height = props.fitParent && isHorizontal ? `${height.value}px` : undefined;
 
   if (useragentSupportsAnchorApi.value) {
     return {
       width: _width,
+      height: _height,
       "position-anchor": anchorName.value,
       "position-area": positionAndAlignment.value,
     };
@@ -198,6 +214,7 @@ const popoverStyles = computed(() => {
   // fallback styles if browser does not support the Anchor API yet
   return {
     width: _width,
+    height: _height,
     left: leftPosition.value,
     top: topPosition.value,
   };
@@ -251,7 +268,8 @@ const popoverStyles = computed(() => {
 
       min-width: var(--onyx-basic-popover-min-width);
       max-width: var(--onyx-basic-popover-max-width);
-      max-height: 100%;
+      height: max-content;
+      max-height: calc(100vh - 2 * var(--onyx-grid-margin));
       width: max-content;
       font-family: var(--onyx-font-family-paragraph);
 
@@ -290,8 +308,16 @@ const popoverStyles = computed(() => {
         margin-right: var(--onyx-basic-popover-gap);
       }
       &--fitparent {
-        min-width: inherit;
-        max-width: inherit;
+        &.onyx-basic-popover__dialog--position-top,
+        &.onyx-basic-popover__dialog--position-bottom {
+          min-width: inherit;
+          max-width: inherit;
+        }
+        &.onyx-basic-popover__dialog--position-left,
+        &.onyx-basic-popover__dialog--position-right {
+          min-height: inherit;
+          max-height: inherit;
+        }
       }
       &--dont-support-anchor {
         margin: 0;
