@@ -104,6 +104,7 @@ defineExpose({ input });
         <!-- eslint-disable-next-line vuejs-accessibility/form-control-has-label -- provided by "inputProps" -->
         <textarea
           v-bind="mergeVueProps(inputProps, restAttrs)"
+          ref="input"
           v-model="modelValue"
           v-custom-validity
           :class="[
