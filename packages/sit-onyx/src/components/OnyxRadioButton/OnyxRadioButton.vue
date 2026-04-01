@@ -55,27 +55,33 @@ useAutofocus(input, props);
   </div>
 
   <OnyxErrorTooltip v-else :disabled="disabled" :error-messages="errorMessages" v-bind="rootAttrs">
-    <label :class="['onyx-component', 'onyx-radio-button', densityClass]">
-      <OnyxLoadingIndicator v-if="props.loading" class="onyx-radio-button__loading" type="circle" />
-      <!-- TODO: accessible error: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage -->
-      <input
-        v-else
-        ref="input"
-        v-custom-validity
-        class="onyx-radio-button__selector"
-        type="radio"
-        :required="props.required"
-        :name="props.name"
-        :value="props.value"
-        :checked="props.checked"
-        :disabled="disabled"
-        :autofocus="props.autofocus"
-        v-bind="restAttrs"
-      />
-      <span class="onyx-radio-button__label" :class="[`onyx-truncation-${props.truncation}`]">
-        {{ props.label }}
-      </span>
-    </label>
+    <template #default="{ trigger }">
+      <label :class="['onyx-component', 'onyx-radio-button', densityClass]" v-bind="trigger">
+        <OnyxLoadingIndicator
+          v-if="props.loading"
+          class="onyx-radio-button__loading"
+          type="circle"
+        />
+        <!-- TODO: accessible error: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage -->
+        <input
+          v-else
+          ref="input"
+          v-custom-validity
+          class="onyx-radio-button__selector"
+          type="radio"
+          :required="props.required"
+          :name="props.name"
+          :value="props.value"
+          :checked="props.checked"
+          :disabled="disabled"
+          :autofocus="props.autofocus"
+          v-bind="restAttrs"
+        />
+        <span class="onyx-radio-button__label" :class="[`onyx-truncation-${props.truncation}`]">
+          {{ props.label }}
+        </span>
+      </label>
+    </template>
   </OnyxErrorTooltip>
 </template>
 
