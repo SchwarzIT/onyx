@@ -96,16 +96,15 @@ const flattenedItems = computed(() => {
         result.push({ type: "separator", label: SEPARATORS.GROUP_OPEN });
 
         subKeys.forEach((subKey, subIdx) => {
-          result.push({ type: "key", name: subKey as KeyboardKey, stepIndex });
+          result.push({ type: "key", name: subKey, stepIndex });
           if (subIdx < subKeys.length - 1 && !item.hideSeparator) {
             result.push({ type: "separator", label: subSeparator });
           }
         });
-
         result.push({ type: "separator", label: SEPARATORS.GROUP_CLOSE });
       } else {
         // Simple key
-        result.push({ type: "key", name: item as KeyboardKey, stepIndex });
+        result.push({ type: "key", name: item, stepIndex });
       }
 
       // Add separator between items in the same step
