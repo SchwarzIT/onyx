@@ -18,6 +18,8 @@ import ProseP from "../prose/ProseP.vue";
 import ProsePre from "../prose/ProsePre.vue";
 import ProseSummary from "../prose/ProseSummary.vue";
 import ProseTable from "../prose/ProseTable.vue";
+import ProseTbody from "../prose/ProseTbody.vue";
+import ProseThead from "../prose/ProseThead.vue";
 import ProseUl from "../prose/ProseUl.vue";
 import type { OnyxMarkdownRendererProps } from "./types.js";
 
@@ -76,6 +78,8 @@ const components = {
   pre: ProsePre,
   summary: ProseSummary,
   table: ProseTable,
+  thead: ProseThead,
+  tbody: ProseTbody,
   ul: ProseUl,
 };
 

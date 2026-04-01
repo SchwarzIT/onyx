@@ -19,4 +19,6 @@ export { default as ProseP } from "./components/prose/ProseP.vue";
 export { default as ProsePre } from "./components/prose/ProsePre.vue";
 export { default as ProseSummary } from "./components/prose/ProseSummary.vue";
 export { default as ProseTable } from "./components/prose/ProseTable.vue";
+export { default as ProseTbody } from "./components/prose/ProseTbody.vue";
+export { default as ProseThead } from "./components/prose/ProseThead.vue";
 export { default as ProseUl } from "./components/prose/ProseUl.vue";

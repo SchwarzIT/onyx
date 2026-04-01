@@ -1,55 +1,30 @@
 <script lang="ts" setup>
 import { OnyxTable } from "sit-onyx";
-import { computed, type VNode } from "vue";
+import { provide, useTemplateRef } from "vue";
+import { PROSE_TABLE_INJECTION_KEY } from "./utils.js";
 
-const slots = defineSlots<{
-  default(): VNode[];
+defineSlots<{
+  default(): unknown;
 }>();
 
-/**
- * Extracts all table rows `<tr>` vnodes from the given vnode (e.g. table head or body).
- */
-const extractTableRows = (vnode?: VNode): VNode[] => {
-  if (!vnode || !vnode.children) {
-    return [];
-  }
+const headRef = useTemplateRef("head");
+const bodyRef = useTemplateRef("body");
 
-  // handle if the VNode is a native HTML element (has an array of children)
-  if (Array.isArray(vnode.children)) {
-    return vnode.children as VNode[];
-  }
-
-  // handle if the VNode is a Vue Component (has slots)
-  if (
-    typeof vnode.children === "object" &&
-    !Array.isArray(vnode.children) &&
-    "default" in vnode.children &&
-    typeof vnode.children.default === "function"
-  ) {
-    return vnode.children.default();
-  }
-
-  return [];
-};
-
-const content = computed(() => {
-  const children = slots.default?.() ?? [];
-  const [head, body] = children;
-
-  return {
-    headRows: extractTableRows(head),
-    bodyRows: extractTableRows(body),
-  };
-});
+provide(PROSE_TABLE_INJECTION_KEY, { headRef, bodyRef });
 </script>
 
+<!-- eslint-disable vue/no-useless-template-attributes -- false positive, the "refs" on the `<template>` tags are used as teleport targets -->
 <template>
   <OnyxTable class="table" striped with-vertical-borders>
-    <template #head>
-      <component :is="tr" v-for="tr in content.headRows" :key="tr.key" />
-    </template>
+    <template #head ref="head"> </template>
 
-    <component :is="tr" v-for="tr in content.bodyRows" :key="tr.key" />
+    <template #default ref="body">
+      <!--
+        Placing the `<slot>` here will cause the thead and tbody element inside of it to render.
+        Since we are use `ProseThead` and `ProseTbody`, the content will be teleported to correct slot in this table.
+      -->
+      <slot></slot>
+    </template>
   </OnyxTable>
 </template>
 
