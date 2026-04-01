@@ -37,11 +37,11 @@ const iconButtonProps = useForwardProps(props, OnyxIconButton);
       v-bind="buttonProps"
       @click="props.onClick"
     />
+
     <OnyxTooltip v-else :text="props.label">
       <template #default="{ trigger }">
         <OnyxIconButton
-          ref="componentRef"
-          v-bind="mergeVueProps(iconButtonProps, trigger)"
+          v-bind="mergeVueProps(iconButtonProps, trigger, { ref: (el) => (componentRef = el) })"
           @click="props.onClick"
         />
       </template>

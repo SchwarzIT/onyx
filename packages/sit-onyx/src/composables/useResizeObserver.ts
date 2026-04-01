@@ -4,7 +4,10 @@ export type UseResizeObserverOptions = {
   /**
    * Sets which box model the observer will observe changes to.
    *
-   * @default 'content-box'
+   * - border-box: Width including padding and border
+   * - content-box: Content width (without padding and border)
+   *
+   * @default 'border-box'
    */
   box?: ResizeObserverBoxOptions;
 };
@@ -21,7 +24,7 @@ export const useResizeObserver = (
   target?: Ref<VueTemplateRefElement>,
   options?: UseResizeObserverOptions,
 ) => {
-  const box = options?.box ?? "content-box";
+  const box = options?.box ?? "border-box";
   const width = ref(0);
   const height = ref(0);
 
