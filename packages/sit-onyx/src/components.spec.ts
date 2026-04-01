@@ -200,7 +200,9 @@ const COMPONENTS: Components = {
       height: 128,
     },
   },
+  // wrapping inside "p" here to also test SSR rendering because we had issues previously because icons (that used `<figure>` previously) are invalid inside p tags
   OnyxIcon: {
+    render: () => h("p", h(ALL_EXPORTS.OnyxIcon, { icon: iconPlaceholder })),
     props: {
       icon: iconPlaceholder,
     },
