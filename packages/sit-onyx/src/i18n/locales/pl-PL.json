@@ -119,7 +119,8 @@
   "selections": {
     "selectAll": "Zaznacz wszystko",
     "selectGroup": "Zaznaczone",
-    "currentSelection": "Zaznaczono: {n}"
+    "currentSelection": "Zaznaczono: {n}",
+    "selectFiltered": "Zaznacz przefiltrowane"
   },
   "stepper": {
     "decrement": "Zmniejsz o {stepSize}",

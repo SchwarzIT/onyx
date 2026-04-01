@@ -119,7 +119,8 @@
   "selections": {
     "selectAll": "Избор на всички",
     "selectGroup": "Избрани",
-    "currentSelection": "{n} избран | {n} избрани"
+    "currentSelection": "{n} избран | {n} избрани",
+    "selectFiltered": "Избор на филтрирани"
   },
   "stepper": {
     "decrement": "Намаляване с {stepSize}",
