@@ -266,8 +266,6 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
       flex-direction: column;
       gap: var(--onyx-density-3xs);
       width: 100%;
-      // TODO: truncates outline
-      // overflow: hidden; // needed to correctly truncate the bottom message
     }
 
     &__content {
