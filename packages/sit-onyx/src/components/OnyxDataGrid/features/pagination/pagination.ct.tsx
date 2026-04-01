@@ -190,6 +190,17 @@ test("should render items per page selector", async ({ mount, page }) => {
   await expect(pagination).toContainText("of 3 pages");
   await expectRowCount(component, 50, "should show 50 rows when page size is 50");
 
+  // ACT (test that items per page is visible even if there is only 1 page)
+  await component.update({ props: { data: getTestData(5) } });
+
+  // ASSERT
+  await expectRowCount(component, 5);
+  await expect(pagination, "should hide pagination numbers when only one page exists").toBeHidden();
+  await expect(
+    sizeSelect,
+    "should keep items per page selector visible even when pagination is hidden",
+  ).toBeVisible();
+
   // ACT (test skeleton state)
   await component.update({ props: { skeleton: true, data: [] } });
 
