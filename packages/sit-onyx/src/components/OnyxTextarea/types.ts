@@ -1,11 +1,13 @@
 import type { SharedTextInputProps } from "../../composables/useLenientMaxLengthValidation.js";
 import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
+import type { OnyxFormElementV2Props } from "../OnyxFormElementV2/types.js";
 
-export type OnyxTextareaProps = Omit<SharedFormElementProps, "loading"> &
+export type OnyxTextareaProps = Omit<SharedFormElementProps, "label"> &
   Pick<
     SharedTextInputProps,
     "modelValue" | "autocapitalize" | "minlength" | "maxlength" | "withCounter"
-  > & {
+  > &
+  Pick<OnyxFormElementV2Props, "label"> & {
     /**
      * Override the default autosize behavior (height adjusts based on the current value).
      * By default, the textarea will autosize while maintaining at least 3 and at most 10 rows.
