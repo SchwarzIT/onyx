@@ -47,9 +47,23 @@ jobs:
       - uses: ./.github/templates/node-setup
 
       # install system dependencies for Playwright
-      # see: https://playwright.dev/python/docs/browsers#install-system-dependencies
+      # https://github.com/actions/runner-images/issues/7048
       - name: 📦 Install Playwright system dependencies
-        run: pnpm exec playwright install --no-shell --with-deps firefox webkit chrome
+        id: first-playwright-install
+        run: |
+          sudo sed -i 's/archive.ubuntu.com/mirror.enzu.com/g' /etc/apt/apt-mirrors.txt
+
+          pnpm exec playwright install --no-shell --with-deps firefox webkit chrome
+        timeout-minutes: 5
+        continue-on-error: true
+
+      - name: 📦 Install Playwright system dependencies using fallback mirror
+        if: ${{ steps.first-playwright-install.outcome == 'failure' }}
+        run: |
+          sudo sed -i 's/mirror.enzu.com/archive.ubuntu.com/g' /etc/apt/apt-mirrors.txt
+          sudo cat /etc/apt/apt-mirrors.txt
+
+          pnpm exec playwright install --no-shell --with-deps firefox webkit chrome
         timeout-minutes: 10
 
       - name: 🔎 Run Playwright tests
