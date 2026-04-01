@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useMoreListChild } from "../../../../composables/useMoreList.js";
+import type { VueTemplateRefElement } from "../../../../composables/useResizeObserver.js";
 import { mergeVueProps } from "../../../../utils/attrs.js";
 import { useForwardProps } from "../../../../utils/props.js";
 import OnyxButton from "../../../OnyxButton/OnyxButton.vue";
@@ -25,6 +26,8 @@ const props = withDefaults(
 
 const buttonProps = useForwardProps(props, OnyxButton);
 const iconButtonProps = useForwardProps(props, OnyxIconButton);
+
+const templateRef = (el?: VueTemplateRefElement) => (componentRef.value = el);
 </script>
 
 <!-- eslint-disable-next-line vue/no-root-v-if -- used for the OnyxMoreList -->
@@ -41,7 +44,7 @@ const iconButtonProps = useForwardProps(props, OnyxIconButton);
     <OnyxTooltip v-else :text="props.label">
       <template #default="{ trigger }">
         <OnyxIconButton
-          v-bind="mergeVueProps(iconButtonProps, trigger, { ref: (el) => (componentRef = el) })"
+          v-bind="mergeVueProps(iconButtonProps, trigger, { ref: templateRef })"
           @click="props.onClick"
         />
       </template>
