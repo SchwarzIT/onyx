@@ -8,6 +8,7 @@ import { useVModel } from "../../composables/useVModel.js";
 import { mergeVueProps, useRootAttrs } from "../../utils/attrs.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
+import type { OnyxFormElementV2Slots } from "../OnyxFormElementV2/types.js";
 import { useLegacyFormElementProps } from "../OnyxFormElementV2/useLegacyFormElementProps.js";
 import type { OnyxTextareaProps } from "./types.js";
 
@@ -33,6 +34,8 @@ const emit = defineEmits<{
    */
   "update:modelValue": [value: string];
 }>();
+
+const slots = defineSlots<Pick<OnyxFormElementV2Slots, "leadingIcons">>();
 
 /**
  * Current value of the textarea.
@@ -77,8 +80,17 @@ const handleInput = (event: Event) => {
 const { disabled } = useFormContext(props);
 
 const input = useTemplateRef("input");
-defineExpose({ input });
 useAutofocus(input, props);
+
+const counter = computed(() => {
+  if (!props.withCounter || !props.maxlength) return;
+  const length = modelValue.value.toString().length;
+  const maxLength = typeof props.maxlength === "object" ? props.maxlength.max : props.maxlength;
+  const violated = length > maxLength;
+  return { length, maxLength, violated };
+});
+
+defineExpose({ input });
 </script>
 
 <template>
@@ -104,12 +116,27 @@ useAutofocus(input, props);
           :autofocus="props.autofocus"
           :name="props.name"
           :readonly="props.readonly"
-          :disabled
+          :disabled="disabled || props.loading"
           :minlength="props.minlength"
           :maxlength="maxLength"
           @input="handleInput"
         />
       </div>
+    </template>
+
+    <template v-if="counter" #bottomRight>
+      <span
+        :class="[
+          'onyx-textarea__counter',
+          { 'onyx-textarea__counter--violated': counter.violated },
+        ]"
+      >
+        {{ counter.length }}/{{ counter.maxLength }}
+      </span>
+    </template>
+
+    <template v-if="slots.leadingIcons" #leadingIcons>
+      <slot name="leadingIcons"></slot>
     </template>
   </OnyxFormElementV2>
 </template>
@@ -187,10 +214,21 @@ useAutofocus(input, props);
     &__native {
       resize: vertical;
       overflow: unset;
+      white-space: pre-line;
 
       &--no-resize {
         resize: none;
       }
+    }
+
+    &__counter {
+      &--violated {
+        color: var(--onyx-color-text-icons-danger-intense);
+      }
+    }
+
+    .onyx-form-element-v2__input-container {
+      align-items: flex-start;
     }
   }
 }
