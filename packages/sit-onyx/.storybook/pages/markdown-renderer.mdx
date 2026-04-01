@@ -1,0 +1,95 @@
+import { Meta, TableOfContents } from "@storybook/addon-docs/blocks";
+
+<Meta title="Documentation/MarkdownRenderer" tags={["new:component"]} />
+
+<TableOfContents
+  headingSelector="h2, h3"
+  contentsSelector=".sbdocs-content"
+  ignoreSelector="#table-of-contents"
+/>
+
+# MarkdownRenderer
+
+A component for rendering markdown content with onyx components. It is build on top of [@nuxtjs/mdc](https://github.com/nuxt-content/mdc) (also works without Nuxt, see instructions below).
+
+<br />
+
+## Usage without Nuxt
+
+The renderer also works when not using Nuxt. However, make sure to follow [these instructions](https://github.com/nuxt-content/mdc?tab=readme-ov-file#stub-nuxt-module-imports) from `@nuxtjs/mdc` before getting startet. Tip: When using Playwright component tests, make sure to apply the same changes to your Playwright config.
+
+<br />
+
+## Getting Started
+
+<br />
+
+### Step 1: Install package
+
+```sh
+pnpm add @sit-onyx/mdc
+```
+
+### Step 2: Import styles
+
+Import the CSS file, either globally or in a single component:
+
+```ts
+// make sure to import the MDC styles AFTER the general "sit-onyx" styles
+// import "sit-onyx/style.css";
+import "@sit-onyx/mdc/style.css";
+```
+
+### Step 3: Render markdown
+
+You can now render markdown using the `OnyxMarkdownRenderer` component and see the components being replaced with corresponding onyx components, e.g. headlines, links, tables etc.
+
+```vue
+<script lang="ts" setup>
+import { OnyxMarkdownRenderer } from "@sit-onyx/mdc";
+import { OnyxLoadingIndicator } from "sit-onyx";
+
+const markdown = `
+# Hello World
+
+This is an example using the `@sit-onyx/mdc` package. Read the [documentation](https://storybook.onyx.schwarz/?path=/docs/documentation-markdownrenderer--docs) for further information.
+`
+</script>
+
+<template>
+  <OnyxMarkdownRenderer :markdown>
+    <template #loading>
+      <!-- optionally, you can provide content that is displayed while parsing the markdown -->
+      <OnyxLoadingIndicator type="circle" />
+    </template>
+  </OnyxMarkdownRenderer>
+</template>
+```
+
+<br />
+
+## Access exposed data
+
+The component exposes the markdown parser result which you can use to e.g. generate a table of contents based on the content. Tip: Use the [OnyxTableOfContents](/docs/navigation-tableofcontents--docs) component for this.
+
+```vue
+<script lang="ts" setup>
+import { OnyxMarkdownRenderer } from "@sit-onyx/mdc";
+import { useTemplateRef, computed } from "vue";
+
+const markdown = `
+# Hello World
+## Headline 2
+### Headline 3
+`;
+
+const renderer = useTemplateRef("renderer");
+
+// e.g. get the table of content items / headlines
+const toc = computed(() => renderer.value?.parserResult.value?.toc?.links ?? []);
+</script>
+
+<template>
+  <OnyxMarkdownRenderer ref="renderer" :markdown />
+</template>
+```

@@ -20,6 +20,7 @@
     "@nuxt/content": "^3.12.0",
     "@sit-onyx/flags": "workspace:^",
     "@sit-onyx/icons": "workspace:^",
+    "@sit-onyx/mdc": "workspace:^",
     "@sit-onyx/nuxt": "workspace:^",
     "@sit-onyx/nuxt-docs": "workspace:^",
     "better-sqlite3": "^12.8.0",

@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { OnyxHeadline } from "sit-onyx";
+
 const props = defineProps<{
   id?: string;
 }>();
@@ -9,14 +11,14 @@ defineSlots<{
 </script>
 
 <template>
-  <OnyxHeadline is="h2" :hash="props.id">
+  <OnyxHeadline is="h3" :hash="props.id">
     <slot />
   </OnyxHeadline>
 </template>
 
 <style lang="scss" scoped>
 .onyx-headline {
-  margin-top: var(--onyx-density-2xl);
-  margin-bottom: var(--onyx-density-xs);
+  margin-top: var(--onyx-density-xl);
+  margin-bottom: var(--onyx-density-2xs);
 }
 </style>
