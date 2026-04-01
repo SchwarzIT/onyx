@@ -115,7 +115,7 @@ const inputProps = computed(() => {
       border-radius: inherit;
       height: 100%;
 
-      .onyx-form-element-v2__input {
+      > .onyx-form-element-v2__input {
         caret-color: transparent;
 
         &:read-write {
