@@ -8,6 +8,7 @@ import {
   shallowRef,
   toRef,
   toValue,
+  useAttrs,
   useId,
   useTemplateRef,
   watch,
@@ -255,11 +256,15 @@ const tooltipStyles = computed(() => {
     top: topPosition.value,
   };
 });
+
+// since the wrapper is "display: none" we forward all attributes to the trigger element
+defineOptions({ inheritAttrs: true });
+const attrs = useAttrs();
 </script>
 
 <template>
   <div :class="['onyx-component', 'onyx-tooltip-wrapper', densityClass]">
-    <slot :trigger="triggerElementProps"></slot>
+    <slot :trigger="mergeVueProps(attrs, triggerElementProps)"></slot>
 
     <!-- we are using inline "style" here since using v-bind causes hydration errors in Nuxt / SSR -->
     <div
