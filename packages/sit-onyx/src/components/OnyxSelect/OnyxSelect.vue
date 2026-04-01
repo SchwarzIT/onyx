@@ -223,7 +223,7 @@ const CHECK_ALL_ID = useId() as TValue;
  * Includes "select all" up front if it is used.
  */
 const allKeyboardOptionIds = computed(() => {
-  return (props.multiple && props.withCheckAll && !searchTerm.value ? [CHECK_ALL_ID] : []).concat(
+  return (props.multiple && props.withCheckAll ? [CHECK_ALL_ID] : []).concat(
     enabledOptionValues.value,
   );
 });
@@ -296,6 +296,25 @@ const onAutocomplete = (inputValue: string) => (searchTerm.value = inputValue);
 
 const onSelect = (selectedOption: TValue) => {
   if (selectedOption === CHECK_ALL_ID) {
+    if (searchTerm.value) {
+      const visibleIds = enabledOptionValues.value;
+      const allVisibleSelected = visibleIds.every((id) => arrayValue.value.includes(id));
+
+      if (allVisibleSelected) {
+        modelValue.value = arrayValue.value.filter(
+          (id) => !visibleIds.includes(id),
+        ) as unknown as TModelValue;
+      } else {
+        const newSelection = [...arrayValue.value];
+        visibleIds.forEach((id) => {
+          if (!newSelection.includes(id)) {
+            newSelection.push(id);
+          }
+        });
+        modelValue.value = newSelection as unknown[] as TModelValue;
+      }
+      return;
+    }
     checkAll.value?.handleChange(!checkAll.value.state.value.modelValue);
     return;
   }
@@ -398,11 +417,19 @@ const checkAll = computed(() => {
 });
 
 const checkAllLabel = computed<string>(() => {
-  if (!props.multiple) {
-    return "";
+  if (!props.multiple) return "";
+
+  const isFiltered = !!searchTerm.value;
+  const config = props.withCheckAll;
+  const defaultText = isFiltered
+    ? t.value("selections.selectFiltered")
+    : t.value("selections.selectAll");
+
+  if (typeof config === "object" && config !== null) {
+    const customLabel = isFiltered ? config.labelFiltered : config.label;
+    return customLabel ?? defaultText;
   }
-  const defaultText = t.value("selections.selectAll");
-  if (typeof props.withCheckAll === "object") return props.withCheckAll.label ?? defaultText;
+
   return defaultText;
 });
 
@@ -609,7 +636,7 @@ defineExpose({ input: inputRef });
           <template v-else>
             <!-- select-all option for "multiple" -->
             <ul
-              v-if="props.multiple && props.withCheckAll && !searchTerm"
+              v-if="props.multiple && props.withCheckAll"
               class="onyx-select__check-all"
               v-bind="headlessGroup({ label: checkAllLabel })"
             >

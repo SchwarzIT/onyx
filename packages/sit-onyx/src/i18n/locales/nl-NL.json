@@ -119,7 +119,8 @@
   "selections": {
     "selectAll": "Alles selecteren",
     "selectGroup": "Geselecteerd",
-    "currentSelection": "{n} geselecteerd"
+    "currentSelection": "{n} geselecteerd",
+    "selectFiltered": "Gefilterde selecteren"
   },
   "stepper": {
     "decrement": "Verlagen met {stepSize}",

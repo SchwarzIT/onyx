@@ -119,7 +119,8 @@
   "selections": {
     "selectAll": "Odaberi sve",
     "selectGroup": "Odabrano",
-    "currentSelection": "{n} odabrano"
+    "currentSelection": "{n} odabrano",
+    "selectFiltered": "Odaberi filtrirano"
   },
   "stepper": {
     "decrement": "Smanji za {stepSize}",

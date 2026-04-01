@@ -118,6 +118,7 @@
   },
   "selections": {
     "selectAll": "Alle auswählen",
+    "selectFiltered": "Gefilterte auswählen",
     "selectGroup": "Ausgewählte",
     "currentSelection": "{n} ausgewählt"
   },

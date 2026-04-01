@@ -119,7 +119,8 @@
   "selections": {
     "selectAll": "Vybrať všetko",
     "selectGroup": "Vybrané",
-    "currentSelection": "{n} vybraných"
+    "currentSelection": "{n} vybraných",
+    "selectFiltered": "Vybrať filtrované"
   },
   "stepper": {
     "decrement": "Znížiť o {stepSize}",

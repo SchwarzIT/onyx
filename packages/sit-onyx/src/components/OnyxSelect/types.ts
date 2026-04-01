@@ -42,6 +42,11 @@ export type OnyxSelectProps<
            * If unset, a default label will be shown depending on the current locale/language.
            */
           label?: string;
+          /**
+           * Label for the `select all` checkbox when a filter is active.
+           * Useful for clarifying that only the visible/filtered items will be selected.
+           */
+          labelFiltered?: string;
         };
     /**
      * Whether the select should be disabled.

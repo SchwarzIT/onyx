@@ -119,7 +119,8 @@
   "selections": {
     "selectAll": "Seleccionar todo",
     "selectGroup": "Seleccionados",
-    "currentSelection": "{n} seleccionado | {n} seleccionados"
+    "currentSelection": "{n} seleccionado | {n} seleccionados",
+    "selectFiltered": "Seleccionar filtrados"
   },
   "stepper": {
     "decrement": "Disminuir en {stepSize}",
