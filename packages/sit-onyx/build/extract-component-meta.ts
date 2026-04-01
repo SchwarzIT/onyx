@@ -1,13 +1,13 @@
 // Based on https://github.com/storybookjs/storybook/blob/2b4ef8b687463fb3da89e2888620357afa31dadf/code/frameworks/vue3-vite/src/plugins/vue-component-meta.ts
 import { readFile, stat } from "node:fs/promises";
 import { join, parse } from "node:path";
+import type { Type } from "typescript";
 
 import { createFilter, type Plugin } from "vite";
 import {
   type ComponentMeta,
   createChecker,
   type MetaCheckerOptions,
-  type PropertyMetaSchema,
   TypeMeta,
 } from "vue-component-meta";
 import { parseMulti } from "vue-docgen-api";
@@ -75,10 +75,10 @@ export async function extractComponentMeta(
   const checker = await createVueComponentMetaChecker(tsconfigPath);
 
   return {
-    name: "sit-onyx:vue-component-meta-plugin",
-    async transform(src, id) {
-      // we save what is actually exported
+    name: "sit-onyx:extract-component-meta-plugin",
+    async transform(_src, id) {
       if (entry.includes(id)) {
+        // store what is actually exported
         return checker.getExportNames(id).forEach((name) => exportViaEntry.add(name));
       }
 
@@ -108,18 +108,7 @@ export async function extractComponentMeta(
 
           const exportName = exportNames[index];
 
-          // we remove nested object schemas here since they are not used inside Storybook (we don't generate controls for object properties)
-          // and they can cause "out of memory" issues for large/complex schemas (e.g. HTMLElement)
-          // it also reduced the bundle size when running "storybook build" when such schemas are used
-          (["props", "events", "slots", "exposed"] as const).forEach((key) => {
-            meta[key].forEach((value) => {
-              if (Array.isArray(value.schema)) {
-                value.schema.forEach((eventSchema) => removeNestedSchemas(eventSchema));
-              } else {
-                removeNestedSchemas(value.schema);
-              }
-            });
-          });
+          removeDefaultVueProps(meta);
 
           const exposed =
             // the meta also includes duplicated entries in the "exposed" array with "on"
@@ -197,6 +186,15 @@ export async function extractComponentMeta(
 async function createVueComponentMetaChecker(tsconfigPath = "tsconfig.json") {
   const checkerOptions: MetaCheckerOptions = {
     printer: { newLine: 1 },
+    schema: {
+      ignore: [
+        // Don't expand external schemas
+        (_, type) => {
+          const path = getModulePathFromType(type);
+          return path?.includes("node_modules");
+        },
+      ],
+    },
   };
 
   const projectRoot = join(import.meta.dirname, "..");
@@ -302,20 +300,59 @@ async function getTsConfigReferences(tsConfigPath: string) {
   }
 }
 
+const VUE_DEFAULT_PROPS = new Set([
+  "class",
+  "style",
+  "ref_for",
+  "key",
+  "ref_key",
+  "ref",
+  "onVnodeBeforeMount",
+  "onVue:beforeMount",
+  "onVnodeMounted",
+  "onVue:mounted",
+  "onVnodeBeforeUpdate",
+  "onVue:beforeUpdate",
+  "onVnodeUpdated",
+  "onVue:updated",
+  "onVnodeBeforeUnmount",
+  "onVue:beforeUnmount",
+  "onVnodeUnmounted",
+  "onVue:unmounted",
+]);
+
 /**
- * Removes any nested schemas from the given main schema (e.g. from a prop, event, slot or exposed).
- * Useful to drastically reduce build size and prevent out of memory issues when large schemas (e.g.
- * HTMLElement, MouseEvent) are used.
+ * Removes all common vue props from the component meta,
+ * as they are not relevant and clutter the output.
  */
-function removeNestedSchemas(schema: PropertyMetaSchema) {
-  if (typeof schema !== "object") {
-    return;
+function removeDefaultVueProps(meta: ComponentMeta) {
+  // We have to modify the array in place, otherwise the script breaks.
+  // The relevant indices are stored in reverse order,
+  // so that they stay correct when elements are removed from the array.
+  const dropIndices: number[] = [];
+  meta.props.forEach(({ name }, i) => {
+    if (VUE_DEFAULT_PROPS.has(name)) {
+      dropIndices.unshift(i);
+    }
+  });
+  dropIndices.forEach((i) => meta.props.splice(i, 1));
+}
+
+/**
+ * For a typescript type, get the declaration file.
+ */
+function getModulePathFromType(type: Type): string | undefined {
+  const symbol = type.aliasSymbol ?? type.getSymbol();
+
+  if (!symbol) {
+    return undefined;
   }
-  if (schema.kind === "enum") {
-    // for enum types, we do not want to remove the schemas because otherwise the controls will be missing
-    // instead we remove the nested schemas for the enum entries to prevent out of memory errors for types like "HTMLElement | MouseEvent"
-    schema.schema?.forEach((enumSchema) => removeNestedSchemas(enumSchema));
-    return;
+
+  const declarations = symbol.getDeclarations();
+  if (!declarations || declarations.length === 0) {
+    return undefined;
   }
-  delete schema.schema;
+
+  const sourceFile = declarations[0].getSourceFile();
+  return sourceFile.fileName;
 }
