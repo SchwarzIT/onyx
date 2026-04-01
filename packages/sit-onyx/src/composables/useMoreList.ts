@@ -102,9 +102,12 @@ export const useMoreList = (options: UseMoreListOptions) => {
   const visibleElements = ref<string[]>();
   const hiddenElements = ref<string[]>();
 
-  const { width: parentWidth, height: parentHeight } = useResizeObserver(options.parentRef);
+  const { width: parentWidth, height: parentHeight } = useResizeObserver(options.parentRef, {
+    box: "content-box",
+  });
   const { width: moreIndicatorWidth, height: moreIndicatorHeight } = useResizeObserver(
     options.moreIndicatorRef,
+    { box: "content-box" },
   );
 
   /**
@@ -230,7 +233,7 @@ export const useMoreListChild = (injectionKey: MoreListInjectionKey) => {
   const id = useId();
   const componentRef = ref<VueTemplateRefElement>();
   const moreContext = inject(injectionKey, undefined);
-  const { width, height } = useResizeObserver(componentRef, { box: "border-box" });
+  const { width, height } = useResizeObserver(componentRef);
 
   watch(
     [width, height],
