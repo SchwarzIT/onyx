@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.app.json",
+  "include": ["env.d.ts", "src/**/*.spec.*", "src/**/*.spec-d.*"],
+  "exclude": [],
+  "compilerOptions": {
+    "composite": true,
+    "types": ["node", "jsdom"]
+  }
+}

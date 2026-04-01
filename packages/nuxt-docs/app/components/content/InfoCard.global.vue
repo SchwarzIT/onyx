@@ -24,6 +24,6 @@ const { icon: iconContent } = useIcon(
 
 <style lang="scss" scoped>
 .card {
-  margin-block: var(--onyx-docs-density-paragraph);
+  margin-block: var(--onyx-markdown-renderer-margin-block);
 }
 </style>

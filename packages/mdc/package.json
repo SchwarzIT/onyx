@@ -1,0 +1,51 @@
+{
+  "name": "@sit-onyx/mdc",
+  "description": "Wrapper for the @nuxtjs/mdc package using the onyx design system created by Schwarz IT",
+  "version": "0.0.0",
+  "type": "module",
+  "author": "Schwarz IT KG",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "files": [
+    "dist"
+  ],
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "node": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SchwarzIT/onyx",
+    "directory": "packages/mdc"
+  },
+  "bugs": {
+    "url": "https://github.com/SchwarzIT/onyx/issues"
+  },
+  "scripts": {
+    "build": "vite build",
+    "test:playwright": "playwright install && playwright test"
+  },
+  "peerDependencies": {
+    "@nuxtjs/mdc": ">= 0.20.2",
+    "sit-onyx": "workspace:^",
+    "vue": ">= 3.5.0"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.11.1",
+    "@nuxtjs/mdc": "~0.21.0",
+    "@playwright/experimental-ct-vue": "catalog:",
+    "@playwright/test": "catalog:",
+    "@sit-onyx/playwright-utils": "workspace:^",
+    "@sit-onyx/shared": "workspace:^",
+    "@vue/compiler-dom": "catalog:",
+    "sit-onyx": "workspace:^"
+  }
+}

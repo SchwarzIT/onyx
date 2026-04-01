@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { OnyxCodeTab, OnyxCodeTabs } from "sit-onyx";
+
 const props = withDefaults(
   defineProps<{
     /**
@@ -34,13 +36,19 @@ defineSlots<{
   default(): unknown;
 }>();
 
-const value = "tab-1";
+const value = "code";
 </script>
 
 <template>
-  <OnyxCodeTabs :model-value="value">
+  <OnyxCodeTabs class="code" :model-value="value">
     <OnyxCodeTab :value :code="props.code" :language="props.language" :label="props.filename">
       <pre :class="props.class"><slot></slot></pre>
     </OnyxCodeTab>
   </OnyxCodeTabs>
 </template>
+
+<style lang="scss" scoped>
+.code {
+  margin-block: var(--onyx-markdown-renderer-margin-block);
+}
+</style>

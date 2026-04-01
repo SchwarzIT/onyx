@@ -6,7 +6,7 @@ const props = defineProps<OnyxIconProps>();
 
 <template>
   <!-- eslint-disable vue/no-v-html -->
-  <figure
+  <span
     :class="{
       'onyx-component': true,
       'onyx-icon': true,
@@ -16,7 +16,7 @@ const props = defineProps<OnyxIconProps>();
     }"
     aria-hidden="true"
     v-html="props.icon"
-  ></figure>
+  ></span>
   <!-- eslint-enable vue/no-v-html -->
 </template>
 

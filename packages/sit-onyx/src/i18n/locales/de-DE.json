@@ -346,5 +346,8 @@
   },
   "datePicker": {
     "popoverLabel": "Kalender"
+  },
+  "accordion": {
+    "toggle": "Klicke, um den Inhalt umzuschalten"
   }
 }

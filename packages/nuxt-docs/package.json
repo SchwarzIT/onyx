@@ -30,6 +30,9 @@
     "preview": "nuxt preview playground",
     "test:playwright": "pnpm dev:prepare && cd playground && pnpm test:playwright"
   },
+  "dependencies": {
+    "@sit-onyx/mdc": "workspace:^"
+  },
   "peerDependencies": {
     "@fontsource-variable/source-code-pro": ">= 5",
     "@fontsource-variable/source-sans-3": ">= 5",

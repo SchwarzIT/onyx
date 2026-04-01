@@ -14,9 +14,9 @@ export const createFormElementUtils = function (page: PageOrLocator) {
       const locators = {
         v1:
           type === "label"
-            ? `.onyx-form-element__${type}-tooltip figure`
+            ? `.onyx-form-element__${type}-tooltip .onyx-info-tooltip__trigger`
             : `.onyx-form-${type}__tooltip`,
-        v2: `.onyx-form-element-v2__${type} .onyx-form-element-v2__tooltip figure`,
+        v2: `.onyx-form-element-v2__${type} .onyx-form-element-v2__tooltip .onyx-info-tooltip__trigger`,
       };
 
       return context.getRoot(prev).locator(`${locators.v1},${locators.v2}`);

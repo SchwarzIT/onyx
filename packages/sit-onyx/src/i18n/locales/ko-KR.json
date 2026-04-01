@@ -349,5 +349,8 @@
   },
   "datePicker": {
     "popoverLabel": "캘린더"
+  },
+  "accordion": {
+    "toggle": "클릭하여 콘텐츠 열기/닫기"
   }
 }

@@ -303,6 +303,9 @@ importers:
       '@sit-onyx/icons':
         specifier: workspace:^
         version: link:../../packages/icons
+      '@sit-onyx/mdc':
+        specifier: workspace:^
+        version: link:../../packages/mdc
       '@sit-onyx/nuxt':
         specifier: workspace:^
         version: link:../../packages/nuxt
@@ -472,6 +475,37 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0(vite@8.0.3(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.1)(@types/node@24.12.0)(esbuild@0.27.4)(jiti@2.6.1)(sass-embedded@1.98.0)(sass@1.98.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))
 
+  packages/mdc:
+    dependencies:
+      vue:
+        specifier: 3.5.31
+        version: 3.5.31(typescript@5.9.3)
+    devDependencies:
+      '@axe-core/playwright':
+        specifier: ^4.11.1
+        version: 4.11.1(playwright-core@1.57.0)
+      '@nuxtjs/mdc':
+        specifier: ~0.21.0
+        version: 0.21.0(magicast@0.5.2)
+      '@playwright/experimental-ct-vue':
+        specifier: 1.57.0
+        version: 1.57.0(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.1)(@types/node@24.12.0)(esbuild@0.27.4)(jiti@2.6.1)(sass-embedded@1.98.0)(sass@1.98.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(vite@8.0.3(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.1)(@types/node@24.12.0)(esbuild@0.27.4)(jiti@2.6.1)(sass-embedded@1.98.0)(sass@1.98.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vue@3.5.31(typescript@5.9.3))(yaml@2.8.3)
+      '@playwright/test':
+        specifier: 1.57.0
+        version: 1.57.0
+      '@sit-onyx/playwright-utils':
+        specifier: workspace:^
+        version: link:../playwright-utils
+      '@sit-onyx/shared':
+        specifier: workspace:^
+        version: link:../shared
+      '@vue/compiler-dom':
+        specifier: 3.5.31
+        version: 3.5.31
+      sit-onyx:
+        specifier: workspace:^
+        version: link:../sit-onyx
+
   packages/nuxt:
     devDependencies:
       '@nuxt/devtools':
@@ -513,6 +547,9 @@ importers:
       '@nuxtjs/i18n':
         specifier: '>= 10'
         version: 10.2.4(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.1)(@netlify/blobs@9.1.2)(@vue/compiler-dom@3.5.31)(db0@0.3.4(better-sqlite3@12.8.0))(eslint@9.39.4(jiti@2.6.1))(ioredis@5.10.1)(magicast@0.5.2)(pinia@3.0.4(typescript@5.9.3)(vue@3.5.31(typescript@5.9.3)))(rollup@4.60.0)(typescript@5.9.3)(vue@3.5.31(typescript@5.9.3))
+      '@sit-onyx/mdc':
+        specifier: workspace:^
+        version: link:../mdc
     devDependencies:
       '@fontsource-variable/source-code-pro':
         specifier: ^5.2.7
