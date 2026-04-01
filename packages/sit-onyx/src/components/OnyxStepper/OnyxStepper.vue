@@ -141,10 +141,7 @@ const handleBlur = () => {
 const incrementLabel = computed(() => t.value("stepper.increment", { stepSize: props.stepSize }));
 const decrementLabel = computed(() => t.value("stepper.decrement", { stepSize: props.stepSize }));
 
-const showButtons = computed(() => {
-  if (props.hideButtons || slots.leading || slots.trailing) return false;
-  return true;
-});
+const showButtons = computed(() => !(props.hideButtons || slots.leading || slots.trailing));
 
 defineExpose({ input });
 useAutofocus(input, props);
