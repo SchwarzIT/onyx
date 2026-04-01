@@ -4,15 +4,15 @@ export type OpenDirection = "top" | "bottom" | "left" | "right";
 
 export const useOpenDirection = (
   element: Readonly<ShallowRef<Element | null | undefined>>,
-  defaultDirection: OpenDirection = "bottom",
+  defaultDirection: MaybeRefOrGetter<OpenDirection> = "bottom",
   horizontal: MaybeRefOrGetter<boolean> = false,
 ) => {
-  const openDirection = ref<OpenDirection>(defaultDirection);
+  const openDirection = ref<OpenDirection>(toValue(defaultDirection));
 
   const updateOpenDirection = () => {
     const el = unref(element);
     if (!el) {
-      openDirection.value = defaultDirection;
+      openDirection.value = toValue(defaultDirection);
       return;
     }
 

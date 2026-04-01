@@ -93,9 +93,10 @@ const positionAndAlignment = computed(() => {
 const popoverRef = useTemplateRef("popover");
 const popoverWrapperRef = useTemplateRef("popoverWrapper");
 const isOpenDirectionHorizontal = computed(() => props.position === "auto-inline");
+const defaultDirection = computed(() => (isOpenDirectionHorizontal.value ? "right" : "bottom"));
 const { openDirection, updateOpenDirection } = useOpenDirection(
   popoverWrapperRef,
-  () => (isOpenDirectionHorizontal.value ? "right" : "bottom"),
+  defaultDirection,
   isOpenDirectionHorizontal,
 );
 
