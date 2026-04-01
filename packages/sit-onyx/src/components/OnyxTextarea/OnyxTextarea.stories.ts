@@ -1,5 +1,8 @@
+import { iconPlaceholder } from "@sit-onyx/icons";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
+import { h } from "vue";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxTextarea from "./OnyxTextarea.vue";
 
 /**
@@ -180,5 +183,28 @@ export const WithMessageTooltip = {
       shortMessage: "Example message",
       longMessage: "Additional info message",
     },
+  },
+} satisfies Story;
+
+export const Loading = {
+  tags: ["new:feature"],
+  args: {
+    ...Default.args,
+    loading: true,
+  },
+} satisfies Story;
+
+export const LeftLabel = {
+  tags: ["new:feature"],
+  args: {
+    label: { label: Default.args.label, position: "left" },
+  },
+} satisfies Story;
+
+export const Slots = {
+  tags: ["new:feature"],
+  args: {
+    ...Maxlength.args,
+    leadingIcons: () => h(OnyxIcon, { icon: iconPlaceholder }),
   },
 } satisfies Story;
