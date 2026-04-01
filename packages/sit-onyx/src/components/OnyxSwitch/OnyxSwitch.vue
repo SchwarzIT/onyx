@@ -81,51 +81,58 @@ useAutofocus(input, props);
     :error-messages="shownErrorMessages"
     v-bind="rootAttrs"
   >
-    <label
-      class="onyx-component onyx-switch"
-      :class="[requiredTypeClass, densityClass]"
-      :title="title"
-    >
-      <input
-        ref="input"
-        v-model="isChecked"
-        v-custom-validity
-        type="checkbox"
-        role="switch"
-        :class="{ 'onyx-switch__input': true, 'onyx-switch__loading': props.loading }"
-        :aria-label="props.hideLabel ? props.label : undefined"
-        :disabled="disabled || props.loading"
-        :required="props.required"
-        :autofocus="props.autofocus"
-        v-bind="restAttrs"
-      />
-      <span class="onyx-switch__click-area">
-        <span class="onyx-switch__container">
-          <span class="onyx-switch__icon">
-            <OnyxLoadingIndicator v-if="props.loading" class="onyx-switch__spinner" type="circle" />
-            <OnyxIcon v-else :icon="isChecked ? iconCheckSmall : iconXSmall" />
-          </span>
-          <div class="onyx-switch__frame"></div>
-        </span>
-      </span>
-      <span
-        v-if="!props.hideLabel"
-        class="onyx-switch__label"
-        :class="[
-          `onyx-truncation-${props.truncation}`,
-          // shows the required marker inline for multiline labels
-          props.truncation === 'multiline' ? requiredMarkerClass : undefined,
-        ]"
+    <template #default="{ trigger }">
+      <label
+        class="onyx-component onyx-switch"
+        :class="[requiredTypeClass, densityClass]"
+        :title="title"
+        v-bind="trigger"
       >
-        {{ props.label }}
-      </span>
-      <!-- shows the required marker fixed on the right for truncated labels -->
-      <div
-        v-if="!props.hideLabel && props.truncation === 'ellipsis'"
-        class="onyx-switch__marker"
-        :class="[requiredMarkerClass]"
-      ></div>
-    </label>
+        <input
+          ref="input"
+          v-model="isChecked"
+          v-custom-validity
+          type="checkbox"
+          role="switch"
+          :class="{ 'onyx-switch__input': true, 'onyx-switch__loading': props.loading }"
+          :aria-label="props.hideLabel ? props.label : undefined"
+          :disabled="disabled || props.loading"
+          :required="props.required"
+          :autofocus="props.autofocus"
+          v-bind="restAttrs"
+        />
+        <span class="onyx-switch__click-area">
+          <span class="onyx-switch__container">
+            <span class="onyx-switch__icon">
+              <OnyxLoadingIndicator
+                v-if="props.loading"
+                class="onyx-switch__spinner"
+                type="circle"
+              />
+              <OnyxIcon v-else :icon="isChecked ? iconCheckSmall : iconXSmall" />
+            </span>
+            <div class="onyx-switch__frame"></div>
+          </span>
+        </span>
+        <span
+          v-if="!props.hideLabel"
+          class="onyx-switch__label"
+          :class="[
+            `onyx-truncation-${props.truncation}`,
+            // shows the required marker inline for multiline labels
+            props.truncation === 'multiline' ? requiredMarkerClass : undefined,
+          ]"
+        >
+          {{ props.label }}
+        </span>
+        <!-- shows the required marker fixed on the right for truncated labels -->
+        <div
+          v-if="!props.hideLabel && props.truncation === 'ellipsis'"
+          class="onyx-switch__marker"
+          :class="[requiredMarkerClass]"
+        ></div>
+      </label>
+    </template>
   </OnyxErrorTooltip>
 </template>
 
