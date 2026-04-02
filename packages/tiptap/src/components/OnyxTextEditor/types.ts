@@ -8,8 +8,8 @@ import type {
 import type { InjectionKey, Ref } from "vue";
 
 // TODO: consider the following features if possible:
-// required, min/max length, custom errors, autocapitalize
-export type OnyxTextEditorProps = Omit<OnyxFormElementV2Props, "open" | "popoverOptions"> &
+// min/max length, autocapitalize
+export type OnyxTextEditorProps = Omit<OnyxFormElementV2Props, "open" | "popoverOptions" | "id"> &
   Pick<SharedFormElementProps, "disabled" | "autofocus" | "placeholder"> &
   Pick<OnyxTextareaProps, "disableManualResize" | "autosize"> & {
     /**
