@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { CLOSING_KEYS, OPENING_KEYS, useOutsideClick } from "@sit-onyx/headless";
-import { computed, nextTick, ref, useTemplateRef, watch } from "vue";
+import { computed, nextTick, ref, useTemplateRef, watch, type HTMLAttributes } from "vue";
 import { useVModel } from "../../composables/useVModel.js";
 import { mergeVueProps } from "../../utils/attrs.js";
 import OnyxBasicPopover from "../OnyxBasicPopover/OnyxBasicPopover.vue";
@@ -16,7 +16,7 @@ const emit = defineEmits<{
 }>();
 
 const slots = defineSlots<{
-  default(props: { input?: object }): unknown;
+  default(props: { input?: HTMLAttributes }): unknown;
   popover?(): unknown;
 }>();
 
@@ -67,7 +67,7 @@ const stopWatch = watch(open, (newOpen, oldOpen) => {
   }
 });
 
-const inputProps = computed(() => {
+const inputProps = computed<HTMLAttributes>(() => {
   return {
     role: "combobox",
     onKeydown: blockTyping,
@@ -115,7 +115,7 @@ const inputProps = computed(() => {
       border-radius: inherit;
       height: 100%;
 
-      .onyx-form-element-v2__input {
+      > .onyx-form-element-v2__input {
         caret-color: transparent;
 
         &:read-write {
