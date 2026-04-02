@@ -240,6 +240,7 @@ test.describe("extensions", () => {
       }
 
       await editor.pressSequentially("Plain text");
+      await page.getByRole("document").click({ position: { x: 0, y: 0 } }); // reset focus
 
       // ASSERT
       await expect(component).toHaveScreenshot("headlines.png");
@@ -309,6 +310,7 @@ test.describe("extensions", () => {
       await editor.pressSequentially("Option 2");
 
       // ASSERT
+      await page.getByRole("document").click({ position: { x: 0, y: 0 } }); // reset focus
       await expect(component).toHaveScreenshot("lists.png");
 
       // ACT
@@ -489,7 +491,7 @@ test.describe("extensions", () => {
   });
 
   test.describe("textAlign", () => {
-    test("should support textAlign", async ({ mount }) => {
+    test("should support textAlign", async ({ mount, page }) => {
       // ARRANGE
       const component = await mount(<TestCase label="Test label" />);
       const editor = component.getByLabel("Test label");
@@ -512,6 +514,8 @@ test.describe("extensions", () => {
           await editor.press("Enter");
         }
       }
+
+      await hoverAction(page, "Block aligned");
 
       // ASSERT
       await expect(component).toHaveScreenshot("textAlign.png");
@@ -571,7 +575,7 @@ test.describe("extensions", () => {
   });
 
   test.describe("link", () => {
-    test("should support link", async ({ mount }) => {
+    test("should support link", async ({ mount, page }) => {
       // ARRANGE
       const component = await mount(<TestCase label="Test label" />);
       const editor = component.getByLabel("Test label");
@@ -627,6 +631,7 @@ test.describe("extensions", () => {
       await editor.pressSequentially(" followed by regular text");
 
       // ASSERT
+      await page.getByRole("document").click({ position: { x: 0, y: 0 } }); // reset focus
       await expect(component).toHaveScreenshot("link.png");
     });
 
