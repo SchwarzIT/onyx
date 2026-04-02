@@ -163,6 +163,7 @@ useAutofocus(input, props);
           v-custom-validity
           :class="['onyx-stepper__input', { 'onyx-form-element-v2__input--touched': wasTouched }]"
           type="number"
+          autocomplete="off"
           :autofocus="props.autofocus"
           :disabled="disabled || props.loading"
           :min="props.min"
