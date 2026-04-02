@@ -158,6 +158,7 @@ defineExpose({
 </script>
 
 <template>
+  <!-- TODO: check error handling -->
   <OnyxUnstableFormElementV2
     v-bind="formElementV2Props"
     ref="formElement"
