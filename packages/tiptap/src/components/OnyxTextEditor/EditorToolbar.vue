@@ -198,7 +198,7 @@ const { hasExtension, hasTextExtension } = useEditorUtils(computed(() => props.e
       align-items: center;
       gap: var(--onyx-density-xs);
       overflow: auto;
-      padding: var(--onyx-form-element-v2-padding-block);
+      padding: var(--onyx-form-element-v2-padding-block) var(--onyx-form-element-v2-padding-inline);
 
       &--fixed {
         overflow: visible;
