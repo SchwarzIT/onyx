@@ -3,13 +3,15 @@ import { Placeholder } from "@tiptap/extensions/placeholder";
 import { EditorContent, mergeAttributes, useEditor } from "@tiptap/vue-3";
 import {
   FORM_INJECTED_SYMBOL,
+  injectI18n,
   OnyxUnstableFormElementV2,
   SKELETON_INJECTED_SYMBOL,
   useFormContext,
   useForwardProps,
   useVModel,
+  type FormElementV2Tooltip,
 } from "sit-onyx";
-import { computed, provide, useTemplateRef, watch, type StyleValue } from "vue";
+import { computed, provide, ref, useTemplateRef, watch, type StyleValue } from "vue";
 import EditorToolbar from "./EditorToolbar.vue";
 import { OnyxStarterKit } from "./extensions/starterKit.js";
 import { TEXT_EDITOR_INJECTION_KEY, type OnyxTextEditorProps } from "./types.js";
@@ -38,6 +40,7 @@ defineSlots<{
   actions?(): unknown;
 }>();
 
+const { t } = injectI18n();
 const formContext = useFormContext(props);
 const disabled = computed(() => formContext.disabled.value || props.loading);
 provide(TEXT_EDITOR_INJECTION_KEY, { disabled });
@@ -95,8 +98,33 @@ watch(
   { immediate: true },
 );
 
+/**
+ * The Tiptap editor uses a contenteditable div so it does not support the native CSS ":invalid" for showing the error.
+ * To workaround this, the track if the value has ever been changed and consider this as "touched" / interacted.
+ */
+const isTouched = ref(false);
+watch(modelValue, () => (isTouched.value = true), { once: true });
+
+/**
+ * The Tiptap editor uses a contenteditable div so it does not support native form validation.
+ * To workaround this, we determine if the editor is invalid manually.
+ */
+const error = computed<string | FormElementV2Tooltip | undefined>(() => {
+  if (props.error) return props.error;
+
+  // determine validations manually
+  if (props.required && editor.value?.isEmpty) {
+    return {
+      label: t.value("validations.valueMissing.preview"),
+      tooltipText: t.value("validations.valueMissing.fullError"),
+    };
+  }
+
+  return undefined;
+});
+
 watch(
-  [() => props.label, () => props.disableManualResize, editor],
+  [() => props.label, () => props.disableManualResize, editor, isTouched, error],
   () => {
     const attributes = editor.value?.options.editorProps.attributes;
 
@@ -106,9 +134,14 @@ watch(
           const currentAttributes =
             typeof attributes === "function" ? attributes(state) : (attributes ?? {});
 
+          const classes: string[] = [];
+          if (props.disableManualResize) classes.push("onyx-text-editor__input--no-resize");
+          if (isTouched.value) classes.push("onyx-form-element-v2__input--touched");
+
           return mergeAttributes(currentAttributes, {
             "aria-label": props.label,
-            class: props.disableManualResize ? "onyx-text-editor__input--no-resize" : undefined,
+            class: classes,
+            "aria-invalid": error.value ? "true" : "false",
           });
         },
       },
@@ -158,10 +191,10 @@ defineExpose({
 </script>
 
 <template>
-  <!-- TODO: check error handling -->
   <OnyxUnstableFormElementV2
     v-bind="formElementV2Props"
     ref="formElement"
+    :error
     :class="[
       'onyx-text-editor',
       { 'onyx-text-editor--toolbar-bottom': props.toolbar?.position === 'bottom' },

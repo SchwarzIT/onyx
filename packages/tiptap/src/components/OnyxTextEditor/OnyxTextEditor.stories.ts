@@ -50,6 +50,22 @@ export const LeftLabel = {
   },
 } satisfies Story;
 
+export const Required = {
+  args: {
+    ...Default.args,
+    required: true,
+  },
+} satisfies Story;
+
+export const CustomError = {
+  args: {
+    ...Default.args,
+    message: undefined,
+    error: { label: "Custom error", tooltipText: "Tooltip text" },
+    showError: true,
+  },
+} satisfies Story;
+
 export const CustomizedStarterKit = createAdvancedStoryExample(
   "OnyxTextEditor",
   "StarterKitExample",
