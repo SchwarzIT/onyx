@@ -1,12 +1,11 @@
-// @ts-check
+/* eslint no-console: "off" -- console is fine for node scripts */
 import fsPromises from "node:fs/promises";
 import path from "node:path";
-import { register } from "tsx/esm/api";
 import { build, mergeConfig } from "vite";
 
 const OUT_DIR = path.join(import.meta.dirname, "..", "dist");
 
-async function emptyDirectory(dirPath) {
+async function emptyDirectory(dirPath: string) {
   try {
     // create the directory if it doesn't exist. `recursive` ensures that the command doesn't fail when it already exists.
     await fsPromises.mkdir(dirPath, { recursive: true });
@@ -25,23 +24,8 @@ async function emptyDirectory(dirPath) {
   }
 }
 
-/**
- * Loads vite.config.ts using tsx and returns its content.
- * This allows us to import ts files here without an explicit compile step.
- *
- * Note: This workaround is necessary because `tsx` has an issue with running/importing `sass`.
- * TODO: Convert this file to TypeScript and remove this workaround once https://github.com/privatenumber/tsx/issues/627 is fixed or https://github.com/vitejs/vite/pull/19182 is released.
- *
- */
-async function loadViteConfig(path) {
-  const unregister = register();
-  const result = (await import(path)).default;
-  await unregister();
-  return result;
-}
-
-async function buildFor({ vitePath, nodeEnv }) {
-  const config = await loadViteConfig(vitePath);
+async function buildFor({ vitePath, nodeEnv }: { vitePath: string; nodeEnv: string }) {
+  const config = (await import(vitePath)).default;
 
   process.env.NODE_ENV = nodeEnv;
   const bundlerConfig = mergeConfig(
@@ -58,14 +42,10 @@ async function buildFor({ vitePath, nodeEnv }) {
   await build(bundlerConfig);
 }
 
-async function run() {
-  await emptyDirectory(OUT_DIR);
+await emptyDirectory(OUT_DIR);
 
-  const bundler = { vitePath: "../vite.config.ts", nodeEnv: "development" };
-  await buildFor(bundler);
+const bundler = { vitePath: "../vite.config.ts", nodeEnv: "development" };
+await buildFor(bundler);
 
-  const production = { vitePath: "../vite.config.prod.ts", nodeEnv: "production" };
-  await buildFor(production);
-}
-
-run();
+const production = { vitePath: "../vite.config.prod.ts", nodeEnv: "production" };
+await buildFor(production);
