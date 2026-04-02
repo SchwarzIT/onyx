@@ -152,10 +152,10 @@ defineExpose({ input });
     --onyx-textarea-autosize-max-rows: 10;
 
     // calculated values
-    --onyx-textarea-autosize-min-height: calc(
+    --onyx-textarea-min-height: calc(
       var(--onyx-textarea-autosize-min-rows) * 1lh + 2 * var(--onyx-form-element-v2-padding-block)
     );
-    --onyx-textarea-autosize-max-height: calc(
+    --onyx-textarea-max-height: calc(
       var(--onyx-textarea-autosize-max-rows) * 1lh + 2 * var(--onyx-form-element-v2-padding-block)
     );
 
@@ -164,7 +164,7 @@ defineExpose({ input });
 
     // remove max height and disable auto-sizing if user resizes the textarea manually
     &:has(.onyx-textarea__native[style*="height"]) {
-      --onyx-textarea-autosize-max-height: unset;
+      --onyx-textarea-max-height: unset;
 
       .onyx-textarea__wrapper::after {
         // workaround for [#1142](https://github.com/SchwarzIT/onyx/issues/1142)
@@ -207,15 +207,15 @@ defineExpose({ input });
     &__native {
       grid-area: 1 / 1;
       height: 100%;
-      min-height: var(--onyx-textarea-autosize-min-height);
-      max-height: var(--onyx-textarea-autosize-max-height);
+      min-height: var(--onyx-textarea-min-height);
+      max-height: var(--onyx-textarea-max-height);
       padding: var(--onyx-form-element-v2-padding-block) var(--onyx-form-element-v2-padding-inline);
+      white-space: pre-line;
     }
 
     &__native {
       resize: vertical;
       overflow: unset;
-      white-space: pre-line;
 
       &--no-resize {
         resize: none;
