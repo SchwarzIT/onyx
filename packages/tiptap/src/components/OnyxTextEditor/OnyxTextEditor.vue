@@ -269,7 +269,16 @@ defineExpose({
 
 .onyx-text-editor {
   @include layers.component() {
+    --onyx-text-editor-flex-direction: column-reverse;
+    --onyx-text-editor-input-border-radius-top: 0;
+    --onyx-text-editor-input-border-radius-bottom: var(--onyx-form-element-v2-border-radius);
     max-width: 100%;
+
+    &--toolbar-bottom {
+      --onyx-text-editor-flex-direction: column;
+      --onyx-text-editor-input-border-radius-top: var(--onyx-form-element-v2-border-radius);
+      --onyx-text-editor-input-border-radius-bottom: 0;
+    }
 
     &__wrapper {
       padding: 0;
@@ -288,40 +297,23 @@ defineExpose({
       }
     }
 
-    .onyx-form-element-v2__input-container {
-      width: 100%;
-      align-items: flex-start; // top align slots (loading indicator etc.)
-    }
-
-    .onyx-form-element-v2__content {
+    // scope styles so they do not apply to nested content, e.g. inside the toolbar
+    > .onyx-form-element-v2__body > .onyx-form-element-v2__content {
       height: unset; // needed for autosize to work
-      flex-direction: column-reverse;
-    }
+      flex-direction: var(--onyx-text-editor-flex-direction);
 
-    &--toolbar-bottom {
-      .onyx-form-element-v2__content {
-        flex-direction: column;
-      }
+      > .onyx-form-element-v2__input-container {
+        width: 100%;
+        align-items: flex-start; // top align slots (loading indicator etc.)
+        border-top-left-radius: var(--onyx-text-editor-input-border-radius-top);
+        border-top-right-radius: var(--onyx-text-editor-input-border-radius-top);
+        border-bottom-left-radius: var(--onyx-text-editor-input-border-radius-bottom);
+        border-bottom-right-radius: var(--onyx-text-editor-input-border-radius-bottom);
 
-      // needed so toolbar does not overlay the outline
-      .onyx-form-element-v2__input-container:focus-within {
-        z-index: 0;
-      }
-    }
-
-    // styles for top toolbar
-    &:not(&--toolbar-bottom) {
-      .onyx-form-element-v2__input-container {
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-      }
-    }
-
-    // styles for bottom toolbar
-    &--toolbar-bottom {
-      .onyx-form-element-v2__input-container {
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
+        // needed so toolbar does not overlay the outline
+        &:focus-within {
+          z-index: 0;
+        }
       }
     }
 
