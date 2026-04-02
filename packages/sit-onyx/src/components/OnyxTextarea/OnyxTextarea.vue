@@ -108,8 +108,8 @@ defineExpose({ input });
           v-model="modelValue"
           v-custom-validity
           :class="[
-            'onyx-textarea__native',
-            { 'onyx-textarea__native--no-resize': props.disableManualResize },
+            'onyx-textarea__input',
+            { 'onyx-textarea__input--no-resize': props.disableManualResize },
           ]"
           :placeholder="props.placeholder"
           :required="props.required"
@@ -163,7 +163,7 @@ defineExpose({ input });
     --onyx-form-element-v2-content-height: calc(1lh * var(--onyx-textarea-autosize-min-rows));
 
     // remove max height and disable auto-sizing if user resizes the textarea manually
-    &:has(.onyx-textarea__native[style*="height"]) {
+    &:has(.onyx-textarea__input[style*="height"]) {
       --onyx-textarea-max-height: unset;
 
       .onyx-textarea__wrapper::after {
@@ -204,7 +204,7 @@ defineExpose({ input });
      * that is used for the autosize feature.
      */
     &__wrapper:after,
-    &__native {
+    &__input {
       grid-area: 1 / 1;
       height: 100%;
       min-height: var(--onyx-textarea-min-height);
@@ -213,7 +213,7 @@ defineExpose({ input });
       white-space: pre-line;
     }
 
-    &__native {
+    &__input {
       resize: vertical;
       overflow: unset;
 
