@@ -76,13 +76,14 @@ test.describe("Screenshot tests (truncation)", () => {
 test.describe("Screenshot tests (disabled)", () => {
   executeMatrixScreenshotTest({
     name: "Text editor (disabled)",
-    columns: ["disabled"],
+    columns: ["disabled", "loading"],
     rows: ["default", "hover", "focus"],
     component: (column) => (
       <OnyxTextEditor
         label="Test label"
         disabled={column === "disabled"}
         modelValue="Filled value"
+        loading={column === "loading"}
       />
     ),
     hooks: {
