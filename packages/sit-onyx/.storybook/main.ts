@@ -28,6 +28,12 @@ const config: StorybookConfig = {
   },
   core: {
     disableTelemetry: true,
+    builder: {
+      name: "@storybook/builder-vite",
+      options: {
+        viteConfigPath: "vite.config.prod.ts",
+      },
+    },
   },
   managerHead: (head) => `
     ${head}

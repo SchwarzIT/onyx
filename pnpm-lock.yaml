@@ -703,9 +703,15 @@ importers:
       vue:
         specifier: 3.5.31
         version: 3.5.31(typescript@5.9.3)
+      vue-component-meta:
+        specifier: ^3.2.6
+        version: 3.2.6(typescript@5.9.3)
       vue-component-type-helpers:
         specifier: ^3.2.6
         version: 3.2.6
+      vue-docgen-api:
+        specifier: ^4.79.2
+        version: 4.79.2(vue@3.5.31(typescript@5.9.3))
       vue-i18n:
         specifier: ^11.3.0
         version: 11.3.0(vue@3.5.31(typescript@5.9.3))

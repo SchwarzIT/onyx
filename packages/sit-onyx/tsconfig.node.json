@@ -6,6 +6,7 @@
     "vitest.config.*",
     "playwright.config.*",
     "package.json",
+    "build",
     ".storybook/*.ts",
     "src/a11yConfig.ts"
   ],
