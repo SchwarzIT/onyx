@@ -61,7 +61,7 @@ const editor = useEditor({
   ],
   editorProps: {
     attributes: {
-      class: "onyx-form-element-v2__input onyx-text-editor__native",
+      class: "onyx-form-element-v2__input onyx-text-editor__input",
       role: "textbox",
     },
   },
@@ -108,7 +108,7 @@ watch(
 
           return mergeAttributes(currentAttributes, {
             "aria-label": props.label,
-            class: props.disableManualResize ? "onyx-text-editor__native--no-resize" : undefined,
+            class: props.disableManualResize ? "onyx-text-editor__input--no-resize" : undefined,
           });
         },
       },
@@ -200,7 +200,7 @@ defineExpose({
     --onyx-form-element-v2-content-height: calc(1lh * var(--onyx-text-editor-autosize-min-rows));
 
     // remove max height and disable auto-sizing if user resizes the textarea manually
-    &:has(.onyx-text-editor__native[style*="height"]) {
+    &:has(.onyx-text-editor__input[style*="height"]) {
       --onyx-text-editor-max-height: unset;
 
       .onyx-text-editor__wrapper::after {
@@ -295,7 +295,7 @@ defineExpose({
      * that is used for the autosize feature.
      */
     &__wrapper:after,
-    &__native {
+    &__input {
       grid-area: 1 / 1;
       height: 100%;
       min-height: var(--onyx-text-editor-min-height);
@@ -304,7 +304,7 @@ defineExpose({
       word-break: break-word;
     }
 
-    &__native {
+    &__input {
       @include content-styles();
       resize: vertical;
       overflow-y: auto;
