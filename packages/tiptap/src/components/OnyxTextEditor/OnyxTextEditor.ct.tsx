@@ -51,10 +51,8 @@ test.describe("Screenshot tests (truncation)", () => {
       return (
         <OnyxTextEditor
           style={{ maxWidth: "12.5rem" }}
-          label={label}
-          labelTooltip="Label tooltip"
-          hideLabel={row === "hideLabel"}
-          message={{ shortMessage: message, longMessage: "Message tooltip" }}
+          label={{ label, tooltipText: "Label tooltip", hidden: row === "hideLabel" }}
+          message={{ label: message, tooltipText: "Message tooltip" }}
         />
       );
     },
@@ -726,6 +724,55 @@ test("should disable all actions if editor is disabled", async ({ mount }) => {
   // ASSERT
   await expect(headingFlyout).toBeHidden();
   await expect(headingTooltip).toBeHidden();
+});
+
+test("should show error", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(OnyxTextEditor, {
+    props: {
+      label: "Test label",
+      required: true,
+    },
+  });
+
+  const input = component.getByLabel("Test label");
+  const error = component.locator(".onyx-form-element-v2__message--danger");
+
+  // ASSERT
+  await expect(error).toBeHidden();
+
+  // ACT
+  await component.update({ props: { showError: true } });
+
+  // ASSERT
+  await expect(error, "should show immediately when 'showError' is true").toBeVisible();
+  await expect(error).toContainText("Required");
+
+  // ACT
+  await component.update({ props: { showError: "touched" } });
+
+  // ASSERT
+  await expect(error).toBeHidden();
+
+  // ACT
+  await input.fill("Filled value");
+
+  // ASSERT
+  await expect(error).toBeHidden();
+
+  // ACT
+  await input.clear();
+
+  // ASSERT
+  await expect(error, "should show error when touched").toBeVisible();
+  await expect(error).toContainText("Required");
+
+  // ACT
+  await component.update({ props: { error: "Custom error" } });
+
+  // ASSERT
+  await expect(error, "should show custom error").toBeVisible();
+  await expect(error).toContainText("Custom error");
 });
 
 /**
