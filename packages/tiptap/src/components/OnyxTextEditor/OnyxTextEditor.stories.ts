@@ -37,6 +37,19 @@ export const BottomToolbar = {
   },
 } satisfies Story;
 
+export const Skeleton = {
+  args: {
+    ...Default.args,
+    skeleton: true,
+  },
+} satisfies Story;
+
+export const LeftLabel = {
+  args: {
+    label: { label: Default.args.label, position: "left" },
+  },
+} satisfies Story;
+
 export const CustomizedStarterKit = createAdvancedStoryExample(
   "OnyxTextEditor",
   "StarterKitExample",
