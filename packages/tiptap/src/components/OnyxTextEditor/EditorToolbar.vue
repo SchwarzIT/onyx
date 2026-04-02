@@ -173,14 +173,17 @@ const { hasExtension, hasTextExtension } = useEditorUtils(computed(() => props.e
       justify-content: space-between;
       max-width: 100%;
       width: 100%;
+
+      border-top-left-radius: var(--onyx-text-editor-input-border-radius-bottom);
+      border-top-right-radius: var(--onyx-text-editor-input-border-radius-bottom);
+      border-bottom-left-radius: var(--onyx-text-editor-input-border-radius-top);
+      border-bottom-right-radius: var(--onyx-text-editor-input-border-radius-top);
     }
 
     // styles for top toolbar
     &:not(&--toolbar-bottom) {
       .onyx-text-editor__toolbar {
         border-bottom: none;
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
       }
     }
 
@@ -188,8 +191,6 @@ const { hasExtension, hasTextExtension } = useEditorUtils(computed(() => props.e
     &--toolbar-bottom {
       .onyx-text-editor__toolbar {
         border-top: none;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
       }
     }
 
