@@ -178,9 +178,10 @@ const autosizeValue = computed(() => {
 });
 
 const formElement = useTemplateRef("formElement");
-const toolbarTeleportTarget = computed(() =>
-  formElement.value?.$el.querySelector(".onyx-form-element-v2__content"),
-);
+const toolbarTeleportTarget = computed(() => {
+  const el = formElement.value?.$el as HTMLElement | undefined;
+  return el?.querySelector(".onyx-form-element-v2__content");
+});
 
 defineExpose({
   /**
