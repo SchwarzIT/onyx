@@ -14,7 +14,7 @@ export const EMIT_SPY_SYMBOL = Symbol("EMIT_SPY_SYMBOL");
  * // add spy
  * const component = await mount(<OnyxColorSchemeDialog onUpdate:open={onUpdateOpen} />);
  * // check spy
- * expectEmit(onUpdateOpen, 1, [false]);
+ * await expectEmit(onUpdateOpen, 1, [false]);
  * ```
  */
 export const createEmitSpy = <
@@ -49,10 +49,11 @@ export const expectEmit = <Handler extends { [EMIT_SPY_SYMBOL]: unknown[][] }>(
   test.step(
     "check emitted events",
     async () => {
-      const calls = emitSpy[EMIT_SPY_SYMBOL];
-      expect(calls, "Should have emitted at least n times.").toHaveLength(n);
+      await expect
+        .poll(() => emitSpy[EMIT_SPY_SYMBOL], "Should have emitted at least n times.")
+        .toHaveLength(n);
 
-      const nthCall = calls[n - 1];
+      const nthCall = emitSpy[EMIT_SPY_SYMBOL][n - 1];
       if (matches) {
         expect(nthCall, "Should match expected emit details.").toMatchObject(matches);
       }

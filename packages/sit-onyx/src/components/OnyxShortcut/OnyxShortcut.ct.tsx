@@ -61,18 +61,16 @@ test("should emit events when step and full sequence is completed", async ({ mou
   );
 
   // ACT
-  await page.keyboard.down("Control");
-  await page.keyboard.press("c");
-  await page.keyboard.up("Control");
+  await page.keyboard.press("Control+c");
 
   // ASSERT
-  expectEmit(onStepComplete, 1, [{ all: ["Control", "C"] }, 0]);
-  expectEmit(onComplete, 0);
+  await expectEmit(onStepComplete, 1, [{ all: ["Control", "C"] }, 0]);
+  await expectEmit(onComplete, 0);
 
   // ACT
   await page.keyboard.press("v");
 
   // ASSERT
-  expectEmit(onStepComplete, 2, [{ any: ["V"] }, 1]);
-  expectEmit(onComplete, 1, []);
+  await expectEmit(onStepComplete, 2, [{ any: ["V"] }, 1]);
+  await expectEmit(onComplete, 1, []);
 });

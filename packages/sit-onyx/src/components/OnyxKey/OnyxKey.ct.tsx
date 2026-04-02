@@ -141,13 +141,13 @@ test("should emit event when the matching key is pressed", async ({ mount, page 
   await page.keyboard.press("A");
 
   // ASSERT
-  expectEmit(onPressed, 0);
+  await expectEmit(onPressed, 0);
 
   // ACT
   await page.keyboard.press("Enter");
 
   // ASSERT
-  expectEmit(onPressed, 1, []);
+  await expectEmit(onPressed, 1, []);
 });
 
 test("should have accessible name", async ({ mount }) => {

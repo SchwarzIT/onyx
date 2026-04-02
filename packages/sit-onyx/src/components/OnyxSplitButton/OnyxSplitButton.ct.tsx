@@ -88,7 +88,7 @@ test("Split button interactions", async ({ page, mount }) => {
   await mainOption.click();
 
   // ASSERT
-  expectEmit(onClicked, 1, ["Option 1"]);
+  await expectEmit(onClicked, 1, ["Option 1"]);
 
   // ACT
   const toggleButton = page.getByRole("button", { name: enUS.flyoutMenu.toggleActions.click });
@@ -103,6 +103,6 @@ test("Split button interactions", async ({ page, mount }) => {
   await secondOption.click();
 
   // ASSERT
-  expectEmit(onClicked, 2, ["Option 2"]);
+  await expectEmit(onClicked, 2, ["Option 2"]);
   await expect(popover).toBeHidden();
 });

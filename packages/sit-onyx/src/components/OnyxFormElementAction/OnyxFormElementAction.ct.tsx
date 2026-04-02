@@ -108,6 +108,6 @@ test("should show when form element is focused", async ({ mount }) => {
   await actionButton.click();
 
   // ASSERT
-  expectEmit(actionClickSpy, 1, []);
+  await expectEmit(actionClickSpy, 1, []);
   await expect(actionButton).toBeVisible();
 });

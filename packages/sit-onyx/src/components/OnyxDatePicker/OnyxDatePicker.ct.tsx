@@ -45,7 +45,7 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
 
   // ASSERT
   // should not emit initial events
-  expectEmit(onUpdateModelValue, 0);
+  await expectEmit(onUpdateModelValue, 0);
 
   // ACT
   const accessibilityScanResults = await makeAxeBuilder().analyze();
@@ -60,14 +60,14 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
 
   // ASSERT
   await expect(inputElement).toHaveValue("2024-11-25");
-  expectEmit(onUpdateModelValue, 1, ["2024-11-25"]);
+  await expectEmit(onUpdateModelValue, 1, ["2024-11-25"]);
 
   // ACT
   await inputElement.clear();
 
   // ASSERT
   await expect(inputElement).toHaveValue("");
-  expectEmit(onUpdateModelValue, 2, [undefined]);
+  await expectEmit(onUpdateModelValue, 2, [undefined]);
 
   await component.update({ props: { ...props, type: "datetime-local" } });
 
@@ -76,14 +76,14 @@ test("should emit events", async ({ mount, makeAxeBuilder }) => {
 
   // ASSERT
   await expect(inputElement).toHaveValue("2024-11-25T12:34");
-  expectEmit(onUpdateModelValue, 3, ["2024-11-25T11:34:00.000Z"]);
+  await expectEmit(onUpdateModelValue, 3, ["2024-11-25T11:34:00.000Z"]);
 
   // ACT
   await inputElement.clear();
 
   // ASSERT
   await expect(inputElement).toHaveValue("");
-  expectEmit(onUpdateModelValue, 4, [undefined]);
+  await expectEmit(onUpdateModelValue, 4, [undefined]);
 });
 
 test("should show min errors", async ({ mount }) => {
