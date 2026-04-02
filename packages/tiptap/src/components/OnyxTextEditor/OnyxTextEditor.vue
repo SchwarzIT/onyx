@@ -3,13 +3,13 @@ import { Placeholder } from "@tiptap/extensions/placeholder";
 import { EditorContent, mergeAttributes, useEditor } from "@tiptap/vue-3";
 import {
   FORM_INJECTED_SYMBOL,
-  getFormMessages,
-  OnyxFormElement,
+  OnyxUnstableFormElementV2,
+  SKELETON_INJECTED_SYMBOL,
   useFormContext,
   useForwardProps,
   useVModel,
 } from "sit-onyx";
-import { computed, provide, watch } from "vue";
+import { computed, provide, useTemplateRef, watch, type StyleValue } from "vue";
 import EditorToolbar from "./EditorToolbar.vue";
 import { OnyxStarterKit } from "./extensions/starterKit.js";
 import { TEXT_EDITOR_INJECTION_KEY, type OnyxTextEditorProps } from "./types.js";
@@ -17,8 +17,11 @@ import { TEXT_EDITOR_INJECTION_KEY, type OnyxTextEditorProps } from "./types.js"
 const props = withDefaults(defineProps<OnyxTextEditorProps>(), {
   toolbar: () => ({ position: "top" }),
   disabled: FORM_INJECTED_SYMBOL,
-  extensions: () => [OnyxStarterKit],
   reserveMessageSpace: FORM_INJECTED_SYMBOL,
+  showError: FORM_INJECTED_SYMBOL,
+  requiredMarker: FORM_INJECTED_SYMBOL,
+  skeleton: SKELETON_INJECTED_SYMBOL,
+  extensions: () => [OnyxStarterKit],
 });
 
 const emit = defineEmits<{
@@ -35,7 +38,8 @@ defineSlots<{
   actions?(): unknown;
 }>();
 
-const { disabled } = useFormContext(props);
+const formContext = useFormContext(props);
+const disabled = computed(() => formContext.disabled.value || props.loading);
 provide(TEXT_EDITOR_INJECTION_KEY, { disabled });
 
 const modelValue = useVModel({
@@ -57,7 +61,7 @@ const editor = useEditor({
   ],
   editorProps: {
     attributes: {
-      class: "onyx-text-editor__native",
+      class: "onyx-form-element-v2__input onyx-text-editor__native",
       role: "textbox",
     },
   },
@@ -121,27 +125,29 @@ watch(
   },
 );
 
-const formElementProps = useForwardProps(props, OnyxFormElement);
+const formElementV2Props = useForwardProps(props, OnyxUnstableFormElementV2);
 
 /**
  * Current CSS variables for the autosize min/max height.
  */
-const autosizeMinMaxStyles = computed(() => {
+const autosizeMinMaxStyles = computed<StyleValue>(() => {
   if (!props.autosize) return;
   const min = props.autosize.min ? Math.max(props.autosize.min, 2) : undefined; // ensure min is not smaller than 2
   const max = props.autosize.max;
-  return [
-    min ? `--onyx-text-editor-min-autosize-rows: ${min}` : "",
-    `--onyx-text-editor-max-autosize-rows: ${max ?? "unset"}`,
-  ];
+  return {
+    "--onyx-text-editor-autosize-min-rows": min,
+    "--onyx-text-editor-autosize-max-rows": max ?? "unset",
+  };
 });
-
-const successMessages = computed(() => getFormMessages(props.success));
-const message = computed(() => getFormMessages(props.message));
 
 const autosizeValue = computed(() => {
   return editor.value?.getText({ blockSeparator: "\n" });
 });
+
+const formElement = useTemplateRef("formElement");
+const toolbarTeleportTarget = computed(() =>
+  formElement.value?.$el.querySelector(".onyx-form-element-v2__content"),
+);
 
 defineExpose({
   /**
@@ -152,49 +158,46 @@ defineExpose({
 </script>
 
 <template>
-  <OnyxFormElement
-    v-bind="formElementProps"
-    class="onyx-text-editor"
+  <OnyxUnstableFormElementV2
+    v-bind="formElementV2Props"
+    ref="formElement"
+    :class="[
+      'onyx-text-editor',
+      { 'onyx-text-editor--toolbar-bottom': props.toolbar?.position === 'bottom' },
+    ]"
     :style="autosizeMinMaxStyles"
-    :message
-    :success-messages
   >
-    <div
-      :class="[
-        'onyx-text-editor__body',
-        { 'onyx-text-editor__body--reverse': props.toolbar?.position === 'bottom' },
-      ]"
-    >
+    <Teleport v-if="toolbarTeleportTarget" :to="toolbarTeleportTarget">
       <EditorToolbar :editor>
         <slot name="actions"> </slot>
       </EditorToolbar>
+    </Teleport>
 
-      <EditorContent
-        class="onyx-text-editor__wrapper"
-        :data-autosize-value="autosizeValue"
-        :editor
-      />
-    </div>
-  </OnyxFormElement>
+    <EditorContent class="onyx-text-editor__wrapper" :data-autosize-value="autosizeValue" :editor />
+  </OnyxUnstableFormElementV2>
 </template>
 
 <style lang="scss">
 @use "sit-onyx/src/styles/mixins/layers.scss";
 @use "sit-onyx/src/styles/mixins/input.scss";
 
-.onyx-text-editor,
-.onyx-text-editor-skeleton {
+.onyx-text-editor {
   @include layers.component() {
-    --onyx-text-editor-min-autosize-rows: 3;
-    --onyx-text-editor-max-autosize-rows: 10;
-    --onyx-text-editor-padding-block: var(--onyx-density-xs);
+    --onyx-text-editor-autosize-min-rows: 3;
+    --onyx-text-editor-autosize-max-rows: 10;
 
+    // calculated values
     --onyx-text-editor-min-height: calc(
-      var(--onyx-text-editor-min-autosize-rows) * 1lh + 2 * var(--onyx-text-editor-padding-block)
+      var(--onyx-text-editor-autosize-min-rows) * 1lh + 2 *
+        var(--onyx-form-element-v2-padding-block)
     );
     --onyx-text-editor-max-height: calc(
-      var(--onyx-text-editor-max-autosize-rows) * 1lh + 2 * var(--onyx-text-editor-padding-block)
+      var(--onyx-text-editor-autosize-max-rows) * 1lh + 2 *
+        var(--onyx-form-element-v2-padding-block)
     );
+
+    // needed for correct skeleton height
+    --onyx-form-element-v2-content-height: calc(1lh * var(--onyx-text-editor-autosize-min-rows));
 
     // remove max height and disable auto-sizing if user resizes the textarea manually
     &:has(.onyx-text-editor__native[style*="height"]) {
@@ -231,19 +234,13 @@ defineExpose({
 
 .onyx-text-editor {
   @include layers.component() {
-    @include input.define-shared-styles(
-      $base-selector: ".onyx-text-editor",
-      $vertical-padding: var(--onyx-text-editor-padding-block)
-    );
-
     max-width: 100%;
 
     &__wrapper {
       padding: 0;
-      height: unset;
       display: grid;
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
+      width: 100%;
+      height: 100%;
 
       // auto-resize, based on: https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas
       &::after {
@@ -253,6 +250,43 @@ defineExpose({
         visibility: hidden; // hidden from view, clicks, and screen readers
         overflow-wrap: anywhere;
         overflow-y: hidden;
+      }
+    }
+
+    .onyx-form-element-v2__input-container {
+      width: 100%;
+      align-items: flex-start; // top align slots (loading indicator etc.)
+    }
+
+    .onyx-form-element-v2__content {
+      height: unset; // needed for autosize to work
+      flex-direction: column-reverse;
+    }
+
+    &--toolbar-bottom {
+      .onyx-form-element-v2__content {
+        flex-direction: column;
+      }
+
+      // needed so toolbar does not overlay the outline
+      .onyx-form-element-v2__input-container:focus-within {
+        z-index: 0;
+      }
+    }
+
+    // styles for top toolbar
+    &:not(&--toolbar-bottom) {
+      .onyx-form-element-v2__input-container {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+      }
+    }
+
+    // styles for bottom toolbar
+    &--toolbar-bottom {
+      .onyx-form-element-v2__input-container {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
       }
     }
 
@@ -266,7 +300,7 @@ defineExpose({
       height: 100%;
       min-height: var(--onyx-text-editor-min-height);
       max-height: var(--onyx-text-editor-max-height);
-      padding: var(--onyx-text-editor-padding-block) var(--onyx-density-sm);
+      padding: var(--onyx-form-element-v2-padding-block) var(--onyx-form-element-v2-padding-inline);
       word-break: break-word;
     }
 
@@ -274,34 +308,11 @@ defineExpose({
       @include content-styles();
       resize: vertical;
       overflow-y: auto;
+      overflow-x: unset;
+      white-space: pre-line;
 
       &--no-resize {
         resize: none;
-      }
-    }
-
-    &__body {
-      display: flex;
-      flex-direction: column;
-
-      &--reverse {
-        flex-direction: column-reverse;
-
-        .onyx-text-editor__toolbar {
-          border-top: none;
-          border-bottom: var(--onyx-1px-in-rem) solid var(--border-color);
-          border-top-left-radius: 0;
-          border-top-right-radius: 0;
-          border-bottom-left-radius: var(--border-radius);
-          border-bottom-right-radius: var(--border-radius);
-        }
-
-        .onyx-text-editor__wrapper {
-          border-top-left-radius: var(--border-radius);
-          border-top-right-radius: var(--border-radius);
-          border-bottom-left-radius: 0;
-          border-bottom-right-radius: 0;
-        }
       }
     }
   }

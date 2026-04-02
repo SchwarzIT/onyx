@@ -164,16 +164,33 @@ const { hasExtension, hasTextExtension } = useEditorUtils(computed(() => props.e
 .onyx-text-editor {
   @include layers.component() {
     &__toolbar {
-      border: var(--onyx-1px-in-rem) solid var(--border-color);
-      border-bottom: none;
-      border-top-left-radius: var(--border-radius);
-      border-top-right-radius: var(--border-radius);
+      border: var(--onyx-form-element-v2-border-size) solid var(--onyx-form-element-v2-border-color);
+      border-radius: inherit;
       color: var(--onyx-color-text-icons-neutral-medium);
       background-color: var(--onyx-color-base-background-tinted); // TODO: adjust this in Figma
-
       display: flex;
       align-items: center;
       justify-content: space-between;
+      max-width: 100%;
+      width: 100%;
+    }
+
+    // styles for top toolbar
+    &:not(&--toolbar-bottom) {
+      .onyx-text-editor__toolbar {
+        border-bottom: none;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+    }
+
+    // styles for bottom toolbar
+    &--toolbar-bottom {
+      .onyx-text-editor__toolbar {
+        border-top: none;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+      }
     }
 
     &__actions {
@@ -181,7 +198,7 @@ const { hasExtension, hasTextExtension } = useEditorUtils(computed(() => props.e
       align-items: center;
       gap: var(--onyx-density-xs);
       overflow: auto;
-      padding: var(--onyx-text-editor-padding-block);
+      padding: var(--onyx-form-element-v2-padding-block);
 
       &--fixed {
         overflow: visible;
