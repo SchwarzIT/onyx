@@ -804,8 +804,8 @@ async function expectFlyoutOptionSelected(page: Page, label: string, optionName:
  * Useful when capturing screenshots.
  */
 async function hoverAction(page: Page, label: string) {
-  // reset hover
-  await page.getByRole("document").hover({ position: { x: 0, y: 0 } });
+  // reset focus
+  await page.getByRole("document").click({ position: { x: 0, y: 0 } });
   await page.getByRole("button", { name: label }).hover();
   await expect(page.getByRole("tooltip", { name: label })).toBeVisible();
 }
