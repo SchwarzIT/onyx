@@ -55,12 +55,12 @@
     "@sit-onyx/playwright-utils": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",
-    "@tiptap/extension-heading": "^3.21.0",
-    "@tiptap/extension-text-align": "^3.21.0",
-    "@tiptap/extensions": "^3.21.0",
-    "@tiptap/pm": "^3.21.0",
-    "@tiptap/starter-kit": "^3.21.0",
-    "@tiptap/vue-3": "^3.21.0",
+    "@tiptap/extension-heading": "^3.22.0",
+    "@tiptap/extension-text-align": "^3.22.0",
+    "@tiptap/extensions": "^3.22.0",
+    "@tiptap/pm": "^3.22.0",
+    "@tiptap/starter-kit": "^3.22.0",
+    "@tiptap/vue-3": "^3.22.0",
     "@vue/compiler-dom": "catalog:",
     "sit-onyx": "workspace:^"
   }
