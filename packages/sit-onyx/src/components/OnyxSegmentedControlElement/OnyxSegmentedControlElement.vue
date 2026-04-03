@@ -58,7 +58,7 @@ useAutofocus(input, props);
   @include layers.component() {
     box-sizing: border-box;
     background-color: var(--onyx-color-base-neutral-200);
-    border-radius: var(--onyx-radius-sm);
+    border-radius: var(--onyx-radius-component-segmented-control-inside);
     color: var(--onyx-color-text-icons-neutral-medium);
     font-weight: var(--onyx-font-weight-regular);
     font-family: var(--onyx-font-family-paragraph);
