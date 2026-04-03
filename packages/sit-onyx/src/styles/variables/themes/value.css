@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "value" theme.
- * Imported from Figma API on Fri, 19 Dec 2025 11:04:23 GMT
+ * Imported from Figma API on Fri, 27 Mar 2026 07:44:54 GMT
  */
 :where(:root),
 .onyx-theme-default {
@@ -318,7 +318,6 @@
   --onyx-font-family-IBM-Plex-Sans-Variable: "IBM Plex Sans Variable";
   --onyx-font-family-Kaufland: "Kaufland";
   --onyx-font-family-Lidl-Font-Pro: "Lidl Font Pro";
-  --onyx-font-family-OCR-A-Std: "OCR A Std";
   --onyx-font-family-Source-Code-Pro-Variable: "Source Code Pro Variable";
   --onyx-font-family-Source-Sans-3-Variable: "Source Sans 3 Variable";
   --onyx-font-family-Univia-Pro: "Univia Pro";
@@ -338,10 +337,17 @@
   --onyx-font-weight-800: 800;
   --onyx-number-radius-100: 0.125rem;
   --onyx-number-radius-200: 0.25rem;
+  --onyx-number-radius-250: 0.375rem;
   --onyx-number-radius-300: 0.5rem;
+  --onyx-number-radius-325: 0.625rem;
+  --onyx-number-radius-350: 0.75rem;
+  --onyx-number-radius-375: 0.875rem;
   --onyx-number-radius-400: 1rem;
+  --onyx-number-radius-450: 1.25rem;
+  --onyx-number-radius-475: 1.5rem;
   --onyx-number-radius-500: 2rem;
   --onyx-number-radius-600: 62.5rem;
+  --onyx-number-radius-none: 0rem;
   --onyx-number-spacing-0: 0rem;
   --onyx-number-spacing-100: 0.125rem;
   --onyx-number-spacing-200: 0.25rem;

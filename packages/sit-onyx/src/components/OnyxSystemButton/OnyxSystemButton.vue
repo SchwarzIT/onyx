@@ -77,7 +77,7 @@ const skeleton = useSkeletonContext(props);
     font-family: var(--onyx-font-family-paragraph);
     color: var(--color);
     background-color: var(--background-color);
-    border-radius: var(--onyx-radius-sm);
+    border-radius: var(--onyx-radius-component-system-button);
     border: none;
     padding: 0;
     height: var(--height);

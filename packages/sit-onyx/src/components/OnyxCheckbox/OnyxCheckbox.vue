@@ -180,7 +180,7 @@ useAutofocus(input, props);
       display: inline-flex;
       align-items: flex-start;
       padding: var(--onyx-checkbox-input-padding);
-      border-radius: var(--onyx-radius-full);
+      border-radius: var(--onyx-radius-component-checkbox);
     }
 
     &__label {
