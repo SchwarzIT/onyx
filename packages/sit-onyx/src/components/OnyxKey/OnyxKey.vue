@@ -22,12 +22,12 @@ import {
   keyboardEventToKey,
 } from "../../utils/keyboard.js";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
+import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 import type { OnyxKeyProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxKeyProps>(), {
   os: "auto",
-  highlighted: false,
+  highlight: false,
   skeleton: SKELETON_INJECTED_SYMBOL,
 });
 
@@ -61,7 +61,7 @@ const visualLabel = computed<string>(() => {
 const isPressed = ref(false);
 
 const isHighlighted = computed(() => {
-  return props.highlighted === "auto" ? isPressed.value : props.highlighted;
+  return props.highlight === "auto" ? isPressed.value : props.highlight;
 });
 
 const handleKeydown = (event: KeyboardEvent) => {
@@ -74,8 +74,19 @@ const handleKeyup = () => {
   isPressed.value = false;
 };
 
-useGlobalEventListener({ type: "keydown", listener: handleKeydown });
-useGlobalEventListener({ type: "keyup", listener: handleKeyup });
+const disableEventListener = computed(() => props.highlight !== "auto");
+
+useGlobalEventListener({
+  type: "keydown",
+  listener: handleKeydown,
+  disabled: disableEventListener,
+});
+
+useGlobalEventListener({
+  type: "keyup",
+  listener: handleKeyup,
+  disabled: disableEventListener,
+});
 
 defineExpose({
   /**
@@ -87,22 +98,24 @@ defineExpose({
 
 <template>
   <OnyxSkeleton v-if="skeleton" :class="['onyx-component', 'onyx-key-skeleton']" />
-  <kbd
-    v-else
-    :class="[
-      'onyx-component',
-      'onyx-key',
-      'onyx-text',
-      'onyx-text--monospace',
-      { 'onyx-key--highlighted': isHighlighted },
-    ]"
-  >
-    <span aria-hidden="true" class="onyx-truncation-ellipsis">
-      {{ visualLabel }}
-    </span>
-
-    <OnyxVisuallyHidden>{{ label }}</OnyxVisuallyHidden>
-  </kbd>
+  <OnyxTooltip v-else :text="label">
+    <template #default="{ trigger }">
+      <kbd
+        v-bind="trigger"
+        :class="[
+          'onyx-component',
+          'onyx-key',
+          'onyx-text',
+          'onyx-text--monospace',
+          { 'onyx-key--highlighted': isHighlighted },
+        ]"
+      >
+        <span class="onyx-truncation-ellipsis">
+          {{ visualLabel }}
+        </span>
+      </kbd>
+    </template>
+  </OnyxTooltip>
 </template>
 
 <style lang="scss">
@@ -113,16 +126,17 @@ defineExpose({
   @include layers.component() {
     --onyx-key-border-radius: var(--onyx-radius-sm);
     --onyx-key-size: 1.5rem;
+    --onyx-key-width: calc(var(--onyx-key-size) + 2 * var(--onyx-1px-in-rem));
+    display: inline-flex;
   }
 }
 
 .onyx-key {
   @include layers.component() {
-    display: inline-flex;
     align-items: center;
     justify-content: center;
 
-    min-width: var(--onyx-key-size);
+    min-width: var(--onyx-key-width);
     padding-inline: var(--onyx-density-2xs);
 
     background-color: var(--onyx-color-base-background-tinted);
@@ -140,9 +154,9 @@ defineExpose({
 .onyx-key-skeleton {
   @include layers.component() {
     display: inline-block;
-    min-width: var(--onyx-key-size);
+    min-width: var(--onyx-key-width);
     width: var(--onyx-key-size);
-    min-height: var(--onyx-key-size);
+    min-height: var(--onyx-key-width);
     height: var(--onyx-key-size);
     border-radius: var(--onyx-key-border-radius);
   }
