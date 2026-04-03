@@ -57,19 +57,24 @@ export const useAnchorPositionPolyfill = ({
     let top = 0;
     let left = 0;
 
-    const alignmentPositioning =
-      toValue(alignsWithEdge) &&
-      toValue(alignment) !== "center" &&
-      (toValue(positionArea) === "top" || toValue(positionArea) === "bottom")
+    const horizontalAlignmentPositioning =
+      toValue(alignsWithEdge) && toValue(alignment) !== "center"
         ? toValue(alignment) === "left" || toValue(fitParent)
           ? targetRect.left
           : targetRect.right - positionedElRect.width
         : targetRect.left + targetRect.width / 2 - positionedElRect.width / 2;
 
+    const verticalAlignmentPositioning =
+      toValue(alignsWithEdge) && toValue(alignment) !== "center"
+        ? toValue(alignment) === "top" || toValue(fitParent)
+          ? targetRect.top
+          : targetRect.bottom - positionedElRect.height
+        : targetRect.top + targetRect.height / 2 - positionedElRect.height / 2;
+
     switch (toValue(positionArea)) {
       case "top":
         top = targetRect.top - positionedElRect.height - offset;
-        left = alignmentPositioning;
+        left = horizontalAlignmentPositioning;
         break;
 
       case "top right":
@@ -83,13 +88,13 @@ export const useAnchorPositionPolyfill = ({
         break;
 
       case "right":
-        top = targetRect.top + targetRect.height / 2 - positionedElRect.height / 2;
+        top = verticalAlignmentPositioning;
         left = targetRect.right + offset;
         break;
 
       case "bottom":
         top = targetRect.bottom + offset;
-        left = alignmentPositioning;
+        left = horizontalAlignmentPositioning;
         break;
 
       case "bottom right":
@@ -103,7 +108,7 @@ export const useAnchorPositionPolyfill = ({
         break;
 
       case "left":
-        top = targetRect.top + targetRect.height / 2 - positionedElRect.height / 2;
+        top = verticalAlignmentPositioning;
         left = targetRect.left - positionedElRect.width - offset;
         break;
     }

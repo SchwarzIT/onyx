@@ -14,7 +14,7 @@ export type OnyxBasicPopoverProps = {
   /**
    * How to position the popover relative to the parent element.
    */
-  position?: AnchorPosition | "auto";
+  position?: AnchorPosition | "auto" | "auto-inline";
   /**
    * Specifies how to align the popover relative to the parent element.
    * This is applicable only for top and bottom positioning.

@@ -1,17 +1,18 @@
-import { ref, unref, type ShallowRef } from "vue";
+import { ref, toValue, unref, type MaybeRefOrGetter, type ShallowRef } from "vue";
 
-export type OpenDirection = "top" | "bottom";
+export type OpenDirection = "top" | "bottom" | "left" | "right";
 
 export const useOpenDirection = (
   element: Readonly<ShallowRef<Element | null | undefined>>,
-  defaultDirection: OpenDirection = "bottom",
+  defaultDirection: MaybeRefOrGetter<OpenDirection> = "bottom",
+  horizontal: MaybeRefOrGetter<boolean> = false,
 ) => {
-  const openDirection = ref<OpenDirection>(defaultDirection);
+  const openDirection = ref<OpenDirection>(toValue(defaultDirection));
 
   const updateOpenDirection = () => {
     const el = unref(element);
     if (!el) {
-      openDirection.value = defaultDirection;
+      openDirection.value = toValue(defaultDirection);
       return;
     }
 
@@ -19,15 +20,26 @@ export const useOpenDirection = (
     const elementRect = el.getBoundingClientRect();
 
     /**
-     * In case there no parent with overflow hidden, we consider top as 0 and bottom as the viewport height,
+     * In case there no parent with overflow hidden, we consider top/left as 0 and bottom/right as the viewport height/width,
      * since `getBoundingClientRect` returns values relative to the viewport and not considering any scrolling.
      */
-    const parentTop = overflowParentRect?.top ?? 0;
-    const parentBottom = overflowParentRect?.bottom ?? window.visualViewport?.height ?? 0;
-    const freeSpaceBelow = parentBottom - elementRect.bottom;
-    const freeSpaceAbove = elementRect.top - parentTop;
+    if (toValue(horizontal)) {
+      const parentLeft = overflowParentRect?.left ?? 0;
+      const parentRight =
+        overflowParentRect?.right ?? window.visualViewport?.width ?? window.innerWidth ?? 0;
+      const freeSpaceRight = parentRight - elementRect.right;
+      const freeSpaceLeft = elementRect.left - parentLeft;
 
-    openDirection.value = freeSpaceAbove > freeSpaceBelow ? "top" : "bottom";
+      openDirection.value = freeSpaceLeft > freeSpaceRight ? "left" : "right";
+    } else {
+      const parentTop = overflowParentRect?.top ?? 0;
+      const parentBottom =
+        overflowParentRect?.bottom ?? window.visualViewport?.height ?? window.innerHeight ?? 0;
+      const freeSpaceBelow = parentBottom - elementRect.bottom;
+      const freeSpaceAbove = elementRect.top - parentTop;
+
+      openDirection.value = freeSpaceAbove > freeSpaceBelow ? "top" : "bottom";
+    }
   };
 
   return {
