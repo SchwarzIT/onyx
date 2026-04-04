@@ -15,7 +15,7 @@ const meta: Meta<typeof OnyxTextEditor> = {
     actions: { control: { disable: true } },
   },
   args: {
-    style: "width: max-content",
+    style: "max-width: 32rem",
   },
 };
 
@@ -34,6 +34,35 @@ export const BottomToolbar = {
   args: {
     ...Default.args,
     toolbar: { position: "bottom" },
+  },
+} satisfies Story;
+
+export const Skeleton = {
+  args: {
+    ...Default.args,
+    skeleton: true,
+  },
+} satisfies Story;
+
+export const LeftLabel = {
+  args: {
+    label: { label: Default.args.label, position: "left" },
+  },
+} satisfies Story;
+
+export const Required = {
+  args: {
+    ...Default.args,
+    required: true,
+  },
+} satisfies Story;
+
+export const CustomError = {
+  args: {
+    ...Default.args,
+    message: undefined,
+    error: { label: "Custom error", tooltipText: "Tooltip text" },
+    showError: true,
   },
 } satisfies Story;
 
