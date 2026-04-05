@@ -60,14 +60,6 @@ const isMobile = computed(() => width.value <= ONYX_BREAKPOINTS.xs);
               <OnyxIcon :icon="iconSettings" />
               Settings
             </OnyxMenuItem>
-            <OnyxMenuItem>
-              <OnyxIcon :icon="iconSettings" />
-              Settings
-            </OnyxMenuItem>
-            <OnyxMenuItem>
-              <OnyxIcon :icon="iconSettings" />
-              Settings
-            </OnyxMenuItem>
             <OnyxColorSchemeMenuItem model-value="auto" />
             <OnyxMenuItem color="danger">
               <OnyxIcon :icon="iconLogout" />
