@@ -94,7 +94,7 @@ const { componentRef, isVisible } = isTopLevel
     v-if="isExpanded !== undefined && isTopLevel && hasChildren && isVisible"
     v-bind="rootAttrs"
     :label="t('navItemOptionsLabel', { label: props.label })"
-    alignment="right"
+    alignment="auto"
     position="right"
   >
     <template #button="{ trigger }">

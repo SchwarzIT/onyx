@@ -253,9 +253,6 @@ provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreList"));
     .onyx-flyout-menu {
       width: 100%;
     }
-    .onyx-basic-popover__dialog {
-      margin-block: var(--onyx-spacing-xs);
-    }
   }
 }
 </style>

@@ -26,7 +26,7 @@ const props = withDefaults(
     }
   >(),
   // eslint-disable-next-line vue/no-boolean-default -- to support 'useVModel' we need to know if a value was set or not
-  { flyoutOpen: undefined, alignment: "right", position: "auto" },
+  { flyoutOpen: undefined, alignment: "auto", position: "auto" },
 );
 
 const emit = defineEmits<{
