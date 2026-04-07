@@ -10,23 +10,19 @@ const props = defineProps<{
 </script>
 
 <template>
-  <OnyxUnstableTableOfContents>
-    <OnyxUnstableTableOfContentsItem
-      v-for="link in props.links"
-      :key="link.id"
-      :link="`#${link.id}`"
-    >
+  <OnyxTableOfContents>
+    <OnyxTableOfContentsItem v-for="link in props.links" :key="link.id" :link="`#${link.id}`">
       {{ link.text }}
 
       <template v-if="link.children?.length" #children>
-        <OnyxUnstableTableOfContentsItem
+        <OnyxTableOfContentsItem
           v-for="child in link.children"
           :key="child.id"
           :link="`#${child.id}`"
         >
           {{ child.text }}
-        </OnyxUnstableTableOfContentsItem>
+        </OnyxTableOfContentsItem>
       </template>
-    </OnyxUnstableTableOfContentsItem>
-  </OnyxUnstableTableOfContents>
+    </OnyxTableOfContentsItem>
+  </OnyxTableOfContents>
 </template>
