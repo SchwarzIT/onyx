@@ -2,6 +2,9 @@ import { ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
 import type { RegisterableResource } from "../types.js";
 import { retrieveComponentMetaJsonFile } from "../util/component-meta-json.js";
 
+/**
+ * Returns true if both parameters are defined and equal (ignoring surrounding whitespaces and case)
+ */
 const compareDefined = (a: string | undefined | null, b: string | undefined | null) =>
   a && b && a.trim().toLowerCase() === b.trim().toLowerCase();
 
@@ -38,6 +41,8 @@ export const getComponentApi: RegisterableResource = [
     if (!componentMeta) {
       throw new Error(`Component ${component} not found for version ${version}`);
     }
+
+// TODO: improve code readability through use of better templating
 
     const propsText = componentMeta.props
       .map(
