@@ -14,7 +14,7 @@
   "license": "Apache-2.0",
   "author": "Schwarz IT KG",
   "type": "module",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "bin": {
     "onyx-mcp": "./dist/index.js"
   },
