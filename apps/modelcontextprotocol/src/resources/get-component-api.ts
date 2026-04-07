@@ -42,7 +42,7 @@ export const getComponentApi: RegisterableResource = [
       throw new Error(`Component ${component} not found for version ${version}`);
     }
 
-// TODO: improve code readability through use of better templating
+    // TODO: improve code readability through use of better templating
 
     const propsText = componentMeta.props
       .map(
