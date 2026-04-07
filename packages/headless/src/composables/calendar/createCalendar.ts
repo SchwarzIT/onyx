@@ -41,11 +41,7 @@ export type RenderDay = {
   isCurrentMonth: boolean;
 };
 
-/**
- * @experimental
- * @deprecated This component is still under active development and its API might change in patch releases.
- */
-export const _unstableCreateCalendar = createBuilder((options: CreateCalendarOptions) => {
+export const createCalendar = createBuilder((options: CreateCalendarOptions) => {
   const viewMonth = computed({
     get: () => {
       const date = toValue(options.viewMonth);

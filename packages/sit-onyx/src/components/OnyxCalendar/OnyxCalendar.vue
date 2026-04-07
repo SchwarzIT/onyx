@@ -8,7 +8,7 @@ export default {};
 
 <script lang="ts" setup generic="TSelection extends OnyxCalendarSelectionMode">
 import {
-  _unstableCreateCalendar,
+  createCalendar,
   useOutsideClick,
   type RenderDay,
   type RenderWeek,
@@ -119,7 +119,7 @@ const {
     isDisabled,
     goToDate,
   },
-} = _unstableCreateCalendar({
+} = createCalendar({
   disabled,
   min,
   max,
