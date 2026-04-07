@@ -2,9 +2,11 @@ import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/
 import { randomUUID } from "node:crypto";
 import { createServer } from "node:http";
 import { server } from "./server.js";
+import { error } from "node:console";
 
 /**
- * MCP server running as a http server
+ * MCP server running as a http server.
+ * `HOST` and `PORT` environment variable can be used to change the server settings.
  */
 export const run = async () => {
   const transport = new StreamableHTTPServerTransport({
@@ -20,5 +22,5 @@ export const run = async () => {
 
   httpServer.listen(PORT, HOST);
 
-  console.error(`MCP http server listening on ${HOST}:${PORT}.`);
+  error(`MCP http server listening on ${HOST}:${PORT}.`);
 };
