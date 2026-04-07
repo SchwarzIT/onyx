@@ -313,7 +313,7 @@ const COMPONENTS: Components = {
       options: [5, 10, 20, 30, 40, 75],
     },
   },
-  OnyxUnstableTableOfContentsItem: {
+  OnyxTableOfContentsItem: {
     props: {
       link: "#link",
     },

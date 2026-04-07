@@ -4,7 +4,6 @@ import OnyxTableOfContentsItem from "./OnyxTableOfContentsItem.vue";
 const meta: Meta<typeof OnyxTableOfContentsItem> = {
   title: "Support/TableOfContentsItem",
   component: OnyxTableOfContentsItem,
-  tags: ["unstable"],
   argTypes: {
     children: { control: { disable: true } },
   },
