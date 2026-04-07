@@ -2,20 +2,20 @@
   "name": "@sit-onyx/modelcontextprotocol",
   "version": "0.0.0",
   "description": "MCP (Model Context Protocol) Server that provide onyx specific tools and resources.",
+  "license": "Apache-2.0",
+  "author": "Schwarz IT KG",
   "type": "module",
   "main": "index.js",
   "bin": {
     "onyx-mcp": "./dist/index.js"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
-  },
   "files": [
     "dist"
   ],
-  "author": "Schwarz IT KG",
-  "license": "Apache-2.0",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0"
   },
