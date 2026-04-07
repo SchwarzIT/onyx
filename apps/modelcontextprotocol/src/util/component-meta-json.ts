@@ -12,6 +12,7 @@ class SuccessfulAbort {
   constructor(public readonly data: Buffer) {}
 }
 
+// TODO: It's quite fast, but we should add caching nevertheless.
 export async function retrieveComponentMetaJsonFile(version: string) {
   const { dist } = await getPackageManifest("sit-onyx", version, REGISTRY_URL);
   const { body } = await fetch(dist.tarball);
