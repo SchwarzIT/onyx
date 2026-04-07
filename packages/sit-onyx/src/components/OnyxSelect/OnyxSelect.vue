@@ -28,6 +28,7 @@ import {
 import { useCheckAll } from "../../composables/checkAll.js";
 import { useScrollEnd } from "../../composables/scrollEnd.js";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
+import { useClearButton } from "../../composables/useClearButton.js";
 import { useFormElementError } from "../../composables/useFormElementError.js";
 import { useOpenDirection } from "../../composables/useOpenDirection.js";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
@@ -480,7 +481,7 @@ const selection = computed<{ count: number; value: string }>(() => {
 });
 
 const showPreviewBadge = computed(() => props.textMode === "preview" && selection.value.count > 0);
-const showClearButton = computed(() => selection.value.count > 0 && !props.hideClearIcon);
+const { showClearButton } = useClearButton({ props, modelValue });
 
 const navigationalKeys = OPENING_KEYS.concat(CLOSING_KEYS);
 /**

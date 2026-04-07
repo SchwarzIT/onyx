@@ -18,7 +18,7 @@ const emit = defineEmits<{
       <OnyxFormElementAction
         label="Test action"
         :icon="iconPlaceholder"
-        size="small"
+        size="sm"
         show-on-focus
         @click="emit('actionClick')"
       />

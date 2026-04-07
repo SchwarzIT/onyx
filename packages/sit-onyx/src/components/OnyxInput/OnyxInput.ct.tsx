@@ -409,7 +409,28 @@ test("should show/hide clear button", async ({ mount }) => {
   ).toBeHidden();
 
   // ACT
-  await component.update({ props: { hideClearIcon: false } });
+  await component.update({ props: { hideClearIcon: false, readonly: true } });
+  await input.focus();
+
+  // ASSERT
+  await expect(clearButton, "should hide clear button when readonly").toBeHidden();
+
+  // ACT
+  await component.update({ props: { readonly: false, loading: true } });
+  await input.focus();
+
+  // ASSERT
+  await expect(clearButton, "should hide clear button when loading").toBeHidden();
+
+  // ACT
+  await component.update({ props: { loading: false, disabled: true } });
+  await input.focus();
+
+  // ASSERT
+  await expect(clearButton, "should hide clear button when disabled").toBeHidden();
+
+  // ACT
+  await component.update({ props: { disabled: false } });
   await input.focus();
   await clearButton.click();
   await input.focus();

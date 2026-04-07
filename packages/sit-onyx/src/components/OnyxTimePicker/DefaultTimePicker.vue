@@ -2,6 +2,7 @@
 import { iconChevronDownSmall, iconClock, iconXSmall } from "@sit-onyx/icons";
 import { computed, useTemplateRef } from "vue";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
+import { useClearButton } from "../../composables/useClearButton.js";
 import { useFormElementError } from "../../composables/useFormElementError.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
@@ -93,6 +94,8 @@ const amPmOptions = computed<SelectOption<"am" | "pm">[]>(() => {
   ];
 });
 
+const { showClearButton } = useClearButton({ props, modelValue });
+
 defineExpose({ input });
 </script>
 
@@ -126,7 +129,7 @@ defineExpose({ input });
       <slot name="trailingIcons"></slot>
 
       <OnyxFormElementAction
-        v-if="modelValue && !props.hideClearIcon"
+        v-if="showClearButton"
         :label="t('input.clear')"
         :icon="iconXSmall"
         show-on-focus
