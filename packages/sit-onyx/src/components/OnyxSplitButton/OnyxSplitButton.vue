@@ -1,24 +1,15 @@
-<script lang="ts">
-/**
- * @experimental
- * @deprecated This component is still under active development and its API might change in patch releases.
- */
-export default {};
-</script>
-
 <script lang="ts" setup>
 import { iconChevronDownSmall } from "@sit-onyx/icons";
-import { computed } from "vue";
 import { useDensity } from "../../composables/density.js";
 import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
+import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import { mergeVueProps, useRootAttrs } from "../../utils/attrs.js";
 import { useForwardProps } from "../../utils/props.js";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
-import type { OnyxButtonProps } from "../OnyxButton/types.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFlyoutMenu from "../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
@@ -34,6 +25,7 @@ const props = withDefaults(defineProps<OnyxSplitButtonProps>(), {
   loading: false,
   trigger: "click",
   open: undefined,
+  alignment: "right",
 });
 
 const emit = defineEmits<{
@@ -45,23 +37,24 @@ const emit = defineEmits<{
 
 defineSlots<{
   /**
-   * The `default` slot can optionally be used to overwrite and customize the default main button.
-   * Usually this should not be necessary, as all button properties can be set via the `OnyxSplitButton`.
-   * @param props The provided `buttonProps` must be bound to a button element.
-   */
-  default?: (props: { buttonProps: OnyxButtonProps }) => unknown;
-  /**
    * Use the `options` slot to provide the `OnyxMenuItem`s that should be displayed in the flyout.
    */
   options: () => unknown[];
 }>();
 
+const open = useVModel({
+  props,
+  emit,
+  key: "open",
+  default: false,
+});
+
 const { densityClass } = useDensity(props);
 const { restAttrs, rootAttrs } = useRootAttrs();
 const { disabled } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
-const _buttonProps = useForwardProps(props, OnyxButton);
-const buttonProps = computed(() => mergeVueProps(_buttonProps.value, restAttrs.value));
+const buttonProps = useForwardProps(props, OnyxButton);
+const flyoutMenuProps = useForwardProps(props, OnyxFlyoutMenu);
 const { t } = injectI18n();
 </script>
 
@@ -86,19 +79,16 @@ const { t } = injectI18n();
     ]"
     v-bind="rootAttrs"
   >
-    <div class="onyx-split-button__main-button">
-      <slot :button-props>
-        <OnyxButton v-bind="buttonProps" />
-      </slot>
-    </div>
+    <OnyxButton
+      class="onyx-split-button__main-button"
+      v-bind="mergeVueProps(buttonProps, restAttrs)"
+    />
 
     <OnyxFlyoutMenu
-      :open="props.open"
+      v-bind="flyoutMenuProps"
+      v-model:open="open"
       :label="t('flyoutMenu.moreActions')"
-      :trigger="props.trigger"
       :disabled="disabled || props.loading"
-      alignment="right"
-      @update:open="emit('update:open', $event)"
     >
       <template #button="{ trigger: flyoutTrigger }">
         <OnyxButton
@@ -124,7 +114,7 @@ const { t } = injectI18n();
 
 .onyx-split-button {
   @include layers.override() {
-    &__main-button .onyx-button {
+    &__main-button {
       --onyx-button-border-radius: var(--onyx-radius-sm) 0 0 var(--onyx-radius-sm);
     }
 
@@ -139,7 +129,7 @@ const { t } = injectI18n();
     }
 
     &--plain {
-      .onyx-split-button__main-button .onyx-button {
+      .onyx-split-button__main-button {
         --onyx-button-padding-inline: var(--onyx-density-sm) var(--onyx-density-2xs);
       }
 
