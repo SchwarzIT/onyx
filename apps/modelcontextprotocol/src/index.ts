@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { log } from "node:console";
 import { parseArgs, type ParseArgsOptionsConfig } from "node:util";
 import packageJson from "../package.json" with { type: "json" };
