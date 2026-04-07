@@ -10,6 +10,7 @@ export default {};
 import { iconCalendar, iconXSmall } from "@sit-onyx/icons";
 import { computed, useTemplateRef, type HTMLAttributes } from "vue";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
+import { useClearButton } from "../../composables/useClearButton.js";
 import { useFormElementError } from "../../composables/useFormElementError.js";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
@@ -185,6 +186,8 @@ const popoverOptions = computed<FormElementV2PopoverOptions | undefined>(() => {
   return { ...options, ...props.popoverOptions };
 });
 
+const { showClearButton } = useClearButton({ props, modelValue });
+
 const handleClearValue = () => {
   const selectionMode = props.selectionMode as OnyxCalendarSelectionMode;
   if (selectionMode === "multiple") {
@@ -225,7 +228,7 @@ defineExpose({ input });
       <slot name="trailingIcons"></slot>
 
       <OnyxFormElementAction
-        v-if="modelValue && !props.hideClearIcon"
+        v-if="showClearButton"
         :label="t('input.clear')"
         :icon="iconXSmall"
         show-on-focus
