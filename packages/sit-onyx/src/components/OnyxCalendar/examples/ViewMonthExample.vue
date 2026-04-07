@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { OnyxUnstableCalendar } from "../../../index.js";
+import { OnyxCalendar } from "../../../index.js";
 
 const viewMonth = ref(new Date("02.02.2024"));
 const selected = ref<Date>();
@@ -9,7 +9,7 @@ const selected = ref<Date>();
 <template>
   <p>View month: {{ viewMonth }}</p>
   <p>Selected date: {{ selected }}</p>
-  <OnyxUnstableCalendar
+  <OnyxCalendar
     v-model:view-month="viewMonth"
     v-model="selected"
     class="calendar"
