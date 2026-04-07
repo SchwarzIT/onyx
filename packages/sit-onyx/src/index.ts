@@ -224,7 +224,7 @@ export { default as OnyxSkeleton } from "./components/OnyxSkeleton/OnyxSkeleton.
 export { default as OnyxSlider } from "./components/OnyxSlider/OnyxSlider.vue";
 export * from "./components/OnyxSlider/types.js";
 
-export { default as OnyxUnstableSplitButton } from "./components/OnyxSplitButton/OnyxSplitButton.vue";
+export { default as OnyxSplitButton } from "./components/OnyxSplitButton/OnyxSplitButton.vue";
 export * from "./components/OnyxSplitButton/types.js";
 
 export { default as OnyxStepper } from "./components/OnyxStepper/OnyxStepper.vue";

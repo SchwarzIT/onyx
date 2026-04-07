@@ -105,15 +105,15 @@ const COMPONENTS: Components = {
       options: [{ label: "Option 1", value: "option-1" }],
     },
   },
-  OnyxUnstableSplitButton: {
+  OnyxSplitButton: {
     render: () =>
       h(
-        ALL_EXPORTS.OnyxUnstableSplitButton,
+        ALL_EXPORTS.OnyxSplitButton,
         { label: "Option 1" },
         {
           options: () => [
-            h(ALL_EXPORTS.OnyxUnstableSplitButton, { label: "Option 2" }),
-            h(ALL_EXPORTS.OnyxUnstableSplitButton, { label: "Option 3" }),
+            h(ALL_EXPORTS.OnyxSplitButton, { label: "Option 2" }),
+            h(ALL_EXPORTS.OnyxSplitButton, { label: "Option 3" }),
           ],
         },
       ),
