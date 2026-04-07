@@ -1,11 +1,3 @@
-<script lang="ts">
-/**
- * @experimental
- * @deprecated This component is still under active development and its API might change in patch releases.
- */
-export default {};
-</script>
-
 <script lang="ts" setup>
 import { createComboBox } from "@sit-onyx/headless";
 import { iconSearch } from "@sit-onyx/icons";

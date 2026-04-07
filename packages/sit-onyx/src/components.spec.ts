@@ -301,7 +301,7 @@ const COMPONENTS: Components = {
       code: "test-code",
     },
   },
-  OnyxUnstableGlobalSearchOption: {
+  OnyxGlobalSearchOption: {
     props: {
       label: "Test option",
       value: "test-value",
