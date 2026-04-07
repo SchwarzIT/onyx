@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/experimental-ct-vue";
+import { createEmitSpy, expectEmit } from "@sit-onyx/playwright-utils";
 import type { StyleValue } from "vue";
 import OnyxMarkdownRenderer from "./OnyxMarkdownRenderer.vue";
 
@@ -252,4 +253,14 @@ test("should forward attrs", async ({ mount }) => {
   // ASSERT
   await expect(component).toContainClass("onyx-markdown-renderer test-class");
   await expect(component).toHaveAttribute("data-testid", "test-id");
+});
+
+test("should emit resolve event", async ({ mount }) => {
+  // ARRANGE
+  const onResolve = createEmitSpy<typeof OnyxMarkdownRenderer, "onResolve">();
+  const component = await mount(<OnyxMarkdownRenderer markdown="Markdown" onResolve={onResolve} />);
+
+  // ASSERT
+  await expectEmit(onResolve, 1, []);
+  await expect(component).toContainText("Markdown");
 });
