@@ -7,7 +7,6 @@ import OnyxItemsPerPage from "./OnyxItemsPerPage.vue";
 const meta: Meta<typeof OnyxItemsPerPage> = {
   title: "Data/ItemsPerPage",
   component: OnyxItemsPerPage,
-  tags: ["unstable"],
 };
 
 export default meta;

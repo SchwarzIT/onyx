@@ -200,7 +200,7 @@ export * from "./components/OnyxSegmentedControlElement/types.js";
 export { default as OnyxSelect } from "./components/OnyxSelect/OnyxSelect.vue";
 export * from "./components/OnyxSelect/types.js";
 
-export { default as OnyxUnstableItemsPerPage } from "./components/OnyxItemsPerPage/OnyxItemsPerPage.vue";
+export { default as OnyxItemsPerPage } from "./components/OnyxItemsPerPage/OnyxItemsPerPage.vue";
 export * from "./components/OnyxItemsPerPage/types.js";
 
 export { default as OnyxSelectDialog } from "./components/OnyxSelectDialog/OnyxSelectDialog.vue";
