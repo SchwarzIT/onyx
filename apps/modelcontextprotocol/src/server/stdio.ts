@@ -3,7 +3,8 @@ import { error } from "node:console";
 import { server } from "./server.js";
 
 /**
- * MCP server running via stdio
+ * MCP server running via stdio.
+ * All logging has to use stderr, otherwise the logging to stdio will break the transport.
  */
 export const run = async () => {
   const transport = new StdioServerTransport();
