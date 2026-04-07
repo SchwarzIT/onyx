@@ -2,7 +2,7 @@ import { describe, expect, test } from "vitest";
 import { nextTick, ref, type Ref } from "vue";
 import type { DateRange, DateValue } from "../../utils/dates.js";
 import {
-  _unstableCreateCalendar,
+  createCalendar,
   type CreateCalendarOptions,
   type SelectionMode,
 } from "./createCalendar.js";
@@ -13,7 +13,7 @@ const createDate = (year: number, month: number, day: number): Date => {
   return date;
 };
 
-type SetupResult = ReturnType<typeof _unstableCreateCalendar> & {
+type SetupResult = ReturnType<typeof createCalendar> & {
   modelValue: Ref<DateValue | DateValue[] | DateRange | null>;
   viewMonth: Ref<DateValue | null>;
 };
@@ -44,7 +44,7 @@ const setupCalendar = (options: {
     onUpdateModelValue: (newValue) => (modelValue.value = newValue),
   };
 
-  const composable = _unstableCreateCalendar(defaultOptions);
+  const composable = createCalendar(defaultOptions);
 
   return { ...composable, modelValue, viewMonth };
 };
