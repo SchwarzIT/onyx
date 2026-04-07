@@ -5,7 +5,7 @@ import type { ReadableStream } from "node:stream/web";
 import { createGunzip } from "node:zlib";
 import { getPackageManifest } from "query-registry";
 import tarStream from "tar-stream";
-import { REGISTRY_URL, SIT_ONYX_COMPONENT_META_FILE } from "../config.js";
+import { REGISTRY_URL, SIT_ONYX_COMPONENT_META_FILE, USER_AGENT } from "../config.js";
 import type { MetaSource } from "../types.js";
 
 class SuccessfulAbort {
@@ -15,7 +15,7 @@ class SuccessfulAbort {
 // TODO: It's quite fast, but we should add caching nevertheless.
 export async function retrieveComponentMetaJsonFile(version: string) {
   const { dist } = await getPackageManifest("sit-onyx", version, REGISTRY_URL);
-  const { body } = await fetch(dist.tarball);
+  const { body } = await fetch(dist.tarball, { headers: { "User-Agent": USER_AGENT } });
   if (!body) {
     throw new Error(`No body in response for tarball request to "${dist.tarball}"!`);
   }
