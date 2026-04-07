@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, ref, toValue } from "vue";
 import type { DateRange } from "../../utils/dates.js";
-import { _unstableCreateCalendar, type SelectionMode } from "./createCalendar.js";
+import { createCalendar, type SelectionMode } from "./createCalendar.js";
 
 const props = withDefaults(
   defineProps<{
@@ -30,7 +30,7 @@ const {
   state: { weekdayNames, weeksToRender, viewMonth: currentViewMonth },
   elements: { table, cell, button },
   internals: { isSelected, isFocused, isDisabled, isToday },
-} = _unstableCreateCalendar({
+} = createCalendar({
   locale,
   calendarSize,
   weekStartDay,
