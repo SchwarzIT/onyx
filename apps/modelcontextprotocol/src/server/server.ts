@@ -5,6 +5,9 @@ import { listComponents } from "../resources/list-components.js";
 
 const { name, version, description } = packageJson;
 
+/**
+ * Internal McpServer, which provides the MCP resources.
+ */
 const server = new McpServer({
   name,
   version,

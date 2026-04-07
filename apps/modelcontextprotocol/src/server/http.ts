@@ -3,6 +3,9 @@ import { randomUUID } from "node:crypto";
 import { createServer } from "node:http";
 import { server } from "./server.js";
 
+/**
+ * MCP server running as a http server
+ */
 export const run = async () => {
   const transport = new StreamableHTTPServerTransport({
     sessionIdGenerator: () => randomUUID(),
