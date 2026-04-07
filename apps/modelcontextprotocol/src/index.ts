@@ -2,6 +2,7 @@ import { log } from "node:console";
 import { parseArgs, type ParseArgsOptionsConfig } from "node:util";
 import packageJson from "../package.json" with { type: "json" };
 import { run as http } from "./server/http.js";
+import { server } from "./server/server.js";
 import { run as stdio } from "./server/stdio.js";
 
 const SUPPORTED_TRANSPORTS = {
@@ -62,3 +63,5 @@ Options:
     await SUPPORTED_TRANSPORTS[transport as SupportedTransport]();
   }
 }
+
+export { http, server, stdio };

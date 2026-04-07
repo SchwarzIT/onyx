@@ -10,6 +10,7 @@
     "lib": ["es2024"],
     "strict": true,
     "skipLibCheck": true,
+    "declaration": true,
     "forceConsistentCasingInFileNames": true
   },
   "include": ["src/**/*"],
