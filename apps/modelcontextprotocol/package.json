@@ -2,6 +2,15 @@
   "name": "@sit-onyx/modelcontextprotocol",
   "version": "0.0.0",
   "description": "MCP (Model Context Protocol) Server that provide onyx specific tools and resources.",
+  "homepage": "https://onyx.schwarz",
+  "bugs": {
+    "url": "https://github.com/SchwarzIT/onyx/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SchwarzIT/onyx",
+    "directory": "apps/modelcontextprotocol"
+  },
   "license": "Apache-2.0",
   "author": "Schwarz IT KG",
   "type": "module",
@@ -28,5 +37,8 @@
     "typescript": "catalog:",
     "url-join": "^5.0.0",
     "vue-component-meta": "^3.2.6"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }
