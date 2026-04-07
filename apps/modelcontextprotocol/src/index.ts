@@ -1,18 +1,64 @@
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import {} from "node:fs/promises";
+import { log } from "node:console";
+import { parseArgs, type ParseArgsOptionsConfig } from "node:util";
 import packageJson from "../package.json" with { type: "json" };
-import { getComponentApi } from "./resources/get-component-api.js";
-import { listComponents } from "./resources/list-components.js";
+import { run as http } from "./server/http.js";
+import { run as stdio } from "./server/stdio.js";
 
-const { name, version, description } = packageJson;
+const SUPPORTED_TRANSPORTS = {
+  stdio,
+  http,
+};
 
-// Create server instance
-const server = new McpServer({
-  name,
-  version,
-  description,
-  websiteUrl: "https://onyx.schwarz",
-});
+type SupportedTransport = keyof typeof SUPPORTED_TRANSPORTS;
 
-server.registerResource(...listComponents);
-server.registerResource(...getComponentApi);
+if (import.meta.main) {
+  const options = {
+    transport: {
+      type: "string",
+      short: "t",
+      default: "stdio",
+    },
+    help: {
+      type: "boolean",
+      short: "h",
+      default: false,
+    },
+    version: {
+      type: "boolean",
+      short: "v",
+      default: false,
+    },
+  } satisfies ParseArgsOptionsConfig;
+
+  const {
+    values: { transport, version, help },
+  } = parseArgs({
+    args: process.argv.slice(2),
+    options,
+    allowPositionals: false,
+    allowNegative: false,
+    strict: true,
+  });
+
+  if (help) {
+    log(`${packageJson.description}
+
+Usage: 
+    onyx-mcp [options]
+
+Options:
+ -t, --transport <stdio|http> Which kind of MCP server should be started (default: stdio)
+ -h, --help                   This help text
+ -v, --version                Show version number and quit`);
+    process.exit(0);
+  } else if (version) {
+    log(packageJson.version);
+    process.exit(0);
+  } else {
+    if (!Object.keys(SUPPORTED_TRANSPORTS).includes(transport)) {
+      throw new Error(`Unsupported transport: ${transport}`);
+    }
+
+    await SUPPORTED_TRANSPORTS[transport as SupportedTransport]();
+  }
+}
