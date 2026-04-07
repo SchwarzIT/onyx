@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { OnyxBadge, OnyxUnstableCalendar, type OnyxColor } from "../../../index.js";
+import { OnyxBadge, OnyxCalendar, type OnyxColor } from "../../../index.js";
 
 type Event = { date: Date; color: OnyxColor; description: string };
 
@@ -23,7 +23,7 @@ const getEvent = (date: Date) => {
 </script>
 
 <template>
-  <OnyxUnstableCalendar class="calendar">
+  <OnyxCalendar class="calendar">
     <template #day="{ date, size }">
       <div class="event">
         <OnyxBadge v-if="getEvent(date)" :color="getEvent(date)?.color" dot />
@@ -35,7 +35,7 @@ const getEvent = (date: Date) => {
         </span>
       </div>
     </template>
-  </OnyxUnstableCalendar>
+  </OnyxCalendar>
 </template>
 
 <style lang="scss" scoped>
