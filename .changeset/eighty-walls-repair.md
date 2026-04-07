@@ -2,4 +2,4 @@
 "sit-onyx": patch
 ---
 
-fix: hide clear button when form element is readonly, loading or disabled
+fix(OnyxDatePickerV2, OnyxInput, OnyxSelect, OnyxTimePicker): hide clear button when readonly, loading or disabled
