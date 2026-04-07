@@ -2,6 +2,24 @@
 "sit-onyx": minor
 ---
 
-feat: make `OnyxTableOfContents` stable
+feat: remove unstable tag for several components
 
-The `OnyxTableOfContents` is now considered stable and is therefore renamed from `OnyxUnstableTableOfContents` to `OnyxTableOfContents` and `OnyxUnstableTableOfContentsItem` to `OnyxTableOfContentsItem`.
+Therefore, the following components have been renamed:
+
+| Old name                        | New name                |
+| ------------------------------- | ----------------------- |
+| OnyxUnstableTableOfContents     | OnyxTableOfContents     |
+| OnyxUnstableTableOfContentsItem | OnyxTableOfContentsItem |
+| OnyxUnstableFilterBadge         | OnyxFilterBadge         |
+| OnyxUnstableItemsPerPage        | OnyxItemsPerPage        |
+| OnyxUnstableGlobalSearch        | OnyxGlobalSearch        |
+| OnyxUnstableGlobalSearchGroup   | OnyxGlobalSearchGroup   |
+| OnyxUnstableGlobalSearchOption  | OnyxGlobalSearchOption  |
+| OnyxUnstableCalendar            | OnyxCalendar            |
+| OnyxUnstableSplitButton         | OnyxSplitButton         |
+
+Other noteworthy changes:
+
+- refactor(OnyxSplitButton)!: remove `default` slot
+- feat(OnyxSplitButton): support new properties: `iconPosition`, `type`, `alignment` and `position`
+- fix(OnyxFormElementV2): use correct cursor styles for input when popover is used
