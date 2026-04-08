@@ -11,11 +11,11 @@ export const listComponents: RegisterableResource = [
     list: async () => {
       const { versions } = await getAbbreviatedPackument("sit-onyx", REGISTRY_URL);
       const relevantVersions = Object.keys(versions).filter(
-        (version) => versionCompare(SIT_ONYX_MIN_VERSION, version) >= 1,
+        (version) => versionCompare(SIT_ONYX_MIN_VERSION, version) >= 0,
       );
       const resources = relevantVersions.map((version) => ({
         uri: `components://sit-onyx/${version}`,
-        name: version,
+        name: `components for sit-onyx@${version}`,
       }));
       return { resources };
     },

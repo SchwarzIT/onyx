@@ -15,6 +15,7 @@
   "author": "Schwarz IT KG",
   "type": "module",
   "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "bin": {
     "onyx-mcp": "./dist/index.js"
   },
@@ -22,11 +23,15 @@
     "dist"
   ],
   "scripts": {
-    "build": "vite build --ssr",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "pnpm run \"/build-dev|inspect-mcp/\"",
+    "build-dev": "vite build --ssr -w",
+    "inspect-mcp": "pnpm dlx @modelcontextprotocol/inspector node ./dist/index.js",
+    "build": "vite build --ssr"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0"
   },
   "devDependencies": {
-    "@modelcontextprotocol/sdk": "^1.29.0",
     "@sit-onyx/shared": "workspace:^",
     "@types/node": "catalog:",
     "@types/tar-stream": "^3.1.4",
