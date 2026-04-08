@@ -32,7 +32,7 @@ export const Highlight = {
 
 export const MultiStep = {
   args: {
-    sequence: [{ all: ["Control", "K"] }, { any: ["Enter", "Space"] }],
+    sequence: [{ all: ["Control", "K"] }, { any: ["A", "B"] }],
     highlight: "auto",
   },
 } satisfies Story;
@@ -40,7 +40,7 @@ export const MultiStep = {
 export const Nested = {
   tags: ["new:feature"],
   args: {
-    sequence: [{ all: ["Control", "K", { any: ["Enter", "Space"] }] }],
+    sequence: [{ all: ["Control", "K", { any: ["A", "B"] }] }],
     highlight: "auto",
   },
 } satisfies Story;
