@@ -274,40 +274,6 @@ importers:
         specifier: ^5.3.3
         version: 5.3.3(chart.js@4.5.1)(vue@3.5.31(typescript@5.9.3))
 
-  apps/modelcontextprotocol:
-    dependencies:
-      '@modelcontextprotocol/sdk':
-        specifier: ^1.29.0
-        version: 1.29.0(zod@4.3.6)
-    devDependencies:
-      '@sit-onyx/shared':
-        specifier: workspace:^
-        version: link:../../packages/shared
-      '@types/node':
-        specifier: 'catalog:'
-        version: 24.12.0
-      '@types/tar-stream':
-        specifier: ^3.1.4
-        version: 3.1.4
-      query-registry:
-        specifier: ^4.3.0
-        version: 4.3.0(zod@4.3.6)
-      tar-stream:
-        specifier: ^3.1.8
-        version: 3.1.8
-      typescript:
-        specifier: 5.9.3
-        version: 5.9.3
-      vite:
-        specifier: 8.0.3
-        version: 8.0.3(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.1)(@types/node@24.12.0)(esbuild@0.27.4)(jiti@2.6.1)(sass-embedded@1.98.0)(sass@1.98.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3)
-      vite-plugin-dts:
-        specifier: ^4.5.4
-        version: 4.5.4(@types/node@24.12.0)(rollup@4.60.1)(typescript@5.9.3)(vite@8.0.3(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.1)(@types/node@24.12.0)(esbuild@0.27.4)(jiti@2.6.1)(sass-embedded@1.98.0)(sass@1.98.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))
-      vue-component-meta:
-        specifier: ^3.2.6
-        version: 3.2.6(typescript@5.9.3)
-
   apps/playground:
     devDependencies:
       '@sit-onyx/icons':
@@ -542,6 +508,40 @@ importers:
       sit-onyx:
         specifier: workspace:^
         version: link:../sit-onyx
+
+  packages/modelcontextprotocol:
+    dependencies:
+      '@modelcontextprotocol/sdk':
+        specifier: ^1.29.0
+        version: 1.29.0(zod@4.3.6)
+    devDependencies:
+      '@sit-onyx/shared':
+        specifier: workspace:^
+        version: link:../shared
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.12.0
+      '@types/tar-stream':
+        specifier: ^3.1.4
+        version: 3.1.4
+      query-registry:
+        specifier: ^4.3.0
+        version: 4.3.0(zod@4.3.6)
+      tar-stream:
+        specifier: ^3.1.8
+        version: 3.1.8
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
+      vite:
+        specifier: 8.0.3
+        version: 8.0.3(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.1)(@types/node@24.12.0)(esbuild@0.27.4)(jiti@2.6.1)(sass-embedded@1.98.0)(sass@1.98.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3)
+      vite-plugin-dts:
+        specifier: ^4.5.4
+        version: 4.5.4(@types/node@24.12.0)(rollup@4.60.1)(typescript@5.9.3)(vite@8.0.3(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.1)(@types/node@24.12.0)(esbuild@0.27.4)(jiti@2.6.1)(sass-embedded@1.98.0)(sass@1.98.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))
+      vue-component-meta:
+        specifier: ^3.2.6
+        version: 3.2.6(typescript@5.9.3)
 
   packages/nuxt:
     devDependencies:
