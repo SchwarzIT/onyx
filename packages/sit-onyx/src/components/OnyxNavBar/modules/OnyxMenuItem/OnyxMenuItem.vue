@@ -1,7 +1,15 @@
 <script setup lang="ts">
 import { createMenuItems } from "@sit-onyx/headless";
 import { iconArrowSmallLeft, iconChevronRightSmall } from "@sit-onyx/icons";
-import { computed, inject, nextTick, provide, useTemplateRef, withModifiers } from "vue";
+import {
+  computed,
+  inject,
+  nextTick,
+  onBeforeUnmount,
+  provide,
+  useTemplateRef,
+  withModifiers,
+} from "vue";
 import { useLink } from "../../../../composables/useLink.js";
 import { useVModel } from "../../../../composables/useVModel.js";
 import { injectI18n } from "../../../../i18n/index.js";
@@ -72,12 +80,11 @@ const {
     open.value = true;
 
     await nextTick();
+    await nextTick();
 
     if (!isExternal.value) {
-      await nextTick();
       backButton.value?.$el.querySelector("button")?.focus();
     } else {
-      await nextTick();
       // Focus the first actionable item in the external popover slot
       const firstFocusable = externalChildrenRef.value?.querySelector("button, a") as
         | HTMLElement
@@ -108,16 +115,16 @@ const childrenClickHandler = computed(() =>
     : null,
 );
 
+const closeAndFocusTrigger = async () => {
+  open.value = false;
+  await nextTick();
+  menuItemElementRef.value?.$el.focus();
+};
+
 const handleBackButtonKeydown = async (event: KeyboardEvent) => {
-  switch (event.key) {
-    case "ArrowLeft":
-    case " ":
-    case "Enter":
-      event.preventDefault();
-      open.value = false;
-      await nextTick();
-      menuItemElementRef.value?.$el.focus();
-      break;
+  if (["ArrowLeft", " ", "Enter"].includes(event.key)) {
+    event.preventDefault();
+    await closeAndFocusTrigger();
   }
 };
 
@@ -125,13 +132,15 @@ const handleExternalChildrenKeydown = async (event: KeyboardEvent) => {
   if (event.key === "ArrowLeft") {
     event.preventDefault();
     event.stopPropagation();
-    open.value = false;
-    await nextTick();
-    menuItemElementRef.value?.$el.focus();
+    await closeAndFocusTrigger();
   }
 };
 
 let hoverTimeout: ReturnType<typeof setTimeout>;
+
+onBeforeUnmount(() => {
+  clearTimeout(hoverTimeout);
+});
 
 const handleTriggerMouseEnter = () => {
   if (isExternal.value && !props.disabled) {
