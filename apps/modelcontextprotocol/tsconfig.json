@@ -1,4 +1,5 @@
 {
+  "extends": ["@tsconfig/node24/tsconfig.json", "@sit-onyx/shared/tsconfig.json"],
   "compilerOptions": {
     "target": "ES2022",
     "module": "node20",
