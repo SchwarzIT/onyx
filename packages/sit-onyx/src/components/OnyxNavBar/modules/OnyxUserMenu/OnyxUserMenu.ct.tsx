@@ -27,7 +27,7 @@ test.describe("Screenshot tests", () => {
       <OnyxUserMenu
         style={{
           marginBottom: row === "default" || row === "disabled" ? "0rem" : "12rem",
-          marginLeft: "5rem",
+          marginRight: "5rem",
         }}
         fullName="Jane Doe"
         description={column === "description" ? "Company name" : undefined}
