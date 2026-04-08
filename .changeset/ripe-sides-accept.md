@@ -2,4 +2,4 @@
 "sit-onyx": minor
 ---
 
-feat(OnyxVerticalNavbar): realigned flyoutMenus
+feat(OnyxNavBar): auto align flyouts when using the vertical nav bar
