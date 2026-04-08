@@ -1,43 +1,29 @@
 <script lang="ts" setup>
-import {
-  iconAlignmentBlock,
-  iconAlignmentCenter,
-  iconAlignmentLeft,
-  iconAlignmentRight,
-  iconQuote,
-  iconRedo,
-  iconToolBold,
-  iconToolItalic,
-  iconToolStrike,
-  iconToolUnderlined,
-  iconUndo,
-} from "@sit-onyx/icons";
 import { Placeholder } from "@tiptap/extensions/placeholder";
 import { EditorContent, mergeAttributes, useEditor } from "@tiptap/vue-3";
 import {
   FORM_INJECTED_SYMBOL,
-  getFormMessages,
   injectI18n,
-  OnyxFormElement,
+  OnyxUnstableFormElementV2,
+  SKELETON_INJECTED_SYMBOL,
   useFormContext,
   useForwardProps,
   useVModel,
+  type FormElementV2Tooltip,
 } from "sit-onyx";
-import { computed, provide, watch } from "vue";
-import { useEditorUtils } from "../../composables/useEditorUtils.js";
-import OnyxEditorToolbarAction from "../OnyxEditorToolbarAction/OnyxEditorToolbarAction.vue";
-import OnyxEditorToolbarGroup from "../OnyxEditorToolbarGroup/OnyxEditorToolbarGroup.vue";
-import HeadingToolbarAction from "./actions/HeadingToolbarAction.vue";
-import LinkToolbarAction from "./actions/LinkToolbarAction.vue";
-import ListToolbarAction from "./actions/ListToolbarAction.vue";
+import { computed, provide, ref, useTemplateRef, watch, type StyleValue } from "vue";
+import EditorToolbar from "./EditorToolbar.vue";
 import { OnyxStarterKit } from "./extensions/starterKit.js";
 import { TEXT_EDITOR_INJECTION_KEY, type OnyxTextEditorProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxTextEditorProps>(), {
   toolbar: () => ({ position: "top" }),
   disabled: FORM_INJECTED_SYMBOL,
-  extensions: () => [OnyxStarterKit],
   reserveMessageSpace: FORM_INJECTED_SYMBOL,
+  showError: FORM_INJECTED_SYMBOL,
+  requiredMarker: FORM_INJECTED_SYMBOL,
+  skeleton: SKELETON_INJECTED_SYMBOL,
+  extensions: () => [OnyxStarterKit],
 });
 
 const emit = defineEmits<{
@@ -47,7 +33,7 @@ const emit = defineEmits<{
   "update:modelValue": [value: string];
 }>();
 
-const slots = defineSlots<{
+defineSlots<{
   /**
    * Optional slot to add custom actions to the toolbar.
    */
@@ -55,7 +41,8 @@ const slots = defineSlots<{
 }>();
 
 const { t } = injectI18n();
-const { disabled } = useFormContext(props);
+const formContext = useFormContext(props);
+const disabled = computed(() => formContext.disabled.value || props.loading);
 provide(TEXT_EDITOR_INJECTION_KEY, { disabled });
 
 const modelValue = useVModel({
@@ -77,7 +64,7 @@ const editor = useEditor({
   ],
   editorProps: {
     attributes: {
-      class: "onyx-text-editor__native",
+      class: "onyx-form-element-v2__input onyx-text-editor__input",
       role: "textbox",
     },
   },
@@ -111,8 +98,33 @@ watch(
   { immediate: true },
 );
 
+/**
+ * The Tiptap editor uses a contenteditable div so it does not support the native CSS ":invalid" for showing the error.
+ * To workaround this, the track if the value has ever been changed and consider this as "touched" / interacted.
+ */
+const isTouched = ref(false);
+watch(modelValue, () => (isTouched.value = true), { once: true });
+
+/**
+ * The Tiptap editor uses a contenteditable div so it does not support native form validation.
+ * To workaround this, we determine if the editor is invalid manually.
+ */
+const error = computed<string | FormElementV2Tooltip | undefined>(() => {
+  if (props.error) return props.error;
+
+  // determine validations manually
+  if (props.required && editor.value?.isEmpty) {
+    return {
+      label: t.value("validations.valueMissing.preview"),
+      tooltipText: t.value("validations.valueMissing.fullError"),
+    };
+  }
+
+  return undefined;
+});
+
 watch(
-  [() => props.label, () => props.disableManualResize, editor],
+  [() => props.label, () => props.disableManualResize, editor, isTouched, error],
   () => {
     const attributes = editor.value?.options.editorProps.attributes;
 
@@ -122,9 +134,14 @@ watch(
           const currentAttributes =
             typeof attributes === "function" ? attributes(state) : (attributes ?? {});
 
+          const classes: string[] = [];
+          if (props.disableManualResize) classes.push("onyx-text-editor__input--no-resize");
+          if (isTouched.value) classes.push("onyx-form-element-v2__input--touched");
+
           return mergeAttributes(currentAttributes, {
             "aria-label": props.label,
-            class: props.disableManualResize ? "onyx-text-editor__native--no-resize" : undefined,
+            class: classes,
+            "aria-invalid": error.value ? "true" : "false",
           });
         },
       },
@@ -141,28 +158,29 @@ watch(
   },
 );
 
-const formElementProps = useForwardProps(props, OnyxFormElement);
+const formElementV2Props = useForwardProps(props, OnyxUnstableFormElementV2);
 
 /**
  * Current CSS variables for the autosize min/max height.
  */
-const autosizeMinMaxStyles = computed(() => {
+const autosizeMinMaxStyles = computed<StyleValue>(() => {
   if (!props.autosize) return;
   const min = props.autosize.min ? Math.max(props.autosize.min, 2) : undefined; // ensure min is not smaller than 2
   const max = props.autosize.max;
-  return [
-    min ? `--onyx-text-editor-min-autosize-rows: ${min}` : "",
-    `--onyx-text-editor-max-autosize-rows: ${max ?? "unset"}`,
-  ];
+  return {
+    "--onyx-text-editor-autosize-min-rows": min,
+    "--onyx-text-editor-autosize-max-rows": max ?? "unset",
+  };
 });
-
-const successMessages = computed(() => getFormMessages(props.success));
-const message = computed(() => getFormMessages(props.message));
-
-const { hasExtension, hasTextExtension } = useEditorUtils(editor);
 
 const autosizeValue = computed(() => {
   return editor.value?.getText({ blockSeparator: "\n" });
+});
+
+const formElement = useTemplateRef("formElement");
+const toolbarTeleportTarget = computed(() => {
+  const el = formElement.value?.$el as HTMLElement | undefined;
+  return el?.querySelector(".onyx-form-element-v2__content");
 });
 
 defineExpose({
@@ -174,166 +192,50 @@ defineExpose({
 </script>
 
 <template>
-  <OnyxFormElement
-    v-bind="formElementProps"
-    class="onyx-text-editor"
+  <OnyxUnstableFormElementV2
+    v-bind="formElementV2Props"
+    ref="formElement"
+    :error
+    :class="[
+      'onyx-text-editor',
+      { 'onyx-text-editor--toolbar-bottom': props.toolbar?.position === 'bottom' },
+    ]"
     :style="autosizeMinMaxStyles"
-    :message
-    :success-messages
   >
-    <div
-      :class="[
-        'onyx-text-editor__body',
-        { 'onyx-text-editor__body--reverse': props.toolbar?.position === 'bottom' },
-      ]"
-    >
-      <div class="onyx-text-editor__toolbar">
-        <div class="onyx-text-editor__actions">
-          <OnyxEditorToolbarGroup>
-            <HeadingToolbarAction v-if="hasExtension('heading')" :editor />
+    <Teleport v-if="toolbarTeleportTarget" :to="toolbarTeleportTarget">
+      <EditorToolbar :editor>
+        <slot name="actions"> </slot>
+      </EditorToolbar>
+    </Teleport>
 
-            <ListToolbarAction
-              v-if="hasExtension('bulletList') || hasExtension('orderedList')"
-              :editor
-            />
-          </OnyxEditorToolbarGroup>
-
-          <OnyxEditorToolbarGroup>
-            <OnyxEditorToolbarAction
-              v-if="hasExtension('bold')"
-              :label="t('editor.bold')"
-              :icon="iconToolBold"
-              :active="editor?.isActive('bold')"
-              :disabled="!editor?.can().chain().toggleBold().run()"
-              @click="editor?.chain().focus().toggleBold().run()"
-            />
-            <OnyxEditorToolbarAction
-              v-if="hasExtension('italic')"
-              :label="t('editor.italic')"
-              :icon="iconToolItalic"
-              :active="editor?.isActive('italic')"
-              :disabled="!editor?.can().chain().toggleItalic().run()"
-              @click="editor?.chain().focus().toggleItalic().run()"
-            />
-            <OnyxEditorToolbarAction
-              v-if="hasExtension('underline')"
-              :label="t('editor.underline')"
-              :icon="iconToolUnderlined"
-              :active="editor?.isActive('underline')"
-              :disabled="!editor?.can().chain().toggleUnderline().run()"
-              @click="editor?.chain().focus().toggleUnderline().run()"
-            />
-            <OnyxEditorToolbarAction
-              v-if="hasExtension('strike')"
-              :label="t('editor.strike')"
-              :icon="iconToolStrike"
-              :active="editor?.isActive('strike')"
-              :disabled="!editor?.can().chain().toggleStrike().run()"
-              @click="editor?.chain().focus().toggleStrike().run()"
-            />
-          </OnyxEditorToolbarGroup>
-
-          <OnyxEditorToolbarGroup>
-            <OnyxEditorToolbarAction
-              v-if="hasTextExtension('left')"
-              :label="t('editor.alignments.left')"
-              :icon="iconAlignmentLeft"
-              :active="editor?.isActive({ textAlign: 'left' })"
-              :disabled="!editor?.can().chain().toggleTextAlign('left').run()"
-              @click="editor?.chain().focus().toggleTextAlign('left').run()"
-            />
-            <OnyxEditorToolbarAction
-              v-if="hasTextExtension('center')"
-              :label="t('editor.alignments.center')"
-              :icon="iconAlignmentCenter"
-              :active="editor?.isActive({ textAlign: 'center' })"
-              :disabled="!editor?.can().chain().toggleTextAlign('center').run()"
-              @click="editor?.chain().focus().toggleTextAlign('center').run()"
-            />
-            <OnyxEditorToolbarAction
-              v-if="hasTextExtension('right')"
-              :label="t('editor.alignments.right')"
-              :icon="iconAlignmentRight"
-              :active="editor?.isActive({ textAlign: 'right' })"
-              :disabled="!editor?.can().chain().toggleTextAlign('right').run()"
-              @click="editor?.chain().focus().toggleTextAlign('right').run()"
-            />
-            <OnyxEditorToolbarAction
-              v-if="hasTextExtension('justify')"
-              :label="t('editor.alignments.block')"
-              :icon="iconAlignmentBlock"
-              :active="editor?.isActive({ textAlign: 'justify' })"
-              :disabled="!editor?.can().chain().toggleTextAlign('justify').run()"
-              @click="editor?.chain().focus().toggleTextAlign('justify').run()"
-            />
-          </OnyxEditorToolbarGroup>
-
-          <OnyxEditorToolbarGroup>
-            <LinkToolbarAction v-if="hasExtension('link')" :editor />
-
-            <OnyxEditorToolbarAction
-              v-if="hasExtension('blockquote')"
-              :label="t('editor.blockquote')"
-              :icon="iconQuote"
-              :active="editor?.isActive('blockquote')"
-              :disabled="!editor?.can().chain().toggleBlockquote().run()"
-              @click="editor?.chain().focus().toggleBlockquote().run()"
-            />
-          </OnyxEditorToolbarGroup>
-
-          <OnyxEditorToolbarGroup v-if="slots.actions">
-            <slot name="actions"></slot>
-          </OnyxEditorToolbarGroup>
-        </div>
-
-        <div
-          v-if="hasExtension('undoRedo')"
-          class="onyx-text-editor__actions onyx-text-editor__actions--fixed"
-        >
-          <OnyxEditorToolbarAction
-            :label="t('editor.undo')"
-            :icon="iconUndo"
-            :disabled="!editor?.can().chain().undo().run()"
-            @click="editor?.chain().focus().undo().run()"
-          />
-          <OnyxEditorToolbarAction
-            :label="t('editor.redo')"
-            :icon="iconRedo"
-            :disabled="!editor?.can().chain().redo().run()"
-            @click="editor?.chain().focus().redo().run()"
-          />
-        </div>
-      </div>
-
-      <EditorContent
-        class="onyx-text-editor__wrapper"
-        :data-autosize-value="autosizeValue"
-        :editor
-      />
-    </div>
-  </OnyxFormElement>
+    <EditorContent class="onyx-text-editor__wrapper" :data-autosize-value="autosizeValue" :editor />
+  </OnyxUnstableFormElementV2>
 </template>
 
 <style lang="scss">
 @use "sit-onyx/src/styles/mixins/layers.scss";
 @use "sit-onyx/src/styles/mixins/input.scss";
 
-.onyx-text-editor,
-.onyx-text-editor-skeleton {
+.onyx-text-editor {
   @include layers.component() {
-    --onyx-text-editor-min-autosize-rows: 3;
-    --onyx-text-editor-max-autosize-rows: 10;
-    --onyx-text-editor-padding-block: var(--onyx-density-xs);
+    --onyx-text-editor-autosize-min-rows: 3;
+    --onyx-text-editor-autosize-max-rows: 10;
 
+    // calculated values
     --onyx-text-editor-min-height: calc(
-      var(--onyx-text-editor-min-autosize-rows) * 1lh + 2 * var(--onyx-text-editor-padding-block)
+      var(--onyx-text-editor-autosize-min-rows) * 1lh + 2 *
+        var(--onyx-form-element-v2-padding-block)
     );
     --onyx-text-editor-max-height: calc(
-      var(--onyx-text-editor-max-autosize-rows) * 1lh + 2 * var(--onyx-text-editor-padding-block)
+      var(--onyx-text-editor-autosize-max-rows) * 1lh + 2 *
+        var(--onyx-form-element-v2-padding-block)
     );
 
+    // needed for correct skeleton height
+    --onyx-form-element-v2-content-height: calc(1lh * var(--onyx-text-editor-autosize-min-rows));
+
     // remove max height and disable auto-sizing if user resizes the textarea manually
-    &:has(.onyx-text-editor__native[style*="height"]) {
+    &:has(.onyx-text-editor__input[style*="height"]) {
       --onyx-text-editor-max-height: unset;
 
       .onyx-text-editor__wrapper::after {
@@ -367,19 +269,22 @@ defineExpose({
 
 .onyx-text-editor {
   @include layers.component() {
-    @include input.define-shared-styles(
-      $base-selector: ".onyx-text-editor",
-      $vertical-padding: var(--onyx-text-editor-padding-block)
-    );
-
+    --onyx-text-editor-flex-direction: column-reverse;
+    --onyx-text-editor-input-border-radius-top: 0;
+    --onyx-text-editor-input-border-radius-bottom: var(--onyx-form-element-v2-border-radius);
     max-width: 100%;
+
+    &--toolbar-bottom {
+      --onyx-text-editor-flex-direction: column;
+      --onyx-text-editor-input-border-radius-top: var(--onyx-form-element-v2-border-radius);
+      --onyx-text-editor-input-border-radius-bottom: 0;
+    }
 
     &__wrapper {
       padding: 0;
-      height: unset;
       display: grid;
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
+      width: 100%;
+      height: 100%;
 
       // auto-resize, based on: https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas
       &::after {
@@ -392,77 +297,49 @@ defineExpose({
       }
     }
 
+    // scope styles so they do not apply to nested content, e.g. inside the toolbar
+    > .onyx-form-element-v2__body > .onyx-form-element-v2__content {
+      height: unset; // needed for autosize to work
+      flex-direction: var(--onyx-text-editor-flex-direction);
+
+      > .onyx-form-element-v2__input-container {
+        width: 100%;
+        align-items: flex-start; // top align slots (loading indicator etc.)
+        border-top-left-radius: var(--onyx-text-editor-input-border-radius-top);
+        border-top-right-radius: var(--onyx-text-editor-input-border-radius-top);
+        border-bottom-left-radius: var(--onyx-text-editor-input-border-radius-bottom);
+        border-bottom-right-radius: var(--onyx-text-editor-input-border-radius-bottom);
+
+        // needed so toolbar does not overlay the outline
+        &:focus-within {
+          z-index: 0;
+        }
+      }
+    }
+
     /**
      * Styles that are shared between the <textarea> and the ::after element of the wrapper
      * that is used for the autosize feature.
      */
     &__wrapper:after,
-    &__native {
+    &__input {
       grid-area: 1 / 1;
       height: 100%;
       min-height: var(--onyx-text-editor-min-height);
       max-height: var(--onyx-text-editor-max-height);
-      padding: var(--onyx-text-editor-padding-block) var(--onyx-density-sm);
+      padding: var(--onyx-form-element-v2-padding-block) var(--onyx-form-element-v2-padding-inline);
       word-break: break-word;
     }
 
-    &__native {
+    &__input {
       @include content-styles();
       resize: vertical;
       overflow-y: auto;
+      overflow-x: unset;
+      white-space: pre-line;
 
       &--no-resize {
         resize: none;
-      }
-    }
-
-    &__body {
-      display: flex;
-      flex-direction: column;
-
-      &--reverse {
-        flex-direction: column-reverse;
-
-        .onyx-text-editor__toolbar {
-          border-top: none;
-          border-bottom: var(--onyx-1px-in-rem) solid var(--border-color);
-          border-top-left-radius: 0;
-          border-top-right-radius: 0;
-          border-bottom-left-radius: var(--border-radius);
-          border-bottom-right-radius: var(--border-radius);
-        }
-
-        .onyx-text-editor__wrapper {
-          border-top-left-radius: var(--border-radius);
-          border-top-right-radius: var(--border-radius);
-          border-bottom-left-radius: 0;
-          border-bottom-right-radius: 0;
-        }
-      }
-    }
-
-    &__toolbar {
-      border: var(--onyx-1px-in-rem) solid var(--border-color);
-      border-bottom: none;
-      border-top-left-radius: var(--border-radius);
-      border-top-right-radius: var(--border-radius);
-      color: var(--onyx-color-text-icons-neutral-medium);
-      background-color: var(--onyx-color-base-background-tinted); // TODO: adjust this in Figma
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    &__actions {
-      display: flex;
-      align-items: center;
-      gap: var(--onyx-density-xs);
-      overflow: auto;
-      padding: var(--onyx-text-editor-padding-block);
-
-      &--fixed {
-        overflow: visible;
       }
     }
   }

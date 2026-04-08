@@ -1,23 +1,17 @@
 import type { Extensions } from "@tiptap/vue-3";
-import type { Nullable, OnyxTextareaProps, SharedFormElementProps } from "sit-onyx";
+import type {
+  Nullable,
+  OnyxFormElementV2Props,
+  OnyxTextareaProps,
+  SharedFormElementProps,
+} from "sit-onyx";
 import type { InjectionKey, Ref } from "vue";
 
 // TODO: consider the following features if possible:
-// required, min/max length, custom errors, autocapitalize
-export type OnyxTextEditorProps = Pick<OnyxTextareaProps, "disableManualResize" | "autosize"> &
-  Pick<
-    SharedFormElementProps,
-    | "label"
-    | "labelTooltip"
-    | "disabled"
-    | "hideLabel"
-    | "autofocus"
-    | "message"
-    | "success"
-    | "density"
-    | "placeholder"
-    | "reserveMessageSpace"
-  > & {
+// min/max length, autocapitalize
+export type OnyxTextEditorProps = Omit<OnyxFormElementV2Props, "open" | "popoverOptions" | "id"> &
+  Pick<SharedFormElementProps, "disabled" | "autofocus" | "placeholder"> &
+  Pick<OnyxTextareaProps, "disableManualResize" | "autosize"> & {
     /**
      * Current editor value.
      */
