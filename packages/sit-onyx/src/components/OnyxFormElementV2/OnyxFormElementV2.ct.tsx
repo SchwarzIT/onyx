@@ -437,3 +437,46 @@ test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder
   await expect(component).not.toContainText("Test label");
   await expect(component.getByLabel("Test label")).toBeVisible();
 });
+
+test("should correctly reserve message space", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(TestCase, {
+    props: {
+      label: "Test label",
+      error: "Test error",
+    },
+  });
+
+  const input = component.getByLabel("Test label");
+  const bottom = component.locator(".onyx-form-element-v2__bottom");
+
+  // ASSERT
+  await expect(bottom).toBeHidden();
+  let height = await bottom.evaluate((element) => element.clientHeight);
+  expect(height).toBe(0);
+
+  // ACT
+  await component.update({ props: { reserveMessageSpace: true } });
+
+  // ASSERT
+  await expect(bottom).toBeVisible();
+  height = await bottom.evaluate((element) => element.clientHeight);
+  expect(height, "should reserve bottom space").toBeGreaterThan(0);
+
+  // ACT
+  await component.update({ props: { reserveMessageSpace: false } });
+
+  // ASSERT
+  await expect(bottom).toBeHidden();
+  height = await bottom.evaluate((element) => element.clientHeight);
+  expect(height).toBe(0);
+
+  // ACT
+  await input.fill("Filled value");
+  await input.blur();
+
+  // ASSERT
+  await expect(bottom).toBeVisible();
+  height = await bottom.evaluate((element) => element.clientHeight);
+  expect(height).toBeGreaterThan(0);
+});

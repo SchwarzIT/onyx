@@ -1,8 +1,10 @@
+import { iconPlaceholder } from "@sit-onyx/icons";
 import { DENSITIES } from "../../composables/density.js";
 import { testMaxLengthBehavior } from "../../composables/useLenientMaxLengthValidation.ct-utils.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-utils.js";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxTextarea from "./OnyxTextarea.vue";
 
 test.describe("Screenshot tests", () => {
@@ -311,6 +313,28 @@ test.describe("Screenshot tests", () => {
       },
     },
   });
+
+  executeMatrixScreenshotTest({
+    name: "Textarea (slots)",
+    columns: ["loading", "leadingIcons"],
+    rows: ["default"],
+    component: (column) => {
+      return (
+        <OnyxTextarea
+          style="width: 12rem"
+          label="Test label"
+          placeholder="Filled value"
+          loading={column === "loading"}
+        >
+          {column === "leadingIcons" && (
+            <template v-slot:leadingIcons>
+              <OnyxIcon icon={iconPlaceholder} />
+            </template>
+          )}
+        </OnyxTextarea>
+      );
+    },
+  });
 });
 
 test("should emit events", async ({ mount, makeAxeBuilder }) => {
@@ -444,7 +468,7 @@ test("should autosize", async ({ mount }) => {
   }
 });
 
-test("should show error message after interaction", async ({ mount, makeAxeBuilder }) => {
+test("should show error message after interaction", async ({ mount }) => {
   // ARRANGE
   const component = await mount(<OnyxTextarea label="Demo" style="width: 12rem;" required />);
   const formElementUtils = createFormElementUtils(component);
@@ -466,46 +490,6 @@ test("should show error message after interaction", async ({ mount, makeAxeBuild
 
   // ASSERT: after interaction, the error preview shows
   await expect(errorPreview).toBeVisible();
-  await expect(formElementUtils.getTooltipTrigger("message")).toBeVisible();
-  await expect(fullError).toBeHidden();
-
-  // ACT
-  await formElementUtils.triggerTooltipVisible("message");
-  // ASSERT: the full error message shows
-  await expect(fullError).toBeVisible();
-
-  // ACT
-  const accessibilityScanResults = await makeAxeBuilder().analyze();
-  // ASSERT
-  expect(accessibilityScanResults.violations).toEqual([]);
-});
-
-test("should show correct message", async ({ mount }) => {
-  const message = { shortMessage: "Test short message" };
-  const successMessage = { shortMessage: "Test success short message" };
-  const component = await mount(
-    <OnyxTextarea label="Label" required success={successMessage} message={message} />,
-  );
-
-  const messageElement = component.getByText("Test short message");
-  const successMessageElement = component.getByText("Test success short message");
-  const errorMessageElement = component.getByText("Required");
-  const input = component.getByLabel("Label");
-
-  // ASSERT
-  await expect(messageElement).toBeHidden();
-  await expect(successMessageElement).toBeVisible();
-
-  //ACT
-  await input.click();
-  await input.fill("x");
-  await input.fill("");
-  await input.blur();
-
-  // ASSERT
-  await expect(messageElement).toBeHidden();
-  await expect(successMessageElement).toBeHidden();
-  await expect(errorMessageElement).toBeVisible();
 });
 
 test("should not cause the page to grow for large inputs", async ({ mount, page }) => {

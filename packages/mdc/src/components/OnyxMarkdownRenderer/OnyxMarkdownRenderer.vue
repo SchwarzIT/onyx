@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { MDCParserResult } from "@nuxtjs/mdc";
 import { useDensity } from "sit-onyx";
-import { defineAsyncComponent, ref, useAttrs, watch } from "vue";
+import { defineAsyncComponent, nextTick, ref, useAttrs, watch } from "vue";
 import ProseA from "../prose/ProseA.vue";
 import ProseBr from "../prose/ProseBr.vue";
 import ProseCode from "../prose/ProseCode.vue";
@@ -24,6 +24,13 @@ import ProseUl from "../prose/ProseUl.vue";
 import type { OnyxMarkdownRendererProps } from "./types.js";
 
 const props = defineProps<OnyxMarkdownRendererProps>();
+
+const emit = defineEmits<{
+  /**
+   * Emitted when the async components are resolved.
+   */
+  resolve: [];
+}>();
 
 defineSlots<{
   /**
@@ -85,11 +92,16 @@ const components = {
 
 const attrs = useAttrs();
 
+const handleResolve = async () => {
+  await nextTick(); // ensure all components are rendered
+  emit("resolve");
+};
+
 defineExpose({ parserResult });
 </script>
 
 <template>
-  <Suspense>
+  <Suspense @resolve="handleResolve">
     <slot v-if="isLoading" name="loading"></slot>
 
     <MDCRenderer
