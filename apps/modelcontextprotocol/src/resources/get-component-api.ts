@@ -35,7 +35,7 @@ export const getComponentApi: RegisterableResource = [
     const componentMetaJson = await retrieveComponentMetaJsonFile(version);
     const componentMeta = componentMetaJson.find(
       ({ displayName, name }) =>
-        compareDefined(displayName, name) || compareDefined(name, component),
+        compareDefined(displayName, component) || compareDefined(name, component),
     );
 
     if (!componentMeta) {
