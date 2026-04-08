@@ -274,40 +274,6 @@ importers:
         specifier: ^5.3.3
         version: 5.3.3(chart.js@4.5.1)(vue@3.5.32(typescript@5.9.3))
 
-  apps/modelcontextprotocol:
-    dependencies:
-      '@modelcontextprotocol/sdk':
-        specifier: ^1.29.0
-        version: 1.29.0(zod@4.3.6)
-    devDependencies:
-      '@sit-onyx/shared':
-        specifier: workspace:^
-        version: link:../../packages/shared
-      '@types/node':
-        specifier: 'catalog:'
-        version: 24.12.2
-      '@types/tar-stream':
-        specifier: ^3.1.4
-        version: 3.1.4
-      query-registry:
-        specifier: ^4.3.0
-        version: 4.3.0(zod@4.3.6)
-      tar-stream:
-        specifier: ^3.1.8
-        version: 3.1.8
-      typescript:
-        specifier: 5.9.3
-        version: 5.9.3
-      vite:
-        specifier: 8.0.5
-        version: 8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3)
-      vite-plugin-dts:
-        specifier: ^4.5.4
-        version: 4.5.4(@types/node@24.12.2)(rollup@4.60.1)(typescript@5.9.3)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))
-      vue-component-meta:
-        specifier: ^3.2.6
-        version: 3.2.6(typescript@5.9.3)
-
   apps/playground:
     devDependencies:
       '@sit-onyx/icons':
