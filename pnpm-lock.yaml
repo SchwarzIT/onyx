@@ -275,10 +275,11 @@ importers:
         version: 5.3.3(chart.js@4.5.1)(vue@3.5.32(typescript@5.9.3))
 
   apps/modelcontextprotocol:
-    devDependencies:
+    dependencies:
       '@modelcontextprotocol/sdk':
         specifier: ^1.29.0
         version: 1.29.0(zod@4.3.6)
+    devDependencies:
       '@sit-onyx/shared':
         specifier: workspace:^
         version: link:../../packages/shared
