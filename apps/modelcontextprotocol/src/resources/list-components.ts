@@ -3,6 +3,7 @@ import { getAbbreviatedPackument } from "query-registry";
 import { REGISTRY_URL, SIT_ONYX_MIN_VERSION } from "../config.js";
 import type { RegisterableResource } from "../types.js";
 import { retrieveComponentMetaJsonFile } from "../util/component-meta-json.js";
+import { versionCompare } from "../util/version-compare.js";
 
 export const listComponents: RegisterableResource = [
   "list-components",
@@ -10,7 +11,7 @@ export const listComponents: RegisterableResource = [
     list: async () => {
       const { versions } = await getAbbreviatedPackument("sit-onyx", REGISTRY_URL);
       const relevantVersions = Object.keys(versions).filter(
-        (version) => version.split("-").at(0) ?? "" >= SIT_ONYX_MIN_VERSION,
+        (version) => versionCompare(SIT_ONYX_MIN_VERSION, version) >= 1,
       );
       const resources = relevantVersions.map((version) => ({
         uri: `components://sit-onyx/${version}`,
