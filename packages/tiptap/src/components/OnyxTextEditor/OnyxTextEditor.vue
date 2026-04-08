@@ -5,13 +5,14 @@ import {
   FORM_INJECTED_SYMBOL,
   injectI18n,
   OnyxUnstableFormElementV2,
+  OnyxVisuallyHidden,
   SKELETON_INJECTED_SYMBOL,
   useFormContext,
   useForwardProps,
   useVModel,
   type FormElementV2Tooltip,
 } from "sit-onyx";
-import { computed, provide, ref, useTemplateRef, watch, type StyleValue } from "vue";
+import { computed, provide, ref, useTemplateRef, watch, watchEffect, type StyleValue } from "vue";
 import EditorToolbar from "./EditorToolbar.vue";
 import { OnyxStarterKit } from "./extensions/starterKit.js";
 import { TEXT_EDITOR_INJECTION_KEY, type OnyxTextEditorProps } from "./types.js";
@@ -183,6 +184,20 @@ const toolbarTeleportTarget = computed(() => {
   return el?.querySelector(".onyx-form-element-v2__content");
 });
 
+const nativeInput = useTemplateRef("nativeInput");
+watchEffect(() => {
+  if (!error.value) {
+    nativeInput.value?.setCustomValidity("");
+    return;
+  }
+
+  const errorMessage =
+    typeof error.value === "string"
+      ? error.value
+      : `${error.value.label} ${error.value.tooltipText ?? ""}`.trim();
+  nativeInput.value?.setCustomValidity(errorMessage);
+});
+
 defineExpose({
   /**
    * Tiptap editor instance.
@@ -209,6 +224,16 @@ defineExpose({
     </Teleport>
 
     <EditorContent class="onyx-text-editor__wrapper" :data-autosize-value="autosizeValue" :editor />
+
+    <!-- using a native input to include the editor into HTML form validation -->
+    <OnyxVisuallyHidden aria-hidden="true">
+      <input
+        ref="nativeInput"
+        tabindex="-1"
+        @invalid="isTouched = true"
+        @focus="editor?.commands.focus()"
+      />
+    </OnyxVisuallyHidden>
   </OnyxUnstableFormElementV2>
 </template>
 

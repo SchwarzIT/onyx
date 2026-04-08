@@ -2,6 +2,7 @@ import type { Page } from "@playwright/test";
 import { DENSITIES } from "sit-onyx";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
+import FormTestCase from "./FormTestCase.ct.vue";
 import OnyxTextEditor from "./OnyxTextEditor.vue";
 import TestCase from "./TestCase.ct.vue";
 
@@ -779,6 +780,32 @@ test("should show error", async ({ mount }) => {
   // ASSERT
   await expect(error, "should show custom error").toBeVisible();
   await expect(error).toContainText("Custom error");
+});
+
+test("should include editor in native HTML form validation", async ({ mount }) => {
+  // ARRANGE
+  let submitEventCount = 0;
+
+  const component = await mount(
+    <FormTestCase label="Test label" required onSubmit={() => submitEventCount++} />,
+  );
+
+  const editor = component.getByLabel("Test label");
+
+  // ACT
+  await editor.fill("Filled value");
+  await editor.clear();
+
+  await component.getByRole("button", { name: "Submit" }).click();
+
+  // ASSERT
+  const isFormValid = await component.evaluate((form: HTMLFormElement) => form.checkValidity());
+  expect(isFormValid).toBe(false);
+  expect(submitEventCount).toBe(0);
+
+  const errorMessage = component.locator(".onyx-form-element-v2__message--danger");
+  await expect(errorMessage).toBeVisible();
+  await expect(errorMessage).toContainText("Required");
 });
 
 /**
