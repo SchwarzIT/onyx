@@ -8,7 +8,7 @@ const props = defineProps<Pick<OnyxFlyoutMenuProps, "trigger">>();
 </script>
 
 <template>
-  <OnyxFlyoutMenu v-bind="props" label="Choose item">
+  <OnyxFlyoutMenu v-bind="props" label="Choose item" class-name="test-flyout">
     <template #button="{ trigger: _trigger }">
       <button type="button" v-bind="_trigger">Trigger</button>
     </template>
@@ -39,3 +39,10 @@ const props = defineProps<Pick<OnyxFlyoutMenuProps, "trigger">>();
     </template>
   </OnyxFlyoutMenu>
 </template>
+
+<style lang="scss" scoped>
+.test-flyout {
+  margin: 1rem;
+  margin-right: 15rem;
+}
+</style>
