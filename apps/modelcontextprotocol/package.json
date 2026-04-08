@@ -22,20 +22,19 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "vite build --ssr",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.29.0"
-  },
   "devDependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "@sit-onyx/shared": "workspace:^",
     "@types/node": "catalog:",
     "@types/tar-stream": "^3.1.4",
-    "pacote": "^21.5.0",
     "query-registry": "^4.3.0",
     "tar-stream": "^3.1.8",
     "typescript": "catalog:",
-    "url-join": "^5.0.0",
+    "vite": "catalog:",
+    "vite-plugin-dts": "^4.5.4",
     "vue-component-meta": "^3.2.6"
   },
   "engines": {
