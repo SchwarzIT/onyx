@@ -28,4 +28,10 @@ export type OnyxMenuItemProps = WithLinkProp & {
    * Main color of the item content.
    */
   color?: Extract<OnyxColor, "primary" | "danger">;
+  nested?: "internal" | "external";
+};
+
+export type NestedMenuContext = {
+  onHoverEnter: () => void;
+  onHoverLeave: () => void;
 };

@@ -154,7 +154,7 @@ const {
       overflow: auto;
 
       // when nested item is open, hide all other items in the same layer
-      &:has(.onyx-menu-item--open) {
+      &:has(> .onyx-menu-item--internal.onyx-menu-item--open) {
         > .onyx-menu-item:not(.onyx-menu-item--open) {
           display: none;
         }
