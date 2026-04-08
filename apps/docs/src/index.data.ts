@@ -189,18 +189,18 @@ export default defineLoader({
         href: "https://storybook.onyx.schwarz/?path=/docs/data-pagination--docs",
       },
       {
-        name: "Datepicker",
+        name: "Date picker",
         status: "planned",
-        href: "https://storybook.onyx.schwarz/?path=/docs/form-elements-datepicker--docs",
+        href: "https://storybook.onyx.schwarz/?path=/docs/form-elements-datepickerv2--docs",
       },
       {
-        name: "TimePicker",
+        name: "Time picker",
         status: getImplementedStatus("OnyxTimePicker"),
         href: "https://storybook.onyx.schwarz/?path=/docs/form-elements-timepicker--docs",
       },
       {
         name: "Calendar",
-        status: getImplementedStatus("OnyxCalendar"),
+        status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/data-calendar--docs",
       },
       {
@@ -240,7 +240,7 @@ export default defineLoader({
       },
       {
         name: "Table of Contents",
-        status: getImplementedStatus("OnyxTableOfContents"),
+        status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/navigation-tableofcontents--docs",
       },
       {
@@ -271,7 +271,11 @@ export default defineLoader({
         status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/basic-image--docs",
       },
-      { name: "Split button", status: getImplementedStatus("OnyxSplitButton") },
+      {
+        name: "Split button",
+        status: "implemented",
+        href: "https://storybook.onyx.schwarz/?path=/docs/buttons-splitbutton--docs",
+      },
       {
         name: "Shortcut",
         status: getImplementedStatus("OnyxShortcut"),
@@ -286,7 +290,7 @@ export default defineLoader({
       },
       {
         name: "Global search",
-        status: getImplementedStatus("OnyxGlobalSearch"),
+        status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/search-filter-globalsearch--docs",
       },
       {
