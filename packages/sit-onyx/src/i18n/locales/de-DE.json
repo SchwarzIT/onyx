@@ -118,6 +118,7 @@
   },
   "selections": {
     "selectAll": "Alle auswählen",
+    "selectFiltered": "Gefilterte auswählen",
     "selectGroup": "Ausgewählte",
     "currentSelection": "{n} ausgewählt"
   },
@@ -345,5 +346,8 @@
   },
   "datePicker": {
     "popoverLabel": "Kalender"
+  },
+  "accordion": {
+    "toggle": "Klicke, um den Inhalt umzuschalten"
   }
 }

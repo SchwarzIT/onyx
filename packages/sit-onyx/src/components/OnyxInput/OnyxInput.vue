@@ -2,6 +2,7 @@
 import { iconEye, iconEyeClosed, iconXSmall } from "@sit-onyx/icons";
 import { computed, useTemplateRef } from "vue";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
+import { useClearButton } from "../../composables/useClearButton.js";
 import { useFormElementError } from "../../composables/useFormElementError.js";
 import { useLenientMaxLengthValidation } from "../../composables/useLenientMaxLengthValidation.js";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
@@ -99,10 +100,7 @@ const counter = computed(() => {
   return { length, maxLength, violated };
 });
 
-const showClearButton = computed(() => {
-  if (props.hideClearIcon) return false;
-  return !!modelValue.value;
-});
+const { showClearButton } = useClearButton({ props, modelValue });
 </script>
 
 <template>

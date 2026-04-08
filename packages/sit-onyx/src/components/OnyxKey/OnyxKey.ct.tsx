@@ -132,7 +132,6 @@ test.describe("Screenshot tests (editing)", () => {
   });
 });
 
-// eslint-disable-next-line playwright/expect-expect -- assertion done by "expectEmit"
 test("should emit event when the matching key is pressed", async ({ mount, page }) => {
   // ARRANGE
   const onPressed = createEmitSpy<typeof OnyxKey, "onPressed">();

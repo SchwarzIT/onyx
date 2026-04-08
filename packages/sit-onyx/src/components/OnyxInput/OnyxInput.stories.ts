@@ -245,6 +245,7 @@ export const WithSlotContent = {
         options: [{ label: "kg", value: "kg" }],
         modelValue: "kg",
         alignment: "right",
+        hideClearIcon: true,
       }),
     leadingIcons: () => [h(OnyxIcon, { icon: iconPlaceholder })],
     trailingIcons: () => [h(OnyxIcon, { icon: iconPlaceholder })],

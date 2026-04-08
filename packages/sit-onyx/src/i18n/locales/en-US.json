@@ -118,6 +118,7 @@
   },
   "selections": {
     "selectAll": "Select all",
+    "selectFiltered": "Select filtered",
     "selectGroup": "Selected",
     "currentSelection": "{n} selected"
   },
@@ -348,5 +349,8 @@
   },
   "datePicker": {
     "popoverLabel": "Calendar"
+  },
+  "accordion": {
+    "toggle": "Click to toggle content"
   }
 }

@@ -183,6 +183,7 @@ const valueLabel = computed(() =>
       // fix for button outlines
       &:has(.onyx-pagination__button:first-of-type:focus-visible) {
         .onyx-form-element-v2__input-container {
+          max-width: unset;
           border-left: none;
           margin-left: calc(-1 * var(--onyx-outline-width));
         }
@@ -190,6 +191,7 @@ const valueLabel = computed(() =>
 
       &:has(.onyx-pagination__button:last-of-type:focus-visible) {
         .onyx-form-element-v2__input-container {
+          max-width: unset;
           border-right: none;
           margin-right: calc(-1 * var(--onyx-outline-width));
         }

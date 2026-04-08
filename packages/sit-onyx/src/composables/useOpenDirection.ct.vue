@@ -2,8 +2,17 @@
 import { onMounted, useTemplateRef } from "vue";
 import { useOpenDirection } from "./useOpenDirection.js";
 
+const props = defineProps<{
+  horizontal?: boolean;
+}>();
+
 const element = useTemplateRef("element");
-const { openDirection, updateOpenDirection } = useOpenDirection(element);
+
+const { openDirection, updateOpenDirection } = useOpenDirection(
+  element,
+  () => (props.horizontal ? "right" : "bottom"),
+  () => props.horizontal,
+);
 
 onMounted(() => {
   updateOpenDirection();

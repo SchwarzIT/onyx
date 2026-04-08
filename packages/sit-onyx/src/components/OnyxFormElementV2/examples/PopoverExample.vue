@@ -10,6 +10,7 @@ import { OnyxIcon, OnyxUnstableFormElementV2 } from "../../../index.js";
       label: 'Click on the input to trigger the popover',
       tooltipText: 'Message tooltip',
     }"
+    :popover-options="{ description: 'Popover description' }"
     required
   >
     <template #default="props">

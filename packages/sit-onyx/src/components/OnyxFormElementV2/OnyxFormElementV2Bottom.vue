@@ -92,8 +92,14 @@ const messages = computed(() =>
       justify-content: space-between;
       gap: var(--onyx-spacing-2xs);
 
-      &:empty:not(&--reserve-empty) {
-        display: none;
+      &:not(&--reserve-empty) {
+        &:empty {
+          display: none;
+        }
+
+        &:has(.onyx-form-element-v2__message--danger:only-child) {
+          display: var(--onyx-form-element-v2-error-display);
+        }
       }
     }
 

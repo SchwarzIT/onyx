@@ -162,7 +162,7 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
 .onyx-form-element-v2 {
   @include layers.component() {
     --onyx-form-element-v2-gap: var(--onyx-density-3xs);
-    --onyx-form-element-v2-border-radius: var(--onyx-radius-sm);
+    --onyx-form-element-v2-border-radius: var(--onyx-radius-component-input);
     --onyx-form-element-v2-border-size: var(--onyx-1px-in-rem);
     --onyx-form-element-v2-border-color: var(--onyx-color-component-border-neutral);
     --onyx-form-element-v2-border-color-hover: var(--onyx-color-component-border-primary-hover);
@@ -266,8 +266,6 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
       flex-direction: column;
       gap: var(--onyx-density-3xs);
       width: 100%;
-      // TODO: truncates outline
-      // overflow: hidden; // needed to correctly truncate the bottom message
     }
 
     &__content {
@@ -287,6 +285,7 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
       border: var(--onyx-form-element-v2-border-size) solid var(--onyx-form-element-v2-border-color);
       border-radius: inherit;
       height: 100%;
+      max-width: 100%;
 
       &:has(.onyx-form-element-v2__input:read-write):hover {
         border-color: var(--onyx-form-element-v2-border-color-hover);
@@ -335,7 +334,7 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
 
     &__slot {
       height: 100%;
-      border: var(--onyx-1px-in-rem) solid var(--onyx-form-element-v2-border-color);
+      border: var(--onyx-form-element-v2-border-size) solid var(--onyx-form-element-v2-border-color);
       display: flex;
       align-items: center;
 
@@ -414,8 +413,20 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
         background: var(--onyx-form-element-v2-selection-background);
       }
 
-      &::-webkit-search-cancel-button {
+      // hide default browser icons
+      &::-webkit-search-cancel-button,
+      &::-webkit-calendar-picker-indicator {
         display: none;
+      }
+
+      // remove stepper arrows
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      &[type="number"] {
+        -moz-appearance: textfield;
       }
 
       &:autofill {
@@ -433,9 +444,9 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
     }
 
     // ensure popover does not overlap label or bottom area
-    &:has(&__bottom:not(:empty)):has(&__popover .onyx-basic-popover__dialog--position-bottom),
+    &:has(&__bottom:not(:empty)):has(&__popover > .onyx-basic-popover__dialog--position-bottom),
     &:has(> .onyx-form-element-v2__label):has(
-        &__popover .onyx-basic-popover__dialog--position-top
+        &__popover > .onyx-basic-popover__dialog--position-top
       ) {
       .onyx-form-element-v2__popover {
         --onyx-basic-popover-gap: var(--onyx-form-element-v2-bottom-height);

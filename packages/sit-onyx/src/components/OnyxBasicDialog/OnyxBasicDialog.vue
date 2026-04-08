@@ -121,7 +121,7 @@ defineExpose({
 .onyx-basic-dialog {
   @include layers.component() {
     --onyx-basic-dialog-screen-gap: var(--onyx-grid-margin);
-    --onyx-basic-dialog-border-radius: var(--onyx-radius-md);
+    --onyx-basic-dialog-border-radius: var(--onyx-radius-component-flyout);
     --onyx-basic-dialog-padding: var(--onyx-density-md) var(--onyx-density-lg);
     outline: none;
     border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);

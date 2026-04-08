@@ -1,3 +1,4 @@
+import type { HTMLAttributes } from "vue";
 import type { DensityProp } from "../../composables/density.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 import type { Nullable } from "../../types/utils.js";
@@ -55,7 +56,7 @@ export type OnyxFormElementV2Slots = {
   /**
    * Actual native HTML form element (e.g. `<input>` or `<textarea>`).
    */
-  default(props: object): unknown;
+  default(props: HTMLAttributes): unknown;
   /**
    * Optional slot to provide custom leading content before the actual input (e.g. an `OnyxSelect`).
    */
@@ -111,4 +112,9 @@ export type FormElementV2PopoverOptions = Pick<
   OnyxBasicPopoverProps,
   "alignment" | "fitParent" | "position" | "disabled"
 > &
-  Partial<Pick<OnyxBasicPopoverProps, "label">>;
+  Partial<Pick<OnyxBasicPopoverProps, "label">> & {
+    /**
+     * Description text that is displayed at the bottom of the popover.
+     */
+    description?: string;
+  };

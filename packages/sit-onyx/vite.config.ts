@@ -1,4 +1,4 @@
-/// <reference types="vitest" />
+/// <reference types="vitest/config" />
 import { vuePluginOptions } from "@sit-onyx/shared/playwright.config.base";
 import { VITE_BASE_CONFIG } from "@sit-onyx/shared/vite.config.base";
 import vue from "@vitejs/plugin-vue";
@@ -6,30 +6,33 @@ import { fileURLToPath, URL } from "node:url";
 import { DiagnosticCategory } from "typescript";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
-import packageJson from "./package.json";
+import { extractComponentMeta } from "./build/extract-component-meta.js";
+import packageJson from "./package.json" with { type: "json" };
 
 // https://vitejs.dev/config
 export default defineConfig({
   ...VITE_BASE_CONFIG,
   mode: "development",
   plugins: [
-    process.env.STORYBOOK === "true"
-      ? undefined
-      : dts({
-          tsconfigPath: "./tsconfig.app.json",
-          compilerOptions: { composite: false },
-          beforeWriteFile: (filePath) => {
-            if (filePath.endsWith(".vue.d.ts")) {
-              return { filePath: filePath.replace(".vue.d.ts", ".d.vue.ts") };
-            }
-          },
-          afterDiagnostic: async (diagnostics) => {
-            if (diagnostics.some((d) => d.category === DiagnosticCategory.Error)) {
-              throw new Error("Build aborted due to TypeScript errors in the library!");
-            }
-          },
-        }),
+    dts({
+      tsconfigPath: "./tsconfig.app.json",
+      compilerOptions: { composite: false },
+      beforeWriteFile: (filePath) => {
+        if (filePath.endsWith(".vue.d.ts")) {
+          return { filePath: filePath.replace(".vue.d.ts", ".d.vue.ts") };
+        }
+      },
+      afterDiagnostic: async (diagnostics) => {
+        if (diagnostics.some((d) => d.category === DiagnosticCategory.Error)) {
+          throw new Error("Build aborted due to TypeScript errors in the library!");
+        }
+      },
+    }),
     vue(vuePluginOptions),
+    extractComponentMeta({
+      tsconfigPath: "tsconfig.app.json",
+      include: /\.vue$/,
+    }),
   ],
   build: {
     minify: false,

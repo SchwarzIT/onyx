@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { CLOSING_KEYS, OPENING_KEYS, useOutsideClick } from "@sit-onyx/headless";
-import { computed, nextTick, ref, useTemplateRef, watch } from "vue";
+import { computed, nextTick, ref, useTemplateRef, watch, type HTMLAttributes } from "vue";
 import { useVModel } from "../../composables/useVModel.js";
 import { mergeVueProps } from "../../utils/attrs.js";
 import OnyxBasicPopover from "../OnyxBasicPopover/OnyxBasicPopover.vue";
@@ -16,7 +16,7 @@ const emit = defineEmits<{
 }>();
 
 const slots = defineSlots<{
-  default(props: { input?: object }): unknown;
+  default(props: { input?: HTMLAttributes }): unknown;
   popover?(): unknown;
 }>();
 
@@ -67,7 +67,7 @@ const stopWatch = watch(open, (newOpen, oldOpen) => {
   }
 });
 
-const inputProps = computed(() => {
+const inputProps = computed<HTMLAttributes>(() => {
   return {
     role: "combobox",
     onKeydown: blockTyping,
@@ -91,6 +91,13 @@ const inputProps = computed(() => {
 
     <template #content>
       <slot name="popover"></slot>
+
+      <div
+        v-if="props.popoverOptions?.description"
+        class="onyx-form-element-v2__popover-description"
+      >
+        {{ props.popoverOptions.description }}
+      </div>
     </template>
   </OnyxBasicPopover>
 
@@ -108,13 +115,26 @@ const inputProps = computed(() => {
       border-radius: inherit;
       height: 100%;
 
-      .onyx-form-element-v2__input {
+      > .onyx-form-element-v2__input {
         caret-color: transparent;
 
         &:read-write {
           cursor: pointer;
         }
       }
+    }
+
+    &__popover-description {
+      display: flex;
+      width: 100%;
+      padding: var(--onyx-density-3xs) var(--onyx-density-sm);
+      justify-content: flex-end;
+      text-align: right;
+      align-items: center;
+      gap: var(--onyx-spacing-md);
+      color: var(--onyx-color-text-icons-neutral-soft);
+      font-size: var(--onyx-font-size-sm);
+      line-height: var(--onyx-font-line-height-sm);
     }
   }
 }

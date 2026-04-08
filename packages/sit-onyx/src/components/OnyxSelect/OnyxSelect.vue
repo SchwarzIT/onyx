@@ -28,6 +28,7 @@ import {
 import { useCheckAll } from "../../composables/checkAll.js";
 import { useScrollEnd } from "../../composables/scrollEnd.js";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
+import { useClearButton } from "../../composables/useClearButton.js";
 import { useFormElementError } from "../../composables/useFormElementError.js";
 import { useOpenDirection } from "../../composables/useOpenDirection.js";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
@@ -223,7 +224,7 @@ const CHECK_ALL_ID = useId() as TValue;
  * Includes "select all" up front if it is used.
  */
 const allKeyboardOptionIds = computed(() => {
-  return (props.multiple && props.withCheckAll && !searchTerm.value ? [CHECK_ALL_ID] : []).concat(
+  return (props.multiple && props.withCheckAll ? [CHECK_ALL_ID] : []).concat(
     enabledOptionValues.value,
   );
 });
@@ -296,6 +297,25 @@ const onAutocomplete = (inputValue: string) => (searchTerm.value = inputValue);
 
 const onSelect = (selectedOption: TValue) => {
   if (selectedOption === CHECK_ALL_ID) {
+    if (searchTerm.value) {
+      const visibleIds = enabledOptionValues.value;
+      const allVisibleSelected = visibleIds.every((id) => arrayValue.value.includes(id));
+
+      if (allVisibleSelected) {
+        modelValue.value = arrayValue.value.filter(
+          (id) => !visibleIds.includes(id),
+        ) as unknown as TModelValue;
+      } else {
+        const newSelection = [...arrayValue.value];
+        visibleIds.forEach((id) => {
+          if (!newSelection.includes(id)) {
+            newSelection.push(id);
+          }
+        });
+        modelValue.value = newSelection as unknown[] as TModelValue;
+      }
+      return;
+    }
     checkAll.value?.handleChange(!checkAll.value.state.value.modelValue);
     return;
   }
@@ -398,11 +418,19 @@ const checkAll = computed(() => {
 });
 
 const checkAllLabel = computed<string>(() => {
-  if (!props.multiple) {
-    return "";
+  if (!props.multiple) return "";
+
+  const isFiltered = !!searchTerm.value;
+  const config = props.withCheckAll;
+  const defaultText = isFiltered
+    ? t.value("selections.selectFiltered")
+    : t.value("selections.selectAll");
+
+  if (typeof config === "object" && config !== null) {
+    const customLabel = isFiltered ? config.labelFiltered : config.label;
+    return customLabel ?? defaultText;
   }
-  const defaultText = t.value("selections.selectAll");
-  if (typeof props.withCheckAll === "object") return props.withCheckAll.label ?? defaultText;
+
   return defaultText;
 });
 
@@ -453,7 +481,7 @@ const selection = computed<{ count: number; value: string }>(() => {
 });
 
 const showPreviewBadge = computed(() => props.textMode === "preview" && selection.value.count > 0);
-const showClearButton = computed(() => selection.value.count > 0 && !props.hideClearIcon);
+const { showClearButton } = useClearButton({ props, modelValue });
 
 const navigationalKeys = OPENING_KEYS.concat(CLOSING_KEYS);
 /**
@@ -494,6 +522,7 @@ defineExpose({ input: inputRef });
       alignment: props.alignment === 'full' ? 'center' : props.alignment,
       fitParent: props.alignment === 'full',
       position: openDirection,
+      description: props.listDescription,
     }"
     @update:open="onToggle()"
   >
@@ -608,7 +637,7 @@ defineExpose({ input: inputRef });
           <template v-else>
             <!-- select-all option for "multiple" -->
             <ul
-              v-if="props.multiple && props.withCheckAll && !searchTerm"
+              v-if="props.multiple && props.withCheckAll"
               class="onyx-select__check-all"
               v-bind="headlessGroup({ label: checkAllLabel })"
             >
@@ -670,10 +699,6 @@ defineExpose({ input: inputRef });
         <div v-if="slots.optionsEnd" class="onyx-select__slot">
           <slot name="optionsEnd"></slot>
         </div>
-      </div>
-
-      <div v-if="props.listDescription" class="onyx-select__description">
-        {{ props.listDescription }}
       </div>
     </template>
   </OnyxFormElementV2>
@@ -763,19 +788,6 @@ defineExpose({ input: inputRef });
       flex-direction: column;
       align-items: center;
       justify-content: center;
-    }
-
-    &__description {
-      display: flex;
-      width: 100%;
-      padding: var(--onyx-density-3xs) var(--onyx-density-sm);
-      justify-content: flex-end;
-      text-align: right;
-      align-items: center;
-      gap: var(--onyx-spacing-md);
-      color: var(--onyx-color-text-icons-neutral-soft);
-      font-size: var(--onyx-font-size-sm);
-      line-height: var(--onyx-font-line-height-sm);
     }
   }
 }

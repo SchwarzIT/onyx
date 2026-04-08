@@ -119,7 +119,8 @@
   "selections": {
     "selectAll": "Seleziona tutto",
     "selectGroup": "Selezionati",
-    "currentSelection": "{n} selezionati"
+    "currentSelection": "{n} selezionati",
+    "selectFiltered": "Seleziona filtrati"
   },
   "stepper": {
     "decrement": "Decrementa di {stepSize}",
@@ -348,5 +349,8 @@
   },
   "datePicker": {
     "popoverLabel": "Calendario"
+  },
+  "accordion": {
+    "toggle": "Clicca per mostrare/nascondere il contenuto"
   }
 }

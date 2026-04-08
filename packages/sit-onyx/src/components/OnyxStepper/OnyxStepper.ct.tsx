@@ -1,33 +1,30 @@
+import { iconPlaceholder } from "@sit-onyx/icons";
+import { useFocusStateHooks } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density.js";
 import type { FormMessages } from "../../composables/useFormElementError.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import type { Nullable } from "../../types/index.js";
 import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-utils.js";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxStepper from "./OnyxStepper.vue";
 
 test.describe("Screenshot tests", () => {
-  for (const state of ["default", "autofill"] as const) {
-    executeMatrixScreenshotTest({
-      name: `Stepper (${state})`,
-      columns: DENSITIES,
-      rows: ["default", "hover", "focus"],
-      component: (column) => {
-        return <OnyxStepper label="Test label" density={column} style="width: 12rem;" />;
+  executeMatrixScreenshotTest({
+    name: "Stepper (default)",
+    columns: DENSITIES,
+    rows: ["default", "hover", "focus"],
+    component: (column) => {
+      return <OnyxStepper label="Test label" density={column} style="width: 12rem;" />;
+    },
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        const input = component.getByLabel("Test label");
+        if (row === "hover") await input.hover();
+        if (row === "focus") await input.focus();
       },
-      hooks: {
-        beforeEach: async (component, page, column, row) => {
-          const input = component.getByLabel("Test label");
-          if (row === "hover") await input.hover();
-          if (row === "focus") await input.focus();
-          if (state == "autofill") {
-            await input.fill("10");
-            await input.evaluate((node) => node.setAttribute("data-test-autofill", ""));
-          }
-        },
-      },
-    });
-  }
+    },
+  });
 
   executeMatrixScreenshotTest({
     name: "Stepper (required/optional)",
@@ -194,7 +191,7 @@ test.describe("Screenshot tests", () => {
 
   executeMatrixScreenshotTest({
     name: "Stepper (invalid)",
-    columns: ["default", "autofill"],
+    columns: ["default"],
     rows: ["default", "hover", "focus"],
     component: () => (
       <OnyxStepper
@@ -214,9 +211,6 @@ test.describe("Screenshot tests", () => {
 
         if (row === "hover") await input.hover();
         if (row === "focus") await input.focus();
-        if (column == "autofill") {
-          await input.evaluate((node) => node.setAttribute("data-test-autofill", ""));
-        }
       },
     },
   });
@@ -263,6 +257,44 @@ test.describe("Screenshot tests", () => {
         // ASSERT
         await expect(decrementButton).toBeHidden();
         await expect(incrementButton).toBeHidden();
+      },
+    },
+  });
+});
+
+test.describe("Screenshot tests (slots", () => {
+  executeMatrixScreenshotTest({
+    name: "Stepper (slots)",
+    columns: ["default", "slots"],
+    rows: ["default", "hover", "focus-visible"],
+    component: (column) => {
+      return (
+        <OnyxStepper style="width: 20rem" label="Test label" modelValue={42}>
+          {column === "slots" && [
+            <template v-slot:leading>
+              <span style={{ paddingInline: "var(--onyx-form-element-v2-padding-inline)" }}>
+                Leading
+              </span>
+            </template>,
+            <template v-slot:leadingIcons>
+              <OnyxIcon icon={iconPlaceholder} />
+            </template>,
+            <template v-slot:trailingIcons>
+              <OnyxIcon icon={iconPlaceholder} />
+            </template>,
+            <template v-slot:trailing>
+              <span style={{ paddingInline: "var(--onyx-form-element-v2-padding-inline)" }}>
+                Trailing
+              </span>
+            </template>,
+            <template v-slot:bottomRight>Bottom right</template>,
+          ]}
+        </OnyxStepper>
+      );
+    },
+    hooks: {
+      beforeEach: async (component, page, column, row) => {
+        await useFocusStateHooks({ component, page, state: row });
       },
     },
   });
@@ -524,7 +556,7 @@ test("Should display an error if the value is not a multiple of validStepSize", 
   });
 
   const input = component.getByLabel("Test label");
-  const errorMessage = component.locator(".onyx-form-element__error-message");
+  const errorMessage = component.locator(".onyx-form-element-v2__message--danger");
 
   // ACT
   await input.fill("1");

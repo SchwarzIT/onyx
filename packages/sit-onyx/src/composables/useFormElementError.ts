@@ -1,4 +1,4 @@
-import { computed, ref, toValue, watch, type MaybeRefOrGetter } from "vue";
+import { computed, ref, toValue, watch, type MaybeRef, type MaybeRefOrGetter } from "vue";
 import type { DateValue, OnyxDatePickerProps } from "../components/OnyxDatePicker/types.js";
 import type { FormElementV2Tooltip } from "../components/OnyxFormElementV2/types.js";
 import type { InputType } from "../components/OnyxInput/types.js";
@@ -50,7 +50,7 @@ export type UseFormElementErrorOptions = Omit<
   UseFormValidityOptions<FormValidationProps>,
   "error" | "props"
 > & {
-  props: Omit<FormValidationProps, "error"> & { error?: AnyFormError };
+  props: MaybeRef<Omit<FormValidationProps, "error"> & { error?: AnyFormError }>;
   error?: MaybeRefOrGetter<AnyFormError | undefined>;
 };
 
@@ -111,17 +111,17 @@ export const useFormElementError = (options: UseFormElementErrorOptions) => {
 
   const { vCustomValidity, validityState } = useCustomValidity({
     error: computed(() => {
-      const rawError = options.props.error || toValue(options.error);
+      const rawError = toValue(options.props).error || toValue(options.error);
       return getFormMessageText(normalizeError(rawError));
     }),
-    props: options.props as unknown as FormValidationProps,
+    props: options.props,
   });
 
   /**
    * Sync isDirty state. The component is "dirty" when the value was modified at least once.
    */
   watch(
-    () => options.props.modelValue,
+    () => toValue(options.props).modelValue,
     () => (isDirty.value = true),
     { once: true },
   );
@@ -139,7 +139,8 @@ export const useFormElementError = (options: UseFormElementErrorOptions) => {
   const errorMessages = computed<FormMessages | undefined>(() => {
     if (!validityState.value || validityState.value.valid) return;
     const errorType = getFirstInvalidType(validityState.value);
-    const rawError = options.props.error || toValue(options.error);
+    const props = toValue(options.props);
+    const rawError = props.error || toValue(options.error);
     const errors = getFormMessages(normalizeError(rawError));
 
     // a custom error message always is considered first
@@ -148,23 +149,20 @@ export const useFormElementError = (options: UseFormElementErrorOptions) => {
       return errors;
     }
     if (!errorType) return;
-    const maxlength =
-      typeof options.props.maxlength === "object"
-        ? options.props.maxlength.max
-        : options.props.maxlength;
+    const maxlength = typeof props.maxlength === "object" ? props.maxlength.max : props.maxlength;
     const validationData = {
-      value: options.props.modelValue?.toString(),
-      n: options.props.modelValue?.toString().length ?? 0,
-      minLength: options.props.minlength,
+      value: props.modelValue?.toString(),
+      n: props.modelValue?.toString().length ?? 0,
+      minLength: props.minlength,
       maxLength: maxlength,
-      min: formatMinMax(locale.value, options.props.type, options.props.min),
-      max: formatMinMax(locale.value, options.props.type, options.props.max),
-      step: options.props.validStepSize,
+      min: formatMinMax(locale.value, props.type, props.min),
+      max: formatMinMax(locale.value, props.type, props.max),
+      step: props.validStepSize,
     };
     // if the error is "typeMismatch", we will use an error message depending on the type property
     if (errorType === "typeMismatch") {
-      const type = TRANSLATED_INPUT_TYPES.includes(options.props.type as TranslatedInputType)
-        ? (options.props.type as TranslatedInputType)
+      const type = TRANSLATED_INPUT_TYPES.includes(props.type as TranslatedInputType)
+        ? (props.type as TranslatedInputType)
         : "generic";
       return {
         longMessage: t.value(`validations.typeMismatch.${type}.fullError`, validationData),
@@ -190,7 +188,7 @@ export const useFormElementError = (options: UseFormElementErrorOptions) => {
 
 const formatMinMax = (
   locale: string,
-  type: UseFormElementErrorOptions["props"]["type"],
+  type: FormValidationProps["type"],
   value?: DateValue,
 ): string | undefined => {
   if (!type || !["date", "datetime-local"].includes(type)) return value?.toString();
