@@ -24,7 +24,10 @@ export default defineConfig({
       },
     }),
     viteStaticCopy({
-      targets: [{ src: "src/assets", dest: "" }],
+      targets: [
+        { src: "src/assets", rename: { stripBase: true }, dest: "assets" },
+        { src: "src/metadata.json", rename: { stripBase: true }, dest: "" },
+      ],
     }),
   ],
   build: {

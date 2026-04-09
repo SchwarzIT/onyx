@@ -2,6 +2,7 @@ import type { Page } from "@playwright/test";
 import { DENSITIES } from "sit-onyx";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
+import FormTestCase from "./FormTestCase.ct.vue";
 import OnyxTextEditor from "./OnyxTextEditor.vue";
 import TestCase from "./TestCase.ct.vue";
 
@@ -51,10 +52,8 @@ test.describe("Screenshot tests (truncation)", () => {
       return (
         <OnyxTextEditor
           style={{ maxWidth: "12.5rem" }}
-          label={label}
-          labelTooltip="Label tooltip"
-          hideLabel={row === "hideLabel"}
-          message={{ shortMessage: message, longMessage: "Message tooltip" }}
+          label={{ label, tooltipText: "Label tooltip", hidden: row === "hideLabel" }}
+          message={{ label: message, tooltipText: "Message tooltip" }}
         />
       );
     },
@@ -78,13 +77,14 @@ test.describe("Screenshot tests (truncation)", () => {
 test.describe("Screenshot tests (disabled)", () => {
   executeMatrixScreenshotTest({
     name: "Text editor (disabled)",
-    columns: ["disabled"],
+    columns: ["disabled", "loading"],
     rows: ["default", "hover", "focus"],
     component: (column) => (
       <OnyxTextEditor
         label="Test label"
         disabled={column === "disabled"}
         modelValue="Filled value"
+        loading={column === "loading"}
       />
     ),
     hooks: {
@@ -241,6 +241,7 @@ test.describe("extensions", () => {
       }
 
       await editor.pressSequentially("Plain text");
+      await page.getByRole("document").click({ position: { x: 0, y: 0 } }); // reset focus
 
       // ASSERT
       await expect(component).toHaveScreenshot("headlines.png");
@@ -310,6 +311,7 @@ test.describe("extensions", () => {
       await editor.pressSequentially("Option 2");
 
       // ASSERT
+      await page.getByRole("document").click({ position: { x: 0, y: 0 } }); // reset focus
       await expect(component).toHaveScreenshot("lists.png");
 
       // ACT
@@ -490,7 +492,7 @@ test.describe("extensions", () => {
   });
 
   test.describe("textAlign", () => {
-    test("should support textAlign", async ({ mount }) => {
+    test("should support textAlign", async ({ mount, page }) => {
       // ARRANGE
       const component = await mount(<TestCase label="Test label" />);
       const editor = component.getByLabel("Test label");
@@ -513,6 +515,8 @@ test.describe("extensions", () => {
           await editor.press("Enter");
         }
       }
+
+      await hoverAction(page, "Block aligned");
 
       // ASSERT
       await expect(component).toHaveScreenshot("textAlign.png");
@@ -572,7 +576,7 @@ test.describe("extensions", () => {
   });
 
   test.describe("link", () => {
-    test("should support link", async ({ mount }) => {
+    test("should support link", async ({ mount, page }) => {
       // ARRANGE
       const component = await mount(<TestCase label="Test label" />);
       const editor = component.getByLabel("Test label");
@@ -628,6 +632,7 @@ test.describe("extensions", () => {
       await editor.pressSequentially(" followed by regular text");
 
       // ASSERT
+      await page.getByRole("document").click({ position: { x: 0, y: 0 } }); // reset focus
       await expect(component).toHaveScreenshot("link.png");
     });
 
@@ -728,6 +733,81 @@ test("should disable all actions if editor is disabled", async ({ mount }) => {
   await expect(headingTooltip).toBeHidden();
 });
 
+test("should show error", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(OnyxTextEditor, {
+    props: {
+      label: "Test label",
+      required: true,
+    },
+  });
+
+  const input = component.getByLabel("Test label");
+  const error = component.locator(".onyx-form-element-v2__message--danger");
+
+  // ASSERT
+  await expect(error).toBeHidden();
+
+  // ACT
+  await component.update({ props: { showError: true } });
+
+  // ASSERT
+  await expect(error, "should show immediately when 'showError' is true").toBeVisible();
+  await expect(error).toContainText("Required");
+
+  // ACT
+  await component.update({ props: { showError: "touched" } });
+
+  // ASSERT
+  await expect(error).toBeHidden();
+
+  // ACT
+  await input.fill("Filled value");
+
+  // ASSERT
+  await expect(error).toBeHidden();
+
+  // ACT
+  await input.clear();
+
+  // ASSERT
+  await expect(error, "should show error when touched").toBeVisible();
+  await expect(error).toContainText("Required");
+
+  // ACT
+  await component.update({ props: { error: "Custom error" } });
+
+  // ASSERT
+  await expect(error, "should show custom error").toBeVisible();
+  await expect(error).toContainText("Custom error");
+});
+
+test("should include editor in native HTML form validation", async ({ mount }) => {
+  // ARRANGE
+  let submitEventCount = 0;
+
+  const component = await mount(
+    <FormTestCase label="Test label" required onSubmit={() => submitEventCount++} />,
+  );
+
+  const editor = component.getByLabel("Test label");
+
+  // ACT
+  await editor.fill("Filled value");
+  await editor.clear();
+
+  await component.getByRole("button", { name: "Submit" }).click();
+
+  // ASSERT
+  const isFormValid = await component.evaluate((form: HTMLFormElement) => form.checkValidity());
+  expect(isFormValid).toBe(false);
+  expect(submitEventCount).toBe(0);
+
+  const errorMessage = component.locator(".onyx-form-element-v2__message--danger");
+  await expect(errorMessage).toBeVisible();
+  await expect(errorMessage).toContainText("Required");
+});
+
 /**
  * Expects that the given editor toolbar flyout option is selected.
  */
@@ -756,8 +836,8 @@ async function expectFlyoutOptionSelected(page: Page, label: string, optionName:
  * Useful when capturing screenshots.
  */
 async function hoverAction(page: Page, label: string) {
-  // reset hover
-  await page.getByRole("document").hover({ position: { x: 0, y: 0 } });
+  // reset focus
+  await page.getByRole("document").click({ position: { x: 0, y: 0 } });
   await page.getByRole("button", { name: label }).hover();
   await expect(page.getByRole("tooltip", { name: label })).toBeVisible();
 }

@@ -202,9 +202,13 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
     &:not(.onyx-form-element--suppress-invalid) {
       &.onyx-form-element--touched-invalid:has(
           .onyx-form-element-v2__input:user-invalid,
-          .onyx-form-element-v2__input--touched:invalid
+          .onyx-form-element-v2__input--touched:invalid,
+          .onyx-form-element-v2__input--touched[aria-invalid="true"]
         ),
-      &.onyx-form-element--immediate-invalid:has(.onyx-form-element-v2__input:invalid) {
+      &.onyx-form-element--immediate-invalid:has(
+          .onyx-form-element-v2__input:invalid,
+          .onyx-form-element-v2__input[aria-invalid="true"]
+        ) {
         --onyx-form-element-v2-border-color: var(--onyx-color-component-border-danger);
         --onyx-form-element-v2-border-color-hover: var(--onyx-color-component-border-danger-hover);
         --onyx-form-element-v2-border-color-focus: var(--onyx-color-component-border-danger);

@@ -1,6 +1,30 @@
-import type { OperatingSystem } from "../../composables/useOperatingSystem.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
-import type { ShortcutStep } from "../../utils/keyboard.js";
+import type { KeyboardKey } from "../../utils/keyboard.js";
+import type { OnyxKeyProps } from "../OnyxKey/types.js";
+
+export type ShortcutItemAny = { any: KeyboardKey[]; hideSeparator?: boolean };
+export type ShortcutItemAll = { all: KeyboardKey[]; hideSeparator?: boolean };
+
+export type ShortCutAllStep = {
+  /**
+   * Shortcut step that requires all keys to be pressed.
+   * For example, Ctrl + S would be represented as `{ all: ["Control", "S"] }`.
+   */
+  all: (KeyboardKey | ShortcutItemAny)[];
+};
+
+export type ShortCutAnyStep = {
+  /**
+   * Shortcut step that requires any one of the keys to be pressed.
+   * For example, Ctrl or Command would be represented as `{ any: ["Control", "Meta"] }`.
+   */
+  any: (KeyboardKey | ShortcutItemAll)[];
+};
+
+/**
+ * A shortcut step can be either an `all` step or an `any` step.
+ */
+export type ShortcutStep = ShortCutAllStep | ShortCutAnyStep;
 
 export type ShortcutSequenceStep = ShortcutStep & {
   /**
@@ -10,24 +34,13 @@ export type ShortcutSequenceStep = ShortcutStep & {
   hideSeparator?: boolean;
 };
 
-export type OnyxShortcutProps = {
+export type OnyxShortcutProps = Pick<OnyxKeyProps, "highlight" | "os"> & {
   /**
    * Sequence of shortcut steps.
    *
-   * @example `[{ all: ["Control", "C"] }, { any: ["V", "Insert"] }]`
+   * @example `[{ all: ["Control", {any:["C","Y"]}] }, { any: ["V", "Insert"] }]`
    */
   sequence: ShortcutSequenceStep[];
-  /**
-   * Which operating system to use for displaying the key.
-   * When set to "auto", the OS will be detected automatically.
-   */
-  os?: OperatingSystem | "auto";
-  /**
-   * Whether to (visually) highlight pressed keys.
-   *
-   * @default false
-   */
-  highlight?: boolean;
   /**
    * Whether to show a skeleton shortcut.
    */

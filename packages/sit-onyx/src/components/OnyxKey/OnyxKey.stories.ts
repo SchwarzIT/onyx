@@ -26,7 +26,7 @@ export const Default = {
 export const Highlighted = {
   args: {
     ...Default.args,
-    highlighted: true,
+    highlight: true,
   },
 } satisfies Story;
 

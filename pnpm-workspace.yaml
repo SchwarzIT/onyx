@@ -10,6 +10,7 @@ catalog:
   "@vue/compiler-sfc": 3.5.31
   "@vue/compiler-ssr": 3.5.31
   "@vue/shared": 3.5.31
+  "@types/node": 24.12.0
   chart.js: 4.5.1
   nuxt: 4.4.2
   playwright: 1.57.0
