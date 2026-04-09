@@ -294,6 +294,11 @@ export default defineLoader({
         status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/documentation-codetabs--docs",
       },
+      {
+        name: "Text editor",
+        status: "implemented",
+        href: "https://storybook.onyx.schwarz/?path=/docs/form-elements-texteditor--docs",
+      },
     ];
 
     return {
