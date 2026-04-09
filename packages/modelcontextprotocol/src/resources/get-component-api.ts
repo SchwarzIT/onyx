@@ -26,7 +26,7 @@ export const getComponentApi: RegisterableResource = [
   }),
   {
     title: "Get Component API",
-    description: "Get the component api for a specific component and version of onyx",
+    description: "Gets the component API for a specific component and version of onyx",
     mimeType: "text/markdown",
   },
   async (uri, { version: _version, component: _component }) => {
