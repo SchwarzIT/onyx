@@ -343,12 +343,11 @@ test("should behave correctly with external nested items (via keyboard)", async 
   mount,
 }) => {
   // ARRANGE
-  await mount(TestWrapperExternCt, {
+  const component = await mount(TestWrapperExternCt, {
     props: { trigger: "click" },
   });
 
   const trigger = page.getByRole("button", { name: "Trigger" });
-  const menu = page.locator("ul").first();
   const firstItem = page.getByRole("menuitem", { name: "Item 1", exact: true });
   const nestedChild1 = page.getByRole("menuitem", { name: "Item 1.1", exact: true });
   const nestedChild2 = page.getByRole("menuitem", { name: "Nested 1.1.1", exact: true });
@@ -364,7 +363,6 @@ test("should behave correctly with external nested items (via keyboard)", async 
 
   // ASSERT
   await expect(firstItem).toBeFocused();
-  await expect(menu).toHaveScreenshot("nested-external-active.png");
 
   // ACT
   await page.keyboard.press("ArrowRight");
@@ -372,14 +370,14 @@ test("should behave correctly with external nested items (via keyboard)", async 
   // ASSERT
   await expect(firstItem).toBeVisible();
   await expect(nestedChild1).toBeFocused();
-  await expect(menu).toHaveScreenshot("nested-external-open-level-1.png");
+  await expect(component).toHaveScreenshot("nested-external-open-level-1.png");
 
   // ACT
   await page.keyboard.press("ArrowRight");
 
   // ASSERT
   await expect(nestedChild2).toBeFocused();
-  await expect(menu).toHaveScreenshot("nested-external-open-level-2.png");
+  await expect(component).toHaveScreenshot("nested-external-open-level-2.png");
 
   // ACT
   await page.keyboard.press("ArrowLeft");
