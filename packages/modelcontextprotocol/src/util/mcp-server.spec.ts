@@ -26,7 +26,7 @@ describe("resourceToTool", () => {
       }),
     ];
 
-    const [name, config, _handler] = resourceToTool(testResource);
+    const [name, config, handler] = resourceToTool(testResource);
 
     expect(name).toBe("test-title");
     expect(config).toMatchObject({
@@ -41,7 +41,7 @@ describe("resourceToTool", () => {
     expect(config.inputSchema).toHaveProperty("parameter-1");
     expect(config.inputSchema).toHaveProperty("parameter-2");
     await expect(
-      _handler({
+      handler({
         "parameter-1": "value-1",
         "parameter-2": "value-2",
         // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Simplify testing
