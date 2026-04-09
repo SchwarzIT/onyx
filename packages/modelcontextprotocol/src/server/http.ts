@@ -1,14 +1,14 @@
+import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { log } from "node:console";
 import { randomUUID } from "node:crypto";
 import { createServer } from "node:http";
-import { server } from "./server.js";
 
 /**
  * MCP server running as a http server.
  * `HOST` and `PORT` environment variable can be used to change the server settings.
  */
-export const run = async () => {
+export const run = async (server: McpServer) => {
   const transport = new StreamableHTTPServerTransport({
     sessionIdGenerator: () => randomUUID(),
   });

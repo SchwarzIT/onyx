@@ -542,6 +542,9 @@ importers:
       vue-component-meta:
         specifier: ^3.2.6
         version: 3.2.6(typescript@5.9.3)
+      zod:
+        specifier: ^4.3.6
+        version: 4.3.6
 
   packages/nuxt:
     devDependencies:
