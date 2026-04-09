@@ -14,8 +14,8 @@ catalogs:
       version: 4.5.1
 
 overrides:
-  '@playwright/experimental-ct-vue': 1.59.1
-  '@playwright/test': 1.59.1
+  '@playwright/experimental-ct-vue': 1.57.0
+  '@playwright/test': 1.57.0
   '@vue/compiler-core': 3.5.32
   '@vue/compiler-dom': 3.5.32
   '@vue/compiler-sfc': 3.5.32
@@ -23,7 +23,7 @@ overrides:
   '@vue/shared': 3.5.32
   nuxt: 4.4.2
   playwright: 1.57.0
-  playwright-core: 1.59.1
+  playwright-core: 1.57.0
   typescript: 5.9.3
   vite: 8.0.5
   vue: 3.5.32
@@ -58,8 +58,8 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0
       '@playwright/test':
-        specifier: 1.59.1
-        version: 1.59.1
+        specifier: 1.57.0
+        version: 1.57.0
       '@storybook/addon-docs':
         specifier: ^10.3.4
         version: 10.3.4(@types/react@18.3.12)(esbuild@0.27.7)(rollup@4.60.1)(storybook@10.3.4(@testing-library/dom@10.4.0)(prettier@3.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.0)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))
@@ -340,11 +340,11 @@ importers:
   packages/chartjs-plugin:
     devDependencies:
       '@playwright/experimental-ct-vue':
-        specifier: 1.59.1
-        version: 1.59.1(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vue@3.5.32(typescript@5.9.3))(yaml@2.8.3)
+        specifier: 1.57.0
+        version: 1.57.0(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vue@3.5.32(typescript@5.9.3))(yaml@2.8.3)
       '@playwright/test':
-        specifier: 1.59.1
-        version: 1.59.1
+        specifier: 1.57.0
+        version: 1.57.0
       '@sit-onyx/shared':
         specifier: workspace:^
         version: link:../shared
@@ -441,11 +441,11 @@ importers:
   packages/headless:
     dependencies:
       '@playwright/experimental-ct-vue':
-        specifier: 1.59.1
-        version: 1.59.1(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vue@3.5.32(typescript@5.9.3))(yaml@2.8.3)
+        specifier: 1.57.0
+        version: 1.57.0(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vue@3.5.32(typescript@5.9.3))(yaml@2.8.3)
       '@playwright/test':
-        specifier: 1.59.1
-        version: 1.59.1
+        specifier: 1.57.0
+        version: 1.57.0
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -486,16 +486,16 @@ importers:
     devDependencies:
       '@axe-core/playwright':
         specifier: ^4.11.1
-        version: 4.11.1(playwright-core@1.59.1)
+        version: 4.11.1(playwright-core@1.57.0)
       '@nuxtjs/mdc':
         specifier: ~0.21.1
         version: 0.21.1(magicast@0.5.2)
       '@playwright/experimental-ct-vue':
-        specifier: 1.59.1
-        version: 1.59.1(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vue@3.5.32(typescript@5.9.3))(yaml@2.8.3)
+        specifier: 1.57.0
+        version: 1.57.0(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vue@3.5.32(typescript@5.9.3))(yaml@2.8.3)
       '@playwright/test':
-        specifier: 1.59.1
-        version: 1.59.1
+        specifier: 1.57.0
+        version: 1.57.0
       '@sit-onyx/playwright-utils':
         specifier: workspace:^
         version: link:../playwright-utils
@@ -559,7 +559,7 @@ importers:
         version: 4.4.2
       '@nuxt/test-utils':
         specifier: ^4.0.0
-        version: 4.0.0(@playwright/test@1.59.1)(@vue/test-utils@2.4.6)(crossws@0.4.4(srvx@0.11.15))(jsdom@29.0.2)(magicast@0.5.2)(playwright-core@1.59.1)(typescript@5.9.3)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vitest@4.1.2(@opentelemetry/api@1.9.0)(@types/node@24.12.2)(jsdom@29.0.2)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3)))
+        version: 4.0.0(@playwright/test@1.57.0)(@vue/test-utils@2.4.6)(crossws@0.4.4(srvx@0.11.15))(jsdom@29.0.2)(magicast@0.5.2)(playwright-core@1.57.0)(typescript@5.9.3)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vitest@4.1.2(@opentelemetry/api@1.9.0)(@types/node@24.12.2)(jsdom@29.0.2)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3)))
       '@nuxtjs/i18n':
         specifier: ^10.2.4
         version: 10.2.4(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@netlify/blobs@9.1.2)(@vue/compiler-dom@3.5.32)(db0@0.3.4(better-sqlite3@12.8.0))(eslint@9.39.4(jiti@2.6.1))(ioredis@5.10.1)(magicast@0.5.2)(pinia@3.0.4(typescript@5.9.3)(vue@3.5.32(typescript@5.9.3)))(rollup@4.60.1)(typescript@5.9.3)(vue@3.5.32(typescript@5.9.3))
@@ -599,7 +599,7 @@ importers:
         version: 3.12.0(better-sqlite3@12.8.0)(magicast@0.5.2)
       '@nuxt/test-utils':
         specifier: ^4.0.0
-        version: 4.0.0(@playwright/test@1.59.1)(@vue/test-utils@2.4.6)(crossws@0.4.4(srvx@0.11.15))(jsdom@29.0.2)(magicast@0.5.2)(playwright-core@1.59.1)(typescript@5.9.3)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vitest@4.1.2(@opentelemetry/api@1.9.0)(@types/node@24.12.2)(jsdom@29.0.2)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3)))
+        version: 4.0.0(@playwright/test@1.57.0)(@vue/test-utils@2.4.6)(crossws@0.4.4(srvx@0.11.15))(jsdom@29.0.2)(magicast@0.5.2)(playwright-core@1.57.0)(typescript@5.9.3)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vitest@4.1.2(@opentelemetry/api@1.9.0)(@types/node@24.12.2)(jsdom@29.0.2)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3)))
       '@nuxtjs/color-mode':
         specifier: ^4.0.0
         version: 4.0.0(magicast@0.5.2)
@@ -607,11 +607,11 @@ importers:
         specifier: ~0.21.1
         version: 0.21.1(magicast@0.5.2)
       '@playwright/experimental-ct-vue':
-        specifier: 1.59.1
-        version: 1.59.1(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vue@3.5.32(typescript@5.9.3))(yaml@2.8.3)
+        specifier: 1.57.0
+        version: 1.57.0(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vue@3.5.32(typescript@5.9.3))(yaml@2.8.3)
       '@playwright/test':
-        specifier: 1.59.1
-        version: 1.59.1
+        specifier: 1.57.0
+        version: 1.57.0
       '@sit-onyx/icons':
         specifier: workspace:^
         version: link:../icons
@@ -640,11 +640,11 @@ importers:
   packages/playwright-utils:
     dependencies:
       '@playwright/experimental-ct-vue':
-        specifier: 1.59.1
-        version: 1.59.1(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vue@3.5.32(typescript@5.9.3))(yaml@2.8.3)
+        specifier: 1.57.0
+        version: 1.57.0(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vue@3.5.32(typescript@5.9.3))(yaml@2.8.3)
       '@playwright/test':
-        specifier: 1.59.1
-        version: 1.59.1
+        specifier: 1.57.0
+        version: 1.57.0
       playwright:
         specifier: 1.57.0
         version: 1.57.0
@@ -669,10 +669,10 @@ importers:
     optionalDependencies:
       '@nuxt/test-utils':
         specifier: '>= 3'
-        version: 4.0.0(@playwright/test@1.59.1)(@vue/test-utils@2.4.6)(crossws@0.4.4(srvx@0.11.15))(jsdom@29.0.2)(magicast@0.5.2)(playwright-core@1.59.1)(typescript@5.9.3)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vitest@4.1.2(@opentelemetry/api@1.9.0)(@types/node@24.12.2)(jsdom@29.0.2)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3)))
+        version: 4.0.0(@playwright/test@1.57.0)(@vue/test-utils@2.4.6)(crossws@0.4.4(srvx@0.11.15))(jsdom@29.0.2)(magicast@0.5.2)(playwright-core@1.57.0)(typescript@5.9.3)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vitest@4.1.2(@opentelemetry/api@1.9.0)(@types/node@24.12.2)(jsdom@29.0.2)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3)))
       '@playwright/experimental-ct-vue':
-        specifier: 1.59.1
-        version: 1.59.1(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vue@3.5.32(typescript@5.9.3))(yaml@2.8.3)
+        specifier: 1.57.0
+        version: 1.57.0(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vue@3.5.32(typescript@5.9.3))(yaml@2.8.3)
       '@vitejs/plugin-vue':
         specifier: '>= 6'
         version: 6.0.5(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vue@3.5.32(typescript@5.9.3))
@@ -694,13 +694,13 @@ importers:
     devDependencies:
       '@axe-core/playwright':
         specifier: ^4.11.1
-        version: 4.11.1(playwright-core@1.59.1)
+        version: 4.11.1(playwright-core@1.57.0)
       '@playwright/experimental-ct-vue':
-        specifier: 1.59.1
-        version: 1.59.1(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vue@3.5.32(typescript@5.9.3))(yaml@2.8.3)
+        specifier: 1.57.0
+        version: 1.57.0(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vue@3.5.32(typescript@5.9.3))(yaml@2.8.3)
       '@playwright/test':
-        specifier: 1.59.1
-        version: 1.59.1
+        specifier: 1.57.0
+        version: 1.57.0
       '@sit-onyx/flags':
         specifier: workspace:^
         version: link:../flags
@@ -798,13 +798,13 @@ importers:
     devDependencies:
       '@axe-core/playwright':
         specifier: ^4.11.1
-        version: 4.11.1(playwright-core@1.59.1)
+        version: 4.11.1(playwright-core@1.57.0)
       '@playwright/experimental-ct-vue':
-        specifier: 1.59.1
-        version: 1.59.1(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vue@3.5.32(typescript@5.9.3))(yaml@2.8.3)
+        specifier: 1.57.0
+        version: 1.57.0(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vue@3.5.32(typescript@5.9.3))(yaml@2.8.3)
       '@playwright/test':
-        specifier: 1.59.1
-        version: 1.59.1
+        specifier: 1.57.0
+        version: 1.57.0
       '@sit-onyx/icons':
         specifier: workspace:^
         version: link:../icons
@@ -1004,7 +1004,7 @@ packages:
   '@axe-core/playwright@4.11.1':
     resolution: {integrity: sha512-mKEfoUIB1MkVTht0BGZFXtSAEKXMJoDkyV5YZ9jbBmZCcWDz71tegNsdTkIN8zc/yMi5Gm2kx7Z5YQ9PfWNAWw==}
     peerDependencies:
-      playwright-core: 1.59.1
+      playwright-core: 1.57.0
 
   '@babel/code-frame@7.29.0':
     resolution: {integrity: sha512-9NhCeYjq9+3uxgdtp20LSiJXJvN0FeCtNGpJxuMFZ1Kv3cWUNb6DOhJwUvcVCzKGR66cw4njwM6hrJLqgOwbcw==}
@@ -2271,13 +2271,13 @@ packages:
     peerDependencies:
       '@cucumber/cucumber': '>=11.0.0'
       '@jest/globals': '>=30.0.0'
-      '@playwright/test': 1.59.1
+      '@playwright/test': 1.57.0
       '@testing-library/vue': ^8.0.1
       '@vitest/ui': '*'
       '@vue/test-utils': ^2.4.2
       happy-dom: '>=20.0.11'
       jsdom: '>=27.4.0'
-      playwright-core: 1.59.1
+      playwright-core: 1.57.0
       vitest: ^4.0.2
     peerDependenciesMeta:
       '@cucumber/cucumber':
@@ -3096,17 +3096,17 @@ packages:
     resolution: {integrity: sha512-QNqXyfVS2wm9hweSYD2O7F0G06uurj9kZ96TRQE5Y9hU7+tgdZwIkbAKc5Ocy1HxEY2kuDQa6cQ1WRs/O5LFKA==}
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
 
-  '@playwright/experimental-ct-core@1.59.1':
-    resolution: {integrity: sha512-U7+jNROBJxfwjM/G7011+UNEyLiI5zIT1HWAn1k89WZIWl5RUWaCGWlYkYdAZwBSVfGstjF9AgkzmS0RsF8Ulw==}
+  '@playwright/experimental-ct-core@1.57.0':
+    resolution: {integrity: sha512-Z5Uh+61vR5FDRE+YJIMrnD8m6i2wJmYK525AHCJNcAcGcEC+i7xuMnZmZkg+booi3YHIwql/ApAlm03+jsCIzQ==}
     engines: {node: '>=18'}
 
-  '@playwright/experimental-ct-vue@1.59.1':
-    resolution: {integrity: sha512-RygXcwXQwRHzcdaQAXpKiHEl8XDPepZKmfHDNPCSnCN1g9ylaAvtNF6s7DgpsxlHqLlwgc2DmMr1n3D/OOVKyQ==}
+  '@playwright/experimental-ct-vue@1.57.0':
+    resolution: {integrity: sha512-xT3lR9pEdgfMcKNQNiMmcklo95O2LAVF0pB3O+WJ9NkIlKiL8hFz6g+rZxhEsxrsSDsXptOAXtZOeJbCgWgsRg==}
     engines: {node: '>=18'}
     hasBin: true
 
-  '@playwright/test@1.59.1':
-    resolution: {integrity: sha512-PG6q63nQg5c9rIi4/Z5lR5IVF7yU5MqmKaPOe0HSc0O2cX1fPi96sUQu5j7eo4gKCkB2AnNGoWt7y4/Xx3Kcqg==}
+  '@playwright/test@1.57.0':
+    resolution: {integrity: sha512-6TyEnHgd6SArQO8UO2OMTxshln3QMWBtPGrOCgs3wVEmQmwyuNtB10IZMfmYDE0riwNR1cu4q+pPcxMVtaG3TA==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -7490,8 +7490,8 @@ packages:
   pkg-types@2.3.0:
     resolution: {integrity: sha512-SIqCzDRg0s9npO5XQ3tNZioRY1uK06lA41ynBC1YmFTmnY6FjUjVt6s4LoADmwoig1qqD0oK8h1p/8mlMx8Oig==}
 
-  playwright-core@1.59.1:
-    resolution: {integrity: sha512-HBV/RJg81z5BiiZ9yPzIiClYV/QMsDCKUyogwH9p3MCP6IYjUFu/MActgYAvK0oWyV9NlwM3GLBjADyWgydVyg==}
+  playwright-core@1.57.0:
+    resolution: {integrity: sha512-agTcKlMw/mjBWOnD6kFZttAAGHgi/Nw0CZ2o6JqWSbMlI219lAFLZZCyqByTsvVAJq5XA5H8cA6PrvBRpBWEuQ==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -9876,10 +9876,10 @@ snapshots:
 
   '@asamuzakjp/nwsapi@2.3.9': {}
 
-  '@axe-core/playwright@4.11.1(playwright-core@1.59.1)':
+  '@axe-core/playwright@4.11.1(playwright-core@1.57.0)':
     dependencies:
       axe-core: 4.11.2
-      playwright-core: 1.59.1
+      playwright-core: 1.57.0
 
   '@babel/code-frame@7.29.0':
     dependencies:
@@ -11488,7 +11488,7 @@ snapshots:
       rc9: 3.0.1
       std-env: 4.0.0
 
-  '@nuxt/test-utils@4.0.0(@playwright/test@1.59.1)(@vue/test-utils@2.4.6)(crossws@0.4.4(srvx@0.11.15))(jsdom@29.0.2)(magicast@0.5.2)(playwright-core@1.59.1)(typescript@5.9.3)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vitest@4.1.2(@opentelemetry/api@1.9.0)(@types/node@24.12.2)(jsdom@29.0.2)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3)))':
+  '@nuxt/test-utils@4.0.0(@playwright/test@1.57.0)(@vue/test-utils@2.4.6)(crossws@0.4.4(srvx@0.11.15))(jsdom@29.0.2)(magicast@0.5.2)(playwright-core@1.57.0)(typescript@5.9.3)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vitest@4.1.2(@opentelemetry/api@1.9.0)(@types/node@24.12.2)(jsdom@29.0.2)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3)))':
     dependencies:
       '@clack/prompts': 1.0.0
       '@nuxt/devtools-kit': 2.7.0(magicast@0.5.2)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))
@@ -11517,13 +11517,13 @@ snapshots:
       tinyexec: 1.0.4
       ufo: 1.6.3
       unplugin: 3.0.0
-      vitest-environment-nuxt: 1.0.1(@playwright/test@1.59.1)(@vue/test-utils@2.4.6)(crossws@0.4.4(srvx@0.11.15))(jsdom@29.0.2)(magicast@0.5.2)(playwright-core@1.59.1)(typescript@5.9.3)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vitest@4.1.2(@opentelemetry/api@1.9.0)(@types/node@24.12.2)(jsdom@29.0.2)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3)))
+      vitest-environment-nuxt: 1.0.1(@playwright/test@1.57.0)(@vue/test-utils@2.4.6)(crossws@0.4.4(srvx@0.11.15))(jsdom@29.0.2)(magicast@0.5.2)(playwright-core@1.57.0)(typescript@5.9.3)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vitest@4.1.2(@opentelemetry/api@1.9.0)(@types/node@24.12.2)(jsdom@29.0.2)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3)))
       vue: 3.5.32(typescript@5.9.3)
     optionalDependencies:
-      '@playwright/test': 1.59.1
+      '@playwright/test': 1.57.0
       '@vue/test-utils': 2.4.6
       jsdom: 29.0.2
-      playwright-core: 1.59.1
+      playwright-core: 1.57.0
       vitest: 4.1.2(@opentelemetry/api@1.9.0)(@types/node@24.12.2)(jsdom@29.0.2)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))
     transitivePeerDependencies:
       - crossws
@@ -12244,10 +12244,10 @@ snapshots:
 
   '@pkgr/core@0.2.9': {}
 
-  '@playwright/experimental-ct-core@1.59.1(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3)':
+  '@playwright/experimental-ct-core@1.57.0(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3)':
     dependencies:
       playwright: 1.57.0
-      playwright-core: 1.59.1
+      playwright-core: 1.57.0
       vite: 8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3)
     transitivePeerDependencies:
       - '@emnapi/core'
@@ -12265,9 +12265,9 @@ snapshots:
       - tsx
       - yaml
 
-  '@playwright/experimental-ct-vue@1.59.1(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vue@3.5.32(typescript@5.9.3))(yaml@2.8.3)':
+  '@playwright/experimental-ct-vue@1.57.0(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vue@3.5.32(typescript@5.9.3))(yaml@2.8.3)':
     dependencies:
-      '@playwright/experimental-ct-core': 1.59.1(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3)
+      '@playwright/experimental-ct-core': 1.57.0(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3)
       '@vitejs/plugin-vue': 5.2.4(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vue@3.5.32(typescript@5.9.3))
     transitivePeerDependencies:
       - '@emnapi/core'
@@ -12287,7 +12287,7 @@ snapshots:
       - vue
       - yaml
 
-  '@playwright/test@1.59.1':
+  '@playwright/test@1.57.0':
     dependencies:
       playwright: 1.57.0
 
@@ -17649,11 +17649,11 @@ snapshots:
       exsolve: 1.0.8
       pathe: 2.0.3
 
-  playwright-core@1.59.1: {}
+  playwright-core@1.57.0: {}
 
   playwright@1.57.0:
     dependencies:
-      playwright-core: 1.59.1
+      playwright-core: 1.57.0
     optionalDependencies:
       fsevents: 2.3.2
 
@@ -19933,9 +19933,9 @@ snapshots:
       - universal-cookie
       - yaml
 
-  vitest-environment-nuxt@1.0.1(@playwright/test@1.59.1)(@vue/test-utils@2.4.6)(crossws@0.4.4(srvx@0.11.15))(jsdom@29.0.2)(magicast@0.5.2)(playwright-core@1.59.1)(typescript@5.9.3)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vitest@4.1.2(@opentelemetry/api@1.9.0)(@types/node@24.12.2)(jsdom@29.0.2)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))):
+  vitest-environment-nuxt@1.0.1(@playwright/test@1.57.0)(@vue/test-utils@2.4.6)(crossws@0.4.4(srvx@0.11.15))(jsdom@29.0.2)(magicast@0.5.2)(playwright-core@1.57.0)(typescript@5.9.3)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vitest@4.1.2(@opentelemetry/api@1.9.0)(@types/node@24.12.2)(jsdom@29.0.2)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))):
     dependencies:
-      '@nuxt/test-utils': 4.0.0(@playwright/test@1.59.1)(@vue/test-utils@2.4.6)(crossws@0.4.4(srvx@0.11.15))(jsdom@29.0.2)(magicast@0.5.2)(playwright-core@1.59.1)(typescript@5.9.3)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vitest@4.1.2(@opentelemetry/api@1.9.0)(@types/node@24.12.2)(jsdom@29.0.2)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3)))
+      '@nuxt/test-utils': 4.0.0(@playwright/test@1.57.0)(@vue/test-utils@2.4.6)(crossws@0.4.4(srvx@0.11.15))(jsdom@29.0.2)(magicast@0.5.2)(playwright-core@1.57.0)(typescript@5.9.3)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(vitest@4.1.2(@opentelemetry/api@1.9.0)(@types/node@24.12.2)(jsdom@29.0.2)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3)))
     transitivePeerDependencies:
       - '@cucumber/cucumber'
       - '@jest/globals'
