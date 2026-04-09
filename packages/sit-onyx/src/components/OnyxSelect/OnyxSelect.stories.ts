@@ -399,6 +399,8 @@ export const Slots = {
   tags: ["new:feature"],
   args: {
     ...Default.args,
+    label: { label: Default.args.label, tooltipText: "Label tooltip" },
+    message: "Message",
     leadingIcons: () => h(OnyxIcon, { icon: iconPlaceholder }),
     trailingIcons: () => h(OnyxIcon, { icon: iconPlaceholder }),
     leading: () =>

@@ -205,6 +205,8 @@ export const Slots = {
   tags: ["new:feature"],
   args: {
     ...Maxlength.args,
+    label: { label: Maxlength.args.label, tooltipText: "Label tooltip" },
+    message: "Message",
     leadingIcons: () => h(OnyxIcon, { icon: iconPlaceholder }),
   },
 } satisfies Story;
