@@ -2098,11 +2098,11 @@ packages:
       '@types/react': '>=16'
       react: '>=16'
 
-  '@microsoft/api-extractor-model@7.33.4':
-    resolution: {integrity: sha512-u1LTaNTikZAQ9uK6KG1Ms7nvNedsnODnspq/gH2dcyETWvH4hVNGNDvRAEutH66kAmxA4/necElqGNs1FggC8w==}
+  '@microsoft/api-extractor-model@7.33.5':
+    resolution: {integrity: sha512-Xh4dXuusndVQqVz4nEN9xOp0DyzsKxeD2FFJkSPg4arAjDSKPcy6cAc7CaeBPA7kF2wV1fuDlo2p/bNMpVr8yg==}
 
-  '@microsoft/api-extractor@7.57.7':
-    resolution: {integrity: sha512-kmnmVs32MFWbV5X6BInC1/TfCs7y1ugwxv1xHsAIj/DyUfoe7vtO0alRUgbQa57+yRGHBBjlNcEk33SCAt5/dA==}
+  '@microsoft/api-extractor@7.58.1':
+    resolution: {integrity: sha512-kF3GFME4lN22O5zbnXk2RP4y/4PDQdps0xKiYTipMYprkwCmmpsWLZt/N2Fkbil540cSLfJX0BW7LkHzgMVUYg==}
     hasBin: true
 
   '@microsoft/eslint-formatter-sarif@3.1.0':
@@ -3481,8 +3481,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@rushstack/node-core-library@5.20.3':
-    resolution: {integrity: sha512-95JgEPq2k7tHxhF9/OJnnyHDXfC9cLhhta0An/6MlkDsX2A6dTzDrTUG18vx4vjc280V0fi0xDH9iQczpSuWsw==}
+  '@rushstack/node-core-library@5.21.0':
+    resolution: {integrity: sha512-LFzN+1lyWROit/P8Md6yxAth7lLYKn37oCKJHirEE2TQB25NDUM7bALf0ar+JAtwFfRCH+D+DGOA7DAzIi2r+g==}
     peerDependencies:
       '@types/node': '*'
     peerDependenciesMeta:
@@ -3500,16 +3500,16 @@ packages:
   '@rushstack/rig-package@0.7.2':
     resolution: {integrity: sha512-9XbFWuqMYcHUso4mnETfhGVUSaADBRj6HUAAEYk50nMPn8WRICmBuCphycQGNB3duIR6EEZX3Xj3SYc2XiP+9A==}
 
-  '@rushstack/terminal@0.22.3':
-    resolution: {integrity: sha512-gHC9pIMrUPzAbBiI4VZMU7Q+rsCzb8hJl36lFIulIzoceKotyKL3Rd76AZ2CryCTKEg+0bnTj406HE5YY5OQvw==}
+  '@rushstack/terminal@0.22.4':
+    resolution: {integrity: sha512-fhtLjnXCc/4WleVbVl6aoc7jcWnU6yqjS1S8WoaNREG3ycu/viZ9R/9QM7Y/b4CDvcXoiDyMNIay7JMwBptM3g==}
     peerDependencies:
       '@types/node': '*'
     peerDependenciesMeta:
       '@types/node':
         optional: true
 
-  '@rushstack/ts-command-line@5.3.3':
-    resolution: {integrity: sha512-c+ltdcvC7ym+10lhwR/vWiOhsrm/bP3By2VsFcs5qTKv+6tTmxgbVrtJ5NdNjANiV5TcmOZgUN+5KYQ4llsvEw==}
+  '@rushstack/ts-command-line@5.3.4':
+    resolution: {integrity: sha512-MLkVKVEN6/2clKTrjN2B2KqKCuPxRwnNsWY7a+FCAq2EMdkj10cM8YgiBSMeGFfzM0mDMzargpHNnNzaBi9Whg==}
 
   '@shikijs/core@2.5.0':
     resolution: {integrity: sha512-uu/8RExTKtavlpH7XqnVYBrfBkUc20ngXiX9NSrBhOVZYv/7XQRKUyhtkeflY5QsxC0GbJThCerruZfsUaSldg==}
@@ -5673,8 +5673,8 @@ packages:
     resolution: {integrity: sha512-knvyeauYhqjOYvQ66MznSMs83wmHrCycNEN6Ao+2AeYEfxUIkuiVxdEa1qlGEPK+We3n0THiDciYSsCcgW/DoA==}
     engines: {node: '>=12.0.0'}
 
-  express-rate-limit@8.3.1:
-    resolution: {integrity: sha512-D1dKN+cmyPWuvB+G2SREQDzPY1agpBIcTa9sJxOPMCNeH3gwzhqJRDWCXW3gg0y//+LQ/8j52JbMROWyrKdMdw==}
+  express-rate-limit@8.3.2:
+    resolution: {integrity: sha512-77VmFeJkO0/rvimEDuUC5H30oqUC4EyOhyGccfqoLebB0oiEYfM7nwPrsDsBL1gsTpwfzX8SFy2MT3TDyRq+bg==}
     engines: {node: '>= 16'}
     peerDependencies:
       express: '>= 4.11'
@@ -6702,9 +6702,6 @@ packages:
   lodash.uniq@4.5.0:
     resolution: {integrity: sha512-xfBaXQd9ryd9dlSDvnvI0lvxfLJlYAZzXomUYzLKtUeOQvOP5piqAWuGtrhWeqaXK9hhoM/iyJc5AV+XfsX3HQ==}
 
-  lodash@4.17.23:
-    resolution: {integrity: sha512-LgVTMpQtIopCi79SJeDiP0TfWi5CNEc/L/aRdTh3yIvmZXTnheWpKjSZhnvMl8iXbC1tFg9gdHHDMLoV7CnG+w==}
-
   lodash@4.18.1:
     resolution: {integrity: sha512-dMInicTPVE8d1e5otfwmmjlxkZoUpiVLwyeTdUsi/Caj/gfzzblBcCE5sRHV/AsjuCmxWrte2TNGSYuCeCq+0Q==}
 
@@ -7433,8 +7430,8 @@ packages:
     resolution: {integrity: sha512-3O/iVVsJAPsOnpwWIeD+d6z/7PmqApyQePUtCndjatj/9I5LylHvt5qluFaBT3I5h3r1ejfR056c+FCv+NnNXg==}
     engines: {node: 18 || 20 || >=22}
 
-  path-to-regexp@8.4.0:
-    resolution: {integrity: sha512-PuseHIvAnz3bjrM2rGJtSgo1zjgxapTLZ7x2pjhzWwlp4SJQgK3f3iZIQwkpEnBaKz6seKBADpM4B4ySkuYypg==}
+  path-to-regexp@8.4.2:
+    resolution: {integrity: sha512-qRcuIdP69NPm4qbACK+aDogI5CBDMi1jKe0ry5rSQJz8JVLsC7jV8XpiJjGRLLol3N+R5ihGYcrPLTno6pAdBA==}
 
   path-type@4.0.0:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}
@@ -10922,25 +10919,25 @@ snapshots:
       '@types/react': 18.3.12
       react: 19.2.4
 
-  '@microsoft/api-extractor-model@7.33.4(@types/node@24.12.0)':
+  '@microsoft/api-extractor-model@7.33.5(@types/node@24.12.0)':
     dependencies:
       '@microsoft/tsdoc': 0.16.0
       '@microsoft/tsdoc-config': 0.18.1
-      '@rushstack/node-core-library': 5.20.3(@types/node@24.12.0)
+      '@rushstack/node-core-library': 5.21.0(@types/node@24.12.0)
     transitivePeerDependencies:
       - '@types/node'
 
-  '@microsoft/api-extractor@7.57.7(@types/node@24.12.0)':
+  '@microsoft/api-extractor@7.58.1(@types/node@24.12.0)':
     dependencies:
-      '@microsoft/api-extractor-model': 7.33.4(@types/node@24.12.0)
+      '@microsoft/api-extractor-model': 7.33.5(@types/node@24.12.0)
       '@microsoft/tsdoc': 0.16.0
       '@microsoft/tsdoc-config': 0.18.1
-      '@rushstack/node-core-library': 5.20.3(@types/node@24.12.0)
+      '@rushstack/node-core-library': 5.21.0(@types/node@24.12.0)
       '@rushstack/rig-package': 0.7.2
-      '@rushstack/terminal': 0.22.3(@types/node@24.12.0)
-      '@rushstack/ts-command-line': 5.3.3(@types/node@24.12.0)
+      '@rushstack/terminal': 0.22.4(@types/node@24.12.0)
+      '@rushstack/ts-command-line': 5.3.4(@types/node@24.12.0)
       diff: 8.0.4
-      lodash: 4.17.23
+      lodash: 4.18.1
       minimatch: 10.2.3
       resolve: 1.22.11
       semver: 7.5.4
@@ -10984,7 +10981,7 @@ snapshots:
       eventsource: 3.0.7
       eventsource-parser: 3.0.6
       express: 5.2.1
-      express-rate-limit: 8.3.1(express@5.2.1)
+      express-rate-limit: 8.3.2(express@5.2.1)
       hono: 4.12.12
       jose: 6.2.2
       json-schema-typed: 8.0.2
@@ -12545,7 +12542,7 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.60.1':
     optional: true
 
-  '@rushstack/node-core-library@5.20.3(@types/node@24.12.0)':
+  '@rushstack/node-core-library@5.21.0(@types/node@24.12.0)':
     dependencies:
       ajv: 8.18.0
       ajv-draft-04: 1.0.0(ajv@8.18.0)
@@ -12567,17 +12564,17 @@ snapshots:
       resolve: 1.22.11
       strip-json-comments: 3.1.1
 
-  '@rushstack/terminal@0.22.3(@types/node@24.12.0)':
+  '@rushstack/terminal@0.22.4(@types/node@24.12.0)':
     dependencies:
-      '@rushstack/node-core-library': 5.20.3(@types/node@24.12.0)
+      '@rushstack/node-core-library': 5.21.0(@types/node@24.12.0)
       '@rushstack/problem-matcher': 0.2.1(@types/node@24.12.0)
       supports-color: 8.1.1
     optionalDependencies:
       '@types/node': 24.12.0
 
-  '@rushstack/ts-command-line@5.3.3(@types/node@24.12.0)':
+  '@rushstack/ts-command-line@5.3.4(@types/node@24.12.0)':
     dependencies:
-      '@rushstack/terminal': 0.22.3(@types/node@24.12.0)
+      '@rushstack/terminal': 0.22.4(@types/node@24.12.0)
       '@types/argparse': 1.0.38
       argparse: 1.0.10
       string-argv: 0.3.2
@@ -15045,7 +15042,7 @@ snapshots:
 
   expect-type@1.3.0: {}
 
-  express-rate-limit@8.3.1(express@5.2.1):
+  express-rate-limit@8.3.2(express@5.2.1):
     dependencies:
       express: 5.2.1
       ip-address: 10.1.0
@@ -16197,8 +16194,6 @@ snapshots:
   lodash.truncate@4.4.2: {}
 
   lodash.uniq@4.5.0: {}
-
-  lodash@4.17.23: {}
 
   lodash@4.18.1: {}
 
@@ -17606,7 +17601,7 @@ snapshots:
       lru-cache: 11.3.2
       minipass: 7.1.3
 
-  path-to-regexp@8.4.0: {}
+  path-to-regexp@8.4.2: {}
 
   path-type@4.0.0: {}
 
@@ -18485,7 +18480,7 @@ snapshots:
       depd: 2.0.0
       is-promise: 4.0.0
       parseurl: 1.3.3
-      path-to-regexp: 8.4.0
+      path-to-regexp: 8.4.2
     transitivePeerDependencies:
       - supports-color
 
@@ -19703,7 +19698,7 @@ snapshots:
 
   vite-plugin-dts@4.5.4(@types/node@24.12.0)(rollup@4.60.1)(typescript@5.9.3)(vite@8.0.5(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.2)(@types/node@24.12.0)(esbuild@0.27.7)(jiti@2.6.1)(sass-embedded@1.99.0)(sass@1.99.0)(stylus@0.57.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3)):
     dependencies:
-      '@microsoft/api-extractor': 7.57.7(@types/node@24.12.0)
+      '@microsoft/api-extractor': 7.58.1(@types/node@24.12.0)
       '@rollup/pluginutils': 5.3.0(rollup@4.60.1)
       '@volar/typescript': 2.4.28
       '@vue/language-core': 2.2.0(typescript@5.9.3)
