@@ -363,6 +363,7 @@ test("should behave correctly with external nested items (via keyboard)", async 
 
   // ASSERT
   await expect(firstItem).toBeFocused();
+  await expect(component).toHaveScreenshot("nested-external-open-level-1.png");
 
   // ACT
   await page.keyboard.press("ArrowRight");
@@ -370,14 +371,12 @@ test("should behave correctly with external nested items (via keyboard)", async 
   // ASSERT
   await expect(firstItem).toBeVisible();
   await expect(nestedChild1).toBeFocused();
-  await expect(component).toHaveScreenshot("nested-external-open-level-1.png");
-
+  await expect(component).toHaveScreenshot("nested-external-open-level-2.png");
   // ACT
   await page.keyboard.press("ArrowRight");
 
   // ASSERT
   await expect(nestedChild2).toBeFocused();
-  await expect(component).toHaveScreenshot("nested-external-open-level-2.png");
 
   // ACT
   await page.keyboard.press("ArrowLeft");
