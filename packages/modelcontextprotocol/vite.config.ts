@@ -21,7 +21,6 @@ export default defineConfig({
     target: "node",
   },
   build: {
-    emptyOutDir: true,
     target: ["node24"],
     lib: {
       entry: getFilePath("./src/index.ts"),
