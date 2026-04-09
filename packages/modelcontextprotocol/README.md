@@ -1,4 +1,4 @@
-# onyx demo app
+# onyx MCP
 
 This is the official [onyx](https://onyx.schwarz/) Model Context Protocol (or "MCP" for short) server.
 
