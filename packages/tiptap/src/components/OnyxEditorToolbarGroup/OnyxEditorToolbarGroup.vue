@@ -25,6 +25,7 @@ defineSlots<{
       background-color: var(--onyx-color-component-border-neutral);
       height: 1lh;
       width: var(--onyx-1px-in-rem);
+      flex-shrink: 0;
     }
 
     // hide group / separator when group is empty / all features are disabled

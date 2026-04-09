@@ -297,6 +297,8 @@ defineExpose({
     --onyx-text-editor-flex-direction: column-reverse;
     --onyx-text-editor-input-border-radius-top: 0;
     --onyx-text-editor-input-border-radius-bottom: var(--onyx-form-element-v2-border-radius);
+    --onyx-form-element-v2-border-color-focus: var(--onyx-form-element-v2-border-color);
+    --onyx-form-element-v2-outline-color: transparent;
     max-width: 100%;
 
     &--toolbar-bottom {
