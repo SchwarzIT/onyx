@@ -8,41 +8,44 @@ const props = defineProps<Pick<OnyxFlyoutMenuProps, "trigger">>();
 </script>
 
 <template>
-  <OnyxFlyoutMenu v-bind="props" label="Choose item" class-name="test-flyout">
-    <template #button="{ trigger: _trigger }">
-      <button type="button" v-bind="_trigger">Trigger</button>
-    </template>
+  <!-- eslint-disable sitOnyx/require-root-class  -->
+  <div class="test-wrapper">
+    <OnyxFlyoutMenu v-bind="props" label="Choose item">
+      <template #button="{ trigger: _trigger }">
+        <button type="button" v-bind="_trigger">Trigger</button>
+      </template>
 
-    <template #options>
-      <OnyxMenuItem label="Item 1" nested="external">
-        <template #children>
-          <OnyxMenuItem label="Item 1.1" nested="external">
-            <template #children>
-              <OnyxMenuItem label="Nested 1.1.1" />
-              <OnyxMenuItem label="Nested 1.1.2" />
-            </template>
-          </OnyxMenuItem>
+      <template #options>
+        <OnyxMenuItem label="Item 1" nested="external">
+          <template #children>
+            <OnyxMenuItem label="Item 1.1" nested="external">
+              <template #children>
+                <OnyxMenuItem label="Nested 1.1.1" />
+                <OnyxMenuItem label="Nested 1.1.2" />
+              </template>
+            </OnyxMenuItem>
 
-          <OnyxMenuItem label="Item 1.2" nested="external">
-            <template #children>
-              <OnyxMenuItem label="Nested 1.2.1" />
-              <OnyxMenuItem label="Nested 1.2.2" />
-            </template>
-          </OnyxMenuItem>
+            <OnyxMenuItem label="Item 1.2" nested="external">
+              <template #children>
+                <OnyxMenuItem label="Nested 1.2.1" />
+                <OnyxMenuItem label="Nested 1.2.2" />
+              </template>
+            </OnyxMenuItem>
 
-          <OnyxMenuItem label="Item 1.3" />
-        </template>
-      </OnyxMenuItem>
+            <OnyxMenuItem label="Item 1.3" />
+          </template>
+        </OnyxMenuItem>
 
-      <OnyxMenuItem>Item 2</OnyxMenuItem>
-      <OnyxMenuItem>Item 3</OnyxMenuItem>
-    </template>
-  </OnyxFlyoutMenu>
+        <OnyxMenuItem>Item 2</OnyxMenuItem>
+        <OnyxMenuItem>Item 3</OnyxMenuItem>
+      </template>
+    </OnyxFlyoutMenu>
+  </div>
 </template>
 
-<style lang="scss" scoped>
-.test-flyout {
-  margin: 1rem;
-  margin-right: 15rem;
+<style lang="css" scoped>
+.test-wrapper {
+  height: 11rem;
+  width: 22rem;
 }
 </style>
