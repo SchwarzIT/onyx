@@ -25,7 +25,7 @@
   "scripts": {
     "dev": "pnpm run \"/build-dev|inspect-mcp/\"",
     "build-dev": "vite build --ssr -w",
-    "inspect-mcp": "pnpm dlx @modelcontextprotocol/inspector node ./dist/index.js",
+    "inspect-mcp": "pnpm dlx @modelcontextprotocol/inspector --config inspector.json",
     "build": "vite build --ssr"
   },
   "dependencies": {
