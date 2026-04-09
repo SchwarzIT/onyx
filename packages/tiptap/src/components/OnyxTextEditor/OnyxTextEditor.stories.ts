@@ -57,6 +57,14 @@ export const Required = {
   },
 } satisfies Story;
 
+export const Maxlength = {
+  args: {
+    ...Default.args,
+    maxlength: 64,
+    withCounter: true,
+  },
+} satisfies Story;
+
 export const CustomError = {
   args: {
     ...Default.args,

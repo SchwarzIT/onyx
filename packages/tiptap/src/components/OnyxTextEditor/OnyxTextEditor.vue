@@ -99,6 +99,16 @@ watch(
   { immediate: true },
 );
 
+const characterCount = computed(() => editor.value?.storage.characterCount.characters() ?? 0);
+
+const counter = computed(() => {
+  if (!props.withCounter || !props.maxlength) return;
+  const length = characterCount.value;
+  const maxlength = props.maxlength;
+  const violated = length > maxlength;
+  return { length, maxlength, violated };
+});
+
 /**
  * The Tiptap editor uses a contenteditable div so it does not support the native CSS ":invalid" for showing the error.
  * To workaround this, the track if the value has ever been changed and consider this as "touched" / interacted.
@@ -118,6 +128,22 @@ const error = computed<string | FormElementV2Tooltip | undefined>(() => {
     return {
       label: t.value("validations.valueMissing.preview"),
       tooltipText: t.value("validations.valueMissing.fullError"),
+    };
+  }
+
+  if (props.minlength && characterCount.value < props.minlength) {
+    const translationData = { n: characterCount.value, minLength: props.minlength };
+    return {
+      label: t.value("validations.tooShort.preview", translationData),
+      tooltipText: t.value("validations.tooShort.fullError", translationData),
+    };
+  }
+
+  if (props.maxlength && characterCount.value > props.maxlength) {
+    const translationData = { n: characterCount.value, maxLength: props.maxlength };
+    return {
+      label: t.value("validations.tooLong.preview", translationData),
+      tooltipText: t.value("validations.tooLong.fullError", translationData),
     };
   }
 
@@ -234,6 +260,17 @@ defineExpose({
         @focus="editor?.commands.focus()"
       />
     </OnyxVisuallyHidden>
+
+    <template v-if="counter" #bottomRight>
+      <span
+        :class="[
+          'onyx-text-editor__counter',
+          { 'onyx-text-editor__counter--violated': counter.violated },
+        ]"
+      >
+        {{ counter.length }}/{{ counter.maxlength }}
+      </span>
+    </template>
   </OnyxUnstableFormElementV2>
 </template>
 
@@ -267,6 +304,12 @@ defineExpose({
         // workaround for [#1142](https://github.com/SchwarzIT/onyx/issues/1142)
         // `display: none` or changing "content" causes user resizing to be interrupted
         height: 0;
+      }
+    }
+
+    &__counter {
+      &--violated {
+        color: var(--onyx-color-text-icons-danger-intense);
       }
     }
   }

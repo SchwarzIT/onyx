@@ -1,5 +1,6 @@
 // extensions/OnyxStarterKit.js
 import TextAlign, { type TextAlignOptions } from "@tiptap/extension-text-align";
+import { CharacterCount } from "@tiptap/extensions";
 import StarterKit, { type StarterKitOptions } from "@tiptap/starter-kit";
 import { Extension, type Extensions } from "@tiptap/vue-3";
 import { OnyxHeadingExtension } from "./heading.js";
@@ -41,6 +42,10 @@ export const OnyxStarterKit = Extension.create<OnyxStarterKitOptions>({
         ...this.options,
         heading: false, // false needed here because we add our custom options below
       }),
+      // Needed in order to support the properties: minlength, maxlength and withCounter
+      // Important: do NOT add a limit here because this would block the user typing which is not desired.
+      // Instead, we want to show a custom error to the user
+      CharacterCount,
     ];
 
     if (this.options.heading !== false) {
