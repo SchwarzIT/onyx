@@ -1630,6 +1630,10 @@
     "category": "Communication",
     "aliases": ["email", "letter", "E-Mail", "Brief"]
   },
+  "mail-arrow": {
+    "category": "Software & Services",
+    "aliases": ["mailout", "forward", "Pfeil"]
+  },
   "mail-read": {
     "category": "Communication",
     "aliases": ["email", "letter", "Gelesene E-Mail", "Brief", "Posteingang"]
@@ -2245,6 +2249,10 @@
     "category": "Action & Interface",
     "aliases": ["remove"]
   },
+  "self-checkout": {
+    "category": "Commerce & Shopping",
+    "aliases": ["SCO", "Kasse"]
+  },
   "send": {
     "category": "Communication",
     "aliases": ["transmit", "dispatch", "Senden", "abschicken"]
@@ -2535,6 +2543,10 @@
   "tag-disabled": {
     "category": "Business & Statistics",
     "aliases": ["label-off", "price-tag-off", "Etikett deaktiviert", "Preisschild aus"]
+  },
+  "terminal-checkout": {
+    "category": "Commerce & Shopping",
+    "aliases": ["Kasse", "Automat"]
   },
   "terraform": {
     "category": "Network & Infrastructure",
