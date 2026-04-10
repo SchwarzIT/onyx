@@ -93,10 +93,32 @@ const handleOpen = async () => {
   }
 };
 
+const getCalculatedOpenDirection = (): "left" | "right" => {
+  if (effectiveNestedMode.value === "internal" && !parentMenu) {
+    return "right";
+  }
+
+  if (effectiveNestedMode.value === "internal" && parentMenu?.openDirection) {
+    return toValue(parentMenu.openDirection);
+  }
+
+  const el = menuItemElementRef.value?.$el as HTMLElement | undefined;
+  if (!el) return "right";
+  const rect = el.getBoundingClientRect();
+  const spaceRight = window.innerWidth - rect.right;
+  const spaceLeft = rect.left;
+  return spaceLeft > spaceRight ? "left" : "right";
+};
+
+const getOpeningArrowDirection = () => {
+  return getCalculatedOpenDirection() === "right" ? "ArrowRight" : "ArrowLeft";
+};
+
 const {
   elements: { listItem, menuItem },
 } = createMenuItems({
   onOpen: handleOpen,
+  openingArrowDirection: getOpeningArrowDirection,
 });
 
 const { isActive: isPathActive } = useLink();
@@ -136,14 +158,18 @@ const closeAndFocusTrigger = async () => {
 };
 
 const handleBackButtonKeydown = async (event: KeyboardEvent) => {
-  if (["ArrowLeft", " ", "Enter"].includes(event.key)) {
+  const closeKey = getCalculatedOpenDirection() === "right" ? "ArrowLeft" : "ArrowRight";
+  if ([closeKey, " ", "Enter"].includes(event.key)) {
     event.preventDefault();
+    event.stopPropagation();
     await closeAndFocusTrigger();
   }
 };
 
 const handleExternalChildrenKeydown = async (event: KeyboardEvent) => {
-  if (event.key === "ArrowLeft") {
+  const closeKey = getCalculatedOpenDirection() === "right" ? "ArrowLeft" : "ArrowRight";
+
+  if (event.key === closeKey) {
     event.preventDefault();
     event.stopPropagation();
     menuItemElementRef.value?.$el.focus();
@@ -195,6 +221,7 @@ provide<NestedMenuContext>(MENU_ITEM_INJECTION_KEY, {
   onHoverEnter: handlePopoverMouseEnter,
   onHoverLeave: handlePopoverMouseLeave,
   nestedMode: effectiveNestedMode,
+  openDirection: () => getCalculatedOpenDirection(),
 });
 </script>
 

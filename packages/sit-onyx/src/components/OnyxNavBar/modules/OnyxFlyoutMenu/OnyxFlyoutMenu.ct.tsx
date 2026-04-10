@@ -395,3 +395,65 @@ test("should behave correctly with external nested items (via keyboard)", async 
   await expect(page.getByRole("menuitem", { name: "Item 2", exact: true })).toBeFocused();
   await expect(nestedChild1).toBeHidden();
 });
+
+test("should behave correctly with external nested items opening to the left (via keyboard)", async ({
+  page,
+  mount,
+}) => {
+  await mount(TestWrapperExternCt, {
+    props: { trigger: "click" },
+  });
+
+  await page.evaluate(() => {
+    document.body.style.display = "flex";
+    document.body.style.justifyContent = "flex-end";
+    document.body.style.margin = "0";
+  });
+
+  const trigger = page.getByRole("button", { name: "Trigger" });
+  const firstItem = page.getByRole("menuitem", { name: "Item 1", exact: true });
+  const nestedChild1 = page.getByRole("menuitem", { name: "Item 1.1", exact: true });
+  const nestedChild2 = page.getByRole("menuitem", { name: "Nested 1.1.1", exact: true });
+
+  // ACT
+  await trigger.click();
+
+  // ASSERT
+  await expect(firstItem).toBeVisible();
+
+  // ACT
+  await page.keyboard.press("ArrowDown");
+
+  // ASSERT
+  await expect(firstItem).toBeFocused();
+
+  // ACT
+  await page.keyboard.press("ArrowLeft");
+
+  // ASSERT
+  await expect(firstItem).toBeVisible();
+  await expect(nestedChild1).toBeFocused();
+
+  // ACT
+  await page.keyboard.press("ArrowLeft");
+
+  // ASSERT
+  await expect(nestedChild2).toBeFocused();
+
+  // ACT
+  await page.keyboard.press("ArrowRight");
+  await page.keyboard.press("ArrowDown");
+  await page.keyboard.press("ArrowDown");
+
+  // ASSERT
+  await expect(page.getByRole("menuitem", { name: "Item 1.3", exact: true })).toBeFocused();
+  await expect(nestedChild2).toBeHidden();
+
+  // ACT
+  await page.keyboard.press("ArrowRight");
+  await page.keyboard.press("ArrowDown");
+
+  // ASSERT
+  await expect(page.getByRole("menuitem", { name: "Item 2", exact: true })).toBeFocused();
+  await expect(nestedChild1).toBeHidden();
+});

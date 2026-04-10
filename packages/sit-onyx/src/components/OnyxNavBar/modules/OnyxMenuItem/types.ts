@@ -5,7 +5,8 @@ import type { WithLinkProp } from "../../../OnyxRouterLink/types.js";
 export const MENU_ITEM_INJECTION_KEY = Symbol() as InjectionKey<{
   onHoverEnter: () => void;
   onHoverLeave: () => void;
-  nestedMode?: "internal";
+  nestedMode: "internal";
+  openDirection: "right";
 }>;
 
 export type OnyxMenuItemProps = WithLinkProp & {
@@ -47,4 +48,5 @@ export type NestedMenuContext = {
   onHoverEnter: () => void;
   onHoverLeave: () => void;
   nestedMode?: MaybeRefOrGetter<"internal" | "external">;
+  openDirection?: MaybeRefOrGetter<"left" | "right">;
 };
