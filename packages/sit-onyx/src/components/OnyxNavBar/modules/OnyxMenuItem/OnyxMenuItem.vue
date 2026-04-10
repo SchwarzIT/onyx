@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { createMenuItems } from "@sit-onyx/headless";
-import { iconArrowSmallLeft, iconChevronRightSmall } from "@sit-onyx/icons";
+import { createMenuItems, debounce } from "@sit-onyx/headless";
+import { iconArrowSmallLeft } from "@sit-onyx/icons";
 import {
   computed,
   inject,
   nextTick,
   onBeforeUnmount,
   provide,
+  toValue,
   useTemplateRef,
   withModifiers,
 } from "vue";
@@ -14,13 +15,15 @@ import { useLink } from "../../../../composables/useLink.js";
 import { useVModel } from "../../../../composables/useVModel.js";
 import { injectI18n } from "../../../../i18n/index.js";
 import { mergeVueProps, useRootAttrs } from "../../../../utils/attrs.js";
-import { extractLinkProps } from "../../../../utils/router.js";
 import OnyxBasicPopover from "../../../OnyxBasicPopover/OnyxBasicPopover.vue";
-import ButtonOrLinkLayout from "../../../OnyxButton/ButtonOrLinkLayout.vue";
-import OnyxExternalLinkIcon from "../../../OnyxExternalLinkIcon/OnyxExternalLinkIcon.vue";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
-import { type NestedMenuContext, type OnyxMenuItemProps } from "./types.js";
+import OnyxMenuItemContent from "./OnyxMenuItemContent.vue";
+import {
+  MENU_ITEM_INJECTION_KEY,
+  type NestedMenuContext,
+  type OnyxMenuItemProps,
+} from "./types.js";
 
 defineOptions({ inheritAttrs: false });
 
@@ -31,7 +34,7 @@ const { rootAttrs, restAttrs } = useRootAttrs();
 const props = withDefaults(defineProps<OnyxMenuItemProps>(), {
   active: "auto",
   open: undefined,
-  nested: "internal",
+  nested: undefined,
 });
 
 const emit = defineEmits<{
@@ -62,7 +65,10 @@ const open = useVModel({
   default: false,
 });
 
-const parentMenu = inject<NestedMenuContext | null>("onyx-nested-menu", null);
+const parentMenu = inject<NestedMenuContext | null>(MENU_ITEM_INJECTION_KEY, null);
+const effectiveNestedMode = computed(
+  () => props.nested ?? toValue(parentMenu?.nestedMode) ?? "internal",
+);
 
 const backButton = useTemplateRef("backButton");
 const menuItemElementRef = useTemplateRef("menuItemElementRef");
@@ -70,28 +76,27 @@ const externalChildrenRef = useTemplateRef<HTMLElement>("externalChildrenRef");
 
 const hasChildren = computed(() => !!slots.children);
 
-const isExternal = computed(() => props.nested === "external" && hasChildren.value);
+const isExternal = computed(() => effectiveNestedMode.value === "external" && hasChildren.value);
+
+const handleOpen = async () => {
+  if (!hasChildren.value) return;
+  open.value = true;
+
+  await nextTick();
+  await nextTick();
+
+  if (!isExternal.value) {
+    backButton.value?.$el.querySelector("button")?.focus();
+  } else {
+    const firstFocusable = externalChildrenRef.value?.querySelector<HTMLElement>("button, a");
+    firstFocusable?.focus();
+  }
+};
 
 const {
   elements: { listItem, menuItem },
 } = createMenuItems({
-  onOpen: async () => {
-    if (!hasChildren.value) return;
-    open.value = true;
-
-    await nextTick();
-    await nextTick();
-
-    if (!isExternal.value) {
-      backButton.value?.$el.querySelector("button")?.focus();
-    } else {
-      // Focus the first actionable item in the external popover slot
-      const firstFocusable = externalChildrenRef.value?.querySelector("button, a") as
-        | HTMLElement
-        | undefined;
-      firstFocusable?.focus();
-    }
-  },
+  onOpen: handleOpen,
 });
 
 const { isActive: isPathActive } = useLink();
@@ -110,12 +115,21 @@ const menuItemProps = computed(() =>
 const childrenClickHandler = computed(() =>
   hasChildren.value
     ? {
-        onClick: withModifiers(() => (open.value = true), ["stop"]),
+        onClick: withModifiers(handleOpen, ["stop", "prevent"]),
       }
     : null,
 );
 
+const debouncedClose = debounce(() => {
+  open.value = false;
+}, 300);
+
+onBeforeUnmount(() => {
+  debouncedClose.abort();
+});
+
 const closeAndFocusTrigger = async () => {
+  debouncedClose.abort();
   open.value = false;
   await nextTick();
   menuItemElementRef.value?.$el.focus();
@@ -136,30 +150,38 @@ const handleExternalChildrenKeydown = async (event: KeyboardEvent) => {
   }
 };
 
-let hoverTimeout: ReturnType<typeof setTimeout>;
-
-onBeforeUnmount(() => {
-  clearTimeout(hoverTimeout);
-});
-
-const handleTriggerMouseEnter = () => {
+const handleTriggerMouseEnter = (event?: Event) => {
   if (isExternal.value && !props.disabled) {
-    clearTimeout(hoverTimeout);
+    if (event?.type === "focusin") {
+      const focusEvent = event as FocusEvent;
+      const relatedTarget = focusEvent.relatedTarget as Node | null;
+      const target = focusEvent.target as Node | null;
+
+      const isFocusInsidePopover = externalChildrenRef.value?.contains(target);
+
+      if (
+        !isFocusInsidePopover &&
+        relatedTarget &&
+        externalChildrenRef.value?.contains(relatedTarget)
+      ) {
+        return;
+      }
+    }
+
+    debouncedClose.abort();
     open.value = true;
   }
 };
 
 const handleTriggerMouseLeave = () => {
   if (isExternal.value) {
-    clearTimeout(hoverTimeout);
-    hoverTimeout = setTimeout(() => {
-      open.value = false;
-    }, 300);
+    debouncedClose.abort();
+    debouncedClose();
   }
 };
 
-const handlePopoverMouseEnter = () => {
-  handleTriggerMouseEnter();
+const handlePopoverMouseEnter = (event?: Event) => {
+  handleTriggerMouseEnter(event);
   parentMenu?.onHoverEnter();
 };
 
@@ -168,9 +190,10 @@ const handlePopoverMouseLeave = () => {
   parentMenu?.onHoverLeave();
 };
 
-provide<NestedMenuContext>("onyx-nested-menu", {
+provide<NestedMenuContext>(MENU_ITEM_INJECTION_KEY, {
   onHoverEnter: handlePopoverMouseEnter,
   onHoverLeave: handlePopoverMouseLeave,
+  nestedMode: effectiveNestedMode,
 });
 </script>
 
@@ -192,35 +215,27 @@ provide<NestedMenuContext>("onyx-nested-menu", {
     @focusout="handleTriggerMouseLeave"
   >
     <template v-if="!isExternal">
-      <ButtonOrLinkLayout
+      <OnyxMenuItemContent
         v-show="!open"
         ref="menuItemElementRef"
-        class="onyx-menu-item__trigger"
         :disabled="props.disabled"
         :link="props.link"
+        :icon="props.icon"
+        :label="props.label"
+        :has-children="hasChildren"
         v-bind="mergeVueProps(menuItemProps, restAttrs, childrenClickHandler)"
       >
-        <slot>
-          <OnyxIcon v-if="props.icon" :icon="props.icon" size="24px" />
-          <span>
-            <span class="onyx-truncation-ellipsis">
-              {{ props.label }}
-            </span>
-            <OnyxExternalLinkIcon v-bind="props.link ? extractLinkProps(props.link) : undefined" />
-          </span>
-        </slot>
-
-        <div v-if="hasChildren" class="onyx-menu-item__chevron">
-          <OnyxIcon :icon="iconChevronRightSmall" size="24px" />
-        </div>
-      </ButtonOrLinkLayout>
+        <template v-if="$slots.default">
+          <slot></slot>
+        </template>
+      </OnyxMenuItemContent>
 
       <ul v-if="hasChildren" v-show="open" role="menu" class="onyx-menu-item__children">
         <OnyxMenuItem
           ref="backButton"
           class="onyx-menu-item__back"
           @keydown="handleBackButtonKeydown"
-          @click.stop="open = false"
+          @click.stop="closeAndFocusTrigger"
         >
           <OnyxIcon :icon="iconArrowSmallLeft" />
           {{ t("back") }}
@@ -229,54 +244,45 @@ provide<NestedMenuContext>("onyx-nested-menu", {
       </ul>
     </template>
 
-    <template v-else>
-      <OnyxBasicPopover
-        :label="props.label ?? 'external drill down'"
-        :open="open"
-        position="auto-inline"
-        alignment="auto"
-        class="onyx-menu-item__popover"
+    <OnyxBasicPopover
+      v-else
+      :label="props.label ?? 'external drill down'"
+      :open="open"
+      position="auto-inline"
+      alignment="auto"
+      class="onyx-menu-item__popover"
+    >
+      <OnyxMenuItemContent
+        ref="menuItemElementRef"
+        :disabled="props.disabled"
+        :link="props.link"
+        :icon="props.icon"
+        :label="props.label"
+        :has-children="hasChildren"
+        v-bind="mergeVueProps(menuItemProps, restAttrs, childrenClickHandler)"
       >
-        <template #default>
-          <ButtonOrLinkLayout
-            ref="menuItemElementRef"
-            class="onyx-menu-item__trigger"
-            :disabled="props.disabled"
-            :link="props.link"
-            v-bind="mergeVueProps(menuItemProps, restAttrs, childrenClickHandler)"
-          >
-            <slot>
-              <OnyxIcon v-if="props.icon" :icon="props.icon" size="24px" />
-              <span>
-                <span class="onyx-truncation-ellipsis">
-                  {{ props.label }}
-                </span>
-                <OnyxExternalLinkIcon v-bind="props.link ? extractLinkProps(props.link) : {}" />
-              </span>
-            </slot>
-
-            <div v-if="hasChildren" class="onyx-menu-item__chevron">
-              <OnyxIcon :icon="iconChevronRightSmall" size="24px" />
-            </div>
-          </ButtonOrLinkLayout>
+        <template v-if="$slots.default">
+          <slot></slot>
         </template>
-        <template #content>
-          <ul
-            ref="externalChildrenRef"
-            role="menu"
-            tabindex="-1"
-            class="onyx-menu-item__children"
-            @mouseenter="handlePopoverMouseEnter"
-            @mouseleave="handlePopoverMouseLeave"
-            @focusin="handlePopoverMouseEnter"
-            @focusout="handlePopoverMouseLeave"
-            @keydown="handleExternalChildrenKeydown"
-          >
-            <slot name="children"></slot>
-          </ul>
-        </template>
-      </OnyxBasicPopover>
-    </template>
+      </OnyxMenuItemContent>
+      <template #content>
+        <div class="onyx-flyout-menu__list-header"></div>
+        <ul
+          ref="externalChildrenRef"
+          role="menu"
+          tabindex="-1"
+          class="onyx-menu-item__children"
+          @mouseenter="handlePopoverMouseEnter"
+          @mouseleave="handlePopoverMouseLeave"
+          @focusin="handlePopoverMouseEnter"
+          @focusout="handlePopoverMouseLeave"
+          @keydown="handleExternalChildrenKeydown"
+        >
+          <slot name="children"></slot>
+        </ul>
+        <div class="onyx-flyout-menu__list-footer"></div>
+      </template>
+    </OnyxBasicPopover>
   </OnyxListItem>
 </template>
 

@@ -158,7 +158,7 @@ export const NestedExtern = {
           children: () => [
             h(
               OnyxMenuItem,
-              { label: "Item 1.1", nested: "external" },
+              { label: "Item 1.1" },
               {
                 children: () => [
                   h(OnyxMenuItem, { label: "Nested 1.1.1" }),
@@ -168,7 +168,7 @@ export const NestedExtern = {
             ),
             h(
               OnyxMenuItem,
-              { label: "Item 1.2", nested: "external" },
+              { label: "Item 1.2", nested: "internal" },
               {
                 children: () => [
                   h(OnyxMenuItem, { label: "Nested 1.2.1" }),
