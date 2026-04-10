@@ -15,7 +15,7 @@
 
     &__items-per-page {
       @include breakpoints.container(max, xs) {
-        .onyx-items-per-page__label {
+        .onyx-form-element-v2__label {
           display: none;
         }
       }

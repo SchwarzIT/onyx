@@ -86,7 +86,7 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
       'onyx-form-element-v2',
       densityClass,
       errorClass,
-      { 'onyx-form-element-v2--label-left': label.position === 'left' },
+      { [`onyx-form-element-v2--label-${label.position}`]: label.position !== 'top' },
     ]"
   >
     <OnyxFormElementV2Label
@@ -250,11 +250,11 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
     line-height: var(--onyx-font-line-height-md);
     max-width: 100%;
 
-    &--label-left {
+    &--label-left,
+    &--label-right {
       --onyx-form-element-v2-gap: var(--onyx-density-lg);
       align-items: flex-start;
       justify-content: space-between;
-      flex-direction: row;
 
       > .onyx-form-element-v2__label {
         width: max-content;
@@ -263,6 +263,14 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
         );
         line-height: var(--onyx-font-line-height-md);
       }
+    }
+
+    &--label-left {
+      flex-direction: row;
+    }
+
+    &--label-right {
+      flex-direction: row-reverse;
     }
 
     &__body {
