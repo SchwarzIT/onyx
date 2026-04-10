@@ -34,3 +34,5 @@ export type MetaSource = {
   displayName: string;
 } & ComponentMeta &
   Exclude<MetaCheckerOptions["schema"], boolean>;
+
+export type IconMetadata = Record<string, { category: string; aliases: string[] }>;
