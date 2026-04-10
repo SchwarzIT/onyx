@@ -244,7 +244,7 @@ test("should render items per page selector", async ({ mount, page }) => {
   // ASSERT
   await expect(component).toHaveScreenshot("with-items-per-page-xs.png");
   await expect(
-    component.locator(".onyx-items-per-page__label"),
+    component.locator(".onyx-form-element-v2__label"),
     "should hide label when <= xs breakpoint",
   ).toBeHidden();
 
@@ -257,7 +257,7 @@ test("should render items per page selector", async ({ mount, page }) => {
 
   // ASSERT
   await expect(
-    component.locator(".onyx-items-per-page__label"),
+    component.locator(".onyx-form-element-v2__label"),
     "should show label when > xs breakpoint",
   ).toBeVisible();
 });
