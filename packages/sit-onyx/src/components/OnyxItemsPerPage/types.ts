@@ -1,5 +1,6 @@
 import type { DensityProp } from "../../composables/density.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
+import type { FormElementV2LabelOptions } from "../OnyxFormElementV2/types.js";
 
 export type OnyxItemsPerPageProps = DensityProp & {
   /**
@@ -19,18 +20,11 @@ export type OnyxItemsPerPageProps = DensityProp & {
    */
   disabled?: boolean;
   /**
-   * Alignment of the label.
-   *
-   * @default "right"
-   */
-  labelAlignment?: "left" | "right";
-  /**
    * Whether to show a skeleton pagination.
    */
   skeleton?: SkeletonInjected;
   /**
-   * If `true`, the label will be visually hidden.
-   * For accessibility / screen readers, the aria-label will still be set.
+   * Label options.
    */
-  hideLabel?: boolean;
+  label?: Partial<FormElementV2LabelOptions>;
 };

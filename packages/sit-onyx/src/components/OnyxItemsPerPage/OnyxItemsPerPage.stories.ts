@@ -30,6 +30,6 @@ export const Skeleton = {
 export const LeftLabel = {
   args: {
     ...Default.args,
-    labelAlignment: "left",
+    label: { position: "left" },
   },
 } satisfies Story;
