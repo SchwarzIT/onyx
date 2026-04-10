@@ -34,8 +34,7 @@
     "dev": {
       "dependsOn": ["^build"],
       "cache": false,
-      "persistent": true,
-      "interruptible": true
+      "persistent": true
     },
     "stylelint": {
       "dependsOn": ["^build"]

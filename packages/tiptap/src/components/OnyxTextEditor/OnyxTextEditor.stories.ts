@@ -15,7 +15,7 @@ const meta: Meta<typeof OnyxTextEditor> = {
     actions: { control: { disable: true } },
   },
   args: {
-    style: "max-width: 32rem",
+    style: "max-width: max-content;",
   },
 };
 
@@ -41,6 +41,7 @@ export const Skeleton = {
   args: {
     ...Default.args,
     skeleton: true,
+    style: "width: 32rem;",
   },
 } satisfies Story;
 
