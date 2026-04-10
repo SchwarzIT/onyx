@@ -146,7 +146,7 @@ const handleExternalChildrenKeydown = async (event: KeyboardEvent) => {
   if (event.key === "ArrowLeft") {
     event.preventDefault();
     event.stopPropagation();
-    await closeAndFocusTrigger();
+    menuItemElementRef.value?.$el.focus();
   }
 };
 
@@ -164,6 +164,7 @@ const handleTriggerMouseEnter = (event?: Event) => {
         relatedTarget &&
         externalChildrenRef.value?.contains(relatedTarget)
       ) {
+        debouncedClose.abort();
         return;
       }
     }
