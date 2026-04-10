@@ -40,8 +40,7 @@ test.describe("Screenshot tests (label alignment)", () => {
       <OnyxItemsPerPage
         modelValue={10}
         options={PER_PAGE_OPTIONS}
-        labelAlignment={row !== "hidden" ? row : undefined}
-        hideLabel={row === "hidden"}
+        label={{ position: row !== "hidden" ? row : undefined, hidden: row === "hidden" }}
       />
     ),
   });
