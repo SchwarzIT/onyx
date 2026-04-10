@@ -21,5 +21,6 @@ Therefore, the following components have been renamed:
 Other noteworthy changes:
 
 - refactor(OnyxSplitButton)!: remove `default` slot
+- refactor(OnyxItemsPerPage)!: remove properties `labelAlignment` and `hideLabel` in favor of `label.position` and `label.hidden`
 - feat(OnyxSplitButton): support new properties: `iconPosition`, `type`, `alignment` and `position`
 - fix(OnyxFormElementV2): use correct cursor styles for input when popover is used

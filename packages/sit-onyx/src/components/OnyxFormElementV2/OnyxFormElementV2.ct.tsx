@@ -201,7 +201,7 @@ test.describe("Screenshot tests (popover)", () => {
 test.describe("Screenshot tests (label positions)", () => {
   executeMatrixScreenshotTest({
     name: "Form element v2 (label positions)",
-    columns: ["top", "left"],
+    columns: ["top", "left", "right"],
     rows: ["required", "optional", "message"],
     component: (column, row) => (
       <TestCase
