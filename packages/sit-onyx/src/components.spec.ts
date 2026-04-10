@@ -311,6 +311,7 @@ const COMPONENTS: Components = {
     props: {
       modelValue: 5,
       options: [5, 10, 20, 30, 40, 75],
+      label: undefined,
     },
   },
   OnyxTableOfContentsItem: {
