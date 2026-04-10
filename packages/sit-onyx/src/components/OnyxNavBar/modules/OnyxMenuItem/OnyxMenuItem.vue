@@ -253,9 +253,7 @@ provide<NestedMenuContext>(MENU_ITEM_INJECTION_KEY, {
         :has-children="hasChildren"
         v-bind="mergeVueProps(menuItemProps, restAttrs, childrenClickHandler)"
       >
-        <template v-if="$slots.default">
-          <slot></slot>
-        </template>
+        <slot></slot>
       </OnyxMenuItemContent>
 
       <ul v-if="hasChildren" v-show="open" role="menu" class="onyx-menu-item__children">
@@ -289,9 +287,7 @@ provide<NestedMenuContext>(MENU_ITEM_INJECTION_KEY, {
         :has-children="hasChildren"
         v-bind="mergeVueProps(menuItemProps, restAttrs, childrenClickHandler)"
       >
-        <template v-if="$slots.default">
-          <slot></slot>
-        </template>
+        <slot></slot>
       </OnyxMenuItemContent>
       <template #content>
         <div class="onyx-flyout-menu__list-header"></div>
