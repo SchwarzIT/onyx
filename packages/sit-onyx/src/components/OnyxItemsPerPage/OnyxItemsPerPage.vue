@@ -73,6 +73,10 @@ const labelOptions = computed<FormElementV2LabelOptions>(() => {
       width: 5rem;
     }
 
+    .onyx-form-element-v2__body {
+      width: max-content;
+    }
+
     .onyx-form-element-v2__label {
       overflow: hidden;
     }
