@@ -6,7 +6,7 @@
 export default {};
 </script>
 
-<script lang="ts" setup generic="TType extends TimePickerType">
+<script lang="ts" setup generic="TType extends TimePickerType = 'default'">
 import { computed, useTemplateRef } from "vue";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
@@ -16,7 +16,12 @@ import { FORM_INJECTED_SYMBOL } from "../OnyxForm/OnyxForm.core.js";
 import DefaultTimePicker from "./DefaultTimePicker.vue";
 import RangeTimePicker from "./RangeTimePicker.vue";
 import SelectTimePicker from "./SelectTimePicker.vue";
-import type { OnyxTimePickerProps, OnyxTimePickerSlots, TimePickerType } from "./types.js";
+import type {
+  OnyxTimePickerProps,
+  OnyxTimePickerSlots,
+  TimePickerType,
+  TimeRange,
+} from "./types.js";
 
 const props = withDefaults(defineProps<OnyxTimePickerProps<TType>>(), {
   showSeconds: false,
@@ -35,7 +40,7 @@ const emit = defineEmits<{
   /**
    * Emitted when current value changes.
    */
-  "update:modelValue": [value?: string];
+  "update:modelValue": [value?: TType extends "range" ? TimeRange : string];
   /**
    * Emitted when the open state changes.
    */
