@@ -15,7 +15,7 @@ export const run = async (server: McpServer) => {
 
   await server.connect(transport);
 
-  const httpServer = createServer(transport.handleRequest);
+  const httpServer = createServer((req, res) => transport.handleRequest(req, res));
 
   const PORT = Number.parseInt(process.env["PORT"] ?? "3000");
   const HOST = process.env["HOST"] ?? "0.0.0.0";
