@@ -60,6 +60,12 @@ jobs:
       - name: 📦 Install Playwright system dependencies using fallback mirror
         if: ${{ steps.first-playwright-install.outcome == 'failure' }}
         run: |
+          # Clean-up in progress installation: https://wiki.debian.org/Teams/Dpkg/FAQ#db-lock
+          sudo killall apt apt-get
+          sudo fuser -vk -KILL /var/lib/dpkg/lock /var/lib/dpkg/lock-frontend
+          sudo dpkg --configure -a
+
+          # Use different mirror
           sudo sed -i 's/mirror.enzu.com/archive.ubuntu.com/g' /etc/apt/apt-mirrors.txt
           sudo cat /etc/apt/apt-mirrors.txt
 
