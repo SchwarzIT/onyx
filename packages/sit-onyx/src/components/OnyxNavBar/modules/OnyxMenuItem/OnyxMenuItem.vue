@@ -137,7 +137,7 @@ const menuItemProps = computed(() =>
 const childrenClickHandler = computed(() =>
   hasChildren.value
     ? {
-        onClick: withModifiers(handleOpen, ["stop", "prevent"]),
+        onClick: withModifiers(handleOpen, ["stop"]),
       }
     : null,
 );
