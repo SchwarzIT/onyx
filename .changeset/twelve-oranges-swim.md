@@ -2,7 +2,15 @@
 "@sit-onyx/modelcontextprotocol": minor
 ---
 
-feat: Basic setup and added "list-component" and "get-component-api" resources
+feat: Initial setup and implementation
 
-Can be run as http or stdio server using the CLI.
-For more infos see https://modelcontextprotocol.io/docs/learn/architecture
+Can be run as a http or stdio server using the CLI.
+
+Currently provides the following:
+
+- Resources:
+  - `get-component-api`: Lists all components for a specific version of `sit-onyx`
+  - `list-component`: Gets the component and description API for a specific component and version of `sit-onyx`
+  - `list-icons`: Lists all icons available in a specific version of `@sit-onyx/icons`
+
+For more details regarding MCPs see https://modelcontextprotocol.io/docs/learn/architecture

@@ -108,14 +108,14 @@ export const Skeleton = {
  * This example shows an input with a minlength of 5, a maxlength and counter.
  * Shows an error after interaction for a shorter value.
  */
-export const Maxlength: Story = {
+export const Maxlength = {
   args: {
     ...Default.args,
     maxlength: 16,
     minlength: 5,
     withCounter: true,
   },
-};
+} satisfies Story;
 
 /**
  * This example shows an input with a message / help text.
@@ -155,7 +155,7 @@ export const HiddenLabel = {
  * This example shows an input with a custom error message.
  * Will only be shown after user interaction.
  */
-export const CustomError: Story = {
+export const CustomError = {
   args: {
     ...Default.args,
     error: {
@@ -164,12 +164,12 @@ export const CustomError: Story = {
     },
     placeholder: "Interact with me to show error",
   },
-};
+} satisfies Story;
 
 /**
  * This example shows an input with a success message.
  */
-export const SuccessInput: Story = {
+export const SuccessInput = {
   args: {
     ...Default.args,
     success: {
@@ -178,40 +178,30 @@ export const SuccessInput: Story = {
     },
     modelValue: "Test success value",
   },
-};
+} satisfies Story;
 
 /**
  * This example shows an password input.
  */
-export const Password: Story = {
+export const Password = {
   args: {
     ...Default.args,
     modelValue: "Password",
     type: "password",
   },
-};
+} satisfies Story;
 
 /**
  * This example shows an input with info label tooltip.
  */
-export const WithLabelTooltip: Story = {
+export const WithLabelTooltip = {
   args: {
     label: {
       label: "Label",
       tooltipText: "More information",
     },
   },
-};
-
-export const LeftLabel: Story = {
-  tags: ["new:feature"],
-  args: {
-    label: {
-      label: "Label",
-      position: "left",
-    },
-  },
-};
+} satisfies Story;
 
 /**
  * This example shows an input with message / additional text and an optional tooltip.
@@ -226,11 +216,24 @@ export const WithMessageTooltip = {
   },
 } satisfies Story;
 
-export const WithSlotContent = {
+export const LeftLabel = {
   tags: ["new:feature"],
   args: {
-    ...Default.args,
+    label: {
+      label: "Label",
+      position: "left",
+    },
+  },
+} satisfies Story;
+
+export const Slots = {
+  tags: ["new:feature"],
+  args: {
+    label: { label: Default.args.label, tooltipText: "Label tooltip" },
     disableSlotPadding: true,
+    message: "Message",
+    maxlength: 64,
+    withCounter: true,
     leading: () =>
       h(
         "span",

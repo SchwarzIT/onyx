@@ -808,6 +808,52 @@ test("should include editor in native HTML form validation", async ({ mount }) =
   await expect(errorMessage).toContainText("Required");
 });
 
+test("should support min/max length", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <TestCase label="Test label" minlength={3} maxlength={6} withCounter />,
+  );
+  const editor = component.getByLabel("Test label");
+  const errorMessage = component.locator(".onyx-form-element-v2__message--danger");
+
+  // ASSERT
+  await expect(errorMessage).toBeHidden();
+
+  // ACT
+  await editor.fill("12");
+  await editor.blur();
+
+  // ASSERT
+  await expect(component).toContainText("2/6");
+  await expect(errorMessage).toBeVisible();
+  await expect(errorMessage).toContainText("Too short, minimum 3 characters required");
+
+  // ACT
+  await editor.fill("123");
+  await editor.blur();
+
+  // ASSERT
+  await expect(component).toContainText("3/6");
+  await expect(errorMessage).toBeHidden();
+
+  // ACT
+  await editor.fill("123456");
+  await editor.blur();
+
+  // ASSERT
+  await expect(component).toContainText("6/6");
+  await expect(errorMessage).toBeHidden();
+
+  // ACT
+  await editor.fill("1234567");
+  await editor.blur();
+
+  // ASSERT
+  await expect(component).toContainText("7/6");
+  await expect(errorMessage).toBeVisible();
+  await expect(errorMessage).toContainText("Too long, maximum 6 characters allowed");
+});
+
 /**
  * Expects that the given editor toolbar flyout option is selected.
  */

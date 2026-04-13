@@ -1,13 +1,19 @@
 <script lang="ts" setup>
+import { FORM_INJECTED_SYMBOL } from "sit-onyx";
 import { type OnyxStarterKitOptions, OnyxStarterKit } from "./extensions/starterKit.js";
 import OnyxTextEditor from "./OnyxTextEditor.vue";
 import type { OnyxTextEditorProps } from "./types.js";
 
-const props = defineProps<
-  OnyxTextEditorProps & {
-    options?: OnyxStarterKitOptions;
-  }
->();
+const props = withDefaults(
+  defineProps<
+    OnyxTextEditorProps & {
+      options?: OnyxStarterKitOptions;
+    }
+  >(),
+  {
+    showError: FORM_INJECTED_SYMBOL,
+  },
+);
 </script>
 
 <template>

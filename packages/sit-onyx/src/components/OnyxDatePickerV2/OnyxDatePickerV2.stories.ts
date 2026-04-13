@@ -72,9 +72,18 @@ export const DisabledDays = {
   },
 } satisfies Story;
 
-export const Slots = {
+export const LeftLabel = {
+  tags: ["new:feature"],
   args: {
-    ...Default.args,
+    label: { label: Default.args.label, position: "left" },
+  },
+} satisfies Story;
+
+export const Slots = {
+  tags: ["new:feature"],
+  args: {
+    label: { label: Default.args.label, tooltipText: "Label tooltip" },
+    message: "Message",
     leading: () =>
       h("span", { style: "padding-inline: var(--onyx-form-element-v2-padding-inline)" }, "Leading"),
     trailing: () =>

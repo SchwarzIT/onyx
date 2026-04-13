@@ -3,7 +3,7 @@ import { log } from "node:console";
 import { parseArgs, type ParseArgsOptionsConfig } from "node:util";
 import packageJson from "../package.json" with { type: "json" };
 import { run as http } from "./server/http.js";
-import { server } from "./server/server.js";
+import { createServer } from "./server/server.js";
 import { run as stdio } from "./server/stdio.js";
 
 const SUPPORTED_TRANSPORTS = {
@@ -20,6 +20,11 @@ if (import.meta.main) {
       short: "t",
       default: "stdio",
     },
+    resourcesAsTools: {
+      type: "boolean",
+      short: "r",
+      default: false,
+    },
     help: {
       type: "boolean",
       short: "h",
@@ -33,7 +38,7 @@ if (import.meta.main) {
   } satisfies ParseArgsOptionsConfig;
 
   const {
-    values: { transport, version, help },
+    values: { transport, version, help, resourcesAsTools },
   } = parseArgs({
     args: process.argv.slice(2),
     options,
@@ -49,9 +54,11 @@ Usage:
     onyx-mcp [options]
 
 Options:
- -t, --transport <stdio|http> Which kind of MCP server should be started (default: stdio)
- -h, --help                   This help text
- -v, --version                Show version number and quit`);
+ -t, --transport <stdio|http> Which kind of MCP server should be started (default: stdio).
+ -r, --resourcesAsTools       Some LLM Coding Assistants (e.g. Gemini) are not able to to use MCP resources (yet). 
+                              This setting makes resources also available as tools to support these Coding Assistants.
+ -h, --help                   Show this help text and quit.
+ -v, --version                Show version number and quit.`);
     process.exit(0);
   } else if (version) {
     log(packageJson.version);
@@ -61,8 +68,9 @@ Options:
       throw new Error(`Unsupported transport: ${transport}`);
     }
 
-    await SUPPORTED_TRANSPORTS[transport as SupportedTransport]();
+    const server = createServer({ resourcesAsTools });
+    await SUPPORTED_TRANSPORTS[transport as SupportedTransport](server);
   }
 }
 
-export { http, server, stdio };
+export { createServer, http, stdio };

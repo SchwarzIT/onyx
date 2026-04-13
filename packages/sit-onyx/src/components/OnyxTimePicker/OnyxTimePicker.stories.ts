@@ -117,10 +117,19 @@ export const SelectWithCustomTimes = {
   },
 } satisfies Story;
 
-export const Slots = {
+export const LeftLabel = {
+  tags: ["new:feature"],
   args: {
-    ...Default.args,
+    label: { label: "Select time", position: "left" },
+  },
+} satisfies Story;
+
+export const Slots = {
+  tags: ["new:feature"],
+  args: {
     style: "max-width: 24rem;",
+    label: { label: "Select time", tooltipText: "Label tooltip" },
+    message: "Message",
     leading: () =>
       h("span", { style: "padding-inline: var(--onyx-form-element-v2-padding-inline)" }, "Leading"),
     trailing: () =>
