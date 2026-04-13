@@ -2,6 +2,7 @@ import { ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { getAbbreviatedPackument } from "query-registry";
 import { REGISTRY_URL, SIT_ONYX_MIN_VERSION } from "../config.js";
 import type { RegisterableResource } from "../types.js";
+import { cached } from "../util/cached.js";
 import { retrieveComponentMetaJsonFile } from "../util/component-meta-json.js";
 import { versionCompare } from "../util/version-compare.js";
 
@@ -25,7 +26,7 @@ export const listComponents: RegisterableResource = [
     description: "Lists all components for a specific version of onyx",
     mimeType: "text/markdown",
   },
-  async (uri, { version: _version }) => {
+  cached(async (uri, { version: _version }) => {
     const version = Array.isArray(_version) ? _version[0] : _version;
     const componentMetaJson = await retrieveComponentMetaJsonFile(version);
     const componentsText = componentMetaJson
@@ -43,5 +44,5 @@ export const listComponents: RegisterableResource = [
         },
       ],
     };
-  },
+  }),
 ];
