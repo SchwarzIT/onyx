@@ -45,7 +45,7 @@
     "@nuxt/kit": "^4.4.2",
     "@nuxt/module-builder": "^1.0.2",
     "@nuxt/schema": "^4.4.2",
-    "@nuxt/test-utils": "^4.0.0",
+    "@nuxt/test-utils": "^4.0.2",
     "@nuxtjs/i18n": "^10.2.4",
     "@sit-onyx/shared": "workspace:^",
     "nuxt": "catalog:",
