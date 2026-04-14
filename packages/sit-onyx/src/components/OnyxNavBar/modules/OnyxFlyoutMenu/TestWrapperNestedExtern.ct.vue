@@ -10,22 +10,22 @@ const props = defineProps<Pick<OnyxFlyoutMenuProps, "trigger">>();
 <template>
   <!-- eslint-disable sitOnyx/require-root-class  -->
   <div class="test-wrapper">
-    <OnyxFlyoutMenu v-bind="props" label="Choose item">
+    <OnyxFlyoutMenu v-bind="props" label="Choose item" drilldown-mode="external">
       <template #button="{ trigger: _trigger }">
         <button type="button" v-bind="_trigger">Trigger</button>
       </template>
 
       <template #options>
-        <OnyxMenuItem label="Item 1" nested="external">
+        <OnyxMenuItem label="Item 1">
           <template #children>
-            <OnyxMenuItem label="Item 1.1" nested="external">
+            <OnyxMenuItem label="Item 1.1">
               <template #children>
                 <OnyxMenuItem label="Nested 1.1.1" />
                 <OnyxMenuItem label="Nested 1.1.2" />
               </template>
             </OnyxMenuItem>
 
-            <OnyxMenuItem label="Item 1.2" nested="external">
+            <OnyxMenuItem label="Item 1.2">
               <template #children>
                 <OnyxMenuItem label="Nested 1.2.1" />
                 <OnyxMenuItem label="Nested 1.2.2" />
