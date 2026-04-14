@@ -60,6 +60,12 @@ jobs:
       - name: 📦 Install Playwright system dependencies using fallback mirror
         if: ${{ steps.first-playwright-install.outcome == 'failure' }}
         run: |
+          # Clean-up in progress installation: https://wiki.debian.org/Teams/Dpkg/FAQ#db-lock
+          sudo killall apt apt-get
+          sudo fuser -vk -KILL /var/lib/dpkg/lock /var/lib/dpkg/lock-frontend
+          sudo dpkg --configure -a
+
+          # Use different mirror
           sudo sed -i 's/mirror.enzu.com/archive.ubuntu.com/g' /etc/apt/apt-mirrors.txt
           sudo cat /etc/apt/apt-mirrors.txt
 
@@ -83,7 +89,7 @@ jobs:
           rsync -R $(git ls-files --others --modified --exclude-standard) ./changed-screenshots/ || echo "no changed files found"
 
       - name: Upload screenshots artifact
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: ${{ inputs.update-snapshots == true }}
         with:
           name: screenshots-${{ matrix.shard }}
@@ -93,7 +99,7 @@ jobs:
           retention-days: 1
 
       - name: Upload Reports
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: ${{ !cancelled() }}
         with:
           name: blob-report-${{ matrix.shard }}
@@ -122,7 +128,7 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Merge Screenshots
-        uses: actions/upload-artifact/merge@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact/merge@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: ${{ !cancelled() }}
         continue-on-error: true
         with:
@@ -137,7 +143,7 @@ jobs:
           pattern: blob-report-*
           merge-multiple: true
 
-      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+      - uses: pnpm/action-setup@08c4be7e2e672a47d11bd04269e27e5f3e8529cb # v6.0.0
 
       - name: Setup Node.js
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
@@ -156,7 +162,7 @@ jobs:
       # A file server is necessary, otherwise not all features are supported.
       # E.g. use `python3 -m http.server` or `npx serve` to quick and easily start one.
       - name: Upload HTML report
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: html-report--attempt-${{ github.run_attempt }}
           path: |
