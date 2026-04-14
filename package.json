@@ -91,6 +91,7 @@
       "playwright": "catalog:",
       "playwright-core": "catalog:",
       "typescript": "catalog:",
+      "vite": "catalog:",
       "vue": "catalog:",
       "sass-embedded": "catalog:"
     }
