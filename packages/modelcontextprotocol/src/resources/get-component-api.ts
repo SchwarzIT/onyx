@@ -1,6 +1,5 @@
 import { ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
 import type { RegisterableResource } from "../types.js";
-import { cached } from "../util/cached.js";
 import { retrieveComponentMetaJsonFile } from "../util/component-meta-json.js";
 
 /**
@@ -30,7 +29,7 @@ export const getComponentApi: RegisterableResource = [
     description: "Gets the component API for a specific component and version of onyx",
     mimeType: "text/markdown",
   },
-  cached(async (uri, { version: _version, component: _component }) => {
+  async (uri, { version: _version, component: _component }) => {
     const version = Array.isArray(_version) ? _version[0] : _version;
     const component = Array.isArray(_component) ? _component[0] : _component;
     const componentMetaJson = await retrieveComponentMetaJsonFile(version);
@@ -119,5 +118,5 @@ ${exposedText}
         },
       ],
     };
-  }),
+  },
 ];
