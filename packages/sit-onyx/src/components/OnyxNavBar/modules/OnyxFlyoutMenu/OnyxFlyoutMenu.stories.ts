@@ -168,7 +168,7 @@ export const NestedExtern = {
             ),
             h(
               OnyxMenuItem,
-              { label: "Item 1.2", nested: "internal" },
+              { label: "Item 1.2" },
               {
                 children: () => [
                   h(OnyxMenuItem, { label: "Nested 1.2.1" }),

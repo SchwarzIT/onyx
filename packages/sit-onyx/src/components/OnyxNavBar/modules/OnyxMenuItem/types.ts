@@ -38,7 +38,7 @@ export type OnyxMenuItemProps = WithLinkProp & {
   color?: Extract<OnyxColor, "primary" | "danger">;
   /**
    * Defines how nested menu items are rendered and behave.
-   * * - `internal`: Nested items expand within current menu.
+   * - `internal`: Nested items expand within current menu.
    * - `external`: Nested items open in a separate, adjacent flyout menu.
    */
   nested?: "internal" | "external";

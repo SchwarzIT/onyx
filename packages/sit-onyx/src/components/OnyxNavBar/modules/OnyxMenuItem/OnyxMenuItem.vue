@@ -71,8 +71,13 @@ const effectiveNestedMode = computed(
 );
 
 const backButton = useTemplateRef("backButton");
-const menuItemElementRef = useTemplateRef("menuItemElementRef");
-const externalChildrenRef = useTemplateRef<HTMLElement>("externalChildrenRef");
+defineExpose({
+  buttonOrLink: computed(() => menuItemElement.value?.$el as HTMLAnchorElement | HTMLButtonElement),
+});
+
+const menuItemElement = useTemplateRef("menuItemElementRef");
+const externalChildren = useTemplateRef<HTMLElement>("externalChildrenRef");
+const popover = useTemplateRef("popoverRef");
 
 const hasChildren = computed(() => !!slots.children);
 
@@ -82,13 +87,11 @@ const handleOpen = async () => {
   if (!hasChildren.value) return;
   open.value = true;
 
-  await nextTick();
-  await nextTick();
-
   if (!isExternal.value) {
-    backButton.value?.$el.querySelector("button")?.focus();
+    await nextTick();
+    backButton.value?.buttonOrLink.focus();
   } else {
-    const firstFocusable = externalChildrenRef.value?.querySelector<HTMLElement>("button, a");
+    const firstFocusable = externalChildren.value?.querySelector<HTMLElement>("button, a");
     firstFocusable?.focus();
   }
 };
@@ -98,16 +101,13 @@ const getCalculatedOpenDirection = (): "left" | "right" => {
     return "right";
   }
 
-  if (effectiveNestedMode.value === "internal" && parentMenu?.openDirection) {
+  if (parentMenu?.openDirection) {
     return toValue(parentMenu.openDirection);
   }
 
-  const el = menuItemElementRef.value?.$el as HTMLElement | undefined;
-  if (!el) return "right";
-  const rect = el.getBoundingClientRect();
-  const spaceRight = window.innerWidth - rect.right;
-  const spaceLeft = rect.left;
-  return spaceLeft > spaceRight ? "left" : "right";
+  const el = menuItemElement.value?.$el;
+  if (!el || !popover.value) return "right";
+  return popover.value.popoverPosition as "right" | "left";
 };
 
 const getOpeningArrowDirection = () => {
@@ -153,8 +153,8 @@ onBeforeUnmount(() => {
 const closeAndFocusTrigger = async () => {
   debouncedClose.abort();
   open.value = false;
-  await nextTick();
-  menuItemElementRef.value?.$el.focus();
+  if (!isExternal.value) await nextTick();
+  menuItemElement.value?.$el.focus();
 };
 
 const handleBackButtonKeydown = async (event: KeyboardEvent) => {
@@ -172,7 +172,7 @@ const handleExternalChildrenKeydown = async (event: KeyboardEvent) => {
   if (event.key === closeKey) {
     event.preventDefault();
     event.stopPropagation();
-    menuItemElementRef.value?.$el.focus();
+    menuItemElement.value?.$el.focus();
   }
 };
 
@@ -183,12 +183,12 @@ const handleTriggerMouseEnter = (event?: Event) => {
       const relatedTarget = focusEvent.relatedTarget as Node | null;
       const target = focusEvent.target as Node | null;
 
-      const isFocusInsidePopover = externalChildrenRef.value?.contains(target);
+      const isFocusInsidePopover = externalChildren.value?.contains(target);
 
       if (
         !isFocusInsidePopover &&
         relatedTarget &&
-        externalChildrenRef.value?.contains(relatedTarget)
+        externalChildren.value?.contains(relatedTarget)
       ) {
         debouncedClose.abort();
         return;
@@ -272,11 +272,13 @@ provide<NestedMenuContext>(MENU_ITEM_INJECTION_KEY, {
 
     <OnyxBasicPopover
       v-else
-      :label="props.label ?? 'external drill down'"
+      ref="popoverRef"
+      :label="props.label ?? t('navigation.showMoreNavItemsLabel')"
       :open="open"
       position="auto-inline"
       alignment="auto"
       class="onyx-menu-item__popover"
+      role="menu"
     >
       <OnyxMenuItemContent
         ref="menuItemElementRef"
@@ -293,7 +295,7 @@ provide<NestedMenuContext>(MENU_ITEM_INJECTION_KEY, {
         <div class="onyx-flyout-menu__list-header"></div>
         <ul
           ref="externalChildrenRef"
-          role="menu"
+          role="presentation"
           tabindex="-1"
           class="onyx-menu-item__children"
           @mouseenter="handlePopoverMouseEnter"
