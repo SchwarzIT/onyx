@@ -70,13 +70,16 @@ const parentMenu = inject<NestedMenuContext | null>(MENU_ITEM_INJECTION_KEY, nul
 const flyoutMenu = inject<NestedMenuDrilldownModeContext>(MENU_ITEM_DRILLDOWN_INJECTION_KEY);
 const effectiveNestedMode = computed(() => toValue(flyoutMenu?.drilldownMode) ?? "internal");
 
-const backButton = useTemplateRef("backButton");
+const backButton = useTemplateRef<{ buttonOrLink: HTMLAnchorElement | HTMLButtonElement }>(
+  "backButton",
+);
+
 defineExpose({
   buttonOrLink: computed(() => menuItemElement.value?.$el as HTMLAnchorElement | HTMLButtonElement),
 });
 
 const menuItemElement = useTemplateRef("menuItemElementRef");
-const externalChildren = useTemplateRef<HTMLElement>("externalChildrenRef");
+const externalChildren = useTemplateRef("externalChildrenRef");
 const popover = useTemplateRef("popoverRef");
 
 const hasChildren = computed(() => !!slots.children);
