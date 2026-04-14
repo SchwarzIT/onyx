@@ -301,6 +301,10 @@ const { componentRef, isVisible } = isTopLevel
     &--open:has(&--open) > &__controls {
       display: none;
     }
+    &:has(~ .onyx-nav-item-wrapper--open),
+    .onyx-nav-item-wrapper--open ~ & {
+      display: none;
+    }
   }
 }
 
@@ -309,10 +313,10 @@ const { componentRef, isVisible } = isTopLevel
     /**
      * Hide siblings before and after an opened item.
      */
-    &:has(~ .onyx-menu-item--internal.onyx-nav-item-wrapper--open),
-    .onyx-menu-item--internal.onyx-nav-item-wrapper--open ~ &,
     &:has(~ .onyx-menu-item--internal.onyx-menu-item--open),
-    .onyx-menu-item--internal.onyx-menu-item--open ~ & {
+    .onyx-menu-item--internal.onyx-menu-item--open ~ &,
+    &:has(~ .onyx-nav-item-wrapper--open),
+    .onyx-nav-item-wrapper--open ~ & {
       display: none;
     }
   }
