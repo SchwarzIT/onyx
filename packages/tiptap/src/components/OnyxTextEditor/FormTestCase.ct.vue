@@ -9,12 +9,13 @@ const props = withDefaults(defineProps<OnyxTextEditorProps>(), {
 
 const emit = defineEmits<{
   submit: [];
+  "update:modelValue": [string];
 }>();
 </script>
 
 <template>
   <form @submit.prevent="emit('submit')">
-    <OnyxTextEditor v-bind="props" />
+    <OnyxTextEditor v-bind="props" @update:model-value="emit('update:modelValue', $event)" />
     <button type="submit">Submit</button>
   </form>
 </template>
