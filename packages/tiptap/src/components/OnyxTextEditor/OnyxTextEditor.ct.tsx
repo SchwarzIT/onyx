@@ -1,4 +1,5 @@
 import type { Page } from "@playwright/test";
+import { createEmitSpy, expectEmit } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "sit-onyx";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
@@ -785,22 +786,32 @@ test("should show error", async ({ mount }) => {
 test("should include editor in native HTML form validation", async ({ mount }) => {
   // ARRANGE
   let submitEventCount = 0;
+  const onUpdateModelValue = createEmitSpy<typeof FormTestCase, "onUpdate:modelValue">();
 
   const component = await mount(
-    <FormTestCase label="Test label" required onSubmit={() => submitEventCount++} />,
+    <FormTestCase
+      label="Test label"
+      required
+      onSubmit={() => submitEventCount++}
+      onUpdate:modelValue={onUpdateModelValue}
+    />,
   );
 
   const editor = component.getByLabel("Test label");
 
   // ACT
   await editor.fill("Filled value");
+  await expectEmit(onUpdateModelValue, 1, ["<p>Filled value</p>"]);
   await editor.clear();
+  await expectEmit(onUpdateModelValue, 2, ["<p></p>"]);
 
   await component.getByRole("button", { name: "Submit" }).click();
 
   // ASSERT
-  const isFormValid = await component.evaluate((form: HTMLFormElement) => form.checkValidity());
-  expect(isFormValid).toBe(false);
+  await expect(async () => {
+    const isFormValid = await component.evaluate((form: HTMLFormElement) => form.checkValidity());
+    expect(isFormValid).toBe(false);
+  }, "should update validity").toPass();
   expect(submitEventCount).toBe(0);
 
   const errorMessage = component.locator(".onyx-form-element-v2__message--danger");
