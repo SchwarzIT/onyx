@@ -5,8 +5,10 @@ import type { WithLinkProp } from "../../../OnyxRouterLink/types.js";
 export const MENU_ITEM_INJECTION_KEY = Symbol() as InjectionKey<{
   onHoverEnter: () => void;
   onHoverLeave: () => void;
-  nestedMode: "internal";
   openDirection: "right";
+}>;
+export const MENU_ITEM_DRILLDOWN_INJECTION_KEY = Symbol() as InjectionKey<{
+  drilldownMode: "internal";
 }>;
 
 export type OnyxMenuItemProps = WithLinkProp & {
@@ -36,17 +38,13 @@ export type OnyxMenuItemProps = WithLinkProp & {
    * Main color of the item content.
    */
   color?: Extract<OnyxColor, "primary" | "danger">;
-  /**
-   * Defines how nested menu items are rendered and behave.
-   * - `internal`: Nested items expand within current menu.
-   * - `external`: Nested items open in a separate, adjacent flyout menu.
-   */
-  nested?: "internal" | "external";
 };
 
 export type NestedMenuContext = {
   onHoverEnter: () => void;
   onHoverLeave: () => void;
-  nestedMode?: MaybeRefOrGetter<"internal" | "external">;
   openDirection?: MaybeRefOrGetter<"left" | "right">;
+};
+export type NestedMenuDrilldownModeContext = {
+  drilldownMode: MaybeRefOrGetter<"internal" | "external">;
 };

@@ -92,6 +92,7 @@ const { componentRef, isVisible } = isTopLevel
   <!-- Desktop parent item in vertical navbar with children in a flyout -->
   <OnyxFlyoutMenu
     v-if="isExpanded !== undefined && isTopLevel && hasChildren && isVisible"
+    :drilldown-mode="props.drilldownMode"
     v-bind="rootAttrs"
     :label="t('navItemOptionsLabel', { label: props.label })"
     position="right"
@@ -205,6 +206,7 @@ const { componentRef, isVisible } = isTopLevel
   <OnyxFlyoutMenu
     v-else-if="isTopLevel && hasChildren && isVisible"
     v-bind="rootAttrs"
+    :drilldown-mode="props.drilldownMode"
     :label="t('navItemOptionsLabel', { label: props.label })"
   >
     <template #button="{ trigger }">
@@ -307,10 +309,10 @@ const { componentRef, isVisible } = isTopLevel
     /**
      * Hide siblings before and after an opened item.
      */
-    &:has(~ .onyx-nav-item-wrapper--open),
-    .onyx-nav-item-wrapper--open ~ &,
-    &:has(~ .onyx-menu-item--open),
-    .onyx-menu-item--open ~ & {
+    &:has(~ .onyx-menu-item--internal.onyx-nav-item-wrapper--open),
+    .onyx-menu-item--internal.onyx-nav-item-wrapper--open ~ &,
+    &:has(~ .onyx-menu-item--internal.onyx-menu-item--open),
+    .onyx-menu-item--internal.onyx-menu-item--open ~ & {
       display: none;
     }
   }

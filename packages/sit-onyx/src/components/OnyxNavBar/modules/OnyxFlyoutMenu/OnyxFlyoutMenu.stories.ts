@@ -139,6 +139,7 @@ export const NestedExtern = {
   args: {
     label: "Choose an item",
     trigger: "click",
+    drilldownMode: "external",
 
     button: ({ trigger }) => [
       h(OnyxButton, {
@@ -153,7 +154,7 @@ export const NestedExtern = {
     options: () => [
       h(
         OnyxMenuItem,
-        { label: "Item 1", nested: "external" },
+        { label: "Item 1" },
         {
           children: () => [
             h(

@@ -20,8 +20,10 @@ import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxListItem from "../../../OnyxListItem/OnyxListItem.vue";
 import OnyxMenuItemContent from "./OnyxMenuItemContent.vue";
 import {
+  MENU_ITEM_DRILLDOWN_INJECTION_KEY,
   MENU_ITEM_INJECTION_KEY,
   type NestedMenuContext,
+  type NestedMenuDrilldownModeContext,
   type OnyxMenuItemProps,
 } from "./types.js";
 
@@ -34,7 +36,6 @@ const { rootAttrs, restAttrs } = useRootAttrs();
 const props = withDefaults(defineProps<OnyxMenuItemProps>(), {
   active: "auto",
   open: undefined,
-  nested: undefined,
 });
 
 const emit = defineEmits<{
@@ -66,9 +67,8 @@ const open = useVModel({
 });
 
 const parentMenu = inject<NestedMenuContext | null>(MENU_ITEM_INJECTION_KEY, null);
-const effectiveNestedMode = computed(
-  () => props.nested ?? toValue(parentMenu?.nestedMode) ?? "internal",
-);
+const flyoutMenu = inject<NestedMenuDrilldownModeContext>(MENU_ITEM_DRILLDOWN_INJECTION_KEY);
+const effectiveNestedMode = computed(() => toValue(flyoutMenu?.drilldownMode) ?? "internal");
 
 const backButton = useTemplateRef("backButton");
 defineExpose({
@@ -220,7 +220,6 @@ const handlePopoverMouseLeave = () => {
 provide<NestedMenuContext>(MENU_ITEM_INJECTION_KEY, {
   onHoverEnter: handlePopoverMouseEnter,
   onHoverLeave: handlePopoverMouseLeave,
-  nestedMode: effectiveNestedMode,
   openDirection: () => getCalculatedOpenDirection(),
 });
 </script>
@@ -380,6 +379,9 @@ provide<NestedMenuContext>(MENU_ITEM_INJECTION_KEY, {
 
     &__popover {
       width: 100%;
+      .onyx-basic-popover__dialog {
+        margin-top: calc(-1 * var(--onyx-spacing-2xs));
+      }
     }
   }
 }
