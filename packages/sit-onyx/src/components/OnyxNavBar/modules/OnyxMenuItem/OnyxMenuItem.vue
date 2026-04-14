@@ -67,7 +67,10 @@ const open = useVModel({
 });
 
 const parentMenu = inject<NestedMenuContext | null>(MENU_ITEM_INJECTION_KEY, null);
-const flyoutMenu = inject<NestedMenuDrilldownModeContext>(MENU_ITEM_DRILLDOWN_INJECTION_KEY);
+const flyoutMenu = inject<NestedMenuDrilldownModeContext | null>(
+  MENU_ITEM_DRILLDOWN_INJECTION_KEY,
+  null,
+);
 const effectiveNestedMode = computed(() => toValue(flyoutMenu?.drilldownMode) ?? "internal");
 
 const backButton = useTemplateRef<{ buttonOrLink: HTMLAnchorElement | HTMLButtonElement }>(
