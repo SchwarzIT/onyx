@@ -1,4 +1,4 @@
-/// <reference types="vitest/config" />
+/// <reference types="vitest" />
 import { VITE_BASE_CONFIG } from "@sit-onyx/shared/vite.config.base";
 import vue from "@vitejs/plugin-vue";
 import { fileURLToPath, URL } from "node:url";
