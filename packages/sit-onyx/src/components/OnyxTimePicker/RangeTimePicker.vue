@@ -15,7 +15,7 @@ import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
 import type { FormElementV2PopoverOptions } from "../OnyxFormElementV2/types.js";
 import { customMessageToFormElementV2Message } from "../OnyxFormElementV2/useLegacyFormElementProps.js";
 import TimePickerGroup, { type Segment } from "./TimePickerGroup.vue";
-import type { OnyxTimePickerProps, OnyxTimePickerSlots } from "./types.js";
+import type { OnyxTimePickerProps, OnyxTimePickerSlots, TimeRange } from "./types.js";
 import { createTimeString, parseTimeString } from "./utils.js";
 
 const props = withDefaults(defineProps<OnyxTimePickerProps>(), {
@@ -26,7 +26,7 @@ const emit = defineEmits<{
   /**
    * Emitted when modelValue changes.
    */
-  "update:modelValue": [value?: string];
+  "update:modelValue": [value?: TimeRange];
   /**
    * Emitted when the open state changes.
    */
