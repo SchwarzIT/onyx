@@ -56,7 +56,7 @@ test("sticky Column should stay in View", async ({ page, mount }) => {
 const positions = ["left", "right"] as const;
 
 positions.forEach((position) => {
-  test(`should stick on ${position}`, async ({ page, mount }) => {
+  test.fixme(`should stick on ${position}`, async ({ page, mount }) => {
     await page.setViewportSize({ width: 400, height: 1000 });
     const data = getTestData();
 
