@@ -19,4 +19,10 @@ export type OnyxFlyoutMenuProps = Pick<OnyxBasicPopoverProps, "alignment" | "pos
    * Whether the flyout is disabled and can not be opened.
    */
   disabled?: boolean;
+  /**
+   * Defines how nested menu items are rendered and behave.
+   * - `internal`: Nested items expand within current menu.
+   * - `external`: Nested items open in a separate, adjacent flyout menu.
+   */
+  drilldownMode?: "internal" | "external";
 };

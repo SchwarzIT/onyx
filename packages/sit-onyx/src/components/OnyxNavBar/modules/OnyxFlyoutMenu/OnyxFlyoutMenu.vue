@@ -2,18 +2,23 @@
 <script setup lang="ts" generic="_">
 import { createMenuButton } from "@sit-onyx/headless";
 import { iconMoreVertical } from "@sit-onyx/icons";
-import { computed, ref, type ComponentInstance, type VNodeRef } from "vue";
+import { computed, provide, ref, type ComponentInstance, type VNodeRef } from "vue";
 import { useVModel } from "../../../../composables/useVModel.js";
 import { injectI18n } from "../../../../i18n/index.js";
 import { mergeVueProps } from "../../../../utils/attrs.js";
 import OnyxBasicPopover from "../../../OnyxBasicPopover/OnyxBasicPopover.vue";
 import OnyxSystemButton from "../../../OnyxSystemButton/OnyxSystemButton.vue";
+import {
+  MENU_ITEM_DRILLDOWN_INJECTION_KEY,
+  type NestedMenuDrilldownModeContext,
+} from "../OnyxMenuItem/types.js";
 import type { OnyxFlyoutMenuProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxFlyoutMenuProps>(), {
   trigger: "hover",
   open: undefined,
   alignment: "auto",
+  drilldownMode: "internal",
 });
 
 const emit = defineEmits<{
@@ -70,6 +75,11 @@ const {
   trigger: computed(() => props.trigger),
   disabled: computed(() => props.disabled),
   position: computed(() => (actualPosition.value?.includes("top") ? "top" : "bottom")),
+});
+
+// Provide the context so that all OnyxMenuItems within this flyout adapt properly to the nested mode.
+provide<NestedMenuDrilldownModeContext>(MENU_ITEM_DRILLDOWN_INJECTION_KEY, {
+  drilldownMode: computed(() => props.drilldownMode),
 });
 </script>
 
@@ -154,7 +164,7 @@ const {
       overflow: auto;
 
       // when nested item is open, hide all other items in the same layer
-      &:has(.onyx-menu-item--open) {
+      &:has(> .onyx-menu-item--internal.onyx-menu-item--open) {
         > .onyx-menu-item:not(.onyx-menu-item--open) {
           display: none;
         }

@@ -1,4 +1,12 @@
-import { computed, toValue, useId, watch, type MaybeRef, type Ref } from "vue";
+import {
+  computed,
+  toValue,
+  useId,
+  watch,
+  type MaybeRef,
+  type MaybeRefOrGetter,
+  type Ref,
+} from "vue";
 import { createBuilder, createElRef } from "../../utils/builder.js";
 import { debounce } from "../../utils/timer.js";
 import { useGlobalEventListener } from "../helpers/useGlobalListener.js";
@@ -176,16 +184,21 @@ type CreateMenuItemOptions = {
    * Called when the menu item should be opened (if it has nested children).
    */
   onOpen?: () => void;
+  openingArrowDirection?: MaybeRefOrGetter<"ArrowRight" | "ArrowLeft">;
 };
 
 export const createMenuItems = createBuilder((options?: CreateMenuItemOptions) => {
+  const { onOpen, openingArrowDirection = "ArrowRight" } = options || {};
+
   const onKeydown = (event: KeyboardEvent) => {
+    const resolvedKey = toValue(openingArrowDirection);
+
     switch (event.key) {
-      case "ArrowRight":
+      case resolvedKey:
       case " ":
       case "Enter":
         event.preventDefault();
-        options?.onOpen?.();
+        onOpen?.();
         break;
     }
   };
