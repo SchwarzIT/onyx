@@ -1,5 +1,6 @@
 import { ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
 import type { IconMetadata, RegisterableResource } from "../types.js";
+import { cached } from "../util/cached.js";
 import { retrieveIconsMetadataJsonFile } from "../util/icons-metadata-json.js";
 
 export const listIcons: RegisterableResource = [
@@ -12,7 +13,7 @@ export const listIcons: RegisterableResource = [
     description: "List all icons available in a specific version of @sit-onyx/icons",
     mimeType: "text/markdown",
   },
-  async (uri, { version: _version }) => {
+  cached(async (uri, { version: _version }) => {
     const version = Array.isArray(_version) ? _version[0] : _version;
     const iconsMetadata = await retrieveIconsMetadataJsonFile(version);
 
@@ -54,5 +55,5 @@ ${categoriesText}`;
         },
       ],
     };
-  },
+  }),
 ];
