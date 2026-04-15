@@ -133,3 +133,56 @@ export const Nested = {
     ],
   },
 } satisfies Story;
+
+export const NestedExtern = {
+  tags: ["new:feature"],
+  args: {
+    label: "Choose an item",
+    trigger: "click",
+    drilldownMode: "external",
+
+    button: ({ trigger }) => [
+      h(OnyxButton, {
+        label: "Example",
+        mode: "plain",
+        color: "neutral",
+        icon: iconPlaceholder,
+        ...trigger,
+      }),
+    ],
+
+    options: () => [
+      h(
+        OnyxMenuItem,
+        { label: "Item 1" },
+        {
+          children: () => [
+            h(
+              OnyxMenuItem,
+              { label: "Item 1.1" },
+              {
+                children: () => [
+                  h(OnyxMenuItem, { label: "Nested 1.1.1" }),
+                  h(OnyxMenuItem, { label: "Nested 1.1.2" }),
+                ],
+              },
+            ),
+            h(
+              OnyxMenuItem,
+              { label: "Item 1.2" },
+              {
+                children: () => [
+                  h(OnyxMenuItem, { label: "Nested 1.2.1" }),
+                  h(OnyxMenuItem, { label: "Nested 1.2.2" }),
+                ],
+              },
+            ),
+            h(OnyxMenuItem, { label: "Item 1.3" }),
+          ],
+        },
+      ),
+      h(OnyxMenuItem, () => "Item 2 "),
+      h(OnyxMenuItem, () => "Item 3 "),
+    ],
+  },
+} satisfies Story;

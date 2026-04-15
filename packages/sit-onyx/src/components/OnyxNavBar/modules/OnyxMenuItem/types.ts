@@ -1,5 +1,15 @@
+import type { InjectionKey, MaybeRefOrGetter } from "vue";
 import type { Nullable, OnyxColor } from "../../../../types/index.js";
 import type { WithLinkProp } from "../../../OnyxRouterLink/types.js";
+
+export const MENU_ITEM_INJECTION_KEY = Symbol() as InjectionKey<{
+  onHoverEnter: () => void;
+  onHoverLeave: () => void;
+  openDirection: "right";
+}>;
+export const MENU_ITEM_DRILLDOWN_INJECTION_KEY = Symbol() as InjectionKey<{
+  drilldownMode: "internal";
+}>;
 
 export type OnyxMenuItemProps = WithLinkProp & {
   /**
@@ -28,4 +38,13 @@ export type OnyxMenuItemProps = WithLinkProp & {
    * Main color of the item content.
    */
   color?: Extract<OnyxColor, "primary" | "danger">;
+};
+
+export type NestedMenuContext = {
+  onHoverEnter: () => void;
+  onHoverLeave: () => void;
+  openDirection?: MaybeRefOrGetter<"left" | "right">;
+};
+export type NestedMenuDrilldownModeContext = {
+  drilldownMode: MaybeRefOrGetter<"internal" | "external">;
 };
