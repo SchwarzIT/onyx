@@ -54,25 +54,19 @@ jobs:
       max-parallel: 9
       matrix:
         package: ${{ fromJSON(needs.prepare.outputs.packages) }}
+        shard: [1]
+        totalShards: [6]
         include:
           - package: "sit-onyx"
-            shard: 1
-            totalShards: 6
-          - package: "sit-onyx"
             shard: 2
-            totalShards: 6
           - package: "sit-onyx"
             shard: 3
-            totalShards: 6
           - package: "sit-onyx"
             shard: 4
-            totalShards: 6
           - package: "sit-onyx"
             shard: 5
-            totalShards: 6
           - package: "sit-onyx"
             shard: 6
-            totalShards: 6
     name: Playwright shard
     runs-on: ubuntu-latest
     permissions:
