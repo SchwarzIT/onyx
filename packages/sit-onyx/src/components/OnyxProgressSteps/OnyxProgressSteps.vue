@@ -87,7 +87,7 @@ const mappedSteps = computed(() => {
       { 'onyx-progress-steps--vertical': props.orientation === 'vertical' },
     ]"
   >
-    <div v-for="step in mappedSteps" :key="step.value" class="onyx-progress-steps__group">
+    <template v-for="step in mappedSteps" :key="step.value">
       <OnyxProgressItem v-bind="step" @click="emit('update:modelValue', step.value)">
         <slot name="step" :step></slot>
       </OnyxProgressItem>
@@ -98,7 +98,7 @@ const mappedSteps = computed(() => {
         class="onyx-progress-steps__separator"
         :orientation="props.orientation"
       />
-    </div>
+    </template>
   </div>
 </template>
 
@@ -107,30 +107,27 @@ const mappedSteps = computed(() => {
 
 .onyx-progress-steps {
   @include layers.component() {
-    display: flex;
-    flex-wrap: wrap;
+    display: inline-flex;
+    align-items: center;
     gap: var(--onyx-density-sm);
+    // overflow styles
+    max-width: 100%;
+    max-height: 100%;
+    overflow: auto;
 
-    &__group {
-      display: flex;
-      gap: var(--onyx-density-sm);
-      align-items: center;
-    }
+    // due to "overflow auto", the focus-visible ring of the steps will be cut off so we use this padding/margin workaround to fix this
+    padding: var(--onyx-outline-width);
+    margin: calc(-1 * var(--onyx-outline-width));
+
     &--vertical {
       flex-direction: column;
+      align-items: flex-start;
       gap: var(--onyx-density-2xs);
 
-      .onyx-progress-steps {
-        &__group {
-          flex-direction: column;
-          align-items: flex-start;
-          gap: var(--onyx-density-2xs);
-        }
-        &__separator {
-          --onyx-separator-min-size: 0.5rem;
-          // --onyx-density-2xs = padding of step circle/bubble, 1.5rem = width of step circle/bubble
-          margin-left: calc(var(--onyx-separator-size) + var(--onyx-density-2xs) + 1.5rem / 2);
-        }
+      .onyx-progress-steps__separator {
+        --onyx-separator-min-size: 0.5rem;
+        // --onyx-density-2xs = padding of step circle/bubble, 1.5rem = width of step circle/bubble
+        margin-left: calc(var(--onyx-separator-size) + var(--onyx-density-2xs) + 1.5rem / 2);
       }
     }
   }

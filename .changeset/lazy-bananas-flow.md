@@ -2,4 +2,4 @@
 "sit-onyx": minor
 ---
 
-bug(OnyxProgressSteps): fixed overflow by adding flex-wrap
+bug(OnyxProgressSteps): fixed overflow
