@@ -175,6 +175,7 @@ jobs:
           path: |
             ./packages/**/blob-report
             ./apps/**/blob-report
+            !**/node_modules/**
           retention-days: 1
 
   # this final step is needed to we can set make the Playwright tests a required check in pull requests
