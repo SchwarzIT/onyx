@@ -18,10 +18,8 @@ jobs:
   prepare:
     name: Prepare
     runs-on: ubuntu-latest
-
     outputs:
       packages: ${{ steps.queryPackages.outputs.packages }}
-
     steps:
       - name: "🛃 Harden the runner (Audit all outbound calls)"
         uses: step-security/harden-runner@f808768d1510423e83855289c910610ca9b43176 # v2.17.0
@@ -60,28 +58,34 @@ jobs:
         include:
           - package: "sit-onyx"
             shard: 1
-            totalShards: 8
+            totalShards: 10
           - package: "sit-onyx"
             shard: 2
-            totalShards: 8
+            totalShards: 10
           - package: "sit-onyx"
             shard: 3
-            totalShards: 8
+            totalShards: 10
           - package: "sit-onyx"
             shard: 4
-            totalShards: 8
+            totalShards: 10
           - package: "sit-onyx"
             shard: 5
-            totalShards: 8
+            totalShards: 10
           - package: "sit-onyx"
             shard: 6
-            totalShards: 8
+            totalShards: 10
           - package: "sit-onyx"
             shard: 7
-            totalShards: 8
+            totalShards: 10
           - package: "sit-onyx"
             shard: 8
-            totalShards: 8
+            totalShards: 10
+          - package: "sit-onyx"
+            shard: 9
+            totalShards: 10
+          - package: "sit-onyx"
+            shard: 10
+            totalShards: 10
     name: Playwright shard
     runs-on: ubuntu-latest
     permissions:
