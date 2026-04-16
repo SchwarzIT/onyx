@@ -15,18 +15,44 @@ permissions:
   contents: read
 
 jobs:
+  prepare:
+    name: Playwright shard
+    runs-on: ubuntu-latest
+
+    outputs:
+      packages: ${{ steps.queryPackages.outputs.packages }}
+
+    steps:
+      - id: queryPackages
+        run: |
+          # 1. Query all packages that have a "test:playwright" script
+          # 2. Extract array with package names
+          # 3. Prepare for GITHUB_OUTPUT
+          pnpm turbo query "query { packages(filter: { has: { field: TASK_NAME, value: \"test:playwright\" } }) { items { name } } }" \
+          | jq -c ".data.packages.items | map(.name)" \
+          | awk '{print "packages="$1}' \
+          | > "$GITHUB_OUTPUT"
+
   playwright:
+    needs: prepare
     strategy:
       fail-fast: false
+      max-parallel: 9
       matrix:
-        # to optimize the speed of the screenshot generation, we are using Playwright sharding
-        # to split up the tests in smaller chunks and run them in parallel
-        # for further details, see: https://playwright.dev/docs/test-sharding
-        # more shards can be added below to speed up the executing time if more screenshots are added in the future
-        # note:
-        # - GitHub's shard limit is 256 parallel (see https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs#using-a-matrix-strategy)
-        # - Github's job limit is 20 parallel (see https://docs.github.com/en/actions/reference/limits#job-concurrency-limits-for-github-hosted-runners)
-        shard: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        package: ${{ fromJSON(needs.prepare.outputs.packages) }}
+        include:
+          - package: "sit-onyx"
+            shard: 1
+          - package: "sit-onyx"
+            shard: 2
+          - package: "sit-onyx"
+            shard: 3
+          - package: "sit-onyx"
+            shard: 4
+          - package: "sit-onyx"
+            shard: 5
+          - package: "sit-onyx"
+            shard: 6
     name: Playwright shard
     runs-on: ubuntu-latest
     permissions:
@@ -61,7 +87,7 @@ jobs:
         if: ${{ steps.first-playwright-install.outcome == 'failure' }}
         run: |
           # Clean-up in progress installation: https://wiki.debian.org/Teams/Dpkg/FAQ#db-lock
-          sudo killall apt apt-get
+          sudo killall -q apt apt-get
           sudo fuser -vk -KILL /var/lib/dpkg/lock /var/lib/dpkg/lock-frontend
           sudo dpkg --configure -a
 
@@ -73,7 +99,7 @@ jobs:
         timeout-minutes: 10
 
       - name: 🔎 Run Playwright tests
-        run: pnpm run test:playwright:all --concurrency 1 ${{ (inputs.only-changed != '' && format('--affected -- --only-changed {0}', inputs.only-changed)) || '' }}
+        run: pnpm run test:playwright:all --filter="${{ inputs.update-snapshots }}" --concurrency 1 ${{ (inputs.only-changed != '' && format('--affected -- --only-changed {0}', inputs.only-changed)) || '' }}
         env:
           PW_UPDATE_SNAPSHOTS: "${{ inputs.update-snapshots }}"
           PW_SHARD: "${{ matrix.shard }}"
