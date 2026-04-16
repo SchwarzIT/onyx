@@ -97,6 +97,8 @@ jobs:
       - name: 📦 Install Playwright system dependencies
         id: first-playwright-install
         run: |
+          set -ex
+
           sudo sed -i 's/archive.ubuntu.com/mirror.enzu.com/g' /etc/apt/apt-mirrors.txt
 
           pnpm exec playwright install --only-shell --with-deps firefox webkit chromium-headless-shell
@@ -106,9 +108,11 @@ jobs:
       - name: 📦 Install Playwright system dependencies using fallback mirror
         if: ${{ steps.first-playwright-install.outcome == 'failure' }}
         run: |
+          set -ex
+
           # Clean-up in progress installation: https://wiki.debian.org/Teams/Dpkg/FAQ#db-lock
-          sudo killall -q apt apt-get
-          sudo fuser -vk -KILL /var/lib/dpkg/lock /var/lib/dpkg/lock-frontend
+          sudo killall -q apt apt-get || true
+          sudo fuser -vk -KILL /var/lib/dpkg/lock /var/lib/dpkg/lock-frontend || true
           sudo dpkg --configure -a
 
           # Use different mirror
