@@ -57,16 +57,22 @@ jobs:
         include:
           - package: "sit-onyx"
             shard: 1
+            totalShards: 6
           - package: "sit-onyx"
             shard: 2
+            totalShards: 6
           - package: "sit-onyx"
             shard: 3
+            totalShards: 6
           - package: "sit-onyx"
             shard: 4
+            totalShards: 6
           - package: "sit-onyx"
             shard: 5
+            totalShards: 6
           - package: "sit-onyx"
             shard: 6
+            totalShards: 6
     name: Playwright shard
     runs-on: ubuntu-latest
     permissions:
@@ -113,11 +119,11 @@ jobs:
         timeout-minutes: 10
 
       - name: 🔎 Run Playwright tests
-        run: pnpm run test:playwright:all --filter="${{ inputs.update-snapshots }}" --concurrency 1 ${{ (inputs.only-changed != '' && format('--affected -- --only-changed {0}', inputs.only-changed)) || '' }}
+        run: pnpm run test:playwright:all --filter="${{ matrix.package }}" --concurrency 1 ${{ (inputs.only-changed != '' && format('--affected -- --only-changed {0}', inputs.only-changed)) || '' }}
         env:
           PW_UPDATE_SNAPSHOTS: "${{ inputs.update-snapshots }}"
           PW_SHARD: "${{ matrix.shard }}"
-          PW_TOTAL_SHARDS: "${{ strategy.job-total }}"
+          PW_TOTAL_SHARDS: "${{ matrix.totalShards }}"
           TURBO_SCM_BASE: "${{ inputs.only-changed }}"
 
       # we only want to include actual changed screenshots in the artifact to prevent that old/unchanged screenshots
