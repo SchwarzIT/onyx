@@ -140,6 +140,7 @@ jobs:
           TURBO_SCM_BASE: "${{ inputs.only-changed }}"
 
       - name: Escape name
+        id: escapedName
         run: |
           escaped=$(echo -n "${{ matrix.package }}" | tr -C "[:alnum:]" "_")
           echo "ESCAPED_PACKAGE_NAME=$escaped" >> "$GITHUB_OUTPUT"
@@ -155,6 +156,8 @@ jobs:
       - name: Upload screenshots artifact
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: ${{ inputs.update-snapshots == true }}
+        env:
+          ESCAPED_PACKAGE_NAME: ${{ steps.escapedName.outputs.ESCAPED_PACKAGE_NAME }}
         with:
           name: screenshots-${{ env.ESCAPED_PACKAGE_NAME }}-${{ matrix.shard }}
           path: changed-screenshots
@@ -165,6 +168,8 @@ jobs:
       - name: Upload Reports
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: ${{ !cancelled() }}
+        env:
+          ESCAPED_PACKAGE_NAME: ${{ steps.escapedName.outputs.ESCAPED_PACKAGE_NAME }}
         with:
           name: blob-report-${{ env.ESCAPED_PACKAGE_NAME }}-${{ matrix.shard }}
           path: |
