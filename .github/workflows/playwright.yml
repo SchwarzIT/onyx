@@ -38,10 +38,12 @@ jobs:
         run: |
           set -ex
 
+          query="query { ${{ (inputs.only-changed != '' && format('affectedPackages(base: \"{0}\"', inputs.only-changed)) || 'packages(' }} filter: { has: { field: TASK_NAME, value: \"test:playwright\" } }) { items { name } } }"
+
           # 1. Query all packages that have a "test:playwright" script
           # 2. Extract array with package names
           # 3. Prepare for GITHUB_OUTPUT
-          pnpm turbo query "query { packages(filter: { has: { field: TASK_NAME, value: \"test:playwright\" } }) { items { name } } }" \
+          pnpm turbo query "$query" \
           | jq -c ".data.packages.items | map(.name)" \
           | awk '{print "packages="$1}' \
           | tee "$GITHUB_OUTPUT" \
@@ -55,18 +57,25 @@ jobs:
       matrix:
         package: ${{ fromJSON(needs.prepare.outputs.packages) }}
         shard: [1]
-        totalShards: [6]
         include:
           - package: "sit-onyx"
+            shard: 1
+            totalShards: 6
+          - package: "sit-onyx"
             shard: 2
+            totalShards: 6
           - package: "sit-onyx"
             shard: 3
+            totalShards: 6
           - package: "sit-onyx"
             shard: 4
+            totalShards: 6
           - package: "sit-onyx"
             shard: 5
+            totalShards: 6
           - package: "sit-onyx"
             shard: 6
+            totalShards: 6
     name: Playwright shard
     runs-on: ubuntu-latest
     permissions:
