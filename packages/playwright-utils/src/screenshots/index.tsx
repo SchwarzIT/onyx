@@ -18,7 +18,7 @@ export const useMatrixScreenshotTest = <TContext extends HookContext = HookConte
 ) => {
   const test = globalOptions.test ?? _test;
 
-  const executeMatrixScreenshotTest = async <TColumn extends string, TRow extends string>(
+  const executeMatrixScreenshotTest = <TColumn extends string, TRow extends string>(
     options: MatrixScreenshotTestOptions<TColumn, TRow, TContext>,
   ) => {
     test(`${options.name}`, async ({ mount, page, browserName, context }) => {
