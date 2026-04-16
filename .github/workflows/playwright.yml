@@ -34,14 +34,18 @@ jobs:
       - uses: ./.github/templates/node-setup
 
       - id: queryPackages
+        name: Query Packages
         run: |
+          set -ex
+
           # 1. Query all packages that have a "test:playwright" script
           # 2. Extract array with package names
           # 3. Prepare for GITHUB_OUTPUT
           pnpm turbo query "query { packages(filter: { has: { field: TASK_NAME, value: \"test:playwright\" } }) { items { name } } }" \
           | jq -c ".data.packages.items | map(.name)" \
           | awk '{print "packages="$1}' \
-          | > "$GITHUB_OUTPUT"
+          | tee "$GITHUB_OUTPUT" \
+          | cat
 
   playwright:
     needs: prepare
