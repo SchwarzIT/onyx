@@ -60,22 +60,28 @@ jobs:
         include:
           - package: "sit-onyx"
             shard: 1
-            totalShards: 6
+            totalShards: 8
           - package: "sit-onyx"
             shard: 2
-            totalShards: 6
+            totalShards: 8
           - package: "sit-onyx"
             shard: 3
-            totalShards: 6
+            totalShards: 8
           - package: "sit-onyx"
             shard: 4
-            totalShards: 6
+            totalShards: 8
           - package: "sit-onyx"
             shard: 5
-            totalShards: 6
+            totalShards: 8
           - package: "sit-onyx"
             shard: 6
-            totalShards: 6
+            totalShards: 8
+          - package: "sit-onyx"
+            shard: 7
+            totalShards: 8
+          - package: "sit-onyx"
+            shard: 8
+            totalShards: 8
     name: Playwright shard
     runs-on: ubuntu-latest
     permissions:
@@ -105,7 +111,7 @@ jobs:
           sudo sed -i 's/archive.ubuntu.com/mirror.enzu.com/g' /etc/apt/apt-mirrors.txt
 
           pnpm exec playwright install --only-shell --with-deps firefox webkit chromium-headless-shell
-        timeout-minutes: 5
+        timeout-minutes: 3
         continue-on-error: true
 
       - name: 📦 Install Playwright system dependencies using fallback mirror
@@ -145,7 +151,7 @@ jobs:
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: ${{ inputs.update-snapshots == true }}
         with:
-          name: screenshots-${{ matrix.shard }}
+          name: screenshots-${{ matrix.package }}-${{ matrix.shard }}
           path: changed-screenshots
           # prevent warnings if shard does not update any screenshots
           if-no-files-found: ignore
@@ -155,10 +161,10 @@ jobs:
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: ${{ !cancelled() }}
         with:
-          name: blob-report-${{ matrix.shard }}
+          name: blob-report-${{ matrix.package }}-${{ matrix.shard }}
           path: |
-            ./packages/*/blob-report
-            ./apps/*/blob-report
+            ./packages/**/blob-report
+            ./apps/**/blob-report
           retention-days: 1
 
   # this final step is needed to we can set make the Playwright tests a required check in pull requests
