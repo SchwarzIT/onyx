@@ -33,7 +33,6 @@ test.describe("Screenshot tests (density)", () => {
   executeMatrixScreenshotTest({
     name: "Text editor (densities)",
     columns: ["default"],
-    asdasdas,
     rows: DENSITIES,
     component: (column, row) => (
       <OnyxTextEditor label="Test label" density={row} modelValue="Filled value" />
