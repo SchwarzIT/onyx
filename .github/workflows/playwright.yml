@@ -139,6 +139,11 @@ jobs:
           PW_TOTAL_SHARDS: "${{ matrix.totalShards }}"
           TURBO_SCM_BASE: "${{ inputs.only-changed }}"
 
+      - name: Escape name
+        run: |
+          escaped=$(echo -n "${{ matrix.package }}" | tr -C "[:alnum:]" "_")
+          echo "ESCAPED_PACKAGE_NAME=$escaped" >> "$GITHUB_OUTPUT"
+
       # we only want to include actual changed screenshots in the artifact to prevent that old/unchanged screenshots
       # override changed screenshots from other shards when creating the pull request
       - name: Copy changed files
@@ -151,7 +156,7 @@ jobs:
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: ${{ inputs.update-snapshots == true }}
         with:
-          name: screenshots-${{ matrix.package }}-${{ matrix.shard }}
+          name: screenshots-${{ env.ESCAPED_PACKAGE_NAME }}-${{ matrix.shard }}
           path: changed-screenshots
           # prevent warnings if shard does not update any screenshots
           if-no-files-found: ignore
@@ -161,7 +166,7 @@ jobs:
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: ${{ !cancelled() }}
         with:
-          name: blob-report-${{ matrix.package }}-${{ matrix.shard }}
+          name: blob-report-${{ env.ESCAPED_PACKAGE_NAME }}-${{ matrix.shard }}
           path: |
             ./packages/**/blob-report
             ./apps/**/blob-report
