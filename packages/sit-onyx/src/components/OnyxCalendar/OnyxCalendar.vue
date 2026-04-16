@@ -371,7 +371,7 @@ useOutsideClick({
     display: flex;
     flex-direction: column;
     gap: var(--onyx-density-sm);
-    color: var(--onyx-color-text-icons-neutral-medium);
+    color: var(--onyx-color-component-calendar-text);
     font-family: var(--onyx-font-family-paragraph);
     $calendar-week-column-width: 2.5rem;
     $calendar-day-number-display-width: 2rem;
