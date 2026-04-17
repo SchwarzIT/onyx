@@ -113,6 +113,7 @@ jobs:
           set -ex
 
           sudo sed -i 's/archive.ubuntu.com/mirror.enzu.com/g' /etc/apt/apt-mirrors.txt
+          sudo cat /etc/apt/apt-mirrors.txt
 
           pnpm exec playwright install --only-shell --with-deps firefox webkit chromium-headless-shell
         timeout-minutes: 3
