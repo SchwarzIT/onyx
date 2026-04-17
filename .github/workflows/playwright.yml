@@ -141,6 +141,7 @@ jobs:
 
       - name: Escape name
         id: escapedName
+        if: ${{ !cancelled() }}
         run: |
           escaped=$(echo -n "${{ matrix.package }}" | tr -C "[:alnum:]" "_")
           echo "ESCAPED_PACKAGE_NAME=$escaped" >> "$GITHUB_OUTPUT"
