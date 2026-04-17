@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "value" theme.
- * Imported from Figma API on Thu, 16 Apr 2026 09:39:07 GMT
+ * Imported from Figma API on Fri, 17 Apr 2026 06:37:37 GMT
  */
 :where(:root),
 .onyx-theme-default {
@@ -17,6 +17,18 @@
   --onyx-color-digits-mint-1000: #006975;
   --onyx-color-digits-mint-1100: #00535d;
   --onyx-color-digits-mint-1200: #003b42;
+  --onyx-color-digits-orange-100: #ffebdd;
+  --onyx-color-digits-orange-200: #ffd6bc;
+  --onyx-color-digits-orange-300: #ffc199;
+  --onyx-color-digits-orange-400: #ffac75;
+  --onyx-color-digits-orange-500: #ff954d;
+  --onyx-color-digits-orange-600: #ff7d00;
+  --onyx-color-digits-orange-700: #d66800;
+  --onyx-color-digits-orange-800: #ae5300;
+  --onyx-color-digits-orange-900: #873f00;
+  --onyx-color-digits-orange-1000: #632c00;
+  --onyx-color-digits-orange-1100: #411b00;
+  --onyx-color-digits-orange-1200: #220b00;
   --onyx-color-kaufland-gray-100: #f5f5f5;
   --onyx-color-kaufland-gray-200: #f0f0f0;
   --onyx-color-kaufland-gray-300: #e8e8e8;
