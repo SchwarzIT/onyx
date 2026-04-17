@@ -82,7 +82,7 @@ function getDefaultConfig(options?: DefineOnyxPlaywrightConfigOptions) {
     // we do not want to retry failing tests because if they fail but work after retry, they are flaky
     // we don't want to have flaky tests so you must fix the flaky tests immediately instead of increasing the retries!
     // the same is valid for CI
-    repeatEach: 10,
+    repeatEach: 5,
     failOnFlakyTests: true,
 
     /**
