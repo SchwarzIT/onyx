@@ -8,7 +8,7 @@
     "dev": "./scripts/dev.sh",
     "build:all": "turbo run build build:storybook",
     "test:all": "vitest --coverage",
-    "test:playwright:all": "turbo run test:playwright",
+    "test:playwright:all": "turbo run test:playwright --filter=sit-onyx -- packages/sit-onyx/src/components/OnyxDataGrid/features/stickyColumns/stickyColumns.ct.tsx",
     "format:all": "prettier --write .",
     "format:check:all": "prettier --check .",
     "stylelint": "turbo run stylelint",

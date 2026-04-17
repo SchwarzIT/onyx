@@ -82,7 +82,7 @@ function getDefaultConfig(options?: DefineOnyxPlaywrightConfigOptions) {
     // we do not want to retry failing tests because if they fail but work after retry, they are flaky
     // we don't want to have flaky tests so you must fix the flaky tests immediately instead of increasing the retries!
     // the same is valid for CI
-    retries: process.env.CI ? 1 : 0,
+    repeatEach: 10,
     failOnFlakyTests: true,
 
     /**
@@ -93,9 +93,9 @@ function getDefaultConfig(options?: DefineOnyxPlaywrightConfigOptions) {
     /* In the CI pipeline it generates dot (for the stdout) and blob reports, locally only a html report is generated */
     reporter: process.env.CI ? [["dot"], ["blob"]] : [["html", { open: "never" }]],
     use: {
-      screenshot: process.env.CI ? "only-on-failure" : "off",
-      trace: process.env.CI ? "on-first-retry" : "off",
-      video: process.env.CI ? "on-first-retry" : "off",
+      screenshot: "on",
+      trace: "on",
+      video: "on",
       locale: "en-US",
       timezoneId: "Europe/Berlin",
     },
