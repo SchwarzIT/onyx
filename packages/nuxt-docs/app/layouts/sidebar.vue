@@ -85,12 +85,12 @@ const toc = computed(() => collection.data.value?.body.toc?.links ?? []);
 
     <slot name="hero"></slot>
 
-    <div class="content onyx-grid-layout">
-      <div>
+    <div class="main onyx-grid-layout">
+      <div class="content">
         <slot></slot>
       </div>
 
-      <TableOfContents v-if="toc.length" class="content__toc" :links="toc" />
+      <TableOfContents v-if="toc.length" class="main__toc" :links="toc" />
     </div>
 
     <template v-if="!!slots.footer" #footer>
@@ -117,7 +117,7 @@ const toc = computed(() => collection.data.value?.body.toc?.links ?? []);
   }
 }
 
-.content {
+.main {
   /** Gap between page content and TOC. Equivalent to one grid column + 2 * grid gutter/gap */
   --onyx-content-toc-gap: calc(2 * var(--onyx-grid-gutter) + (100 / var(--onyx-grid-columns)) * 1%);
   display: grid;
@@ -136,9 +136,15 @@ const toc = computed(() => collection.data.value?.body.toc?.links ?? []);
   @include breakpoints.container(max, md) {
     grid-template-columns: 1fr;
 
-    .content__toc {
+    .main__toc {
       display: none;
     }
+  }
+}
+
+.content {
+  :deep(> div > .onyx-headline:first-child) {
+    margin-top: 0;
   }
 }
 </style>
