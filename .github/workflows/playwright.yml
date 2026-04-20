@@ -38,7 +38,7 @@ jobs:
         run: |
           set -ex
 
-          query="query { ${{ (inputs.only-changed != '' && format('affectedPackages(base: \"{0}\"', inputs.only-changed)) || 'packages(' }} filter: { has: { field: TASK_NAME, value: \"test:playwright\" } }) { items { name } } }"
+          query="query { ${{ (inputs.only-changed != '' && format('packages: affectedPackages(base: \"{0}\"', inputs.only-changed)) || 'packages(' }} filter: { has: { field: TASK_NAME, value: \"test:playwright\" } }) { items { name } } }"
 
           # 1. Query all packages that have a "test:playwright" script
           # 2. Extract array with package names
