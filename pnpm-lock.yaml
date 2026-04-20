@@ -116,7 +116,7 @@ importers:
         version: 10.8.0(@typescript-eslint/parser@8.58.1(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1))(vue-eslint-parser@10.4.0(eslint@9.39.4(jiti@2.6.1)))
       eslint-plugin-vue-scoped-css:
         specifier: ^3.0.0
-        version: 3.0.0(eslint@9.39.4(jiti@2.6.1))(vue-eslint-parser@10.4.0(eslint@9.39.4(jiti@2.6.1)))
+        version: 3.0.0(eslint@9.39.4(jiti@2.6.1))(postcss-scss@4.0.9(postcss@8.5.9))(vue-eslint-parser@10.4.0(eslint@9.39.4(jiti@2.6.1)))
       eslint-plugin-vuejs-accessibility:
         specifier: ^2.5.0
         version: 2.5.0(eslint@9.39.4(jiti@2.6.1))(globals@17.5.0)
@@ -731,6 +731,9 @@ importers:
       axe-core:
         specifier: ^4.11.2
         version: 4.11.2
+      postcss-scss:
+        specifier: ^4.0.9
+        version: 4.0.9(postcss@8.5.9)
       sass-embedded:
         specifier: 1.99.0
         version: 1.99.0
@@ -7604,6 +7607,12 @@ packages:
     peerDependencies:
       postcss: ^8.4.31
 
+  postcss-scss@4.0.9:
+    resolution: {integrity: sha512-AjKOeiwAitL/MXxQW2DliT28EKukvvbEWx3LBmJIRN8KfBGZbRTxNYW0kSqi1COiTZ57nZ9NW06S6ux//N1c9A==}
+    engines: {node: '>=12.0'}
+    peerDependencies:
+      postcss: ^8.4.29
+
   postcss-selector-parser@7.1.1:
     resolution: {integrity: sha512-orRsuYpJVw8LdAwqqLykBj9ecS5/cRHlI5+nvTo8LcCKmzDmqVORXtOIYEEQuL9D4BxtA1lm5isAqzQZCoQ6Eg==}
     engines: {node: '>=4'}
@@ -14318,7 +14327,7 @@ snapshots:
       - supports-color
       - typescript
 
-  eslint-plugin-vue-scoped-css@3.0.0(eslint@9.39.4(jiti@2.6.1))(vue-eslint-parser@10.4.0(eslint@9.39.4(jiti@2.6.1))):
+  eslint-plugin-vue-scoped-css@3.0.0(eslint@9.39.4(jiti@2.6.1))(postcss-scss@4.0.9(postcss@8.5.9))(vue-eslint-parser@10.4.0(eslint@9.39.4(jiti@2.6.1))):
     dependencies:
       '@eslint-community/eslint-utils': 4.9.1(eslint@9.39.4(jiti@2.6.1))
       eslint: 9.39.4(jiti@2.6.1)
@@ -14327,6 +14336,8 @@ snapshots:
       postcss-safe-parser: 7.0.1(postcss@8.5.9)
       postcss-selector-parser: 7.1.1
       vue-eslint-parser: 10.4.0(eslint@9.39.4(jiti@2.6.1))
+    optionalDependencies:
+      postcss-scss: 4.0.9(postcss@8.5.9)
 
   eslint-plugin-vue@10.8.0(@typescript-eslint/parser@8.58.1(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1))(vue-eslint-parser@10.4.0(eslint@9.39.4(jiti@2.6.1))):
     dependencies:
@@ -17075,6 +17086,10 @@ snapshots:
       postcss-value-parser: 4.2.0
 
   postcss-safe-parser@7.0.1(postcss@8.5.9):
+    dependencies:
+      postcss: 8.5.9
+
+  postcss-scss@4.0.9(postcss@8.5.9):
     dependencies:
       postcss: 8.5.9
 

@@ -10,6 +10,7 @@ export const useOperatingSystem = () => {
   const os = ref<OperatingSystem>("generic");
 
   onBeforeMount(() => {
+    // eslint-disable-next-line compat/compat -- safe to use in onBeforeMount
     const userAgent = globalThis.navigator ? navigator.userAgent.toLowerCase() : "";
 
     if (userAgent.includes("windows")) {

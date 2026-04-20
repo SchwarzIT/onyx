@@ -131,6 +131,7 @@ const playwrightConfig = {
         ],
       },
     ],
+    "compat/compat": "off",
     "vue/require-prop-comment": "off",
     "vue/require-default-prop": "off",
     "vue-scoped-css/enforce-style-type": "off",
