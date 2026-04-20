@@ -23,7 +23,7 @@
     "default": "Default",
     "cozy": "Cozy",
     "preview": {
-      "description": "A preview of the different densities using buttons as an example."
+      "description": "Preview of the different densities using buttons as an example."
     }
   }
 }
