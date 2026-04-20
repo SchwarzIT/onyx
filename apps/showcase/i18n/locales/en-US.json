@@ -16,5 +16,14 @@
   "components": {
     "component": "Component | Components"
   },
-  "gettingStarted": "Getting Started"
+  "gettingStarted": "Getting Started",
+  "copyToClipboard": "Copy to clipboard",
+  "densities": {
+    "compact": "Compact",
+    "default": "Default",
+    "cozy": "Cozy",
+    "preview": {
+      "description": "A preview of the different densities using buttons as an example."
+    }
+  }
 }

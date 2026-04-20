@@ -24,7 +24,7 @@ const { copy, copied } = useClipboard({ source: toRef(props, "value") });
     <slot mdc-unwrap="p"></slot>
 
     <OnyxIcon v-if="copied" :icon="iconCheckSmall" color="success" />
-    <OnyxSystemButton v-else label="Copy to clipboard" :icon="iconCopy" @click="copy()" />
+    <OnyxSystemButton v-else :label="$t('copyToClipboard')" :icon="iconCopy" @click="copy()" />
   </OnyxCard>
 </template>
 
