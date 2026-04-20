@@ -143,6 +143,7 @@ const toc = computed(() => collection.data.value?.body.toc?.links ?? []);
 }
 
 .content {
+  // remove the top margin of the first headline since its redundant to the page padding
   :deep(> div > .onyx-headline:first-child) {
     margin-top: 0;
   }
