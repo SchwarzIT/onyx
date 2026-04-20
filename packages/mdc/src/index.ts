@@ -14,6 +14,7 @@ export { default as ProseH4 } from "./components/prose/ProseH4.vue";
 export { default as ProseH5 } from "./components/prose/ProseH5.vue";
 export { default as ProseH6 } from "./components/prose/ProseH6.vue";
 export { default as ProseHr } from "./components/prose/ProseHr.vue";
+export { default as ProseImg } from "./components/prose/ProseImg.vue";
 export { default as ProseOl } from "./components/prose/ProseOl.vue";
 export { default as ProseP } from "./components/prose/ProseP.vue";
 export { default as ProsePre } from "./components/prose/ProsePre.vue";
