@@ -5,13 +5,13 @@ const descriptionId = useId();
 <template>
   <div class="preview">
     <OnyxCard class="preview__card" :aria-describedby="descriptionId">
-      <OnyxButton label="Compact" density="compact" />
-      <OnyxButton label="Default" density="default" />
-      <OnyxButton label="Cozy" density="cozy" />
+      <OnyxButton :label="$t('densities.compact')" density="compact" />
+      <OnyxButton :label="$t('densities.default')" density="default" />
+      <OnyxButton :label="$t('densities.cozy')" density="cozy" />
     </OnyxCard>
 
     <div :id="descriptionId" class="onyx-text--small preview__description">
-      A preview of the different densities using buttons as an example.
+      {{ $t("densities.preview.description") }}
     </div>
   </div>
 </template>
