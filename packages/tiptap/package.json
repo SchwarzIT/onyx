@@ -48,7 +48,7 @@
     "vue": ">= 3.5.0"
   },
   "devDependencies": {
-    "@axe-core/playwright": "^4.11.1",
+    "@axe-core/playwright": "^4.11.2",
     "@playwright/experimental-ct-vue": "catalog:",
     "@playwright/test": "catalog:",
     "@sit-onyx/icons": "workspace:^",
