@@ -113,10 +113,6 @@ jobs:
         id: first-playwright-install
         run: |
           set -ex
-
-          sudo sed -i 's/archive.ubuntu.com/mirror.enzu.com/g' /etc/apt/apt-mirrors.txt
-          sudo cat /etc/apt/apt-mirrors.txt
-
           pnpm exec playwright install --only-shell --with-deps firefox webkit chromium-headless-shell
         timeout-minutes: 3
         continue-on-error: true
@@ -132,7 +128,7 @@ jobs:
           sudo dpkg --configure -a
 
           # Use different mirror
-          sudo sed -i 's/mirror.enzu.com/archive.ubuntu.com/g' /etc/apt/apt-mirrors.txt
+          sudo sed -i 's/azure.archive.ubuntu.com/mirror.enzu.com/g' /etc/apt/apt-mirrors.txt
           sudo cat /etc/apt/apt-mirrors.txt
 
           pnpm exec playwright install --only-shell --with-deps firefox webkit chromium-headless-shell
