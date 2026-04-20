@@ -16,6 +16,8 @@ const CONTENT = [
   </template>,
 ];
 
+test.use({ viewport: { height: 512, width: 512 } });
+
 test.beforeEach(async ({ page }) => {
   await page.addStyleTag({
     content: `
@@ -23,8 +25,6 @@ test.beforeEach(async ({ page }) => {
     .onyx-sidebar { height: 100vh; }
     `,
   });
-
-  await page.setViewportSize({ height: 512, width: 512 });
 });
 
 test("should render", async ({ mount, makeAxeBuilder }) => {
@@ -79,194 +79,189 @@ for (const type of ["left", "right", "floating"] as const) {
   });
 }
 
-["default", "temporary"].forEach((type) => {
-  test(`should support resizing (${type})`, async ({ page, mount, makeAxeBuilder }) => {
-    const viewportWidth = 512;
+test.describe("small screen", () => {
+  const VIEWPORT_WIDTH = 512;
+  test.use({ viewport: { height: 256, width: VIEWPORT_WIDTH } });
 
-    await page.setViewportSize({ height: 256, width: viewportWidth });
+  ["default", "temporary"].forEach((type) => {
+    test(`should support resizing (${type})`, async ({ page, mount, makeAxeBuilder }) => {
+      // ARRANGE
+      const component = await mount(
+        <OnyxSidebar
+          collapseSidebar={false}
+          label="Label"
+          temporary={type === "temporary" ? { open: true } : undefined}
+          resizable
+        >
+          {CONTENT}
+        </OnyxSidebar>,
+      );
 
-    // ARRANGE
-    const component = await mount(
-      <OnyxSidebar
-        collapseSidebar={false}
-        label="Label"
-        temporary={type === "temporary" ? { open: true } : undefined}
-        resizable
-      >
-        {CONTENT}
-      </OnyxSidebar>,
-    );
+      // ACT
+      const accessibilityScanResults = await makeAxeBuilder().analyze();
 
-    // ACT
-    const accessibilityScanResults = await makeAxeBuilder().analyze();
+      // ASSERT
+      expect(accessibilityScanResults.violations).toEqual([]);
 
-    // ASSERT
-    expect(accessibilityScanResults.violations).toEqual([]);
+      let box = (await component.boundingBox())!;
+      expect(box.width).toBe(320);
 
-    let box = (await component.boundingBox())!;
-    expect(box.width).toBe(320);
+      // ACT
+      const resizeButton = component.getByRole("button", { name: "Drag to change width" });
 
-    // ACT
-    const resizeButton = component.getByRole("button", { name: "Drag to change width" });
+      // ASSERT
+      await expect(resizeButton).toBeVisible();
 
-    // ASSERT
-    await expect(resizeButton).toBeVisible();
+      // ACT
+      await dragResizeHandle({ page, to: box.x + box.width + 100 });
 
-    // ACT
-    await dragResizeHandle({ page, to: box.x + box.width + 100 });
+      // ASSERT
+      box = (await component.boundingBox())!;
+      expect(box.width).toBe(420);
 
-    // ASSERT
-    box = (await component.boundingBox())!;
-    expect(box.width).toBe(420);
+      // ACT
+      await dragResizeHandle({ page, to: VIEWPORT_WIDTH });
 
-    // ACT
-    await dragResizeHandle({ page, to: viewportWidth });
+      // ASSERT
+      box = (await component.boundingBox())!;
+      expect(box.width, "should have max width when resizing").toBe(VIEWPORT_WIDTH - 16);
 
-    // ASSERT
-    box = (await component.boundingBox())!;
-    expect(box.width, "should have max width when resizing").toBe(viewportWidth - 16);
+      // ACT
+      await dragResizeHandle({ page, to: 0, preventUp: true });
 
-    // ACT
-    await dragResizeHandle({ page, to: 0, preventUp: true });
-
-    // ASSERT
-    box = (await component.boundingBox())!;
-    expect(box.width, "should have min width when resizing").toBe(64);
+      // ASSERT
+      box = (await component.boundingBox())!;
+      expect(box.width, "should have min width when resizing").toBe(64);
+    });
   });
-});
 
-["default", "temporary"].forEach((type) => {
-  test(`should support resizing right aligned (${type})`, async ({
-    page,
-    mount,
-    makeAxeBuilder,
-  }) => {
-    await page.addStyleTag({
-      content: `body {
+  ["default", "temporary"].forEach((type) => {
+    test(`should support resizing right aligned (${type})`, async ({
+      page,
+      mount,
+      makeAxeBuilder,
+    }) => {
+      await page.addStyleTag({
+        content: `body {
         display: flex;
         justify-content: flex-end;
       }`,
+      });
+
+      // ARRANGE
+      const component = await mount(
+        <OnyxSidebar
+          label="Label"
+          temporary={type === "temporary" ? { open: true } : undefined}
+          alignment="right"
+          resizable
+          collapseSidebar={false}
+        >
+          {CONTENT}
+        </OnyxSidebar>,
+      );
+
+      // ACT
+      const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+      // ASSERT
+      expect(accessibilityScanResults.violations).toEqual([]);
+
+      let box = (await component.boundingBox())!;
+      expect(box.width).toBe(320);
+
+      // ACT
+      const resizeButton = component.getByRole("button", { name: "Drag to change width" });
+
+      // ASSERT
+      await expect(resizeButton).toBeVisible();
+
+      // ACT
+      await dragResizeHandle({ page, to: box.x - 100 });
+
+      // ASSERT
+      box = (await component.boundingBox())!;
+      expect(box.width).toBe(420);
+
+      // ACT
+      await dragResizeHandle({ page, to: 0 });
+
+      // ASSERT
+      box = (await component.boundingBox())!;
+      expect(box.width, "should have max width when resizing").toBe(VIEWPORT_WIDTH - 16);
+
+      // ACT
+      await dragResizeHandle({ page, to: VIEWPORT_WIDTH, preventUp: true });
+
+      // ASSERT
+      box = (await component.boundingBox())!;
+      expect(box.width, "should have min width when resizing").toBe(64);
     });
-
-    const viewportWidth = 512;
-
-    await page.setViewportSize({ height: 256, width: viewportWidth });
-
-    // ARRANGE
-    const component = await mount(
-      <OnyxSidebar
-        label="Label"
-        temporary={type === "temporary" ? { open: true } : undefined}
-        alignment="right"
-        resizable
-        collapseSidebar={false}
-      >
-        {CONTENT}
-      </OnyxSidebar>,
-    );
-
-    // ACT
-    const accessibilityScanResults = await makeAxeBuilder().analyze();
-
-    // ASSERT
-    expect(accessibilityScanResults.violations).toEqual([]);
-
-    let box = (await component.boundingBox())!;
-    expect(box.width).toBe(320);
-
-    // ACT
-    const resizeButton = component.getByRole("button", { name: "Drag to change width" });
-
-    // ASSERT
-    await expect(resizeButton).toBeVisible();
-
-    // ACT
-    await dragResizeHandle({ page, to: box.x - 100 });
-
-    // ASSERT
-    box = (await component.boundingBox())!;
-    expect(box.width).toBe(420);
-
-    // ACT
-    await dragResizeHandle({ page, to: 0 });
-
-    // ASSERT
-    box = (await component.boundingBox())!;
-    expect(box.width, "should have max width when resizing").toBe(viewportWidth - 16);
-
-    // ACT
-    await dragResizeHandle({ page, to: viewportWidth, preventUp: true });
-
-    // ASSERT
-    box = (await component.boundingBox())!;
-    expect(box.width, "should have min width when resizing").toBe(64);
   });
 });
 
-test("should render fab on small screens (left Sidebar)", async ({ mount, page }) => {
-  // ARRANGE
-  await page.setViewportSize({ height: ONYX_BREAKPOINTS.sm, width: 320 });
+test.describe("small screen", () => {
+  test.use({ viewport: { height: ONYX_BREAKPOINTS.sm, width: 320 } });
 
-  const component = await mount(<PlaywrightTest sidebarLeft />);
-  const FABLeftSidebar = component.getByRole("button", { name: "Sidebar Left" });
-  const leftSidebar = component.getByRole("dialog", { name: "Sidebar Left" });
-  // ASSERT
-  await expect(FABLeftSidebar).toBeVisible();
-  await expect(leftSidebar).toBeHidden();
-  await expect(component).toHaveScreenshot("collapsed-left.png");
+  test("should render fab on small screens (left Sidebar)", async ({ mount }) => {
+    // ARRANGE
+    const component = await mount(<PlaywrightTest sidebarLeft />);
+    const FABLeftSidebar = component.getByRole("button", { name: "Sidebar Left" });
+    const leftSidebar = component.getByRole("dialog", { name: "Sidebar Left" });
+    // ASSERT
+    await expect(FABLeftSidebar).toBeVisible();
+    await expect(leftSidebar).toBeHidden();
+    await expect(component).toHaveScreenshot("collapsed-left.png");
 
-  // ACT
-  await FABLeftSidebar.click();
-  // ASSERT
-  await expect(leftSidebar).toBeVisible();
-});
+    // ACT
+    await FABLeftSidebar.click();
+    // ASSERT
+    await expect(leftSidebar).toBeVisible();
+  });
 
-test("should render fab on small screens (right Sidebar)", async ({ mount, page }) => {
-  // ARRANGE
-  await page.setViewportSize({ height: ONYX_BREAKPOINTS.sm, width: 320 });
+  test("should render fab on small screens (right Sidebar)", async ({ mount }) => {
+    // ARRANGE
+    const component = await mount(<PlaywrightTest sidebarRight />);
+    const FAB = component.getByRole("button", { name: "Sidebar Right" });
+    const sidebar = component.getByRole("dialog", { name: "Sidebar Right" });
+    // ASSERT
+    await expect(FAB).toBeVisible();
+    await expect(sidebar).toBeHidden();
+    await expect(component).toHaveScreenshot("collapsed-right.png");
 
-  const component = await mount(<PlaywrightTest sidebarRight />);
-  const FAB = component.getByRole("button", { name: "Sidebar Right" });
-  const sidebar = component.getByRole("dialog", { name: "Sidebar Right" });
-  // ASSERT
-  await expect(FAB).toBeVisible();
-  await expect(sidebar).toBeHidden();
-  await expect(component).toHaveScreenshot("collapsed-right.png");
+    // ACT
+    await FAB.click();
+    // ASSERT
+    await expect(sidebar).toBeVisible();
+  });
 
-  // ACT
-  await FAB.click();
-  // ASSERT
-  await expect(sidebar).toBeVisible();
-});
+  test("should render fab on small screens (left & right Sidebar)", async ({ mount }) => {
+    // ARRANGE
+    const component = await mount(<PlaywrightTest sidebarLeft sidebarRight />);
 
-test("should render fab on small screens (left & right Sidebar)", async ({ mount, page }) => {
-  // ARRANGE
-  await page.setViewportSize({ height: ONYX_BREAKPOINTS.sm, width: 320 });
+    const FAB = component.getByRole("button", { name: "Global actions" });
+    const FABLeftSidebar = component.getByRole("menuitem", { name: "Sidebar Left" });
+    const leftSidebar = component.getByRole("dialog", { name: "Sidebar Left" });
+    const FABRightSidebar = component.getByRole("menuitem", { name: "Sidebar Right" });
+    const rightSidebar = component.getByRole("dialog", { name: "Sidebar Right" });
+    // ASSERT
+    await expect(FAB).toBeVisible();
+    await expect(leftSidebar).toBeHidden();
+    await expect(rightSidebar).toBeHidden();
+    await expect(component).toHaveScreenshot("collapsed-multible.png");
 
-  const component = await mount(<PlaywrightTest sidebarLeft sidebarRight />);
+    // ACT
+    await FAB.click();
 
-  const FAB = component.getByRole("button", { name: "Global actions" });
-  const FABLeftSidebar = component.getByRole("menuitem", { name: "Sidebar Left" });
-  const leftSidebar = component.getByRole("dialog", { name: "Sidebar Left" });
-  const FABRightSidebar = component.getByRole("menuitem", { name: "Sidebar Right" });
-  const rightSidebar = component.getByRole("dialog", { name: "Sidebar Right" });
-  // ASSERT
-  await expect(FAB).toBeVisible();
-  await expect(leftSidebar).toBeHidden();
-  await expect(rightSidebar).toBeHidden();
-  await expect(component).toHaveScreenshot("collapsed-multible.png");
+    //ASSERT
+    await expect(FABLeftSidebar).toBeVisible();
+    await expect(FABRightSidebar).toBeVisible();
 
-  // ACT
-  await FAB.click();
+    await expect(component).toHaveScreenshot("collapsed-multible-extended.png");
 
-  //ASSERT
-  await expect(FABLeftSidebar).toBeVisible();
-  await expect(FABRightSidebar).toBeVisible();
-
-  await expect(component).toHaveScreenshot("collapsed-multible-extended.png");
-
-  // ACT
-  await FABLeftSidebar.click();
-  // ASSERT
-  await expect(leftSidebar).toBeVisible();
+    // ACT
+    await FABLeftSidebar.click();
+    // ASSERT
+    await expect(leftSidebar).toBeVisible();
+  });
 });

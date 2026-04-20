@@ -1,12 +1,13 @@
 import { expect, test } from "../../../../playwright/a11y.js";
 import EditGridElementDialog, { type GridElementConfig } from "./EditGridElementDialog.vue";
 
+test.use({ viewport: { width: 512, height: 800 } });
+
 test("should behave correctly", async ({ mount, makeAxeBuilder, page }) => {
   const submitEvents: GridElementConfig[] = [];
   let closeEvents = 0;
 
   // ARRANGE
-  await page.setViewportSize({ width: 512, height: 800 });
   await mount(
     <EditGridElementDialog
       open

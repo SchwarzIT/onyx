@@ -38,7 +38,7 @@ test("should behave correctly", async ({ mount, page }) => {
   await closeButton.click();
 
   // ASSERT
-  expectEmit(onOpenUpdate, 1, [false]);
+  await expectEmit(onOpenUpdate, 1, [false]);
   await expect(dialog).toBeVisible();
 });
 
@@ -67,7 +67,7 @@ test("should handle nonDismissible", async ({ mount, page }) => {
   await page.keyboard.press("Escape");
 
   // ASSERT
-  expectEmit(onOpenUpdate, 0);
+  await expectEmit(onOpenUpdate, 0);
 
   // ACT
   await component.update({ props: { nonDismissible: false } });
@@ -76,5 +76,5 @@ test("should handle nonDismissible", async ({ mount, page }) => {
   await page.keyboard.press("Escape");
 
   // ASSERT
-  expectEmit(onOpenUpdate, 1, [false]);
+  await expectEmit(onOpenUpdate, 1, [false]);
 });
