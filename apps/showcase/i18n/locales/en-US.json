@@ -25,5 +25,9 @@
     "preview": {
       "description": "Preview of the different densities using buttons as an example."
     }
+  },
+  "roles": {
+    "devContent": "Developer content (DEV)",
+    "uxContent": "Designer content (UX)"
   }
 }
