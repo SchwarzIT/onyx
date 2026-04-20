@@ -15,18 +15,79 @@ permissions:
   contents: read
 
 jobs:
+  prepare:
+    name: Prepare
+    runs-on: ubuntu-latest
+    outputs:
+      packages: ${{ steps.queryPackages.outputs.packages }}
+    steps:
+      - name: "🛃 Harden the runner (Audit all outbound calls)"
+        uses: step-security/harden-runner@f808768d1510423e83855289c910610ca9b43176 # v2.17.0
+        with:
+          egress-policy: audit
+
+      - name: "🛒 Checkout Repository"
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+
+      - uses: ./.github/templates/node-setup
+
+      - id: queryPackages
+        name: Query Packages
+        run: |
+          set -ex
+
+          query="query { ${{ (inputs.only-changed != '' && format('packages: affectedPackages(base: \"{0}\"', inputs.only-changed)) || 'packages(' }} filter: { has: { field: TASK_NAME, value: \"test:playwright\" } }) { items { name } } }"
+
+          # 1. Query all packages that have a "test:playwright" script
+          # 2. Extract array with package names
+          # 3. Prepare for GITHUB_OUTPUT
+          pnpm turbo query "$query" \
+          | jq -c ".data.packages.items | map(.name)" \
+          | awk '{print "packages="$1}' \
+          | tee "$GITHUB_OUTPUT" \
+          | cat
+
   playwright:
+    needs: prepare
     strategy:
       fail-fast: false
+      max-parallel: 9
       matrix:
-        # to optimize the speed of the screenshot generation, we are using Playwright sharding
-        # to split up the tests in smaller chunks and run them in parallel
-        # for further details, see: https://playwright.dev/docs/test-sharding
-        # more shards can be added below to speed up the executing time if more screenshots are added in the future
-        # note:
-        # - GitHub's shard limit is 256 parallel (see https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs#using-a-matrix-strategy)
-        # - Github's job limit is 20 parallel (see https://docs.github.com/en/actions/reference/limits#job-concurrency-limits-for-github-hosted-runners)
-        shard: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        package: ${{ fromJSON(needs.prepare.outputs.packages) }}
+        shard: [1]
+        include:
+          - package: "sit-onyx"
+            shard: 1
+            totalShards: 10
+          - package: "sit-onyx"
+            shard: 2
+            totalShards: 10
+          - package: "sit-onyx"
+            shard: 3
+            totalShards: 10
+          - package: "sit-onyx"
+            shard: 4
+            totalShards: 10
+          - package: "sit-onyx"
+            shard: 5
+            totalShards: 10
+          - package: "sit-onyx"
+            shard: 6
+            totalShards: 10
+          - package: "sit-onyx"
+            shard: 7
+            totalShards: 10
+          - package: "sit-onyx"
+            shard: 8
+            totalShards: 10
+          - package: "sit-onyx"
+            shard: 9
+            totalShards: 10
+          - package: "sit-onyx"
+            shard: 10
+            totalShards: 10
     name: Playwright shard
     runs-on: ubuntu-latest
     permissions:
@@ -51,34 +112,42 @@ jobs:
       - name: 📦 Install Playwright system dependencies
         id: first-playwright-install
         run: |
-          sudo sed -i 's/archive.ubuntu.com/mirror.enzu.com/g' /etc/apt/apt-mirrors.txt
-
+          set -ex
           pnpm exec playwright install --only-shell --with-deps firefox webkit chromium-headless-shell
-        timeout-minutes: 5
+        timeout-minutes: 3
         continue-on-error: true
 
       - name: 📦 Install Playwright system dependencies using fallback mirror
         if: ${{ steps.first-playwright-install.outcome == 'failure' }}
         run: |
+          set -ex
+
           # Clean-up in progress installation: https://wiki.debian.org/Teams/Dpkg/FAQ#db-lock
-          sudo killall apt apt-get
-          sudo fuser -vk -KILL /var/lib/dpkg/lock /var/lib/dpkg/lock-frontend
+          sudo killall -q apt apt-get || true
+          sudo fuser -vk -KILL /var/lib/dpkg/lock /var/lib/dpkg/lock-frontend || true
           sudo dpkg --configure -a
 
           # Use different mirror
-          sudo sed -i 's/mirror.enzu.com/archive.ubuntu.com/g' /etc/apt/apt-mirrors.txt
+          sudo sed -i 's/azure.archive.ubuntu.com/mirror.enzu.com/g' /etc/apt/apt-mirrors.txt
           sudo cat /etc/apt/apt-mirrors.txt
 
           pnpm exec playwright install --only-shell --with-deps firefox webkit chromium-headless-shell
         timeout-minutes: 10
 
       - name: 🔎 Run Playwright tests
-        run: pnpm run test:playwright:all --concurrency 1 ${{ (inputs.only-changed != '' && format('--affected -- --only-changed {0}', inputs.only-changed)) || '' }}
+        run: pnpm run test:playwright:all --filter="${{ matrix.package }}" --concurrency 1 ${{ ((inputs.only-changed != '' && matrix.package == 'sit-onyx') && format('-- --only-changed {0}', inputs.only-changed)) || '' }}
         env:
           PW_UPDATE_SNAPSHOTS: "${{ inputs.update-snapshots }}"
           PW_SHARD: "${{ matrix.shard }}"
-          PW_TOTAL_SHARDS: "${{ strategy.job-total }}"
+          PW_TOTAL_SHARDS: "${{ matrix.totalShards }}"
           TURBO_SCM_BASE: "${{ inputs.only-changed }}"
+
+      - name: Escape name
+        id: escapedName
+        if: ${{ !cancelled() }}
+        run: |
+          escaped=$(echo -n "${{ matrix.package }}" | tr -C "[:alnum:]" "_")
+          echo "ESCAPED_PACKAGE_NAME=$escaped" >> "$GITHUB_OUTPUT"
 
       # we only want to include actual changed screenshots in the artifact to prevent that old/unchanged screenshots
       # override changed screenshots from other shards when creating the pull request
@@ -91,8 +160,10 @@ jobs:
       - name: Upload screenshots artifact
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: ${{ inputs.update-snapshots == true }}
+        env:
+          ESCAPED_PACKAGE_NAME: ${{ steps.escapedName.outputs.ESCAPED_PACKAGE_NAME }}
         with:
-          name: screenshots-${{ matrix.shard }}
+          name: screenshots-${{ env.ESCAPED_PACKAGE_NAME }}-${{ matrix.shard }}
           path: changed-screenshots
           # prevent warnings if shard does not update any screenshots
           if-no-files-found: ignore
@@ -101,11 +172,14 @@ jobs:
       - name: Upload Reports
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: ${{ !cancelled() }}
+        env:
+          ESCAPED_PACKAGE_NAME: ${{ steps.escapedName.outputs.ESCAPED_PACKAGE_NAME }}
         with:
-          name: blob-report-${{ matrix.shard }}
+          name: blob-report-${{ env.ESCAPED_PACKAGE_NAME }}-${{ matrix.shard }}
           path: |
-            ./packages/*/blob-report
-            ./apps/*/blob-report
+            ./packages/**/blob-report
+            ./apps/**/blob-report
+            !**/node_modules/**
           retention-days: 1
 
   # this final step is needed to we can set make the Playwright tests a required check in pull requests

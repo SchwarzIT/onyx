@@ -113,6 +113,7 @@ const playwrightConfig = {
       "warn",
       {
         assertFunctionNames: [
+          "expectEmit",
           "executeChartScreenshotTest",
           "menuButtonTesting",
           "calendarTesting",

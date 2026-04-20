@@ -1,9 +1,7 @@
 import { expect, test } from "../playwright/a11y.js";
 import TestCase from "./useOpenDirection.ct.vue";
 
-test.beforeEach(async ({ page }) => {
-  await page.setViewportSize({ width: 1000, height: 1000 });
-});
+test.use({ viewport: { width: 1000, height: 1000 } });
 
 test.describe("vertical without overflow parent", () => {
   test("should open bottom when there is more space below", async ({ mount }) => {

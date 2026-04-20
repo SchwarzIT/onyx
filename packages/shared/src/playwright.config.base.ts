@@ -71,7 +71,6 @@ function getDefaultConfig(options?: DefineOnyxPlaywrightConfigOptions) {
             total: +process.env.PW_TOTAL_SHARDS,
           }
         : null,
-
     /**
      * FAILURE HANDLING
      *
@@ -93,6 +92,7 @@ function getDefaultConfig(options?: DefineOnyxPlaywrightConfigOptions) {
     /* In the CI pipeline it generates dot (for the stdout) and blob reports, locally only a html report is generated */
     reporter: process.env.CI ? [["dot"], ["blob"]] : [["html", { open: "never" }]],
     use: {
+      screenshot: process.env.CI ? "only-on-failure" : "off",
       trace: process.env.CI ? "retain-on-failure" : "off",
       video: process.env.CI ? "retain-on-failure" : "off",
       locale: "en-US",

@@ -29,8 +29,11 @@ const columnsWithGroups = columns.map((column, index) => ({
   columnGroupKey: index < 2 ? "group1" : "group2",
 }));
 
-test("sticky Column should stay in View", async ({ page, mount }) => {
-  await page.setViewportSize({ width: 400, height: 1000 });
+test.use({
+  viewport: { width: 400, height: 1000 },
+});
+
+test("sticky Column should stay in View", async ({ mount }) => {
   // ARRANGE
   const data = getTestData();
   const component = await mount(
@@ -56,8 +59,7 @@ test("sticky Column should stay in View", async ({ page, mount }) => {
 const positions = ["left", "right"] as const;
 
 positions.forEach((position) => {
-  test(`should stick on ${position}`, async ({ page, mount }) => {
-    await page.setViewportSize({ width: 400, height: 1000 });
+  test(`should stick on ${position}`, async ({ mount }) => {
     const data = getTestData();
 
     const component = await mount(
@@ -82,8 +84,7 @@ positions.forEach((position) => {
   });
 });
 
-test("multiple stickyColumns", async ({ page, mount }) => {
-  await page.setViewportSize({ width: 400, height: 1000 });
+test("multiple stickyColumns", async ({ mount }) => {
   const data = getTestData();
 
   const component = await mount(
@@ -106,7 +107,6 @@ test("multiple stickyColumns", async ({ page, mount }) => {
 test("should allow scrolling the page", async ({ page, mount }) => {
   // issue: https://github.com/SchwarzIT/onyx/issues/3637
   // ARRANGE
-  await page.setViewportSize({ width: 400, height: 1000 });
 
   const component = await mount(
     <div>
@@ -130,8 +130,7 @@ test("should allow scrolling the page", async ({ page, mount }) => {
 });
 
 positions.forEach((position) => {
-  test(`sticky columns with column groups (${position})`, async ({ page, mount }) => {
-    await page.setViewportSize({ width: 400, height: 1000 });
+  test(`sticky columns with column groups (${position})`, async ({ mount }) => {
     const data = getTestData();
 
     const component = await mount(
