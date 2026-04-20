@@ -16,6 +16,8 @@ const CONTENT = [
   </template>,
 ];
 
+test.use({ viewport: { height: 512, width: 512 } });
+
 test.beforeEach(async ({ page }) => {
   await page.addStyleTag({
     content: `
@@ -23,8 +25,6 @@ test.beforeEach(async ({ page }) => {
     .onyx-sidebar { height: 100vh; }
     `,
   });
-
-  await page.setViewportSize({ height: 512, width: 512 });
 });
 
 test("should render", async ({ mount, makeAxeBuilder }) => {
