@@ -19,12 +19,14 @@ const slots = defineSlots<{
       <OnyxIcon :icon="iconArrowSmallRight" />
     </div>
 
-    <div class="step__content">
+    <div class="step__body">
       <div v-if="slots.headline" class="step__headline">
         <slot name="headline" mdc-unwrap="p"></slot>
       </div>
 
-      <slot mdc-unwrap="p"></slot>
+      <div class="onyx-text--small">
+        <slot mdc-unwrap="p"></slot>
+      </div>
     </div>
   </li>
 </template>
@@ -50,7 +52,7 @@ const slots = defineSlots<{
     justify-content: center;
   }
 
-  &__content {
+  &__body {
     display: flex;
     flex-direction: column;
     gap: var(--onyx-density-2xs);
