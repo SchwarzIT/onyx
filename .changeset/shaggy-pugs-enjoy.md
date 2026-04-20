@@ -2,4 +2,4 @@
 "@sit-onyx/nuxt-docs": patch
 ---
 
-fix(sidebar-layout): remove top margin for first headline
+fix(sidebar-layout): remove top margin for first child
