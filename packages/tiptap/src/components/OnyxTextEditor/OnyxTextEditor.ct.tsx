@@ -800,6 +800,7 @@ test("should include editor in native HTML form validation", async ({ mount }) =
   const editor = component.getByLabel("Test label");
 
   // ACT
+  await expect(editor).toBeEnabled();
   await editor.fill("Filled value");
   await expectEmit(onUpdateModelValue, 1, ["<p>Filled value</p>"]);
 
