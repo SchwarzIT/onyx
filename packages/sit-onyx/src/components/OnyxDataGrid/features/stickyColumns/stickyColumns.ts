@@ -13,49 +13,60 @@ import "./stickyColumns.scss";
 import type { StickyColumnsOptions } from "./types.js";
 
 export const STICKY_COLUMNS_FEATURE = Symbol("StickyColumns");
+export const STICKY_COLUMNS_MUTATION_ORDER = 5000;
 
 export const useStickyColumns = <TEntry extends DataGridEntry>(
   options?: StickyColumnsOptions<TEntry>,
 ) =>
-  createFeature(() => {
-    const stickyColumns = computed(() => toValue(options?.columns) ?? []);
-    const position = computed(() => toValue(options?.position) ?? "left");
+  createFeature((ctx) => {
+    const globalPosition = computed(() => toValue(options?.position) ?? "left");
+
+    const normalizedStickyColumns = computed(() => {
+      const rawColumns = toValue(options?.columns) ?? [];
+      const normalized = rawColumns.map((col) => {
+        if (typeof col === "object" && col !== null && "key" in col) {
+          return {
+            key: col.key as PropertyKey,
+            position: col.position ?? globalPosition.value,
+          };
+        }
+        return { key: col as PropertyKey, position: globalPosition.value };
+      });
+
+      const selectionSymbol = Array.from(ctx.activeFeatures).find(
+        (name) => typeof name === "symbol" && name.description === "Selection",
+      );
+      if (selectionSymbol) {
+        normalized.unshift({ key: selectionSymbol, position: "left" });
+      }
+
+      return normalized;
+    });
+
+    const leftStickyKeys = computed(() =>
+      normalizedStickyColumns.value.filter((c) => c.position === "left").map((c) => c.key),
+    );
+    const rightStickyKeys = computed(() =>
+      normalizedStickyColumns.value.filter((c) => c.position === "right").map((c) => c.key),
+    );
+
     const elementWidths = ref<Record<PropertyKey, number>>({});
     const elementsToStyle = ref<Record<PropertyKey, HTMLElement>>({});
     const stickyId = useId();
-    const isScrolled = ref(false);
+
+    const isScrolledLeft = ref(false);
+    const isScrolledRight = ref(false);
 
     const createStickyPositionCssVar = (key: PropertyKey) =>
       `--onyx-data-grid-sticky-column-position-${stickyId}-${escapeCSS(key)}`;
 
-    // ensure ResizeObserver is only called on mount to support server side rendering
-    onMounted(() => {
-      if (!("ResizeObserver" in window)) return;
+    const setElementStyles = (key: PropertyKey, position: "left" | "right") => {
+      const relevantKeys = position === "left" ? leftStickyKeys.value : rightStickyKeys.value;
+      const index = relevantKeys.indexOf(key);
+      if (index === -1) return;
 
-      const resizeObserver = new ResizeObserver(() => {
-        Object.entries(elementsToStyle.value).forEach(
-          ([column, el]: [PropertyKey, HTMLElement]) =>
-            (elementWidths.value[column] = el.getBoundingClientRect().width),
-        );
-
-        stickyColumns.value.forEach((columnKey, i) => setElementStyles(columnKey, i));
-      });
-
-      watch(
-        elementsToStyle,
-        () => {
-          resizeObserver.disconnect();
-          Object.values(elementsToStyle.value).forEach((el) => resizeObserver.observe(el));
-        },
-        { deep: true, immediate: true },
-      );
-      onUnmounted(() => resizeObserver.disconnect());
-    });
-
-    const setElementStyles = (key: PropertyKey, index: number) => {
-      if (!options) return;
-      const width = stickyColumns.value
-        .map((key) => elementWidths.value[key])
+      const width = relevantKeys
+        .map((colKey) => elementWidths.value[colKey] || 0)
         .reduce((acc, currentWidth, i) => {
           if (i < index) {
             return acc + currentWidth;
@@ -65,62 +76,107 @@ export const useStickyColumns = <TEntry extends DataGridEntry>(
 
       document.body.style.setProperty(createStickyPositionCssVar(key), `${width}px`);
     };
+
+    watch(
+      normalizedStickyColumns,
+      (newCols) => {
+        nextTick(() => {
+          newCols.forEach((col) => setElementStyles(col.key, col.position));
+        });
+      },
+      { deep: true, immediate: true },
+    );
+
     const handleScroll = (el: Element) => {
       const width = el.scrollWidth - el.clientWidth;
       const scrollLeft = Math.round(el.scrollLeft);
-      isScrolled.value =
-        (position.value === "left" && scrollLeft > 0) ||
-        (position.value === "right" && scrollLeft < width);
+      isScrolledLeft.value = scrollLeft > 0;
+      isScrolledRight.value = scrollLeft < width;
     };
+
+    // ensure ResizeObserver is only called on mount to support server side rendering
+    onMounted(() => {
+      if (!("ResizeObserver" in window)) return;
+
+      const resizeObserver = new ResizeObserver(() => {
+        Reflect.ownKeys(elementsToStyle.value).forEach((column) => {
+          const el = elementsToStyle.value[column as PropertyKey];
+          elementWidths.value[column as PropertyKey] = el?.getBoundingClientRect().width || 0;
+        });
+
+        normalizedStickyColumns.value.forEach((col) => setElementStyles(col.key, col.position));
+      });
+
+      watch(
+        elementsToStyle,
+        () => {
+          resizeObserver.disconnect();
+
+          Reflect.ownKeys(elementsToStyle.value).forEach((column) => {
+            const el = elementsToStyle.value[column as PropertyKey];
+            if (el) resizeObserver.observe(el);
+          });
+        },
+        { deep: true, immediate: true },
+      );
+      onUnmounted(() => resizeObserver.disconnect());
+    });
 
     return {
       name: STICKY_COLUMNS_FEATURE,
-      watch: [position, stickyColumns, isScrolled],
+      watch: [normalizedStickyColumns, isScrolledLeft, isScrolledRight],
+
       modifyColumns: {
+        order: STICKY_COLUMNS_MUTATION_ORDER,
         func: (columnConfig) => {
-          const sticky = columnConfig
-            .filter((col) => stickyColumns.value.includes(col.key))
-            .map((column) => {
-              const style =
-                position.value === "left"
-                  ? {
-                      right: "auto",
-                      left: `var(${createStickyPositionCssVar(column.key)})`,
-                    }
-                  : {
-                      left: "auto",
-                      right: `var(${createStickyPositionCssVar(column.key)})`,
-                    };
-              const stickyAttrs = {
-                style,
-                class: {
-                  "onyx-data-grid-sticky-columns--sticky": true,
-                  [position.value]: true,
-                  isScrolled: isScrolled.value,
-                },
-              };
-              return {
-                ...column,
-                thAttributes: mergeVueProps(
-                  {
-                    ...stickyAttrs,
-                    ref: (el) => {
-                      if (el) {
-                        elementsToStyle.value[column.key] = el as HTMLElement;
-                      } else {
-                        delete elementsToStyle.value[column.key];
-                      }
-                    },
+          type ColumnDef = (typeof columnConfig)[number];
+
+          const leftSticky: ColumnDef[] = [];
+          const rightSticky: ColumnDef[] = [];
+          const nonSticky: ColumnDef[] = [];
+
+          columnConfig.forEach((column) => {
+            const stickyDef = normalizedStickyColumns.value.find((c) => c.key === column.key);
+            if (!stickyDef) {
+              nonSticky.push(column);
+              return;
+            }
+
+            const pos = stickyDef.position;
+            const isScrolled = pos === "left" ? isScrolledLeft.value : isScrolledRight.value;
+
+            const stickyAttrs = {
+              style: {
+                [pos === "left" ? "right" : "left"]: "auto",
+                [pos]: `var(${createStickyPositionCssVar(column.key)})`,
+              },
+              class: {
+                "onyx-data-grid-sticky-columns--sticky": true,
+                [pos]: true,
+                isScrolled,
+              },
+            };
+
+            const modifiedColumn = {
+              ...column,
+              thAttributes: mergeVueProps(
+                {
+                  ...stickyAttrs,
+                  ref: (el) => {
+                    if (el) elementsToStyle.value[column.key] = el as HTMLElement;
+                    else delete elementsToStyle.value[column.key];
                   },
-                  column.thAttributes,
-                ),
-                tdAttributes: mergeVueProps(stickyAttrs, column.tdAttributes),
-              };
-            });
-          const nonSticky = columnConfig.filter((col) => !stickyColumns.value.includes(col.key));
-          return position.value === "left"
-            ? [...sticky, ...nonSticky]
-            : [...nonSticky, ...sticky.slice().reverse()];
+                },
+                column.thAttributes,
+              ),
+              tdAttributes: mergeVueProps(stickyAttrs, column.tdAttributes),
+            };
+
+            if (pos === "left") leftSticky.push(modifiedColumn);
+            else rightSticky.push(modifiedColumn);
+          });
+
+          return [...leftSticky, ...nonSticky, ...rightSticky.slice().reverse()];
         },
       } satisfies ModifyColumns<TEntry>,
 
@@ -133,27 +189,32 @@ export const useStickyColumns = <TEntry extends DataGridEntry>(
             const groupColumns = columns.slice(currentIdx, currentIdx + group.span);
             currentIdx += group.span;
 
-            const stickyCount = groupColumns.filter((col) =>
-              stickyColumns.value.includes(col.key),
-            ).length;
+            const groupStickyDefs = groupColumns
+              .map((col) => normalizedStickyColumns.value.find((c) => c.key === col.key))
+              .filter((def) => def !== undefined);
 
+            const stickyCount = groupStickyDefs.length;
             const allSticky = stickyCount === groupColumns.length;
             const partiallySticky = stickyCount > 0 && stickyCount < groupColumns.length;
 
+            const groupPosition = groupStickyDefs[0]?.position ?? "left";
+            const isGroupScrolled =
+              groupPosition === "left" ? isScrolledLeft.value : isScrolledRight.value;
+
             // Only split if partially sticky and the table is currently scrolled
-            if (partiallySticky && isScrolled.value) {
+            if (partiallySticky && isGroupScrolled) {
               const stickyPartCols = groupColumns.filter((c) =>
-                stickyColumns.value.includes(c.key),
+                normalizedStickyColumns.value.some((def) => def.key === c.key),
               );
               const normalPartCols = groupColumns.filter(
-                (c) => !stickyColumns.value.includes(c.key),
+                (c) => !normalizedStickyColumns.value.some((def) => def.key === c.key),
               );
 
               const leadStickyCol =
-                position.value === "left" ? stickyPartCols[0] : stickyPartCols.at(-1);
+                groupPosition === "left" ? stickyPartCols[0] : stickyPartCols.at(-1);
 
               const stickyPart: TableColumnGroup = {
-                key: Symbol(`${group.key.toString()}-sticky`),
+                key: `${group.key.toString()}-sticky`,
                 span: stickyPartCols.length,
                 header: group.header,
                 class: leadStickyCol?.thAttributes?.class,
@@ -166,7 +227,7 @@ export const useStickyColumns = <TEntry extends DataGridEntry>(
                 header: group.header,
               };
 
-              if (position.value === "left") {
+              if (groupPosition === "left") {
                 processedGroups.push(stickyPart, normalPart);
               } else {
                 processedGroups.push(normalPart, stickyPart);
@@ -175,7 +236,7 @@ export const useStickyColumns = <TEntry extends DataGridEntry>(
               // if all columns are sticky, apply the sticky styles to the group header
               const modifiedGroup = { ...group };
               if (allSticky) {
-                const leadCol = position.value === "left" ? groupColumns[0] : groupColumns.at(-1);
+                const leadCol = groupPosition === "left" ? groupColumns[0] : groupColumns.at(-1);
                 modifiedGroup.class = leadCol?.thAttributes?.class;
                 modifiedGroup.style = leadCol?.thAttributes?.style;
               }
@@ -189,9 +250,7 @@ export const useStickyColumns = <TEntry extends DataGridEntry>(
 
       scrollContainerAttributes: () => ({
         ref: (el) => {
-          if (el) {
-            nextTick(() => handleScroll(el as Element));
-          }
+          if (el) nextTick(() => handleScroll(el as Element));
         },
         onScrollCapturePassive: (e: Event) => handleScroll(e.target as HTMLElement),
       }),

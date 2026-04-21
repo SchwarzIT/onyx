@@ -2,6 +2,7 @@ import { iconMoreHorizontalSmall } from "@sit-onyx/icons";
 import {
   computed,
   h,
+  reactive,
   toValue,
   type Component,
   type HTMLAttributes,
@@ -186,6 +187,10 @@ export type DataGridFeatureContext = {
    * Whether the data grid should be shows as skeleton.
    */
   skeleton: Readonly<Ref<number | boolean>>;
+  /**
+   * Set of all active Features
+   */
+  activeFeatures: Readonly<Set<symbol | string>>;
 };
 
 /**
@@ -526,7 +531,9 @@ export const useDataGridFeatures = <
     skeleton,
   }: UseDataGridFeaturesOptions<TEntry, TColumnGroup, TTypes>,
 ) => {
-  const features = featureDefinitions.map((f) => f({ async, i18n, skeleton }));
+  const activeFeatures = reactive(new Set<symbol>());
+  const features = featureDefinitions.map((f) => f({ async, i18n, skeleton, activeFeatures }));
+  features.forEach((f) => activeFeatures.add(f.name));
 
   const columnMappings = computed(() =>
     prepareMapping<InternalColumnConfig<TEntry>[], typeof features, "modifyColumns">(
