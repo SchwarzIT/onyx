@@ -1,20 +1,20 @@
 <script lang="ts" setup>
 import { iconCode, iconToolColorFill } from "@sit-onyx/icons";
+import type { SelectOption } from "sit-onyx";
+import nuxtIcon from "~/assets/images/nuxt.svg?raw";
+import vueIcon from "~/assets/images/vue.svg?raw";
 
-defineSlots<{
-  /**
-   * DEV content.
-   */
-  dev(): unknown;
-  /**
-   * UX content.
-   */
-  ux(): unknown;
+type ContentTabValue = "dev" | "ux" | "vue" | "nuxt";
+
+const slots = defineSlots<{
+  [T in ContentTabValue]?: () => unknown;
 }>();
 
 const { t } = useI18n();
 
-const selectedOption = ref<"dev" | "ux">("dev");
+const availableTabs = computed(() => Object.keys(slots) as ContentTabValue[]);
+
+const selectedOption = ref<ContentTabValue>(availableTabs.value[0] ?? "dev");
 
 const handleChange = (event: Event) => {
   const target = event.target as HTMLInputElement;
@@ -22,13 +22,20 @@ const handleChange = (event: Event) => {
 };
 
 const options = computed(() => {
-  return [
+  const tabs = [
     { label: t("roles.devContent"), value: "dev", icon: iconCode },
     { label: t("roles.uxContent"), value: "ux", icon: iconToolColorFill },
-  ];
+    { label: "Vue", value: "vue", icon: vueIcon },
+    { label: "Nuxt", value: "nuxt", icon: nuxtIcon },
+  ] satisfies SelectOption<ContentTabValue>[];
+
+  return tabs
+    .filter((option) => availableTabs.value.includes(option.value))
+    .sort((a, b) => availableTabs.value.indexOf(a.value) - availableTabs.value.indexOf(b.value));
 });
 </script>
 
+<!-- eslint-disable vue/require-explicit-slots -- false positive, slots are defined by mapped type -->
 <template>
   <div>
     <fieldset class="switch" @change="handleChange">
@@ -54,13 +61,11 @@ const options = computed(() => {
       </label>
     </fieldset>
 
-    <div v-show="selectedOption === 'dev'">
-      <slot name="dev"></slot>
-    </div>
-
-    <div v-show="selectedOption === 'ux'">
-      <slot name="ux"></slot>
-    </div>
+    <template v-for="(slot, slotName) in slots" :key="slotName">
+      <div v-show="selectedOption === slotName">
+        <component :is="slot" />
+      </div>
+    </template>
   </div>
 </template>
 
