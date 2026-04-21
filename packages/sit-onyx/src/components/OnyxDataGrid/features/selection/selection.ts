@@ -1,4 +1,4 @@
-import { h, ref, toRef, useId, type Ref } from "vue";
+import { h, ref, toRef, type Ref } from "vue";
 import OnyxCheckbox from "../../../OnyxCheckbox/OnyxCheckbox.vue";
 import type { DataGridEntry } from "../../types.js";
 import { createFeature, useFeatureContext, type ModifyColumns } from "../index.js";
@@ -11,7 +11,6 @@ export const SELECTION_MUTATION_ORDER = 1000;
 
 export const useSelection = <TEntry extends DataGridEntry>(options?: SelectionOptions) =>
   createFeature((ctx) => {
-    const SELECTION_COLUMN = `selection-column-${useId()}`;
     const selectionState: Ref<SelectionState> = toRef(
       options?.selectionState ??
         ({
@@ -60,8 +59,8 @@ export const useSelection = <TEntry extends DataGridEntry>(options?: SelectionOp
 
         return [
           {
-            key: SELECTION_COLUMN,
-            type: { name: SELECTION_COLUMN },
+            key: SELECTION_FEATURE,
+            type: { name: SELECTION_FEATURE },
             label: "",
             width: "2.5rem",
           },
@@ -81,7 +80,7 @@ export const useSelection = <TEntry extends DataGridEntry>(options?: SelectionOp
         order: SELECTION_MUTATION_ORDER,
       },
       typeRenderer: {
-        [SELECTION_COLUMN]: createTypeRenderer({
+        [SELECTION_FEATURE]: createTypeRenderer({
           header: {
             thAttributes: { class: "onyx-data-grid-selection-cell" },
             component: () =>
