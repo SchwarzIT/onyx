@@ -11,15 +11,19 @@ updates:
     schedule:
       interval: daily
     groups:
+      playwright:
+        patterns:
+          - "@playwright/*"
+          - "playwright*"
+
       minor:
-        dependency-type: "development"
         update-types:
           - minor
           - patch
       major:
-        dependency-type: "development"
         update-types:
           - major
+
     ignore:
       # keep this in sync with .node-version file, if we e.g. use node 20, we do not want to update the types to latest 22
       - dependency-name: "@types/node"
@@ -37,26 +41,10 @@ updates:
       - dependency-name: "typescript"
         update-types: [version-update:semver-major]
 
-  - package-ecosystem: npm
-    directory: /
-    versioning-strategy: widen
-    cooldown:
-      default-days: 2 # Wait two days after a new version release - This is in sync with the `pnpm-workspace.yaml` `minimumReleaseAge` config
-    schedule:
-      interval: weekly
-    groups:
-      minor:
-        dependency-type: "production"
-        update-types:
-          - minor
-          - patch
-      major:
-        dependency-type: "production"
-        update-types:
-          - major
-
   - package-ecosystem: github-actions
-    directory: /
+    directories:
+      - "/"
+      - ".github/templates/*"
     cooldown:
       default-days: 2 # Wait two days after a new version release - This is in sync with the `pnpm-workspace.yaml` `minimumReleaseAge` config
     schedule:
