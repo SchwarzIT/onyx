@@ -12,12 +12,12 @@ import {
   normalizedIncludes,
   OnyxAppLayout,
   OnyxButton,
+  OnyxGlobalSearch,
+  OnyxGlobalSearchGroup,
+  OnyxGlobalSearchOption,
   OnyxInfoCard,
   OnyxNavBar,
   OnyxPageLayout,
-  OnyxUnstableGlobalSearch,
-  OnyxUnstableGlobalSearchGroup,
-  OnyxUnstableGlobalSearchOption,
   OnyxUnstableNavButton,
   type OnyxGlobalSearchOptionProps,
 } from "../../../index.js";
@@ -153,22 +153,22 @@ const showMoreButton = computed(() => {
       <!-- your page content would go here... -->
     </OnyxPageLayout>
 
-    <OnyxUnstableGlobalSearch v-model:open="isOpen" v-model="searchTerm" :loading="isLoading">
+    <OnyxGlobalSearch v-model:open="isOpen" v-model="searchTerm" :loading="isLoading">
       <!-- show skeleton while search results are loading -->
-      <OnyxUnstableGlobalSearchGroup v-if="isLoading" label="Search results" skeleton />
+      <OnyxGlobalSearchGroup v-if="isLoading" label="Search results" skeleton />
 
       <template v-else>
-        <OnyxUnstableGlobalSearchGroup
+        <OnyxGlobalSearchGroup
           v-for="group in searchGroups"
           :key="group.label"
           :label="group.label"
         >
-          <OnyxUnstableGlobalSearchOption
+          <OnyxGlobalSearchOption
             v-for="option in group.options"
             :key="option.value"
             v-bind="option"
           />
-        </OnyxUnstableGlobalSearchGroup>
+        </OnyxGlobalSearchGroup>
       </template>
 
       <!--
@@ -191,6 +191,6 @@ const showMoreButton = computed(() => {
           link="#search-results-page"
         />
       </template>
-    </OnyxUnstableGlobalSearch>
+    </OnyxGlobalSearch>
   </OnyxAppLayout>
 </template>

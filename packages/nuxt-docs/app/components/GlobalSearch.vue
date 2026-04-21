@@ -110,13 +110,9 @@ const filteredSearchResults = computed(() => {
     @click="isOpen = true"
   />
 
-  <OnyxUnstableGlobalSearch
-    v-model="searchTerm"
-    v-model:open="isOpen"
-    :loading="status === 'pending'"
-  >
+  <OnyxGlobalSearch v-model="searchTerm" v-model:open="isOpen" :loading="status === 'pending'">
     <template v-if="filteredSearchResults.length" #default>
-      <OnyxUnstableGlobalSearchGroup
+      <OnyxGlobalSearchGroup
         v-for="group in filteredSearchResults"
         :key="group.label"
         :label="group.label"
@@ -125,19 +121,19 @@ const filteredSearchResults = computed(() => {
         <template v-for="option in group.options" :key="option.value">
           <LazyLocaleSwitch v-if="option.value === 'locale'">
             <template #default="{ trigger }">
-              <OnyxUnstableGlobalSearchOption v-bind="mergeVueProps(trigger, option)" />
+              <OnyxGlobalSearchOption v-bind="mergeVueProps(trigger, option)" />
             </template>
           </LazyLocaleSwitch>
 
           <ColorSchemeSwitch v-else-if="option.value === 'colorScheme'">
             <template #default="{ trigger }">
-              <OnyxUnstableGlobalSearchOption v-bind="mergeVueProps(trigger, option)" />
+              <OnyxGlobalSearchOption v-bind="mergeVueProps(trigger, option)" />
             </template>
           </ColorSchemeSwitch>
 
-          <OnyxUnstableGlobalSearchOption v-else v-bind="option" @click="isOpen = false" />
+          <OnyxGlobalSearchOption v-else v-bind="option" @click="isOpen = false" />
         </template>
-      </OnyxUnstableGlobalSearchGroup>
+      </OnyxGlobalSearchGroup>
     </template>
-  </OnyxUnstableGlobalSearch>
+  </OnyxGlobalSearch>
 </template>

@@ -1,23 +1,12 @@
-<script lang="ts">
-/**
- * @experimental
- * @deprecated This component is still under active development and its API might change in patch releases.
- */
-export default {};
-</script>
-
 <script lang="ts" setup>
-import { computed, useId } from "vue";
-import { useDensity } from "../../composables/density.js";
-import {
-  SKELETON_INJECTED_SYMBOL,
-  useSkeletonContext,
-} from "../../composables/useSkeletonState.js";
+import { computed } from "vue";
+import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
+import { useForwardProps } from "../../utils/props.js";
+import type { FormElementV2LabelOptions } from "../OnyxFormElementV2/types.js";
 import OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
 import type { SelectOption } from "../OnyxSelect/types.js";
-import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import { type OnyxItemsPerPageProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxItemsPerPageProps>(), {
@@ -33,8 +22,7 @@ const emit = defineEmits<{
 }>();
 
 const { t } = injectI18n();
-const { densityClass } = useDensity(props);
-const skeleton = useSkeletonContext(props);
+const selectProps = useForwardProps(props, OnyxSelect);
 
 /**
  * Current value of the input.
@@ -49,88 +37,48 @@ const selectOptions = computed<SelectOption<number>[]>(() =>
   props.options.map((option) => ({ label: option.toString(), value: option })),
 );
 
-const id = useId();
+const labelOptions = computed<FormElementV2LabelOptions>(() => {
+  return {
+    label: t.value("itemsPerPage.label"),
+    position: "right",
+    ...props.label,
+  };
+});
 </script>
 
 <template>
-  <OnyxSkeleton
-    v-if="skeleton"
-    :class="['onyx-items-per-page-skeleton', 'onyx-text', densityClass]"
-  />
-  <div
-    v-else
-    :class="[
-      'onyx-component',
-      'onyx-items-per-page',
-      { 'onyx-items-per-page--reverse': props.labelAlignment === 'left' },
-      densityClass,
-    ]"
+  <OnyxSelect
+    v-bind="selectProps"
+    v-model="modelValue"
+    :options="selectOptions"
+    :label="labelOptions"
+    :list-label="t('itemsPerPage.select.listLabel')"
+    class="onyx-items-per-page"
     :style="{ '--onyx-items-per-page-character-count': modelValue.toString().length }"
-  >
-    <OnyxSelect
-      :id="id"
-      v-model="modelValue"
-      :options="selectOptions"
-      :disabled="props.disabled"
-      hide-label
-      :label="t('itemsPerPage.label')"
-      :list-label="t('itemsPerPage.select.listLabel')"
-      class="onyx-items-per-page__select"
-      hide-clear-icon
-      :alignment="props.labelAlignment === 'right' || props.hideLabel ? 'left' : 'right'"
-    />
-    <label
-      v-if="!props.hideLabel"
-      :for="id"
-      :class="['onyx-items-per-page__label', 'onyx-truncation-ellipsis']"
-    >
-      {{ t("itemsPerPage.label") }}
-    </label>
-  </div>
+    hide-clear-icon
+  />
 </template>
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
 @use "../../styles/mixins/text.scss";
 
-.onyx-items-per-page-skeleton {
-  @include layers.component() {
-    --onyx-items-per-page-padding-vertical: var(--onyx-density-xs);
-    --onyx-items-per-page-height: calc(1lh + 2 * var(--onyx-items-per-page-padding-vertical));
-  }
-}
-
-.onyx-items-per-page-skeleton {
-  @include layers.component() {
-    height: var(--onyx-items-per-page-height);
-    // 6.5rem for the label width
-    // 5rem for the select minimum width
-    width: calc(6.5rem + 5rem);
-  }
-}
-
 .onyx-items-per-page {
   @include layers.component() {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--onyx-density-xs);
-    max-width: 100%;
+    // support growing select based on current page character count
+    --onyx-form-element-v2-input-width: #{text.ch(var(--onyx-items-per-page-character-count))};
+    width: max-content;
 
-    &__label {
-      color: var(--onyx-color-text-icons-neutral-medium);
-      font-size: var(--onyx-font-size-md);
-      font-family: var(--onyx-font-family-paragraph);
-      line-height: var(--onyx-font-line-height-md);
+    .onyx-form-element-v2__content-skeleton {
+      width: 5rem;
     }
 
-    &__select {
-      // support growing select based on current page character count
-      --onyx-form-element-v2-input-width: #{text.ch(var(--onyx-items-per-page-character-count))};
-      width: auto;
+    .onyx-form-element-v2__body {
+      width: max-content;
     }
 
-    &--reverse {
-      flex-direction: row-reverse;
+    .onyx-form-element-v2__label {
+      overflow: hidden;
     }
   }
 }

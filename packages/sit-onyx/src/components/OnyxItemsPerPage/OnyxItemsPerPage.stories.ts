@@ -7,7 +7,7 @@ import OnyxItemsPerPage from "./OnyxItemsPerPage.vue";
 const meta: Meta<typeof OnyxItemsPerPage> = {
   title: "Data/ItemsPerPage",
   component: OnyxItemsPerPage,
-  tags: ["unstable"],
+  tags: ["new:component"],
 };
 
 export default meta;
@@ -30,6 +30,6 @@ export const Skeleton = {
 export const LeftLabel = {
   args: {
     ...Default.args,
-    labelAlignment: "left",
+    label: { position: "left" },
   },
 } satisfies Story;

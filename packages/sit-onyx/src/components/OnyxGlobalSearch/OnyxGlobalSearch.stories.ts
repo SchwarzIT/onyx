@@ -5,7 +5,7 @@ import OnyxGlobalSearch from "./OnyxGlobalSearch.vue";
 const meta: Meta<typeof OnyxGlobalSearch> = {
   title: "Search & Filter/GlobalSearch",
   component: OnyxGlobalSearch,
-  tags: ["unstable"],
+  tags: ["new:component"],
   parameters: {
     layout: "fullscreen",
   },

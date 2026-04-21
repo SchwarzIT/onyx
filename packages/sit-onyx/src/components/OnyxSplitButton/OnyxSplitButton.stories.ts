@@ -14,8 +14,8 @@ import OnyxSplitButton from "./OnyxSplitButton.vue";
  */
 const meta: Meta<typeof OnyxSplitButton> = {
   title: "Buttons/SplitButton",
-  tags: ["unstable"],
   component: OnyxSplitButton,
+  tags: ["new:component"],
   argTypes: {
     icon: defineIconSelectArgType(),
     ...withNativeEventLogging(["onClick"]),
