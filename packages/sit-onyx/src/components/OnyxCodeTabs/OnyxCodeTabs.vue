@@ -45,6 +45,7 @@ const handleCopy = async () => {
   if (!activeTabCode.value) return;
 
   try {
+    // eslint-disable-next-line compat/compat -- event handler is safe as it can only be triggered in the client
     await navigator.clipboard.writeText(activeTabCode.value);
     copyStatus.value = "success";
   } catch {
