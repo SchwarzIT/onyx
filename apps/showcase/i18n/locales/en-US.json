@@ -30,5 +30,10 @@
   "roles": {
     "devContent": "Developer content (DEV)",
     "uxContent": "Designer content (UX)"
-  }
+  },
+  "i18n": {
+    "code": "Code",
+    "languageMissing": "Language missing?"
+  },
+  "createFeatureRequest": "Create a feature request here"
 }

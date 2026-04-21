@@ -1,0 +1,137 @@
+---
+title: Internationalization (i18n)
+description: Internationalization is supported out-of-the-box. This includes commonly used translations that are used by our components like texts for cancel / confirm buttons, "No data" scenarios and more.
+---
+
+## Build-in languages
+
+::info-card{headline="AI transparency information" color="neutral"}
+The English and German translations are created manually by native (or near-native) speakers.
+Based on them, the other languages are generated using Artificial Intelligence (AI) but might have been (partially) reviewed or adjusted by native speakers afterwards.
+::
+
+| Name                 | Code  | Translated keys |
+| -------------------- | ----- | --------------- |
+| American English     | en-US | 100%            |
+| German (Germany)     | de-DE | 100%            |
+| Bulgarian (Bulgaria) | bg-BG | 100%            |
+| Croatian (Croatia)   | hr-HR | 100%            |
+| Czech (Czechia)      | cs-CZ | 100%            |
+| Dutch (Netherlands)  | nl-NL | 100%            |
+| European Portuguese  | pt-PT | 100%            |
+| European Spanish     | es-ES | 100%            |
+| French (France)      | fr-FR | 100%            |
+| Italian (Italy)      | it-IT | 100%            |
+| Korean (South Korea) | ko-KR | 100%            |
+| Polish (Poland)      | pl-PL | 100%            |
+| Romanian (Romania)   | ro-RO | 100%            |
+| Slovak (Slovakia)    | sk-SK | 100%            |
+
+## Usage
+
+The default locale is `en-US`, and only the `en-US` translation messages are used by default. You must provide the locale and additional translation messages globally via the `createOnyx` Vue plugin.
+
+### Plain
+
+```ts [main.ts]
+import { ref, createApp } from "vue";
+import { createOnyx } from "sit-onyx";
+import onyxDeDE from "sit-onyx/locales/de-DE.json";
+import frFR from "./locales/fr.json";
+
+const locale = ref("de-DE");
+
+const onyx = createOnyx({
+  i18n: {
+    // The locale updates whenever the locale ref changes.
+    // Ensure the locale matches the message identifier exactly.
+    locale,
+    messages: { "de-DE": onyxDeDE, "fr-FR": frFR },
+  },
+});
+
+createApp(App).use(onyx).mount("#app");
+```
+
+### vue-i18n
+
+All built-in component texts are available in English (default) and German. The locale ref syncs with `vue-i18n`.
+
+```ts [main.ts]
+import { ref, createApp } from "vue";
+import { createOnyx } from "sit-onyx";
+import onyxDeDE from "sit-onyx/locales/de-DE.json";
+
+// your project translation setup
+import { useI18n } from "vue-i18n";
+import enUS from "./i18n/locales/en-US.json";
+import deDE from "./i18n/locales/de-DE.json";
+
+const i18n = createI18n({
+  legacy: false,
+  locale: "en-US",
+  messages: { "en-US": enUS, "de-DE": deDE },
+});
+
+const onyx = createOnyx({
+  i18n: {
+    // The onyx locale will be updated whenever your vue-i18n locale changes
+    locale: i18n.global.locale,
+    // make sure that the key for each language is the same that you are using
+    // for your vue-i18n JSON files
+    messages: { "de-DE": onyxDeDE },
+  },
+});
+
+createApp(App).use(i18n).use(onyx).mount("#app");
+```
+
+### Nuxt
+
+Manual i18n configuration is unnecessary when using [Nuxt](https://nuxt.com/) with the [`@sit-onyx/nuxt`](https://www.npmjs.com/package/@sit-onyx/nuxt) module.
+
+For further details, please refer to the [Nuxt module documentation](/resources/npm-packages/nuxt).
+
+## Customization
+
+You can provide additional languages, override specific messages, or use a custom translation function.
+
+- Add translations within your project or via a pull request (PR) to the `onyx` library.
+- You must maintain translation keys, as these might change in minor or major releases.
+
+```ts [Add translation]
+import type { OnyxTranslations } from "sit-onyx";
+
+const myCustomLanguage: OnyxTranslations = {
+  // Add translations here
+  someMessage: "Hello World",
+};
+```
+
+```ts [Override a message]
+import enUS from "sit-onyx/locales/en-US.json";
+
+enUS.someMessage = "Custom translation";
+
+const onyx = createOnyx({
+  i18n: {
+    // ...
+    messages: { "en-US": enUS },
+  },
+});
+```
+
+::info-card{color="neutral" headline="Editors note"}
+Contribution auf Contribution Seite erklären und hier einfach den Link dazu zeigen
+::
+
+We welcome community contributions. To add a language, [create a pull request](https://github.com/SchwarzIT/onyx/pulls).
+Add the translations to the [locales folder](https://github.com/SchwarzIT/onyx/tree/main/packages/sit-onyx/src/i18n/locales).
+
+```json [When contributing]
+// Create a new JSON file for your language (for example, "fr-FR")
+// in the locales folder and add your translations.
+{
+  "someMessage": "Bonjour le monde"
+}
+```
