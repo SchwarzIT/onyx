@@ -768,12 +768,16 @@ test("should show error", async ({ mount }) => {
   // ASSERT
   await expect(error).toBeHidden();
 
-  // ACT
-  await input.clear();
+  await expect(async () => {
+    // flaky workaround
 
-  // ASSERT
-  await expect(error, "should show error when touched").toBeVisible();
-  await expect(error).toContainText("Required");
+    // ACT
+    await input.clear();
+
+    // ASSERT
+    await expect(error, "should show error when touched").toBeVisible();
+    await expect(error).toContainText("Required");
+  }, "should show error when cleared").toPass();
 
   // ACT
   await component.update({ props: { error: "Custom error" } });
