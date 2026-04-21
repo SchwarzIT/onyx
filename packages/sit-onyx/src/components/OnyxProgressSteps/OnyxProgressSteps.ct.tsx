@@ -17,7 +17,13 @@ test.describe("Screenshot tests", () => {
     columns: ORIENTATIONS,
     rows: DENSITIES,
     component: (column, row) => (
-      <OnyxProgressSteps density={row} orientation={column} steps={STEPS} modelValue={2} />
+      <OnyxProgressSteps
+        density={row}
+        orientation={column}
+        steps={STEPS}
+        modelValue={2}
+        style={{ padding: ".5rem" }}
+      />
     ),
   });
 });
@@ -28,7 +34,13 @@ test.describe("Screenshot tests (visited)", () => {
     columns: ORIENTATIONS,
     rows: DENSITIES,
     component: (column, row) => (
-      <OnyxProgressSteps density={row} orientation={column} steps={STEPS} highestValue={3} />
+      <OnyxProgressSteps
+        density={row}
+        orientation={column}
+        steps={STEPS}
+        highestValue={3}
+        style={{ padding: ".5rem" }}
+      />
     ),
   });
 });
