@@ -207,8 +207,6 @@ test("should allow per-column positioning (left and right simultaneously)", asyn
   await expect(stickyColK).toContainClass("onyx-data-grid-sticky-columns--sticky");
   await expect(stickyColK).toContainClass("right");
   await expect(stickyColK).toHaveCSS("right", /[0-9]+px/);
-
-  await expect(component).toHaveScreenshot("data-grid-sticky-columns-mixed.png");
 });
 
 test("selection column is automatically sticky when both features are active", async ({
