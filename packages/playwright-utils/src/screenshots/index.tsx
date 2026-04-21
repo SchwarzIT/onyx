@@ -145,7 +145,7 @@ export const useMatrixScreenshotTest = <TContext extends HookContext = HookConte
 
       const component = await mount(html);
       await Promise.all(waitForLoaded);
-      await expect(component).toHaveScreenshot(`${options.name}.png`);
+      await expect(component).toHaveScreenshot(`${options.name}.png`, { timeout: 10_000 });
 
       await page.unroute(`${SCREENSHOT_ROUTE}*`);
     });

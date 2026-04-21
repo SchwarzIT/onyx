@@ -93,6 +93,7 @@ test.describe("Screenshot tests (header actions)", () => {
       beforeEach: async (component, page, column) => {
         if (column === "open") {
           await component.getByLabel(enUs.flyoutMenu.toggleActions.click).click();
+          await expect(component.getByLabel(enUs.flyoutMenu.moreActions)).toBeVisible();
         }
       },
     },
