@@ -54,7 +54,7 @@ jobs:
     if: fromJSON(needs.prepare.outputs.packages)[0] != null
     strategy:
       fail-fast: false
-      max-parallel: 9
+      max-parallel: 15
       matrix:
         package: ${{ fromJSON(needs.prepare.outputs.packages) }}
         shard: [1]
