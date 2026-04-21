@@ -306,6 +306,9 @@ importers:
       '@sit-onyx/flags':
         specifier: workspace:^
         version: link:../../packages/flags
+      '@sit-onyx/headless':
+        specifier: workspace:^
+        version: link:../../packages/headless
       '@sit-onyx/icons':
         specifier: workspace:^
         version: link:../../packages/icons
@@ -9272,6 +9275,9 @@ packages:
   vue-component-type-helpers@3.2.6:
     resolution: {integrity: sha512-O02tnvIfOQVmnvoWwuSydwRoHjZVt8UEBR+2p4rT35p8GAy5VTlWP8o5qXfJR/GWCN0nVZoYWsVUvx2jwgdBmQ==}
 
+  vue-component-type-helpers@3.2.7:
+    resolution: {integrity: sha512-+gPp5YGmhfsj1IN+xUo7y0fb4clfnOiiUA39y07yW1VzCRjzVgwLbtmdWlghh7mXrPsEaYc7rrIir/HT6C8vYQ==}
+
   vue-devtools-stub@0.1.0:
     resolution: {integrity: sha512-RutnB7X8c5hjq39NceArgXg28WZtZpGc3+J16ljMiYnFhKvd8hITxSWQSQ5bvldxMDU6gG5mkxl1MTQLXckVSQ==}
 
@@ -12465,7 +12471,7 @@ snapshots:
       storybook: 10.3.5(@testing-library/dom@10.4.1)(prettier@3.8.2)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       type-fest: 2.19.0
       vue: 3.5.32(typescript@5.9.3)
-      vue-component-type-helpers: 3.2.6
+      vue-component-type-helpers: 3.2.7
 
   '@testing-library/dom@10.4.1':
     dependencies:
@@ -19145,6 +19151,8 @@ snapshots:
   vue-component-type-helpers@2.2.12: {}
 
   vue-component-type-helpers@3.2.6: {}
+
+  vue-component-type-helpers@3.2.7: {}
 
   vue-devtools-stub@0.1.0: {}
 

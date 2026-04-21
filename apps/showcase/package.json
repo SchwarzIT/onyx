@@ -20,6 +20,7 @@
     "@nuxt/content": "^3.12.0",
     "@nuxtjs/mdc": "~0.21.1",
     "@sit-onyx/flags": "workspace:^",
+    "@sit-onyx/headless": "workspace:^",
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/mdc": "workspace:^",
     "@sit-onyx/nuxt": "workspace:^",
