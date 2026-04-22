@@ -62,10 +62,11 @@ const handleChange = (value: TValue) => {
     display: flex;
     gap: var(--onyx-density-xs);
     padding: var(--onyx-density-2xs);
-    background-color: var(--onyx-color-base-neutral-200);
+    background-color: var(--onyx-color-base-neutral-300);
     border-radius: var(--onyx-radius-component-segmented-control-outside);
     overflow: auto;
     max-width: 100%;
+    border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-500);
 
     &:has(.onyx-segmented-control-element__icon):not(:has(.onyx-segmented-control-element__text)) {
       width: fit-content;
