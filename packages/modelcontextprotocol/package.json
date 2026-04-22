@@ -1,6 +1,6 @@
 {
   "name": "@sit-onyx/modelcontextprotocol",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "MCP (Model Context Protocol) Server that provide onyx specific tools and resources.",
   "homepage": "https://onyx.schwarz",
   "bugs": {

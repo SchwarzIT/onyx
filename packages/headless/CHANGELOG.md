@@ -1,5 +1,15 @@
 # @sit-onyx/headless
 
+## 0.9.0
+
+### Minor Changes
+
+- 4df1b8c: refactor: rename `_unstableCreateCalendar` to `createCalendar`
+
+### Patch Changes
+
+- 3a757e8: fix(createSlider): allow ref with `undefined` value for `shiftStep` property
+
 ## 0.8.0
 
 ### Minor Changes
