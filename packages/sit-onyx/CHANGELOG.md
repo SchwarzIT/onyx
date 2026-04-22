@@ -45,7 +45,7 @@
   - fix: show placeholder / modelValue when `loading` is true
 
 - f65acbe: feat: Generate and publish 'component-meta.json' which includes the onyx API as json
-- 43410d9: feat: implemented new radius-component variabels
+- 43410d9: feat: implemented new radius-component variables
 - 328902b: fix(OnyxDatePickerV2): implement several bug fixes
   - remove non-existing properties `hideLabel` and `labelTooltip` in favor of `label.hidden` and `label.tooltipText`
   - use correct type for `message`, `error`, `success` and `selectionMode` property
@@ -92,9 +92,6 @@
 - 1f5b69c: fix(OnyxFormElementV2): correctly scope styles to not apply to popover content
 - 169f846: fix(OnyxFormElementV2): correctly hide bottom space when error exists but is not shown
 - 2346a7e: fix(OnyxTimePicker): narrow type of "update:modelValue" emit depending on given type
-- Updated dependencies [947ef1d]
-- Updated dependencies [492efee]
-- Updated dependencies [947ef1d]
 - Updated dependencies [33fbafb]
   - @sit-onyx/icons@1.9.0
 

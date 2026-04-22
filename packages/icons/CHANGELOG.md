@@ -5,15 +5,12 @@
 ### Minor Changes
 
 - 492efee: feat: update icons
+- 33fbafb: feat: update icons
 
   #### New
   - mail-arrow
   - self-checkout
   - terminal-checkout
-
-- 33fbafb: feat: update icons
-
-  #### New
   - arrow-small-left-right
   - drag-and-drop
 
