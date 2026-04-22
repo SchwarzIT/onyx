@@ -2,6 +2,7 @@
   "introduction": "Introduction",
   "resources": "Resources",
   "support": "Support",
+  "videoNotSupportedByBrowser": "Your browser does not support playing videos.",
   "auth": {
     "login": "Log in",
     "logout": "Log out",
@@ -16,5 +17,18 @@
   "components": {
     "component": "Component | Components"
   },
-  "gettingStarted": "Getting Started"
+  "gettingStarted": "Getting Started",
+  "copyToClipboard": "Copy to clipboard",
+  "densities": {
+    "compact": "Compact",
+    "default": "Default",
+    "cozy": "Cozy",
+    "preview": {
+      "description": "Preview of the different densities using OnyxButton's as an example."
+    }
+  },
+  "roles": {
+    "devContent": "Developer content (DEV)",
+    "uxContent": "Designer content (UX)"
+  }
 }
