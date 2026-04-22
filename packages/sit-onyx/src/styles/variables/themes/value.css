@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "value" theme.
- * Imported from Figma API on Wed, 22 Apr 2026 09:34:50 GMT
+ * Imported from Figma API on Wed, 22 Apr 2026 14:06:29 GMT
  */
 :where(:root),
 .onyx-theme-default {
@@ -129,6 +129,7 @@
   --onyx-color-onyx-lime-1200: #3d4215;
   --onyx-color-onyx-neutral-100: #ffffff;
   --onyx-color-onyx-neutral-200: #fafbfc;
+  --onyx-color-onyx-neutral-250: #ebebeb;
   --onyx-color-onyx-neutral-300: #c0c0c0;
   --onyx-color-onyx-neutral-400: #a0a0a0;
   --onyx-color-onyx-neutral-500: #808080;

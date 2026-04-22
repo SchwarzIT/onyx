@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "onyx" theme.
- * Imported from Figma API on Wed, 22 Apr 2026 09:34:50 GMT
+ * Imported from Figma API on Wed, 22 Apr 2026 14:06:29 GMT
  */
 :where(:root),
 .onyx-theme-default {
@@ -89,7 +89,7 @@
     var(--onyx-color-onyx-neutral-900)
   );
   --onyx-color-base-neutral-200: light-dark(
-    var(--onyx-color-onyx-neutral-200),
+    var(--onyx-color-onyx-neutral-250),
     var(--onyx-color-onyx-neutral-850)
   );
   --onyx-color-base-neutral-300: light-dark(
