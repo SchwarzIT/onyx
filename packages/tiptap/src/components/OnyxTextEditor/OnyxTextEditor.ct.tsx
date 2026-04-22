@@ -811,8 +811,9 @@ test("should include editor in native HTML form validation", async ({ mount }) =
   await expect(async () => {
     // unfortunately flaky, therefore we put it into this `expect.toPass` block
     await editor.clear();
-    await expectEmit(onUpdateModelValue, 2, ["<p></p>"]);
+    await expect(editor).toHaveText("");
   }, "should clear the editor").toPass();
+  await expectEmit(onUpdateModelValue, 2, ["<p></p>"]);
 
   await component.getByRole("button", { name: "Submit" }).click();
 
