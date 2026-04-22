@@ -13,7 +13,7 @@ const type = computed(() => {
 <template>
   <video :key="props.src" loading="lazy" controls>
     <source :src="props.src" :type />
-    Your browser does not support playing videos.
+    <p>{{ $t("videoNotSupportedByBrowser") }}</p>
   </video>
 </template>
 
