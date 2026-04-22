@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { iconCircleHelp } from "@sit-onyx/icons";
+import { iconExpandWindow } from "@sit-onyx/icons";
 
 const defaultLocale = "en-US";
 
@@ -20,16 +20,17 @@ const codes = Object.keys(locales)
     <div class="onyx-grid">
       <LanguageCard v-for="code in codes" :key="code" class="onyx-grid-span-4" :code />
 
-      <OnyxCard class="onyx-grid-span-4 request">
-        <OnyxIcon :icon="iconCircleHelp" />
+      <OnyxCard
+        class="onyx-grid-span-4 request"
+        :link="{
+          href: 'https://github.com/SchwarzIT/onyx/discussions/categories/ideas',
+          target: '_blank',
+        }"
+      >
+        <OnyxIcon :icon="iconExpandWindow" />
         <OnyxHeadline is="h3">{{ $t("i18n.languageMissing") }}</OnyxHeadline>
 
-        <OnyxLink
-          href="https://github.com/SchwarzIT/onyx/discussions/categories/ideas"
-          target="_blank"
-        >
-          {{ $t("createFeatureRequest") }}
-        </OnyxLink>
+        {{ $t("createFeatureRequest") }}
       </OnyxCard>
     </div>
   </div>
@@ -44,5 +45,9 @@ const codes = Object.keys(locales)
 
 .request {
   align-items: center;
+
+  &:hover {
+    background-color: var(--onyx-color-base-neutral-200);
+  }
 }
 </style>
