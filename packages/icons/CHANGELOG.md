@@ -1,5 +1,27 @@
 # @sit-onyx/icons
 
+## 1.9.0
+
+### Minor Changes
+
+- 492efee: feat: update icons
+
+  #### New
+  - mail-arrow
+  - self-checkout
+  - terminal-checkout
+
+- 33fbafb: feat: update icons
+
+  #### New
+  - arrow-small-left-right
+  - drag-and-drop
+
+### Patch Changes
+
+- 947ef1d: fix: Now the `metadata.json` is published via the dist, too
+- 947ef1d: fix: svg files could not be imported directly
+
 ## 1.8.0
 
 ### Minor Changes
