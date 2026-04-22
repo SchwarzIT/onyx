@@ -93,10 +93,7 @@
 - 1f5b69c: fix(OnyxFormElementV2): correctly scope styles to not apply to popover content
 - 169f846: fix(OnyxFormElementV2): correctly hide bottom space when error exists but is not shown
 - 2346a7e: fix(OnyxTimePicker): narrow type of "update:modelValue" emit depending on given type
-- Updated dependencies [947ef1d]
-- Updated dependencies [492efee]
-- Updated dependencies [947ef1d]
-- Updated dependencies [33fbafb]
+- Updated dependencies
   - @sit-onyx/icons@1.9.0
 
 ## 1.11.0
@@ -158,7 +155,7 @@
   - use correct inline padding for input when leading/trailing icons exist
 
 - fc16972: fix(OnyxSlider): Fixed misaligned marks
-- Updated dependencies [0e552d7]
+- Updated dependencies
   - @sit-onyx/icons@1.8.0
 
 ## 1.10.0
@@ -300,7 +297,7 @@
 - 4c113d6: fix(OnyxSlider): Tooltip not correctly aligned with thumb
 - d0cdc5d: fix(OnyxDataGrid/filtering): Fix filterFunc value is always passed as string
 - b5a641b: Deprecated the `--onyx-font-family` CSS variable. Use `--onyx-font-family-paragraph` instead.
-- Updated dependencies [3e34b0c]
+- Updated dependencies
   - @sit-onyx/icons@1.6.0
 
 ## 1.7.0
@@ -332,7 +329,7 @@
 - 5e70c53: fix(OnyxInput): Fix now all inputs use the themed caret color
 - 5e70c53: chore(OnyxSelect): Removed invalid and extranous attributes that were rendered on the select input element
 - 21edf41: fix(OnyxPagination): center select label for `compact` type
-- Updated dependencies [058ecb1]
+- Updated dependencies
   - @sit-onyx/icons@1.5.0
 
 ## 1.6.0
@@ -376,7 +373,7 @@
 
   Some component emits where incorrectly types as `Nullable<T>` although the actual emitted value is always defined. This affects the `update:open` event of: OnyxAlertModal, OnyxInfoTooltip, OnyxColorSchemeDialog, OnyxSelectDialog and OnyxTooltip
 
-- Updated dependencies [d486b6d]
+- Updated dependencies
   - @sit-onyx/icons@1.4.0
 
 ## 1.5.0
@@ -457,7 +454,7 @@
   - input: prevent keyboard focus on thumbs when input controls are shown since the value can by changed directly with the inputs via keyboard
 
 - d86f505: fix(OnyxTable): correctly show row hover styles when table is nested inside another component
-- Updated dependencies [f7f3eb4]
+- Updated dependencies
   - @sit-onyx/icons@1.2.0
 
 ## 1.3.0
@@ -562,7 +559,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [7fde5eb]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0
 
 ## 1.0.0-beta.338
@@ -934,7 +931,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [1ed4c6b]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.25
 
 ## 1.0.0-beta.293
@@ -1016,7 +1013,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [b4d113a]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.24
 
 ## 1.0.0-beta.285
@@ -1048,7 +1045,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [c235692]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.22
 
 ## 1.0.0-beta.283
@@ -1154,7 +1151,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [1911f6c]
+- Updated dependencies
   - @sit-onyx/shared@1.0.0-beta.4
   - @sit-onyx/icons@1.0.0-beta.21
 
@@ -1162,7 +1159,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [eb481fe]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.20
 
 ## 1.0.0-beta.269
@@ -1217,7 +1214,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [5a27c6a]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.19
 
 ## 1.0.0-beta.261
@@ -1322,7 +1319,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [d1df993]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.18
 
 ## 1.0.0-beta.250
@@ -1491,7 +1488,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [0f045f0]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.17
 
 ## 1.0.0-beta.229
@@ -1599,7 +1596,7 @@
 ### Patch Changes
 
 - 3288513: fix(OnyxNavBar): prevent console warning for invalid `mobile` property
-- Updated dependencies [3288513]
+- Updated dependencies
   - @sit-onyx/shared@1.0.0-beta.3
 
 ## 1.0.0-beta.212
@@ -1678,7 +1675,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [de2a1e8]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.16
 
 ## 1.0.0-beta.204
@@ -1775,7 +1772,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [e9ef809]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.15
 
 ## 1.0.0-beta.192
@@ -1897,7 +1894,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [41eb73c]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.14
 
 ## 1.0.0-beta.177
@@ -2266,7 +2263,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [9319044]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.13
 
 ## 1.0.0-beta.135
@@ -2291,7 +2288,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [00ca133]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.12
 
 ## 1.0.0-beta.133
@@ -2321,7 +2318,7 @@
 ### Patch Changes
 
 - 07549b9: fix 'failed to resolve import source "./components/OnyxDataGrid/features/index.ts"' error
-- Updated dependencies [07549b9]
+- Updated dependencies
   - @sit-onyx/shared@1.0.0-beta.2
 
 ## 1.0.0-beta.129
@@ -2366,14 +2363,14 @@
 
 ### Patch Changes
 
-- Updated dependencies [cc46754]
+- Updated dependencies
   - @sit-onyx/shared@1.0.0-beta.1
 
 ## 1.0.0-beta.122
 
 ### Patch Changes
 
-- Updated dependencies [f471335]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.11
 
 ## 1.0.0-beta.121
@@ -2504,14 +2501,14 @@
 
 ### Patch Changes
 
-- Updated dependencies [ad447e9]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.10
 
 ## 1.0.0-beta.103
 
 ### Patch Changes
 
-- Updated dependencies [ee0fcd2]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.9
 
 ## 1.0.0-beta.102
@@ -2576,7 +2573,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [6755052]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.8
 
 ## 1.0.0-beta.92
@@ -2788,7 +2785,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [b6b4573]
+- Updated dependencies
   - @sit-onyx/shared@0.0.1-beta.0
 
 ## 1.0.0-beta.65
@@ -2809,7 +2806,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [f6f01c6]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.7
 
 ## 1.0.0-beta.62
@@ -2883,7 +2880,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [be5b415]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.6
 
 ## 1.0.0-beta.52
@@ -2929,21 +2926,21 @@
 
 ### Patch Changes
 
-- Updated dependencies [3e49c73]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.5
 
 ## 1.0.0-beta.45
 
 ### Patch Changes
 
-- Updated dependencies [33700f9]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.4
 
 ## 1.0.0-beta.44
 
 ### Patch Changes
 
-- Updated dependencies [188c94d]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.3
 
 ## 1.0.0-beta.43
@@ -2972,7 +2969,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [79033ac]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.2
 
 ## 1.0.0-beta.40
@@ -3011,7 +3008,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [b525ca5]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.1
 
 ## 1.0.0-beta.34
@@ -3310,7 +3307,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [bf3ea0a]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.0
 
 ## 1.0.0-alpha.165
@@ -3570,7 +3567,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [fad8140]
+- Updated dependencies
   - @sit-onyx/icons@0.1.0-alpha.2
 
 ## 1.0.0-alpha.132
@@ -3761,7 +3758,7 @@
 ### Patch Changes
 
 - 1093e66: Implement external link icon for nested nav items
-- Updated dependencies [99b2089]
+- Updated dependencies
   - @sit-onyx/icons@0.1.0-alpha.1
 
 ## 1.0.0-alpha.108
@@ -3974,7 +3971,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [1377af6]
+- Updated dependencies
   - @sit-onyx/headless@0.1.0-alpha.7
 
 ## 1.0.0-alpha.81
@@ -4355,7 +4352,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [5ac259d]
+- Updated dependencies
   - @sit-onyx/icons@0.1.0-alpha.0
 
 ## 1.0.0-alpha.23
