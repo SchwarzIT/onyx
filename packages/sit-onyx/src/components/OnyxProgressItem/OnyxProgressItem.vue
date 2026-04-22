@@ -164,18 +164,18 @@ const icon = computed(() => {
     }
 
     &--completed {
-      --onyx-progress-item-background-color: var(--onyx-color-component-cta-default);
+      --onyx-progress-item-background-color: var(--onyx-color-base-primary-600);
       --onyx-progress-item-border-color: var(--onyx-progress-item-background-color);
       --onyx-progress-item-color: var(--onyx-color-text-icons-neutral-inverted);
       --onyx-progress-outline-color: var(--onyx-color-component-focus-primary);
 
       &:enabled {
         &:hover {
-          --onyx-progress-item-background-color: var(--onyx-color-component-cta-default-hover);
+          --onyx-progress-item-background-color: var(--onyx-color-base-primary-800);
         }
 
         &:focus-visible {
-          --onyx-progress-item-background-color: var(--onyx-color-component-cta-default);
+          --onyx-progress-item-background-color: var(--onyx-color-base-primary-300);
         }
       }
     }
