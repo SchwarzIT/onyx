@@ -17,7 +17,7 @@
     "preview": "nuxt preview"
   },
   "dependencies": {
-    "@nuxt/content": "^3.12.0",
+    "@nuxt/content": "^3.13.0",
     "@nuxtjs/mdc": "~0.21.1",
     "@sit-onyx/flags": "workspace:^",
     "@sit-onyx/headless": "workspace:^",
@@ -27,7 +27,7 @@
     "@sit-onyx/nuxt-docs": "workspace:^",
     "@vueuse/core": "^14.2.1",
     "@vueuse/nuxt": "^14.2.1",
-    "better-sqlite3": "^12.8.0",
+    "better-sqlite3": "^12.9.0",
     "nuxt": "catalog:",
     "nuxt-auth-utils": "~0.5.29",
     "nuxt-studio": "^1.6.0",
