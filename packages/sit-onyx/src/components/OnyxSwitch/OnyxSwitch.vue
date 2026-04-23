@@ -339,6 +339,11 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
         color: var(--onyx-color-text-icons-neutral-soft);
       }
     }
+    &:has(.onyx-switch__input:disabled.onyx-switch__loading) {
+      .onyx-switch__frame {
+        border-color: var(--onyx-color-base-neutral-600);
+      }
+    }
   }
 }
 
