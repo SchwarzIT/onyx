@@ -24,8 +24,9 @@ const slots = defineSlots<{
         <slot name="headline" mdc-unwrap="p"></slot>
       </div>
 
-      <div class="onyx-text--small">
-        <slot mdc-unwrap="p"></slot>
+      <div class="onyx-text--small step__content">
+        <!-- using custom CSS below instead of mdc-unwrap="p" because it would wrap all nested p elements, but we only want to remove the margin of the first one -->
+        <slot></slot>
       </div>
     </div>
   </li>
@@ -37,6 +38,7 @@ const slots = defineSlots<{
   display: flex;
   align-items: flex-start;
   gap: var(--onyx-density-md);
+  width: 100%;
 
   &__indicator {
     color: var(--onyx-color-text-icons-primary-intense);
@@ -56,6 +58,7 @@ const slots = defineSlots<{
     display: flex;
     flex-direction: column;
     gap: var(--onyx-density-2xs);
+    flex-grow: 1;
   }
 
   &__headline {
@@ -69,6 +72,12 @@ const slots = defineSlots<{
     font-size: var(--onyx-font-size-md);
     font-weight: var(--onyx-font-weight-semibold);
     line-height: var(--onyx-font-line-height-md);
+  }
+
+  &__content {
+    > :first-child {
+      margin-block: 0;
+    }
   }
 }
 </style>
