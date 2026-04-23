@@ -161,6 +161,7 @@ export const sourceCodeTransformer = async (originalSourceCode: string): Promise
 
   packagesToReplace.forEach((_package) => {
     Object.entries(_package.data).forEach(([name, content]) => {
+      if (typeof content !== "string") return;
       const singleQuotedContent = `'${replaceAll(content, '"', "\\'")}'`;
       const escapedContent = `"${replaceAll(content, '"', '\\"')}"`;
 
