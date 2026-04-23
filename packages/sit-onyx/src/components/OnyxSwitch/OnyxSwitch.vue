@@ -144,29 +144,28 @@ useAutofocus(input, props);
         var(--onyx-1px-in-rem)
     );
     --onyx-switch-label-padding-vertical: var(--onyx-density-xs);
+    --onyx-switch-transform: var(--onyx-1px-in-rem);
   }
 }
 
 $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-container-padding));
 
 .onyx-switch {
-  @include density.compact {
-    --onyx-switch-transform: 0.125rem;
-  }
-
-  @include density.default {
-    --onyx-switch-transform: var(--onyx-1px-in-rem);
-  }
-
-  @include density.cozy {
-    --onyx-switch-transform: 0.01rem;
-  }
-
   @include layers.component() {
     display: inline-flex;
     align-items: flex-start;
     cursor: pointer;
     max-width: 100%;
+    &__frame {
+      position: absolute;
+      border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-600);
+      height: var(--onyx-switch-frame-height);
+      border-radius: var(--onyx-radius-full);
+      width: $input-width;
+      box-sizing: border-box;
+      top: 0;
+      left: 0;
+    }
 
     &__input {
       // position: absolute is needed here in order to hide the native checkbox.
@@ -214,7 +213,6 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
       &:user-invalid {
         & + .onyx-switch__click-area .onyx-switch__container {
           background-color: var(--onyx-color-base-danger-200);
-          position: relative;
 
           .onyx-switch__icon {
             background-color: var(--onyx-color-base-danger-500);
@@ -226,14 +224,7 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
           // by resizing the 1px border to fractions.
           // for more info, see https://github.com/SchwarzIT/onyx/issues/503
           .onyx-switch__frame {
-            position: absolute;
-            border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-danger);
-            height: var(--onyx-switch-frame-height);
-            border-radius: var(--onyx-radius-full);
-            width: $input-width;
-            box-sizing: border-box;
-            top: 0;
-            left: 0;
+            border-color: var(--onyx-color-component-border-danger);
           }
         }
 
@@ -257,6 +248,7 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
 
     &__container {
       display: inline-flex;
+      position: relative;
       width: $input-width;
       min-width: $input-width;
       padding: var(--onyx-switch-container-padding);
@@ -326,7 +318,7 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
       outline: none;
 
       &:has(.onyx-switch__input:enabled) .onyx-switch__container {
-        outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-neutral);
+        outline: var(--onyx-outline-width) solid var(--onyx-color-base-neutral-600);
       }
 
       &:has(.onyx-switch__input:checked:enabled) .onyx-switch__container {
@@ -340,9 +332,16 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
 
     &:has(.onyx-switch__input:disabled) {
       cursor: default;
-
+      .onyx-switch__frame {
+        border-color: transparent;
+      }
       .onyx-switch__label {
         color: var(--onyx-color-text-icons-neutral-soft);
+      }
+    }
+    &:has(.onyx-switch__input:disabled.onyx-switch__loading) {
+      .onyx-switch__frame {
+        border-color: var(--onyx-color-base-neutral-600);
       }
     }
   }

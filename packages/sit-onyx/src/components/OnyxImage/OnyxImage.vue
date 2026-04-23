@@ -83,7 +83,7 @@ const { restAttrs, rootAttrs } = useRootAttrs();
   @include layers.component() {
     --onyx-image-clip-size: var(--onyx-spacing-2xl);
     display: contents;
-    background-color: var(--onyx-color-base-neutral-300);
+    background-color: var(--onyx-color-base-neutral-200);
 
     &--rounded {
       border-radius: var(--onyx-radius-md);
@@ -151,7 +151,7 @@ const { restAttrs, rootAttrs } = useRootAttrs();
     }
 
     &__error {
-      color: var(--onyx-color-text-icons-neutral-medium);
+      color: var(--onyx-color-text-icons-neutral-intense);
       padding: var(--onyx-density-xs);
       font-family: var(--onyx-font-family-paragraph);
       background-color: inherit;
