@@ -41,7 +41,7 @@ defineSlots<{
       pointer-events: none;
     }
 
-    &:has(> .onyx-icon-button) {
+    &:has(> .onyx-icon-button, > .onyx-nav-button) {
       // density-xs = icon button padding
       --onyx-notification-dot-offset: var(--onyx-density-xs);
     }

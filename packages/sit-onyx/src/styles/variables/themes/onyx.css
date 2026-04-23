@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "onyx" theme.
- * Imported from Figma API on Fri, 17 Apr 2026 06:37:37 GMT
+ * Imported from Figma API on Wed, 22 Apr 2026 14:06:29 GMT
  */
 :where(:root),
 .onyx-theme-default {
@@ -10,8 +10,8 @@
     var(--onyx-color-onyx-neutral-850)
   );
   --onyx-color-base-background-tinted: light-dark(
-    var(--onyx-color-onyx-neutral-100),
-    var(--onyx-color-onyx-neutral-850)
+    var(--onyx-color-onyx-neutral-200),
+    var(--onyx-color-onyx-neutral-800)
   );
   --onyx-color-base-danger-100: light-dark(
     var(--onyx-color-onyx-red-100),
@@ -89,7 +89,7 @@
     var(--onyx-color-onyx-neutral-900)
   );
   --onyx-color-base-neutral-200: light-dark(
-    var(--onyx-color-onyx-neutral-200),
+    var(--onyx-color-onyx-neutral-250),
     var(--onyx-color-onyx-neutral-850)
   );
   --onyx-color-base-neutral-300: light-dark(
@@ -308,7 +308,7 @@
   --onyx-color-component-border-disabled: var(--onyx-color-base-neutral-200);
   --onyx-color-component-border-neutral: light-dark(
     var(--onyx-color-base-neutral-300),
-    var(--onyx-color-base-neutral-700)
+    var(--onyx-color-base-neutral-600)
   );
   --onyx-color-component-border-neutral-hover: light-dark(
     var(--onyx-color-base-neutral-400),
