@@ -42,6 +42,13 @@ updates:
         update-types: [version-update:semver-major]
 
   - package-ecosystem: github-actions
-    directory: /
+    directories:
+      - "/"
+      - ".github/templates/*"
+    cooldown:
+      default-days: 2 # Wait two days after a new version release - This is in sync with the `pnpm-workspace.yaml` `minimumReleaseAge` config
     schedule:
-      interval: daily
+      interval: weekly
+    groups:
+      github-actions:
+        patterns: ["*"]
