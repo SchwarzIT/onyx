@@ -7,6 +7,7 @@ import "./selection.scss";
 import type { SelectionOptions, SelectionState } from "./types.js";
 
 export const SELECTION_FEATURE = Symbol("Selection");
+export const SELECTION_COLUMN = Symbol("SelectionColumn");
 export const SELECTION_MUTATION_ORDER = 1000;
 
 export const useSelection = <TEntry extends DataGridEntry>(options?: SelectionOptions) =>
@@ -59,8 +60,8 @@ export const useSelection = <TEntry extends DataGridEntry>(options?: SelectionOp
 
         return [
           {
-            key: SELECTION_FEATURE,
-            type: { name: SELECTION_FEATURE },
+            key: SELECTION_COLUMN,
+            type: { name: SELECTION_COLUMN },
             label: "",
             width: "2.5rem",
           },
@@ -80,7 +81,7 @@ export const useSelection = <TEntry extends DataGridEntry>(options?: SelectionOp
         order: SELECTION_MUTATION_ORDER,
       },
       typeRenderer: {
-        [SELECTION_FEATURE]: createTypeRenderer({
+        [SELECTION_COLUMN]: createTypeRenderer({
           header: {
             thAttributes: { class: "onyx-data-grid-selection-cell" },
             component: () =>

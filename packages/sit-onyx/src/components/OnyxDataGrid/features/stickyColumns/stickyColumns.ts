@@ -9,6 +9,7 @@ import {
   type ModifyColumnGroups,
   type ModifyColumns,
 } from "../index.js";
+import { SELECTION_COLUMN } from "../selection/selection.js";
 import "./stickyColumns.scss";
 import type { StickyColumnsOptions } from "./types.js";
 
@@ -18,27 +19,19 @@ export const STICKY_COLUMNS_MUTATION_ORDER = 5000;
 export const useStickyColumns = <TEntry extends DataGridEntry>(
   options?: StickyColumnsOptions<TEntry>,
 ) =>
-  createFeature((ctx) => {
+  createFeature(() => {
     const globalPosition = computed(() => toValue(options?.position) ?? "left");
 
     const normalizedStickyColumns = computed(() => {
       const rawColumns = toValue(options?.columns) ?? [];
       const normalized = rawColumns.map((col) => {
-        if (typeof col === "object" && col !== null && "key" in col) {
-          return {
-            key: col.key as PropertyKey,
-            position: col.position ?? globalPosition.value,
-          };
+        if (typeof col === "object") {
+          return { key: col.key, position: col.position ?? globalPosition.value };
         }
-        return { key: col as PropertyKey, position: globalPosition.value };
+        return { key: col, position: globalPosition.value };
       });
 
-      const selectionSymbol = Array.from(ctx.activeFeatures).find(
-        (name) => typeof name === "symbol" && name.description === "Selection",
-      );
-      if (selectionSymbol) {
-        normalized.unshift({ key: selectionSymbol, position: "left" });
-      }
+      normalized.unshift({ key: SELECTION_COLUMN, position: "left" });
 
       return normalized;
     });
@@ -66,13 +59,8 @@ export const useStickyColumns = <TEntry extends DataGridEntry>(
       if (index === -1) return;
 
       const width = relevantKeys
-        .map((colKey) => elementWidths.value[colKey] || 0)
-        .reduce((acc, currentWidth, i) => {
-          if (i < index) {
-            return acc + currentWidth;
-          }
-          return acc;
-        }, 0);
+        .slice(0, index)
+        .reduce<number>((acc, colKey) => acc + (elementWidths.value[colKey] || 0), 0);
 
       document.body.style.setProperty(createStickyPositionCssVar(key), `${width}px`);
     };
@@ -100,8 +88,8 @@ export const useStickyColumns = <TEntry extends DataGridEntry>(
 
       const resizeObserver = new ResizeObserver(() => {
         Reflect.ownKeys(elementsToStyle.value).forEach((column) => {
-          const el = elementsToStyle.value[column as PropertyKey];
-          elementWidths.value[column as PropertyKey] = el?.getBoundingClientRect().width || 0;
+          const el = elementsToStyle.value[column];
+          elementWidths.value[column] = el?.getBoundingClientRect().width || 0;
         });
 
         normalizedStickyColumns.value.forEach((col) => setElementStyles(col.key, col.position));
@@ -113,7 +101,7 @@ export const useStickyColumns = <TEntry extends DataGridEntry>(
           resizeObserver.disconnect();
 
           Reflect.ownKeys(elementsToStyle.value).forEach((column) => {
-            const el = elementsToStyle.value[column as PropertyKey];
+            const el = elementsToStyle.value[column];
             if (el) resizeObserver.observe(el);
           });
         },

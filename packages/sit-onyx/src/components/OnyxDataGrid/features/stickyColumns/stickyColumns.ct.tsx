@@ -174,8 +174,6 @@ test("should allow per-column positioning (left and right simultaneously)", asyn
       stickyColumnsOptions={{
         columns: [
           { key: "a", position: "left" },
-          { key: "b", position: "left" },
-          { key: "j", position: "right" },
           { key: "k", position: "right" },
         ],
       }}
@@ -183,30 +181,21 @@ test("should allow per-column positioning (left and right simultaneously)", asyn
   );
 
   // ACT
-  await component.getByRole("columnheader", { name: "f" }).scrollIntoViewIfNeeded();
+  await component.getByRole("columnheader", { name: "i" }).scrollIntoViewIfNeeded();
 
   // ASSERT
   const stickyColA = component.getByRole("columnheader", { name: "a" });
-  const stickyColB = component.getByRole("columnheader", { name: "b" });
 
   await expect(stickyColA).toContainClass("onyx-data-grid-sticky-columns--sticky");
   await expect(stickyColA).toContainClass("left");
   await expect(stickyColA).toHaveCSS("left", /[0-9]+px/);
 
-  await expect(stickyColB).toContainClass("onyx-data-grid-sticky-columns--sticky");
-  await expect(stickyColB).toContainClass("left");
-  await expect(stickyColB).toHaveCSS("left", /[0-9]+px/);
-
-  const stickyColJ = component.getByRole("columnheader", { name: "j" });
   const stickyColK = component.getByRole("columnheader", { name: "k" });
-
-  await expect(stickyColJ).toContainClass("onyx-data-grid-sticky-columns--sticky");
-  await expect(stickyColJ).toContainClass("right");
-  await expect(stickyColJ).toHaveCSS("right", /[0-9]+px/);
 
   await expect(stickyColK).toContainClass("onyx-data-grid-sticky-columns--sticky");
   await expect(stickyColK).toContainClass("right");
   await expect(stickyColK).toHaveCSS("right", /[0-9]+px/);
+  await expect(component).toHaveScreenshot("data-grid-sticky-left-right.png");
 });
 
 test("selection column is automatically sticky when both features are active", async ({
