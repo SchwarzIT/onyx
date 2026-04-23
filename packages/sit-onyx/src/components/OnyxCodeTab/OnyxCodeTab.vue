@@ -71,10 +71,10 @@ const disabled = computed(() => {
 
     <template v-else>
       <slot>
-        <pre><code class="onyx-text--small">{{ props.code }}</code></pre>
+        <pre><code>{{ props.code }}</code></pre>
       </slot>
 
-      <span v-if="props.language" class="onyx-code-tab__language onyx-text--small">
+      <span v-if="props.language" class="onyx-code-tab__language">
         {{ props.language }}
       </span>
     </template>
@@ -90,6 +90,8 @@ const disabled = computed(() => {
       border-bottom-left-radius: inherit;
       border-bottom-right-radius: inherit;
       font-family: var(--onyx-font-family-mono);
+      font-size: var(--onyx-font-size-sm);
+      line-height: var(--onyx-font-line-height-sm);
       padding: var(--onyx-density-md);
       background-color: var(--onyx-color-base-background-tinted);
       border: var(--onyx-code-group-border);
