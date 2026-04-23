@@ -14,6 +14,15 @@ type SearchGroup = {
   options: OnyxGlobalSearchOptionProps[];
 };
 
+const props = defineProps<{
+  /**
+   * Options to use when generating the search sections.
+   *
+   * @see https://content.nuxt.com/docs/utils/query-collection-search-sections#api
+   */
+  options?: Parameters<typeof queryCollectionSearchSections>[1];
+}>();
+
 const { t, locale, locales } = useI18n();
 const localePath = useLocalePath();
 
@@ -24,10 +33,10 @@ watch(isOpen, (open) => {
 });
 
 const { data, status } = await useLazyAsyncData(
-  () => `search-sections-${locale.value}`,
+  () => `search-sections-${locale.value}-${props.options}`,
   () => {
     const collection = `content_${locale.value}` as keyof Collections;
-    return queryCollectionSearchSections(collection);
+    return queryCollectionSearchSections(collection, props.options);
   },
 );
 
