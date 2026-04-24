@@ -9,7 +9,7 @@ type CreateToggleButtonOptions = {
   /**
    * Triggered when the toggle button is clicked and the `isPressed` state should be toggled.
    */
-  onToggle: () => void;
+  onToggle: () => unknown;
 };
 
 /**

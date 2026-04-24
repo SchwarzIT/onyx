@@ -20,7 +20,7 @@ const withPaddingDecorator: Decorator = (story) => {
   return {
     methods: {
       handleAnchorClick: (e: MouseEvent & { target: Element }) => {
-        const a = e.target.closest("a") as HTMLAnchorElement | null;
+        const a = e.target.closest("a");
         if (a) {
           e.preventDefault();
           action("link clicked")(a.href);

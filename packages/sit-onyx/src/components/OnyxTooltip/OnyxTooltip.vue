@@ -211,7 +211,7 @@ onMounted(() => {
 // update open direction when visibility changes to ensure the tooltip is always visible
 watch(
   isVisible,
-  async (newVal) => {
+  (newVal) => {
     handleOpening(newVal);
     updateDirections();
   },

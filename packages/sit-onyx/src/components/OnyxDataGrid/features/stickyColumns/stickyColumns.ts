@@ -237,8 +237,10 @@ export const useStickyColumns = <TEntry extends DataGridEntry>(
       } satisfies ModifyColumnGroups<TEntry, ColumnGroupConfig>,
 
       scrollContainerAttributes: () => ({
-        ref: (el) => {
-          if (el) nextTick(() => handleScroll(el as Element));
+        ref: async (el) => {
+          if (!el) return;
+          await nextTick();
+          handleScroll(el as Element);
         },
         onScrollCapturePassive: (e: Event) => handleScroll(e.target as HTMLElement),
       }),

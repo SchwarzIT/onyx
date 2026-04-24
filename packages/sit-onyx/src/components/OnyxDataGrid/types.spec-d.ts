@@ -16,7 +16,7 @@ import type {
 } from "./features/renderer.js";
 import type { ColumnTypesFromFeatures, DataGridEntry } from "./types.js";
 
-it("should be ensured that ColumnTypesFromFeatures unwraps correctly", async () => {
+it("should be ensured that ColumnTypesFromFeatures unwraps correctly", () => {
   expectTypeOf<ColumnTypesFromFeatures<never>>().toBeNever();
   expectTypeOf<ColumnTypesFromFeatures<[]>>().toBeNever();
 

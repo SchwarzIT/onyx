@@ -1,6 +1,6 @@
 import { iconPlaceholder } from "@sit-onyx/icons";
 import { DENSITIES } from "../../composables/density.js";
-import { testMaxLengthBehavior } from "../../composables/useLenientMaxLengthValidation.ct-utils.js";
+import { testMaxLengthBehavior } from "../../composables/useLenientMaxLengthValidation.ct.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-utils.js";
@@ -237,7 +237,7 @@ test.describe("Screenshot tests", () => {
             );
 
             for (let i = 0; i < modelValue.length; i++) {
-              await textarea.pressSequentially(modelValue[i]);
+              await textarea.pressSequentially(modelValue[i]!);
               if (i < modelValue.length - 1) {
                 await textarea.press("Enter");
               }

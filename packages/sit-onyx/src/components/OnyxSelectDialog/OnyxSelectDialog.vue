@@ -42,6 +42,7 @@ const formId = useId();
 
 const handleChange = (event: Event) => {
   const target = event.target as HTMLInputElement;
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- false positive
   currentValue.value = target.value as TValue;
 };
 

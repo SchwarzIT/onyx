@@ -172,7 +172,7 @@ const handleBackButtonKeydown = async (event: KeyboardEvent) => {
   }
 };
 
-const handleExternalChildrenKeydown = async (event: KeyboardEvent) => {
+const handleExternalChildrenKeydown = (event: KeyboardEvent) => {
   const closeKey = getCalculatedOpenDirection() === "right" ? "ArrowLeft" : "ArrowRight";
 
   if (event.key === closeKey) {

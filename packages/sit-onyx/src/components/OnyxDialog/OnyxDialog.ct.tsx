@@ -17,7 +17,7 @@ test("should behave correctly", async ({ mount, makeAxeBuilder, page }) => {
   // ARRANGE
   const component = await mount(<TestWrapperCt onUpdate:open={onOpenUpdate} />);
   const closeButton = component.getByRole("button", { name: "Close dialog" });
-  closeButton.focus();
+  await closeButton.focus();
 
   // ASSERT
   await expect(page).toHaveScreenshot("default.png");
@@ -47,7 +47,7 @@ test("Screenshot test (custom headline)", async ({ mount, page, makeAxeBuilder }
     </TestWrapperCt>,
   );
   const closeButton = component.getByRole("button", { name: "Close dialog" });
-  closeButton.focus();
+  await closeButton.focus();
   // ASSERT
   await expect(page).toHaveScreenshot("custom-headline.png");
 

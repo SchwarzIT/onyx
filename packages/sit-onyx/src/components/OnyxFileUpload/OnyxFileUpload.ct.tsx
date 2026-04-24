@@ -163,7 +163,7 @@ test("should select multiple files", async ({ mount, page }) => {
   const removeFirstFileButton = component.getByRole("button", { name: "Remove file" }).first();
 
   // ACT
-  selectFiles(page, button, 2);
+  await selectFiles(page, button, 2);
 
   // ASSERT
   await expect(() => expect(files).toHaveLength(2)).toPass();
@@ -279,7 +279,7 @@ test("should have hide button", async ({ mount, page }) => {
   await expect(hideButton).toBeHidden();
   await expect(revealButton).toBeHidden();
   // ACT
-  selectFiles(page, button, 2);
+  await selectFiles(page, button, 2);
 
   // ASSERT
   await expect(() => expect(files).toHaveLength(2)).toPass();
