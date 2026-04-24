@@ -1,5 +1,3 @@
-<script lang="ts" setup></script>
-
 <template>
   <OnyxAppLayout>
     <template #navBar>
