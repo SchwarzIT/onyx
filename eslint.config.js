@@ -106,7 +106,7 @@ const generalVueTsConfig = {
 
 const playwrightConfig = {
   name: "onyx-playwright",
-  files: ["**/*.ct.{js,jsx,ts,tsx,vue}"],
+  files: ["**/*.{ct,ct-utils}.{js,jsx,ts,tsx,vue}"],
   extends: [playwrightEslintConfig.configs["flat/recommended"]],
   rules: {
     "playwright/expect-expect": [
