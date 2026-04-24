@@ -105,15 +105,15 @@ const COMPONENTS: Components = {
       options: [{ label: "Option 1", value: "option-1" }],
     },
   },
-  OnyxUnstableSplitButton: {
+  OnyxSplitButton: {
     render: () =>
       h(
-        ALL_EXPORTS.OnyxUnstableSplitButton,
+        ALL_EXPORTS.OnyxSplitButton,
         { label: "Option 1" },
         {
           options: () => [
-            h(ALL_EXPORTS.OnyxUnstableSplitButton, { label: "Option 2" }),
-            h(ALL_EXPORTS.OnyxUnstableSplitButton, { label: "Option 3" }),
+            h(ALL_EXPORTS.OnyxSplitButton, { label: "Option 2" }),
+            h(ALL_EXPORTS.OnyxSplitButton, { label: "Option 3" }),
           ],
         },
       ),
@@ -301,19 +301,20 @@ const COMPONENTS: Components = {
       code: "test-code",
     },
   },
-  OnyxUnstableGlobalSearchOption: {
+  OnyxGlobalSearchOption: {
     props: {
       label: "Test option",
       value: "test-value",
     },
   },
-  OnyxUnstableItemsPerPage: {
+  OnyxItemsPerPage: {
     props: {
       modelValue: 5,
       options: [5, 10, 20, 30, 40, 75],
+      label: undefined,
     },
   },
-  OnyxUnstableTableOfContentsItem: {
+  OnyxTableOfContentsItem: {
     props: {
       link: "#link",
     },

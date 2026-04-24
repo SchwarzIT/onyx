@@ -1,5 +1,101 @@
 # sit-onyx
 
+## 1.12.0
+
+### Minor Changes
+
+- 3f9e58a: feat(OnyxShortcut, OnyxKey): implement small improvements
+  - show tooltip with key name on hover
+  - ensure minimum width is at least the key height
+  - adapted highlight prop to also allow static highlighting
+  - adapted sequence prop to allow combining
+  - BREAKING CHANGE: The `highlighted` prop in the `OnyxKey` component has been renamed to `highlight`.
+
+- 4df1b8c: feat: remove unstable tag for several components
+
+  Therefore, the following components have been renamed:
+
+  | Old name                        | New name                |
+  | ------------------------------- | ----------------------- |
+  | OnyxUnstableTableOfContents     | OnyxTableOfContents     |
+  | OnyxUnstableTableOfContentsItem | OnyxTableOfContentsItem |
+  | OnyxUnstableFilterBadge         | OnyxFilterBadge         |
+  | OnyxUnstableItemsPerPage        | OnyxItemsPerPage        |
+  | OnyxUnstableGlobalSearch        | OnyxGlobalSearch        |
+  | OnyxUnstableGlobalSearchGroup   | OnyxGlobalSearchGroup   |
+  | OnyxUnstableGlobalSearchOption  | OnyxGlobalSearchOption  |
+  | OnyxUnstableCalendar            | OnyxCalendar            |
+  | OnyxUnstableSplitButton         | OnyxSplitButton         |
+
+  Other noteworthy changes:
+  - refactor(OnyxSplitButton)!: remove `default` slot
+  - refactor(OnyxItemsPerPage)!: remove properties `labelAlignment` and `hideLabel` in favor of `label.position` and `label.hidden`
+  - feat(OnyxSplitButton): support new properties: `iconPosition`, `type`, `alignment` and `position`
+  - feat(OnyxFormElementV2): support `right` label position and increase label size for `left` and `right` alignment
+  - fix(OnyxFormElementV2): use correct cursor styles for input when popover is used
+
+- b3eec67: feat(OnyxFlyoutMenu): implement external drilldown mode using the new `drilldownMode="external"` property
+- 27ea621: feat(OnyxBasicPopover): implement full support for horizontal placement with `position="auto-inline"`
+- 328902b: feat(OnyxSelect): support `bottomRight` slot
+- e527add: fix(OnyxProgressSteps): Fixed issue where overflowing content was not scrollable
+- 1f5b69c: refactor(OnyxStepper): use `OnyxFormElementV2` internally
+  - feat: support new slots: `leading`, `leadingIcons`, `trailingIcons`, `trailing` and `bottomRight`
+  - feat: support left aligned label using `label.position` property
+  - feat: support new CSS variable `--onyx-stepper-text-align` for easier customization of the value alignment
+  - fix: show placeholder / modelValue when `loading` is true
+
+- f65acbe: feat: Generate and publish 'component-meta.json' which includes the onyx API as json
+- 43410d9: feat: implemented new radius-component variabels
+- 328902b: fix(OnyxDatePickerV2): implement several bug fixes
+  - remove non-existing properties `hideLabel` and `labelTooltip` in favor of `label.hidden` and `label.tooltipText`
+  - use correct type for `message`, `error`, `success` and `selectionMode` property
+  - remove default `popoverOptions.fitParent` so the calendar popover is always displayed correctly, even when the date picker width is very small
+  - use correct aria-label for calendar popover
+  - support new property `hideClearIcon`
+  - support new slots: leading, leadingIcons, trailingIcons, trailing and bottomRight
+
+- cbdebfb: feat(OnyxSelect): added functionality to select only filtered items when withCheckAll and a search is active. This includes a new `labelFiltered` option within `withCheckAll` to customize the checkbox label for filtered states.
+- d74aac4: feat(OnyxNavBar): auto align flyouts when using the vertical nav bar
+- 169f846: refactor(OnyxTextarea): use `OnyxFormElementV2` internally
+  - feat: support new `leadingIcons` slot
+  - feat: support new `loading` property
+  - feat: support left aligned label using `label.position`
+
+- f598fff: feat(OnyxTimePicker): update implementation and use `OnyxFormElementV2` internally
+  - fix: use correct styles for "clock" icon
+  - fix: use correct component height (previously it was slightly bigger than other form elements)
+  - fix: update spacings for "range" mode popover
+  - fix: for "select" mode, use default values for min/max property when they contain invalid values (previously no options were shown)
+  - fix: correctly type properties depending on the `type`
+  - fix!: remove `infoLabel` property in favor of `popoverOptions.description`
+  - fix!: use correct type for `error` property
+  - feat: support new slots: `leading`, `leadingIcons`, `trailingIcons`, `trailing` and `bottomRight`
+  - feat: in "default" mode, clicking the "clock" button now opens the native browser picker
+  - feat: add new `validityChange` event
+  - feat: expose native HTML `input`
+
+- 4ae689a: fix(OnyxDataGrid): show items per page even when not enough data is provided for `usePagination` feature
+- f598fff: feat(OnyxFormElementV2): support popover description via `popoverOptions.description`
+
+### Patch Changes
+
+- 018fb6e: fix(OnyxIcon): use `span` instead of `figure`
+
+  Reason: From semantic HTML perspective, `figure` elements are not allowed inside some elements like e.g. `<p>`.
+  To support using icons in more nesting contexts (without hydration warnings when using SSR), we changed the internally used element to `span`.
+
+- ce40555: fix(OnyxDatePickerV2, OnyxInput, OnyxSelect, OnyxTimePicker): hide clear button when readonly, loading or disabled
+- e004731: fix(OnyxCheckbox): use correct border radius for input and outline
+- 328902b: fix(OnyxTable, OnyxDataGrid): correctly scope CSS selectors to not apply styles to cell content
+
+  This e.g. fixes the issue that the `OnyxDatePickerV2` looks broken when used inside a table or data grid.
+
+- 1f5b69c: fix(OnyxFormElementV2): correctly scope styles to not apply to popover content
+- 169f846: fix(OnyxFormElementV2): correctly hide bottom space when error exists but is not shown
+- 2346a7e: fix(OnyxTimePicker): narrow type of "update:modelValue" emit depending on given type
+- Updated dependencies
+  - @sit-onyx/icons@1.9.0
+
 ## 1.11.0
 
 ### Minor Changes
@@ -59,7 +155,7 @@
   - use correct inline padding for input when leading/trailing icons exist
 
 - fc16972: fix(OnyxSlider): Fixed misaligned marks
-- Updated dependencies [0e552d7]
+- Updated dependencies
   - @sit-onyx/icons@1.8.0
 
 ## 1.10.0
@@ -201,7 +297,7 @@
 - 4c113d6: fix(OnyxSlider): Tooltip not correctly aligned with thumb
 - d0cdc5d: fix(OnyxDataGrid/filtering): Fix filterFunc value is always passed as string
 - b5a641b: Deprecated the `--onyx-font-family` CSS variable. Use `--onyx-font-family-paragraph` instead.
-- Updated dependencies [3e34b0c]
+- Updated dependencies
   - @sit-onyx/icons@1.6.0
 
 ## 1.7.0
@@ -233,7 +329,7 @@
 - 5e70c53: fix(OnyxInput): Fix now all inputs use the themed caret color
 - 5e70c53: chore(OnyxSelect): Removed invalid and extranous attributes that were rendered on the select input element
 - 21edf41: fix(OnyxPagination): center select label for `compact` type
-- Updated dependencies [058ecb1]
+- Updated dependencies
   - @sit-onyx/icons@1.5.0
 
 ## 1.6.0
@@ -277,7 +373,7 @@
 
   Some component emits where incorrectly types as `Nullable<T>` although the actual emitted value is always defined. This affects the `update:open` event of: OnyxAlertModal, OnyxInfoTooltip, OnyxColorSchemeDialog, OnyxSelectDialog and OnyxTooltip
 
-- Updated dependencies [d486b6d]
+- Updated dependencies
   - @sit-onyx/icons@1.4.0
 
 ## 1.5.0
@@ -358,7 +454,7 @@
   - input: prevent keyboard focus on thumbs when input controls are shown since the value can by changed directly with the inputs via keyboard
 
 - d86f505: fix(OnyxTable): correctly show row hover styles when table is nested inside another component
-- Updated dependencies [f7f3eb4]
+- Updated dependencies
   - @sit-onyx/icons@1.2.0
 
 ## 1.3.0
@@ -463,7 +559,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [7fde5eb]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0
 
 ## 1.0.0-beta.338
@@ -835,7 +931,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [1ed4c6b]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.25
 
 ## 1.0.0-beta.293
@@ -917,7 +1013,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [b4d113a]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.24
 
 ## 1.0.0-beta.285
@@ -949,7 +1045,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [c235692]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.22
 
 ## 1.0.0-beta.283
@@ -1055,7 +1151,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [1911f6c]
+- Updated dependencies
   - @sit-onyx/shared@1.0.0-beta.4
   - @sit-onyx/icons@1.0.0-beta.21
 
@@ -1063,7 +1159,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [eb481fe]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.20
 
 ## 1.0.0-beta.269
@@ -1118,7 +1214,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [5a27c6a]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.19
 
 ## 1.0.0-beta.261
@@ -1223,7 +1319,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [d1df993]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.18
 
 ## 1.0.0-beta.250
@@ -1392,7 +1488,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [0f045f0]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.17
 
 ## 1.0.0-beta.229
@@ -1500,7 +1596,7 @@
 ### Patch Changes
 
 - 3288513: fix(OnyxNavBar): prevent console warning for invalid `mobile` property
-- Updated dependencies [3288513]
+- Updated dependencies
   - @sit-onyx/shared@1.0.0-beta.3
 
 ## 1.0.0-beta.212
@@ -1579,7 +1675,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [de2a1e8]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.16
 
 ## 1.0.0-beta.204
@@ -1676,7 +1772,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [e9ef809]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.15
 
 ## 1.0.0-beta.192
@@ -1798,7 +1894,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [41eb73c]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.14
 
 ## 1.0.0-beta.177
@@ -2167,7 +2263,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [9319044]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.13
 
 ## 1.0.0-beta.135
@@ -2192,7 +2288,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [00ca133]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.12
 
 ## 1.0.0-beta.133
@@ -2222,7 +2318,7 @@
 ### Patch Changes
 
 - 07549b9: fix 'failed to resolve import source "./components/OnyxDataGrid/features/index.ts"' error
-- Updated dependencies [07549b9]
+- Updated dependencies
   - @sit-onyx/shared@1.0.0-beta.2
 
 ## 1.0.0-beta.129
@@ -2267,14 +2363,14 @@
 
 ### Patch Changes
 
-- Updated dependencies [cc46754]
+- Updated dependencies
   - @sit-onyx/shared@1.0.0-beta.1
 
 ## 1.0.0-beta.122
 
 ### Patch Changes
 
-- Updated dependencies [f471335]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.11
 
 ## 1.0.0-beta.121
@@ -2405,14 +2501,14 @@
 
 ### Patch Changes
 
-- Updated dependencies [ad447e9]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.10
 
 ## 1.0.0-beta.103
 
 ### Patch Changes
 
-- Updated dependencies [ee0fcd2]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.9
 
 ## 1.0.0-beta.102
@@ -2477,7 +2573,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [6755052]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.8
 
 ## 1.0.0-beta.92
@@ -2689,7 +2785,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [b6b4573]
+- Updated dependencies
   - @sit-onyx/shared@0.0.1-beta.0
 
 ## 1.0.0-beta.65
@@ -2710,7 +2806,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [f6f01c6]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.7
 
 ## 1.0.0-beta.62
@@ -2784,7 +2880,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [be5b415]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.6
 
 ## 1.0.0-beta.52
@@ -2830,21 +2926,21 @@
 
 ### Patch Changes
 
-- Updated dependencies [3e49c73]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.5
 
 ## 1.0.0-beta.45
 
 ### Patch Changes
 
-- Updated dependencies [33700f9]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.4
 
 ## 1.0.0-beta.44
 
 ### Patch Changes
 
-- Updated dependencies [188c94d]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.3
 
 ## 1.0.0-beta.43
@@ -2873,7 +2969,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [79033ac]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.2
 
 ## 1.0.0-beta.40
@@ -2912,7 +3008,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [b525ca5]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.1
 
 ## 1.0.0-beta.34
@@ -3211,7 +3307,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [bf3ea0a]
+- Updated dependencies
   - @sit-onyx/icons@1.0.0-beta.0
 
 ## 1.0.0-alpha.165
@@ -3471,7 +3567,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [fad8140]
+- Updated dependencies
   - @sit-onyx/icons@0.1.0-alpha.2
 
 ## 1.0.0-alpha.132
@@ -3662,7 +3758,7 @@
 ### Patch Changes
 
 - 1093e66: Implement external link icon for nested nav items
-- Updated dependencies [99b2089]
+- Updated dependencies
   - @sit-onyx/icons@0.1.0-alpha.1
 
 ## 1.0.0-alpha.108
@@ -3875,7 +3971,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [1377af6]
+- Updated dependencies
   - @sit-onyx/headless@0.1.0-alpha.7
 
 ## 1.0.0-alpha.81
@@ -4256,7 +4352,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [5ac259d]
+- Updated dependencies
   - @sit-onyx/icons@0.1.0-alpha.0
 
 ## 1.0.0-alpha.23

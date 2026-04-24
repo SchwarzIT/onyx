@@ -100,38 +100,38 @@ test("should behave correctly", async ({ mount, page }) => {
   await page.keyboard.press("Enter");
 
   // ASSERT
-  expectEmit(onUpdateModelValue, 1, ["option-3"]);
-  expectEmit(onUpdateOpen, 1, [false]);
+  await expectEmit(onUpdateModelValue, 1, ["option-3"]);
+  await expectEmit(onUpdateOpen, 1, [false]);
 
   // ACT
   await clickOption("Option 1");
 
   // ASSERT
-  expectEmit(onUpdateModelValue, 1, ["option-3"]);
+  await expectEmit(onUpdateModelValue, 1, ["option-3"]);
 
   await component.getByRole("button", { name: "Apply" }).click();
 
   // ASSERT
-  expectEmit(onUpdateModelValue, 2, ["option-1"]);
-  expectEmit(onUpdateOpen, 2, [false]);
+  await expectEmit(onUpdateModelValue, 2, ["option-1"]);
+  await expectEmit(onUpdateOpen, 2, [false]);
 
   // ACT
   await clickOption("Option 2");
   await component.getByRole("button", { name: "Apply" }).click();
 
   // ASSERT
-  expectEmit(onUpdateModelValue, 3, ["option-2"]);
-  expectEmit(onUpdateOpen, 3, [false]);
+  await expectEmit(onUpdateModelValue, 3, ["option-2"]);
+  await expectEmit(onUpdateOpen, 3, [false]);
 
   // ACT
   await component.getByRole("button", { name: "Cancel" }).click();
 
   // ASSERT
-  expectEmit(onUpdateOpen, 4, [false]);
+  await expectEmit(onUpdateOpen, 4, [false]);
 
   // ACT
   await page.keyboard.press("Escape");
 
   // ASSERT
-  expectEmit(onUpdateOpen, 5, [false]);
+  await expectEmit(onUpdateOpen, 5, [false]);
 });

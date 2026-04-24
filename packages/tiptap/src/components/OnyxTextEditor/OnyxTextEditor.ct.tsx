@@ -768,12 +768,16 @@ test("should show error", async ({ mount }) => {
   // ASSERT
   await expect(error).toBeHidden();
 
-  // ACT
-  await input.clear();
+  await expect(async () => {
+    // flaky workaround
 
-  // ASSERT
-  await expect(error, "should show error when touched").toBeVisible();
-  await expect(error).toContainText("Required");
+    // ACT
+    await input.clear();
+
+    // ASSERT
+    await expect(error, "should show error when touched").toBeVisible();
+    await expect(error).toContainText("Required");
+  }, "should show error when cleared").toPass();
 
   // ACT
   await component.update({ props: { error: "Custom error" } });
@@ -785,14 +789,14 @@ test("should show error", async ({ mount }) => {
 
 test("should include editor in native HTML form validation", async ({ mount }) => {
   // ARRANGE
-  let submitEventCount = 0;
   const onUpdateModelValue = createEmitSpy<typeof FormTestCase, "onUpdate:modelValue">();
+  const onSubmit = createEmitSpy<typeof FormTestCase, "onSubmit">();
 
   const component = await mount(
     <FormTestCase
       label="Test label"
       required
-      onSubmit={() => submitEventCount++}
+      onSubmit={onSubmit}
       onUpdate:modelValue={onUpdateModelValue}
     />,
   );
@@ -800,9 +804,15 @@ test("should include editor in native HTML form validation", async ({ mount }) =
   const editor = component.getByLabel("Test label");
 
   // ACT
+  await expect(editor).toBeEnabled();
   await editor.fill("Filled value");
   await expectEmit(onUpdateModelValue, 1, ["<p>Filled value</p>"]);
-  await editor.clear();
+
+  await expect(async () => {
+    // unfortunately flaky, therefore we put it into this `expect.toPass` block
+    await editor.clear();
+    await expect(editor).toHaveText("");
+  }, "should clear the editor").toPass();
   await expectEmit(onUpdateModelValue, 2, ["<p></p>"]);
 
   await component.getByRole("button", { name: "Submit" }).click();
@@ -812,7 +822,7 @@ test("should include editor in native HTML form validation", async ({ mount }) =
     const isFormValid = await component.evaluate((form: HTMLFormElement) => form.checkValidity());
     expect(isFormValid).toBe(false);
   }, "should update validity").toPass();
-  expect(submitEventCount).toBe(0);
+  await expectEmit(onSubmit, 0);
 
   const errorMessage = component.locator(".onyx-form-element-v2__message--danger");
   await expect(errorMessage).toBeVisible();

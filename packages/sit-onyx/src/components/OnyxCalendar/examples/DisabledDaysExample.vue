@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
-import { OnyxUnstableCalendar, type DateRange } from "../../../index.js";
+import { OnyxCalendar, type DateRange } from "../../../index.js";
 import OnyxSwitch from "../../OnyxSwitch/OnyxSwitch.vue";
 
 const selected = ref<DateRange>();
@@ -42,7 +42,7 @@ watch(selected, (newRange) => {
 
 <template>
   <OnyxSwitch v-model="includeDisabledDays" label="Range is allowed to have disabled days " />
-  <OnyxUnstableCalendar
+  <OnyxCalendar
     v-model="selected"
     :disabled="isDisabled"
     class="calendar"

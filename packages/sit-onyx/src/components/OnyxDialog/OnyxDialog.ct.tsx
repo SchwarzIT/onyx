@@ -32,7 +32,7 @@ test("should behave correctly", async ({ mount, makeAxeBuilder, page }) => {
   await closeButton.click();
 
   // ASSERT
-  expectEmit(onOpenUpdate, 1, [false]);
+  await expectEmit(onOpenUpdate, 1, [false]);
 });
 
 test("Screenshot test (custom headline)", async ({ mount, page, makeAxeBuilder }) => {

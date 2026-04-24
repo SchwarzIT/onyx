@@ -87,20 +87,18 @@ const mappedSteps = computed(() => {
       { 'onyx-progress-steps--vertical': props.orientation === 'vertical' },
     ]"
   >
-    <div class="onyx-progress-steps__scroll-container">
-      <template v-for="step in mappedSteps" :key="step.value">
-        <OnyxProgressItem v-bind="step" @click="emit('update:modelValue', step.value)">
-          <slot name="step" :step></slot>
-        </OnyxProgressItem>
+    <template v-for="step in mappedSteps" :key="step.value">
+      <OnyxProgressItem v-bind="step" @click="emit('update:modelValue', step.value)">
+        <slot name="step" :step></slot>
+      </OnyxProgressItem>
 
-        <OnyxSeparator
-          v-if="step.value < mappedSteps.length"
-          aria-hidden="true"
-          class="onyx-progress-steps__separator"
-          :orientation="props.orientation"
-        />
-      </template>
-    </div>
+      <OnyxSeparator
+        v-if="step.value < mappedSteps.length"
+        aria-hidden="true"
+        class="onyx-progress-steps__separator"
+        :orientation="props.orientation"
+      />
+    </template>
   </div>
 </template>
 
@@ -112,19 +110,14 @@ const mappedSteps = computed(() => {
     display: inline-flex;
     align-items: center;
     gap: var(--onyx-density-sm);
+    // overflow styles
+    max-width: 100%;
+    max-height: 100%;
+    overflow: auto;
 
-    &__scroll-container {
-      display: contents;
-
-      // overflow styles
-      max-width: 100%;
-      max-height: 100%;
-      overflow: auto;
-
-      // due to "overflow auto", the focus-visible ring of the steps will be cut off so we use this padding/margin workaround to fix this
-      padding: var(--onyx-outline-width);
-      margin: calc(-1 * var(--onyx-outline-width));
-    }
+    // due to "overflow auto", the focus-visible ring of the steps will be cut off so we use this padding/margin workaround to fix this
+    padding: var(--onyx-outline-width);
+    margin: calc(-1 * var(--onyx-outline-width));
 
     &--vertical {
       flex-direction: column;

@@ -8,7 +8,7 @@ export default {};
 
 <script lang="ts" setup generic="TSelection extends OnyxCalendarSelectionMode">
 import {
-  _unstableCreateCalendar,
+  createCalendar,
   useOutsideClick,
   type RenderDay,
   type RenderWeek,
@@ -119,7 +119,7 @@ const {
     isDisabled,
     goToDate,
   },
-} = _unstableCreateCalendar({
+} = createCalendar({
   disabled,
   min,
   max,
@@ -371,7 +371,7 @@ useOutsideClick({
     display: flex;
     flex-direction: column;
     gap: var(--onyx-density-sm);
-    color: var(--onyx-color-text-icons-neutral-medium);
+    color: var(--onyx-color-component-calendar-text);
     font-family: var(--onyx-font-family-paragraph);
     $calendar-week-column-width: 2.5rem;
     $calendar-day-number-display-width: 2rem;

@@ -14,6 +14,15 @@ type SearchGroup = {
   options: OnyxGlobalSearchOptionProps[];
 };
 
+const props = defineProps<{
+  /**
+   * Options to use when generating the search sections.
+   *
+   * @see https://content.nuxt.com/docs/utils/query-collection-search-sections#api
+   */
+  options?: Parameters<typeof queryCollectionSearchSections>[1];
+}>();
+
 const { t, locale, locales } = useI18n();
 const localePath = useLocalePath();
 
@@ -24,10 +33,10 @@ watch(isOpen, (open) => {
 });
 
 const { data, status } = await useLazyAsyncData(
-  () => `search-sections-${locale.value}`,
+  () => `search-sections-${locale.value}-${props.options}`,
   () => {
     const collection = `content_${locale.value}` as keyof Collections;
-    return queryCollectionSearchSections(collection);
+    return queryCollectionSearchSections(collection, props.options);
   },
 );
 
@@ -110,13 +119,9 @@ const filteredSearchResults = computed(() => {
     @click="isOpen = true"
   />
 
-  <OnyxUnstableGlobalSearch
-    v-model="searchTerm"
-    v-model:open="isOpen"
-    :loading="status === 'pending'"
-  >
+  <OnyxGlobalSearch v-model="searchTerm" v-model:open="isOpen" :loading="status === 'pending'">
     <template v-if="filteredSearchResults.length" #default>
-      <OnyxUnstableGlobalSearchGroup
+      <OnyxGlobalSearchGroup
         v-for="group in filteredSearchResults"
         :key="group.label"
         :label="group.label"
@@ -125,19 +130,19 @@ const filteredSearchResults = computed(() => {
         <template v-for="option in group.options" :key="option.value">
           <LazyLocaleSwitch v-if="option.value === 'locale'">
             <template #default="{ trigger }">
-              <OnyxUnstableGlobalSearchOption v-bind="mergeVueProps(trigger, option)" />
+              <OnyxGlobalSearchOption v-bind="mergeVueProps(trigger, option)" />
             </template>
           </LazyLocaleSwitch>
 
           <ColorSchemeSwitch v-else-if="option.value === 'colorScheme'">
             <template #default="{ trigger }">
-              <OnyxUnstableGlobalSearchOption v-bind="mergeVueProps(trigger, option)" />
+              <OnyxGlobalSearchOption v-bind="mergeVueProps(trigger, option)" />
             </template>
           </ColorSchemeSwitch>
 
-          <OnyxUnstableGlobalSearchOption v-else v-bind="option" @click="isOpen = false" />
+          <OnyxGlobalSearchOption v-else v-bind="option" @click="isOpen = false" />
         </template>
-      </OnyxUnstableGlobalSearchGroup>
+      </OnyxGlobalSearchGroup>
     </template>
-  </OnyxUnstableGlobalSearch>
+  </OnyxGlobalSearch>
 </template>

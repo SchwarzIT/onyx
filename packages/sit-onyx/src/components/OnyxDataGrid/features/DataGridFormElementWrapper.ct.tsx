@@ -50,14 +50,14 @@ test(`DataGridFormElementWrapper with OnyxInput`, async ({ mount, browserName })
   const NEW_VALUE = "new value";
   await input.fill(NEW_VALUE);
 
-  await test.step("expect emit", (step) => {
+  await test.step("expect emit", async (step) => {
     step.skip(browserName === "firefox");
-    expectEmit(onUpdateModelValue, 1, [NEW_VALUE]);
+    await expectEmit(onUpdateModelValue, 1, [NEW_VALUE]);
   });
 
-  await test.step("on firefox emit is triggered twice", (step) => {
+  await test.step("on firefox emit is triggered twice", async (step) => {
     step.skip(browserName !== "firefox");
-    expectEmit(onUpdateModelValue, 2, [NEW_VALUE]);
+    await expectEmit(onUpdateModelValue, 2, [NEW_VALUE]);
   });
 });
 
@@ -84,7 +84,7 @@ test(`DataGridFormElementWrapper with OnyxStepper`, async ({ mount }) => {
   await input.fill(`${NEW_VALUE}`);
   await input.blur();
 
-  expectEmit(onUpdateModelValue, 1, [NEW_VALUE]);
+  await expectEmit(onUpdateModelValue, 1, [NEW_VALUE]);
 });
 
 test(`DataGridFormElementWrapper with OnyxDatePicker`, async ({ mount }) => {
@@ -110,7 +110,7 @@ test(`DataGridFormElementWrapper with OnyxDatePicker`, async ({ mount }) => {
   await input.fill(NEW_VALUE);
   await input.blur();
 
-  expectEmit(onUpdateModelValue, 1, [NEW_VALUE]);
+  await expectEmit(onUpdateModelValue, 1, [NEW_VALUE]);
 });
 
 test(`DataGridFormElementWrapper with OnyxTimePicker`, async ({ mount }) => {
@@ -136,7 +136,7 @@ test(`DataGridFormElementWrapper with OnyxTimePicker`, async ({ mount }) => {
   await input.fill(NEW_VALUE);
   await input.blur();
 
-  expectEmit(onUpdateModelValue, 1, [NEW_VALUE]);
+  await expectEmit(onUpdateModelValue, 1, [NEW_VALUE]);
 });
 
 test(`DataGridFormElementWrapper with OnyxSwitch`, async ({ mount }) => {
@@ -160,7 +160,7 @@ test(`DataGridFormElementWrapper with OnyxSwitch`, async ({ mount }) => {
   await expect(input).toBeChecked();
   await inputLabel.click();
 
-  expectEmit(onUpdateModelValue, 1, [false]);
+  await expectEmit(onUpdateModelValue, 1, [false]);
 });
 
 test(`DataGridFormElementWrapper with OnyxSlider`, async ({ mount }) => {
@@ -187,7 +187,7 @@ test(`DataGridFormElementWrapper with OnyxSlider`, async ({ mount }) => {
   const { width, height } = (await rail.boundingBox())!;
   await rail.click({ position: { x: width * 0.5, y: height * 0.5 } });
 
-  expectEmit(onUpdateModelValue, 1, [50]);
+  await expectEmit(onUpdateModelValue, 1, [50]);
 });
 
 test(`DataGridFormElementWrapper with OnyxSelect`, async ({ mount }) => {
@@ -220,7 +220,7 @@ test(`DataGridFormElementWrapper with OnyxSelect`, async ({ mount }) => {
 
   const option = mounted.getByRole("option", { name: MOCK_OPTIONS.at(1)!.label });
   await option.click();
-  expectEmit(onUpdateModelValue, 1, [1]);
+  await expectEmit(onUpdateModelValue, 1, [1]);
 });
 
 test("DataGridFormElementWrapper Screenshot Test", async ({ mount }) => {

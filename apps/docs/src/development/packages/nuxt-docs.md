@@ -48,7 +48,7 @@ If your Nuxt project has a `app/app.vue` file, delete it. Otherwise the whole do
 
 ### Step 2: Configure pnpm
 
-If you are using pnpm, make sure to create the following `pnpm-workspace-yaml` and `.npmrc` file. Otherwise the Nuxt layer will not work correctly.
+If you are using pnpm, make sure to create the following `pnpm-workspace-yaml` file.
 When using another package manager, you can skip this step.
 
 ::: code-group
@@ -57,12 +57,6 @@ When using another package manager, you can skip this step.
 # needed to correctly install the Nuxt content and Nuxt image module
 onlyBuiltDependencies:
   - better-sqlite3
-```
-
-```properties [.npmrc]
-# "shamefully-hoist" is the default config from Nuxt for layers
-# It is currently needed to correctly install the peerDependencies from Nuxt layers
-shamefully-hoist=true
 ```
 
 :::
@@ -74,15 +68,15 @@ Install the onyx documentation layer by running
 ::: code-group
 
 ```sh [pnpm]
-pnpm add @sit-onyx/nuxt-docs
+pnpm add @sit-onyx/nuxt-docs better-sqlite3
 ```
 
 ```sh [npm]
-npm install @sit-onyx/nuxt-docs
+npm install @sit-onyx/nuxt-docs better-sqlite3
 ```
 
 ```sh [yarn]
-yarn install @sit-onyx/nuxt-docs
+yarn install @sit-onyx/nuxt-docs better-sqlite3
 ```
 
 :::
@@ -101,9 +95,26 @@ export default defineNuxtConfig({
 
 :::
 
+### Step 5: Configure default language
+
+Multiple languages are supported out of the box. Even if you are only using a single language, you must define it in your `nuxt.config.ts` in order for the app to work correctly.
+
+::: code-group
+
+```ts [nuxt.config.ts]
+export default defineNuxtConfig({
+  i18n: {
+    defaultLocale: "en",
+    locales: [{ code: "en", language: "en-US", name: "English" }],
+  },
+});
+```
+
+:::
+
 Done! You can now start to write markdown files and see the renderer output in your application.
 
-### Step 5: Create your first page
+### Step 6: Create your first page
 
 Finally create your first content page by creating a `content/en/index.md` file which will be the home/landing page of your documentation.
 For more information about writing markdown/content, see the [Write markdown](#write-markdown) section.

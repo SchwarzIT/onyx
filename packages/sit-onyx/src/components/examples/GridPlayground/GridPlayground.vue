@@ -200,6 +200,7 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
           label="Max overall width"
           list-label="List of max width options"
           label-tooltip="With this setting, you can adjust the maximum width of the container that includes the content. This is only relevant for large breakpoints."
+          hide-clear-icon
           :options="maxWidthOptions"
         />
 
@@ -211,6 +212,7 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
           label-tooltip="With large breakpoints you can optionally extend the default 12 column grid to 16 or even 20 columns."
           :options="!isLargeBreakpoint ? readonlyMaxColumnsOptions : maxColumnsOptions"
           :readonly="!isLargeBreakpoint"
+          hide-clear-icon
         />
 
         <OnyxSelect
@@ -221,6 +223,7 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
           label-tooltip="You can adjust the overall alignment of the grid here."
           :options="alignmentOptions"
           :readonly="!alignmentOptionsEnabled"
+          hide-clear-icon
         />
       </div>
     </div>

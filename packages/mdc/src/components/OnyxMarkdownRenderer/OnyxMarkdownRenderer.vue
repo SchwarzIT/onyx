@@ -13,6 +13,7 @@ import ProseH4 from "../prose/ProseH4.vue";
 import ProseH5 from "../prose/ProseH5.vue";
 import ProseH6 from "../prose/ProseH6.vue";
 import ProseHr from "../prose/ProseHr.vue";
+import ProseImg from "../prose/ProseImg.vue";
 import ProseOl from "../prose/ProseOl.vue";
 import ProseP from "../prose/ProseP.vue";
 import ProsePre from "../prose/ProsePre.vue";
@@ -88,6 +89,7 @@ const components = {
   thead: ProseThead,
   tbody: ProseTbody,
   ul: ProseUl,
+  img: ProseImg,
 };
 
 const attrs = useAttrs();

@@ -1,3 +1,4 @@
+/* eslint playwright/expect-expect: ["error", { "assertFunctionNames": ["expectRowCount"] }] -- We have some assertions in extra functions */
 import type { Locator } from "@playwright/test";
 import { expect, test } from "../../../../playwright/a11y.js";
 import { ONYX_BREAKPOINTS } from "../../../../utils/breakpoints.js";
@@ -244,7 +245,7 @@ test("should render items per page selector", async ({ mount, page }) => {
   // ASSERT
   await expect(component).toHaveScreenshot("with-items-per-page-xs.png");
   await expect(
-    component.locator(".onyx-items-per-page__label"),
+    component.locator(".onyx-form-element-v2__label"),
     "should hide label when <= xs breakpoint",
   ).toBeHidden();
 
@@ -257,12 +258,11 @@ test("should render items per page selector", async ({ mount, page }) => {
 
   // ASSERT
   await expect(
-    component.locator(".onyx-items-per-page__label"),
+    component.locator(".onyx-form-element-v2__label"),
     "should show label when > xs breakpoint",
   ).toBeVisible();
 });
 
-// eslint-disable-next-line playwright/expect-expect -- expects are done in external functions
 test("should handle lazy loading", async ({ mount }) => {
   // ARRANGE
   const component = await mount(TestCase, {

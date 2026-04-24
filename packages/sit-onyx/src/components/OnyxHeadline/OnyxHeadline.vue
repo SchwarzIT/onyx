@@ -31,6 +31,7 @@ const showAs = computed(() => props.showAs ?? props.is);
 const copyLink = async (hash: string) => {
   const { origin, pathname, search } = window.location;
   const fullUrl = `${origin}${pathname}${search}#${hash}`;
+  // eslint-disable-next-line compat/compat -- event handler is safe as it can only be triggered in the client
   await navigator.clipboard.writeText(fullUrl);
 };
 </script>

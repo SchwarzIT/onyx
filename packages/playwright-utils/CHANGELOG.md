@@ -1,5 +1,12 @@
 # @sit-onyx/playwright-utils
 
+## 1.2.2
+
+### Patch Changes
+
+- 3976c55: fix(useMatrixScreenshotTest): Reduce flakiness by waiting for all images to have been loaded before performing the matrix screenshot comparison
+- 3976c55: fix(expectEmit): Reduce flakiness by performing retries when checking for the emit
+
 ## 1.2.1
 
 ### Patch Changes
