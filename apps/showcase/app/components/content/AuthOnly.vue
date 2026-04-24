@@ -36,6 +36,7 @@ defineSlots<{
 <style lang="scss" scoped>
 .fallback {
   align-items: center;
+  text-align: center;
   margin-block: var(--onyx-markdown-renderer-margin-block);
 
   &__headline {
