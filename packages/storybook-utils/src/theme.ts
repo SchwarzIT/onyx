@@ -5,6 +5,28 @@ import { ONYX_BREAKPOINTS as RAW_ONYX_BREAKPOINTS, type OnyxBreakpoint } from ".
 export type BrandDetails = Pick<ThemeVars, "brandTitle" | "brandImage" | "brandUrl">;
 
 /**
+ * Get the computed color for a CSS custom property.
+ * Per default the property value is taken from the body element.
+ */
+export const getCustomColor = (
+  property: string,
+  base: "light" | "dark" = "light",
+  el: Element = document.body,
+) => {
+  // since CSS properties might contain nested "light-dark()" definitions, we simply create a temp DOM element
+  // and get the actual computed color from it to prevent recursive string parsing here
+  const tempEl = document.createElement("div");
+  tempEl.style.color = `var(${property})`;
+  tempEl.style.display = "none";
+  tempEl.style.colorScheme = base;
+  el.appendChild(tempEl);
+
+  const resolvedColor = getComputedStyle(tempEl).color;
+  el.removeChild(tempEl);
+  return resolvedColor;
+};
+
+/**
  * Get the computed value for a CSS custom property.
  * Per default the property value is taken from the body element.
  */
@@ -17,7 +39,8 @@ export const getCustomProperty = (property: string, el: Element = document.body)
  * @see https://storybook.js.org/docs/react/configure/theming#create-a-theme-quickstart
  */
 export const createTheme = (base: "light" | "dark" = "light", brandDetails?: BrandDetails) => {
-  const primaryColor = getCustomProperty("--onyx-color-onyx-500");
+  const primaryColor = getCustomColor("--onyx-color-text-icons-primary-intense", base);
+
   return create({
     brandTitle: brandDetails?.brandTitle,
     brandUrl: brandDetails?.brandUrl,
@@ -27,35 +50,28 @@ export const createTheme = (base: "light" | "dark" = "light", brandDetails?: Bra
 
     // default theme values that are independent of the light/dark mode:
     colorPrimary: primaryColor,
-    colorSecondary: getCustomProperty("--onyx-color-themed-secondary-500"),
+    // since Storybook does not support changing the text color of the active sidebar item (that uses secondary as background)
+    // we need to use a different color between light/dark here so the text is readable in both modes
+    colorSecondary: getCustomColor(
+      base === "light"
+        ? "--onyx-color-component-cta-default"
+        : "--onyx-color-component-cta-default-hover",
+      base,
+    ),
     barSelectedColor: primaryColor,
     barHoverColor: primaryColor,
-    appBorderRadius: remToNumber(getCustomProperty("--onyx-number-radius-300")),
-    inputBorderRadius: remToNumber(getCustomProperty("--onyx-number-radius-200")),
+    appBorderRadius: remToNumber(getCustomProperty("--onyx-radius-md")),
+    inputBorderRadius: remToNumber(getCustomProperty("--onyx-radius-component-input")),
 
     // custom colors depending on light/dark theme
-    ...(base === "light" ? getLightTheme() : getDarkTheme()),
+    ...defineTheme({
+      background: getCustomColor("--onyx-color-base-background-blank", base),
+      contentBackground: getCustomColor("--onyx-color-base-background-tinted", base),
+      text: getCustomColor("--onyx-color-text-icons-neutral-intense", base),
+      textMuted: getCustomColor("--onyx-color-text-icons-neutral-medium", base),
+      border: getCustomColor("--onyx-color-component-border-neutral", base),
+    }),
   }) satisfies ThemeVars;
-};
-
-const getLightTheme = (): Partial<ThemeVars> => {
-  return defineTheme({
-    background: getCustomProperty("--onyx-color-universal-grayscale-white"),
-    contentBackground: getCustomProperty("--onyx-color-neutral-steel-100"),
-    text: getCustomProperty("--onyx-color-neutral-steel-700"),
-    textMuted: getCustomProperty("--onyx-color-neutral-steel-600"),
-    border: getCustomProperty("--onyx-color-neutral-steel-300"),
-  });
-};
-
-const getDarkTheme = (): Partial<ThemeVars> => {
-  return defineTheme({
-    background: getCustomProperty("--onyx-color-neutral-steel-1100"),
-    contentBackground: getCustomProperty("--onyx-color-neutral-steel-1200"),
-    text: getCustomProperty("--onyx-color-neutral-steel-200"),
-    textMuted: getCustomProperty("--onyx-color-neutral-steel-400"),
-    border: getCustomProperty("--onyx-color-neutral-steel-900"),
-  });
 };
 
 /** Define a full onyx Storybook color theme based on the given 5 main colors. */
