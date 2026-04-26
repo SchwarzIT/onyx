@@ -227,8 +227,7 @@ test("should allow scrolling the page", async ({ page, mount }) => {
   await expect(table).toBeInViewport();
 
   // ACT
-  const box = (await table.boundingBox())!;
-  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+  await table.hover();
   await page.mouse.wheel(0, 512);
 
   // ASSERT
