@@ -123,7 +123,7 @@ const getOpeningArrowDirection = () => {
 const {
   elements: { listItem, menuItem },
 } = createMenuItems({
-  onOpen: handleOpen,
+  onOpen: () => handleOpen,
   openingArrowDirection: getOpeningArrowDirection,
 });
 

@@ -13,7 +13,7 @@ export type UseOutsideClickOptions<TCheckOnTab extends boolean | undefined = und
    */
   onOutsideClick: (
     event: TCheckOnTab extends true ? MouseEvent | KeyboardEvent | FocusEvent : MouseEvent,
-  ) => unknown;
+  ) => void;
   /**
    * Whether the outside focus should also be checked when pressing the Tab key.
    */

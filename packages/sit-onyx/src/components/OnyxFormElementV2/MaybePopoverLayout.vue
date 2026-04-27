@@ -28,16 +28,18 @@ const label = computed(() => {
 
 const popover = useTemplateRef("popover");
 
+const onOutsideClick = async () => {
+  // nextTick() is needed to prevent duplicate open toggles for e.g. the OnyxSelect
+  // where the outside click might be handled externally (e.g. in headless composable)
+  await nextTick();
+  open.value = false;
+};
+
 useOutsideClick({
   inside: popover,
   checkOnTab: true,
   disabled: computed(() => !slots.popover || !open.value),
-  onOutsideClick: async () => {
-    // nextTick() is needed to prevent duplicate open toggles for e.g. the OnyxSelect
-    // where the outside click might be handled externally (e.g. in headless composable)
-    await nextTick();
-    open.value = false;
-  },
+  onOutsideClick: () => void onOutsideClick(),
 });
 
 /**

@@ -50,7 +50,7 @@ export type CreateSliderOptions<TValue extends SliderValue = SliderValue> = {
   /**
    * Callback when the current value changes.
    */
-  onChange?: (value: TValue) => unknown;
+  onChange?: (value: TValue) => void;
 };
 
 const NAVIGATION_KEYS = new Set<string>([

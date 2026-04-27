@@ -67,32 +67,32 @@ export type CreateComboboxOptions<
    *
    * @param preventFocus If `true`, the parent combobox should not be focused (e.g. on outside click).
    */
-  onToggle?: (preventFocus?: boolean) => unknown;
+  onToggle?: (preventFocus?: boolean) => void;
   /**
    * Hook when an option is (un-)selected.
    */
-  onSelect?: (value: TValue) => unknown;
+  onSelect?: (value: TValue) => void;
   /**
    * Hook when the first option should be activated.
    */
-  onActivateFirst?: () => unknown;
+  onActivateFirst?: () => void;
   /**
    * Hook when the last option should be activated.
    */
-  onActivateLast?: () => unknown;
+  onActivateLast?: () => void;
   /**
    * Hook when the next option should be activated.
    */
-  onActivateNext?: (currentValue: TValue) => unknown;
+  onActivateNext?: (currentValue: TValue) => void;
   /**
    * Hook when the previous option should be activated.
    */
-  onActivatePrevious?: (currentValue: TValue) => unknown;
+  onActivatePrevious?: (currentValue: TValue) => void;
 } & (TAutoComplete extends Exclude<ComboboxAutoComplete, "none">
-  ? { onAutocomplete: (input: string) => unknown }
+  ? { onAutocomplete: (input: string) => void }
   : { onAutocomplete?: undefined }) &
   (TAutoComplete extends "none"
-    ? { onTypeAhead: (input: string) => unknown }
+    ? { onTypeAhead: (input: string) => void }
     : { onTypeAhead?: undefined }) &
   Pick<
     CreateListboxOptions<TValue, TMultiple>,

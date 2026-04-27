@@ -15,7 +15,7 @@ import { useOutsideClick } from "../helpers/useOutsideClick.js";
 type CreateMenuButtonOptions = {
   isExpanded: Readonly<Ref<boolean>>;
   trigger: Readonly<MaybeRef<"hover" | "click">>;
-  onToggle: () => unknown;
+  onToggle: () => void;
   disabled?: Readonly<Ref<boolean>>;
   /**
    * Whether the menu button opens to the top or bottom. Defines the keyboard navigation behavior (e.g. Arrow up and down).
@@ -183,7 +183,7 @@ type CreateMenuItemOptions = {
   /**
    * Called when the menu item should be opened (if it has nested children).
    */
-  onOpen?: () => unknown;
+  onOpen?: () => void;
   openingArrowDirection?: MaybeRefOrGetter<"ArrowRight" | "ArrowLeft">;
 };
 

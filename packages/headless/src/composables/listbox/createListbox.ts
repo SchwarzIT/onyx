@@ -34,27 +34,27 @@ export type CreateListboxOptions<TValue extends ListboxValue, TMultiple extends 
   /**
    * Hook when an option is selected.
    */
-  onSelect?: (value: TValue) => unknown;
+  onSelect?: (value: TValue) => void;
   /**
    * Hook when the first option should be activated.
    */
-  onActivateFirst?: () => unknown;
+  onActivateFirst?: () => void;
   /**
    * Hook when the last option should be activated.
    */
-  onActivateLast?: () => unknown;
+  onActivateLast?: () => void;
   /**
    * Hook when the next option should be activated.
    */
-  onActivateNext?: (currentValue: TValue) => unknown;
+  onActivateNext?: (currentValue: TValue) => void;
   /**
    * Hook when the previous option should be activated.
    */
-  onActivatePrevious?: (currentValue: TValue) => unknown;
+  onActivatePrevious?: (currentValue: TValue) => void;
   /**
    * Hook when the first option starting with the given label should be activated.
    */
-  onTypeAhead?: (key: string) => unknown;
+  onTypeAhead?: (key: string) => void;
 } & (
   | {
       /**

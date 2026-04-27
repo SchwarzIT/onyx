@@ -13,7 +13,7 @@ type CreateTabsOptions<TKey extends PropertyKey = PropertyKey> = {
   /**
    * Called when the user selects a tab.
    */
-  onSelect?: (selectedTabValue: TKey) => unknown;
+  onSelect?: (selectedTabValue: TKey) => void;
 };
 
 /**
