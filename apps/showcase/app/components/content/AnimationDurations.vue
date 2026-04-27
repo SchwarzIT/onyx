@@ -15,15 +15,15 @@ const durations = [
       <div class="card__details">
         <div class="detail">
           <span class="detail__label">{{ $t("duration") }}</span>
-          <span>{{ duration.value }}</span>
+          <span class="detail__value">{{ duration.value }}</span>
         </div>
 
         <div class="detail">
-          <span class="detail__label">
-            {{ $t("cssVariable") }}
+          <span class="detail__label"> {{ $t("cssVariable") }} </span>
+          <span class="detail__value">
+            {{ duration.cssVariable }}
             <CopyButton :value="duration.cssVariable" />
           </span>
-          <span> {{ duration.cssVariable }} </span>
         </div>
       </div>
     </OnyxCard>
@@ -56,6 +56,9 @@ const durations = [
 
   &__label {
     color: var(--onyx-color-text-icons-neutral-medium);
+  }
+
+  &__value {
     display: flex;
     flex-wrap: wrap;
     gap: var(--onyx-density-2xs);
