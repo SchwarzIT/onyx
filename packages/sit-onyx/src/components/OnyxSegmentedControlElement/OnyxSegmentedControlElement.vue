@@ -57,7 +57,7 @@ useAutofocus(input, props);
 .onyx-segmented-control-element {
   @include layers.component() {
     box-sizing: border-box;
-    background-color: var(--onyx-color-base-neutral-300);
+    background-color: var(--onyx-color-base-neutral-200);
     border-radius: var(--onyx-radius-component-segmented-control-inside);
     color: var(--onyx-color-text-icons-neutral-intense);
     font-weight: var(--onyx-font-weight-regular);
