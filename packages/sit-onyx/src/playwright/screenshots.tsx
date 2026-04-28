@@ -16,7 +16,7 @@ export type OnyxMatrixScreenshotHookContext = {
   disabledAccessibilityRules?: string[];
 };
 
-export const { executeMatrixScreenshotTest } =
+export const { executeMatrixScreenshotTest, executeMatrixScreenshotTestNoneIsolated } =
   useMatrixScreenshotTest<OnyxMatrixScreenshotHookContext>({
     defaults: {
       hooks: {

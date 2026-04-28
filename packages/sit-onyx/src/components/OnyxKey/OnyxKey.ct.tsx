@@ -5,7 +5,10 @@ import {
 } from "@sit-onyx/playwright-utils";
 import { OPERATING_SYSTEMS } from "../../composables/useOperatingSystem.js";
 import { expect, test } from "../../playwright/a11y.js";
-import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
+import {
+  executeMatrixScreenshotTest,
+  executeMatrixScreenshotTestNoneIsolated,
+} from "../../playwright/screenshots.js";
 import {
   ALPHABETIC_KEYS,
   EDITING_KEYS,
@@ -42,7 +45,7 @@ test.describe("Screenshot tests", () => {
 });
 
 test.describe("Screenshot tests (alphabetic)", () => {
-  executeMatrixScreenshotTest({
+  executeMatrixScreenshotTestNoneIsolated({
     ...screenshotOptions,
     name: "Key (alphabetic)",
     rows: ALPHABETIC_KEYS,
@@ -51,7 +54,7 @@ test.describe("Screenshot tests (alphabetic)", () => {
 });
 
 test.describe("Screenshot tests (numeric)", () => {
-  executeMatrixScreenshotTest({
+  executeMatrixScreenshotTestNoneIsolated({
     ...screenshotOptions,
     name: "Key (numeric)",
     rows: NUMERIC_KEYS,
@@ -61,7 +64,7 @@ test.describe("Screenshot tests (numeric)", () => {
 });
 
 test.describe("Screenshot tests (modifier)", () => {
-  executeMatrixScreenshotTest({
+  executeMatrixScreenshotTestNoneIsolated({
     ...screenshotOptions,
     name: "Key (modifier)",
     rows: MODIFIER_KEYS,
@@ -70,7 +73,7 @@ test.describe("Screenshot tests (modifier)", () => {
 });
 
 test.describe("Screenshot tests (navigation)", () => {
-  executeMatrixScreenshotTest({
+  executeMatrixScreenshotTestNoneIsolated({
     ...screenshotOptions,
     name: "Key (navigation)",
     rows: NAVIGATION_KEYS,
@@ -79,7 +82,7 @@ test.describe("Screenshot tests (navigation)", () => {
 });
 
 test.describe("Screenshot tests (functional)", () => {
-  executeMatrixScreenshotTest({
+  executeMatrixScreenshotTestNoneIsolated({
     ...screenshotOptions,
     name: "Key (functional)",
     rows: FUNCTION_KEYS,
@@ -88,7 +91,7 @@ test.describe("Screenshot tests (functional)", () => {
 });
 
 test.describe("Screenshot tests (misc)", () => {
-  executeMatrixScreenshotTest({
+  executeMatrixScreenshotTestNoneIsolated({
     ...screenshotOptions,
     name: "Key (misc)",
     rows: MISC_KEYS,
@@ -97,7 +100,7 @@ test.describe("Screenshot tests (misc)", () => {
 });
 
 test.describe("Screenshot tests (media)", () => {
-  executeMatrixScreenshotTest({
+  executeMatrixScreenshotTestNoneIsolated({
     ...screenshotOptions,
     name: "Key (media)",
     rows: MEDIA_KEYS,
@@ -106,7 +109,7 @@ test.describe("Screenshot tests (media)", () => {
 });
 
 test.describe("Screenshot tests (numpad)", () => {
-  executeMatrixScreenshotTest({
+  executeMatrixScreenshotTestNoneIsolated({
     ...screenshotOptions,
     name: "Key (numpad)",
     rows: NUMPAD_KEYS,
@@ -115,7 +118,7 @@ test.describe("Screenshot tests (numpad)", () => {
 });
 
 test.describe("Screenshot tests (symbol)", () => {
-  executeMatrixScreenshotTest({
+  executeMatrixScreenshotTestNoneIsolated({
     ...screenshotOptions,
     name: "Key (symbol)",
     rows: SYMBOL_KEYS,
@@ -124,7 +127,7 @@ test.describe("Screenshot tests (symbol)", () => {
 });
 
 test.describe("Screenshot tests (editing)", () => {
-  executeMatrixScreenshotTest({
+  executeMatrixScreenshotTestNoneIsolated({
     ...screenshotOptions,
     name: "Key (editing)",
     rows: EDITING_KEYS,
