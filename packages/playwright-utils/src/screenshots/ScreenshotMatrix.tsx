@@ -24,6 +24,9 @@ export type ScreenshotMatrixProps = {
 };
 
 export const ScreenshotMatrix = (props: ScreenshotMatrixProps) => {
+  const rowLabels = props.rows.map((row) => GridLabel({ name: row, type: "row" }));
+  const columnsLabels = props.columns.map((column) => GridLabel({ name: column, type: "column" }));
+
   /**
    * CSS "grid-template-areas" for the current columns and rows.
    * Every grid element must have the "grid-area" set to `{row}-{column}` to place it correctly.
@@ -65,7 +68,22 @@ export const ScreenshotMatrix = (props: ScreenshotMatrixProps) => {
       >
         <div style={{ gridArea: "blank" }}></div>
         {props.children}
+        {...rowLabels}
+        {...columnsLabels}
       </div>
     </div>
   );
 };
+
+export const GridLabel = (props: { type: "column" | "row"; name: string }) => {
+  return (
+    <div
+      style={{ textAlign: "center", gridArea: `${props.type}-${escapeGridAreaName(props.name)}` }}
+    >
+      {props.name}
+    </div>
+  );
+};
+
+export const getCellId = (row: string, column: string) =>
+  `${escapeGridAreaName(row)}-${escapeGridAreaName(column)}`;
