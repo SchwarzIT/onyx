@@ -223,6 +223,9 @@ defineExpose({ input });
       }
     }
 
+    .onyx-icon {
+      --icon-color: var(--onyx-color-text-icons-neutral-medium);
+    }
     &__button {
       border: none;
       height: 100%;
@@ -255,13 +258,12 @@ defineExpose({ input });
       }
     }
 
-    .onyx-icon {
-      --icon-color: var(--onyx-color-text-icons-neutral-medium);
-    }
-    &:focus-within,
-    &:hover {
-      .onyx-icon {
-        --icon-color: var(--onyx-color-text-icons-primary-intense);
+    .onyx-form-element-v2__input-container {
+      &:focus-within,
+      &:hover {
+        .onyx-form-element-v2__icons--leading .onyx-icon {
+          --icon-color: var(--onyx-color-text-icons-primary-intense);
+        }
       }
     }
 
