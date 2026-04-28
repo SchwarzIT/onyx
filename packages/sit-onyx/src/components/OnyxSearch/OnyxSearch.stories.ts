@@ -66,13 +66,7 @@ export const Tinted = {
 export const ShortCut = {
   args: {
     ...Default.args,
-    shortcut: {
-      sequence: [
-        {
-          all: ["Control", "S"],
-        },
-      ],
-    },
+    withShortcut: true,
   },
 };
 

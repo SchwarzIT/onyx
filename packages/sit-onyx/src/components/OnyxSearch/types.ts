@@ -18,12 +18,16 @@ export type OnyxSearchProps = Pick<
 > &
   Pick<OnyxShortcutProps, "sequence"> & {
     /**
+     *
+     */
+    label: string;
+
+    /**
      * The component is available in two color modes: blank and tinted.
      * Use the color that is opposite to the tinted or blank color of the underlying canvas.
      *
      * @default "blank"
      */
-    label: string;
     color?: SearchColor;
     /**
      * Set the size of the corner radii.
@@ -33,7 +37,7 @@ export type OnyxSearchProps = Pick<
     cornerRadius?: SearchCornerRadius;
     showFilter?: boolean;
     showPersonalFilter?: boolean;
-    shortcut?: Pick<OnyxShortcutProps, "sequence" | "cleanupDelay" | "os" | "element">;
+    withShortcut?: boolean;
   };
 
 export const SEARCH_COLORS = ["blank", "tinted"] as const;

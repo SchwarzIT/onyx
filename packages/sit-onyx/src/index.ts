@@ -203,6 +203,9 @@ export * from "./components/OnyxSelect/types.js";
 export { default as OnyxItemsPerPage } from "./components/OnyxItemsPerPage/OnyxItemsPerPage.vue";
 export * from "./components/OnyxItemsPerPage/types.js";
 
+export { default as OnyxUnstableSearch } from "./components/OnyxSearch/OnyxSearch.vue";
+export * from "./components/OnyxSearch/types.js";
+
 export { default as OnyxSelectDialog } from "./components/OnyxSelectDialog/OnyxSelectDialog.vue";
 export * from "./components/OnyxSelectDialog/types.js";
 

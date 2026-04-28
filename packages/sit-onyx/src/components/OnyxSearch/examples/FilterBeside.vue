@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import OnyxSelect from "../../OnyxSelect/OnyxSelect.vue";
-import OnyxSearch from "../OnyxSearch.vue";
+import { OnyxMenuItem, OnyxModal, OnyxSelect, OnyxUnstableSearch } from "../../../index.js";
 
 const showFilter = ref(false);
 const showPersonalFilter = ref(false);
@@ -9,8 +8,6 @@ const modelValue = ref();
 
 const globalFilterStatus = ref();
 const globalFilterCategory = ref();
-const personalFilterAuthor = ref();
-const personalFilterVisibility = ref();
 
 const statusOptions = [
   { value: "active", label: "Active" },
@@ -23,26 +20,18 @@ const categoryOptions = [
   { value: "images", label: "Images" },
   { value: "videos", label: "Videos" },
 ];
-
-const authorOptions = [
-  { value: "me", label: "Created by me" },
-  { value: "team", label: "Created by my team" },
-];
-
-const visibilityOptions = [
-  { value: "public", label: "Public" },
-  { value: "private", label: "Visible only to me" },
-];
 </script>
 
 <template>
   <div class="search-wrapper">
-    <OnyxSearch
+    <OnyxUnstableSearch
       v-model:show-filter="showFilter"
       v-model:show-personal-filter="showPersonalFilter"
-      label="Search..."
+      label="Search"
       :model-value="modelValue"
-    />
+      with-shortcut
+    >
+    </OnyxUnstableSearch>
 
     <div v-show="showFilter" class="filter-wrapper">
       <OnyxSelect
@@ -61,22 +50,30 @@ const visibilityOptions = [
       />
     </div>
 
-    <div v-show="showPersonalFilter" class="filter-wrapper">
-      <OnyxSelect
-        v-model="personalFilterAuthor"
-        hide-label
-        label="Author"
-        :options="authorOptions"
-        placeholder="Select author"
-      />
-      <OnyxSelect
-        v-model="personalFilterVisibility"
-        hide-label
-        label="Visibility"
-        :options="visibilityOptions"
-        placeholder="Select visibility"
-      />
-    </div>
+    <OnyxModal v-model:open="showPersonalFilter" label="Select Personal Filter">
+      <OnyxMenuItem
+        @click="
+          () => {
+            globalFilterStatus = 'pending';
+            globalFilterCategory = 'documents';
+            showPersonalFilter = false;
+          }
+        "
+      >
+        Personal Filter 1
+      </OnyxMenuItem>
+      <OnyxMenuItem
+        @click="
+          () => {
+            globalFilterStatus = 'active';
+            globalFilterCategory = 'images';
+            showPersonalFilter = false;
+          }
+        "
+      >
+        Personal Filter 2
+      </OnyxMenuItem>
+    </OnyxModal>
   </div>
 </template>
 
@@ -85,6 +82,9 @@ const visibilityOptions = [
   display: flex;
   gap: var(--onyx-density-sm);
   width: 100vw;
+  .onyx-search {
+    width: 25rem;
+  }
 }
 .filter-wrapper {
   display: flex;

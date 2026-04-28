@@ -265,6 +265,12 @@
     "failed": "Failed!",
     "tabLabel": "Code"
   },
+  "search": {
+    "filterLabel": "show search filter",
+    "personalFilterLabel": "show personal search filter",
+    "leadingShortcutPlaceholder": "Type",
+    "trailingShortcutPlaceholder": "to search"
+  },
   "globalSearch": {
     "label": "Global search",
     "searchResults": "Search results",

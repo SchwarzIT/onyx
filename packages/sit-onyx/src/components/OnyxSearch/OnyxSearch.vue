@@ -1,20 +1,23 @@
 <script lang="ts" setup>
 import { iconBookmark, iconFilter, iconSearch } from "@sit-onyx/icons";
 import { computed, useTemplateRef } from "vue";
-import { useAutofocus } from "../../composables/useAutoFocus.js";
 import { useVModel } from "../../composables/useVModel.js";
+import { injectI18n } from "../../i18n/index.js";
 import { useForwardProps } from "../../utils/props.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxInput from "../OnyxInput/OnyxInput.vue";
+import OnyxKey from "../OnyxKey/OnyxKey.vue";
 import OnyxSeparator from "../OnyxSeparator/OnyxSeparator.vue";
 import OnyxShortcut from "../OnyxShortcut/OnyxShortcut.vue";
+import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import type { OnyxSearchProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxSearchProps>(), {
   color: "blank",
   cornerRadius: "soft",
   disabled: FORM_INJECTED_SYMBOL,
+  withShortcut: false,
 });
 
 const emit = defineEmits<{
@@ -56,11 +59,10 @@ const showPersonalFilter = useVModel({
 
 const inputProps = useForwardProps(props, OnyxInput);
 const { disabled } = useFormContext(props);
+const { t } = injectI18n();
 
 const inputComponent = useTemplateRef("inputComponent");
-const input = computed(() => inputComponent.value?.input ?? null);
-
-useAutofocus(input, props);
+const input = computed(() => inputComponent.value?.input);
 
 defineExpose({ input });
 </script>
@@ -85,17 +87,34 @@ defineExpose({ input });
         hide-label
       >
         <template #trailingIcons>
-          <div v-show="!modelValue || modelValue === ''" class="onyx-search__placeholder">
-            <OnyxShortcut
-              v-if="props.shortcut"
-              v-bind="props.shortcut"
-              highlight="auto"
-              @complete="input?.focus()"
-            />
+          <div v-if="!modelValue || modelValue === ''" class="onyx-search__placeholder">
+            <div
+              v-if="props.withShortcut"
+              class="onyx-truncation-ellipsis onyx-search__placeholder-text"
+            >
+              {{ t("search.leadingShortcutPlaceholder") }}
+              <OnyxKey name="/" />
+              <OnyxVisuallyHidden>
+                <OnyxShortcut
+                  :sequence="[{ all: ['Shift', '7'] }]"
+                  highlight="auto"
+                  @complete="
+                    () => {
+                      input?.focus();
+                    }
+                  "
+                />
+              </OnyxVisuallyHidden>
+              {{ t("search.trailingShortcutPlaceholder") }}
+            </div>
+
+            <p v-else class="onyx-truncation-ellipsis onyx-search__placeholder-text">
+              {{ props.label }}
+            </p>
           </div>
         </template>
         <template #leadingIcons>
-          <OnyxIcon class="onyx-search__icon" :icon="iconSearch" />
+          <OnyxIcon :icon="iconSearch" />
         </template>
 
         <template v-if="!disabled && typeof showFilter === 'boolean'" #trailing>
@@ -104,7 +123,7 @@ defineExpose({ input });
             class="onyx-search__button"
             type="button"
             :disabled="disabled || props.loading"
-            aria-label="test"
+            :aria-label="t('search.personalFilterLabel')"
             @click="
               () => {
                 showPersonalFilter = !showPersonalFilter;
@@ -122,7 +141,7 @@ defineExpose({ input });
             class="onyx-search__button"
             type="button"
             :disabled="disabled || props.loading"
-            aria-label="test"
+            :aria-label="t('search.filterLabel')"
             @click="
               () => {
                 showFilter = !showFilter;
@@ -140,11 +159,14 @@ defineExpose({ input });
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
 @use "../../styles/mixins/input.scss";
+@use "../OnyxFormElementV2/OnyxFormElementV2.scss";
 
 .onyx-search {
   @include layers.component() {
     cursor: pointer;
-    position: relative;
+    .onyx-form-element-v2__input-container {
+      position: relative;
+    }
 
     &--blank .onyx-input {
       --onyx-form-element-v2-background: var(--onyx-color-base-background-blank);
@@ -165,9 +187,10 @@ defineExpose({ input });
     .onyx-separator {
       height: 100%;
     }
-
+    .onyx-input .onyx-form-element-v2__slot.onyx-form-element-v2__slot--trailing,
     .onyx-form-element-v2__icons.onyx-form-element-v2__icons--trailing {
       padding: 0;
+      padding-inline: 0;
     }
 
     &__placeholder {
@@ -176,16 +199,25 @@ defineExpose({ input });
       padding: var(--onyx-form-element-v2-padding-block)
         var(--onyx-form-element-v2-padding-inline-icons);
       pointer-events: none;
-      .onyx-shortcut {
-        font-size: var(--onyx-font-size-sm);
+      color: var(--onyx-color-text-icons-neutral-soft);
+      overflow: hidden;
+      // 100% - icon-size - border
+      width: calc(100% - 24px - var(--onyx-form-element-v2-padding-inline));
+
+      &-text {
+        display: flex;
+        gap: var(--onyx-spacing-2xs);
       }
+
       .onyx-key {
         min-width: 20px;
         height: 20px;
+        color: var(--onyx-color-text-icons-neutral-soft);
         font-size: var(--onyx-font-size-sm);
       }
     }
-    &:has(.onyx-input:focus-visible) {
+
+    @include OnyxFormElementV2.input-focus-or-popover-open() {
       .onyx-search__placeholder {
         display: none;
       }
@@ -223,9 +255,12 @@ defineExpose({ input });
       }
     }
 
+    .onyx-icon {
+      --icon-color: var(--onyx-color-text-icons-neutral-medium);
+    }
     &:focus-within,
     &:hover {
-      .onyx-search__icon {
+      .onyx-icon {
         --icon-color: var(--onyx-color-text-icons-primary-intense);
       }
     }
@@ -233,7 +268,7 @@ defineExpose({ input });
     &:has(.onyx-input__native:disabled) {
       cursor: default;
 
-      .onyx-search__icon {
+      .onyx-icon {
         --icon-color: var(--onyx-color-text-icons-neutral-soft);
       }
     }

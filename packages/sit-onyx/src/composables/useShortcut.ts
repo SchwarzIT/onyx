@@ -144,6 +144,7 @@ export const _unstableUseShortcut = <TStep extends ShortcutSequenceStep>(
     if (currentStepIndex.value === sequence.value.length - 1) {
       options.onStepComplete?.(currentStep, currentStepIndex.value);
       options.onComplete?.();
+      event.preventDefault();
       currentStepIndex.value = 0;
     } else {
       options.onStepComplete?.(currentStep, currentStepIndex.value);

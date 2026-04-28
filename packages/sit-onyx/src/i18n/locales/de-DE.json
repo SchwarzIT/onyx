@@ -275,6 +275,12 @@
     },
     "system": "System"
   },
+  "search": {
+    "filterLabel": "Zeige Suchfilter an",
+    "personalFilterLabel": "Zeige persönliche Suchfilter an",
+    "leadingShortcutPlaceholder": "Tippe",
+    "trailingShortcutPlaceholder": "zum suchen"
+  },
   "timePicker": {
     "placeholder": {
       "hour": "HH",
