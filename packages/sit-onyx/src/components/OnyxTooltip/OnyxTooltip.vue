@@ -119,7 +119,7 @@ const positionAndAlignment = computed(() => {
   if (toolTipPosition.value.includes(" ")) {
     return toolTipPosition.value;
   }
-  return `${toolTipPosition.value} center`;
+  return `${toolTipPosition.value} ${alignment.value === "right" ? "left" : alignment.value === "left" ? "right" : "center"}`;
 });
 
 const createPattern = () =>
@@ -185,6 +185,11 @@ const tooltipClasses = computed(() => {
 });
 
 const { width } = useResizeObserver(tooltipWrapperRef);
+// only use the resizeObserver if needed
+const tooltipFallbackRef = computed(() =>
+  useragentSupportsAnchorApi.value ? null : tooltipRef.value,
+);
+const { width: tooltipFallbackWith } = useResizeObserver(tooltipFallbackRef);
 const tooltipWidth = computed(() =>
   props.fitParent && tooltipWrapperRef.value ? `${width.value}px` : "max-content",
 );
@@ -230,9 +235,22 @@ const tooltipStyles = computed(() => {
   }
 
   // fallback styles if browser does not support the Anchor API yet
+  let fallbackLeft = leftPosition.value;
+
+  if (
+    toolTipPosition.value === "top" ||
+    (toolTipPosition.value === "bottom" && !alignsWithEdge.value)
+  ) {
+    if (alignment.value === "left") {
+      fallbackLeft = `calc(${leftPosition.value} + ${tooltipFallbackWith.value / 2}px)`;
+    } else if (alignment.value === "right") {
+      fallbackLeft = `calc(${leftPosition.value} - ${tooltipFallbackWith.value / 2}px )`;
+    }
+  }
+
   return {
     width: tooltipWidth.value,
-    left: leftPosition.value,
+    left: fallbackLeft,
     top: topPosition.value,
   };
 });
@@ -401,7 +419,10 @@ $wedge-size: 0.5rem;
       // only apply for top and bottom positions
       &.onyx-tooltip--position-top,
       &.onyx-tooltip--position-bottom {
-        transform: translateX(calc(50% - 2 * $wedge-size));
+        left: calc(-1 * anchor-size(width) / 2 - 2 * $wedge-size);
+        &.onyx-tooltip--dont-support-anchor {
+          transform: translateX(calc(-2 * $wedge-size));
+        }
         &.onyx-tooltip--aligns-with-edge {
           transform: translateX(100%);
           &.onyx-tooltip--dont-support-anchor {
@@ -419,8 +440,10 @@ $wedge-size: 0.5rem;
       // only apply for top and bottom positions
       &.onyx-tooltip--position-top,
       &.onyx-tooltip--position-bottom {
-        transform: translateX(calc(-50% + 2 * $wedge-size));
-
+        right: calc(-1 * anchor-size(width) / 2 - 2 * $wedge-size);
+        &.onyx-tooltip--dont-support-anchor {
+          transform: translateX(calc(2 * $wedge-size));
+        }
         &.onyx-tooltip--aligns-with-edge {
           transform: translateX(-100%);
           &.onyx-tooltip--dont-support-anchor {
