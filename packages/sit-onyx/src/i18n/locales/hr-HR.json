@@ -352,5 +352,11 @@
   },
   "accordion": {
     "toggle": "Kliknite za prikaz/skrivanje sadržaja"
+  },
+  "search": {
+    "filterLabel": "prikaži filtar pretraživanja",
+    "personalFilterLabel": "prikaži osobni filtar pretraživanja",
+    "leadingShortcutPlaceholder": "Upišite",
+    "trailingShortcutPlaceholder": "za pretraživanje"
   }
 }
