@@ -8,13 +8,12 @@ type DetailsItem = {
 const props = defineProps<{
   name: string;
   items: DetailsItem[];
-  color?: "default" | "neutral";
 }>();
 </script>
 
 <template>
-  <OnyxCard :class="['card', 'onyx-grid-span-4', { 'card--neutral': props.color === 'neutral' }]">
-    <OnyxAvatar class="card__avatar" :full-name="props.name" :initials="props.name" />
+  <OnyxCard class="card onyx-grid-span-4">
+    <OnyxAvatar :full-name="props.name" :initials="props.name" />
 
     <OnyxSeparator class="card__separator" />
 
@@ -34,18 +33,6 @@ const props = defineProps<{
 .card {
   align-items: center;
   color: var(--onyx-color-text-icons-neutral-medium);
-
-  &--neutral {
-    color: var(--onyx-color-text-icons-neutral-soft);
-    border-color: var(--onyx-color-component-border-disabled);
-    background-color: var(--onyx-color-base-background-tinted);
-
-    .card__avatar,
-    .card__separator {
-      color: inherit;
-      background-color: var(--onyx-color-base-neutral-200);
-    }
-  }
 
   &__separator {
     width: 100%;
