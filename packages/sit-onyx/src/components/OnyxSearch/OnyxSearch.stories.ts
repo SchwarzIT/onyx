@@ -1,5 +1,5 @@
-import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
+import { createAdvancedStoryExample } from "../../utils/storybook.js";
 import OnyxSearch from "./OnyxSearch.vue";
 
 /**
@@ -8,17 +8,16 @@ import OnyxSearch from "./OnyxSearch.vue";
 const meta: Meta<typeof OnyxSearch> = {
   title: "Search & Filter/Search",
   component: OnyxSearch,
-  // TODO: unhide from storybook after https://github.com/SchwarzIT/onyx/issues/4651
-  tags: ["!autodocs", "!dev", "unstable"],
+  tags: ["!autodocs", "unstable"],
   decorators: [
     (story) => ({
       components: { story },
-      template: `<div style="width: 16rem;"> <story /> </div>`,
+      template: `<div style="width: 24rem;"> <story /> </div>`,
     }),
   ],
   argTypes: {
     disabled: { control: { type: "boolean" } },
-    ...withNativeEventLogging(["onInput", "onSubmit", "onFocusin", "onFocusout"]),
+    // ...withNativeEventLogging(["onInput", "onSubmit", "onFocusin", "onFocusout"]),
   },
 };
 
@@ -64,6 +63,19 @@ export const Tinted = {
   },
 } satisfies Story;
 
+export const ShortCut = {
+  args: {
+    ...Default.args,
+    shortcut: {
+      sequence: [
+        {
+          all: ["Control", "S"],
+        },
+      ],
+    },
+  },
+};
+
 /**
  * This example shows a skeleton input.
  */
@@ -72,4 +84,16 @@ export const Skeleton = {
     ...Default.args,
     skeleton: true,
   },
+} satisfies Story;
+
+export const FilterUnderneath = {
+  ...createAdvancedStoryExample("OnyxSearch", "FilterUnderneath"),
+} satisfies Story;
+
+export const FilterBeside = {
+  ...createAdvancedStoryExample("OnyxSearch", "FilterBeside"),
+} satisfies Story;
+
+export const FilterModal = {
+  ...createAdvancedStoryExample("OnyxSearch", "FilterModal"),
 } satisfies Story;
