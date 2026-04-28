@@ -63,7 +63,7 @@ const { elements } = createTabs({
 .tablist {
   display: flex;
   align-items: center;
-  gap: var(--onyx-density-sm);
+  gap: var(--onyx-grid-gutter);
   flex-wrap: wrap;
   margin-block: var(--onyx-markdown-renderer-margin-block);
 }

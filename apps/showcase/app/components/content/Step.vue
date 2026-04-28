@@ -76,7 +76,11 @@ const slots = defineSlots<{
 
   &__content {
     > :first-child {
-      margin-block: 0;
+      margin-top: 0;
+    }
+
+    > :last-child {
+      margin-bottom: 0;
     }
   }
 }
