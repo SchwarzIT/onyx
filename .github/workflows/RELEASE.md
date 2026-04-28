@@ -31,11 +31,15 @@ There are two different approaches that are supported by changesets for this:
 
 ### Major Releases
 
-_To be defined..._
+Example: `1.0.0` -> `2.0.0`
+
+Major releases are planned long-term and comprised of many bigger changes, as well as **[Breaking Changes](#breaking-changes)**.
+
+_TODO: Define process for major releases_
 
 ### Minor Release
 
-Example: `1.x.0`
+Example: `1.0.0` -> `1.1.0`
 
 Minor releases are triggered manually and are always released from the `main` branch.
 
@@ -49,7 +53,7 @@ A **Minor** release is initiated using the [Prepare Version pipeline](https://gi
 
 ### Patch Release
 
-Example: `1.0.x`
+Example: `1.0.0` -> `1.0.1`
 
 The patches / fixes are cherry-picked from the `main` branch (which is already released as snapshot) onto a dedicated release branch.
 
@@ -84,3 +88,65 @@ Unstable and work-in-progress components might be introduced as part of Minor an
 ::: warning
 Unstable features are **NOT** production ready and only to be used for testing and development. Breaking changes will be introduced in patch releases!
 :::
+
+## Breaking Changes
+
+**Definition:** We define a Breaking Change as any change that requires the library consumer to make an effort to integrate the changes.
+This includes any adaptation to the end user's interaction flow.
+
+### Types of Breaking Changes
+
+The following sections describes different kind of breaking changes with examples.
+
+#### API
+
+- Changes that produce compile-time errors.
+
+Components and functions are treated equally.
+
+E.g.
+
+- 🚫 _Forbidden:_ Adding a required property
+- 🚫 _Forbidden:_ Requiring a new dependency
+- ✅ _Allowed:_ Making a required property optional
+
+#### Styles
+
+- Changes that affect the position or layout of the root element of the components.
+
+As long as the aforementioned rule is not violated, the inner styles of a component can be changed.
+
+E.g.
+
+- 🚫 _Forbidden:_ Changing a component from `static` to `fixed` position.
+- ✅ _Allowed:_ Updating the border color and width.
+
+#### UX
+
+- Changes that alter the user's interaction flow.
+
+E.g.
+
+- 🚫 _Forbidden:_ Replacing an input field with a mouse-only widget.
+- 🚫 _Forbidden:_ Changing the initially focused element.
+- ✅ _Allowed:_ Visual-only changes
+
+### Phases
+
+The following are the phases that a component or function usually goes through in order:
+
+1. **Experimental:** Feature currently in development and/or feedback is being gathered. Although it can be used, it is not necessarily encouraged. This is because breaking changes can still happen.
+   These features are marked with the jsdoc tags `@experimental` and `@deprecated` (for IDE highlighting) tag. In Storybook, they have the `🧪 Unstable` tag.
+2. **Stable:** The default for all components. No breaking changes will be introduced for these components. However, they can be marked as _deprecated_ while stable.
+3. **Deprecated**: It can currently still be used, but it will be broken, removed, or changed in the next major version update. These are marked with the `@deprecated` tag and are usually accompanied by a recommendation on what to do instead.
+
+### Exceptions
+
+- Internal (i.e., not exported via the main entry point) or experimental utilities, components, or types.
+- Removal or changes to clearly bugged or unusable features
+- Security-related changes
+
+### Attribution
+
+- [Fluid-Framework: Breaking vs Non breaking Changes](https://github.com/microsoft/FluidFramework/wiki/Breaking-vs-Non-breaking-Changes)
+- [Timo Mämecke: Breaking UI Changes](https://timomeh.de/posts/breaking-ui-changes)
