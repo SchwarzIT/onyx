@@ -62,7 +62,7 @@ const handleChange = (value: TValue) => {
     display: flex;
     gap: var(--onyx-density-xs);
     padding: var(--onyx-density-2xs);
-    background-color: var(--onyx-color-base-neutral-300);
+    background-color: var(--onyx-color-base-neutral-200);
     border-radius: var(--onyx-radius-component-segmented-control-outside);
     overflow: auto;
     max-width: 100%;
