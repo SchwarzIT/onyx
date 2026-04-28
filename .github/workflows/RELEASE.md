@@ -145,6 +145,8 @@ The following are the phases that a component or function usually goes through i
 - Internal (i.e., not exported via the main entry point) or experimental utilities, components, or types.
 - Removal or changes to clearly bugged or unusable features
 - Security-related changes
+- Packages with "zero" version, e.g. `0.1.0`
+
 
 ### Attribution
 
