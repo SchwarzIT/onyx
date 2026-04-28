@@ -37,12 +37,6 @@ export type OnyxSearchProps = Pick<
    * 'undefined': filter button is hidden
    */
   showFilter?: boolean;
-
-  /** Determines whether the personal filters should be displayed.
-   * 'undefined': filter button is hidden
-   */
-  showPersonalFilter?: boolean;
-
   /** Indicates whether keyboard shortcuts should be enabled for quick access. */
   withShortcut?: boolean;
 };

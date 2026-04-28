@@ -1,9 +1,8 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import { OnyxMenuItem, OnyxModal, OnyxSelect, OnyxUnstableSearch } from "../../../index.js";
+import { OnyxButton, OnyxSelect, OnyxUnstableSearch } from "../../../index.js";
 
 const showFilter = ref(false);
-const showPersonalFilter = ref(false);
 const modelValue = ref();
 
 const globalFilterStatus = ref();
@@ -26,25 +25,10 @@ const categoryOptions = [
   <div class="search-wrapper">
     <OnyxUnstableSearch
       v-model:show-filter="showFilter"
-      v-model:show-personal-filter="showPersonalFilter"
       label="Search"
       :model-value="modelValue"
       with-shortcut
-    >
-      <template #placeholder="{ input }">
-        Type
-        <OnyxShortcut
-          :sequence="[{ all: ['Control', 'S'] }]"
-          highlight="auto"
-          @complete="
-            () => {
-              input?.focus();
-            }
-          "
-        />
-        to search
-      </template>
-    </OnyxUnstableSearch>
+    />
 
     <div v-show="showFilter" class="filter-wrapper">
       <OnyxSelect
@@ -63,32 +47,16 @@ const categoryOptions = [
         placeholder="Select category"
         list-label="Category"
       />
+      <OnyxButton
+        label="Clear"
+        @click="
+          () => {
+            globalFilterStatus = null;
+            globalFilterCategory = null;
+          }
+        "
+      />
     </div>
-
-    <OnyxModal v-model:open="showPersonalFilter" label="Select Personal Filter">
-      <OnyxMenuItem
-        @click="
-          () => {
-            globalFilterStatus = 'pending';
-            globalFilterCategory = 'documents';
-            showPersonalFilter = false;
-          }
-        "
-      >
-        Personal Filter 1
-      </OnyxMenuItem>
-      <OnyxMenuItem
-        @click="
-          () => {
-            globalFilterStatus = 'active';
-            globalFilterCategory = 'images';
-            showPersonalFilter = false;
-          }
-        "
-      >
-        Personal Filter 2
-      </OnyxMenuItem>
-    </OnyxModal>
   </div>
 </template>
 

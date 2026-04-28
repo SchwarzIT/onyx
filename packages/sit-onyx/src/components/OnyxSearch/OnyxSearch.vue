@@ -1,16 +1,15 @@
 <script lang="ts" setup>
-import { iconBookmark, iconFilter, iconSearch } from "@sit-onyx/icons";
+import { iconFilter, iconSearch } from "@sit-onyx/icons";
 import { computed, useTemplateRef, type ComponentInstance } from "vue";
+import { _unstableUseShortcut } from "../../composables/useShortcut.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import { useForwardProps } from "../../utils/props.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
+import OnyxFormElementAction from "../OnyxFormElementAction/OnyxFormElementAction.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxInput from "../OnyxInput/OnyxInput.vue";
 import OnyxKey from "../OnyxKey/OnyxKey.vue";
-import OnyxSeparator from "../OnyxSeparator/OnyxSeparator.vue";
-import OnyxShortcut from "../OnyxShortcut/OnyxShortcut.vue";
-import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import type { OnyxSearchProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxSearchProps>(), {
@@ -50,12 +49,6 @@ const showFilter = useVModel({
   emit,
   default: undefined,
 });
-const showPersonalFilter = useVModel({
-  key: "showPersonalFilter",
-  props,
-  emit,
-  default: undefined,
-});
 
 const inputProps = useForwardProps(props, OnyxInput);
 const { disabled } = useFormContext(props);
@@ -65,6 +58,11 @@ const inputComponent = useTemplateRef<ComponentInstance<typeof OnyxInput>>("inpu
 const input = computed(() => inputComponent.value?.input);
 
 defineExpose({ input });
+
+_unstableUseShortcut({
+  sequence: [{ all: ["Shift", "7"] }],
+  onComplete: () => input.value?.focus(),
+});
 </script>
 
 <template>
@@ -85,6 +83,7 @@ defineExpose({ input });
         :show-error="false"
         type="search"
         hide-label
+        disable-slot-padding
       >
         <template #trailingIcons>
           <div v-if="!modelValue || modelValue === ''" class="onyx-search__placeholder">
@@ -94,17 +93,6 @@ defineExpose({ input });
             >
               {{ t("search.leadingShortcutPlaceholder") }}
               <OnyxKey name="/" />
-              <OnyxVisuallyHidden>
-                <OnyxShortcut
-                  :sequence="[{ all: ['Shift', '7'] }]"
-                  highlight="auto"
-                  @complete="
-                    () => {
-                      input?.focus();
-                    }
-                  "
-                />
-              </OnyxVisuallyHidden>
               {{ t("search.trailingShortcutPlaceholder") }}
             </div>
 
@@ -118,38 +106,13 @@ defineExpose({ input });
         </template>
 
         <template v-if="!disabled && typeof showFilter === 'boolean'" #trailing>
-          <button
-            v-if="typeof showPersonalFilter === 'boolean' && typeof showFilter === 'boolean'"
-            class="onyx-search__button"
-            type="button"
-            :disabled="disabled || props.loading"
-            :aria-label="t('search.personalFilterLabel')"
-            @click="
-              () => {
-                showPersonalFilter = !showPersonalFilter;
-              }
-            "
-          >
-            <OnyxIcon :icon="iconBookmark" />
-          </button>
-          <OnyxSeparator
-            v-if="typeof showPersonalFilter === 'boolean' && typeof showFilter === 'boolean'"
-            orientation="vertical"
+          <OnyxFormElementAction
+            v-model:pressed="showFilter"
+            size="lg"
+            type="toggle"
+            :icon="iconFilter"
+            :label="t('search.filterLabel')"
           />
-          <button
-            v-if="typeof showFilter === 'boolean'"
-            class="onyx-search__button"
-            type="button"
-            :disabled="disabled || props.loading"
-            :aria-label="t('search.filterLabel')"
-            @click="
-              () => {
-                showFilter = !showFilter;
-              }
-            "
-          >
-            <OnyxIcon :icon="iconFilter" />
-          </button>
         </template>
       </OnyxInput>
     </form>
@@ -164,6 +127,7 @@ defineExpose({ input });
 .onyx-search {
   @include layers.component() {
     cursor: pointer;
+    color: var(--onyx-form-element-action-color);
     .onyx-form-element-v2__input-container {
       position: relative;
     }
@@ -186,11 +150,6 @@ defineExpose({ input });
 
     .onyx-separator {
       height: 100%;
-    }
-    .onyx-input .onyx-form-element-v2__slot.onyx-form-element-v2__slot--trailing,
-    .onyx-form-element-v2__icons.onyx-form-element-v2__icons--trailing {
-      padding: 0;
-      padding-inline: 0;
     }
 
     &__placeholder {
@@ -220,41 +179,6 @@ defineExpose({ input });
     @include OnyxFormElementV2.input-focus-or-popover-open() {
       .onyx-search__placeholder {
         display: none;
-      }
-    }
-
-    .onyx-icon {
-      --icon-color: var(--onyx-color-text-icons-neutral-medium);
-    }
-    &__button {
-      border: none;
-      height: 100%;
-      background-color: transparent;
-      color: var(--onyx-color-text-icons-neutral-medium);
-      display: inline-flex;
-      align-items: center;
-      padding: var(--onyx-form-element-v2-padding-block);
-      border-radius: inherit;
-      outline: none;
-
-      &:enabled {
-        cursor: pointer;
-
-        &:hover,
-        &:focus-visible {
-          .onyx-icon {
-            --icon-color: var(--onyx-color-text-icons-primary-intense);
-          }
-        }
-
-        &:focus-visible {
-          outline: none;
-          background-color: var(--onyx-color-base-primary-100);
-        }
-
-        &:active {
-          background-color: var(--onyx-color-base-primary-100);
-        }
       }
     }
 

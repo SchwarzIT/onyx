@@ -1,9 +1,8 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import { OnyxMenuItem, OnyxModal, OnyxSelect, OnyxUnstableSearch } from "../../../index.js";
+import { OnyxButton, OnyxSelect, OnyxUnstableSearch } from "../../../index.js";
 
 const showFilter = ref(false);
-const showPersonalFilter = ref(false);
 const modelValue = ref();
 
 const globalFilterStatus = ref();
@@ -26,12 +25,10 @@ const categoryOptions = [
   <div class="search-wrapper">
     <OnyxUnstableSearch
       v-model:show-filter="showFilter"
-      v-model:show-personal-filter="showPersonalFilter"
       label="Search"
       :model-value="modelValue"
       with-shortcut
-    >
-    </OnyxUnstableSearch>
+    />
 
     <div v-show="showFilter" class="filter-wrapper">
       <OnyxSelect
@@ -50,38 +47,23 @@ const categoryOptions = [
         placeholder="Select category"
         list-label="Category"
       />
+      <OnyxButton
+        label="Clear"
+        @click="
+          () => {
+            globalFilterStatus = null;
+            globalFilterCategory = null;
+          }
+        "
+      />
     </div>
-
-    <OnyxModal v-model:open="showPersonalFilter" label="Select Personal Filter">
-      <OnyxMenuItem
-        @click="
-          () => {
-            globalFilterStatus = 'pending';
-            globalFilterCategory = 'documents';
-            showPersonalFilter = false;
-          }
-        "
-      >
-        Personal Filter 1
-      </OnyxMenuItem>
-      <OnyxMenuItem
-        @click="
-          () => {
-            globalFilterStatus = 'active';
-            globalFilterCategory = 'images';
-            showPersonalFilter = false;
-          }
-        "
-      >
-        Personal Filter 2
-      </OnyxMenuItem>
-    </OnyxModal>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .search-wrapper {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--onyx-density-sm);
   width: 100vw;
   .onyx-search {
@@ -90,6 +72,7 @@ const categoryOptions = [
 }
 .filter-wrapper {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--onyx-density-sm);
   .onyx-select {
     width: 10rem;
