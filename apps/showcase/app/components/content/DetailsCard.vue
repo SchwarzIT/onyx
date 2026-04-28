@@ -19,7 +19,7 @@ const props = defineProps<{
 
     <div class="card__details">
       <div v-for="item in props.items" :key="item.label" class="detail">
-        <span> {{ item.label }} </span>
+        <span class="detail__label"> {{ item.label }} </span>
         <span class="detail__value">
           {{ item.value }}
           <CopyButton v-if="item.copy" :value="item.value" />
@@ -32,7 +32,6 @@ const props = defineProps<{
 <style lang="scss" scoped>
 .card {
   align-items: center;
-  color: var(--onyx-color-text-icons-neutral-medium);
 
   &__separator {
     width: 100%;
@@ -53,6 +52,10 @@ const props = defineProps<{
   justify-content: space-between;
   gap: var(--onyx-density-xs);
   flex-wrap: wrap;
+
+  &__label {
+    color: var(--onyx-color-text-icons-neutral-medium);
+  }
 
   &__value {
     display: flex;
