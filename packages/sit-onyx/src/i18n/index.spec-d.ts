@@ -31,7 +31,7 @@ type ptPT = DeepRequired<typeof ptPT>;
 type roRO = DeepRequired<typeof roRO>;
 type skSK = DeepRequired<typeof skSK>;
 
-it("should be ensured that all translations are maintained", async () => {
+it("should be ensured that all translations are maintained", () => {
   // to generate missing translations, just run this workflow:
   // https://github.com/SchwarzIT/onyx/actions/workflows/translate.yml
   expectTypeOf<typeof enUS>().toEqualTypeOf<bgBG>();

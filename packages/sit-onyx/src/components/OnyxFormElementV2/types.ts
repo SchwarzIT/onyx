@@ -89,7 +89,7 @@ export type FormElementV2LabelOptions = FormElementV2Tooltip & {
   /**
    * How to position the label relative to the main content.
    */
-  position?: "top" | "left";
+  position?: "top" | "left" | "right";
   /**
    * If `true`, the label will be visually hidden.
    * For accessibility / screen readers, the aria-label will still be set.

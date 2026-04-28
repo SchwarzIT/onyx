@@ -3,8 +3,7 @@ import { iconLogin, iconLogout } from "@sit-onyx/icons";
 
 const { t } = useI18n();
 const { user, clear } = useUserSession();
-
-const handleLogin = () => navigateTo("/auth/siam", { external: true });
+const { login } = useLogin();
 </script>
 
 <template>
@@ -15,7 +14,7 @@ const handleLogin = () => navigateTo("/auth/siam", { external: true });
         :label="t('auth.login')"
         :icon="iconLogin"
         color="primary"
-        @click="handleLogin"
+        @click="login"
       />
     </template>
   </OnyxTooltip>

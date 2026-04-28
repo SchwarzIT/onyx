@@ -15,13 +15,13 @@ test.describe("OnyxBasicPopover", () => {
     await expect(popover).toBeHidden();
 
     // ACT
-    button.click();
+    await button.click();
 
     // ASSERT
     await expect(popover).toBeVisible();
 
     // ACT
-    button.click();
+    await button.click();
 
     // ASSERT
     await expect(popover).toBeHidden();

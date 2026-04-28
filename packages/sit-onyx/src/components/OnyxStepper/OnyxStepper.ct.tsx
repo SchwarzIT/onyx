@@ -360,8 +360,8 @@ test("should have aria-label if label is hidden", async ({ mount, makeAxeBuilder
 test("should increment/decrement value on counter button click", async ({ mount }) => {
   // ARRANGE
   const on = {
-    "update:modelValue": (newValue?: number) => {
-      component.update({
+    "update:modelValue": async (newValue?: number) => {
+      await component.update({
         props: {
           modelValue: newValue,
         },
@@ -396,8 +396,8 @@ test("should increment/decrement value on counter button click", async ({ mount 
 test("should not allow entering value over the max value that has been set", async ({ mount }) => {
   // ARRANGE
   const on = {
-    "update:modelValue": (newValue?: number) => {
-      component.update({
+    "update:modelValue": async (newValue?: number) => {
+      await component.update({
         props: {
           modelValue: newValue,
         },
@@ -431,8 +431,8 @@ test("should not allow entering value over the max value that has been set", asy
 test("should not allow entering value lower the min value that has been set", async ({ mount }) => {
   // ARRANGE
   const on = {
-    "update:modelValue": (newValue?: number) => {
-      component.update({
+    "update:modelValue": async (newValue?: number) => {
+      await component.update({
         props: {
           modelValue: newValue,
         },
@@ -471,9 +471,9 @@ test("Should correctly display decimal places according to the defined precision
 
   // ARRANGE
   const on = {
-    "update:modelValue": (newValue?: number) => {
+    "update:modelValue": async (newValue?: number) => {
       modelValueUpdates.push(newValue);
-      component.update({
+      await component.update({
         props: {
           modelValue: newValue,
         },
@@ -535,8 +535,8 @@ test("Should display an error if the value is not a multiple of validStepSize", 
 }) => {
   // ARRANGE
   const on = {
-    "update:modelValue": (newValue?: number) => {
-      component.update({
+    "update:modelValue": async (newValue?: number) => {
+      await component.update({
         props: {
           modelValue: newValue,
         },

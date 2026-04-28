@@ -10,8 +10,8 @@ import storybook from "eslint-plugin-storybook";
 import vue from "eslint-plugin-vue";
 import vueScopedCss from "eslint-plugin-vue-scoped-css";
 import vueA11y from "eslint-plugin-vuejs-accessibility";
+import { defineConfig } from "eslint/config";
 import { fileURLToPath } from "node:url";
-import tsEslint from "typescript-eslint";
 import sitOnyx from "./packages/eslint-plugin/src/index.cjs";
 
 /**
@@ -106,7 +106,7 @@ const generalVueTsConfig = {
 
 const playwrightConfig = {
   name: "onyx-playwright",
-  files: ["**/*.ct.{js,jsx,ts,tsx,vue}"],
+  files: ["**/*.{ct,ct-utils}.{js,jsx,ts,tsx,vue}"],
   extends: [playwrightEslintConfig.configs["flat/recommended"]],
   rules: {
     "playwright/expect-expect": [
@@ -132,9 +132,11 @@ const playwrightConfig = {
         ],
       },
     ],
+    "compat/compat": "off",
     "vue/require-prop-comment": "off",
     "vue/require-default-prop": "off",
     "vue-scoped-css/enforce-style-type": "off",
+    "@typescript-eslint/unbound-method": "off",
   },
 };
 
@@ -187,6 +189,7 @@ const sitOnyxConfig = {
     // disallow scoped or module CSS for components
     // see https://onyx.schwarz/principles/technical-guidelines.html#css
     "vue-scoped-css/enforce-style-type": ["error", { allows: ["plain"] }],
+    "@typescript-eslint/no-redundant-type-constituents": "off", // too many false positives
   },
   ignores: ["**/examples/**"],
 };
@@ -229,7 +232,7 @@ const eslintCommentsConfig = {
   },
 };
 
-export default tsEslint.config(
+export default defineConfig(
   eslint.configs.recommended,
   eslintCommentsConfig,
   generalVueTsConfig,

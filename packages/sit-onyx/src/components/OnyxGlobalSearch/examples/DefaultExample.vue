@@ -10,12 +10,12 @@ import { computed, ref, watch } from "vue";
 import {
   normalizedIncludes,
   OnyxAppLayout,
+  OnyxGlobalSearch,
+  OnyxGlobalSearchGroup,
+  OnyxGlobalSearchOption,
   OnyxInfoCard,
   OnyxNavBar,
   OnyxPageLayout,
-  OnyxUnstableGlobalSearch,
-  OnyxUnstableGlobalSearchGroup,
-  OnyxUnstableGlobalSearchOption,
   OnyxUnstableNavButton,
   type OnyxGlobalSearchOptionProps,
 } from "../../../index.js";
@@ -126,23 +126,23 @@ const searchGroups = computed(() => {
       <!-- your page content would go here... -->
     </OnyxPageLayout>
 
-    <OnyxUnstableGlobalSearch v-model:open="isOpen" v-model="searchTerm">
+    <OnyxGlobalSearch v-model:open="isOpen" v-model="searchTerm">
       <!-- show skeleton while search results are loading -->
-      <OnyxUnstableGlobalSearchGroup v-if="isLoading" label="Search results" skeleton />
+      <OnyxGlobalSearchGroup v-if="isLoading" label="Search results" skeleton />
 
       <template v-else>
-        <OnyxUnstableGlobalSearchGroup
+        <OnyxGlobalSearchGroup
           v-for="group in searchGroups"
           :key="group.label"
           :label="group.label"
         >
-          <OnyxUnstableGlobalSearchOption
+          <OnyxGlobalSearchOption
             v-for="option in group.options"
             :key="option.value"
             v-bind="option"
           />
-        </OnyxUnstableGlobalSearchGroup>
+        </OnyxGlobalSearchGroup>
       </template>
-    </OnyxUnstableGlobalSearch>
+    </OnyxGlobalSearch>
   </OnyxAppLayout>
 </template>

@@ -8,7 +8,7 @@ import {
 import { useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxInfoTooltip from "../OnyxInfoTooltip/OnyxInfoTooltip.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import type { FormElementV2Tooltip, OnyxFormElementV2Props } from "./types.js";
+import type { FormElementV2LabelOptions, OnyxFormElementV2Props } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxFormElementV2Props>(), {
   skeleton: SKELETON_INJECTED_SYMBOL,
@@ -18,7 +18,7 @@ const { requiredMarker } = useFormContext(props);
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props, requiredMarker);
 const skeleton = useSkeletonContext(props);
 
-const data = computed<FormElementV2Tooltip>(() => {
+const data = computed<FormElementV2LabelOptions>(() => {
   if (typeof props.label === "object") return props.label;
   return { label: props.label };
 });
@@ -29,8 +29,8 @@ const data = computed<FormElementV2Tooltip>(() => {
     :class="[
       'onyx-component',
       'onyx-form-element-v2__label',
-      'onyx-text--small',
       requiredTypeClass,
+      { 'onyx-text--small': !data.position || !['left', 'right'].includes(data.position) },
     ]"
   >
     <OnyxSkeleton v-if="skeleton" class="onyx-form-element-v2__label-skeleton" />

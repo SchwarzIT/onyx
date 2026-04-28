@@ -46,6 +46,7 @@ const slots = defineSlots<{
 const panel = useTemplateRef("panel");
 provideSkeletonContext(props);
 
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- false positive
 provide(TABS_INJECTION_KEY as TabsInjectionKey<TValue>, {
   headless,
   panel,

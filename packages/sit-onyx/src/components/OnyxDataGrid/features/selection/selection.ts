@@ -1,4 +1,4 @@
-import { h, ref, toRef, useId, type Ref } from "vue";
+import { h, ref, toRef, type Ref } from "vue";
 import OnyxCheckbox from "../../../OnyxCheckbox/OnyxCheckbox.vue";
 import type { DataGridEntry } from "../../types.js";
 import { createFeature, useFeatureContext, type ModifyColumns } from "../index.js";
@@ -7,11 +7,11 @@ import "./selection.scss";
 import type { SelectionOptions, SelectionState } from "./types.js";
 
 export const SELECTION_FEATURE = Symbol("Selection");
+export const SELECTION_COLUMN = Symbol("SelectionColumn");
 export const SELECTION_MUTATION_ORDER = 1000;
 
 export const useSelection = <TEntry extends DataGridEntry>(options?: SelectionOptions) =>
   createFeature((ctx) => {
-    const SELECTION_COLUMN = `selection-column-${useId()}`;
     const selectionState: Ref<SelectionState> = toRef(
       options?.selectionState ??
         ({

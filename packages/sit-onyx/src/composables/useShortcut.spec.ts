@@ -378,7 +378,7 @@ describe("useShortcut", () => {
     expect(onComplete).toHaveBeenCalledOnce();
   });
 
-  test("should handle repeated keydown events", async () => {
+  test("should handle repeated keydown events", () => {
     // ARRANGE
     const onComplete = vi.fn();
 

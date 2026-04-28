@@ -36,7 +36,7 @@ export * from "./components/OnyxButton/types.js";
 export { default as OnyxCard } from "./components/OnyxCard/OnyxCard.vue";
 export * from "./components/OnyxCard/types.js";
 
-export { default as OnyxUnstableCalendar } from "./components/OnyxCalendar/OnyxCalendar.vue";
+export { default as OnyxCalendar } from "./components/OnyxCalendar/OnyxCalendar.vue";
 export * from "./components/OnyxCalendar/types.js";
 
 export { default as OnyxCheckbox } from "./components/OnyxCheckbox/OnyxCheckbox.vue";
@@ -101,13 +101,13 @@ export * from "./components/OnyxFormElementAction/types.js";
 export { default as OnyxUnstableFormElementV2 } from "./components/OnyxFormElementV2/OnyxFormElementV2.vue";
 export * from "./components/OnyxFormElementV2/types.js";
 
-export { default as OnyxUnstableGlobalSearch } from "./components/OnyxGlobalSearch/OnyxGlobalSearch.vue";
+export { default as OnyxGlobalSearch } from "./components/OnyxGlobalSearch/OnyxGlobalSearch.vue";
 export * from "./components/OnyxGlobalSearch/types.js";
 
-export { default as OnyxUnstableGlobalSearchGroup } from "./components/OnyxGlobalSearchGroup/OnyxGlobalSearchGroup.vue";
+export { default as OnyxGlobalSearchGroup } from "./components/OnyxGlobalSearchGroup/OnyxGlobalSearchGroup.vue";
 export * from "./components/OnyxGlobalSearchGroup/types.js";
 
-export { default as OnyxUnstableGlobalSearchOption } from "./components/OnyxGlobalSearchOption/OnyxGlobalSearchOption.vue";
+export { default as OnyxGlobalSearchOption } from "./components/OnyxGlobalSearchOption/OnyxGlobalSearchOption.vue";
 export * from "./components/OnyxGlobalSearchOption/types.js";
 
 export { default as OnyxHeadline } from "./components/OnyxHeadline/OnyxHeadline.vue";
@@ -200,7 +200,7 @@ export * from "./components/OnyxSegmentedControlElement/types.js";
 export { default as OnyxSelect } from "./components/OnyxSelect/OnyxSelect.vue";
 export * from "./components/OnyxSelect/types.js";
 
-export { default as OnyxUnstableItemsPerPage } from "./components/OnyxItemsPerPage/OnyxItemsPerPage.vue";
+export { default as OnyxItemsPerPage } from "./components/OnyxItemsPerPage/OnyxItemsPerPage.vue";
 export * from "./components/OnyxItemsPerPage/types.js";
 
 export { default as OnyxSelectDialog } from "./components/OnyxSelectDialog/OnyxSelectDialog.vue";
@@ -224,7 +224,7 @@ export { default as OnyxSkeleton } from "./components/OnyxSkeleton/OnyxSkeleton.
 export { default as OnyxSlider } from "./components/OnyxSlider/OnyxSlider.vue";
 export * from "./components/OnyxSlider/types.js";
 
-export { default as OnyxUnstableSplitButton } from "./components/OnyxSplitButton/OnyxSplitButton.vue";
+export { default as OnyxSplitButton } from "./components/OnyxSplitButton/OnyxSplitButton.vue";
 export * from "./components/OnyxSplitButton/types.js";
 
 export { default as OnyxStepper } from "./components/OnyxStepper/OnyxStepper.vue";
@@ -242,10 +242,10 @@ export * from "./components/OnyxTab/types.js";
 export { default as OnyxTable } from "./components/OnyxTable/OnyxTable.vue";
 export * from "./components/OnyxTable/types.js";
 
-export { default as OnyxUnstableTableOfContents } from "./components/OnyxTableOfContents/OnyxTableOfContents.vue";
+export { default as OnyxTableOfContents } from "./components/OnyxTableOfContents/OnyxTableOfContents.vue";
 export * from "./components/OnyxTableOfContents/types.js";
 
-export { default as OnyxUnstableTableOfContentsItem } from "./components/OnyxTableOfContentsItem/OnyxTableOfContentsItem.vue";
+export { default as OnyxTableOfContentsItem } from "./components/OnyxTableOfContentsItem/OnyxTableOfContentsItem.vue";
 export * from "./components/OnyxTableOfContentsItem/types.js";
 
 export { default as OnyxTabs } from "./components/OnyxTabs/OnyxTabs.vue";
@@ -266,7 +266,7 @@ export * from "./components/OnyxFileTypeIcon/types.js";
 export { default as OnyxFileUpload } from "./components/OnyxFileUpload/OnyxFileUpload.vue";
 export * from "./components/OnyxFileUpload/types.js";
 
-export { default as OnyxUnstableFilterBadge } from "./components/OnyxFilterBadge/OnyxFilterBadge.vue";
+export { default as OnyxFilterBadge } from "./components/OnyxFilterBadge/OnyxFilterBadge.vue";
 export * from "./components/OnyxFilterBadge/types.js";
 
 export { default as OnyxFilterTag } from "./components/OnyxFilterTag/OnyxFilterTag.vue";

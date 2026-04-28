@@ -160,27 +160,27 @@ test("should use internal value when prop is not defined", async () => {
 
 describe("useVModel with a modelValue controlled from the parent", () => {
   const component = mount(UseVModelSpec);
-  test("should use correct default value", async () => {
+  test("should use correct default value", () => {
     expect(component.vm._modelValue).toBe("default");
     expect(component.emitted()).not.toHaveProperty("update:modelValue");
   });
 
   test("should set empty string value", async () => {
-    component.setProps({ modelValue: "" });
+    await component.setProps({ modelValue: "" });
     await nextTick();
     expect(component.vm._modelValue).toBe("");
     expect(component.emitted()).not.toHaveProperty("update:modelValue");
   });
 
   test("should use default when set to undefined", async () => {
-    component.setProps({ modelValue: undefined });
+    await component.setProps({ modelValue: undefined });
     await nextTick();
     expect(component.vm._modelValue).toBe("default");
     expect(component.emitted()).not.toHaveProperty("update:modelValue");
   });
 
   test("should accept new prop after being set to undefined", async () => {
-    component.setProps({ modelValue: "newValue" });
+    await component.setProps({ modelValue: "newValue" });
     await nextTick();
     expect(component.vm._modelValue).toBe("newValue");
     expect(component.emitted()).not.toHaveProperty("update:modelValue");
@@ -192,11 +192,11 @@ describe("useVModel with a modelValue controlled from the parent", () => {
     expect(component.vm._modelValue).toBe("newValue");
     expect(component.emitted()).toHaveProperty("update:modelValue");
     expect(component.emitted()["update:modelValue"]).toHaveLength(1);
-    expect(component.emitted()["update:modelValue"].at(0)).toEqual(["test"]);
+    expect(component.emitted()["update:modelValue"]?.at(0)).toEqual(["test"]);
   });
 
   test("should not emit again when update is applied", async () => {
-    component.setProps({ modelValue: "test" });
+    await component.setProps({ modelValue: "test" });
     await nextTick();
     expect(component.vm._modelValue).toBe("test");
     expect(component.emitted()).toHaveProperty("update:modelValue");
@@ -208,11 +208,11 @@ describe("useVModel with a modelValue controlled from the parent", () => {
     await nextTick();
     expect(component.emitted()).toHaveProperty("update:modelValue");
     expect(component.emitted()["update:modelValue"]).toHaveLength(2);
-    expect(component.emitted()["update:modelValue"].at(1)).toEqual([undefined]);
+    expect(component.emitted()["update:modelValue"]?.at(1)).toEqual([undefined]);
   });
 
   test("should set undefined when updated from the outside after emit", async () => {
-    component.setProps({ modelValue: undefined });
+    await component.setProps({ modelValue: undefined });
     await nextTick();
     expect(component.vm._modelValue).toBe("default");
   });
@@ -220,7 +220,7 @@ describe("useVModel with a modelValue controlled from the parent", () => {
 
 describe("useVModel with a modelValue that is not controlled", () => {
   const component = mount(UseVModelSpec);
-  test("should use correct default value", async () => {
+  test("should use correct default value", () => {
     expect(component.vm._modelValue).toBe("default");
     expect(component.emitted()).not.toHaveProperty("update:modelValue");
   });
@@ -231,7 +231,7 @@ describe("useVModel with a modelValue that is not controlled", () => {
     expect(component.vm._modelValue).toBe("newValue");
     expect(component.emitted()).toHaveProperty("update:modelValue");
     expect(component.emitted()["update:modelValue"]).toHaveLength(1);
-    expect(component.emitted()["update:modelValue"].at(-1)).toEqual(["newValue"]);
+    expect(component.emitted()["update:modelValue"]?.at(-1)).toEqual(["newValue"]);
   });
 
   test("should be able to set undefined", async () => {
@@ -239,7 +239,7 @@ describe("useVModel with a modelValue that is not controlled", () => {
     await nextTick();
     expect(component.vm._modelValue).toBe("default");
     expect(component.emitted()["update:modelValue"]).toHaveLength(2);
-    expect(component.emitted()["update:modelValue"].at(-1)).toEqual([undefined]);
+    expect(component.emitted()["update:modelValue"]?.at(-1)).toEqual([undefined]);
   });
 
   test("should be able to set null", async () => {
@@ -247,13 +247,13 @@ describe("useVModel with a modelValue that is not controlled", () => {
     await nextTick();
     expect(component.vm._modelValue).toBe("default");
     expect(component.emitted()["update:modelValue"]).toHaveLength(3);
-    expect(component.emitted()["update:modelValue"].at(-1)).toEqual([null]);
+    expect(component.emitted()["update:modelValue"]?.at(-1)).toEqual([null]);
   });
 });
 
 describe("noDefault useVModel with a modelValue that is not controlled", () => {
   const component = mount(UseVModelSpec);
-  test("should use correct default value", async () => {
+  test("should use correct default value", () => {
     expect(component.vm._noDefault).toBe(undefined);
     expect(component.emitted()).not.toHaveProperty("update:noDefault");
   });
@@ -264,7 +264,7 @@ describe("noDefault useVModel with a modelValue that is not controlled", () => {
     expect(component.vm._noDefault).toBe("newValue");
     expect(component.emitted()).toHaveProperty("update:noDefault");
     expect(component.emitted()["update:noDefault"]).toHaveLength(1);
-    expect(component.emitted()["update:noDefault"].at(-1)).toEqual(["newValue"]);
+    expect(component.emitted()["update:noDefault"]?.at(-1)).toEqual(["newValue"]);
   });
 
   test("should be able to be set to undefined", async () => {
@@ -273,7 +273,7 @@ describe("noDefault useVModel with a modelValue that is not controlled", () => {
     expect(component.vm._noDefault).toBe(undefined);
     expect(component.emitted()).toHaveProperty("update:noDefault");
     expect(component.emitted()["update:noDefault"]).toHaveLength(2);
-    expect(component.emitted()["update:noDefault"].at(-1)).toEqual([undefined]);
+    expect(component.emitted()["update:noDefault"]?.at(-1)).toEqual([undefined]);
   });
 
   test("should be able to be set to null", async () => {
@@ -282,7 +282,7 @@ describe("noDefault useVModel with a modelValue that is not controlled", () => {
     expect(component.vm._noDefault).toBe(undefined);
     expect(component.emitted()).toHaveProperty("update:noDefault");
     expect(component.emitted()["update:noDefault"]).toHaveLength(3);
-    expect(component.emitted()["update:noDefault"].at(-1)).toEqual([null]);
+    expect(component.emitted()["update:noDefault"]?.at(-1)).toEqual([null]);
   });
 
   test("should emit and update value again after null", async () => {
@@ -291,33 +291,33 @@ describe("noDefault useVModel with a modelValue that is not controlled", () => {
     expect(component.vm._noDefault).toBe("newValue2");
     expect(component.emitted()).toHaveProperty("update:noDefault");
     expect(component.emitted()["update:noDefault"]).toHaveLength(4);
-    expect(component.emitted()["update:noDefault"].at(-1)).toEqual(["newValue2"]);
+    expect(component.emitted()["update:noDefault"]?.at(-1)).toEqual(["newValue2"]);
   });
 });
 
 describe("noDefault useVModel with a modelValue that is controlled by the parent", () => {
   const component = mount(UseVModelSpec);
-  test("should use correct default value", async () => {
+  test("should use correct default value", () => {
     expect(component.vm._noDefault).toBe(undefined);
     expect(component.emitted()).not.toHaveProperty("update:noDefault");
   });
 
   test("should update value from prop internally", async () => {
-    component.setProps({ noDefault: "newValue" });
+    await component.setProps({ noDefault: "newValue" });
     await nextTick();
     expect(component.vm._noDefault).toBe("newValue");
     expect(component.emitted()).not.toHaveProperty("update:noDefault");
   });
 
   test("should be able to set undefined", async () => {
-    component.setProps({ noDefault: undefined });
+    await component.setProps({ noDefault: undefined });
     await nextTick();
     expect(component.vm._noDefault).toBe(undefined);
     expect(component.emitted()).not.toHaveProperty("update:noDefault");
   });
 
   test("should be able to set null", async () => {
-    component.setProps({ noDefault: null as unknown as string });
+    await component.setProps({ noDefault: null as unknown as string });
     await nextTick();
     expect(component.vm._noDefault).toBe(undefined);
     expect(component.emitted()).not.toHaveProperty("update:noDefault");
@@ -329,6 +329,6 @@ describe("noDefault useVModel with a modelValue that is controlled by the parent
     expect(component.vm._noDefault).toBe("internal");
     expect(component.emitted()).toHaveProperty("update:noDefault");
     expect(component.emitted()["update:noDefault"]).toHaveLength(1);
-    expect(component.emitted()["update:noDefault"].at(-1)).toEqual(["internal"]);
+    expect(component.emitted()["update:noDefault"]?.at(-1)).toEqual(["internal"]);
   });
 });

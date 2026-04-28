@@ -75,10 +75,10 @@ const props = defineProps<OnyxFileUploadSVGProps>();
     }
 
     &--disabled {
-      --onyx-file-upload-svg-background-color-bubble: var(--onyx-color-base-neutral-300);
+      --onyx-file-upload-svg-background-color-bubble: var(--onyx-color-base-neutral-400);
       --onyx-file-upload-svg-color-bubble: var(--onyx-color-text-icons-neutral-inverted);
-      --onyx-file-upload-svg-background-color: var(--onyx-color-base-neutral-100);
-      --onyx-file-upload-svg-border-color: var(--onyx-color-base-neutral-200);
+      --onyx-file-upload-svg-background-color: var(--onyx-color-base-neutral-200);
+      --onyx-file-upload-svg-border-color: var(--onyx-color-base-neutral-400);
     }
   }
 }
