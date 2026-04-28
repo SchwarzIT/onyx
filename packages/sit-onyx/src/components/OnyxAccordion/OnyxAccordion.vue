@@ -1,5 +1,5 @@
 <script lang="ts" setup generic="TValue extends PropertyKey">
-import { provide, ref, toRef, toRefs, watch, watchEffect, type Ref } from "vue";
+import { provide, ref, toRef, toRefs, watch, watchEffect } from "vue";
 import { useDensity } from "../../composables/density.js";
 import {
   SKELETON_INJECTED_SYMBOL,
@@ -36,7 +36,7 @@ defineSlots<{
 /**
  * Internally managed open items in case no modelValue is set by the user.
  */
-const _openItems = ref<TValue[]>([]) as Ref<TValue[]>;
+const _openItems = ref<TValue[]>([]);
 watchEffect(() => (_openItems.value = props.modelValue ?? []));
 
 const openItems = useVModel({
@@ -77,6 +77,7 @@ watch(
   { immediate: true },
 );
 
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- false positive
 provide(ACCORDION_INJECTION_KEY as AccordionInjectionKey<TValue>, {
   openItems: toRef(() => openItems.value),
   type: toRef(() => props.type),

@@ -19,7 +19,7 @@ vi.mock("vue", async (importOriginal) => {
 });
 
 describe("useLenientMaxLengthValidation", () => {
-  test("should only set maxlength when strict", async () => {
+  test("should only set maxlength when strict", () => {
     // ARRANGE
     const modelValue = ref("");
     const props = reactive<SharedTextInputProps>({ maxlength: { max: 5, strict: true } });

@@ -123,7 +123,7 @@ const getOpeningArrowDirection = () => {
 const {
   elements: { listItem, menuItem },
 } = createMenuItems({
-  onOpen: handleOpen,
+  onOpen: () => void handleOpen(),
   openingArrowDirection: getOpeningArrowDirection,
 });
 
@@ -172,7 +172,7 @@ const handleBackButtonKeydown = async (event: KeyboardEvent) => {
   }
 };
 
-const handleExternalChildrenKeydown = async (event: KeyboardEvent) => {
+const handleExternalChildrenKeydown = (event: KeyboardEvent) => {
   const closeKey = getCalculatedOpenDirection() === "right" ? "ArrowLeft" : "ArrowRight";
 
   if (event.key === closeKey) {

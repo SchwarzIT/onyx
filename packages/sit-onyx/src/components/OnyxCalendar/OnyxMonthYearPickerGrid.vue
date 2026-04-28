@@ -56,10 +56,8 @@ const scrollToActiveYear = async () => {
 
 watch(
   () => props.open,
-  (open) => {
-    if (open) {
-      scrollToActiveYear();
-    }
+  async (open) => {
+    if (open) await scrollToActiveYear();
   },
   { immediate: true },
 );

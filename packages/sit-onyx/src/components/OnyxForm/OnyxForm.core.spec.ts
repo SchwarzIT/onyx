@@ -86,13 +86,13 @@ test.for([
 
       expect(
         resultValue,
-        `Expected "${value}", got "${resultValue}" for formProps "${formProps}" and localProps "${localProps}"`,
+        `Expected "${value}", got "${resultValue}" for formProps "${JSON.stringify(formProps)}" and localProps "${JSON.stringify(localProps)}"`,
       ).toBe(value);
     });
   },
 );
 
-test("should update when changed", async () => {
+test("should update when changed", () => {
   const formProps = reactive({ disabled: false, showError: true });
   provideFormContext(formProps);
 

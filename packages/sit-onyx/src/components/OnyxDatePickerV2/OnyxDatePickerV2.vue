@@ -189,8 +189,7 @@ const popoverOptions = computed<FormElementV2PopoverOptions | undefined>(() => {
 const { showClearButton } = useClearButton({ props, modelValue });
 
 const handleClearValue = () => {
-  const selectionMode = props.selectionMode as OnyxCalendarSelectionMode;
-  if (selectionMode === "multiple") {
+  if (props.selectionMode === "multiple") {
     modelValue.value = [] as unknown as typeof modelValue.value;
   } else {
     modelValue.value = undefined;

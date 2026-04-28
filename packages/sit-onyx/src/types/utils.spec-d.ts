@@ -30,7 +30,7 @@ describe("KeysOfUnion", () => {
 
   it("should work still work with incompatible union members", () => {
     expectTypeOf<
-      KeysOfUnion<{ a: number } | never | undefined | {} | Record<never, never>>
+      KeysOfUnion<{ a: number } | undefined | {} | Record<never, never>>
     >().toEqualTypeOf<"a">();
   });
 
