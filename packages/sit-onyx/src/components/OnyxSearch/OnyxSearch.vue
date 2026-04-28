@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { iconBookmark, iconFilter, iconSearch } from "@sit-onyx/icons";
-import { computed, useTemplateRef } from "vue";
+import { computed, useTemplateRef, type ComponentInstance } from "vue";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import { useForwardProps } from "../../utils/props.js";
@@ -61,7 +61,7 @@ const inputProps = useForwardProps(props, OnyxInput);
 const { disabled } = useFormContext(props);
 const { t } = injectI18n();
 
-const inputComponent = useTemplateRef("inputComponentRef");
+const inputComponent = useTemplateRef<ComponentInstance<typeof OnyxInput>>("inputComponentRef");
 const input = computed(() => inputComponent.value?.input);
 
 defineExpose({ input });
