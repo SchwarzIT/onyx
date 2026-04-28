@@ -13,7 +13,7 @@ const props = defineProps<{
 
 <template>
   <OnyxCard class="card onyx-grid-span-4">
-    <OnyxAvatar :full-name="props.name" :initials="props.name" />
+    <OnyxAvatar class="card__avatar" :full-name="props.name" :initials="props.name" />
 
     <OnyxSeparator class="card__separator" />
 
@@ -32,6 +32,16 @@ const props = defineProps<{
 <style lang="scss" scoped>
 .card {
   align-items: center;
+
+  &__avatar {
+    max-width: 100%;
+
+    :deep(.onyx-avatar__initials) {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
 
   &__separator {
     width: 100%;
