@@ -41,6 +41,7 @@ const categoryOptions = [
           label="Status"
           :options="statusOptions"
           placeholder="Select status"
+          list-label="Status"
         />
         <OnyxSelect
           v-model="globalFilterCategory"
@@ -48,6 +49,7 @@ const categoryOptions = [
           label="Category"
           :options="categoryOptions"
           placeholder="Select category"
+          list-label="Category"
         />
       </div>
     </OnyxModal>

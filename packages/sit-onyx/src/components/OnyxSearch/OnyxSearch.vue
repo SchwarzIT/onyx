@@ -61,7 +61,7 @@ const inputProps = useForwardProps(props, OnyxInput);
 const { disabled } = useFormContext(props);
 const { t } = injectI18n();
 
-const inputComponent = useTemplateRef("inputComponent");
+const inputComponent = useTemplateRef("inputComponentRef");
 const input = computed(() => inputComponent.value?.input);
 
 defineExpose({ input });
@@ -78,7 +78,7 @@ defineExpose({ input });
   >
     <form @submit.prevent>
       <OnyxInput
-        ref="inputComponent"
+        ref="inputComponentRef"
         v-bind="inputProps"
         v-model="modelValue"
         required
