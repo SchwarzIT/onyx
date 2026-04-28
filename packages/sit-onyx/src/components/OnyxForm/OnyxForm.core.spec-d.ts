@@ -13,7 +13,7 @@ import OnyxSwitch from "../OnyxSwitch/OnyxSwitch.vue";
 import type OnyxTextarea from "../OnyxTextarea/OnyxTextarea.vue";
 import { type FormInjectedProps, type FormProps } from "./OnyxForm.core.js";
 
-it("should be ensured that FormInjectedProps includes all keys of FormProps", async () => {
+it("should be ensured that FormInjectedProps includes all keys of FormProps", () => {
   expectTypeOf<keyof FormProps>().toExtend<keyof FormInjectedProps>();
   expectTypeOf<keyof FormInjectedProps>().toExtend<keyof FormProps>();
 });
@@ -27,7 +27,7 @@ type AllOnyxFormElements =
   | typeof OnyxStepper
   | typeof OnyxSwitch;
 
-it("should be ensured that all onyx form elements support the basic input props", async () => {
+it("should be ensured that all onyx form elements support the basic input props", () => {
   expectTypeOf<ComponentProps<AllOnyxFormElements>>().toExtend<{
     modelValue?: unknown;
     label: string | FormElementV2LabelOptions;
@@ -35,7 +35,7 @@ it("should be ensured that all onyx form elements support the basic input props"
   }>();
 });
 
-it("should be ensured that all onyx form elements expose the internal input", async () => {
+it("should be ensured that all onyx form elements expose the internal input", () => {
   expectTypeOf<ComponentExposed<AllOnyxFormElements>>().toExtend<{
     input: (HTMLInputElement | HTMLTextAreaElement) | null | undefined;
   }>();
@@ -43,7 +43,7 @@ it("should be ensured that all onyx form elements expose the internal input", as
 
 type AllOnyxFormGroups = typeof OnyxCheckboxGroup | typeof OnyxRadioGroup;
 
-it("should be ensured that all onyx form element groups expose the internal inputs", async () => {
+it("should be ensured that all onyx form element groups expose the internal inputs", () => {
   expectTypeOf<ComponentExposed<AllOnyxFormGroups>>().toExtend<{
     inputs: HTMLInputElement[];
   }>();

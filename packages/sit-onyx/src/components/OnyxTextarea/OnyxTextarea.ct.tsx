@@ -237,7 +237,7 @@ test.describe("Screenshot tests", () => {
             );
 
             for (let i = 0; i < modelValue.length; i++) {
-              await textarea.pressSequentially(modelValue[i]);
+              await textarea.pressSequentially(modelValue[i]!);
               if (i < modelValue.length - 1) {
                 await textarea.press("Enter");
               }

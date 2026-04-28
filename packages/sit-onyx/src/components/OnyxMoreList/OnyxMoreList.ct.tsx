@@ -5,7 +5,7 @@ import type { MoreListSlotBindings } from "./types.js";
 test("should behave correctly", async ({ mount, makeAxeBuilder, page }) => {
   const events: MoreListSlotBindings[] = [];
 
-  page.setViewportSize({ width: 1200, height: 200 });
+  await page.setViewportSize({ width: 1200, height: 200 });
 
   const eventHandlers = {
     onVisibilityChange: (data: MoreListSlotBindings) => events.push(data),

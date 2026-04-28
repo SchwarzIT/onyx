@@ -20,7 +20,7 @@ test.describe("should be able to compile all messages with vue-i18n", () => {
     eager: true,
   });
 
-  test.each(Object.entries(LOCALES))("for $0", async (locale, localeMessages) => {
+  test.each(Object.entries(LOCALES))("for $0", (locale, localeMessages) => {
     const consoleErrorSpy = vi.spyOn(console, "error");
     const warnErrorSpy = vi.spyOn(console, "warn");
 

@@ -74,13 +74,13 @@ test.for([
 
       expect(
         resultValue,
-        `Expected "${value}", got "${resultValue}" for pageLayoutProps "${pageLayoutProps}" and localProps "${localProps}"`,
+        `Expected "${value}", got "${resultValue}" for pageLayoutProps "${JSON.stringify(pageLayoutProps)}" and localProps "${JSON.stringify(localProps)}"`,
       ).toBe(value);
     });
   },
 );
 
-test("should update when changed", async () => {
+test("should update when changed", () => {
   const pageLayoutProps = reactive({ skeleton: false });
   provideSkeletonContext(pageLayoutProps);
 

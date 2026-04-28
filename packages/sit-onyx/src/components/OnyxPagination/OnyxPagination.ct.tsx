@@ -125,7 +125,7 @@ test.describe("screenshot tests (select buttons)", () => {
         if (row === "hover") await button.hover();
         if (row === "focus-visible") {
           await page.keyboard.press("Tab");
-          button.focus();
+          await button.focus();
         }
         if (row === "active") {
           const box = (await button.boundingBox())!;
@@ -157,7 +157,7 @@ test.describe("screenshot tests (select buttons)", () => {
         if (row === "hover") await button.hover();
         if (row === "focus-visible") {
           await page.keyboard.press("Tab");
-          button.focus();
+          await button.focus();
         }
         if (row === "active") {
           const box = (await button.boundingBox())!;

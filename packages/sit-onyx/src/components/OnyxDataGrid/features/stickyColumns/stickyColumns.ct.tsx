@@ -2,14 +2,10 @@ import { expect, test } from "../../../../playwright/a11y.js";
 import TestCase from "./TestCase.ct.vue";
 
 const getTestData = () => [
-  { id: 1, a: "1", b: "a", c: "C", d: "D", e: "E", f: "F", g: "G", h: "H", i: "I", j: "J", k: "K" },
-  { id: 2, a: "1", b: "A", c: "C", d: "D", e: "E", f: "F", g: "G", h: "H", i: "I", j: "J", k: "K" },
-  { id: 3, a: "1", b: "B", c: "C", d: "D", e: "E", f: "F", g: "G", h: "H", i: "I", j: "J", k: "K" },
-  { id: 4, a: "2", b: "A", c: "C", d: "D", e: "E", f: "F", g: "G", h: "H", i: "I", j: "J", k: "K" },
   {
-    id: 5,
-    a: "2",
-    b: "ab",
+    id: 1,
+    a: "1",
+    b: "a",
     c: "C",
     d: "D",
     e: "E",
@@ -19,9 +15,119 @@ const getTestData = () => [
     i: "I",
     j: "J",
     k: "K",
+    l: "L",
+    m: "M",
+    n: "N",
+    o: "O",
+    p: "P",
+    q: "Q",
+    r: "R",
+  },
+  {
+    id: 2,
+    a: "1",
+    b: "a",
+    c: "C",
+    d: "D",
+    e: "E",
+    f: "F",
+    g: "G",
+    h: "H",
+    i: "I",
+    j: "J",
+    k: "K",
+    l: "L",
+    m: "M",
+    n: "N",
+    o: "O",
+    p: "P",
+    q: "Q",
+    r: "R",
+  },
+  {
+    id: 3,
+    a: "1",
+    b: "a",
+    c: "C",
+    d: "D",
+    e: "E",
+    f: "F",
+    g: "G",
+    h: "H",
+    i: "I",
+    j: "J",
+    k: "K",
+    l: "L",
+    m: "M",
+    n: "N",
+    o: "O",
+    p: "P",
+    q: "Q",
+    r: "R",
+  },
+  {
+    id: 4,
+    a: "1",
+    b: "a",
+    c: "C",
+    d: "D",
+    e: "E",
+    f: "F",
+    g: "G",
+    h: "H",
+    i: "I",
+    j: "J",
+    k: "K",
+    l: "L",
+    m: "M",
+    n: "N",
+    o: "O",
+    p: "P",
+    q: "Q",
+    r: "R",
+  },
+  {
+    id: 5,
+    a: "1",
+    b: "a",
+    c: "C",
+    d: "D",
+    e: "E",
+    f: "F",
+    g: "G",
+    h: "H",
+    i: "I",
+    j: "J",
+    k: "K",
+    l: "L",
+    m: "M",
+    n: "N",
+    o: "O",
+    p: "P",
+    q: "Q",
+    r: "R",
   },
 ];
-const columns = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k"];
+const columns = [
+  "a",
+  "b",
+  "c",
+  "d",
+  "e",
+  "f",
+  "g",
+  "h",
+  "i",
+  "j",
+  "k",
+  "l",
+  "m",
+  "n",
+  "o",
+  "p",
+  "q",
+  "r",
+];
 
 const columnsWithGroups = columns.map((column, index) => ({
   key: column,
@@ -121,8 +227,7 @@ test("should allow scrolling the page", async ({ page, mount }) => {
   await expect(table).toBeInViewport();
 
   // ACT
-  const box = (await table.boundingBox())!;
-  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+  await table.hover();
   await page.mouse.wheel(0, 512);
 
   // ASSERT
@@ -162,4 +267,69 @@ positions.forEach((position) => {
 
     await expect(component).toHaveScreenshot(`data-grid-sticky-columnsGroups-${position}.png`);
   });
+});
+
+test("should allow per-column positioning (left and right simultaneously)", async ({ mount }) => {
+  const data = getTestData();
+
+  const component = await mount(
+    <TestCase
+      data={data}
+      columns={columns}
+      stickyColumnsOptions={{
+        columns: [
+          { key: "a", position: "left" },
+          { key: "k", position: "right" },
+        ],
+      }}
+    />,
+  );
+
+  // ACT
+  await component.getByRole("columnheader", { name: "i" }).scrollIntoViewIfNeeded();
+
+  // ASSERT
+  const stickyColA = component.getByRole("columnheader", { name: "a" });
+
+  await expect(stickyColA).toContainClass("onyx-data-grid-sticky-columns--sticky");
+  await expect(stickyColA).toContainClass("left");
+  await expect(stickyColA).toHaveCSS("left", /[0-9]+px/);
+
+  const stickyColK = component.getByRole("columnheader", { name: "k" });
+
+  await expect(stickyColK).toContainClass("onyx-data-grid-sticky-columns--sticky");
+  await expect(stickyColK).toContainClass("right");
+  await expect(stickyColK).toHaveCSS("right", /[0-9]+px/);
+  await expect(component).toHaveScreenshot("data-grid-sticky-left-right.png");
+});
+
+test("selection column is automatically sticky when both features are active", async ({
+  mount,
+}) => {
+  const data = getTestData();
+
+  const component = await mount(
+    <TestCase
+      data={data}
+      columns={columns}
+      stickyColumnsOptions={{ columns: ["a"] }}
+      withSelection={true}
+    />,
+  );
+
+  await component.getByRole("columnheader", { name: "k" }).scrollIntoViewIfNeeded();
+
+  // ASSERT
+  const selectionColumn = component.locator("th.onyx-data-grid-selection-cell");
+  const stickyColA = component.getByRole("columnheader", { name: "a", exact: true });
+
+  await expect(selectionColumn).toContainClass("onyx-data-grid-sticky-columns--sticky");
+  await expect(selectionColumn).toContainClass("left");
+  await expect(selectionColumn).toHaveCSS("left", "0px");
+
+  await expect(stickyColA).toContainClass("onyx-data-grid-sticky-columns--sticky");
+  await expect(stickyColA).toContainClass("left");
+  await expect(stickyColA).toHaveCSS("left", /[0-9]*px/);
+
+  await expect(component).toHaveScreenshot("data-grid-sticky-selection-column.png");
 });

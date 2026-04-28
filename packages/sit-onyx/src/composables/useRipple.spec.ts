@@ -3,7 +3,7 @@ import { ref } from "vue";
 import { useRipple } from "./useRipple.js";
 
 vi.mock("vue", async (original) => ({
-  ...((await original()) as typeof import("vue")),
+  ...(await original()),
   onBeforeMount: vi.fn((callback) => callback()),
 }));
 

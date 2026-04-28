@@ -357,7 +357,7 @@ const {
   activeOption: computed(() => activeValue.value),
   isExpanded: open,
   templateRef: selectElement,
-  onToggle,
+  onToggle: (...args) => void onToggle(...args),
   onActivateFirst,
   onActivateLast,
   onActivateNext,

@@ -1,5 +1,6 @@
 import {
   computed,
+  onBeforeUnmount,
   toValue,
   useId,
   watch,
@@ -180,15 +181,92 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
 });
 
 type CreateMenuItemOptions = {
-  /**
-   * Called when the menu item should be opened (if it has nested children).
-   */
+  /** Current expanded state of the menu item (for nested children). */
+  isExpanded?: Ref<boolean>;
+  /** Whether the menu item renders its children in an external flyout. */
+  isExternal?: MaybeRefOrGetter<boolean>;
+  /** Whether the menu item is disabled. */
+  disabled?: MaybeRefOrGetter<boolean>;
+  /** DOM element ref of the external children wrapper (used for focus checks). */
+  externalChildrenRef?: Readonly<Ref<HTMLElement | null>>;
+  /** Called when the menu item should be opened (if it has nested children). */
   onOpen?: () => void;
+  /** Called when the menu item should be closed.*/
+  onClose?: () => void;
+  /** Called when the external children should close and focus the trigger. */
+  onFocusTrigger?: () => void;
+  /** Called to notify a parent menu of a hover enter event. */
+  onHoverEnterParent?: () => void;
+  /** Called to notify a parent menu of a hover leave event. */
+  onHoverLeaveParent?: () => void;
   openingArrowDirection?: MaybeRefOrGetter<"ArrowRight" | "ArrowLeft">;
 };
 
 export const createMenuItems = createBuilder((options?: CreateMenuItemOptions) => {
-  const { onOpen, openingArrowDirection = "ArrowRight" } = options || {};
+  const {
+    isExpanded,
+    isExternal,
+    disabled,
+    externalChildrenRef,
+    onOpen,
+    onClose,
+    onFocusTrigger,
+    onHoverEnterParent,
+    onHoverLeaveParent,
+    openingArrowDirection = "ArrowRight",
+  } = options || {};
+
+  const debouncedClose = debounce(() => {
+    if (isExpanded) isExpanded.value = false;
+  }, 300);
+
+  onBeforeUnmount(() => {
+    debouncedClose.abort();
+  });
+
+  const handleClose = () => {
+    debouncedClose.abort();
+    if (isExpanded) isExpanded.value = false;
+    onClose?.();
+  };
+
+  const handleTriggerMouseEnter = (event?: Event) => {
+    if (toValue(isExternal) && !toValue(disabled)) {
+      if (event?.type === "focusin") {
+        const focusEvent = event as FocusEvent;
+        const relatedTarget = focusEvent.relatedTarget as Node | null;
+        const target = focusEvent.target as Node | null;
+
+        const externalNode = toValue(externalChildrenRef);
+        const isFocusInsidePopover = externalNode?.contains(target);
+
+        if (!isFocusInsidePopover && relatedTarget && externalNode?.contains(relatedTarget)) {
+          debouncedClose.abort();
+          return;
+        }
+      }
+
+      debouncedClose.abort();
+      if (isExpanded) isExpanded.value = true;
+    }
+  };
+
+  const handleTriggerMouseLeave = () => {
+    if (toValue(isExternal)) {
+      debouncedClose.abort();
+      debouncedClose();
+    }
+  };
+
+  const handlePopoverMouseEnter = (event?: Event) => {
+    handleTriggerMouseEnter(event);
+    onHoverEnterParent?.();
+  };
+
+  const handlePopoverMouseLeave = () => {
+    handleTriggerMouseLeave();
+    onHoverLeaveParent?.();
+  };
 
   const onKeydown = (event: KeyboardEvent) => {
     const resolvedKey = toValue(openingArrowDirection);
@@ -203,10 +281,36 @@ export const createMenuItems = createBuilder((options?: CreateMenuItemOptions) =
     }
   };
 
+  const getClosingArrowDirection = () => {
+    return toValue(openingArrowDirection) === "ArrowRight" ? "ArrowLeft" : "ArrowRight";
+  };
+
+  const onBackButtonKeydown = (event: KeyboardEvent) => {
+    const closeKey = getClosingArrowDirection();
+    if ([closeKey, " ", "Enter"].includes(event.key)) {
+      event.preventDefault();
+      event.stopPropagation();
+      handleClose();
+    }
+  };
+
+  const onExternalChildrenKeydown = (event: KeyboardEvent) => {
+    const closeKey = getClosingArrowDirection();
+    if (event.key === closeKey) {
+      event.preventDefault();
+      event.stopPropagation();
+      onFocusTrigger?.();
+    }
+  };
+
   return {
     elements: {
       listItem: {
         role: "none",
+        onMouseenter: handleTriggerMouseEnter,
+        onMouseleave: handleTriggerMouseLeave,
+        onFocusin: handleTriggerMouseEnter,
+        onFocusout: handleTriggerMouseLeave,
       },
       menuItem: (data: { active?: boolean; disabled?: boolean }) => ({
         "aria-current": data.active ? "page" : undefined,
@@ -214,6 +318,29 @@ export const createMenuItems = createBuilder((options?: CreateMenuItemOptions) =
         role: "menuitem",
         onKeydown,
       }),
+      internalChildren: {
+        role: "menu",
+      },
+      backButton: {
+        onKeydown: onBackButtonKeydown,
+        onClick: (event: Event) => {
+          event.stopPropagation();
+          handleClose();
+        },
+      },
+      externalChildren: {
+        role: "presentation",
+        tabindex: -1,
+        onKeydown: onExternalChildrenKeydown,
+        onMouseenter: handlePopoverMouseEnter,
+        onMouseleave: handlePopoverMouseLeave,
+        onFocusin: handlePopoverMouseEnter,
+        onFocusout: handlePopoverMouseLeave,
+      },
+    },
+    internals: {
+      handlePopoverMouseEnter,
+      handlePopoverMouseLeave,
     },
   };
 });

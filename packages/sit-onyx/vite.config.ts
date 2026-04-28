@@ -22,7 +22,7 @@ export default defineConfig({
           return { filePath: filePath.replace(".vue.d.ts", ".d.vue.ts") };
         }
       },
-      afterDiagnostic: async (diagnostics) => {
+      afterDiagnostic: (diagnostics) => {
         if (diagnostics.some((d) => d.category === DiagnosticCategory.Error)) {
           throw new Error("Build aborted due to TypeScript errors in the library!");
         }
