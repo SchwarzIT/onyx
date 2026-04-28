@@ -12,7 +12,6 @@ test.describe("Screenshot tests", () => {
       "disabled",
       "withShortcut",
       "withFilterButton",
-      "withPersonalFilterButton",
     ],
     rows: ["default", "hover", "focus-visible"],
     component: (column) => (
@@ -22,10 +21,7 @@ test.describe("Screenshot tests", () => {
         color={column === "tinted" ? "tinted" : "blank"}
         cornerRadius={column === "strongCornerRadius" ? "strong" : "soft"}
         withShortcut={column === "withShortcut"}
-        showFilter={
-          column === "withFilterButton" || column === "withPersonalFilterButton" ? true : undefined
-        }
-        showPersonalFilter={column === "withPersonalFilterButton" ? true : undefined}
+        showFilter={column === "withFilterButton" ? true : undefined}
       />
     ),
     hooks: {
@@ -39,30 +35,21 @@ test.describe("Screenshot tests", () => {
 
 test("should toggle filter values when buttons are clicked", async ({ mount }) => {
   let showFilter = false;
-  let showPersonalFilter = false;
 
   const component = await mount(OnyxSearch, {
     props: {
       label: "Search",
       showFilter: showFilter,
-      showPersonalFilter: showPersonalFilter,
     },
     on: {
       "update:showFilter": (value: boolean) => (showFilter = value),
-      "update:showPersonalFilter": (value: boolean) => (showPersonalFilter = value),
     },
   });
 
-  const personalFilterButton = component.getByRole("button", {
-    name: "show personal search filter",
-  });
   const filterButton = component.getByRole("button", { name: "show search filter" });
 
   await filterButton.click();
   expect(showFilter).toBe(true);
-
-  await personalFilterButton.click();
-  expect(showPersonalFilter).toBe(true);
 });
 
 test("should not render buttons when disabled", async ({ mount }) => {
@@ -70,16 +57,11 @@ test("should not render buttons when disabled", async ({ mount }) => {
     props: {
       label: "Search",
       showFilter: false,
-      showPersonalFilter: false,
       disabled: true,
     },
   });
 
   const filterButton = component.getByRole("button", { name: "show search filter" });
-  const personalFilterButton = component.getByRole("button", {
-    name: "show personal search filter",
-  });
 
   await expect(filterButton).toBeHidden();
-  await expect(personalFilterButton).toBeHidden();
 });
