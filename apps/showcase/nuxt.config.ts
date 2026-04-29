@@ -1,3 +1,5 @@
+import { Features } from "lightningcss";
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
@@ -30,6 +32,14 @@ export default defineNuxtConfig({
       // see: https://nuxt.studio/setup#components-meta
       components: {
         exclude: ["Prose*"],
+      },
+    },
+  },
+  vite: {
+    css: {
+      lightningcss: {
+        // see: https://github.com/parcel-bundler/lightningcss/issues/873
+        exclude: Features.LightDark,
       },
     },
   },
