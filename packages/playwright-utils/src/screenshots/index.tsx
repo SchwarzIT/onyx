@@ -200,7 +200,7 @@ export const useMatrixScreenshotTest = <TContext extends HookContext = HookConte
     /**
      * Creates a combined matrix screenshot that includes the screenshots for every column-row combination.
      * Every combination is mounted individually, which allows to perform pointer or keyboard interactions before taking a screenshot.
-     * If the isolation is not necessary, consider using `executeMatrixScreenshotTestNoneIsolated` which is way faster.
+     * If the isolation is not necessary, consider enabling `fastNoIsolation` which is way faster.
      */
     executeMatrixScreenshotTest,
   };
