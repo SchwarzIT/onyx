@@ -9,7 +9,7 @@ export type UseMatrixScreenshotTestOptions<TContext extends HookContext = HookCo
    */
   defaults?: Partial<
     Pick<
-      MatrixScreenshotTestOptions<string, string, TContext>,
+      MatrixScreenshotTestOptions<string, string, TContext, boolean>,
       "removePadding" | "hooks" | "screenshotOptions"
     >
   >;
@@ -23,6 +23,7 @@ export type MatrixScreenshotTestOptions<
   TColumn extends string = string,
   TRow extends string = string,
   TContext extends HookContext = HookContext,
+  TIsolation extends boolean = boolean,
 > = {
   /**
    * Test name. Will be displayed above the matrix screenshot and be used as filename.
@@ -40,6 +41,11 @@ export type MatrixScreenshotTestOptions<
    * Function that returns the component for the given column and row.
    */
   component: (column: TColumn, row: TRow) => JSX.Element;
+  /**
+   * Renders the component matrix without isolation, which drastically improves the test duration.
+   * On the downside the hooks will not be executed.
+   */
+  fastNoIsolation?: boolean;
   /**
    * Custom hooks/callbacks that can be executed at specific points in time during the matrix screenshot.
    */
@@ -59,7 +65,14 @@ export type MatrixScreenshotTestOptions<
    * Per default `animations` are `disabled`.
    */
   screenshotOptions?: LocatorScreenshotOptions;
-};
+} & (TIsolation extends true
+  ? {
+      fastNoIsolation: true;
+      hooks?: never;
+    }
+  : {
+      fastNoIsolation?: false;
+    });
 
 export type ScreenshotTestHooks<
   TColumn extends string,

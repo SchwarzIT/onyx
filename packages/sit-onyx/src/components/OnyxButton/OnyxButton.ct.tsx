@@ -77,6 +77,7 @@ test.describe("Screenshot tests (right icon)", () => {
     name: "Button (right icon)",
     columns: ["default"],
     rows: ["default", "loading"],
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxButton
         label="Button"

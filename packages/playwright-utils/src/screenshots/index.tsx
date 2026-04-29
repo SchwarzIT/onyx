@@ -20,6 +20,16 @@ export const useMatrixScreenshotTest = <TContext extends HookContext = HookConte
   const executeMatrixScreenshotTest = <TColumn extends string, TRow extends string>(
     options: MatrixScreenshotTestOptions<TColumn, TRow, TContext>,
   ) => {
+    if (options.fastNoIsolation) {
+      testWithIsolation(options);
+    } else {
+      testWithoutIsolation(options);
+    }
+  };
+
+  const testWithIsolation = <TColumn extends string, TRow extends string>(
+    options: MatrixScreenshotTestOptions<TColumn, TRow, TContext>,
+  ) => {
     test(`${options.name}`, async ({ mount, page, browserName, context }) => {
       // limit the max timeout per permutation
       const timeoutPerScreenshot = 25 * 1000;
@@ -148,7 +158,7 @@ export const useMatrixScreenshotTest = <TContext extends HookContext = HookConte
     });
   };
 
-  const executeMatrixScreenshotTestNoneIsolated = <TColumn extends string, TRow extends string>(
+  const testWithoutIsolation = <TColumn extends string, TRow extends string>(
     options: MatrixScreenshotTestOptions<TColumn, TRow, TContext>,
   ) => {
     test(`${options.name}`, async ({ mount, browserName }) => {
@@ -193,11 +203,6 @@ export const useMatrixScreenshotTest = <TContext extends HookContext = HookConte
      * If the isolation is not necessary, consider using `executeMatrixScreenshotTestNoneIsolated` which is way faster.
      */
     executeMatrixScreenshotTest,
-    /**
-     * Creates a single matrix screenshot with all column-row combinations.
-     * The `hooks`are not executed, as there is no isolation.
-     */
-    executeMatrixScreenshotTestNoneIsolated,
   };
 };
 
