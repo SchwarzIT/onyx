@@ -5,10 +5,7 @@ import {
 } from "@sit-onyx/playwright-utils";
 import { OPERATING_SYSTEMS } from "../../composables/useOperatingSystem.js";
 import { expect, test } from "../../playwright/a11y.js";
-import {
-  executeMatrixScreenshotTest,
-  executeMatrixScreenshotTestNoneIsolated,
-} from "../../playwright/screenshots.js";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import {
   ALPHABETIC_KEYS,
   EDITING_KEYS,
@@ -45,8 +42,9 @@ test.describe("Screenshot tests", () => {
 });
 
 test.describe("Screenshot tests (alphabetic)", () => {
-  executeMatrixScreenshotTestNoneIsolated({
+  executeMatrixScreenshotTest({
     ...screenshotOptions,
+    fastNoIsolation: true,
     name: "Key (alphabetic)",
     rows: ALPHABETIC_KEYS,
     component: (column, row) => <OnyxKey name={row} os={column} />,
@@ -54,8 +52,9 @@ test.describe("Screenshot tests (alphabetic)", () => {
 });
 
 test.describe("Screenshot tests (numeric)", () => {
-  executeMatrixScreenshotTestNoneIsolated({
+  executeMatrixScreenshotTest({
     ...screenshotOptions,
+    fastNoIsolation: true,
     name: "Key (numeric)",
     rows: NUMERIC_KEYS,
     removePadding: true,
@@ -64,8 +63,9 @@ test.describe("Screenshot tests (numeric)", () => {
 });
 
 test.describe("Screenshot tests (modifier)", () => {
-  executeMatrixScreenshotTestNoneIsolated({
+  executeMatrixScreenshotTest({
     ...screenshotOptions,
+    fastNoIsolation: true,
     name: "Key (modifier)",
     rows: MODIFIER_KEYS,
     component: (column, row) => <OnyxKey name={row} os={column} />,
@@ -73,8 +73,9 @@ test.describe("Screenshot tests (modifier)", () => {
 });
 
 test.describe("Screenshot tests (navigation)", () => {
-  executeMatrixScreenshotTestNoneIsolated({
+  executeMatrixScreenshotTest({
     ...screenshotOptions,
+    fastNoIsolation: true,
     name: "Key (navigation)",
     rows: NAVIGATION_KEYS,
     component: (column, row) => <OnyxKey name={row} os={column} />,
@@ -82,8 +83,9 @@ test.describe("Screenshot tests (navigation)", () => {
 });
 
 test.describe("Screenshot tests (functional)", () => {
-  executeMatrixScreenshotTestNoneIsolated({
+  executeMatrixScreenshotTest({
     ...screenshotOptions,
+    fastNoIsolation: true,
     name: "Key (functional)",
     rows: FUNCTION_KEYS,
     component: (column, row) => <OnyxKey name={row} os={column} />,
@@ -91,8 +93,9 @@ test.describe("Screenshot tests (functional)", () => {
 });
 
 test.describe("Screenshot tests (misc)", () => {
-  executeMatrixScreenshotTestNoneIsolated({
+  executeMatrixScreenshotTest({
     ...screenshotOptions,
+    fastNoIsolation: true,
     name: "Key (misc)",
     rows: MISC_KEYS,
     component: (column, row) => <OnyxKey name={row} os={column} />,
@@ -100,8 +103,9 @@ test.describe("Screenshot tests (misc)", () => {
 });
 
 test.describe("Screenshot tests (media)", () => {
-  executeMatrixScreenshotTestNoneIsolated({
+  executeMatrixScreenshotTest({
     ...screenshotOptions,
+    fastNoIsolation: true,
     name: "Key (media)",
     rows: MEDIA_KEYS,
     component: (column, row) => <OnyxKey name={row} os={column} />,
@@ -109,8 +113,9 @@ test.describe("Screenshot tests (media)", () => {
 });
 
 test.describe("Screenshot tests (numpad)", () => {
-  executeMatrixScreenshotTestNoneIsolated({
+  executeMatrixScreenshotTest({
     ...screenshotOptions,
+    fastNoIsolation: true,
     name: "Key (numpad)",
     rows: NUMPAD_KEYS,
     component: (column, row) => <OnyxKey name={row} os={column} />,
@@ -118,8 +123,9 @@ test.describe("Screenshot tests (numpad)", () => {
 });
 
 test.describe("Screenshot tests (symbol)", () => {
-  executeMatrixScreenshotTestNoneIsolated({
+  executeMatrixScreenshotTest({
     ...screenshotOptions,
+    fastNoIsolation: true,
     name: "Key (symbol)",
     rows: SYMBOL_KEYS,
     component: (column, row) => <OnyxKey name={row} os={column} />,
@@ -127,8 +133,9 @@ test.describe("Screenshot tests (symbol)", () => {
 });
 
 test.describe("Screenshot tests (editing)", () => {
-  executeMatrixScreenshotTestNoneIsolated({
+  executeMatrixScreenshotTest({
     ...screenshotOptions,
+    fastNoIsolation: true,
     name: "Key (editing)",
     rows: EDITING_KEYS,
     component: (column, row) => <OnyxKey name={row} os={column} />,
