@@ -147,7 +147,6 @@ The following are the phases that a component or function usually goes through i
 - Security-related changes
 - Packages with "zero" version, e.g. `0.1.0`
 
-
 ### Attribution
 
 - [Fluid-Framework: Breaking vs Non breaking Changes](https://github.com/microsoft/FluidFramework/wiki/Breaking-vs-Non-breaking-Changes)
