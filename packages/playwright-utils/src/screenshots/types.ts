@@ -42,7 +42,10 @@ export type MatrixScreenshotTestOptions<
    */
   component: (column: TColumn, row: TRow) => JSX.Element;
   /**
-   * Renders the component matrix without isolation, which drastically improves the test duration.
+   * By default a combined matrix screenshot is created that includes the screenshots for every column-row combination.
+   * Every combination is mounted individually, which allows to perform pointer or keyboard interactions before taking a screenshot.
+   *
+   * If the isolation is not necessary, consider enabling this option which is way faster, as it mounts all combinations together.
    * On the downside the hooks will not be executed.
    */
   fastNoIsolation?: boolean;
