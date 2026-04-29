@@ -39,5 +39,10 @@
     "code": "Code",
     "languageMissing": "Language missing?"
   },
-  "createFeatureRequest": "Create a feature request here"
+  "createFeatureRequest": "Create a feature request here",
+  "variables": {
+    "global": "Global variable",
+    "semantic": "Semantic variable",
+    "visualizationDescription": "Visualization of color mapping for global and semantic variables."
+  }
 }
