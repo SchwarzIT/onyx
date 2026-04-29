@@ -1,11 +1,11 @@
 import type { Component } from "vue";
 
 /**
- * Options for rendering detail content for expanded rows.
+ * The configuration options for the expandable rows feature in the OnyxDataGrid component.
  */
 export type UseExpandableRowsOptions<TEntry> = {
   /**
-   * Function to render the detail content.
+   * Component to render when a specific row is expanded.
    */
-  detailsComponent: (row: TEntry) => Component;
+  component: (row: TEntry) => Component;
 };
