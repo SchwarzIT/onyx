@@ -112,7 +112,7 @@ export const useExpandableRows = <TEntry extends DataGridEntry>(
             tdAttributes: {
               colspan: 99,
             },
-            component: ({ row }) => options.detailsComponent(row),
+            component: ({ row }) => options.component(row),
           },
         }),
       },

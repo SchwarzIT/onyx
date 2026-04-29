@@ -24,7 +24,7 @@ const columns: ColumnConfig<TEntry>[] = [
 
 const features = [
   useExpandableRows<TEntry>({
-    detailsComponent: (row) => h(OnyxHeadline, { is: "h3" }, () => `Details for ${row.name}`),
+    component: (row) => h(OnyxHeadline, { is: "h3" }, () => `Details for ${row.name}`),
   }),
 ];
 </script>
