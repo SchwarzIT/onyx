@@ -21,9 +21,9 @@ export const useMatrixScreenshotTest = <TContext extends HookContext = HookConte
     options: MatrixScreenshotTestOptions<TColumn, TRow, TContext>,
   ) => {
     if (options.fastNoIsolation) {
-      testWithIsolation(options);
-    } else {
       testWithoutIsolation(options);
+    } else {
+      testWithIsolation(options);
     }
   };
 
