@@ -9,6 +9,7 @@ test.describe("Screenshot tests", () => {
     name: "Tag",
     columns: DENSITIES,
     rows: ONYX_COLORS,
+    fastNoIsolation: true,
     component: (column, row) => <OnyxTag label="Tag" density={column} color={row} />,
   });
 
@@ -16,6 +17,7 @@ test.describe("Screenshot tests", () => {
     name: "Tag (with icon)",
     columns: DENSITIES,
     rows: ONYX_COLORS,
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxTag label="Tag" density={column} color={row} icon={mockPlaywrightIcon} />
     ),

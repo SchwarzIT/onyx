@@ -49,6 +49,7 @@ test.describe("Screenshot tests", () => {
     name: "Avatar (custom content)",
     columns: ["default", "truncation"],
     rows: AVATAR_SIZES,
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxAvatar
         fullName="Custom content"
