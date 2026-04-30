@@ -142,7 +142,7 @@ export type DataGridEntryOptions = {
    * Overrides which columns to render in which order.
    * Useful if e.g. adding a custom full-width row inside a data grid feature.
    */
-  columns?: Omit<InternalColumnConfig<DataGridEntry>, "label">[];
+  columns?: Omit<InternalColumnConfig<{ id: PropertyKey }>, "label">[];
   metadata?: Partial<CellMetadata>;
 };
 
