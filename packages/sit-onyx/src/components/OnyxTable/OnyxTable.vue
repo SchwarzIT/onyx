@@ -239,7 +239,7 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
       > tr {
         // row hover styles
         // hover styles are disabled when the table is empty.
-        &:hover:not(.onyx-table__empty) > td::before {
+        &:hover:not(.onyx-table__empty, .onyx-table__standalone-row) > td::before {
           background-color: var(--onyx-color-base-neutral-200);
         }
 
@@ -371,7 +371,8 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
 
     &--striped {
       > tbody {
-        > tr:nth-child(even) > td::before {
+        // support skipping stripes, see: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/:nth-child#parameters
+        > tr:nth-child(even of :not(.onyx-table__standalone-row)):not(:hover) > td::before {
           background-color: var(
             --onyx-table-row-background-color,
             var(--onyx-color-base-background-tinted)

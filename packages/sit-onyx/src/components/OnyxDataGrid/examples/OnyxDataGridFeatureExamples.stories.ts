@@ -29,6 +29,7 @@ export const Editing: Story = {
 };
 
 export const ExpandableRows: Story = {
+  tags: ["new:feature"],
   ...createAdvancedStoryExample("OnyxDataGrid", "ExpandableRowsExample"),
 };
 
