@@ -14,7 +14,6 @@ import type { UseExpandableRowsOptions } from "./types.js";
 const EXPANDABLE_ROWS_FEATURE_NAME = Symbol("ExpandableRows");
 const BUTTON_COLUMN_KEY = Symbol("ExpandButtonKey");
 const BUTTON_COLUMN_TYPE = Symbol("ExpandButtonType");
-const DETAILS_COLUMN_KEY = Symbol("ExpandDetailsKey");
 const DETAILS_COLUMN_TYPE = Symbol("ExpandDetailsType");
 
 export const useExpandableRows = <TEntry extends DataGridEntry>(
@@ -60,7 +59,7 @@ export const useExpandableRows = <TEntry extends DataGridEntry>(
                   },
                   columns: [
                     {
-                      key: DETAILS_COLUMN_KEY,
+                      key: "id",
                       type: { name: DETAILS_COLUMN_TYPE, options: { parentRow: row } },
                     },
                   ],
