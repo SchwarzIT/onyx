@@ -2,4 +2,4 @@
 "sit-onyx": minor
 ---
 
-feat(OnyxDataGrid): implement basic `useExpandableRows()` feature
+feat(OnyxDataGrid): implement new `useExpandableRows()` feature
