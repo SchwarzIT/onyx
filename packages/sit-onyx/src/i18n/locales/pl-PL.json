@@ -356,6 +356,7 @@
   "search": {
     "filterLabel": "pokaż filtr wyszukiwania",
     "leadingShortcutPlaceholder": "Wpisz",
-    "trailingShortcutPlaceholder": "aby wyszukać"
+    "trailingShortcutPlaceholder": "aby wyszukać",
+    "label": "Szukaj"
   }
 }
