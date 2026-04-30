@@ -22,14 +22,13 @@ const columns: ColumnConfig<TEntry>[] = [
 ];
 
 const withExpandableRows = DataGridFeatures.useExpandableRows<TEntry>({
-  component: (row) => [
+  component: (row) =>
     h(
       OnyxInfoCard,
       { headline: `Slot content for "${row.name}"` },
       () =>
         "Place any components here that fit your needs.\nTip: We recommend creating a single custom Vue component for the content and simply render it here and pass the required props.",
     ),
-  ],
 });
 
 const features = [withExpandableRows];
