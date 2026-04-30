@@ -356,6 +356,7 @@
   "search": {
     "filterLabel": "zobrazit filtr vyhledávání",
     "leadingShortcutPlaceholder": "Napsat",
-    "trailingShortcutPlaceholder": "pro vyhledávání"
+    "trailingShortcutPlaceholder": "pro vyhledávání",
+    "label": "Hledat"
   }
 }

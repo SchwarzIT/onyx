@@ -356,6 +356,7 @@
   "search": {
     "filterLabel": "prikaži filtar pretraživanja",
     "leadingShortcutPlaceholder": "Upišite",
-    "trailingShortcutPlaceholder": "za pretraživanje"
+    "trailingShortcutPlaceholder": "za pretraživanje",
+    "label": "Pretraživanje"
   }
 }
