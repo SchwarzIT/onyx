@@ -21,7 +21,7 @@ test.describe("Screenshot tests", () => {
         color={column === "tinted" ? "tinted" : "blank"}
         cornerRadius={column === "strongCornerRadius" ? "strong" : "soft"}
         withShortcut={column === "withShortcut"}
-        showFilter={column === "withFilterButton" ? true : undefined}
+        showFilters={column === "withFilterButton" ? true : undefined}
       />
     ),
     hooks: {
@@ -34,29 +34,29 @@ test.describe("Screenshot tests", () => {
 });
 
 test("should toggle filter values when buttons are clicked", async ({ mount }) => {
-  let showFilter = false;
+  let showFilters = false;
 
   const component = await mount(OnyxSearch, {
     props: {
       label: "Search",
-      showFilter: showFilter,
+      showFilters: showFilters,
     },
     on: {
-      "update:showFilter": (value: boolean) => (showFilter = value),
+      "update:showFilters": (value: boolean) => (showFilters = value),
     },
   });
 
   const filterButton = component.getByRole("button", { name: "show search filter" });
 
   await filterButton.click();
-  expect(showFilter).toBe(true);
+  expect(showFilters).toBe(true);
 });
 
 test("should not render buttons when disabled", async ({ mount }) => {
   const component = await mount(OnyxSearch, {
     props: {
       label: "Search",
-      showFilter: false,
+      showFilters: false,
       disabled: true,
     },
   });

@@ -355,7 +355,6 @@
   },
   "search": {
     "filterLabel": "pokaż filtr wyszukiwania",
-    "personalFilterLabel": "pokaż osobisty filtr wyszukiwania",
     "leadingShortcutPlaceholder": "Wpisz",
     "trailingShortcutPlaceholder": "aby wyszukać"
   }

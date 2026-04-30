@@ -355,7 +355,6 @@
   },
   "search": {
     "filterLabel": "검색 필터 표시",
-    "personalFilterLabel": "개인 검색 필터 표시",
     "leadingShortcutPlaceholder": "입력",
     "trailingShortcutPlaceholder": "하여 검색"
   }

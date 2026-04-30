@@ -355,7 +355,6 @@
   },
   "search": {
     "filterLabel": "mostrar filtro de pesquisa",
-    "personalFilterLabel": "mostrar filtro de pesquisa pessoal",
     "leadingShortcutPlaceholder": "Digite",
     "trailingShortcutPlaceholder": "para pesquisar"
   }

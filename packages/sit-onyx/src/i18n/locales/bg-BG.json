@@ -355,7 +355,6 @@
   },
   "search": {
     "filterLabel": "показване на филтър за търсене",
-    "personalFilterLabel": "показване на личен филтър за търсене",
     "leadingShortcutPlaceholder": "Въведете",
     "trailingShortcutPlaceholder": "за търсене"
   }

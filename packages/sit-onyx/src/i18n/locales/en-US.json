@@ -266,8 +266,8 @@
     "tabLabel": "Code"
   },
   "search": {
-    "filterLabel": "show search filter",
-    "personalFilterLabel": "show personal search filter",
+    "label": "Search",
+    "filterLabel": "toggle filter",
     "leadingShortcutPlaceholder": "Type",
     "trailingShortcutPlaceholder": "to search"
   },

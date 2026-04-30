@@ -276,8 +276,8 @@
     "system": "System"
   },
   "search": {
-    "filterLabel": "Zeige Suchfilter an",
-    "personalFilterLabel": "Zeige persönliche Suchfilter an",
+    "label": "Suche",
+    "filterLabel": "Filter umschalten",
     "leadingShortcutPlaceholder": "Tippe",
     "trailingShortcutPlaceholder": "zum suchen"
   },

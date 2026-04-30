@@ -355,7 +355,6 @@
   },
   "search": {
     "filterLabel": "zoekfilter weergeven",
-    "personalFilterLabel": "persoonlijk zoekfilter weergeven",
     "leadingShortcutPlaceholder": "Typ",
     "trailingShortcutPlaceholder": "om te zoeken"
   }

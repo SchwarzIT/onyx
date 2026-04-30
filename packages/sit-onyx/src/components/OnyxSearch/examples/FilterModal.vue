@@ -24,14 +24,13 @@ const categoryOptions = [
 <template>
   <div class="search-wrapper">
     <OnyxUnstableSearch
-      v-model:show-filter="showFilter"
+      v-model:show-filters="showFilter"
       label="Search"
       :model-value="modelValue"
       with-shortcut
-    />
-
-    <OnyxModal v-model:open="showFilter" label="Select Filter">
-      <div v-show="showFilter" class="filter-wrapper">
+      filter-position="modal"
+    >
+      <template #filters>
         <OnyxSelect
           v-model="globalFilterStatus"
           hide-label
@@ -57,25 +56,17 @@ const categoryOptions = [
             }
           "
         />
-      </div>
+      </template>
+    </OnyxUnstableSearch>
+
+    <OnyxModal v-model:open="showFilter" label="Select Filter">
+      <div v-show="showFilter" class="filter-wrapper"></div>
     </OnyxModal>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.search-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: var(--onyx-density-sm);
-  width: 25rem;
-}
-.filter-wrapper {
-  display: flex;
-  flex-direction: column;
-  padding: var(--onyx-density-sm);
-  gap: var(--onyx-density-sm);
-  .onyx-select {
-    width: 20rem;
-  }
+.onyx-select {
+  width: 15rem;
 }
 </style>

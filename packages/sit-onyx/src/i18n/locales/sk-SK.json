@@ -355,7 +355,6 @@
   },
   "search": {
     "filterLabel": "zobraziť filter vyhľadávania",
-    "personalFilterLabel": "zobraziť osobný filter vyhľadávania",
     "leadingShortcutPlaceholder": "Napísať",
     "trailingShortcutPlaceholder": "na vyhľadávanie"
   }

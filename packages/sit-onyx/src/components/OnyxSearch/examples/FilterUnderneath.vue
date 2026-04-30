@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import { OnyxButton, OnyxSelect, OnyxUnstableSearch } from "../../../index.js";
 
-const showFilter = ref(false);
+const showFilter = ref(true);
 const modelValue = ref();
 
 const globalFilterStatus = ref();
@@ -22,15 +22,13 @@ const categoryOptions = [
 </script>
 
 <template>
-  <div class="search-wrapper">
-    <OnyxUnstableSearch
-      v-model:show-filter="showFilter"
-      label="Search"
-      :model-value="modelValue"
-      with-shortcut
-    />
-
-    <div v-show="showFilter" class="filter-wrapper">
+  <OnyxUnstableSearch
+    v-model:show-filters="showFilter"
+    label="Search"
+    :model-value="modelValue"
+    with-shortcut
+  >
+    <template #filters>
       <OnyxSelect
         v-model="globalFilterStatus"
         hide-label
@@ -56,22 +54,12 @@ const categoryOptions = [
           }
         "
       />
-    </div>
-  </div>
+    </template>
+  </OnyxUnstableSearch>
 </template>
 
 <style lang="scss" scoped>
-.search-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: var(--onyx-density-sm);
-  width: 25rem;
-}
-.filter-wrapper {
-  display: flex;
-  gap: var(--onyx-density-sm);
-  .onyx-select {
-    width: 10rem;
-  }
+.onyx-select {
+  width: 15rem;
 }
 </style>

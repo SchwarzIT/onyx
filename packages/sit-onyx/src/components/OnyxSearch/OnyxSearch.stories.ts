@@ -8,17 +8,20 @@ import OnyxSearch from "./OnyxSearch.vue";
 const meta: Meta<typeof OnyxSearch> = {
   title: "Search & Filter/Search",
   component: OnyxSearch,
-  tags: ["!autodocs", "unstable"],
-  decorators: [
-    (story) => ({
-      components: { story },
-      template: `<div style="width: 24rem;"> <story /> </div>`,
-    }),
-  ],
+  tags: ["unstable"],
   argTypes: {
     disabled: { control: { type: "boolean" } },
-    // ...withNativeEventLogging(["onInput", "onSubmit", "onFocusin", "onFocusout"]),
   },
+  decorators: [
+    (story, { parameters }) => ({
+      components: { Story: story() },
+      template: parameters.noWrapper
+        ? `<Story />`
+        : parameters.largeWrapper
+          ? `<div style="max-width: 36rem;"> <Story /> </div>`
+          : `<div style="max-width: 24rem;"> <Story /> </div>`,
+    }),
+  ],
 };
 
 export default meta;
@@ -29,7 +32,7 @@ type Story = StoryObj<typeof OnyxSearch>;
  */
 export const Default = {
   args: {
-    label: "Search...",
+    placeholder: "Search...",
   },
 } satisfies Story;
 
@@ -63,7 +66,7 @@ export const Tinted = {
   },
 } satisfies Story;
 
-export const ShortCut = {
+export const Shortcut = {
   args: {
     ...Default.args,
     withShortcut: true,
@@ -82,10 +85,16 @@ export const Skeleton = {
 
 export const FilterUnderneath = {
   ...createAdvancedStoryExample("OnyxSearch", "FilterUnderneath"),
+  parameters: {
+    largeWrapper: true,
+  },
 } satisfies Story;
 
 export const FilterBeside = {
   ...createAdvancedStoryExample("OnyxSearch", "FilterBeside"),
+  parameters: {
+    noWrapper: true,
+  },
 } satisfies Story;
 
 export const FilterModal = {
