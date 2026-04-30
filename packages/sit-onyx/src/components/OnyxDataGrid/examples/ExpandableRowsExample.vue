@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { h } from "vue";
-import { OnyxDataGrid, OnyxHeadline, type ColumnConfig } from "../../../index.js";
-import { useExpandableRows } from "../features/all.js";
+import { DataGridFeatures, OnyxDataGrid, OnyxInfoCard, type ColumnConfig } from "../../../index.js";
 
 type TEntry = {
   id: number;
@@ -22,11 +21,18 @@ const columns: ColumnConfig<TEntry>[] = [
   { key: "age", label: "Age", type: "number" },
 ];
 
-const features = [
-  useExpandableRows<TEntry>({
-    component: (row) => h(OnyxHeadline, { is: "h3" }, () => `Details for ${row.name}`),
-  }),
-];
+const withExpandableRows = DataGridFeatures.useExpandableRows<TEntry>({
+  component: (row) => [
+    h(
+      OnyxInfoCard,
+      { headline: `Slot content for "${row.name}"` },
+      () =>
+        "Place any components here that fit your needs.\nTip: We recommend creating a single custom Vue component for the content and simply render it here and pass the required props.",
+    ),
+  ],
+});
+
+const features = [withExpandableRows];
 </script>
 
 <template>
