@@ -1,5 +1,5 @@
 import { iconChevronDown, iconChevronUp } from "@sit-onyx/icons";
-import { h, ref } from "vue";
+import { h, toRef } from "vue";
 import OnyxSystemButton from "../../../OnyxSystemButton/OnyxSystemButton.vue";
 import {
   DataGridRowOptionsSymbol,
@@ -21,7 +21,7 @@ export const useExpandableRows = <TEntry extends DataGridEntry>(
   options: UseExpandableRowsOptions<TEntry>,
 ) =>
   createFeature((ctx) => {
-    const expandedRows = ref(new Set<PropertyKey>());
+    const expandedRows = toRef(options?.expandedState ?? new Set<PropertyKey>());
 
     const toggleExpanded = (rowId: TEntry["id"]) => {
       if (expandedRows.value.has(rowId)) expandedRows.value.delete(rowId);
