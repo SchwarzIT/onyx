@@ -34,7 +34,7 @@ export type CreateListboxOptions<TValue extends ListboxValue, TMultiple extends 
   /**
    * Hook when an option is selected.
    */
-  onSelect?: (value: TValue) => void;
+  onSelect?: (value: TValue, event?: Event) => void;
   /**
    * Hook when the first option should be activated.
    */
@@ -104,6 +104,11 @@ export const createListbox = createBuilder(
       return entries.find(([_value, key]) => key === id)?.[0];
     };
 
+    const getOption = (value: TValue) => {
+      const id = getOptionId(value);
+      return document.getElementById(id);
+    };
+
     /**
      * Whether the listbox element is focused.
      */
@@ -118,10 +123,11 @@ export const createListbox = createBuilder(
       ) {
         return;
       }
-
-      const id = getOptionId(options.activeOption.value);
       await nextTick();
-      document.getElementById(id)?.scrollIntoView({ block: "nearest", inline: "nearest" });
+      getOption(options.activeOption.value)?.scrollIntoView({
+        block: "nearest",
+        inline: "nearest",
+      });
     });
 
     const typeAhead = useTypeAhead((inputString) => options.onTypeAhead?.(inputString));
@@ -131,7 +137,7 @@ export const createListbox = createBuilder(
         case " ":
           event.preventDefault();
           if (options.activeOption.value != undefined) {
-            options.onSelect?.(options.activeOption.value);
+            options.onSelect?.(options.activeOption.value, event);
           }
           break;
 
@@ -223,7 +229,7 @@ export const createListbox = createBuilder(
               "aria-disabled": data.disabled,
               "aria-checked": isMultiselect.value ? selected : undefined,
               "aria-selected": !isMultiselect.value ? selected : undefined,
-              onClick: () => !data.disabled && options.onSelect?.(data.value),
+              onClick: (event) => !data.disabled && options.onSelect?.(data.value, event),
             } as const;
           };
         }),
@@ -234,6 +240,7 @@ export const createListbox = createBuilder(
       internals: {
         getOptionId,
         getOptionValueById,
+        getOption,
       },
     };
   },
