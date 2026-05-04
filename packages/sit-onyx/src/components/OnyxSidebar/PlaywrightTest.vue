@@ -1,6 +1,8 @@
 <script lang="ts" setup>
-import { provide } from "vue";
+import { computed, provide } from "vue";
+import { ROUTER_INJECTION_KEY } from "../../composables/useLink.js";
 import OnyxAppLayout from "../OnyxAppLayout/OnyxAppLayout.vue";
+import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import {
   createGlobalFABProvider,
   GLOBAL_FAB_PROVIDER_INJECTION_KEY,
@@ -17,9 +19,18 @@ const props = defineProps<{
    * If the right sidebar should be displayed
    */
   sidebarRight?: boolean;
+  /**
+   * Current route.
+   */
+  currentRoute?: string;
 }>();
 
 provide(GLOBAL_FAB_PROVIDER_INJECTION_KEY, createGlobalFABProvider());
+
+provide(ROUTER_INJECTION_KEY, {
+  currentRoute: computed(() => props.currentRoute ?? "/"),
+  push: () => ({}),
+});
 </script>
 
 <template>
