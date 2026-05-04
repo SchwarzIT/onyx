@@ -35,12 +35,18 @@ const props = withDefaults(
         :label="`Group ${group}`"
       >
         <OnyxGlobalSearchOption
-          v-for="option in 2"
-          :key="`${group}-${option}`"
-          :label="`Result ${group}.${option} `.repeat(props.longContent ? 8 : 1)"
-          :value="`${group}-${option}`"
+          :key="`${group}-1`"
+          :label="`Result ${group}.1 `.repeat(props.longContent ? 8 : 1)"
+          :value="`${group}-1`"
           :icon="iconPlaceholder"
-          :link="`#${group}-${option}`"
+          :link="`#${group}-1`"
+        />
+        <OnyxGlobalSearchOption
+          :key="`${group}-2`"
+          :label="`Result ${group}.2 `.repeat(props.longContent ? 8 : 1)"
+          :value="`${group}-2`"
+          :icon="iconPlaceholder"
+          :link="{ href: 'https://example.com', target: '_blank' }"
         />
       </OnyxGlobalSearchGroup>
     </template>

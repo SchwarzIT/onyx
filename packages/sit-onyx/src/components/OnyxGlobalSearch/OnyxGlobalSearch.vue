@@ -88,11 +88,13 @@ const activateOption = (type: "first" | "last" | "previous" | "next") => {
 
 const onAutocomplete = (input: string) => (searchTerm.value = input);
 
-const onSelect = (value: string) => {
-  const id = headless.internals.getOptionId(value);
-  const option = dialogElement.value?.querySelector(`#${id}`);
-  if (!option) return;
-  if ("click" in option && typeof option.click === "function") option.click();
+const onSelect = (value: string, event?: Event) => {
+  const option = headless.internals.getOption(value);
+  const alreadyClicked =
+    event && event.type === "click" && option?.contains(event.target as HTMLElement);
+  if (option && !alreadyClicked) {
+    option.click();
+  }
 };
 
 const headless = createComboBox({

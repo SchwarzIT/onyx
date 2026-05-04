@@ -1,3 +1,4 @@
+import type { AxeBuilder } from "@axe-core/playwright";
 import { expect, test } from "../../playwright/a11y.js";
 import TestCase from "./TestCase.ct.vue";
 
@@ -56,7 +57,34 @@ test("should render groups and options", async ({ page, mount, makeAxeBuilder })
   await expect(page).toHaveScreenshot("responsive.png");
 });
 
-test("should support keyboard navigation", async ({ page, mount }) => {
+test("should support mouse", async ({ page, mount, context }) => {
+  // ARRANGE
+  const component = await mount(TestCase, { props: { groupCount: 2 } });
+  const input = component.getByLabel("Search for content");
+
+  // ASSERT
+  await expect(input, "should autofocus search input").toBeFocused();
+
+  // ACT + ASSERT
+  await component.getByLabel("Result 1.1").click();
+  await expect(page).toHaveURL(/\/#1-1/);
+
+  // ARRANGE
+  let count = 0;
+  context.on("request", () => count++);
+  const newTabPromise = page.waitForEvent("popup");
+
+  // ACT
+  await component.getByLabel("Result 1.2").click();
+  const newTab = await newTabPromise;
+
+  // ASSERT
+  await expect(newTab).toHaveURL("https://example.com");
+  await newTab.close();
+  expect(count, "should only open a single tab").toBe(1);
+});
+
+test("should support keyboard navigation", async ({ page, mount, context }) => {
   // ARRANGE
   const component = await mount(TestCase, { props: { groupCount: 2 } });
   const input = component.getByLabel("Search for content");
@@ -109,4 +137,19 @@ test("should support keyboard navigation", async ({ page, mount }) => {
   // ACT + ASSERT
   await page.keyboard.press("Enter");
   await expect(page).toHaveURL(/\/#1-1/);
+
+  // ARRANGE
+  let count = 0;
+  context.on("request", () => count++);
+  const newTabPromise = page.waitForEvent("popup");
+
+  // ACT
+  await navigate("ArrowDown");
+  await page.keyboard.press("Enter");
+
+  // ASSERT
+  const newTab = await newTabPromise;
+  await expect(newTab).toHaveURL("https://example.com");
+  await newTab.close();
+  expect(count, "should only open a single tab").toBe(1);
 });
