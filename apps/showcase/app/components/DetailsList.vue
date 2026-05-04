@@ -1,7 +1,16 @@
 <script lang="ts" setup>
 export type DetailsItem = {
+  /**
+   * Label to display.
+   */
   label: string;
+  /**
+   * Item value.
+   */
   value: string;
+  /**
+   * Whether show a button to copy the value.
+   */
   copy?: boolean;
 };
 
@@ -14,10 +23,10 @@ const props = defineProps<{
   <ul class="list">
     <li v-for="item in props.items" :key="item.label" class="item">
       <span class="item__label"> {{ item.label }} </span>
-      <span class="item__value">
+      <div class="item__value">
         {{ item.value }}
         <CopyButton v-if="item.copy" :value="item.value" />
-      </span>
+      </div>
     </li>
   </ul>
 </template>
