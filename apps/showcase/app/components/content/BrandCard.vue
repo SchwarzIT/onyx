@@ -8,12 +8,21 @@ import tailwindLogo from "~/assets/images/brands/tailwind.svg?raw";
 import onyxLogo from "~~/public/onyx-logo.svg?raw";
 import type { DetailsItem } from "../DetailsList.vue";
 
+type SchwarzBrand =
+  | "onyx"
+  | "lidl"
+  | "kaufland"
+  | "prezero"
+  | "digits"
+  | "schwarzgroup-scos"
+  | "tailwind";
+
 const props = defineProps<{
-  brand: "onyx" | "lidl" | "kaufland" | "prezero" | "digits" | "schwarzgroup-scos" | "tailwind";
+  brand: SchwarzBrand;
   items?: DetailsItem[];
 }>();
 
-const map: Record<typeof props.brand, { image: string; name: string }> = {
+const map: Record<SchwarzBrand, { image: string; name: string }> = {
   onyx: {
     name: "Onyx (default)",
     image: onyxLogo,
