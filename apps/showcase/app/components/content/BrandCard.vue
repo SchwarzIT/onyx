@@ -6,11 +6,7 @@ import prezeroLogo from "~/assets/images/brands/prezero.svg?raw";
 import scosLogo from "~/assets/images/brands/scos.svg?raw";
 import tailwindLogo from "~/assets/images/brands/tailwind.svg?raw";
 import onyxLogo from "~~/public/onyx-logo.svg?raw";
-
-type DetailsItem = {
-  label: string;
-  value: string;
-};
+import type { DetailsItem } from "../DetailsList.vue";
 
 const props = defineProps<{
   brand: "onyx" | "lidl" | "kaufland" | "prezero" | "digits" | "schwarzgroup-scos" | "tailwind";
@@ -54,18 +50,12 @@ const data = computed(() => map[props.brand]);
 <template>
   <OnyxCard class="card">
     <div class="card__image">
-      <OnyxIcon :icon="data.image" size="48px" />
+      <OnyxIcon :icon="data.image" size="64px" />
     </div>
 
     <div class="card__content">
       <OnyxHeadline is="h3">{{ data.name }}</OnyxHeadline>
-
-      <div v-if="props.items?.length" class="card__details">
-        <div v-for="item in props.items" :key="item.label" class="detail">
-          <span class="detail__label"> {{ item.label }} </span>
-          <span class="detail__value"> {{ item.value }} </span>
-        </div>
-      </div>
+      <DetailsList v-if="props.items?.length" :items="props.items" />
     </div>
   </OnyxCard>
 </template>
@@ -88,32 +78,9 @@ const data = computed(() => map[props.brand]);
 
   &__content {
     padding: var(--onyx-card-padding);
-  }
-
-  &__details {
-    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: var(--onyx-card-gap);
-    margin-top: var(--onyx-density-xs);
-  }
-}
-
-.detail {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--onyx-density-xs);
-  flex-wrap: wrap;
-
-  &__label {
-    color: var(--onyx-color-text-icons-neutral-medium);
-  }
-
-  &__value {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--onyx-density-2xs);
+    gap: var(--onyx-density-xs);
   }
 }
 </style>
