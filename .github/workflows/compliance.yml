@@ -12,4 +12,4 @@ permissions:
 
 jobs:
   compliance:
-    uses: SchwarzDigits/oss-compliance/.github/workflows/full-check.yml@v1
+    uses: SchwarzDigits/oss-compliance/.github/workflows/full-check.yml@4ff64dca8c04a92c95d9bdcfc1c3ea136d584890
