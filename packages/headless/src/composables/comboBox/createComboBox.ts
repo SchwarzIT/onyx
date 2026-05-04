@@ -1,4 +1,4 @@
-import { computed, unref, useId, type MaybeRef, type Ref } from "vue";
+import { computed, toValue, unref, useId, type MaybeRef, type Ref } from "vue";
 import { createBuilder } from "../../utils/builder.js";
 import { isPrintableCharacter, wasKeyPressed, type PressedKey } from "../../utils/keyboard.js";
 import type { Nullable } from "../../utils/types.js";
@@ -71,7 +71,7 @@ export type CreateComboboxOptions<
   /**
    * Hook when an option is (un-)selected.
    */
-  onSelect?: (value: TValue) => void;
+  onSelect?: (value: TValue, event?: Event) => void;
   /**
    * Hook when the first option should be activated.
    */
@@ -143,9 +143,9 @@ export const createComboBox = createBuilder(
 
     const typeAhead = useTypeAhead((inputString) => onTypeAhead?.(inputString));
 
-    const handleSelect = (value: TValue) => {
-      onSelect?.(value);
-      if (!unref(multiple)) {
+    const handleSelect = (value: TValue, event?: Event) => {
+      onSelect?.(value, event);
+      if (!toValue(multiple)) {
         onToggle?.();
       }
     };
@@ -220,7 +220,7 @@ export const createComboBox = createBuilder(
 
     const {
       elements: { option, group, listbox },
-      internals: { getOptionId, getOptionValueById },
+      internals: { getOptionId, getOptionValueById, getOption },
     } = createListbox({
       label: listLabel,
       description: listDescription,
@@ -275,7 +275,7 @@ export const createComboBox = createBuilder(
           onClick: () => onToggle?.(),
         })),
       },
-      internals: { getOptionId, getOptionValueById },
+      internals: { getOptionId, getOptionValueById, getOption },
     };
   },
 );
