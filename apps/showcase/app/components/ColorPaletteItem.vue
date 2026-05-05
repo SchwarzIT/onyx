@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import type { OnyxColor } from "sit-onyx";
+import type { StyleValue } from "vue";
 
 const props = defineProps<{
   cssVariable: string;
-  baseColor: OnyxColor;
-  step?: number;
+  textColor: OnyxColor | "white";
 }>();
 
 defineSlots<{
@@ -13,16 +13,22 @@ defineSlots<{
    */
   default?(): unknown;
 }>();
+
+const style = computed<StyleValue>(() => {
+  return {
+    backgroundColor: props.cssVariable,
+    color:
+      props.textColor === "white"
+        ? "#fff"
+        : props.textColor === "neutral"
+          ? "var(--onyx-color-text-icons-neutral-intense)"
+          : `var(--onyx-color-text-icons-${props.textColor}-bold)`,
+  };
+});
 </script>
 
 <template>
-  <div
-    class="color"
-    :style="{
-      backgroundColor: props.cssVariable,
-      color: `var(--onyx-color-text-icons-${props.baseColor}-${props.step && props.step > 300 ? 'inverted' : 'bold'})`,
-    }"
-  >
+  <div class="color" :style>
     <slot></slot>
   </div>
 </template>
@@ -32,9 +38,5 @@ defineSlots<{
   flex-grow: 1;
   padding: var(--onyx-density-xs);
   padding-bottom: var(--onyx-density-2xl);
-
-  &:nth-child(n + 4) {
-    color: var(--onyx-color-text-icons-neutral-inverted);
-  }
 }
 </style>

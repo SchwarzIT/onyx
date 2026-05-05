@@ -3,11 +3,13 @@ import { capitalize } from "@sit-onyx/icons/utils";
 import type { OnyxColor } from "sit-onyx";
 
 const props = defineProps<{
-  color: OnyxColor;
+  color: OnyxColor | "quantitatives";
 }>();
 
 const colors = computed(() => {
-  return Array.from({ length: 9 }, (_, index) => {
+  const steps = props.color === "quantitatives" ? 12 : 9;
+
+  return Array.from({ length: steps }, (_, index) => {
     const step = 100 * (index + 1);
     return {
       backgroundColor: `var(--onyx-color-base-${props.color}-${step})`,
@@ -22,8 +24,8 @@ const colors = computed(() => {
   <div
     :class="['palette']"
     :style="{
-      borderColor: `var(--onyx-color-base-${props.color}-300)`,
-      '--color': `var(--onyx-color-text-icons-${props.color}-bold)`,
+      borderColor:
+        props.color !== 'quantitatives' ? `var(--onyx-color-base-${props.color}-300)` : undefined,
     }"
   >
     <ColorPaletteItem
@@ -31,8 +33,7 @@ const colors = computed(() => {
       :key="color.step"
       class="palette__color"
       :css-variable="color.backgroundColor"
-      :base-color="props.color"
-      :step="color.step"
+      :text-color="color.step > 300 || props.color === 'quantitatives' ? 'white' : props.color"
     >
       <div>{{ color.step }}</div>
     </ColorPaletteItem>
