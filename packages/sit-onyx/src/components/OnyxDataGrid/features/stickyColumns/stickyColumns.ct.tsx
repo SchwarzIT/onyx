@@ -224,6 +224,7 @@ test("multiple stickyColumns", async ({ mount }) => {
 
   await expect(
     component.getByRole("row", { name: "f g c e h i j k l m n o p q r d b a" }),
+    "Columns should have the correct order",
   ).toBeAttached();
 
   await component.getByRole("columnheader", { name: "q" }).scrollIntoViewIfNeeded();
