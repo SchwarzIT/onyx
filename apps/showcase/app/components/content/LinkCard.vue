@@ -10,7 +10,7 @@ const props = defineProps<
 
 const normalizedLink = computed<SharedLinkProps>(() => {
   const link: SharedLinkProps = typeof props.link === "string" ? { href: props.link } : props.link;
-  return { target: !isInternalLink(link.href) ? "_blank" : undefined, ...link };
+  return { target: isInternalLink(link.href) ? undefined : "_blank", ...link };
 });
 </script>
 
