@@ -46,7 +46,7 @@ test("should toggle filter values when buttons are clicked", async ({ mount }) =
     },
   });
 
-  const filterButton = component.getByRole("button", { name: "show search filter" });
+  const filterButton = component.getByRole("button", { name: "toggle filter" });
 
   await filterButton.click();
   expect(showFilters).toBe(true);
@@ -61,7 +61,7 @@ test("should not render buttons when disabled", async ({ mount }) => {
     },
   });
 
-  const filterButton = component.getByRole("button", { name: "show search filter" });
+  const filterButton = component.getByRole("button", { name: "toggle filter" });
 
   await expect(filterButton).toBeHidden();
 });
