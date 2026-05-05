@@ -226,8 +226,8 @@ test("multiple stickyColumns", async ({ mount }) => {
     component.getByRole("row", { name: "f g c e h i j k l m n o p q r d b a" }),
   ).toBeAttached();
 
-  await component.getByRole("columnheader", { name: "k" }).scrollIntoViewIfNeeded();
-  await expect(component).toHaveScreenshot("data-grid-two-sticky-columns.png");
+  await component.getByRole("columnheader", { name: "q" }).scrollIntoViewIfNeeded();
+  await expect(component).toHaveScreenshot("data-grid-multiple-sticky-columns.png");
 });
 
 test("should allow scrolling the page", async ({ page, mount }) => {
