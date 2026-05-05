@@ -1,6 +1,10 @@
 <script lang="ts" setup>
 import SidebarLayout from "#layers/onyx/app/layouts/sidebar.vue";
 
+const props = defineProps<{
+  hideHero?: boolean;
+}>();
+
 defineSlots<{
   /**
    * Main page content.
@@ -13,7 +17,7 @@ const { data } = await useCollection();
 
 <template>
   <SidebarLayout>
-    <template #hero>
+    <template v-if="!props.hideHero" #hero>
       <PageContentHero
         :headline="data?.title"
         :description="data?.description"

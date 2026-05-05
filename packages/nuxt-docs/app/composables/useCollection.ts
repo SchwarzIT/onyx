@@ -16,9 +16,11 @@ export const useCollection = () => {
 
   return useAsyncData(
     () => `page-${slug.value}-${locale.value}`,
-    () => {
-      const collection = `content_${locale.value}` as keyof Collections;
-      return queryCollection(collection).path(slug.value).first();
+    async () => {
+      const key = `content_${locale.value}` as keyof Collections;
+      const collection = await queryCollection(key).path(slug.value).first();
+      if (collection) return collection;
+      return queryCollection(key).path(route.path).first();
     },
   );
 };
