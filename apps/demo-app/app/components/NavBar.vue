@@ -1,20 +1,53 @@
 <script lang="ts" setup>
 import NavBar from "#layers/blueprint/app/components/NavBar.vue";
-import { iconFile, iconUserGroup, iconUserId } from "@sit-onyx/icons";
-import type { OnyxNavBarSlots } from "sit-onyx";
+import {
+  iconChart,
+  iconFile,
+  iconHome,
+  iconToolTable,
+  iconUserGroup,
+  iconUserId,
+} from "@sit-onyx/icons";
+import { type OnyxNavBarSlots, useVModel } from "sit-onyx";
 import logoUrl from "~/assets/images/onyx-logo.svg";
+import GlobalSearch from "./GlobalSearch.vue";
 
 defineSlots<Pick<OnyxNavBarSlots, "contextArea">>();
+const route = useRoute();
+
+const isHomePage = computed(() => route.path === localePath("/"));
 
 const localePath = useLocalePath();
+const props = defineProps<{
+  isVerticalNavBar?: boolean;
+}>();
+const emit = defineEmits<{
+  "update:isVerticalNavBar": [value: boolean];
+}>();
+const isVertical = useVModel({ props, emit, key: "isVerticalNavBar", default: false });
+const orientation = computed(() =>
+  isVertical.value && isHomePage.value ? "vertical" : "horizontal",
+);
 </script>
 
 <template>
-  <NavBar app-name="onyx demo" :logo-url>
-    <OnyxNavItem :label="$t('overview')" :link="localePath('/')" />
-    <OnyxNavItem :label="$t('dataGrid.pageName')" :link="localePath('/data-grid')" />
+  <NavBar app-name="onyx demo" :logo-url :orientation="orientation" :expanded="undefined">
+    <OnyxNavItem
+      :label="$t('overview')"
+      :link="localePath('/')"
+      :icon="isVertical ? iconHome : undefined"
+    />
+    <OnyxNavItem
+      :label="$t('dataGrid.pageName')"
+      :link="localePath('/data-grid')"
+      :icon="isVertical ? iconToolTable : undefined"
+    />
 
-    <OnyxNavItem :label="$t('forms')" :link="localePath('/forms')">
+    <OnyxNavItem
+      :label="$t('forms')"
+      :link="localePath('/forms')"
+      :icon="isVertical ? iconFile : undefined"
+    >
       <template #children>
         <OnyxNavItem :label="$t('personalData')" :link="localePath('/forms')">
           <OnyxIcon :icon="iconUserId" />
@@ -33,19 +66,38 @@ const localePath = useLocalePath();
       </template>
     </OnyxNavItem>
 
-    <OnyxNavItem :label="$t('charts.pageName')" :link="localePath('/charts')" />
+    <OnyxNavItem
+      :label="$t('charts.pageName')"
+      :link="localePath('/charts')"
+      :icon="isVertical ? iconChart : undefined"
+    />
 
     <template #contextArea>
       <!-- eslint-disable-next-line vue/require-explicit-slots -- slots type is imported from onyx but eslint does not seem to be able to handle this -->
       <slot name="contextArea"></slot>
-
-      <ColorSchemeSwitch />
+      <OnyxSwitch
+        v-show="isHomePage"
+        v-model="isVertical"
+        label="Vertical Navbar"
+        class="vertical-navbar-switch"
+      />
+      <ColorSchemeSwitch :hide-label="!isVertical" />
       <DensitySwitch />
       <LocaleSwitch />
+      <GlobalSearch />
+      <OnyxSeparator v-if="!isVertical" orientation="vertical" />
       <NotificationCenter />
-      <OnyxSeparator orientation="vertical" />
 
-      <UserMenu />
+      <UserMenu :position="isVertical ? 'right' : 'auto'" />
     </template>
   </NavBar>
 </template>
+
+<style lang="scss">
+.vertical-navbar-switch {
+  .onyx-switch__click-area,
+  .onyx-switch-skeleton__click-area {
+    padding-left: 0;
+  }
+}
+</style>

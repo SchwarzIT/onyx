@@ -67,6 +67,33 @@
       "unit": "Unit",
       "value": "Value"
     },
+    "editableTab": "Editable Data",
+    "editableTable": {
+      "edit": "Edit",
+      "actions": {
+        "save": "Save",
+        "reset": "Reset",
+        "send": "Send Data",
+        "check": "Check Data"
+      },
+      "details": "Product Details",
+      "product": {
+        "fields": {
+          "id": "ID",
+          "name": "Product Name",
+          "count": "Quantity",
+          "validFrom": "Valid From",
+          "validUntil": "Valid Until",
+          "active": "Active",
+          "price": "Price",
+          "allergens": "Allergens"
+        },
+        "description": "Description",
+        "embed": "Embed Product",
+        "noAllergens": "No allergens specified",
+        "placeholder": "Type something..."
+      }
+    },
     "tabs": "Data Tabs",
     "userTab": "User data",
     "userTable": {
