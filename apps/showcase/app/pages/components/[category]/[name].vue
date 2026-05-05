@@ -41,6 +41,13 @@ const activeTab = ref("overview");
       <OnyxTab label="Properties" value="properties">
         <ComponentProperties :component="data?.meta.componentName" />
       </OnyxTab>
+
+      <OnyxTab v-if="data?.meta.shortcuts" label="Keyboard shortcuts" value="keyboard-shortcuts">
+        <div v-for="shortcut in data.meta.shortcuts" :key="shortcut.label">
+          <OnyxUnstableShortcut :sequence="shortcut.sequence" />
+          <span>{{ shortcut.label }}</span>
+        </div>
+      </OnyxTab>
     </OnyxTabs>
   </SidebarLayout>
 </template>
