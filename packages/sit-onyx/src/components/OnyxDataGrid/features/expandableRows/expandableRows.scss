@@ -1,0 +1,29 @@
+@use "../../../../styles/mixins/layers.scss";
+
+@include layers.component {
+  .onyx-data-grid {
+    .onyx-data-grid-expand-cell {
+      --onyx-table-padding-inline: var(--onyx-table-padding-block);
+    }
+
+    .onyx-data-grid-expand-button {
+      display: flex;
+    }
+
+    &:has(> .onyx-table-wrapper__container > .onyx-table--vertical-borders) {
+      .onyx-data-grid-expand-details {
+        --expand-details-border-size: var(--onyx-1px-in-rem);
+      }
+    }
+
+    .onyx-data-grid-expand-details {
+      padding: var(--onyx-density-md);
+
+      // align details content with the first column of the parent row
+      padding-left: calc(
+        1.5rem + 2 * var(--onyx-table-padding-block) + var(--onyx-table-padding-inline) +
+          var(--expand-details-border-size, 0rem)
+      );
+    }
+  }
+}
