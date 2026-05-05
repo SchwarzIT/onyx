@@ -6,7 +6,6 @@ import type { DataGridEntry } from "../../types.js";
 
 export type StickyColumnDef<TEntry extends DataGridEntry> =
   | keyof TEntry
-  | symbol
   | { key: keyof TEntry | symbol; position?: "left" | "right" };
 
 export type StickyColumnsOptions<TEntry extends DataGridEntry> = {

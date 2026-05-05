@@ -194,19 +194,39 @@ test("multiple stickyColumns", async ({ mount }) => {
   const data = getTestData();
 
   const component = await mount(
-    <TestCase data={data} columns={columns} stickyColumnsOptions={{ columns: ["a", "b"] }} />,
+    <TestCase
+      data={data}
+      columns={columns}
+      stickyColumnsOptions={{
+        position: "right",
+        columns: [
+          { key: "d", position: "right" },
+          "a",
+          "b",
+          { key: "g", position: "left" },
+          { key: "f", position: "left" },
+        ],
+      }}
+    />,
   );
 
-  // ACT
-  await component.getByRole("columnheader", { name: "k" }).scrollIntoViewIfNeeded();
-
   // ASSERT
-  const fistStickyColumn = component.getByRole("columnheader", { name: "a" });
-  const secondStickyColumn = component.getByRole("columnheader", { name: "b" });
-  await expect(fistStickyColumn).toContainClass("onyx-data-grid-sticky-columns--sticky");
-  await expect(fistStickyColumn).toHaveCSS("left", /[0-9]+px/);
-  await expect(secondStickyColumn).toContainClass("onyx-data-grid-sticky-columns--sticky");
-  await expect(secondStickyColumn).toHaveCSS("left", /[0-9]+px/);
+  const fColumn = component.getByRole("columnheader", { name: "f" });
+  const gColumn = component.getByRole("columnheader", { name: "g" });
+
+  const dColumn = component.getByRole("columnheader", { name: "d" });
+  const bColumn = component.getByRole("columnheader", { name: "b" });
+  const aColumn = component.getByRole("columnheader", { name: "a" });
+
+  for (const col of [fColumn, gColumn, dColumn, bColumn, aColumn]) {
+    await expect(col).toContainClass("onyx-data-grid-sticky-columns--sticky");
+  }
+
+  await expect(
+    component.getByRole("row", { name: "f g c e h i j k l m n o p q r d b a" }),
+  ).toBeAttached();
+
+  await component.getByRole("columnheader", { name: "k" }).scrollIntoViewIfNeeded();
   await expect(component).toHaveScreenshot("data-grid-two-sticky-columns.png");
 });
 
