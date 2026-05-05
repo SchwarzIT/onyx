@@ -39,7 +39,7 @@
     "vue": ">= 3.5.0"
   },
   "devDependencies": {
-    "@axe-core/playwright": "^4.11.1",
+    "@axe-core/playwright": "^4.11.3",
     "@nuxtjs/mdc": "~0.21.1",
     "@playwright/experimental-ct-vue": "catalog:",
     "@playwright/test": "catalog:",

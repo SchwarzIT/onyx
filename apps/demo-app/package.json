@@ -18,21 +18,21 @@
   },
   "dependencies": {
     "@nuxtjs/color-mode": "^4.0.0",
-    "@nuxtjs/i18n": "^10.2.4",
+    "@nuxtjs/i18n": "^10.3.0",
     "@pinia/nuxt": "~0.11.3",
     "@sit-onyx/chartjs-plugin": "workspace:^",
     "@sit-onyx/flags": "workspace:^",
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/nuxt": "workspace:^",
-    "@vueuse/core": "^14.2.1",
-    "@vueuse/nuxt": "^14.2.1",
+    "@vueuse/core": "^14.3.0",
+    "@vueuse/nuxt": "^14.3.0",
     "chart.js": "catalog:",
     "nuxt": "catalog:",
     "pinia": "^3.0.4",
     "sit-onyx": "workspace:^",
     "vue": "catalog:",
     "vue-chartjs": "^5.3.3",
-    "vue-router": "^5.0.4"
+    "vue-router": "^5.0.6"
   },
   "engines": {
     "node": ">=20"
