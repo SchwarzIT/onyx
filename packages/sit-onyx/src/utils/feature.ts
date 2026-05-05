@@ -7,7 +7,7 @@ export type Orderable = {
    * Defines the order in which is function is applied.
    * This can be used to control the sequence of operations when multiple are applied.
    *
-   * The lower the order, the earlier it is applied.
+   * The higher the order, the earlier it is applied.
    *
    * @default 0
    */

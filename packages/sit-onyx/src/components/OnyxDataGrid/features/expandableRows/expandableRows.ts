@@ -15,7 +15,6 @@ const EXPANDABLE_ROWS_FEATURE_NAME = Symbol("ExpandableRows");
 const BUTTON_COLUMN_KEY = Symbol("ExpandButtonKey");
 const BUTTON_COLUMN_TYPE = Symbol("ExpandButtonType");
 const DETAILS_COLUMN_TYPE = Symbol("ExpandDetailsType");
-const MUTATION_ORDER = Number.MAX_SAFE_INTEGER;
 
 export const useExpandableRows = <TEntry extends DataGridEntry>(
   options: UseExpandableRowsOptions<TEntry>,
@@ -32,7 +31,7 @@ export const useExpandableRows = <TEntry extends DataGridEntry>(
       name: EXPANDABLE_ROWS_FEATURE_NAME,
       watch: [expandedRows],
       modifyColumns: {
-        order: MUTATION_ORDER,
+        order: Number.MAX_SAFE_INTEGER,
         func: (columns) => {
           return [
             {
@@ -46,7 +45,7 @@ export const useExpandableRows = <TEntry extends DataGridEntry>(
         },
       },
       mutation: {
-        order: MUTATION_ORDER,
+        order: Number.MIN_SAFE_INTEGER,
         func: (rows) => {
           return rows.flatMap((row) => {
             const isExpanded = expandedRows.value.has(row.id);
