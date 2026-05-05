@@ -6,6 +6,7 @@ test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     rows: ["none", "asc", "desc"],
     columns: ["default"],
+    fastNoIsolation: true,
     name: "Sort Action",
     component: (_, row) => <SortAction columnLabel="Column-Label" sortDirection={row} />,
   });

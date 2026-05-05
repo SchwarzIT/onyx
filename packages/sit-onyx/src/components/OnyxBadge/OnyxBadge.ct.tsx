@@ -60,6 +60,7 @@ test.describe("Screenshot tests", () => {
     name: "Badge (alignment)",
     columns: ["default"],
     rows: ["start", "center", "end"],
+    fastNoIsolation: true,
     component: (column, row) => <TestCase alignItems={row} />,
   });
 

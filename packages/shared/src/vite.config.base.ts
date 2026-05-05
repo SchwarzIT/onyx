@@ -1,10 +1,15 @@
 import vue from "@vitejs/plugin-vue";
+import { Features } from "lightningcss";
 import { deprecations, type Deprecation } from "sass-embedded";
 import type { UserConfig } from "vite";
 
 export const VITE_BASE_CONFIG = {
   plugins: [vue()],
   css: {
+    lightningcss: {
+      // see: https://github.com/parcel-bundler/lightningcss/issues/873
+      exclude: Features.LightDark,
+    },
     preprocessorOptions: {
       scss: {
         // error for all warnings

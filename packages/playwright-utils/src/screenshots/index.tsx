@@ -1,13 +1,12 @@
 import { test as _test, expect } from "@playwright/experimental-ct-vue";
 import type { Locator, Page } from "@playwright/test";
 import type { JSX } from "vue/jsx-runtime";
-import { ScreenshotMatrix } from "./ScreenshotMatrix.js";
+import { getCellId, ScreenshotMatrix } from "./ScreenshotMatrix.js";
 import type {
   HookContext,
   MatrixScreenshotTestOptions,
   UseMatrixScreenshotTestOptions,
 } from "./types.js";
-import { escapeGridAreaName } from "./utils.js";
 
 /**
  * Creates a screenshot utility that can be used to capture matrix screenshots.
@@ -19,6 +18,16 @@ export const useMatrixScreenshotTest = <TContext extends HookContext = HookConte
   const test = globalOptions.test ?? _test;
 
   const executeMatrixScreenshotTest = <TColumn extends string, TRow extends string>(
+    options: MatrixScreenshotTestOptions<TColumn, TRow, TContext>,
+  ) => {
+    if (options.fastNoIsolation) {
+      testWithoutIsolation(options);
+    } else {
+      testWithIsolation(options);
+    }
+  };
+
+  const testWithIsolation = <TColumn extends string, TRow extends string>(
     options: MatrixScreenshotTestOptions<TColumn, TRow, TContext>,
   ) => {
     test(`${options.name}`, async ({ mount, page, browserName, context }) => {
@@ -56,7 +65,7 @@ export const useMatrixScreenshotTest = <TContext extends HookContext = HookConte
         // to be twice as large (or more) so we need to get the actual size here to set the correct image size below
         // see (`scale` option of `component.screenshot()` above)
         const box = await component.boundingBox();
-        const id = `${escapeGridAreaName(row)}-${escapeGridAreaName(column)}`;
+        const id = getCellId(row, column);
 
         // AFTER hook
         await globalOptions.defaults?.hooks?.afterEach?.(
@@ -67,6 +76,7 @@ export const useMatrixScreenshotTest = <TContext extends HookContext = HookConte
           options.context,
         );
         await options.hooks?.afterEach?.(component, page, column, row, options.context);
+        await component.unmount();
 
         return { box, id, screenshot };
       };
@@ -129,31 +139,68 @@ export const useMatrixScreenshotTest = <TContext extends HookContext = HookConte
       const screenshots = prepared.map(([, screenshot]) => screenshot);
       const waitForLoaded = prepared.map(([loaded]) => loaded);
 
-      const rowLabels = options.rows.map((row) => GridLabel({ name: row, type: "row" }));
+      const html = ScreenshotMatrix({
+        columns: options.columns,
+        rows: options.rows,
+        name: options.name,
+        browserName,
+        children: screenshots,
+      });
 
-      const columnsLabels = options.columns.map((column) =>
-        GridLabel({ name: column, type: "column" }),
-      );
+      const component = await mount(html);
+      await Promise.all(waitForLoaded);
+
+      await expect(() => expect(component).toHaveScreenshot(`${options.name}.png`)).toPass();
+
+      const unroute = page.unroute(`${SCREENSHOT_ROUTE}*`);
+      const unmount = component.unmount();
+      await Promise.all([unmount, unroute]);
+    });
+  };
+
+  const testWithoutIsolation = <TColumn extends string, TRow extends string>(
+    options: MatrixScreenshotTestOptions<TColumn, TRow, TContext>,
+  ) => {
+    test(`${options.name}`, async ({ mount, browserName }) => {
+      const children = [] as JSX.Element[];
+      for (const row of options.rows) {
+        for (const column of options.columns) {
+          const jsxElement = options.component(column, row);
+          const removePadding = options.removePadding ?? globalOptions.defaults?.removePadding;
+
+          children.push(
+            <div
+              style={{
+                display: "grid",
+                gridArea: getCellId(row, column),
+                width: "max-content",
+                padding: removePadding ? undefined : "1rem",
+              }}
+            >
+              {jsxElement}
+            </div>,
+          );
+        }
+      }
 
       const html = ScreenshotMatrix({
         columns: options.columns,
         rows: options.rows,
         name: options.name,
         browserName,
-        children: [...screenshots, ...rowLabels, ...columnsLabels],
+        children,
       });
 
       const component = await mount(html);
-      await Promise.all(waitForLoaded);
       await expect(() => expect(component).toHaveScreenshot(`${options.name}.png`)).toPass();
-
-      await page.unroute(`${SCREENSHOT_ROUTE}*`);
     });
   };
 
   return {
     /**
-     * Creates a single matrix screenshot that includes the screenshots for every column-row combination.
+     * Creates a combined matrix screenshot that includes the screenshots for every column-row combination.
+     * Every combination is mounted individually, which allows to perform pointer or keyboard interactions before taking a screenshot.
+     * If the isolation is not necessary, consider enabling `fastNoIsolation` which is way faster.
      */
     executeMatrixScreenshotTest,
   };
@@ -172,16 +219,6 @@ export const adjustSizeToAbsolutePosition = async (component: Locator) => {
     element.style.height = `${element.scrollHeight}px`;
     element.style.width = `${element.scrollWidth}px`;
   });
-};
-
-const GridLabel = (props: { type: "column" | "row"; name: string }) => {
-  return (
-    <div
-      style={{ textAlign: "center", gridArea: `${props.type}-${escapeGridAreaName(props.name)}` }}
-    >
-      {props.name}
-    </div>
-  );
 };
 
 export type UseFocusStateHooksOptions = {

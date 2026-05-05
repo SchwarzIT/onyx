@@ -44,6 +44,7 @@ test.describe("Screenshot tests", () => {
 test.describe("Screenshot tests (alphabetic)", () => {
   executeMatrixScreenshotTest({
     ...screenshotOptions,
+    fastNoIsolation: true,
     name: "Key (alphabetic)",
     rows: ALPHABETIC_KEYS,
     component: (column, row) => <OnyxKey name={row} os={column} />,
@@ -53,6 +54,7 @@ test.describe("Screenshot tests (alphabetic)", () => {
 test.describe("Screenshot tests (numeric)", () => {
   executeMatrixScreenshotTest({
     ...screenshotOptions,
+    fastNoIsolation: true,
     name: "Key (numeric)",
     rows: NUMERIC_KEYS,
     removePadding: true,
@@ -63,6 +65,7 @@ test.describe("Screenshot tests (numeric)", () => {
 test.describe("Screenshot tests (modifier)", () => {
   executeMatrixScreenshotTest({
     ...screenshotOptions,
+    fastNoIsolation: true,
     name: "Key (modifier)",
     rows: MODIFIER_KEYS,
     component: (column, row) => <OnyxKey name={row} os={column} />,
@@ -72,6 +75,7 @@ test.describe("Screenshot tests (modifier)", () => {
 test.describe("Screenshot tests (navigation)", () => {
   executeMatrixScreenshotTest({
     ...screenshotOptions,
+    fastNoIsolation: true,
     name: "Key (navigation)",
     rows: NAVIGATION_KEYS,
     component: (column, row) => <OnyxKey name={row} os={column} />,
@@ -81,6 +85,7 @@ test.describe("Screenshot tests (navigation)", () => {
 test.describe("Screenshot tests (functional)", () => {
   executeMatrixScreenshotTest({
     ...screenshotOptions,
+    fastNoIsolation: true,
     name: "Key (functional)",
     rows: FUNCTION_KEYS,
     component: (column, row) => <OnyxKey name={row} os={column} />,
@@ -90,6 +95,7 @@ test.describe("Screenshot tests (functional)", () => {
 test.describe("Screenshot tests (misc)", () => {
   executeMatrixScreenshotTest({
     ...screenshotOptions,
+    fastNoIsolation: true,
     name: "Key (misc)",
     rows: MISC_KEYS,
     component: (column, row) => <OnyxKey name={row} os={column} />,
@@ -99,6 +105,7 @@ test.describe("Screenshot tests (misc)", () => {
 test.describe("Screenshot tests (media)", () => {
   executeMatrixScreenshotTest({
     ...screenshotOptions,
+    fastNoIsolation: true,
     name: "Key (media)",
     rows: MEDIA_KEYS,
     component: (column, row) => <OnyxKey name={row} os={column} />,
@@ -108,6 +115,7 @@ test.describe("Screenshot tests (media)", () => {
 test.describe("Screenshot tests (numpad)", () => {
   executeMatrixScreenshotTest({
     ...screenshotOptions,
+    fastNoIsolation: true,
     name: "Key (numpad)",
     rows: NUMPAD_KEYS,
     component: (column, row) => <OnyxKey name={row} os={column} />,
@@ -117,6 +125,7 @@ test.describe("Screenshot tests (numpad)", () => {
 test.describe("Screenshot tests (symbol)", () => {
   executeMatrixScreenshotTest({
     ...screenshotOptions,
+    fastNoIsolation: true,
     name: "Key (symbol)",
     rows: SYMBOL_KEYS,
     component: (column, row) => <OnyxKey name={row} os={column} />,
@@ -126,6 +135,7 @@ test.describe("Screenshot tests (symbol)", () => {
 test.describe("Screenshot tests (editing)", () => {
   executeMatrixScreenshotTest({
     ...screenshotOptions,
+    fastNoIsolation: true,
     name: "Key (editing)",
     rows: EDITING_KEYS,
     component: (column, row) => <OnyxKey name={row} os={column} />,

@@ -51,6 +51,7 @@
     "eslint-plugin-vue-scoped-css": "^3.0.0",
     "eslint-plugin-vuejs-accessibility": "^2.5.0",
     "jsdom": "^29.0.2",
+    "lightningcss": "^1.32.0",
     "lint-staged": "^16.4.0",
     "nuxt": "catalog:",
     "prettier": "^3.8.2",

@@ -7,6 +7,7 @@ test.describe("Screenshot tests", () => {
     name: "Loading indicator",
     columns: ["dots", "circle"],
     rows: ["default"],
+    fastNoIsolation: true,
     component: (column) => (
       <OnyxLoadingIndicator
         type={column}

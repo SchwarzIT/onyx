@@ -22,5 +22,6 @@ defineSlots<{
   gap: var(--onyx-density-md);
   flex-grow: 1;
   padding-inline: var(--onyx-density-xs);
+  margin-block: var(--onyx-markdown-renderer-margin-block);
 }
 </style>
