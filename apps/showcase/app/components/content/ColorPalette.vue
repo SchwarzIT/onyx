@@ -1,42 +1,26 @@
 <script lang="ts" setup>
-import { capitalize } from "@sit-onyx/icons/utils";
 import type { OnyxColor } from "sit-onyx";
 
 const props = defineProps<{
-  color: OnyxColor | "quantitatives";
+  border?: OnyxColor;
+  grid?: boolean;
 }>();
 
-const colors = computed(() => {
-  const steps = props.color === "quantitatives" ? 12 : 9;
+defineSlots<{
+  /**
+   * Color palette items.
+   */
+  default(): unknown;
+}>();
 
-  return Array.from({ length: steps }, (_, index) => {
-    const step = 100 * (index + 1);
-    return {
-      backgroundColor: `var(--onyx-color-base-${props.color}-${step})`,
-      name: capitalize(props.color),
-      step,
-    };
-  });
-});
+const borderColor = computed(() =>
+  props.border ? `var(--onyx-color-base-${props.border}-300)` : undefined,
+);
 </script>
 
 <template>
-  <div
-    :class="['palette']"
-    :style="{
-      borderColor:
-        props.color !== 'quantitatives' ? `var(--onyx-color-base-${props.color}-300)` : undefined,
-    }"
-  >
-    <ColorPaletteItem
-      v-for="color in colors"
-      :key="color.step"
-      class="palette__color"
-      :css-variable="color.backgroundColor"
-      :text-color="color.step > 300 || props.color === 'quantitatives' ? 'white' : props.color"
-    >
-      <div>{{ color.step }}</div>
-    </ColorPaletteItem>
+  <div :class="['palette', { 'palette--grid': props.grid }]" :style="{ borderColor }">
+    <slot></slot>
   </div>
 </template>
 
@@ -49,5 +33,11 @@ const colors = computed(() => {
   border-radius: var(--onyx-radius-md);
   overflow: hidden;
   border: var(--onyx-1px-in-rem) solid transparent;
+
+  &--grid {
+    > *:not(:last-child) {
+      border-right: var(--onyx-1px-in-rem) solid v-bind("borderColor");
+    }
+  }
 }
 </style>

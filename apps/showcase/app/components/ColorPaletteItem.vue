@@ -2,10 +2,15 @@
 import type { OnyxColor } from "sit-onyx";
 import type { StyleValue } from "vue";
 
-const props = defineProps<{
-  cssVariable: string;
-  textColor: OnyxColor | "white";
-}>();
+const props = withDefaults(
+  defineProps<{
+    cssVariable: string;
+    textColor?: OnyxColor | "white" | "inverted";
+  }>(),
+  {
+    textColor: "white",
+  },
+);
 
 defineSlots<{
   /**
@@ -14,15 +19,17 @@ defineSlots<{
   default?(): unknown;
 }>();
 
+const color = computed(() => {
+  if (props.textColor === "white") return "#fff";
+  if (props.textColor === "neutral") return "var(--onyx-color-text-icons-neutral-intense)";
+  if (props.textColor === "inverted") return "var(--onyx-color-text-icons-neutral-inverted)";
+  return `var(--onyx-color-text-icons-${props.textColor}-bold)`;
+});
+
 const style = computed<StyleValue>(() => {
   return {
     backgroundColor: props.cssVariable,
-    color:
-      props.textColor === "white"
-        ? "#fff"
-        : props.textColor === "neutral"
-          ? "var(--onyx-color-text-icons-neutral-intense)"
-          : `var(--onyx-color-text-icons-${props.textColor}-bold)`,
+    color: color.value,
   };
 });
 </script>
