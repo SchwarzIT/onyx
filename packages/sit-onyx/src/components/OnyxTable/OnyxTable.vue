@@ -33,7 +33,7 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
 </script>
 
 <template>
-  <div :class="['onyx-component', 'onyx-table-wrapper', densityClass]" :style>
+  <div ref="table" :class="['onyx-component', 'onyx-table-wrapper', densityClass]" :style>
     <div v-if="!!slots.headline || !!slots.actions" class="onyx-table-wrapper__top">
       <div :id="headlineId">
         <slot name="headline"></slot>
@@ -53,7 +53,6 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
       v-bind="scrollContainerAttrs"
     >
       <table
-        ref="table"
         v-bind="props.tableAttrs"
         :class="[
           'onyx-table',
@@ -221,13 +220,6 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
 
     @include define-borders();
 
-    &__empty {
-      &-content {
-        display: flex;
-        justify-content: center;
-      }
-    }
-
     &__header {
       position: sticky;
       top: 0;
@@ -384,6 +376,24 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
     &__colgroup {
       background-color: var(--onyx-color-base-primary-100);
       color: var(--onyx-color-text-icons-primary-intense);
+    }
+
+    .onyx-table__empty {
+      > td {
+        padding: 0;
+      }
+      &-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        position: sticky;
+        left: 0;
+        // table width - borders
+        width: calc(var(--onyx-table-observed-width) - 2 * var(--onyx-1px-in-rem));
+        padding: var(--onyx-density-xl);
+        box-sizing: border-box;
+      }
     }
   }
 }
