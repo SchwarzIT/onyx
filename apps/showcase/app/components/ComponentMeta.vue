@@ -14,6 +14,9 @@ const meta = computed(() => getComponentMeta(props.component));
 <template>
   <div class="content">
     <ComponentMetaDataGrid :items="meta?.props" headline="Properties" />
+    <ComponentMetaDataGrid :items="meta?.events" headline="Events" />
+    <ComponentMetaDataGrid :items="meta?.slots" headline="Slots" />
+    <ComponentMetaDataGrid :items="meta?.exposed" headline="Exposed" />
   </div>
 </template>
 

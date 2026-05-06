@@ -1,67 +1,64 @@
 <script setup lang="ts">
-import { MDC } from "#components";
 import {
-  createFeature,
-  DataGridFeatures,
   OnyxDataGrid,
   type ColumnConfig,
   type ColumnGroupConfig,
   type ColumnTypesFromFeatures,
-  type TypeRenderMap,
 } from "sit-onyx";
+import type { ExposeMeta, PropertyMeta } from "../utils/component-meta.js";
 
-type CustomColumnTypes = ColumnTypesFromFeatures<typeof withCustomTypes>;
+type CustomColumnTypes = ColumnTypesFromFeatures<typeof customDataGridColumnTypes<TEntry>>;
+type MetaItem = PropertyMeta | EventMeta | SlotMeta | ExposeMeta;
 
 const props = withDefaults(
   defineProps<{
     headline: string;
-    items?: PropertyMeta[];
+    items?: MetaItem[];
   }>(),
   { items: () => [] },
 );
 
-type TEntry = PropertyMeta & {
-  id: string;
-};
+type TEntry = MetaItem & { id: string };
 
 const data = computed(() => {
   return props.items
     .map<TEntry>((item) => ({ ...item, id: item.name }))
     .sort((a, b) => {
-      if (a.required !== b.required) return a.required ? -1 : 1;
+      const aRequired = "required" in a && a.required;
+      const bRequired = "required" in b && b.required;
+      if (aRequired !== bRequired) return aRequired ? -1 : 1;
       return a.name.localeCompare(b.name);
     });
 });
 
-const columns: ColumnConfig<TEntry, ColumnGroupConfig, CustomColumnTypes>[] = [
-  { key: "name", label: "Name", width: "max-content", type: "name" },
-  { key: "description", label: "Description", type: "markdown" },
-  { key: "type", label: "Type", type: { name: "markdown", options: { code: true } } },
-];
-
-const withCustomTypes = createFeature(() => ({
-  name: Symbol("componentMeta"),
-  typeRenderer: {
-    markdown: DataGridFeatures.createTypeRenderer<{ code?: boolean }, TEntry>({
-      cell: {
-        component: ({ modelValue, metadata }) => {
-          if (typeof modelValue !== "string" || !modelValue) return "-";
-          const value = metadata?.typeOptions?.code ? `\`${modelValue}\`` : modelValue;
-          return h(MDC, { value, class: "markdown-cell" });
+const columns = computed<ColumnConfig<TEntry, ColumnGroupConfig, CustomColumnTypes>[]>(() => {
+  const _columns: ColumnConfig<TEntry, ColumnGroupConfig, CustomColumnTypes>[] = [
+    {
+      key: "name",
+      label: "Name",
+      width: "max-content",
+      type: {
+        name: "required",
+        options: {
+          required: (row) => "required" in row && row.required,
         },
       },
-    }),
-    name: DataGridFeatures.createTypeRenderer<object, TEntry>({
-      cell: {
-        component: ({ row }) => {
-          return h("span", { class: { "onyx-required-marker": row.required } }, row.name);
-        },
-      },
-    }),
-  } satisfies TypeRenderMap<TEntry>,
-}));
+    },
+    { key: "description", label: "Description", type: "markdown" },
+  ];
 
-const features = [withCustomTypes];
+  if (data.value.some((row) => "type" in row && row.type)) {
+    _columns.push({
+      key: "type",
+      label: "Type",
+      type: "markdown",
+    });
+  }
+
+  return _columns;
+});
+
+const features = [customDataGridColumnTypes<TEntry>];
 </script>
 
 <template>

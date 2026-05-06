@@ -39,7 +39,7 @@ const activeTab = ref("overview");
       </OnyxTab>
 
       <OnyxTab label="Properties" value="properties">
-        <ComponentProperties :component="data?.meta.componentName" />
+        <ComponentMeta :component="data?.meta.componentName" />
       </OnyxTab>
 
       <OnyxTab v-if="data?.meta.shortcuts" label="Keyboard shortcuts" value="keyboard-shortcuts">
