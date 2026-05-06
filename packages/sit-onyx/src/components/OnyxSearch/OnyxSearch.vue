@@ -200,7 +200,7 @@ _unstableUseShortcut({
       }
     }
 
-    .onyx-form-element-v2__input-container {
+    .onyx-form-element-v2__input-container:has(.onyx-form-element-v2__input:enabled) {
       &:focus-within,
       &:hover {
         .onyx-form-element-v2__icons--leading .onyx-icon {
