@@ -7,7 +7,7 @@ async function checkAccessibility(axeBuilder: AxeBuilder) {
   expect(accessibilityScanResults.violations).toEqual([]);
 }
 
-export const TEST_GLOBAL_SEARCH_UNIQUE_LINK = "https://onyx-global-search.example.com"
+const TEST_GLOBAL_SEARCH_UNIQUE_LINK = "https://onyx-global-search.example.com";
 
 test("should render groups and options", async ({ page, mount, makeAxeBuilder }) => {
   // ARRANGE
