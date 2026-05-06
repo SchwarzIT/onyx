@@ -26,7 +26,7 @@ jobs:
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
       - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@8d3c67de8e2fe68ef647c8db1e6a09f647780f40 # v2.19.0
+        uses: step-security/harden-runner@a5ad31d6a139d249332a2605b85202e8c0b78450 # v2.19.1
         with:
           egress-policy: audit
 
@@ -58,7 +58,7 @@ jobs:
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
       - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@8d3c67de8e2fe68ef647c8db1e6a09f647780f40 # v2.19.0
+        uses: step-security/harden-runner@a5ad31d6a139d249332a2605b85202e8c0b78450 # v2.19.1
         with:
           egress-policy: audit
 
@@ -94,7 +94,7 @@ jobs:
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
       - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@8d3c67de8e2fe68ef647c8db1e6a09f647780f40 # v2.19.0
+        uses: step-security/harden-runner@a5ad31d6a139d249332a2605b85202e8c0b78450 # v2.19.1
         with:
           egress-policy: audit
 
@@ -126,7 +126,7 @@ jobs:
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
       - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@8d3c67de8e2fe68ef647c8db1e6a09f647780f40 # v2.19.0
+        uses: step-security/harden-runner@a5ad31d6a139d249332a2605b85202e8c0b78450 # v2.19.1
         with:
           egress-policy: audit
 
@@ -172,7 +172,7 @@ jobs:
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
       - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@8d3c67de8e2fe68ef647c8db1e6a09f647780f40 # v2.19.0
+        uses: step-security/harden-runner@a5ad31d6a139d249332a2605b85202e8c0b78450 # v2.19.1
         with:
           egress-policy: audit
 
@@ -214,7 +214,7 @@ jobs:
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
       - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@8d3c67de8e2fe68ef647c8db1e6a09f647780f40 # v2.19.0
+        uses: step-security/harden-runner@a5ad31d6a139d249332a2605b85202e8c0b78450 # v2.19.1
         with:
           egress-policy: audit
 
