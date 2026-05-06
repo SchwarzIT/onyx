@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import { iconSync } from "@sit-onyx/icons";
 import { DENSITIES, type Density } from "sit-onyx";
+import type { Component } from "vue";
 
 const props = defineProps<{
   /**
-   * Example file name.
+   * Example file name (without ".example.vue" extension).
    */
   name: string;
 }>();
@@ -14,58 +15,65 @@ const route = useRoute();
 
 const activeTab = ref("preview");
 
-const components = import.meta.glob("~~/content/*/components/**/examples/*.example.vue", {
-  import: "default",
+// Vite analyzes these glob imports at build time
+const allExamples = {
+  components: import.meta.glob("~~/content/*/components/**/examples/*.example.vue", {
+    import: "default",
+  }),
+  sourceCodes: import.meta.glob<string>("~~/content/*/components/**/examples/*.example.vue", {
+    import: "default",
+    query: "?raw",
+  }),
+};
+
+const componentName = computed(() => route.params.name || route.path.split("/").at(-1)!);
+
+const fileKey = computed(() => {
+  return Object.keys(allExamples.components).find((key) => {
+    return (
+      key.includes(`/content/${locale.value}/`) &&
+      key.endsWith(`/${componentName.value}/examples/${props.name}.example.vue`)
+    );
+  });
 });
 
-const sourceCodes = import.meta.glob<string>("~~/content/*/components/**/examples/*.example.vue", {
-  import: "default",
-  query: "?raw",
+// build time breaker to guarantee that no non-existing examples
+watchEffect(() => {
+  if (!fileKey.value) {
+    throw createError({
+      statusCode: 404,
+      statusMessage: `Example "${props.name}" not found for component "${componentName.value}".`,
+      // throwing a fatal error  will fail during SSR / prerendering
+      fatal: true,
+    });
+  }
 });
 
-const { data: example } = await useAsyncData(
-  () => `${route.params.name}-${props.name}-${locale.value}`,
+const ExampleComponent = computed(() => {
+  if (!fileKey.value) return;
+  return defineAsyncComponent(allExamples.components[fileKey.value] as () => Promise<Component>);
+});
+
+const { data: exampleCode } = await useAsyncData(
+  () => `example-code-${componentName.value}-${props.name}-${locale.value}`,
   async () => {
-    const component = Object.entries(components).find(([key]) => {
-      return (
-        key.includes(`/content/${locale.value}/`) &&
-        key.endsWith(`/${route.params.name}/examples/${props.name}.example.vue`)
-      );
-    });
-
-    const code = Object.entries(sourceCodes).find(([key]) => {
-      return (
-        key.includes(`/content/${locale.value}/`) &&
-        key.endsWith(`/${route.params.name}/examples/${props.name}.example.vue`)
-      );
-    });
-
-    if (!component || !code) return;
-
-    return {
-      component: await component[1](),
-      code: await code[1](),
-    };
+    if (!fileKey.value) return;
+    return allExamples.sourceCodes[fileKey.value]?.();
+  },
+  {
+    transform: (code) => {
+      const markdown = `\`\`\`vue\n${code?.trim()}\n\`\`\``;
+      return parseMarkdown(markdown);
+    },
   },
 );
-
-const getSourceCode = (code: string) => {
-  return `
-\`\`\`vue
-${code}
-\`\`\`
-`;
-};
 
 const options = ref<{ density?: Density; colorScheme?: "light" | "dark" }>({});
 </script>
 
 <template>
   <div class="example">
-    <!-- TODO: try to add a build time breaker so that the build fails if any example can not be found -->
-    <OnyxEmpty v-if="!example">Example not found</OnyxEmpty>
-
-    <OnyxTabs v-else v-model="activeTab" :label="$t('components.example')" size="h3">
+    <OnyxTabs v-model="activeTab" :label="$t('components.example')" size="h3">
       <OnyxTab :label="$t('components.preview')" value="preview" density="compact">
         <OnyxCard class="example__preview" :style="{ colorScheme: options.colorScheme }">
           <div
@@ -74,13 +82,14 @@ const options = ref<{ density?: Density; colorScheme?: "light" | "dark" }>({});
               { [`onyx-density-${options.density}`]: options.density },
             ]"
           >
-            <component :is="example.component" />
+            <ExampleComponent />
           </div>
         </OnyxCard>
       </OnyxTab>
 
       <OnyxTab :label="$t('components.code')" value="code" density="compact">
-        <MDC :value="getSourceCode(example.code)" />
+        <!-- we use a build time breaker so the "v-if" here is only used for TypeScript -->
+        <MDC v-if="exampleCode" :value="exampleCode" />
       </OnyxTab>
 
       <template #actions>
