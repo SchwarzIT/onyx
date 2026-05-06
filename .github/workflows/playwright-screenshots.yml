@@ -21,7 +21,7 @@ jobs:
       contents: write
     with:
       update-snapshots: true
-      only-changed: ${{ (inputs.only-changed && format('origin/{0}', github.event.workflow.base.ref)) }}
+      only-changed: ${{ (inputs.only-changed == true && format('origin/{0}', github.event.workflow.base.ref)) || '' }}
 
   # Download screenshots from all shards and create a pull request
   pr:
