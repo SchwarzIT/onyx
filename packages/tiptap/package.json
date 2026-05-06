@@ -62,6 +62,9 @@
     "@tiptap/starter-kit": "^3.23.4",
     "@tiptap/vue-3": "^3.23.4",
     "@vue/compiler-dom": "catalog:",
-    "sit-onyx": "workspace:^"
+    "sit-onyx": "workspace:^",
+    "unplugin-dts": "catalog:",
+    "vite": "catalog:",
+    "vue-tsc": "^3.2.8"
   }
 }

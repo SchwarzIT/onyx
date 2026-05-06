@@ -65,10 +65,7 @@
     "turbo": "^2.9.14",
     "typescript": "catalog:",
     "typescript-eslint": "^8.59.3",
-    "vite": "catalog:",
-    "vite-plugin-dts": "^4.5.4",
-    "vitest": "^4.1.6",
-    "vue-tsc": "^3.2.9"
+    "vitest": "^4.1.5"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"

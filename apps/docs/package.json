@@ -44,7 +44,8 @@
     "vite": "catalog:",
     "vitepress": "2.0.0-alpha.17",
     "vue": "catalog:",
-    "vue-chartjs": "^5.3.3"
+    "vue-chartjs": "^5.3.3",
+    "vue-tsc": "^3.2.8"
   },
   "engines": {
     "node": ">=20"

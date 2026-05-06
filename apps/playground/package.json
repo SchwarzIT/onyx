@@ -29,7 +29,9 @@
     "@vue/repl": "^4.7.2",
     "@vueuse/core": "^14.3.0",
     "sit-onyx": "workspace:^",
-    "vue": "catalog:"
+    "vite": "catalog:",
+    "vue": "catalog:",
+    "vue-tsc": "^3.2.8"
   },
   "engines": {
     "node": ">=20"

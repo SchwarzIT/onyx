@@ -69,11 +69,14 @@
     "sass-embedded": "catalog:",
     "storybook-addon-tag-badges": "^3.1.0",
     "tsx": "^4.22.0",
+    "unplugin-dts": "catalog:",
+    "vite": "catalog:",
     "vue": "catalog:",
     "vue-component-meta": "catalog:",
     "vue-component-type-helpers": "^3.2.9",
     "vue-docgen-api": "^4.79.2",
     "vue-i18n": "^11.4.2",
-    "vue-router": "^5.0.7"
+    "vue-router": "^5.0.7",
+    "vue-tsc": "^3.2.8"
   }
 }
