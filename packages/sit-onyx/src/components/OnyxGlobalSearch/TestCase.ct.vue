@@ -4,6 +4,7 @@ import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxGlobalSearchGroup from "../OnyxGlobalSearchGroup/OnyxGlobalSearchGroup.vue";
 import OnyxGlobalSearchOption from "../OnyxGlobalSearchOption/OnyxGlobalSearchOption.vue";
 import OnyxGlobalSearch from "./OnyxGlobalSearch.vue";
+import { TEST_GLOBAL_SEARCH_UNIQUE_LINK } from "./OnyxGlobalSearch.ct.jsx";
 
 const props = withDefaults(
   defineProps<{
