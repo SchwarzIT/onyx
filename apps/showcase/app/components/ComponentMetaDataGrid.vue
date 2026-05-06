@@ -9,22 +9,18 @@ import {
   type ColumnTypesFromFeatures,
   type TypeRenderMap,
 } from "sit-onyx";
-import type componentMeta from "sit-onyx/dist/component-meta.json";
 
-type MetaItem = (typeof componentMeta)[number]["props"][number];
 type CustomColumnTypes = ColumnTypesFromFeatures<typeof withCustomTypes>;
 
 const props = withDefaults(
   defineProps<{
     headline: string;
-    items?: MetaItem[];
+    items?: PropertyMeta[];
   }>(),
-  {
-    items: () => [],
-  },
+  { items: () => [] },
 );
 
-type TEntry = MetaItem & {
+type TEntry = PropertyMeta & {
   id: string;
 };
 
@@ -43,7 +39,6 @@ const columns: ColumnConfig<TEntry, ColumnGroupConfig, CustomColumnTypes>[] = [
   { key: "type", label: "Type", type: { name: "markdown", options: { code: true } } },
 ];
 
-// create a custom reusable data grid feature for custom types that you can also e.g. share / re-use in your project to be used in multiple data grids
 const withCustomTypes = createFeature(() => ({
   name: Symbol("componentMeta"),
   typeRenderer: {

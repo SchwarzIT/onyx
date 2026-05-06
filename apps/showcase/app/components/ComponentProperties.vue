@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import componentMeta from "sit-onyx/dist/component-meta.json";
-
 const props = defineProps<{
   /**
    * Full component name.
@@ -10,7 +8,7 @@ const props = defineProps<{
   component: string;
 }>();
 
-const meta = computed(() => componentMeta.find((m) => m.displayName === props.component));
+const meta = computed(() => getComponentMeta(props.component));
 </script>
 
 <template>
