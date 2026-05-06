@@ -58,7 +58,7 @@ const inputComponent = useTemplateRef<ComponentInstance<typeof OnyxInput>>("inpu
 const input = computed(() => inputComponent.value?.input);
 
 const slots = defineSlots<{
-  filters(): unknown;
+  default(): unknown;
 }>();
 
 defineExpose({ input });
@@ -132,15 +132,15 @@ _unstableUseShortcut({
       label="Select Filter"
       class="onyx-search__filters"
     >
-      <slot name="filters"></slot>
+      <slot></slot>
     </OnyxModal>
 
     <template v-else-if="props.filterPosition === 'inline' && showFilters">
-      <slot name="filters"></slot>
+      <slot></slot>
     </template>
 
     <div v-else-if="showFilters" class="onyx-search__filters">
-      <slot name="filters"></slot>
+      <slot></slot>
     </div>
   </div>
 </template>

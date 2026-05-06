@@ -12,16 +12,9 @@ const meta: Meta<typeof OnyxSearch> = {
   argTypes: {
     disabled: { control: { type: "boolean" } },
   },
-  decorators: [
-    (story, { parameters }) => ({
-      components: { Story: story() },
-      template: parameters.noWrapper
-        ? `<Story />`
-        : parameters.largeWrapper
-          ? `<div style="max-width: 36rem;"> <Story /> </div>`
-          : `<div style="max-width: 24rem;"> <Story /> </div>`,
-    }),
-  ],
+  args: {
+    style: `max-width: 24rem`,
+  },
 };
 
 export default meta;

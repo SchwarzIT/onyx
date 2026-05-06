@@ -27,38 +27,28 @@ const categoryOptions = [
 <template>
   <OnyxUnstableSearch
     v-model:show-filters="showFilter"
+    v-model="filters.search"
     label="Search"
-    :model-value="filters.search"
     with-shortcut
     filter-position="inline"
   >
-    <template #filters>
-      <OnyxSelect
-        v-model="filters.status"
-        hide-label
-        label="Status"
-        :options="statusOptions"
-        placeholder="Select status"
-        list-label="Status"
-      />
-      <OnyxSelect
-        v-model="filters.category"
-        hide-label
-        label="Category"
-        :options="categoryOptions"
-        placeholder="Select category"
-        list-label="Category"
-      />
-      <OnyxButton
-        label="Clear"
-        @click="
-          () => {
-            filters.status = undefined;
-            filters.category = undefined;
-          }
-        "
-      />
-    </template>
+    <OnyxSelect
+      v-model="filters.status"
+      hide-label
+      label="Status"
+      :options="statusOptions"
+      placeholder="Select status"
+      list-label="Status"
+    />
+    <OnyxSelect
+      v-model="filters.category"
+      hide-label
+      label="Category"
+      :options="categoryOptions"
+      placeholder="Select category"
+      list-label="Category"
+    />
+    <OnyxButton label="Clear" @click="filters = {}" />
   </OnyxUnstableSearch>
 </template>
 

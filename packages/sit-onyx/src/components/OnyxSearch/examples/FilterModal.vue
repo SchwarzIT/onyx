@@ -1,12 +1,15 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import { OnyxButton, OnyxModal, OnyxSelect, OnyxUnstableSearch } from "../../../index.js";
+import { OnyxButton, OnyxSelect, OnyxUnstableSearch } from "../../../index.js";
 
+type FilterState = Partial<{
+  search: string;
+  status: string;
+  category: string;
+}>;
+
+const filters = ref<FilterState>({});
 const showFilter = ref(false);
-const modelValue = ref();
-
-const globalFilterStatus = ref();
-const globalFilterCategory = ref();
 
 const statusOptions = [
   { value: "active", label: "Active" },
@@ -25,47 +28,36 @@ const categoryOptions = [
   <div class="search-wrapper">
     <OnyxUnstableSearch
       v-model:show-filters="showFilter"
+      v-model="filters.search"
       label="Search"
-      :model-value="modelValue"
       with-shortcut
       filter-position="modal"
     >
-      <template #filters>
-        <OnyxSelect
-          v-model="globalFilterStatus"
-          hide-label
-          label="Status"
-          :options="statusOptions"
-          placeholder="Select status"
-          list-label="Status"
-        />
-        <OnyxSelect
-          v-model="globalFilterCategory"
-          hide-label
-          label="Category"
-          :options="categoryOptions"
-          placeholder="Select category"
-          list-label="Category"
-        />
-        <OnyxButton
-          label="Clear"
-          @click="
-            () => {
-              globalFilterStatus = null;
-              globalFilterCategory = null;
-            }
-          "
-        />
-      </template>
+      <OnyxSelect
+        v-model="filters.status"
+        hide-label
+        label="Status"
+        :options="statusOptions"
+        placeholder="Select status"
+        list-label="Status"
+      />
+      <OnyxSelect
+        v-model="filters.category"
+        hide-label
+        label="Category"
+        :options="categoryOptions"
+        placeholder="Select category"
+        list-label="Category"
+      />
+      <OnyxButton label="Clear" @click="filters = {}" />
     </OnyxUnstableSearch>
-
-    <OnyxModal v-model:open="showFilter" label="Select Filter">
-      <div v-show="showFilter" class="filter-wrapper"></div>
-    </OnyxModal>
   </div>
 </template>
 
 <style lang="scss" scoped>
+.search-wrapper {
+  max-width: 24rem;
+}
 .onyx-select {
   width: 15rem;
 }

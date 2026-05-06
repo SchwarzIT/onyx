@@ -2,11 +2,14 @@
 import { ref } from "vue";
 import { OnyxButton, OnyxSelect, OnyxUnstableSearch } from "../../../index.js";
 
-const showFilter = ref(true);
-const modelValue = ref();
+type FilterState = Partial<{
+  search: string;
+  status: string;
+  category: string;
+}>;
 
-const globalFilterStatus = ref();
-const globalFilterCategory = ref();
+const filters = ref<FilterState>({});
+const showFilter = ref(false);
 
 const statusOptions = [
   { value: "active", label: "Active" },
@@ -24,41 +27,35 @@ const categoryOptions = [
 <template>
   <OnyxUnstableSearch
     v-model:show-filters="showFilter"
+    v-model="filters.search"
     label="Search"
-    :model-value="modelValue"
     with-shortcut
+    class="search"
   >
-    <template #filters>
-      <OnyxSelect
-        v-model="globalFilterStatus"
-        hide-label
-        label="Status"
-        :options="statusOptions"
-        placeholder="Select status"
-        list-label="Status"
-      />
-      <OnyxSelect
-        v-model="globalFilterCategory"
-        hide-label
-        label="Category"
-        :options="categoryOptions"
-        placeholder="Select category"
-        list-label="Category"
-      />
-      <OnyxButton
-        label="Clear"
-        @click="
-          () => {
-            globalFilterStatus = null;
-            globalFilterCategory = null;
-          }
-        "
-      />
-    </template>
+    <OnyxSelect
+      v-model="filters.status"
+      hide-label
+      label="Status"
+      :options="statusOptions"
+      placeholder="Select status"
+      list-label="Status"
+    />
+    <OnyxSelect
+      v-model="filters.category"
+      hide-label
+      label="Category"
+      :options="categoryOptions"
+      placeholder="Select category"
+      list-label="Category"
+    />
+    <OnyxButton label="Clear" @click="filters = {}" />
   </OnyxUnstableSearch>
 </template>
 
 <style lang="scss" scoped>
+.onyx-search__wrapper {
+  max-width: 35.86rem;
+}
 .onyx-select {
   width: 15rem;
 }
