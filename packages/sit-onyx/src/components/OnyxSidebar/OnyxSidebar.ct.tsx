@@ -264,4 +264,28 @@ test.describe("small screen", () => {
     // ASSERT
     await expect(leftSidebar).toBeVisible();
   });
+
+  test("should close after navigation", async ({ mount }) => {
+    // ARRANGE
+    const component = await mount(PlaywrightTest, {
+      props: {
+        sidebarLeft: true,
+      },
+    });
+
+    const fab = component.getByRole("button", { name: "Sidebar Left" });
+    const sidebar = component.getByRole("dialog", { name: "Sidebar Left" });
+
+    // ACT
+    await fab.click();
+
+    // ASSERT
+    await expect(sidebar).toBeVisible();
+
+    // ACT
+    await component.update({ props: { currentRoute: "/changed-route" } });
+
+    // ASSERT
+    await expect(sidebar, "should hide temporary sidebar if route changes").toBeHidden();
+  });
 });
