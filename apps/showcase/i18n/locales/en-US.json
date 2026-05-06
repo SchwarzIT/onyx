@@ -18,7 +18,26 @@
     }
   },
   "components": {
-    "component": "Component | Components"
+    "component": "Component | Components",
+    "property": "Property | Properties",
+    "event": "Event | Events",
+    "slot": "Slot | Slots",
+    "exposed": "Exposed",
+    "example": "Component example",
+    "preview": "Preview",
+    "code": "Code",
+    "overview": "Overview",
+    "details": "Component details",
+    "options": {
+      "reset": "Reset styles",
+      "change": "Change styles",
+      "density": "Density",
+      "appearance": "Appearance",
+      "appearances": {
+        "light": "light",
+        "dark": "dark"
+      }
+    }
   },
   "gettingStarted": "Getting Started",
   "copyToClipboard": "Copy to clipboard",

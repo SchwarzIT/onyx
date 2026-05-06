@@ -32,21 +32,14 @@ const activeTab = ref("overview");
   <SidebarLayout hide-hero>
     <ProseH1>{{ data?.title }}</ProseH1>
 
-    <OnyxTabs v-model="activeTab" label="Overview">
-      <OnyxTab label="Overview" value="overview">
+    <OnyxTabs v-model="activeTab" :label="$t('components.details')">
+      <OnyxTab :label="$t('components.overview')" value="overview">
         <!-- eslint-disable-next-line vue/no-root-v-if  -- the v-if here is theoretically not needed because we throw above it ifs undefined so the user will be redirected to the error page. However, there is still a console warning so we include the v-if here to prevent it. -->
         <ContentRenderer v-if="data" :value="data" />
       </OnyxTab>
 
-      <OnyxTab label="Properties" value="properties">
+      <OnyxTab :label="$t('components.property', 2)" value="properties">
         <ComponentMeta :component="data?.meta.componentName" />
-      </OnyxTab>
-
-      <OnyxTab v-if="data?.meta.shortcuts" label="Keyboard shortcuts" value="keyboard-shortcuts">
-        <div v-for="shortcut in data.meta.shortcuts" :key="shortcut.label">
-          <OnyxUnstableShortcut :sequence="shortcut.sequence" />
-          <span>{{ shortcut.label }}</span>
-        </div>
       </OnyxTab>
     </OnyxTabs>
   </SidebarLayout>
