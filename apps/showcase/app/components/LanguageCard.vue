@@ -39,28 +39,12 @@ const { data: flag } = await useAsyncData(
   <OnyxCard class="card">
     <OnyxIcon v-if="flag" :icon="flag" />
     <OnyxHeadline is="h3">{{ languageName }}</OnyxHeadline>
-
-    <div class="card__bottom">
-      <span class="card__label onyx-text--small">{{ $t("i18n.code") }}</span>
-      <span>{{ props.code }}</span>
-    </div>
+    <DetailsList :items="[{ label: $t('i18n.code'), value: props.code }]" />
   </OnyxCard>
 </template>
 
 <style lang="scss" scoped>
 .card {
   align-items: center;
-
-  &__bottom {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--onyx-density-xs);
-  }
-
-  &__label {
-    color: var(--onyx-color-text-icons-neutral-medium);
-  }
 }
 </style>
