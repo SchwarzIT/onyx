@@ -2,7 +2,7 @@ import { expect, test } from "../../playwright/a11y.js";
 import TestWrapper from "./TestWrapper.ct.vue";
 
 // we do not want to actually make requests to live external applications so we mock them here
-const EXTERNAL_HREF = "https://example.com";
+const EXTERNAL_HREF = "https://onyx-router-link.example.com";
 
 test.beforeEach(async ({ page }) => {
   await page.route(EXTERNAL_HREF, (route) => route.fulfill({ body: "Test page" }));

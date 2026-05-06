@@ -4,6 +4,7 @@ import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxGlobalSearchGroup from "../OnyxGlobalSearchGroup/OnyxGlobalSearchGroup.vue";
 import OnyxGlobalSearchOption from "../OnyxGlobalSearchOption/OnyxGlobalSearchOption.vue";
 import OnyxGlobalSearch from "./OnyxGlobalSearch.vue";
+import { TEST_GLOBAL_SEARCH_UNIQUE_LINK } from "./OnyxGlobalSearch.ct.jsx";
 
 const props = withDefaults(
   defineProps<{
@@ -46,7 +47,7 @@ const props = withDefaults(
           :label="`Result ${group}.2 `.repeat(props.longContent ? 8 : 1)"
           :value="`${group}-2`"
           :icon="iconPlaceholder"
-          :link="{ href: 'https://example.com', target: '_blank' }"
+          :link="{ href: TEST_GLOBAL_SEARCH_UNIQUE_LINK, target: '_blank' }"
         />
       </OnyxGlobalSearchGroup>
     </template>

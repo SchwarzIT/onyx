@@ -7,6 +7,8 @@ async function checkAccessibility(axeBuilder: AxeBuilder) {
   expect(accessibilityScanResults.violations).toEqual([]);
 }
 
+export const TEST_GLOBAL_SEARCH_UNIQUE_LINK = "https://onyx-global-search.example.com"
+
 test("should render groups and options", async ({ page, mount, makeAxeBuilder }) => {
   // ARRANGE
   const component = await mount(TestCase);
@@ -79,7 +81,7 @@ test("should support mouse", async ({ page, mount, context }) => {
   const newTab = await newTabPromise;
 
   // ASSERT
-  await expect(newTab).toHaveURL("https://example.com");
+  await expect(newTab).toHaveURL(TEST_GLOBAL_SEARCH_UNIQUE_LINK);
   await newTab.close();
   expect(count, "should only open a single tab").toBe(1);
 });
@@ -149,7 +151,7 @@ test("should support keyboard navigation", async ({ page, mount, context }) => {
 
   // ASSERT
   const newTab = await newTabPromise;
-  await expect(newTab).toHaveURL("https://example.com");
+  await expect(newTab).toHaveURL(TEST_GLOBAL_SEARCH_UNIQUE_LINK);
   await newTab.close();
   expect(count, "should only open a single tab").toBe(1);
 });
