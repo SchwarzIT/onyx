@@ -114,7 +114,7 @@ _unstableUseShortcut({
             <OnyxIcon :icon="iconSearch" />
           </template>
 
-          <template v-if="!disabled && (!!slots.filters || showFilters !== undefined)" #trailing>
+          <template v-if="!disabled && (!!slots.default || showFilters !== undefined)" #trailing>
             <OnyxFormElementAction
               v-model:pressed="showFilters"
               size="lg"
