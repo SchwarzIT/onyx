@@ -77,7 +77,7 @@ defineExpose({
       :aria-label="t('select.clearSearch')"
       tabindex="-1"
       @mousedown.prevent
-      @click="emit('clear')"
+      @click.prevent.stop="emit('clear')"
     >
       <OnyxIcon :icon="iconXSmall" />
     </button>
