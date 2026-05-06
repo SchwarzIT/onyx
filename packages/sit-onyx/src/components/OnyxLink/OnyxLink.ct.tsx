@@ -5,8 +5,8 @@ import OnyxLink from "./OnyxLink.vue";
 // we do not want to actually make requests to live external applications so we mock them here
 const EXTERNAL_HREF = "https://onyx-link.example.com";
 
-test.beforeEach(async ({ page }) => {
-  await page.route(EXTERNAL_HREF, (route) => route.fulfill({ body: "Test page" }));
+test.beforeEach(async ({ context }) => {
+  await context.route(EXTERNAL_HREF, (route) => route.fulfill({ body: "Test page" }));
 });
 
 test.describe("Screenshot tests", () => {
