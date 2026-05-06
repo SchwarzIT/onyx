@@ -1,6 +1,11 @@
 name: Update Playwright screenshots
 on:
   workflow_dispatch:
+    inputs:
+      only-changed:
+        description: "Only run tests affected by the changes"
+        type: boolean
+        default: true
 
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_REMOTE_CACHE__TURBO_TOKEN }}
@@ -16,6 +21,7 @@ jobs:
       contents: write
     with:
       update-snapshots: true
+      only-changed: ${{ (inputs.only-changed && format('origin/{0}', github.event.workflow.base.ref)) }}
 
   # Download screenshots from all shards and create a pull request
   pr:
