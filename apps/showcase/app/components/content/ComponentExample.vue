@@ -26,7 +26,7 @@ const allExamples = {
   }),
 };
 
-const componentName = computed(() => route.params.name || route.path.split("/").at(-1)!);
+const componentName = computed(() => route.params.name);
 
 const fileKey = computed(() => {
   return Object.keys(allExamples.components).find((key) => {

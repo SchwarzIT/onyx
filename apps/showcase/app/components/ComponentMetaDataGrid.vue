@@ -17,7 +17,13 @@ export type ComponentMetaItem = {
 type CustomColumnTypes = ColumnTypesFromFeatures<typeof customDataGridColumnTypes<TEntry>>;
 
 const props = defineProps<{
+  /**
+   * Data grid headline.
+   */
   headline: string;
+  /**
+   * Meta items to render.
+   */
   items: ComponentMetaItem[];
 }>();
 
