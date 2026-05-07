@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import type { PropertyMetaSchema } from "vue-component-meta";
-import type { MetaItem } from "./ComponentMetaDataGrid.vue";
+import type { PropertyMeta, PropertyMetaSchema } from "vue-component-meta";
 
 const props = defineProps<{
   schema: PropertyMetaSchema;
@@ -8,7 +7,7 @@ const props = defineProps<{
 
 type NormalizedSchemaItem = {
   label: string;
-  objectProperties?: MetaItem[];
+  objectProperties?: PropertyMeta[];
 };
 
 const normalizedSchema = computed<NormalizedSchemaItem[]>(() => {
@@ -27,14 +26,10 @@ const normalizedSchema = computed<NormalizedSchemaItem[]>(() => {
         (schema) => typeof schema !== "string" && schema.type === type && schema.kind === "object",
       );
 
-      let objectProperties: MetaItem[] = [];
+      let objectProperties: PropertyMeta[] = [];
 
       if (nestedSchema && typeof nestedSchema !== "string" && nestedSchema.kind === "object") {
-        objectProperties = Object.entries(nestedSchema?.schema ?? {}).map<MetaItem>(
-          ([key, value]) => {
-            return { ...value, name: key };
-          },
-        );
+        objectProperties = Object.values(nestedSchema?.schema ?? {});
       }
 
       return {
@@ -65,7 +60,7 @@ const normalizedSchema = computed<NormalizedSchemaItem[]>(() => {
         </template>
 
         <div class="dialog__content">
-          <ComponentMetaDataGrid
+          <PropertyMetaDataGrid
             :headline="$t('components.property', 2)"
             :items="item.objectProperties"
           />
