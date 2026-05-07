@@ -36,8 +36,5 @@
   },
   "engines": {
     "node": ">=20"
-  },
-  "devDependencies": {
-    "vue-tsc": "catalog:"
   }
 }

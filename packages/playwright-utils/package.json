@@ -39,7 +39,6 @@
   "devDependencies": {
     "@sit-onyx/shared": "workspace:*",
     "typescript": "catalog:",
-    "vite": "catalog:",
-    "vue-tsc": "catalog:"
+    "vite": "catalog:"
   }
 }

@@ -65,7 +65,8 @@
     "turbo": "^2.9.14",
     "typescript": "catalog:",
     "typescript-eslint": "^8.59.3",
-    "vitest": "^4.1.5"
+    "vitest": "^4.1.5",
+    "vue-tsc": "catalog:"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"

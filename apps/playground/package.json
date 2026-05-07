@@ -30,8 +30,7 @@
     "@vueuse/core": "^14.3.0",
     "sit-onyx": "workspace:^",
     "vite": "catalog:",
-    "vue": "catalog:",
-    "vue-tsc": "catalog:"
+    "vue": "catalog:"
   },
   "engines": {
     "node": ">=20"

@@ -48,7 +48,6 @@
     "@vue/compiler-dom": "catalog:",
     "sit-onyx": "workspace:^",
     "unplugin-dts": "catalog:",
-    "vite": "catalog:",
-    "vue-tsc": "catalog:"
+    "vite": "catalog:"
   }
 }
