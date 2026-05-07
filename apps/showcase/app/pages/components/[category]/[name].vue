@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { useRouteQuery } from "@vueuse/router";
 import SidebarLayout from "~/layouts/sidebar.vue";
 
 definePageMeta({ layout: false });
@@ -25,7 +26,7 @@ useSeoMeta({
   description: computed(() => collection.data.value?.seo.description),
 });
 
-const activeTab = ref("overview");
+const activeTab = useRouteQuery("tab", "overview");
 </script>
 
 <template>

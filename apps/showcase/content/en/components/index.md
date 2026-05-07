@@ -4,4 +4,6 @@ navigation:
   title: All components
 ---
 
-TODO: Add overview of all components with image preview
+::info-card{headline="Coming Soon" color="warning"}
+This page is currently work in progress and will be available soon.
+::
