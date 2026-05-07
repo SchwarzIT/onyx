@@ -57,6 +57,12 @@ function getDefaultConfig(options?: DefineOnyxPlaywrightConfigOptions) {
     // https://github.com/SchwarzIT/onyx/actions/workflows/playwright-screenshots.yml
     ignoreSnapshots: !process.env.CI,
     updateSnapshots: process.env.PW_UPDATE_SNAPSHOTS === "true" ? "changed" : "none",
+    expect: {
+      toHaveScreenshot: {
+        threshold: process.env.PW_UPDATE_SNAPSHOTS === "true" ? 0.1 : 0.2,
+      },
+    },
+
     /**
      * SHARDING
      *
