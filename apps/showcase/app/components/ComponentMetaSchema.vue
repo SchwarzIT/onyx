@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import type { PropertyMeta, PropertyMetaSchema } from "vue-component-meta";
+import type { PropertyMetaSchema } from "vue-component-meta";
+import type { ComponentMetaItem } from "./ComponentMetaDataGrid.vue";
 
 const props = defineProps<{
   schema: PropertyMetaSchema;
@@ -7,17 +8,14 @@ const props = defineProps<{
 
 type NormalizedSchemaItem = {
   label: string;
-  objectProperties?: PropertyMeta[];
+  objectProperties?: ComponentMetaItem[];
 };
 
 const normalizedSchema = computed<NormalizedSchemaItem[]>(() => {
   if (typeof props.schema === "string") return [{ label: props.schema }];
 
   if (props.schema.kind === "enum") {
-    const types = props.schema.type
-      .split("|")
-      .map((type) => type.trim())
-      .filter((type) => type !== "undefined");
+    const types = splitTypeUnion(props.schema.type);
 
     const nestedSchemas = props.schema.schema ?? [];
 
@@ -26,7 +24,7 @@ const normalizedSchema = computed<NormalizedSchemaItem[]>(() => {
         (schema) => typeof schema !== "string" && schema.type === type && schema.kind === "object",
       );
 
-      let objectProperties: PropertyMeta[] = [];
+      let objectProperties: ComponentMetaItem[] = [];
 
       if (nestedSchema && typeof nestedSchema !== "string" && nestedSchema.kind === "object") {
         objectProperties = Object.values(nestedSchema?.schema ?? {});
@@ -42,6 +40,63 @@ const normalizedSchema = computed<NormalizedSchemaItem[]>(() => {
   // fallback - no special handling for schema kind
   return [{ label: props.schema.type }];
 });
+
+/**
+ * Splits a given type string into its separate union types.
+ * Will handle nested union types correctly so e.g. `FormInjected<"required" | "optional">` is not split.
+ */
+function splitTypeUnion(typeStr: string): string[] {
+  const result: string[] = [];
+  let currentPart = "";
+
+  // Track nesting depth of brackets, parentheses, and braces
+  let depth = 0;
+
+  // Track if we are inside a string literal (e.g., "my | string")
+  let inQuote: string | null = null;
+
+  for (let i = 0; i < typeStr.length; i++) {
+    const char = typeStr[i];
+
+    // 1. Handle String Literals
+    if (inQuote) {
+      // If we see the matching quote and it's not escaped, exit quote state
+      if (char === inQuote && typeStr[i - 1] !== "\\") {
+        inQuote = null;
+      }
+      currentPart += char;
+      continue;
+    }
+
+    if (char === '"' || char === "'" || char === "`") {
+      inQuote = char;
+      currentPart += char;
+      continue;
+    }
+
+    // 2. Handle Nesting Depth
+    if (char === "<" || char === "{" || char === "(" || char === "[") {
+      depth++;
+    } else if (char === ">" || char === "}" || char === ")" || char === "]") {
+      depth--;
+    }
+
+    // 3. Split on Pipe (ONLY if at top level)
+    if (char === "|" && depth === 0) {
+      result.push(currentPart.trim());
+      currentPart = ""; // Reset for the next type
+    } else {
+      currentPart += char;
+    }
+  }
+
+  // Push the final remaining part
+  if (currentPart.trim()) {
+    result.push(currentPart.trim());
+  }
+
+  return result.filter((type) => type !== "undefined");
+}
 </script>
 
 <template>
@@ -60,7 +115,7 @@ const normalizedSchema = computed<NormalizedSchemaItem[]>(() => {
         </template>
 
         <div class="dialog__content">
-          <PropertyMetaDataGrid
+          <ComponentMetaDataGrid
             :headline="$t('components.property', 2)"
             :items="item.objectProperties"
           />

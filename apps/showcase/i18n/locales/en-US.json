@@ -28,6 +28,7 @@
     "code": "Code",
     "overview": "Overview",
     "details": "Component details",
+    "schema": "Type",
     "options": {
       "reset": "Reset styles",
       "change": "change styles",
@@ -62,5 +63,7 @@
     "global": "Global variable",
     "semantic": "Semantic variable",
     "visualizationDescription": "Visualization of color mapping for global and semantic variables."
-  }
+  },
+  "name": "Name",
+  "description": "Description"
 }

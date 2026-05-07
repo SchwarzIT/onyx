@@ -5,29 +5,58 @@ import {
   type ColumnGroupConfig,
   type ColumnTypesFromFeatures,
 } from "sit-onyx";
-import type { EventMeta, ExposeMeta, SlotMeta } from "vue-component-meta";
+import type { PropertyMetaSchema } from "vue-component-meta";
+
+export type ComponentMetaItem = {
+  name: string;
+  description: string;
+  schema?: PropertyMetaSchema;
+  required?: boolean;
+};
 
 type CustomColumnTypes = ColumnTypesFromFeatures<typeof customDataGridColumnTypes<TEntry>>;
-export type MetaItem = Pick<EventMeta | SlotMeta | ExposeMeta, "name" | "description">;
 
 const props = defineProps<{
   headline: string;
-  items: MetaItem[];
+  items: ComponentMetaItem[];
 }>();
 
-type TEntry = MetaItem & { id: string };
+type TEntry = ComponentMetaItem & { id: string };
+
+const { t } = useI18n();
 
 const data = computed(() => {
   return props.items
     .map<TEntry>((item) => ({ ...item, id: item.name }))
-    .sort((a, b) => a.name.localeCompare(b.name));
+    .sort((a, b) => {
+      const aRequired = "required" in a && a.required;
+      const bRequired = "required" in b && b.required;
+      if (aRequired !== bRequired) return aRequired ? -1 : 1;
+      return a.name.localeCompare(b.name);
+    });
 });
 
-const columns = computed<ColumnConfig<TEntry, ColumnGroupConfig, CustomColumnTypes>[]>(() => {
-  return [
-    { key: "name", label: "Name", width: "max-content" },
-    { key: "description", label: "Description", type: "markdown" },
+const columns = computed(() => {
+  const _columns: ColumnConfig<TEntry, ColumnGroupConfig, CustomColumnTypes>[] = [
+    {
+      key: "name",
+      label: t("name"),
+      width: "max-content",
+      type: { name: "required", options: { required: (row) => row.required ?? false } },
+    },
+    { key: "description", label: t("description"), type: "markdown" },
   ];
+
+  const hasSchemas = data.value.some((row) => row.schema);
+  if (hasSchemas) {
+    _columns.push({
+      key: "schema",
+      label: t("components.schema"),
+      type: "propertyMetaSchema",
+    });
+  }
+
+  return _columns;
 });
 
 const features = [customDataGridColumnTypes<TEntry>];

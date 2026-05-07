@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { ComponentMetaItem } from "./ComponentMetaDataGrid.vue";
+
 const props = defineProps<{
   /**
    * Full component name.
@@ -22,26 +24,43 @@ watchEffect(() => {
     });
   }
 });
+
+const mappedEvents = computed(() => {
+  return meta.value?.events.map<ComponentMetaItem>((event) => ({
+    name: event.name,
+    description: event.description,
+    schema: event.type,
+  }));
+});
+
+const mappedSlots = computed(() => {
+  return meta.value?.slots.map<ComponentMetaItem>((slot) => ({
+    name: slot.name,
+    description: slot.description,
+  }));
+});
 </script>
 
 <template>
   <div class="content">
-    <PropertyMetaDataGrid :items="meta?.props" />
+    <ComponentMetaDataGrid :headline="$t('components.property', 2)" :items="meta?.props ?? []" />
 
     <ComponentMetaDataGrid
-      v-if="meta?.events.length"
-      :items="meta.events"
+      v-if="mappedEvents?.length"
       :headline="$t('components.event', 2)"
+      :items="mappedEvents"
     />
+
     <ComponentMetaDataGrid
-      v-if="meta?.slots.length"
-      :items="meta?.slots"
+      v-if="mappedSlots?.length"
       :headline="$t('components.slot', 2)"
+      :items="mappedSlots"
     />
+
     <ComponentMetaDataGrid
-      v-if="meta?.exposed.length"
-      :items="meta?.exposed"
+      v-if="meta?.exposed?.length"
       :headline="$t('components.exposed', 2)"
+      :items="meta?.exposed"
     />
   </div>
 </template>
