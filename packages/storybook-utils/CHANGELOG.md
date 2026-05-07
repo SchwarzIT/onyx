@@ -1,5 +1,11 @@
 # @sit-onyx/storybook-utils
 
+## 1.1.3
+
+### Patch Changes
+
+- 08db793: fix: prevent broken code snippets when replacing onyx icons and flags
+
 ## 1.1.2
 
 ### Patch Changes

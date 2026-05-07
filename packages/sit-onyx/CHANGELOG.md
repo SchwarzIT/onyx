@@ -1,5 +1,26 @@
 # sit-onyx
 
+## 1.13.0
+
+### Minor Changes
+
+- c1ad583: feat(OnyxDataGrid): implement new `useExpandableRows()` feature
+- 1560235: fix(OnyxCodeTabs): fix font size when passing content as slot
+- fac7fd0: feat(OnyxSidebar): automatically close temporary mobile sidebar if route changes
+
+### Patch Changes
+
+- f240bd5: fix(OnyxGlobalSearch): Fixed issue, where clicking `target="_blank"` link opens new tab twice
+- b5fd187: fix(OnyxDataGrid:stickyColumn):
+  - made selection column sticky when both features are active.
+  - Added the ability to configure sticky positioning (`left` or `right`) individually per column.
+
+- 5c3cf2a: fix(OnyxTooltip): use anchor-size(width) instead of translate
+
+  Reason: next to the viewport border the positioning wasn't set correctly,
+  because CSS transforms are not tracked by the collision
+  detection.
+
 ## 1.12.0
 
 ### Minor Changes
