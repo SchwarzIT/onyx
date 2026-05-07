@@ -17,7 +17,7 @@ const activeTab = ref("preview");
 
 // Vite analyzes these glob imports at build time
 const allExamples = {
-  components: import.meta.glob("~~/content/*/components/**/examples/*.example.vue", {
+  components: import.meta.glob<Component>("~~/content/*/components/**/examples/*.example.vue", {
     import: "default",
   }),
   sourceCodes: import.meta.glob<string>("~~/content/*/components/**/examples/*.example.vue", {
@@ -38,6 +38,7 @@ const fileKey = computed(() => {
 });
 
 // build time breaker to guarantee that no non-existing examples
+// see "prerender" config in nuxt.config.ts
 watchEffect(() => {
   if (!fileKey.value) {
     throw createError({
@@ -50,21 +51,19 @@ watchEffect(() => {
 });
 
 const ExampleComponent = computed(() => {
-  if (!fileKey.value) return;
-  return defineAsyncComponent(allExamples.components[fileKey.value] as () => Promise<Component>);
+  const component = allExamples.components[fileKey.value ?? ""];
+  if (!component) return;
+  return defineAsyncComponent(component);
 });
 
 const { data: exampleCode } = await useAsyncData(
   () => `example-code-${componentName.value}-${props.name}-${locale.value}`,
   async () => {
-    if (!fileKey.value) return;
-    return allExamples.sourceCodes[fileKey.value]?.();
-  },
-  {
-    transform: (code) => {
-      const markdown = `\`\`\`vue\n${code?.trim()}\n\`\`\``;
-      return parseMarkdown(markdown);
-    },
+    const code = (await allExamples.sourceCodes[fileKey.value ?? ""]?.()) ?? "";
+    if (!code) return;
+
+    const markdown = `\`\`\`vue\n${code.trim()}\n\`\`\``;
+    return parseMarkdown(markdown);
   },
 );
 

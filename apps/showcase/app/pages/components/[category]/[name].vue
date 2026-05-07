@@ -9,7 +9,7 @@ watch(
   () => collection.data.value,
   (data) => {
     // if data is "null", the page content was not found. "undefined" means it is not loaded yet
-    if (data !== null) return;
+    if (data) return;
     throw showError({
       message: "Page not found",
       statusCode: 404,
@@ -38,8 +38,8 @@ const activeTab = ref("overview");
         <ContentRenderer v-if="data" :value="data" />
       </OnyxTab>
 
-      <OnyxTab :label="$t('components.property', 2)" value="properties">
-        <ComponentMeta :component="data?.meta.componentName" />
+      <OnyxTab v-if="data?.componentName" :label="$t('components.property', 2)" value="properties">
+        <ComponentMeta :component="data.componentName" />
       </OnyxTab>
     </OnyxTabs>
   </SidebarLayout>

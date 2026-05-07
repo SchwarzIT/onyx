@@ -19,6 +19,7 @@ export default defineContentConfig({
               .optional(),
           })
           .optional(),
+        componentName: z.string().optional(),
       }),
     }),
   },

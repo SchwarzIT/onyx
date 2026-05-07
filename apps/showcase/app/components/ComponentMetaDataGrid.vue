@@ -48,11 +48,8 @@ const columns = computed<ColumnConfig<TEntry, ColumnGroupConfig, CustomColumnTyp
   ];
 
   if (data.value.some((row) => "type" in row && row.type)) {
-    _columns.push({
-      key: "type",
-      label: "Type",
-      type: "markdown",
-    });
+    // TODO: use custom column type
+    _columns.push({ key: "type", label: "Type" });
   }
 
   return _columns;
