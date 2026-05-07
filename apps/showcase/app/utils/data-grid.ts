@@ -1,5 +1,7 @@
-import { MDC } from "#components";
+import { ComponentMetaSchema, MDC } from "#components";
 import { createFeature, DataGridFeatures, type DataGridEntry, type TypeRenderMap } from "sit-onyx";
+import type { PropertyMetaSchema } from "vue-component-meta";
+import "./data-grid.scss";
 
 export type RequiredTypeRendererOptions<TEntry extends DataGridEntry> = {
   /**
@@ -25,6 +27,14 @@ export const customDataGridColumnTypes = createFeature(<TEntry extends DataGridE
           const required = metadata?.typeOptions?.required?.(row);
           if (!required) return modelValue;
           return h("span", { class: { "onyx-required-marker": row.required } }, String(modelValue));
+        },
+      },
+    }),
+    propertyMetaSchema: DataGridFeatures.createTypeRenderer<object, TEntry>({
+      cell: {
+        component: ({ modelValue }) => {
+          if (!modelValue) return "-";
+          return h(ComponentMetaSchema, { schema: modelValue as PropertyMetaSchema });
         },
       },
     }),

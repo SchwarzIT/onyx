@@ -35,5 +35,8 @@
     "sit-onyx": "workspace:^",
     "vue": "catalog:",
     "vue-router": "^5.0.6"
+  },
+  "devDependencies": {
+    "vue-component-meta": "catalog:"
   }
 }

@@ -9,11 +9,25 @@ const props = defineProps<{
 }>();
 
 const meta = computed(() => getComponentMeta(props.component));
+
+// build time breaker to guarantee that no non-existing examples
+// see "prerender" config in nuxt.config.ts
+watchEffect(() => {
+  if (!meta.value) {
+    throw createError({
+      statusCode: 404,
+      statusMessage: `Component meta not found for component "${props.component}".`,
+      // throwing a fatal error  will fail during SSR / prerendering
+      fatal: true,
+    });
+  }
+});
 </script>
 
 <template>
   <div class="content">
-    <ComponentMetaDataGrid :items="meta?.props" :headline="$t('components.property', 2)" />
+    <PropertyMetaDataGrid :items="meta?.props" />
+
     <ComponentMetaDataGrid
       v-if="meta?.events.length"
       :items="meta.events"

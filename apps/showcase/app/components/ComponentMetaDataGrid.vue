@@ -5,54 +5,29 @@ import {
   type ColumnGroupConfig,
   type ColumnTypesFromFeatures,
 } from "sit-onyx";
-import type { ExposeMeta, PropertyMeta } from "../utils/component-meta.js";
+import type { EventMeta, ExposeMeta, SlotMeta } from "vue-component-meta";
 
 type CustomColumnTypes = ColumnTypesFromFeatures<typeof customDataGridColumnTypes<TEntry>>;
-type MetaItem = PropertyMeta | EventMeta | SlotMeta | ExposeMeta;
+export type MetaItem = Pick<EventMeta | SlotMeta | ExposeMeta, "name" | "description">;
 
-const props = withDefaults(
-  defineProps<{
-    headline: string;
-    items?: MetaItem[];
-  }>(),
-  { items: () => [] },
-);
+const props = defineProps<{
+  headline: string;
+  items: MetaItem[];
+}>();
 
 type TEntry = MetaItem & { id: string };
 
 const data = computed(() => {
   return props.items
     .map<TEntry>((item) => ({ ...item, id: item.name }))
-    .sort((a, b) => {
-      const aRequired = "required" in a && a.required;
-      const bRequired = "required" in b && b.required;
-      if (aRequired !== bRequired) return aRequired ? -1 : 1;
-      return a.name.localeCompare(b.name);
-    });
+    .sort((a, b) => a.name.localeCompare(b.name));
 });
 
 const columns = computed<ColumnConfig<TEntry, ColumnGroupConfig, CustomColumnTypes>[]>(() => {
-  const _columns: ColumnConfig<TEntry, ColumnGroupConfig, CustomColumnTypes>[] = [
-    {
-      key: "name",
-      label: "Name",
-      width: "max-content",
-      type: {
-        name: "required",
-        options: {
-          required: (row) => "required" in row && row.required,
-        },
-      },
-    },
+  return [
+    { key: "name", label: "Name", width: "max-content" },
     { key: "description", label: "Description", type: "markdown" },
   ];
-
-  if (data.value.some((row) => "type" in row && row.type)) {
-    // TODO: use custom column type
-    _columns.push({ key: "type", label: "Type" });
-  }
-
-  return _columns;
 });
 
 const features = [customDataGridColumnTypes<TEntry>];
@@ -61,15 +36,3 @@ const features = [customDataGridColumnTypes<TEntry>];
 <template>
   <OnyxDataGrid :headline="{ text: props.headline, rowCount: true }" :columns :data :features />
 </template>
-
-<style lang="scss" scoped>
-:deep(.markdown-cell) {
-  > :first-child {
-    margin-top: 0;
-  }
-
-  > :last-child {
-    margin-bottom: 0;
-  }
-}
-</style>
