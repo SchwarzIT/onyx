@@ -59,7 +59,7 @@ function getDefaultConfig(options?: DefineOnyxPlaywrightConfigOptions) {
     updateSnapshots: process.env.PW_UPDATE_SNAPSHOTS === "true" ? "changed" : "none",
     expect: {
       toHaveScreenshot: {
-        threshold: process.env.PW_UPDATE_SNAPSHOTS ? 0.1 : 0.2,
+        threshold: process.env.PW_UPDATE_SNAPSHOTS === "true" ? 0.1 : 0.2,
       },
     },
 
