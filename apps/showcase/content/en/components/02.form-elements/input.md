@@ -1,4 +1,0 @@
----
-title: Input
-componentName: OnyxInput
----

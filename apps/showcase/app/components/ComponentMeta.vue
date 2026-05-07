@@ -37,6 +37,7 @@ const mappedSlots = computed(() => {
   return meta.value?.slots.map<ComponentMetaItem>((slot) => ({
     name: slot.name,
     description: slot.description,
+    schema: slot.schema === "any" ? undefined : slot.schema,
   }));
 });
 </script>
