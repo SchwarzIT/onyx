@@ -1,14 +1,5 @@
 # @sit-onyx/icons
 
-## 1.10.0
-
-### Minor Changes
-
-- 26a5317: feat: update icons
-
-  #### New
-  - AI_model_experiments
-
 ## 1.9.0
 
 ### Minor Changes
