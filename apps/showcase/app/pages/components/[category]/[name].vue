@@ -4,7 +4,18 @@ import SidebarLayout from "~/layouts/sidebar.vue";
 
 definePageMeta({ layout: false });
 
-const collection = await useCollection();
+const { locale } = useI18n();
+const route = useRoute();
+
+const slug = computed(() => `/components/${route.params.category}/${route.params.name}`);
+
+const collection = await useAsyncData(
+  () => `page-${slug.value}-${locale.value}`,
+  async () => {
+    const collection = `content_${locale.value}` as const;
+    return queryCollection(collection).path(slug.value).first();
+  },
+);
 
 watch(
   () => collection.data.value,
