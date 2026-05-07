@@ -1,5 +1,11 @@
 # @sit-onyx/headless
 
+## 0.10.0
+
+### Minor Changes
+
+- f240bd5: feat(createListbox, createCombobox): expose triggering event for `onSelect` hook handler
+
 ## 0.9.0
 
 ### Minor Changes

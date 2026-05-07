@@ -1,5 +1,11 @@
 # @sit-onyx/mdc
 
+## 0.2.0
+
+### Minor Changes
+
+- 4637a02: feat: add `ProseImg` component to prevent image overflows
+
 ## 0.1.0
 
 ### Minor Changes
