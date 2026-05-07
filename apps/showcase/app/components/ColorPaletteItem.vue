@@ -1,10 +1,15 @@
 <script lang="ts" setup>
 import type { OnyxColor } from "sit-onyx";
-import type { StyleValue } from "vue";
 
 const props = withDefaults(
   defineProps<{
+    /**
+     * The CSS variable to use for this color.
+     */
     cssVariable: string;
+    /**
+     * The text color to use.
+     */
     textColor?: OnyxColor | "white" | "inverted";
   }>(),
   {
@@ -25,17 +30,10 @@ const color = computed(() => {
   if (props.textColor === "inverted") return "var(--onyx-color-text-icons-neutral-inverted)";
   return `var(--onyx-color-text-icons-${props.textColor}-bold)`;
 });
-
-const style = computed<StyleValue>(() => {
-  return {
-    backgroundColor: props.cssVariable,
-    color: color.value,
-  };
-});
 </script>
 
 <template>
-  <div class="color" :style>
+  <div class="color" :style="{ backgroundColor: props.cssVariable, color }">
     <slot></slot>
   </div>
 </template>
