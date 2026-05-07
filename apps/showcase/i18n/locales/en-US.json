@@ -30,7 +30,7 @@
     "details": "Component details",
     "options": {
       "reset": "Reset styles",
-      "change": "Change styles",
+      "change": "change styles",
       "density": "Density",
       "appearance": "Appearance",
       "appearances": {

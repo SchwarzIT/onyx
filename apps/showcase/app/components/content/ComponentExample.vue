@@ -72,7 +72,7 @@ const options = ref<{ density?: Density; colorScheme?: "light" | "dark" }>({});
 
 <template>
   <div class="example">
-    <OnyxTabs v-model="activeTab" :label="$t('components.example')" size="h3">
+    <OnyxTabs v-model="activeTab" class="example__tabs" :label="$t('components.example')" size="h3">
       <OnyxTab :label="$t('components.preview')" value="preview" density="compact">
         <OnyxCard class="example__preview" :style="{ colorScheme: options.colorScheme }">
           <div
@@ -102,7 +102,12 @@ const options = ref<{ density?: Density; colorScheme?: "light" | "dark" }>({});
 
         <OnyxFlyoutMenu :label="$t('components.options.change')" drilldown-mode="external">
           <template #button="{ trigger }">
-            <OnyxButton v-bind="trigger" :label="$t('components.options.change')" color="neutral" />
+            <OnyxButton
+              v-bind="trigger"
+              :label="$t('components.options.change')"
+              color="neutral"
+              density="compact"
+            />
           </template>
 
           <template #options>
@@ -141,6 +146,10 @@ const options = ref<{ density?: Density; colorScheme?: "light" | "dark" }>({});
 
 <style lang="scss" scoped>
 .example {
+  &__tabs {
+    --onyx-tabs-tablist-margin-bottom: var(--onyx-density-2xs);
+  }
+
   &__preview {
     --onyx-card-padding: var(--onyx-density-3xl);
     --onyx-card-gap: var(--onyx-density-md);
