@@ -160,6 +160,10 @@ const options = ref<{ density?: Density; colorScheme?: "light" | "dark" }>({});
 
   &__preview-wrapper {
     display: contents;
+
+    > *:only-child {
+      flex-grow: 1;
+    }
   }
 }
 </style>
