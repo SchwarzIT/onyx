@@ -61,6 +61,7 @@
     "sass-embedded": "catalog:",
     "sit-onyx": "workspace:^",
     "typescript": "catalog:",
-    "vue": "catalog:"
+    "vue": "catalog:",
+    "vue-tsc": "catalog:"
   }
 }

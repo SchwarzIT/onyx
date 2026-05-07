@@ -37,6 +37,7 @@
     "vue-router": "^5.0.7"
   },
   "devDependencies": {
-    "vue-component-meta": "catalog:"
+    "vue-component-meta": "catalog:",
+    "vue-tsc": "catalog:"
   }
 }

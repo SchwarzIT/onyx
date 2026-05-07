@@ -49,6 +49,6 @@
     "sit-onyx": "workspace:^",
     "unplugin-dts": "catalog:",
     "vite": "catalog:",
-    "vue-tsc": "^3.2.8"
+    "vue-tsc": "catalog:"
   }
 }

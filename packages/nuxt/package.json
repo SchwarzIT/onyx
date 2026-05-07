@@ -52,6 +52,6 @@
     "sit-onyx": "workspace:^",
     "typescript": "catalog:",
     "vue-i18n": "^11.4.2",
-    "vue-tsc": "^3.2.8"
+    "vue-tsc": "catalog:"
   }
 }
