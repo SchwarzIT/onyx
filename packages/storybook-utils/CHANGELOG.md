@@ -4,7 +4,7 @@
 
 ### Patch Changes
 
-- 08db793: fix: prevent broken code snippets when replacing onyx icons and flags
+- 08db793: fix: Prevent broken code snippets when replacing onyx icons and flags
 
 ## 1.1.2
 

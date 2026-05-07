@@ -23,7 +23,7 @@
 ### Patch Changes
 
 - 4637a02: fix(sidebar-layout): remove top margin for first child
-- Updated dependencies [4637a02]
+- Updated dependencies
   - @sit-onyx/mdc@0.2.0
 
 ## 0.5.1
