@@ -14,9 +14,21 @@ const meta = computed(() => getComponentMeta(props.component));
 <template>
   <div class="content">
     <ComponentMetaDataGrid :items="meta?.props" :headline="$t('components.property', 2)" />
-    <ComponentMetaDataGrid :items="meta?.events" :headline="$t('components.event', 2)" />
-    <ComponentMetaDataGrid :items="meta?.slots" :headline="$t('components.slot', 2)" />
-    <ComponentMetaDataGrid :items="meta?.exposed" :headline="$t('components.exposed', 2)" />
+    <ComponentMetaDataGrid
+      v-if="meta?.events.length"
+      :items="meta.events"
+      :headline="$t('components.event', 2)"
+    />
+    <ComponentMetaDataGrid
+      v-if="meta?.slots.length"
+      :items="meta?.slots"
+      :headline="$t('components.slot', 2)"
+    />
+    <ComponentMetaDataGrid
+      v-if="meta?.exposed.length"
+      :items="meta?.exposed"
+      :headline="$t('components.exposed', 2)"
+    />
   </div>
 </template>
 
