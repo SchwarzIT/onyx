@@ -70,8 +70,8 @@
     "storybook-addon-tag-badges": "^3.1.0",
     "tsx": "^4.21.0",
     "vue": "catalog:",
-    "vue-component-meta": "^3.2.7",
-    "vue-component-type-helpers": "^3.2.7",
+    "vue-component-meta": "^3.2.8",
+    "vue-component-type-helpers": "^3.2.8",
     "vue-docgen-api": "^4.79.2",
     "vue-i18n": "^11.4.0",
     "vue-router": "^5.0.6"

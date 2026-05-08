@@ -17,7 +17,7 @@ catalog:
   playwright-core: 1.59.1
   sass-embedded: 1.99.0
   typescript: 5.9.3
-  vite: 8.0.5
+  vite: 8.0.10
   vue: 3.5.33
 
 # Security settings (See: https://pnpm.io/supply-chain-security)
