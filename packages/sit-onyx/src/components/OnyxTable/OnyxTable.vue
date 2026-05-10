@@ -33,7 +33,7 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
 </script>
 
 <template>
-  <div ref="table" :class="['onyx-component', 'onyx-table-wrapper', densityClass]" :style>
+  <div :class="['onyx-component', 'onyx-table-wrapper', densityClass]" :style>
     <div v-if="!!slots.headline || !!slots.actions" class="onyx-table-wrapper__top">
       <div :id="headlineId">
         <slot name="headline"></slot>
@@ -53,6 +53,7 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
       v-bind="scrollContainerAttrs"
     >
       <table
+        ref="table"
         v-bind="props.tableAttrs"
         :class="[
           'onyx-table',
@@ -179,6 +180,7 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
       max-width: inherit;
       overscroll-behavior-x: none; // fix bouncy scroll behavior in safari
       border: var(--onyx-table-border);
+      container-type: inline-size;
 
       &:focus-visible {
         outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
@@ -377,23 +379,21 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
       background-color: var(--onyx-color-base-primary-100);
       color: var(--onyx-color-text-icons-primary-intense);
     }
+  }
+  &__empty {
+    > td {
+      padding-inline: 0;
+    }
 
-    .onyx-table__empty {
-      > td {
-        padding: 0;
-      }
-      &-content {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    &-content {
+      position: sticky;
+      left: 0;
 
-        position: sticky;
-        left: 0;
-        // table width - borders
-        width: calc(var(--onyx-table-observed-width) - 2 * var(--onyx-1px-in-rem));
-        padding: var(--onyx-density-xl);
-        box-sizing: border-box;
-      }
+      // table width - borders
+      width: calc(100cqw - 2 * var(--onyx-1px-in-rem));
+
+      display: flex;
+      justify-content: center;
     }
   }
 }
