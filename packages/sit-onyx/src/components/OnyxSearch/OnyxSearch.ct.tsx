@@ -16,7 +16,7 @@ test.describe("Screenshot tests", () => {
     rows: ["default", "hover", "focus-visible"],
     component: (column) => (
       <OnyxSearch
-        label="Step"
+        placeholder="Search..."
         disabled={column === "disabled"}
         color={column === "tinted" ? "tinted" : "blank"}
         cornerRadius={column === "strongCornerRadius" ? "strong" : "soft"}
@@ -38,7 +38,7 @@ test("should toggle filter values when buttons are clicked", async ({ mount }) =
 
   const component = await mount(OnyxSearch, {
     props: {
-      label: "Search",
+      placeholder: "Search",
       showFilters: showFilters,
     },
     on: {
@@ -55,7 +55,7 @@ test("should toggle filter values when buttons are clicked", async ({ mount }) =
 test("should not render buttons when disabled", async ({ mount }) => {
   const component = await mount(OnyxSearch, {
     props: {
-      label: "Search",
+      placeholder: "Search",
       showFilters: false,
       disabled: true,
     },
