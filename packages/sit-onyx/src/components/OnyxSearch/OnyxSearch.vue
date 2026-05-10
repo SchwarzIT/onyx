@@ -209,7 +209,7 @@ _unstableUseShortcut({
       }
     }
 
-    &:has(.onyx-input__native:disabled) {
+    &:has(.onyx-form-element-v2__input:disabled) {
       cursor: default;
 
       .onyx-icon {
