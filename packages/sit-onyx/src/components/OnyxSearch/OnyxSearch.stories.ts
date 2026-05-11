@@ -78,16 +78,10 @@ export const Skeleton = {
 
 export const FilterUnderneath = {
   ...createAdvancedStoryExample("OnyxSearch", "FilterUnderneath"),
-  parameters: {
-    largeWrapper: true,
-  },
 } satisfies Story;
 
 export const FilterBeside = {
   ...createAdvancedStoryExample("OnyxSearch", "FilterBeside"),
-  parameters: {
-    noWrapper: true,
-  },
 } satisfies Story;
 
 export const FilterModal = {

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { iconFilter, iconSearch } from "@sit-onyx/icons";
-import { computed, useTemplateRef, type ComponentInstance } from "vue";
+import { computed, useTemplateRef } from "vue";
 import { _unstableUseShortcut } from "../../composables/useShortcut.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
@@ -54,10 +54,13 @@ const inputProps = useForwardProps(props, OnyxInput);
 const { disabled } = useFormContext(props);
 const { t } = injectI18n();
 
-const inputComponent = useTemplateRef<ComponentInstance<typeof OnyxInput>>("inputComponentRef");
+const inputComponent = useTemplateRef("inputComponentRef");
 const input = computed(() => inputComponent.value?.input);
 
 const slots = defineSlots<{
+  /**
+   * Filter content. Visibility can be toggled using `v-model:showFilters`.
+   */
   default(): unknown;
 }>();
 
@@ -71,15 +74,13 @@ _unstableUseShortcut({
 </script>
 
 <template>
-  <div
-    :class="[
-      'onyx-component',
-      'onyx-search__wrapper',
-      `onyx-search__wrapper--${props.filterPosition}`,
-    ]"
-  >
+  <div :class="['onyx-component', 'onyx-search', `onyx-search--${props.filterPosition}`]">
     <search
-      :class="['onyx-search', `onyx-search--${props.color}`, `onyx-search--${props.cornerRadius}`]"
+      :class="[
+        'onyx-search__input',
+        `onyx-search__input--${props.color}`,
+        `onyx-search__input--${props.cornerRadius}`,
+      ]"
     >
       <form @submit.prevent>
         <OnyxInput
@@ -126,22 +127,23 @@ _unstableUseShortcut({
         </OnyxInput>
       </form>
     </search>
+
     <OnyxModal
       v-if="props.filterPosition === 'modal'"
       v-model:open="showFilters"
-      label="Select Filter"
+      :label="t('search.selectFilter')"
       class="onyx-search__filters"
     >
       <slot></slot>
     </OnyxModal>
 
-    <template v-else-if="props.filterPosition === 'inline' && showFilters">
-      <slot></slot>
-    </template>
+    <template v-else-if="showFilters">
+      <slot v-if="props.filterPosition === 'inline'"></slot>
 
-    <div v-else-if="showFilters" class="onyx-search__filters">
-      <slot></slot>
-    </div>
+      <div v-else class="onyx-search__filters">
+        <slot></slot>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -152,18 +154,60 @@ _unstableUseShortcut({
 
 .onyx-search {
   @include layers.component() {
-    cursor: pointer;
-    color: var(--onyx-form-element-action-color);
-    .onyx-form-element-v2__input-container {
-      position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--onyx-density-sm);
+
+    &--inline {
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      .onyx-search__input {
+        width: 20rem;
+        min-width: fit-content;
+      }
     }
 
-    &--tinted .onyx-input {
-      --onyx-form-element-v2-background: var(--onyx-color-base-background-tinted);
+    &--modal {
+      .onyx-modal__body {
+        padding: var(--onyx-density-sm);
+        display: flex;
+        flex-direction: column;
+        gap: var(--onyx-density-sm);
+      }
     }
 
-    &--strong .onyx-input {
-      --onyx-form-element-v2-border-radius: var(--onyx-radius-md);
+    &__input {
+      cursor: pointer;
+      color: var(--onyx-form-element-action-color);
+
+      .onyx-form-element-v2__input-container {
+        position: relative;
+      }
+
+      &--tinted .onyx-input {
+        --onyx-form-element-v2-background: var(--onyx-color-base-background-tinted);
+      }
+
+      &--strong .onyx-input {
+        --onyx-form-element-v2-border-radius: var(--onyx-radius-md);
+      }
+
+      .onyx-form-element-v2__input-container:has(.onyx-form-element-v2__input:enabled) {
+        &:focus-within,
+        &:hover {
+          .onyx-form-element-v2__icons--leading .onyx-icon {
+            --icon-color: var(--onyx-color-text-icons-primary-intense);
+          }
+        }
+      }
+
+      &:has(.onyx-form-element-v2__input:disabled) {
+        cursor: default;
+        .onyx-icon {
+          --icon-color: var(--onyx-color-text-icons-neutral-soft);
+        }
+      }
     }
 
     .onyx-separator {
@@ -200,43 +244,6 @@ _unstableUseShortcut({
       }
     }
 
-    .onyx-form-element-v2__input-container:has(.onyx-form-element-v2__input:enabled) {
-      &:focus-within,
-      &:hover {
-        .onyx-form-element-v2__icons--leading .onyx-icon {
-          --icon-color: var(--onyx-color-text-icons-primary-intense);
-        }
-      }
-    }
-
-    &:has(.onyx-form-element-v2__input:disabled) {
-      cursor: default;
-
-      .onyx-icon {
-        --icon-color: var(--onyx-color-text-icons-neutral-soft);
-      }
-    }
-    &__wrapper {
-      display: flex;
-      flex-wrap: wrap;
-      flex-direction: column;
-      gap: var(--onyx-density-sm);
-      &--inline {
-        flex-direction: row;
-        .onyx-search {
-          width: 20rem;
-          min-width: fit-content;
-        }
-      }
-      &--modal {
-        .onyx-modal__body {
-          padding: var(--onyx-density-sm);
-          display: flex;
-          flex-direction: column;
-          gap: var(--onyx-density-sm);
-        }
-      }
-    }
     &__filters {
       display: flex;
       gap: var(--onyx-density-sm);

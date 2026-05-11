@@ -267,7 +267,8 @@
   },
   "search": {
     "label": "Search",
-    "filterLabel": "toggle filter",
+    "filterLabel": "Toggle filters",
+    "selectFilter": "Select Filter",
     "leadingShortcutPlaceholder": "Type",
     "trailingShortcutPlaceholder": "to search"
   },

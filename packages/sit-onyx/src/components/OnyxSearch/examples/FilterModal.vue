@@ -9,7 +9,7 @@ type FilterState = Partial<{
 }>;
 
 const filters = ref<FilterState>({});
-const showFilter = ref(false);
+const showFilters = ref(false);
 
 const statusOptions = [
   { value: "active", label: "Active" },
@@ -27,9 +27,8 @@ const categoryOptions = [
 <template>
   <div class="search-wrapper">
     <OnyxUnstableSearch
-      v-model:show-filters="showFilter"
+      v-model:show-filters="showFilters"
       v-model="filters.search"
-      label="Search"
       with-shortcut
       filter-position="modal"
     >
@@ -39,7 +38,7 @@ const categoryOptions = [
         label="Status"
         :options="statusOptions"
         placeholder="Select status"
-        list-label="Status"
+        list-label="Available status"
       />
       <OnyxSelect
         v-model="filters.category"
@@ -47,7 +46,7 @@ const categoryOptions = [
         label="Category"
         :options="categoryOptions"
         placeholder="Select category"
-        list-label="Category"
+        list-label="Available categories"
       />
       <OnyxButton label="Clear" @click="filters = {}" />
     </OnyxUnstableSearch>
@@ -55,10 +54,10 @@ const categoryOptions = [
 </template>
 
 <style lang="scss" scoped>
-.search-wrapper {
+.onyx-search {
   max-width: 24rem;
 }
-.onyx-select {
-  width: 15rem;
+.select {
+  width: 16rem;
 }
 </style>

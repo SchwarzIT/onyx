@@ -278,6 +278,7 @@
   "search": {
     "label": "Suche",
     "filterLabel": "Filter umschalten",
+    "selectFilter": "Filter auswählen",
     "leadingShortcutPlaceholder": "Tippe",
     "trailingShortcutPlaceholder": "zum suchen"
   },

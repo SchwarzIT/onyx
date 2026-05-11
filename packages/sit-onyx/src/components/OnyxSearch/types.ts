@@ -30,8 +30,8 @@ export type OnyxSearchProps = Pick<
    */
   cornerRadius?: SearchCornerRadius;
   /**
-   * Determines whether the filter should be displayed.
-   * If `undefined`, the filter button is hidden.
+   * Determines whether the filters should be displayed.
+   * Actual filter content must be passed using the `default` slot.
    */
   showFilters?: boolean;
   /**
