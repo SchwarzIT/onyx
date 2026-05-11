@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { iconSync } from "@sit-onyx/icons";
-import { DENSITIES, type Density } from "sit-onyx";
 import type { Component } from "vue";
+import type { ComponentExampleOptions } from "../ComponentExampleOptions.vue";
 
 const props = defineProps<{
   /**
@@ -52,8 +52,7 @@ watchEffect(() => {
 
 const ExampleComponent = computed(() => {
   const component = allExamples.components[fileKey.value ?? ""];
-  if (!component) return;
-  return defineAsyncComponent(component);
+  return component ? defineAsyncComponent(component) : undefined;
 });
 
 const { data: exampleCode } = await useAsyncData(
@@ -61,13 +60,12 @@ const { data: exampleCode } = await useAsyncData(
   async () => {
     const code = (await allExamples.sourceCodes[fileKey.value ?? ""]?.()) ?? "";
     if (!code) return;
-
     const markdown = `\`\`\`vue\n${code.trim()}\n\`\`\``;
     return parseMarkdown(markdown);
   },
 );
 
-const options = ref<{ density?: Density; colorScheme?: "light" | "dark" }>({});
+const options = ref<ComponentExampleOptions>({});
 </script>
 
 <template>
@@ -97,48 +95,11 @@ const options = ref<{ density?: Density; colorScheme?: "light" | "dark" }>({});
           :icon="iconSync"
           :label="$t('components.options.reset')"
           color="neutral"
+          density="compact"
           @click="options = {}"
         />
 
-        <OnyxFlyoutMenu :label="$t('components.options.change')" drilldown-mode="external">
-          <template #button="{ trigger }">
-            <OnyxButton
-              v-bind="trigger"
-              :label="$t('components.options.change')"
-              color="neutral"
-              density="compact"
-            />
-          </template>
-
-          <template #options>
-            <OnyxMenuItem :label="$t('components.options.density')">
-              <template #children>
-                <OnyxMenuItem
-                  v-for="density in DENSITIES"
-                  :key="density"
-                  :label="density"
-                  :active="options.density === density"
-                  @click="options.density = density"
-                />
-              </template>
-            </OnyxMenuItem>
-
-            <OnyxMenuItem :label="$t('components.options.appearance')">
-              <template #children>
-                <OnyxMenuItem
-                  :label="$t('components.options.appearances.light')"
-                  :active="options.colorScheme === 'light'"
-                  @click="options.colorScheme = 'light'"
-                />
-                <OnyxMenuItem
-                  :label="$t('components.options.appearances.dark')"
-                  :active="options.colorScheme === 'dark'"
-                  @click="options.colorScheme = 'dark'"
-                />
-              </template>
-            </OnyxMenuItem>
-          </template>
-        </OnyxFlyoutMenu>
+        <ComponentExampleOptions v-model="options" />
       </template>
     </OnyxTabs>
   </div>
