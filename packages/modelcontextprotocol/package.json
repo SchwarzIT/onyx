@@ -40,8 +40,8 @@
     "typescript": "catalog:",
     "vite": "catalog:",
     "vite-plugin-dts": "^4.5.4",
-    "vue-component-meta": "^3.2.7",
-    "zod": "^4.4.2"
+    "vue-component-meta": "^3.2.8",
+    "zod": "^4.4.3"
   },
   "engines": {
     "node": ">=20"
