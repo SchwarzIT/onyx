@@ -37,7 +37,7 @@ const fileKey = computed(() => {
   });
 });
 
-// build time breaker to guarantee that no non-existing examples
+// build time breaker to guarantee that no non-existing examples are used
 // see "prerender" config in nuxt.config.ts
 watchEffect(() => {
   if (!fileKey.value) {

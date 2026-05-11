@@ -12,7 +12,7 @@ const props = defineProps<{
 
 const meta = computed(() => getComponentMeta(props.component));
 
-// build time breaker to guarantee that no non-existing examples
+// build time breaker to guarantee that no non-existing components are used
 // see "prerender" config in nuxt.config.ts
 watchEffect(() => {
   if (!meta.value) {
