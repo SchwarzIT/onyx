@@ -8,12 +8,25 @@ import {
 import type { PropertyMetaSchema } from "vue-component-meta";
 
 export type ComponentMetaItem = {
+  /**
+   * Meta name (e.g. name of the property, event, slot etc.).
+   */
   name: string;
+  /**
+   * Description about the item.
+   */
   description: string;
+  /**
+   * Schema / type of the property, event etc.
+   */
   schema?: PropertyMetaSchema;
+  /**
+   * Whether the item is required.
+   */
   required?: boolean;
 };
 
+type TEntry = ComponentMetaItem & { id: string };
 type CustomColumnTypes = ColumnTypesFromFeatures<typeof customDataGridColumnTypes<TEntry>>;
 
 const props = defineProps<{
@@ -27,17 +40,18 @@ const props = defineProps<{
   items: ComponentMetaItem[];
 }>();
 
-type TEntry = ComponentMetaItem & { id: string };
-
 const { t } = useI18n();
 
 const data = computed(() => {
   return props.items
     .map<TEntry>((item) => ({ ...item, id: item.name }))
     .sort((a, b) => {
+      // 1. sort required items first
       const aRequired = "required" in a && a.required;
       const bRequired = "required" in b && b.required;
       if (aRequired !== bRequired) return aRequired ? -1 : 1;
+
+      // 2. sort alphabetically
       return a.name.localeCompare(b.name);
     });
 });
