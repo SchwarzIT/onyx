@@ -21,7 +21,7 @@ watch(
   () => collection.data.value,
   (data) => {
     // if data is "null", the page content was not found. "undefined" means it is not loaded yet
-    if (data) return;
+    if (data !== null) return;
     throw showError({
       message: "Page not found",
       statusCode: 404,

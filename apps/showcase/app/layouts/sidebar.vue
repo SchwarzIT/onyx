@@ -2,6 +2,9 @@
 import SidebarLayout from "#layers/onyx/app/layouts/sidebar.vue";
 
 const props = defineProps<{
+  /**
+   * Whether to hide the page hero.
+   */
   hideHero?: boolean;
 }>();
 
