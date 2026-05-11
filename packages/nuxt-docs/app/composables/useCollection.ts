@@ -16,7 +16,7 @@ export const useCollection = () => {
 
   return useAsyncData(
     () => `page-${slug.value}-${locale.value}`,
-    async () => {
+    () => {
       const collection = `content_${locale.value}` as keyof Collections;
       return queryCollection(collection).path(slug.value).first();
     },
