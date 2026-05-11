@@ -86,7 +86,7 @@ const options = ref<ComponentExampleOptions>({});
 
       <OnyxTab :label="$t('components.code')" value="code" density="compact">
         <!-- we use a build time breaker so the "v-if" here is only used for TypeScript -->
-        <MDC v-if="exampleCode" :value="exampleCode" />
+        <MDC v-if="exampleCode" class="example__code" :value="exampleCode" />
       </OnyxTab>
 
       <template #actions>
@@ -125,6 +125,10 @@ const options = ref<ComponentExampleOptions>({});
     > *:only-child {
       flex-grow: 1;
     }
+  }
+
+  :deep(.example__code) {
+    --onyx-markdown-renderer-margin-block: 0;
   }
 }
 </style>
