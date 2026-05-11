@@ -1,6 +1,7 @@
 import { iconCircleInformation, iconEyeDisabled, iconPlusSmall } from "@sit-onyx/icons";
 import { computed, h, ref, toRef, type AriaAttributes, type Ref } from "vue";
 import type { ComponentSlots } from "vue-component-type-helpers";
+import { normalizedIncludes } from "../../../../utils/strings.js";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import OnyxMiniSearch from "../../../OnyxMiniSearch/OnyxMiniSearch.vue";
 import OnyxFlyoutMenu from "../../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
@@ -65,7 +66,7 @@ export const useHideColumns = <TEntry extends DataGridEntry>(
               Array.from(hiddenColumns.value)
                 .filter(({ label }) => {
                   if (!searchTerm.value) return true;
-                  return label.toLowerCase().includes(searchTerm.value.toLowerCase());
+                  return normalizedIncludes(label, searchTerm.value);
                 })
                 .sort((a, b) => Intl.Collator(i18n.locale.value).compare(a.label, b.label))
                 .map(({ key, label }) =>
