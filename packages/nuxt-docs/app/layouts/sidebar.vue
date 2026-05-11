@@ -6,6 +6,7 @@ import type { SidebarNavigationItem } from "../composables/useSidebarNavigation.
 const props = defineProps<
   Omit<OnyxPageLayoutProps, "noPadding"> & {
     sidebar?: OnyxSidebarProps;
+    collectionOptions?: UseCollectionOptions;
   }
 >();
 
@@ -43,7 +44,7 @@ const slots = defineSlots<{
 
 const { navigation, previousRootItem } = await useSidebarNavigation();
 
-const collection = await useCollection();
+const collection = await useCollection(computed(() => props.collectionOptions));
 const toc = computed(() => collection.data.value?.body.toc?.links ?? []);
 </script>
 

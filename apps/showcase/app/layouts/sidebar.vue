@@ -6,6 +6,7 @@ const props = defineProps<{
    * Whether to hide the page hero.
    */
   hideHero?: boolean;
+  collectionOptions?: UseCollectionOptions;
 }>();
 
 defineSlots<{
@@ -15,11 +16,11 @@ defineSlots<{
   default(): unknown;
 }>();
 
-const { data } = await useCollection();
+const { data } = await useCollection(computed(() => props.collectionOptions));
 </script>
 
 <template>
-  <SidebarLayout>
+  <SidebarLayout :collection-options="props.collectionOptions">
     <template v-if="!props.hideHero" #hero>
       <PageContentHero
         :headline="data?.title"
