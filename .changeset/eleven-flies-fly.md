@@ -1,5 +1,5 @@
 ---
-"@sit-onyx/icons": minor
+"@sit-onyx/icons": patch
 ---
 
 feat: update icons
