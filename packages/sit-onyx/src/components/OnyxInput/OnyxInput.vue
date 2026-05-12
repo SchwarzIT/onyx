@@ -74,13 +74,13 @@ const normalizedPattern = computed(() => {
   if (typeof pattern === "object" && "value" in pattern && !(pattern instanceof RegExp)) {
     return {
       source: pattern.value instanceof RegExp ? pattern.value.source : pattern.value,
-      errMessage: pattern.errMessage,
+      errorMessage: pattern.errorMessage,
     };
   }
 
   return {
     source: pattern instanceof RegExp ? pattern.source : pattern,
-    errMessage: undefined,
+    errorMessage: undefined,
   };
 });
 
@@ -94,11 +94,11 @@ const error = computed(() => {
 
   const pattern = normalizedPattern.value;
   if (
-    pattern?.errMessage &&
+    pattern?.errorMessage &&
     modelValue.value !== undefined &&
     input.value?.validity.patternMismatch
   ) {
-    return pattern.errMessage;
+    return pattern.errorMessage;
   }
 
   return undefined;

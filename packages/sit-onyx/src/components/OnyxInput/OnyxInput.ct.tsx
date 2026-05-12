@@ -445,7 +445,7 @@ test("should display pattern error", async ({ mount }) => {
   const component = await mount(OnyxInput, {
     props: {
       label: "Test label",
-      pattern: { value: "^[a-z]+$", errMessage: "Only letters are allowed" },
+      pattern: { value: "^[a-z]+$", errorMessage: "Only letters are allowed" },
     },
   });
 

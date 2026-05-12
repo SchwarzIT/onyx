@@ -15,7 +15,7 @@ export type OnyxInputProps = Omit<SharedFormElementProps, "label"> &
     /**
      * Pattern the value must match to be valid.
      */
-    pattern?: string | RegExp | { value: string | RegExp; errMessage: CustomMessageType };
+    pattern?: string | RegExp | { value: string | RegExp; errorMessage: CustomMessageType };
     /**
      * Whether to hide the check icon when the input is in a success state.
      *E
