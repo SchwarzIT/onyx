@@ -221,6 +221,19 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
 
     @include define-borders();
 
+    &:not(:has(.onyx-table__empty)) {
+      @for $i from 1 through 99 {
+        &:has(th:nth-child(#{$i}):hover) {
+          tr > th:nth-child(#{$i}) {
+            background-color: var(--onyx-color-component-border-neutral);
+          }
+          tr > td:nth-child(#{$i})::before {
+            background-color: var(--onyx-color-base-neutral-200);
+          }
+        }
+      }
+    }
+
     &__empty {
       &-content {
         display: flex;
@@ -325,31 +338,6 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
             height: 0.5rem;
             margin: var(--onyx-density-xs) 0;
             border-radius: var(--onyx-radius-full);
-          }
-        }
-      }
-
-      // column hover styles
-      &:not(:has(.onyx-table__empty)) {
-        > tr > th:not(.onyx-table__colgroup):hover,
-      // support forcing hover with a class, useful when e.g. using resize handles
-      > tr > th.hover {
-          &::before {
-            background-color: color-mix(
-              in srgb,
-              var(--onyx-color-base-neutral-500),
-              transparent 85%
-            );
-            content: "";
-            height: var(--onyx-table-observed-height);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            bottom: 0;
-            z-index: calc(var(--onyx-table-z-index-cell) - 1);
-            // needed in order for other components like buttons etc. to be clickable and to prevent showing the column hover effect when hovering down over a row
-            pointer-events: none;
           }
         }
       }
