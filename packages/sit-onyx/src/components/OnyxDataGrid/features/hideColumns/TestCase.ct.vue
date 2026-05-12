@@ -38,7 +38,6 @@ const features = computed(() => [withHideColumns.value]);
 </script>
 
 <template>
-  <!-- eslint-disable-next-line sitOnyx/require-root-class -->
   <OnyxDataGrid :columns :data :features class="data-grid" />
 </template>
 
