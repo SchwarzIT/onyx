@@ -22,10 +22,13 @@ const isEmptyMessage = computed(() => t.value("table.empty"));
 
 const table = useTemplateRef("table");
 const { height, width } = useResizeObserver(table);
+const tableWrapper = useTemplateRef("tableWrapper");
+const { width: tableWrapperWidth } = useResizeObserver(tableWrapper);
 
 const style = computed(() => ({
   "--onyx-table-observed-height": `${height.value}px`,
   "--onyx-table-observed-width": `${width.value}px`,
+  "--onyx-table-wrapper-observed-width": `${tableWrapperWidth.value}px`,
 }));
 
 const _headlineId = useId();
@@ -33,7 +36,11 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
 </script>
 
 <template>
-  <div :class="['onyx-component', 'onyx-table-wrapper', densityClass]" :style>
+  <div
+    ref="tableWrapper"
+    :class="['onyx-component', 'onyx-table-wrapper', densityClass]"
+    :style="style"
+  >
     <div v-if="!!slots.headline || !!slots.actions" class="onyx-table-wrapper__top">
       <div :id="headlineId">
         <slot name="headline"></slot>
@@ -198,7 +205,6 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
       align-items: center;
       justify-content: space-between;
       gap: var(--onyx-density-xs) var(--onyx-density-xl);
-      container-type: inline-size;
     }
 
     &__actions {
@@ -380,20 +386,21 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
       color: var(--onyx-color-text-icons-primary-intense);
     }
   }
-  &__empty {
+  .onyx-table__empty {
     > td {
-      padding-inline: 0;
+      padding: 0;
     }
-
     &-content {
-      position: sticky;
-      left: 0;
-
-      // table width - borders
-      width: calc(100cqw - 2 * var(--onyx-1px-in-rem));
-
       display: flex;
       justify-content: center;
+      align-items: center;
+
+      position: sticky;
+      left: 0;
+      // table width - borders
+      width: calc(var(--onyx-table-wrapper-observed-width) - 2 * var(--onyx-1px-in-rem));
+      padding: var(--onyx-density-xl);
+      box-sizing: border-box;
     }
   }
 }
