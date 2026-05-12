@@ -187,7 +187,6 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
       max-width: inherit;
       overscroll-behavior-x: none; // fix bouncy scroll behavior in safari
       border: var(--onyx-table-border);
-      container-type: inline-size;
 
       &:focus-visible {
         outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
@@ -386,7 +385,7 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
       color: var(--onyx-color-text-icons-primary-intense);
     }
   }
-  .onyx-table__empty {
+  &__empty {
     > td {
       padding: 0;
     }
