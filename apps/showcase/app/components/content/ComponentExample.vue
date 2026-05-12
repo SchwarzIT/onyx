@@ -112,17 +112,24 @@ const options = ref<ComponentExampleOptions>({});
   }
 
   &__preview {
-    --onyx-card-padding: var(--onyx-density-3xl);
-    --onyx-card-gap: var(--onyx-density-md);
-    justify-content: center;
-    flex-direction: row;
-    flex-wrap: wrap;
+    padding-block: var(--onyx-grid-margin);
+    align-items: center;
   }
 
   &__preview-wrapper {
-    display: contents;
+    display: flex;
+    flex-direction: row;
+    gap: var(--onyx-density-md);
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 
-    > *:only-child {
+    &:has(> :first-child:only-child) {
+      max-width: 24rem;
+    }
+
+    > :first-child:only-child {
       flex-grow: 1;
     }
   }

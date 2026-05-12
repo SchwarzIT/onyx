@@ -135,7 +135,8 @@ const toc = computed(() => collection.data.value?.body.toc?.links ?? []);
 
   // hide TOC on smaller screens
   @include breakpoints.container(max, md) {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
 
     .main__toc {
       display: none;
