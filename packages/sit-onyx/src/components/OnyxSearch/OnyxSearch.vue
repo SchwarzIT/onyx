@@ -7,7 +7,6 @@ import { injectI18n } from "../../i18n/index.js";
 import { useForwardProps } from "../../utils/props.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElementAction from "../OnyxFormElementAction/OnyxFormElementAction.vue";
-import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxInput from "../OnyxInput/OnyxInput.vue";
 import OnyxKey from "../OnyxKey/OnyxKey.vue";
 import OnyxModal from "../OnyxModal/OnyxModal.vue";
@@ -89,30 +88,35 @@ _unstableUseShortcut({
           v-model="modelValue"
           :label="t('search.label')"
           :placeholder="undefined"
-          required
+          :required="props.required"
           :show-error="false"
           type="search"
           hide-label
           disable-slot-padding
         >
+          <template #leadingIcons>
+            <OnyxFormElementAction
+              :icon="iconSearch"
+              :label="t('search.label')"
+              highlighted="auto"
+              @click="input?.focus()"
+            />
+          </template>
+
           <template #trailingIcons>
             <div v-if="!modelValue" class="onyx-search__placeholder">
-              <div
-                v-if="props.withShortcut"
-                class="onyx-truncation-ellipsis onyx-search__placeholder-text"
-              >
-                {{ t("search.leadingShortcutPlaceholder") }}
+              <div v-if="props.withShortcut" class="onyx-search__placeholder-text">
+                <span> {{ t("search.leadingShortcutPlaceholder") }}</span>
                 <OnyxKey name="/" />
-                {{ t("search.trailingShortcutPlaceholder") }}
+                <span class="onyx-truncation-ellipsis">
+                  {{ t("search.trailingShortcutPlaceholder") }}</span
+                >
               </div>
 
               <p v-else class="onyx-truncation-ellipsis onyx-search__placeholder-text">
                 {{ props.placeholder }}
               </p>
             </div>
-          </template>
-          <template #leadingIcons>
-            <OnyxIcon :icon="iconSearch" />
           </template>
 
           <template v-if="!disabled && (!!slots.default || showFilters !== undefined)" #trailing>
@@ -132,7 +136,7 @@ _unstableUseShortcut({
       v-if="props.filterPosition === 'modal'"
       v-model:open="showFilters"
       :label="t('search.selectFilter')"
-      class="onyx-search__filters"
+      class="onyx-search__modal"
     >
       <slot></slot>
     </OnyxModal>
@@ -149,39 +153,28 @@ _unstableUseShortcut({
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
-@use "../../styles/mixins/input.scss";
 @use "../OnyxFormElementV2/OnyxFormElementV2.scss";
 
 .onyx-search {
   @include layers.component() {
+    --onyx-search-input-width: 100%;
+    --onyx-search-modal-width: 24rem;
     display: flex;
     flex-direction: column;
     gap: var(--onyx-density-sm);
 
     &--inline {
+      --onyx-search-input-width: 20rem;
       flex-direction: row;
       flex-wrap: wrap;
-
-      .onyx-search__input {
-        width: 20rem;
-        min-width: fit-content;
-      }
-    }
-
-    &--modal {
-      .onyx-modal__body {
-        padding: var(--onyx-density-sm);
-        display: flex;
-        flex-direction: column;
-        gap: var(--onyx-density-sm);
-      }
     }
 
     &__input {
-      cursor: pointer;
-      color: var(--onyx-form-element-action-color);
+      width: var(--onyx-search-input-width);
+      max-width: 100%;
 
       .onyx-form-element-v2__input-container {
+        // needed to correctly position the placeholder shortcut
         position: relative;
       }
 
@@ -193,30 +186,16 @@ _unstableUseShortcut({
         --onyx-form-element-v2-border-radius: var(--onyx-radius-md);
       }
 
-      .onyx-form-element-v2__input-container:has(.onyx-form-element-v2__input:enabled) {
-        &:focus-within,
-        &:hover {
-          .onyx-form-element-v2__icons--leading .onyx-icon {
-            --icon-color: var(--onyx-color-text-icons-primary-intense);
-          }
+      @include OnyxFormElementV2.input-focus-or-popover-open() {
+        .onyx-search__placeholder {
+          display: none;
         }
       }
-
-      &:has(.onyx-form-element-v2__input:disabled) {
-        cursor: default;
-        .onyx-icon {
-          --icon-color: var(--onyx-color-text-icons-neutral-soft);
-        }
-      }
-    }
-
-    .onyx-separator {
-      height: 100%;
     }
 
     &__placeholder {
       position: absolute;
-      left: calc(var(--onyx-form-element-v2-padding-inline) + 24px);
+      left: calc(var(--onyx-form-element-v2-padding-inline) + 1.5rem);
       padding: var(--onyx-form-element-v2-padding-block)
         var(--onyx-form-element-v2-padding-inline-icons);
       pointer-events: none;
@@ -238,17 +217,23 @@ _unstableUseShortcut({
       }
     }
 
-    @include OnyxFormElementV2.input-focus-or-popover-open() {
-      .onyx-search__placeholder {
-        display: none;
-      }
-    }
-
     &__filters {
       display: flex;
       gap: var(--onyx-density-sm);
       flex-direction: row;
       flex-wrap: wrap;
+    }
+
+    &__modal {
+      width: var(--onyx-search-modal-width);
+      container-type: inline-size;
+
+      .onyx-modal__body {
+        padding: var(--onyx-modal-padding-inline);
+        display: flex;
+        flex-direction: column;
+        gap: var(--onyx-density-sm);
+      }
     }
   }
 }

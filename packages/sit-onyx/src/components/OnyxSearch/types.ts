@@ -15,6 +15,7 @@ export type OnyxSearchProps = Pick<
   | "autofocus"
   | "loading"
   | "placeholder"
+  | "required"
 > & {
   /**
    * The component is available in two color modes: blank and tinted.

@@ -33,6 +33,7 @@ const categoryOptions = [
   >
     <OnyxSelect
       v-model="filters.status"
+      class="select"
       hide-label
       label="Status"
       :options="statusOptions"
@@ -41,6 +42,7 @@ const categoryOptions = [
     />
     <OnyxSelect
       v-model="filters.category"
+      class="select"
       hide-label
       label="Category"
       :options="categoryOptions"
@@ -52,10 +54,10 @@ const categoryOptions = [
 </template>
 
 <style lang="scss" scoped>
-:deep(.onyx-search__input) {
-  max-width: 24rem;
+.search {
+  --onyx-search-input-width: 20rem;
 }
-.onyx-select {
+.select {
   width: 16rem;
 }
 </style>
