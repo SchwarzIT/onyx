@@ -1,3 +1,4 @@
+import type { CustomMessageType } from "../../composables/useFormElementError.js";
 import type { SharedTextInputProps } from "../../composables/useLenientMaxLengthValidation.js";
 import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
 import type { OnyxFormElementV2Props } from "../OnyxFormElementV2/types.js";
@@ -14,10 +15,10 @@ export type OnyxInputProps = Omit<SharedFormElementProps, "label"> &
     /**
      * Pattern the value must match to be valid.
      */
-    pattern?: string | RegExp;
+    pattern?: string | RegExp | { value: string | RegExp; errMessage: CustomMessageType };
     /**
      * Whether to hide the check icon when the input is in a success state.
-     *
+     *E
      * @deprecated This property is obsolete since the "success" state will no longer automatically show a "check" icon.
      * The "check" icon is intended as temporary feedback after a user action (e.g. clicking a copy button). Use the `trailingIcons` slot to manually show the icon if needed.
      */

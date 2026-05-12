@@ -64,18 +64,48 @@ defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
 const { t } = injectI18n();
 
-const { maxLength, maxLengthError } = useLenientMaxLengthValidation({ modelValue, props });
-const error = computed(() => props.error ?? maxLengthError.value);
-const { vCustomValidity, errorMessages } = useFormElementError({ props, emit, error });
-const { formElementV2Props } = useLegacyFormElementProps({ props, errorMessages });
-
-const patternSource = computed(() => {
-  if (props.pattern instanceof RegExp) return props.pattern.source;
-  return props.pattern;
-});
-
 const input = useTemplateRef("input");
 defineExpose({ input });
+
+const normalizedPattern = computed(() => {
+  const pattern = props.pattern;
+  if (!pattern) return;
+
+  if (typeof pattern === "object" && "value" in pattern && !(pattern instanceof RegExp)) {
+    return {
+      source: pattern.value instanceof RegExp ? pattern.value.source : pattern.value,
+      errMessage: pattern.errMessage,
+    };
+  }
+
+  return {
+    source: pattern instanceof RegExp ? pattern.source : pattern,
+    errMessage: undefined,
+  };
+});
+
+const patternSource = computed(() => normalizedPattern.value?.source);
+
+const { maxLength, maxLengthError } = useLenientMaxLengthValidation({ modelValue, props });
+
+const error = computed(() => {
+  if (props.error) return props.error;
+  if (maxLengthError.value) return maxLengthError.value;
+
+  const pattern = normalizedPattern.value;
+  if (
+    pattern?.errMessage &&
+    modelValue.value !== undefined &&
+    input.value?.validity.patternMismatch
+  ) {
+    return pattern.errMessage;
+  }
+
+  return undefined;
+});
+
+const { vCustomValidity, errorMessages } = useFormElementError({ props, emit, error });
+const { formElementV2Props } = useLegacyFormElementProps({ props, errorMessages });
 
 const { disabled } = useFormContext(props);
 useAutofocus(input, props);
