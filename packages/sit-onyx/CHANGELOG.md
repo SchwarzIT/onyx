@@ -1,5 +1,11 @@
 # sit-onyx
 
+## 1.13.1
+
+### Patch Changes
+
+- 5126db1: feat(theme): added new PreZero theme fonts
+
 ## 1.13.0
 
 ### Minor Changes
