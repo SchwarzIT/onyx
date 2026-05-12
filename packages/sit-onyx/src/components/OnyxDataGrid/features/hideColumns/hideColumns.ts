@@ -60,7 +60,6 @@ export const useHideColumns = <TEntry extends DataGridEntry>(
                 modelValue: searchTerm.value,
                 "onUpdate:modelValue": (value: string) => (searchTerm.value = value),
                 onClear: () => (searchTerm.value = ""),
-                onClick: (e: MouseEvent) => e.stopPropagation(),
                 autofocus: true,
               }),
               Array.from(hiddenColumns.value)

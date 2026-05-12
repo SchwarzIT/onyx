@@ -55,6 +55,7 @@ defineExpose({
     :class="['onyx-component', 'onyx-mini-search', densityClass]"
     v-bind="rootAttrs"
     :style="{ '--onyx-placeholder-character-count': placeholder.length }"
+    @click.stop
   >
     <input
       ref="input"
@@ -77,7 +78,7 @@ defineExpose({
       :aria-label="t('select.clearSearch')"
       tabindex="-1"
       @mousedown.prevent
-      @click.prevent.stop="emit('clear')"
+      @click="emit('clear')"
     >
       <OnyxIcon :icon="iconXSmall" />
     </button>

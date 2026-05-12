@@ -39,13 +39,11 @@ const features = computed(() => [withHideColumns.value]);
 
 <template>
   <!-- eslint-disable-next-line sitOnyx/require-root-class -->
-  <div class="wrapper">
-    <OnyxDataGrid :columns :data :features />
-  </div>
+  <OnyxDataGrid :columns :data :features class="data-grid" />
 </template>
 
 <style lang="scss" scoped>
-.wrapper {
+.data-grid {
   padding-bottom: 4rem;
 }
 </style>
