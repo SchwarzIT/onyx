@@ -357,6 +357,7 @@
     "filterLabel": "afficher le filtre de recherche",
     "leadingShortcutPlaceholder": "Taper",
     "trailingShortcutPlaceholder": "pour rechercher",
-    "label": "Rechercher"
+    "label": "Rechercher",
+    "selectFilter": "Sélectionner un filtre"
   }
 }

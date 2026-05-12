@@ -357,6 +357,7 @@
     "filterLabel": "mostrar filtro de pesquisa",
     "leadingShortcutPlaceholder": "Digite",
     "trailingShortcutPlaceholder": "para pesquisar",
-    "label": "Pesquisar"
+    "label": "Pesquisar",
+    "selectFilter": "Selecionar Filtro"
   }
 }
