@@ -18,7 +18,28 @@
     }
   },
   "components": {
-    "component": "Component | Components"
+    "all": "All components",
+    "component": "Component | Components",
+    "property": "Property | Properties",
+    "event": "Event | Events",
+    "slot": "Slot | Slots",
+    "exposed": "Exposed",
+    "example": "Component example",
+    "preview": "Preview",
+    "code": "Code",
+    "overview": "Overview",
+    "details": "Component details",
+    "schema": "Type",
+    "options": {
+      "reset": "Reset styles",
+      "change": "change styles",
+      "density": "Density",
+      "appearance": "Appearance",
+      "appearances": {
+        "light": "light",
+        "dark": "dark"
+      }
+    }
   },
   "gettingStarted": "Getting Started",
   "copyToClipboard": "Copy to clipboard",
@@ -43,5 +64,7 @@
     "global": "Global variable",
     "semantic": "Semantic variable",
     "visualizationDescription": "Visualization of color mapping for global and semantic variables."
-  }
+  },
+  "name": "Name",
+  "description": "Description"
 }

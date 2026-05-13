@@ -75,7 +75,12 @@ const patternSource = computed(() => {
 });
 
 const input = useTemplateRef("input");
-defineExpose({ input });
+defineExpose({
+  /**
+   * Reference to the native HTML `<input />` element.
+   */
+  input,
+});
 
 const { disabled } = useFormContext(props);
 useAutofocus(input, props);

@@ -17,10 +17,7 @@
         </div>
 
         <div class="hero__actions">
-          <OnyxButton
-            :label="$t('components.component', 2)"
-            :link="{ href: 'https://storybook.onyx.schwarz', target: '_blank' }"
-          />
+          <OnyxButton :label="$t('components.component', 2)" link="/components" />
           <OnyxButton :label="$t('gettingStarted')" mode="outline" link="/introduction" />
         </div>
       </div>

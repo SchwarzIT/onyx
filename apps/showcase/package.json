@@ -27,6 +27,7 @@
     "@sit-onyx/nuxt-docs": "workspace:^",
     "@vueuse/core": "^14.3.0",
     "@vueuse/nuxt": "^14.3.0",
+    "@vueuse/router": "^14.3.0",
     "better-sqlite3": "^12.9.0",
     "nuxt": "catalog:",
     "nuxt-auth-utils": "~0.5.29",
@@ -34,5 +35,8 @@
     "sit-onyx": "workspace:^",
     "vue": "catalog:",
     "vue-router": "^5.0.6"
+  },
+  "devDependencies": {
+    "vue-component-meta": "catalog:"
   }
 }
