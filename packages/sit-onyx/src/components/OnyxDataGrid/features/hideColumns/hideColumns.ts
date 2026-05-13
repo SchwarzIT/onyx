@@ -1,7 +1,9 @@
 import { iconCircleInformation, iconEyeDisabled, iconPlusSmall } from "@sit-onyx/icons";
 import { computed, h, ref, toRef, type AriaAttributes, type Ref } from "vue";
 import type { ComponentSlots } from "vue-component-type-helpers";
+import { normalizedIncludes } from "../../../../utils/strings.js";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
+import OnyxMiniSearch from "../../../OnyxMiniSearch/OnyxMiniSearch.vue";
 import OnyxFlyoutMenu from "../../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxMenuItem from "../../../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxSystemButton from "../../../OnyxSystemButton/OnyxSystemButton.vue";
@@ -32,6 +34,8 @@ export const useHideColumns = <TEntry extends DataGridEntry>(
       columnConfig.value.filter((c) => hiddenColumnKeys.value.has(c.key)),
     );
 
+    const searchTerm = ref("");
+
     const flyoutMenu = () =>
       h(
         OnyxFlyoutMenu,
@@ -50,17 +54,30 @@ export const useHideColumns = <TEntry extends DataGridEntry>(
               ...trigger,
             }),
           options: () => {
-            return Array.from(hiddenColumns.value)
-              .sort((a, b) => Intl.Collator(i18n.locale.value).compare(a.label, b.label))
-              .map(({ key, label }) =>
-                h(
-                  OnyxMenuItem,
-                  {
-                    onClick: () => hiddenColumnKeys.value.delete(key),
-                  },
-                  () => label,
+            return [
+              h(OnyxMiniSearch, {
+                label: i18n.t.value("select.searchInputLabel"),
+                modelValue: searchTerm.value,
+                "onUpdate:modelValue": (value: string) => (searchTerm.value = value),
+                onClear: () => (searchTerm.value = ""),
+                autofocus: true,
+              }),
+              Array.from(hiddenColumns.value)
+                .filter(({ label }) => {
+                  if (!searchTerm.value) return true;
+                  return normalizedIncludes(label, searchTerm.value);
+                })
+                .sort((a, b) => Intl.Collator(i18n.locale.value).compare(a.label, b.label))
+                .map(({ key, label }) =>
+                  h(
+                    OnyxMenuItem,
+                    {
+                      onClick: () => hiddenColumnKeys.value.delete(key),
+                    },
+                    () => label,
+                  ),
                 ),
-              );
+            ];
           },
         } satisfies ComponentSlots<typeof OnyxFlyoutMenu>,
       );
