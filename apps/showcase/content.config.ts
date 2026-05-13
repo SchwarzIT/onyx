@@ -4,7 +4,7 @@ export default defineContentConfig({
   collections: {
     content_en: defineCollection({
       type: "page",
-      source: { include: "en/**", exclude: ["*/components"], prefix: "/" },
+      source: { include: "en/**", exclude: ["*/components/**"], prefix: "/" },
       schema: z.object({
         hero: z
           .object({
