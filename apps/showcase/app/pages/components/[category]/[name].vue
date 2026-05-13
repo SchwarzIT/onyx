@@ -11,17 +11,17 @@ const activeTab = useRouteQuery("tab", "overview");
 </script>
 
 <template>
-  <ProseH1>{{ data.title }}</ProseH1>
+  <TableOfContentsLayout :toc="data.body.toc?.links ?? []" :hidden="activeTab !== 'overview'">
+    <ProseH1>{{ data.title }}</ProseH1>
 
-  <OnyxTabs v-model="activeTab" :label="$t('components.details')">
-    <OnyxTab :label="$t('components.overview')" value="overview">
-      <TableOfContentsLayout :toc="data.body.toc?.links ?? []">
+    <OnyxTabs v-model="activeTab" :label="$t('components.details')">
+      <OnyxTab :label="$t('components.overview')" value="overview">
         <ContentRenderer :value="data" />
-      </TableOfContentsLayout>
-    </OnyxTab>
+      </OnyxTab>
 
-    <OnyxTab :label="$t('components.property', 2)" value="properties">
-      <ComponentMeta :component="data.componentName" />
-    </OnyxTab>
-  </OnyxTabs>
+      <OnyxTab :label="$t('components.property', 2)" value="properties">
+        <ComponentMeta :component="data.componentName" />
+      </OnyxTab>
+    </OnyxTabs>
+  </TableOfContentsLayout>
 </template>

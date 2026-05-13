@@ -3,6 +3,14 @@ import type { TocLink } from "@nuxtjs/mdc";
 
 const props = defineProps<{
   toc: TocLink[];
+  /**
+   * Whether the TOC should be hidden completely.
+   * By default, the content space is still limited even when the TOC is empty
+   * so the layout width is the same when switching between pages with and without a TOC.
+   *
+   * When set to `true`, the content will be full width.
+   */
+  hidden?: boolean;
 }>();
 
 defineSlots<{
@@ -14,7 +22,11 @@ defineSlots<{
 </script>
 
 <template>
-  <div class="layout">
+  <div v-if="props.hidden" class="layout__content">
+    <slot></slot>
+  </div>
+
+  <div v-else class="layout">
     <div class="layout__content">
       <slot></slot>
     </div>
