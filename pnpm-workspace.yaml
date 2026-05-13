@@ -12,7 +12,7 @@ catalog:
   "@vue/shared": 3.5.34
   "@types/node": 24.12.3
   chart.js: 4.5.1
-  nuxt: 4.4.4
+  nuxt: 4.4.5
   playwright: 1.59.1
   playwright-core: 1.59.1
   sass-embedded: 1.99.0
