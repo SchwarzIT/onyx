@@ -17,7 +17,7 @@ export const customDataGridColumnTypes = createFeature(<TEntry extends DataGridE
       cell: {
         component: ({ modelValue }) => {
           if (typeof modelValue !== "string" || !modelValue) return "-";
-          return h(MDC, { value: modelValue, class: "markdown-cell" });
+          return h(MDC, { value: modelValue, class: "onyx-data-grid-markdown-cell" });
         },
       },
     }),
