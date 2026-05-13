@@ -34,20 +34,25 @@ export type SidebarNavigationOptions = {
   collapsed?: boolean;
 };
 
-export const useSidebarNavigation = async () => {
+export type UseSidebarNavigationOptions = {
+  /**
+   * Collection name to use for querying the navigation.
+   */
+  collection: Ref<keyof Collections>;
+};
+
+/**
+ * Composable for querying and mapping the navigation items for a given collection.
+ */
+export const useSidebarNavigation = async (options: UseSidebarNavigationOptions) => {
   const { locale } = useI18n();
   const localePath = useLocalePath();
   const route = useRoute();
 
   const { data } = await useAsyncData(
-    () => `navigation-${locale.value}`,
-    () => {
-      const collection = `content_${locale.value}` as const;
-      return queryCollectionNavigation(collection as keyof Collections);
-    },
-    {
-      default: () => [],
-    },
+    () => `navigation-${options.collection.value}-${locale.value}`,
+    () => queryCollectionNavigation(options.collection.value),
+    { default: () => [] },
   );
 
   /**

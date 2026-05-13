@@ -1,14 +1,6 @@
 <script lang="ts" setup>
 import SidebarLayout from "#layers/onyx/app/layouts/sidebar.vue";
 
-const props = defineProps<{
-  /**
-   * Whether to hide the page hero.
-   */
-  hideHero?: boolean;
-  collectionOptions?: UseCollectionOptions;
-}>();
-
 defineSlots<{
   /**
    * Main page content.
@@ -16,16 +8,20 @@ defineSlots<{
   default(): unknown;
 }>();
 
-const { data } = await useCollection(computed(() => props.collectionOptions));
+const { locale } = useI18n();
+
+const { data: collection } = await useCollection({
+  collection: computed(() => `content_${locale.value}` as const),
+});
 </script>
 
 <template>
-  <SidebarLayout :collection-options="props.collectionOptions">
-    <template v-if="!props.hideHero" #hero>
+  <SidebarLayout>
+    <template #hero>
       <PageContentHero
-        :headline="data?.title"
-        :description="data?.description"
-        :image="data?.hero?.image"
+        :headline="collection.title"
+        :description="collection.description"
+        :image="collection.hero?.image"
       />
     </template>
 

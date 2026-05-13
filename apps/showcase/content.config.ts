@@ -4,7 +4,7 @@ export default defineContentConfig({
   collections: {
     content_en: defineCollection({
       type: "page",
-      source: { include: "en/**", prefix: "/", exclude: ["en/**/*.vue"] },
+      source: { include: "en/**", exclude: ["*/components"], prefix: "/" },
       schema: z.object({
         hero: z
           .object({
@@ -19,7 +19,13 @@ export default defineContentConfig({
               .optional(),
           })
           .optional(),
-        componentName: z.string().optional(),
+      }),
+    }),
+    components_en: defineCollection({
+      type: "page",
+      source: { include: "en/components/**", exclude: ["**/*.vue"], prefix: "/components" },
+      schema: z.object({
+        componentName: z.string(),
       }),
     }),
   },

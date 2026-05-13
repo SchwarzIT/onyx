@@ -1,36 +1,64 @@
 import type { Collections } from "@nuxt/content";
 
-export type UseCollectionOptions = {
+export type UseCollectionOptions<TCollection extends keyof Collections = keyof Collections> = {
   /**
-   * Slug / route path to use for querying the collection.
-   *
-   * @default `slug` route parameter
+   * Collection name to query.
    */
-  slug?: MaybeRef<string>;
+  collection: MaybeRef<TCollection>;
+  /**
+   * Path to query the collection item for.
+   *
+   * @default Current locale route.
+   */
+  path?: MaybeRef<string>;
 };
 
 /**
- * Composable for loading the collection content for the current route and locale.
+ * Composable for loading the collection data for the current route and locale.
  */
-export const useCollection = (options?: MaybeRef<UseCollectionOptions | undefined>) => {
+export const useCollection = async <TCollection extends keyof Collections = keyof Collections>(
+  options: UseCollectionOptions<TCollection>,
+) => {
+  const nuxtApp = useNuxtApp();
+
   const route = useRoute();
-  const { locale } = useI18n();
+  const localePath = useLocalePath();
 
-  const slug = computed(() => {
-    const _slug = toValue(toValue(options)?.slug);
-    if (_slug) return _slug;
+  const collection = computed(() => toValue(options.collection));
+  const path = computed(() => toValue(options.path) ?? localePath(route.path));
 
-    const path = Array.isArray(route.params.slug)
-      ? route.params.slug.join("/")
-      : (route.params.slug ?? "");
-    return path.startsWith("/") ? path : `/${path}`;
+  const { data: collectionData } = await useAsyncData(
+    () => `collection-${collection.value}-${path.value}`,
+    () => queryCollection(collection.value).path(path.value).first(),
+  );
+
+  watch(
+    collectionData,
+    (newValue) => {
+      // if data is "null", the page content was not found. "undefined" means it is not loaded yet
+      if (newValue !== null) return;
+      throw showError({
+        message: "Page not found",
+        statusCode: 404,
+        fatal: true,
+      });
+    },
+    { immediate: true },
+  );
+
+  const data = computed<Collections[TCollection]>((previousData) => {
+    // fallback to previousData here is used because the data is undefined when then key for "useAsyncData" changes
+    // e.g. due to routing. We keep the previous data until the new one is loaded so the data is never "undefined"
+    return (collectionData.value ?? previousData) as Collections[TCollection];
   });
 
-  return useAsyncData(
-    () => `page-${slug.value}-${locale.value}`,
-    () => {
-      const collection = `content_${locale.value}` as keyof Collections;
-      return queryCollection(collection).path(slug.value).first();
-    },
-  );
+  // runWithContext is needed due to async usage above
+  nuxtApp.runWithContext(() => {
+    useSeoMeta({
+      title: () => data.value.seo.title,
+      description: () => data.value.seo.description,
+    });
+  });
+
+  return { data };
 };

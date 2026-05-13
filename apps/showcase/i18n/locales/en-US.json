@@ -18,6 +18,7 @@
     }
   },
   "components": {
+    "all": "All components",
     "component": "Component | Components",
     "property": "Property | Properties",
     "event": "Event | Events",
