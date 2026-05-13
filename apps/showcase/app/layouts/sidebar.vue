@@ -17,7 +17,7 @@ const { data: collection } = await useCollection({
 
 <template>
   <SidebarLayout>
-    <template #hero>
+    <template v-if="collection" #hero>
       <PageContentHero
         :headline="collection.title"
         :description="collection.description"

@@ -10,8 +10,13 @@ const { data } = await useCollection({
 const activeTab = useRouteQuery("tab", "overview");
 </script>
 
+<!-- eslint-disable-next-line vue/no-root-v-if  -- The "useCollection" will already redirect to the error page when the data is undefined but the data might still be undefined while e.g. switching to another page -->
 <template>
-  <TableOfContentsLayout :toc="data.body.toc?.links ?? []" :hidden="activeTab !== 'overview'">
+  <TableOfContentsLayout
+    v-if="data"
+    :toc="data.body.toc?.links ?? []"
+    :hidden="activeTab !== 'overview'"
+  >
     <ProseH1>{{ data.title }}</ProseH1>
 
     <OnyxTabs v-model="activeTab" :label="$t('components.details')">

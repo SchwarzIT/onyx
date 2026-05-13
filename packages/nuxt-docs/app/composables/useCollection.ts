@@ -22,44 +22,52 @@ export const useCollection = async <TCollection extends keyof Collections = keyo
   options: UseCollectionOptions<TCollection>,
 ) => {
   const nuxtApp = useNuxtApp();
-
-  const switchLocalePath = useSwitchLocalePath();
-  const { defaultLocale } = useI18n();
-  const currentBasePath = computed(() => switchLocalePath(defaultLocale));
+  const { locale } = useI18n();
+  const route = useRoute();
 
   const collection = computed(() => toValue(options.collection));
-  const path = computed(() => toValue(options.path) ?? currentBasePath.value);
+  const path = computed(() => {
+    let _path = toValue(options.path);
+    if (_path) return _path;
+
+    // get base path of current route (remove a potential locale prefix)
+    _path = route.path;
+    const localePrefix = `/${locale.value}`;
+
+    if (_path.startsWith(localePrefix)) return _path.slice(localePrefix.length);
+    return _path;
+  });
 
   const { data: collectionData } = await useAsyncData(
     () => `collection-${collection.value}-${path.value}`,
     () => queryCollection(collection.value).path(path.value).first(),
   );
 
+  const data = computed<Collections[TCollection] | undefined>(() => {
+    return collectionData.value as Collections[TCollection];
+  });
+
   watch(
-    collectionData,
-    (newValue) => {
+    data,
+    async (newValue) => {
       // if data is "null", the page content was not found. "undefined" means it is not loaded yet
       if (newValue !== null) return;
-      throw showError({
-        message: "Page not found",
-        statusCode: 404,
-        fatal: true,
-      });
+      await nuxtApp.runWithContext(() =>
+        showError({
+          message: "Page not found",
+          statusCode: 404,
+          fatal: true,
+        }),
+      );
     },
     { immediate: true },
   );
 
-  const data = computed<Collections[TCollection]>((previousData) => {
-    // fallback to previousData here is used because the data is undefined when then key for "useAsyncData" changes
-    // e.g. due to routing. We keep the previous data until the new one is loaded so the data is never "undefined"
-    return (collectionData.value ?? previousData) as Collections[TCollection];
-  });
-
   // runWithContext is needed due to async usage above
   await nuxtApp.runWithContext(() => {
     useSeoMeta({
-      title: () => data.value.seo.title,
-      description: () => data.value.seo.description,
+      title: () => data.value?.seo.title,
+      description: () => data.value?.seo.description,
     });
   });
 

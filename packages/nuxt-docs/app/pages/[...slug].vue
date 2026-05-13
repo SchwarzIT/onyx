@@ -10,6 +10,7 @@ const { data } = await useCollection({
 });
 </script>
 
+<!-- eslint-disable-next-line vue/no-root-v-if  -- The "useCollection" will already redirect to the error page when the data is undefined but the data might still be undefined while e.g. switching to another page -->
 <template>
-  <ContentRenderer :value="data" />
+  <ContentRenderer v-if="data" :value="data" />
 </template>
