@@ -8,24 +8,27 @@ export type UseCollectionOptions<TCollection extends keyof Collections = keyof C
   /**
    * Path to query the collection item for.
    *
-   * @default Current locale route.
+   * @default Current route.
    */
   path?: MaybeRef<string>;
 };
 
 /**
  * Composable for loading the collection data for the current route and locale.
+ * Will throw an 404 error if the collection item could not be found.
+ * Sets SEO data with `useSeoMeta()` automatically.
  */
 export const useCollection = async <TCollection extends keyof Collections = keyof Collections>(
   options: UseCollectionOptions<TCollection>,
 ) => {
   const nuxtApp = useNuxtApp();
 
-  const route = useRoute();
-  const localePath = useLocalePath();
+  const switchLocalePath = useSwitchLocalePath();
+  const { defaultLocale } = useI18n();
+  const currentBasePath = computed(() => switchLocalePath(defaultLocale));
 
   const collection = computed(() => toValue(options.collection));
-  const path = computed(() => toValue(options.path) ?? localePath(route.path));
+  const path = computed(() => toValue(options.path) ?? currentBasePath.value);
 
   const { data: collectionData } = await useAsyncData(
     () => `collection-${collection.value}-${path.value}`,
@@ -53,7 +56,7 @@ export const useCollection = async <TCollection extends keyof Collections = keyo
   });
 
   // runWithContext is needed due to async usage above
-  nuxtApp.runWithContext(() => {
+  await nuxtApp.runWithContext(() => {
     useSeoMeta({
       title: () => data.value.seo.title,
       description: () => data.value.seo.description,
