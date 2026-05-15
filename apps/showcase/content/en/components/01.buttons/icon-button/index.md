@@ -18,3 +18,10 @@ The icon button supports the same colors as the regular button. For further info
 The loading state is used after a user interaction to indicate that the triggered action is currently loading / in progress. On the other hand, the skeleton should be used on initial page load when the data for the page / button is initially loaded.
 
 :component-example{name="Loading"}
+
+### Disabled
+
+The icon button can be disabled to indicate that its associated action is currently not available.
+For an improved user experience, it should be clear to the user _why_ the icon button is disabled.
+
+:component-example{name="Disabled"}
