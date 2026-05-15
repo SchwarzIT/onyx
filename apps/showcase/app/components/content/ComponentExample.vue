@@ -129,7 +129,7 @@ const options = ref<ComponentExampleOptions>({});
       max-width: 24rem;
     }
 
-    > :first-child:only-child {
+    > :where(:first-child:only-child) {
       flex-grow: 1;
     }
   }
