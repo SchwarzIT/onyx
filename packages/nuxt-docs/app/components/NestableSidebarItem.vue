@@ -1,9 +1,16 @@
-<script lang="ts" setup>
+<script lang="ts" setup generic="TItem extends SidebarNavigationItem">
 import type { SidebarNavigationItem } from "../composables/useSidebarNavigation.js";
 import type { SidebarItemProps } from "./SidebarItem.vue";
 
 const props = defineProps<{
-  item: SidebarNavigationItem;
+  item: TItem;
+}>();
+
+const slots = defineSlots<{
+  /**
+   * Additional trailing content to display on the right.
+   */
+  trailing?(props: { item: TItem }): unknown;
 }>();
 
 const route = useRoute();
@@ -54,7 +61,11 @@ const { icon } = useIcon(computed(() => props.item.icon));
     v-if="!props.item.children?.length"
     class="sidebar-item"
     v-bind="getSidebarItemProps(props.item)"
-  />
+  >
+    <template v-if="slots.trailing" #trailing>
+      <slot name="trailing" :item="props.item"></slot>
+    </template>
+  </SidebarItem>
 
   <OnyxAccordion
     v-else
@@ -83,7 +94,11 @@ const { icon } = useIcon(computed(() => props.item.icon));
           :show-arrow="
             getSidebarItemProps(child).showArrow || getSidebarItemProps(props.item).showArrow
           "
-        />
+        >
+          <template v-if="slots.trailing" #trailing>
+            <slot name="trailing" :item="child as TItem"></slot>
+          </template>
+        </SidebarItem>
       </div>
     </OnyxAccordionItem>
   </OnyxAccordion>

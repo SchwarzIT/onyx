@@ -39,6 +39,9 @@
         "light": "light",
         "dark": "dark"
       }
+    },
+    "status": {
+      "new": "New"
     }
   },
   "gettingStarted": "Getting Started",

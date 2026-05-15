@@ -1,6 +1,7 @@
 ---
 title: Split button
 componentName: OnyxSplitButton
+status: new
 ---
 
 The split button is used to have multiple actions alongside a group of similar actions. The main action will be displayed on the left and will be triggered immediately after clicking. On the right side and behind an arrow icon, there are multiple additional actions which can be individual or can extend the functionality of the main action.
