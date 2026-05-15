@@ -128,10 +128,6 @@ const options = ref<ComponentExampleOptions>({});
     &:has(> :first-child:only-child) {
       max-width: 24rem;
     }
-
-    > :where(:first-child:only-child) {
-      flex-grow: 1;
-    }
   }
 
   :deep(.example__code) {

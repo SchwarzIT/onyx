@@ -21,6 +21,5 @@ const clipboard = useClipboard({ source: email });
   display: flex;
   align-items: center;
   gap: var(--onyx-density-xs);
-  flex-grow: 0;
 }
 </style>
