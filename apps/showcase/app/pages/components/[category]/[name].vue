@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { iconTestTube } from "@sit-onyx/icons";
+import { iconCircleAttention, iconTestTube } from "@sit-onyx/icons";
 
 definePageMeta({ layout: "components" });
 
@@ -32,11 +32,20 @@ const activeTab = useRouteQuery("tab", "overview");
       >
         <i18n-t keypath="components.status.beta.description">
           <template #changelog>
-            <OnyxLink href="/introduction/changelog">{{
-              $t("components.status.beta.changelog")
-            }}</OnyxLink>
+            <OnyxLink href="/introduction/changelog">
+              {{ $t("components.status.beta.changelog") }}
+            </OnyxLink>
           </template>
         </i18n-t>
+      </OnyxInfoCard>
+
+      <OnyxInfoCard
+        v-else-if="data.status === 'deprecated'"
+        :headline="$t('components.status.deprecated.label')"
+        :icon="iconCircleAttention"
+        color="danger"
+      >
+        {{ $t("components.status.deprecated.description") }}
       </OnyxInfoCard>
 
       <OnyxTabs v-model="activeTab" :label="$t('components.details')">
