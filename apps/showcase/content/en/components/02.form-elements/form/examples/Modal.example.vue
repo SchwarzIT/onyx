@@ -2,15 +2,23 @@
 import { OnyxBottomBar, OnyxButton, OnyxForm, OnyxInput, OnyxModal, OnyxStepper } from "sit-onyx";
 import { ref, useId } from "vue";
 
+type FormState = {
+  age: number;
+  email: string;
+};
+
 const isModalOpen = ref(false);
-const state = ref<{ name?: string; age?: number }>({});
+const state = ref<Partial<FormState>>({});
 
 const formId = useId();
 
 const handleSubmit = () => {
-  // your logic here...
-  // the submit is only called when all validations have passed
-  window.alert(`Form submitted: ${JSON.stringify(state.value, null, 2)}`);
+  // when passing the data to other components, you most likely want to make a copy of the data
+  // so the object is not passed by reference to avoid side effects
+  // the type cast is considered safe since the submit is only triggered when all required validations is passed
+  const data = structuredClone(state.value) as FormState;
+
+  window.alert(`Form submitted: ${JSON.stringify(data, null, 2)}`);
 };
 </script>
 
@@ -20,13 +28,11 @@ const handleSubmit = () => {
   <OnyxModal v-model:open="isModalOpen" class="modal" label="Example modal label">
     <OnyxForm :id="formId" class="onyx-grid modal__content" @submit.prevent="handleSubmit">
       <OnyxInput
-        v-model="state.name"
+        v-model="state.email"
         class="onyx-grid-span-4"
-        label="Name"
-        :minlength="3"
-        :maxlength="64"
+        label="Email"
+        type="email"
         required
-        with-counter
       />
       <OnyxStepper
         v-model="state.age"

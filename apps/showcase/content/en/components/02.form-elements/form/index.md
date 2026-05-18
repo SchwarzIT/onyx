@@ -23,7 +23,7 @@ In the following examples, we are using our [grid system](/introduction/foundati
 
 This example shows a basic form with some validations. Click the submit button before entering any values to see the form validation in action.
 
-:component-example{name="Basic"}
+:component-example{name="Basic" layout="grow"}
 
 ### External submit buttons
 
@@ -37,7 +37,7 @@ To "connect" such external submit button, simply add an ID to the form and defin
 
 A optional reset button can be used to allow the user to reset/revert his changes and restore the form with its default values. Depending on the use case, the default value can either be empty or contain pre-defined values (e.g. when editing existing data).
 
-:component-example{name="Reset"}
+:component-example{name="Reset" layout="grow"}
 
 ### Required / optional marker
 
@@ -46,10 +46,10 @@ When most form elements are required with only a few being optional, you can use
 
 We strongly recommend to use only **one** marker type per form.
 
-:component-example{name="OptionalMarker"}
+:component-example{name="OptionalMarker" layout="grow"}
 
 ### Disabled
 
 The form can be disabled which will automatically disabled all form elements used inside the form such as inputs, selects etc. This can be useful when e.g. disabling the form while loading / submitting so the user can not edit any data while its being processed.
 
-:component-example{name="Disabled"}
+:component-example{name="Disabled" layout="grow"}

@@ -3,18 +3,15 @@ import { OnyxButton, OnyxForm, OnyxInput, OnyxStepper } from "sit-onyx";
 import { ref } from "vue";
 
 type FormState = {
-  name?: string;
-  age?: number;
+  age: number;
+  email: string;
 };
 
-const getDefaultValue = (): FormState => ({ name: "Initial value" });
-
-const state = ref<FormState>(getDefaultValue());
+const getDefaultValue = (): Partial<FormState> => ({ email: "jane.doe@example.com" });
+const state = ref<Partial<FormState>>(getDefaultValue());
 
 const handleSubmit = () => {
   // your logic here...
-  // the submit is only called when all validations have passed
-  window.alert(`Form submitted: ${JSON.stringify(state.value, null, 2)}`);
 };
 
 /** The reset key is needed so Vue force re-renders the whole form so the components, validations etc. are correctly reset */
@@ -34,15 +31,7 @@ const handleReset = () => {
     @submit.prevent="handleSubmit"
     @reset.prevent="handleReset"
   >
-    <OnyxInput
-      v-model="state.name"
-      class="onyx-grid-span-4"
-      label="Name"
-      :minlength="3"
-      :maxlength="64"
-      required
-      with-counter
-    />
+    <OnyxInput v-model="state.email" class="onyx-grid-span-4" label="Email" type="email" required />
     <OnyxStepper
       v-model="state.age"
       class="onyx-grid-span-4"
