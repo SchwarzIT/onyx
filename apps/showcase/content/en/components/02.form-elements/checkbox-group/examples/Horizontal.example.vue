@@ -2,7 +2,7 @@
 import { CheckboxGroupOption, OnyxCheckboxGroup } from "sit-onyx";
 import { ref } from "vue";
 
-const selectedOptions = ref<number[]>([2, 6]);
+const selectedOptions = ref<number[]>([2]);
 
 const options = [
   { label: "Default", value: 1 },
