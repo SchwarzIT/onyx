@@ -37,3 +37,9 @@ The number of skeleton options is customizable.
 By default, the radio buttons are truncated with ellipsis (...) if the label is too long to fit into the available width. Alternatively, multiline truncation can be used to wrap the label into multi lines instead. The truncation can be configured for the whole group or individual radio buttons.
 
 :component-example{name="Truncation"}
+
+### Label tooltip
+
+An additional info tooltip can be displayed next to the label to e.g. show additional information or details about the radio buttons.
+
+:component-example{name="LabelTooltip"}
