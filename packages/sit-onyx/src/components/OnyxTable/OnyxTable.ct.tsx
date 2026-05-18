@@ -21,6 +21,15 @@ const tableHead = (
     </tr>
   </template>
 );
+const tableHeadLong = (
+  <template v-slot:head>
+    <tr>
+      {Array.from({ length: 20 }, (_, i) => (
+        <th key={`column-${i + 1}`}>Column {i + 1}</th>
+      ))}
+    </tr>
+  </template>
+);
 
 const tableBody = [
   <tr>
@@ -174,11 +183,11 @@ test.describe("Screenshot tests (scrolling)", () => {
 test.describe("Screenshot tests (hover)", () => {
   executeMatrixScreenshotTest({
     name: "Table (empty variations)",
-    columns: ["default", "no-header"],
+    columns: ["default", "long-table", "no-header"],
     rows: ["default", "custom-empty"],
     component: (column, row) => (
       <OnyxTable style="width: 20rem;">
-        {column === "default" ? tableHead : undefined}
+        {column === "default" ? tableHead : column === "long-table" ? tableHeadLong : undefined}
         {row === "custom-empty" ? (
           <template v-slot:empty>
             <OnyxEmpty>Custom empty</OnyxEmpty>
