@@ -2,14 +2,13 @@
 import { OnyxRadioGroup, RadioButtonOption } from "sit-onyx";
 import { ref } from "vue";
 
-const selectedOption = ref<number>();
+const selectedOption = ref<number>(2);
 
 const options = [
   { label: "Default", value: 1 },
   { label: "Initially checked", value: 2 },
-  { label: "Required", value: 3, required: true },
-  { label: "Disabled", value: 4, disabled: true },
-  { label: "Loading", value: 5, loading: true },
+  { label: "Disabled", value: 3, disabled: true },
+  { label: "Loading", value: 4, loading: true },
 ] satisfies RadioButtonOption[];
 </script>
 

@@ -5,11 +5,9 @@ import { ref } from "vue";
 const selectedOption = ref<number>();
 
 const options = [
-  { label: "Default", value: 1 },
-  { label: "Initially checked", value: 2 },
-  { label: "Required", value: 3, required: true },
-  { label: "Disabled", value: 4, disabled: true },
-  { label: "Loading", value: 5, loading: true },
+  { label: "Option 1", value: 1 },
+  { label: "Option 2", value: 2 },
+  { label: "Option 3", value: 3 },
 ] satisfies RadioButtonOption[];
 </script>
 
