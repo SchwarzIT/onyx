@@ -3,7 +3,7 @@ title: Checkbox group
 componentName: OnyxCheckboxGroup
 ---
 
-Checkboxes are a fundamental UI element, that allows users to make a binary selection. They are commonly used for tasks such as selecting multiple items, opting into services or confirming and agreeing.
+Checkboxes are a fundamental UI element, that allows users to make a binary selection. They are commonly used for tasks such as selecting multiple items, opting into services or confirming and agreeing. The checkbox group is a convenience component to simplify the management of multiple related options. For individual use, you can also use the [checkbox](/components/support/checkbox) component.
 
 ## Examples
 
