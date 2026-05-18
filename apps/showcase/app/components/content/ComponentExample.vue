@@ -11,7 +11,7 @@ const props = withDefaults(
     name: string;
     /**
      * Component preview layout.
-     * - default: Pre-defined Limited width
+     * - default: Pre-defined Limited width (if only 1 child exists, fullWidth otherwise)
      * - fullWidth: Full width
      */
     layout?: "default" | "fullWidth";
