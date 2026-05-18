@@ -30,7 +30,7 @@ const activeTab = useRouteQuery("tab", "overview");
         :headline="$t('components.status.beta.label')"
         :icon="iconTestTube"
       >
-        <i18n-t keypath="components.status.beta.description">
+        <i18n-t keypath="components.status.beta.description" scope="global">
           <template #changelog>
             <OnyxLink href="/introduction/changelog">
               {{ $t("components.status.beta.changelog") }}
