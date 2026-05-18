@@ -72,17 +72,24 @@ const triggerType = computed(() => {
 
 .onyx-info-tooltip {
   @include layers.component() {
+    --onyx-info-tooltip-size: 1em;
+
     &__trigger {
       display: inline-flex;
       align-items: center;
       font-size: inherit;
       vertical-align: middle;
 
-      --height: 1em;
+      // when trigger is OnyxSystemButton
+      --height: var(--onyx-info-tooltip-size);
 
       .onyx-icon {
-        --icon-size: 1em;
+        --icon-size: var(--onyx-info-tooltip-size);
       }
+    }
+
+    .onyx-tooltip-wrapper {
+      display: flex;
     }
   }
 }
