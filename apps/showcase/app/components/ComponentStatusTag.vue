@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { ComponentsEnCollectionItem } from "@nuxt/content";
-import { iconNew } from "@sit-onyx/icons";
+import { iconNew, iconTestTube } from "@sit-onyx/icons";
 import type { OnyxTagProps } from "sit-onyx";
 
 const props = defineProps<{
@@ -15,6 +15,11 @@ const tagProps = computed<Record<typeof props.status, OnyxTagProps>>(() => {
       label: t("components.status.new"),
       color: "primary",
       icon: iconNew,
+    },
+    beta: {
+      label: t("components.status.beta.label"),
+      color: "info",
+      icon: iconTestTube,
     },
   };
 });

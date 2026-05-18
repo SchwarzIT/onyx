@@ -13,7 +13,7 @@ export type OnyxDatePickerV2Props<TSelection extends OnyxCalendarSelectionMode =
       /**
        * Whether to show two calendars in range mode.
        */
-      multiView?: TSelection extends "range" ? boolean : never;
+      multiView?: boolean;
       /**
        * Disable specific dates to select individually.
        *

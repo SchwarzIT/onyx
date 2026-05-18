@@ -26,7 +26,7 @@ export default defineContentConfig({
       source: { include: "en/components/**", exclude: ["**/*.vue"], prefix: "/components" },
       schema: z.object({
         componentName: z.string(),
-        status: z.enum(["new"]).optional(),
+        status: z.enum(["new", "beta"]).optional(),
       }),
     }),
   },
