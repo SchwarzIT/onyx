@@ -61,19 +61,19 @@
     "@sit-onyx/playwright-utils": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",
-    "@storybook/addon-a11y": "^10.3.6",
+    "@storybook/addon-a11y": "^10.4.0",
     "@vue/compiler-dom": "catalog:",
     "@vue/test-utils": "^2.4.10",
     "axe-core": "^4.11.4",
     "postcss-scss": "^4.0.9",
     "sass-embedded": "catalog:",
     "storybook-addon-tag-badges": "^3.1.0",
-    "tsx": "^4.21.0",
+    "tsx": "^4.22.0",
     "vue": "catalog:",
-    "vue-component-meta": "^3.2.8",
-    "vue-component-type-helpers": "^3.2.8",
+    "vue-component-meta": "catalog:",
+    "vue-component-type-helpers": "^3.2.9",
     "vue-docgen-api": "^4.79.2",
     "vue-i18n": "^11.4.2",
-    "vue-router": "^5.0.6"
+    "vue-router": "^5.0.7"
   }
 }

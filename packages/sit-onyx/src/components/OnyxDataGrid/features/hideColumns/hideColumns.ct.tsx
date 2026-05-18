@@ -70,6 +70,49 @@ test("should hide and show columns", async ({ mount }) => {
   });
 });
 
+test("should filter hidden columns via search", async ({ mount }) => {
+  const state = ref<(keyof Entry)[]>([]);
+  // ARRANGE
+  const component = await mount(
+    <TestCase onUpdate:state={(newState) => (state.value = newState)} allHidable />,
+  );
+  const revealButton = component.getByRole("button", { name: "Show hidden columns" });
+  const menuItem = component.getByRole("menuitem", { name: "Hide column" });
+  const openMoreActions = async (name: string) =>
+    component
+      .getByRole("columnheader", { name: `${name} Toggle column actions`, exact: true })
+      .getByLabel("Toggle column actions")
+      .click();
+
+  await openMoreActions("a");
+  await component.getByRole("menuitem", { name: "Hide column" }).click();
+  await openMoreActions("c");
+  await menuItem.click();
+
+  await revealButton.click();
+
+  const searchInput = component.getByRole("textbox", { name: "Filter the list items" });
+
+  await test.step("Filter the list", async () => {
+    await searchInput.fill("a");
+
+    await expect(component.getByRole("menuitem", { name: "a", exact: true })).toBeVisible();
+    await expect(component.getByRole("menuitem", { name: "c", exact: true })).toBeHidden();
+    await expect(component).toHaveScreenshot("data-grid-hide-columns-search-filtered.png");
+  });
+
+  await test.step("Clear search via clear button", async () => {
+    await component.getByRole("button", { name: "Clear" }).click();
+    await expect(searchInput).toHaveValue("");
+    await expect(component.getByRole("menuitem", { name: "c", exact: true })).toBeVisible();
+  });
+
+  await test.step("Search with no results", async () => {
+    await searchInput.fill("non-existent-column");
+    await expect(component.getByRole("menuitem")).toHaveCount(0);
+  });
+});
+
 test("last Column should not be hidable", async ({ mount }) => {
   const state = ref<(keyof Entry)[]>([]);
 

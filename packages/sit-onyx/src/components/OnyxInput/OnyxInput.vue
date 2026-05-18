@@ -65,7 +65,12 @@ const { rootAttrs, restAttrs } = useRootAttrs();
 const { t } = injectI18n();
 
 const input = useTemplateRef("input");
-defineExpose({ input });
+defineExpose({
+  /**
+   * Reference to the native HTML `<input />` element.
+   */
+  input,
+});
 
 const normalizedPattern = computed(() => {
   const pattern = props.pattern;

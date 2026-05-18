@@ -22,7 +22,7 @@ export type FormProps = {
    * Configures if and when errors are shown.
    * - `true`: errors will be shown initially.
    * - `false`: errors will never be shown. ⚠️ Only the displaying of the error is effected! An error will still block submission!
-   * - "touched": only shows an error *after* a user has significantly interacted with the input, see [:user-invalid](https://drafts.csswg.org/selectors/#user-invalid-pseudo)
+   * - "touched": only shows an error *after* a user has significantly interacted with the input, see [\:user-invalid](https://drafts.csswg.org/selectors/#user-invalid-pseudo)
    *
    * @default "touched"
    */
@@ -70,7 +70,7 @@ export type FormInjectedProps = {
    * Configures if and when errors are shown.
    * - `true`: errors will be shown initially.
    * - `false`: errors will never be shown. ⚠️ Only the displaying of the error is effected! An error can still block submission!
-   * - "touched": only shows an error *after* a user has significantly interacted with the input, see [:user-invalid](https://drafts.csswg.org/selectors/#user-invalid-pseudo)
+   * - "touched": only shows an error *after* a user has significantly interacted with the input, see [\:user-invalid](https://drafts.csswg.org/selectors/#user-invalid-pseudo)
    *
    * @default Inherits value from closest `<OnyxForm>` component or `touched` if none exists
    */

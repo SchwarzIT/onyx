@@ -1,4 +1,5 @@
 import { Features } from "lightningcss";
+import { globSync } from "node:fs";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -48,6 +49,25 @@ export default defineNuxtConfig({
       // fix "Identifier 'h' has already been declared" error which occurs only inside this monorepo
       // see: https://github.com/nuxt/nuxt/issues/18823#issuecomment-1419704343
       exclude: [/\bpackages\/flags\b/, /\bpackages\/icons\b/],
+    },
+  },
+  hooks: {
+    // see: https://nuxt.com/docs/4.x/getting-started/prerendering#prerenderroutes-nuxt-hook
+    async "prerender:routes"(ctx) {
+      const componentDirs = globSync("content/en/components/*/*");
+
+      const componentRoutes = componentDirs.map((dir) => {
+        const path = dir
+          .split("/")
+          .slice(2)
+          .join("/")
+          .replace(/(?<=\/|^)\d+\./g, "");
+        return `/${path}`;
+      });
+
+      for (const route of componentRoutes) {
+        ctx.routes.add(route);
+      }
     },
   },
 });

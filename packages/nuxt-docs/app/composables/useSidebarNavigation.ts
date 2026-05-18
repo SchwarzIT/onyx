@@ -1,15 +1,19 @@
 import { computed, useAsyncData, useI18n, useLocalePath, useRoute } from "#imports"; // since nuxt 4.3 the auto-imports don't work for this composable anymore; Might be related to https://github.com/nuxt/nuxt/issues/22342
 import type { Collections, ContentNavigationItem } from "@nuxt/content";
 
-export type SidebarNavigationItem = {
+export type SidebarNavigationItem<TCollection extends keyof Collections = keyof Collections> = {
   title: string;
   /**
    * Item path. Already localized for i18n with `useLocalePath`.
    */
   path: string;
   icon?: string;
-  children?: SidebarNavigationItem[];
+  children?: SidebarNavigationItem<TCollection>[];
   sidebar?: SidebarNavigationOptions;
+  /**
+   * Additional fields. Must be defined when calling `useSidebarNavigation()`.
+   */
+  fields?: Partial<Collections[TCollection]>;
 };
 
 /**
@@ -34,20 +38,34 @@ export type SidebarNavigationOptions = {
   collapsed?: boolean;
 };
 
-export const useSidebarNavigation = async () => {
+export type UseSidebarNavigationOptions<TCollection extends keyof Collections = keyof Collections> =
+  {
+    /**
+     * Collection name to use for querying the navigation.
+     */
+    collection: Ref<TCollection>;
+    /**
+     * Additional fields to include.
+     */
+    fields?: (keyof Collections[TCollection])[];
+  };
+
+/**
+ * Composable for querying and mapping the navigation items for a given collection.
+ */
+export const useSidebarNavigation = async <
+  TCollection extends keyof Collections = keyof Collections,
+>(
+  options: UseSidebarNavigationOptions<TCollection>,
+) => {
   const { locale } = useI18n();
   const localePath = useLocalePath();
   const route = useRoute();
 
   const { data } = await useAsyncData(
-    () => `navigation-${locale.value}`,
-    () => {
-      const collection = `content_${locale.value}` as const;
-      return queryCollectionNavigation(collection as keyof Collections);
-    },
-    {
-      default: () => [],
-    },
+    () => `navigation-${options.collection.value}-${locale.value}`,
+    () => queryCollectionNavigation(options.collection.value, options.fields),
+    { default: () => [] },
   );
 
   /**
@@ -55,13 +73,23 @@ export const useSidebarNavigation = async () => {
    */
   const allItems = computed(() => {
     // map the items from "@nuxt/content" to our custom data scheme for better type support
-    const mapItem = (item: ContentNavigationItem): SidebarNavigationItem => {
+    const mapItem = (item: ContentNavigationItem): SidebarNavigationItem<TCollection> => {
+      const fields = options.fields?.reduce(
+        (obj, field) => {
+          const extraFieldValue = item[field as keyof typeof item];
+          obj[field] = extraFieldValue as Collections[TCollection][typeof field];
+          return obj;
+        },
+        {} as Collections[TCollection],
+      );
+
       return {
         title: item.title,
         path: localePath(item.path),
         children: item.children?.map(mapItem),
         sidebar: item.sidebar && typeof item.sidebar === "object" ? item.sidebar : undefined,
         icon: item.icon && typeof item.icon === "string" ? item.icon : undefined,
+        fields,
       };
     };
 
@@ -86,9 +114,9 @@ export const useSidebarNavigation = async () => {
    * that contains the `currentPath` within its subtree.
    */
   function findDeepestRoot(
-    items: SidebarNavigationItem[],
+    items: SidebarNavigationItem<TCollection>[],
     currentPath: string,
-  ): SidebarNavigationItem | undefined {
+  ): SidebarNavigationItem<TCollection> | undefined {
     /** Helper function to check if a path exists anywhere in a node's subtree */
     const containsPath = (node: SidebarNavigationItem, path: string): boolean => {
       if (node.path === path) return true;
@@ -120,10 +148,10 @@ export const useSidebarNavigation = async () => {
    * @param rootStack - (Internal) Accumulator for recursion
    */
   function findPreviousRootItem(
-    items: SidebarNavigationItem[],
+    items: SidebarNavigationItem<TCollection>[],
     currentPath: string,
-    rootStack: SidebarNavigationItem[] = [],
-  ): SidebarNavigationItem | undefined {
+    rootStack: SidebarNavigationItem<TCollection>[] = [],
+  ): SidebarNavigationItem<TCollection> | undefined {
     for (const item of items) {
       const isRoot = item.sidebar?.root === true;
 
