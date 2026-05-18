@@ -149,6 +149,7 @@ const attrs = useAttrs();
     justify-content: center;
     width: 100%;
     max-width: var(--preview-max-width);
+    container-type: inline-size;
 
     // this "useless" transform is used to position fixed components (e.g. OnyxFAB) relative to the preview wrapper
     // instead of relative to the whole screen
