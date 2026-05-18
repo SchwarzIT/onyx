@@ -3,12 +3,23 @@ import { iconSync } from "@sit-onyx/icons";
 import type { Component } from "vue";
 import type { ComponentExampleOptions } from "../ComponentExampleOptions.vue";
 
-const props = defineProps<{
-  /**
-   * Example file name (without ".example.vue" extension).
-   */
-  name: string;
-}>();
+const props = withDefaults(
+  defineProps<{
+    /**
+     * Example file name (without ".example.vue" extension).
+     */
+    name: string;
+    /**
+     * Component preview layout.
+     * - default: Pre-defined Limited width (if only 1 child exists, fullWidth otherwise)
+     * - fullWidth: Full width
+     */
+    layout?: "default" | "fullWidth";
+  }>(),
+  {
+    layout: "default",
+  },
+);
 
 const { locale } = useI18n();
 const route = useRoute();
@@ -81,6 +92,7 @@ const attrs = useAttrs();
             :class="[
               'example__preview-wrapper',
               { [`onyx-density-${options.density}`]: options.density },
+              { [`example__preview-wrapper--${props.layout}`]: props.layout },
             ]"
           >
             <ExampleComponent />
@@ -121,6 +133,7 @@ const attrs = useAttrs();
   }
 
   &__preview-wrapper {
+    --preview-max-width: initial;
     display: flex;
     flex-direction: row;
     gap: var(--onyx-density-md);
@@ -128,13 +141,20 @@ const attrs = useAttrs();
     align-items: center;
     justify-content: center;
     width: 100%;
+    max-width: var(--preview-max-width);
 
     // this "useless" transform is used to position fixed components (e.g. OnyxFAB) relative to the preview wrapper
     // instead of relative to the whole screen
     transform: translate(0, 0);
 
-    &:has(> :first-child:only-child) {
-      max-width: 24rem;
+    &--default {
+      &:has(> :first-child:only-child) {
+        --preview-max-width: 24rem;
+      }
+    }
+
+    &--fullWidth {
+      --preview-max-width: initial;
     }
   }
 

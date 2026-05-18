@@ -138,7 +138,8 @@ defineExpose({
   @include layers.component() {
     padding: 0;
     border: none;
-    max-width: max-content;
+    width: max-content;
+    max-width: 100%;
     min-width: unset;
     $check-all-border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
 
