@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { iconPlaceholder } from "@sit-onyx/icons";
-import { OnyxButton } from "sit-onyx";
+import { OnyxFAB } from "sit-onyx";
 
 const handleClick = () => {
   // your logic here...
@@ -8,11 +8,18 @@ const handleClick = () => {
 </script>
 
 <template>
-  <OnyxButton label="Left icon" :icon="iconPlaceholder" @click="handleClick" />
-  <OnyxButton
-    label="Right icon"
+  <OnyxFAB
+    class="fab"
+    label="Example label"
     :icon="iconPlaceholder"
-    icon-position="right"
+    hide-label
     @click="handleClick"
   />
 </template>
+
+<style lang="scss" scoped>
+.fab {
+  --onyx-fab-offset-x: 5rem;
+  --onyx-fab-offset-y: 1rem;
+}
+</style>

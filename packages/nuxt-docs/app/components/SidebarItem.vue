@@ -15,19 +15,47 @@ export type SidebarItemProps = {
 
 const props = defineProps<SidebarItemProps>();
 
+const slots = defineSlots<{
+  /**
+   * Additional trailing content to display on the right.
+   */
+  trailing?(): unknown;
+}>();
+
 const { icon } = useIcon(computed(() => props.icon));
 </script>
 
 <template>
   <OnyxSidebarItem class="sidebar-item" :link="props.link">
-    <OnyxIcon v-if="icon" :icon />
-    {{ props.label }}
-    <OnyxIcon v-if="props.showArrow" :icon="iconArrowSmallRight" />
+    <div class="sidebar-item__content">
+      <OnyxIcon v-if="icon" :icon />
+      {{ props.label }}
+      <OnyxIcon v-if="props.showArrow" :icon="iconArrowSmallRight" />
+    </div>
+
+    <div v-if="slots.trailing" class="sidebar-item__trailing onyx-density-compact">
+      <slot name="trailing"></slot>
+    </div>
   </OnyxSidebarItem>
 </template>
 
 <style lang="scss" scoped>
 .sidebar-item {
   margin: var(--onyx-density-2xs) var(--onyx-density-xs);
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  &__content {
+    display: flex;
+    align-items: inherit;
+    gap: inherit;
+  }
+
+  &__trailing {
+    display: flex;
+    align-items: inherit;
+    gap: inherit;
+    flex-wrap: wrap;
+  }
 }
 </style>

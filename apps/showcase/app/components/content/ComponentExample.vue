@@ -66,6 +66,9 @@ const { data: exampleCode } = await useAsyncData(
 );
 
 const options = ref<ComponentExampleOptions>({});
+
+defineOptions({ inheritAttrs: false });
+const attrs = useAttrs();
 </script>
 
 <template>
@@ -74,6 +77,7 @@ const options = ref<ComponentExampleOptions>({});
       <OnyxTab :label="$t('components.preview')" value="preview" density="compact">
         <OnyxCard class="example__preview" :style="{ colorScheme: options.colorScheme }">
           <div
+            v-bind="attrs"
             :class="[
               'example__preview-wrapper',
               { [`onyx-density-${options.density}`]: options.density },
@@ -125,12 +129,12 @@ const options = ref<ComponentExampleOptions>({});
     justify-content: center;
     width: 100%;
 
+    // this "useless" transform is used to position fixed components (e.g. OnyxFAB) relative to the preview wrapper
+    // instead of relative to the whole screen
+    transform: translate(0, 0);
+
     &:has(> :first-child:only-child) {
       max-width: 24rem;
-    }
-
-    > :first-child:only-child {
-      flex-grow: 1;
     }
   }
 

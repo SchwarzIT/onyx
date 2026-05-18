@@ -17,7 +17,10 @@ const activeTab = useRouteQuery("tab", "overview");
     :toc="data.body.toc?.links ?? []"
     :hidden="activeTab !== 'overview'"
   >
-    <ProseH1>{{ data.title }}</ProseH1>
+    <div class="headline">
+      <OnyxHeadline is="h1">{{ data.title }}</OnyxHeadline>
+      <ComponentStatusTag v-if="data.status" :status="data.status" />
+    </div>
 
     <OnyxTabs v-model="activeTab" :label="$t('components.details')">
       <OnyxTab :label="$t('components.overview')" value="overview">
@@ -30,3 +33,13 @@ const activeTab = useRouteQuery("tab", "overview");
     </OnyxTabs>
   </TableOfContentsLayout>
 </template>
+
+<style lang="scss" scoped>
+.headline {
+  margin-bottom: var(--onyx-density-lg);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--onyx-density-md);
+}
+</style>
