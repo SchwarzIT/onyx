@@ -13,7 +13,8 @@ export type OnyxDatePickerV2Props<TSelection extends OnyxCalendarSelectionMode =
       /**
        * Whether to show two calendars in range mode.
        */
-      multiView?: boolean;
+      // "boolean &" is needed to correctly generate the runtime prop value, see: https://github.com/vuejs/core/issues/13787#issuecomment-3209755164
+      multiView?: boolean & (TSelection extends "range" ? boolean : never);
       /**
        * Disable specific dates to select individually.
        *
