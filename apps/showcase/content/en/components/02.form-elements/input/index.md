@@ -50,6 +50,6 @@ For password inputs, an additional button is displayed that allows the user to r
 
 ### Label positions
 
-THe input label can be positioned in several ways to support a wide variety of layouts.
+The input label can be positioned in several ways to support a wide variety of layouts.
 
 :component-example{name="LabelPositions" layout="grow" orientation="vertical"}
