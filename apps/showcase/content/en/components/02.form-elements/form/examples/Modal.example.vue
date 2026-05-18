@@ -3,8 +3,8 @@ import { OnyxBottomBar, OnyxButton, OnyxForm, OnyxInput, OnyxModal, OnyxStepper 
 import { ref, useId } from "vue";
 
 type FormState = {
-  age: number;
   email: string;
+  age?: number;
 };
 
 const isModalOpen = ref(false);
@@ -40,7 +40,6 @@ const handleSubmit = () => {
         label="Age"
         :min="18"
         :maxlength="99"
-        required
       />
     </OnyxForm>
 

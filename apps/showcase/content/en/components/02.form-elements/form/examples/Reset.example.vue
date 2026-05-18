@@ -3,8 +3,8 @@ import { OnyxButton, OnyxForm, OnyxInput, OnyxStepper } from "sit-onyx";
 import { ref } from "vue";
 
 type FormState = {
-  age: number;
   email: string;
+  age?: number;
 };
 
 const getDefaultValue = (): Partial<FormState> => ({ email: "jane.doe@example.com" });
@@ -38,7 +38,6 @@ const handleReset = () => {
       label="Age"
       :min="18"
       :maxlength="99"
-      required
     />
 
     <div class="onyx-grid-span-full actions">

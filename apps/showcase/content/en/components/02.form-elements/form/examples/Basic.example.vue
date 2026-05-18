@@ -3,8 +3,8 @@ import { OnyxButton, OnyxForm, OnyxInput, OnyxStepper } from "sit-onyx";
 import { ref } from "vue";
 
 type FormState = {
-  age: number;
   email: string;
+  age?: number;
 };
 
 const state = ref<Partial<FormState>>({});
