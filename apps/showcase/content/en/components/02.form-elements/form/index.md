@@ -15,6 +15,10 @@ Simply place the form elements inside the form component as shown in the example
 
 Take a look at the corresponding component documentation to see a full list of available properties and form validations.
 
+::info-card{headline="Submit button"}
+Please not that we do **NOT** recommend to disable "Submit" buttons in forms since this breaks our default form validation behavior where validation is automatically triggered for each form element used inside the form and error messages are displayed correspondingly. Keep the button enabled instead for an improved user experience. Even if the user tries to submit the form before its valid, the submit ist not triggered and all invalid form elements are highlighted with proper error messages.
+::
+
 ## Examples
 
 In the following examples, we are using our [grid system](/introduction/foundation/breakpoints-and-grid) to easily apply responsive layouts.
