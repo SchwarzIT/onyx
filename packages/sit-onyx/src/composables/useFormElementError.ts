@@ -35,23 +35,10 @@ export type CustomValidityProp = {
   error?: CustomMessageType;
 };
 
-export type ValidationKey =
-  | "badInput"
-  | "customError"
-  | "patternMismatch"
-  | "rangeOverflow"
-  | "rangeUnderflow"
-  | "stepMismatch"
-  | "tooLong"
-  | "tooShort"
-  | "typeMismatch"
-  | "valueMissing";
-
-export type CustomValidationMessages = Partial<Record<ValidationKey, AnyFormError>>;
+export type CustomValidationMessages = Partial<Record<keyof ValidityState, AnyFormError>>;
 
 export type FormValidationProps = {
   error?: CustomMessageType;
-  customErrorMessages?: CustomValidationMessages;
   modelValue?: unknown;
   type?: InputType | OnyxDatePickerProps["type"];
   maxlength?: MaxLength;
@@ -67,12 +54,7 @@ export type UseFormElementErrorOptions = Omit<
   UseFormValidityOptions<FormValidationProps>,
   "error" | "props"
 > & {
-  props: MaybeRef<
-    Omit<FormValidationProps, "error" | "customErrorMessages"> & {
-      error?: AnyFormError;
-      customErrorMessages?: CustomValidationMessages;
-    }
-  >;
+  props: MaybeRef<Omit<FormValidationProps, "error"> & { error?: AnyFormError }>;
   error?: MaybeRefOrGetter<AnyFormError | undefined>;
   customErrorMessages?: MaybeRefOrGetter<CustomValidationMessages | undefined>;
 };
@@ -174,7 +156,7 @@ export const useFormElementError = (options: UseFormElementErrorOptions) => {
     if (!errorType) return;
 
     // Check for custom override for this specific native error type (e.g., patternMismatch)
-    const customMessages = props.customErrorMessages || toValue(options.customErrorMessages);
+    const customMessages = toValue(options.customErrorMessages);
     if (customMessages && errorType in customMessages) {
       const specificError = customMessages[errorType as keyof CustomValidationMessages];
       if (specificError) {

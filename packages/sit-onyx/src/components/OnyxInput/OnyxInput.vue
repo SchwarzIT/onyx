@@ -78,11 +78,11 @@ const normalizedPattern = computed(() => {
 
   const isConfigObj = typeof pattern === "object" && !(pattern instanceof RegExp);
   const value = isConfigObj ? pattern.value : pattern;
-  const errorMessage = isConfigObj ? pattern.error : undefined;
+  const error = isConfigObj ? pattern.error : undefined;
 
   return {
     source: value instanceof RegExp ? value.source : value,
-    errorMessage,
+    error,
   };
 });
 
@@ -95,7 +95,7 @@ const error = computed(() => {
 });
 
 const customErrorMessages = computed(() => ({
-  patternMismatch: normalizedPattern.value?.errorMessage,
+  patternMismatch: normalizedPattern.value?.error,
 }));
 
 const { vCustomValidity, errorMessages } = useFormElementError({
