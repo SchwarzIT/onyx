@@ -41,6 +41,7 @@ const props = withDefaults(defineProps<Props>(), {
   showError: FORM_INJECTED_SYMBOL,
   requiredMarker: FORM_INJECTED_SYMBOL,
   reserveMessageSpace: FORM_INJECTED_SYMBOL,
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- false positive
   mode: () => "single" as TSliderMode,
 });
 

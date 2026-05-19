@@ -32,6 +32,7 @@ const props = withDefaults(defineProps<OnyxTimePickerProps<TType>>(), {
   disabled: FORM_INJECTED_SYMBOL,
   showError: FORM_INJECTED_SYMBOL,
   skeleton: SKELETON_INJECTED_SYMBOL,
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- false positive
   type: () => "default" as TType,
   open: undefined,
 });

@@ -93,6 +93,11 @@ const handleOpen = async () => {
   }
 };
 
+const handleClose = async () => {
+  if (!isExternal.value) await nextTick();
+  menuItemElement.value?.$el.focus();
+};
+
 const getCalculatedOpenDirection = (): "left" | "right" => {
   if (effectiveNestedMode.value === "internal" && !parentMenu) {
     return "right";
@@ -125,11 +130,8 @@ const {
   isExternal,
   disabled: computed(() => props.disabled),
   externalChildrenRef: externalChildren,
-  onOpen: handleOpen,
-  onClose: async () => {
-    if (!isExternal.value) await nextTick();
-    menuItemElement.value?.$el.focus();
-  },
+  onOpen: () => void handleOpen(),
+  onClose: () => void handleClose(),
   onFocusTrigger: () => menuItemElement.value?.$el.focus(),
   onHoverEnterParent: () => parentMenu?.onHoverEnter(),
   onHoverLeaveParent: () => parentMenu?.onHoverLeave(),
