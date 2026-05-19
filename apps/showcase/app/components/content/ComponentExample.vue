@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { iconSync } from "@sit-onyx/icons";
+import { iconUndo } from "@sit-onyx/icons";
 import type { Component } from "vue";
 import type { ComponentExampleOptions } from "../ComponentExampleOptions.vue";
 
@@ -11,13 +11,19 @@ const props = withDefaults(
     name: string;
     /**
      * Component preview layout.
-     * - default: Pre-defined Limited width (if only 1 child exists, fullWidth otherwise)
+     * - default: Pre-defined Limited width
      * - fullWidth: Full width
+     * - grow: Same as "default" but children use "flex-grow" to grow the available width
      */
-    layout?: "default" | "fullWidth";
+    layout?: "default" | "fullWidth" | "grow";
+    /**
+     * The orientation of the example if multiple components are used.
+     */
+    orientation?: "horizontal" | "vertical";
   }>(),
   {
     layout: "default",
+    orientation: "horizontal",
   },
 );
 
@@ -93,6 +99,7 @@ const attrs = useAttrs();
               'example__preview-wrapper',
               { [`onyx-density-${options.density}`]: options.density },
               { [`example__preview-wrapper--${props.layout}`]: props.layout },
+              { [`example__preview-wrapper--${props.orientation}`]: props.orientation },
             ]"
           >
             <ExampleComponent />
@@ -108,7 +115,7 @@ const attrs = useAttrs();
       <template #actions>
         <OnyxIconButton
           v-if="Object.keys(options).length > 0"
-          :icon="iconSync"
+          :icon="iconUndo"
           :label="$t('components.options.reset')"
           color="neutral"
           density="compact"
@@ -133,7 +140,7 @@ const attrs = useAttrs();
   }
 
   &__preview-wrapper {
-    --preview-max-width: initial;
+    --preview-max-width: 24rem;
     display: flex;
     flex-direction: row;
     gap: var(--onyx-density-md);
@@ -147,14 +154,24 @@ const attrs = useAttrs();
     // instead of relative to the whole screen
     transform: translate(0, 0);
 
-    &--default {
-      &:has(> :first-child:only-child) {
-        --preview-max-width: 24rem;
+    &--fullWidth {
+      --preview-max-width: initial;
+    }
+
+    &--grow {
+      > * {
+        flex: 1;
+      }
+
+      &.example__preview-wrapper--vertical {
+        > * {
+          width: 100%;
+        }
       }
     }
 
-    &--fullWidth {
-      --preview-max-width: initial;
+    &--vertical {
+      flex-direction: column;
     }
   }
 
