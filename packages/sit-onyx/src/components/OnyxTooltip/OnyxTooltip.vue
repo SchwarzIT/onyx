@@ -146,14 +146,14 @@ const triggerRefElement = computed(() => {
 });
 
 const tooltip = computed(() => ariaPattern.value?.elements.tooltip);
-const triggerElementProps = computed(() => {
+const triggerElementProps = computed<object>(() => {
   const trigger = ariaPattern.value.elements.trigger;
   const triggerProps = isRef(trigger) ? toValue(trigger) : trigger;
 
   return mergeVueProps(triggerProps, {
     style: { "anchor-name": anchorName },
     ref: triggerRef,
-  }) as object;
+  });
 });
 
 const alignsWithEdge = toRef(() => props.alignsWithEdge);
