@@ -26,14 +26,14 @@ const activeTab = useRouteQuery("tab", "overview");
       </div>
 
       <OnyxInfoCard
-        v-if="data.status === 'beta'"
-        :headline="$t('components.status.beta.label')"
+        v-if="data.status === 'experimental'"
+        :headline="$t('components.status.experimental.label')"
         :icon="iconTestTube"
       >
-        <i18n-t keypath="components.status.beta.description" scope="global">
+        <i18n-t keypath="components.status.experimental.description" scope="global">
           <template #changelog>
             <OnyxLink href="/introduction/changelog">
-              {{ $t("components.status.beta.changelog") }}
+              {{ $t("components.status.experimental.changelog") }}
             </OnyxLink>
           </template>
         </i18n-t>

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { iconSync } from "@sit-onyx/icons";
+import { iconUndo } from "@sit-onyx/icons";
 import type { Component } from "vue";
 import type { ComponentExampleOptions } from "../ComponentExampleOptions.vue";
 
@@ -115,7 +115,7 @@ const attrs = useAttrs();
       <template #actions>
         <OnyxIconButton
           v-if="Object.keys(options).length > 0"
-          :icon="iconSync"
+          :icon="iconUndo"
           :label="$t('components.options.reset')"
           color="neutral"
           density="compact"

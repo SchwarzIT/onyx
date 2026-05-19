@@ -14,6 +14,6 @@ The date picker component can be used to select a date or date-time.
 
 ### Datetime
 
-When selecting date + time, the timezone of the users local device will be used.
+When selecting date and time, the local timezone of the user will be used.
 
 :component-example{name="Datetime" layout="grow"}

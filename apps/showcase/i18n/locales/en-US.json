@@ -42,9 +42,9 @@
     },
     "status": {
       "new": "New",
-      "beta": {
-        "label": "Beta",
-        "description": "This component is currently in beta since we have just recently added it to our design system. We allow breaking changes for this component within minor or patch versions (e.g. 1.x.x) so we can integrate community feedback and ensure high quality. Therefore, we strongly recommend to watch our {changelog} when updating and using this component.",
+      "experimental": {
+        "label": "Experimental",
+        "description": "This component is experimental since we have just recently added it to our design system. We allow breaking changes for this component within minor or patch versions (e.g. 1.0.0 => 1.0.1) so we can integrate community feedback and ensure high quality. Therefore, we strongly recommend to watch our {changelog} when updating and using this component.",
         "changelog": "changelog"
       },
       "deprecated": {

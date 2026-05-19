@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { iconSettings } from "@sit-onyx/icons";
 import { DENSITIES, type Density } from "sit-onyx";
 
 export type ComponentExampleOptions = {
@@ -10,13 +11,18 @@ const options = defineModel<ComponentExampleOptions>({ default: () => ({}) });
 </script>
 
 <template>
-  <OnyxFlyoutMenu :label="$t('components.options.change')" drilldown-mode="external">
+  <OnyxFlyoutMenu
+    :label="$t('components.options.change')"
+    drilldown-mode="external"
+    trigger="click"
+  >
     <template #button="{ trigger }">
-      <OnyxButton
+      <OnyxIconButton
         v-bind="trigger"
         :label="$t('components.options.change')"
-        color="neutral"
+        :icon="iconSettings"
         density="compact"
+        color="neutral"
       />
     </template>
 

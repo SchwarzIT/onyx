@@ -1,7 +1,7 @@
 ---
 title: Date picker (v2)
 componentName: OnyxDatePickerV2
-status: beta
+status: experimental
 ---
 
 The date picker component can be used to select a date, multiple dates or a range of dates.

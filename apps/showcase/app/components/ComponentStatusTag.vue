@@ -16,8 +16,8 @@ const tagProps = computed<Record<typeof props.status, OnyxTagProps>>(() => {
       color: "primary",
       icon: iconNew,
     },
-    beta: {
-      label: t("components.status.beta.label"),
+    experimental: {
+      label: t("components.status.experimental.label"),
       color: "info",
       icon: iconTestTube,
     },
