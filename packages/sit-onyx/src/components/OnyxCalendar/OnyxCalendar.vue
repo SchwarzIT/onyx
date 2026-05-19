@@ -192,6 +192,7 @@ const selectWeek = (week: RenderWeek) => {
     start: week.days[0]!.date,
     end: week.days.at(-1)!.date,
   };
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- false positive
   modelValue.value = newRange as unknown as typeof modelValue.value;
 };
 const getWeekNumberProps = computed(() => {
