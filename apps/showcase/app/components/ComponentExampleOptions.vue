@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { iconSettings } from "@sit-onyx/icons";
+import { iconMoreVerticalSmall } from "@sit-onyx/icons";
 import { DENSITIES, type Density } from "sit-onyx";
 
 export type ComponentExampleOptions = {
@@ -20,7 +20,7 @@ const options = defineModel<ComponentExampleOptions>({ default: () => ({}) });
       <OnyxIconButton
         v-bind="trigger"
         :label="$t('components.options.change')"
-        :icon="iconSettings"
+        :icon="iconMoreVerticalSmall"
         density="compact"
         color="neutral"
       />
