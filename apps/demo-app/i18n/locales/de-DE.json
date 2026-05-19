@@ -9,6 +9,12 @@
     "change": "Dichte ändern",
     "description": "Wähle die Dichte der Anwendung, um die Abstände zwischen Elementen anzupassen"
   },
+  "navigation": {
+    "changeOrientation": "Navigationsausrichtung ändern",
+    "orientationDescription": "Wähle aus, ob die Navigationsleiste horizontal am oberen Bildschirmrand oder vertikal an der Seite angezeigt werden soll.",
+    "horizontal": "Horizontal",
+    "vertical": "Vertikal"
+  },
   "overview": "Übersicht",
   "action": "Aktion | Aktionen",
   "forms": "Formulare",

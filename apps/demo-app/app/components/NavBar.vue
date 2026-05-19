@@ -71,12 +71,7 @@ const orientation = computed(() => (isVertical.value ? "vertical" : "horizontal"
     <template #contextArea>
       <!-- eslint-disable-next-line vue/require-explicit-slots -- slots type is imported from onyx but eslint does not seem to be able to handle this -->
       <slot name="contextArea"></slot>
-      <OnyxSwitch
-        v-model="isVertical"
-        label="Vertical Navbar"
-        class="vertical-navbar-switch"
-        :hide-label="isVertical && !expanded"
-      />
+      <NavbarSwitch v-model="isVertical" />
       <ColorSchemeSwitch :hide-label="!isVertical" />
       <DensitySwitch />
       <LocaleSwitch />

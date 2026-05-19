@@ -9,6 +9,13 @@
     "change": "Change density",
     "description": "Select the density of the application to change the spacings between elements"
   },
+
+  "navigation": {
+    "changeOrientation": "Change navigation orientation",
+    "orientationDescription": "Choose whether the navigation bar should be displayed horizontally at the top or vertically on the side.",
+    "horizontal": "Horizontal",
+    "vertical": "Vertical"
+  },
   "overview": "Overview",
   "action": "Action | Actions",
   "forms": "Forms",
