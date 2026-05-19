@@ -386,9 +386,8 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
     }
   }
   &__empty {
-    > td {
-      padding: 0;
-    }
+    --onyx-table-padding-block: 0;
+    --onyx-table-padding-inline: 0;
     &-content {
       display: flex;
       justify-content: center;
@@ -398,7 +397,6 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
       left: 0;
       // table width - borders
       width: calc(var(--onyx-table-wrapper-observed-width) - 2 * var(--onyx-1px-in-rem));
-      padding: var(--onyx-density-xl);
       box-sizing: border-box;
     }
   }

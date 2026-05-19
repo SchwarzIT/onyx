@@ -2,4 +2,4 @@
 "sit-onyx": minor
 ---
 
-fix(DataGrid): ajusted empty state alginment.
+fix(OnyxTable): ensure body content is correctly centered when table is empty
