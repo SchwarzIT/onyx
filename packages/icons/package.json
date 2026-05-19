@@ -38,6 +38,8 @@
     "@sit-onyx/shared": "workspace:^",
     "@sit-onyx/vite-plugin-svg": "workspace:^",
     "tsx": "^4.22.0",
+    "unplugin-dts": "catalog:",
+    "vite": "catalog:",
     "vite-plugin-static-copy": "^4.1.0"
   }
 }

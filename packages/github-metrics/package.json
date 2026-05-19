@@ -27,13 +27,13 @@
     }
   },
   "scripts": {
-    "dev": "tsx ./scripts/onyx.ts",
+    "dev": "pnpm run '/^dev:/'",
+    "dev:build": "pnpm run build --watch",
+    "dev:run": "node --env-file-if-exists=.env --watch --experimental-strip-types ./scripts/onyx.ts",
     "build": "rm -rf ./dist && tsc",
     "test": "vitest"
   },
   "devDependencies": {
-    "@sit-onyx/shared": "workspace:^",
-    "dotenv": "^17.4.2",
-    "tsx": "^4.22.0"
+    "@sit-onyx/shared": "workspace:^"
   }
 }

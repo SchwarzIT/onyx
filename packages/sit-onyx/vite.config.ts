@@ -4,8 +4,8 @@ import { VITE_BASE_CONFIG } from "@sit-onyx/shared/vite.config.base";
 import vue from "@vitejs/plugin-vue";
 import { fileURLToPath, URL } from "node:url";
 import { DiagnosticCategory } from "typescript";
+import dts from "unplugin-dts/vite";
 import { defineConfig } from "vite";
-import dts from "vite-plugin-dts";
 import { extractComponentMeta } from "./build/extract-component-meta.js";
 import packageJson from "./package.json" with { type: "json" };
 
@@ -15,6 +15,7 @@ export default defineConfig({
   mode: "development",
   plugins: [
     dts({
+      processor: "vue",
       tsconfigPath: "./tsconfig.app.json",
       compilerOptions: { composite: false },
       beforeWriteFile: (filePath) => {

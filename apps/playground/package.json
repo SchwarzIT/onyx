@@ -29,6 +29,7 @@
     "@vue/repl": "^4.7.2",
     "@vueuse/core": "^14.3.0",
     "sit-onyx": "workspace:^",
+    "vite": "catalog:",
     "vue": "catalog:"
   },
   "engines": {

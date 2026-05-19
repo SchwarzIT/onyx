@@ -45,6 +45,8 @@
   "devDependencies": {
     "@sit-onyx/shared": "workspace:^",
     "@vue/compiler-dom": "catalog:",
+    "unplugin-dts": "catalog:",
+    "vite": "catalog:",
     "vue": "catalog:"
   }
 }

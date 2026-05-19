@@ -24,6 +24,7 @@ import { useForwardProps } from "../../utils/props.js";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
+import type { OnyxFormElementProps } from "../OnyxFormElement/types.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
@@ -71,7 +72,10 @@ const messages = computed(() => getFormMessages(props.message));
 const { disabled, showError } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
 const errorClass = useErrorClass(showError);
-const formElementProps = useForwardProps(props, OnyxFormElement);
+const formElementProps = useForwardProps(
+  props,
+  OnyxFormElement,
+) as unknown as OnyxFormElementProps<string>;
 
 /**
  * Number of selected options.
