@@ -45,6 +45,7 @@ const props = withDefaults(defineProps<OnyxTooltipProps>(), {
   alignment: "auto",
   alignsWithEdge: false,
   open: undefined,
+  disabled: false,
 });
 
 const emit = defineEmits<{
@@ -74,6 +75,7 @@ defineSlots<{
 const { densityClass } = useDensity(props);
 const { t } = injectI18n();
 
+const isDisabled = toRef(() => props.disabled);
 const isVisible = useVModel({
   props,
   emit,
@@ -130,8 +132,19 @@ const createPattern = () =>
 const ariaPattern = shallowRef(createPattern());
 watch(triggerType, () => (ariaPattern.value = createPattern()));
 
+watch(
+  isDisabled,
+  (value) => {
+    if (value) isVisible.value = false;
+  },
+  { immediate: true },
+);
+
 const tooltip = computed(() => ariaPattern.value?.elements.tooltip);
-const triggerElementProps = computed(() => toValue<object>(ariaPattern.value?.elements.trigger));
+const triggerElementProps = computed(() => {
+  if (isDisabled.value) return {};
+  return toValue<object>(ariaPattern.value?.elements.trigger);
+});
 
 const alignsWithEdge = toRef(() => props.alignsWithEdge);
 const fitParent = toRef(() => props.fitParent);
@@ -158,6 +171,7 @@ const updateDirections = () => {
 
 useGlobalEventListener({
   type: "resize",
+  disabled: isDisabled,
   listener: () => updateDirections(),
 });
 
@@ -264,6 +278,7 @@ const tooltipStyles = computed(() => {
   >
     <!-- we are using inline "style" here since using v-bind causes hydration errors in Nuxt / SSR -->
     <div
+      v-if="!isDisabled"
       ref="tooltipRefEl"
       v-bind="tooltip"
       :class="['onyx-tooltip', 'onyx-text--small', 'onyx-truncation-multiline', tooltipClasses]"
