@@ -13,9 +13,7 @@ import logoUrl from "~/assets/images/onyx-logo.svg";
 import GlobalSearch from "./GlobalSearch.vue";
 
 defineSlots<Pick<OnyxNavBarSlots, "contextArea">>();
-const route = useRoute();
-
-const isHomePage = computed(() => route.path === localePath("/"));
+const expanded = ref(false);
 
 const localePath = useLocalePath();
 const props = defineProps<{
@@ -25,13 +23,11 @@ const emit = defineEmits<{
   "update:isVerticalNavBar": [value: boolean];
 }>();
 const isVertical = useVModel({ props, emit, key: "isVerticalNavBar", default: false });
-const orientation = computed(() =>
-  isVertical.value && isHomePage.value ? "vertical" : "horizontal",
-);
+const orientation = computed(() => (isVertical.value ? "vertical" : "horizontal"));
 </script>
 
 <template>
-  <NavBar app-name="onyx demo" :logo-url :orientation="orientation" :expanded="undefined">
+  <NavBar v-model:expanded="expanded" app-name="onyx demo" :logo-url :orientation="orientation">
     <OnyxNavItem
       :label="$t('overview')"
       :link="localePath('/')"
@@ -76,10 +72,10 @@ const orientation = computed(() =>
       <!-- eslint-disable-next-line vue/require-explicit-slots -- slots type is imported from onyx but eslint does not seem to be able to handle this -->
       <slot name="contextArea"></slot>
       <OnyxSwitch
-        v-show="isHomePage"
         v-model="isVertical"
         label="Vertical Navbar"
         class="vertical-navbar-switch"
+        :hide-label="isVertical && !expanded"
       />
       <ColorSchemeSwitch :hide-label="!isVertical" />
       <DensitySwitch />

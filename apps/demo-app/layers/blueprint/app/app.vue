@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import "@sit-onyx/tiptap/style.css";
 import type { OnyxAppLayoutProps } from "sit-onyx";
 
 const props = defineProps<OnyxAppLayoutProps>();
@@ -8,18 +7,14 @@ defineSlots<{
   default?(): unknown;
   navBar?(): unknown;
 }>();
-const isVerticalNavBar = ref(true);
-const route = useRoute();
-const localePath = useLocalePath();
-
-const isHomePage = computed(() => route.path === localePath("/"));
+const isVerticalNavBar = ref(false);
 </script>
 
 <template>
   <OnyxAppLayout
     v-bind="props"
     class="onyx-grid-max-lg onyx-grid-center"
-    :nav-bar-alignment="isVerticalNavBar && isHomePage ? 'left' : 'top'"
+    :nav-bar-alignment="isVerticalNavBar ? 'left' : 'top'"
   >
     <template #navBar>
       <slot name="navBar">
@@ -36,3 +31,16 @@ const isHomePage = computed(() => route.path === localePath("/"));
     </NuxtLayout>
   </OnyxAppLayout>
 </template>
+
+<style lang="scss" scoped>
+.onyx-app:has(.onyx-nav-bar--vertical) {
+  :deep(.onyx-fab--left) {
+    --onyx-fab-offset-x: calc(4 * var(--onyx-spacing-2xs) + 24px);
+  }
+}
+.onyx-app:has(.onyx-nav-bar--vertical.onyx-nav-bar--expanded) {
+  :deep(.onyx-fab--left) {
+    --onyx-fab-offset-x: 20rem;
+  }
+}
+</style>

@@ -1,18 +1,19 @@
 <script setup lang="ts">
+import { iconArrowSmallUpRight, iconFileCircleCheck } from "@sit-onyx/icons";
 import { OnyxTextEditor } from "@sit-onyx/tiptap";
+import "@sit-onyx/tiptap/style.css";
 import type { ColumnConfig } from "sit-onyx";
 import {
+  createFeature,
   DataGridFeatures,
   OnyxAccordion,
   OnyxAccordionItem,
   OnyxBadge,
   OnyxDataGrid,
   OnyxHeadline,
-  OnyxMenuItem,
   OnyxSeparator,
   OnyxSidebar,
   OnyxSlider,
-  OnyxSplitButton,
 } from "sit-onyx";
 import type { EditState } from "sit-onyx/dist/components/OnyxDataGrid/features/all.js";
 import { computed, ref, watch } from "vue";
@@ -105,8 +106,54 @@ const handleRowClick = (row: FoodProduct) => {
   isSidebarOpen.value = true;
 };
 
+const withCustomActions = createFeature(() => ({
+  name: Symbol("custom actions feature"),
+
+  actions: () => {
+    const gridActions: DataGridFeatures.DataGridAction[] = [];
+
+    if (!isEditable.value) {
+      gridActions.push(
+        {
+          label: t("dataGrid.editableTable.actions.check"),
+          icon: iconFileCircleCheck,
+          color: "neutral",
+          onClick: () => {},
+        },
+        {
+          label: t("dataGrid.editableTable.actions.send"),
+          icon: iconArrowSmallUpRight,
+          color: "neutral",
+        },
+      );
+    } else {
+      gridActions.push({
+        label: t("dataGrid.editableTable.actions.reset"),
+        color: "neutral",
+        displayAs: "button",
+        mode: "plain",
+        group: "group-1",
+        onClick: reset,
+      });
+    }
+
+    gridActions.push({
+      label: isEditable.value
+        ? t("dataGrid.editableTable.actions.save")
+        : t("dataGrid.editableTable.edit"),
+      displayAs: "button",
+      mode: "plain",
+      group: "group-1",
+      onClick: () => (isEditable.value = !isEditable.value),
+    });
+
+    return gridActions;
+  },
+}));
+
 const features = computed(() => [
   useRowClickFeature<FoodProduct>(handleRowClick),
+  withCustomActions,
   DataGridFeatures.useEditing<FoodProduct>({
     enabled: isEditable,
     mode: "manual",
@@ -124,24 +171,7 @@ const reset = () => {
 </script>
 
 <template>
-  <div class="options">
-    <OnyxSplitButton
-      :label="
-        isEditable ? t('dataGrid.editableTable.actions.save') : t('dataGrid.editableTable.edit')
-      "
-      @click="() => (isEditable = !isEditable)"
-    >
-      <template #options>
-        <template v-if="!isEditable">
-          <OnyxMenuItem :label="t('dataGrid.editableTable.actions.send')" />
-          <OnyxMenuItem :label="t('dataGrid.editableTable.actions.check')" />
-        </template>
-        <OnyxMenuItem v-else :label="t('dataGrid.editableTable.actions.reset')" @click="reset" />
-      </template>
-    </OnyxSplitButton>
-  </div>
-
-  <OnyxDataGrid :columns :data :features />
+  <OnyxDataGrid :columns :data :features> </OnyxDataGrid>
 
   <OnyxSidebar
     class="notification-center"
@@ -159,22 +189,22 @@ const reset = () => {
         <OnyxHeadline is="h3">{{ currentProduct.name }}</OnyxHeadline>
         <ul>
           <li>
-            <span class="article-infos__label">{{
-              t("dataGrid.editableTable.product.fields.price")
-            }}</span>
-            {{ priceValue.toFixed(2) }}€
+            <span class="article-infos__label">
+              {{ t("dataGrid.editableTable.product.fields.price") }}
+            </span>
+            {{ $n(priceValue, "currency") }}
           </li>
           <li>
-            <span class="article-infos__label">{{
-              t("dataGrid.editableTable.product.fields.validFrom")
-            }}</span>
-            {{ currentProduct.validFrom.toLocaleDateString() }}
+            <span class="article-infos__label">
+              {{ t("dataGrid.editableTable.product.fields.validFrom") }}
+            </span>
+            {{ $d(currentProduct.validFrom, "date") }}
           </li>
           <li>
-            <span class="article-infos__label">{{
-              t("dataGrid.editableTable.product.fields.validUntil")
-            }}</span>
-            {{ currentProduct.validUntil.toLocaleDateString() }}
+            <span class="article-infos__label">
+              {{ t("dataGrid.editableTable.product.fields.validUntil") }}
+            </span>
+            {{ $d(currentProduct.validUntil, "date") }}
           </li>
         </ul>
       </div>
@@ -186,11 +216,12 @@ const reset = () => {
         <OnyxSlider
           v-model="priceValue"
           :max="50"
-          label="slider"
+          :label="t('dataGrid.editableTable.product.fields.price')"
           :step="0.1"
+          :tooltip="{ formatter: (value) => $n(value, 'currency') }"
           :marks="[
-            { value: 0, label: '0€' },
-            { value: 50, label: '50€' },
+            { value: 0, label: $n(0, 'currency') },
+            { value: 50, label: $n(50, 'currency') },
           ]"
         />
       </div>

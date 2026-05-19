@@ -23,9 +23,8 @@ export const useRowClickFeature = <TEntry extends DataGridEntry>(rowClick: (row:
                   if (!cell) return;
 
                   const hasSelection = !!window.getSelection()?.toString();
-                  const isNoClickCell = cell.classList.contains("no-row-click");
 
-                  if (hasSelection || isNoClickCell) return;
+                  if (hasSelection) return;
 
                   rowClick(row);
                 },

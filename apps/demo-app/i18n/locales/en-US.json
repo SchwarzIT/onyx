@@ -67,23 +67,23 @@
       "unit": "Unit",
       "value": "Value"
     },
-    "editableTab": "Editable Data",
+    "editableTab": "Editable data",
     "editableTable": {
       "edit": "Edit",
       "actions": {
         "save": "Save",
         "reset": "Reset",
-        "send": "Send Data",
-        "check": "Check Data"
+        "send": "Send data",
+        "check": "Check data"
       },
-      "details": "Product Details",
+      "details": "Product details",
       "product": {
         "fields": {
           "id": "ID",
-          "name": "Product Name",
+          "name": "Product name",
           "count": "Quantity",
-          "validFrom": "Valid From",
-          "validUntil": "Valid Until",
+          "validFrom": "Valid from",
+          "validUntil": "Valid until",
           "active": "Active",
           "price": "Price",
           "allergens": "Allergens"
