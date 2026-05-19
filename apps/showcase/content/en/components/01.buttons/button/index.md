@@ -42,8 +42,10 @@ The loading state is used after a user interaction to indicate that the triggere
 Buttons can be disabled to indicate that their actions is currently not available and the button can not be clicked.
 For an improved user experience, it should be clear to the user _why_ the button is disabled.
 
-::info-card{headline="Submit buttons in forms"}
+<div class="onyx-text--small" style="color: var(--onyx-color-text-icons-info-intense)">
+
 Please not that we do **NOT recommend** to disable "Submit" buttons in forms since this breaks our default form validation behavior where validation is automatically triggered for each form element used inside the form and error messages are displayed correspondingly. For further information, please refer to our [form](/components/form-elements/form) component.
-::
+
+</div>
 
 :component-example{name="Disabled"}
