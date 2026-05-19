@@ -204,6 +204,7 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
       align-items: center;
       justify-content: space-between;
       gap: var(--onyx-density-xs) var(--onyx-density-xl);
+      container-type: inline-size;
     }
 
     &__actions {
