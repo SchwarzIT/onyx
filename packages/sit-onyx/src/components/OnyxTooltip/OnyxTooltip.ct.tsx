@@ -31,13 +31,9 @@ test("should be aligned correctly when page was scrolled with left/right positio
 }) => {
   // ARRANGE
   const component = await mount(
-    <TestWrapper
-      style="margin-block: 500px"
-      trigger="hover"
-      open={true}
-      position="right"
-      text="Test tooltip"
-    />,
+    <div style="margin: 500px">
+      <TestWrapper trigger="hover" open={true} position="right" text="Test tooltip" />
+    </div>,
   );
 
   const tooltip = component.getByRole("tooltip");
@@ -64,7 +60,7 @@ test("should trigger with hover", async ({ mount, page }) => {
   await expect(tooltip).toBeHidden();
 
   // ACT
-  await component.hover();
+  await component.getByRole("button").hover();
 
   // ASSERT
   await expect(tooltip).toBeVisible();
@@ -98,7 +94,7 @@ test("should trigger with click", async ({ mount, page }) => {
   await expect(tooltip).toBeHidden();
 
   // ACT
-  await component.click();
+  await component.getByRole("button").click();
 
   // ASSERT
   await expect(tooltip).toBeVisible();

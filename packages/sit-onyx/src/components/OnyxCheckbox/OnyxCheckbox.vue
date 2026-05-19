@@ -75,49 +75,52 @@ useAutofocus(input, props);
   </div>
 
   <OnyxErrorTooltip v-else :disabled="disabled" :error-messages="errorMessages" v-bind="rootAttrs">
-    <label
-      class="onyx-component onyx-checkbox"
-      :class="[requiredTypeClass, densityClass]"
-      :title="title"
-    >
-      <div class="onyx-checkbox__container">
-        <OnyxLoadingIndicator v-if="props.loading" class="onyx-checkbox__loading" type="circle" />
-        <input
-          v-else
-          ref="input"
-          v-model="isChecked"
-          v-custom-validity
-          :aria-label="props.hideLabel ? props.label : undefined"
-          class="onyx-checkbox__input"
-          type="checkbox"
-          :indeterminate="props.indeterminate"
-          :disabled="disabled"
-          :required="props.required"
-          :value="props.value"
-          :autofocus="props.autofocus"
-          v-bind="restAttrs"
-        />
-      </div>
+    <template #default="{ trigger }">
+      <label
+        class="onyx-component onyx-checkbox"
+        :class="[requiredTypeClass, densityClass]"
+        :title="title"
+        v-bind="trigger"
+      >
+        <div class="onyx-checkbox__container">
+          <OnyxLoadingIndicator v-if="props.loading" class="onyx-checkbox__loading" type="circle" />
+          <input
+            v-else
+            ref="input"
+            v-model="isChecked"
+            v-custom-validity
+            :aria-label="props.hideLabel ? props.label : undefined"
+            class="onyx-checkbox__input"
+            type="checkbox"
+            :indeterminate="props.indeterminate"
+            :disabled="disabled"
+            :required="props.required"
+            :value="props.value"
+            :autofocus="props.autofocus"
+            v-bind="restAttrs"
+          />
+        </div>
 
-      <template v-if="!props.hideLabel">
-        <p
-          class="onyx-checkbox__label"
-          :class="[
-            `onyx-truncation-${props.truncation}`,
-            // shows the required marker inline for multiline labels
-            props.truncation === 'multiline' ? requiredMarkerClass : undefined,
-          ]"
-        >
-          {{ props.label }}
-        </p>
-        <!-- shows the required marker fixed on the right for truncated labels -->
-        <div
-          v-if="props.truncation === 'ellipsis'"
-          class="onyx-checkbox__marker"
-          :class="[requiredMarkerClass]"
-        ></div>
-      </template>
-    </label>
+        <template v-if="!props.hideLabel">
+          <p
+            class="onyx-checkbox__label"
+            :class="[
+              `onyx-truncation-${props.truncation}`,
+              // shows the required marker inline for multiline labels
+              props.truncation === 'multiline' ? requiredMarkerClass : undefined,
+            ]"
+          >
+            {{ props.label }}
+          </p>
+          <!-- shows the required marker fixed on the right for truncated labels -->
+          <div
+            v-if="props.truncation === 'ellipsis'"
+            class="onyx-checkbox__marker"
+            :class="[requiredMarkerClass]"
+          ></div>
+        </template>
+      </label>
+    </template>
   </OnyxErrorTooltip>
 </template>
 
