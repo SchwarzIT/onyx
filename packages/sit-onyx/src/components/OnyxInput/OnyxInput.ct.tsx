@@ -7,6 +7,7 @@ import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-utils.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxInput from "./OnyxInput.vue";
+import TestCase from "./TestCase.vue";
 
 test.describe("Screenshot tests", () => {
   for (const state of ["default", "placeholder", "with value", "slot content"] as const) {
@@ -442,12 +443,7 @@ test("should show/hide clear button", async ({ mount }) => {
 
 test("should display pattern error", async ({ mount }) => {
   // ARRANGE
-  const component = await mount(OnyxInput, {
-    props: {
-      label: "Test label",
-      pattern: { value: "^[a-z]+$", errorMessage: "Only letters are allowed" },
-    },
-  });
+  const component = await mount(<TestCase />);
 
   const input = component.getByLabel("Test label");
   // ACT

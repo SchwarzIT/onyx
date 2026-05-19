@@ -73,43 +73,38 @@ defineExpose({
 });
 
 const normalizedPattern = computed(() => {
-  const pattern = props.pattern;
+  const { pattern } = props;
   if (!pattern) return;
 
-  if (typeof pattern === "object" && "value" in pattern && !(pattern instanceof RegExp)) {
-    return {
-      source: pattern.value instanceof RegExp ? pattern.value.source : pattern.value,
-      errorMessage: pattern.errorMessage,
-    };
-  }
+  const isConfigObj = typeof pattern === "object" && !(pattern instanceof RegExp);
+  const value = isConfigObj ? pattern.value : pattern;
+  const errorMessage = isConfigObj ? pattern.error : undefined;
 
   return {
-    source: pattern instanceof RegExp ? pattern.source : pattern,
-    errorMessage: undefined,
+    source: value instanceof RegExp ? value.source : value,
+    errorMessage,
   };
 });
-
-const patternSource = computed(() => normalizedPattern.value?.source);
 
 const { maxLength, maxLengthError } = useLenientMaxLengthValidation({ modelValue, props });
 
 const error = computed(() => {
   if (props.error) return props.error;
   if (maxLengthError.value) return maxLengthError.value;
-
-  const pattern = normalizedPattern.value;
-  if (
-    pattern?.errorMessage &&
-    modelValue.value !== undefined &&
-    input.value?.validity.patternMismatch
-  ) {
-    return pattern.errorMessage;
-  }
-
   return undefined;
 });
 
-const { vCustomValidity, errorMessages } = useFormElementError({ props, emit, error });
+const customErrorMessages = computed(() => ({
+  patternMismatch: normalizedPattern.value?.errorMessage,
+}));
+
+const { vCustomValidity, errorMessages } = useFormElementError({
+  props,
+  emit,
+  error,
+  customErrorMessages,
+});
+
 const { formElementV2Props } = useLegacyFormElementProps({ props, errorMessages });
 
 const { disabled } = useFormContext(props);
@@ -157,7 +152,7 @@ const { showClearButton } = useClearButton({ props, modelValue });
         :autocomplete="props.autocomplete"
         :autofocus="props.autofocus"
         :name="props.name"
-        :pattern="patternSource"
+        :pattern="normalizedPattern?.source"
         :readonly="props.readonly"
         :disabled="disabled || props.loading"
         :maxlength="maxLength"
