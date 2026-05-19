@@ -364,9 +364,6 @@ importers:
       vue-component-meta:
         specifier: 'catalog:'
         version: 3.2.9(typescript@5.9.3)
-      vue-tsc:
-        specifier: 'catalog:'
-        version: 3.2.8(typescript@5.9.3)
 
   packages/chartjs-plugin:
     devDependencies:
