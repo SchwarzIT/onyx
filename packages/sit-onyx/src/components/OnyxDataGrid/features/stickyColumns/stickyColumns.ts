@@ -97,7 +97,11 @@ export const useStickyColumns = <TEntry extends DataGridEntry>(
       { deep: true, immediate: true },
     );
 
-    const handleScroll = (el: Element) => {
+    const handleScroll = () => {
+      if (!containerElement.value) {
+        return;
+      }
+      const el = containerElement.value;
       const width = el.scrollWidth - el.clientWidth;
       const scrollLeft = Math.round(el.scrollLeft);
       isScrolledLeft.value = scrollLeft > 0;
@@ -269,9 +273,9 @@ export const useStickyColumns = <TEntry extends DataGridEntry>(
           if (!el) return;
           containerElement.value = el as HTMLElement;
           await nextTick();
-          handleScroll(el as HTMLElement);
+          handleScroll();
         },
-        onScrollCapturePassive: (e: Event) => handleScroll(e.target as HTMLElement),
+        onScrollPassive: () => handleScroll(),
       }),
     };
   });
