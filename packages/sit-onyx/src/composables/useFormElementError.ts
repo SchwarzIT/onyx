@@ -27,12 +27,15 @@ export type FormMessages = {
    */
   hidden?: boolean;
 };
+
 export type CustomValidityProp = {
   /**
    * Custom error message to show. Takes precedence over intrinsic error messages.
    */
   error?: CustomMessageType;
 };
+
+export type CustomValidationMessages = Partial<Record<keyof ValidityState, AnyFormError>>;
 
 export type FormValidationProps = {
   error?: CustomMessageType;
@@ -46,12 +49,14 @@ export type FormValidationProps = {
 };
 
 export type AnyFormError = CustomMessageType | FormElementV2Tooltip;
+
 export type UseFormElementErrorOptions = Omit<
   UseFormValidityOptions<FormValidationProps>,
   "error" | "props"
 > & {
   props: MaybeRef<Omit<FormValidationProps, "error"> & { error?: AnyFormError }>;
   error?: MaybeRefOrGetter<AnyFormError | undefined>;
+  customErrorMessages?: MaybeRefOrGetter<CustomValidationMessages | undefined>;
 };
 
 /**
@@ -149,6 +154,16 @@ export const useFormElementError = (options: UseFormElementErrorOptions) => {
       return errors;
     }
     if (!errorType) return;
+
+    // Check for custom override for this specific native error type (e.g., patternMismatch)
+    const customMessages = toValue(options.customErrorMessages);
+    if (customMessages && errorType in customMessages) {
+      const specificError = customMessages[errorType as keyof CustomValidationMessages];
+      if (specificError) {
+        return getFormMessages(normalizeError(specificError));
+      }
+    }
+
     const maxlength = typeof props.maxlength === "object" ? props.maxlength.max : props.maxlength;
     const validationData = {
       value: props.modelValue?.toString(),

@@ -1,3 +1,4 @@
+import type { CustomMessageType } from "../../composables/useFormElementError.js";
 import type { SharedTextInputProps } from "../../composables/useLenientMaxLengthValidation.js";
 import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
 import type { OnyxFormElementV2Props } from "../OnyxFormElementV2/types.js";
@@ -14,7 +15,7 @@ export type OnyxInputProps = Omit<SharedFormElementProps, "label"> &
     /**
      * Pattern the value must match to be valid.
      */
-    pattern?: string | RegExp;
+    pattern?: InputPattern | { value: InputPattern; error: CustomMessageType };
     /**
      * Whether to hide the check icon when the input is in a success state.
      *
@@ -43,3 +44,4 @@ export type OnyxInputProps = Omit<SharedFormElementProps, "label"> &
 
 export const INPUT_TYPES = ["email", "password", "search", "tel", "text", "url"] as const;
 export type InputType = (typeof INPUT_TYPES)[number];
+type InputPattern = string | RegExp;
