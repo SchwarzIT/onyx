@@ -46,7 +46,7 @@ const props = withDefaults(
           :label="`Result ${group}.2 `.repeat(props.longContent ? 8 : 1)"
           :value="`${group}-2`"
           :icon="iconPlaceholder"
-          :link="{ href: 'https://example.com', target: '_blank' }"
+          :link="{ href: 'https://onyx-global-search.example.com', target: '_blank' }"
         />
       </OnyxGlobalSearchGroup>
     </template>

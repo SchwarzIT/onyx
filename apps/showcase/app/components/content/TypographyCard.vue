@@ -1,0 +1,62 @@
+<script lang="ts" setup>
+import { isInternalLink, type SharedLinkProps } from "sit-onyx";
+import type { DetailsItem } from "../DetailsList.vue";
+
+const props = defineProps<{
+  items?: DetailsItem[];
+  link?: string | SharedLinkProps;
+}>();
+
+defineSlots<{
+  /**
+   * Preview content of the given typography.
+   */
+  default(): unknown;
+}>();
+
+const normalizedLink = computed<SharedLinkProps | undefined>(() => {
+  if (!props.link) return;
+  const link: SharedLinkProps = typeof props.link === "string" ? { href: props.link } : props.link;
+  return { target: isInternalLink(link.href) ? undefined : "_blank", ...link };
+});
+</script>
+
+<template>
+  <OnyxCard class="card onyx-grid-span-4" :link="normalizedLink">
+    <div class="card__preview">
+      <slot></slot>
+    </div>
+
+    <DetailsList v-if="props.items?.length" class="card__content" :items="props.items" />
+  </OnyxCard>
+</template>
+
+<style lang="scss" scoped>
+.card {
+  --onyx-card-gap: 0;
+  padding: 0;
+
+  &__preview {
+    padding: var(--onyx-card-padding);
+    background-color: var(--onyx-color-base-background-tinted);
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    min-height: var(--onyx-font-line-height-xl);
+    box-sizing: content-box;
+
+    > * {
+      margin-block: 0;
+    }
+  }
+
+  &__content {
+    padding: var(--onyx-card-padding);
+  }
+}
+</style>

@@ -1,6 +1,6 @@
 {
   "name": "@sit-onyx/nuxt-docs",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "Nuxt layer/template for creating documentations with the onyx design system",
   "type": "module",
   "author": "Schwarz IT KG",
@@ -48,10 +48,10 @@
   "devDependencies": {
     "@fontsource-variable/source-code-pro": "^5.2.7",
     "@fontsource-variable/source-sans-3": "^5.2.9",
-    "@nuxt/content": "^3.12.0",
-    "@nuxt/test-utils": "^4.0.2",
+    "@nuxt/content": "^3.13.0",
+    "@nuxt/test-utils": "^4.0.3",
     "@nuxtjs/color-mode": "^4.0.0",
-    "@nuxtjs/mdc": "~0.21.1",
+    "@nuxtjs/mdc": "~0.22.0",
     "@playwright/experimental-ct-vue": "catalog:",
     "@playwright/test": "catalog:",
     "@sit-onyx/icons": "workspace:^",

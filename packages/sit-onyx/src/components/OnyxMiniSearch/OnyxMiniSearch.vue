@@ -55,6 +55,7 @@ defineExpose({
     :class="['onyx-component', 'onyx-mini-search', densityClass]"
     v-bind="rootAttrs"
     :style="{ '--onyx-placeholder-character-count': placeholder.length }"
+    @click.stop
   >
     <input
       ref="input"

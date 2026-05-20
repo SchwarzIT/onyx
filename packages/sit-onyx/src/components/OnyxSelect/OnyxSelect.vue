@@ -324,6 +324,7 @@ const onSelect = (selectedOption: TValue) => {
     return;
   }
   if (!props.multiple) {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- false positive
     modelValue.value = selectedOption as unknown as TModelValue;
     return;
   }
@@ -496,6 +497,7 @@ const blockTyping = (event: KeyboardEvent) => {
 
 const clearValue = () => {
   const value = props.multiple ? [] : undefined;
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- false positive
   modelValue.value = value as typeof modelValue.value;
 };
 

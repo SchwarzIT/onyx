@@ -1,6 +1,8 @@
 <script lang="ts" setup>
+import type { Collections } from "@nuxt/content";
 import { iconArrowSmallLeft } from "@sit-onyx/icons";
 import type { OnyxPageLayoutProps, OnyxSidebarProps } from "sit-onyx";
+import TableOfContentsLayout from "../components/TableOfContentsLayout.vue";
 import type { SidebarNavigationItem } from "../composables/useSidebarNavigation.js";
 
 const props = defineProps<
@@ -41,10 +43,13 @@ const slots = defineSlots<{
   sidebarFooter?(): unknown;
 }>();
 
-const { navigation, previousRootItem } = await useSidebarNavigation();
+const { locale } = useI18n();
+const collectionName = computed(() => `content_${locale.value}` as keyof Collections);
 
-const collection = await useCollection();
-const toc = computed(() => collection.data.value?.body.toc?.links ?? []);
+const { navigation, previousRootItem } = await useSidebarNavigation({ collection: collectionName });
+
+const { data: collection } = await useCollection({ collection: collectionName });
+const toc = computed(() => collection.value?.body.toc?.links ?? []);
 </script>
 
 <template>
@@ -85,13 +90,9 @@ const toc = computed(() => collection.data.value?.body.toc?.links ?? []);
 
     <slot name="hero"></slot>
 
-    <div class="main onyx-grid-layout">
-      <div class="content">
-        <slot></slot>
-      </div>
-
-      <TableOfContents v-if="toc.length" class="main__toc" :links="toc" />
-    </div>
+    <TableOfContentsLayout class="onyx-grid-layout" :toc>
+      <slot></slot>
+    </TableOfContentsLayout>
 
     <template v-if="!!slots.footer" #footer>
       <slot name="footer"></slot>
@@ -104,8 +105,6 @@ const toc = computed(() => collection.data.value?.body.toc?.links ?? []);
 </template>
 
 <style lang="scss" scoped>
-@use "sit-onyx/breakpoints.scss";
-
 .sidebar {
   &__empty {
     max-width: 100%;
@@ -114,38 +113,6 @@ const toc = computed(() => collection.data.value?.body.toc?.links ?? []);
   &__back {
     width: 100%;
     justify-content: flex-start;
-  }
-}
-
-.main {
-  /** Gap between page content and TOC. Equivalent to one grid column + 2 * grid gutter/gap */
-  --onyx-content-toc-gap: calc(2 * var(--onyx-grid-gutter) + (100 / var(--onyx-grid-columns)) * 1%);
-  display: grid;
-  gap: var(--onyx-content-toc-gap);
-
-  // see: https://storybook.onyx.schwarz/?path=/docs/navigation-tableofcontents--docs
-  grid-template-columns: 1fr minmax(8rem, 15rem);
-
-  &__toc {
-    position: sticky;
-    top: var(--onyx-grid-margin-vertical);
-    height: calc(100vh - var(--onyx-nav-bar-height) - 2 * var(--onyx-grid-margin-vertical));
-  }
-
-  // hide TOC on smaller screens
-  @include breakpoints.container(max, md) {
-    grid-template-columns: 1fr;
-
-    .main__toc {
-      display: none;
-    }
-  }
-}
-
-.content {
-  // remove the top margin of the first child since its redundant to the page padding
-  :deep(> div > :first-child) {
-    margin-top: 0;
   }
 }
 </style>

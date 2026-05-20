@@ -21,6 +21,12 @@ const props = defineProps<{
    * @see https://content.nuxt.com/docs/utils/query-collection-search-sections#api
    */
   options?: Parameters<typeof queryCollectionSearchSections>[1];
+  /**
+   * List of collections to include in the search.
+   *
+   * @default "content_{locale}" where `{locale}` is replaced with the current i18n locale.
+   */
+  collections?: (keyof Collections)[];
 }>();
 
 const { t, locale, locales } = useI18n();
@@ -32,11 +38,21 @@ watch(isOpen, (open) => {
   if (!open) searchTerm.value = "";
 });
 
+const collections = computed<(keyof Collections)[]>(() => {
+  if (props.collections) return props.collections;
+  return [`content_${locale.value}` as keyof Collections];
+});
+
 const { data, status } = await useLazyAsyncData(
-  () => `search-sections-${locale.value}-${props.options}`,
-  () => {
-    const collection = `content_${locale.value}` as keyof Collections;
-    return queryCollectionSearchSections(collection, props.options);
+  () => `search-sections-${collections.value.join("-")}-${props.options}`,
+  async () => {
+    const sections = await Promise.all(
+      collections.value.map((collection) => {
+        return queryCollectionSearchSections(collection, props.options);
+      }),
+    );
+
+    return sections.flatMap((section) => section);
   },
 );
 

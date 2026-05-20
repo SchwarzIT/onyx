@@ -8,16 +8,20 @@ defineSlots<{
   default(): unknown;
 }>();
 
-const { data } = await useCollection();
+const { locale } = useI18n();
+
+const { data: collection } = await useCollection({
+  collection: computed(() => `content_${locale.value}` as const),
+});
 </script>
 
 <template>
   <SidebarLayout>
-    <template #hero>
+    <template v-if="collection" #hero>
       <PageContentHero
-        :headline="data?.title"
-        :description="data?.description"
-        :image="data?.hero?.image"
+        :headline="collection.title"
+        :description="collection.description"
+        :image="collection.hero?.image"
       />
     </template>
 

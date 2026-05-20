@@ -28,7 +28,7 @@ It gives tips and guidelines on what should or must be considered when working w
 
 :::
 
-2. Install the [pnpm](https://pnpm.io/) package manager with a compatible version to `^{{ packageManager.replace("pnpm@", "") }}`
+2. Install the [pnpm](https://pnpm.io/) package manager with a compatible version to `^{{ packageManager.replace("pnpm@", "").split("+").at(0) }}`
 
 ### Recommended IDE Setup
 

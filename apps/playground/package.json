@@ -26,9 +26,10 @@
   "devDependencies": {
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
-    "@vue/repl": "^4.7.1",
-    "@vueuse/core": "^14.2.1",
+    "@vue/repl": "^4.7.2",
+    "@vueuse/core": "^14.3.0",
     "sit-onyx": "workspace:^",
+    "vite": "catalog:",
     "vue": "catalog:"
   },
   "engines": {

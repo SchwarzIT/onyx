@@ -7,6 +7,7 @@ import {
 } from "@sit-onyx/icons";
 import { computed, onUnmounted, ref, useId, useTemplateRef, watch } from "vue";
 import { useDensity } from "../../composables/density.js";
+import { useLink } from "../../composables/useLink.js";
 import { useResizeObserver } from "../../composables/useResizeObserver.js";
 import { ONYX_BREAKPOINTS } from "../../utils/breakpoints.js";
 import { useGlobalFAB } from "../OnyxGlobalFAB/useGlobalFAB.js";
@@ -22,8 +23,8 @@ const props = withDefaults(defineProps<OnyxSidebarProps>(), {
 
 const emit = defineEmits<{
   /**
-   * Emitted when the drawer should be closed.
-   * Only available when the `drawer` property is set.
+   * Emitted when the temporary sidebar should be closed.
+   * Only available when the `temporary` property is set.
    */
   close: [];
 }>();
@@ -126,6 +127,10 @@ watch(
 onUnmounted(() => {
   globalFAB.remove(id);
 });
+
+// automatically close mobile sidebar after navigation
+const { currentRoute } = useLink();
+watch(currentRoute, () => (isModalOpen.value = false), { deep: true });
 </script>
 
 <template>

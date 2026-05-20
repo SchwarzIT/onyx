@@ -38,5 +38,11 @@ const features = computed(() => [withHideColumns.value]);
 </script>
 
 <template>
-  <OnyxDataGrid :columns :data :features />
+  <OnyxDataGrid :columns :data :features class="data-grid" />
 </template>
+
+<style lang="scss" scoped>
+.data-grid {
+  padding-bottom: 4rem;
+}
+</style>

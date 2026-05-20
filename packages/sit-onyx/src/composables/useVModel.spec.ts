@@ -204,6 +204,7 @@ describe("useVModel with a modelValue controlled from the parent", () => {
   });
 
   test("should emit undefined", async () => {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- false negative
     component.vm._modelValue = undefined as unknown as string;
     await nextTick();
     expect(component.emitted()).toHaveProperty("update:modelValue");
@@ -235,6 +236,7 @@ describe("useVModel with a modelValue that is not controlled", () => {
   });
 
   test("should be able to set undefined", async () => {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- false positive
     component.vm._modelValue = undefined as unknown as string;
     await nextTick();
     expect(component.vm._modelValue).toBe("default");
@@ -243,6 +245,7 @@ describe("useVModel with a modelValue that is not controlled", () => {
   });
 
   test("should be able to set null", async () => {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- false positive
     component.vm._modelValue = null as unknown as string;
     await nextTick();
     expect(component.vm._modelValue).toBe("default");
@@ -268,7 +271,7 @@ describe("noDefault useVModel with a modelValue that is not controlled", () => {
   });
 
   test("should be able to be set to undefined", async () => {
-    component.vm._noDefault = undefined as unknown as string;
+    component.vm._noDefault = undefined;
     await nextTick();
     expect(component.vm._noDefault).toBe(undefined);
     expect(component.emitted()).toHaveProperty("update:noDefault");
@@ -277,6 +280,7 @@ describe("noDefault useVModel with a modelValue that is not controlled", () => {
   });
 
   test("should be able to be set to null", async () => {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- false positive
     component.vm._noDefault = null as unknown as string;
     await nextTick();
     expect(component.vm._noDefault).toBe(undefined);

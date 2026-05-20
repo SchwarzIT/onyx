@@ -120,7 +120,8 @@ defineExpose({
   @include layers.component() {
     padding: 0;
     border: none;
-    max-width: max-content;
+    width: max-content;
+    max-width: 100%;
     min-width: unset;
 
     &__label {

@@ -17,6 +17,10 @@ export type ToggletipOptions = {
 
 export type OnyxTooltipProps = DensityProp & {
   /**
+   * Whether the tooltip is disabled. If true, the tooltip will not be shown.
+   */
+  disabled?: boolean;
+  /**
    * Text to display inside the tooltip.
    * Must be set unless the custom "tooltip" slot is used.
    */

@@ -44,6 +44,7 @@
     "@vue/compiler-dom": "catalog:",
     "chart.js": "catalog:",
     "sit-onyx": "workspace:^",
+    "vite": "catalog:",
     "vue": "catalog:",
     "vue-chartjs": "^5.3.3"
   }

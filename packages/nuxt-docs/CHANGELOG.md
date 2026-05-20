@@ -1,5 +1,31 @@
 # @sit-onyx/nuxt-docs
 
+## 0.6.0
+
+### Minor Changes
+
+- 65e3627: feat: support search options for `GlobalSearch`
+
+  You can now override the `GlobalSearch` component to e.g. pass options for generating the search sections:
+
+  ```vue
+  <script lang="ts" setup>
+  import GlobalSearch from "#layers/onyx/app/components/GlobalSearch.vue";
+
+  const { loggedIn } = useUserSession();
+  </script>
+
+  <template>
+    <GlobalSearch :options="loggedIn ? undefined : { ignoredTags: ['auth-only'] }" />
+  </template>
+  ```
+
+### Patch Changes
+
+- 4637a02: fix(sidebar-layout): remove top margin for first child
+- Updated dependencies
+  - @sit-onyx/mdc@0.2.0
+
 ## 0.5.1
 
 ### Patch Changes
