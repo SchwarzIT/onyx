@@ -24,13 +24,7 @@ const { densityClass } = useDensity(props);
 </script>
 
 <template>
-  <form
-    :class="{
-      'onyx-component': true,
-      'onyx-form': true,
-      ...densityClass,
-    }"
-  >
+  <form :class="['onyx-component', 'onyx-form', densityClass]">
     <slot></slot>
   </form>
 </template>
