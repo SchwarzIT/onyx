@@ -113,6 +113,12 @@ Using a load more button is similar to lazy loading but instead of automatically
 
 <br />
 
+### Custom option content
+
+Each option can additionally be displayed with custom content. By default, only the label and icon is shown. When using custom content, you must display the label and icon manually if needed. Ellipsis truncation (default) for the label must also be applied manually. See our [typography documentation](/introduction/foundation/typography#usage) for further information on how the apply truncation.
+
+:component-example{name="CustomOptions" layout="grow"}
+
 ### Groups
 
 Options can also be grouped to provide additional structure and clearance for related options.
