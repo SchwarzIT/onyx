@@ -73,7 +73,7 @@ For full flexibility, the internal default search logic can be disabled so you c
 
 ### Load more options
 
-When working with very large data sets or backend-provided data, it might be more performant to only load a few options initially and then load more options on demand.
+When working with very large data sets or backend-provided data, it might be desired to only load a few options initially and then load more options on demand to optimize performance.
 
 The select supports multiple ways of pagination / loading more options depending on the use case:
 
