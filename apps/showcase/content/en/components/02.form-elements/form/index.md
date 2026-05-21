@@ -19,6 +19,8 @@ Take a look at the corresponding component documentation to see a full list of a
 Please not that we do **NOT** recommend to disable "Submit" buttons in forms since this breaks our default form validation behavior where validation is automatically triggered for each form element used inside the form and error messages are displayed correspondingly. Keep the button enabled instead for an improved user experience. Even if the user tries to submit the form before its valid, the submit ist not triggered and all invalid form elements are highlighted with proper error messages.
 ::
 
+Using reset buttons is not recommended. Please refer to the [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/reset#try_it) for further information.
+
 ## Examples
 
 In the following examples, we are using our [grid system](/introduction/foundation/breakpoints-and-grid) to easily apply responsive layouts.
@@ -36,12 +38,6 @@ For some layouts, it might be required to place the submit button technically ou
 To "connect" such external submit button, simply add an ID to the form and define the HTML [form](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/form) attribute with the same ID on the button. This way, the form validation, submit etc. still work as expected, even when the submit button is not placed inside the form.
 
 :component-example{name="Modal"}
-
-### Reset
-
-A optional reset button can be used to allow the user to reset/revert his changes and restore the form with its default values. Depending on the use case, the default value can either be empty or contain pre-defined values (e.g. when editing existing data).
-
-:component-example{name="Reset" layout="grow"}
 
 ### Required / optional marker
 

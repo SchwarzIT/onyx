@@ -151,9 +151,9 @@ const attrs = useAttrs();
     max-width: var(--preview-max-width);
     container-type: inline-size;
 
-    // this "useless" transform is used to position fixed components (e.g. OnyxFAB) relative to the preview wrapper
+    // this is used to position fixed components (e.g. OnyxFAB) relative to the preview wrapper
     // instead of relative to the whole screen
-    transform: translate(0, 0);
+    contain: layout;
 
     &--fullWidth {
       --preview-max-width: initial;
