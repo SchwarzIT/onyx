@@ -352,5 +352,12 @@
   },
   "accordion": {
     "toggle": "Кликнете, за да превключите съдържанието"
+  },
+  "search": {
+    "filterLabel": "показване на филтър за търсене",
+    "leadingShortcutPlaceholder": "Въведете",
+    "trailingShortcutPlaceholder": "за търсене",
+    "label": "Търсене",
+    "selectFilter": "Избор на филтър"
   }
 }
