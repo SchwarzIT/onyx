@@ -35,7 +35,7 @@ The card displayed for every file can be customized if needed to e.g. support ad
 
 ### List types
 
-The list of selected files can be customized using the `listType` property to e.g. define a max. height or use a show/hide button.
+The list of selected files can be customized using the `listType` property to e.g. define a maximum height or use a show/hide button.
 This examples shows a custom visualization using a modal.
 
 :component-example{name="Modal" layout="grow"}
