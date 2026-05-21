@@ -11,8 +11,8 @@ const options = [] satisfies SelectOption[];
     v-model="value"
     label="Example label"
     list-label="Available options"
-    :options
     :message="{ shortMessage: 'Message', longMessage: 'Message tooltip content' }"
+    :options
   />
   <!--
     "show-error" is only set for this example so the error is displayed immediately.
@@ -22,15 +22,15 @@ const options = [] satisfies SelectOption[];
     v-model="value"
     label="Example label"
     list-label="Available options"
-    :options
     :error="{ shortMessage: 'Custom error', longMessage: 'Error tooltip content' }"
+    :options
     show-error
   />
   <OnyxSelect
     v-model="value"
     label="Example label"
     list-label="Available options"
-    :options
     :success="{ shortMessage: 'Success', longMessage: 'Success tooltip content' }"
+    :options
   />
 </template>

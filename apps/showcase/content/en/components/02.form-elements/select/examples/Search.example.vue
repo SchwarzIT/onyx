@@ -16,7 +16,6 @@ const options = [
     v-model="values"
     label="Example label"
     list-label="Available options"
-    placeholder="Placeholder..."
     :options
     multiple
     with-search

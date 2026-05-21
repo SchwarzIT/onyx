@@ -67,6 +67,16 @@ For full flexibility, the internal default search logic can be disabled so you c
 :component-example{name="CustomSearch" layout="grow"}
 ::
 
+::step
+#headline
+Async search
+
+#default
+When the options are provided by a backend service and should not be loaded immediately, async search can be used to optimize performance and only load relevant options. After the user typed in a search term, matching options are loaded asynchronously.
+
+:component-example{name="AsyncSearch" layout="grow"}
+::
+
 </steps>
 
 <br />
@@ -97,14 +107,6 @@ Load more button
 Using a load more button is similar to lazy loading but instead of automatically loading more options, the user needs to manually click on a button.
 
 :component-example{name="ButtonLoading" layout="grow"}
-::
-
-::step
-#headline
-Async search
-
-#default
-TODO:
 ::
 
 </steps>

@@ -1,13 +1,14 @@
 <script lang="ts" setup>
+import { iconApplePhone, iconAppleTabletLandscape, iconComputer } from "@sit-onyx/icons";
 import { OnyxSelect, SelectOption } from "sit-onyx";
 import { ref } from "vue";
 
 const value = ref<string>();
 
 const options = [
-  { label: "Apple", value: "apple" },
-  { label: "Banana", value: "banana" },
-  { label: "Mango", value: "mango" },
+  { label: "Phone", value: "phone", icon: iconApplePhone },
+  { label: "Tablet", value: "tablet", icon: iconAppleTabletLandscape },
+  { label: "Computer", value: "computed", icon: iconComputer },
 ] satisfies SelectOption[];
 </script>
 

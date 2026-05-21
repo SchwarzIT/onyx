@@ -31,7 +31,6 @@ const filteredOptions = computed(() => {
     v-model:search-term="searchTerm"
     label="Example label"
     list-label="Available options"
-    placeholder="Placeholder..."
     :options="filteredOptions"
     :value-label
     with-search
