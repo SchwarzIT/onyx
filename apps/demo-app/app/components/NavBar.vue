@@ -1,20 +1,42 @@
 <script lang="ts" setup>
 import NavBar from "#layers/blueprint/app/components/NavBar.vue";
-import { iconFile, iconUserGroup, iconUserId } from "@sit-onyx/icons";
-import type { OnyxNavBarSlots } from "sit-onyx";
+import {
+  iconChart,
+  iconFile,
+  iconHome,
+  iconToolTable,
+  iconUserGroup,
+  iconUserId,
+} from "@sit-onyx/icons";
+import { type OnyxNavBarSlots } from "sit-onyx";
 import logoUrl from "~/assets/images/onyx-logo.svg";
 
 defineSlots<Pick<OnyxNavBarSlots, "contextArea">>();
+const expanded = ref(false);
 
 const localePath = useLocalePath();
+const isVertical = defineModel<boolean>("isVerticalNavBar", { default: false });
+const orientation = computed(() => (isVertical.value ? "vertical" : "horizontal"));
 </script>
 
 <template>
-  <NavBar app-name="onyx demo" :logo-url>
-    <OnyxNavItem :label="$t('overview')" :link="localePath('/')" />
-    <OnyxNavItem :label="$t('dataGrid.pageName')" :link="localePath('/data-grid')" />
+  <NavBar v-model:expanded="expanded" app-name="onyx demo" :logo-url :orientation="orientation">
+    <OnyxNavItem
+      :label="$t('overview')"
+      :link="localePath('/')"
+      :icon="isVertical ? iconHome : undefined"
+    />
+    <OnyxNavItem
+      :label="$t('dataGrid.pageName')"
+      :link="localePath('/data-grid')"
+      :icon="isVertical ? iconToolTable : undefined"
+    />
 
-    <OnyxNavItem :label="$t('forms')" :link="localePath('/forms')">
+    <OnyxNavItem
+      :label="$t('forms')"
+      :link="localePath('/forms')"
+      :icon="isVertical ? iconFile : undefined"
+    >
       <template #children>
         <OnyxNavItem :label="$t('personalData')" :link="localePath('/forms')">
           <OnyxIcon :icon="iconUserId" />
@@ -33,19 +55,24 @@ const localePath = useLocalePath();
       </template>
     </OnyxNavItem>
 
-    <OnyxNavItem :label="$t('charts.pageName')" :link="localePath('/charts')" />
+    <OnyxNavItem
+      :label="$t('charts.pageName')"
+      :link="localePath('/charts')"
+      :icon="isVertical ? iconChart : undefined"
+    />
 
     <template #contextArea>
       <!-- eslint-disable-next-line vue/require-explicit-slots -- slots type is imported from onyx but eslint does not seem to be able to handle this -->
       <slot name="contextArea"></slot>
-
+      <NavbarSwitch v-model="isVertical" />
       <ColorSchemeSwitch />
       <DensitySwitch />
       <LocaleSwitch />
+      <GlobalSearch />
+      <OnyxSeparator v-if="!isVertical" orientation="vertical" />
       <NotificationCenter />
-      <OnyxSeparator orientation="vertical" />
 
-      <UserMenu />
+      <UserMenu :position="isVertical ? 'right' : 'auto'" />
     </template>
   </NavBar>
 </template>
