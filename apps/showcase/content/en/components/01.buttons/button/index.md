@@ -21,7 +21,7 @@ Neutral buttons are used for secondary actions such as "Cancel" actions.
 
 ### Danger
 
-Use danger buttons for destructive actions such as "Delete".
+Use danger buttons for destructive actions such as "Delete". For an improved user experience, we strongly recommend to show a confirmation before actually deleting any data. You can use our [alert modal](/components/feedback/alert-modal) component for this.
 
 :component-example{name="Danger"}
 
