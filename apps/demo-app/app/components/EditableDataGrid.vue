@@ -151,9 +151,20 @@ const withCustomActions = createFeature(() => ({
   },
 }));
 
+const withCustomSlots = createFeature(() => ({
+  name: Symbol("custom slots feature"),
+  slots: {
+    bottomLeft: (slotContent) => [
+      h("span", "Click on any row to view more details."),
+      ...slotContent(),
+    ],
+  },
+}));
+
 const features = computed(() => [
   useRowClickFeature<FoodProduct>(handleRowClick),
   withCustomActions,
+  withCustomSlots,
   DataGridFeatures.useEditing<FoodProduct>({
     enabled: isEditable,
     mode: "manual",
@@ -171,7 +182,7 @@ const reset = () => {
 </script>
 
 <template>
-  <OnyxDataGrid :columns :data :features> </OnyxDataGrid>
+  <OnyxDataGrid :columns :data :features :headline="t('dataGrid.editableTable.product.headline')" />
 
   <OnyxSidebar
     class="notification-center"

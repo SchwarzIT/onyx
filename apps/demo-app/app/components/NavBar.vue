@@ -8,21 +8,14 @@ import {
   iconUserGroup,
   iconUserId,
 } from "@sit-onyx/icons";
-import { type OnyxNavBarSlots, useVModel } from "sit-onyx";
+import { type OnyxNavBarSlots } from "sit-onyx";
 import logoUrl from "~/assets/images/onyx-logo.svg";
-import GlobalSearch from "./GlobalSearch.vue";
 
 defineSlots<Pick<OnyxNavBarSlots, "contextArea">>();
 const expanded = ref(false);
 
 const localePath = useLocalePath();
-const props = defineProps<{
-  isVerticalNavBar?: boolean;
-}>();
-const emit = defineEmits<{
-  "update:isVerticalNavBar": [value: boolean];
-}>();
-const isVertical = useVModel({ props, emit, key: "isVerticalNavBar", default: false });
+const isVertical = defineModel<boolean>("isVerticalNavBar", { default: false });
 const orientation = computed(() => (isVertical.value ? "vertical" : "horizontal"));
 </script>
 
@@ -72,7 +65,7 @@ const orientation = computed(() => (isVertical.value ? "vertical" : "horizontal"
       <!-- eslint-disable-next-line vue/require-explicit-slots -- slots type is imported from onyx but eslint does not seem to be able to handle this -->
       <slot name="contextArea"></slot>
       <NavbarSwitch v-model="isVertical" />
-      <ColorSchemeSwitch :hide-label="!isVertical" />
+      <ColorSchemeSwitch />
       <DensitySwitch />
       <LocaleSwitch />
       <GlobalSearch />
@@ -83,12 +76,3 @@ const orientation = computed(() => (isVertical.value ? "vertical" : "horizontal"
     </template>
   </NavBar>
 </template>
-
-<style lang="scss">
-.vertical-navbar-switch {
-  .onyx-switch__click-area,
-  .onyx-switch-skeleton__click-area {
-    padding-left: 0;
-  }
-}
-</style>

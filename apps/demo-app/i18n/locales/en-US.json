@@ -85,6 +85,7 @@
       },
       "details": "Product details",
       "product": {
+        "headline": "Product Overview",
         "fields": {
           "id": "ID",
           "name": "Product name",
