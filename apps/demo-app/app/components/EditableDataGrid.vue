@@ -155,7 +155,7 @@ const withCustomSlots = createFeature(() => ({
   name: Symbol("custom slots feature"),
   slots: {
     bottomLeft: (slotContent) => [
-      h("span", "Click on any row to view more details."),
+      h("span", { class: "onyx-text--small" }, t("dataGrid.editableTable.info")),
       ...slotContent(),
     ],
   },

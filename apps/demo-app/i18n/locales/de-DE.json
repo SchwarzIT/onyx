@@ -84,6 +84,7 @@
         "check": "Daten prüfen"
       },
       "details": "Artikel Details",
+      "info": "Klicke auf eine beliebige Zeile, um mehr Details anzuschauen.",
       "product": {
         "headline": "Produktübersicht",
         "fields": {
