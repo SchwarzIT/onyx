@@ -17,7 +17,7 @@
     "preview": "nuxt preview"
   },
   "dependencies": {
-    "@nuxt/content": "^3.13.0",
+    "@nuxt/content": "^3.14.0",
     "@nuxtjs/mdc": "~0.22.0",
     "@sit-onyx/flags": "workspace:^",
     "@sit-onyx/headless": "workspace:^",
