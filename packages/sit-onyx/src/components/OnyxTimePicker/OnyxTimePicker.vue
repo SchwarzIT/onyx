@@ -6,7 +6,7 @@
 export default {};
 </script>
 
-<script lang="ts" setup generic="TType extends TimePickerType = 'default'">
+<script lang="ts" setup generic="TType extends TimePickerType">
 import { computed, useTemplateRef } from "vue";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
