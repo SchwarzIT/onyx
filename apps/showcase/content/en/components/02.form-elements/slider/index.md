@@ -1,6 +1,7 @@
 ---
 title: Slider
 componentName: OnyxSlider
+status: new
 ---
 
 Sliders allow users to select a value (or a range of two values) inside a given min/max range by dragging a thumb along a track.
