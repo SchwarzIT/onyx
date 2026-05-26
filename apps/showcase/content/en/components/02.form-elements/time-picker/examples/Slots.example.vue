@@ -3,13 +3,13 @@ import { iconPlaceholder } from "@sit-onyx/icons";
 import {
   OnyxIcon,
   OnyxSelect,
-  OnyxUnstableDatePickerV2,
   OnyxUnstableFormElementAction,
+  OnyxUnstableTimePicker,
   SelectOption,
 } from "sit-onyx";
 import { ref } from "vue";
 
-const date = ref<Date>();
+const time = ref<string>();
 
 const selectOptions = [
   { label: "Foo", value: "foo" },
@@ -24,7 +24,7 @@ const handleActionClick = () => {
 </script>
 
 <template>
-  <OnyxUnstableDatePickerV2 v-model="date" label="Date">
+  <OnyxUnstableTimePicker v-model="time" label="Example label">
     <template #leading>
       <OnyxUnstableFormElementAction
         label="Example action"
@@ -53,5 +53,5 @@ const handleActionClick = () => {
         hide-label
       />
     </template>
-  </OnyxUnstableDatePickerV2>
+  </OnyxUnstableTimePicker>
 </template>
