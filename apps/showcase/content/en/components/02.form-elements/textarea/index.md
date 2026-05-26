@@ -7,9 +7,9 @@ Textarea components support large text entries, giving users a spacious area to 
 
 ### Basic
 
-The height of the textarea is sized automatically by default which ensures that there is a minimum height which grows as the user types in until the maximum height is reached. You can customize the minimum and maximum number of rows using the `autosize` property or disable the maximum height completely so the textarea grows infinitely.
+By default, the height of the textarea is sized automatically, which ensures a minimum height that grows as the user types until a maximum height is reached. You can customize the minimum and maximum number of rows using the `autosize` property, or you can disable the maximum height completely, allowing the textarea to grow infinitely.
 
-_Type in multiple rows in the example below to see the autosize in action._
+_Type multiple rows into the example below to see the autosizing in action._
 
 Additionally, the user can resize the textarea manually by dragging the bottom right corner vertically. You can disable this feature using the `disableManualResize` property.
 
@@ -23,7 +23,7 @@ Readonly and disabled are used to indicate that the textarea is currently not ed
 
 ### Min and max length
 
-When a min or maxlength is defined, the user must enter at least `min` and at most `max` characters before the textarea is valid. Otherwise the textarea is invalid and a proper error message is displayed. Optionally, a character counter can be displayed.
+If `minlength` or `maxlength` is defined, the user must enter at least `minlength` and at most `maxlength` characters before the textarea becomes valid. Otherwise the textarea is invalid and an error message is displayed. Optionally, a character counter can be displayed.
 
 :component-example{name="MinMaxLength" layout="grow"}
 
@@ -36,7 +36,7 @@ The loading state is used after a user interaction to indicate that the triggere
 ### Message
 
 An optional message, error or success message can be displayed. Each message supports showing an info tooltip with further information.
-When multiple message types are defined at once, only the most relevant will be displayed (e.g. error is preferred over the regular message).
+When multiple message types are defined at once, only the most relevant will be displayed (e.g. error message takes precedent over the regular message).
 
 :component-example{name="Message" layout="grow" orientation="vertical"}
 
