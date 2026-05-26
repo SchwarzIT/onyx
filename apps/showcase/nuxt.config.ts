@@ -7,6 +7,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   extends: ["@sit-onyx/nuxt-docs"],
   modules: ["nuxt-studio", "nuxt-auth-utils", "@vueuse/nuxt"],
+  css: ["@sit-onyx/tiptap/style.css"],
   app: {
     head: {
       link: [{ rel: "icon", href: "/onyx-logo.svg" }],
