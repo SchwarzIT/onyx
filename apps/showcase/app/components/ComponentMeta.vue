@@ -8,9 +8,13 @@ const props = defineProps<{
    * @example OnyxButton.
    */
   component: string;
+  /**
+   * The npm package name that the component is including in.
+   */
+  package: string;
 }>();
 
-const meta = computed(() => getComponentMeta(props.component));
+const meta = computed(() => getComponentMeta(props.component, props.package));
 
 // build time breaker to guarantee that no non-existing components are used
 // see "prerender" config in nuxt.config.ts

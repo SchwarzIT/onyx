@@ -26,6 +26,7 @@ export default defineContentConfig({
       source: { include: "en/components/**", exclude: ["**/*.vue"], prefix: "/components" },
       schema: z.object({
         componentName: z.string(),
+        package: z.string().default("sit-onyx"),
         status: z.enum(["new", "experimental", "deprecated"]).optional(),
       }),
     }),

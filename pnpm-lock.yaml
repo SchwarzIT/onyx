@@ -333,6 +333,9 @@ importers:
       '@sit-onyx/nuxt-docs':
         specifier: workspace:^
         version: link:../../packages/nuxt-docs
+      '@sit-onyx/tiptap':
+        specifier: workspace:^
+        version: link:../../packages/tiptap
       '@vueuse/core':
         specifier: ^14.3.0
         version: 14.3.0(vue@3.5.34(typescript@5.9.3))
@@ -771,6 +774,9 @@ importers:
       '@sit-onyx/storybook-utils':
         specifier: workspace:^
         version: link:../storybook-utils
+      '@sit-onyx/vite-plugin-component-meta':
+        specifier: workspace:^
+        version: link:../vite-plugin-component-meta
       '@storybook/addon-a11y':
         specifier: ^10.4.0
         version: 10.4.0(storybook@10.4.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@testing-library/dom@10.4.1)(@types/react@19.2.14)(prettier@3.8.3)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))
@@ -804,15 +810,9 @@ importers:
       vue:
         specifier: 3.5.34
         version: 3.5.34(typescript@5.9.3)
-      vue-component-meta:
-        specifier: 'catalog:'
-        version: 3.3.1(typescript@5.9.3)
       vue-component-type-helpers:
         specifier: ^3.3.1
         version: 3.3.1
-      vue-docgen-api:
-        specifier: ^4.79.2
-        version: 4.79.2(vue@3.5.34(typescript@5.9.3))
       vue-i18n:
         specifier: ^11.4.4
         version: 11.4.4(vue@3.5.34(typescript@5.9.3))
@@ -881,6 +881,9 @@ importers:
       '@sit-onyx/storybook-utils':
         specifier: workspace:^
         version: link:../storybook-utils
+      '@sit-onyx/vite-plugin-component-meta':
+        specifier: workspace:^
+        version: link:../vite-plugin-component-meta
       '@tiptap/extension-heading':
         specifier: ^3.23.5
         version: 3.23.5(@tiptap/core@3.23.5(@tiptap/pm@3.23.5))
@@ -911,6 +914,22 @@ importers:
       vite:
         specifier: 8.0.14
         version: 8.0.14(@types/node@24.12.4)(esbuild@0.28.0)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.47.1)(tsx@4.22.3)(yaml@2.9.0)
+
+  packages/vite-plugin-component-meta:
+    dependencies:
+      vite:
+        specifier: 8.0.13
+        version: 8.0.13(@types/node@24.12.4)(esbuild@0.28.0)(jiti@2.7.0)(sass-embedded@1.99.0)(sass@1.99.0)(terser@5.47.1)(tsx@4.22.3)(yaml@2.9.0)
+      vue-component-meta:
+        specifier: 'catalog:'
+        version: 3.3.1(typescript@5.9.3)
+      vue-docgen-api:
+        specifier: ^4.79.2
+        version: 4.79.2(vue@3.5.34(typescript@5.9.3))
+    devDependencies:
+      '@sit-onyx/shared':
+        specifier: workspace:^
+        version: link:../shared
 
   packages/vite-plugin-svg:
     dependencies:

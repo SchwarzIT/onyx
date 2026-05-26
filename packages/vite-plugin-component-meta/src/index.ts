@@ -1,8 +1,7 @@
 // Based on https://github.com/storybookjs/storybook/blob/2b4ef8b687463fb3da89e2888620357afa31dadf/code/frameworks/vue3-vite/src/plugins/vue-component-meta.ts
 import { readFile, stat } from "node:fs/promises";
-import { join, parse } from "node:path";
+import { parse } from "node:path";
 import type { Type } from "typescript";
-
 import { createFilter, type Plugin } from "vite";
 import {
   type ComponentMeta,
@@ -11,39 +10,7 @@ import {
   TypeMeta,
 } from "vue-component-meta";
 import { parseMulti } from "vue-docgen-api";
-
-type MetaSource = {
-  exportName: string;
-  displayName: string;
-  sourceFiles: string;
-} & ComponentMeta &
-  Exclude<MetaCheckerOptions["schema"], boolean>;
-
-type ExtractComponentMetaOptions = {
-  /**
-   * Path of the tsconfig file to use for the vue-component-meta checker.
-   * References are not supported.
-   * @default "tsconfig.json"
-   */
-  tsconfigPath?: string;
-  /**
-   * Filename of the output file. Should have the ".json" extension.
-   * @default "component-meta.json"
-   */
-  fileName?: string;
-  /**
-   * Files/Modules that should be considered.
-   */
-  include?: RegExp;
-  /**
-   * Files/Modules that should be excluded.
-   */
-  exclude?: RegExp;
-  /**
-   * Filter function to filter which exports should actually end up in the emitted file.
-   */
-  filterMeta?: (meta: MetaSource) => boolean;
-};
+import type { ExtractComponentMetaOptions, MetaSource } from "./types.js";
 
 export const DEFAULT_INCLUDE = /\.(vue|ts|js|tsx|jsx)$/;
 /**
@@ -197,20 +164,17 @@ async function createVueComponentMetaChecker(tsconfigPath = "tsconfig.json") {
     },
   };
 
-  const projectRoot = join(import.meta.dirname, "..");
-  const projectTsConfigPath = join(projectRoot, tsconfigPath);
-
-  const exists = await fileExists(projectTsConfigPath);
+  const exists = await fileExists(tsconfigPath);
   if (!exists) {
     throw new Error("The required tsconfig file does not exist!");
   }
 
-  const references = await getTsConfigReferences(projectTsConfigPath);
+  const references = await getTsConfigReferences(tsconfigPath);
   if (references.length > 0) {
     throw new Error("vue-component-meta does not resolve tsconfig references!");
   }
 
-  return createChecker(projectTsConfigPath, checkerOptions);
+  return createChecker(tsconfigPath, checkerOptions);
 }
 
 /** Gets the filename without file extension. */
