@@ -26,7 +26,12 @@ const handleSubmit = () => {
   <OnyxButton label="Open modal" @click="isModalOpen = true" />
 
   <OnyxModal v-model:open="isModalOpen" class="modal" label="Example modal label">
-    <OnyxForm :id="formId" class="onyx-grid modal__content" @submit.prevent="handleSubmit">
+    <OnyxForm
+      :id="formId"
+      class="onyx-grid modal__content"
+      reserve-message-space
+      @submit.prevent="handleSubmit"
+    >
       <OnyxInput
         v-model="state.email"
         class="onyx-grid-span-4"

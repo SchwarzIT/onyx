@@ -53,3 +53,9 @@ We strongly recommend to use only **one** marker type per form.
 The form can be disabled which will automatically disabled all form elements used inside the form such as inputs, selects etc. This can be useful when e.g. disabling the form while loading / submitting so the user can not edit any data while its being processed.
 
 :component-example{name="Disabled" layout="grow"}
+
+### Skeleton
+
+The skeleton state should be used on initial page load when the data for the page / form is initially loaded. For convenience, the skeleton can be set once on the form and all form elements inside will automatically be displayed as skeleton.
+
+:component-example{name="Skeleton" layout="grow"}

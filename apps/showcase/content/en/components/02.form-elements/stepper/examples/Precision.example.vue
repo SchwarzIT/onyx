@@ -6,5 +6,5 @@ const value = ref<number>(42);
 </script>
 
 <template>
-  <OnyxStepper v-model="value" label="Example label" :precision="2" />
+  <OnyxStepper v-model="value" label="Example label" :precision="2" :step-size="0.25" />
 </template>

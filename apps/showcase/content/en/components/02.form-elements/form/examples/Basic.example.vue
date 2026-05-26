@@ -20,7 +20,7 @@ const handleSubmit = () => {
 </script>
 
 <template>
-  <OnyxForm class="onyx-grid" @submit.prevent="handleSubmit">
+  <OnyxForm class="onyx-grid" reserve-message-space @submit.prevent="handleSubmit">
     <OnyxInput v-model="state.email" class="onyx-grid-span-4" label="Email" type="email" required />
 
     <OnyxStepper
