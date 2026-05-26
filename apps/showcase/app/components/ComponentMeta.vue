@@ -11,18 +11,24 @@ const props = defineProps<{
   /**
    * The npm package name that the component is including in.
    */
-  package: string;
+  package?: string;
 }>();
 
-const meta = computed(() => getComponentMeta(props.component, props.package));
+const { data: meta, status } = await useAsyncData(
+  () => `component-meta-${props.package}-${props.component}`,
+  () => getComponentMeta(props.component, props.package),
+);
 
 // build time breaker to guarantee that no non-existing components are used
 // see "prerender" config in nuxt.config.ts
 watchEffect(() => {
+  // ensure "useAsyncData()" call is ready to be accessed
+  if (status.value !== "success") return;
+
   if (!meta.value) {
     throw createError({
       statusCode: 404,
-      statusMessage: `Component meta not found for component "${props.component}".`,
+      statusMessage: `Component meta not found for component "${props.component}" in package "${props.package}".`,
       // throwing a fatal error  will fail during SSR / prerendering
       fatal: true,
     });

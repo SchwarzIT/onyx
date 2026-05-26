@@ -1,15 +1,24 @@
-import tiptapComponentMeta from "@sit-onyx/tiptap/component-meta.json";
-import componentMeta from "sit-onyx/dist/component-meta.json";
 import type { ComponentMeta } from "vue-component-meta";
+
+type OnyxComponentMeta =
+  | typeof import("sit-onyx/dist/component-meta.json")
+  | typeof import("@sit-onyx/tiptap/component-meta.json");
 
 /**
  * Gets the meta data for a given onyx component.
  */
-export function getComponentMeta(
+export async function getComponentMeta(
   componentName: string,
-  packageName: string,
-): ComponentMeta | undefined {
-  const data = packageName === "@sit-onyx/tiptap" ? tiptapComponentMeta : componentMeta;
-  const meta = data.find((component) => component.displayName === componentName);
+  packageName = "sit-onyx",
+): Promise<ComponentMeta | undefined> {
+  let data: OnyxComponentMeta | undefined;
+
+  if (packageName === "sit-onyx") {
+    data = (await import("sit-onyx/dist/component-meta.json")).default;
+  } else if (packageName === "@sit-onyx/tiptap") {
+    data = (await import("@sit-onyx/tiptap/component-meta.json")).default;
+  }
+
+  const meta = data?.find((component) => component.displayName === componentName);
   return meta as ComponentMeta | undefined;
 }
