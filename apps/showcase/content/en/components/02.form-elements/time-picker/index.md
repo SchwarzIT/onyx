@@ -4,7 +4,7 @@ componentName: OnyxTimePicker
 status: experimental
 ---
 
-The time picker component allows users to select a specific time or a range of start and end time.
+The time picker component allows users to select a specific time or a range with start and end time.
 
 ## Examples
 
@@ -53,7 +53,7 @@ The loading state is used after a user interaction to indicate that the triggere
 ### Message
 
 An optional message, error or success message can be displayed. Each message supports showing an info tooltip with further information.
-When multiple message types are defined at once, only the most relevant will be displayed (e.g. error is preferred over the regular message).
+When multiple message types are defined at once, only the most relevant will be displayed (e.g. error message takes precedent over the regular message).
 
 :component-example{name="Message" layout="grow" orientation="vertical"}
 

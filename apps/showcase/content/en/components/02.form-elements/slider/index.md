@@ -83,6 +83,6 @@ The skeleton should be used on initial page load when the data for the page / sl
 ### Message
 
 An optional message, error or success message can be displayed. Each message supports showing an info tooltip with further information.
-When multiple message types are defined at once, only the most relevant will be displayed (e.g. error is preferred over the regular message).
+When multiple message types are defined at once, only the most relevant will be displayed (e.g. error message takes precedent over the regular message).
 
 :component-example{name="Message" layout="grow" orientation="vertical"}
