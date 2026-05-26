@@ -354,3 +354,36 @@ test("selection column is automatically sticky when both features are active", a
 
   await expect(component).toHaveScreenshot("data-grid-sticky-selection-column.png");
 });
+
+test("scrolling triggered by filtering overflow shouldn't close search box", async ({ mount }) => {
+  const data = getTestData();
+
+  const component = await mount(
+    <TestCase
+      data={data}
+      columns={columns}
+      stickyColumnsOptions={{ columns: ["a"] }}
+      withFiltering={true}
+    />,
+  );
+  const columnheaderB = component.getByRole("columnheader", { name: "b Toggle column actions" });
+  const searchBox = columnheaderB.getByRole("textbox", { name: "Search column b" });
+
+  // ASSERT
+  await expect(searchBox).toBeHidden();
+
+  // ACT
+  await columnheaderB.getByLabel("Toggle column actions").click();
+
+  // ASSERT
+  await expect(searchBox).toBeVisible();
+
+  // ACT
+  await searchBox.fill("longlonglonglonglonglonglonglonglonglonglong text");
+
+  // ASSERT
+  await expect(component).toBeVisible();
+  await expect(
+    component.getByRole("button", { name: "Remove search term for column" }),
+  ).toBeHidden();
+});
