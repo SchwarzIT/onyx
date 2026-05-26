@@ -9,7 +9,7 @@ const props = defineProps<{
    */
   component: string;
   /**
-   * The npm package name that the component is including in.
+   * The name of the npm package that the component belongs to.
    */
   package?: string;
 }>();
