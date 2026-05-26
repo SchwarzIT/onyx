@@ -1,10 +1,13 @@
 <script lang="ts" setup>
-import { useAsyncState, watchDebounced } from "@vueuse/core";
-import { OnyxSelect, SelectOption } from "sit-onyx";
-import { computed, ref } from "vue";
+import { refDebounced, useAsyncState } from "@vueuse/core";
+import { OnyxEmpty, OnyxLoadingIndicator, OnyxSelect, SelectOption } from "sit-onyx";
+import { computed, ref, watch } from "vue";
 
 const value = ref<string>();
 const searchTerm = ref("");
+
+// using a debounce so we do not trigger the load for every keystroke
+const debouncedSearchTerm = refDebounced(searchTerm, 500);
 
 const {
   state: filteredOptions,
@@ -12,7 +15,7 @@ const {
   executeImmediate: loadOptions,
 } = useAsyncState<SelectOption<string>[]>(
   async () => {
-    const search = searchTerm.value.trim();
+    const search = debouncedSearchTerm.value.trim();
     if (!search) return [];
 
     // your logic here to load the options...
@@ -25,10 +28,7 @@ const {
   },
 );
 
-// using a debounce so we do not trigger the load for every keystroke
-watchDebounced(searchTerm, () => loadOptions(), {
-  debounce: 500,
-});
+watch(debouncedSearchTerm, () => loadOptions());
 
 // in order to display the label of the selected option, we need to "store" the full option for the selected value
 const selectedOption = computed<SelectOption | undefined>((previousValue) => {
@@ -56,5 +56,24 @@ const valueLabel = computed(() => selectedOption.value?.label ?? value.value);
     :value-label
     with-search
     no-filter
-  />
+  >
+    <template #empty="{ defaultMessage }">
+      <OnyxEmpty v-if="isLoading">
+        <template #icon>
+          <OnyxLoadingIndicator class="loading-indicator" type="circle" />
+        </template>
+        Loading...
+      </OnyxEmpty>
+
+      <OnyxEmpty v-else>
+        {{ !debouncedSearchTerm ? "Type to search..." : defaultMessage }}
+      </OnyxEmpty>
+    </template>
+  </OnyxSelect>
 </template>
+
+<style lang="scss" scoped>
+.loading-indicator {
+  color: var(--onyx-color-text-icons-primary-intense);
+}
+</style>
