@@ -29,7 +29,7 @@ const mappedEvents = computed(() => {
   return meta.value?.events.map<ComponentMetaItem>((event) => ({
     name: event.name,
     description: event.description,
-    schema: event.type,
+    schema: event.type === "[]" ? undefined : event.type,
   }));
 });
 

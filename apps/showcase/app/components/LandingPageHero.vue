@@ -4,7 +4,7 @@
       <div class="hero__content">
         <div class="hero__headlines">
           <OnyxHeadline is="h1" class="hero__headline">
-            <i18n-t keypath="app.hero.headline">
+            <i18n-t keypath="app.hero.headline" scope="global">
               <template #onyx>
                 <span class="hero__accent">onyx</span>
               </template>
