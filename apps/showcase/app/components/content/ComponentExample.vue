@@ -180,20 +180,20 @@ const attrs = useAttrs();
     }
 
     // if the OnyxAppLayout component is used, scale it to 100% instead of full viewport size
-    > .onyx-app {
+    .onyx-app {
       width: 100%;
       height: 100%;
       background-color: var(--onyx-color-base-background-tinted);
       border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
       border-radius: var(--onyx-radius-md);
 
-      > :deep(.onyx-app__nav),
+      :deep(.onyx-app__nav),
       :deep(.onyx-nav-bar) {
         border-top-left-radius: inherit;
         border-top-right-radius: inherit;
       }
 
-      > :deep(.onyx-app__page) {
+      :deep(.onyx-app__page) {
         border-bottom-left-radius: inherit;
         border-bottom-right-radius: inherit;
       }
