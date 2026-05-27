@@ -42,7 +42,7 @@ Nested large
 #default
 The `nested-large` type is optimized to be used inside of other containers or components such as sidebar. It is **not** intended to be used standalone on the main page content.
 
-:component-example{name="NestedLarge" layout="grow"}
+:component-example{name="NestedLarge" layout="fullWidth"}
 ::
 
 ::step
@@ -52,7 +52,7 @@ Nested small
 #default
 Identically to the large type, `nested-small` is optimized to be used inside of other containers or components such as sidebar. It is also **not** intended to be used standalone on the main page content.
 
-:component-example{name="NestedSmall" layout="grow"}
+:component-example{name="NestedSmall" layout="fullWidth"}
 ::
 
 </steps>
