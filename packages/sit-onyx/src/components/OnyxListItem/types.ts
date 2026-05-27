@@ -1,3 +1,4 @@
+import type { Component } from "vue";
 import type { DensityProp } from "../../composables/density.js";
 import type { OnyxColor } from "../../types/index.js";
 
@@ -22,4 +23,8 @@ export type OnyxListItemProps = DensityProp & {
    * Main color of the option content.
    */
   color?: Extract<OnyxColor, "primary" | "danger">;
+  /**
+   * What the component should render as. Defaults to `li`.
+   */
+  is?: Component | string;
 };

@@ -11,6 +11,7 @@ export * from "./composables/tabs/createTabs.js";
 export * from "./composables/toggleButton/createToggleButton.js";
 export * from "./composables/tooltip/createToggletip.js";
 export * from "./composables/tooltip/createTooltip.js";
+export * from "./composables/treeView/createTreeView.js";
 export * from "./utils/builder.js";
 
 export { isPrintableCharacter, wasKeyPressed } from "./utils/keyboard.js";

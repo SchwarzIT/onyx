@@ -3,6 +3,7 @@ import { useDensity } from "../../composables/density.js";
 import type { OnyxListItemProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxListItemProps>(), {
+  tag: "li",
   active: false,
   disabled: false,
   selected: false,
@@ -20,7 +21,8 @@ const { densityClass } = useDensity(props);
 </script>
 
 <template>
-  <li
+  <component
+    :is="props.is"
     :class="{
       'onyx-component': true,
       'onyx-list-item': true,
@@ -33,7 +35,7 @@ const { densityClass } = useDensity(props);
     }"
   >
     <slot></slot>
-  </li>
+  </component>
 </template>
 
 <style lang="scss">
