@@ -19,7 +19,8 @@
       "node": "./dist/index.js",
       "default": "./dist/index.js"
     },
-    "./style.css": "./dist/style.css"
+    "./style.css": "./dist/style.css",
+    "./component-meta.json": "./dist/component-meta.json"
   },
   "repository": {
     "type": "git",
@@ -55,6 +56,7 @@
     "@sit-onyx/playwright-utils": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",
+    "@sit-onyx/vite-plugin-component-meta": "workspace:^",
     "@tiptap/extension-heading": "^3.23.5",
     "@tiptap/extension-text-align": "^3.23.5",
     "@tiptap/extensions": "^3.23.5",

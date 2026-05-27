@@ -1,5 +1,6 @@
 /// <reference types="vitest/config" />
 import { VITE_BASE_CONFIG } from "@sit-onyx/shared/vite.config.base";
+import { extractComponentMeta } from "@sit-onyx/vite-plugin-component-meta";
 import vue from "@vitejs/plugin-vue";
 import { fileURLToPath, URL } from "node:url";
 import { DiagnosticCategory } from "typescript";
@@ -27,6 +28,10 @@ export default defineConfig({
       },
     }),
     vue(),
+    extractComponentMeta({
+      tsconfigPath: getFilePath("tsconfig.app.json"),
+      include: /\.vue$/,
+    }),
   ],
   build: {
     lib: {
