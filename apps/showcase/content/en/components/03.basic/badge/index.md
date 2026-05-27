@@ -23,4 +23,6 @@ Several colors are supported to highlight the semantic meaning of the related da
 
 Badges are non-interactive by default. Use the `clickable` property to support triggering an action on click. An optional action icon can be defined if needed. The tooltip text must describe the on-click action, e.g. "Click to remove the badge".
 
+**Tip:** For search and filter related badges, we recommend using our [filter badge](/components/search-and-filter/filter-badge).
+
 :component-example{name="Clickable"}
