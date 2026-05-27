@@ -5,12 +5,12 @@ import { OnyxBadge } from "sit-onyx";
 
 <template>
   <OnyxBadge :clickable="{ label: 'Click to add the badge', actionIcon: iconPlusSmall }">
-    Clickable
+    Example label
   </OnyxBadge>
 
   <OnyxBadge
     :clickable="{ label: 'Click to remove the badge', actionIcon: iconXSmall, active: true }"
   >
-    Clickable
+    Example label
   </OnyxBadge>
 </template>
