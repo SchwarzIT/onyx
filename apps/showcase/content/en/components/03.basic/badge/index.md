@@ -3,7 +3,7 @@ title: Badge
 componentName: OnyxBadge
 ---
 
-Badges provide concise, prominent additional information associated with a parent object. They can be displayed as text, icon or number to highlight key details.
+Badges provide concise, prominent additional information associated with a parent object. They are commonly used for system / application related information such as status, versions etc. To visualize data-driven information, we recommend to use the [tag](/components/basic/tag) instead.
 
 ## Examples
 
