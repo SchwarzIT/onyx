@@ -1,6 +1,6 @@
 import type { OnyxColor } from "../../types/colors.js";
 
-export type OnyxIconProps = IconSizeProp & {
+export type OnyxIconProps = IconSizeProp<IconSize | "inline"> & {
   /**
    * SVG source of the icon. **Important**: Only provide trustworthy content, the SVG content will
    * not be sanitized.
@@ -12,6 +12,8 @@ export type OnyxIconProps = IconSizeProp & {
   color?: OnyxColor | "currentColor";
   /**
    * In inline mode the icon will adapt to the font-size and align itself according to the line-height.
+   *
+   * @deprecated Use `size="inline"` instead
    */
   inline?: boolean;
 };
@@ -19,7 +21,7 @@ export type OnyxIconProps = IconSizeProp & {
 export const ICON_SIZES = ["12px", "16px", "24px", "32px", "48px", "64px", "96px"] as const;
 export type IconSize = (typeof ICON_SIZES)[number];
 
-export type IconSizeProp<T extends IconSize = IconSize> = {
+export type IconSizeProp<T extends string = IconSize> = {
   /**
    * Size. Pixel values will be translated to the according `rem` value by the base of `16px`=`1rem`.
    *
