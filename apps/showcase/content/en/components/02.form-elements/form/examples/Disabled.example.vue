@@ -10,7 +10,12 @@ const handleSubmit = () => {
 </script>
 
 <template>
-  <OnyxForm class="onyx-grid" :disabled="isLoading" @submit.prevent="handleSubmit">
+  <OnyxForm
+    class="onyx-grid"
+    :disabled="isLoading"
+    reserve-message-space
+    @submit.prevent="handleSubmit"
+  >
     <OnyxInput class="onyx-grid-span-4" label="Email" type="email" required />
     <OnyxStepper class="onyx-grid-span-4" label="Age" :min="18" :maxlength="99" />
 

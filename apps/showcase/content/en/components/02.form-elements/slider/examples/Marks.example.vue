@@ -2,6 +2,7 @@
 import { OnyxSlider, SliderMark } from "sit-onyx";
 import { ref } from "vue";
 
+const discreteValue = ref(50);
 const value = ref(50);
 
 const marks: SliderMark[] = [
@@ -14,7 +15,7 @@ const marks: SliderMark[] = [
 </script>
 
 <template>
-  <OnyxSlider v-model="value" label="Discrete marks" :step="25" marks />
+  <OnyxSlider v-model="discreteValue" label="Discrete marks" :step="25" marks />
   <OnyxSlider
     v-model="value"
     label="Labelled marks"

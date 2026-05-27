@@ -17,6 +17,8 @@ The stepper includes a increase/decrease button by default that can optionally b
 
 You can use the `precision` property to restrict how many decimal places are shown. The entered value is rounded if needed. A precision of `2` means that only two decimal places are allowed, e.g. `1.00`. To only allow "full" numbers, set the precision to `0`. A negative value can also be used to specify the places of the integer part so e.g. `precision="-1"` only allows multiples of 10, `precision="-2"` multiples of 100 and so on.
 
+The `stepSize` must be compatible with the defined precision.
+
 :component-example{name="Precision" layout="grow"}
 
 ### Formatting
