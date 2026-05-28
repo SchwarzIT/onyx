@@ -10,7 +10,7 @@ The shortcut component displays keyboard shortcut sequences with visual key repr
 
 ### Basic
 
-A basic shortcut consists out of at least two keys. Optionally, the `highlight` property can be set to `auto` to visually highlight pressed keys of the shortcut. Note that this will attach keyboard event listeners so we recommend to not overuse this feature for performance.
+A basic shortcut consists out of one or multiple keys. Optionally, the `highlight` property can be set to `auto` to visually highlight pressed keys of the shortcut. Note that this will attach keyboard event listeners so we recommend to not overuse this feature for performance.
 
 The following shortcut is executed when pressing `Control` and `C` at the same time.
 
@@ -37,6 +37,12 @@ The following shortcut is executed when pressing `Control`, `K` and either `A` o
 We also support a composable which is used internally in the shortcut component and includes the same features. It can be used to easy create and listen to shortcuts without visually showing them. Alternatively, it can also be used when the displayed shortcut is different from the actual keys that need to be pressed for it (e.g. display `/` but its technically triggered by pressing `Shift` and `7`).
 
 :component-example{name="Composable"}
+
+### Operating system
+
+The users operating system is detected automatically by default to show OS-specific key symbols such as "Command" on macOS or the "Windows" key on Windows. If needed, the operating system can be explicitly defined using the `os` property or be set to `generic` to use OS-independent symbols.
+
+:component-example{name="OS" layout="fullWidth"}
 
 ### Disabled
 
