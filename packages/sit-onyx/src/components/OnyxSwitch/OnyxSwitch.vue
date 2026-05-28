@@ -4,18 +4,19 @@ import { computed, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useRequired } from "../../composables/required.js";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
+import { useErrorTooltip } from "../../composables/useErrorTooltip.js";
 import { useFormElementError } from "../../composables/useFormElementError.js";
 import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
-import { useRootAttrs } from "../../utils/attrs.js";
-import OnyxErrorTooltip from "../OnyxErrorTooltip/OnyxErrorTooltip.vue";
+import { mergeVueProps, useRootAttrs } from "../../utils/attrs.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
+import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 import type { OnyxSwitchProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxSwitchProps>(), {
@@ -48,6 +49,7 @@ const { vCustomValidity, errorMessages } = useFormElementError({ props, emit });
 const shownErrorMessages = computed(() =>
   showError.value !== false ? errorMessages.value : undefined,
 );
+const errorTooltip = useErrorTooltip({ disabled, errorMessages: shownErrorMessages });
 
 const title = computed(() => (props.hideLabel && props.label) || undefined);
 const skeleton = useSkeletonContext(props);
@@ -75,58 +77,60 @@ useAutofocus(input, props);
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-switch-skeleton__label" />
   </div>
 
-  <OnyxErrorTooltip
-    v-else
-    :disabled="disabled"
-    :error-messages="shownErrorMessages"
-    v-bind="rootAttrs"
-  >
-    <label
-      class="onyx-component onyx-switch"
-      :class="[requiredTypeClass, densityClass]"
-      :title="title"
-    >
-      <input
-        ref="input"
-        v-model="isChecked"
-        v-custom-validity
-        type="checkbox"
-        role="switch"
-        :class="{ 'onyx-switch__input': true, 'onyx-switch__loading': props.loading }"
-        :aria-label="props.hideLabel ? props.label : undefined"
-        :disabled="disabled || props.loading"
-        :required="props.required"
-        :autofocus="props.autofocus"
-        v-bind="restAttrs"
-      />
-      <span class="onyx-switch__click-area">
-        <span class="onyx-switch__container">
-          <span class="onyx-switch__icon">
-            <OnyxLoadingIndicator v-if="props.loading" class="onyx-switch__spinner" type="circle" />
-            <OnyxIcon v-else :icon="isChecked ? iconCheckSmall : iconXSmall" />
-          </span>
-          <div class="onyx-switch__frame"></div>
-        </span>
-      </span>
-      <span
-        v-if="!props.hideLabel"
-        class="onyx-switch__label"
-        :class="[
-          `onyx-truncation-${props.truncation}`,
-          // shows the required marker inline for multiline labels
-          props.truncation === 'multiline' ? requiredMarkerClass : undefined,
-        ]"
+  <OnyxTooltip v-else v-bind="mergeVueProps(rootAttrs, errorTooltip)">
+    <template #default="{ trigger }">
+      <label
+        class="onyx-component onyx-switch"
+        :class="[requiredTypeClass, densityClass]"
+        :title="title"
+        v-bind="trigger"
       >
-        {{ props.label }}
-      </span>
-      <!-- shows the required marker fixed on the right for truncated labels -->
-      <div
-        v-if="!props.hideLabel && props.truncation === 'ellipsis'"
-        class="onyx-switch__marker"
-        :class="[requiredMarkerClass]"
-      ></div>
-    </label>
-  </OnyxErrorTooltip>
+        <input
+          ref="input"
+          v-model="isChecked"
+          v-custom-validity
+          type="checkbox"
+          role="switch"
+          :class="{ 'onyx-switch__input': true, 'onyx-switch__loading': props.loading }"
+          :aria-label="props.hideLabel ? props.label : undefined"
+          :disabled="disabled || props.loading"
+          :required="props.required"
+          :autofocus="props.autofocus"
+          v-bind="restAttrs"
+        />
+        <span class="onyx-switch__click-area">
+          <span class="onyx-switch__container">
+            <span class="onyx-switch__icon">
+              <OnyxLoadingIndicator
+                v-if="props.loading"
+                class="onyx-switch__spinner"
+                type="circle"
+              />
+              <OnyxIcon v-else :icon="isChecked ? iconCheckSmall : iconXSmall" />
+            </span>
+            <div class="onyx-switch__frame"></div>
+          </span>
+        </span>
+        <span
+          v-if="!props.hideLabel"
+          class="onyx-switch__label"
+          :class="[
+            `onyx-truncation-${props.truncation}`,
+            // shows the required marker inline for multiline labels
+            props.truncation === 'multiline' ? requiredMarkerClass : undefined,
+          ]"
+        >
+          {{ props.label }}
+        </span>
+        <!-- shows the required marker fixed on the right for truncated labels -->
+        <div
+          v-if="!props.hideLabel && props.truncation === 'ellipsis'"
+          class="onyx-switch__marker"
+          :class="[requiredMarkerClass]"
+        ></div>
+      </label>
+    </template>
+  </OnyxTooltip>
 </template>
 
 <style lang="scss">
