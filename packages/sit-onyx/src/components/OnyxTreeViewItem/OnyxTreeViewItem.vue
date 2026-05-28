@@ -113,12 +113,21 @@ const { toggleOpen, handleKeyDown, treeItemAttrs } = createTreeViewItem({
   @include layers.component() {
     display: block;
     width: 100%;
+    --icon-size: 1rem;
 
     @for $parent-depth from 1 through 3 {
       &__children--level-#{$parent-depth} {
-        .onyx-sidebar-item,
         .onyx-tree-view-item__trigger {
           padding-left: calc(#{$parent-depth} * var(--onyx-spacing-lg) + var(--onyx-density-xs));
+        }
+        .onyx-sidebar-item {
+          padding-left: calc(
+            #{$parent-depth} *
+              var(--onyx-spacing-lg) +
+              var(--onyx-density-xs) +
+              var(--icon-size) +
+              var(--onyx-density-sm)
+          );
         }
       }
     }
@@ -135,8 +144,7 @@ const { toggleOpen, handleKeyDown, treeItemAttrs } = createTreeViewItem({
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 1rem;
-      height: 1rem;
+      width: var(--icon-size);
       transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       color: var(--onyx-color-text-icons-neutral-medium);
 
@@ -146,7 +154,7 @@ const { toggleOpen, handleKeyDown, treeItemAttrs } = createTreeViewItem({
     }
 
     &__expander-placeholder {
-      width: 1rem;
+      width: var(--icon-size);
     }
 
     &__children {
