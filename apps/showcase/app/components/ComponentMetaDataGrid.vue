@@ -117,7 +117,7 @@ const withCustomTypes = createFeature(() => ({
 
           return h(
             "div",
-            {},
+            { class: "tags" },
             tags.map((tag) => h(ComponentMetaTag, { label: tag.name, tooltipText: tag.text })),
           );
         },
@@ -132,3 +132,11 @@ const features = [customDataGridColumnTypes<TEntry>, withCustomTypes];
 <template>
   <OnyxDataGrid :headline="{ text: props.headline, rowCount: true }" :columns :data :features />
 </template>
+
+<style lang="scss" scoped>
+:deep(.tags) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--onyx-density-2xs);
+}
+</style>
