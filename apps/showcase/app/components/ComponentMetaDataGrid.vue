@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import {
+  createFeature,
+  DataGridFeatures,
   OnyxDataGrid,
   type ColumnConfig,
   type ColumnGroupConfig,
   type ColumnTypesFromFeatures,
+  type TypeRenderMap,
 } from "sit-onyx";
-import type { PropertyMetaSchema } from "vue-component-meta";
+import type { PropertyMeta, PropertyMetaSchema } from "vue-component-meta";
+import ComponentMetaTag from "./ComponentMetaTag.vue";
 
 export type ComponentMetaItem = {
   /**
@@ -24,10 +28,16 @@ export type ComponentMetaItem = {
    * Whether the item is required.
    */
   required?: boolean;
+  /**
+   * JSDoc tags.
+   */
+  tags?: PropertyMeta["tags"];
 };
 
 type TEntry = ComponentMetaItem & { id: string };
-type CustomColumnTypes = ColumnTypesFromFeatures<typeof customDataGridColumnTypes<TEntry>>;
+type CustomColumnTypes = ColumnTypesFromFeatures<
+  [typeof customDataGridColumnTypes<TEntry>, typeof withCustomTypes]
+>;
 
 const props = defineProps<{
   /**
@@ -44,7 +54,14 @@ const { t } = useI18n();
 
 const data = computed(() => {
   return props.items
-    .map<TEntry>((item) => ({ ...item, id: item.name }))
+    .map<TEntry>((item) => {
+      return {
+        ...item,
+        id: item.name,
+        // we only want to include certain tags
+        tags: item.tags?.filter((tag) => tag.name === "deprecated"),
+      };
+    })
     .sort((a, b) => {
       // 1. sort required items first
       const aRequired = "required" in a && a.required;
@@ -76,10 +93,40 @@ const columns = computed(() => {
     });
   }
 
+  const hasTags = data.value.some((row) => row.tags?.length);
+  if (hasTags) {
+    _columns.push({
+      key: "tags",
+      label: t("components.tags"),
+      type: "tags",
+      width: "max-content",
+    });
+  }
+
   return _columns;
 });
 
-const features = [customDataGridColumnTypes<TEntry>];
+const withCustomTypes = createFeature(() => ({
+  name: Symbol("customTypes"),
+  typeRenderer: {
+    tags: DataGridFeatures.createTypeRenderer<object, TEntry>({
+      cell: {
+        component: ({ row }) => {
+          const tags = row.tags;
+          if (!tags?.length) return "-";
+
+          return h(
+            "div",
+            {},
+            tags.map((tag) => h(ComponentMetaTag, { label: tag.name, tooltipText: tag.text })),
+          );
+        },
+      },
+    }),
+  } satisfies TypeRenderMap<TEntry>,
+}));
+
+const features = [customDataGridColumnTypes<TEntry>, withCustomTypes];
 </script>
 
 <template>
