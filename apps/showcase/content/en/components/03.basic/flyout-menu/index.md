@@ -10,7 +10,7 @@ The flyout menu is used to build up navigation or action menus that are placed r
 ### Basic
 
 A pre-defined [system button](/components/buttons/system-button) will be used as trigger button if not defined otherwise.
-Each option supports a label, icon and optional link by default but custom content can be passed as slot if needed.
+Each option supports a label, icon and optional link by default but custom content can be passed as slot if needed. For more information, please refer to the [menu item](/components/basic/menu-item).
 
 <steps>
 
