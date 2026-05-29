@@ -7,7 +7,7 @@ Icons enhance visual communication and accessibility within the interface. We re
 
 ## Installation
 
-To use our official icon library, install it into your project first if not already done:
+To use our official icon library, install it into your project first:
 
 :npm-install-code-tabs{packages="@sit-onyx/icons"}
 
@@ -19,19 +19,19 @@ When using external icon libraries instead of our official one, you must ensure 
 
 ### Sizes
 
-To ensure a consistent look and usage across multiple pages and applications, the icon supports multiple pre-defined sizes. When set to `inline` instead of a fixed size, the icon will be sized automatically to the current text size which can be useful to align the icon with inline text.
+To ensure a consistent look and usage across multiple pages and applications, the component offers several predefined sizes. Set `size="inline"` to use the current text size, which is useful for embedding the icon within continuous text.
 
 :component-example{name="Sizes" layout="fullWidth"}
 
 ### Colors
 
-Several colors are supported to highlight the semantic meaning of the icon. See our [color documentation](/introduction/foundation/colors#colors) for more information. If no color is set explicitly (default), the icon will use the current text color defined by the parent component.
+Several colors are available to emphasize the icon's meaning. See our [color documentation](/introduction/foundation/colors#colors) for more information. If no color is set explicitly (default), the icon will use the current text color defined by the parent element.
 
 :component-example{name="Colors" layout="fullWidth"}
 
 ### Metadata
 
-We also include some metadata for each icon such as the category or alias names.
+We also include some metadata for each icon such as the category and aliases.
 
 :component-example{name="Metadata" layout="grow"}
 

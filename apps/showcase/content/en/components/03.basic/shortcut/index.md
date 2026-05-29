@@ -4,13 +4,13 @@ componentName: OnyxShortcut
 status: experimental
 ---
 
-The shortcut component displays keyboard shortcut sequences with visual key representations. It supports multi-step sequences, operating system specific symbols (macOS, Windows) and interactive highlighting of pressed keys.
+The shortcut component offers a visual representation of a shortcut sequence. It supports multi-step sequences and operating system-specific symbols for macOS and Windows. It can also highlight pressed keys interactively.
 
 ## Examples
 
 ### Basic
 
-A basic shortcut consists out of one or multiple keys. Optionally, the `highlight` property can be set to `auto` to visually highlight pressed keys of the shortcut. Note that this will attach keyboard event listeners so we recommend to not overuse this feature for performance.
+A basic shortcut consists out of one or multiple keys. Optionally, the `highlight` property can be set to `auto` to visually highlight pressed keys of the shortcut.
 
 The following shortcut is executed when pressing `Control` and `C` at the same time.
 
@@ -18,7 +18,7 @@ The following shortcut is executed when pressing `Control` and `C` at the same t
 
 ### Multiple steps
 
-The shortcut can also contain multiple steps that the user needs to press in the specific order. Each step can define keys where either **all** of them must be pressed at the same time or **any** (at least one) of them must be pressed.
+The shortcut can also contain multiple steps that the user must press in a specific order. Each step can define keys where either **all** of them must be pressed at the same time or **any** (at least one) of them must be pressed.
 
 The following shortcut is executed when pressing `Control` and `Key` at the same time **first**, **then** releasing both keys and **finally** pressing only either `A` or `B`.
 
@@ -34,13 +34,13 @@ The following shortcut is executed when pressing `Control`, `K` and either `A` o
 
 ### Composable
 
-We also support a composable which is used internally in the shortcut component and includes the same features. It can be used to easy create and listen to shortcuts without visually showing them. Alternatively, it can also be used when the displayed shortcut is different from the actual keys that need to be pressed for it (e.g. display `/` but its technically triggered by pressing `Shift` and `7`).
+We also offer a composable (which is also used internally by our shortcut component) for reacting to shortcut sequences. It can be used independently from the shortcut component.
 
 :component-example{name="Composable"}
 
 ### Operating system
 
-The users operating system is detected automatically by default to show OS-specific key symbols such as "Command" on macOS or the "Windows" key on Windows. If needed, the operating system can be explicitly defined using the `os` property or be set to `generic` to use OS-independent symbols.
+The users operating system is detected automatically by default to show OS-specific key symbols such as "Command" on macOS or the "Windows" key on Windows. If necessary, the operating system can be explicitly defined using the `os` property or be set to `generic` to use OS-independent symbols.
 
 :component-example{name="OS" layout="fullWidth"}
 

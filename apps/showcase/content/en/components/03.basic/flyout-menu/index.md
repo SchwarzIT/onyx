@@ -3,14 +3,17 @@ title: Flyout menu
 componentName: OnyxFlyoutMenu
 ---
 
-The flyout menu is used to build up navigation or action menus that are placed relative to a parent element and are shown on click or hover.
+The flyout menu is used to create navigation or action menus that are positioned relative to a parent element and appear when the user clicks or hovers over them.
 
 ## Examples
 
 ### Basic
 
-A pre-defined [system button](/components/buttons/system-button) will be used as trigger button if not defined otherwise.
-Each option supports a label, icon and optional link by default but custom content can be passed as slot if needed. For more information, please refer to the [menu item](/components/basic/menu-item).
+A predefined [system button](/components/buttons/system-button) is used as the trigger, if it is not overridden via the `button` slot.
+
+Options for the menu must be passed in using the `options` slot. Each option supports a label, icon and optional link by default but custom content can be passed as slot if needed. For more information, please refer to the [menu item](/components/basic/menu-item).
+
+
 
 <steps>
 
@@ -40,7 +43,7 @@ Optionally, the flyout menu can be triggered on click.
 
 ### Custom trigger
 
-The default trigger button can be overridden with any custom component. However, the trigger should be an interactive element such as a button or link. Make sure to bind the `trigger` slot property to the custom trigger, otherwise the flyout will not open/close on hover or click.
+The default trigger button can be overridden with any custom component. However, the trigger must be an interactive element such as a button or link. Make sure to bind the `trigger` slot property to the custom trigger, otherwise the flyout will not open/close on hover or click.
 
 :component-example{name="CustomTrigger"}
 

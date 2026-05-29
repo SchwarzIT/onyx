@@ -17,7 +17,7 @@ _unstableUseShortcut({
 </script>
 
 <template>
-  <p class="description">Press "/" (Shift + 7) to trigger the shortcut.</p>
+  <p class="description">Press (Shift + 7) to trigger the shortcut.</p>
 </template>
 
 <style lang="scss" scoped>

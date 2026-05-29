@@ -7,7 +7,7 @@ Flags are used to visually display a country. We recommend using our official fl
 
 ## Installation
 
-To use our official flag library, install it into your project first if not already done:
+To use our official flag library, install it into your project first:
 
 :npm-install-code-tabs{packages="@sit-onyx/flags"}
 
