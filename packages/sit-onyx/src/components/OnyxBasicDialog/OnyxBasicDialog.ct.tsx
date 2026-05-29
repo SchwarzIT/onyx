@@ -283,3 +283,29 @@ test("tooltip inside dialog", async ({ mount, makeAxeBuilder, page }) => {
 
   await expect(page).toHaveScreenshot("with-tooltip.png");
 });
+
+test("scrolling must not trigger an outside click", async ({ mount, page }) => {
+  const onUpdateOpen = createEmitSpy();
+  const onScrollEnd = createEmitSpy();
+
+  const component = await mount(
+    <OnyxBasicDialog
+      label="Label"
+      open
+      modal
+      onUpdate:open={onUpdateOpen}
+      onScrollendCapture={onScrollEnd}
+    >
+      <div style={{ background: "red", width: "200vw" }}>content</div>
+    </OnyxBasicDialog>,
+  );
+
+  // Click on the scrollbar
+  const { height, width, x, y } = (await component.boundingBox())!;
+  const clickX = x + width - 4;
+  const clickY = y + height - 4;
+  await page.mouse.click(clickX, clickY);
+
+  await expectEmit(onScrollEnd, 1);
+  await expectEmit(onUpdateOpen, 0);
+});
