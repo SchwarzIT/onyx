@@ -42,7 +42,12 @@ export default defineConfig({
     },
     rolldownOptions: {
       // make sure to externalize dependencies that shouldn't be bundled into the library
-      external: Object.keys(packageJson.peerDependencies),
+      external: [
+        // ensure to externalize all tiptap packages and sub-paths of them
+        // see: https://github.com/ueberdosis/tiptap/issues/3869#issuecomment-2167931620
+        /^@tiptap\/.+$/,
+        ...Object.keys(packageJson.peerDependencies),
+      ],
     },
   },
   test: {
