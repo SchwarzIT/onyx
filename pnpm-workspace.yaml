@@ -20,8 +20,8 @@ catalog:
   unplugin-dts: 1.0.1
   vite: 8.0.14
   vue: 3.5.34
-  vue-component-meta: 3.3.1
-  vue-tsc: 3.3.1
+  vue-component-meta: 3.3.2
+  vue-tsc: 3.3.2
 
 # Security settings (See: https://pnpm.io/supply-chain-security)
 trustPolicy: "no-downgrade"
