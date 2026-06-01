@@ -83,8 +83,8 @@ test.describe("Screenshot tests", () => {
       return (
         <OnyxCheckbox
           style={{
-            ...(row !== "default" && { paddingBottom: "3rem" }),
-            ...(column === "hideLabel" && { paddingRight: "3rem" }),
+            ...(row !== "default" && { marginBottom: "3rem" }),
+            ...(column === "hideLabel" && { marginRight: "3rem" }),
           }}
           label="Test label"
           modelValue={column === "checked"}

@@ -114,6 +114,10 @@ useAutofocus(input, props);
     max-width: 100%;
     cursor: var(--onyx-radio-button-cursor);
 
+    .onyx-tooltip-wrapper:has(&) {
+      max-width: 100%;
+    }
+
     &:has(&__selector:hover) {
       --onyx-radio-button-selector-border-color: var(--onyx-color-component-border-primary-hover);
     }

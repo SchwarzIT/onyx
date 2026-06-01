@@ -160,6 +160,11 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
     align-items: flex-start;
     cursor: pointer;
     max-width: 100%;
+
+    .onyx-tooltip-wrapper:has(&) {
+      max-width: 100%;
+    }
+
     &__frame {
       position: absolute;
       border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-600);
