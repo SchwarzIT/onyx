@@ -12,12 +12,11 @@ export type OnyxBasicPopoverProps = {
    */
   open?: Nullable<boolean>;
   /**
-   * How to position the popover relative to the parent element.
+   * How to position the popover around the parent element.
    */
   position?: AnchorPosition | "auto" | "auto-inline";
   /**
-   * Specifies how to align the popover relative to the parent element.
-   * This is applicable only for top and bottom positioning.
+   * How to align the popover relative to the parent element (depending on the position).
    */
   alignment?: OpenAlignment | "auto";
   /**

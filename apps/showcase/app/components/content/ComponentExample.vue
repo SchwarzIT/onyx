@@ -92,7 +92,11 @@ const attrs = useAttrs();
   <div class="example">
     <OnyxTabs v-model="activeTab" class="example__tabs" :label="$t('components.example')" size="h3">
       <OnyxTab :label="$t('components.preview')" value="preview" density="compact">
-        <OnyxCard class="example__preview" :style="{ colorScheme: options.colorScheme }">
+        <!-- setting the "dark" class in additional to the colorScheme since its needed for some components such as the OnyxImage -->
+        <OnyxCard
+          :class="['example__preview', { dark: options.colorScheme === 'dark' }]"
+          :style="{ colorScheme: options.colorScheme }"
+        >
           <div
             v-bind="attrs"
             :class="[
