@@ -129,7 +129,6 @@ defineExpose({
     font-family: var(--onyx-font-family-paragraph);
     color: var(--onyx-color-text-icons-neutral-intense);
     background-color: var(--onyx-color-base-background-blank);
-    overflow: hidden;
     z-index: var(--onyx-z-index-page-overlay);
     padding: 0;
 
