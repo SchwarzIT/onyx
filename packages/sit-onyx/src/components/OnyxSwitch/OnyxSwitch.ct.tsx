@@ -59,7 +59,7 @@ test.describe("Screenshot tests", () => {
           : "Test error";
       return (
         <OnyxSwitch
-          style={row !== "default" ? "padding-bottom: 3rem;" : ""}
+          style={row !== "default" ? "margin-bottom: 3rem;" : ""}
           label="Test label"
           modelValue={column === "checked"}
           error={error}

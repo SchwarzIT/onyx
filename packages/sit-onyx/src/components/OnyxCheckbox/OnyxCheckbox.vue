@@ -155,6 +155,10 @@ useAutofocus(input, props);
     width: max-content;
     max-width: 100%;
 
+    .onyx-tooltip-wrapper:has(&) {
+      max-width: 100%;
+    }
+
     &:has(&__label) {
       padding-right: var(--onyx-checkbox-label-padding-vertical);
     }

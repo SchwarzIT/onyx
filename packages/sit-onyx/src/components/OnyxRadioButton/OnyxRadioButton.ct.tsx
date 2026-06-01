@@ -108,8 +108,8 @@ test.describe("Screenshot tests", () => {
           // set paddings to fit the full tooltip in the screenshot
           await component.evaluate(
             (element, { tooltipSize: [height] }) => {
-              const verticalPadding = `${height + 12}px`;
-              element.style.paddingBottom = verticalPadding;
+              const verticalMargin = `${height + 12}px`;
+              element.style.marginBottom = verticalMargin;
             },
             { tooltipSize },
           );
