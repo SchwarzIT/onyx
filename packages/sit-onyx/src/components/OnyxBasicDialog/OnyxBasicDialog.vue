@@ -177,6 +177,7 @@ defineExpose({
     &__content {
       padding: var(--onyx-basic-dialog-padding);
       width: inherit;
+      outline: none;
 
       /** Ensures that potential scrollbars are on the content element and not on the dialog element. Clicking a scrollbar of the dialog element would trigger an outside click. */
       max-width: inherit;
