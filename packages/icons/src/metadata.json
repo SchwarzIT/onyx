@@ -147,6 +147,10 @@
     "category": "File & Type",
     "aliases": ["sound", "music", "Audio", "Klang", "Note"]
   },
+  "backpack": {
+    "category": "Transport & Travel",
+    "aliases": []
+  },
   "bag": {
     "category": "Commerce & Shopping",
     "aliases": ["sack", "einkaufen", "Tasche", "Beutel", "Warenkorb", "shopping"]
@@ -1938,6 +1942,10 @@
     "category": "Network & Infrastructure",
     "aliases": ["protect-access", "secure-password", "Passwort-Sperre", "Passwort-sichern"]
   },
+  "pathsign": {
+    "category": "Navigation",
+    "aliases": []
+  },
   "paypal": {
     "category": "Finance",
     "aliases": ["online-payment", "digital-wallet", "Online-Zahlung", "digitale Geldbörse"]
@@ -2547,6 +2555,10 @@
   "tag-disabled": {
     "category": "Business & Statistics",
     "aliases": ["label-off", "price-tag-off", "Etikett deaktiviert", "Preisschild aus"]
+  },
+  "telemetry-router": {
+    "category": "Software & Services",
+    "aliases": ["service"]
   },
   "terminal-checkout": {
     "category": "Commerce & Shopping",

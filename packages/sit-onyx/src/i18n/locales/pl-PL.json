@@ -352,5 +352,12 @@
   },
   "accordion": {
     "toggle": "Kliknij, aby przełączyć zawartość"
+  },
+  "search": {
+    "filterLabel": "pokaż filtr wyszukiwania",
+    "leadingShortcutPlaceholder": "Wpisz",
+    "trailingShortcutPlaceholder": "aby wyszukać",
+    "label": "Szukaj",
+    "selectFilter": "Wybierz filtr"
   }
 }

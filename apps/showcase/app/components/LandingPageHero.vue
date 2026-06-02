@@ -4,7 +4,7 @@
       <div class="hero__content">
         <div class="hero__headlines">
           <OnyxHeadline is="h1" class="hero__headline">
-            <i18n-t keypath="app.hero.headline">
+            <i18n-t keypath="app.hero.headline" scope="global">
               <template #onyx>
                 <span class="hero__accent">onyx</span>
               </template>
@@ -17,10 +17,7 @@
         </div>
 
         <div class="hero__actions">
-          <OnyxButton
-            :label="$t('components.component', 2)"
-            :link="{ href: 'https://storybook.onyx.schwarz', target: '_blank' }"
-          />
+          <OnyxButton :label="$t('components.component', 2)" link="/components" />
           <OnyxButton :label="$t('gettingStarted')" mode="outline" link="/introduction" />
         </div>
       </div>

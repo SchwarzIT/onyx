@@ -6,7 +6,7 @@
 export default {};
 </script>
 
-<script lang="ts" setup generic="TType extends TimePickerType = 'default'">
+<script lang="ts" setup generic="TType extends TimePickerType">
 import { computed, useTemplateRef } from "vue";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
@@ -32,6 +32,7 @@ const props = withDefaults(defineProps<OnyxTimePickerProps<TType>>(), {
   disabled: FORM_INJECTED_SYMBOL,
   showError: FORM_INJECTED_SYMBOL,
   skeleton: SKELETON_INJECTED_SYMBOL,
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- false positive
   type: () => "default" as TType,
   open: undefined,
 });

@@ -4,7 +4,7 @@ export default defineContentConfig({
   collections: {
     content_en: defineCollection({
       type: "page",
-      source: { include: "en/**", prefix: "/" },
+      source: { include: "en/**", exclude: ["*/components/**"], prefix: "/" },
       schema: z.object({
         hero: z
           .object({
@@ -19,6 +19,15 @@ export default defineContentConfig({
               .optional(),
           })
           .optional(),
+      }),
+    }),
+    components_en: defineCollection({
+      type: "page",
+      source: { include: "en/components/**", exclude: ["**/*.vue"], prefix: "/components" },
+      schema: z.object({
+        componentName: z.string(),
+        package: z.string().default("sit-onyx"),
+        status: z.enum(["new", "experimental", "deprecated"]).optional(),
       }),
     }),
   },

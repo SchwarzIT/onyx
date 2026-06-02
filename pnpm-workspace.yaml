@@ -3,22 +3,25 @@ packages:
   - packages/*
 
 catalog:
-  "@playwright/experimental-ct-vue": 1.59.1
-  "@playwright/test": 1.59.1
-  "@vue/compiler-core": 3.5.34
-  "@vue/compiler-dom": 3.5.34
-  "@vue/compiler-sfc": 3.5.34
-  "@vue/compiler-ssr": 3.5.34
-  "@vue/shared": 3.5.34
-  "@types/node": 24.12.3
+  "@playwright/experimental-ct-vue": 1.60.0
+  "@playwright/test": 1.60.0
+  "@vue/compiler-core": 3.5.35
+  "@vue/compiler-dom": 3.5.35
+  "@vue/compiler-sfc": 3.5.35
+  "@vue/compiler-ssr": 3.5.35
+  "@vue/shared": 3.5.35
+  "@types/node": 24.12.4
   chart.js: 4.5.1
-  nuxt: 4.4.4
-  playwright: 1.59.1
-  playwright-core: 1.59.1
-  sass-embedded: 1.99.0
+  nuxt: 4.4.6
+  playwright: 1.60.0
+  playwright-core: 1.60.0
+  sass-embedded: 1.100.0
   typescript: 5.9.3
-  vite: 8.0.11
-  vue: 3.5.34
+  unplugin-dts: 1.0.1
+  vite: 8.0.14
+  vue: 3.5.35
+  vue-component-meta: 3.3.2
+  vue-tsc: 3.3.2
 
 # Security settings (See: https://pnpm.io/supply-chain-security)
 trustPolicy: "no-downgrade"

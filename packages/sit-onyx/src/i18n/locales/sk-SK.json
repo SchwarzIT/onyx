@@ -352,5 +352,12 @@
   },
   "accordion": {
     "toggle": "Kliknutím prepnete obsah"
+  },
+  "search": {
+    "filterLabel": "zobraziť filter vyhľadávania",
+    "leadingShortcutPlaceholder": "Napísať",
+    "trailingShortcutPlaceholder": "na vyhľadávanie",
+    "label": "Hľadať",
+    "selectFilter": "Vybrať filter"
   }
 }

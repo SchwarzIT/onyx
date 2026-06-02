@@ -352,5 +352,12 @@
   },
   "accordion": {
     "toggle": "클릭하여 콘텐츠 열기/닫기"
+  },
+  "search": {
+    "filterLabel": "검색 필터 표시",
+    "leadingShortcutPlaceholder": "입력",
+    "trailingShortcutPlaceholder": "하여 검색",
+    "label": "검색",
+    "selectFilter": "필터 선택"
   }
 }

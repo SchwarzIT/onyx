@@ -9,6 +9,13 @@
     "change": "Change density",
     "description": "Select the density of the application to change the spacings between elements"
   },
+
+  "navigation": {
+    "changeOrientation": "Change navigation orientation",
+    "orientationDescription": "Choose whether the navigation bar should be displayed horizontally at the top or vertically on the side.",
+    "horizontal": "Horizontal",
+    "vertical": "Vertical"
+  },
   "overview": "Overview",
   "action": "Action | Actions",
   "forms": "Forms",
@@ -66,6 +73,35 @@
       "status": "Status",
       "unit": "Unit",
       "value": "Value"
+    },
+    "editableTab": "Editable data",
+    "editableTable": {
+      "edit": "Edit",
+      "actions": {
+        "save": "Save",
+        "reset": "Reset",
+        "send": "Send data",
+        "check": "Check data"
+      },
+      "details": "Product details",
+      "info": "Click on any row to view more details.",
+      "product": {
+        "headline": "Product Overview",
+        "fields": {
+          "id": "ID",
+          "name": "Product name",
+          "count": "Quantity",
+          "validFrom": "Valid from",
+          "validUntil": "Valid until",
+          "active": "Active",
+          "price": "Price",
+          "allergens": "Allergens"
+        },
+        "description": "Description",
+        "embed": "Embed Product",
+        "noAllergens": "No allergens specified",
+        "placeholder": "Type something..."
+      }
     },
     "tabs": "Data Tabs",
     "userTab": "User data",

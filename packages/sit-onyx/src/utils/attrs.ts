@@ -42,9 +42,7 @@ export const useRootAttrs = <T extends Pick<HTMLAttributes, "class" | "style">>(
   // endregion docs
   const attrs = useAttrs();
 
-  const rootAttrs = computed(
-    () => ({ class: attrs["class"], style: attrs["style"] }) as Pick<T, "class" | "style">,
-  );
+  const rootAttrs = computed(() => ({ class: attrs["class"], style: attrs["style"] }));
 
   const restAttrs = computed(() => {
     const rest = { ...attrs };

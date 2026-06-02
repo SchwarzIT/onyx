@@ -9,6 +9,12 @@
     "change": "Dichte ändern",
     "description": "Wähle die Dichte der Anwendung, um die Abstände zwischen Elementen anzupassen"
   },
+  "navigation": {
+    "changeOrientation": "Navigationsausrichtung ändern",
+    "orientationDescription": "Wähle aus, ob die Navigationsleiste horizontal am oberen Bildschirmrand oder vertikal an der Seite angezeigt werden soll.",
+    "horizontal": "Horizontal",
+    "vertical": "Vertikal"
+  },
   "overview": "Übersicht",
   "action": "Aktion | Aktionen",
   "forms": "Formulare",
@@ -67,6 +73,35 @@
       "status": "Status",
       "unit": "Einheit",
       "value": "Wert"
+    },
+    "editableTab": "Bearbeitbare Daten",
+    "editableTable": {
+      "edit": "Bearbeiten",
+      "actions": {
+        "save": "Speichern",
+        "reset": "Zurücksetzen",
+        "send": "Daten senden",
+        "check": "Daten prüfen"
+      },
+      "details": "Artikel Details",
+      "info": "Klicke auf eine beliebige Zeile, um mehr Details anzuschauen.",
+      "product": {
+        "headline": "Produktübersicht",
+        "fields": {
+          "id": "ID",
+          "name": "Artikelname",
+          "count": "Anzahl",
+          "validFrom": "Gültig ab",
+          "validUntil": "Gültig bis",
+          "active": "Aktiv",
+          "price": "Preis",
+          "allergens": "Allergene"
+        },
+        "description": "Beschreibung",
+        "embed": "Artikel einbetten",
+        "noAllergens": "Keine Allergene angegeben",
+        "placeholder": "Etwas eingeben..."
+      }
     },
     "userTab": "Nutzerdaten",
     "tabs": "Daten Tabs",

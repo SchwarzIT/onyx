@@ -352,5 +352,12 @@
   },
   "accordion": {
     "toggle": "Klik om de inhoud te tonen/verbergen"
+  },
+  "search": {
+    "filterLabel": "zoekfilter weergeven",
+    "leadingShortcutPlaceholder": "Typ",
+    "trailingShortcutPlaceholder": "om te zoeken",
+    "label": "Zoeken",
+    "selectFilter": "Filter selecteren"
   }
 }

@@ -352,5 +352,12 @@
   },
   "accordion": {
     "toggle": "Haga clic para mostrar/ocultar el contenido"
+  },
+  "search": {
+    "filterLabel": "mostrar filtro de búsqueda",
+    "leadingShortcutPlaceholder": "Escriba",
+    "trailingShortcutPlaceholder": "para buscar",
+    "label": "Buscar",
+    "selectFilter": "Seleccionar filtro"
   }
 }

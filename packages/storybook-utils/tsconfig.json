@@ -2,7 +2,7 @@
   "extends": ["@vue/tsconfig/tsconfig.dom.json", "@sit-onyx/shared/tsconfig.json"],
   "include": ["src", "svg.d.ts"],
   "compilerOptions": {
-    "types": ["node", "vite/client"],
+    "types": ["node"],
     "rootDir": "./src",
     "baseUrl": ".",
     "lib": ["ES2022", "DOM"]

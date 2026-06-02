@@ -9,12 +9,13 @@ export type OnyxSearchProps = Pick<
   | "disabled"
   | "density"
   | "id"
-  | "label"
   | "name"
   | "skeleton"
   | "modelValue"
   | "autofocus"
   | "loading"
+  | "placeholder"
+  | "required"
 > & {
   /**
    * The component is available in two color modes: blank and tinted.
@@ -29,6 +30,20 @@ export type OnyxSearchProps = Pick<
    * @default "blank"
    */
   cornerRadius?: SearchCornerRadius;
+  /**
+   * Determines whether the filters should be displayed.
+   * Actual filter content must be passed using the `default` slot.
+   */
+  showFilters?: boolean;
+  /**
+   * Determines the position of the filters
+   * @default "bottom"
+   */
+  filterPosition?: "bottom" | "inline" | "modal";
+  /**
+   *  Indicates whether keyboard shortcuts should be enabled for quick access.
+   */
+  withShortcut?: boolean;
 };
 
 export const SEARCH_COLORS = ["blank", "tinted"] as const;

@@ -18,7 +18,41 @@
     }
   },
   "components": {
-    "component": "Component | Components"
+    "all": "All components",
+    "component": "Component | Components",
+    "property": "Property | Properties",
+    "event": "Event | Events",
+    "slot": "Slot | Slots",
+    "exposed": "Exposed",
+    "example": "Component example",
+    "preview": "Preview",
+    "code": "Code",
+    "overview": "Overview",
+    "details": "Component details",
+    "schema": "Type",
+    "tags": "Tags",
+    "options": {
+      "reset": "Reset styles",
+      "change": "Change styles",
+      "density": "Density",
+      "appearance": "Appearance",
+      "appearances": {
+        "light": "light",
+        "dark": "dark"
+      }
+    },
+    "status": {
+      "new": "New",
+      "experimental": {
+        "label": "Experimental",
+        "description": "This component is experimental since we have just recently added it to our design system. We allow breaking changes for this component within minor or patch versions (e.g. 1.0.0 => 1.0.1) so we can integrate community feedback and ensure high quality. Therefore, we strongly recommend to watch our {changelog} when updating and using this component.",
+        "changelog": "changelog"
+      },
+      "deprecated": {
+        "label": "Deprecated",
+        "description": "This component is deprecated and should no longer be used. It is currently kept for backwards compatibility but will be removed in the next major version."
+      }
+    }
   },
   "gettingStarted": "Getting Started",
   "copyToClipboard": "Copy to clipboard",
@@ -43,5 +77,7 @@
     "global": "Global variable",
     "semantic": "Semantic variable",
     "visualizationDescription": "Visualization of color mapping for global and semantic variables."
-  }
+  },
+  "name": "Name",
+  "description": "Description"
 }

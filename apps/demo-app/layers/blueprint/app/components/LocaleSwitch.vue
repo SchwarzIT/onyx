@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { iconTranslate } from "@sit-onyx/icons";
-import type { SelectDialogOption } from "sit-onyx";
+import { type SelectDialogOption } from "sit-onyx";
 
 const { locale, setLocale, locales } = useI18n();
 const isLanguageDialogOpen = ref(false);
@@ -22,6 +22,7 @@ const currentLocaleLabel = computed(() => {
 
 <template>
   <OnyxUnstableNavButton
+    class="locale-nav-button"
     :label="currentLocaleLabel"
     :icon="iconTranslate"
     @click="isLanguageDialogOpen = true"
@@ -37,3 +38,9 @@ const currentLocaleLabel = computed(() => {
     <template #description> {{ $t("onyx.languageSelect.subtitle") }} </template>
   </OnyxSelectDialog>
 </template>
+
+<style lang="scss">
+.onyx-nav-bar--vertical:not(.onyx-nav-bar--expanded) .locale-nav-button .onyx-nav-button__labels {
+  display: none;
+}
+</style>

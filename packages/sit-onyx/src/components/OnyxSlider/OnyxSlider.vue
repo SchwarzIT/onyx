@@ -41,6 +41,7 @@ const props = withDefaults(defineProps<Props>(), {
   showError: FORM_INJECTED_SYMBOL,
   requiredMarker: FORM_INJECTED_SYMBOL,
   reserveMessageSpace: FORM_INJECTED_SYMBOL,
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- false positive
   mode: () => "single" as TSliderMode,
 });
 
@@ -203,7 +204,13 @@ const sharedStepperProps = computed(() => {
 
           <!-- main slider -->
           <span class="onyx-slider__root" v-bind="root">
-            <span class="onyx-slider__rail"></span>
+            <span
+              class="onyx-slider__rail"
+              :style="{
+                '--track-start-percentage': `${track.startPercentage}%`,
+                '--track-end-percentage': `${100 - track.endPercentage}%`,
+              }"
+            ></span>
 
             <template v-for="markItem in marks" :key="markItem.value">
               <span
@@ -378,8 +385,8 @@ const sharedStepperProps = computed(() => {
       }
 
       &::after {
-        left: v-bind("`${track.startPercentage}%`");
-        right: v-bind("`${100 - track.endPercentage}%`");
+        left: var(--track-start-percentage);
+        right: var(--track-end-percentage);
         background-color: var(--onyx-slider-track-background);
         z-index: $track-z-index;
       }

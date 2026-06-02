@@ -50,6 +50,7 @@ const props = withDefaults(defineProps<OnyxDatePickerV2Props<TSelection>>(), {
   showCalendarWeeks: false,
   weekStartDay: "Monday",
   disabledDays: undefined,
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- false positive
   selectionMode: () => "single" as TSelection,
 });
 
@@ -107,6 +108,7 @@ const popoverOpen = useVModel({ props, emit, key: "open", default: false });
 const { disabled } = useFormContext(props);
 
 const handleDateSelect = (date: OnyxCalendarValueBySelection<TSelection>) => {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- false positive
   modelValue.value = date as typeof modelValue.value;
 
   if (
@@ -190,6 +192,7 @@ const { showClearButton } = useClearButton({ props, modelValue });
 
 const handleClearValue = () => {
   if (props.selectionMode === "multiple") {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- false positive
     modelValue.value = [] as unknown as typeof modelValue.value;
   } else {
     modelValue.value = undefined;

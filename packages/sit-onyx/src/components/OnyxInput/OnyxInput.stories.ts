@@ -20,7 +20,6 @@ const meta: Meta<typeof OnyxInput> = {
     }),
   ],
   argTypes: {
-    pattern: { type: "string" },
     leading: { control: { disable: true } },
     leadingIcons: { control: { disable: true } },
     trailing: { control: { disable: true } },

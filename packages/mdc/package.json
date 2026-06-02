@@ -40,12 +40,14 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.3",
-    "@nuxtjs/mdc": "~0.21.1",
+    "@nuxtjs/mdc": "~0.22.0",
     "@playwright/experimental-ct-vue": "catalog:",
     "@playwright/test": "catalog:",
     "@sit-onyx/playwright-utils": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
     "@vue/compiler-dom": "catalog:",
-    "sit-onyx": "workspace:^"
+    "sit-onyx": "workspace:^",
+    "unplugin-dts": "catalog:",
+    "vite": "catalog:"
   }
 }

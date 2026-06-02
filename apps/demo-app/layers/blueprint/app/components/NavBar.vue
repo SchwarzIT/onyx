@@ -6,7 +6,7 @@ const props = withDefaults(defineProps<OnyxNavBarProps>(), {
   // Vue defaults booleans to false so this explicit "undefined" is needed to correctly set the default breakpoint
   mobile: undefined,
 });
-
+const expanded = defineModel<boolean>("expanded", { default: false });
 const slots = defineSlots<OnyxNavBarSlots>();
 
 const localePath = useLocalePath();
@@ -15,6 +15,7 @@ const localePath = useLocalePath();
 <template>
   <OnyxNavBar
     v-bind="props"
+    v-model:expanded="expanded"
     :app-area="props.appArea ?? { link: localePath('/') }"
     @navigate-back="$router.back"
   >

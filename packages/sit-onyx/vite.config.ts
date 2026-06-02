@@ -1,12 +1,12 @@
 /// <reference types="vitest/config" />
 import { vuePluginOptions } from "@sit-onyx/shared/playwright.config.base";
 import { VITE_BASE_CONFIG } from "@sit-onyx/shared/vite.config.base";
+import { extractComponentMeta } from "@sit-onyx/vite-plugin-component-meta";
 import vue from "@vitejs/plugin-vue";
 import { fileURLToPath, URL } from "node:url";
 import { DiagnosticCategory } from "typescript";
+import dts from "unplugin-dts/vite";
 import { defineConfig } from "vite";
-import dts from "vite-plugin-dts";
-import { extractComponentMeta } from "./build/extract-component-meta.js";
 import packageJson from "./package.json" with { type: "json" };
 
 // https://vitejs.dev/config
@@ -15,6 +15,7 @@ export default defineConfig({
   mode: "development",
   plugins: [
     dts({
+      processor: "vue",
       tsconfigPath: "./tsconfig.app.json",
       compilerOptions: { composite: false },
       beforeWriteFile: (filePath) => {
@@ -30,7 +31,7 @@ export default defineConfig({
     }),
     vue(vuePluginOptions),
     extractComponentMeta({
-      tsconfigPath: "tsconfig.app.json",
+      tsconfigPath: getFilePath("tsconfig.app.json"),
       include: /\.vue$/,
     }),
   ],

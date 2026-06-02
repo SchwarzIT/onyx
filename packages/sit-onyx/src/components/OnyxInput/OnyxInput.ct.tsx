@@ -7,6 +7,7 @@ import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import { createFormElementUtils } from "../OnyxFormElement/OnyxFormElement.ct-utils.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxInput from "./OnyxInput.vue";
+import PatternTestCase from "./PatternTestCase.vue";
 
 test.describe("Screenshot tests", () => {
   for (const state of ["default", "placeholder", "with value", "slot content"] as const) {
@@ -438,4 +439,18 @@ test("should show/hide clear button", async ({ mount }) => {
   // ASSERT
   await expect(input, "should clear value when clear button is clicked").toHaveValue("");
   await expect(clearButton).toBeHidden();
+});
+
+test("should display pattern error", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(<PatternTestCase />);
+
+  const input = component.getByLabel("Test label");
+  // ACT
+  await input.fill("123");
+  await input.blur();
+
+  // ASSERT
+  await expect(input).toHaveValue("123");
+  await expect(component.getByText("Only letters are allowed").first()).toBeVisible();
 });

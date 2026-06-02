@@ -60,7 +60,7 @@ export const WithColor = {
 export const Inline = {
   args: {
     ...Default.args,
-    inline: true,
+    size: "inline",
   },
   decorators: [
     (story) => ({

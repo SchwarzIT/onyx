@@ -1,12 +1,13 @@
 import { fileURLToPath, URL } from "node:url";
 import { DiagnosticCategory } from "typescript";
+import dts from "unplugin-dts/vite";
 import { defineConfig } from "vite";
-import dts from "vite-plugin-dts";
 import { dependencies } from "./package.json" with { type: "json" };
 
 export default defineConfig({
   plugins: [
     dts({
+      processor: "vue",
       rollupTypes: true,
       afterDiagnostic: async (diagnostics) => {
         if (diagnostics.some((d) => d.category === DiagnosticCategory.Error)) {

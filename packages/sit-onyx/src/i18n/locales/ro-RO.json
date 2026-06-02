@@ -352,5 +352,12 @@
   },
   "accordion": {
     "toggle": "Faceți clic pentru a comuta conținutul"
+  },
+  "search": {
+    "filterLabel": "afișare filtru de căutare",
+    "leadingShortcutPlaceholder": "Tastați",
+    "trailingShortcutPlaceholder": "pentru a căuta",
+    "label": "Căutare",
+    "selectFilter": "Selectare filtru"
   }
 }

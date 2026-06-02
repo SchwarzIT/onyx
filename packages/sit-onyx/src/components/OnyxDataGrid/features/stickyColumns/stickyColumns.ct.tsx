@@ -194,20 +194,41 @@ test("multiple stickyColumns", async ({ mount }) => {
   const data = getTestData();
 
   const component = await mount(
-    <TestCase data={data} columns={columns} stickyColumnsOptions={{ columns: ["a", "b"] }} />,
+    <TestCase
+      data={data}
+      columns={columns}
+      stickyColumnsOptions={{
+        position: "right",
+        columns: [
+          { key: "d", position: "right" },
+          "a",
+          "b",
+          { key: "g", position: "left" },
+          { key: "f", position: "left" },
+        ],
+      }}
+    />,
   );
 
-  // ACT
-  await component.getByRole("columnheader", { name: "k" }).scrollIntoViewIfNeeded();
-
   // ASSERT
-  const fistStickyColumn = component.getByRole("columnheader", { name: "a" });
-  const secondStickyColumn = component.getByRole("columnheader", { name: "b" });
-  await expect(fistStickyColumn).toContainClass("onyx-data-grid-sticky-columns--sticky");
-  await expect(fistStickyColumn).toHaveCSS("left", /[0-9]+px/);
-  await expect(secondStickyColumn).toContainClass("onyx-data-grid-sticky-columns--sticky");
-  await expect(secondStickyColumn).toHaveCSS("left", /[0-9]+px/);
-  await expect(component).toHaveScreenshot("data-grid-two-sticky-columns.png");
+  const fColumn = component.getByRole("columnheader", { name: "f" });
+  const gColumn = component.getByRole("columnheader", { name: "g" });
+
+  const dColumn = component.getByRole("columnheader", { name: "d" });
+  const bColumn = component.getByRole("columnheader", { name: "b" });
+  const aColumn = component.getByRole("columnheader", { name: "a" });
+
+  for (const col of [fColumn, gColumn, dColumn, bColumn, aColumn]) {
+    await expect(col).toContainClass("onyx-data-grid-sticky-columns--sticky");
+  }
+
+  await expect(
+    component.getByRole("row", { name: "f g c e h i j k l m n o p q r d b a" }),
+    "Columns should have the correct order",
+  ).toBeAttached();
+
+  await component.getByRole("columnheader", { name: "q" }).scrollIntoViewIfNeeded();
+  await expect(component).toHaveScreenshot("data-grid-multiple-sticky-columns.png");
 });
 
 test("should allow scrolling the page", async ({ page, mount }) => {
@@ -332,4 +353,37 @@ test("selection column is automatically sticky when both features are active", a
   await expect(stickyColA).toHaveCSS("left", /[0-9]*px/);
 
   await expect(component).toHaveScreenshot("data-grid-sticky-selection-column.png");
+});
+
+test("scrolling triggered by filtering overflow shouldn't close search box", async ({ mount }) => {
+  const data = getTestData();
+
+  const component = await mount(
+    <TestCase
+      data={data}
+      columns={columns}
+      stickyColumnsOptions={{ columns: ["a"] }}
+      withFiltering={true}
+    />,
+  );
+  const columnheaderB = component.getByRole("columnheader", { name: "b Toggle column actions" });
+  const searchBox = columnheaderB.getByRole("textbox", { name: "Search column b" });
+
+  // ASSERT
+  await expect(searchBox).toBeHidden();
+
+  // ACT
+  await columnheaderB.getByLabel("Toggle column actions").click();
+
+  // ASSERT
+  await expect(searchBox).toBeVisible();
+
+  // ACT
+  await searchBox.fill("longlonglonglonglonglonglonglonglonglonglong text");
+
+  // ASSERT
+  await expect(component).toBeVisible();
+  await expect(
+    component.getByRole("button", { name: "Remove search term for column" }),
+  ).toBeHidden();
 });
