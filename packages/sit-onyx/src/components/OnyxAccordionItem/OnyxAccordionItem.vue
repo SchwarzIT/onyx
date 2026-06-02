@@ -244,6 +244,10 @@ const showSkeleton = computed(() => skeleton.value || accordionContext?.skeleton
         top: 0;
         z-index: var(--onyx-z-index-sticky-content);
       }
+
+      .onyx-accordion-item__header-content {
+        flex-grow: 0;
+      }
     }
 
     &--card {
