@@ -21,3 +21,19 @@ export const Default = {
     label: "Label",
   },
 } satisfies Story;
+
+export const Active = {
+  args: {
+    icon: iconPlaceholder,
+    label: "Label",
+    active: true,
+  },
+} satisfies Story;
+
+export const Disabled = {
+  args: {
+    icon: iconPlaceholder,
+    label: "Label",
+    disabled: true,
+  },
+} satisfies Story;

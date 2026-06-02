@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { ref } from "vue";
-import { createTreeViewItem } from "./createTreeView.js";
+import { createTreeViewItem } from "./createTreeViewItem.js";
 
 describe("createTreeViewItem", () => {
   let mockEmitSelect: () => void;
