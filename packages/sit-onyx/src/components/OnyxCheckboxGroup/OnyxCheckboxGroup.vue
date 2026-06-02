@@ -157,6 +157,7 @@ defineExpose({
         flex-direction: column;
 
         .onyx-checkbox-group__check-all {
+          width: 100%;
           border-bottom: $check-all-border;
         }
       }
