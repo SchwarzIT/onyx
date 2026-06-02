@@ -117,7 +117,7 @@ type ExtractTypesFromFeature<TEntry extends DataGridEntry, TFeature> = TFeature 
 
 /**
  * ColumnConfig as it can be defined by the user.
- * Supports passing either a ColumnGroupConfig OR a Features-Tuple/Array.
+ * Supports passing either a ColumnGroupConfig or an Array.
  */
 export type ColumnConfig<
   TEntry extends DataGridEntry,
