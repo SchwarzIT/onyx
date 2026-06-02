@@ -1,5 +1,6 @@
 /// <reference types="vitest/config" />
 import { VITE_BASE_CONFIG } from "@sit-onyx/shared/vite.config.base";
+import { extractComponentMeta } from "@sit-onyx/vite-plugin-component-meta";
 import vue from "@vitejs/plugin-vue";
 import { fileURLToPath, URL } from "node:url";
 import { DiagnosticCategory } from "typescript";
@@ -27,6 +28,10 @@ export default defineConfig({
       },
     }),
     vue(),
+    extractComponentMeta({
+      tsconfigPath: getFilePath("tsconfig.app.json"),
+      include: /\.vue$/,
+    }),
   ],
   build: {
     lib: {
@@ -37,7 +42,12 @@ export default defineConfig({
     },
     rolldownOptions: {
       // make sure to externalize dependencies that shouldn't be bundled into the library
-      external: Object.keys(packageJson.peerDependencies),
+      external: [
+        // ensure to externalize all tiptap packages and sub-paths of them
+        // see: https://github.com/ueberdosis/tiptap/issues/3869#issuecomment-2167931620
+        /^@tiptap\/.+$/,
+        ...Object.keys(packageJson.peerDependencies),
+      ],
     },
   },
   test: {

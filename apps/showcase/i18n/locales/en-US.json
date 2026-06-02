@@ -30,6 +30,7 @@
     "overview": "Overview",
     "details": "Component details",
     "schema": "Type",
+    "tags": "Tags",
     "options": {
       "reset": "Reset styles",
       "change": "Change styles",

@@ -19,7 +19,8 @@
       "node": "./dist/index.js",
       "default": "./dist/index.js"
     },
-    "./style.css": "./dist/style.css"
+    "./style.css": "./dist/style.css",
+    "./component-meta.json": "./dist/component-meta.json"
   },
   "repository": {
     "type": "git",
@@ -55,12 +56,13 @@
     "@sit-onyx/playwright-utils": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",
-    "@tiptap/extension-heading": "^3.23.5",
-    "@tiptap/extension-text-align": "^3.23.5",
-    "@tiptap/extensions": "^3.23.5",
-    "@tiptap/pm": "^3.23.5",
-    "@tiptap/starter-kit": "^3.23.5",
-    "@tiptap/vue-3": "^3.23.5",
+    "@sit-onyx/vite-plugin-component-meta": "workspace:^",
+    "@tiptap/extension-heading": "^3.24.0",
+    "@tiptap/extension-text-align": "^3.24.0",
+    "@tiptap/extensions": "^3.24.0",
+    "@tiptap/pm": "^3.24.0",
+    "@tiptap/starter-kit": "^3.24.0",
+    "@tiptap/vue-3": "^3.24.0",
     "@vue/compiler-dom": "catalog:",
     "sit-onyx": "workspace:^",
     "unplugin-dts": "catalog:",

@@ -61,7 +61,8 @@
     "@sit-onyx/playwright-utils": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",
-    "@storybook/addon-a11y": "^10.4.0",
+    "@sit-onyx/vite-plugin-component-meta": "workspace:^",
+    "@storybook/addon-a11y": "^10.4.1",
     "@vue/compiler-dom": "catalog:",
     "@vue/test-utils": "^2.4.10",
     "axe-core": "^4.11.4",
@@ -72,10 +73,8 @@
     "unplugin-dts": "catalog:",
     "vite": "catalog:",
     "vue": "catalog:",
-    "vue-component-meta": "catalog:",
     "vue-component-type-helpers": "^3.3.1",
-    "vue-docgen-api": "^4.79.2",
     "vue-i18n": "^11.4.4",
-    "vue-router": "^5.0.7"
+    "vue-router": "^5.1.0"
   }
 }
