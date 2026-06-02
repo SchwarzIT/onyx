@@ -3,6 +3,7 @@ import { computed, useTemplateRef } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useRequired } from "../../composables/required.js";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
+import { useErrorTooltip } from "../../composables/useErrorTooltip.js";
 import { useFormElementError } from "../../composables/useFormElementError.js";
 import {
   SKELETON_INJECTED_SYMBOL,
@@ -10,11 +11,11 @@ import {
 } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import type { SelectOptionValue } from "../../types/index.js";
-import { useRootAttrs } from "../../utils/attrs.js";
-import OnyxErrorTooltip from "../OnyxErrorTooltip/OnyxErrorTooltip.vue";
+import { mergeVueProps, useRootAttrs } from "../../utils/attrs.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
+import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 import type { OnyxCheckboxProps } from "./types.js";
 
 type Props = OnyxCheckboxProps<TValue>;
@@ -54,6 +55,7 @@ const { densityClass } = useDensity(props);
 const { disabled, requiredMarker } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props, requiredMarker);
+const errorTooltip = useErrorTooltip({ disabled, errorMessages });
 
 const title = computed(() => {
   return props.hideLabel ? props.label : undefined;
@@ -74,51 +76,54 @@ useAutofocus(input, props);
     <OnyxSkeleton v-if="!props.hideLabel" class="onyx-checkbox-skeleton__label" />
   </div>
 
-  <OnyxErrorTooltip v-else :disabled="disabled" :error-messages="errorMessages" v-bind="rootAttrs">
-    <label
-      class="onyx-component onyx-checkbox"
-      :class="[requiredTypeClass, densityClass]"
-      :title="title"
-    >
-      <div class="onyx-checkbox__container">
-        <OnyxLoadingIndicator v-if="props.loading" class="onyx-checkbox__loading" type="circle" />
-        <input
-          v-else
-          ref="input"
-          v-model="isChecked"
-          v-custom-validity
-          :aria-label="props.hideLabel ? props.label : undefined"
-          class="onyx-checkbox__input"
-          type="checkbox"
-          :indeterminate="props.indeterminate"
-          :disabled="disabled"
-          :required="props.required"
-          :value="props.value"
-          :autofocus="props.autofocus"
-          v-bind="restAttrs"
-        />
-      </div>
+  <OnyxTooltip v-else v-bind="mergeVueProps(rootAttrs, errorTooltip)">
+    <template #default="{ trigger }">
+      <label
+        class="onyx-component onyx-checkbox"
+        :class="[requiredTypeClass, densityClass]"
+        :title="title"
+        v-bind="trigger"
+      >
+        <div class="onyx-checkbox__container">
+          <OnyxLoadingIndicator v-if="props.loading" class="onyx-checkbox__loading" type="circle" />
+          <input
+            v-else
+            ref="input"
+            v-model="isChecked"
+            v-custom-validity
+            :aria-label="props.hideLabel ? props.label : undefined"
+            class="onyx-checkbox__input"
+            type="checkbox"
+            :indeterminate="props.indeterminate"
+            :disabled="disabled"
+            :required="props.required"
+            :value="props.value"
+            :autofocus="props.autofocus"
+            v-bind="restAttrs"
+          />
+        </div>
 
-      <template v-if="!props.hideLabel">
-        <p
-          class="onyx-checkbox__label"
-          :class="[
-            `onyx-truncation-${props.truncation}`,
-            // shows the required marker inline for multiline labels
-            props.truncation === 'multiline' ? requiredMarkerClass : undefined,
-          ]"
-        >
-          {{ props.label }}
-        </p>
-        <!-- shows the required marker fixed on the right for truncated labels -->
-        <div
-          v-if="props.truncation === 'ellipsis'"
-          class="onyx-checkbox__marker"
-          :class="[requiredMarkerClass]"
-        ></div>
-      </template>
-    </label>
-  </OnyxErrorTooltip>
+        <template v-if="!props.hideLabel">
+          <p
+            class="onyx-checkbox__label"
+            :class="[
+              `onyx-truncation-${props.truncation}`,
+              // shows the required marker inline for multiline labels
+              props.truncation === 'multiline' ? requiredMarkerClass : undefined,
+            ]"
+          >
+            {{ props.label }}
+          </p>
+          <!-- shows the required marker fixed on the right for truncated labels -->
+          <div
+            v-if="props.truncation === 'ellipsis'"
+            class="onyx-checkbox__marker"
+            :class="[requiredMarkerClass]"
+          ></div>
+        </template>
+      </label>
+    </template>
+  </OnyxTooltip>
 </template>
 
 <style lang="scss">
@@ -149,6 +154,10 @@ useAutofocus(input, props);
     cursor: pointer;
     width: max-content;
     max-width: 100%;
+
+    .onyx-tooltip-wrapper:has(&) {
+      max-width: 100%;
+    }
 
     &:has(&__label) {
       padding-right: var(--onyx-checkbox-label-padding-vertical);
