@@ -76,7 +76,7 @@ test.describe("Screenshot tests", () => {
           : "Test error";
       return (
         <OnyxRadioButton
-          style={row !== "default" ? "padding-top: 3rem;" : ""}
+          style={row !== "default" ? "margin-bottom: 3rem;" : ""}
           value="test-value"
           label="Test label"
           name="test-name"
@@ -100,19 +100,6 @@ test.describe("Screenshot tests", () => {
             component.getByRole("tooltip"),
             `should show error tooltip for ${row} and ${column}`,
           ).toBeVisible();
-
-          const tooltipSize = await component
-            .getByRole("tooltip")
-            .evaluate((element) => [element.clientHeight, element.clientWidth]);
-
-          // set paddings to fit the full tooltip in the screenshot
-          await component.evaluate(
-            (element, { tooltipSize: [height] }) => {
-              const verticalMargin = `${height + 12}px`;
-              element.style.marginBottom = verticalMargin;
-            },
-            { tooltipSize },
-          );
         }
       },
     },
