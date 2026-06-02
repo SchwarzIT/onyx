@@ -1,6 +1,6 @@
+import { iconPlaceholder } from "@sit-onyx/icons";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
-import OnyxSidebarItem from "../OnyxSidebar/modules/OnyxSidebarItem/OnyxSidebarItem.vue";
 import OnyxTreeViewItem from "../OnyxTreeViewItem/OnyxTreeViewItem.vue";
 import OnyxTreeView from "./OnyxTreeView.vue";
 
@@ -21,26 +21,26 @@ export const Default: Story = {
           default: () => [
             h(
               OnyxTreeViewItem,
-              { label: "Documents" },
+              { label: "Item 1", icon: iconPlaceholder },
               {
                 default: () => [
                   h(
                     OnyxTreeViewItem,
-                    { label: "Invoices" },
+                    { label: "Item 1.1", icon: iconPlaceholder },
                     {
                       default: () => [
-                        h(OnyxTreeViewItem, { label: "Invoice_January.pdf" }),
-                        h(OnyxTreeViewItem, { label: "Invoice_February.pdf" }),
+                        h(OnyxTreeViewItem, { label: "Item 1.1.1", icon: iconPlaceholder }),
+                        h(OnyxTreeViewItem, { label: "Item 1.1.2", icon: iconPlaceholder }),
                       ],
                     },
                   ),
                   h(
                     OnyxTreeViewItem,
-                    { label: "Contracts" },
+                    { label: "Item 1.2", icon: iconPlaceholder },
                     {
                       default: () => [
-                        h(OnyxTreeViewItem, { label: "Employment_Contract.pdf", active: true }),
-                        h(OnyxTreeViewItem, { label: "Rental_Agreement.pdf" }),
+                        h(OnyxTreeViewItem, { label: "Item 1.2.1", icon: iconPlaceholder }),
+                        h(OnyxTreeViewItem, { label: "Item 1.2.2", icon: iconPlaceholder }),
                       ],
                     },
                   ),
@@ -50,29 +50,29 @@ export const Default: Story = {
 
             h(
               OnyxTreeViewItem,
-              { label: "Images" },
+              { label: "Item 2", icon: iconPlaceholder },
               {
                 default: () => [
                   h(
                     OnyxTreeViewItem,
-                    { label: "Vacation_2025" },
+                    { label: "Item 2.1", icon: iconPlaceholder },
                     {
                       default: () => [
-                        h(OnyxTreeViewItem, { label: "Beach.png" }),
-                        h(OnyxTreeViewItem, { label: "Mountains.jpg" }),
+                        h(OnyxTreeViewItem, { label: "Item 2.1.1", icon: iconPlaceholder }),
+                        h(OnyxTreeViewItem, { label: "Item 2.1.2", icon: iconPlaceholder }),
                       ],
                     },
                   ),
-                  h(OnyxSidebarItem, { link: "#" }, { default: () => "SidebarItem" }),
+                  h(OnyxTreeViewItem, { label: "Item 2.2", icon: iconPlaceholder }),
                 ],
               },
             ),
 
             h(
               OnyxTreeViewItem,
-              { label: "System Settings", disabled: true },
+              { label: "Item 3", disabled: true, icon: iconPlaceholder },
               {
-                default: () => [h(OnyxTreeViewItem, { label: "Security" })],
+                default: () => [h(OnyxTreeViewItem, { label: "Item 3.1", icon: iconPlaceholder })],
               },
             ),
           ],
