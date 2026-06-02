@@ -4,7 +4,7 @@ import { ICON_METADATA, getIconImportName } from "@sit-onyx/icons/utils";
 import { OnyxSelect, SelectOption } from "sit-onyx";
 import { ref } from "vue";
 
-const value = ref<string>("birthday-cake");
+const value = ref<string>("cookie");
 
 const options = Object.entries(ICON_METADATA).map<SelectOption<string>>(([iconName, metadata]) => {
   const icon = ALL_ICONS[getIconImportName(iconName) as keyof typeof ALL_ICONS];
