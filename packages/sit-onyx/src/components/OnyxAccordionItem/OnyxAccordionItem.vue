@@ -122,6 +122,8 @@ const showSkeleton = computed(() => skeleton.value || accordionContext?.skeleton
     --onyx-accordion-item-chevron-rotation: 0deg;
     --onyx-accordion-item-chevron-rotation-open: 180deg;
 
+    --onyx-accordion-item-header-gap: var(--onyx-density-xs);
+
     // colors
     --onyx-accordion-item-color: var(--onyx-color-text-icons-neutral-medium);
     --onyx-accordion-item-color-hover: var(--onyx-color-text-icons-neutral-intense);
@@ -226,6 +228,13 @@ const showSkeleton = computed(() => skeleton.value || accordionContext?.skeleton
       &:focus-visible {
         background-color: var(--onyx-accordion-item-background-focus);
       }
+    }
+
+    &__header-content {
+      display: flex;
+      align-items: center;
+      gap: var(--onyx-accordion-item-header-gap);
+      flex-grow: 1;
     }
 
     &--nested-large,

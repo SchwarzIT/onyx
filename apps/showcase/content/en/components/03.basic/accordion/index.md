@@ -57,11 +57,19 @@ Identically to the large type, `nested-small` is optimized to be used inside of 
 
 </steps>
 
+<br />
+
 ### Exclusive
 
 The optional exclusive mode can be enabled so only one item can be opened at a time. Opening another item will automatically close the previously opened item. This can be useful to focus the users attention to a single item.
 
 :component-example{name="Exclusive" layout="grow"}
+
+### Custom content
+
+Each accordion item supports custom content inside the header and body. The header should not contain interactive elements since its only used for toggling the content.
+
+:component-example{name="CustomContent" layout="grow"}
 
 ### Disabled
 
