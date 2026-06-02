@@ -3,7 +3,7 @@ import { useDensity } from "../../composables/density.js";
 import type { OnyxListItemProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxListItemProps>(), {
-  tag: "li",
+  is: "li",
   active: false,
   disabled: false,
   selected: false,
