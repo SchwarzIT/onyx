@@ -181,7 +181,6 @@ defineExpose({
       /** Ensures that potential scrollbars are on the content element and not on the dialog element. Clicking a scrollbar of the dialog element would trigger an outside click. */
       max-width: inherit;
       max-height: inherit;
-      overflow: auto;
     }
   }
 }
