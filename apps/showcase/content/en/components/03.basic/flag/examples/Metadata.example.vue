@@ -1,15 +1,24 @@
 <script lang="ts" setup>
-import { FLAG_METADATA } from "@sit-onyx/flags/utils";
-import { OnyxCodeTab, OnyxCodeTabs } from "sit-onyx";
+import * as ALL_FLAGS from "@sit-onyx/flags";
+import { FLAG_METADATA, getFlagImportName } from "@sit-onyx/flags/utils";
+import { OnyxSelect, SelectOption } from "sit-onyx";
+import { ref } from "vue";
+
+const value = ref<string>("DE");
+
+const options = Object.entries(FLAG_METADATA).map<SelectOption<string>>(
+  ([countryCode, metadata]) => {
+    const flag = ALL_FLAGS[getFlagImportName(countryCode) as keyof typeof ALL_FLAGS];
+    return {
+      label: metadata.internationalName,
+      group: metadata.continent,
+      value: countryCode,
+      icon: flag,
+    };
+  },
+);
 </script>
 
 <template>
-  <OnyxCodeTabs model-value="code">
-    <OnyxCodeTab
-      value="code"
-      label="Metadata for DE"
-      :code="JSON.stringify(FLAG_METADATA.DE, null, 2)"
-      language="json"
-    />
-  </OnyxCodeTabs>
+  <OnyxSelect v-model="value" label="Flag" list-label="Available flags" :options with-search />
 </template>

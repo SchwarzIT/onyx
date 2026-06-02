@@ -11,10 +11,6 @@ To use our official icon library, install it into your project first:
 
 :npm-install-code-tabs{packages="@sit-onyx/icons"}
 
-::info-card{headline="External icon libraries" color="warning"}
-When using external icon libraries instead of our official one, you must ensure that the SVG content is safe to use since the SVG code is injected into the HTML of the icon component. When using untrusted or unsecure sources, your application might become insecure / affected by [Cross-site scripting (XSS)](https://developer.mozilla.org/en-US/docs/Web/Security/Attacks/XSS).
-::
-
 ## Examples
 
 ### Sizes
@@ -31,7 +27,7 @@ Several colors are available to emphasize the icon's meaning. See our [color doc
 
 ### Metadata
 
-We also include some metadata for each icon such as the category and aliases.
+We also include some metadata for each icon such as the category and aliases which can e.g. be used to group icons.
 
 :component-example{name="Metadata" layout="grow"}
 
