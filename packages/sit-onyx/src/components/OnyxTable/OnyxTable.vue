@@ -22,10 +22,13 @@ const isEmptyMessage = computed(() => t.value("table.empty"));
 
 const table = useTemplateRef("table");
 const { height, width } = useResizeObserver(table);
+const tableWrapper = useTemplateRef("tableWrapper");
+const { width: tableWrapperWidth } = useResizeObserver(tableWrapper);
 
 const style = computed(() => ({
   "--onyx-table-observed-height": `${height.value}px`,
   "--onyx-table-observed-width": `${width.value}px`,
+  "--onyx-table-wrapper-observed-width": `${tableWrapperWidth.value}px`,
 }));
 
 const _headlineId = useId();
@@ -33,7 +36,11 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
 </script>
 
 <template>
-  <div :class="['onyx-component', 'onyx-table-wrapper', densityClass]" :style>
+  <div
+    ref="tableWrapper"
+    :class="['onyx-component', 'onyx-table-wrapper', densityClass]"
+    :style="style"
+  >
     <div v-if="!!slots.headline || !!slots.actions" class="onyx-table-wrapper__top">
       <div :id="headlineId">
         <slot name="headline"></slot>
@@ -221,26 +228,6 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
 
     @include define-borders();
 
-    &:not(:has(.onyx-table__empty)) {
-      @for $i from 1 through 99 {
-        &:has(th:nth-child(#{$i}):hover) {
-          tr > th:nth-child(#{$i}) {
-            background-color: var(--onyx-color-component-border-neutral);
-          }
-          tr > td:nth-child(#{$i})::before {
-            background-color: var(--onyx-color-base-neutral-200);
-          }
-        }
-      }
-    }
-
-    &__empty {
-      &-content {
-        display: flex;
-        justify-content: center;
-      }
-    }
-
     &__header {
       position: sticky;
       top: 0;
@@ -341,6 +328,31 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
           }
         }
       }
+
+      // column hover styles
+      &:not(:has(.onyx-table__empty)) {
+        > tr > th:not(.onyx-table__colgroup):hover,
+      // support forcing hover with a class, useful when e.g. using resize handles
+      > tr > th.hover {
+          &::before {
+            background-color: color-mix(
+              in srgb,
+              var(--onyx-color-base-neutral-500),
+              transparent 85%
+            );
+            content: "";
+            height: var(--onyx-table-observed-height);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            bottom: 0;
+            z-index: calc(var(--onyx-table-z-index-cell) - 1);
+            // needed in order for other components like buttons etc. to be clickable and to prevent showing the column hover effect when hovering down over a row
+            pointer-events: none;
+          }
+        }
+      }
     }
 
     &--cell-truncation-ellipsis {
@@ -372,6 +384,21 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
     &__colgroup {
       background-color: var(--onyx-color-base-primary-100);
       color: var(--onyx-color-text-icons-primary-intense);
+    }
+  }
+  &__empty {
+    --onyx-table-padding-block: 0;
+    --onyx-table-padding-inline: 0;
+    &-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      position: sticky;
+      left: 0;
+      // table width - borders
+      width: calc(var(--onyx-table-wrapper-observed-width) - 2 * var(--onyx-1px-in-rem));
+      box-sizing: border-box;
     }
   }
 }
