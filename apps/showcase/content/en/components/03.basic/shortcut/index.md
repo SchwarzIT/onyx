@@ -20,7 +20,7 @@ The following shortcut is executed when pressing `Control` and `C` at the same t
 
 The shortcut can also contain multiple steps that the user must press in a specific order. Each step can define keys where either **all** of them must be pressed at the same time or **any** (at least one) of them must be pressed.
 
-The following shortcut is executed when pressing `Control` and `Key` at the same time **first**, **then** releasing both keys and **finally** pressing only either `A` or `B`.
+The following shortcut is executed when pressing `Control` and `K` at the same time **first**, **then** releasing both keys and **finally** pressing only either `A` or `B`.
 
 :component-example{name="MultipleSteps"}
 
