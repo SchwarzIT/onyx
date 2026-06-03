@@ -1,5 +1,16 @@
 # @sit-onyx/nuxt-docs
 
+## 0.7.0
+
+### Minor Changes
+
+- 2a8ce5f: feat(useCollection): require `collection` name to be passed in as parameter
+- 2a8ce5f: feat: support passing a `path` option to set which collection path should be queried. By default, the current path will be used instead of the `slug` route parameter
+- 2a8ce5f: feat: a fatal 404 error is thrown when the collection item does not exist
+- 2a8ce5f: feat: `useSeoMeta()` is automatically called to define the SEO meta for the current collection item
+- b20feec: feat(useSidebarNavigation): support new `fields` option to include custom fields for the navigation items
+- 2a8ce5f: refactor(useSidebarNavigation)!: require `collection` name to be passed in as parameter
+
 ## 0.6.0
 
 ### Minor Changes
