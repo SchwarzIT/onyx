@@ -10,11 +10,11 @@ outline: [2, 3]
 
 </div>
 
-This is the official [onyx](https://onyx.schwarz/) Model Context Protocol (or "MCP" for short) server.
+This is the official onyx Model Context Protocol (or "MCP" for short) server.
 
 ## Changelog
 
-A full changelog can be found [here](/development/packages/changelogs/chartjs-plugin).
+A full changelog can be found [here](/development/packages/changelogs/modelcontextprotocol).
 
 ## Prerequisites
 
@@ -24,14 +24,17 @@ A full changelog can be found [here](/development/packages/changelogs/chartjs-pl
 
 Install the CLI globally:
 
-```shell
-# npm
-npm install -g @sit-onyx/modelcontextprotocol
+:::code-group
 
-# pnpm
-pnpm install -g @sit-onyx/modelcontextprotocol
-
+```shell [pnpm]
+pnpm install -g [@sit-onyx](https://github.com/sit-onyx)/modelcontextprotocol
 ```
+
+```shell [npm]
+npm install -g [@sit-onyx](https://github.com/sit-onyx)/modelcontextprotocol
+```
+
+:::
 
 Now you can run the `onyx-mcp` command:
 
