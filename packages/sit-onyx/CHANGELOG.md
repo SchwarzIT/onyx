@@ -9,10 +9,8 @@
   For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using it.
 
 - aaf3fb7: feat(OnyxDataGrid) implemented a column search inside the hideColumns feature.
-- 7e57113: fix(DataGridFeatures.useStickyColumns): Fixed overlapping hover effect
 - 7459ecc: feat(OnyxTooltip): added `disabled` prop to allow conditional disabling of the tooltip.
 - 95d50fe: feat(OnyxDataGrid): Export `dataGridActions` types
-- bf58513: fix(OnyxTable): ensure body content is correctly centered when table is empty
 - e5af0af: feat(OnyxInput): Added support for custom error messages in OnyxInput pattern validation. The pattern prop now accepts an object structure { value: string | RegExp; error: string }, allowing developers to display a specific error message when the input value does not match the provided pattern.
 
 ### Patch Changes
@@ -23,9 +21,11 @@
 - 4d00b29: refactor(OnyxIcon): deprecate `inline` property in favor of `size="inline"`
 - e3da24d: fix(OnyxDatePickerV2): correctly apply `multiView` property when defined as boolean shorthand
 - b11db99: fix(OnyxSwitch): Fix broken animation and unwanted rerender when invalid
-- 299f9de: - fix(OnyxUnstableTimePicker): correctly support intellisense to `type` property
-  - fix(OnyxUnstableTimePicker): ensure AM/PM toggle does not shrink in flyout
+- 299f9de: fix(OnyxUnstableTimePicker): correctly support intellisense to `type` property
+- 299f9de: fix(OnyxUnstableTimePicker): ensure AM/PM toggle does not shrink in flyout
+- bf58513: fix(OnyxTable): ensure body content is correctly centered when table is empty
 - a318f75: fix(DataGridFeatures.useStickyColumns): Fix sticky columns configuration requiring columns to be defined in correct order
+- 7e57113: fix(DataGridFeatures.useStickyColumns): Fixed overlapping hover effect
 - 08ecccc: fix(OnyxSelectOption): stretch option content to full width so custom content can correctly be placed more easily
 
 ## 1.13.1
@@ -162,7 +162,7 @@
 
 - 8551d9a: feat(OnyxDatePickerV2): enhanced component functionality
   - added a clear button to remove the current selection
-  - add new `disabledDays ` prop to support disabling specific dates or ranges
+  - add new `disabledDays` prop to support disabling specific dates or ranges
   - the popover now automatically closes after a date range is selected
   - implemented form validation
   - support new `viewMonth` property
@@ -289,7 +289,7 @@
 
 - b1254e8: feat: implemented new `OnyxUnstableSplitButton` component
 
-  For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the **[changelog]https://onyx.schwarz/development/packages/changelogs/sit-onyx.html)** when using it.
+  For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the **[changelog]<https://onyx.schwarz/development/packages/changelogs/sit-onyx.html>)** when using it.
 
 - bb05353: feat: implement new `OnyxUnstableFormElementV2` component
 
@@ -1045,10 +1045,10 @@
 - 33c7595: feat(OnyxSidebar): implement mobile behavior
   The sidebar will collapse automatically into drawer mode when the screen reaches specific breakpoint (depending on the `collapseSidebar` property). A floating action button (FAB) will be shown then to toggle the sidebar visibility
 
-  #### Other changes:
+  #### Other changes
   - implement `OnyxGlobalFAB` component and `useGlobalFAB` composable
 
-  ### Breaking change:
+  ### Breaking change
   - OnyxAppLayout: provide OnyxToast and OnyxGlobalFAB by default so it you are using the OnyxAppLayout, you no longer need to add those components manually
 
 ## 1.0.0-beta.287
@@ -2277,7 +2277,7 @@
   - `watch` is not a required property anymore.
   - Features can now define `modifyColumns` to add, drop or change the normalized column configuration.
 
-  ### feat(DataGridRenderer)!: Removed `prop` from `DataGridRendererColumn`.
+  ### feat(DataGridRenderer)!: Removed `prop` from `DataGridRendererColumn`
   - The `component` has no need for this abstraction. Any props can be directly used in the passed component.
 
 ## 1.0.0-beta.138
@@ -3151,7 +3151,7 @@
 ### Major Changes
 
 - 349f412: - breaking change: `useOutsideClick` - renamed `element` to `inside`: Can now accept multiple element refs
-  - split `createTooltip` into `createTooltip` and `createToggletip` headless functions, as these implement different accessibility concepts: See https://inclusive-components.design/tooltips-toggletips/
+  - split `createTooltip` into `createTooltip` and `createToggletip` headless functions, as these implement different accessibility concepts: See <https://inclusive-components.design/tooltips-toggletips/>
   - Therefore, the `OnyxTooltip` had to be reworked:
     - on hover, the tooltip pattern is used
     - on click the toggletip pattern is used
@@ -3205,7 +3205,7 @@
 
   #### Breaking changes
   - remove CSS variable `--onyx-density`, can be replaced with 2rem, 2.5rem or 3rem accordingly for compact, default and cozy density
-  - OnyxBadge: removed CSS variables `--onyx-badge-padding`, ` --onyx-badge-icon-padding`, `--onyx-badge-height` and `--onyx-badge-dot-size`
+  - OnyxBadge: removed CSS variables `--onyx-badge-padding`, `--onyx-badge-icon-padding`, `--onyx-badge-height` and `--onyx-badge-dot-size`
   - OnyxDialog: removed CSS variable `--onyx-dialog-padding`
   - OnyxMiniSearch: removed CSS variable `--onyx-mini-search-icon-size`
   - OnyxTable: removed CSS variable `--onyx-table-vertical-padding`
