@@ -13,8 +13,6 @@ A predefined [system button](/components/buttons/system-button) is used as the t
 
 Options for the menu must be passed in using the `options` slot. Each option supports a label, icon and optional link by default but custom content can be passed as slot if needed. For more information, please refer to the [menu item](/components/basic/menu-item).
 
-
-
 <steps>
 
 ::step

@@ -11,10 +11,6 @@ To use our official flag library, install it into your project first:
 
 :npm-install-code-tabs{packages="@sit-onyx/flags"}
 
-::info-card{headline="External flag libraries" color="warning"}
-When using external flag libraries instead of our official one, you must ensure that the SVG content is safe to use since the SVG code is injected into the HTML of the icon component. When using untrusted or unsecure sources, your application might become insecure / affected by [Cross-site scripting (XSS)](https://developer.mozilla.org/en-US/docs/Web/Security/Attacks/XSS).
-::
-
 ## Examples
 
 Technically, flags are used the exact same way as icons and are also displayed using the icon component. For more information, please refer to the [icon](/components/basic/icon) component.
@@ -33,7 +29,7 @@ For certain use cases, it might be required to also display the country name. Th
 
 ### Metadata
 
-We also include some metadata for each flag / country such as the continent name.
+We also include some metadata for each flag / country such as the continent name which can e.g. be used to group flags.
 
 :component-example{name="Metadata" layout="grow"}
 
