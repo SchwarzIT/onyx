@@ -165,6 +165,7 @@ export const CONFIG = {
             { text: "Flags", link: "/flags" },
             { text: "GitHub metrics", link: "/github-metrics" },
             { text: "Headless composables", link: "/headless" },
+            { text: "MCP", link: "/mcp" },
             { text: "Icons", link: "/icons" },
             { text: "Nuxt", link: "/nuxt" },
             { text: "Nuxt documentation template", link: "/nuxt-docs" },
