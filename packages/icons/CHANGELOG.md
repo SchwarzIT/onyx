@@ -1,5 +1,16 @@
 # @sit-onyx/icons
 
+## 1.10.0
+
+### Minor Changes
+
+- 0bb52be: feat: update icons
+
+  #### New
+  - backpack
+  - pathsign
+  - telemetry-router
+
 ## 1.9.1
 
 ### Patch Changes

@@ -1,5 +1,33 @@
 # sit-onyx
 
+## 1.14.0
+
+### Minor Changes
+
+- 3b634b3: feat: implement new OnyxUnstableSearch component
+
+  For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using it.
+
+- aaf3fb7: feat(OnyxDataGrid) implemented a column search inside the hideColumns feature.
+- 7e57113: fix(DataGridFeatures.useStickyColumns): Fixed overlapping hover effect
+- 7459ecc: feat(OnyxTooltip): added `disabled` prop to allow conditional disabling of the tooltip.
+- 95d50fe: feat(OnyxDataGrid): Export `dataGridActions` types
+- bf58513: fix(OnyxTable): ensure body content is correctly centered when table is empty
+- e5af0af: feat(OnyxInput): Added support for custom error messages in OnyxInput pattern validation. The pattern prop now accepts an object structure { value: string | RegExp; error: string }, allowing developers to display a specific error message when the input value does not match the provided pattern.
+
+### Patch Changes
+
+- 5914f30: fix(OnyxSlider): prevent using `v-bind()` inside styles in favor of inline styles to avoid broken track styles in some scenarios
+- 637f68f: fix(OnyxCheckboxGroup, OnyxRadioGroup): add `max-width` to prevent overflowing content
+- 98e3bd2: fix(useExpandableRows): ensure empty header when used with other features
+- 4d00b29: refactor(OnyxIcon): deprecate `inline` property in favor of `size="inline"`
+- e3da24d: fix(OnyxDatePickerV2): correctly apply `multiView` property when defined as boolean shorthand
+- b11db99: fix(OnyxSwitch): Fix broken animation and unwanted rerender when invalid
+- 299f9de: - fix(OnyxUnstableTimePicker): correctly support intellisense to `type` property
+  - fix(OnyxUnstableTimePicker): ensure AM/PM toggle does not shrink in flyout
+- a318f75: fix(DataGridFeatures.useStickyColumns): Fix sticky columns configuration requiring columns to be defined in correct order
+- 08ecccc: fix(OnyxSelectOption): stretch option content to full width so custom content can correctly be placed more easily
+
 ## 1.13.1
 
 ### Patch Changes
