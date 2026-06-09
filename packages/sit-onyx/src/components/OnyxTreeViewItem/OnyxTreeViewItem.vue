@@ -47,7 +47,7 @@ const currentDepth = parentDepth + 1;
 provide(TREE_DEPTH_INJECTION_KEY, currentDepth);
 
 const {
-  elements: { treeItem, treeListItem },
+  elements: { treeItem },
 } = createTreeViewItem({
   disabled: toRef(props, "disabled"),
   currentDepth,
@@ -62,8 +62,7 @@ const {
     class="onyx-component onyx-tree-view-item"
     :class="[densityClass]"
     role="none"
-    v-bind="{ ...treeItem, ...$attrs }"
-    :aria-disabled="props.disabled"
+    :style="{ '--onyx-tree-depth': currentDepth }"
   >
     <OnyxListItem
       is="div"
@@ -71,7 +70,7 @@ const {
       :active="props.active"
       :disabled="props.disabled"
       class="onyx-tree-view-item__trigger"
-      v-bind="{ ...treeListItem, ...$attrs }"
+      v-bind="{ ...treeItem, ...$attrs }"
     >
       <div
         v-if="hasChildren"
@@ -105,9 +104,11 @@ const {
 @use "../../styles/mixins/layers.scss";
 
 .onyx-tree-view-item {
-  .onyx-list-item:not(:hover, :focus) {
+  .onyx-list-item:not(:hover, :focus),
+  .onyx-list-item[aria-disabled="true"] {
     background-color: transparent;
   }
+
   @include layers.component() {
     display: block;
     width: 100%;
