@@ -21,7 +21,7 @@ import OnyxIcon from "../../OnyxIcon/OnyxIcon.vue";
           <template #header> Header content </template>
 
           <div class="sidebar__content">
-            <OnyxUnstableTreeView>
+            <OnyxUnstableTreeView label="treeView">
               <OnyxSidebarItem label="Item 1" link="#link-1">
                 <OnyxIcon :icon="iconPlaceholder" />
                 Item 1

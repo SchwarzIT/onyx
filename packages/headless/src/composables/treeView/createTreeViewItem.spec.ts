@@ -10,13 +10,13 @@ describe("createTreeViewItem", () => {
     document.body.innerHTML = "";
   });
 
-  describe("ARIA Attributes (treeListItem)", () => {
+  describe("ARIA Attributes (treeItem)", () => {
     test("should return correct default ARIA attributes", () => {
       // ARRANGE
       const isOpen = ref(false);
       const hasChildren = ref(false);
       const {
-        elements: { treeListItem },
+        elements: { treeItem },
       } = createTreeViewItem({
         disabled: false,
         currentDepth: 1,
@@ -26,7 +26,7 @@ describe("createTreeViewItem", () => {
       });
 
       // ASSERT
-      expect(treeListItem.value).toMatchObject({
+      expect(treeItem.value).toMatchObject({
         role: "treeitem",
         "aria-expanded": undefined,
         "aria-level": 1,
@@ -40,7 +40,7 @@ describe("createTreeViewItem", () => {
       const isOpen = ref(false);
       const hasChildren = ref(true);
       const {
-        elements: { treeListItem },
+        elements: { treeItem },
       } = createTreeViewItem({
         disabled: false,
         currentDepth: 2,
@@ -50,19 +50,19 @@ describe("createTreeViewItem", () => {
       });
 
       // ASSERT
-      expect(treeListItem.value["aria-expanded"]).toBe(false);
+      expect(treeItem.value["aria-expanded"]).toBe(false);
 
       // ACT
       isOpen.value = true;
 
       // ASSERT
-      expect(treeListItem.value["aria-expanded"]).toBe(true);
+      expect(treeItem.value["aria-expanded"]).toBe(true);
     });
 
     test("should adjust attributes when disabled", () => {
       // ARRANGE
       const {
-        elements: { treeListItem },
+        elements: { treeItem },
       } = createTreeViewItem({
         disabled: true,
         currentDepth: 1,
@@ -72,8 +72,8 @@ describe("createTreeViewItem", () => {
       });
 
       // ASSERT
-      expect(treeListItem.value["aria-disabled"]).toBe("true");
-      expect(treeListItem.value.tabindex).toBe(-1);
+      expect(treeItem.value["aria-disabled"]).toBe("true");
+      expect(treeItem.value.tabindex).toBe(-1);
     });
   });
 
@@ -82,7 +82,7 @@ describe("createTreeViewItem", () => {
       // ARRANGE
       const isOpen = ref(false);
       const {
-        elements: { treeListItem },
+        elements: { treeItem },
       } = createTreeViewItem({
         disabled: false,
         currentDepth: 1,
@@ -92,7 +92,7 @@ describe("createTreeViewItem", () => {
       });
 
       // ACT - Trigger via element's onClick handler
-      treeListItem.value.onClick();
+      treeItem.value.onClick();
 
       // ASSERT
       expect(isOpen.value).toBe(true);
@@ -103,7 +103,7 @@ describe("createTreeViewItem", () => {
       // ARRANGE
       const isOpen = ref(false);
       const {
-        elements: { treeListItem },
+        elements: { treeItem },
       } = createTreeViewItem({
         disabled: false,
         currentDepth: 1,
@@ -113,7 +113,7 @@ describe("createTreeViewItem", () => {
       });
 
       // ACT - Trigger via element's onClick handler
-      treeListItem.value.onClick();
+      treeItem.value.onClick();
 
       // ASSERT
       expect(isOpen.value).toBe(false);
@@ -124,7 +124,7 @@ describe("createTreeViewItem", () => {
       // ARRANGE
       const isOpen = ref(false);
       const {
-        elements: { treeListItem },
+        elements: { treeItem },
       } = createTreeViewItem({
         disabled: true,
         currentDepth: 1,
@@ -134,7 +134,7 @@ describe("createTreeViewItem", () => {
       });
 
       // ACT - Trigger via element's onClick handler
-      treeListItem.value.onClick();
+      treeItem.value.onClick();
 
       // ASSERT
       expect(isOpen.value).toBe(false);
@@ -173,7 +173,7 @@ describe("createTreeViewItem", () => {
       const trigger = document.getElementById("item1")!;
 
       const {
-        elements: { treeListItem },
+        elements: { treeItem },
       } = createTreeViewItem({
         disabled: false,
         currentDepth: 1,
@@ -185,7 +185,7 @@ describe("createTreeViewItem", () => {
       // ACT - Enter
       const enterEvent = new KeyboardEvent("keydown", { key: "Enter" });
       Object.defineProperty(enterEvent, "currentTarget", { value: trigger });
-      treeListItem.value.onKeydown(enterEvent);
+      treeItem.value.onKeydown(enterEvent);
 
       // ASSERT
       expect(isOpen.value).toBe(true);
@@ -193,7 +193,7 @@ describe("createTreeViewItem", () => {
       // ACT - Space
       const spaceEvent = new KeyboardEvent("keydown", { key: " " });
       Object.defineProperty(spaceEvent, "currentTarget", { value: trigger });
-      treeListItem.value.onKeydown(spaceEvent);
+      treeItem.value.onKeydown(spaceEvent);
 
       // ASSERT
       expect(isOpen.value).toBe(false);
@@ -208,7 +208,7 @@ describe("createTreeViewItem", () => {
       const spyFocus = vi.spyOn(nextTrigger, "focus");
 
       const {
-        elements: { treeListItem },
+        elements: { treeItem },
       } = createTreeViewItem({
         disabled: false,
         currentDepth: 1,
@@ -220,7 +220,7 @@ describe("createTreeViewItem", () => {
       // ACT
       const event = new KeyboardEvent("keydown", { key: "ArrowDown" });
       Object.defineProperty(event, "currentTarget", { value: trigger });
-      treeListItem.value.onKeydown(event);
+      treeItem.value.onKeydown(event);
 
       // ASSERT
       expect(spyFocus).toHaveBeenCalled();
@@ -235,7 +235,7 @@ describe("createTreeViewItem", () => {
       const spyFocus = vi.spyOn(firstTrigger, "focus");
 
       const {
-        elements: { treeListItem },
+        elements: { treeItem },
       } = createTreeViewItem({
         disabled: false,
         currentDepth: 2,
@@ -247,7 +247,7 @@ describe("createTreeViewItem", () => {
       // ACT
       const event = new KeyboardEvent("keydown", { key: "ArrowUp" });
       Object.defineProperty(event, "currentTarget", { value: secondTrigger });
-      treeListItem.value.onKeydown(event);
+      treeItem.value.onKeydown(event);
 
       // ASSERT
       expect(spyFocus).toHaveBeenCalled();
@@ -264,7 +264,7 @@ describe("createTreeViewItem", () => {
       const spyLastFocus = vi.spyOn(lastTrigger, "focus");
 
       const {
-        elements: { treeListItem },
+        elements: { treeItem },
       } = createTreeViewItem({
         disabled: false,
         currentDepth: 2,
@@ -276,13 +276,13 @@ describe("createTreeViewItem", () => {
       // ACT - Home
       const homeEvent = new KeyboardEvent("keydown", { key: "Home" });
       Object.defineProperty(homeEvent, "currentTarget", { value: trigger });
-      treeListItem.value.onKeydown(homeEvent);
+      treeItem.value.onKeydown(homeEvent);
       expect(spyFirstFocus).toHaveBeenCalled();
 
       // ACT - End
       const endEvent = new KeyboardEvent("keydown", { key: "End" });
       Object.defineProperty(endEvent, "currentTarget", { value: trigger });
-      treeListItem.value.onKeydown(endEvent);
+      treeItem.value.onKeydown(endEvent);
       expect(spyLastFocus).toHaveBeenCalled();
     });
 
@@ -294,7 +294,7 @@ describe("createTreeViewItem", () => {
       const isOpen = ref(false);
 
       const {
-        elements: { treeListItem },
+        elements: { treeItem },
       } = createTreeViewItem({
         disabled: false,
         currentDepth: 1,
@@ -306,7 +306,7 @@ describe("createTreeViewItem", () => {
       // ACT - First ArrowRight (Opens item)
       const event1 = new KeyboardEvent("keydown", { key: "ArrowRight" });
       Object.defineProperty(event1, "currentTarget", { value: trigger });
-      treeListItem.value.onKeydown(event1);
+      treeItem.value.onKeydown(event1);
 
       // ASSERT
       expect(isOpen.value).toBe(true);
@@ -315,7 +315,7 @@ describe("createTreeViewItem", () => {
       const spyChildFocus = vi.spyOn(childTrigger, "focus");
       const event2 = new KeyboardEvent("keydown", { key: "ArrowRight" });
       Object.defineProperty(event2, "currentTarget", { value: trigger });
-      treeListItem.value.onKeydown(event2);
+      treeItem.value.onKeydown(event2);
 
       // ASSERT
       expect(spyChildFocus).toHaveBeenCalled();
@@ -329,7 +329,7 @@ describe("createTreeViewItem", () => {
       const isOpen = ref(true);
 
       const {
-        elements: { treeListItem },
+        elements: { treeItem },
       } = createTreeViewItem({
         disabled: false,
         currentDepth: 2,
@@ -341,7 +341,7 @@ describe("createTreeViewItem", () => {
       // ACT - First ArrowLeft on open parent item (Closes it)
       const event1 = new KeyboardEvent("keydown", { key: "ArrowLeft" });
       Object.defineProperty(event1, "currentTarget", { value: parentTrigger });
-      treeListItem.value.onKeydown(event1);
+      treeItem.value.onKeydown(event1);
 
       // ASSERT
       expect(isOpen.value).toBe(false);
@@ -350,7 +350,7 @@ describe("createTreeViewItem", () => {
       const spyParentFocus = vi.spyOn(parentTrigger, "focus");
       const event2 = new KeyboardEvent("keydown", { key: "ArrowLeft" });
       Object.defineProperty(event2, "currentTarget", { value: childTrigger });
-      treeListItem.value.onKeydown(event2);
+      treeItem.value.onKeydown(event2);
 
       // ASSERT
       expect(spyParentFocus).toHaveBeenCalled();

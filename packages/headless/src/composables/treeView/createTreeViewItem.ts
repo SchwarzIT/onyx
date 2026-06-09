@@ -31,11 +31,9 @@ export const createTreeViewItem = createBuilder((options: UseTreeViewItemNavigat
     if (item.hasAttribute("disabled") || item.getAttribute("aria-disabled") === "true") {
       return true;
     }
-    const parentLi = item.closest(".onyx-tree-view-item");
-    if (parentLi?.getAttribute("aria-disabled") === "true") {
-      return true;
-    }
-    return false;
+
+    const parentItem = item.parentElement?.closest('[role="treeitem"]');
+    return parentItem?.getAttribute("aria-disabled") === "true";
   };
 
   /**
@@ -89,12 +87,9 @@ export const createTreeViewItem = createBuilder((options: UseTreeViewItemNavigat
         } else {
           const parentGroup = currentTrigger.closest('[role="group"]');
           if (parentGroup) {
-            const parentLi = parentGroup.closest(".onyx-tree-view-item");
-            if (parentLi) {
-              const parentTrigger = parentLi.querySelector('[role="treeitem"]') as HTMLElement;
-              if (parentTrigger && parentTrigger !== currentTrigger) {
-                parentTrigger.focus();
-              }
+            const parentTrigger = parentGroup.closest('[role="treeitem"]') as HTMLElement;
+            if (parentTrigger && parentTrigger !== currentTrigger) {
+              parentTrigger.focus();
             }
           }
         }
@@ -143,11 +138,6 @@ export const createTreeViewItem = createBuilder((options: UseTreeViewItemNavigat
   return {
     elements: {
       treeItem: computed(() => ({
-        style: {
-          "--onyx-tree-depth": currentDepth.value,
-        },
-      })),
-      treeListItem: computed(() => ({
         role: "treeitem",
         "aria-expanded": hasChildren.value ? isOpen.value : undefined,
         "aria-level": currentDepth.value,

@@ -12,7 +12,7 @@ export type OnyxTreeViewItemProps = DensityProp &
      */
     icon?: string;
     /**
-     * Weather it's open
+     * Indicates whether the element is expanded or collapsed.
      */
     open?: boolean;
   };
