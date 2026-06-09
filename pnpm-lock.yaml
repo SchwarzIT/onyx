@@ -18,6 +18,9 @@ catalogs:
     vue-component-meta:
       specifier: 3.3.3
       version: 3.3.3
+    vue-tsc:
+      specifier: 3.3.3
+      version: 3.3.3
 
 overrides:
   '@playwright/experimental-ct-vue': 1.60.0
@@ -175,7 +178,7 @@ importers:
         specifier: ^4.1.8
         version: 4.1.8(@opentelemetry/api@1.9.0)(@types/node@24.13.1)(@vitest/coverage-v8@4.1.8)(jsdom@29.1.1)(vite@8.0.16(@types/node@24.13.1)(esbuild@0.28.0)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0))
       vue-tsc:
-        specifier: 3.3.3
+        specifier: 'catalog:'
         version: 3.3.3(typescript@5.9.3)
 
   apps/demo-app:
