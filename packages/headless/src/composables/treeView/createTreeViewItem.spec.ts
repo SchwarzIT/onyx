@@ -10,12 +10,14 @@ describe("createTreeViewItem", () => {
     document.body.innerHTML = "";
   });
 
-  describe("ARIA Attributes (treeItemAttrs)", () => {
+  describe("ARIA Attributes (treeListItem)", () => {
     test("should return correct default ARIA attributes", () => {
       // ARRANGE
       const isOpen = ref(false);
       const hasChildren = ref(false);
-      const { treeItemAttrs } = createTreeViewItem({
+      const {
+        elements: { treeListItem },
+      } = createTreeViewItem({
         disabled: false,
         currentDepth: 1,
         isOpen,
@@ -24,7 +26,7 @@ describe("createTreeViewItem", () => {
       });
 
       // ASSERT
-      expect(treeItemAttrs.value).toEqual({
+      expect(treeListItem.value).toMatchObject({
         role: "treeitem",
         "aria-expanded": undefined,
         "aria-level": 1,
@@ -37,7 +39,9 @@ describe("createTreeViewItem", () => {
       // ARRANGE
       const isOpen = ref(false);
       const hasChildren = ref(true);
-      const { treeItemAttrs } = createTreeViewItem({
+      const {
+        elements: { treeListItem },
+      } = createTreeViewItem({
         disabled: false,
         currentDepth: 2,
         isOpen,
@@ -46,18 +50,20 @@ describe("createTreeViewItem", () => {
       });
 
       // ASSERT
-      expect(treeItemAttrs.value["aria-expanded"]).toBe(false);
+      expect(treeListItem.value["aria-expanded"]).toBe(false);
 
       // ACT
       isOpen.value = true;
 
       // ASSERT
-      expect(treeItemAttrs.value["aria-expanded"]).toBe(true);
+      expect(treeListItem.value["aria-expanded"]).toBe(true);
     });
 
     test("should adjust attributes when disabled", () => {
       // ARRANGE
-      const { treeItemAttrs } = createTreeViewItem({
+      const {
+        elements: { treeListItem },
+      } = createTreeViewItem({
         disabled: true,
         currentDepth: 1,
         isOpen: ref(false),
@@ -66,8 +72,8 @@ describe("createTreeViewItem", () => {
       });
 
       // ASSERT
-      expect(treeItemAttrs.value["aria-disabled"]).toBe("true");
-      expect(treeItemAttrs.value.tabindex).toBe(-1);
+      expect(treeListItem.value["aria-disabled"]).toBe("true");
+      expect(treeListItem.value.tabindex).toBe(-1);
     });
   });
 
@@ -75,7 +81,9 @@ describe("createTreeViewItem", () => {
     test("should toggle open state and emit select on toggleOpen call", () => {
       // ARRANGE
       const isOpen = ref(false);
-      const { toggleOpen } = createTreeViewItem({
+      const {
+        elements: { treeListItem },
+      } = createTreeViewItem({
         disabled: false,
         currentDepth: 1,
         isOpen,
@@ -83,8 +91,8 @@ describe("createTreeViewItem", () => {
         emitSelect: mockEmitSelect,
       });
 
-      // ACT
-      toggleOpen();
+      // ACT - Trigger via element's onClick handler
+      treeListItem.value.onClick();
 
       // ASSERT
       expect(isOpen.value).toBe(true);
@@ -94,7 +102,9 @@ describe("createTreeViewItem", () => {
     test("should not toggle but still emit select if item has no children", () => {
       // ARRANGE
       const isOpen = ref(false);
-      const { toggleOpen } = createTreeViewItem({
+      const {
+        elements: { treeListItem },
+      } = createTreeViewItem({
         disabled: false,
         currentDepth: 1,
         isOpen,
@@ -102,8 +112,8 @@ describe("createTreeViewItem", () => {
         emitSelect: mockEmitSelect,
       });
 
-      // ACT
-      toggleOpen();
+      // ACT - Trigger via element's onClick handler
+      treeListItem.value.onClick();
 
       // ASSERT
       expect(isOpen.value).toBe(false);
@@ -113,7 +123,9 @@ describe("createTreeViewItem", () => {
     test("should do nothing if disabled", () => {
       // ARRANGE
       const isOpen = ref(false);
-      const { toggleOpen } = createTreeViewItem({
+      const {
+        elements: { treeListItem },
+      } = createTreeViewItem({
         disabled: true,
         currentDepth: 1,
         isOpen,
@@ -121,8 +133,8 @@ describe("createTreeViewItem", () => {
         emitSelect: mockEmitSelect,
       });
 
-      // ACT
-      toggleOpen();
+      // ACT - Trigger via element's onClick handler
+      treeListItem.value.onClick();
 
       // ASSERT
       expect(isOpen.value).toBe(false);
@@ -160,7 +172,9 @@ describe("createTreeViewItem", () => {
       const isOpen = ref(false);
       const trigger = document.getElementById("item1")!;
 
-      const { handleKeyDown } = createTreeViewItem({
+      const {
+        elements: { treeListItem },
+      } = createTreeViewItem({
         disabled: false,
         currentDepth: 1,
         isOpen,
@@ -171,7 +185,7 @@ describe("createTreeViewItem", () => {
       // ACT - Enter
       const enterEvent = new KeyboardEvent("keydown", { key: "Enter" });
       Object.defineProperty(enterEvent, "currentTarget", { value: trigger });
-      handleKeyDown(enterEvent);
+      treeListItem.value.onKeydown(enterEvent);
 
       // ASSERT
       expect(isOpen.value).toBe(true);
@@ -179,7 +193,7 @@ describe("createTreeViewItem", () => {
       // ACT - Space
       const spaceEvent = new KeyboardEvent("keydown", { key: " " });
       Object.defineProperty(spaceEvent, "currentTarget", { value: trigger });
-      handleKeyDown(spaceEvent);
+      treeListItem.value.onKeydown(spaceEvent);
 
       // ASSERT
       expect(isOpen.value).toBe(false);
@@ -193,7 +207,9 @@ describe("createTreeViewItem", () => {
 
       const spyFocus = vi.spyOn(nextTrigger, "focus");
 
-      const { handleKeyDown } = createTreeViewItem({
+      const {
+        elements: { treeListItem },
+      } = createTreeViewItem({
         disabled: false,
         currentDepth: 1,
         isOpen: ref(true),
@@ -204,7 +220,7 @@ describe("createTreeViewItem", () => {
       // ACT
       const event = new KeyboardEvent("keydown", { key: "ArrowDown" });
       Object.defineProperty(event, "currentTarget", { value: trigger });
-      handleKeyDown(event);
+      treeListItem.value.onKeydown(event);
 
       // ASSERT
       expect(spyFocus).toHaveBeenCalled();
@@ -218,7 +234,9 @@ describe("createTreeViewItem", () => {
 
       const spyFocus = vi.spyOn(firstTrigger, "focus");
 
-      const { handleKeyDown } = createTreeViewItem({
+      const {
+        elements: { treeListItem },
+      } = createTreeViewItem({
         disabled: false,
         currentDepth: 2,
         isOpen: ref(false),
@@ -229,7 +247,7 @@ describe("createTreeViewItem", () => {
       // ACT
       const event = new KeyboardEvent("keydown", { key: "ArrowUp" });
       Object.defineProperty(event, "currentTarget", { value: secondTrigger });
-      handleKeyDown(event);
+      treeListItem.value.onKeydown(event);
 
       // ASSERT
       expect(spyFocus).toHaveBeenCalled();
@@ -245,7 +263,9 @@ describe("createTreeViewItem", () => {
       const spyFirstFocus = vi.spyOn(firstTrigger, "focus");
       const spyLastFocus = vi.spyOn(lastTrigger, "focus");
 
-      const { handleKeyDown } = createTreeViewItem({
+      const {
+        elements: { treeListItem },
+      } = createTreeViewItem({
         disabled: false,
         currentDepth: 2,
         isOpen: ref(false),
@@ -256,13 +276,13 @@ describe("createTreeViewItem", () => {
       // ACT - Home
       const homeEvent = new KeyboardEvent("keydown", { key: "Home" });
       Object.defineProperty(homeEvent, "currentTarget", { value: trigger });
-      handleKeyDown(homeEvent);
+      treeListItem.value.onKeydown(homeEvent);
       expect(spyFirstFocus).toHaveBeenCalled();
 
       // ACT - End
       const endEvent = new KeyboardEvent("keydown", { key: "End" });
       Object.defineProperty(endEvent, "currentTarget", { value: trigger });
-      handleKeyDown(endEvent);
+      treeListItem.value.onKeydown(endEvent);
       expect(spyLastFocus).toHaveBeenCalled();
     });
 
@@ -273,7 +293,9 @@ describe("createTreeViewItem", () => {
       const childTrigger = document.getElementById("item1-1")!;
       const isOpen = ref(false);
 
-      const { handleKeyDown } = createTreeViewItem({
+      const {
+        elements: { treeListItem },
+      } = createTreeViewItem({
         disabled: false,
         currentDepth: 1,
         isOpen,
@@ -284,7 +306,7 @@ describe("createTreeViewItem", () => {
       // ACT - First ArrowRight (Opens item)
       const event1 = new KeyboardEvent("keydown", { key: "ArrowRight" });
       Object.defineProperty(event1, "currentTarget", { value: trigger });
-      handleKeyDown(event1);
+      treeListItem.value.onKeydown(event1);
 
       // ASSERT
       expect(isOpen.value).toBe(true);
@@ -293,7 +315,7 @@ describe("createTreeViewItem", () => {
       const spyChildFocus = vi.spyOn(childTrigger, "focus");
       const event2 = new KeyboardEvent("keydown", { key: "ArrowRight" });
       Object.defineProperty(event2, "currentTarget", { value: trigger });
-      handleKeyDown(event2);
+      treeListItem.value.onKeydown(event2);
 
       // ASSERT
       expect(spyChildFocus).toHaveBeenCalled();
@@ -306,7 +328,9 @@ describe("createTreeViewItem", () => {
       const childTrigger = document.getElementById("item1-1")!;
       const isOpen = ref(true);
 
-      const { handleKeyDown } = createTreeViewItem({
+      const {
+        elements: { treeListItem },
+      } = createTreeViewItem({
         disabled: false,
         currentDepth: 2,
         isOpen,
@@ -317,7 +341,7 @@ describe("createTreeViewItem", () => {
       // ACT - First ArrowLeft on open parent item (Closes it)
       const event1 = new KeyboardEvent("keydown", { key: "ArrowLeft" });
       Object.defineProperty(event1, "currentTarget", { value: parentTrigger });
-      handleKeyDown(event1);
+      treeListItem.value.onKeydown(event1);
 
       // ASSERT
       expect(isOpen.value).toBe(false);
@@ -326,7 +350,7 @@ describe("createTreeViewItem", () => {
       const spyParentFocus = vi.spyOn(parentTrigger, "focus");
       const event2 = new KeyboardEvent("keydown", { key: "ArrowLeft" });
       Object.defineProperty(event2, "currentTarget", { value: childTrigger });
-      handleKeyDown(event2);
+      treeListItem.value.onKeydown(event2);
 
       // ASSERT
       expect(spyParentFocus).toHaveBeenCalled();

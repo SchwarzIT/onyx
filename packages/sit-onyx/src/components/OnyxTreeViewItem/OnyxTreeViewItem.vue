@@ -6,6 +6,7 @@ import { useDensity } from "../../composables/density.js";
 import { useVModel } from "../../composables/useVModel.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
+import { TREE_DEPTH_INJECTION_KEY } from "../OnyxTreeView/types.js";
 import type { OnyxTreeViewItemProps } from "./types.js";
 
 defineOptions({
@@ -40,13 +41,14 @@ const isOpen = useVModel({
   default: false,
 });
 
-const parentDepth = inject<number>("onyx-tree-depth", 0);
+const parentDepth = inject<number>(TREE_DEPTH_INJECTION_KEY, 0);
 
-// Maximum visible indentation depth of 4 levels
-const currentDepth = Math.min(parentDepth + 1, 3);
-provide("onyx-tree-depth", currentDepth);
+const currentDepth = parentDepth + 1;
+provide(TREE_DEPTH_INJECTION_KEY, currentDepth);
 
-const { toggleOpen, handleKeyDown, treeItemAttrs } = createTreeViewItem({
+const {
+  elements: { treeItem, treeListItem },
+} = createTreeViewItem({
   disabled: toRef(props, "disabled"),
   currentDepth,
   isOpen,
@@ -58,15 +60,10 @@ const { toggleOpen, handleKeyDown, treeItemAttrs } = createTreeViewItem({
 <template>
   <li
     class="onyx-component onyx-tree-view-item"
-    :class="[
-      {
-        'onyx-tree-view-item--open': isOpen,
-        'onyx-tree-view-item--has-children': hasChildren,
-        'onyx-tree-view-item--disabled': props.disabled,
-        densityClass,
-      },
-    ]"
+    :class="[densityClass]"
     role="none"
+    v-bind="{ ...treeItem, ...$attrs }"
+    :aria-disabled="props.disabled"
   >
     <OnyxListItem
       is="div"
@@ -74,9 +71,7 @@ const { toggleOpen, handleKeyDown, treeItemAttrs } = createTreeViewItem({
       :active="props.active"
       :disabled="props.disabled"
       class="onyx-tree-view-item__trigger"
-      v-bind="{ ...treeItemAttrs, ...$attrs }"
-      @click="toggleOpen"
-      @keydown="handleKeyDown"
+      v-bind="{ ...treeListItem, ...$attrs }"
     >
       <div
         v-if="hasChildren"
@@ -110,26 +105,24 @@ const { toggleOpen, handleKeyDown, treeItemAttrs } = createTreeViewItem({
 @use "../../styles/mixins/layers.scss";
 
 .onyx-tree-view-item {
+  .onyx-list-item:not(:hover, :focus) {
+    background-color: transparent;
+  }
   @include layers.component() {
     display: block;
     width: 100%;
     --icon-size: 1rem;
 
-    @for $parent-depth from 1 through 3 {
-      &__children--level-#{$parent-depth} {
-        .onyx-tree-view-item__trigger {
-          padding-left: calc(#{$parent-depth} * var(--onyx-spacing-lg) + var(--onyx-density-xs));
-        }
-        .onyx-sidebar-item {
-          padding-left: calc(
-            #{$parent-depth} *
-              var(--onyx-spacing-lg) +
-              var(--onyx-density-xs) +
-              var(--icon-size) +
-              var(--onyx-density-sm)
-          );
-        }
-      }
+    .onyx-tree-view-item__trigger {
+      padding-left: calc(
+        (var(--onyx-tree-depth) - 1) * var(--onyx-spacing-lg) + var(--onyx-density-xs)
+      );
+    }
+    .onyx-sidebar-item {
+      padding-left: calc(
+        (var(--onyx-tree-depth)) * var(--onyx-spacing-lg) + var(--onyx-density-xs) +
+          var(--icon-size) + var(--onyx-density-sm)
+      );
     }
 
     &__trigger {
