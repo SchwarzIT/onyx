@@ -1,24 +1,20 @@
-import { computed, type Ref } from "vue";
+import { computed, toRef, toValue, type MaybeRef, type MaybeRefOrGetter } from "vue";
+import { createBuilder } from "../../utils/builder.js";
 
-export interface UseTreeViewItemNavigationOptions {
-  disabled: Ref<boolean> | boolean;
-  isOpen: Ref<boolean>;
-  hasChildren: Ref<boolean>;
-  currentDepth: Ref<number> | number;
+type UseTreeViewItemNavigationOptions = {
+  disabled: MaybeRefOrGetter<boolean>;
+  isOpen: MaybeRef<boolean>;
+  hasChildren: MaybeRefOrGetter<boolean>;
+  currentDepth: MaybeRefOrGetter<number>;
   emitSelect: () => void;
-}
+};
 
-export function createTreeViewItem(options: UseTreeViewItemNavigationOptions) {
-  const disabled = computed(() =>
-    typeof options.disabled === "boolean" ? options.disabled : options.disabled.value,
-  );
+export const createTreeViewItem = createBuilder((options: UseTreeViewItemNavigationOptions) => {
+  const disabled = computed(() => toValue(options.disabled));
+  const currentDepth = computed(() => toValue(options.currentDepth));
+  const hasChildren = computed(() => toValue(options.hasChildren));
 
-  const currentDepth = computed(() =>
-    typeof options.currentDepth === "number" ? options.currentDepth : options.currentDepth.value,
-  );
-
-  const isOpen = options.isOpen;
-  const hasChildren = options.hasChildren;
+  const isOpen = toRef(options.isOpen);
 
   const toggleOpen = () => {
     if (disabled.value) return;
@@ -36,7 +32,7 @@ export function createTreeViewItem(options: UseTreeViewItemNavigationOptions) {
       return true;
     }
     const parentLi = item.closest(".onyx-tree-view-item");
-    if (parentLi?.classList.contains("onyx-tree-view-item--disabled")) {
+    if (parentLi?.getAttribute("aria-disabled") === "true") {
       return true;
     }
     return false;
@@ -74,14 +70,14 @@ export function createTreeViewItem(options: UseTreeViewItemNavigationOptions) {
       case "ArrowRight":
         event.preventDefault();
         if (hasChildren.value) {
-          if (!isOpen.value) {
-            isOpen.value = true;
-          } else {
+          if (isOpen.value) {
             const items = getVisibleTreeItems(currentTrigger);
             const currentIndex = items.indexOf(currentTrigger);
             if (currentIndex !== -1 && currentIndex < items.length - 1) {
               items[currentIndex + 1]!.focus();
             }
+          } else {
+            isOpen.value = true;
           }
         }
         break;
@@ -144,17 +140,22 @@ export function createTreeViewItem(options: UseTreeViewItemNavigationOptions) {
     }
   };
 
-  const treeItemAttrs = computed(() => ({
-    role: "treeitem",
-    "aria-expanded": hasChildren.value ? isOpen.value : undefined,
-    "aria-level": currentDepth.value,
-    "aria-disabled": disabled.value ? "true" : undefined,
-    tabindex: disabled.value ? -1 : 0,
-  }));
-
   return {
-    toggleOpen,
-    handleKeyDown,
-    treeItemAttrs,
+    elements: {
+      treeItem: computed(() => ({
+        style: {
+          "--onyx-tree-depth": currentDepth.value,
+        },
+      })),
+      treeListItem: computed(() => ({
+        role: "treeitem",
+        "aria-expanded": hasChildren.value ? isOpen.value : undefined,
+        "aria-level": currentDepth.value,
+        "aria-disabled": disabled.value ? "true" : undefined,
+        tabindex: disabled.value ? -1 : 0,
+        onClick: toggleOpen,
+        onKeydown: handleKeyDown,
+      })),
+    },
   };
-}
+});
