@@ -1,13 +1,13 @@
 <script lang="ts" setup>
-import { iconPlaceholder } from "@sit-onyx/icons";
+import { iconCookie } from "@sit-onyx/icons";
 import { OnyxIcon } from "sit-onyx";
 </script>
 
 <template>
-  <OnyxIcon :icon="iconPlaceholder" color="primary" />
-  <OnyxIcon :icon="iconPlaceholder" color="neutral" />
-  <OnyxIcon :icon="iconPlaceholder" color="danger" />
-  <OnyxIcon :icon="iconPlaceholder" color="warning" />
-  <OnyxIcon :icon="iconPlaceholder" color="success" />
-  <OnyxIcon :icon="iconPlaceholder" color="info" />
+  <OnyxIcon :icon="iconCookie" color="primary" />
+  <OnyxIcon :icon="iconCookie" color="neutral" />
+  <OnyxIcon :icon="iconCookie" color="danger" />
+  <OnyxIcon :icon="iconCookie" color="warning" />
+  <OnyxIcon :icon="iconCookie" color="success" />
+  <OnyxIcon :icon="iconCookie" color="info" />
 </template>

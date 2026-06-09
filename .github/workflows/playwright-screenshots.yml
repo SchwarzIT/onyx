@@ -3,9 +3,10 @@ on:
   workflow_dispatch:
     inputs:
       only-changed:
-        description: "Only run tests affected by the changes"
-        type: boolean
-        default: true
+        type: string
+        required: false
+        default: ""
+        description: If set, only tests for changed files are run (based on the passed git ref)
 
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_REMOTE_CACHE__TURBO_TOKEN }}
@@ -21,7 +22,7 @@ jobs:
       contents: write
     with:
       update-snapshots: true
-      only-changed: ${{ (inputs.only-changed == true && format('origin/{0}', github.event.workflow.base.ref)) || '' }}
+      only-changed: ${{ inputs.only-changed }}
 
   # Download screenshots from all shards and create a pull request
   pr:

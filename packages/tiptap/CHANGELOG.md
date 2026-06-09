@@ -1,5 +1,17 @@
 # @sit-onyx/tiptap
 
+## 0.3.0
+
+### Minor Changes
+
+- 2d6a854: feat: generate and publish `component-meta.json` file which includes the onyx API as JSON
+
+### Patch Changes
+
+- 85d97a2: fix: do not bundle any Tiptap dependencies
+
+  Previously some `@tiptap/` dependencies were bundled inline into the `@sit-onyx/tiptap` package which might have caused issues when additional Tiptap dependencies are installed in the project. This fix also reduces the bundles size of `@sit-onyx/tiptap` by ~85%.
+
 ## 0.2.0
 
 ### Minor Changes
