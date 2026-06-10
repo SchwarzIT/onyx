@@ -87,7 +87,8 @@ export const createTreeViewItem = createBuilder((options: UseTreeViewItemNavigat
         } else {
           const parentGroup = currentTrigger.closest('[role="group"]');
           if (parentGroup) {
-            const parentTrigger = parentGroup.closest('[role="treeitem"]') as HTMLElement;
+            const parentTrigger = (parentGroup.closest('[role="treeitem"]') ||
+              parentGroup.parentElement?.querySelector('[role="treeitem"]')) as HTMLElement;
             if (parentTrigger && parentTrigger !== currentTrigger) {
               parentTrigger.focus();
             }
