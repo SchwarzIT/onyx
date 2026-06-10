@@ -114,7 +114,6 @@ const handleDownloadSVG = () => {
 .card {
   --onyx-card-gap: var(--onyx-density-sm);
   align-items: center;
-  justify-content: space-between;
   text-align: center;
   flex-grow: 1;
 
