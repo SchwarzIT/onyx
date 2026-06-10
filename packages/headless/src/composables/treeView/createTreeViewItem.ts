@@ -2,16 +2,31 @@ import { computed, toRef, toValue, type MaybeRef, type MaybeRefOrGetter } from "
 import { createBuilder } from "../../utils/builder.js";
 
 type UseTreeViewItemNavigationOptions = {
-  disabled: MaybeRefOrGetter<boolean>;
-  isOpen: MaybeRef<boolean>;
+  /**
+   * Whether the tree view item has nested children.
+   */
   hasChildren: MaybeRefOrGetter<boolean>;
-  currentDepth: MaybeRefOrGetter<number>;
-  emitSelect: () => void;
+  /**
+   * Whether the children of the tree view item are open.
+   */
+  isOpen: MaybeRef<boolean>;
+  /**
+   * The level of nesting that the item is placed inside the tree view.
+   */
+  level: MaybeRefOrGetter<number>;
+  /**
+   * Whether the item is disabled and can not be interacted with.
+   */
+  disabled?: MaybeRefOrGetter<boolean | undefined>;
+  /**
+   * Callback when the tree view item is selected.
+   */
+  onSelect?: () => void;
 };
 
 export const createTreeViewItem = createBuilder((options: UseTreeViewItemNavigationOptions) => {
   const disabled = computed(() => toValue(options.disabled));
-  const currentDepth = computed(() => toValue(options.currentDepth));
+  const level = computed(() => toValue(options.level));
   const hasChildren = computed(() => toValue(options.hasChildren));
 
   const isOpen = toRef(options.isOpen);
@@ -21,7 +36,7 @@ export const createTreeViewItem = createBuilder((options: UseTreeViewItemNavigat
     if (hasChildren.value) {
       isOpen.value = !isOpen.value;
     }
-    options.emitSelect();
+    options.onSelect?.();
   };
 
   /**
@@ -141,7 +156,7 @@ export const createTreeViewItem = createBuilder((options: UseTreeViewItemNavigat
       treeItem: computed(() => ({
         role: "treeitem",
         "aria-expanded": hasChildren.value ? isOpen.value : undefined,
-        "aria-level": currentDepth.value,
+        "aria-level": level.value,
         "aria-disabled": disabled.value ? "true" : undefined,
         tabindex: disabled.value ? -1 : 0,
         onClick: toggleOpen,

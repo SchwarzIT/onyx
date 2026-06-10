@@ -3,10 +3,10 @@ import { ref } from "vue";
 import { createTreeViewItem } from "./createTreeViewItem.js";
 
 describe("createTreeViewItem", () => {
-  let mockEmitSelect: () => void;
+  let mockOnSelect: () => void;
 
   beforeEach(() => {
-    mockEmitSelect = vi.fn();
+    mockOnSelect = vi.fn();
     document.body.innerHTML = "";
   });
 
@@ -19,10 +19,10 @@ describe("createTreeViewItem", () => {
         elements: { treeItem },
       } = createTreeViewItem({
         disabled: false,
-        currentDepth: 1,
+        level: 1,
         isOpen,
         hasChildren,
-        emitSelect: mockEmitSelect,
+        onSelect: mockOnSelect,
       });
 
       // ASSERT
@@ -43,10 +43,10 @@ describe("createTreeViewItem", () => {
         elements: { treeItem },
       } = createTreeViewItem({
         disabled: false,
-        currentDepth: 2,
+        level: 2,
         isOpen,
         hasChildren,
-        emitSelect: mockEmitSelect,
+        onSelect: mockOnSelect,
       });
 
       // ASSERT
@@ -65,10 +65,10 @@ describe("createTreeViewItem", () => {
         elements: { treeItem },
       } = createTreeViewItem({
         disabled: true,
-        currentDepth: 1,
+        level: 1,
         isOpen: ref(false),
         hasChildren: ref(false),
-        emitSelect: mockEmitSelect,
+        onSelect: mockOnSelect,
       });
 
       // ASSERT
@@ -85,10 +85,10 @@ describe("createTreeViewItem", () => {
         elements: { treeItem },
       } = createTreeViewItem({
         disabled: false,
-        currentDepth: 1,
+        level: 1,
         isOpen,
         hasChildren: ref(true),
-        emitSelect: mockEmitSelect,
+        onSelect: mockOnSelect,
       });
 
       // ACT - Trigger via element's onClick handler
@@ -96,7 +96,7 @@ describe("createTreeViewItem", () => {
 
       // ASSERT
       expect(isOpen.value).toBe(true);
-      expect(mockEmitSelect).toHaveBeenCalledTimes(1);
+      expect(mockOnSelect).toHaveBeenCalledTimes(1);
     });
 
     test("should not toggle but still emit select if item has no children", () => {
@@ -106,10 +106,10 @@ describe("createTreeViewItem", () => {
         elements: { treeItem },
       } = createTreeViewItem({
         disabled: false,
-        currentDepth: 1,
+        level: 1,
         isOpen,
         hasChildren: ref(false),
-        emitSelect: mockEmitSelect,
+        onSelect: mockOnSelect,
       });
 
       // ACT - Trigger via element's onClick handler
@@ -117,7 +117,7 @@ describe("createTreeViewItem", () => {
 
       // ASSERT
       expect(isOpen.value).toBe(false);
-      expect(mockEmitSelect).toHaveBeenCalledTimes(1);
+      expect(mockOnSelect).toHaveBeenCalledTimes(1);
     });
 
     test("should do nothing if disabled", () => {
@@ -127,10 +127,10 @@ describe("createTreeViewItem", () => {
         elements: { treeItem },
       } = createTreeViewItem({
         disabled: true,
-        currentDepth: 1,
+        level: 1,
         isOpen,
         hasChildren: ref(true),
-        emitSelect: mockEmitSelect,
+        onSelect: mockOnSelect,
       });
 
       // ACT - Trigger via element's onClick handler
@@ -138,7 +138,7 @@ describe("createTreeViewItem", () => {
 
       // ASSERT
       expect(isOpen.value).toBe(false);
-      expect(mockEmitSelect).not.toHaveBeenCalled();
+      expect(mockOnSelect).not.toHaveBeenCalled();
     });
   });
 
@@ -176,10 +176,10 @@ describe("createTreeViewItem", () => {
         elements: { treeItem },
       } = createTreeViewItem({
         disabled: false,
-        currentDepth: 1,
+        level: 1,
         isOpen,
         hasChildren: ref(true),
-        emitSelect: mockEmitSelect,
+        onSelect: mockOnSelect,
       });
 
       // ACT - Enter
@@ -211,10 +211,10 @@ describe("createTreeViewItem", () => {
         elements: { treeItem },
       } = createTreeViewItem({
         disabled: false,
-        currentDepth: 1,
+        level: 1,
         isOpen: ref(true),
         hasChildren: ref(true),
-        emitSelect: mockEmitSelect,
+        onSelect: mockOnSelect,
       });
 
       // ACT
@@ -238,10 +238,10 @@ describe("createTreeViewItem", () => {
         elements: { treeItem },
       } = createTreeViewItem({
         disabled: false,
-        currentDepth: 2,
+        level: 2,
         isOpen: ref(false),
         hasChildren: ref(false),
-        emitSelect: mockEmitSelect,
+        onSelect: mockOnSelect,
       });
 
       // ACT
@@ -267,10 +267,10 @@ describe("createTreeViewItem", () => {
         elements: { treeItem },
       } = createTreeViewItem({
         disabled: false,
-        currentDepth: 2,
+        level: 2,
         isOpen: ref(false),
         hasChildren: ref(false),
-        emitSelect: mockEmitSelect,
+        onSelect: mockOnSelect,
       });
 
       // ACT - Home
@@ -297,10 +297,10 @@ describe("createTreeViewItem", () => {
         elements: { treeItem },
       } = createTreeViewItem({
         disabled: false,
-        currentDepth: 1,
+        level: 1,
         isOpen,
         hasChildren: ref(true),
-        emitSelect: mockEmitSelect,
+        onSelect: mockOnSelect,
       });
 
       // ACT - First ArrowRight (Opens item)
@@ -332,10 +332,10 @@ describe("createTreeViewItem", () => {
         elements: { treeItem },
       } = createTreeViewItem({
         disabled: false,
-        currentDepth: 2,
+        level: 2,
         isOpen,
         hasChildren: ref(true),
-        emitSelect: mockEmitSelect,
+        onSelect: mockOnSelect,
       });
 
       // ACT - First ArrowLeft on open parent item (Closes it)

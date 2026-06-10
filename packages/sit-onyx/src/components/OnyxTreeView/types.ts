@@ -1,6 +1,5 @@
+import type { InjectionKey } from "vue";
 import type { DensityProp } from "../../composables/density.js";
-
-export const TREE_DEPTH_INJECTION_KEY = Symbol();
 
 export type OnyxTreeViewProps = DensityProp & {
   /**
@@ -8,3 +7,10 @@ export type OnyxTreeViewProps = DensityProp & {
    */
   label: string;
 };
+
+export const TREE_VIEW_INJECTION_KEY = Symbol() as InjectionKey<{
+  /**
+   * The current level of nesting inside the tree view.
+   */
+  level: number;
+}>;
