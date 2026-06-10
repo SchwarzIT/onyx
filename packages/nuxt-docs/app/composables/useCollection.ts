@@ -34,6 +34,7 @@ export const useCollection = async <TCollection extends keyof Collections = keyo
     _path = route.path;
     const localePrefix = `/${locale.value}/`;
 
+    if (_path === `/${locale.value}`) return "/";
     if (_path.startsWith(localePrefix)) return `/${_path.slice(localePrefix.length)}`;
     return _path;
   });
