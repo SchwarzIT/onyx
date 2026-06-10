@@ -302,6 +302,12 @@ export * from "./components/OnyxKey/types.js";
 export { default as OnyxUnstableShortcut } from "./components/OnyxShortcut/OnyxShortcut.vue";
 export * from "./components/OnyxShortcut/types.js";
 
+export { default as OnyxUnstableTreeView } from "./components/OnyxTreeView/OnyxTreeView.vue";
+export * from "./components/OnyxTreeView/types.js";
+
+export { default as OnyxUnstableTreeViewItem } from "./components/OnyxTreeViewItem/OnyxTreeViewItem.vue";
+export * from "./components/OnyxTreeViewItem/types.js";
+
 export { default as OnyxComponentShowcase } from "./components/examples/ComponentShowcase/ComponentShowcase.vue";
 
 export { FORM_INJECTED_SYMBOL, useFormContext } from "./components/OnyxForm/OnyxForm.core.js";
