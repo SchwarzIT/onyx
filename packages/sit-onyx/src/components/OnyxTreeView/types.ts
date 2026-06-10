@@ -3,7 +3,7 @@ import type { DensityProp } from "../../composables/density.js";
 
 export type OnyxTreeViewProps = DensityProp & {
   /**
-   * Aria label for the TreeView.
+   * Label of the tree view, required for accessibility / screen readers.
    */
   label: string;
 };

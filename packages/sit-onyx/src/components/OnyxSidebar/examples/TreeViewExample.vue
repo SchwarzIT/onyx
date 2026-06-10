@@ -4,13 +4,13 @@ import {
   OnyxAppLayout,
   OnyxButton,
   OnyxHeadline,
+  OnyxIcon,
   OnyxPageLayout,
   OnyxSidebar,
   OnyxSidebarItem,
   OnyxUnstableTreeView,
   OnyxUnstableTreeViewItem,
 } from "../../../index.js";
-import OnyxIcon from "../../OnyxIcon/OnyxIcon.vue";
 </script>
 
 <template>
@@ -21,24 +21,24 @@ import OnyxIcon from "../../OnyxIcon/OnyxIcon.vue";
           <template #header> Header content </template>
 
           <div class="sidebar__content">
-            <OnyxUnstableTreeView label="treeView">
-              <OnyxSidebarItem label="Item 1" link="#link-1">
+            <OnyxUnstableTreeView label="Example tree view">
+              <OnyxSidebarItem link="#link-1">
                 <OnyxIcon :icon="iconPlaceholder" />
                 Item 1
               </OnyxSidebarItem>
 
               <OnyxUnstableTreeViewItem label="Item 2" :icon="iconPlaceholder">
-                <OnyxSidebarItem label="Item 2.1" link="#link-2.1">
+                <OnyxSidebarItem link="#link-2.1">
                   <OnyxIcon :icon="iconPlaceholder" />
                   Item 2.1
                 </OnyxSidebarItem>
 
                 <OnyxUnstableTreeViewItem label="Item 2.2" :icon="iconPlaceholder">
-                  <OnyxSidebarItem label="Item 2.2.1" link="#link-2.2.1">
+                  <OnyxSidebarItem link="#link-2.2.1">
                     <OnyxIcon :icon="iconPlaceholder" />
                     Item 2.2.1
                   </OnyxSidebarItem>
-                  <OnyxSidebarItem label="Item 2.2.2" link="#link-2.2.2">
+                  <OnyxSidebarItem link="#link-2.2.2">
                     <OnyxIcon :icon="iconPlaceholder" />
                     Item 2.2.2
                   </OnyxSidebarItem>
@@ -46,21 +46,21 @@ import OnyxIcon from "../../OnyxIcon/OnyxIcon.vue";
               </OnyxUnstableTreeViewItem>
 
               <OnyxUnstableTreeViewItem label="Item 3" :icon="iconPlaceholder">
-                <OnyxSidebarItem label="Item 3.1" link="#link-3.1">
+                <OnyxSidebarItem link="#link-3.1">
                   <OnyxIcon :icon="iconPlaceholder" />
                   Item 3.1
                 </OnyxSidebarItem>
-                <OnyxSidebarItem label="Item 3.2" link="#link-3.2">
+                <OnyxSidebarItem link="#link-3.2">
                   <OnyxIcon :icon="iconPlaceholder" />
                   Item 3.2
                 </OnyxSidebarItem>
-                <OnyxSidebarItem label="Item 3.3" link="#link-3.3">
+                <OnyxSidebarItem link="#link-3.3">
                   <OnyxIcon :icon="iconPlaceholder" />
                   Item 3.3
                 </OnyxSidebarItem>
               </OnyxUnstableTreeViewItem>
 
-              <OnyxSidebarItem label="Item 4" link="#link-4">
+              <OnyxSidebarItem link="#link-4">
                 <OnyxIcon :icon="iconPlaceholder" />
                 Item 4
               </OnyxSidebarItem>

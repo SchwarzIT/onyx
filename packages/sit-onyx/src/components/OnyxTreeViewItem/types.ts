@@ -12,7 +12,7 @@ export type OnyxTreeViewItemProps = DensityProp &
      */
     icon?: string;
     /**
-     * Indicates whether the element is expanded or collapsed.
+     * Indicates whether the nested children are expanded.
      */
     open?: boolean;
   };

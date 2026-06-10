@@ -1,7 +1,5 @@
-import { iconPlaceholder } from "@sit-onyx/icons";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import { h } from "vue";
-import OnyxTreeViewItem from "../OnyxTreeViewItem/OnyxTreeViewItem.vue";
+import { createAdvancedStoryExample } from "../../utils/storybook.js";
 import OnyxTreeView from "./OnyxTreeView.vue";
 
 const meta: Meta<typeof OnyxTreeView> = {
@@ -13,76 +11,4 @@ const meta: Meta<typeof OnyxTreeView> = {
 export default meta;
 type Story = StoryObj<typeof OnyxTreeView>;
 
-export const Default: Story = {
-  render: (args) => {
-    return () =>
-      h("div", [
-        h(
-          OnyxTreeView,
-          { label: "treeView", args },
-          {
-            default: () => [
-              h(
-                OnyxTreeViewItem,
-                { label: "Item 1", icon: iconPlaceholder },
-                {
-                  default: () => [
-                    h(
-                      OnyxTreeViewItem,
-                      { label: "Item 1.1", icon: iconPlaceholder },
-                      {
-                        default: () => [
-                          h(OnyxTreeViewItem, { label: "Item 1.1.1", icon: iconPlaceholder }),
-                          h(OnyxTreeViewItem, { label: "Item 1.1.2", icon: iconPlaceholder }),
-                        ],
-                      },
-                    ),
-                    h(
-                      OnyxTreeViewItem,
-                      { label: "Item 1.2", icon: iconPlaceholder },
-                      {
-                        default: () => [
-                          h(OnyxTreeViewItem, { label: "Item 1.2.1", icon: iconPlaceholder }),
-                          h(OnyxTreeViewItem, { label: "Item 1.2.2", icon: iconPlaceholder }),
-                        ],
-                      },
-                    ),
-                  ],
-                },
-              ),
-
-              h(
-                OnyxTreeViewItem,
-                { label: "Item 2", icon: iconPlaceholder },
-                {
-                  default: () => [
-                    h(
-                      OnyxTreeViewItem,
-                      { label: "Item 2.1", icon: iconPlaceholder },
-                      {
-                        default: () => [
-                          h(OnyxTreeViewItem, { label: "Item 2.1.1", icon: iconPlaceholder }),
-                          h(OnyxTreeViewItem, { label: "Item 2.1.2", icon: iconPlaceholder }),
-                        ],
-                      },
-                    ),
-                    h(OnyxTreeViewItem, { label: "Item 2.2", icon: iconPlaceholder }),
-                  ],
-                },
-              ),
-
-              h(
-                OnyxTreeViewItem,
-                { label: "Item 3", disabled: true, icon: iconPlaceholder },
-                {
-                  default: () => [
-                    h(OnyxTreeViewItem, { label: "Item 3.1", icon: iconPlaceholder }),
-                  ],
-                },
-              ),
-            ],
-          },
-        ),
-      ]);
-  },
-};
+export const Default = createAdvancedStoryExample("OnyxTreeView", "DefaultExample") satisfies Story;
