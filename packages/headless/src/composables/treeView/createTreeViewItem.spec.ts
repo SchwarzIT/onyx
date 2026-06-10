@@ -89,6 +89,7 @@ describe("createTreeViewItem", () => {
         isOpen,
         hasChildren: ref(true),
         onSelect: mockOnSelect,
+        onToggle: (open) => (isOpen.value = open),
       });
 
       // ACT - Trigger via element's onClick handler
@@ -180,6 +181,7 @@ describe("createTreeViewItem", () => {
         isOpen,
         hasChildren: ref(true),
         onSelect: mockOnSelect,
+        onToggle: (open) => (isOpen.value = open),
       });
 
       // ACT - Enter
@@ -301,6 +303,7 @@ describe("createTreeViewItem", () => {
         isOpen,
         hasChildren: ref(true),
         onSelect: mockOnSelect,
+        onToggle: (open) => (isOpen.value = open),
       });
 
       // ACT - First ArrowRight (Opens item)
@@ -336,6 +339,7 @@ describe("createTreeViewItem", () => {
         isOpen,
         hasChildren: ref(true),
         onSelect: mockOnSelect,
+        onToggle: (open) => (isOpen.value = open),
       });
 
       // ACT - First ArrowLeft on open parent item (Closes it)

@@ -1,4 +1,4 @@
-import { computed, toRef, toValue, type MaybeRef, type MaybeRefOrGetter } from "vue";
+import { computed, toValue, type MaybeRef, type MaybeRefOrGetter } from "vue";
 import { createBuilder } from "../../utils/builder.js";
 
 type UseTreeViewItemNavigationOptions = {
@@ -22,19 +22,22 @@ type UseTreeViewItemNavigationOptions = {
    * Callback when the tree view item is selected.
    */
   onSelect?: () => void;
+  /**
+   * Callback when the open state is toggled.
+   */
+  onToggle?: (open: boolean) => void;
 };
 
 export const createTreeViewItem = createBuilder((options: UseTreeViewItemNavigationOptions) => {
   const disabled = computed(() => toValue(options.disabled));
   const level = computed(() => toValue(options.level));
   const hasChildren = computed(() => toValue(options.hasChildren));
-
-  const isOpen = toRef(options.isOpen);
+  const isOpen = computed(() => toValue(options.isOpen));
 
   const toggleOpen = () => {
     if (disabled.value) return;
     if (hasChildren.value) {
-      isOpen.value = !isOpen.value;
+      options.onToggle?.(!isOpen.value);
     }
     options.onSelect?.();
   };
@@ -90,7 +93,7 @@ export const createTreeViewItem = createBuilder((options: UseTreeViewItemNavigat
               items[currentIndex + 1]!.focus();
             }
           } else {
-            isOpen.value = true;
+            options.onToggle?.(true);
           }
         }
         break;
@@ -98,7 +101,7 @@ export const createTreeViewItem = createBuilder((options: UseTreeViewItemNavigat
       case "ArrowLeft":
         event.preventDefault();
         if (hasChildren.value && isOpen.value) {
-          isOpen.value = false;
+          options.onToggle?.(false);
         } else {
           const parentGroup = currentTrigger.closest('[role="group"]');
           if (parentGroup) {
