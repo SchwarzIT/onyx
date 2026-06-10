@@ -54,6 +54,7 @@ const {
   isOpen,
   hasChildren,
   onSelect: () => emit("itemSelect"),
+  onToggle: (open) => (isOpen.value = open),
 });
 </script>
 
