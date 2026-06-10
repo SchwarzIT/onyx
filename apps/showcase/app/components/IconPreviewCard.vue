@@ -3,12 +3,18 @@ import { iconCode, iconCopy, iconDownload, iconPicture } from "@sit-onyx/icons";
 import { useToast } from "sit-onyx";
 
 const props = defineProps<{
+  /**
+   * Icon SVG content.
+   */
   icon: string;
+  /**
+   * Icon name.
+   */
   name: string;
   /**
-   * String to copy to import the icon in code.
+   * Function to get the JavaScript import string for the icon.
    */
-  codeImport: string;
+  getCodeImport: (name: string) => string;
 }>();
 
 defineSlots<{
@@ -23,7 +29,7 @@ const { t } = useI18n();
 const { copy } = useClipboard();
 
 const handleCopyCode = async () => {
-  await copy(props.codeImport);
+  await copy(props.getCodeImport(props.name));
   toast.show({
     headline: t("copiedToClipboard"),
     description: t("icons.copy.code.success", { name: props.name }),
@@ -50,24 +56,11 @@ const handleCopySVG = async () => {
 };
 
 const handleDownloadSVG = () => {
-  // 1. Convert the string into a Blob with the correct SVG type
-  const blob = new Blob([props.icon], { type: "image/svg+xml" });
-
-  // 2. Create a temporary URL pointing to that Blob
-  const url = URL.createObjectURL(blob);
-
-  // 3. Create a temporary hidden link
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = `${props.name}.svg`;
-
-  // 4. Append, click, and remove the link to trigger download
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-
-  // 5. Clean up the URL to prevent memory leaks!
-  URL.revokeObjectURL(url);
+  downloadFile({
+    content: props.icon,
+    filename: `${props.name}.svg`,
+    type: "image/svg+xml",
+  });
 };
 </script>
 

@@ -18,12 +18,12 @@ const groups = Object.entries(groupFlagsByContinent(FLAG_METADATA)).map<IconAsse
   },
 );
 
-const codeImport = (flag: IconAsset) =>
-  `import ${getFlagImportName(flag.name)} from "@sit-onyx/flags";`;
+const getCodeImport = (flagName: string) =>
+  `import ${getFlagImportName(flagName)} from "@sit-onyx/flags";`;
 </script>
 
 <template>
-  <IconAssetOverview :groups :code-import>
+  <IconAssetOverview :groups :get-code-import>
     <template #default="{ icon }">
       <span>{{ icon.name }}</span>
       <span v-if="icon.aliases?.length" class="code"> ({{ icon.aliases[0] }})</span>

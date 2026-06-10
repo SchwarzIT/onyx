@@ -13,11 +13,20 @@ export type IconAsset = {
 };
 
 const props = defineProps<{
+  /**
+   * List of all available icon asset groups.
+   */
   groups: IconAssetGroup[];
-  codeImport: (icon: IconAsset) => string;
+  /**
+   * Function to get the JavaScript import string for the given icon.
+   */
+  getCodeImport: (iconName: string) => string;
 }>();
 
 defineSlots<{
+  /**
+   * Optional slot to override the icon name content.
+   */
   default?(props: { icon: IconAsset }): unknown;
 }>();
 
@@ -66,7 +75,7 @@ const filteredGroups = computed(() => {
           class="onyx-grid-span-2"
           :icon="icon.content"
           :name="icon.name"
-          :code-import="props.codeImport(icon)"
+          :get-code-import="props.getCodeImport"
         >
           <slot :icon></slot>
         </IconPreviewCard>

@@ -18,10 +18,10 @@ const groups = Object.entries(groupIconsByCategory(ICON_METADATA)).map<IconAsset
   },
 );
 
-const codeImport = (icon: IconAsset) =>
-  `import ${getIconImportName(icon.name)} from "@sit-onyx/icons";`;
+const getCodeImport = (iconName: string) =>
+  `import ${getIconImportName(iconName)} from "@sit-onyx/icons";`;
 </script>
 
 <template>
-  <IconAssetOverview :groups :code-import />
+  <IconAssetOverview :groups :get-code-import />
 </template>
