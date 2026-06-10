@@ -4,9 +4,10 @@ import { iconChevronRightSmall } from "@sit-onyx/icons";
 import { computed, inject, provide, toRef } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useVModel } from "../../composables/useVModel.js";
+import { mergeVueProps } from "../../utils/attrs.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxListItem from "../OnyxListItem/OnyxListItem.vue";
-import { TREE_DEPTH_INJECTION_KEY } from "../OnyxTreeView/types.js";
+import { TREE_VIEW_INJECTION_KEY } from "../OnyxTreeView/types.js";
 import type { OnyxTreeViewItemProps } from "./types.js";
 
 defineOptions({
@@ -19,8 +20,6 @@ const props = withDefaults(defineProps<OnyxTreeViewItemProps>(), {
   active: false,
 });
 
-const { densityClass } = useDensity(props);
-
 const emit = defineEmits<{
   "update:open": [value: boolean];
   itemSelect: [value: void];
@@ -32,7 +31,6 @@ const slots = defineSlots<{
    */
   default(): unknown;
 }>();
-const hasChildren = computed(() => !!slots.default);
 
 const isOpen = useVModel({
   props,
@@ -41,19 +39,21 @@ const isOpen = useVModel({
   default: false,
 });
 
-const parentDepth = inject<number>(TREE_DEPTH_INJECTION_KEY, 0);
+const { densityClass } = useDensity(props);
+const hasChildren = computed(() => !!slots.default);
 
-const currentDepth = parentDepth + 1;
-provide(TREE_DEPTH_INJECTION_KEY, currentDepth);
+const treeContext = inject(TREE_VIEW_INJECTION_KEY, () => ({ level: 0 }), true);
+const level = treeContext.level + 1;
+provide(TREE_VIEW_INJECTION_KEY, { level });
 
 const {
   elements: { treeItem },
 } = createTreeViewItem({
   disabled: toRef(props, "disabled"),
-  currentDepth,
+  level,
   isOpen,
   hasChildren,
-  emitSelect: () => emit("itemSelect"),
+  onSelect: () => emit("itemSelect"),
 });
 </script>
 
@@ -62,7 +62,7 @@ const {
     class="onyx-component onyx-tree-view-item"
     :class="[densityClass]"
     role="none"
-    :style="{ '--onyx-tree-depth': currentDepth }"
+    :style="{ '--onyx-tree-view-level': level }"
   >
     <OnyxListItem
       is="div"
@@ -70,7 +70,7 @@ const {
       :active="props.active"
       :disabled="props.disabled"
       class="onyx-tree-view-item__trigger"
-      v-bind="{ ...treeItem, ...$attrs }"
+      v-bind="mergeVueProps(treeItem, $attrs)"
     >
       <div
         v-if="hasChildren"
@@ -92,7 +92,7 @@ const {
       v-if="hasChildren"
       v-show="isOpen"
       class="onyx-tree-view-item__children"
-      :class="`onyx-tree-view-item__children--level-${currentDepth}`"
+      :class="`onyx-tree-view-item__children--level-${level}`"
       role="group"
     >
       <slot></slot>
@@ -116,12 +116,12 @@ const {
 
     .onyx-tree-view-item__trigger {
       padding-left: calc(
-        (var(--onyx-tree-depth) - 1) * var(--onyx-spacing-lg) + var(--onyx-density-xs)
+        (var(--onyx-tree-view-level) - 1) * var(--onyx-spacing-lg) + var(--onyx-density-xs)
       );
     }
     .onyx-sidebar-item {
       padding-left: calc(
-        (var(--onyx-tree-depth)) * var(--onyx-spacing-lg) + var(--onyx-density-xs) +
+        (var(--onyx-tree-view-level)) * var(--onyx-spacing-lg) + var(--onyx-density-xs) +
           var(--icon-size) + var(--onyx-density-sm)
       );
     }

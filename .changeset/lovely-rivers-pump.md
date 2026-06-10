@@ -2,4 +2,4 @@
 "@sit-onyx/headless": minor
 ---
 
-feat: add `createTreeViewItem` composable
+feat: add `createTreeView` and `createTreeViewItem` composable

@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import { createTreeView } from "@sit-onyx/headless";
-import { provide } from "vue";
+import { provide, toRef } from "vue";
 import { useDensity } from "../../composables/density.js";
-import { TREE_DEPTH_INJECTION_KEY, type OnyxTreeViewProps } from "./types.js";
+import { TREE_VIEW_INJECTION_KEY, type OnyxTreeViewProps } from "./types.js";
 
 const props = defineProps<OnyxTreeViewProps>();
+
 defineSlots<{
   /**
    * TreeView content.
@@ -17,10 +18,10 @@ const { densityClass } = useDensity(props);
 const {
   elements: { tree },
 } = createTreeView({
-  label: () => props.label,
+  label: toRef(() => props.label),
 });
 
-provide(TREE_DEPTH_INJECTION_KEY, 0);
+provide(TREE_VIEW_INJECTION_KEY, { level: 0 });
 </script>
 
 <template>
