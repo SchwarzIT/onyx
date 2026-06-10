@@ -153,6 +153,8 @@ const {
     }
 
     &__children {
+      font-family: var(--onyx-font-family-paragraph);
+      color: var(--onyx-color-text-icons-neutral-intense);
       padding: 0;
       display: flex;
       flex-direction: column;
