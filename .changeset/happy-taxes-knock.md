@@ -1,9 +1,5 @@
 ---
-"@sit-onyx/icons": major
+"@sit-onyx/icons": patch
 ---
 
-feat: update icons
-
-#### Renamed
-
-- quote => quote
+fix: remove whitespaces from `quote` icon name
