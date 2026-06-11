@@ -79,5 +79,27 @@
     "visualizationDescription": "Visualization of color mapping for global and semantic variables."
   },
   "name": "Name",
-  "description": "Description"
+  "description": "Description",
+  "actions": "Actions",
+  "icons": {
+    "empty": "There are no icons matching your search.",
+    "copy": {
+      "code": {
+        "label": "Copy code",
+        "success": "JavaScript import for \"{name}\" has been copied to your clipboard."
+      },
+      "name": {
+        "label": "Copy name",
+        "success": "\"{name}\" has been copied to your clipboard."
+      },
+      "svg": {
+        "label": "Copy SVG",
+        "success": "SVG content for \"{name}\" has been copied to your clipboard."
+      },
+      "download": {
+        "label": "Download SVG"
+      }
+    }
+  },
+  "copiedToClipboard": "Copied to clipboard!"
 }

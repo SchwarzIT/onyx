@@ -33,6 +33,4 @@ We also include some metadata for each icon such as the category and aliases whi
 
 ## Available icons
 
-::info-card{headline="Coming Soon"}
-We are currently working on this section of our showcase and will provide it soon! So make sure to check this page regularly.
-::
+:icon-overview

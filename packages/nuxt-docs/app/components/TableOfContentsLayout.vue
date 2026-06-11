@@ -64,6 +64,10 @@ defineSlots<{
   }
 
   &__content {
+    // when using a grid inside the content, it should reflect only the available
+    // content width as breakpoint instead of the whole page (including the TOC)
+    container-type: inline-size;
+
     // remove the top margin of the first child since its redundant to the page padding
     :deep(> div > :first-child) {
       margin-top: 0;
