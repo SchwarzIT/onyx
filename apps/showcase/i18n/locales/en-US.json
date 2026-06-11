@@ -85,19 +85,19 @@
     "empty": "There are no icons matching your search.",
     "copy": {
       "code": {
-        "label": "copy code",
+        "label": "Copy code",
         "success": "JavaScript import for \"{name}\" has been copied to your clipboard."
       },
       "name": {
-        "label": "copy name",
+        "label": "Copy name",
         "success": "\"{name}\" has been copied to your clipboard."
       },
       "svg": {
-        "label": "copy SVG",
+        "label": "Copy SVG",
         "success": "SVG content for \"{name}\" has been copied to your clipboard."
       },
       "download": {
-        "label": "download SVG"
+        "label": "Download SVG"
       }
     }
   },
