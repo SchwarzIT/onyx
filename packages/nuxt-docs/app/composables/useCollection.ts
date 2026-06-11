@@ -32,9 +32,10 @@ export const useCollection = async <TCollection extends keyof Collections = keyo
 
     // get base path of current route (remove a potential locale prefix)
     _path = route.path;
-    const localePrefix = `/${locale.value}`;
+    const localePrefix = `/${locale.value}/`;
 
-    if (_path.startsWith(localePrefix)) return _path.slice(localePrefix.length);
+    if (_path === `/${locale.value}`) return "/";
+    if (_path.startsWith(localePrefix)) return `/${_path.slice(localePrefix.length)}`;
     return _path;
   });
 
