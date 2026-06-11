@@ -27,6 +27,12 @@ const previewOptions = computed<ComponentInstance<typeof Repl>["previewOptions"]
     `,
   };
 });
+
+const handleKeydown = (e: KeyboardEvent) => {
+  if (e.key.toLowerCase() === "s" && (e.ctrlKey || e.metaKey)) {
+    e.preventDefault();
+  }
+};
 </script>
 
 <template>
@@ -53,8 +59,7 @@ const previewOptions = computed<ComponentInstance<typeof Repl>["previewOptions"]
       :preview-options="previewOptions"
       preview-theme
       auto-resize
-      @keydown.ctrl.s.prevent
-      @keydown.meta.s.prevent
+      @keydown="handleKeydown"
     />
   </OnyxAppLayout>
 </template>
