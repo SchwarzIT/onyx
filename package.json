@@ -64,7 +64,7 @@
     "stylelint-no-unsupported-browser-features": "^8.1.1",
     "turbo": "^2.9.16",
     "typescript": "catalog:",
-    "typescript-eslint": "^8.60.1",
+    "typescript-eslint": "^8.61.0",
     "vitest": "^4.1.8",
     "vue-tsc": "catalog:"
   },
