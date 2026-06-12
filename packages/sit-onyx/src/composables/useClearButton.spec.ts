@@ -16,6 +16,7 @@ test.each([
   { modelValue: "Test", visible: true },
   { modelValue: " ", visible: true },
   { modelValue: 0, visible: true },
+  { modelValue: NaN, visible: true },
   { modelValue: true, visible: true },
   { modelValue: false, visible: true },
   { modelValue: [0], visible: true },
@@ -23,7 +24,6 @@ test.each([
   { modelValue: undefined, visible: false },
   { modelValue: null, visible: false },
   { modelValue: "", visible: false },
-  { modelValue: NaN, visible: false },
   { modelValue: [], visible: false },
 ])("should show clear button with value $modelValue: $visible", ({ modelValue, visible }) => {
   // ARRANGE

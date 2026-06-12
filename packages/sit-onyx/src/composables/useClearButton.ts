@@ -31,7 +31,7 @@ export const useClearButton = (options: UseClearButtonOptions) => {
  */
 function isValueDefined(value: unknown): boolean {
   // any number expect NaN (including 0 should be considered defined)
-  if (typeof value === "number") return !isNaN(value);
+  if (typeof value === "number") return true;
   if (typeof value == "boolean") return true;
   if (Array.isArray(value)) return value.length > 0;
   return !!value;
