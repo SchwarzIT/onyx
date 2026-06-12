@@ -33,6 +33,7 @@ const categoryOptions = [
   >
     <OnyxSelect
       v-model="filters.status"
+      class="select"
       hide-label
       label="Status"
       :options="statusOptions"
@@ -41,6 +42,7 @@ const categoryOptions = [
     />
     <OnyxSelect
       v-model="filters.category"
+      class="select"
       hide-label
       label="Category"
       :options="categoryOptions"
