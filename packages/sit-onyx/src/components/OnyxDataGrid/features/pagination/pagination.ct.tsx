@@ -9,7 +9,7 @@ const getTestData = (length: number) =>
   Array.from({ length }, (_, index) => ({ id: index + 1, a: `A ${index + 1}` }));
 
 const expectRowCount = async (dataGrid: Locator, count: number, message?: string) => {
-  await expect(dataGrid.getByRole("row"), message).toHaveCount(count + 1); // +1 = header row
+  await expect(dataGrid.locator("tbody").getByRole("row"), message).toHaveCount(count);
 };
 
 test("should paginate rows", async ({ mount, page }) => {
@@ -272,6 +272,10 @@ test("should handle lazy loading", async ({ mount }) => {
       paginationOptions: {
         type: "lazy",
       },
+      columnGroups: {
+        // We include a column group here to test for a regression of https://github.com/SchwarzIT/onyx/issues/5612
+        group1: { label: "Group 1" },
+      },
     },
   });
 
@@ -279,25 +283,25 @@ test("should handle lazy loading", async ({ mount }) => {
   await expectRowCount(component, 25);
 
   // ACT
-  await scrollToRow(component, 24);
+  await scrollToRow(component, -1);
 
   // ASSERT
   await expectRowCount(component, 25, "scrolling to 2nth last row should not trigger lazy loading");
 
   // ACT
-  await scrollToRow(component, 25);
+  await scrollToRow(component, -1);
 
   // ASSERT
   await expectRowCount(component, 50, "scrolling to last row should trigger lazy loading");
 
   // ACT
-  await scrollToRow(component, 50);
+  await scrollToRow(component, -1);
 
   // ASSERT
   await expectRowCount(component, 52, "scrolling to last row should trigger lazy loading");
 
   // ACT
-  await scrollToRow(component, 52);
+  await scrollToRow(component, -1);
 
   // ASSERT
   await expectRowCount(component, 52, "should disable lazy loading when last page is reached");
